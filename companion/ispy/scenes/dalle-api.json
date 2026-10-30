@@ -1,0 +1,714 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "dalle-api",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the Friuli bee garden's picture (Aldo's shed of cobbles and brick with its box hives in plain colours, the light blue hive apart, his yellow MIELE sign by the path, the acacia, at every level of the bee garden); not reviewed by a native speaker",
+  "things": {
+    "beehouse": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È grande.",
+          "sl": "To je nekaj velikega.",
+          "en": "It's big.",
+          "de": "Er ist groß.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "grande"
+        },
+        {
+          "kind": "trait",
+          "it": "È lungo e ha un tetto.",
+          "sl": "Je dolg in ima streho.",
+          "en": "It's long and it has a roof.",
+          "de": "Er ist lang und hat ein Dach.",
+          "grammar": [
+            "aggettivi-accordo",
+            "essere-avere"
+          ],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È in fondo al giardino.",
+          "sl": "Stoji na koncu vrta.",
+          "en": "It's at the back of the garden.",
+          "de": "Er steht hinten im Garten.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Dentro ci sono tante arnie.",
+          "sl": "Notri je veliko panjev.",
+          "en": "There are lots of hives inside.",
+          "de": "Drinnen stehen viele Bienenstöcke.",
+          "grammar": [
+            "ce-ci-sono"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Le api di Aldo ci abitano.",
+          "sl": "Aldove čebele živijo v njem.",
+          "en": "Aldo's bees live in it.",
+          "de": "Aldos Bienen wohnen darin.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    },
+    "hive": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È azzurra.",
+          "sl": "Je svetlo modre barve.",
+          "en": "It's light blue.",
+          "de": "Sie ist hellblau.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "azzurro"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha un tetto bianco.",
+          "sl": "Ima belo streho.",
+          "en": "It has a white roof.",
+          "de": "Sie hat ein weißes Dach.",
+          "grammar": [
+            "essere-avere",
+            "aggettivi-accordo"
+          ]
+        },
+        {
+          "kind": "size",
+          "it": "È piccola.",
+          "sl": "To je nekaj majhnega.",
+          "en": "It's small.",
+          "de": "Sie ist klein.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "where",
+          "it": "È da sola, vicino all'apiario.",
+          "sl": "Stoji sam, blizu čebelnjaka.",
+          "en": "It stands on its own, near the apiary.",
+          "de": "Sie steht allein, nah am Bienenstand.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "beehouse"
+        },
+        {
+          "kind": "use",
+          "it": "È vuota: aspetta uno sciame.",
+          "sl": "Je prazen: čaka roj.",
+          "en": "It's empty: it's waiting for a swarm.",
+          "de": "Sie ist leer: Sie wartet auf einen Schwarm.",
+          "grammar": [
+            "aggettivi-accordo",
+            "presente-regolare"
+          ],
+          "adj": "vuoto"
+        }
+      ]
+    },
+    "panel": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È giallo.",
+          "sl": "Je rumene barve.",
+          "en": "It's yellow.",
+          "de": "Er ist gelb.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "giallo"
+        },
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Er ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "C'è scritto MIELE.",
+          "sl": "Na njem piše MIELE.",
+          "en": "It says MIELE on it.",
+          "de": "Da steht MIELE drauf.",
+          "grammar": [
+            "ce-ci-sono"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È davanti, vicino ai fiori.",
+          "sl": "Stoji spredaj, blizu rož.",
+          "en": "It's at the front, near the flowers.",
+          "de": "Er steht vorne, nah an den Blumen.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "flowers"
+        },
+        {
+          "kind": "use",
+          "it": "Dice a tutti: qui c'è il miele!",
+          "sl": "Vsem pove: tukaj je med!",
+          "en": "It tells everyone: there's honey here!",
+          "de": "Er sagt allen: Hier gibt es Honig!",
+          "grammar": [
+            "presente-regolare",
+            "ce-ci-sono"
+          ]
+        }
+      ]
+    },
+    "bee": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È gialla e nera.",
+          "sl": "Je rumena in črna.",
+          "en": "It's yellow and black.",
+          "de": "Sie ist gelb und schwarz.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "giallo"
+        },
+        {
+          "kind": "size",
+          "it": "È piccola piccola.",
+          "sl": "To je nekaj čisto majhnega.",
+          "en": "It's tiny.",
+          "de": "Sie ist ganz klein.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "does",
+          "it": "Vola sui fiori.",
+          "sl": "Leti na cvetove.",
+          "en": "It flies onto the flowers.",
+          "de": "Sie fliegt auf die Blumen.",
+          "grammar": [
+            "presente-regolare",
+            "preposizioni-articolate"
+          ],
+          "ref": "flowers"
+        },
+        {
+          "kind": "does",
+          "it": "Fa bzz bzz.",
+          "sl": "Dela bzz bzz.",
+          "en": "It goes bzz bzz.",
+          "de": "Sie macht summ summ.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Fa il miele.",
+          "sl": "Dela med.",
+          "en": "It makes honey.",
+          "de": "Sie macht Honig.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        }
+      ]
+    },
+    "honey": {
+      "clues": [
+        {
+          "kind": "trait",
+          "it": "È dolce.",
+          "sl": "Je sladek.",
+          "en": "It's sweet.",
+          "de": "Er ist süß.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "dolce"
+        },
+        {
+          "kind": "colour",
+          "it": "È giallo e lucido.",
+          "sl": "Je rumen in se sveti.",
+          "en": "It's yellow and shiny.",
+          "de": "Er ist gelb und glänzt.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "giallo"
+        },
+        {
+          "kind": "where",
+          "it": "È nei vasetti sul tavolo.",
+          "sl": "Je v kozarčkih na mizi.",
+          "en": "It's in the little jars on the table.",
+          "de": "Er ist in den Gläschen auf dem Tisch.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Lo mangiamo con il pane.",
+          "sl": "Jemo ga s kruhom.",
+          "en": "We eat it with bread.",
+          "de": "Wir essen ihn mit Brot.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Le api lo fanno con i fiori.",
+          "sl": "Čebele ga naredijo iz cvetov.",
+          "en": "The bees make it from flowers.",
+          "de": "Die Bienen machen ihn aus Blüten.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        }
+      ]
+    },
+    "comb": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È giallo.",
+          "sl": "Je rumene barve.",
+          "en": "It's yellow.",
+          "de": "Er ist gelb.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "giallo"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha tante piccole celle.",
+          "sl": "Ima veliko majhnih celic.",
+          "en": "It has lots of little cells.",
+          "de": "Er hat viele kleine Zellen.",
+          "grammar": [
+            "essere-avere",
+            "aggettivi-accordo"
+          ]
+        },
+        {
+          "kind": "material",
+          "it": "È di cera, in un telaio di legno.",
+          "sl": "Je iz voska, v lesenem okvirju.",
+          "en": "It's made of wax, in a wooden frame.",
+          "de": "Er ist aus Wachs, in einem Holzrahmen.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È sul tavolo, vicino al miele.",
+          "sl": "Je na mizi, blizu medu.",
+          "en": "It's on the table, near the honey.",
+          "de": "Er steht auf dem Tisch, nah am Honig.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "honey"
+        },
+        {
+          "kind": "use",
+          "it": "Dentro c'è il miele.",
+          "sl": "Notri je med.",
+          "en": "There's honey inside.",
+          "de": "Drinnen ist Honig.",
+          "grammar": [
+            "ce-ci-sono"
+          ]
+        }
+      ]
+    },
+    "flowers": {
+      "name": {
+        "en": "flower",
+        "de": "Blume",
+        "sl": "roža"
+      },
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È colorato.",
+          "sl": "Je pisane barve.",
+          "en": "It's colourful.",
+          "de": "Das ist bunt.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "colorato"
+        },
+        {
+          "kind": "size",
+          "it": "È piccolo.",
+          "sl": "To je nekaj majhnega.",
+          "en": "It's small.",
+          "de": "Das ist klein.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "where",
+          "it": "È nel prato, davanti alla panca.",
+          "sl": "Je na travi, pred klopjo.",
+          "en": "It's in the grass, in front of the bench.",
+          "de": "Das ist im Gras, vor der Bank.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "bench"
+        },
+        {
+          "kind": "does",
+          "it": "Le api ci volano sopra.",
+          "sl": "Čebele letijo nanj.",
+          "en": "The bees fly onto it.",
+          "de": "Die Bienen fliegen darauf.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Ha un buon profumo.",
+          "sl": "Lepo diši.",
+          "en": "It smells nice.",
+          "de": "Das duftet gut.",
+          "grammar": [
+            "essere-avere"
+          ]
+        }
+      ]
+    },
+    "tree": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È grande e alta.",
+          "sl": "To je nekaj velikega in visokega.",
+          "en": "It's big and tall.",
+          "de": "Sie ist groß und hoch.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "alto"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha il tronco grigio.",
+          "sl": "Ima sivo deblo.",
+          "en": "It has a grey trunk.",
+          "de": "Sie hat einen grauen Stamm.",
+          "grammar": [
+            "essere-avere",
+            "aggettivi-accordo"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È vicino alla panca.",
+          "sl": "Stoji ob klopi.",
+          "en": "It's by the bench.",
+          "de": "Sie steht bei der Bank.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "bench"
+        },
+        {
+          "kind": "trait",
+          "it": "A maggio ha tanti fiori bianchi.",
+          "sl": "Maja ima veliko belih cvetov.",
+          "en": "In May it has lots of white flowers.",
+          "de": "Im Mai hat sie viele weiße Blüten.",
+          "grammar": [
+            "essere-avere",
+            "aggettivi-accordo"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Dai suoi fiori le api fanno il miele.",
+          "sl": "Iz njenih cvetov čebele naredijo med.",
+          "en": "From its flowers the bees make honey.",
+          "de": "Aus ihren Blüten machen die Bienen Honig.",
+          "grammar": [
+            "preposizioni-articolate",
+            "verbi-irregolari"
+          ]
+        }
+      ]
+    },
+    "smoker": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È grigio.",
+          "sl": "Je sive barve.",
+          "en": "It's grey.",
+          "de": "Er ist grau.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "grigio"
+        },
+        {
+          "kind": "material",
+          "it": "È di metallo.",
+          "sl": "Je iz kovine.",
+          "en": "It's made of metal.",
+          "de": "Er ist aus Metall.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È vicino all'acacia.",
+          "sl": "Stoji blizu akacije.",
+          "en": "It's near the acacia.",
+          "de": "Er steht nah an der Akazie.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "tree"
+        },
+        {
+          "kind": "does",
+          "it": "Fa il fumo.",
+          "sl": "Dela dim.",
+          "en": "It makes smoke.",
+          "de": "Er macht Rauch.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Con questo le api stanno calme.",
+          "sl": "S tem so čebele mirne.",
+          "en": "With it the bees stay calm.",
+          "de": "Damit bleiben die Bienen ruhig.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        }
+      ]
+    },
+    "extractor": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È grigio e lucido.",
+          "sl": "Je siv in se sveti.",
+          "en": "It's grey and shiny.",
+          "de": "Er ist grau und glänzt.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "grigio"
+        },
+        {
+          "kind": "trait",
+          "it": "È rotondo e ha una manovella.",
+          "sl": "Je okrogel in ima ročico.",
+          "en": "It's round and it has a handle.",
+          "de": "Er ist rund und hat eine Kurbel.",
+          "grammar": [
+            "aggettivi-accordo",
+            "essere-avere"
+          ],
+          "adj": "rotondo"
+        },
+        {
+          "kind": "where",
+          "it": "È vicino al tavolo del miele.",
+          "sl": "Stoji ob mizi z medom.",
+          "en": "It's next to the honey table.",
+          "de": "Er steht neben dem Honigtisch.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ]
+        },
+        {
+          "kind": "does",
+          "it": "Gira, gira, e il miele esce.",
+          "sl": "Vrti se, vrti, in med priteče ven.",
+          "en": "It turns and turns, and the honey comes out.",
+          "de": "Er dreht sich und dreht sich, und der Honig kommt heraus.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        },
+        {
+          "kind": "use",
+          "it": "Con questo tiriamo fuori il miele dal favo.",
+          "sl": "S tem dobimo med iz satja.",
+          "en": "With it we get the honey out of the comb.",
+          "de": "Damit holen wir den Honig aus der Wabe.",
+          "grammar": [
+            "presente-regolare",
+            "preposizioni-articolate"
+          ]
+        }
+      ]
+    },
+    "wax": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È gialla.",
+          "sl": "Je rumene barve.",
+          "en": "It's yellow.",
+          "de": "Sie ist gelb.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "giallo"
+        },
+        {
+          "kind": "trait",
+          "it": "È morbida.",
+          "sl": "Je mehek.",
+          "en": "It's soft.",
+          "de": "Sie ist weich.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "morbido"
+        },
+        {
+          "kind": "where",
+          "it": "È sul tavolo, vicino al favo.",
+          "sl": "Je na mizi, blizu satja.",
+          "en": "It's on the table, near the comb.",
+          "de": "Sie ist auf dem Tisch, nah an der Wabe.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "comb"
+        },
+        {
+          "kind": "use",
+          "it": "Con questa facciamo le candele.",
+          "sl": "Iz tega delamo sveče.",
+          "en": "We make candles out of it.",
+          "de": "Daraus machen wir Kerzen.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        },
+        {
+          "kind": "trait",
+          "it": "Le api la fanno per il favo.",
+          "sl": "Čebele ga naredijo za satje.",
+          "en": "The bees make it for the comb.",
+          "de": "Die Bienen machen sie für die Wabe.",
+          "grammar": [
+            "verbi-irregolari"
+          ]
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di legno.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "de": "Sie ist aus Holz.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "colour",
+          "it": "È marrone.",
+          "sl": "Je rjave barve.",
+          "en": "It's brown.",
+          "de": "Sie ist braun.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "marrone"
+        },
+        {
+          "kind": "size",
+          "it": "È lunga.",
+          "sl": "To je nekaj dolgega.",
+          "en": "It's long.",
+          "de": "Sie ist lang.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "lungo"
+        },
+        {
+          "kind": "where",
+          "it": "È sotto l'acacia.",
+          "sl": "Stoji pod akacijo.",
+          "en": "It's under the acacia.",
+          "de": "Sie steht unter der Akazie.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "tree"
+        },
+        {
+          "kind": "use",
+          "it": "Ci sediamo sopra all'ombra.",
+          "sl": "Na njej sedimo v senci.",
+          "en": "We sit on it in the shade.",
+          "de": "Wir sitzen im Schatten darauf.",
+          "grammar": [
+            "presente-regolare"
+          ]
+        }
+      ]
+    }
+  }
+}

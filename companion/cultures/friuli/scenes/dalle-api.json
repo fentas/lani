@@ -1,0 +1,2267 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "dalle-api",
+  "language": "it",
+  "title": {
+    "it": "Dalle api",
+    "sl": "Pri čebelah",
+    "en": "At the bees",
+    "de": "Bei den Bienen"
+  },
+  "emoji": "🐝",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "art": "apiary",
+  "from": [
+    "beehive"
+  ],
+  "pack": "dalle-api",
+  "objects": [
+    {
+      "slot": "beehouse",
+      "word": "apiario"
+    },
+    {
+      "slot": "hive",
+      "word": "arnia"
+    },
+    {
+      "slot": "panel",
+      "word": "cartello"
+    },
+    {
+      "slot": "bee",
+      "word": "ape"
+    },
+    {
+      "slot": "honey",
+      "word": "miele"
+    },
+    {
+      "slot": "comb",
+      "word": "favo"
+    },
+    {
+      "slot": "flowers",
+      "word": "fiore",
+      "pack": "festa-liberazione"
+    },
+    {
+      "slot": "tree",
+      "word": "acacia"
+    },
+    {
+      "slot": "smoker",
+      "word": "affumicatore"
+    },
+    {
+      "slot": "extractor",
+      "word": "smielatore"
+    },
+    {
+      "slot": "wax",
+      "word": "cera"
+    },
+    {
+      "slot": "bench",
+      "word": "panca",
+      "pack": "in-cucina"
+    }
+  ],
+  "people": [
+    {
+      "id": "aldo",
+      "name": "Apicoltore Aldo",
+      "emoji": "🐝",
+      "art": "beekeeper",
+      "slot": "hives",
+      "villager": "aldo"
+    },
+    {
+      "id": "giulia",
+      "name": "Giulia",
+      "emoji": "👧",
+      "art": "child2",
+      "slot": "table",
+      "villager": "giulia"
+    },
+    {
+      "id": "bepi",
+      "name": "Nonno Bepi",
+      "emoji": "👴",
+      "art": "grandpa",
+      "slot": "bench",
+      "villager": "bepi"
+    }
+  ],
+  "happenings": [
+    {
+      "id": "arnie",
+      "title": {
+        "it": "Aldo apre le arnie",
+        "sl": "Aldo odpira panje",
+        "en": "Aldo is opening the hives",
+        "de": "Aldo öffnet die Bienenstöcke"
+      },
+      "who": "aldo",
+      "when": [
+        "morning"
+      ],
+      "months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "chance": 0.6,
+      "dialog": "arnie",
+      "dialogs": [
+        "arnie-colori",
+        "arnie-festa",
+        "arnie"
+      ],
+      "reward": {
+        "food": 20
+      },
+      "marker": "🐝",
+      "memory": {
+        "it": "le arnie che abbiamo aperto insieme",
+        "sl": "panje, ki sva jih skupaj odprla",
+        "en": "the hives we opened together",
+        "de": "die Bienenstöcke, die wir zusammen geöffnet haben"
+      }
+    },
+    {
+      "id": "sciame",
+      "title": {
+        "it": "Uno sciame sull'acacia",
+        "sl": "Roj na akaciji",
+        "en": "A swarm on the acacia",
+        "de": "Ein Schwarm auf der Akazie"
+      },
+      "who": "bepi",
+      "when": [
+        "afternoon"
+      ],
+      "months": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "chance": 0.35,
+      "dialog": "sciame",
+      "dialogs": [
+        "sciame-dove",
+        "sciame"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🌳",
+      "memory": {
+        "it": "lo sciame sull'acacia",
+        "sl": "roj na akaciji",
+        "en": "the swarm on the acacia",
+        "de": "den Schwarm auf der Akazie"
+      }
+    },
+    {
+      "id": "miele",
+      "title": {
+        "it": "Giulia e il miele",
+        "sl": "Giulia in med",
+        "en": "Giulia and the honey",
+        "de": "Giulia und der Honig"
+      },
+      "who": "giulia",
+      "when": [
+        "afternoon"
+      ],
+      "chance": 0.5,
+      "dialog": "miele",
+      "dialogs": [
+        "miele-smielatore",
+        "miele-castagno",
+        "miele-puntura",
+        "miele-conta",
+        "miele"
+      ],
+      "reward": {
+        "food": 20
+      },
+      "marker": "🍯",
+      "memory": {
+        "it": "il pane col miele che abbiamo mangiato a merenda",
+        "sl": "kruh z medom, ki sva ga {m:jedla|f:jedli} za malico",
+        "en": "the bread and honey we had for our snack",
+        "de": "das Honigbrot, das wir am Nachmittag gegessen haben"
+      }
+    },
+    {
+      "id": "sera",
+      "title": {
+        "it": "Aldo ascolta le arnie",
+        "sl": "Aldo posluša panje",
+        "en": "Aldo listens at the hives",
+        "de": "Aldo horcht an den Bienenstöcken"
+      },
+      "who": "aldo",
+      "when": [
+        "evening"
+      ],
+      "chance": 0.5,
+      "dialog": "sera",
+      "dialogs": [
+        "sera-inverno",
+        "sera"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🌙",
+      "memory": {
+        "it": "la sera in cui abbiamo ascoltato le api",
+        "sl": "večer, ko sva poslušala čebele",
+        "en": "the evening we listened to the bees",
+        "de": "den Abend, an dem wir den Bienen zugehört haben"
+      }
+    },
+    {
+      "id": "acacia",
+      "title": {
+        "it": "L'acacia in fiore",
+        "sl": "Akacija v cvetu",
+        "en": "The acacia in flower",
+        "de": "Die Akazie blüht"
+      },
+      "who": "bepi",
+      "when": [
+        "morning"
+      ],
+      "months": [
+        5
+      ],
+      "chance": 0.5,
+      "dialog": "acacia",
+      "dialogs": [
+        "acacia-frittelle",
+        "acacia"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "🌼",
+      "memory": {
+        "it": "i fiori d'acacia e il loro profumo",
+        "sl": "akacijeve cvetove in njihov vonj",
+        "en": "the acacia flowers and their scent",
+        "de": "die Akazienblüten und ihren Duft"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "arnie",
+      "lines": [
+        {
+          "who": "aldo",
+          "it": "Buongiorno, {learner}. Piano, piano: le api sentono tutto.",
+          "sl": "Dober dan, {learner}. Počasi, počasi: čebele vse slišijo.",
+          "en": "Good morning, {learner}. Slowly, slowly: the bees hear everything.",
+          "de": "Guten Morgen, {learner}. Langsam, langsam: Die Bienen hören alles.",
+          "fx": {
+            "smoke": 0.8
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Buongiorno, Aldo. Parlo piano.",
+              "sl": "Dober dan, Aldo. Govorim tiho.",
+              "en": "Good morning, Aldo. I'm speaking quietly.",
+              "de": "Guten Morgen, Aldo. Ich spreche leise.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}. Così le api stanno tranquille.",
+                "sl": "Bravo. Tako so čebele mirne.",
+                "en": "Well done. That way the bees stay calm.",
+                "de": "Gut so. So bleiben die Bienen ruhig."
+              }
+            },
+            {
+              "it": "Buongiorno. Perché il fumo?",
+              "sl": "Dober dan. Zakaj dim?",
+              "en": "Good morning. Why the smoke?",
+              "de": "Guten Morgen. Warum der Rauch?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Con il fumo le api stanno calme.",
+                "sl": "Z dimom so čebele mirne.",
+                "en": "With the smoke the bees stay calm.",
+                "de": "Mit dem Rauch bleiben die Bienen ruhig."
+              }
+            },
+            {
+              "it": "Buonanotte, Aldo. Parlo piano.",
+              "sl": "Lahko noč, Aldo. Govorim tiho.",
+              "en": "Good night, Aldo. I'm speaking quietly.",
+              "de": "Gute Nacht, Aldo. Ich spreche leise.",
+              "why": {
+                "sl": "Zjutraj rečeš buongiorno. Buonanotte rečeš, ko greš spat.",
+                "en": "In the morning you say buongiorno. Buonanotte is for going to bed.",
+                "de": "Am Morgen sagst du buongiorno. Buonanotte sagt man, wenn man schlafen geht."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Buonanotte? Ma il sole è appena sorto!",
+                "sl": "Lahko noč? Saj je sonce ravno vzšlo!",
+                "en": "Good night? But the sun's only just come up!",
+                "de": "Gute Nacht? Die Sonne ist doch gerade erst aufgegangen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "face": "curious",
+          "it": "Adesso apro un'arnia. Vuoi vedere dentro?",
+          "sl": "Zdaj odprem en panj. Bi {m:rad|f:rada} {m:pogledal|f:pogledala} noter?",
+          "en": "Now I'll open a hive. Do you want to see inside?",
+          "de": "Jetzt mache ich einen Bienenstock auf. Willst du hineinschauen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, voglio vedere!",
+              "sl": "Ja, hočem videti!",
+              "en": "Yes, I want to see!",
+              "de": "Ja, ich will sehen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Allora vieni vicino a me. Piano.",
+                "sl": "Potem pridi k meni. Počasi.",
+                "en": "Then come close to me. Slowly.",
+                "de": "Dann komm nah zu mir. Langsam."
+              }
+            },
+            {
+              "it": "Sì, vuoi vedere!",
+              "sl": "Ja, hočeš videti!",
+              "en": "Yes, you want to see!",
+              "de": "Ja, du willst sehen!",
+              "grammar": "verbi-irregolari",
+              "why": {
+                "sl": "Volere: jaz voglio, ti vuoi. Govoriš o sebi: voglio.",
+                "en": "Volere: io voglio, tu vuoi. You're talking about yourself: voglio.",
+                "de": "Volere: io voglio, tu vuoi. Du sprichst von dir: voglio."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Io? Io le vedo ogni giorno, eh eh.",
+                "sl": "Jaz? Jaz jih vidim vsak dan, he he.",
+                "en": "Me? I see them every day, heh heh.",
+                "de": "Ich? Ich sehe sie jeden Tag, hehe."
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "face": "proud",
+          "it": "Ecco: tante api sul favo. E tra le api c'è la regina.",
+          "sl": "Glej: veliko čebel na satju. In med čebelami je matica.",
+          "en": "There: lots of bees on the comb. And among the bees is the queen.",
+          "de": "Da: viele Bienen auf der Wabe. Und zwischen den Bienen ist die Königin.",
+          "fx": {
+            "smoke": 0.5
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Dov'è la regina? È grande?",
+              "sl": "Kje je matica? Je velika?",
+              "en": "Where's the queen? Is she big?",
+              "de": "Wo ist die Königin? Ist sie groß?",
+              "ok": true,
+              "reply": {
+                "face": "curious",
+                "it": "È più lunga delle altre. Ha un puntino bianco.",
+                "sl": "Daljša je od drugih. Ima belo piko.",
+                "en": "She's longer than the others. She has a white dot.",
+                "de": "Sie ist länger als die anderen. Sie hat einen weißen Punkt."
+              }
+            },
+            {
+              "it": "Dove sono la regina? È grande?",
+              "sl": "Kje so matica? Je velika?",
+              "en": "Where are the queen? Is she big?",
+              "de": "Wo sind die Königin? Ist sie groß?",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Matica je ena: dov'è (dove è). Dove sono je za več stvari.",
+                "en": "There's one queen: dov'è (dove è). Dove sono is for more than one.",
+                "de": "Es gibt eine Königin: dov'è (dove è). Dove sono steht bei mehreren."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Sono? Di regine ce n'è una sola, per fortuna!",
+                "sl": "So? Matica je samo ena, na srečo!",
+                "en": "Sono (are)? There's only one queen, luckily!",
+                "de": "Sono (sind)? Es gibt zum Glück nur eine Königin!"
+              }
+            },
+            {
+              "it": "Dov'è il regina? È grande?",
+              "sl": "Kje je matica? Je velika?",
+              "en": "Where's the queen (masculine)? Is she big?",
+              "de": "Wo ist die Königin (männlich)? Ist sie groß?",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Regina je ženskega spola: la regina.",
+                "en": "Regina is feminine: la regina.",
+                "de": "Regina ist weiblich: la regina."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Il regina? Ah, un re con le ali?",
+                "sl": "Il regina? A, kralj s krili?",
+                "en": "Il regina? Ah, a king with wings?",
+                "de": "Il regina? Ah, ein König mit Flügeln?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "it": "Adesso chiudo l'arnia. Le api hanno tanto lavoro.",
+          "sl": "Zdaj zaprem panj. Čebele imajo veliko dela.",
+          "en": "Now I'm closing the hive. The bees have a lot of work.",
+          "de": "Jetzt mache ich den Stock zu. Die Bienen haben viel Arbeit.",
+          "fx": {
+            "smoke": 0
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Grazie, Aldo! Ciao, api!",
+              "sl": "Hvala, Aldo! Adijo, čebele!",
+              "en": "Thanks, Aldo! Bye, bees!",
+              "de": "Danke, Aldo! Tschüss, Bienen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Ciao, {learner}. Torna presto.",
+                "sl": "Adijo, {learner}. Pridi spet kmalu.",
+                "en": "Bye, {learner}. Come back soon.",
+                "de": "Tschüss, {learner}. Komm bald wieder."
+              }
+            },
+            {
+              "it": "Prego, Aldo! Ciao, api!",
+              "sl": "Ni za kaj, Aldo! Adijo, čebele!",
+              "en": "You're welcome, Aldo! Bye, bees!",
+              "de": "Gern geschehen, Aldo! Tschüss, Bienen!",
+              "why": {
+                "sl": "Prego rečeš, ko se ti kdo zahvali. Ko se zahvaljuješ ti: grazie.",
+                "en": "Prego answers a thank-you. To thank someone: grazie.",
+                "de": "Prego antwortet man auf ein Danke. Zum Danken: grazie."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Prego? Ma sono io che ti ringrazio!",
+                "sl": "Ni za kaj? Saj se jaz zahvaljujem tebi!",
+                "en": "You're welcome? But I'm the one thanking you!",
+                "de": "Gern geschehen? Ich bin doch der, der dir dankt!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sciame",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "surprised",
+          "it": "{learner}! Guarda su! Uno sciame!",
+          "sl": "{learner}! Poglej gor! Roj!",
+          "en": "{learner}! Look up! A swarm!",
+          "de": "{learner}! Schau nach oben! Ein Schwarm!",
+          "fx": {
+            "swarm": 0.5
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Che cos'è? Quante api!",
+              "sl": "Kaj je to? Koliko čebel!",
+              "en": "What is it? So many bees!",
+              "de": "Was ist das? So viele Bienen!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Uno sciame. La vecchia regina cerca una casa nuova.",
+                "sl": "Roj. Stara matica išče nov dom.",
+                "en": "A swarm. The old queen is looking for a new home.",
+                "de": "Ein Schwarm. Die alte Königin sucht ein neues Zuhause."
+              }
+            },
+            {
+              "it": "Oh! Le api pungono?",
+              "sl": "O! Ali čebele pičijo?",
+              "en": "Oh! Do the bees sting?",
+              "de": "Oh! Stechen die Bienen?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Non avere paura. Lo sciame è tranquillo.",
+                "sl": "Ne boj se. Roj je miren.",
+                "en": "Don't be afraid. The swarm is calm.",
+                "de": "Hab keine Angst. Der Schwarm ist ruhig."
+              }
+            },
+            {
+              "it": "Chi è? Quante api!",
+              "sl": "Kdo je to? Koliko čebel!",
+              "en": "Who is it? So many bees!",
+              "de": "Wer ist das? So viele Bienen!",
+              "grammar": "domande",
+              "why": {
+                "sl": "Sprašuješ po stvari: che cos'è. Chi je za ljudi.",
+                "en": "You're asking about a thing: che cos'è. Chi is for people.",
+                "de": "Du fragst nach einer Sache: che cos'è. Chi steht für Menschen."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Chi? Un paese intero di api, eh eh!",
+                "sl": "Kdo? Cela vas čebel, he he!",
+                "en": "Chi (who)? A whole village of bees, heh heh!",
+                "de": "Chi (wer)? Ein ganzes Dorf voller Bienen, hehe!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "it": "Vola sull'acacia! Presto, chiama Aldo!",
+          "sl": "Leti na akacijo! Hitro, pokliči Alda!",
+          "en": "It's flying to the acacia! Quick, call Aldo!",
+          "de": "Er fliegt auf die Akazie! Schnell, ruf Aldo!",
+          "fx": {
+            "swarm": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Aldo! Lo sciame è sull'acacia!",
+              "sl": "Aldo! Roj je na akaciji!",
+              "en": "Aldo! The swarm's on the acacia!",
+              "de": "Aldo! Der Schwarm ist auf der Akazie!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}. Aldo arriva con il cesto.",
+                "sl": "Bravo. Aldo že gre s košaro.",
+                "en": "Well done. Aldo's coming with the basket.",
+                "de": "Gut gemacht. Aldo kommt mit dem Korb."
+              }
+            },
+            {
+              "it": "Aldo! Il sciame è sull'acacia!",
+              "sl": "Aldo! Roj je na akaciji!",
+              "en": "Aldo! The swarm (wrong article) is on the acacia!",
+              "de": "Aldo! Der Schwarm (falscher Artikel) ist auf der Akazie!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Pred sc pride lo: lo sciame (kot lo scoiattolo).",
+                "en": "Before sc comes lo: lo sciame (like lo scoiattolo).",
+                "de": "Vor sc steht lo: lo sciame (wie lo scoiattolo)."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Il sciame? Aldo arriva, ma ride.",
+                "sl": "Il sciame? Aldo pride, ampak se smeji.",
+                "en": "Il sciame? Aldo's coming, but he's laughing.",
+                "de": "Il sciame? Aldo kommt, aber er lacht."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "thinking",
+          "it": "Sai, una volta il mio papà prendeva gli sciami con un cesto di vimini.",
+          "sl": "Veš, včasih je moj oče lovil roje s pleteno košaro.",
+          "en": "You know, my dad used to catch swarms with a wicker basket.",
+          "de": "Weißt du, früher hat mein Vater die Schwärme mit einem Weidenkorb eingefangen."
+        },
+        {
+          "choices": [
+            {
+              "it": "Hai le api anche tu, nonno?",
+              "sl": "Imaš tudi ti čebele, dedek?",
+              "en": "Do you have bees too, grandpa?",
+              "de": "Hast du auch Bienen, Opa?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "No. Io ho Moro. E le mie storie.",
+                "sl": "Ne. Jaz imam Mora. In svoje zgodbe.",
+                "en": "No. I have Moro. And my stories.",
+                "de": "Nein. Ich habe Moro. Und meine Geschichten."
+              }
+            },
+            {
+              "it": "Ha le api anche tu, nonno?",
+              "sl": "Ima tudi ti čebele, dedek?",
+              "en": "Does he have bees too, grandpa?",
+              "de": "Hat er auch Bienen, Opa?",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Ti: hai (imaš). Ha je on ali ona.",
+                "en": "Tu: hai (you have). Ha is he or she.",
+                "de": "Du: hai (du hast). Ha ist er oder sie."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Ha? Chi, Moro? Moro ha solo le pulci, eh eh.",
+                "sl": "Ha (ima)? Kdo, Moro? Moro ima samo bolhe, he he.",
+                "en": "Ha (has)? Who, Moro? Moro only has fleas, heh heh.",
+                "de": "Ha (hat)? Wer, Moro? Moro hat nur Flöhe, hehe."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "proud",
+          "it": "Adesso Aldo lo prende piano piano. Chi va piano va sano e va lontano!",
+          "sl": "Zdaj ga Aldo počasi ujame. Kdor počasi hodi, daleč pride!",
+          "en": "Now Aldo takes it, ever so slowly. Slow and steady goes far!",
+          "de": "Jetzt fängt Aldo ihn ganz langsam ein. Wer langsam geht, kommt weit!",
+          "fx": {
+            "swarm": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "miele",
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "happy",
+          "it": "{learner}! È l'ora della merenda. Pane e miele! Ne vuoi un po'?",
+          "sl": "{learner}! Čas je za malico. Kruh in med! Ga hočeš malo?",
+          "en": "{learner}! It's snack time. Bread and honey! Do you want some?",
+          "de": "{learner}! Es ist Zeit für die Brotzeit. Brot und Honig! Willst du ein bisschen?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, grazie! Mi piace il miele.",
+              "sl": "Ja, hvala! Med mi je všeč.",
+              "en": "Yes, thanks! I like honey.",
+              "de": "Ja, danke! Ich mag Honig.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Anche a me! Tanto, tanto.",
+                "sl": "Tudi meni! Zelo, zelo.",
+                "en": "Me too! So, so much.",
+                "de": "Mir auch! Ganz, ganz doll."
+              }
+            },
+            {
+              "it": "Sì! Ho tanta fame.",
+              "sl": "Ja! Zelo sem {m:lačen|f:lačna}.",
+              "en": "Yes! I'm really hungry.",
+              "de": "Ja! Ich habe großen Hunger.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Allora una fetta grande grande!",
+                "sl": "Potem pa velik, velik kos!",
+                "en": "Then a big, big slice!",
+                "de": "Dann eine große, große Scheibe!"
+              }
+            },
+            {
+              "it": "Sì, grazie! Mi piacciono il miele.",
+              "sl": "Ja, hvala! Med so mi všeč.",
+              "en": "Yes, thanks! I like (plural) honey.",
+              "de": "Ja, danke! Honig gefallen mir.",
+              "grammar": "piacere",
+              "why": {
+                "sl": "Ena stvar: mi piace il miele. Mi piacciono je za več stvari (mi piacciono le mele).",
+                "en": "One thing: mi piace il miele. Mi piacciono is for more than one (mi piacciono le mele).",
+                "de": "Eine Sache: mi piace il miele. Mi piacciono steht bei mehreren (mi piacciono le mele)."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Piacciono? Quanti mieli vedi, tu?",
+                "sl": "Piacciono? Koliko medov pa vidiš?",
+                "en": "Piacciono (plural)? How many honeys do you see?",
+                "de": "Piacciono (Mehrzahl)? Wie viele Honige siehst du denn?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "curious",
+          "it": "Leggi il cartello di Aldo! Che cosa c'è scritto?",
+          "sl": "Preberi Aldovo tablo! Kaj piše na njej?",
+          "en": "Read Aldo's sign! What does it say?",
+          "de": "Lies Aldos Schild! Was steht drauf?"
+        },
+        {
+          "choices": [
+            {
+              "it": "C'è scritto MIELE!",
+              "sl": "Piše MIELE (med)!",
+              "en": "It says MIELE (honey)!",
+              "de": "Da steht MIELE (Honig)!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "{m:Bravo|f:Brava}! Leggi bene, quasi come me.",
+                "sl": "Bravo! Dobro bereš, skoraj tako kot jaz.",
+                "en": "Well done! You read well, almost as well as me.",
+                "de": "Gut gemacht! Du liest gut, fast so gut wie ich."
+              }
+            },
+            {
+              "it": "Ci sono scritto MIELE!",
+              "sl": "Piše MIELE (med)!",
+              "en": "There are written MIELE!",
+              "de": "Da sind MIELE geschrieben!",
+              "grammar": "ce-ci-sono",
+              "why": {
+                "sl": "Ena beseda: c'è scritto. Ci sono je za več stvari.",
+                "en": "One word: c'è scritto. Ci sono is for more than one thing.",
+                "de": "Ein Wort: c'è scritto. Ci sono steht bei mehreren Dingen."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Ci sono? Ma è una parola sola!",
+                "sl": "Ci sono? Saj je samo ena beseda!",
+                "en": "Ci sono (there are)? But it's just one word!",
+                "de": "Ci sono (es sind)? Es ist doch nur ein Wort!"
+              }
+            },
+            {
+              "it": "C'è scritto PANE!",
+              "sl": "Piše PANE (kruh)!",
+              "en": "It says PANE (bread)!",
+              "de": "Da steht PANE (Brot)!",
+              "why": {
+                "sl": "Na tabli piše MIELE: med. Pane je kruh.",
+                "en": "The sign says MIELE: honey. Pane is bread.",
+                "de": "Auf dem Schild steht MIELE: Honig. Pane ist Brot."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Pane? Ih ih, il pane ce l'ho io in mano!",
+                "sl": "Pane (kruh)? Hi hi, kruh imam jaz v roki!",
+                "en": "Pane (bread)? Hee hee, I've got the bread in my hand!",
+                "de": "Pane (Brot)? Hihi, das Brot habe ich in der Hand!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "proud",
+          "it": "Il miele di Aldo è il più buono del Friuli. Lo dice la nonna!",
+          "sl": "Aldov med je najboljši v Furlaniji. Tako pravi babica!",
+          "en": "Aldo's honey is the best in Friuli. Granny says so!",
+          "de": "Aldos Honig ist der beste in Friaul. Das sagt die Oma!"
+        },
+        {
+          "choices": [
+            {
+              "it": "È buonissimo!",
+              "sl": "Odličen je!",
+              "en": "It's really good!",
+              "de": "Er ist superlecker!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Lo so! Ancora un po'?",
+                "sl": "Vem! Še malo?",
+                "en": "I know! A bit more?",
+                "de": "Ich weiß! Noch ein bisschen?"
+              }
+            },
+            {
+              "it": "È buonissima!",
+              "sl": "Odlična je!",
+              "en": "It's really good (feminine)!",
+              "de": "Sie ist superlecker!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Miele je moškega spola: buonissimo.",
+                "en": "Miele is masculine: buonissimo.",
+                "de": "Miele ist männlich: buonissimo."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Buonissima? Chi, la nonna? Sì, anche lei!",
+                "sl": "Buonissima? Kdo, babica? Ja, tudi ona!",
+                "en": "Buonissima (feminine)? Who, Granny? Yes, she is too!",
+                "de": "Buonissima (weiblich)? Wer, die Oma? Ja, die auch!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sera",
+      "lines": [
+        {
+          "who": "aldo",
+          "face": "curious",
+          "it": "Buonasera, {learner}. Shh. Mettiamo l'orecchio vicino all'arnia.",
+          "sl": "Dober večer, {learner}. Pst. Prisloniva uho k panju.",
+          "en": "Good evening, {learner}. Shh. Let's put an ear close to the hive.",
+          "de": "Guten Abend, {learner}. Psst. Halten wir ein Ohr nah an den Bienenstock."
+        },
+        {
+          "choices": [
+            {
+              "it": "Buonasera, Aldo. Le api ronzano!",
+              "sl": "Dober večer, Aldo. Čebele brenčijo!",
+              "en": "Good evening, Aldo. The bees are buzzing!",
+              "de": "Guten Abend, Aldo. Die Bienen summen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. Così parlano tra di loro.",
+                "sl": "Ja. Tako se pogovarjajo med sabo.",
+                "en": "Yes. That's how they talk to each other.",
+                "de": "Ja. So reden sie miteinander."
+              }
+            },
+            {
+              "it": "Buongiorno, Aldo. Le api ronzano!",
+              "sl": "Dobro jutro, Aldo. Čebele brenčijo!",
+              "en": "Good morning, Aldo. The bees are buzzing!",
+              "de": "Guten Morgen, Aldo. Die Bienen summen!",
+              "why": {
+                "sl": "Zvečer rečeš buonasera. Buongiorno je za jutro in dan.",
+                "en": "In the evening you say buonasera. Buongiorno is for the morning and the day.",
+                "de": "Am Abend sagst du buonasera. Buongiorno ist für den Morgen und den Tag."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Buongiorno? Ma il sole va già a dormire!",
+                "sl": "Dobro jutro? Saj gre sonce že spat!",
+                "en": "Good morning? But the sun is already going to bed!",
+                "de": "Guten Morgen? Die Sonne geht doch schon schlafen!"
+              }
+            },
+            {
+              "it": "Buonasera, Aldo. Le api ronza!",
+              "sl": "Dober večer, Aldo. Čebele brenči!",
+              "en": "Good evening, Aldo. The bees is buzzing!",
+              "de": "Guten Abend, Aldo. Die Bienen summt!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Več čebel: ronzano. Ronza je za eno.",
+                "en": "Many bees: ronzano. Ronza is for one.",
+                "de": "Viele Bienen: ronzano. Ronza steht bei einer."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Ronza? Una sola ape? Ascolta meglio: sono migliaia.",
+                "sl": "Ronza (brenči)? Ena sama čebela? Bolje poslušaj: na tisoče jih je.",
+                "en": "Ronza (one buzzes)? Just one bee? Listen better: there are thousands.",
+                "de": "Ronza (eine summt)? Nur eine Biene? Hör besser hin: Es sind Tausende."
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "it": "La sera tutte le api tornano a casa. Fuori fa buio.",
+          "sl": "Zvečer se vse čebele vrnejo domov. Zunaj se znoči.",
+          "en": "In the evening all the bees come home. Outside it's getting dark.",
+          "de": "Am Abend kommen alle Bienen nach Hause. Draußen wird es dunkel."
+        },
+        {
+          "choices": [
+            {
+              "it": "E dormono nell'arnia?",
+              "sl": "In spijo v panju?",
+              "en": "And do they sleep in the hive?",
+              "de": "Und schlafen sie im Bienenstock?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. Ma di notte fanno anche il miele.",
+                "sl": "Ja. Ponoči pa delajo tudi med.",
+                "en": "Yes. But at night they make honey too.",
+                "de": "Ja. Aber nachts machen sie auch Honig."
+              }
+            },
+            {
+              "it": "E dormono sull'arnia?",
+              "sl": "In spijo na panju?",
+              "en": "And do they sleep on top of the hive?",
+              "de": "Und schlafen sie oben auf dem Stock?",
+              "grammar": "preposizioni-articolate",
+              "why": {
+                "sl": "Notri je nell'arnia (in + la). Sull'arnia je na panju.",
+                "en": "Inside is nell'arnia (in + la). Sull'arnia is on top of the hive.",
+                "de": "Drinnen heißt nell'arnia (in + la). Sull'arnia heißt oben auf dem Stock."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sull'arnia? Sopra, come i gatti sul tetto? No, no.",
+                "sl": "Na panju? Zgoraj, kot mačke na strehi? Ne, ne.",
+                "en": "On the hive? On top, like cats on a roof? No, no.",
+                "de": "Auf dem Stock? Oben drauf, wie Katzen auf dem Dach? Nein, nein."
+              }
+            },
+            {
+              "it": "E dorme nell'arnia?",
+              "sl": "In spi v panju?",
+              "en": "And does she sleep in the hive?",
+              "de": "Und schläft sie im Bienenstock?",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Govoriš o čebelah, več jih je: dormono.",
+                "en": "You're talking about the bees, many of them: dormono.",
+                "de": "Du sprichst von den Bienen, von vielen: dormono."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Dorme? Chi, la regina? Sì, e anche le altre!",
+                "sl": "Dorme (spi)? Kdo, matica? Ja, pa tudi druge!",
+                "en": "Dorme (she sleeps)? Who, the queen? Yes, and the others too!",
+                "de": "Dorme (sie schläft)? Wer, die Königin? Ja, und die anderen auch!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "face": "happy",
+          "it": "Buonanotte, {learner}. Anche le api ti dicono buonanotte.",
+          "sl": "Lahko noč, {learner}. Tudi čebele ti voščijo lahko noč.",
+          "en": "Good night, {learner}. The bees say good night too.",
+          "de": "Gute Nacht, {learner}. Auch die Bienen sagen dir gute Nacht."
+        }
+      ]
+    },
+    {
+      "id": "acacia",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Buongiorno, {m:piccolo|f:piccola}. Senti che profumo? L'acacia è in fiore.",
+          "sl": "Dobro jutro. Čutiš ta vonj? Akacija cveti.",
+          "en": "Good morning. Can you smell that? The acacia is in flower.",
+          "de": "Guten Morgen. Riechst du das? Die Akazie blüht."
+        },
+        {
+          "choices": [
+            {
+              "it": "Che bei fiori bianchi!",
+              "sl": "Kako lepi beli cvetovi!",
+              "en": "What lovely white flowers!",
+              "de": "Was für schöne weiße Blüten!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Sono fiori a grappoli, come l'uva.",
+                "sl": "Cvetovi visijo v grozdih, kot grozdje.",
+                "en": "The flowers hang in bunches, like grapes.",
+                "de": "Die Blüten hängen in Trauben, wie Weintrauben."
+              }
+            },
+            {
+              "it": "Che bei fiori bianche!",
+              "sl": "Kako lepe bele cvetove!",
+              "en": "What lovely white flowers (feminine)!",
+              "de": "Was für schöne weiße Blüten (weiblich)!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Fiori je moškega spola v množini: bianchi. Bianche je za ženske besede (le case bianche).",
+                "en": "Fiori is masculine plural: bianchi. Bianche is for feminine words (le case bianche).",
+                "de": "Fiori ist männlich, Mehrzahl: bianchi. Bianche steht bei weiblichen Wörtern (le case bianche)."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Bianche? Eh eh, i fiori sono signori, sai.",
+                "sl": "Bianche? He he, cvetovi (fiori) so gospodje, veš.",
+                "en": "Bianche? Heh heh, flowers are gentlemen, you know.",
+                "de": "Bianche? Hehe, Blumen (fiori) sind Herren, weißt du."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "proud",
+          "it": "Da questi fiori le api fanno il miele di acacia. Il più chiaro di tutti.",
+          "sl": "Iz teh cvetov čebele naredijo akacijev med. Najsvetlejši od vseh.",
+          "en": "From these flowers the bees make acacia honey. The palest of all.",
+          "de": "Aus diesen Blüten machen die Bienen Akazienhonig. Den hellsten von allen."
+        },
+        {
+          "choices": [
+            {
+              "it": "Le api sono brave!",
+              "sl": "Čebele so pridne!",
+              "en": "The bees are clever!",
+              "de": "Die Bienen sind fleißig!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Bravissime. Lavorano dalla mattina alla sera.",
+                "sl": "Zelo pridne. Delajo od jutra do večera.",
+                "en": "Very clever. They work from morning to evening.",
+                "de": "Sehr fleißig. Sie arbeiten von morgens bis abends."
+              }
+            },
+            {
+              "it": "Le api è brave!",
+              "sl": "Čebele je pridne!",
+              "en": "The bees is clever!",
+              "de": "Die Bienen ist fleißig!",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Več čebel: sono (so). È je za eno.",
+                "en": "Many bees: sono (are). È is for one.",
+                "de": "Viele Bienen: sono (sind). È steht bei einer."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "È? Una sola ape? Io ne vedo cento!",
+                "sl": "È (je)? Ena sama čebela? Jaz jih vidim sto!",
+                "en": "È (is)? Just one bee? I see a hundred!",
+                "de": "È (ist)? Nur eine Biene? Ich sehe hundert!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "happy",
+          "it": "Chi va piano va sano e va lontano. Anche le api, sai.",
+          "sl": "Kdor počasi hodi, daleč pride. Tudi čebele, veš.",
+          "en": "Slow and steady goes far. The bees too, you know.",
+          "de": "Wer langsam geht, kommt weit. Die Bienen auch, weißt du."
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "arnie-colori",
+      "lines": [
+        {
+          "who": "aldo",
+          "face": "proud",
+          "it": "Ciao, {learner}. Guarda le mie arnie: bianche, gialle, azzurre e verdi. Quale ti piace?",
+          "sl": "Živjo, {learner}. Poglej moje panje: bele, rumene, svetlo modre in zelene. Kateri ti je všeč?",
+          "en": "Hi, {learner}. Look at my hives: white, yellow, light blue and green. Which one do you like?",
+          "de": "Hallo, {learner}. Schau dir meine Bienenstöcke an: weiß, gelb, hellblau und grün. Welcher gefällt dir?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Mi piace quella gialla.",
+              "sl": "Všeč mi je tisti rumeni.",
+              "en": "I like the yellow one.",
+              "de": "Mir gefällt der gelbe.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Anche a me. Il giallo è il colore del miele.",
+                "sl": "Tudi meni. Rumena je barva medu.",
+                "en": "Me too. Yellow is the colour of honey.",
+                "de": "Mir auch. Gelb ist die Farbe vom Honig."
+              }
+            },
+            {
+              "it": "Mi piace quella giallo.",
+              "sl": "Všeč mi je tisti rumeni.",
+              "en": "I like the yellow one (masculine).",
+              "de": "Mir gefällt der gelbe (männlich).",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Arnia je ženskega spola: quella gialla. Giallo je za moški spol (il miele giallo).",
+                "en": "Arnia is feminine: quella gialla. Giallo is for masculine words (il miele giallo).",
+                "de": "Arnia ist weiblich: quella gialla. Giallo steht bei männlichen Wörtern (il miele giallo)."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Giallo? Hm, la mia arnia non è un signore.",
+                "sl": "Giallo? Hm, moj panj (arnia) ni gospod.",
+                "en": "Giallo? Hm, my hive isn't a gentleman.",
+                "de": "Giallo? Hm, mein Bienenstock (arnia) ist kein Herr."
+              }
+            },
+            {
+              "it": "Mi piacciono quella gialla.",
+              "sl": "Všeč so mi tisti rumeni.",
+              "en": "I like (plural) the yellow one.",
+              "de": "Mir gefallen der gelbe.",
+              "grammar": "piacere",
+              "why": {
+                "sl": "Ena stvar: mi piace. Mi piacciono je za več stvari.",
+                "en": "One thing: mi piace. Mi piacciono is for more than one.",
+                "de": "Eine Sache: mi piace. Mi piacciono steht bei mehreren."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Piacciono? Tutte? Ma tu ne hai detto una sola.",
+                "sl": "Piacciono? Vsi? Saj si {m:rekel|f:rekla} samo enega.",
+                "en": "Piacciono (plural)? All of them? But you only said one.",
+                "de": "Piacciono (Mehrzahl)? Alle? Du hast doch nur einen gesagt."
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "it": "Prima del lavoro, un po' di fumo. Così le api restano calme.",
+          "sl": "Pred delom malo dima. Tako ostanejo čebele mirne.",
+          "en": "Before the work, a little smoke. That way the bees stay calm.",
+          "de": "Vor der Arbeit ein bisschen Rauch. So bleiben die Bienen ruhig.",
+          "fx": {
+            "smoke": 0.9
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Posso provare io con l'affumicatore?",
+              "sl": "Lahko jaz poskusim s kadilnikom?",
+              "en": "Can I try with the smoker?",
+              "de": "Darf ich es mit dem Smoker versuchen?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. Piano, tre soffi. Uno, due, tre.",
+                "sl": "Ja. Počasi, trikrat pihni. Ena, dve, tri.",
+                "en": "Yes. Gently, three puffs. One, two, three.",
+                "de": "Ja. Sanft, dreimal pusten. Eins, zwei, drei.",
+                "fx": {
+                  "smoke": 1
+                }
+              }
+            },
+            {
+              "it": "Puoi provare io con l'affumicatore?",
+              "sl": "Lahko ti poskusiš jaz s kadilnikom?",
+              "en": "Can you try I with the smoker?",
+              "de": "Kannst du ich es mit dem Smoker versuchen?",
+              "grammar": "verbi-irregolari",
+              "why": {
+                "sl": "Potere: jaz posso, ti puoi. Govoriš o sebi: posso.",
+                "en": "Potere: io posso, tu puoi. You're talking about yourself: posso.",
+                "de": "Potere: io posso, tu puoi. Du sprichst von dir: posso."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Puoi? Io? Io lo faccio da cinquant'anni, eh eh.",
+                "sl": "Puoi (lahko ti)? Jaz? Jaz to delam že petdeset let, he he.",
+                "en": "Puoi (can you)? Me? I've been doing it for fifty years, heh heh.",
+                "de": "Puoi (kannst du)? Ich? Ich mache das seit fünfzig Jahren, hehe."
+              }
+            },
+            {
+              "it": "Posso provare io con lo smielatore?",
+              "sl": "Lahko jaz poskusim s točilom?",
+              "en": "Can I try with the honey extractor?",
+              "de": "Darf ich es mit der Honigschleuder versuchen?",
+              "why": {
+                "sl": "Dim pride iz kadilnika: l'affumicatore. Lo smielatore je točilo za med.",
+                "en": "The smoke comes out of the smoker: l'affumicatore. Lo smielatore is the honey extractor.",
+                "de": "Der Rauch kommt aus dem Smoker: l'affumicatore. Lo smielatore ist die Honigschleuder."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Con lo smielatore? Quello fa il miele, non il fumo!",
+                "sl": "S točilom? To naredi med, ne dima!",
+                "en": "With the extractor? That makes honey, not smoke!",
+                "de": "Mit der Schleuder? Die macht Honig, keinen Rauch!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "face": "happy",
+          "it": "{m:Bravo|f:Brava}. Senti? Adesso ronzano piano: sono contente.",
+          "sl": "Bravo. Slišiš? Zdaj tiho brenčijo: zadovoljne so.",
+          "en": "Well done. Hear that? Now they're humming softly: they're happy.",
+          "de": "Gut gemacht. Hörst du? Jetzt summen sie leise: Sie sind zufrieden.",
+          "fx": {
+            "smoke": 0.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "arnie-festa",
+      "months": [
+        5
+      ],
+      "memory": {
+        "it": "la festa delle api di maggio",
+        "sl": "majski praznik čebel",
+        "en": "the bees' feast in May",
+        "de": "das Bienenfest im Mai"
+      },
+      "lines": [
+        {
+          "who": "aldo",
+          "face": "curious",
+          "it": "Ciao, {learner}! Sai che a maggio c'è una festa delle api?",
+          "sl": "Živjo, {learner}! Veš, da je maja praznik čebel?",
+          "en": "Hi, {learner}! Did you know there's a feast of the bees in May?",
+          "de": "Hallo, {learner}! Weißt du, dass im Mai ein Fest der Bienen ist?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Una festa delle api? Quando?",
+              "sl": "Praznik čebel? Kdaj?",
+              "en": "A feast of the bees? When?",
+              "de": "Ein Fest der Bienen? Wann?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Il 20 maggio. È la Giornata mondiale delle api.",
+                "sl": "Dvajsetega maja. To je svetovni dan čebel.",
+                "en": "On 20 May. It's World Bee Day.",
+                "de": "Am 20. Mai. Das ist der Weltbienentag."
+              }
+            },
+            {
+              "it": "Una festa delle api? Dove?",
+              "sl": "Praznik čebel? Kje?",
+              "en": "A feast of the bees? Where?",
+              "de": "Ein Fest der Bienen? Wo?",
+              "grammar": "domande",
+              "why": {
+                "sl": "Sprašuješ po dnevu: quando (kdaj). Dove pomeni kje.",
+                "en": "You're asking about the day: quando (when). Dove means where.",
+                "de": "Du fragst nach dem Tag: quando (wann). Dove heißt wo."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Dove? Qui da noi! E in tutto il mondo.",
+                "sl": "Kje? Tukaj pri nas! In po vsem svetu.",
+                "en": "Where? Here, with us! And all over the world.",
+                "de": "Wo? Hier bei uns! Und auf der ganzen Welt."
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "face": "proud",
+          "it": "L'idea è nata in Slovenia, qui vicino. Là le api sono come una famiglia.",
+          "sl": "Zamisel se je rodila v Sloveniji, tukaj blizu. Tam so čebele kot družina.",
+          "en": "The idea was born in Slovenia, near here. There the bees are like a family.",
+          "de": "Die Idee ist in Slowenien entstanden, hier ganz in der Nähe. Dort sind die Bienen wie eine Familie."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora facciamo festa anche noi!",
+              "sl": "Potem praznujmo tudi mi!",
+              "en": "Then let's celebrate too!",
+              "de": "Dann feiern wir auch!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Sì! Una festa piano piano, per le api.",
+                "sl": "Ja! Tih praznik, za čebele.",
+                "en": "Yes! A quiet feast, for the bees.",
+                "de": "Ja! Ein leises Fest, für die Bienen."
+              }
+            },
+            {
+              "it": "Allora fanno festa anche noi!",
+              "sl": "Potem praznujejo tudi mi!",
+              "en": "Then they celebrate, us too!",
+              "de": "Dann feiern sie, wir auch!",
+              "grammar": "verbi-irregolari",
+              "why": {
+                "sl": "Mi: facciamo. Fanno je oni (one).",
+                "en": "We: facciamo. Fanno is they.",
+                "de": "Wir: facciamo. Fanno heißt sie (Mehrzahl)."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Fanno? Chi, le api? Loro lavorano, anche oggi.",
+                "sl": "Fanno (oni)? Kdo, čebele? One delajo, tudi danes.",
+                "en": "Fanno (they)? Who, the bees? They're working, even today.",
+                "de": "Fanno (sie)? Wer, die Bienen? Die arbeiten, auch heute."
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "face": "happy",
+          "it": "Ecco un cucchiaio di miele di acacia per te. È il miele di maggio.",
+          "sl": "Tu imaš žlico akacijevega medu. To je majski med.",
+          "en": "Here's a spoon of acacia honey for you. It's May's honey.",
+          "de": "Hier ist ein Löffel Akazienhonig für dich. Das ist der Maihonig."
+        },
+        {
+          "choices": [
+            {
+              "it": "Grazie! È dolcissimo!",
+              "sl": "Hvala! Zelo sladek je!",
+              "en": "Thanks! It's so sweet!",
+              "de": "Danke! Er ist so süß!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Dolce come la festa. Buona Giornata delle api!",
+                "sl": "Sladek kot praznik. Vesel dan čebel!",
+                "en": "Sweet as the feast. Happy Bee Day!",
+                "de": "Süß wie das Fest. Frohen Bienentag!"
+              }
+            },
+            {
+              "it": "Grazie! È dolcissima!",
+              "sl": "Hvala! Zelo sladka je!",
+              "en": "Thanks! It's so sweet (feminine)!",
+              "de": "Danke! Sie ist so süß!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Miele je moškega spola: dolcissimo.",
+                "en": "Miele is masculine: dolcissimo.",
+                "de": "Miele ist männlich: dolcissimo."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Dolcissima? Chi, la festa? Sì, anche lei!",
+                "sl": "Dolcissima? Kdo, praznik? Ja, tudi ta!",
+                "en": "Dolcissima (feminine)? Who, the feast? Yes, that too!",
+                "de": "Dolcissima (weiblich)? Wer, das Fest? Ja, das auch!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sciame-dove",
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "surprised",
+          "it": "Shh! Senti? Bzzz … Uno sciame è scappato dall'arnia!",
+          "sl": "Pst! Slišiš? Bzzz … Roj je ušel iz panja!",
+          "en": "Shh! Hear that? Bzzz… A swarm has escaped from the hive!",
+          "de": "Psst! Hörst du? Summ … Ein Schwarm ist aus dem Stock ausgerissen!",
+          "fx": {
+            "swarm": 1
+          }
+        },
+        {
+          "who": "bepi",
+          "face": "curious",
+          "it": "Dov'è adesso? Trovalo tu, hai gli occhi buoni!",
+          "sl": "Kje je zdaj? Najdi ga ti, ti imaš dobre oči!",
+          "en": "Where is it now? You find it, you've got good eyes!",
+          "de": "Wo ist er jetzt? Find du ihn, du hast gute Augen!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Eccolo, sull'acacia!",
+              "sl": "Tam je, na akaciji!",
+              "en": "There it is, on the acacia!",
+              "de": "Da ist er, auf der Akazie!",
+              "ok": true,
+              "tap": "tree",
+              "grammar": "preposizioni-articolate",
+              "reply": {
+                "face": "happy",
+                "it": "Sì! Che occhi, {m:piccolo|f:piccola}!",
+                "sl": "Ja! Kakšne oči!",
+                "en": "Yes! What eyes!",
+                "de": "Ja! Was für Augen!"
+              }
+            },
+            {
+              "it": "Eccolo, nell'arnia!",
+              "sl": "Tam je, v panju!",
+              "en": "There it is, in the hive!",
+              "de": "Da ist er, im Bienenstock!",
+              "tap": "hive",
+              "why": {
+                "sl": "Ta panj je še prazen. Poišči visoko, kjer leti veliko čebel.",
+                "en": "That hive is still empty. Look high up, where lots of bees are flying.",
+                "de": "Dieser Stock ist noch leer. Such weiter oben, wo viele Bienen fliegen."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Quella è l'arnia vuota. Lo sciame è più in alto …",
+                "sl": "To je prazen panj. Roj je višje …",
+                "en": "That's the empty hive. The swarm is higher up…",
+                "de": "Das ist der leere Stock. Der Schwarm ist weiter oben …"
+              }
+            },
+            {
+              "it": "Eccolo, sull'apiario!",
+              "sl": "Tam je, na čebelnjaku!",
+              "en": "There it is, on the apiary!",
+              "de": "Da ist er, auf dem Bienenstand!",
+              "tap": "beehouse",
+              "why": {
+                "sl": "V čebelnjaku so Aldovi panji. Roj je na drevesu.",
+                "en": "In the apiary are Aldo's hives. The swarm is in a tree.",
+                "de": "Im Bienenstand stehen Aldos Stöcke. Der Schwarm ist in einem Baum."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Lì le api sono a casa loro. Cerca su un albero!",
+                "sl": "Tam so čebele doma. Poišči na drevesu!",
+                "en": "Those bees are at home there. Look in a tree!",
+                "de": "Dort sind die Bienen zu Hause. Such auf einem Baum!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "it": "Aldo lo mette nell'arnia vuota, quella azzurra.",
+          "sl": "Aldo ga da v prazen panj, tistega svetlo modrega.",
+          "en": "Aldo is putting it into the empty hive, the light blue one.",
+          "de": "Aldo setzt ihn in den leeren Stock, den hellblauen.",
+          "fx": {
+            "swarm": 0.3
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Così le api hanno una casa nuova!",
+              "sl": "Tako imajo čebele nov dom!",
+              "en": "So the bees have a new home!",
+              "de": "So haben die Bienen ein neues Zuhause!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. Una casa azzurra come il cielo.",
+                "sl": "Ja. Dom, moder kot nebo.",
+                "en": "Yes. A home as blue as the sky.",
+                "de": "Ja. Ein Zuhause, blau wie der Himmel.",
+                "fx": {
+                  "swarm": 0
+                }
+              }
+            },
+            {
+              "it": "Così le api ha una casa nuova!",
+              "sl": "Tako ima čebele nov dom!",
+              "en": "So the bees has a new home!",
+              "de": "So hat die Bienen ein neues Zuhause!",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Več čebel: hanno (imajo). Ha je za enega.",
+                "en": "Many bees: hanno (they have). Ha is for one.",
+                "de": "Viele Bienen: hanno (sie haben). Ha steht bei einem."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Ha? Una sola ape? Ma sono tantissime!",
+                "sl": "Ha (ima)? Ena sama čebela? Saj jih je ogromno!",
+                "en": "Ha (has)? Just one bee? There are loads of them!",
+                "de": "Ha (hat)? Nur eine Biene? Es sind doch ganz viele!"
+              }
+            },
+            {
+              "it": "Così le api hanno una casa vecchia!",
+              "sl": "Tako imajo čebele star dom!",
+              "en": "So the bees have an old home!",
+              "de": "So haben die Bienen ein altes Zuhause!",
+              "why": {
+                "sl": "Panj je prazen in nov: nuova (nov). Vecchia pomeni star.",
+                "en": "The hive is empty and new: nuova. Vecchia means old.",
+                "de": "Der Stock ist leer und neu: nuova. Vecchia heißt alt."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Vecchia? Ma Aldo l'ha dipinta ieri!",
+                "sl": "Stara? Saj jo je Aldo pobarval včeraj!",
+                "en": "Old? But Aldo painted it yesterday!",
+                "de": "Alt? Aldo hat ihn doch gestern gestrichen!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "miele-smielatore",
+      "months": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "memory": {
+        "it": "il miele nuovo che abbiamo fatto con lo smielatore",
+        "sl": "nov med, ki sva ga {m:natočila|f:natočili} s točilom",
+        "en": "the new honey we spun in the extractor",
+        "de": "den neuen Honig, den wir mit der Schleuder gemacht haben"
+      },
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "happy",
+          "it": "Vieni, vieni! Aldo fa il miele nuovo. Io giro la manovella!",
+          "sl": "Pridi, pridi! Aldo dela nov med. Jaz vrtim ročico!",
+          "en": "Come, come! Aldo is making new honey. I'm turning the handle!",
+          "de": "Komm, komm! Aldo macht neuen Honig. Ich drehe die Kurbel!",
+          "fx": {
+            "honey": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Guarda, il miele scende nel vasetto!",
+              "sl": "Poglej, med teče v kozarček!",
+              "en": "Look, the honey's running into the jar!",
+              "de": "Schau, der Honig läuft ins Gläschen!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Sì! Piano piano, come dice Aldo.",
+                "sl": "Ja! Počasi, počasi, kot pravi Aldo.",
+                "en": "Yes! Slowly, slowly, like Aldo says.",
+                "de": "Ja! Langsam, langsam, wie Aldo sagt."
+              }
+            },
+            {
+              "it": "Guarda, il miele scendono nel vasetto!",
+              "sl": "Poglej, med tečejo v kozarček!",
+              "en": "Look, the honey are running into the jar!",
+              "de": "Schau, der Honig laufen ins Gläschen!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Med je eden: scende. Scendono je za več stvari.",
+                "en": "Honey is one thing: scende. Scendono is for more than one.",
+                "de": "Honig ist eins: scende. Scendono steht bei mehreren."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Scendono? Io vedo un filo solo, d'oro.",
+                "sl": "Scendono (tečejo)? Jaz vidim samo eno zlato nitko.",
+                "en": "Scendono (they run)? I see just one golden thread.",
+                "de": "Scendono (sie laufen)? Ich sehe nur einen goldenen Faden."
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "curious",
+          "it": "È miele di acacia: chiaro e trasparente. Assaggia!",
+          "sl": "To je akacijev med: svetel in prozoren. Poskusi!",
+          "en": "It's acacia honey: pale and clear. Taste it!",
+          "de": "Das ist Akazienhonig: hell und klar. Probier mal!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Mmm! È dolce!",
+              "sl": "Mmm! Sladek je!",
+              "en": "Mmm! It's sweet!",
+              "de": "Mmm! Er ist süß!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Dolce dolce! Il più dolce di tutti.",
+                "sl": "Sladek, sladek! Najslajši od vseh.",
+                "en": "So sweet! The sweetest of all.",
+                "de": "Süß, süß! Der süßeste von allen."
+              }
+            },
+            {
+              "it": "Mmm! È dolci!",
+              "sl": "Mmm! Sladki so!",
+              "en": "Mmm! It's sweet (plural)!",
+              "de": "Mmm! Er ist süß (Mehrzahl)!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "En med: dolce. Dolci je za več stvari (i biscotti dolci).",
+                "en": "One honey: dolce. Dolci is for more than one (i biscotti dolci).",
+                "de": "Ein Honig: dolce. Dolci steht bei mehreren (i biscotti dolci)."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Dolci? Tutti i vasetti? Ih ih, uno alla volta!",
+                "sl": "Dolci? Vsi kozarčki? Hi hi, po enega naenkrat!",
+                "en": "Dolci (plural)? All the jars? Hee hee, one at a time!",
+                "de": "Dolci (Mehrzahl)? Alle Gläschen? Hihi, eins nach dem anderen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "happy",
+          "it": "Un vasetto è per la nonna. E uno è per te!",
+          "sl": "En kozarček je za babico. En pa zate!",
+          "en": "One jar is for Granny. And one is for you!",
+          "de": "Ein Gläschen ist für die Oma. Und eins ist für dich!",
+          "fx": {
+            "honey": 0
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Grazie, Giulia! Sei gentile.",
+              "sl": "Hvala, Giulia! Prijazna si.",
+              "en": "Thanks, Giulia! You're kind.",
+              "de": "Danke, Giulia! Du bist lieb.",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "it": "Prego! Ma il miele l'ha fatto Aldo, eh.",
+                "sl": "Ni za kaj! Ampak med je naredil Aldo.",
+                "en": "You're welcome! But Aldo made the honey.",
+                "de": "Gern geschehen! Aber den Honig hat Aldo gemacht."
+              }
+            },
+            {
+              "it": "Prego, Giulia! Sei gentile.",
+              "sl": "Ni za kaj, Giulia! Prijazna si.",
+              "en": "You're welcome, Giulia! You're kind.",
+              "de": "Gern geschehen, Giulia! Du bist lieb.",
+              "why": {
+                "sl": "Prego rečeš, ko se ti kdo zahvali. Za darilo rečeš grazie.",
+                "en": "Prego answers a thank-you. For a present you say grazie.",
+                "de": "Prego antwortet man auf ein Danke. Für ein Geschenk sagst du grazie."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Prego? Ma il regalo lo faccio io!",
+                "sl": "Ni za kaj? Saj darilo dajem jaz!",
+                "en": "You're welcome? But I'm the one giving the present!",
+                "de": "Gern geschehen? Das Geschenk mache doch ich!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "miele-castagno",
+      "months": [
+        9,
+        10,
+        11
+      ],
+      "memory": {
+        "it": "il miele di castagno, scuro e un po' amaro",
+        "sl": "kostanjev med, temen in malo grenak",
+        "en": "the chestnut honey, dark and a little bitter",
+        "de": "den Kastanienhonig, dunkel und ein bisschen bitter"
+      },
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "happy",
+          "it": "{learner}, vieni! Aldo ha il miele d'autunno: il miele di castagno.",
+          "sl": "{learner}, pridi! Aldo ima jesenski med: kostanjev med.",
+          "en": "{learner}, come! Aldo has the autumn honey: chestnut honey.",
+          "de": "{learner}, komm! Aldo hat den Herbsthonig: Kastanienhonig."
+        },
+        {
+          "who": "giulia",
+          "face": "curious",
+          "it": "È scuro scuro. Lo vuoi assaggiare?",
+          "sl": "Čisto temen je. Bi ga {m:rad|f:rada} {m:poskusil|f:poskusila}?",
+          "en": "It's very dark. Do you want to taste it?",
+          "de": "Er ist ganz dunkel. Willst du ihn probieren?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, lo assaggio!",
+              "sl": "Ja, poskusim ga!",
+              "en": "Yes, I'll taste it!",
+              "de": "Ja, ich probiere ihn!",
+              "ok": true,
+              "reply": {
+                "face": "curious",
+                "it": "Ecco il cucchiaio. Com'è?",
+                "sl": "Tu je žlica. Kakšen je?",
+                "en": "Here's the spoon. What's it like?",
+                "de": "Hier ist der Löffel. Wie ist er?"
+              }
+            },
+            {
+              "it": "Sì, la assaggio!",
+              "sl": "Ja, poskusim jo!",
+              "en": "Yes, I'll taste her!",
+              "de": "Ja, ich probiere sie!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Miele je moškega spola: lo assaggio. La je za ženski spol (la torta: la assaggio).",
+                "en": "Miele is masculine: lo assaggio. La is for feminine words (la torta: la assaggio).",
+                "de": "Miele ist männlich: lo assaggio. La steht bei weiblichen Wörtern (la torta: la assaggio)."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "La? Ih ih, il miele non è una bambina!",
+                "sl": "La? Hi hi, med ni deklica!",
+                "en": "La (her)? Hee hee, honey isn't a girl!",
+                "de": "La (sie)? Hihi, der Honig ist doch kein Mädchen!"
+              }
+            }
+          ]
+        },
+        {
+          "choices": [
+            {
+              "it": "È un po' amaro, ma buono!",
+              "sl": "Malo grenak je, ampak dober!",
+              "en": "It's a bit bitter, but good!",
+              "de": "Er ist ein bisschen bitter, aber gut!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Lo dice anche Aldo! A me piace di più quello di acacia.",
+                "sl": "Tako pravi tudi Aldo! Meni je bolj všeč akacijev.",
+                "en": "Aldo says so too! I like the acacia one better.",
+                "de": "Das sagt Aldo auch! Mir schmeckt der Akazienhonig besser."
+              }
+            },
+            {
+              "it": "È un po' amara, ma buona!",
+              "sl": "Malo grenka je, ampak dobra!",
+              "en": "It's a bit bitter, but good (feminine)!",
+              "de": "Sie ist ein bisschen bitter, aber gut!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Miele je moškega spola: amaro, buono.",
+                "en": "Miele is masculine: amaro, buono.",
+                "de": "Miele ist männlich: amaro, buono."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Amara? Chi? Io sono dolce, eh!",
+                "sl": "Amara (grenka)? Kdo? Jaz sem sladka!",
+                "en": "Amara (bitter, feminine)? Who? I'm sweet!",
+                "de": "Amara (bitter, weiblich)? Wer? Ich bin süß!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "laugh",
+          "it": "La nonna lo mangia con il formaggio Montasio. Strano, eh?",
+          "sl": "Babica ga je s sirom montasio. Čudno, kajne?",
+          "en": "Granny eats it with Montasio cheese. Funny, eh?",
+          "de": "Die Oma isst ihn mit Montasio-Käse. Komisch, oder?"
+        }
+      ]
+    },
+    {
+      "id": "miele-puntura",
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "memory": {
+        "it": "la puntura dell'ape e l'acqua fredda",
+        "sl": "čebelji pik in mrzlo vodo",
+        "en": "the bee sting and the cold water",
+        "de": "den Bienenstich und das kalte Wasser"
+      },
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "sad",
+          "it": "Ahi! {learner}! Un'ape mi ha punto il dito!",
+          "sl": "Au! {learner}! Čebela me je pičila v prst!",
+          "en": "Ouch! {learner}! A bee stung my finger!",
+          "de": "Aua! {learner}! Eine Biene hat mich in den Finger gestochen!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Oh no! Ti fa male?",
+              "sl": "O, ne! Te boli?",
+              "en": "Oh no! Does it hurt?",
+              "de": "Oh nein! Tut es weh?",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "it": "Un po'. Ma non piango, eh.",
+                "sl": "Malo. Ampak ne jočem.",
+                "en": "A bit. But I'm not crying.",
+                "de": "Ein bisschen. Aber ich weine nicht."
+              }
+            },
+            {
+              "it": "Oh no! Mi fa male?",
+              "sl": "O, ne! Me boli?",
+              "en": "Oh no! Does it hurt me?",
+              "de": "Oh nein! Tut es mir weh?",
+              "why": {
+                "sl": "Sprašuješ njo: ti fa male? Mi fa male pomeni, da boli tebe.",
+                "en": "You're asking her: ti fa male? Mi fa male means it hurts you.",
+                "de": "Du fragst sie: ti fa male? Mi fa male heißt, dass es dir wehtut."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "A te? Ma l'ape ha punto me!",
+                "sl": "Tebe? Saj je čebela pičila mene!",
+                "en": "You? But the bee stung me!",
+                "de": "Dir? Die Biene hat doch mich gestochen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "thinking",
+          "it": "Aldo dice: niente paura, acqua fredda sul dito.",
+          "sl": "Aldo pravi: nič strahu, mrzlo vodo na prst.",
+          "en": "Aldo says: no fear, cold water on the finger.",
+          "de": "Aldo sagt: keine Angst, kaltes Wasser auf den Finger."
+        },
+        {
+          "choices": [
+            {
+              "it": "Metti il dito nell'acqua fredda!",
+              "sl": "Daj prst v mrzlo vodo!",
+              "en": "Put your finger in the cold water!",
+              "de": "Halt den Finger ins kalte Wasser!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Brrr! Fredda! Ma va meglio.",
+                "sl": "Brrr! Mrzla! Ampak je bolje.",
+                "en": "Brrr! Cold! But it's better.",
+                "de": "Brrr! Kalt! Aber es ist besser."
+              }
+            },
+            {
+              "it": "Metto il dito nell'acqua fredda!",
+              "sl": "Dam prst v mrzlo vodo!",
+              "en": "I'm putting my finger in the cold water!",
+              "de": "Ich halte den Finger ins kalte Wasser!",
+              "grammar": "imperativo",
+              "why": {
+                "sl": "Rečeš ji, kaj naj naredi: metti! Metto pomeni, da to narediš ti.",
+                "en": "You're telling her what to do: metti! Metto means you do it yourself.",
+                "de": "Du sagst ihr, was sie tun soll: metti! Metto heißt, dass du es selbst machst."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Il tuo dito? Ma è il mio che fa male!",
+                "sl": "Svoj prst? Saj boli moj!",
+                "en": "Your finger? But it's mine that hurts!",
+                "de": "Deinen Finger? Meiner tut doch weh!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "shy",
+          "it": "Ho gridato tanto. L'ape aveva paura di me.",
+          "sl": "Zelo sem kričala. Čebela se me je bala.",
+          "en": "I shouted a lot. The bee was scared of me.",
+          "de": "Ich habe ganz laut geschrien. Die Biene hatte Angst vor mir."
+        },
+        {
+          "choices": [
+            {
+              "it": "Con le api parliamo piano.",
+              "sl": "S čebelami govorimo tiho.",
+              "en": "With bees we talk quietly.",
+              "de": "Bei den Bienen sprechen wir leise.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. Piano, piano, come dice Aldo. Grazie, {learner}!",
+                "sl": "Ja. Počasi, počasi, kot pravi Aldo. Hvala, {learner}!",
+                "en": "Yes. Slowly, slowly, as Aldo says. Thanks, {learner}!",
+                "de": "Ja. Langsam, langsam, wie Aldo sagt. Danke, {learner}!"
+              }
+            },
+            {
+              "it": "Con le api parlano piano.",
+              "sl": "S čebelami govorijo tiho.",
+              "en": "With bees they talk quietly.",
+              "de": "Bei den Bienen sprechen sie leise.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Mi: parliamo. Parlano je oni (one).",
+                "en": "We: parliamo. Parlano is they.",
+                "de": "Wir: parliamo. Parlano heißt sie (Mehrzahl)."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Parlano? Chi, le api? Le api fanno solo bzz!",
+                "sl": "Parlano (govorijo)? Kdo, čebele? Čebele delajo samo bzz!",
+                "en": "Parlano (they talk)? Who, the bees? Bees only go bzz!",
+                "de": "Parlano (sie sprechen)? Wer, die Bienen? Bienen machen nur summ!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "miele-conta",
+      "count": {
+        "from": "dice",
+        "min": 3,
+        "max": 9,
+        "gender": "m"
+      },
+      "memory": {
+        "it": "i vasetti di miele per il mercato",
+        "sl": "kozarčke medu za tržnico",
+        "en": "the jars of honey for the market",
+        "de": "die Honiggläschen für den Markt"
+      },
+      "lines": [
+        {
+          "who": "giulia",
+          "face": "proud",
+          "it": "Domani c'è il mercato. Porto il miele di Aldo: {n} {vasetto|vasetti}!",
+          "sl": "Jutri je tržnica. Nesem Aldov med: {n} {kozarček|kozarčka|kozarčke|kozarčkov}!",
+          "en": "Tomorrow there's the market. I'm taking Aldo's honey: {n} {jar|jars}!",
+          "de": "Morgen ist Markt. Ich bringe Aldos Honig hin: {n} {Gläschen|Gläschen}!"
+        },
+        {
+          "choices": [
+            {
+              "it": "{n} {vasetto|vasetti}? Che brava!",
+              "sl": "{n} {kozarček|kozarčka|kozarčki|kozarčkov}? Kako pridna!",
+              "en": "{n} {jar|jars}? Well done!",
+              "de": "{n} {Gläschen|Gläschen}? Toll!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì! E Aldo mi dà una moneta per ogni vasetto.",
+                "sl": "Ja! In Aldo mi da kovanec za vsak kozarček.",
+                "en": "Yes! And Aldo gives me a coin for each jar.",
+                "de": "Ja! Und Aldo gibt mir für jedes Gläschen eine Münze."
+              }
+            },
+            {
+              "it": "{n} {!vasetto|vasetti}? Che brava!",
+              "sl": "{n} {!kozarček|kozarčka|kozarčki|kozarčkov}? Kako pridna!",
+              "en": "{n} {!jar|jars}? Well done!",
+              "de": "{n} {!Gläschen|Gläschen}? Toll!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": {
+                "sl": "{Ena stvar je v ednini|Več stvari je v množini}: {n} {vasetto|vasetti}.",
+                "en": "{One takes the singular|More than one takes the plural}: {n} {vasetto|vasetti}.",
+                "de": "{Eins steht im Singular|Mehrere stehen im Plural}: {n} {vasetto|vasetti}."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Vasetto? Uno solo? No, no, conta bene!",
+                "sl": "Vasetto (kozarček)? Samo enega? Ne, ne, dobro preštej!",
+                "en": "Vasetto (one jar)? Just one? No, no, count properly!",
+                "de": "Vasetto (ein Gläschen)? Nur eins? Nein, nein, zähl richtig!"
+              }
+            },
+            {
+              "it": "{n} vaseti? Che brava!",
+              "sl": "{n} {kozarček|kozarčka|kozarčki|kozarčkov}? Kako pridna!",
+              "en": "{n} {jar|jars}? Well done!",
+              "de": "{n} {Gläschen|Gläschen}? Toll!",
+              "why": {
+                "sl": "Vasetto ima dva t, tudi v množini: vasetti.",
+                "en": "Vasetto has a double t, in the plural too: vasetti.",
+                "de": "Vasetto hat ein doppeltes t, auch im Plural: vasetti."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Vaseti? Hm, suona un po' strano.",
+                "sl": "Vaseti? Hm, malo čudno zveni.",
+                "en": "Vaseti? Hm, that sounds a bit odd.",
+                "de": "Vaseti? Hm, das klingt ein bisschen komisch."
+              }
+            }
+          ]
+        },
+        {
+          "who": "giulia",
+          "face": "laugh",
+          "it": "E il miele per la merenda? Quello no: lo mangiamo noi!",
+          "sl": "Pa med za malico? Tega pa ne: tega pojeva midva!",
+          "en": "And the honey for our snack? Not that one: we're eating that!",
+          "de": "Und der Honig für die Brotzeit? Den nicht: Den essen wir!"
+        }
+      ]
+    },
+    {
+      "id": "sera-inverno",
+      "months": [
+        11,
+        12,
+        1,
+        2
+      ],
+      "lines": [
+        {
+          "who": "aldo",
+          "it": "Buonasera, {learner}. D'inverno le api non escono. Fa troppo freddo.",
+          "sl": "Dober večer, {learner}. Pozimi čebele ne gredo ven. Premraz je.",
+          "en": "Good evening, {learner}. In winter the bees don't come out. It's too cold.",
+          "de": "Guten Abend, {learner}. Im Winter kommen die Bienen nicht heraus. Es ist zu kalt."
+        },
+        {
+          "choices": [
+            {
+              "it": "Le api hanno freddo?",
+              "sl": "Ali čebele zebe?",
+              "en": "Are the bees cold?",
+              "de": "Frieren die Bienen?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "No. Stanno strette strette, come una palla calda.",
+                "sl": "Ne. Stisnejo se skupaj, kot topla kepa.",
+                "en": "No. They huddle up close, like a warm ball.",
+                "de": "Nein. Sie kuscheln sich eng zusammen, wie eine warme Kugel."
+              }
+            },
+            {
+              "it": "Le api sono freddo?",
+              "sl": "Ali so čebele mraz?",
+              "en": "Are the bees cold (made of cold)?",
+              "de": "Sind die Bienen Kälte?",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Mraz »imaš«: avere freddo. Le api hanno freddo.",
+                "en": "In Italian you 'have' cold: avere freddo. Le api hanno freddo.",
+                "de": "Auf Italienisch 'hat' man kalt: avere freddo. Le api hanno freddo."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Sono freddo? Hm, le api non sono di ghiaccio!",
+                "sl": "So mraz? Hm, čebele niso iz ledu!",
+                "en": "Sono freddo? Hm, the bees aren't made of ice!",
+                "de": "Sono freddo? Hm, die Bienen sind doch nicht aus Eis!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "it": "Mangiano il miele dell'estate. Per questo io ne lascio tanto nell'arnia.",
+          "sl": "Jedo poletni med. Zato ga v panju pustim veliko.",
+          "en": "They eat the summer's honey. That's why I leave lots of it in the hive.",
+          "de": "Sie essen den Honig vom Sommer. Deshalb lasse ich ihnen viel davon im Stock."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora a marzo tornano i fiori e le api!",
+              "sl": "Potem se marca vrnejo cvetovi in čebele!",
+              "en": "Then in March the flowers and the bees come back!",
+              "de": "Dann kommen im März die Blumen und die Bienen zurück!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Sì. A marzo, il primo sole, e bzz!",
+                "sl": "Ja. Marca, prvo sonce, in bzz!",
+                "en": "Yes. In March, the first sun, and bzz!",
+                "de": "Ja. Im März, die erste Sonne, und summ!"
+              }
+            },
+            {
+              "it": "Allora ad agosto tornano i fiori e le api!",
+              "sl": "Potem se avgusta vrnejo cvetovi in čebele!",
+              "en": "Then in August the flowers and the bees come back!",
+              "de": "Dann kommen im August die Blumen und die Bienen zurück!",
+              "why": {
+                "sl": "Avgust je poletje. Spomladi, marca (a marzo), se vse začne.",
+                "en": "August is summer. In spring, in March (a marzo), it all begins again.",
+                "de": "August ist Sommer. Im Frühling, im März (a marzo), beginnt alles wieder."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Ad agosto? Così aspettano tutta la primavera? Eh eh.",
+                "sl": "Avgusta? Da čakajo vso pomlad? He he.",
+                "en": "In August? So they wait all spring? Heh heh.",
+                "de": "Im August? Dann warten sie den ganzen Frühling? Hehe."
+              }
+            }
+          ]
+        },
+        {
+          "who": "aldo",
+          "face": "happy",
+          "it": "Buonanotte. Torna a trovarmi, anche con la neve.",
+          "sl": "Lahko noč. Pridi me spet obiskat, tudi ko sneži.",
+          "en": "Good night. Come and see me again, even in the snow.",
+          "de": "Gute Nacht. Besuch mich wieder, auch wenn es schneit."
+        }
+      ]
+    },
+    {
+      "id": "acacia-frittelle",
+      "memory": {
+        "it": "le frittelle di fiori di acacia della mia mamma",
+        "sl": "ocvrte akacijeve cvetove moje mame",
+        "en": "my mum's acacia flower fritters",
+        "de": "die gebackenen Akazienblüten meiner Mama"
+      },
+      "lines": [
+        {
+          "who": "bepi",
+          "face": "proud",
+          "it": "Sai cosa faceva la mia mamma a maggio? Le frittelle di fiori di acacia!",
+          "sl": "Veš, kaj je moja mama delala maja? Ocvrte akacijeve cvetove!",
+          "en": "Do you know what my mum made in May? Acacia flower fritters!",
+          "de": "Weißt du, was meine Mama im Mai gemacht hat? Gebackene Akazienblüten!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Frittelle di fiori? Che strano!",
+              "sl": "Ocvrti cvetovi? Kako čudno!",
+              "en": "Flower fritters? How strange!",
+              "de": "Gebackene Blüten? Wie komisch!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Strano, ma buonissimo! Con lo zucchero sopra.",
+                "sl": "Čudno, ampak odlično! S sladkorjem po vrhu.",
+                "en": "Strange, but delicious! With sugar on top.",
+                "de": "Komisch, aber superlecker! Mit Zucker obendrauf."
+              }
+            },
+            {
+              "it": "Mmm, sono buone?",
+              "sl": "Mmm, so dobri?",
+              "en": "Mmm, are they good?",
+              "de": "Mmm, sind die gut?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Buonissime! Con lo zucchero sopra.",
+                "sl": "Odlični! S sladkorjem po vrhu.",
+                "en": "Delicious! With sugar on top.",
+                "de": "Superlecker! Mit Zucker obendrauf."
+              }
+            },
+            {
+              "it": "Frittelli di fiori? Che strano!",
+              "sl": "Ocvrti cvetovi? Kako čudno!",
+              "en": "Flower fritters (wrong plural)? How strange!",
+              "de": "Gebackene Blüten (falscher Plural)? Wie komisch!",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Frittella je ženskega spola: v množini frittelle.",
+                "en": "Frittella is feminine: in the plural frittelle.",
+                "de": "Frittella ist weiblich: im Plural frittelle."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Frittelli? Hm, la mia mamma non li faceva così.",
+                "sl": "Frittelli? Hm, moja mama jih ni tako delala.",
+                "en": "Frittelli? Hm, my mum didn't make those.",
+                "de": "Frittelli? Hm, die hat meine Mama nicht gemacht."
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "thinking",
+          "it": "Ma prima chiediamo ad Aldo. I fiori servono anche alle api.",
+          "sl": "Ampak najprej vprašajva Alda. Cvetovi so tudi za čebele.",
+          "en": "But first we'll ask Aldo. The bees need the flowers too.",
+          "de": "Aber zuerst fragen wir Aldo. Die Bienen brauchen die Blüten auch."
+        },
+        {
+          "choices": [
+            {
+              "it": "Giusto. Le api hanno fame!",
+              "sl": "Prav. Čebele so lačne!",
+              "en": "Right. The bees are hungry!",
+              "de": "Stimmt. Die Bienen haben Hunger!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. Prendiamo pochi fiori, e le api sono contente.",
+                "sl": "Ja. Vzemiva malo cvetov, pa bodo čebele zadovoljne.",
+                "en": "Yes. We'll take only a few flowers, and the bees will be happy.",
+                "de": "Ja. Wir nehmen nur wenige Blüten, dann sind die Bienen zufrieden."
+              }
+            },
+            {
+              "it": "Giusto. Le api ha fame!",
+              "sl": "Prav. Čebele je lačna!",
+              "en": "Right. The bees is hungry!",
+              "de": "Stimmt. Die Bienen hat Hunger!",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Več čebel: hanno (imajo). Ha je za eno.",
+                "en": "Many bees: hanno (they have). Ha is for one.",
+                "de": "Viele Bienen: hanno (sie haben). Ha steht bei einer."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Ha? Una sola ape ha fame? E le altre?",
+                "sl": "Ha (ima)? Samo ena čebela je lačna? Pa druge?",
+                "en": "Ha (has)? Just one bee is hungry? And the others?",
+                "de": "Ha (hat)? Nur eine Biene hat Hunger? Und die anderen?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "bepi",
+          "face": "laugh",
+          "it": "Domani le facciamo insieme. Tu porti lo zucchero!",
+          "sl": "Jutri jih narediva skupaj. Ti prineseš sladkor!",
+          "en": "Tomorrow we'll make them together. You bring the sugar!",
+          "de": "Morgen machen wir sie zusammen. Du bringst den Zucker!"
+        }
+      ]
+    }
+  ]
+}
