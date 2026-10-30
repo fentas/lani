@@ -2335,6 +2335,55 @@ old way (yan, tyan, tethera, A1) and his book of sayings (A2), Mrs Hartley's sch
 (A2), all in English with Slovene, Italian and German (`readings/`). The voice cast (`voice-cast.json`) has the same
 archetypes, in English: British voices for the narrators and the grandparents, no northern one yet (README, "Voice").
 
+### The map in a culture's look
+
+Jan, 2026-10-30, from Teo's Friuli map: its watchtower flew Slovenia's flag, its field's hayrack was a Slovene kozolec,
+the tent and the feasts' garlands were Slovenia's, while the scenes of the same village (Nel campo's fienile, the fire's
+village) were Friuli's own. The village map now draws each culture's village as the culture builds it, in the same pixel
+world, and agrees with its scenes: what the field's scene shows, the map shows (`game/render/MapLook.kt`,
+`BuildingLooks.kt`; docs/plans/05-built/map-culture.md).
+
+A culture's look on the map (`MapLook.of(culture, landscape)`) comes from two places:
+
+- **The village as the fire's scene builds it** (`FireStyle`, [SCENES.md](SCENES.md#ob-ognju-by-the-age)): the houses'
+  walls, roofs and shutters, a timbered storey or a balcony, the church's tower, the huts, the linden or the oak. The same
+  style paints the village round the fire, so the two can't drift apart.
+- **The map's own entries**, the `map` art of the culture's `CultureLooks` table beside its scenes' (`FRIULI_MAP`,
+  `KAERNTEN_MAP`, `LAKELAND_MAP`): the hayrack, the well, the hives, the smithy, the school, the flags, the feasts'
+  colours, the mountains at the horizon and the projects' landmarks. Where a scene has the same thing, the entry is the
+  scene's (`MapLooksTest`: Friuli's `field.kozolec` fienile, its `tent.pennant`, its `smithy.walls`, the school's flag;
+  Carinthia's and the Lake District's `alps.range` and `campfire.flag`).
+
+The default culture (Primorska, whose look every sprite was drawn in) and a culture without a look draw the map as it
+always was, pixel for pixel (`ClassicLandTest`'s digests, `MapLooksTest`). The frame says whose village it is
+(`Frame.culture`: the learner's, on a visit the host's, the founding's and the setup's preview the chosen culture's).
+
+| | Primorska (the map's own) | Friuli (`friuli`) | Carinthia (`kaernten`) | The Lake District (`lakeland`) |
+|---|---|---|---|---|
+| Houses | white walls on a stone plinth, shuttered windows, the wooden balcony with geraniums, red tiles | plastered in ochre, terracotta or cream, green shutters (blue by the sea), windows in pale stone frames, the stone portal with the vine's pergola over it, a low coppi roof, the fogolâr's chimney under its little roof | white below and timbered above, green shutters, the balcony with its geraniums across the gable, dark shingles with the half-hipped gable (Krüppelwalm) | grey stone (one in three whitewashed), white window frames and no shutters, a slate porch before the door, slate, the round chimneys at both gable ends |
+| Church | white, its spire behind the nave | the nave's gabled front with its portal and rose window under coppi, the free-standing brick campanile with its belfry and low cap | white, the onion dome of green copper on its tower, dark shingles | grey stone under slate, lancet windows, the square tower with its battlements and pinnacles |
+| Hut | logs under shingles | stone under coppi; by the sea a casone of the lagoon, its reed thatch down to the ground | logs under shingles | slate stone under slate, a round chimney from level 2 |
+| Hayrack (kozolec) | the toplar-like double kozolec | the fienile: river cobbles with bands of brick, two arches, the hay in the loft between brick lattices, coppi (as Nel campo) | the Harpfe: one rack of four posts with its laths, struts, a narrow shingle roof, hay on it June to October (as Am See's far shore) | a stone field barn under slate: the cart door in its arch, the forking hole with hay, slits, the owl hole |
+| Well | its roof over the windlass | la vera da pozzo: a head of pale stone under a wrought-iron arch, its pulley, the copper bucket | a log trough with its post and running spout (frozen in winter) | the village pump of dark green cast iron on its stone trough |
+| Linden | the linden and its bench | the linden (il tiglio) | the linden (die Linde) | the oak on the green: broad and low, russet late in autumn |
+| Bee house | painted panels | plain painted hive boxes under coppi | painted panels | three white WBC hives |
+| Smithy | stone under slate | river cobbles with bands of brick, coppi, an iron grille (as Nella fucina) | stone under shingles | stone under slate |
+| School | ochre, the blue sign, the bell turret | ochre under coppi, a stone plaque, the tricolore on its bracket over the door, no bell turret | the map's own | grey stone under slate, white frames, a dark board, the stone bellcote |
+| Flags | Slovenia's on the watchtower, two red dots on the tent | Italy's tricolore on the watchtower, Friuli's eagle on the tent (as Nella tenda) | Austria's red, white and red on both (as Am Feuer) | St George's cross on both (as By the fire) |
+| Feasts | garlands red, white, blue, gold and green; banners Slovenia's | green, white and red; the tricolore down the banners | red and white; ribbons with Carinthia's yellow | bunting red, white and blue; St George's banners; the maypole's ribbons every colour |
+| Horizon | the Julian Alps with Triglav | the Julian Alps | the Karawanken with the Mittagskogel's pyramid (as Am See) | the fells: round, green and bracken, crags, snow only on the tops (as On the fell) |
+| Landmarks | the mlaj, the terraces with the klopotec, the toplar, the bocce court, the town clock's onion dome | the greasy pole with its prizes and the tricolore (l'albero della cuccagna); the Collio's vines without the klopotec; the town clock in the campanile; coppi on the chapel, the fire station and the lookout | the Maibaum; the orchard of old apple and pear trees on the meadow; the Stockschießbahn with its stocks; the onion dome; shingles | the maypole with its long ribbons; damsons on the terraces; a stone bank barn for the toplar; the bowling green; the church clock on the battlemented tower; the viewing station of stone with its coloured windows; slate and stone on the chapel and the rescue hut |
+
+Every building keeps its plot, its tap and its height (`spriteHeight`), its lit windows by night and dark ones while
+everyone sleeps, its hearth's smoke and the forge's glow, at every detail; only the picture changes, so no journey does.
+The Friends card flies the town's flag as its watchtower does (`Towns.flag(culture, language)`: 🇦🇹 for a Carinthian
+village where it showed 🇩🇪, England's for the Lake District's; a culture this app has no pack of shows its language's).
+
+To give a culture's map its look: its `map` table in `CultureLooks` (the variants above by name), its `FireStyle` for the
+village's build; a new kind of thing a variant of `MapLook` and its sprite in `CultureBuildings` (or the landmark's
+painter), the default culture's sprite untouched. `MapLooksTest` renders every culture's map at every age by day, at
+dusk, at night and in winter, each building closer up, the feasts and the landmarks (`build/map-looks/`).
+
 ## The night sky
 
 The sky over the village is the real one, over the village's own place (its culture pack's `sky.json`, `where`;

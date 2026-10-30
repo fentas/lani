@@ -2660,6 +2660,12 @@ To give an art a culture's look:
 Friuli's indoor places: docs/plans/05-built/culture-looks-friuli-indoors.md (what each draws instead of the Slovene
 picture, the words checked against it, the frame times).
 
+The village map has a culture's look too, from the same tables (the `map` art: `FRIULI_MAP`, `KAERNTEN_MAP`,
+`LAKELAND_MAP`) and the fire's village's `FireStyle`, so the map shows what the scenes show: Friuli's fienile where
+Nel campo has it, the Karawanken and the fells at the horizon as Am See and On the fell draw them, the camp's flags,
+Friuli's smithy of cobbles ([GAME.md](GAME.md#the-map-in-a-cultures-look); `MapLooksTest` checks that each map entry is
+its scene's).
+
 | Culture | Art | What its look draws |
 |---|---|---|
 | `friuli` | `field` (Nel campo) | `FRIULI_FIELD`: the fienile of the Friulian plain where the kozolec stands (`kozolec`: `fienile`): walls of river cobbles laid in courses with bands of brick and brick quoins, two round brick arches below with the hay heaped under the left one, a brick string course, the hay loft above, open in the middle behind its pole with the hay bulging out, a brick lattice (gelosia) either side and one in the gable, a low coppi roof out over the walls on its rafters; the village on the hill as Friuli builds it (`village`: the fire's village's colours, `FireStyle`): ochre, terracotta and cream houses under coppi, shutters, the church's gable and the free-standing brick campanile with its belfry and pyramid cap, where the evening bell rings; its farmsteads with a brick barn; vine rows along the Collio's slopes (`hills`); the plain's trees (`trees`): a row of pollarded mulberries behind the corn with the vines strung from tree to tree (the piantata), Lombardy poplars along a far ditch |

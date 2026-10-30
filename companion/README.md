@@ -412,7 +412,9 @@ other over HTTP as if they were on different machines, so the same protocol work
 
 **A town's id** is its bridge key's fingerprint (see [Pair a phone](#pair-a-phone)). A town shows itself as its
 village's name (the one set with `lani-town name`, else the culture pack's, e.g. "Moja vas"), the learner's
-first name, the culture pack and its language.
+first name, the culture pack and its language. The app shows a town with its culture's flag, the one its village's watchtower flies (🇸🇮
+Primorska, 🇮🇹 Friuli, 🇦🇹 Carinthia, England's for the Lake District: GAME.md "The map in a culture's look"), and a
+culture it has no pack of with its language's.
 
 **Links** are in `<data>/app/towns.json`: for each linked town, its id, its public key, the URL its bridge
 answers on (on one node `http://127.0.0.1:<port>`; `LANI_TOWN_URL` sets a bridge's own), when it was linked,
@@ -674,7 +676,8 @@ isn't answering (then its last state shows). The app still talks only to its own
   comes with `stale: true`; what was never had is a `502` with `code: unreachable`.
 - **The app** draws the town from its public state: a read-only village state (buildings on their plots, the age,
   the projects' landmarks, who lives there, today's visitor, the sky, the festival celebrated) that is never saved or
-  sent anywhere, in the host culture's look and with its people walking about; its scenes are drawn in that look too
+  sent anywhere, in the host culture's look (its houses, church, hayrack, flags and mountains: GAME.md "The map in a
+  culture's look") and with its people walking about; its scenes are drawn in that look too
   (companion/SCENES.md "Culture looks": a Carinthian town's Am See under the Mittagskogel with its onion-domed church,
   a Lake District town's fells with their walls and Herdwicks). A banner says "🧳 Na obisku ·
   Visiting: <village> (<learner>)", with "⌂ Domov · Home"; a town that isn't answering says so, with a retry, or shows
