@@ -324,7 +324,8 @@ internal class ForestPainter : WildPainter() {
         c.hline((cx - hw).toInt(), (cx + hw).toInt(), (by - hh).toInt(), wickD)
         // the mushrooms heaped over its rim in rows, each its own (its own outline), so they can be counted: brown porcini,
         // a golden chanterelle here and there
-        // two rows at most, a cap's width apart: the back one over the rim, the front one along it
+        // two rows at most, a cap's width apart: the back one over the rim, against the grass, the front one along it; a
+        // single row stands over the rim too (along it, brown on the willow, a few caps were hard to count)
         val rows = if (n > 7) 2 else 1
         val r = max(1f, 0.055f * p)
         var left = n
@@ -334,7 +335,7 @@ internal class ForestPainter : WildPainter() {
             for (i in 0 until m) {
                 val u = if (m == 1) 0f else (i / (m - 1f) - 0.5f) * (1.62f - 0.12f * row)
                 val mx = cx + u * hw + (if (row == 1 && m > 1) 0.5f * (1.62f * hw / (m - 1f)) * 0.5f else 0f)
-                val my = by - hh - (if (rows == 2 && row == 0) 0.12f else 0.03f) * p
+                val my = by - hh - (if (row == 0) 0.12f else 0.03f) * p
                 val chanterelle = Noise.rnd(i, row, 151) < 0.25f
                 part()
                 c.vline(mx.toInt(), (my + r * 0.4f).toInt(), (my + r * 1.3f).toInt(), Col.hex(0xEADFC4))
