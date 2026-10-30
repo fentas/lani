@@ -1,0 +1,344 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "pri-kapelici",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture as its painter draws it (the colours, and where each thing is); what changes with the season is said with its season (\"poleti\"); not reviewed by a native speaker",
+  "things": {
+    "chapel": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bela.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "trait",
+          "sl": "Ima zvonček na strehi.",
+          "en": "It has a little bell on its roof.",
+          "grammar": ["mestnik"]
+        },
+        {
+          "kind": "use",
+          "sl": "V njej je oltar.",
+          "en": "There's an altar in it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "roof": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        {
+          "kind": "material",
+          "sl": "Je lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        {
+          "kind": "where",
+          "sl": "Je nad oltarjem.",
+          "en": "It's above the altar.",
+          "grammar": ["orodnik"],
+          "prep": "nad",
+          "case": "ins",
+          "ref": "altar",
+          "form": "oltarjem"
+        },
+        { "kind": "does", "sl": "Varuje pred dežjem.", "en": "It keeps the rain off.", "grammar": ["glagoli-sedanjik"] }
+      ]
+    },
+    "bell": {
+      "clues": [
+        { "kind": "colour", "sl": "Je zlat.", "en": "It's golden.", "grammar": ["pridevniki-ujemanje"], "adj": "zlat" },
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "does", "sl": "Opoldne zvoni.", "en": "It rings at noon.", "grammar": ["glagoli-sedanjik"] },
+        {
+          "kind": "use",
+          "sl": "Z njim zvonimo poldne.",
+          "en": "We ring noon with it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "altar": {
+      "clues": [
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "trait",
+          "sl": "Na njem sta sveča in rože.",
+          "en": "There's a candle and flowers on it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        },
+        {
+          "kind": "where",
+          "sl": "Je v kapelici.",
+          "en": "It's in the chapel.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "ref": "chapel",
+          "form": "kapelici"
+        }
+      ]
+    },
+    "cloth": {
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Je bel in rdeč.",
+          "en": "It's white and red.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "bel"
+        },
+        {
+          "kind": "trait",
+          "sl": "Je vezen.",
+          "en": "It's embroidered.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "vezen"
+        },
+        {
+          "kind": "where",
+          "sl": "Leži na oltarju.",
+          "en": "It lies on the altar.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "ref": "altar",
+          "form": "oltarju"
+        }
+      ]
+    },
+    "picture": {
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Je modra in zlata.",
+          "en": "It's blue and gold.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "moder"
+        },
+        {
+          "kind": "trait",
+          "sl": "Na njej je Marija.",
+          "en": "Mary is on it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        },
+        {
+          "kind": "where",
+          "sl": "Visi nad oltarjem.",
+          "en": "It hangs above the altar.",
+          "grammar": ["orodnik"],
+          "prep": "nad",
+          "case": "ins",
+          "ref": "altar",
+          "form": "oltarjem"
+        }
+      ]
+    },
+    "candle": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeča.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        { "kind": "does", "sl": "Ponoči gori.", "en": "It burns at night.", "grammar": ["glagoli-sedanjik"] },
+        {
+          "kind": "use",
+          "sl": "Prižgemo jo zvečer.",
+          "en": "We light it in the evening.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
+        }
+      ]
+    },
+    "flowers": {
+      "name": { "en": "flower" },
+      "clues": [
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "where",
+          "sl": "Je v vazi.",
+          "en": "It's in a vase.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "noun": "vaza",
+          "form": "vazi"
+        },
+        { "kind": "does", "sl": "Lepo diši.", "en": "It smells lovely.", "grammar": ["glagoli-sedanjik"] },
+        {
+          "kind": "use",
+          "sl": "Prinesemo jo vsako jutro.",
+          "en": "We bring it every morning.",
+          "grammar": ["tozilnik"],
+          "pronoun": "acc"
+        }
+      ]
+    },
+    "grille": {
+      "clues": [
+        { "kind": "colour", "sl": "Je črna.", "en": "It's black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        {
+          "kind": "material",
+          "sl": "Je železna.",
+          "en": "It's made of iron.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "železen"
+        },
+        {
+          "kind": "where",
+          "sl": "Je pred oltarjem.",
+          "en": "It's in front of the altar.",
+          "grammar": ["orodnik"],
+          "prep": "pred",
+          "case": "ins",
+          "ref": "altar",
+          "form": "oltarjem"
+        },
+        {
+          "kind": "use",
+          "sl": "Skozi njo vidimo oltar.",
+          "en": "We see the altar through it.",
+          "grammar": ["tozilnik"]
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        {
+          "kind": "material",
+          "sl": "Je lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        {
+          "kind": "where",
+          "sl": "Stoji pod lipo.",
+          "en": "It stands under the linden.",
+          "grammar": ["orodnik"],
+          "prep": "pod",
+          "case": "ins",
+          "ref": "linden",
+          "form": "lipo"
+        },
+        { "kind": "use", "sl": "Na njej počivamo.", "en": "We rest on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "linden": {
+      "clues": [
+        {
+          "kind": "size",
+          "sl": "Je velika in visoka.",
+          "en": "It's big and tall.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "velik"
+        },
+        { "kind": "does", "sl": "Poleti cveti.", "en": "It flowers in summer.", "grammar": ["glagoli-sedanjik"] },
+        {
+          "kind": "where",
+          "sl": "Raste ob cesti.",
+          "en": "It grows by the road.",
+          "grammar": ["mestnik"],
+          "prep": "ob",
+          "case": "loc",
+          "ref": "road",
+          "form": "cesti"
+        },
+        {
+          "kind": "use",
+          "sl": "Pod njo je klop.",
+          "en": "There's a bench under it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "road": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        { "kind": "size", "sl": "Je dolga.", "en": "It's long.", "grammar": ["pridevniki-ujemanje"], "adj": "dolg" },
+        {
+          "kind": "where",
+          "sl": "Je ob njivi.",
+          "en": "It's by the field.",
+          "grammar": ["mestnik"],
+          "prep": "ob",
+          "case": "loc",
+          "ref": "field",
+          "form": "njivi"
+        },
+        {
+          "kind": "does",
+          "sl": "Pelje čez polja k hribom.",
+          "en": "It leads over the fields to the hills.",
+          "grammar": ["glagoli-sedanjik"]
+        }
+      ]
+    },
+    "field": {
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Poleti je rumena.",
+          "en": "In summer it's yellow.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "rumen"
+        },
+        { "kind": "size", "sl": "Je velika.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        {
+          "kind": "where",
+          "sl": "Je ob cesti.",
+          "en": "It's by the road.",
+          "grammar": ["mestnik"],
+          "prep": "ob",
+          "case": "loc",
+          "ref": "road",
+          "form": "cesti"
+        },
+        {
+          "kind": "use",
+          "sl": "Na njej raste pšenica.",
+          "en": "Wheat grows on it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "cross": {
+      "clues": [
+        { "kind": "colour", "sl": "Je črn.", "en": "It's black.", "grammar": ["pridevniki-ujemanje"], "adj": "črn" },
+        { "kind": "size", "sl": "Je majhen.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "material",
+          "sl": "Je železen.",
+          "en": "It's made of iron.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "železen"
+        },
+        { "kind": "where", "sl": "Je čisto na vrhu.", "en": "It's right at the top.", "grammar": ["mestnik"] }
+      ]
+    },
+    "hills": {
+      "name": { "en": "hill" },
+      "clues": [
+        { "kind": "colour", "sl": "Je moder.", "en": "It's blue.", "grammar": ["pridevniki-ujemanje"], "adj": "moder" },
+        { "kind": "size", "sl": "Je visok.", "en": "It's high.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        {
+          "kind": "where",
+          "sl": "Je za njivo.",
+          "en": "It's behind the field.",
+          "grammar": ["orodnik"],
+          "prep": "za",
+          "case": "ins",
+          "ref": "field",
+          "form": "njivo"
+        },
+        { "kind": "trait", "sl": "Je daleč.", "en": "It's far away.", "grammar": ["prislovi"] }
+      ]
+    }
+  }
+}
