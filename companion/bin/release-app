@@ -146,7 +146,10 @@ fi
 if ((docker)); then
   "$root/companion/bin/lani-build-app" --release > /dev/null
 else
-  ./gradlew -q :app:assembleRelease
+  # Kotlin compiles in this build's own single-use process, with room for the whole app: the shared Kotlin daemon
+  # serves every worktree's builds at once, and a release failed when it ran out of heap there
+  ./gradlew --no-daemon -q -Pkotlin.compiler.execution.strategy=in-process \
+    -Dorg.gradle.jvmargs="-Xmx6g -Dfile.encoding=UTF-8" :app:assembleRelease
 fi
 
 # what the build made of it (AGP's output-metadata.json), so this script and the app can't disagree
