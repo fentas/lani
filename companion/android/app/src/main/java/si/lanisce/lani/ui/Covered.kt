@@ -71,8 +71,14 @@ fun rememberAway(): Boolean {
 fun rememberShownAt(): Long {
     val away = rememberAway()
     var at by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    // back from away: the time now; the first composition keeps its own (no recomposition at the start)
+    val wasAway = remember { BooleanArray(1) }
     LaunchedEffect(away) {
-        if (!away && System.currentTimeMillis() - at >= 1_000) at = System.currentTimeMillis()
+        if (away) wasAway[0] = true
+        else if (wasAway[0]) {
+            wasAway[0] = false
+            at = System.currentTimeMillis()
+        }
     }
     return at
 }

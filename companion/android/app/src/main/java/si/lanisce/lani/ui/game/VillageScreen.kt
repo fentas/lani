@@ -1121,9 +1121,17 @@ fun rememberNow(periodMs: Long = 30_000): Long {
     // stopped while the screen is covered (Home under another: ui/Covered.kt), the time now a moment after it shows again
     // (its first frames as it was: rememberAway)
     val away = si.lanisce.lani.ui.rememberAway()
+    val wasAway = remember { BooleanArray(1) }
     val now by produceState(System.currentTimeMillis(), away) {
-        if (away) return@produceState
-        if (System.currentTimeMillis() - value >= 1_000) value = System.currentTimeMillis()
+        if (away) {
+            wasAway[0] = true
+            return@produceState
+        }
+        // back from away: the time now; the first composition keeps its own (no recomposition at the start)
+        if (wasAway[0]) {
+            wasAway[0] = false
+            value = System.currentTimeMillis()
+        }
         while (true) {
             delay(periodMs)
             value = System.currentTimeMillis()

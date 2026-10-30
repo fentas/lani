@@ -148,9 +148,8 @@ class ScreenStackTest {
         val first = compose.runOnIdle { now }
         assertFalse("a screen never covered isn't away", away)
         compose.runOnIdle { covered = true }
-        // a while covered: over a second (the clock says a time only when the one it has is a second old; System.currentTimeMillis
-        // is the wall's here)
-        Thread.sleep(1_100)
+        // a while covered (Robolectric's clock: the test's frames move it)
+        compose.mainClock.advanceTimeBy(1_000)
         compose.waitForIdle()
         assertEquals("nothing while covered", first, now)
         compose.mainClock.autoAdvance = false
@@ -170,7 +169,7 @@ class ScreenStackTest {
         var at = 0L
         compose.setContent { androidx.compose.runtime.CompositionLocalProvider(LocalCovered provides covered) { at = rememberShownAt() } }
         val first = compose.runOnIdle { at }
-        Thread.sleep(1_100)
+        compose.mainClock.advanceTimeBy(1_000)
         compose.waitForIdle()
         assertEquals("steady while on view: no work by the clock", first, at)
         compose.runOnIdle { covered = true }
