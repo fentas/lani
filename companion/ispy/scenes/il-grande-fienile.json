@@ -1,0 +1,602 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "il-grande-fienile",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations; the field's picture is Nel campo's in Friuli's look, so are its clues (its painter's colours and where each thing is drawn; the small fienile of river stones and brick; the animals only when they are out), and the cart takes the hay to the big barn; not reviewed by a native speaker",
+  "things": {
+    "wheat": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "D'estate è giallo.",
+          "sl": "Poleti je rumene barve.",
+          "en": "In summer it's yellow.",
+          "de": "Im Sommer ist er gelb.",
+          "grammar": ["aggettivi-accordo"]
+        },
+        {
+          "kind": "where",
+          "it": "Cresce dietro lo steccato.",
+          "sl": "Raste za plotom.",
+          "en": "It grows behind the fence.",
+          "de": "Er wächst hinter dem Zaun.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "fence"
+        },
+        {
+          "kind": "use",
+          "it": "Lo raccogliamo d'estate.",
+          "sl": "Poleti to žanjemo.",
+          "en": "We harvest it in summer.",
+          "de": "Im Sommer ernten wir ihn.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "use",
+          "it": "Con la sua farina facciamo il pane.",
+          "sl": "Iz tega naredimo moko za kruh.",
+          "en": "We make bread from its flour.",
+          "de": "Aus seinem Mehl backen wir Brot.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "corn": {
+      "name": { "en": "maize", "de": "Mais", "sl": "koruza" },
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "D'estate è verde.",
+          "sl": "Poleti je zelene barve.",
+          "en": "In summer it's green.",
+          "de": "Im Sommer ist er grün.",
+          "grammar": ["aggettivi-accordo"]
+        },
+        {
+          "kind": "size",
+          "it": "D'estate è alto.",
+          "sl": "Poleti je visoko.",
+          "en": "In summer it's tall.",
+          "de": "Im Sommer ist er hoch.",
+          "grammar": ["aggettivi-accordo"]
+        },
+        {
+          "kind": "where",
+          "it": "Cresce a sinistra.",
+          "sl": "Raste na levi.",
+          "en": "It grows on the left.",
+          "de": "Er wächst links.",
+          "grammar": ["dove-preposizioni"]
+        },
+        {
+          "kind": "use",
+          "it": "Alle galline piace tanto.",
+          "sl": "Kokoši ga imajo zelo rade.",
+          "en": "The hens love it.",
+          "de": "Die Hühner mögen ihn sehr.",
+          "grammar": ["piacere", "preposizioni-articolate"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci facciamo la polenta.",
+          "sl": "Iz tega kuhamo polento.",
+          "en": "We make polenta from it.",
+          "de": "Daraus machen wir Polenta.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "potatoes": {
+      "name": { "en": "potatoes", "de": "Kartoffeln", "sl": "krompir" },
+      "clues": [
+        {
+          "kind": "trait",
+          "it": "D'estate ha i fiori bianchi.",
+          "sl": "Poleti ima bele cvetove.",
+          "en": "In summer it has white flowers.",
+          "de": "Im Sommer hat sie weiße Blüten.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        {
+          "kind": "where",
+          "it": "Cresce vicino al sentiero.",
+          "sl": "Raste ob stezi.",
+          "en": "It grows by the path.",
+          "de": "Sie wächst am Pfad.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "path"
+        },
+        {
+          "kind": "does",
+          "it": "Cresce sotto terra.",
+          "sl": "Raste pod zemljo.",
+          "en": "It grows under the ground.",
+          "de": "Sie wächst unter der Erde.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "use",
+          "it": "D'autunno la raccogliamo.",
+          "sl": "Jeseni ga izkopljemo.",
+          "en": "In autumn we dig it up.",
+          "de": "Im Herbst ernten wir sie.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "cabbage": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È verde chiaro.",
+          "sl": "Je svetlo zelene barve.",
+          "en": "It's light green.",
+          "de": "Er ist hellgrün.",
+          "grammar": ["aggettivi-accordo"]
+        },
+        {
+          "kind": "where",
+          "it": "Cresce dietro lo steccato.",
+          "sl": "Raste za plotom.",
+          "en": "It grows behind the fence.",
+          "de": "Er wächst hinter dem Zaun.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "fence"
+        },
+        {
+          "kind": "use",
+          "it": "Alla lepre piace tanto.",
+          "sl": "Zajec ga ima zelo rad.",
+          "en": "The hare loves it.",
+          "de": "Der Hase mag ihn sehr.",
+          "grammar": ["piacere", "preposizioni-articolate"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci facciamo la minestra.",
+          "sl": "Iz tega skuhamo juho.",
+          "en": "We make soup with it.",
+          "de": "Daraus kochen wir Suppe.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "kozolec": {
+      "clues": [
+        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "de": "Er ist groß.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "material",
+          "it": "È di sassi e mattoni.",
+          "sl": "Je iz kamna in opeke.",
+          "en": "It's made of stones and bricks.",
+          "de": "Er ist aus Steinen und Ziegeln.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È sul prato.",
+          "sl": "Stoji na travniku.",
+          "en": "It stands in the meadow.",
+          "de": "Er steht auf der Wiese.",
+          "grammar": ["preposizioni-articolate"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha due archi.",
+          "sl": "Ima dva loka.",
+          "en": "It has two arches.",
+          "de": "Er hat zwei Bögen.",
+          "grammar": ["essere-avere", "numeri"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci teniamo il fieno.",
+          "sl": "V njem hranimo seno.",
+          "en": "We keep the hay in it.",
+          "de": "Darin lagern wir das Heu.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "hay": {
+      "clues": [
+        { "kind": "colour", "it": "È giallo.", "sl": "Je rumene barve.", "en": "It's yellow.", "de": "Es ist gelb.", "grammar": ["aggettivi-accordo"]},
+        { "kind": "trait", "it": "È secco.", "sl": "To je nekaj suhega.", "en": "It's dry.", "de": "Es ist trocken.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "where",
+          "it": "È sotto il tetto.",
+          "sl": "Je pod streho.",
+          "en": "It's under the roof.",
+          "de": "Es ist unter dem Dach.",
+          "grammar": ["dove-preposizioni"]
+        },
+        { "kind": "does", "it": "Ha un buon profumo.", "sl": "Lepo diši.", "en": "It smells good.", "de": "Es duftet gut.", "grammar": ["essere-avere"]},
+        {
+          "kind": "use",
+          "it": "D'inverno lo mangiano le mucche.",
+          "sl": "Pozimi ga jedo krave.",
+          "en": "In winter the cows eat it.",
+          "de": "Im Winter fressen es die Kühe.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "scythe": {
+      "clues": [
+        { "kind": "trait", "it": "È affilata.", "sl": "To je nekaj ostrega.", "en": "It's sharp.", "de": "Sie ist scharf.", "grammar": ["aggettivi-accordo"]},
+        { "kind": "size", "it": "È lunga.", "sl": "To je nekaj dolgega.", "en": "It's long.", "de": "Sie ist lang.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "trait",
+          "it": "Ha il manico di legno.",
+          "sl": "Ima lesen ročaj.",
+          "en": "It has a wooden handle.",
+          "de": "Sie hat einen Holzstiel.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È appoggiata allo steccato.",
+          "sl": "Naslonjena je na plot.",
+          "en": "It leans against the fence.",
+          "de": "Sie lehnt am Zaun.",
+          "grammar": ["preposizioni-articolate", "aggettivi-accordo"],
+          "ref": "fence"
+        },
+        {
+          "kind": "use",
+          "it": "Ci tagliamo l'erba.",
+          "sl": "S tem kosimo travo.",
+          "en": "We cut grass with it.",
+          "de": "Damit mähen wir das Gras.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "rake": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Er ist braun.", "grammar": ["aggettivi-accordo"]},
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Er ist aus Holz.", "grammar": ["essere-avere"]},
+        {
+          "kind": "trait",
+          "it": "Ha tanti denti.",
+          "sl": "Ima veliko zob.",
+          "en": "It has lots of teeth.",
+          "de": "Er hat viele Zähne.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci giriamo il fieno.",
+          "sl": "S tem obračamo seno.",
+          "en": "We turn the hay with it.",
+          "de": "Damit wenden wir das Heu.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "basket": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Er ist braun.", "grammar": ["aggettivi-accordo"]},
+        { "kind": "trait", "it": "Ha un manico.", "sl": "Ima ročaj.", "en": "It has a handle.", "de": "Er hat einen Henkel.", "grammar": ["essere-avere"]},
+        {
+          "kind": "where",
+          "it": "È tra le verdure.",
+          "sl": "Stoji med zelenjavo.",
+          "en": "It stands among the vegetables.",
+          "de": "Er steht zwischen dem Gemüse.",
+          "grammar": ["dove-preposizioni"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci portiamo i cavoli e le patate.",
+          "sl": "V tem nosimo zelje in krompir.",
+          "en": "We carry cabbages and potatoes in it.",
+          "de": "Darin tragen wir Kohl und Kartoffeln.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "cart": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Er ist aus Holz.", "grammar": ["essere-avere"]},
+        {
+          "kind": "trait",
+          "it": "Ha due ruote.",
+          "sl": "Ima dve kolesi.",
+          "en": "It has two wheels.",
+          "de": "Er hat zwei Räder.",
+          "grammar": ["essere-avere", "numeri"]
+        },
+        {
+          "kind": "where",
+          "it": "È sul sentiero.",
+          "sl": "Stoji na stezi.",
+          "en": "It stands on the path.",
+          "de": "Er steht auf dem Pfad.",
+          "grammar": ["preposizioni-articolate"],
+          "ref": "path"
+        },
+        {
+          "kind": "does",
+          "it": "Lo tira il cavallo.",
+          "sl": "Vleče ga konj.",
+          "en": "The horse pulls it.",
+          "de": "Das Pferd zieht ihn.",
+          "grammar": ["presente-regolare"],
+          "ref": "horse"
+        },
+        {
+          "kind": "use",
+          "it": "Porta il fieno al grande fienile.",
+          "sl": "Vozi seno v veliki senik.",
+          "en": "It takes the hay to the big barn.",
+          "de": "Er bringt das Heu zum großen Heuschober.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "scarecrow": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "Ha i vestiti blu.",
+          "sl": "Ima modro obleko.",
+          "en": "It has blue clothes on.",
+          "de": "Das hat blaue Kleider an.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha un cappello in testa.",
+          "sl": "Na glavi ima klobuk.",
+          "en": "It has a hat on its head.",
+          "de": "Das hat einen Hut auf dem Kopf.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È in mezzo al campo.",
+          "sl": "Stoji sredi njive.",
+          "en": "It stands in the middle of the field.",
+          "de": "Das steht mitten auf dem Acker.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"]
+        },
+        {
+          "kind": "does",
+          "it": "Fa paura agli uccelli.",
+          "sl": "Straši ptice.",
+          "en": "It frightens the birds.",
+          "de": "Das erschreckt die Vögel.",
+          "grammar": ["verbi-irregolari", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "fence": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Er ist aus Holz.", "grammar": ["essere-avere"]},
+        { "kind": "size", "it": "È lungo.", "sl": "To je nekaj dolgega.", "en": "It's long.", "de": "Er ist lang.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "where",
+          "it": "È vicino al sentiero.",
+          "sl": "Stoji ob stezi.",
+          "en": "It's by the path.",
+          "de": "Er steht am Pfad.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "path"
+        },
+        {
+          "kind": "use",
+          "it": "Ci appoggiamo la falce.",
+          "sl": "Nanj naslonimo koso.",
+          "en": "We lean the scythe against it.",
+          "de": "Daran lehnen wir die Sense.",
+          "grammar": ["presente-regolare"],
+          "ref": "scythe"
+        }
+      ]
+    },
+    "path": {
+      "clues": [
+        { "kind": "size", "it": "È lungo.", "sl": "To je nekaj dolgega.", "en": "It's long.", "de": "Er ist lang.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "where",
+          "it": "È tra lo steccato e le patate.",
+          "sl": "Je med plotom in krompirjem.",
+          "en": "It's between the fence and the potatoes.",
+          "de": "Er ist zwischen dem Zaun und den Kartoffeln.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "fence"
+        },
+        {
+          "kind": "does",
+          "it": "Porta al paese.",
+          "sl": "Pelje v vas.",
+          "en": "It leads to the village.",
+          "de": "Er führt ins Dorf.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci camminiamo sopra.",
+          "sl": "Po tem hodimo.",
+          "en": "We walk on it.",
+          "de": "Darauf gehen wir.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "horse": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Es ist braun.", "grammar": ["aggettivi-accordo"]},
+        { "kind": "size", "it": "È grande.", "sl": "To je nekaj velikega.", "en": "It's big.", "de": "Es ist groß.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "where",
+          "it": "È vicino al carro.",
+          "sl": "Stoji pri vozu.",
+          "en": "It stands by the cart.",
+          "de": "Es steht beim Wagen.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "cart"
+        },
+        {
+          "kind": "does",
+          "it": "Tira il carro.",
+          "sl": "Vleče voz.",
+          "en": "It pulls the cart.",
+          "de": "Es zieht den Wagen.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "deer": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Es ist braun.", "grammar": ["aggettivi-accordo"]},
+        { "kind": "trait", "it": "È timido.", "sl": "To je nekaj plašnega.", "en": "It's shy.", "de": "Es ist scheu.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "trait",
+          "it": "Ha le zampe sottili.",
+          "sl": "Ima tanke noge.",
+          "en": "It has thin legs.",
+          "de": "Es hat dünne Beine.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        {
+          "kind": "does",
+          "it": "Vive nel bosco.",
+          "sl": "Živi v gozdu.",
+          "en": "It lives in the wood.",
+          "de": "Es lebt im Wald.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        },
+        {
+          "kind": "does",
+          "it": "La mattina e la sera viene al campo.",
+          "sl": "Zjutraj in zvečer pride na njivo.",
+          "en": "In the morning and evening it comes to the field.",
+          "de": "Morgens und abends kommt es aufs Feld.",
+          "grammar": ["verbi-irregolari", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "hare": {
+      "clues": [
+        { "kind": "colour", "it": "È marrone.", "sl": "Je rjave barve.", "en": "It's brown.", "de": "Das ist braun.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "trait",
+          "it": "Ha le orecchie lunghe.",
+          "sl": "Ima dolga ušesa.",
+          "en": "It has long ears.",
+          "de": "Das hat lange Ohren.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        { "kind": "does", "it": "Corre veloce.", "sl": "Hitro teče.", "en": "It runs fast.", "de": "Das läuft schnell.", "grammar": ["presente-regolare"]},
+        { "kind": "use", "it": "Le piace il cavolo.", "sl": "Rad ima zelje.", "en": "It likes cabbage.", "de": "Das mag Kohl.", "grammar": ["piacere"]}
+      ]
+    },
+    "butterfly": {
+      "clues": [
+        { "kind": "size", "it": "È piccola.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Das ist klein.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "trait",
+          "it": "Ha le ali colorate.",
+          "sl": "Ima pisana krila.",
+          "en": "It has colourful wings.",
+          "de": "Das hat bunte Flügel.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        { "kind": "does", "it": "Le piacciono i fiori.", "sl": "Rože so mu všeč.", "en": "It likes flowers.", "de": "Das mag Blumen.", "grammar": ["piacere"]},
+        {
+          "kind": "does",
+          "it": "Vola di fiore in fiore.",
+          "sl": "Leta od cveta do cveta.",
+          "en": "It flies from flower to flower.",
+          "de": "Das fliegt von Blüte zu Blüte.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "fox": {
+      "clues": [
+        { "kind": "colour", "it": "È arancione.", "sl": "Je oranžne barve.", "en": "It's orange.", "de": "Das ist orange.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "trait",
+          "it": "Ha la coda folta.",
+          "sl": "Ima košat rep.",
+          "en": "It has a bushy tail.",
+          "de": "Das hat einen buschigen Schwanz.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        { "kind": "trait", "it": "È furba.", "sl": "To je nekaj zvitega.", "en": "It's sly.", "de": "Das ist schlau.", "grammar": ["aggettivi-accordo"]},
+        { "kind": "does", "it": "Caccia i topi.", "sl": "Lovi miši.", "en": "It hunts mice.", "de": "Das jagt Mäuse.", "grammar": ["presente-regolare"]}
+      ]
+    },
+    "boar": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È marrone scuro.",
+          "sl": "Je temno rjave barve.",
+          "en": "It's dark brown.",
+          "de": "Es ist dunkelbraun.",
+          "grammar": ["aggettivi-accordo"]
+        },
+        { "kind": "trait", "it": "È forte.", "sl": "To je nekaj močnega.", "en": "It's strong.", "de": "Es ist stark.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "trait",
+          "it": "Ha i piccoli a strisce.",
+          "sl": "Ima progaste mladiče.",
+          "en": "It has striped young.",
+          "de": "Es hat gestreifte Junge.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "does",
+          "it": "Di notte scava nella terra.",
+          "sl": "Ponoči rije po zemlji.",
+          "en": "At night it digs in the ground.",
+          "de": "Nachts wühlt es in der Erde.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        },
+        {
+          "kind": "does",
+          "it": "Vive nel bosco.",
+          "sl": "Živi v gozdu.",
+          "en": "It lives in the wood.",
+          "de": "Es lebt im Wald.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "bat": {
+      "clues": [
+        { "kind": "colour", "it": "È nero.", "sl": "Je črne barve.", "en": "It's black.", "de": "Das ist schwarz.", "grammar": ["aggettivi-accordo"]},
+        { "kind": "size", "it": "È piccolo.", "sl": "To je nekaj majhnega.", "en": "It's small.", "de": "Das ist klein.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "does",
+          "it": "Vola di notte.",
+          "sl": "Leta ponoči.",
+          "en": "It flies at night.",
+          "de": "Das fliegt nachts.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "does",
+          "it": "Di giorno dorme.",
+          "sl": "Podnevi spi.",
+          "en": "By day it sleeps.",
+          "de": "Das schläft am Tag.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "does",
+          "it": "Dorme a testa in giù.",
+          "sl": "Spi z glavo navzdol.",
+          "en": "It sleeps upside down.",
+          "de": "Das schläft kopfüber.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    }
+  }
+}

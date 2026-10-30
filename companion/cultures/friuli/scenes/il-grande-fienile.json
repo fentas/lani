@@ -1,0 +1,1055 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "il-grande-fienile",
+  "language": "it",
+  "title": { "it": "Il grande fienile", "sl": "Veliki senik", "en": "The big hay barn", "de": "Der große Heuschober" },
+  "emoji": "🪜",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written, not reviewed by a native speaker",
+  "art": "field",
+  "from": ["project:toplar"],
+  "pack": "il-grande-fienile",
+  "objects": [
+    { "slot": "wheat", "word": "grano", "pack": "nel-campo" },
+    { "slot": "corn", "word": "mais", "pack": "nel-campo" },
+    { "slot": "potatoes", "word": "patata", "pack": "cibo" },
+    { "slot": "cabbage", "word": "cavolo", "pack": "nel-campo" },
+    { "slot": "kozolec", "word": "fienile", "pack": "nel-campo", "needs": { "building": "KOZOLEC" } },
+    { "slot": "hay", "word": "fieno", "pack": "nel-campo", "needs": { "building": "KOZOLEC" } },
+    { "slot": "scythe", "word": "falce", "pack": "nel-campo" },
+    { "slot": "rake", "word": "rastrello", "pack": "nel-campo" },
+    { "slot": "basket", "word": "cesto", "pack": "festa-vendemmia" },
+    { "slot": "cart", "word": "carro", "pack": "il-cielo" },
+    { "slot": "scarecrow", "word": "spaventapasseri", "pack": "nel-campo" },
+    { "slot": "fence", "word": "steccato", "pack": "nel-campo" },
+    { "slot": "path", "word": "sentiero", "pack": "nel-campo" },
+    { "slot": "horse", "word": "cavallo", "pack": "nel-campo" },
+    { "slot": "deer", "word": "capriolo", "pack": "animali-del-bosco" },
+    { "slot": "hare", "word": "lepre", "pack": "animali-del-bosco" },
+    { "slot": "butterfly", "word": "farfalla", "pack": "animali-del-bosco" },
+    { "slot": "fox", "word": "volpe", "pack": "animali-del-bosco" },
+    { "slot": "boar", "word": "cinghiale", "pack": "animali-del-bosco" },
+    { "slot": "bat", "word": "pipistrello", "pack": "animali-del-bosco" }
+  ],
+  "people": [
+    { "id": "franco", "name": "Mugnaio Franco", "emoji": "🧑‍🌾", "art": "farmer", "slot": "field", "villager": "franco" },
+    { "id": "davide", "name": "Pastore Davide", "emoji": "🐑", "art": "shepherd", "slot": "kozolec", "villager": "davide" },
+    { "id": "lorenzo", "name": "Lorenzo", "emoji": "👦", "art": "child3", "slot": "path", "villager": "lorenzo" },
+    { "id": "matteo", "name": "Vignaiolo Matteo", "emoji": "🍇", "art": "winemaker", "slot": "kozolec", "villager": "matteo" }
+  ],
+  "happenings": [
+    {
+      "id": "fieno",
+      "title": { "it": "Franco e il fieno del grande fienile", "sl": "Franco in seno velikega senika", "en": "Franco and the big barn's hay", "de": "Franco und das Heu im großen Heuschober" },
+      "who": "franco",
+      "when": ["afternoon"],
+      "months": [6, 7, 8, 9],
+      "chance": 0.5,
+      "dialog": "fieno",
+      "dialogs": ["fieno-temporale", "fieno"],
+      "reward": { "food": 25},
+      "marker": "🌾",
+      "memory": { "it": "il fieno nel nostro grande fienile", "sl": "seno v našem velikem seniku", "en": "the hay in our big barn", "de": "das Heu in unserem großen Heuschober" }
+    },
+    {
+      "id": "scorte",
+      "title": { "it": "Franco conta le scorte", "sl": "Franco šteje zaloge", "en": "Franco counts the stores", "de": "Franco zählt die Vorräte" },
+      "who": "franco",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "scorte",
+      "dialogs": ["scorte-conto", "scorte"],
+      "reward": { "food": 20},
+      "marker": "📦",
+      "memory": { "it": "le scorte del paese nel grande fienile", "sl": "vaške zaloge v velikem seniku", "en": "the village's stores in the big barn", "de": "die Vorräte des Dorfes im großen Heuschober" }
+    },
+    {
+      "id": "inverno",
+      "title": { "it": "Davide prende il fieno per le pecore", "sl": "Davide vzame seno za ovce", "en": "Davide takes hay for the sheep", "de": "Davide holt Heu für die Schafe" },
+      "who": "davide",
+      "when": ["morning"],
+      "months": [11, 12, 1, 2, 3],
+      "chance": 0.5,
+      "dialog": "inverno",
+      "dialogs": ["inverno-neve", "inverno"],
+      "reward": { "food": 15},
+      "marker": "🐑",
+      "memory": { "it": "il fieno per le pecore d'inverno", "sl": "seno za ovce pozimi", "en": "the hay for the sheep in winter", "de": "das Heu für die Schafe im Winter" }
+    },
+    {
+      "id": "pipistrelli",
+      "title": { "it": "Davide e i pipistrelli", "sl": "Davide in netopirji", "en": "Davide and the bats", "de": "Davide und die Fledermäuse" },
+      "who": "davide",
+      "when": ["evening"],
+      "months": [4, 5, 6, 7, 8, 9, 10],
+      "chance": 0.4,
+      "dialog": "pipistrelli",
+      "dialogs": ["pipistrelli-campana", "pipistrelli"],
+      "reward": { "wisdom": 15},
+      "marker": "🦇",
+      "memory": { "it": "i pipistrelli del grande fienile", "sl": "netopirje velikega senika", "en": "the bats of the big barn", "de": "die Fledermäuse des großen Heuschobers" }
+    },
+    {
+      "id": "conta",
+      "title": { "it": "Lorenzo conta i pali", "sl": "Lorenzo šteje stebre", "en": "Lorenzo counts the posts", "de": "Lorenzo zählt die Pfosten" },
+      "who": "lorenzo",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "conta",
+      "dialogs": ["conta-cavallo", "conta"],
+      "reward": { "wood": 15},
+      "marker": "🔢",
+      "memory": { "it": "i pali del grande fienile che abbiamo contato", "sl": "stebre velikega senika, ki sva jih preštela", "en": "the posts of the big barn we counted", "de": "die Pfosten des großen Heuschobers, die wir gezählt haben" }
+    },
+    {
+      "id": "faccia",
+      "title": { "it": "Lorenzo e lo spaventapasseri", "sl": "Lorenzo in strašilo", "en": "Lorenzo and the scarecrow", "de": "Lorenzo und die Vogelscheuche" },
+      "who": "lorenzo",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "faccia",
+      "dialogs": ["faccia-corvi", "faccia"],
+      "reward": { "wisdom": 15},
+      "marker": "🎨",
+      "memory": { "it": "la faccia che abbiamo disegnato allo spaventapasseri", "sl": "obraz, ki sva ga narisala strašilu", "en": "the face we drew on the scarecrow", "de": "das Gesicht, das wir der Vogelscheuche gemalt haben" }
+    },
+    {
+      "id": "lepre",
+      "title": { "it": "Matteo e la lepre", "sl": "Matteo in zajec", "en": "Matteo and the hare", "de": "Matteo und der Hase" },
+      "who": "matteo",
+      "when": ["afternoon"],
+      "chance": 0.4,
+      "dialog": "lepre",
+      "dialogs": ["lepre-campana", "lepre"],
+      "reward": { "food": 15},
+      "marker": "🐇",
+      "memory": { "it": "la lepre nell'erba vicino allo steccato", "sl": "zajca v travi pri plotu", "en": "the hare in the grass by the fence", "de": "den Hasen im Gras beim Zaun" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "fieno",
+      "lines": [
+        { "who": "franco", "face": "proud", "it": "Ciao, {learner}! Guarda il grande fienile, dietro il grano: è pieno di fieno.", "sl": "Živjo, {learner}! Poglej veliki senik za pšenico: poln je sena.", "en": "Hello, {learner}! Look at the big barn, behind the wheat: it's full of hay.", "de": "Hallo, {learner}! Schau dir den großen Heuschober hinter dem Weizen an: Er ist voller Heu." },
+        {
+          "choices": [
+            {
+              "it": "Signor Franco, quanto fieno!",
+              "sl": "Gospod Franco, koliko sena!",
+              "en": "Mr Franco, so much hay!",
+              "de": "Herr Franco, so viel Heu!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Tanto. Basta per tutto l'inverno.", "sl": "Veliko. Dovolj za vso zimo.", "en": "Lots. Enough for the whole winter.", "de": "Viel. Genug für den ganzen Winter." }
+            },
+            {
+              "it": "Signor Franco, quanta fieno!",
+              "sl": "Gospod Franco, koliko sena!",
+              "en": "Mr Franco, so much hay!",
+              "de": "Herr Franco, so viel Heu!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Fieno je moškega spola: quanto fieno.", "en": "Fieno is masculine: quanto fieno.", "de": "Fieno ist männlich: quanto fieno." },
+              "reply": { "face": "laugh", "it": "Quanta? Hm… il fieno è un signore, {learner}!", "sl": "Quanta? Hm … seno je pri nas gospod, {learner}!", "en": "Quanta? Hm… hay is a gentleman, {learner}!", "de": "Quanta? Hm … das Heu ist ein Herr, {learner}!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "it": "Sotto il tetto il fieno resta asciutto. Le travi sono di quercia.", "sl": "Pod streho seno ostane suho. Tramovi so iz hrastovine.", "en": "Under the roof the hay stays dry. The beams are made of oak.", "de": "Unter dem Dach bleibt das Heu trocken. Die Balken sind aus Eiche." },
+        {
+          "choices": [
+            {
+              "it": "Il grande fienile ha un tetto di legno!",
+              "sl": "Veliki senik ima leseno streho!",
+              "en": "The big barn has a wooden roof!",
+              "de": "Der große Heuschober hat ein Holzdach!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì. E sotto, otto pali di quercia.", "sl": "Ja. Spodaj pa osem hrastovih stebrov.", "en": "Yes. And under it, eight oak posts.", "de": "Ja. Und darunter acht Pfosten aus Eiche." }
+            },
+            {
+              "it": "Il grande fienile è un tetto di legno!",
+              "sl": "Veliki senik je lesena streha!",
+              "en": "The big barn is a wooden roof!",
+              "de": "Der große Heuschober ist ein Holzdach!",
+              "grammar": "essere-avere",
+              "why": { "sl": "Senik ima streho: ha. È pomeni je.", "en": "The barn has a roof: ha. È means is.", "de": "Der Heuschober hat ein Dach: ha. È heißt ist." },
+              "reply": { "face": "laugh", "it": "È un tetto? E dove metto il fieno, in testa?", "sl": "Je streha? In kam dam seno, na glavo?", "en": "It is a roof? So where do I put the hay, on my head?", "de": "Er ist ein Dach? Und wo lege ich das Heu hin, auf den Kopf?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "face": "thinking", "it": "D'inverno le pecore di Davide mangiano questo fieno.", "sl": "Pozimi Davidove ovce jedo to seno.", "en": "In winter Davide's sheep eat this hay.", "de": "Im Winter fressen Davides Schafe dieses Heu." },
+        {
+          "choices": [
+            {
+              "it": "Grazie, signor Franco! Arrivederci!",
+              "sl": "Hvala, gospod Franco! Na svidenje!",
+              "en": "Thank you, Mr Franco! Goodbye!",
+              "de": "Danke, Herr Franco! Auf Wiedersehen!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Arrivederci. E grazie della visita.", "sl": "Na svidenje. In hvala za obisk.", "en": "Goodbye. And thanks for coming.", "de": "Auf Wiedersehen. Und danke für den Besuch." }
+            },
+            {
+              "it": "Grazie, Franco! Ciao!",
+              "sl": "Hvala, Franco! Adijo!",
+              "en": "Thanks, Franco! Bye!",
+              "de": "Danke, Franco! Tschüss!",
+              "grammar": "tu-lei",
+              "why": { "sl": "Francu rečeš Lei: grazie, signor Franco, arrivederci.", "en": "To Franco you say Lei: grazie, signor Franco, arrivederci.", "de": "Zu Franco sagst du Lei: grazie, signor Franco, arrivederci." },
+              "reply": { "face": "laugh", "it": "Ciao? Ah ah… un po' di rispetto per il vecchio Franco!", "sl": "Adijo? Ha ha … malo spoštovanja do starega Franca!", "en": "Ciao? Ha ha… a bit of respect for old Franco!", "de": "Ciao? Haha … ein bisschen Respekt vor dem alten Franco!" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scorte",
+      "lines": [
+        { "who": "franco", "it": "Buongiorno, {learner}. Nel grande fienile teniamo le scorte del paese.", "sl": "Dobro jutro, {learner}. V velikem seniku hranimo vaške zaloge.", "en": "Good morning, {learner}. In the big barn we keep the village's stores.", "de": "Guten Morgen, {learner}. Im großen Heuschober lagern wir die Vorräte des Dorfes." },
+        {
+          "choices": [
+            {
+              "it": "Così d'inverno abbiamo tutto!",
+              "sl": "Tako imamo pozimi vse!",
+              "en": "So in winter we have everything!",
+              "de": "So haben wir im Winter alles!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Giusto. Un paese con le scorte non ha paura dell'inverno.", "sl": "Tako je. Vas z zalogami se zime ne boji.", "en": "Right. A village with stores isn't afraid of the winter.", "de": "Richtig. Ein Dorf mit Vorräten hat keine Angst vor dem Winter." }
+            },
+            {
+              "it": "Così d'inverno abbiamo fame!",
+              "sl": "Tako smo pozimi lačni!",
+              "en": "So in winter we're hungry!",
+              "de": "So haben wir im Winter Hunger!",
+              "why": { "sl": "Fame pomeni lakota. Z zalogami pozimi nismo lačni: abbiamo tutto.", "en": "Fame means hunger. With stores we aren't hungry in winter: abbiamo tutto.", "de": "Fame heißt Hunger. Mit Vorräten haben wir im Winter keinen Hunger: abbiamo tutto." },
+              "reply": { "face": "surprised", "it": "Fame? Con le scorte? No, no!", "sl": "Lačni? Z zalogami? Ne, ne!", "en": "Hungry? With the stores? No, no!", "de": "Hunger? Mit den Vorräten? Nein, nein!" }
+            }
+          ]
+        },
+        { "who": "franco", "face": "thinking", "it": "In primavera il fienile è quasi vuoto. In autunno è di nuovo pieno.", "sl": "Spomladi je senik skoraj prazen. Jeseni je spet poln.", "en": "In spring the barn is almost empty. In autumn it's full again.", "de": "Im Frühling ist der Heuschober fast leer. Im Herbst ist er wieder voll." },
+        { "who": "franco", "face": "curious", "it": "Io conto tutto, ogni mattina. Tu sai contare fino a dieci?", "sl": "Jaz vsako jutro vse preštejem. Ti znaš šteti do deset?", "en": "I count everything, every morning. Can you count to ten?", "de": "Ich zähle alles, jeden Morgen. Kannst du bis zehn zählen?" },
+        {
+          "choices": [
+            {
+              "it": "Sì: otto, nove, dieci!",
+              "sl": "Ja: osem, devet, deset!",
+              "en": "Yes: eight, nine, ten!",
+              "de": "Ja: acht, neun, zehn!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "{m:Bravo|f:Brava}! Allora domani mi aiuti a contare.", "sl": "Bravo! Potem mi jutri pomagaš šteti.", "en": "Well done! Then tomorrow you'll help me count.", "de": "Gut gemacht! Dann hilfst du mir morgen beim Zählen." }
+            },
+            {
+              "it": "Sì: otto, nove, dodici!",
+              "sl": "Ja: osem, devet, dvanajst!",
+              "en": "Yes: eight, nine, twelve!",
+              "de": "Ja: acht, neun, zwölf!",
+              "grammar": "numeri",
+              "why": { "sl": "Za devet pride deset: dieci. Dodici je dvanajst.", "en": "After nine comes ten: dieci. Dodici is twelve.", "de": "Nach neun kommt zehn: dieci. Dodici ist zwölf." },
+              "reply": { "face": "laugh", "it": "Dodici? Sei {m:andato|f:andata} troppo in là!", "sl": "Dvanajst? Preveč daleč si {m:šel|f:šla}!", "en": "Twelve? You've gone too far!", "de": "Zwölf? Du bist zu weit gegangen!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "face": "proud", "it": "Un buon contadino conta sempre. Anche il fieno!", "sl": "Dober kmet vedno šteje. Tudi seno!", "en": "A good farmer always counts. Even the hay!", "de": "Ein guter Bauer zählt immer. Sogar das Heu!" }
+      ]
+    },
+    {
+      "id": "inverno",
+      "lines": [
+        { "who": "davide", "face": "happy", "it": "Ehi, {learner}! D'inverno l'erba non cresce. Prendo il fieno per le mie pecore.", "sl": "Hej, {learner}! Pozimi trava ne raste. Seno vzamem za svoje ovce.", "en": "Hey, {learner}! In winter the grass doesn't grow. I'm taking hay for my sheep.", "de": "He, {learner}! Im Winter wächst kein Gras. Ich hole Heu für meine Schafe." },
+        {
+          "choices": [
+            {
+              "it": "Le pecore mangiano il fieno?",
+              "sl": "Ovce jedo seno?",
+              "en": "Do the sheep eat hay?",
+              "de": "Fressen die Schafe Heu?",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì, tutto l'inverno. Lo adorano!", "sl": "Ja, vso zimo. Obožujejo ga!", "en": "Yes, all winter long. They love it!", "de": "Ja, den ganzen Winter. Sie lieben es!" }
+            },
+            {
+              "it": "Le pecore mangia il fieno?",
+              "sl": "Ovce je seno?",
+              "en": "Does the sheep eat hay?",
+              "de": "Frisst die Schafe Heu?",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Ovce so v množini: mangiano. Mangia je za eno.", "en": "The sheep are plural: mangiano. Mangia is for one.", "de": "Die Schafe sind Plural: mangiano. Mangia steht für eines." },
+              "reply": { "face": "laugh", "it": "Mangia chi? Io? No, io mangio la polenta!", "sl": "Kdo je? Jaz? Ne, jaz jem polento!", "en": "Who eats? Me? No, I eat polenta!", "de": "Wer frisst? Ich? Nein, ich esse Polenta!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "it": "Nel grande fienile il fieno resta asciutto. Le mie pecore sono contente.", "sl": "V velikem seniku seno ostane suho. Moje ovce so zadovoljne.", "en": "In the big barn the hay stays dry. My sheep are happy.", "de": "Im großen Heuschober bleibt das Heu trocken. Meine Schafe sind zufrieden." },
+        { "who": "davide", "face": "curious", "it": "Mi aiuti a portarlo? Io prendo il forcone.", "sl": "Mi pomagaš nesti? Jaz vzamem vile.", "en": "Will you help me carry it? I'll take the pitchfork.", "de": "Hilfst du mir tragen? Ich nehme die Heugabel." },
+        {
+          "choices": [
+            {
+              "it": "Sì, ti aiuto!",
+              "sl": "Ja, ti pomagam!",
+              "en": "Yes, I'll help you!",
+              "de": "Ja, ich helfe dir!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Grazie! Insieme si fa prima.", "sl": "Hvala! Skupaj gre hitreje.", "en": "Thanks! It's quicker together.", "de": "Danke! Zusammen geht es schneller." }
+            },
+            {
+              "it": "Sì, ti aiutano!",
+              "sl": "Ja, pomagajo ti!",
+              "en": "Yes, they help you!",
+              "de": "Ja, sie helfen dir!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Aiutano je oni. O sebi rečeš: aiuto.", "en": "Aiutano is 'they help'. About yourself: aiuto.", "de": "Aiutano heißt 'sie helfen'. Über dich selbst: aiuto." },
+              "reply": { "face": "curious", "it": "Chi mi aiuta? Vedo solo te!", "sl": "Kdo mi pomaga? Vidim samo tebe!", "en": "Who's helping me? I can only see you!", "de": "Wer hilft mir? Ich sehe nur dich!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "laugh", "it": "Grazie, {learner}! Bianca dice: beee!", "sl": "Hvala, {learner}! Bianca pravi: beee!", "en": "Thanks, {learner}! Bianca says: baaa!", "de": "Danke, {learner}! Bianca sagt: mäh!" }
+      ]
+    },
+    {
+      "id": "pipistrelli",
+      "lines": [
+        {
+          "who": "davide",
+          "face": "happy",
+          "it": "Buonasera, {learner}! Shh… Guarda sopra il campo: i pipistrelli!",
+          "sl": "Dober večer, {learner}! Pst … Poglej nad njivo: netopirji!",
+          "en": "Good evening, {learner}! Shh… Look over the field: the bats!",
+          "de": "Guten Abend, {learner}! Pst … Schau über das Feld: die Fledermäuse!",
+          "fx": { "bats": 0.7}
+        },
+        {
+          "choices": [
+            {
+              "it": "Dove dormono di giorno?",
+              "sl": "Kje spijo podnevi?",
+              "en": "Where do they sleep in the daytime?",
+              "de": "Wo schlafen sie am Tag?",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Nel grande fienile, sotto il tetto. A testa in giù!", "sl": "V velikem seniku, pod streho. Z glavo navzdol!", "en": "In the big barn, under the roof. Upside down!", "de": "Im großen Heuschober, unter dem Dach. Kopfüber!" }
+            },
+            {
+              "it": "Dove dorme di giorno?",
+              "sl": "Kje spi podnevi?",
+              "en": "Where does it sleep in the daytime?",
+              "de": "Wo schläft es am Tag?",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Netopirjev je veliko: dormono. Dorme je za enega.", "en": "There are lots of bats: dormono. Dorme is for one.", "de": "Es sind viele Fledermäuse: dormono. Dorme steht für eine." },
+              "reply": { "face": "curious", "it": "Dorme chi? Io dormo nel mio letto!", "sl": "Kdo spi? Jaz spim v svoji postelji!", "en": "Who sleeps? I sleep in my bed!", "de": "Wer schläft? Ich schlafe in meinem Bett!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "it": "Escono quando il sole va giù. Mangiano le zanzare.", "sl": "Ven pridejo, ko sonce zaide. Jedo komarje.", "en": "They come out when the sun goes down. They eat mosquitoes.", "de": "Sie kommen heraus, wenn die Sonne untergeht. Sie fressen Mücken." },
+        {
+          "choices": [
+            {
+              "it": "Allora i pipistrelli sono amici!",
+              "sl": "Potem so netopirji prijatelji!",
+              "en": "So the bats are friends!",
+              "de": "Dann sind die Fledermäuse Freunde!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Amici del contadino e del pastore.", "sl": "Prijatelji kmeta in pastirja.", "en": "Friends of the farmer and the shepherd.", "de": "Freunde des Bauern und des Hirten." }
+            },
+            {
+              "it": "Allora i pipistrelli sono nemici!",
+              "sl": "Potem so netopirji sovražniki!",
+              "en": "So the bats are enemies!",
+              "de": "Dann sind die Fledermäuse Feinde!",
+              "why": { "sl": "Nemico pomeni sovražnik. Netopirji nam pomagajo.", "en": "Nemico means enemy. The bats help us.", "de": "Nemico heißt Feind. Die Fledermäuse helfen uns." },
+              "reply": { "face": "surprised", "it": "Nemici? Ma mangiano le zanzare!", "sl": "Sovražniki? Saj jedo komarje!", "en": "Enemies? But they eat the mosquitoes!", "de": "Feinde? Sie fressen doch die Mücken!" }
+            }
+          ]
+        },
+        { "who": "davide", "face": "happy", "it": "Buonanotte, {learner}! Io vado dalle pecore.", "sl": "Lahko noč, {learner}! Jaz grem k ovcam.", "en": "Good night, {learner}! I'm off to the sheep.", "de": "Gute Nacht, {learner}! Ich gehe zu den Schafen." }
+      ]
+    },
+    {
+      "id": "conta",
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "curious",
+          "it": "Ciao, {learner}! Guarda il grande fienile, dietro il grano! Contiamo i pali davanti?",
+          "sl": "Živjo, {learner}! Poglej veliki senik za pšenico! Prešteviva stebre spredaj?",
+          "en": "Hi, {learner}! Look at the big barn, behind the wheat! Shall we count the posts at the front?",
+          "de": "Hallo, {learner}! Schau dir den großen Heuschober hinter dem Weizen an! Zählen wir die Pfosten vorne?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Uno, due, tre, quattro: quattro pali!",
+              "sl": "En, dva, tri, štiri: štirje stebri!",
+              "en": "One, two, three, four: four posts!",
+              "de": "Eins, zwei, drei, vier: vier Pfosten!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Quattro davanti e quattro dietro: otto!", "sl": "Štirje spredaj in štirje zadaj: osem!", "en": "Four at the front and four at the back: eight!", "de": "Vier vorne und vier hinten: acht!" }
+            },
+            {
+              "it": "Uno, due, tre, quattro: quattro palo!",
+              "sl": "En, dva, tri, štiri: štirje stebri!",
+              "en": "One, two, three, four: four post!",
+              "de": "Eins, zwei, drei, vier: vier Pfosten!",
+              "grammar": "plurale",
+              "why": { "sl": "Štirje so v množini: pali.", "en": "Four takes the plural: pali.", "de": "Bei vier steht der Plural: pali." },
+              "reply": { "face": "confused", "it": "Quattro… palo? Hm, non suona bene.", "sl": "Štirje … steber? Hm, nekaj ne zveni prav.", "en": "Four… post? Hm, that doesn't sound right.", "de": "Vier … Pfosten (Einzahl)? Hm, das klingt nicht richtig." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "proud", "it": "Il tetto è di legno. Il nonno dice: legno di quercia!", "sl": "Streha je lesena. Dedek pravi: iz hrastovine!", "en": "The roof is made of wood. Grandpa says: oak wood!", "de": "Das Dach ist aus Holz. Opa sagt: Eichenholz!" },
+        {
+          "choices": [
+            {
+              "it": "La quercia è un albero forte.",
+              "sl": "Hrast je močno drevo.",
+              "en": "The oak is a strong tree.",
+              "de": "Die Eiche ist ein starker Baum.",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Fortissimo! Come il nonno.", "sl": "Zelo močno! Kot dedek.", "en": "Super strong! Like Grandpa.", "de": "Superstark! Wie Opa." }
+            },
+            {
+              "it": "Il quercia è un albero forte.",
+              "sl": "Hrast je močno drevo.",
+              "en": "The oak is a strong tree.",
+              "de": "Die Eiche ist ein starker Baum.",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Quercia je ženskega spola: la quercia.", "en": "Quercia is feminine: la quercia.", "de": "Quercia ist weiblich: la quercia." },
+              "reply": { "face": "curious", "it": "Il quercia? Si dice in un altro modo!", "sl": "Il quercia? To se reče drugače!", "en": "Il quercia? You say that another way!", "de": "Il quercia? Das sagt man anders!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "proud", "it": "Da grande faccio un fienile ancora più grande!", "sl": "Ko bom velik, bom naredil še večji senik!", "en": "When I grow up I'll build an even bigger barn!", "de": "Wenn ich groß bin, baue ich einen noch größeren Heuschober!" }
+      ]
+    },
+    {
+      "id": "faccia",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "worried",
+          "it": "{learner}! Guarda lo spaventapasseri: non ha la faccia!",
+          "sl": "{learner}! Poglej strašilo: nima obraza!",
+          "en": "{learner}! Look at the scarecrow: it has no face!",
+          "de": "{learner}! Schau dir die Vogelscheuche an: Sie hat kein Gesicht!",
+          "fx": { "face": 0}
+        },
+        {
+          "choices": [
+            {
+              "it": "Disegniamo una faccia con il carbone!",
+              "sl": "Narišiva obraz z ogljem!",
+              "en": "Let's draw a face with charcoal!",
+              "de": "Malen wir mit Kohle ein Gesicht!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì! Prima gli occhi: uno, due.",
+                "sl": "Ja! Najprej oči: eno, dve.",
+                "en": "Yes! First the eyes: one, two.",
+                "de": "Ja! Zuerst die Augen: eins, zwei.",
+                "fx": { "face": 0.35}
+              }
+            },
+            {
+              "it": "Disegniamo un faccia con il carbone!",
+              "sl": "Narišiva obraz z ogljem!",
+              "en": "Let's draw a face with charcoal!",
+              "de": "Malen wir mit Kohle ein Gesicht!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Faccia je ženskega spola: una faccia.", "en": "Faccia is feminine: una faccia.", "de": "Faccia ist weiblich: una faccia." },
+              "reply": { "face": "curious", "it": "Un faccia? Si dice in un altro modo.", "sl": "Un faccia? To se reče drugače.", "en": "Un faccia? You say that another way.", "de": "Un faccia? Das sagt man anders." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        {
+          "who": "lorenzo",
+          "face": "happy",
+          "it": "Adesso il naso… e la bocca, con un bel sorriso!",
+          "sl": "Zdaj pa nos … in usta, z lepim nasmehom!",
+          "en": "Now the nose… and the mouth, with a big smile!",
+          "de": "Jetzt die Nase … und den Mund, mit einem schönen Lächeln!",
+          "fx": { "face": 0.7}
+        },
+        { "who": "lorenzo", "face": "surprised", "it": "Guarda! Il corvo torna sul suo braccio!", "sl": "Poglej! Vrana se vrača na njegovo roko!", "en": "Look! The crow is coming back to its arm!", "de": "Schau! Die Krähe kommt zurück auf seinen Arm!" },
+        {
+          "choices": [
+            {
+              "it": "Lo spaventapasseri è troppo simpatico!",
+              "sl": "Strašilo je preveč prijazno!",
+              "en": "The scarecrow is too friendly!",
+              "de": "Die Vogelscheuche ist zu nett!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Ah ah! Adesso i corvi non hanno più paura!",
+                "sl": "Ha ha! Zdaj se vrane ne bojijo več!",
+                "en": "Ha ha! Now the crows aren't scared any more!",
+                "de": "Haha! Jetzt haben die Krähen keine Angst mehr!",
+                "fx": { "crows": 1}
+              }
+            },
+            {
+              "it": "Lo spaventapasseri è troppo simpatica!",
+              "sl": "Strašilo je preveč prijazno!",
+              "en": "The scarecrow is too friendly!",
+              "de": "Die Vogelscheuche ist zu nett!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Spaventapasseri je moškega spola: simpatico.", "en": "Spaventapasseri is masculine: simpatico.", "de": "Spaventapasseri ist männlich: simpatico." },
+              "reply": { "face": "confused", "it": "Simpatica? È un signore con il cappello!", "sl": "Prijazna? To je gospod s klobukom!", "en": "Simpatica? It's a gentleman in a hat!", "de": "Simpatica? Das ist ein Herr mit Hut!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "cross", "it": "Domani gli facciamo una faccia arrabbiata. Grrr!", "sl": "Jutri mu nariševa jezen obraz. Grrr!", "en": "Tomorrow we'll give it an angry face. Grrr!", "de": "Morgen malen wir ihm ein böses Gesicht. Grrr!" }
+      ]
+    },
+    {
+      "id": "lepre",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Ciao, {learner}! Shh… Guarda vicino allo steccato: l'erba si muove!",
+          "sl": "Živjo, {learner}! Pst … Poglej pri plotu: trava se premika!",
+          "en": "Hi, {learner}! Shh… Look by the fence: the grass is moving!",
+          "de": "Hallo, {learner}! Pst … Schau beim Zaun: Das Gras bewegt sich!",
+          "fx": { "hare": 0.3}
+        },
+        {
+          "choices": [
+            {
+              "it": "Cosa c'è nell'erba?",
+              "sl": "Kaj je v travi?",
+              "en": "What's in the grass?",
+              "de": "Was ist im Gras?",
+              "ok": true,
+              "reply": { "face": "thinking", "it": "Aspetta… adesso lo vediamo.", "sl": "Počakaj … zdaj bova videla.", "en": "Wait… now we'll see.", "de": "Warte … gleich sehen wir es." }
+            },
+            {
+              "it": "Cosa c'è nel erba?",
+              "sl": "Kaj je v travi?",
+              "en": "What's in the grass?",
+              "de": "Was ist im Gras?",
+              "grammar": "preposizioni-articolate",
+              "why": { "sl": "Pred samoglasnikom se in + la združita v nell': nell'erba.", "en": "Before a vowel, in + la becomes nell': nell'erba.", "de": "Vor einem Vokal wird in + la zu nell': nell'erba." },
+              "reply": { "face": "confused", "it": "Nel… cosa? Ripeti piano.", "sl": "Nel … kaj? Ponovi počasi.", "en": "Nel… what? Say it again slowly.", "de": "Nel … was? Sag es noch mal langsam." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "matteo",
+          "face": "surprised",
+          "it": "Una lepre! Guarda come corre!",
+          "sl": "Zajec! Poglej, kako teče!",
+          "en": "A hare! Look how it runs!",
+          "de": "Ein Hase! Schau, wie er rennt!",
+          "fx": { "hare": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Com'è veloce!",
+              "sl": "Kako je hiter!",
+              "en": "How fast it is!",
+              "de": "Wie schnell er ist!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Velocissima! Più del trattore.", "sl": "Zelo hiter! Hitrejši od traktorja.", "en": "Super fast! Faster than the tractor.", "de": "Superschnell! Schneller als der Traktor." }
+            },
+            {
+              "it": "Com'è lenta!",
+              "sl": "Kako je počasen!",
+              "en": "How slow it is!",
+              "de": "Wie langsam er ist!",
+              "why": { "sl": "Zajec je hiter: veloce. Lenta pomeni počasna.", "en": "The hare is fast: veloce. Lenta means slow.", "de": "Der Hase ist schnell: veloce. Lenta heißt langsam." },
+              "reply": { "face": "laugh", "it": "Lenta? Ma è già sparita!", "sl": "Počasen? Saj ga že ni več!", "en": "Slow? But it's gone already!", "de": "Langsam? Er ist doch schon weg!" }
+            }
+          ]
+        },
+        { "who": "matteo", "face": "happy", "it": "Le lepri vivono nei campi e dormono nell'erba alta. Ciao, lepre!", "sl": "Zajci živijo na poljih in spijo v visoki travi. Adijo, zajec!", "en": "Hares live in the fields and sleep in the tall grass. Bye, hare!", "de": "Hasen leben auf den Feldern und schlafen im hohen Gras. Tschüss, Hase!" }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "fieno-temporale",
+      "months": [6, 7, 8, 9],
+      "memory": { "it": "il temporale e il nostro fieno all'asciutto", "sl": "nevihto in najino suho seno", "en": "the storm and our hay safe and dry", "de": "das Gewitter und unser trockenes Heu" },
+      "lines": [
+        {
+          "who": "franco",
+          "face": "worried",
+          "it": "{learner}, guarda il cielo! Arriva un temporale.",
+          "sl": "{learner}, poglej nebo! Nevihta prihaja.",
+          "en": "{learner}, look at the sky! A storm is coming.",
+          "de": "{learner}, schau dir den Himmel an! Ein Gewitter kommt.",
+          "sky": { "gloom": 0.6, "wind": 0.4}
+        },
+        {
+          "choices": [
+            {
+              "it": "E il fieno? Si bagna?",
+              "sl": "Pa seno? Se bo zmočilo?",
+              "en": "And the hay? Will it get wet?",
+              "de": "Und das Heu? Wird es nass?",
+              "ok": true,
+              "reply": { "face": "proud", "it": "No! Il fieno è nel grande fienile, sotto il tetto.", "sl": "Ne! Seno je v velikem seniku, pod streho.", "en": "No! The hay is in the big barn, under the roof.", "de": "Nein! Das Heu ist im großen Heuschober, unter dem Dach." }
+            },
+            {
+              "it": "E il fieno? Si bagnano?",
+              "sl": "Pa seno? Se bodo zmočili?",
+              "en": "And the hay? Will they get wet?",
+              "de": "Und das Heu? Werden sie nass?",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Seno je eno, v ednini: si bagna.", "en": "Hay is singular: si bagna.", "de": "Heu ist Singular: si bagna." },
+              "reply": { "face": "curious", "it": "Si bagnano? Chi, i pali?", "sl": "Se bodo zmočili? Kdo, stebri?", "en": "Will they get wet? Who, the posts?", "de": "Werden sie nass? Wer, die Pfosten?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "franco",
+          "it": "Ecco la pioggia. Ma il nostro fieno è all'asciutto.",
+          "sl": "Tu je dež. Ampak najino seno je na suhem.",
+          "en": "Here's the rain. But our hay is safe and dry.",
+          "de": "Da ist der Regen. Aber unser Heu ist im Trockenen.",
+          "sky": { "rain": 0.6, "gloom": 0.8}
+        },
+        {
+          "choices": [
+            {
+              "it": "Per fortuna c'è il grande fienile!",
+              "sl": "Na srečo imamo veliki senik!",
+              "en": "Luckily there's the big barn!",
+              "de": "Zum Glück gibt es den großen Heuschober!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Per questo l'abbiamo costruito, tutti insieme.", "sl": "Zato smo ga zgradili, vsi skupaj.", "en": "That's why we built it, all of us together.", "de": "Deshalb haben wir ihn gebaut, alle zusammen." }
+            },
+            {
+              "it": "Per fortuna ci sono il grande fienile!",
+              "sl": "Na srečo imamo veliki senik!",
+              "en": "Luckily there are the big barn!",
+              "de": "Zum Glück gibt es den großen Heuschober!",
+              "grammar": "ce-ci-sono",
+              "why": { "sl": "Senik je en sam: c'è. Ci sono je za več.", "en": "There's one barn: c'è. Ci sono is for more than one.", "de": "Es ist ein Heuschober: c'è. Ci sono steht für mehrere." },
+              "reply": { "face": "curious", "it": "Ci sono? Quanti fienili vedi, {learner}?", "sl": "Jih je več? Koliko senikov vidiš, {learner}?", "en": "Ci sono? How many barns can you see, {learner}?", "de": "Ci sono? Wie viele Heuschober siehst du, {learner}?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Ecco, smette già. Guarda: torna il sole!",
+          "sl": "Glej, že pojenja. Poglej: sonce se vrača!",
+          "en": "There, it's stopping already. Look: the sun's coming back!",
+          "de": "So, es hört schon auf. Schau: Die Sonne kommt zurück!",
+          "sky": { "rain": 0, "gloom": 0, "wind": 0}
+        }
+      ]
+    },
+    {
+      "id": "scorte-conto",
+      "count": { "from": "food", "per": 10, "min": 2, "max": 99, "gender": "m" },
+      "memory": { "it": "i sacchi di grano che abbiamo contato", "sl": "vreče žita, ki sva jih preštela", "en": "the sacks of wheat we counted", "de": "die Säcke Weizen, die wir gezählt haben" },
+      "lines": [
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Buongiorno, {learner}. Oggi nelle scorte {c'è|ci sono} {n} {sacco|sacchi} di grano. Me lo ripeti?",
+          "sl": "Dobro jutro, {learner}. Danes {je|sta|so|je} v zalogah {n} {vreča|vreči|vreče|vreč} žita. Mi ponoviš?",
+          "en": "Good morning, {learner}. Today there {is|are} {n} {sack|sacks} of wheat in the stores. Will you say it back to me?",
+          "de": "Guten Morgen, {learner}. Heute {ist|sind} {n} {Sack|Säcke} Weizen in den Vorräten. Sagst du es mir noch einmal?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì: {n} {sacco|sacchi} di grano!",
+              "sl": "Ja: {n} {vreča|vreči|vreče|vreč} žita!",
+              "en": "Yes: {n} {sack|sacks} of wheat!",
+              "de": "Ja: {n} {Sack|Säcke} Weizen!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Giusto. Hai la testa di un mugnaio!", "sl": "Tako je. Glavo imaš kot mlinar!", "en": "Right. You've got a miller's head!", "de": "Richtig. Du hast den Kopf eines Müllers!" }
+            },
+            {
+              "it": "Sì: {n} {!sacco|sacchi} di grano!",
+              "sl": "Ja: {n} {!vreča|vreči|vreče|vreč} žita!",
+              "en": "Yes: {n} {!sack|sacks} of wheat!",
+              "de": "Ja: {n} {!Sack|Säcke} Weizen!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": { "sl": "{Eden je v ednini|Več jih je v množini}: {n} {sacco|sacchi}.", "en": "{One takes the singular|More than one takes the plural}: {n} {sacco|sacchi}.", "de": "{Einer steht im Singular|Mehrere stehen im Plural}: {n} {sacco|sacchi}." },
+              "reply": { "face": "confused", "it": "Hm? Quanti? Ascolta bene.", "sl": "Hm? Koliko? Dobro poslušaj.", "en": "Hm? How many? Listen carefully.", "de": "Hm? Wie viele? Hör gut zu." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "it": "Con questo grano facciamo il pane per tutto il paese.", "sl": "Iz tega žita spečemo kruh za vso vas.", "en": "With this wheat we make bread for the whole village.", "de": "Aus diesem Weizen backen wir Brot für das ganze Dorf." },
+        {
+          "choices": [
+            {
+              "it": "Mmm, il pane fresco è buono!",
+              "sl": "Mmm, svež kruh je dober!",
+              "en": "Mmm, fresh bread is good!",
+              "de": "Mmm, frisches Brot ist lecker!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Buonissimo. Con un po' di formaggio, poi…", "sl": "Odličen. Pa še s koščkom sira …", "en": "Delicious. And with a bit of cheese…", "de": "Köstlich. Und dazu ein Stück Käse …" }
+            },
+            {
+              "it": "Mmm, il pane fresco è buona!",
+              "sl": "Mmm, svež kruh je dober!",
+              "en": "Mmm, fresh bread is good!",
+              "de": "Mmm, frisches Brot ist lecker!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Pane je moškega spola: buono.", "en": "Pane is masculine: buono.", "de": "Pane ist männlich: buono." },
+              "reply": { "face": "laugh", "it": "Buona? Il pane non è una torta, {learner}!", "sl": "Buona? Kruh ni torta, {learner}!", "en": "Buona? Bread isn't a cake, {learner}!", "de": "Buona? Brot ist doch keine Torte, {learner}!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "face": "proud", "it": "Domani conto di nuovo. Un sacco, due sacchi…", "sl": "Jutri spet štejem. Ena vreča, dve vreči …", "en": "Tomorrow I'll count again. One sack, two sacks…", "de": "Morgen zähle ich wieder. Ein Sack, zwei Säcke …" }
+      ]
+    },
+    {
+      "id": "inverno-neve",
+      "months": [12, 1, 2],
+      "memory": { "it": "la neve sul tetto del grande fienile", "sl": "sneg na strehi velikega senika", "en": "the snow on the roof of the big barn", "de": "den Schnee auf dem Dach des großen Heuschobers" },
+      "lines": [
+        { "who": "davide", "face": "worried", "it": "Brrr, che freddo! C'è la neve sul tetto del grande fienile.", "sl": "Brrr, kakšen mraz! Na strehi velikega senika je sneg.", "en": "Brrr, how cold! There's snow on the roof of the big barn.", "de": "Brrr, wie kalt! Auf dem Dach des großen Heuschobers liegt Schnee." },
+        {
+          "choices": [
+            {
+              "it": "Ma sotto il tetto il fieno è asciutto!",
+              "sl": "Ampak pod streho je seno suho!",
+              "en": "But under the roof the hay is dry!",
+              "de": "Aber unter dem Dach ist das Heu trocken!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Esatto! La neve resta fuori.", "sl": "Točno! Sneg ostane zunaj.", "en": "Exactly! The snow stays outside.", "de": "Genau! Der Schnee bleibt draußen." }
+            },
+            {
+              "it": "Ma sotto il tetto il fieno è bagnato!",
+              "sl": "Ampak pod streho je seno mokro!",
+              "en": "But under the roof the hay is wet!",
+              "de": "Aber unter dem Dach ist das Heu nass!",
+              "why": { "sl": "Pod streho je seno suho: asciutto. Bagnato pomeni moker.", "en": "Under the roof the hay is dry: asciutto. Bagnato means wet.", "de": "Unter dem Dach ist das Heu trocken: asciutto. Bagnato heißt nass." },
+              "reply": { "face": "surprised", "it": "Bagnato? Con questo tetto? No, no!", "sl": "Mokro? S to streho? Ne, ne!", "en": "Wet? With this roof? No, no!", "de": "Nass? Mit diesem Dach? Nein, nein!" }
+            }
+          ]
+        },
+        { "who": "davide", "face": "laugh", "it": "Le mie pecore hanno la lana. E io ho tre maglioni!", "sl": "Moje ovce imajo volno. Jaz pa imam tri puloverje!", "en": "My sheep have their wool. And I've got three jumpers on!", "de": "Meine Schafe haben ihre Wolle. Und ich habe drei Pullover an!" },
+        {
+          "choices": [
+            {
+              "it": "Io ho freddo! E tu?",
+              "sl": "Mene zebe! Pa tebe?",
+              "en": "I'm cold! And you?",
+              "de": "Mir ist kalt! Und dir?",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Anch'io, un po'. Andiamo a scaldarci!", "sl": "Tudi mene, malo. Pojdiva se pogret!", "en": "Me too, a bit. Let's go and warm up!", "de": "Mir auch, ein bisschen. Gehen wir uns aufwärmen!" }
+            },
+            {
+              "it": "Io sono {m:freddo|f:fredda}! E tu?",
+              "sl": "Jaz sem {m:mrzel|f:mrzla}! Pa ti?",
+              "en": "I'm cold to the touch! And you?",
+              "de": "Ich bin kalt! Und du?",
+              "grammar": "essere-avere",
+              "why": { "sl": "Mraz se ima: avere. Ho freddo.", "en": "Feeling cold is something you have: avere. Ho freddo.", "de": "Kälte hat man: avere. Ho freddo." },
+              "reply": { "face": "laugh", "it": "Sei {m:freddo|f:fredda}? Come la neve? Ah ah!", "sl": "{m:Mrzel|f:Mrzla} si? Kot sneg? Ha ha!", "en": "You're cold? Like the snow? Ha ha!", "de": "Du bist kalt? Wie der Schnee? Haha!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "happy", "it": "Prendo il fieno e via, dalle pecore! Ciao, {learner}!", "sl": "Vzamem seno in hitro k ovcam! Adijo, {learner}!", "en": "I'll take the hay and off I go, to the sheep! Bye, {learner}!", "de": "Ich nehme das Heu und ab zu den Schafen! Tschüss, {learner}!" }
+      ]
+    },
+    {
+      "id": "pipistrelli-campana",
+      "memory": { "it": "la campana della sera e i pipistrelli", "sl": "večerni zvon in netopirje", "en": "the evening bell and the bats", "de": "die Abendglocke und die Fledermäuse" },
+      "lines": [
+        {
+          "who": "davide",
+          "face": "curious",
+          "it": "Buonasera, {learner}! Senti la campana del paese?",
+          "sl": "Dober večer, {learner}! Slišiš vaški zvon?",
+          "en": "Good evening, {learner}! Can you hear the village bell?",
+          "de": "Guten Abend, {learner}! Hörst du die Glocke im Dorf?",
+          "fx": { "bell": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, la sento! Din, don!",
+              "sl": "Ja, slišim ga! Bim, bam!",
+              "en": "Yes, I can hear it! Ding, dong!",
+              "de": "Ja, ich höre sie! Bim, bam!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "È la campana della sera. Le pecore tornano a casa.", "sl": "To je večerni zvon. Ovce se vračajo domov.", "en": "It's the evening bell. The sheep are coming home.", "de": "Das ist die Abendglocke. Die Schafe kommen nach Hause." }
+            },
+            {
+              "it": "Sì, lo sento! Din, don!",
+              "sl": "Ja, slišim ga! Bim, bam!",
+              "en": "Yes, I can hear him! Ding, dong!",
+              "de": "Ja, ich höre ihn! Bim, bam!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Campana je ženskega spola: la sento.", "en": "Campana is feminine: la sento.", "de": "Campana ist weiblich: la sento." },
+              "reply": { "face": "curious", "it": "Lo senti? Chi, il gatto?", "sl": "Ga slišiš? Koga, mačka?", "en": "You hear him? Who, the cat?", "de": "Du hörst ihn? Wen, den Kater?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "davide",
+          "face": "happy",
+          "it": "E guarda: ecco i pipistrelli sopra il campo!",
+          "sl": "In poglej: netopirji nad njivo!",
+          "en": "And look: here are the bats over the field!",
+          "de": "Und schau: Da sind die Fledermäuse über dem Feld!",
+          "fx": { "bats": 0.6}
+        },
+        {
+          "choices": [
+            {
+              "it": "Quanti pipistrelli!",
+              "sl": "Koliko netopirjev!",
+              "en": "So many bats!",
+              "de": "So viele Fledermäuse!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Tantissimi! Ogni sera escono a cena.", "sl": "Ogromno! Vsak večer gredo na večerjo.", "en": "Loads! Every evening they go out for supper.", "de": "Ganz viele! Jeden Abend gehen sie zum Abendessen." }
+            },
+            {
+              "it": "Quanto pipistrelli!",
+              "sl": "Koliko netopirjev!",
+              "en": "So much bats!",
+              "de": "So viel Fledermäuse!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Netopirjev je veliko, v množini: quanti.", "en": "Lots of bats is plural: quanti.", "de": "Viele Fledermäuse sind Plural: quanti." },
+              "reply": { "face": "confused", "it": "Quanto? Contali, sono tanti!", "sl": "Koliko? Preštej jih, veliko jih je!", "en": "Quanto? Count them, there are lots!", "de": "Quanto? Zähl sie, es sind viele!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "happy", "it": "La sera è bella qui. Buonanotte, {learner}!", "sl": "Večer je tukaj lep. Lahko noč, {learner}!", "en": "The evening is lovely here. Good night, {learner}!", "de": "Der Abend ist schön hier. Gute Nacht, {learner}!" }
+      ]
+    },
+    {
+      "id": "conta-cavallo",
+      "memory": { "it": "Baio che torna al carro", "sl": "Baia, ki se vrne k vozu", "en": "Baio coming back to the cart", "de": "Baio, der zum Wagen zurückkommt" },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "worried",
+          "it": "{learner}! Dov'è Baio? Il carro è senza cavallo!",
+          "sl": "{learner}! Kje je Baio? Voz je brez konja!",
+          "en": "{learner}! Where's Baio? The cart has no horse!",
+          "de": "{learner}! Wo ist Baio? Der Wagen hat kein Pferd!",
+          "fx": { "horse": 0}
+        },
+        {
+          "choices": [
+            {
+              "it": "Eccolo! Torna dal prato.",
+              "sl": "Tamle je! Vrača se s travnika.",
+              "en": "There he is! He's coming back from the meadow.",
+              "de": "Da ist er! Er kommt von der Wiese zurück.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Baio! Vieni qui, bello!",
+                "sl": "Baio! Pridi sem, lepotec!",
+                "en": "Baio! Come here, beauty!",
+                "de": "Baio! Komm her, mein Schöner!",
+                "fx": { "horse": 1}
+              }
+            },
+            {
+              "it": "Eccola! Torna dal prato.",
+              "sl": "Tamle je! Vrača se s travnika.",
+              "en": "There she is! She's coming back from the meadow.",
+              "de": "Da ist sie! Sie kommt von der Wiese zurück.",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Baio je konj, moškega spola: eccolo.", "en": "Baio is male: eccolo.", "de": "Baio ist männlich: eccolo." },
+              "reply": { "face": "confused", "it": "Eccola? Baio è un maschio!", "sl": "Ona? Baio je samec!", "en": "There she is? Baio is a boy!", "de": "Da ist sie? Baio ist ein Junge!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "proud", "it": "Baio porta il fieno al grande fienile. È fortissimo!", "sl": "Baio vozi seno v veliki senik. Zelo močan je!", "en": "Baio takes the hay to the big barn. He's super strong!", "de": "Baio bringt das Heu zum großen Heuschober. Er ist superstark!" },
+        {
+          "choices": [
+            {
+              "it": "Che bel cavallo!",
+              "sl": "Kako lep konj!",
+              "en": "What a beautiful horse!",
+              "de": "Was für ein schönes Pferd!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Il più bello del mondo!", "sl": "Najlepši na svetu!", "en": "The most beautiful in the world!", "de": "Das schönste der Welt!" }
+            },
+            {
+              "it": "Che bella cavallo!",
+              "sl": "Kako lep konj!",
+              "en": "What a beautiful horse!",
+              "de": "Was für ein schönes Pferd!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Cavallo je moškega spola: bel cavallo.", "en": "Cavallo is masculine: bel cavallo.", "de": "Cavallo ist männlich: bel cavallo." },
+              "reply": { "face": "laugh", "it": "Bella? Baio non è una cavalla!", "sl": "Lepa? Baio ni kobila!", "en": "Bella? Baio isn't a mare!", "de": "Bella? Baio ist doch keine Stute!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "curious", "it": "Domani lo spazzoliamo insieme. Promesso?", "sl": "Jutri ga skupaj skrtačiva. Obljubiš?", "en": "Tomorrow we'll brush him together. Promise?", "de": "Morgen bürsten wir ihn zusammen. Versprochen?" }
+      ]
+    },
+    {
+      "id": "faccia-corvi",
+      "memory": { "it": "i corvi che abbiamo cacciato dal grano", "sl": "vrane, ki sva jih pregnala s pšenice", "en": "the crows we chased off the wheat", "de": "die Krähen, die wir vom Weizen verjagt haben" },
+      "lines": [
+        {
+          "who": "lorenzo",
+          "face": "worried",
+          "it": "{learner}, guarda! I corvi sono tutti sullo spaventapasseri!",
+          "sl": "{learner}, poglej! Vse vrane so na strašilu!",
+          "en": "{learner}, look! The crows are all on the scarecrow!",
+          "de": "{learner}, schau! Die Krähen sitzen alle auf der Vogelscheuche!",
+          "fx": { "crows": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Facciamo paura ai corvi!",
+              "sl": "Prestrašiva vrane!",
+              "en": "Let's scare the crows!",
+              "de": "Machen wir den Krähen Angst!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Sì! Battiamo le mani, forte forte!", "sl": "Ja! Ploskajva, močno, močno!", "en": "Yes! Let's clap our hands, really loud!", "de": "Ja! Wir klatschen in die Hände, ganz laut!" }
+            },
+            {
+              "it": "Facciamo paura alle corvi!",
+              "sl": "Prestrašiva vrane!",
+              "en": "Let's scare the crows!",
+              "de": "Machen wir den Krähen Angst!",
+              "grammar": "preposizioni-articolate",
+              "why": { "sl": "Corvi so moškega spola v množini: ai corvi (a + i).", "en": "Corvi is masculine plural: ai corvi (a + i).", "de": "Corvi ist männlich und Plural: ai corvi (a + i)." },
+              "reply": { "face": "curious", "it": "Alle corvi? Hm, quasi!", "sl": "Alle corvi? Hm, skoraj!", "en": "Alle corvi? Hm, almost!", "de": "Alle corvi? Hm, fast!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        {
+          "who": "lorenzo",
+          "face": "happy",
+          "it": "Uno, due, tre… Via, corvi!",
+          "sl": "Ena, dva, tri … Proč, vrane!",
+          "en": "One, two, three… Away, crows!",
+          "de": "Eins, zwei, drei … Weg, ihr Krähen!",
+          "fx": { "crows": 0}
+        },
+        {
+          "choices": [
+            {
+              "it": "Volano via!",
+              "sl": "Odletijo!",
+              "en": "They're flying away!",
+              "de": "Sie fliegen weg!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Ce l'abbiamo fatta! Il grano è salvo.", "sl": "Uspelo nama je! Pšenica je rešena.", "en": "We did it! The wheat is safe.", "de": "Wir haben es geschafft! Der Weizen ist gerettet." }
+            },
+            {
+              "it": "Vola via!",
+              "sl": "Odleti!",
+              "en": "It's flying away!",
+              "de": "Sie fliegt weg!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Vran je veliko: volano. Vola je za eno.", "en": "There are lots of crows: volano. Vola is for one.", "de": "Es sind viele Krähen: volano. Vola steht für eine." },
+              "reply": { "face": "curious", "it": "Vola chi? Una sola? Erano tante!", "sl": "Kdo odleti? Ena sama? Bilo jih je veliko!", "en": "Who's flying? Just one? There were lots!", "de": "Wer fliegt? Nur eine? Es waren viele!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "lorenzo", "face": "proud", "it": "Lo spaventapasseri dice grazie. Io lo so!", "sl": "Strašilo pravi hvala. Jaz to vem!", "en": "The scarecrow says thank you. I just know it!", "de": "Die Vogelscheuche sagt danke. Ich weiß es!" }
+      ]
+    },
+    {
+      "id": "lepre-campana",
+      "memory": { "it": "la lepre che è saltata fuori dall'erba", "sl": "zajca, ki je skočil iz trave", "en": "the hare that leapt out of the grass", "de": "den Hasen, der aus dem Gras gesprungen ist" },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "matteo",
+          "face": "happy",
+          "it": "Ciao, {learner}! Senti? La campana del paese suona.",
+          "sl": "Živjo, {learner}! Slišiš? Vaški zvon zvoni.",
+          "en": "Hi, {learner}! Hear that? The village bell is ringing.",
+          "de": "Hallo, {learner}! Hörst du? Die Dorfglocke läutet.",
+          "fx": { "bell": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "La campana suona forte!",
+              "sl": "Zvon glasno zvoni!",
+              "en": "The bell rings loudly!",
+              "de": "Die Glocke läutet laut!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì, si sente fino alla vigna.", "sl": "Ja, sliši se do vinograda.", "en": "Yes, you can hear it all the way to the vineyard.", "de": "Ja, man hört sie bis zum Weinberg." }
+            },
+            {
+              "it": "La campana suonano forte!",
+              "sl": "Zvon glasno zvonijo!",
+              "en": "The bell ring loudly!",
+              "de": "Die Glocke läuten laut!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Zvon je en: suona. Suonano je za več.", "en": "There is one bell: suona. Suonano is for more than one.", "de": "Es ist eine Glocke: suona. Suonano steht für mehrere." },
+              "reply": { "face": "curious", "it": "Suonano? Quante campane hai sentito?", "sl": "Zvonijo? Koliko zvonov si {m:slišal|f:slišala}?", "en": "Suonano? How many bells did you hear?", "de": "Suonano? Wie viele Glocken hast du gehört?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "matteo",
+          "face": "curious",
+          "it": "Shh… guarda vicino allo steccato.",
+          "sl": "Pst … poglej pri plotu.",
+          "en": "Shh… look by the fence.",
+          "de": "Pst … schau beim Zaun.",
+          "fx": { "hare": 0.3}
+        },
+        {
+          "who": "matteo",
+          "face": "surprised",
+          "it": "Una lepre! Salta via!",
+          "sl": "Zajec! Odskakljal je!",
+          "en": "A hare! It's leaping away!",
+          "de": "Ein Hase! Er springt davon!",
+          "fx": { "hare": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Ha le orecchie lunghe!",
+              "sl": "Dolga ušesa ima!",
+              "en": "It has long ears!",
+              "de": "Er hat lange Ohren!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Lunghissime! E corre come il vento.", "sl": "Zelo dolga! In teče kot veter.", "en": "Very long! And it runs like the wind.", "de": "Sehr lang! Und er rennt wie der Wind." }
+            },
+            {
+              "it": "Ha le orecchie lunga!",
+              "sl": "Dolga ušesa ima!",
+              "en": "It has long ears!",
+              "de": "Er hat lange Ohren!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Orecchie so ženskega spola v množini: lunghe.", "en": "Orecchie is feminine plural: lunghe.", "de": "Orecchie ist weiblich und Plural: lunghe." },
+              "reply": { "face": "confused", "it": "Lunga? Ma le orecchie sono due!", "sl": "Dolgo? Saj sta ušesi dve!", "en": "Lunga? But there are two ears!", "de": "Lunga? Es sind doch zwei Ohren!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "matteo", "face": "happy", "it": "Ciao, lepre! Ciao, {learner}! Torno alla vigna.", "sl": "Adijo, zajec! Adijo, {learner}! Grem nazaj v vinograd.", "en": "Bye, hare! Bye, {learner}! I'm going back to the vineyard.", "de": "Tschüss, Hase! Tschüss, {learner}! Ich gehe zurück in den Weinberg." }
+      ]
+    }
+  ]
+}
