@@ -315,8 +315,10 @@ def build(args: list[str]) -> int:
                     finally:
                         lk.free()
         if time.time() - said > 60:
-            print(f"qa-slot: the build waits for {min_gb():.0f} GB available (now {available_gb():.1f}) and a heavy slot "
-                  f"({', '.join(locks)})", flush=True)
+            gb = available_gb()
+            what = (f"{min_gb():.0f} GB available (now {gb:.1f})" if gb < min_gb() else
+                    f"one of the heavy slots, all taken ({', '.join(holder(p) or p for p in locks)})")
+            print(f"qa-slot: the build waits for {what}", flush=True)
             said = time.time()
         time.sleep(15)
 
