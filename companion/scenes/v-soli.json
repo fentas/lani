@@ -34,7 +34,7 @@
     { "id": "tabla", "title": { "sl": "Napake na tabli", "en": "Mistakes on the blackboard", "de": "Fehler an der Tafel", "it": "Errori alla lavagna" }, "who": "mojca",
       "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "tabla", "dialogs": ["tabla-rodilnik", "tabla-preteklik", "tabla"],"reward": { "stone": 20 }, "marker": "🖍️",
       "memory": { "sl": "napake na tabli, ki ste jih popravili", "en": "the mistakes on the blackboard you corrected", "de": "die Fehler an der Tafel, die Sie verbessert haben", "it": "gli errori alla lavagna che Lei ha corretto" } },
-    { "id": "dvojina", "title": { "sl": "Dva učenca, dve knjigi", "en": "Two pupils, two books", "de": "Zwei Schüler, zwei Bücher", "it": "Due alunni, due libri" }, "who": "mojca",
+    { "id": "dvojina", "title": { "sl": "Dva učenca, dve knjigi", "en": "Two pupils, two books", "de": "Zwei Schüler, zwei Bücher", "it": "Due alunni, due libri" }, "who": "mojca", "with": ["tine", "zala"],
       "when": ["afternoon"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "dvojina", "dialogs": ["dvojina-knjige", "dvojina-vceraj", "dvojina"],"reward": { "stone": 20 }, "marker": "✌️",
       "memory": { "sl": "dvojino, ki sva jo {m:vadila|f:vadili} v šoli", "en": "the dual we two practised at school", "de": "den Dual, den wir zwei in der Schule geübt haben", "it": "il duale che noi due abbiamo esercitato a scuola" } },
     { "id": "naloga", "title": { "sl": "Tine dela domačo nalogo", "en": "Tine is doing his homework", "de": "Tine macht seine Hausaufgaben", "it": "Tine fa i compiti" }, "who": "tine",
