@@ -1,0 +1,2089 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "pod-uro",
+  "title": { "sl": "Pod uro", "en": "Under the clock", "de": "Unter der Uhr", "it": "Sotto l'orologio" },
+  "emoji": "🕰️",
+  "level": "A1",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; to check: četrt na enajst, pol ure čez eno, navijat uro, zamuja/prehiteva, Nisva skupaj krav pasla",
+  "art": "square",
+  "from": ["project:mestna_ura"],
+  "pack": "pod-uro",
+  "objects": [
+    { "slot": "linden", "word": "lipa", "pack": "v-vasi" },
+    { "slot": "bench", "word": "klop", "pack": "na-vasi" },
+    { "slot": "ball", "word": "zoga", "pack": "na-vasi" },
+    { "slot": "well", "word": "vodnjak", "pack": "na-vasi", "needs": { "building": "WELL" } },
+    { "slot": "dog", "word": "pes", "pack": "na-vasi" },
+    { "slot": "cat", "word": "macka", "pack": "na-vasi" },
+    { "slot": "house", "word": "hisa", "pack": "v-vasi" },
+    { "slot": "tower", "word": "zvonik", "pack": "na-vasi", "needs": { "building": "CHURCH" } },
+    { "slot": "bicycle", "word": "kolo", "pack": "pot-in-promet" },
+    { "slot": "flowers", "word": "roza", "pack": "v-gozdu" },
+    { "slot": "sun", "word": "sonce", "pack": "vreme-in-dan" },
+    { "slot": "fence", "word": "ograja", "pack": "na-vasi" }
+  ],
+  "people": [
+    {
+      "id": "mojca",
+      "name": "Učiteljica Mojca",
+      "emoji": "👩‍🏫",
+      "art": "teacher",
+      "slot": "play2",
+      "villager": "mojca"
+    },
+    { "id": "tone", "name": "Kovač Tone", "emoji": "⚒️", "art": "smith", "slot": "well", "villager": "tone" },
+    { "id": "janez", "name": "Stari Janez", "emoji": "👴", "art": "grandpa", "slot": "bench", "villager": "janez" },
+    { "id": "ancka", "name": "Teta Ančka", "emoji": "📻", "art": "aunt", "slot": "play3", "villager": "ancka" }
+  ],
+  "happenings": [
+    {
+      "id": "koliko",
+      "title": { "sl": "Koliko je ura?", "en": "What time is it?", "de": "Wie spät ist es?", "it": "Che ore sono?" },
+      "who": "mojca",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "koliko",
+      "dialogs": ["koliko-pol", "koliko"],
+      "reward": { "wisdom": 20 },
+      "marker": "🕰️",
+      "memory": {
+        "sl": "jutro, ko sva {m:vadila|f:vadili} čas",
+        "en": "the morning we practised telling the time",
+        "de": "den Morgen, an dem wir die Uhrzeit geübt haben",
+        "it": "la mattina in cui abbiamo fatto esercizio con l'ora"
+      }
+    },
+    {
+      "id": "ancka",
+      "title": {
+        "sl": "Teta Ančka ne sliši ure",
+        "en": "Aunt Ančka can't hear the clock",
+        "de": "Tante Ančka hört die Uhr nicht",
+        "it": "La zia Ančka non sente l'orologio"
+      },
+      "who": "ancka",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "ancka",
+      "dialogs": ["ancka-poroka", "ancka"],
+      "reward": { "wisdom": 15 },
+      "marker": "📻",
+      "memory": {
+        "sl": "mestno uro, ki je nisem slišala",
+        "en": "the town clock I couldn't hear",
+        "de": "die Stadtuhr, die ich nicht gehört habe",
+        "it": "l'orologio civico che non sentivo"
+      }
+    },
+    {
+      "id": "navijanje",
+      "title": {
+        "sl": "Tone navije uro",
+        "en": "Tone winds the clock",
+        "de": "Tone zieht die Uhr auf",
+        "it": "Tone carica l'orologio"
+      },
+      "who": "tone",
+      "when": ["morning"],
+      "weekdays": [6],
+      "chance": 0.6,
+      "dialog": "navijanje",
+      "dialogs": ["navijanje-kolesje", "navijanje"],
+      "reward": { "stone": 15 },
+      "marker": "🔑",
+      "memory": {
+        "sl": "soboto, ko sva navila uro",
+        "en": "the Saturday we wound the clock",
+        "de": "den Samstag, an dem wir die Uhr aufgezogen haben",
+        "it": "il sabato in cui abbiamo caricato l'orologio"
+      }
+    },
+    {
+      "id": "janez",
+      "title": {
+        "sl": "Janezova žepna ura",
+        "en": "Janez's pocket watch",
+        "de": "Janez' Taschenuhr",
+        "it": "L'orologio da tasca di Janez"
+      },
+      "who": "janez",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "janez",
+      "dialogs": ["janez-zamuja", "janez"],
+      "reward": { "wisdom": 15 },
+      "marker": "⌚",
+      "memory": {
+        "sl": "očetovo uro, ki zamuja",
+        "en": "my father's watch that runs slow",
+        "de": "die Uhr meines Vaters, die nachgeht",
+        "it": "l'orologio di mio padre che va indietro"
+      }
+    },
+    {
+      "id": "poldne",
+      "title": {
+        "sl": "Opoldne gre Janez na kosilo",
+        "en": "At noon Janez goes for lunch",
+        "de": "Mittags geht Janez zum Essen",
+        "it": "A mezzogiorno Janez va a pranzo"
+      },
+      "who": "janez",
+      "when": ["morning"],
+      "chance": 0.45,
+      "dialog": "poldne",
+      "dialogs": ["poldne-zoga", "poldne"],
+      "reward": { "food": 15 },
+      "marker": "🍲",
+      "memory": {
+        "sl": "joto, o kateri sva govorila",
+        "en": "the jota we talked about",
+        "de": "die Jota, über die wir geredet haben",
+        "it": "la jota di cui abbiamo parlato"
+      }
+    },
+    {
+      "id": "zamuda",
+      "title": { "sl": "Kdo zamuja?", "en": "Who's late?", "de": "Wer kommt zu spät?", "it": "Chi è in ritardo?" },
+      "who": "mojca",
+      "when": ["evening"],
+      "chance": 0.5,
+      "dialog": "zamuda",
+      "dialogs": ["zamuda-ancka", "zamuda"],
+      "reward": { "wisdom": 15 },
+      "marker": "⏰",
+      "memory": {
+        "sl": "večer, ko ste zamudili",
+        "en": "the evening you were late",
+        "de": "den Abend, an dem Sie zu spät gekommen sind",
+        "it": "la sera in cui è {m:arrivato|f:arrivata} in ritardo"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "koliko",
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Dobro jutro, {learner}! Vidite uro na zvoniku? Danes vadimo čas.",
+          "en": "Good morning, {learner}! Do you see the clock on the tower? Today we're practising the time.",
+          "de": "Guten Morgen, {learner}! Sehen Sie die Uhr am Turm? Heute üben wir die Uhrzeit.",
+          "it": "Buongiorno, {learner}! Vede l'orologio sul campanile? Oggi ci esercitiamo con l'ora."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Dobro jutro! Ja, vidim jo.",
+              "en": "Good morning! Yes, I see it.",
+              "de": "Guten Morgen! Ja, ich sehe sie.",
+              "it": "Buongiorno! Sì, lo vedo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično. Pa začnimo.",
+                "en": "Excellent. Let's begin.",
+                "de": "Ausgezeichnet. Fangen wir an.",
+                "it": "Ottimo. Cominciamo."
+              }
+            },
+            {
+              "sl": "Dobro jutro! Lepa je, kajne?",
+              "en": "Good morning! It's lovely, isn't it?",
+              "de": "Guten Morgen! Sie ist schön, nicht wahr?",
+              "it": "Buongiorno! È bello, vero?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Hvala! Sama sem jo izračunala.",
+                "en": "Thank you! I worked it out myself.",
+                "de": "Danke! Ich habe sie selbst berechnet.",
+                "it": "Grazie! L'ho calcolato io."
+              }
+            },
+            {
+              "sl": "Dober večer! Ja, vidim jo.",
+              "en": "Good evening! Yes, I see it.",
+              "de": "Guten Abend! Ja, ich sehe sie.",
+              "it": "Buonasera! Sì, lo vedo.",
+              "why": {
+                "en": "It's morning: dobro jutro. Dober večer is for the evening.",
+                "de": "Es ist Morgen: dobro jutro. Dober večer sagt man am Abend.",
+                "it": "È mattina: dobro jutro. Dober večer si dice la sera."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Večer? Ura na zvoniku pravi drugače!",
+                "en": "Evening? The clock on the tower says otherwise!",
+                "de": "Abend? Die Uhr am Turm sagt etwas anderes!",
+                "it": "Sera? L'orologio sul campanile dice altro!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Pouk se začne ob osmih. Kdaj pa je kosilo?",
+          "en": "School starts at eight. And when is lunch?",
+          "de": "Der Unterricht beginnt um acht. Und wann gibt es Mittagessen?",
+          "it": "La scuola comincia alle otto. E quando si pranza?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kosilo je ob dvanajstih.",
+              "en": "Lunch is at twelve.",
+              "de": "Mittagessen ist um zwölf.",
+              "it": "Il pranzo è alle dodici.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično! Ob dvanajstih, ko ura bije.",
+                "en": "Excellent! At twelve, when the clock strikes.",
+                "de": "Ausgezeichnet! Um zwölf, wenn die Uhr schlägt.",
+                "it": "Ottimo! Alle dodici, quando batte l'orologio."
+              }
+            },
+            {
+              "sl": "Kosilo je ob dvanajst.",
+              "en": "Lunch is at twelve (plain number).",
+              "de": "Mittagessen ist um zwölf (Grundform).",
+              "it": "Il pranzo è alle dodici (forma semplice).",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "At an hour: ob + the locative, ob dvanajstih.",
+                "de": "Um … Uhr: ob + Lokativ, ob dvanajstih.",
+                "it": "A un'ora: ob + locativo, ob dvanajstih."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Ob dvanajst? Hm, po »ob« pride drug sklon.",
+                "en": "Ob dvanajst? Hm, after «ob» comes another case.",
+                "de": "Ob dvanajst? Hm, nach «ob» kommt ein anderer Fall.",
+                "it": "Ob dvanajst? Mm, dopo «ob» viene un altro caso."
+              }
+            },
+            {
+              "sl": "Kosilo je v dvanajstih.",
+              "en": "Lunch is in twelve.",
+              "de": "Mittagessen ist in zwölf.",
+              "it": "Il pranzo è in dodici.",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "At an hour: ob, not v. Ob dvanajstih.",
+                "de": "Um … Uhr: ob, nicht v. Ob dvanajstih.",
+                "it": "A un'ora: ob, non v. Ob dvanajstih."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "V dvanajstih? V čem? Ura ni hiša, {learner}.",
+                "en": "V dvanajstih? In what? A clock isn't a house, {learner}.",
+                "de": "V dvanajstih? Worin? Eine Uhr ist kein Haus, {learner}.",
+                "it": "V dvanajstih? Dentro che cosa? L'orologio non è una casa, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Zdaj pa težje. Domov gremo ob pol dveh. Kdaj je to?",
+          "en": "Now something harder. We go home «ob pol dveh». What time is that?",
+          "de": "Jetzt etwas Schwereres. Wir gehen «ob pol dveh» nach Hause. Wie spät ist das?",
+          "it": "Adesso una cosa più difficile. Andiamo a casa «ob pol dveh». Che ora è?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "To je pol ure čez eno.",
+              "en": "That's half an hour past one.",
+              "de": "Das ist eine halbe Stunde nach eins.",
+              "it": "È mezz'ora dopo l'una.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Odlično! Pol dveh: pol poti do dveh.",
+                "en": "Excellent! Pol dveh: halfway to two.",
+                "de": "Ausgezeichnet! Pol dveh: auf halbem Weg zu zwei.",
+                "it": "Ottimo! Pol dveh: a metà strada verso le due."
+              }
+            },
+            {
+              "sl": "To je pol ure čez dve.",
+              "en": "That's half an hour past two.",
+              "de": "Das ist eine halbe Stunde nach zwei.",
+              "it": "È mezz'ora dopo le due.",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "Half counts towards the next hour, as in German: pol dveh is 1:30.",
+                "de": "Halb zählt zur nächsten Stunde, wie im Deutschen: pol dveh ist halb zwei, 1:30.",
+                "it": "La mezza conta verso l'ora successiva: pol dveh è l'una e mezza."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Čez dve? Potem bi bila že doma!",
+                "en": "Past two? Then I'd be home already!",
+                "de": "Nach zwei? Dann wäre ich schon zu Hause!",
+                "it": "Dopo le due? Allora sarei già a casa!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Domača naloga: kdaj vstanete? Povejte mi jutri.",
+          "en": "Homework: when do you get up? Tell me tomorrow.",
+          "de": "Hausaufgabe: Wann stehen Sie auf? Sagen Sie es mir morgen.",
+          "it": "Compito: a che ora si alza? Me lo dica domani."
+        }
+      ]
+    },
+    {
+      "id": "ancka",
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "confused",
+          "sl": "Kaj? Nekaj zvoni … Je to moj radio?",
+          "en": "What? Something's ringing … Is that my radio?",
+          "de": "Was? Da läutet etwas … Ist das mein Radio?",
+          "it": "Cosa? Qualcosa suona … È la mia radio?",
+          "fx": { "bell": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ne, ura na zvoniku bije.",
+              "en": "No, the clock on the tower is striking.",
+              "de": "Nein, die Uhr am Turm schlägt.",
+              "it": "No, batte l'orologio del campanile.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "A, mestna ura! Glasneje, prosim, slabo slišim!",
+                "en": "Ah, the town clock! Louder, please, I can't hear well!",
+                "de": "Ach, die Stadtuhr! Lauter, bitte, ich höre schlecht!",
+                "it": "Ah, l'orologio civico! Più forte, per favore, sento poco!"
+              }
+            },
+            {
+              "sl": "Ne, ura na zvonik bije.",
+              "en": "No, the clock onto the tower is striking.",
+              "de": "Nein, die Uhr auf den Turm schlägt.",
+              "it": "No, batte l'orologio sul (moto) campanile.",
+              "grammar": "mestnik",
+              "why": {
+                "en": "Where it is: na + the locative, na zvoniku.",
+                "de": "Wo es ist: na + Lokativ, na zvoniku.",
+                "it": "Dove si trova: na + locativo, na zvoniku."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Na zvonik? Kaj, si {m:splezal|f:splezala} gor? Kaj?",
+                "en": "Onto the tower? What, did you climb up? What?",
+                "de": "Auf den Turm? Was, bist du hinaufgeklettert? Was?",
+                "it": "Sul campanile? Cosa, ci sei {m:salito|f:salita}? Cosa?"
+              }
+            },
+            {
+              "sl": "Ne, vaš telefon zvoni.",
+              "en": "No, your phone is ringing.",
+              "de": "Nein, Ihr Telefon klingelt.",
+              "it": "No, squilla il Suo telefono.",
+              "why": {
+                "en": "It's the town clock striking: ura na zvoniku bije.",
+                "de": "Es ist die Stadtuhr, die schlägt: ura na zvoniku bije.",
+                "it": "È l'orologio civico che batte: ura na zvoniku bije."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Telefon? Jaz imam samo radio, {learner}!",
+                "en": "A phone? I've only got a radio, {learner}!",
+                "de": "Ein Telefon? Ich hab nur ein Radio, {learner}!",
+                "it": "Un telefono? Io ho solo la radio, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "curious",
+          "sl": "Povej mi: ob kateri uri je v nedeljo maša? Ob desetih ali ob devetih?",
+          "en": "Tell me: what time is Mass on Sunday? At ten or at nine?",
+          "de": "Sag mal: Um wie viel Uhr ist am Sonntag die Messe? Um zehn oder um neun?",
+          "it": "Dimmi: a che ora è la messa la domenica? Alle dieci o alle nove?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Maša je ob desetih.",
+              "en": "Mass is at ten.",
+              "de": "Die Messe ist um zehn.",
+              "it": "La messa è alle dieci.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ob desetih! Dobro, da vem. Povedala bom vsem.",
+                "en": "At ten! Good to know. I'll tell everyone.",
+                "de": "Um zehn! Gut zu wissen. Ich sag's allen.",
+                "it": "Alle dieci! Bene saperlo. Lo dirò a tutti."
+              }
+            },
+            {
+              "sl": "Maša je ob deset.",
+              "en": "Mass is at ten (plain number).",
+              "de": "Die Messe ist um zehn (Grundform).",
+              "it": "La messa è alle dieci (forma semplice).",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "At an hour: ob + the locative, ob desetih.",
+                "de": "Um … Uhr: ob + Lokativ, ob desetih.",
+                "it": "A un'ora: ob + locativo, ob desetih."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ob deset? Kaj? Glasneje!",
+                "en": "Ob deset? What? Louder!",
+                "de": "Ob deset? Was? Lauter!",
+                "it": "Ob deset? Cosa? Più forte!"
+              }
+            },
+            {
+              "sl": "Maša je v desetih.",
+              "en": "Mass is in ten.",
+              "de": "Die Messe ist in zehn.",
+              "it": "La messa è in dieci.",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "At an hour: ob, not v. Ob desetih.",
+                "de": "Um … Uhr: ob, nicht v. Ob desetih.",
+                "it": "A un'ora: ob, non v. Ob desetih."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "V desetih? Maša je v cerkvi, {learner}!",
+                "en": "In ten? Mass is in the church, {learner}!",
+                "de": "In zehn? Die Messe ist in der Kirche, {learner}!",
+                "it": "In dieci? La messa è in chiesa, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "laugh",
+          "sl": "Hvala, {learner}. Ti imaš dobra ušesa, jaz pa glasen radio!",
+          "en": "Thanks, {learner}. You have good ears, and I have a loud radio!",
+          "de": "Danke, {learner}. Du hast gute Ohren, und ich ein lautes Radio!",
+          "it": "Grazie, {learner}. Tu hai buone orecchie, e io una radio forte!"
+        }
+      ]
+    },
+    {
+      "id": "navijanje",
+      "lines": [
+        {
+          "who": "tone",
+          "sl": "Jutro. Sobota je. Grem gor, navijat uro.",
+          "en": "Morning. It's Saturday. I'm going up to wind the clock.",
+          "de": "Morgen. Es ist Samstag. Ich gehe hinauf, die Uhr aufziehen.",
+          "it": "Buongiorno. È sabato. Salgo a caricare l'orologio."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Lahko grem z vami?",
+              "en": "May I come with you?",
+              "de": "Darf ich mitkommen?",
+              "it": "Posso venire con Lei?",
+              "ok": true,
+              "reply": {
+                "sl": "Lahko. Ampak stopnice so strme.",
+                "en": "You may. But the stairs are steep.",
+                "de": "Darfst du. Aber die Treppe ist steil.",
+                "it": "Puoi. Ma le scale sono ripide."
+              }
+            },
+            {
+              "sl": "Lahko grem z vi?",
+              "en": "May I come with you (nominative)?",
+              "de": "Darf ich mit Sie (Nominativ) kommen?",
+              "it": "Posso venire con Lei (nominativo)?",
+              "grammar": "orodnik",
+              "why": {
+                "en": "Z (with) takes the instrumental: z vami.",
+                "de": "Z (mit) steht mit dem Instrumental: z vami.",
+                "it": "Z (con) vuole lo strumentale: z vami."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Z vi? Hm. Ali je prav, ali ni.",
+                "en": "Z vi? Hm. It's either right or it isn't.",
+                "de": "Z vi? Hm. Entweder es stimmt oder nicht.",
+                "it": "Z vi? Mm. O è giusto o non lo è."
+              }
+            },
+            {
+              "sl": "Lahko grem s tabo?",
+              "en": "May I come with you (ti)?",
+              "de": "Darf ich mit dir kommen?",
+              "it": "Posso venire con te?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Tone expects vi: z vami. S tabo is ti.",
+                "de": "Tone erwartet vi: z vami. S tabo ist ti.",
+                "it": "Tone si aspetta il vi: z vami. S tabo è il ti."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "S tabo? Hm. Nisva skupaj krav pasla.",
+                "en": "S tabo? Hm. We never herded cows together, you know.",
+                "de": "S tabo? Hm. Wir haben nicht zusammen Kühe gehütet.",
+                "it": "S tabo? Mm. Non abbiamo mica pascolato le mucche insieme."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "tone",
+          "sl": "Sto dvajset stopnic. Šteješ z mano?",
+          "en": "A hundred and twenty steps. Will you count with me?",
+          "de": "Hundertzwanzig Stufen. Zählst du mit?",
+          "it": "Centoventi gradini. Conti con me?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Uf, stopnice so res strme!",
+              "en": "Phew, the stairs really are steep!",
+              "de": "Puh, die Treppe ist wirklich steil!",
+              "it": "Uff, le scale sono davvero ripide!",
+              "ok": true,
+              "reply": {
+                "sl": "Strme. Ampak zgoraj je lepo.",
+                "en": "Steep. But it's nice up top.",
+                "de": "Steil. Aber oben ist es schön.",
+                "it": "Ripide. Ma in cima è bello."
+              }
+            },
+            {
+              "sl": "Uf, stopnice je res strme!",
+              "en": "Phew, the stairs is really steep!",
+              "de": "Puh, die Treppe ist (Singular) wirklich steil!",
+              "it": "Uff, le scale è davvero ripide!",
+              "grammar": "biti",
+              "why": {
+                "en": "Stopnice is plural: so. Je is for one.",
+                "de": "Stopnice ist ein Plural: so. Je ist für eines.",
+                "it": "Stopnice è plurale: so. Je è per uno solo."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Je? Ena stopnica? Sto dvajset!",
+                "en": "Je? One step? A hundred and twenty!",
+                "de": "Je? Eine Stufe? Hundertzwanzig!",
+                "it": "Je? Un gradino? Centoventi!"
+              }
+            },
+            {
+              "sl": "Uf, stopnice so res strmi!",
+              "en": "Phew, the stairs are really steep (masculine)!",
+              "de": "Puh, die Treppe ist wirklich steil (männlich)!",
+              "it": "Uff, le scale sono davvero ripidi (maschile)!",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Stopnice is feminine plural: strme.",
+                "de": "Stopnice ist weiblich Plural: strme.",
+                "it": "Stopnice è femminile plurale: strme."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Strmi? Hm. Še enkrat.",
+                "en": "Strmi? Hm. Once more.",
+                "de": "Strmi? Hm. Noch einmal.",
+                "it": "Strmi? Mm. Ancora una volta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "tone",
+          "face": "proud",
+          "sl": "Tako. Ključ: en obrat, dva, tri. Slišiš? Že bije.",
+          "en": "There. The key: one turn, two, three. Hear that? It's striking already.",
+          "de": "So. Der Schlüssel: eine Umdrehung, zwei, drei. Hörst du? Sie schlägt schon.",
+          "it": "Ecco. La chiave: un giro, due, tre. Senti? Batte già.",
+          "fx": { "bell": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Hvala, Tone. Lepo je tukaj gor.",
+              "en": "Thank you, Tone. It's lovely up here.",
+              "de": "Danke, Tone. Schön ist es hier oben.",
+              "it": "Grazie, Tone. È bello quassù.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ja. Vso vas vidiš.",
+                "en": "Yes. You can see the whole village.",
+                "de": "Ja. Man sieht das ganze Dorf.",
+                "it": "Sì. Si vede tutto il paese."
+              }
+            },
+            {
+              "sl": "Hvala, Tone. Lep je tukaj gor.",
+              "en": "Thank you, Tone. It's lovely (adjective) up here.",
+              "de": "Danke, Tone. Schön (Adjektiv) ist hier oben.",
+              "it": "Grazie, Tone. È bello (aggettivo) quassù.",
+              "grammar": "prislovi",
+              "why": {
+                "en": "It's lovely, with no thing named: the adverb, lepo je.",
+                "de": "Es ist schön, ohne ein Ding zu nennen: das Adverb, lepo je.",
+                "it": "È bello, senza nominare una cosa: l'avverbio, lepo je."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Lep? Kdo je lep? Jaz? Hm.",
+                "en": "Lep? Who's handsome? Me? Hm.",
+                "de": "Lep? Wer ist schön? Ich? Hm.",
+                "it": "Lep? Chi è bello? Io? Mm."
+              }
+            },
+            {
+              "sl": "Hvala, Tone. Lepo je tukaj dol.",
+              "en": "Thank you, Tone. It's lovely down here.",
+              "de": "Danke, Tone. Schön ist es hier unten.",
+              "it": "Grazie, Tone. È bello quaggiù.",
+              "why": {
+                "en": "You're up in the tower: gor. Dol is down.",
+                "de": "Du bist oben im Turm: gor. Dol heißt unten.",
+                "it": "Sei su nel campanile: gor. Dol vuol dire giù."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Dol? Glej skozi okno. Visoko sva!",
+                "en": "Down? Look through the window. We're high up!",
+                "de": "Unten? Schau durchs Fenster. Wir sind hoch oben!",
+                "it": "Giù? Guarda dalla finestra. Siamo in alto!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "janez",
+      "lines": [
+        {
+          "who": "janez",
+          "sl": "Dober dan, {learner}. Sedi k meni na klop. … Moja ura spet zamuja.",
+          "en": "Good day, {learner}. Sit with me on the bench. … My watch is slow again.",
+          "de": "Guten Tag, {learner}. Setz dich zu mir auf die Bank. … Meine Uhr geht schon wieder nach.",
+          "it": "Buongiorno, {learner}. Siediti con me sulla panchina. … Il mio orologio è di nuovo indietro."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Koliko zamuja vaša ura?",
+              "en": "How slow is your watch?",
+              "de": "Wie viel geht Ihre Uhr nach?",
+              "it": "Quanto è indietro il Suo orologio?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Deset minut. Vsak dan malo več.",
+                "en": "Ten minutes. A little more every day.",
+                "de": "Zehn Minuten. Jeden Tag ein bisschen mehr.",
+                "it": "Dieci minuti. Ogni giorno un po' di più."
+              }
+            },
+            {
+              "sl": "Koliko zamuja tvoja ura?",
+              "en": "How slow is your (ti) watch?",
+              "de": "Wie viel geht deine Uhr nach?",
+              "it": "Quanto è indietro il tuo orologio?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez says ti to you but expects vi: vaša ura.",
+                "de": "Janez sagt ti zu dir, erwartet aber vi: vaša ura.",
+                "it": "Janez ti dà del ti, ma si aspetta il vi: vaša ura."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Tvoja? Hm. Mladi danes …",
+                "en": "Tvoja? Hm. Young people today …",
+                "de": "Tvoja? Hm. Die jungen Leute heute …",
+                "it": "Tvoja? Mm. I giovani d'oggi …"
+              }
+            },
+            {
+              "sl": "Koliko zamuja vaše ura?",
+              "en": "How slow is your (neuter) watch?",
+              "de": "Wie viel geht Ihr (sächlich) Uhr nach?",
+              "it": "Quanto è indietro il Suo (neutro) orologio?",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Ura is feminine: vaša ura.",
+                "de": "Ura ist weiblich: vaša ura.",
+                "it": "Ura è femminile: vaša ura."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Vaše? Hm … Ura je ura, veš.",
+                "en": "Vaše? Hm … A watch is a watch, you know.",
+                "de": "Vaše? Hm … Eine Uhr ist eine Uhr, weißt du.",
+                "it": "Vaše? Mm … Un orologio è un orologio, sai."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Počasi, {learner}. Jaz sem star.",
+            "en": "Hm? Slowly, {learner}. I'm old.",
+            "de": "Hm? Langsam, {learner}. Ich bin alt.",
+            "it": "Mm? Piano, {learner}. Sono vecchio."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "To uro mi je dal oče. Stara je sto let.",
+          "en": "My father gave me this watch. It's a hundred years old.",
+          "de": "Diese Uhr hat mir mein Vater gegeben. Sie ist hundert Jahre alt.",
+          "it": "Questo orologio me l'ha dato mio padre. Ha cent'anni."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Stara ura, ampak še vedno gre!",
+              "en": "An old watch, but it still goes!",
+              "de": "Eine alte Uhr, aber sie geht noch!",
+              "it": "Un orologio vecchio, ma va ancora!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Ja. Kot jaz: počasi, ampak gre.",
+                "en": "Yes. Like me: slowly, but it goes.",
+                "de": "Ja. Wie ich: langsam, aber sie geht.",
+                "it": "Sì. Come me: piano, ma va."
+              }
+            },
+            {
+              "sl": "Star ura, ampak še vedno gre!",
+              "en": "An old (masculine) watch, but it still goes!",
+              "de": "Ein alter (männlich) Uhr, aber sie geht noch!",
+              "it": "Un vecchio (maschile) orologio, ma va ancora!",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Ura is feminine: stara ura.",
+                "de": "Ura ist weiblich: stara ura.",
+                "it": "Ura è femminile: stara ura."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Star? Jaz sem star, ja. Ura pa … tudi.",
+                "en": "Star? I'm old, yes. And the watch … too.",
+                "de": "Star? Ich bin alt, ja. Und die Uhr … auch.",
+                "it": "Star? Io sono vecchio, sì. E l'orologio … anche."
+              }
+            },
+            {
+              "sl": "Stara ura, ampak še vedno stoji!",
+              "en": "An old watch, but it's still stopped!",
+              "de": "Eine alte Uhr, aber sie steht immer noch!",
+              "it": "Un orologio vecchio, ma è ancora fermo!",
+              "why": {
+                "en": "Gre: it still runs. Stoji would mean it has stopped.",
+                "de": "Gre: Sie läuft noch. Stoji hieße, sie ist stehen geblieben.",
+                "it": "Gre: va ancora. Stoji vorrebbe dire che si è fermato."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Stoji? Ne, ne! Tiktaka, poslušaj.",
+                "en": "Stopped? No, no! It's ticking, listen.",
+                "de": "Steht? Nein, nein! Sie tickt, hör mal.",
+                "it": "Fermo? No, no! Fa tic tac, ascolta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Počasi, {learner}. Jaz sem star.",
+            "en": "Hm? Slowly, {learner}. I'm old.",
+            "de": "Hm? Langsam, {learner}. Ich bin alt.",
+            "it": "Mm? Piano, {learner}. Sono vecchio."
+          }
+        },
+        {
+          "who": "janez",
+          "sl": "Mestna ura pa je točna. Mojca jo je izračunala.",
+          "en": "But the town clock is exact. Mojca worked it out.",
+          "de": "Die Stadtuhr aber geht genau. Mojca hat sie berechnet.",
+          "it": "L'orologio civico invece è preciso. L'ha calcolato Mojca."
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Čas nikogar ne čaka, veš.",
+          "en": "Time waits for no one, you know.",
+          "de": "Die Zeit wartet auf niemanden, weißt du.",
+          "it": "Il tempo non aspetta nessuno, sai."
+        }
+      ]
+    },
+    {
+      "id": "poldne",
+      "lines": [
+        {
+          "who": "janez",
+          "sl": "Dober dan, {learner}. Ko zvon zvoni poldne, grem domov na kosilo. Že petdeset let.",
+          "en": "Good day, {learner}. When the bell rings noon, I go home for lunch. For fifty years now.",
+          "de": "Guten Tag, {learner}. Wenn die Glocke Mittag läutet, gehe ich zum Essen heim. Seit fünfzig Jahren.",
+          "it": "Buongiorno, {learner}. Quando la campana suona mezzogiorno, vado a casa a pranzo. Da cinquant'anni."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kaj boste jedli danes?",
+              "en": "What will you eat today?",
+              "de": "Was werden Sie heute essen?",
+              "it": "Che cosa mangerà oggi?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Joto. Vedno joto. To je naša, primorska jed.",
+                "en": "Jota. Always jota. It's our Primorska dish.",
+                "de": "Jota. Immer Jota. Das ist unser Gericht aus dem Küstenland.",
+                "it": "La jota. Sempre la jota. È il nostro piatto del Litorale."
+              }
+            },
+            {
+              "sl": "Kaj bomo jedli danes?",
+              "en": "What will we eat today?",
+              "de": "Was werden wir heute essen?",
+              "it": "Che cosa mangeremo oggi?",
+              "grammar": "prihodnjik",
+              "why": {
+                "en": "You ask about Janez: boste (you, polite). Bomo is we.",
+                "de": "Du fragst nach Janez: boste (Sie). Bomo heißt wir.",
+                "it": "Chiedi di Janez: boste (Lei). Bomo vuol dire noi."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bomo? Si {m:povabljen|f:povabljena}? Ha … no, pa pridi.",
+                "en": "Bomo (we)? Are you invited? Ha … well, come along then.",
+                "de": "Bomo (wir)? Bist du eingeladen? Ha … na, dann komm.",
+                "it": "Bomo (noi)? Sei {m:invitato|f:invitata}? Ah … be', allora vieni."
+              }
+            },
+            {
+              "sl": "Kaj boš jedel danes?",
+              "en": "What will you (ti) eat today?",
+              "de": "Was wirst du heute essen?",
+              "it": "Che cosa mangerai oggi?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older: vi, boste jedli.",
+                "de": "Janez ist älter: vi, boste jedli.",
+                "it": "Janez è più anziano: vi, boste jedli."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Boš? Hm. Nisem tvoj sošolec, {learner}.",
+                "en": "Boš? Hm. I'm not your classmate, {learner}.",
+                "de": "Boš? Hm. Ich bin nicht dein Schulkamerad, {learner}.",
+                "it": "Boš? Mm. Non sono il tuo compagno di scuola, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Počasi, {learner}. Jaz sem star.",
+            "en": "Hm? Slowly, {learner}. I'm old.",
+            "de": "Hm? Langsam, {learner}. Ich bin alt.",
+            "it": "Mm? Piano, {learner}. Sono vecchio."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "sad",
+          "sl": "Moja žena je kuhala najboljšo joto. Zdaj kuham sam.",
+          "en": "My wife cooked the best jota. Now I cook for myself.",
+          "de": "Meine Frau hat die beste Jota gekocht. Jetzt koche ich selbst.",
+          "it": "Mia moglie cucinava la jota migliore. Adesso cucino da solo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Gotovo je tudi vaša jota dobra.",
+              "en": "I'm sure your jota is good too.",
+              "de": "Ihre Jota ist bestimmt auch gut.",
+              "it": "Sicuramente anche la Sua jota è buona.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Dobra, ja. Ampak ne tako dobra.",
+                "en": "Good, yes. But not that good.",
+                "de": "Gut, ja. Aber nicht so gut.",
+                "it": "Buona, sì. Ma non così buona."
+              }
+            },
+            {
+              "sl": "Gotovo je tudi vaš jota dobra.",
+              "en": "I'm sure your (masculine) jota is good too.",
+              "de": "Ihr (männlich) Jota ist bestimmt auch gut.",
+              "it": "Sicuramente anche il Suo (maschile) jota è buona.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Jota is feminine: vaša jota.",
+                "de": "Jota ist weiblich: vaša jota.",
+                "it": "Jota è femminile: vaša jota."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Vaš jota? Zveni kot moja: malo narobe.",
+                "en": "Vaš jota? Sounds like mine: a bit off.",
+                "de": "Vaš jota? Klingt wie meine: ein bisschen daneben.",
+                "it": "Vaš jota? Suona come la mia: un po' storta."
+              }
+            },
+            {
+              "sl": "Gotovo je tudi tvoja jota dobra.",
+              "en": "I'm sure your (ti) jota is good too.",
+              "de": "Deine Jota ist bestimmt auch gut.",
+              "it": "Sicuramente anche la tua jota è buona.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older: vi, vaša jota.",
+                "de": "Janez ist älter: vi, vaša jota.",
+                "it": "Janez è più anziano: vi, vaša jota."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Tvoja? … No, vseeno hvala.",
+                "en": "Tvoja? … Well, thanks all the same.",
+                "de": "Tvoja? … Na, trotzdem danke.",
+                "it": "Tvoja? … Be', grazie lo stesso."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Počasi, {learner}. Jaz sem star.",
+            "en": "Hm? Slowly, {learner}. I'm old.",
+            "de": "Hm? Langsam, {learner}. Ich bin alt.",
+            "it": "Mm? Piano, {learner}. Sono vecchio."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "laugh",
+          "sl": "Pridi kdaj na joto. Ob dvanajstih, ne ob enih! Kajne, Muri?",
+          "en": "Come for jota some time. At twelve, not at one! Right, Muri?",
+          "de": "Komm mal zur Jota. Um zwölf, nicht um eins! Nicht wahr, Muri?",
+          "it": "Vieni a mangiare la jota qualche volta. Alle dodici, non all'una! Vero, Muri?",
+          "fx": { "wag": 1 }
+        }
+      ]
+    },
+    {
+      "id": "zamuda",
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Dober večer, {learner}! Rekli smo: ob sedmih pod uro. Kje ste bili?",
+          "en": "Good evening, {learner}! We said: at seven under the clock. Where have you been?",
+          "de": "Guten Abend, {learner}! Wir hatten gesagt: um sieben unter der Uhr. Wo waren Sie?",
+          "it": "Buonasera, {learner}! Avevamo detto: alle sette sotto l'orologio. Dov'era?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Oprostite, moja ura zamuja.",
+              "en": "Sorry, my watch is slow.",
+              "de": "Entschuldigung, meine Uhr geht nach.",
+              "it": "Mi scusi, il mio orologio è indietro.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Vaša ura zamuja? Kot Janezova!",
+                "en": "Your watch is slow? Like Janez's!",
+                "de": "Ihre Uhr geht nach? Wie die von Janez!",
+                "it": "Il Suo orologio è indietro? Come quello di Janez!"
+              }
+            },
+            {
+              "sl": "Oprosti, moja ura zamuja.",
+              "en": "Sorry (ti), my watch is slow.",
+              "de": "Entschuldige (du), meine Uhr geht nach.",
+              "it": "Scusa (tu), il mio orologio è indietro.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Mojca and you say vi to each other: oprostite.",
+                "de": "Mojca und du sagt vi zueinander: oprostite.",
+                "it": "Mojca e tu vi date del vi: oprostite."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Oprosti? Midva sva še na vi, {learner}.",
+                "en": "Oprosti? We're still on vi terms, {learner}.",
+                "de": "Oprosti? Wir sind noch per vi, {learner}.",
+                "it": "Oprosti? Ci diamo ancora del lei, {learner}."
+              }
+            },
+            {
+              "sl": "Oprostite, moja ura prehiteva.",
+              "en": "Sorry, my watch is fast.",
+              "de": "Entschuldigung, meine Uhr geht vor.",
+              "it": "Mi scusi, il mio orologio è avanti.",
+              "why": {
+                "en": "If you're late, your watch is slow: zamuja. Prehiteva means it's fast.",
+                "de": "Wenn du zu spät kommst, geht deine Uhr nach: zamuja. Prehiteva heißt, sie geht vor.",
+                "it": "Se arrivi in ritardo, il tuo orologio è indietro: zamuja. Prehiteva vuol dire che è avanti."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Prehiteva? Potem bi prišli prej!",
+                "en": "Fast? Then you'd have come early!",
+                "de": "Vor? Dann wären Sie ja früher gekommen!",
+                "it": "Avanti? Allora sarebbe {m:arrivato|f:arrivata} prima!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
+          }
+        },
+        {
+          "who": "mojca",
+          "sl": "Ni hudo. Poglejte uro na zvoniku. Ta nikoli ne zamuja.",
+          "en": "Never mind. Look at the clock on the tower. It's never late.",
+          "de": "Macht nichts. Schauen Sie auf die Uhr am Turm. Die geht nie nach.",
+          "it": "Non fa niente. Guardi l'orologio sul campanile. Quello non è mai in ritardo."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Prihodnjič bom {m:prišel|f:prišla} točno.",
+              "en": "Next time I'll be on time.",
+              "de": "Nächstes Mal komme ich pünktlich.",
+              "it": "La prossima volta arriverò puntuale.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično. To je lepa obljuba.",
+                "en": "Excellent. That's a nice promise.",
+                "de": "Ausgezeichnet. Das ist ein schönes Versprechen.",
+                "it": "Ottimo. È una bella promessa."
+              }
+            },
+            {
+              "sl": "Prihodnjič sem {m:prišel|f:prišla} točno.",
+              "en": "Next time I came on time.",
+              "de": "Nächstes Mal bin ich pünktlich gekommen.",
+              "it": "La prossima volta sono {m:arrivato|f:arrivata} puntuale.",
+              "grammar": "prihodnjik",
+              "why": {
+                "en": "Next time is the future: bom {m:prišel|f:prišla}. Sem {m:prišel|f:prišla} is the past.",
+                "de": "Nächstes Mal ist Zukunft: bom {m:prišel|f:prišla}. Sem {m:prišel|f:prišla} ist Vergangenheit.",
+                "it": "La prossima volta è futuro: bom {m:prišel|f:prišla}. Sem {m:prišel|f:prišla} è passato."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ste prišli? Kdaj? Danes ne!",
+                "en": "You came? When? Not today!",
+                "de": "Sie sind gekommen? Wann? Heute nicht!",
+                "it": "È {m:arrivato|f:arrivata}? Quando? Oggi no!"
+              }
+            },
+            {
+              "sl": "Prihodnjič bom pridem točno.",
+              "en": "Next time I will I-come on time.",
+              "de": "Nächstes Mal werde ich komme pünktlich.",
+              "it": "La prossima volta arriverò vengo puntuale.",
+              "grammar": "prihodnjik",
+              "why": {
+                "en": "The future is bom + the l-form: bom {m:prišel|f:prišla}.",
+                "de": "Die Zukunft ist bom + l-Form: bom {m:prišel|f:prišla}.",
+                "it": "Il futuro è bom + la forma in -l: bom {m:prišel|f:prišla}."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Bom pridem? Skoraj, {learner}. Še enkrat.",
+                "en": "Bom pridem? Almost, {learner}. Once more.",
+                "de": "Bom pridem? Fast, {learner}. Noch einmal.",
+                "it": "Bom pridem? Quasi, {learner}. Ancora una volta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Zdaj pa začnimo. Danes: ure in minute.",
+          "en": "Now let's begin. Today: hours and minutes.",
+          "de": "Jetzt fangen wir an. Heute: Stunden und Minuten.",
+          "it": "Adesso cominciamo. Oggi: ore e minuti."
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "koliko-pol",
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Dobro jutro, {learner}! Teta Ančka pride ob četrt na enajst. Kdaj je to?",
+          "en": "Good morning, {learner}! Aunt Ančka is coming «ob četrt na enajst». When is that?",
+          "de": "Guten Morgen, {learner}! Tante Ančka kommt «ob četrt na enajst». Wann ist das?",
+          "it": "Buongiorno, {learner}! La zia Ančka arriva «ob četrt na enajst». Quando è?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Petnajst minut čez deset.",
+              "en": "Fifteen minutes past ten.",
+              "de": "Fünfzehn Minuten nach zehn.",
+              "it": "Le dieci e un quarto.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično! Četrt na enajst je deset in petnajst.",
+                "en": "Excellent! «Četrt na enajst» is ten fifteen.",
+                "de": "Ausgezeichnet! «Četrt na enajst» ist zehn Uhr fünfzehn.",
+                "it": "Ottimo! «Četrt na enajst» sono le dieci e quindici."
+              }
+            },
+            {
+              "sl": "Petnajst minut čez enajst.",
+              "en": "Fifteen minutes past eleven.",
+              "de": "Fünfzehn Minuten nach elf.",
+              "it": "Le undici e un quarto.",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "Četrt na enajst counts toward eleven: a quarter of the way there, 10:15.",
+                "de": "Četrt na enajst zählt auf elf zu: Viertel elf, 10:15.",
+                "it": "Četrt na enajst conta verso le undici: un quarto di strada, le 10:15."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Čez enajst? Potem bi bila Ančka že pri nas!",
+                "en": "Past eleven? Then Ančka would already be here!",
+                "de": "Nach elf? Dann wäre Ančka schon bei uns!",
+                "it": "Dopo le undici? Allora Ančka sarebbe già qui!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Zdaj pa vi. Ob kateri uri vstanete?",
+          "en": "Now you. At what time do you get up?",
+          "de": "Jetzt Sie. Um wie viel Uhr stehen Sie auf?",
+          "it": "Adesso Lei. A che ora si alza?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vstanem ob sedmih.",
+              "en": "I get up at seven.",
+              "de": "Ich stehe um sieben auf.",
+              "it": "Mi alzo alle sette.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Lepo. Jaz pa ob šestih: tečem okrog vasi.",
+                "en": "Nice. And I at six: I run round the village.",
+                "de": "Schön. Und ich um sechs: Ich laufe ums Dorf.",
+                "it": "Bene. Io invece alle sei: corro intorno al paese."
+              }
+            },
+            {
+              "sl": "Vstanem ob sedem.",
+              "en": "I get up at seven (plain number).",
+              "de": "Ich stehe um sieben (Grundform) auf.",
+              "it": "Mi alzo alle sette (forma semplice).",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "At an hour: ob + the locative, ob sedmih.",
+                "de": "Um … Uhr: ob + Lokativ, ob sedmih.",
+                "it": "A un'ora: ob + locativo, ob sedmih."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Ob sedem? Skoraj, {learner}. Še enkrat.",
+                "en": "Ob sedem? Almost, {learner}. Once more.",
+                "de": "Ob sedem? Fast, {learner}. Noch einmal.",
+                "it": "Ob sedem? Quasi, {learner}. Ancora una volta."
+              }
+            },
+            {
+              "sl": "Vstanem v sedmih.",
+              "en": "I get up in seven.",
+              "de": "Ich stehe in sieben auf.",
+              "it": "Mi alzo in sette.",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "At an hour: ob, not v. Ob sedmih.",
+                "de": "Um … Uhr: ob, nicht v. Ob sedmih.",
+                "it": "A un'ora: ob, non v. Ob sedmih."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "V sedmih? V čem pa spite?",
+                "en": "V sedmih? What do you sleep in?",
+                "de": "V sedmih? Worin schlafen Sie denn?",
+                "it": "V sedmih? In che cosa dorme?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "laugh",
+          "sl": "In ne pozabite: ura na zvoniku nikoli ne spi.",
+          "en": "And don't forget: the clock on the tower never sleeps.",
+          "de": "Und vergessen Sie nicht: Die Uhr am Turm schläft nie.",
+          "it": "E non dimentichi: l'orologio sul campanile non dorme mai."
+        }
+      ]
+    },
+    {
+      "id": "ancka-poroka",
+      "memory": {
+        "sl": "poroko pod uro",
+        "en": "the wedding under the clock",
+        "de": "die Hochzeit unter der Uhr",
+        "it": "il matrimonio sotto l'orologio"
+      },
+      "lines": [
+        {
+          "who": "ancka",
+          "face": "happy",
+          "sl": "{learner}! Sem slišala, da bo poroka! Pod uro, na trgu!",
+          "en": "{learner}! I've heard there's going to be a wedding! Under the clock, on the square!",
+          "de": "{learner}! Ich habe gehört, es gibt eine Hochzeit! Unter der Uhr, auf dem Platz!",
+          "it": "{learner}! Ho sentito che ci sarà un matrimonio! Sotto l'orologio, in piazza!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Res? Kdo se poroči?",
+              "en": "Really? Who's getting married?",
+              "de": "Wirklich? Wer heiratet?",
+              "it": "Davvero? Chi si sposa?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ne smem povedati! … No, prav: sosedova hči!",
+                "en": "I mustn't say! … Oh, all right: the neighbour's daughter!",
+                "de": "Darf ich nicht sagen! … Na gut: die Tochter vom Nachbarn!",
+                "it": "Non posso dirlo! … Va be': la figlia del vicino!"
+              }
+            },
+            {
+              "sl": "Res? Kdo poroči?",
+              "en": "Really? Who marries (a couple)?",
+              "de": "Wirklich? Wer traut?",
+              "it": "Davvero? Chi sposa (una coppia)?",
+              "grammar": "povratni-glagoli",
+              "why": {
+                "en": "Getting married yourself needs se: kdo se poroči. Poročiti alone is to marry a couple, as the priest does.",
+                "de": "Selbst heiraten braucht se: kdo se poroči. Poročiti allein heißt ein Paar trauen, wie der Pfarrer.",
+                "it": "Sposarsi vuole se: kdo se poroči. Poročiti da solo vuol dire sposare una coppia, come fa il prete."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Kdo poroči? Župnik, seveda! Ampak koga?",
+                "en": "Who marries them? The priest, of course! But whom?",
+                "de": "Wer traut? Der Pfarrer, natürlich! Aber wen?",
+                "it": "Chi li sposa? Il parroco, naturalmente! Ma chi?"
+              }
+            },
+            {
+              "sl": "Res? Kdo je umrl?",
+              "en": "Really? Who died?",
+              "de": "Wirklich? Wer ist gestorben?",
+              "it": "Davvero? Chi è morto?",
+              "why": {
+                "en": "A poroka is a wedding: ask who's getting married.",
+                "de": "Eine poroka ist eine Hochzeit: Frag, wer heiratet.",
+                "it": "Una poroka è un matrimonio: chiedi chi si sposa."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Umrl? Joj, ne! Poroka, ne pogreb!",
+                "en": "Died? Oh, no! A wedding, not a funeral!",
+                "de": "Gestorben? Oje, nein! Eine Hochzeit, keine Beerdigung!",
+                "it": "Morto? Oh, no! Un matrimonio, non un funerale!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "happy",
+          "sl": "V soboto ob štirih. Pod uro na zvoniku se bosta poljubila!",
+          "en": "On Saturday at four. Under the clock on the tower they'll kiss!",
+          "de": "Am Samstag um vier. Unter der Uhr am Turm werden sie sich küssen!",
+          "it": "Sabato alle quattro. Sotto l'orologio del campanile si baceranno!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ob štirih? Potem pridem tudi jaz.",
+              "en": "At four? Then I'll come too.",
+              "de": "Um vier? Dann komme ich auch.",
+              "it": "Alle quattro? Allora vengo anch'io.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Pridi, pridi! Bo godba, bo potica!",
+                "en": "Come, come! There'll be a band, there'll be potica!",
+                "de": "Komm, komm! Es gibt Musik, es gibt Potica!",
+                "it": "Vieni, vieni! Ci sarà la banda, ci sarà la potica!"
+              }
+            },
+            {
+              "sl": "Ob štiri? Potem pridem tudi jaz.",
+              "en": "At four (plain number)? Then I'll come too.",
+              "de": "Um vier (Grundform)? Dann komme ich auch.",
+              "it": "Alle quattro (forma semplice)? Allora vengo anch'io.",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "At an hour: ob + the locative, ob štirih.",
+                "de": "Um … Uhr: ob + Lokativ, ob štirih.",
+                "it": "A un'ora: ob + locativo, ob štirih."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Ob štiri? Kaj praviš? Govori glasneje!",
+                "en": "Ob štiri? What are you saying? Speak up!",
+                "de": "Ob štiri? Was sagst du? Sprich lauter!",
+                "it": "Ob štiri? Che dici? Parla più forte!"
+              }
+            },
+            {
+              "sl": "V štirih? Potem pridem tudi jaz.",
+              "en": "In four? Then I'll come too.",
+              "de": "In vier? Dann komme ich auch.",
+              "it": "In quattro? Allora vengo anch'io.",
+              "grammar": "kdaj-cas",
+              "why": {
+                "en": "At an hour: ob, not v. Ob štirih.",
+                "de": "Um … Uhr: ob, nicht v. Ob štirih.",
+                "it": "A un'ora: ob, non v. Ob štirih."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "V štirih? V čem? Ha, kakšne besede!",
+                "en": "V štirih? In what? Ha, what words!",
+                "de": "V štirih? Worin? Ha, was für Wörter!",
+                "it": "V štirih? Dentro che cosa? Ah, che parole!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "laugh",
+          "sl": "Ampak pst! Nikomur ne povej. … No, saj vsi že vedo.",
+          "en": "But shh! Don't tell anyone. … Well, everyone knows already.",
+          "de": "Aber pst! Sag's niemandem. … Na ja, alle wissen es schon.",
+          "it": "Ma acqua in bocca! Non dirlo a nessuno. … Be', lo sanno già tutti."
+        }
+      ]
+    },
+    {
+      "id": "navijanje-kolesje",
+      "memory": {
+        "sl": "kolesje, ki ga je skoval Tone",
+        "en": "the clockwork Tone forged",
+        "de": "das Uhrwerk, das Tone geschmiedet hat",
+        "it": "il meccanismo forgiato da Tone"
+      },
+      "lines": [
+        {
+          "who": "tone",
+          "sl": "Jutro. Pridi gor. To je kolesje ure. Iz železa in medenine.",
+          "en": "Morning. Come up. This is the clock's works. Iron and brass.",
+          "de": "Morgen. Komm hinauf. Das ist das Uhrwerk. Aus Eisen und Messing.",
+          "it": "Buongiorno. Sali. Questo è il meccanismo dell'orologio. Ferro e ottone."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ste ga vi skovali?",
+              "en": "Did you forge it?",
+              "de": "Haben Sie es geschmiedet?",
+              "it": "L'ha forgiato Lei?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Jaz. Tri tedne dela.",
+                "en": "I did. Three weeks' work.",
+                "de": "Ich. Drei Wochen Arbeit.",
+                "it": "Io. Tre settimane di lavoro."
+              }
+            },
+            {
+              "sl": "Ste jo vi skovali?",
+              "en": "Did you forge her (it, feminine)?",
+              "de": "Haben Sie sie (weiblich) geschmiedet?",
+              "it": "L'ha forgiata (femminile) Lei?",
+              "grammar": "spol-samostalnikov",
+              "why": {
+                "en": "Kolesje is neuter: ga. Jo stands for a feminine word, like ura.",
+                "de": "Kolesje ist sächlich: ga. Jo steht für ein weibliches Wort, wie ura.",
+                "it": "Kolesje è neutro: ga. Jo sta per una parola femminile, come ura."
+              },
+              "reply": {
+                "face": "thinking",
+                "sl": "Jo? Uro? Ne, uro je naredila Mojca. Na papirju.",
+                "en": "Jo? The clock? No, Mojca made the clock. On paper.",
+                "de": "Jo? Die Uhr? Nein, die Uhr hat Mojca gemacht. Auf Papier.",
+                "it": "Jo? L'orologio? No, l'orologio l'ha fatto Mojca. Sulla carta."
+              }
+            },
+            {
+              "sl": "Si ga ti skoval?",
+              "en": "Did you (ti) forge it?",
+              "de": "Hast du es geschmiedet?",
+              "it": "L'hai forgiato tu?",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Tone expects vi: ste ga vi skovali.",
+                "de": "Tone erwartet vi: ste ga vi skovali.",
+                "it": "Tone si aspetta il vi: ste ga vi skovali."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Ti? Hm. Spet ta ti …",
+                "en": "Ti? Hm. That ti again …",
+                "de": "Ti? Hm. Schon wieder dieses ti …",
+                "it": "Ti? Mm. Di nuovo questo ti …"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "tone",
+          "sl": "Vsak zobnik mora biti točen. Ali je prav, ali ni.",
+          "en": "Every cog must be exact. It's either right or it isn't.",
+          "de": "Jedes Zahnrad muss genau sein. Entweder es stimmt oder nicht.",
+          "it": "Ogni ingranaggio dev'essere preciso. O è giusto o non lo è."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Zato je mestna ura tako točna.",
+              "en": "That's why the town clock is so exact.",
+              "de": "Darum ist die Stadtuhr so genau.",
+              "it": "Per questo l'orologio civico è così preciso.",
+              "ok": true,
+              "reply": { "face": "happy", "sl": "Tako je.", "en": "That's right.", "de": "So ist es.", "it": "Proprio così." }
+            },
+            {
+              "sl": "Zato je mestna ura tako točen.",
+              "en": "That's why the town clock is so exact (masculine).",
+              "de": "Darum ist die Stadtuhr so genau (männlich).",
+              "it": "Per questo l'orologio civico è così preciso (maschile).",
+              "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Ura is feminine: točna.", "de": "Ura ist weiblich: točna.", "it": "Ura è femminile: točna." },
+              "reply": {
+                "face": "cross",
+                "sl": "Točen? Hm. Jaz sem točen. Ura pa …?",
+                "en": "Točen? Hm. I'm exact. But the clock …?",
+                "de": "Točen? Hm. Ich bin genau. Aber die Uhr …?",
+                "it": "Točen? Mm. Io sono preciso. Ma l'orologio …?"
+              }
+            },
+            {
+              "sl": "Zato je mestna ura tako počasna.",
+              "en": "That's why the town clock is so slow.",
+              "de": "Darum ist die Stadtuhr so langsam.",
+              "it": "Per questo l'orologio civico è così lento.",
+              "why": {
+                "en": "Tone's clock is never slow: točna, exact.",
+                "de": "Tones Uhr geht nie nach: točna, genau.",
+                "it": "L'orologio di Tone non è mai indietro: točna, preciso."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Počasna? Moja ura? Ne. Janezova je počasna.",
+                "en": "Slow? My clock? No. Janez's is slow.",
+                "de": "Langsam? Meine Uhr? Nein. Die von Janez ist langsam.",
+                "it": "Lento? Il mio orologio? No. Quello di Janez è lento."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "tone",
+          "sl": "Pazi na ušesa. Zdaj bo bila!",
+          "en": "Mind your ears. It's about to strike!",
+          "de": "Pass auf deine Ohren auf. Gleich schlägt sie!",
+          "it": "Attento alle orecchie. Sta per battere!",
+          "fx": { "bell": 1 }
+        }
+      ]
+    },
+    {
+      "id": "janez-zamuja",
+      "count": { "from": "dice", "min": 1, "max": 30, "gender": "f", "case": "acc" },
+      "memory": {
+        "sl": "staro uro, ki sva jo popravila",
+        "en": "the old watch we set right",
+        "de": "die alte Uhr, die wir gerichtet haben",
+        "it": "il vecchio orologio che abbiamo sistemato"
+      },
+      "lines": [
+        {
+          "who": "janez",
+          "sl": "Dober dan, {learner}. Moja stara ura spet zamuja. Primerjaj ju, prosim.",
+          "en": "Good day, {learner}. My old watch is slow again. Compare the two, please.",
+          "de": "Guten Tag, {learner}. Meine alte Uhr geht schon wieder nach. Vergleich die beiden, bitte.",
+          "it": "Buongiorno, {learner}. Il mio vecchio orologio è di nuovo indietro. Confrontali, per favore."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vaša ura zamuja {n} {!minuto|minuti|minute|minut}.",
+              "en": "Your watch is {n} {minute|minutes} slow.",
+              "de": "Ihre Uhr geht {n} {Minute|Minuten} nach.",
+              "it": "Il Suo orologio è indietro di {n} {minuto|minuti}.",
+              "wrong_form": 1,
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {minuto|minuti|minute|minut}.",
+                "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {minuto|minuti|minute|minut}.",
+                "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {minuto|minuti|minute|minut}."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Štej še enkrat, počasi.",
+                "en": "Hm? Count again, slowly.",
+                "de": "Hm? Zähl noch mal, langsam.",
+                "it": "Mm? Conta di nuovo, piano."
+              }
+            },
+            {
+              "sl": "Vaša ura zamuja {n} {minuto|minuti|minute|minut}.",
+              "en": "Your watch is {n} {minute|minutes} slow.",
+              "de": "Ihre Uhr geht {n} {Minute|Minuten} nach.",
+              "it": "Il Suo orologio è indietro di {n} {minuto|minuti}.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Toliko? Hm. Ura je stara, jaz tudi.",
+                "en": "That much? Hm. The watch is old, and so am I.",
+                "de": "So viel? Hm. Die Uhr ist alt, ich auch.",
+                "it": "Così tanto? Mm. L'orologio è vecchio, e anch'io."
+              }
+            },
+            {
+              "sl": "Vaša ura zamuja {n} {!minuto|minuti|minute|minut}.",
+              "en": "Your watch is {n} {minute|minutes} slow.",
+              "de": "Ihre Uhr geht {n} {Minute|Minuten} nach.",
+              "it": "Il Suo orologio è indietro di {n} {minuto|minuti}.",
+              "wrong_form": 2,
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {minuto|minuti|minute|minut}.",
+                "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {minuto|minuti|minute|minut}.",
+                "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {minuto|minuti|minute|minut}."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Kaj? Toliko pa spet ne.",
+                "en": "What? Not that much, surely.",
+                "de": "Was? So viel nun auch wieder nicht.",
+                "it": "Cosa? Non così tanto, dai."
+              }
+            }
+          ]
+        },
+        {
+          "who": "janez",
+          "sl": "Popraviva jo. Kazalec naprej … tako.",
+          "en": "Let's set it right, the two of us. The hand forward … like that.",
+          "de": "Stellen wir zwei sie richtig. Den Zeiger vor … so.",
+          "it": "Sistemiamolo, noi due. La lancetta avanti … così."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Zdaj je vaša ura točna.",
+              "en": "Now your watch is exact.",
+              "de": "Jetzt geht Ihre Uhr genau.",
+              "it": "Adesso il Suo orologio è preciso.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Hvala. Do jutri.",
+                "en": "Thanks. Until tomorrow.",
+                "de": "Danke. Bis morgen.",
+                "it": "Grazie. Fino a domani."
+              }
+            },
+            {
+              "sl": "Zdaj je vaša ura točen.",
+              "en": "Now your watch is exact (masculine).",
+              "de": "Jetzt geht Ihre Uhr genau (männlich).",
+              "it": "Adesso il Suo orologio è preciso (maschile).",
+              "grammar": "pridevniki-ujemanje",
+              "why": { "en": "Ura is feminine: točna.", "de": "Ura ist weiblich: točna.", "it": "Ura è femminile: točna." },
+              "reply": {
+                "face": "laugh",
+                "sl": "Točen? Jaz? Nikoli nisem bil.",
+                "en": "Točen? Me? I never was.",
+                "de": "Točen? Ich? War ich nie.",
+                "it": "Točen? Io? Non lo sono mai stato."
+              }
+            },
+            {
+              "sl": "Zdaj je tvoja ura točna.",
+              "en": "Now your (ti) watch is exact.",
+              "de": "Jetzt geht deine Uhr genau.",
+              "it": "Adesso il tuo orologio è preciso.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Janez is older: vi, vaša ura.",
+                "de": "Janez ist älter: vi, vaša ura.",
+                "it": "Janez è più anziano: vi, vaša ura."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Tvoja? Hm … Ko sem bil mlad, smo starejše vikali.",
+                "en": "Tvoja? Hm … When I was young, we said vi to our elders.",
+                "de": "Tvoja? Hm … Als ich jung war, haben wir die Älteren gesiezt.",
+                "it": "Tvoja? Mm … Da giovane, ai più anziani davamo del lei."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Počasi, {learner}. Jaz sem star.",
+            "en": "Hm? Slowly, {learner}. I'm old.",
+            "de": "Hm? Langsam, {learner}. Ich bin alt.",
+            "it": "Mm? Piano, {learner}. Sono vecchio."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "thinking",
+          "sl": "Ura je kot človek, veš. Na stara leta je počasna.",
+          "en": "A watch is like a person, you know. In old age it's slow.",
+          "de": "Eine Uhr ist wie ein Mensch, weißt du. Im Alter ist sie langsam.",
+          "it": "Un orologio è come una persona, sai. Da vecchio è lento."
+        }
+      ]
+    },
+    {
+      "id": "poldne-zoga",
+      "memory": {
+        "sl": "žogo pod klopjo in moj gol",
+        "en": "the ball under the bench and my goal",
+        "de": "den Ball unter der Bank und mein Tor",
+        "it": "la palla sotto la panchina e il mio gol"
+      },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "janez",
+          "face": "curious",
+          "sl": "Dober dan, {learner}. Otroci so spet izgubili žogo. Jaz jo vidim. Ti?",
+          "en": "Good day, {learner}. The children have lost their ball again. I can see it. Can you?",
+          "de": "Guten Tag, {learner}. Die Kinder haben schon wieder ihren Ball verloren. Ich sehe ihn. Du auch?",
+          "it": "Buongiorno, {learner}. I bambini hanno perso di nuovo la palla. Io la vedo. E tu?",
+          "fx": { "ball": 0 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tam je, pod lipo!",
+              "en": "There it is, under the linden!",
+              "de": "Da ist er, unter der Linde!",
+              "it": "Eccola, sotto il tiglio!",
+              "tap": "linden",
+              "why": {
+                "en": "Look low down, in the shade between the legs of something you sit on.",
+                "de": "Schau weiter unten, im Schatten zwischen den Beinen von etwas, worauf man sitzt.",
+                "it": "Guarda in basso, nell'ombra tra le gambe di qualcosa su cui ci si siede."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Pod lipo? Tam je samo senca.",
+                "en": "Under the linden? There's only shade there.",
+                "de": "Unter der Linde? Da ist nur Schatten.",
+                "it": "Sotto il tiglio? Lì c'è solo ombra."
+              }
+            },
+            {
+              "sl": "Tam je, pod klopjo!",
+              "en": "There it is, under the bench!",
+              "de": "Da ist er, unter der Bank!",
+              "it": "Eccola, sotto la panchina!",
+              "ok": true,
+              "tap": "bench",
+              "grammar": "orodnik",
+              "reply": {
+                "face": "happy",
+                "sl": "Bravo! Mlade oči dobro vidijo.",
+                "en": "Well done! Young eyes see well.",
+                "de": "Bravo! Junge Augen sehen gut.",
+                "it": "Bravo! Gli occhi giovani vedono bene.",
+                "fx": { "ball": 1 }
+              }
+            },
+            {
+              "sl": "Tam je, v rožah!",
+              "en": "There it is, in the flowers!",
+              "de": "Da ist er, in den Blumen!",
+              "it": "Eccola, tra i fiori!",
+              "tap": "flowers",
+              "why": {
+                "en": "Look low down for something red and white.",
+                "de": "Schau weiter unten nach etwas Rot-Weißem.",
+                "it": "Guarda in basso: cerca qualcosa di rosso e bianco."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "V rožah? Tam so samo čebele.",
+                "en": "In the flowers? There are only bees there.",
+                "de": "In den Blumen? Da sind nur Bienen.",
+                "it": "Tra i fiori? Lì ci sono solo api."
+              }
+            }
+          ]
+        },
+        {
+          "who": "janez",
+          "face": "proud",
+          "sl": "Hop! … Gol! Še vedno znam brcniti!",
+          "en": "Hup! … Goal! I can still kick!",
+          "de": "Hopp! … Tor! Ich kann noch schießen!",
+          "it": "Op! … Gol! So ancora tirare!",
+          "fx": { "goal": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Bravo! Kot mlad nogometaš!",
+              "en": "Bravo! Like a young footballer!",
+              "de": "Bravo! Wie ein junger Fußballer!",
+              "it": "Bravo! Come un giovane calciatore!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Pred šestdesetimi leti sem igral za vas.",
+                "en": "Sixty years ago I played for the village.",
+                "de": "Vor sechzig Jahren habe ich fürs Dorf gespielt.",
+                "it": "Sessant'anni fa giocavo per il paese."
+              }
+            },
+            {
+              "sl": "Bravo! Kot mlada nogometaš!",
+              "en": "Bravo! Like a young (feminine) footballer!",
+              "de": "Bravo! Wie eine junge (weiblich) Fußballer!",
+              "it": "Bravo! Come una giovane (femminile) calciatore!",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Nogometaš is masculine: mlad nogometaš.",
+                "de": "Nogometaš ist männlich: mlad nogometaš.",
+                "it": "Nogometaš è maschile: mlad nogometaš."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Mlada? Hm. Tega mi še nihče ni rekel.",
+                "en": "Mlada? Hm. Nobody's ever called me that.",
+                "de": "Mlada? Hm. Das hat mir noch keiner gesagt.",
+                "it": "Mlada? Mm. Nessuno me l'ha mai detto."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Počasi, {learner}. Jaz sem star.",
+            "en": "Hm? Slowly, {learner}. I'm old.",
+            "de": "Hm? Langsam, {learner}. Ich bin alt.",
+            "it": "Mm? Piano, {learner}. Sono vecchio."
+          }
+        },
+        {
+          "who": "janez",
+          "face": "happy",
+          "sl": "Zdaj pa na kosilo. Ob dvanajstih, kot vedno.",
+          "en": "Now off to lunch. At twelve, as always.",
+          "de": "Jetzt zum Mittagessen. Um zwölf, wie immer.",
+          "it": "Adesso a pranzo. Alle dodici, come sempre."
+        }
+      ]
+    },
+    {
+      "id": "zamuda-ancka",
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "worried",
+          "sl": "Dober večer, {learner}! Pevske vaje so ob osmih. Vsi smo tu, samo teta Ančka ne.",
+          "en": "Good evening, {learner}! Choir practice is at eight. We're all here, only Aunt Ančka isn't.",
+          "de": "Guten Abend, {learner}! Die Chorprobe ist um acht. Wir sind alle da, nur Tante Ančka nicht.",
+          "it": "Buonasera, {learner}! Le prove del coro sono alle otto. Ci siamo tutti, manca solo la zia Ančka."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Mogoče ne ve, koliko je ura.",
+              "en": "Maybe she doesn't know what time it is.",
+              "de": "Vielleicht weiß sie nicht, wie spät es ist.",
+              "it": "Forse non sa che ore sono.",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "sl": "Ali pa ne sliši ure. Saj veste, kako je.",
+                "en": "Or she can't hear the clock. You know how it is.",
+                "de": "Oder sie hört die Uhr nicht. Sie wissen ja, wie das ist.",
+                "it": "O non sente l'orologio. Sa com'è."
+              }
+            },
+            {
+              "sl": "Mogoče ne veš, koliko je ura.",
+              "en": "Maybe you don't know what time it is.",
+              "de": "Vielleicht weißt du nicht, wie spät es ist.",
+              "it": "Forse non sai che ore sono.",
+              "grammar": "glagoli-sedanjik",
+              "why": {
+                "en": "You mean Ančka: ne ve (she doesn't know). Ne veš is you.",
+                "de": "Du meinst Ančka: ne ve (sie weiß nicht). Ne veš heißt du.",
+                "it": "Intendi Ančka: ne ve (non sa). Ne veš vuol dire tu."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Jaz? Jaz vem! Natančno vem.",
+                "en": "Me? I know! I know exactly.",
+                "de": "Ich? Ich weiß es! Ganz genau.",
+                "it": "Io? Io lo so! Lo so esattamente."
+              }
+            },
+            {
+              "sl": "Mogoče ne ve, koliko so ura.",
+              "en": "Maybe she doesn't know what time they is.",
+              "de": "Vielleicht weiß sie nicht, wie spät sie sind.",
+              "it": "Forse non sa che ore sono (plurale sbagliato).",
+              "grammar": "biti",
+              "why": {
+                "en": "Ura is one: koliko je ura.",
+                "de": "Ura ist eine: koliko je ura.",
+                "it": "Ura è una sola: koliko je ura."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "So? Ena ura, {learner}. Na zvoniku.",
+                "en": "So? One clock, {learner}. On the tower.",
+                "de": "So? Eine Uhr, {learner}. Am Turm.",
+                "it": "So? Un orologio solo, {learner}. Sul campanile."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
+          }
+        },
+        {
+          "who": "ancka",
+          "face": "surprised",
+          "sl": "Kaj? Že ob osmih? Na radiu so rekli ob devetih!",
+          "en": "What? At eight already? On the radio they said at nine!",
+          "de": "Was? Schon um acht? Im Radio haben sie neun gesagt!",
+          "it": "Cosa? Già alle otto? Alla radio hanno detto alle nove!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Dober večer! Pridite, vaje se začnejo.",
+              "en": "Good evening! Come in, practice is starting.",
+              "de": "Guten Abend! Kommen Sie, die Probe fängt an.",
+              "it": "Buonasera! Venga, le prove cominciano.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hvala, {learner}. Tako {m:prijazen|f:prijazna} si!",
+                "en": "Thank you, {learner}. You're so kind!",
+                "de": "Danke, {learner}. Du bist so lieb!",
+                "it": "Grazie, {learner}. Sei così gentile!"
+              }
+            },
+            {
+              "sl": "Dober večer! Pridi, vaje se začnejo.",
+              "en": "Good evening! Come in (ti), practice is starting.",
+              "de": "Guten Abend! Komm, die Probe fängt an.",
+              "it": "Buonasera! Vieni, le prove cominciano.",
+              "grammar": "ti-vi",
+              "why": {
+                "en": "Ančka is older: vi, pridite.",
+                "de": "Ančka ist älter: vi, pridite.",
+                "it": "Ančka è più anziana: vi, pridite."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Pridi? Glasneje! … A tako, tikaš me.",
+                "en": "Pridi? Louder! … Oh, I see, you're saying ti to me.",
+                "de": "Pridi? Lauter! … Ach so, du duzt mich.",
+                "it": "Pridi? Più forte! … Ah, mi dai del tu."
+              }
+            },
+            {
+              "sl": "Dober večer! Pridite, vaje se začne.",
+              "en": "Good evening! Come in, practice is (singular) starting.",
+              "de": "Guten Abend! Kommen Sie, die Probe (Singular) fängt an.",
+              "it": "Buonasera! Venga, le prove comincia.",
+              "grammar": "glagoli-sedanjik",
+              "why": {
+                "en": "Vaje is plural: se začnejo.",
+                "de": "Vaje ist Plural: se začnejo.",
+                "it": "Vaje è plurale: se začnejo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Začne? Kaj se začne? Glasneje!",
+                "en": "Začne? What's starting? Louder!",
+                "de": "Začne? Was fängt an? Lauter!",
+                "it": "Začne? Che cosa comincia? Più forte!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Glasneje, prosim!",
+            "en": "What? Louder, please!",
+            "de": "Was? Lauter, bitte!",
+            "it": "Cosa? Più forte, per favore!"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "laugh",
+          "sl": "No, zdaj smo vsi. Ena, dve, tri … in pojemo!",
+          "en": "Well, now we're all here. One, two, three … and we sing!",
+          "de": "So, jetzt sind wir alle da. Eins, zwei, drei … und wir singen!",
+          "it": "Bene, adesso ci siamo tutti. Uno, due, tre … e cantiamo!"
+        }
+      ]
+    }
+  ]
+}
