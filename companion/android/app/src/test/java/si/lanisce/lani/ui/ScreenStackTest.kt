@@ -157,13 +157,11 @@ class ScreenStackTest {
         compose.mainClock.advanceTimeByFrame()
         assertEquals("its first frames as it was", first, now)
         assertTrue("away a moment longer", away)
-        // the wait (a delay on the main looper) over: Robolectric's paused looper moved on, and the test's clock with it
-        compose.mainClock.advanceTimeBy(SHOWN_SETTLE_MS + 100)
-        org.robolectric.Shadows.shadowOf(android.os.Looper.getMainLooper()).idleFor(java.time.Duration.ofMillis(SHOWN_SETTLE_MS + 100))
         compose.mainClock.autoAdvance = true
+        // then, the moment over (SHOWN_SETTLE_MS), the time now
+        compose.waitUntil(timeoutMillis = 5_000) { !away }
         compose.waitForIdle()
         assertTrue("then the time now: $first, then $now", now > first)
-        assertFalse(away)
     }
 
     @Test fun `behind the back gesture Home is drawn, still covered`() {
