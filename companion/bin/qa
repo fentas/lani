@@ -4610,6 +4610,11 @@ def place_life():
          ("na-mostu", "cartbridge", "most", "11"), ("pri-toplarju", "toplar", "toplar", "11"), ("na-cebeljem-travniku", "meadow", "cebelji_travnik", "11")]
     )
 
+    # $LANI_QA_PLACE_LIFE_ONLY: only these scenes (comma-separated ids), the strike and the climb only with their scenes
+    only = [x for x in os.environ.get("LANI_QA_PLACE_LIFE_ONLY", "").split(",") if x]
+    if only:
+        places = [p for p in places if p[0] in only]
+
     def snap(name: str):
         shot(name)
         if out is not None:
@@ -4655,14 +4660,18 @@ def place_life():
                 tap(back, 3)
                 continue
             tap_at(card)
-            got = ispy_positions(15)
-            if got is None:
-                # the bubble over the child may offer a talk too: the panel's card is the game's own way in
+            got = ispy_positions(25)
+            for _ in range(2):
+                if got is not None:
+                    break
+                # the bubble over the child may offer a talk too, a slow tap may land as the panel moves: the panel's card,
+                # the game's own way in, again
                 snap(f"pl-{tag}-{sid}-ispy-not-started")
                 again = scroll_to("🔍 " + lab("ispy.play"), 6)
                 if again is not None:
-                    tap_at(again)
-                    got = ispy_positions(15)
+                    time.sleep(1.5 * slow())
+                    tap_at(scroll_to("🔍 " + lab("ispy.play"), 3) or again)
+                    got = ispy_positions(25)
             if got is None:
                 played.append(f"{sid}/{slot} (no round started)")
                 qa_hook("ispy:")
@@ -4692,7 +4701,7 @@ def place_life():
             if find(back) is not None:
                 tap(back, 3)
         # the clock striking the hour, the lad up the maypole
-        for sid, name, hour in ((places[0][0], "strike", "15"), (places[1][0], "climb", "16")):
+        for sid, name, hour in [(p[0], "strike", "15") for p in places if p[1] == "clock"] + [(p[0], "climb", "16") for p in places if p[1] == "maypole"]:
             found = fx_variant(sid, name)
             if found is None:
                 print(f"    no dialog of {sid} cues {name}")
@@ -4720,7 +4729,8 @@ def place_life():
         qa_hook("hour:")
         qa_hook("step:")
         qa_hook("bubbles:")
-    return "spied: " + ", ".join(played)
+    print("    spied: " + ", ".join(played))
+    return None
 
 
 def mill_oks(scene: dict, dialog: str, lang: str) -> set:
