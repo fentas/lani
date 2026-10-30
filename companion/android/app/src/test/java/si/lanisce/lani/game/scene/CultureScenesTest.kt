@@ -51,6 +51,9 @@ class CultureScenesTest {
         // the near cow's bell lost in the grass only where a line says so (v-gorah's planina-zvonec), not on every Alm
         "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(), "mill" to emptySet(), "school" to emptySet(),
         "market" to emptySet(),
+        // the square's maypole, fountain and carts (the fire pump, the fountain's stone) are the village projects': their steps
+        // and the projects' own scenes play them (places-it-projects), In piazza leaves them out
+        "square" to setOf("maypole", "fountain", "cart-pump", "cart-stone"),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -64,12 +67,14 @@ class CultureScenesTest {
             listOf("friuli", "a-scuola", "school", "school"),
             // the Friuli market (Al mercato): Nonna Rosa's eggs, Marisa shopping for the osteria, Matteo's cart, the sagra
             listOf("friuli", "al-mercato", "market", "market"),
+            // the Friuli square (In piazza): Nonno Bepi on his bench with Moro, Tommaso's football, Maestra Elena at the well
+            listOf("friuli", "in-piazza", "square", "lipa,well"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
             assertEquals(art, s.art)
-            assertEquals(listOf(from), s.from)
+            assertEquals(from.split(","), s.from)
             assertTrue("$id: every slot of the art, once", s.objects.map { it.slot }.sorted() == SceneArt.objects.getValue(art).sorted())
             assertTrue("$id: spots", s.people.all { it.slot in SceneArt.personSlots.getValue(art) && it.art in SceneArt.people && it.villager != null })
             val used = s.dialogs.flatMap { d -> d.lines.flatMap { l -> l.fx.keys + l.choices.flatMap { it.reply?.fx.orEmpty().keys } } }.toSet()
