@@ -83,7 +83,9 @@ class ExportTest(unittest.TestCase):
         self.home.mkdir()
         isolated = {"HOME": str(self.home), "XDG_CONFIG_HOME": str(self.home / ".config"),
                     "XDG_CACHE_HOME": str(self.home / ".cache"), "XDG_DATA_HOME": str(self.home / ".local/share"),
-                    "XDG_STATE_HOME": str(self.home / ".local/state"), "LANI_ENV_FILE": os.devnull}
+                    "XDG_STATE_HOME": str(self.home / ".local/state"), "LANI_ENV_FILE": os.devnull,
+                    # the learners on this machine: none (never the checkout's own profiles/), unless a test lists some
+                    "LANI_PROFILES_DIR": str(self.root / "no-profiles")}
         self.env = {k: v for k, v in os.environ.items() if not k.startswith(("LANI_", "FLUENT_", "XDG_", "CLAUDE_", "GIT_"))}
         self.env.update(isolated, LANI_NOW="2026-10-19T10:15:00", PYTHONDONTWRITEBYTECODE="1",
                         PATH=os.pathsep.join([str(Path(sys.executable).parent), os.environ.get("PATH", "")]))
@@ -238,6 +240,57 @@ class ExportTest(unittest.TestCase):
         r = self.run_cmd("export", "--profile", "nobody", "--out", self.root / "n.zip", LANI_PROFILES_DIR=reg)
         self.assertEqual(1, r.returncode)
         self.assertIn("no learner \"nobody\"", r.stderr)
+
+    def test_a_childs_export_says_so_and_makes_the_profile_a_childs(self):
+        """A child's profile (lani profile add --child) exports with "child": true in its learner, as the hosted phone's
+        "for a child" does; importing it makes the profile it goes into a child's, never the other way round."""
+        reg = self.root / "profiles"
+        make_data(reg / "teo/data", name="Teo")
+        make_data(reg / "luka/data", name="Luka")
+        (reg / "profiles.json").write_text(json.dumps({"schema": "lani.profiles/v1", "profiles": [
+            {"id": "teo", "name": "Teo", "child": True, "data_dir": "teo/data"},
+            {"id": "luka", "name": "Luka", "child": False, "data_dir": "luka/data"}]}, indent=2))
+        teo, luka = self.root / "teo.zip", self.root / "luka.zip"
+        for pid, z in (("teo", teo), ("luka", luka)):
+            r = self.run_cmd("export", "--profile", pid, "--out", z, LANI_PROFILES_DIR=reg)
+            self.assertEqual(0, r.returncode, r.stderr)
+        self.assertIs(True, self.manifest(teo)["learner"]["child"])
+        self.assertNotIn("child", self.manifest(luka)["learner"])
+        # by its data directory too (--data, as lani-backup finds a learner)
+        r = self.run_cmd("export", "--data", reg / "teo/data", "--out", self.root / "t2.zip", LANI_PROFILES_DIR=reg)
+        self.assertEqual(0, r.returncode, r.stderr)
+        self.assertIs(True, self.manifest(self.root / "t2.zip")["learner"]["child"])
+        r = self.run_cmd("verify", teo, LANI_PROFILES_DIR=reg)
+        self.assertIn("Teo (sl, from en), a child", r.stdout)
+        # the dry run says what it would do, and does nothing
+        r = self.run_cmd("import", teo, "--profile", "luka", "--dry-run", LANI_PROFILES_DIR=reg)
+        self.assertEqual(0, r.returncode, r.stderr)
+        self.assertIn("the profile luka becomes a child's", r.stdout)
+        self.assertIs(False, json.loads((reg / "profiles.json").read_text())["profiles"][1]["child"])
+        r = self.run_cmd("import", teo, "--profile", "luka", "--yes", LANI_PROFILES_DIR=reg)
+        self.assertEqual(0, r.returncode, r.stderr)
+        self.assertIn("luka is a child's profile now", r.stdout)
+        doc = json.loads((reg / "profiles.json").read_text())
+        self.assertEqual([True, True], [e["child"] for e in doc["profiles"]])
+        self.assertEqual(["teo", "luka"], [e["id"] for e in doc["profiles"]])
+        self.assertFalse(list(reg.glob("*.tmp")))
+        # an adult's export into a child's profile: still a child's
+        r = self.run_cmd("import", luka, "--profile", "teo", "--yes", LANI_PROFILES_DIR=reg)
+        self.assertEqual(0, r.returncode, r.stderr)
+        self.assertNotIn("child", r.stdout)
+        self.assertIs(True, json.loads((reg / "profiles.json").read_text())["profiles"][0]["child"])
+        # into data no profile has: said, nothing marked
+        r = self.run_cmd("import", teo, "--data", self.root / "loose", "--yes", LANI_PROFILES_DIR=reg)
+        self.assertEqual(0, r.returncode, r.stderr)
+        self.assertIn("no learner here has this data directory", r.stdout)
+        # the default learner's data: LANI_CHILD in lani.env is theirs
+        b = make_data(self.root / "b", name="Bine")
+        r = self.run_cmd("import", teo, "--yes", LANI_PROFILES_DIR=reg, LANI_DATA_DIR=b)
+        self.assertEqual(0, r.returncode, r.stderr)
+        self.assertIn("set LANI_CHILD=1 in lani.env", r.stdout)
+        r = self.run_cmd("export", "--out", self.root / "b.zip", LANI_PROFILES_DIR=reg, LANI_DATA_DIR=b, LANI_CHILD="1")
+        self.assertEqual(0, r.returncode, r.stderr)
+        self.assertIs(True, self.manifest(self.root / "b.zip")["learner"]["child"])
 
     def test_data_that_would_not_import_is_not_exported(self):
         (self.a / "mistakes-db.json").write_text("{broken")

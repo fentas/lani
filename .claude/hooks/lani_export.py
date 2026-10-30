@@ -4,7 +4,8 @@ A learner's data as one file, to move them between a node and the app (docs/plan
 import between modes").
 
 An export (the format lani.export/v1) is a zip of the data directory's files, at their paths in it, and a manifest at
-its root, lani-export.json: what made it and when, the learner, the schema versions, and each file's size and SHA-256.
+its root, lani-export.json: what made it and when, the learner (with "child": true for a child's: a child's profile, a
+hosted phone set up "for a child"), the schema versions, and each file's size and SHA-256.
 It holds what a commit of the data repository takes: everything but .git/ and what the .gitignore keeps out
 (lani-setup's, lani_data_repo.GITIGNORE, when the directory has none); never the PRIVATE files or the secrets, whatever
 the .gitignore says. With --with-secrets it holds the town's key and the family token too. The app reads and writes the
@@ -17,7 +18,7 @@ same format.
 companion/bin/lani-export and lani-import run these (`lani export`, `lani import`). An import checks the whole file
 first (the paths, the sizes and hashes, the JSON, read-db.py on the databases) and changes nothing when it refuses.
 Then it keeps what was there (a commit in a data repository, else a copy beside the data directory), replaces the
-files and commits. What an export never holds stays as it is: the node's own secrets, the voice clips, the runtime
+files and commits; a child's export makes the learner's registered profile a child's (never the other way round). What an export never holds stays as it is: the node's own secrets, the voice clips, the runtime
 files.
 
 The data is found as lani-backup finds it: --data, else --profile's (the registry), else LANI_DATA_DIR, else lani.env's
@@ -184,15 +185,89 @@ def plain(p: Path) -> bool:
 # --- the data, the learner ------------------------------------------------------------------------------------------
 
 
+def registry() -> Path:
+    """Where the learners on this machine are listed (profiles/profiles.json, or $LANI_PROFILES_DIR's)."""
+    return Path(os.environ.get("LANI_PROFILES_DIR") or REPO / "profiles").expanduser().resolve()
+
+
 def profile_data(pid: str) -> Path:
     """The data of another learner on this machine (companion/README.md, "Learners"), from the registry."""
-    reg = Path(os.environ.get("LANI_PROFILES_DIR") or REPO / "profiles").expanduser().resolve()
+    reg = registry()
     try:
         doc = json.loads((reg / "profiles.json").read_text(encoding="utf-8"))
         entry = next(e for e in doc.get("profiles", []) if e.get("id") == pid)
         return (reg / entry["data_dir"]).resolve()
     except (OSError, ValueError, StopIteration, AttributeError, KeyError, TypeError):
         raise Refused(f"no learner \"{pid}\" in {reg / 'profiles.json'} (lani profile list)") from None
+
+
+def registry_entry(data: Path, profile: str | None = None) -> dict | None:
+    """The registry's entry of the learner of [data]: [profile]'s, else the one whose data directory it is; None for the
+    default learner (lani.env's) or data no entry has."""
+    reg = registry()
+    try:
+        doc = json.loads((reg / "profiles.json").read_text(encoding="utf-8"))
+        entries = [e for e in doc.get("profiles", []) if isinstance(e, dict)]
+    except (OSError, ValueError, AttributeError):
+        return None
+    want = Path(data).expanduser().resolve()
+    for e in entries:
+        if profile and profile != "default" and e.get("id") == profile:
+            return e
+    for e in entries:
+        try:
+            if isinstance(e.get("data_dir"), str) and (reg / e["data_dir"]).resolve() == want:
+                return e
+        except (OSError, ValueError):
+            continue
+    return None
+
+
+def child_of(data: Path, profile: str | None = None) -> bool:
+    """Whether the learner of [data] is a child, as their bridge has it: their registry entry's child flag (lani profile
+    add --child); the default learner's LANI_CHILD (the environment's, else lani.env's)."""
+    entry = registry_entry(data, profile)
+    if entry is not None:
+        return entry.get("child") is True
+    return (lani_paths.setting("LANI_CHILD") or "").strip().lower() in ("1", "true", "yes")
+
+
+def is_child(m: dict) -> bool:
+    """Whether the export [m] is a child's: its learner's "child" (a hosted phone's "for a child", a node's child profile)."""
+    lr = m.get("learner") if isinstance(m.get("learner"), dict) else {}
+    return lr.get("child") is True
+
+
+def child_note(m: dict, data: Path, profile: str | None = None) -> str | None:
+    """What an import of the child's export [m] into [data] does about it (None: not a child's, or this side knows)."""
+    if not is_child(m):
+        return None
+    entry = registry_entry(data, profile)
+    if entry is not None:
+        if entry.get("child") is True:
+            return None
+        return f"The export is a child's: the profile {entry.get('id')} becomes a child's (lani profile show {entry.get('id')})."
+    if Path(data).expanduser().resolve() != data_dir():
+        return "⚠️  The export is a child's, and no learner here has this data directory: give it a child's profile (lani profile add … --child)."
+    if child_of(data, profile):
+        return None
+    return "⚠️  The export is a child's: set LANI_CHILD=1 in lani.env (the default learner's), so the tutor and the bridge treat them as one."
+
+
+def mark_child(data: Path, profile: str | None = None) -> str | None:
+    """The registry entry of [data]'s learner marked a child's (an import of a child's export); what was done, or None."""
+    entry = registry_entry(data, profile)
+    if entry is None or entry.get("child") is True:
+        return None
+    path = registry() / "profiles.json"
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    for e in doc.get("profiles", []):
+        if isinstance(e, dict) and e.get("id") == entry.get("id"):
+            e["child"] = True
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    os.replace(tmp, path)
+    return f"{entry.get('id')} is a child's profile now, as the export says: restart its bridge and tutor session."
 
 
 def data_dir(data: str | None = None, profile: str | None = None) -> Path:
@@ -322,7 +397,8 @@ def export(data: Path, out: Path, with_secrets: bool = False, profile: str | Non
                 "created": now.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "from": {"side": "node", "mode": "self-hosted", "name": socket.gethostname(),
                          "profile": profile or "default", "version": version()},
-                "learner": learner_of(read_json(data / "learner-profile.json")),
+                "learner": {**learner_of(read_json(data / "learner-profile.json")),
+                            **({"child": True} if child_of(data, profile) else {})},
                 "schemas": schemas,
                 "files": listed,
                 "secrets": secrets,
@@ -507,7 +583,8 @@ def learner_line(m: dict) -> str:
     lr = m.get("learner") if isinstance(m.get("learner"), dict) else {}
     target, base = _known(lr.get("target")), _known(lr.get("base"))
     codes = ", ".join(x for x in (target, f"from {base}" if base else None) if x)
-    return (_known(lr.get("name")) or "a learner without a name") + (f" ({codes})" if codes else "")
+    return ((_known(lr.get("name")) or "a learner without a name") + (f" ({codes})" if codes else "")
+            + (", a child" if is_child(m) else ""))
 
 
 def when(m: dict) -> str:
@@ -560,7 +637,7 @@ def _some(paths: list, mark: str, n: int = 10) -> list:
     return [f"  {mark} {p}" for p in paths[:n]] + ([f"    … and {len(paths) - n} more"] if len(paths) > n else [])
 
 
-def describe_plan(path: Path, m: dict, data: Path, pl: dict) -> str:
+def describe_plan(path: Path, m: dict, data: Path, pl: dict, profile: str | None = None) -> str:
     kind = "a data repository" if lani_data_repo.is_repo(data) else "a data directory"
     lines = [f"{path.name}: {learner_line(m)}, from {who(m)}, made {when(m)}.",
              f"Into {data} ({kind}): {len(pl['new'])} new, {len(pl['changed'])} changed, {len(pl['removed'])} removed, "
@@ -570,6 +647,9 @@ def describe_plan(path: Path, m: dict, data: Path, pl: dict) -> str:
         lines.append(f"  Secrets, replacing this node's: {', '.join(pl['secrets'])}")
     if pl["kept"]:
         lines.append(f"  Kept as they are here (this side's own): {', '.join(pl['kept'])}")
+    note = child_note(m, data, profile)
+    if note:
+        lines.append(f"  {note}")
     return "\n".join(lines)
 
 
@@ -639,9 +719,10 @@ def current_name(data: Path) -> str | None:
     return learner_of(read_json(data / "learner-profile.json")).get("name") if (data / "learner-profile.json").is_file() else None
 
 
-def import_file(path: Path, data: Path, yes: bool = False, dry_run: bool = False, ask=input) -> int:
+def import_file(path: Path, data: Path, yes: bool = False, dry_run: bool = False, ask=input, profile: str | None = None) -> int:
     """Imports the export [path] into [data] (see the module's docstring): refused while the lease names another side
-    (lani_lease.py). Returns the exit code; raises Refused before anything is changed."""
+    (lani_lease.py). A child's export makes [data]'s registered profile ([profile]'s) a child's ([mark_child]). Returns the
+    exit code; raises Refused before anything is changed."""
     path, data = Path(path), Path(data)
     try:
         tmp = Path(tempfile.mkdtemp(prefix=f".{data.name}.lani-import-", dir=data.parent))  # the same disk as the data
@@ -654,7 +735,7 @@ def import_file(path: Path, data: Path, yes: bool = False, dry_run: bool = False
         if refusal:
             raise Refused(refusal)
         pl = plan(m, unpacked, data)
-        print(describe_plan(path, m, data, pl))
+        print(describe_plan(path, m, data, pl, profile))
         if dry_run:
             print("Nothing written (--dry-run).")
             return 0
@@ -688,6 +769,13 @@ def import_file(path: Path, data: Path, yes: bool = False, dry_run: bool = False
                 return 1
             if sha:
                 print(f"Committed {sha}: {msg}")
+        if is_child(m):
+            try:
+                marked = mark_child(data, profile)
+            except (OSError, ValueError) as e:
+                marked = f"⚠️  The export is a child's, but the profile couldn't be marked one: {e}"
+            if marked:
+                print(marked)
         print(f"Imported {n} files. Restart the tutor session or the bridge (lani bridge restart) so it reads them.")
         return 0
     finally:
@@ -751,7 +839,7 @@ def import_main(argv: list | None = None, prog: str = "lani import") -> int:
             with tempfile.TemporaryDirectory(prefix="lani-import-check-") as t:
                 print(summary(path, check(path, Path(t) / "data")))
             return 0
-        return import_file(path, data_dir(a.data, a.profile), a.yes, a.dry_run)
+        return import_file(path, data_dir(a.data, a.profile), a.yes, a.dry_run, profile=a.profile)
     except Refused as e:
         print(f"{prog}: {e}", file=sys.stderr)
         return 1

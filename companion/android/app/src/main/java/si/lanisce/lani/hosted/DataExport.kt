@@ -18,6 +18,7 @@ import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.intOrNull
@@ -75,6 +76,8 @@ object DataExport {
         val secrets: List<String>,
     ) {
         val learnerName: String? get() = learner["name"]?.jsonPrimitive?.contentOrNull
+        /** A child's data (the onboarding's "for a child" on a phone, `lani profile add --child` on a node). */
+        val child: Boolean get() = (learner["child"] as? JsonPrimitive)?.booleanOrNull == true
         val fromSide: String? get() = from["side"]?.jsonPrimitive?.contentOrNull
         val fromName: String? get() = from["name"]?.jsonPrimitive?.contentOrNull
     }
@@ -94,13 +97,21 @@ object DataExport {
             .sorted()
             .toList()
 
-    /** [dataDir] as an export in [out], from [from] (side, mode, name, app). */
-    fun write(dataDir: File, out: File, from: JsonObject, now: Instant = Instant.now(), filter: DataFilter = DataFilter.of(dataDir)): Written {
+    /**
+     * [dataDir] as an export in [out], from [from] (side, mode, name, app). [child]: the learner is a child (the phone's
+     * marker, HostedRuntime.CHILD_FILE, which lives beside the data, not in it): the manifest's learner says so, so an import
+     * on a node or another phone keeps them a child's.
+     */
+    fun write(
+        dataDir: File, out: File, from: JsonObject, now: Instant = Instant.now(), filter: DataFilter = DataFilter.of(dataDir),
+        child: Boolean = false,
+    ): Written {
         val paths = files(dataDir, filter)
         val entries = paths.map { p -> File(dataDir, p).let { FileEntry(p, it.length(), sha256(it)) } }
+        val learner = learnerOf(File(dataDir, "learner-profile.json")).let { l -> if (child) JsonObject(l + ("child" to JsonPrimitive(true))) else l }
         val manifest = Manifest(
             FORMAT, DateTimeFormatter.ISO_INSTANT.format(now.truncatedTo(ChronoUnit.SECONDS)), from,
-            learnerOf(File(dataDir, "learner-profile.json")), schemasOf(dataDir, paths), entries, emptyList(),
+            learner, schemasOf(dataDir, paths), entries, emptyList(),
         )
         out.parentFile?.mkdirs()
         val tmp = File(out.path + ".tmp")

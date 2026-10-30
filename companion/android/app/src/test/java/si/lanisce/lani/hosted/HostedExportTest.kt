@@ -225,7 +225,14 @@ class HostedExportTest {
     private fun python(vararg args: String): Pair<Int, String> {
         val p = ProcessBuilder("python3", File(repo, ".claude/hooks/lani_export.py").path, *args)
             .redirectErrorStream(true)
-            .apply { environment()["HOME"] = tmp.path; environment()["XDG_CONFIG_HOME"] = File(tmp, "config").path; environment()["PYTHONDONTWRITEBYTECODE"] = "1" }
+            .apply {
+                environment()["HOME"] = tmp.path
+                environment()["XDG_CONFIG_HOME"] = File(tmp, "config").path
+                environment()["PYTHONDONTWRITEBYTECODE"] = "1"
+                // the learners on this machine: none here (never the checkout's own profiles/), nor a child's flag of the shell's
+                environment()["LANI_PROFILES_DIR"] = File(tmp, "profiles").path
+                environment().remove("LANI_CHILD")
+            }
             .start()
         val out = p.inputStream.readBytes().decodeToString()
         p.waitFor(60, TimeUnit.SECONDS)
@@ -253,6 +260,33 @@ class HostedExportTest {
         val (vcode, vout) = python("verify", phoneZip.path)
         assertEquals(vout, 0, vcode)
         assertTrue(vout, vout.contains("Ana"))
+        assertFalse(vout, vout.contains("a child"))
+    }
+
+    @Test
+    fun aChildsExportSaysSoOnBothSides() {
+        assumeTrue("python3 is needed for the node's side", hasPython())
+        // this phone's learner a child's (its marker beside the data): the manifest says it, the node reads it
+        val phone = learner(File(tmp, "c/phone-data"), name = "Teo")
+        val zip = File(tmp, "c/teo.zip")
+        assertTrue(DataExport.write(phone, zip, from, child = true).manifest.child)
+        val m = zip.inputStream().use { DataExport.unpack(it, File(tmp, "c/import")) }
+        assertTrue("the manifest read back", m.child)
+        val (code, out) = python("verify", zip.path)
+        assertEquals(out, 0, code)
+        assertTrue(out, out.contains("Teo") && out.contains("a child"))
+        // a grown-up's: no flag at all, as before
+        val adult = File(tmp, "c/ana.zip")
+        assertFalse(DataExport.write(learner(File(tmp, "c/ana-data")), adult, from).manifest.child)
+        assertFalse(ZipFile(adult).use { z -> z.getInputStream(z.getEntry(DataExport.MANIFEST)).readBytes().decodeToString() }.contains("\"child\""))
+        // a node's child profile (lani profile add --child) → this app's import knows it
+        val reg = File(tmp, "profiles").apply { mkdirs() }
+        learner(File(reg, "teo/data"), name = "Teo")
+        File(reg, "profiles.json").writeText("""{"schema": "lani.profiles/v1", "profiles": [{"id": "teo", "name": "Teo", "child": true, "data_dir": "teo/data"}]}""")
+        val nodeZip = File(tmp, "c/node-teo.zip")
+        val (ecode, eout) = python("export", "--profile", "teo", "--out", nodeZip.path)
+        assertEquals(eout, 0, ecode)
+        assertTrue(nodeZip.inputStream().use { DataExport.unpack(it, File(tmp, "c/import2")) }.child)
     }
 }
 

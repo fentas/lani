@@ -188,9 +188,17 @@ class HostedController(
         val root = HostedRuntime.dataDir(context).parentFile!!
         val staging = File(root, "import")
         val token = if (starting) PhoneBridge.randomToken() else prefs.config()?.token ?: PhoneBridge.randomToken()
+        // a child's export makes this phone's learner a child's (never the other way round): its marker set before a
+        // bridge is made over the data (LANI_CHILD is read as it boots), taken back should the import fail
+        val wasChild = childFile.isFile
+        var imported = false
         try {
             val manifest = withContext(Dispatchers.IO) {
                 (context.contentResolver.openInputStream(uri) ?: throw DataExport.Problem("the file can't be opened")).use { DataExport.unpack(it, staging) }
+            }
+            if (manifest.child && !wasChild) withContext(Dispatchers.IO) {
+                childFile.parentFile?.mkdirs()
+                childFile.writeText("1\n")
             }
             // the db port of the bridge that runs, or of one only loaded (nothing booted over the data yet)
             val running = HostedRuntime.bridge.takeIf { !starting }
@@ -215,9 +223,14 @@ class HostedController(
                 HostedRuntime.ensure()
             }
             if (starting) keep(token)
+            imported = true
+            if (manifest.child) child = true
             Imported(manifest, backup)
         } finally {
-            withContext(Dispatchers.IO) { staging.deleteRecursively() }
+            withContext(Dispatchers.IO) {
+                if (!imported && !wasChild) childFile.delete()
+                staging.deleteRecursively()
+            }
         }
     }
 
@@ -236,7 +249,7 @@ class HostedController(
             put("name", deviceName)
             put("app", appName())
         }
-        withContext(Dispatchers.IO) { DataExport.write(data, File(dir, DataExport.fileName(name, now)), from, now) }
+        withContext(Dispatchers.IO) { DataExport.write(data, File(dir, DataExport.fileName(name, now)), from, now, child = childFile.isFile) }
     }
 
     /**
