@@ -50,7 +50,7 @@ class CultureScenesTest {
     private val SEEN = mapOf(
         // the near cow's bell lost in the grass only where a line says so (v-gorah's planina-zvonec), not on every Alm
         "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(), "mill" to emptySet(), "school" to emptySet(),
-        "apiary" to emptySet(),
+        "apiary" to emptySet(), "church" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -64,6 +64,8 @@ class CultureScenesTest {
             listOf("friuli", "a-scuola", "school", "school"),
             // Friuli's bee garden (Dalle api): Apicoltore Aldo's hives, Nonno Bepi and the swarm, Giulia and the honey
             listOf("friuli", "dalle-api", "apiary", "beehive"),
+            // Friuli's church (In chiesa): Zia Nives's flowers and the organ, Lorenzo at the noon bell, Nonna Rosa's candle
+            listOf("friuli", "in-chiesa", "church", "church"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {
