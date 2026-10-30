@@ -223,17 +223,17 @@ the holder ("slot 2 held by pid … in lani-infra: …").
 
 ## The numbers
 
-- Android unit suite after the rebase: 3,432 tests, 2 skipped; one failure, SceneDetailTest's kitchen at detail 3
-  (25.19 ms against 25: its own cost, see "Close to its budget for real"), fixed by its own budget and run again
-  (SceneDetailTest 4 of 4). Before the rebase: the 462 render tests and MyWordsTest (0 failures), and the changed tests
+- Android unit suite, rebased on main again at the end: **3,436 tests, 2 skipped, 0 failures** (27 min, through
+  lani-slot.sh). After the first rebase it had one failure, SceneDetailTest's kitchen at detail 3 (25.19 ms against 25:
+  its own cost, see "Close to its budget for real"), now under its own budget (23.95 ms in the last run). Before the rebase: the 462 render tests and MyWordsTest (0 failures), and the changed tests
   (MyWordsSearchTest 4, PhoneBridgeNodeTest 25, ChatGPTAuthTest 10, ShadowTutorTest 46, GeminiTest 9, OpenRouterTest 9,
   BatchesTest 8, DiscussionsTest 14, WildlifeTest 12, StickersTest 5), all passing.
 - The stall reproduction (not committed: `scratchpad/infra/MyWordsSearchStallRepro.kt`): the old test fails every time
   with one 200 ms stall before the debounce starts.
-- Bridge: `tsc` clean; the smoke 3,013 checks, all passing (its new voice-build `--data` checks among them);
-  `tutor-export --check` 87 files match.
-- Python: `tests` 251, `companion/tests` 130 (11 skipped) before the last fixes; `test_qa_slot.py` and
-  `test_watchdog.py` 29 after them.
+- Bridge, at the end: `tsc` clean; the smoke 3,109 checks, all passing (its new voice-build `--data` checks among
+  them); `tutor-export --check` 87 files match.
+- Python: `companion/tests` 131 (11 skipped) at the end, `test_qa_slot.py` and `test_watchdog.py` (29) among them;
+  `tests` 251 after the first rebase.
 
 ## What's left
 
