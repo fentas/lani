@@ -29,7 +29,8 @@ import javax.imageio.ImageIO
  * village, and In piazza, its piazza under the tiglio, each beside the Slovene picture it was (build/scene-snapshots/looks/
  * friuli-<art>-<building>-<day|evening>.png: the default culture on the left, Friuli on the right, a row a level), each
  * level closer up, each culture alone; and checked: each level looks Friuli's own, every thing a level has is drawn and
- * tappable once at every detail, the people stand where they did, and a frame stays inside its budget.
+ * tappable once at every detail, the people stand where they did, and a frame stays inside its budget. The smithy and the
+ * school, which grow to their fifth level now, the same way.
  */
 class FriuliMarketSquareLooksTest {
     private val dir = File("build/scene-snapshots/looks").apply { mkdirs() }
@@ -38,6 +39,9 @@ class FriuliMarketSquareLooksTest {
     private val arts = listOf(
         Triple("market", listOf(BuildingType.MARKET), listOf("grandma", "innkeeper", "winemaker")),
         Triple("square", listOf(BuildingType.LIPA, BuildingType.WELL), listOf("grandpa", "teacher", "child1", "child2", "child3")),
+        // the smithy and the school had Friuli's look already; their five levels show in it too
+        Triple("smithy", listOf(BuildingType.SMITHY), listOf("smith", "child1", "winemaker")),
+        Triple("school", listOf(BuildingType.SCHOOL), listOf("teacher", "child3", "child2", "child1")),
     )
 
     private val levels = 1..Catalog.MAX_LEVEL
