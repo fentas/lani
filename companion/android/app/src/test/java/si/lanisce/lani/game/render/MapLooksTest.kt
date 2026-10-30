@@ -146,6 +146,16 @@ class MapLooksTest {
         assertTrue(MapLook.of("friuli").cobbles)
         assertEquals("it", friuli.variant("school", "flag"))
         assertEquals(SchoolKind.ITALIAN, MapLook.of("friuli").school)
+        // the buildings' own scenes (Sulla torre, In piazza, Dalle api): the watchtower's flag and its stone, the square's
+        // well, the bee garden's house and its bunting's colours
+        assertEquals(friuli.variant("watchtower", "flag"), MapLook.of("friuli").flag.id)
+        assertEquals("stone", friuli.variant("watchtower", "tower"))
+        assertTrue(MapLook.of("friuli").stoneTower)
+        assertEquals(friuli.variant("square", "well"), MapLook.of("friuli").well.id)
+        assertEquals("friuli", friuli.variant("apiary", "house"))
+        assertEquals(Hives.PLAIN, MapLook.of("friuli").hives)
+        assertEquals("friuli", friuli.variant("apiary", "bunting"))
+        assertEquals(Flag.FRIULI, MapLook.of("friuli").festive.banner)
         for (c in listOf("kaernten", "lakeland")) {
             val look = CultureLooks.of(c)
             assertEquals("$c's mountains", look.variant("alps", "range"), MapLook.of(c).range.id)

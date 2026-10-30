@@ -14,11 +14,12 @@ The table in GAME.md ("The map in a culture's look") lists every building and de
 - **Friuli** (Teo's): ochre, terracotta and cream houses under coppi with green shutters (blue by the sea), windows in
   pale stone frames, the vine's pergola over the portal, the fogolâr's chimney under its little roof; the church's gabled
   front with its rose window and the free-standing brick campanile; stone huts, by the sea the casoni of the lagoon under
-  their reed thatch; the fienile of Nel campo for the kozolec; la vera da pozzo under its iron arch for the well; plain
-  painted hives; the smithy of river cobbles with bands of brick (as Nella fucina); the school with the tricolore over its
-  door; Italy's tricolore on the watchtower, Friuli's eagle on the tent (as Nella tenda); the feasts in green, white and
-  red; the greasy pole (l'albero della cuccagna) with its prizes; the Collio's vines without the klopotec; the town clock
-  in the campanile.
+  their reed thatch; the fienile of Nel campo for the kozolec; la vera da pozzo under its iron arch for the well (as In
+  piazza); plain painted hives, in a shed of cobbles from level 2 (as Dalle api); the smithy of river cobbles with bands
+  of brick (as Nella fucina); the school with the tricolore over its door; Friuli's golden eagle on blue on the
+  watchtower (as Sulla torre), its pillars of cobbles and brick from level 3, and on the tent (as Nella tenda); the
+  feasts in Friuli's gold, blue and white (as Dalle api's bunting), the market's awnings as Al mercato's; the greasy pole
+  (l'albero della cuccagna) with its prizes; the Collio's vines without the klopotec; the town clock in the campanile.
 - **Carinthia**: white houses with a timbered upper storey, the balcony with geraniums, dark shingles and the half-hipped
   gable (Krüppelwalm); the onion-domed church; the Harpfe (as on Am See's far shore); the log trough with its running
   spout; Austria's red, white and red on the watchtower, the tent (as Am Feuer) and the feasts; the Karawanken with the
@@ -80,8 +81,9 @@ as before. A culture this app has no pack of shows its language's flag.
   `ClassicLandTest`'s digests, taken before generated land, still hold);
 - each culture's map draws its own village;
 - the map shows what the scenes show: each `map` entry that a scene has too is the scene's (`field.kozolec`,
-  `tent.pennant`, `smithy.walls`, `school.flag`, `alps.range`, `campfire.flag`), the houses' style is the fire's village's,
-  and the Friends card's flag is the watchtower's;
+  `tent.pennant`, `smithy.walls`, `school.flag`, `watchtower.flag` and `.tower`, `square.well`, `apiary.house` and
+  `.bunting`, `alps.range`, `campfire.flag`), the houses' style is the fire's village's, and the Friends card's flag is
+  the watchtower's;
 - every building of every culture's map is drawn and found by a tap at every age, at the nominal detail by day and
   closer up at night;
 - a frame of a culture's map costs no more than the default culture's;
