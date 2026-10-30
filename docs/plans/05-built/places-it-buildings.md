@@ -117,8 +117,20 @@ everything built, and what can be tapped at a level is what the level has. Its s
   at detail 2 and 3, the seasons, a winter night, the coast, a phone's view): copied for the review to the round's
   scratch folder `ux-places/places-it-buildings/<art>/` (watchtower, livingroom, cellar, attic, workshop, kitchen, hills,
   market, square, smithy, school, apiary, church, tent, field) and `levels/` (every building's level sheets).
-- The full checks after the rebase onto main: FULL-CHECKS
-- The emulator QA (`friuli-watchtower`, on a synthetic Teo): QA-RESULT
+- The full checks after the rebase onto main: bridge `tsc` clean; the smoke 3011 checks passed
+  (ports 9020–9029); `tutor-export --check` 87 files match; the Android unit suite 434 classes, 3432 tests: all green but
+  one timing, SceneDetailTest's closer frames of the stream and the pond (25–28 ms against 20 at a load of 33–35 on the
+  shared machine; neither art is touched here, and the same check failed on the kitchen, the alps, the mill or the hills
+  in the helpers' runs, by the load of the moment), and SceneDetailTest run again alone: 4 of 4 green; the Python tests 102 (11 skipped) and 251, green.
+- The emulator QA (`friuli-watchtower`, on a synthetic Teo): green, 9 minutes inside the lock: the village made a Trg, the
+  watchtower's card ("Torre di guardia · Wachturm, Livello · Stufe 2", "🚪 Entra · Geh hinein: 🗼 Sulla torre · Auf dem
+  Wachturm ›"), the scene on the phone, closer up and on the tablet (2560 × 1600 on its side and upright), «Vedo, vedo»
+  with Lorenzo (the horn, "È bianco e marrone.", found by its chip after a tap on the palisade behind its curve: a tap
+  goes by the pixel's owner, QA's tap had gone by its box's middle), Davide's lookout at night ("Ehi, Teo! Si fa buio.
+  Accendi la torcia, per favore." and the first turn, «Dove sono i fiammiferi?»). Screenshots in the round's scratch
+  folder `ux-places/places-it-buildings/qa/shots3/` (fw-village, fw-card, fw-scene, fw-scene-closer,
+  fw-scene-tablet-side, fw-scene-tablet-upright, fw-ispy-offer, fw-ispy-round, fw-ispy-guess, fw-ispy-found,
+  fw-guardia, fw-guardia-turn, fw-scene-evening).
 
 ## How to use
 
