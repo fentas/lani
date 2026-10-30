@@ -26,7 +26,7 @@ import { itemId, meaningOf, normWord, PackStore, packsDirs, vocabularyWords, wor
 import { labelEn } from '../langs'
 import { untrustedJson } from '../family'
 import { MAX_REQUESTS, WordRequests, type WordRequest } from '../word-requests'
-import { CaseLens, namesOf, type LineCases, type NameForms, type WordCase } from '../case-lens'
+import { CaseLens, namesOf, packNouns, type LineCases, type NameForms, type PackNoun, type WordCase } from '../case-lens'
 import type { CaseTriggers } from '../case-triggers'
 import { CaseSeen } from '../case-seen'
 
@@ -134,13 +134,24 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
 
   // The case lens (cases.ts): made at the first ask, again when its table or the forms book changes; Slovene's only (its
   // cases, FORMS_LANGUAGES), the village's language, never a visit's.
-  let lens: { table: CaseTriggers; book: unknown; lens: CaseLens } | null = null
+  // (the word packs' nouns too, read by their regular endings where the dictionary lacks them: read again a minute after,
+  // the lens made again only when they changed)
+  let lens: { table: CaseTriggers; book: unknown; nouns: string; lens: CaseLens } | null = null
+  let shelfNouns: { at: number; nouns: PackNoun[]; key: string } = { at: 0, nouns: [], key: '' }
+  function lensNouns() {
+    if (Date.now() - shelfNouns.at > 60_000) {
+      const nouns = packNouns(packs.all())
+      shelfNouns = { at: Date.now(), nouns, key: nouns.map(n => `${n.lemma}|${n.gender}|${n.plural ?? ''}`).join(',') }
+    }
+    return shelfNouns
+  }
   function caseLens(): CaseLens | null {
     if (!FORMS_LANGUAGES.has(language)) return null
     const table = dictionary.triggers.current()
     if (!table) return null
     const current = book.current()
-    if (lens?.table !== table || lens.book !== current) lens = { table, book: current, lens: new CaseLens({ dict, book, table }) }
+    const nouns = lensNouns()
+    if (lens?.table !== table || lens.book !== current || lens.nouns !== nouns.key) lens = { table, book: current, nouns: nouns.key, lens: new CaseLens({ dict, book, table, nouns: nouns.nouns }) }
     return lens.lens
   }
   /** The village's names as the lens declines them: the villagers' given names, and the learner's own forms. */

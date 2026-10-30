@@ -5,11 +5,11 @@
 // trigger and its rule, and the labelled ambiguities it keeps open. The smoke checks the numbers (test/smoke/case-lens.ts);
 // The case trainer's bank too, once it is merged (trainerItems). `bun test/case-lens-eval.ts [gold|heldout|heldout2|trainer]
 // [-v]` prints them with each miss.
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { validateCaseTriggers } from '../src/case-triggers'
-import { CaseLens, namesOf, type CaseOption } from '../src/case-lens'
+import { CaseLens, namesOf, packNouns, type CaseOption } from '../src/case-lens'
 import { FormsBook } from '../src/forms'
 import { Lexicon } from '../src/lexicon'
 
@@ -33,13 +33,19 @@ export type GoldItem = {
 /** The village's names the sentences have (the villagers' given names, the smoke's learner Jan), declined. */
 export const VILLAGE_NAMES = namesOf(['Ančka', 'Anton', 'France', 'Janez', 'Jože', 'Luka', 'Marko', 'Micka', 'Mojca', 'Nejc', 'Tine', 'Tone', 'Vida', 'Zala', 'Jan'].map(given => ({ given })))
 
-/** The lens over the repository's dictionary, forms book and trigger table. */
+/** The repository's Slovene word packs (companion/packs and the Primorska culture's). */
+export function repoPacks(): { words: any[] }[] {
+  const js = (d: string) => (existsSync(d) ? readdirSync(d).filter(f => f.endsWith('.json')).sort().map(f => JSON.parse(readFileSync(join(d, f), 'utf8'))) : [])
+  return [...js(join(companion, 'packs')), ...js(join(companion, 'cultures/primorska/packs'))]
+}
+
+/** The lens over the repository's dictionary, forms book, trigger table and word packs. */
 export function repoLens(): CaseLens {
   const dict = new Lexicon({ dir: join(companion, 'lexicon'), language: 'sl', tutorFile: join(tmpdir(), 'lani-case-lens-no-glosses.json') })
   const book = new FormsBook({ dir: join(companion, 'lexicon'), language: 'sl' })
   const v = validateCaseTriggers(JSON.parse(readFileSync(join(companion, 'grammar/sl/data/case-triggers.json'), 'utf8')))
   if (!v.ok) throw new Error(`case-triggers.json: ${v.errors}`)
-  return new CaseLens({ dict, book, table: v.table })
+  return new CaseLens({ dict, book, table: v.table, nouns: packNouns(repoPacks()) })
 }
 
 export type Evaluation = {

@@ -63,7 +63,7 @@ export default async function cases() {
   // every example of the table, analysed: the case, the number and the trigger it says
   const lens = repoLens()
   const examples: CaseExample[] = [
-    ...raw.prepositions.flatMap((p: any) => p.examples), ...raw.negation.examples, ...raw.quantity.examples, ...raw.time.examples,
+    ...raw.prepositions.flatMap((p: any) => p.examples), ...raw.negation.examples, ...raw.quantity.examples, ...raw.time.examples, ...(raw.time_genitive?.examples ?? []),
     ...raw.verbs.flatMap((x: any) => x.examples ?? []), ...raw.predicates.flatMap((x: any) => x.examples), ...Object.values(raw.roles).flatMap((r: any) => r.examples),
   ]
   const wrong = examples.flatMap(e => {
@@ -71,10 +71,50 @@ export default async function cases() {
     const ok = !!w && 'pick' in w && !!w.pick && w.pick.case === e.case && w.pick.number === e.number && w.sure !== 'ambiguous' && (e.trigger ? w.trigger?.word === e.trigger : true)
     return ok ? [] : [`${e.sl} ${e.word}: ${w && 'pick' in w ? `${w.pick?.case}.${w.pick?.number} ${w.sure} by ${w.trigger?.word}` : 'none'}`]
   })
-  check(`case lens: every example of the table comes out as it says (${examples.length}: each preposition, the negation, quantity, the verbs, the words of feeling, the roles)`, examples.length >= 70 && wrong.length === 0, wrong)
+  check(`case lens: every example of the table comes out as it says (${examples.length}: each preposition, the negation, quantity, the genitive of time, the verbs, the words of feeling, the roles)`, examples.length >= 70 && wrong.length === 0, wrong)
   // a relative adverb that is a noun's form too (koder: wherever, and a curl) starts its clause: no case, no second subject
   const koder = lens.analyze('da, koder sonce hodi,', VILLAGE_NAMES).words
   check('case lens: koder (wherever; a curl too) in "da, koder sonce hodi," starts its clause: no case of its own, sonce the one subject', koder.map(w => `${w.word}:${w.pick?.case}:${w.sure}`).join(' ') === 'sonce:nom:decided', koder.map(w => `${w.word}:${w.pick?.case}:${w.sure}`))
+
+  // case-lens-2: the genitive of time, sam, a comparison, the forms book's noun tables, the packs' nouns, the supplement
+  const pick = (line: string, word: string, nth = 0) => {
+    const w = lens.at(line, word, nth, VILLAGE_NAMES)
+    return w && 'pick' in w ? `${w.pick ? `${w.pick.case}.${w.pick.number}` : '-'} ${w.sure} ${w.kind}${w.trigger ? ` ${w.trigger.word}` : ''}${w.derived ? ' derived' : ''}` : 'none'
+  }
+  const lens2 = [
+    // a year in figures after leto, and a time with nekega or tistega: the genitive of time (cas-izrazi)
+    ['France Prešeren je Zdravljico napisal leta 1844.', 'leta', 0, 'gen.sg decided when 1844'],
+    ['Leta 1991 je Slovenija postala samostojna.', 'Leta', 0, 'gen.sg decided when 1991'],
+    ['Tukaj živim od leta 2024.', 'leta', 0, 'gen.sg decided preposition od'],
+    ['Nekega jutra pa je deklica zavpila.', 'jutra', 0, 'gen.sg decided when Nekega'],
+    // ... never a number that counts what follows (leta 1000 metrov: it flies), nor leta of three years
+    ['Ptica leta 1000 metrov visoko.', 'metrov', 0, 'gen.pl decided number 1000'],
+    ['Tri leta je delal tam.', 'leta', 0, 'acc.pl decided time'],
+    // the dictionary lacked these: Zdravljica's seventh stanza, the B1a words, a cart and a tray
+    ['France Prešeren je Zdravljico napisal leta 1844. Njena sedma kitica je slovenska himna.', 'kitica', 0, 'nom.sg decided subject je'],
+    ['France Prešeren je Zdravljico napisal leta 1844. Njena sedma kitica je slovenska himna.', 'sedma', 0, 'nom.sg decided subject je'],
+    ['Marko mi je posodil svoj novi kombi.', 'kombi', 0, 'acc.sg decided object posodil'],
+    ['Babica nese pladenj s pecivom.', 'pladenj', 0, 'acc.sg decided object nese'],
+    ['Imam dve hčerki.', 'hčerki', 0, 'acc.du decided object Imam'],
+    ['Kmečki voz stoji na dvorišču.', 'Kmečki', 0, 'nom.sg decided subject stoji'],
+    // an l-form the dictionary lacks beside biti's form: no copula of si (Cesar si je zapomnil Krpana)
+    ['Cesar si je zapomnil Krpana.', 'Krpana', 0, 'acc.sg decided object zapomnil derived'],
+    // sam said of the subject; a comparison after kot
+    ['Zdaj kuham sam.', 'sam', 0, 'nom.sg decided predicative kuham'],
+    ['Njegovi rogovi so se svetili kot sonce.', 'sonce', 0, 'nom.sg decided form'],
+    ['Ima oči kot oglje.', 'oglje', 0, '- ambiguous form'],
+    // the forms book's table (mož: the accusative moža), a name's possessive, an adjective with the genitive
+    ['Vidim tistega moža.', 'moža', 0, 'acc.sg decided object Vidim'],
+    ['Kovačnico je sezidal Tonetov praded.', 'praded', 0, 'nom.sg decided subject sezidal'],
+    ['Pa poglej ta razgled. Vreden je vsake stopnice.', 'stopnice', 0, 'gen.sg decided predicate Vreden derived'],
+    // a pack's noun by its regular endings (kozolec, kozolci: kozolc-), and what it leaves out (četrt: undeclined)
+    ['Seno mora pod streho, na kozolec!', 'kozolec', 0, 'acc.sg decided preposition na derived'],
+    ['Seno se suši na kozolcu.', 'kozolcu', 0, 'loc.sg decided preposition na'],
+    ['Na vrhu mlaja visi nagrada.', 'mlaja', 0, 'gen.sg decided attribute vrhu derived'],
+    ['Pridem ob četrt na tri.', 'četrt', 0, 'none'],
+  ] as const
+  const missed2 = lens2.flatMap(([line, word, nth, want]) => (pick(line, word, nth) === want ? [] : [`${line} ${word}: ${pick(line, word, nth)}, not ${want}`]))
+  check(`case lens: the genitive of time, sam, kot, the forms book's nouns, the packs' nouns and the supplement's words (${lens2.length} lines)`, missed2.length === 0, missed2)
 
   // --- the analysis on the hand-labelled sentences ------------------------------------------------------------------
   const gold = goldItems('gold')

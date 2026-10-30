@@ -107,6 +107,11 @@ const predicateEntry = z.strictObject({
   words,
   case: caseKey,
   rule: page,
+  /**
+   * The word takes the case of the phrase right after it (biti's form between them at most: poln vode, Vreden je vsake
+   * stopnice), not of who feels it anywhere in the clause.
+   */
+  after: z.boolean().optional(),
   examples,
 })
 
@@ -187,6 +192,12 @@ export const caseTriggersSchema = z.strictObject({
   intransitive: z.array(z.strictObject(verbForms)).min(1),
   /** Nouns of time (dan, ura, ponedeljek …), their lemmas: v ponedeljek, ob petih, ves dan. */
   time: z.strictObject({ nouns: words, rule: page, examples }),
+  /**
+   * The genitive of time (when?), whatever the verb: a noun of time before a year in figures ([years], their lemmas:
+   * leto; Zdravljico je napisal leta 1844), and a masculine or neuter noun of time after one of [determiners] (nekega
+   * dne, tistega večera). Optional: a table without it leaves such a noun to its verb and role.
+   */
+  time_genitive: z.strictObject({ years: words, determiners: words, rule: page, examples }).optional(),
   phrases: z.array(phraseEntry),
   /**
    * Words said of the subject, in the nominative whatever the verb (rad, rada, rado …: Rad pomagam, Rada imam juho): each
@@ -245,7 +256,7 @@ export function validateCaseTriggers(input: unknown, pages?: Set<string>): { ok:
     const rules = [
       ...t.cases.map(c => c.page),
       ...t.prepositions.flatMap(p => p.takes.flatMap(x => [x.rule, ...(x.time ? [x.time] : [])])),
-      t.negation.rule, t.quantity.rule, t.time.rule,
+      t.negation.rule, t.quantity.rule, t.time.rule, ...(t.time_genitive ? [t.time_genitive.rule] : []),
       ...t.verbs.map(v => v.rule), ...t.predicates.map(p => p.rule), ...t.phrases.map(p => p.rule), ...t.fused.map(f => f.rule), ...t.predicatives.map(p => p.rule),
       ...Object.values(t.roles).map(r => r.rule),
     ]
