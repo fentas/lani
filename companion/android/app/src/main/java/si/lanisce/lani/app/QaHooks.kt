@@ -137,7 +137,7 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "show:<spot>": the village's camera flies to that spot of the landscape ("show:kopa"), as a place of the scroll's
  *   "Kraji" flies it there ([show]): a spot deep in the woods framed without drags that a busy machine sends unevenly;
  *   asked again, it flies there again; "show:fire" the fire, "show:cart" the merchant's cart on the road, "show:threat"
- *   the wolves or the bear. "show:" lets it go.
+ *   the wolves or the bear, "show:project:<id>" a finished project's landmark ("show:project:balinisce"). "show:" lets it go.
  * - "dev:again": the developer's next upload to the node when the app goes to the background doesn't wait for the 30
  *   minutes since the last one (app/DevUpload); "dev:off" hides the developer settings (as their "Hide these settings").
  * - "ageup:<age>": the village (the dev bridge's copy) grows to that age today from the one before ([grownTo]: whatever it

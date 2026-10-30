@@ -591,7 +591,7 @@ fun VillageScreen(vm: AppViewModel) {
                 cam.reveal(TownAnchors.top(b, s, fit.width, fit.height), area())
             }
             // QA's "show:<spot>": the camera at that spot of the landscape, as a place of the scroll flies it there; "fire",
-            // the merchant's "cart", the wolves or the bear ("threat") too
+            // the merchant's "cart", the wolves or the bear ("threat"), a finished project's landmark ("project:<id>") too
             val qaShow = si.lanisce.lani.app.QaHooks.show
             LaunchedEffect(qaShow) {
                 qaShow?.let { (spot, _) ->
@@ -601,7 +601,7 @@ fun VillageScreen(vm: AppViewModel) {
                         "fire" -> anchorOf(TownPlace.Fire)
                         "cart" -> at(si.lanisce.lani.game.render.Threats.cart(s, fit.width))
                         "threat" -> si.lanisce.lani.game.render.Threats.of(s, fit.width, fit.height)?.let { at(floatArrayOf(it.cx, it.cy)) } ?: anchorOf(TownPlace.Fire)
-                        else -> anchorOf(TownPlace.Spot(spot))
+                        else -> if (spot.startsWith("project:")) anchorOf(TownPlace.Landmark(spot.removePrefix("project:"))) else anchorOf(TownPlace.Spot(spot))
                     }
                     cam.show(p, area())
                 }
