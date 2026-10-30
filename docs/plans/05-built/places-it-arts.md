@@ -154,12 +154,20 @@ None is needed for the scenes to be right; each would let them show more. This b
   draws), the bridge's `validateCulture` and `validateScene` (ok: cast 13, packs 58, pages 18; each scene ok), the prompts
   (0 clashes over 807 Italian words) and the learner audit (0 texts naming Jan, 0 malformed placeholders, 0 turns the same
   for one gender).
-- **The Android unit tests** (lani-slot.sh) and **the bridge** (tsc, the smoke, `tutor-export --check`): the numbers are in
-  the round's report.
+- **The Android unit tests** (lani-slot.sh), on the branch rebased onto main: the full suite, 3,486 tests in 439 classes, 0
+  failures, 2 skipped (before the rebase the content tests alone: 167 in 25 classes, CultureScenesTest holding the six to
+  their arts and DialogReactionsTest counting 31 + 39 scenes).
+- **The bridge**: `tsc` clean; the smoke on ports 9130–9148 (its Drama 3 worker's port set to 9148: by default it is the
+  smoke's port + 40, another worker's block), 3,137 checks, all passed; `tutor-export --check`: 88 files match.
+- **Python** (`bin/qa` changed): 251 tests and 131 (11 skipped), all passing.
 - **On the emulator**: QA's step `places` now plays Teo's places with an Italian learner of the Friuli culture
   (`LANI_CULTURE=friuli`, the phone in sl · en): the bocce court finished, its landmark, its card's way in, Bepi's game, «Vedo,
   vedo» (the jack), Davide's drill at the fire station, then each other place (the playground, the ancona at dusk, the fire
-  station, the lookout, the gate by day and at night). Screenshots in the round's scratchpad, `ux-places-it-arts/qa/`.
+  station, the lookout, the gate by day and at night). Screenshots in the round's scratchpad, `ux-places-it-arts/qa4/`.
+  The card's way in is found by its label and the scene's emoji: the app shows a scene's title in the phone's pair (the
+  court's own «Na balinišču · At the bocce court» in sl · en, «Al campo da bocce · Auf der Bocciabahn» for Teo's it · de).
+- **Without the scratchpad's replay tools** after the host's reboot (they lived in /tmp): the checks above that run in the
+  repo (the Android content tests, the bridge's validation in the smoke) are the record.
 
 ## What is left
 
