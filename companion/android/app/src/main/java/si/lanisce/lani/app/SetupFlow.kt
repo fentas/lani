@@ -139,14 +139,14 @@ data class ParentGate(val child: Boolean, val opened: Boolean = false) {
 }
 
 /**
- * The tutor's key checked at the setup's tutor step, as [si.lanisce.lani.tutor.live.LiveTutor.setKey] said ([error]:
- * null when it works): a refused key or an empty one in plain words ("this key doesn't work"), anything else (the network)
- * as it came.
+ * The tutor's key checked (the setup's tutor step, the settings' tutor page), as
+ * [si.lanisce.lani.tutor.live.LiveTutor.setKey] said ([problem]: null when it works): a refused key or an empty one in plain
+ * words ("this key doesn't work"), anything else (the network) as it came.
  */
 object TutorKey {
-    fun problem(error: String?): String? = when {
-        error == null -> null
-        error.contains("401") || error.contains("refused") || error.contains("empty") -> "🔑 ${bi("setup.keyBad")}"
-        else -> "⚠️ $error"
+    fun problem(problem: si.lanisce.lani.tutor.live.KeyProblem?): String? = when (problem) {
+        null -> null
+        si.lanisce.lani.tutor.live.KeyProblem.Empty, si.lanisce.lani.tutor.live.KeyProblem.Refused -> "🔑 ${bi("setup.keyBad")}"
+        is si.lanisce.lani.tutor.live.KeyProblem.Failed -> "⚠️ ${problem.text}"
     }
 }

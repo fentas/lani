@@ -249,7 +249,7 @@ private fun ClaudeKey(live: LiveTutor, kept: () -> Unit) {
             checking = true
             scope.launch {
                 val e = live.setKey(key)
-                note = e?.let { "⚠️ $it" } ?: "✓ ${bi("tutorLive.keyWorks")}"
+                note = si.lanisce.lani.app.TutorKey.problem(e) ?: "✓ ${bi("tutorLive.keyWorks")}"
                 if (e == null) {
                     key = ""
                     kept()

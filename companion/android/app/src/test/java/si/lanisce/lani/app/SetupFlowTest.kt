@@ -194,10 +194,12 @@ class SetupFlowTest {
     @Test fun `a refused key says so in plain words`() {
         L10n.pair = LangPair.DEFAULT
         assertNull(TutorKey.problem(null))
-        val refused = TutorKey.problem("the key was refused (401)")!!
+        val refused = TutorKey.problem(si.lanisce.lani.tutor.live.KeyProblem.Refused)!!
         assertTrue(refused, "sk-ant-" in refused && " · " in refused)
-        assertEquals(refused, TutorKey.problem("the key is empty"))
-        assertEquals("⚠️ timeout", TutorKey.problem("timeout"))
+        assertEquals(refused, TutorKey.problem(si.lanisce.lani.tutor.live.KeyProblem.Empty))
+        assertEquals("⚠️ timeout", TutorKey.problem(si.lanisce.lani.tutor.live.KeyProblem.Failed("timeout")))
+        // what a failure says is never read for its words: a network message that names a 401 is still the network's
+        assertEquals("⚠️ proxy said 401", TutorKey.problem(si.lanisce.lani.tutor.live.KeyProblem.Failed("proxy said 401")))
     }
 
     @Test fun `the hosted onboarding says a child learns there`() {

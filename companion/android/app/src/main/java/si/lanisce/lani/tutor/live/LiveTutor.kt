@@ -615,18 +615,19 @@ class LiveTutor(
 
     /**
      * Checks a Claude [key] with GET /v1/models (not a model call) and keeps it, encrypted with a Keystore key (the
-     * shadow's vault: one key for both). Null when kept, else what went wrong.
+     * shadow's vault: one key for both). Null when kept, else what went wrong ([KeyProblem]: empty, refused, or another
+     * failure with its redacted message).
      */
-    suspend fun setKey(key: String): String? = withContext(io) {
+    suspend fun setKey(key: String): KeyProblem? = withContext(io) {
         val k = key.trim()
-        if (k.isEmpty()) return@withContext "the key is empty"
+        if (k.isEmpty()) return@withContext KeyProblem.Empty
         val models = try {
             transportFor(baseUrl()) { k }.models()
         } catch (e: CancellationException) {
             throw e
         } catch (e: ApiError) {
             line("key check failed: ${e.kind}")
-            return@withContext if (e is ApiError.Auth) "the key was refused (401)" else Redact.of(e.message ?: e.kind, k)
+            return@withContext if (e is ApiError.Auth) KeyProblem.Refused else KeyProblem.Failed(Redact.of(e.message ?: e.kind, k))
         }
         val before = vault.load()
         // another key (another account or workspace): the thread's thinking was made under the old one, so it restarts

@@ -85,8 +85,10 @@ class LiveTutorTest {
     private var usage = Usage(input = 100, cacheWrite1h = 4_000, output = 80)
     private var failOn: (Int) -> Triple<Int, String, String>? = { null }
     private var calls = 0
+    /** What GET /v1/models answers instead of the list (a key's check refused, the service down). */
+    private var modelsFail: Triple<Int, String, String>? = null
     private val api = Answering { r ->
-        if (r.url.encodedPath == "/v1/models") return@Answering Triple(200, MODELS, "application/json")
+        if (r.url.encodedPath == "/v1/models") return@Answering modelsFail ?: Triple(200, MODELS, "application/json")
         val o = tutorJson.parseToJsonElement(bodyOf(r)) as JsonObject
         calls++
         failOn(calls)?.let { return@Answering it }
@@ -397,6 +399,20 @@ class LiveTutorTest {
         assertEquals(null, t.setKey(FAKE_KEY))
         t.awaitIdle()
         assertEquals(TurnStatus.DONE, t.today.turns.single().status)
+    }
+
+    @Test fun `a key that doesn't work says why, typed - empty, refused, or the check failed`() = runBlocking {
+        val t = tutor()
+        t.refreshCredentials()
+        assertEquals(KeyProblem.Empty, t.setKey("   "))
+        modelsFail = Triple(401, """{"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"}}""", "application/json")
+        assertEquals(KeyProblem.Refused, t.setKey(FAKE_KEY))
+        modelsFail = Triple(529, """{"type":"error","error":{"type":"overloaded_error","message":"Overloaded"}}""", "application/json")
+        val failed = t.setKey(FAKE_KEY)
+        assertTrue("$failed", failed is KeyProblem.Failed)
+        assertFalse("the key never in what is shown", FAKE_KEY in failed!!.text)
+        modelsFail = null
+        assertEquals(null, t.setKey(FAKE_KEY))
     }
 
     @Test fun `the credit out, a chat says why it can't answer, the routine waits`() = runBlocking {
