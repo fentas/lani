@@ -2078,7 +2078,15 @@ centre, growing to a full bubble as it comes within a fifth of the screen's shor
 0.2 of it, an icon from 0.35; its tap target always a bubble's). Someone just helped says thanks over their head when the
 learner comes back to the map, a short call like the event's, in the village's language ("Hvala lepa!", below the pass
 mark "Hvala! Jutri še enkrat?": the culture's lines), once, for four seconds, within ten minutes of the run
-(`rememberThanks` in `ui/game/TownView.kt`); then they rest, and the place goes to another villager's request.
+(`rememberThanks` in `ui/game/TownView.kt`); then they rest, and the place goes to another villager's request. A
+request tried below the pass mark leaves a quiet "🔁" over its giver until it comes back (`TownMarkers.backMarkers`: a tap
+opens the giver's card, with when it comes back and its drill; GAME.md "A try below the mark").
+
+The game's one tip ("💡 Namigi · Tips", GAME.md "Guidance") is a bubble at its thing among the others (`TownMarker.Kind.TIP`,
+"tip:<moment>"): paper with a gold rim and a 💡 in its corner, never wobbling or pulsing, never quiet (there is only ever
+one), laid out, nudged and stacked as the others (after their folding and clustering, so a crowded place never swallows
+it); its tap opens its card over the map, the thing kept in view above it. In a scene the first time inside one, the tip
+is a card at the scene's foot, never over a dialog or a game of «Vidim, vidim».
 
 A bubble stays with its person or place (`ui/game/TownBubbles.kt`, `layoutBubbles`): over them, its pointer short.
 Panned or zoomed so they're off the screen, it's off the screen with them, not lined up at its edge with its pointer

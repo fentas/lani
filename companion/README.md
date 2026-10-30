@@ -967,7 +967,7 @@ grammar book, the course, drills, the family's words, a town's villagers, scenes
 the profile: `{learner}` and `{m:…|f:…}` rendered for them (`Route.addressed`, `bridge/src/addressee.ts`; the tutor's
 tools keep the placeholders, [SCENES.md](SCENES.md#the-learner-in-the-content)).
 
-All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB, a chat photo 8 MB); errors never carry stack traces. `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land"), and the learner's `course` the same way (an app from before the school: [COURSE.md](COURSE.md#the-learners-progress)).
+All endpoints except `/health`, `POST /pair`, the family page and the routes between towns (`/town/…`, signed by the asking town, see [Towns](#towns)) need `Authorization: Bearer <token>`: the app token, or a paired phone's device token. The towns' routes for the app (`/towns…`) are in [Towns](#towns). The family token reaches only the `/family` and `/audio` routes, and can read voice clips (see [Family](#family)). JSON bodies are limited to 256 KB (`413` beyond; `PUT /game` 512 KB, audio 2 MB, a chat photo 8 MB); errors never carry stack traces. `PUT /game` keeps the village's `land` when a state leaves it out (an app from before generated land: GAME.md, "The land"), and the learner's `course` the same way (an app from before the school: [COURSE.md](COURSE.md#the-learners-progress)), as the numbers, the cases, the hearths and the tips ([Tips](#tips)).
 
 | Method | Path | Purpose |
 |---|---|---|
@@ -4455,15 +4455,32 @@ opens Friends with its Accept dialog filled in.
 **Home**, top to bottom: the village with the greeting, "🤝" to Friends (a count when a guest came, a question or a
 friend's offer waits), "⚙️" to the settings (its dot: the tutor's connection), the streak; "Danes · Today" (the one thing
 to do; wolves, a bear or a storm about make defending the village that thing; the village's day and at most two of who
-waits there, the rest "➕ Še 2 v vasi"); "Učenje · Learning", its tiles three to a row on a phone (🏫 Šola, 📚 Nove besede,
+waits there, the rest "➕ Še 2 v vasi"; a tip of the game's, "💡 Namig · Tip", with its one button: see [Tips](#tips)); "Učenje · Learning", its tiles three to a row on a phone (🏫 Šola, 📚 Nove besede,
 🔤 Moje besede, 📖 Slovnica, ✨ Izzivi, 🗣️ Pogovor, 📋 Plonk listek, 📗 Branje, 🔢 Števila once open, 💌 Družina, 🚗 Za
 pot); the villagers who need the learner; "📊 Napredek · Progress"; the tutor's bar.
 
 **⚙️ Nastavitve · Settings** (`ui/settings/SettingsScreen.kt`): a row per section with what it holds now, each a page:
 🧑‍🏫 Učitelj · Tutor, 💾 Podatki · Data (a parent's on a child's device), 🌐 Jeziki · Languages, 🔊 Zvok in glas · Sound
 and voice ("🗣️ Moj glas · My voice" first: the voice of the learner's own lines, [Voice](#voice); the background sounds, the
-explanations read aloud, the offline audio), 🔗 Povezava · Connection (the node, pairing again, Lani on this phone), and
+explanations read aloud, the offline audio), 💡 Namigi · Tips (on or off, "🔁 Pokaži jih spet · Show them again"; a
+parent's on a child's device: [Tips](#tips)), 🔗 Povezava · Connection (the node, pairing again, Lani on this phone), and
 🛠️ Razvijalec · Developer once the version line was tapped seven times.
+
+### Tips
+
+"💡 Namigi · Tips" ([GAME.md](GAME.md#guidance--namigi--tips); docs/plans/05-built/guidance.md): the game notices a
+moment (a store full, the first school, an upgrade within reach, a request tried below the mark that comes back tomorrow,
+the first reviews due …), says in one line what the learner can do now and offers one tap to do it. One at a time, at its
+place: a gentle bubble at its thing on the village's map (gold rim, 💡; a tap opens its card), a card in Home's "Danes ·
+Today", a card in a scene the first time inside one; never over an exercise, a dialog or a talk, at most three a day, a
+new one five minutes after the last at the soonest, none while wolves, a bear or a storm are about. The card: the line, 🔊,
+its one button (it opens the right screen with the right thing chosen: the trade with the full store to give, the
+school's next unit, the building's card …), "👍 Razumem · Got it", "⏰ Pozneje · Later" (the next day). A child's line is
+short, in their base with the course language's word for the thing in bold, read aloud as the card opens (the base by the
+phone's voice, the word by the narrator's). The tips the village dealt with are kept in its state (synced: another
+device doesn't repeat them); the settings turn them off and show them again; the tutor sees them (`get_village`'s
+`tips`) and points at one (`show_tip`). QA's hooks: "tips:<moment>" (the village readied for it, the moment asked as
+`show_tip` asks it), "tips:reset", "tips:tentmove" (the shepherd's request asked anew and started: QA's step `guidance`).
 
 ### Getting the APK
 

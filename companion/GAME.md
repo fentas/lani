@@ -1,6 +1,6 @@
 # Moja vas: rules reference
 
-"Moja vas" ("My village") is the village game in the companion app. Practice earns resources, and resources grow the village from a campfire to a town. Helping the villagers earns 🤝 help, their friendship, their tools and their goods. Every day brings something new: a surprise at the road, a step of a village project, and on the real Slovene holidays a festival. The rules engine is in `android/app/src/main/java/si/lanisce/lani/game/` (help and the moba in `Help.kt`, the chest and the stalls in `Chest.kt`, the village projects in `Projects.kt`, the festivals in `Calendar.kt`, the day's surprise in `Surprises.kt`, "Jutri · Tomorrow" in `Tomorrow.kt`, the words an upgrade asks for in `BuildingWords.kt`). The balance numbers are in `Catalog.kt`. Keep this file in sync with that file. What the village says and is (its people, requests, festivals, surprises, goods, projects' words, names and chronicle) is its culture pack's: Jan's is `companion/cultures/primorska` (see "Culture packs").
+"Moja vas" ("My village") is the village game in the companion app. Practice earns resources, and resources grow the village from a campfire to a town. Helping the villagers earns 🤝 help, their friendship, their tools and their goods. Every day brings something new: a surprise at the road, a step of a village project, and on the real Slovene holidays a festival. The rules engine is in `android/app/src/main/java/si/lanisce/lani/game/` (help and the moba in `Help.kt`, the chest and the stalls in `Chest.kt`, the village projects in `Projects.kt`, the festivals in `Calendar.kt`, the day's surprise in `Surprises.kt`, "Jutri · Tomorrow" in `Tomorrow.kt`, the tips ("💡 Namigi · Tips") in `Guidance.kt`, the words an upgrade asks for in `BuildingWords.kt`). The balance numbers are in `Catalog.kt`. Keep this file in sync with that file. What the village says and is (its people, requests, festivals, surprises, goods, projects' words, names and chronicle) is its culture pack's: Jan's is `companion/cultures/primorska` (see "Culture packs").
 
 ## Resources
 
@@ -1071,8 +1071,8 @@ scenes all read it.
   changed what is due) waits its turn instead of pushing one off the map. The next day the window chooses afresh.
 - **A run clears its "!".** Whatever its result, a run takes its request's bubble away (`RequestWindow.finished`, after
   `GameEngine.completeQuest`). Passed, it is done (the full reward, 3 🤝, the thank-you good, +10 ♥). Below the pass mark it
-  pays a fifth, counts the try and comes back the next morning, from 5:00: "🌙 Jutri še enkrat · Again tomorrow"
-  (`Why.Again`, `RequestWindow.backAt`); what was missed goes into the reviews (a villager's request is the learner's cards,
+  pays a fifth, counts the try and comes back the next morning, from 5:00: "🌙 Spet jutri od 05:00 · Back tomorrow from
+  05:00" (`Why.Again`, `RequestWindow.backAt`; see "A try below the mark" below); what was missed goes into the reviews (a villager's request is the learner's cards,
   saved as failed reviews; the tutor is told a task's in its session_end, `data.quest`: passed, right of total against the
   pass mark, the results missed and their pages, `comes_back`, and puts them into the reviews). Either way the giver thanks,
   in the run's result ("Hvala lepa!", below the mark "Hvala! Jutri še enkrat?": the culture's `thanked` and `try_again`) and
@@ -1080,6 +1080,26 @@ scenes all read it.
   their other requests wait at least three hours and into the next part of the day (morning 5–11, afternoon 11–17, evening
   17–22, night), "☕ Počiva do 14:30 · Resting until 14:30" (`Why.Resting`, `RequestWindow.restUntil`). So the place a run
   freed goes at once to another villager's request, never back to the same person.
+- **A try below the mark** (Teo's tent move, 2026-10-30: 1 of 4, and to the family "the challenge is not there anymore": it
+  had gone to "Later" with no word of where or what now). It is never gone, and there is a way today:
+  - **where it went:** the run's end says it plainly, "🌙 Naloga se vrne jutri ob 05:00 · The request comes back tomorrow
+    at 05:00", under the giver's "Jutri še enkrat?"; on the map a quiet "🔁" stays at the giver
+    (`TownMarkers.backMarkers`, "back:<id>": an icon away from the view's centre, a tap opens the giver's card), their
+    card's and the Scroll's "Later" row say when ("🌙 Spet jutri od 05:00"), and the map's tip says it once (moment
+    `back`, "Guidance" below);
+  - **a way today:** the run's end, the giver's card, its "Later" row and its intro offer "🎯 Vadi in poskusi znova ·
+    Practise and try again" after any try below the mark (`QuestQueue.retry`; "🎯 Vadi, kar ti ne gre" stays for a
+    request tried three times while it isn't waiting): a short drill of what the try missed (`AppViewModel.practiseRetry`:
+    the grammar book's practice of the first page its wrong answers named, else the request's own page or its module's,
+    the tent's questions among them; else the request's own cards, reviewed; else the tutor is asked for a drill). Right
+    or almost as often as a request's pass mark asks (60 %), and the request is back today, at once
+    (`RequestWindow.retried`: its way back and its giver's rest after that run gone, the window showing it): the drill's
+    end says "🔁 La tenda in un posto nuovo è di nuovo qui: riprova adesso!" with "🔁 Riprova · Nochmal versuchen" into it.
+    Without the drill it comes back tomorrow, as ever: the wait against guessing stays, and the run's end no longer
+    offers to play it again at once ("🔁 Še enkrat" was a guess's way round it);
+  - **for a child:** before the giver's line, the run's end lists the answers, ✅ or ❌, each right answer with its picture
+    (the tent's options show their place) and 🔊 to hear it said.
+  `RequestRetryTest`; QA's step `guidance` fails the tent move, does its drill and finds the request back the same day.
 - **On a roll.** Each time the learner clears as many requests as the window shows in a roll (no four hours without a run),
   it grows by one: 3, 4, 5, 6 on a phone, three more at most. Four hours without a run, and it is back at its start.
 - While wolves, a bear or a storm are about none is up: they all wait, "🐺 Po volkovih · After the wolves" (see "People
@@ -1951,6 +1971,97 @@ A breakout comes in about half the rounds, on a night of white or yellow smoke.
 ## Jutri · Tomorrow
 
 `Tomorrow.teasers` (pure): what's coming, so there's always something to come back for, the most telling first: a festival's countdown (5 days ahead), tomorrow's project step (after today's), the storyteller's story by the fire (tonight's until it's heard, "Nocoj ob ognju: Janez pove zgodbo o Zlatorogu · Tonight by the fire: …", then tomorrow's, "Jutri: Janez pove, kako je Krpan srečal cesarja · Tomorrow: …"; SCENES.md, "Stories"), the pedlar's next day within a week ("Krošnjar pride v soboto · The pedlar comes on Saturday"), the next feast within a week (never a friend's gift: that comes as a surprise, see "The chest"), and, from Tabor, always tomorrow's surprise at the road. The HUD's "Danes in kmalu · Today and coming up" shows them all after today's lines, each without its day (`Teaser.what`, its card the first; tonight's story dotted until its sheet showed it), and Home's "Danes · Today" the first, under what's on in the village today.
+
+## Guidance: "💡 Namigi · Tips"
+
+Jan, 2026-10-30: "also some first guidance would be nice. E.g. teo had full wisdom -> would be a nice trigger to show
+user that he/she can trade it for something else. Or if the school is there that they can take lessons etc." After the
+first visit's words (GameIntro) the village said nothing when something new appeared. Now the game notices a moment
+(a store full, the first school, an upgrade within reach …), says in one line what the learner can do now, and offers one
+tap to do it (`game/Guidance.kt`, pure; the screens `ui/game/TipCard.kt`, the words `ui/game/TipWords.kt`; the plan
+docs/plans/05-built/guidance.md has the child's lines and the tap counts).
+
+- **One at a time, at its place.** On the map a tip is a gentle bubble at its thing (the bubbles' look, paper with a gold
+  rim and a 💡 in its corner; it never wobbles or pulses, and lies out with the others: "Bubbles in the village" in
+  SCENES.md); a tap opens its card over the map, the thing kept in view above it. On Home it is a card of its own in "Danes ·
+  Today", under the ideas. In a scene it is a card at the scene's foot, never over a dialog or a game of «Vidim, vidim». The
+  card: "💡 Namig · Tip", the thing's picture, the line, 🔊, ONE button that does it (opens the right screen with the
+  right thing chosen), "👍 Razumem · Got it" and "⏰ Pozneje · Later" (the next day); on the map a ✕ folds it back into
+  its bubble.
+- **The queue** (`Guidance.next`, per place: the map, Home, a scene): the tutor's pointer first; then the tip shown and not
+  dealt with yet, which stays (its bubble doesn't jump to another), while it holds; then, at a quiet moment, the best new
+  one by priority. A quiet moment: nothing open over the map (a card, a sheet, the scroll, the plot chooser, an age's moment)
+  or Home, no exercise, dialog or talk, and 5 minutes since a tip was last first shown or dealt with (`GAP_MS`). At most 3
+  are first shown a day (`MAX_A_DAY`). None while wolves, a bear or a storm are about (`Reactions.quiet`), none on a visit,
+  none while the tips are off.
+- **Gone once dealt with.** The button does it and counts as dealt with, as "Razumem" does; "Pozneje" brings it back the
+  next day. A moment the learner shows they know is skipped (`TipMoment.known`: they traded, opened the school, went into
+  the scene, upgraded, repaired, played a talk, opened the grammar book …), wherever they did it: the app records what
+  they do (`Tips.did`: a trade settled, the school or a unit opened, the grammar book, a talk, a scene gone into, a repair)
+  besides what the village shows of it (a level above 1, a request passed, a festival kept, a tool forged). A moment comes
+  once; a store full comes again a week after it was dealt with, while the learner never traded.
+- **For a child** (the device's child flag: the pairing's, the hosted mode's, or the node's town row): the line is short, in
+  their base with the course language's word for the thing in bold ("Dein Lager ist voll: **Saggezza**! Tausch etwas gegen
+  🪨."), bigger, and read aloud as the card opens from its bubble (the school's "🔊 Beri razlago" setting) and on a tap: the
+  base by the phone's voice, the marked word by the narrator's (the node's clip, else the phone's voice for it), through
+  `HintVoice` as a hint's 🔊; emoji are never said (the resource got is said by its name). An adult's line is "target ·
+  base" as every label (bi()), its 🔊 the language learned then the base.
+- **What the village keeps** (`GameState.tips`, synced with it: another device doesn't repeat them): the day each moment was
+  first shown, dealt with, put off till; what the learner did; the day the tips began; the moments past then; off; the
+  tutor's pointer. An older save has none; an older app drops it and the bridge keeps it (PUT /game).
+- **The update rule** (`Guidance.begin`, once the dashboard is in): in a village from before the tips, the moments that
+  hold already are past. The still useful ones (Teo's wisdom full, his school standing, his watchtower) wait in a backlog
+  and come once, gently, at most one a day (`OLD_A_DAY`), the best first; the others (a word pack done weeks ago, an age
+  reached long ago) count as seen. A village founded today has nothing past.
+- **"💡 Namigi · Tips" in the settings** (⚙️ → "💡 Namigi · Tips", a parent's on a child's device): on or off (synced, so
+  the tutor sees it), and "🔁 Pokaži jih spet · Show them again": what was dealt with, put off and done is forgotten, the
+  tips on again (the day they began stays, so nothing becomes a backlog again).
+- **A village founded anew** by the same learner on the same phone keeps what they dealt with and did, and off stays off
+  (`Prefs.tipsMemory`, by the learner's name); its own firsts come as new. Another learner's memory changes nothing.
+  Growing, replacing or taking down a building resets nothing: a first is the village's first.
+- **The tutor** sees them in `get_village`'s `tips` (off, the day they began, the moments first shown in the last two weeks,
+  dealt with, put off or open, its pointer) and points at one with `show_tip {moment, note}` ("show Teo how to trade":
+  `trade`, the fullest store's trade, also when none is full); it comes first at its place, once, whatever was dealt with,
+  and its note shows as a notice (`BridgeEvent.TipAsked`, the event `tip_asked`; null takes it back).
+
+**The moments** (`Guidance.MOMENTS`; the ids are the tutor's, `bridge/src/tips.ts`). Priority: the higher first. Again:
+"once" unless said.
+
+| Moment | Trigger | Place | One tap | Priority |
+|---|---|---|---|---|
+| `full-wisdom`, `full-stone`, `full-wood`, `full-food` | the store at its cap (from Tabor); known once the learner traded | the market, else where it comes from (wisdom: the linden or the fire; stone: the rocks; wood: the woodpile; food: the field) | "⇄ Zamenjaj · Trade": the trade sheet, that store chosen to give (the getting one the shortest); its trade spent today: "🔨 Gradi" when something can be built with it | 95, 94, 93, 92; again after 7 days |
+| `trade` | asked by the tutor only: a trade can be done | the fullest store's place | the trade sheet, the fullest store chosen | – |
+| `repair` | the first damaged building; known after a repair | the building | its card (its repair, the moba) | 90 |
+| `festival` | a festival on today (not a quiet day); known once one was kept | the linden, else the fire | its run | 88 |
+| `back` | a request tried below the mark waits for tomorrow (its "🔁") | its giver | "🎯 Vadi in poskusi znova": its drill | 87 |
+| `arrival` | someone moved in and waits to be met; known once someone was met | their home | their introduction | 85 |
+| `school` | a school stands and the class has a unit next; known once the school or a unit was opened | the school | "▶️ Lekcija": the unit suggested next | 80 |
+| `class` | the class meets (from the hamlet) before the school stands | the linden, else the fire | the unit suggested next | 79 |
+| `request` | a request's bubble on the map; known after a request passed | the giver | its run | 78 |
+| `upgrade` | the first building whose upgrade is within reach (its age, its price, the course); known after an upgrade | the building | its words' run while words are missing ("🎯 Nauči se besed"), else its card ("⬆️ Nadgradi") | 75 |
+| `market` | the market stands; known once the learner traded | the market | the trade sheet, the fullest store chosen | 70 |
+| `smithy` | the smithy stands; known once a tool was forged | the smithy | the chest (the forge) | 70 |
+| `visitor` | today's visitor on the road | the road | their card | 60 |
+| `scene` | a place opens a scene (the fire's from the start); known once any scene was gone into | the fire, else the building | "🚪 Vstopi" into it | 60 |
+| `project` | a project step can be taken today; known after a step | the project's site | the projects sheet at it | 55 |
+| `lipa`, `well`, `church`, `beehive` | the first standing; known once its scene was gone into | the building | into its scene, else its card | 50, 48, 50, 50 |
+| `watchtower` | the first standing | the watchtower | into its scene, else its card | 50 |
+| `home` | the first hut or house | it | its card (who lives there) | 45 |
+| `palisade` | the palisade stands; known once an event was fought | the palisade | its card | 45 |
+| `chest` | something in the chest; known once a good was given, bought or a tool forged | the fire | the chest | 45 |
+| `age-tabor` … `age-mesto` | the age reached in the last 3 days while something of it can be built; known once something of it stands | the fire | the build sheet | 40; never a backlog |
+| `surprise` | the day's surprise at the road (not the pedlar) | the road | its run | 35 |
+| `reviews` | reviews due, none ever answered | Home | today's reviews | 90 |
+| `pack-done` | a word pack all learned | Home | the packs | 80; never a backlog |
+| `cases` | the case trainer open, never played | Home | the case trainer | 70 |
+| `grammar` | the grammar book has a page; known once it was opened | Home | the grammar book | 60 |
+| `chat` | the learner practised, never wrote to the tutor | Home | the chat | 50 |
+| `talk` | from Tabor; known once a talk was played | Home | a talk | 45 |
+| `friends` | a linked town, never visited | Home | Friends | 40 |
+| `inside` | inside a scene, nothing found in the scenes yet | the scene | none: "👍 Razumem" (what to do is right there) | 50 |
+
+Tests: `GuidanceTest` (the moments on village states, the queue, the update rule, what is kept, the toggle, the child's
+words), `RequestRetryTest`. QA: the step `guidance` (QA's hooks "tips:<moment>", "tips:reset", "tips:tentmove").
 
 ## Culture packs
 
