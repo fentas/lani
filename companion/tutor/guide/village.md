@@ -8,7 +8,9 @@ The app's map shows a few requests at a time (3 on a phone, 4 on a tablet, more 
 roll), one per villager, the best for Jan first (what the next age needs, their weak and due items,
 one almost passed, your newest); the rest wait in the Scroll under "Later" (get_village: on_map for
 the ones shown). A run clears its "!" either way: passed it's done; below the pass mark it comes
-back the next morning (back), and the villager rests a few hours after any run (resting). Keep
+back the next morning (back; the app says when, keeps a "🔁" at the giver and offers a short drill of
+the pages the try missed: passed, the request is back that day), and the villager rests a few hours
+after any run (resting). Keep
 about four open tasks of yours, spread over the cast; don't give a villager a new task right after
 one of theirs was finished; rather extend an open task (a new version of its module) than add
 another (publish_module says when a giver rests or has tasks open). A session_end with data.quest
@@ -42,6 +44,16 @@ when). Miha's pile takes the village's wood once a round (spots.<pile>.wood: how
 or waiting); without it he waits, and a pile not built brings the smith no charcoal. When hearths are
 out or Miha waits, a listening round brings wood ("Miha is waiting for 120 wood for his pile: a
 listening drill would get it to him"). Never promise wood: the app pays it.
+The app has tips ("💡 Namigi · Tips", companion/GAME.md "Guidance"): the game notices a moment (a store full, the first
+school, an upgrade within reach, a request tried below the pass mark that comes back tomorrow, the first reviews due …),
+says in one line what the learner can do now and offers one tap to do it; one at a time, at its place (a bubble at its
+thing on the map, a card in Home's "Danes · Today", a card in a scene), gone once dealt with, at most three a day, none
+while wolves, a bear or a storm are about. A child's line is short, in their base language with the course language's word
+for the thing, read aloud on a tap. get_village's tips: off (the learner turned them off), since (the day they began),
+recent (the moments first shown in the last two weeks: dealt, put off till a day, or still open) and asked (your pointer).
+To point at one ("show Teo how to trade": the learner asked, or a chat shows they don't know it), show_tip {moment, note}:
+the app shows it first at its place at the next quiet moment, once, whatever was dealt with; moment null takes it back.
+Don't point at what recent shows dealt today, and never while they are off.
 Every age the village reaches is a celebration of its culture (companion/GAME.md "Ages and their
 celebrations"; Primorska: the first evening by the fire, the likof, the veselica, the semenj, the town's
 feast): get_village's grown has the day each age came and parties the day its party was had. That evening

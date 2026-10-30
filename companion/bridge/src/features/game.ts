@@ -9,6 +9,7 @@ import type { FeatureFactory } from '../feature'
 import { json, readText } from '../http'
 import { localDate } from '../rhythm'
 import { calendarOn } from '../towns'
+import { isTipMoment, TIP_MOMENTS } from '../tips'
 
 const instructions = `
 The app has a village game, "Moja vas": practice earns resources (vocabulary → food, listening →
@@ -21,7 +22,9 @@ The app's map shows a few requests at a time (3 on a phone, 4 on a tablet, more 
 roll), one per villager, the best for Jan first (what the next age needs, their weak and due items,
 one almost passed, your newest); the rest wait in the Scroll under "Later" (get_village: on_map for
 the ones shown). A run clears its "!" either way: passed it's done; below the pass mark it comes
-back the next morning (back), and the villager rests a few hours after any run (resting). Keep
+back the next morning (back; the app says when, keeps a "🔁" at the giver and offers a short drill of
+the pages the try missed: passed, the request is back that day), and the villager rests a few hours
+after any run (resting). Keep
 about four open tasks of yours, spread over the cast; don't give a villager a new task right after
 one of theirs was finished; rather extend an open task (a new version of its module) than add
 another (publish_module says when a giver rests or has tasks open). A session_end with data.quest
@@ -55,6 +58,16 @@ when). Miha's pile takes the village's wood once a round (spots.<pile>.wood: how
 or waiting); without it he waits, and a pile not built brings the smith no charcoal. When hearths are
 out or Miha waits, a listening round brings wood ("Miha is waiting for 120 wood for his pile: a
 listening drill would get it to him"). Never promise wood: the app pays it.
+The app has tips ("💡 Namigi · Tips", companion/GAME.md "Guidance"): the game notices a moment (a store full, the first
+school, an upgrade within reach, a request tried below the pass mark that comes back tomorrow, the first reviews due …),
+says in one line what the learner can do now and offers one tap to do it; one at a time, at its place (a bubble at its
+thing on the map, a card in Home's "Danes · Today", a card in a scene), gone once dealt with, at most three a day, none
+while wolves, a bear or a storm are about. A child's line is short, in their base language with the course language's word
+for the thing, read aloud on a tap. get_village's tips: off (the learner turned them off), since (the day they began),
+recent (the moments first shown in the last two weeks: dealt, put off till a day, or still open) and asked (your pointer).
+To point at one ("show Teo how to trade": the learner asked, or a chat shows they don't know it), show_tip {moment, note}:
+the app shows it first at its place at the next quiet moment, once, whatever was dealt with; moment null takes it back.
+Don't point at what recent shows dealt today, and never while they are off.
 Every age the village reaches is a celebration of its culture (companion/GAME.md "Ages and their
 celebrations"; Primorska: the first evening by the fire, the likof, the veselica, the semenj, the town's
 feast): get_village's grown has the day each age came and parties the day its party was had. That evening
@@ -64,7 +77,7 @@ congratulate Jan, or ask about the party, in the chat; the app plays it, you don
 
 const gamePut = z.object({ rev: z.number().int().min(0), state: z.record(z.string(), z.unknown()) })
 
-export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar }) => ({
+export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar, events }) => ({
   instructions,
   routes: [
     {
@@ -96,7 +109,8 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar 
         // (companion/README.md "Numbers"), one from before the case trainer its cases, and one from before the hearths its hearths (GAME.md "Hearths": the first day it
         // kept them, which piles count as given): they stay as the newer app left them
         const was = (current?.state ?? undefined) as Record<string, unknown> | null | undefined
-        const kept = Object.fromEntries((['land', 'course', 'numbers', 'hearths', 'cases'] as const).flatMap(k => (was?.[k] !== undefined && r.data.state[k] === undefined ? [[k, was[k]]] : [])))
+        // … and one from before the tips (GAME.md "Guidance") the tips dealt with, so another device doesn't repeat them
+        const kept = Object.fromEntries((['land', 'course', 'numbers', 'hearths', 'cases', 'tips'] as const).flatMap(k => (was?.[k] !== undefined && r.data.state[k] === undefined ? [[k, was[k]]] : [])))
         const state = Object.keys(kept).length ? { ...r.data.state, ...kept } : r.data.state
         const next = { rev: r.data.rev + 1, state }
         game.write(next)
@@ -125,6 +139,35 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar 
           // the forge burns charcoal where a spot's cycle brings it to the smith (Primorska's kopa), else wood
           Object.values(spots).some(sp => sp?.cycle?.delivery),
         ))
+      },
+    },
+    {
+      name: 'show_tip',
+      description:
+        `Point the learner's app at one of its tips (companion/GAME.md "Guidance": a moment the game notices, said in one line with one tap to do it): it shows first at its place (a bubble at its thing on the map, a card on Home or in a scene) at the next quiet moment, once, whatever was dealt with. moment: one of ${TIP_MOMENTS.map(m => m.id).join(', ')}; null takes your pointer back. note: a line in the learner's base, why (shown as a notice when it arrives). get_village's tips says what was shown lately and whether they are off.`,
+      inputSchema: {
+        type: 'object',
+        properties: {
+          moment: { type: ['string', 'null'], description: 'The moment to show (ids: ' + TIP_MOMENTS.map(m => `${m.id} (${m.where}): ${m.about}`).join('; ') + '); null takes it back' },
+          note: { type: 'string', description: "Why, in a line in the learner's base (shown with it)" },
+        },
+        required: ['moment'],
+      },
+      handle: args => {
+        if (args.moment === null || args.moment === '') {
+          events.emit({ type: 'tip_asked', moment: null })
+          return ok('pointer taken back')
+        }
+        const moment = typeof args.moment === 'string' ? args.moment.trim() : ''
+        if (!isTipMoment(moment)) return ok(`no tip "${moment}"; the moments: ${TIP_MOMENTS.map(m => m.id).join(', ')}`)
+        const note = typeof args.note === 'string' && args.note.trim() ? args.note.trim().slice(0, 200) : undefined
+        const off = (game.read()?.state as any)?.tips?.off === true
+        events.emit({ type: 'tip_asked', moment, ...(note ? { note } : {}) })
+        const where = TIP_MOMENTS.find(m => m.id === moment)!.where
+        return ok(
+          off ? `sent, but the learner turned the tips off: it won't show (they can turn them on in the settings, "💡 Namigi · Tips")`
+            : `the app shows "${moment}" first on ${where === 'map' ? 'the village map, at its thing' : where === 'home' ? 'Home, in "Danes · Today"' : 'the next scene the learner goes into'}, at the next quiet moment, once it applies (e.g. a store full needs the store full; "trade" shows whenever a trade can be done)`,
+        )
       },
     },
   ],

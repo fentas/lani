@@ -1,0 +1,23 @@
+{
+  "name": "show_tip",
+  "description": "Point the learner's app at one of its tips (companion/GAME.md \"Guidance\": a moment the game notices, said in one line with one tap to do it): it shows first at its place (a bubble at its thing on the map, a card on Home or in a scene) at the next quiet moment, once, whatever was dealt with. moment: one of full-wisdom, full-stone, full-wood, full-food, trade, repair, festival, back, arrival, school, class, request, upgrade, market, smithy, visitor, scene, project, lipa, well, watchtower, church, beehive, home, palisade, chest, surprise, age-tabor, age-zaselek, age-vas, age-trg, age-mesto, reviews, pack-done, cases, grammar, chat, talk, friends, inside; null takes your pointer back. note: a line in the learner's base, why (shown as a notice when it arrives). get_village's tips says what was shown lately and whether they are off.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "moment": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "The moment to show (ids: full-wisdom (map): the wisdom store is full: trade some (the trade sheet, wisdom chosen to give) or spend it; full-stone (map): the stone store is full: trade some, or spend it; full-wood (map): the wood store is full: trade some, or spend it; full-food (map): the food store is full: trade some, or build or upgrade something; trade (map): trading one resource for another (the fullest store chosen to give); only when you point at it; repair (map): the first damaged building: it gives nothing until repaired, the neighbours help (a moba); festival (map): the first festival on today: celebrate it; back (map): a request tried below the pass mark comes back tomorrow; its drill (\"Practise and try again\") brings it back today; arrival (map): someone moved into the village: meet them; school (map): the school stands: the lesson suggested next for the learner's level; class (map): the class has begun (from the hamlet, before the school): the lesson suggested next; request (map): the village's first request: help (the request's run); upgrade (map): the first upgrade within reach: the words it asks for first, then the upgrade; market (map): the market stands: better trades, goods to buy and sell; smithy (map): the smithy stands: the smith forges the villagers' tools stronger (the chest); visitor (map): a visitor on the road: say hello; scene (map): the first place to go into (a scene): tap things and people inside; project (map): a village project: one step a day, with the whole village; lipa (map): the linden stands: the village meets under it (feasts, talks, class); well (map): the well stands: the village square's life; watchtower (map): the watchtower stands: it warns of wolves and storms sooner (12 hours more); church (map): the church stands: go in; beehive (map): the bee house stands: go in to the bees; home (map): the first hut or house: its card shows who lives there; palisade (map): the palisade stands: it guards against wolves and the bear; chest (map): the villagers' gifts in the chest: give, sell or buy goods; surprise (map): the day's surprise on the road; age-tabor (map): a new age, the camp: new buildings to build; age-zaselek (map): a new age, the hamlet: new buildings to build; age-vas (map): a new age, the village: new buildings to build; age-trg (map): a new age, the market town: new buildings to build; age-mesto (map): a new age, the town: new buildings to build; reviews (home): the first reviews are due; pack-done (home): a word pack all learned: pick the next; cases (home): the case trainer is open; grammar (home): the grammar book has pages: open it; chat (home): the learner can ask you anything in the chat; talk (home): a talk (role-play) with a villager; friends (home): a friend's town to visit; inside (scene): the first time inside a scene: tap things to hear their words, people to talk); null takes it back"
+      },
+      "note": {
+        "type": "string",
+        "description": "Why, in a line in the learner's base (shown with it)"
+      }
+    },
+    "required": [
+      "moment"
+    ]
+  }
+}

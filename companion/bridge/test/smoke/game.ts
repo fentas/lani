@@ -1,7 +1,7 @@
 // Smoke checks: the village game state.
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { auth, base, check, client, dataDir, sendChunked } from './harness'
+import { auth, base, check, client, dataDir, guideOf, sendChunked } from './harness'
 
 const text = (r: any) => (r.content ?? []).map((c: any) => c.text ?? '').join('\n')
 
@@ -117,5 +117,39 @@ export default async function game() {
       Object.keys(v2.resting ?? {}).join() === 'Kovač Tone' && /^\d\d:\d\d$/.test(v2.resting?.['Kovač Tone']),
     v2,
   )
+  // the tips (GAME.md "Guidance"): an app from before them leaves them out, and they stay; the tutor sees whether they are
+  // off, the moments first shown lately (dealt with, put off, open) and its pointer; show_tip points the app at one
+  const today = new Date()
+  const day = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  const yesterday = new Date(today.getTime() - 86_400_000)
+  const tips = {
+    since: day(yesterday), shown: { 'full-wisdom': day(yesterday), school: day(today), trade: '2026-01-01' },
+    seen: { 'full-wisdom': day(yesterday) }, later: {}, did: ['trade'], asked: { moment: 'watchtower', note: 'the tower', at: 1 },
+  }
+  const withTips = await put(rev + 9, { age: 'ZASELEK', buildings: [], tips })
+  const olderTips = await put(rev + 10, { age: 'ZASELEK', buildings: [] })
+  const keptTips = (await (await fetch(`${base}/game`, { headers: auth })).json()) as any
+  check("PUT /game keeps the tips when an older app's state leaves them out", withTips.ok && olderTips.ok && keptTips.state.tips?.since === tips.since && keptTips.state.tips?.asked?.moment === 'watchtower', keptTips.state.tips)
+  const tv = JSON.parse(text(await client.callTool({ name: 'get_village', arguments: {} }))).tips
+  check(
+    "get_village's tips: the moments first shown lately, newest first, dealt with or open, and the tutor's pointer",
+    tv?.off === undefined && tv?.since === tips.since && tv?.recent?.length === 2 && tv.recent[0].moment === 'school' && tv.recent[0].open === true &&
+      tv.recent[1].moment === 'full-wisdom' && tv.recent[1].dealt === day(yesterday) && tv.asked?.moment === 'watchtower' && tv.dealt === 1,
+    tv,
+  )
+  const pointed = await client.callTool({ name: 'show_tip', arguments: { moment: 'full-wisdom', note: 'Teo, trade your wisdom!' } })
+  const unknownTip = await client.callTool({ name: 'show_tip', arguments: { moment: 'nonsense' } })
+  const tipEvents = ((await (await fetch(`${base}/events/backlog?since=0`, { headers: auth })).json()) as any[]).map(e => e.event ?? e).filter((e: any) => e?.type === 'tip_asked')
+  check(
+    'show_tip points the app at a tip (the event tip_asked, its note), and names the moments for an unknown one',
+    !pointed.isError && /first on the village map/.test(text(pointed)) && /no tip "nonsense"/.test(text(unknownTip)) && /full-wisdom/.test(text(unknownTip)) &&
+      tipEvents.length === 1 && tipEvents[0].moment === 'full-wisdom' && tipEvents[0].note === 'Teo, trade your wisdom!',
+    { pointed: text(pointed), tipEvents },
+  )
+  await put(rev + 11, { age: 'ZASELEK', buildings: [], tips: { ...tips, off: true } })
+  const offNote = await client.callTool({ name: 'show_tip', arguments: { moment: 'school' } })
+  check("show_tip says when the learner turned the tips off", /turned the tips off/.test(text(offNote)), text(offNote))
+  const guide = await guideOf()
+  check('the guide says the app has tips and how to point at one', /💡 Namigi · Tips/.test(guide) && /show_tip/.test(guide), guide.slice(0, 200))
   writeFileSync(gamePath, saved)
 }

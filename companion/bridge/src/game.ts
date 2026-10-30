@@ -3,6 +3,7 @@
 import { casesOf } from './case-bank'
 import { existsSync, readFileSync, renameSync, writeFileSync } from 'node:fs'
 import { knownIds } from './mentions'
+import { tipsOf } from './tips'
 
 export type GameDoc = { rev: number; state: Record<string, unknown> }
 
@@ -321,6 +322,8 @@ export class GameStore {
         spots: spots?.(s.cycles && typeof s.cycles === 'object' ? s.cycles : {}, s),
         // the grammar pages looked up on the cheat sheet during exercises, the last two weeks (most first): work potential
         looked_up: looked.length ? looked : undefined,
+        // the tips (GAME.md "Guidance"): off, the moments first shown lately (dealt, put off, open), your pointer (show_tip)
+        tips: tipsOf(s.tips, localDay(new Date())),
         stats: s.stats,
         chronicle: (s.log ?? []).slice(-10),
       },
