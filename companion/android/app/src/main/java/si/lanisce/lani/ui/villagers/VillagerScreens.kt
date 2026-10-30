@@ -91,6 +91,7 @@ import si.lanisce.lani.ui.game.formatRes
 import si.lanisce.lani.ui.game.label
 import si.lanisce.lani.ui.game.laterTitle
 import si.lanisce.lani.ui.game.practiseHardLabel
+import si.lanisce.lani.ui.game.practiseRetryLabel
 import si.lanisce.lani.ui.game.progressText
 import si.lanisce.lani.ui.game.whyText
 import si.lanisce.lani.ui.game.where
@@ -536,7 +537,7 @@ private fun TodayRows(vm: AppViewModel, v: Villager, s: GameState?, today: Today
         }
         if (QuestQueue.hard(q, today.all)) PractiseHardButton { vm.practiseHard(q.id) }
     }
-    WaitingRows(today.waiting) { vm.startQuest(it.id) }
+    WaitingRows(today.waiting, onRetry = { vm.practiseRetry(it.id) }) { vm.startQuest(it.id) }
     for (a in today.now) {
         Surface(
             onClick = { vm.openScene(a.scene.id, a.key) },
@@ -810,14 +811,17 @@ private fun CardRequests(vm: AppViewModel, today: Today, onDismiss: () -> Unit) 
                 }
                 if (QuestQueue.hard(q, today.all)) PractiseHardButton { onDismiss(); vm.practiseHard(q.id) }
             }
-            WaitingRows(today.waiting) { onDismiss(); vm.startQuest(it.id) }
+            WaitingRows(today.waiting, onRetry = { onDismiss(); vm.practiseRetry(it.id) }) { onDismiss(); vm.startQuest(it.id) }
         }
     }
 }
 
-/** "📜 Kasneje · Later": the requests waiting, dim, each with why ("⏸️ Najprej · First: …"); a tap opens one all the same. */
+/**
+ * "📜 Kasneje · Later": the requests waiting, dim, each with why ("⏸️ Najprej · First: …"); a tap opens one all the same. One
+ * tried below the mark says when it comes back and offers "🎯 Vadi in poskusi znova" ([onRetry]): its drill brings it back today.
+ */
 @Composable
-private fun WaitingRows(waiting: List<QuestQueue.Waiting>, onOpen: (Quest) -> Unit) {
+private fun WaitingRows(waiting: List<QuestQueue.Waiting>, onRetry: (Quest) -> Unit = {}, onOpen: (Quest) -> Unit) {
     if (waiting.isEmpty()) return
     Text(laterTitle(), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
     for (w in waiting) {
@@ -835,6 +839,9 @@ private fun WaitingRows(waiting: List<QuestQueue.Waiting>, onOpen: (Quest) -> Un
                 }
                 Text("›", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
+        }
+        if (w.why is QuestQueue.Why.Again) OutlinedButton(onClick = { onRetry(w.quest) }, modifier = Modifier.fillMaxWidth().heightIn(min = 44.dp), shape = MaterialTheme.shapes.small) {
+            Text(practiseRetryLabel(), textAlign = TextAlign.Center)
         }
     }
 }

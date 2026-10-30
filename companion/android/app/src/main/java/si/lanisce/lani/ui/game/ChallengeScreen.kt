@@ -94,6 +94,8 @@ import si.lanisce.lani.ui.words.lookUpIn
 fun ChallengeScreen(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge) {
     var playing by remember(c) { mutableStateOf(vm.again) }
     var reward by remember(c) { mutableStateOf<Reward?>(null) }
+    /** The run's answers, for its end (a child's request below the mark: which were right, the right answer to hear). */
+    var answers by remember(c) { mutableStateOf<List<si.lanisce.lani.ui.Outcome>>(emptyList()) }
     var started by remember(c) { mutableLongStateOf(ScreenClock.app.now()) }
     // its text read first: then its questions ([asking]), the text shown again [looks] times while one was open
     val text = c.text
@@ -114,7 +116,7 @@ fun ChallengeScreen(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge) {
     LaunchedEffect(playing) { if (playing) vm.grammar.meet(c.pages) }
     val done = reward
     when {
-        done != null -> ChallengeResultView(vm, origin, c, done, stage)
+        done != null -> ChallengeResultView(vm, origin, c, done, stage, answers)
         !playing -> {
             // a run against the clock gets its sounds onto the phone while its intro is read (the run waits for the rest)
             if (c.timeLimitSeconds != null) LaunchedEffect(c) {
@@ -126,8 +128,12 @@ fun ChallengeScreen(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge) {
                 onLater = vm::leaveRun,
                 extra = {
                     IntroBookLinks(vm, c.pages + rules.filterNotNull())
-                    // tried too often below the mark, and no drill for it: the rules it missed, one tap away
-                    intro.quest?.takeIf { q -> vm.game.state?.let { QuestQueue.hard(q, it.quests) } == true }?.let { q ->
+                    val st = vm.game.state
+                    // tried below the mark and back tomorrow: its drill brings it back today; tried too often, no drill for it:
+                    // the rules it missed, one tap away
+                    intro.quest?.takeIf { q -> st != null && QuestQueue.retry(q, st.pace, System.currentTimeMillis()) }?.let { q ->
+                        OutlinedButton(onClick = { vm.practiseRetry(q.id) }, modifier = Modifier.fillMaxWidth()) { Text(practiseRetryLabel()) }
+                    } ?: intro.quest?.takeIf { q -> st?.let { QuestQueue.hard(q, it.quests) } == true }?.let { q ->
                         OutlinedButton(onClick = { vm.practiseHard(q.id) }, modifier = Modifier.fillMaxWidth()) { Text(practiseHardLabel()) }
                     }
                 },
@@ -149,6 +155,7 @@ fun ChallengeScreen(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge) {
             text = text,
             onLook = { looks++ },
         ) { outs ->
+            answers = outs
             val verdicts = outs.map { it.paid } // a hinted right answer pays like an almost
             reward = vm.game.finishChallenge(origin, c, verdicts, minutesSince(started), looks, level, answers = challengeAnswers(c.cardIds, c.exercises, outs))
                 ?: Reward(emptyMap(), correct = correctCount(verdicts), total = c.exercises.size, answered = verdicts.size, almost = verdicts.count { it == Verdict.ALMOST })
@@ -169,6 +176,36 @@ private fun backdrop(origin: ChallengeOrigin, won: Boolean? = null): Brush = Bru
         else -> listOf(SloBlueDeep, Color(0xFF1F3F72))
     },
 )
+
+/**
+ * A child's answers of a request below the mark: each question with ✅ or ❌, its right answer with its picture (the tent's
+ * options show their place), and 🔊 to hear the right answer said ([speaker]: the language learned).
+ */
+@Composable
+private fun AnswersRecap(c: Challenge, outs: List<si.lanisce.lani.ui.Outcome>, speaker: si.lanisce.lani.data.Speaker) {
+    Surface(color = Color.White.copy(alpha = 0.94f), shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            for ((i, o) in outs.withIndex()) {
+                val ex = c.exercises.getOrNull(i)
+                val right = (o.correct ?: (ex as? si.lanisce.lani.data.Exercise.Choice)?.let { it.options.getOrNull(it.answer) }).orEmpty()
+                val ask = (ex as? si.lanisce.lani.data.Exercise.Choice)?.prompt?.lines()?.lastOrNull { it.isNotBlank() }?.substringBefore(" · ").orEmpty()
+                val ok = o.verdict == Verdict.CORRECT
+                androidx.compose.foundation.layout.Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(if (ok) "✅" else "❌", style = MaterialTheme.typography.titleLarge)
+                    Spacer(Modifier.padding(start = 8.dp))
+                    Column(Modifier.weight(1f)) {
+                        if (ask.isNotBlank()) Text(ask, style = MaterialTheme.typography.bodySmall, color = Color(0xFF3A3A3A))
+                        Text(right, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = Color(0xFF14321F))
+                    }
+                    if (right.isNotBlank()) TextButton(onClick = { speaker.say(spokenAnswer(right)) }) { Text("🔊", style = MaterialTheme.typography.titleLarge) }
+                }
+            }
+        }
+    }
+}
+
+/** [s] without its pictures (the emoji before a place), as a voice says it. */
+private fun spokenAnswer(s: String): String = s.filter { !Character.isSurrogate(it) && it != '\uFE0F' && it != '\u200D' }.trim()
 
 @Composable
 private fun Bobbing(emoji: String) {
@@ -257,7 +294,7 @@ private class ChallengeRun(
 }
 
 @Composable
-private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge, r: Reward, stage: StageState) {
+private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Challenge, r: Reward, stage: StageState, answers: List<si.lanisce.lani.ui.Outcome> = emptyList()) {
     val result = r.result
     val won = result?.won ?: false
     val haptic = LocalHapticFeedback.current
@@ -302,6 +339,9 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
             Text(tallyText(r), color = XpGold, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
             // the letter looked at again while answering: how often, and what it took off
             LooksLine(looksText(r.looks, r.lookCost, pays = true), color = Color.White.copy(alpha = 0.85f))
+            // a child's request below the mark: which answers were right, each right answer with its picture, to hear,
+            // before the giver's "again tomorrow"
+            if (vm.child && origin is ChallengeOrigin.Quest && !won && answers.isNotEmpty()) AnswersRecap(c, answers, vm.speaker)
             if (stage.finale != null) Surface(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.92f), shape = MaterialTheme.shapes.large) {
                 StageFinale(stage, Modifier.padding(12.dp))
             }
@@ -321,7 +361,17 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
             // a request: how close Jan is now, and after a few tries the rules it missed, one tap away
             val quest = (origin as? ChallengeOrigin.Quest)?.takeIf { !won }?.let { o -> vm.game.state?.quests?.firstOrNull { it.id == o.questId } }
             quest?.let(::progressText)?.let { Text(it, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center) }
-            if (quest != null && vm.game.state?.let { QuestQueue.hard(quest, it.quests) } == true) {
+            // where it went: it waits until tomorrow's morning (never gone); and a way today: a short drill of what was missed,
+            // which brings it back at once (companion/GAME.md "Quests": "A run clears its \"!\"")
+            val st = vm.game.state
+            val backAt = quest?.let { q -> st?.pace?.back?.get(q.id) }?.takeIf { it > System.currentTimeMillis() }
+            if (quest != null && backAt != null) {
+                Text(
+                    "🌙 ${bi("quests.backAt", "time" to clockText(backAt))}", color = Color.White, style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold, textAlign = TextAlign.Center,
+                )
+                BigButton(practiseRetryLabel(), onClick = { vm.practiseRetry(quest.id) }, color = XpGold)
+            } else if (quest != null && st != null && QuestQueue.hard(quest, st.quests)) {
                 OutlinedButton(onClick = { vm.practiseHard(quest.id) }) { Text(practiseHardLabel(), color = Color.White) }
             }
             HelpAndThanks(r, color = Color.White)
@@ -353,9 +403,8 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
             if (origin is ChallengeOrigin.Gather) {
                 TextButton(onClick = { vm.startGather(origin.res, again = true) }) { Text("🔁 ${bi("challengeScreen.onceMore")}", color = Color.White) }
             }
-            if (origin is ChallengeOrigin.Quest && !won) {
-                TextButton(onClick = { vm.startQuest(origin.questId) }) { Text("🔁 ${bi("challengeScreen.onceMore")}", color = Color.White) }
-            }
+            // a request below the mark isn't played again at once (it comes back tomorrow, against guessing): its drill above
+            // is the way today
         }
         if ((won && !quiet) || (origin is ChallengeOrigin.Gather && r.earned.isNotEmpty())) Confetti(key = c)
     }

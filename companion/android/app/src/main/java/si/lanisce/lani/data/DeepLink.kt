@@ -118,6 +118,8 @@ sealed interface DeepLink {
             is BridgeEvent.CardPublished -> null
             // the tutor's assignment: the trainer, its session focused; new items wait for the next session
             is BridgeEvent.CasesChanged -> if (ev.assigned && ev.focus != null) Cases(ev.focus) else null
+            // the tutor's pointer at a tip: it waits at its place, gently (no notification of its own)
+            is BridgeEvent.TipAsked -> null
             // a newcomer's introduction: their bubble waits in the village
             is BridgeEvent.ArrivalPublished -> Village
             // a guest's visit: the village applies it once open

@@ -21,6 +21,7 @@ class Prefs(private val context: Context) {
     private val gameIntro = booleanPreferencesKey("game_intro_seen")
     private val gameEventNotified = stringPreferencesKey("game_event_notified")
     private val chestUnseen = stringSetPreferencesKey("chest_unseen") // what came into the chest since it was opened: "good:potica", "tool:luka"
+    private val tipsMemory = stringPreferencesKey("tips_memory") // the tips dealt with on this phone, for a village founded anew (game/Guidance)
 
     private val plan = stringPreferencesKey("today_plan") // "yyyy-MM-dd\n<markdown>"
 
@@ -112,4 +113,15 @@ class Prefs(private val context: Context) {
     suspend fun chestUnseen(): Set<String> = context.store.data.first()[chestUnseen] ?: emptySet()
     suspend fun saveChestUnseen(keys: Set<String>) = context.store.edit { it[chestUnseen] = keys }
     suspend fun markSeen(key: String) = context.store.edit { it[seen] = (it[seen] ?: emptySet()) + key }
+
+    /**
+     * What this phone remembers of the tips (companion/GAME.md "Guidance"): its learner's, for a village they found anew
+     * ([si.lanisce.lani.game.Guidance.inherit]); null before the first.
+     */
+    suspend fun tipsMemory(): si.lanisce.lani.game.TipsMemory? = context.store.data.first()[tipsMemory]?.let { raw ->
+        runCatching { kotlinx.serialization.json.Json { ignoreUnknownKeys = true }.decodeFromString(si.lanisce.lani.game.TipsMemory.serializer(), raw) }.getOrNull()
+    }
+
+    suspend fun saveTipsMemory(m: si.lanisce.lani.game.TipsMemory) =
+        context.store.edit { it[tipsMemory] = kotlinx.serialization.json.Json.encodeToString(si.lanisce.lani.game.TipsMemory.serializer(), m) }
 }

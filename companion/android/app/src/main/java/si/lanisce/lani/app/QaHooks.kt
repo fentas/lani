@@ -160,6 +160,11 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "main:watch": each message of the main thread's loop is timed from now on ([MainWatch]); "main:report:<from>" logs
  *   (tag LaniMain) those that began within 3 s from that moment (SystemClock.elapsedRealtime, ms): how many, their sum, the
  *   longest, those over a frame: QA's home-return (docs/plans/05-built/home-return.md).
+ * - "tips:<moment>": the village (the dev bridge's copy) gets ready for that tip's moment ([readyTip]: "full-wisdom" its store at
+ *   its cap, the day's trade of it free; "school" a school standing, the hamlet's class open) and the moment is asked, as the
+ *   tutor's show_tip asks it: it shows first at its place, whatever was dealt with or the pacing (companion/GAME.md
+ *   "Guidance"); "tips:home" opens Home, the village else; "tips:reset" forgets every tip, as the settings' "Pokaži jih spet",
+ *   "tips:" takes the pointer back.
  * - "seed:<n>": the founding's place ("Kje bo tvoja vas?", ui/game/FoundingScreen) is the one of that seed for the dice and
  *   the land ([foundingSeed]; 551323397: Teo's coast, whose land seed it is too), a reroll going on from it; "seed:" rolls
  *   one at random again.
@@ -374,7 +379,7 @@ object QaHooks {
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
-        cases: (String) -> Unit = {},
+        cases: (String) -> Unit = {}, tips: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -383,6 +388,7 @@ object QaHooks {
             command.startsWith("event:") -> event(command.removePrefix("event:").trim())
             command.startsWith("hearths:") -> hearths(command.removePrefix("hearths:").trim())
             command.startsWith("dev:") -> dev(command.removePrefix("dev:"))
+            command.startsWith("tips:") -> tips(command.removePrefix("tips:").trim())
             command.startsWith("seed:") -> foundingSeed = command.removePrefix("seed:").trim().toLongOrNull()
             command.startsWith("level:") -> level = command.removePrefix("level:").trim().uppercase().takeIf { it in listOf("A1", "A2", "B1", "B2", "C1", "C2") }
             command.startsWith("ageup:at:") -> ageUpAt = command.removePrefix("ageup:at:").toFloatOrNull()?.coerceAtLeast(0f)
@@ -479,6 +485,27 @@ object QaHooks {
         val free = (0 until plots).any { p -> s.buildings.none { it.type.onPlot && it.plot == p } }
         val next = si.lanisce.lani.game.Age.entries.getOrNull(s.age.ordinal + 1)
         return if (free || next == null) full else full.copy(age = next)
+    }
+
+    /**
+     * [s] ready for the tip of [moment] ("tips:<moment>"): "full-<res>" that store at its cap ([caps]) and its trade of the day
+     * free; "school" a school standing (on a free plot of the hamlet's, the age a hamlet at least) and the class open. Any
+     * other moment: [s] as it is. A debug build's, on the dev bridge's copy.
+     */
+    fun readyTip(s: si.lanisce.lani.game.GameState, moment: String, caps: Map<si.lanisce.lani.game.Res, Int>, now: Long): si.lanisce.lani.game.GameState {
+        val res = si.lanisce.lani.game.Res.entries.firstOrNull { "full-${it.name.lowercase()}" == moment }
+        if (res != null) {
+            val aged = if (s.age < si.lanisce.lani.game.Age.TABOR) s.copy(age = si.lanisce.lani.game.Age.TABOR) else s
+            return aged.copy(resources = aged.resources + (res to (caps[res] ?: 100)), trades = null)
+        }
+        if (moment != "school") return s
+        var r = if (s.age < si.lanisce.lani.game.Age.ZASELEK) s.copy(age = si.lanisce.lani.game.Age.ZASELEK) else s
+        if (r.buildings.none { it.type == si.lanisce.lani.game.BuildingType.SCHOOL }) {
+            val plots = si.lanisce.lani.game.PLOTS_PER_AGE[r.age.ordinal]
+            val free = (0 until plots).firstOrNull { p -> r.buildings.none { it.type.onPlot && it.plot == p } }
+            if (free != null) r = r.copy(buildings = r.buildings + si.lanisce.lani.game.Building("school-qa", si.lanisce.lani.game.BuildingType.SCHOOL, free, builtAt = now))
+        }
+        return r
     }
 
     /** The id of the request QA makes ("request:<ids>", [withRequest]). */

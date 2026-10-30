@@ -928,6 +928,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
                 caseTrainer.changed(bridge)
                 if (ev.assigned && ev.focus != null) notices.banner = "🧩 ${ev.note ?: bi("cases.assignedFocus", "focus" to ev.focus)}"
             }
+            // the tutor pointed at a tip ("show Teo how to trade"): it comes first at its place, once (game/Guidance)
+            is BridgeEvent.TipAsked -> if (game.tipAsked(ev.moment, ev.note, ev.at) && ev.moment != null) ev.note?.let { notices.banner = "💡 $it" }
             // a word asked for from its card got its meaning: the card shows it added, else a quiet notice
             is BridgeEvent.WordRequestDone -> words.onWordRequestDone(ev)
             is BridgeEvent.SentenceExplained -> sentences.onExplained(ev.sentence)
@@ -1399,6 +1401,26 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * QA's "build:<type>" (a debug build, app/QaHooks.kt): the village (the dev bridge's copy) ready to build one (its
      * stores full, a free plot: the next age's when its own are taken) and shown, where the plot chooser opens for it.
      */
+    /**
+     * QA's "tips:<what>" (a debug build, app/QaHooks.kt; companion/GAME.md "Guidance"): "reset" forgets every tip, "" takes the
+     * pointer back, "home" opens Home; else the village readied for that moment ([QaHooks.readyTip]) and the moment asked as
+     * the tutor's show_tip asks it, the village shown (Home for a moment of Home's).
+     */
+    fun qaTips(what: String) {
+        val now = System.currentTimeMillis()
+        when (what) {
+            "reset" -> game.apply { si.lanisce.lani.game.Guidance.again(it) }
+            "" -> game.tipAsked(null, null, now)
+            "home" -> home()
+            else -> {
+                val m = si.lanisce.lani.game.Guidance.moment(what) ?: return
+                game.apply { si.lanisce.lani.app.QaHooks.readyTip(it, what, si.lanisce.lani.game.GameEngine.attributes(it).caps, now) }
+                game.tipAsked(what, null, now)
+                if (m.place == si.lanisce.lani.game.TipPlace.MAP) openVillage() else home()
+            }
+        }
+    }
+
     fun qaBuild() {
         game.apply { si.lanisce.lani.app.QaHooks.readyBuild(it, si.lanisce.lani.game.GameEngine.attributes(it).caps) }
         openVillage()
@@ -1724,12 +1746,14 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
 
     /** "🏫 Šola · School": the course's levels and units; the levels opened since are kept first. */
     fun openSchool() {
+        game.did("school") // the tips about the school are known (game/Guidance)
         nav.go(Screen.School)
     }
 
     /** Unit [id] of the course: its intro, its worksheets, its test; Back leads where it was opened (Today, Napredek, the school). */
     fun openUnit(id: String) {
         if (school.unit(id) == null) return
+        game.did("school")
         nav.go(Screen.CourseUnit(id))
     }
 
@@ -1756,6 +1780,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     fun startLesson(lesson: si.lanisce.lani.game.School.Lesson) {
         val unit = school.unit(lesson.unit) ?: return
         school.touch()
+        game.did("school")
         val p = game.state?.let { si.lanisce.lani.game.School.progress(it, unit.language, unit.id) }
         when (val step = si.lanisce.lani.game.School.lessonStep(lesson, unit, p)) {
             si.lanisce.lani.game.School.Step.Intro -> startIntro(unit.id)
@@ -1907,7 +1932,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * questions, the surprises' letters and ways), else the learner's grammar cards on it; with nothing yet, the tutor is
      * asked for a drill.
      */
-    fun practiseGrammar(id: String) = launchSafely {
+    fun practiseGrammar(id: String, forQuest: String? = null) = launchSafely {
         if (busyRun()) return@launchSafely
         val page = grammar.page(id) ?: return@launchSafely
         content.loadModuleExercises()
@@ -1917,7 +1942,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             si.lanisce.lani.data.Grammar.Practice.Ask -> grammar.askDrill(id)
             else -> {
                 grammar.close()
-                startRun(Screen.GrammarPractice(id, p, ++grammarRuns))
+                startRun(Screen.GrammarPractice(id, p, ++grammarRuns, forQuest = forQuest))
             }
         }
     }
@@ -2409,6 +2434,37 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         )
     }
 
+    /**
+     * "🎯 Vadi in poskusi znova · Practise and try again" on request [id], tried below the mark and back tomorrow
+     * (companion/GAME.md "Quests"; [si.lanisce.lani.game.QuestQueue.retry]): a short drill of the rules the try missed (its
+     * wrong answers' pages, else the request's own, else its module's: the grammar book's practice of it, the tent's
+     * questions among them), else of the request's own cards (a villager's request is the learner's cards), else the tutor is
+     * asked for one ([practiseHard]). Passed, the drill brings the request back today; without it, it comes back tomorrow.
+     */
+    fun practiseRetry(id: String) {
+        val q = game.state?.quests?.firstOrNull { it.id == id } ?: return
+        val page = (q.missed + listOfNotNull(q.grammar) + q.moduleId?.let(::modulePages).orEmpty()).firstOrNull { grammar.page(it) != null }
+        if (page != null) {
+            practiseGrammar(page, forQuest = id)
+            return
+        }
+        val cards = content.dashboard?.pool.orEmpty().filter { it.id in q.cardIds }
+        if (cards.isNotEmpty() && !busyRun()) {
+            startRun(Screen.GrammarPractice("", si.lanisce.lani.data.Grammar.Practice.Cards(cards.take(si.lanisce.lani.data.Grammar.PRACTICE_MAX)), ++grammarRuns, forQuest = id))
+            return
+        }
+        practiseHard(id)
+    }
+
+    /**
+     * The drill of request [questId] ended, [passed] ([practiseRetry]): passed, the request is back today (its giver asks
+     * again, the map shows it); returns whether it is.
+     */
+    fun drillDone(questId: String, passed: Boolean): Boolean {
+        if (!passed) return false
+        return game.apply { si.lanisce.lani.game.RequestWindow.retried(it, questId, System.currentTimeMillis()) }
+    }
+
     private fun startChallenge(origin: ChallengeOrigin, again: Boolean = false) = launchSafely {
         game.challenge(origin)?.let { startRun(Screen.Challenge(origin, it), again) }
     }
@@ -2416,6 +2472,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** "🗣️ Pogovor · Talk": role-play, its list of scenes; Back leads where it was opened (Home, the chat's screen …). */
     fun openTalk() {
         if (busyRun()) return
+        game.did("talk") // the tips about a talk are known (game/Guidance)
         chat.close()
         talkForOne = false
         nav.go(Screen.Talk) // its scenes load as it shows ([shown])
@@ -2460,6 +2517,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
 
     /** "📖 Slovnica · Grammar": the grammar book's index, its pages opened over it. */
     fun openGrammarBook() {
+        game.did("book") // the tips about the grammar book are known (game/Guidance)
         nav.go(Screen.GrammarBook)
     }
 

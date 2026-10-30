@@ -123,6 +123,8 @@ fun TodayCard(
     /** Who waits for Jan on the map now ([HomeLogic.calls]): someone to meet, the burner at his pile; a tap opens them. */
     calls: List<VillageCall> = emptyList(),
     onCall: (VillageCall) -> Unit = {},
+    /** Home's tip ("💡 Namigi · Tips", companion/GAME.md "Guidance"): a card of its own under the ideas, with its button. */
+    tip: (@Composable () -> Unit)? = null,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -150,6 +152,7 @@ fun TodayCard(
                     Idea(a) { onAction(a) }
                 }
             }
+            tip?.invoke()
             if (village.isNotEmpty() || calls.isNotEmpty()) VillageDay(village, onVillage, calls, onCall)
             plan?.let { Plan(it, onAskTutor) }
         }

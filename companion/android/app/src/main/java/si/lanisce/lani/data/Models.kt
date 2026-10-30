@@ -13,6 +13,7 @@ import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.json.longOrNull
 import si.lanisce.lani.l10n.LangPair
 import si.lanisce.lani.l10n.bi
 
@@ -927,6 +928,11 @@ sealed interface BridgeEvent {
      * or published items ([assigned] false).
      */
     data class CasesChanged(val assigned: Boolean, val focus: String?, val note: String?) : BridgeEvent
+    /**
+     * The tutor pointed at a tip's moment (show_tip, companion/GAME.md "Guidance": "show Teo how to trade"), [note] why, or
+     * took it back ([moment] null); [at] when (epoch ms): a replay changes nothing.
+     */
+    data class TipAsked(val moment: String?, val note: String?, val at: Long) : BridgeEvent
     /** The node learned more about [word] (the tutor explained it): an open word card can look again. */
     data class LexiconUpdated(val word: String) : BridgeEvent
     /**
@@ -1011,6 +1017,7 @@ sealed interface BridgeEvent {
                 "app_update" -> AppUpdate(o["versionCode"]?.jsonPrimitive?.intOrNull ?: 0, s("versionName") ?: "?", s("notes"))
                 "cases_assigned" -> CasesChanged(true, s("focus"), s("note"))
                 "cases_published" -> CasesChanged(false, null, s("note"))
+                "tip_asked" -> TipAsked(s("moment")?.takeIf { it.isNotBlank() }, s("note"), o["at"]?.jsonPrimitive?.longOrNull ?: 0L)
                 "words_added" -> WordsAdded((o["item_ids"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull })
                 "lexicon_updated" -> LexiconUpdated(s("word") ?: return null)
                 "word_request_done" -> WordRequestDone(

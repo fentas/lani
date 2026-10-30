@@ -92,6 +92,8 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
             is BridgeEvent.VoiceUpdated, is BridgeEvent.WordsAdded, is BridgeEvent.LexiconUpdated, is BridgeEvent.SentenceExplained, is BridgeEvent.ArrivalPublished,
             // a word asked for from its card got its meaning: quiet, the app says it when it's opened (the event replays)
             is BridgeEvent.WordRequestDone,
+            // the tutor's pointer at a tip: it waits at its place in the app, no notification (a tip never nags)
+            is BridgeEvent.TipAsked,
             is BridgeEvent.CardPublished -> Unit
             // the tutor's assignment in the case trainer: worth a notification; items published wait quietly
             is BridgeEvent.CasesChanged -> if (ev.assigned && ev.focus != null) post("cases:${ev.focus}".hashCode(), "🧩 ${bi("cases.assignedTitle")}", ev.note ?: bi("cases.assignedFocus", "focus" to ev.focus), link)

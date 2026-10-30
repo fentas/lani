@@ -61,6 +61,7 @@ enum class SettingsSection(val id: String, val emoji: String, val key: String) {
     DATA("data", "💾", "dataSync.title"),
     LANGUAGES("languages", "🌐", "connectionSheet.languages"),
     SOUND("sound", "🔊", "settings.sound"),
+    TIPS("tips", "💡", "tips.title"),
     CONNECTION("connection", "🔗", "connectionSheet.connection"),
     DEVELOPER("developer", "🛠️", "developer.title"),
     ;
@@ -103,7 +104,7 @@ private fun Sections(vm: AppViewModel) {
 }
 
 /** The tutor's and the data's are a parent's on a child's device (keys and accounts: app/ParentGate). */
-private val SettingsSection.parents: Boolean get() = this == SettingsSection.TUTOR || this == SettingsSection.DATA
+private val SettingsSection.parents: Boolean get() = this == SettingsSection.TUTOR || this == SettingsSection.DATA || this == SettingsSection.TIPS
 
 /** What a section holds now, in a line for its row. */
 private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
@@ -115,6 +116,7 @@ private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
     SettingsSection.DATA -> si.lanisce.lani.ui.data.dataSummary(vm.data)
     SettingsSection.LANGUAGES -> vm.langPair.let { "${it.target.ownName} · ${it.base.ownName}" }
     SettingsSection.SOUND -> bi("settings.soundAbout")
+    SettingsSection.TIPS -> if (vm.game.state?.tips?.off == true) bi("tips.offNow") else bi("tips.onNow")
     SettingsSection.CONNECTION -> linkLabel(vm.link, vm.unpaired, vm.hosted.active)
     SettingsSection.DEVELOPER -> vm.shadow.status
 }
@@ -162,6 +164,8 @@ private fun Page(vm: AppViewModel, s: SettingsSection) {
                 }
                 SettingsSection.CONNECTION -> Connection(vm)
                 SettingsSection.DEVELOPER -> Developer(vm)
+                // a child's tips are a parent's to turn off (a hold opens them)
+                SettingsSection.TIPS -> si.lanisce.lani.ui.setup.ParentGated(vm.child) { Tips(vm) }
             }
         }
     }
@@ -195,6 +199,28 @@ private fun Connection(vm: AppViewModel) {
     else OutlinedButton(onClick = { scanning = true }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📷 ${bi("common.scanQrCode")}") }
     si.lanisce.lani.ui.hosted.MoveToPhoneSection(vm, Modifier.padding(top = 6.dp))
     if (scanning) PairDialog(vm, onDismiss = { scanning = false })
+}
+
+/**
+ * "💡 Namigi · Tips" (companion/GAME.md "Guidance"): the game's tips on or off (synced with the village: another device
+ * follows), and "🔁 Pokaži jih spet · Show them again" (what was dealt with comes again, one at a time).
+ */
+@Composable
+private fun Tips(vm: AppViewModel) {
+    val off = vm.game.state?.tips?.off == true
+    val muted = MaterialTheme.colorScheme.onSurfaceVariant
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text("💡 ${bi("tips.title")}", style = MaterialTheme.typography.bodyLarge)
+            Text(bi("tips.about"), style = MaterialTheme.typography.bodySmall, color = muted)
+        }
+        Switch(checked = !off, onCheckedChange = { on -> vm.game.tipsOff(!on) }, enabled = vm.game.state != null)
+    }
+    OutlinedButton(
+        onClick = { vm.game.tipsAgain(); vm.notices.banner = "💡 ${bi("tips.againDone")}" },
+        enabled = vm.game.state != null, modifier = Modifier.heightIn(min = 48.dp),
+    ) { Text("🔁 ${bi("tips.again")}") }
+    Text(bi("tips.againAbout"), style = MaterialTheme.typography.bodySmall, color = muted)
 }
 
 @Composable

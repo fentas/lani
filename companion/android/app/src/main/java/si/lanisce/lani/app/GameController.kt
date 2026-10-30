@@ -339,7 +339,56 @@ class GameController(
         }
         // a good or a tool came into the chest (here, or played on another phone): new until the chest is opened
         showChest(chestNews.after(before?.chest, s.chest))
+        // what the learner dealt with of the tips, remembered on the phone for a village they found anew (game/Guidance)
+        if (before != null && before.tips != s.tips) {
+            val m = si.lanisce.lani.game.Guidance.memory(s, tipsLearner())
+            scope.launch { runCatching { prefs.saveTipsMemory(m) } }
+        }
     }
+
+    /** Who the phone's memory of the tips is of: the learner profile's name ([si.lanisce.lani.game.Guidance.inherit]). */
+    private fun tipsLearner(): String = content.dashboard?.name?.takeIf { it.isNotBlank() } ?: si.lanisce.lani.l10n.Learner.current.name
+
+    // --- "💡 Namigi · Tips" (game/Guidance, companion/GAME.md "Guidance") -----------------------------------------------
+
+    /** [tip] shows now: first shown (its day, the quiet moment's clock). */
+    fun tipShown(tip: si.lanisce.lani.game.Tip) {
+        change { si.lanisce.lani.game.Guidance.shown(it, tip, LocalDate.now(), System.currentTimeMillis()) }
+    }
+
+    /** Moment [id] dealt with: its action tapped, or "Razumem · Got it". */
+    fun tipDealt(id: String) {
+        change { si.lanisce.lani.game.Guidance.dealt(it, id, LocalDate.now(), System.currentTimeMillis()) }
+    }
+
+    /** Moment [id] put off: "Pozneje · Later" brings it back the next day. */
+    fun tipLater(id: String) {
+        change { si.lanisce.lani.game.Guidance.later(it, id, LocalDate.now(), System.currentTimeMillis()) }
+    }
+
+    /** "💡 Namigi · Tips" on or off. */
+    fun tipsOff(off: Boolean) {
+        change { si.lanisce.lani.game.Guidance.off(it, off) }
+    }
+
+    /** "Pokaži jih spet · Show them again". */
+    fun tipsAgain() {
+        change { si.lanisce.lani.game.Guidance.again(it) }
+    }
+
+    /** The tips begin in this village, with what the screens know ([f]); nothing once they have. */
+    fun tipsBegin(f: si.lanisce.lani.game.GuideFacts) {
+        change { si.lanisce.lani.game.Guidance.begin(it, f) }
+    }
+
+    /** The learner did [what] ("book", "school", "talk", "scene:<id>" …): the tips about it are known. */
+    fun did(what: String) {
+        change { si.lanisce.lani.game.Guidance.did(it, what) }
+    }
+
+    /** The tutor points at moment [moment] (show_tip; null takes it back), asked at [at] (epoch ms: a replay changes nothing). */
+    fun tipAsked(moment: String?, note: String?, at: Long): Boolean =
+        change { if (moment == null) si.lanisce.lani.game.Guidance.unask(it) else si.lanisce.lani.game.Guidance.ask(it, moment, note, at) }
 
     /** The chest was opened: what came into it is seen, and the HUD's dot goes. */
     fun sawChest() = showChest(chestNews.opened())
@@ -414,9 +463,12 @@ class GameController(
      * node's, arriving meanwhile stays).
      */
     fun found(f: si.lanisce.lani.game.Founding): Job = scope.launch {
+        val memory = runCatching { prefs.tipsMemory() }.getOrNull()
         lock.withLock {
             if (state != null) { placeNeeded = false; return@withLock }
-            setGame(f.village(System.currentTimeMillis()), 0, dirty = true)
+            // the same learner founding anew: what they dealt with of the tips stays known, and off stays off (game/Guidance)
+            val v = si.lanisce.lani.game.Guidance.inherit(f.village(System.currentTimeMillis()), memory, tipsLearner(), LocalDate.now())
+            setGame(v, 0, dirty = true)
             tick()
         }
         schedulePush()
@@ -527,7 +579,7 @@ class GameController(
         val s = state ?: return false
         val n = GameEngine.repair(s, buildingId, System.currentTimeMillis(), withMoba)
         if (n == s) return false
-        commit(n)
+        commit(si.lanisce.lani.game.Guidance.did(n, "repair"))
         return true
     }
 

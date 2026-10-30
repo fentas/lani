@@ -86,6 +86,9 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
     val d = vm.content.dashboard
     var sheet by rememberSaveable { mutableStateOf(Sheet.NONE) }
     val talking = vm.talk.state?.takeIf { it.phase == TalkPhase.CHAT }?.scenario?.title
+    // "💡 Namigi · Tips" (companion/GAME.md "Guidance"): Home's one tip, a card in "Danes · Today" with its button; a new one
+    // only while no sheet is open over Home
+    val tip = si.lanisce.lani.ui.game.rememberTip(vm, si.lanisce.lani.game.TipPlace.HOME, quiet = sheet == Sheet.NONE)
     LazyColumn(Modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(bottom = bottom)) {
         item("hero") { HomeHero(vm, d) }
         if (d == null) {
@@ -126,6 +129,17 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
                         is si.lanisce.lani.ui.home.VillageCall.Arrival -> vm.villagers.meet(c.id)
                         is si.lanisce.lani.ui.home.VillageCall.Keeper -> vm.scenes.startKeeper(c.keeper)
                         is si.lanisce.lani.ui.home.VillageCall.Treasure -> vm.openTreasure()
+                    }
+                },
+                tip = tip?.let { t ->
+                    @Composable {
+                        si.lanisce.lani.ui.game.TipCard(
+                            t, vm.child, vm.hintVoice,
+                            onAction = { vm.game.tipDealt(t.moment); si.lanisce.lani.ui.game.runTip(vm, t.action) },
+                            onGotIt = { vm.game.tipDealt(t.moment) },
+                            onLater = { vm.game.tipLater(t.moment) },
+                            elevated = false,
+                        )
                     }
                 },
             )

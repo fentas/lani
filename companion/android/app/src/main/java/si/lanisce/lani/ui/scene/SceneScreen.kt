@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -487,6 +488,13 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         val who = people.mapNotNull { at(SceneTarget.Person(it.id), it.id) }
         android.util.Log.d("SceneAt", "scene ${scene.id} things ${things.joinToString(" ")} people ${who.joinToString(" ")}")
     }
+    // "💡 Namigi · Tips" (companion/GAME.md "Guidance"): the scene's tip, the first time inside one (its things and people
+    // to tap); never over a dialog or a game of «Vidim, vidim». Going in counts for the village's tips about this scene.
+    LaunchedEffect(scene.id) { vm.game.did("scene:${scene.id}") }
+    val sceneTip = si.lanisce.lani.ui.game.rememberTip(
+        vm, si.lanisce.lani.game.TipPlace.SCENE, quiet = talk == null && ispy == null && selected == null && greeted == null && choosing == null && !homeOpen,
+        scene = scene.id,
+    )
     val bubbleColor = MaterialTheme.colorScheme.surface
     val density = LocalDensity.current
     val topLimit = WindowInsets.statusBars.getTop(density) + with(density) { 56.dp.roundToPx() }
@@ -707,6 +715,15 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
             onSchool = if ((home?.type == si.lanisce.lani.game.BuildingType.SCHOOL || classHere) && course != null) { { vm.openSchool() } } else null,
             back = vm.backLabel, backShort = vm.backShort,
         )
+        if (sceneTip != null && talk == null && ispy == null && !lifted) {
+            si.lanisce.lani.ui.game.TipCard(
+                sceneTip, vm.child, vm.hintVoice,
+                onAction = { vm.game.tipDealt(sceneTip.moment); si.lanisce.lani.ui.game.runTip(vm, sceneTip.action) },
+                onGotIt = { vm.game.tipDealt(sceneTip.moment) },
+                onLater = { vm.game.tipLater(sceneTip.moment) },
+                modifier = Modifier.align(Alignment.BottomCenter).navigationBarsPadding().widthIn(max = 600.dp).padding(horizontal = 10.dp, vertical = 8.dp),
+            )
+        }
         if (allFound > 0) Confetti(key = "found-${scene.id}-$allFound")
         if (talk?.settled == true) Confetti(key = "talk-${talk.key}")
         upgradedTo?.let { Confetti(key = "upgraded-${home?.id}-$it") }

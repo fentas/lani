@@ -39,8 +39,11 @@ import si.lanisce.lani.ui.stage.rememberStage
  * page and feeds the village like practice; the finish leads back to the page.
  */
 @Composable
-fun GrammarPracticeScreen(vm: AppViewModel, pageId: String, practice: Grammar.Practice) {
+fun GrammarPracticeScreen(vm: AppViewModel, pageId: String, practice: Grammar.Practice, forQuest: String? = null) {
     val page = remember(pageId) { vm.grammar.page(pageId) }
+    // the drill of a request tried below the mark ("🎯 Vadi in poskusi znova"): passed, the request is back today
+    val quest = remember(forQuest) { forQuest?.let { id -> vm.game.state?.quests?.firstOrNull { it.id == id } } }
+    var back by remember { mutableStateOf(false) }
     val started = remember { ScreenClock.app.now() }
     val stage = rememberStage(vm, Run.Review, greet = true)
     val tasks = remember(practice) {
@@ -56,12 +59,14 @@ fun GrammarPracticeScreen(vm: AppViewModel, pageId: String, practice: Grammar.Pr
         }
     }
     var result by remember { mutableStateOf<List<Outcome>?>(null) }
-    val title = "${page?.emoji ?: "📖"} ${page?.target ?: pageId}"
+    val title = if (page == null && quest != null) "🎯 ${quest.title.substringBefore(" · ")}" else "${page?.emoji ?: "📖"} ${page?.target ?: pageId}"
     val done = result
     if (done == null) {
         // an exercise naming another page (Kam? in a run on Kje?) counts there; the rest count here
-        ExerciseRun(vm, title, exercises, moduleId = null, onExit = vm::leaveRun, stage = stage, rules = exercises.map { pageId }) { outs ->
+        ExerciseRun(vm, title, exercises, moduleId = null, onExit = vm::leaveRun, stage = stage, rules = exercises.map { pageId.takeIf { page != null } }) { outs ->
             result = outs
+            // the request's drill: right (or almost) as often as its pass mark asks, and it comes back today
+            if (quest != null) back = vm.drillDone(quest.id, outs.count { it.verdict != Verdict.WRONG } >= si.lanisce.lani.game.Quests.passMark(outs.size))
             vm.game.rewardPractice(exercises, outs.map { it.paid })
             val minutes = minutesSince(started)
             if (tasks != null) vm.finishReview(
@@ -87,7 +92,15 @@ fun GrammarPracticeScreen(vm: AppViewModel, pageId: String, practice: Grammar.Pr
     ) {
         RewardSummary(vm.game.lastReward, onVillage = vm::openVillage)
         Spacer(Modifier.height(8.dp))
-        TextButton(onClick = { vm.grammar.show(pageId) }) {
+        // the request's drill: back today, one tap to try it again; else it comes back tomorrow, as ever
+        if (quest != null) {
+            Text(
+                if (back) "🔁 ${bi("quests.backToday", "title" to quest.title.substringBefore(" · "))}" else "🌙 ${bi("quests.stillTomorrow")}",
+                style = MaterialTheme.typography.titleSmall, textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+            )
+            if (back) si.lanisce.lani.ui.BigButton("🔁 ${bi("quests.tryAgainNow")}", onClick = { vm.startQuest(quest.id) }, color = si.lanisce.lani.ui.theme.AlpineGreen)
+        }
+        if (page != null) TextButton(onClick = { vm.grammar.show(pageId) }) {
             Text("📖 ${bi("grammar.toBook")}", style = MaterialTheme.typography.titleSmall)
         }
     }

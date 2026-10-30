@@ -29,6 +29,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -246,6 +247,13 @@ fun VillageScreen(vm: AppViewModel) {
     // Zoomed out, places are close together: one bubble each; closer in, they fan out.
     val zoomedOut by remember { derivedStateOf { cam.rig?.let { cam.camera.scale < it.minScale * 1.5f } ?: false } }
     val shown = remember(markers, zoomedOut) { if (zoomedOut) clusterBubbles(markers) else foldBubbles(markers) }
+    // "💡 Namigi · Tips" (companion/GAME.md "Guidance"): the map's one tip, a gentle bubble at its thing; a tap opens its card.
+    // A new one only in a quiet moment: nothing open over the map (a card, a sheet, the scroll, the plot chooser, an age's moment)
+    val tip = rememberTip(vm, si.lanisce.lani.game.TipPlace.MAP, quiet = sheet == null && card == null && villager == null && moment == null && choosing == null && !scrollOpen)
+    val tipMarker = remember(tip, vm.langPair) { tip?.marker(vm.child) }
+    /** The tip's card is open over the map (its bubble tapped). */
+    var tipOpen by remember { mutableStateOf(false) }
+    LaunchedEffect(tip?.moment) { if (tip == null) tipOpen = false }
     // The HUD (companion/GAME.md, "The village's HUD"): its bar, the row of cards under it (the learner's choice on this
     // phone; the plot chooser hides it by itself), a card's section in a sheet
     val hudPrefs = vm.hudPrefs
@@ -414,6 +422,7 @@ fun VillageScreen(vm: AppViewModel) {
          */
         fun tapPlace(tap: PlaceTap?, force: Boolean = false) {
             villager = null
+            tipOpen = false
             if (tap == null) { card = null; return }
             if (tap is PlaceTap.Built) { card = null; sheet = VillageSheet.Building(tap.building.id); return }
             // one card over the map at a time: another place's closes a building's
@@ -441,7 +450,10 @@ fun VillageScreen(vm: AppViewModel) {
         /** The villager a bubble belongs to, when they're out on the map (its bubble follows them; a tap opens them). */
         fun villagerOf(m: TownMarker): String? = markerVillager(m, s, active, people, standing, away, keepers)
         val act: (TownMarker) -> Unit = { m ->
+            if (!m.id.startsWith(TIP_MARKER)) tipOpen = false
             when {
+                // the map's tip: its card (its line, its one tap, got it, later)
+                m.id.startsWith(TIP_MARKER) -> { card = null; villager = null; if (sheet is VillageSheet.Building) sheet = null; tipOpen = true }
                 m.id.startsWith("more:") || m.id.startsWith("cluster:") -> tapPlace(placeTap(m.place), force = true)
                 // someone who joined the village: their introduction
                 m.id.startsWith("arrival:") -> { card = null; villager = null; vm.villagers.meet(m.id.removePrefix("arrival:")) }
@@ -470,6 +482,13 @@ fun VillageScreen(vm: AppViewModel) {
                     }
                 }
                 m.kind == TownMarker.Kind.QUEST -> { card = null; vm.startQuest(m.id.removePrefix("quest:")) }
+                // a request back tomorrow (🔁): its giver's card, where it waits with when and the drill that brings it back today
+                m.id.startsWith(TownMarkers.BACK) -> {
+                    card = null
+                    val q = s.quests.firstOrNull { it.id == m.id.removePrefix(TownMarkers.BACK) }
+                    val who = q?.let { TownMarkers.villagerOf(it.giver, people) ?: TownMarkers.villagerOf(it.giver, cast) }?.id
+                    if (who != null) { villagerAt = null; villager = who } else { villager = null; hudState.section = null; scrollAt = Collection.PEOPLE; scrollOpen = true }
+                }
                 m.kind == TownMarker.Kind.EVENT -> { card = null; vm.startEvent() }
                 else -> m.id.removePrefix("happening:").let { key -> card = null; vm.openScene(key.substringBefore('/'), key) }
             }
@@ -531,7 +550,7 @@ fun VillageScreen(vm: AppViewModel) {
                     val p = anchorOf(m.place)
                     val f = anchorOf(TownPlace.Fire)
                     kotlin.math.hypot(p.x - f.x, p.y - f.y)
-                },
+                } + listOfNotNull(tipMarker),
                 topInset = hudInset(), bottomInset = barH,
                 // the recenter button hangs under the HUD while the camera is away: the bubbles keep below it too
                 bubbleInset = hudInset() + if (cam.moved) with(density) { 56.dp.roundToPx() } else 0,
@@ -545,6 +564,7 @@ fun VillageScreen(vm: AppViewModel) {
                 people = people,
                 onVillager = { id, at ->
                     card = null
+                    tipOpen = false
                     val keeper = Keepers.of(keepers, id)
                     when {
                         // the strangers at the road: the pedlar opens his stall in the chest, the pilgrim asks the way
@@ -616,6 +636,11 @@ fun VillageScreen(vm: AppViewModel) {
             LaunchedEffect(cardOf, cardH) {
                 val b = cardOf?.let { id -> s.buildings.firstOrNull { it.id == id } } ?: return@LaunchedEffect
                 if (cardH > 0) cam.reveal(anchorOf(TownPlace.of(b, s)), area(cardH + with(density) { 64.dp.roundToPx() }))
+            }
+            // Nor does the tip's card cover its thing.
+            LaunchedEffect(tipOpen, cardH) {
+                val at = tip?.at ?: return@LaunchedEffect
+                if (tipOpen && cardH > 0) cam.reveal(anchorOf(at), area(cardH + with(density) { 64.dp.roundToPx() }))
             }
             // Nor does a villager's card cover them.
             LaunchedEffect(villager, cardH) {
@@ -739,6 +764,33 @@ fun VillageScreen(vm: AppViewModel) {
                     modifier = Modifier.onSizeChanged { plotBarH = it.height },
                 )
             } else Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth()) {
+                // the map's tip, opened from its bubble: its one tap does it (and it is dealt with), got it, later
+                AnimatedVisibility(tipOpen && tip != null, enter = slideInVertically { it / 2 } + fadeIn(), exit = slideOutVertically { it / 2 } + fadeOut()) {
+                    val t = tip ?: return@AnimatedVisibility
+                    BackHandler { tipOpen = false }
+                    TipCard(
+                        t, vm.child, vm.hintVoice,
+                        onAction = {
+                            vm.game.tipDealt(t.moment)
+                            tipOpen = false
+                            when (val a = t.action) {
+                                is si.lanisce.lani.game.TipAction.Trade -> sheet = VillageSheet.Trade(a.give)
+                                si.lanisce.lani.game.TipAction.Build -> sheet = VillageSheet.Build
+                                is si.lanisce.lani.game.TipAction.Building -> { card = null; sheet = VillageSheet.Building(a.id) }
+                                si.lanisce.lani.game.TipAction.Chest -> sheet = VillageSheet.Chest
+                                is si.lanisce.lani.game.TipAction.Projects -> sheet = VillageSheet.Projects(a.id)
+                                is si.lanisce.lani.game.TipAction.Villager -> { villagerAt = null; villager = a.id }
+                                else -> runTip(vm, a)
+                            }
+                        },
+                        onGotIt = { vm.game.tipDealt(t.moment); tipOpen = false },
+                        onLater = { vm.game.tipLater(t.moment); tipOpen = false },
+                        onClose = { tipOpen = false },
+                        // a child's card reads itself as its bubble's tap opens it (as the school's explanations, their setting)
+                        autoRead = vm.child && vm.introVoice.auto && !vm.introVoice.screenReader,
+                        modifier = Modifier.align(Alignment.CenterHorizontally).widthIn(max = 600.dp).padding(horizontal = 10.dp, vertical = 6.dp).onSizeChanged { cardH = it.height },
+                    )
+                }
                 AnimatedVisibility(villager != null, enter = slideInVertically { it / 2 } + fadeIn(), exit = slideOutVertically { it / 2 } + fadeOut()) {
                     villager?.let { id ->
                         VillagerCard(vm, id, onDismiss = { villager = null }, modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp).onSizeChanged { cardH = it.height })

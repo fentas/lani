@@ -18,8 +18,12 @@ sealed interface Screen {
      */
     data class Review(val cards: List<ReviewCard>, val polish: Boolean = false, val run: Int = 0, val language: String? = null) : Screen
     data class Player(val module: Module) : Screen
-    /** "🎯 Vadi · Practise" on grammar page [page]: its exercises or cards ([practice]); [run] tells one run from the next. */
-    data class GrammarPractice(val page: String, val practice: si.lanisce.lani.data.Grammar.Practice, val run: Int = 0) : Screen
+    /**
+     * "🎯 Vadi · Practise" on grammar page [page]: its exercises or cards ([practice]); [run] tells one run from the next.
+     * [forQuest]: the drill of a request tried below the mark ("🎯 Vadi in poskusi znova"): passed, it brings the request back
+     * today ([si.lanisce.lani.game.RequestWindow.retried]).
+     */
+    data class GrammarPractice(val page: String, val practice: si.lanisce.lani.data.Grammar.Practice, val run: Int = 0, val forQuest: String? = null) : Screen
     data object Village : Screen
     /** A village challenge: intro, timed run and result. */
     data class Challenge(val origin: ChallengeOrigin, val challenge: GameChallenge) : Screen
