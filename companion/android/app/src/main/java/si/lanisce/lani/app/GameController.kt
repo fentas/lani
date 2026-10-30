@@ -481,6 +481,15 @@ class GameController(
 
     fun dismissNews() { news = emptyList() }
 
+    /**
+     * QA's "news" (a debug build, app/QaHooks): the chronicle's newest [n] lines as "while you were away", as a return after
+     * days away brings them (the news sheet and its 🔊).
+     */
+    fun qaNews(n: Int = 6) {
+        val s = state ?: return
+        news = s.log.takeLast(n).ifEmpty { listOf(LogEntry(System.currentTimeMillis(), "📜", bi("villageSheets.whileWereAway"))) }
+    }
+
     /** A new run starts: the previous finish screen's reward is gone. */
     fun clearReward() { lastReward = null }
 

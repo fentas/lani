@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,6 +31,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -66,6 +68,8 @@ import kotlin.random.Random
  * culture packs of the village's language; the node plays one of them, `lani-profile add --culture`), picks a landscape
  * (the region's choices, the node's `--landscape` first), sees the village drawn where it would be, at its first age, and
  * rolls another place ("🎲 Nov kraj · Another place") until they like it; confirming founds the village there, for good.
+ * Its 🔊 reads it ([si.lanisce.lani.game.ReadAloud.founding]: the title in the language learned in the narrator's voice,
+ * what to do in the base), and it reads itself as it opens, as the village's first words do.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -84,6 +88,14 @@ fun FoundingScreen(vm: AppViewModel) {
         Cultures.ids.mapNotNull { id -> Cultures.manifest(id)?.takeIf { it.language == language && it.status == "complete" }?.let { id to it } }
     }
     val white = Color.White
+    // read aloud as the village's first words are (companion/GAME.md, "The choice at setup"): by itself as it opens when
+    // the school's "🔊 Beri razlago" is on and no screen reader is, and on its 🔊; the node voices the title ahead
+    val speech = remember(si.lanisce.lani.l10n.L10n.pair) { si.lanisce.lani.game.ReadAloud.founding() }
+    val auto = vm.introVoice.auto && !vm.introVoice.screenReader
+    LaunchedEffect(speech) {
+        runCatching { vm.speaker.preload(speech.filter { it.target }.map { it.text }) }
+        if (auto) vm.hintVoice.play(speech, needsBase = false)
+    }
     val chipColors = FilterChipDefaults.filterChipColors(
         labelColor = white, selectedLabelColor = SloBlueDeep, selectedContainerColor = white,
         disabledLabelColor = white.copy(alpha = 0.45f),
@@ -94,7 +106,10 @@ fun FoundingScreen(vm: AppViewModel) {
             .verticalScroll(rememberScrollState()).padding(20.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Text("🏡", style = MaterialTheme.typography.displayMedium)
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text("🏡", style = MaterialTheme.typography.displayMedium, modifier = Modifier.weight(1f))
+            ReadAloudButton(vm.hintVoice, speech, color = white)
+        }
         Text(inTarget("founding.title"), style = MaterialTheme.typography.headlineMedium, color = white)
         Text(inBase("founding.about"), color = white.copy(alpha = 0.85f))
 

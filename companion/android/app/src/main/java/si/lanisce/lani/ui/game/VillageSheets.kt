@@ -561,14 +561,23 @@ private fun LogLine(e: LogEntry) {
     }
 }
 
-/** "While you were away": what the days in between brought. */
+/**
+ * "While you were away": what the days in between brought, the newest [ReadAloud.NEWS_SHOWN]. Its 🔊 reads them ([voice];
+ * [ReadAloud.news]: each line in the language learned in the narrator's voice, then in the base), on a tap only: the sheet
+ * comes at every return.
+ */
 @Composable
-fun NewsSheet(news: List<LogEntry>, onDismiss: () -> Unit) {
+fun NewsSheet(news: List<LogEntry>, onDismiss: () -> Unit, voice: si.lanisce.lani.data.HintVoice? = null) {
+    val shown = news.takeLast(si.lanisce.lani.game.ReadAloud.NEWS_SHOWN)
+    val speech = remember(shown, si.lanisce.lani.l10n.L10n.pair) { si.lanisce.lani.game.ReadAloud.news(shown.map { it.text }) }
     Sheet(onDismiss) {
-        SheetHeader("🌄", bi("villageSheets.whileWereAway"))
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.heightIn(max = 420.dp)) {
-            news.takeLast(8).forEach { LogLine(it) }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.weight(1f)) { SheetHeader("🌄", bi("villageSheets.whileWereAway")) }
+            ReadAloudButton(voice, speech)
         }
-        BigButton(bi("common.continue"), onClick = onDismiss)
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.heightIn(max = 420.dp)) {
+            shown.forEach { LogLine(it) }
+        }
+        BigButton(bi("common.continue"), onClick = { voice?.let { if (it.current == speech) it.stop() }; onDismiss() })
     }
 }

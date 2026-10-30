@@ -168,6 +168,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  *   "tips:" takes the pointer back. "tips:tentmove" readies the shepherd's request to move the tent to the pond ([readyTentMove]:
  *   the hamlet, a hut, the tent on a plot, the shepherd living here and met, the request asked anew, never tried) and starts
  *   its run: QA fails it, sees where it went and does its drill (companion/GAME.md "Quests", "A run clears its \"!\"").
+ * - "news": the chronicle's newest lines shown as "🌄 Medtem ko te ni bilo · While you were away" (GameController.qaNews),
+ *   as a return after days away brings them: the news sheet and its 🔊 (game/ReadAloud).
  * - "seed:<n>": the founding's place ("Kje bo tvoja vas?", ui/game/FoundingScreen) is the one of that seed for the dice and
  *   the land ([foundingSeed]; 551323397: Teo's coast, whose land seed it is too), a reroll going on from it; "seed:" rolls
  *   one at random again.
@@ -382,7 +384,7 @@ object QaHooks {
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
-        cases: (String) -> Unit = {}, tips: (String) -> Unit = {},
+        cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
@@ -403,6 +405,7 @@ object QaHooks {
             command == "shadow" -> shadow("")
             command == "data" -> data()
             command == "review" -> review()
+            command == "news" -> news()
             command == "friends" -> friends()
             command.startsWith("request:") -> command.removePrefix("request:").split(',').map { it.trim() }.filter { it.isNotEmpty() }
                 .takeIf { it.isNotEmpty() }?.let(request)

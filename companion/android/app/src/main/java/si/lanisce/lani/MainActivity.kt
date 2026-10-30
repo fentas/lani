@@ -98,7 +98,7 @@ class MainActivity : ComponentActivity() {
             dev = { what -> if (what == "again") vm.devUpload.forgetThrottle() else if (what == "off") vm.shadow.showDeveloper(false) },
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
             data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
-            request = vm::qaRequest, word = vm::qaWord, friends = { vm.openFriends() }, sheet = vm::qaSheet, grammar = { vm.grammar.show(it) }, talk = { vm.talkWithVillager(it) }, cases = vm::qaCases, tips = vm::qaTips,
+            request = vm::qaRequest, word = vm::qaWord, friends = { vm.openFriends() }, sheet = vm::qaSheet, grammar = { vm.grammar.show(it) }, talk = { vm.talkWithVillager(it) }, cases = vm::qaCases, tips = vm::qaTips, news = { vm.game.qaNews() },
             tutorLive = { base -> vm.live.update { it.copy(debugBaseUrl = base.ifBlank { null }) } })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)
         DeepLink.parse(intent?.getStringExtra(DeepLink.EXTRA))?.let(vm::open)
@@ -241,7 +241,7 @@ private fun App(vm: AppViewModel) {
     val founding = vm.game.placeNeeded && vm.game.state == null && (screen == Screen.Home || screen == Screen.Village)
     if (founding) si.lanisce.lani.ui.game.FoundingScreen(vm)
     if (!founding && vm.game.news.isNotEmpty() && vm.game.introSeen && (screen == Screen.Home || screen == Screen.Village)) {
-        NewsSheet(vm.game.news, onDismiss = vm.game::dismissNews)
+        NewsSheet(vm.game.news, onDismiss = vm.game::dismissNews, voice = vm.hintVoice)
     }
     vm.permission?.let { PermissionDialog(it, vm::answerPermission) }
     // just paired: the offline voice is offered once (the settings' "Zvok in glas · Sound and voice" page has it too)
