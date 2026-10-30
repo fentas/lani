@@ -351,18 +351,10 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
             // traded: the chips and the rate say it all; else why nothing was traded
             if (trade != null) TradeCard(trade, result?.message?.takeIf { !trade.traded })
             else result?.message?.let { Text(it, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center) }
-            // a request, a project's step or a feast not passed: say so plainly, and what it takes (it stays open)
-            val open = !won && (origin is ChallengeOrigin.Quest || origin is ChallengeOrigin.Project || origin is ChallengeOrigin.Festival || treasure)
-            if (open && c.passMark > 0) Text(
-                if (quiet) "🕯️ ${bi("calendar.quietNotYet", "mark" to c.passMark, "total" to r.total)}"
-                else "🔸 ${bi("challengeScreen.notDoneYet", "mark" to c.passMark, "total" to r.total)}",
-                color = Color.White, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Center,
-            )
-            // a request: how close Jan is now, and after a few tries the rules it missed, one tap away
+            // a request below the mark: where it went (it waits until tomorrow's morning, never gone) and a way today, a short drill
+            // of what was missed that brings it back at once (companion/GAME.md "Quests": "A try below the mark"), right under the
+            // giver's "again tomorrow", before the counts
             val quest = (origin as? ChallengeOrigin.Quest)?.takeIf { !won }?.let { o -> vm.game.state?.quests?.firstOrNull { it.id == o.questId } }
-            quest?.let(::progressText)?.let { Text(it, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center) }
-            // where it went: it waits until tomorrow's morning (never gone); and a way today: a short drill of what was missed,
-            // which brings it back at once (companion/GAME.md "Quests": "A run clears its \"!\"")
             val st = vm.game.state
             val backAt = quest?.let { q -> st?.pace?.back?.get(q.id) }?.takeIf { it > System.currentTimeMillis() }
             if (quest != null && backAt != null) {
@@ -371,7 +363,17 @@ private fun ChallengeResultView(vm: AppViewModel, origin: ChallengeOrigin, c: Ch
                     fontWeight = FontWeight.Bold, textAlign = TextAlign.Center,
                 )
                 BigButton(practiseRetryLabel(), onClick = { vm.practiseRetry(quest.id) }, color = XpGold)
-            } else if (quest != null && st != null && QuestQueue.hard(quest, st.quests)) {
+            }
+            // a request, a project's step or a feast not passed: say so plainly, and what it takes (it stays open)
+            val open = !won && (origin is ChallengeOrigin.Quest || origin is ChallengeOrigin.Project || origin is ChallengeOrigin.Festival || treasure)
+            if (open && c.passMark > 0) Text(
+                if (quiet) "🕯️ ${bi("calendar.quietNotYet", "mark" to c.passMark, "total" to r.total)}"
+                else "🔸 ${bi("challengeScreen.notDoneYet", "mark" to c.passMark, "total" to r.total)}",
+                color = Color.White, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Center,
+            )
+            // a request: how close Jan is now, and after a few tries the rules it missed, one tap away (when it isn't waiting)
+            quest?.let(::progressText)?.let { Text(it, color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center) }
+            if (quest != null && backAt == null && st != null && QuestQueue.hard(quest, st.quests)) {
                 OutlinedButton(onClick = { vm.practiseHard(quest.id) }) { Text(practiseHardLabel(), color = Color.White) }
             }
             HelpAndThanks(r, color = Color.White)
