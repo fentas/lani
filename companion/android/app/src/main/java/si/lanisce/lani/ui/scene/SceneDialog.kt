@@ -257,8 +257,9 @@ fun DialogPanel(
         // edge to edge, the window doesn't shrink for the keyboard: the panel keeps above it (a typed turn), and its host
         // lets it have the picture's room meanwhile (DialogRoom); the navigation bar's part of the keyboard counted once
         Column(Modifier.fillMaxSize().navigationBarsPadding().imePadding()) {
-            // whom the learner answers: the person, or in a dialog of several whoever spoke last; their portrait with their face
-            val facing = whoIs(talk, speakers, run.said.lastOrNull { it.who != null }?.who)
+            // whom the learner answers: the person, or in a dialog of several the one a turn names, else whoever spoke last;
+            // their portrait with their face
+            val facing = whoIs(talk, speakers, run.facing)
             Row(Modifier.fillMaxWidth().padding(start = 12.dp, end = 8.dp, top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                 if (facing.art != null) SpeakerPortrait(facing.art, facing.seed, facing.name, look, PORTRAIT_DP.dp, animate = livePortrait)
                 else Box(Modifier.size(44.dp).clip(CircleShape).background(MaterialTheme.colorScheme.tertiaryContainer), contentAlignment = Alignment.Center) {

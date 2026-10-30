@@ -16,7 +16,7 @@ import { learnerErrors, learnerErrorsIn, render, addressee as addresseeFor, same
 import { PACK_LANGUAGES } from './arrivals'
 import { lcsPairs, wordsIn } from './dialog-words'
 import { schemaField } from './schema'
-import { dialogLine, faceErrors, SCENE_ART, SCENE_LANGUAGES, SCENE_STAGE, scenesDirs, sceneSpec, type Scene } from './scenes'
+import { dialogLine, faceErrors, SCENE_ART, SCENE_LANGUAGES, SCENE_STAGE, scenesDirs, sceneSpec, turnToErrors, type Scene } from './scenes'
 import { LEVELS } from './stories'
 
 export const PROJECT_STEPS_SCHEMA = 'lani.project-steps/v0'
@@ -378,11 +378,13 @@ export function linesErrors(lines: Line[], lang: string, speakers: Set<string>, 
       if (!l.who) errs.push(`${here}: who says it? (${[...speakers].join(', ')})`)
       else if (!speakers.has(l.who)) errs.push(`${here}: who "${l.who}" is neither ${whose} (${[...speakers].join(', ')})`)
       if (l.grammar || l.puzzled) errs.push(`${here}: a grammar page and a puzzled reaction are a learner's turn's, not a spoken line's`)
+      errs.push(...turnToErrors(l, here, speakers, whose))
       inLangs(l, here)
       return
     }
     turns++
     if (l.who || SCENE_LANGUAGES.some(x => (l as Texts)[x])) errs.push(`${here}: a choice turn has no who and no text of its own`)
+    errs.push(...turnToErrors(l, here, speakers, whose.replace(' nor ', ' or ')))
     if (l.choices.length < 2) errs.push(`${here}: a turn needs 2-3 choices`)
     if (!l.choices.some(c => c.ok)) errs.push(`${here}: no choice is ok`)
     if (l.choices.every(c => c.ok)) errs.push(`${here}: every choice is ok: a turn keeps a wrong one`)

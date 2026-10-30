@@ -276,4 +276,32 @@ class ArrivalsTest {
         assertEquals("dan, ko sva nabirala borovnice", m.memory?.sl)
         assertEquals(tutor, Arrivals.parseServed(Arrivals.served(tutor)))
     }
+
+    @Test fun `a turn that names whom the learner answers has them reply, and faces them from when it comes up`() {
+        val s = Arrivals.migrate(jans)
+        // Micka has the last word before the turn, but the welcome is Zala's: she replies, to the right and to the wrong one
+        val served = """{"arrivals":[{"schema":"lani.arrival/v0","id":"zala","language":"sl","by":"micka",
+            "levels":{"A1":{"lines":[{"who":"zala","sl":"Živjo! Jaz sem Zala.","en":"Hi! I'm Zala."},
+            {"who":"micka","sl":"In jaz imam spet koga razvajati!","en":"And I have someone to spoil again!"},
+            {"to":"zala","choices":[{"sl":"Dobrodošla v vasi!","en":"Welcome to the village!","ok":true,"reply":{"sl":"Hvala!","en":"Thanks!"}},
+              {"sl":"Dobrodošel v vasi!","en":"Welcome (as to a boy)!","why":"Zala is a girl.","reply":{"sl":"Dobrodošel? Saj sem deklica!","en":"I'm a girl!"}}]},
+            {"choices":[{"sl":"Greva k ovcam?","en":"Shall we go to the sheep?","ok":true,"reply":{"sl":"Ja!","en":"Yes!"}},{"sl":"Gremo k ovcam?","en":"Shall we all go?","why":"Two of you.","reply":{"sl":"Vsi?","en":"All of us?"}}]},
+            {"who":"micka","sl":"Pojdita, pojdita.","en":"Off you go, the two of you."}]}}}]}"""
+        val m = Arrivals.meeting(Arrivals.readyFor(s, "zala", day)!!, s, cast, "A1", day, Arrivals.parseServed(served))!!
+        // the turn's to, and the turn right after it: still Zala, who said the last word
+        assertEquals(mapOf(2 to "zala", 3 to "zala"), m.repliers)
+        assertEquals("zala", m.dialog.lines[2].to)
+        var run = DialogRun.start(m.dialog, "zala", repliers = m.repliers)
+        while (run.step == DialogRun.Step.LISTEN) run = run.next()
+        // at the turn the learner faces Zala, though Micka spoke last
+        assertEquals(DialogRun.Step.CHOOSE, run.step)
+        assertEquals("micka", run.said.last().who)
+        assertEquals("zala", run.facing)
+        val wrong = run.choose(run.choices.indexOfFirst { !it.ok })
+        assertEquals("zala" to "Dobrodošel? Saj sem deklica!", wrong.said.last().who to wrong.said.last().sl)
+        val right = wrong.choose(wrong.choices.indexOfFirst { it.ok })
+        assertEquals("zala" to "Hvala!", right.said.last().who to right.said.last().sl)
+        // without a to, whoever spoke last, as before (an older content's turn): Micka
+        assertEquals("micka", si.lanisce.lani.game.scene.repliersOf(m.dialog.lines.map { it.copy(to = null) })[2])
+    }
 }

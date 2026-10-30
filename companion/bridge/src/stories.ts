@@ -280,6 +280,8 @@ export function crossCheck(s: Story, refs?: StoryRefs): string[] {
         const here = `${at}.lines[${li}]`
         effectsOf(l.fx, here)
         l.choices.forEach((ch, chi) => effectsOf(ch.reply?.fx, `${here}.choices[${chi}].reply`))
+        // the teller tells it and answers the learner: no one else to name
+        if (l.to) errs.push(`${here}: to: the teller answers the learner in a story (leave to out)`)
         if (l.choices.length) {
           if (l.who || SCENE_LANGUAGES.some(k => l[k])) errs.push(`${here}: a choice turn has no who/${lang}/en`)
           if (l.choices.length < 2) errs.push(`${here}: a choice turn needs 2-3 choices`)

@@ -26,7 +26,8 @@ at A2 (why they came, with whom), 1-2 turns for Jan with 2-3 choices each (${exa
 where it fits naturally. Every wrong choice has a why and a reply (their reaction to what was said, never the right
 form); their lines and replies may carry a face, as a scene's ("face": glad to meet Jan, shy, proud of a baby).
 Who speaks: the newcomer (their id), or a baby's parents (their ids: a baby can't talk); a relative who introduces
-them is "by". memory: what they keep of the day, in their words, fitting their remember lines (${memory}).
+them is "by". A reply is said by whoever spoke last before the turn; a turn that answers someone else names them ("to":
+Jan welcomes the child after the parent's aside, and the child replies). memory: what they keep of the day, in their words, fitting their remember lines (${memory}).
 It replaces the template, which plays until then. get_arrival shows what the app would play for someone now.
 `.trim()
 }

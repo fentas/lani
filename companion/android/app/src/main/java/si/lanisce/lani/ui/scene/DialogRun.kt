@@ -73,7 +73,8 @@ data class Said(val who: String?, val sl: String, val en: String, val wrong: Boo
  * @param seed the order the choices of each turn are shown in: shuffled, so the right one isn't where the file has it
  *   (always first); null keeps the file's order
  * @param repliers who answers a choice at a turn (the turn's line index → their id) when it isn't [partner]: in a dialog
- *   of several people (an arrival: Micka introduces Zala), whoever spoke last
+ *   of several people (an arrival: Micka introduces Zala), the one the turn names ([DialogLine.to]), else whoever spoke
+ *   last ([repliersOf]); a turn's own `to` wins in any dialog
  * @param missedTurns the turns whose first pick was wrong (a story's turns right the first time are the others: reading
  *   practice, app/ReadingsController)
  * @param rule the grammar book's page of the wrong answer just given (its choice's own `grammar`, else its turn's): the
@@ -168,6 +169,15 @@ data class DialogRun(
             turnAt(at) -> Step.CHOOSE
             else -> Step.END
         }
+
+    /** Who answers the current turn: the one it names ([DialogLine.to]), else its entry in [repliers], else [partner]. */
+    private val replier: String? get() = dialog.lines.getOrNull(at)?.to ?: repliers[at] ?: partner
+
+    /**
+     * Whom the learner answers now, for the panel's portrait and the one in the picture who reacts: at a turn that names
+     * them ([DialogLine.to]) that one, from the moment it comes up; else whoever spoke last, else [partner].
+     */
+    val facing: String? get() = (if (step == Step.CHOOSE) dialog.lines[at].to else null) ?: said.lastOrNull { it.who != null }?.who ?: partner
 
     /** The learner's turn now, as the dialog has it (its choices in the file's order); null unless it's their turn. */
     val turn: DialogLine? get() = if (step == Step.CHOOSE) dialog.lines[at] else null
@@ -300,7 +310,7 @@ data class DialogRun(
 
     /** A form typed wrong that is none of the choices: said, the person puzzled, a slip on the gap's pages; the learner picks. */
     private fun slipped(sentence: String): DialogRun {
-        val by = repliers[at] ?: partner
+        val by = replier
         val line = dialog.lines[at]
         val puzzled = line.puzzled ?: DialogReply(inTarget("adaptive.puzzled"), inBase("adaptive.puzzled"))
         val right = line.choices.firstOrNull { it.ok }?.sl
@@ -384,7 +394,7 @@ data class DialogRun(
         val filed = order(turn.size).getOrNull(k) ?: return this
         val c = turn[filed]
         val right = c.ok || turn.none { it.ok } // a turn without a right answer must not trap the learner
-        val by = repliers[at] ?: partner
+        val by = replier
         val notHere = notYet[at].orEmpty()
         if (!right) {
             if (k in tried) return this // the same wrong choice again doesn't count twice

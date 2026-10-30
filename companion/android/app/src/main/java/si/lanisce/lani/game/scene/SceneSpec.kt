@@ -293,7 +293,31 @@ data class DialogLine(
      * Read leniently: a name the app doesn't know is none.
      */
     @Serializable(with = FaceSerializer::class) val face: Face? = null,
+    /**
+     * A learner's turn: whom they answer there (a [ScenePerson.id], someone who speaks in the dialog), who says its replies
+     * and its puzzled reaction and whom the panel shows: Zala, welcomed at her arrival after her grandmother's aside
+     * ("Dobrodošla v vasi!", her "Hvala!"); companion/SCENES.md "Format". Null: whoever spoke last before it ([repliersOf]).
+     */
+    val to: String? = null,
 )
+
+/**
+ * Who answers the learner at each turn of [lines] (the turn's index → their id): the one the turn names ([DialogLine.to]),
+ * else whoever spoke last before it (someone's line, or the one a turn before it named), else [first] (the dialog's person,
+ * a step's leader). A turn with nobody to answer has no entry.
+ */
+fun repliersOf(lines: List<DialogLine>, first: String? = null): Map<Int, String> {
+    var last = first
+    val out = HashMap<Int, String>()
+    lines.forEachIndexed { i, l ->
+        if (l.choices.isEmpty()) l.who?.let { last = it }
+        else {
+            l.to?.let { last = it }
+            last?.let { out[i] = it }
+        }
+    }
+    return out
+}
 
 @Serializable
 data class DialogChoice(

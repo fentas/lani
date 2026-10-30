@@ -229,6 +229,8 @@ export default async function scenes() {
     ['a wrong choice without why', withLines([l1, { choices: [{ sl: 'A', en: 'a', ok: true }, { sl: 'B', en: 'b' }] }, l3]), 'needs a why'],
     ['a turn with one choice', withLines([l1, { choices: [{ sl: 'A', en: 'a', ok: true }] }, l3]), '2-3 choices'],
     ['a spoken line by nobody', withLines([{ who: 'dedek', sl: 'Oj.', en: 'Hi.' }, l2, l3]), 'not a person'],
+    ['a turn answered by nobody of the scene', withLines([l1, { ...l2, to: 'dedek' }, l3]), '.to: "dedek" isn\'t a person of this scene'],
+    ['a to on a spoken line', withLines([{ ...l1, to: 'babica' }, l2, l3]), "to is a learner's turn's"],
     ['a dialog that opens with choices', withLines([l2, l1, l3]), 'first line'],
     ['a line over 200 characters', withLines([{ ...l1, sl: 'x'.repeat(201) }, l2, l3]), 'sl'],
     ['a sky level above 1', withLines([{ ...l1, sky: { rain: 1.5 } }, l2, l3]), 'rain'],
@@ -333,6 +335,8 @@ export default async function scenes() {
     check('allHeard by the month: the hay in July (heard), not in January; the soup in July (its winter variant out of season), not in January (that one not heard yet)',
       keys(7) === 'smoke-kuhinja/juha,smoke-kuhinja/seno' && keys(1) === '' && keys() === 'smoke-kuhinja/seno', [keys(7), keys(1), keys()])
   }
+  const answered = validateScene(withLines([l1, { ...l2, to: 'babica' }, l3]))
+  check('validateScene keeps a turn\'s to (whom the learner answers)', answered.ok && answered.scene.dialogs[0].lines[1].to === 'babica', answered)
   const adaptive = validateScene(withLines([l1, { ...l2, puzzled: { sl: 'Kako, prosim?', en: 'Pardon?' }, choices: [l2.choices![0], { ...l2.choices![1], grammar: 'tozilnik' }] }, l3]))
   check("validateScene keeps a wrong choice's grammar page and a turn's puzzled reaction", adaptive.ok && adaptive.scene.dialogs[0].lines[1].puzzled?.en === 'Pardon?' && adaptive.scene.dialogs[0].lines[1].choices[1].grammar === 'tozilnik', adaptive)
 

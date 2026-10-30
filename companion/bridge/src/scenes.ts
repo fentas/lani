@@ -418,6 +418,17 @@ export const ALL_FACES = ['neutral', ...FACES] as const
 /** What the publish tools' descriptions say of faces, so that what the tutor writes carries them. */
 export const FACES_SAID = `A spoken line, a choice's reply and a turn's puzzled may carry "face" (${FACES.join(', ')}; never neutral, the resting face): the speaker's expression, only where the line carries a feeling (companion/SCENES.md, "Faces").`
 /**
+ * The problems of a line's `to` (whom the learner answers at a turn): only a learner's turn has one, and it is one of
+ * [speakers] (who may speak in the dialog: [whose] says who they are).
+ */
+export function turnToErrors(l: { to?: string; choices: unknown[] }, here: string, speakers: Set<string>, whose = 'a person of this scene'): string[] {
+  if (l.to === undefined) return []
+  if (!l.choices.length) return [`${here}: to is a learner's turn's (whom they answer there), not a spoken line's`]
+  if (!speakers.has(l.to)) return [`${here}.to: "${l.to}" isn't ${whose} (${[...speakers].join(', ')})`]
+  return []
+}
+
+/**
  * A face as the content writes it: any string here, so that crossCheck (faceErrors) can say where a wrong name is and
  * which there are. Declared on a learner's turn and a choice too, only to report it there (zod would strip it unseen).
  */
@@ -483,6 +494,12 @@ export const dialogLine = z.object({
   face,
   /** 2-3 choices; a tap turn up to 4 (crossCheck). A bridge before tap turns reads at most 3 and skips the scene. */
   choices: z.array(choice).max(4).default([]),
+  /**
+   * A learner's turn: whom they answer there (someone who speaks in the dialog), who then says its replies and its puzzled
+   * reaction, and whom the panel shows: Zala at her arrival, welcomed after her grandmother's aside. Without it, whoever
+   * spoke last before the turn (companion/SCENES.md, "Format"; turnToErrors). An older bridge strips it (whoever spoke last).
+   */
+  to: id.optional(),
   grammar,
   sky: skyCue.optional(),
   fx: fxCue.optional(),
@@ -786,6 +803,7 @@ export function crossCheck(s: Scene, refs?: SceneRefs): string[] {
       effectsOf(l.fx, here)
       l.choices.forEach((c, ci) => effectsOf(c.reply?.fx, `${here}.choices[${ci}].reply`))
       if (l.done) errs.push(`${here}: done is a village project's step's (project-steps), not a scene dialog's`)
+      errs.push(...turnToErrors(l, here, people))
       if (l.choices.length) {
         if (l.who || SCENE_LANGUAGES.some(k => l[k])) errs.push(`${here}: a choice turn has no who/${lang}/en`)
         if (l.choices.length < 2) errs.push(`${here}: a choice turn needs 2-3 choices`)

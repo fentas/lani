@@ -15,6 +15,7 @@ import si.lanisce.lani.game.scene.DialogChoice
 import si.lanisce.lani.game.scene.DialogLine
 import si.lanisce.lani.game.scene.DialogReply
 import si.lanisce.lani.game.scene.inPair
+import si.lanisce.lani.game.scene.repliersOf
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.LangPair
@@ -54,7 +55,8 @@ data class PendingArrival(val resident: Resident, val kind: Kind, val late: Bool
 
 /**
  * An introduction ready to play: its [dialog] (in the learner's pair, the placeholders filled, the late line first when
- * it's [late]), who says a choice's reply at each turn ([repliers], the line's index → id: whoever spoke last), everyone
+ * it's [late]), who says a choice's reply at each turn ([repliers], the line's index → id: the one the turn names, else
+ * whoever spoke last), everyone
  * who speaks ([speakers], the newcomer first), what the newcomer keeps of it ([memory]), and where it came from
  * ([source]: tutor, culture or template).
  */
@@ -353,16 +355,14 @@ object Arrivals {
         fun mean(s: String) = fill(s, pair.base, meantArgs)
         fun reply(r: DialogReply) = r.copy(sl = say(r.sl), en = mean(r.en))
         fun line(l: DialogLine) = l.copy(
-            who = l.who?.let(who), sl = l.sl?.let(::say), en = l.en?.let(::mean),
+            who = l.who?.let(who), to = l.to?.let(who), sl = l.sl?.let(::say), en = l.en?.let(::mean),
             choices = l.choices.map { c -> c.copy(sl = say(c.sl), en = mean(c.en), why = c.why?.let(::mean), reply = c.reply?.let(::reply)) },
         )
         val all = (listOfNotNull(opening) + (if (opening != null) body.drop(1) else body)).map(::line)
         if (all.isEmpty()) return null
-        // a reply is said by whoever spoke last before the turn
-        val repliers = HashMap<Int, String>()
-        var last: String? = null
-        all.forEachIndexed { i, l -> if (l.choices.isEmpty()) l.who?.let { last = it } else last?.let { repliers[i] = it } }
-        val speakers = (listOf(p.id) + all.mapNotNull { it.who }).distinct()
+        // a reply is said by the one the turn names (Zala, welcomed after Micka's aside), else whoever spoke last before it
+        val repliers = repliersOf(all)
+        val speakers = (listOf(p.id) + all.flatMap { listOfNotNull(it.who, it.to) }).distinct()
         val baby = p.kind == PendingArrival.Kind.BIRTH
         return Meeting(
             id = p.id, kind = p.kind, late = opening != null, level = lv,

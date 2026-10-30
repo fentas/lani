@@ -351,8 +351,8 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         val p = speakerOf(who) ?: talk!!.person
         p.id to voiceOf(p)
     }
-    // whom the learner answers: the person of the dialog, or in a project's step whoever spoke last
-    val facing = if (talk?.step != null) talk.run.said.lastOrNull { it.who != null }?.who ?: talk.person.id else talk?.person?.id
+    // whom the learner answers: the person of the dialog, or in a project's step the one a turn names, else whoever spoke last
+    val facing = if (talk?.step != null) talk.run.facing ?: talk.person.id else talk?.person?.id
     val talking = talkingId != null && talkingId == facing
     // The lines of «Vidim, vidim» come out one after another (a game adds several at once: its line and the first clue): each
     // of the child's typed in and said in the child's voice to its end before the next starts, the child drawn talking

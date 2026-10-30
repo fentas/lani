@@ -67,8 +67,8 @@ fun ArrivalScene(vm: AppViewModel, m: MeetingTalk) {
     var micOn by remember { mutableStateOf(false) }
     // drawn talking while the line is heard; the learner's own first, in their voice (SceneScreen's dialog)
     val talking = rememberDialogVoice(vm.speaker, talk) { who -> who to (speakers[who]?.voice ?: voice) }
-    // who the learner answers now: whoever spoke last (the newcomer at first)
-    val facing = talk.run.said.lastOrNull { it.who != null }?.who ?: id
+    // who the learner answers now: the one a turn names (Zala at her welcome), else whoever spoke last (the newcomer at first)
+    val facing = talk.run.facing ?: id
     val facingArt = people[facing]?.art
     val look = rememberPartnerLook(talk.run, talking != null && talking == facing, micOn, facing, child = facingArt?.startsWith("child") == true || facingArt == "baby")
     LaniSheet(onDismissRequest = vm.villagers::closeMeeting) {

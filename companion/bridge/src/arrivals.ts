@@ -14,7 +14,7 @@ import { join } from 'node:path'
 import { z } from 'zod'
 import { learnerErrors, withoutLearner } from './addressee'
 import { schemaField } from './schema'
-import { dialogLine, faceErrors, lineFaceErrors, offStage, reply, SCENE_LANGUAGES } from './scenes'
+import { dialogLine, faceErrors, lineFaceErrors, offStage, reply, SCENE_LANGUAGES, turnToErrors } from './scenes'
 import { LEVELS, type Level } from './stories'
 
 export const ARRIVALS_SCHEMA = 'lani.arrivals/v0'
@@ -216,6 +216,7 @@ export function arrivalErrors(a: ArrivalBody, rules: Rules, at = ''): string[] {
     if (!l.who) errs.push(`${where(p)}: who says it? (${[...rules.speakers].join(', ')})`)
     else if (!rules.speakers.has(l.who)) errs.push(`${where(p)}: who "${l.who}" isn't in it (${[...rules.speakers].join(', ')})`)
     if (l.sky || l.fx) errs.push(`${where(p)}: ${what} has no scene around it: no sky or fx cue`)
+    errs.push(...turnToErrors(l, where(p), rules.speakers))
     inLangs(l, p)
   }
   inLangs(a.memory, 'memory')
@@ -240,6 +241,8 @@ export function arrivalErrors(a: ArrivalBody, rules: Rules, at = ''): string[] {
       if (!l.choices.length) return spoken(l, here)
       turns++
       if (l.who || SCENE_LANGUAGES.some(x => l[x])) errs.push(`${where(here)}: a choice turn has no who and no text of its own`)
+      // whom the learner answers, when it isn't whoever spoke last (Zala, welcomed after Micka's aside)
+      errs.push(...turnToErrors(l, where(here), rules.speakers, 'someone who speaks in it'))
       if (l.sky || l.fx) errs.push(`${where(here)}: ${what} has no scene around it: no sky or fx cue`)
       if (l.choices.length < 2) errs.push(`${where(here)}: a turn needs 2-3 choices`)
       if (!l.choices.some(c => c.ok)) errs.push(`${where(here)}: no choice is ok`)
@@ -345,7 +348,7 @@ export function validateArrival(input: unknown, refs: ArrivalRefs = {}): { ok: t
 
 /** Every `who` an arrival names. */
 function allWho(a: ArrivalBody): string[] {
-  return Object.values(a.levels).flatMap(v => [...(v?.late?.who ? [v.late.who] : []), ...(v?.lines ?? []).flatMap(l => (l.who ? [l.who] : []))])
+  return Object.values(a.levels).flatMap(v => [...(v?.late?.who ? [v.late.who] : []), ...(v?.lines ?? []).flatMap(l => [...(l.who ? [l.who] : []), ...(l.to ? [l.to] : [])])])
 }
 
 /** The ids who live in the village (GameState.residents), from the app's game state; undefined when there is none. */

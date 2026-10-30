@@ -254,7 +254,7 @@ internal object Projects {
         world.stepping(project, index + if (shown) 1 else 0)
 
     /** Who speaks in [d], in the order they first do; the leader first. */
-    fun speakers(spec: ProjectSpec, d: Dialog): List<String> = (listOf(spec.leader) + d.lines.mapNotNull { it.who }).distinct()
+    fun speakers(spec: ProjectSpec, d: Dialog): List<String> = (listOf(spec.leader) + d.lines.flatMap { listOfNotNull(it.who, it.to) }).distinct()
 
     /**
      * Who says each speaker's lines today (companion/SCENES.md "Project steps"): the leader their own; a helper theirs when
@@ -282,17 +282,15 @@ internal object Projects {
         return out
     }
 
-    /** [d] with each line said by whom [cast] says (a speaker it doesn't name: as the file has it). */
+    /** [d] with each line said by whom [cast] says, and each turn answered so (a speaker it doesn't name: as the file has it). */
     fun recast(d: Dialog, cast: Map<String, String>): Dialog =
-        d.copy(lines = d.lines.map { l -> l.who?.let(cast::get)?.let { l.copy(who = it) } ?: l })
+        d.copy(lines = d.lines.map { l -> l.copy(who = l.who?.let { cast[it] ?: it }, to = l.to?.let { cast[it] ?: it }) })
 
-    /** Who answers a choice at each turn (its line index): whoever spoke last before it, the leader before anyone has. */
-    fun repliers(d: Dialog, leader: String): Map<Int, String> {
-        var last = leader
-        val out = HashMap<Int, String>()
-        d.lines.forEachIndexed { i, l -> if (l.choices.isEmpty()) l.who?.let { last = it } else out[i] = last }
-        return out
-    }
+    /**
+     * Who answers a choice at each turn (its line index): the one the turn names ([si.lanisce.lani.game.scene.DialogLine.to]),
+     * else whoever spoke last before it, the leader before anyone has.
+     */
+    fun repliers(d: Dialog, leader: String): Map<Int, String> = si.lanisce.lani.game.scene.repliersOf(d.lines, leader)
 
     /**
      * Where a step's people ([ids], the leader first) stand in [scene]: where the scene has them when they are among its

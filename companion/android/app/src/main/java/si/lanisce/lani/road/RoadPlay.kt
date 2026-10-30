@@ -272,6 +272,8 @@ object RoadPlay {
                 if (answer == null) { missed++; continue }
                 said++
                 turns++
+                // answered by the one the turn names, else whoever spoke last
+                lastWho = line.to ?: lastWho
                 out += turn(answer, voicesOf(lastWho), youSay, clips)
                 continue
             }
@@ -331,6 +333,7 @@ object RoadPlay {
         }
         for (line in lines) {
             if (line.choices.isNotEmpty()) {
+                lastWho = line.to ?: lastWho
                 val answer = line.answers.firstOrNull { clip(it.sl, NARRATOR, clips) != null } ?: continue
                 add(answer.sl, NARRATOR)
                 add(answer.reply?.sl, voicesOf(lastWho))

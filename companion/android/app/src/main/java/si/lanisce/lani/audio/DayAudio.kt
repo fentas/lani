@@ -89,7 +89,7 @@ object DayAudio {
     /**
      * A dialog as it is played ([why]: its happening): each person's lines in their voices ([voicesOf] of their scene id),
      * the learner's right answers in the default voice, and the replies (to the right and the wrong answers) in the voice of
-     * whoever spoke last, as the scenes say them.
+     * the one the turn names ([DialogLine.to]), else whoever spoke last, as the scenes say them.
      */
     fun dialog(lines: List<DialogLine>, voicesOf: (String?) -> List<String>, why: String): List<DayWant> {
         val out = mutableListOf<DayWant>()
@@ -99,6 +99,7 @@ object DayAudio {
                 last = voicesOf(l.who)
                 want(l.sl, last, why)?.let(out::add)
             }
+            if (l.choices.isNotEmpty()) l.to?.let { last = voicesOf(it) }
             for (c in l.choices) {
                 if (c.ok) want(c.sl, Clips.chain(), why)?.let(out::add)
                 want(c.reply?.sl, last, why)?.let(out::add)

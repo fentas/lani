@@ -124,12 +124,16 @@ export default async function arrivals() {
     ['another language than the village\'s', { ...ana, language: 'it', levels: { A1: { lines: ana.levels.A1.lines.map((l: any) => (l.choices ? l : { who: l.who, it: l.sl, en: l.en })) } } }, 'the village speaks "sl"'],
     ['no level', { ...ana, levels: {} }, 'at least one level'],
     ['a face that is none', { ...ana, levels: { A1: { lines: [{ ...ana.levels.A1.lines[0], face: 'grin' }, ...ana.levels.A1.lines.slice(1)] } } }, 'levels.A1.lines[0].face: "grin" is no face (faces: happy, laugh,'],
+    // whom the learner answers at a turn (to): someone who speaks in it, and only on a turn
+    ['a turn answered by someone who isn\'t in it', { ...ana, levels: { A1: { lines: [ana.levels.A1.lines[0], { ...ana.levels.A1.lines[1], to: 'n-nobody' }, ana.levels.A1.lines[2]] } } }, 'levels.A1.lines[1].to: "n-nobody" isn\'t someone who speaks in it'],
+    ['a to on a spoken line', { ...ana, levels: { A1: { lines: [{ ...ana.levels.A1.lines[0], to: 'n-ana-furlan' }, ...ana.levels.A1.lines.slice(1)] } } }, 'to is a learner\'s turn\'s'],
   ]
   for (const [label, arrival, mention] of refused) {
     const r = await client.callTool({ name: 'publish_arrival', arguments: { arrival } })
     check(`publish_arrival refuses ${label}`, !!r.isError && text(r).includes(mention), text(r))
   }
   check('an arrival checked alone (no village known) lets its speakers be', validateArrival(ana).ok)
+  check('a turn may name whom the learner answers (to), one who speaks in it', validateArrival({ ...ana, levels: { A1: { lines: [ana.levels.A1.lines[0], { ...ana.levels.A1.lines[1], to: 'n-ana-furlan' }, ana.levels.A1.lines[2]] } } }).ok)
   const pub = await client.callTool({ name: 'publish_arrival', arguments: { arrival: ana, note: 'Ana has her own welcome now' } })
   check('publish_arrival publishes a newcomer\'s introduction', !pub.isError && text(pub).includes('published the arrival of n-ana-furlan (A1)'), text(pub))
   const served = await (await fetch(`${base}/arrivals`, { headers: auth })).json()

@@ -1782,12 +1782,13 @@ export function corpus(input: {
       return x?.includes('{') ? undefined : x
     }
     for (const d of s.dialogs) {
-      let speaker: VoiceName = 'female' // a reply comes from whoever spoke last
+      let speaker: VoiceName = 'female' // a reply comes from the one the turn names (to), else whoever spoke last
       for (const l of d.lines) {
         if (l.who) {
           speaker = voices.get(l.who) ?? 'female'
           add(said(l), src, SCENES, speaker)
         }
+        if (l.choices.length && l.to) speaker = voices.get(l.to) ?? speaker
         for (const ch of l.choices) {
           choice(said(ch), src)
           add(said(ch.reply), src, SCENES, speaker)
@@ -1833,8 +1834,8 @@ export function corpus(input: {
     }
   }
   // the cast's arrivals, as a scene's dialog: each line (the late one too, said instead of the first) in its speaker's
-  // voice, a reply in the voice of whoever spoke last, the learner's choices in the default one; a line of someone not in
-  // the cast (a resident in a tutor's arrival) is voiced when played
+  // voice, a reply in the voice of the one the turn names, else whoever spoke last, the learner's choices in the default one;
+  // a line of someone not in the cast (a resident in a tutor's arrival) is voiced when played
   for (const a of c.arrivals ?? []) {
     const src = `arrival:${a.id}`
     const say = (t: Partial<Record<string, unknown>> | undefined) => {
@@ -1849,6 +1850,8 @@ export function corpus(input: {
           speaker = villagerVoice.get(l.who)
           if (speaker) add(say(l), src, SCENES, speaker)
         }
+        // a turn that names whom the learner answers (Zala, welcomed after Micka's aside): her reply in her voice
+        if (l.choices?.length && l.to) speaker = villagerVoice.get(l.to)
         for (const ch of l.choices ?? []) {
           choice(say(ch), src)
           if (speaker) add(say(ch.reply), src, SCENES, speaker)
@@ -1871,6 +1874,7 @@ export function corpus(input: {
           speaker = villagerVoice.get(l.who) ?? 'female'
           add(say(l), src, SCENES, speaker)
         }
+        if (l.choices.length && l.to) speaker = villagerVoice.get(l.to) ?? speaker
         for (const ch of l.choices) {
           choice(say(ch), src)
           add(say(ch.reply), src, SCENES, speaker)

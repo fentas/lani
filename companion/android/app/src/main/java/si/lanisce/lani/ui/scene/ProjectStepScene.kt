@@ -74,8 +74,8 @@ fun ProjectStepScene(vm: AppViewModel, talk: SceneTalk) {
     var micOn by remember { mutableStateOf(false) }
     // drawn talking while the line is heard; the learner's own first, in their voice (SceneScreen's dialog)
     val talking = rememberDialogVoice(vm.speaker, talk) { who -> who to (speakers[who]?.voice ?: voice) }
-    // whom the learner answers: whoever spoke last (the leader at first)
-    val facing = talk.run.said.lastOrNull { it.who != null }?.who ?: talk.person.id
+    // whom the learner answers: the one a turn names, else whoever spoke last (the leader at first)
+    val facing = talk.run.facing ?: talk.person.id
     val facingArt = step.cast.firstOrNull { it.id == facing }?.art
     val look = rememberPartnerLook(talk.run, talking != null && talking == facing, micOn, facing, child = facingArt?.startsWith("child") == true)
     // an age's party (companion/GAME.md "Ages and their celebrations"): all the village on a festive stage, its music as it begins
