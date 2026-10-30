@@ -39,24 +39,35 @@ lock and ports, so two QA runs go at once:
    inside slot 1's lock already (`flock /tmp/lani-emulator.lock companion/bin/qa-slot …`: an ancestor holds the lock's
    file open) takes slot 1 without waiting for itself.
 3. **The run.** qa gets the slot's `ANDROID_SERIAL`, `LANI_DEV_PORT`, `LANI_DEV_TOWN_PORT`, `LANI_TUTOR_MOCK_PORT`,
-   `LANI_QA_NOBODY_PORT` and `LANI_QA_SLOT` (slot 2 also `LANI_QA_READ_ONLY=1`). Its screenshots go to
+   `LANI_QA_NOBODY_PORT` and `LANI_QA_SLOT`. Its screenshots go to
    `companion/qa-shots/<time>/` (slot 2: `<time>-slot2/`).
 4. **After it**, also after Ctrl-C, a timeout's SIGTERM (passed on to qa as a Ctrl-C, so qa stops its bridges) or a
    failure: slot 2's emulator is stopped (`adb emu kill`, then its processes), the slot's dev bridges that qa left
    listening are stopped (only processes with the slot's `LANI_QA_SLOT` in their environment), and the lock is freed.
    The exit code is qa's; 75 when no slot came free within `LANI_QA_WAIT_S` (6 hours).
 
-**Slot 2's emulator.** qa starts an emulator that isn't running on its serial's console port (`-port 5556`), read-only
-(`-read-only`: its changes go to temporary files and are thrown away) when another instance of the AVD runs or
-`LANI_QA_READ_ONLY=1`, its output in the run's `emulator.log`, and waits up to 420 s for its boot
-(`LANI_QA_BOOT_S`). Before a run, an emulator on 5556 that a dead run left (its marker, `/tmp/lani-emulator-2.lock.run.json`,
-names a process that is gone) is stopped; one that no qa-slot started is left alone, and slot 2 isn't used then.
+**Every QA emulator read-only.** The brief had the second instance read-only. The emulator refuses that beside a
+writable first one: "Another emulator instance is running. Please close it or run all emulators with -read-only flag"
+(the first slot-2 run, 2026-10-30). So qa starts every instance of the QA AVD read-only (`-read-only`: its changes go to
+temporary files and are thrown away). Nothing is lost: QA's emulators save no snapshot (`-no-snapshot-save`), so every
+boot is the AVD's saved state again, read-only or not. `LANI_QA_WRITABLE=1` starts it writable, alone, to change the
+AVD on purpose. qa starts an emulator that isn't running on its serial's console port (`-port 5556`), its output in the
+run's `emulator.log`, and waits up to 420 s for its boot (`LANI_QA_BOOT_S`).
+
+**The switch.** The slot-1 emulator that ran when this merged was started by the old qa, writable. While it runs, slot 2
+stays closed, and qa-slot says why and what to do: once slot 1 is free, stop it
+(`flock /tmp/lani-emulator.lock adb -s emulator-5554 emu kill`); the next run starts it read-only. An old qa (a branch
+from before) starting a writable slot-1 emulator while slot 2 runs is refused by the emulator in the same way: rebase.
+
+**Slot 2's emulator** runs for one run. Before a run, an emulator on 5556 that a dead run left (its marker,
+`/tmp/lani-emulator-2.lock.run.json`, names a process that is gone) is stopped; one that no qa-slot started is left
+alone, and slot 2 isn't used then.
 
 **What changed in qa for it.**
 
 - `ANDROID_SERIAL` defaults to `emulator-5554`. With two emulators running, adb without `-s` refuses ("more than one
   device/emulator"), which would have broken every `flock … companion/bin/qa` the moment slot 2 ran.
-- `--build-only`, `LANI_QA_GRADLE_NO_DAEMON`, `LANI_QA_BOOT_S`, `LANI_QA_READ_ONLY`, `LANI_QA_SLOT`.
+- `--build-only`, `LANI_QA_GRADLE_NO_DAEMON`, `LANI_QA_BOOT_S`, `LANI_QA_WRITABLE`, `LANI_QA_SLOT`.
 - `shadow-tutor` taps the panel's "The mock (10.0.2.2:8771)" as before, then types the slot's mock over it (the app's
   button names slot 1's port). The other mock steps set it through QA's hooks already.
 - qa and qa-slot refuse the adb server on 5038 (a real tablet's).

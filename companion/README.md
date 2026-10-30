@@ -4789,7 +4789,7 @@ takes qa's options and runs it on the first free of two slots:
 | Slot | Lock | Emulator | Dev bridge | Second town | Tutor mock | Setup's unreachable port |
 |---|---|---|---|---|---|---|
 | 1 | `/tmp/lani-emulator.lock` | `emulator-5554`, the QA AVD, left running | 8791 | 8797 | 8771 | 19601 |
-| 2 | `/tmp/lani-emulator-2.lock` | `emulator-5556`, a second instance of the same AVD, read-only: started for the run and stopped after it, only while 14 GB are available (`LANI_QA_MIN_GB`) | 8781 | 8787 | 8761 | 19611 |
+| 2 | `/tmp/lani-emulator-2.lock` | `emulator-5556`, a second instance of the same AVD: started for the run and stopped after it, only while 14 GB are available (`LANI_QA_MIN_GB`) | 8781 | 8787 | 8761 | 19611 |
 
 - **The build first.** Unless `--no-build` or `--apk`, it builds the APK before it waits for a slot, so no emulator
   waits for Gradle: once 14 GB are available, in one of the machine's heavy slots (`/tmp/lani-heavy-slot1.lock` to 3,
@@ -4799,9 +4799,12 @@ takes qa's options and runs it on the first free of two slots:
   lock while it waits. Slot 1 first (its emulator runs already), slot 2 when memory allows. It prints what it waits for.
 - **The old lock still works.** `flock /tmp/lani-emulator.lock companion/bin/qa …` waits for slot 1 as before, and
   qa-slot never takes slot 1 while that lock is held. On its own, qa uses slot 1's emulator and ports.
-- **Slot 2's emulator** is started by qa (`-port 5556 -read-only`: its changes are thrown away) and stopped by qa-slot
-  after the run, also after Ctrl-C, a timeout's SIGTERM or a failure. One that a dead run left is stopped; one nobody
-  here started is left alone, and slot 2 isn't used.
+- **Every QA emulator is read-only** (`-read-only`): two instances of an AVD run at once only when each one is. Nothing
+  is lost, since QA's emulators save no snapshot anyway (`LANI_QA_WRITABLE=1`: writable, alone, to change the AVD). A
+  slot-1 emulator started writable by an older qa keeps slot 2 closed until it is stopped once (qa-slot says how).
+- **Slot 2's emulator** is started by qa (`-port 5556`) and stopped by qa-slot after the run, also after Ctrl-C, a
+  timeout's SIGTERM or a failure. One that a dead run left is stopped; one nobody here started is left alone, and
+  slot 2 isn't used.
 - `--slot 1|2` takes only that slot (`talk-mic` needs an emulator that qa starts itself: `--slot 2`). The exit code
   is qa's; 75 when no slot came free within 6 hours (`LANI_QA_WAIT_S`). Never through the adb server on 5038 (a real
   tablet's): qa and qa-slot refuse it.

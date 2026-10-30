@@ -30,7 +30,7 @@ _loader.exec_module(qs)
 FAKE_QA = """#!/usr/bin/env python3
 import json, os, sys
 keys = ("ANDROID_SERIAL", "LANI_DEV_PORT", "LANI_DEV_TOWN_PORT", "LANI_TUTOR_MOCK_PORT", "LANI_QA_NOBODY_PORT", "LANI_QA_SLOT",
-        "LANI_QA_READ_ONLY", "LANI_QA_GRADLE_NO_DAEMON")
+        "LANI_QA_GRADLE_NO_DAEMON")
 with open(os.environ["FAKE_QA_LOG"], "a") as f:
     f.write(json.dumps({"args": sys.argv[1:], "env": {k: os.environ.get(k) for k in keys}}) + "\\n")
 sys.exit(int(os.environ.get("FAKE_QA_EXIT", "0")))
@@ -80,9 +80,8 @@ class SlotsTest(unittest.TestCase):
         self.assertEqual((8791, 8797, 8771), one.ports)
         # what qa reads: slot 2 read-only, slot 1 as qa always ran
         self.assertEqual({"ANDROID_SERIAL": "emulator-5556", "LANI_DEV_PORT": "8781", "LANI_DEV_TOWN_PORT": "8787",
-                          "LANI_TUTOR_MOCK_PORT": "8761", "LANI_QA_NOBODY_PORT": "19611", "LANI_QA_SLOT": "2",
-                          "LANI_QA_READ_ONLY": "1"}, two.env())
-        self.assertNotIn("LANI_QA_READ_ONLY", one.env())
+                          "LANI_TUTOR_MOCK_PORT": "8761", "LANI_QA_NOBODY_PORT": "19611", "LANI_QA_SLOT": "2"}, two.env())
+        self.assertTrue(two.ephemeral and not one.ephemeral)
 
     def test_the_slot_ports_are_the_bridges_reserved_ones(self):
         learners = (Path(__file__).resolve().parents[1] / "bridge/src/learners.ts").read_text()
@@ -107,7 +106,7 @@ class MachineTest(unittest.TestCase):
 
     def test_memory_and_slot_2(self):
         two = qs.slots({})[1]
-        with mock.patch.dict(os.environ, {"LANI_QA_MEMINFO": self.meminfo(20.5)}):
+        with mock.patch.dict(os.environ, {"LANI_QA_MEMINFO": self.meminfo(20.5)}), mock.patch.object(qs, "emulators", lambda: []):
             self.assertAlmostEqual(20.5, qs.available_gb(), places=3)
             with mock.patch.object(qs, "SDK", self.tmp):
                 (self.tmp / "emulator").mkdir()
@@ -192,7 +191,7 @@ class RunTest(unittest.TestCase):
         self.env.start()
         self.addCleanup(self.env.stop)
         for patch in (mock.patch.object(qs, "QA", fake), mock.patch.object(qs, "SDK", self.tmp),
-                      mock.patch.object(qs, "emulator_pids", lambda console: []), mock.patch.object(qs, "adb", lambda *a, **k: ""),
+                      mock.patch.object(qs, "emulators", lambda: []), mock.patch.object(qs, "adb", lambda *a, **k: ""),
                       mock.patch.object(qs, "cleanup_ports", lambda slot, keep_bridge: None)):
             patch.start()
             self.addCleanup(patch.stop)
@@ -208,7 +207,6 @@ class RunTest(unittest.TestCase):
         self.assertEqual(["--steps", "home", "--no-build"], r["args"])
         self.assertEqual("emulator-5554", r["env"]["ANDROID_SERIAL"])
         self.assertEqual("8791", r["env"]["LANI_DEV_PORT"])
-        self.assertIsNone(r["env"]["LANI_QA_READ_ONLY"])
 
     def test_slot_2_while_slot_1_is_held_its_emulator_stopped_after(self):
         holder = hold(os.environ["LANI_QA_EMULATOR_LOCK"])
@@ -220,8 +218,8 @@ class RunTest(unittest.TestCase):
         finally:
             release(holder)
         (r,) = self.runs()
-        self.assertEqual(("emulator-5556", "8781", "8787", "8761", "2", "1"),
-                         tuple(r["env"][k] for k in ("ANDROID_SERIAL", "LANI_DEV_PORT", "LANI_DEV_TOWN_PORT", "LANI_TUTOR_MOCK_PORT", "LANI_QA_SLOT", "LANI_QA_READ_ONLY")))
+        self.assertEqual(("emulator-5556", "8781", "8787", "8761", "2"),
+                         tuple(r["env"][k] for k in ("ANDROID_SERIAL", "LANI_DEV_PORT", "LANI_DEV_TOWN_PORT", "LANI_TUTOR_MOCK_PORT", "LANI_QA_SLOT")))
         self.assertEqual([(2, "the run is over")], stopped)
         self.assertFalse(Path(os.environ["LANI_QA_EMULATOR_LOCK_2"] + ".run.json").exists(), "the run's marker gone")
         # both locks free again (the holder's gone): taken without waiting
@@ -243,7 +241,7 @@ class RunTest(unittest.TestCase):
     def test_an_emulator_nobody_here_started_keeps_slot_2_closed(self):
         holder = hold(os.environ["LANI_QA_EMULATOR_LOCK"])
         try:
-            with mock.patch.object(qs, "emulator_pids", lambda console: [4242] if console == 5556 else []), \
+            with mock.patch.object(qs, "emulators", lambda: [(4242, 5556, True)]), \
                     mock.patch.dict(os.environ, {"LANI_QA_WAIT_S": "1"}):
                 self.assertEqual(75, qs.take_and_run([2], ["--no-build"]))
         finally:
@@ -257,6 +255,22 @@ class RunTest(unittest.TestCase):
         self.assertEqual(["--build-only", "--minified"], build["args"])
         self.assertEqual("1", build["env"]["LANI_QA_GRADLE_NO_DAEMON"])
         self.assertEqual(["--minified", "--steps", "home", "--no-build"], run["args"])
+
+    def test_a_writable_emulator_from_before_keeps_slot_2_closed_and_says_how_to_open_it(self):
+        two = qs.slots({})[1]
+        with mock.patch.object(qs, "emulators", lambda: [(111, 5554, False)]):
+            why = qs.usable(two)
+        self.assertIn("emulator-5554 runs writable", why)
+        self.assertIn("adb -s emulator-5554 emu kill", why)
+        with mock.patch.object(qs, "emulators", lambda: [(111, 5554, True)]):
+            self.assertIsNone(qs.usable(two), "beside a read-only one: open")
+        holder = hold(os.environ["LANI_QA_EMULATOR_LOCK"])
+        try:
+            with mock.patch.object(qs, "emulators", lambda: [(111, 5554, False)]), mock.patch.dict(os.environ, {"LANI_QA_WAIT_S": "1"}):
+                self.assertEqual(75, qs.take_and_run([2], ["--no-build"]))
+        finally:
+            release(holder)
+        self.assertEqual([], self.runs())
 
     def test_never_the_tablets_adb_server(self):
         with mock.patch.dict(os.environ, {"ANDROID_ADB_SERVER_PORT": "5038"}):

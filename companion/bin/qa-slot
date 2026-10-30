@@ -73,7 +73,6 @@ class Slot:
             "LANI_TUTOR_MOCK_PORT": str(self.mock),
             "LANI_QA_NOBODY_PORT": str(self.nobody),
             "LANI_QA_SLOT": str(self.n),
-            **({"LANI_QA_READ_ONLY": "1"} if self.ephemeral else {}),
         }
 
     @property
@@ -324,8 +323,9 @@ def build(args: list[str]) -> int:
 
 # --- slot 2's emulator ------------------------------------------------------------------------------------------------
 
-def emulator_pids(console: int) -> list[int]:
-    """The emulator processes (qemu, and the launcher if it's still there) serving console port [console]."""
+def emulators() -> list[tuple[int, int, bool]]:
+    """The emulator processes running (qemu, and the launcher while it's there): (pid, console port, read-only). An
+    emulator started without -port has the first one, 5554."""
     out = []
     for d in os.listdir("/proc"):
         if not d.isdigit():
@@ -334,12 +334,22 @@ def emulator_pids(console: int) -> list[int]:
             argv = Path(f"/proc/{d}/cmdline").read_bytes().split(b"\0")
         except OSError:
             continue
-        if not argv or not any(b"emulator" in a or b"qemu-system" in a for a in argv[:1]):
+        if not argv or not (argv[0].endswith(b"/emulator") or b"qemu-system" in argv[0]) or b"-avd" not in argv:
             continue
-        for i, a in enumerate(argv[:-1]):
-            if a == b"-port" and argv[i + 1] == str(console).encode():
-                out.append(int(d))
+        port = next((argv[i + 1] for i, a in enumerate(argv[:-1]) if a == b"-port"), b"5554")
+        out.append((int(d), int(port) if port.isdigit() else 5554, b"-read-only" in argv))
     return out
+
+
+def emulator_pids(console: int) -> list[int]:
+    """The emulator processes serving console port [console]."""
+    return [pid for pid, port, _ in emulators() if port == console]
+
+
+def writable_beside(slot: Slot) -> int | None:
+    """The console port of an emulator running writable beside [slot]'s (none may: two instances of an AVD start only
+    when every one is read-only), or None. qa starts its emulators read-only; one started before that is writable."""
+    return next((port for _, port, ro in emulators() if not ro and port != slot.console), None)
 
 
 def adb(*args: str, timeout=30) -> str:
@@ -462,6 +472,10 @@ def usable(slot: Slot) -> str | None:
             return f"waits for {min_gb():.0f} GB available (now {available_gb():.1f})"
         if not (SDK / "emulator/emulator").exists():
             return f"no emulator in {SDK}"
+        if (port := writable_beside(slot)) is not None:
+            return (f"emulator-{port} runs writable (started before qa made its emulators read-only), and an AVD's second "
+                    f"instance starts only beside read-only ones: once slot {1 if port == 5554 else '?'} is free, stop it "
+                    f"(flock /tmp/lani-emulator.lock adb -s emulator-{port} emu kill), and the next run starts it read-only")
     return None
 
 
