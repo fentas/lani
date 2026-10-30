@@ -157,10 +157,11 @@ class ScreenStackTest {
         compose.mainClock.advanceTimeByFrame()
         assertEquals("its first frames as it was", first, now)
         assertTrue("away a moment longer", away)
+        // then, the moment over (SHOWN_SETTLE_MS of frames), the time now
+        compose.mainClock.advanceTimeBy(SHOWN_SETTLE_MS + 200)
         compose.mainClock.autoAdvance = true
-        // then, the moment over (SHOWN_SETTLE_MS), the time now
-        compose.waitUntil(timeoutMillis = 5_000) { !away }
         compose.waitForIdle()
+        assertFalse("not away any more", away)
         assertTrue("then the time now: $first, then $now", now > first)
     }
 
@@ -175,8 +176,13 @@ class ScreenStackTest {
         compose.runOnIdle { covered = true }
         compose.waitForIdle()
         assertEquals("nor while covered", first, at)
+        compose.mainClock.autoAdvance = false
         compose.runOnIdle { covered = false }
-        compose.waitUntil(timeoutMillis = 5_000) { at != first }
+        compose.mainClock.advanceTimeByFrame()
+        assertEquals("its first frames as it was", first, at)
+        compose.mainClock.advanceTimeBy(SHOWN_SETTLE_MS + 200)
+        compose.mainClock.autoAdvance = true
+        compose.waitForIdle()
         assertTrue("a moment after it shows again: $first, then $at", at > first)
     }
 
