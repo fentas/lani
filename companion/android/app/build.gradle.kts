@@ -655,6 +655,8 @@ dependencies {
     implementation(libs.quickjs.kt)
     testImplementation(libs.quickjs.kt.jvm)
     testImplementation(libs.junit)
+    // virtual time for coroutines (runTest): a debounce tested on the test's own clock, not the machine's
+    testImplementation(libs.kotlinx.coroutines.test)
     // a fake GitHub API and relay for the data's sync and backup (sync/*Test)
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.icu4j)

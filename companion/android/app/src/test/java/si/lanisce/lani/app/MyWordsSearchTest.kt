@@ -2,7 +2,9 @@ package si.lanisce.lani.app
 
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.runCurrent
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -15,20 +17,31 @@ import java.io.IOException
  * The search of "📚 Moje besede · My words" (app/MyWordsSearch.kt): the dictionary asked a moment after the typing stops
  * for a word that isn't one of the learner's (GET /lookup), what it found, nothing found, offline or an older node; a
  * newer search drops the one under way; none for one of theirs.
+ *
+ * On the test scheduler's virtual time (runTest): the debounce and the test's waits are on one clock that only the
+ * test moves. With runBlocking and real delays, a thread stalled for more than 120 ms (a garbage collection or a page
+ * fault under load, in the full suite) between the test's wait and the debounce's start let the wait end first, and
+ * the first test found nothing asked.
  */
 class MyWordsSearchTest {
     private val words = listOf(MyWord("v_hisa", "hiša", "house", true), MyWord("v_pes", "pes", "dog", true))
     private val entry = { lemma: String, known: Boolean -> WordEntry(lemma, "noun", listOf("dog"), known = known) }
 
-    @Test fun `a word not theirs is looked up after the typing stops, what the dictionary has shown`() = runBlocking {
+    @Test fun `a word not theirs is looked up after the typing stops, what the dictionary has shown`() = runTest {
         val asked = mutableListOf<String>()
         val s = MyWordsSearch(this, { w -> asked += w; WordLookup(w, listOf(entry("mačka", false))) }, debounceMs = 30)
         s.type("ma", words)
         s.type("mač", words)
         s.type("mačka", words)
         assertTrue(s.look is DictionaryLook.Looking)
-        delay(150)
-        assertEquals(listOf("mačka"), asked) // only once the typing rested
+        // not before the typing has rested for the debounce, then once, for the last word
+        advanceTimeBy(29)
+        runCurrent()
+        assertEquals(emptyList<String>(), asked)
+        assertTrue(s.look is DictionaryLook.Looking)
+        advanceTimeBy(2)
+        runCurrent()
+        assertEquals(listOf("mačka"), asked)
         val found = s.look as DictionaryLook.Found
         assertEquals("mačka", found.word)
         assertEquals(listOf("mačka"), found.entries.map { it.lemma })
@@ -40,7 +53,7 @@ class MyWordsSearchTest {
         assertTrue(s.look is DictionaryLook.Found)
     }
 
-    @Test fun `one of theirs is not looked up - the list has it - a form of theirs is (the dictionary names its word)`() = runBlocking {
+    @Test fun `one of theirs is not looked up - the list has it - a form of theirs is (the dictionary names its word)`() = runTest {
         val asked = mutableListOf<String>()
         val s = MyWordsSearch(this, { w -> asked += w; WordLookup(w, listOf(entry("hiša", true))) }, debounceMs = 0)
         s.type("hisa", words)
@@ -55,7 +68,7 @@ class MyWordsSearchTest {
         assertEquals("", s.query)
     }
 
-    @Test fun `nothing found, offline, an older node - each said as it is`() = runBlocking {
+    @Test fun `nothing found, offline, an older node - each said as it is`() = runTest {
         val none = MyWordsSearch(this, { w -> WordLookup(w) }, debounceMs = 0)
         none.type("xyzzy", words)
         delay(40)
@@ -70,7 +83,7 @@ class MyWordsSearchTest {
         assertEquals(DictionaryLook.Unavailable, older.look)
     }
 
-    @Test fun `a newer search drops the one under way - what shows is the last word's`() = runBlocking {
+    @Test fun `a newer search drops the one under way - what shows is the last word's`() = runTest {
         val gate = CompletableDeferred<Unit>()
         val s = MyWordsSearch(this, { w ->
             if (w == "kruh") gate.await()
