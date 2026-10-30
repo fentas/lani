@@ -19,6 +19,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -431,43 +432,52 @@ fun ExerciseRun(
                 )
             }
         }
-        Row(Modifier.weight(1f).fillMaxWidth()) {
-            Column(Modifier.weight(1f).fillMaxHeight()) {
-                Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))
-                if (before != null && outcomes.isEmpty() && outcome == null) before()
-                if (text != null) PeekButton(peeking, Modifier.padding(top = 8.dp)) {
-                    // a look counts while the question is open; after its answer, the text is there to check, free
-                    if (!peeking && outcome == null) onLook()
-                    peeking = !peeking
-                }
-                Box(Modifier.weight(1f)) {
-                    // the question stays under the text (what was typed is kept), out of TalkBack's way while it's covered
-                    Column(
-                        Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(vertical = 16.dp)
-                            .then(if (peeking) Modifier.clearAndSetSemantics { } else Modifier),
-                    ) {
-                        key(index) {
-                            ExerciseView(vm, moduleId, index, exercises[index], locked = outcome != null, done = answered, adapted = adapted, onStep = { steps = it })
+        // under the question (upright), the card leaves the question its first lines at least ([FeedbackPlace.QUESTION_MIN_DP]):
+        // a long explanation scrolls in the card rather than covering the sentence just answered
+        BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+            val room = maxHeight
+            Column(Modifier.fillMaxSize()) {
+                Row(Modifier.weight(1f).fillMaxWidth()) {
+                    Column(Modifier.weight(1f).fillMaxHeight()) {
+                        Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(top = 8.dp))
+                        if (before != null && outcomes.isEmpty() && outcome == null) before()
+                        if (text != null) PeekButton(peeking, Modifier.padding(top = 8.dp)) {
+                            // a look counts while the question is open; after its answer, the text is there to check, free
+                            if (!peeking && outcome == null) onLook()
+                            peeking = !peeking
+                        }
+                        Box(Modifier.weight(1f)) {
+                            // the question stays under the text (what was typed is kept), out of TalkBack's way while it's covered
+                            Column(
+                                Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(vertical = 16.dp)
+                                    .then(if (peeking) Modifier.clearAndSetSemantics { } else Modifier),
+                            ) {
+                                key(index) {
+                                    ExerciseView(vm, moduleId, index, exercises[index], locked = outcome != null, done = answered, adapted = adapted, onStep = { steps = it })
+                                }
+                            }
+                            if (peeking && text != null) Surface(
+                                color = MaterialTheme.colorScheme.surface, tonalElevation = 3.dp, shadowElevation = 6.dp, shape = MaterialTheme.shapes.large,
+                                modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
+                            ) {
+                                Column(Modifier.verticalScroll(rememberScrollState()).padding(4.dp)) {
+                                    Paper { ReadFirstText(vm, text) }
+                                }
+                            }
                         }
                     }
-                    if (peeking && text != null) Surface(
-                        color = MaterialTheme.colorScheme.surface, tonalElevation = 3.dp, shadowElevation = 6.dp, shape = MaterialTheme.shapes.large,
-                        modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
-                    ) {
-                        Column(Modifier.verticalScroll(rememberScrollState()).padding(4.dp)) {
-                            Paper { ReadFirstText(vm, text) }
-                        }
+                    if (beside) AnimatedVisibility(outcome != null, enter = slideInHorizontally { it } + fadeIn(), modifier = Modifier.fillMaxHeight()) {
+                        Box(
+                            Modifier.width(FeedbackPlace.width(config.screenWidthDp).dp).fillMaxHeight().padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
+                            contentAlignment = Alignment.BottomCenter,
+                        ) { feedback(true) }
                     }
                 }
-            }
-            if (beside) AnimatedVisibility(outcome != null, enter = slideInHorizontally { it } + fadeIn(), modifier = Modifier.fillMaxHeight()) {
-                Box(
-                    Modifier.width(FeedbackPlace.width(config.screenWidthDp).dp).fillMaxHeight().padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
-                    contentAlignment = Alignment.BottomCenter,
-                ) { feedback(true) }
+                if (!beside) AnimatedVisibility(outcome != null, enter = slideInVertically { it }) {
+                    Box(Modifier.heightIn(max = (room - FeedbackPlace.QUESTION_MIN_DP.dp).coerceAtLeast(FeedbackPlace.CARD_MIN_DP.dp))) { feedback(false) }
+                }
             }
         }
-        if (!beside) AnimatedVisibility(outcome != null, enter = slideInVertically { it }) { feedback(false) }
     }
     }
 }
@@ -486,6 +496,12 @@ internal object FeedbackPlace {
     const val MIN_WIDE_DP = 720
     const val MIN_DP = 340
     const val MAX_DP = 520
+
+    /** Under the question, what the card leaves it at least: its title, its instruction and the sentence asked. */
+    const val QUESTION_MIN_DP = 140
+
+    /** The card's own least height under the question (its title, a line, its buttons), on the smallest screen. */
+    const val CARD_MIN_DP = 220
 }
 
 /** Where a timed run's clock is: its sounds getting ready, counting 3, 2, 1, or running. */
@@ -1167,7 +1183,8 @@ private fun TutorGradedEx(
 /**
  * An answer's feedback card: right, almost or not quite, the right answer and what was typed against it, the sentence to
  * hear, the tutor's word and the why, "💬 Vprašaj" and "Naprej". Under the question its middle scrolls in at most 45 % of
- * the screen; [side] (beside the question, [FeedbackPlace]) in the height there is, its buttons kept in view.
+ * the screen and in what the question leaves it; [side] (beside the question, [FeedbackPlace]) in the height there is; its
+ * buttons always in view.
  */
 @Composable
 private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -> Unit, next: () -> Unit, book: @Composable () -> Unit = {}, side: Boolean = false) {
@@ -1190,8 +1207,8 @@ private fun Feedback(vm: AppViewModel, o: Outcome, slovene: String?, onAsk: () -
                 ExText(styled, remember(styled, look) { look?.taps?.explanation(styled.text, styled.emphasized()).orEmpty() }, m, style = style, tag = "explain")
             }
             Column(
-                Modifier.then(if (side) Modifier.weight(1f, fill = false) else Modifier.heightIn(max = (LocalConfiguration.current.screenHeightDp * 0.45f).dp))
-                    .verticalScroll(rememberScrollState()),
+                Modifier.then(if (side) Modifier else Modifier.heightIn(max = (LocalConfiguration.current.screenHeightDp * 0.45f).dp))
+                    .weight(1f, fill = false).verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 if (o.hints > 0 && o.verdict != Verdict.WRONG) {
