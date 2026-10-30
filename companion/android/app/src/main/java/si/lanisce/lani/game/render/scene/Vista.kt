@@ -390,7 +390,9 @@ internal abstract class VistaPainter : ArtPainter() {
         val dark = if (env.snow) Pal.SNOW_D else Col.scale(g[2], 0.62f)
         val mid = if (env.snow) Pal.SNOW_M else Col.scale(g[2], 0.8f)
         val d = detail
-        for (x in max(max(0, from), c.left) until min(min(w, to), c.right)) {
+        // the blades just outside a window that lean into it in the wind count too (at most 3 px a detail at a full gale)
+        val lean = 3 * d + 1
+        for (x in max(max(0, from), c.left - lean) until min(min(w, to), c.right + lean)) {
             val n = Noise.rnd(x, seed)
             if (n < 0.35f) continue
             val bladeH = ((4 + Noise.rnd(x, seed + 1) * 9) * d).toInt()
