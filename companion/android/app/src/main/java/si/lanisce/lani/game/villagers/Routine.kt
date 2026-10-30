@@ -356,17 +356,24 @@ object Routine {
             o("spot:riverbank", Doing.WASH, 0.5f, AFTERNOON), o("market", Doing.CHAT, 0.5f, MORNING), o("well", Doing.CHAT, 0.5f, AFTERNOON or EVENING, max = 60),
             o("neighbour", Doing.CHAT, 0.4f, DAY, min = 30, max = 60), o("forest", Doing.GATHER, 0.4f, DAY, months = PICKING),
             o("home", Doing.SIT, 0.8f, EVENING), o("lipa", Doing.SIT, 0.4f, AFTERNOON or EVENING), o("fire", Doing.WARM, 0.5f, EVENING),
+            // the village's places once built: fresh flowers at the wayside chapel, a seat in the bee meadow
+            o("project:kapelica", Doing.STAND, 0.3f, MORNING, min = 30, max = 50), o("project:cebelji_travnik", Doing.SIT, 0.3f, AFTERNOON, min = 30, max = 60),
         )
         Kind.GRANDPA -> listOf(
             o("lipa", Doing.SIT, 1.0f, ALL), o("spot:pond", Doing.FISH, 0.7f, DAY), o("spot:woodpile", Doing.CHOP, 0.4f, MORNING),
             o("home", Doing.MEND, 0.6f, DAY), o("home", Doing.SIT, 0.6f, AFTERNOON or EVENING), o("well", Doing.CHAT, 0.5f, AFTERNOON or EVENING),
             o("neighbour", Doing.CHAT, 0.3f, DAY, min = 30, max = 60), o("forest", Doing.GATHER, 0.3f, DAY, months = 8..10), o("fire", Doing.WARM, 0.4f, EVENING),
+            // a game of bocce in the afternoon once the court is built; on the bench under the town clock
+            o("project:balinisce", Doing.CHAT, 0.9f, AFTERNOON, max = 90), o("project:mestna_ura", Doing.SIT, 0.3f, MORNING or AFTERNOON, max = 50),
         )
         Kind.STORYTELLER -> listOf(
             o("lipa", Doing.SIT, 1.3f, ALL), o("spot:pond", Doing.FISH, 0.6f, DAY), o("spot:highseat", Doing.WATCH, 0.3f, MORNING, max = 60),
             o("well", Doing.CHAT, 0.5f, AFTERNOON), o("school", Doing.STAND, 0.3f, AFTERNOON, max = 50), o("home", Doing.SIT, 0.4f, AFTERNOON),
             o("home", Doing.MEND, 0.5f, DAY), o("neighbour", Doing.CHAT, 0.3f, DAY, min = 30, max = 60), o("forest", Doing.GATHER, 0.3f, DAY, months = 8..10),
             o("fire", Doing.WARM, 0.8f, EVENING),
+            // his afternoons at the bocce court, raking its sand in the morning (Na balinišču); the lookout's hundred steps
+            o("project:balinisce", Doing.CHAT, 0.9f, AFTERNOON, max = 90), o("project:balinisce", Doing.SWEEP, 0.2f, MORNING, min = 30, max = 45),
+            o("project:razgledni_stolp", Doing.WATCH, 0.2f, AFTERNOON, max = 45),
         )
         Kind.AUNT -> listOf(
             o("home", Doing.SIT, 0.5f, ALL), o("home", Doing.HANG, 0.7f, MORNING, min = 30, max = 60), o("home", Doing.BEAT, 0.4f, DAY, min = 30, max = 50),
@@ -374,11 +381,16 @@ object Routine {
             o("well", Doing.CHAT, 0.8f, DAY), o("neighbour", Doing.CHAT, 0.6f, DAY, min = 30, max = 60), o("spot:road", Doing.WATCH, 0.4f, DAY, max = 60),
             o("market", Doing.CHAT, 0.6f, MORNING), o("church", Doing.STAND, 0.3f, MORNING, max = 50), o("spot:pond", Doing.FISH, 0.2f, AFTERNOON),
             o("forest", Doing.GATHER, 0.4f, DAY, months = PICKING), o("fire", Doing.WARM, 0.4f, EVENING),
+            // the wayside chapel's flowers in the morning and its candles at dusk; a word under the town clock
+            o("project:kapelica", Doing.STAND, 0.5f, MORNING, min = 30, max = 50), o("project:kapelica", Doing.STAND, 0.5f, EVENING, min = 30, max = 50),
+            o("project:mestna_ura", Doing.CHAT, 0.3f, DAY, min = 30, max = 50),
         )
         Kind.SHEPHERD -> listOf(
             o("spot:meadow", Doing.TEND, 2.5f, DAY, max = 120), o("spot:meadow", Doing.FEED, 0.5f, DAY, min = 30, max = 60),
             o("spot:meadow", Doing.SIT, 0.6f, AFTERNOON or EVENING), o("spot:pond", Doing.FISH, 0.3f, AFTERNOON),
             o("spot:woodpile", Doing.CHOP, 0.4f, MORNING), o("forest", Doing.GATHER, 0.3f, DAY, months = PICKING), o("fire", Doing.WARM, 0.6f, EVENING),
+            // the flock to the water over the cart bridge; the fire brigade's pump drill on a summer afternoon
+            o("project:most", Doing.TEND, 0.4f, MORNING or AFTERNOON, max = 50), o("project:gasilski_dom", Doing.TEND, 0.3f, AFTERNOON, max = 50, months = 4..10),
         )
         Kind.FARMER -> listOf(
             // the field, the hay taken to the kozolec now and then; the mill on the stream once it grinds (the farmer is the miller)
@@ -386,32 +398,47 @@ object Routine {
             o("kozolec", Doing.TEND, 0.8f, DAY, max = 60), o("spot:riverbank", Doing.STAND, 0.4f, MORNING, max = 50),
             o("spot:woodpile", Doing.CHOP, 0.4f, DAY), o("home", Doing.FEED, 0.3f, MORNING, min = 30, max = 50), o("home", Doing.MEND, 0.4f, EVENING),
             o("home", Doing.SIT, 0.4f, EVENING), o("well", Doing.CHAT, 0.4f, EVENING), o("fire", Doing.WARM, 0.4f, EVENING),
+            // the hay into the double hayrack in its months, the field's hay taken there; the cart over the new bridge
+            o("project:toplar", Doing.TEND, 0.8f, DAY, errand = "field" to "project:toplar", max = 90, months = 6..9),
+            o("project:most", Doing.STAND, 0.3f, MORNING, min = 30, max = 45),
         )
         Kind.SMITH -> listOf(
             o("smithy", Doing.HAMMER, 3f, DAY, max = 120), o("spot:woodpile", Doing.CHOP, 0.5f, DAY), o("spot:rocks", Doing.CHOP, 0.3f, MORNING),
             o("home", Doing.SWEEP, 0.2f, MORNING, min = 30, max = 45), o("well", Doing.CHAT, 0.4f, EVENING), o("smithy", Doing.SIT, 0.5f, EVENING),
             o("fire", Doing.WARM, 0.5f, EVENING),
+            // the fire station's hoses and its pump; the fountain's pipes he forged, the town clock he winds
+            o("project:gasilski_dom", Doing.TEND, 0.6f, AFTERNOON, max = 60), o("project:vodnjak_na_trgu", Doing.TEND, 0.3f, MORNING, min = 30, max = 45),
+            o("project:mestna_ura", Doing.TEND, 0.2f, MORNING, min = 30, max = 40),
         )
         Kind.BEEKEEPER -> listOf(
             o("beehive", Doing.TEND, 2.5f, DAY, max = 110), o("spot:meadow", Doing.STAND, 0.5f, MORNING, max = 50), o("spot:pond", Doing.FISH, 0.5f, AFTERNOON),
             o("forest", Doing.GATHER, 0.4f, DAY, months = 6..9), o("home", Doing.MEND, 0.3f, AFTERNOON), o("lipa", Doing.SIT, 0.5f, EVENING),
             o("fire", Doing.WARM, 0.4f, EVENING),
+            // the bee meadow in its months; a game of bocce on a summer evening
+            o("project:cebelji_travnik", Doing.TEND, 1.0f, DAY, max = 90, months = 4..9), o("project:balinisce", Doing.CHAT, 0.4f, EVENING, max = 60, months = 5..9),
         )
         Kind.WINEMAKER -> listOf(
             o("market", Doing.CHAT, 1.5f, ALL), o("field", Doing.HOE, 0.6f, MORNING), o("spot:road", Doing.WATCH, 0.3f, AFTERNOON, max = 50),
             o("well", Doing.CHAT, 0.5f, AFTERNOON or EVENING), o("spot:woodpile", Doing.CHOP, 0.4f, DAY), o("home", Doing.SWEEP, 0.3f, MORNING, min = 30, max = 45),
             o("neighbour", Doing.CHAT, 0.4f, DAY, min = 30, max = 60), o("forest", Doing.GATHER, 0.3f, DAY, months = 8..10), o("fire", Doing.WARM, 0.6f, EVENING),
+            // pouring at the bocce court's table, polishing the fire station's helmets
+            o("project:balinisce", Doing.CHAT, 0.6f, AFTERNOON or EVENING, max = 60), o("project:gasilski_dom", Doing.TEND, 0.2f, AFTERNOON, max = 40),
         )
         Kind.INNKEEPER -> listOf(
             o("market", Doing.CHAT, 2f, ALL), o("market", Doing.CHAT, 0.8f, MORNING, errand = "water" to "market", max = 60),
             o("home", Doing.SWEEP, 0.5f, MORNING, min = 30, max = 50), o("home", Doing.HANG, 0.5f, MORNING, min = 30, max = 60),
             o("home", Doing.BEAT, 0.4f, DAY, min = 30, max = 50), o("home", Doing.HOE, 0.4f, AFTERNOON), o("home", Doing.FEED, 0.3f, DAY, min = 30, max = 50),
             o("neighbour", Doing.CHAT, 0.4f, DAY, min = 30, max = 60), o("well", Doing.CHAT, 0.4f, AFTERNOON), o("fire", Doing.WARM, 0.4f, EVENING),
+            // showing the guests the view from the lookout tower
+            o("project:razgledni_stolp", Doing.STAND, 0.5f, AFTERNOON, max = 60),
         )
         Kind.TEACHER -> listOf(
             o("school", Doing.STAND, 1.5f, DAY), o("lipa", Doing.SIT, 0.8f, AFTERNOON or EVENING), o("well", Doing.CHAT, 0.6f, AFTERNOON or EVENING),
             o("spot:meadow", Doing.STAND, 0.3f, AFTERNOON, max = 50), o("home", Doing.MEND, 0.4f, AFTERNOON or EVENING),
             o("neighbour", Doing.CHAT, 0.3f, DAY, min = 30, max = 60), o("fire", Doing.WARM, 0.4f, EVENING),
+            // on the bench by the playground after school; telling the time under the town clock; at the fountain
+            o("project:igrisce", Doing.SIT, 0.6f, AFTERNOON, max = 60), o("project:mestna_ura", Doing.STAND, 0.3f, AFTERNOON, min = 30, max = 45),
+            o("project:vodnjak_na_trgu", Doing.CHAT, 0.2f, AFTERNOON, min = 30, max = 45),
         )
         Kind.HUNTER -> listOf(
             o("spot:highseat", Doing.WATCH, 2f, ALL, max = 120), o("spot:path", Doing.WATCH, 0.6f, DAY, max = 60), o("spot:pond", Doing.FISH, 0.3f, AFTERNOON),
@@ -423,6 +450,11 @@ object Routine {
             o("home", Doing.PLAY, 0.3f, MORNING, errand = "spot:woodpile" to "home", min = 30, max = 50), o("home", Doing.FEED, 0.4f, DAY, min = 30, max = 45),
             o("spot:meadow", Doing.FEED, 0.3f, DAY, min = 30, max = 45), o("forest", Doing.GATHER, 0.5f, DAY, min = 30, max = 60, months = PICKING),
             o("fire", Doing.WARM, 0.5f, EVENING),
+            // the village's places once built: the playground most of all, the fountain on hot days, the trout under the
+            // cart bridge, the bee meadow's flowers, the maypole while it stands
+            o("project:igrisce", Doing.PLAY, 1.2f, ALL, min = 30, max = 70), o("project:vodnjak_na_trgu", Doing.PLAY, 0.4f, AFTERNOON, min = 30, max = 45, months = 6..8),
+            o("project:most", Doing.STAND, 0.2f, AFTERNOON, min = 30, max = 40, months = 5..9), o("project:cebelji_travnik", Doing.PLAY, 0.2f, AFTERNOON, min = 30, max = 40, months = 4..9),
+            o("project:mlaj", Doing.PLAY, 0.4f, AFTERNOON or EVENING, min = 30, max = 45),
         )
         Kind.ADULT -> listOf(
             o("home", Doing.HOE, 0.8f, DAY), o("field", Doing.HOE, 0.8f, DAY), o("spot:woodpile", Doing.CHOP, 0.7f, DAY),
@@ -516,7 +548,7 @@ object Routine {
      */
     fun stints(v: Villager, plan: Plan, state: GameState, date: LocalDate, home: TownPlace, day: Day = Day()): List<Stint> {
         village(state, date, day)?.stints?.get(v.id)?.let { return it }
-        val key = StintKey(v.id, System.identityHashCode(v), plan, state.seed, state.buildings, date, home)
+        val key = StintKey(v.id, System.identityHashCode(v), plan, state.seed, state.buildings, placesOf(state), date, home)
         synchronized(days) { days[key] }?.let { return it }
         return stintsOf(v, plan, state, date, home).also { synchronized(days) { days[key] = it } }
     }
@@ -526,7 +558,17 @@ object Routine {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<StintKey, List<Stint>>?) = size > 512
     }
 
-    private data class StintKey(val id: String, val v: Int, val plan: Plan, val seed: Long, val buildings: List<si.lanisce.lani.game.Building>, val date: LocalDate, val home: TownPlace)
+    private data class StintKey(
+        val id: String, val v: Int, val plan: Plan, val seed: Long, val buildings: List<si.lanisce.lani.game.Building>, val places: Set<String>,
+        val date: LocalDate, val home: TownPlace,
+    )
+
+    /**
+     * The village's projects whose landmark stands ([TownMarkers.has]: finished, not down for the season), part of what a
+     * day is worked out from: a place to go to once built (the bocce court, the mill), as the buildings are.
+     */
+    private fun placesOf(state: GameState): Set<String> =
+        si.lanisce.lani.game.Catalog.projects.filter { si.lanisce.lani.game.Projects.standing(state, it) }.map { it.id }.toSet()
 
     /** Lunch: from half past twelve to ten past one. */
     private const val LUNCH = 12 * 60 + 30
@@ -677,7 +719,7 @@ object Routine {
     private class VillagePlan(val stints: Map<String, List<Stint>>, val sitters: Set<String>)
 
     private data class VillageKey(
-        val seed: Long, val buildings: List<si.lanisce.lani.game.Building>, val date: LocalDate, val people: List<List<Any?>>,
+        val seed: Long, val buildings: List<si.lanisce.lani.game.Building>, val places: Set<String>, val date: LocalDate, val people: List<List<Any?>>,
         val homes: Map<String, TownPlace>, val tellers: Map<String, String>, val calls: Map<String, TownPlace>,
     )
 
@@ -687,7 +729,8 @@ object Routine {
 
     /** The last village worked out, by the very inputs (the map asks for it many times a frame). */
     private class LastVillage(
-        val people: List<Villager>, val seed: Long, val buildings: List<si.lanisce.lani.game.Building>, val date: LocalDate,
+        val people: List<Villager>, val seed: Long, val buildings: List<si.lanisce.lani.game.Building>, val projects: Map<String, Int>,
+        val down: Set<String>, val date: LocalDate,
         val homes: Map<String, TownPlace>, val tellers: Map<String, String>, val calls: Map<String, TownPlace>, val plan: VillagePlan,
     )
 
@@ -705,12 +748,12 @@ object Routine {
     private fun village(state: GameState, date: LocalDate, day: Day): VillagePlan? {
         if (day.people.isEmpty()) return null
         lastVillage?.let { l ->
-            if (l.people === day.people && l.seed == state.seed && l.buildings === state.buildings && l.date == date && l.homes === day.homes &&
-                l.tellers === day.tellers && l.calls === day.calls) return l.plan
+            if (l.people === day.people && l.seed == state.seed && l.buildings === state.buildings && l.projects === state.projects &&
+                l.down === state.landmarksDown && l.date == date && l.homes === day.homes && l.tellers === day.tellers && l.calls === day.calls) return l.plan
         }
-        val key = VillageKey(state.seed, state.buildings, date, day.people.map { listOf(it.id, it.art, it.home, it.routine, it.sleeps) }, day.homes, day.tellers, day.calls)
+        val key = VillageKey(state.seed, state.buildings, placesOf(state), date, day.people.map { listOf(it.id, it.art, it.home, it.routine, it.sleeps) }, day.homes, day.tellers, day.calls)
         val plan = synchronized(villages) { villages[key] } ?: villageOf(state, date, day).also { synchronized(villages) { villages[key] = it } }
-        lastVillage = LastVillage(day.people, state.seed, state.buildings, date, day.homes, day.tellers, day.calls, plan)
+        lastVillage = LastVillage(day.people, state.seed, state.buildings, state.projects, state.landmarksDown, date, day.homes, day.tellers, day.calls, plan)
         return plan
     }
 

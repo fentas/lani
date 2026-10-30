@@ -339,4 +339,50 @@ class RoutineTest {
         assertNull(n.ritual)
         assertFalse(n.place == TownPlace.At(WATCHTOWER))
     }
+
+    /** The village's places, every one finished (the Primorska village's projects). */
+    private val places = listOf("balinisce", "igrisce", "kapelica", "gasilski_dom", "cebelji_travnik", "toplar", "most", "mestna_ura", "vodnjak_na_trgu", "razgledni_stolp")
+
+    private fun built(s: GameState = town()) = s.copy(projects = si.lanisce.lani.game.Catalog.projectFrames.filter { it.id in places }.associate { it.id to it.steps.size })
+
+    @Test fun `once the village's places are built, their people go there in their day, and never before`() {
+        val s = built()
+        val d = day(s)
+        fun share(id: String, place: TownPlace, dates: List<LocalDate>, from: Int = 6, to: Int = 21): Double = dates.map { date ->
+            var n = 0; var hit = 0; var m = from * 60.0
+            while (m < to * 60) { n++; if (Routine.now(v(id), s, date, m, date.monthValue, d).place == place) hit++; m += 5 }
+            hit.toDouble() / n
+        }.average()
+        val june = (0 until 14).map { summer.plusDays(it.toLong()) }
+        // Stari Janez's afternoons at the bocce court, the children at the playground, Anton in the bee meadow, Teta Ančka at
+        // the chapel, Tone at the fire station, France at the double hayrack in the hay months, Vida up the lookout
+        assertTrue(share("janez", TownPlace.Landmark("balinisce"), june) > 0.04)
+        for (c in listOf("zala", "nejc", "tine")) assertTrue(c, share(c, TownPlace.Landmark("igrisce"), june) > 0.05)
+        assertTrue(share("anton", TownPlace.Landmark("cebelji_travnik"), june) > 0.08)
+        assertTrue(share("ancka", TownPlace.Landmark("kapelica"), june) > 0.02)
+        assertTrue(share("tone", TownPlace.Landmark("gasilski_dom"), june) > 0.02)
+        assertTrue(share("france", TownPlace.Landmark("toplar"), june) > 0.04)
+        assertTrue(share("vida", TownPlace.Landmark("razgledni_stolp"), june) > 0.02)
+        // the work stays first
+        assertTrue(share("tone", TownPlace.At(SMITHY), june) > share("tone", TownPlace.Landmark("gasilski_dom"), june))
+        // without them, nobody goes to a place the village hasn't built
+        val none = town()
+        val dn = day(none)
+        for (date in june) for (p in primorska) {
+            var m = 6 * 60.0
+            while (m < 21 * 60) {
+                val pl = Routine.now(p, none, date, m, date.monthValue, dn).place
+                assertFalse("${p.id} at $pl", pl is TownPlace.Landmark)
+                m += 15
+            }
+        }
+        // the map and the scenes see the same day: someone at a place is in its scene, at their spot (Na igrišču's children)
+        val igrisce = scenes.first { it.id == "na-igriscu" }
+        val kids = (6 * 60 until 21 * 60 step 5).firstNotNullOfOrNull { m ->
+            val at = summer.atStartOfDay().plusMinutes(m.toLong())
+            Whereabouts.inScene(igrisce, s, primorska, at, d).takeIf { it.isNotEmpty() }
+        }
+        assertNotNull("someone at the playground in the day", kids)
+        assertTrue(kids!!.all { p -> igrisce.people.any { it.id == p.id && it.slot == p.slot } })
+    }
 }
