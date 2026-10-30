@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.data.CaseChoice
+import si.lanisce.lani.data.CaseLens
 import si.lanisce.lani.data.CaseRead
 import si.lanisce.lani.data.CaseRow
 import si.lanisce.lani.data.ask
@@ -88,7 +89,7 @@ fun caseLine(line: String, read: CaseRead?, row: CaseRow?): AnnotatedString {
 fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
     val main = row.case
     val accent = main?.color() ?: MaterialTheme.colorScheme.primary
-    val why = whyLine(row, read)
+    val why = CaseLens.why(row, read)
     val title = when (row.state) {
         CaseRow.State.GOVERNS -> null
         else -> main?.let { CaseNames.bi(it, row.number, gender = row.gender) }
@@ -97,7 +98,7 @@ fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
         bi("caseLens.title"),
         when (row.state) {
             CaseRow.State.AMBIGUOUS -> "${inBase("caseLens.ambiguous")}: " + row.options.joinToString(", ") { spokenName(it) }
-            CaseRow.State.GOVERNS -> row.governs.joinToString(", ") { (ref, c) -> governsText(c, wordAt(read, ref)) }
+            CaseRow.State.GOVERNS -> row.governs.joinToString(", ") { (ref, c) -> CaseLens.governs(c, wordAt(read, ref)) }
             else -> main?.let {
                 "${spokenName(CaseChoice(it, row.number ?: "sg", row.gender))}, ${it.ask}" +
                     if (row.state == CaseRow.State.LIKELY) " (${bi("caseLens.likely")}); ${bi("caseLens.alsoForm")}: " + row.options.drop(1).joinToString(", ") { o -> spokenName(o) } else ""
@@ -126,7 +127,7 @@ fun CaseRowView(vm: AppViewModel, row: CaseRow, read: CaseRead) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Dot(c.color())
                         Spacer(Modifier.width(8.dp))
-                        Text(governsText(c, wordAt(read, ref)), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, color = c.color())
+                        Text(CaseLens.governs(c, wordAt(read, ref)), style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold, color = c.color())
                     }
                 }
                 else -> if (main != null && title != null) {
@@ -188,73 +189,8 @@ private fun spokenName(o: CaseChoice): String {
     return CaseNames.name(o.case, o.number, L10n.pair.target, short = false) + " · " + CaseNames.name(o.case, o.number, base, short = false)
 }
 
-/** "Zahteva rodilnik: «mleka» · Takes the genitive: «mleka»". */
-private fun governsText(c: Case, word: String): String {
-    val pair = L10n.pair
-    val t = L10n.text(pair.target, "caseLens.governs", mapOf("case" to L10n.text(pair.target, c.key), "word" to word))
-    val b = L10n.text(pair.base, "caseLens.governs", mapOf("case" to L10n.text(pair.base, c.key), "word" to word))
-    return if (t == b) t else "$t · $b"
-}
-
 /** "Ujema se z «hišo» · Agrees with «hišo»": z or s by the word's first sound (s before p, t, k, f, h, c, č, s, š). */
 private fun agreesText(word: String): String = bi("caseLens.agrees", "word" to word, "zs" to if (word.lowercase().firstOrNull()?.let { it in "ptkfhcčsš" } == true) "s" else "z")
-
-/**
- * What decided the case, in one line, the target's then the base's: a preposition (with its sense: kam? kje? kdaj?),
- * a negation, a quantity or a number from five, a verb or a word of feeling, a copula, the subject's or the object's
- * verb, a call, the noun it belongs to, a time, a phrase, a fused pronoun, its ending alone. None when nothing can say.
- */
-private fun whyLine(row: CaseRow, read: CaseRead): Pair<String, String>? {
-    if (row.state == CaseRow.State.GOVERNS) return null
-    val word = read.trigger?.word.orEmpty()
-    val case = row.case
-    val key = when (row.kind) {
-        "preposition" -> "caseLens.whyPreposition"
-        "negation" -> "caseLens.whyNegation"
-        "quantity" -> "caseLens.whyQuantity"
-        "number" -> "caseLens.whyNumber"
-        "verb" -> if (read.trigger?.lemma != null) "caseLens.whyVerb" else "caseLens.whyVerbForm"
-        "predicate" -> "caseLens.whyPredicate"
-        "copula" -> "caseLens.whyCopula"
-        "predicative" -> "caseLens.whyPredicative"
-        "subject" -> if (word.isNotEmpty()) "caseLens.whySubject" else "caseLens.whySubjectAlone"
-        "object" -> if (word.isNotEmpty()) "caseLens.whyObject" else "caseLens.whyObjectAlone"
-        "address" -> "caseLens.whyAddress"
-        "attribute" -> "caseLens.whyAttribute"
-        "time" -> "caseLens.whyTime"
-        "phrase" -> "caseLens.whyPhrase"
-        "fused" -> "caseLens.whyFused"
-        else -> when (case) {
-            Case.DAT -> "caseLens.whyFormDative"
-            Case.GEN -> "caseLens.whyFormGenitive"
-            Case.NOM -> "caseLens.whyFormNominative"
-            else -> "caseLens.whyForm"
-        }
-    }
-    if (row.state == CaseRow.State.AMBIGUOUS && row.kind != "preposition" && row.kind != "negation") return null
-    val pair = L10n.pair
-    val say = { lang: Lang ->
-        val args = mapOf("word" to word, "lemma" to (read.trigger?.lemma ?: ""), "case" to (case?.let { L10n.text(lang, it.key) } ?: ""))
-        val sense = row.sense?.let { senseKey(it) }?.let { " (${L10n.text(lang, it)})" }.orEmpty()
-        L10n.text(lang, key, args) + if (row.kind == "preposition") sense else ""
-    }
-    return say(pair.target) to say(pair.base)
-}
-
-/** A preposition's sense, said as the school asks it: kam?, kje?, kdaj? … */
-private fun senseKey(sense: String): String? = when (sense) {
-    "motion" -> "caseLens.senseMotion"
-    "rest" -> "caseLens.senseRest"
-    "time" -> "caseLens.senseTime"
-    "with" -> "caseLens.senseWith"
-    "from" -> "caseLens.senseFrom"
-    "for" -> "caseLens.senseFor"
-    "about" -> "caseLens.senseAbout"
-    "after" -> "caseLens.senseAfter"
-    "towards" -> "caseLens.senseTowards"
-    "fetch" -> "caseLens.senseFetch"
-    else -> null
-}
 
 /** The colours' legend, under the toggle: each case's colour, name and questions; dotted for a word the line can't tell. */
 @Composable

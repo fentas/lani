@@ -7,6 +7,8 @@ import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import si.lanisce.lani.game.Case
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.ui.words.WordToken
 import si.lanisce.lani.ui.words.WordTokens
 
@@ -197,6 +199,75 @@ object CaseLens {
     fun casesBody(lines: List<String>) = buildJsonObject { put("lines", buildJsonArray { lines.forEach { add(JsonPrimitive(it)) } }) }
 
     fun parseCases(raw: String): CasesAnswer = json.decodeFromString(CasesAnswer.serializer(), raw)
+
+    /**
+     * What decided the case, in one line, the target's then the base's (the word card's row and the sentence's grammar
+     * say the same): a preposition (with its sense: kam? kje? kdaj?), a negation, a quantity or a number from five, a
+     * verb or a word of feeling (an adjective with a case: poln vode), a copula, the subject's or the object's verb, a
+     * call, the noun it belongs to, a time, the genitive of time (leta 1844, nekega dne), a phrase, a fused pronoun, its
+     * ending alone. None when nothing can say (an ambiguous word, a trigger tapped).
+     */
+    fun why(row: CaseRow, read: CaseRead): Pair<String, String>? {
+        if (row.state == CaseRow.State.GOVERNS) return null
+        val word = read.trigger?.word.orEmpty()
+        val case = row.case
+        val key = when (row.kind) {
+            "preposition" -> "caseLens.whyPreposition"
+            "negation" -> "caseLens.whyNegation"
+            "quantity" -> "caseLens.whyQuantity"
+            "number" -> "caseLens.whyNumber"
+            "verb" -> if (read.trigger?.lemma != null) "caseLens.whyVerb" else "caseLens.whyVerbForm"
+            // a word of feeling (všeč mi je: who feels it), or an adjective that takes a case (poln vode)
+            "predicate" -> if (row.rule == "custva") "caseLens.whyPredicate" else "caseLens.whyTakes"
+            "copula" -> "caseLens.whyCopula"
+            "predicative" -> "caseLens.whyPredicative"
+            "subject" -> if (word.isNotEmpty()) "caseLens.whySubject" else "caseLens.whySubjectAlone"
+            "object" -> if (word.isNotEmpty()) "caseLens.whyObject" else "caseLens.whyObjectAlone"
+            "address" -> "caseLens.whyAddress"
+            "attribute" -> "caseLens.whyAttribute"
+            "time" -> "caseLens.whyTime"
+            "when" -> "caseLens.whyWhen"
+            "phrase" -> "caseLens.whyPhrase"
+            "fused" -> "caseLens.whyFused"
+            else -> when (case) {
+                Case.DAT -> "caseLens.whyFormDative"
+                Case.GEN -> "caseLens.whyFormGenitive"
+                Case.NOM -> "caseLens.whyFormNominative"
+                else -> "caseLens.whyForm"
+            }
+        }
+        if (row.state == CaseRow.State.AMBIGUOUS && row.kind != "preposition" && row.kind != "negation") return null
+        val pair = L10n.pair
+        val say = { lang: Lang ->
+            val args = mapOf("word" to word, "lemma" to (read.trigger?.lemma ?: ""), "case" to (case?.let { L10n.text(lang, it.key) } ?: ""))
+            val sense = row.sense?.let { senseKey(it) }?.let { " (${L10n.text(lang, it)})" }.orEmpty()
+            L10n.text(lang, key, args) + if (row.kind == "preposition") sense else ""
+        }
+        return say(pair.target) to say(pair.base)
+    }
+
+    /** A preposition's sense, said as the school asks it: kam?, kje?, kdaj? … */
+    fun senseKey(sense: String): String? = when (sense) {
+        "motion" -> "caseLens.senseMotion"
+        "rest" -> "caseLens.senseRest"
+        "time" -> "caseLens.senseTime"
+        "with" -> "caseLens.senseWith"
+        "from" -> "caseLens.senseFrom"
+        "for" -> "caseLens.senseFor"
+        "about" -> "caseLens.senseAbout"
+        "after" -> "caseLens.senseAfter"
+        "towards" -> "caseLens.senseTowards"
+        "fetch" -> "caseLens.senseFetch"
+        else -> null
+    }
+
+    /** "Zahteva rodilnik: «mleka» · Takes the genitive: «mleka»": what a tapped trigger decides, in both languages. */
+    fun governs(c: Case, word: String): String {
+        val pair = L10n.pair
+        val t = L10n.text(pair.target, "caseLens.governs", mapOf("case" to L10n.text(pair.target, c.key), "word" to word))
+        val b = L10n.text(pair.base, "caseLens.governs", mapOf("case" to L10n.text(pair.base, c.key), "word" to word))
+        return if (t == b) t else "$t · $b"
+    }
 
     /** The parts of speech whose gender the card shows (they agree in it). */
     private val GENDERED = setOf("adj", "det", "pron", "num")

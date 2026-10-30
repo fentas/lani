@@ -29,19 +29,25 @@ import androidx.compose.ui.unit.dp
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.app.SentenceCard
 import si.lanisce.lani.app.WordQuery
+import si.lanisce.lani.data.CaseLens
+import si.lanisce.lani.data.CaseRow
 import si.lanisce.lani.data.Words
 import si.lanisce.lani.game.SentenceGrammar
+import si.lanisce.lani.game.TurnHints
 import si.lanisce.lani.game.WordRow
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.LaniSheet
 import si.lanisce.lani.ui.Markdown
 import si.lanisce.lani.ui.SpeakButton
+import si.lanisce.lani.ui.cases.CaseNames
+import si.lanisce.lani.ui.cases.color
 
 /**
  * "🔍 Slovnica stavka · The sentence's grammar" (a long press on a dialog's line; companion/SCENES.md): the line with 🔊
- * and its translation, then each word: as written, its dictionary form and reading (a tap opens its card), why that form
- * where a rule knows ("after «v»: Kam? → 4. tožilnik"), and its page (📖, on a sheet over this one); the tutor's
+ * and its translation, then each word: as written, its dictionary form and reading (a tap opens its card), its case as
+ * the case lens reads it (the word card's row: "Kam? → 4. tožilnik · Po predlogu «v»: tožilnik"), and its page (📖, on a
+ * sheet over this one); the tutor's
  * explanation kept from an earlier question, and "💬 Vprašaj učitelja · Ask your tutor".
  */
 @Composable
@@ -85,17 +91,46 @@ fun SentenceSheet(vm: AppViewModel, card: SentenceCard) {
 
 /**
  * One word: as written, and its dictionary form, part of speech and reading ("krav → krava · samostalnik · noun —
- * genitive plural"; a tap opens its card); why that form, and a 📖 to its page.
+ * rodilnik, mn. · genitive, pl."; a tap opens its card). A word with a case shows what the case lens says of it, as
+ * its card's "🧩 Sklon · Case" row does: the case in its colour (likely, or the readings the line leaves), the question,
+ * what decided it (Slovene, then the base); a preposition what it decides; a verb who does it or its tense. A 📖 to its
+ * page.
  */
 @Composable
 private fun WordLine(vm: AppViewModel, row: WordRow, onWord: () -> Unit) {
+    val lens = row.why?.lens
+    val read = row.why?.read
     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.clickable(onClick = onWord).padding(horizontal = 12.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             val form = row.lemma?.takeIf { !it.equals(row.word, ignoreCase = true) }?.let { " → $it" }.orEmpty()
             Text(row.word + form, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            val parts = listOfNotNull(row.pos?.takeIf { it.isNotBlank() && it != "word" }?.let(::posLabel), row.reading?.takeIf { it.isNotBlank() }).joinToString(" — ")
-            if (parts.isNotEmpty()) Text(parts, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-            row.why?.let(SentenceGrammar::why)?.let { Text("👉 $it", style = MaterialTheme.typography.bodyMedium) }
+            val pos = row.pos?.takeIf { it.isNotBlank() && it != "word" }?.let(::posLabel)
+            val case = lens?.case?.takeIf { lens.state == CaseRow.State.DECIDED || lens.state == CaseRow.State.LIKELY }
+            when {
+                case != null -> Text(
+                    listOfNotNull(pos, CaseNames.bi(case, lens.number, gender = lens.gender) + if (lens.state == CaseRow.State.LIKELY) " · ${bi("caseLens.likely")}" else "").joinToString(" — "),
+                    style = MaterialTheme.typography.labelLarge, color = case.color(), fontWeight = FontWeight.SemiBold,
+                )
+                lens?.state == CaseRow.State.AMBIGUOUS -> Text(
+                    listOfNotNull(pos, "${bi("caseLens.ambiguous")}: " + lens.options.joinToString(", ") { CaseNames.bi(it.case, it.number, gender = it.gender) }).joinToString(" — "),
+                    style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary,
+                )
+                else -> listOfNotNull(pos, row.reading?.takeIf { it.isNotBlank() }).joinToString(" — ").takeIf { it.isNotEmpty() }?.let {
+                    Text(it, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+                }
+            }
+            val why = if (lens != null && read != null) CaseLens.why(lens, read) else null
+            when {
+                lens?.state == CaseRow.State.GOVERNS -> for ((ref, c) in lens.governs) Text("👉 ${CaseLens.governs(c, ref.word)}", style = MaterialTheme.typography.bodyMedium, color = c.color())
+                lens != null -> {
+                    row.why?.line?.let { Text("👉 ${TurnHints.caseLine(it)}", style = MaterialTheme.typography.bodyMedium) }
+                    why?.let { (target, base) ->
+                        Text(target, style = MaterialTheme.typography.bodyMedium)
+                        if (base != target) Text(base, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
+                else -> row.why?.let(SentenceGrammar::why)?.let { Text("👉 $it", style = MaterialTheme.typography.bodyMedium) }
+            }
             row.page?.let { id -> vm.grammar.page(id) }?.let { p ->
                 AssistChip(
                     onClick = { vm.grammar.show(p.id) },

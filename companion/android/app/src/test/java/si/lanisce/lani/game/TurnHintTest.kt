@@ -95,6 +95,31 @@ class TurnHintTest {
         assertEquals(listOf("where to: the accusative · kam? · za vrata, pod stol"), t.rows)
     }
 
+    @Test fun `the B1 pages have a rule of their own, never the turn's form`() {
+        // a turn of each page (none of the curated scenes names them yet): the rule in words, a model with other words
+        val turns = mapOf(
+            "sklanjatev-posebnosti" to (DialogChoice("Pomagam očetu.", ok = true) to wrong("Pomagam oču.", "sklanjatev-posebnosti")),
+            "dvojina-skloni" to (DialogChoice("Grem z dvema prijateljema.", ok = true) to wrong("Grem z dvema prijatelji.", "dvojina-skloni")),
+            "vid-casi" to (DialogChoice("Ne odpiraj okna!", ok = true) to wrong("Ne odpri okna!", "vid-casi")),
+            "dolocna-oblika" to (DialogChoice("Daj mi rdeči trak.", ok = true) to wrong("Daj mi rdeč trak.", "dolocna-oblika")),
+            "odvisniki" to (DialogChoice("Ostal sem doma, ker je deževalo.", ok = true) to wrong("Ostal sem doma, zato je deževalo.", "odvisniki")),
+        )
+        val keys = mapOf(
+            "sklanjatev-posebnosti" to "hint.ruleStems", "dvojina-skloni" to "hint.ruleDualCases", "vid-casi" to "hint.ruleAspectTenses",
+            "dolocna-oblika" to "hint.ruleDefinite", "odvisniki" to "hint.ruleClauses",
+        )
+        for ((id, turn) in turns) {
+            val h = TurnHints.of(DialogLine(choices = listOf(turn.first, turn.second)), "sl", page)!!
+            assertEquals(id, listOf(id), h.pages)
+            assertEquals(id, keys.getValue(id), h.rule)
+            assertTrue(id, h.models.isNotEmpty())
+            val t = TurnHints.text(h, page)
+            assertTrue(id, t.lines.isNotEmpty())
+            // nothing shown is the turn's own form
+            assertTrue(id, (t.lines + listOfNotNull(t.models)).all { TurnHints.fair(it, h) })
+        }
+    }
+
     @Test fun `a page the syllabus added, aspect, its questions and the rule`() {
         val caught = DialogLine(choices = listOf(DialogChoice("Ujel sem te!", ok = true), wrong("Lovil sem te!", "glagolski-vid")))
         val t = TurnHints.text(TurnHints.of(caught, "sl", page)!!, page)

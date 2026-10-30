@@ -118,6 +118,12 @@ object TurnHints {
         "oziralni-ki" to Rule(text = "hint.ruleKi", models = listOf("Človek, ki pride.", "Knjiga, ki jo berem.")),
         "odvisni-govor" to Rule(text = "hint.ruleReported", models = listOf("Rekel je, da pride.", "Rekla je, naj počakam.")),
         "vezniki" to Rule(text = "hint.ruleJoining", models = listOf("Doma sem, ker dežuje.", "Dežuje, zato sem doma.")),
+        // B1 (course-b1a's pages): stems that grow, the dual's cases, aspect in every tense, the definite form, clauses
+        "sklanjatev-posebnosti" to Rule(ALL, text = "hint.ruleStems", models = listOf("oče · očeta · z očetom", "dan · dneva · dnevi", "ime · imena", "pes · psa")),
+        "dvojina-skloni" to Rule(ALL, text = "hint.ruleDualCases", models = listOf("z dvema bratoma", "pri dveh sestrah", "dveh oken", "z obema rokama")),
+        "vid-casi" to Rule(question = "Kaj delam? Kaj naredim?", text = "hint.ruleAspectTenses", models = listOf("Odpri okno! · Ne odpiraj okna!", "Jutri bom pisal. · Jutri bom napisal pismo.", "Vsak dan je hodil. · Včeraj je šel.")),
+        "dolocna-oblika" to Rule(question = "Kateri? Kakšen?", text = "hint.ruleDefinite", models = listOf("Daj mi zeleni nož.", "Novi avto je moj.", "beli kruh · črna kava")),
+        "odvisniki" to Rule(text = "hint.ruleClauses", models = listOf("Doma sem, ker dežuje.", "Prišel sem, da bi ti pomagal.", "Čeprav je utrujen, pomaga.")),
     )
 
     /** A number and its noun, by the number's category (1, 2, 3–4, 5 and up): feminine, masculine, neuter. */

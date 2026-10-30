@@ -377,7 +377,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      */
     val dialogWords = si.lanisce.lani.app.DialogWordsController(content, forms, sync, game, home = { grammar.language })
     /** "🔍 Slovnica stavka · The sentence's grammar": a dialog line's words, their forms and why (a long press on it). */
-    val sentences = SentenceController(viewModelScope, node, chat, grammar)
+    val sentences = SentenceController(viewModelScope, node, chat, grammar, caseSeen = { caseTrainer.seen(it) })
     /** "📖 Branje · Reading": the reading corner's readings, and the reading practice reported to the node. */
     val readings = ReadingsController(app, viewModelScope, node, sync, game, notices, words::sourceFor)
     /** What the scene dialogs remember on this phone. */

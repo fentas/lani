@@ -14,6 +14,7 @@ import si.lanisce.lani.data.Bridge
 import si.lanisce.lani.data.SentenceWord
 import si.lanisce.lani.data.Sentences
 import si.lanisce.lani.data.VisitWorld
+import si.lanisce.lani.data.WordLookup
 import si.lanisce.lani.game.Forms
 import si.lanisce.lani.game.SentenceGrammar
 import si.lanisce.lani.game.WordReading
@@ -44,15 +45,17 @@ data class SentenceCard(val query: SentenceQuery, val rows: List<WordRow>, val l
 
 /**
  * "🔍 Slovnica stavka · The sentence's grammar" (companion/SCENES.md, "The sentence's grammar"): a line's words looked up
- * (GET /lookup, each in the line, as a word card does), explained by [SentenceGrammar], the tutor's kept explanation
- * (GET /sentence), and asking the tutor about the line (a chat with `about_sentence`). One [card] at a time; the sheet
- * shows it over any screen.
+ * (GET /lookup, each in the line, as a word card does: its reading and the case lens's answer, the same analysis the card
+ * shows), explained by [SentenceGrammar], the tutor's kept explanation (GET /sentence), and asking the tutor about the
+ * line (a chat with `about_sentence`). One [card] at a time; the sheet shows it over any screen. A look the lens counts
+ * as seen for its rule goes to the case trainer ([caseSeen]), as the word card's does.
  */
 class SentenceController(
     private val scope: CoroutineScope,
     private val bridge: () -> Bridge?,
     private val chat: ChatController,
     private val grammar: GrammarController,
+    private val caseSeen: (String) -> Unit = {},
 ) {
     var card by mutableStateOf<SentenceCard?>(null)
         private set
@@ -73,22 +76,27 @@ class SentenceController(
             var offline = b == null
             val readings: List<WordReading?> = if (b == null) emptyList() else {
                 val words = Forms.spans(q.sentence).map { it.value }
-                val found = coroutineScope {
-                    words.distinct().map { w ->
-                        async {
-                            w to try {
-                                b.lookup(w, q.sentence, q.en, language = language, meaningIn = meaningIn)?.entries?.firstOrNull()
-                                    ?.let { WordReading(it.lemma, it.pos, it.grammar) }
-                            } catch (e: CancellationException) {
-                                throw e
-                            } catch (e: Exception) {
-                                offline = true
-                                null
-                            }
-                        }
-                    }.awaitAll().toMap()
+                // each word's place among the same words (GET /lookup's n): the lens answers for that place
+                val nth = words.mapIndexed { i, w -> words.take(i).count { it.equals(w, ignoreCase = true) } }
+                suspend fun look(w: String, n: Int): WordLookup? = try {
+                    b.lookup(w, q.sentence, q.en, language = language, meaningIn = meaningIn, nth = n)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    offline = true
+                    null
                 }
-                words.map { found[it] }
+                // the first of each word, then the others of a word with a case (the lens may read them otherwise)
+                val first = coroutineScope { words.distinctBy { it.lowercase() }.map { w -> async { w.lowercase() to look(w, 0) } }.awaitAll().toMap() }
+                val more = coroutineScope {
+                    words.indices.filter { nth[it] > 0 && first[words[it].lowercase()]?.lens != null }
+                        .map { i -> async { i to look(words[i], nth[i]) } }.awaitAll().toMap()
+                }
+                words.indices.map { i ->
+                    val found = if (nth[i] > 0) more[i] ?: first[words[i].lowercase()]?.takeIf { it.lens == null } else first[words[i].lowercase()]
+                    found?.lens?.takeIf { it.seen }?.rule?.let(caseSeen)
+                    found?.entries?.firstOrNull()?.let { WordReading(it.lemma, it.pos, it.grammar, found.lens) }
+                }
             }
             val note = if (b == null) null else try {
                 b.sentenceNote(q.sentence, language, meaningIn)
