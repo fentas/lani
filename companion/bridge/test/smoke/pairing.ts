@@ -8,7 +8,7 @@ import { join, resolve } from 'node:path'
 import { loadConfig } from '../../src/config'
 import { cleanDeviceName, createPairingCode, fingerprintOf, loadBridgeKey, pairMessage } from '../../src/pairing'
 import { pickPort, portRange, type ProfileEntry } from '../../src/learners'
-import { auth, base, bridgeWhisper, check, client, culturesDir, curatedDir, dataDir, modulesDir, port, scenesDir, tempDir, token, guideOf } from './harness'
+import { auth, base, bridgeWhisper, check, client, culturesDir, dataDir, guideOf, italianPacksDir, modulesDir, port, scenesDir, tempDir, token } from './harness'
 
 const cliDir = resolve(import.meta.dir, '../../src/cli')
 const binDir = resolve(import.meta.dir, '../../../bin')
@@ -142,7 +142,7 @@ export default async function pairing() {
   // The second learner's bridge, started as that session's Claude Code would start it (without the harness's tokens).
   const env2: Record<string, string> = {}
   for (const [k, v] of Object.entries(process.env)) if (v !== undefined && !['LANI_BRIDGE_TOKEN', 'LANI_FAMILY_TOKEN'].includes(k)) env2[k] = v
-  Object.assign(env2, { LANI_PROFILE: 'luka', LANI_DATA_DIR: lukaData, LANI_BRIDGE_PORT: String(port2), LANI_CHILD: '1', LANI_CULTURE: 'friuli', LANI_LANDSCAPE: 'hills', LANI_CULTURES_DIR: culturesDir, LANI_RHYTHM: 'off', ELEVENLABS_API_KEY: '', LANI_PACKS_DIR: curatedDir, LANI_MODULES_DIR: modulesDir, LANI_SCENES_DIR: scenesDir, LANI_STT_URL: bridgeWhisper.url, LANI_GEPARD_URL: 'http://127.0.0.1:9' })
+  Object.assign(env2, { LANI_PROFILE: 'luka', LANI_DATA_DIR: lukaData, LANI_BRIDGE_PORT: String(port2), LANI_CHILD: '1', LANI_CULTURE: 'friuli', LANI_LANDSCAPE: 'hills', LANI_CULTURES_DIR: culturesDir, LANI_RHYTHM: 'off', ELEVENLABS_API_KEY: '', LANI_PACKS_DIR: italianPacksDir, LANI_MODULES_DIR: modulesDir, LANI_SCENES_DIR: scenesDir, LANI_STT_URL: bridgeWhisper.url, LANI_GEPARD_URL: 'http://127.0.0.1:9' })
   const client2 = new Client({ name: 'smoke-luka', version: '0' })
   await client2.connect(new StdioClientTransport({ command: 'bun', args: [resolve(import.meta.dir, '../../src/index.ts')], env: env2, stderr: 'inherit' }))
   await Bun.sleep(300)

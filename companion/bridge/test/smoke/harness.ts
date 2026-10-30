@@ -51,6 +51,12 @@ for (const f of readdirSync(templates).filter(f => f.endsWith('-template.json'))
 writeFileSync(join(dataDir, '.gitignore'), '# the smoke learner\n/app/bridge-token\n')
 // Curated packs come from a temp dir too, so the repo's companion/packs don't affect the checks.
 export const curatedDir = tempDir('lani-smoke-packs-')
+// The smoke's bridges of a learner of Italian (the towns' Luka and Mia, the pairing's Luka: Friuli villages) have the
+// Italian packs as the repo has them (companion/packs/it), where they look (packsDirs: <root>/it), as Teo's bridge has
+// them: their culture's scenes and stories name them (in-paese, cibo, famiglia, casa-e-cucina). A root of their own, so
+// Jan's bridge looks words up on a visit to Italy as before (test/smoke/lexicon.ts).
+export const italianPacksDir = tempDir('lani-smoke-packs-it-')
+cpSync(resolve(import.meta.dir, '../../../packs/it'), join(italianPacksDir, 'it'), { recursive: true })
 // Curated scenes too (test/smoke/scenes.ts writes them; the bridge reads them per request).
 export const scenesDir = tempDir('lani-smoke-scenes-')
 // Curated modules must exist before the bridge starts (they are loaded once).

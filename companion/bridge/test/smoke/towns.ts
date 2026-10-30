@@ -9,7 +9,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { loadBridgeKey } from '../../src/pairing'
 import { H, createInvite, festivalDay, inviteReach, localDate, parseInvite, publicState, responseMessage, signRequest, verifySigned, type FestivalRule } from '../../src/towns'
-import { auth, base, bridgeWhisper, channelEvents, check, client as janClient, culturesDir, curatedDir, dataDir, fam, modulesDir, port, profilesDir, scenesDir, tempDir } from './harness'
+import { auth, base, bridgeWhisper, channelEvents, check, client as janClient, culturesDir, dataDir, fam, italianPacksDir, modulesDir, port, profilesDir, scenesDir, tempDir } from './harness'
 import { townRequestChecks } from './town-requests'
 import { friendship } from './friendship'
 import { visitActs } from './guests'
@@ -37,7 +37,7 @@ async function startBridge(o: { profile: string; data: string; port: number; tok
   for (const [k, v] of Object.entries(process.env)) if (v !== undefined && !['LANI_BRIDGE_TOKEN', 'LANI_FAMILY_TOKEN'].includes(k)) env[k] = v
   Object.assign(env, {
     LANI_PROFILE: o.profile, LANI_DATA_DIR: o.data, LANI_BRIDGE_PORT: String(o.port), LANI_BRIDGE_TOKEN: o.token, LANI_CHILD: o.child ? '1' : '',
-    LANI_CULTURE: o.culture, LANI_CULTURES_DIR: culturesDir, LANI_RHYTHM: 'off', ELEVENLABS_API_KEY: '', LANI_VOICE_DESIGN: 'off', LANI_PACKS_DIR: curatedDir,
+    LANI_CULTURE: o.culture, LANI_CULTURES_DIR: culturesDir, LANI_RHYTHM: 'off', ELEVENLABS_API_KEY: '', LANI_VOICE_DESIGN: 'off', LANI_PACKS_DIR: italianPacksDir,
     LANI_MODULES_DIR: modulesDir, LANI_SCENES_DIR: scenesDir, LANI_STT_URL: bridgeWhisper.url, LANI_GEPARD_URL: 'http://127.0.0.1:9',
     LANI_TOWN_FRIEND_CACHE_MS: '0',
   }, o.env ?? {})

@@ -19,7 +19,7 @@ import { cultureSky, MOON_PHASES, SKY_FIGURES, SKY_SHOWERS, SKY_STARS } from '..
 import { cultureProjectSteps, cultureStepFiles, speakerGendered, stepTellings } from '../../src/project-steps'
 import { cultureCelebrationFiles, cultureCelebrations, partyTellings } from '../../src/celebrations'
 import { VillagerStore } from '../../src/villagers'
-import { auth, base, check, culturesDir, dataDir, fam, tempDir } from './harness'
+import { auth, base, check, culturesDir, dataDir, fam, italianPacksDir, tempDir } from './harness'
 import { JAN } from '../learner-content'
 
 const android = resolve(import.meta.dir, '../../../android/app/src/main/java/si/lanisce/lani/game')
@@ -40,6 +40,15 @@ export default async function cultures() {
     }
     const v = validateCulture(culturesDir, id, cast, refs)
     check(`culture pack validates, its people in its cast, its scenes' words in its packs: ${id}`, v.ok, !v.ok && v.errors)
+  }
+  // and with the packs the smoke's own bridges of an Italian learner have (the towns', the pairing's: italianPacksDir), as Teo's
+  // has them: its scenes and stories name the language's packs (in-paese, cibo, famiglia, casa-e-cucina), not only its own
+  {
+    const cast = new VillagerStore(join(culturesDir, 'friuli', 'villagers'), join(dataDir, 'unused-villagers-friuli-town')).all()
+    const packs = new PackStore(packsDirs(italianPacksDir, culturesDir, 'friuli', 'it'), join(dataDir, 'unused-packs-friuli-town')).all()
+    const scenarios = new ScenarioStore(join(repo, 'scenarios', 'it'), join(dataDir, 'unused-scenarios-friuli-town')).all()
+    const v = validateCulture(culturesDir, 'friuli', cast, { packs, scenarios })
+    check("a Friuli village of the smoke's bridges validates with their packs (no \"culture friuli has problems\")", v.ok, !v.ok && v.errors)
   }
 
   // --- every village's charcoal pile (world.json `spots.kopa`): its name and story in its language, its burner and his talk,
