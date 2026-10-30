@@ -1,0 +1,1090 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "dai-pompieri",
+  "language": "it",
+  "title": { "it": "Dai pompieri", "sl": "V gasilskem domu", "en": "At the fire station", "de": "Bei der Feuerwehr" },
+  "emoji": "🚒",
+  "level": "A1",
+  "review": "lines, reactions, variants (it, sl, en, de): machine-written, not reviewed by a native speaker; check: il tubo, la prova, Santa Barbara on 4 December, the 112",
+  "art": "firestation",
+  "from": ["project:gasilski_dom"],
+  "pack": "dai-pompieri",
+  "objects": [
+    { "slot": "pump", "word": "pompa" },
+    { "slot": "hose", "word": "tubo" },
+    { "slot": "helmet", "word": "elmo", "pack": "storie" },
+    { "slot": "axe", "word": "ascia", "pack": "al-fuoco" },
+    { "slot": "ladder", "word": "scala-a-pioli", "pack": "nel-mulino" },
+    { "slot": "bucket", "word": "secchio", "pack": "al-fuoco" },
+    { "slot": "bell", "word": "campana", "pack": "festa-pasqua" },
+    { "slot": "door", "word": "portone", "pack": "al-portone" },
+    { "slot": "tower", "word": "torre", "pack": "sulla-torre" },
+    { "slot": "uniform", "word": "divisa" },
+    { "slot": "flag", "word": "bandiera", "pack": "festa-patria-friuli" },
+    { "slot": "picture", "word": "quadro", "pack": "in-chiesa" },
+    { "slot": "bench", "word": "panca", "pack": "in-cucina" },
+    { "slot": "horn", "word": "corno", "pack": "sulla-torre" },
+    { "slot": "lantern", "word": "lanterna", "pack": "nella-tenda" },
+    { "slot": "window", "word": "finestra", "pack": "casa-e-cucina" }
+  ],
+  "people": [
+    { "id": "davide", "name": "Pastore Davide", "emoji": "🐑", "art": "shepherd", "slot": "pump", "villager": "davide" },
+    { "id": "bruno", "name": "Fabbro Bruno", "emoji": "⚒️", "art": "smith", "slot": "hoses", "villager": "bruno" },
+    { "id": "franco", "name": "Mugnaio Franco", "emoji": "🧑‍🌾", "art": "farmer", "slot": "door", "villager": "franco" },
+    { "id": "tommaso", "name": "Tommaso", "emoji": "🧒", "art": "child1", "slot": "door", "villager": "tommaso" }
+  ],
+  "happenings": [
+    {
+      "id": "prova",
+      "title": { "it": "La prova con la pompa", "sl": "Vaja s črpalko", "en": "The drill with the pump", "de": "Die Übung mit der Pumpe" },
+      "who": "davide",
+      "when": ["afternoon"],
+      "months": [4, 5, 6, 7, 8, 9, 10],
+      "chance": 0.5,
+      "dialog": "prova",
+      "dialogs": ["prova-secchi", "prova-tubo", "prova"],
+      "reward": { "stone": 20},
+      "marker": "💦",
+      "memory": { "it": "la prova con la pompa, tutti bagnati", "sl": "vajo s črpalko, ko smo bili vsi mokri", "en": "the drill with the pump, everyone soaked", "de": "die Übung mit der Pumpe, alle klatschnass" }
+    },
+    {
+      "id": "allarme",
+      "title": { "it": "L'allarme", "sl": "Preplah", "en": "The alarm", "de": "Der Alarm" },
+      "who": "franco",
+      "when": ["morning"],
+      "chance": 0.4,
+      "dialog": "allarme",
+      "dialogs": ["allarme-portone", "allarme"],
+      "reward": { "wood": 20},
+      "marker": "🔥",
+      "memory": { "it": "la mattina dell'allarme, quando abbiamo suonato la campana", "sl": "jutro preplaha, ko smo zvonili z zvonom", "en": "the morning of the alarm, when we rang the bell", "de": "den Morgen mit dem Alarm, als wir die Glocke geläutet haben" }
+    },
+    {
+      "id": "tubi",
+      "title": { "it": "Bruno controlla i tubi", "sl": "Bruno pregleda cevi", "en": "Bruno checks the hoses", "de": "Bruno prüft die Schläuche" },
+      "who": "bruno",
+      "when": ["morning"],
+      "chance": 0.45,
+      "dialog": "tubi",
+      "dialogs": ["tubi-conto", "tubi"],
+      "reward": { "stone": 15},
+      "marker": "🧯",
+      "memory": { "it": "i tubi che abbiamo controllato insieme", "sl": "cevi, ki sva jih skupaj pregledala", "en": "the hoses we checked together", "de": "die Schläuche, die wir zusammen geprüft haben" }
+    },
+    {
+      "id": "santa-barbara",
+      "title": { "it": "Gli elmi per Santa Barbara", "sl": "Čelade za sveto Barbaro", "en": "The helmets for Santa Barbara", "de": "Die Helme für die heilige Barbara" },
+      "who": "davide",
+      "when": ["afternoon"],
+      "months": [11, 12],
+      "chance": 0.5,
+      "dialog": "santa-barbara",
+      "dialogs": ["santa-barbara-data", "santa-barbara"],
+      "reward": { "food": 20},
+      "marker": "✨",
+      "memory": { "it": "gli elmi che abbiamo lucidato per Santa Barbara", "sl": "čelade, ki sva jih zloščila za sveto Barbaro", "en": "the helmets we polished for Santa Barbara", "de": "die Helme, die wir für die heilige Barbara poliert haben" }
+    },
+    {
+      "id": "sera",
+      "title": { "it": "Franco chiude il portone", "sl": "Franco zapre velika vrata", "en": "Franco shuts the big gate", "de": "Franco schließt das große Tor" },
+      "who": "franco",
+      "when": ["evening"],
+      "chance": 0.45,
+      "dialog": "sera",
+      "dialogs": ["sera-corno", "sera"],
+      "reward": { "wisdom": 15},
+      "marker": "🏮",
+      "memory": { "it": "la sera in cui abbiamo chiuso il portone", "sl": "večer, ko sva zaprla velika vrata", "en": "the evening we shut the big gate", "de": "den Abend, an dem wir das große Tor geschlossen haben" }
+    },
+    {
+      "id": "divisa",
+      "title": { "it": "Tommaso vuole fare il pompiere", "sl": "Tommaso bi rad bil gasilec", "en": "Tommaso wants to be a firefighter", "de": "Tommaso will Feuerwehrmann werden" },
+      "who": "tommaso",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "divisa",
+      "dialogs": ["elmo", "numero", "divisa"],
+      "reward": { "food": 15},
+      "marker": "🧑‍🚒",
+      "memory": { "it": "il giorno in cui abbiamo giocato ai pompieri", "sl": "dan, ko sva se igrala gasilce", "en": "the day we played firefighters", "de": "den Tag, an dem wir Feuerwehr gespielt haben" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "prova",
+      "lines": [
+        { "who": "davide", "face": "happy", "it": "Ehi, {learner}! Oggi c'è la prova dei pompieri. Mi aiuti con la pompa?", "sl": "Hej, {learner}! Danes imamo gasilsko vajo. Mi pomagaš pri črpalki?", "en": "Hey, {learner}! Today is the firefighters' drill. Will you help me with the pump?", "de": "He, {learner}! Heute ist die Feuerwehrübung. Hilfst du mir mit der Pumpe?" },
+        {
+          "choices": [
+            {
+              "it": "Sì! Cosa faccio?",
+              "sl": "Ja! Kaj naj naredim?",
+              "en": "Yes! What shall I do?",
+              "de": "Ja! Was soll ich machen?",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Prendi questa maniglia. Io su, tu giù!", "sl": "Primi ta ročaj. Jaz gor, ti dol!", "en": "Take this handle. Me up, you down!", "de": "Nimm diesen Griff. Ich rauf, du runter!" }
+            },
+            {
+              "it": "Certo, ti aiuto!",
+              "sl": "Seveda, ti pomagam!",
+              "en": "Sure, I'll help you!",
+              "de": "Klar, ich helfe dir!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Grande! Prendi la maniglia dall'altra parte.", "sl": "Super! Primi ročaj na drugi strani.", "en": "Great! Take the handle on the other side.", "de": "Super! Nimm den Griff auf der anderen Seite." }
+            },
+            {
+              "it": "Buonanotte! Cosa faccio?",
+              "sl": "Lahko noč! Kaj naj naredim?",
+              "en": "Good night! What shall I do?",
+              "de": "Gute Nacht! Was soll ich machen?",
+              "why": { "sl": "Popoldne je. Buonanotte rečeš zvečer, ko greš spat.", "en": "It's the afternoon. Buonanotte is for bedtime.", "de": "Es ist Nachmittag. Buonanotte sagt man, wenn man schlafen geht." },
+              "reply": { "face": "laugh", "it": "Buonanotte? Ma c'è il sole, {learner}!", "sl": "Lahko noč? Saj sije sonce, {learner}!", "en": "Good night? But the sun's out, {learner}!", "de": "Gute Nacht? Aber die Sonne scheint, {learner}!" }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "it": "Uno, due… via! Su, giù, su, giù!",
+          "sl": "Ena, dva … zdaj! Gor, dol, gor, dol!",
+          "en": "One, two… go! Up, down, up, down!",
+          "de": "Eins, zwei … los! Rauf, runter, rauf, runter!",
+          "fx": { "pump": 0.6}
+        },
+        {
+          "choices": [
+            {
+              "it": "L'acqua vola in alto!",
+              "sl": "Voda leti visoko!",
+              "en": "The water flies up high!",
+              "de": "Das Wasser fliegt hoch hinauf!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Ancora più in alto! Su, giù!",
+                "sl": "Še višje! Gor, dol!",
+                "en": "Even higher! Up, down!",
+                "de": "Noch höher! Rauf, runter!",
+                "fx": { "pump": 1}
+              }
+            },
+            {
+              "it": "L'acqua volano in alto!",
+              "sl": "Voda leti visoko!",
+              "en": "The water flies up high!",
+              "de": "Das Wasser fliegt hoch hinauf!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Voda je ena: vola (ona). Volano je za več stvari.", "en": "There is one water: vola (it). Volano is for several things.", "de": "Das Wasser ist eins: vola (es). Volano sagt man bei mehreren." },
+              "reply": { "face": "confused", "it": "Volano? Chi? Gli uccelli?", "sl": "Letijo? Kdo? Ptice?", "en": "Volano? Who? The birds?", "de": "Volano? Wer? Die Vögel?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "davide",
+          "face": "laugh",
+          "it": "Ah ah! Siamo tutti bagnati! {m:Bravo|f:Brava}, {learner}!",
+          "sl": "Ha ha! Vsi smo mokri! Bravo, {learner}!",
+          "en": "Ha ha! We're all soaked! Well done, {learner}!",
+          "de": "Haha! Wir sind alle klatschnass! Super, {learner}!",
+          "fx": { "pump": 0}
+        }
+      ]
+    },
+    {
+      "id": "allarme",
+      "lines": [
+        {
+          "who": "franco",
+          "face": "worried",
+          "it": "{learner}! Presto! C'è fumo sopra il bosco!",
+          "sl": "{learner}! Hitro! Nad gozdom se kadi!",
+          "en": "{learner}! Quick! There's smoke over the wood!",
+          "de": "{learner}! Schnell! Über dem Wald ist Rauch!",
+          "fx": { "doors": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Suono la campana!",
+              "sl": "Zvonim z zvonom!",
+              "en": "I'll ring the bell!",
+              "de": "Ich läute die Glocke!",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "it": "Sì! Forte! Così tutti sentono!",
+                "sl": "Ja! Močno! Da vsi slišijo!",
+                "en": "Yes! Hard! So everyone hears!",
+                "de": "Ja! Fest! Damit es alle hören!",
+                "fx": { "bell": 1}
+              }
+            },
+            {
+              "it": "Suono il campana!",
+              "sl": "Zvonim z zvonom!",
+              "en": "I'll ring the bell!",
+              "de": "Ich läute die Glocke!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Campana je ženskega spola: la campana.", "en": "Campana is feminine: la campana.", "de": "Campana ist weiblich: la campana." },
+              "reply": { "face": "confused", "it": "Il campana? Presto, non c'è tempo!", "sl": "Il campana? Hitro, ni časa!", "en": "Il campana? Quick, there's no time!", "de": "Il campana? Schnell, keine Zeit!" }
+            },
+            {
+              "it": "Suona la campana!",
+              "sl": "Pozvoni z zvonom!",
+              "en": "Ring the bell!",
+              "de": "Läute die Glocke!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Zvoniš ti: suono (jaz). Suona pomeni, da mora zvoniti nekdo drug.", "en": "You're the one ringing: suono (I). Suona tells someone else to do it.", "de": "Du läutest: suono (ich). Suona heißt, ein anderer soll es tun." },
+              "reply": { "face": "surprised", "it": "Io? Io devo andare alla pompa! Tu, {learner}!", "sl": "Jaz? Jaz moram k črpalki! Ti, {learner}!", "en": "Me? I have to get to the pump! You, {learner}!", "de": "Ich? Ich muss zur Pumpe! Du, {learner}!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "franco",
+          "face": "worried",
+          "it": "Il corno è sul muro. Chiama tutti i pompieri!",
+          "sl": "Rog je na steni. Pokliči vse gasilce!",
+          "en": "The horn is on the wall. Call all the firefighters!",
+          "de": "Das Horn hängt an der Wand. Ruf alle Feuerwehrleute!",
+          "fx": { "bell": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Pompieri, venite!",
+              "sl": "Gasilci, pridite!",
+              "en": "Firefighters, come!",
+              "de": "Feuerwehr, kommt!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Arrivano già di corsa! {m:Bravo|f:Brava}!",
+                "sl": "Že tečejo! Bravo!",
+                "en": "They're already running here! Well done!",
+                "de": "Sie kommen schon angerannt! Super!",
+                "fx": { "horn": 1}
+              }
+            },
+            {
+              "it": "Pompieri, vieni!",
+              "sl": "Gasilci, pridi!",
+              "en": "Firefighters, come (just you)!",
+              "de": "Feuerwehr, komm (nur du)!",
+              "grammar": "imperativo",
+              "why": { "sl": "Kličeš več ljudi: venite. Vieni rečeš enemu.", "en": "You're calling many people: venite. Vieni is for one.", "de": "Du rufst viele Leute: venite. Vieni sagt man zu einem." },
+              "reply": { "face": "confused", "it": "Vieni? Solo uno? Ci servono tutti!", "sl": "Pridi? Samo eden? Potrebujemo vse!", "en": "Vieni? Just one? We need everyone!", "de": "Vieni? Nur einer? Wir brauchen alle!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "franco",
+          "face": "laugh",
+          "it": "Uff… È solo la carbonaia nel bosco. Fuma sempre così! Ma siamo stati veloci.",
+          "sl": "Uf … Samo oglarska kopa v gozdu je. Vedno se tako kadi! Ampak hitri smo bili.",
+          "en": "Phew… It's only the charcoal pile in the wood. It always smokes like that! But we were quick.",
+          "de": "Puh … Es ist nur der Kohlenmeiler im Wald. Der raucht immer so! Aber wir waren schnell.",
+          "fx": { "bell": 0, "horn": 0}
+        }
+      ]
+    },
+    {
+      "id": "tubi",
+      "lines": [
+        { "who": "bruno", "it": "{learner}. I tubi. Li controllo ogni mese.", "sl": "{learner}. Cevi. Vsak mesec jih pregledam.", "en": "{learner}. The hoses. I check them every month.", "de": "{learner}. Die Schläuche. Ich prüfe sie jeden Monat." },
+        {
+          "choices": [
+            {
+              "it": "Ha bisogno di aiuto, signor Bruno?",
+              "sl": "Potrebujete pomoč, gospod Bruno?",
+              "en": "Do you need help, Mr Bruno?",
+              "de": "Brauchen Sie Hilfe, Herr Bruno?",
+              "ok": true,
+              "reply": { "it": "Sì. Tieni qui il tubo.", "sl": "Ja. Drži cev tukaj.", "en": "Yes. Hold the hose here.", "de": "Ja. Halt den Schlauch hier." }
+            },
+            {
+              "it": "Hai bisogno di aiuto, signor Bruno?",
+              "sl": "Potrebuješ pomoč, gospod Bruno?",
+              "en": "Do you need help, Mr Bruno?",
+              "de": "Brauchst du Hilfe, Herr Bruno?",
+              "grammar": "tu-lei",
+              "why": { "sl": "Brunu rečeš Lei: ha bisogno, ne hai bisogno.", "en": "To Bruno you say Lei: ha bisogno, not hai bisogno.", "de": "Zu Bruno sagst du Lei: ha bisogno, nicht hai bisogno." },
+              "reply": { "face": "cross", "it": "Hai? Hm. Sono un fabbro, non tuo fratello.", "sl": "Potrebuješ? Hm. Kovač sem, ne tvoj brat.", "en": "Hai? Hm. I'm a smith, not your brother.", "de": "Hai? Hm. Ich bin ein Schmied, nicht dein Bruder." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "face": "thinking", "it": "Hm. Qui c'è un buco. Piccolo.", "sl": "Hm. Tukaj je luknja. Majhna.", "en": "Hm. There's a hole here. A small one.", "de": "Hm. Hier ist ein Loch. Ein kleines." },
+        {
+          "choices": [
+            {
+              "it": "Ci sono altri buchi?",
+              "sl": "So še druge luknje?",
+              "en": "Are there any other holes?",
+              "de": "Gibt es noch andere Löcher?",
+              "ok": true,
+              "reply": { "it": "No. Solo questo. Lo chiudo con un pezzo di cuoio.", "sl": "Ne. Samo ta. Zakrpal jo bom s koščkom usnja.", "en": "No. Just this one. I'll patch it with a piece of leather.", "de": "Nein. Nur dieses. Ich flicke es mit einem Stück Leder." }
+            },
+            {
+              "it": "C'è altri buchi?",
+              "sl": "So še druge luknje?",
+              "en": "Are there any other holes?",
+              "de": "Gibt es noch andere Löcher?",
+              "grammar": "ce-ci-sono",
+              "why": { "sl": "Lukenj je več: ci sono. C'è je za eno stvar.", "en": "There are several holes: ci sono. C'è is for one thing.", "de": "Es sind mehrere Löcher: ci sono. C'è sagt man bei einem Ding." },
+              "reply": { "face": "confused", "it": "C'è…? Uno o tanti? Parla chiaro.", "sl": "Je …? Ena ali veliko? Govori jasno.", "en": "C'è…? One or lots? Speak clearly.", "de": "C'è …? Eins oder viele? Sprich deutlich." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "it": "Bene. Un tubo deve essere intero. Il fuoco non aspetta.", "sl": "Dobro. Cev mora biti cela. Ogenj ne čaka.", "en": "Good. A hose has to be whole. Fire doesn't wait.", "de": "Gut. Ein Schlauch muss ganz sein. Feuer wartet nicht." }
+      ]
+    },
+    {
+      "id": "santa-barbara",
+      "lines": [
+        {
+          "who": "davide",
+          "face": "happy",
+          "it": "Ciao, {learner}! Il quattro dicembre è Santa Barbara, la festa dei pompieri. Gli elmi devono brillare!",
+          "sl": "Živjo, {learner}! Četrtega decembra je sveta Barbara, praznik gasilcev. Čelade se morajo svetiti!",
+          "en": "Hi, {learner}! The fourth of December is Santa Barbara, the firefighters' feast. The helmets have to shine!",
+          "de": "Hallo, {learner}! Am vierten Dezember ist Barbaratag, das Fest der Feuerwehr. Die Helme müssen glänzen!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Chi è Santa Barbara?",
+              "sl": "Kdo je sveta Barbara?",
+              "en": "Who is Santa Barbara?",
+              "de": "Wer ist die heilige Barbara?",
+              "ok": true,
+              "reply": { "it": "È lì, nel quadro, con la sua torre. Protegge i pompieri.", "sl": "Tam je, na sliki, s svojim stolpom. Varuje gasilce.", "en": "She's there, in the picture, with her tower. She looks after firefighters.", "de": "Da ist sie, auf dem Bild, mit ihrem Turm. Sie beschützt die Feuerwehrleute." }
+            },
+            {
+              "it": "Che cosa è Santa Barbara?",
+              "sl": "Kaj je sveta Barbara?",
+              "en": "What is Santa Barbara?",
+              "de": "Was ist die heilige Barbara?",
+              "grammar": "domande",
+              "why": { "sl": "Za osebo vprašaš chi (kdo). Che cosa je za stvari.", "en": "For a person you ask chi (who). Che cosa is for things.", "de": "Nach einer Person fragst du mit chi (wer). Che cosa sagt man bei Dingen." },
+              "reply": { "face": "laugh", "it": "Che cosa? Non è una cosa, è una santa! Ah ah!", "sl": "Kaj? Ni stvar, svetnica je! Ha ha!", "en": "What? She's not a thing, she's a saint! Ha ha!", "de": "Was? Sie ist doch kein Ding, sie ist eine Heilige! Haha!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "it": "Dai, aiutami. Prendi uno straccio e pulisci gli elmi.", "sl": "Daj, pomagaj mi. Vzemi krpo in čisti čelade.", "en": "Come on, help me. Take a cloth and clean the helmets.", "de": "Komm, hilf mir. Nimm einen Lappen und putz die Helme." },
+        {
+          "choices": [
+            {
+              "it": "Pulisco gli elmi. Brillano già!",
+              "sl": "Čistim čelade. Že se svetijo!",
+              "en": "I'm cleaning the helmets. They're shining already!",
+              "de": "Ich putze die Helme. Sie glänzen schon!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Come uno specchio! Santa Barbara sarà contenta.", "sl": "Kot ogledalo! Sveta Barbara bo vesela.", "en": "Like a mirror! Santa Barbara will be pleased.", "de": "Wie ein Spiegel! Die heilige Barbara wird sich freuen." }
+            },
+            {
+              "it": "Pulisco i elmi. Brillano già!",
+              "sl": "Čistim čelade. Že se svetijo!",
+              "en": "I'm cleaning the helmets. They're shining already!",
+              "de": "Ich putze die Helme. Sie glänzen schon!",
+              "grammar": "plurale",
+              "why": { "sl": "Pred samoglasnikom je v množini člen gli: gli elmi.", "en": "Before a vowel the plural article is gli: gli elmi.", "de": "Vor einem Vokal heißt der Artikel im Plural gli: gli elmi." },
+              "reply": { "face": "laugh", "it": "I elmi? Che parola buffa! Prova ancora.", "sl": "I elmi? Kako smešna beseda! Poskusi še enkrat.", "en": "I elmi? What a funny word! Try again.", "de": "I elmi? Was für ein lustiges Wort! Versuch's nochmal." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "laugh", "it": "E alla festa c'è la banda e una torta grande così!", "sl": "Na prazniku pa bo godba in tako velika torta!", "en": "And at the feast there's the band and a cake this big!", "de": "Und beim Fest gibt es die Blaskapelle und einen Kuchen, so groß!" }
+      ]
+    },
+    {
+      "id": "sera",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "franco",
+          "it": "Buonasera, {learner}. È tardi. Chiudiamo il portone?",
+          "sl": "Dober večer, {learner}. Pozno je. Zapreva velika vrata?",
+          "en": "Good evening, {learner}. It's late. Shall we shut the big gate?",
+          "de": "Guten Abend, {learner}. Es ist spät. Machen wir das große Tor zu?",
+          "fx": { "doors": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, chiudiamo il portone.",
+              "sl": "Ja, zapriva velika vrata.",
+              "en": "Yes, let's shut the big gate.",
+              "de": "Ja, machen wir das große Tor zu.",
+              "ok": true,
+              "reply": {
+                "it": "Così. Adesso la pompa dorme al sicuro.",
+                "sl": "Tako. Zdaj črpalka varno spi.",
+                "en": "There. Now the pump sleeps safe and sound.",
+                "de": "So. Jetzt schläft die Pumpe in Sicherheit.",
+                "fx": { "doors": 0}
+              }
+            },
+            {
+              "it": "Sì, chiudono il portone.",
+              "sl": "Ja, zaprejo velika vrata.",
+              "en": "Yes, they're shutting the big gate.",
+              "de": "Ja, sie machen das große Tor zu.",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Zapirata vidva: chiudiamo (mi). Chiudono pomeni oni zapirajo.", "en": "The two of you do it: chiudiamo (we). Chiudono means they shut it.", "de": "Ihr zwei macht das: chiudiamo (wir). Chiudono heißt: sie schließen." },
+              "reply": { "face": "confused", "it": "Chiudono? Chi? Qui ci siamo solo noi due!", "sl": "Zaprejo? Kdo? Tukaj sva samo midva!", "en": "Chiudono? Who? There's only the two of us here!", "de": "Chiudono? Wer? Hier sind nur wir zwei!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "franco",
+          "it": "È buio. Accendi la lanterna, così vedo i tubi.",
+          "sl": "Tema je. Prižgi svetilko, da vidim cevi.",
+          "en": "It's dark. Light the lantern so I can see the hoses.",
+          "de": "Es ist dunkel. Mach die Laterne an, damit ich die Schläuche sehe.",
+          "fx": { "lantern": 0}
+        },
+        {
+          "choices": [
+            {
+              "it": "Accendo la lanterna.",
+              "sl": "Prižgem svetilko.",
+              "en": "I'll light the lantern.",
+              "de": "Ich mache die Laterne an.",
+              "ok": true,
+              "reply": {
+                "it": "Grazie. Tubi, secchi, elmi… c'è tutto.",
+                "sl": "Hvala. Cevi, vedra, čelade … vse je tu.",
+                "en": "Thanks. Hoses, buckets, helmets… everything's here.",
+                "de": "Danke. Schläuche, Eimer, Helme … alles ist da.",
+                "fx": { "lantern": 1}
+              }
+            },
+            {
+              "it": "Accende la lanterna.",
+              "sl": "Prižgite svetilko.",
+              "en": "You light the lantern, sir.",
+              "de": "Zünden Sie die Laterne an.",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Prižgeš jo ti: accendo (jaz). Accende bi pomenilo, da naj jo prižge Franco.", "en": "You light it: accendo (I). Accende would ask Franco to do it.", "de": "Du machst sie an: accendo (ich). Accende würde Franco darum bitten." },
+              "reply": { "face": "surprised", "it": "Io? Ho le mani piene di tubi!", "sl": "Jaz? Roke imam polne cevi!", "en": "Me? My hands are full of hoses!", "de": "Ich? Ich hab die Hände voller Schläuche!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "it": "Buonanotte, {learner}. Un pompiere dorme, ma sente sempre la campana.", "sl": "Lahko noč, {learner}. Gasilec spi, ampak zvon vedno sliši.", "en": "Good night, {learner}. A firefighter sleeps, but always hears the bell.", "de": "Gute Nacht, {learner}. Ein Feuerwehrmann schläft, aber die Glocke hört er immer." }
+      ]
+    },
+    {
+      "id": "divisa",
+      "lines": [
+        { "who": "tommaso", "face": "proud", "it": "Ehi, {learner}! Da grande faccio il pompiere! Guarda, la divisa!", "sl": "Hej, {learner}! Ko bom velik, bom gasilec! Poglej, uniforma!", "en": "Hey, {learner}! When I grow up I'll be a firefighter! Look, the uniform!", "de": "He, {learner}! Wenn ich groß bin, werde ich Feuerwehrmann! Schau, die Uniform!" },
+        {
+          "choices": [
+            {
+              "it": "La divisa è bella!",
+              "sl": "Uniforma je lepa!",
+              "en": "The uniform is lovely!",
+              "de": "Die Uniform ist schön!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Sì! Blu, con i bottoni lucidi!", "sl": "Ja! Modra, s svetlimi gumbi!", "en": "Yes! Blue, with shiny buttons!", "de": "Ja! Blau, mit glänzenden Knöpfen!" }
+            },
+            {
+              "it": "La divisa è bello!",
+              "sl": "Uniforma je lepa!",
+              "en": "The uniform is lovely!",
+              "de": "Die Uniform ist schön!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Divisa je ženskega spola: bella.", "en": "Divisa is feminine: bella.", "de": "Divisa ist weiblich: bella." },
+              "reply": { "face": "laugh", "it": "Bello? Ma è una divisa, non un ragazzo!", "sl": "Lep? Saj je uniforma, ne fant!", "en": "Bello? But it's a uniform, not a boy!", "de": "Bello? Aber das ist eine Uniform, kein Junge!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "tommaso", "face": "laugh", "it": "Ma la giacca è troppo grande, arriva ai piedi! E tu, hai paura del fuoco?", "sl": "Ampak jakna je prevelika, sega mi do nog! Kaj pa ti, te je strah ognja?", "en": "But the jacket's too big, it goes down to my feet! And you, are you afraid of fire?", "de": "Aber die Jacke ist zu groß, sie geht mir bis zu den Füßen! Und du, hast du Angst vor Feuer?" },
+        {
+          "choices": [
+            {
+              "it": "No, non ho paura!",
+              "sl": "Ne, ni me strah!",
+              "en": "No, I'm not afraid!",
+              "de": "Nein, ich habe keine Angst!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "{m:Bravo|f:Brava}! Hai il coraggio di un pompiere!", "sl": "Bravo! {m:Pogumen|f:Pogumna} si kot gasilec!", "en": "Well done! You're as brave as a firefighter!", "de": "Super! Du bist mutig wie ein Feuerwehrmann!" }
+            },
+            {
+              "it": "Un po', sì. Ho paura.",
+              "sl": "Malo, ja. Strah me je.",
+              "en": "A bit, yes. I'm afraid.",
+              "de": "Ein bisschen, ja. Ich habe Angst.",
+              "ok": true,
+              "reply": { "face": "shy", "it": "Anch'io, un po'. Per questo ci sono i pompieri!", "sl": "Tudi mene, malo. Zato imamo gasilce!", "en": "Me too, a bit. That's why there are firefighters!", "de": "Ich auch, ein bisschen. Deshalb gibt's die Feuerwehr!" }
+            },
+            {
+              "it": "No, non sono paura!",
+              "sl": "Ne, ni me strah!",
+              "en": "No, I'm not afraid!",
+              "de": "Nein, ich habe keine Angst!",
+              "grammar": "essere-avere",
+              "why": { "sl": "Strah te je: avere paura. Rečeš ho paura ali non ho paura.", "en": "Being afraid is avere paura: ho paura, non ho paura.", "de": "Angst haben ist avere paura: ho paura, non ho paura." },
+              "reply": { "face": "laugh", "it": "Sono paura? Che strano! Tu sei {learner}!", "sl": "Sem strah? Čudno! Ti si {learner}!", "en": "Sono paura? How strange! You're {learner}!", "de": "Sono paura? Komisch! Du bist doch {learner}!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "tommaso", "face": "happy", "it": "Dai, giochiamo ai pompieri! Io porto il tubo, tu il secchio!", "sl": "Daj, igrajva se gasilce! Jaz nesem cev, ti vedro!", "en": "Come on, let's play firefighters! I'll carry the hose, you the bucket!", "de": "Komm, wir spielen Feuerwehr! Ich trag den Schlauch, du den Eimer!" }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "prova-tubo",
+      "lines": [
+        {
+          "who": "davide",
+          "face": "happy",
+          "it": "Oggi il tubo lo tieni tu, {learner}. Io pompo!",
+          "sl": "Danes cev držiš ti, {learner}. Jaz črpam!",
+          "en": "Today you hold the hose, {learner}. I'll do the pumping!",
+          "de": "Heute hältst du den Schlauch, {learner}. Ich pumpe!",
+          "fx": { "pump": 0.5}
+        },
+        {
+          "choices": [
+            {
+              "it": "Va bene, tengo il tubo!",
+              "sl": "Prav, držim cev!",
+              "en": "OK, I'm holding the hose!",
+              "de": "Gut, ich halte den Schlauch!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Forte, con due mani!",
+                "sl": "Močno, z obema rokama!",
+                "en": "Tight, with both hands!",
+                "de": "Fest, mit beiden Händen!",
+                "fx": { "pump": 0.8}
+              }
+            },
+            {
+              "it": "Va bene, tengo la tubo!",
+              "sl": "Prav, držim cev!",
+              "en": "OK, I'm holding the hose!",
+              "de": "Gut, ich halte den Schlauch!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Tubo je moškega spola: il tubo.", "en": "Tubo is masculine: il tubo.", "de": "Tubo ist männlich: il tubo." },
+              "reply": { "face": "laugh", "it": "La tubo? Che parola strana!", "sl": "La tubo? Čudna beseda!", "en": "La tubo? What a funny word!", "de": "La tubo? Was für ein komisches Wort!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "davide",
+          "face": "surprised",
+          "it": "Oh no, troppo forte! L'acqua va sopra il muro!",
+          "sl": "O, ne, premočno! Voda leti čez zid!",
+          "en": "Oh no, too hard! The water's going over the wall!",
+          "de": "Oh nein, zu fest! Das Wasser spritzt über die Mauer!",
+          "fx": { "pump": 1}
+        },
+        {
+          "choices": [
+            {
+              "it": "Siamo tutti bagnati!",
+              "sl": "Vsi smo mokri!",
+              "en": "We're all soaked!",
+              "de": "Wir sind alle nass!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Ah ah! Un pompiere è sempre un po' bagnato!", "sl": "Ha ha! Gasilec je vedno malo moker!", "en": "Ha ha! A firefighter is always a bit wet!", "de": "Haha! Ein Feuerwehrmann ist immer ein bisschen nass!" }
+            },
+            {
+              "it": "Abbiamo tutti bagnati!",
+              "sl": "Vsi smo mokri!",
+              "en": "We're all soaked!",
+              "de": "Wir sind alle nass!",
+              "grammar": "essere-avere",
+              "why": { "sl": "Kakšen si, poveš z essere: siamo bagnati (mokri smo).", "en": "How you are takes essere: siamo bagnati (we are wet).", "de": "Wie man ist, sagt man mit essere: siamo bagnati (wir sind nass)." },
+              "reply": { "face": "laugh", "it": "Abbiamo? Abbiamo cosa? Un ombrello?", "sl": "Imamo? Kaj imamo? Dežnik?", "en": "Abbiamo? We have what? An umbrella?", "de": "Abbiamo? Wir haben was? Einen Regenschirm?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "davide",
+          "face": "proud",
+          "it": "Bene. Adesso lo sappiamo: il tubo si tiene con due mani!",
+          "sl": "Dobro. Zdaj vemo: cev se drži z obema rokama!",
+          "en": "Good. Now we know: you hold the hose with both hands!",
+          "de": "Gut. Jetzt wissen wir es: Den Schlauch hält man mit beiden Händen!",
+          "fx": { "pump": 0}
+        }
+      ]
+    },
+    {
+      "id": "prova-secchi",
+      "lines": [
+        {
+          "who": "davide",
+          "face": "curious",
+          "it": "Ehi, {learner}! Oggi facciamo la prova come una volta, senza pompa: con i secchi! Dove sono?",
+          "sl": "Hej, {learner}! Danes imamo vajo kot nekoč, brez črpalke: z vedri! Kje so?",
+          "en": "Hey, {learner}! Today we're doing the drill like in the old days, without the pump: with buckets! Where are they?",
+          "de": "He, {learner}! Heute machen wir die Übung wie früher, ohne Pumpe: mit Eimern! Wo sind sie?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Eccoli, sullo scaffale!",
+              "sl": "Tukaj so, na polici!",
+              "en": "Here they are, on the shelf!",
+              "de": "Da sind sie, auf dem Regal!",
+              "ok": true,
+              "tap": "bucket",
+              "grammar": "dove-preposizioni",
+              "reply": { "face": "happy", "it": "Sì! Quattro secchi di cuoio, vecchi ma buoni.", "sl": "Ja! Štiri usnjena vedra, stara, a dobra.", "en": "Yes! Four leather buckets, old but good.", "de": "Ja! Vier Ledereimer, alt, aber gut." }
+            },
+            {
+              "it": "Eccoli, sopra il portone!",
+              "sl": "Tukaj so, nad velikimi vrati!",
+              "en": "Here they are, over the big gate!",
+              "de": "Da sind sie, über dem großen Tor!",
+              "tap": "door",
+              "why": { "sl": "Poglej ob levi steni, nizko.", "en": "Look along the left wall, low down.", "de": "Schau an der linken Wand, ganz unten." },
+              "reply": { "face": "laugh", "it": "Sopra il portone? Lì c'è il cartello!", "sl": "Nad vrati? Tam je napis!", "en": "Over the gate? That's where the sign is!", "de": "Über dem Tor? Da ist das Schild!" }
+            },
+            {
+              "it": "Eccoli, nella pompa!",
+              "sl": "Tukaj so, v črpalki!",
+              "en": "Here they are, in the pump!",
+              "de": "Da sind sie, in der Pumpe!",
+              "tap": "pump",
+              "why": { "sl": "Poglej ob levi steni, nizko.", "en": "Look along the left wall, low down.", "de": "Schau an der linken Wand, ganz unten." },
+              "reply": { "face": "laugh", "it": "Nella pompa? Oggi la pompa riposa!", "sl": "V črpalki? Danes črpalka počiva!", "en": "In the pump? The pump's having a rest today!", "de": "In der Pumpe? Die Pumpe ruht sich heute aus!" }
+            }
+          ]
+        },
+        { "who": "davide", "it": "Prendi un secchio. Facciamo una fila: l'acqua passa di mano in mano.", "sl": "Vzemi vedro. Postavimo se v vrsto: voda gre iz roke v roko.", "en": "Take a bucket. We make a line: the water goes from hand to hand.", "de": "Nimm einen Eimer. Wir stellen uns in eine Reihe: Das Wasser geht von Hand zu Hand." },
+        {
+          "choices": [
+            {
+              "it": "I secchi sono pesanti!",
+              "sl": "Vedra so težka!",
+              "en": "The buckets are heavy!",
+              "de": "Die Eimer sind schwer!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Eh sì! Per questo abbiamo portato la pompa da Gorizia.", "sl": "Ja, res! Zato smo pripeljali črpalko iz Gorice.", "en": "Oh yes! That's why we brought the pump from Gorizia.", "de": "Oh ja! Deshalb haben wir die Pumpe aus Görz geholt." }
+            },
+            {
+              "it": "I secchi sono pesante!",
+              "sl": "Vedra so težka!",
+              "en": "The buckets are heavy!",
+              "de": "Die Eimer sind schwer!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Veder je več: pesanti (množina).", "en": "There are several buckets: pesanti (plural).", "de": "Es sind mehrere Eimer: pesanti (Plural)." },
+              "reply": { "face": "confused", "it": "Pesante? Uno solo? Io ne vedo tanti!", "sl": "Težko? Samo eno? Jaz jih vidim veliko!", "en": "Pesante? Just one? I can see lots!", "de": "Pesante? Nur einer? Ich seh ganz viele!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "laugh", "it": "Bravi tutti! Con i secchi è difficile. Viva la pompa!", "sl": "Bravo vsi! Z vedri je težko. Živela črpalka!", "en": "Well done, everyone! It's hard with buckets. Hurrah for the pump!", "de": "Super, alle! Mit Eimern ist es schwer. Hoch lebe die Pumpe!" }
+      ]
+    },
+    {
+      "id": "allarme-portone",
+      "lines": [
+        {
+          "who": "franco",
+          "face": "worried",
+          "it": "{learner}! Fumo dietro il paese! Apri il portone, presto!",
+          "sl": "{learner}! Dim za vasjo! Odpri velika vrata, hitro!",
+          "en": "{learner}! Smoke behind the village! Open the big gate, quick!",
+          "de": "{learner}! Rauch hinter dem Dorf! Mach das große Tor auf, schnell!",
+          "fx": { "doors": 0}
+        },
+        {
+          "choices": [
+            {
+              "it": "Apro il portone!",
+              "sl": "Odpiram velika vrata!",
+              "en": "I'm opening the big gate!",
+              "de": "Ich mache das große Tor auf!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Così! Adesso fuori con la pompa!",
+                "sl": "Tako! Zdaj ven s črpalko!",
+                "en": "That's it! Now out with the pump!",
+                "de": "So! Jetzt raus mit der Pumpe!",
+                "fx": { "doors": 1}
+              }
+            },
+            {
+              "it": "Apro la portone!",
+              "sl": "Odpiram velika vrata!",
+              "en": "I'm opening the big gate!",
+              "de": "Ich mache das große Tor auf!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Portone je moškega spola: il portone.", "en": "Portone is masculine: il portone.", "de": "Portone ist männlich: il portone." },
+              "reply": { "face": "confused", "it": "La portone? Ma è un portone grande grande!", "sl": "La portone? Saj so to velika, velika vrata!", "en": "La portone? But it's a great big gate!", "de": "La portone? Aber das ist ein riesengroßes Tor!" }
+            },
+            {
+              "it": "Chiudo il portone!",
+              "sl": "Zapiram velika vrata!",
+              "en": "I'm shutting the big gate!",
+              "de": "Ich mache das große Tor zu!",
+              "why": { "sl": "Franco hoče, da vrata odpreš. Chiudo pomeni zapiram.", "en": "Franco wants it open. Chiudo means I shut it.", "de": "Franco will es offen haben. Chiudo heißt: ich schließe." },
+              "reply": { "face": "surprised", "it": "Chiudi? No, no, al contrario!", "sl": "Zapiraš? Ne, ne, ravno obratno!", "en": "Shut it? No, no, the other way round!", "de": "Zumachen? Nein, nein, andersrum!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "it": "Il tuo elmo! Prendilo dal muro.", "sl": "Tvoja čelada! Vzemi jo s stene.", "en": "Your helmet! Take it off the wall.", "de": "Dein Helm! Nimm ihn von der Wand." },
+        {
+          "choices": [
+            {
+              "it": "Ecco, metto l'elmo!",
+              "sl": "Tako, nadenem si čelado!",
+              "en": "There, I'm putting the helmet on!",
+              "de": "So, ich setze den Helm auf!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Bene. Mai senza elmo!", "sl": "Dobro. Nikoli brez čelade!", "en": "Good. Never without a helmet!", "de": "Gut. Nie ohne Helm!" }
+            },
+            {
+              "it": "Ecco, metto il elmo!",
+              "sl": "Tako, nadenem si čelado!",
+              "en": "There, I'm putting the helmet on!",
+              "de": "So, ich setze den Helm auf!",
+              "grammar": "articoli-genere",
+              "why": { "sl": "Pred samoglasnikom je člen l': l'elmo.", "en": "Before a vowel the article is l': l'elmo.", "de": "Vor einem Vokal heißt der Artikel l': l'elmo." },
+              "reply": { "face": "confused", "it": "Il elmo? Suona strano… prova ancora!", "sl": "Il elmo? Čudno zveni … poskusi še enkrat!", "en": "Il elmo? That sounds odd… try again!", "de": "Il elmo? Das klingt komisch … versuch's nochmal!" }
+            },
+            {
+              "it": "Ecco, metto il secchio!",
+              "sl": "Tako, nadenem si vedro!",
+              "en": "There, I'm putting the bucket on!",
+              "de": "So, ich setze den Eimer auf!",
+              "why": { "sl": "Na glavo daš čelado, ne vedra.", "en": "On your head goes the helmet, not the bucket.", "de": "Auf den Kopf kommt der Helm, nicht der Eimer." },
+              "reply": { "face": "laugh", "it": "Il secchio in testa? Ah ah, sembri un robot!", "sl": "Vedro na glavi? Ha ha, kot robot si!", "en": "The bucket on your head? Ha ha, you look like a robot!", "de": "Den Eimer auf dem Kopf? Haha, du siehst aus wie ein Roboter!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "face": "laugh", "it": "Ah! È solo il camino di Nonna Rosa. Accende il fogolâr!", "sl": "Ah! Samo dimnik babice Rose je. Kuri ognjišče!", "en": "Ah! It's only Nonna Rosa's chimney. She's lighting the fogolâr!", "de": "Ach! Es ist nur Nonna Rosas Kamin. Sie macht den Fogolâr an!" }
+      ]
+    },
+    {
+      "id": "tubi-conto",
+      "count": { "from": "villagers", "min": 2, "max": 60, "gender": "m" },
+      "memory": { "it": "quanti pompieri siamo in paese", "sl": "koliko gasilcev nas je v vasi", "en": "how many firefighters there are of us in the village", "de": "wie viele Feuerwehrleute wir im Dorf sind" },
+      "lines": [
+        { "who": "bruno", "face": "curious", "it": "{learner}. Quando c'è un incendio, tutti aiutano. Quanti siamo in paese?", "sl": "{learner}. Ko gori, vsi pomagajo. Koliko nas je v vasi?", "en": "{learner}. When there's a fire, everyone helps. How many of us are there in the village?", "de": "{learner}. Wenn es brennt, helfen alle. Wie viele sind wir im Dorf?" },
+        {
+          "choices": [
+            {
+              "it": "In paese {c'è|ci sono} {n} {pompiere|pompieri}.",
+              "sl": "V vasi {je|sta|so|je} {n} {gasilec|gasilca|gasilci|gasilcev}.",
+              "en": "There {is|are} {n} {firefighter|firefighters} in the village.",
+              "de": "Im Dorf {gibt es|gibt es} {n} {Feuerwehrmann|Feuerwehrleute}.",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Giusto. Tutti volontari.", "sl": "Tako je. Sami prostovoljci.", "en": "Right. All of them volunteers.", "de": "Richtig. Alles Freiwillige." }
+            },
+            {
+              "it": "In paese {c'è|ci sono} {n} {!pompiere|pompieri}.",
+              "sl": "V vasi {je|sta|so|je} {n} {!gasilec|gasilca|gasilci|gasilcev}.",
+              "en": "There {is|are} {n} {!firefighter|firefighters} in the village.",
+              "de": "Im Dorf {gibt es|gibt es} {n} {!Feuerwehrmann|Feuerwehrleute}.",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": { "sl": "{Eden je v ednini|Več jih je v množini}: {n} {pompiere|pompieri}.", "en": "{One takes the singular|More than one takes the plural}: {n} {pompiere|pompieri}.", "de": "{Einer steht im Singular|Mehrere stehen im Plural}: {n} {pompiere|pompieri}." },
+              "reply": { "face": "confused", "it": "Hm. Conta ancora, piano.", "sl": "Hm. Štej še enkrat, počasi.", "en": "Hm. Count again, slowly.", "de": "Hm. Zähl nochmal, langsam." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "face": "thinking", "it": "Giusto. Chi sente la campana, corre qui. Grandi e piccoli.", "sl": "Tako je. Kdor sliši zvon, priteče sem. Veliki in mali.", "en": "Right. Whoever hears the bell runs here. Big and small.", "de": "Richtig. Wer die Glocke hört, rennt her. Groß und Klein." },
+        {
+          "choices": [
+            {
+              "it": "Allora aiuto anch'io!",
+              "sl": "Potem pomagam tudi jaz!",
+              "en": "Then I'll help too!",
+              "de": "Dann helfe ich auch!",
+              "ok": true,
+              "reply": { "face": "proud", "it": "Bene. Anche le mani piccole aiutano.", "sl": "Dobro. Tudi majhne roke pomagajo.", "en": "Good. Small hands help too.", "de": "Gut. Auch kleine Hände helfen." }
+            },
+            {
+              "it": "Allora aiuta anch'io!",
+              "sl": "Potem pomagam tudi jaz!",
+              "en": "Then I'll help too!",
+              "de": "Dann helfe ich auch!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Pomagaš ti: aiuto (jaz). Aiuta je on ali ona.", "en": "You're the one helping: aiuto (I). Aiuta is he or she.", "de": "Du hilfst: aiuto (ich). Aiuta heißt er oder sie." },
+              "reply": { "face": "confused", "it": "Aiuta? Chi? Io ho già le mani piene.", "sl": "Pomaga? Kdo? Jaz imam roke že polne.", "en": "Aiuta? Who? My hands are full already.", "de": "Aiuta? Wer? Ich hab schon die Hände voll." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "bruno", "face": "proud", "it": "O è giusto, o non è giusto. Questo è giusto.", "sl": "Ali je prav ali ni. To je prav.", "en": "Either it's right or it isn't. This is right.", "de": "Entweder es ist richtig oder nicht. Das ist richtig." }
+      ]
+    },
+    {
+      "id": "santa-barbara-data",
+      "lines": [
+        { "who": "davide", "face": "curious", "it": "Ehi, {learner}! Sai quando è Santa Barbara?", "sl": "Hej, {learner}! Veš, kdaj je sveta Barbara?", "en": "Hey, {learner}! Do you know when Santa Barbara's day is?", "de": "He, {learner}! Weißt du, wann Barbaratag ist?" },
+        {
+          "choices": [
+            {
+              "it": "Il quattro dicembre.",
+              "sl": "Četrtega decembra.",
+              "en": "On the fourth of December.",
+              "de": "Am vierten Dezember.",
+              "ok": true,
+              "reply": { "face": "happy", "it": "{m:Bravo|f:Brava}! Conosci bene i pompieri.", "sl": "Bravo! Dobro poznaš gasilce.", "en": "Well done! You know the firefighters well.", "de": "Super! Du kennst die Feuerwehr gut." }
+            },
+            {
+              "it": "Il quarto dicembre.",
+              "sl": "Četrti december.",
+              "en": "The fourth December.",
+              "de": "Der vierte Dezember.",
+              "grammar": "ore-giorni",
+              "why": { "sl": "Za datum rečeš navadno število: il quattro dicembre. Samo prvi dan je il primo.", "en": "Italian dates use the plain number: il quattro dicembre. Only the first is il primo.", "de": "Beim Datum sagt man die normale Zahl: il quattro dicembre. Nur der Erste heißt il primo." },
+              "reply": { "face": "laugh", "it": "Il quarto? Come in una gara? Ah ah!", "sl": "Četrti? Kot na tekmi? Ha ha!", "en": "The fourth, like in a race? Ha ha!", "de": "Der Vierte? Wie bei einem Wettrennen? Haha!" }
+            },
+            {
+              "it": "Il quattro giugno.",
+              "sl": "Četrtega junija.",
+              "en": "On the fourth of June.",
+              "de": "Am vierten Juni.",
+              "why": { "sl": "Sveta Barbara je pozimi, decembra.", "en": "Santa Barbara's day is in winter, in December.", "de": "Barbaratag ist im Winter, im Dezember." },
+              "reply": { "face": "surprised", "it": "Giugno? Ma a giugno fa caldo, {learner}!", "sl": "Junija? Saj je junija vroče, {learner}!", "en": "June? But it's hot in June, {learner}!", "de": "Juni? Aber im Juni ist es heiß, {learner}!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "it": "Guarda il quadro: Santa Barbara con la sua torre. È la nostra protettrice.", "sl": "Poglej sliko: sveta Barbara s svojim stolpom. Naša zavetnica je.", "en": "Look at the picture: Santa Barbara with her tower. She's our patron saint.", "de": "Schau dir das Bild an: die heilige Barbara mit ihrem Turm. Sie ist unsere Schutzpatronin." },
+        {
+          "choices": [
+            {
+              "it": "Mi piace la sua torre!",
+              "sl": "Všeč mi je njen stolp!",
+              "en": "I like her tower!",
+              "de": "Ihr Turm gefällt mir!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Anche a me. Sembra il nostro campanile!", "sl": "Tudi meni. Kot naš zvonik je!", "en": "Me too. It looks like our bell tower!", "de": "Mir auch. Er sieht aus wie unser Glockenturm!" }
+            },
+            {
+              "it": "Mi piacciono la sua torre!",
+              "sl": "Všeč mi je njen stolp!",
+              "en": "I like her tower!",
+              "de": "Ihr Turm gefällt mir!",
+              "grammar": "piacere",
+              "why": { "sl": "Stolp je en: mi piace. Mi piacciono je za več stvari.", "en": "There is one tower: mi piace. Mi piacciono is for several things.", "de": "Es ist ein Turm: mi piace. Mi piacciono sagt man bei mehreren Dingen." },
+              "reply": { "face": "confused", "it": "Piacciono? Io vedo una torre sola.", "sl": "Piacciono? Jaz vidim samo en stolp.", "en": "Piacciono? I can only see one tower.", "de": "Piacciono? Ich sehe nur einen Turm." }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "davide", "face": "happy", "it": "Il quattro dicembre vieni alla festa, va bene? C'è anche la torta!", "sl": "Četrtega decembra pridi na praznik, prav? Tudi torta bo!", "en": "Come to the feast on the fourth of December, OK? There's cake too!", "de": "Komm am vierten Dezember zum Fest, ja? Es gibt auch Kuchen!" }
+      ]
+    },
+    {
+      "id": "sera-corno",
+      "fx_stays": true,
+      "lines": [
+        { "who": "franco", "it": "Buonasera, {learner}. Vedi il corno sul muro? Con quello chiamiamo i pompieri.", "sl": "Dober večer, {learner}. Vidiš rog na steni? Z njim kličemo gasilce.", "en": "Good evening, {learner}. See the horn on the wall? We call the firefighters with it.", "de": "Guten Abend, {learner}. Siehst du das Horn an der Wand? Damit rufen wir die Feuerwehrleute." },
+        {
+          "choices": [
+            {
+              "it": "Posso provare?",
+              "sl": "Lahko poskusim?",
+              "en": "Can I try?",
+              "de": "Darf ich es probieren?",
+              "ok": true,
+              "reply": { "it": "Puoi. Ma piano: la gente dorme già.", "sl": "Lahko. Ampak tiho: ljudje že spijo.", "en": "You can. But gently: people are asleep already.", "de": "Darfst du. Aber leise: Die Leute schlafen schon." }
+            },
+            {
+              "it": "Posso provo?",
+              "sl": "Lahko poskusim?",
+              "en": "Can I try?",
+              "de": "Darf ich es probieren?",
+              "grammar": "verbi-irregolari",
+              "why": { "sl": "Za posso pride nedoločnik: provare.", "en": "After posso comes the infinitive: provare.", "de": "Nach posso kommt der Infinitiv: provare." },
+              "reply": { "face": "confused", "it": "Provo? Chi prova? Tu o io?", "sl": "Provo? Kdo poskusi? Ti ali jaz?", "en": "Provo? Who's trying? You or me?", "de": "Provo? Wer probiert? Du oder ich?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        { "who": "franco", "it": "Soffia. Ma piano, eh!", "sl": "Pihni. Ampak počasi, ja!", "en": "Blow. But gently, mind!", "de": "Blas. Aber leise, ja!" },
+        {
+          "choices": [
+            {
+              "it": "Soffio… tuuu!",
+              "sl": "Pihnem … tuuu!",
+              "en": "I blow… toot!",
+              "de": "Ich blase … tuuut!",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "it": "Oh oh! Si è sentito fino al mulino!",
+                "sl": "Oho! Slišalo se je do mlina!",
+                "en": "Oh oh! They heard that all the way to the mill!",
+                "de": "Oho! Das hat man bis zur Mühle gehört!",
+                "fx": { "horn": 1}
+              }
+            },
+            {
+              "it": "Soffia… tuuu!",
+              "sl": "Pihne … tuuu!",
+              "en": "He blows… toot!",
+              "de": "Er bläst … tuuut!",
+              "grammar": "presente-regolare",
+              "why": { "sl": "Pihaš ti: soffio (jaz). Soffia je on ali ona.", "en": "You're blowing: soffio (I). Soffia is he or she.", "de": "Du bläst: soffio (ich). Soffia heißt er oder sie." },
+              "reply": { "face": "laugh", "it": "Io? No, no, il corno ce l'hai tu!", "sl": "Jaz? Ne, ne, rog imaš ti!", "en": "Me? No, no, you've got the horn!", "de": "Ich? Nein, nein, du hast das Horn!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Come? Non ho capito.", "sl": "Kako? Nisem razumel.", "en": "Sorry? I didn't understand.", "de": "Wie bitte? Das habe ich nicht verstanden." }
+        },
+        {
+          "who": "franco",
+          "face": "worried",
+          "it": "Mamma mia. Adesso vengono tutti! Presto, chiudiamo il portone.",
+          "sl": "Joj. Zdaj bodo prišli vsi! Hitro, zapriva vrata.",
+          "en": "Oh dear. Now everyone will come! Quick, let's shut the big gate.",
+          "de": "Oje. Jetzt kommen alle! Schnell, machen wir das Tor zu.",
+          "fx": { "horn": 0, "doors": 0}
+        }
+      ]
+    },
+    {
+      "id": "elmo",
+      "lines": [
+        { "who": "tommaso", "face": "curious", "it": "{learner}! Voglio provare un elmo. Dove sono gli elmi?", "sl": "{learner}! Rad bi pomeril čelado. Kje so čelade?", "en": "{learner}! I want to try on a helmet. Where are the helmets?", "de": "{learner}! Ich will einen Helm aufprobieren. Wo sind die Helme?" },
+        {
+          "choices": [
+            {
+              "it": "Sono là, sul muro!",
+              "sl": "Tam so, na steni!",
+              "en": "They're over there, on the wall!",
+              "de": "Da drüben, an der Wand!",
+              "ok": true,
+              "tap": "helmet",
+              "grammar": "dove-preposizioni",
+              "reply": { "face": "happy", "it": "Sì! Tutti in fila. Che belli!", "sl": "Ja! Vse v vrsti. Kako lepe!", "en": "Yes! All in a row. How lovely!", "de": "Ja! Alle in einer Reihe. Wie schön!" }
+            },
+            {
+              "it": "Sono là, nella torre!",
+              "sl": "Tam so, v stolpu!",
+              "en": "They're over there, in the tower!",
+              "de": "Da drüben, im Turm!",
+              "tap": "tower",
+              "why": { "sl": "Poglej na levo steno v dvorani, nad uniformami.", "en": "Look at the left wall of the hall, over the uniforms.", "de": "Schau an die linke Wand der Halle, über den Uniformen." },
+              "reply": { "face": "laugh", "it": "Nella torre? Lì c'è solo la campana!", "sl": "V stolpu? Tam je samo zvon!", "en": "In the tower? There's only the bell in there!", "de": "Im Turm? Da ist nur die Glocke!" }
+            },
+            {
+              "it": "Sono là, sotto la panca!",
+              "sl": "Tam so, pod klopjo!",
+              "en": "They're over there, under the bench!",
+              "de": "Da drüben, unter der Bank!",
+              "tap": "bench",
+              "why": { "sl": "Poglej na levo steno v dvorani, nad uniformami.", "en": "Look at the left wall of the hall, over the uniforms.", "de": "Schau an die linke Wand der Halle, über den Uniformen." },
+              "reply": { "face": "laugh", "it": "Sotto la panca? Io vedo solo polvere!", "sl": "Pod klopjo? Jaz vidim samo prah!", "en": "Under the bench? I can only see dust!", "de": "Unter der Bank? Ich seh nur Staub!" }
+            }
+          ]
+        },
+        { "who": "tommaso", "face": "laugh", "it": "Ecco, lo metto. Oh! È troppo grande, non vedo niente!", "sl": "Tako, nadenem jo. Oh! Prevelika je, nič ne vidim!", "en": "There, I'm putting it on. Oh! It's too big, I can't see a thing!", "de": "So, ich setz ihn auf. Oh! Der ist zu groß, ich seh gar nichts!" },
+        {
+          "choices": [
+            {
+              "it": "Sei buffo, Tommaso!",
+              "sl": "Smešen si, Tommaso!",
+              "en": "You look funny, Tommaso!",
+              "de": "Du siehst lustig aus, Tommaso!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "Lo so! Sembro un fungo con l'elmo!", "sl": "Vem! S čelado sem kot goba!", "en": "I know! I look like a mushroom in a helmet!", "de": "Ich weiß! Mit dem Helm seh ich aus wie ein Pilz!" }
+            },
+            {
+              "it": "Sei buffa, Tommaso!",
+              "sl": "Smešen si, Tommaso!",
+              "en": "You look funny, Tommaso!",
+              "de": "Du siehst lustig aus, Tommaso!",
+              "grammar": "aggettivi-accordo",
+              "why": { "sl": "Tommaso je fant: buffo.", "en": "Tommaso is a boy: buffo.", "de": "Tommaso ist ein Junge: buffo." },
+              "reply": { "face": "cross", "it": "Buffa? Io sono un ragazzo, sai!", "sl": "Buffa? Jaz sem fant, veš!", "en": "Buffa? I'm a boy, you know!", "de": "Buffa? Ich bin ein Junge, weißt du!" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "tommaso", "face": "proud", "it": "Va bene, lo rimetto sul muro. Da grande avrò un elmo della mia misura!", "sl": "Prav, dam jo nazaj na steno. Ko bom velik, bom imel čelado svoje velikosti!", "en": "OK, I'll put it back on the wall. When I'm big I'll have a helmet my size!", "de": "Na gut, ich häng ihn wieder an die Wand. Wenn ich groß bin, hab ich einen Helm in meiner Größe!" }
+      ]
+    },
+    {
+      "id": "numero",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "curious",
+          "it": "{learner}, la maestra ci ha insegnato una cosa importante. Se vedi un incendio, cosa fai?",
+          "sl": "{learner}, učiteljica nas je naučila nekaj pomembnega. Če vidiš požar, kaj narediš?",
+          "en": "{learner}, our teacher taught us something important. If you see a fire, what do you do?",
+          "de": "{learner}, die Lehrerin hat uns was Wichtiges beigebracht. Wenn du ein Feuer siehst, was machst du?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Chiamo il 112!",
+              "sl": "Pokličem 112!",
+              "en": "I call 112!",
+              "de": "Ich rufe die 112 an!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Giusto! Uno, uno, due: arrivano i soccorsi.", "sl": "Tako je! Ena, ena, dva: pride pomoč.", "en": "Right! One, one, two: help comes.", "de": "Richtig! Eins, eins, zwei: Dann kommt Hilfe." }
+            },
+            {
+              "it": "Chiamo subito i grandi!",
+              "sl": "Takoj pokličem odrasle!",
+              "en": "I call the grown-ups straight away!",
+              "de": "Ich rufe sofort die Großen!",
+              "ok": true,
+              "reply": { "face": "happy", "it": "Giusto! E i grandi chiamano il 112.", "sl": "Tako je! Odrasli pa pokličejo 112.", "en": "Right! And the grown-ups call 112.", "de": "Richtig! Und die Großen rufen die 112 an." }
+            },
+            {
+              "it": "Lo spengo da {m:solo|f:sola}!",
+              "sl": "{m:Sam|f:Sama} ga pogasim!",
+              "en": "I put it out on my own!",
+              "de": "Ich lösche es allein!",
+              "why": { "sl": "Nikoli sam! Pokliči odrasle ali 112.", "en": "Never on your own! Call the grown-ups or 112.", "de": "Nie allein! Ruf die Großen oder die 112." },
+              "reply": { "face": "worried", "it": "Da {m:solo|f:sola}? No, no, è pericoloso!", "sl": "{m:Sam|f:Sama}? Ne, ne, to je nevarno!", "en": "On your own? No, no, it's dangerous!", "de": "Allein? Nein, nein, das ist gefährlich!" }
+            }
+          ]
+        },
+        { "who": "tommaso", "it": "E poi esci subito di casa. I giocattoli restano dentro!", "sl": "In potem takoj greš ven iz hiše. Igrače ostanejo notri!", "en": "And then you go straight out of the house. The toys stay inside!", "de": "Und dann gehst du sofort aus dem Haus. Die Spielsachen bleiben drin!" },
+        {
+          "choices": [
+            {
+              "it": "Esco subito!",
+              "sl": "Takoj grem ven!",
+              "en": "I go out straight away!",
+              "de": "Ich gehe sofort raus!",
+              "ok": true,
+              "reply": { "face": "laugh", "it": "{m:Bravo|f:Brava}! Anche il mio pallone resta a casa. Che peccato!", "sl": "Bravo! Tudi moja žoga ostane doma. Škoda!", "en": "Well done! My football stays at home too. What a shame!", "de": "Super! Auch mein Fußball bleibt zu Hause. Schade!" }
+            },
+            {
+              "it": "Esce subito!",
+              "sl": "Takoj gre ven!",
+              "en": "He goes out straight away!",
+              "de": "Er geht sofort raus!",
+              "grammar": "verbi-irregolari",
+              "why": { "sl": "Ven greš ti: esco (uscire je nepravilni glagol).", "en": "You're the one going out: esco (uscire is irregular).", "de": "Du gehst raus: esco (uscire ist unregelmäßig)." },
+              "reply": { "face": "laugh", "it": "Esce? Chi esce? Il gatto?", "sl": "Gre ven? Kdo? Mačka?", "en": "Esce? Who's going out? The cat?", "de": "Esce? Wer geht raus? Die Katze?" }
+            }
+          ],
+          "puzzled": { "face": "confused", "it": "Eh? Cosa hai detto?", "sl": "Eh? Kaj si {m:rekel|f:rekla}?", "en": "Eh? What did you say?", "de": "Hä? Was hast du gesagt?" }
+        },
+        { "who": "tommaso", "face": "proud", "it": "Adesso lo sai anche tu. Siamo una squadra!", "sl": "Zdaj to veš tudi ti. Sva ekipa!", "en": "Now you know it too. We're a team!", "de": "Jetzt weißt du es auch. Wir sind ein Team!" }
+      ]
+    }
+  ]
+}

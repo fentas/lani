@@ -1,0 +1,507 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "sulla-torre-panoramica",
+  "language": "it",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the view as LookoutPainter draws it in Friuli's look (the Julian Alps on the left with the three heads of the Tricorno, the village with its campanile among the fields, the sea at Grado far on the right, Friuli's flag, gold on blue); not reviewed by a native speaker",
+  "things": {
+    "tower": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Das ist aus Holz.", "grammar": ["essere-avere"]},
+        {
+          "kind": "size",
+          "it": "È alta alta.",
+          "sl": "Je zelo visok.",
+          "en": "It's very, very tall.",
+          "de": "Das ist sehr, sehr hoch.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "alto"
+        },
+        {
+          "kind": "does",
+          "it": "Regge il tetto.",
+          "sl": "Drži streho.",
+          "en": "It holds up the roof.",
+          "de": "Das trägt das Dach.",
+          "grammar": ["presente-regolare"],
+          "ref": "roof"
+        },
+        {
+          "kind": "where",
+          "it": "È a destra, vicino alla bandiera.",
+          "sl": "Je desno, blizu zastave.",
+          "en": "It's on the right, near the flag.",
+          "de": "Das ist rechts, bei der Fahne.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "flag"
+        }
+      ]
+    },
+    "railing": {
+      "clues": [
+        {
+          "kind": "material",
+          "it": "È di tronchi di legno.",
+          "sl": "Je iz lesenih debel.",
+          "en": "It's made of wooden logs.",
+          "de": "Es ist aus Holzstämmen.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È davanti a noi, tutta intorno.",
+          "sl": "Je pred nami, naokrog.",
+          "en": "It's in front of us, all the way round.",
+          "de": "Es ist vor uns, rundherum.",
+          "grammar": ["dove-preposizioni"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci appoggiamo le mani.",
+          "sl": "Nanjo se naslonimo z rokami.",
+          "en": "We lean our hands on it.",
+          "de": "Wir stützen die Hände darauf.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "use",
+          "it": "Così nessuno cade giù.",
+          "sl": "Da nihče ne pade dol.",
+          "en": "So nobody falls down.",
+          "de": "Damit keiner hinunterfällt.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "roof": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Es ist aus Holz.", "grammar": ["essere-avere"]},
+        { "kind": "where", "it": "È sopra di noi.", "sl": "Je nad nami.", "en": "It's above us.", "de": "Es ist über uns.", "grammar": ["dove-preposizioni"]},
+        {
+          "kind": "use",
+          "it": "Ci ripara dalla pioggia.",
+          "sl": "Varuje nas pred dežjem.",
+          "en": "It keeps the rain off us.",
+          "de": "Es schützt uns vor dem Regen.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "board": {
+      "name": { "en": "board", "de": "Tafel", "sl": "tabla" },
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È bianco e blu.",
+          "sl": "Je bela in modra.",
+          "en": "It's white and blue.",
+          "de": "Es ist weiß und blau.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "bianco"
+        },
+        {
+          "kind": "trait",
+          "it": "C'è il disegno delle montagne.",
+          "sl": "Na njej so narisane gore.",
+          "en": "There's a drawing of the mountains on it.",
+          "de": "Darauf sind die Berge gezeichnet.",
+          "grammar": ["ce-ci-sono", "preposizioni-articolate"]
+        },
+        {
+          "kind": "where",
+          "it": "È sulla ringhiera, in mezzo.",
+          "sl": "Je na ograji, v sredini.",
+          "en": "It's on the railing, in the middle.",
+          "de": "Es ist am Geländer, in der Mitte.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "railing"
+        },
+        {
+          "kind": "use",
+          "it": "Dice i nomi dei monti.",
+          "sl": "Pove imena gora.",
+          "en": "It tells the names of the mountains.",
+          "de": "Es sagt die Namen der Berge.",
+          "grammar": ["verbi-irregolari", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "telescope": {
+      "clues": [
+        { "kind": "colour", "it": "È verde.", "sl": "Je zelen.", "en": "It's green.", "de": "Es ist grün.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "where",
+          "it": "Sta su un palo, a destra.",
+          "sl": "Stoji na drogu, desno.",
+          "en": "It stands on a post, on the right.",
+          "de": "Es steht auf einem Pfosten, rechts.",
+          "grammar": ["dove-preposizioni"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha due buchi per gli occhi.",
+          "sl": "Ima dve luknji za oči.",
+          "en": "It has two holes for your eyes.",
+          "de": "Es hat zwei Löcher für die Augen.",
+          "grammar": ["essere-avere", "numeri"]
+        },
+        {
+          "kind": "use",
+          "it": "Fa vedere vicino le cose lontane.",
+          "sl": "Daljne stvari pokaže od blizu.",
+          "en": "It makes faraway things look close.",
+          "de": "Es zeigt ferne Dinge ganz nah.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "book": {
+      "clues": [
+        { "kind": "colour", "it": "È rosso.", "sl": "Je rdeča.", "en": "It's red.", "de": "Es ist rot.", "grammar": ["aggettivi-accordo"], "adj": "rosso" },
+        {
+          "kind": "where",
+          "it": "È in una scatolina di legno, sul palo a sinistra.",
+          "sl": "Je v leseni škatlici, na stebru levo.",
+          "en": "It's in a little wooden box, on the post on the left.",
+          "de": "Es ist in einem Holzkästchen am Pfosten links.",
+          "grammar": ["dove-preposizioni"]
+        },
+        {
+          "kind": "use",
+          "it": "Ci scriviamo il nostro nome.",
+          "sl": "Vanjo napišemo svoje ime.",
+          "en": "We write our names in it.",
+          "de": "Wir schreiben unseren Namen hinein.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "stamp": {
+      "clues": [
+        {
+          "kind": "size",
+          "it": "È piccolo piccolo.",
+          "sl": "Je čisto majhen.",
+          "en": "It's tiny.",
+          "de": "Er ist winzig klein.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha il manico di legno.",
+          "sl": "Ima lesen ročaj.",
+          "en": "It has a wooden handle.",
+          "de": "Er hat einen Holzgriff.",
+          "grammar": ["essere-avere"]
+        },
+        {
+          "kind": "where",
+          "it": "È vicino al libro rosso.",
+          "sl": "Je blizu rdeče knjige.",
+          "en": "It's next to the red book.",
+          "de": "Er ist neben dem roten Buch.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "book"
+        },
+        {
+          "kind": "use",
+          "it": "Lascia un disegno sulla carta.",
+          "sl": "Na papirju pusti sliko.",
+          "en": "It leaves a picture on the paper.",
+          "de": "Er hinterlässt ein Bild auf dem Papier.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "material", "it": "È di legno.", "sl": "Je iz lesa.", "en": "It's made of wood.", "de": "Sie ist aus Holz.", "grammar": ["essere-avere"]},
+        {
+          "kind": "where",
+          "it": "È a sinistra, vicino alla ringhiera.",
+          "sl": "Je levo, ob ograji.",
+          "en": "It's on the left, by the railing.",
+          "de": "Sie steht links, am Geländer.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "railing"
+        },
+        {
+          "kind": "use",
+          "it": "Ci sediamo quando siamo stanchi.",
+          "sl": "Nanjo se usedemo, ko smo utrujeni.",
+          "en": "We sit on it when we are tired.",
+          "de": "Wir setzen uns darauf, wenn wir müde sind.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "stairs": {
+      "clues": [
+        {
+          "kind": "where",
+          "it": "È a destra, in un buco nel pavimento.",
+          "sl": "So desno, v luknji v podu.",
+          "en": "They're on the right, in a hole in the floor.",
+          "de": "Sie ist rechts, in einem Loch im Boden.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha cento scalini.",
+          "sl": "Ima sto stopnic.",
+          "en": "It has a hundred steps.",
+          "de": "Sie hat hundert Stufen.",
+          "grammar": ["essere-avere", "numeri"]
+        },
+        {
+          "kind": "use",
+          "it": "Di qui scendiamo in paese.",
+          "sl": "Po njih gremo dol v vas.",
+          "en": "This way we go down to the village.",
+          "de": "Hier gehen wir hinunter ins Dorf.",
+          "grammar": ["verbi-irregolari"]
+        }
+      ]
+    },
+    "flag": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È blu e gialla.",
+          "sl": "Je modra in rumena.",
+          "en": "It's blue and yellow.",
+          "de": "Sie ist blau und gelb.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "giallo"
+        },
+        {
+          "kind": "trait",
+          "it": "In mezzo c'è un'aquila d'oro.",
+          "sl": "Na sredini je zlat orel.",
+          "en": "In the middle there's a golden eagle.",
+          "de": "In der Mitte ist ein goldener Adler.",
+          "grammar": ["ce-ci-sono"]
+        },
+        {
+          "kind": "where",
+          "it": "È in alto, a destra, sul tetto.",
+          "sl": "Je zgoraj desno, na strehi.",
+          "en": "It's up high on the right, on the roof.",
+          "de": "Sie ist oben rechts, auf dem Dach.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "roof"
+        },
+        {
+          "kind": "does",
+          "it": "Si muove con il vento.",
+          "sl": "Plapola v vetru.",
+          "en": "It moves in the wind.",
+          "de": "Sie bewegt sich im Wind.",
+          "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "mountains": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È grigia e bianca.",
+          "sl": "Je siva in bela.",
+          "en": "It's grey and white.",
+          "de": "Das ist grau und weiß.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "grigio"
+        },
+        {
+          "kind": "size",
+          "it": "È alta alta.",
+          "sl": "Je zelo visoka.",
+          "en": "It's very, very high.",
+          "de": "Das ist sehr, sehr hoch.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "alto"
+        },
+        {
+          "kind": "where",
+          "it": "È lontana, a sinistra.",
+          "sl": "Je daleč, na levi.",
+          "en": "It's far away, on the left.",
+          "de": "Das ist weit weg, links.",
+          "grammar": ["dove-preposizioni"]
+        },
+        {
+          "kind": "trait",
+          "it": "In cima c'è la neve.",
+          "sl": "Na vrhu je sneg.",
+          "en": "There's snow at the top.",
+          "de": "Oben liegt Schnee.",
+          "grammar": ["ce-ci-sono"]
+        }
+      ]
+    },
+    "peak": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È bianca di neve.",
+          "sl": "Je bel od snega.",
+          "en": "It's white with snow.",
+          "de": "Das ist weiß vom Schnee.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "bianco"
+        },
+        {
+          "kind": "trait",
+          "it": "Ha tre punte.",
+          "sl": "Ima tri konice.",
+          "en": "It has three points.",
+          "de": "Das hat drei Spitzen.",
+          "grammar": ["essere-avere", "numeri"]
+        },
+        {
+          "kind": "compare",
+          "it": "È la più alta di tutte.",
+          "sl": "Je najvišji od vseh.",
+          "en": "It's the highest of all.",
+          "de": "Das ist der höchste von allen.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "alto"
+        },
+        {
+          "kind": "where",
+          "it": "È in mezzo alle montagne.",
+          "sl": "Je sredi gora.",
+          "en": "It's in the middle of the mountains.",
+          "de": "Das ist mitten in den Bergen.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"],
+          "ref": "mountains"
+        }
+      ]
+    },
+    "sea": {
+      "clues": [
+        { "kind": "colour", "it": "È blu.", "sl": "Je modro.", "en": "It's blue.", "de": "Es ist blau.", "grammar": ["aggettivi-accordo"]},
+        {
+          "kind": "where",
+          "it": "È lontano lontano, a destra.",
+          "sl": "Je daleč, daleč na desni.",
+          "en": "It's far, far away on the right.",
+          "de": "Es ist ganz weit weg, rechts.",
+          "grammar": ["dove-preposizioni"]
+        },
+        {
+          "kind": "does",
+          "it": "Brilla al sole.",
+          "sl": "Blešči se na soncu.",
+          "en": "It sparkles in the sun.",
+          "de": "Es glitzert in der Sonne.",
+          "grammar": ["presente-regolare", "preposizioni-articolate"]
+        },
+        {
+          "kind": "trait",
+          "it": "Quando c'è la foschia, non si vede.",
+          "sl": "Ko je sopara, se ga ne vidi.",
+          "en": "When it's hazy, you can't see it.",
+          "de": "Wenn es dunstig ist, sieht man es nicht.",
+          "grammar": ["ce-ci-sono"]
+        }
+      ]
+    },
+    "village": {
+      "clues": [
+        {
+          "kind": "trait",
+          "it": "Ha le case con i tetti rossi.",
+          "sl": "Ima hiše z rdečimi strehami.",
+          "en": "It has houses with red roofs.",
+          "de": "Es hat Häuser mit roten Dächern.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        {
+          "kind": "trait",
+          "it": "C'è un campanile alto.",
+          "sl": "Tam je visok zvonik.",
+          "en": "There's a tall bell tower.",
+          "de": "Da ist ein hoher Glockenturm.",
+          "grammar": ["ce-ci-sono"]
+        },
+        {
+          "kind": "where",
+          "it": "È laggiù, in mezzo ai campi.",
+          "sl": "Je tam spodaj, sredi njiv.",
+          "en": "It's down there, in the middle of the fields.",
+          "de": "Es ist da unten, mitten in den Feldern.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"]
+        },
+        {
+          "kind": "size",
+          "it": "Da qui è piccolo come un giocattolo.",
+          "sl": "Od tu je majhna kot igrača.",
+          "en": "From here it is as small as a toy.",
+          "de": "Von hier ist es klein wie ein Spielzeug.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "piccolo"
+        }
+      ]
+    },
+    "forest": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "D'estate è verde scuro.",
+          "sl": "Poleti je temno zelen.",
+          "en": "In summer it's dark green.",
+          "de": "Im Sommer ist er dunkelgrün.",
+          "grammar": ["aggettivi-accordo"]
+        },
+        {
+          "kind": "trait",
+          "it": "Ha tanti alberi rotondi.",
+          "sl": "Ima veliko okroglih dreves.",
+          "en": "It has lots of round trees.",
+          "de": "Er hat viele runde Bäume.",
+          "grammar": ["essere-avere", "aggettivi-accordo"]
+        },
+        {
+          "kind": "where",
+          "it": "È intorno ai campi, a macchie.",
+          "sl": "Je okoli njiv, v zaplatah.",
+          "en": "It's round the fields, in patches.",
+          "de": "Er liegt in Flecken um die Felder.",
+          "grammar": ["dove-preposizioni", "preposizioni-articolate"]
+        }
+      ]
+    },
+    "valley": {
+      "clues": [
+        {
+          "kind": "trait",
+          "it": "È piena di campi.",
+          "sl": "Je polna njiv.",
+          "en": "It's full of fields.",
+          "de": "Es ist voller Felder.",
+          "grammar": ["aggettivi-accordo"],
+          "adj": "pieno"
+        },
+        {
+          "kind": "trait",
+          "it": "Ci passa un fiume.",
+          "sl": "Skoznjo teče reka.",
+          "en": "A river runs through it.",
+          "de": "Ein Fluss fließt hindurch.",
+          "grammar": ["presente-regolare"]
+        },
+        {
+          "kind": "where",
+          "it": "È giù, sotto la torre.",
+          "sl": "Je spodaj, pod stolpom.",
+          "en": "It's down below, under the tower.",
+          "de": "Es ist unten, unter dem Turm.",
+          "grammar": ["dove-preposizioni"],
+          "ref": "tower"
+        }
+      ]
+    }
+  }
+}

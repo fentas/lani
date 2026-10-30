@@ -56,6 +56,9 @@ class CultureScenesTest {
         // and the projects' own scenes play them (places-it-projects), In piazza leaves them out
         "square" to setOf("maypole", "fountain", "cart-pump", "cart-stone"),
         "apiary" to emptySet(), "church" to emptySet(),
+        // the village's places (places-sl's arts): every effect of each is cued in its Friuli scene too
+        "firestation" to emptySet(), "bocce" to emptySet(), "playground" to emptySet(), "chapel" to emptySet(),
+        "palisade" to emptySet(), "lookout" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -86,6 +89,15 @@ class CultureScenesTest {
             listOf("friuli", "nella-vigna", "hills", "project:vinograd"),
             // the Friuli bee meadow (Il prato delle api) at the bee house, once Aldo's meadow is in flower
             listOf("friuli", "il-prato-delle-api", "apiary", "project:cebelji_travnik"),
+            // Friuli's scenes on the places' own arts (places-it-arts): the bocce court by Marisa's osteria, the playground
+            // by the school, the ancona by the road, the fire station of the volunteer firefighters, the lookout tower, and
+            // the palisade's gate, which opens from the palisade itself
+            listOf("friuli", "al-campo-da-bocce", "bocce", "project:balinisce"),
+            listOf("friuli", "al-parco-giochi", "playground", "project:igrisce"),
+            listOf("friuli", "alla-cappelletta", "chapel", "project:kapelica"),
+            listOf("friuli", "dai-pompieri", "firestation", "project:gasilski_dom"),
+            listOf("friuli", "sulla-torre-panoramica", "lookout", "project:razgledni_stolp"),
+            listOf("friuli", "al-portone", "palisade", "palisade"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {
