@@ -49,7 +49,7 @@ class CultureScenesTest {
     /** Art → its effects that bring one of its wild animals: a culture's scene of the art may leave them to the day. */
     private val SEEN = mapOf(
         // the near cow's bell lost in the grass only where a line says so (v-gorah's planina-zvonec), not on every Alm
-        "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(), "mill" to emptySet(), "school" to emptySet(),
+        "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(), "mill" to emptySet(), "school" to emptySet(), "watchtower" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -61,6 +61,8 @@ class CultureScenesTest {
             listOf("friuli", "nel-mulino", "mill", "project:mlin"),
             // the Friuli school (A scuola): Maestra Elena and the village's children, from the school's card
             listOf("friuli", "a-scuola", "school", "school"),
+            // the Friuli watchtower (Sulla torre): Davide on watch, Tommaso and the cramâr, Franco's storms and village
+            listOf("friuli", "sulla-torre", "watchtower", "watchtower"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {

@@ -224,8 +224,14 @@ object CultureLooks {
     // ------------------------------------------------------------------ Friuli's buildings and their rooms (places-it-buildings)
     // Each art's table on its own (they fill in as each art gets its Friuli look); an empty one sets nothing.
 
-    /** Friuli's watchtower (Sulla torre, WatchtowerPainter). */
-    internal val FRIULI_WATCHTOWER = Table.of("watchtower")
+    /**
+     * Friuli's watchtower (Sulla torre, WatchtowerPainter): the village below in Friuli's ochre, terracotta and cream
+     * plaster under coppi, its huts of stone (on the coast the lagoon's casoni, thatched with reed), the free-standing brick
+     * campanile among the roofs, vine rows in the fields and the Isonzo emerald in the valley; Friuli's flag, the golden
+     * eagle on blue; the tower's top built of river cobbles with bands of brick from its third level, a brick arch from each
+     * pillar to the eave, the tavelle (flat terracotta tiles) under its roof and an iron railing from its fourth.
+     */
+    internal val FRIULI_WATCHTOWER = Table.of("watchtower", variants = mapOf("village" to "friuli", "flag" to "friuli", "tower" to "stone"))
 
     /** Friuli's market (Al mercato, MarketPainter). */
     internal val FRIULI_MARKET = Table.of("market")

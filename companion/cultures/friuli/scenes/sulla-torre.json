@@ -1,0 +1,2019 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "sulla-torre",
+  "language": "it",
+  "title": {
+    "it": "Sulla torre",
+    "sl": "Na stolpu",
+    "en": "On the watchtower",
+    "de": "Auf dem Wachturm"
+  },
+  "emoji": "🗼",
+  "level": "A1",
+  "review": "it, sl, en, de (the lines, the reactions, the second right answers, the variants): machine-written, not reviewed by a native speaker",
+  "art": "watchtower",
+  "from": [
+    "watchtower"
+  ],
+  "pack": "sulla-torre",
+  "objects": [
+    {
+      "slot": "tower",
+      "word": "torre"
+    },
+    {
+      "slot": "railing",
+      "word": "ringhiera"
+    },
+    {
+      "slot": "torch",
+      "word": "torcia"
+    },
+    {
+      "slot": "horn",
+      "word": "corno"
+    },
+    {
+      "slot": "spyglass",
+      "word": "cannocchiale"
+    },
+    {
+      "slot": "flag",
+      "word": "bandiera",
+      "pack": "festa-patria-friuli"
+    },
+    {
+      "slot": "crow",
+      "word": "corvo",
+      "pack": "nel-campo"
+    },
+    {
+      "slot": "roofs",
+      "word": "tetto"
+    },
+    {
+      "slot": "palisade",
+      "word": "palizzata"
+    },
+    {
+      "slot": "gate",
+      "word": "cancello"
+    },
+    {
+      "slot": "road",
+      "word": "strada",
+      "pack": "in-paese"
+    },
+    {
+      "slot": "forest",
+      "word": "bosco",
+      "pack": "in-paese"
+    },
+    {
+      "slot": "river",
+      "word": "fiume",
+      "pack": "in-paese"
+    },
+    {
+      "slot": "valley",
+      "word": "valle"
+    },
+    {
+      "slot": "mountains",
+      "word": "montagna",
+      "pack": "festa-patria-friuli"
+    },
+    {
+      "slot": "horizon",
+      "word": "orizzonte",
+      "pack": "il-mare"
+    }
+  ],
+  "people": [
+    {
+      "id": "davide",
+      "name": "Pastore Davide",
+      "emoji": "🐑",
+      "art": "shepherd",
+      "slot": "watch",
+      "villager": "davide"
+    },
+    {
+      "id": "tommaso",
+      "name": "Tommaso",
+      "emoji": "🧒",
+      "art": "child1",
+      "slot": "rail",
+      "villager": "tommaso"
+    },
+    {
+      "id": "franco",
+      "name": "Mugnaio Franco",
+      "emoji": "🧑‍🌾",
+      "art": "farmer",
+      "slot": "hatch",
+      "villager": "franco"
+    }
+  ],
+  "happenings": [
+    {
+      "id": "guardia",
+      "title": {
+        "it": "Davide fa la guardia",
+        "sl": "Davide straži",
+        "en": "Davide is on watch",
+        "de": "Davide hält Wache"
+      },
+      "who": "davide",
+      "when": [
+        "evening",
+        "night"
+      ],
+      "chance": 0.55,
+      "dialog": "guardia",
+      "dialogs": [
+        "guardia-vento",
+        "guardia-nebbia",
+        "guardia"
+      ],
+      "reward": {
+        "wood": 20
+      },
+      "marker": "🔥",
+      "memory": {
+        "it": "la notte di guardia, quando i lupi sono usciti dal bosco",
+        "sl": "noč na straži, ko so iz gozda prišli volkovi",
+        "en": "the night on watch when the wolves came out of the wood",
+        "de": "die Nacht auf Wache, als die Wölfe aus dem Wald kamen"
+      }
+    },
+    {
+      "id": "cramar",
+      "title": {
+        "it": "Tommaso aspetta il cramâr",
+        "sl": "Tommaso čaka cramârja",
+        "en": "Tommaso is waiting for the cramâr",
+        "de": "Tommaso wartet auf den Cramâr"
+      },
+      "who": "tommaso",
+      "when": [
+        "morning",
+        "afternoon"
+      ],
+      "chance": 0.5,
+      "dialog": "cramar",
+      "dialogs": [
+        "cramar-cannocchiale",
+        "cramar-regalo",
+        "cramar"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🔭",
+      "memory": {
+        "it": "il cramâr che abbiamo visto dalla torre",
+        "sl": "cramârja, ki sva ga videla s stolpa",
+        "en": "the cramâr we spotted from the tower",
+        "de": "den Cramâr, den wir vom Turm aus gesehen haben"
+      }
+    },
+    {
+      "id": "temporale",
+      "title": {
+        "it": "Franco vede un temporale",
+        "sl": "Franco vidi nevihto",
+        "en": "Franco sees a storm coming",
+        "de": "Franco sieht ein Gewitter kommen"
+      },
+      "who": "franco",
+      "when": [
+        "afternoon"
+      ],
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "chance": 0.4,
+      "dialog": "temporale",
+      "dialogs": [
+        "temporale-secondi",
+        "temporale-fieno",
+        "temporale"
+      ],
+      "reward": {
+        "food": 15
+      },
+      "marker": "⛈️",
+      "memory": {
+        "it": "il temporale che abbiamo visto arrivare sulla valle",
+        "sl": "nevihto, ki sva jo videla priti čez dolino",
+        "en": "the storm we watched coming over the valley",
+        "de": "das Gewitter, das wir über das Tal kommen sahen"
+      }
+    },
+    {
+      "id": "paese",
+      "title": {
+        "it": "Franco mostra il paese",
+        "sl": "Franco pokaže vas",
+        "en": "Franco shows the village",
+        "de": "Franco zeigt das Dorf"
+      },
+      "who": "franco",
+      "when": [
+        "morning"
+      ],
+      "chance": 0.45,
+      "dialog": "paese",
+      "dialogs": [
+        "paese-case",
+        "paese-bandiera",
+        "paese"
+      ],
+      "reward": {
+        "stone": 15
+      },
+      "marker": "🏘️",
+      "memory": {
+        "it": "il paese che abbiamo guardato dall'alto",
+        "sl": "vas, ki sva jo gledala od zgoraj",
+        "en": "the village we looked at from up high",
+        "de": "das Dorf, das wir von oben angeschaut haben"
+      }
+    },
+    {
+      "id": "corvo",
+      "title": {
+        "it": "Tommaso e il corvo",
+        "sl": "Tommaso in vrana",
+        "en": "Tommaso and the crow",
+        "de": "Tommaso und die Krähe"
+      },
+      "who": "tommaso",
+      "when": [
+        "evening"
+      ],
+      "chance": 0.35,
+      "dialog": "corvo",
+      "dialogs": [
+        "corvo-nero",
+        "corvo"
+      ],
+      "reward": {
+        "food": 10
+      },
+      "marker": "🐦",
+      "memory": {
+        "it": "il corvo che voleva la mia merenda",
+        "sl": "vrano, ki je hotela mojo malico",
+        "en": "the crow that wanted my snack",
+        "de": "die Krähe, die mein Pausenbrot wollte"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "guardia",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "davide",
+          "it": "Ehi, {learner}! Si fa buio. Accendi la torcia, per favore.",
+          "sl": "Ej, {learner}! Mrači se. Prižgi baklo, prosim.",
+          "en": "Hey, {learner}! It's getting dark. Light the torch, please.",
+          "de": "He, {learner}! Es wird dunkel. Zünde bitte die Fackel an.",
+          "fx": {
+            "torch": 0
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Subito! Dove sono i fiammiferi?",
+              "sl": "Takoj! Kje so vžigalice?",
+              "en": "Right away! Where are the matches?",
+              "de": "Sofort! Wo sind die Streichhölzer?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Eccoli, nella mia tasca. Ecco, la torcia è accesa!",
+                "sl": "Tukaj so, v mojem žepu. Tako, bakla gori!",
+                "en": "Here they are, in my pocket. There, the torch is lit!",
+                "de": "Hier, in meiner Tasche. So, die Fackel brennt!",
+                "fx": {
+                  "torch": 1
+                }
+              }
+            },
+            {
+              "it": "Subito! Dov'è i fiammiferi?",
+              "sl": "Takoj! Kje je vžigalice?",
+              "en": "Right away! Where is the matches?",
+              "de": "Sofort! Wo ist die Streichhölzer?",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Fiammiferi (vžigalice) so množina: dove sono. Dov'è je za eno stvar: dov'è la torcia?",
+                "en": "Fiammiferi (matches) is plural: dove sono. Dov'è is for one thing: dov'è la torcia?",
+                "de": "Fiammiferi (Streichhölzer) ist Plural: dove sono. Dov'è steht für eine Sache: dov'è la torcia?"
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Eh? Scusa, pensavo alle mie pecore.",
+                "sl": "Eh? Oprosti, mislil sem na svoje ovce.",
+                "en": "Huh? Sorry, I was thinking about my sheep.",
+                "de": "Hä? Entschuldige, ich habe an meine Schafe gedacht."
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "surprised",
+          "it": "Guarda il bosco. Vedi là, tra gli alberi? Occhi!",
+          "sl": "Poglej gozd. Vidiš tam, med drevesi? Oči!",
+          "en": "Look at the wood. Do you see, there between the trees? Eyes!",
+          "de": "Schau zum Wald. Siehst du dort zwischen den Bäumen? Augen!",
+          "fx": {
+            "wolves": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Li vedo! Sono i lupi!",
+              "sl": "Vidim jih! To so volkovi!",
+              "en": "I see them! It's the wolves!",
+              "de": "Ich sehe sie! Das sind die Wölfe!",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "it": "Sì. Suona il corno, così ci sentono tutti!",
+                "sl": "Ja. Zatrobi na rog, da nas vsi slišijo!",
+                "en": "Yes. Blow the horn, so everyone hears us!",
+                "de": "Ja. Blas das Horn, damit uns alle hören!"
+              }
+            },
+            {
+              "it": "Li vedo! È i lupi!",
+              "sl": "Vidim jih! To je volkovi!",
+              "en": "I see them! It is the wolves!",
+              "de": "Ich sehe sie! Das ist die Wölfe!",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "I lupi (volkovi) so množina: sono i lupi. È je za enega: è un lupo.",
+                "en": "I lupi (the wolves) is plural: sono i lupi. È is for one: è un lupo.",
+                "de": "I lupi (die Wölfe) ist Plural: sono i lupi. È steht für einen: è un lupo."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Cosa? Non sussurrare, dillo forte!",
+                "sl": "Kaj? Ne šepetaj, povej na glas!",
+                "en": "What? Don't whisper, say it out loud!",
+                "de": "Was? Flüster nicht, sag es laut!"
+              }
+            },
+            {
+              "it": "Li vedo! Sono le pecore!",
+              "sl": "Vidim jih! To so ovce!",
+              "en": "I see them! It's the sheep!",
+              "de": "Ich sehe sie! Das sind die Schafe!",
+              "why": {
+                "sl": "Ovce spijo v hlevu. Oči ponoči v gozdu so volkovi: i lupi.",
+                "en": "The sheep are asleep in the fold. Eyes in the wood at night are wolves: i lupi.",
+                "de": "Die Schafe schlafen im Stall. Augen nachts im Wald sind Wölfe: i lupi."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Le mie pecore? No, dormono nella stalla!",
+                "sl": "Moje ovce? Ne, te spijo v hlevu!",
+                "en": "My sheep? No, they're asleep in the fold!",
+                "de": "Meine Schafe? Nein, die schlafen im Stall!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "worried",
+          "it": "Presto, il corno è appeso al palo!",
+          "sl": "Hitro, rog visi na stebru!",
+          "en": "Quick, the horn is hanging on the post!",
+          "de": "Schnell, das Horn hängt am Pfosten!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Va bene! Adesso suono il corno.",
+              "sl": "Prav! Zdaj zatrobim na rog.",
+              "en": "OK! Now I'm blowing the horn.",
+              "de": "Gut! Jetzt blase ich das Horn.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Tuuu! Ci sentono! Tutti corrono al cancello.",
+                "sl": "Tuuu! Slišijo nas! Vsi tečejo k vratom.",
+                "en": "Toooo! They hear us! Everyone runs to the gate.",
+                "de": "Tuuu! Sie hören uns! Alle laufen zum Tor.",
+                "fx": {
+                  "horn": 1
+                }
+              }
+            },
+            {
+              "it": "Va bene! Adesso suoni il corno.",
+              "sl": "Prav! Zdaj zatrobiš na rog.",
+              "en": "OK! Now you're blowing the horn.",
+              "de": "Gut! Jetzt bläst du das Horn.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Trobiš ti: suono (jaz trobim). Suoni pomeni ti trobiš.",
+                "en": "You're the one blowing it: suono (I blow). Suoni means you blow.",
+                "de": "Du bläst es: suono (ich blase). Suoni heißt du bläst."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Io? Ma il corno è vicino a te!",
+                "sl": "Jaz? Saj je rog zraven tebe!",
+                "en": "Me? But the horn is right by you!",
+                "de": "Ich? Aber das Horn ist doch neben dir!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "proud",
+          "it": "{m:Bravo|f:Brava}! Hai fatto bene la guardia. I lupi tornano nel bosco.",
+          "sl": "Bravo! Dobro si {m:stražil|f:stražila}. Volkovi gredo nazaj v gozd.",
+          "en": "Well done! You kept a good watch. The wolves are going back into the wood.",
+          "de": "Gut gemacht! Du hast gut Wache gehalten. Die Wölfe gehen in den Wald zurück.",
+          "fx": {
+            "wolves": 0,
+            "horn": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "cramar",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "tommaso",
+          "it": "{learner}, {learner}! Vieni su! Oggi arriva il cramâr, il venditore!",
+          "sl": "{learner}, {learner}! Pridi gor! Danes pride cramâr, prodajalec!",
+          "en": "{learner}, {learner}! Come up! The cramâr is coming today, the seller!",
+          "de": "{learner}, {learner}! Komm rauf! Heute kommt der Cramâr, der Verkäufer!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Ciao, Tommaso! Dove lo vedi?",
+              "sl": "Živjo, Tommaso! Kje ga vidiš?",
+              "en": "Hi, Tommaso! Where do you see him?",
+              "de": "Hallo, Tommaso! Wo siehst du ihn?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Non lo vedo ancora. Passami il cannocchiale!",
+                "sl": "Še ga ne vidim. Podaj mi daljnogled!",
+                "en": "I can't see him yet. Pass me the spyglass!",
+                "de": "Ich sehe ihn noch nicht. Gib mir das Fernrohr!"
+              }
+            },
+            {
+              "it": "Ciao, Tommaso! Dove la vedi?",
+              "sl": "Živjo, Tommaso! Kje jo vidiš?",
+              "en": "Hi, Tommaso! Where do you see her?",
+              "de": "Hallo, Tommaso! Wo siehst du sie?",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Venditore je moškega spola: lo vedi. La je za ženski spol: la mamma, la vedi.",
+                "en": "Venditore is masculine: lo vedi. La is for a feminine one: la mamma, la vedi.",
+                "de": "Venditore ist maskulin: lo vedi. La steht für ein Femininum: la mamma, la vedi."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "La? La mamma? La mamma è all'osteria!",
+                "sl": "La? Mamo? Mama je v gostilni!",
+                "en": "La? Mum? Mum's at the osteria!",
+                "de": "La? Mama? Mama ist in der Osteria!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "surprised",
+          "it": "Guarda il bosco! Gli uccelli volano via, tutti insieme!",
+          "sl": "Poglej gozd! Ptice odletijo, vse hkrati!",
+          "en": "Look at the wood! The birds are flying off, all together!",
+          "de": "Schau zum Wald! Die Vögel fliegen weg, alle zusammen!",
+          "fx": {
+            "birds": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Qualcuno arriva sulla strada!",
+              "sl": "Nekdo prihaja po cesti!",
+              "en": "Someone is coming along the road!",
+              "de": "Jemand kommt die Straße entlang!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì! Eccolo! Ha una cassetta di legno sulla schiena!",
+                "sl": "Ja! Tam je! Na hrbtu ima leseno skrinjico!",
+                "en": "Yes! There he is! He's got a wooden box on his back!",
+                "de": "Ja! Da ist er! Er hat eine Holzkiste auf dem Rücken!",
+                "fx": {
+                  "pedlar": 0.25
+                }
+              }
+            },
+            {
+              "it": "Qualcuno arriva su la strada!",
+              "sl": "Nekdo prihaja po (ločeno) cesti!",
+              "en": "Someone is coming along (split up) the road!",
+              "de": "Jemand kommt auf die (getrennt) Straße!",
+              "grammar": "preposizioni-articolate",
+              "why": {
+                "sl": "Su in la se zlijeta v sulla: sulla strada.",
+                "en": "Su and la join into sulla: sulla strada.",
+                "de": "Su und la verschmelzen zu sulla: sulla strada."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Eh? Parla piano, non capisco!",
+                "sl": "Eh? Govori počasi, ne razumem!",
+                "en": "Huh? Speak slowly, I don't get it!",
+                "de": "Hä? Sprich langsam, ich verstehe nichts!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "proud",
+          "it": "Scendiamo al cancello! Arrivo io per primo!",
+          "sl": "Spustiva se do vrat! Jaz bom prvi!",
+          "en": "Let's go down to the gate! I'll get there first!",
+          "de": "Gehen wir runter zum Tor! Ich bin als Erster da!",
+          "fx": {
+            "pedlar": 0.6
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Piano, Tommaso! La scala è ripida.",
+              "sl": "Počasi, Tommaso! Lestev je strma.",
+              "en": "Slowly, Tommaso! The ladder is steep.",
+              "de": "Langsam, Tommaso! Die Leiter ist steil.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Tu sei {m:lento|f:lenta}, io sono veloce! Ah ah!",
+                "sl": "Ti si {m:počasen|f:počasna}, jaz sem hiter! Ha ha!",
+                "en": "You're slow, I'm fast! Ha ha!",
+                "de": "Du bist langsam, ich bin schnell! Haha!",
+                "fx": {
+                  "pedlar": 1
+                }
+              }
+            },
+            {
+              "it": "Piano, Tommaso! La scala è ripido.",
+              "sl": "Počasi, Tommaso! Lestev je strm.",
+              "en": "Slowly, Tommaso! The ladder is steep (masculine).",
+              "de": "Langsam, Tommaso! Die Leiter ist steiler.",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Scala je ženskega spola, zato ripida.",
+                "en": "Scala is feminine, so ripida.",
+                "de": "Scala ist feminin, also ripida."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Ripido? Io? Ah ah, io non sono ripido!",
+                "sl": "Ripido? Jaz? Ha ha, jaz nisem strm!",
+                "en": "Ripido? Me? Ha ha, I'm not steep!",
+                "de": "Ripido? Ich? Haha, ich bin doch nicht steil!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "temporale",
+      "lines": [
+        {
+          "who": "franco",
+          "face": "worried",
+          "it": "Guarda le montagne. Arriva una nuvola nera. Cosa vedi?",
+          "sl": "Poglej gore. Prihaja črn oblak. Kaj vidiš?",
+          "en": "Look at the mountains. A black cloud is coming. What do you see?",
+          "de": "Schau zu den Bergen. Eine schwarze Wolke kommt. Was siehst du?",
+          "sky": {
+            "gloom": 0.5,
+            "wind": 0.3
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Vedo una nuvola nera e un fulmine!",
+              "sl": "Vidim črn oblak in strelo!",
+              "en": "I see a black cloud and lightning!",
+              "de": "Ich sehe eine schwarze Wolke und einen Blitz!",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "it": "Sì! Il temporale arriva. Presto, sotto il tetto!",
+                "sl": "Ja! Nevihta prihaja. Hitro, pod streho!",
+                "en": "Yes! The storm is coming. Quick, under the roof!",
+                "de": "Ja! Das Gewitter kommt. Schnell, unters Dach!",
+                "sky": {
+                  "gloom": 0.75,
+                  "rain": 0.2,
+                  "lightning": true
+                }
+              }
+            },
+            {
+              "it": "Vedo un nuvola nera e un fulmine!",
+              "sl": "Vidim črnega oblaka in strelo!",
+              "en": "I see a (masculine) black cloud and lightning!",
+              "de": "Ich sehe ein schwarze Wolke und einen Blitz!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Nuvola je ženskega spola: una nuvola.",
+                "en": "Nuvola is feminine: una nuvola.",
+                "de": "Nuvola ist feminin: una nuvola."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Eh? Il tuono è più forte di te, ripeti!",
+                "sl": "Eh? Grom je glasnejši od tebe, ponovi!",
+                "en": "Huh? The thunder's louder than you, say it again!",
+                "de": "Hä? Der Donner ist lauter als du, sag's noch mal!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "it": "Senti il tuono? Bum! E adesso piove forte.",
+          "sl": "Slišiš grom? Bum! Zdaj pa močno dežuje.",
+          "en": "Hear the thunder? Boom! And now it's raining hard.",
+          "de": "Hörst du den Donner? Bumm! Und jetzt regnet es stark.",
+          "sky": {
+            "rain": 0.7,
+            "gloom": 0.85
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Ho un po' di paura, signor Franco.",
+              "sl": "Malo me je strah, gospod Franco.",
+              "en": "I'm a little scared, Mr Franco.",
+              "de": "Ich habe ein bisschen Angst, Herr Franco.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Qui sotto il tetto siamo all'asciutto. Non avere paura.",
+                "sl": "Tu pod streho smo na suhem. Ne boj se.",
+                "en": "Under this roof we're dry. Don't be afraid.",
+                "de": "Hier unter dem Dach sind wir im Trockenen. Hab keine Angst."
+              }
+            },
+            {
+              "it": "Sono un po' di paura, signor Franco.",
+              "sl": "Sem malo strah, gospod Franco.",
+              "en": "I am a little fear, Mr Franco.",
+              "de": "Ich bin ein bisschen Angst, Herr Franco.",
+              "grammar": "essere-avere",
+              "why": {
+                "sl": "Strah te je: avere paura, ho paura. Ne sono paura.",
+                "en": "Being scared is avere paura: ho paura, not sono paura.",
+                "de": "Angst haben ist avere paura: ho paura, nicht sono paura."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Sei... cosa? Non capisco, c'è troppo rumore!",
+                "sl": "Si ... kaj? Ne razumem, preveč je hrupa!",
+                "en": "You are... what? I can't hear, it's too noisy!",
+                "de": "Du bist ... was? Ich verstehe nichts, es ist zu laut!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Ecco, già passa. Guarda: il sole sulla valle!",
+          "sl": "Glej, že mineva. Poglej: sonce nad dolino!",
+          "en": "There, it's passing already. Look: the sun over the valley!",
+          "de": "Siehst du, es zieht schon vorbei. Schau: die Sonne über dem Tal!",
+          "sky": {
+            "rain": 0,
+            "gloom": 0,
+            "wind": 0,
+            "lightning": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "paese",
+      "lines": [
+        {
+          "who": "franco",
+          "it": "Buongiorno, {learner}. Da quassù vediamo tutto il paese.",
+          "sl": "Dober dan, {learner}. Od tu zgoraj vidiva vso vas.",
+          "en": "Good morning, {learner}. From up here we can see the whole village.",
+          "de": "Guten Morgen, {learner}. Von hier oben sehen wir das ganze Dorf."
+        },
+        {
+          "choices": [
+            {
+              "it": "Buongiorno, signor Franco!",
+              "sl": "Dober dan, gospod Franco!",
+              "en": "Good morning, Mr Franco!",
+              "de": "Guten Morgen, Herr Franco!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Che bella giornata, eh? Si vede lontano.",
+                "sl": "Kako lep dan, kajne? Vidi se daleč.",
+                "en": "What a lovely day, eh? You can see far.",
+                "de": "Was für ein schöner Tag, was? Man sieht weit."
+              }
+            },
+            {
+              "it": "Ciao, Franco!",
+              "sl": "Živjo, Franco!",
+              "en": "Hi, Franco!",
+              "de": "Hallo, Franco!",
+              "grammar": "tu-lei",
+              "why": {
+                "sl": "Gospodu Francu rečeš buongiorno in signor: ciao je za prijatelje.",
+                "en": "Say buongiorno and signor to signor Franco: ciao is for friends.",
+                "de": "Zu signor Franco sagst du buongiorno und signor: ciao ist für Freunde."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Ciao? Come a un bambino?",
+                "sl": "Živjo? Kot otroku?",
+                "en": "Ciao? Like to a child?",
+                "de": "Ciao? Wie zu einem Kind?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Allora, cosa vedi laggiù, vicino al bosco?",
+          "sl": "No, kaj vidiš tam spodaj, blizu gozda?",
+          "en": "So, what do you see down there, near the wood?",
+          "de": "Also, was siehst du da unten, nahe am Wald?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Vedo la strada e il cancello.",
+              "sl": "Vidim cesto in vrata.",
+              "en": "I see the road and the gate.",
+              "de": "Ich sehe die Straße und das Tor.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto. La strada va giù nella valle.",
+                "sl": "Tako je. Cesta gre dol v dolino.",
+                "en": "Right. The road goes down into the valley.",
+                "de": "Richtig. Die Straße führt hinunter ins Tal."
+              }
+            },
+            {
+              "it": "Vedo il strada e il cancello.",
+              "sl": "Vidim cesta in vrata.",
+              "en": "I see the (masculine) road and the gate.",
+              "de": "Ich sehe der Straße und das Tor.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Strada je ženskega spola: la strada.",
+                "en": "Strada is feminine: la strada.",
+                "de": "Strada ist feminin: la strada."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Il strada? Hm, ripeti piano.",
+                "sl": "Il strada? Hm, ponovi počasi.",
+                "en": "Il strada? Hm, say it again slowly.",
+                "de": "Il strada? Hm, sag's langsam noch mal."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "it": "E dietro le case c'è la palizzata. Tiene lontani i lupi.",
+          "sl": "Za hišami pa je palisada. Volkove drži stran.",
+          "en": "And behind the houses there's the palisade. It keeps the wolves away.",
+          "de": "Und hinter den Häusern ist die Palisade. Sie hält die Wölfe fern."
+        },
+        {
+          "choices": [
+            {
+              "it": "E laggiù c'è il fiume!",
+              "sl": "Tam spodaj pa je reka!",
+              "en": "And down there is the river!",
+              "de": "Und da unten ist der Fluss!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "it": "Sì, l'Isonzo. Va fino al mare.",
+                "sl": "Ja, Soča. Teče vse do morja.",
+                "en": "Yes, the Isonzo. It runs all the way to the sea.",
+                "de": "Ja, der Isonzo. Er fließt bis zum Meer."
+              }
+            },
+            {
+              "it": "E laggiù ci sono il fiume!",
+              "sl": "Tam spodaj pa so reka!",
+              "en": "And down there are the river!",
+              "de": "Und da unten sind der Fluss!",
+              "grammar": "ce-ci-sono",
+              "why": {
+                "sl": "Ena reka: c'è il fiume. Ci sono je za več stvari: ci sono le case.",
+                "en": "One river: c'è il fiume. Ci sono is for more than one: ci sono le case.",
+                "de": "Ein Fluss: c'è il fiume. Ci sono steht für mehrere: ci sono le case."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Ci sono? Quanti fiumi vedi? Io ne vedo uno.",
+                "sl": "Ci sono? Koliko rek vidiš? Jaz vidim eno.",
+                "en": "Ci sono? How many rivers do you see? I see one.",
+                "de": "Ci sono? Wie viele Flüsse siehst du? Ich sehe einen."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corvo",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "cross",
+          "it": "Ehi! Il corvo vuole la mia merenda! Dov'è adesso?",
+          "sl": "Ej! Vrana hoče mojo malico! Kje je zdaj?",
+          "en": "Hey! The crow wants my snack! Where is it now?",
+          "de": "He! Die Krähe will mein Pausenbrot! Wo ist sie jetzt?"
+        },
+        {
+          "choices": [
+            {
+              "it": "È sulla ringhiera!",
+              "sl": "Na ograji je!",
+              "en": "It's on the railing!",
+              "de": "Sie sitzt auf dem Geländer!",
+              "ok": true,
+              "tap": "crow",
+              "grammar": "preposizioni-articolate",
+              "reply": {
+                "face": "laugh",
+                "it": "Sì! Mi fissa con un occhio solo. Furbo!",
+                "sl": "Ja! Gleda me z enim očesom. Zvita je!",
+                "en": "Yes! It's watching me with one eye. Sly thing!",
+                "de": "Ja! Sie schaut mich mit einem Auge an. Schlau!"
+              }
+            },
+            {
+              "it": "È sulla bandiera!",
+              "sl": "Na zastavi je!",
+              "en": "It's on the flag!",
+              "de": "Sie ist auf der Fahne!",
+              "tap": "flag",
+              "why": {
+                "sl": "Na zastavi ga ni. Išči nekaj majhnega in črnega.",
+                "en": "It isn't on the flag. Look for something small and black.",
+                "de": "Auf der Fahne ist er nicht. Such etwas Kleines, Schwarzes."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "No, sulla bandiera non c'è niente!",
+                "sl": "Ne, na zastavi ni ničesar!",
+                "en": "No, there's nothing on the flag!",
+                "de": "Nein, auf der Fahne ist nichts!"
+              }
+            },
+            {
+              "it": "È sui tetti!",
+              "sl": "Na strehah je!",
+              "en": "It's on the roofs!",
+              "de": "Sie ist auf den Dächern!",
+              "tap": "roofs",
+              "why": {
+                "sl": "Na strehah ga ni. Bližje je, išči nekaj črnega.",
+                "en": "It isn't on the roofs. It's nearer: look for something black.",
+                "de": "Auf den Dächern ist er nicht. Er ist näher: such etwas Schwarzes."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Sui tetti? No, è molto più vicino!",
+                "sl": "Na strehah? Ne, veliko bližje je!",
+                "en": "On the roofs? No, it's much nearer!",
+                "de": "Auf den Dächern? Nein, sie ist viel näher!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "curious",
+          "it": "Cosa mangiano i corvi? Il pane?",
+          "sl": "Kaj jedo vrane? Kruh?",
+          "en": "What do crows eat? Bread?",
+          "de": "Was fressen Krähen? Brot?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Sì, mangiano il pane e i semi.",
+              "sl": "Ja, jedo kruh in semena.",
+              "en": "Yes, they eat bread and seeds.",
+              "de": "Ja, sie fressen Brot und Samen.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Allora gli do una briciola. Tieni, corvo!",
+                "sl": "Potem ji dam drobtinico. Na, vrana!",
+                "en": "Then I'll give it a crumb. Here you go, crow!",
+                "de": "Dann gebe ich ihr ein Krümelchen. Da, Krähe!"
+              }
+            },
+            {
+              "it": "Sì, mangia il pane e i semi.",
+              "sl": "Ja, je kruh in semena.",
+              "en": "Yes, it eats bread and seeds.",
+              "de": "Ja, sie frisst Brot und Samen.",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "I corvi (vrane) so množina: mangiano. Mangia je za enega: il corvo mangia.",
+                "en": "I corvi is plural: mangiano. Mangia is for one: il corvo mangia.",
+                "de": "I corvi ist Plural: mangiano. Mangia steht für einen: il corvo mangia."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Chi mangia? Io? Sì, la mia merenda!",
+                "sl": "Kdo je? Jaz? Ja, svojo malico!",
+                "en": "Who's eating? Me? Yes, my snack!",
+                "de": "Wer isst? Ich? Ja, mein Pausenbrot!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "laugh",
+          "it": "Cra, cra! Dice grazie! Ah ah!",
+          "sl": "Kra, kra! Pravi hvala! Ha ha!",
+          "en": "Caw, caw! It's saying thank you! Ha ha!",
+          "de": "Krah, krah! Sie sagt danke! Haha!"
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "guardia-vento",
+      "fx_stays": true,
+      "sky_stays": false,
+      "lines": [
+        {
+          "who": "davide",
+          "face": "worried",
+          "it": "Uh, che vento stasera! La torcia si è spenta.",
+          "sl": "Uh, kakšen veter nocoj! Bakla je ugasnila.",
+          "en": "Ooh, what a wind tonight! The torch has gone out.",
+          "de": "Uh, was für ein Wind heute Abend! Die Fackel ist ausgegangen.",
+          "fx": {
+            "torch": 0
+          },
+          "sky": {
+            "wind": 0.6
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "La accendo io!",
+              "sl": "Jo prižgem jaz!",
+              "en": "I'll light it!",
+              "de": "Ich zünde sie an!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Grazie! Tienila bassa, il vento è forte.",
+                "sl": "Hvala! Drži jo nizko, veter je močan.",
+                "en": "Thanks! Hold it low, the wind is strong.",
+                "de": "Danke! Halt sie tief, der Wind ist stark.",
+                "fx": {
+                  "torch": 1
+                }
+              }
+            },
+            {
+              "it": "Lo accendo io!",
+              "sl": "Ga prižgem jaz!",
+              "en": "I'll light him!",
+              "de": "Ich zünde ihn an!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Torcia je ženskega spola, zato la: la accendo. Lo je za moški spol: il corno, lo suono.",
+                "en": "Torcia is feminine, so la: la accendo. Lo is for a masculine one: il corno, lo suono.",
+                "de": "Torcia ist feminin, also la: la accendo. Lo steht für ein Maskulinum: il corno, lo suono."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Il corno? Ma un corno non si accende!",
+                "sl": "Rog? Saj roga se ne prižge!",
+                "en": "The horn? But you can't light a horn!",
+                "de": "Das Horn? Ein Horn kann man doch nicht anzünden!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "worried",
+          "it": "Shh... Ascolta. Uuuh! È un lupo?",
+          "sl": "Pst ... Poslušaj. Uuuh! Je to volk?",
+          "en": "Shh... Listen. Oooh! Is that a wolf?",
+          "de": "Pst ... Hör mal. Uuuh! Ist das ein Wolf?"
+        },
+        {
+          "choices": [
+            {
+              "it": "No, è il vento nel bosco.",
+              "sl": "Ne, to je veter v gozdu.",
+              "en": "No, it's the wind in the wood.",
+              "de": "Nein, das ist der Wind im Wald.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Hai ragione. Il bosco canta con il vento.",
+                "sl": "Prav imaš. Gozd poje z vetrom.",
+                "en": "You're right. The wood sings with the wind.",
+                "de": "Du hast recht. Der Wald singt mit dem Wind."
+              }
+            },
+            {
+              "it": "No, è la vento nel bosco.",
+              "sl": "Ne, to je vetra v gozdu.",
+              "en": "No, it's the (feminine) wind in the wood.",
+              "de": "Nein, das ist die Wind im Wald.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Vento je moškega spola: il vento.",
+                "en": "Vento is masculine: il vento.",
+                "de": "Vento ist maskulin: il vento."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "La vento? Ah ah, e chi è questa signora?",
+                "sl": "La vento? Ha ha, kdo pa je ta gospa?",
+                "en": "La vento? Ha ha, and who's this lady?",
+                "de": "La vento? Haha, und wer ist diese Dame?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "it": "Adesso vai a casa a dormire. La guardia la faccio io.",
+          "sl": "Zdaj pa pojdi domov spat. Stražil bom jaz.",
+          "en": "Now go home to sleep. I'll keep watch.",
+          "de": "Jetzt geh nach Hause schlafen. Ich halte Wache.",
+          "sky": {
+            "wind": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "guardia-nebbia",
+      "months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3
+      ],
+      "sky_stays": false,
+      "lines": [
+        {
+          "who": "davide",
+          "face": "worried",
+          "it": "Che nebbia! Non vedo il fiume e non vedo la valle.",
+          "sl": "Kakšna megla! Ne vidim reke in ne vidim doline.",
+          "en": "What fog! I can't see the river and I can't see the valley.",
+          "de": "Was für ein Nebel! Ich sehe den Fluss nicht und das Tal auch nicht.",
+          "sky": {
+            "fog": 0.8
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Neanch'io. Vedo solo i tetti.",
+              "sl": "Tudi jaz ne. Vidim samo strehe.",
+              "en": "Neither can I. I can only see the roofs.",
+              "de": "Ich auch nicht. Ich sehe nur die Dächer.",
+              "ok": true,
+              "reply": {
+                "it": "Sì, i tetti del paese. Tutto il resto è bianco.",
+                "sl": "Ja, strehe vasi. Vse drugo je belo.",
+                "en": "Yes, the village's roofs. Everything else is white.",
+                "de": "Ja, die Dächer des Dorfes. Alles andere ist weiß."
+              }
+            },
+            {
+              "it": "Neanch'io. Vedo solo i tetto.",
+              "sl": "Tudi jaz ne. Vidim samo strehe (ena).",
+              "en": "Neither can I. I can only see the roof (one).",
+              "de": "Ich auch nicht. Ich sehe nur die Dach.",
+              "grammar": "plurale",
+              "why": {
+                "sl": "Več streh: i tetti. Il tetto je ena streha.",
+                "en": "More than one roof: i tetti. Il tetto is one roof.",
+                "de": "Mehrere Dächer: i tetti. Il tetto ist ein Dach."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Solo uno? Quale?",
+                "sl": "Samo eno? Katero?",
+                "en": "Just one? Which one?",
+                "de": "Nur eins? Welches?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "thinking",
+          "it": "Nella nebbia i lupi non si vedono. Allora io ascolto.",
+          "sl": "V megli se volkov ne vidi. Zato poslušam.",
+          "en": "In the fog you can't see the wolves. So I listen.",
+          "de": "Im Nebel sieht man die Wölfe nicht. Also höre ich zu."
+        },
+        {
+          "choices": [
+            {
+              "it": "Ascoltiamo insieme!",
+              "sl": "Poslušajva skupaj!",
+              "en": "Let's listen together!",
+              "de": "Hören wir zusammen zu!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Bene. Shh... Niente lupi stanotte.",
+                "sl": "Dobro. Pst ... Nocoj ni volkov.",
+                "en": "Good. Shh... No wolves tonight.",
+                "de": "Gut. Pst ... Heute Nacht keine Wölfe."
+              }
+            },
+            {
+              "it": "Ascoltate insieme!",
+              "sl": "Poslušajte skupaj!",
+              "en": "Listen together, you lot!",
+              "de": "Hört zusammen zu!",
+              "grammar": "imperativo",
+              "why": {
+                "sl": "Ascoltiamo: poslušajmo (midva). Ascoltate je ukaz več ljudem: poslušajte.",
+                "en": "Ascoltiamo: let's listen (the two of us). Ascoltate tells several people: listen!",
+                "de": "Ascoltiamo: hören wir zu (wir zwei). Ascoltate sagt mehreren: hört zu!"
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Ascoltate? Chi? Qui ci siamo solo noi due!",
+                "sl": "Poslušajte? Kdo? Tu sva samo midva!",
+                "en": "Listen, you lot? Who? There's only the two of us here!",
+                "de": "Hört zu? Wer? Hier sind nur wir zwei!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "davide",
+          "face": "happy",
+          "it": "Domattina la nebbia va via. Buonanotte, {learner}!",
+          "sl": "Jutri zjutraj bo megla izginila. Lahko noč, {learner}!",
+          "en": "In the morning the fog will go. Good night, {learner}!",
+          "de": "Morgen früh geht der Nebel weg. Gute Nacht, {learner}!",
+          "sky": {
+            "fog": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "id": "cramar-cannocchiale",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "curious",
+          "it": "Dov'è il cannocchiale? Non lo trovo!",
+          "sl": "Kje je daljnogled? Ne najdem ga!",
+          "en": "Where's the spyglass? I can't find it!",
+          "de": "Wo ist das Fernrohr? Ich finde es nicht!"
+        },
+        {
+          "choices": [
+            {
+              "it": "È sulla ringhiera!",
+              "sl": "Na ograji je!",
+              "en": "It's on the railing!",
+              "de": "Es liegt auf dem Geländer!",
+              "ok": true,
+              "tap": "spyglass",
+              "grammar": "preposizioni-articolate",
+              "reply": {
+                "face": "happy",
+                "it": "Eccolo! Grazie!",
+                "sl": "Tu je! Hvala!",
+                "en": "There it is! Thanks!",
+                "de": "Da ist es! Danke!"
+              }
+            },
+            {
+              "it": "È sulla bandiera!",
+              "sl": "Na zastavi je!",
+              "en": "It's on the flag!",
+              "de": "Es ist auf der Fahne!",
+              "tap": "flag",
+              "why": {
+                "sl": "Poglej še enkrat: na zastavi ga ni. Išči nekaj dolgega in rumenega.",
+                "en": "Look again: it isn't on the flag. Look for something long and gold.",
+                "de": "Schau noch mal: auf der Fahne ist es nicht. Such etwas Langes, Goldenes."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Sulla bandiera? Volerebbe via con il vento!",
+                "sl": "Na zastavi? Z vetrom bi odletel!",
+                "en": "On the flag? It would fly off in the wind!",
+                "de": "Auf der Fahne? Es würde mit dem Wind wegfliegen!"
+              }
+            },
+            {
+              "it": "È vicino al corno!",
+              "sl": "Pri rogu je!",
+              "en": "It's by the horn!",
+              "de": "Es ist beim Horn!",
+              "tap": "horn",
+              "why": {
+                "sl": "Pri rogu ga ni. Išči nekaj dolgega in rumenega.",
+                "en": "It isn't by the horn. Look for something long and gold.",
+                "de": "Beim Horn ist es nicht. Such etwas Langes, Goldenes."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Lì c'è il corno, non il cannocchiale!",
+                "sl": "Tam je rog, ne daljnogled!",
+                "en": "That's the horn, not the spyglass!",
+                "de": "Da ist das Horn, nicht das Fernrohr!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "happy",
+          "it": "Che bello! Con il cannocchiale vedo lontano. Vedo il fiume!",
+          "sl": "Super! Z daljnogledom vidim daleč. Vidim reko!",
+          "en": "Great! With the spyglass I can see far. I can see the river!",
+          "de": "Toll! Mit dem Fernrohr sehe ich weit. Ich sehe den Fluss!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Io vedo la montagna!",
+              "sl": "Jaz vidim goro!",
+              "en": "I can see the mountain!",
+              "de": "Ich sehe den Berg!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "È grande! E lontana lontana.",
+                "sl": "Velika je! In daleč, daleč stran.",
+                "en": "It's big! And far, far away.",
+                "de": "Er ist groß! Und weit, weit weg."
+              }
+            },
+            {
+              "it": "Io vede la montagna!",
+              "sl": "Jaz vidi goro!",
+              "en": "I sees the mountain!",
+              "de": "Ich sieht den Berg!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Jaz: io vedo. Vede je on ali ona: lui vede.",
+                "en": "I: io vedo. Vede is he or she: lui vede.",
+                "de": "Ich: io vedo. Vede ist er oder sie: lui vede."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Chi? Lui? Qui non c'è nessuno!",
+                "sl": "Kdo? On? Tu ni nikogar!",
+                "en": "Who? Him? There's nobody here!",
+                "de": "Wer? Er? Hier ist niemand!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "laugh",
+          "it": "E il cramâr? Ancora niente. Aspettiamo!",
+          "sl": "Pa cramâr? Še nič. Počakajva!",
+          "en": "And the cramâr? Nothing yet. Let's wait!",
+          "de": "Und der Cramâr? Noch nichts. Warten wir!"
+        }
+      ]
+    },
+    {
+      "id": "cramar-regalo",
+      "count": {
+        "from": "dice",
+        "min": 2,
+        "max": 6,
+        "gender": "f"
+      },
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "proud",
+          "it": "Ho {n} {moneta|monete} per il cramâr!",
+          "sl": "Imam {n} {kovanec|kovanca|kovance|kovancev} za cramârja!",
+          "en": "I've got {n} {coin|coins} for the cramâr!",
+          "de": "Ich habe {n} {Münze|Münzen} für den Cramâr!"
+        },
+        {
+          "choices": [
+            {
+              "it": "Wow, {n} {moneta|monete}! Cosa compri?",
+              "sl": "Vau, {n} {kovanec|kovanca|kovanci|kovancev}! Kaj boš kupil?",
+              "en": "Wow, {n} {coin|coins}! What will you buy?",
+              "de": "Wow, {n} {Münze|Münzen}! Was kaufst du?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Un fischietto di legno! Fiii!",
+                "sl": "Leseno piščalko! Fiii!",
+                "en": "A wooden whistle! Wheee!",
+                "de": "Eine Holzpfeife! Fiii!"
+              }
+            },
+            {
+              "it": "Wow, {n} {moneta|monete}! Cosa compri?",
+              "sl": "Vau, {n} {kovanec|kovanca|kovanci|kovancev}! Kaj boš kupil?",
+              "en": "Wow, {n} {coin|coins}! What will you buy?",
+              "de": "Wow, {n} {Münze|Münzen}! Was kaufst du?",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": {
+                "sl": "{Ena zahteva ednino|Več kot ena zahteva množino}: {n} {moneta|monete}.",
+                "en": "{One takes the singular|More than one takes the plural}: {n} {moneta|monete}.",
+                "de": "{Eins nimmt den Singular|Mehr als eins nimmt den Plural}: {n} {moneta|monete}."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Eh? Conta ancora, piano piano.",
+                "sl": "Eh? Preštej še enkrat, počasi.",
+                "en": "Huh? Count again, nice and slowly.",
+                "de": "Hä? Zähl noch mal, ganz langsam."
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "curious",
+          "it": "E tu? Cosa vuoi dal cramâr?",
+          "sl": "Pa ti? Kaj želiš od cramârja?",
+          "en": "And you? What would you like from the cramâr?",
+          "de": "Und du? Was möchtest du vom Cramâr?"
+        },
+        {
+          "choices": [
+            {
+              "it": "Vorrei un cavallino di legno.",
+              "sl": "{m:Rad|f:Rada} bi lesenega konjička.",
+              "en": "I'd like a little wooden horse.",
+              "de": "Ich hätte gern ein Holzpferdchen.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Bello! Il cramâr ha sempre cose belle.",
+                "sl": "Lepo! Cramâr ima vedno lepe stvari.",
+                "en": "Nice! The cramâr always has nice things.",
+                "de": "Schön! Der Cramâr hat immer schöne Sachen."
+              }
+            },
+            {
+              "it": "Vorrei una cavallino di legno.",
+              "sl": "{m:Rad|f:Rada} bi lesena konjička.",
+              "en": "I'd like a (feminine) little wooden horse.",
+              "de": "Ich hätte gern eine Holzpferdchen.",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Cavallino je moškega spola: un cavallino.",
+                "en": "Cavallino is masculine: un cavallino.",
+                "de": "Cavallino ist maskulin: un cavallino."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Come? Non ho capito!",
+                "sl": "Kako? Nisem razumel!",
+                "en": "What? I didn't get that!",
+                "de": "Wie bitte? Hab ich nicht verstanden!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "happy",
+          "it": "Eccolo laggiù, sulla strada! Viene dalla Carnia, dalle montagne.",
+          "sl": "Tam spodaj je, na cesti! Prihaja iz Karnije, iz gora.",
+          "en": "There he is down there, on the road! He comes from Carnia, from the mountains.",
+          "de": "Da unten ist er, auf der Straße! Er kommt aus Karnien, aus den Bergen.",
+          "fx": {
+            "pedlar": 0.35
+          }
+        }
+      ]
+    },
+    {
+      "id": "temporale-secondi",
+      "count": {
+        "from": "dice",
+        "min": 2,
+        "max": 9,
+        "gender": "m"
+      },
+      "sky_stays": false,
+      "lines": [
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "Un fulmine! Adesso contiamo i secondi fino al tuono.",
+          "sl": "Strela! Zdaj štejva sekunde do groma.",
+          "en": "Lightning! Now let's count the seconds until the thunder.",
+          "de": "Ein Blitz! Jetzt zählen wir die Sekunden bis zum Donner.",
+          "sky": {
+            "gloom": 0.7,
+            "wind": 0.4,
+            "lightning": true
+          }
+        },
+        {
+          "who": "franco",
+          "it": "Bum! Io ho contato fino a {n}.",
+          "sl": "Bum! Jaz sem štel do {n}.",
+          "en": "Boom! I counted to {n}.",
+          "de": "Bumm! Ich habe bis {n} gezählt."
+        },
+        {
+          "choices": [
+            {
+              "it": "Anch'io: {n} {secondo|secondi}!",
+              "sl": "Jaz tudi: {n} {sekunda|sekundi|sekunde|sekund}!",
+              "en": "Me too: {n} {second|seconds}!",
+              "de": "Ich auch: {n} {Sekunde|Sekunden}!",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "it": "Bene. Allora il temporale è ancora lontano.",
+                "sl": "Dobro. Potem je nevihta še daleč.",
+                "en": "Good. Then the storm is still far away.",
+                "de": "Gut. Dann ist das Gewitter noch weit weg."
+              }
+            },
+            {
+              "it": "Anch'io: {n} {secondo|secondi}!",
+              "sl": "Jaz tudi: {n} {sekunda|sekundi|sekunde|sekund}!",
+              "en": "Me too: {n} {second|seconds}!",
+              "de": "Ich auch: {n} {Sekunde|Sekunden}!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": {
+                "sl": "{Ena zahteva ednino|Več kot ena zahteva množino}: {n} {secondo|secondi}.",
+                "en": "{One takes the singular|More than one takes the plural}: {n} {secondo|secondi}.",
+                "de": "{Eins nimmt den Singular|Mehr als eins nimmt den Plural}: {n} {secondo|secondi}."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Eh? Conta di nuovo con me.",
+                "sl": "Eh? Štej še enkrat z mano.",
+                "en": "Huh? Count again with me.",
+                "de": "Hä? Zähl noch mal mit mir."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "it": "Tanti secondi: è lontano. Pochi secondi: è vicino!",
+          "sl": "Veliko sekund: je daleč. Malo sekund: je blizu!",
+          "en": "Lots of seconds: it's far. Few seconds: it's near!",
+          "de": "Viele Sekunden: es ist weit. Wenige Sekunden: es ist nah!",
+          "sky": {
+            "rain": 0.3
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora andiamo sotto il tetto!",
+              "sl": "Potem pa pojdiva pod streho!",
+              "en": "Then let's go under the roof!",
+              "de": "Dann gehen wir unters Dach!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Giusto. Qui siamo all'asciutto.",
+                "sl": "Prav. Tu smo na suhem.",
+                "en": "Right. Here we're dry.",
+                "de": "Richtig. Hier sind wir im Trockenen.",
+                "sky": {
+                  "rain": 0.6,
+                  "gloom": 0.8
+                }
+              }
+            },
+            {
+              "it": "Allora andate sotto il tetto!",
+              "sl": "Potem pa pojdite pod streho!",
+              "en": "Then you lot go under the roof!",
+              "de": "Dann geht ihr unters Dach!",
+              "grammar": "imperativo",
+              "why": {
+                "sl": "Andiamo: pojdiva (ti in jaz). Andate: pojdite (vi).",
+                "en": "Andiamo: let's go (you and me). Andate: you lot, go!",
+                "de": "Andiamo: gehen wir (du und ich). Andate: geht ihr!"
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Andate? E tu resti fuori sotto la pioggia?",
+                "sl": "Pojdite? Pa ti ostaneš zunaj na dežju?",
+                "en": "You lot go? And you stay out in the rain?",
+                "de": "Geht ihr? Und du bleibst draußen im Regen?"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "temporale-fieno",
+      "months": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "sky_stays": false,
+      "lines": [
+        {
+          "who": "franco",
+          "face": "worried",
+          "it": "Il vento cambia. Il mio fieno è ancora nel campo!",
+          "sl": "Veter se obrača. Moje seno je še na njivi!",
+          "en": "The wind's turning. My hay is still in the field!",
+          "de": "Der Wind dreht. Mein Heu liegt noch auf dem Feld!",
+          "sky": {
+            "wind": 0.5,
+            "gloom": 0.4
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Corro a chiamare gli altri!",
+              "sl": "Stečem poklicat druge!",
+              "en": "I'll run and call the others!",
+              "de": "Ich laufe und hole die anderen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}! In tanti facciamo presto.",
+                "sl": "Bravo! Skupaj bomo hitro opravili.",
+                "en": "Good! With lots of us it'll be quick.",
+                "de": "Gut so! Zu vielen geht es schnell."
+              }
+            },
+            {
+              "it": "Corri a chiamare gli altri!",
+              "sl": "Tečeš poklicat druge!",
+              "en": "You run and call the others!",
+              "de": "Du läufst und holst die anderen!",
+              "grammar": "presente-regolare",
+              "why": {
+                "sl": "Tečeš ti: corro (jaz tečem). Corri pomeni ti tečeš.",
+                "en": "You're the one running: corro (I run). Corri means you run.",
+                "de": "Du läufst: corro (ich laufe). Corri heißt du läufst."
+              },
+              "reply": {
+                "face": "surprised",
+                "it": "Io? Con le mie gambe vecchie?",
+                "sl": "Jaz? S svojimi starimi nogami?",
+                "en": "Me? On my old legs?",
+                "de": "Ich? Mit meinen alten Beinen?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "thinking",
+          "it": "Il fieno bagnato non è buono per le mucche.",
+          "sl": "Mokro seno ni dobro za krave.",
+          "en": "Wet hay is no good for the cows.",
+          "de": "Nasses Heu ist nicht gut für die Kühe."
+        },
+        {
+          "choices": [
+            {
+              "it": "Allora il fieno deve restare asciutto.",
+              "sl": "Potem mora seno ostati suho.",
+              "en": "Then the hay has to stay dry.",
+              "de": "Dann muss das Heu trocken bleiben.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Esatto. Asciutto e al coperto.",
+                "sl": "Točno. Suho in pod streho.",
+                "en": "Exactly. Dry and under cover.",
+                "de": "Genau. Trocken und unter Dach."
+              }
+            },
+            {
+              "it": "Allora il fieno deve restare asciutta.",
+              "sl": "Potem mora seno ostati suha.",
+              "en": "Then the hay has to stay dry (feminine).",
+              "de": "Dann muss das Heu trockene bleiben.",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Fieno je moškega spola: asciutto.",
+                "en": "Fieno is masculine: asciutto.",
+                "de": "Fieno ist maskulin: asciutto."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Asciutta? Chi? La mucca?",
+                "sl": "Asciutta? Kdo? Krava?",
+                "en": "Asciutta? Who? The cow?",
+                "de": "Asciutta? Wer? Die Kuh?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "happy",
+          "it": "Ecco, arrivano tutti con le forche. Grazie, {learner}!",
+          "sl": "Glej, vsi že prihajajo z vilami. Hvala, {learner}!",
+          "en": "Look, everyone's coming with pitchforks. Thanks, {learner}!",
+          "de": "Schau, alle kommen mit Heugabeln. Danke, {learner}!",
+          "sky": {
+            "wind": 0.2,
+            "gloom": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "paese-case",
+      "count": {
+        "from": "villagers",
+        "min": 2,
+        "max": 99,
+        "gender": "f"
+      },
+      "lines": [
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "Io conto sempre tutto. Sai quante persone abitano in paese? {n}!",
+          "sl": "Jaz vedno vse preštejem. Veš, koliko ljudi živi v vasi? {n}!",
+          "en": "I always count everything. Do you know how many people live in the village? {n}!",
+          "de": "Ich zähle immer alles. Weißt du, wie viele Leute im Dorf wohnen? {n}!"
+        },
+        {
+          "choices": [
+            {
+              "it": "{n} {persona|persone}! Che bello!",
+              "sl": "{n} {človek|človeka|ljudje|ljudi}! Kako lepo!",
+              "en": "{n} {person|people}! How nice!",
+              "de": "{n} {Person|Leute}! Wie schön!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. E ogni anno qualcuno in più.",
+                "sl": "Ja. In vsako leto kdo več.",
+                "en": "Yes. And every year a few more.",
+                "de": "Ja. Und jedes Jahr ein paar mehr."
+              }
+            },
+            {
+              "it": "{n} {persona|persone}! Che bello!",
+              "sl": "{n} {človek|človeka|ljudje|ljudi}! Kako lepo!",
+              "en": "{n} {person|people}! How nice!",
+              "de": "{n} {Person|Leute}! Wie schön!",
+              "wrong_form": 1,
+              "grammar": "plurale",
+              "why": {
+                "sl": "{Ena zahteva ednino|Več kot ena zahteva množino}: {n} {persona|persone}.",
+                "en": "{One takes the singular|More than one takes the plural}: {n} {persona|persone}.",
+                "de": "{Eins nimmt den Singular|Mehr als eins nimmt den Plural}: {n} {persona|persone}."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "Eh? Conta ancora, piano piano.",
+                "sl": "Eh? Preštej še enkrat, počasi.",
+                "en": "Huh? Count again, nice and slowly.",
+                "de": "Hä? Zähl noch mal, ganz langsam."
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "curious",
+          "it": "E quella torre di mattoni laggiù, tra i tetti, cos'è?",
+          "sl": "Pa tisti opečnati stolp tam spodaj med strehami, kaj je to?",
+          "en": "And that brick tower down there among the roofs, what is it?",
+          "de": "Und der Ziegelturm dort unten zwischen den Dächern, was ist das?"
+        },
+        {
+          "choices": [
+            {
+              "it": "È il campanile della chiesa!",
+              "sl": "To je cerkveni zvonik!",
+              "en": "It's the church's bell tower!",
+              "de": "Das ist der Glockenturm der Kirche!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "{m:Bravo|f:Brava}. A mezzogiorno suona: din, don!",
+                "sl": "Bravo. Opoldne zvoni: bim, bam!",
+                "en": "Well done. At noon it rings: ding, dong!",
+                "de": "Gut gemacht. Mittags läutet sie: bim, bam!"
+              }
+            },
+            {
+              "it": "È la campanile della chiesa!",
+              "sl": "To je cerkvena zvonik!",
+              "en": "It's the (feminine) church's bell tower!",
+              "de": "Das ist die Glockenturm der Kirche!",
+              "grammar": "articoli-genere",
+              "why": {
+                "sl": "Campanile je moškega spola: il campanile.",
+                "en": "Campanile is masculine: il campanile.",
+                "de": "Campanile ist maskulin: il campanile."
+              },
+              "reply": {
+                "face": "confused",
+                "it": "La? Hm, sono vecchio, sai. Ripeti?",
+                "sl": "La? Hm, star sem, veš. Ponoviš?",
+                "en": "La? Hm, I'm old, you know. Say it again?",
+                "de": "La? Hm, ich bin alt, weißt du. Noch mal?"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paese-bandiera",
+      "lines": [
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "Guarda la bandiera sulla torre. È la bandiera del Friuli.",
+          "sl": "Poglej zastavo na stolpu. To je furlanska zastava.",
+          "en": "Look at the flag on the tower. It's the flag of Friuli.",
+          "de": "Schau die Fahne auf dem Turm an. Das ist die Fahne des Friaul."
+        },
+        {
+          "choices": [
+            {
+              "it": "È blu e gialla!",
+              "sl": "Modra in rumena je!",
+              "en": "It's blue and yellow!",
+              "de": "Sie ist blau und gelb!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì. Blu come il cielo, e gialla come l'oro.",
+                "sl": "Ja. Modra kot nebo in rumena kot zlato.",
+                "en": "Yes. Blue like the sky, and yellow like gold.",
+                "de": "Ja. Blau wie der Himmel und gelb wie Gold."
+              }
+            },
+            {
+              "it": "È blu e giallo!",
+              "sl": "Moder in rumen je!",
+              "en": "It's blue and yellow (masculine)!",
+              "de": "Er ist blau und gelb!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Bandiera je ženskega spola: gialla.",
+                "en": "Bandiera is feminine: gialla.",
+                "de": "Bandiera ist feminin: gialla."
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Giallo? Chi è giallo? Il sole?",
+                "sl": "Giallo? Kdo je rumen? Sonce?",
+                "en": "Giallo? Who's yellow? The sun?",
+                "de": "Giallo? Wer ist gelb? Die Sonne?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "it": "Sulla bandiera grande c'è un'aquila d'oro, con le ali aperte.",
+          "sl": "Na veliki zastavi je zlat orel z razprtimi perutmi.",
+          "en": "On the big flag there's a golden eagle, its wings spread.",
+          "de": "Auf der großen Fahne ist ein goldener Adler mit ausgebreiteten Flügeln."
+        },
+        {
+          "choices": [
+            {
+              "it": "Mi piace l'aquila!",
+              "sl": "Orel mi je všeč!",
+              "en": "I like the eagle!",
+              "de": "Mir gefällt der Adler!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Anche a me. È forte e libera.",
+                "sl": "Tudi meni. Močan je in svoboden.",
+                "en": "Me too. It's strong and free.",
+                "de": "Mir auch. Er ist stark und frei."
+              }
+            },
+            {
+              "it": "Mi piacciono l'aquila!",
+              "sl": "Mi so všeč orel!",
+              "en": "I like (plural) the eagle!",
+              "de": "Mir gefallen der Adler!",
+              "grammar": "piacere",
+              "why": {
+                "sl": "Ena stvar: mi piace. Mi piacciono je za več stvari: mi piacciono le aquile.",
+                "en": "One thing: mi piace. Mi piacciono is for more than one: mi piacciono le aquile.",
+                "de": "Eine Sache: mi piace. Mi piacciono steht für mehrere: mi piacciono le aquile."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "Quante aquile vedi? Io ne vedo una!",
+                "sl": "Koliko orlov vidiš? Jaz vidim enega!",
+                "en": "How many eagles do you see? I see one!",
+                "de": "Wie viele Adler siehst du? Ich sehe einen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franco",
+          "face": "proud",
+          "it": "Il tre aprile è la festa del Friuli. Allora ci sono bandiere dappertutto.",
+          "sl": "Tretjega aprila je praznik Furlanije. Takrat so zastave povsod.",
+          "en": "On the third of April it's Friuli's day. Then there are flags everywhere.",
+          "de": "Am dritten April ist der Tag des Friaul. Dann gibt es überall Fahnen."
+        }
+      ]
+    },
+    {
+      "id": "corvo-nero",
+      "lines": [
+        {
+          "who": "tommaso",
+          "face": "curious",
+          "it": "Guarda il corvo sulla ringhiera. Di che colore è?",
+          "sl": "Poglej vrano na ograji. Kakšne barve je?",
+          "en": "Look at the crow on the railing. What colour is it?",
+          "de": "Schau die Krähe auf dem Geländer an. Welche Farbe hat sie?"
+        },
+        {
+          "choices": [
+            {
+              "it": "È nero, tutto nero!",
+              "sl": "Črna je, čisto črna!",
+              "en": "It's black, all black!",
+              "de": "Sie ist schwarz, ganz schwarz!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "it": "Sì! E il corvo ha il becco grigio.",
+                "sl": "Ja! In vrana ima siv kljun.",
+                "en": "Yes! And the crow has a grey beak.",
+                "de": "Ja! Und die Krähe hat einen grauen Schnabel."
+              }
+            },
+            {
+              "it": "È nera, tutta nera!",
+              "sl": "Črn je, čisto črn!",
+              "en": "It's black (feminine), all black!",
+              "de": "Er ist schwarz, ganz schwarz!",
+              "grammar": "aggettivi-accordo",
+              "why": {
+                "sl": "Corvo je moškega spola: nero. (Vrana je v slovenščini ženskega spola, v italijanščini pa ne.)",
+                "en": "Corvo is masculine: nero.",
+                "de": "Corvo ist maskulin: nero. (Krähe ist im Deutschen weiblich, im Italienischen nicht.)"
+              },
+              "reply": {
+                "face": "laugh",
+                "it": "Nera? Ah ah, chi? La notte?",
+                "sl": "Nera? Ha ha, kdo? Noč?",
+                "en": "Nera? Ha ha, who? The night?",
+                "de": "Nera? Haha, wer? Die Nacht?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "face": "surprised",
+          "it": "Uh! Gli uccelli del bosco volano via. Tutti insieme!",
+          "sl": "Uh! Ptice iz gozda odletijo. Vse hkrati!",
+          "en": "Ooh! The birds in the wood are flying off. All at once!",
+          "de": "Uh! Die Vögel im Wald fliegen weg. Alle zusammen!",
+          "fx": {
+            "birds": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "it": "Ci sono tanti uccelli!",
+              "sl": "Toliko ptic je!",
+              "en": "There are so many birds!",
+              "de": "Da sind so viele Vögel!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "it": "Tantissimi! E il nostro corvo resta qui.",
+                "sl": "Ogromno! Naša vrana pa ostane tu.",
+                "en": "Loads! And our crow stays here.",
+                "de": "Ganz viele! Und unsere Krähe bleibt hier."
+              }
+            },
+            {
+              "it": "C'è tanti uccelli!",
+              "sl": "Je toliko ptic!",
+              "en": "There is so many birds!",
+              "de": "Da ist so viele Vögel!",
+              "grammar": "ce-ci-sono",
+              "why": {
+                "sl": "Več ptic: ci sono. C'è je za eno stvar.",
+                "en": "Many birds: ci sono. C'è is for one thing.",
+                "de": "Viele Vögel: ci sono. C'è steht für eine Sache."
+              },
+              "reply": {
+                "face": "curious",
+                "it": "C'è? Uno solo? Io ne conto cento!",
+                "sl": "C'è? Samo ena? Jaz jih naštejem sto!",
+                "en": "C'è? Just one? I count a hundred!",
+                "de": "C'è? Nur einer? Ich zähle hundert!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "tommaso",
+          "it": "Quando gli uccelli volano via, forse arriva qualcuno!",
+          "sl": "Ko ptice odletijo, mogoče kdo prihaja!",
+          "en": "When the birds fly off, maybe someone's coming!",
+          "de": "Wenn die Vögel wegfliegen, kommt vielleicht jemand!"
+        }
+      ]
+    }
+  ]
+}

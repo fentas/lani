@@ -145,7 +145,6 @@ class BuildingLevelsTest {
             "smithy",
             "square",
             "tent",
-            "watchtower",
             "workshop",
         )
 
