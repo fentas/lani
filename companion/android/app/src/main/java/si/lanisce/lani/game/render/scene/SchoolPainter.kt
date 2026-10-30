@@ -1,5 +1,7 @@
 package si.lanisce.lani.game.render.scene
 
+import si.lanisce.lani.game.BuildingType
+import si.lanisce.lani.game.Catalog
 import si.lanisce.lani.game.render.Col
 import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
@@ -46,8 +48,11 @@ import kotlin.math.sqrt
  * Tapped ([pokes]), the globe whirls round and slows again (faster the second time); the sponge hops on the ledge in
  * a puff of chalk dust, twice the second time.
  *
- * The school grows with its level ([si.lanisce.lani.game.scene.SceneFixtures]): the map and the globe come with the
- * second, the clock with the third.
+ * The school grows with its level ([level]; [si.lanisce.lani.game.scene.SceneFixtures]): at the first a bare classroom on its
+ * grass, the board, the desks, the bookcase under the window; the map and the globe come with the second; the clock with the
+ * third, and the flag on its pole by the school's corner, the lamp on its bracket and the scarf on its peg; the linden with
+ * its bench in the yard with the fourth; the hopscotch chalked on the ground, the flower bed and the bicycle with the fifth
+ * (the picture as it always was).
  *
  * In a culture's look (companion/SCENES.md "Culture looks"; [si.lanisce.lani.game.scene.CultureLooks]) the classroom is
  * that country's: in the Friuli village ("FRIULI_SCHOOL") an old Italian one, the walls pale yellow over a lower wall
@@ -120,6 +125,9 @@ internal class SchoolPainter : DioramaPainter() {
     private var greetingLook: String? = null
     private var abacusLook: String? = null
 
+    /** The school's level (1 … [Catalog.MAX_LEVEL]), read once a frame: what it has (see the class's comment). */
+    private var level = Catalog.MAX_LEVEL
+
     /** The culture's look of this frame, once (companion/SCENES.md "Culture looks"; [CultureLooks.FRIULI_SCHOOL][si.lanisce.lani.game.scene.CultureLooks]). */
     private fun readLook() {
         plasterL = colour("plaster.l", PLASTER_L); plasterM = colour("plaster.m", PLASTER_M); plasterD = colour("plaster.d", PLASTER_D)
@@ -171,6 +179,7 @@ internal class SchoolPainter : DioramaPainter() {
         readLook()
         fit()
         vignette()
+        level = frame.world.level(BuildingType.SCHOOL).coerceIn(1, Catalog.MAX_LEVEL)
         // the lamps are lit from dusk, and put out while Mojca sleeps
         val lit = env.windows > 0.35f && !asleepHere
         plot { x, y, px, py -> ground(x, y, px, py) }
@@ -179,7 +188,7 @@ internal class SchoolPainter : DioramaPainter() {
             (x < x1 + 0.3f && y < y1 + 0.3f) || hypot(x - treeX, y - treeY) < 0.7f || (x in hopX0 - 0.3f..hopX1 + 0.3f && abs(y - hopY) < 0.9f) ||
                 (abs(x - bikeX) < 0.5f && y in bikeY0 - 0.3f..bikeY1 + 0.3f) || (x in 1.2f..3.4f && y in 9.4f..10.5f) || hypot(x - bedX, y - bedY) < 1.1f
         }
-        if (detail > 1 && !winter) hopNumbers()
+        if (detail > 1 && !winter && level >= Catalog.MAX_LEVEL) hopNumbers()
 
         floor()
         sunPatch()
@@ -194,9 +203,10 @@ internal class SchoolPainter : DioramaPainter() {
         if (there("map")) thing("map") { map() }
         if (there("clock")) thing("clock", slop = 1) { clock() }
         thing("door") { door() }
-        prop { peg() }
+        // the scarf on its peg and the lamp on its bracket come with the school's third level
+        if (level >= 3) prop { peg() }
         prop { wallTops() }
-        prop { sconce(lit) }
+        if (level >= 3) prop { sconce(lit) }
         prop { bookcase() }
         prop { pointer() }
         // Mojca asleep in her bed along the left wall, its curtain drawn back to its foot
@@ -242,7 +252,7 @@ internal class SchoolPainter : DioramaPainter() {
         fireflies(iso.ix(0f, 11f), iso.iy(6f, 11f, 16f), iso.ix(13f, 6f), iso.iy(13f, 11f, 0f), 10, 9)
         if (lit) {
             s.light(iso.sx(8.55f, 2.45f), iso.sy(8.55f, 2.45f, fl + 11f), 44f, 0.95f * env.windows)
-            s.light(iso.sx(x0 + 0.4f, sconceY), iso.sy(x0 + 0.4f, sconceY, sconceZ), 38f, 0.8f * env.windows)
+            if (level >= 3) s.light(iso.sx(x0 + 0.4f, sconceY), iso.sy(x0 + 0.4f, sconceY, sconceZ), 38f, 0.8f * env.windows)
         }
     }
 
@@ -250,8 +260,8 @@ internal class SchoolPainter : DioramaPainter() {
 
     private fun ground(x: Float, y: Float, px: Int, py: Int): Int {
         var g = grassAt(x, y, px, py)
-        // a hopscotch chalked on a trodden patch (under the snow in winter)
-        if (!winter) {
+        // a hopscotch chalked on a trodden patch (under the snow in winter), from the school's fifth level
+        if (!winter && level >= Catalog.MAX_LEVEL) {
             val hop = hopscotch(x, y)
             if (hop >= 0) {
                 val edge = min(min(x - hopX0 + 0.3f, hopX1 + 0.3f - x), 0.95f - abs(y - hopY)) + (Noise.v2(x * 3f, y * 3f, 19) - 0.5f) * 0.3f
@@ -2048,14 +2058,20 @@ internal class SchoolPainter : DioramaPainter() {
     // ------------------------------------------------------------------ the schoolyard
 
     private fun yard() {
-        // the flag by the school's corner, the bicycle on its stand
-        prop { flagpole() }
-        shade(iso.sx(bikeX, (bikeY0 + bikeY1) / 2f), iso.sy(bikeX, (bikeY0 + bikeY1) / 2f, 0f), 7f * K, 2.2f * K, 0.8f, groundId)
-        prop { bicycle() }
-        // the linden in the corner with a bench beside it, a snowman on the hopscotch in winter
-        shade(iso.sx(treeX + 0.3f, treeY), iso.sy(treeX + 0.3f, treeY, 0f), 7f * K, 2.4f * K, 0.8f, groundId)
-        prop(Pal.OUTLINE_TREE) { s.trees.broadleaf(iso.ix(treeX, treeY), iso.iy(treeX, treeY, 0f), 1.7f, 23) }
-        prop { bench(1.3f, 9.9f) }
+        // the flag by the school's corner from its third level, the bicycle on its stand from its fifth
+        if (level >= 3) prop { flagpole() }
+        val full = level >= Catalog.MAX_LEVEL
+        if (full) {
+            shade(iso.sx(bikeX, (bikeY0 + bikeY1) / 2f), iso.sy(bikeX, (bikeY0 + bikeY1) / 2f, 0f), 7f * K, 2.2f * K, 0.8f, groundId)
+            prop { bicycle() }
+        }
+        // the linden in the corner with a bench beside it from the fourth level, a snowman on the hopscotch in winter
+        if (level >= 4) {
+            shade(iso.sx(treeX + 0.3f, treeY), iso.sy(treeX + 0.3f, treeY, 0f), 7f * K, 2.4f * K, 0.8f, groundId)
+            prop(Pal.OUTLINE_TREE) { s.trees.broadleaf(iso.ix(treeX, treeY), iso.iy(treeX, treeY, 0f), 1.7f, 23) }
+            prop { bench(1.3f, 9.9f) }
+        }
+        if (!full) return
         if (winter) prop { snowman((hopX0 + hopX1) / 2f, hopY) }
         // the flower bed at the front corner; a sled there in winter
         if (winter) prop { sled(bedX - 0.4f, bedY) } else prop { flowerBed(bedX, bedY) }

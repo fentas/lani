@@ -140,8 +140,6 @@ class BuildingLevelsTest {
             "field",
             "kitchen",
             "livingroom",
-            "school",
-            "smithy",
             "tent",
             "watchtower",
             "workshop",
