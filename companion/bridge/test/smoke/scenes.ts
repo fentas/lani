@@ -111,7 +111,8 @@ export default async function scenes() {
     const r = resolveScene({ ...s, source: 'curated' }, refs.packs)
     check(`${s.id}: every object resolves to its pack word`, r.objects.every(o => o.en && o.sl !== o.word || refs.packs.some(p => p.words.some(w => w.sl === o.sl))), r.objects.filter(o => !o.en))
   }
-  check('the campfire is open from the start and the kitchen from a hut or house', curated.find(s => s.id === 'ob-ognju')?.from[0] === 'fire' && !curated.find(s => s.id === 'ob-ognju')?.needs && JSON.stringify(curated.find(s => s.id === 'kuhinja')?.from) === '["hut","house"]' && curated.find(s => s.id === 'na-vasi')?.needs === 'vas')
+  // the square opens wherever its linden or its well stands (the well from Tabor, the linden from Zaselek): no age of its own
+  check('the campfire is open from the start, the kitchen from a hut or house, the square from its linden or its well at any age', curated.find(s => s.id === 'ob-ognju')?.from[0] === 'fire' && !curated.find(s => s.id === 'ob-ognju')?.needs && JSON.stringify(curated.find(s => s.id === 'kuhinja')?.from) === '["hut","house"]' && JSON.stringify(curated.find(s => s.id === 'na-vasi')?.from) === '["lipa","well"]' && !curated.find(s => s.id === 'na-vasi')?.needs)
   // what the village has built: a thing drawn only once it's there says so, and so does what happens by it
   const thingNeeds = (id: string, slot: string) => JSON.stringify(curated.find(s => s.id === id)?.objects.find(o => o.slot === slot)?.needs)
   check(
@@ -133,9 +134,10 @@ export default async function scenes() {
   )
   const happeningNeeds = (id: string, h: string) => JSON.stringify(curated.find(s => s.id === id)?.happenings.find(x => x.id === h)?.needs)
   check(
-    'France mills once the mill grinds and talks of the mill before; Luka brings the hay in where a kozolec stands; Mojca teaches by the well',
+    'France mills once the mill grinds and talks of the mill before; Luka brings the hay in where a kozolec stands; Mojca teaches by the well from Vas; Stari Janez talks of the old linden at its fifth level, of the young one before',
     happeningNeeds('ob-potoku', 'mlin') === '{"project":"mlin"}' && happeningNeeds('ob-potoku', 'potok') === '{"project":"mlin","before":true}' &&
-      happeningNeeds('na-njivi', 'seno') === '{"building":"KOZOLEC"}' && happeningNeeds('na-vasi', 'dvojina') === '{"building":"WELL"}',
+      happeningNeeds('na-njivi', 'seno') === '{"building":"KOZOLEC"}' && happeningNeeds('na-vasi', 'dvojina') === '{"age":"vas","building":"WELL"}' &&
+      happeningNeeds('na-vasi', 'klop') === '{"building":"LIPA","level":5}' && happeningNeeds('na-vasi', 'lipa-mlada') === '{"building":"LIPA","level":5,"before":true}',
     curated.map(s => [s.id, s.happenings.filter(h => h.needs).map(h => [h.id, h.needs])]),
   )
   const from = (id: string) => JSON.stringify(curated.find(s => s.id === id)?.from)

@@ -925,7 +925,8 @@ its far side; the track along the right bank and the path along the left (past M
 (`StreamPlan`, the stream's plan the painter draws by and `BridgesTest` checks: every way meets its bridge's open end,
 every deck spans the water from bank to bank; build/village-snapshots/64-stream-bridges-…). Happenings
 that need a fixture: the hay before the rain (`na-njivi/seno`, KOZOLEC), Mojca's dual at the well (`na-vasi/dvojina`,
-WELL), France milling (`ob-potoku/mlin`, the finished mill) and starting it at dawn (`ob-potoku/zora`), and before it France
+WELL, from Vas), Stari Janez on the old linden (`na-vasi/klop`, LIPA at its fifth level) and by the young one before it
+(`na-vasi/lipa-mlada`, `before`), France milling (`ob-potoku/mlin`, the finished mill) and starting it at dawn (`ob-potoku/zora`), and before it France
 at the stream talking of the mill he wants (`ob-potoku/potok`, `before`: from the first morning until the mill grinds) and
 watching the water in the dawn mist (`ob-potoku/megla`). The forest, the tent, the pond, the church, the bee house, the
 market, the view from the watchtower and the culture packs' landscapes (the mountains at the horizon, the sea at Grado:
@@ -1048,6 +1049,16 @@ speaker should look at (bulin, ristanc, brizgalna, krošnjar, štirna for the dr
 happening on says who is there). The palisade's things come with its level (`SceneFixtures`: the torches from 2, the
 roof and the pennant from 3, the walkway's ladder from 4, the bell at 5; the scene's objects say the same with
 `needs.level`), and so do the happenings that need them.
+
+**The square at every age** (2026-10-30: "every building that stands must be enterable"). Na vasi opens from the linden
+or the well, and it opens wherever one of them stands, whatever the age: from the well at Tabor, from the linden at Zaselek
+(before, it needed Vas, so a hamlet with its linden had a square nobody could step into). What happens there fits what
+stands: Stari Janez talks of the old linden, two hundred years old, "starejša je od cerkve", once LIPA is at its fifth
+level (`klop`, the old picture), and before that of the young one the village planted, the bucket of water it needs, the
+dances to come under it (`lipa-mlada`: `mlada-lipa`, and `mlada-lipa-voda` on the hot days of May to September), as the
+square draws it, a sapling at its stake to a crown filling out; Mojca's dual at the well needs Vas as before (the school's
+teacher, the church's bell); the children's football, the cat and Muri wherever their people are about. "Ob štiri" at
+the end of the children's game is right now, as people say it.
 
 **Its arts** (the table of [Arts](#arts) has their slots, spots and effects; the painters' class comments say all they draw):
 

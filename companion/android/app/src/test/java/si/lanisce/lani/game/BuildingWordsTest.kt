@@ -266,9 +266,12 @@ class BuildingWordsTest {
         assertEquals(forest.take(8), w.words.map(::key))
         assertEquals(8, w.need)
         assertTrue(w.from!!.contains("gozd", ignoreCase = true))
-        // the well before Vas: its square isn't open yet, the square's pack
-        val well = words(village(Building("well-1", BuildingType.WELL, 1), age = Age.TABOR), "well-1", book())!!
-        assertTrue(well.words.all { it.pack == "na-vasi" })
+        // the well at Tabor: its square opens wherever its well or its linden stands, whatever the age, so the things there
+        val tabor = village(Building("well-1", BuildingType.WELL, 1), age = Age.TABOR)
+        val well = words(tabor, "well-1", book())!!
+        val square = roomWords(tabor, tabor.buildings.first(), "na-vasi")
+        assertEquals(square, well.words.map(::key).take(square.size))
+        assertTrue("na-vasi/vodnjak" in square && square.none { it.endsWith("/zvonik") }) // its well; no church yet, no tower
         // a pack not on the phone yet and no scene: nothing to ask for (the upgrade doesn't wait for it)
         assertNull(words(s, "palisade-2", book(), sc = noScene, p = packs - "v-gozdu"))
     }

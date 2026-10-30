@@ -7,7 +7,6 @@
   "review": "de, it, reactions, second right answers, variants: machine-written, not reviewed by a native speaker",
   "art": "square",
   "from": ["lipa", "well"],
-  "needs": "vas",
   "pack": "na-vasi",
   "objects": [
     { "slot": "linden", "word": "lipa", "pack": "v-vasi" },
@@ -33,13 +32,16 @@
       "when": ["afternoon"], "chance": 0.5, "dialog": "nogomet", "dialogs": ["nogomet-zoga", "nogomet-dez", "nogomet"], "reward": { "food": 15 }, "marker": "⚽",
       "memory": { "sl": "nogomet pod lipo, ko si {m:bil ti vratar|f:bila ti vratarka}", "en": "football under the linden when you were the goalkeeper", "de": "das Fußballspiel unter der Linde, als du {m:Torwart|f:Torfrau} warst", "it": "la partita a calcio sotto il tiglio, quando eri tu {m:il portiere|f:la portiera}" } },
     { "id": "klop", "title": { "sl": "Stari Janez na klopi", "en": "Old Janez on the bench", "de": "Der alte Janez auf der Bank", "it": "Il vecchio Janez sulla panchina" }, "who": "janez",
-      "when": ["morning", "afternoon"], "chance": 0.6, "dialog": "klop", "dialogs": ["klop-triglav", "klop-sneg", "klop"], "reward": { "wisdom": 25 }, "marker": "🌳",
+      "when": ["morning", "afternoon"], "chance": 0.6, "dialog": "klop", "dialogs": ["klop-triglav", "klop-sneg", "klop"], "reward": { "wisdom": 25 }, "marker": "🌳", "needs": { "building": "LIPA", "level": 5 },
       "memory": { "sl": "kavo z mlekom, ki si mi jo {m:prinesel|f:prinesla} na klop", "en": "the coffee with milk you brought me to the bench", "de": "den Kaffee mit Milch, den du mir zur Bank gebracht hast", "it": "il caffè con il latte che mi hai portato alla panchina" } },
+    { "id": "lipa-mlada", "title": { "sl": "Stari Janez pri mladi lipi", "en": "Old Janez by the young linden", "de": "Der alte Janez bei der jungen Linde", "it": "Il vecchio Janez accanto al giovane tiglio" }, "who": "janez",
+      "when": ["morning", "afternoon"], "chance": 0.6, "dialog": "mlada-lipa", "dialogs": ["mlada-lipa-voda", "mlada-lipa"], "reward": { "wisdom": 25 }, "marker": "🌱", "needs": { "building": "LIPA", "level": 5, "before": true },
+      "memory": { "sl": "vedro vode za mlado lipo", "en": "the bucket of water for the young linden", "de": "den Eimer Wasser für die junge Linde", "it": "il secchio d'acqua per il giovane tiglio" } },
     { "id": "muri", "title": { "sl": "Janezov pes Muri", "en": "Janez's dog Muri", "de": "Janez' Hund Muri", "it": "Muri, il cane di Janez" }, "who": "janez",
       "when": ["evening"], "chance": 0.4, "dialog": "muri", "dialogs": ["muri-kruh", "muri"], "reward": { "wisdom": 15 }, "marker": "🐕",
       "memory": { "sl": "večer, ko si {m:poklical|f:poklicala} Murija", "en": "the evening you called Muri", "de": "den Abend, an dem du Muri gerufen hast", "it": "la sera in cui hai chiamato Muri" } },
     { "id": "dvojina", "title": { "sl": "Mojca pri vodnjaku: dvojina!", "en": "Mojca at the well: the dual!", "de": "Mojca am Brunnen: der Dual!", "it": "Mojca al pozzo: il duale!" }, "who": "mojca",
-      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "dvojina", "dialogs": ["dvojina-vedra", "dvojina-ju", "dvojina"], "reward": { "stone": 20 }, "marker": "📚", "needs": { "building": "WELL" },
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "dialog": "dvojina", "dialogs": ["dvojina-vedra", "dvojina-ju", "dvojina"], "reward": { "stone": 20 }, "marker": "📚", "needs": { "age": "vas", "building": "WELL" },
       "memory": { "sl": "dva otroka in dve vedri pri vodnjaku", "en": "the two children and the two buckets by the well", "de": "die zwei Kinder und die zwei Eimer am Brunnen", "it": "i due bambini e i due secchi al pozzo" } },
     { "id": "macka", "title": { "sl": "Mačka na lipi", "en": "The cat up the linden", "de": "Die Katze auf der Linde", "it": "La gatta sul tiglio" }, "who": "otroci",
       "when": ["morning", "evening"], "chance": 0.3, "dialog": "macka", "dialogs": ["macka-sir", "macka"], "reward": { "food": 15 }, "marker": "🐈",
@@ -76,9 +78,8 @@
         { "choices": [
           { "sl": "Prav. Jutri spet, ob štirih?", "en": "OK. Again tomorrow, at four?", "de": "Gut. Morgen wieder, um vier?", "it": "Va bene. Domani di nuovo, alle quattro?", "ok": true,
             "reply": { "face": "happy", "sl": "Ja! Pod lipo!", "en": "Yes! Under the linden!", "de": "Ja! Unter der Linde!", "it": "Sì! Sotto il tiglio!" } },
-          { "sl": "Prav. Jutri spet, ob štiri?", "en": "OK. Again tomorrow, at four?", "de": "Gut. Morgen wieder, um vier?", "it": "Va bene. Domani di nuovo, alle quattro?",
-            "grammar": "kdaj-cas", "why": { "en": "Ob takes the locative for clock times: ob štirih, ob petih.", "de": "Ob steht bei Uhrzeiten mit dem Lokativ: ob štirih, ob petih.", "it": "Ob con le ore regge il locativo: ob štirih, ob petih." },
-            "reply": { "face": "confused", "sl": "Ob štiri? Ha? Kdaj, kdaj? Mama že kliče!", "en": "Ob štiri? Huh? When, when? Mum's already calling!", "de": "Ob štiri? Hä? Wann, wann? Mama ruft schon!", "it": "Ob štiri? Eh? Quando, quando? La mamma sta già chiamando!" } },
+          { "sl": "Prav. Jutri spet, ob štiri?", "en": "OK. Again tomorrow, at four (as people say it)?", "de": "Gut. Morgen wieder, um vier (wie man es sagt)?", "it": "Va bene. Domani di nuovo, alle quattro (come si dice a voce)?", "ok": true,
+            "reply": { "face": "happy", "sl": "Ja, ob štirih! Pod lipo!", "en": "Yes, at four! Under the linden!", "de": "Ja, um vier! Unter der Linde!", "it": "Sì, alle quattro! Sotto il tiglio!" } },
           { "sl": "Prav. Včeraj spet, ob štirih?", "en": "OK. Again yesterday, at four?", "de": "Gut. Gestern wieder, um vier?", "it": "Va bene. Ieri di nuovo, alle quattro?",
             "why": { "en": "Včeraj is yesterday. Tomorrow is jutri.", "de": "Včeraj heißt gestern. Morgen heißt jutri.", "it": "Včeraj significa ieri. Domani è jutri." },
             "reply": { "face": "laugh", "sl": "Včeraj? Ha ha, včeraj je že mimo!", "en": "Včeraj (yesterday)? Ha ha, yesterday's already gone!", "de": "Včeraj (gestern)? Haha, gestern ist schon vorbei!", "it": "Včeraj (ieri)? Ah ah, ieri è già passato!" } }
@@ -204,6 +205,44 @@
       ]
     },
     {
+      "id": "mlada-lipa",
+      "lines": [
+        { "who": "janez", "face": "happy", "sl": "Dober dan, {learner}. Sedi k meni. Vidiš to mlado lipo? Vsa vas jo je posadila.", "en": "Hello, {learner}. Sit by me. Do you see this young linden? The whole village planted it.", "de": "Guten Tag, {learner}. Setz dich zu mir. Siehst du diese junge Linde? Das ganze Dorf hat sie gepflanzt.", "it": "Buongiorno, {learner}. Siediti vicino a me. Vedi questo giovane tiglio? L'ha piantato tutto il paese." },
+        { "choices": [
+          { "sl": "Dober dan! Ja, vidim jo. Še majhna je.", "en": "Hello! Yes, I see it. It's still small.", "de": "Guten Tag! Ja, ich sehe sie. Sie ist noch klein.", "it": "Buongiorno! Sì, lo vedo. È ancora piccolo.", "ok": true,
+            "reply": { "face": "proud", "sl": "Majhna, ja. Lipa raste počasi, ampak živi dolgo. Dlje kot jaz.", "en": "Small, yes. A linden grows slowly, but it lives long. Longer than me.", "de": "Klein, ja. Eine Linde wächst langsam, aber sie lebt lange. Länger als ich.", "it": "Piccolo, sì. Il tiglio cresce piano, ma vive a lungo. Più di me." } },
+          { "sl": "Dober dan! Ja, vidim ga. Še majhna je.", "en": "Hello! Yes, I see him. It's still small.", "de": "Guten Tag! Ja, ich sehe ihn. Sie ist noch klein.", "it": "Buongiorno! Sì, lo vedo (lui). È ancora piccolo.",
+            "grammar": "osebni-zaimki", "why": { "en": "Lipa is feminine: you see her, jo. Ga is for a masculine word (the dog, pes: ga).", "de": "Lipa ist weiblich: du siehst sie, jo. Ga steht für ein männliches Wort (den Hund, pes: ga).", "it": "Lipa è femminile: la vedi, jo. Ga è per una parola maschile (il cane, pes: ga)." },
+            "reply": { "face": "confused", "sl": "Ga? Lipa je ona, {learner}. Jo vidiš.", "en": "Ga (him)? The linden is a she, {learner}. You see her: jo.", "de": "Ga (ihn)? Die Linde ist eine Sie, {learner}. Du siehst sie: jo.", "it": "Ga (lui)? Il tiglio in sloveno è femminile, {learner}. La vedi: jo." } },
+          { "sl": "Dober dan! Ja, vidim jo. Še majhen je.", "en": "Hello! Yes, I see it. It's still small (masculine).", "de": "Guten Tag! Ja, ich sehe sie. Er ist noch klein (männlich).", "it": "Buongiorno! Sì, lo vedo. È ancora piccolo (maschile).",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Lipa is feminine, so its adjective ends in -a: majhna.", "de": "Lipa ist weiblich, ihr Adjektiv endet auf -a: majhna.", "it": "Lipa è femminile, il suo aggettivo finisce in -a: majhna." },
+            "reply": { "face": "laugh", "sl": "Majhen? Lipa ni fant, {learner}. Majhna je!", "en": "Majhen? The linden isn't a boy, {learner}. Majhna!", "de": "Majhen? Die Linde ist kein Junge, {learner}. Majhna!", "it": "Majhen? Il tiglio non è un ragazzo, {learner}. Majhna!" } }
+        ] },
+        { "who": "janez", "face": "thinking", "sl": "Moj ded je rekel: kjer raste lipa, tam je vas. Pod njo se bodo ljudje zbirali.", "en": "My grandfather said: where a linden grows, there is a village. People will gather under it.", "de": "Mein Großvater sagte: Wo eine Linde wächst, da ist ein Dorf. Unter ihr werden sich die Leute versammeln.", "it": "Mio nonno diceva: dove cresce un tiglio, lì c'è un paese. Sotto di lui la gente si riunirà." },
+        { "choices": [
+          { "sl": "Pod lipo bomo plesali in peli.", "en": "Under the linden we'll dance and sing.", "de": "Unter der Linde werden wir tanzen und singen.", "it": "Sotto il tiglio balleremo e canteremo.", "ok": true,
+            "reply": { "face": "laugh", "sl": "Bomo, bomo! Jaz bom pa sedel na klopi in gledal.", "en": "We will, we will! And I'll sit on the bench and watch.", "de": "Das werden wir! Und ich sitze auf der Bank und schaue zu.", "it": "Sì, sì! E io starò seduto sulla panchina a guardare." } },
+          { "sl": "Pod lipo smo plesali in peli.", "en": "Under the linden we danced and sang.", "de": "Unter der Linde haben wir getanzt und gesungen.", "it": "Sotto il tiglio abbiamo ballato e cantato.",
+            "grammar": "prihodnjik", "why": { "en": "The linden is young: that is still to come, the future, bomo plesali. Smo plesali is the past.", "de": "Die Linde ist jung: das kommt erst, die Zukunft, bomo plesali. Smo plesali ist die Vergangenheit.", "it": "Il tiglio è giovane: deve ancora succedere, il futuro, bomo plesali. Smo plesali è il passato." },
+            "reply": { "face": "surprised", "sl": "Smo? Kdaj pa? Lipa je še majhna, {learner}!", "en": "We did? When? The linden is still small, {learner}!", "de": "Haben wir? Wann denn? Die Linde ist noch klein, {learner}!", "it": "Abbiamo? E quando? Il tiglio è ancora piccolo, {learner}!" } },
+          { "sl": "Pod lipa bomo plesali in peli.", "en": "Under the linden (wrong form) we'll dance and sing.", "de": "Unter der Linde (falsche Form) werden wir tanzen und singen.", "it": "Sotto il tiglio (forma sbagliata) balleremo e canteremo.",
+            "grammar": "orodnik", "why": { "en": "Pod (under), where something is: the instrumental, pod lipo.", "de": "Pod (unter), wo etwas ist: der Instrumental, pod lipo.", "it": "Pod (sotto), dove si trova qualcosa: lo strumentale, pod lipo." },
+            "reply": { "face": "thinking", "sl": "Pod lipa? Hm. Pod lipo, {learner}. Lepo počasi.", "en": "Pod lipa? Hm. Pod lipo, {learner}. Nice and slowly.", "de": "Pod lipa? Hm. Pod lipo, {learner}. Schön langsam.", "it": "Pod lipa? Mm. Pod lipo, {learner}. Con calma." } }
+        ] },
+        { "who": "janez", "face": "curious", "sl": "Zdaj pa pomagaj starcu. Mlado drevo rabi vodo.", "en": "Now help an old man. A young tree needs water.", "de": "Jetzt hilf einem alten Mann. Ein junger Baum braucht Wasser.", "it": "Adesso aiuta un vecchio. Un albero giovane ha bisogno d'acqua." },
+        { "choices": [
+          { "sl": "Vam prinesem vedro vode?", "en": "Shall I bring you a bucket of water?", "de": "Soll ich Ihnen einen Eimer Wasser bringen?", "it": "Le porto un secchio d'acqua?", "ok": true,
+            "reply": { "face": "happy", "sl": "Ja, eno vedro. Hvala, {learner}. Čez sto let bo velika in nekdo se bo spomnil naju.", "en": "Yes, one bucket. Thank you, {learner}. In a hundred years it'll be big, and someone will remember the two of us.", "de": "Ja, einen Eimer. Danke, {learner}. In hundert Jahren ist sie groß, und jemand wird sich an uns beide erinnern.", "it": "Sì, un secchio. Grazie, {learner}. Tra cent'anni sarà grande e qualcuno si ricorderà di noi due." } },
+          { "sl": "Vam prinesem vedro voda?", "en": "Shall I bring you a bucket of water (wrong form)?", "de": "Soll ich Ihnen einen Eimer Wasser (falsche Form) bringen?", "it": "Le porto un secchio d'acqua (forma sbagliata)?",
+            "grammar": "rodilnik-kolicina", "why": { "en": "A bucket of something: the genitive, vedro vode.", "de": "Ein Eimer von etwas: der Genitiv, vedro vode.", "it": "Un secchio di qualcosa: il genitivo, vedro vode." },
+            "reply": { "face": "thinking", "sl": "Vedro voda? Vedro vode, {learner}. Ampak ja, prinesi.", "en": "Vedro voda? Vedro vode, {learner}. But yes, bring it.", "de": "Vedro voda? Vedro vode, {learner}. Aber ja, bring ihn.", "it": "Vedro voda? Vedro vode, {learner}. Ma sì, portalo." } },
+          { "sl": "Vam prinesem vedro vina?", "en": "Shall I bring you a bucket of wine?", "de": "Soll ich Ihnen einen Eimer Wein bringen?", "it": "Le porto un secchio di vino?",
+            "why": { "en": "A tree drinks water, not wine: vedro vode.", "de": "Ein Baum trinkt Wasser, keinen Wein: vedro vode.", "it": "Un albero beve acqua, non vino: vedro vode." },
+            "reply": { "face": "laugh", "sl": "Vina? Ha! Vino je za mene, voda za lipo.", "en": "Wine? Ha! Wine is for me, water for the linden.", "de": "Wein? Ha! Der Wein ist für mich, das Wasser für die Linde.", "it": "Vino? Ah! Il vino è per me, l'acqua per il tiglio." } }
+        ] }
+      ]
+    },
+    {
       "id": "macka",
       "fx_stays": true,
       "lines": [
@@ -245,6 +284,34 @@
     }
   ],
   "variants": [
+    {
+      "id": "mlada-lipa-voda",
+      "months": [5, 6, 7, 8, 9],
+      "lines": [
+        { "who": "janez", "face": "worried", "sl": "Dober dan, {learner}. Danes je vroče. Poglej lipo: listi so ji povešeni.", "en": "Hello, {learner}. It's hot today. Look at the linden: its leaves are drooping.", "de": "Guten Tag, {learner}. Heute ist es heiß. Schau die Linde an: Ihre Blätter hängen.", "it": "Buongiorno, {learner}. Oggi fa caldo. Guarda il tiglio: ha le foglie mosce." },
+        { "choices": [
+          { "sl": "Žejna je. Jo zalijeva?", "en": "It's thirsty. Shall we two water it?", "de": "Sie hat Durst. Gießen wir zwei sie?", "it": "Ha sete. Lo annaffiamo noi due?", "ok": true,
+            "reply": { "face": "laugh", "sl": "Zalijeva, ja! Ti nosiš, jaz gledam. Ha!", "en": "We two will, yes! You carry, I watch. Ha!", "de": "Ja, wir zwei! Du trägst, ich schaue zu. Ha!", "it": "Sì, noi due! Tu porti, io guardo. Ah!" } },
+          { "sl": "Žejna je. Jo zalijemo?", "en": "It's thirsty. Shall we (several) water it?", "de": "Sie hat Durst. Gießen wir (mehrere) sie?", "it": "Ha sete. Lo annaffiamo (in tanti)?",
+            "grammar": "dvojina", "why": { "en": "The two of you: the dual, zalijeva. Zalijemo is three or more.", "de": "Ihr zwei: der Dual, zalijeva. Zalijemo heißt drei oder mehr.", "it": "Voi due: il duale, zalijeva. Zalijemo è per tre o più." },
+            "reply": { "face": "curious", "sl": "Zalijemo? Kdo pa še? Muri?", "en": "Zalijemo (we all)? Who else? Muri?", "de": "Zalijemo (wir alle)? Wer denn noch? Muri?", "it": "Zalijemo (tutti noi)? Chi altro? Muri?" } },
+          { "sl": "Žejna je. Ga zalijeva?", "en": "It's thirsty. Shall we two water him?", "de": "Sie hat Durst. Gießen wir zwei ihn?", "it": "Ha sete. Lo annaffiamo (lui) noi due?",
+            "grammar": "osebni-zaimki", "why": { "en": "Lipa is feminine: jo zalijeva. Ga is for a masculine word.", "de": "Lipa ist weiblich: jo zalijeva. Ga steht für ein männliches Wort.", "it": "Lipa è femminile: jo zalijeva. Ga è per una parola maschile." },
+            "reply": { "face": "confused", "sl": "Ga? Koga pa? Lipo zalijeva, {learner}, jo.", "en": "Ga (him)? Whom? We water the linden, {learner}: jo.", "de": "Ga (ihn)? Wen denn? Wir gießen die Linde, {learner}: jo.", "it": "Ga (lui)? Chi? Annaffiamo il tiglio, {learner}: jo." } }
+        ] },
+        { "who": "janez", "face": "thinking", "sl": "Eno vedro je dovolj. Preveč vode tudi ni dobro.", "en": "One bucket is enough. Too much water isn't good either.", "de": "Ein Eimer reicht. Zu viel Wasser ist auch nicht gut.", "it": "Un secchio basta. Troppa acqua non va bene neanche." },
+        { "choices": [
+          { "sl": "Prav. Eno vedro, ne dve.", "en": "Right. One bucket, not two.", "de": "Gut. Ein Eimer, nicht zwei.", "it": "Va bene. Un secchio, non due.", "ok": true,
+            "reply": { "face": "proud", "sl": "Tako. Vidiš, kako lepo raste? Ko bo velika, bom jaz že star, star.", "en": "That's it. See how nicely it grows? When it's big, I'll be old, old.", "de": "Genau. Siehst du, wie schön sie wächst? Wenn sie groß ist, bin ich alt, ganz alt.", "it": "Così. Vedi come cresce bene? Quando sarà grande, io sarò vecchio, vecchio." } },
+          { "sl": "Prav. Eno vedro, ne dva.", "en": "Right. One bucket, not two (masculine).", "de": "Gut. Ein Eimer, nicht zwei (männlich).", "it": "Va bene. Un secchio, non due (maschile).",
+            "grammar": "dvojina", "why": { "en": "Vedro is neuter: dve vedri. Dva is for masculine words (dva psa).", "de": "Vedro ist sächlich: dve vedri. Dva gilt für männliche Wörter (dva psa).", "it": "Vedro è neutro: dve vedri. Dva è per le parole maschili (dva psa)." },
+            "reply": { "face": "thinking", "sl": "Dva? Dve vedri, {learner}. Ampak eno je dovolj.", "en": "Dva? Dve vedri, {learner}. But one is enough.", "de": "Dva? Dve vedri, {learner}. Aber einer reicht.", "it": "Dva? Dve vedri, {learner}. Ma uno basta." } },
+          { "sl": "Prav. Ena vedro, ne dve.", "en": "Right. One (feminine) bucket, not two.", "de": "Gut. Eine (weiblich) Eimer, nicht zwei.", "it": "Va bene. Una (femminile) secchio, non due.",
+            "grammar": "pridevniki-ujemanje", "why": { "en": "Vedro is neuter: eno vedro.", "de": "Vedro ist sächlich: eno vedro.", "it": "Vedro è neutro: eno vedro." },
+            "reply": { "face": "laugh", "sl": "Ena vedro? Eno, {learner}, eno vedro.", "en": "Ena vedro? Eno, {learner}, eno vedro.", "de": "Ena vedro? Eno, {learner}, eno vedro.", "it": "Ena vedro? Eno, {learner}, eno vedro." } }
+        ] }
+      ]
+    },
     {
       "id": "nogomet-zoga",
       "fx_stays": true,
