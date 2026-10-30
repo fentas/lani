@@ -28,8 +28,9 @@ import kotlin.math.sin
  * By the house's level ([si.lanisce.lani.game.scene.SceneFixtures]): at level 1 the bed with its pillow and blanket, the
  * cradle, a plain chest, the roof, the window and the stairs, rough boards and rough plaster; at level 2 the wardrobe, a
  * rug, the lamp, Nejc's ball, the roof lined with boards, whitewash; at level 3 the chest painted, the mirror and a teddy
- * bear on it; outside, the bench by the wall at level 4 and the geraniums at 5. Its effects: `lamp` (0 dark, 1 lit; not set: lit from dusk), `cradle` (rocking, how far), `window` (the
- * gable window blown open by the burja, its casement swinging and banging in the wind, the draught coming in; 0: shut).
+ * bear on it; outside, the bench by the wall at level 4 and the geraniums at 5. Its effects: `lamp` (0 dark, 1 lit; not
+ * set: lit from dusk), `cradle` (rocking, how far), `window` (the gable window blown open by the burja, its casement
+ * swinging and banging in the wind, the draught coming in; 0: shut).
  *
  * Its stage (companion/SCENES.md, "Stage directions"): by the bed, by the chest and at the top of the stairs, standing; and in
  * Nejc's bed ("in-bed"), lying awake under his quilt, sitting up on its edge with his feet down (getting up), or asleep.

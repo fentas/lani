@@ -23,9 +23,9 @@ import kotlin.math.sin
  * By the house's level ([si.lanisce.lani.game.scene.SceneFixtures]): at level 1 the workbench, the hammer and nails, the
  * boards, the axe in its block and the broom on a beaten earth floor; at level 2 a plank floor with shavings, the tool
  * board, the saw, the ladder and the rake; at level 3 the wheelbarrow, the wooden horse France carves for Tine on the
- * bench, and the lantern. Its effects: `dust` (sawdust flying off the vice as a board is sawn), `hammer` (a board laid on
- * the bench and a nail hammered into it, whoever stands at the bench swinging the hammer, a knock at each blow), `toy` (the
- * wooden horse Sivko on the bench: 0 lying on his side with a front leg off, from 0.3 the leg glued back on, from 0.65 stood
+ * bench, and the lantern; outside, the bench by the wall at level 4 and the geraniums at 5. Its effects: `dust` (sawdust
+ * flying off the vice as a board is sawn), `hammer` (a board laid on the bench and a nail hammered into it, whoever stands
+ * at the bench swinging the hammer, a knock at each blow), `toy` (the wooden horse Sivko on the bench: 0 lying on his side with a front leg off, from 0.3 the leg glued back on, from 0.65 stood
  * up again, 1 whole as by himself; Tine's "Moj konjiček Sivko nima noge" and "Spet je cel!").
  *
  * At night ([beds]) France sleeps on a straw mattress on the floor before the bench ("mattress"), under a grey horse

@@ -25,7 +25,8 @@ import kotlin.math.sqrt
  * By the house's level ([si.lanisce.lani.game.scene.SceneFixtures]): at level 1 one barrel, the press, the steps, the
  * door and the window, the candle, the jug and the glass, an empty crate, on a beaten earth floor; at level 2 stone flags,
  * a second barrel, the shelf of bottles, the grapes in the crate, the demijohn of wine; at level 3 a third barrel, the
- * pršut hanging on the wall and a wheel of cheese on the table. Its effects: `tap` (wine running from the tap into the
+ * pršut hanging on the wall and a wheel of cheese on the table; outside, the bench by the wall at level 4 and the
+ * geraniums at 5. Its effects: `tap` (wine running from the tap into the
  * jug, filling it), `candle` (0 out; lit, its flame flaring up the higher, as when it has just been lit; not set: lit,
  * calm).
  *

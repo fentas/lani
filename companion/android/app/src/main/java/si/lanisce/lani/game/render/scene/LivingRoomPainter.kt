@@ -24,7 +24,8 @@ import kotlin.math.sin
  * By the house's level ([si.lanisce.lani.game.scene.SceneFixtures]): at level 1 a plastered stove, a beaten earth floor,
  * plain lime, a bare table and a plain chest; at level 2 the stove green-tiled with a rail of drying socks, a plank floor
  * and a rag rug, the painted dado, the chair, the curtains, the clock, the lamp, a cloth on the table and the chest
- * painted; at level 3 the stencilled border, the holy corner, the wedding photo, Janez's book and his glasses on the table.
+ * painted; at level 3 the holy corner, the wedding photo, Janez's book and his glasses on the table; at level 4 the
+ * stencilled border and, outside, the bench by the wall; at level 5 the pots of geraniums along it.
  *
  * Its effects: `stove` (fired up: its tiles warm and a glow on the bench), `dog` (Muri awake, sitting up; at night he
  * sleeps whatever), `dog-hides` (Muri hidden behind the door, which stands open: his paws under its leaf, his tail
