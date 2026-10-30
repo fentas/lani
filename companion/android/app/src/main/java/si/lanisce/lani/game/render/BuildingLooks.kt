@@ -586,13 +586,15 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
     // ---------------------------------------------------------------- hayracks
 
     /**
-     * Friuli's fienile (the field's scene's): walls of river cobbles with bands of brick, two round brick arches below (the
-     * hay heaped under the left one from June), the loft above with the hay in its opening between two brick lattices, a
-     * lattice in the gable, and a low roof of coppi.
+     * Friuli's fienile, as the field's scene builds it by the hayrack's level: walls of river cobbles, one round brick arch
+     * below at 1 (the hay heaped under it from June) and its second at 2, the bands of brick from 3, the brick quoins and
+     * the lattices (gelosie) either side of the loft and in the gable from 4, the loft full of hay at 5 (else in the hay's
+     * months); a low roof of coppi.
      */
     private fun fienile(b: Building, x: Float, y: Float, st: FireStyle) {
         val x0 = x + 0.25f; val y0 = y + 0.8f; val w = 2.5f; val d = 1.4f; val h = 10.5f
-        val hay = env.month in 6..12 || env.month <= 3
+        val lv = b.level.coerceIn(1, 5)
+        val hay = lv >= 5 || env.month in 6..12 || env.month <= 3
         val fy = y0 + d
         i.box(x0, y0, 0f, w, d, h, COB[0], COB[1], COB[2])
         // the cobbles: round, pale and dark, laid in courses
@@ -601,15 +603,16 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
             val col = if (j % 3 == 0) COB_D else Col.mix(COB[0], Col.hex(0xFFFFFF), 0.3f)
             if (j % 2 == 0) i.px(x0 + u * w, fy, 0.5f + v * (h - 1f), col) else i.px(x0 + w, y0 + u * d, 0.5f + v * (h - 1f), Col.scale(col, 0.85f))
         }
-        // the bands of brick, three courses each, and the quoins at the corner
-        for (z in floatArrayOf(3.6f, 7.4f)) {
+        // the bands of brick, three courses each (from level 3), and the quoins at the corner (from 4)
+        if (lv >= 3) for (z in floatArrayOf(3.6f, 7.4f)) {
             i.line(x0, fy, z, x0 + w, fy, z, BRICK_L); i.line(x0 + w, y0, z, x0 + w, y0 + d, z, BRICK_D)
             if (fine) { i.line(x0, fy, z + 0.5f, x0 + w, fy, z + 0.5f, BRICK_D); i.line(x0 + w, y0, z + 0.5f, x0 + w, y0 + d, z + 0.5f, Col.scale(BRICK_D, 0.85f)) }
         }
-        if (fine) { var z = 0.5f; var n = 0; while (z < h) { i.line(x0 + w - if (n % 2 == 0) 0.3f else 0.16f, fy, z, x0 + w, fy, z, BRICK_L); z += 0.9f; n++ } }
+        if (fine && lv >= 4) { var z = 0.5f; var n = 0; while (z < h) { i.line(x0 + w - if (n % 2 == 0) 0.3f else 0.16f, fy, z, x0 + w, fy, z, BRICK_L); z += 0.9f; n++ } }
         // the two arches: their dark insides, the brick rings round them
         val dark = Col.hex(0x2E2622)
         for ((n, ax) in floatArrayOf(x0 + 0.3f, x0 + 1.42f).withIndex()) {
+            if (n == 1 && lv < 2) continue // its second arch from level 2
             val aw = 0.78f
             i.panelY(ax, fy, 0f, aw, 2.6f, dark)
             i.panelY(ax + 0.08f, fy, 2.6f, aw - 0.16f, 0.6f, dark)
@@ -630,11 +633,11 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
             for (q in 0 until 5) i.px(lx + 0.06f + Noise.rnd(b.plot, q, 35) * (lw - 0.12f), fy, 5.8f + Noise.rnd(b.plot, q, 36) * 2.2f, if (q % 2 == 0) Pal.HAY_L else Pal.HAY_D)
         }
         i.line(lx - 0.05f, fy, 5.5f, lx + lw + 0.05f, fy, 5.5f, ISTRIA_L)
-        for (gx in floatArrayOf(x0 + 0.3f, x0 + 1.75f)) lattice(gx, fy, 5.6f, 0.45f, 2.6f)
+        if (lv >= 4) for (gx in floatArrayOf(x0 + 0.3f, x0 + 1.75f)) lattice(gx, fy, 5.6f, 0.45f, 2.6f)
         p.roofX(x0 - 0.3f, y0 - 0.35f, h, w + 0.6f, d + 0.7f, 4.5f, roofOf(st), COB[2])
         // the lattice high in the gable
         val gz = h + 0.6f
-        for (q in 0..2) for (rr in 0..1) if ((q + rr) % 2 == 0) i.px(x0 + w + 0.3f, y0 + 0.4f + q * 0.25f, gz + rr * 1f, dark)
+        if (lv >= 4) for (q in 0..2) for (rr in 0..1) if ((q + rr) % 2 == 0) i.px(x0 + w + 0.3f, y0 + 0.4f + q * 0.25f, gz + rr * 1f, dark)
     }
 
     /** A lattice of brick (the gelosia that airs a loft) on the +y face: open and brick in a checker, finer closer up. */

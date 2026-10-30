@@ -252,6 +252,18 @@ class MapLooksTest {
             }
             sheet("01-buildings-$name", cells, cols = kinds.size)
         }
+        // what grows with its level in Friuli, as its scenes build it: the fienile (an arch, two, the bands, the quoins and
+        // lattices, the loft full), the watchtower (on pillars from 3), the bee house (of cobbles from 2); levels 1 to 5
+        val levels = ArrayList<Pair<PixelCanvas, IntArray>>()
+        val town = village(Age.MESTO, Landscape.HILLS, projects = false)
+        for (t in listOf(KOZOLEC, WATCHTOWER, BEEHIVE)) for (lv in 1..5) {
+            val b = town.buildings.first { it.type == t }
+            val s = town.copy(buildings = listOf(b.copy(level = lv), Building("p", PALISADE, NO_PLOT)), villagers = 1)
+            val (px, py) = plotAt(s, b.plot, 360, 640, z = spriteHeight(t) * 0.5f)
+            val lens = Lens(3, (px * 3 - w / 2).coerceIn(0, 360 * 3 - w), (py * 3 - h / 2).coerceIn(0, 640 * 3 - h), 360, 640)
+            levels += render(s, day.copy(culture = "friuli", month = 4, today = "2026-04-20", lens = lens), w, h) to intArrayOf(0, 0, w, h)
+        }
+        sheet("01-friuli-levels", levels, cols = 5)
     }
 
     @Test fun `render each culture's landmarks closer up`() {
