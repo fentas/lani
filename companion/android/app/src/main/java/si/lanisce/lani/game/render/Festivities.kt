@@ -120,7 +120,7 @@ internal class FestivePainter {
                     c.set(ax, top, Pal.GOLD_L)
                     // the ribbons, from the top down to either side, fluttering
                     val wave = ((s.time * 4).toInt() and 1)
-                    val cols = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD)
+                    val cols = s.look.festive.ribbons
                     for ((n, col) in cols.withIndex()) {
                         val side = if (n % 2 == 0) -1 else 1
                         val len = 2 + n / 2
@@ -140,7 +140,7 @@ internal class FestivePainter {
         for (p in poles) add(p[0] + p[1]) {
             s.newObject(Pal.OUTLINE)
             s.iso.post(p[0], p[1], 0f, POLE * up, Pal.WOOD_D)
-            s.iso.px(p[0], p[1], POLE * up + 1f, Pal.FLAG_RED)
+            s.iso.px(p[0], p[1], POLE * up + 1f, s.look.festive.bunting[0])
         }
         if (up < 0.75f) return
         s.fx {
@@ -212,11 +212,13 @@ internal class FestivePainter {
                     for (q in 0 until 4) i.px(x + 0.2f + q * 0.3f, y + 0.3f, 3.5f, goods[q % goods.size])
                 }
                 if (up > 0.7f) {
+                    // the awning's stripes in the culture's colours ([Festive.stalls])
+                    val stripes = s.look.festive.stalls
                     for (q in 0 until 4) {
                         val a = x + q * 0.325f
-                        i.quad(a, y, h, a + 0.325f, y, h, a + 0.325f, y + 0.9f, h - 1.6f, a, y + 0.9f, h - 1.6f, if (q % 2 == 0) Pal.FLAG_RED else Pal.FLAG_WHITE)
+                        i.quad(a, y, h, a + 0.325f, y, h, a + 0.325f, y + 0.9f, h - 1.6f, a, y + 0.9f, h - 1.6f, stripes[q % 2])
                     }
-                    i.line(x, y + 0.9f, h - 1.6f, x + 1.3f, y + 0.9f, h - 1.6f, Pal.FLAG_RED)
+                    i.line(x, y + 0.9f, h - 1.6f, x + 1.3f, y + 0.9f, h - 1.6f, stripes[0])
                 }
             }
         }
@@ -224,7 +226,7 @@ internal class FestivePainter {
 
     // --- the town's banners and procession ---------------------------------------------------------------------------
 
-    /** Tall poles along both sides of the road, each with its banner (white, blue, red) fluttering from its crossbar. */
+    /** Tall poles along both sides of the road, each with its banner (the culture's flag, [Festive.banner]) fluttering from its crossbar. */
     private fun banners(s: SceneCtx, roadHalf: Float, edgeAge: Age, up: Float, add: (Float, () -> Unit) -> Unit) {
         val land = s.land
         val last = land.roadOut(edgeAge, 22f)
@@ -247,16 +249,21 @@ internal class FestivePainter {
         }
     }
 
-    /** A banner hanging from its crossbar at ([ax], [ay]): white, blue and red stripes, its foot swinging a little. */
+    /**
+     * A banner hanging from its crossbar at ([ax], [ay]), its foot swinging a little: the culture's flag ([Festive.banner]),
+     * Slovenia's white, blue and red stripes two pixels wide, another's three (Italy's tricolore down it, Austria's red,
+     * white and red across, St George's cross).
+     */
     private fun banner(s: SceneCtx, ax: Int, ay: Int, seed: Int) {
         val c = s.canvas
+        val flag = s.look.festive.banner
+        val bw = if (flag == Flag.SLOVENIA) 2 else 3
         val swing = if (((s.time * 2.5 + seed * 0.37).toInt() and 1) == 0) 0 else 1
         s.sprite(ax, ay) {
-            c.set(ax - 1, ay, Pal.WOOD_D); c.set(ax + 1, ay, Pal.WOOD_D); c.set(ax + 2, ay, Pal.WOOD_D)
+            c.set(ax - 1, ay, Pal.WOOD_D); for (u in 1..bw) c.set(ax + u, ay, Pal.WOOD_D)
             for (row in 1..6) {
-                val col = when { row <= 2 -> Pal.FLAG_WHITE; row <= 4 -> Pal.FLAG_BLUE; else -> Pal.FLAG_RED }
                 val dx = if (row >= 5) swing else 0
-                c.set(ax + 1 + dx, ay + row, col); c.set(ax + 2 + dx, ay + row, col)
+                for (u in 0 until bw) c.set(ax + 1 + u + dx, ay + row, flag.at(u, row - 1, bw, 6))
             }
         }
     }
@@ -286,10 +293,11 @@ internal class FestivePainter {
                         // the banner on its pole, carried before them
                         q == 0 -> {
                             c.vline(ax - 2, ay - 12, ay - 3, Pal.WOOD_D)
-                            for (row in 0 until 4) {
+                            val flag = s.look.festive.banner
+                            if (flag == Flag.SLOVENIA) for (row in 0 until 4) {
                                 val col = when { row < 1 -> Pal.FLAG_WHITE; row < 3 -> Pal.FLAG_BLUE; else -> Pal.FLAG_RED }
                                 c.set(ax - 3, ay - 11 + row, col); c.set(ax - 4, ay - 11 + row, col)
-                            }
+                            } else for (row in 0 until 4) for (u in 0 until 3) c.set(ax - 3 - u, ay - 11 + row, flag.at(u, row, 3, 4))
                         }
                         // the band: a horn at the mouth, glinting
                         q in 1..3 -> { c.set(ax - 2, ay - 5, Pal.GOLD); c.set(ax - 3, ay - 5 - bob, Pal.GOLD_L) }

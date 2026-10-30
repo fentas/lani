@@ -72,7 +72,7 @@ fun PilePicture(state: GameState, keeper: ActiveKeeper, look: SpotLook?, modifie
         val frame = Frame(
             time = t, hour = now.hour + now.minute / 60f, month = now.monthValue, lens = lens, people = listOf(him),
             standing = mapOf(him.id to TownPlace.Spot(TownSpots.KOPA)), today = now.toLocalDate().toString(), moon = Moon.now(),
-            kopa = look,
+            kopa = look, culture = si.lanisce.lani.game.culture.Cultures.current.id,
         )
         runCatching { renderer.render(canvas, state, frame) }
         if (fire > 0f) flames(canvas, t, fire)

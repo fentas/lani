@@ -126,6 +126,7 @@ fun VillageScene(
             justBuiltProgress = if (justBuilt == null) 1f else ((t - anim.builtAt) / BUILD_SECONDS).toFloat().coerceIn(0f, 1f),
             celebrate = if (celebrateP > 1f) -1f else celebrateP,
             sea = si.lanisce.lani.game.culture.Cultures.current.world.backdrop?.sea == true,
+            culture = si.lanisce.lani.game.culture.Cultures.current.id,
             moon = Moon.now(),
             skyNow = si.lanisce.lani.game.sky.SkyCards.now(),
             wall = System.currentTimeMillis(),

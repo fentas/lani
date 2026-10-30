@@ -142,6 +142,55 @@ internal class TreePainter(private val s: SceneCtx) {
         }
     }
 
+    /**
+     * An oak's crown (the Lake District's tree on the green, companion/GAME.md "The map in a culture's look"): wider and lower
+     * than the linden's, in lobes, a darker green, russet and brown late in autumn and bare in winter. [scale] includes the
+     * lens's detail.
+     */
+    fun oak(cx: Float, cy: Float, scale: Float, season: Season, seed: Int) {
+        val half = (19f * scale).toInt() + 3 * k + 2
+        val what = OAK or (season.ordinal shl 4) or (s.env.month shl 8)
+        stamped(what, cx.toRawBits(), cy.toRawBits(), scale.toRawBits(), seed, cx.toInt() - half, (cy - 13f * scale).toInt() - 3 * k - 2, cx.toInt() + half + 1, (cy + 10f * scale).toInt() + 2) {
+            oak0(cx, cy, scale, season, seed)
+        }
+    }
+
+    private fun oak0(cx: Float, cy: Float, scale: Float, season: Season, seed: Int) {
+        val m = s.env.month
+        val cols = when {
+            season == Season.WINTER -> null
+            season == Season.SPRING -> if (m == 3) null else OAK_SPRING
+            season == Season.AUTUMN -> if (m == 9) OAK_SUMMER else if (m == 10) OAK_TURNING else OAK_RUSSET
+            else -> OAK_SUMMER
+        }
+        if (cols == null) { bare(cx, cy, scale, seed, true); return }
+        val blobs = OAK_BLOBS
+        var minX = 1e9f; var maxX = -1e9f; var minY = 1e9f; var maxY = -1e9f
+        for (b in blobs) {
+            minX = min(minX, cx + (b[0] - b[2]) * scale); maxX = max(maxX, cx + (b[0] + b[2]) * scale)
+            minY = min(minY, cy + (b[1] - b[2]) * scale); maxY = max(maxY, cy + (b[1] + b[2]) * scale)
+        }
+        val rr = (maxX - minX) / 2
+        val edge = 0.5f + k
+        for (y in floor(minY).toInt()..maxY.toInt()) for (x in floor(minX).toInt()..maxX.toInt()) {
+            if (!inside(blobs, cx, cy, scale, x + 0.5f, y + 0.5f)) continue
+            val dx = x + 0.5f - cx; val dy = y + 0.5f - cy
+            // the leaves as fine as the linden's, gathered in clumps (a coarser noise over them), so the crown reads in lobes
+            val n = Noise.rnd(x shr 1, y shr 1, seed) - 0.5f
+            val clump = Noise.v2(x / (3.2f * k), y / (2.4f * k), seed + 2) - 0.5f
+            var v = (-dx * 0.5f - dy * 0.95f) / rr + n * 0.45f + clump * 0.9f
+            if (!inside(blobs, cx, cy, scale, x + edge, y + edge)) v -= 0.55f
+            var col = when {
+                v > 0.48f -> cols[0]
+                v > 0.0f -> cols[1]
+                v > -0.45f -> cols[2]
+                else -> cols[3]
+            }
+            if (k >= 2 && v < 0f && (x + y * 3) % 7 == 0 && Noise.rnd(x, y, seed + 8) < 0.35f) col = cols[3]
+            c.set(x, y, col)
+        }
+    }
+
     private fun inside(blobs: Array<FloatArray>, cx: Float, cy: Float, sc: Float, x: Float, y: Float): Boolean {
         for (b in blobs) {
             val dx = x - (cx + b[0] * sc); val dy = y - (cy + b[1] * sc); val r = b[2] * sc
@@ -224,6 +273,17 @@ internal class TreePainter(private val s: SceneCtx) {
         private const val BROADLEAF = 2
         private const val BUSH = 3
         private const val CANOPY = 4
+        private const val OAK = 5
+
+        /** The oak's crown: broad and low, in lobes. */
+        private val OAK_BLOBS = arrayOf(
+            floatArrayOf(0f, 0f, 7.5f), floatArrayOf(-7.5f, 2.2f, 5.6f), floatArrayOf(7.8f, 1.6f, 5.8f), floatArrayOf(-12f, 4.6f, 3.4f),
+            floatArrayOf(12.2f, 4.2f, 3.4f), floatArrayOf(-4f, -4.4f, 5f), floatArrayOf(4.6f, -4f, 5.2f), floatArrayOf(0f, 4.2f, 5.6f),
+        )
+        private val OAK_SPRING = p(0xA8D06A, 0x7EB24A, 0x5C9238, 0x40702A)
+        private val OAK_SUMMER = p(0x6E9E48, 0x4E8034, 0x3A6628, 0x284C1E)
+        private val OAK_TURNING = p(0xB0A848, 0x8A8A36, 0x6A6E2C, 0x4A5222)
+        private val OAK_RUSSET = p(0xC8843A, 0xA0602A, 0x7A4620, 0x553018)
 
         private val SMALL = arrayOf(
             floatArrayOf(0f, 0f, 4.2f), floatArrayOf(-3f, 1.5f, 3f), floatArrayOf(3f, 1.2f, 3.2f), floatArrayOf(-1f, -2.8f, 3f),
@@ -281,7 +341,7 @@ internal class Backdrop(private val s: SceneCtx) {
         else if (env.dark > 0.3f && !storm) stars(horizon)
         if (!storm) sunAndMoon(horizon, view)
         clouds(horizon, storm)
-        mountains(horizon, shift, skyline)
+        mountains(horizon, shift, skyline, s.look.range)
         if (skyline.sea) coast(horizon, skyline.seaReach, seaTo) else if (sea) sea(horizon, skyline.seaReach)
         c.penEmissive = false
     }
@@ -473,7 +533,8 @@ internal class Backdrop(private val s: SceneCtx) {
     /** The nominal x of canvas column [x]: the column itself at k = 1, else its centre (so slopes get finer, not stepped). */
     private fun ux(x: Int): Float = if (k == 1) x.toFloat() else lens.bx(x + 0.5f)
 
-    private fun mountains(horizon: Int, shift: Float, skyline: Skyline) {
+    private fun mountains(horizon: Int, shift: Float, skyline: Skyline, range: Range = Range.JULIAN) {
+        if (range == Range.FELLS) { fells(horizon, shift, skyline); return }
         val env = s.env
         val hb = lens.by(horizon.toFloat())
         // Capped, so a tall canvas gets more sky instead of needle-thin peaks.
@@ -494,8 +555,9 @@ internal class Backdrop(private val s: SceneCtx) {
                 c.set(x, y, if (hgt > snowF + 0.06f) farSnow else farRock)
             }
         }
-        // main range with Triglav's three heads
-        val peaks = PEAKS
+        // main range with Triglav's three heads; the Karawanken's long wall with the Mittagskogel's pyramid (Carinthia's)
+        val peaks = if (range == Range.KARAWANKEN) PEAKS_KARAWANKEN else PEAKS
+        val flank = if (range == Range.KARAWANKEN) 1f else 1.25f
         val rockL = env.lit(Col.mix(Col.hex(0xA3A7B4), sky, 0.22f)); val rockD = env.lit(Col.mix(Col.hex(0x6C7084), sky, 0.22f))
         val snowL = env.lit(Col.mix(Col.hex(0xF7F9FF), sky, 0.12f)); val snowD = env.lit(Col.mix(Col.hex(0xBCC6DC), sky, 0.18f))
         val gully = env.lit(Col.mix(Col.hex(0x575B6E), sky, 0.2f))
@@ -508,7 +570,7 @@ internal class Backdrop(private val s: SceneCtx) {
                 var dd = abs(uw - p[0]); if (dd > 0.5f) dd = 1f - dd
                 val d = dd / p[2]
                 if (d >= 1f) continue
-                val hh = p[1] * (1 - d).pow(1.25f)
+                val hh = p[1] * (1 - d).pow(flank)
                 if (hh > best) { best = hh; bp = j }
             }
             best += (Noise.v1(u * 38f, 9) - 0.5f) * 0.07f + (Noise.v1(u * 95f, 19) - 0.5f) * 0.03f
@@ -527,6 +589,67 @@ internal class Backdrop(private val s: SceneCtx) {
             }
         }
         foothills(horizon, if (skyline.hills == 1f) mh else min(mh0 * skyline.hills, (hb - 3f) * k), shift)
+    }
+
+    /**
+     * The Lake District's fells at the horizon (as the scene behind the village has them, On the fell): rounded backs, the
+     * far ones blue-grey, the near ones green with bracken (rusting in October, russet through the winter), grey crags on
+     * their flanks, snow only on the tops in winter; lower than the Alps.
+     */
+    private fun fells(horizon: Int, shift: Float, skyline: Skyline) {
+        val env = s.env
+        val hb = lens.by(horizon.toFloat())
+        val mh0 = min(hb - 3f, MAX_MOUNTAIN_PX) * k * FELLS_HEIGHT
+        val mh = if (skyline.alps == 1f) mh0 else min(mh0 * skyline.alps, (hb - 3f) * k)
+        val sky = env.skyHorizon
+        val bw = lens.baseW.toFloat()
+        // the far fells: soft round shapes, blue-grey
+        val far = env.lit(Col.mix(Col.hex(0x7E8EA4), sky, 0.48f))
+        val farTop = env.lit(Col.mix(Col.hex(0xEEF2FA), sky, 0.45f))
+        for (x in c.left until c.right) {
+            val u = ux(x) / bw - shift
+            val top = horizon - mh * (0.5f + 0.16f * Noise.v1(u * 3.2f, 3) + 0.05f * Noise.v1(u * 9f, 4))
+            for (y in max(top.toInt(), c.top) until min(horizon, c.bottom)) {
+                c.set(x, y, if (env.snow && (horizon - y) / mh > 0.62f) farTop else far)
+            }
+        }
+        // the near fells: their round backs, lit on the left
+        val (side, shade) = when (env.season) {
+            Season.WINTER -> Col.hex(0x8A7A66) to Col.hex(0x6A5E50)
+            Season.AUTUMN -> if (env.month == 9) Col.hex(0x7E8E4A) to Col.hex(0x5E6E3A) else Col.hex(0xA06A3A) to Col.hex(0x7A4E2C)
+            Season.SPRING -> Col.hex(0x86A05A) to Col.hex(0x627A44)
+            Season.SUMMER -> Col.hex(0x6E9048) to Col.hex(0x506E36)
+        }
+        val lit = env.lit(Col.mix(side, sky, 0.24f)); val dark = env.lit(Col.mix(shade, sky, 0.24f))
+        val crag = env.lit(Col.mix(Col.hex(0x7A7C82), sky, 0.24f)); val cragD = env.lit(Col.mix(Col.hex(0x5A5C62), sky, 0.24f))
+        val snowL = env.lit(Col.mix(Col.hex(0xF4F6FC), sky, 0.14f)); val snowD = env.lit(Col.mix(Col.hex(0xC4CCDC), sky, 0.18f))
+        for (x in c.left until c.right) {
+            val xu = ux(x)
+            val u = xu / bw - shift
+            val uw = u - floor(u)
+            var best = 0f; var bp = 0
+            for ((j, p) in PEAKS_FELLS.withIndex()) {
+                var dd = abs(uw - p[0]); if (dd > 0.5f) dd = 1f - dd
+                val d = dd / p[2]
+                if (d >= 1f) continue
+                val hh = p[1] * (1f - d * d)
+                if (hh > best) { best = hh; bp = j }
+            }
+            best += (Noise.v1(u * 24f, 9) - 0.5f) * 0.03f
+            val top = horizon - mh * best
+            var pu = PEAKS_FELLS[bp][0] + shift; pu -= floor(pu)
+            val px = lens.cx(pu * bw)
+            for (y in max(top.toInt(), c.top) until min(horizon, c.bottom)) {
+                val hgt = (horizon - y) / mh
+                val left = x < px - (y - top) * 0.2f
+                var col = if (left) lit else dark
+                // the crags and their scree on the steeper flanks, the summits' snow in winter
+                if (Noise.v2(xu * 0.5f + hgt * 2f, hgt * 9f, 7) > 0.84f && hgt > best * 0.35f && hgt < best * 0.85f) col = if (left) crag else cragD
+                if (env.snow && hgt > best * 0.72f + (Noise.v2(xu * 0.3f, hgt * 4f, 5) - 0.5f) * 0.12f) col = if (left) snowL else snowD
+                c.set(x, y, col)
+            }
+        }
+        foothills(horizon, if (skyline.hills == 1f) mh0 / FELLS_HEIGHT else min(mh0 / FELLS_HEIGHT * skyline.hills, (hb - 3f) * k), shift)
     }
 
     /**
@@ -593,6 +716,27 @@ internal class Backdrop(private val s: SceneCtx) {
         const val MAX_MOUNTAIN_PX = 52f
 
         /** (u, height fraction, half width). Triglav: the tall middle head flanked by two lower ones. */
+        /**
+         * The Karawanken from the Gailtal (Carinthia's, as Am See draws them): a long wall of limestone, the Mittagskogel's
+         * clean pyramid standing out of it (flanks straight: [mountains]).
+         */
+        val PEAKS_KARAWANKEN = arrayOf(
+            floatArrayOf(0.04f, 0.46f, 0.09f), floatArrayOf(0.15f, 0.56f, 0.08f), floatArrayOf(0.26f, 0.5f, 0.07f),
+            floatArrayOf(0.37f, 0.6f, 0.085f), floatArrayOf(0.49f, 0.52f, 0.07f),
+            // the Mittagskogel
+            floatArrayOf(0.67f, 0.96f, 0.085f),
+            floatArrayOf(0.8f, 0.6f, 0.07f), floatArrayOf(0.9f, 0.54f, 0.08f), floatArrayOf(0.98f, 0.5f, 0.09f),
+        )
+
+        /** The fells (the Lake District's): broad round backs (column, height, half width), Skiddaw's and Helvellyn's among them. */
+        val PEAKS_FELLS = arrayOf(
+            floatArrayOf(0.06f, 0.44f, 0.15f), floatArrayOf(0.22f, 0.58f, 0.14f), floatArrayOf(0.4f, 0.48f, 0.12f),
+            floatArrayOf(0.58f, 0.72f, 0.15f), floatArrayOf(0.77f, 0.54f, 0.13f), floatArrayOf(0.93f, 0.62f, 0.14f),
+        )
+
+        /** How high the fells stand against the Alps. */
+        const val FELLS_HEIGHT = 0.8f
+
         val PEAKS = arrayOf(
             floatArrayOf(0.03f, 0.5f, 0.09f), floatArrayOf(0.13f, 0.6f, 0.08f), floatArrayOf(0.22f, 0.46f, 0.07f),
             floatArrayOf(0.33f, 0.56f, 0.09f), floatArrayOf(0.45f, 0.44f, 0.08f), floatArrayOf(0.54f, 0.5f, 0.06f),

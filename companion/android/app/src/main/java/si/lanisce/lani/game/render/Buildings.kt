@@ -44,9 +44,17 @@ internal class BuildingPainter(private val s: SceneCtx) {
     /** Sprite height above the plot (px), for hit rectangles and the construction reveal. */
     fun height(t: BuildingType): Float = spriteHeight(t)
 
+    /** The culture's own versions of the buildings (see [MapLook]): drawn instead where its look has its own. */
+    internal val looks = CultureBuildings(s, this)
+
+    /** The village's roof in its culture's look ([MapLook.style]: coppi, shingles, slate), the map's own tiles by default. */
+    internal fun villageRoof(): Roof = s.look.style?.let { looks.roofOf(it) } ?: tiles()
+
     fun draw(b: Building, x: Float, y: Float) {
         current = b
-        when (b.type) {
+        val look = s.look
+        // a culture's own version where its look has one ([MapLook]; the default culture's map draws every one as before)
+        if (look.own || !looks.draw(b, x, y, look)) when (b.type) {
             BuildingType.TENT -> tent(b, x, y)
             BuildingType.FIELD -> field(b, x, y)
             BuildingType.WELL -> well(b, x, y)
@@ -70,7 +78,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
      * taller each level, blue at 3, red at 4 and gold with a finial at 5. (Plain colours: a tricolour
      * this small would read as the wrong country's flag.)
      */
-    private fun banner(level: Int, x: Float, y: Float) = pennant(level, x + 0.3f, y + 2.7f, 0f)
+    internal fun banner(level: Int, x: Float, y: Float) = pennant(level, x + 0.3f, y + 2.7f, 0f)
 
     /** The pennant of [banner] on a pole standing at ([px], [py]) from height [z0], [pole] px tall at level 3 (a gate post's is shorter). */
     internal fun pennant(level: Int, px: Float, py: Float, z0: Float, pole: Float = 9f) {
@@ -95,7 +103,12 @@ internal class BuildingPainter(private val s: SceneCtx) {
 
     // ---------------------------------------------------------------- helpers
 
-    internal class Roof(val back: Int, val front: Int, val edge: Int, val rows: Boolean = true, val stagger: Boolean = false)
+    /**
+     * A roof's colours: its [back] and [front] slopes and the [edge] along its eaves and verge; at a closer look its
+     * courses of tiles or shingles ([rows], every other one staggered at the finest), or (the coppi of Friuli's roofs,
+     * [channels]) the rounded tiles' channels running down each slope, at every detail.
+     */
+    internal class Roof(val back: Int, val front: Int, val edge: Int, val rows: Boolean = true, val stagger: Boolean = false, val channels: Boolean = false)
 
     internal fun tiles() = if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, Pal.ROOF_D, rows = false) else Roof(Pal.ROOF_L, Pal.ROOF_D, Col.hex(0x55200F), stagger = true)
     internal fun tilesSideLit() = if (env.snow) Roof(Pal.SNOW_L, Pal.SNOW_M, Pal.ROOF_D, rows = false) else Roof(Pal.ROOF_L, Pal.ROOF_M, Col.hex(0x55200F), stagger = true)
@@ -106,19 +119,20 @@ internal class BuildingPainter(private val s: SceneCtx) {
      * The building being drawn ([draw]): its windows are dark once everyone in it is asleep ([SceneCtx.darkWindows]), and
      * when its hearth is out ([SceneCtx.hearthsOut]: no fire, no light in a cold house).
      */
-    private var current: Building? = null
+    internal var current: Building? = null
 
-    private val lit get() = env.windows > 0.35f && current?.id?.let { it in s.darkWindows || it in s.hearthsOut } != true
+    internal val lit get() = env.windows > 0.35f && current?.id?.let { it in s.darkWindows || it in s.hearthsOut } != true
 
     /** The hearth of the building being drawn burns (companion/GAME.md "Hearths"): smoke from its chimney, its fire's glow. */
-    private val hearth get() = current?.id?.let { it !in s.hearthsOut } != false
+    internal val hearth get() = current?.id?.let { it !in s.hearthsOut } != false
 
     /** Its hearth burns and someone is up (by night, after everyone is asleep, the smoke stops). */
-    private val smoking get() = hearth && current?.id?.let { it in s.darkWindows } != true
+    internal val smoking get() = hearth && current?.id?.let { it in s.darkWindows } != true
 
     /** A gable roof with the ridge along x, and at a closer look its rows of tiles or shingles. */
     internal fun roofX(x: Float, y: Float, z: Float, w: Float, d: Float, rise: Float, r: Roof, gable: Int) {
         i.gableX(x, y, z, w, d, rise, r.back, r.front, gable, r.edge)
+        if (r.channels) { channelsX(x, y, z, w, d, rise, r); return }
         if (!fine || !r.rows) return
         val n = (rise * k / 3f).roundToInt().coerceAtLeast(2)
         val backRow = Col.scale(r.back, 0.86f); val frontRow = Col.scale(r.front, 0.84f)
@@ -137,6 +151,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     /** A gable roof with the ridge along y, and at a closer look its rows of tiles or shingles. */
     internal fun roofY(x: Float, y: Float, z: Float, w: Float, d: Float, rise: Float, r: Roof, gable: Int) {
         i.gableY(x, y, z, w, d, rise, r.back, r.front, gable, r.edge)
+        if (r.channels) { channelsY(x, y, z, w, d, rise, r); return }
         if (!fine || !r.rows) return
         val n = (rise * k / 3f).roundToInt().coerceAtLeast(2)
         val backRow = Col.scale(r.back, 0.86f); val frontRow = Col.scale(r.front, 0.84f)
@@ -150,6 +165,39 @@ internal class BuildingPainter(private val s: SceneCtx) {
                 while (u < d) { c.set(i.ix(xb, y + u), i.iy(xb, y + u, zz) + 1, backRow); c.set(i.ix(xf, y + u), i.iy(xf, y + u, zz) + 1, frontRow); u += 0.32f }
             }
         }
+    }
+
+    /**
+     * The coppi's channels down both slopes of a roof with its ridge along x ([roofX]): a shaded line every half cell (a
+     * quarter at a closer look), the round ends of the tiles along the front eaves, the ridge capped.
+     */
+    private fun channelsX(x: Float, y: Float, z: Float, w: Float, d: Float, rise: Float, r: Roof) {
+        val ym = y + d / 2; val zr = z + rise
+        val step = if (fine) 0.25f else 0.5f
+        val backCh = Col.scale(r.back, 0.84f); val frontCh = Col.scale(r.front, 0.8f)
+        var u = step / 2
+        while (u < w) {
+            i.line(x + u, ym, zr, x + u, y, z, backCh)
+            i.line(x + u, ym, zr, x + u, y + d, z, frontCh)
+            if (finest) i.px(x + u, y + d, z, r.edge)
+            u += step
+        }
+        i.line(x, ym, zr, x + w, ym, zr, r.edge)
+    }
+
+    /** The coppi's channels down both slopes of a roof with its ridge along y ([roofY]). */
+    private fun channelsY(x: Float, y: Float, z: Float, w: Float, d: Float, rise: Float, r: Roof) {
+        val xm = x + w / 2; val zr = z + rise
+        val step = if (fine) 0.25f else 0.5f
+        val backCh = Col.scale(r.back, 0.84f); val frontCh = Col.scale(r.front, 0.8f)
+        var u = step / 2
+        while (u < d) {
+            i.line(xm, y + u, zr, x, y + u, z, backCh)
+            i.line(xm, y + u, zr, x + w, y + u, z, frontCh)
+            if (finest) i.px(x + w, y + u, z, r.edge)
+            u += step
+        }
+        i.line(xm, y, zr, xm, y + d, zr, r.edge)
     }
 
     /** Mortar between the stones of a stone box, at a closer look: courses on both faces, staggered joints at the finest. */
@@ -171,7 +219,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     /** A door on a +y face from height [z]: planks at a closer look, and a handle [handleU] cells in at [handleZ] (none when negative). */
-    private fun doorY(x: Float, y: Float, z: Float, w: Float, h: Float, handleU: Float = -1f, handleZ: Float = 0f) {
+    internal fun doorY(x: Float, y: Float, z: Float, w: Float, h: Float, handleU: Float = -1f, handleZ: Float = 0f) {
         i.panelY(x, y, z, w, h, Pal.DOOR)
         if (fine) {
             val plank = Col.scale(Pal.DOOR, 0.78f)
@@ -183,7 +231,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     /** A door on a +x face from height [z]: planks at a closer look, and a handle [handleU] cells in at [handleZ] (none when negative). */
-    private fun doorX(x: Float, y: Float, z: Float, d: Float, h: Float, handleU: Float = -1f, handleZ: Float = 0f) {
+    internal fun doorX(x: Float, y: Float, z: Float, d: Float, h: Float, handleU: Float = -1f, handleZ: Float = 0f) {
         i.panelX(x, y, z, d, h, Pal.DOOR)
         if (fine) {
             val plank = Col.scale(Pal.DOOR, 0.78f)
@@ -195,7 +243,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     /** Window on a +y (left) face. */
-    private fun winY(x: Float, y: Float, z: Float, w: Float = 0.5f, h: Float = 3f, shutters: Boolean = false) {
+    internal fun winY(x: Float, y: Float, z: Float, w: Float = 0.5f, h: Float = 3f, shutters: Boolean = false) {
         if (shutters) { i.panelY(x - 0.25f, y, z, 0.25f, h, Pal.SHUTTER); i.panelY(x + w, y, z, 0.25f, h, Pal.SHUTTER) }
         if (fine) i.panelY(x - FRAME, y, z - 1f / k, w + 2 * FRAME, h + 2f / k, Pal.WOOD_X)
         if (lit) {
@@ -212,7 +260,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     /** Window on a +x (right) face. */
-    private fun winX(x: Float, y: Float, z: Float, d: Float = 0.5f, h: Float = 3f, shutters: Boolean = false) {
+    internal fun winX(x: Float, y: Float, z: Float, d: Float = 0.5f, h: Float = 3f, shutters: Boolean = false) {
         if (shutters) { i.panelX(x, y - 0.25f, z, 0.25f, h, Pal.SHUTTER); i.panelX(x, y + d, z, 0.25f, h, Pal.SHUTTER) }
         if (fine) i.panelX(x, y - FRAME, z - 1f / k, d + 2 * FRAME, h + 2f / k, Pal.WOOD_X)
         if (lit) {
@@ -229,7 +277,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     /** A flower box under a window on a +y face (a closer look, in the warm months). */
-    private fun flowerBoxY(x: Float, y: Float, z: Float) {
+    internal fun flowerBoxY(x: Float, y: Float, z: Float) {
         if (!fine || env.snow || env.month !in 5..10) return
         i.box(x - 0.05f, y, z - 0.9f, 0.6f, 0.15f, 0.7f, Pal.WOOD_M, Pal.WOOD_L, Pal.WOOD_D)
         for ((j, u) in floatArrayOf(0.02f, 0.2f, 0.38f).withIndex()) {
@@ -243,7 +291,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     /** Scattered darker "stones" on the visible faces of a box. */
-    private fun speckle(x: Float, y: Float, z: Float, w: Float, d: Float, h: Float, seed: Int, cl: Int, cr: Int) {
+    internal fun speckle(x: Float, y: Float, z: Float, w: Float, d: Float, h: Float, seed: Int, cl: Int, cr: Int) {
         val n = ((w + d) * h / 3).toInt()
         for (j in 0 until n) {
             val u = Noise.rnd(seed, j, 1); val v = Noise.rnd(seed, j, 2)
@@ -251,7 +299,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
         }
     }
 
-    private fun chimney(x: Float, y: Float, z: Float, h: Float, smoke: Boolean) {
+    internal fun chimney(x: Float, y: Float, z: Float, h: Float, smoke: Boolean) {
         i.box(x, y, z, 0.5f, 0.5f, h, Pal.STONE_L, Pal.STONE_M, Pal.STONE_D)
         i.top(x, y, z + h, 0.5f, 0.5f, Pal.STONE_X)
         if (fine) { i.line(x, y + 0.5f, z + h - 1f, x + 0.5f, y + 0.5f, z + h - 1f, Pal.STONE_D); i.line(x + 0.5f, y, z + h - 1f, x + 0.5f, y + 0.5f, z + h - 1f, Pal.STONE_X) }
@@ -287,7 +335,11 @@ internal class BuildingPainter(private val s: SceneCtx) {
         i.post(cx, y0, rise, rise + 2.5f, Pal.WOOD_D)
         i.line(cx, y0 + d, rise + 1, cx, y0 + d + 0.9f, 0f, Pal.WOOD_D)
         if (fine) i.px(cx, y0 + d + 0.9f, 0f, Pal.WOOD_X) // the peg
-        if (b.level >= 2) { i.px(cx, y0 + d, rise + 3, Pal.FLAG_RED); i.px(cx + 0.25f, y0 + d - 0.25f, rise + 3, Pal.FLAG_RED) }
+        if (b.level >= 2) {
+            val f = s.look.pennant
+            if (f == null) { i.px(cx, y0 + d, rise + 3, Pal.FLAG_RED); i.px(cx + 0.25f, y0 + d - 0.25f, rise + 3, Pal.FLAG_RED) }
+            else tentFlag(f, cx, y0 + d, rise + 2.5f)
+        }
     }
 
     /** The whole field at once (being built, its reveal clipped as it goes up): its ground, then its raised parts back to front. */
@@ -370,7 +422,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     /** One plant of a field's row [j], the [n]th along it at ([xx], [yy]), as the month has it (see [fieldParts]). */
-    private fun crop(b: Building, xx: Float, yy: Float, j: Int, n: Int, x0: Float, snow: Boolean, cut: Boolean, m: Int) {
+    internal fun crop(b: Building, xx: Float, yy: Float, j: Int, n: Int, x0: Float, snow: Boolean, cut: Boolean, m: Int) {
         val r = Noise.rnd(b.plot, j, n)
         when {
             snow -> if (r < 0.15f) i.px(xx, yy, 1f, Pal.SOIL_D)
@@ -386,7 +438,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     /** The fence's rails from one post to the next ([alongX]: along the field's front +y edge, else its +x edge), slats between at a closer look. */
-    private fun fenceRail(ax: Float, ay: Float, bx: Float, by: Float, alongX: Boolean) {
+    internal fun fenceRail(ax: Float, ay: Float, bx: Float, by: Float, alongX: Boolean) {
         i.line(ax, ay, 2f, bx, by, 2f, if (alongX) Pal.WOOD_L else Pal.WOOD_M)
         if (fine) {
             val mx = (ax + bx) / 2f; val my = (ay + by) / 2f
@@ -395,11 +447,11 @@ internal class BuildingPainter(private val s: SceneCtx) {
         }
     }
 
-    private fun pumpkin(x: Float, y: Float) {
+    internal fun pumpkin(x: Float, y: Float) {
         i.px(x, y, 1f, Col.hex(0xE07A1E)); i.px(x + 0.25f, y, 1f, Col.hex(0xC0601A)); i.px(x, y, 2f, Col.hex(0xF09A3A))
     }
 
-    private fun sheaf(x: Float, y: Float) {
+    internal fun sheaf(x: Float, y: Float) {
         val sx = i.ix(x, y); val sy = i.iy(x, y, 0f)
         s.sprite(sx, sy) {
             c.fillRect(sx - 1, sy - 5, 3, 5, Pal.HAY_M)
@@ -408,7 +460,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
         }
     }
 
-    private fun scarecrow(x: Float, y: Float) {
+    internal fun scarecrow(x: Float, y: Float) {
         val sx = i.ix(x, y); val sy = i.iy(x, y, 0f)
         s.sprite(sx, sy) {
             c.vline(sx, sy - 9, sy, Pal.WOOD_D)
@@ -439,7 +491,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
         roofX(x0 - 0.35f, y0 + 0.05f, 10.5f, 1.9f, 1.1f, 4.5f, tiles(), Pal.WOOD_D)
     }
 
-    private fun flowers(x: Float, y: Float, seed: Int) {
+    internal fun flowers(x: Float, y: Float, seed: Int) {
         for (j in 0..4) {
             val u = Noise.rnd(seed, j, 3) - 0.5f; val v = Noise.rnd(seed, j, 4) - 0.5f
             i.px(x + u, y + v, 1f, Pal.LEAF)
@@ -508,7 +560,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
         if (!env.snow) i.line(x0 - 0.45f, yf + 0.1f, top + 1.5f, x0 + 2.95f, yf + 0.1f, top + 1.5f, Col.hex(0x7A3220))
     }
 
-    private fun postBox(x: Float, y: Float, h: Float) =
+    internal fun postBox(x: Float, y: Float, h: Float) =
         i.box(x - 0.125f, y - 0.125f, 0f, 0.25f, 0.25f, h, Pal.WOOD_L, Pal.WOOD_D, Pal.WOOD_X)
 
     private fun beehive(b: Building, x: Float, y: Float) {
@@ -544,12 +596,15 @@ internal class BuildingPainter(private val s: SceneCtx) {
 
     private fun watchtower(b: Building, x: Float, y: Float) {
         val x0 = x + 0.75f; val y0 = y + 0.75f; val w = 1.5f
-        postBox(x0, y0, 17f)
-        postBox(x0 + w, y0, 17f); postBox(x0, y0 + w, 17f)
-        // cross bracing
-        i.line(x0, y0 + w, 2f, x0 + w, y0 + w, 15f, Pal.WOOD_D); i.line(x0 + w, y0 + w, 2f, x0, y0 + w, 15f, Pal.WOOD_D)
-        i.line(x0 + w, y0, 2f, x0 + w, y0 + w, 15f, Pal.WOOD_X); i.line(x0 + w, y0 + w, 2f, x0 + w, y0, 15f, Pal.WOOD_X)
-        postBox(x0 + w, y0 + w, 17f)
+        if (s.look.stoneTower && b.level >= 3) looks.towerPillars(x0, y0, w, b.plot)
+        else {
+            postBox(x0, y0, 17f)
+            postBox(x0 + w, y0, 17f); postBox(x0, y0 + w, 17f)
+            // cross bracing
+            i.line(x0, y0 + w, 2f, x0 + w, y0 + w, 15f, Pal.WOOD_D); i.line(x0 + w, y0 + w, 2f, x0, y0 + w, 15f, Pal.WOOD_D)
+            i.line(x0 + w, y0, 2f, x0 + w, y0 + w, 15f, Pal.WOOD_X); i.line(x0 + w, y0 + w, 2f, x0 + w, y0, 15f, Pal.WOOD_X)
+            postBox(x0 + w, y0 + w, 17f)
+        }
         // platform + parapet
         i.box(x0 - 0.4f, y0 - 0.4f, 16f, w + 0.8f, w + 0.8f, 2f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
         i.post(x0 - 0.3f, y0 - 0.3f, 18f, 24f, Pal.WOOD_X)
@@ -560,22 +615,42 @@ internal class BuildingPainter(private val s: SceneCtx) {
             glow { i.px(x0 + w / 2, y0 + w / 2, 21f, Pal.WINDOW_LIT) }
             s.light(i.sx(x0 + w / 2, y0 + w / 2), i.sy(x0 + w / 2, y0 + w / 2, 21f), 14f, 0.5f)
         }
-        val r = shingles()
-        i.pyramid(x0 - 0.6f, y0 - 0.6f, 24f, w + 1.2f, w + 1.2f, 7f, r.front, if (env.snow) Pal.SNOW_D else Pal.SHINGLE_D)
+        // its roof the village's (the map's own shingles; Friuli's coppi, the Lake District's slate: [villageRoof])
+        val r = if (s.look.own) shingles() else villageRoof()
+        val dark = if (s.look.own) Pal.SHINGLE_D else r.edge
+        i.pyramid(x0 - 0.6f, y0 - 0.6f, 24f, w + 1.2f, w + 1.2f, 7f, r.front, if (env.snow) Pal.SNOW_D else dark)
         if (fine && !env.snow) for (j in 1..3) { // shingle rows up the two visible faces
             val t = j / 4f; val zz = 24f + t * 7f
-            i.line(x0 - 0.6f + t * (w + 1.2f) / 2, y0 + w + 0.6f - t * (w + 1.2f) / 2, zz, x0 + w + 0.6f - t * (w + 1.2f) / 2, y0 + w + 0.6f - t * (w + 1.2f) / 2, zz, Pal.SHINGLE_D)
-            i.line(x0 + w + 0.6f - t * (w + 1.2f) / 2, y0 - 0.6f + t * (w + 1.2f) / 2, zz, x0 + w + 0.6f - t * (w + 1.2f) / 2, y0 + w + 0.6f - t * (w + 1.2f) / 2, zz, Col.scale(Pal.SHINGLE_D, 0.8f))
+            i.line(x0 - 0.6f + t * (w + 1.2f) / 2, y0 + w + 0.6f - t * (w + 1.2f) / 2, zz, x0 + w + 0.6f - t * (w + 1.2f) / 2, y0 + w + 0.6f - t * (w + 1.2f) / 2, zz, dark)
+            i.line(x0 + w + 0.6f - t * (w + 1.2f) / 2, y0 - 0.6f + t * (w + 1.2f) / 2, zz, x0 + w + 0.6f - t * (w + 1.2f) / 2, y0 + w + 0.6f - t * (w + 1.2f) / 2, zz, Col.scale(dark, 0.8f))
         }
-        // flag: white, blue, red
+        // the culture's flag ([MapLook.flag]): Slovenia's white, blue and red, Friuli's golden eagle on blue (a little bigger,
+        // 3 to 2, as Italy's tricolore would be), Austria's red, white and red, St George's cross
+        val flag = s.look.flag
+        val big = flag == Flag.ITALY || flag == Flag.FRIULI
+        val fw = if (big) 6 else 5; val fh = if (big) 4 else 3
         val ax = i.ix(x0 + w / 2, y0 + w / 2); val ay = i.iy(x0 + w / 2, y0 + w / 2, 31f)
         val wave = ((s.time * 4).toInt() % 2)
         s.sprite(ax, ay) {
             c.vline(ax, ay - 6, ay, Pal.WOOD_X)
-            for (j in 0..4) {
-                val dy = if ((j + wave) % 3 == 0) 1 else 0
-                c.set(ax + 1 + j, ay - 6 + dy, Pal.FLAG_WHITE); c.set(ax + 1 + j, ay - 5 + dy, Pal.FLAG_BLUE); c.set(ax + 1 + j, ay - 4 + dy, Pal.FLAG_RED)
+            for (j in 0 until fw) {
+                // the wave runs down the stripes; a cross waves at its fly end only, so it stays a cross
+                val dy = if (flag == Flag.ENGLAND) (if (j == fw - 1) wave else 0) else if ((j + wave) % 3 == 0) 1 else 0
+                for (r in 0 until fh) c.set(ax + 1 + j, ay - 6 + r + dy, flag.at(j, r, fw, fh))
             }
+        }
+    }
+
+    /**
+     * A culture's pennant on the tent's front pole ([MapLook.pennant]; the camp's, as the tent's and the campfire's scenes
+     * fly it): from the pole's tip at ([px], [py], [z]), its far edge fluttering.
+     */
+    private fun tentFlag(f: Flag, px: Float, py: Float, z: Float) {
+        val fw = if (f == Flag.ENGLAND) 5 else 4; val fh = 3
+        val ax = i.ix(px, py) + k; val ay = i.iy(px, py, z)
+        val flutter = (s.time * 3).toInt() and 1
+        s.sprite(ax, ay) {
+            for (u in 0 until fw) for (v in 0 until fh) c.set(ax + u, ay + v + if (u == fw - 1) flutter else 0, f.at(u, v, fw, fh))
         }
     }
 
@@ -655,7 +730,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
      * The class under the linden (GAME.md, "The school"): a blackboard on its easel at the tree's right, a word chalked on
      * it, and a low bench for the pupils beside the old one.
      */
-    private fun classroom(x: Float, y: Float) {
+    internal fun classroom(x: Float, y: Float) {
         val board = Col.hex(0x2F4A3A)
         val chalk = Col.hex(0xE6E6DA)
         val bx = x + 2.75f; val by = y + 1.6f
@@ -761,17 +836,20 @@ internal class BuildingPainter(private val s: SceneCtx) {
     }
 
     private fun market(b: Building, x: Float, y: Float) {
-        stall(x + 0.2f, y + 0.3f, Pal.FLAG_RED, b.plot)
-        stall(x + 1.75f, y + 0.3f, Pal.FLAG_BLUE, b.plot + 1)
+        // the awnings in the culture's colours ([Festive.awnings]: the map's own red, blue and green)
+        val awn = s.look.festive.awnings
+        val stripes = s.look.festive.stripes
+        stall(x + 0.2f, y + 0.3f, awn[0], b.plot, stripes[0])
+        stall(x + 1.75f, y + 0.3f, awn[1], b.plot + 1, stripes[1])
         // crates + barrel between rows
         i.box(x + 2.35f, y + 1.7f, 0f, 0.5f, 0.5f, 2.5f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
         i.box(x + 0.25f, y + 1.9f, 0f, 0.45f, 0.45f, 3f, Pal.LOG_L, Pal.LOG_M, Pal.LOG_D)
         i.line(x + 0.25f, y + 2.35f, 1.5f, x + 0.7f, y + 2.35f, 1.5f, Pal.STONE_X)
         if (fine) { i.line(x + 0.25f, y + 2.35f, 0.6f, x + 0.7f, y + 2.35f, 0.6f, Pal.STONE_X); i.line(x + 0.25f, y + 2.35f, 2.4f, x + 0.7f, y + 2.35f, 2.4f, Pal.STONE_X) } // the barrel's hoops
-        stall(x + 1.0f, y + 1.9f, Pal.LEAF, b.plot + 2)
+        stall(x + 1.0f, y + 1.9f, awn[2], b.plot + 2, stripes[2])
     }
 
-    private fun stall(x: Float, y: Float, awn: Int, seed: Int) {
+    private fun stall(x: Float, y: Float, awn: Int, seed: Int, stripe: Int = Pal.FLAG_WHITE) {
         val w = 1.15f; val d = 0.7f
         i.post(x, y, 0f, 8f, Pal.WOOD_D)
         i.post(x + w, y, 0f, 8f, Pal.WOOD_D)
@@ -793,7 +871,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
         val n = 6
         for (j in 0 until n) {
             val xa = x - 0.1f + (w + 0.2f) * j / n; val xb = x - 0.1f + (w + 0.2f) * (j + 1) / n
-            val col = if (j % 2 == 0) awn else Pal.FLAG_WHITE
+            val col = if (j % 2 == 0) awn else stripe
             i.quad(xa, y - 0.15f, 9f, xb, y - 0.15f, 9f, xb, y + d + 0.2f, 7f, xa, y + d + 0.2f, 7f, col)
             i.px(xa + 0.08f, y + d + 0.2f, 6f, Col.scale(col, 0.8f))
         }

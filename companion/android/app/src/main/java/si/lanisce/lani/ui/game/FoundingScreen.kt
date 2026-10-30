@@ -118,6 +118,7 @@ fun FoundingScreen(vm: AppViewModel) {
 
         LandPreview(
             preview,
+            culture,
             Modifier.fillMaxWidth().aspectRatio(1.6f).clip(RoundedCornerShape(12.dp))
                 .semantics { contentDescription = "${founding.landscape.emoji} ${bi(founding.landscape.key)}" },
         )
@@ -132,10 +133,11 @@ fun FoundingScreen(vm: AppViewModel) {
 
 /**
  * The village [state] drawn as it would stand, by day in this month, the whole land round it (the town's framing,
- * [SceneFit.town]): the fire flickers, nothing to tap. Also the first launch's welcome (ui/setup).
+ * [SceneFit.town]) in [culture]'s look (its sea at the horizon, its buildings): the fire flickers, nothing to tap. Also
+ * the first launch's welcome (ui/setup).
  */
 @Composable
-internal fun LandPreview(state: GameState, modifier: Modifier) {
+internal fun LandPreview(state: GameState, culture: String, modifier: Modifier) {
     val renderer = remember { VillageRenderer() }
     var size by remember { mutableStateOf(IntSize.Zero) }
     val clock = remember { mutableLongStateOf(0L) }
@@ -144,6 +146,7 @@ internal fun LandPreview(state: GameState, modifier: Modifier) {
     val bitmap = remember(fit.width, fit.height) { Bitmap.createBitmap(fit.width, fit.height, Bitmap.Config.ARGB_8888) }
     val image = remember(bitmap) { bitmap.asImageBitmap() }
     val month = remember { LocalDate.now().monthValue }
+    val sea = remember(culture) { Founding.seaIn(culture) }
     LaunchedEffect(Unit) {
         val start = withFrameNanos { it }
         var last = -PREVIEW_FRAME
@@ -153,7 +156,7 @@ internal fun LandPreview(state: GameState, modifier: Modifier) {
         Canvas(Modifier.fillMaxSize()) {
             if (size.width == 0 || size.height == 0) return@Canvas
             val t = clock.longValue / 1e9
-            renderer.render(canvas, state, Frame(time = t, hour = 11f, month = month, sea = Cultures.current.world.backdrop?.sea == true))
+            renderer.render(canvas, state, Frame(time = t, hour = 11f, month = month, sea = sea, culture = culture))
             bitmap.setPixels(canvas.pixels, 0, fit.width, 0, 0, fit.width, fit.height)
             drawRect(Color(renderer.skyColor))
             drawImage(

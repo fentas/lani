@@ -66,6 +66,12 @@ data class Frame(
     val today: String = "",
     /** The sea shows along the horizon (a village by the coast: its culture pack's backdrop, [si.lanisce.lani.game.culture.Horizon.sea]). */
     val sea: Boolean = false,
+    /**
+     * The culture whose village it is ([si.lanisce.lani.game.culture.Cultures]: the learner's, a visited town's): its look on
+     * the map ([MapLook]: its houses, its church, its hayrack, its flags, its mountains). The default culture's map is the
+     * one every sprite was drawn for.
+     */
+    val culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT,
     val standing: Map<String, TownPlace> = emptyMap(),
     val moon: Float = Moon.FULL,
     val skyNow: SkyNow? = null,
@@ -236,6 +242,8 @@ internal class SceneCtx(val canvas: PixelCanvas, val stamps: Stamps = Stamps()) 
     var hearthsOut: Set<String> = emptySet()
     /** The class meets under the linden (GAME.md, "The school"): its blackboard and the pupils' bench by the tree. */
     var classroom = false
+    /** The village's culture's look on the map ([MapLook]): what its buildings, flags, feasts and mountains are like. */
+    var look: MapLook = MapLook.DEFAULT
     val trees = TreePainter(this)
     val effects = Effects(this)
     val woods = WoodsPainter(this)
@@ -499,6 +507,7 @@ class VillageRenderer {
         val age = state.age
         val land = VillageLayout.of(state)
         s.land = land
+        s.look = MapLook.of(frame.culture, land.landscape.id)
         // an age-up's moment: each of the age's changes between the age before (0) and this one's (1)
         val g = frame.growth?.takeIf { it.from < age }
         fun grown(p: Float, of: (Age) -> Float): Float = if (g == null) of(age) else of(g.from) + (of(age) - of(g.from)) * p.coerceIn(0f, 1f)
@@ -823,7 +832,7 @@ class VillageRenderer {
                 for (p in poles) objs.add(Obj(p[0] + p[1]) {
                     s.newObject(Pal.OUTLINE)
                     s.iso.post(p[0], p[1], 0f, 16f, Pal.WOOD_D)
-                    s.iso.px(p[0], p[1], 17f, Pal.FLAG_RED)
+                    s.iso.px(p[0], p[1], 17f, s.look.festive.bunting[0])
                 })
                 s.fx {
                     for (j in 0..3) {

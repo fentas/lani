@@ -13,6 +13,9 @@ import java.util.concurrent.ConcurrentHashMap
  * - a fixture ([fixes], [fixture]): when a thing of the art is there where the culture's picture has it otherwise than the
  *   default's ([SceneFixtures]: Friuli's fogolâr, the kitchen's hearth, stands at every level, beside the stove).
  *
+ * The village map reads the same tables for its own art, `map` (si.lanisce.lani.game.render.MapLook: the hayrack, the
+ * well, the flags, the mountains …), so a culture's map and its scenes are written side by side.
+ *
  * A painter always asks with its own default, so what a culture doesn't set is the painter's own: the default culture
  * (Primorska, the look every art was drawn in) and a culture without a look draw exactly as before. [id] is the culture's
  * ([si.lanisce.lani.game.culture.Cultures] ids), [landscape] the land its village stands on, for the touches only one land
@@ -389,10 +392,64 @@ object CultureLooks {
     /** Friuli's looks of the village's places, added up (each place's table above). */
     private val FRIULI_PLACES: Table get() = FRIULI_FIRESTATION + FRIULI_BOCCE + FRIULI_PLAYGROUND + FRIULI_CHAPEL + FRIULI_PALISADE + FRIULI_LOOKOUT
 
+    // ------------------------------------------------------------------ the village map (companion/GAME.md "The map in a culture's look")
+
+    /**
+     * Friuli's village on the map ([si.lanisce.lani.game.render.MapLook]; its houses, church, huts and linden are the fire's
+     * village's, FireStyle's): the fienile of the plain for the kozolec, as the field's scene has it (`field.kozolec`); the
+     * smithy of river cobbles with brick bands, as inside (`smithy.walls`); the well's stone head under an iron arch (la vera
+     * da pozzo), as on the square (`square.well`); the bee house of cobbles under coppi with its hives in plain painted boxes,
+     * as Dalle api (`apiary.house`); the school with the tricolore over its door, as its classroom's flagpole (`school.flag`);
+     * Friuli's eagle on the watchtower, as Sulla torre flies it (`watchtower.flag`), its pillars of cobbles and brick from
+     * level 3 (`watchtower.tower`), and on the tent's pole (`tent.pennant`); the feasts in Friuli's blue and gold, as the
+     * bee garden's bunting (`apiary.bunting`), the market's awnings as Al mercato's (`market.awnings`); the greasy pole
+     * (l'albero della cuccagna) with its prizes for the maypole; the Collio's vines without the Slovene klopotec; the town
+     * clock in the campanile.
+     */
+    val FRIULI_MAP = Table.of(
+        "map",
+        variants = mapOf(
+            "hayrack" to "fienile", "smithy" to "cobbles", "well" to "vera", "hives" to "plain", "school" to "italian",
+            "flag" to "friuli", "watchtower" to "stone", "pennant" to "friuli", "festive" to "friuli", "maypole" to "cuccagna",
+            "vineyard" to "collio", "clock" to "campanile",
+        ),
+    )
+
+    /**
+     * Carinthia's village on the map: the Harpfe for the kozolec, a single rack under its little shingle roof as on the far
+     * shore of Am See; the log trough with its running spout for the well, as by the Almhütte; Austria's red, white and red
+     * on the watchtower, the tent (`campfire.flag`) and the feasts; the Karawanken with the Mittagskogel at the horizon, as
+     * the scene behind it (`alps.range`); the orchard of old apple and pear trees (der Obstgarten) for the vineyard; the
+     * Stockschießbahn for the bocce court.
+     */
+    val KAERNTEN_MAP = Table.of(
+        "map",
+        variants = mapOf(
+            "hayrack" to "harpfe", "well" to "trough", "flag" to "austria", "pennant" to "austria", "festive" to "austria",
+            "range" to "karawanken", "vineyard" to "orchard", "court" to "curling",
+        ),
+    )
+
+    /**
+     * The Lake District's village on the map: a stone field barn under slate for the hay barn; the village pump on its stone
+     * trough for the well; white WBC hives for the bee house; the school of stone under slate with its bellcote; St George's
+     * cross on the watchtower and the tent (`campfire.flag`), the feasts' bunting red, white and blue; the fells at the
+     * horizon (`alps.range`); the maypole with its long ribbons for the children's dance; damsons on the terraces; a stone
+     * bank barn for the toplar; the bowling green for the bocce court; the church clock on its battlemented tower.
+     */
+    val LAKELAND_MAP = Table.of(
+        "map",
+        variants = mapOf(
+            "hayrack" to "barn", "well" to "pump", "hives" to "wbc", "school" to "stone", "flag" to "england", "pennant" to "england",
+            "festive" to "union", "range" to "fells", "maypole" to "ribbons", "vineyard" to "damsons", "toplar" to "bank", "court" to "green",
+            "clock" to "battlements",
+        ),
+    )
+
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
-        "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE,
-        "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE,
+        "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE + KAERNTEN_MAP,
+        "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE + LAKELAND_MAP,
         "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA + FRIULI_SCHOOL +
             FRIULI_WATCHTOWER +
             FRIULI_MARKET +
@@ -404,7 +461,8 @@ object CultureLooks {
             FRIULI_ATTIC +
             FRIULI_WORKSHOP +
             FRIULI_HILLS +
-            FRIULI_PLACES,
+            FRIULI_PLACES +
+            FRIULI_MAP,
     )
 
     private val looks = ConcurrentHashMap<String, CultureLook>()

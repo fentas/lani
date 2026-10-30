@@ -116,7 +116,10 @@ class VillageWidget : AppWidgetProvider() {
             val now = LocalDateTime.now()
             VillageRenderer().render(
                 canvas, state,
-                Frame(time = 2.0, hour = now.hour + now.minute / 60f, month = now.monthValue, compact = true, moon = Moon.now()),
+                Frame(
+                    time = 2.0, hour = now.hour + now.minute / 60f, month = now.monthValue, compact = true, moon = Moon.now(),
+                    sea = si.lanisce.lani.game.culture.Cultures.home.world.backdrop?.sea == true, culture = si.lanisce.lani.game.culture.Cultures.home.id,
+                ),
             )
             val small = Bitmap.createBitmap(canvas.pixels, iw, ih, Bitmap.Config.ARGB_8888)
             val k = (widthPx / iw.toFloat()).roundToInt().coerceIn(1, 4)

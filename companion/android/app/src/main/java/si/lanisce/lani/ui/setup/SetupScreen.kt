@@ -142,6 +142,7 @@ private fun VillageArt(target: Lang?) {
     val village = remember(culture) { runCatching { Founding.start(culture, null, ART_SEED).preview() }.getOrNull() }
     if (village != null) LandPreview(
         village,
+        culture,
         Modifier.fillMaxWidth().widthIn(max = 520.dp).aspectRatio(1.9f).clip(RoundedCornerShape(16.dp)).semantics { contentDescription = "village" },
     ) else Text("🏔️", style = MaterialTheme.typography.displayLarge)
 }

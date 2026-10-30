@@ -1887,12 +1887,14 @@ internal class Effects(private val s: SceneCtx) {
         }
     }
 
-    /** Bunting strung between two screen points with a little sag, plus lanterns at night. */
-    fun bunting(x0: Float, y0: Float, x1: Float, y1: Float, seed: Int, lanterns: Boolean) {
+    /**
+     * Bunting strung between two screen points with a little sag, its flags in [cols] in turn (the village's culture's,
+     * [Festive.bunting]), plus lanterns at night.
+     */
+    fun bunting(x0: Float, y0: Float, x1: Float, y1: Float, seed: Int, lanterns: Boolean, cols: IntArray = s.look.festive.bunting) {
         val len = max(abs(x1 - x0), abs(y1 - y0)).toInt()
         if (len <= 0) return
         val string = Col.hex(0x3A2A20)
-        val cols = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD, Col.hex(0x3EA05A))
         for (j in 0..len) {
             val u = j.toFloat() / len
             val x = x0 + (x1 - x0) * u; val y = y0 + (y1 - y0) * u + sin(u * PI).toFloat() * 4f * k

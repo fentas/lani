@@ -166,6 +166,7 @@ fun TownScene(
             today = today,
             moon = Moon.now(),
             sea = si.lanisce.lani.game.culture.Cultures.current.world.backdrop?.sea == true,
+            culture = si.lanisce.lani.game.culture.Cultures.current.id,
             // the real sky over the village this minute, the shooting stars by the clock
             skyNow = if (forced != null) null else si.lanisce.lani.game.sky.SkyCards.now(),
             wall = System.currentTimeMillis(),
