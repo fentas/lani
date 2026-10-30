@@ -1,9 +1,10 @@
 // The case lens against its hand-labelled sentences (test/fixtures/case-lens-gold.json, the set it was built on;
 // case-lens-heldout.json, lines drawn after it was written and labelled before it ran on them, its misses then fixed; and
-// case-lens-heldout2.json, drawn after those fixes, run once): how often its pick is the
+// case-lens-heldout2.json, drawn after those fixes, run once; case-lens-heldout3.json, drawn and labelled by case-lens-2
+// before its changes ran on them): how often its pick is the
 // labelled case and number, how often it decides wrongly (the one that matters: a wrong answer said as sure), its
 // trigger and its rule, and the labelled ambiguities it keeps open. The smoke checks the numbers (test/smoke/case-lens.ts);
-// The case trainer's bank too, once it is merged (trainerItems). `bun test/case-lens-eval.ts [gold|heldout|heldout2|trainer]
+// The case trainer's bank too, once it is merged (trainerItems). `bun test/case-lens-eval.ts [gold|heldout|heldout2|heldout3|trainer]
 // [-v]` prints them with each miss.
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -129,14 +130,14 @@ export function trainerItems(): GoldItem[] | null {
   })
 }
 
-export const goldItems = (name: 'gold' | 'heldout' | 'heldout2'): GoldItem[] => JSON.parse(readFileSync(join(import.meta.dir, `fixtures/case-lens-${name}.json`), 'utf8')).items
+export const goldItems = (name: 'gold' | 'heldout' | 'heldout2' | 'heldout3'): GoldItem[] => JSON.parse(readFileSync(join(import.meta.dir, `fixtures/case-lens-${name}.json`), 'utf8')).items
 
 export const summary = (e: Evaluation) =>
   `${e.right}/${e.labelled} right (${((e.right / e.labelled) * 100).toFixed(1)}%), ${e.wrongDecided} wrong and decided, ${e.wrongLikely} wrong as likely, ${e.open} left open; ` +
   `triggers ${e.triggers.right}/${e.triggers.labelled}, rules ${e.rules.right}/${e.rules.labelled}, ambiguities kept open ${e.ambiguous.keptOpen}/${e.ambiguous.labelled}; ${e.ms.toFixed(0)} ms`
 
 if (import.meta.main) {
-  const which = (['heldout', 'heldout2', 'trainer'].includes(process.argv[2]) ? process.argv[2] : 'gold') as 'gold' | 'heldout' | 'heldout2' | 'trainer'
+  const which = (['heldout', 'heldout2', 'heldout3', 'trainer'].includes(process.argv[2]) ? process.argv[2] : 'gold') as 'gold' | 'heldout' | 'heldout2' | 'heldout3' | 'trainer'
   const items = which === 'trainer' ? trainerItems() : goldItems(which)
   if (!items) {
     console.log('trainer: no companion/cases/sl/bank.json (the case trainer not merged)')

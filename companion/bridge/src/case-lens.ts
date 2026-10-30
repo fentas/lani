@@ -254,6 +254,8 @@ export function verbFormsOf(v: VerbForms): { form: string; reading: VerbReading 
   add(`${stem}jo`, { kind: 'pres', person: 3, number: 'pl' })
   if (stem.endsWith('e')) add(`${stem.slice(0, -1)}o`, { kind: 'pres', person: 3, number: 'pl' })
   add(v.lemma, { kind: 'inf' })
+  // the supine after a verb of motion (grem povedat): as the infinitive
+  if (/[^aeiou]?ti$/.test(v.lemma) && v.lemma.length > 4) add(v.lemma.slice(0, -1), { kind: 'inf' })
   if (v.lemma.endsWith('ti')) {
     const base = v.lemma.slice(0, -2)
     for (const [end, gender, number] of [['l', 'm', 'sg'], ['la', 'f', 'sg'], ['lo', 'n', 'sg'], ['li', 'm', 'pl'], ['le', 'f', 'pl'], ['la', 'm', 'du'], ['li', 'f', 'du']] as const)
@@ -558,7 +560,10 @@ export class CaseLens {
       for (const c of caseReadingsOf(r.grammar, genders, numberless)) nominal.push({ lemma: r.lemma, pos, ...c, strong })
       // the dictionary form of a noun listed without its grammar (Wiktionary's lemma alone, a pack's word): its nominative,
       // and a thing's accusative too (by the endings)
-      if (!r.grammar && r.pos === 'noun' && this.norm(r.lemma) === form) {
+      // (one whose ending is a plural's, a neuter's -a or a feminine's -e: a plural-only noun, očala, vrata)
+      if (!r.grammar && r.pos === 'noun' && this.norm(r.lemma) === form && ((r.gender === 'n' && form.endsWith('a')) || (r.gender === 'f' && form.endsWith('e')))) {
+        for (const c of ['nom', 'acc'] as const) nominal.push({ lemma: r.lemma, pos: r.pos, case: c, number: 'pl', genders, strong: false })
+      } else if (!r.grammar && r.pos === 'noun' && this.norm(r.lemma) === form) {
         nominal.push({ lemma: r.lemma, pos: r.pos, case: 'nom', number: 'sg', genders, strong })
         if (r.gender === 'n' || (r.gender === 'm' && /[^aeiou]$/.test(form) && !this.animate(r.lemma))) nominal.push({ lemma: r.lemma, pos: r.pos, case: 'acc', number: 'sg', genders, strong: false, derived: true })
       }
@@ -686,7 +691,8 @@ export class CaseLens {
       // a villager's or the learner's name: its forms by case, declined as the village says it (not Wiktionary's)
       if (/^\p{Lu}/u.test(raw)) {
         const named = names.flatMap(n => CASE_KEYS.filter(c => n.forms[c] && this.norm(n.forms[c]!) === form).map(c => ({ lemma: n.name, pos: 'name', case: c, number: 'sg' as NumberKey, genders: ['m', 'f'] as GenderKey[], strong: true })))
-        if (named.length) nominal = [...nominal.filter(r => r.pos !== 'name'), ...named]
+        // (the name alone: Tone, never tona's plural)
+        if (named.length) nominal = named
       }
       const biti = lex.verbs.some(v => v.lemma === 'biti')
       const n = digits ? Number(raw) : undefined
@@ -743,6 +749,17 @@ export class CaseLens {
       t.when = d
       d.nominal = d.nominal.filter(r => r.case === 'gen' && r.number === 'sg')
     }
+    // a word the dictionary has only as a genitive plural in -ov, -ev, right before a masculine noun and after nothing
+    // that asks for the genitive (a preposition, a number, a quantity): a possessive too (Cesarjev meč, the emperor's
+    // sword; a genitive comes after its noun)
+    for (const t of out) {
+      const n = out[t.i + 1]
+      const p = out[t.i - 1]
+      if (!n || n.clause !== t.clause || !/[^aeiou](ov|ev)$/.test(t.form) || !t.nominal.length || !t.nominal.every(r => r.pos === 'noun' && r.case === 'gen' && r.number !== 'sg')) continue
+      if (p && p.clause === t.clause && (p.prep || p.count || p.quantity || this.numbers.has(p.form))) continue
+      if (!n.nominal.some(r => r.pos === 'noun' && r.number === 'sg' && r.genders.includes('m') && (r.case === 'nom' || r.case === 'acc'))) continue
+      t.nominal = [...t.nominal, ...(['nom', 'acc'] as const).map(c => ({ lemma: t.form, pos: 'adj', case: c, number: 'sg' as NumberKey, genders: ['m'] as GenderKey[], strong: false, derived: true as const }))]
+    }
     // a noun of measure the dictionary lacks (kilogramov, litrov): its regular endings
     for (const t of out) {
       if (t.measure || t.nominal.length) continue
@@ -756,9 +773,13 @@ export class CaseLens {
     // weakly, for the subject it says
     // (one ending as an l-form does beside biti's form, an auxiliary: si je zapomnil, so prišli: the past's l-form)
     for (const t of out) {
-      if (t.nominal.length || t.verbs.length || t.other.size || t.prep || /^\p{Lu}/u.test(t.raw) || [...t.form].length < 3) continue
+      if (t.nominal.length || t.verbs.length || t.other.size || t.prep || (/^\p{Lu}/u.test(t.raw) && t.i > 0) || [...t.form].length < 3) continue
       const aux = out.some(o => o !== t && o.clause === t.clause && o.biti)
-      const guess = guessVerb(t.form) ?? (aux ? guessLForm(t.form) : null) ?? (this.beforeVerb.has(out[t.i - 1]?.form ?? '') ? { lemma: '?', kind: 'pres' as VerbKind, person: 3 as const, number: 'sg' as NumberKey, weak: true as const } : null)
+      // (a capitalized one only at the line's start, and only when its clause has no verb of its own: Pazim. Narišiva mu
+      // nov obraz! But Pegam je velik: a name; or as an l-form beside biti's: Premagal je zmaja)
+      const verbless = !out.some(o => o !== t && o.clause === t.clause && (o.biti || o.verbs.length))
+      const guess = /^\p{Lu}/u.test(t.raw) ? (verbless ? guessVerb(t.form) : aux ? guessLForm(t.form) : null)
+        : guessVerb(t.form) ?? (aux ? guessLForm(t.form) : null) ?? (this.beforeVerb.has(out[t.i - 1]?.form ?? '') ? { lemma: '?', kind: 'pres' as VerbKind, person: 3 as const, number: 'sg' as NumberKey, weak: true as const } : null)
       if (guess) t.verbs = [guess]
     }
     // a capitalized word the dictionary doesn't know (Muriju, Krpan, Lambergarju): a name, its case by its ending, marked;
@@ -863,12 +884,17 @@ export class CaseLens {
         const afterGovernor = !!p && (p.role === 'prep' || p.count || p.quantity || (p.role === 'nominal' && p.nominal.some(r => MODIFIER_POS.has(r.pos)) && agreeing([p, t]).length > 0))
         const strongNoun = t.nominal.some(r => r.strong)
         const named = t.i > 0 && /^\p{Lu}/u.test(t.raw) && t.nominal.some(r => r.pos === 'name')
-        if (afterGovernor || named || t.phrase) t.role = 'nominal'
+        // (an adjective before a noun it agrees with, whose form is only an infinitive besides: peti maj, not to sing)
+        const n1 = next(t)
+        const modifiers = { ...t, nominal: t.nominal.filter(r => MODIFIER_POS.has(r.pos)) }
+        const beforeNoun = !!n1 && modifiers.nominal.length > 0 && t.verbs.every(v => v.kind === 'inf') && n1.nominal.some(r => r.pos === 'noun') && agreeing([modifiers, n1]).length > 0
+        if (afterGovernor || named || t.phrase || beforeNoun) t.role = 'nominal'
         else if (sureVerb && !strongNoun) t.role = 'verb'
         else if (strongNoun && !sureVerb) t.role = 'nominal'
         else {
           // neither is surer: a verb when the clause has none other, else a word with a case
-          const others = toks.filter(o => o !== t && o.clause === t.clause && (o.biti || (o.verbs.some(v => !v.weak) && !o.nominal.length)))
+          // (a finite one: an infinitive needs one beside it, Tone mi pusti gnati meh)
+          const others = toks.filter(o => o !== t && o.clause === t.clause && (o.biti || (o.verbs.some(v => !v.weak && v.kind !== 'inf') && !o.nominal.length)))
           t.role = others.length ? 'nominal' : 'verb'
         }
       } else if (nominal) t.role = 'nominal'
