@@ -215,6 +215,23 @@ sessions, no clips; both builds on main `e5c5d810`: before = the instrument alon
   s): the clock of the minute added for the kept Home recomposed all of Home once a minute. Fixed after this round
   (`rememberShownAt`: what goes by the clock is worked out when Home shows, not every minute); round 3 below.
 
+**Round 3** (the branch's end, `9aaec8f7`, the same learner grown again after the second reboot; measured while this
+branch's full unit suite ran beside it, so its frames waited for the processor more than round 2's):
+
+| From | | requests in 6 s | allocated MB in 6 s | collections | main thread besides frames, ms (3 s) | longest frame's main thread, ms | all frames' main thread, ms (6 s) |
+|---|---|---|---|---|---|---|---|
+| idle on Home | after | 0 | 15.0–16.0 (15.2) | 0–1 | 13.1–18.5 (14.5) | 7.9–35.5 (10.1) | 152.7–221.6 (171.0) |
+| Back from the village | after | 1–35 (1) | 23.7–60.1 (23.9) | 1 | 39.6–49.1 (40.6) | 14.8–39.3 (23.7) | 177.9–202.0 (180.0) |
+| Back from Settings | after | 1 | 23.9–24.4 (23.9) | 1 | 23.0–28.5 (28.0) | 16.5–56.3 (17.2) | 142.1–213.8 (158.3) |
+| Opening the village | after | 3–4 (4) | 43.3–45.3 (44.4) | 2 | 21.7–24.7 (23.1) | 17.1–36.2 (27.5) | 302.7–323.0 (317.3) |
+
+- Home left alone does no work by the clock any more: its longest frame's composing 0.9 to 2.5 ms (round 2's after:
+  54 ms once a minute); what is left of its frames is drawing the header village.
+- A Back: one request, 24 MB in the 6 s against Home's 15 alone (9 MB the Back's own: the screen left, Home shown); the
+  first Back after the setup read everything once (35 requests: the app's writes at its start).
+- The frames' times are this run's load more than the app's (the suite's 24 threads beside the emulator): round 2's,
+  measured beside other agents' work only, are the fairer before and after for them.
+
 ## Tests
 
 - `ScreenStackTest` (Robolectric, Compose): Home composed once across the village, a scene and Back (a remembered
