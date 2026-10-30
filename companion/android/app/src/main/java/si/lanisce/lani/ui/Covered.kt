@@ -11,6 +11,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.key
@@ -55,6 +56,23 @@ fun rememberAway(): Boolean {
         }
     }
     return covered || settling
+}
+
+/**
+ * When the screen last showed (System.currentTimeMillis): its first composition's time, then the time a moment after each
+ * time it shows again from under another ([rememberAway]); steady while it stays on view. What the screen works out by the
+ * clock (Home's festival soon, the burner at his pile now, the greeting's hour) goes by it: as fresh after a Back as when
+ * the screen was composed anew, and no work while it stays on view (a clock of the minute recomposed all of Home once a
+ * minute: up to 55 ms of a frame on the emulator).
+ */
+@Composable
+fun rememberShownAt(): Long {
+    val away = rememberAway()
+    var at by remember { mutableLongStateOf(System.currentTimeMillis()) }
+    LaunchedEffect(away) {
+        if (!away && System.currentTimeMillis() - at >= 1_000) at = System.currentTimeMillis()
+    }
+    return at
 }
 
 /**

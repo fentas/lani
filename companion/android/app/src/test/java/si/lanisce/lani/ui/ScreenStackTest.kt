@@ -165,6 +165,22 @@ class ScreenStackTest {
         assertTrue("then the time now: $first, then $now", now > first)
     }
 
+    @Test fun `when a screen showed holds while it stays on view, and moves once it shows again`() {
+        var covered by mutableStateOf(false)
+        var at = 0L
+        compose.setContent { androidx.compose.runtime.CompositionLocalProvider(LocalCovered provides covered) { at = rememberShownAt() } }
+        val first = compose.runOnIdle { at }
+        Thread.sleep(1_100)
+        compose.waitForIdle()
+        assertEquals("steady while on view: no work by the clock", first, at)
+        compose.runOnIdle { covered = true }
+        compose.waitForIdle()
+        assertEquals("nor while covered", first, at)
+        compose.runOnIdle { covered = false }
+        compose.waitUntil(timeoutMillis = 5_000) { at != first }
+        assertTrue("a moment after it shows again: $first, then $at", at > first)
+    }
+
     @Test fun `behind the back gesture Home is drawn, still covered`() {
         val nav = home()
         var peek by mutableStateOf(0f)

@@ -89,10 +89,10 @@ private fun HomeContent(vm: AppViewModel, list: LazyListState, bottom: Dp) {
     // "💡 Namigi · Tips" (companion/GAME.md "Guidance"): Home's one tip, a card in "Danes · Today" with its button; a new one
     // only while no sheet is open over Home
     val tip = si.lanisce.lani.ui.game.rememberTip(vm, si.lanisce.lani.game.TipPlace.HOME, quiet = sheet == Sheet.NONE)
-    // what Home works out by the clock (the festival soon, the burner at his pile now, what's on in the village) again each
-    // minute, and at once when Home shows again after another screen over it (kept composed: ui/Covered.kt)
-    val minute = si.lanisce.lani.ui.game.rememberNow(60_000) / 60_000
-    val now = remember(minute) { java.time.LocalDateTime.now() }
+    // what Home works out by the clock (the festival soon, the burner at his pile now, what's on in the village) again a
+    // moment after Home shows again from under another screen (kept composed: ui/Covered.kt), as when it was composed anew
+    val shownAt = si.lanisce.lani.ui.rememberShownAt()
+    val now = remember(shownAt) { java.time.LocalDateTime.now() }
     val covered = si.lanisce.lani.ui.LocalCovered.current
     LazyColumn(Modifier.fillMaxSize(), state = list, contentPadding = PaddingValues(bottom = bottom)) {
         item("hero") { HomeHero(vm, d) }

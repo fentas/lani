@@ -66,8 +66,9 @@ import java.time.LocalTime
 @Composable
 fun HomeHero(vm: AppViewModel, d: Dashboard?, onLink: () -> Unit = { vm.openSettings("connection") }) {
     val village = vm.game.state
-    // the greeting's hour and the threat's time left by a clock of the minute (stopped while Home is covered: ui/Covered.kt)
-    val now = si.lanisce.lani.ui.game.rememberNow(60_000)
+    // the greeting's hour and the threat's time left as of when Home showed (again a moment after it shows from under another
+    // screen: ui/Covered.kt), as when it was composed anew
+    val now = si.lanisce.lani.ui.rememberShownAt()
     Box(Modifier.fillMaxWidth().background(Brush.verticalGradient(listOf(SloBlueDeep, SloBlue)))) {
         if (village != null) HeaderVillage(village, vm.game.celebrate, onOpen = vm::openVillage, modifier = Modifier.matchParentSize())
         else Triglav(Modifier.fillMaxWidth().height(150.dp).align(Alignment.BottomCenter))
