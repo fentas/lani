@@ -16,9 +16,10 @@ internal object Http {
     /**
      * One connection pool and dispatcher for the whole app; each API derives its timeouts from it. In the hosted mode
      * ("Lani on this phone") its requests to the phone's own address are answered in-process by the phone's bridge
-     * (phone/PhoneTransport, hosted/HostedRuntime); every other request goes out as before.
+     * (phone/PhoneTransport, hosted/HostedRuntime); every other request goes out as before. QA's log of the requests
+     * ([NetWatch], off unless QA turns it on) sees both.
      */
-    private val base = OkHttpClient.Builder().addInterceptor(si.lanisce.lani.hosted.HostedRuntime.transport).build()
+    private val base = OkHttpClient.Builder().addInterceptor(NetWatch).addInterceptor(si.lanisce.lani.hosted.HostedRuntime.transport).build()
 
     val jsonType = "application/json".toMediaType()
 

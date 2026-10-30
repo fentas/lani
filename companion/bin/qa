@@ -14255,9 +14255,13 @@ def home_return():
     how many, their sum, the longest, those over a frame and over 100 ms; "?" from a build without the hook), every frame
     (dumpsys gfxinfo framestats, reset just before: the longest, its main thread's part, those over 33 ms), Choreographer's
     skipped frames, the runtime's garbage collections (how many, the MB they freed, how long a thread waited for one), and
-    whether Home (the village) shows then. With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
+    whether Home (the village) shows then. Over 6 s from the key or the tap (docs/plans/05-built/nav-perf.md): the app's
+    requests (how many, each one's path, status and length: QA's request log, data/NetWatch.kt) and what the runtime
+    allocated on every thread and its collections (ART's counts, sampled by the watch); first Home left alone for as
+    long, the baseline. With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
     method (am profile, sampled every 0.2 ms; its sampling waits for each collection) into <dir>/back-village.trace. A
-    table, also home-return.tsv in $LANI_QA_HOME_SHOTS; LANI_QA_HOME_TRIES (3) times each."""
+    table, also home-return.tsv and each row's requests in home-return-requests.txt in $LANI_QA_HOME_SHOTS;
+    LANI_QA_HOME_TRIES (3) times each."""
     go_home()
     rows = []
     out_dir = Path(os.environ["LANI_QA_HOME_SHOTS"]) if os.environ.get("LANI_QA_HOME_SHOTS") else None
@@ -14295,12 +14299,21 @@ def home_return():
         has a frame's own work) their sum, the longest, those over a frame and over 100 ms; "?" each when the build hasn't
         the hook."""
         qa_hook(f"main:report:{t0}")
-        line = next((l for l in adb("logcat", "-d", "-s", "LaniMain:I", check=False).splitlines() if f"main from {t0}:" in l), "")
+        lines = adb("logcat", "-d", "-s", "LaniMain:I", check=False).splitlines()
+        line = next((l for l in lines if f"main from {t0}:" in l), "")
         part = r"(\d+) messages, ([\d.]+) ms, the longest ([\d.]+) ms, (\d+) over 16.7 ms, (\d+) over 100 ms"
         m = re.search(part + "; besides the frames: " + part, line)
-        return (m.group(1), *m.groups()[5:]) if m else ("?",) * 6
+        # the 6 s's requests and allocations (a build before nav-perf hasn't this line: "?")
+        net = next((l for l in lines if f"net from {t0}:" in l), "")
+        n = re.search(r"(\d+) requests in \d+ ms, ([\d.?]+) MB allocated, ([\d?]+) collections: ?(.*)$", net)
+        main = (m.group(1), *m.groups()[5:]) if m else ("?",) * 6
+        return (*main, *(n.groups() if n else ("?", "?", "?", "")))
 
-    def row(name: str, i: int, seen, main_watch: tuple[str, ...]):
+    requests_log: list[str] = []
+
+    def row(name: str, i: int, seen, watch: tuple[str, ...]):
+        main_watch, (n_req, alloc, n_gc, req_list) = watch[:6], watch[6:]
+        requests_log.append(f"{name} {i + 1}: {n_req} requests, {alloc} MB, {n_gc} collections\n  " + "\n  ".join(req_list.split(", ") if req_list else []))
         fs = frames()
         whole = sorted(f[0] for f in fs); main = sorted(f[1] for f in fs)
         skipped = sum(int(m.group(1)) for m in re.finditer(r"Skipped (\d+) frames", adb("logcat", "-d", "-s", "Choreographer:I", check=False)))
@@ -14312,7 +14325,7 @@ def home_return():
         waited = sum(float(m.group(1)) for l in gcs for m in [re.search(r"WaitForGcToComplete blocked .* for ([\d.]+)ms", l)] if m)
         r = "\t".join([name, str(i + 1), *main_watch, str(len(fs)), f"{(whole[-1] if whole else float('nan')):.1f}",
                        f"{(main[-1] if main else float('nan')):.1f}", str(sum(1 for x in whole if x > 33.4)), str(skipped),
-                       str(sum(1 for l in gcs if "GC freed" in l)), str(freed), f"{waited:.0f}", seen])
+                       str(sum(1 for l in gcs if "GC freed" in l)), str(freed), f"{waited:.0f}", n_req, alloc, n_gc, seen])
         rows.append(r)
         print(f"    {r}")
 
@@ -14321,8 +14334,9 @@ def home_return():
         adb("shell", "dumpsys", "gfxinfo", PKG, "reset", check=False)
 
     def window(t0: int):
-        """The 3 s from [t0] go by, nothing asked of the screen meanwhile (uiautomator's dumps are the main thread's work too)."""
-        left = t0 / 1000 + 3.3 - uptime_ms() / 1000
+        """The 6 s from [t0] go by (the main thread's 3 s, the requests' and allocations' 6), nothing asked of the screen
+        meanwhile (uiautomator's dumps are the main thread's work too)."""
+        left = t0 / 1000 + 6.3 - uptime_ms() / 1000
         if left > 0:
             time.sleep(left)
 
@@ -14365,8 +14379,20 @@ def home_return():
         row("open village", i, "yes" if wait_for("Zvitek · Scroll", 5) or find("Knjiga · Book") else "no", w)
         go_home()
 
+    def idle(i: int):
+        # Home left alone as long: what the window costs without a Back (the header's village, the clock)
+        to_top()
+        time.sleep(2.5 * slow())
+        reset()
+        t0 = uptime_ms()
+        window(t0)
+        w = watched(t0)
+        row("idle on Home", i, "yes" if wait_home(8) else "no", w)
+
     qa_hook("main:watch")
     tries = int(os.environ.get("LANI_QA_HOME_TRIES", "3"))
+    for i in range(tries):
+        idle(i)
     for i in range(tries):
         back("village", open_village, i)
         go_home()
@@ -14376,10 +14402,12 @@ def home_return():
         back("settings", open_settings, i)
         go_home()
     head = ("from\ttry\tmain messages in 3 s\tbesides frames\ttheir ms\tthe longest ms\tover 16.7 ms\tover 100 ms\tframes\t"
-            "longest frame ms\tlongest frame's main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\tshown")
+            "longest frame ms\tlongest frame's main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\t"
+            "requests in 6 s\tallocated MB in 6 s\tcollections in 6 s\tshown")
     print(f"    {head}")
     if out_dir:
         (out_dir / "home-return.tsv").write_text("\n".join([head] + rows) + "\n")
+        (out_dir / "home-return-requests.txt").write_text("\n".join(requests_log) + "\n")
     return None
 
 
