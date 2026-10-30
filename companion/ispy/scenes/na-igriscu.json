@@ -1,0 +1,307 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "na-igriscu",
+  "language": "sl",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in sl and en from the scene's picture as its painter draws it (the colours, and where each thing is); what changes with the season is said with its season (\"poleti\"); not reviewed by a native speaker",
+  "things": {
+    "swing": {
+      "clues": [
+        {
+          "kind": "material",
+          "sl": "Je lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        { "kind": "trait", "sl": "Ima dva sedeža.", "en": "It has two seats.", "grammar": ["dvojina"] },
+        {
+          "kind": "does",
+          "sl": "Ziblje se sem in tja.",
+          "en": "It rocks back and forth.",
+          "grammar": ["glagoli-sedanjik"]
+        },
+        { "kind": "use", "sl": "Na njej se gugamo.", "en": "We swing on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "slide": {
+      "clues": [
+        { "kind": "size", "sl": "Je visok.", "en": "It's tall.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "trait", "sl": "Ima lestev zadaj.", "en": "It has a ladder at the back.", "grammar": ["imeti-iti"] },
+        {
+          "kind": "use",
+          "sl": "Po njem se spustimo dol.",
+          "en": "We slide down it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "sandpit": {
+      "clues": [
+        { "kind": "size", "sl": "Je nizek.", "en": "It's low.", "grammar": ["pridevniki-ujemanje"], "adj": "nizek" },
+        {
+          "kind": "material",
+          "sl": "Je lesen.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        {
+          "kind": "use",
+          "sl": "V njem je pesek.",
+          "en": "There's sand in it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "sand": {
+      "clues": [
+        {
+          "kind": "colour",
+          "sl": "Je svetel.",
+          "en": "It's pale.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "svetel"
+        },
+        { "kind": "trait", "sl": "Je mehek.", "en": "It's soft.", "grammar": ["pridevniki-ujemanje"], "adj": "mehek" },
+        {
+          "kind": "where",
+          "sl": "Je v peskovniku.",
+          "en": "It's in the sandpit.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "ref": "sandpit",
+          "form": "peskovniku"
+        },
+        {
+          "kind": "use",
+          "sl": "Iz njega delamo gradove.",
+          "en": "We build castles out of it.",
+          "grammar": ["rodilnik-predlogi"],
+          "pronoun": "gen"
+        }
+      ]
+    },
+    "bucket": {
+      "clues": [
+        { "kind": "colour", "sl": "Je modro.", "en": "It's blue.", "grammar": ["pridevniki-ujemanje"], "adj": "moder" },
+        { "kind": "size", "sl": "Je majhno.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "where",
+          "sl": "Stoji v peskovniku.",
+          "en": "It stands in the sandpit.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "ref": "sandpit",
+          "form": "peskovniku"
+        },
+        {
+          "kind": "use",
+          "sl": "V njem nosimo vodo.",
+          "en": "We carry water in it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "spade": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeča.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "where",
+          "sl": "Je v peskovniku.",
+          "en": "It's in the sandpit.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "ref": "sandpit",
+          "form": "peskovniku"
+        },
+        {
+          "kind": "use",
+          "sl": "Z njo kopljemo pesek.",
+          "en": "We dig the sand with it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "climber": {
+      "clues": [
+        {
+          "kind": "material",
+          "sl": "Je leseno.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        { "kind": "size", "sl": "Je visoko.", "en": "It's tall.", "grammar": ["pridevniki-ujemanje"], "adj": "visok" },
+        { "kind": "use", "sl": "Na njem plezamo.", "en": "We climb on it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "house": {
+      "name": { "en": "little house" },
+      "clues": [
+        { "kind": "size", "sl": "Je majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "material",
+          "sl": "Je lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        { "kind": "trait", "sl": "Ima rdečo streho.", "en": "It has a red roof.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "use", "sl": "V njej se skrijemo.", "en": "We hide in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    },
+    "ball": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rdeča.", "en": "It's red.", "grammar": ["pridevniki-ujemanje"], "adj": "rdeč" },
+        {
+          "kind": "trait",
+          "sl": "Je okrogla.",
+          "en": "It's round.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "okrogel"
+        },
+        {
+          "kind": "where",
+          "sl": "Leži na travi.",
+          "en": "It's lying on the grass.",
+          "grammar": ["mestnik"],
+          "prep": "na",
+          "case": "loc",
+          "noun": "trava",
+          "form": "travi"
+        },
+        { "kind": "use", "sl": "Brcamo jo.", "en": "We kick it.", "grammar": ["tozilnik"], "pronoun": "acc" }
+      ]
+    },
+    "hopscotch": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bel.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "trait", "sl": "Ima osem polj.", "en": "It has eight squares.", "grammar": ["stevila-samostalniki"] },
+        {
+          "kind": "use",
+          "sl": "Na njem skačemo po eni nogi.",
+          "en": "We hop on it on one foot.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "colour", "sl": "Je rjava.", "en": "It's brown.", "grammar": ["pridevniki-ujemanje"], "adj": "rjav" },
+        {
+          "kind": "material",
+          "sl": "Je lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        {
+          "kind": "where",
+          "sl": "Stoji pod drevesom.",
+          "en": "It stands under the tree.",
+          "grammar": ["orodnik"],
+          "prep": "pod",
+          "case": "ins",
+          "ref": "tree",
+          "form": "drevesom"
+        },
+        {
+          "kind": "use",
+          "sl": "Na njej sedi učiteljica.",
+          "en": "The teacher sits on it.",
+          "grammar": ["mestnik"],
+          "pronoun": "loc"
+        }
+      ]
+    },
+    "tree": {
+      "clues": [
+        {
+          "kind": "size",
+          "sl": "Je veliko in visoko.",
+          "en": "It's big and tall.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "velik"
+        },
+        { "kind": "does", "sl": "Daje senco.", "en": "It gives shade.", "grammar": ["glagoli-sedanjik"] },
+        { "kind": "trait", "sl": "Jeseni ima kostanje.", "en": "In autumn it has chestnuts.", "grammar": ["imeti-iti"] },
+        {
+          "kind": "use",
+          "sl": "Pod njim je klop.",
+          "en": "There's a bench under it.",
+          "grammar": ["orodnik"],
+          "pronoun": "ins"
+        }
+      ]
+    },
+    "fence": {
+      "clues": [
+        {
+          "kind": "material",
+          "sl": "Je lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        { "kind": "size", "sl": "Je nizka.", "en": "It's low.", "grammar": ["pridevniki-ujemanje"], "adj": "nizek" },
+        {
+          "kind": "where",
+          "sl": "Je okoli igrišča.",
+          "en": "It goes round the playground.",
+          "grammar": ["rodilnik-predlogi"],
+          "prep": "okoli",
+          "case": "gen",
+          "noun": "igrišče",
+          "form": "igrišča"
+        }
+      ]
+    },
+    "gate": {
+      "number": "pl",
+      "clues": [
+        { "kind": "size", "sl": "So majhna.", "en": "It's small.", "grammar": ["pridevniki-ujemanje"], "adj": "majhen" },
+        {
+          "kind": "material",
+          "sl": "So lesena.",
+          "en": "It's wooden.",
+          "grammar": ["pridevniki-ujemanje"],
+          "adj": "lesen"
+        },
+        {
+          "kind": "where",
+          "sl": "So v ograji.",
+          "en": "It's in the fence.",
+          "grammar": ["mestnik"],
+          "prep": "v",
+          "case": "loc",
+          "ref": "fence",
+          "form": "ograji"
+        },
+        {
+          "kind": "use",
+          "sl": "Skozi njih pridemo na igrišče.",
+          "en": "We come onto the playground through it.",
+          "grammar": ["tozilnik"]
+        }
+      ]
+    },
+    "school": {
+      "clues": [
+        { "kind": "colour", "sl": "Je bela.", "en": "It's white.", "grammar": ["pridevniki-ujemanje"], "adj": "bel" },
+        { "kind": "size", "sl": "Je velika.", "en": "It's big.", "grammar": ["pridevniki-ujemanje"], "adj": "velik" },
+        { "kind": "trait", "sl": "Ima veliko okno.", "en": "It has a big window.", "grammar": ["pridevniki-ujemanje"] },
+        { "kind": "use", "sl": "V njej se učimo.", "en": "We learn in it.", "grammar": ["mestnik"], "pronoun": "loc" }
+      ]
+    }
+  }
+}

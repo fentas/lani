@@ -1,0 +1,1901 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "na-igriscu",
+  "title": { "sl": "Na igrišču", "en": "At the playground", "de": "Auf dem Spielplatz", "it": "Al parco giochi" },
+  "emoji": "🎠",
+  "level": "A1",
+  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: ristanc, plezalo, hiška, lopatka, gugati se, porini me",
+  "art": "playground",
+  "from": ["project:igrisce"],
+  "pack": "na-igriscu",
+  "objects": [
+    { "slot": "swing", "word": "gugalnica" },
+    { "slot": "slide", "word": "tobogan" },
+    { "slot": "sandpit", "word": "peskovnik" },
+    { "slot": "sand", "word": "pesek", "pack": "na-baliniscu" },
+    { "slot": "bucket", "word": "vedro", "pack": "ob-ognju" },
+    { "slot": "spade", "word": "lopatka" },
+    { "slot": "climber", "word": "plezalo" },
+    { "slot": "house", "word": "hiska" },
+    { "slot": "ball", "word": "zoga", "pack": "na-vasi" },
+    { "slot": "hopscotch", "word": "ristanc" },
+    { "slot": "bench", "word": "klop", "pack": "na-vasi" },
+    { "slot": "tree", "word": "drevo", "pack": "v-gozdu" },
+    { "slot": "fence", "word": "ograja", "pack": "na-vasi" },
+    { "slot": "gate", "word": "vrata", "pack": "dom-in-hisa" },
+    { "slot": "school", "word": "sola", "pack": "v-vasi" }
+  ],
+  "people": [
+    {
+      "id": "mojca",
+      "name": "Učiteljica Mojca",
+      "emoji": "👩‍🏫",
+      "art": "teacher",
+      "slot": "bench",
+      "villager": "mojca"
+    },
+    { "id": "zala", "name": "Zala", "emoji": "👧", "art": "child2", "slot": "swing", "villager": "zala" },
+    { "id": "nejc", "name": "Nejc", "emoji": "🧒", "art": "child1", "slot": "sandpit", "villager": "nejc" },
+    { "id": "tine", "name": "Tine", "emoji": "👦", "art": "child3", "slot": "sandpit", "villager": "tine" }
+  ],
+  "happenings": [
+    {
+      "id": "gugalnica",
+      "title": {
+        "sl": "Zala na gugalnici",
+        "en": "Zala on the swing",
+        "de": "Zala auf der Schaukel",
+        "it": "Zala sull'altalena"
+      },
+      "who": "zala",
+      "when": ["afternoon"],
+      "chance": 0.55,
+      "dialog": "gugalnica",
+      "dialogs": ["gugalnica-visje", "gugalnica"],
+      "reward": { "food": 15 },
+      "marker": "🎠",
+      "memory": {
+        "sl": "gugalnico, ko si me {m:porinil|f:porinila} do neba",
+        "en": "the swing when you pushed me up to the sky",
+        "de": "die Schaukel, als du mich bis zum Himmel geschubst hast",
+        "it": "l'altalena quando mi hai spinta fino al cielo"
+      }
+    },
+    {
+      "id": "grad",
+      "title": {
+        "sl": "Tine dela grad iz peska",
+        "en": "Tine builds a sand castle",
+        "de": "Tine baut eine Sandburg",
+        "it": "Tine fa un castello di sabbia"
+      },
+      "who": "tine",
+      "when": ["afternoon"],
+      "months": [4, 5, 6, 7, 8, 9, 10],
+      "chance": 0.5,
+      "dialog": "grad",
+      "dialogs": ["grad-stolpi", "grad"],
+      "reward": { "stone": 15 },
+      "marker": "🏰",
+      "memory": {
+        "sl": "grad iz peska, ki sva ga naredila",
+        "en": "the sand castle we built",
+        "de": "die Sandburg, die wir gebaut haben",
+        "it": "il castello di sabbia che abbiamo fatto"
+      }
+    },
+    {
+      "id": "zoga",
+      "title": { "sl": "Nejc in žoga", "en": "Nejc and the ball", "de": "Nejc und der Ball", "it": "Nejc e la palla" },
+      "who": "nejc",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "zoga",
+      "dialogs": ["zoga-tobogan", "zoga"],
+      "reward": { "food": 15 },
+      "marker": "⚽",
+      "memory": {
+        "sl": "nogomet na igrišču",
+        "en": "the football on the playground",
+        "de": "das Fußballspiel auf dem Spielplatz",
+        "it": "la partita a calcio al parco giochi"
+      }
+    },
+    {
+      "id": "zmaj",
+      "title": {
+        "sl": "Nejc spušča zmaja",
+        "en": "Nejc flies his kite",
+        "de": "Nejc lässt seinen Drachen steigen",
+        "it": "Nejc fa volare l'aquilone"
+      },
+      "who": "nejc",
+      "when": ["afternoon"],
+      "months": [9, 10, 11],
+      "chance": 0.5,
+      "dialog": "zmaj",
+      "dialogs": ["zmaj-veter", "zmaj"],
+      "reward": { "wisdom": 15 },
+      "marker": "🪁",
+      "memory": {
+        "sl": "zmaja, ki je letel višje kot kostanj",
+        "en": "the kite that flew higher than the chestnut tree",
+        "de": "den Drachen, der höher als die Kastanie geflogen ist",
+        "it": "l'aquilone che volava più in alto del castagno"
+      }
+    },
+    {
+      "id": "ristanc",
+      "title": {
+        "sl": "Odmor: ristanc",
+        "en": "Break time: hopscotch",
+        "de": "Pause: Hüpfspiel",
+        "it": "L'intervallo: la campana"
+      },
+      "who": "mojca",
+      "when": ["morning"],
+      "weekdays": [1, 2, 3, 4, 5],
+      "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6],
+      "chance": 0.5,
+      "dialog": "ristanc",
+      "dialogs": ["ristanc-minute", "ristanc"],
+      "reward": { "wisdom": 20 },
+      "marker": "🔢",
+      "memory": {
+        "sl": "ristanc, ko ste skočili brez napake",
+        "en": "the hopscotch when you jumped without a mistake",
+        "de": "das Hüpfspiel, als Sie ohne Fehler gesprungen sind",
+        "it": "la campana quando ha saltato senza errori"
+      }
+    },
+    {
+      "id": "mehurcki",
+      "title": {
+        "sl": "Milni mehurčki zvečer",
+        "en": "Soap bubbles in the evening",
+        "de": "Seifenblasen am Abend",
+        "it": "Bolle di sapone la sera"
+      },
+      "who": "mojca",
+      "when": ["evening"],
+      "months": [4, 5, 6, 7, 8, 9],
+      "chance": 0.45,
+      "dialog": "mehurcki",
+      "dialogs": ["mehurcki-oblak", "mehurcki"],
+      "reward": { "wisdom": 15 },
+      "marker": "🫧",
+      "memory": {
+        "sl": "večer milnih mehurčkov",
+        "en": "the evening of the soap bubbles",
+        "de": "den Abend der Seifenblasen",
+        "it": "la sera delle bolle di sapone"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "gugalnica",
+      "lines": [
+        {
+          "who": "zala",
+          "face": "happy",
+          "sl": "{learner}! Porini me, prosim! Rada bi letela visoko!",
+          "en": "{learner}! Push me, please! I want to fly high!",
+          "de": "{learner}! Schubs mich an, bitte! Ich will hoch fliegen!",
+          "it": "{learner}! Spingimi, per favore! Voglio volare in alto!",
+          "fx": { "swing": 0.3 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Prav. Drži se dobro!",
+              "en": "All right. Hold on tight!",
+              "de": "Gut. Halt dich gut fest!",
+              "it": "Va bene. Tieniti forte!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Juhu! Še, še!",
+                "en": "Wheee! More, more!",
+                "de": "Juhu! Mehr, mehr!",
+                "it": "Evviva! Ancora, ancora!",
+                "fx": { "swing": 0.6 }
+              }
+            },
+            {
+              "sl": "Prav. Drži dobro!",
+              "en": "All right. Hold tight (without se)!",
+              "de": "Gut. Halt gut (ohne dich)!",
+              "it": "Va bene. Tieni forte (senza ti)!",
+              "grammar": "povratni-glagoli",
+              "why": {
+                "en": "Držati se (to hold on) needs se: drži se.",
+                "de": "Držati se (sich festhalten) braucht se: drži se.",
+                "it": "Držati se (tenersi) vuole se: drži se."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Kaj naj držim? Ne razumem!",
+                "en": "Hold what? I don't get it!",
+                "de": "Was soll ich halten? Versteh ich nicht!",
+                "it": "Che cosa devo tenere? Non capisco!"
+              }
+            },
+            {
+              "sl": "Prav. Držim se dobro!",
+              "en": "All right. I'm holding on tight!",
+              "de": "Gut. Ich halte mich gut fest!",
+              "it": "Va bene. Mi tengo forte!",
+              "grammar": "velelnik",
+              "why": {
+                "en": "You're telling Zala: the imperative, drži se. Držim se is I hold on.",
+                "de": "Du sagst es Zala: der Imperativ, drži se. Držim se heißt ich halte mich fest.",
+                "it": "Lo dici a Zala: l'imperativo, drži se. Držim se vuol dire mi tengo."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti se držiš? Saj nisi na gugalnici!",
+                "en": "You're holding on? You're not on the swing!",
+                "de": "Du hältst dich fest? Du bist doch nicht auf der Schaukel!",
+                "it": "Ti tieni tu? Ma non sei sull'altalena!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Povej še enkrat!",
+            "en": "What? Say it again!",
+            "de": "Was? Sag es noch mal!",
+            "it": "Cosa? Ridillo!"
+          }
+        },
+        {
+          "who": "zala",
+          "face": "laugh",
+          "sl": "Višje! Hočem do neba!",
+          "en": "Higher! I want to reach the sky!",
+          "de": "Höher! Ich will bis zum Himmel!",
+          "it": "Più in alto! Voglio arrivare al cielo!",
+          "fx": { "swing": 0.8 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pazi, ne tako visoko!",
+              "en": "Careful, not so high!",
+              "de": "Vorsicht, nicht so hoch!",
+              "it": "Attenta, non così in alto!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Hi hi! Saj se dobro držim!",
+                "en": "Hee hee! I'm holding on tight!",
+                "de": "Hihi! Ich halte mich doch gut fest!",
+                "it": "Ih ih! Mi tengo forte!",
+                "fx": { "swing": 1 }
+              }
+            },
+            {
+              "sl": "Pazi, ne tako visok!",
+              "en": "Careful, not so high (adjective)!",
+              "de": "Vorsicht, nicht so hoher (Adjektiv)!",
+              "it": "Attenta, non così alto (aggettivo)!",
+              "grammar": "prislovi",
+              "why": {
+                "en": "How high: the adverb, visoko. Visok is the adjective (tall).",
+                "de": "Wie hoch: das Adverb, visoko. Visok ist das Adjektiv (groß).",
+                "it": "Quanto in alto: l'avverbio, visoko. Visok è l'aggettivo (alto, di statura)."
+              },
+              "reply": {
+                "face": "proud",
+                "sl": "Visok? Jaz? Nisem visoka. Ampak majhna tudi ne!",
+                "en": "Tall? Me? I'm not tall. But I'm not small either!",
+                "de": "Groß? Ich? Ich bin nicht groß. Aber klein auch nicht!",
+                "it": "Alta? Io? Non sono alta. Ma nemmeno piccola!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Povej še enkrat!",
+            "en": "What? Say it again!",
+            "de": "Was? Sag es noch mal!",
+            "it": "Cosa? Ridillo!"
+          }
+        },
+        {
+          "who": "zala",
+          "face": "happy",
+          "sl": "Hvala, {learner}! Jutri pa jaz porinem tebe!",
+          "en": "Thanks, {learner}! Tomorrow I'll push you!",
+          "de": "Danke, {learner}! Morgen schubse ich dich!",
+          "it": "Grazie, {learner}! Domani ti spingo io!",
+          "fx": { "swing": 0.3 }
+        }
+      ]
+    },
+    {
+      "id": "grad",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "tine",
+          "face": "shy",
+          "sl": "{learner} … delam grad. Iz peska.",
+          "en": "{learner} … I'm making a castle. Out of sand.",
+          "de": "{learner} … ich baue eine Burg. Aus Sand.",
+          "it": "{learner} … sto facendo un castello. Di sabbia.",
+          "fx": { "castle": 0.3 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Lep grad! Ti pomagam?",
+              "en": "Nice castle! Shall I help you?",
+              "de": "Schöne Burg! Soll ich dir helfen?",
+              "it": "Bel castello! Ti aiuto?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ja! Ti delaš stolp, jaz zid.",
+                "en": "Yes! You make the tower, I'll make the wall.",
+                "de": "Ja! Du machst den Turm, ich die Mauer.",
+                "it": "Sì! Tu fai la torre, io il muro."
+              }
+            },
+            {
+              "sl": "Lep grad! Te pomagam?",
+              "en": "Nice castle! Shall I help you (accusative)?",
+              "de": "Schöne Burg! Soll ich dich helfen?",
+              "it": "Bel castello! Aiuto te (accusativo)?",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Pomagati takes the dative: ti (to you).",
+                "de": "Pomagati steht mit dem Dativ: ti (dir).",
+                "it": "Pomagati vuole il dativo: ti (a te)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Te? Kaj te? Ne razumem …",
+                "en": "Te? What about me? I don't understand …",
+                "de": "Te? Was ist mit mir? Versteh ich nicht …",
+                "it": "Te? Che cosa? Non capisco …"
+              }
+            },
+            {
+              "sl": "Lepa grad! Ti pomagam?",
+              "en": "Nice (feminine) castle! Shall I help you?",
+              "de": "Schöne (weiblich) Burg! Soll ich dir helfen?",
+              "it": "Bella (femminile) castello! Ti aiuto?",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Grad is masculine: lep grad.",
+                "de": "Grad ist männlich: lep grad.",
+                "it": "Grad è maschile: lep grad."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Lepa? Grad ni deklica, hi hi.",
+                "en": "Lepa (feminine)? A castle isn't a girl, hee hee.",
+                "de": "Lepa (weiblich)? Eine Burg ist doch kein Mädchen, hihi.",
+                "it": "Lepa (femminile)? Un castello non è una bambina, ih ih."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "tine",
+          "sl": "Rabim vodo. Pesek mora biti moker.",
+          "en": "I need water. The sand has to be wet.",
+          "de": "Ich brauche Wasser. Der Sand muss nass sein.",
+          "it": "Mi serve l'acqua. La sabbia dev'essere bagnata."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Prinesem vodo v vedru.",
+              "en": "I'll bring water in the bucket.",
+              "de": "Ich bringe Wasser im Eimer.",
+              "it": "Porto l'acqua nel secchiello.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hvala! Zdaj se pesek lepi.",
+                "en": "Thanks! Now the sand sticks.",
+                "de": "Danke! Jetzt klebt der Sand.",
+                "it": "Grazie! Adesso la sabbia si attacca.",
+                "fx": { "castle": 0.8 }
+              }
+            },
+            {
+              "sl": "Prinesem voda v vedru.",
+              "en": "I'll bring water (nominative) in the bucket.",
+              "de": "Ich bringe Wasser (Nominativ) im Eimer.",
+              "it": "Porto l'acqua (nominativo) nel secchiello.",
+              "grammar": "tozilnik",
+              "why": {
+                "en": "Prinesem what: the accusative, vodo.",
+                "de": "Prinesem was: der Akkusativ, vodo.",
+                "it": "Prinesem che cosa: l'accusativo, vodo."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Voda? Kje je voda?",
+                "en": "Water? Where's the water?",
+                "de": "Wasser? Wo ist das Wasser?",
+                "it": "Acqua? Dov'è l'acqua?"
+              }
+            },
+            {
+              "sl": "Prinesem mleko v vedru.",
+              "en": "I'll bring milk in the bucket.",
+              "de": "Ich bringe Milch im Eimer.",
+              "it": "Porto il latte nel secchiello.",
+              "why": {
+                "en": "For a sand castle you need water, not milk.",
+                "de": "Für eine Sandburg brauchst du Wasser, keine Milch.",
+                "it": "Per un castello di sabbia serve acqua, non latte."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Mleko? Za grad? Hi hi, ne!",
+                "en": "Milk? For a castle? Hee hee, no!",
+                "de": "Milch? Für eine Burg? Hihi, nein!",
+                "it": "Latte? Per un castello? Ih ih, no!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "tine",
+          "face": "proud",
+          "sl": "Glej! Grad je gotov. In zastavica na vrhu!",
+          "en": "Look! The castle's finished. And a little flag on top!",
+          "de": "Schau! Die Burg ist fertig. Und ein Fähnchen obendrauf!",
+          "it": "Guarda! Il castello è finito. E una bandierina in cima!",
+          "fx": { "castle": 1 }
+        }
+      ]
+    },
+    {
+      "id": "zoga",
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "happy",
+          "sl": "{learner}, {learner}! Igraš nogomet z mano? Tukaj je žoga!",
+          "en": "{learner}, {learner}! Will you play football with me? Here's the ball!",
+          "de": "{learner}, {learner}! Spielst du Fußball mit mir? Hier ist der Ball!",
+          "it": "{learner}, {learner}! Giochi a calcio con me? Ecco la palla!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Seveda! Podaj mi jo!",
+              "en": "Sure! Pass it to me!",
+              "de": "Klar! Spiel ihn mir zu!",
+              "it": "Certo! Passamela!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Lovi! Dobro, {m:ujel|f:ujela} si jo!",
+                "en": "Catch! Good, you caught it!",
+                "de": "Fang! Gut, du hast ihn gefangen!",
+                "it": "Prendi! Bene, l'hai presa!"
+              }
+            },
+            {
+              "sl": "Ja, igram s tabo!",
+              "en": "Yes, I'll play with you!",
+              "de": "Ja, ich spiele mit dir!",
+              "it": "Sì, gioco con te!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Super! Ti si v golu, jaz streljam.",
+                "en": "Great! You're in goal, I shoot.",
+                "de": "Super! Du stehst im Tor, ich schieße.",
+                "it": "Forte! Tu stai in porta, io tiro."
+              }
+            },
+            {
+              "sl": "Lahko noč! Podaj mi jo!",
+              "en": "Good night! Pass it to me!",
+              "de": "Gute Nacht! Spiel ihn mir zu!",
+              "it": "Buona notte! Passamela!",
+              "why": {
+                "en": "It's afternoon, not bedtime: lahko noč is for the night.",
+                "de": "Es ist Nachmittag, nicht Schlafenszeit: lahko noč sagt man in der Nacht.",
+                "it": "È pomeriggio, non ora di dormire: lahko noč si dice di notte."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Lahko noč? Saj je še dan, ha ha!",
+                "en": "Good night? It's still daytime, ha ha!",
+                "de": "Gute Nacht? Es ist doch noch Tag, ha ha!",
+                "it": "Buona notte? Ma è ancora giorno, ah ah!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "nejc",
+          "sl": "Zdaj pa jaz brcnem. Pazi!",
+          "en": "Now I'll kick. Watch out!",
+          "de": "Jetzt schieße ich. Pass auf!",
+          "it": "Adesso calcio io. {m:Attento|f:Attenta}!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Moj strel bo močnejši!",
+              "en": "My shot will be stronger!",
+              "de": "Mein Schuss wird stärker!",
+              "it": "Il mio tiro sarà più forte!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ha! Bomo videli. Daj!",
+                "en": "Ha! We'll see. Go on!",
+                "de": "Ha! Das werden wir sehen. Los!",
+                "it": "Ah! Vedremo. Dai!"
+              }
+            },
+            {
+              "sl": "Moj strel bo močnejša!",
+              "en": "My shot will be stronger (feminine)!",
+              "de": "Mein Schuss wird stärkere (weiblich)!",
+              "it": "Il mio tiro sarà più forta (femminile)!",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Strel is masculine: močnejši.",
+                "de": "Strel ist männlich: močnejši.",
+                "it": "Strel è maschile: močnejši."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Močnejša? Kdo? Žoga? Ha ha!",
+                "en": "Močnejša (feminine)? Who? The ball? Ha ha!",
+                "de": "Močnejša (weiblich)? Wer? Der Ball? Ha ha!",
+                "it": "Močnejša (femminile)? Chi? La palla? Ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Ne slišim, ha ha!",
+            "en": "What? Can't hear you, ha ha!",
+            "de": "Was? Ich hör dich nicht, ha ha!",
+            "it": "Cosa? Non ti sento, ah ah!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "laugh",
+          "sl": "Skoraj gol! Jutri spet, {learner}!",
+          "en": "Nearly a goal! Again tomorrow, {learner}!",
+          "de": "Fast ein Tor! Morgen wieder, {learner}!",
+          "it": "Quasi gol! Domani di nuovo, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "zmaj",
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "happy",
+          "sl": "{learner}! Veter piha! Spustiva zmaja!",
+          "en": "{learner}! The wind's blowing! Let's fly the kite!",
+          "de": "{learner}! Der Wind weht! Lassen wir den Drachen steigen!",
+          "it": "{learner}! Tira vento! Facciamo volare l'aquilone!",
+          "fx": { "kite": 0.3 },
+          "sky": { "wind": 0.6 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Ja, spustiva ga!",
+              "en": "Yes, let's fly it!",
+              "de": "Ja, lassen wir ihn steigen!",
+              "it": "Sì, facciamolo volare!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Gre, gre! Gor!",
+                "en": "It's going, it's going! Up!",
+                "de": "Er steigt, er steigt! Hoch!",
+                "it": "Va, va! Su!",
+                "fx": { "kite": 0.7 }
+              }
+            },
+            {
+              "sl": "Ja, spustimo ga!",
+              "en": "Yes, let's (all) fly it!",
+              "de": "Ja, lassen wir (alle) ihn steigen!",
+              "it": "Sì, facciamolo volare (tutti)!",
+              "grammar": "dvojina",
+              "why": {
+                "en": "It's the two of you: the dual, spustiva. Spustimo is for three or more.",
+                "de": "Ihr seid zu zweit: der Dual, spustiva. Spustimo ist für drei oder mehr.",
+                "it": "Siete in due: il duale, spustiva. Spustimo è per tre o più."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Spustimo? Kdo še? Saj sva sama!",
+                "en": "Spustimo (all of us)? Who else? It's just the two of us!",
+                "de": "Spustimo (wir alle)? Wer noch? Wir sind doch nur zu zweit!",
+                "it": "Spustimo (tutti noi)? Chi altro? Siamo solo noi due!"
+              }
+            },
+            {
+              "sl": "Ja, spustiva jo!",
+              "en": "Yes, let's fly her (it, feminine)!",
+              "de": "Ja, lassen wir sie (weiblich) steigen!",
+              "it": "Sì, facciamola (femminile) volare!",
+              "grammar": "spol-samostalnikov",
+              "why": { "en": "Zmaj is masculine: ga.", "de": "Zmaj ist männlich: ga.", "it": "Zmaj è maschile: ga." },
+              "reply": {
+                "face": "laugh",
+                "sl": "Jo? Koga? Gugalnico? Ha ha!",
+                "en": "Jo (her)? Whom? The swing? Ha ha!",
+                "de": "Jo (sie)? Wen? Die Schaukel? Ha ha!",
+                "it": "Jo (lei)? Chi? L'altalena? Ah ah!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Ne slišim, ha ha!",
+            "en": "What? Can't hear you, ha ha!",
+            "de": "Was? Ich hör dich nicht, ha ha!",
+            "it": "Cosa? Non ti sento, ah ah!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "surprised",
+          "sl": "Poglej, kako visoko je! Višje kot kostanj!",
+          "en": "Look how high it is! Higher than the chestnut tree!",
+          "de": "Schau, wie hoch er ist! Höher als die Kastanie!",
+          "it": "Guarda com'è alto! Più in alto del castagno!",
+          "fx": { "kite": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Res! Višje kot šola!",
+              "en": "It is! Higher than the school!",
+              "de": "Wirklich! Höher als die Schule!",
+              "it": "Davvero! Più in alto della scuola!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "In še višje! Do oblakov!",
+                "en": "And higher still! Up to the clouds!",
+                "de": "Und noch höher! Bis zu den Wolken!",
+                "it": "E ancora più su! Fino alle nuvole!"
+              }
+            },
+            {
+              "sl": "Res! Višji kot šola!",
+              "en": "It is! Taller than the school!",
+              "de": "Wirklich! Größer als die Schule!",
+              "it": "Davvero! Più alto (aggettivo) della scuola!",
+              "grammar": "primernik",
+              "why": {
+                "en": "How high it flies: the adverb, višje. Višji is the adjective (taller).",
+                "de": "Wie hoch er fliegt: das Adverb, višje. Višji ist das Adjektiv (größer).",
+                "it": "Quanto in alto vola: l'avverbio, višje. Višji è l'aggettivo (più alto, di statura)."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Višji? Zmaj je višji? Hm … kako že?",
+                "en": "Višji (taller)? The kite is taller? Hm … how does it go?",
+                "de": "Višji (größer)? Der Drachen ist größer? Hm … wie war das?",
+                "it": "Višji (più alto)? L'aquilone è più alto? Mm … com'era?"
+              }
+            },
+            {
+              "sl": "Res! Nižje kot šola!",
+              "en": "It is! Lower than the school!",
+              "de": "Wirklich! Tiefer als die Schule!",
+              "it": "Davvero! Più in basso della scuola!",
+              "why": {
+                "en": "It's higher (višje) than the tree; nižje is lower.",
+                "de": "Er ist höher (višje) als der Baum; nižje heißt tiefer.",
+                "it": "È più in alto (višje) dell'albero; nižje vuol dire più in basso."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Nižje? Ne, ne! Poglej gor!",
+                "en": "Lower? No, no! Look up!",
+                "de": "Tiefer? Nein, nein! Schau hoch!",
+                "it": "Più in basso? No, no! Guarda su!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Ne slišim, ha ha!",
+            "en": "What? Can't hear you, ha ha!",
+            "de": "Was? Ich hör dich nicht, ha ha!",
+            "it": "Cosa? Non ti sento, ah ah!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "laugh",
+          "sl": "Juhu! Najboljši zmaj na svetu!",
+          "en": "Yippee! The best kite in the world!",
+          "de": "Juhu! Der beste Drachen der Welt!",
+          "it": "Evviva! L'aquilone più bello del mondo!"
+        }
+      ]
+    },
+    {
+      "id": "ristanc",
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Dobro jutro, {learner}! Poglejte, otroci so s kredo narisali ristanc.",
+          "en": "Good morning, {learner}! Look, the children have drawn a hopscotch in chalk.",
+          "de": "Guten Morgen, {learner}! Schauen Sie, die Kinder haben mit Kreide ein Hüpfspiel gemalt.",
+          "it": "Buongiorno, {learner}! Guardi, i bambini hanno disegnato la campana con il gesso."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Dobro jutro! Kdo je zdaj na vrsti?",
+              "en": "Good morning! Whose turn is it now?",
+              "de": "Guten Morgen! Wer ist jetzt dran?",
+              "it": "Buongiorno! A chi tocca adesso?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Najprej deklice, potem fantje, potem vi!",
+                "en": "First the girls, then the boys, then you!",
+                "de": "Erst die Mädchen, dann die Jungen, dann Sie!",
+                "it": "Prima le bambine, poi i bambini, poi Lei!"
+              }
+            },
+            {
+              "sl": "Dobro jutro! Kje je zdaj na vrsti?",
+              "en": "Good morning! Where is it now on turn?",
+              "de": "Guten Morgen! Wo ist jetzt dran?",
+              "it": "Buongiorno! Dove tocca adesso?",
+              "grammar": "vprasalnice",
+              "why": {
+                "en": "You're asking about a person: kdo (who). Kje is where.",
+                "de": "Du fragst nach einer Person: kdo (wer). Kje heißt wo.",
+                "it": "Chiedi di una persona: kdo (chi). Kje vuol dire dove."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Kje? Na ristancu, seveda. Ampak vprašanje je drugo.",
+                "en": "Where? On the hopscotch, of course. But that's another question.",
+                "de": "Wo? Auf dem Hüpfspiel, natürlich. Aber das ist eine andere Frage.",
+                "it": "Dove? Sulla campana, certo. Ma la domanda è un'altra."
+              }
+            },
+            {
+              "sl": "Dober večer! Kdo je zdaj na vrsti?",
+              "en": "Good evening! Whose turn is it now?",
+              "de": "Guten Abend! Wer ist jetzt dran?",
+              "it": "Buonasera! A chi tocca adesso?",
+              "why": {
+                "en": "It's morning: dobro jutro.",
+                "de": "Es ist Morgen: dobro jutro.",
+                "it": "È mattina: dobro jutro."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Večer? Pouk se šele začne!",
+                "en": "Evening? Lessons are only just starting!",
+                "de": "Abend? Der Unterricht fängt doch erst an!",
+                "it": "Sera? Le lezioni cominciano appena!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "curious",
+          "sl": "Zdaj ste vi na vrsti. Na katero polje vržete kamen?",
+          "en": "Now it's your turn. Which square do you throw your stone onto?",
+          "de": "Jetzt sind Sie dran. Auf welches Feld werfen Sie den Stein?",
+          "it": "Adesso tocca a Lei. Su quale casella tira il sasso?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Na tretje polje.",
+              "en": "Onto the third square.",
+              "de": "Aufs dritte Feld.",
+              "it": "Sulla terza casella.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično! Pazite, ne stopite na črto!",
+                "en": "Excellent! Careful, don't step on the line!",
+                "de": "Ausgezeichnet! Passen Sie auf, treten Sie nicht auf die Linie!",
+                "it": "Ottimo! Attenzione, non pesti la riga!"
+              }
+            },
+            {
+              "sl": "Na tri polje.",
+              "en": "Onto three square.",
+              "de": "Auf drei Feld.",
+              "it": "Su tre casella.",
+              "grammar": "datumi",
+              "why": {
+                "en": "Which one: an ordinal, tretje (the third).",
+                "de": "Welches: eine Ordnungszahl, tretje (das dritte).",
+                "it": "Quale: un ordinale, tretje (la terza)."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Tri polja? Samo en kamen imate!",
+                "en": "Three squares? You've only got one stone!",
+                "de": "Drei Felder? Sie haben doch nur einen Stein!",
+                "it": "Tre caselle? Ha un sasso solo!"
+              }
+            },
+            {
+              "sl": "Na tretji polje.",
+              "en": "Onto the third (masculine) square.",
+              "de": "Aufs dritte (männlich) Feld.",
+              "it": "Sulla terzo (maschile) casella.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Polje is neuter: tretje.",
+                "de": "Polje ist sächlich: tretje.",
+                "it": "Polje è neutro: tretje."
+              },
+              "reply": {
+                "face": "thinking",
+                "sl": "Tretji? Hm, kakšnega spola je polje?",
+                "en": "Tretji (masculine)? Hm, what gender is polje?",
+                "de": "Tretji (männlich)? Hm, welches Geschlecht hat polje?",
+                "it": "Tretji (maschile)? Mm, di che genere è polje?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "proud",
+          "sl": "Bravo! Skočili ste brez napake.",
+          "en": "Well done! You jumped without a mistake.",
+          "de": "Bravo! Sie sind ohne Fehler gesprungen.",
+          "it": "{m:Bravo|f:Brava}! Ha saltato senza errori."
+        }
+      ]
+    },
+    {
+      "id": "mehurcki",
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Dober večer, {learner}. Poglejte, milni mehurčki!",
+          "en": "Good evening, {learner}. Look, soap bubbles!",
+          "de": "Guten Abend, {learner}. Schauen Sie, Seifenblasen!",
+          "it": "Buonasera, {learner}. Guardi, bolle di sapone!",
+          "fx": { "bubbles": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Kako lepo!",
+              "en": "How lovely!",
+              "de": "Wie schön!",
+              "it": "Che bello!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Kajne? Izvolite, poskusite še vi.",
+                "en": "Isn't it? Here, you try too.",
+                "de": "Nicht wahr? Bitte, versuchen Sie es auch.",
+                "it": "Vero? Prego, provi anche Lei."
+              }
+            },
+            {
+              "sl": "Krasno! Lahko tudi jaz poskusim?",
+              "en": "Wonderful! May I try too?",
+              "de": "Wunderbar! Darf ich es auch versuchen?",
+              "it": "Splendido! Posso provare anch'io?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Seveda. Izvolite, tukaj je palčka.",
+                "en": "Of course. Here you are, here's the wand.",
+                "de": "Natürlich. Bitte, hier ist das Stäbchen.",
+                "it": "Certo. Prego, ecco il bastoncino."
+              }
+            },
+            {
+              "sl": "Dobro jutro! Kako lepo!",
+              "en": "Good morning! How lovely!",
+              "de": "Guten Morgen! Wie schön!",
+              "it": "Buongiorno! Che bello!",
+              "why": {
+                "en": "It's evening: dober večer.",
+                "de": "Es ist Abend: dober večer.",
+                "it": "È sera: dober večer."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Jutro? Sonce že zahaja, {learner}.",
+                "en": "Morning? The sun is already setting, {learner}.",
+                "de": "Morgen? Die Sonne geht schon unter, {learner}.",
+                "it": "Mattina? Il sole sta già tramontando, {learner}."
+              }
+            }
+          ]
+        },
+        {
+          "who": "mojca",
+          "sl": "Pihnite počasi. Ne premočno.",
+          "en": "Blow gently. Not too hard.",
+          "de": "Blasen Sie langsam. Nicht zu fest.",
+          "it": "Soffi piano. Non troppo forte."
+        },
+        {
+          "choices": [
+            {
+              "sl": "Pihnem počasi … glejte, velik mehurček!",
+              "en": "I blow gently … look, a big bubble!",
+              "de": "Ich blase langsam … schauen Sie, eine große Seifenblase!",
+              "it": "Soffio piano … guardi, una bolla grande!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično! Največji danes!",
+                "en": "Excellent! The biggest today!",
+                "de": "Ausgezeichnet! Die größte heute!",
+                "it": "Ottimo! La più grande di oggi!",
+                "fx": { "bubbles": 0.8 }
+              }
+            },
+            {
+              "sl": "Pihnete počasi … glejte, velik mehurček!",
+              "en": "You blow gently … look, a big bubble!",
+              "de": "Sie blasen langsam … schauen Sie, eine große Seifenblase!",
+              "it": "Soffia piano Lei … guardi, una bolla grande!",
+              "grammar": "glagoli-sedanjik",
+              "why": {
+                "en": "You say what you do: pihnem (I blow). Pihnete is you blow.",
+                "de": "Du sagst, was du tust: pihnem (ich blase). Pihnete heißt Sie blasen.",
+                "it": "Dici che cosa fai: pihnem (soffio). Pihnete vuol dire soffia Lei."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Jaz? Ne, ne, vi pihate!",
+                "en": "Me? No, no, you're the one blowing!",
+                "de": "Ich? Nein, nein, Sie blasen!",
+                "it": "Io? No, no, soffia Lei!"
+              }
+            },
+            {
+              "sl": "Pihnem počasi … glejte, velika mehurček!",
+              "en": "I blow gently … look, a big (feminine) bubble!",
+              "de": "Ich blase langsam … schauen Sie, eine große (weiblich) Seifenblase!",
+              "it": "Soffio piano … guardi, una bolla grande (femminile)!",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Mehurček is masculine: velik.",
+                "de": "Mehurček ist männlich: velik.",
+                "it": "Mehurček è maschile: velik."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Velika? Mehurček je on, ne ona.",
+                "en": "Velika (feminine)? A mehurček is a he, not a she.",
+                "de": "Velika (weiblich)? Mehurček ist ein Er, keine Sie.",
+                "it": "Velika (femminile)? Mehurček è maschile, non femminile."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "proud",
+          "sl": "Vidite? Počasi in mirno, pa gre. Kot pri slovnici!",
+          "en": "You see? Slowly and calmly, and it works. Just like grammar!",
+          "de": "Sehen Sie? Langsam und ruhig, dann klappt es. Wie bei der Grammatik!",
+          "it": "Vede? Piano e con calma, e funziona. Come con la grammatica!"
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "gugalnica-visje",
+      "memory": {
+        "sl": "dan, ko sem letela višje kot včeraj",
+        "en": "the day I flew higher than the day before",
+        "de": "den Tag, an dem ich höher geflogen bin als am Tag davor",
+        "it": "il giorno in cui ho volato più in alto del giorno prima"
+      },
+      "lines": [
+        {
+          "who": "zala",
+          "face": "proud",
+          "sl": "Poglej me, {learner}! Letim višje kot včeraj!",
+          "en": "Look at me, {learner}! I'm flying higher than yesterday!",
+          "de": "Schau mich an, {learner}! Ich fliege höher als gestern!",
+          "it": "Guardami, {learner}! Volo più in alto di ieri!",
+          "fx": { "swing": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Res! Danes letiš višje.",
+              "en": "So you are! Today you're flying higher.",
+              "de": "Stimmt! Heute fliegst du höher.",
+              "it": "È vero! Oggi voli più in alto.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Ja! Jutri bom letela še višje!",
+                "en": "Yes! Tomorrow I'll fly even higher!",
+                "de": "Ja! Morgen fliege ich noch höher!",
+                "it": "Sì! Domani volerò ancora più in alto!"
+              }
+            },
+            {
+              "sl": "Res! Danes letiš višji.",
+              "en": "So you are! Today you're flying higher (adjective).",
+              "de": "Stimmt! Heute fliegst du höherer (Adjektiv).",
+              "it": "È vero! Oggi voli più alto (aggettivo).",
+              "grammar": "primernik",
+              "why": {
+                "en": "How high she flies: the adverb's comparative, višje. Višji is an adjective (taller).",
+                "de": "Wie hoch sie fliegt: der Komparativ des Adverbs, višje. Višji ist ein Adjektiv (größer).",
+                "it": "Quanto in alto vola: il comparativo dell'avverbio, višje. Višji è un aggettivo (più alto, di statura)."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Višji? Kdo je višji? Gugalnica?",
+                "en": "Višji (taller)? Who's taller? The swing?",
+                "de": "Višji (größer)? Wer ist größer? Die Schaukel?",
+                "it": "Višji (più alto)? Chi è più alto? L'altalena?"
+              }
+            }
+          ]
+        },
+        {
+          "who": "zala",
+          "face": "curious",
+          "sl": "Kdo je višji, jaz ali Nejc?",
+          "en": "Who's taller, me or Nejc?",
+          "de": "Wer ist größer, ich oder Nejc?",
+          "it": "Chi è più alto, io o Nejc?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Nejc je višji kot ti.",
+              "en": "Nejc is taller than you.",
+              "de": "Nejc ist größer als du.",
+              "it": "Nejc è più alto di te.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "sl": "Hm. Ampak jaz sem pametnejša!",
+                "en": "Hm. But I'm cleverer!",
+                "de": "Hm. Aber ich bin klüger!",
+                "it": "Mm. Ma io sono più furba!"
+              }
+            },
+            {
+              "sl": "Nejc je višja kot ti.",
+              "en": "Nejc is taller (feminine) than you.",
+              "de": "Nejc ist größer (weiblich) als du.",
+              "it": "Nejc è più alta (femminile) di te.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Nejc is a boy: višji. Višja is for a girl.",
+                "de": "Nejc ist ein Junge: višji. Višja ist für ein Mädchen.",
+                "it": "Nejc è un bambino: višji. Višja è per una bambina."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Višja? Nejc ni deklica, hi hi!",
+                "en": "Višja (feminine)? Nejc isn't a girl, hee hee!",
+                "de": "Višja (weiblich)? Nejc ist doch kein Mädchen, hihi!",
+                "it": "Višja (femminile)? Nejc non è una bambina, ih ih!"
+              }
+            },
+            {
+              "sl": "Nejc je bolj visok kot ti.",
+              "en": "Nejc is more tall than you.",
+              "de": "Nejc ist mehr groß als du.",
+              "it": "Nejc è più alto (detto male) di te.",
+              "grammar": "primernik",
+              "why": {
+                "en": "Visok has its own comparative: višji, without bolj.",
+                "de": "Visok hat einen eigenen Komparativ: višji, ohne bolj.",
+                "it": "Visok ha il suo comparativo: višji, senza bolj."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Bolj visok? Tako se ne reče, {learner}!",
+                "en": "More tall? That's not how you say it, {learner}!",
+                "de": "Mehr groß? So sagt man das nicht, {learner}!",
+                "it": "Più alto (così)? Non si dice così, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Povej še enkrat!",
+            "en": "What? Say it again!",
+            "de": "Was? Sag es noch mal!",
+            "it": "Cosa? Ridillo!"
+          }
+        },
+        {
+          "who": "zala",
+          "face": "proud",
+          "sl": "Ampak jaz sem hitrejša! Na gugalnici in na toboganu.",
+          "en": "But I'm faster! On the swing and on the slide.",
+          "de": "Aber ich bin schneller! Auf der Schaukel und auf der Rutsche.",
+          "it": "Ma io sono più veloce! Sull'altalena e sullo scivolo.",
+          "fx": { "swing": 0.4 }
+        }
+      ]
+    },
+    {
+      "id": "grad-stolpi",
+      "memory": {
+        "sl": "grad iz peska s tremi stolpi",
+        "en": "the sand castle with three towers",
+        "de": "die Sandburg mit drei Türmen",
+        "it": "il castello di sabbia con tre torri"
+      },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "tine",
+          "face": "proud",
+          "sl": "{learner}! Poglej moj grad! Koliko stolpov ima?",
+          "en": "{learner}! Look at my castle! How many towers has it got?",
+          "de": "{learner}! Schau meine Burg an! Wie viele Türme hat sie?",
+          "it": "{learner}! Guarda il mio castello! Quante torri ha?",
+          "fx": { "castle": 0.7 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tvoj grad ima tri stolpe.",
+              "en": "Your castle has three towers.",
+              "de": "Deine Burg hat drei Türme.",
+              "it": "Il tuo castello ha tre torri.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Ja! Ena, dva, tri. Kot pravi grad!",
+                "en": "Yes! One, two, three. Like a real castle!",
+                "de": "Ja! Eins, zwei, drei. Wie eine echte Burg!",
+                "it": "Sì! Una, due, tre. Come un vero castello!"
+              }
+            },
+            {
+              "sl": "Tvoj grad ima tri stolpa.",
+              "en": "Your castle has three towers (the form for two).",
+              "de": "Deine Burg hat drei Türme (die Form für zwei).",
+              "it": "Il tuo castello ha tre torri (la forma per due).",
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "Three and four take the plural: tri stolpe. Stolpa is for exactly two.",
+                "de": "Drei und vier stehen mit dem Plural: tri stolpe. Stolpa ist für genau zwei.",
+                "it": "Tre e quattro vogliono il plurale: tri stolpe. Stolpa è per due."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Stolpa? Dva? Ena, dva, tri … več!",
+                "en": "Stolpa (two)? Two? One, two, three … more!",
+                "de": "Stolpa (zwei)? Zwei? Eins, zwei, drei … mehr!",
+                "it": "Stolpa (due)? Due? Uno, due, tre … di più!"
+              }
+            },
+            {
+              "sl": "Tvoj grad ima tri stolpov.",
+              "en": "Your castle has three towers (the form from five on).",
+              "de": "Deine Burg hat drei Türme (die Form ab fünf).",
+              "it": "Il tuo castello ha tre torri (la forma da cinque in su).",
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "Three and four take the plural: tri stolpe. Stolpov is from five on.",
+                "de": "Drei und vier stehen mit dem Plural: tri stolpe. Stolpov ist ab fünf.",
+                "it": "Tre e quattro vogliono il plurale: tri stolpe. Stolpov è da cinque in su."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Stolpov? Toliko? Ne, ne, samo trije!",
+                "en": "Stolpov (five or more)? That many? No, no, just three!",
+                "de": "Stolpov (fünf und mehr)? So viele? Nein, nein, nur drei!",
+                "it": "Stolpov (cinque o più)? Così tante? No, no, solo tre!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "tine",
+          "face": "curious",
+          "sl": "Zdaj pa vrata. Kako jih naredim?",
+          "en": "And now the gate. How do I make it?",
+          "de": "Und jetzt das Tor. Wie mache ich das?",
+          "it": "E adesso la porta. Come la faccio?"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Naredi jih z lopatko.",
+              "en": "Make it with the spade.",
+              "de": "Mach es mit der Schaufel.",
+              "it": "Falla con la paletta.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Tako! Grad ima vrata!",
+                "en": "There! The castle has a gate!",
+                "de": "So! Die Burg hat ein Tor!",
+                "it": "Ecco! Il castello ha la porta!",
+                "fx": { "castle": 1 }
+              }
+            },
+            {
+              "sl": "Naredi jih z lopatka.",
+              "en": "Make it with the spade (nominative).",
+              "de": "Mach es mit die Schaufel (Nominativ).",
+              "it": "Falla con la paletta (nominativo).",
+              "grammar": "orodnik",
+              "why": {
+                "en": "Z (with) takes the instrumental: z lopatko.",
+                "de": "Z (mit) steht mit dem Instrumental: z lopatko.",
+                "it": "Z (con) vuole lo strumentale: z lopatko."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Z lopatka? Hm? Kako?",
+                "en": "Z lopatka? Hm? How?",
+                "de": "Z lopatka? Hm? Wie?",
+                "it": "Z lopatka? Mm? Come?"
+              }
+            },
+            {
+              "sl": "Naredi jo z lopatko.",
+              "en": "Make her (it, one) with the spade.",
+              "de": "Mach sie (eine) mit der Schaufel.",
+              "it": "Fai lei (una) con la paletta.",
+              "grammar": "osebni-zaimki",
+              "why": {
+                "en": "Vrata is plural: jih.",
+                "de": "Vrata ist ein Plural: jih.",
+                "it": "Vrata è plurale: jih."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Jo? Koga? Lopatko?",
+                "en": "Jo (her)? Whom? The spade?",
+                "de": "Jo (sie)? Wen? Die Schaufel?",
+                "it": "Jo (lei)? Chi? La paletta?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Hm? Kako, prosim?",
+            "en": "Hm? Sorry, what?",
+            "de": "Hm? Wie bitte?",
+            "it": "Mm? Come, scusa?"
+          }
+        },
+        {
+          "who": "tine",
+          "face": "proud",
+          "sl": "Najlepši grad v vasi! Pokaži dedku!",
+          "en": "The finest castle in the village! Show Grandpa!",
+          "de": "Die schönste Burg im Dorf! Zeig sie Opa!",
+          "it": "Il castello più bello del paese! Fallo vedere al nonno!"
+        }
+      ]
+    },
+    {
+      "id": "zoga-tobogan",
+      "memory": {
+        "sl": "žogo pod toboganom",
+        "en": "the ball under the slide",
+        "de": "den Ball unter der Rutsche",
+        "it": "la palla sotto lo scivolo"
+      },
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "worried",
+          "sl": "{learner}! Kje je žoga? Ne vidim je!",
+          "en": "{learner}! Where's the ball? I can't see it!",
+          "de": "{learner}! Wo ist der Ball? Ich sehe ihn nicht!",
+          "it": "{learner}! Dov'è la palla? Non la vedo!",
+          "fx": { "ball": 0 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Tam je, v peskovniku!",
+              "en": "There it is, in the sandpit!",
+              "de": "Da ist er, im Sandkasten!",
+              "it": "Eccola, nella sabbiera!",
+              "tap": "sandpit",
+              "why": {
+                "en": "Look for something red and round, half hidden under something.",
+                "de": "Such etwas Rotes, Rundes, halb versteckt unter etwas.",
+                "it": "Cerca qualcosa di rosso e rotondo, mezzo nascosto sotto qualcosa."
+              },
+              "reply": {
+                "face": "sad",
+                "sl": "V peskovniku? Tu je samo pesek!",
+                "en": "In the sandpit? There's only sand here!",
+                "de": "Im Sandkasten? Da ist nur Sand!",
+                "it": "Nella sabbiera? Qui c'è solo sabbia!"
+              }
+            },
+            {
+              "sl": "Tam je, pod toboganom!",
+              "en": "There it is, under the slide!",
+              "de": "Da ist er, unter der Rutsche!",
+              "it": "Eccola, sotto lo scivolo!",
+              "ok": true,
+              "tap": "ball",
+              "grammar": "orodnik",
+              "reply": {
+                "face": "happy",
+                "sl": "Res! Hvala, {learner}! Kako si jo {m:videl|f:videla}?",
+                "en": "So it is! Thanks, {learner}! How did you spot it?",
+                "de": "Tatsächlich! Danke, {learner}! Wie hast du ihn gesehen?",
+                "it": "È vero! Grazie, {learner}! Come hai fatto a vederla?",
+                "fx": { "ball": 1 }
+              }
+            },
+            {
+              "sl": "Tam je, pod klopjo!",
+              "en": "There it is, under the bench!",
+              "de": "Da ist er, unter der Bank!",
+              "it": "Eccola, sotto la panchina!",
+              "tap": "bench",
+              "why": {
+                "en": "Look again: there's nothing under the bench. Look for something red, half hidden.",
+                "de": "Schau noch einmal: Unter der Bank ist nichts. Such etwas Rotes, halb versteckt.",
+                "it": "Guarda di nuovo: sotto la panchina non c'è niente. Cerca qualcosa di rosso, mezzo nascosto."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Pod klopjo? Ne, tu je ni!",
+                "en": "Under the bench? No, it isn't here!",
+                "de": "Unter der Bank? Nein, da ist er nicht!",
+                "it": "Sotto la panchina? No, qui non c'è!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "nejc",
+          "face": "happy",
+          "sl": "Zdaj pa ti v gol, jaz streljam!",
+          "en": "Now you go in goal, I'll shoot!",
+          "de": "Jetzt gehst du ins Tor, ich schieße!",
+          "it": "Adesso vai tu in porta, io tiro!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Prav! Streljaj!",
+              "en": "All right! Shoot!",
+              "de": "Gut! Schieß!",
+              "it": "Va bene! Tira!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Brc! … {m:Ujel|f:Ujela} si jo! Bravo!",
+                "en": "Kick! … You caught it! Well done!",
+                "de": "Schuss! … Du hast ihn gefangen! Bravo!",
+                "it": "Tiro! … L'hai presa! {m:Bravo|f:Brava}!"
+              }
+            },
+            {
+              "sl": "Prav! Streljam!",
+              "en": "All right! I'm shooting!",
+              "de": "Gut! Ich schieße!",
+              "it": "Va bene! Tiro io!",
+              "grammar": "velelnik",
+              "why": {
+                "en": "You tell Nejc to shoot: the imperative, streljaj. Streljam is I shoot.",
+                "de": "Du sagst Nejc, er soll schießen: der Imperativ, streljaj. Streljam heißt ich schieße.",
+                "it": "Dici a Nejc di tirare: l'imperativo, streljaj. Streljam vuol dire tiro io."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Ti streljaš? Ne, ti si v golu!",
+                "en": "You're shooting? No, you're in goal!",
+                "de": "Du schießt? Nein, du stehst im Tor!",
+                "it": "Tiri tu? No, tu sei in porta!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Ne slišim, ha ha!",
+            "en": "What? Can't hear you, ha ha!",
+            "de": "Was? Ich hör dich nicht, ha ha!",
+            "it": "Cosa? Non ti sento, ah ah!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "laugh",
+          "sl": "Ha ha! Jutri pa jaz v gol!",
+          "en": "Ha ha! Tomorrow I'll go in goal!",
+          "de": "Ha ha! Morgen gehe ich ins Tor!",
+          "it": "Ah ah! Domani in porta ci vado io!"
+        }
+      ]
+    },
+    {
+      "id": "zmaj-veter",
+      "memory": {
+        "sl": "zmaja, ki je skoraj odletel v kostanj",
+        "en": "the kite that nearly flew into the chestnut tree",
+        "de": "den Drachen, der fast in die Kastanie geflogen wäre",
+        "it": "l'aquilone che è quasi finito nel castagno"
+      },
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "worried",
+          "sl": "{learner}! Veter je premočan. Zmaj vleče!",
+          "en": "{learner}! The wind's too strong. The kite's pulling!",
+          "de": "{learner}! Der Wind ist zu stark. Der Drachen zieht!",
+          "it": "{learner}! Il vento è troppo forte. L'aquilone tira!",
+          "fx": { "kite": 1 },
+          "sky": { "wind": 0.9 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Drži ga močno! Pomagam ti.",
+              "en": "Hold it tight! I'll help you.",
+              "de": "Halt ihn fest! Ich helfe dir.",
+              "it": "Tienilo forte! Ti aiuto.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hvala! Ti si {m:močnejši|f:močnejša} kot jaz.",
+                "en": "Thanks! You're stronger than me.",
+                "de": "Danke! Du bist stärker als ich.",
+                "it": "Grazie! Sei più forte di me."
+              }
+            },
+            {
+              "sl": "Drži ga močno! Pomagam te.",
+              "en": "Hold it tight! I'll help you (accusative).",
+              "de": "Halt ihn fest! Ich helfe dich.",
+              "it": "Tienilo forte! Aiuto te (accusativo).",
+              "grammar": "dajalnik",
+              "why": {
+                "en": "Pomagati takes the dative: ti (to you).",
+                "de": "Pomagati steht mit dem Dativ: ti (dir).",
+                "it": "Pomagati vuole il dativo: ti (a te)."
+              },
+              "reply": {
+                "face": "worried",
+                "sl": "Te? Kaj te? Hitro, zmaj gre!",
+                "en": "Te? What about me? Quick, the kite's going!",
+                "de": "Te? Was ist mit mir? Schnell, der Drachen fliegt weg!",
+                "it": "Te? Che cosa? Presto, l'aquilone se ne va!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Ne slišim, ha ha!",
+            "en": "What? Can't hear you, ha ha!",
+            "de": "Was? Ich hör dich nicht, ha ha!",
+            "it": "Cosa? Non ti sento, ah ah!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "worried",
+          "sl": "Ojoj! Zmaj leti proti kostanju!",
+          "en": "Oh no! The kite's heading for the chestnut tree!",
+          "de": "Oje! Der Drachen fliegt auf die Kastanie zu!",
+          "it": "Oh no! L'aquilone va verso il castagno!",
+          "fx": { "kite": 0.7 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Potegni počasi, ne hitro!",
+              "en": "Pull slowly, not fast!",
+              "de": "Zieh langsam, nicht schnell!",
+              "it": "Tira piano, non in fretta!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Počasi … Uf! Rešen!",
+                "en": "Slowly … Phew! Saved!",
+                "de": "Langsam … Puh! Gerettet!",
+                "it": "Piano … Uff! Salvo!",
+                "fx": { "kite": 0.5 },
+                "sky": { "wind": 0.4 }
+              }
+            },
+            {
+              "sl": "Potegni počasen, ne hitro!",
+              "en": "Pull slow (adjective), not fast!",
+              "de": "Zieh langsamer (Adjektiv), nicht schnell!",
+              "it": "Tira lento (aggettivo), non in fretta!",
+              "grammar": "prislovi",
+              "why": {
+                "en": "How you pull: the adverb, počasi. Počasen is the adjective.",
+                "de": "Wie du ziehst: das Adverb, počasi. Počasen ist das Adjektiv.",
+                "it": "Come tiri: l'avverbio, počasi. Počasen è l'aggettivo."
+              },
+              "reply": {
+                "face": "cross",
+                "sl": "Počasen? Jaz nisem počasen! Pomagaj!",
+                "en": "Slow? I'm not slow! Help!",
+                "de": "Langsam? Ich bin nicht langsam! Hilf mir!",
+                "it": "Lento? Io non sono lento! Aiuto!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Kaj? Ne slišim, ha ha!",
+            "en": "What? Can't hear you, ha ha!",
+            "de": "Was? Ich hör dich nicht, ha ha!",
+            "it": "Cosa? Non ti sento, ah ah!"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "happy",
+          "sl": "Uf! Zmaj je cel. Jutri spet, ko piha veter.",
+          "en": "Phew! The kite's in one piece. Again tomorrow, when the wind blows.",
+          "de": "Puh! Der Drachen ist ganz. Morgen wieder, wenn der Wind weht.",
+          "it": "Uff! L'aquilone è intero. Domani di nuovo, quando tira vento.",
+          "sky": { "wind": 0.3 }
+        }
+      ]
+    },
+    {
+      "id": "ristanc-minute",
+      "count": { "from": "dice", "min": 2, "max": 15, "gender": "f" },
+      "memory": {
+        "sl": "odmor, ko sva {m:štela|f:šteli} minute",
+        "en": "the break when we counted the minutes",
+        "de": "die Pause, als wir die Minuten gezählt haben",
+        "it": "l'intervallo in cui abbiamo contato i minuti"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "sl": "{learner}, odmor se bo kmalu končal. Moja ura pravi: še {n}. Povejte otrokom!",
+          "en": "{learner}, break will soon be over. My watch says: {n} more. Tell the children!",
+          "de": "{learner}, die Pause ist bald vorbei. Meine Uhr sagt: noch {n}. Sagen Sie es den Kindern!",
+          "it": "{learner}, l'intervallo sta per finire. Il mio orologio dice: ancora {n}. Lo dica ai bambini!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Otroci, še {n} {!minuta|minuti|minute|minut}!",
+              "en": "Children, {n} more {minute|minutes}!",
+              "de": "Kinder, noch {n} {Minute|Minuten}!",
+              "it": "Bambini, ancora {n} {minuto|minuti}!",
+              "wrong_form": 1,
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {minuta|minuti|minute|minut}.",
+                "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {minuta|minuti|minute|minut}.",
+                "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {minuta|minuti|minute|minut}."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Hm? Otroci gledajo čudno. Še enkrat?",
+                "en": "Hm? The children look puzzled. Once more?",
+                "de": "Hm? Die Kinder schauen komisch. Noch einmal?",
+                "it": "Mm? I bambini guardano strano. Ancora una volta?"
+              }
+            },
+            {
+              "sl": "Otroci, še {n} {minuta|minuti|minute|minut}!",
+              "en": "Children, {n} more {minute|minutes}!",
+              "de": "Kinder, noch {n} {Minute|Minuten}!",
+              "it": "Bambini, ancora {n} {minuto|minuti}!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Odlično. Zdaj skačejo še hitreje!",
+                "en": "Excellent. Now they're jumping even faster!",
+                "de": "Ausgezeichnet. Jetzt hüpfen sie noch schneller!",
+                "it": "Ottimo. Adesso saltano ancora più veloci!"
+              }
+            },
+            {
+              "sl": "Otroci, še {n} {!minuta|minuti|minute|minut}!",
+              "en": "Children, {n} more {minute|minutes}!",
+              "de": "Kinder, noch {n} {Minute|Minuten}!",
+              "it": "Bambini, ancora {n} {minuto|minuti}!",
+              "wrong_form": 2,
+              "grammar": "stevila-samostalniki",
+              "why": {
+                "en": "{One takes the singular|Two take the dual|Three and four take the plural|From five on, the genitive plural}: {n} {minuta|minuti|minute|minut}.",
+                "de": "{Eins steht mit dem Singular|Zwei steht mit dem Dual|Drei und vier stehen mit dem Plural|Ab fünf steht der Genitiv Plural}: {n} {minuta|minuti|minute|minut}.",
+                "it": "{Uno vuole il singolare|Due vuole il duale|Tre e quattro vogliono il plurale|Da cinque in su, il genitivo plurale}: {n} {minuta|minuti|minute|minut}."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Toliko? Potem zamudimo pouk!",
+                "en": "That many? Then we'll be late for lessons!",
+                "de": "So viele? Dann kommen wir zu spät zum Unterricht!",
+                "it": "Così tanti? Allora arriviamo tardi a lezione!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "mojca",
+          "face": "worried",
+          "sl": "Pazi! Ne teci čez ristanc!",
+          "en": "Careful! Don't run across the hopscotch!",
+          "de": "Pass auf! Lauf nicht über das Hüpfspiel!",
+          "it": "Attento! Non correre sulla campana!"
+        },
+        {
+          "choices": [
+            {
+              "sl": "Otroci so danes zelo živahni.",
+              "en": "The children are very lively today.",
+              "de": "Die Kinder sind heute sehr lebhaft.",
+              "it": "I bambini oggi sono molto vivaci.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ja. Po odmoru bodo tihi … upam.",
+                "en": "Yes. After the break they'll be quiet … I hope.",
+                "de": "Ja. Nach der Pause sind sie still … hoffe ich.",
+                "it": "Sì. Dopo l'intervallo saranno tranquilli … spero."
+              }
+            },
+            {
+              "sl": "Otroci so danes zelo živahna.",
+              "en": "The children are very lively (one, feminine) today.",
+              "de": "Die Kinder sind heute sehr lebhaft (eine, weiblich).",
+              "it": "I bambini oggi sono molto vivace (una, femminile).",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Otroci is masculine plural: živahni.",
+                "de": "Otroci ist männlich Plural: živahni.",
+                "it": "Otroci è maschile plurale: živahni."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Živahna? Kdo? Ena deklica?",
+                "en": "Živahna (one, feminine)? Who? One girl?",
+                "de": "Živahna (eine)? Wer? Ein Mädchen?",
+                "it": "Živahna (una)? Chi? Una bambina?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Zvonec! Gremo v šolo. Hvala, {learner}.",
+          "en": "The bell! Off to school. Thank you, {learner}.",
+          "de": "Die Glocke! Ab in die Schule. Danke, {learner}.",
+          "it": "La campanella! Si va a scuola. Grazie, {learner}."
+        }
+      ]
+    },
+    {
+      "id": "mehurcki-oblak",
+      "memory": {
+        "sl": "oblak milnih mehurčkov",
+        "en": "the cloud of soap bubbles",
+        "de": "die Wolke aus Seifenblasen",
+        "it": "la nuvola di bolle di sapone"
+      },
+      "lines": [
+        {
+          "who": "mojca",
+          "face": "happy",
+          "sl": "Dober večer, {learner}. Danes imam novo milnico. Poglejte, kako veliki so mehurčki!",
+          "en": "Good evening, {learner}. I've got new soapy water today. Look how big the bubbles are!",
+          "de": "Guten Abend, {learner}. Heute habe ich neue Seifenlauge. Schauen Sie, wie groß die Seifenblasen sind!",
+          "it": "Buonasera, {learner}. Oggi ho dell'acqua saponata nuova. Guardi che bolle grandi!",
+          "fx": { "bubbles": 0.7 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Vaš mehurček je večji kot moj.",
+              "en": "Your bubble is bigger than mine.",
+              "de": "Ihre Seifenblase ist größer als meine.",
+              "it": "La Sua bolla è più grande della mia.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "sl": "Ker pihnem počasi. Poskusite še enkrat.",
+                "en": "Because I blow slowly. Try again.",
+                "de": "Weil ich langsam blase. Versuchen Sie es noch einmal.",
+                "it": "Perché soffio piano. Riprovi."
+              }
+            },
+            {
+              "sl": "Vaš mehurček je bolj velik kot moj.",
+              "en": "Your bubble is more big than mine.",
+              "de": "Ihre Seifenblase ist mehr groß als meine.",
+              "it": "La Sua bolla è più grande (detto male) della mia.",
+              "grammar": "primernik",
+              "why": {
+                "en": "Velik has its own comparative: večji, without bolj.",
+                "de": "Velik hat einen eigenen Komparativ: večji, ohne bolj.",
+                "it": "Velik ha il suo comparativo: večji, senza bolj."
+              },
+              "reply": {
+                "face": "thinking",
+                "sl": "Bolj velik? Hm, kako se reče pravilno?",
+                "en": "More big? Hm, how do you say it properly?",
+                "de": "Mehr groß? Hm, wie sagt man es richtig?",
+                "it": "Più grande (così)? Mm, come si dice bene?"
+              }
+            },
+            {
+              "sl": "Vaša mehurček je večji kot moj.",
+              "en": "Your (feminine) bubble is bigger than mine.",
+              "de": "Ihre (weiblich) Seifenblase ist größer als meine.",
+              "it": "La Sua (femminile) bolla è più grande della mia.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Mehurček is masculine: vaš.",
+                "de": "Mehurček ist männlich: vaš.",
+                "it": "Mehurček è maschile: vaš."
+              },
+              "reply": {
+                "face": "curious",
+                "sl": "Vaša? Mehurček je on, {learner}.",
+                "en": "Vaša (feminine)? A mehurček is a he, {learner}.",
+                "de": "Vaša (weiblich)? Mehurček ist ein Er, {learner}.",
+                "it": "Vaša (femminile)? Mehurček è maschile, {learner}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "laugh",
+          "sl": "Zdaj pa jih je cel oblak!",
+          "en": "And now there's a whole cloud of them!",
+          "de": "Und jetzt ist es eine ganze Wolke!",
+          "it": "E adesso è una nuvola intera!",
+          "fx": { "bubbles": 1 }
+        },
+        {
+          "choices": [
+            {
+              "sl": "Toliko jih je! Ne morem jih prešteti.",
+              "en": "There are so many! I can't count them.",
+              "de": "So viele! Ich kann sie nicht zählen.",
+              "it": "Quante sono! Non riesco a contarle.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Jaz tudi ne. Saj ni treba, samo uživajte.",
+                "en": "Neither can I. No need, just enjoy them.",
+                "de": "Ich auch nicht. Muss man ja nicht, genießen Sie einfach.",
+                "it": "Nemmeno io. Non serve, se le goda e basta."
+              }
+            },
+            {
+              "sl": "Toliko jih je! Ne morem jo prešteti.",
+              "en": "There are so many! I can't count her (one).",
+              "de": "So viele! Ich kann sie (eine) nicht zählen.",
+              "it": "Quante sono! Non riesco a contarla (una).",
+              "grammar": "osebni-zaimki",
+              "why": {
+                "en": "Mehurčki are many: jih. Jo is for one.",
+                "de": "Mehurčki sind viele: jih. Jo ist für einen.",
+                "it": "Mehurčki sono tanti: jih. Jo è per una."
+              },
+              "reply": {
+                "face": "surprised",
+                "sl": "Jo? Samo eno? Glejte, cel oblak!",
+                "en": "Jo (one)? Just one? Look, a whole cloud!",
+                "de": "Jo (eine)? Nur eine? Schauen Sie, eine ganze Wolke!",
+                "it": "Jo (una)? Una sola? Guardi, una nuvola intera!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Oprostite, kako ste rekli?",
+            "en": "Sorry, what did you say?",
+            "de": "Entschuldigung, wie bitte?",
+            "it": "Scusi, come ha detto?"
+          }
+        },
+        {
+          "who": "mojca",
+          "face": "proud",
+          "sl": "Lepo, kajne? Jutri prinesem milnico še za otroke.",
+          "en": "Lovely, isn't it? Tomorrow I'll bring soapy water for the children too.",
+          "de": "Schön, nicht wahr? Morgen bringe ich auch für die Kinder Seifenlauge mit.",
+          "it": "Bello, vero? Domani porto l'acqua saponata anche per i bambini."
+        }
+      ]
+    }
+  ]
+}
