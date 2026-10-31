@@ -31,9 +31,19 @@ be default aim."
   applied at once on purpose: `lani-profile set-target <id> B1` without `--from-next-age`.
 - **Where it shows.** While a raise waits: the ages' sheet (the HUD's ring) under the words' step, "🎯 Od naslednje dobe:
   B1 · From the next age: B1" and the age after with its words, "🏛️ Trg: 500 besed · Market town: 500 words"; the progress
-  screen under the levels, the same pill. The progress screen's target badge is the target the village's step counts with.
+  screen under the levels, the same pill; the settings' "🎯 Cilj · Aim" under the aim now. The progress screen's target
+  badge is the target the village's step counts with.
 - **Setting it.** `lani-profile set-target <id> <level> [--from-next-age]` on the node; the tutor's `set_target_level`
-  (for a raise it always sets the pending target). Both say what the current and the next step then need.
+  (for a raise it always sets the pending target). Both say what the current and the next step then need. In the app:
+  "⚙️ Nastavitve · Settings → 🎯 Cilj · Aim" and the setup's aim (setup-refresh), both `POST /learner/target`.
+- **"🎯 Cilj · Aim" in the settings** (after the languages; a parent's on a child's device, the hold): "Zdaj: A1 → A2 ·
+  Now: A1 → A2", what the aim means (the setup's line: the town at the aim's words), a raise waiting under it as the ages'
+  sheet says it, the levels above the learner's as chips (the setup's choices, the aim the learner will have marked) and
+  the rule: "Višji cilj velja od naslednje dobe vasi: korak, na katerem si zdaj, ostane, kot je. Nižji cilj velja takoj. ·
+  A higher aim starts with the village's next age: the step you're on now stays as it is. A lower aim applies at once." A
+  chip sends the aim; the banner says what the node did ("🎯 Cilj C1 velja od naslednje dobe · Aim C1 from the next age",
+  "🎯 Cilj je zdaj A2 · Your aim is A2 now") and the learner's data is read anew. The settings' row says the aim and a
+  raise waiting.
 - **A new learner aims at B2**, or at the level above theirs when they start at B2 or higher (C2 stays C2), instead of one
   level above. lani-setup, `lani-profile add` (and `--target-level` to choose another) and the phone's setup (the hosted
   answers' `target_level`) set it at once: there is no village yet. A child's other defaults (15 minutes a day) stay.
@@ -51,10 +61,14 @@ be default aim."
   age it starts with, the age after and its words).
 - `features/level.ts`: the tool `set_target_level {level}` (a `set_` tool: refused while the lease isn't this side's) and
   the guide's paragraph (topic "level-up", "Level-ups and the target"): how a target change works, never by editing the
-  profile, a raise from the next age. `companion/tutor` regenerated with tutor-export.
-- `src/learners.ts` `initLearnerData`: the target is the learner's choice (`targetLevel`), else `defaultTarget(level)`.
-  `src/phone/entry.ts` `initLearner` takes the hosted answers' `target_level`.
-- `src/cli/profile.ts`: `set-target` and `add --target-level`.
+  profile, a raise from the next age, the app's setup and settings by the same rule. `companion/tutor` regenerated with
+  tutor-export. setup-refresh's `GET`/`POST /learner/target` (the app's aim) now keeps the aim by `setTargetIn` with
+  `fromNextAge` = the learner has a village (`app/game.json`): at setup at once, later a raise from the next age; it still
+  refuses a level at or below the learner's, and the lease guards it. Both answer `next` (the raise waiting, `{level,
+  from_age}`, or null); `POST` also `change` (`now`, `next_age`, `unchanged` with `already`).
+- `src/learners.ts` `initLearnerData`: the target is the learner's choice when above their level (setup-refresh's
+  `aimOf`), else `defaultTarget(level)`. `src/phone/entry.ts` `initLearner` takes the hosted answers' `target_level`.
+- `src/cli/profile.ts`: `set-target` and `add --target-level` (above the level, as the app).
 - `.claude/hooks/session-start.py`: "🎯 Level: A1 → A2 (B1 from the village's age Vas on)".
 
 ### The app (`companion/android`)
@@ -66,14 +80,29 @@ be default aim."
   `GameController.advance`, the ages' sheet's check (`rememberAdvanceCheck`), the school's.
 - `ui/game/VillageSheets.kt` `AgeSheet(aim = …)`: the note under the words' step. `ui/progress/ProgressScreen.kt`: the
   badge and the pill.
-- `hosted/HostedController.kt` `HostedAnswers.targetLevel` → the answers' `target_level`. The setup's "🎯 Cilj · Aim"
-  choice itself is setup-refresh's (it wires the UI to this field; B2 preselected). A raise during setup is at once.
-- Strings `aim.fromNextAge`, `aim.ageWords` in sl, en, de and it: **written by Claude, for a native speaker's check**
-  (`_note_aim` in each table):
-  - sl "Od naslednje dobe: {level}", "{age}: {n} besed" (ICU plural: beseda, besedi, besede, besed)
-  - en "From the next age: {level}", "{age}: {n} words"
-  - de "Ab dem nächsten Zeitalter: {level}", "{age}: {n} Wörter"
-  - it "Dalla prossima età: {level}", "{age}: {n} parole" ("età" as the app's "La prossima età" has it)
+- `ui/settings/AimSettings.kt` (`AimShown`, pure: the aim at the village's age, the chip marked, the row's line, the
+  banner) and `SettingsSection.AIM`; `data/AimApi` reads `next` and `change`; `AppViewModel.keepAim` (setup-refresh's
+  `setAim` is it now) sends the aim and reads everything anew.
+- The setup's "🎯 Cilj · Aim" is setup-refresh's (`app/Aim`, `HostedAnswers.targetLevel` → `target_level`, B2
+  preselected); a raise during setup is at once (no village yet).
+- Strings `aim.*` in sl, en, de and it: **written by Claude, for a native speaker's check** (`_note_aim` in each table):
+  - `aim.fromNextAge`: sl "Od naslednje dobe: {level}", en "From the next age: {level}", de "Ab dem nächsten Zeitalter:
+    {level}", it "Dalla prossima età: {level}" ("età" as the app's "La prossima età" has it)
+  - `aim.ageWords`: sl "{age}: {n} besed" (ICU plural: beseda, besedi, besede, besed), en "… words", de "… Wörter", it
+    "… parole"
+  - `aim.now`: sl "Zdaj: {level} → {target}", en "Now: …", de "Jetzt: …", it "Ora: …"
+  - `aim.rule`: sl "Višji cilj velja od naslednje dobe vasi: korak, na katerem si zdaj, ostane, kot je. Nižji cilj velja
+    takoj.", en "A higher aim starts with the village's next age: the step you're on now stays as it is. A lower aim
+    applies at once.", de "Ein höheres Ziel gilt ab dem nächsten Zeitalter des Dorfes: Der Schritt, bei dem du gerade
+    bist, bleibt, wie er ist. Ein niedrigeres Ziel gilt sofort.", it "Un obiettivo più alto vale dalla prossima età del
+    villaggio: il passo a cui sei adesso resta com'è. Un obiettivo più basso vale subito."
+  - `aim.keptNext`: sl "Cilj {level} velja od naslednje dobe", en "Aim {level} from the next age", de "Ziel {level} ab dem
+    nächsten Zeitalter", it "Obiettivo {level} dalla prossima età"
+  - `aim.keptNow`: sl "Cilj je zdaj {level}", en "Your aim is {level} now", de "Dein Ziel ist jetzt {level}", it "Il tuo
+    obiettivo ora è {level}"
+  - `aim.notKept`: sl "Cilja ni bilo mogoče shraniti", en "The aim couldn't be kept", de "Das Ziel konnte nicht gespeichert
+    werden", it "Non è stato possibile salvare l'obiettivo"
+  The section's title is setup-refresh's `setup.aim` ("Cilj · Aim"), its explanation `setup.aimWhat`.
 
 ## How to use it
 
@@ -97,7 +126,9 @@ If his village is already at Vas when it is run, the raise starts with Trg (`fro
 150. Take a raise back: `lani-profile set-target teo A2` (the current target again). Apply at once: without
 `--from-next-age`. While the phone holds the data (the lease) it is refused, as every write of the node's.
 
-The tutor: "Teo should aim at B1" → `set_target_level {level: "B1"}`; it answers the same lines.
+The tutor: "Teo should aim at B1" → `set_target_level {level: "B1"}`; it answers the same lines. In the app (Teo's
+tablet, a parent's hold): ⚙️ Nastavitve · Settings → 🎯 Cilj · Aim → "B1": the banner says "Cilj B1 velja od naslednje
+dobe · Aim B1 from the next age".
 
 ## Decisions
 
@@ -107,7 +138,10 @@ The tutor: "Teo should aim at B1" → `set_target_level {level: "B1"}`; it answe
   moment) is applied again at the next save.
 - **A lower target applies at once**, even asked "from the next age": it never makes the step harder, and a learner who
   needs it lower needs it now. The CLI says so.
-- **The tutor's tool always raises from the next age.** A raise at once is the node's (`lani-profile` without the flag).
+- **The tutor's tool and the app's settings always raise from the next age** (once there is a village). A raise at once
+  is the node's (`lani-profile` without the flag).
+- **The app's aim keeps setup-refresh's limits**: only levels above the learner's are offered and accepted (C2 at C2), so
+  a lower aim is one still above the level.
 - **Mesto applies at once**: there is no next age to wait for.
 - **One edge**: the age a raise starts with is the village's age as the bridge knows it when the raise is set. A village
   that reached that age on a phone offline, its save not on the bridge yet, counts the raise as soon as the app reads the
@@ -118,8 +152,9 @@ The tutor: "Teo should aim at B1" → `set_target_level {level: "B1"}`; it answe
 - Seeing what the next age needs and that the target rises after it: the ring, 1 tap (the ages' sheet); or Home →
   "📊 Napredek", 1 tap (the pill). Before: the raise couldn't be scheduled, and a raised target showed nowhere but in
   the numbers.
-- Setting it: one command on the node, or one sentence to the tutor. Before: an edit of learner-profile.json by hand,
-  effective at once.
+- Setting it: one command on the node, or one sentence to the tutor; in the app Home → ⚙️ → 🎯 Cilj · Aim → a level, 3
+  taps (a child's: the parent's hold before the level). Before: an edit of learner-profile.json by hand, effective at
+  once; the app had no place for the aim after setup.
 
 ## Tests
 
@@ -128,19 +163,45 @@ The tutor: "Teo should aim at B1" → `set_target_level {level: "B1"}`; it answe
   back, at once without the flag and at Mesto); `set_target_level`, `PUT /game` at Zaselek (nothing) and at Vas (B1, once),
   `get_village`'s `aim`; a new learner's default; `lani-profile add` and `set-target` on a synthetic child at Zaselek,
   the age-up then asking B1's 500 for Trg; refused under the phone's lease. The tool counts in core and service by one.
+- Smoke (aim) also: `POST /learner/target` with a village (a raise waits, asked again already, the current aim takes it
+  back, a lower aim at once) and without one (at once); `--target-level` at or below the level refused.
 - App: `AimsTest` (7: the step keeps its words until the age-up, the raise exactly then, never before, the bridge applying
   it changes nothing for the app, a lower target at once, a pending target that can't be read, the labels in sl · en and
-  it · de) and `AimsParityTest` (3: the shared cases, so the app and the bridge agree).
+  it · de), `AimsParityTest` (3: the shared cases, so the app and the bridge agree), `AimSettingsTest` (5: the aim and the
+  raise waiting at the hamlet and at Vas, the chip marked, the row's line, the banner in sl · en and it · de, the node's
+  answer read).
 - Python: `test_setup_wizard` (a fresh learner aims at B2).
 - Emulator QA: `companion/bin/qa-slot --steps target-next-age` on a synthetic child of Italian (see below).
+
+## QA
+
+`LANI_DEV_DATA=<make-learner.ts <dir> --target it --base de --name Teo, target_level A2> LANI_CULTURE=friuli LANI_CHILD=1
+LANI_QA_PAIR=sl-en companion/bin/qa-slot --steps target-next-age` (passed on slot 1, 2026-10-31). The village made a
+hamlet (QA's hook "hearths:zaselek"); the tutor's `set_target_level B1` through the dev bridge (`POST
+/tutor/tools/set_target_level`) answered "The target stays A2 for the step the village is on and becomes B1 with the next
+age. The village is Zaselek: the step to Vas keeps 45 words; from Vas on, Trg needs 500 words (it needed 150)." Shots
+(`tna-*.png`):
+
+1. `tna-ages-before`: the ages' sheet at Zaselek, "Besede · Words 8 / 45" and under it "🎯 Od naslednje dobe: B1 · From the
+   next age: B1", "🏛️ Trg: 500 besed · Market town: 500 words".
+2. `tna-progress-before`: "A1 → A2", the pill "🎯 Od naslednje dobe: B1 · From the next age: B1".
+3. `tna-settings-before`: "🎯 Cilj · Aim", "Zdaj: A1 → A2 · Now: A1 → A2", the raise waiting, B1 marked, the rule.
+4. `tna-ageup-card`: the age-up's card (QA's hook "ageup:vas"); the dev bridge's profile then `target_level` B1,
+   `target_level_since` the day, nothing waiting.
+5. `tna-ages-after`: Trg's step, "Besede · Words 8 / 500", no note.
+6. `tna-progress-after`: "A1 → B1", no pill.
+7. `tna-settings-after`, `tna-settings-raise` ("C1" chosen: "🎯 Od naslednje dobe: C1", "🏰 Mesto: 3500 besed · Town: 3500
+   words", the banner "🎯 Cilj C1 velja od naslednje dobe · Aim C1 from the next age"; the profile's `target_level_next`
+   {C1, TRG}), `tna-settings-back` ("B1" again: the raise taken back).
+
+The same screens in Teo's pair (it · de) aren't shot: QA's hook "pair:it-de" didn't carry to the open sheet; AimsTest and
+AimSettingsTest check those labels.
 
 ## What's left
 
 - The app's own chat tutor (the in-app tutor's fixed tool list, phase A) has no `set_target_level`: on a hosted phone the
-  target is chosen in setup (setup-refresh) and changed on a node. Adding it to `PhaseA.TOOLS` changes the prompt's prefix
-  and its tests; a later round.
+  aim is chosen in setup and changed in the settings. Adding it to `PhaseA.TOOLS` changes the prompt's prefix and its
+  tests; a later round.
 - `update-db.py`'s treasure-map level-up raises `current_level` but never the target: a learner who passes their target
   keeps it (the village's last age is reached with it). Whether the target should then rise by itself is Jan's call.
-- A target chosen in the app's settings (none today) should offer "from the next age" as the default for a raise:
-  `setTargetIn` with `fromNextAge: true` is the API.
 - The strings above, for a native speaker's check.

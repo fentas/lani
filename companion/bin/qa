@@ -354,8 +354,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        "guidance-tips" and "guidance-retry" (only when named) its two halves, each a run of its own;
                        "target-next-age" (only when named) a raised target from the village's next age: the hamlet
                        ("hearths:zaselek"), the tutor's set_target_level B1 through the dev bridge, the ages' sheet's
-                       "🎯 Od naslednje dobe: B1" under Vas's 45 words, the progress screen's pill, the age-up ("ageup:vas"),
-                       then Trg's 500 words of B1 (a synthetic child of Italian: LANI_DEV_DATA, LANI_CULTURE=friuli,
+                       "🎯 Od naslednje dobe: B1" under Vas's 45 words, the progress screen's pill, the settings' "🎯 Cilj ·
+                       Aim", the age-up ("ageup:vas"), then Trg's 500 words of B1, the settings' C1 waiting for Trg and taken
+                       back (a synthetic child of Italian: LANI_DEV_DATA, LANI_CULTURE=friuli,
                        LANI_CHILD=1, LANI_QA_PAIR=sl-en; tna-*.png in $LANI_QA_TNA_SHOTS);
                        "offline-audio" the
                        settings' "🔊 Zvok brez povezave" section; "prefetch" the day's clips got from the dev bridge (QA's
@@ -7077,10 +7078,11 @@ def target_next_age():
     village a hamlet (QA's hook "hearths:zaselek"), aiming at A2, then the tutor's set_target_level B1 through the dev
     bridge (POST /tutor/tools/set_target_level, as the app's own tutor calls it): the profile's target_level_next from Vas,
     the target still A2. The ages' sheet: Vas's words at A2's 45, under them "🎯 Od naslednje dobe: B1 · From the next
-    age: B1" and Trg's 500; the progress screen's pill (the labels in Teo's pair, it · de, are AimsTest's). Then the
-    age-up (QA's hook "ageup:vas", the moment to its card): the dev bridge's profile at B1, nothing waiting; the ages'
-    sheet asks Trg's 500 words of B1, no note; the progress screen's B1, no pill. Shots tna-*.png, also in
-    $LANI_QA_TNA_SHOTS."""
+    age: B1" and Trg's 500; the progress screen's pill; the settings' "🎯 Cilj · Aim" (a child's: the parent's hold) with
+    A2 now and B1 waiting (the labels in Teo's pair, it · de, are AimsTest's). Then the age-up (QA's hook "ageup:vas", the
+    moment to its card): the dev bridge's profile at B1, nothing waiting; the ages' sheet asks Trg's 500 words of B1, no
+    note; the progress screen's B1, no pill; the settings' aim B1, its C1 chosen waiting for Trg (POST /learner/target),
+    B1 again taking it back. Shots tna-*.png, also in $LANI_QA_TNA_SHOTS."""
     out = Path(os.environ["LANI_QA_TNA_SHOTS"]) if os.environ.get("LANI_QA_TNA_SHOTS") else None
     note, then = "Od naslednje dobe: B1 · From the next age: B1", "500 besed · "
 
@@ -7122,6 +7124,14 @@ def target_next_age():
         scroll_to("Besede · Words", 3)
         time.sleep(0.5)
 
+    def aim_page():
+        """The settings' "🎯 Cilj · Aim", a child's opened by the parent's hold."""
+        open_settings("aim")
+        if (gate := find("Drži za starše")) is not None:
+            adb("shell", "input", "swipe", str(gate[0]), str(gate[1]), str(gate[0]), str(gate[1]), "2800")  # held for 2.8 s
+        assert wait_for("Zdaj: A1 → ", 8), "the aim's page"
+        time.sleep(1)
+
     def words_need() -> list:
         return [int(m[1]) for t, _ in nodes() if (m := re.fullmatch(r"\d+ / (\d+)", t))]
 
@@ -7156,6 +7166,10 @@ def target_next_age():
     open_progress()
     assert wait_for(note, 6), "the progress screen's pill"
     snap("tna-progress-before")
+    # the settings' aim: the aim now, the raise waiting under it, B1 marked
+    aim_page()
+    assert find("Zdaj: A1 → A2 · Now: A1 → A2") is not None and find(note) is not None, "the aim's page: A2 now, B1 from the next age"
+    snap("tna-settings-before")
     # the age-up: the moment to its card
     go_home()
     village()
@@ -7180,6 +7194,22 @@ def target_next_age():
     open_progress()
     assert find("Od naslednje dobe") is None, "no pill on the progress screen"
     snap("tna-progress-after")
+    # the settings' aim after the age-up: B1, nothing waiting; a raise there (C1) waits for Trg, the current aim takes it back
+    aim_page()
+    assert find("Zdaj: A1 → B1 · Now: A1 → B1") is not None and find("Od naslednje dobe") is None, "the aim's page: B1, nothing waits"
+    snap("tna-settings-after")
+    assert tap("C1", 4), "the aim's C1"
+    until(lambda: (learner().get("target_level_next") or {}).get("level") == "C1" and learner()["target_level_next"].get("from_age") == "TRG", "the settings' C1 waits for Trg")
+    assert wait_for("Od naslednje dobe: C1", 12), "the page says C1 from the next age"
+    snap("tna-settings-raise")
+    assert learner().get("target_level") == "B1", "B1 still the aim of the step to Trg"
+    assert tap("B1", 4), "the aim's B1 (the current one)"
+    until(lambda: "target_level_next" not in learner() and learner().get("target_level") == "B1", "the current aim took C1 back")
+    end = time.time() + 12 * slow()
+    while find("Od naslednje dobe") is not None and time.time() < end:
+        time.sleep(1)
+    assert find("Od naslednje dobe") is None, "the raise taken back: no note"
+    snap("tna-settings-back")
     go_home()
 
 
@@ -12878,6 +12908,7 @@ SETTINGS = "Nastavitve · Settings"  # Home's ⚙️ (its TalkBack label starts 
 SETTINGS_SECTIONS = {
     "tutor": "Učitelj · Tutor", "data": "Podatki · Data", "languages": "Jeziki · Languages",
     "sound": "Zvok in glas · Sound and voice", "connection": "Povezava · Connection", "developer": "Razvijalec · Developer",
+    "aim": "Cilj · Aim",
 }
 
 

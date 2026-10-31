@@ -276,7 +276,11 @@ takes a waiting raise back), always does. It says what the step now and the next
 step the village is on and becomes B1 with the next age. The village is Zaselek: the step to Vas keeps 45 words; from Vas
 on, Trg needs 500 words (it needed 150)." `default` is the default learner. While the phone holds the data (the lease) it
 is refused; the tutor's `set_target_level` does the same (a raise always from the next age) and `get_village` shows the
-`aim`.
+`aim`. In the app, "⚙️ Nastavitve · Settings → 🎯 Cilj · Aim" (a parent's on a child's device) and the setup's "🎯 Cilj ·
+Aim" go through `POST /learner/target` by the same rule: a raise waits for the next age once the learner has a village (at
+setup there is none yet: at once), a level at or below the learner's is refused. `GET /learner/target` answers `{level,
+target, next}` (`next`: the raise waiting, `{level, from_age}`, or null), `POST` also `change` (`now`, `next_age`,
+`unchanged` with `already`).
 
 `companion/bin/lani-session --list` (or `lani-profile list`) shows every learner, their village's
 culture, their port, tmux session and whether their bridge and session run; `lani-profile show <id>`
@@ -4576,7 +4580,10 @@ waits there, the rest "➕ Še 2 v vasi"; a tip of the game's, "💡 Namig · Ti
 pot); the villagers who need the learner; "📊 Napredek · Progress"; the tutor's bar.
 
 **⚙️ Nastavitve · Settings** (`ui/settings/SettingsScreen.kt`): a row per section with what it holds now, each a page:
-🧑‍🏫 Učitelj · Tutor, 💾 Podatki · Data (a parent's on a child's device), 🌐 Jeziki · Languages, 🔊 Zvok in glas · Sound
+🧑‍🏫 Učitelj · Tutor, 💾 Podatki · Data (a parent's on a child's device), 🌐 Jeziki · Languages, 🎯 Cilj · Aim (the level
+the village's ages lead to, "Zdaj: A1 → A2 · Now: A1 → A2", a raise waiting for the next age under it, the levels above the
+learner's to choose: a higher aim starts with the village's next age, a lower one at once, `POST /learner/target`; a
+parent's on a child's device: [The target level](#learners)), 🔊 Zvok in glas · Sound
 and voice ("🗣️ Moj glas · My voice" first: the voice of the learner's own lines, [Voice](#voice); the background sounds, the
 explanations read aloud, the offline audio), 💡 Namigi · Tips (on or off, "🔁 Pokaži jih spet · Show them again"; a
 parent's on a child's device: [Tips](#tips)), 🔗 Povezava · Connection (the node, pairing again, Lani on this phone), and
@@ -4802,7 +4809,8 @@ render time every 24 pictures (tag `TownScene`); `companion/bin/qa --steps zoom-
 On first launch, choose the language to learn and the explanations' language, then "🖥️ S svojim računalnikom · With my
 family's computer" and scan the QR code from `companion/bin/lani-pair` ("📷 Skeniraj kodo · Scan the code"); "Ročno ·
 Enter manually" takes the code's text or the bridge URL (`tailscale serve status`) and the token. Once paired, "✨ Še o
-tebi · A little about you" offers "🎯 Cilj · Aim" (the learner's aim on the node, `GET`/`POST /learner/target`) and "🗣️
+tebi · A little about you" offers "🎯 Cilj · Aim" (the learner's aim on the node, `GET`/`POST /learner/target`: at once
+while the node has no village, else a raise waits for the village's next age) and "🗣️
 Moj glas · My voice", each with its default: "🏡 V mojo vas · To my village" (or Back) keeps them. Without a node, choose
 "📱 Samo ta telefon / tablica · Just this device" instead ([Lani on this phone](#lani-on-this-phone-no-node)).
 

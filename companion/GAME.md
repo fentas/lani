@@ -671,10 +671,13 @@ it began with, and the new target counts from the next age on:
   raise back. A raise at Mesto, the last age, applies at once: no step is left to keep. A raise can be applied at once
   on purpose too (`lani-profile set-target <id> B1` without `--from-next-age`).
 - While a raise waits, the age card says it under the words, "🎯 Od naslednje dobe: B1 · From the next age: B1" and the
-  age after with its words ("🏛️ Trg: 500 besed · Market town: 500 words"), and the progress screen under the levels.
-- It is set with `lani-profile set-target <id> B1 --from-next-age` on the node (README "Learners"), or by the tutor's
-  `set_target_level` (a raise is always from the next age there). `get_village`'s `aim` tells the tutor the target
-  the step counts with, the next age's words and the raise waiting.
+  age after with its words ("🏛️ Trg: 500 besed · Market town: 500 words"), the progress screen under the levels, and the
+  settings' "🎯 Cilj · Aim" under the aim now.
+- It is set with `lani-profile set-target <id> B1 --from-next-age` on the node (README "Learners"), by the tutor's
+  `set_target_level` (a raise is always from the next age there), or in the app: "⚙️ Nastavitve · Settings → 🎯 Cilj ·
+  Aim" (a parent's on a child's device) and the setup's aim (`POST /learner/target`: a raise from the next age once there
+  is a village, at once before). `get_village`'s `aim` tells the tutor the target the step counts with, the next age's
+  words and the raise waiting.
 
 One edge: the age it starts with is the village's age as the bridge knows it when the raise is set. A village that reached
 that age on a phone offline, its save not on the bridge yet, counts the raise as soon as the app reads the profile, for the
