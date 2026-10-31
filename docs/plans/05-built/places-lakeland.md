@@ -124,14 +124,33 @@ greeting (`ChalkFont` and `ChalkHand`: H, l, A, w and Y).
 - **The looks**: `LakelandLooksTest`, `MapLooksTest` (the map agrees), `BuildingLevelsTest`, `SchoolBoardTest`,
   `SceneDetailTest`; Primorska and Friuli pixel for pixel as before: `CultureLooksTest`'s digests, `FriuliOutdoorLooksTest`,
   `FriuliIndoorLooksTest`, `FriuliPlacesLooksTest`, `FriuliMarketSquareLooksTest`, `FriuliApiaryChurchLooksTest`,
-  `SchoolLooksTest`: green. Contact sheets of every art in the Lake District's look beside Primorska's, at each level by day
+  `SchoolLooksTest`: green. `LakelandLooksTest` also pins the pictures as reviewed: each art at levels 1, 3 and 5 by day,
+  51 digests (see the trial rebase below for why). Contact sheets of every art in the Lake District's look beside Primorska's, at each level by day
   and in the evening, closer up, the seasons and a phone's view: 137 sheets in the round's scratch folder
   `ux-places-lakeland/looks/`.
 - **The full checks** after the rebase onto main b7b801bc: bridge `tsc` clean; the smoke 3169 checks passed (ports
   9350–9369, Drama 3 9368); `tutor-export --check` 88 files match (53 tools, 32 guide topics); the Android unit suite 448
   classes, 3533 tests, 0 failures (before the rebase two tests held the old world: `AlpsLooksTest` expected the Lake
   District to have only its fire and horizon, and `StickersTest` read no emoji for the English starters' road and potato,
-  both fixed); the Python tests 251, and 135 with 11 skipped, green.
+  both fixed); the Python tests 251, and 135 with 11 skipped, green. Rebased again onto main f23976ba (the Italian
+  course's last A2 units): `tsc`, the smoke (3169) and the Python tests again green, and the school's, the looks' and the
+  Italian course's tests.
+- **With Carinthia's places** (places-kaernten, queued to merge before this branch): this branch rebased onto it as
+  `places-lakeland-on-kaernten`, for the lead's next rebase to take or to read the resolutions from. Both cultures side by
+  side in the thirteen painters both gave a look (each painter's Kärnten branch and its Lakeland one: the attic's
+  shingles and slates, the cellar's Most and brown ale, the field's villages and farmsteads, the living room's Kachelofen
+  and fireplace, the market's onion church and clock tower, the palisade's Karawanken and fells, the room's
+  Herrgottswinkel and sampler and their two views, the school's maps, flags, greetings and chalk letters, the smithy's
+  whitewash and slate, the square's church, roof, ribbons and well, the tent's pennants and its fence or wall, the
+  watchtower's villages and flags, the workshop's logs and crooks), CultureLook.kt's line of each, the tests' rows
+  (`AlpsLooksTest` holds both to every building; `BuildingWordsTest` four kitchens; `DialogReactionsTest` 31 + 39 + 15 +
+  15; `MapLooksTest` both maps), SCENES.md's I spy totals (100 scenes, 1570 things, 6780 clues). Two things no textual
+  merge shows: the school map's outline renamed (`LAKE_DISTRICT`, Carinthia's lakes are `LAKES`), and the field's barn,
+  which merged into Carinthia's "fienile only" and drew the default hayrack with every check green; fixed, and pinned
+  since by the digests above. There: bridge `tsc` clean, `check-culture` ok for both, the smoke 3184 checks passed,
+  `tutor-export` 88 files; the Android unit suite 449 classes, 3538 tests, 0 failures (`KaerntenLooksTest`,
+  `LakelandLooksTest`, Primorska's and Friuli's digests among them); every one of Carinthia's 229 contact sheets the same
+  as on places-kaernten, and every one of the Lake District's 137 as on this branch.
 - **The emulator QA** (`lakeland-places`, a synthetic learner of English from Slovene, `LANI_CULTURE=lakeland`, slot 2 of
   qa-slot): green on its third run, about 12 minutes on the emulator: the village a Trg, the church's card ("Church ·
   Cerkev, Level · Stopnja 2", "🚪 Go in · Vstopi: ⛪ In the church · V cerkvi ›"), In the church, the fourteen other scenes
