@@ -1,0 +1,320 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-the-living-room",
+  "language": "en",
+  "title": { "en": "In the living room", "sl": "V dnevni sobi", "it": "In soggiorno", "de": "Im Wohnzimmer" },
+  "emoji": "🛋️",
+  "level": "A1",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "art": "livingroom",
+  "from": ["house"],
+  "household": ["wilf"],
+  "pack": "in-the-living-room",
+  "objects": [
+    { "slot": "stove", "word": "fireplace" },
+    { "slot": "bench", "word": "settle" },
+    { "slot": "table", "word": "table", "pack": "home-and-kitchen" },
+    { "slot": "chest", "word": "chest" },
+    { "slot": "window", "word": "window", "pack": "home-and-kitchen" },
+    { "slot": "door", "word": "door", "pack": "home-and-kitchen" },
+    { "slot": "dog", "word": "dog", "pack": "family" },
+    { "slot": "chair", "word": "chair", "pack": "home-and-kitchen", "needs": { "level": 2 } },
+    { "slot": "curtains", "word": "curtains", "pack": "in-the-kitchen", "needs": { "level": 2 } },
+    { "slot": "rug", "word": "rug", "needs": { "level": 2 } },
+    { "slot": "lamp", "word": "lamp", "needs": { "level": 2 } },
+    { "slot": "clock", "word": "clock", "pack": "in-the-kitchen", "needs": { "level": 2 } },
+    { "slot": "corner", "word": "candlestick", "needs": { "level": 3 } },
+    { "slot": "photo", "word": "photo", "needs": { "level": 3 } },
+    { "slot": "glasses", "word": "glasses", "needs": { "level": 3 } },
+    { "slot": "book", "word": "book", "needs": { "level": 3 } }
+  ],
+  "people": [
+    { "id": "wilf", "name": "Old Wilf", "emoji": "👴", "art": "grandpa", "slot": "stove", "villager": "wilf" },
+    { "id": "poppy", "name": "Poppy", "emoji": "👧", "art": "child2", "slot": "door", "villager": "poppy" }
+  ],
+  "happenings": [
+    {
+      "id": "fire", "title": { "en": "Old Wilf is lighting the fire", "sl": "Stari Wilf kuri ogenj", "it": "Il vecchio Wilf accende il fuoco", "de": "Der alte Wilf macht Feuer" }, "who": "wilf",
+      "when": ["dawn", "morning"], "months": [10, 11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "fire", "dialogs": ["fire-crumpets", "fire-wood", "fire"], "reward": { "wood": 15 }, "marker": "🔥",
+      "memory": { "en": "the cold morning we lit the fire", "sl": "mrzlo jutro, ko sva zakurila ogenj", "it": "la mattina fredda in cui abbiamo acceso il fuoco", "de": "den kalten Morgen, an dem wir das Feuer angezündet haben" }
+    },
+    {
+      "id": "bess", "title": { "en": "Poppy is playing with Bess", "sl": "Poppy se igra z Bess", "it": "Poppy gioca con Bess", "de": "Poppy spielt mit Bess" }, "who": "poppy",
+      "when": ["afternoon"], "chance": 0.5, "dialog": "bess", "dialogs": ["bess-hides", "bess"], "reward": { "food": 10 }, "marker": "🐕",
+      "memory": { "en": "the afternoon we played with Bess", "sl": "popoldne, ko sva se {m:igrala|f:igrali} z Bess", "it": "il pomeriggio in cui abbiamo giocato con Bess", "de": "den Nachmittag, an dem wir mit Bess gespielt haben" }
+    },
+    {
+      "id": "hide-and-seek", "title": { "en": "Poppy wants to play hide-and-seek", "sl": "Poppy bi se igrala skrivalnice", "it": "Poppy vuole giocare a nascondino", "de": "Poppy will Verstecken spielen" }, "who": "poppy",
+      "when": ["morning", "evening"], "chance": 0.5, "dialog": "hide-and-seek", "dialogs": ["hide-and-seek-door", "hide-and-seek"], "reward": { "wood": 15 }, "marker": "🙈",
+      "memory": { "en": "our hide-and-seek by the fire", "sl": "najine skrivalnice ob ognju", "it": "il nostro nascondino accanto al fuoco", "de": "unser Versteckspiel am Feuer" }
+    },
+    {
+      "id": "photo", "title": { "en": "Old Wilf is looking at an old photo", "sl": "Stari Wilf gleda staro fotografijo", "it": "Il vecchio Wilf guarda una vecchia foto", "de": "Der alte Wilf schaut ein altes Foto an" }, "who": "wilf",
+      "when": ["evening"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "photo", "dialogs": ["photo-glasses", "photo"], "reward": { "wisdom": 20 }, "marker": "🖼️",
+      "memory": { "en": "the evening I showed you my wedding photo", "sl": "večer, ko sem ti pokazal svojo poročno fotografijo", "it": "la sera in cui ti ho mostrato la foto del mio matrimonio", "de": "den Abend, an dem ich dir mein Hochzeitsfoto gezeigt habe" }
+    },
+    {
+      "id": "tea", "title": { "en": "Old Wilf's cup of tea", "sl": "Skodelica čaja starega Wilfa", "it": "La tazza di tè del vecchio Wilf", "de": "Die Tasse Tee des alten Wilf" }, "who": "wilf",
+      "when": ["afternoon"], "chance": 0.45, "dialog": "tea", "dialogs": ["tea-daffodils", "tea"], "reward": { "wisdom": 15 }, "marker": "☕",
+      "memory": { "en": "the cup of tea we had on the settle", "sl": "skodelico čaja na klopi z naslonom", "it": "la tazza di tè sulla panca con lo schienale", "de": "die Tasse Tee auf der Sitzbank" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "fire",
+      "lines": [
+        { "who": "wilf", "face": "curious", "en": "Brr! It's a cold one this morning. Shall we light the fire?", "sl": "Brr! Mrzlo je danes zjutraj. Zakuriva?", "it": "Brr! Che freddo stamattina. Accendiamo il fuoco?", "de": "Brr! Kalt ist es heute Morgen. Sollen wir Feuer machen?" },
+        { "choices": [
+          { "en": "Yes, Wilf! Where are the logs?", "sl": "Ja, Wilf! Kje so polena?", "it": "Sì, Wilf! Dove sono i ciocchi?", "de": "Ja, Wilf! Wo sind die Holzscheite?", "ok": true,
+            "reply": { "face": "happy", "en": "In the basket by the fireplace, {m:son|f:lass}. Two will do.", "sl": "V košari ob kaminu. Dve bosta dovolj.", "it": "Nel cesto vicino al camino, {m:figliolo|f:cara}. Ne bastano due.", "de": "Im Korb neben dem Kamin, {m:mein Junge|f:meine Liebe}. Zwei reichen." } },
+          { "en": "Yes, Wilf! Where is the logs?", "sl": "Ja, Wilf! Kje so polena?", "it": "Sì, Wilf! Dove sono i ciocchi?", "de": "Ja, Wilf! Wo sind die Holzscheite?", "grammar": "to-be",
+            "why": { "en": "Logs is plural, so use are: where are the logs?", "sl": "Logs je množina, zato are: where are the logs?", "it": "Logs è plurale, quindi si usa are: where are the logs?", "de": "Logs ist Plural, also are: where are the logs?" }, "reply": { "face": "confused", "en": "Eh? Ask me again, {m:son|f:lass}. Slowly.", "sl": "Kaj? Vprašaj me še enkrat. Počasi.", "it": "Eh? Chiedimelo di nuovo, {m:figliolo|f:cara}. Piano.", "de": "Hm? Frag mich noch mal, {m:mein Junge|f:meine Liebe}. Langsam." } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, {m:son|f:lass}.", "sl": "Kaj? Povej še enkrat.", "it": "Eh? Ripeti, {m:figliolo|f:cara}.", "de": "Hm? Sag das noch mal, {m:mein Junge|f:meine Liebe}." } },
+        { "who": "wilf", "face": "happy", "en": "There, it's catching. Every winter morning I light this fire. Eighty years now!", "sl": "Tako, že gori. Vsako zimsko jutro zakurim v tem kaminu. Že osemdeset let!", "it": "Ecco, prende. Ogni mattina d'inverno accendo questo fuoco. Sono ottant'anni!", "de": "So, es brennt. Jeden Wintermorgen mache ich dieses Feuer. Seit achtzig Jahren!", "fx": { "stove": 0.6 } },
+        { "choices": [
+          { "en": "Do you always light it, Wilf?", "sl": "Ali ga vedno zakuriš ti, Wilf?", "it": "Lo accendi sempre tu, Wilf?", "de": "Machst du es immer an, Wilf?", "ok": true,
+            "reply": { "face": "proud", "en": "Always. My father did, and his father too.", "sl": "Vedno. Tako je delal moj oče in tudi njegov oče.", "it": "Sempre. Lo faceva mio padre, e anche suo padre.", "de": "Immer. Mein Vater hat es getan, und sein Vater auch." } },
+          { "en": "Do you light always it, Wilf?", "sl": "Ali ga vedno zakuriš ti, Wilf?", "it": "Lo accendi sempre tu, Wilf?", "de": "Machst du es immer an, Wilf?", "grammar": "word-order",
+            "why": { "en": "Always goes before the verb: do you always light it?", "sl": "Always stoji pred glagolom: do you always light it?", "it": "Always va prima del verbo: do you always light it?", "de": "Always steht vor dem Verb: do you always light it?" }, "reply": { "face": "confused", "en": "Light … what? You've got me in a muddle!", "sl": "Zakurim … kaj? Čisto si me {m:zmedel|f:zmedla}!", "it": "Accendo … cosa? Mi hai confuso!", "de": "Mache … was? Jetzt bin ich ganz durcheinander!" } }
+        ] },
+        { "who": "wilf", "en": "Look at Bess. She's awake now. She loves the fire, like me.", "sl": "Poglej Bess. Zdaj je budna. Ogenj ima rada, tako kot jaz.", "it": "Guarda Bess. Adesso è sveglia. Adora il fuoco, come me.", "de": "Schau mal, Bess. Jetzt ist sie wach. Sie liebt das Feuer, wie ich.", "fx": { "dog": 1, "stove": 0.8 } },
+        { "choices": [
+          { "en": "How old is she?", "sl": "Koliko je stara?", "it": "Quanti anni ha?", "de": "Wie alt ist sie?", "ok": true,
+            "reply": { "face": "laugh", "en": "Fourteen. Old for a dog. Like me for a man!", "sl": "Štirinajst. Za psa je stara. Kot jaz za človeka!", "it": "Quattordici. Tanti per un cane. Come me per un uomo!", "de": "Vierzehn. Alt für einen Hund. Wie ich für einen Mann!" } },
+          { "en": "How old has she?", "sl": "Koliko je stara?", "it": "Quanti anni ha?", "de": "Wie alt ist sie?", "grammar": "to-be",
+            "why": { "en": "Age goes with be in English: how old is she? She is fourteen.", "sl": "Starost gre v angleščini z be: how old is she? She is fourteen.", "it": "In inglese l'età va con be: how old is she? She is fourteen. Non con have, come ha in italiano.", "de": "Das Alter geht im Englischen mit be: how old is she? She is fourteen." }, "reply": { "face": "curious", "en": "Has she what? A bone? Ha!", "sl": "Kaj ima? Kost? Ha!", "it": "Ha cosa? Un osso? Ah!", "de": "Was hat sie? Einen Knochen? Ha!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "bess",
+      "lines": [
+        { "who": "poppy", "face": "curious", "en": "Shh, {learner}! Bess is asleep on the settle. Is she dreaming?", "sl": "Pst, {learner}! Bess spi na klopi. Ali sanja?", "it": "Ssst, {learner}! Bess dorme sulla panca. Starà sognando?", "de": "Pst, {learner}! Bess schläft auf der Bank. Ob sie träumt?" },
+        { "choices": [
+          { "en": "Yes, she's dreaming of rabbits!", "sl": "Ja, sanja o zajcih!", "it": "Sì, sogna i conigli!", "de": "Ja, sie träumt von Kaninchen!", "ok": true,
+            "reply": { "face": "laugh", "en": "Her paws are running! Run, Bess, run!", "sl": "Tačke ji tečejo! Teci, Bess, teci!", "it": "Le zampe le corrono! Corri, Bess, corri!", "de": "Ihre Pfoten rennen! Lauf, Bess, lauf!" } },
+          { "en": "Yes, she dreaming of rabbits!", "sl": "Ja, sanja o zajcih!", "it": "Sì, sogna i conigli!", "de": "Ja, sie träumt von Kaninchen!", "grammar": "present-continuous",
+            "why": { "en": "The -ing form needs is here: she's (she is) dreaming.", "sl": "Oblika na -ing tu potrebuje is: she's (she is) dreaming.", "it": "Qui la forma in -ing ha bisogno di is: she's (she is) dreaming.", "de": "Die -ing-Form braucht hier is: she's (she is) dreaming." }, "reply": { "face": "laugh", "en": "She what? Say it properly, {learner}! Hee hee!", "sl": "Ona kaj? Povej pravilno, {learner}! Hi hi!", "it": "Lei cosa? Dillo bene, {learner}! Ih ih!", "de": "Sie was? Sag's richtig, {learner}! Hihi!" } }
+        ], "puzzled": { "face": "confused", "en": "What? I don't understand, {learner}.", "sl": "Kaj? Ne razumem, {learner}.", "it": "Cosa? Non capisco, {learner}.", "de": "Was? Ich versteh das nicht, {learner}." } },
+        { "who": "poppy", "face": "happy", "en": "Oh! She's awake. Look, she's wagging her tail!", "sl": "O! Zbudila se je. Poglej, maha z repom!", "it": "Oh! Si è svegliata. Guarda, scodinzola!", "de": "Oh! Sie ist wach. Schau, sie wedelt mit dem Schwanz!", "fx": { "dog": 1 } },
+        { "choices": [
+          { "en": "Hello, Bess! Good dog!", "sl": "Živjo, Bess! Pridna psička!", "it": "Ciao, Bess! Brava cagnolina!", "de": "Hallo, Bess! Braver Hund!", "ok": true,
+            "reply": { "face": "happy", "en": "She likes you! She's licking your hand.", "sl": "Všeč si ji! Liže ti roko.", "it": "Le piaci! Ti sta leccando la mano.", "de": "Sie mag dich! Sie leckt dir die Hand." } },
+          { "en": "Hello, Bess! Good dogs!", "sl": "Živjo, Bess! Pridni psi!", "it": "Ciao, Bess! Bravi cani!", "de": "Hallo, Bess! Brave Hunde!", "grammar": "plurals",
+            "why": { "en": "Bess is one dog, so no -s: good dog.", "sl": "Bess je en pes, zato brez -s: good dog.", "it": "Bess è un cane solo, quindi niente -s: good dog.", "de": "Bess ist ein Hund, also kein -s: good dog." }, "reply": { "face": "laugh", "en": "Dogs? There's only one Bess, {learner}!", "sl": "Psi? Bess je samo ena, {learner}!", "it": "Cani? Di Bess ce n'è una sola, {learner}!", "de": "Hunde? Es gibt nur eine Bess, {learner}!" } }
+        ] },
+        { "who": "poppy", "face": "proud", "en": "Bess is fourteen. That's very old for a dog. But she's still the best dog in the dale!", "sl": "Bess ima štirinajst let. To je za psa zelo veliko. Ampak še vedno je najboljši pes v dolini!", "it": "Bess ha quattordici anni. È tanto per un cane. Ma è ancora il cane più bravo della valle!", "de": "Bess ist vierzehn. Das ist sehr alt für einen Hund. Aber sie ist immer noch der beste Hund im Tal!" }
+      ]
+    },
+    {
+      "id": "hide-and-seek",
+      "lines": [
+        { "who": "poppy", "face": "happy", "en": "{learner}, let's play hide-and-seek! You count to ten. I'll hide!", "sl": "{learner}, igrajva se skrivalnice! Ti šteješ do deset. Jaz se skrijem!", "it": "{learner}, giochiamo a nascondino! Tu conti fino a dieci. Io mi nascondo!", "de": "{learner}, lass uns Verstecken spielen! Du zählst bis zehn. Ich verstecke mich!" },
+        { "choices": [
+          { "en": "OK! … eight, nine, ten! Coming, ready or not!", "sl": "Prav! … osem, devet, deset! Grem iskat!", "it": "Va bene! … otto, nove, dieci! Arrivo, pronti o no!", "de": "Okay! … acht, neun, zehn! Ich komme, fertig oder nicht!", "ok": true,
+            "reply": { "face": "laugh", "en": "Ready! Find me!", "sl": "Pripravljena! Poišči me!", "it": "Pronta! Trovami!", "de": "Fertig! Find mich!", "act": { "poppy": { "to": "under-table", "pose": "hide" } } } },
+          { "en": "OK! … eight, nine, eleven! Coming, ready or not!", "sl": "Prav! … osem, devet, enajst! Grem iskat!", "it": "Va bene! … otto, nove, undici! Arrivo, pronti o no!", "de": "Okay! … acht, neun, elf! Ich komme, fertig oder nicht!",
+            "why": { "en": "After nine comes ten. Eleven is after ten.", "sl": "Za nine pride ten. Eleven pride za ten.", "it": "Dopo nine viene ten. Eleven viene dopo ten.", "de": "Nach nine kommt ten. Eleven kommt nach ten." }, "reply": { "face": "laugh", "en": "Eleven? You skipped one! Again!", "sl": "Enajst? Eno si {m:preskočil|f:preskočila}! Še enkrat!", "it": "Undici? Ne hai saltato uno! Di nuovo!", "de": "Elf? Du hast eine übersprungen! Noch mal!" } }
+        ] },
+        { "choices": [
+          { "en": "Found you! You're under the table!", "sl": "{m:Našel|f:Našla} sem te! Pod mizo si!", "it": "Trovata! Sei sotto il tavolo!", "de": "Gefunden! Du bist unter dem Tisch!", "ok": true, "tap": "under-table", "grammar": "prepositions-place",
+            "reply": { "face": "surprised", "en": "Oh no! How did you find me so fast?", "sl": "Ojoj! Kako si me tako hitro {m:našel|f:našla}?", "it": "Uffa! Come hai fatto a trovarmi così presto?", "de": "Oh nein! Wie hast du mich so schnell gefunden?", "act": { "poppy": { "to": "door" } } } },
+          { "en": "You're behind the door!", "sl": "Za vrati si!", "it": "Sei dietro la porta!", "de": "Du bist hinter der Tür!", "tap": "behind-door",
+            "why": { "en": "Look for a clue: a shoe or a bit of her dress shows somewhere.", "sl": "Poišči sled: nekje se vidi čevelj ali kos obleke.", "it": "Cerca un indizio: da qualche parte si vede una scarpa o un pezzo del vestito.", "de": "Such einen Hinweis: Irgendwo schaut ein Schuh oder ein Stück Kleid hervor." }, "reply": { "face": "laugh", "en": "I'm not here! Hee hee!", "sl": "Tukaj me ni! Hi hi!", "it": "Non sono qui! Ih ih!", "de": "Hier bin ich nicht! Hihi!", "act": { "poppy": { "pose": "peek" } } } },
+          { "en": "You're next to the fireplace!", "sl": "Zraven kamina si!", "it": "Sei vicino al camino!", "de": "Du bist neben dem Kamin!", "tap": "stove",
+            "why": { "en": "Not by the fire. Look for a shoe that shows.", "sl": "Ne ob ognju. Poišči čevelj, ki se vidi.", "it": "Non vicino al fuoco. Cerca una scarpa che si vede.", "de": "Nicht am Feuer. Such einen Schuh, der hervorschaut." }, "reply": { "face": "laugh", "en": "Cold, cold! Hee hee!", "sl": "Mrzlo, mrzlo! Hi hi!", "it": "Acqua, acqua! Ih ih!", "de": "Kalt, kalt! Hihi!", "act": { "poppy": { "pose": "peek" } } } }
+        ] },
+        { "who": "poppy", "face": "curious", "en": "My turn to choose! Where shall I hide next time?", "sl": "Zdaj izberem jaz! Kam naj se skrijem naslednjič?", "it": "Adesso scelgo io! Dove mi nascondo la prossima volta?", "de": "Jetzt wähle ich! Wo verstecke ich mich nächstes Mal?" },
+        { "choices": [
+          { "en": "Behind the door!", "sl": "Za vrata!", "it": "Dietro la porta!", "de": "Hinter die Tür!", "ok": true,
+            "reply": { "face": "happy", "en": "Good idea! Shh, Bess, don't tell anyone!", "sl": "Dobra ideja! Pst, Bess, nikomur ne povej!", "it": "Bella idea! Ssst, Bess, non dirlo a nessuno!", "de": "Gute Idee! Pst, Bess, sag's niemandem!", "act": { "poppy": { "to": "behind-door", "pose": "hide" } } } },
+          { "en": "Behind the doors!", "sl": "Za vrata!", "it": "Dietro le porte!", "de": "Hinter die Türen!", "grammar": "plurals",
+            "why": { "en": "There's only one door here: behind the door, no -s.", "sl": "Tu so samo ena vrata: behind the door, brez -s.", "it": "Qui c'è una porta sola: behind the door, senza -s.", "de": "Hier gibt es nur eine Tür: behind the door, ohne -s." }, "reply": { "face": "laugh", "en": "Doors? I can only hide behind one, {learner}!", "sl": "Doors? Skrijem se lahko le za ena, {learner}!", "it": "Doors? Posso nascondermi dietro una sola, {learner}!", "de": "Doors? Ich kann mich nur hinter einer verstecken, {learner}!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "photo",
+      "lines": [
+        { "who": "wilf", "face": "happy", "en": "Come here, {m:son|f:lass}. Do you see that photo on the wall? That's my wedding day.", "sl": "Pridi sem. Vidiš tisto fotografijo na steni? To je moj poročni dan.", "it": "Vieni qui, {m:figliolo|f:cara}. Vedi quella foto sul muro? È il giorno del mio matrimonio.", "de": "Komm her, {m:mein Junge|f:meine Liebe}. Siehst du das Foto an der Wand? Das ist mein Hochzeitstag." },
+        { "choices": [
+          { "en": "Is that you, Wilf?", "sl": "Si to ti, Wilf?", "it": "Sei tu, Wilf?", "de": "Bist das du, Wilf?", "ok": true,
+            "reply": { "face": "laugh", "en": "Aye, that's me! I had hair then. And that's my Annie.", "sl": "Ja, to sem jaz! Takrat sem še imel lase. In to je moja Annie.", "it": "Sì, sono io! Allora avevo ancora i capelli. E quella è la mia Annie.", "de": "Ja, das bin ich! Damals hatte ich noch Haare. Und das ist meine Annie." } },
+          { "en": "Are that you, Wilf?", "sl": "Si to ti, Wilf?", "it": "Sei tu, Wilf?", "de": "Bist das du, Wilf?", "grammar": "to-be",
+            "why": { "en": "That is one person: is that you?", "sl": "That je ena oseba: is that you?", "it": "That è una persona sola: is that you?", "de": "That ist eine Person: is that you?" }, "reply": { "face": "confused", "en": "Eh? Say it again, {m:son|f:lass}. Slowly.", "sl": "Kaj? Povej še enkrat. Počasi.", "it": "Eh? Ripeti, {m:figliolo|f:cara}. Piano.", "de": "Hm? Sag's noch mal, {m:mein Junge|f:meine Liebe}. Langsam." } }
+        ] },
+        { "who": "wilf", "face": "proud", "en": "Annie was the best dancer in the dale. We danced every Saturday at the Packhorse Inn.", "sl": "Annie je bila najboljša plesalka v dolini. Vsako soboto sva plesala v gostilni Packhorse.", "it": "Annie era la ballerina più brava della valle. Ballavamo ogni sabato al Packhorse Inn.", "de": "Annie war die beste Tänzerin im Tal. Wir haben jeden Samstag im Packhorse Inn getanzt." },
+        { "choices": [
+          { "en": "She looks very happy.", "sl": "Videti je zelo srečna.", "it": "Sembra molto felice.", "de": "Sie sieht sehr glücklich aus.", "ok": true,
+            "reply": { "face": "happy", "en": "She was. Fifty years together, and happy every day.", "sl": "Bila je. Petdeset let skupaj in srečna vsak dan.", "it": "Lo era. Cinquant'anni insieme, e felice ogni giorno.", "de": "Das war sie. Fünfzig Jahre zusammen, und jeden Tag glücklich." } },
+          { "en": "She look very happy.", "sl": "Videti je zelo srečna.", "it": "Sembra molto felice.", "de": "Sie sieht sehr glücklich aus.", "grammar": "present-simple",
+            "why": { "en": "She takes -s: she looks.", "sl": "She dobi -s: she looks.", "it": "Con she ci vuole la -s: she looks.", "de": "Bei she kommt ein -s dazu: she looks." }, "reply": { "face": "confused", "en": "She … what? My old ears, {m:son|f:lass}!", "sl": "Ona … kaj? Moja stara ušesa!", "it": "Lei … cosa? Le mie vecchie orecchie, {m:figliolo|f:cara}!", "de": "Sie … was? Meine alten Ohren, {m:mein Junge|f:meine Liebe}!" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Again, {m:son|f:lass}?", "sl": "Kaj? Še enkrat?", "it": "Eh? Di nuovo, {m:figliolo|f:cara}?", "de": "Hm? Noch mal, {m:mein Junge|f:meine Liebe}?" } },
+        { "who": "wilf", "face": "happy", "en": "Now put the lamp on, {m:son|f:lass}. And sit with me a bit.", "sl": "Zdaj pa prižgi svetilko. In malo posedi z mano.", "it": "Adesso accendi la lampada, {m:figliolo|f:cara}. E stai un po' con me.", "de": "Jetzt mach die Lampe an, {m:mein Junge|f:meine Liebe}. Und setz dich ein bisschen zu mir." }
+      ]
+    },
+    {
+      "id": "tea",
+      "lines": [
+        { "who": "wilf", "face": "happy", "en": "Afternoon, {m:son|f:lass}. Sit down on the settle. A cup of tea?", "sl": "Dober dan. Sedi na klop. Skodelico čaja?", "it": "Buon pomeriggio, {m:figliolo|f:cara}. Siediti sulla panca. Una tazza di tè?", "de": "Guten Tag, {m:mein Junge|f:meine Liebe}. Setz dich auf die Bank. Eine Tasse Tee?" },
+        { "choices": [
+          { "en": "Yes, please, Wilf.", "sl": "Ja, prosim, Wilf.", "it": "Sì, grazie, Wilf.", "de": "Ja, bitte, Wilf.", "ok": true,
+            "reply": { "face": "happy", "en": "Good. Milk in first, the old way.", "sl": "Dobro. Najprej mleko, po starem.", "it": "Bene. Prima il latte, all'antica.", "de": "Gut. Erst die Milch, wie früher." } },
+          { "en": "Lovely, thanks!", "sl": "Super, hvala!", "it": "Volentieri, grazie!", "de": "Gern, danke!", "ok": true,
+            "reply": { "face": "happy", "en": "Here you are. Strong, like a shepherd's tea.", "sl": "Izvoli. Močan, kot pastirski čaj.", "it": "Ecco qua. Forte, come il tè dei pastori.", "de": "Bitte schön. Stark, wie ein Schäfertee." } },
+          { "en": "Good evening, Wilf! Yes, please.", "sl": "Dober večer, Wilf! Ja, prosim.", "it": "Buonasera, Wilf! Sì, grazie.", "de": "Guten Abend, Wilf! Ja, bitte.",
+            "why": { "en": "It's the afternoon: good afternoon. Good evening is for after five.", "sl": "Popoldne je: good afternoon. Good evening je za po peti uri.", "it": "È pomeriggio: good afternoon. Good evening è per dopo le cinque.", "de": "Es ist Nachmittag: good afternoon. Good evening ist für nach fünf." }, "reply": { "face": "laugh", "en": "Evening? It's only teatime, {m:son|f:lass}!", "sl": "Večer? Saj je šele čas za čaj!", "it": "Sera? È solo l'ora del tè, {m:figliolo|f:cara}!", "de": "Abend? Es ist doch erst Teezeit, {m:mein Junge|f:meine Liebe}!" } }
+        ] },
+        { "who": "wilf", "face": "proud", "en": "Do you know what my father always said? Slow and steady wins the race.", "sl": "Veš, kaj je vedno rekel moj oče? Počasi se daleč pride.", "it": "Sai cosa diceva sempre mio padre? Chi va piano va sano e va lontano.", "de": "Weißt du, was mein Vater immer gesagt hat? Langsam, aber sicher gewinnt das Rennen." },
+        { "choices": [
+          { "en": "What does it mean?", "sl": "Kaj to pomeni?", "it": "Che cosa vuol dire?", "de": "Was bedeutet das?", "ok": true,
+            "reply": { "face": "proud", "en": "Go slowly, but never stop. Like on the fells. Like with English!", "sl": "Hodi počasi, a nikoli se ne ustavi. Kot v hribih. Kot pri angleščini!", "it": "Vai piano, ma non fermarti mai. Come sulle montagne. Come con l'inglese!", "de": "Geh langsam, aber bleib nie stehen. Wie auf den Bergen. Wie beim Englischen!" } },
+          { "en": "What does it means?", "sl": "Kaj to pomeni?", "it": "Che cosa vuol dire?", "de": "Was bedeutet das?", "grammar": "questions-do",
+            "why": { "en": "After does, the verb has no -s: what does it mean?", "sl": "Za does glagol nima -s: what does it mean?", "it": "Dopo does il verbo non ha la -s: what does it mean?", "de": "Nach does hat das Verb kein -s: what does it mean?" }, "reply": { "face": "confused", "en": "Eh? My old ears. Again, {m:son|f:lass}?", "sl": "Kaj? Moja stara ušesa. Še enkrat?", "it": "Eh? Le mie vecchie orecchie. Di nuovo, {m:figliolo|f:cara}?", "de": "Hm? Meine alten Ohren. Noch mal, {m:mein Junge|f:meine Liebe}?" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, {m:son|f:lass}.", "sl": "Kaj? Povej še enkrat.", "it": "Eh? Ripeti, {m:figliolo|f:cara}.", "de": "Hm? Sag das noch mal, {m:mein Junge|f:meine Liebe}." } },
+        { "who": "wilf", "en": "Slow and steady. Now, a little nap. Bess, move over!", "sl": "Počasi in vztrajno. Zdaj pa malo zadremam. Bess, umakni se!", "it": "Piano e con costanza. Adesso un pisolino. Bess, fammi posto!", "de": "Langsam und stetig. Jetzt ein kleines Nickerchen. Bess, rück mal!", "fx": { "dog": 1 } }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "fire-crumpets",
+      "count": { "from": "dice", "min": 2, "max": 8 },
+      "memory": { "en": "the crumpets we toasted by the fire", "sl": "crumpete, ki sva jih pekla ob ognju", "it": "i crumpet che abbiamo tostato accanto al fuoco", "de": "die Crumpets, die wir am Feuer geröstet haben" },
+      "lines": [
+        { "who": "wilf", "face": "happy", "en": "Now then! Crumpets on the toasting fork, by the fire. The old way!", "sl": "Now then! Crumpeti na vilicah, ob ognju. Po starem!", "it": "Now then! Crumpet sulla forchetta, accanto al fuoco. All'antica!", "de": "Now then! Crumpets auf der Röstgabel, am Feuer. Wie früher!", "fx": { "stove": 1 } },
+        { "who": "wilf", "en": "I've toasted {n} crumpets. Is that enough for us?", "sl": "Spekel sem {n} {crumpet|crumpeta|crumpete|crumpetov}. Je to dovolj za naju?", "it": "Ho tostato {n} crumpet. Bastano per noi?", "de": "Ich habe {n} Crumpets geröstet. Reicht das für uns?" },
+        { "choices": [
+          { "en": "{n} crumpets? Yes, that's plenty!", "sl": "{n} {crumpet|crumpeta|crumpete|crumpetov}? Ja, to je dovolj!", "it": "{n} crumpet? Sì, bastano!", "de": "{n} Crumpets? Ja, das reicht!", "ok": true,
+            "reply": { "face": "laugh", "en": "Plenty for us. And one for Bess, mind!", "sl": "Dovolj za naju. In enega za Bess, ne pozabi!", "it": "Bastano per noi. E uno per Bess, eh!", "de": "Genug für uns. Und einer für Bess, nicht vergessen!", "fx": { "dog": 1 } } },
+          { "en": "{n} {!crumpet|crumpets}? Yes, that's plenty!", "sl": "{n} {!crumpet|crumpeta|crumpete|crumpetov}? Ja, to je dovolj!", "it": "{n} crumpet? Sì, bastano!", "de": "{n} {!Crumpet|Crumpets}? Ja, das reicht!", "wrong_form": 1, "grammar": "plurals",
+            "why": { "en": "{One takes the singular|More than one takes -s}: {n} {crumpet|crumpets}.", "sl": "{Eno je v ednini|Za več kot enega dodaš -s}: {n} {crumpet|crumpets}.", "it": "{Uno vuole il singolare|Per più di uno si aggiunge -s}: {n} {crumpet|crumpets}.", "de": "{Eins steht im Singular|Bei mehr als einem kommt -s dazu}: {n} {crumpet|crumpets}." }, "reply": { "face": "surprised", "en": "Just the one? Count again, {m:son|f:lass}!", "sl": "Samo enega? Štej še enkrat!", "it": "Uno solo? Conta di nuovo, {m:figliolo|f:cara}!", "de": "Nur einer? Zähl noch mal, {m:mein Junge|f:meine Liebe}!" } }
+        ] },
+        { "who": "wilf", "face": "curious", "en": "Butter or jam on yours?", "sl": "Maslo ali marmelado na svojega?", "it": "Burro o marmellata sul tuo?", "de": "Butter oder Marmelade auf deinen?" },
+        { "choices": [
+          { "en": "Butter, please.", "sl": "Maslo, prosim.", "it": "Burro, per favore.", "de": "Butter, bitte.", "ok": true,
+            "reply": { "face": "happy", "en": "Lots of butter. It runs into all the little holes!", "sl": "Veliko masla. Steče v vse luknjice!", "it": "Tanto burro. Entra in tutti i buchini!", "de": "Viel Butter. Die läuft in alle kleinen Löcher!" } },
+          { "en": "Jam, please!", "sl": "Marmelado, prosim!", "it": "Marmellata, per favore!", "de": "Marmelade, bitte!", "ok": true,
+            "reply": { "face": "happy", "en": "Damson jam, from the trees up the dale. Here you are.", "sl": "Marmelada iz češpelj, z dreves v dolini. Izvoli.", "it": "Marmellata di susine, dagli alberi della valle. Ecco qua.", "de": "Pflaumenmarmelade, von den Bäumen oben im Tal. Bitte schön." } },
+          { "en": "Butterfly, please.", "sl": "Metulja, prosim.", "it": "Una farfalla, per favore.", "de": "Einen Schmetterling, bitte.",
+            "why": { "en": "Butter goes on bread. A butterfly (butter + fly) is an insect!", "sl": "Butter (maslo) je za na kruh. Butterfly (metulj) je žuželka!", "it": "Il butter (burro) va sul pane. La butterfly (farfalla) è un insetto!", "de": "Butter kommt aufs Brot. Ein butterfly (Schmetterling) ist ein Insekt!" }, "reply": { "face": "laugh", "en": "A butterfly? Not on a crumpet, {m:son|f:lass}!", "sl": "Metulja? Že ne na crumpet!", "it": "Una farfalla? Non su un crumpet, {m:figliolo|f:cara}!", "de": "Einen Schmetterling? Doch nicht auf einen Crumpet, {m:mein Junge|f:meine Liebe}!" } }
+        ] },
+        { "who": "wilf", "face": "laugh", "en": "Mmm. Bess, sit! No, Bess, that one's mine!", "sl": "Mmm. Bess, sedi! Ne, Bess, ta je moj!", "it": "Mmm. Bess, seduta! No, Bess, quello è mio!", "de": "Mmm. Bess, sitz! Nein, Bess, der gehört mir!", "fx": { "dog": 1 } }
+      ]
+    },
+    {
+      "id": "fire-wood",
+      "memory": { "en": "the morning you blew the fire back to life", "sl": "jutro, ko si znova {m:razpihal|f:razpihala} ogenj", "it": "la mattina in cui hai ravvivato il fuoco", "de": "den Morgen, an dem du das Feuer wieder angeblasen hast" },
+      "lines": [
+        { "who": "wilf", "face": "worried", "en": "Oh dear. The fire's very small this morning. Will you put a log on?", "sl": "Ojej. Ogenj je danes zjutraj čisto majhen. Daš gor poleno?", "it": "Oh cielo. Il fuoco è piccolissimo stamattina. Ci metti un ciocco?", "de": "Oje. Das Feuer ist heute Morgen ganz klein. Legst du ein Holzscheit nach?", "fx": { "stove": 0.2 } },
+        { "choices": [
+          { "en": "Yes! Give me a log.", "sl": "Ja! Daj mi poleno.", "it": "Sì! Dammi un ciocco.", "de": "Ja! Gib mir ein Holzscheit.", "ok": true,
+            "reply": { "face": "happy", "en": "Here. Put it on gently, at the back.", "sl": "Na. Previdno ga daj gor, zadaj.", "it": "Tieni. Mettilo piano, dietro.", "de": "Hier. Leg es vorsichtig hinten drauf." } },
+          { "en": "Yes! Give me an log.", "sl": "Ja! Daj mi poleno.", "it": "Sì! Dammi un ciocco.", "de": "Ja! Gib mir ein Holzscheit.", "grammar": "articles",
+            "why": { "en": "Log starts with a consonant sound, so a: a log. An is for a vowel sound: an apple.", "sl": "Log se začne s soglasnikom, zato a: a log. An je pred samoglasnikom: an apple.", "it": "Log comincia con una consonante, quindi a: a log. An va davanti a una vocale: an apple.", "de": "Log fängt mit einem Konsonanten an, also a: a log. An steht vor einem Vokal: an apple." }, "reply": { "face": "laugh", "en": "An log? Ooh, very posh, {m:son|f:lass}!", "sl": "An log? Oho, kako gosposko!", "it": "An log? Oh, che eleganza, {m:figliolo|f:cara}!", "de": "An log? Oh, wie vornehm, {m:mein Junge|f:meine Liebe}!" } }
+        ] },
+        { "who": "wilf", "en": "Now blow on the embers. Gently… gently…", "sl": "Zdaj pa pihaj v žerjavico. Nežno … nežno …", "it": "Adesso soffia sulla brace. Piano… piano…", "de": "Jetzt puste in die Glut. Sanft … sanft …", "fx": { "stove": 0.5 } },
+        { "choices": [
+          { "en": "There's a flame! There's a big flame!", "sl": "Plamen je! Velik plamen!", "it": "C'è una fiamma! Una fiamma grande!", "de": "Da ist eine Flamme! Eine große Flamme!", "ok": true,
+            "reply": { "face": "proud", "en": "Well done! You've got the knack, {m:son|f:lass}.", "sl": "Bravo! Imaš pravi občutek.", "it": "{m:Bravo|f:Brava}! Hai la mano giusta, {m:figliolo|f:cara}.", "de": "Gut gemacht! Du hast den Dreh raus, {m:mein Junge|f:meine Liebe}.", "fx": { "stove": 1 } } },
+          { "en": "There are a flame! There are a big flame!", "sl": "Plamen je! Velik plamen!", "it": "C'è una fiamma! Una fiamma grande!", "de": "Da ist eine Flamme! Eine große Flamme!", "grammar": "there-is-are",
+            "why": { "en": "One flame: there is (there's) a flame. There are is for more than one.", "sl": "En plamen: there is (there's) a flame. There are je za več kot enega.", "it": "Una fiamma sola: there is (there's) a flame. There are è per più di una.", "de": "Eine Flamme: there is (there's) a flame. There are ist für mehr als eine." }, "reply": { "face": "curious", "en": "Are? How many flames do you see? I see one!", "sl": "Are? Koliko plamenov vidiš? Jaz vidim enega!", "it": "Are? Quante fiamme vedi? Io ne vedo una!", "de": "Are? Wie viele Flammen siehst du? Ich sehe eine!" } }
+        ], "puzzled": { "face": "confused", "en": "Hmm? What was that?", "sl": "Hm? Kako?", "it": "Mm? Come?", "de": "Hm? Wie bitte?" } },
+        { "who": "wilf", "face": "happy", "en": "Lovely. Now we're warm. Bess, come by the fire!", "sl": "Lepo. Zdaj nama je toplo. Bess, pridi k ognju!", "it": "Bene. Adesso siamo al caldo. Bess, vieni vicino al fuoco!", "de": "Schön. Jetzt ist uns warm. Bess, komm ans Feuer!", "fx": { "dog": 1 } }
+      ]
+    },
+    {
+      "id": "bess-hides",
+      "memory": { "en": "the day Bess played hide-and-seek with us", "sl": "dan, ko se je Bess z nama igrala skrivalnice", "it": "il giorno in cui Bess ha giocato a nascondino con noi", "de": "den Tag, an dem Bess mit uns Verstecken gespielt hat" },
+      "lines": [
+        { "who": "poppy", "face": "happy", "en": "Bess wants to play hide-and-seek! Close your eyes and count to five.", "sl": "Bess bi se igrala skrivalnice! Zapri oči in štej do pet.", "it": "Bess vuole giocare a nascondino! Chiudi gli occhi e conta fino a cinque.", "de": "Bess will Verstecken spielen! Mach die Augen zu und zähl bis fünf.", "fx": { "dog-hides": 1 } },
+        { "choices": [
+          { "en": "One, two, three, four, five! Where's Bess?", "sl": "Ena, dva, tri, štiri, pet! Kje je Bess?", "it": "Uno, due, tre, quattro, cinque! Dov'è Bess?", "de": "Eins, zwei, drei, vier, fünf! Wo ist Bess?", "ok": true,
+            "reply": { "face": "curious", "en": "Look for her tail! It's always wagging.", "sl": "Poišči njen rep! Vedno maha.", "it": "Cerca la sua coda! Scodinzola sempre.", "de": "Such ihren Schwanz! Der wedelt immer." } },
+          { "en": "One, two, three, four, six! Where's Bess?", "sl": "Ena, dva, tri, štiri, šest! Kje je Bess?", "it": "Uno, due, tre, quattro, sei! Dov'è Bess?", "de": "Eins, zwei, drei, vier, sechs! Wo ist Bess?",
+            "why": { "en": "After four comes five. Six comes after five.", "sl": "Za four pride five. Six pride za five.", "it": "Dopo four viene five. Six viene dopo five.", "de": "Nach four kommt five. Six kommt nach five." }, "reply": { "face": "laugh", "en": "Six? You skipped one, {learner}! Hee hee!", "sl": "Šest? Eno si {m:preskočil|f:preskočila}, {learner}! Hi hi!", "it": "Sei? Ne hai saltato uno, {learner}! Ih ih!", "de": "Sechs? Du hast eine übersprungen, {learner}! Hihi!" } }
+        ] },
+        { "choices": [
+          { "en": "There's her tail, behind the door!", "sl": "Tam je njen rep, za vrati!", "it": "Ecco la coda, dietro la porta!", "de": "Da ist ihr Schwanz, hinter der Tür!", "ok": true, "tap": "dog", "grammar": "prepositions-place",
+            "reply": { "face": "laugh", "en": "Yes! Found you, Bess! Good girl!", "sl": "Ja! Našli smo te, Bess! Pridna!", "it": "Sì! Ti abbiamo trovata, Bess! Brava!", "de": "Ja! Wir haben dich gefunden, Bess! Brave!", "fx": { "dog-hides": 0, "dog": 1 } } },
+          { "en": "She's under the table!", "sl": "Pod mizo je!", "it": "È sotto il tavolo!", "de": "Sie ist unter dem Tisch!", "tap": "under-table",
+            "why": { "en": "She isn't there. Look for a tail that wags.", "sl": "Tam je ni. Poišči rep, ki maha.", "it": "Non è lì. Cerca una coda che si muove.", "de": "Da ist sie nicht. Such einen Schwanz, der wedelt." }, "reply": { "face": "laugh", "en": "Under the table? There's only a crumb there!", "sl": "Pod mizo? Tam je samo drobtinica!", "it": "Sotto il tavolo? Lì c'è solo una briciola!", "de": "Unter dem Tisch? Da ist nur ein Krümel!" } },
+          { "en": "She's behind the chest!", "sl": "Za skrinjo je!", "it": "È dietro la cassapanca!", "de": "Sie ist hinter der Truhe!", "tap": "chest",
+            "why": { "en": "Not there. Look for a tail that wags.", "sl": "Ne tam. Poišči rep, ki maha.", "it": "Non lì. Cerca una coda che si muove.", "de": "Nicht da. Such einen Schwanz, der wedelt." }, "reply": { "face": "laugh", "en": "Cold, cold! Hee hee!", "sl": "Mrzlo, mrzlo! Hi hi!", "it": "Acqua, acqua! Ih ih!", "de": "Kalt, kalt! Hihi!" } }
+        ] },
+        { "who": "poppy", "face": "laugh", "en": "Bess is good at hiding. But her tail always gives her away!", "sl": "Bess se zna dobro skriti. Ampak rep jo vedno izda!", "it": "Bess è brava a nascondersi. Ma la coda la tradisce sempre!", "de": "Bess kann sich gut verstecken. Aber ihr Schwanz verrät sie immer!" }
+      ]
+    },
+    {
+      "id": "hide-and-seek-door",
+      "memory": { "en": "the day I hid behind the door", "sl": "dan, ko sem se skrila za vrata", "it": "il giorno in cui mi sono nascosta dietro la porta", "de": "den Tag, an dem ich mich hinter der Tür versteckt habe" },
+      "lines": [
+        { "who": "poppy", "face": "happy", "en": "Hide-and-seek again? Close your eyes! And no peeking!", "sl": "Spet skrivalnice? Zapri oči! In ne kukaj!", "it": "Ancora nascondino? Chiudi gli occhi! E non sbirciare!", "de": "Noch mal Verstecken? Augen zu! Und nicht schummeln!" },
+        { "choices": [
+          { "en": "I'm not peeking! One, two, three … ten!", "sl": "Ne kukam! Ena, dva, tri … deset!", "it": "Non sbircio! Uno, due, tre … dieci!", "de": "Ich schummle nicht! Eins, zwei, drei … zehn!", "ok": true,
+            "reply": { "face": "laugh", "en": "Ready! Come and find me!", "sl": "Pripravljena! Pridi me iskat!", "it": "Pronta! Vieni a cercarmi!", "de": "Fertig! Komm und such mich!", "act": { "poppy": { "to": "behind-door", "pose": "hide" } } } },
+          { "en": "I don't peeking! One, two, three … ten!", "sl": "Ne kukam! Ena, dva, tri … deset!", "it": "Non sbircio! Uno, due, tre … dieci!", "de": "Ich schummle nicht! Eins, zwei, drei … zehn!", "grammar": "present-continuous",
+            "why": { "en": "With -ing, the no is am not: I'm not peeking.", "sl": "Z -ing je zanikanje am not: I'm not peeking.", "it": "Con la forma in -ing la negazione è am not: I'm not peeking.", "de": "Mit -ing heißt die Verneinung am not: I'm not peeking." }, "reply": { "face": "laugh", "en": "You don't what? I can see your eyes! Hee hee!", "sl": "Ne kaj? Vidim tvoje oči! Hi hi!", "it": "Non cosa? Ti vedo gli occhi! Ih ih!", "de": "Du was nicht? Ich seh deine Augen! Hihi!" } }
+        ] },
+        { "choices": [
+          { "en": "Found you! You're behind the door!", "sl": "{m:Našel|f:Našla} sem te! Za vrati si!", "it": "Trovata! Sei dietro la porta!", "de": "Gefunden! Du bist hinter der Tür!", "ok": true, "tap": "behind-door", "grammar": "prepositions-place",
+            "reply": { "face": "surprised", "en": "Oh! You found me! How did you know?", "sl": "Oh! {m:Našel|f:Našla} si me! Kako si {m:vedel|f:vedela}?", "it": "Oh! Mi hai trovata! Come facevi a saperlo?", "de": "Oh! Du hast mich gefunden! Woher wusstest du das?", "act": { "poppy": { "to": "door" } } } },
+          { "en": "You're under the table!", "sl": "Pod mizo si!", "it": "Sei sotto il tavolo!", "de": "Du bist unter dem Tisch!", "tap": "under-table",
+            "why": { "en": "Look for a clue: her shoes or a bit of her dress show somewhere.", "sl": "Poišči sled: nekje se vidijo čevlji ali kos obleke.", "it": "Cerca un indizio: da qualche parte si vedono le scarpe o un pezzo del vestito.", "de": "Such einen Hinweis: Irgendwo schauen die Schuhe oder ein Stück Kleid hervor." }, "reply": { "face": "laugh", "en": "Not here! Hee hee!", "sl": "Tukaj me ni! Hi hi!", "it": "Non sono qui! Ih ih!", "de": "Hier nicht! Hihi!", "act": { "poppy": { "pose": "peek" } } } },
+          { "en": "You're next to the fireplace!", "sl": "Zraven kamina si!", "it": "Sei vicino al camino!", "de": "Du bist neben dem Kamin!", "tap": "stove",
+            "why": { "en": "Not by the fire. Look for shoes under something.", "sl": "Ne ob ognju. Poišči čevlje, ki gledajo izpod nečesa.", "it": "Non vicino al fuoco. Cerca delle scarpe sotto qualcosa.", "de": "Nicht am Feuer. Such Schuhe, die unter etwas hervorschauen." }, "reply": { "face": "laugh", "en": "Cold, cold! Hee hee!", "sl": "Mrzlo, mrzlo! Hi hi!", "it": "Acqua, acqua! Ih ih!", "de": "Kalt, kalt! Hihi!", "act": { "poppy": { "pose": "peek" } } } }
+        ] },
+        { "who": "poppy", "face": "curious", "en": "What gave me away? Tell me!", "sl": "Kaj me je izdalo? Povej!", "it": "Che cosa mi ha tradita? Dimmelo!", "de": "Was hat mich verraten? Sag schon!" },
+        { "choices": [
+          { "en": "Your shoes! I can see your shoes under the door.", "sl": "Tvoji čevlji! Izpod vrat vidim tvoje čevlje.", "it": "Le tue scarpe! Vedo le tue scarpe sotto la porta.", "de": "Deine Schuhe! Ich sehe deine Schuhe unter der Tür.", "ok": true,
+            "reply": { "face": "laugh", "en": "My shoes! Next time I'll hide in my socks!", "sl": "Moji čevlji! Naslednjič se skrijem v nogavicah!", "it": "Le mie scarpe! La prossima volta mi nascondo in calzini!", "de": "Meine Schuhe! Nächstes Mal verstecke ich mich in Socken!" } },
+          { "en": "You shoes! I can see you shoes under the door.", "sl": "Tvoji čevlji! Izpod vrat vidim tvoje čevlje.", "it": "Le tue scarpe! Vedo le tue scarpe sotto la porta.", "de": "Deine Schuhe! Ich sehe deine Schuhe unter der Tür.", "grammar": "possessive-s",
+            "why": { "en": "Whose shoes? Your shoes: your, not you.", "sl": "Čigavi čevlji? Your shoes: your, ne you.", "it": "Di chi sono le scarpe? Your shoes: your, non you.", "de": "Wessen Schuhe? Your shoes: your, nicht you." }, "reply": { "face": "laugh", "en": "Me shoes? My shoes are hiding too!", "sl": "Jaz čevlji? Moji čevlji se tudi skrivajo!", "it": "Io scarpe? Anche le mie scarpe si nascondono!", "de": "Ich Schuhe? Meine Schuhe verstecken sich auch!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "photo-glasses",
+      "memory": { "en": "the evening you found my glasses", "sl": "večer, ko si {m:našel|f:našla} moja očala", "it": "la sera in cui hai trovato i miei occhiali", "de": "den Abend, an dem du meine Brille gefunden hast" },
+      "lines": [
+        { "who": "wilf", "face": "worried", "en": "Now, where are my glasses? I can't see the photo without them!", "sl": "No, kje so moja očala? Brez njih ne vidim fotografije!", "it": "Allora, dove sono i miei occhiali? Senza non vedo la foto!", "de": "Nun, wo ist meine Brille? Ohne sie sehe ich das Foto nicht!" },
+        { "choices": [
+          { "en": "They're on the table, next to the book!", "sl": "Na mizi so, zraven knjige!", "it": "Sono sul tavolo, vicino al libro!", "de": "Sie liegt auf dem Tisch, neben dem Buch!", "ok": true, "tap": "glasses", "grammar": "prepositions-place",
+            "reply": { "face": "laugh", "en": "Ha! Right under my nose. Thank you, {m:son|f:lass}.", "sl": "Ha! Kar pod nosom. Hvala.", "it": "Ah! Proprio sotto il naso. Grazie, {m:figliolo|f:cara}.", "de": "Ha! Direkt vor meiner Nase. Danke, {m:mein Junge|f:meine Liebe}." } },
+          { "en": "They're on the chest!", "sl": "Na skrinji so!", "it": "Sono sulla cassapanca!", "de": "Sie liegt auf der Truhe!", "tap": "chest",
+            "why": { "en": "Not on the chest. Look for something small on the table.", "sl": "Ne na skrinji. Poišči nekaj majhnega na mizi.", "it": "Non sulla cassapanca. Cerca qualcosa di piccolo sul tavolo.", "de": "Nicht auf der Truhe. Such etwas Kleines auf dem Tisch." }, "reply": { "face": "sad", "en": "Not there. Oh, my old head!", "sl": "Tam jih ni. Oh, moja stara glava!", "it": "Non sono lì. Oh, la mia vecchia testa!", "de": "Da ist sie nicht. Ach, mein alter Kopf!" } },
+          { "en": "They're on the settle!", "sl": "Na klopi so!", "it": "Sono sulla panca!", "de": "Sie liegt auf der Bank!", "tap": "bench",
+            "why": { "en": "Not on the settle. Look for something small on the table.", "sl": "Ne na klopi. Poišči nekaj majhnega na mizi.", "it": "Non sulla panca. Cerca qualcosa di piccolo sul tavolo.", "de": "Nicht auf der Bank. Such etwas Kleines auf dem Tisch." }, "reply": { "face": "laugh", "en": "On the settle? Then Bess is sitting on them!", "sl": "Na klopi? Potem sedi Bess na njih!", "it": "Sulla panca? Allora Bess ci è seduta sopra!", "de": "Auf der Bank? Dann sitzt Bess drauf!" } }
+        ] },
+        { "who": "wilf", "face": "happy", "en": "Now I can see. Look at the photo: that's my Annie, in her white dress.", "sl": "Zdaj vidim. Poglej fotografijo: to je moja Annie, v beli obleki.", "it": "Adesso ci vedo. Guarda la foto: quella è la mia Annie, con il vestito bianco.", "de": "Jetzt sehe ich was. Schau dir das Foto an: Das ist meine Annie, im weißen Kleid." },
+        { "choices": [
+          { "en": "Do you miss her, Wilf?", "sl": "Ali jo pogrešaš, Wilf?", "it": "Ti manca, Wilf?", "de": "Vermisst du sie, Wilf?", "ok": true,
+            "reply": { "face": "sad", "en": "Every day. But she's here in my heart. And in that photo.", "sl": "Vsak dan. Ampak tukaj je, v mojem srcu. In na tisti fotografiji.", "it": "Ogni giorno. Ma è qui, nel mio cuore. E in quella foto.", "de": "Jeden Tag. Aber sie ist hier, in meinem Herzen. Und auf dem Foto." } },
+          { "en": "Does you miss her, Wilf?", "sl": "Ali jo pogrešaš, Wilf?", "it": "Ti manca, Wilf?", "de": "Vermisst du sie, Wilf?", "grammar": "questions-do",
+            "why": { "en": "With you, the question takes do: do you miss her? Does is for he, she and it.", "sl": "Z you se vprašanje začne z do: do you miss her? Does je za he, she in it.", "it": "Con you la domanda vuole do: do you miss her? Does è per he, she e it.", "de": "Mit you braucht die Frage do: do you miss her? Does ist für he, she und it." }, "reply": { "face": "confused", "en": "Eh? Say it again, {m:son|f:lass}. Slowly.", "sl": "Kaj? Povej še enkrat. Počasi.", "it": "Eh? Ripeti, {m:figliolo|f:cara}. Piano.", "de": "Hm? Sag's noch mal, {m:mein Junge|f:meine Liebe}. Langsam." } }
+        ] }
+      ]
+    },
+    {
+      "id": "tea-daffodils",
+      "memory": { "en": "the afternoon I told you Wordsworth's poem", "sl": "popoldne, ko sem ti povedal Wordsworthovo pesem", "it": "il pomeriggio in cui ti ho recitato la poesia di Wordsworth", "de": "den Nachmittag, an dem ich dir Wordsworths Gedicht aufgesagt habe" },
+      "lines": [
+        { "who": "wilf", "face": "happy", "en": "Do you know Wordsworth? He lived just over the fell, in Grasmere.", "sl": "Poznaš Wordswortha? Živel je čisto blizu, onkraj hriba, v Grasmeru.", "it": "Conosci Wordsworth? Abitava appena oltre la collina, a Grasmere.", "de": "Kennst du Wordsworth? Er hat gleich hinter dem Berg gewohnt, in Grasmere." },
+        { "who": "wilf", "face": "proud", "en": "I wandered lonely as a cloud… And then he saw a crowd of golden daffodils!", "sl": "Samoten tavam kakor oblak … In potem je zagledal množico zlatih narcis!", "it": "Vagavo solitario come una nuvola… E poi vide una folla di narcisi dorati!", "de": "Ich wanderte einsam wie eine Wolke … Und dann sah er eine Menge goldener Narzissen!" },
+        { "choices": [
+          { "en": "Daffodils? What colour are they?", "sl": "Narcise? Kakšne barve so?", "it": "Narcisi? Di che colore sono?", "de": "Narzissen? Welche Farbe haben sie?", "ok": true,
+            "reply": { "face": "happy", "en": "Yellow! Like butter. Like the sun on the lake.", "sl": "Rumene! Kot maslo. Kot sonce na jezeru.", "it": "Gialli! Come il burro. Come il sole sul lago.", "de": "Gelb! Wie Butter. Wie die Sonne auf dem See." } },
+          { "en": "Daffodils? What colour they are?", "sl": "Narcise? Kakšne barve so?", "it": "Narcisi? Di che colore sono?", "de": "Narzissen? Welche Farbe haben sie?", "grammar": "word-order",
+            "why": { "en": "In a question, the verb comes before the subject: what colour are they?", "sl": "V vprašanju glagol stoji pred osebkom: what colour are they?", "it": "Nella domanda il verbo va prima del soggetto: what colour are they?", "de": "In der Frage steht das Verb vor dem Subjekt: what colour are they?" }, "reply": { "face": "confused", "en": "Eh? Ask me again, {m:son|f:lass}.", "sl": "Kaj? Vprašaj me še enkrat.", "it": "Eh? Chiedimelo di nuovo, {m:figliolo|f:cara}.", "de": "Hm? Frag mich noch mal, {m:mein Junge|f:meine Liebe}." } }
+        ] },
+        { "who": "wilf", "en": "In March and April they're everywhere here, by the lakes and in every garden.", "sl": "Marca in aprila so tukaj povsod, ob jezerih in na vsakem vrtu.", "it": "A marzo e ad aprile qui sono dappertutto, vicino ai laghi e in ogni giardino.", "de": "Im März und April sind sie hier überall, an den Seen und in jedem Garten." },
+        { "choices": [
+          { "en": "I like this poem, Wilf.", "sl": "Ta pesem mi je všeč, Wilf.", "it": "Mi piace questa poesia, Wilf.", "de": "Mir gefällt dieses Gedicht, Wilf.", "ok": true,
+            "reply": { "face": "happy", "en": "So do I. Eighty years, and I still like it!", "sl": "Tudi meni. Osemdeset let, pa mi je še vedno všeč!", "it": "Anche a me. Ottant'anni, e mi piace ancora!", "de": "Mir auch. Achtzig Jahre, und sie gefällt mir immer noch!" } },
+          { "en": "I likes this poem, Wilf.", "sl": "Ta pesem mi je všeč, Wilf.", "it": "Mi piace questa poesia, Wilf.", "de": "Mir gefällt dieses Gedicht, Wilf.", "grammar": "present-simple",
+            "why": { "en": "With I, no -s: I like. The -s is for he, she and it.", "sl": "Z I brez -s: I like. -s je za he, she in it.", "it": "Con I niente -s: I like. La -s è per he, she e it.", "de": "Mit I kein -s: I like. Das -s ist für he, she und it." }, "reply": { "face": "confused", "en": "Likes? Say it again, {m:son|f:lass}, slowly.", "sl": "Likes? Povej še enkrat, počasi.", "it": "Likes? Ripeti, {m:figliolo|f:cara}, piano.", "de": "Likes? Sag's noch mal, {m:mein Junge|f:meine Liebe}, langsam." } }
+        ] }
+      ]
+    }
+  ]
+}
