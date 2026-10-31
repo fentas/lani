@@ -265,7 +265,10 @@ lani-slot): **3,537 tests, 2 skipped, 0 failures**.
 - **The hosted mode** (the phone's own bridge, `src/phone/entry.ts`): the same `appApi`, so the same areas and headers;
   its content came with the APK and isn't walked (`contentChanges: false`), so `content` is the tutor's stores in its
   data and the learner's identity. The smoke's phone section bundles it; `PhoneBridgeTest` and `PhoneBridgeNodeTest` run
-  it in QuickJS in the unit suite; QA's hosted step ran it on the emulator (below).
+  it in QuickJS in the unit suite. QA's hosted step on the emulator (a fresh install's onboarding on the phone's own
+  bridge, Home, the village founded, a word looked up, a pack learned, a review saved, the app started again, the
+  export) passed on the branch's last build; its first run had stopped at the word's card (the sheet rested part way
+  open, its meaning below the screen's edge, for 40 s), the second passed whole, as the before build's did.
 
 ## How to use it
 
