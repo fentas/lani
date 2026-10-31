@@ -7,6 +7,11 @@ was also silent. This round redoes the first launch for a parent and a child, an
 
 ## The first launch
 
+*Since 2026-10-31 ([setup-refresh.md](setup-refresh.md)): every step reads itself aloud and has a 🔊, a language's tile
+says its name, "🎯 Cilj · Aim" and "🗣️ Moj glas · My voice" are asked at setup (on this device alone in the questions
+and on the tutor's page; with the computer on "✨ Še o tebi · A little about you" once paired), and the pages fit a
+tablet on its side.*
+
 The state is `app/SetupFlow` (pure; the view model keeps it, so the screens built anew in the chosen languages keep
 their step). The screens are `ui/setup/SetupScreen.kt`. The look stays the app's: the blue of the first screens, white
 text, big buttons.
