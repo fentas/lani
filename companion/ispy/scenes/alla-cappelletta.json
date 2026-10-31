@@ -3,7 +3,7 @@
   "scene": "alla-cappelletta",
   "language": "it",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, describing the chapel in Friuli's look (the ancona's ochre walls under coppi, the bell on its iron bracket, the fresco of the Madonna and Child on blue with stars, the red lumini on the step, the maize field); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, describing the chapel in Friuli's look (the ancona's ochre walls under coppi, the bell on its iron bracket, the fresco of the Madonna and Child on blue with stars, the red lumini on the step, the maize field) and the white candle on the altar, apart from the red lumini on the step (culture-source); not reviewed by a native speaker",
   "things": {
     "chapel": {
       "clues": [
@@ -561,6 +561,65 @@
           "de": "Das ist hinter dem Feld.",
           "grammar": ["dove-preposizioni"],
           "ref": "field"
+        }
+      ]
+    },
+    "altarcandle": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È bianca.",
+          "sl": "Je bela.",
+          "en": "It's white.",
+          "de": "Sie ist weiß.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "bianco"
+        },
+        {
+          "kind": "size",
+          "it": "È piccola e sottile.",
+          "sl": "Je majhna in tanka.",
+          "en": "It's small and thin.",
+          "de": "Sie ist klein und dünn.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "piccolo"
+        },
+        {
+          "kind": "material",
+          "it": "È di cera.",
+          "sl": "Je iz voska.",
+          "en": "It's made of wax.",
+          "de": "Sie ist aus Wachs.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È sull'altare.",
+          "sl": "Je na oltarju.",
+          "en": "It's on the altar.",
+          "de": "Sie steht auf dem Altar.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "altar"
+        },
+        {
+          "kind": "where",
+          "it": "È dietro la grata.",
+          "sl": "Je za mrežo.",
+          "en": "It's behind the grille.",
+          "de": "Sie steht hinter dem Gitter.",
+          "grammar": [
+            "dove-preposizioni"
+          ],
+          "ref": "grille"
         }
       ]
     }

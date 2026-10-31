@@ -3,7 +3,7 @@
   "scene": "al-parco-giochi",
   "language": "it",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the playground's painter in Friuli's look (the school's wall pale yellow, the white picket fence, the blue bucket and red spade in the sandpit, the red ball, the white chalk squares); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the playground's painter in Friuli's look (the school's wall pale yellow, the white picket fence, the blue bucket and red spade in the sandpit, the red ball, the white chalk squares) and the green fontanella by the fence (culture-source); not reviewed by a native speaker",
   "things": {
     "swing": {
       "clues": [
@@ -490,6 +490,65 @@
           "en": "We learn to read in it.",
           "de": "Darin lernen wir lesen.",
           "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "fontanella": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È verde.",
+          "sl": "Je zelen.",
+          "en": "It's green.",
+          "de": "Das ist grün.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "verde"
+        },
+        {
+          "kind": "size",
+          "it": "È alta e stretta.",
+          "sl": "Je visok in ozek.",
+          "en": "It's tall and narrow.",
+          "de": "Das ist hoch und schmal.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "alto"
+        },
+        {
+          "kind": "material",
+          "it": "È di ferro.",
+          "sl": "Je iz železa.",
+          "en": "It's made of iron.",
+          "de": "Das ist aus Eisen.",
+          "grammar": [
+            "essere-avere"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È vicino allo steccato.",
+          "sl": "Je blizu ograje.",
+          "en": "It's near the fence.",
+          "de": "Das steht nah am Zaun.",
+          "grammar": [
+            "dove-preposizioni",
+            "preposizioni-articolate"
+          ],
+          "ref": "fence"
+        },
+        {
+          "kind": "use",
+          "it": "Lì beviamo quando abbiamo sete.",
+          "sl": "Tam pijemo, ko smo žejni.",
+          "en": "We drink there when we're thirsty.",
+          "de": "Dort trinken wir, wenn wir Durst haben.",
+          "grammar": [
+            "presente-regolare",
+            "essere-avere"
+          ]
         }
       ]
     }

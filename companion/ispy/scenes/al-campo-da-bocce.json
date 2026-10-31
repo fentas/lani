@@ -3,7 +3,7 @@
   "scene": "al-campo-da-bocce",
   "language": "it",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the bocce court's painter in Friuli's look (the osteria in ochre with the frasca, the grey metal balls, the light wooden jack, the yellow rule on the far end's board, the dark slate scoreboard behind the court, the lantern on its post); not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in it, with sl, en and de translations, from the bocce court's painter in Friuli's look (the osteria in ochre with the frasca, the grey metal balls, the light wooden jack, the yellow rule on the far end's board, the dark slate scoreboard behind the court, the lantern on its post) and the osteria itself, its frasca over the door (the inn, culture-source); not reviewed by a native speaker",
   "things": {
     "court": {
       "clues": [
@@ -568,6 +568,64 @@
           "en": "We light it when it's dark.",
           "de": "Wir zünden sie an, wenn es dunkel ist.",
           "grammar": ["presente-regolare"]
+        }
+      ]
+    },
+    "inn": {
+      "clues": [
+        {
+          "kind": "colour",
+          "it": "È gialla.",
+          "sl": "Je rumena.",
+          "en": "It's yellow.",
+          "de": "Es ist gelb.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "giallo"
+        },
+        {
+          "kind": "size",
+          "it": "È grande.",
+          "sl": "Je velika.",
+          "en": "It's big.",
+          "de": "Es ist groß.",
+          "grammar": [
+            "aggettivi-accordo"
+          ],
+          "adj": "grande"
+        },
+        {
+          "kind": "trait",
+          "it": "Sopra la porta ha un ramo.",
+          "sl": "Nad vrati ima vejo.",
+          "en": "It has a branch over its door.",
+          "de": "Über der Tür hat es einen Zweig.",
+          "grammar": [
+            "essere-avere",
+            "dove-preposizioni"
+          ]
+        },
+        {
+          "kind": "where",
+          "it": "È dietro il pergolato.",
+          "sl": "Je za brajdo.",
+          "en": "It's behind the pergola.",
+          "de": "Es steht hinter der Pergola.",
+          "grammar": [
+            "dove-preposizioni"
+          ],
+          "ref": "pergola"
+        },
+        {
+          "kind": "use",
+          "it": "Lì la signora Marisa cucina per tutti.",
+          "sl": "Tam gospa Marisa kuha za vse.",
+          "en": "Mrs Marisa cooks for everyone there.",
+          "de": "Dort kocht Frau Marisa für alle.",
+          "grammar": [
+            "presente-regolare"
+          ]
         }
       ]
     }
