@@ -88,7 +88,7 @@
           { "en": "Six eggs, thank you.", "sl": "Šest jajc, hvala.", "it": "Sei uova, grazie.", "de": "Sechs Eier, danke.",
             "why": { "en": "When you ask for something, say please. Thank you comes after you get it.", "sl": "Ko nekaj prosiš, rečeš please. Thank you rečeš, ko to dobiš.", "it": "Quando chiedi qualcosa, dici please. Thank you lo dici quando l'hai ricevuto.", "de": "Wenn du um etwas bittest, sagst du please. Thank you sagst du, wenn du es bekommst." },
             "reply": { "face": "laugh", "en": "Thank you? But I haven't given you anything yet, love!", "sl": "Hvala? Saj ti še nisem nič dala!", "it": "Grazie? Ma non ti ho ancora dato niente!", "de": "Danke? Ich hab dir doch noch gar nichts gegeben!" } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
         { "who": "maggie", "en": "Here you are. Mind they don't break!", "sl": "Izvoli. Pazi, da se ne razbijejo!", "it": "Ecco qua. Attenzione che non si rompano!", "de": "Bitte schön. Pass auf, dass sie nicht kaputtgehen!" },
         { "choices": [
           { "en": "Thank you, Maggie!", "sl": "Hvala, Maggie!", "it": "Grazie, Maggie!", "de": "Danke, Maggie!", "ok": true,
@@ -125,7 +125,7 @@
           { "en": "Here's yours hen, Maggie!", "sl": "Tukaj je tvoja kokoš, Maggie!", "it": "Ecco la tua gallina, Maggie!", "de": "Hier ist dein Huhn, Maggie!", "grammar": "possessive-s",
             "why": { "en": "Yours stands alone: it's yours. Before a noun: your hen.", "sl": "Yours stoji sam: it's yours. Pred samostalnikom: your hen.", "it": "Yours sta da solo: it's yours. Davanti a un nome: your hen.", "de": "Yours steht allein: it's yours. Vor einem Nomen: your hen." },
             "reply": { "face": "laugh", "en": "Yours hen? Mine, love, all mine! Ha ha!", "sl": "Yours hen? Moja, čisto moja! Ha ha!", "it": "Yours hen? Mia, tutta mia! Ah ah!", "de": "Yours hen? Meins, ganz meins! Haha!" } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
         { "who": "maggie", "face": "laugh", "en": "Hens are like children: always running off!", "sl": "Kokoši so kot otroci: vedno uidejo!", "it": "Le galline sono come i bambini: scappano sempre!", "de": "Hühner sind wie Kinder: Sie laufen immer weg!" }
       ]
     },
@@ -135,7 +135,7 @@
         { "who": "birkett", "face": "worried", "en": "Morning, love! Twelve walkers at the inn tonight, and no potatoes! Can you help me?", "sl": "Dobro jutro! Nocoj bo v gostilni dvanajst pohodnikov, krompirja pa nimam! Mi lahko pomagaš?", "it": "Buongiorno! Stasera alla locanda ho dodici escursionisti e niente patate! Mi aiuti?", "de": "Morgen, Schätzchen! Zwölf Wanderer heute Abend im Gasthaus, und keine Kartoffeln! Kannst du mir helfen?", "fx": { "bustle": 0.4 } },
         { "choices": [
           { "en": "Of course, Mrs Birkett. What do you need?", "sl": "Seveda, gospa Birkett. Kaj potrebujete?", "it": "Certo, signora Birkett. Di cosa ha bisogno?", "de": "Natürlich, Mrs Birkett. Was brauchen Sie?", "ok": true,
-            "reply": { "face": "happy", "en": "Bless you, love! Ask Maggie for potatoes. My hands are full.", "sl": "Bog te blagoslovi! Prosi Maggie za krompir. Polne roke imam.", "it": "Che tesoro! Chiedi a Maggie delle patate. Ho le mani piene.", "de": "Du bist ein Schatz! Frag Maggie nach Kartoffeln. Ich hab die Hände voll." } },
+            "reply": { "face": "happy", "en": "Bless you, love! Ask Maggie for potatoes. My hands are full.", "sl": "Hvala ti! Prosi Maggie za krompir. Polne roke imam.", "it": "Che tesoro! Chiedi a Maggie delle patate. Ho le mani piene.", "de": "Du bist ein Schatz! Frag Maggie nach Kartoffeln. Ich hab die Hände voll." } },
           { "en": "Yes! What can I do, Mrs Birkett?", "sl": "Ja! Kaj lahko naredim, gospa Birkett?", "it": "Sì! Cosa posso fare, signora Birkett?", "de": "Ja! Was kann ich tun, Mrs Birkett?", "ok": true,
             "reply": { "face": "happy", "en": "You're a star! Ask Maggie for potatoes. My hands are full.", "sl": "Zlata si! Prosi Maggie za krompir. Polne roke imam.", "it": "Sei un angelo! Chiedi a Maggie delle patate. Ho le mani piene.", "de": "Du bist ein Engel! Frag Maggie nach Kartoffeln. Ich hab die Hände voll." } },
           { "en": "Of course, Mrs Birkett. What do you needs?", "sl": "Seveda, gospa Birkett. Kaj potrebujete?", "it": "Certo, signora Birkett. Di cosa ha bisogno?", "de": "Natürlich, Mrs Birkett. Was brauchen Sie?", "grammar": "questions-do",
@@ -143,27 +143,28 @@
             "reply": { "face": "laugh", "en": "What do I needs? A holiday, love! Ha!", "sl": "What do I needs? Dopust! Ha!", "it": "What do I needs? Una vacanza! Ah!", "de": "What do I needs? Urlaub, Schätzchen! Ha!" } }
         ] },
         { "who": "maggie", "face": "happy", "en": "Hello, love! What would you like?", "sl": "Živjo! Kaj boš?", "it": "Ciao! Cosa ti do?", "de": "Hallo, Schätzchen! Was darf's sein?" },
-        { "choices": [
+        { "to": "birkett", "choices": [
           { "en": "Could I have ten potatoes, please?", "sl": "Bi lahko {m:dobil|f:dobila} deset krompirjev, prosim?", "it": "Potrei avere dieci patate, per favore?", "de": "Könnte ich zehn Kartoffeln haben, bitte?", "ok": true,
-            "reply": { "face": "happy", "en": "Of course. Ten big ones, for the inn.", "sl": "Seveda. Deset velikih, za gostilno.", "it": "Certo. Dieci belle grandi, per la locanda.", "de": "Natürlich. Zehn große, fürs Gasthaus." } },
+            "reply": { "face": "happy", "en": "Ten! Just right for my tatie pot, love.", "sl": "Deset! Ravno prav za moj tatie pot.", "it": "Dieci! Giuste per il mio tatie pot.", "de": "Zehn! Genau richtig für meinen Tatie Pot, Schätzchen." } },
           { "en": "Could I have ten potato, please?", "sl": "Bi lahko {m:dobil|f:dobila} deset krompirjev, prosim?", "it": "Potrei avere dieci patate, per favore?", "de": "Könnte ich zehn Kartoffeln haben, bitte?", "grammar": "plurals",
             "why": { "en": "More than one takes the plural; potato takes -es: potatoes.", "sl": "Za več kot enega pride množina; potato dobi -es: potatoes.", "it": "Per più di una ci vuole il plurale; potato prende -es: potatoes.", "de": "Bei mehr als einer kommt der Plural; potato bekommt -es: potatoes." },
-            "reply": { "face": "laugh", "en": "Ten potato? One very big one, cut in ten?", "sl": "Ten potato? Enega samega, zelo velikega, razrezanega na deset?", "it": "Ten potato? Una sola, enorme, tagliata in dieci?", "de": "Ten potato? Eine einzige riesige, in zehn Stücke geschnitten?" } },
+            "reply": { "face": "laugh", "en": "Ten potato? One giant potato for twelve walkers?", "sl": "Ten potato? En sam velikanski krompir za dvanajst pohodnikov?", "it": "Ten potato? Una patata gigante per dodici escursionisti?", "de": "Ten potato? Eine Riesenkartoffel für zwölf Wanderer?" } },
           { "en": "Could I having ten potatoes, please?", "sl": "Bi lahko {m:dobil|f:dobila} deset krompirjev, prosim?", "it": "Potrei avere dieci patate, per favore?", "de": "Könnte ich zehn Kartoffeln haben, bitte?", "grammar": "can",
             "why": { "en": "After could, the base form: Could I have …?", "sl": "Za could pride osnovna oblika: Could I have …?", "it": "Dopo could va la forma base: Could I have …?", "de": "Nach could kommt die Grundform: Could I have …?" },
             "reply": { "face": "confused", "en": "Could I having? Eh, love? Once more?", "sl": "Could I having? Kaj? Še enkrat?", "it": "Could I having? Eh? Ancora una volta?", "de": "Could I having? Hm? Noch einmal?" } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
-        { "who": "birkett", "en": "Lovely! And how much is it all? Ask her, love. I'm all thumbs today.", "sl": "Lepo! Pa koliko stane vse skupaj? Vprašaj jo. Danes sem čisto nerodna.", "it": "Bene! E quanto costa tutto? Chiediglielo tu. Oggi sono un disastro.", "de": "Prima! Und was kostet das alles? Frag du sie. Ich hab heute zwei linke Hände." },
-        { "to": "maggie", "choices": [
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        { "who": "maggie", "face": "happy", "en": "Ten potatoes for the inn. There you are, love.", "sl": "Deset krompirjev za gostilno. Izvoli.", "it": "Dieci patate per la locanda. Ecco qua.", "de": "Zehn Kartoffeln fürs Gasthaus. Bitte schön, Schätzchen." },
+        { "who": "birkett", "en": "Lovely! Now ask her how much it is. I'm all thumbs today.", "sl": "Lepo! Zdaj jo pa vprašaj, koliko stane. Danes sem čisto nerodna.", "it": "Bene! Adesso chiedile quanto costa. Oggi sono un disastro.", "de": "Prima! Jetzt frag sie, was es kostet. Ich hab heute zwei linke Hände." },
+        { "choices": [
           { "en": "How much is that, Maggie?", "sl": "Koliko je to, Maggie?", "it": "Quanto costa, Maggie?", "de": "Was kostet das, Maggie?", "ok": true,
-            "reply": { "face": "happy", "en": "Two pounds fifty, love.", "sl": "Dva funta petdeset.", "it": "Due sterline e cinquanta.", "de": "Zwei Pfund fünfzig, Schätzchen." } },
+            "reply": { "face": "happy", "en": "That's it, love! Polite and quick.", "sl": "Tako je! Vljudno in hitro.", "it": "Così! Gentile e veloce.", "de": "Genau so, Schätzchen! Höflich und schnell." } },
           { "en": "How much is it, please?", "sl": "Koliko stane, prosim?", "it": "Quanto costa, per favore?", "de": "Was kostet das, bitte?", "ok": true,
-            "reply": { "face": "happy", "en": "Two pounds fifty. A good price!", "sl": "Dva funta petdeset. Dobra cena!", "it": "Due sterline e cinquanta. Un buon prezzo!", "de": "Zwei Pfund fünfzig. Ein guter Preis!" } },
+            "reply": { "face": "happy", "en": "Perfect! Short and sweet, love.", "sl": "Odlično! Kratko in jedrnato.", "it": "Perfetto! Breve e chiaro.", "de": "Perfekt! Kurz und knapp, Schätzchen." } },
           { "en": "How many is that, Maggie?", "sl": "Koliko je to, Maggie?", "it": "Quanto costa, Maggie?", "de": "Was kostet das, Maggie?", "grammar": "some-any",
             "why": { "en": "For a price, ask How much …? How many is for things you count.", "sl": "Za ceno vprašaš How much …? How many je za stvari, ki jih šteješ.", "it": "Per il prezzo si chiede How much …? How many è per le cose che si contano.", "de": "Nach dem Preis fragt man How much …? How many ist für Dinge, die man zählt." },
             "reply": { "face": "laugh", "en": "How many? Ten! You counted them, love.", "sl": "Koliko jih je? Deset! Saj si jih {m:preštel|f:preštela}.", "it": "Quante? Dieci! Le hai contate tu.", "de": "Wie viele? Zehn! Du hast sie doch gezählt." } }
         ] },
-        { "who": "birkett", "face": "laugh", "en": "Thank you, love! Tatie pot tonight. Coming, coming… won't be a minute!", "sl": "Hvala! Nocoj bo tatie pot. Že grem, že grem … takoj bom!", "it": "Grazie! Stasera tatie pot. Arrivo, arrivo… un attimo!", "de": "Danke, Schätzchen! Heute Abend gibt's Tatie Pot. Komme, komme … bin gleich da!" }
+        { "who": "maggie", "face": "happy", "en": "Two pounds fifty, love. Tatie pot at the inn tonight, is it?", "sl": "Dva funta petdeset. Nocoj bo v gostilni tatie pot, kajne?", "it": "Due sterline e cinquanta. Stasera tatie pot alla locanda, vero?", "de": "Zwei Pfund fünfzig, Schätzchen. Heute Abend gibt's Tatie Pot im Gasthaus, was?" }
       ]
     },
     {
@@ -179,7 +180,7 @@
             "why": { "en": "With I, the no is don't: I don't drink. Doesn't is for he, she and it.", "sl": "Pri I je zanikanje don't: I don't drink. Doesn't je za he, she in it.", "it": "Con I la negazione è don't: I don't drink. Doesn't è per he, she e it.", "de": "Bei I heißt die Verneinung don't: I don't drink. Doesn't ist für he, she und it." },
             "reply": { "face": "laugh", "en": "Doesn't? Sounds like Carlisle's defence: all over the place!", "sl": "Doesn't? Zveni kot obramba Carlisla: vse narobe!", "it": "Doesn't? Sembra la difesa del Carlisle: tutto sottosopra!", "de": "Doesn't? Klingt wie Carlisles Abwehr: alles durcheinander!" } }
         ] },
-        { "who": "sam", "face": "curious", "en": "Do you know Brda? My friend Marko makes wine there.", "sl": "Poznaš Brda? Moj prijatelj Marko tam dela vino.", "it": "Conosci Brda, in Slovenia? Il mio amico Marko ci fa il vino.", "de": "Kennst du Brda? Mein Freund Marko macht dort Wein." },
+        { "who": "sam", "face": "curious", "en": "Do you know Brda? My friend Marko makes wine there.", "sl": "Poznaš Brda? Moj prijatelj Marko tam dela vino.", "it": "Conosci Brda? Il mio amico Marko ci fa il vino.", "de": "Kennst du Brda? Mein Freund Marko macht dort Wein." },
         { "choices": [
           { "en": "Yes, I do. It's in Slovenia.", "sl": "Ja. V Sloveniji so.", "it": "Sì. È in Slovenia.", "de": "Ja. Das ist in Slowenien.", "ok": true,
             "reply": { "face": "happy", "en": "That's right! Green hills and vines, like the Lakes, but sunny.", "sl": "Tako je! Zeleni griči in trte, kot pri nas, le da je sončno.", "it": "Esatto! Colline verdi e vigne, come qui, ma con il sole.", "de": "Genau! Grüne Hügel und Reben, wie bei uns, nur sonnig." } },
@@ -245,7 +246,7 @@
           { "en": "{n} {!egg|eggs}! What clever hens!", "sl": "{n} {!jajce|jajci|jajca|jajc}! Kako pridne kokoši!", "it": "{n} {!uovo|uova}! Che galline brave!", "de": "{n} {!Ei|Eier}! Was für fleißige Hühner!", "wrong_form": 1, "grammar": "plurals",
             "why": { "en": "{One takes the singular|More than one takes -s}: {n} {egg|eggs}.", "sl": "{Pri enem ednina|Za več kot eno dodaš -s}: {n} {egg|eggs}.", "it": "{Uno vuole il singolare|Per più di uno si aggiunge -s}: {n} {egg|eggs}.", "de": "{Eins steht im Singular|Bei mehr als einem kommt -s dazu}: {n} {egg|eggs}." },
             "reply": { "face": "curious", "en": "Just one? Count again, love: a whole tray!", "sl": "Samo eno? Preštej še enkrat: cel pladenj!", "it": "Uno solo? Conta di nuovo: un vassoio intero!", "de": "Nur eins? Zähl noch mal: ein ganzes Tablett!" } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
         { "who": "maggie", "face": "curious", "en": "Now, what do you say to my hen? She's in her coop there.", "sl": "No, kaj pa rečeš moji kokoši? Tamle je, v kletki.", "it": "E allora, cosa dici alla mia gallina? È lì, nella sua gabbia.", "de": "Und, was sagst du zu meinem Huhn? Es sitzt da in seinem Käfig." },
         { "choices": [
           { "en": "Thank you, hen!", "sl": "Hvala, kokoš!", "it": "Grazie, gallina!", "de": "Danke, Huhn!", "ok": true,
@@ -272,7 +273,7 @@
           { "en": "Mmm! It are delicious.", "sl": "Mmm! Odličen je.", "it": "Mmm! È buonissimo.", "de": "Mmm! Der ist köstlich.", "grammar": "to-be",
             "why": { "en": "It goes with is: it is, it's delicious.", "sl": "It gre z is: it is, it's delicious.", "it": "It va con is: it is, it's delicious.", "de": "It geht mit is: it is, it's delicious." },
             "reply": { "face": "laugh", "en": "It are? Is there more than one cheese in your mouth?", "sl": "It are? Imaš v ustih več kot en sir?", "it": "It are? Hai più di un formaggio in bocca?", "de": "It are? Hast du mehr als einen Käse im Mund?" } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
         { "who": "maggie", "en": "This piece is three pounds. Would you like it?", "sl": "Ta kos stane tri funte. Ga želiš?", "it": "Questo pezzo costa tre sterline. Lo vuoi?", "de": "Dieses Stück kostet drei Pfund. Möchtest du es?" },
         { "choices": [
           { "en": "Could I have half, please?", "sl": "Bi lahko {m:dobil|f:dobila} polovico, prosim?", "it": "Potrei averne la metà, per favore?", "de": "Könnte ich die Hälfte haben, bitte?", "ok": true,
@@ -283,7 +284,7 @@
           { "en": "Could I having half, please?", "sl": "Bi lahko {m:dobil|f:dobila} polovico, prosim?", "it": "Potrei averne la metà, per favore?", "de": "Könnte ich die Hälfte haben, bitte?", "grammar": "can",
             "why": { "en": "After could, the base form: Could I have …?", "sl": "Za could pride osnovna oblika: Could I have …?", "it": "Dopo could va la forma base: Could I have …?", "de": "Nach could kommt die Grundform: Could I have …?" },
             "reply": { "face": "laugh", "en": "Having? Having a laugh, love? Ha!", "sl": "Having? Se šališ? Ha!", "it": "Having? Mi prendi in giro? Ah!", "de": "Having? Willst du mich veräppeln? Ha!" } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
         { "who": "maggie", "face": "laugh", "en": "Cheese, an apple and a bit of my bread. That's a proper lunch!", "sl": "Sir, jabolko in malo mojega kruha. To je prava malica!", "it": "Formaggio, una mela e un po' del mio pane. Questo sì che è un pranzo!", "de": "Käse, ein Apfel und ein Stück von meinem Brot. Das ist ein richtiges Mittagessen!" }
       ]
     },
@@ -302,7 +303,7 @@
           { "en": "What it is? I don't know it.", "sl": "Kaj je to? Tega ne poznam.", "it": "Cos'è? Non lo conosco.", "de": "Was ist das? Das kenne ich nicht.", "grammar": "word-order",
             "why": { "en": "In a question, is comes before it: What is it?", "sl": "V vprašanju pride is pred it: What is it?", "it": "Nella domanda is va prima di it: What is it?", "de": "In der Frage steht is vor it: What is it?" },
             "reply": { "face": "laugh", "en": "That's back to front, love! It's rhubarb: sour and red.", "sl": "To je narobe obrnjeno! Rabarbara je: kisla in rdeča.", "it": "Questa è al contrario! È rabarbaro: aspro e rosso.", "de": "Das ist verkehrt herum, Schätzchen! Das ist Rhabarber: sauer und rot." } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
         { "who": "maggie", "face": "curious", "en": "Would you like some for a crumble? I've got lots.", "sl": "Bi je malo za crumble? Imam je veliko.", "it": "Ne vuoi un po' per un crumble? Ne ho tanto.", "de": "Möchtest du welchen für einen Crumble? Ich hab genug." },
         { "choices": [
           { "en": "Yes, please! Some for a crumble.", "sl": "Ja, prosim! Malo za crumble.", "it": "Sì, grazie! Un po' per un crumble.", "de": "Ja, bitte! Etwas für einen Crumble.", "ok": true,
@@ -310,7 +311,7 @@
           { "en": "Yes, please! Any for a crumble.", "sl": "Ja, prosim! Malo za crumble.", "it": "Sì, grazie! Un po' per un crumble.", "de": "Ja, bitte! Etwas für einen Crumble.", "grammar": "some-any",
             "why": { "en": "In a yes sentence, say some: some for a crumble. Any is for no and for questions.", "sl": "V trdilnem stavku rečeš some: some for a crumble. Any je za zanikanje in vprašanja.", "it": "In una frase affermativa si dice some: some for a crumble. Any è per le negazioni e le domande.", "de": "In einem bejahten Satz sagt man some: some for a crumble. Any ist für Verneinungen und Fragen." },
             "reply": { "face": "laugh", "en": "Any? Not any old rhubarb, love. My rhubarb!", "sl": "Any? Ne kakršno koli rabarbare. Mojo rabarbaro!", "it": "Any? Non un rabarbaro qualsiasi. Il mio rabarbaro!", "de": "Any? Nicht irgendeinen Rhabarber. Meinen Rhabarber!" } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
         { "who": "maggie", "face": "proud", "en": "My mother made rhubarb crumble every Sunday in spring. With custard!", "sl": "Moja mama je spomladi vsako nedeljo pekla rabarbarin crumble. S kremo!", "it": "Mia madre faceva il crumble di rabarbaro ogni domenica di primavera. Con la crema!", "de": "Meine Mutter hat im Frühling jeden Sonntag Rhabarber-Crumble gemacht. Mit Vanillesoße!" }
       ]
     },
@@ -320,16 +321,16 @@
       "lines": [
         { "who": "maggie", "face": "worried", "en": "Not again! My hen's out, and up onto the cart she goes!", "sl": "Ne spet! Kokoš je ušla in že je na vozu!", "it": "Di nuovo! La gallina è scappata, ed eccola sul carro!", "de": "Nicht schon wieder! Mein Huhn ist raus, und hopp, auf den Wagen!", "fx": { "hen": 1, "bustle": 0.4 } },
         { "who": "sam", "face": "laugh", "en": "Maggie! Your hen's sitting on my ale. I think she likes it!", "sl": "Maggie! Tvoja kokoš sedi na mojem pivu. Mislim, da ji je všeč!", "it": "Maggie! La tua gallina è seduta sulla mia birra. Credo che le piaccia!", "de": "Maggie! Dein Huhn sitzt auf meinem Ale. Ich glaub, es gefällt ihm!" },
-        { "choices": [
+        { "to": "maggie", "choices": [
           { "en": "Hens don't drink ale, Sam!", "sl": "Kokoši ne pijejo piva, Sam!", "it": "Le galline non bevono la birra, Sam!", "de": "Hühner trinken kein Ale, Sam!", "ok": true,
             "reply": { "face": "laugh", "en": "Ha! No, she just likes a warm seat.", "sl": "Ha! Ne, samo topel sedež ima rada.", "it": "Ah! No, le piace solo un posto caldo.", "de": "Ha! Nein, es mag nur einen warmen Platz." } },
           { "en": "Hens doesn't drink ale, Sam!", "sl": "Kokoši ne pijejo piva, Sam!", "it": "Le galline non bevono la birra, Sam!", "de": "Hühner trinken kein Ale, Sam!", "grammar": "questions-do",
             "why": { "en": "Hens are more than one: they don't. Doesn't is for one: a hen doesn't.", "sl": "Hens je več kokoši: they don't. Doesn't je za eno: a hen doesn't.", "it": "Hens sono più galline: they don't. Doesn't è per una sola: a hen doesn't.", "de": "Hens sind mehrere: they don't. Doesn't ist für eins: a hen doesn't." },
-            "reply": { "face": "laugh", "en": "Doesn't? This one might, mate!", "sl": "Doesn't? Tale bi pa znala!", "it": "Doesn't? Questa magari sì!", "de": "Doesn't? Dieses vielleicht schon, Kumpel!" } },
+            "reply": { "face": "laugh", "en": "Doesn't? This one might, love!", "sl": "Doesn't? Tale bi pa znala!", "it": "Doesn't? Questa magari sì!", "de": "Doesn't? Dieses vielleicht schon, Schätzchen!" } },
           { "en": "Hens don't drinks ale, Sam!", "sl": "Kokoši ne pijejo piva, Sam!", "it": "Le galline non bevono la birra, Sam!", "de": "Hühner trinken kein Ale, Sam!", "grammar": "questions-do",
             "why": { "en": "After don't, the verb has no -s: they don't drink.", "sl": "Za don't glagol nima -s: they don't drink.", "it": "Dopo don't il verbo non prende la -s: they don't drink.", "de": "Nach don't hat das Verb kein -s: they don't drink." },
             "reply": { "face": "laugh", "en": "Drinks? Ha! Only on Saturdays!", "sl": "Drinks? Ha! Samo ob sobotah!", "it": "Drinks? Ah! Solo il sabato!", "de": "Drinks? Ha! Nur samstags!" } }
-        ], "puzzled": { "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
+        ], "puzzled": { "face": "confused", "en": "Come again, love?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Schätzchen?" } },
         { "who": "maggie", "face": "curious", "en": "Can you bring her back to me, love? Gently!", "sl": "Mi jo lahko prineseš nazaj? Nežno!", "it": "Me la riporti? Piano!", "de": "Bringst du es mir zurück, Schätzchen? Vorsichtig!" },
         { "choices": [
           { "en": "Come on, little hen. Back to your coop!", "sl": "Pridi, mala kokoš. Nazaj v kletko!", "it": "Vieni, gallinella. Torna nella tua gabbia!", "de": "Komm, kleines Huhn. Zurück in deinen Käfig!", "ok": true,
@@ -337,7 +338,7 @@
           { "en": "Come on, little hens. Back to your coop!", "sl": "Pridi, mala kokoš. Nazaj v kletko!", "it": "Vieni, gallinella. Torna nella tua gabbia!", "de": "Komm, kleines Huhn. Zurück in deinen Käfig!", "grammar": "plurals",
             "why": { "en": "There's only one: a hen, with no -s.", "sl": "Kokoš je samo ena: a hen, brez -s.", "it": "La gallina è una sola: a hen, senza -s.", "de": "Es ist nur eins: a hen, ohne -s." },
             "reply": { "face": "laugh", "en": "Hens? Just the one, love. One's enough!", "sl": "Hens? Samo ena je. Ena je čisto dovolj!", "it": "Hens? Ce n'è una sola. Una basta e avanza!", "de": "Hens? Nur eins, Schätzchen. Eins reicht!" } }
-        ], "puzzled": { "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh, love? Say that again?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti?", "de": "Hm, Schätzchen? Sag das noch mal?" } },
         { "who": "maggie", "face": "laugh", "en": "Hens are like children: they never stay where you put them!", "sl": "Kokoši so kot otroci: nikoli ne ostanejo tam, kamor jih daš!", "it": "Le galline sono come i bambini: non restano mai dove le metti!", "de": "Hühner sind wie Kinder: Sie bleiben nie da, wo man sie hinsetzt!" }
       ]
     },
@@ -355,7 +356,7 @@
           { "en": "Yes, there's any butter.", "sl": "Ja, maslo je.", "it": "Sì, c'è del burro.", "de": "Ja, es gibt Butter.", "grammar": "some-any",
             "why": { "en": "In a yes sentence, say some: there's some butter. Any is for no and for questions.", "sl": "V trdilnem stavku rečeš some: there's some butter. Any je za zanikanje in vprašanja.", "it": "In una frase affermativa si dice some: there's some butter. Any è per le negazioni e le domande.", "de": "In einem bejahten Satz sagt man some: there's some butter. Any ist für Verneinungen und Fragen." },
             "reply": { "face": "curious", "en": "Any butter? I need real butter, love!", "sl": "Any butter? Potrebujem pravo maslo!", "it": "Any butter? A me serve burro vero!", "de": "Any butter? Ich brauch echte Butter, Schätzchen!" } }
-        ], "puzzled": { "en": "Sorry, love? Once more?", "sl": "Oprosti? Še enkrat?", "it": "Scusa? Ancora una volta?", "de": "Wie bitte, Schätzchen? Noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Sorry, love? Once more?", "sl": "Oprosti? Še enkrat?", "it": "Scusa? Ancora una volta?", "de": "Wie bitte, Schätzchen? Noch mal?" } },
         { "who": "birkett", "face": "curious", "en": "What do you put on your scones, love?", "sl": "Kaj pa ti daš na scone?", "it": "E tu cosa ci metti sugli scone?", "de": "Und was tust du auf deine Scones, Schätzchen?" },
         { "choices": [
           { "en": "I put jam and cream on them.", "sl": "Nanje dam marmelado in smetano.", "it": "Ci metto marmellata e panna.", "de": "Ich tu Marmelade und Sahne drauf.", "ok": true,
@@ -365,26 +366,26 @@
           { "en": "I puts jam and cream on them.", "sl": "Nanje dam marmelado in smetano.", "it": "Ci metto marmellata e panna.", "de": "Ich tu Marmelade und Sahne drauf.", "grammar": "present-simple",
             "why": { "en": "With I, the verb has no -s: I put. The -s is for he, she and it.", "sl": "Pri I glagol nima -s: I put. -s je za he, she in it.", "it": "Con I il verbo non prende la -s: I put. La -s è per he, she e it.", "de": "Bei I hat das Verb kein -s: I put. Das -s ist für he, she und it." },
             "reply": { "face": "laugh", "en": "I puts? Never mind, love: more cream, less grammar!", "sl": "I puts? Nič hudega: več smetane, manj slovnice!", "it": "I puts? Pazienza: più panna, meno grammatica!", "de": "I puts? Macht nichts: mehr Sahne, weniger Grammatik!" } }
-        ], "puzzled": { "en": "Sorry, love? Once more?", "sl": "Oprosti? Še enkrat?", "it": "Scusa? Ancora una volta?", "de": "Wie bitte, Schätzchen? Noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Sorry, love? Once more?", "sl": "Oprosti? Še enkrat?", "it": "Scusa? Ancora una volta?", "de": "Wie bitte, Schätzchen? Noch mal?" } },
         { "who": "birkett", "face": "laugh", "en": "Jam first or cream first? In Devon and Cornwall they fight about that! Coming, love!", "sl": "Najprej marmelada ali najprej smetana? V Devonu in Cornwallu se zaradi tega prepirajo! Že grem!", "it": "Prima la marmellata o prima la panna? Nel Devon e in Cornovaglia litigano per questo! Arrivo!", "de": "Erst Marmelade oder erst Sahne? In Devon und Cornwall streitet man darüber! Komme schon!" }
       ]
     },
     {
       "id": "inn-damsons",
       "months": [9],
-      "memory": { "en": "the damsons we picked for the inn", "sl": "slive, ki sva jih nabrala za gostilno", "it": "le susine che abbiamo raccolto per la locanda", "de": "die Pflaumen, die wir fürs Gasthaus gepflückt haben" },
+      "memory": { "en": "the damsons we picked for the inn", "sl": "slive, ki sva jih {m:nabrala|f:nabrali} za gostilno", "it": "le susine che abbiamo raccolto per la locanda", "de": "die Pflaumen, die wir fürs Gasthaus gepflückt haben" },
       "lines": [
         { "who": "birkett", "face": "happy", "en": "Love! Sam says the damsons are ripe. Damson jam for the inn!", "sl": "Sam pravi, da so slive zrele. Slivova marmelada za gostilno!", "it": "Sam dice che le susine sono mature. Marmellata di susine per la locanda!", "de": "Schätzchen! Sam sagt, die Pflaumen sind reif. Pflaumenmarmelade fürs Gasthaus!" },
         { "choices": [
           { "en": "Can I help you pick them?", "sl": "Vam jih lahko pomagam nabrati?", "it": "Posso aiutarLa a raccoglierle?", "de": "Kann ich Ihnen beim Pflücken helfen?", "ok": true,
-            "reply": { "face": "happy", "en": "Oh, would you? Saturday, on the terraces above the dale.", "sl": "Oh, bi res? V soboto, na terasah nad dolino.", "it": "Oh, davvero? Sabato, sulle terrazze sopra la valle.", "de": "Oh, wirklich? Samstag, auf den Terrassen über dem Tal." } },
+            "reply": { "face": "happy", "en": "Oh, would you? Saturday, in the orchard up the dale.", "sl": "Oh, bi res? V soboto, v sadovnjaku gor v dolini.", "it": "Oh, davvero? Sabato, nel frutteto su per la valle.", "de": "Oh, wirklich? Samstag, im Obstgarten oben im Tal." } },
           { "en": "Can I helping you pick them?", "sl": "Vam jih lahko pomagam nabrati?", "it": "Posso aiutarLa a raccoglierle?", "de": "Kann ich Ihnen beim Pflücken helfen?", "grammar": "can",
             "why": { "en": "After can, the base form: Can I help …?", "sl": "Za can pride osnovna oblika: Can I help …?", "it": "Dopo can va la forma base: Can I help …?", "de": "Nach can kommt die Grundform: Can I help …?" },
             "reply": { "face": "laugh", "en": "Helping? You're making me laugh already, love!", "sl": "Helping? Že zdaj me spravljaš v smeh!", "it": "Helping? Mi fai già ridere!", "de": "Helping? Du bringst mich jetzt schon zum Lachen!" } },
           { "en": "I can help you pick them?", "sl": "Vam jih lahko pomagam nabrati?", "it": "Posso aiutarLa a raccoglierle?", "de": "Kann ich Ihnen beim Pflücken helfen?", "grammar": "can",
             "why": { "en": "In a question, can comes before I: Can I help you?", "sl": "V vprašanju pride can pred I: Can I help you?", "it": "Nella domanda can va prima di I: Can I help you?", "de": "In der Frage steht can vor I: Can I help you?" },
             "reply": { "face": "laugh", "en": "A question or a promise, love? I'll take both!", "sl": "Vprašanje ali obljuba? Vzamem oboje!", "it": "Una domanda o una promessa? Le prendo tutte e due!", "de": "Eine Frage oder ein Versprechen? Ich nehm beides!" } }
-        ], "puzzled": { "en": "Sorry, love? Once more?", "sl": "Oprosti? Še enkrat?", "it": "Scusa? Ancora una volta?", "de": "Wie bitte, Schätzchen? Noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Sorry, love? Once more?", "sl": "Oprosti? Še enkrat?", "it": "Scusa? Ancora una volta?", "de": "Wie bitte, Schätzchen? Noch mal?" } },
         { "who": "birkett", "en": "Bring a basket. A big one!", "sl": "Prinesi košaro. Veliko!", "it": "Porta un cesto. Uno grande!", "de": "Bring einen Korb mit. Einen großen!" },
         { "choices": [
           { "en": "I've got a big basket.", "sl": "Imam veliko košaro.", "it": "Ho un cesto grande.", "de": "Ich habe einen großen Korb.", "ok": true,
@@ -395,7 +396,7 @@
           { "en": "I've got a basket big.", "sl": "Imam veliko košaro.", "it": "Ho un cesto grande.", "de": "Ich habe einen großen Korb.", "grammar": "word-order",
             "why": { "en": "In English the adjective comes before the noun: a big basket.", "sl": "V angleščini pride pridevnik pred samostalnik: a big basket.", "it": "In inglese l'aggettivo va prima del nome: a big basket.", "de": "Im Englischen steht das Adjektiv vor dem Nomen: a big basket." },
             "reply": { "face": "laugh", "en": "Back to front, love! Like my apron this morning!", "sl": "Narobe obrnjeno! Kot moj predpasnik danes zjutraj!", "it": "Al contrario! Come il mio grembiule stamattina!", "de": "Verkehrt herum! Wie meine Schürze heute Morgen!" } }
-        ], "puzzled": { "en": "Sorry, love? Once more?", "sl": "Oprosti? Še enkrat?", "it": "Scusa? Ancora una volta?", "de": "Wie bitte, Schätzchen? Noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Sorry, love? Once more?", "sl": "Oprosti? Še enkrat?", "it": "Scusa? Ancora una volta?", "de": "Wie bitte, Schätzchen? Noch mal?" } },
         { "who": "birkett", "face": "happy", "en": "Saturday, then! Now: coming, coming… won't be a minute!", "sl": "Torej v soboto! Zdaj pa: že grem, že grem … takoj bom!", "it": "Allora sabato! E adesso: arrivo, arrivo… un attimo!", "de": "Also Samstag! Und jetzt: komme, komme … bin gleich da!" }
       ]
     },
@@ -404,7 +405,7 @@
       "count": { "from": "dice", "min": 4, "max": 12 },
       "memory": { "en": "the bottles we got ready for the inn", "sl": "steklenice, ki sva jih pripravila za gostilno", "it": "le bottiglie che abbiamo preparato per la locanda", "de": "die Flaschen, die wir fürs Gasthaus fertig gemacht haben" },
       "lines": [
-        { "who": "sam", "face": "curious", "en": "Now then! Mrs Birkett wants {n} {bottle|bottles} for the inn. Say it back to me? I forget things.", "sl": "Živjo! Gospa Birkett hoče {n} {steklenico|steklenici|steklenice|steklenic} za gostilno. Mi ponoviš? Rad pozabljam.", "it": "Ciao! La signora Birkett vuole {n} {bottiglia|bottiglie} per la locanda. Me lo ripeti? Dimentico le cose.", "de": "Hallo! Mrs Birkett will {n} {Flasche|Flaschen} fürs Gasthaus. Sagst du's mir noch mal? Ich vergesse Sachen." },
+        { "who": "sam", "face": "curious", "en": "Now then! Mrs Birkett wants {n} {bottle|bottles} for the inn. Say it back to me? I forget things.", "sl": "Živjo! Gospa Birkett hoče {n} {steklenico|steklenici|steklenice|steklenic} za gostilno. Mi ponoviš? Hitro kaj pozabim.", "it": "Ciao! La signora Birkett vuole {n} {bottiglia|bottiglie} per la locanda. Me lo ripeti? Dimentico le cose.", "de": "Hallo! Mrs Birkett will {n} {Flasche|Flaschen} fürs Gasthaus. Sagst du's mir noch mal? Ich vergesse Sachen." },
         { "choices": [
           { "en": "{n} {bottle|bottles} for Mrs Birkett.", "sl": "{n} {steklenica|steklenici|steklenice|steklenic} za gospo Birkett.", "it": "{n} {bottiglia|bottiglie} per la signora Birkett.", "de": "{n} {Flasche|Flaschen} für Mrs Birkett.", "ok": true,
             "reply": { "face": "happy", "en": "That's it! Now I won't forget. Thanks, mate!", "sl": "Tako je! Zdaj ne bom pozabil. Hvala!", "it": "Esatto! Adesso non lo dimentico. Grazie!", "de": "Genau! Jetzt vergess ich's nicht. Danke, Kumpel!" } },
@@ -414,7 +415,7 @@
           { "en": "{n} {bottle|bottles} from Mrs Birkett.", "sl": "{n} {steklenica|steklenici|steklenice|steklenic} od gospe Birkett.", "it": "{n} {bottiglia|bottiglie} dalla signora Birkett.", "de": "{n} {Flasche|Flaschen} von Mrs Birkett.",
             "why": { "en": "She gets them, so they're for her. From is where something comes from.", "sl": "Dobi jih ona, torej so zanjo: for. From pove, od kod nekaj prihaja.", "it": "Le riceve lei, quindi sono per lei: for. From dice da dove viene qualcosa.", "de": "Sie bekommt sie, also sind sie für sie: for. From sagt, woher etwas kommt." },
             "reply": { "face": "laugh", "en": "From her? No, mate, she's buying them!", "sl": "Od nje? Ne, ona jih kupuje!", "it": "Da lei? No, è lei che le compra!", "de": "Von ihr? Nein, Kumpel, sie kauft sie doch!" } }
-        ], "puzzled": { "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
+        ], "puzzled": { "face": "confused", "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
         { "who": "sam", "en": "A walker asks: how much is the apple juice? It's one pound fifty. You tell her!", "sl": "Pohodnica vpraša: koliko stane jabolčni sok? En funt petdeset. Povej ji ti!", "it": "Un'escursionista chiede: quanto costa il succo di mela? Una sterlina e cinquanta. Diglielo tu!", "de": "Eine Wanderin fragt: Was kostet der Apfelsaft? Ein Pfund fünfzig. Sag du es ihr!" },
         { "choices": [
           { "en": "The apple juice is one pound fifty.", "sl": "Jabolčni sok stane en funt petdeset.", "it": "Il succo di mela costa una sterlina e cinquanta.", "de": "Der Apfelsaft kostet ein Pfund fünfzig.", "ok": true,
@@ -425,7 +426,7 @@
           { "en": "The apple juice is one penny fifty.", "sl": "Jabolčni sok stane en peni petdeset.", "it": "Il succo di mela costa un penny e cinquanta.", "de": "Der Apfelsaft kostet einen Penny fünfzig.",
             "why": { "en": "A penny is tiny money: a hundred pence make a pound. The juice is one pound fifty.", "sl": "Peni je drobiž: sto penijev je en funt. Sok stane en funt petdeset.", "it": "Un penny è pochissimo: cento penny fanno una sterlina. Il succo costa una sterlina e cinquanta.", "de": "Ein Penny ist winzig: hundert Pence sind ein Pfund. Der Saft kostet ein Pfund fünfzig." },
             "reply": { "face": "laugh", "en": "One penny? Then I'm giving it away! Ha!", "sl": "En peni? Potem ga podarjam! Ha!", "it": "Un penny? Allora lo regalo! Ah!", "de": "Ein Penny? Dann verschenk ich ihn ja! Ha!" } }
-        ], "puzzled": { "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
+        ], "puzzled": { "face": "confused", "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
         { "who": "sam", "face": "proud", "en": "What a team! Have an apple juice on me.", "sl": "Kakšna ekipa! Jabolčni sok častim jaz.", "it": "Che squadra! Il succo di mela te lo offro io.", "de": "Was für ein Team! Ein Apfelsaft geht auf mich." }
       ]
     },
@@ -439,10 +440,10 @@
             "reply": { "face": "proud", "en": "Here you are. My best: Fell Runner!", "sl": "Izvoli. Moje najboljše: Fell Runner!", "it": "Ecco qua. La mia migliore: Fell Runner!", "de": "Bitte schön. Mein bestes: Fell Runner!" } },
           { "en": "Apple juice, please.", "sl": "Jabolčni sok, prosim.", "it": "Succo di mela, per favore.", "de": "Apfelsaft, bitte.", "ok": true,
             "reply": { "face": "happy", "en": "Here you go. Apples from the dale!", "sl": "Izvoli. Jabolka iz doline!", "it": "Tieni. Mele della valle!", "de": "Hier, bitte. Äpfel aus dem Tal!" } },
-          { "en": "A bottle of ales, please.", "sl": "Steklenico piva, prosim.", "it": "Una bottiglia di birra, per favore.", "de": "Eine Flasche Ale, bitte.", "grammar": "plurals",
+          { "en": "A bottle of ales, please.", "sl": "Steklenico piva, prosim.", "it": "Una bottiglia di birra, per favore.", "de": "Eine Flasche Ale, bitte.", "grammar": "some-any",
             "why": { "en": "A drink you don't count has no -s: a bottle of ale.", "sl": "Pijača, ki je ne šteješ, nima -s: a bottle of ale.", "it": "Una bevanda che non si conta non prende la -s: a bottle of ale.", "de": "Ein Getränk, das man nicht zählt, hat kein -s: a bottle of ale." },
             "reply": { "face": "laugh", "en": "Ales? All of them? That's a big thirst!", "sl": "Ales? Vsa? To je pa velika žeja!", "it": "Ales? Tutte? Che sete!", "de": "Ales? Alle? Das ist aber ein großer Durst!" } }
-        ], "puzzled": { "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
+        ], "puzzled": { "face": "confused", "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
         { "who": "sam", "en": "That's two pounds, mate.", "sl": "Dva funta bo.", "it": "Sono due sterline.", "de": "Das macht zwei Pfund, Kumpel." },
         { "choices": [
           { "en": "Here you are. Two pounds.", "sl": "Izvoli. Dva funta.", "it": "Ecco a te. Due sterline.", "de": "Bitte schön. Zwei Pfund.", "ok": true,
@@ -450,7 +451,7 @@
           { "en": "Here are you. Two pounds.", "sl": "Izvoli. Dva funta.", "it": "Ecco a te. Due sterline.", "de": "Bitte schön. Zwei Pfund.", "grammar": "word-order",
             "why": { "en": "Giving something, say: Here you are. The words stay in that order.", "sl": "Ko nekaj daješ, rečeš: Here you are. Besede ostanejo v tem vrstnem redu.", "it": "Quando dai qualcosa si dice: Here you are. Le parole restano in quest'ordine.", "de": "Wenn du etwas gibst, sagst du: Here you are. Die Wörter bleiben in dieser Reihenfolge." },
             "reply": { "face": "laugh", "en": "I know I'm here, mate! Ha!", "sl": "Saj vem, da sem tu! Ha!", "it": "Lo so che sono qui! Ah!", "de": "Ich weiß, dass ich hier bin, Kumpel! Ha!" } }
-        ], "puzzled": { "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
+        ], "puzzled": { "face": "confused", "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
         { "who": "sam", "face": "happy", "en": "Come to the show in August. Ale, sheepdogs and the best scones in Cumbria!", "sl": "Pridi avgusta na razstavo. Pivo, ovčarski psi in najboljši sconi v Cumbrii!", "it": "Vieni alla fiera ad agosto. Birra, cani da pastore e gli scone più buoni della Cumbria!", "de": "Komm im August zur Schau. Ale, Hütehunde und die besten Scones in Cumbria!" }
       ]
     },
@@ -477,7 +478,7 @@
           { "en": "So it's your uncle sheep!", "sl": "Torej je to ovca tvojega strica!", "it": "Allora è la pecora di tuo zio!", "de": "Dann ist es das Schaf deines Onkels!", "grammar": "possessive-s",
             "why": { "en": "To say whose, add 's: my uncle's sheep.", "sl": "Za svojino dodaš 's: my uncle's sheep (stričeva ovca).", "it": "Per dire di chi è, si aggiunge 's: my uncle's sheep.", "de": "Um zu sagen, wem etwas gehört, hängst du 's an: my uncle's sheep." },
             "reply": { "face": "laugh", "en": "My uncle sheep? He's a farmer, mate, not a sheep!", "sl": "My uncle sheep? Kmet je, ne ovca!", "it": "My uncle sheep? È un contadino, non una pecora!", "de": "My uncle sheep? Er ist Bauer, Kumpel, kein Schaf!" } }
-        ], "puzzled": { "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
+        ], "puzzled": { "face": "confused", "en": "Come again, mate?", "sl": "Kako, prosim?", "it": "Come, scusa?", "de": "Wie bitte, Kumpel?" } },
         { "who": "sam", "face": "curious", "en": "Then we eat tatie pot and sing the old songs. Do you sing?", "sl": "Potem jemo tatie pot in pojemo stare pesmi. Ti poješ?", "it": "Poi mangiamo il tatie pot e cantiamo le vecchie canzoni. Tu canti?", "de": "Dann essen wir Tatie Pot und singen die alten Lieder. Singst du?" },
         { "choices": [
           { "en": "Yes, I do! But very badly.", "sl": "Ja! Ampak zelo slabo.", "it": "Sì! Ma malissimo.", "de": "Ja! Aber sehr schlecht.", "ok": true,
