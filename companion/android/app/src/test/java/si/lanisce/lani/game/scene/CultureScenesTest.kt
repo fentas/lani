@@ -52,6 +52,7 @@ class CultureScenesTest {
         "alps" to setOf("ibex", "bell-lost"), "hills" to emptySet(), "sea" to emptySet(), "mill" to emptySet(), "school" to emptySet(),
         "watchtower" to emptySet(), "livingroom" to emptySet(), "cellar" to emptySet(), "attic" to emptySet(), "workshop" to emptySet(),
         "market" to emptySet(),
+        "kitchen" to emptySet(), "smithy" to emptySet(), "tent" to emptySet(),
         // the square's maypole, fountain and carts (the fire pump, the fountain's stone), the lad up the greasy pole and the
         // clock striking the hour are the village projects': their steps and the projects' own scenes play them
         // (places-it-projects, place-life), In piazza leaves them out
@@ -100,6 +101,9 @@ class CultureScenesTest {
             listOf("friuli", "dai-pompieri", "firestation", "project:gasilski_dom"),
             listOf("friuli", "sulla-torre-panoramica", "lookout", "project:razgledni_stolp"),
             listOf("friuli", "al-portone", "palisade", "palisade"),
+            // Kärnten (places-kaernten, the rooms): Oma Resi's kitchen (Kasnudeln, the Reindling on Sundays, Mitzi's radio,
+            // Lena's Jause and the Palmbuschen)
+            listOf("kaernten", "in-der-kueche", "kitchen", "hut,house"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             // Kärnten (places-kaernten, outdoors): Müller Franz's field below the Dobratsch with the Harpfe, the square under the
             // linden, the market, Imker Stanko's bee house, the church, the palisade's gate and the view from the watchtower

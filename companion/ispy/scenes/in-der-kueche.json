@@ -1,0 +1,174 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-der-kueche",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl, en and it translations, from Kärnten's kitchen at every level (the open hearth of the Rauchkuchl at level 1, the Sparherd of white tiles with its black iron top and brass rail from level 2, the Kredenz of pale Zirbe wood and the Herrgottswinkel with its Palmbuschen from level 3, the Dobratsch and the Karawanken through the window; the rest as the default kitchen draws it); not reviewed by a native speaker",
+  "things": {
+    "stove": { "clues": [
+      { "kind": "colour", "de": "Er ist weiß und schwarz.", "sl": "Je bel in črn.", "en": "It's white and black.", "it": "È bianca e nera.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "trait", "de": "Vorne hat er eine goldene Stange.", "sl": "Spredaj ima zlat drog.", "en": "It has a golden rail at the front.", "it": "Davanti ha una sbarra dorata.", "grammar": ["sein-haben", "wortstellung"] },
+      { "kind": "does", "de": "Im Winter wärmt er die Küche.", "sl": "Pozimi greje kuhinjo.", "en": "In winter it warms the kitchen.", "it": "D'inverno scalda la cucina.", "grammar": ["praesens", "wortstellung"] },
+      { "kind": "use", "de": "Darauf kochen wir.", "sl": "Na njem kuhamo.", "en": "We cook on it.", "it": "Ci cuciniamo sopra.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "pot": { "clues": [
+      { "kind": "colour", "de": "Er ist blau.", "sl": "Je moder.", "en": "It's blue.", "it": "È blu.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Er steht auf der Feuerstelle.", "sl": "Stoji na ognjišču.", "en": "It stands on the hearth.", "it": "È sul focolare.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "hearth" },
+      { "kind": "where", "de": "Er steht auf dem Sparherd.", "sl": "Stoji na štedilniku.", "en": "It stands on the stove.", "it": "È sulla cucina economica.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "stove" },
+      { "kind": "use", "de": "Darin kochen wir Suppe.", "sl": "V njem kuhamo juho.", "en": "We cook soup in it.", "it": "Ci cuociamo la minestra.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "bowl": { "clues": [
+      { "kind": "colour", "de": "Sie ist weiß.", "sl": "Je bela.", "en": "It's white.", "it": "È bianca.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "size", "de": "Sie ist rund.", "sl": "Je okrogla.", "en": "It's round.", "it": "È rotonda.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Sie steht auf dem Tisch.", "sl": "Stoji na mizi.", "en": "It stands on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "use", "de": "Daraus essen wir Suppe.", "sl": "Iz nje jemo juho.", "en": "We eat soup out of it.", "it": "Ci mangiamo la minestra.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "table": { "clues": [
+      { "kind": "size", "de": "Er ist groß.", "sl": "Je velika.", "en": "It's big.", "it": "È grande.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "material", "de": "Er ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben", "dativ"] },
+      { "kind": "where", "de": "Er steht mitten in der Küche.", "sl": "Stoji sredi kuhinje.", "en": "It stands in the middle of the kitchen.", "it": "È in mezzo alla cucina.", "grammar": ["wechselpraepositionen", "dativ"] },
+      { "kind": "use", "de": "Dort essen wir alle zusammen.", "sl": "Tam vsi skupaj jemo.", "en": "We all eat there together.", "it": "Lì mangiamo tutti insieme.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "chair": { "clues": [
+      { "kind": "colour", "de": "Er ist braun.", "sl": "Je rjav.", "en": "It's brown.", "it": "È marrone.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "trait", "de": "Er hat ein Herz.", "sl": "Ima srce.", "en": "It has a heart on it.", "it": "Ha un cuore.", "grammar": ["sein-haben", "akkusativ"] },
+      { "kind": "where", "de": "Er steht am Tisch.", "sl": "Stoji ob mizi.", "en": "It stands at the table.", "it": "È vicino al tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "use", "de": "Darauf sitzen wir.", "sl": "Na njem sedimo.", "en": "We sit on it.", "it": "Ci sediamo sopra.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "bread": { "clues": [
+      { "kind": "colour", "de": "Es ist braun.", "sl": "Je rjav.", "en": "It's brown.", "it": "È marrone.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "size", "de": "Es ist rund.", "sl": "Je okrogel.", "en": "It's round.", "it": "È rotondo.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Es liegt auf dem Tisch.", "sl": "Leži na mizi.", "en": "It's lying on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "does", "de": "Es riecht gut.", "sl": "Lepo diši.", "en": "It smells good.", "it": "Ha un buon profumo.", "grammar": ["praesens"] }
+    ] },
+    "plate": { "clues": [
+      { "kind": "colour", "de": "Er ist weiß.", "sl": "Je bel.", "en": "It's white.", "it": "È bianco.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "size", "de": "Er ist rund und flach.", "sl": "Je okrogel in plosk.", "en": "It's round and flat.", "it": "È rotondo e piatto.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Er steht auf dem Tisch.", "sl": "Je na mizi.", "en": "It's on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "use", "de": "Darauf kommt das Mittagessen.", "sl": "Nanj pride kosilo.", "en": "Lunch goes on it.", "it": "Ci va sopra il pranzo.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "glass": { "clues": [
+      { "kind": "size", "de": "Es ist hoch.", "sl": "Je visok.", "en": "It's tall.", "it": "È alto.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "trait", "de": "Man kann hindurchsehen.", "sl": "Skozenj se vidi.", "en": "You can see through it.", "it": "Ci si vede attraverso.", "grammar": ["praesens"] },
+      { "kind": "where", "de": "Es steht auf dem Tisch.", "sl": "Stoji na mizi.", "en": "It stands on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "use", "de": "Daraus trinken wir Wasser.", "sl": "Iz njega pijemo vodo.", "en": "We drink water out of it.", "it": "Ci beviamo l'acqua.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "cup": { "clues": [
+      { "kind": "colour", "de": "Es ist rot.", "sl": "Je rdeča.", "en": "It's red.", "it": "È rossa.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "size", "de": "Es ist klein.", "sl": "Je majhna.", "en": "It's small.", "it": "È piccola.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "trait", "de": "Es hat einen Henkel.", "sl": "Ima ročaj.", "en": "It has a handle.", "it": "Ha un manico.", "grammar": ["sein-haben", "akkusativ"] },
+      { "kind": "use", "de": "Daraus trinken wir Kaffee.", "sl": "Iz nje pijemo kavo.", "en": "We drink coffee out of it.", "it": "Ci beviamo il caffè.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "spoon": { "clues": [
+      { "kind": "colour", "de": "Er ist grau.", "sl": "Je siva.", "en": "It's grey.", "it": "È grigio.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "trait", "de": "Vorne ist er rund.", "sl": "Spredaj je okrogla.", "en": "It's round at the front.", "it": "Davanti è rotondo.", "grammar": ["sein-haben", "wortstellung"] },
+      { "kind": "where", "de": "Er liegt auf dem Tisch.", "sl": "Leži na mizi.", "en": "It's lying on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "use", "de": "Damit essen wir Suppe.", "sl": "Z njo jemo juho.", "en": "We eat soup with it.", "it": "Ci mangiamo la minestra.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "fork": { "clues": [
+      { "kind": "colour", "de": "Sie ist grau.", "sl": "So sive.", "en": "It's grey.", "it": "È grigia.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "trait", "de": "Sie hat vier Spitzen.", "sl": "Ima štiri konice.", "en": "It has four points.", "it": "Ha quattro punte.", "grammar": ["sein-haben", "plural"] },
+      { "kind": "where", "de": "Sie liegt auf dem Tisch.", "sl": "Ležijo na mizi.", "en": "It's lying on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "use", "de": "Damit essen wir Fleisch.", "sl": "Z njimi jemo meso.", "en": "We eat meat with it.", "it": "Ci mangiamo la carne.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "knife": { "clues": [
+      { "kind": "trait", "de": "Es ist scharf.", "sl": "Je oster.", "en": "It's sharp.", "it": "È affilato.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Es liegt auf dem Tisch.", "sl": "Leži na mizi.", "en": "It's lying on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "use", "de": "Damit schneiden wir Brot.", "sl": "Z njim režemo kruh.", "en": "We cut bread with it.", "it": "Ci tagliamo il pane.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "window": { "clues": [
+      { "kind": "material", "de": "Es ist aus Glas.", "sl": "Je iz stekla.", "en": "It's made of glass.", "it": "È di vetro.", "grammar": ["sein-haben"] },
+      { "kind": "trait", "de": "Man sieht die Berge.", "sl": "Skozi se vidijo gore.", "en": "You can see the mountains through it.", "it": "Si vedono le montagne.", "grammar": ["praesens", "akkusativ"] },
+      { "kind": "where", "de": "Es ist neben der Tür.", "sl": "Je zraven vrat.", "en": "It's next to the door.", "it": "È vicino alla porta.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "door" },
+      { "kind": "where", "de": "Es ist über der Bank.", "sl": "Je nad klopjo.", "en": "It's above the bench.", "it": "È sopra la panca.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "bench" },
+      { "kind": "use", "de": "Wir machen es auf, wenn es heiß ist.", "sl": "Odpremo ga, ko je vroče.", "en": "We open it when it's hot.", "it": "La apriamo quando fa caldo.", "grammar": ["trennbare-verben", "nebensatz"] }
+    ] },
+    "door": { "clues": [
+      { "kind": "colour", "de": "Sie ist braun.", "sl": "So rjava.", "en": "It's brown.", "it": "È marrone.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "material", "de": "Sie ist aus Holz.", "sl": "So iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben", "dativ"] },
+      { "kind": "trait", "de": "Darüber hängt ein Hufeisen.", "sl": "Nad njimi visi podkev.", "en": "A horseshoe hangs over it.", "it": "Sopra c'è un ferro di cavallo.", "grammar": ["praesens", "wortstellung"] },
+      { "kind": "use", "de": "Wir öffnen sie und gehen hinaus.", "sl": "Odpremo jih in gremo ven.", "en": "We open it and go out.", "it": "La apriamo e usciamo.", "grammar": ["praesens", "akkusativ"] }
+    ] },
+    "cupboard": { "clues": [
+      { "kind": "colour", "de": "Sie ist hellbraun.", "sl": "Je svetlo rjava.", "en": "It's light brown.", "it": "È marrone chiaro.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "size", "de": "Sie ist hoch.", "sl": "Je visoka.", "en": "It's tall.", "it": "È alta.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "material", "de": "Sie ist aus Zirbenholz.", "sl": "Je iz cemprinovega lesa.", "en": "It's made of Swiss stone pine.", "it": "È di cirmolo.", "grammar": ["sein-haben", "dativ"] },
+      { "kind": "use", "de": "Darin stehen die Teller.", "sl": "V njej so krožniki.", "en": "The plates are kept in it.", "it": "Dentro ci sono i piatti.", "grammar": ["praesens", "plural"] }
+    ] },
+    "clock": { "clues": [
+      { "kind": "colour", "de": "Sie ist braun.", "sl": "Je rjava.", "en": "It's brown.", "it": "È marrone.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Sie hängt an der Wand.", "sl": "Visi na steni.", "en": "It hangs on the wall.", "it": "È appeso al muro.", "grammar": ["wechselpraepositionen", "dativ"] },
+      { "kind": "where", "de": "Sie hängt neben der Kredenz.", "sl": "Visi zraven kredence.", "en": "It hangs next to the dresser.", "it": "È appeso vicino alla credenza.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "cupboard" },
+      { "kind": "does", "de": "Sie macht tick-tack.", "sl": "Dela tik-tak.", "en": "It goes tick-tock.", "it": "Fa tic-tac.", "grammar": ["praesens"] },
+      { "kind": "use", "de": "Sie zeigt, wie spät es ist.", "sl": "Kaže, koliko je ura.", "en": "It shows what time it is.", "it": "Mostra che ore sono.", "grammar": ["nebensatz", "praesens"] }
+    ] },
+    "milk": { "clues": [
+      { "kind": "colour", "de": "Sie ist weiß.", "sl": "Je belo.", "en": "It's white.", "it": "È bianco.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Sie steht im Krug auf dem Regal.", "sl": "Je v vrču na polici.", "en": "It's in a jug on the shelf.", "it": "È nella brocca sulla mensola.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "shelf" },
+      { "kind": "where", "de": "Sie steht im Krug auf der Kredenz.", "sl": "Je v vrču na kredenci.", "en": "It's in a jug on the dresser.", "it": "È nella brocca sulla credenza.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "cupboard" },
+      { "kind": "does", "de": "Sie kommt von der Kuh.", "sl": "Dobimo ga od krave.", "en": "It comes from the cow.", "it": "Viene dalla mucca.", "grammar": ["praesens", "dativ"] },
+      { "kind": "use", "de": "Wir trinken sie zum Frühstück.", "sl": "Pijemo ga za zajtrk.", "en": "We drink it for breakfast.", "it": "Lo beviamo a colazione.", "grammar": ["praesens", "akkusativ"] }
+    ] },
+    "eggs": { "clues": [
+      { "kind": "colour", "de": "Es ist weiß.", "sl": "Je belo.", "en": "It's white.", "it": "È bianco.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "size", "de": "Es ist klein.", "sl": "Je majhno.", "en": "It's small.", "it": "È piccolo.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Es liegt in einem Korb.", "sl": "Leži v košari.", "en": "It's lying in a basket.", "it": "È in un cestino.", "grammar": ["wechselpraepositionen", "dativ"] },
+      { "kind": "does", "de": "Ein Huhn legt es.", "sl": "Znese ga kokoš.", "en": "A hen lays it.", "it": "Lo fa una gallina.", "grammar": ["praesens", "akkusativ"] }
+    ] },
+    "water": { "clues": [
+      { "kind": "colour", "de": "Es hat keine Farbe.", "sl": "Nima barve.", "en": "It has no colour.", "it": "Non ha colore.", "grammar": ["kein-nicht", "sein-haben"] },
+      { "kind": "trait", "de": "Es ist nass.", "sl": "Je mokra.", "en": "It's wet.", "it": "È bagnata.", "grammar": ["sein-haben"] },
+      { "kind": "where", "de": "Es ist im Krug auf dem Regal.", "sl": "Je v vrču na polici.", "en": "It's in a jug on the shelf.", "it": "È nella brocca sulla mensola.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "shelf" },
+      { "kind": "where", "de": "Es ist im Krug auf der Kredenz.", "sl": "Je v vrču na kredenci.", "en": "It's in a jug on the dresser.", "it": "È nella brocca sulla credenza.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "cupboard" },
+      { "kind": "use", "de": "Wir trinken es, wenn wir Durst haben.", "sl": "Pijemo jo, ko smo žejni.", "en": "We drink it when we're thirsty.", "it": "La beviamo quando abbiamo sete.", "grammar": ["nebensatz", "praesens"] }
+    ] },
+    "salt": { "clues": [
+      { "kind": "colour", "de": "Es ist weiß.", "sl": "Je bela.", "en": "It's white.", "it": "È bianco.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "trait", "de": "Es ist ganz fein.", "sl": "Je čisto drobna.", "en": "It's very fine.", "it": "È finissimo.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Es steht auf dem Tisch.", "sl": "Je na mizi.", "en": "It's on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "table" },
+      { "kind": "use", "de": "Wir tun es in die Suppe.", "sl": "Damo jo v juho.", "en": "We put it in the soup.", "it": "Lo mettiamo nella minestra.", "grammar": ["praesens", "akkusativ"] }
+    ] },
+    "potatoes": { "clues": [
+      { "kind": "colour", "de": "Er ist braun.", "sl": "Je rjav.", "en": "It's brown.", "it": "È marrone.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Er ist in einem Sack.", "sl": "Je v vreči.", "en": "It's in a sack.", "it": "È in un sacco.", "grammar": ["wechselpraepositionen", "dativ"] },
+      { "kind": "does", "de": "Er wächst in der Erde.", "sl": "Raste v zemlji.", "en": "It grows in the ground.", "it": "Cresce sotto terra.", "grammar": ["praesens", "dativ"] },
+      { "kind": "use", "de": "Wir schälen ihn und kochen ihn.", "sl": "Olupimo ga in skuhamo.", "en": "We peel it and cook it.", "it": "La sbucciamo e la cuociamo.", "grammar": ["praesens", "akkusativ"] }
+    ] },
+    "hearth": { "clues": [
+      { "kind": "colour", "de": "Sie ist grau.", "sl": "Je sivo.", "en": "It's grey.", "it": "È grigio.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "material", "de": "Sie ist aus Stein.", "sl": "Je iz kamna.", "en": "It's made of stone.", "it": "È di pietra.", "grammar": ["sein-haben", "dativ"] },
+      { "kind": "trait", "de": "Die Wand darüber ist schwarz.", "sl": "Stena nad njim je črna.", "en": "The wall above it is black.", "it": "Il muro sopra è nero.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "does", "de": "Darauf brennt ein Feuer.", "sl": "Na njem gori ogenj.", "en": "A fire burns on it.", "it": "Sopra arde un fuoco.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "bench": { "clues": [
+      { "kind": "size", "de": "Sie ist lang.", "sl": "Je dolga.", "en": "It's long.", "it": "È lunga.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "material", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben", "dativ"] },
+      { "kind": "where", "de": "Sie steht unter dem Fenster.", "sl": "Stoji pod oknom.", "en": "It stands under the window.", "it": "È sotto la finestra.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "window" },
+      { "kind": "use", "de": "Darauf sitzen wir.", "sl": "Na njej sedimo.", "en": "We sit on it.", "it": "Ci sediamo sopra.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "bed": { "clues": [
+      { "kind": "trait", "de": "Es ist weich.", "sl": "Je mehka.", "en": "It's soft.", "it": "È morbido.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "material", "de": "Es ist aus Stroh.", "sl": "Je iz slame.", "en": "It's made of straw.", "it": "È di paglia.", "grammar": ["sein-haben", "dativ"] },
+      { "kind": "where", "de": "Es steht an der Wand.", "sl": "Stoji ob steni.", "en": "It's against the wall.", "it": "È contro il muro.", "grammar": ["wechselpraepositionen", "dativ"] },
+      { "kind": "use", "de": "Darin schlafen wir.", "sl": "V njej spimo.", "en": "We sleep in it.", "it": "Ci dormiamo.", "grammar": ["praesens", "wortstellung"] }
+    ] },
+    "shelf": { "clues": [
+      { "kind": "material", "de": "Es ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+      { "kind": "size", "de": "Es ist schmal.", "sl": "Je ozka.", "en": "It's narrow.", "it": "È stretta.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "where", "de": "Es hängt an der Wand.", "sl": "Visi na steni.", "en": "It hangs on the wall.", "it": "È appesa al muro.", "grammar": ["wechselpraepositionen", "dativ"] },
+      { "kind": "use", "de": "Darauf stehen zwei Krüge.", "sl": "Na njej stojita dva vrča.", "en": "There are two jugs on it.", "it": "Sopra ci sono due brocche.", "grammar": ["praesens", "plural"] }
+    ] },
+    "curtains": { "clues": [
+      { "kind": "colour", "de": "Er ist rot und weiß.", "sl": "Je rdeča in bela.", "en": "It's red and white.", "it": "È rossa e bianca.", "grammar": ["sein-haben", "artikel-genus"] },
+      { "kind": "material", "de": "Er ist aus Stoff.", "sl": "Je iz blaga.", "en": "It's made of cloth.", "it": "È di stoffa.", "grammar": ["sein-haben", "dativ"] },
+      { "kind": "where", "de": "Er hängt am Fenster.", "sl": "Visi na oknu.", "en": "It hangs at the window.", "it": "È appesa alla finestra.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "window" },
+      { "kind": "use", "de": "Am Abend ziehen wir ihn zu.", "sl": "Zvečer jo zagrnemo.", "en": "In the evening we draw it.", "it": "La sera la tiriamo.", "grammar": ["praesens", "akkusativ"] }
+    ] },
+    "corner": { "clues": [
+      { "kind": "where", "de": "Er ist ganz hoch oben.", "sl": "Je čisto visoko zgoraj.", "en": "It's right up high.", "it": "È molto in alto.", "grammar": ["sein-haben"] },
+      { "kind": "trait", "de": "Dort hängt ein Kreuz.", "sl": "Tam visi križ.", "en": "A cross hangs there.", "it": "Lì c'è appesa una croce.", "grammar": ["praesens", "wortstellung"] },
+      { "kind": "colour", "de": "Dort sind bunte Bänder.", "sl": "Tam so pisani trakovi.", "en": "There are colourful ribbons there.", "it": "Lì ci sono nastri colorati.", "grammar": ["sein-haben", "plural"] },
+      { "kind": "does", "de": "Dort steht eine Kerze.", "sl": "Tam stoji sveča.", "en": "A candle stands there.", "it": "Lì c'è una candela.", "grammar": ["praesens", "wortstellung"] }
+    ] }
+  }
+}
