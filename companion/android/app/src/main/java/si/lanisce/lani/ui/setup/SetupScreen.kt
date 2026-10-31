@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -156,6 +157,11 @@ private fun Welcome(flow: SetupFlow, onTarget: (Lang) -> Unit) {
     val phone = flow.base
     SetupPage {
         VillageArt(flow.target)
+        // Lani's wordmark (companion/android/tools/app_icon.py: its L is the bell tower of the launcher's icon)
+        androidx.compose.foundation.Image(
+            androidx.compose.ui.res.painterResource(si.lanisce.lani.R.drawable.lani_wordmark), contentDescription = "Lani",
+            modifier = Modifier.height(56.dp),
+        )
         Text(L10n.text(phone, "setup.hello"), style = MaterialTheme.typography.displaySmall, color = White, textAlign = TextAlign.Center)
         Text(
             SetupFlow.LANGUAGES.filter { it != phone }.joinToString(" · ") { L10n.text(it, "setup.hello") },

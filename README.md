@@ -1,5 +1,7 @@
 # Lani
 
+<p><img src="site/lani-icon.svg" alt="" width="72" height="72"> &nbsp; <img src="site/lani-wordmark.svg" alt="Lani" height="72"></p>
+
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 [![Site](https://img.shields.io/badge/site-lani.page-2e7d32)](https://lani.page/)
 
