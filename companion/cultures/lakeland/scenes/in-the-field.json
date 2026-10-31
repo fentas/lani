@@ -74,7 +74,7 @@
             "reply": { "face": "happy", "en": "You can, {m:lad|f:lass}. Ten rows to turn before tea.", "sl": "Lahko. Do čaja je treba obrniti deset vrst.", "it": "Puoi, {m:ragazzo|f:ragazza}. Dieci file da girare prima del tè.", "de": "Kannst du, {m:Junge|f:Mädchen}. Zehn Reihen wenden bis zum Tee." } },
           { "en": "Good morning, Mr Tyson. Can I help?", "sl": "Dobro jutro, gospod Tyson. Lahko pomagam?", "it": "Buongiorno, signor Tyson. Posso aiutarLa?", "de": "Guten Morgen, Mr Tyson. Kann ich helfen?",
             "why": { "en": "It's afternoon now: good afternoon. Good morning is until twelve.", "sl": "Zdaj je popoldne: good afternoon. Good morning rečeš do poldneva.", "it": "Adesso è pomeriggio: good afternoon. Good morning si dice fino a mezzogiorno.", "de": "Jetzt ist Nachmittag: good afternoon. Good morning sagt man bis zwölf Uhr." },
-            "reply": { "face": "laugh", "en": "Morning? It's three o'clock! Half the day's gone, {m:lad|f:lass}.", "sl": "Jutro? Ura je tri! Pol dneva je že mimo.", "it": "Mattina? Sono le tre! Mezza giornata è già passata, {m:ragazzo|f:ragazza}.", "de": "Morgen? Es ist drei Uhr! Der halbe Tag ist schon vorbei, {m:Junge|f:Mädchen}." } }
+            "reply": { "face": "laugh", "en": "Morning? The sun's high up! Half the day's gone, {m:lad|f:lass}.", "sl": "Jutro? Sonce je že visoko! Pol dneva je že mimo.", "it": "Mattina? Il sole è già alto! Mezza giornata è già passata, {m:ragazzo|f:ragazza}.", "de": "Morgen? Die Sonne steht schon hoch! Der halbe Tag ist schon vorbei, {m:Junge|f:Mädchen}." } }
         ] },
         { "who": "tyson", "face": "curious", "en": "Now, where's my rake? I can't see it.", "sl": "Kje pa so moje grablje? Ne vidim jih.", "it": "E dov'è il mio rastrello? Non lo vedo.", "de": "Wo ist denn mein Rechen? Ich sehe ihn nicht." },
         { "choices": [
@@ -97,7 +97,7 @@
           { "en": "Yes, I do. It smells lonely.", "sl": "Ja. Diši osamljeno.", "it": "Sì. Ha un profumo solitario.", "de": "Ja. Es riecht einsam.",
             "why": { "en": "Lonely means sad and alone. Lovely means very nice.", "sl": "Lonely pomeni osamljen. Lovely pomeni čudovit.", "it": "Lonely vuol dire solo e triste. Lovely vuol dire bellissimo.", "de": "Lonely heißt einsam. Lovely heißt wunderschön." },
             "reply": { "face": "laugh", "en": "Lonely? It's got ten rows of friends!", "sl": "Osamljeno? Saj ima deset vrst prijateljev!", "it": "Solitario? Ha dieci file di amici!", "de": "Einsam? Es hat zehn Reihen Freunde!" } }
-        ], "puzzled": { "en": "Eh? Say that again, {m:lad|f:lass}?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti, {m:ragazzo|f:ragazza}?", "de": "Hm? Sag das noch mal, {m:Junge|f:Mädchen}?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, {m:lad|f:lass}?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti, {m:ragazzo|f:ragazza}?", "de": "Hm? Sag das noch mal, {m:Junge|f:Mädchen}?" } },
         { "who": "tyson", "face": "proud", "en": "Make hay while the sun shines. That's what we do in the dale.", "sl": "Make hay while the sun shines: seno se suši, dokler sije sonce. Tako delamo v dolini.", "it": "Make hay while the sun shines: il fieno si fa finché c'è il sole. Così facciamo nella valle.", "de": "Make hay while the sun shines: Heu macht man, solange die Sonne scheint. So machen wir das im Tal." }
       ]
     },
@@ -112,18 +112,18 @@
           { "en": "Here, it can has my hat.", "sl": "Na, lahko dobi moj klobuk.", "it": "Ecco, può avere il mio cappello.", "de": "Hier, sie kann meinen Hut haben.", "grammar": "can",
             "why": { "en": "After can, the verb stays in its base form: it can have.", "sl": "Za can ostane glagol v osnovni obliki: it can have.", "it": "Dopo can il verbo resta nella forma base: it can have.", "de": "Nach can bleibt das Verb in der Grundform: it can have." },
             "reply": { "face": "laugh", "en": "Can has? You talk funny! Hee hee.", "sl": "Can has? Smešno govoriš! Hi hi.", "it": "Can has? Parli buffo! Ih ih.", "de": "Can has? Du redest lustig! Hihi." } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
         { "who": "alfie", "face": "worried", "en": "Now it can't see. Oh no, look at the crows!", "sl": "Zdaj nič ne vidi. O ne, poglej vrane!", "it": "Adesso non vede niente. Oh no, guarda le cornacchie!", "de": "Jetzt sieht sie nichts. Oh nein, schau dir die Krähen an!", "fx": { "crows": 0.6 } },
         { "choices": [
           { "en": "They're coming back!", "sl": "Vračajo se!", "it": "Stanno tornando!", "de": "Sie kommen zurück!", "ok": true,
             "reply": { "face": "cross", "en": "Shoo, crows! Shoo! They don't listen to me.", "sl": "Šc, vrane! Šc! Nič me ne poslušajo.", "it": "Sciò, cornacchie! Sciò! Non mi ascoltano.", "de": "Husch, Krähen! Husch! Die hören nicht auf mich.", "fx": { "crows": 1 } } },
           { "en": "They're coming black!", "sl": "Prihajajo črne!", "it": "Stanno arrivando nere!", "de": "Sie kommen schwarz!",
             "why": { "en": "Back: here again. Black is a colour.", "sl": "Back pomeni nazaj. Black je barva: črna.", "it": "Back vuol dire di nuovo qui. Black è un colore: nero.", "de": "Back heißt zurück. Black ist eine Farbe: schwarz." },
-            "reply": { "face": "laugh", "en": "Black? Yes! Crows are always black, silly.", "sl": "Črne? Ja! Vrane so vedno črne, smešnica.", "it": "Nere? Sì! Le cornacchie sono sempre nere, sciocchino.", "de": "Schwarz? Ja! Krähen sind immer schwarz, du Dummerchen." } },
+            "reply": { "face": "laugh", "en": "Black? Yes! Crows are always black, silly.", "sl": "Črne? Ja! Vrane so vedno črne, {m:smešnež|f:smešnica}.", "it": "Nere? Sì! Le cornacchie sono sempre nere, {m:sciocchino|f:sciocchina}.", "de": "Schwarz? Ja! Krähen sind immer schwarz, du Dummerchen." } },
           { "en": "They is coming back!", "sl": "Vračajo se!", "it": "Stanno tornando!", "de": "Sie kommen zurück!", "grammar": "to-be",
             "why": { "en": "They goes with are: they are, they're coming.", "sl": "They gre z are: they are, they're coming.", "it": "They va con are: they are, they're coming.", "de": "They geht mit are: they are, they're coming." },
             "reply": { "face": "curious", "en": "They is? Just one crow? I can see lots!", "sl": "They is? Samo ena vrana? Jaz jih vidim veliko!", "it": "They is? Una cornacchia sola? Io ne vedo tante!", "de": "They is? Nur eine Krähe? Ich seh ganz viele!" } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
         { "who": "alfie", "face": "thinking", "en": "Grandad says the crows aren't scared of scarecrows. They're too clever.", "sl": "Dedek pravi, da se vrane strašil ne bojijo. Preveč so pametne.", "it": "Il nonno dice che le cornacchie non hanno paura degli spaventapasseri. Sono troppo furbe.", "de": "Opa sagt, die Krähen haben keine Angst vor Vogelscheuchen. Die sind zu schlau." }
       ]
     },
@@ -141,7 +141,7 @@
           { "en": "Is she on the meadow?", "sl": "Je na travniku?", "it": "È sul prato?", "de": "Ist sie auf der Wiese?", "grammar": "prepositions-place",
             "why": { "en": "In a field or a meadow, say in: in the meadow.", "sl": "Za polje in travnik rečeš in: in the meadow.", "it": "Per un campo o un prato si dice in: in the meadow.", "de": "Bei einem Feld oder einer Wiese sagt man in: in the meadow." },
             "reply": { "face": "laugh", "en": "On the meadow? Lying on her back? Ha ha!", "sl": "On the meadow? Na hrbtu leži? Ha ha!", "it": "On the meadow? Sdraiata a pancia in su? Ah ah!", "de": "On the meadow? Liegt sie auf dem Rücken? Haha!" } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
         { "who": "alfie", "face": "surprised", "en": "Look! There she is! She's coming back!", "sl": "Glej! Tam je! Vrača se!", "it": "Guarda! Eccola! Sta tornando!", "de": "Schau! Da ist sie! Sie kommt zurück!", "fx": { "horse": 0.8 } },
         { "choices": [
           { "en": "She's beautiful! How old is she?", "sl": "Lepa je! Koliko je stara?", "it": "È bellissima! Quanti anni ha?", "de": "Sie ist wunderschön! Wie alt ist sie?", "ok": true,
@@ -149,7 +149,7 @@
           { "en": "She's beautiful! How old has she?", "sl": "Lepa je! Koliko je stara?", "it": "È bellissima! Quanti anni ha?", "de": "Sie ist wunderschön! Wie alt ist sie?", "grammar": "to-be",
             "why": { "en": "For age, English uses be: How old is she? She's twelve.", "sl": "Za starost angleščina uporablja be: How old is she? She's twelve.", "it": "Per l'età l'inglese usa be, non have: How old is she? She's twelve.", "de": "Für das Alter nimmt man im Englischen be: How old is she? She's twelve." },
             "reply": { "face": "laugh", "en": "Has? She has four legs and one tail!", "sl": "Has? Ima štiri noge in en rep!", "it": "Has? Ha quattro zampe e una coda!", "de": "Has? Sie hat vier Beine und einen Schwanz!" } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
         { "who": "alfie", "face": "happy", "en": "Fell ponies are small, but very strong. One day I want a pony too!", "sl": "Poniji pasme fell so majhni, ampak zelo močni. Nekoč bom tudi jaz imel ponija!", "it": "I pony fell sono piccoli, ma fortissimi. Un giorno voglio un pony anch'io!", "de": "Fell-Ponys sind klein, aber sehr stark. Eines Tages will ich auch ein Pony!" }
       ]
     },
@@ -174,7 +174,7 @@
           { "en": "What is it? A rabbits?", "sl": "Kaj je to? Kunci?", "it": "Cos'è? Dei conigli?", "de": "Was ist das? Kaninchen?", "grammar": "articles",
             "why": { "en": "A is for one thing: a rabbit. More than one have no a: rabbits.", "sl": "A je za eno stvar: a rabbit. Pred množino ni a: rabbits.", "it": "A è per una cosa sola: a rabbit. Al plurale niente a: rabbits.", "de": "A steht für eine Sache: a rabbit. Vor dem Plural kein a: rabbits." },
             "reply": { "face": "curious", "en": "Lots of rabbits? I can only see one tail.", "sl": "Veliko kuncev? Jaz vidim samo en rep.", "it": "Tanti conigli? Io vedo solo una coda.", "de": "Viele Kaninchen? Ich seh nur einen Schwanz." } }
-        ], "puzzled": { "en": "Eh? Say that again, {m:lad|f:lass}?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti, {m:ragazzo|f:ragazza}?", "de": "Hm? Sag das noch mal, {m:Junge|f:Mädchen}?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, {m:lad|f:lass}?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti, {m:ragazzo|f:ragazza}?", "de": "Hm? Sag das noch mal, {m:Junge|f:Mädchen}?" } },
         { "who": "tyson", "face": "laugh", "en": "Hares are fast. Faster than Bonny! Right. Time for my tea.", "sl": "Zajci so hitri. Hitrejši od Bonny! Tako. Čas je za moj čaj.", "it": "Le lepri sono veloci. Più veloci di Bonny! Bene. È ora del mio tè.", "de": "Hasen sind schnell. Schneller als Bonny! So. Zeit für meinen Tee." }
       ]
     }
@@ -192,7 +192,7 @@
           { "en": "What I can do, Mr Tyson?", "sl": "Kaj lahko naredim, gospod Tyson?", "it": "Cosa posso fare, signor Tyson?", "de": "Was kann ich tun, Mr Tyson?", "grammar": "can",
             "why": { "en": "In a question, can comes before I: What can I do?", "sl": "V vprašanju pride can pred I: What can I do?", "it": "Nella domanda can va prima di I: What can I do?", "de": "In der Frage steht can vor I: What can I do?" },
             "reply": { "face": "laugh", "en": "Backwards talk? No time for that! Just run!", "sl": "Govoriš narobe? Ni časa za to! Samo teci!", "it": "Parli al contrario? Non c'è tempo! Corri e basta!", "de": "Verkehrt herum? Keine Zeit dafür! Lauf einfach!" } }
-        ], "puzzled": { "en": "Eh? No time for talking, {m:lad|f:lass}!", "sl": "Kaj? Ni časa za govorjenje!", "it": "Eh? Non c'è tempo per chiacchierare, {m:ragazzo|f:ragazza}!", "de": "Hm? Keine Zeit zum Reden, {m:Junge|f:Mädchen}!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? No time for talking, {m:lad|f:lass}!", "sl": "Kaj? Ni časa za govorjenje!", "it": "Eh? Non c'è tempo per chiacchierare, {m:ragazzo|f:ragazza}!", "de": "Hm? Keine Zeit zum Reden, {m:Junge|f:Mädchen}!" } },
         { "who": "tyson", "en": "Right. Where does the hay go?", "sl": "Tako. Kam gre seno?", "it": "Allora. Dove va il fieno?", "de": "So. Wohin kommt das Heu?" },
         { "choices": [
           { "en": "It goes in the barn, out of the rain.", "sl": "V skedenj, stran od dežja.", "it": "Va nel fienile, al riparo dalla pioggia.", "de": "Es kommt in die Scheune, weg vom Regen.", "ok": true,
@@ -203,13 +203,13 @@
           { "en": "It goes on the barn, out of the rain.", "sl": "Na skedenj, stran od dežja.", "it": "Va sul fienile, al riparo dalla pioggia.", "de": "Es kommt auf die Scheune, weg vom Regen.", "grammar": "prepositions-place",
             "why": { "en": "Inside a building: in. On is on top of it.", "sl": "V stavbo: in. On pomeni na vrhu.", "it": "Dentro un edificio: in. On vuol dire sopra.", "de": "In ein Gebäude hinein: in. On heißt oben drauf." },
             "reply": { "face": "surprised", "en": "On the barn? Up on the roof? To get wet?", "sl": "Na skedenj? Gor na streho? Da se zmoči?", "it": "Sul fienile? Su sul tetto? A bagnarsi?", "de": "Auf die Scheune? Rauf aufs Dach? Zum Nasswerden?" } }
-        ], "puzzled": { "en": "Eh? No time for talking, {m:lad|f:lass}!", "sl": "Kaj? Ni časa za govorjenje!", "it": "Eh? Non c'è tempo per chiacchierare, {m:ragazzo|f:ragazza}!", "de": "Hm? Keine Zeit zum Reden, {m:Junge|f:Mädchen}!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? No time for talking, {m:lad|f:lass}!", "sl": "Kaj? Ni časa za govorjenje!", "it": "Eh? Non c'è tempo per chiacchierare, {m:ragazzo|f:ragazza}!", "de": "Hm? Keine Zeit zum Reden, {m:Junge|f:Mädchen}!" } },
         { "who": "tyson", "face": "proud", "en": "There! It's all in. Thank you, {m:lad|f:lass}. You're a good worker.", "sl": "Tako! Vse je notri. Hvala. {m:Priden delavec|f:Pridna delavka} si.", "it": "Ecco! È tutto dentro. Grazie, {m:ragazzo|f:ragazza}. Sei {m:un gran lavoratore|f:una gran lavoratrice}.", "de": "So! Alles drin. Danke, {m:Junge|f:Mädchen}. Du kannst gut anpacken.", "sky": { "rain": 0.8, "gloom": 0.85, "wind": 0.5 } },
         { "choices": [
           { "en": "You're welcome, Mr Tyson!", "sl": "Ni za kaj, gospod Tyson!", "it": "Prego, signor Tyson!", "de": "Gern geschehen, Mr Tyson!", "ok": true,
             "reply": { "face": "happy", "en": "Now we wait. Rain in the Lakes: it comes, it goes, it comes back.", "sl": "Zdaj pa počakava. Dež pri nas: pride, gre in se vrne.", "it": "Adesso aspettiamo. La pioggia qui da noi: viene, va e ritorna.", "de": "Jetzt warten wir. Regen bei uns: Er kommt, er geht, er kommt wieder." } },
           { "en": "No problem! It was fun.", "sl": "Ni problema! Zabavno je bilo.", "it": "Nessun problema! È stato divertente.", "de": "Kein Problem! Es hat Spaß gemacht.", "ok": true,
-            "reply": { "face": "laugh", "en": "Fun? In the rain? You'll make a farmer yet!", "sl": "Zabavno? V dežju? Iz tebe bo še kmet!", "it": "Divertente? Sotto la pioggia? Diventerai un contadino, prima o poi!", "de": "Spaß? Im Regen? Aus dir wird noch ein Bauer!" } },
+            "reply": { "face": "laugh", "en": "Fun? In the rain? You'll make a farmer yet!", "sl": "Zabavno? V dežju? Iz tebe bo še {m:kmet|f:kmetica}!", "it": "Divertente? Sotto la pioggia? Diventerai {m:un contadino|f:una contadina}, prima o poi!", "de": "Spaß? Im Regen? Aus dir wird noch {m:ein Bauer|f:eine Bäuerin}!" } },
           { "en": "Please, Mr Tyson!", "sl": "Prosim, gospod Tyson!", "it": "Per favore, signor Tyson!", "de": "Bitte, Mr Tyson!",
             "why": { "en": "After thank you, say you're welcome. Please is for asking.", "sl": "Na thank you odgovoriš you're welcome. Please je za prošnjo.", "it": "A thank you si risponde you're welcome. Please serve per chiedere.", "de": "Auf thank you antwortest du you're welcome. Please sagt man, wenn man um etwas bittet." },
             "reply": { "face": "laugh", "en": "Please what? More hay? Not in this rain!", "sl": "Prosim kaj? Še več sena? Ne v tem dežju!", "it": "Per favore cosa? Altro fieno? Non con questa pioggia!", "de": "Bitte was? Noch mehr Heu? Nicht bei diesem Regen!" } }
@@ -228,7 +228,7 @@
           { "en": "Let's draw a face in it!", "sl": "Narišiva obraz vanj!", "it": "Disegniamo una faccia dentro!", "de": "Malen wir ein Gesicht hinein!", "grammar": "prepositions-place",
             "why": { "en": "On a surface, say on: draw on it, write on the board.", "sl": "Na površino rečeš on: draw on it, write on the board.", "it": "Su una superficie si dice on: draw on it, write on the board.", "de": "Auf eine Fläche sagt man on: draw on it, write on the board." },
             "reply": { "face": "laugh", "en": "In it? Inside the sack? Ha ha!", "sl": "Noter? V vrečo? Ha ha!", "it": "Dentro? Nel sacco? Ah ah!", "de": "Hinein? In den Sack? Haha!" } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
         { "who": "alfie", "face": "curious", "en": "Two eyes… one nose… Now the mouth. Is it happy or sad?", "sl": "Dve očesi … en nos … Zdaj pa usta. Je veselo ali žalostno?", "it": "Due occhi… un naso… Adesso la bocca. È felice o triste?", "de": "Zwei Augen … eine Nase … Jetzt der Mund. Ist sie fröhlich oder traurig?", "fx": { "face": 0.4 } },
         { "choices": [
           { "en": "It's happy! A big smile.", "sl": "Veselo! Velik nasmeh.", "it": "È felice! Un gran sorriso.", "de": "Fröhlich! Ein großes Lächeln.", "ok": true,
@@ -255,7 +255,7 @@
           { "en": "Let's give it an scarf.", "sl": "Dajva mu šal.", "it": "Diamogli una sciarpa.", "de": "Geben wir ihr einen Schal.", "grammar": "articles",
             "why": { "en": "Before a consonant sound, say a: a scarf. An is for a vowel sound: an apple.", "sl": "Pred soglasnikom rečeš a: a scarf. An je pred samoglasnikom: an apple.", "it": "Davanti a un suono consonantico si dice a: a scarf. An va davanti a una vocale: an apple.", "de": "Vor einem Konsonanten sagt man a: a scarf. An steht vor einem Vokal: an apple." },
             "reply": { "face": "confused", "en": "An scarf? I don't know that one!", "sl": "An scarf? Tega pa ne poznam!", "it": "An scarf? Questa non la conosco!", "de": "An scarf? Kenn ich nicht!" } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
         { "who": "alfie", "face": "curious", "en": "Now it's warm. And you? Have you got a scarf?", "sl": "Zdaj mu je toplo. Pa ti? Imaš šal?", "it": "Adesso ha caldo. E tu? Hai una sciarpa?", "de": "Jetzt ist ihr warm. Und du? Hast du einen Schal?" },
         { "choices": [
           { "en": "Yes, I've got a blue scarf.", "sl": "Ja, imam moder šal.", "it": "Sì, ho una sciarpa blu.", "de": "Ja, ich habe einen blauen Schal.", "ok": true,
@@ -281,7 +281,7 @@
           { "en": "Yes, I've got a apple.", "sl": "Ja, imam jabolko.", "it": "Sì, ho una mela.", "de": "Ja, ich habe einen Apfel.", "grammar": "articles",
             "why": { "en": "Before a vowel sound, say an: an apple.", "sl": "Pred samoglasnikom rečeš an: an apple.", "it": "Davanti a una vocale si dice an: an apple.", "de": "Vor einem Vokal sagt man an: an apple." },
             "reply": { "face": "laugh", "en": "A apple? Hee hee! Bonny doesn't mind. But say it nicely!", "sl": "A apple? Hi hi! Bonny je vseeno. Ampak povej lepo!", "it": "A apple? Ih ih! A Bonny non importa. Ma dillo bene!", "de": "A apple? Hihi! Bonny ist das egal. Aber sag's schön!" } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
         { "who": "alfie", "face": "happy", "en": "Here she comes! Hold it on your hand. Flat, like this.", "sl": "Tu je že! Drži ga na dlani. Takole, ravno.", "it": "Eccola che arriva! Tienila sul palmo. Piatto, così.", "de": "Da kommt sie! Halt ihn auf der Hand. Flach, so.", "fx": { "horse": 1 } },
         { "choices": [
           { "en": "Good girl, Bonny! Do you like apples?", "sl": "Pridna, Bonny! Imaš rada jabolka?", "it": "Brava, Bonny! Ti piacciono le mele?", "de": "Brave Bonny! Magst du Äpfel?", "ok": true,
@@ -289,7 +289,7 @@
           { "en": "Good girl, Bonny! Does you like apples?", "sl": "Pridna, Bonny! Imaš rada jabolka?", "it": "Brava, Bonny! Ti piacciono le mele?", "de": "Brave Bonny! Magst du Äpfel?", "grammar": "questions-do",
             "why": { "en": "With you, ask with do: Do you like …? Does is for he, she and it.", "sl": "Pri you vprašaš z do: Do you like …? Does je za he, she in it.", "it": "Con you la domanda si fa con do: Do you like …? Does è per he, she e it.", "de": "Bei you fragt man mit do: Do you like …? Does ist für he, she und it." },
             "reply": { "face": "laugh", "en": "Does you? She doesn't know. She's a pony!", "sl": "Does you? Ne ve. Saj je poni!", "it": "Does you? Lei non lo sa. È un pony!", "de": "Does you? Das weiß sie nicht. Sie ist ein Pony!" } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
         { "who": "alfie", "face": "proud", "en": "Now she's happy, and she's home. Grandad says I'm the best pony man in the dale.", "sl": "Zdaj je srečna in doma. Dedek pravi, da najbolje v dolini znam s poniji.", "it": "Adesso è felice ed è a casa. Il nonno dice che sono il più bravo con i pony della valle.", "de": "Jetzt ist sie glücklich und daheim. Opa sagt, keiner im Tal kann so gut mit Ponys wie ich." }
       ]
     },
@@ -309,7 +309,7 @@
           { "en": "Wow! How much bats are there?", "sl": "Uau! Koliko netopirjev je?", "it": "Wow! Quanti pipistrelli ci sono?", "de": "Wow! Wie viele Fledermäuse sind das?", "grammar": "some-any",
             "why": { "en": "Bats you can count: how many. How much is for things you can't count: how much milk.", "sl": "Netopirje lahko prešteješ: how many. How much je za stvari, ki jih ne štejemo: how much milk.", "it": "I pipistrelli si possono contare: how many. How much è per le cose che non si contano: how much milk.", "de": "Fledermäuse kann man zählen: how many. How much ist für Dinge, die man nicht zählt: how much milk." },
             "reply": { "face": "laugh", "en": "How much? They're not for sale, {m:lad|f:lass}!", "sl": "Koliko stanejo? Niso naprodaj!", "it": "Quanto costano? Non sono in vendita, {m:ragazzo|f:ragazza}!", "de": "Wie viel sie kosten? Die sind nicht zu verkaufen, {m:Junge|f:Mädchen}!" } }
-        ], "puzzled": { "en": "Eh? Say that again, {m:lad|f:lass}?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti, {m:ragazzo|f:ragazza}?", "de": "Hm? Sag das noch mal, {m:Junge|f:Mädchen}?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, {m:lad|f:lass}?", "sl": "Kaj? Še enkrat, prosim?", "it": "Eh? Ripeti, {m:ragazzo|f:ragazza}?", "de": "Hm? Sag das noch mal, {m:Junge|f:Mädchen}?" } },
         { "who": "tyson", "en": "They live in the old barns. They eat the flies. Good friends, bats.", "sl": "Živijo v starih skednjih. Jedo muhe. Dobri prijatelji so, netopirji.", "it": "Vivono nei vecchi fienili. Mangiano le mosche. Buoni amici, i pipistrelli.", "de": "Die wohnen in den alten Scheunen. Sie fressen die Fliegen. Gute Freunde, die Fledermäuse." },
         { "who": "tyson", "en": "And there's the church bell from the village.", "sl": "In tam je cerkveni zvon iz vasi.", "it": "Ed ecco la campana della chiesa dal paese.", "de": "Und da ist die Kirchenglocke aus dem Dorf.", "fx": { "bell": 1 } },
         { "choices": [
