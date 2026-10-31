@@ -1,0 +1,238 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-the-smithy",
+  "language": "en",
+  "title": { "en": "In the smithy", "sl": "V kovačnici", "it": "Nella fucina", "de": "In der Schmiede" },
+  "emoji": "⚒️",
+  "level": "A1",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "art": "smithy",
+  "from": ["smithy"],
+  "pack": "in-the-smithy",
+  "objects": [
+    { "slot": "forge", "word": "forge" },
+    { "slot": "fire", "word": "fire", "pack": "by-the-fire" },
+    { "slot": "anvil", "word": "anvil" },
+    { "slot": "hammer", "word": "hammer", "pack": "in-the-workshop" },
+    { "slot": "tongs", "word": "tongs" },
+    { "slot": "bellows", "word": "bellows", "needs": { "level": 2 } },
+    { "slot": "horseshoe", "word": "horseshoe" },
+    { "slot": "nails", "word": "nail", "pack": "in-the-workshop" },
+    { "slot": "bucket", "word": "bucket", "pack": "by-the-fire" },
+    { "slot": "chain", "word": "chain", "needs": { "level": 2 } },
+    { "slot": "axe", "word": "axe", "pack": "by-the-fire", "needs": { "level": 3 } },
+    { "slot": "wheel", "word": "wheel", "needs": { "level": 3 } },
+    { "slot": "window", "word": "window", "pack": "home-and-kitchen" },
+    { "slot": "door", "word": "door", "pack": "home-and-kitchen" }
+  ],
+  "people": [
+    { "id": "dixon", "name": "Mr Dixon", "emoji": "⚒️", "art": "smith", "slot": "anvil", "villager": "dixon" },
+    { "id": "harry", "name": "Harry", "emoji": "🧒", "art": "child1", "slot": "forge", "villager": "harry" }
+  ],
+  "happenings": [
+    {
+      "id": "horseshoe", "title": { "en": "Mr Dixon is making a horseshoe", "sl": "Gospod Dixon kuje podkev", "it": "Il signor Dixon forgia un ferro di cavallo", "de": "Herr Dixon schmiedet ein Hufeisen" }, "who": "dixon",
+      "when": ["morning"], "chance": 0.5, "dialog": "horseshoe", "dialogs": ["horseshoe-count", "horseshoe"], "reward": { "stone": 20 }, "marker": "⚒️",
+      "memory": { "en": "the morning you held the tongs", "sl": "jutro, ko si {m:držal|f:držala} klešče", "it": "la mattina in cui hai tenuto le tenaglie", "de": "den Morgen, an dem du die Zange gehalten hast" }
+    },
+    {
+      "id": "bellows", "title": { "en": "Harry is working the bellows", "sl": "Harry poganja meh", "it": "Harry aziona il mantice", "de": "Harry tritt den Blasebalg" }, "who": "harry",
+      "when": ["afternoon"], "chance": 0.4, "needs": { "level": 2 }, "dialog": "bellows", "dialogs": ["bellows-tea", "bellows"], "reward": { "stone": 15 }, "marker": "🔥",
+      "memory": { "en": "the afternoon we worked the bellows", "sl": "popoldne, ko sva poganjala meh", "it": "il pomeriggio in cui abbiamo azionato il mantice", "de": "den Nachmittag, an dem wir den Blasebalg getreten haben" }
+    },
+    {
+      "id": "wheel", "title": { "en": "Brewer Sam's cart has a broken wheel", "sl": "Voz pivovarja Sama ima zlomljeno kolo", "it": "Il carro del birraio Sam ha una ruota rotta", "de": "Brauer Sams Wagen hat ein kaputtes Rad" }, "who": "dixon",
+      "when": ["afternoon", "evening"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "wheel", "dialogs": ["wheel-crates", "wheel"], "reward": { "wisdom": 15 }, "marker": "🛞",
+      "memory": { "en": "the day we mended Sam's cart", "sl": "dan, ko sva popravila Samov voz", "it": "il giorno in cui abbiamo aggiustato il carro di Sam", "de": "den Tag, an dem wir Sams Wagen repariert haben" }
+    },
+    {
+      "id": "shears", "title": { "en": "Mr Dixon sharpens the shears", "sl": "Gospod Dixon brusi škarje za striženje", "it": "Il signor Dixon affila le cesoie", "de": "Herr Dixon schärft die Schafscheren" }, "who": "dixon",
+      "when": ["morning", "afternoon"], "months": [6, 7], "chance": 0.45, "dialog": "shears", "dialogs": ["shears-wrestling", "shears"], "reward": { "stone": 15 }, "marker": "✂️",
+      "memory": { "en": "the clipping shears in June", "sl": "škarje za striženje ovc junija", "it": "le cesoie della tosatura a giugno", "de": "die Schafscheren im Juni" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "horseshoe",
+      "lines": [
+        { "who": "dixon", "en": "Morning. Every pony in the dale needs shoes. Hold the tongs. Tight.", "sl": "Jutro. Vsak poni v dolini potrebuje podkve. Drži klešče. Trdno.", "it": "Buongiorno. Ogni pony della valle ha bisogno di ferri. Tieni le tenaglie. Forte.", "de": "Morgen. Jedes Pony im Tal braucht Hufeisen. Halt die Zange. Fest.", "fx": { "forge": 1 } },
+        { "choices": [
+          { "en": "Does a pony need four shoes?", "sl": "Ali poni potrebuje štiri podkve?", "it": "Un pony ha bisogno di quattro ferri?", "de": "Braucht ein Pony vier Hufeisen?", "ok": true,
+            "reply": { "en": "Aye. Four. One on each foot. Hold tight now.", "sl": "Ja. Štiri. Eno na vsako nogo. Zdaj pa trdno drži.", "it": "Sì. Quattro. Uno per zoccolo. Adesso tieni forte.", "de": "Ja. Vier. Eins an jedem Fuß. Jetzt halt fest.", "fx": { "iron": 1, "sparks": 1 } } },
+          { "en": "Does a pony needs four shoes?", "sl": "Ali poni potrebuje štiri podkve?", "it": "Un pony ha bisogno di quattro ferri?", "de": "Braucht ein Pony vier Hufeisen?", "grammar": "questions-do",
+            "why": { "en": "After does, the verb has no -s: does a pony need …?", "sl": "Za does glagol nima -s: does a pony need …?", "it": "Dopo does il verbo non ha la -s: does a pony need …?", "de": "Nach does hat das Verb kein -s: does a pony need …?" }, "reply": { "face": "cross", "en": "Needs? Hmph. It's right, or it isn't. Again.", "sl": "Needs? Hm. Je prav ali pa ni. Še enkrat.", "it": "Needs? Mah. O è giusto o non lo è. Di nuovo.", "de": "Needs? Hmpf. Es ist richtig, oder es ist es nicht. Noch mal." } }
+        ], "puzzled": { "face": "confused", "en": "Hmph? Again.", "sl": "Hm? Še enkrat.", "it": "Mah? Di nuovo.", "de": "Hmpf? Noch mal." } },
+        { "who": "dixon", "en": "Bang. Bang. It's red now. Now I bend it.", "sl": "Bum. Bum. Zdaj je rdeče. Zdaj ga upognem.", "it": "Bang. Bang. Adesso è rosso. Ora lo piego.", "de": "Peng. Peng. Jetzt ist es rot. Jetzt biege ich es.", "fx": { "sparks": 1, "iron": 0.6 } },
+        { "choices": [
+          { "en": "It looks like a U!", "sl": "Videti je kot črka U!", "it": "Sembra una U!", "de": "Es sieht aus wie ein U!", "ok": true,
+            "reply": { "face": "happy", "en": "Aye. A U. Into the bucket now. Hiss!", "sl": "Ja. U. Zdaj pa v vedro. Šššš!", "it": "Sì. Una U. Adesso nel secchio. Sssss!", "de": "Ja. Ein U. Jetzt in den Eimer. Zisch!", "fx": { "iron": 0.3, "sparks": 0 } } },
+          { "en": "It look like a U!", "sl": "Videti je kot črka U!", "it": "Sembra una U!", "de": "Es sieht aus wie ein U!", "grammar": "present-simple",
+            "why": { "en": "It takes -s: it looks.", "sl": "It dobi -s: it looks.", "it": "Con it ci vuole la -s: it looks.", "de": "Bei it kommt ein -s dazu: it looks." }, "reply": { "face": "cross", "en": "It what? Hmph. Try again.", "sl": "Kaj? Hm. Poskusi znova.", "it": "Cosa? Mah. Riprova.", "de": "Was? Hmpf. Versuch's noch mal." } }
+        ] },
+        { "who": "dixon", "en": "Done. One shoe. Fifteen more today.", "sl": "Narejeno. Ena podkev. Danes še petnajst.", "it": "Fatto. Un ferro. Oggi ancora quindici.", "de": "Fertig. Ein Hufeisen. Heute noch fünfzehn.", "fx": { "forge": 0.4, "iron": 0 } },
+        { "choices": [
+          { "en": "You work very hard, Mr Dixon.", "sl": "Zelo trdo delate, gospod Dixon.", "it": "Lavora tantissimo, signor Dixon.", "de": "Sie arbeiten sehr hart, Herr Dixon.", "ok": true,
+            "reply": { "face": "proud", "en": "Aye. Hard work, good sleep.", "sl": "Ja. Trdo delo, dober spanec.", "it": "Sì. Lavoro duro, buon sonno.", "de": "Ja. Harte Arbeit, guter Schlaf." } },
+          { "en": "Can I help again tomorrow?", "sl": "Lahko jutri spet pomagam?", "it": "Posso aiutare di nuovo domani?", "de": "Darf ich morgen wieder helfen?", "ok": true,
+            "reply": { "face": "happy", "en": "Aye. Seven o'clock. Don't be late.", "sl": "Ja. Ob sedmih. Ne zamudi.", "it": "Sì. Alle sette. Non fare tardi.", "de": "Ja. Um sieben. Komm nicht zu spät." } },
+          { "en": "Good night, Mr Dixon!", "sl": "Lahko noč, gospod Dixon!", "it": "Buonanotte, signor Dixon!", "de": "Gute Nacht, Herr Dixon!",
+            "why": { "en": "Good night is for bedtime. In the morning, say good morning or goodbye.", "sl": "Good night rečeš pred spanjem. Zjutraj reci good morning ali goodbye.", "it": "Good night si dice prima di dormire. Di mattina di' good morning o goodbye.", "de": "Good night sagt man vor dem Schlafen. Morgens sag good morning oder goodbye." }, "reply": { "face": "surprised", "en": "Night? It's morning. The day's just started.", "sl": "Noč? Jutro je. Dan se je šele začel.", "it": "Notte? È mattina. La giornata è appena cominciata.", "de": "Nacht? Es ist Morgen. Der Tag hat gerade angefangen." } }
+        ] }
+      ]
+    },
+    {
+      "id": "bellows",
+      "lines": [
+        { "who": "harry", "face": "happy", "en": "{learner}! Mr Dixon lets me work the bellows! Look: up, down, up, down!", "sl": "{learner}! Gospod Dixon mi pusti poganjati meh! Poglej: gor, dol, gor, dol!", "it": "{learner}! Il signor Dixon mi fa azionare il mantice! Guarda: su, giù, su, giù!", "de": "{learner}! Herr Dixon lässt mich den Blasebalg treten! Schau: rauf, runter, rauf, runter!", "fx": { "forge": 1 } },
+        { "choices": [
+          { "en": "Wow! The fire is very hot now.", "sl": "Uau! Ogenj je zdaj zelo vroč.", "it": "Wow! Adesso il fuoco è caldissimo.", "de": "Wow! Das Feuer ist jetzt sehr heiß.", "ok": true,
+            "reply": { "face": "proud", "en": "And look, the sparks! Like fireworks!", "sl": "In poglej iskre! Kot ognjemet!", "it": "E guarda le scintille! Come i fuochi d'artificio!", "de": "Und schau, die Funken! Wie ein Feuerwerk!", "fx": { "sparks": 1 } } },
+          { "en": "Wow! The fire are very hot now.", "sl": "Uau! Ogenj je zdaj zelo vroč.", "it": "Wow! Adesso il fuoco è caldissimo.", "de": "Wow! Das Feuer ist jetzt sehr heiß.", "grammar": "to-be",
+            "why": { "en": "The fire is one thing, so is: the fire is hot.", "sl": "Ogenj je ena stvar, zato is: the fire is hot.", "it": "Il fuoco è una cosa sola, quindi is: the fire is hot.", "de": "Das Feuer ist eine Sache, also is: the fire is hot." }, "reply": { "face": "laugh", "en": "Are? There's only one fire, {learner}!", "sl": "Are? Saj je samo en ogenj, {learner}!", "it": "Are? C'è un fuoco solo, {learner}!", "de": "Are? Es gibt nur ein Feuer, {learner}!" } }
+        ] },
+        { "who": "dixon", "en": "Steady, Harry. Not too fast. Slow and strong.", "sl": "Počasi, Harry. Ne prehitro. Počasi in močno.", "it": "Calma, Harry. Non troppo veloce. Piano e forte.", "de": "Ruhig, Harry. Nicht zu schnell. Langsam und kräftig." },
+        { "choices": [
+          { "en": "Can I try, Mr Dixon?", "sl": "Lahko poskusim, gospod Dixon?", "it": "Posso provare, signor Dixon?", "de": "Darf ich es versuchen, Herr Dixon?", "ok": true,
+            "reply": { "face": "happy", "en": "Aye. Both hands. Up… and down. Good.", "sl": "Ja. Z obema rokama. Gor … in dol. Dobro.", "it": "Sì. Tutte e due le mani. Su… e giù. Bene.", "de": "Ja. Beide Hände. Rauf … und runter. Gut.", "fx": { "forge": 1 } } },
+          { "en": "Can I trying, Mr Dixon?", "sl": "Lahko poskusim, gospod Dixon?", "it": "Posso provare, signor Dixon?", "de": "Darf ich es versuchen, Herr Dixon?", "grammar": "can",
+            "why": { "en": "After can, the verb in its base form: can I try?", "sl": "Za can glagol v osnovni obliki: can I try?", "it": "Dopo can il verbo alla forma base: can I try?", "de": "Nach can das Verb in der Grundform: can I try?" }, "reply": { "face": "cross", "en": "Trying? You're not trying yet. Ask right.", "sl": "Trying? Saj še ne poskušaš. Vprašaj pravilno.", "it": "Trying? Non stai ancora provando. Chiedi bene.", "de": "Trying? Du versuchst ja noch gar nichts. Frag richtig." } }
+        ], "puzzled": { "face": "confused", "en": "Hmph? Again.", "sl": "Hm? Še enkrat.", "it": "Mah? Di nuovo.", "de": "Hmpf? Noch mal." } },
+        { "who": "harry", "face": "laugh", "en": "You're good at it! Better than me. Don't tell anyone!", "sl": "Dober si v tem! Boljši kot jaz. Nikomur ne povej!", "it": "Sei bravo! Meglio di me. Non dirlo a nessuno!", "de": "Du kannst das gut! Besser als ich. Sag's niemandem!" },
+        { "choices": [
+          { "en": "Thanks, Harry!", "sl": "Hvala, Harry!", "it": "Grazie, Harry!", "de": "Danke, Harry!", "ok": true,
+            "reply": { "face": "laugh", "en": "We're a team! Like Carlisle United!", "sl": "Sva ekipa! Kot Carlisle United!", "it": "Siamo una squadra! Come il Carlisle United!", "de": "Wir sind ein Team! Wie Carlisle United!" } },
+          { "en": "No, you're better, Harry.", "sl": "Ne, ti si boljši, Harry.", "it": "No, sei più bravo tu, Harry.", "de": "Nein, du bist besser, Harry.", "ok": true,
+            "reply": { "face": "shy", "en": "Really? Thanks! I practise every day.", "sl": "Res? Hvala! Vsak dan vadim.", "it": "Davvero? Grazie! Mi alleno tutti i giorni.", "de": "Echt? Danke! Ich übe jeden Tag." } },
+          { "en": "Sorry, Harry!", "sl": "Oprosti, Harry!", "it": "Scusa, Harry!", "de": "Entschuldigung, Harry!",
+            "why": { "en": "Sorry is for a mistake. For a kind word, say thanks.", "sl": "Sorry rečeš za napako. Za prijazno besedo reci thanks.", "it": "Sorry si dice per uno sbaglio. Per una parola gentile di' thanks.", "de": "Sorry sagt man bei einem Fehler. Für ein nettes Wort sag thanks." }, "reply": { "face": "curious", "en": "Sorry? Why? You did it well!", "sl": "Oprosti? Zakaj? Dobro ti je šlo!", "it": "Scusa? Perché? L'hai fatto bene!", "de": "Entschuldigung? Warum? Du hast es gut gemacht!" } }
+        ], "to": "harry" }
+      ]
+    },
+    {
+      "id": "wheel",
+      "fx_stays": true,
+      "lines": [
+        { "who": "dixon", "en": "Look at Sam's cart. The wheel's broken. He needs it for the show.", "sl": "Poglej Samov voz. Kolo je zlomljeno. Potrebuje ga za razstavo.", "it": "Guarda il carro di Sam. La ruota è rotta. Gli serve per la fiera.", "de": "Schau dir Sams Wagen an. Das Rad ist kaputt. Er braucht ihn für die Schau.", "fx": { "cart": 0 } },
+        { "choices": [
+          { "en": "What happened to it, Mr Dixon?", "sl": "Kaj se mu je zgodilo, gospod Dixon?", "it": "Che cosa gli è successo, signor Dixon?", "de": "Was ist damit passiert, Herr Dixon?", "ok": true,
+            "reply": { "en": "A stone on the road. Crack. Sam says it jumped.", "sl": "Kamen na cesti. Krek. Sam pravi, da je skočil.", "it": "Un sasso sulla strada. Crac. Sam dice che è saltato.", "de": "Ein Stein auf der Straße. Krach. Sam sagt, er ist gesprungen." } },
+          { "en": "What happen to it, Mr Dixon?", "sl": "Kaj se mu je zgodilo, gospod Dixon?", "it": "Che cosa gli è successo, signor Dixon?", "de": "Was ist damit passiert, Herr Dixon?", "grammar": "past-simple",
+            "why": { "en": "It's over now, so the past: what happened?", "sl": "Zdaj je že mimo, zato pretekli čas: what happened?", "it": "Ormai è passato, quindi il passato: what happened?", "de": "Es ist schon vorbei, also die Vergangenheit: what happened?" }, "reply": { "face": "cross", "en": "Happen? When? Ask right.", "sl": "Happen? Kdaj? Vprašaj pravilno.", "it": "Happen? Quando? Chiedi bene.", "de": "Happen? Wann? Frag richtig." } }
+        ] },
+        { "who": "dixon", "en": "New iron round the wheel. Hot, then cold. Then it's tight.", "sl": "Nov železen obroč okoli kolesa. Vroče, potem hladno. Potem drži.", "it": "Un cerchio nuovo di ferro intorno alla ruota. Caldo, poi freddo. Poi tiene.", "de": "Neues Eisen um das Rad. Heiß, dann kalt. Dann sitzt es fest.", "fx": { "cart": 0.4 } },
+        { "choices": [
+          { "en": "Is this Sam's wheel?", "sl": "Je to Samovo kolo?", "it": "È la ruota di Sam?", "de": "Ist das Sams Rad?", "ok": true,
+            "reply": { "face": "proud", "en": "Aye. Now on the axle… and done. Four wheels.", "sl": "Ja. Zdaj na os … in končano. Štiri kolesa.", "it": "Sì. Adesso sull'asse… e fatto. Quattro ruote.", "de": "Ja. Jetzt auf die Achse … und fertig. Vier Räder.", "fx": { "cart": 1 } } },
+          { "en": "Is this Sam wheel?", "sl": "Je to Samovo kolo?", "it": "È la ruota di Sam?", "de": "Ist das Sams Rad?", "grammar": "possessive-s",
+            "why": { "en": "Whose wheel? Add 's to the owner: Sam's wheel.", "sl": "Čigavo kolo? Lastniku dodaš 's: Sam's wheel.", "it": "Di chi è la ruota? Al proprietario si aggiunge 's: Sam's wheel.", "de": "Wessen Rad? An den Besitzer kommt 's: Sam's wheel." }, "reply": { "face": "cross", "en": "Sam wheel? What's that? Again.", "sl": "Sam wheel? Kaj je to? Še enkrat.", "it": "Sam wheel? Che cos'è? Di nuovo.", "de": "Sam wheel? Was ist das? Noch mal." } }
+        ] }
+      ]
+    },
+    {
+      "id": "shears",
+      "lines": [
+        { "who": "dixon", "en": "June. Clipping time. Every shepherd brings me his shears.", "sl": "Junij. Čas striženja. Vsak pastir mi prinese svoje škarje.", "it": "Giugno. Tempo di tosatura. Ogni pastore mi porta le sue cesoie.", "de": "Juni. Zeit der Schafschur. Jeder Schäfer bringt mir seine Schere." },
+        { "choices": [
+          { "en": "What are shears for, Mr Dixon?", "sl": "Za kaj so škarje za striženje, gospod Dixon?", "it": "A che cosa servono le cesoie, signor Dixon?", "de": "Wofür ist die Schafschere, Herr Dixon?", "ok": true,
+            "reply": { "en": "For the sheep's wool. Clip, clip. Sharp shears, happy sheep.", "sl": "Za ovčjo volno. Strig, strig. Ostre škarje, srečne ovce.", "it": "Per la lana delle pecore. Zac, zac. Cesoie affilate, pecore felici.", "de": "Für die Wolle der Schafe. Schnipp, schnipp. Scharfe Schere, glückliche Schafe." } },
+          { "en": "What is shears for, Mr Dixon?", "sl": "Za kaj so škarje za striženje, gospod Dixon?", "it": "A che cosa servono le cesoie, signor Dixon?", "de": "Wofür ist die Schafschere, Herr Dixon?", "grammar": "to-be",
+            "why": { "en": "Shears is always plural, so are: what are shears for?", "sl": "Shears je vedno v množini, zato are: what are shears for?", "it": "Shears è sempre plurale, quindi are: what are shears for?", "de": "Shears ist immer Plural, also are: what are shears for?" }, "reply": { "face": "cross", "en": "Is? Hmph. Try again.", "sl": "Is? Hm. Poskusi znova.", "it": "Is? Mah. Riprova.", "de": "Is? Hmpf. Versuch's noch mal." } }
+        ] },
+        { "who": "dixon", "en": "I sharpen them here. Feel the blade. Carefully!", "sl": "Tukaj jih nabrusim. Potipaj rezilo. Previdno!", "it": "Le affilo qui. Senti la lama. Con attenzione!", "de": "Ich schärfe sie hier. Fühl mal die Klinge. Vorsichtig!" },
+        { "choices": [
+          { "en": "These shears are very old!", "sl": "Te škarje so zelo stare!", "it": "Queste cesoie sono vecchissime!", "de": "Diese Schere ist sehr alt!", "ok": true,
+            "reply": { "face": "proud", "en": "Aye. My grandad made them. Good iron lasts.", "sl": "Ja. Naredil jih je moj ded. Dobro železo zdrži.", "it": "Sì. Le ha fatte mio nonno. Il buon ferro dura.", "de": "Ja. Mein Großvater hat sie gemacht. Gutes Eisen hält." } },
+          { "en": "This shears are very old!", "sl": "Te škarje so zelo stare!", "it": "Queste cesoie sono vecchissime!", "de": "Diese Schere ist sehr alt!", "grammar": "plurals",
+            "why": { "en": "Shears are plural, so these: these shears. This is for one thing.", "sl": "Shears so v množini, zato these: these shears. This je za eno stvar.", "it": "Shears è plurale, quindi these: these shears. This è per una cosa sola.", "de": "Shears ist Plural, also these: these shears. This ist für eine Sache." }, "reply": { "face": "cross", "en": "This shears? Hmph. It's right, or it isn't.", "sl": "This shears? Hm. Je prav ali pa ni.", "it": "This shears? Mah. O è giusto o non lo è.", "de": "This shears? Hmpf. Es ist richtig, oder es ist es nicht." } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "horseshoe-count",
+      "count": { "from": "dice", "min": 2, "max": 12 },
+      "memory": { "en": "the horseshoes we counted in the bucket", "sl": "podkve, ki sva jih štela v vedru", "it": "i ferri di cavallo che abbiamo contato nel secchio", "de": "die Hufeisen, die wir im Eimer gezählt haben" },
+      "lines": [
+        { "who": "dixon", "en": "Morning. Busy day. The new shoes are in the bucket. Count them.", "sl": "Jutro. Naporen dan. Nove podkve so v vedru. Preštej jih.", "it": "Buongiorno. Giornata piena. I ferri nuovi sono nel secchio. Contali.", "de": "Morgen. Viel zu tun. Die neuen Hufeisen sind im Eimer. Zähl sie.", "fx": { "forge": 1 } },
+        { "choices": [
+          { "en": "There are {n} horseshoes.", "sl": "{Je|Sta|So|Je} {n} {podkev|podkvi|podkve|podkev}.", "it": "Ci sono {n} ferri di cavallo.", "de": "Es sind {n} Hufeisen.", "ok": true,
+            "reply": { "face": "proud", "en": "{n}. Right. You count well, {m:lad|f:lass}.", "sl": "{n}. Prav. Dobro šteješ.", "it": "{n}. Giusto. Conti bene.", "de": "{n}. Richtig. Du zählst gut." } },
+          { "en": "There are {n} {!horseshoe|horseshoes}.", "sl": "{Je|Sta|So|Je} {n} {!podkev|podkvi|podkve|podkev}.", "it": "Ci sono {n} {!ferro|ferri} di cavallo.", "de": "Es sind {n} Hufeisen.", "wrong_form": 1, "grammar": "plurals",
+            "why": { "en": "{One takes the singular|More than one takes -s}: {n} {horseshoe|horseshoes}.", "sl": "{Ena je v ednini|Za več kot eno dodaš -s}: {n} {horseshoe|horseshoes}.", "it": "{Uno vuole il singolare|Per più di uno si aggiunge -s}: {n} {horseshoe|horseshoes}.", "de": "{Eins steht im Singular|Bei mehr als einem kommt -s dazu}: {n} {horseshoe|horseshoes}." }, "reply": { "face": "cross", "en": "One? Count again. Properly.", "sl": "Eno? Štej še enkrat. Pravilno.", "it": "Uno? Conta di nuovo. Per bene.", "de": "Eins? Zähl noch mal. Richtig." } },
+          { "en": "There is {n} horseshoes.", "sl": "{Je|Sta|So|Je} {n} {podkev|podkvi|podkve|podkev}.", "it": "Ci sono {n} ferri di cavallo.", "de": "Es sind {n} Hufeisen.", "grammar": "there-is-are",
+            "why": { "en": "Horseshoes is plural, so there are: there are {n} horseshoes.", "sl": "Horseshoes je množina, zato there are: there are {n} horseshoes.", "it": "Horseshoes è plurale, quindi there are: there are {n} horseshoes.", "de": "Horseshoes ist Plural, also there are: there are {n} horseshoes." }, "reply": { "face": "cross", "en": "Is? It's right, or it isn't. Again.", "sl": "Is? Je prav ali pa ni. Še enkrat.", "it": "Is? O è giusto o non lo è. Di nuovo.", "de": "Is? Es ist richtig, oder es ist es nicht. Noch mal." } }
+        ] },
+        { "who": "dixon", "en": "A pony needs four. The rest go to Keswick on Monday.", "sl": "Poni jih potrebuje štiri. Ostale gredo v ponedeljek v Keswick.", "it": "Un pony ne ha bisogno di quattro. Gli altri vanno a Keswick lunedì.", "de": "Ein Pony braucht vier. Der Rest geht am Montag nach Keswick." },
+        { "choices": [
+          { "en": "Do you go to Keswick every week?", "sl": "Hodite v Keswick vsak teden?", "it": "Va a Keswick ogni settimana?", "de": "Fahren Sie jede Woche nach Keswick?", "ok": true,
+            "reply": { "face": "happy", "en": "Aye. Every Monday. With the cart and the pony.", "sl": "Ja. Vsak ponedeljek. Z vozom in ponijem.", "it": "Sì. Ogni lunedì. Con il carro e il pony.", "de": "Ja. Jeden Montag. Mit dem Wagen und dem Pony." } },
+          { "en": "Do you goes to Keswick every week?", "sl": "Hodite v Keswick vsak teden?", "it": "Va a Keswick ogni settimana?", "de": "Fahren Sie jede Woche nach Keswick?", "grammar": "questions-do",
+            "why": { "en": "After do, the verb has no -s: do you go …?", "sl": "Za do glagol nima -s: do you go …?", "it": "Dopo do il verbo non ha la -s: do you go …?", "de": "Nach do hat das Verb kein -s: do you go …?" }, "reply": { "face": "cross", "en": "Goes? No. Again, {m:lad|f:lass}.", "sl": "Goes? Ne. Še enkrat.", "it": "Goes? No. Di nuovo.", "de": "Goes? Nein. Noch mal." } }
+        ] }
+      ]
+    },
+    {
+      "id": "bellows-tea",
+      "memory": { "en": "Mr Dixon's mug of tea in the doorway", "sl": "skodelico čaja gospoda Dixona na pragu", "it": "la tazza di tè del signor Dixon sulla porta", "de": "Herrn Dixons Becher Tee in der Tür" },
+      "lines": [
+        { "who": "harry", "face": "happy", "en": "{learner}! Mr Dixon is having his tea in the doorway. I'm doing the bellows!", "sl": "{learner}! Gospod Dixon pije čaj na pragu. Jaz poganjam meh!", "it": "{learner}! Il signor Dixon beve il tè sulla porta. Il mantice lo faccio io!", "de": "{learner}! Herr Dixon trinkt seinen Tee in der Tür. Ich mache den Blasebalg!", "fx": { "forge": 0.8 }, "act": { "dixon": { "to": "door" } } },
+        { "choices": [
+          { "en": "Is he drinking tea again?", "sl": "Spet pije čaj?", "it": "Sta bevendo di nuovo il tè?", "de": "Trinkt er schon wieder Tee?", "ok": true,
+            "reply": { "face": "laugh", "en": "Again! Ten mugs a day! Strong and sweet.", "sl": "Spet! Deset loncev na dan! Močan in sladek.", "it": "Di nuovo! Dieci tazze al giorno! Forte e dolce.", "de": "Schon wieder! Zehn Becher am Tag! Stark und süß." } },
+          { "en": "Is he drink tea again?", "sl": "Spet pije čaj?", "it": "Sta bevendo di nuovo il tè?", "de": "Trinkt er schon wieder Tee?", "grammar": "present-continuous",
+            "why": { "en": "Is he goes with the -ing form: is he drinking?", "sl": "Is he gre z obliko na -ing: is he drinking?", "it": "Is he va con la forma in -ing: is he drinking?", "de": "Is he geht mit der -ing-Form: is he drinking?" }, "reply": { "face": "laugh", "en": "He drink? Ha! Say it properly, {learner}!", "sl": "He drink? Ha! Povej pravilno, {learner}!", "it": "He drink? Ah! Dillo bene, {learner}!", "de": "He drink? Ha! Sag's richtig, {learner}!" } }
+        ] },
+        { "who": "dixon", "face": "happy", "en": "Aye. Tea. A smith is thirsty. Harry, steady with those bellows.", "sl": "Ja. Čaj. Kovač je žejen. Harry, počasi z mehom.", "it": "Sì. Tè. Un fabbro ha sete. Harry, piano con quel mantice.", "de": "Ja. Tee. Ein Schmied hat Durst. Harry, ruhig mit dem Blasebalg." },
+        { "choices": [
+          { "en": "How many mugs do you drink a day, Mr Dixon?", "sl": "Koliko loncev popijete na dan, gospod Dixon?", "it": "Quante tazze beve al giorno, signor Dixon?", "de": "Wie viele Becher trinken Sie am Tag, Herr Dixon?", "ok": true,
+            "reply": { "face": "proud", "en": "Ten. Maybe twelve. It's thirsty work.", "sl": "Deset. Mogoče dvanajst. To je žejno delo.", "it": "Dieci. Forse dodici. È un lavoro che mette sete.", "de": "Zehn. Vielleicht zwölf. Das ist durstige Arbeit." } },
+          { "en": "How many mug do you drink a day, Mr Dixon?", "sl": "Koliko loncev popijete na dan, gospod Dixon?", "it": "Quante tazze beve al giorno, signor Dixon?", "de": "Wie viele Becher trinken Sie am Tag, Herr Dixon?", "grammar": "plurals",
+            "why": { "en": "How many asks about more than one: how many mugs?", "sl": "How many sprašuje po več kot enem: how many mugs?", "it": "How many chiede di più cose: how many mugs?", "de": "How many fragt nach mehr als einem: how many mugs?" }, "reply": { "face": "cross", "en": "Mug? One? Ha. No. Again.", "sl": "Mug? Enega? Ha. Ne. Še enkrat.", "it": "Mug? Una? Ah. No. Di nuovo.", "de": "Mug? Einen? Ha. Nein. Noch mal." } }
+        ] },
+        { "who": "dixon", "en": "Right. Back to work.", "sl": "Tako. Nazaj na delo.", "it": "Bene. Torniamo al lavoro.", "de": "So. Zurück an die Arbeit.", "fx": { "sparks": 1 }, "act": { "dixon": { "to": "anvil" } } }
+      ]
+    },
+    {
+      "id": "wheel-crates",
+      "fx_stays": true,
+      "memory": { "en": "the cart with the crates of bottles", "sl": "voz z zaboji steklenic", "it": "il carro con le casse di bottiglie", "de": "den Wagen mit den Flaschenkisten" },
+      "lines": [
+        { "who": "dixon", "en": "Sam's cart again. Four crates of bottles, and a broken wheel.", "sl": "Spet Samov voz. Štirje zaboji steklenic in zlomljeno kolo.", "it": "Di nuovo il carro di Sam. Quattro casse di bottiglie e una ruota rotta.", "de": "Wieder Sams Wagen. Vier Kisten Flaschen und ein kaputtes Rad.", "fx": { "cart": 0 } },
+        { "choices": [
+          { "en": "Are the bottles OK?", "sl": "So steklenice v redu?", "it": "Le bottiglie stanno bene?", "de": "Sind die Flaschen in Ordnung?", "ok": true,
+            "reply": { "face": "laugh", "en": "Aye. Not one broken. Sam was lucky.", "sl": "Ja. Niti ena ni počila. Sam je imel srečo.", "it": "Sì. Neanche una rotta. Sam è stato fortunato.", "de": "Ja. Keine kaputt. Sam hatte Glück." } },
+          { "en": "Is the bottles OK?", "sl": "So steklenice v redu?", "it": "Le bottiglie stanno bene?", "de": "Sind die Flaschen in Ordnung?", "grammar": "to-be",
+            "why": { "en": "Bottles is plural, so are: are the bottles OK?", "sl": "Bottles je množina, zato are: are the bottles OK?", "it": "Bottles è plurale, quindi are: are the bottles OK?", "de": "Bottles ist Plural, also are: are the bottles OK?" }, "reply": { "face": "cross", "en": "Is? Again, {m:lad|f:lass}. Properly.", "sl": "Is? Še enkrat. Pravilno.", "it": "Is? Di nuovo. Per bene.", "de": "Is? Noch mal. Richtig." } }
+        ] },
+        { "who": "dixon", "en": "Lift the corner. On three. Yan, tyan, tethera!", "sl": "Dvigni vogal. Na tri. Yan, tyan, tethera!", "it": "Solleva l'angolo. Al tre. Yan, tyan, tethera!", "de": "Heb die Ecke an. Auf drei. Yan, tyan, tethera!", "fx": { "cart": 0.6 } },
+        { "choices": [
+          { "en": "It's very heavy!", "sl": "Zelo težak je!", "it": "È pesantissimo!", "de": "Der ist sehr schwer!", "ok": true,
+            "reply": { "face": "proud", "en": "Aye. Ale is heavy. There. Four wheels again.", "sl": "Ja. Pivo je težko. Tako. Spet štiri kolesa.", "it": "Sì. La birra pesa. Ecco. Di nuovo quattro ruote.", "de": "Ja. Bier ist schwer. So. Wieder vier Räder.", "fx": { "cart": 1 } } },
+          { "en": "It's very heavily!", "sl": "Zelo težko!", "it": "Pesantemente!", "de": "Sehr schwerlich!",
+            "why": { "en": "Heavy says what the cart is like. Heavily says how you do something.", "sl": "Heavy pove, kakšen je voz. Heavily pove, kako nekaj delaš.", "it": "Heavy dice com'è il carro. Heavily dice come fai qualcosa.", "de": "Heavy sagt, wie der Wagen ist. Heavily sagt, wie man etwas tut." }, "reply": { "face": "cross", "en": "Heavily? Hmph. Just lift!", "sl": "Heavily? Hm. Kar dvigni!", "it": "Heavily? Mah. Solleva e basta!", "de": "Heavily? Hmpf. Heb einfach!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "shears-wrestling",
+      "memory": { "en": "the day you heard about my wrestling", "sl": "dan, ko si {m:slišal|f:slišala} o moji rokoborbi", "it": "il giorno in cui hai sentito della mia lotta", "de": "den Tag, an dem du von meinem Ringen gehört hast" },
+      "lines": [
+        { "who": "dixon", "en": "These shears are for the show. The clipping in July.", "sl": "Te škarje so za razstavo. Za striženje julija.", "it": "Queste cesoie sono per la fiera. La tosatura a luglio.", "de": "Diese Schere ist für die Schau. Die Schur im Juli." },
+        { "choices": [
+          { "en": "Do you clip sheep too, Mr Dixon?", "sl": "Tudi vi strižete ovce, gospod Dixon?", "it": "Anche Lei tosa le pecore, signor Dixon?", "de": "Scheren Sie auch Schafe, Herr Dixon?", "ok": true,
+            "reply": { "face": "laugh", "en": "Me? No. The sheep run from me. I'm too big.", "sl": "Jaz? Ne. Ovce bežijo pred mano. Prevelik sem.", "it": "Io? No. Le pecore scappano da me. Sono troppo grosso.", "de": "Ich? Nein. Die Schafe laufen vor mir weg. Ich bin zu groß." } },
+          { "en": "Do you clips sheep too, Mr Dixon?", "sl": "Tudi vi strižete ovce, gospod Dixon?", "it": "Anche Lei tosa le pecore, signor Dixon?", "de": "Scheren Sie auch Schafe, Herr Dixon?", "grammar": "questions-do",
+            "why": { "en": "After do, the verb has no -s: do you clip …?", "sl": "Za do glagol nima -s: do you clip …?", "it": "Dopo do il verbo non ha la -s: do you clip …?", "de": "Nach do hat das Verb kein -s: do you clip …?" }, "reply": { "face": "cross", "en": "Clips? Again, properly.", "sl": "Clips? Še enkrat, pravilno.", "it": "Clips? Di nuovo, per bene.", "de": "Clips? Noch mal, richtig." } }
+        ] },
+        { "who": "dixon", "face": "proud", "en": "When I was young, I won the wrestling at Grasmere.", "sl": "Ko sem bil mlad, sem zmagal v rokoborbi v Grasmeru.", "it": "Da giovane ho vinto la lotta a Grasmere.", "de": "Als ich jung war, habe ich das Ringen in Grasmere gewonnen." },
+        { "choices": [
+          { "en": "Wow! Were you very strong?", "sl": "Uau! Ste bili zelo močni?", "it": "Wow! Era fortissimo?", "de": "Wow! Waren Sie sehr stark?", "ok": true,
+            "reply": { "face": "proud", "en": "Aye. Still am. Feel that arm!", "sl": "Ja. Še vedno sem. Potipaj to roko!", "it": "Sì. Lo sono ancora. Senti questo braccio!", "de": "Ja. Bin ich immer noch. Fühl mal den Arm!" } },
+          { "en": "Wow! Was you very strong?", "sl": "Uau! Ste bili zelo močni?", "it": "Wow! Era fortissimo?", "de": "Wow! Waren Sie sehr stark?", "grammar": "past-simple",
+            "why": { "en": "With you, the past of be is were: were you strong? Was is for I, he, she and it.", "sl": "Z you je pretekli čas od be were: were you strong? Was je za I, he, she in it.", "it": "Con you il passato di be è were: were you strong? Was è per I, he, she e it.", "de": "Mit you heißt die Vergangenheit von be were: were you strong? Was ist für I, he, she und it." }, "reply": { "face": "cross", "en": "Was you? Hmph. It's right, or it isn't.", "sl": "Was you? Hm. Je prav ali pa ni.", "it": "Was you? Mah. O è giusto o non lo è.", "de": "Was you? Hmpf. Es ist richtig, oder es ist es nicht." } }
+        ] }
+      ]
+    }
+  ]
+}

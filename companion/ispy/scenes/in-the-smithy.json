@@ -1,0 +1,95 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-the-smithy",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the scene's picture in the Lake District's look (walls of slate stone, the yard of slate flags at level 4) and the default smithy's colours and places; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "forge": { "clues": [
+      { "kind": "colour", "en": "It's red.", "sl": "Je rdeče barve.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of brick.", "sl": "Je iz opeke.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's in the corner.", "sl": "Je v kotu.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "The smith heats iron on it.", "sl": "Na tem kovač greje železo.", "grammar": ["present-simple", "prepositions-place"] }
+    ] },
+    "fire": { "clues": [
+      { "kind": "colour", "en": "It's yellow and red.", "sl": "Je rumene in rdeče barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's very hot.", "sl": "To je nekaj zelo vročega.", "grammar": ["to-be"] },
+      { "kind": "does", "en": "It burns and crackles.", "sl": "Gori in prasketa.", "grammar": ["present-simple"] },
+      { "kind": "use", "en": "The smith makes the iron hot in it.", "sl": "V tem kovač razbeli železo.", "grammar": ["present-simple"] }
+    ] },
+    "anvil": { "clues": [
+      { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's very heavy.", "sl": "To je nekaj zelo težkega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on a block of wood.", "sl": "Je na lesenem štoru.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's in the middle of the smithy.", "sl": "Je sredi kovačnice.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We beat hot iron on it.", "sl": "Na tem kujemo vroče železo.", "grammar": ["present-simple", "prepositions-place"] }
+    ] },
+    "hammer": { "clues": [
+      { "kind": "trait", "en": "It's heavy.", "sl": "To je nekaj težkega.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It has a wooden handle.", "sl": "Ima lesen ročaj.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's on the anvil.", "sl": "Je na nakovalu.", "grammar": ["to-be", "prepositions-place"], "ref": "anvil" },
+      { "kind": "use", "en": "The smith makes horseshoes with it.", "sl": "S tem kovač kuje podkve.", "grammar": ["present-simple"] }
+    ] },
+    "tongs": { "number": "pl", "clues": [
+      { "kind": "colour", "en": "They're black.", "sl": "So črne barve.", "grammar": ["to-be"] },
+      { "kind": "size", "en": "They're long.", "sl": "So dolge.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "They're by the anvil.", "sl": "So ob nakovalu.", "grammar": ["to-be", "prepositions-place"], "ref": "anvil" },
+      { "kind": "use", "en": "We hold hot iron with them.", "sl": "Z njimi držimo vroče železo.", "grammar": ["present-simple"] }
+    ] },
+    "bellows": { "number": "pl", "clues": [
+      { "kind": "colour", "en": "They're brown.", "sl": "So rjave barve.", "grammar": ["to-be"] },
+      { "kind": "size", "en": "They're big.", "sl": "So velike.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "They're next to the forge.", "sl": "So zraven ognjišča.", "grammar": ["to-be", "prepositions-place"], "ref": "forge" },
+      { "kind": "does", "en": "They blow air into the fire.", "sl": "Pihajo zrak v ogenj.", "grammar": ["present-simple"] }
+    ] },
+    "horseshoe": { "clues": [
+      { "kind": "colour", "en": "It's black.", "sl": "Je črne barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's like the letter U.", "sl": "Je kot črka U.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's next to the door.", "sl": "Je zraven vrat.", "grammar": ["to-be", "prepositions-place"], "ref": "door" },
+      { "kind": "use", "en": "A pony wears it on its foot.", "sl": "Poni to nosi na nogi.", "grammar": ["present-simple", "possessive-s"] }
+    ] },
+    "nails": { "clues": [
+      { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's sharp at one end.", "sl": "Na enem koncu je ostro.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's in a box.", "sl": "Je v škatli.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's in front of the bellows.", "sl": "Je pred mehom.", "grammar": ["to-be", "prepositions-place"], "ref": "bellows" },
+      { "kind": "use", "en": "The smith puts a horseshoe on with it.", "sl": "S tem kovač pribije podkev.", "grammar": ["present-simple"] }
+    ] },
+    "bucket": { "clues": [
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has iron rings round it.", "sl": "Okoli ima železne obroče.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's in front of the anvil.", "sl": "Je pred nakovalom.", "grammar": ["to-be", "prepositions-place"], "ref": "anvil" },
+      { "kind": "use", "en": "We cool hot iron in it. Hiss!", "sl": "V tem ohladimo vroče železo. Šššš!", "grammar": ["present-simple"] }
+    ] },
+    "chain": { "clues": [
+      { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has a hook.", "sl": "Ima kavelj.", "grammar": ["to-have"] },
+      { "kind": "material", "en": "It's made of iron.", "sl": "Je iz železa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's above the bellows.", "sl": "Je nad mehom.", "grammar": ["to-be", "prepositions-place"], "ref": "bellows" }
+    ] },
+    "axe": { "clues": [
+      { "kind": "trait", "en": "It's sharp.", "sl": "To je nekaj ostrega.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It has a wooden handle.", "sl": "Ima lesen ročaj.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's next to the window.", "sl": "Je zraven okna.", "grammar": ["to-be", "prepositions-place"], "ref": "window" },
+      { "kind": "use", "en": "We chop firewood with it.", "sl": "S tem cepimo drva.", "grammar": ["present-simple"] }
+    ] },
+    "wheel": { "clues": [
+      { "kind": "trait", "en": "It's round.", "sl": "Je okrogle oblike.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's under the axe.", "sl": "Je pod sekiro.", "grammar": ["to-be", "prepositions-place"], "ref": "axe" },
+      { "kind": "use", "en": "A cart needs four of them.", "sl": "Voz potrebuje štiri take.", "grammar": ["present-simple"] }
+    ] },
+    "window": { "clues": [
+      { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of glass.", "sl": "Je iz stekla.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the left wall.", "sl": "Je na levi steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We open it when it's hot.", "sl": "To odpremo, ko je vroče.", "grammar": ["present-simple"] }
+    ] },
+    "door": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has an iron ring.", "sl": "Ima železen obroč.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's on the right wall.", "sl": "Je na desni steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We open it and go out.", "sl": "To odpremo in gremo ven.", "grammar": ["present-simple"] }
+    ] }
+  }
+}
