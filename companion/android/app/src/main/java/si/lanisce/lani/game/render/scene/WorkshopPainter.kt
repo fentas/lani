@@ -61,9 +61,23 @@ internal class WorkshopPainter : RoomPainter() {
     private var logs = false
     private var shingles = false
 
+    /**
+     * The Lake District's look (docs/plans/05-built/places-lakeland.md): Mr Tyson's workshop, its walls of the dale's slate
+     * stone ([slate]); high on the left wall, on two pegs, two shepherd's crooks of hazel with curled horn heads and a walking
+     * stick with a horn handle, Tyson's for the shepherds' meet; by the broom a basket of wooden bobbins from the dale's bobbin
+     * mill ([crooks]); the fells through the window.
+     */
+    private var slate = false
+    private var crooks = false
+
     /** Plain whitewash, greyed and scuffed low down where boards and tools lean on it; no dado and no border (in Friuli river cobbles). */
     override fun inner(along: Float, z: Float, px: Int, py: Int, dim: Float, sootF: Float): Int {
         val h = z - fl
+        if (slate) {
+            var col = if (z > hw - 0.6f) Col.hex(0x9AA0A6) else Lakeland.slateStone(along, h, px, py, P > 1)
+            if (h < 1.1f) col = Col.scale(col, 0.85f)
+            return Col.scale(col, dim)
+        }
         if (cobbles) {
             var col = if (z > hw - 0.6f) Col.hex(0xC8BCA6) else cobbleWall(along, h, px, py)
             if (h < 1.1f) col = Col.scale(col, 0.85f)
@@ -118,6 +132,7 @@ internal class WorkshopPainter : RoomPainter() {
         readLook()
         cobbles = variant("walls") == "cobbles"; chairs = variant("chairs") != null
         logs = variant("walls") == "logs"; shingles = variant("shingles") != null
+        slate = variant("walls") == "slate"; crooks = variant("crooks") != null
         val lit = env.windows > 0.35f && there("lantern")
         // turned low for anyone asleep
         val low = lit && asleepHere
@@ -148,6 +163,7 @@ internal class WorkshopPainter : RoomPainter() {
         if (there("rake")) thing("rake", slop = 1) { rake() }
         if (chairs) { prop { hangingChair() }; prop { spindles() } }
         if (shingles) prop { shingleStack() }
+        if (crooks) { prop { crooksOnPegs() }; prop { bobbins() } }
         // the workbench and what is on it, the lantern over it
         thing("workbench") { workbench() }
         thing("nails", slop = 2) { nails(1.95f, 1.45f, wz) }
@@ -559,6 +575,48 @@ internal class WorkshopPainter : RoomPainter() {
         // the froe: an iron blade with its handle standing up, leaning on the stack
         rod(bx + 0.5f, by + 0.55f, fl + 0.3f, bx + 0.25f, by + 0.5f, fl + 7.5f, Pal.WOOD_D, Pal.WOOD_M, Pal.WOOD_D, Pal.WOOD_X)
         rod(bx + 0.25f, by + 0.5f, fl + 7.4f, bx - 0.45f, by + 0.5f, fl + 7.6f, iron, ironL, iron, ironD)
+    }
+
+    /**
+     * The Lake District's crooks on the left wall ([crooks]): two pegs, and hanging from them two shepherd's crooks, their hazel
+     * shanks brown and their horn heads curled pale, and a walking stick with a horn handle between them.
+     */
+    private fun crooksOnPegs() {
+        val za = fl + 9f; val zb = fl + 21.5f
+        for (py in floatArrayOf(7.3f, 8.1f)) iso.box(x0, py - 0.05f, zb - 0.6f, 0.3f, 0.1f, 0.3f, Pal.WOOD_D, Pal.WOOD_D, Pal.WOOD_X)
+        val hazel = Col.hex(0x7A5634); val hazelL = Col.hex(0x9C7448); val horn = Col.hex(0xE6D8B8); val hornD = Col.hex(0xB8A482)
+        for ((k, y) in listOf(7.25f, 7.7f, 8.15f).withIndex()) {
+            val stick = k == 1
+            val top = zb - (if (stick) 1.4f else 0.2f)
+            rod(x0 + 0.12f, y, za + k * 0.6f, x0 + 0.12f, y, top - 1.2f, hazel, hazelL, hazel, Col.hex(0x56381E))
+            val cx = iso.sx(x0 + 0.12f, y); val cy = iso.sy(x0 + 0.12f, y, top)
+            val p = P.toFloat()
+            if (stick) {
+                // the stick's handle: a short knob of horn bent to the side
+                for (o in 0 until max(1, P)) c.line(floor(cx).toInt() + o, floor(cy + 1.2f * p).toInt(), floor(cx + 1.8f * p).toInt() + o, floor(cy).toInt(), if (o == 0) horn else hornD)
+            } else {
+                // the crook's head: a hook of horn curling round over the shank
+                arc(cx + 1.3f * p, cy + 0.2f * p, 1.4f * p, 1.4f * p, horn, -3.4f, 0.4f)
+                if (P > 1) arc(cx + 1.3f * p, cy + 0.2f * p, 1.4f * p - 1f, 1.4f * p - 1f, hornD, -3.4f, 0.4f)
+                c.vline(floor(cx + 2.7f * p).toInt(), floor(cy).toInt(), floor(cy + 1.2f * p).toInt(), horn)
+            }
+        }
+    }
+
+    /** The Lake District's basket of bobbins by the broom ([crooks]): a round wicker basket heaped with pale wooden bobbins, each a spool with its rims. */
+    private fun bobbins() {
+        val bx = x0 + 0.55f; val by = 7.65f
+        val cx = iso.sx(bx, by); val base = iso.sy(bx, by, fl)
+        val p = P.toFloat()
+        drum(cx, base, base - 4f * p, 3.4f * p, 1.4f * p, Col.hex(0xC8A060), Col.hex(0xA8823E), Col.hex(0x7A5A28))
+        c.fillEllipse(cx, base - 4f * p, 3.4f * p, 1.4f * p, Col.hex(0x5A4020))
+        for (k in 0 until 6) {
+            val ox = (k - 2.5f) * 1.05f * p; val oy = -4.4f * p - (if (k % 2 == 0) 0.8f * p else 0f)
+            val bxx = cx + ox; val byy = base + oy
+            c.fillRect(floor(bxx - 0.5f * p).toInt(), floor(byy - 2.2f * p).toInt(), max(1, P), floor(2.2f * p).toInt(), Col.hex(0xD8B884))
+            c.hline(floor(bxx - 1f * p).toInt(), floor(bxx + 0.9f * p).toInt(), floor(byy - 2.2f * p).toInt(), Col.hex(0xF0D8A8))
+            c.hline(floor(bxx - 1f * p).toInt(), floor(bxx + 0.9f * p).toInt(), floor(byy).toInt(), Col.hex(0xB8945E))
+        }
     }
 
     /** Friuli's basket of turned chair legs by the broom ([chairs]): a round wicker basket, the pale legs standing in it. */

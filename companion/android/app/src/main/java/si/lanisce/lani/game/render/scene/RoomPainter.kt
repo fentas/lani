@@ -90,6 +90,22 @@ internal abstract class RoomPainter : DioramaPainter() {
     /** The holy corner as Carinthia has it ("corner": "herrgottswinkel"): the Palmbuschen behind the crucifix for the holy picture. */
     protected var herrgott = false
 
+    // the Lake District's ([readLook]: docs/plans/05-built/places-lakeland.md)
+    /** The fells through the window ("view": "fells"): a green fell with a dry-stone wall across it, a grey crag on the far one. */
+    protected var fells = false
+    /** Slate flags for the terracotta tiles from level 2 ("floor": "slate"). */
+    protected var slateFloor = false
+    /** An oak plate rail with blue-and-white plates standing on it under the top, for the stencilled border ("frieze": "plates"). */
+    protected var plateRail = false
+    /** The dresser's plates blue and white, the willow pattern, for the painted flower ("cupboard": "oak", with its plain oak panels). */
+    protected var willow = false
+    /** Ladder-back chairs, three slats across the back, for the heart cut out of the board ("chairs": "ladder"). */
+    protected var ladderChairs = false
+    /** A framed sampler and a brass candlestick on the corner shelf, for the holy corner ("corner": "sampler"). */
+    protected var sampler = false
+    /** At level 1 the limewash thin on the slate stone, the stone showing low down and in patches ("walls": "limewash"). */
+    protected var limewash = false
+
     /**
      * Reads what the frame's culture paints its own way in the room (its walls' dado and border, the window's view, the
      * dresser, the stove's tiles, the holy corner): once a frame, at the top of [paint]. The default culture's look keeps
@@ -99,13 +115,29 @@ internal abstract class RoomPainter : DioramaPainter() {
         dado = colour("dado", DADO); dadoD = colour("dado.d", DADO_D); border = colour("border", BORDER)
         vineFrieze = variant("frieze") == "vines"
         collio = variant("view") == "collio"
-        cupboardPlain = variant("cupboard") == "walnut"
+        val cup = variant("cupboard")
+        cupboardPlain = cup == "walnut" || cup == "oak"
         cupL = colour("cupboard.l", paintL); cupM = colour("cupboard.m", paintM); cupD = colour("cupboard.d", paintD); cupBack = colour("cupboard.back", Col.hex(0x3E4E66))
         tileL = colour("tile.l", TILE_L); tileM = colour("tile.m", TILE_M); tileD = colour("tile.d", TILE_D)
         karawanken = variant("view") == "karawanken"
         woodDado = material("dado", "paint") == "wood"
         herrgott = variant("corner") == "herrgottswinkel"
+        fells = variant("view") == "fells"
+        slateFloor = variant("floor") == "slate"
+        plateRail = variant("frieze") == "plates"
+        willow = cup == "oak"
+        ladderChairs = variant("chairs") == "ladder"
+        sampler = variant("corner") == "sampler"
+        limewash = variant("walls") == "limewash"
+        range = variant("stove") == "range"
     }
+
+    /**
+     * The tiled stove a black cast-iron kitchen range ("stove": "range", the Lake District's): the oven door on the left with
+     * its brass knob, the fire behind its bars in the middle over the ash pan, the boiler with its brass tap on the right, the
+     * iron black-leaded, its edges polished bright; the tiled back and its ledge black iron too.
+     */
+    protected var range = false
     protected val iron = Col.hex(0x34303A); protected val ironL = Col.hex(0x5E5A64); protected val ironD = Col.hex(0x1E1A20)
     /** The stove's glazed tiles: green, or the culture's ("tile.l", "tile.m", "tile.d": Carinthia's white Sparherd, its dark green Kachelofen), read in [readLook]. */
     protected var tileL = TILE_L; protected var tileM = TILE_M; protected var tileD = TILE_D; protected val grout = Col.hex(0xE6E0CA)
@@ -309,6 +341,12 @@ internal abstract class RoomPainter : DioramaPainter() {
             c.penId = 0
             return
         }
+        if (slateFloor) {
+            // the Lake District's slate flags
+            onFlat(fl, x0, y0, x1, y1) { x, y, px, py -> Lakeland.slateFlags(x - x0, y - y0, px, py, P > 1) }
+            c.penId = 0
+            return
+        }
         val terra = intArrayOf(Col.hex(0xB86A42), Col.hex(0xAA5F3B), Col.hex(0xC27650), Col.hex(0xA05736))
         val sz = 0.75f
         onFlat(fl, x0, y0, x1, y1) { x, y, px, py ->
@@ -449,6 +487,10 @@ internal abstract class RoomPainter : DioramaPainter() {
             woodDado && lv >= 2 && h < 7.9f -> if (h > 7.75f) ZIRBE_L else ZIRBE_D
             lv >= 2 && h < 4.3f -> if (Dither.at(px, py) < 0.22f || Noise.rnd(px, py, 3) < 0.08f) dadoD else dado
             lv >= 2 && h < 4.9f -> border
+            // the Lake District's ([limewash]): at level 1 the limewash thin on the dale's slate stone, the stone showing low
+            // down and where the lime has flaked off
+            lv < 2 && limewash && (h < 3.2f + 1.4f * Noise.v1(along * 1.7f, 11) || Noise.v2(along * 1.1f, z * 0.16f, 13) > 0.7f) ->
+                Col.mix(Lakeland.slateStone(along, h, px, py, P > 1), lime, 0.2f)
             lv < 2 -> {
                 val n = Noise.rnd(px, py, 7)
                 val patch = Noise.v2(along * 1.3f, z * 0.18f, 9)
@@ -460,7 +502,8 @@ internal abstract class RoomPainter : DioramaPainter() {
             }
         }
         val dz = z - (hw - 3.6f)
-        if (lv >= BORDER_LEVEL && abs(abs(dz) - 2f) < 0.26f) col = border
+        if (plateRail) { if (lv >= BORDER_LEVEL) plateRailAt(along, dz)?.let { col = it } }
+        else if (lv >= BORDER_LEVEL && abs(abs(dz) - 2f) < 0.26f) col = border
         else if (lv >= BORDER_LEVEL && abs(dz) < 1.3f) {
             val m = along / 0.62f
             val a = abs(m - floor(m) - 0.5f) * 0.62f * 8f
@@ -534,6 +577,26 @@ internal abstract class RoomPainter : DioramaPainter() {
             if (r < 0.5f + 0.13f * cos(ang * 3f)) return if (abs(lz - lx * 0.2f) < 0.06f || abs(ang - 1.1f) < 0.12f) Col.hex(0x3E6A34) else leafC
         }
         return null
+    }
+
+    /**
+     * The plate rail under the top (the Lake District's, [plateRail]), at [along] cells and [dz] nominal px from the border's
+     * middle: an oak rail with its lit top edge, and on it plates standing against the wall, white with a blue rim and the
+     * willow pattern's blue in their middle; null where the wall shows.
+     */
+    protected fun plateRailAt(along: Float, dz: Float): Int? {
+        if (dz in -2.15f..-1.55f) return if (dz > -1.75f) Lakeland.OAK_L else if (dz < -2f) Lakeland.OAK_D else Lakeland.OAK_M
+        val m = along / 1.1f
+        val off = (m - floor(m) - 0.5f) * 1.1f * 4f
+        val pd = hypot(off, (dz + 0.3f) * 1.05f)
+        if (pd > 1.25f) return null
+        return when {
+            pd > 1.0f -> if (dz > -0.3f) chinaD else Lakeland.WILLOW
+            pd > 0.82f -> china
+            P > 1 && pd < 0.55f -> if (Math.floorMod((off * 3f).toInt() + ((dz + 0.3f) * 3f).toInt(), 3) == 0) china else Lakeland.WILLOW
+            pd < 0.55f -> Lakeland.WILLOW
+            else -> china
+        }
     }
 
     /** The house's outside: warm whitewash over a grey plinth. */
@@ -653,6 +716,7 @@ internal abstract class RoomPainter : DioramaPainter() {
         }
         if (collio) collioView(u, v, ww, wh, px, py)?.let { return it }
         if (karawanken) karawankenView(u, v, ww, wh, px, py)?.let { return it }
+        if (fells) fellsView(u, v, ww, wh, px, py)?.let { return it }
         // the spruce and the hills
         val spruce = (0.64f - v) * wh * 0.38f - abs(u - 0.24f) * ww
         val far = 0.36f + Noise.v1(u * 2.4f + 1.3f, 5) * 0.14f
@@ -757,6 +821,43 @@ internal abstract class RoomPainter : DioramaPainter() {
                 gully -> Col.hex(0x7E8288)
                 Dither.at(px, py) < 0.2f -> Col.hex(0x9EA2A6)
                 else -> Col.hex(0xAEB0B2)
+            })
+        }
+        return null
+    }
+
+    /**
+     * The fells through the window at ([u], [v]) of the glass ([fells]): the near fell's green slope with a dry-stone wall
+     * running up across it, bracken russet from October, the far fell's rounded top with its grey crag, snow on it in
+     * winter; null above them, where the sky shows.
+     */
+    private fun fellsView(u: Float, v: Float, ww: Float, wh: Float, px: Int, py: Int): Int? {
+        val snow = winter
+        val near = 0.22f + (1f - u) * 0.16f + Noise.v1(u * 3.2f, 19) * 0.04f
+        if (v < near) {
+            // the wall running up the slope from the lower left: grey stones, a lit top
+            val wall = abs(v - (0.05f + u * 0.2f)) * wh
+            if (wall < 0.55f) return env.lit(if (wall < 0.2f) Col.hex(0xB4BAC0) else Col.hex(0x7C848C))
+            val ferns = Noise.v2(u * 5f, v * 4f, 23) > 0.62f
+            return env.lit(when {
+                snow -> if (Dither.at(px, py) < 0.3f) Pal.SNOW_M else Pal.SNOW_L
+                ferns && env.season == Season.AUTUMN -> Col.hex(0xB06A34)
+                ferns && env.season == Season.WINTER -> Col.hex(0x8A6A48)
+                ferns -> Col.hex(0x4E8A3A)
+                env.season == Season.AUTUMN -> if (Dither.at(px, py) < 0.3f) Col.hex(0x8A9A4E) else Col.hex(0x9AA85A)
+                else -> if (Dither.at(px, py) < 0.3f) Col.hex(0x5E9A4A) else Col.hex(0x72AE58)
+            })
+        }
+        // the far fell: rounded, its crag a grey scar under its top
+        val far = 0.5f + 0.18f * (1f - ((u - 0.62f) * 1.9f).let { it * it }).coerceAtLeast(0f) + Noise.v1(u * 2f + 4f, 29) * 0.03f
+        if (v < far) {
+            val crag = abs(u - 0.66f) < 0.13f && v > far - 0.14f && v < far - 0.03f && Noise.v2(u * 9f, v * 6f, 31) > 0.35f
+            val top = v > far - 0.08f
+            return env.lit(when {
+                crag -> if (Dither.at(px, py) < 0.4f) Col.hex(0x8A9096) else Col.hex(0x6E747C)
+                snow || (winter && top) -> Col.hex(0xD8E0EA)
+                env.season == Season.AUTUMN -> Col.hex(0x8E7A52)
+                else -> Col.hex(0x6E8C66)
             })
         }
         return null
@@ -1004,7 +1105,8 @@ internal abstract class RoomPainter : DioramaPainter() {
         val bz = stoveZ + 5.5f
         onY(y0 + 0.35f, x0, stoveX, stoveZ, bz) { x, z, px, py -> tiles(x - x0, z - stoveZ + fl + 0.9f, px, py, 0.92f) }
         onX(stoveX, y0, y0 + 0.35f, stoveZ, bz) { y, z, px, py -> tiles(y - y0, z - stoveZ + fl + 0.9f, px, py, 0.76f) }
-        iso.box(x0, y0, bz, stoveX - x0 + 0.08f, 0.45f, 0.7f, tileL, tileM, tileD)
+        if (range) iso.box(x0, y0, bz, stoveX - x0 + 0.08f, 0.45f, 0.7f, Col.hex(0x8E8C98), Col.hex(0x3A3840), Col.hex(0x1E1C22))
+        else iso.box(x0, y0, bz, stoveX - x0 + 0.08f, 0.45f, 0.7f, tileL, tileM, tileD)
         // the body
         onY(stoveY, x0, stoveX, fl, stoveZ) { x, z, px, py -> stoveFront(x, z, px, py) }
         c.penEmissive = false
@@ -1044,6 +1146,7 @@ internal abstract class RoomPainter : DioramaPainter() {
         val h = z - fl
         val steel = Col.hex(0xB4B4C0); val steelD = Col.hex(0x74747E)
         c.penEmissive = false
+        if (range) return rangeFront(x, h, px, py)
         // the firebox: a door with a grate the embers glow through
         if (x in 2.5f..3.12f && h in 3.7f..6.6f) {
             val fx = x - 2.5f; val fz = h - 3.7f
@@ -1078,9 +1181,68 @@ internal abstract class RoomPainter : DioramaPainter() {
         return tiles(x - x0, z, px, py, 1f)
     }
 
+    /**
+     * The range's front ([range]) at [x] cells and [h] nominal px up: the oven door, the fire behind its bars, the ash pan
+     * under it, the boiler and its tap, in black iron framed by polished edges.
+     */
+    private fun rangeFront(x: Float, h: Float, px: Int, py: Int): Int {
+        val polish = Col.hex(0x9A9AA8); val black = Col.hex(0x26242A); val blackL = Col.hex(0x3A3840)
+        if (h < 0.9f) return ironD
+        // the oven door: a panel with a bevelled edge, the brass knob and the hinge band
+        if (x in 1.1f..1.88f && h in 1.4f..6.6f) {
+            val fx = x - 1.1f; val fz = h - 1.4f
+            return when {
+                fx < 0.07f || fz > 5.05f -> polish
+                fx > 0.72f || fz < 0.25f -> ironD
+                fx > 0.56f && abs(fz - 3.1f) < 0.4f -> if (fz > 3.2f) brassL else brass
+                abs(fz - 4.4f) < 0.22f -> if (P > 1) brassD else blackL
+                fx < 0.17f || fz > 4.8f -> blackL
+                else -> black
+            }
+        }
+        // the fire behind its bars, the ash pan under it
+        if (x in 1.97f..2.66f && h in 1.4f..6.6f) {
+            val fx = x - 1.97f
+            if (fx < 0.06f || fx > 0.63f || h > 6.35f) return polish
+            if (h < 3.3f) return if (h > 3.0f || h < 1.6f) polish else if (abs(h - 2.3f) < 0.3f && fx in 0.24f..0.44f) brass else iron
+            val bar = Math.floorMod(floor((h - 3.3f) / 0.62f).toInt(), 2) == 0 && (h - 3.3f) % 0.62f < 0.24f
+            if (bar) return if ((h - 3.3f) % 0.62f > 0.16f) steelBar else ironD
+            if (hearthCold) return Col.mix(ironD, Col.hex(0x5A524C), if (Noise.rnd((x * 9f).toInt(), (h * 4f).toInt(), 3) < 0.3f) 0.5f else 0f)
+            c.penEmissive = true
+            val flick = Noise.rnd((x * 9f).toInt(), (t * 6).toInt() + (h * 2f).toInt(), 3) - fxOn("oven") * 0.35f
+            return if (flick < 0f) Pal.FLAME[0] else if (flick < 0.3f) Pal.FLAME[1] else if (flick < 0.75f) Pal.FLAME[2] else Pal.FLAME[3]
+        }
+        // the boiler on the right, its brass tap
+        if (x in 2.76f..3.24f && h in 1.4f..6.6f) {
+            val fx = x - 2.76f
+            return when {
+                abs(fx - 0.24f) < 0.1f && abs(h - 2.2f) < 0.45f -> if (h > 2.4f) brassL else brass
+                fx < 0.06f || h > 6.35f -> polish
+                fx > 0.42f || h < 1.6f -> ironD
+                else -> blackL
+            }
+        }
+        return rangeIron(x - x0, h, px, py, 1f)
+    }
+
+    private val steelBar = Col.hex(0x6E6C78)
+
+    /** The range's black iron at [a] cells along and [h] up (its back, its sides, the frame round its doors): a panel line now and then, a dull sheen. */
+    private fun rangeIron(a: Float, h: Float, px: Int, py: Int, dim: Float): Int {
+        val col = when {
+            h < 0.9f -> ironD
+            abs(h - 7.0f) < 0.22f -> Col.hex(0x8E8C98)
+            Math.floorMod(floor(a / 0.55f).toInt(), 4) == 0 && a % 0.55f < 0.05f -> Col.hex(0x1A181C)
+            Noise.rnd(px, py, 31) > 0.94f -> Col.hex(0x46444C)
+            else -> Col.hex(0x2E2C32)
+        }
+        return Col.scale(col, dim)
+    }
+
     /** Glazed green tiles at [a] cells along a face and height [z], on an iron base. */
     protected fun tiles(a: Float, z: Float, px: Int, py: Int, dim: Float): Int {
         val h = z - fl
+        if (range) return rangeIron(a, h, px, py, dim)
         if (h < 0.9f) return ironD
         val tw = 0.55f; val th = 2.4f
         val fu = a - floor(a / tw) * tw; val hv = h - 0.9f; val fv = hv - floor(hv / th) * th
@@ -1610,6 +1772,7 @@ internal abstract class RoomPainter : DioramaPainter() {
     protected fun corner() {
         val cy = y1 - 0.48f; val sz = fl + 13.4f
         val dark = Col.hex(0x5A3A22); val darkL = Col.hex(0x7E5634); val darkD = Col.hex(0x3A2414)
+        if (sampler) { samplerCorner(cy, sz, dark, darkL, darkD); return }
         // Carinthia's Herrgottswinkel ([herrgott]): the Palmbuschen tucked behind the crucifix, no picture
         if (herrgott) palmbuschen(cy, sz)
         // the picture on the wall beside the corner: a gilt frame, the Virgin's blue cloak and red dress
@@ -1683,6 +1846,43 @@ internal abstract class RoomPainter : DioramaPainter() {
             for (j in 0 until len) c.set(rx + (if ((j / P) % 3 == 1) 1 else 0), bt + P + j, rc)
         }
         if (P > 1) c.fillRect(bx - P / 2, bt + 2 * P, P, P, Col.hex(0xC8402E))
+    }
+
+    /**
+     * The Lake District's corner ([sampler]), where the holy corner is elsewhere: the same little shelf on its bracket with a
+     * brass candlestick and its candle (lit from dusk), and on the wall beside it a framed sampler: cream linen in a dark oak
+     * frame, a little red house with its door and a green tree stitched on it, rows of letters over them and a border.
+     */
+    private fun samplerCorner(cy: Float, sz: Float, dark: Int, darkL: Int, darkD: Int) {
+        val ya = cy - 2.15f; val yb = cy - 0.95f; val za = sz + 2.6f; val zb = sz + 8.6f
+        onX(x0 + 0.03f, ya, yb, za, zb) { y, z, _, _ ->
+            val u = (y - ya) / (yb - ya); val v = (z - za) / (zb - za)
+            val frame = u < 0.1f || u > 0.9f || v < 0.07f || v > 0.93f
+            val house = u in 0.36f..0.66f && v in 0.18f..0.44f
+            val roof = u in 0.3f..0.72f && v in 0.44f..0.56f && abs(u - 0.51f) < 0.21f - (v - 0.44f) * 1.6f
+            when {
+                frame -> if (u < 0.1f || v > 0.93f) darkL else dark
+                u < 0.16f || u > 0.84f || v < 0.12f || v > 0.88f -> if (((y * 9f).toInt() + (z * 2f).toInt()) % 2 == 0) Col.hex(0x3E7A4A) else Col.hex(0xC84A3A)
+                house -> if (u in 0.47f..0.55f && v < 0.33f) Col.hex(0x5A3A22) else if (P > 1 && v in 0.34f..0.39f && (u in 0.39f..0.44f || u in 0.58f..0.63f)) Col.hex(0x3E6FB0) else Col.hex(0xC84A3A)
+                roof -> Col.hex(0x5A5E6A)
+                u in 0.16f..0.3f && v in 0.18f..0.5f -> if (v > 0.32f) Col.hex(0x4E8A3A) else Col.hex(0x6A4A2A)
+                v in 0.62f..0.82f && ((y * 12f).toInt() % 2 == 0) && ((z * 1.7f).toInt() % 2 == 0) -> Col.hex(0x3E5C9A)
+                else -> Col.hex(0xF2EAD4)
+            }
+        }
+        // the shelf on its bracket
+        rod(x0, cy, sz - 2.4f, x0 + 0.45f, cy, sz - 0.1f, darkD, dark, darkD, darkD)
+        iso.box(x0, cy - 0.5f, sz - 0.5f, 0.6f, 1.0f, 0.5f, darkL, dark, darkD)
+        // the brass candlestick: its round foot, the stem, the cup, and the candle in it
+        val cx = iso.ix(x0 + 0.3f, cy); val cb = iso.iy(x0 + 0.3f, cy, sz)
+        c.fillEllipse(cx + 0.5f * P, cb.toFloat(), 1.4f * P, 0.6f * P, brassD)
+        c.fillRect(cx, cb - 3 * P, P, 3 * P, brass); c.set(cx, cb - 3 * P, brassL)
+        c.hline(cx - P / 2 - 1, cx + P + P / 2, cb - 3 * P, brassL)
+        c.fillRect(cx, cb - 6 * P, P, 3 * P, Col.hex(0xF4EEDC)); c.set(cx, cb - 6 * P, Col.hex(0xFFFFFF))
+        if (env.windows > 0.35f) {
+            glow { c.fillRect(cx, cb - 8 * P, P, 2 * P, Pal.FLAME[1]); c.set(cx, cb - 8 * P, Pal.FLAME[0]) }
+            s.light(cx + 0.5f * P, cb - 7f * P, 12f, 0.5f)
+        }
     }
 
     // ------------------------------------------------------------------ the left wall
@@ -1899,6 +2099,16 @@ internal abstract class RoomPainter : DioramaPainter() {
         for (row in 0..1) for (k in 0 until 3) {
             val yc = 0.42f + k * 0.72f + row * 0.12f
             val dd = hypot((a - yc) * 4f, h - (16f + row * 4f))
+            if (dd < 1.95f && willow) {
+                // the Lake District's blue and white: the willow pattern's blue scene in the middle, a white ring, the blue rim
+                val ang = atan2(h - (16f + row * 4f), (a - yc) * 4f)
+                return when {
+                    dd < 0.95f -> if (P > 1 && (Math.floorMod(((a - yc) * 4f * K).toInt() + ((h - 16f) * K).toInt(), 3) == 0 || abs(dd - 0.6f) < 0.12f)) china else Lakeland.WILLOW
+                    dd < 1.25f -> china
+                    dd < 1.6f -> Lakeland.WILLOW
+                    else -> if (ang > 0.4f && ang < 2.6f) china else chinaD
+                }
+            }
             if (dd < 1.95f && P > 1) {
                 // closer up: a painted flower of five petals, a dotted ring round it, the blue rim, the edge lit on top
                 val ang = atan2(h - (16f + row * 4f), (a - yc) * 4f)
@@ -1969,6 +2179,18 @@ internal abstract class RoomPainter : DioramaPainter() {
             val topZ = 6.3f + 0.5f * sin(PI.toFloat() * a / sw)
             when {
                 a < 0.1f || a > sw - 0.1f -> if (hz < 7.2f) (if (a < 0.05f) Pal.WOOD_L else Pal.WOOD_M) else 0
+                // the Lake District's ladder-back: three slats across between the posts, curved a little, nothing cut out
+                ladderChairs -> {
+                    val bow = 0.25f * sin(PI.toFloat() * a / sw)
+                    val slat = floatArrayOf(3.0f, 4.4f, 5.8f).firstOrNull { hz - bow in it..(it + 0.75f) }
+                    when {
+                        hz in 2.2f..2.6f -> Pal.WOOD_D
+                        slat == null -> 0
+                        hz - bow > slat + 0.5f -> Col.mix(Pal.WOOD_L, Col.hex(0xFFFFFF), 0.18f)
+                        hz - bow < slat + 0.15f -> Pal.WOOD_M
+                        else -> Pal.WOOD_L
+                    }
+                }
                 heart -> 0
                 hz in 2.2f..topZ -> if (hz < 2.6f) Pal.WOOD_D else if (P > 1) chairBack(a, hz, topZ, px, py, hx, hy) else Pal.WOOD_L
                 else -> 0

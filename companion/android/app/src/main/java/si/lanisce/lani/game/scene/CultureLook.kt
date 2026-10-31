@@ -466,7 +466,8 @@ object CultureLooks {
     /**
      * The Lake District's village on the map: a stone field barn under slate for the hay barn; the village pump on its stone
      * trough for the well; white WBC hives for the bee house; the school of stone under slate with its bellcote; St George's
-     * cross on the watchtower and the tent (`campfire.flag`), the feasts' bunting red, white and blue; the fells at the
+     * cross on the watchtower and the tent (`campfire.flag`), the watchtower on pillars of slate stone from level 3 as its
+     * view builds it (`watchtower.tower` "pele"), the feasts' bunting red, white and blue; the fells at the
      * horizon (`alps.range`); the maypole with its long ribbons for the children's dance; damsons on the terraces; a stone
      * bank barn for the toplar; the bowling green for the bocce court; the church clock on its battlemented tower; the
      * packhorse bridge of slate with one round arch over the beck, as its project builds it.
@@ -474,7 +475,7 @@ object CultureLooks {
     val LAKELAND_MAP = Table.of(
         "map",
         variants = mapOf(
-            "hayrack" to "barn", "well" to "pump", "hives" to "wbc", "school" to "stone", "flag" to "england", "pennant" to "england",
+            "hayrack" to "barn", "well" to "pump", "hives" to "wbc", "school" to "stone", "flag" to "england", "pennant" to "england", "watchtower" to "pele",
             "festive" to "union", "range" to "fells", "maypole" to "ribbons", "vineyard" to "damsons", "toplar" to "bank", "court" to "green",
             "clock" to "battlements", "bridge" to "packhorse",
         ),
@@ -483,7 +484,7 @@ object CultureLooks {
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
         "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE + KaerntenLooks.PLACES + KAERNTEN_MAP,
-        "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE + LAKELAND_MAP,
+        "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE + LakelandLooks.PLACES + LAKELAND_MAP,
         "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA + FRIULI_SCHOOL +
             FRIULI_WATCHTOWER +
             FRIULI_MARKET +

@@ -176,6 +176,19 @@ class MapLooksTest {
         assertEquals(Flag.AUSTRIA, MapLook.of("kaernten").festive.banner)
         assertEquals("austria", kaernten.variant("apiary", "bunting"))
         for (art in listOf("field", "square", "market", "watchtower")) assertEquals("Carinthia's $art draws the fire's village", "kaernten", kaernten.variant(art, "village"))
+        // the Lake District's buildings' own scenes (places-lakeland): the field's stone barn, the green's pump, the bee
+        // garden's WBC hives, the watchtower's flag and its slate-stone pillars, the tent's pennant, the school's St George's
+        // cross (the map's school of stone with its bellcote)
+        val lakeland = CultureLooks.of("lakeland")
+        assertEquals(lakeland.variant("field", "kozolec"), MapLook.of("lakeland").hayrack.id)
+        assertEquals(lakeland.variant("square", "well"), MapLook.of("lakeland").well.id)
+        assertEquals(lakeland.variant("apiary", "hive"), MapLook.of("lakeland").hives.id)
+        assertEquals(lakeland.variant("watchtower", "flag"), MapLook.of("lakeland").flag.id)
+        assertEquals("pele", lakeland.variant("watchtower", "tower"))
+        assertTrue(MapLook.of("lakeland").stoneTower && MapLook.of("lakeland").peleTower)
+        assertEquals(lakeland.variant("tent", "pennant"), MapLook.of("lakeland").pennant?.id)
+        assertEquals("england", lakeland.variant("school", "flag"))
+        assertEquals(SchoolKind.STONE, MapLook.of("lakeland").school)
         // the village as the fire's scene builds it: the map's houses, church and huts are the FireStyle's
         for ((c, l) in cultures.drop(1)) {
             val look = MapLook.of(c, l.id)

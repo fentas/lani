@@ -38,8 +38,12 @@ internal class MapLook private constructor(val id: String, val style: FireStyle?
     /** The school: the map's own, Italy's (the tricolore over the door, no bell turret), of stone under slate with a bellcote. */
     val school: SchoolKind = SchoolKind.entries.firstOrNull { it.id == v("school") } ?: SchoolKind.OWN
 
-    /** The watchtower stands on pillars of river cobbles and brick from its third level (Friuli's, as Sulla torre builds it). */
-    val stoneTower: Boolean = v("watchtower") == "stone"
+    /**
+     * The watchtower stands on pillars of river cobbles and brick from its third level (Friuli's, as Sulla torre builds it), or
+     * of grey slate stone with stone arches ([peleTower]: the Lake District's, as its view from the watchtower builds it).
+     */
+    val stoneTower: Boolean = v("watchtower") == "stone" || v("watchtower") == "pele"
+    val peleTower: Boolean = v("watchtower") == "pele"
 
     /** The flag on the watchtower, and the town's on the Friends card ([Flag.emoji]). */
     val flag: Flag = Flag.of(v("flag")) ?: Flag.SLOVENIA

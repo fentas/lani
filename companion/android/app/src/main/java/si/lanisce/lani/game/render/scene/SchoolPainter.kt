@@ -226,7 +226,11 @@ internal class SchoolPainter : DioramaPainter() {
         // the teacher's corner by the window: her chair, the desk, the books, the lamp and the globe on it
         thing("chair") { chair(6.75f, 2.55f, facingX = false) }
         // the waste-paper basket by her chair; in an Italian classroom the pallottoliere stands there (the culture's look)
-        if (abacusLook != null) prop { abacus(7.25f, 3.75f) } else prop { basket(7.25f, 3.75f) }
+        when (abacusLook) {
+            null -> prop { basket(7.25f, 3.75f) }
+            "slates" -> prop { slates(7.25f, 3.75f) }
+            else -> prop { abacus(7.25f, 3.75f) }
+        }
         prop { teacherDesk() }
         thing("book", slop = 1) { books(7.75f, 2.35f) }
         prop { oilLamp(8.55f, 2.45f, lit) }
@@ -476,6 +480,15 @@ internal class SchoolPainter : DioramaPainter() {
         // vine, bunches of grapes among its leaves (Friuli's)
         val fz = hw - 2.6f
         if (z > fz - 0.25f && z < fz + 0.25f || z > fz + 1.9f && z < fz + 2.25f) return Col.hex(0x5E8A5A)
+        if (friezeLook == "alphabet" && z in fz..fz + 1.9f) {
+            // the Lake District's alphabet frieze: a card a letter, framed in turn red, blue, green and yellow, the letter dark on it
+            val m = (u / 0.42f) - floor(u / 0.42f); val k = floor(u / 0.42f).toInt()
+            val zz = z - fz
+            val frame = intArrayOf(Col.hex(0xC0503A), Col.hex(0x3E6EB0), Col.hex(0x4E8A4A), Col.hex(0xD8A838))[Math.floorMod(k, 4)]
+            if (m < 0.08f || m > 0.92f || zz < 0.15f || zz > 1.75f) return frame
+            if (abs(m - 0.5f) < (if (detail == 1) 0.12f else 0.2f) && zz in 0.5f..1.4f && (detail == 1 || Noise.rnd(k, floor(zz * 4f).toInt(), floor(m * 6f).toInt()) > 0.35f)) return Col.hex(0x2A2A30)
+            return Col.hex(0xF6F0DC)
+        }
         if (friezeLook == "vine" && z in fz..fz + 1.9f) {
             val m = (u / 0.55f) - floor(u / 0.55f)
             val zz = z - fz
@@ -1307,12 +1320,14 @@ internal class SchoolPainter : DioramaPainter() {
         val paper = Col.hex(0xF0E8D0); val paperD = Col.hex(0xD8CCA8)
         val friuli = mapLook == "friuli"
         val kaernten = mapLook == "kaernten"
+        val lakes = mapLook == "lakes"
         quadFill(xm, ma, mz0, xm, mb, mz0, xm, mb, mz1, xm, ma, mz1) { px, py ->
             val y = wallXy(px, xm); val z = wallXz(px, py, xm)
             val u = (mb - y) / (mb - ma); val v = (mz1 - z) / (mz1 - mz0)
             // the map of the culture's look (Friuli's), else Slovenia's
             if (friuli) return@quadFill if (detail > 1) friuliFine(u, v, paper, paperD) else friuliMap(u, v, paper, paperD)
             if (kaernten) return@quadFill kaerntenMap(u, v, paper, paperD)
+            if (lakes) return@quadFill if (detail > 1) lakesFine(u, v, paper, paperD) else lakesMap(u, v, paper, paperD)
             if (detail > 1) return@quadFill mapFine(u, v, paper, paperD)
             val col = ((u - 0.05f) / 0.9f * 30f).toInt(); val row = ((v - 0.14f) / 0.78f * 16f).toInt()
             val inLand = row in 0..15 && col in 0..29 && SLOVENIA[row][col] == '#'
@@ -1461,6 +1476,69 @@ internal class SchoolPainter : DioramaPainter() {
             row in 11..15 && col in 5..25 -> sea                                 // the Adriatic
             else -> paper
         }
+    }
+
+    /**
+     * The map of the Lake District (the Lake District's look, [mapLook] "lakes") at [u] across and [v] down its paper: the
+     * land and its fells, the lakes blue in it (Windermere the longest), the Irish Sea along the west and Morecambe Bay in the
+     * south, Keswick as a red dot; the title band.
+     */
+    private fun lakesMap(u: Float, v: Float, paper: Int, paperD: Int): Int {
+        val land = Col.hex(0x8CC25A); val landD = Col.hex(0x5C9A48); val sea = Col.hex(0x7FB8E0); val lake = Col.hex(0x3E7EC8)
+        val col = ((u - 0.05f) / 0.9f * 30f).toInt(); val row = ((v - 0.14f) / 0.78f * 16f).toInt()
+        fun at(r: Int, c: Int) = r in 0..15 && c in 0..29 && LAKES[r][c] == '#'
+        val inLand = at(row, col)
+        return when {
+            v < 0.1f -> Col.hex(0xB83A2E)
+            u > 0.97f || v > 0.96f -> paperD
+            inLand && LAKES_WATER[row][col] == '#' -> lake
+            inLand -> when {
+                !at(row - 1, col) || !at(row + 1, col) || !at(row, col - 1) || !at(row, col + 1) -> landD
+                col == 10 && row == 4 -> Pal.FLAG_RED                            // Keswick
+                abs(col - 12) + abs(row - 7) < 4 -> if ((col + row) % 3 == 0) Col.hex(0xC8C4B8) else Col.hex(0xA89878) // the high fells
+                else -> land
+            }
+            row in 0..15 && col in 0..29 -> sea
+            else -> paper
+        }
+    }
+
+    /**
+     * The map of the Lakes closer up: the outline smoothed out of [LAKES] with a fine border, the lakes out of [LAKES_WATER],
+     * the fells in relief round Scafell Pike and Helvellyn, the towns (Keswick red in a white ring), the sea rippled, the grid,
+     * the title LAKES in the red band.
+     */
+    private fun lakesFine(u: Float, v: Float, paper: Int, paperD: Int): Int {
+        val land = Col.hex(0x8CC25A); val landD = Col.hex(0x4E8A40); val sea = Col.hex(0x7FB8E0); val lake = Col.hex(0x3E7EC8)
+        val pu = 1f / ((mb - ma) * 4f * K); val pv = 1f / ((mz1 - mz0) * K)
+        val dc = pu / 0.9f * 30f; val dr = pv / 0.78f * 16f
+        if (v < 0.1f) return mapTitle(u, v, LAKES_TITLE)
+        if (u > 0.97f || v > 0.96f) return paperD
+        val cf = (u - 0.05f) / 0.9f * 30f; val rf = (v - 0.14f) / 0.78f * 16f
+        fun land(c: Float, r: Float) = landness(c, r, LAKES) > 0.5f
+        if (land(cf, rf)) {
+            if (!land(cf - dc, rf) || !land(cf + dc, rf) || !land(cf, rf - dr) || !land(cf, rf + dr)) return landD
+            if (landness(cf, rf, LAKES_WATER) > 0.62f) return if (landness(cf, rf, LAKES_WATER) < 0.72f) Col.hex(0x2E5E98) else lake
+            val kw = hypot((cf - 10.5f) / dc, (rf - 4.5f) / dr)
+            if (kw < 1.2f) return Pal.FLAG_RED
+            if (kw < 2f) return Col.hex(0xFFFFFF)
+            for (k in LAKES_TOWNS.indices step 2) if (hypot((cf - LAKES_TOWNS[k]) / dc, (rf - LAKES_TOWNS[k + 1]) / dr) < 0.9f) return Col.hex(0x3A2A24)
+            val e = max(0.95f - hypot((cf - 9f) / 4f, (rf - 8f) / 2.6f), 0.85f - hypot((cf - 14f) / 3f, (rf - 6f) / 2f)) + (Noise.v2(cf * 0.9f, rf * 0.9f, 37) - 0.5f) * 0.4f
+            val e2 = max(0.95f - hypot((cf - 9.4f) / 4f, (rf - 8.4f) / 2.6f), 0.85f - hypot((cf - 14.4f) / 3f, (rf - 6.4f) / 2f)) + (Noise.v2((cf - 0.4f) * 0.9f, (rf - 0.4f) * 0.9f, 37) - 0.5f) * 0.4f
+            val lit = e - e2
+            return when {
+                e > 0.7f -> if (lit > 0.02f) Col.hex(0xB4AEA0) else Col.hex(0xD8D4C8)
+                e > 0.45f -> if (lit > 0.02f) Col.hex(0x8A7A5A) else Col.hex(0xA89878)
+                e > 0.25f -> Col.mix(land, Col.hex(0xA89878), if (lit > 0.02f) 0.55f else 0.3f)
+                Noise.v2(cf * 0.7f, rf * 0.7f, 35) > 0.66f -> Col.mix(land, Col.hex(0xC8E080), 0.4f)
+                else -> land
+            }
+        }
+        if (u in 0.035f..0.955f && v in 0.12f..0.94f) {
+            val ripple = Math.floorMod((v / pv).toInt(), 3) == 0 && Math.floorMod((u / pu).toInt() + (v / pv).toInt() / 3 * 2, 5) < 2
+            return if (ripple) Col.mix(sea, Col.hex(0xFFFFFF), 0.35f) else sea
+        }
+        return paper
     }
 
     /**
@@ -1844,6 +1922,30 @@ internal class SchoolPainter : DioramaPainter() {
      * two feet, ten rods of beads, five red and five white on each, the beads of the top rods pushed to one side as if
      * someone had just counted; closer up the beads round and lit, the frame's turned posts.
      */
+    /**
+     * The Lake District's writing slates where the basket stands ([abacusLook] "slates"): a stack of the children's slates in
+     * their wooden frames on a stool, the top one written on in chalk, a slate pencil beside it.
+     */
+    private fun slates(x: Float, y: Float) {
+        val cx = iso.ix(x, y); val by = iso.iy(x, y, fl)
+        val k = detail
+        val wood = Col.hex(0xB07A48); val woodD = Col.hex(0x7A4E2C)
+        val slate = Col.hex(0x3E4650); val slateL = Col.hex(0x56606A)
+        // the stool: its top and two legs
+        c.fillRect(cx - 5 * k, by - 6 * k, 10 * k, k, wood); c.fillRect(cx - 4 * k, by - 5 * k, k, 5 * k, woodD); c.fillRect(cx + 3 * k, by - 5 * k, k, 5 * k, woodD)
+        // the stack: four slates, each a frame round its grey face, a little askew
+        for (i in 0 until 4) {
+            val ox = (if (i % 2 == 0) -1 else 0) * k; val top = by - (8 + i * 2) * k
+            c.fillRect(cx - 4 * k + ox, top, 8 * k, 2 * k, wood)
+            c.fillRect(cx - 3 * k + ox, top, 6 * k, k, if (i == 3) slateL else slate)
+        }
+        // the top one face up: chalk marks on it, the pencil across it
+        val tt = by - 14 * k
+        c.fillRect(cx - 3 * k - k, tt - 3 * k, 8 * k, 3 * k, wood); c.fillRect(cx - 3 * k, tt - 3 * k + k / 2, 6 * k, 2 * k, slate)
+        c.set(cx - 2 * k, tt - 2 * k, Col.hex(0xE8E8E0)); c.set(cx, tt - 2 * k, Col.hex(0xE8E8E0)); c.set(cx + k, tt - k - k / 2, Col.hex(0xE8E8E0))
+        c.fillRect(cx - 2 * k, tt - 4 * k, 5 * k, max(1, k / 2), Col.hex(0x8A8A90))
+    }
+
     private fun abacus(x: Float, y: Float) {
         val cx = iso.ix(x, y); val by = iso.iy(x, y, fl)
         val k = detail
@@ -2166,6 +2268,11 @@ internal class SchoolPainter : DioramaPainter() {
                 var col = if ((v * 3f).toInt() == 1) Pal.FLAG_WHITE else Pal.FLAG_RED
                 if (sin(t * 4 - u * 7) > 0.6f) col = Col.scale(col, 0.85f)
                 c.set(px, py, col)
+            } else if (v in 0f..1f && flagLook == "england") {
+                // St George's cross (the Lake District's look): red on white, its upright at a third from the hoist
+                var col = if (abs(v - 0.5f) < 0.12f || abs(u - 0.36f) < 0.08f) Col.hex(0xD3202E) else Col.hex(0xF6F4EE)
+                if (sin(t * 4 - u * 7) > 0.6f) col = Col.scale(col, 0.88f)
+                c.set(px, py, col)
             } else if (v in 0f..1f && flagLook == "it") {
                 // the Italian tricolore (the culture's look): green at the hoist, white, red at the fly
                 var col = ITALY[(u * 3f).toInt().coerceIn(0, 2)]
@@ -2441,6 +2548,7 @@ internal class SchoolPainter : DioramaPainter() {
             null to Triple("Dober dan!", "Kako si?", "Dobro."),
             "it" to Triple("Ciao!", "Come va?", "Bene!"),
             "de" to Triple("Grüß Gott!", "Wie geht's?", "Gut!"),
+            "en" to Triple("Hello!", "How are you?", "Fine, thanks."),
         )
 
         /** A rough outline of Friuli Venezia Giulia, 30 × 16, north up: the Alps along the top, the coast and Trieste at the foot. */
@@ -2499,6 +2607,58 @@ internal class SchoolPainter : DioramaPainter() {
 
         /** Towns on the map of Friuli closer up, as (column, row) of [FRIULI]: Pordenone, Tolmezzo, Gorizia, Trieste. */
         private val FRIULI_TOWNS = floatArrayOf(8.5f, 8.3f, 12.6f, 3.4f, 21.6f, 9.4f, 23.6f, 13.6f)
+
+        /** A rough outline of the Lake District on the school's map (the Lake District's look), 30 × 16, north up: the land, its lakes in it ([LAKES_WATER]). */
+        private val LAKES = arrayOf(
+            "....##########################",
+            "..############################",
+            "..############################",
+            "...###########################",
+            "...###########################",
+            "...###########################",
+            "....##########################",
+            "....##########################",
+            "....##########################",
+            "....##########################",
+            ".....#########################",
+            ".....#########################",
+            ".........#####################",
+            ".........#####################",
+            "...........#######...#########",
+            "...........#####.......#######",
+        )
+
+        /** The lakes on that map: Bassenthwaite, Derwentwater, Thirlmere, Ullswater, Haweswater, Wastwater, Ennerdale, Grasmere, Coniston and Windermere, the longest. */
+        private val LAKES_WATER = arrayOf(
+            "..............................",
+            "..............................",
+            "........#.....................",
+            "........#.....................",
+            "........#..........#..........",
+            "..........#.......#...........",
+            ".....#....#.#....#............",
+            "............#...#....#........",
+            "......#..............#........",
+            ".......#.....#................",
+            "..............#...............",
+            "..........#...#...............",
+            "..........#....#..............",
+            "...........#...#..............",
+            "...............#..............",
+            "..............................",
+        )
+
+        /** Towns on the map of the Lakes closer up, as (column, row): Ambleside, Coniston, Penrith, Cockermouth. */
+        private val LAKES_TOWNS = floatArrayOf(14.5f, 9.6f, 10.6f, 10.6f, 24.5f, 2.5f, 5.5f, 2.6f)
+
+        /** The map of the Lakes' title in small capitals: LAKES. */
+        private val LAKES_TITLE = arrayOf(
+            arrayOf("#..", "#..", "#..", "#..", "###"), // L
+            arrayOf("###", "#.#", "###", "#.#", "#.#"), // A
+            arrayOf("#.#", "#.#", "##.", "#.#", "#.#"), // K
+            arrayOf("###", "#..", "##.", "#..", "###"), // E
+            arrayOf("###", "#..", "###", "..#", "###"), // S
+        )
 
         /** The map of Friuli's title in small capitals: FRIULI. */
         private val FRIULI_TITLE = arrayOf(
@@ -2700,6 +2860,13 @@ internal object ChalkHand {
         'ü' to arrayOf(p(0f, 2.8f, 0f, 4.1f, 0.6f, 4.8f, 1.5f, 5f, 2.4f, 4.8f, 3f, 4.1f), p(3f, 2.8f, 3f, 5f), p(0f, 1.2f), p(3f, 1.2f)),
         'ß' to arrayOf(p(0f, 5f, 0f, 1f, 0.5f, 0.2f, 1.4f, 0f, 2.3f, 0.4f, 2.4f, 1.3f, 1.5f, 2.2f, 2.6f, 2.8f, 3f, 3.8f, 2.5f, 4.7f, 1.4f, 5f)),
         '\'' to arrayOf(p(0f, 0f, 0f, 1.2f)),
+        // the Lake District's greeting: "Hello! How are you? Fine, thanks."
+        'H' to arrayOf(p(0f, 0f, 0f, 5f), p(3f, 0f, 3f, 5f), p(0f, 2.5f, 3f, 2.5f)),
+        'l' to arrayOf(p(0f, 0f, 0f, 5f)),
+        'w' to arrayOf(p(0f, 2f, 1f, 5f, 2f, 3f, 3f, 5f, 4f, 2f)),
+        'y' to arrayOf(p(0f, 2f, 1.5f, 5f), p(3f, 2f, 1.5f, 5f, 0.8f, 6.6f)),
+        'F' to arrayOf(p(0f, 0f, 0f, 5f), p(0f, 0f, 3f, 0f), p(0f, 2.4f, 2.2f, 2.4f)),
+        ',' to arrayOf(p(0.3f, 4.6f, 0f, 6f)),
     )
 
     /** The strokes of [ch] (none for a space or a letter it doesn't know). */

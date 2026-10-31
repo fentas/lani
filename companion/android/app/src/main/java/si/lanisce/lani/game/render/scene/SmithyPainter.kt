@@ -150,6 +150,14 @@ internal class SmithyPainter : DioramaPainter() {
     private var luck = false
     private var grille = false
 
+    /**
+     * The Lake District's smithy ([look]; docs/plans/05-built/places-lakeland.md): Mr Dixon's, its walls of the dale's slate
+     * stone in thin courses, blue-grey, sooted over the forge ([slate]); the yard at the fourth level laid with slate flags
+     * where the horses wait, for the cobbles ([slateYard]).
+     */
+    private var slate = false
+    private var slateYard = false
+
     /** The smithy's level (1 … [Catalog.MAX_LEVEL]), read once a frame: its yard (see the class's comment). */
     private var level = Catalog.MAX_LEVEL
 
@@ -158,6 +166,7 @@ internal class SmithyPainter : DioramaPainter() {
         vignette()
         level = frame.world.level(BuildingType.SMITHY).coerceIn(1, Catalog.MAX_LEVEL)
         cobbles = variant("walls") == "cobbles"; whitewash = variant("walls") == "whitewash"; luck = variant("door") == "horseshoe"; grille = variant("window") == "grille"
+        slate = variant("walls") == "slate"; slateYard = variant("yard") == "slate"
         val lit = env.windows > 0.35f
         // Tone asleep by it: the fire banked for the night, the bellows at rest (unless a dialog fires the forge up); the
         // forge cold (no charcoal, the smithy damaged: companion/GAME.md "Hearths"), its coals under ash the same way
@@ -317,6 +326,10 @@ internal class SmithyPainter : DioramaPainter() {
 
     /** Round cobbles set in earth, staggered, lit from the upper left; mostly under snow in winter. */
     private fun cobble(x: Float, y: Float, px: Int, py: Int): Int {
+        if (slateYard) {
+            if (winter && Noise.v2(x * 1.3f, y * 1.3f, 63) > 0.32f) return if (Dither.at(px, py) < 0.5f) Pal.SNOW_M else Pal.SNOW_L
+            return Lakeland.slateFlags(x, y, px, py, fine)
+        }
         val cs = 0.44f
         val u = x / cs; val row = floor(u).toInt()
         val v = y / cs + (row and 1) * 0.5f; val col = floor(v).toInt()
@@ -742,6 +755,14 @@ internal class SmithyPainter : DioramaPainter() {
     private fun stoneAt(a: Float, z: Float, px: Int, py: Int, soot: Float, light: Float): Int {
         if (cobbles) return cobbleAt(a, z, px, py, soot, light)
         if (whitewash) return limed(a, z, px, py, soot, light)
+        if (slate) {
+            var col = Lakeland.slateStone(a, z, px, py, fine)
+            if (soot > 0f) {
+                val f = soot + (Dither.at(px, py) - 0.5f) * 0.25f
+                if (f > 0.12f) col = Col.mix(col, sootC, min(0.82f, f))
+            }
+            return if (light == 1f) col else Col.scale(col, light)
+        }
         if (fine) return stoneFine(a, z, px, py, soot, light)
         val ch = 3f
         val zz = z + (Noise.v2(a * 4.1f, z * 0.35f, 3) - 0.5f) * 1.1f

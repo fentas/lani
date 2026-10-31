@@ -105,8 +105,20 @@ internal class WatchtowerPainter : VistaPainter() {
      */
     private var alpine = false
     private var flagAustria = false
-    /** The Friulian land: the Isonzo emerald, vine rows in the fields (the village's look, not Carinthia's). */
-    private val friuliLand: Boolean get() = village != null && !alpine
+    /** The Friulian land: the Isonzo emerald, vine rows in the fields (the village's look, not Carinthia's nor the Lake District's). */
+    private val friuliLand: Boolean get() = village != null && !alpine && !lakeLand
+
+    /**
+     * The Lake District's look ([look]; docs/plans/05-built/places-lakeland.md): the village below in grey stone and whitewash
+     * under slate round its square battlemented tower ([village], its tower drawn by [campanile]); the fields walled with
+     * dry-stone walls ([lakeLand]); the big mountain a fell, rounded, its crags grey ([fellTop]); St George's cross on the flag
+     * and the pennant ([flagEngland]); the tower itself ([pele]) under a slate roof from its second level, on pillars of grey
+     * stone with stone arches from its third, a low stone parapet with battlements under the rail from its fourth.
+     */
+    private var lakeLand = false
+    private var fellTop = false
+    private var flagEngland = false
+    private var pele = false
     private var edgeRow = IntArray(0)
     private var sunLeft = true
     private var lit = false
@@ -128,7 +140,11 @@ internal class WatchtowerPainter : VistaPainter() {
         alpine = village?.tower == Tower.ONION
         flagFriuli = variant("flag") == "friuli"
         flagAustria = variant("flag") == "austria"
-        stone = variant("tower") == "stone"
+        lakeLand = village?.id == "lakeland"
+        fellTop = variant("mountains") == "fells"
+        flagEngland = variant("flag") == "england"
+        pele = variant("tower") == "pele"
+        stone = variant("tower") == "stone" || pele
         cramar = variant("pedlar") == "cramar"
         sunLeft = (sunAt()?.first ?: vx) < vx
         lit = env.windows > 0.35f
@@ -234,9 +250,11 @@ internal class WatchtowerPainter : VistaPainter() {
             val u = ux(x)
             val env0 = (1f - abs(u - 168f) / 92f).coerceIn(0f, 1f)
             if (env0 <= 0f) continue
-            val a = 1f - abs(Noise.v1(u * 0.045f, 931) * 2f - 1f)
-            val b = 1f - abs(Noise.v1(u * 0.11f, 932) * 2f - 1f)
-            val top = (30f * env0.toDouble().pow(1.2).toFloat() * (0.62f + 0.38f * (a * 0.7f + b * 0.3f))).coerceAtLeast(0f)
+            val a = if (fellTop) Noise.v1(u * 0.03f, 931) else 1f - abs(Noise.v1(u * 0.045f, 931) * 2f - 1f)
+            val b = if (fellTop) Noise.v1(u * 0.08f, 932) else 1f - abs(Noise.v1(u * 0.11f, 932) * 2f - 1f)
+            // the Lake District's fell: lower and rounded ([fellTop])
+            val top = if (fellTop) (24f * env0.toDouble().pow(0.8).toFloat() * (0.7f + 0.3f * (a * 0.7f + b * 0.3f))).coerceAtLeast(0f)
+                else (30f * env0.toDouble().pow(1.2).toFloat() * (0.62f + 0.38f * (a * 0.7f + b * 0.3f))).coerceAtLeast(0f)
             if (top < 1.5f) continue
             val crest = hz - top * z
             val slope = run { val ul = ux(x - z); val ur = ux(x + z); (1f - abs(ul - 168f) / 92f) - (1f - abs(ur - 168f) / 92f) }
@@ -247,7 +265,19 @@ internal class WatchtowerPainter : VistaPainter() {
                 val gully = Noise.v2(u * 0.35f, up * 0.12f, 933) > 0.66f
                 val snowy = rel > line + (Noise.v2(u * 0.2f, up * 0.3f, 934) - 0.5f) * 0.25f || (gully && rel > line - 0.2f)
                 val forest = !snowy && up < 7f + 3f * Noise.v1(u * 0.2f, 935)
-                var col = when {
+                var col = if (fellTop) {
+                    // the fell: grass and bracken, grey crags high up, snow on its top in winter only
+                    val crag = rel > 0.45f && Noise.v2(u * 0.3f, up * 0.4f, 938) > 0.64f
+                    val bracken = Noise.v2(u * 0.15f, up * 0.25f, 939) > 0.55f
+                    when {
+                        env.season == Season.WINTER && rel > 0.55f -> if (litSide) Col.hex(0xF4F7FF) else Col.hex(0xB8C4DE)
+                        crag -> if (litSide) Col.hex(0x9A9EA4) else Col.hex(0x74787E)
+                        forest -> if (Noise.rnd(x / z, y / z, 936) < 0.5f) Col.hex(0x2E4E2C) else Col.hex(0x3A5E36)
+                        bracken -> if (env.season == Season.AUTUMN || env.season == Season.WINTER) Col.hex(0xA0602E) else Col.hex(0x5A8A3E)
+                        litSide -> if (env.season == Season.AUTUMN) Col.hex(0x9A9A5A) else Col.hex(0x78A05A)
+                        else -> if (env.season == Season.AUTUMN) Col.hex(0x7A7A4A) else Col.hex(0x5E8248)
+                    }
+                } else when {
                     snowy -> if (litSide) Col.hex(0xF4F7FF) else Col.hex(0xB8C4DE)
                     forest -> if (Noise.rnd(x / z, y / z, 936) < 0.5f) Col.hex(0x2E4E3C) else Col.hex(0x3A5E46)
                     gully -> Col.hex(0x6C6A7E)
@@ -360,6 +390,8 @@ internal class WatchtowerPainter : VistaPainter() {
             else -> if (friuliLand && kind == 5 && band % 2 == 0) vines(x, d, px, py) else Col.mix(g[1], Pal.SOIL_M, 0.35f)
         }
         if (!env.snow && edge) col = Col.scale(g[2], 0.85f)
+        // the Lake District's dry-stone walls round the fields: grey lines along the strips and across them
+        if (lakeLand && (edge || ((d - 60f) / 38f).let { it - floor(it) } < 0.05f)) col = if (env.snow) Pal.SNOW_D else if (Dither.at(px, py) < 0.4f) Col.hex(0x7A8086) else Col.hex(0x9AA0A4)
         // furrows closer up
         if (!env.snow && (kind == 2 || kind == 3) && z > 1 && ((x + 0.12f * d) * 2f).let { it - floor(it) } < 0.3f) col = Col.scale(col, 0.88f)
         return hazy(col, d * 0.6f)
@@ -1011,16 +1043,28 @@ internal class WatchtowerPainter : VistaPainter() {
                 var col = if (x == fx0.toInt()) wd else if ((x - fx0) < (fx1 - fx0) * 0.25f) wl else wm
                 // a course of bricks now and then, closer up
                 if (z > 1 && ((y - top.toInt()) / z) % 4 == 0) col = Col.scale(col, 0.92f)
-                // the belfry: two arched openings, the bell's glint in one by day
+                // the belfry: two arched openings, the bell's glint in one by day (the Lake District's tower: one louvred opening)
                 val u = (x + 0.5f - fx0) / max(1f, fx1 - fx0)
-                if (y >= belfry && y < belfryLow && (abs(u - 0.3f) < 0.12f || abs(u - 0.7f) < 0.12f)) {
+                val battlemented = fs.tower == Tower.BATTLEMENTS
+                if (y >= belfry && y < belfryLow && (if (battlemented) abs(u - 0.5f) < 0.14f else (abs(u - 0.3f) < 0.12f || abs(u - 0.7f) < 0.12f))) {
                     col = if (lit && Noise.rnd((t / 8).toInt(), 1341) < 0.5f) Pal.WINDOW_LIT else Col.hex(0x2A2020)
-                    if (!lit && abs(u - 0.3f) < 0.05f && y > belfry + (belfryLow - belfry) * 0.4f) col = Pal.GOLD
+                    if (!lit && abs(u - (if (battlemented) 0.5f else 0.3f)) < 0.05f && y > belfry + (belfryLow - belfry) * 0.4f) col = Pal.GOLD
+                    if (battlemented && z > 1 && ((y - belfry.toInt()) / z) % 2 == 1) col = wd
                 }
                 // a cornice under the cap and one under the belfry
                 if (abs(y - belfry + 1f) < 1f || abs(y - belfryLow - 1f) < 1f) col = Col.mix(wl, Col.hex(0xF2E8D6), 0.5f)
                 c.set(x, y, hazy(col, d * 0.4f))
             }
+        }
+        if (fs.tower == Tower.BATTLEMENTS) {
+            // the Lake District's: a parapet along its top and three merlons, their copes lit
+            val mh = max(2f, 0.9f * p)
+            for (mi in 0 until 3) {
+                val mx0 = fx0 + (fx1 - fx0) * (mi * 0.4f); val mx1 = mx0 + (fx1 - fx0) * 0.22f
+                for (y in max((top - mh).toInt(), c.top)..min(top.toInt(), c.bottom - 1)) for (x in max(mx0.toInt(), c.left)..min(mx1.toInt(), c.right - 1))
+                    c.set(x, y, hazy(if (env.snow && y < top - mh + 1) Pal.SNOW_L else if (mi == 2) wd else wl, d * 0.4f))
+            }
+            return
         }
         // the low pyramid cap of coppi over its eaves, the sunny face lit, a cross on it
         val capH = max(2f, 1.7f * p)
@@ -1149,6 +1193,7 @@ internal class WatchtowerPainter : VistaPainter() {
         val z = z
         val rb = ROOF_B * z
         if (lv < 2) return thatchUnderside()
+        if (pele) return slateUnderside()
         if (stone) return tavelleUnderside()
         val board = intArrayOf(Col.hex(0x5A3E2A), Col.hex(0x4E3424), Col.hex(0x654630))
         for (y in max(0, c.top) until min(rb, c.bottom)) for (x in max(0, c.left) until min(w, c.right)) {
@@ -1201,6 +1246,24 @@ internal class WatchtowerPainter : VistaPainter() {
             var col = tile[Math.floorMod(Noise.hash(k, row * 31 + 1135), 4)]
             if (y % (3 * z) == 0 || (x + row * 6 * z) % (12 * z) == 0) col = Col.hex(0xD8C8AE)
             if (z > 1 && Noise.rnd(x / z, y / z, 1136) < 0.08f) col = Col.scale(col, 0.9f)
+            if (rafterAt(x, y, rb) < 0.14f) col = Col.hex(0x4A3222)
+            if (y >= rb - 3 * z) col = if (y == rb - 3 * z) Col.hex(0xA07448) else if (y >= rb - z) Col.hex(0x5E4028) else Col.hex(0x8A6038)
+            c.set(x, y, col)
+        }
+        icicles()
+    }
+
+    /** The Lake District's tower roof seen from under it ([pele]): the rafters, between them the slates' undersides in rows on their battens, the eave beam. */
+    private fun slateUnderside() {
+        val z = z
+        val rb = ROOF_B * z
+        val slate = intArrayOf(Col.hex(0x5A626C), Col.hex(0x666E78), Col.hex(0x525A62), Col.hex(0x606872))
+        for (y in max(0, c.top) until min(rb, c.bottom)) for (x in max(0, c.left) until min(w, c.right)) {
+            val row = y / (3 * z)
+            val k = (x + row * 5 * z) / (10 * z)
+            var col = slate[Math.floorMod(Noise.hash(k, row * 31 + 1137), 4)]
+            if (y % (3 * z) == 0) col = Col.hex(0x7A5232)
+            else if ((x + row * 5 * z) % (10 * z) == 0) col = Col.hex(0x2E3238)
             if (rafterAt(x, y, rb) < 0.14f) col = Col.hex(0x4A3222)
             if (y >= rb - 3 * z) col = if (y == rb - 3 * z) Col.hex(0xA07448) else if (y >= rb - z) Col.hex(0x5E4028) else Col.hex(0x8A6038)
             c.set(x, y, col)
@@ -1310,7 +1373,8 @@ internal class WatchtowerPainter : VistaPainter() {
                         // the voussoirs, radiating
                         val a = kotlin.math.atan2((y + 0.5f - cy).toDouble(), (xx + 0.5f - cx).toDouble()).toFloat()
                         val k = floor(a / 0.16f).toInt()
-                        col = if ((a / 0.16f - k) < 0.12f) Col.hex(0xD8C8AE) else if (k % 2 == 0) Col.hex(0xB8603E) else Col.hex(0xA8553A)
+                        col = if (pele) (if ((a / 0.16f - k) < 0.12f) Col.hex(0x3A4048) else if (k % 2 == 0) Col.hex(0x8E969C) else Col.hex(0x7A8288))
+                            else if ((a / 0.16f - k) < 0.12f) Col.hex(0xD8C8AE) else if (k % 2 == 0) Col.hex(0xB8603E) else Col.hex(0xA8553A)
                         if (dist < r + 0.8f * z) col = Col.scale(col, 0.82f)
                         c.set(xx, y, col)
                         continue
@@ -1332,6 +1396,8 @@ internal class WatchtowerPainter : VistaPainter() {
     /** A pixel of a wall of river cobbles in courses with a band of brick every few courses (Friuli's [pillar]). */
     private fun cobble(x: Int, y: Int, seed: Int): Int {
         val z = z
+        // the Lake District's pillars: the dale's slate stone in thin courses
+        if (pele) return Lakeland.slateStone(x / (4f * z), y / z.toFloat(), x, y, z > 1)
         val course = y / (3 * z)
         val band = course % 6 >= 4
         val mortar = Col.hex(0xD6CCBA)
@@ -1362,7 +1428,7 @@ internal class WatchtowerPainter : VistaPainter() {
         val z = z
         val bx = w - 9 * z; val by = oy + 46 * z
         val tx = w - 22 * z; val ty = oy + 17 * z
-        if (lv < 4 || flagFriuli || flagAustria) return otherFlag(bx, by, tx, ty)
+        if (lv < 4 || flagFriuli || flagAustria || flagEngland) return otherFlag(bx, by, tx, ty)
         // the pole, a gold knob on its top
         val steps = by - ty
         for (j in 0..steps) {
@@ -1434,7 +1500,12 @@ internal class WatchtowerPainter : VistaPainter() {
                 val xx = hoistX - z - i
                 val yy = ty + j + off + (wave + droop).toInt()
                 val v = (j + 0.5f) / hh
-                var col = if (flagFriuli) {
+                var col = if (flagEngland) {
+                    // St George's cross: on the pennant its red cross at the hoist, on the flag across the middle, on white
+                    val red = Col.hex(0xD3202E); val white = Col.hex(0xF6F4EE)
+                    if (pole) { if ((i in 2 * z until 4 * z) || (abs(v - 0.5f) < 0.16f && i < 7 * z)) red else white }
+                    else if (abs(v - 0.5f) < 0.12f || abs(i + 0.5f - fw * 0.5f) < fw * 0.07f) red else white
+                } else if (flagFriuli) {
                     if (pole) {
                         if (i < 4 * z && abs(v - 0.5f) < 0.3f) gold else if (v > 0.8f) blueD else blue
                     } else {
@@ -1646,7 +1717,8 @@ internal class WatchtowerPainter : VistaPainter() {
      */
     private fun railing() {
         if (lv < 2) return poleRail()
-        if (stone && lv >= 4) return ironRail()
+        if (pele && lv >= 4) parapet()
+        else if (stone && lv >= 4) return ironRail()
         val z = z
         val foot = railFoot; val top = railTop
         val p = pm(RAIL_D)
@@ -1673,6 +1745,31 @@ internal class WatchtowerPainter : VistaPainter() {
             if (z > 1 && v >= 0.25f && Noise.v2(x * 0.08f / z, y * 0.9f / z, 1111) > 0.7f) col = Col.scale(col, 0.88f)
             if (env.snow && v < 0.3f) col = Pal.SNOW_L
             c.set(x, y, col)
+        }
+    }
+
+    /**
+     * The Lake District's parapet from the tower's fourth level ([pele]): a low wall of slate stone along the platform's edge
+     * under the rail, its battlements' merlons rising past the rail at each end and in the middle, their copes lit.
+     */
+    private fun parapet() {
+        val z = z
+        val foot = railFoot
+        val wallTop = hy(RAIL_D, 0.6f)
+        for (y in max(wallTop.toInt(), c.top) until min(foot.toInt() + 1, c.bottom)) for (x in max(0, c.left) until min(w, c.right)) {
+            var col = Lakeland.slateStone(x / (4f * z), (foot - y) / z.toFloat(), x, y, z > 1)
+            if (y < wallTop + z) col = if (env.snow) Pal.SNOW_L else Col.hex(0xB0B6BA)
+            c.set(x, y, col)
+        }
+        // the merlons: at both ends, by the corner posts, up past the rail (clear of whoever stands at it)
+        val mt = hy(RAIL_D, 1.35f)
+        for (mx in floatArrayOf(0.07f, 0.86f)) {
+            val x0 = (w * mx).toInt(); val x1 = x0 + (w * 0.07f).toInt()
+            for (y in max(mt.toInt(), c.top) until min(wallTop.toInt() + 1, c.bottom)) for (x in max(x0, c.left) until min(x1, c.right)) {
+                var col = Lakeland.slateStone(x / (4f * z), (foot - y) / z.toFloat(), x, y, z > 1)
+                if (y < mt + z) col = if (env.snow) Pal.SNOW_L else Col.hex(0xB0B6BA) else if (x >= x1 - z) col = Col.scale(col, 0.82f)
+                c.set(x, y, col)
+            }
         }
     }
 

@@ -68,6 +68,16 @@ internal class CellarPainter : RoomPainter() {
      */
     private var cobbles = false
     private var ribolla = false
+
+    /**
+     * The Lake District's look (docs/plans/05-built/places-lakeland.md): Brewer Sam's cellar, its walls of the dale's slate
+     * stone in thin courses ([slate]), slate flags from level 2 (RoomPainter's [slateFloor], the drain kept), damsons in the
+     * crate for the grapes ([damsons]: small oval plums, dark purple under a dusty blue bloom, a stalk on some), brown ale
+     * bottles with a cream label on the shelf ([brownBottles]), the fells through the slit.
+     */
+    private var slate = false
+    private var damsons = false
+    private var brownBottles = false
     private var salami = false
     private var frasca = false
 
@@ -94,6 +104,12 @@ internal class CellarPainter : RoomPainter() {
     /** Rough stones in lime mortar, damp and greenish low down, a darker band under the top (in Friuli river cobbles with brick bands). */
     override fun inner(along: Float, z: Float, px: Int, py: Int, dim: Float, sootF: Float): Int {
         val h = z - fl
+        if (slate) {
+            var col = if (z > hw - 0.6f) Col.hex(0x9AA0A6) else Lakeland.slateStone(along, h, px, py, P > 1)
+            if (h < 3.5f && Dither.at(px, py) < (3.5f - h) / 5f) col = Col.mix(col, Col.hex(0x5E6A48), 0.3f)
+            if (z > hw - 4f) col = Col.scale(col, 0.88f)
+            return Col.scale(Col.scale(col, 0.84f), dim)
+        }
         if (cobbles) {
             var col = if (z > hw - 0.6f) Col.hex(0xB8AC98) else cobbleWall(along, h, px, py)
             if (h < 3.5f && Dither.at(px, py) < (3.5f - h) / 5f) col = Col.mix(col, Col.hex(0x5E6A48), 0.35f)
@@ -124,6 +140,14 @@ internal class CellarPainter : RoomPainter() {
     override fun floor() {
         if (lv < 2) { super.floor(); return }
         floorId = s.newObject(Pal.OUTLINE)
+        if (slateFloor) {
+            onFlat(fl, x0, y0, x1, y1) { x, y, px, py ->
+                if (hypot(x - 5.2f, y - 4.6f) < 0.18f) (if (((px + py) / max(1, P)) % 2 == 0) Col.hex(0x2A2622) else Col.hex(0x4A443C))
+                else Col.scale(Lakeland.slateFlags(x - x0, y - y0, px, py, P > 1), 0.9f)
+            }
+            c.penId = 0
+            return
+        }
         onFlat(fl, x0, y0, x1, y1) { x, y, px, py ->
             val row = floor((y - y0) / 1.1f).toInt()
             val u = (x - x0 + (if (row % 2 == 0) 0f else 0.6f)) / 1.3f
@@ -152,6 +176,7 @@ internal class CellarPainter : RoomPainter() {
         lv = frame.world.hereLevel.coerceIn(1, 5)
         readLook()
         cobbles = variant("walls") == "cobbles"; ribolla = variant("grapes") == "ribolla"
+        slate = variant("walls") == "slate"; damsons = variant("grapes") == "damsons"; brownBottles = variant("bottle") == "brown"
         salami = variant("salami") != null; frasca = variant("frasca") != null
         apples = variant("grapes") == "apples"; most = variant("wine") == "most"; speck = variant("ham") == "speck"
         // the candle: out at 0, lit otherwise; set, its flame flares up (just lit), not set it burns calm, low while Marko sleeps
@@ -359,11 +384,15 @@ internal class CellarPainter : RoomPainter() {
         for ((row, z) in listOf(0 to fl + 7.5f, 1 to fl + 12f)) for (k in 0 until 5) {
             val x = 5.15f + k * 0.3f + row * 0.1f; val y = y0 + 0.4f
             val cx = iso.sx(x, y); val by = iso.sy(x, y, z)
-            val g = if ((k + row) % 3 == 0) (if (most) Col.hex(0x8A8A2E) else Col.hex(0x5A2E2A)) else if (most && (k + row) % 3 == 1) Col.hex(0x6A7A2A) else Col.hex(0x2E4A2E)
+            // the Lake District's brown ale bottles ([brownBottles]), Carinthia's Most in olive and green ([most]), dark green and
+            // dark red otherwise
+            val g = if (brownBottles) (if ((k + row) % 3 == 0) Col.hex(0x4A2E16) else Col.hex(0x6A421E))
+                else if ((k + row) % 3 == 0) (if (most) Col.hex(0x8A8A2E) else Col.hex(0x5A2E2A)) else if (most && (k + row) % 3 == 1) Col.hex(0x6A7A2A) else Col.hex(0x2E4A2E)
             c.fillRect(floor(cx - 1f * p).toInt(), floor(by - 5f * p).toInt(), max(2, floor(2f * p).toInt()), floor(5f * p).toInt(), g)
             c.fillRect(floor(cx - 0.5f * p).toInt(), floor(by - 7f * p).toInt(), max(1, P), floor(2f * p).toInt(), g)
             c.fillRect(floor(cx - 0.5f * p).toInt(), floor(by - 7.8f * p).toInt(), max(1, P), max(1, P), Col.hex(0xC8A070))
             c.vline(floor(cx - 0.8f * p).toInt(), floor(by - 4.6f * p).toInt(), floor(by - 1.4f * p).toInt(), Col.mix(g, Col.hex(0xFFFFFF), 0.4f))
+            if (brownBottles) c.fillRect(floor(cx - 1f * p).toInt(), floor(by - 3.4f * p).toInt(), max(2, floor(2f * p).toInt()), max(1, floor(1.4f * p).toInt()), Col.hex(0xEADCB8))
         }
     }
 
@@ -610,6 +639,20 @@ internal class CellarPainter : RoomPainter() {
     private fun grapes(x: Float, y: Float) {
         val p = P.toFloat()
         if (apples) { appleHeap(x, y); return }
+        if (damsons) {
+            // the Lake District's damsons: fewer, oval, dark purple under a dusty blue bloom, a stalk on some
+            for (k in 0 until 11) {
+                val gx = x - 0.4f + Noise.rnd(k, 81) * 0.8f; val gy = y - 0.28f + Noise.rnd(k, 82) * 0.56f
+                val cx = iso.sx(gx, gy); val cy = iso.sy(gx, gy, fl + 3.4f + Noise.rnd(k, 83) * 1.0f)
+                c.fillEllipse(cx, cy, 1.25f * p, 1.0f * p, Col.hex(0x32183E))
+                c.fillEllipse(cx - 0.25f * p, cy - 0.25f * p, 0.9f * p, 0.7f * p, Col.hex(0x5A3270))
+                c.fillEllipse(cx - 0.45f * p, cy - 0.35f * p, 0.45f * p, 0.35f * p, Col.hex(0x8C86B4))
+                if (k % 3 == 0) c.set(floor(cx + 0.2f * p).toInt(), floor(cy - 1.1f * p).toInt(), Col.hex(0x6A4A2A))
+            }
+            val lx = iso.sx(x + 0.3f, y - 0.1f); val ly = iso.sy(x + 0.3f, y - 0.1f, fl + 4.4f)
+            c.fillEllipse(lx, ly, 1.6f * p, 0.9f * p, Col.hex(0x4E8A3A))
+            return
+        }
         for (k in 0 until 14) {
             val gx = x - 0.4f + Noise.rnd(k, 81) * 0.8f; val gy = y - 0.28f + Noise.rnd(k, 82) * 0.56f
             val cx = iso.sx(gx, gy); val cy = iso.sy(gx, gy, fl + 3.4f + Noise.rnd(k, 83) * 1.2f)

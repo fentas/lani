@@ -199,6 +199,22 @@ internal class SquarePainter : VistaPainter() {
     private var gasthaus = false
     private var trough = false
 
+    /**
+     * The Lake District's village green ([look]; docs/plans/05-built/places-lakeland.md): its houses of grey stone and
+     * whitewash under slate ([style], `village` "lakeland") with white window frames and no shutters ([lakes]), the church with
+     * its square battlemented tower ([churchLakeland]), the oak for the linden ([oak]), the village pump on its stone trough for
+     * the well ([pump]), the green itself, grass with a gravel path and flags along the houses for the cobbles ([green]), a
+     * low dry-stone wall for the garden fence ([drywall]), daffodils in the bed in March and April ([daffodils]), the fells
+     * behind ([fells]).
+     */
+    private var lakes = false
+    private var oak = false
+    private var pump = false
+    private var green = false
+    private var drywall = false
+    private var daffodils = false
+    private var fells = false
+
     override fun paint() {
         setup()
         val k = detail
@@ -217,6 +233,10 @@ internal class SquarePainter : VistaPainter() {
         gasthaus = variant("osteria") == "gasthaus"
         trough = variant("well") == "trough"
         pigna = variant("fountain") != null
+        lakes = style?.tower == Tower.BATTLEMENTS
+        oak = variant("linden") == "oak"; pump = variant("well") == "pump"; green = variant("ground") == "green"
+        drywall = variant("fence") == "drystone"; daffodils = variant("flowers") == "daffodils"; fells = variant("hills") == "fells"
+        if (pump) friWell = false
         // ---- sky: the sun is a thing by day; at night the moon stands in its place as scenery
         sky(0, hz + 2 * k)
         // the real stars over the square (its moon is the sun's word's, where the sun stands by day)
@@ -233,7 +253,7 @@ internal class SquarePainter : VistaPainter() {
         items.clear()
         // what the village has built stands here only once it's there (the church, the well), the maypole and the fountain as
         // far as they've come
-        if (there("tower")) items.add(churchD to { thing("tower") { style?.let { if (alpine) church(it) else churchFriuli(it) } ?: church() } })
+            if (there("tower")) items.add(churchD to { thing("tower") { style?.let { if (alpine) church(it) else if (lakes) churchLakeland(it) else churchFriuli(it) } ?: church() } })
         maypole()
         fountain()
         // what a dialog brings: a cart up the square, the band under the linden, couples dancing
@@ -362,10 +382,11 @@ internal class SquarePainter : VistaPainter() {
         val season = env.season
         val k = detail
         val farCol = if (season == Season.WINTER) Col.hex(0xB0BED6) else Col.hex(0x6474A0)
-        ridge(hz - 10f * k, 22f * k, 0.011f, 31, farCol, 0.34f, snowLine = 0.5f, sharp = true)
+        ridge(hz - 10f * k, 22f * k, 0.011f, 31, if (fells && season != Season.WINTER) Col.hex(0x6A7C8A) else farCol, 0.34f, snowLine = 0.5f, sharp = !fells)
         val midCol = when (season) { Season.WINTER -> Col.hex(0xC6D2E2); Season.AUTUMN -> Col.hex(0x7A7A44); else -> Col.hex(0x4E7A48) }
         // in Friuli the Collio's slopes, vine rows along them
         val mid = if (collio) ridge(hz - 2f * k, 12f * k, 0.016f, 33, midCol, 0.22f) { x, y, below -> collioSlope(x, y, below, 34) }
+            else if (fells) ridge(hz - 2f * k, 12f * k, 0.016f, 33, midCol, 0.22f) { x, y, below -> fellSlope(x, y, below, 34) }
             else ridge(hz - 2f * k, 12f * k, 0.016f, 33, midCol, 0.22f)
         treeline(mid, 6 * k, 2.2f * k, if (season == Season.WINTER) Col.hex(0x6A7A8A) else Col.hex(0x2E5A36), 0.22f, 35)
     }
@@ -376,6 +397,7 @@ internal class SquarePainter : VistaPainter() {
     private fun square(x: Float, d: Float, px: Int, py: Int): Int {
         val g = env.grass
         val k = detail
+        if (green && x >= fenceX - 0.2f && d <= churchD + 14f) return greenAt(x, d, px, py)
         if (x < fenceX - 0.2f || d > churchD + 14f) {
             if (env.snow) return hazy(if (Noise.v2(x * 0.5f, d * 0.5f, 3) < 0.3f) Pal.SNOW_M else Pal.SNOW_L, d)
             val n = Noise.v2(x * 0.6f, d * 0.6f, 3) + (Dither.at(px, py) - 0.5f) * 0.25f
@@ -419,6 +441,35 @@ internal class SquarePainter : VistaPainter() {
         if (env.snow) col = if (Noise.v2(x * 1.3f, d * 1.3f, 11) < 0.3f && Dither.at(px, py) < 0.5f) col else if (Noise.rnd(px, py, 12) < 0.2f) Pal.SNOW_M else Pal.SNOW_L
         // grass between the stones by the fence and the house walls (in the joints, closer up)
         if (!env.snow && (x < fenceX + 0.5f || x > row - 0.4f) && Noise.rnd(px, py, 13) < (if (joint) 0.8f else 0.3f)) col = g[1]
+        return hazy(col, d)
+    }
+
+    /**
+     * The Lake District's green ([green]) where the cobbles are: grass, daisies in it from spring to summer, a gravel path up
+     * the middle to the church's door, a pavement of slate flags along the houses; snow on all of it in winter.
+     */
+    private fun greenAt(x: Float, d: Float, px: Int, py: Int): Int {
+        val g = env.grass
+        val k = detail
+        if (x > row - 1.4f) {
+            if (env.snow) return hazy(if (Noise.rnd(px, py, 12) < 0.2f) Pal.SNOW_M else Pal.SNOW_L, d)
+            return hazy(Lakeland.slateFlags(x * 1.3f, d * 0.9f, px, py, k > 1 && d < 30f), d)
+        }
+        val path = abs(x - 0.6f - (d - 14f) * 0.012f) < 0.75f && d > 15.5f
+        if (env.snow) return hazy(if (Noise.v2(x * 0.5f, d * 0.5f, 3) < 0.3f) Pal.SNOW_M else Pal.SNOW_L, d)
+        if (path) {
+            val n = Noise.rnd(px, py, 14)
+            return hazy(if (n < 0.2f) Col.hex(0xA89A80) else if (n > 0.85f) Col.hex(0xD8CCB0) else Col.hex(0xC4B898), d)
+        }
+        val n = Noise.v2(x * 0.6f, d * 0.6f, 3) + (Dither.at(px, py) - 0.5f) * 0.25f
+        var col = if (n > 0.6f) g[0] else if (n > 0.3f) g[1] else g[2]
+        if (Noise.rnd(px, py, 5) < 0.05f) col = g[2]
+        if (k > 1 && d < 30f) {
+            val b = Noise.rnd(px, (py + (px and 1)) / 3, 6)
+            if (b < 0.07f) col = g[2] else if (b > 0.95f) col = g[0]
+        }
+        // daisies on the grass from April to August
+        if (env.month in 4..8 && d < 34f && Noise.rnd(px / k, py / k, 15) < 0.012f) col = Col.hex(0xF6F4EE)
         return hazy(col, d)
     }
 
@@ -631,6 +682,34 @@ internal class SquarePainter : VistaPainter() {
         val r0 = floatArrayOf(gx(xw + 2.3f, d0 - 0.4f), gy(d0 - 0.4f) - (top + 3.2f) * pm(d0 - 0.4f))
         val r1 = floatArrayOf(gx(xw + 2.3f, d1 + 0.4f), gy(d1 + 0.4f) - (top + 3.2f) * pm(d1 + 0.4f))
         val snow = env.snow
+        if (lakes) style?.let { st ->
+            // the Lake District's slate: courses of grey-blue slates across the slope from the eave up, staggered, each course's
+            // lower edge dark, a slate a shade lighter here and there; the ridge's capping
+            c.polyBegin(); c.polyAdd(e0[0], e0[1]); c.polyAdd(e1[0], e1[1]); c.polyAdd(r1[0], r1[1]); c.polyAdd(r0[0], r0[1])
+            c.polyFill { px, py ->
+                val f = ((px - e0[0]) / (e1[0] - e0[0])).coerceIn(0f, 1f)
+                val ey = e0[1] + (e1[1] - e0[1]) * f
+                val d = d0 + (d1 - d0) * f
+                val rowPx = max(1.5f, 0.28f * pm(d) * 0.7f)
+                val up = (ey - py) / rowPx
+                val rowI = floor(up).toInt()
+                val sl = (d / 0.34f + rowI * 0.5f)
+                val joint = (sl - floor(sl)) * 0.34f * pm(d) < 1f && 0.34f * pm(d) >= 3f
+                when {
+                    snow -> if (up - rowI < 0.2f && Dither.at(px, py) < 0.4f) Pal.SNOW_M else Pal.SNOW_L
+                    up - rowI < 0.2f -> st.roof[2]
+                    joint -> st.roof[2]
+                    Noise.rnd(floor(sl).toInt(), rowI, 26) < 0.22f -> st.roof[0]
+                    else -> st.roof[1]
+                }
+            }
+            val th = if (k == 1) 1 else k - 1
+            for (i in 0 until th) {
+                c.line(e0[0].toInt(), e0[1].toInt() + 1 + i, e1[0].toInt(), e1[1].toInt() + 1 + i, if (i == 0) Pal.WOOD_X else st.roof[2])
+                c.line(r0[0].toInt(), r0[1].toInt() - 1 - i, r1[0].toInt(), r1[1].toInt() - 1 - i, if (snow) Pal.SNOW_L else st.roof[2])
+            }
+            return
+        }
         style?.takeIf { !alpine }?.let { st ->
             // Friuli's coppi: the curved tiles in channels running from the eave up to the ridge, lit and in shade by turns, a
             // course's lip across them now and then
@@ -789,6 +868,15 @@ internal class SquarePainter : VistaPainter() {
     private fun window(x: Int, y: Int, ww: Int, hh: Int, lit: Boolean, sh: Int) {
         if (ww < 2 || hh < 2) return
         val k = detail
+        if (lakes) {
+            // the Lake District's: no shutters, a white frame round the sash, its glazing bars white, a stone sill
+            val white = Col.hex(0xF4F4EE)
+            c.fillRect(x - max(1, sh / 2), y - max(1, sh / 3), ww + 2 * max(1, sh / 2), hh + 2 * max(1, sh / 3), white)
+            if (lit) glow { c.fillRect(x, y, ww, hh, Pal.WINDOW_LIT) } else { c.fillRect(x, y, ww, hh, Pal.GLASS); c.fillRect(x, y, max(1, ww / 3), max(1, hh / 3), Pal.GLASS_HI) }
+            c.vline(x + ww / 2, y, y + hh - 1, white); c.hline(x, x + ww - 1, y + hh / 2, white)
+            c.hline(x - max(1, sh / 2), x + ww - 1 + max(1, sh / 2), y + hh + max(1, sh / 3), Pal.STONE_L)
+            return
+        }
         c.fillRect(x - sh, y, sh, hh, shutterC); c.fillRect(x + ww, y, sh, hh, shutterC)
         if (lit) glow { c.fillRect(x, y, ww, hh, Pal.WINDOW_LIT) } else { c.fillRect(x, y, ww, hh, Pal.GLASS); c.fillRect(x, y, max(1, ww / 3), max(1, hh / 3), Pal.GLASS_HI) }
         c.vline(x + ww / 2, y, y + hh - 1, Pal.WALL_D)
@@ -1135,6 +1223,105 @@ internal class SquarePainter : VistaPainter() {
     }
 
     /**
+     * The Lake District's church closing the green ([st]'s colours): the nave's gable front of grey stone under slate, a
+     * pointed window over the door, the door in a stone porch; beside it the square tower of grey stone with its quoins and
+     * string courses, the clock as far as the town clock has come, the louvred bell opening with the bell swinging in it, and
+     * its battlements along the top.
+     */
+    private fun churchLakeland(st: FireStyle) {
+        val k = detail
+        val d = churchD; val p = pm(d); val by = gy(d)
+        val lit = env.windows > 0.35f
+        val wall = st.churchWall[0]; val wallM = st.churchWall[1]; val wallD = st.churchWall[2]
+        val nx0 = gx(-3.6f, d); val nx1 = gx(4.4f, d); val nm = gx(0.4f, d)
+        val eave = 7.6f; val peak = 12.0f
+        c.polyBegin(); c.polyAdd(nx0, by); c.polyAdd(nx1, by); c.polyAdd(nx1, by - eave * p); c.polyAdd(nm, by - peak * p); c.polyAdd(nx0, by - eave * p)
+        c.polyFill { px, py ->
+            val hm = (by - py) / p
+            when {
+                k > 1 && (hm % 0.35f) < 1f / p -> wallD
+                px > nm + (nx1 - nm) * 0.8f -> wallD
+                k > 1 && Noise.rnd(px / max(1, k), py / max(1, k), 27) < 0.12f -> wallM
+                else -> wall
+            }
+        }
+        val roofEdge = if (env.snow) Pal.SNOW_L else st.roof[2]
+        for (i in 0 until max(2, (0.3f * p).toInt())) {
+            val col = if (i == 0) roofEdge else if (env.snow) Pal.SNOW_M else st.roof[1]
+            c.line(nx0.toInt() - 1, (by - eave * p).toInt() - i, nm.toInt(), (by - peak * p).toInt() - 1 - i, col)
+            c.line(nm.toInt(), (by - peak * p).toInt() - 1 - i, nx1.toInt() + 1, (by - eave * p).toInt() - i, col)
+        }
+        // the pointed window, its stone frame, its tracery closer up
+        val wy0 = by - 9.4f * p; val wy1 = by - 5.2f * p; val ww = 0.75f * p
+        for (y in max(wy0.toInt(), c.top) until min(wy1.toInt(), c.bottom)) {
+            val u = (y - wy0) / (wy1 - wy0)
+            val half = if (u < 0.35f) ww * sqrt(u / 0.35f) else ww
+            c.hline((nm - half - max(1f, 0.12f * p)).toInt(), (nm + half + max(1f, 0.12f * p)).toInt(), y, Pal.STONE_L)
+            c.hline((nm - half).toInt(), (nm + half).toInt(), y, if (lit) Pal.WINDOW_LIT else Pal.GLASS)
+        }
+        if (k > 1) c.vline(nm.toInt(), wy0.toInt() + (0.3f * p).toInt(), wy1.toInt(), Pal.STONE_L)
+        // the porch: a little gabled stone porch round the door, slate on its roof
+        val px0 = nm - 1.3f * p; val px1 = nm + 1.3f * p
+        c.fillRect(px0.toInt(), (by - 3.2f * p).toInt(), (px1 - px0).toInt(), (3.2f * p).toInt(), wallM)
+        for (j in 0 until (1.2f * p).toInt()) c.hline((px0 - 0.2f * p + j * 0.9f).toInt(), (px1 + 0.2f * p - j * 0.9f).toInt(), (by - 3.2f * p).toInt() - j, if (env.snow) Pal.SNOW_L else if (j == 0) st.roof[2] else st.roof[1])
+        c.fillRect((nm - 0.6f * p).toInt(), (by - 2.4f * p).toInt(), (1.2f * p).toInt(), (2.4f * p).toInt(), Pal.DOOR)
+        c.fillCircle(nm, by - 2.4f * p, 0.6f * p, Pal.DOOR)
+        // the tower
+        val tx0 = gx(4.4f, d); val tx1 = gx(7.6f, d); val tm = (tx0 + tx1) / 2f
+        val shaft = 15.0f * p
+        val tw = st.towerWall
+        for (y in max((by - shaft).toInt(), c.top) until min(by.toInt(), c.bottom)) for (x in max(tx0.toInt(), c.left) until min(tx1.toInt(), c.right)) {
+            val u = (x - tx0) / max(1f, tx1 - tx0)
+            val hm = (by - y) / p
+            var col = if (u > 0.78f) tw[2] else if (u < 0.12f) tw[0] else tw[1]
+            if (k > 1 && (hm % 0.35f) < 1f / p) col = Col.mix(col, tw[2], 0.6f)
+            // the quoins: light dressed stones up both corners
+            if ((u < 0.1f || u > 0.9f) && Math.floorMod(floor(hm / 0.55f).toInt(), 2) == 0) col = Col.hex(0xC0C4C4)
+            // the string courses
+            if (abs(hm - 5.6f) < 0.18f || abs(hm - 11.4f) < 0.18f) col = Pal.STONE_L
+            c.set(x, y, col)
+        }
+        // the clock, as far as the town clock (the project "mestna_ura") has come
+        val cy = by - 9.0f * p; val cr = 0.85f * p
+        val ura = stage(CLOCK); val uraDone = ura >= stages(CLOCK)
+        if (ura < 2) c.fillRect((tm - max(1f, 0.12f * p)).toInt(), (cy - 0.6f * p).toInt(), max(1, (0.24f * p).toInt()), max(2, (1.2f * p).toInt()), Col.hex(0x2A2226))
+        else if (ura < stages(CLOCK) - 1) {
+            if (k > 1) c.fillCircle(tm, cy, cr + max(1f, 0.15f * p), Pal.STONE_L)
+            c.fillCircle(tm, cy, cr, Col.hex(0x2A2226))
+        } else clockThing(tm, cy, cr, p, lit, running = uraDone)
+        // the louvred bell opening, the bell swinging in it
+        val tolled = poked("tower")?.age(t)?.let { a -> PokeArt.ease(a, 0f, 0.25f) * (1f - PokeArt.ease(a, 2f, 3.2f)) } ?: 0f
+        val bell = max(fxOn("bell"), tolled)
+        val stroke = strikeNow()
+        val swing = stroke?.let { (i, ph) -> sin(ph * PI).toFloat() * (if (i % 2 == 0) 0.9f else -0.9f) } ?: (sin(t * 5.5).toFloat() * bell)
+        val bw = max(2f, 1.1f * p)
+        val ot = by - 14.2f * p; val oh = 2.0f * p
+        ringing(tm, ot + oh * 0.5f, p, bell)
+        stroke?.let { (_, ph) -> strokeRing(tm, ot + oh * 0.5f, p, ph) }
+        c.fillRect((tm - bw / 2).toInt(), (ot + bw / 2).toInt(), bw.toInt(), (oh - bw / 2).toInt(), Col.hex(0x2A2226))
+        c.fillCircle(tm, ot + bw / 2, bw / 2, Col.hex(0x2A2226))
+        val bt = ot + 0.4f * p; val bb = ot + 1.25f * p
+        for (y in bt.toInt()..bb.toInt()) {
+            val u = (y - bt) / max(1f, bb - bt)
+            val half = (0.14f + 0.2f * u * u) * p
+            val bx = tm + swing * 0.2f * p * u
+            c.hline((bx - half).toInt(), (bx + half).toInt(), y, Pal.GOLD)
+            if (k > 1) c.set((bx - half).toInt(), y, Pal.GOLD_L)
+        }
+        // the louvres across the opening's lower part, closer up
+        if (k > 1) for (ly in floatArrayOf(ot + 1.4f * p, ot + 1.7f * p)) c.hline((tm - bw / 2).toInt(), (tm + bw / 2).toInt(), ly.toInt(), tw[2])
+        // the battlements: a parapet with three merlons across the front, their copes lit
+        val pt = by - shaft
+        val ph = 0.7f * p
+        c.fillRect(tx0.toInt(), (pt - 0.35f * p).toInt(), (tx1 - tx0).toInt(), max(1, (0.35f * p).toInt()), Pal.STONE_L)
+        for (mi in 0 until 3) {
+            val mx0 = tx0 + (tx1 - tx0) * (mi * 0.4f); val mx1 = mx0 + (tx1 - tx0) * 0.22f
+            c.fillRect(mx0.toInt(), (pt - 0.35f * p - ph).toInt(), max(1, (mx1 - mx0).toInt()), ph.toInt(), if (mi == 2) tw[2] else tw[1])
+            c.hline(mx0.toInt(), mx1.toInt(), (pt - 0.35f * p - ph).toInt(), if (env.snow) Pal.SNOW_L else Pal.STONE_L)
+        }
+    }
+
+    /**
      * The clock's face in the tower: once the town clock is finished ([running]) a word of the square (`clock`), drawn under
      * an object of its own without an outline inside the tower's (the tower drawn on round it as before, so its picture is
      * the same, and a tap on the face is on the clock); before, the tower's, stopped at twelve.
@@ -1314,7 +1501,7 @@ internal class SquarePainter : VistaPainter() {
     private val poleX = -1.2f; private val poleD = 26f
 
     /** The maypole's ribbons: red, white, blue and gold; in Friuli the blue and gold of its flag with green and red. */
-    private val ribbons: IntArray get() = if (alpine) KAE_RIBBONS else if (style != null) FRI_RIBBONS else RIBBONS
+    private val ribbons: IntArray get() = if (alpine) KAE_RIBBONS else if (lakes) RIBBONS else if (style != null) FRI_RIBBONS else RIBBONS
     private val KAE_RIBBONS = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_RED, Pal.FLAG_WHITE)
     private val RIBBONS = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD)
     private val FRI_RIBBONS = intArrayOf(Col.hex(0x1F5AA8), Pal.GOLD, Col.hex(0x3E8A3A), Pal.GERANIUM)
@@ -2090,7 +2277,7 @@ internal class SquarePainter : VistaPainter() {
         c.polyBegin(); c.polyAdd(x0, by); c.polyAdd(x1, by); c.polyAdd(x1, by - 3.2f * p); c.polyAdd(xm, by - 6f * p); c.polyAdd(x0, by - 3.2f * p)
         // in Friuli its plaster and the coppi on its roof
         val st = style
-        val ochreL = st?.walls?.let { it[2 % it.size][0] } ?: Pal.OCHRE_L; val ochreM = st?.walls?.let { it[2 % it.size][1] } ?: Pal.OCHRE_M
+        val ochreL = st?.walls?.let { it[(if (lakes) 0 else 2) % it.size][0] } ?: Pal.OCHRE_L; val ochreM = st?.walls?.let { it[(if (lakes) 0 else 2) % it.size][1] } ?: Pal.OCHRE_M
         if (k == 1) c.polyFill { px, _ -> if (px > xm + (x1 - xm) * 0.6f) ochreM else ochreL }
         else c.polyFill { px, py ->
             if (py > by - 0.45f * p) (if (Noise.rnd(px / 3, py / 2, 28) < 0.2f) Pal.STONE_D else Pal.STONE_M)
@@ -2113,6 +2300,7 @@ internal class SquarePainter : VistaPainter() {
     /** The garden fence along the left of the square, pickets from depth [far] to [near], two rails. */
     private fun fence(far: Float, near: Float) {
         val k = detail
+        if (drywall) { stoneWall(far, near); return }
         var d = far
         var prev: FloatArray? = null
         while (d >= near) {
@@ -2154,6 +2342,29 @@ internal class SquarePainter : VistaPainter() {
         }
     }
 
+    /**
+     * The Lake District's low dry-stone wall along the left of the green ([drywall], for the garden fence) from depth [far] to
+     * [near]: grey stones laid dry with dark gaps, the cope stones on edge along its top, snow on it in winter; a column of it a
+     * depth step, far to near.
+     */
+    private fun stoneWall(far: Float, near: Float) {
+        val hgt = 1.0f; val half = 0.3f
+        var d = far
+        while (d >= near) {
+            val p = pm(d)
+            val x0 = gx(fenceX - half, d); val x1 = gx(fenceX + half, d); val by = gy(d)
+            val top = by - hgt * p
+            for (px in max(floor(x0).toInt(), c.left)..min(floor(x1).toInt(), c.right - 1)) {
+                for (py in max(floor(top).toInt(), c.top)..min(floor(by).toInt(), c.bottom - 1)) {
+                    val hm = (by - (py + 0.5f)) / p
+                    val col = if (env.snow && hm > hgt * 0.78f) Pal.SNOW_L else Lakeland.drystone(d, hm, hgt, 1.7f, px, py, if (px > (x0 + x1) / 2f) 0.86f else 1f)
+                    c.set(px, py, hazy(col, d))
+                }
+            }
+            d -= max(0.04f, 0.6f / p)
+        }
+    }
+
     // ------------------------------------------------------------------ the linden
 
     /**
@@ -2165,7 +2376,7 @@ internal class SquarePainter : VistaPainter() {
         val p = pm(lindenD); val bx = gx(lindenX, lindenD); val by = gy(lindenD)
         val half = trunkHalf * p; val top = by - trunkH * p
         if (lipa <= 2) stake(bx, by, p, half, top)
-        val barkL = Col.hex(0x8A7458); val bark = Col.hex(0x6A5640); val barkD = Col.hex(0x46382A)
+        val barkL = if (oak) Col.hex(0x8A8272) else Col.hex(0x8A7458); val bark = if (oak) Col.hex(0x625A4C) else Col.hex(0x6A5640); val barkD = if (oak) Col.hex(0x403A30) else Col.hex(0x46382A)
         val barkX = Col.hex(0x362A20); val ridgeL = Col.mix(bark, barkL, 0.5f)
         for (py in max(top.toInt(), c.top) until min(by.toInt(), c.bottom)) {
             val u = (by - py) / (by - top)
@@ -2244,7 +2455,12 @@ internal class SquarePainter : VistaPainter() {
             for ((a, len) in listOf(-0.7f to 3.2f, -0.1f to 3.6f, 0.35f to 2.4f)) branch(bx + sin(a) * len * crown * p, top - cos(a) * len * crown * p, a, 2.4f * p * crown, 3)
             return
         }
-        val (dark, mid, light) = when (season) {
+        // the Lake District's oak ([oak]): a darker, browner green, russet and brown in autumn, no blossom
+        val (dark, mid, light) = if (oak) when (season) {
+            Season.AUTUMN -> Triple(Col.hex(0x6A3E1A), Col.hex(0x9A6228), Col.hex(0xC08A3E))
+            Season.SPRING -> Triple(Col.hex(0x46702A), Col.hex(0x74A044), Col.hex(0xA4C866))
+            else -> Triple(Col.hex(0x223E1E), Col.hex(0x34602C), Col.hex(0x5A8A3C))
+        } else when (season) {
             Season.AUTUMN -> Triple(Col.hex(0x9A6A1E), Col.hex(0xD0A032), Col.hex(0xF0CC5A))
             Season.SPRING -> Triple(Col.hex(0x3E7A30), Col.hex(0x6AAA46), Col.hex(0xA8D870))
             else -> Triple(Col.hex(0x2A5A2C), Col.hex(0x3E7A38), Col.hex(0x68A44C))
@@ -2273,7 +2489,9 @@ internal class SquarePainter : VistaPainter() {
                 var lit = -dx * lx * 0.5f - dy * 0.75f + (leaf - 0.5f) * 0.7f
                 lit += one
                 var col = if (k > 1 && lit > 0.75f) shine else if (lit > 0.4f) light else if (lit > -0.25f) mid else if (k > 1 && lit < -0.7f) deep else dark
-                if (season == Season.SUMMER && env.month == 6 && Noise.rnd(xx, yy, 41) < 0.05f && lit > 0f) col = Col.hex(0xF0E6A0)
+                if (!oak && season == Season.SUMMER && env.month == 6 && Noise.rnd(xx, yy, 41) < 0.05f && lit > 0f) col = Col.hex(0xF0E6A0)
+                // an acorn here and there in September and October, closer up
+                if (oak && k > 1 && env.month in 9..10 && Noise.rnd(xx / 2, yy / 2, 42) < 0.012f && lit > -0.2f) col = Col.hex(0x8A6A2E)
                 c.set(xx, yy, col)
             }
         }
@@ -2516,6 +2734,7 @@ internal class SquarePainter : VistaPainter() {
     private fun well(cx: Int, by: Int) {
         val m = detail
         if (trough) { woodTrough(cx, by); return }
+        if (pump) { pumpWell(cx, by); return }
         if (wellLevel <= 1) { curbWell(cx, by); return }
         if (friWell) { vera(cx, by); return }
         if (m == 1) {
@@ -2655,6 +2874,82 @@ internal class SquarePainter : VistaPainter() {
      * WELL's first level: a low curb of field stones round the hole, each stone its own size and tone, lit on the left; the
      * dark water down in it; the forked post and its pole with the rope and the bucket ([forkedPole]).
      */
+    /**
+     * The Lake District's village pump for the well ([pump]), by WELL's level: at 1 a low trough of rough stones fed by a spring
+     * through a wooden spout, a bucket by it; at 2 a long trough of dressed stone with the spring's headstone behind it; at 3
+     * the cast-iron pump on a flagged step in the headstone's place, dark green, its long handle and its spout over the
+     * trough; at 4 a little slate roof over it on two posts; at 5 a planter of flowers at the trough's end and a bucket on its
+     * hook (the lamp post beside it is the square's own, at the well's top level).
+     */
+    private fun pumpWell(cx: Int, by: Int) {
+        val m = detail
+        val st = intArrayOf(Col.hex(0xB4B8B8), Col.hex(0x969C9E), Col.hex(0x747A7E), Col.hex(0x50565A))
+        val water = if (env.snow) Pal.ICE_M else Pal.WATER_D; val waterL = if (env.snow) Pal.ICE_L else Pal.WATER_M
+        val lv = wellLevel
+        // the trough: low and rough at 1, long and dressed from 2
+        val hw = if (lv <= 1) 10 * m else 15 * m; val th = if (lv <= 1) 6 * m else 9 * m
+        val top = by - th
+        for (y in max(top, c.top) until min(by, c.bottom)) for (x in max(cx - hw, c.left) until min(cx + hw, c.right)) {
+            val col = if (lv <= 1) {
+                val n = Noise.hash((x - cx + 40 * m) / (4 * m) + ((y - top) / (3 * m)) * 7, 81)
+                if ((y - top) % (3 * m) == 0 || ((x - cx + 40 * m + ((y - top) / (3 * m)) * 2 * m) % (4 * m)) == 0) st[3] else st[Math.floorMod(n, 3)]
+            } else if (y == top || y == top + m - 1) st[0] else if (x >= cx + hw - m) st[2] else if (Noise.rnd(x / m, y / m, 82) < 0.08f) st[2] else st[1]
+            c.set(x, y, if (env.snow && y < top + m) Pal.SNOW_L else col)
+        }
+        // the water in it
+        c.fillRect(cx - hw + m, top - m, 2 * hw - 2 * m, m, water)
+        if (!env.snow) c.hline(cx - hw + 2 * m, cx - hw + 5 * m, top - m, waterL)
+        if (lv >= 3) {
+            // the flagged step under it all
+            c.fillRect(cx - hw - 2 * m, by, 2 * hw + 4 * m, 2 * m, st[1]); c.hline(cx - hw - 2 * m, cx + hw + 2 * m - 1, by, st[0])
+        }
+        val px = cx + 6 * m
+        if (lv <= 2) {
+            // the spring's spout: at 1 a wooden pipe out of a mossy stone; at 2 out of a tall dressed headstone
+            if (lv <= 1) {
+                c.fillEllipse(px + 4f * m, top - 3f * m, 5f * m, 4f * m, st[2]); c.fillEllipse(px + 3f * m, top - 4f * m, 3f * m, 2f * m, Col.hex(0x5E8A4A))
+                c.fillRect(px - 3 * m, top - 4 * m, 6 * m, m, Pal.WOOD_M)
+            } else {
+                c.fillRect(px - 2 * m, top - 22 * m, 7 * m, 22 * m, st[1]); c.vline(px - 2 * m, top - 22 * m, top - 1, st[0]); c.fillRect(px + 4 * m, top - 22 * m, m, 22 * m, st[2])
+                c.fillRect(px - 2 * m, top - 24 * m, 7 * m, 2 * m, st[0])
+                c.fillRect(px - 5 * m, top - 14 * m, 4 * m, m, Pal.STONE_X)
+            }
+            // the trickle into the trough
+            val sx = px - (if (lv <= 1) 3 else 5) * m; val sy = top - (if (lv <= 1) 3 else 13) * m
+            if (!env.snow) for (y in sy until top - m) c.set(sx + (if ((y + (t * 12).toInt()) % 3 == 0) 1 else 0), y, Col.hex(0xC8E0F0))
+            // the bucket by it at 1
+            if (lv <= 1) { c.fillRect(cx - hw - 6 * m, by - 5 * m, 5 * m, 5 * m, Pal.WOOD_M); c.hline(cx - hw - 6 * m, cx - hw - 2 * m, by - 5 * m, Pal.STONE_D); c.vline(cx - hw - 6 * m, by - 5 * m, by - 1, Pal.WOOD_L) }
+            return
+        }
+        // the cast-iron pump: its column on a flange, the cap and its knob, the long handle and the spout over the trough
+        val g = Col.hex(0x34643E); val gL = Col.hex(0x4E8256); val gD = Col.hex(0x1E3E26)
+        val colTop = top - 30 * m
+        c.fillRect(px - 3 * m, top - 3 * m, 7 * m, 3 * m, gD)
+        c.fillRect(px - 2 * m, colTop, 5 * m, 28 * m, g); c.vline(px - 2 * m, colTop, top - 3 * m, gL); c.vline(px + 2 * m, colTop, top - 3 * m, gD)
+        c.fillRect(px - 3 * m, colTop - 2 * m, 7 * m, 2 * m, gD); c.fillCircle(px + 0.5f * m, colTop - 3f * m, 1.4f * m, g)
+        // the spout toward the trough, a drop at its lip
+        c.fillRect(px - 6 * m, colTop + 8 * m, 4 * m, 2 * m, gD); c.vline(px - 6 * m, colTop + 8 * m, colTop + 11 * m, gD)
+        if (!env.snow) c.set(px - 6 * m, colTop + 13 * m, Col.hex(0xC8E0F0))
+        // the handle out to the right, curving down
+        for (o in 0 until m) { c.line(px + 3 * m, colTop + 2 * m + o, px + 15 * m, colTop + 6 * m + o, gD); c.line(px + 15 * m, colTop + 6 * m + o, px + 17 * m, colTop + 10 * m + o, gD) }
+        if (lv >= 4) {
+            // the little slate roof on two posts over the pump
+            for (pxp in intArrayOf(px - 9 * m, px + 11 * m)) { c.fillRect(pxp, colTop - 10 * m, 2 * m, top - colTop + 10 * m, Pal.WOOD_D); c.vline(pxp, colTop - 10 * m, top - 1, Pal.WOOD_M) }
+            val rl = if (env.snow) Pal.SNOW_L else Lakeland.ROOF_L; val rm = if (env.snow) Pal.SNOW_M else Lakeland.ROOF_M
+            for (y in colTop - 18 * m until colTop - 9 * m) {
+                val u = (y - (colTop - 18 * m)).toFloat() / (9 * m); val half = (3 * m + 13 * m * u).toInt()
+                c.hline(px + m - half, px + m + half, y, if ((y / max(1, m)) % 2 == 0 && !env.snow) Lakeland.ROOF_D else if (u < 0.3f) rl else rm)
+            }
+            c.hline(px - 13 * m, px + 15 * m, colTop - 9 * m, Pal.WOOD_D)
+        }
+        if (lv >= 5) {
+            // a planter of flowers at the trough's end, a bucket on its hook on the post
+            c.fillRect(cx - hw - 7 * m, by - 6 * m, 6 * m, 6 * m, st[2]); c.hline(cx - hw - 7 * m, cx - hw - 2 * m, by - 6 * m, st[0])
+            if (!env.snow) for (i in 0 until 5) c.fillRect(cx - hw - 7 * m + i * m + m / 2, by - (8 + i % 2) * m, m, m, if (i % 2 == 0) Pal.GERANIUM else Pal.GOLD)
+            c.fillRect(px + 12 * m, colTop + 2 * m, 4 * m, 4 * m, Pal.WOOD_M); c.hline(px + 12 * m, px + 15 * m, colTop + 2 * m, Pal.STONE_D)
+        }
+    }
+
     private fun curbWell(cx: Int, by: Int) {
         val m = detail
         val axis = cx + 0.5f * m; val rx = 13.5f * m
@@ -3012,7 +3307,7 @@ internal class SquarePainter : VistaPainter() {
             c.fillRect(cx - 16, by - 4, 32, 4, Pal.STONE_M); c.hline(cx - 16, cx + 15, by - 4, Pal.STONE_L); for (x in cx - 16..cx + 15 step 4) c.set(x, by - 2, Pal.STONE_D)
             if (env.snow) { c.hline(cx - 15, cx + 14, by - 5, Pal.SNOW_L); c.hline(cx - 12, cx + 10, by - 6, Pal.SNOW_L); return }
             for (y in by - 9 until by - 4) c.hline(cx - 14, cx + 13, y, if (y == by - 9) Pal.LEAF else Col.hex(0x2E6A2C))
-            val cols = if (env.season == Season.AUTUMN) intArrayOf(Col.hex(0xC06A1A), Pal.GOLD, Col.hex(0x8A3A5A)) else intArrayOf(Pal.GERANIUM, Pal.GOLD, Col.hex(0xFFFFFF), Col.hex(0xE070B0))
+            val cols = if (daffodils && env.month in 3..4) intArrayOf(Col.hex(0xF6D23A), Col.hex(0xF8E68A), Col.hex(0xE8A830)) else if (env.season == Season.AUTUMN) intArrayOf(Col.hex(0xC06A1A), Pal.GOLD, Col.hex(0x8A3A5A)) else intArrayOf(Pal.GERANIUM, Pal.GOLD, Col.hex(0xFFFFFF), Col.hex(0xE070B0))
             for (k in 0 until 12) { val x = cx - 13 + k * 2 + (k % 2); val y = by - 10 - (k % 3); c.set(x, y, cols[k % cols.size]); if (k % 3 == 0) c.set(x, y - 1, cols[k % cols.size]) }
             return
         }
@@ -3043,7 +3338,7 @@ internal class SquarePainter : VistaPainter() {
             val n = Noise.rnd(x / 2, y / 2, 101)
             c.set(x, y, if (y < by - 8 * m && n < 0.6f) Pal.LEAF else if (n < 0.3f) Pal.LEAF else if (n < 0.65f) leafM else leafD)
         }
-        val cols = if (env.season == Season.AUTUMN) intArrayOf(Col.hex(0xC06A1A), Pal.GOLD, Col.hex(0x8A3A5A)) else intArrayOf(Pal.GERANIUM, Pal.GOLD, Col.hex(0xFFFFFF), Col.hex(0xE070B0))
+        val cols = if (daffodils && env.month in 3..4) intArrayOf(Col.hex(0xF6D23A), Col.hex(0xF8E68A), Col.hex(0xE8A830)) else if (env.season == Season.AUTUMN) intArrayOf(Col.hex(0xC06A1A), Pal.GOLD, Col.hex(0x8A3A5A)) else intArrayOf(Pal.GERANIUM, Pal.GOLD, Col.hex(0xFFFFFF), Col.hex(0xE070B0))
         for (i in 0 until 12) {
             val fx = cx + (-13 + i * 2 + (i % 2)) * m + m / 2; val fy = by + (-10 - (i % 3)) * m + m / 2
             val pc = cols[i % cols.size]

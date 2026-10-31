@@ -833,6 +833,134 @@ internal abstract class VistaPainter : ArtPainter() {
     }
 
     /**
+     * The Lake District's fells far off, as a hill's [ridge] texture (its look; docs/plans/05-built/places-lakeland.md): the
+     * intake fields low down, each walled with dry-stone walls running along the contours and up the slope (grey lines); above
+     * them the open fell, grass with bracken in patches (green in summer, russet from October), grey crags and scree high up;
+     * snow on the tops in winter. Laid out in the scene canvas's pixels, so every detail shows the same walls, finer.
+     */
+    protected fun fellSlope(x: Int, y: Int, below: Int, seed: Int): Int {
+        val season = env.season
+        val k = detail
+        val sx = (x - ox) / k.toFloat(); val sy = y / k.toFloat(); val sb = below / k.toFloat()
+        val dither = Dither.at(x, y) < 0.5f
+        val wall = if (season == Season.WINTER) Col.hex(0x8A929A) else Col.hex(0x9AA0A4)
+        // the intake: walled fields below the fell wall, a few canvas rows down the hill
+        if (sb > 3.2f) {
+            val u = (sx + sb * 1.2f) / 22f + Noise.v1(sy * 0.12f, seed) * 0.3f
+            val v = sb / 3.6f + Noise.v1(sx * 0.04f, seed + 1) * 0.9f
+            val i = floor(u).toInt(); val j = floor(v).toInt()
+            if (v - j < (if (k == 1) 0.2f else 0.14f) || (u - i) * 22f < (if (k == 1) 0.9f else 0.6f)) return wall
+            val kind = Math.floorMod(Noise.hash(i, j, seed + 2), 5)
+            return when (season) {
+                Season.WINTER -> if (dither && kind == 0) Pal.SNOW_M else Pal.SNOW_L
+                Season.AUTUMN -> if (kind == 0) Col.hex(0x9AA058) else env.grass[if (dither) 0 else 1]
+                Season.SUMMER -> if (kind == 0) Pal.HAY_L else if (kind == 3) Col.hex(0x5E9A48) else env.grass[if (dither) 0 else 1]
+                else -> if (kind == 2) Col.hex(0x92C466) else env.grass[if (dither) 0 else 1]
+            }
+        }
+        // the fell wall along the intake's top
+        if (sb > 2.7f) return wall
+        // the open fell: crags and scree near the top, bracken in patches, a wall climbing straight up now and then
+        val climb = Math.floorMod(floor((sx + sb * 0.3f) / 31f).toInt(), 3) == 0 && abs(((sx + sb * 0.3f) % 31f) - 15f) < 0.5f
+        if (climb && season != Season.WINTER) return wall
+        val crag = sb < 1.4f && Noise.v2(sx * 0.25f, sy * 0.5f, seed + 3) > 0.62f
+        if (crag) return if (season == Season.WINTER) Col.hex(0x9AA4B0) else if (dither) Col.hex(0x8A9096) else Col.hex(0x747A82)
+        if (season == Season.WINTER) return if (sb < 2f || Noise.v2(sx * 0.2f, sy * 0.4f, seed + 4) > 0.4f) Pal.SNOW_L else Col.hex(0x8A7A62)
+        val bracken = Noise.v2(sx * 0.12f, sy * 0.3f, seed + 5) > 0.55f
+        return when {
+            bracken && season == Season.AUTUMN -> if (dither) Col.hex(0xB0602E) else Col.hex(0x9A5228)
+            bracken -> if (dither) Col.hex(0x5A9A3E) else Col.hex(0x4E8A36)
+            season == Season.AUTUMN -> Col.hex(0x9A9A5A)
+            else -> if (dither) Col.hex(0x7AA85A) else Col.hex(0x6E9A50)
+        }
+    }
+
+    /**
+     * A Lake District house far off ([style]'s colours, the fire's village's: [FireStyle]): a block of grey stone or whitewash
+     * [ww] × [hh] picture px with its foot at row [base] from column [x], its right side in shade, a steep roof of blue-grey
+     * slate over it, white window frames (lit at night), no shutters, a round chimney at each gable end.
+     */
+    protected fun farSlateHouse(x: Int, base: Int, ww: Int, hh: Int, style: FireStyle, i: Int, lit: Boolean, haze: Float) {
+        val k = detail
+        val wallT = style.walls[Math.floorMod(i, style.walls.size)]
+        val wall = env.lit(Col.mix(wallT[0], env.skyHorizon, haze)); val wallD = env.lit(Col.mix(wallT[2], env.skyHorizon, haze))
+        val roofL = env.lit(Col.mix(if (env.snow) Pal.SNOW_L else style.roof[0], env.skyHorizon, haze))
+        val roof = env.lit(Col.mix(if (env.snow) Pal.SNOW_M else style.roof[1], env.skyHorizon, haze))
+        val roofD = env.lit(Col.mix(if (env.snow) Pal.SNOW_D else style.roof[2], env.skyHorizon, haze))
+        val frame = env.lit(Col.mix(Col.hex(0xF4F4EE), env.skyHorizon, haze))
+        c.fillRect(x, base - hh, ww, hh, wall)
+        c.fillRect(x + ww - max(1, k), base - hh, max(1, k), hh, wallD)
+        // the stone's courses closer up, on a grey house
+        if (k > 1 && style.stone && Math.floorMod(i, style.walls.size) != 1) for (yy in base - hh + 1 until base step max(2, k)) c.hline(x, x + ww - 2, yy, wallD)
+        // the roof: steeper than the coppi's, the slates' courses across it
+        val rows = max(2, 2 * k + 1)
+        for (j in 0 until rows) {
+            val a = x - k / 2 + j / 2; val b = x + ww + k / 2 - 1 - j / 2
+            if (a > b) break
+            for (xx in a..b) c.set(xx, base - hh - 1 - j, when {
+                j == 0 -> roofD
+                env.snow -> roof
+                k > 1 && j % 2 == 0 -> roofD
+                (xx - x) % 4 == 0 && j == rows - 1 -> roofL
+                else -> roof
+            })
+        }
+        // windows in white frames, lit at night
+        val glass = if (lit) Pal.WINDOW_LIT else env.lit(Pal.GLASS)
+        val nWin = max(1, (ww / k - 1) / 3)
+        for (wi in 0 until nWin) {
+            val wx = x + k + wi * 3 * k
+            if (wx + k > x + ww - k) break
+            if (k > 1) c.fillRect(wx - 1, base - hh + k - 1, k + 2, k + 2, frame)
+            c.fillRect(wx, base - hh + k, k, k, if (lit && (i + wi) % 2 == 0) Pal.WINDOW_LIT else glass)
+        }
+        if (k > 1) c.fillRect(x + ww / 2, base - k - k / 2, max(1, k - 1), k + k / 2, env.lit(Col.mix(Pal.DOOR, env.skyHorizon, haze)))
+        // the round chimneys at both gable ends
+        for (chx in intArrayOf(x, x + ww - max(1, k))) c.fillRect(chx, base - hh - rows - k, max(1, k), k + 1, wallD)
+    }
+
+    /**
+     * A Lake District church far off ([style]'s colours): the nave of grey stone under slate, its long side to us, and at its
+     * west end the square tower with its battlements, a louvred opening for the bell under them, a narrow window lower down.
+     * [cx] is the tower's middle column, [base] its foot's row; [tall] its height in scene px. Returns where its bell hangs
+     * (picture px), for the evening bell's rings.
+     */
+    protected fun farTowerChurch(cx: Int, base: Int, style: FireStyle, lit: Boolean, haze: Float, tall: Int = 16): FloatArray {
+        val k = detail
+        fun far(col: Int, more: Float = 0f) = env.lit(Col.mix(col, env.skyHorizon, haze + more))
+        val st = far(style.towerWall[0]); val stM = far(style.towerWall[1]); val stD = far(style.towerWall[2])
+        val roof = far(if (env.snow) Pal.SNOW_M else style.roof[1]); val roofD = far(if (env.snow) Pal.SNOW_D else style.roof[2])
+        val glass = if (lit) Pal.WINDOW_LIT else env.lit(Pal.GLASS)
+        // the nave to the right of the tower, its long side to us, the slate roof over it
+        val nx = cx + 2 * k; val nw = 10 * k; val nh = 5 * k
+        c.fillRect(nx, base - nh, nw, nh, stM)
+        c.fillRect(nx + nw - k, base - nh, k, nh, stD)
+        for (j in 0 until 2 * k) c.hline(nx - k / 2 + j / 2, nx + nw - 1 + k / 2 - j / 2, base - nh - 1 - j, if (j == 0) roofD else roof)
+        for (wi in 0 until 3) { val wx = nx + 2 * k + wi * 3 * k; c.fillRect(wx, base - nh + k, max(1, k / 2 + 1), 2 * k, glass) }
+        // the tower: square, its battlements
+        val tw = 4 * k
+        val tl = cx - tw / 2
+        val top = base - tall * k
+        for (y in max(top, c.top) until min(base, c.bottom)) for (x in max(tl, c.left) until min(tl + tw, c.right)) {
+            var col = if (x >= tl + tw - k) stD else if (x < tl + k / 2 + 1 && k > 1) st else stM
+            if (k > 1 && (base - y) % (k + 1) == 0 && Noise.rnd(x / 2, (base - y) / max(1, k), 43) < 0.5f) col = Col.mix(col, stD, 0.5f)
+            c.set(x, y, col)
+        }
+        // the merlons on top: three teeth across the front, the gaps between them sky
+        val mh = max(1, k)
+        for (m in 0 until 3) {
+            val mx = tl + m * (tw - k) / 2
+            c.fillRect(mx, top - mh, max(1, k), mh, if (m == 2) stD else st)
+        }
+        // the louvred opening for the bell, a narrow window under it
+        val bt = top + 2 * k
+        c.fillRect(cx - k / 2, bt, max(1, k), 2 * k, far(Col.hex(0x241E1C)))
+        if (k > 1) for (yy in bt until bt + 2 * k step 2) c.hline(cx - k / 2, cx + k / 2 - 1, yy, stD)
+        c.fillRect(cx - k / 4, base - 5 * k, max(1, k / 2), 2 * k, glass)
+        return floatArrayOf(cx.toFloat(), (bt + k).toFloat())
+    }
+
+    /**
      * A village's house far off as Friuli builds it ([style]'s colours, the fire's village's: [FireStyle]): a plastered
      * block [ww] × [hh] picture px with its foot at row [base] from column [x], its right side in shade, a low coppi roof
      * running in channels down from its ridge, shutters by its windows (lit at night), a chimney.

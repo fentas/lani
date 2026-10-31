@@ -101,6 +101,7 @@ internal class PalisadePainter : VistaPainter() {
     private fun readLook2() {
         friuli = variant("land") == "friuli"
         kaernten = variant("land") == "kaernten"
+        fells = variant("land") == "fells"
         cramar = variant("pedlar") == "cramar"
     }
 
@@ -110,6 +111,13 @@ internal class PalisadePainter : VistaPainter() {
      * round the church with its onion dome; the mountains behind higher and sharper, the Karawanken.
      */
     private var kaernten = false
+
+    /**
+     * The Lake District's land beyond the gate ([look]; docs/plans/05-built/places-lakeland.md): the fells, the far ones
+     * rounded and grey-green with a cairn on the highest, the near ones walled with dry-stone walls up their intake fields,
+     * bracken and grey crags higher up ([fellSlope]), a hamlet of slate houses round a battlemented tower on the hill.
+     */
+    private var fells = false
 
     private fun gateOpen(): Float = fx("gate") ?: if (env.dark > 0.55f) 0f else 1f
     private fun torchLit(): Boolean = lv >= 2 && (fx("torch")?.let { it > 0.5f } ?: (env.windows > 0.35f))
@@ -133,13 +141,17 @@ internal class PalisadePainter : VistaPainter() {
         readLook2()
         val z = z
         vistaSky(4, 71, moonX = ox + 190 * z, moonY = oy + 12 * z)
-        // the far mountains (in Carinthia the Karawanken, higher and sharper, grey limestone)
+        // the far mountains (in Carinthia the Karawanken, higher and sharper, grey limestone; in the Lake District the fells,
+        // rounded, a cairn on the highest)
         val far = if (kaernten) ridge(hz.toFloat() - 8f * z, 26f * z, 0.019f, 711, Col.hex(0x8A96A4), 0.5f, snowLine = 0.62f)
-        else ridge(hz.toFloat() - 6f * z, 16f * z, 0.011f, 711, Col.hex(0x6A86A2), 0.55f, snowLine = 0.7f)
-        treeline(far, 5 * z, 2.4f * z, Col.hex(0x56728E), 0.5f, 712)
+            else if (fells) ridge(hz.toFloat() - 16f * z, 26f * z, 0.009f, 711, Col.hex(0x6E8A7A), 0.5f, snowLine = 0.7f) { x, y, below -> fellSlope(x, y, below / 3, 716) }
+            else ridge(hz.toFloat() - 6f * z, 16f * z, 0.011f, 711, Col.hex(0x6A86A2), 0.55f, snowLine = 0.7f)
+        if (fells) cairn(far) else treeline(far, 5 * z, 2.4f * z, Col.hex(0x56728E), 0.5f, 712)
         thing("hills", outline = 0) {
-            val mid = ridge(hz.toFloat() - 1f * z, 9f * z, 0.02f, 713, Col.hex(0x587E52), 0.32f)
+            val mid = if (fells) ridge(hz.toFloat() - 7f * z, 14f * z, 0.018f, 713, Col.hex(0x587E52), 0.32f) { x, y, below -> fellSlope(x, y, below, 714) }
+                else ridge(hz.toFloat() - 1f * z, 9f * z, 0.02f, 713, Col.hex(0x587E52), 0.32f)
             if (friuli) farVillage(mid) else if (kaernten) farVillageKaernten(mid)
+            if (fells) fellHamlet(mid)
         }
         // the land from the forest to our feet: the meadow beyond the stakes, the trodden ground inside
         c.penId = 0
@@ -224,6 +236,30 @@ internal class PalisadePainter : VistaPainter() {
         for (k in 0 until 3) if (k == 1) spruce(road(34f + k * 10f) - 3.6f, 34f + k * 10f, 14f, 781 + k) else larch(road(34f + k * 10f) - 3.6f, 34f + k * 10f, 12f, 781 + k)
         larch(11f, 44f, 12f, 791); spruce(15.5f, 46f, 13f, 792)
     }
+    /** The cairn on the highest of the far fells ([fells]): a little heap of grey stones on the crest. */
+    private fun cairn(crest: IntArray) {
+        val z = z
+        var top = ox + 40 * z
+        for (x in max(0, ox + 20 * z) until min(w, ox + 200 * z)) if (crest[x] < crest[top.coerceIn(0, w - 1)]) top = x
+        if (top !in 0 until w) return
+        val y = crest[top]
+        val col = env.lit(Col.mix(Col.hex(0x8A9096), env.skyHorizon, 0.45f))
+        for (j in 0 until 2 * z) c.hline(top - z + j / 2, top + z - j / 2, y - j, col)
+    }
+
+    /** A hamlet of the fells on the near hill ([fells]): slate houses of grey stone and whitewash, a church with its battlemented tower. */
+    private fun fellHamlet(crest: IntArray) {
+        val z = z
+        val st = FireStyle.of("lakeland", frame.world.landscape)
+        val lit = env.windows > 0.35f
+        for (i in 0 until 4) {
+            val hx = ox + (28 + i * 9) * z
+            if (hx < 0 || hx >= w) continue
+            farSlateHouse(hx, crest[hx] + 5 * z + (i % 2) * z, 5 * z, 3 * z, st, i, lit, 0.32f)
+        }
+        val cx = ox + 50 * z
+        if (cx in 0 until w) farTowerChurch(cx, crest[cx] + 4 * z, st, lit, 0.32f, tall = 9)
+    }
 
     /** Lombardy poplars along the road beyond the gate, mulberries with the vines between them on the meadow (Friuli's look). */
     private fun friuliTrees() {
@@ -299,7 +335,8 @@ internal class PalisadePainter : VistaPainter() {
             val d = forestD + row * 14f + Noise.rnd(k, 772 + row) * 8f
             if (abs(x - road(d)) < 3.2f) continue
             val ht = 15f + Noise.rnd(k, 773 + row) * 9f
-            if (Noise.rnd(k, 774 + row) < 0.55f) spruce(x, d, ht, 775 + k + row * 40) else leafyTree(x, d, ht * 0.85f, 776 + k + row * 40)
+            // the Lake District's woods are oak and birch ([fells]): broadleaves only, lower
+            if (!fells && Noise.rnd(k, 774 + row) < 0.55f) spruce(x, d, ht, 775 + k + row * 40) else leafyTree(x, d, ht * (if (fells) 0.7f else 0.85f), 776 + k + row * 40)
         }
     }
 

@@ -131,6 +131,18 @@ internal class ApiaryPainter : DioramaPainter() {
     private var friuli = false
     private var sign = false
     private var boxHive = false
+
+    /**
+     * The Lake District's bee garden ([look]; docs/plans/05-built/places-lakeland.md): Friuli's build of a shed with its hives
+     * on tiers ([friuli] is set for it too), but of the dale's slate stone under slate ([lake]), with two bee boles in its
+     * end wall, arched recesses with a straw skep in each, from its second level; the hives white WBC hives, their lifts
+     * stepping out one over another under a little pitched roof, and the hive apart one of them ([wbc]); Arthur's sign by the
+     * path a green board with HONEY in white ([honeySign]); dark amber heather honey in the jars ([heather]).
+     */
+    private var lake = false
+    private var wbc = false
+    private var honeySign = false
+    private var heather = false
     private var acacia = false
     private var paleHoney = false
     private var bunting2 = false
@@ -151,9 +163,13 @@ internal class ApiaryPainter : DioramaPainter() {
 
     private fun readLevel() {
         lv = frame.world.level(si.lanisce.lani.game.BuildingType.BEEHIVE).coerceIn(1, 5)
-        friuli = variant("house") == "friuli"
-        sign = variant("panel") == "sign"
-        boxHive = variant("hive") == "box"
+        lake = variant("house") == "boles"
+        friuli = variant("house") == "friuli" || lake
+        honeySign = variant("panel") == "honey"
+        sign = variant("panel") == "sign" || honeySign
+        wbc = variant("hive") == "wbc"
+        boxHive = variant("hive") == "box" || wbc
+        heather = variant("honey") == "heather"
         acacia = variant("tree") == "acacia"
         paleHoney = variant("honey") == "acacia"
         bunting2 = variant("bunting") == "friuli"
@@ -513,8 +529,9 @@ internal class ApiaryPainter : DioramaPainter() {
             val top = e + (r - e) * (1f - abs(y - ry) / (ry - ryb))
             when {
                 z > top -> 0
-                z > e - 0.4f && z < e + 0.2f -> COP_D
+                z > e - 0.4f && z < e + 0.2f -> if (lake) Lakeland.ROOF_D else COP_D
                 y < hy0 + 0.3f || y > hy1 - 0.3f -> quoin(y, z, px, py, 0.8f)
+                lake -> bole(y, z) ?: cobbleAt(y, z, px, py, 0.8f)
                 else -> cobbleAt(y, z, px, py, 0.8f)
             }
         }
@@ -534,10 +551,30 @@ internal class ApiaryPainter : DioramaPainter() {
             }
         }
         // the gable's bargeboards along the roof's right edge
-        val barge = if (friuli && !boards) COP_D else woodD
+        val barge = if (friuli && !boards) (if (lake) Lakeland.ROOF_D else COP_D) else woodD
         rodIso(rx1, ryf, e - 0.3f, rx1, ry, r - 0.3f, barge)
         rodIso(rx1, ry, r - 0.3f, rx1, ryb, e - 0.3f, barge)
-        rodIso(rx0, ry, r + 0.2f, rx1, ry, r + 0.2f, if (friuli && !boards) COP_D else woodX)
+        rodIso(rx0, ry, r + 0.2f, rx1, ry, r + 0.2f, if (friuli && !boards) (if (lake) Lakeland.ROOF_D else COP_D) else woodX)
+    }
+
+    /**
+     * A bee bole in the Lake District's end wall ([lake]) at [y] along it and [z] up: two arched recesses side by side, dark
+     * inside, a straw skep sitting in each; null beside them (the wall).
+     */
+    private fun bole(y: Float, z: Float): Int? {
+        for (cy in floatArrayOf(hy0 + (hy1 - hy0) * 0.32f, hy0 + (hy1 - hy0) * 0.68f)) {
+            val dy = (y - cy) * 4.47f
+            val z0 = ft + 1.0f; val spring = ft + 3.6f; val r = 1.25f
+            if (abs(dy) > r + 0.35f || z < z0 - 0.3f || z > spring + r + 0.35f) continue
+            val inside = abs(dy) < r && z > z0 && (z < spring || sqrt(dy * dy + (z - spring) * (z - spring)) < r)
+            if (!inside) return if (z < z0) Col.hex(0xB0B4B4) else Col.hex(0x8E9498)
+            // the skep in it: a dome of coiled straw on the sill, dark behind
+            val sv = (z - z0) / 2.6f
+            val half = r * 0.92f * sqrt(max(0f, 1f - sv * sv * sv))
+            if (abs(dy) < half && sv < 1f) return if (((z - z0) * 2.4f) % 1f < 0.22f) strawD else if (dy < -half * 0.4f) strawL else straw
+            return Col.hex(0x1E1A16)
+        }
+        return null
     }
 
     /** The roof of boards before the shingles (or the coppi): boards down the slope, a batten across, snow in winter. */
@@ -554,6 +591,17 @@ internal class ApiaryPainter : DioramaPainter() {
      */
     private fun coppo(x: Float, u: Float, px: Int, py: Int): Int {
         if (winter && (u > 0.1f || Noise.rnd(px, py, 45) < 0.7f)) return if (Dither.at(px, py) < 0.8f) Pal.SNOW_L else Pal.SNOW_M
+        if (lake) {
+            // the Lake District's slate: courses across the slope, staggered, each course's lower edge dark
+            val r = floor(u * 8f).toInt(); val fr = u * 8f - r
+            val a = x / 0.42f + (r and 1) * 0.5f; val fa = a - floor(a)
+            return when {
+                fr < 0.16f -> Lakeland.ROOF_D
+                fa < (if (fine) 0.05f else 0.08f) -> Lakeland.ROOF_D
+                Noise.rnd(floor(a).toInt(), r, 146) < 0.22f -> Lakeland.ROOF_L
+                else -> Lakeland.ROOF_M
+            }
+        }
         val r = floor(u * 6f).toInt(); val fr = u * 6f - r
         val a = x / 0.34f; val col = floor(a).toInt(); val fa = a - col
         val cover = (col and 1) == 0
@@ -574,6 +622,7 @@ internal class ApiaryPainter : DioramaPainter() {
      * each lit at its upper left, two courses of brick through them every few courses ([brick]); [light] dims the face.
      */
     private fun cobbleAt(a: Float, z: Float, px: Int, py: Int, light: Float): Int {
+        if (lake) return Col.scale(Lakeland.slateStone(a, z, px, py, fine), light)
         val period = 6.6f
         val k = floor(z / period); val band = z - k * period
         var col = if (band < 1.5f) brick(a, band, px, py) else {
@@ -601,6 +650,12 @@ internal class ApiaryPainter : DioramaPainter() {
 
     /** Brick in courses at [a] cells along and [z] px up: long bricks, staggered, in pale mortar. */
     private fun brick(a: Float, z: Float, px: Int, py: Int): Int {
+        if (lake) {
+            // the Lake District's dressed stone for the brick: lighter grey blocks, long and short, dark joints
+            val course = floor(z / 0.9f).toInt(); val fz = z - course * 0.9f
+            val u = a / 0.62f + (course and 1) * 0.5f; val fa = u - floor(u)
+            return if (fz < 0.14f || fa < (if (fine) 0.06f else 0.1f)) Col.hex(0x50565C) else if (Noise.rnd(floor(u).toInt(), course, 176) < 0.4f) Col.hex(0xB8BCBC) else Col.hex(0xA4AAAC)
+        }
         val bh = 0.75f
         val course = floor(z / bh).toInt(); val fz = z - course * bh
         val u = a / 0.48f + (course and 1) * 0.5f; val b = floor(u).toInt(); val fa = u - b
@@ -764,6 +819,7 @@ internal class ApiaryPainter : DioramaPainter() {
         val xa = hiveX0 + s * hiveW + 0.08f; val xb = xa + 0.86f
         val yb = hf - 0.85f; val yf = hf + 0.1f
         val z0 = tierBase(t); val z1 = z0 + F_BODY
+        if (lake) { wbcAt(xa, xb, yb, yf, z0, z1); return }
         val col = BOX_COLOURS[Math.floorMod(Noise.hash(t, s, 147), BOX_COLOURS.size)]
         val lt = Col.mix(col, Col.hex(0xFFFFFF), 0.3f); val dk = Col.scale(col, 0.8f)
         val number = t * hives + s + 1
@@ -785,6 +841,40 @@ internal class ApiaryPainter : DioramaPainter() {
             { x, y -> if (winter && Noise.rnd((x * 30).toInt(), (y * 30).toInt(), 148) < 0.85f) Pal.SNOW_L else TIN_L })
         // the landing board
         block(xa + 0.12f, yf, xb - 0.12f, yf + 0.24f, z0, z0 + 0.2f, { _, _ -> woodL }, { _, _ -> woodD }, { _, _ -> woodL })
+    }
+
+    /**
+     * A white WBC hive from ([xa], [yb]) to ([xb], [yf]), [z0] to [z1] (the Lake District's, [lake]): its plinth and legs dark,
+     * the white lifts stepping out one over another, each lit along its top edge and in shadow under it, the entrance dark at
+     * its foot over the landing board, the little pitched roof on top, snow on it in winter.
+     */
+    private fun wbcAt(xa0: Float, xb0: Float, yb: Float, yf: Float, z0: Float, z1: Float) {
+        // a hand's breadth between one hive and the next
+        val xa = xa0 + 0.1f; val xb = xb0 - 0.1f
+        val white = Col.hex(0xF6F4EC); val whiteL = Col.hex(0xFFFFFF); val whiteD = Col.hex(0xC8C4B8); val side = Col.hex(0xB8B4A8)
+        block(xa + 0.06f, yb + 0.06f, xb - 0.06f, yf - 0.06f, z0, z0 + 0.5f, { _, _ -> Col.hex(0x5A5048) }, { _, _ -> Col.hex(0x3E362E) }, { _, _ -> Col.hex(0x5A5048) })
+        val lifts = 3; val lh = (z1 - z0 - 0.5f) / lifts
+        for (i in 0 until lifts) {
+            val la = z0 + 0.5f + i * lh; val lb = la + lh
+            val out = 0.06f * (lifts - i) // the lower lifts a little wider: the WBC's stepped look
+            block(xa - out, yb - out, xb + out, yf + out, la, lb, { x, z ->
+                val u = (x - xa + out) / (xb - xa + 2 * out)
+                when {
+                    i == 0 && z < la + 0.45f && z > la + 0.12f && abs(u - 0.5f) < 0.32f -> Col.hex(0x1A120C)
+                    z > lb - 0.18f -> whiteL
+                    z < la + 0.12f -> whiteD
+                    u < 0.06f -> whiteL
+                    else -> white
+                }
+            }, { _, _ -> side }, { _, _ -> white })
+        }
+        // the roof: a low gable along the hive, its ridge dark
+        val roofC = Col.hex(0xDCDCD6); val roofD = Col.hex(0xA8A8A4)
+        block(xa - 0.12f, yb - 0.12f, xb + 0.12f, yf + 0.12f, z1, z1 + F_LID * 0.6f, { _, _ -> roofC }, { _, _ -> roofD }, { x, y -> if (winter && Noise.rnd((x * 30).toInt(), (y * 30).toInt(), 148) < 0.85f) Pal.SNOW_L else roofC })
+        iso.line((xa + xb) / 2f, yb - 0.12f, z1 + F_LID, (xa + xb) / 2f, yf + 0.12f, z1 + F_LID, Col.hex(0x6A6A70))
+        iso.line(xa - 0.12f, yf + 0.12f, z1 + F_LID * 0.6f, (xa + xb) / 2f, yf + 0.12f, z1 + F_LID, if (winter) Pal.SNOW_L else whiteD)
+        iso.line((xa + xb) / 2f, yf + 0.12f, z1 + F_LID, xb + 0.12f, yf + 0.12f, z1 + F_LID * 0.6f, if (winter) Pal.SNOW_L else side)
+        block(xa + 0.12f, yf + 0.18f, xb - 0.12f, yf + 0.42f, z0 + 0.5f, z0 + 0.66f, { _, _ -> woodL }, { _, _ -> woodD }, { _, _ -> woodL })
     }
 
     /**
@@ -880,6 +970,7 @@ internal class ApiaryPainter : DioramaPainter() {
         }
         val xa = skepX - 0.38f; val xb = skepX + 0.38f; val yb = skepY - 0.45f; val yf = skepY + 0.38f
         val z1 = z0 + 3.6f
+        if (wbc) { wbcAt(xa, xb, yb, yf, z0, z1); return }
         val col = Col.hex(0x9CC6E6)
         block(xa, yb, xb, yf, z0, z1, { x, z ->
             val u = (x - xa) / (xb - xa)
@@ -1108,6 +1199,7 @@ internal class ApiaryPainter : DioramaPainter() {
             val (hm, hl, hd) = when {
                 chestnut && i == 1 -> Triple(CHESTNUT, CHESTNUT_L, CHESTNUT_D)
                 paleHoney -> Triple(ACACIA_HONEY, ACACIA_HONEY_L, ACACIA_HONEY_D)
+                heather -> Triple(HEATHER_HONEY, HEATHER_HONEY_L, HEATHER_HONEY_D)
                 else -> Triple(honey, honeyL, honeyD)
             }
             c.fillRect(floor(bx - rw).toInt(), floor(by - hh).toInt(), floor(2 * rw).toInt() + 1, floor(hh).toInt(), hm)
@@ -1365,7 +1457,7 @@ internal class ApiaryPainter : DioramaPainter() {
     private fun aldoSign() {
         val bx = iso.sx(signX, signY); val by = iso.sy(signX, signY, 0f)
         val d = detail
-        val text = "MIELE"
+        val text = if (honeySign) "HONEY" else "MIELE"
         val tw = BoardFont.width(text)
         val bw = (tw + 4) * d; val bh = 10 * d
         val x0 = floor(bx - bw / 2f).toInt(); val y0 = floor(by - 12f * K).toInt()
@@ -1376,9 +1468,9 @@ internal class ApiaryPainter : DioramaPainter() {
         }
         // the board in its frame, the letters
         c.fillRect(x0, y0, bw, bh, woodX)
-        c.fillRect(x0 + d, y0 + d, bw - 2 * d, bh - 2 * d, SIGN_YELLOW)
-        c.fillRect(x0 + d, y0 + bh - 2 * d, bw - 2 * d, d, SIGN_YELLOW_D)
-        BoardFont.write(text) { _, x, k, row, _ -> if (row in 0..5) c.fillRect(x0 + (2 + x + k) * d, y0 + (2 + row) * d, d, d, SIGN_INK) }
+        c.fillRect(x0 + d, y0 + d, bw - 2 * d, bh - 2 * d, if (honeySign) SIGN_GREEN else SIGN_YELLOW)
+        c.fillRect(x0 + d, y0 + bh - 2 * d, bw - 2 * d, d, if (honeySign) SIGN_GREEN_D else SIGN_YELLOW_D)
+        BoardFont.write(text) { _, x, k, row, _ -> if (row in 0..5) c.fillRect(x0 + (2 + x + k) * d, y0 + (2 + row) * d, d, d, if (honeySign) SIGN_WHITE else SIGN_INK) }
         if (winter) c.fillRect(x0, y0 - d, bw, d, Pal.SNOW_L)
     }
 
@@ -1414,7 +1506,7 @@ internal class ApiaryPainter : DioramaPainter() {
         val a = pk.age(t)
         val grow = PokeArt.ease(a, 0f, 0.3f) * (1f - PokeArt.ease(a, 2.8f, 3.2f))
         if (grow <= 0.01f) return
-        val motif = if (sign) SIGNS[pk.step.coerceIn(0, SIGNS.lastIndex)] else LOOKS[pk.step.coerceIn(0, LOOKS.lastIndex)]
+        val motif = if (honeySign) LAKE_SIGNS[pk.step.coerceIn(0, LAKE_SIGNS.lastIndex)] else if (sign) SIGNS[pk.step.coerceIn(0, SIGNS.lastIndex)] else LOOKS[pk.step.coerceIn(0, LOOKS.lastIndex)]
         val pw = 30f * K * grow; val ph = 20f * K * grow
         val cx = iso.sx(5.8f, ry).coerceIn(pw / 2f + K, w - pw / 2f - K)
         val cy = (iso.sy(5.8f, ry, ridgeZ) - 8f * K).coerceIn(ph / 2f + K, h - ph / 2f - K)
@@ -1602,21 +1694,23 @@ internal class ApiaryPainter : DioramaPainter() {
         /** Acacia honey, pale and clear; chestnut honey, dark. */
         private val ACACIA_HONEY = h(0xF2D672); private val ACACIA_HONEY_L = h(0xFFF0B0); private val ACACIA_HONEY_D = h(0xD8B44C)
         private val CHESTNUT = h(0x8A4616); private val CHESTNUT_L = h(0xB4682A); private val CHESTNUT_D = h(0x5A2C0C)
+        /** The Lake District's heather honey, dark amber with a red glow. */
+        private val HEATHER_HONEY = h(0xA8581C); private val HEATHER_HONEY_L = h(0xD08A3A); private val HEATHER_HONEY_D = h(0x6E3410)
 
         /** Aldo's sign: its yellow board, the lower edge's shade, the brown letters. */
         private val SIGN_YELLOW = h(0xF2C644); private val SIGN_YELLOW_D = h(0xD2A430); private val SIGN_INK = h(0x5A3212)
 
         /** A sign up close ([W] × [H] cells of the board): [text] across its top, [deco] painted under it (null: the board). */
-        private fun signMotif(text: String, deco: (Float, Float) -> Int?): (Float, Float) -> Int {
+        private fun signMotif(text: String, deco: (Float, Float) -> Int?, board: Int = SIGN_YELLOW, boardD: Int = SIGN_YELLOW_D, ink: Int = SIGN_INK): (Float, Float) -> Int {
             val wCells = 36f; val hCells = 24f
             val tw = BoardFont.width(text)
-            val ink = BooleanArray(tw * 6)
-            BoardFont.write(text) { _, x, k, row, _ -> if (row in 0..5 && x + k < tw) ink[(x + k) * 6 + row] = true }
+            val inked = BooleanArray(tw * 6)
+            BoardFont.write(text) { _, x, k, row, _ -> if (row in 0..5 && x + k < tw) inked[(x + k) * 6 + row] = true }
             val ox = floor((wCells - tw) / 2f).toInt()
             return { u, v ->
                 val gx = floor(u * wCells).toInt() - ox; val gy = floor(v * hCells).toInt() - 2
-                if (gy in 0..5 && gx in 0 until tw && ink[gx * 6 + gy]) SIGN_INK
-                else deco(u, v) ?: if (v > 0.94f) SIGN_YELLOW_D else SIGN_YELLOW
+                if (gy in 0..5 && gx in 0 until tw && inked[gx * 6 + gy]) ink
+                else deco(u, v) ?: if (v > 0.94f) boardD else board
             }
         }
 
@@ -1658,5 +1752,24 @@ internal class ApiaryPainter : DioramaPainter() {
 
         /** What a tap on Aldo's sign brings up close, one after another: his honey, acacia, chestnut. */
         private val SIGNS: List<(Float, Float) -> Int> = listOf(signMotif("MIELE", potDeco), signMotif("ACACIA", acaciaDeco), signMotif("CASTAGNO", chestnutDeco))
+
+        /** Arthur's sign in the Lake District ([honeySign]): green, its letters white. */
+        private val SIGN_GREEN = h(0x2E6A42); private val SIGN_GREEN_D = h(0x1E4E30); private val SIGN_WHITE = h(0xF6F4EC)
+
+        /** Heather in flower: purple sprigs on their stems, as the fells have it in August. */
+        private val heatherDeco: (Float, Float) -> Int? = { u, v ->
+            var col: Int? = null
+            for (k in 0 until 4) {
+                val cu = 0.24f + k * 0.17f
+                if (abs(u - cu - (v - 0.8f) * 0.1f) < 0.008f && v in 0.5f..0.88f) col = h(0x5A6A3A)
+                for (q in 0 until 5) if (ell(u, v, cu + (if (q % 2 == 0) -0.02f else 0.02f), 0.5f + q * 0.05f, 0.02f, 0.022f)) col = if ((q + k) % 2 == 0) h(0xB06AB8) else h(0x8A4A96)
+            }
+            col
+        }
+
+        /** What a tap on Arthur's sign brings up close, one after another: his honey, the heather. */
+        private val LAKE_SIGNS: List<(Float, Float) -> Int> = listOf(
+            signMotif("HONEY", potDeco, SIGN_GREEN, SIGN_GREEN_D, SIGN_WHITE), signMotif("HEATHER", heatherDeco, SIGN_GREEN, SIGN_GREEN_D, SIGN_WHITE),
+        )
     }
 }

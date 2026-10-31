@@ -65,6 +65,13 @@ internal class AtticPainter : RoomPainter() {
      * walnut ([readLook]); the Collio through the gable window.
      */
     private var coppi = false
+
+    /**
+     * The Lake District's look (docs/plans/05-built/places-lakeland.md): the attic under slate, at level 1 the grey-blue slates'
+     * undersides between the battens, overlapping in rows, a pale chink of light here and there ([slate]); the boards from
+     * level 2 as ever; the wardrobe and the chest of oak ([readLook]: "cupboard" "oak"); the fells through the gable window.
+     */
+    private var slate = false
     private var maize = false
 
     /**
@@ -132,6 +139,7 @@ internal class AtticPainter : RoomPainter() {
         vignette()
         lv = frame.world.hereLevel.coerceIn(1, 5)
         readLook()
+        slate = variant("roof") == "slate"
         coppi = variant("roof") == "coppi"; maize = variant("maize") != null; shingles = variant("roof") == "shingles"; kletzen = variant("drying") == "kletzen"; scarpets = variant("slippers") == "scarpets"
         // the lamp: as a dialog has it, else lit from dusk, and put out for anyone asleep
         val lit = (fx("lamp")?.let { it > 0.5f } ?: (env.windows > 0.35f && !asleepHere)) && there("lamp")
@@ -273,6 +281,22 @@ internal class AtticPainter : RoomPainter() {
                         tone < 0.35f -> Col.hex(0x6E5A48)
                         tone > 0.8f -> Col.hex(0x8E7660)
                         else -> if (Dither.at(px, py) < 0.25f) Col.hex(0x6A5644) else Col.hex(0x7C6652)
+                    }
+                }
+                slate && !lined -> {
+                    // the slates from below: their grey-blue undersides in rows down the slope, each row's lower edge darker
+                    // where the next overlaps it, the battens across, a chink of light between two slates
+                    val batten = along * 12f - floor(along * 12f) < 0.2f
+                    val row = floor(along * 12f).toInt()
+                    val su = (x - x0 + (row % 2) * 0.22f) / 0.44f
+                    val joint = su - floor(su) < 0.08f
+                    val chink = joint && Noise.rnd(floor(su).toInt(), row, 15) < 0.08f && env.dark < 0.5f
+                    when {
+                        batten -> Col.hex(0x7A5232)
+                        chink -> Col.hex(0xFFF0C8)
+                        joint -> Col.hex(0x2E3238)
+                        along * 12f - row > 0.82f -> Col.hex(0x40464E)
+                        else -> when (Math.floorMod(Noise.hash(floor(su).toInt(), row, 173), 3)) { 0 -> Col.hex(0x5A626C); 1 -> Col.hex(0x666E78); else -> Col.hex(0x525A62) }
                     }
                 }
                 lined -> {

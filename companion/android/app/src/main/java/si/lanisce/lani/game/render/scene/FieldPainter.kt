@@ -187,6 +187,17 @@ internal class FieldPainter : WildPainter() {
     /** Friuli's big hay barn (the `toplar`): bunches of maize cobs drying from its tie beams, August to March. */
     private var pannocchie = false
 
+    /**
+     * The Lake District's look (docs/plans/05-built/places-lakeland.md): the stone field barn for the kozolec ([barn]: the
+     * fienile's build in the dale's slate stone under slate, its arched cart door and byre door with stone voussoirs, a row of
+     * through-stones, ventilation slits and an owl hole in the gable for the brick lattices, light quoins at its corners, the
+     * hay in its loft); dry-stone walls for the fences ([drywall]); the fells behind, rounded, with their walled intake fields
+     * and bracken ([fells]); the village on the hill in grey stone under slate round its battlemented tower ([villageStyle]).
+     */
+    private var barn = false
+    private var drywall = false
+    private var fells = false
+
     /** Fruit trees about the fields: side, depth, height (m). */
     private val orchard = listOf(
         Triple(-17f, 44f, 6f), Triple(-13f, 47f, 5.5f), Triple(-21f, 49f, 6f), Triple(14f, 46f, 5.5f), Triple(18f, 50f, 6f),
@@ -203,6 +214,8 @@ internal class FieldPainter : WildPainter() {
         collio = variant("hills") != null
         piantata = variant("trees") != null
         pannocchie = variant("toplar") != null
+        barn = variant("kozolec") == "barn"; drywall = variant("fence") == "drystone"; fells = variant("hills") == "fells"
+        if (fells) collio = false
         villageStyle = if (variant("village") != null) FireStyle.of(frame.world.culture, frame.world.landscape) else null
         vistaSky(5, 13, moonX = ox + 196 * k, moonY = oy + 12 * k)
         farHills()
@@ -303,7 +316,7 @@ internal class FieldPainter : WildPainter() {
         val season = env.season
         val k = detail
         val farCol = if (season == Season.WINTER) Col.hex(0xB0BED6) else Col.hex(0x6474A0)
-        ridge(hz - 12f * k, 26f * k, 0.011f, 51, farCol, 0.32f, snowLine = 0.5f, sharp = true)
+        ridge(hz - 12f * k, 26f * k, 0.011f, 51, if (fells && season != Season.WINTER) Col.hex(0x6A7C8A) else farCol, 0.32f, snowLine = 0.5f, sharp = !fells)
         val midCol = when (season) { Season.WINTER -> Col.hex(0xC6D2E2); Season.AUTUMN -> Col.hex(0x7A7A44); else -> Col.hex(0x4E7A48) }
         val mid = ridge(hz - 8f * k, 12f * k, 0.014f, 53, midCol, 0.2f) { x, y, below -> woods(x, y, below, midCol) }
         treeline(mid, 6 * k, 2.2f * k, if (season == Season.WINTER) Col.hex(0x6A7A8A) else Col.hex(0x2E5A36), 0.28f, 57)
@@ -314,7 +327,7 @@ internal class FieldPainter : WildPainter() {
         val season = env.season
         val k = detail
         val nearCol = when (season) { Season.WINTER -> Col.hex(0xDCE6F2); Season.AUTUMN -> Col.hex(0x9A9448); else -> Col.hex(0x6A9A4E) }
-        val slopes: (Int, Int, Int) -> Int = if (collio) ({ x, y, below -> collioSlope(x, y, below, 77) }) else ({ x, y, below -> slopeFields(x, y, below) })
+        val slopes: (Int, Int, Int) -> Int = if (collio) ({ x, y, below -> collioSlope(x, y, below, 77) }) else if (fells) ({ x, y, below -> fellSlope(x, y, below, 77) }) else ({ x, y, below -> slopeFields(x, y, below) })
         val near = ridge(hz + 2f * k, 11f * k, 0.02f, 59, nearCol, 0.08f, bottom = hz + 9 * k, texture = slopes)
         treeline(near, 5 * k, 2.8f * k, if (season == Season.WINTER) Col.hex(0x5A6A5A) else Col.hex(0x2E5A2E), 0.1f, 61, from = 0, to = (vx - 10 * k).toInt())
         treeline(near, 6 * k, 2.6f * k, if (season == Season.WINTER) Col.hex(0x5A6A5A) else Col.hex(0x2E5A2E), 0.1f, 62, from = (vx + 90 * k).toInt(), to = w)
@@ -322,16 +335,19 @@ internal class FieldPainter : WildPainter() {
         var top = (vx + 30 * k).toInt().coerceIn(0, w - 1)
         for (x in (vx + 10 * k).toInt()..(vx + 70 * k).toInt()) if (x in 0 until w && near[x] < near[top]) top = x
         val st = villageStyle
-        val alpine = st?.tower == Tower.ONION
-        if (st != null && alpine) villageKaernten(near, top, st) else if (st != null) villageFriuli(near, top, st) else village(near, top)
+            val alpine = st?.tower == Tower.ONION
+            if (st != null && alpine) villageKaernten(near, top, st)
+            else if (st != null && st.tower == Tower.BATTLEMENTS) villageLakeland(near, top, st)
+            else if (st != null) villageFriuli(near, top, st) else village(near, top)
         // farmsteads here and there on the slopes
         for (i in 0 until 5) {
             val fx = (ox + Noise.rnd(i, 63) * STAGE_W * k).toInt()
             if (fx !in 4 * k until w - 6 * k || abs(fx - top) < 40 * k) continue
-            val fb = near[fx] + (3 + (Noise.rnd(i, 64) * 3).toInt()) * k
-            if (st != null && alpine) farmsteadKaernten(fx, fb, i, st)
-            else if (st != null) farmsteadFriuli(fx, fb, i, st)
-            else farmstead(fx, fb, i)
+                val fb = near[fx] + (3 + (Noise.rnd(i, 64) * 3).toInt()) * k
+                if (st != null && alpine) farmsteadKaernten(fx, fb, i, st)
+                else if (st != null && st.tower == Tower.BATTLEMENTS) farmsteadLakeland(fx, fb, i, st)
+                else if (st != null) farmsteadFriuli(fx, fb, i, st)
+                else farmstead(fx, fb, i)
         }
     }
 
@@ -550,6 +566,43 @@ internal class FieldPainter : WildPainter() {
             if (k > 1) c.hline(hx - k / 2, hx + 4 * k + k / 2, base - 4 * k - 2, roof)
         }
         farAlpineHouse(x, base, 5 * k, 4 * k, st, seed + 1, lit, 0.12f)
+        c.penEmissive = false
+    }
+
+    /**
+     * The village on the near hill as the Lake District builds it ([villageStyle], [FireStyle]): grey stone and whitewashed
+     * cottages under slate with white window frames, lit at night, smoke from a chimney or two; the church with its square
+     * battlemented tower ([farTowerChurch]), where the evening bell rings from.
+     */
+    private fun villageLakeland(crest: IntArray, cx: Int, st: FireStyle) {
+        val lit = env.windows > 0.35f
+        val k = detail
+        c.penEmissive = true
+        val base = crest[cx.coerceIn(0, w - 1)] + 3 * k
+        for ((i, off) in intArrayOf(-28, -19, -11, 16, 24, 32).withIndex()) {
+            val hx = cx + off * k; if (hx !in 2 * k until w - 8 * k) continue
+            val hw = (6 + (i % 2)) * k; val hh = (if (i % 3 == 1) 5 else 4) * k
+            val hb = min(base + k, crest[hx.coerceIn(0, w - 1)] + 4 * k)
+            farSlateHouse(hx, hb, hw, hh, st, i, lit, 0.15f)
+            if (i % 3 == 0 && env.dark < 0.8f) s.smoke(hx + 0.5f * k, hb - hh - 5f * k, 0.35f, i + 5)
+        }
+        val bell = farTowerChurch(cx - 4 * k, base, st, lit, 0.15f)
+        belfryX = bell[0]; belfryY = bell[1]
+        c.penEmissive = false
+    }
+
+    /** A Lake District farmstead far off ([st]'s colours): the house under its slate, and every other one its stone barn beside it. */
+    private fun farmsteadLakeland(x: Int, base: Int, seed: Int, st: FireStyle) {
+        val k = detail
+        val lit = env.windows > 0.35f
+        c.penEmissive = true
+        if (seed % 2 == 0) {
+            val bx = x + 5 * k
+            c.fillRect(bx, base - 2 * k, 4 * k, 2 * k, far(st.walls[0][1], 0.12f))
+            c.fillRect(bx + k, base - k - k / 2, k, k + k / 2, far(Col.hex(0x2A2220), 0.12f))
+            for (j in 0 until k) c.hline(bx - 1 + j, bx + 4 * k - j, base - 2 * k - 1 - j, far(if (env.snow) Pal.SNOW_M else st.roof[if (j == 0) 2 else 1], 0.1f))
+        }
+        farSlateHouse(x, base, 4 * k, 3 * k, st, seed + 1, lit, 0.12f)
         c.penEmissive = false
     }
 
@@ -934,6 +987,7 @@ internal class FieldPainter : WildPainter() {
 
     /** Fence posts beside the track from depth [d0] to [d1], rails between them. */
     private fun fenceRun(d0: Float, d1: Float) {
+        if (drywall) { wallRun(d0, d1); return }
         if (detail > 1) { fenceRunFine(d0, d1); return }
         var d = d1
         var prev: Pair<Float, Float>? = null
@@ -953,6 +1007,29 @@ internal class FieldPainter : WildPainter() {
             }
             prev = x to d
             d -= 2.6f
+        }
+    }
+
+    /**
+     * The Lake District's dry-stone wall beside the track from depth [d0] to [d1] ([drywall], for the fence): a metre and a
+     * bit high, its grey stones laid dry with dark gaps, the cope stones on edge along its top, snow on it in winter; drawn
+     * from far to near, a column of it a depth step.
+     */
+    private fun wallRun(d0: Float, d1: Float) {
+        val hgt = 1.15f; val half = 0.28f
+        var d = d1
+        while (d >= d0) {
+            val p = pm(d)
+            val x0 = gx(fenceX - half, d); val x1 = gx(fenceX + half, d); val by = gy(d)
+            val top = by - hgt * p
+            for (px in max(floor(x0).toInt(), c.left)..min(floor(x1).toInt(), c.right - 1)) {
+                for (py in max(floor(top).toInt(), c.top)..min(floor(by).toInt(), c.bottom - 1)) {
+                    val hm = (by - (py + 0.5f)) / p
+                    val col = if (env.snow && hm > hgt * 0.8f) Pal.SNOW_L else Lakeland.drystone(d, hm, hgt, 1.6f, px, py, if (px > (x0 + x1) / 2f) 0.86f else 1f)
+                    c.set(px, py, hazy(col, d))
+                }
+            }
+            d -= max(0.04f, 0.6f / p)
         }
     }
 
@@ -1484,6 +1561,12 @@ internal class FieldPainter : WildPainter() {
                 if (hm < 0f) continue
                 val v = dd - d // along the gable end, from its front corner
                 var col = fienileWall(v, hm, FIEN_DEPTH, max(0.025f, 0.6f / pp), px, py)
+                // the Lake District's barn from its third level: stone steps up the gable end to the loft's door
+                if (barn && fBands) {
+                    val stair = v / (FIEN_DEPTH * 0.62f) * FIEN_LOFT
+                    if (v < FIEN_DEPTH * 0.62f && hm < stair && hm > stair - 0.55f) col = if (((hm / 0.22f).toInt() % 2) == 0) Col.hex(0xC8CCCC) else Col.hex(0xA4AAAC)
+                    else if (v in FIEN_DEPTH * 0.64f..FIEN_DEPTH * 0.86f && hm in FIEN_LOFT..FIEN_LOFT + 1.15f) col = if (v < FIEN_DEPTH * 0.66f || v > FIEN_DEPTH * 0.84f || hm > FIEN_LOFT + 1.08f) Pal.WOOD_D else Pal.WOOD_M
+                }
                 // a lattice high in the gable, to air the loft (from the fourth level)
                 if (fLattice && abs(v - FIEN_DEPTH / 2f) < 0.45f && hm in FIEN_EAVE - 0.55f..FIEN_EAVE + 0.35f) col = lattice(v - (FIEN_DEPTH / 2f - 0.45f), hm - (FIEN_EAVE - 0.55f), pp)
                 c.set(px, py, Col.scale(col, 0.8f))
@@ -1525,7 +1608,7 @@ internal class FieldPainter : WildPainter() {
         val hE = FIEN_EAVE - slope * FIEN_OVER
         val xl = xa - FIEN_OVER; val xr = xb + FIEN_OVER
         val yE = hy(dE, hE); val yR = hy(dR, FIEN_RIDGE)
-        val tones = intArrayOf(Col.hex(0xD07A4A), Col.hex(0xB0603A), Col.hex(0x804028))
+        val tones = if (barn) intArrayOf(Lakeland.ROOF_L, Lakeland.ROOF_M, Lakeland.ROOF_D) else intArrayOf(Col.hex(0xD07A4A), Col.hex(0xB0603A), Col.hex(0x804028))
         for (py in max(yR.toInt(), c.top)..min(yE.toInt(), c.bottom - 1)) {
             // the depth on the slope this row looks at
             val dd = (F * (EYE - hE + slope * dE) / ((py + 0.5f - hz) + F * slope)).coerceIn(dE, dR)
@@ -1538,8 +1621,12 @@ internal class FieldPainter : WildPainter() {
                 val f = ch - floor(ch)
                 val course = down * (dR - dE) / 0.42f
                 val fc = course - floor(course)
-                var col = if (f < 0.32f) tones[0] else if (f < 0.72f) tones[1] else tones[2]
-                if (fc > 0.86f && k > 1) col = Col.mix(col, tones[2], 0.55f)
+                var col = if (barn) {
+                    // the slates in courses across the slope, staggered, the lower edge of each course dark
+                    val sl = (x - xl + (floor(course).toInt() % 2) * 0.17f) / 0.34f
+                    if (fc > 0.8f) tones[2] else if (sl - floor(sl) < 0.08f) tones[2] else if (Noise.rnd(floor(sl).toInt(), floor(course).toInt(), 58) < 0.3f) tones[0] else tones[1]
+                } else if (f < 0.32f) tones[0] else if (f < 0.72f) tones[1] else tones[2]
+                if (!barn && fc > 0.86f && k > 1) col = Col.mix(col, tones[2], 0.55f)
                 if (Noise.rnd(floor(ch).toInt(), floor(course).toInt(), 59) < 0.14f) col = Col.mix(col, Col.hex(0x8A7A5A), 0.35f)
                 if (down < 0.05f) col = tones[2] // the ridge's capping
                 if (snow && down < 0.85f) col = if (f > 0.72f) Pal.SNOW_M else Pal.SNOW_L
@@ -1560,7 +1647,7 @@ internal class FieldPainter : WildPainter() {
         c.polyBegin()
         c.polyAdd(gx(xb, dR), hy(dR, FIEN_RIDGE)); c.polyAdd(vx0, vy0); c.polyAdd(vx1, vy1)
         c.polyAdd(gx(xb, d + FIEN_DEPTH), hy(d + FIEN_DEPTH, FIEN_EAVE))
-        c.polyFill(Col.hex(0x4A3022))
+        c.polyFill(if (barn) Col.hex(0x2E3238) else Col.hex(0x4A3022))
         val th = max(1, (0.14f * p).toInt())
         for (j in 0 until th) c.line(vx0.toInt(), vy0.toInt() + j, vx1.toInt(), vy1.toInt() + j, if (snow) Pal.SNOW_M else tones[2])
         val fx0 = gx(xr, dE); val fy0 = hy(dE, hE)
@@ -1572,6 +1659,7 @@ internal class FieldPainter : WildPainter() {
      * the string course, the loft's opening and its lattices, the quoins, else the cobbled wall.
      */
     private fun fienileFront(u: Float, hm: Float, width: Float, gap: Float, px: Int, py: Int, p: Float): Int {
+        if (barn) return barnFront(u, hm, width, gap, px, py)
         // the two arches below, their brick rings (at first only the left one)
         for ((ai, cxu) in floatArrayOf(width * 0.28f, width * 0.72f).withIndex()) {
             if (ai >= fArches) break
@@ -1619,6 +1707,7 @@ internal class FieldPainter : WildPainter() {
      * pale mortar.
      */
     private fun fienileWall(u: Float, hm: Float, span: Float, gap: Float, px: Int, py: Int): Int {
+        if (barn) return barnWall(u, hm, span, px, py)
         // the quoins: long and short bricks in turn up both corners
         val row = floor(hm / 0.2f).toInt()
         val quoin = if (row % 2 == 0) 0.46f else 0.26f
@@ -1657,8 +1746,65 @@ internal class FieldPainter : WildPainter() {
         }
     }
 
+    /**
+     * The Lake District's barn's wall ([barn]) at [u] m along it and [hm] m up ([span] m long): the dale's slate stone in thin
+     * courses, light quoins of bigger dressed stones up both corners from the fourth level.
+     */
+    private fun barnWall(u: Float, hm: Float, span: Float, px: Int, py: Int): Int {
+        val row = floor(hm / 0.3f).toInt()
+        val quoin = if (row % 2 == 0) 0.5f else 0.3f
+        if (fLattice && (u < quoin || u > span - quoin)) {
+            val fr = hm / 0.3f - row
+            return if (fr < 0.12f) Col.hex(0x40464C) else if (fr > 0.82f) Col.hex(0xC4C8C8) else Col.hex(0xA8ACAA)
+        }
+        return Lakeland.slateStone(u * 2.4f, hm * 4.2f, px, py, detail > 1, mortar = fBands)
+    }
+
+    /**
+     * The Lake District's barn's front ([barn]): the big arched cart door and, from the second level, the byre door beside it,
+     * dark under their arches of slate voussoirs on dressed jambs; a row of through-stones a little proud along it from the
+     * third; the loft's pitching door above (the hay in it); narrow ventilation slits either side of it from the fourth.
+     */
+    private fun barnFront(u: Float, hm: Float, width: Float, gap: Float, px: Int, py: Int): Int {
+        for ((ai, cxu) in floatArrayOf(width * 0.3f, width * 0.72f).withIndex()) {
+            if (ai >= fArches) break
+            val arch = if (ai == 0) FIEN_ARCH * 1.05f else FIEN_ARCH * 0.6f
+            val spring = if (ai == 0) FIEN_SPRING else FIEN_SPRING * 0.95f
+            val dx = u - cxu
+            if (abs(dx) > arch + FIEN_RING) continue
+            val r = if (hm > spring) sqrt(dx * dx + (hm - spring) * (hm - spring)) else abs(dx)
+            if (r < arch) {
+                val f = (hm / (spring + arch)).coerceIn(0f, 1f)
+                return Col.mix(Col.hex(0x2E2A26), Col.hex(0x1A1716), f)
+            }
+            if (r < arch + FIEN_RING) {
+                if (hm < spring) return if (Math.floorMod(floor(hm / 0.3f).toInt(), 2) == 0) Col.hex(0xB4B8B8) else Col.hex(0x9EA2A2)
+                val a = kotlin.math.atan2(hm - spring, dx)
+                val n = floor(a / 0.2f).toInt()
+                return if ((a / 0.2f - n) < 0.18f) Col.hex(0x3A4048) else if (n % 2 == 0) Col.hex(0x6A7480) else Col.hex(0x5A646E)
+            }
+        }
+        // the through-stones, a row of slabs a little proud
+        if (fBands && hm in FIEN_STRING..FIEN_STRING + 0.14f) {
+            val b = u / 0.9f; val fb = b - floor(b)
+            if (fb < 0.32f) return if (hm > FIEN_STRING + 0.1f) Col.hex(0xD0D4D4) else Col.hex(0x9CA2A4)
+        }
+        // the loft's pitching door: a dark opening with its timber frame
+        val lo = width * 0.4f; val hi = width * 0.6f
+        if (hm in FIEN_LOFT..FIEN_EAVE - 0.2f && u in lo..hi) return Col.hex(0x2A2220)
+        if (hm in FIEN_LOFT - 0.1f..FIEN_EAVE - 0.1f && u in lo - 0.1f..hi + 0.1f) return Pal.WOOD_D
+        // the ventilation slits
+        if (fLattice) for (cxu in floatArrayOf(width * 0.15f, width * 0.85f)) if (abs(u - cxu) < 0.06f && hm in FIEN_LOFT..FIEN_LOFT + 0.9f) return Col.hex(0x1E1A18)
+        return barnWall(u, hm, width, px, py)
+    }
+
     /** A brick lattice (gelosia) [u] m from its left edge and [v] m up from its foot, [p] px a metre: bricks laid with gaps between them in a chequer, the dark loft through the gaps. */
     private fun lattice(u: Float, v: Float, p: Float): Int {
+        // the Lake District's barn: an owl hole high in the gable, round-headed and dark, in a ring of stone
+        if (barn) {
+            val r = sqrt((u - 0.45f) * (u - 0.45f) + (v - 0.45f) * (v - 0.45f))
+            return if (r < 0.2f) Col.hex(0x1A1716) else if (r < 0.3f) Col.hex(0xB0B4B4) else Lakeland.slateStone(u * 2.4f, v * 4.2f, 0, 0, detail > 1)
+        }
         if (u < 0.06f || u > 0.84f || v < 0.06f || v > 0.89f) return brickTone(floor(v / 0.13f).toInt(), 11)
         val col = floor((u - 0.06f) / 0.13f).toInt(); val row = floor((v - 0.06f) / 0.0825f).toInt()
         return if ((col + row) % 2 == 0) Col.hex(0x2A2220) else if (p > 30f && ((v - 0.06f) / 0.0825f - row) > 0.75f) BRICK_D else brickTone(col * 7 + row, 13)

@@ -511,13 +511,16 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
      * The watchtower's legs from its third level in Friuli (as Sulla torre builds it): four pillars of river cobbles with
      * bands of brick, a brick arch from each to the next under the platform on the two sides we see.
      */
-    internal fun towerPillars(x0: Float, y0: Float, w: Float, seed: Int) {
+    internal fun towerPillars(x0: Float, y0: Float, w: Float, seed: Int, slate: Boolean = false) {
         val pw = 0.36f; val top = 16f
+        // the Lake District's ([slate]): grey slate stone in courses, its arches of stone
+        val st = if (slate) SLATE_STONE else COB
+        val bandL = if (slate) SLATE_STONE[0] else BRICK_L; val bandD = if (slate) SLATE_STONE[2] else BRICK_D
         fun pillar(px: Float, py: Float) {
-            i.box(px - pw / 2, py - pw / 2, 0f, pw, pw, top, COB[0], COB[1], COB[2])
+            i.box(px - pw / 2, py - pw / 2, 0f, pw, pw, top, st[0], st[1], st[2])
             var z = 2.5f
-            while (z < top) { i.line(px - pw / 2, py + pw / 2, z, px + pw / 2, py + pw / 2, z, BRICK_L); i.line(px + pw / 2, py - pw / 2, z, px + pw / 2, py + pw / 2, z, BRICK_D); z += 3.5f }
-            if (fine) for (j in 0 until 6) i.px(px - pw / 2 + Noise.rnd(seed, j, 41) * pw, py + pw / 2, 1f + Noise.rnd(seed, j, 42) * (top - 2f), COB_D)
+            while (z < top) { i.line(px - pw / 2, py + pw / 2, z, px + pw / 2, py + pw / 2, z, bandL); i.line(px + pw / 2, py - pw / 2, z, px + pw / 2, py + pw / 2, z, bandD); z += if (slate) 1.6f else 3.5f }
+            if (fine) for (j in 0 until 6) i.px(px - pw / 2 + Noise.rnd(seed, j, 41) * pw, py + pw / 2, 1f + Noise.rnd(seed, j, 42) * (top - 2f), if (slate) SLATE_STONE[2] else COB_D)
         }
         /** An arch of brick between two pillars' tops, under the platform. */
         fun arch(ax: Float, ay: Float, bx: Float, by: Float, col: Int) {
@@ -530,8 +533,8 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
         }
         pillar(x0, y0)
         pillar(x0 + w, y0); pillar(x0, y0 + w)
-        arch(x0, y0 + w, x0 + w, y0 + w, BRICK_L)
-        arch(x0 + w, y0, x0 + w, y0 + w, BRICK_D)
+        arch(x0, y0 + w, x0 + w, y0 + w, bandL)
+        arch(x0 + w, y0, x0 + w, y0 + w, bandD)
         pillar(x0 + w, y0 + w)
     }
 
@@ -945,6 +948,8 @@ internal class CultureBuildings(private val s: SceneCtx, private val p: Building
         /** River cobbles (the fienile's, Friuli's smithy's), a darker one, the bands of brick. */
         val COB = t(0xD6CFC0, 0xB9B0A0, 0x8F8676)
         val COB_D = Col.hex(0x7E7666)
+        /** The Lake District's slate stone (its watchtower's pillars). */
+        val SLATE_STONE = t(0x9AA0A6, 0x7E868C, 0x5A6268)
         val BRICK_L = Col.hex(0xC0663E); val BRICK_M = Col.hex(0xA4553A); val BRICK_D = Col.hex(0x8A4430)
         /** The pale stone of Friuli's frames, portals and wells (Istrian stone, the piasentina). */
         val ISTRIA_L = Col.hex(0xEDE7DA); val ISTRIA_M = Col.hex(0xD2CAB8); val ISTRIA_D = Col.hex(0xA89E8A)

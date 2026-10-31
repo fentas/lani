@@ -596,7 +596,7 @@ internal class BuildingPainter(private val s: SceneCtx) {
 
     private fun watchtower(b: Building, x: Float, y: Float) {
         val x0 = x + 0.75f; val y0 = y + 0.75f; val w = 1.5f
-        if (s.look.stoneTower && b.level >= 3) looks.towerPillars(x0, y0, w, b.plot)
+        if (s.look.stoneTower && b.level >= 3) looks.towerPillars(x0, y0, w, b.plot, slate = s.look.peleTower)
         else {
             postBox(x0, y0, 17f)
             postBox(x0 + w, y0, 17f); postBox(x0, y0 + w, 17f)

@@ -93,6 +93,16 @@ internal class LivingRoomPainter : RoomPainter() {
      */
     private var kachel = false
 
+    /**
+     * The Lake District's look (the living room's "stove" is "fireplace": docs/plans/05-built/places-lakeland.md): Old Wilf's
+     * room by the fire. The fogolâr's place and its benches (so the stage, the beds and Bess's corner are where they were), but
+     * a hearth of slate stone with the fire in a black iron fire basket on it, no andirons and no chestnut pan; at level 1 the
+     * corner over it black with smoke, from level 2 the whitewashed smoke hood over it (the old Cumbrian farmhouses' firehood)
+     * with an oak mantel beam along its foot, two brass candlesticks and a white china dog on it; the benches oak settles;
+     * slate flags for the planks ([fogolar] is set for it too).
+     */
+    private var fireplace = false
+
     /** No soot: the stove is fed from the kitchen. Friuli's fogolâr blackens its corner until its hood comes (level 2). */
     override fun soot(d: Float, z: Float): Float {
         if (!fogolar || lv >= 2 || z < hz) return 0f
@@ -103,7 +113,8 @@ internal class LivingRoomPainter : RoomPainter() {
     override fun floor() {
         if (lv < 2) { super.floor(); return }
         floorId = s.newObject(Pal.OUTLINE)
-        if (fogolar) cotto(x0, y0, x1, y1, fl) else planks(x0, y0, x1, y1, fl, 0.5f)
+        if (slateFloor) onFlat(fl, x0, y0, x1, y1) { x, y, px, py -> Lakeland.slateFlags(x - x0, y - y0, px, py, P > 1) }
+        else if (fogolar) cotto(x0, y0, x1, y1, fl) else planks(x0, y0, x1, y1, fl, 0.5f)
         c.penId = 0
     }
 
@@ -115,7 +126,8 @@ internal class LivingRoomPainter : RoomPainter() {
         vignette()
         lv = frame.world.hereLevel.coerceIn(1, 5)
         readLook()
-        fogolar = variant("stove") == "fogolar"
+        fireplace = variant("stove") == "fireplace"
+        fogolar = variant("stove") == "fogolar" || fireplace
         kachel = variant("stove") == "kachelofen"
         val asleep = peopleAt(BED).firstOrNull()
         // the lamp over the table burns from dusk, and is put out for whoever is asleep
@@ -307,6 +319,16 @@ internal class LivingRoomPainter : RoomPainter() {
      */
     private fun fogolarCorner() {
         thing("stove") { fogolarHearth() }
+        if (fireplace) {
+            // the Lake District's: the fire in its iron basket on the slate hearth, the smoke hood and its oak mantel beam
+            prop { basketBack() }
+            hearthFire(FX, FY, oven = fxOn("stove"))
+            prop { fireBasket() }
+            if (lv < 2) return
+            prop { fogolarHood(HX, HY, HXT, HYT, HB) }
+            prop { mantel() }
+            return
+        }
         hearthFire(FX, FY, oven = fxOn("stove"))
         prop { andirons() }
         if (env.month in 10..12 && !hearthCold) prop { chestnutPan() }
@@ -315,10 +337,74 @@ internal class LivingRoomPainter : RoomPainter() {
         prop { hoodShelf() }
     }
 
+    /** The fire basket's back bars, behind the fire (the Lake District's [fireplace]). */
+    private fun basketBack() {
+        for (k in 0..4) {
+            val bx = FX - 0.5f + k * 0.25f
+            iso.post(bx, FY - 0.4f, hz + 0.4f, hz + 2.6f, ironD)
+        }
+        iso.line(FX - 0.55f, FY - 0.4f, hz + 2.6f, FX + 0.55f, FY - 0.4f, hz + 2.6f, ironL)
+    }
+
+    /**
+     * The fire basket in front of the fire (the Lake District's [fireplace]): a black iron grate on four short legs, its front
+     * bars across the burning logs and coals, a knob at each front corner, a poker leaning on it.
+     */
+    private fun fireBasket() {
+        val ya = FY + 0.38f; val xa = FX - 0.6f; val xb = FX + 0.6f
+        for (lx in floatArrayOf(xa, xb)) { iso.post(lx, ya, hz, hz + 1.9f, ironD); knob(lx, ya, hz + 2.1f, ironL, Col.hex(0x8C8896), ironD) }
+        for (bz in floatArrayOf(hz + 0.5f, hz + 1.05f, hz + 1.6f)) iso.line(xa, ya, bz, xb, ya, bz, if (bz > hz + 1.5f) ironL else ironD)
+        for (sx in floatArrayOf(xb, xb + 0.0f)) iso.line(sx, ya, hz + 0.5f, sx, FY - 0.4f, hz + 0.5f, ironD)
+        // the poker leaning on the basket's right corner
+        iso.line(xb + 0.15f, ya + 0.15f, hz, xb + 0.02f, ya - 0.05f, hz + 3.4f, ironL)
+        knob(xb + 0.02f, ya - 0.05f, hz + 3.6f, brass, brassL, brassD)
+    }
+
+    /**
+     * The oak mantel beam along the hood's foot (the Lake District's [fireplace]), its front lit along the top, and on it two
+     * brass candlesticks with their candles and a white china dog (a Staffordshire spaniel) between them.
+     */
+    private fun mantel() {
+        val d = 0.3f; val lz = HB - 1.0f
+        iso.box(HX - 0.02f, y0, lz, d, HY - y0, 1.0f, Lakeland.OAK_L, Lakeland.OAK_M, Lakeland.OAK_D)
+        iso.box(x0, HY - 0.02f, lz, HX + d - x0, d, 1.0f, Lakeland.OAK_L, Lakeland.OAK_M, Lakeland.OAK_D)
+        iso.line(x0, HY + d, HB, HX + d, HY + d, HB, Col.mix(Lakeland.OAK_L, Col.hex(0xFFFFFF), 0.25f))
+        if (P > 1) grain(x0, HY - 0.02f, HX + d, HY + d, HB, 27)
+        val p = P.toFloat()
+        val oy = HY + 0.14f
+        for (cxw in floatArrayOf(1.45f, 3.2f)) {
+            val cx = iso.ix(cxw, oy); val cb = iso.iy(cxw, oy, HB)
+            c.fillEllipse(cx + 0.5f * p, cb.toFloat(), 1.3f * p, 0.55f * p, brassD)
+            c.fillRect(cx, cb - 3 * P, P, 3 * P, brass); c.set(cx, cb - 3 * P, brassL)
+            c.hline(cx - P / 2 - 1, cx + P + P / 2, cb - 3 * P, brassL)
+            c.fillRect(cx, cb - 6 * P, P, 3 * P, Col.hex(0xF4EEDC))
+            if (env.windows > 0.35f) glow { c.fillRect(cx, cb - 8 * P, P, 2 * P, Pal.FLAME[1]); c.set(cx, cb - 8 * P, Pal.FLAME[0]) }
+        }
+        // the china dog: white, sitting up, its ears and patches rust-red, a gold chain at its neck
+        val dx = iso.sx(2.35f, oy); val dy = iso.sy(2.35f, oy, HB)
+        val w = Col.hex(0xF6F2E8); val wd = Col.hex(0xD8D0C0); val rust = Col.hex(0xB0582E)
+        c.fillEllipse(dx, dy - 1.6f * p, 1.5f * p, 1.6f * p, wd)
+        c.fillEllipse(dx - 0.2f * p, dy - 1.8f * p, 1.3f * p, 1.4f * p, w)
+        c.fillEllipse(dx, dy - 4.0f * p, 1.1f * p, 1.1f * p, w)
+        c.fillEllipse(dx - 0.9f * p, dy - 3.8f * p, 0.5f * p, 0.9f * p, rust); c.fillEllipse(dx + 0.9f * p, dy - 3.8f * p, 0.5f * p, 0.9f * p, rust)
+        c.fillEllipse(dx + 0.6f * p, dy - 1.6f * p, 0.5f * p, 0.6f * p, rust)
+        c.hline(floor(dx - 0.8f * p).toInt(), floor(dx + 0.8f * p).toInt(), floor(dy - 3.0f * p).toInt(), brass)
+        if (P > 1) { c.set(floor(dx - 0.4f * p).toInt(), floor(dy - 4.2f * p).toInt(), Pal.OUTLINE); c.set(floor(dx + 0.4f * p).toInt(), floor(dy - 4.2f * p).toInt(), Pal.OUTLINE) }
+    }
+
     /** The hearth: a knee-high block of grey stones in the corner, a niche with the firewood's ends in its front, slabs on top grey with ash. */
     private fun fogolarHearth() {
-        onY(FY1, x0, FX1, fl, hz) { x, z, px, py -> hearthStone(x - x0, z, px, py, 1f, niche = true, nicheA = 0.55f, nicheB = 1.65f) }
-        onX(FX1, y0, FY1, fl, hz) { y, z, px, py -> hearthStone(y - y0 + 3.1f, z, px, py, 0.8f, niche = false) }
+        if (fireplace) {
+            // the Lake District's: the hearth's faces of slate stone, sooted toward the top, a niche of logs in its front
+            onY(FY1, x0, FX1, fl, hz) { x, z, px, py ->
+                if (x - x0 in 0.55f..1.65f && z - fl in 0.45f..2.9f) hearthStone(x - x0, z, px, py, 1f, niche = true, nicheA = 0.55f, nicheB = 1.65f)
+                else slateHearth(x - x0, z, px, py, 1f)
+            }
+            onX(FX1, y0, FY1, fl, hz) { y, z, px, py -> slateHearth(y - y0 + 3.1f, z, px, py, 0.8f) }
+        } else {
+            onY(FY1, x0, FX1, fl, hz) { x, z, px, py -> hearthStone(x - x0, z, px, py, 1f, niche = true, nicheA = 0.55f, nicheB = 1.65f) }
+            onX(FX1, y0, FY1, fl, hz) { y, z, px, py -> hearthStone(y - y0 + 3.1f, z, px, py, 0.8f, niche = false) }
+        }
         onFlat(hz, x0, y0, FX1, FY1) { x, y, px, py ->
             val d = hypot(x - FX, (y - FY) * 1.2f)
             val fu = (x - x0) / 0.66f; val fv = (y - y0) / 0.6f
@@ -327,11 +413,20 @@ internal class LivingRoomPainter : RoomPainter() {
             when {
                 d < 0.45f -> if (n < 0.3f) Col.hex(0x1E1A18) else Col.hex(0x2E2826)
                 d < 0.8f + Noise.v2(x * 4f, y * 4f, 83) * 0.22f -> if (n < 0.25f) Col.hex(0x6A6660) else if (n < 0.6f) Col.hex(0x8E8A84) else Col.hex(0xA8A49C)
-                x > FX1 - 0.1f || y > FY1 - 0.1f -> Col.hex(0xC0B8A8)
-                fu - floor(fu) < 0.08f || fv - floor(fv) < 0.1f -> Col.hex(0x5A534C)
+                x > FX1 - 0.1f || y > FY1 - 0.1f -> if (fireplace) Col.hex(0x9AA4AC) else Col.hex(0xC0B8A8)
+                fu - floor(fu) < 0.08f || fv - floor(fv) < 0.1f -> if (fireplace) Col.hex(0x3A4048) else Col.hex(0x5A534C)
+                fireplace -> Col.scale(if (Noise.rnd(slab, 85) < 0.5f) Col.hex(0x6E7884) else Col.hex(0x626C78), if (n > 0.96f) 0.86f else 1f)
                 else -> Col.scale(if (Noise.rnd(slab, 85) < 0.5f) Pal.STONE_M else Col.hex(0x9A948A), if (n > 0.96f) 0.86f else 1f)
             }
         }
+    }
+
+    /** The hearth's slate stone at [a] cells along and [z] up (the Lake District's [fireplace]), sooted toward its top. */
+    private fun slateHearth(a: Float, z: Float, px: Int, py: Int, dim: Float): Int {
+        var col = Lakeland.slateStone(a, z - fl, px, py, P > 1)
+        val sootF = ((z - fl - 1.8f) / (hz - fl - 1.8f)).coerceIn(0f, 1f) * 0.55f
+        if (sootF > 0f && Dither.at(px, py) < sootF + 0.2f) col = Col.mix(col, Col.hex(0x2A2420), sootF)
+        return Col.scale(col, dim)
     }
 
     /** The two iron andirons either side of the fire, a knob at the front of each. */
@@ -429,10 +524,12 @@ internal class LivingRoomPainter : RoomPainter() {
     private fun seat(xa: Float, ya: Float, xb: Float, yb: Float, alongY: Boolean) {
         if (alongY) for (ly in floatArrayOf(ya + 0.15f, (ya + yb) / 2f, yb - 0.15f)) iso.post(xb - 0.12f, ly, fl, bz, Pal.WOOD_D)
         else for (lx in floatArrayOf(xa + 0.2f, (xa + xb) / 2f, xb - 0.15f)) iso.post(lx, yb - 0.12f, fl, bz, Pal.WOOD_D)
-        iso.box(xa, ya, bz, xb - xa, yb - ya, 0.9f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        // the Lake District's settles of dark oak ([fireplace])
+        val (wl, wm, wd) = if (fireplace) Triple(Lakeland.OAK_L, Lakeland.OAK_M, Lakeland.OAK_D) else Triple(Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        iso.box(xa, ya, bz, xb - xa, yb - ya, 0.9f, wl, wm, wd)
         if (P > 1) grain(xa, ya, xb, yb, bz + 0.9f, if (alongY) 21 else 23, alongY)
-        if (alongY) iso.line(xb, ya, bz + 0.9f, xb, yb, bz + 0.9f, Col.mix(Pal.WOOD_L, Col.hex(0xFFFFFF), 0.25f))
-        else iso.line(xa, yb, bz + 0.9f, xb, yb, bz + 0.9f, Col.mix(Pal.WOOD_L, Col.hex(0xFFFFFF), 0.25f))
+        if (alongY) iso.line(xb, ya, bz + 0.9f, xb, yb, bz + 0.9f, Col.mix(wl, Col.hex(0xFFFFFF), 0.25f))
+        else iso.line(xa, yb, bz + 0.9f, xb, yb, bz + 0.9f, Col.mix(wl, Col.hex(0xFFFFFF), 0.25f))
     }
 
     /**

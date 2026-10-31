@@ -159,13 +159,34 @@ internal class ChurchPainter : DioramaPainter() {
     private var fauxMarble = false
     private var friuliGrip = false
 
+    /**
+     * The Lake District's look ([look]; docs/plans/05-built/places-lakeland.md): the dale church. Slate flags (`floor`);
+     * clear leaded glass in diamond quarries at every level, no coloured glass (`glass`); the open timber roof as Friuli's
+     * (`roof` "trusses"); the Good Shepherd over the altar, in a red cloak with a white lamb on his shoulders on a green fell,
+     * in a carved oak frame from 4 with a gilt text board over it from 5 (`altarpiece`); a slate plinth for the painted dado,
+     * an oak beam under the top for the frieze, white memorial tablets for the consecration crosses (`walls`); the bellcote
+     * of slate stone under a slate cap (`gable`); the loft's front plain oak (`loft`); a brass eagle lectern with its Bible
+     * where the Virgin stands (`statue`); a dark yew for the cypress (`tree`); no baskets at Easter (`zegen`).
+     */
+    private var slateFloor = false
+    private var clearGlass = false
+    private var shepherd = false
+    private var plainWalls = false
+    private var bellcote = false
+    private var lectern = false
+    private var yew = false
+    private var noZegen = false
+
     private fun readLevel() {
         lv = frame.world.level(si.lanisce.lani.game.BuildingType.CHURCH).coerceIn(1, 5)
         trusses = variant("roof") == "trusses"; ribs = variant("roof") == "ribs"; rulli = variant("glass") == "rulli"; cottoFloor = variant("floor") == "cotto"
         pala = variant("altarpiece") == "pala"; frescoWalls = variant("walls") == "frescoes"; ponca = variant("gable") == "ponca"
         fauxMarble = variant("loft") == "marble"; friuliGrip = variant("rope") == "friuli"
-        colourGlass = lv >= 2; windowB = lv >= 2; dadoUp = lv >= 2; lampUp = lv >= 2; benchOut = lv >= 2
-        vaultPainted = lv >= 3; friezeUp = lv >= 3; tilesUp = lv >= 3; runnerUp = lv >= 3; balustradePainted = lv >= 3
+        slateFloor = variant("floor") == "slate"; clearGlass = variant("glass") == "quarries"; shepherd = variant("altarpiece") == "shepherd"
+        plainWalls = variant("walls") == "tablets"; bellcote = variant("gable") == "bellcote"; lectern = variant("statue") == "lectern"
+        yew = variant("tree") == "yew"; noZegen = variant("zegen") == "none"
+        colourGlass = lv >= 2 && !clearGlass; windowB = lv >= 2; dadoUp = lv >= 2; lampUp = lv >= 2; benchOut = lv >= 2
+        vaultPainted = lv >= 3; friezeUp = lv >= 3; tilesUp = lv >= 3; runnerUp = lv >= 3; balustradePainted = lv >= 3 && variant("loft") != "oak"
         retableUp = lv >= 4; statueUp = lv >= 4; crossesUp = lv >= 4; lavenderUp = lv >= 4
         crown = lv >= 5; cypressUp = lv >= 5; gravelUp = lv >= 5
         nRowsL = if (lv == 1) 2 else rowsL.size
@@ -302,9 +323,9 @@ internal class ChurchPainter : DioramaPainter() {
         thing("altar") { altar() }
         thing("candles", slop = 2) { candles() }
         thing("flowers", slop = 1) { flowers() }
-        if (nativity) prop { jaslice() } else if (statueUp) prop { statue() }
+        if (nativity) prop { jaslice() } else if (statueUp) prop { if (lectern) lectern() else statue() }
         if (lampUp) prop(outline = 0) { lamp() }
-        if (easter) prop { baskets() }
+        if (easter && !noZegen) prop { baskets() }
         cast("altar")
 
         thing("pews") { pewId = c.penId; pews() }
@@ -318,7 +339,7 @@ internal class ChurchPainter : DioramaPainter() {
         cast("aisle")
 
         // the churchyard
-        if (cypressUp) prop { cypress() }
+        if (cypressUp) prop { if (yew) yew() else cypress() }
         if (benchOut) prop { bench() }
         if (lavenderUp) prop { lavender(4.05f, 11.3f); lavender(6.65f, 11.3f) }
 
@@ -412,6 +433,31 @@ internal class ChurchPainter : DioramaPainter() {
         (x < x1 + 0.4f && y < y1 + 0.4f) || (y > y1 - 0.3f && abs(x - aisleX) < 1.1f) || hyp(x - cypX, y - cypY) < 0.8f ||
             (x in 10.2f..11.9f && y in 6.9f..8.1f) || hyp(x - 4.05f, y - 11.3f) < 0.6f || hyp(x - 6.65f, y - 11.3f) < 0.6f
 
+    /** The Lake District's yew by the far corner ([yew], for the cypress): a broad dark mound of needles, lighter on its sunny side, its red-brown trunk; snow on it in winter. */
+    private fun yew() {
+        val bx = iso.sx(cypX, cypY); val by = iso.sy(cypX, cypY, 0f)
+        shade(bx + 3f * K, by, 6f * K, 1.8f * K, 0.8f, groundId)
+        c.fillRect(floor(bx).toInt() - detail, floor(by - 4f * K).toInt(), 2 * detail, (4f * K).toInt(), Col.hex(0x6A3A26))
+        val hgt = 18f * K
+        val dk = Col.hex(0x14261A); val md = Col.hex(0x1E3A26); val lt = Col.hex(0x2C5232); val hi = Col.hex(0x3E6A40)
+        val top = by - 3f * K - hgt
+        for (py in max(c.top, floor(top).toInt())..min(c.bottom - 1, floor(by - 3f * K).toInt())) {
+            val u = (py - top) / hgt
+            val half = (0.35f + 0.65f * sqrt(u) * (1f - 0.25f * u * u)) * 5.2f * K + sin(u * 17f) * 0.4f * K
+            for (px in max(c.left, floor(bx - half).toInt())..min(c.right - 1, floor(bx + half).toInt())) {
+                val f = (px + 0.5f - bx) / half
+                val tuft = Noise.v2(px / (1.8f * K), py / (1.6f * K), 43)
+                c.set(px, py, when {
+                    winter && tuft > 0.7f && f < 0.3f && u < 0.7f -> Pal.SNOW_L
+                    f < -0.4f && tuft > 0.5f -> hi
+                    f < 0.1f -> if (tuft > 0.6f) lt else md
+                    tuft > 0.72f -> md
+                    else -> dk
+                })
+            }
+        }
+    }
+
     /** A cypress by the far corner: a dark narrow flame of green, lighter tufts on its sunny side; a little snow in winter. */
     private fun cypress() {
         val bx = iso.sx(cypX, cypY); val by = iso.sy(cypX, cypY, 0f)
@@ -499,6 +545,7 @@ internal class ChurchPainter : DioramaPainter() {
             }
         }
         if (cottoFloor) return cotto(x, y, px, py)
+        if (slateFloor) return Lakeland.slateFlags(x, y, px, py, fine)
         val rw = 1.05f
         val row = floor(y / rw).toInt(); val fy = y - row * rw
         val len = 1.1f + Noise.rnd(row, 71) * 0.7f
@@ -549,6 +596,10 @@ internal class ChurchPainter : DioramaPainter() {
         val col = when {
             frescoWalls && dadoUp && z < fl + 4.6f -> if (z > fl + 4.1f) PLINTH_D else if (Noise.v2(a * 1.6f, z * 0.4f, 14) > 0.62f) PLINTH_L else PLINTH_M
             frescoWalls && friezeUp && z > wallH - 3.2f -> teeth(a, z)
+            // the Lake District's slate plinth and the oak beam under the top
+            plainWalls && dadoUp && z < fl + 4.6f -> if (z > fl + 4.2f) Col.hex(0x4E5862) else Lakeland.slateStone(a * 3f, z - fl, px, py, fine)
+            plainWalls && friezeUp && z > wallH - 1.3f -> if (z > wallH - 0.35f) woodL else if (z < wallH - 1.05f) woodX else woodD
+            plainWalls && friezeUp && z > wallH - 3.2f -> plasterL
             dadoUp && z < fl + 4.6f -> {
                 if (z > fl + 4.1f) dadoD
                 else {
@@ -630,6 +681,21 @@ internal class ChurchPainter : DioramaPainter() {
         return false
     }
 
+    /**
+     * A memorial tablet on the far wall where a consecration cross is (the Lake District's [plainWalls]): white marble in a
+     * slate surround, three lines of black lettering; null beside it.
+     */
+    private fun tablet(x: Float, z: Float): Int? {
+        for (cx in floatArrayOf(2.3f, 8.55f)) {
+            val dx = (x - cx) * 4.47f; val dz = z - (fl + 16.5f)
+            if (abs(dx) > 2.1f || abs(dz) > 1.9f) continue
+            if (abs(dx) > 1.65f || abs(dz) > 1.45f) return Col.hex(0x5A626C)
+            val line = dz in -0.95f..0.95f && abs(dx) < 1.2f && ((dz + 1f) % 0.6f) < (if (fine) 0.18f else 0.3f)
+            return if (line && Noise.rnd(floor(x * 18f).toInt(), floor(dz * 3f).toInt(), 91) > 0.25f) Col.hex(0x2A2A30) else if (dx < -1.3f || dz > 1.2f) Col.hex(0xFFFFFF) else Col.hex(0xECEAE4)
+        }
+        return null
+    }
+
     private fun walls() {
         part()
         // the left wall's face, in the shade
@@ -641,6 +707,7 @@ internal class ChurchPainter : DioramaPainter() {
             when {
                 z > top -> 0
                 z > wallH -> lunette(x, z, top)
+                crossesUp && plainWalls -> tablet(x, z) ?: plaster(x + 17f, z, 0, 0, 1f)
                 crossesUp && !frescoWalls && consecration(x, z) -> redP
                 else -> {
                     val f = if (frescoWalls && crossesUp) fresco(x, z) else 0
@@ -779,7 +846,12 @@ internal class ChurchPainter : DioramaPainter() {
                         val tt = ((wallH + 9f - z) / 9f).coerceIn(0f, 1f)
                         skyCol(0.3f + tt * 0.6f)
                     }
-                    top - z < 0.45f -> if (winter) Pal.SNOW_L else if (ponca) COPPO else stoneHi
+                    top - z < 0.45f -> if (winter) Pal.SNOW_L else if (ponca) COPPO else if (bellcote) Lakeland.ROOF_L else stoneHi
+                    // the Lake District's bellcote of slate stone, its arch's edge darker
+                    bellcote -> {
+                        val rim = inOpening(y, z - 0.6f) || inOpening(y + 0.12f, z) || inOpening(y - 0.12f, z)
+                        if (rim) Col.hex(0x5A626C) else Lakeland.slateStone((y - gy0) * 4.47f / 4f, z - wallH, 0, 0, fine)
+                    }
                     ponca -> {
                         val course = floor((z - wallH) / 0.9f).toInt()
                         val u = (y - gy0) * 4.47f / 1.8f + Noise.rnd(course, 84) * 2f
@@ -810,7 +882,7 @@ internal class ChurchPainter : DioramaPainter() {
                 }
             }
             // its end, the stone's thickness
-            onRight(gy1, x0 - th, x0, wallH, wallH + 3.2f) { _, z -> if (z > wallH + 2.8f && winter) Pal.SNOW_L else if (ponca) PONCA_D else stoneM }
+            onRight(gy1, x0 - th, x0, wallH, wallH + 3.2f) { _, z -> if (z > wallH + 2.8f && winter) Pal.SNOW_L else if (ponca) PONCA_D else if (bellcote) Col.hex(0x6E7880) else stoneM }
             // the cross on top
             val cx = iso.ix(x0 - th / 2f, gm); val ct = iso.iy(x0 - th / 2f, gm, wallH + 14.4f); val cb = iso.iy(x0 - th / 2f, gm, wallH + 10.6f)
             c.fillRect(cx - detail / 2, ct, detail, cb - ct, ironL)
@@ -1185,6 +1257,7 @@ internal class ChurchPainter : DioramaPainter() {
      * the cornice, and on top a golden sunburst between two small angels; the painting in its frame is [painting].
      */
     private fun retable() {
+        if (shepherd) { oakReredos(); return }
         val yp = y0 + 0.03f
         val xa = 4.1f; val xb = 6.7f
         val p0 = mTop; val p1 = mTop + 2f; val c1 = fl + 21.6f; val e1 = c1 + 1.5f
@@ -1249,8 +1322,78 @@ internal class ChurchPainter : DioramaPainter() {
             val inside = u in 0f..w && v >= 0f && (z <= spring || hyp(cu, z - spring) <= r)
             val frame = u in -0.55f..w + 0.55f && v >= -0.5f && (z <= spring || hyp(cu, z - spring) <= r + 0.5f)
             when {
-                inside -> if (pala) pala(cu / r, v / (zb - za)) else madonna(cu / r, v / (zb - za))
+                inside -> if (shepherd) goodShepherd(cu / r, v / (zb - za)) else if (pala) pala(cu / r, v / (zb - za)) else madonna(cu / r, v / (zb - za))
                 frame -> if (cu < 0f) goldHi else goldL
+                else -> 0
+            }
+        }
+    }
+
+    /**
+     * The Lake District's painting ([shepherd]) at ([u] −1..1 across, [v] 0..1 up): the Good Shepherd in a red cloak over a
+     * white robe, a white lamb across his shoulders, his crook in his hand, a faint halo; a green fell behind him with a grey
+     * crag and a wall, the blue sky over it.
+     */
+    private fun goodShepherd(u: Float, v: Float): Int {
+        val skin = Col.hex(0xF0CCA8); val red = Col.hex(0xB83A30); val redD = Col.hex(0x8A2A24)
+        val head = hyp(u * 1.9f, (v - 0.62f) * 5.2f)
+        val halo = hyp(u * 1.3f, (v - 0.64f) * 3.2f)
+        val lamb = hyp(u * 0.9f, (v - 0.53f) * 6.5f)
+        val lambHead = hyp((u + 0.42f) * 2.6f, (v - 0.56f) * 7f)
+        val cloak = v < 0.58f && abs(u) < 0.18f + (0.58f - v) * 0.9f
+        val robe = v < 0.5f && abs(u) < 0.1f + (0.5f - v) * 0.22f
+        val crook = abs(u - 0.62f) < 0.05f && v < 0.72f || (v in 0.7f..0.8f && hyp((u - 0.52f) * 3f, (v - 0.72f) * 6f) in 0.7f..1.0f && u > 0.5f)
+        val fell = 0.36f + 0.1f * (1f - (u - 0.3f) * (u - 0.3f))
+        return when {
+            lambHead < 0.6f -> if (fine && lambHead < 0.2f) Col.hex(0x3A3A40) else Col.hex(0xF4F2EA)
+            lamb < 0.62f -> if (fine && Noise.rnd((u * 40).toInt(), (v * 60).toInt(), 61) < 0.25f) Col.hex(0xDCD8CC) else Col.hex(0xF6F4EC)
+            head < 0.5f -> if (fine && head < 0.18f && u > 0.05f) Col.hex(0xD8A888) else skin
+            head < 0.72f && v > 0.62f -> Col.hex(0x6A4A2E) // his hair
+            halo < 0.95f && v > 0.62f -> if (halo > 0.8f) goldL else Col.mix(goldL, Col.hex(0xF8F0D0), 0.6f)
+            crook -> woodD
+            robe -> linen
+            cloak -> if (u > 0.06f) redD else red
+            v < fell -> if (abs(u + 0.55f) < 0.16f && v > fell - 0.12f) Col.hex(0x8A9096) else if (abs(v - (0.12f + u * 0.08f)) < 0.025f) Col.hex(0x9AA0A4) else Col.hex(0x5E8E4A)
+            v < fell + 0.08f -> Col.hex(0x7E9A72)
+            else -> Col.mix(Col.hex(0x8EB8DC), Col.hex(0xD8E8F0), (1f - v) * 1.5f)
+        }
+    }
+
+    /**
+     * The Lake District's frame round the painting from level 4 ([shepherd], for the retable): carved oak, the predella and
+     * two plain columns with their capitals, the cornice; at 5 a gilt text board over it, its lettering in gold on black.
+     */
+    private fun oakReredos() {
+        val yp = y0 + 0.03f
+        val xa = 4.1f; val xb = 6.7f
+        val p0 = mTop; val p1 = mTop + 2f; val c1 = fl + 21.6f; val e1 = c1 + 1.5f
+        onRight(yp, xa - 0.05f, xb + 0.05f, p0, e1 + 4.4f) { x, z ->
+            val colL = x in 4.18f..4.62f; val colR = x in 6.18f..6.62f
+            when {
+                z < p1 && x in xa..xb -> if ((x in 4.3f..4.95f || x in 5.85f..6.5f) && z in p0 + 0.45f..p1 - 0.45f) woodD else if (z > p1 - 0.35f) woodL else woodM
+                z < c1 && (colL || colR) -> {
+                    val cx = if (colL) 4.4f else 6.4f
+                    val d = (x - cx) * 4.47f
+                    when {
+                        z < p1 + 0.8f || z > c1 - 1f -> if (d < -0.4f) Col.mix(woodL, Col.hex(0xFFFFFF), 0.2f) else woodM
+                        d < -0.55f -> woodL
+                        d > 0.6f -> woodX
+                        fine && abs(((z * 0.9f) % 1.6f) - 0.8f) < 0.1f -> woodD
+                        else -> woodM
+                    }
+                }
+                z < c1 && x in 4.62f..6.18f -> if (x < 4.8f || x > 6.0f || z > c1 - 0.6f) (if (x < 4.7f || z > c1 - 0.3f) woodL else woodM) else 0
+                z in c1..e1 && x in xa - 0.05f..xb + 0.05f -> if (z > e1 - 0.4f) Col.mix(woodL, Col.hex(0xFFFFFF), 0.2f) else if (z < c1 + 0.4f) woodX else woodM
+                z > e1 && !crown -> 0
+                z > e1 + 0.4f && z < e1 + 3.8f && x in 4.55f..6.25f -> {
+                    // the text board: black, a gold rim, two lines of gold letters
+                    val ez = z - e1 - 0.4f
+                    when {
+                        x < 4.65f || x > 6.15f || ez < 0.25f || ez > 3.15f -> goldL
+                        (abs(ez - 2.2f) < 0.32f || abs(ez - 1.1f) < 0.32f) && x in 4.8f..6.0f && Noise.rnd(floor(x * 16f).toInt(), floor(ez).toInt(), 93) > 0.3f -> goldHi
+                        else -> Col.hex(0x1E1E24)
+                    }
+                }
                 else -> 0
             }
         }
@@ -1501,6 +1644,29 @@ internal class ChurchPainter : DioramaPainter() {
     }
 
     /** The Virgin on a pedestal of white stone to the right of the altar, a pot of flowers at her feet. */
+    /**
+     * The Lake District's brass eagle lectern where the Virgin stands ([lectern]): a round foot, a turned stem, the ball and
+     * the eagle on it with its wings spread, a red Bible open on its back.
+     */
+    private fun lectern() {
+        val bx = iso.sx(8.6f, 1.8f); val by = iso.sy(8.6f, 1.8f, fl)
+        val b = bronze; val bl = bronzeL; val bd = bronzeD
+        c.fillEllipse(bx, by, 2.2f * K, 0.9f * K, bd)
+        c.fillEllipse(bx, by - 0.4f * K, 1.9f * K, 0.75f * K, b)
+        c.fillRect(floor(bx - 0.5f * K).toInt(), floor(by - 9f * K).toInt(), max(detail, K), floor(8.6f * K).toInt(), b)
+        c.vline(floor(bx - 0.5f * K).toInt(), floor(by - 9f * K).toInt(), floor(by - 0.6f * K).toInt(), bl)
+        for (rz in floatArrayOf(3f, 6f)) c.hline(floor(bx - 1f * K).toInt(), floor(bx + 0.9f * K).toInt(), floor(by - rz * K).toInt(), bl)
+        c.fillCircle(bx, by - 9.6f * K, 1.1f * K, b)
+        // the eagle: the body along, the wings spread up and back, the head and beak to the left
+        c.polyBegin(); c.polyAdd(bx - 2.8f * K, by - 10.4f * K); c.polyAdd(bx + 2.4f * K, by - 10.8f * K); c.polyAdd(bx + 3.4f * K, by - 13.6f * K); c.polyAdd(bx - 1.6f * K, by - 12.8f * K); c.polyFill(b)
+        c.polyBegin(); c.polyAdd(bx - 1.2f * K, by - 11.6f * K); c.polyAdd(bx + 3.4f * K, by - 13.6f * K); c.polyAdd(bx + 2.8f * K, by - 11.2f * K); c.polyFill(bl)
+        c.fillCircle(bx - 2.8f * K, by - 11.2f * K, 0.8f * K, b)
+        c.fillRect(floor(bx - 3.8f * K).toInt(), floor(by - 11.2f * K).toInt(), max(detail, K), max(detail, K / 2), bd)
+        // the Bible open on its back
+        c.polyBegin(); c.polyAdd(bx - 1.4f * K, by - 13.2f * K); c.polyAdd(bx + 2.6f * K, by - 13.8f * K); c.polyAdd(bx + 2.4f * K, by - 12.6f * K); c.polyAdd(bx - 1.6f * K, by - 12.2f * K); c.polyFill(Col.hex(0x9A2A2A))
+        c.polyBegin(); c.polyAdd(bx - 1.2f * K, by - 13.6f * K); c.polyAdd(bx + 2.4f * K, by - 14.1f * K); c.polyAdd(bx + 2.3f * K, by - 13.4f * K); c.polyAdd(bx - 1.3f * K, by - 12.9f * K); c.polyFill(linen)
+    }
+
     private fun statue() {
         block(8.25f, 1.45f, 8.95f, 2.15f, fl, fl + 6.2f, { _, z -> if (z > fl + 5.8f) stoneHi else stoneL }, { _, _ -> stoneM }, { _, _ -> stoneHi })
         val bx = iso.sx(8.6f, 1.8f); val by = iso.sy(8.6f, 1.8f, fl + 6.2f)

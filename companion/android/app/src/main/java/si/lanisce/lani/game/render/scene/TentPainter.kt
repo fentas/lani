@@ -117,12 +117,22 @@ internal class TentPainter : DioramaPainter() {
     private var austria = false
     private var fence = false
 
+    /**
+     * The Lake District's camp ([look]; docs/plans/05-built/places-lakeland.md): St George's cross on the pennant, red on white
+     * ([england]); along the meadow's back edge a dry-stone wall with bracken before it, green in summer, russet from October,
+     * brown in winter, and foxgloves in June and July ([drystone]); green wellington boots by the camp bed ([wellies]).
+     */
+    private var england = false
+    private var drystone = false
+    private var wellies = false
+
     override fun paint() {
         lv = frame.world.level(si.lanisce.lani.game.BuildingType.TENT).coerceIn(1, 5)
         planksUp = lv >= 2; rugUp = lv >= 3; ropesUp = lv >= 4; pathUp = lv >= 5
         fit()
         vignette()
         pennant = variant("pennant") == "friuli"; austria = variant("pennant") == "austria"; fence = variant("fence") == "schragen"; scarpets = variant("slippers") == "scarpets"; vines = variant("vines") == "collio"
+        england = variant("pennant") == "england"; drystone = variant("wall") == "drystone"; wellies = variant("boots") == "wellies"
         val asleep = peopleAt(BED).firstOrNull()
         // the lantern burns from dusk, or as a dialog has it (its "lantern": 0 dark, 1 lit); turned low for a sleeper
         val low = asleep != null && fx("lantern") == null
@@ -134,6 +144,7 @@ internal class TentPainter : DioramaPainter() {
         if (pathUp) prop { steppingStones() }
         if (vines) prop { vineRow() }
         if (fence) prop { schragenzaun() }
+        if (drystone) prop { wallRow() }
         // the tent's shade on the grass beside the low wall and in front of the floor
         shade(iso.sx(x1 + 0.6f, (y0 + yr) / 2), iso.sy(x1 + 0.6f, (y0 + yr) / 2, 0f), 3.2f * 4 * K, 1.1f * 4 * K, 0.8f, groundId)
 
@@ -169,7 +180,7 @@ internal class TentPainter : DioramaPainter() {
         thing("blanket") { blanket() }
         thing("boots", slop = 1) { boots() }
         if (scarpets) prop { scarpets() }
-        if (pennant || austria) prop { pennant() }
+        if (pennant || austria || england) prop { pennant() }
 
         // outside
         if (ropesUp) {
@@ -1117,7 +1128,8 @@ internal class TentPainter : DioramaPainter() {
     private fun pennant() {
         val px0 = x0 + 0.12f; val py0 = y1 - 0.1f; val top = hBeam + 2f
         val len = 1.9f; val hh = 2.9f
-        val blue = Col.hex(0x2A5CB0); val blueD = Col.hex(0x1C4486); val gold = Col.hex(0xF2C230); val goldD = Col.hex(0xC8941A)
+        val blue = if (england) Col.hex(0xF6F4EE) else Col.hex(0x2A5CB0); val blueD = if (england) Col.hex(0xD8D4CA) else Col.hex(0x1C4486)
+        val gold = if (england) Col.hex(0xD3202E) else Col.hex(0xF2C230); val goldD = if (england) Col.hex(0xA8161F) else Col.hex(0xC8941A)
         val wave = (gust * 0.35f).coerceAtMost(1f)
         quadPlot(px0, py0, top - hh, px0 + len, py0, top - hh, px0 + len, py0, top + 0.6f, px0, py0, top + 0.6f) { px, py ->
             val x = wallYx(px, py0); val z = wallYz(px, py, py0)
@@ -1130,11 +1142,14 @@ internal class TentPainter : DioramaPainter() {
             if (abs(v) > 1f) return@quadPlot 0
             // the eagle: its body and head in the middle near the staff, its wings spread up and out
             val eu = (u - 0.3f) / 0.22f; val ev = v
-            val eagle = (abs(eu) < 0.28f && ev in -0.55f..0.45f) || (abs(eu) < 0.95f && ev in -0.05f..0.3f && abs(ev - 0.12f - abs(eu) * 0.3f) < 0.22f) ||
-                (hypot(eu, ev - 0.62f) < 0.24f)
+            val eagle = if (england) (u in 0.1f..0.24f || (abs(v) < 0.22f && u < 0.62f))
+                else (abs(eu) < 0.28f && ev in -0.55f..0.45f) || (abs(eu) < 0.95f && ev in -0.05f..0.3f && abs(ev - 0.12f - abs(eu) * 0.3f) < 0.22f) ||
+                    (hypot(eu, ev - 0.62f) < 0.24f)
             when {
                 // Austria's: red, white, red along its length
                 austria -> if (abs(v) < 0.34f) (if (v > 0.2f && detail > 1) Col.hex(0xE6E2DA) else Pal.FLAG_WHITE) else if (v > 0.7f) Col.scale(Pal.FLAG_RED, 0.8f) else Pal.FLAG_RED
+                // St George's cross: its red upright at the hoist and its arm along the middle, on white
+                england && detail == 1 -> if (eagle) gold else if (v > 0.55f) blueD else blue
                 detail == 1 -> if (eu * eu + ev * ev < 0.5f) gold else if (v > 0.55f) blueD else blue
                 eagle -> if (ev < -0.1f && abs(eu) < 0.28f) goldD else gold
                 v < -0.7f -> blueD
@@ -1243,6 +1258,49 @@ internal class TentPainter : DioramaPainter() {
         }
     }
 
+    /**
+     * The Lake District's dry-stone wall along the meadow's back edge behind the tent ([drystone]): grey stones laid dry, its
+     * cope stones on edge along its top, snow on them in winter; bracken before it, green in summer, russet from October and
+     * brown in winter, and in June and July a few foxgloves, their purple bells up their spikes.
+     */
+    private fun wallRow() {
+        val ya = 0.35f; val xa = 9.3f; val xb = 13.7f; val top = 3.4f
+        // its face toward us, and the cope's top
+        quadPlot(xa, ya, 0f, xb, ya, 0f, xb, ya, top, xa, ya, top) { px, py ->
+            val x = wallYx(px, ya); val z = wallYz(px, py, ya)
+            if (winter && z > top - 0.6f) (if (Dither.at(px, py) < 0.3f) Pal.SNOW_M else Pal.SNOW_L) else Lakeland.drystone(x - xa, z, top, 2.2f, px, py)
+        }
+        iso.line(xa, ya, top, xb, ya, top, Col.hex(0xB8C0C4))
+        // the bracken before it: a ragged band of fronds, lit on their tips
+        val month = env.month
+        val (fern, fernD, fernL) = when {
+            winter || month in 12..12 || month in 1..2 -> Triple(Col.hex(0x8A6A48), Col.hex(0x6A4E34), Col.hex(0xA88660))
+            month >= 10 -> Triple(Col.hex(0xB0602E), Col.hex(0x8A4422), Col.hex(0xD08848))
+            else -> Triple(Col.hex(0x5A9A3E), Col.hex(0x3E7A2E), Col.hex(0x86C25A))
+        }
+        quadPlot(xa, ya + 0.15f, 0f, xb, ya + 0.15f, 0f, xb, ya + 0.15f, 2.4f, xa, ya + 0.15f, 2.4f) { px, py ->
+            val x = wallYx(px, ya + 0.15f); val z = wallYz(px, py, ya + 0.15f)
+            val crown = 1.1f + Noise.v1(x * 4.3f, 23) * 1.3f
+            if (z > crown) 0 else {
+                val n = Noise.v2(x * 6f, z * 1.4f, 25)
+                if (z > crown - 0.3f) fernL else if (n < 0.35f) fernD else fern
+            }
+        }
+        // the foxgloves in June and July: a tall spike or three, purple bells down one side
+        if (month in 6..7) for (k in 0 until 3) {
+            val x = xa + 0.7f + k * 1.4f + Noise.rnd(k, 27) * 0.4f
+            val bx = iso.sx(x, ya + 0.2f); val base = iso.sy(x, ya + 0.2f, 1.2f)
+            val h = (7f + k) * K
+            c.vline(floor(bx).toInt(), floor(base - h).toInt(), floor(base).toInt(), Col.hex(0x4E7A3A))
+            var yy = base - h + K
+            while (yy < base - 1.5f * K) {
+                c.fillEllipse(bx + 0.8f * K, yy, 0.8f * K, 0.6f * K, Col.hex(0xB0508A))
+                if (detail > 1) c.set(floor(bx + 1.1f * K).toInt(), floor(yy).toInt(), Col.hex(0xF0C8E0))
+                yy += 1.3f * K
+            }
+        }
+    }
+
     /** Like [quadFill], but pixels the shader answers 0 for are left alone. */
     private inline fun quadPlot(
         xa: Float, ya: Float, za: Float, xb: Float, yb: Float, zb: Float,
@@ -1257,6 +1315,7 @@ internal class TentPainter : DioramaPainter() {
 
     /** A pair of leather boots at the edge of the floor. */
     private fun boots() {
+        if (wellies) { wellies(); return }
         val l = Col.hex(0x8A5A38); val m = Col.hex(0x6A4028); val d = Col.hex(0x3E2618)
         for ((bx, by) in listOf(6.45f to 8.72f, 6.95f to 8.55f)) {
             iso.box(bx, by, fl, 0.62f, 0.3f, 1.3f, l, m, d)
@@ -1275,6 +1334,19 @@ internal class TentPainter : DioramaPainter() {
                     lz += 0.8f
                 }
             }
+        }
+    }
+
+    /** The Lake District's green wellington boots ([wellies]) where the leather boots stand: rubber, tall, a rim at the top, a shine down their front. */
+    private fun wellies() {
+        val l = Col.hex(0x4E8A50); val m = Col.hex(0x34683A); val d = Col.hex(0x1E4224)
+        for ((bx, by) in listOf(6.45f to 8.72f, 6.95f to 8.55f)) {
+            iso.box(bx, by, fl, 0.62f, 0.3f, 1.2f, l, m, d)
+            iso.box(bx, by, fl + 1.2f, 0.32f, 0.3f, 4.0f, l, m, d)
+            iso.top(bx + 0.03f, by + 0.03f, fl + 5.2f, 0.26f, 0.24f, Col.hex(0x14261A))
+            iso.line(bx, by + 0.3f, fl + 5.0f, bx + 0.32f, by + 0.3f, fl + 5.0f, Col.mix(l, Col.hex(0xFFFFFF), 0.25f))
+            iso.line(bx, by + 0.3f, fl + 0.3f, bx + 0.62f, by + 0.3f, fl + 0.3f, Col.hex(0x1A1A1A))
+            if (detail >= 2) iso.line(bx + 0.06f, by + 0.3f, fl + 1.6f, bx + 0.06f, by + 0.3f, fl + 4.6f, Col.mix(l, Col.hex(0xFFFFFF), 0.35f))
         }
     }
 
