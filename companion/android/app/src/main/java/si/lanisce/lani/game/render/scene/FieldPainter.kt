@@ -209,7 +209,7 @@ internal class FieldPainter : WildPainter() {
         setup()
         val season = env.season
         val k = detail
-        fienile = variant("kozolec") == "fienile"
+        fienile = variant("kozolec").let { it == "fienile" || it == "barn" } // the Lake District's stone barn is built as Friuli's fienile
         harpfe = variant("kozolec") == "harpfe"
         collio = variant("hills") != null
         piantata = variant("trees") != null

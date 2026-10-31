@@ -165,6 +165,33 @@ class LakelandLooksTest {
         }
     }
 
+    /** A picture's digest: the first 12 hex digits of the SHA-256 of its pixels. */
+    private fun digest(c: PixelCanvas): String {
+        val md = java.security.MessageDigest.getInstance("SHA-256")
+        val b = java.nio.ByteBuffer.allocate(c.pixels.size * 4)
+        for (p in c.pixels) b.putInt(p)
+        return md.digest(b.array()).joinToString("") { "%02x".format(it) }.take(12)
+    }
+
+    /**
+     * The Lake District's pictures as the review saw them (the contact sheets of places-lakeland), pinned: each art and the
+     * building(s) its levels are of, at levels 1, 3 and 5, by day and without people. A rebase onto another culture's
+     * look of the same painters (places-kaernten) merged a flag of the field's so that its stone barn drew as the default
+     * hayrack, with every other check green; this holds the looks to what was reviewed. A look changed on purpose: its new
+     * digests from this test's message, after a look at its contact sheets.
+     */
+    @Test fun `the Lake District's pictures are the ones reviewed`() {
+        val got = LinkedHashMap<String, String>()
+        for (a in arts) for (type in listOfNotNull(a.type, a.also)) for (level in listOf(1, 3, 5)) {
+            got["${a.art}/${type.name.lowercase()}/$level"] = digest(render(a.art, frame(a, level, "lakeland", 10.5f, people = false, type = type)))
+        }
+        val changed = got.filter { (k, v) -> REVIEWED[k] != v }
+        assertTrue(
+            "the Lake District's pictures changed (${changed.keys}); as they are now:\n" + got.entries.joinToString(",\n") { (k, v) -> "\"$k\" to \"$v\"" },
+            changed.isEmpty() && got.keys == REVIEWED.keys,
+        )
+    }
+
     /** A frame of each art in the Lake District's look and in Primorska's, at night with people and a highlight: the best of three rounds of 20, in this thread's CPU time (FrameBudget). */
     @Test fun `a Lake District frame renders fast`() {
         for (a in arts) for (level in listOf(1, Catalog.MAX_LEVEL)) {
@@ -189,6 +216,61 @@ class LakelandLooksTest {
     }
 
     companion object {
+        /** The digests of the pictures reviewed (the test of that name). */
+        private val REVIEWED: Map<String, String> = mapOf(
+            "kitchen/house/1" to "f4da7dbfa719",
+            "kitchen/house/3" to "0f4ba84d0729",
+            "kitchen/house/5" to "4f88b84ca95b",
+            "livingroom/house/1" to "1d64f54393c0",
+            "livingroom/house/3" to "b024e3d6221f",
+            "livingroom/house/5" to "6588af5338b8",
+            "cellar/house/1" to "b29797f0d744",
+            "cellar/house/3" to "ec73a4089276",
+            "cellar/house/5" to "db9a6c62a881",
+            "attic/house/1" to "d7ae3a35311a",
+            "attic/house/3" to "b00969e94f2a",
+            "attic/house/5" to "c6175072cd0f",
+            "workshop/house/1" to "71af67106a39",
+            "workshop/house/3" to "7c9e548ce7ee",
+            "workshop/house/5" to "722c4d178352",
+            "tent/tent/1" to "36c7b38826be",
+            "tent/tent/3" to "cf6b29ddd9ab",
+            "tent/tent/5" to "640d19f15b44",
+            "smithy/smithy/1" to "e086d243584d",
+            "smithy/smithy/3" to "6ef68f1831ef",
+            "smithy/smithy/5" to "3739417effe6",
+            "church/church/1" to "c64dac71223c",
+            "church/church/3" to "0d95dbb6de8b",
+            "church/church/5" to "fd5731701d9e",
+            "school/school/1" to "033af16d8afa",
+            "school/school/3" to "13996585dc8e",
+            "school/school/5" to "434010abe7b3",
+            "field/field/1" to "c3f23ef0f85f",
+            "field/field/3" to "2bd726acce9f",
+            "field/field/5" to "ebef878178f6",
+            "field/kozolec/1" to "5f12562a5bfc",
+            "field/kozolec/3" to "b65f23eecf68",
+            "field/kozolec/5" to "ebef878178f6",
+            "square/lipa/1" to "585758360e39",
+            "square/lipa/3" to "61ffb0990e76",
+            "square/lipa/5" to "9f5d034b1bff",
+            "square/well/1" to "42fc0f0f4a26",
+            "square/well/3" to "dc2731ed6422",
+            "square/well/5" to "9f5d034b1bff",
+            "market/market/1" to "69e7ee30a8c6",
+            "market/market/3" to "a4fe0726feaf",
+            "market/market/5" to "4688209a3182",
+            "apiary/beehive/1" to "cc42b3a1d077",
+            "apiary/beehive/3" to "a65ae55b6add",
+            "apiary/beehive/5" to "84a4a21282f9",
+            "watchtower/watchtower/1" to "c171b83a66d7",
+            "watchtower/watchtower/3" to "7f3a4aa3d77b",
+            "watchtower/watchtower/5" to "a22e233706f0",
+            "palisade/palisade/1" to "9ca5d245dc03",
+            "palisade/palisade/3" to "22997c30fa84",
+            "palisade/palisade/5" to "e80f13306c8d",
+        )
+
         private val WILD_ARTS = setOf("field")
         private val WILD = setOf("hare", "butterfly", "fox", "stag", "hedgehog", "boar", "badger", "dormouse", "bat", "deer")
     }
