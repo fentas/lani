@@ -230,7 +230,7 @@ type NewLearnerAnswers = {
   base: string
   level?: string
   goal?: number
-  /** The aim the setup asked ("🎯 Cilj · Aim"): kept when above the level; at once, as there is no village yet. */
+  /** The aim the setup asked ("🎯 Cilj · Aim"): kept when above the level, else B2 (aim.ts); at once, as there is no village yet. */
   target_level?: string
 }
 

@@ -9,6 +9,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, writeFile
 import { isAbsolute, join, relative, resolve } from 'node:path'
 import { CULTURE_ID, DEFAULT_CULTURE, LANDSCAPES, cultureFor } from './cultures'
 import { setting } from './env'
+import { defaultTarget } from './aim'
 
 export const DEFAULT_ID = 'default'
 
@@ -180,8 +181,9 @@ export type NewLearner = {
   /** Minutes a day (default 30, a child's 15). */
   goal?: number
   /**
-   * The aim, "🎯 Cilj · Aim" in the app's setup (docs/plans/05-built/setup-refresh.md): the CEFR level the village's ages
-   * lead to. Taken when it is above [level] (C2 at C2); else the default.
+   * The aim, "🎯 Cilj · Aim" in the app's setup (docs/plans/05-built/setup-refresh.md), or `lani-profile add
+   * --target-level`: the CEFR level the village's ages lead to. Taken when it is above [level] (C2 at C2); else B2, or the
+   * level above theirs from B2 on (aim.ts defaultTarget).
    */
   targetLevel?: string
   /** Where the tutor's session result files go (default: next to the data, ../results). */
@@ -223,7 +225,9 @@ export function initLearnerData(projectDir: string, dataDir: string, l: NewLearn
       target_language: target,
       target_language_code: l.target,
       current_level: level,
-      target_level: aimOf(level, l.targetLevel) ?? ({ A1: 'A2', A2: 'B1', B1: 'B2', B2: 'C1', C1: 'C2' } as Record<string, string>)[level] ?? 'C2',
+      // the learner's choice when above their level, else B2, or the level above theirs from B2 on (aim.ts defaultTarget):
+      // set before the village has an age, so at once
+      target_level: aimOf(level, l.targetLevel) ?? defaultTarget(level),
       daily_goal_minutes: l.goal ?? (l.child ? 15 : 30),
       learning_style: 'balanced',
       motivation: 'family',

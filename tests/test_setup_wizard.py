@@ -127,7 +127,8 @@ class SetupWizardTest(unittest.TestCase):
                       "--network", "skip", "--run", "tmux")
         data = self.home / ".local/share/lani/ana"
         profile = json.loads((data / "learner-profile.json").read_text())["learner"]
-        self.assertEqual(("Ana", "female", "Slovene", "sl", "German", "de", "A2", "B1", 20),
+        # a new learner aims at B2 (companion/GAME.md "Ages"), not one level above theirs any more
+        self.assertEqual(("Ana", "female", "Slovene", "sl", "German", "de", "A2", "B2", 20),
                          tuple(profile[k] for k in ("name", "gender", "target_language", "target_language_code", "base_language",
                                                     "base_language_code", "current_level", "target_level", "daily_goal_minutes")))
         s = self.settings()
