@@ -115,10 +115,22 @@ class ISpyController(
     // --- the offer ------------------------------------------------------------------------------------------------------
 
     /**
+     * The grammar book's pages not introduced to the learner, for [scene]'s clues ([ISpy.clues]): none in a scene of another
+     * language than the book's (a visit's). Each page is asked once ([mastery] reads the learner's cards of it).
+     */
+    private fun notYet(scene: SceneSpec): (String) -> Boolean {
+        if (scene.language != bookLanguage()) return { false }
+        val seen = HashMap<String, Boolean>()
+        return { id -> seen.getOrPut(id) { mastery(id) == Mastery.NOT_YET } }
+    }
+
+    /**
      * «Vidim, vidim» in [scene] now ([today]): a child to play with ([ISpy.host]: one of the scene in the picture, [drawn],
-     * else one of [children] who comes by), games left today, lines in the scene's language and something to spy among
-     * the things in the picture ([visible]). Null: not now. QA's hook ("ispy:<scene>/<slot>") offers it whatever the day
-     * (the scene screen then passes every child of the village, awake or not).
+     * else one of [children] who comes by), games left today, lines in the scene's language and a round that can start
+     * among the things in the picture ([visible], [ISpy.canStart]: a thing with two clues the learner's grammar has
+     * reached, or picture-free ones), so "🔍 Igrajva" never finds nothing. Null: not now. QA's hook ("ispy:<scene>/<slot>")
+     * offers it whatever the day (the scene screen then passes every child of the village, awake or not), never where no
+     * round can start.
      */
     fun offer(
         scene: SceneSpec, state: GameState?, drawn: List<PersonInScene>, children: List<Villager>, cast: (String) -> Villager?, visible: Set<String>,
@@ -133,7 +145,7 @@ class ISpyController(
         val left = if (forced != null) ISpy.GAMES_PER_DAY else ISpy.gamesLeft(state, scene.id, today)
         if (left <= 0) return null
         val host = ISpy.host(scene, drawn, children, state.seed, today, cast) ?: return null
-        if (scene.objects.none { it.slot in visible }) return null
+        if (!ISpy.canStart(scene, book(scene.id), l, visible, notYet(scene))) return null
         return ISpyOffer(scene.id, host, left, l)
     }
 
@@ -145,12 +157,12 @@ class ISpyController(
 
     /**
      * Starts the game [offer] in [scene], spying among the things in the picture now ([visible]); [found]: the things found
-     * there before. False when nothing there can be spied now.
+     * there before. False when nothing there can be spied now (the offer asked the same, [ISpy.canStart]: only when the
+     * picture changed in between, a wild animal gone).
      */
     fun start(scene: SceneSpec, offer: ISpyOffer, state: GameState?, visible: Set<String>, found: Set<String>, today: LocalDate = LocalDate.now()): Boolean {
         val book = book(scene.id)
-        val gate = scene.language == bookLanguage()
-        val notYet: (String) -> Boolean = { id -> gate && mastery(id) == Mastery.NOT_YET }
+        val notYet = notYet(scene)
         val book0 = words()
         val card: (SceneObject) -> ReviewCard? = { o -> SceneWords.packOf(scene, o)?.let { p -> book0?.card(p, o.word, o.sl.ifBlank { o.word }) } }
         val played = ISpy.today(state, today).scenes[scene.id]?.games ?: 0
@@ -236,8 +248,9 @@ class ISpyController(
     }
 
     /**
-     * Logs, in a debug build, where the round's things are on the screen ([at]: slot → the centre of its area in window
-     * pixels) and the thing spied ([target], its [word]): QA taps them, or its word's chip.
+     * Logs, in a debug build, where the round's things are on the screen ([at]: slot → a point in window pixels on a pixel
+     * the thing painted itself, [si.lanisce.lani.ui.scene.SceneAnchors.point]) and the thing spied ([target], its [word]): QA
+     * taps them, or its word's chip.
      */
     fun log(round: Int, target: String, word: String, at: Map<String, Pair<Int, Int>>) {
         if (!BuildConfig.QA) return

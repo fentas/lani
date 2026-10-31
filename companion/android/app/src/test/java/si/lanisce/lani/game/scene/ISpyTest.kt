@@ -104,9 +104,54 @@ class ISpyTest {
         // the numbers' forms: one, two, three to four, five and up
         assertEquals("Ima pet črk.", ISpy.fallback("lonec", "sl", lines)[1].line.sl)
         assertEquals("Ima dve črki.", ISpy.fallback("ja", "sl", lines)[1].line.sl)
-        // an Italian word with its article: the noun's letter; a word of two: no count
+        // an Italian word with its article: the noun's letter; a word of two: its first letter, no count
         assertEquals("Začne se s črko F.", ISpy.fallback("il fuoco", "it", lines)[0].line.sl)
-        assertEquals(1, ISpy.fallback("kačji pastir", "sl", lines).size)
+        assertEquals(listOf("Začne se s črko K."), ISpy.fallback("kačji pastir", "sl", lines).map { it.line.sl })
+    }
+
+    /** The child's lines in Italian, for the picture-free clues of Italian words. */
+    private val linesIt = lines.copy(
+        language = "it",
+        letter = ISpyLine("Inizia con la lettera {letter}.", "It starts with the letter {letter}."),
+        letters = ISpyLine("Ha {n} {lettera|lettere}.", "It has {n} {letter|letters}."),
+    )
+
+    @Test fun `the picture-free clues go by the noun after its article, counted where it is one word`() {
+        assertEquals(listOf("Inizia con la lettera P.", "Ha cinque lettere."), ISpy.fallback("il ponte", "it", linesIt).map { it.line.sl })
+        assertEquals("It has 5 letters.", ISpy.fallback("il ponte", "it", linesIt)[1].line.en)
+        assertEquals(listOf("Inizia con la lettera U.", "Ha quattro lettere."), ISpy.fallback("l'uovo", "it", linesIt).map { it.line.sl })
+        assertEquals(listOf("Inizia con la lettera U.", "Ha quattro lettere."), ISpy.fallback("l’uovo", "it", linesIt).map { it.line.sl })
+        assertEquals(listOf("Inizia con la lettera G."), ISpy.fallback("il gioco della campana", "it", linesIt).map { it.line.sl })
+        assertEquals(listOf("Inizia con la lettera O."), ISpy.fallback("l'orologio del campanile", "it", linesIt).map { it.line.sl })
+        assertEquals("ponte", ISpy.noun("il ponte", "it"))
+        assertEquals("Re Magi", ISpy.noun("i Re Magi", "it"))
+        assertEquals("Brunnen", ISpy.noun("der Brunnen", "de"))
+        assertEquals("Milky Way", ISpy.noun("the Milky Way", "en"))
+        // a word that only starts like an article, or a language without articles: as it is
+        assertEquals("ilex", ISpy.noun("ilex", "it"))
+        assertEquals("la", ISpy.noun("la", "it"))
+        assertEquals("la miza", ISpy.noun("la miza", "sl"))
+    }
+
+    @Test fun `a round can start where a thing has two clues, its own or picture-free, and not where none has`() {
+        val all = setOf("knife", "table", "door", "bread")
+        assertTrue(ISpy.canStart(scene, book, lines, all, beginner))
+        // nothing in the picture: nothing to spy
+        assertFalse(ISpy.canStart(scene, book, lines, emptySet(), beginner))
+        // a tutor's Italian scene without a clue file: the nouns' letters, so a round starts
+        val tutor = scene.copy(
+            id = "dal-tutor", language = "it",
+            objects = listOf(SceneObject("bridge", "ponte", sl = "il ponte", en = "bridge"), SceneObject("clock", "orologio", sl = "l'orologio del campanile", en = "clock")),
+        )
+        val got = ISpy.spyable(tutor, null, linesIt, setOf("bridge", "clock"), beginner)
+        assertEquals(listOf("bridge"), got.map { it.first.slot })
+        assertTrue(ISpy.canStart(tutor, null, linesIt, setOf("bridge", "clock"), beginner))
+        // only a thing of two words (one letter to give): no round, and so no offer
+        assertFalse(ISpy.canStart(tutor, null, linesIt, setOf("clock"), beginner))
+        // the clues the rounds give are the ones canStart found
+        val r = ISpy.rounds(tutor, null, linesIt, setOf("bridge", "clock"), beginner, { null }, emptySet(), emptySet(), today, Random(1))
+        assertEquals(listOf("bridge"), r.map { it.slot })
+        assertEquals(listOf("Inizia con la lettera P.", "Ha cinque lettere."), r.single().clues.map { it.line.sl })
     }
 
     // --- the things spied -------------------------------------------------------------------------------------------------

@@ -221,16 +221,38 @@ object ISpy {
     }
 
     /**
-     * The picture-free clues of a thing whose [word] (in [language]) has none of its own, or too few: the word's first
-     * letter, and, for a word of one piece, how many letters it has (`{n}` in words where it is said, in figures where it is
-     * meant; the forms that agree with it).
+     * The articles a word of a language may start with in the packs ("il ponte", "l'orologio", "der Brunnen", "the Milky
+     * Way"): the picture-free clues go by the noun after it ([noun]).
+     */
+    private val ARTICLES = mapOf(
+        "it" to listOf("il", "lo", "la", "i", "gli", "le", "l'", "un", "uno", "una", "un'"),
+        "de" to listOf("der", "die", "das", "ein", "eine"),
+        "en" to listOf("the", "a", "an"),
+    ).mapValues { (_, a) -> a.sortedByDescending { it.length } }
+
+    /** [word] of [language] without its article ([ARTICLES]): "il ponte" → "ponte", "l'uovo" → "uovo"; one without as it is. */
+    fun noun(word: String, language: String): String {
+        val w = word.trim().replace('’', '\'')
+        for (a in ARTICLES[language].orEmpty()) {
+            val rest = if (a.endsWith("'")) w.takeIf { it.startsWith(a, ignoreCase = true) }?.drop(a.length)
+            else w.takeIf { it.startsWith("$a ", ignoreCase = true) }?.drop(a.length + 1)
+            if (!rest.isNullOrBlank()) return rest.trim()
+        }
+        return w
+    }
+
+    /**
+     * The picture-free clues of a thing whose [word] (in [language]) has none of its own, or too few: the first letter of
+     * its noun (after the article: "il ponte" starts with P, "kačji pastir" with K), and, for a noun of one piece, how many
+     * letters it has (`{n}` in words where it is said, in figures where it is meant; the forms that agree with it): "Ha
+     * cinque lettere." for "il ponte" as "Ima štiri črke." for "kruh".
      */
     fun fallback(word: String, language: String, lines: ISpyLines): List<ISpyClue> {
-        val bare = word.substringAfter('\'').substringAfterLast(' ')
+        val bare = noun(word, language)
         val first = bare.firstOrNull { it.isLetter() } ?: return emptyList()
         val out = mutableListOf(ISpyClue("letter", lines.letter.with(letter = first.uppercase())))
-        val n = word.count { it.isLetter() }
-        lines.letters?.takeIf { word.trim().none { it == ' ' } && n in 2..20 }?.let { l ->
+        val n = bare.count { it.isLetter() }
+        lines.letters?.takeIf { bare.none { it == ' ' || it == '\'' } && n in 2..20 }?.let { l ->
             val said = counted(l.sl, n, Numbers.words(n, language, "f", "acc"), if (language == "sl") 4 else 2)
             val meant = counted(l.en, n, n.toString(), 2)
             out += ISpyClue("letters", ISpyLine(said, meant))
@@ -259,6 +281,27 @@ object ISpy {
     }
 
     /**
+     * The things of [scene] a round can spy now, each as its round would be: in the picture ([visible]) and with two clues
+     * to give ([clues]: of the pages introduced, [notYet] says which aren't, their thing in the picture; else the
+     * picture-free ones of [lines]), in the scene's order. [book]: the scene's clues (null: a tutor's scene, the
+     * picture-free clues only).
+     */
+    fun spyable(scene: SceneSpec, book: ISpyBook?, lines: ISpyLines, visible: Set<String>, notYet: (String) -> Boolean): List<Pair<ISpyRound, SceneObject>> =
+        scene.objects.distinctBy { it.slot }.filter { it.slot in visible }.mapNotNull { o ->
+            val t = book?.things?.get(o.slot)
+            val word = o.sl.ifBlank { o.word }
+            val cs = clues(t, notYet, { it in visible }, fallback(word, scene.language, lines))
+            if (cs.size < 2) null else ISpyRound(o.slot, word, t?.meaning ?: meaningOf(o.en), t?.plural == true, cs) to o
+        }
+
+    /**
+     * Whether a round of «Vidim, vidim» can start in [scene] now: a thing [spyable]. The offer asks it first, so the game is
+     * never offered where "🔍 Igrajva" would find nothing to spy.
+     */
+    fun canStart(scene: SceneSpec, book: ISpyBook?, lines: ISpyLines, visible: Set<String>, notYet: (String) -> Boolean): Boolean =
+        spyable(scene, book, lines, visible, notYet).isNotEmpty()
+
+    /**
      * A game's rounds in [scene] (in its world now): of the things in the picture now ([visible]) that have two clues to
      * give, not spied today already ([used]; when that leaves too few, any), up to [ROUNDS] picked by [weight] with
      * [random]; [first]: the thing of the first round (QA's hook). [book]: the scene's clues; [lines]: the child's, for a
@@ -269,12 +312,7 @@ object ISpy {
         card: (SceneObject) -> ReviewCard?, found: Set<String>, used: Set<String>, today: LocalDate, random: Random,
         first: String? = null, count: Int = ROUNDS,
     ): List<ISpyRound> {
-        val things = scene.objects.distinctBy { it.slot }.filter { it.slot in visible }.mapNotNull { o ->
-            val t = book?.things?.get(o.slot)
-            val word = o.sl.ifBlank { o.word }
-            val cs = clues(t, notYet, { it in visible }, fallback(word, scene.language, lines))
-            if (cs.size < 2) null else ISpyRound(o.slot, word, t?.meaning ?: meaningOf(o.en), t?.plural == true, cs) to o
-        }
+        val things = spyable(scene, book, lines, visible, notYet)
         if (things.isEmpty()) return emptyList()
         val fresh = things.filter { it.first.slot !in used }.takeIf { it.size >= minOf(count, things.size) } ?: things
         val pool = fresh.map { (r, o) -> r to weight(card(o), o.slot in found, today) }.toMutableList()
