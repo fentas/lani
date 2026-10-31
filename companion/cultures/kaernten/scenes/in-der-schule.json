@@ -1,0 +1,429 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-der-schule",
+  "language": "de",
+  "title": { "de": "In der Schule", "sl": "V šoli", "en": "At school", "it": "A scuola" },
+  "emoji": "🏫",
+  "level": "A1",
+  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; check Hausübung and the Slovene names (Koroška, Drava, Beljak, Celovec, Baško jezero)",
+  "art": "school",
+  "from": ["school"],
+  "pack": "in-der-schule",
+  "objects": [
+    { "slot": "blackboard", "word": "tafel" },
+    { "slot": "chalk", "word": "kreide", "pack": "fest-dreikoenig" },
+    { "slot": "sponge", "word": "schwamm" },
+    { "slot": "desk", "word": "schulbank" },
+    { "slot": "chair", "word": "stuhl", "pack": "haus-und-kueche" },
+    { "slot": "book", "word": "buch", "pack": "in-der-stube" },
+    { "slot": "notebook", "word": "heft" },
+    { "slot": "pencil", "word": "bleistift" },
+    { "slot": "bag", "word": "schultasche" },
+    { "slot": "map", "word": "landkarte", "needs": { "level": 2 } },
+    { "slot": "globe", "word": "globus", "needs": { "level": 2 } },
+    { "slot": "clock", "word": "uhr", "pack": "in-der-kueche", "needs": { "level": 3 } },
+    { "slot": "window", "word": "fenster", "pack": "haus-und-kueche" },
+    { "slot": "door", "word": "tuer", "pack": "haus-und-kueche" }
+  ],
+  "people": [
+    { "id": "eva", "name": "Lehrerin Eva", "emoji": "👩‍🏫", "art": "teacher", "slot": "teacher", "villager": "eva" },
+    { "id": "lena", "name": "Lena", "emoji": "👧", "art": "child2", "slot": "desk1", "villager": "lena" },
+    { "id": "maxi", "name": "Maxi", "emoji": "🧒", "art": "child1", "slot": "desk2", "villager": "maxi" },
+    { "id": "jakob", "name": "Jakob", "emoji": "👦", "art": "child3", "slot": "door", "villager": "jakob" }
+  ],
+  "happenings": [
+    {
+      "id": "appell", "title": { "de": "Lehrerin Eva ruft die Namen auf", "sl": "Učiteljica Eva kliče imena", "en": "Lehrerin Eva calls the register", "it": "La maestra Eva fa l'appello" }, "who": "eva",
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "with": ["lena", "maxi"],
+      "dialog": "appell", "dialogs": ["appell-jakob", "appell"], "reward": { "stone": 20 }, "marker": "🔔",
+      "memory": { "de": "den Morgen, an dem du in meiner Klasse warst", "sl": "jutro, ko si {m:bil|f:bila} v mojem razredu", "en": "the morning you were in my class", "it": "la mattina in cui eri nella mia classe" }
+    },
+    {
+      "id": "tafel", "title": { "de": "Der, die, das an der Tafel", "sl": "Der, die, das pri tabli", "en": "Der, die, das at the blackboard", "it": "Der, die, das alla lavagna" }, "who": "eva",
+      "when": ["afternoon"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.45,
+      "dialog": "tafel", "dialogs": ["tafel-umlaute", "tafel"], "reward": { "stone": 20 }, "marker": "✏️",
+      "memory": { "de": "der, die, das, die wir zusammen geübt haben", "sl": "der, die, das, ki sva jih skupaj {m:vadila|f:vadili}", "en": "the der, die, das we practised together", "it": "i der, die, das che abbiamo esercitato insieme" }
+    },
+    {
+      "id": "landkarte", "title": { "de": "Die Landkarte von Kärnten", "sl": "Zemljevid Koroške", "en": "The map of Carinthia", "it": "La carta della Carinzia" }, "who": "eva",
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.35, "needs": { "level": 2 },
+      "dialog": "landkarte", "dialogs": ["landkarte-globus", "landkarte-seen", "landkarte"], "reward": { "wisdom": 15 }, "marker": "🗺️",
+      "memory": { "de": "Kärnten auf der Landkarte, Koroška auf Slowenisch", "sl": "Koroško na zemljevidu, po nemško Kärnten", "en": "Carinthia on the map, Kärnten and Koroška", "it": "la Carinzia sulla carta, Kärnten e Koroška" }
+    },
+    {
+      "id": "uhr", "title": { "de": "Lena und die Uhr", "sl": "Lena in ura", "en": "Lena and the clock", "it": "Lena e l'orologio" }, "who": "lena",
+      "when": ["afternoon"], "chance": 0.4, "needs": { "level": 3 },
+      "dialog": "uhr", "dialogs": ["uhr-pause", "uhr"], "reward": { "wisdom": 15 }, "marker": "🕰️",
+      "memory": { "de": "die Uhr in der Schule und das Wort ura", "sl": "uro v šoli in besedo Uhr", "en": "the school clock and the word ura", "it": "l'orologio della scuola e la parola ura" }
+    },
+    {
+      "id": "hausuebung", "title": { "de": "Jakob macht Hausübung", "sl": "Jakob dela domačo nalogo", "en": "Jakob is doing his homework", "it": "Jakob fa i compiti" }, "who": "jakob",
+      "when": ["afternoon"], "chance": 0.4,
+      "dialog": "hausuebung", "dialogs": ["hausuebung-stifte", "hausuebung"], "reward": { "wisdom": 15 }, "marker": "📓",
+      "memory": { "de": "meine Hausübung, bei der du mir geholfen hast", "sl": "mojo domačo nalogo, pri kateri si mi {m:pomagal|f:pomagala}", "en": "my homework you helped me with", "it": "i compiti in cui mi hai aiutato" }
+    },
+    {
+      "id": "jause", "title": { "de": "Maxi in der Pause", "sl": "Maxi med odmorom", "en": "Maxi at break", "it": "Maxi alla ricreazione" }, "who": "maxi",
+      "when": ["morning"], "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4,
+      "dialog": "jause", "dialogs": ["jause-apfel", "jause"], "reward": { "food": 15 }, "marker": "🥪",
+      "memory": { "de": "die Jause in der Pause", "sl": "malico med odmorom", "en": "the snack at break", "it": "la merenda alla ricreazione" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "appell",
+      "lines": [
+        { "who": "eva", "face": "happy", "de": "Guten Morgen, Kinder! Wer ist heute da? Lena?", "sl": "Dobro jutro, otroci! Kdo je danes tu? Lena?", "en": "Good morning, children! Who's here today? Lena?", "it": "Buongiorno, bambini! Chi c'è oggi? Lena?" },
+        { "who": "lena", "face": "proud", "de": "Hier!", "sl": "Tukaj!", "en": "Here!", "it": "Presente!" },
+        { "who": "eva", "de": "Maxi?", "sl": "Maxi?", "en": "Maxi?", "it": "Maxi?" },
+        { "who": "maxi", "face": "laugh", "de": "Hier! Fast zu spät, aber hier!", "sl": "Tukaj! Skoraj prepozno, ampak tukaj!", "en": "Here! Nearly late, but here!", "it": "Presente! Quasi in ritardo, ma presente!" },
+        { "who": "eva", "face": "curious", "de": "Und {learner}?", "sl": "Pa {learner}?", "en": "And {learner}?", "it": "E {learner}?" },
+        { "choices": [
+          { "de": "Hier, Frau Lehrerin!", "sl": "Tukaj, gospa učiteljica!", "en": "Here, Miss!", "it": "Presente, maestra!", "ok": true,
+            "reply": { "face": "happy", "de": "Schön, dass du da bist.", "sl": "Lepo, da si tu.", "en": "Nice to have you here.", "it": "Che bello che ci sei." } },
+          { "de": "Ich bin da!", "sl": "Tukaj sem!", "en": "I'm here!", "it": "Ci sono!", "ok": true,
+            "reply": { "face": "happy", "de": "Sehr gut. Dann sind alle da.", "sl": "Zelo dobro. Potem so vsi tu.", "en": "Very good. Then everyone's here.", "it": "Benissimo. Allora ci siamo tutti." } },
+          { "de": "Hier, Lena!", "sl": "Tukaj, Lena!", "en": "Here, Lena!", "it": "Presente, Lena!",
+            "why": { "de": "Die Lehrerin ruft dich, nicht Lena. Du antwortest ihr.", "sl": "Kliče te učiteljica, ne Lena. Odgovoriš njej.", "en": "The teacher is calling you, not Lena. You answer her.", "it": "Ti chiama la maestra, non Lena. Rispondi a lei." },
+            "reply": { "face": "laugh", "de": "Lena? Nein, Lena sitzt dort. Ich habe dich gefragt!", "sl": "Lena? Ne, Lena sedi tam. Jaz sem vprašala tebe!", "en": "Lena? No, Lena's sitting over there. I asked you!", "it": "Lena? No, Lena è seduta lì. Ho chiesto a te!" } }
+        ] },
+        { "who": "eva", "face": "curious", "de": "Wie geht es dir heute?", "sl": "Kako si danes?", "en": "How are you today?", "it": "Come stai oggi?" },
+        { "choices": [
+          { "de": "Danke, gut. Und Ihnen?", "sl": "Hvala, dobro. Pa vi?", "en": "Fine, thanks. And you?", "it": "Bene, grazie. E Lei?", "ok": true,
+            "reply": { "face": "happy", "de": "Mir geht es auch gut, danke. Wir fangen an!", "sl": "Tudi meni gre dobro, hvala. Začnimo!", "en": "I'm fine too, thank you. Let's begin!", "it": "Anch'io sto bene, grazie. Cominciamo!" } },
+          { "de": "Danke, gut. Und dir?", "sl": "Hvala, dobro. Pa ti?", "en": "Fine, thanks. And you (informal)?", "it": "Bene, grazie. E tu?", "grammar": "du-sie",
+            "why": { "de": "Zur Lehrerin sagst du Sie, darum: Und Ihnen?", "sl": "Učiteljico vikaš, zato: Und Ihnen?", "en": "You say Sie to the teacher, so: Und Ihnen?", "it": "Alla maestra dai del Lei, quindi: Und Ihnen?" },
+            "reply": { "face": "curious", "de": "Und dir? Hm. In der Schule sagen wir das anders.", "sl": "Und dir? Hm. V šoli to rečemo drugače.", "en": "Und dir? Hm. At school we say that differently.", "it": "Und dir? Mm. A scuola lo diciamo in un altro modo." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, deutlich.", "sl": "Kako, prosim? Še enkrat, razločno.", "en": "Sorry? Once more, clearly.", "it": "Come? Ancora una volta, chiaramente." } }
+      ]
+    },
+    {
+      "id": "tafel",
+      "lines": [
+        { "who": "eva", "face": "happy", "de": "Heute üben wir der, die, das. Ich sage ein Wort, du sagst den Artikel. Fenster!", "sl": "Danes vadimo der, die, das. Jaz rečem besedo, ti pa člen. Fenster!", "en": "Today we're practising der, die, das. I say a word, you say the article. Fenster, window!", "it": "Oggi ci esercitiamo con der, die, das. Io dico una parola, tu dici l'articolo. Fenster, finestra!" },
+        { "choices": [
+          { "de": "Das Fenster!", "sl": "Das Fenster!", "en": "Das Fenster!", "it": "Das Fenster!", "ok": true,
+            "reply": { "face": "happy", "de": "Richtig! Das Fenster.", "sl": "Pravilno! Das Fenster.", "en": "Right! Das Fenster.", "it": "Giusto! Das Fenster." } },
+          { "de": "Der Fenster!", "sl": "Der Fenster!", "en": "Der Fenster!", "it": "Der Fenster!", "grammar": "artikel-genus",
+            "why": { "de": "Fenster ist neutral: das Fenster.", "sl": "Fenster je srednjega spola: das Fenster.", "en": "Fenster is neuter: das Fenster.", "it": "Fenster è neutro: das Fenster." },
+            "reply": { "face": "curious", "de": "Der Fenster? Nein. Hör genau hin. Noch einmal.", "sl": "Der Fenster? Ne. Dobro poslušaj. Še enkrat.", "en": "Der Fenster? No. Listen carefully. Once more.", "it": "Der Fenster? No. Ascolta bene. Ancora una volta." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, deutlich.", "sl": "Kako, prosim? Še enkrat, razločno.", "en": "Sorry? Once more, clearly.", "it": "Come? Ancora una volta, chiaramente." } },
+        { "who": "eva", "de": "Und jetzt: Tür!", "sl": "Zdaj pa: Tür!", "en": "And now: Tür, door!", "it": "E adesso: Tür, porta!" },
+        { "choices": [
+          { "de": "Die Tür!", "sl": "Die Tür!", "en": "Die Tür!", "it": "Die Tür!", "ok": true,
+            "reply": { "face": "happy", "de": "Sehr gut! Die Tür.", "sl": "Zelo dobro! Die Tür.", "en": "Very good! Die Tür.", "it": "Molto bene! Die Tür." } },
+          { "de": "Der Tür!", "sl": "Der Tür!", "en": "Der Tür!", "it": "Der Tür!", "grammar": "artikel-genus",
+            "why": { "de": "Tür ist feminin: die Tür.", "sl": "Tür je ženskega spola: die Tür (v slovenščini so vrata množina).", "en": "Tür is feminine: die Tür.", "it": "Tür è femminile: die Tür." },
+            "reply": { "face": "curious", "de": "Der Tür? Fast. Aber nein.", "sl": "Der Tür? Skoraj. Ampak ne.", "en": "Der Tür? Nearly. But no.", "it": "Der Tür? Quasi. Ma no." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, deutlich.", "sl": "Kako, prosim? Še enkrat, razločno.", "en": "Sorry? Once more, clearly.", "it": "Come? Ancora una volta, chiaramente." } },
+        { "who": "eva", "de": "Lern jedes Wort mit seinem Artikel. Der Artikel gehört zum Wort.", "sl": "Vsako besedo se uči s členom. Člen spada k besedi.", "en": "Learn every word with its article. The article belongs to the word.", "it": "Impara ogni parola col suo articolo. L'articolo fa parte della parola." },
+        { "who": "eva", "face": "curious", "de": "Hast du eine Frage?", "sl": "Imaš kakšno vprašanje?", "en": "Have you got a question?", "it": "Hai una domanda?" },
+        { "choices": [
+          { "de": "Ja. Warum ist das Mädchen neutral?", "sl": "Ja. Zakaj je das Mädchen srednjega spola?", "en": "Yes. Why is das Mädchen, girl, neuter?", "it": "Sì. Perché das Mädchen, la ragazza, è neutro?", "ok": true,
+            "reply": { "face": "laugh", "de": "Gute Frage! Wörter mit -chen sind immer neutral: das Mädchen, das Häuschen.", "sl": "Dobro vprašanje! Besede na -chen so vedno srednjega spola: das Mädchen, das Häuschen.", "en": "Good question! Words ending in -chen are always neuter: das Mädchen, das Häuschen.", "it": "Bella domanda! Le parole in -chen sono sempre neutre: das Mädchen, das Häuschen." } },
+          { "de": "Nein, danke. Alles klar.", "sl": "Ne, hvala. Vse je jasno.", "en": "No, thanks. All clear.", "it": "No, grazie. Tutto chiaro.", "ok": true,
+            "reply": { "face": "happy", "de": "Sehr gut. Dann bis morgen!", "sl": "Zelo dobro. Potem do jutri!", "en": "Very good. See you tomorrow, then!", "it": "Benissimo. Allora a domani!" } },
+          { "de": "Nein, danke. Alles kaputt.", "sl": "Ne, hvala. Vse je pokvarjeno.", "en": "No, thanks. Everything's broken.", "it": "No, grazie. È tutto rotto.",
+            "why": { "de": "Kaputt heißt zerbrochen. Du meinst: Alles klar.", "sl": "Kaputt pomeni pokvarjeno. Misliš: Alles klar, vse je jasno.", "en": "Kaputt means broken. You mean: alles klar, all clear.", "it": "Kaputt vuol dire rotto. Intendi: alles klar, tutto chiaro." },
+            "reply": { "face": "surprised", "de": "Alles kaputt? Hoffentlich nicht die Tafel!", "sl": "Vse pokvarjeno? Upam, da ne tabla!", "en": "Everything's broken? I hope not the blackboard!", "it": "Tutto rotto? Speriamo non la lavagna!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "landkarte",
+      "lines": [
+        { "who": "eva", "face": "happy", "de": "Heute: die Landkarte. Schau, das ist Kärnten. Auf Slowenisch heißt es Koroška.", "sl": "Danes: zemljevid. Poglej, to je Koroška. Po nemško se reče Kärnten.", "en": "Today: the map. Look, this is Carinthia. In Slovene it's called Koroška.", "it": "Oggi: la carta geografica. Guarda, questa è la Carinzia. In sloveno si chiama Koroška." },
+        { "who": "eva", "face": "curious", "de": "Was siehst du auf der Landkarte?", "sl": "Kaj vidiš na zemljevidu?", "en": "What can you see on the map?", "it": "Cosa vedi sulla carta?" },
+        { "choices": [
+          { "de": "Ich sehe einen Fluss und drei Seen.", "sl": "Vidim reko in tri jezera.", "en": "I can see a river and three lakes.", "it": "Vedo un fiume e tre laghi.", "ok": true,
+            "reply": { "face": "happy", "de": "Sehr gut! Die Drau, auf Slowenisch Drava. Und den Wörthersee, den Ossiacher See und den Faaker See.", "sl": "Zelo dobro! Drava, po nemško die Drau. Pa Vrbsko, Osojsko in Baško jezero.", "en": "Very good! The Drau, Drava in Slovene. And the Wörthersee, the Ossiacher See and the Faaker See.", "it": "Molto bene! La Drau, in sloveno Drava. E il Wörthersee, l'Ossiacher See e il Faaker See." } },
+          { "de": "Ich sehe die Berge.", "sl": "Vidim gore.", "en": "I can see the mountains.", "it": "Vedo le montagne.", "ok": true,
+            "reply": { "face": "happy", "de": "Ja! Unten, in Grau: die Karawanken. Dahinter ist Slowenien.", "sl": "Ja! Spodaj, v sivem: Karavanke. Za njimi je Slovenija.", "en": "Yes! At the bottom, in grey: the Karawanken. Slovenia is behind them.", "it": "Sì! In basso, in grigio: le Caravanche. Dietro c'è la Slovenia." } },
+          { "de": "Ich sehe das Meer.", "sl": "Vidim morje.", "en": "I can see the sea.", "it": "Vedo il mare.",
+            "why": { "de": "Kärnten hat kein Meer. Das Blaue sind Seen und die Drau.", "sl": "Koroška nima morja. Modro so jezera in Drava.", "en": "Carinthia has no sea. The blue is the lakes and the Drau.", "it": "La Carinzia non ha il mare. Il blu sono i laghi e la Drava." },
+            "reply": { "face": "surprised", "de": "Das Meer? Leider nein. Kärnten hat nur Seen!", "sl": "Morje? Žal ne. Koroška ima samo jezera!", "en": "The sea? Sadly not. Carinthia only has lakes!", "it": "Il mare? Purtroppo no. La Carinzia ha solo laghi!" } }
+        ] },
+        { "who": "eva", "de": "Hier ist Villach, auf Slowenisch Beljak. Viele Orte bei uns haben zwei Namen.", "sl": "Tukaj je Beljak, po nemško Villach. Veliko krajev pri nas ima dve imeni.", "en": "Here's Villach, Beljak in Slovene. Many places here have two names.", "it": "Qui c'è Villach, in sloveno Beljak. Da noi molti posti hanno due nomi." },
+        { "who": "eva", "face": "curious", "de": "Weißt du, wie die Hauptstadt von Kärnten heißt?", "sl": "Veš, kako se imenuje glavno mesto Koroške?", "en": "Do you know the name of Carinthia's capital?", "it": "Sai come si chiama il capoluogo della Carinzia?" },
+        { "choices": [
+          { "de": "Klagenfurt!", "sl": "Celovec!", "en": "Klagenfurt!", "it": "Klagenfurt!", "ok": true,
+            "reply": { "face": "proud", "de": "Richtig! Auf Slowenisch: Celovec.", "sl": "Pravilno! Po nemško: Klagenfurt.", "en": "Right! Celovec in Slovene.", "it": "Giusto! In sloveno: Celovec." } },
+          { "de": "Villach!", "sl": "Beljak!", "en": "Villach!", "it": "Villach!",
+            "why": { "de": "Villach ist groß, aber die Hauptstadt ist eine andere Stadt.", "sl": "Beljak je velik, a glavno mesto je drugo mesto.", "en": "Villach is big, but the capital is another town.", "it": "Villach è grande, ma il capoluogo è un'altra città." },
+            "reply": { "face": "curious", "de": "Villach? Fast! Aber Villach ist nur die zweitgrößte Stadt.", "sl": "Beljak? Skoraj! Ampak Beljak je samo drugo največje mesto.", "en": "Villach? Nearly! But Villach is only the second biggest town.", "it": "Villach? Quasi! Ma Villach è solo la seconda città." } },
+          { "de": "Wien!", "sl": "Dunaj!", "en": "Vienna!", "it": "Vienna!",
+            "why": { "de": "Wien ist die Hauptstadt von Österreich, nicht von Kärnten.", "sl": "Dunaj je glavno mesto Avstrije, ne Koroške.", "en": "Vienna is the capital of Austria, not of Carinthia.", "it": "Vienna è la capitale dell'Austria, non della Carinzia." },
+            "reply": { "face": "surprised", "de": "Wien? Das ist die Hauptstadt von ganz Österreich!", "sl": "Dunaj? To je glavno mesto vse Avstrije!", "en": "Vienna? That's the capital of all Austria!", "it": "Vienna? È la capitale di tutta l'Austria!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "uhr",
+      "lines": [
+        { "who": "lena", "face": "happy", "de": "Schau, die Uhr an der Wand! Tick, tack.", "sl": "Poglej uro na steni! Tik, tak.", "en": "Look, the clock on the wall! Tick, tock.", "it": "Guarda l'orologio sul muro! Tic, tac." },
+        { "who": "lena", "face": "curious", "de": "Weißt du, was Uhr auf Slowenisch heißt?", "sl": "Veš, kako se Uhr reče po slovensko?", "en": "Do you know what Uhr, clock, is in Slovene?", "it": "Sai come si dice Uhr, orologio, in sloveno?" },
+        { "choices": [
+          { "de": "Ura, oder?", "sl": "Ura, ne?", "en": "Ura, isn't it?", "it": "Ura, vero?", "ok": true,
+            "reply": { "face": "proud", "de": "Ja! Uhr, ura. Fast gleich!", "sl": "Ja! Uhr, ura. Skoraj enako!", "en": "Yes! Uhr, ura. Nearly the same!", "it": "Sì! Uhr, ura. Quasi uguale!" } },
+          { "de": "Okno, oder?", "sl": "Okno, ne?", "en": "Okno, isn't it?", "it": "Okno, vero?",
+            "why": { "de": "Okno ist das Fenster. Die Uhr heißt auf Slowenisch anders.", "sl": "Okno je das Fenster. Die Uhr se po slovensko reče drugače.", "en": "Okno is the window. Clock has another word in Slovene.", "it": "Okno è la finestra. L'orologio in sloveno si dice diversamente." },
+            "reply": { "face": "laugh", "de": "Okno? Das ist doch das Fenster! Hihi.", "sl": "Okno? To je vendar okno! Hihi.", "en": "Okno? That's the window! Hee hee.", "it": "Okno? Ma è la finestra! Ih ih." } }
+        ] },
+        { "who": "lena", "face": "curious", "de": "Und ist die Uhr rund oder eckig?", "sl": "Pa je ura okrogla ali oglata?", "en": "And is the clock round or square?", "it": "E l'orologio è rotondo o quadrato?" },
+        { "choices": [
+          { "de": "Die Uhr ist rund.", "sl": "Ura je okrogla.", "en": "The clock is round.", "it": "L'orologio è rotondo.", "ok": true,
+            "reply": { "face": "happy", "de": "Richtig! Rund wie ein Kuchen.", "sl": "Pravilno! Okrogla kot torta.", "en": "Right! Round like a cake.", "it": "Giusto! Rotondo come una torta." } },
+          { "de": "Der Uhr ist rund.", "sl": "Ura je okrogla.", "en": "The clock is round.", "it": "L'orologio è rotondo.", "grammar": "artikel-genus",
+            "why": { "de": "Uhr ist feminin: die Uhr.", "sl": "Uhr je ženskega spola: die Uhr.", "en": "Uhr is feminine: die Uhr.", "it": "Uhr è femminile: die Uhr (in italiano l'orologio è maschile)." },
+            "reply": { "face": "laugh", "de": "Der Uhr? Hihi! Das sagt nicht einmal Maxi!", "sl": "Der Uhr? Hihi! Tega niti Maxi ne reče!", "en": "Der Uhr? Hee hee! Not even Maxi says that!", "it": "Der Uhr? Ih ih! Non lo dice neanche Maxi!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Wie bitte?", "sl": "Ha? Kako, prosim?", "en": "Huh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "lena", "face": "happy", "de": "Bald ist Pause. Dann spiele ich mit Maxi Fangen.", "sl": "Kmalu bo odmor. Potem se z Maxijem lovim.", "en": "It's break soon. Then I'll play tag with Maxi.", "it": "Tra poco c'è la ricreazione. Poi gioco a prendersi con Maxi." }
+      ]
+    },
+    {
+      "id": "hausuebung",
+      "lines": [
+        { "who": "jakob", "face": "shy", "de": "Hallo … ich mache Hausübung. Ich muss Wörter schreiben.", "sl": "Živjo … delam domačo nalogo. Pisati moram besede.", "en": "Hi … I'm doing homework. I have to write words.", "it": "Ciao … faccio i compiti. Devo scrivere delle parole." },
+        { "who": "jakob", "face": "curious", "de": "Wie schreibt man Haus? Groß oder klein?", "sl": "Kako se piše Haus? Z veliko ali z malo?", "en": "How do you write Haus? With a capital or not?", "it": "Come si scrive Haus? Maiuscolo o minuscolo?" },
+        { "choices": [
+          { "de": "Groß! Haus ist ein Nomen.", "sl": "Z veliko! Haus je samostalnik.", "en": "A capital! Haus is a noun.", "it": "Maiuscolo! Haus è un nome.", "ok": true,
+            "reply": { "face": "happy", "de": "Groß. Danke! H, a, u, s.", "sl": "Z veliko. Hvala! H, a, u, s.", "en": "A capital. Thanks! H, a, u, s.", "it": "Maiuscolo. Grazie! H, a, u, s." } },
+          { "de": "Klein! Haus ist ein Nomen.", "sl": "Z malo! Haus je samostalnik.", "en": "Small! Haus is a noun.", "it": "Minuscolo! Haus è un nome.",
+            "why": { "de": "Im Deutschen schreibt man alle Nomen groß: das Haus, der Tisch.", "sl": "V nemščini se vsi samostalniki pišejo z veliko: das Haus, der Tisch.", "en": "In German every noun has a capital: das Haus, der Tisch.", "it": "In tedesco tutti i nomi si scrivono con la maiuscola: das Haus, der Tisch." },
+            "reply": { "face": "worried", "de": "Klein? Hm … die Lehrerin sagt etwas anderes.", "sl": "Z malo? Hm … učiteljica pravi drugače.", "en": "Small? Hm … the teacher says something else.", "it": "Minuscolo? Mm … la maestra dice un'altra cosa." } }
+        ] },
+        { "who": "jakob", "face": "proud", "de": "Und ich kann schon zählen! Eins, zwei, drei, vier, fünf, sechs!", "sl": "Pa šteti že znam! Ena, dve, tri, štiri, pet, šest!", "en": "And I can already count! One, two, three, four, five, six!", "it": "E so già contare! Uno, due, tre, quattro, cinque, sei!" },
+        { "who": "jakob", "face": "curious", "de": "Hilfst du mir morgen wieder?", "sl": "Mi jutri spet pomagaš?", "en": "Will you help me again tomorrow?", "it": "Mi aiuti di nuovo domani?" },
+        { "choices": [
+          { "de": "Ja, gern!", "sl": "Ja, z veseljem!", "en": "Yes, gladly!", "it": "Sì, volentieri!", "ok": true,
+            "reply": { "face": "laugh", "de": "Juhu! Danke!", "sl": "Juhu! Hvala!", "en": "Yay! Thanks!", "it": "Evviva! Grazie!" } },
+          { "de": "Ja, aber nur nach der Jause!", "sl": "Ja, ampak šele po malici!", "en": "Yes, but only after the snack!", "it": "Sì, ma solo dopo la merenda!", "ok": true,
+            "reply": { "face": "happy", "de": "Hihi. Nach der Jause, versprochen.", "sl": "Hihi. Po malici, obljubim.", "en": "Hee hee. After the snack, promise.", "it": "Ih ih. Dopo la merenda, promesso." } },
+          { "de": "Ja, gestern!", "sl": "Ja, včeraj!", "en": "Yes, yesterday!", "it": "Sì, ieri!",
+            "why": { "de": "Gestern ist vorbei. Jakob fragt nach morgen.", "sl": "Včeraj je mimo. Jakob sprašuje za jutri.", "en": "Yesterday is over. Jakob is asking about tomorrow.", "it": "Ieri è passato. Jakob chiede di domani." },
+            "reply": { "face": "confused", "de": "Gestern? Aber gestern warst du nicht da!", "sl": "Včeraj? Ampak včeraj te ni bilo!", "en": "Yesterday? But you weren't here yesterday!", "it": "Ieri? Ma ieri non c'eri!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "jause",
+      "lines": [
+        { "who": "maxi", "face": "laugh", "de": "Pause! Endlich! Jause!", "sl": "Odmor! Končno! Malica!", "en": "Break! At last! Snack time!", "it": "Ricreazione! Finalmente! Merenda!" },
+        { "who": "maxi", "face": "curious", "de": "Was hast du dabei?", "sl": "Kaj imaš s sabo?", "en": "What have you brought?", "it": "Cosa hai portato?" },
+        { "choices": [
+          { "de": "Ich habe einen Apfel.", "sl": "Imam jabolko.", "en": "I've got an apple.", "it": "Ho una mela.", "ok": true,
+            "reply": { "face": "happy", "de": "Ein Apfel ist gesund. Sagt meine Mama.", "sl": "Jabolko je zdravo. Pravi moja mama.", "en": "An apple is healthy. My mum says.", "it": "Una mela fa bene. Lo dice la mia mamma." } },
+          { "de": "Ich habe nichts dabei.", "sl": "Nič nimam s sabo.", "en": "I haven't brought anything.", "it": "Non ho portato niente.", "ok": true,
+            "reply": { "face": "happy", "de": "Nichts? Dann teilen wir! Ich habe zwei Semmeln.", "sl": "Nič? Potem si razdeliva! Jaz imam dve žemlji.", "en": "Nothing? Then we'll share! I've got two rolls.", "it": "Niente? Allora dividiamo! Io ho due panini." } },
+          { "de": "Ich habe einen Fußball.", "sl": "Imam nogometno žogo.", "en": "I've got a football.", "it": "Ho un pallone.",
+            "why": { "de": "Maxi fragt nach deiner Jause, nach dem Essen.", "sl": "Maxi sprašuje po tvoji malici, po hrani.", "en": "Maxi is asking about your snack, your food.", "it": "Maxi chiede della tua merenda, del cibo." },
+            "reply": { "face": "laugh", "de": "Einen Fußball? Super! Aber essen kann man den nicht.", "sl": "Nogometno žogo? Super! Ampak te se ne da jesti.", "en": "A football? Great! But you can't eat it.", "it": "Un pallone? Fantastico! Ma non si può mangiare." } }
+        ] },
+        { "who": "maxi", "face": "sad", "de": "Nach der Pause haben wir Rechnen. Rechnen mag ich nicht.", "sl": "Po odmoru imamo računanje. Računanja ne maram.", "en": "After break we've got sums. I don't like sums.", "it": "Dopo la ricreazione abbiamo aritmetica. L'aritmetica non mi piace." },
+        { "who": "maxi", "face": "curious", "de": "Magst du Rechnen?", "sl": "Ti je računanje všeč?", "en": "Do you like sums?", "it": "Ti piace l'aritmetica?" },
+        { "choices": [
+          { "de": "Ja, ich mag Rechnen.", "sl": "Ja, računanje mi je všeč.", "en": "Yes, I like sums.", "it": "Sì, l'aritmetica mi piace.", "ok": true,
+            "reply": { "face": "surprised", "de": "Echt? Dann hilfst du mir bei der Hausübung!", "sl": "Res? Potem mi pomagaš pri domači nalogi!", "en": "Really? Then you'll help me with my homework!", "it": "Davvero? Allora mi aiuti con i compiti!" } },
+          { "de": "Ja, ich magst Rechnen.", "sl": "Ja, računanje mi je všeč.", "en": "Yes, I likes sums.", "it": "Sì, l'aritmetica mi piace.", "grammar": "praesens",
+            "why": { "de": "Bei ich heißt es mag, ohne Endung. Du magst sagt man zu dir.", "sl": "Pri ich se reče mag, brez končnice. Du magst je za ti.", "en": "With ich it's mag, with no ending. Du magst is for you.", "it": "Con ich si dice mag, senza desinenza. Du magst è per il tu." },
+            "reply": { "face": "laugh", "de": "Ich magst? Hihi, das ist ja noch schlimmer als Rechnen!", "sl": "Ich magst? Hihi, to je še huje kot računanje!", "en": "Ich magst? Hee hee, that's even worse than sums!", "it": "Ich magst? Ih ih, è peggio dell'aritmetica!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was?", "sl": "Ha? Kaj?", "en": "Huh? What?", "it": "Eh? Cosa?" } },
+        { "who": "maxi", "face": "happy", "de": "Gleich ist die Pause vorbei. Los geht's!", "sl": "Odmora bo kmalu konec. Gremo!", "en": "Break's nearly over. Let's go!", "it": "La ricreazione sta per finire. Si parte!" }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "appell-jakob",
+      "memory": { "de": "den Morgen, an dem Jakob zu spät gekommen ist", "sl": "jutro, ko je Jakob zamudil", "en": "the morning Jakob was late", "it": "la mattina in cui Jakob è arrivato tardi" },
+      "lines": [
+        { "who": "eva", "face": "curious", "de": "Guten Morgen! Lena, Maxi … und wo ist Jakob?", "sl": "Dobro jutro! Lena, Maxi … pa kje je Jakob?", "en": "Good morning! Lena, Maxi … and where's Jakob?", "it": "Buongiorno! Lena, Maxi … e dov'è Jakob?" },
+        { "who": "jakob", "face": "shy", "de": "Entschuldigung … ich bin zu spät.", "sl": "Oprostite … zamudil sem.", "en": "Sorry … I'm late.", "it": "Scusi … sono in ritardo." },
+        { "who": "eva", "face": "curious", "de": "Macht nichts, Jakob. Und du, {learner}? Bist du heute müde?", "sl": "Nič hudega, Jakob. Pa ti, {learner}? Si danes {m:utrujen|f:utrujena}?", "en": "Never mind, Jakob. And you, {learner}? Are you tired today?", "it": "Non fa niente, Jakob. E tu, {learner}? Sei {m:stanco|f:stanca} oggi?" },
+        { "choices": [
+          { "de": "Nein, ich bin nicht müde.", "sl": "Ne, nisem {m:utrujen|f:utrujena}.", "en": "No, I'm not tired.", "it": "No, non sono {m:stanco|f:stanca}.", "ok": true,
+            "reply": { "face": "happy", "de": "Sehr gut! Dann können wir viel lernen.", "sl": "Zelo dobro! Potem se lahko veliko naučimo.", "en": "Very good! Then we can learn a lot.", "it": "Molto bene! Allora possiamo imparare tanto." } },
+          { "de": "Ja, ein bisschen.", "sl": "Ja, malo.", "en": "Yes, a little.", "it": "Sì, un po'.", "ok": true,
+            "reply": { "face": "happy", "de": "Ein bisschen müde ist in Ordnung. Es ist ja noch früh.", "sl": "Malo utrujenosti je v redu. Saj je še zgodaj.", "en": "A little tired is fine. It's still early.", "it": "Un po' stanchi va bene. È ancora presto." } },
+          { "de": "Ja, ich bin hungrig.", "sl": "Ja, {m:lačen|f:lačna} sem.", "en": "Yes, I'm hungry.", "it": "Sì, ho fame.",
+            "why": { "de": "Die Lehrerin fragt, ob du müde bist, nicht ob du Hunger hast.", "sl": "Učiteljica sprašuje, ali si {m:utrujen|f:utrujena}, ne ali si {m:lačen|f:lačna}.", "en": "The teacher asks if you're tired, not if you're hungry.", "it": "La maestra chiede se sei {m:stanco|f:stanca}, non se hai fame." },
+            "reply": { "face": "laugh", "de": "Hungrig? Die Jause gibt es erst in der Pause!", "sl": "Lačen? Malica je šele med odmorom!", "en": "Hungry? The snack isn't till break!", "it": "Fame? La merenda è solo alla ricreazione!" } }
+        ] },
+        { "who": "eva", "de": "Jakob, setz dich. Heute lernen wir die Wochentage.", "sl": "Jakob, sedi. Danes se učimo dneve v tednu.", "en": "Jakob, sit down. Today we're learning the days of the week.", "it": "Jakob, siediti. Oggi impariamo i giorni della settimana." },
+        { "who": "eva", "face": "curious", "de": "Welcher Tag kommt nach Montag?", "sl": "Kateri dan pride po ponedeljku?", "en": "Which day comes after Monday?", "it": "Che giorno viene dopo lunedì?" },
+        { "choices": [
+          { "de": "Nach Montag kommt Dienstag.", "sl": "Po ponedeljku pride torek.", "en": "After Monday comes Tuesday.", "it": "Dopo lunedì viene martedì.", "ok": true,
+            "reply": { "face": "happy", "de": "Richtig! Und dann Mittwoch.", "sl": "Pravilno! Potem pa sreda.", "en": "Right! And then Wednesday.", "it": "Giusto! E poi mercoledì." } },
+          { "de": "Nach Montag Dienstag kommt.", "sl": "Po ponedeljku pride torek.", "en": "After Monday Tuesday comes.", "it": "Dopo lunedì viene martedì.", "grammar": "wortstellung",
+            "why": { "de": "Das Verb steht an zweiter Stelle: Nach Montag kommt Dienstag.", "sl": "Glagol stoji na drugem mestu: Nach Montag kommt Dienstag.", "en": "The verb comes second: Nach Montag kommt Dienstag.", "it": "Il verbo sta al secondo posto: Nach Montag kommt Dienstag." },
+            "reply": { "face": "curious", "de": "Hm, der Satz ist durcheinander. Noch einmal, bitte.", "sl": "Hm, stavek je pomešan. Še enkrat, prosim.", "en": "Hm, that sentence is jumbled. Once more, please.", "it": "Mm, la frase è in disordine. Ancora una volta, per favore." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, deutlich.", "sl": "Kako, prosim? Še enkrat, razločno.", "en": "Sorry? Once more, clearly.", "it": "Come? Ancora una volta, chiaramente." } },
+        { "who": "eva", "face": "happy", "de": "Sehr gut. Und am Sonntag fahre ich mit dem Rad an der Drau.", "sl": "Zelo dobro. V nedeljo pa kolesarim ob Dravi.", "en": "Very good. And on Sunday I'll go cycling along the Drau.", "it": "Molto bene. E domenica vado in bici lungo la Drava." }
+      ]
+    },
+    {
+      "id": "tafel-umlaute",
+      "memory": { "de": "die Umlaute: ä, ö, ü", "sl": "preglase: ä, ö, ü", "en": "the umlauts: ä, ö, ü", "it": "le vocali con l'Umlaut: ä, ö, ü" },
+      "lines": [
+        { "who": "eva", "face": "happy", "de": "Heute: die Umlaute. Ä, ö, ü. Hör gut zu: schon, schön.", "sl": "Danes: preglasi. Ä, ö, ü. Dobro poslušaj: schon, schön.", "en": "Today: the umlauts. Ä, ö, ü. Listen carefully: schon, schön.", "it": "Oggi: le vocali con l'Umlaut. Ä, ö, ü. Ascolta bene: schon, schön." },
+        { "who": "eva", "face": "curious", "de": "Der Garten ist im Sommer sehr …?", "sl": "Vrt je poleti zelo …?", "en": "In summer the garden is very …?", "it": "D'estate il giardino è molto …?" },
+        { "choices": [
+          { "de": "Der Garten ist sehr schön.", "sl": "Vrt je zelo lep.", "en": "The garden is very lovely.", "it": "Il giardino è bellissimo.", "ok": true,
+            "reply": { "face": "happy", "de": "Richtig! Schön, mit ö.", "sl": "Pravilno! Schön, z ö.", "en": "Right! Schön, with ö.", "it": "Giusto! Schön, con la ö." } },
+          { "de": "Der Garten ist sehr schon.", "sl": "Vrt je zelo že.", "en": "The garden is very already.", "it": "Il giardino è molto già.",
+            "why": { "de": "Schön mit ö heißt lepo. Schon ohne Umlaut heißt že.", "sl": "Schön z ö pomeni lepo. Schon brez preglasa pomeni že.", "en": "Schön with ö means lovely. Schon without it means already.", "it": "Schön con la ö vuol dire bello. Schon senza Umlaut vuol dire già." },
+            "reply": { "face": "curious", "de": "Schon? Schon was? Hör noch einmal: ö.", "sl": "Schon? Že kaj? Še enkrat poslušaj: ö.", "en": "Schon? Already what? Listen again: ö.", "it": "Schon? Già cosa? Ascolta ancora: ö." } }
+        ] },
+        { "who": "eva", "de": "Und jetzt: eine Mutter, zwei …?", "sl": "Zdaj pa: ena mama, dve …?", "en": "And now: one mother, two …?", "it": "E adesso: una madre, due …?" },
+        { "choices": [
+          { "de": "Zwei Mütter.", "sl": "Dve mami.", "en": "Two mothers.", "it": "Due madri.", "ok": true,
+            "reply": { "face": "proud", "de": "Richtig! Der Plural hat ein ü.", "sl": "Pravilno! Množina ima ü.", "en": "Right! The plural has a ü.", "it": "Giusto! Il plurale ha la ü." } },
+          { "de": "Zwei Mutter.", "sl": "Dve mami.", "en": "Two mother.", "it": "Due madre.", "grammar": "plural",
+            "why": { "de": "Im Plural bekommt Mutter einen Umlaut.", "sl": "V množini dobi Mutter preglas.", "en": "In the plural Mutter gets an umlaut.", "it": "Al plurale Mutter prende l'Umlaut." },
+            "reply": { "face": "curious", "de": "Zwei Mutter? Hm. Hör genau hin: ü.", "sl": "Zwei Mutter? Hm. Dobro poslušaj: ü.", "en": "Zwei Mutter? Hm. Listen carefully: ü.", "it": "Zwei Mutter? Mm. Ascolta bene: ü." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, deutlich.", "sl": "Kako, prosim? Še enkrat, razločno.", "en": "Sorry? Once more, clearly.", "it": "Come? Ancora una volta, chiaramente." } },
+        { "who": "eva", "de": "Auf Slowenisch gibt es keine Umlaute, aber č, š, ž. Jede Sprache hat ihre Zeichen.", "sl": "V slovenščini ni preglasov, so pa č, š, ž. Vsak jezik ima svoje znake.", "en": "Slovene has no umlauts, but it has č, š, ž. Every language has its own marks.", "it": "In sloveno non ci sono Umlaut, ma ci sono č, š, ž. Ogni lingua ha i suoi segni." },
+        { "choices": [
+          { "de": "Das ist interessant!", "sl": "To je zanimivo!", "en": "That's interesting!", "it": "È interessante!", "ok": true,
+            "reply": { "face": "happy", "de": "Ja! Sprachen sind wie Geschwister.", "sl": "Ja! Jeziki so kot bratje in sestre.", "en": "Yes! Languages are like brothers and sisters.", "it": "Sì! Le lingue sono come fratelli e sorelle." } },
+          { "de": "Ich mag die Umlaute.", "sl": "Preglasi so mi všeč.", "en": "I like the umlauts.", "it": "Le vocali con l'Umlaut mi piacciono.", "ok": true,
+            "reply": { "face": "laugh", "de": "Ich auch! Besonders das ü. Es klingt so lustig.", "sl": "Meni tudi! Posebno ü. Tako smešno zveni.", "en": "Me too! Especially the ü. It sounds so funny.", "it": "Anche a me! Soprattutto la ü. Suona così buffa." } },
+          { "de": "Das ist langweilig!", "sl": "To je dolgočasno!", "en": "That's boring!", "it": "È noioso!",
+            "why": { "de": "Die Lehrerin freut sich über Interesse. Langweilig ist hier nicht nett.", "sl": "Učiteljica je vesela zanimanja. Dolgočasno tu ni prijazno.", "en": "The teacher is glad when you're interested. Boring isn't kind here.", "it": "La maestra è contenta se sei interessato. Noioso qui non è gentile." },
+            "reply": { "face": "sad", "de": "Langweilig? Oh. Dann machen wir es spannender!", "sl": "Dolgočasno? Oh. Potem pa naredimo bolj napeto!", "en": "Boring? Oh. Then let's make it more exciting!", "it": "Noioso? Oh. Allora rendiamolo più divertente!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "landkarte-seen",
+      "memory": { "de": "die Seen auf der Landkarte von Kärnten", "sl": "jezera na zemljevidu Koroške", "en": "the lakes on the map of Carinthia", "it": "i laghi sulla carta della Carinzia" },
+      "lines": [
+        { "who": "eva", "face": "happy", "de": "Schau, die Seen auf der Landkarte. Kärnten hat über tausend Seen.", "sl": "Poglej jezera na zemljevidu. Koroška ima več kot tisoč jezer.", "en": "Look at the lakes on the map. Carinthia has over a thousand lakes.", "it": "Guarda i laghi sulla carta. La Carinzia ha più di mille laghi." },
+        { "who": "eva", "face": "curious", "de": "Wo schwimmst du im Sommer, {learner}?", "sl": "Kje plavaš poleti, {learner}?", "en": "Where do you swim in summer, {learner}?", "it": "Dove nuoti d'estate, {learner}?" },
+        { "choices": [
+          { "de": "Ich schwimme im See.", "sl": "Plavam v jezeru.", "en": "I swim in the lake.", "it": "Nuoto nel lago.", "ok": true,
+            "reply": { "face": "happy", "de": "Im See, wie alle hier! Im Sommer ist das Wasser warm.", "sl": "V jezeru, kot vsi tukaj! Poleti je voda topla.", "en": "In the lake, like everyone here! In summer the water's warm.", "it": "Nel lago, come tutti qui! D'estate l'acqua è calda." } },
+          { "de": "Ich schwimme in den See.", "sl": "Plavam v jezero.", "en": "I swim into the lake.", "it": "Nuoto verso il lago.", "grammar": "wechselpraepositionen",
+            "why": { "de": "Wo? Ein Ort nimmt den Dativ: im See. In den See sagt, wohin.", "sl": "Kje? Kraj zahteva dajalnik: im See. In den See pove, kam.", "en": "Where? A place takes the dative: im See. In den See says where to.", "it": "Dove? Un luogo vuole il dativo: im See. In den See dice verso dove." },
+            "reply": { "face": "laugh", "de": "In den See? Du springst also hinein? Hihi.", "sl": "V jezero? Torej skočiš noter? Hihi.", "en": "Into the lake? So you jump in? Hee hee.", "it": "Dentro il lago? Allora ci salti? Ih ih." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, deutlich.", "sl": "Kako, prosim? Še enkrat, razločno.", "en": "Sorry? Once more, clearly.", "it": "Come? Ancora una volta, chiaramente." } },
+        { "who": "eva", "de": "Der Faaker See heißt auf Slowenisch Baško jezero.", "sl": "Faaker See se po slovensko imenuje Baško jezero.", "en": "The Faaker See is called Baško jezero in Slovene.", "it": "Il Faaker See in sloveno si chiama Baško jezero." },
+        { "who": "eva", "face": "curious", "de": "Ist der See kalt oder warm?", "sl": "Je jezero mrzlo ali toplo?", "en": "Is the lake cold or warm?", "it": "Il lago è freddo o caldo?" },
+        { "choices": [
+          { "de": "Im Sommer ist er warm.", "sl": "Poleti je toplo.", "en": "In summer it's warm.", "it": "D'estate è caldo.", "ok": true,
+            "reply": { "face": "happy", "de": "Ja, bis zu siebenundzwanzig Grad!", "sl": "Ja, do sedemindvajset stopinj!", "en": "Yes, up to twenty-seven degrees!", "it": "Sì, fino a ventisette gradi!" } },
+          { "de": "Im Winter ist er kalt.", "sl": "Pozimi je mrzlo.", "en": "In winter it's cold.", "it": "D'inverno è freddo.", "ok": true,
+            "reply": { "face": "surprised", "de": "Sehr kalt! Manchmal ist er sogar gefroren.", "sl": "Zelo mrzlo! Včasih je celo zamrznjeno.", "en": "Very cold! Sometimes it even freezes over.", "it": "Freddissimo! A volte è perfino ghiacciato." } },
+          { "de": "Im Sommer ist er gefroren.", "sl": "Poleti je zamrznjeno.", "en": "In summer it's frozen.", "it": "D'estate è ghiacciato.",
+            "why": { "de": "Im Sommer ist ein See nicht gefroren. Gefroren ist er im Winter.", "sl": "Poleti jezero ni zamrznjeno. Zamrznjeno je pozimi.", "en": "A lake isn't frozen in summer. It freezes in winter.", "it": "D'estate un lago non è ghiacciato. Lo è d'inverno." },
+            "reply": { "face": "laugh", "de": "Gefroren im Sommer? Dann gehen wir Eis laufen! Hihi.", "sl": "Zamrznjeno poleti? Potem gremo drsat! Hihi.", "en": "Frozen in summer? Then we'll go skating! Hee hee.", "it": "Ghiacciato d'estate? Allora andiamo a pattinare! Ih ih." } }
+        ] }
+      ]
+    },
+    {
+      "id": "landkarte-globus",
+      "memory": { "de": "Österreich auf dem Globus, ganz klein", "sl": "Avstrijo na globusu, čisto majhno", "en": "Austria on the globe, tiny", "it": "l'Austria sul mappamondo, piccolissima" },
+      "lines": [
+        { "who": "eva", "face": "curious", "de": "Kärnten ist klein. Und wo ist Österreich auf der ganzen Welt? Zeig es mir!", "sl": "Koroška je majhna. Pa kje je Avstrija na vsem svetu? Pokaži mi!", "en": "Carinthia is small. And where is Austria in the whole world? Show me!", "it": "La Carinzia è piccola. E dov'è l'Austria nel mondo intero? Fammelo vedere!" },
+        { "choices": [
+          { "de": "Hier, auf dem Globus!", "sl": "Tukaj, na globusu!", "en": "Here, on the globe!", "it": "Qui, sul mappamondo!", "ok": true, "tap": "globe", "grammar": "wechselpraepositionen",
+            "reply": { "face": "happy", "de": "Richtig! Auf dem Globus ist Österreich ganz klein.", "sl": "Pravilno! Na globusu je Avstrija čisto majhna.", "en": "Right! On the globe Austria is tiny.", "it": "Giusto! Sul mappamondo l'Austria è piccolissima." } },
+          { "de": "Hier, auf der Landkarte!", "sl": "Tukaj, na zemljevidu!", "en": "Here, on the map!", "it": "Qui, sulla carta!", "tap": "map",
+            "why": { "de": "Die Landkarte zeigt nur Kärnten. Die ganze Welt ist rund.", "sl": "Zemljevid kaže samo Koroško. Ves svet je okrogel.", "en": "The map shows only Carinthia. The whole world is round.", "it": "La carta mostra solo la Carinzia. Il mondo intero è rotondo." },
+            "reply": { "face": "curious", "de": "Da ist nur Kärnten. Die Welt ist größer!", "sl": "Tam je samo Koroška. Svet je večji!", "en": "That's only Carinthia. The world is bigger!", "it": "Lì c'è solo la Carinzia. Il mondo è più grande!" } },
+          { "de": "Hier, an der Tafel!", "sl": "Tukaj, na tabli!", "en": "Here, on the blackboard!", "it": "Qui, alla lavagna!", "tap": "blackboard",
+            "why": { "de": "Die Landkarte zeigt nur Kärnten. Die ganze Welt ist rund.", "sl": "Zemljevid kaže samo Koroško. Ves svet je okrogel.", "en": "The map shows only Carinthia. The whole world is round.", "it": "La carta mostra solo la Carinzia. Il mondo intero è rotondo." },
+            "reply": { "face": "laugh", "de": "An der Tafel? Da ist doch keine Welt! Hihi.", "sl": "Na tabli? Tam vendar ni sveta! Hihi.", "en": "On the blackboard? There's no world there! Hee hee.", "it": "Alla lavagna? Lì non c'è il mondo! Ih ih." } }
+        ] },
+        { "who": "eva", "de": "Der Globus ist rund, wie die Erde. Blau ist das Meer, grün das Land.", "sl": "Globus je okrogel, kot Zemlja. Modro je morje, zeleno kopno.", "en": "The globe is round, like the earth. The sea is blue, the land green.", "it": "Il mappamondo è rotondo, come la Terra. Il mare è blu, la terra verde." },
+        { "who": "eva", "face": "curious", "de": "Welche Farbe hat das Meer?", "sl": "Kakšne barve je morje?", "en": "What colour is the sea?", "it": "Di che colore è il mare?" },
+        { "choices": [
+          { "de": "Das Meer ist blau.", "sl": "Morje je modro.", "en": "The sea is blue.", "it": "Il mare è blu.", "ok": true,
+            "reply": { "face": "happy", "de": "Genau. Und das Land ist grün und braun.", "sl": "Točno. Kopno pa je zeleno in rjavo.", "en": "Exactly. And the land is green and brown.", "it": "Esatto. E la terra è verde e marrone." } },
+          { "de": "Der Meer ist blau.", "sl": "Morje je modro.", "en": "The sea is blue.", "it": "Il mare è blu.", "grammar": "artikel-genus",
+            "why": { "de": "Meer ist neutral: das Meer.", "sl": "Meer je srednjega spola: das Meer.", "en": "Meer is neuter: das Meer.", "it": "Meer è neutro: das Meer." },
+            "reply": { "face": "curious", "de": "Der Meer? Hm. Hör noch einmal genau hin.", "sl": "Der Meer? Hm. Še enkrat dobro poslušaj.", "en": "Der Meer? Hm. Listen carefully again.", "it": "Der Meer? Mm. Ascolta di nuovo bene." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, deutlich.", "sl": "Kako, prosim? Še enkrat, razločno.", "en": "Sorry? Once more, clearly.", "it": "Come? Ancora una volta, chiaramente." } },
+        { "who": "eva", "face": "happy", "de": "Wer weiß, vielleicht reist du einmal um die ganze Welt!", "sl": "Kdo ve, mogoče boš nekoč {m:potoval|f:potovala} okoli sveta!", "en": "Who knows, maybe one day you'll travel round the whole world!", "it": "Chissà, forse un giorno farai il giro del mondo!" }
+      ]
+    },
+    {
+      "id": "uhr-pause",
+      "memory": { "de": "das Warten auf die Pause", "sl": "čakanje na odmor", "en": "waiting for break", "it": "l'attesa della ricreazione" },
+      "lines": [
+        { "who": "lena", "face": "worried", "de": "Wann ist endlich Pause? Ich habe Hunger!", "sl": "Kdaj bo že odmor? Lačna sem!", "en": "When is it break? I'm hungry!", "it": "Quando c'è la ricreazione? Ho fame!" },
+        { "choices": [
+          { "de": "Bald. Nur noch ein bisschen.", "sl": "Kmalu. Samo še malo.", "en": "Soon. Just a little longer.", "it": "Presto. Ancora un pochino.", "ok": true,
+            "reply": { "face": "sad", "de": "Ein bisschen ist lang, wenn man Hunger hat!", "sl": "Malo je dolgo, če si lačen!", "en": "A little is long when you're hungry!", "it": "Un pochino è lungo quando si ha fame!" } },
+          { "de": "Ich weiß es nicht. Frag die Lehrerin!", "sl": "Ne vem. Vprašaj učiteljico!", "en": "I don't know. Ask the teacher!", "it": "Non lo so. Chiedi alla maestra!", "ok": true,
+            "reply": { "face": "laugh", "de": "Frau Lehrerin? … Sie sagt: gleich!", "sl": "Gospa učiteljica? … Pravi: takoj!", "en": "Miss? … She says: soon!", "it": "Maestra? … Dice: tra poco!" } },
+          { "de": "Gestern.", "sl": "Včeraj.", "en": "Yesterday.", "it": "Ieri.",
+            "why": { "de": "Gestern ist vorbei. Lena fragt, wann die Pause kommt.", "sl": "Včeraj je mimo. Lena sprašuje, kdaj pride odmor.", "en": "Yesterday is over. Lena is asking when break comes.", "it": "Ieri è passato. Lena chiede quando arriva la ricreazione." },
+            "reply": { "face": "surprised", "de": "Gestern? Dann habe ich sie verpasst! Oje!", "sl": "Včeraj? Potem sem ga zamudila! Ojej!", "en": "Yesterday? Then I missed it! Oh no!", "it": "Ieri? Allora l'ho persa! Oh no!" } }
+        ] },
+        { "who": "lena", "face": "curious", "de": "Was isst du in der Pause?", "sl": "Kaj ješ med odmorom?", "en": "What do you eat at break?", "it": "Cosa mangi alla ricreazione?" },
+        { "choices": [
+          { "de": "Ich esse ein Brot mit Käse.", "sl": "Jem kruh s sirom.", "en": "I eat a cheese sandwich.", "it": "Mangio un panino col formaggio.", "ok": true,
+            "reply": { "face": "happy", "de": "Mmm! Ich habe ein Butterbrot.", "sl": "Mmm! Jaz imam kruh z maslom.", "en": "Mmm! I've got bread and butter.", "it": "Mmm! Io ho pane e burro." } },
+          { "de": "Ich esse einen Brot mit Käse.", "sl": "Jem kruh s sirom.", "en": "I eat a cheese sandwich.", "it": "Mangio un panino col formaggio.", "grammar": "akkusativ",
+            "why": { "de": "Brot ist neutral: das Brot, ein Brot. Einen gibt es nur bei der.", "sl": "Brot je srednjega spola: das Brot, ein Brot. Einen je samo pri der.", "en": "Brot is neuter: das Brot, ein Brot. Einen is only for der nouns.", "it": "Brot è neutro: das Brot, ein Brot. Einen è solo per i nomi con der." },
+            "reply": { "face": "laugh", "de": "Einen Brot? Hihi, Brot ist doch kein Er!", "sl": "Einen Brot? Hihi, kruh vendar ni on!", "en": "Einen Brot? Hee hee, bread isn't a he!", "it": "Einen Brot? Ih ih, il pane mica è un lui!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Wie bitte?", "sl": "Ha? Kako, prosim?", "en": "Huh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "lena", "face": "happy", "de": "Am liebsten esse ich Kirschen. Auf Slowenisch: češnje!", "sl": "Najraje jem češnje. Po nemško: Kirschen!", "en": "I like cherries best. In Slovene: češnje!", "it": "Le cose che preferisco sono le ciliegie. In sloveno: češnje!" }
+      ]
+    },
+    {
+      "id": "hausuebung-stifte",
+      "count": { "from": "dice", "min": 3, "max": 12, "gender": "m", "case": "acc" },
+      "memory": { "de": "die Bleistifte, die wir gezählt haben", "sl": "svinčnike, ki sva jih preštela", "en": "the pencils we counted", "it": "le matite che abbiamo contato" },
+      "lines": [
+        { "who": "jakob", "face": "happy", "de": "Ich zähle meine Bleistifte. Zählst du mit?", "sl": "Štejem svoje svinčnike. Šteješ z mano?", "en": "I'm counting my pencils. Will you count with me?", "it": "Conto le mie matite. Conti con me?" },
+        { "choices": [
+          { "de": "Du hast {n} {Bleistift|Bleistifte}.", "sl": "Imaš {n} {svinčnik|svinčnika|svinčnike|svinčnikov}.", "en": "You have {n} {pencil|pencils}.", "it": "Hai {n} {matita|matite}.", "ok": true,
+            "reply": { "face": "laugh", "de": "Stimmt! Wie Opa: Ich zähle alles.", "sl": "Tako je! Kot dedek: vse preštejem.", "en": "Right! Like Grandpa: I count everything.", "it": "Giusto! Come il nonno: conto tutto." } },
+          { "de": "Du hast {n} {!Bleistift|Bleistifte}.", "sl": "Imaš {n} {!svinčnik|svinčnika|svinčnike|svinčnikov}.", "en": "You have {n} {!pencil|pencils}.", "it": "Hai {n} {!matita|matite}.", "wrong_form": 1, "grammar": "plural",
+            "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Bleistift|Bleistifte}.", "sl": "{Ena stvar je v ednini|Od dveh naprej je množina}: {n} {Bleistift|Bleistifte}.", "en": "{One takes the singular|From two on, the plural}: {n} {Bleistift|Bleistifte}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Bleistift|Bleistifte}." },
+            "reply": { "face": "confused", "de": "Nur einen? Nein, es sind ganz viele!", "sl": "Samo enega? Ne, veliko jih je!", "en": "Only one? No, there are lots!", "it": "Una sola? No, sono tantissime!" } }
+        ], "puzzled": { "face": "confused", "de": "Was? Noch einmal.", "sl": "Kaj? Še enkrat.", "en": "What? Again.", "it": "Cosa? Di nuovo." } },
+        { "who": "jakob", "de": "Ein Bleistift ist rot, die anderen sind gelb. Und wo ist mein Heft?", "sl": "En svinčnik je rdeč, drugi so rumeni. Pa kje je moj zvezek?", "en": "One pencil is red, the others are yellow. And where's my exercise book?", "it": "Una matita è rossa, le altre sono gialle. E dov'è il mio quaderno?" },
+        { "choices": [
+          { "de": "Da, auf der Schulbank!", "sl": "Tam, na klopi!", "en": "There, on the desk!", "it": "Lì, sul banco!", "ok": true, "tap": "notebook", "grammar": "wechselpraepositionen",
+            "reply": { "face": "happy", "de": "Ah, da! Danke!", "sl": "A, tam je! Hvala!", "en": "Ah, there! Thanks!", "it": "Ah, eccolo! Grazie!" } },
+          { "de": "Da, in der Schultasche!", "sl": "Tam, v torbi!", "en": "There, in the school bag!", "it": "Lì, nella cartella!", "tap": "bag",
+            "why": { "de": "Das Heft ist weiß und blau und liegt offen da.", "sl": "Zvezek je bel in moder in leži odprt.", "en": "The exercise book is white and blue and lies open.", "it": "Il quaderno è bianco e blu ed è aperto." },
+            "reply": { "face": "sad", "de": "In der Schultasche? Nein, da sind nur meine Bücher.", "sl": "V torbi? Ne, tam so samo moje knjige.", "en": "In the school bag? No, there are only my books in there.", "it": "Nella cartella? No, lì ci sono solo i miei libri." } },
+          { "de": "Da, auf dem Stuhl!", "sl": "Tam, na stolu!", "en": "There, on the chair!", "it": "Lì, sulla sedia!", "tap": "chair",
+            "why": { "de": "Das Heft ist weiß und blau und liegt offen da.", "sl": "Zvezek je bel in moder in leži odprt.", "en": "The exercise book is white and blue and lies open.", "it": "Il quaderno è bianco e blu ed è aperto." },
+            "reply": { "face": "laugh", "de": "Auf dem Stuhl? Nein, da sitzt die Lehrerin! Hihi.", "sl": "Na stolu? Ne, tam sedi učiteljica! Hihi.", "en": "On the chair? No, that's where the teacher sits! Hee hee.", "it": "Sulla sedia? No, lì si siede la maestra! Ih ih." } }
+        ] },
+        { "who": "jakob", "face": "proud", "de": "Danke! Jetzt schreibe ich fertig.", "sl": "Hvala! Zdaj pa dokončam pisanje.", "en": "Thanks! Now I'll finish writing.", "it": "Grazie! Adesso finisco di scrivere." }
+      ]
+    },
+    {
+      "id": "jause-apfel",
+      "memory": { "de": "den halben Apfel und das halbe Butterbrot", "sl": "pol jabolka in pol kruha z maslom", "en": "half an apple and half a sandwich", "it": "mezza mela e mezzo panino" },
+      "lines": [
+        { "who": "maxi", "face": "happy", "de": "Jause! Ich habe ein Butterbrot. Und du?", "sl": "Malica! Jaz imam kruh z maslom. Pa ti?", "en": "Snack time! I've got bread and butter. And you?", "it": "Merenda! Io ho pane e burro. E tu?" },
+        { "choices": [
+          { "de": "Ich habe einen Apfel.", "sl": "Imam jabolko.", "en": "I've got an apple.", "it": "Ho una mela.", "ok": true,
+            "reply": { "face": "laugh", "de": "Tauschen wir? Ein halbes Butterbrot für einen halben Apfel!", "sl": "Zamenjava? Pol kruha za pol jabolka!", "en": "Swap? Half a sandwich for half an apple!", "it": "Facciamo cambio? Mezzo panino per mezza mela!" } },
+          { "de": "Ich habe ein Apfel.", "sl": "Imam jabolko.", "en": "I've got an apple.", "it": "Ho una mela.", "grammar": "akkusativ",
+            "why": { "de": "Apfel ist maskulin: der Apfel. Als Objekt im Akkusativ wird ein zu einen.", "sl": "Apfel je moškega spola: der Apfel. Kot predmet v tožilniku ein postane einen.", "en": "Apfel is masculine: der Apfel. As the object, in the accusative, ein becomes einen.", "it": "Apfel è maschile: der Apfel. Come oggetto, all'accusativo, ein diventa einen." },
+            "reply": { "face": "laugh", "de": "Ein Apfel? Hihi, das sage ich auch immer. Falsch!", "sl": "Ein Apfel? Hihi, to tudi jaz vedno rečem. Narobe!", "en": "Ein Apfel? Hee hee, I always say that too. Wrong!", "it": "Ein Apfel? Ih ih, lo dico sempre anch'io. Sbagliato!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was?", "sl": "Ha? Kaj?", "en": "Huh? What?", "it": "Eh? Cosa?" } },
+        { "who": "maxi", "de": "Lena sagt, Apfel heißt auf Slowenisch jabolko.", "sl": "Lena pravi, da se Apfel po slovensko reče jabolko.", "en": "Lena says Apfel is jabolko in Slovene.", "it": "Lena dice che Apfel in sloveno si dice jabolko." },
+        { "who": "maxi", "face": "curious", "de": "Stimmt das?", "sl": "Je to res?", "en": "Is that right?", "it": "È vero?" },
+        { "choices": [
+          { "de": "Ja, das stimmt.", "sl": "Ja, res je.", "en": "Yes, that's right.", "it": "Sì, è vero.", "ok": true,
+            "reply": { "face": "sad", "de": "Lena weiß immer alles. Das nervt!", "sl": "Lena vedno vse ve. To me jezi!", "en": "Lena always knows everything. It's so annoying!", "it": "Lena sa sempre tutto. Che nervi!" } },
+          { "de": "Ich glaube, ja.", "sl": "Mislim, da ja.", "en": "I think so.", "it": "Credo di sì.", "ok": true,
+            "reply": { "face": "laugh", "de": "Ich glaube auch. Sie weiß immer alles.", "sl": "Tudi jaz tako mislim. Ona vedno vse ve.", "en": "I think so too. She always knows everything.", "it": "Lo credo anch'io. Lei sa sempre tutto." } },
+          { "de": "Ja, das ist falsch.", "sl": "Ja, to je narobe.", "en": "Yes, that's wrong.", "it": "Sì, è sbagliato.",
+            "why": { "de": "Ja und falsch passen nicht zusammen. Lena hat recht.", "sl": "Ja in narobe ne gresta skupaj. Lena ima prav.", "en": "Yes and wrong don't go together. Lena is right.", "it": "Sì e sbagliato non vanno insieme. Lena ha ragione." },
+            "reply": { "face": "confused", "de": "Ja, falsch? Jetzt bin ich ganz durcheinander!", "sl": "Ja, narobe? Zdaj sem čisto zmeden!", "en": "Yes, wrong? Now I'm all mixed up!", "it": "Sì, sbagliato? Adesso sono confuso!" } }
+        ] },
+        { "who": "maxi", "face": "happy", "de": "Komm, wir spielen noch schnell Fangen! Los geht's!", "sl": "Pridi, še hitro se loviva! Gremo!", "en": "Come on, a quick game of tag! Let's go!", "it": "Dai, giochiamo ancora un po' a prenderci! Si parte!" }
+      ]
+    }
+  ]
+}
