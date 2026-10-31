@@ -128,29 +128,29 @@ greeting (`ChalkFont` and `ChalkHand`: H, l, A, w and Y).
   51 digests (see the trial rebase below for why). Contact sheets of every art in the Lake District's look beside Primorska's, at each level by day
   and in the evening, closer up, the seasons and a phone's view: 137 sheets in the round's scratch folder
   `ux-places-lakeland/looks/`.
-- **The full checks** after the rebase onto main b7b801bc: bridge `tsc` clean; the smoke 3169 checks passed (ports
-  9350–9369, Drama 3 9368); `tutor-export --check` 88 files match (53 tools, 32 guide topics); the Android unit suite 448
-  classes, 3533 tests, 0 failures (before the rebase two tests held the old world: `AlpsLooksTest` expected the Lake
-  District to have only its fire and horizon, and `StickersTest` read no emoji for the English starters' road and potato,
-  both fixed); the Python tests 251, and 135 with 11 skipped, green. Rebased again onto main f23976ba (the Italian
-  course's last A2 units): `tsc`, the smoke (3169) and the Python tests again green, and the school's, the looks' and the
-  Italian course's tests.
-- **With Carinthia's places** (places-kaernten, queued to merge before this branch): this branch rebased onto it as
-  `places-lakeland-on-kaernten`, for the lead's next rebase to take or to read the resolutions from. Both cultures side by
-  side in the thirteen painters both gave a look (each painter's Kärnten branch and its Lakeland one: the attic's
-  shingles and slates, the cellar's Most and brown ale, the field's villages and farmsteads, the living room's Kachelofen
-  and fireplace, the market's onion church and clock tower, the palisade's Karawanken and fells, the room's
-  Herrgottswinkel and sampler and their two views, the school's maps, flags, greetings and chalk letters, the smithy's
-  whitewash and slate, the square's church, roof, ribbons and well, the tent's pennants and its fence or wall, the
+- **The full checks**, on this branch as it is now: rebased onto places-kaernten (8a68ed54, itself on main 1fdc26a6 with
+  culture-source and the Italian course's A2), which merges before it. Bridge `tsc` clean; `check-culture` ok for the Lake
+  District and for Carinthia; the smoke 3186 checks passed (ports 9350–9369, Drama 3 9368); `tutor-export --check` 88 files
+  match (53 tools, 32 guide topics); the Android unit suite 451 classes, 3551 tests, 0 failures (`KaerntenLooksTest`,
+  `LakelandLooksTest` with its digests, Primorska's and Friuli's digests among them); the Python tests 251, and 135 with 11
+  skipped, green. Every one of Carinthia's 229 contact sheets is the same as on places-kaernten, every one of the Lake
+  District's 137 as before the rebase. On the way, two tests held the old world (`AlpsLooksTest`: the Lake District with
+  only its fire and horizon; `StickersTest`: no emoji read for the English starters' road and potato), both fixed.
+- **Rebasing onto Carinthia's places**: both cultures side by side in the thirteen painters both gave a look (each
+  painter's Kärnten branch and its Lakeland one, and culture-source's Friuli cramâr beside them at the palisade and the
+  watchtower: the attic's shingles and slates, the cellar's Most and brown ale, the field's villages and farmsteads, the
+  living room's Kachelofen and fireplace, the market's onion church and clock tower, the palisade's Karawanken and fells,
+  the room's Herrgottswinkel and sampler and their two views, the school's maps, flags, greetings and chalk letters, the
+  smithy's whitewash and slate, the square's church, roof, ribbons and well, the tent's pennants and its fence or wall, the
   watchtower's villages and flags, the workshop's logs and crooks), CultureLook.kt's line of each, the tests' rows
   (`AlpsLooksTest` holds both to every building; `BuildingWordsTest` four kitchens; `DialogReactionsTest` 31 + 39 + 15 +
-  15; `MapLooksTest` both maps), SCENES.md's I spy totals (100 scenes, 1570 things, 6780 clues). Two things no textual
-  merge shows: the school map's outline renamed (`LAKE_DISTRICT`, Carinthia's lakes are `LAKES`), and the field's barn,
-  which merged into Carinthia's "fienile only" and drew the default hayrack with every check green; fixed, and pinned
-  since by the digests above. There: bridge `tsc` clean, `check-culture` ok for both, the smoke 3184 checks passed,
-  `tutor-export` 88 files; the Android unit suite 449 classes, 3538 tests, 0 failures (`KaerntenLooksTest`,
-  `LakelandLooksTest`, Primorska's and Friuli's digests among them); every one of Carinthia's 229 contact sheets the same
-  as on places-kaernten, and every one of the Lake District's 137 as on this branch.
+  15, checked against the 100 files; `MapLooksTest` both maps; QA's named-only steps), SCENES.md's I spy totals (100
+  scenes, 1573 things, 6795 clues). Two things no textual merge shows: the school map's outline renamed (`LAKE_DISTRICT`,
+  Carinthia's lakes are `LAKES`), and the field's barn, which a trial rebase merged into Carinthia's "fienile only", so
+  that it drew the default hayrack with every check green; the flag now names its variants, and `LakelandLooksTest` pins
+  the pictures reviewed. The branch as it was before, on main f23976ba without Carinthia, is kept as
+  `places-lakeland-before-kaernten` (all its checks green there too: the smoke 3169, the Android suite 448 classes, 3533
+  tests on b7b801bc).
 - **The emulator QA** (`lakeland-places`, a synthetic learner of English from Slovene, `LANI_CULTURE=lakeland`, slot 2 of
   qa-slot): green on its third run, about 12 minutes on the emulator: the village a Trg, the church's card ("Church ·
   Cerkev, Level · Stopnja 2", "🚪 Go in · Vstopi: ⛪ In the church · V cerkvi ›"), In the church, the fourteen other scenes
@@ -158,7 +158,9 @@ greeting (`ChalkFont` and `ChalkHand`: H, l, A, w and Y).
   with my little eye something …", "There's water in it.": the pump found, "Yes, the pump! Well done!"), Granny Maggie's
   breakfast ("Good morning, love! Did you sleep well?" and its three answers). The first two runs stopped on the step itself
   (a newcomer's suitcase bubble over the church took the tap; a tip's card lay over the I spy offer), both fixed in the
-  step. Screenshots: the round's scratch folder `ux-places-lakeland/qa3/` (ll-*.png), run 2's in `qa/`.
+  step. Run again on the branch as it is now (on places-kaernten, with culture-source's one source of the culture): green on
+  slot 1, the same journey, the map in the Lake District's look. Screenshots: the round's scratch folder
+  `ux-places-lakeland/qa-final/` (ll-*.png), the third run's in `qa3/`, run 2's in `qa/`.
 
 ## How to use
 
