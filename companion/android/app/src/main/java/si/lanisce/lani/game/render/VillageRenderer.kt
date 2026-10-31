@@ -106,8 +106,11 @@ data class Frame(
      */
     val screen: PixelRect? = null,
 ) {
-    /** The frame's date ([today]), or the tests' day when it has none. */
-    val date: java.time.LocalDate get() = runCatching { java.time.LocalDate.parse(today) }.getOrNull() ?: TownPeople.DEFAULT_DATE
+    /**
+     * The frame's date ([today]), or the tests' day when it has none: read once with the frame (Home's header village has
+     * none, and parsing "" threw, its trace filled in, several times a picture: docs/plans/05-built/changes-areas.md).
+     */
+    val date: java.time.LocalDate = if (today.length != 10) TownPeople.DEFAULT_DATE else runCatching { java.time.LocalDate.parse(today) }.getOrNull() ?: TownPeople.DEFAULT_DATE
 }
 
 /**
@@ -398,6 +401,12 @@ class VillageRenderer {
 
     private class Obj(val depth: Float, val draw: () -> Unit)
 
+    /** The footpaths of the picture being drawn ([PathGrid]). */
+    private val pathGrid = PathGrid()
+
+    /** The painter's order: by depth, without boxing each depth to compare it (sortBy did, a few thousand a picture). */
+    private val BY_DEPTH = Comparator<Obj> { a, b -> a.depth.compareTo(b.depth) }
+
     private fun ctxFor(canvas: PixelCanvas): SceneCtx {
         ctxs[canvas]?.let { return it }
         // the town's nominal canvas and a few of its closer look's (a canvas a window size: TownScene)
@@ -548,7 +557,7 @@ class VillageRenderer {
         mark(1)
 
         // ---- ground
-        val paths = PathGrid()
+        val paths = pathGrid.reset()
         for (b in buildings) {
             val p = land.centers[b.plot]
             if (b.type == BuildingType.PALISADE || b.type == BuildingType.FIELD) continue
@@ -850,7 +859,7 @@ class VillageRenderer {
         }
 
         mark(3)
-        objs.sortBy { it.depth }
+        objs.sortWith(BY_DEPTH)
         for (o in objs) o.draw()
         canvas.penId = 0
         mark(4)
@@ -955,14 +964,25 @@ class VillageRenderer {
 
     // ------------------------------------------------------------------ ground
 
+    /**
+     * The footpaths' cells of a picture: one grid the renderer keeps, cleared for each picture ([reset]: 64 KB made anew a
+     * picture before, the most of what the Home header's village made for the collector, docs/plans/05-built/changes-areas.md).
+     */
     private class PathGrid {
         val n = 256
         val cells = BooleanArray(n * n)
         /** What was marked, in order (the ground's kept picture keys on it: the same marks, the same paths). */
         var marks = 17L
             private set
+        /** Nothing marked: for the next picture. */
+        fun reset(): PathGrid {
+            cells.fill(false)
+            marks = 17L
+            return this
+        }
         fun mark(x0: Float, y0: Float, x1: Float, y1: Float) {
-            for (v in floatArrayOf(x0, y0, x1, y1)) marks = marks * 31 + v.toRawBits()
+            marks = marks * 31 + x0.toRawBits(); marks = marks * 31 + y0.toRawBits()
+            marks = marks * 31 + x1.toRawBits(); marks = marks * 31 + y1.toRawBits()
             for (gy in floor(y0 * 2).toInt() until floor(y1 * 2).toInt() + 1) for (gx in floor(x0 * 2).toInt() until floor(x1 * 2).toInt()) {
                 val ix = gx + n / 2; val iy = gy + n / 2
                 if (ix in 0 until n && iy in 0 until n) cells[iy * n + ix] = true

@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -18,6 +17,7 @@ import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
@@ -26,6 +26,7 @@ import si.lanisce.lani.game.Building
 import si.lanisce.lani.game.GameState
 import si.lanisce.lani.game.culture.VillageCulture
 import java.time.LocalDateTime
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 
 internal const val FRAME_NANOS = 83_000_000L // ~12 fps
@@ -52,7 +53,9 @@ fun VillageScene(
     onFireTap: (() -> Unit)? = null,
 ) {
     var size by remember { mutableStateOf(IntSize.Zero) }
-    val clock = remember { mutableLongStateOf(0L) }
+    // the picture's clock (ns), advanced at ~12 fps by the ticks below; not a state: the screen's draw shows the newest
+    // picture and never reads it (docs/plans/05-built/changes-areas.md)
+    val clock = remember { LongArray(1) }
     val anim = remember { AnimMarks(celebrateSeen = celebrate) }
     val onBuilding by rememberUpdatedState(onBuildingTap)
     val onFire by rememberUpdatedState(onFireTap)
@@ -83,22 +86,35 @@ fun VillageScene(
     val offX = fit.offX
     val offY = fit.offY
 
-    // the picture's clock, at ~12 fps; stopped while the screen is covered (Home under another: ui/Covered.kt), and on
-    // from where it stopped when it shows again (the construction's and the celebration's marks go by it)
+    // the system's animations off: no flash of lightning over the village
+    val calm = si.lanisce.lani.ui.stage.rememberReducedMotion()
+    // what the next picture is of, read when it is asked for
+    val wanted by rememberUpdatedState(Wanted(state, highlightPlot, justBuilt, celebrate, calm))
+    // the picture's clock, at ~12 fps: each tick asks the render thread for that moment's picture, and the screen draws a
+    // picture once it is there (one draw a picture, before: one for the tick and one for its picture); between the ticks
+    // the app's main thread sleeps (before: every frame). Stopped while the screen is covered (Home under another:
+    // ui/Covered.kt), and on from where it stopped when it shows again (the construction's and the celebration's marks go
+    // by it)
     val covered = si.lanisce.lani.ui.LocalCovered.current
     // a celebration while covered (a win in the village) played where it happened: not again when Home shows (as a Home
     // composed anew didn't)
     if (covered) anim.celebrateSeen = celebrate
-    LaunchedEffect(covered) {
-        if (covered) return@LaunchedEffect
-        val start = withFrameNanos { it } - clock.longValue
-        var last = clock.longValue - FRAME_NANOS
+    LaunchedEffect(covered, pics) {
+        if (covered || pics == null) return@LaunchedEffect
+        val start = withFrameNanos { it } - clock[0]
+        var last = clock[0] - FRAME_NANOS
         while (true) {
-            withFrameNanos { now ->
-                val t = now - start
-                if (t - last >= FRAME_NANOS) { last = t; clock.longValue = t }
-            }
+            val t = withFrameNanos { it } - start
+            if (t - last >= FRAME_NANOS) {
+                last = t
+                clock[0] = t
+                askPicture(pics, anim, clock[0], wanted, compact)
+            } else delay(((FRAME_NANOS - (t - last)) / 1_000_000L).coerceAtLeast(1L))
         }
+    }
+    // a new state of the village (a building, a move) asked for at once, not at the next tick
+    LaunchedEffect(pics, state) {
+        if (!covered && pics != null) askPicture(pics, anim, clock[0], wanted, compact)
     }
 
     val tappable = !compact && (onBuildingTap != null || onFireTap != null)
@@ -114,38 +130,14 @@ fun VillageScene(
             }
         }
 
-    // the system's animations off: no flash of lightning over the village
-    val calm = si.lanisce.lani.ui.stage.rememberReducedMotion()
-    Canvas(modifier.onSizeChanged { size = it }.then(tapModifier)) {
+    // in a layer of its own: a new picture draws it again, nothing else of the screen around it
+    Canvas(modifier.onSizeChanged { size = it }.graphicsLayer().then(tapModifier)) {
         if (pics == null) return@Canvas
-        val t = clock.longValue / 1e9 // reading the clock here re-runs only the draw phase
-        pics.version // and so does a picture the render thread hands over
-        if (justBuilt != anim.builtId) { anim.builtId = justBuilt; anim.builtAt = t }
-        if (celebrate != anim.celebrateSeen) { anim.celebrateSeen = celebrate; anim.celebrateAt = t }
-        val now = LocalDateTime.now()
-        val celebrateP = if (anim.celebrateAt < 0) -1f else ((t - anim.celebrateAt) / CELEBRATE_SECONDS).toFloat()
-        val frame = Frame(
-            time = t,
-            hour = now.hour + now.minute / 60f + now.second / 3600f,
-            month = now.monthValue,
-            compact = compact,
-            highlightPlot = highlightPlot,
-            justBuilt = justBuilt,
-            justBuiltProgress = if (justBuilt == null) 1f else ((t - anim.builtAt) / BUILD_SECONDS).toFloat().coerceIn(0f, 1f),
-            celebrate = if (celebrateP > 1f) -1f else celebrateP,
-            // the village on screen in its culture, as its scenes have it (VillageCulture: one source for both)
-            sea = VillageCulture.sea(VillageCulture.shown),
-            culture = VillageCulture.shown.id,
-            moon = Moon.now(),
-            skyNow = si.lanisce.lani.game.sky.SkyCards.now(),
-            wall = System.currentTimeMillis(),
-            calm = calm,
-        )
-        pics.ask(clock.longValue, state, frame)
+        pics.version // a picture the render thread hands over: drawn
         val p = pics.picture
         pics.drew(p)
         // before the first picture the hour's sky (the renderer's is the last picture's)
-        drawRect(Color(if (p == null) Env(frame.hour, frame.month, false).skyTop else pics.renderer.skyColor))
+        drawRect(Color(if (p == null) LocalDateTime.now().let { Env(it.hour + it.minute / 60f, it.monthValue, false).skyTop } else pics.renderer.skyColor))
         if (p != null) drawImage(
             p.image,
             srcOffset = IntOffset.Zero,
@@ -158,7 +150,37 @@ fun VillageScene(
     }
 }
 
-/** Animation start marks, mutated from the draw phase (plain fields: they must not trigger recomposition). */
+/** What the header village's next picture is of ([VillageScene]'s inputs, read when a picture is asked for). */
+private class Wanted(val state: GameState, val highlightPlot: Int?, val justBuilt: String?, val celebrate: Int, val calm: Boolean)
+
+/** The picture of [w] at [clock] (ns) asked of [pics]' render thread, the construction's and the celebration's marks by it. */
+private fun askPicture(pics: StripPictures, anim: AnimMarks, clock: Long, w: Wanted, compact: Boolean) {
+    val t = clock / 1e9
+    if (w.justBuilt != anim.builtId) { anim.builtId = w.justBuilt; anim.builtAt = t }
+    if (w.celebrate != anim.celebrateSeen) { anim.celebrateSeen = w.celebrate; anim.celebrateAt = t }
+    val now = LocalDateTime.now()
+    val celebrateP = if (anim.celebrateAt < 0) -1f else ((t - anim.celebrateAt) / CELEBRATE_SECONDS).toFloat()
+    val frame = Frame(
+        time = t,
+        hour = now.hour + now.minute / 60f + now.second / 3600f,
+        month = now.monthValue,
+        compact = compact,
+        highlightPlot = w.highlightPlot,
+        justBuilt = w.justBuilt,
+        justBuiltProgress = if (w.justBuilt == null) 1f else ((t - anim.builtAt) / BUILD_SECONDS).toFloat().coerceIn(0f, 1f),
+        celebrate = if (celebrateP > 1f) -1f else celebrateP,
+        // the village on screen in its culture, as its scenes have it (VillageCulture: one source for both)
+        sea = VillageCulture.sea(VillageCulture.shown),
+        culture = VillageCulture.shown.id,
+        moon = Moon.now(),
+        skyNow = si.lanisce.lani.game.sky.SkyCards.now(),
+        wall = System.currentTimeMillis(),
+        calm = w.calm,
+    )
+    pics.ask(clock, w.state, frame)
+}
+
+/** Animation start marks, set as each picture is asked for (plain fields: they must not trigger recomposition). */
 internal class AnimMarks(var celebrateSeen: Int) {
     var builtId: String? = null
     var builtAt = 0.0

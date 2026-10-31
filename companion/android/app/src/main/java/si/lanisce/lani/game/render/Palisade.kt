@@ -426,8 +426,14 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
         }
         // the breach: a few stakes knocked down, those beside them broken off (towards the lower left, where the wolves come from)
         val breach = if (b.damaged) Palisade.breachAt(ring) else -1
-        val gates = ring.gates.associateBy { it.b }
-        val torches = if (b.level < 2) emptySet() else ring.gates.filter { it.kind == PalisadeRing.Kind.ROAD || it.kind == PalisadeRing.Kind.PATH }.flatMap { listOf(it.a, it.b) }.toSet()
+        // by stake (arrays, not maps of boxed indices: a picture asks each stake)
+        val gates = arrayOfNulls<PalisadeRing.Gate>(stakes.size)
+        for (g in ring.gates) if (g.b in gates.indices) gates[g.b] = g
+        val torches = BooleanArray(stakes.size)
+        if (b.level >= 2) for (g in ring.gates) if (g.kind == PalisadeRing.Kind.ROAD || g.kind == PalisadeRing.Kind.PATH) {
+            if (g.a in torches.indices) torches[g.a] = true
+            if (g.b in torches.indices) torches[g.b] = true
+        }
         val flag = if (b.level >= 3) ring.main?.a ?: -1 else -1
         for ((n, st) in stakes.withIndex()) {
             if (!shown[n]) continue
@@ -453,7 +459,7 @@ internal class PalisadePainter(private val s: SceneCtx, private val buildings: B
                     val far = stakes[gate.a]
                     if (shown[gate.a] && low[gate.a] >= 1f && gate.lintel && grow >= 1f) lintel(far, st)
                 }
-                if (whole && off > 3 && n in torches) torch(st)
+                if (whole && off > 3 && torches[n]) torch(st)
                 if (whole && n == flag) buildings.pennant(b.level, st.x, st.y, st.h + Palisade.POINT - 1f, pole = 5f)
             }
         }

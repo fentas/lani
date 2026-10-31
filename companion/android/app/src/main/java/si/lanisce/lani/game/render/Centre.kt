@@ -159,6 +159,24 @@ internal data class CentreLook(val flames: Float, val embers: Boolean = false, v
          * glow (by day a thread of smoke); cold when their wood wasn't paid. On a feast evening (the village's feast, a
          * festival's day, an age's party) the square burns its kres.
          */
+        /** The day and the festivals [festivalDay] last answered for, and its answer. */
+        private var feastOf: Pair<java.time.LocalDate, List<si.lanisce.lani.game.Festival>>? = null
+        private var feastWas = false
+
+        /**
+         * Whether [date] is a festival's own day (not a quiet one): worked out once a day and culture, not every picture (its
+         * dates for two years made a few KB for the collector each, docs/plans/05-built/changes-areas.md).
+         */
+        @Synchronized private fun festivalDay(date: java.time.LocalDate): Boolean {
+            val festivals = si.lanisce.lani.game.Calendar.festivals
+            val kept = feastOf
+            if (kept != null && kept.first == date && kept.second === festivals) return feastWas
+            // the day's festivals as Calendar.on has them (whether done or not matters not here)
+            feastWas = festivals.any { f -> si.lanisce.lani.game.Calendar.occurrence(f, date) == date && !f.quiet }
+            feastOf = date to festivals
+            return feastWas
+        }
+
         fun of(state: si.lanisce.lani.game.GameState, frame: Frame, kind: si.lanisce.lani.game.HearthKind, lit: Boolean, env: Env): CentreLook {
             if (kind == si.lanisce.lani.game.HearthKind.CAMPFIRE) return CentreLook(if (lit) 1f else SMOULDER)
             if (!lit) return CentreLook(0f)
@@ -170,8 +188,7 @@ internal data class CentreLook(val flames: Float, val embers: Boolean = false, v
                 stir?.phase == si.lanisce.lani.game.villagers.Stir.Phase.WON
             val evening = h >= EVENING && h < LATE
             val lunch = h >= 12.5f && h < 13.2f
-            val feast = party || state.lastFeast == frame.date.toString() ||
-                si.lanisce.lani.game.Calendar.on(state, frame.date).any { it.late == 0 && !it.festival.quiet }
+            val feast = party || state.lastFeast == frame.date.toString() || festivalDay(frame.date)
             val kres = kind == si.lanisce.lani.game.HearthKind.FIRE_BASKET && feast && (evening || env.dark > 0.3f)
             return when {
                 kres -> CentreLook(1f, kres = true)

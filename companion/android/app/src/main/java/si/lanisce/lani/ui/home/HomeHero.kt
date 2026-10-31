@@ -28,12 +28,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -272,11 +273,12 @@ private fun UnpairedChip(onClick: () -> Unit) {
 
 @Composable
 private fun Pill(emoji: String, value: String, description: String, tint: Color, pulse: Boolean = false, onClick: () -> Unit = {}) {
-    // no animation while Home is covered (ui/Covered.kt): it would ask for every frame
-    val scale = if (pulse && !si.lanisce.lani.ui.LocalCovered.current) {
+    // no animation while Home is covered (ui/Covered.kt): it would ask for every frame; the flame's size read where it is
+    // drawn (its layer), not in composition: the pill isn't composed again every frame (docs/plans/05-built/changes-areas.md)
+    val scale: State<Float>? = if (pulse && !si.lanisce.lani.ui.LocalCovered.current) {
         val t = rememberInfiniteTransition(label = "pulse")
-        t.animateFloat(1f, 1.18f, infiniteRepeatable(tween(900), RepeatMode.Reverse), label = "flame").value
-    } else 1f
+        t.animateFloat(1f, 1.18f, infiniteRepeatable(tween(900), RepeatMode.Reverse), label = "flame")
+    } else null
     Surface(
         onClick = onClick,
         color = Color.Black.copy(alpha = 0.3f),
@@ -284,7 +286,7 @@ private fun Pill(emoji: String, value: String, description: String, tint: Color,
         modifier = Modifier.heightIn(min = 40.dp).semantics { contentDescription = description },
     ) {
         Row(Modifier.padding(horizontal = 14.dp, vertical = 8.dp).clearAndSetSemantics {}, verticalAlignment = Alignment.CenterVertically) {
-            Text(emoji, Modifier.scale(scale))
+            Text(emoji, if (scale == null) Modifier else Modifier.graphicsLayer { scaleX = scale.value; scaleY = scale.value })
             Spacer(Modifier.width(6.dp))
             Text(value, color = tint, fontWeight = FontWeight.Bold)
         }
