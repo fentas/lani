@@ -268,7 +268,10 @@ ScreenStackTest's two checks of the moment after showing waited on a timer and a
 never gave (they step the test's frame clock now), and LaniSheetTest's canary (Material's own sheet still bouncing),
 which failed only in the runs where those two checks timed out and left their frame waits behind (its own comment: a
 later Compose test in the same JVM gets no frames); it passes on its own, with the whole `ui` package in one JVM and in
-the last full run.
+the last full run. Then main moved once more (place-life, 19 commits, no conflict): on `99e59f9a` the `tsc` clean, the
+smoke 3,152 checks passing, Python `companion/tests` 132 (11 skipped), and SceneDetailTest (the kitchen at detail 3 12.9
+ms in all the weather on a quiet machine, the dearest closer frame the Alps' at 13.3), CultureLooksTest, ScreenStackTest,
+NavStackTest, SceneDoorsTest, BridgeAnswersTest, FreshTest and TipCardTest all passing.
 
 ## How to use it
 
