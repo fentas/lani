@@ -199,10 +199,12 @@ culture. Nothing else changed.
   some lines and "Lake District" in others, "čatni" for the ploughman's pickle; and the facts the lines state: Old Wilf's
   snowy winter of 1947 (he is eighty-four), Captain the crow's grey beak (the clue agrees; a carrion crow's is black),
   Bassenthwaite the only "Lake", Windermere about eleven miles long.
-- **Who answers in a scene.** Done on `scene-replier` ([scene-replier.md](scene-replier.md)): the app has the happening's
-  person answer every turn of a scene's dialog, while the panel's header shows the turn's `to`, else whoever spoke last.
-  The older scenes' 26 turns that came after someone else's line without `to` (15 in Slovene, 7 in Friuli and 4 in
-  Kärnten) now name the happening's person and are written for them, and `WhoAnswersTest` keeps it so.
+- **Who answers in a scene.** Content done on `scene-replier` ([scene-replier.md](scene-replier.md)): the older scenes'
+  26 turns that came after someone else's line without `to` (15 in Slovene, 7 in Friuli and 4 in Kärnten) name the
+  happening's person and are written for them, and `WhoAnswersTest` keeps it so. On the screen the scene's panel turned
+  out to draw and voice every line of a happening's dialog as the happening's person (`SceneScreen` gives it no other
+  speakers): the header never showed anyone else, the replies were the other speaker's words in their mouth. Showing
+  each speaker is an app change, there.
 - **Turns chosen, never typed.** About 47 of the form turns' wrong choices add, drop or move a word ("I can to hear",
   "Why they are …") or split a contraction ("It are" for "It's"): real mistakes, kept, but `Forms.turn` asks for typing
   only a turn whose wrong choice swaps one word in its place, so these are always chosen.

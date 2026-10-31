@@ -3876,8 +3876,9 @@ def scene_replier():
     night, Nejc's line first; Friuli's, LANI_CULTURE=friuli with an Italian learner and LANI_QA_PAIR=sl-en: Marisa's jug,
     Matteo's line first) opened through QA's hook: its first turn (the header's name), a wrong choice and the reaction
     (their face, the Faces log; the header then), the right one; screenshots of each, also as replier-*.png in
-    $LANI_QA_REPLIER_SHOTS. The shots come before the checks, so a run on the content before the fix shows the header on
-    the other speaker at the turn."""
+    $LANI_QA_REPLIER_SHOTS. The shots come before the checks. In a scene's happening the panel draws and voices everyone
+    as the happening's person (SceneScreen gives it no other speakers), so a run on the content before the fix shows them
+    saying the other speaker's words ("Juhu! … Ampak Jože gleda grdo." in Jože's mouth)."""
     culture = api("/culture").get("id") or "primorska"
     if culture not in REPLIER_DIALOGS:
         return f"skipped: no dialog of {culture}'s to look at"
@@ -3905,7 +3906,8 @@ def scene_replier_run(culture: str, sid: str, hid: str, did: str):
             out.mkdir(parents=True, exist_ok=True)
             shutil.copy(shots[-1], out / f"replier-{culture}-{name}.png")
 
-    scene = next((s for s in api("/scenes") if isinstance(s, dict) and s.get("id") == sid), None)
+    # every art the bridge has (an app that doesn't say gets only the first arts' places: forApp)
+    scene = next((s for s in api("/scenes?arts=99") if isinstance(s, dict) and s.get("id") == sid), None)
     if scene is None:
         return f"skipped: the dev bridge has no {sid}"
     lang = scene.get("language") or "sl"
