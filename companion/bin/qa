@@ -8620,13 +8620,13 @@ def lakeland_places():
         adb("logcat", "-c")
         qa_hook("ispy:on-the-green/well", "scene:on-the-green")
         assert wait_for(back, 12), "On the village green"
-        marker = wait_for(lab("ispy.title"), 20)
-        card = scroll_to("🔍 " + lab("ispy.play"), 5) or marker
-        assert card is not None, "the offer «I spy»: the 🔍 over the child, the card on the panel"
+        assert wait_for(lab("ispy.title"), 20), "the offer «I spy»: the 🔍 over the child, the card on the panel"
+        if (tip := find(lab("tips.gotIt"))) is not None:  # a tip's card over the offer (the second run's): out of the way
+            tap_at(tip)
+            time.sleep(1.5)
         snap("ll-ispy-offer")
-        tap_at(card)
-        got = ispy_positions(15)
-        assert got is not None, "the debug build's ISpy log of where the things are"
+        got, why = ispy_play(lab)
+        assert got is not None, f"a round of «I spy» on the green: {why}"
         _, target, at, word = got
         time.sleep(4 * slow())
         snap("ll-ispy-round")
