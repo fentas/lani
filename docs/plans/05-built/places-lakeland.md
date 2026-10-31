@@ -21,7 +21,7 @@ waits for a native check.
 |---|---|---|
 | the tent | its card, no way in | its card's "🚪 Go in: In the tent" (2 taps) |
 | the hut | its card, no way in | "🚪 Go in: In the kitchen" (2 taps) |
-| a house | its card, no way in | the room of whoever lives there: In the living room (Old Wilf), In the cellar (Brewer Sam, Arthur lodging), In the attic (Mrs Birkett and Harry), In the workshop (Mr Tyson and Alfie), else the kitchen (2 taps) |
+| a house | its card, no way in | the room of whoever lives there: In the living room (Old Wilf), In the cellar (Brewer Sam's; Beekeeper Arthur keeps his honey there), In the attic (Mrs Birkett and Harry), In the workshop (Mr Tyson and Alfie), else the kitchen (2 taps) |
 | the field, the hay barn | its card, no way in | "In the field" (2 taps) |
 | the oak, the well (the pump) | its card, no way in | "On the village green" (2 taps) |
 | the beehives, the palisade, the watchtower, the smithy | their cards, no way in | "At the bees", "At the gate", "On the watchtower", "In the smithy" (2 taps each) |
@@ -103,7 +103,43 @@ greeting (`ChalkFont` and `ChalkHand`: H, l, A, w and Y).
 
 ## How it was checked
 
-CHECKS
+- **The content**: `bun test/check-culture.ts lakeland` (the bridge's own validation of the pack, with its cast, packs and
+  grammar pages): ok. `CultureScenesTest` (every scene opens from its place and uses only what its painter draws, every
+  effect of the kitchen, the tent, the smithy and the field cued), `DialogReactionsTest` (31 + 39 + 15 scene files; no
+  reaction gives the right choice away; every reaction said by the happening's person), `ScenesContentTest`,
+  `SceneCoherenceTest` (no line tells the learner to look at what isn't there), `DialogVariantsTest`, `FormsTest`,
+  `HappeningsTest`, `ISpyContentTest`, `ISpyTest`, `BuildingWordsTest` (the hut asks for the kitchen's pot, window and door),
+  `AlpsLooksTest` (every building of the Lake District has its place, each art in its look): green.
+- **I spy for a beginner**: `ISpyRoundsTest` (from ispy-rounds, on main since the first rebase): every Lakeland scene gives a
+  learner at A1 with nothing introduced a full game in every world, hour and season, each spied thing with two clues of its
+  own the beginner's grammar has reached, and a round by the nouns' letters with no grammar at all: green with the clue
+  files as they were (run first on a scratch copy of ispy-rounds, then in the full suite).
+- **The learner in the content**: `bun test/learner-content.ts`: 295 files compared, 0 differ; the audit: 0 texts naming
+  Jan, 0 malformed placeholders, 0 turns the same for one gender. The fixture is not written again: the new scenes are new
+  since its base, so the audit is their check, and `--write` would take every file edited since the placeholders as
+  unedited (135 would then differ).
+- **The review**: the lead's pass over the fifteen scenes, their packs and clues (who answers each turn, faces, reactions,
+  the calendar and the hours the lines state, the learner's forms for a woman, translations, the clues' genders; the
+  helper's report is summed up under "What is left"), merged before the rebase.
+- **The looks**: `LakelandLooksTest`, `MapLooksTest` (the map agrees), `BuildingLevelsTest`, `SchoolBoardTest`,
+  `SceneDetailTest`; Primorska and Friuli pixel for pixel as before: `CultureLooksTest`'s digests, `FriuliOutdoorLooksTest`,
+  `FriuliIndoorLooksTest`, `FriuliPlacesLooksTest`, `FriuliMarketSquareLooksTest`, `FriuliApiaryChurchLooksTest`,
+  `SchoolLooksTest`: green. Contact sheets of every art in the Lake District's look beside Primorska's, at each level by day
+  and in the evening, closer up, the seasons and a phone's view: 137 sheets in the round's scratch folder
+  `ux-places-lakeland/looks/`.
+- **The full checks** after the rebase onto main b7b801bc: bridge `tsc` clean; the smoke 3169 checks passed (ports
+  9350–9369, Drama 3 9368); `tutor-export --check` 88 files match (53 tools, 32 guide topics); the Android unit suite 448
+  classes, 3533 tests, 0 failures (before the rebase two tests held the old world: `AlpsLooksTest` expected the Lake
+  District to have only its fire and horizon, and `StickersTest` read no emoji for the English starters' road and potato,
+  both fixed); the Python tests 251, and 135 with 11 skipped, green.
+- **The emulator QA** (`lakeland-places`, a synthetic learner of English from Slovene, `LANI_CULTURE=lakeland`, slot 2 of
+  qa-slot): green on its third run, about 12 minutes on the emulator: the village a Trg, the church's card ("Church ·
+  Cerkev, Level · Stopnja 2", "🚪 Go in · Vstopi: ⛪ In the church · V cerkvi ›"), In the church, the fourteen other scenes
+  by their links (the kitchen, the green, the bees and the watchtower closer up too), «I spy» on the green with Alfie ("I spy
+  with my little eye something …", "There's water in it.": the pump found, "Yes, the pump! Well done!"), Granny Maggie's
+  breakfast ("Good morning, love! Did you sleep well?" and its three answers). The first two runs stopped on the step itself
+  (a newcomer's suitcase bubble over the church took the tap; a tip's card lay over the I spy offer), both fixed in the
+  step. Screenshots: the round's scratch folder `ux-places-lakeland/qa3/` (ll-*.png), run 2's in `qa/`.
 
 ## How to use
 
