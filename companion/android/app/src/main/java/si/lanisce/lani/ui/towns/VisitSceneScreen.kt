@@ -66,6 +66,7 @@ import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.ui.game.EmojiBadge
 import kotlinx.coroutines.delay
 import si.lanisce.lani.ui.scene.Anchored
+import si.lanisce.lani.ui.scene.DialogCast
 import si.lanisce.lani.ui.scene.DialogPanel
 import si.lanisce.lani.ui.scene.rememberPartnerLook
 import si.lanisce.lani.ui.scene.rememberDialogVoice
@@ -115,12 +116,16 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
     fun voiceOf(p: ScenePerson) = SceneWords.voiceOf(p.art, p.villager?.let { v.villager(it) })
     // a person's new line is said aloud, the learner's own first in their voice (as at home: DialogVoice), they drawn
     // talking meanwhile, with their line's face and their reactions (as at home: rememberPartnerLook)
-    val talkingId = rememberDialogVoice(vm.speaker, talk) { who -> who to voiceOf(talk!!.person) }
-    val look = rememberPartnerLook(talk?.run, talkingId != null && talkingId == talk?.person?.id, false, child = talk?.person?.art?.startsWith("child") == true)
-    val people = remember(scene, active, present, talk?.person, look) {
+    // everyone who speaks in it, each in their own voice and face (as at home: DialogCast), and whom the learner faces
+    val talkCast = remember(talk?.key, talk?.dialog, scene.people) { talk?.let { t -> DialogCast.of(t, scene.people) { v.villager(it) } }.orEmpty() }
+    val facing = talk?.let(DialogCast::facing)
+    val talkingId = rememberDialogVoice(vm.speaker, talk) { who -> (talkCast.firstOrNull { it.id == who } ?: talk!!.person).let { p -> p.id to voiceOf(p) } }
+    val facingArt = talkCast.firstOrNull { it.id == facing }?.art ?: talk?.person?.art
+    val look = rememberPartnerLook(talk?.run, talkingId != null && talkingId == facing, false, facing, child = facingArt?.startsWith("child") == true)
+    val people = remember(scene, active, present, talk?.person, look, facing) {
         val base = Happenings.peopleIn(scene, active, present)
         val all = talk?.person?.takeIf { p -> base.none { it.id == p.id } }?.let { base + PersonInScene(it.id, it.art, it.slot) } ?: base
-        all.map { if (it.id == talk?.person?.id) it.copy(talking = look.talking, pose = look.pose, face = look.face) else it }
+        all.map { if (it.id == facing) it.copy(talking = look.talking, pose = look.pose, face = look.face) else it }
     }
     val anchors = rememberSceneAnchors(scene.id)
     val waiting = remember(active, talk?.happening) { (active.map { it.happening } + listOfNotNull(talk?.happening)).filter { it.act.isNotEmpty() }.distinctBy { it.id } }
@@ -193,6 +198,7 @@ private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
             // a guest's dialog: over the words, played to its end (nothing is paid on a visit; the learner met them)
             if (talk != null) DialogPanel(
                 vm = vm, talk = talk, voice = voiceOf(talk.person),
+                speakers = DialogCast.speakers(talkCast, ::voiceOf),
                 onChoose = vm.visits::chooseInScene, onNext = vm.visits::nextInScene, onClose = vm.visits::closeSceneTalk, onHint = vm.visits::hintInScene,
                 onKeepTalking = null, modifier = Modifier.fillMaxSize().padding(top = panelTop), look = look,
             ) else Column(

@@ -125,7 +125,7 @@ fun rememberDialogVoice(speaker: Speaker, talk: SceneTalk?, voiceOf: (String) ->
                 val from = System.currentTimeMillis()
                 // drawn talking while it is heard (nothing to say it: for as long as it takes to read)
                 if (!speaker.sayThrough(line.sl, voiceName = v.voice, fallback = v.fallback, person = v.person, stopIfLeft = false)) delay(Speaker.readingMs(line.sl))
-                if (BuildConfig.QA) Log.i("Speaker", "heard «${Voice.normalize(line.sl)}» after ${System.currentTimeMillis() - from} ms (${line.who})")
+                if (BuildConfig.QA) Log.i("Speaker", "heard «${Voice.normalize(line.sl)}» after ${System.currentTimeMillis() - from} ms (${line.who}, in ${v.person ?: v.voice}'s voice)")
             },
             quiet = speaker::awaitQuiet,
             idOf = { who -> of(who).first },

@@ -346,13 +346,16 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     // A person's new line is said aloud in their voice, and they're drawn talking meanwhile (a project's step has several
     // people: each says their own lines); the learner's own line first, in their voice (DialogVoice). The panel, the bubble
     // and the person's reaction come first; the next line, as the learner taps on, cuts it.
-    fun speakerOf(id: String?): ScenePerson? = talk?.step?.cast?.firstOrNull { it.id == id } ?: talk?.person
+    // who speaks in it (DialogCast): the person, and everyone its lines name, each in their own voice and face
+    val talkCast = remember(talk?.key, talk?.dialog, talk?.step, scene.people) { talk?.let { t -> DialogCast.of(t, scene.people) { vm.villagers.byId(it) } }.orEmpty() }
+    fun speakerOf(id: String?): ScenePerson? = talkCast.firstOrNull { it.id == id } ?: talk?.person
     val talkingId = rememberDialogVoice(speaker, talk) { who ->
         val p = speakerOf(who) ?: talk!!.person
         p.id to voiceOf(p)
     }
-    // whom the learner answers: the person of the dialog, or in a project's step the one a turn names, else whoever spoke last
-    val facing = if (talk?.step != null) talk.run.facing ?: talk.person.id else talk?.person?.id
+    // whom the learner faces: at a turn the one it names, else whoever spoke last, else the person of the dialog (DialogCast);
+    // drawn turned to the learner in the picture when the scene places them there
+    val facing = talk?.let(DialogCast::facing)
     val talking = talkingId != null && talkingId == facing
     // The lines of «Vidim, vidim» come out one after another (a game adds several at once: its line and the first clue): each
     // of the child's typed in and said in the child's voice to its end before the next starts, the child drawn talking
@@ -378,7 +381,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
     }
     val groups = remember(spec, sights, found) { SceneSights.group(spec, sights, found) }
     // how whom the learner answers looks (DialogMood, Expression): drawn so in the picture and in the panel's header
-    val facingArt = talk?.step?.cast?.firstOrNull { it.id == facing }?.art ?: talk?.person?.art
+    val facingArt = talkCast.firstOrNull { it.id == facing }?.art ?: talk?.person?.art
     val awake = rememberPartnerLook(talk?.run, talking, micOn && talk != null, facing, child = facingArt?.startsWith("child") == true || facingArt == "baby")
     // asleep on the stage (a line's `act`: Nejc dozes off with "Burja, tiho bodi!"), the sleep wins: the eyes shut, no face
     // over them, in the picture and in the panel's header
@@ -593,8 +596,8 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
                         onKeepTalking = { scenario -> scenes.closeTalk(); vm.openTalk(scenario) },
                         onListening = { micOn = it },
                         onLearnStory = { story -> vm.learnStory(scene.id, story) },
-                        // a project's step: its people's lines show their faces and are read in their voices
-                        speakers = t.step?.cast.orEmpty().associate { p -> p.id to Speaking(p.emoji, voiceOf(p), p.art, (p.villager ?: p.id).hashCode(), p.name) },
+                        // everyone who speaks: their lines show their faces and are read in their voices (DialogCast)
+                        speakers = DialogCast.speakers(talkCast, ::voiceOf),
                         look = look,
                     )
                 } else {
