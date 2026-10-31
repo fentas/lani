@@ -124,6 +124,7 @@ class CultureScenesTest {
             listOf("kaernten", "beim-bienenhaus", "apiary", "beehive"),
             listOf("kaernten", "in-der-kirche", "church", "church"),
             listOf("kaernten", "am-tor", "palisade", "palisade"),
+            listOf("kaernten", "auf-dem-wachturm", "watchtower", "watchtower"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
