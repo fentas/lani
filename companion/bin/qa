@@ -14883,15 +14883,21 @@ def app_icon():
     qa_hook("notify:message")
     adb("shell", "input", "keyevent", "KEYCODE_HOME")
     time.sleep(4)
-    posted = "si.lanisce.lani" in adb("shell", "dumpsys", "notification", "--noredact", check=False).split("NotificationRecord", 1)[-1]
-    lines.append(f"a message's notification posted: {posted}")
+    mine = lambda: [l for l in adb("shell", "dumpsys", "notification", "--noredact", check=False).splitlines()
+                    if "NotificationRecord" in l and f"pkg={PKG}" in l]
+    posted = mine()
+    lines.append(f"a message's notification: {len(posted)} of Lani's ({' | '.join(p.strip()[:120] for p in posted)})")
+    if not any("channel=messages" in l or "tag=chat" in l for l in posted) and not posted:
+        problems.append("no message's notification posted")
     shot("app-icon-dot")
-    qa_hook("chat:")
-    time.sleep(3)
+    adb("shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", "lani://chat", PKG)   # the chat opened: seen
+    time.sleep(4)
     adb("shell", "input", "keyevent", "KEYCODE_HOME")
     time.sleep(3)
-    left = [l for l in adb("shell", "dumpsys", "notification", "--noredact", check=False).splitlines() if "pkg=si.lanisce.lani" in l and "NotificationRecord" in l]
+    left = mine()
     lines.append(f"after the chat was opened: Lani's notifications {len(left)}")
+    if len(left) >= len(posted) and posted:
+        problems.append("the message's notification stayed after the chat was opened")
     shot("app-icon-dot-gone")
     (OUT / "app-icon.txt").write_text("\n".join(lines) + "\n")
     print("\n".join("    " + l for l in lines))

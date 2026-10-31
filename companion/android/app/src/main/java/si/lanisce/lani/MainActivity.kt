@@ -101,6 +101,10 @@ class MainActivity : ComponentActivity() {
             pair = { code -> vm.chooseLangPair(si.lanisce.lani.l10n.LangPair.parse(code)) }, grow = vm::qaAgeUp, formsCard = vm::qaFormsCard,
             data = { vm.dataOpen = true }, review = vm::qaReview, numbers = vm::qaNumbers, event = vm::qaEvent, hearths = vm::qaHearths,
             request = vm::qaRequest, word = vm::qaWord, sentence = vm::qaSentence, friends = { vm.openFriends() }, sheet = vm::qaSheet, grammar = { vm.grammar.show(it) }, talk = { vm.talkWithVillager(it) }, cases = vm::qaCases, tips = vm::qaTips, news = { vm.game.qaNews() },
+            notify = { kind ->
+                if (kind == "message") si.lanisce.lani.data.Notifier.post(this, si.lanisce.lani.data.Notice(si.lanisce.lani.data.NotifyChannel.MESSAGES,
+                    si.lanisce.lani.data.NotifyChannels.CHAT, "💬 ${si.lanisce.lani.l10n.inTarget("common.yourTutor")}", "QA", si.lanisce.lani.data.DeepLink.Chat))
+            },
             icon = { alias -> si.lanisce.lani.data.AppIconPrefs(this).let { p -> if (alias.isBlank()) { p.test = null; p.force = true } else p.test = alias } },
             tutorLive = { base -> vm.live.update { it.copy(debugBaseUrl = base.ifBlank { null }) } })
         intent?.removeExtra(si.lanisce.lani.app.QaHooks.EXTRA)

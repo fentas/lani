@@ -531,30 +531,72 @@ doba, Praznik, Zgrajeno, Prišlek, Straža, Obvestila) and the channel names and
 
 ### QA
 
-QA_RESULTS
+`companion/bin/qa-slot --no-town --steps app-icon`, twice: on slot 1 (AVD lani-qa) and, after the notifications were
+merged, on slot 2 (AVD fluent-qa). Both run Android's Pixel launcher (`com.google.android.apps.nexuslauncher`). The
+screenshots and `app-icon.txt` are in
+`/tmp/claude-1000/-mnt-scratch-github-fentas-ai-slo/721724ea-4389-48ad-b641-b6d1d5157803/scratchpad/ux-app-icon/step2/`
+(`montage1.png`: the four home screens; `dots.png`: the dot and its going).
+
+| | The package manager resolves | Lani icons on the home screen |
+|---|---|---|
+| after the install (an update over an earlier QA build, whose icon pointed at `.MainActivity`) | `.icon.Ogenj` | 1, in its place in the hotseat |
+| "icon:.icon.PrimorskaVasFestival", Home | `.icon.PrimorskaVasFestival`, 14 s later | 1, in place |
+| "icon:.icon.FriuliZaselekSnow", Home | `.icon.FriuliZaselekSnow`, 14 s later | 1, in place |
+| "icon:" (the day's), Home | `.icon.PrimorskaVas` (the dev village is at Vas, Primorska, in October), 14 s later | 1, in place |
+
+- **No duplicate and no lost icon** on either emulator. The update from a build whose launcher entry was `MainActivity`
+  kept the home-screen icon too: Launcher3 pointed it at `.icon.Ogenj`.
+- **The dot:** a message's notification (QA's hook "notify:message": the channel `messages`, the tag `chat`,
+  importance DEFAULT) shows the Pixel launcher's dot on the icon. Opening the chat (`lani://chat`) cancelled it: 0 of
+  Lani's notifications left, and no dot.
+- **Not tested here:** Nothing's launcher (Jan's phone) and Teo's tablet. Both start in "Age and season" until they
+  are tried with 🛠️ → "Try the next icon".
+
+### The notifications and the dot
+
+Built by a helper on `app-icon-notify`, cherry-picked here (companion/README.md "Notifications").
+
+| Channel | Name | Dot | Importance |
+|---|---|---|---|
+| messages | 💬 Sporočila · Messages | yes | DEFAULT |
+| village | 🏘️ Vas · Village | yes | DEFAULT |
+| school | 📝 Šola · School | yes | DEFAULT |
+| new | ✨ Novo · New in Lani | no | LOW |
+| reminders | 🔔 Opomniki · Reminders | no | DEFAULT |
+| system | ⚙️ Sistem · System | no | DEFAULT |
+
+- **Migration** (`data/NotifyChannels.kt`, `data/Notifier.kt`): runs at the start, on a language change and before
+  every post. The old "tutor" channel's settings carry over: blocked stays blocked for every new channel, nothing gets
+  louder than it was, a dot turned off stays off, and the sound, vibration and lock screen are copied. "tutor" is
+  deleted only after the six exist.
+- **Counts:** every notification has `setNumber(1)` and a stable tag per thing (`chat`, `family:<id>`,
+  `guest:<town>/<who>`, `school:<unit>/<id>`, `village` …), so a count stays 1 to 3, never the cards due.
+- **Gone when seen:** while the app is on screen, what it shows cancels the matching tags. For example, the chat open
+  cancels `chat`, the village cancels the village alert and the guests, a scene cancels its own.
+- **A child's profile:** the watchman's news in kind words ("🏰 Stražar je nekaj videl · The watchman saw something",
+  "Pridi pogledat · Come and look"). The evening reminder is off unless a parent turns it on under the new section
+  "🔔 Obvestila · Notifications" (parent-gated on a child's device). When on, it says "🔥 Vas te pričakuje · The
+  village is looking forward to you", with no streak and no number.
+- **`ic_notify`** is the small icon of every notification, the road's too.
 
 ### Strings for the native check
 
 Machine-written, in sl, en, de and it: `appIcon.title`, `appIcon.happening`, `appIcon.ageSeason`, `appIcon.keep`,
 `appIcon.note`, `appIcon.tested`, `appIcon.untested`, `developer.iconNext`, `developer.iconDay`,
-`developer.iconNote`, and the notification channels' and dot texts (below).
+`developer.iconNote`, and the 18 `notify.*` keys (the channels' names, the setting, the child's texts).
 
 ### Tap counts
 
 Before: the icon couldn't be changed. Now "Automatic" needs no tap. A fixed choice takes 4 taps from Home: ⚙️ →
 🌐 Jeziki · Languages → the mode's chip (the setting's section is on the Languages page).
 
-## What's left (step 2, after Jan picks)
+## What's left
 
-- Build the picked concept: with step 1b, the 176 aliases' drawables from the generator (backgrounds and monochrome
-  layers shared), the generated manifest block, `MainActivity` without its launcher filter, `ic_notify`.
-- The switch (`IconChooser`, pure, with date and priority tests; `IconSwitcher` with the background jobs, the
-  once-a-day rule and the repair), the setting "🎨 Ikona · App icon" in sl, en, de and it, a test that keeps the alias
-  list.
-- The notification channels for the dot (Messages, Village, School with badges; New, Reminders, System without), the
-  child's profile's wording, and cancelling a notification when its thing is seen.
-- The wordmark into the README, the setup welcome screen (above "Welcome!") and `site/` (favicon, apple-touch-icon).
-- Test on the emulator (Launcher3), Jan's Nothing Phone (4a) and Teo's tablet with the developer button.
-  Screenshots of the home screen before and after.
-- Replace `launcher_icon.py` with `app_icon.py` once the new icon is in.
-- A native check of the Slovene labels and strings above.
+- **Test the launchers that aren't Launcher3.** On Jan's Nothing Phone (4a) and Teo's tablet: 🛠️ Developer → "Try
+  the next icon", Home, and look for a second Lani icon or a lost one. If one keeps the icon in place, add its
+  package to `AppIcons.KEEPS_IN_PLACE`, so it defaults to "What's happening".
+- **A native check** of the strings above (sl, de, it, and the English).
+- **The road's channel** (the car's "getting ready", RoadPrepService) still has the default badge, so its ongoing
+  notification may show a dot. Changing that needs a new channel id.
+- **A phone paired with a typed token** counts as an adult's in the background until the app has been opened once on
+  this version. A QR-paired or hosted phone is right from the start.
