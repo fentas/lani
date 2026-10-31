@@ -252,11 +252,11 @@ after this run):
   `HearthsRenderTest`), unchanged: the footpaths, the order, the date, the festival day and the palisade's lookups draw
   the same.
 
-The checks on the branch rebased onto main `eb156262` (2026-10-31): the bridge's `tsc` clean; the smoke 3,171 checks, all
-passing (`LANI_SMOKE_PORT=9310`, `LANI_SMOKE_DRAMA3_PORT=9328`; a run beside heavy builds once failed the chat section's
-waits for a notification, which passed again on their own and in the next full run); `tutor-export --check` 88 files
-match; Python `companion/tests` 135 (11 skipped) and `tests` 251, all passing; the Android unit suite (through
-lani-slot): **3,537 tests, 2 skipped, 0 failures**.
+The checks on the branch rebased onto main `f23976ba` (2026-10-31, the last rebase): the bridge's `tsc` clean; the smoke
+3,171 checks, all passing (`LANI_SMOKE_PORT=9310`, `LANI_SMOKE_DRAMA3_PORT=9328`; a run beside heavy builds once failed
+the chat section's waits for a notification, which passed on their own and in every full run since); `tutor-export
+--check` 88 files match; Python `companion/tests` 135 (11 skipped) and `tests` 251, all passing; the Android unit suite
+(through lani-slot): **3,538 tests, 2 skipped, 0 failures** (3,537 on `eb156262`, the rebase before).
 
 ## Tap counts, strings, the hosted mode
 
