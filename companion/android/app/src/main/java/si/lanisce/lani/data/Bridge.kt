@@ -40,9 +40,51 @@ import java.util.concurrent.ConcurrentHashMap
 
 data class BridgeConfig(val baseUrl: String, val token: String)
 
+/**
+ * What GET /changes says (companion/bridge/src/changes.ts): the [version] of everything the bridge serves the app, and of
+ * each of its [areas] (learner, village, towns, family, content; none from a bridge before them, docs/plans/05-built/
+ * changes-areas.md).
+ */
+data class NodeChanges(val version: String, val areas: Map<String, String> = emptyMap()) {
+    companion object {
+        /** /changes' answer; null without a version. */
+        fun parse(body: String): NodeChanges? {
+            val o = runCatching { json.parseToJsonElement(body) }.getOrNull() as? JsonObject ?: return null
+            val version = (o["version"] as? JsonPrimitive)?.takeIf { it.isString }?.content ?: return null
+            val areas = (o["areas"] as? JsonObject)?.mapNotNull { (k, v) -> (v as? JsonPrimitive)?.takeIf { it.isString }?.let { k to it.content } }?.toMap().orEmpty()
+            return NodeChanges(version, areas)
+        }
+    }
+}
+
 /** HTTP client for lani-bridge (companion/bridge). */
 class Bridge(private val config: BridgeConfig) {
     private val http = Http.client(connectSeconds = 10, readSeconds = 60) // the SSE stream pings every 25 s
+
+    /** The paths Home's reading asks (AppViewModel.reload): each read again only once its areas moved ([fresh]). */
+    companion object {
+        const val STATE = "/state"
+        const val MODULES = "/modules"
+        const val PACKS = "/packs"
+        const val GRAMMAR = "/grammar"
+        const val CARDS = "/cards"
+        const val CASES = "/cases"
+        const val COURSE = "/course"
+        const val READINGS = "/readings"
+        const val ARRIVALS = "/arrivals"
+        const val CULTURE = "/culture"
+        const val TOWNS = "/towns"
+        const val TOWN_GUESTS = "/towns/guests"
+        const val TOWN_FRIENDSHIP = "/towns/friendship"
+        const val TOWN_CHILDREN = "/towns/children"
+        const val TOWN_QUESTIONS = "/towns/questions"
+        /** The scenes as far as this app draws them. */
+        val SCENES = "/scenes?arts=${si.lanisce.lani.game.scene.SceneArt.VERSION}"
+        /** Another language's deck. */
+        fun deck(language: String) = "$STATE?language=$language"
+        /** The people as they are at [time] of day. */
+        fun villagersAt(time: TimeOfDay = TimeOfDay.now()) = "/villagers?time=${time.name.lowercase()}"
+    }
 
     private fun request(path: String) = config.request(path)
     /**
@@ -108,22 +150,34 @@ class Bridge(private val config: BridgeConfig) {
     }
 
     /**
-     * The version of what the bridge serves the app now (GET /changes: it moves with every file its answers come from, each
-     * event, the day; docs/plans/05-built/nav-perf.md); null from a bridge without the route (404). An [IOException] when
-     * it can't be reached.
+     * The versions of what the bridge serves the app now (GET /changes: the version of everything, which moves with every
+     * file its answers come from and the day, docs/plans/05-built/nav-perf.md; and of each area, changes-areas.md); null
+     * from a bridge without the route (404). An [IOException] when it can't be reached.
      */
-    suspend fun changes(): String? = off {
+    suspend fun changes(): NodeChanges? = off {
         val (code, body) = exchange(request("/changes").build())
         when (code) {
-            200 -> (json.parseToJsonElement(body) as? JsonObject)?.get("version")?.let { (it as? JsonPrimitive)?.content }
+            200 -> NodeChanges.parse(body)
             404 -> null
             else -> throw IOException("HTTP $code: ${body.take(200)}")
         }
     }
 
+    /**
+     * Whether the last answer of GET [path] said its areas and none of them moved since by [areas] (GET /changes' areas:
+     * [Areas.fresh]): what the app read then is all there is.
+     */
+    fun fresh(path: String, areas: Map<String, String>): Boolean = Areas.fresh(url(path), areas)
+
+    /** Whether GET [path] was answered with its areas ([Areas.known]): asked before, by a bridge that says them. */
+    fun known(path: String): Boolean = Areas.known(url(path))
+
+    /** [path]'s URL as its request has it (the key of [Areas]). */
+    private fun url(path: String): String = request(path).build().url.toString()
+
     /** The home language's dashboard; with [language], that language's (its own review deck: GET /state?language=). */
     suspend fun dashboard(language: String? = null): Dashboard = off {
-        remembered(if (language == null) "/state" else "/state?language=$language", Dashboard::parse)
+        remembered(if (language == null) STATE else deck(language), Dashboard::parse)
     }
     /** GET /state as sent: all six learner databases plus computed fields. */
     suspend fun stateRaw(): String = off { get("/state") }
@@ -143,25 +197,25 @@ class Bridge(private val config: BridgeConfig) {
      * phone, the app's files cleared). An [IOException] when the node hasn't it (404) or can't be reached.
      */
     suspend fun chatImage(id: String, to: File) = off { http.downloadTo(request("/chat/images/$id").build(), to) }
-    suspend fun modules(): List<ModuleInfo> = off { remembered("/modules") { json.decodeFromString<List<ModuleInfo>>(it) } }
+    suspend fun modules(): List<ModuleInfo> = off { remembered(MODULES) { json.decodeFromString<List<ModuleInfo>>(it) } }
     suspend fun module(id: String): Module = off { parseModule(get("/modules/$id")) }
-    suspend fun packs(): List<PackInfo> = off { remembered("/packs", ::parsePacks) }
+    suspend fun packs(): List<PackInfo> = off { remembered(PACKS, ::parsePacks) }
     suspend fun pack(id: String): Pack = off { parsePack(get("/packs/$id")) }
 
     /** The grammar book's pages (GET /grammar: the curated ones with the tutor's additions, then the tutor's); null from an older bridge (404). */
-    suspend fun grammar(): List<GrammarPage>? = off { rememberedOrNone("/grammar") { Grammar.parseList(it) } }
+    suspend fun grammar(): List<GrammarPage>? = off { rememberedOrNone(GRAMMAR) { Grammar.parseList(it) } }
     /** The cheat sheet's cards no grammar page fits (GET /cards, lani.card/v0: the curated ones, then the tutor's); null from an older bridge (404). */
-    suspend fun cards(): List<DeckCard>? = off { rememberedOrNone("/cards") { Cards.parseList(it) } }
+    suspend fun cards(): List<DeckCard>? = off { rememberedOrNone(CARDS) { Cards.parseList(it) } }
     /**
      * The case trainer's bank (GET /cases, companion/README.md "Case trainer": the curated items with the tutor's, the
      * rules, the frames, the words, the tutor's assignment); null from an older bridge (404), or a village without one.
      */
-    suspend fun caseBank(): CaseBank? = off { rememberedOrNone("/cases") { CaseBanks.parse(it) } }
+    suspend fun caseBank(): CaseBank? = off { rememberedOrNone(CASES) { CaseBanks.parse(it) } }
     /**
      * The school's course of the village's language (GET /course, companion/COURSE.md: the outline, the units, the tutor's
      * homework); null from an older bridge (404), or for a language without a course: the app's own then.
      */
-    suspend fun course(): Course? = off { rememberedOrNone("/course") { Courses.parse(it) } }
+    suspend fun course(): Course? = off { rememberedOrNone(COURSE) { Courses.parse(it) } }
     /**
      * A printed sheet or booklet of the course as a page to print ([Prints.path]: GET /course/sheet/<unit>, GET
      * /course/booklet/<level>, companion/COURSE.md "Printed sheets"): self-contained HTML, its fonts and fit.js inlined.
@@ -189,12 +243,12 @@ class Bridge(private val config: BridgeConfig) {
      * Close-up scenes of the village, resolved (companion/SCENES.md), as far as this app draws them: it says which arts
      * it has ([SceneArt.VERSION]); an app that doesn't say gets what the first arts drew.
      */
-    suspend fun scenes(): List<SceneSpec> = off { remembered("/scenes?arts=${si.lanisce.lani.game.scene.SceneArt.VERSION}", ::parseScenes) }
+    suspend fun scenes(): List<SceneSpec> = off { remembered(SCENES, ::parseScenes) }
     /**
      * The people of the village (companion/VILLAGERS.md). The phone's [time] of day says the app reads a line's `when`
      * (an older app gets the lines without it).
      */
-    suspend fun villagers(time: TimeOfDay = TimeOfDay.now()): List<Villager> = off { remembered("/villagers?time=${time.name.lowercase()}", ::parseVillagers) }
+    suspend fun villagers(time: TimeOfDay = TimeOfDay.now()): List<Villager> = off { remembered(villagersAt(time), ::parseVillagers) }
     /**
      * A role-play with villager [id] played by the tutor (scenario id "villager:<id>"), built for the current friendship
      * and the phone's [time] of day (its opener a greeting for it: `?time=evening`).
@@ -208,7 +262,7 @@ class Bridge(private val config: BridgeConfig) {
      * as the node sends them; null from an older bridge without them (404). The culture pack's are bundled in the app.
      */
     suspend fun arrivals(): String? = off {
-        val (code, body) = content(request("/arrivals").build())
+        val (code, body) = content(request(ARRIVALS).build())
         return@off when (code) {
             200 -> body
             404 -> null
@@ -222,7 +276,7 @@ class Bridge(private val config: BridgeConfig) {
      * bridge without it (404).
      */
     suspend fun culture(): CultureInfo? = off {
-        val (code, body) = exchange(request("/culture").build())
+        val (code, body) = exchange(request(CULTURE).build())
         return@off when (code) {
             200 -> json.decodeFromString<CultureInfo>(body)
             404 -> null
@@ -361,11 +415,11 @@ class Bridge(private val config: BridgeConfig) {
      * The reading corner's readings (GET /readings: the culture pack's, then the tutor's; data/ReadingPractice.kt); null
      * from an older bridge without them (404).
      */
-    suspend fun readings(): List<si.lanisce.lani.game.culture.ReadingFile>? = off { rememberedOrNone("/readings") { ReadingPractice.parseServed(it) } }
+    suspend fun readings(): List<si.lanisce.lani.game.culture.ReadingFile>? = off { rememberedOrNone(READINGS) { ReadingPractice.parseServed(it) } }
 
     /** The towns linked with this learner's (GET /towns, see data/Towns.kt); null from an older bridge without towns (404). */
     suspend fun towns(): TownsList? = off {
-        val (code, body) = exchange(request("/towns").build())
+        val (code, body) = exchange(request(TOWNS).build())
         return@off when (code) {
             200 -> Towns.parseList(body)
             404 -> null
@@ -406,7 +460,7 @@ class Bridge(private val config: BridgeConfig) {
 
     /** What guests from linked towns brought this town (GET /towns/guests); null from an older bridge (404). */
     suspend fun townGuests(): List<GuestEntry>? = off {
-        val (code, body) = exchange(request("/towns/guests").build())
+        val (code, body) = exchange(request(TOWN_GUESTS).build())
         return@off when (code) {
             200 -> TownActs.parseGuests(body)
             404 -> null
@@ -419,7 +473,7 @@ class Bridge(private val config: BridgeConfig) {
      * what it brings; null from an older bridge (404).
      */
     suspend fun friendships(): FriendshipList? = off {
-        val (code, body) = exchange(request("/towns/friendship").build())
+        val (code, body) = exchange(request(TOWN_FRIENDSHIP).build())
         return@off when (code) {
             200 -> Friendships.parse(body)
             404 -> null
@@ -453,7 +507,7 @@ class Bridge(private val config: BridgeConfig) {
     }
 
     /** GET /towns/questions as answered (data/TownQuestions.kt): the status and body; an older bridge answers 404. */
-    suspend fun townQuestions(): Pair<Int, String> = off { exchange(request("/towns/questions").build()) }
+    suspend fun townQuestions(): Pair<Int, String> = off { exchange(request(TOWN_QUESTIONS).build()) }
 
     /** POST /towns/invite as answered: the status and body (a child's bridge answers 403). */
     suspend fun townInvite(): Pair<Int, String> = off { exchange(request("/towns/invite").post("{}".toRequestBody(Http.jsonType)).build()) }
@@ -464,7 +518,7 @@ class Bridge(private val config: BridgeConfig) {
     }
 
     /** GET /towns/children as answered (data/Towns.kt [TownChildren]): a parent's children's towns; an older bridge answers 404. */
-    suspend fun townChildren(): Pair<Int, String> = off { exchange(request("/towns/children").build()) }
+    suspend fun townChildren(): Pair<Int, String> = off { exchange(request(TOWN_CHILDREN).build()) }
 
     /**
      * A POST to the routes of a child's links that wait for a parent ([path]: /towns/requests/<id>/withdraw,

@@ -93,24 +93,25 @@ class TownsController(
 
     fun friendship(id: String): FriendTown? = friendships?.towns?.firstOrNull { it.id == id }
 
-    fun load() = scope.launch {
+    fun load(fresh: (String) -> Boolean = { false }) = scope.launch {
         val b = bridge() ?: run {
             problem = "📡 ${bi("towns.cantReachTutor")}"
             return@launch
         }
         loading = true
         try {
-            val l = b.towns()
+            // [fresh] (Home's reading after a Back, docs/plans/05-built/changes-areas.md): what is still as it was read stays
+            val l = list?.takeIf { fresh(Bridge.TOWNS) } ?: b.towns()
             if (l == null) problem = "🧰 ${bi("towns.tutorTooOld")}" else {
                 list = l
                 problem = null
             }
             // a parent's children: what waits for their yes (an older bridge has no such route: 404, none)
-            if (l?.self?.child == false) children = runCatching { b.townChildren() }.getOrNull()?.let { (code, body) -> if (code == 200) runCatching { Towns.parseChildren(body) }.getOrNull() else null }
+            if (l?.self?.child == false && !(children != null && fresh(Bridge.TOWN_CHILDREN))) children = runCatching { b.townChildren() }.getOrNull()?.let { (code, body) -> if (code == 200) runCatching { Towns.parseChildren(body) }.getOrNull() else null }
             // what guests brought (a child's parent sees the messages here too); an older bridge has none
-            guests = runCatching { b.townGuests() }.getOrNull() ?: guests
+            if (!fresh(Bridge.TOWN_GUESTS)) guests = runCatching { b.townGuests() }.getOrNull() ?: guests
             // the friendships (an older bridge has none): shown, and what they bring applied to the village
-            runCatching { b.friendships() }.getOrNull()?.let {
+            if (!(friendships != null && fresh(Bridge.TOWN_FRIENDSHIP))) runCatching { b.friendships() }.getOrNull()?.let {
                 friendships = it
                 onFriendships(it)
             }

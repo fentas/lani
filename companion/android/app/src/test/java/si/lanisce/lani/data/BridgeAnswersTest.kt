@@ -109,10 +109,12 @@ class BridgeAnswersTest {
         assertEquals("", sentTag["/grammar"])
     }
 
-    @Test fun `changes is the bridge's version, none from an older bridge, a failure names its status`() = runBlocking {
+    @Test fun `changes is the bridge's version and its areas, none from an older bridge, a failure names its status`() = runBlocking {
         assertNull("an older bridge: no /changes (404)", bridge.changes())
         bodies["/changes"] = 200 to """{"version":"pOPfsKOSMP0dYh4392S7yE","day":"2026-10-30"}"""
-        assertEquals("pOPfsKOSMP0dYh4392S7yE", bridge.changes())
+        assertEquals("a bridge before the areas: the version alone", NodeChanges("pOPfsKOSMP0dYh4392S7yE"), bridge.changes())
+        bodies["/changes"] = 200 to """{"version":"pOPfsKOSMP0dYh4392S7yE","day":"2026-10-30","areas":{"learner":"L1","content":"C1"}}"""
+        assertEquals(NodeChanges("pOPfsKOSMP0dYh4392S7yE", mapOf("learner" to "L1", "content" to "C1")), bridge.changes())
         bodies["/changes"] = 503 to "busy"
         try {
             bridge.changes()

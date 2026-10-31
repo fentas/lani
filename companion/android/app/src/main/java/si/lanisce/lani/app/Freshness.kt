@@ -6,15 +6,17 @@ import si.lanisce.lani.l10n.Learner
 import java.time.LocalDate
 
 /**
- * What a whole reading of the node's content (AppViewModel.reload: the learner's state, the modules, the grammar book, the
- * scenes, the people, the clips' index …) was read for (docs/plans/05-built/nav-perf.md): the bridge's [version] of what
- * it serves then (GET /changes, companion/bridge/src/changes.ts: it moves with every file its answers come from, each
- * event, its day), the phone's [day] and [time] of day (the people's whereabouts are asked by it), the [pair], the
- * [learner] and the [culture] the answers were read for, and [at] when (SystemClock.elapsedRealtime, ms).
+ * What a reading of the node's content (AppViewModel.reload: the learner's state, the modules, the grammar book, the
+ * scenes, the people, the clips' index …) was read for (docs/plans/05-built/nav-perf.md, changes-areas.md): the bridge's
+ * [version] of what it serves then (GET /changes, companion/bridge/src/changes.ts: it moves with every file its answers
+ * come from, its day) and of each of its [areas] (the learner's own data, the village, the towns, the family's, the
+ * content), the phone's [day] and [time] of day (the people's whereabouts are asked by it), the [pair], the [learner] and
+ * the [culture] the answers were read for, and [at] when everything was last read whole (SystemClock.elapsedRealtime, ms).
  *
- * Home coming back on view (a Back, its tile's way home) reads everything again only when a reading now would be for
- * something else ([sameAs] false): before, every Back made about 16 requests, the bridge worked a second on their answers
- * and the phone made 40 to 110 MB for the collector, for answers that hadn't changed.
+ * Home coming back on view (a Back, its tile's way home) reads nothing again while nothing moved ([sameAs]); after a real
+ * change, only what depends on the areas that moved, while the reading is for the same day, time, pair, learner and
+ * culture and not too old ([within]); else everything. Before: every Back read everything (about 16 requests, a second of
+ * the bridge's work, 40 to 110 MB for the phone's collector), then every Back after any change.
  */
 data class Fresh(
     val version: String,
@@ -24,17 +26,22 @@ data class Fresh(
     val learner: Learner,
     val culture: String,
     val at: Long,
+    val areas: Map<String, String> = emptyMap(),
 ) {
+    /** Whether [now] reads the same as this did: the same version, and [within]. */
+    fun sameAs(now: Fresh): Boolean = version == now.version && within(now)
+
     /**
-     * Whether [now] reads the same as this did: the same version, day, time of day, pair, learner and culture, and no
-     * more than [MAX_AGE_MS] later (what no version says: a remote town's news, a clock the bridge doesn't count by).
+     * Whether [now] is for what this was read for (the same day, time of day, pair, learner and culture) no more than
+     * [MAX_AGE_MS] after the last whole reading (what no version says: a remote town's news, a clock the bridge doesn't
+     * count by): then only the reads whose areas moved are read again, when the bridge says its areas.
      */
-    fun sameAs(now: Fresh): Boolean =
-        version == now.version && day == now.day && time == now.time && pair == now.pair && learner == now.learner &&
-            culture == now.culture && now.at - at in 0 until MAX_AGE_MS
+    fun within(now: Fresh): Boolean =
+        day == now.day && time == now.time && pair == now.pair && learner == now.learner && culture == now.culture &&
+            now.at - at in 0 until MAX_AGE_MS
 
     companion object {
-        /** The longest a reading counts as fresh while nothing says otherwise: 10 minutes. */
+        /** The longest everything counts as read while nothing says otherwise: 10 minutes. */
         const val MAX_AGE_MS = 10 * 60_000L
     }
 }

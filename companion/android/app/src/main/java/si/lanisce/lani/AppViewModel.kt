@@ -296,6 +296,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     val hosted = si.lanisce.lani.hosted.HostedController(app, viewModelScope, prefs, data, ::appName, android.os.Build.MODEL ?: "Android").also { h ->
         // a pull, an import or a new relay put the bridge over new data: everything is read again
         h.onNewData = {
+            readFor = null // everything anew
             refresh()
             game.sync(reloadFirst = true)
             if (foreground) events.restart()
@@ -695,6 +696,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         if (back == null || !nav.restore(back)) nav.reset(Screen.Home)
         // everything read anew (Home's own [shown] doesn't again while it runs); a notification tapped before the app ran
         // opens once it's read (its scene, its page, the cards due are there then)
+        readFor = null
         val loading = refresh()
         pendingLink?.let { l ->
             pendingLink = null
@@ -787,81 +789,104 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         si.lanisce.lani.hosted.HostedRuntime.say("home: ${"%.0f".format((System.nanoTime() - startedAt) / 1e6)} ms after the app started or the onboarding ended (the bridge: $boot)")
     }
 
-    /** Reads everything from the node again ([reload]). */
+    /**
+     * Reads from the node what moved since the last reading ([reload]: after the app's own writes, an event's news, a new
+     * connection's or data's everything).
+     */
     fun refresh(): Job = launchSafely { reload() }.also { reloading = it }
 
     /**
-     * Home (or the packs) on view again: everything read again only when something may have changed since the last whole
-     * reading ([Fresh], docs/plans/05-built/nav-perf.md), else one small request; nothing while a reading runs.
+     * Home (or the packs) on view again: what moved since the last reading read again, nothing when nothing did ([Fresh],
+     * docs/plans/05-built/nav-perf.md, changes-areas.md: then one small request); nothing while a reading runs.
      */
     private fun refreshIfChanged() {
         if (reloading?.isActive == true) return
-        reloading = launchSafely { reload(onlyIfChanged = true) }
+        reloading = launchSafely { reload() }
     }
 
     /** The reload running now, if any ([shown] doesn't start another beside it). */
     private var reloading: Job? = null
 
-    /** What the last whole reading was read for ([Fresh]); null before one, while one runs, and after one that failed. */
+    /**
+     * What the last reading was read for ([Fresh]: its time, of the last whole one); null before one, while one runs, after
+     * one that failed, and after a new connection or new data (everything is read then).
+     */
     private var readFor: si.lanisce.lani.app.Fresh? = null
 
     /**
-     * Reads everything from the node again; [onlyIfChanged]: only when the bridge's version of it ([Bridge.changes]), the
-     * day, the time of day, the learner, their pair or the culture moved since the last whole reading, or it is older than
-     * [si.lanisce.lani.app.Fresh.MAX_AGE_MS] (a bridge without the version, or none reachable: always).
+     * Reads from the node what moved since the last reading (docs/plans/05-built/changes-areas.md): nothing when the
+     * bridge's version of what it serves ([Bridge.changes]) is the same; when it moved, while the day, the time of day, the
+     * learner, their pair and the culture are those of the last reading and the last whole one is under
+     * [si.lanisce.lani.app.Fresh.MAX_AGE_MS] old, only each read whose areas moved ([Bridge.fresh]: its answer said them);
+     * else, or [whole], everything (a bridge without the areas, or none reachable: everything, as before).
      */
-    private suspend fun reload(onlyIfChanged: Boolean = false) {
+    private suspend fun reload(whole: Boolean = false) {
         val b = bridge ?: return
         // on a visit the host's language and culture are shown: the learner's own content waits until they're home
         if (VisitWorld.active) return
-        val version = try {
+        val changes = try {
             b.changes()
         } catch (e: kotlinx.coroutines.CancellationException) {
             throw e
         } catch (e: Exception) {
             null // unreachable: the reading below says so as it always did
         }
-        val now = version?.let {
-            si.lanisce.lani.app.Fresh(it, java.time.LocalDate.now(), si.lanisce.lani.game.scene.TimeOfDay.now(), L10n.pair,
-                si.lanisce.lani.l10n.Learner.current, Cultures.current.id, android.os.SystemClock.elapsedRealtime())
+        val now = changes?.let {
+            si.lanisce.lani.app.Fresh(it.version, java.time.LocalDate.now(), si.lanisce.lani.game.scene.TimeOfDay.now(), L10n.pair,
+                si.lanisce.lani.l10n.Learner.current, Cultures.current.id, android.os.SystemClock.elapsedRealtime(), it.areas)
         }
-        if (onlyIfChanged && now != null && readFor?.sameAs(now) == true) {
+        val last = readFor
+        if (!whole && now != null && last?.sameAs(now) == true) {
             // nothing the node serves moved: only what the phone decides by itself (the class begun with the hamlet, the map offered)
             school.touch()
             treasure.check()
             return
         }
+        // the areas' versions now, when only what moved is read: each read whose answer said its areas at them is left out
+        var at = now?.areas?.takeIf { !whole && it.isNotEmpty() && last != null && last.within(now) }
+        fun fresh(path: String) = at?.let { b.fresh(path, it) } == true
+        fun stale(vararg paths: String) = paths.any { !fresh(it) }
         readFor = null
         // first the culture the bridge plays: what the village, its founding and everything after read (a new phone has
-        // the default's until then, and a step below that fails mustn't keep it from coming)
-        reloadCulture(b)
-        family.refresh()
-        questions.load() // guests' questions, and the answers to the learner's (their ties with each town)
-        towns.load() // the linked towns, their guests and friendships: Friends' badge on Home and the village (FriendsNews)
-        clips.refresh()
-        content.reload(b)
-        grammar.reload(b)
-        cheat.reload(b)
-        school.reload(b)
-        content.dashboard?.let { forms.reload(b, it.pool) }
-        // the day's new counting cards, once the forms are on the phone (it names the nouns the dictionary counts)
-        counting.reload(b)
-        // and the day's new forms cards (the pages introduced told: the cards they open rows of come back soon)
-        formsCards.reload(b)
-        readings.reload(b)
-        caseTrainer.reload(b)
-        packs.reload(b)
-        scenes.reload(b)
-        villagers.reload(b)
+        // the default's until then, and a step below that fails mustn't keep it from coming); another one: everything
+        if (stale(Bridge.CULTURE)) {
+            val before = Cultures.current.id
+            reloadCulture(b)
+            if (Cultures.current.id != before) at = null
+        }
+        if (stale(*si.lanisce.lani.data.FamilyApi.READS.toTypedArray())) family.refresh()
+        // guests' questions, and the answers to the learner's (their ties with each town)
+        if (stale(Bridge.TOWN_QUESTIONS)) questions.load()
+        // the linked towns, their guests and friendships: Friends' badge on Home and the village (FriendsNews)
+        if (stale(Bridge.TOWNS) || listOf(Bridge.TOWN_CHILDREN, Bridge.TOWN_GUESTS, Bridge.TOWN_FRIENDSHIP).any { b.known(it) && !fresh(it) }) towns.load(::fresh)
+        if (stale(si.lanisce.lani.data.ClipRoutes.OWN.index, si.lanisce.lani.data.ClipRoutes.OWN.profiles)) clips.refresh()
+        val decks = content.reload(b, ::fresh)
+        if (stale(Bridge.GRAMMAR)) grammar.reload(b)
+        if (stale(Bridge.CARDS)) cheat.reload(b)
+        if (stale(Bridge.COURSE)) school.reload(b)
+        // the deck read again (what the learner did): its words' forms, and the day's new counting and forms cards
+        if (decks || at == null) {
+            content.dashboard?.let { forms.reload(b, it.pool) }
+            // the day's new counting cards, once the forms are on the phone (it names the nouns the dictionary counts)
+            counting.reload(b)
+            // and the day's new forms cards (the pages introduced told: the cards they open rows of come back soon)
+            formsCards.reload(b)
+        }
+        if (stale(Bridge.READINGS)) readings.reload(b)
+        if (stale(Bridge.CASES)) caseTrainer.reload(b)
+        if (stale(Bridge.PACKS)) packs.reload(b)
+        if (stale(Bridge.SCENES)) scenes.reload(b)
+        val people = stale(Bridge.villagersAt(), Bridge.ARRIVALS)
+        if (people) villagers.reload(b)
         // a village already a hamlet when the school came (an older app): its class begins now, its teacher named
         school.touch()
-        clips.syncProfiles(villagers.voicePeople(game.state))
+        if (people) clips.syncProfiles(villagers.voicePeople(game.state))
         // the node has the new level now, or the learner is ready for the next: the storyteller offers the map
         treasure.check()
         // what the learner will likely hear today and tomorrow, for the background job to get on Wi-Fi
         offlineAudio.plan(::dayGather)
-        // read whole: until something moves, Home coming back reads nothing again
-        readFor = now
+        // read: until something moves, Home coming back reads nothing again (the time of the last whole reading kept)
+        readFor = now?.let { n -> if (at != null && last != null) n.copy(at = last.at, culture = Cultures.current.id) else n.copy(culture = Cultures.current.id) }
     }
 
     /** The days ahead's audio, from what the app has now (app/DayAudioGather); null before the learner's cards are loaded. */

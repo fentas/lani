@@ -93,28 +93,40 @@ class ContentController(
     /** The review deck of [language]: the home language's dashboard for null, else that language's (when loaded). */
     fun deck(language: String?): Dashboard? = if (language == null) dashboard else decks[language]
 
-    suspend fun reload(b: Bridge) {
-        val d = b.dashboard()
-        dashboard = d
-        VillageWidget.saveStats(context, d.streak, d.dueCards.size)
-        onDashboard()
-        // Only a bridge that knows the language answers with it (an older one would send the home deck again).
-        decks = buildMap {
-            for (l in d.otherLanguages) {
-                val deck = try {
-                    b.dashboard(l.code)
-                } catch (e: CancellationException) {
-                    throw e
-                } catch (e: Exception) {
-                    null // that deck waits for the next reload; the home language's is here
+    /**
+     * Reads the dashboard, the other languages' decks and the modules from the node; with [fresh] (Home's reading after a
+     * Back, docs/plans/05-built/changes-areas.md) not what is still as it was read: the decks while /state and each deck read
+     * are fresh, the modules while /modules is. Whether the decks were read.
+     */
+    suspend fun reload(b: Bridge, fresh: (String) -> Boolean = { false }): Boolean {
+        val had = dashboard
+        val decksRead = had == null || !fresh(Bridge.STATE) || had.otherLanguages.any { !fresh(Bridge.deck(it.code)) }
+        if (decksRead) {
+            val d = b.dashboard()
+            dashboard = d
+            VillageWidget.saveStats(context, d.streak, d.dueCards.size)
+            onDashboard()
+            // Only a bridge that knows the language answers with it (an older one would send the home deck again).
+            decks = buildMap {
+                for (l in d.otherLanguages) {
+                    val deck = try {
+                        b.dashboard(l.code)
+                    } catch (e: CancellationException) {
+                        throw e
+                    } catch (e: Exception) {
+                        null // that deck waits for the next reload; the home language's is here
+                    }
+                    if (deck?.language == l.code) put(l.code, deck)
                 }
-                if (deck?.language == l.code) put(l.code, deck)
             }
         }
-        modules = b.modules().filter { "retired" !in it.tags }
-        modulesLoaded = true
-        val seen = prefs.seenModules()
-        newModules = modules.filter { "${it.id}:${it.version}" !in seen }.map { it.id }.toSet()
+        if (!modulesLoaded || !fresh(Bridge.MODULES)) {
+            modules = b.modules().filter { "retired" !in it.tags }
+            modulesLoaded = true
+            val seen = prefs.seenModules()
+            newModules = modules.filter { "${it.id}:${it.version}" !in seen }.map { it.id }.toSet()
+        }
+        return decksRead
     }
 
     /** The home language's dashboard again, alone (new cards came: counting cards the node just made). */

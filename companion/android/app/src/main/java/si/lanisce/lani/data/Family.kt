@@ -102,12 +102,20 @@ object Family {
 class FamilyApi(private val config: BridgeConfig) {
     private val http = Http.client(connectSeconds = 10, readSeconds = 30)
 
+    companion object {
+        const val CHALLENGES = "/family/api/challenges"
+        const val SETTINGS = "/family/api/settings"
+        const val INDEX = "/audio/index"
+        /** What [FamilyHub.refresh] asks (Home's reading after a Back asks it again only once one moved). */
+        val READS = listOf(INDEX, CHALLENGES, SETTINGS)
+    }
+
     private suspend fun get(path: String) = http.text(config.request(path).build())
 
-    suspend fun challenges() = Family.parseChallenges(get("/family/api/challenges"))
-    suspend fun settings(): FamilySettings = json.decodeFromString(get("/family/api/settings"))
+    suspend fun challenges() = Family.parseChallenges(get(CHALLENGES))
+    suspend fun settings(): FamilySettings = json.decodeFromString(get(SETTINGS))
     suspend fun words(): List<FamilyWord> = json.decodeFromString(get("/family/api/words"))
-    suspend fun index(): String = get("/audio/index")
+    suspend fun index(): String = get(INDEX)
 
     suspend fun answer(id: String, text: String, spoken: Boolean): FamilyChallenge {
         val body = buildJsonObject { put("text", text); put("spoken", spoken) }.toString().toRequestBody(Http.jsonType)

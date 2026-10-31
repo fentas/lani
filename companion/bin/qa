@@ -195,7 +195,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        frames.tsv and screenshots in $LANI_QA_ZOOM_SHOTS (LANI_QA_FRAMES_S seconds each, 8;
                        LANI_QA_FRAMES_HOURS, "22,11"; LANI_QA_FRAMES_ZOOMS, "1.5,2.5,3");
                        "home-return" (only when named) what going back to Home costs: from the village and from
-                       Settings, three times each, and the village opened: for 3 s from the Back (the tap) the main
+                       Settings, three times each, from Settings after a session's results were written beside the
+                       bridge, and the village opened: for 3 s from the Back (the tap) the main
                        thread's messages (QA's hook "main:watch": their sum, the longest), every frame (gfxinfo
                        framestats), Choreographer's skipped frames, the garbage collections; with
                        LANI_QA_TRACE=<dir> the first Back from the village traced by method (am profile) into it;
@@ -14576,7 +14577,8 @@ def home_return():
     drawing, and all the frames' main parts summed. Over 6 s from the key or the tap (docs/plans/05-built/nav-perf.md): the app's
     requests (how many, each one's path, status and length: QA's request log, data/NetWatch.kt) and what the runtime
     allocated on every thread and its collections (ART's counts, sampled by the watch); first Home left alone for as
-    long, the baseline. With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
+    long, the baseline. Last, Back from Settings after a real change: a session's results written beside the bridge while
+    Settings is open (the learner's databases in the dev bridge's copy; docs/plans/05-built/changes-areas.md). With LANI_QA_TRACE=<dir> the first Back from the village is also traced by
     method (am profile, sampled every 0.2 ms; its sampling waits for each collection) into <dir>/back-village.trace. A
     table, also home-return.tsv and each row's requests in home-return-requests.txt in $LANI_QA_HOME_SHOTS;
     LANI_QA_HOME_TRIES (3) times each."""
@@ -14726,6 +14728,19 @@ def home_return():
         into_village(i)
     for i in range(tries):
         back("settings", open_settings, i)
+        go_home()
+
+    def changed():
+        """Settings open, and a session's results written beside the bridge meanwhile (update-db.py, card.py: the
+        learner's databases, not the content; docs/plans/05-built/changes-areas.md)."""
+        open_settings()
+        p = dev_copy() / "progress-db.json"
+        d = json.loads(p.read_text())
+        d["qa_home_return"] = d.get("qa_home_return", 0) + 1
+        p.write_text(json.dumps(d, indent=2))
+
+    for i in range(tries):
+        back("settings, a change", changed, i)
         go_home()
     head = ("from\ttry\tmain messages in 3 s\tbesides frames\ttheir ms\tthe longest ms\tover 16.7 ms\tover 100 ms\tframes\t"
             "longest frame ms\tlongest frame's main ms\tits compose/layout/draw ms\tframes' main ms\tframes over 33 ms\tskipped (Choreographer)\tGCs\tGC freed MB\twaited for GC ms\t"
