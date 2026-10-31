@@ -149,9 +149,10 @@ class AppIconsTest {
     @Test
     fun `the default mode follows the launcher`() {
         assertEquals(Mode.HAPPENING, AppIcons.defaultMode("com.google.android.apps.nexuslauncher"))
+        assertEquals(Mode.HAPPENING, AppIcons.defaultMode("com.nothing.launcher"))
         assertEquals(Mode.HAPPENING, AppIcons.defaultMode("com.android.launcher3"))
-        assertEquals(Mode.AGE_SEASON, AppIcons.defaultMode("com.nothing.launcher"))
         assertEquals(Mode.AGE_SEASON, AppIcons.defaultMode("com.sec.android.app.launcher"))
+        assertEquals(Mode.AGE_SEASON, AppIcons.defaultMode("com.miui.home"))
         assertEquals(Mode.AGE_SEASON, AppIcons.defaultMode(null))
     }
 

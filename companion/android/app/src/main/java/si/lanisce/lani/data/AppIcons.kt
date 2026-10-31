@@ -64,7 +64,8 @@ object AppIcons {
      * whose activity went away at the package's enabled launcher activity (PackageUpdatedTask). Pixel's and AOSP's.
      * Every other launcher (One UI, MIUI, Nothing's, unknown) starts with [Mode.AGE_SEASON] until it is tested.
      */
-    val KEEPS_IN_PLACE = setOf("com.google.android.apps.nexuslauncher", "com.android.launcher3", "com.android.launcher")
+    // Nothing's launcher kept the icon in place on Jan's Nothing Phone (4a), tried with "Try the next icon" (2026-10-31)
+    val KEEPS_IN_PLACE = setOf("com.google.android.apps.nexuslauncher", "com.android.launcher3", "com.android.launcher", "com.nothing.launcher")
 
     fun defaultMode(homePackage: String?): Mode = if (homePackage in KEEPS_IN_PLACE) Mode.HAPPENING else Mode.AGE_SEASON
 

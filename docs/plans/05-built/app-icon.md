@@ -495,7 +495,7 @@ doba, Praznik, Zgrajeno, Prišlek, Straža, Obvestila) and the channel names and
 - **The setting** "🎨 Ikona · App icon", under ⚙️ Settings → 🌐 Jeziki · Languages:
   - "Kaj se dogaja · What's happening", "Doba in letni čas · Age and season", "Ne spreminjaj · Keep it as it is".
   - Until the learner chooses, the default is "What's happening" only on Pixel's or AOSP's Launcher3
-    (`com.google.android.apps.nexuslauncher`, `com.android.launcher3`). Everywhere else it is "Age and season",
+    (`com.google.android.apps.nexuslauncher`, `com.android.launcher3`) and Nothing's (`com.nothing.launcher`: it kept the icon in place on Jan's Nothing Phone (4a), 2026-10-31). Everywhere else it is "Age and season",
     Nothing's launcher and Teo's tablet included, and the note under the choices says why.
 - **The developer's button:** 🛠️ Developer → "🎨 Preizkusi naslednjo ikono · Try the next icon" cycles ten pictures.
   "Ikona dneva · The day's icon" goes back. QA's hook "icon:<alias>" does the same.
