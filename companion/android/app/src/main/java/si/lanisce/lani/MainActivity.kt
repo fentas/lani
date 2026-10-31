@@ -76,6 +76,8 @@ class MainActivity : ComponentActivity() {
         // the map's window of requests starts at 3 on a phone, 4 on a tablet (companion/GAME.md "Quests")
         si.lanisce.lani.game.RequestWindow.base = si.lanisce.lani.game.RequestWindow.baseFor(resources.configuration.smallestScreenWidthDp)
         enableEdgeToEdge()
+        // the launcher's icon: its repair, the early-morning job, the watch on going to the background (data/AppIconWork)
+        si.lanisce.lani.data.AppIconWork.start(this)
         // A tapped notification's link; not again when the activity is recreated from saved state.
         if (savedInstanceState == null) openLink(intent)
         // The speaker everywhere (not only in exercises), so tutor texts can speak their Slovene. The labels read the

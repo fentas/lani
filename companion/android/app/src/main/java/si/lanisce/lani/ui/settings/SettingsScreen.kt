@@ -257,7 +257,51 @@ private fun Languages(vm: AppViewModel) {
                 }
             }
         }
+        AppIconChoice()
     }
+}
+
+/**
+ * "🎨 Ikona · App icon" (data/AppIcons.kt): what's happening, the age and the season, or keep it as it is. Until the
+ * learner chooses, the default follows the launcher: what's happening only on a launcher known to keep the icon in its
+ * place when it changes (Pixel's, AOSP's), the age and the season elsewhere; the note says which and why.
+ */
+@Composable
+private fun AppIconChoice() {
+    val ctx = androidx.compose.ui.platform.LocalContext.current
+    val prefs = remember { si.lanisce.lani.data.AppIconPrefs(ctx) }
+    val fallback = remember { si.lanisce.lani.data.AppIcons.defaultMode(si.lanisce.lani.data.AppIconSwitch(ctx).homePackage()) }
+    var chosen by remember { mutableStateOf(prefs.mode) }
+    val mode = chosen ?: fallback
+    Text("🎨 ${bi("appIcon.title")}", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 12.dp))
+    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        for ((m, key) in listOf(
+            si.lanisce.lani.data.AppIcons.Mode.HAPPENING to "appIcon.happening",
+            si.lanisce.lani.data.AppIcons.Mode.AGE_SEASON to "appIcon.ageSeason",
+            si.lanisce.lani.data.AppIcons.Mode.KEEP to "appIcon.keep",
+        )) FilterChip(selected = mode == m, onClick = { prefs.mode = m; chosen = m }, label = { Text(bi(key)) })
+    }
+    val why = if (chosen != null) "" else " " + bi(if (fallback == si.lanisce.lani.data.AppIcons.Mode.HAPPENING) "appIcon.tested" else "appIcon.untested")
+    Text(bi("appIcon.note") + why, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+}
+
+/** The developer's icon test: the next of a few pictures, shown a few seconds after the app goes to the background. */
+private val ICON_TESTS = listOf(".icon.Ogenj", ".icon.Tabor", ".icon.PrimorskaZaselek", ".icon.PrimorskaVas", ".icon.PrimorskaVasFestival",
+    ".icon.PrimorskaTrg", ".icon.PrimorskaMesto", ".icon.FriuliZaselekSnow", ".icon.KaerntenVasNewcomer", ".icon.LakelandTrgBuiltSnow")
+
+@Composable
+private fun IconTest() {
+    val ctx = androidx.compose.ui.platform.LocalContext.current
+    val prefs = remember { si.lanisce.lani.data.AppIconPrefs(ctx) }
+    var test by remember { mutableStateOf(prefs.test) }
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        OutlinedButton(onClick = {
+            val next = ICON_TESTS[(ICON_TESTS.indexOf(test) + 1) % ICON_TESTS.size]
+            prefs.test = next; test = next
+        }) { Text("🎨 ${bi("developer.iconNext")}") }
+        TextButton(onClick = { prefs.test = null; prefs.force = true; test = null }) { Text(bi("developer.iconDay")) }
+    }
+    Text(bi("developer.iconNote") + (test?.let { " ($it)" } ?: ""), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
 /**
@@ -271,6 +315,7 @@ private fun Developer(vm: AppViewModel) {
     val shadow = vm.shadow
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        IconTest()
         // the shadow is hidden while the tutor in the app answers: it would shadow itself
         if (vm.live.settings.on) Text("🕵️ ${bi("developer.shadowHidden")}", style = MaterialTheme.typography.bodySmall, color = muted)
         else Row(verticalAlignment = Alignment.CenterVertically) {
