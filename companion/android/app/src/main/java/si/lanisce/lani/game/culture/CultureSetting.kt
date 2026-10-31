@@ -7,7 +7,7 @@ import si.lanisce.lani.BuildConfig
 /**
  * Which culture pack the village is in ([Cultures.current]): the learner's, as their bridge last said (GET /culture),
  * else [Cultures.DEFAULT]. Kept on the phone, so the village reads the same offline and before the first connection;
- * the packs themselves are bundled with the app.
+ * the packs themselves are bundled with the app. Every picture of the village reads it through [VillageCulture].
  *
  * SharedPreferences, like the language pair (l10n/LangSetting): read before the first frame, and by the widget and the
  * background check.
@@ -18,16 +18,19 @@ class CultureSetting(context: Context) {
     /** The pack the learner's bridge said; the default until it has. */
     val profile: String get() = store.getString(PROFILE, null) ?: Cultures.DEFAULT
 
-    /** The bridge says [id]; true when that changed it. */
+    /** The bridge says [id] (kept, the default's too: a bridge has said it, [Cultures.said]); true when that changed it. */
     fun profileSays(id: String): Boolean {
-        if (id == profile) return false
+        Cultures.said = true
+        if (store.getString(PROFILE, null) == id) return false
+        val changed = id != profile
         store.edit().putString(PROFILE, id).apply()
-        return true
+        return changed
     }
 
     /** The village is in the learner's culture from now on (a pack that can't be used leaves the default); its id. */
     fun apply(): String {
         if (Cultures.onProblem == null) Cultures.onProblem = { e -> if (BuildConfig.QA) Log.w("Cultures", e.message ?: e.id) }
+        Cultures.said = store.contains(PROFILE)
         return Cultures.use(profile).id
     }
 

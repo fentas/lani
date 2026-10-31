@@ -69,7 +69,6 @@ import si.lanisce.lani.app.SetupFlow.Way
 import si.lanisce.lani.data.PairFailure
 import si.lanisce.lani.data.PairTrouble
 import si.lanisce.lani.game.Founding
-import si.lanisce.lani.game.culture.Cultures
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.bi
@@ -135,10 +134,8 @@ internal fun SetupPage(content: @Composable ColumnScope.() -> Unit) {
 /** A little of the village: the first age's fire and huts on the land of the language's region, drawn as the founding draws it. */
 @Composable
 private fun VillageArt(target: Lang?) {
-    val culture = remember(target) {
-        target?.let { t -> Cultures.ids.firstOrNull { id -> Cultures.manifest(id)?.let { it.language == t.code && it.status == "complete" } == true } }
-            ?: Cultures.current.manifest.id
-    }
+    // the region of the language chosen, or the village's once a bridge has said it (setting up again): VillageCulture
+    val culture = remember(target) { si.lanisce.lani.game.culture.VillageCulture.preview(target) }
     val village = remember(culture) { runCatching { Founding.start(culture, null, ART_SEED).preview() }.getOrNull() }
     if (village != null) LandPreview(
         village,

@@ -2324,7 +2324,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** What the screens show changed (a visit began or ended): MainActivity builds them anew in it. */
     private fun showWorld() {
         langPair = L10n.pair
-        culture = Cultures.current.id
+        culture = si.lanisce.lani.game.culture.VillageCulture.shown.id
     }
 
     /**
@@ -2374,7 +2374,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         game.state?.let { s ->
             val world = si.lanisce.lani.game.scene.Homes.world(scene, s, building, scenes.all)
             if (scene.art == "school") world.copy(board = si.lanisce.lani.game.scene.Blackboard.of(s, school.course)) else world
-        } ?: SceneWorld.ALL
+        } ?: SceneWorld.shown
 
     /** To the village (Back to it, when it is below). */
     fun village() = openVillage()

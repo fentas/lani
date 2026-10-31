@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap
  * The default culture (Primorska, whose look every sprite was drawn in) and a culture without a look have no [style] and
  * every thing as the map always drew it, pixel for pixel. Read once per culture and land ([of]), so a frame asks fields.
  */
-internal class MapLook private constructor(val id: String, val style: FireStyle?, private val look: CultureLook) {
+internal class MapLook private constructor(val id: String, val style: FireStyle?, internal val look: CultureLook) {
     private fun v(name: String): String? = look.variant(ART, name)
 
     /** The kozolec building: the Slovene double hayrack, Friuli's fienile, Carinthia's Harpfe, the Lake District's hay barn. */

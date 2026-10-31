@@ -165,8 +165,17 @@ data class SceneWorld(
     fun isDown(project: String): Boolean = finished(project) && project in down
 
     companion object {
-        /** Everything there: the default for a painter's frame. */
+        /**
+         * Everything there, in the default culture: the default for a painter's frame (tools, tests). A scene of the village
+         * on screen opened before its village is there asks [shown] instead.
+         */
         val ALL = SceneWorld()
+
+        /**
+         * Everything there, in the culture of the village on screen ([si.lanisce.lani.game.culture.VillageCulture.shown]):
+         * a scene opened before its village is read (no state yet) is in the look its map will have.
+         */
+        val shown: SceneWorld get() = si.lanisce.lani.game.culture.VillageCulture.shown.id.let { c -> if (c == ALL.culture) ALL else ALL.copy(culture = c) }
 
         /** Nothing built yet: the campfire's first day (a room of it is at its first level). */
         val NONE = SceneWorld(Age.OGENJ, emptyMap(), emptyMap())
@@ -192,8 +201,9 @@ data class SceneWorld(
             lindenDay = state.buildings.filter { it.type == BuildingType.LIPA && it.builtAt > 0 }.minOfOrNull { it.builtAt }
                 ?.let { java.time.Instant.ofEpochMilli(it).atZone(java.time.ZoneId.systemDefault()).toLocalDate().toEpochDay() },
             centre = Centre.of(state, today),
-            culture = si.lanisce.lani.game.culture.Cultures.current.manifest.id,
-            landscape = state.land?.kind ?: si.lanisce.lani.game.Landscape.CLASSIC.id,
+            // the village on screen's culture and land, as its map has them (VillageCulture: one source for both)
+            culture = si.lanisce.lani.game.culture.VillageCulture.shown.id,
+            landscape = si.lanisce.lani.game.culture.VillageCulture.landscape(state),
         )
 
         /** Everything built, seen in a room at [level]: what a tool shows of a room's stages (and a sticker of a thing that goes as the room grows). */

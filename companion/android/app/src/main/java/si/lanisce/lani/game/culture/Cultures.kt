@@ -57,6 +57,13 @@ object Cultures {
     /** The village's own culture, also during a visit (what its chest's goods are). */
     val home: Culture get() = active ?: default().also { active = it }
 
+    /**
+     * Whether a bridge has said the village's culture (CultureSetting, GET /culture): until one has, the setup's preview
+     * shows the region of the language chosen ([VillageCulture.preview]).
+     */
+    @Volatile
+    var said: Boolean = false
+
     fun default(): Culture = load(DEFAULT)
 
     /** The bundled packs' ids (a stub among them, too). */

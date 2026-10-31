@@ -267,7 +267,7 @@ object VisitWorld {
     /** Shows the town of [language] and [culture] from now on; a culture pack this app doesn't bundle keeps its own look. */
     fun enter(language: String, culture: String) {
         L10n.visit = pairFor(language, L10n.ownPair)
-        Cultures.visiting = culture.takeIf { it.isNotBlank() }?.let { runCatching { Cultures.load(it) }.getOrNull() }
+        Cultures.visiting = si.lanisce.lani.game.culture.VillageCulture.visiting(culture)
     }
 
     /** Home again: the learner's own pair and culture. */

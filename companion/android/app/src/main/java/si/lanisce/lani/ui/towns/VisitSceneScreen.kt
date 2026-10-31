@@ -60,7 +60,6 @@ import si.lanisce.lani.game.scene.SceneObject
 import si.lanisce.lani.game.scene.SceneSights
 import si.lanisce.lani.game.scene.SceneSpec
 import si.lanisce.lani.game.scene.SceneTarget
-import si.lanisce.lani.game.scene.SceneWorld
 import si.lanisce.lani.game.scene.inWorld
 import si.lanisce.lani.game.villagers.Residents
 import si.lanisce.lani.l10n.bi
@@ -104,11 +103,9 @@ fun VisitSceneScreen(vm: AppViewModel, id: String) {
 @Composable
 private fun VisitPlace(vm: AppViewModel, v: TownVisit, spec: SceneSpec) {
     val state = v.state
-    // the host's village as the place sees it: a room at its building's level, in the look of the host's culture
-    // (companion/SCENES.md "Culture looks")
-    val world = remember(state, spec, v.scenes, v.culture) {
-        (state?.let { si.lanisce.lani.game.scene.Homes.world(spec, it, null, v.scenes) } ?: SceneWorld.ALL).let { w -> if (v.culture.isBlank()) w else w.copy(culture = v.culture) }
-    }
+    // the host's village as the place sees it: a room at its building's level, in the look of the host's culture as the
+    // town's map has it (companion/SCENES.md "Culture looks"; VillageCulture)
+    val world = remember(state, spec, v.scenes, v.culture) { VisitLogic.world(spec, state, v.scenes) }
     val scene = remember(spec, world) { spec.inWorld(world) }
     val now = remember { LocalDateTime.now() }
     // a guest meets what is meant for guests too ("Sei di fuori?"); a dialog may name the host's people who are there

@@ -9,6 +9,8 @@ import si.lanisce.lani.game.Guests
 import si.lanisce.lani.game.ItemName
 import si.lanisce.lani.game.Res
 import si.lanisce.lani.game.culture.Cultures
+import si.lanisce.lani.game.scene.SceneSpec
+import si.lanisce.lani.game.scene.SceneWorld
 import si.lanisce.lani.l10n.bi
 
 /**
@@ -33,6 +35,15 @@ object VisitLogic {
         val n = ((m[id] ?: 0) + by).coerceIn(0, max.coerceAtLeast(0))
         return if (n == 0) m - id else m + (id to n)
     }
+
+    /**
+     * The host's village as its place [spec] sees it on a visit: a room at its building's level, in the culture the town's
+     * map is drawn in ([si.lanisce.lani.game.culture.VillageCulture.shown]: the host's, as this app can play it, else the
+     * learner's own), so the place behind a door looks as the town did outside it; everything there while the town's village
+     * isn't read yet ([SceneWorld.shown]).
+     */
+    fun world(spec: SceneSpec, state: GameState?, scenes: List<SceneSpec>): SceneWorld =
+        state?.let { si.lanisce.lani.game.scene.Homes.world(spec, it, null, scenes) } ?: SceneWorld.shown
 
     /** What the learner can offer: the goods in their chest (of their own culture) and the resources in their stores. */
     fun offerable(s: GameState): Pair<Map<String, Int>, Map<Res, Int>> =

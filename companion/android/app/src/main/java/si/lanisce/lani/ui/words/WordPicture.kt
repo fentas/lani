@@ -79,7 +79,7 @@ object StickerImages {
 
     /** The learner's culture (the look a sticker is cut in, companion/SCENES.md "Culture looks") and its key for [spot]'s art. */
     private fun lookOf(spot: StickerSpot): Pair<String, String> {
-        val culture = si.lanisce.lani.game.culture.Cultures.current.manifest.id
+        val culture = si.lanisce.lani.game.culture.VillageCulture.shown.id
         return culture to si.lanisce.lani.game.scene.CultureLooks.of(culture).keyOf(spot.art)
     }
 

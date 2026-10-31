@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import si.lanisce.lani.game.Building
 import si.lanisce.lani.game.GameState
+import si.lanisce.lani.game.culture.VillageCulture
 import java.time.LocalDateTime
 import kotlinx.coroutines.flow.first
 
@@ -132,8 +133,9 @@ fun VillageScene(
             justBuilt = justBuilt,
             justBuiltProgress = if (justBuilt == null) 1f else ((t - anim.builtAt) / BUILD_SECONDS).toFloat().coerceIn(0f, 1f),
             celebrate = if (celebrateP > 1f) -1f else celebrateP,
-            sea = si.lanisce.lani.game.culture.Cultures.current.world.backdrop?.sea == true,
-            culture = si.lanisce.lani.game.culture.Cultures.current.id,
+            // the village on screen in its culture, as its scenes have it (VillageCulture: one source for both)
+            sea = VillageCulture.sea(VillageCulture.shown),
+            culture = VillageCulture.shown.id,
             moon = Moon.now(),
             skyNow = si.lanisce.lani.game.sky.SkyCards.now(),
             wall = System.currentTimeMillis(),

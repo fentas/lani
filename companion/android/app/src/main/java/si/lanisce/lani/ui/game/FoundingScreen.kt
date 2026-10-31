@@ -76,7 +76,8 @@ import kotlin.random.Random
 fun FoundingScreen(vm: AppViewModel) {
     // the choice is the step: Back doesn't skip it, it leaves the app as at Home (never a gesture that does nothing), and
     // the choice waits for the next start
-    val culture = vm.culture
+    // the learner's own village's culture, as its map and its scenes will have it (VillageCulture; vm.culture changes with it)
+    val culture = remember(vm.culture) { si.lanisce.lani.game.culture.VillageCulture.home.id }
     // QA's "seed:<n>" (a debug build): that place, as the learner would have rolled it
     val qaSeed = si.lanisce.lani.app.QaHooks.foundingSeed
     var founding by remember(culture, qaSeed) { mutableStateOf(Founding.start(culture, vm.nodeLandscape, qaSeed ?: Random.nextLong())) }
@@ -161,7 +162,7 @@ internal fun LandPreview(state: GameState, culture: String, modifier: Modifier) 
     val bitmap = remember(fit.width, fit.height) { Bitmap.createBitmap(fit.width, fit.height, Bitmap.Config.ARGB_8888) }
     val image = remember(bitmap) { bitmap.asImageBitmap() }
     val month = remember { LocalDate.now().monthValue }
-    val sea = remember(culture) { Founding.seaIn(culture) }
+    val sea = remember(culture) { si.lanisce.lani.game.culture.VillageCulture.sea(si.lanisce.lani.game.culture.VillageCulture.playable(culture)) }
     LaunchedEffect(Unit) {
         val start = withFrameNanos { it }
         var last = -PREVIEW_FRAME
@@ -171,6 +172,7 @@ internal fun LandPreview(state: GameState, culture: String, modifier: Modifier) 
         Canvas(Modifier.fillMaxSize()) {
             if (size.width == 0 || size.height == 0) return@Canvas
             val t = clock.longValue / 1e9
+            // [culture] as its callers have it from VillageCulture (the founding: the village's; the setup: its preview)
             renderer.render(canvas, state, Frame(time = t, hour = 11f, month = month, sea = sea, culture = culture))
             bitmap.setPixels(canvas.pixels, 0, fit.width, 0, 0, fit.width, fit.height)
             drawRect(Color(renderer.skyColor))

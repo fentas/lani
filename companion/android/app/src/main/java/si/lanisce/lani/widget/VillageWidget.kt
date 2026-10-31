@@ -118,7 +118,9 @@ class VillageWidget : AppWidgetProvider() {
                 canvas, state,
                 Frame(
                     time = 2.0, hour = now.hour + now.minute / 60f, month = now.monthValue, compact = true, moon = Moon.now(),
-                    sea = si.lanisce.lani.game.culture.Cultures.home.world.backdrop?.sea == true, culture = si.lanisce.lani.game.culture.Cultures.home.id,
+                    // the learner's own village, during a visit too, in the culture its scenes have (VillageCulture)
+                    sea = si.lanisce.lani.game.culture.VillageCulture.sea(si.lanisce.lani.game.culture.VillageCulture.home),
+                    culture = si.lanisce.lani.game.culture.VillageCulture.home.id,
                 ),
             )
             val small = Bitmap.createBitmap(canvas.pixels, iw, ih, Bitmap.Config.ARGB_8888)

@@ -1,6 +1,6 @@
 package si.lanisce.lani.game
 
-import si.lanisce.lani.game.culture.Cultures
+import si.lanisce.lani.game.culture.VillageCulture
 
 /**
  * Where a new village is founded (plan 2, "Jan's decisions": the learner chooses where their town is; GAME.md, "The choice
@@ -25,8 +25,11 @@ data class Founding(val culture: String, val landscape: Landscape, val seed: Lon
         /** The landscapes [culture] offers a new village: every one, the coast where its horizon shows the sea. */
         fun choices(culture: String): List<Landscape> = Landscape.choices(sea = seaIn(culture))
 
-        /** Whether [culture]'s horizon shows the sea (its world.json `backdrop.sea`); false for a pack the app can't read. */
-        fun seaIn(culture: String): Boolean = runCatching { Cultures.load(culture).world.backdrop?.sea == true }.getOrDefault(false)
+        /**
+         * Whether [culture]'s horizon shows the sea (its world.json `backdrop.sea`), as its village is drawn: a pack the app
+         * can't play is the default's ([VillageCulture.playable]).
+         */
+        fun seaIn(culture: String): Boolean = VillageCulture.sea(VillageCulture.playable(culture))
 
         /**
          * The first choice for a village in [culture] with the dice's [seed]: the landscape the node [suggested]
