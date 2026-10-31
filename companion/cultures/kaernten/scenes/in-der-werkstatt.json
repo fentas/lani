@@ -1,0 +1,317 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-der-werkstatt",
+  "language": "de",
+  "title": { "de": "In der Werkstatt", "sl": "V delavnici", "en": "In the workshop", "it": "In bottega" },
+  "emoji": "🪚",
+  "level": "A2",
+  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; check Franz's numbers, kehren and die Scheibtruhe",
+  "art": "workshop",
+  "from": ["house"],
+  "household": ["franz", "jakob"],
+  "pack": "in-der-werkstatt",
+  "objects": [
+    { "slot": "workbench", "word": "hobelbank" },
+    { "slot": "hammer", "word": "hammer", "pack": "in-der-schmiede" },
+    { "slot": "nails", "word": "nagel", "pack": "in-der-schmiede" },
+    { "slot": "boards", "word": "brett" },
+    { "slot": "axe", "word": "axt", "pack": "am-feuer" },
+    { "slot": "broom", "word": "besen" },
+    { "slot": "window", "word": "fenster", "pack": "haus-und-kueche" },
+    { "slot": "door", "word": "tuer", "pack": "haus-und-kueche" },
+    { "slot": "saw", "word": "saege", "needs": { "level": 2 } },
+    { "slot": "tools", "word": "werkzeug", "needs": { "level": 2 } },
+    { "slot": "ladder", "word": "leiter", "needs": { "level": 2 } },
+    { "slot": "rake", "word": "rechen", "pack": "auf-dem-feld", "needs": { "level": 2 } },
+    { "slot": "wheelbarrow", "word": "scheibtruhe", "needs": { "level": 3 } },
+    { "slot": "horse", "word": "holzpferd", "needs": { "level": 3 } },
+    { "slot": "lantern", "word": "laterne", "pack": "fest-martini", "needs": { "level": 3 } }
+  ],
+  "people": [
+    { "id": "franz", "name": "Müller Franz", "emoji": "🧑‍🌾", "art": "farmer", "slot": "bench", "villager": "franz" },
+    { "id": "jakob", "name": "Jakob", "emoji": "👦", "art": "child3", "slot": "floor", "villager": "jakob" }
+  ],
+  "happenings": [
+    {
+      "id": "naegel", "title": { "de": "Franz und die Nägel", "sl": "Franz in žeblji", "en": "Franz and the nails", "it": "Franz e i chiodi" }, "who": "franz",
+      "when": ["morning"], "chance": 0.5, "dialog": "naegel", "dialogs": ["naegel-zaehlen", "naegel"], "reward": { "stone": 15 }, "marker": "🔨",
+      "memory": { "de": "das Regal, das wir genagelt haben", "sl": "polico, ki sva jo zbila", "en": "the shelf we nailed together", "it": "lo scaffale che abbiamo inchiodato" }
+    },
+    {
+      "id": "saege", "title": { "de": "Franz sägt ein Brett", "sl": "Franz žaga desko", "en": "Franz is sawing a board", "it": "Franz sega un'asse" }, "who": "franz",
+      "when": ["afternoon"], "chance": 0.45, "needs": { "level": 2 }, "dialog": "saege", "dialogs": ["saege-kehren", "saege"], "reward": { "wood": 15 }, "marker": "🪚",
+      "memory": { "de": "das Brett, einen Meter lang", "sl": "desko, dolgo en meter", "en": "the board, a metre long", "it": "l'asse, lunga un metro" }
+    },
+    {
+      "id": "pferd", "title": { "de": "Jakobs Holzpferd", "sl": "Jakobov leseni konjiček", "en": "Jakob's wooden horse", "it": "Il cavallino di legno di Jakob" }, "who": "jakob",
+      "when": ["evening"], "chance": 0.45, "needs": { "level": 3 }, "dialog": "pferd", "dialogs": ["pferd-name", "pferd"], "reward": { "food": 15 }, "marker": "🐴",
+      "memory": { "de": "mein Holzpferd, das Opa repariert hat", "sl": "mojega lesenega konjička, ki ga je popravil dedek", "en": "my wooden horse that Grandpa mended", "it": "il mio cavallino di legno che il nonno ha riparato" }
+    },
+    {
+      "id": "schindeln", "title": { "de": "Franz spaltet Schindeln", "sl": "Franz kolje skodle", "en": "Franz is splitting shingles", "it": "Franz spacca le scandole" }, "who": "franz",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "schindeln", "dialogs": ["schindeln-dach", "schindeln"], "reward": { "wood": 15 }, "marker": "🏠",
+      "memory": { "de": "die Schindeln für die Dächer im Dorf", "sl": "skodle za strehe v vasi", "en": "the shingles for the village's roofs", "it": "le scandole per i tetti del paese" }
+    },
+    {
+      "id": "besen", "title": { "de": "Jakob kehrt die Werkstatt", "sl": "Jakob pometa delavnico", "en": "Jakob is sweeping the workshop", "it": "Jakob spazza la bottega" }, "who": "jakob",
+      "when": ["morning"], "chance": 0.4, "needs": { "level": 2 }, "dialog": "besen", "dialogs": ["besen-rechen", "besen"], "reward": { "food": 10 }, "marker": "🧹",
+      "memory": { "de": "den Morgen, an dem wir zusammen gekehrt haben", "sl": "jutro, ko sva skupaj pometala", "en": "the morning we swept together", "it": "la mattina in cui abbiamo spazzato insieme" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "naegel",
+      "lines": [
+        { "who": "franz", "de": "Grüß Gott. Heute mache ich ein Regal. Zehn Nägel brauche ich. Genau zehn.", "sl": "{m:Pozdravljen|f:Pozdravljena}. Danes delam polico. Deset žebljev potrebujem. Točno deset.", "en": "Hello. Today I'm making a shelf. I need ten nails. Exactly ten.", "it": "Salve. Oggi faccio uno scaffale. Mi servono dieci chiodi. Esattamente dieci.", "fx": { "hammer": 1 } },
+        { "choices": [
+          { "de": "Grüß Gott, Herr Franz!", "sl": "Dober dan, gospod Franz!", "en": "Hello, Herr Franz!", "it": "Salve, signor Franz!", "ok": true,
+            "reply": { "de": "Grüß dich. Komm, schau zu.", "sl": "Živjo. Pridi, glej.", "en": "Hello. Come and watch.", "it": "Ciao. Vieni a guardare." } },
+          { "de": "Guten Morgen, Herr Franz! Kann ich helfen?", "sl": "Dobro jutro, gospod Franz! Lahko pomagam?", "en": "Good morning, Herr Franz! Can I help?", "it": "Buongiorno, signor Franz! Posso aiutare?", "ok": true,
+            "reply": { "face": "happy", "de": "Gern. Halt das Brett. Gerade.", "sl": "Z veseljem. Drži desko. Naravnost.", "en": "Gladly. Hold the board. Straight.", "it": "Volentieri. Tieni l'asse. Dritta." } },
+          { "de": "Servus, Franz! Kann ich dir helfen?", "sl": "Živjo, Franz! Ti lahko pomagam?", "en": "Hiya, Franz! Can I help you?", "it": "Ciao, Franz! Ti posso aiutare?", "grammar": "du-sie",
+            "why": { "de": "Herr Franz ist älter und ein bisschen förmlich: Sie und Herr Franz.", "sl": "Gospod Franz je starejši in malo formalen: vikaš ga in rečeš Herr Franz.", "en": "Herr Franz is older and a little formal: Sie and Herr Franz.", "it": "Il signor Franz è più anziano e un po' formale: Lei e Herr Franz." },
+            "reply": { "face": "surprised", "de": "Servus? Hm. Wir kennen uns noch nicht so lange.", "sl": "Živjo? Hm. Še ne poznava se tako dolgo.", "en": "Servus? Hm. We haven't known each other that long.", "it": "Servus? Mm. Non ci conosciamo da così tanto." } }
+        ] },
+        { "who": "franz", "de": "Ein Nagel, zwei Nägel … Bumm, bumm. Und du? Was hast du gestern gemacht?", "sl": "En žebelj, dva žeblja … Bum, bum. Pa ti? Kaj si {m:počel|f:počela} včeraj?", "en": "One nail, two nails … Bang, bang. And you? What did you do yesterday?", "it": "Un chiodo, due chiodi … Bum, bum. E tu? Cos'hai fatto ieri?", "fx": { "hammer": 1 } },
+        { "choices": [
+          { "de": "Ich habe Holz gehackt.", "sl": "{m:Sekal|f:Sekala} sem drva.", "en": "I chopped wood.", "it": "Ho spaccato la legna.", "ok": true,
+            "reply": { "face": "happy", "de": "Gut. Holz ist wichtig.", "sl": "Dobro. Les je pomemben.", "en": "Good. Wood matters.", "it": "Bene. La legna è importante." } },
+          { "de": "Ich habe Holz gehacken.", "sl": "{m:Sekal|f:Sekala} sem drva.", "en": "I chopen wood.", "it": "Ho spaccato la legna.", "grammar": "perfekt",
+            "why": { "de": "Hacken ist regelmäßig: Das Partizip endet auf -t: gehackt.", "sl": "Hacken je pravilni glagol: deležnik se konča na -t: gehackt.", "en": "Hacken is regular: its participle ends in -t: gehackt.", "it": "Hacken è regolare: il participio finisce in -t: gehackt." },
+            "reply": { "face": "thinking", "de": "Gehacken? Hm. Das Wort gibt es nicht. Aber Holz ist gut.", "sl": "Gehacken? Hm. Te besede ni. Ampak drva so dobra.", "en": "Gehacken? Hm. That's not a word. But wood is good.", "it": "Gehacken? Mm. Questa parola non esiste. Ma la legna va bene." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, bitte.", "sl": "Kako, prosim? Počasi, prosim.", "en": "Sorry? Slowly, please.", "it": "Come? Piano, per favore." } },
+        { "who": "franz", "de": "Ohne Holz kein Haus, kein Feuer, kein Regal. Drei Dinge. Stimmt.", "sl": "Brez lesa ni hiše, ni ognja, ni police. Tri stvari. Drži.", "en": "No wood, no house, no fire, no shelf. Three things. Right.", "it": "Senza legna niente casa, niente fuoco, niente scaffale. Tre cose. Giusto." }
+      ]
+    },
+    {
+      "id": "saege",
+      "lines": [
+        { "who": "franz", "de": "Grüß dich. Jetzt säge ich das Brett. Vorsicht, das staubt.", "sl": "Živjo. Zdaj žagam desko. Pazi, praši se.", "en": "Hello. Now I'm sawing the board. Careful, it gets dusty.", "it": "Ciao. Adesso sego l'asse. {m:Attento|f:Attenta}, fa polvere.", "fx": { "dust": 1 } },
+        { "who": "franz", "face": "curious", "de": "Miss das Brett für mich. Wie lang ist es?", "sl": "Izmeri mi desko. Kako dolga je?", "en": "Measure the board for me. How long is it?", "it": "Misurami l'asse. Quanto è lunga?" },
+        { "choices": [
+          { "de": "Es ist einen Meter lang.", "sl": "Dolga je en meter.", "en": "It's a metre long.", "it": "È lunga un metro.", "ok": true,
+            "reply": { "face": "happy", "de": "Einen Meter. Gut. Dann schneide ich zwanzig Zentimeter ab.", "sl": "En meter. Dobro. Potem odrežem dvajset centimetrov.", "en": "A metre. Good. Then I'll cut twenty centimetres off.", "it": "Un metro. Bene. Allora taglio venti centimetri." } },
+          { "de": "Es ist ein Meter lang.", "sl": "Dolga je en meter.", "en": "It's a metre long.", "it": "È lunga un metro.", "grammar": "akkusativ",
+            "why": { "de": "Ein Maß mit lang steht im Akkusativ: der Meter, einen Meter lang.", "sl": "Mera z lang je v tožilniku: der Meter, einen Meter lang.", "en": "A measure with lang takes the accusative: der Meter, einen Meter lang.", "it": "Una misura con lang va all'accusativo: der Meter, einen Meter lang." },
+            "reply": { "face": "thinking", "de": "Ein Meter? Hm. Fast. Wie sagt man das genau?", "sl": "Ein Meter? Hm. Skoraj. Kako se to reče natančno?", "en": "Ein Meter? Hm. Nearly. How do you say it exactly?", "it": "Ein Meter? Mm. Quasi. Come si dice esattamente?" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, bitte.", "sl": "Kako, prosim? Počasi, prosim.", "en": "Sorry? Slowly, please.", "it": "Come? Piano, per favore." } },
+        { "who": "franz", "de": "So. Zwanzig Zentimeter weg. Das Sägemehl fliegt überall hin.", "sl": "Tako. Dvajset centimetrov stran. Žagovina leti povsod.", "en": "There. Twenty centimetres off. The sawdust goes everywhere.", "it": "Ecco. Venti centimetri via. La segatura vola dappertutto.", "fx": { "dust": 0.6 } },
+        { "who": "franz", "face": "curious", "de": "Holst du den Besen? Er steht in der Ecke.", "sl": "Prineseš metlo? Stoji v kotu.", "en": "Will you fetch the broom? It's in the corner.", "it": "Mi prendi la scopa? È nell'angolo." },
+        { "choices": [
+          { "de": "Ja, ich hole ihn sofort.", "sl": "Ja, takoj jo prinesem.", "en": "Yes, I'll get it right away.", "it": "Sì, la prendo subito.", "ok": true,
+            "reply": { "face": "happy", "de": "Danke. Ordnung muss sein.", "sl": "Hvala. Red mora biti.", "en": "Thank you. Things have to be tidy.", "it": "Grazie. L'ordine ci vuole." } },
+          { "de": "Gern, Herr Franz.", "sl": "Z veseljem, gospod Franz.", "en": "Gladly, Herr Franz.", "it": "Volentieri, signor Franz.", "ok": true,
+            "reply": { "face": "happy", "de": "Danke. Ordnung muss sein, sagt meine Frau.", "sl": "Hvala. Red mora biti, pravi moja žena.", "en": "Thank you. Things have to be tidy, my wife says.", "it": "Grazie. L'ordine ci vuole, dice mia moglie." } },
+          { "de": "Ja, ich hole die Leiter.", "sl": "Ja, prinesem lestev.", "en": "Yes, I'll get the ladder.", "it": "Sì, prendo la scala.",
+            "why": { "de": "Herr Franz will den Besen für das Sägemehl, nicht die Leiter.", "sl": "Gospod Franz hoče metlo za žagovino, ne lestve.", "en": "Herr Franz wants the broom for the sawdust, not the ladder.", "it": "Il signor Franz vuole la scopa per la segatura, non la scala." },
+            "reply": { "face": "surprised", "de": "Die Leiter? Willst du das Sägemehl von oben kehren?", "sl": "Lestev? Bi žagovino {m:pometal|f:pometala} od zgoraj?", "en": "The ladder? Do you want to sweep the sawdust from up high?", "it": "La scala? Vuoi spazzare la segatura dall'alto?" } }
+        ] },
+        { "who": "franz", "face": "proud", "de": "Wie man sagt: Ordnung ist das halbe Leben.", "sl": "Kot pravijo: red je pol življenja.", "en": "As they say: order is half of life.", "it": "Come si dice: l'ordine è metà della vita." }
+      ]
+    },
+    {
+      "id": "pferd",
+      "lines": [
+        { "who": "jakob", "face": "sad", "de": "Mein Pferd ist kaputt. Schau, ein Bein ist ab.", "sl": "Moj konjiček je pokvarjen. Poglej, ena noga je odpadla.", "en": "My horse is broken. Look, a leg has come off.", "it": "Il mio cavallino è rotto. Guarda, si è staccata una gamba.", "fx": { "toy": 0 } },
+        { "choices": [
+          { "de": "Keine Angst, dein Opa kann das reparieren.", "sl": "Brez skrbi, dedek ga zna popraviti.", "en": "Don't worry, your grandpa can mend it.", "it": "Niente paura, il nonno lo sa riparare.", "ok": true,
+            "reply": { "face": "happy", "de": "Wirklich? Opa! Opa, kommst du?", "sl": "Res? Dedek! Dedek, prideš?", "en": "Really? Grandpa! Grandpa, are you coming?", "it": "Davvero? Nonno! Nonno, vieni?" } },
+          { "de": "Wir reparieren es zusammen!", "sl": "Skupaj ga popraviva!", "en": "We'll mend it together!", "it": "Lo ripariamo insieme!", "ok": true,
+            "reply": { "face": "laugh", "de": "Zusammen? Juhu! Opa, hilfst du auch?", "sl": "Skupaj? Juhu! Dedek, pomagaš tudi ti?", "en": "Together? Yay! Grandpa, will you help too?", "it": "Insieme? Evviva! Nonno, aiuti anche tu?" } },
+          { "de": "Keine Angst, dein Opa kann das nicht reparieren.", "sl": "Brez skrbi, dedek ga ne zna popraviti.", "en": "Don't worry, your grandpa can't mend it.", "it": "Niente paura, il nonno non lo sa riparare.",
+            "why": { "de": "Keine Angst und nicht passen nicht zusammen. Du willst Jakob Mut machen.", "sl": "Brez skrbi in ne ne gresta skupaj. Jakoba hočeš opogumiti.", "en": "Don't worry and can't don't go together. You want to cheer Jakob up.", "it": "Niente paura e non sa non vanno insieme. Vuoi fare coraggio a Jakob." },
+            "reply": { "face": "sad", "de": "Nicht? Oh nein … dann bleibt es kaputt?", "sl": "Ne zna? O ne … potem ostane pokvarjen?", "en": "He can't? Oh no … so it stays broken?", "it": "Non sa? Oh no … allora resta rotto?" } }
+        ] },
+        { "who": "franz", "de": "Zeig her. Ein Bein, ein Loch, ein Tropfen Leim. So.", "sl": "Pokaži. Ena noga, ena luknja, kapljica lepila. Tako.", "en": "Show me. One leg, one hole, one drop of glue. There.", "it": "Fa' vedere. Una gamba, un buco, una goccia di colla. Ecco.", "fx": { "toy": 0.4 } },
+        { "who": "franz", "face": "curious", "de": "Jetzt muss der Leim trocknen. Wie lange, glaubst du?", "sl": "Zdaj se mora lepilo posušiti. Koliko časa, misliš?", "en": "Now the glue has to dry. How long do you think?", "it": "Adesso la colla deve asciugare. Quanto, secondo te?" },
+        { "choices": [
+          { "de": "Eine Stunde?", "sl": "Eno uro?", "en": "An hour?", "it": "Un'ora?", "ok": true,
+            "reply": { "face": "happy", "de": "Eine Stunde. Genau. Und dann steht er wieder.", "sl": "Eno uro. Točno. Potem spet stoji.", "en": "An hour. Exactly. And then he stands again.", "it": "Un'ora. Esatto. E poi sta di nuovo in piedi.", "fx": { "toy": 1 } } },
+          { "de": "Ein Stunde?", "sl": "Eno uro?", "en": "An hour?", "it": "Un'ora?", "grammar": "artikel-genus",
+            "why": { "de": "Stunde ist feminin: die Stunde, eine Stunde.", "sl": "Stunde je ženskega spola: die Stunde, eine Stunde.", "en": "Stunde is feminine: die Stunde, eine Stunde.", "it": "Stunde è femminile: die Stunde, eine Stunde." },
+            "reply": { "face": "thinking", "de": "Ein Stunde? Hm. Fast. Genau sein, bitte.", "sl": "Ein Stunde? Hm. Skoraj. Natančno, prosim.", "en": "Ein Stunde? Hm. Nearly. Exactly, please.", "it": "Ein Stunde? Mm. Quasi. Con precisione, per favore." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, bitte.", "sl": "Kako, prosim? Počasi, prosim.", "en": "Sorry? Slowly, please.", "it": "Come? Piano, per favore." } },
+        { "who": "jakob", "face": "laugh", "de": "Schau! Mein Noriker steht wieder! Danke, Opa!", "sl": "Poglej! Moj noriški konjiček spet stoji! Hvala, dedek!", "en": "Look! My Noriker horse is standing again! Thanks, Grandpa!", "it": "Guarda! Il mio cavallino norico sta di nuovo in piedi! Grazie, nonno!" }
+      ]
+    },
+    {
+      "id": "schindeln",
+      "lines": [
+        { "who": "franz", "de": "Grüß dich. Schau, die Schindeln neben der Hobelbank. Für die Dächer im Dorf.", "sl": "Živjo. Poglej skodle zraven skobeljnika. Za strehe v vasi.", "en": "Hello. Look, the shingles next to the workbench. For the roofs in the village.", "it": "Ciao. Guarda le scandole vicino al banco. Per i tetti del paese." },
+        { "who": "franz", "face": "curious", "de": "Weißt du, wie viele Schindeln ein Dach braucht?", "sl": "Veš, koliko skodel potrebuje ena streha?", "en": "Do you know how many shingles a roof needs?", "it": "Sai quante scandole servono per un tetto?" },
+        { "choices": [
+          { "de": "Nein. Wie viele, Herr Franz?", "sl": "Ne. Koliko, gospod Franz?", "en": "No. How many, Herr Franz?", "it": "No. Quante, signor Franz?", "ok": true,
+            "reply": { "face": "proud", "de": "Zweitausend. Mindestens. Ich zähle jede.", "sl": "Dva tisoč. Najmanj. Vsako preštejem.", "en": "Two thousand. At least. I count every one.", "it": "Duemila. Almeno. Le conto tutte." } },
+          { "de": "Hundert, Herr Franz?", "sl": "Sto, gospod Franz?", "en": "A hundred, Herr Franz?", "it": "Cento, signor Franz?", "ok": true,
+            "reply": { "face": "laugh", "de": "Hundert? Nein. Zweitausend. Mindestens.", "sl": "Sto? Ne. Dva tisoč. Najmanj.", "en": "A hundred? No. Two thousand. At least.", "it": "Cento? No. Duemila. Almeno." } },
+          { "de": "Nein. Wie alt, Herr Franz?", "sl": "Ne. Koliko star, gospod Franz?", "en": "No. How old, Herr Franz?", "it": "No. Quanti anni, signor Franz?",
+            "why": { "de": "Franz fragt nach der Zahl der Schindeln. Wie viele fragt nach einer Zahl, wie alt nach dem Alter.", "sl": "Franz sprašuje po številu skodel. Wie viele sprašuje po številu, wie alt po starosti.", "en": "Franz is asking how many shingles. Wie viele asks for a number, wie alt for an age.", "it": "Franz chiede il numero di scandole. Wie viele chiede un numero, wie alt l'età." },
+            "reply": { "face": "laugh", "de": "Wie alt? Achtundsechzig. Aber das war nicht die Frage.", "sl": "Koliko star? Oseminšestdeset. Ampak to ni bilo vprašanje.", "en": "How old? Sixty-eight. But that wasn't the question.", "it": "Quanti anni? Sessantotto. Ma non era la domanda." } }
+        ] },
+        { "who": "franz", "de": "Ich spalte sie aus Lärchenholz. Eine Schindel hält fünfzig Jahre.", "sl": "Kolem jih iz macesna. Ena skodla zdrži petdeset let.", "en": "I split them from larch. A shingle lasts fifty years.", "it": "Le spacco dal larice. Una scandola dura cinquant'anni." },
+        { "who": "franz", "face": "curious", "de": "Willst du sehen, wie das geht?", "sl": "Hočeš videti, kako se to dela?", "en": "Do you want to see how it's done?", "it": "Vuoi vedere come si fa?" },
+        { "choices": [
+          { "de": "Ja! Können Sie es mir zeigen, Herr Franz?", "sl": "Ja! Mi lahko pokažete, gospod Franz?", "en": "Yes! Can you show me, Herr Franz?", "it": "Sì! Me lo può mostrare, signor Franz?", "ok": true,
+            "reply": { "face": "happy", "de": "Gern. Das Eisen aufs Holz, ein Schlag, fertig.", "sl": "Z veseljem. Železo na les, en udarec, gotovo.", "en": "Gladly. The blade on the wood, one blow, done.", "it": "Volentieri. Il ferro sul legno, un colpo, fatto." } },
+          { "de": "Ja! Können Sie es mich zeigen, Herr Franz?", "sl": "Ja! Mi lahko pokažete, gospod Franz?", "en": "Yes! Can you show it me, Herr Franz?", "it": "Sì! Me lo può mostrare, signor Franz?", "grammar": "dativ",
+            "why": { "de": "Zeigen: wem? Die Person steht im Dativ.", "sl": "Zeigen: komu? Oseba je v dajalniku.", "en": "Zeigen: to whom? The person takes the dative.", "it": "Zeigen: a chi? La persona va al dativo." },
+            "reply": { "face": "confused", "de": "Dich zeigen? Hm. Du stehst ja schon da.", "sl": "Pokazati tebe? Hm. Saj že stojiš tukaj.", "en": "Show you? Hm. You're already standing here.", "it": "Mostrare te? Mm. Sei già qui." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, bitte.", "sl": "Kako, prosim? Počasi, prosim.", "en": "Sorry? Slowly, please.", "it": "Come? Piano, per favore." } },
+        { "who": "franz", "face": "proud", "de": "Fünfzig Schindeln in der Stunde. Wenn ich nicht rede.", "sl": "Petdeset skodel na uro. Če ne govorim.", "en": "Fifty shingles an hour. When I'm not talking.", "it": "Cinquanta scandole all'ora. Se non chiacchiero." }
+      ]
+    },
+    {
+      "id": "besen",
+      "lines": [
+        { "who": "jakob", "face": "shy", "de": "Hallo … Opa sagt, ich soll kehren. Aber wo ist der Besen?", "sl": "Živjo … Dedek pravi, naj pometem. Ampak kje je metla?", "en": "Hi … Grandpa says I should sweep. But where's the broom?", "it": "Ciao … Il nonno dice che devo spazzare. Ma dov'è la scopa?" },
+        { "choices": [
+          { "de": "Da, in der Ecke!", "sl": "Tam, v kotu!", "en": "There, in the corner!", "it": "Lì, nell'angolo!", "ok": true, "tap": "broom", "grammar": "wechselpraepositionen",
+            "reply": { "face": "happy", "de": "Ja! Danke!", "sl": "Ja! Hvala!", "en": "Yes! Thanks!", "it": "Sì! Grazie!" } },
+          { "de": "Da, an der Wand!", "sl": "Tam, ob steni!", "en": "There, against the wall!", "it": "Lì, contro il muro!", "tap": "boards",
+            "why": { "de": "Ein Besen ist lang und dünn und hat unten Borsten.", "sl": "Metla je dolga in tanka, spodaj ima ščetine.", "en": "A broom is long and thin, with bristles at the bottom.", "it": "Una scopa è lunga e sottile, con le setole in fondo." },
+            "reply": { "face": "laugh", "de": "Das sind Bretter! Hihi.", "sl": "To so deske! Hihi.", "en": "Those are boards! Hee hee.", "it": "Quelle sono assi! Ih ih." } },
+          { "de": "Da, im Hackstock!", "sl": "Tam, v tnalu!", "en": "There, in the chopping block!", "it": "Lì, nel ceppo!", "tap": "axe",
+            "why": { "de": "Ein Besen ist lang und dünn und hat unten Borsten.", "sl": "Metla je dolga in tanka, spodaj ima ščetine.", "en": "A broom is long and thin, with bristles at the bottom.", "it": "Una scopa è lunga e sottile, con le setole in fondo." },
+            "reply": { "face": "worried", "de": "Das ist die Axt! Die darf ich nicht nehmen.", "sl": "To je sekira! Te ne smem vzeti.", "en": "That's the axe! I'm not allowed to take that.", "it": "Quella è l'ascia! Non posso prenderla." } }
+        ] },
+        { "who": "jakob", "face": "curious", "de": "Kehrst du mit?", "sl": "Pometaš z mano?", "en": "Will you sweep with me?", "it": "Spazzi con me?" },
+        { "choices": [
+          { "de": "Ja, ich kehre mit dir.", "sl": "Ja, pometam s tabo.", "en": "Yes, I'll sweep with you.", "it": "Sì, spazzo con te.", "ok": true,
+            "reply": { "face": "laugh", "de": "Super! Du links, ich rechts.", "sl": "Super! Ti levo, jaz desno.", "en": "Great! You left, me right.", "it": "Grande! Tu a sinistra, io a destra." } },
+          { "de": "Ja, ich kehrst mit dir.", "sl": "Ja, pometam s tabo.", "en": "Yes, I sweeps with you.", "it": "Sì, spazzo con te.", "grammar": "praesens",
+            "why": { "de": "Bei ich endet das Verb auf -e: ich kehre.", "sl": "Pri ich se glagol konča na -e: ich kehre.", "en": "With ich the verb ends in -e: ich kehre.", "it": "Con ich il verbo finisce in -e: ich kehre." },
+            "reply": { "face": "laugh", "de": "Ich kehrst? Hihi, so redet ein Baby.", "sl": "Ich kehrst? Hihi, tako govori dojenček.", "en": "Ich kehrst? Hee hee, that's how a baby talks.", "it": "Ich kehrst? Ih ih, così parla un bebè." } }
+        ], "puzzled": { "face": "confused", "de": "Was?", "sl": "Kaj?", "en": "What?", "it": "Cosa?" } },
+        { "who": "jakob", "face": "proud", "de": "Fertig! Eins, zwei, drei, und alles ist sauber!", "sl": "Gotovo! Ena, dve, tri, in vse je čisto!", "en": "Done! One, two, three, and it's all clean!", "it": "Fatto! Uno, due, tre, ed è tutto pulito!" }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "naegel-zaehlen",
+      "count": { "from": "dice", "min": 5, "max": 15, "gender": "m" },
+      "memory": { "de": "die Nägel in der Dose, die du gezählt hast", "sl": "žeblje v pločevinki, ki si jih {m:preštel|f:preštela}", "en": "the nails in the tin you counted", "it": "i chiodi nella scatoletta che hai contato" },
+      "lines": [
+        { "who": "franz", "de": "Grüß dich. Zähl die Nägel in der Dose. Ich will es genau wissen.", "sl": "Živjo. Preštej žeblje v pločevinki. Natančno hočem vedeti.", "en": "Hello. Count the nails in the tin. I want to know exactly.", "it": "Ciao. Conta i chiodi nella scatoletta. Lo voglio sapere esattamente.", "fx": { "hammer": 0.5 } },
+        { "choices": [
+          { "de": "In der Dose {ist|sind} {n} {Nagel|Nägel}.", "sl": "V pločevinki {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}.", "en": "There {is|are} {n} {nail|nails} in the tin.", "it": "Nella scatoletta {c'è|ci sono} {n} {chiodo|chiodi}.", "ok": true,
+            "reply": { "face": "happy", "de": "Stimmt. Genau. So mag ich das.", "sl": "Drži. Točno. Tako mi je všeč.", "en": "Correct. Exactly. That's how I like it.", "it": "Giusto. Esatto. Così mi piace." } },
+          { "de": "In der Dose {ist|sind} {n} {!Nagel|Nägel}.", "sl": "V pločevinki {je|sta|so|je} {n} {!žebelj|žeblja|žeblji|žebljev}.", "en": "There {is|are} {n} {!nail|nails} in the tin.", "it": "Nella scatoletta {c'è|ci sono} {n} {!chiodo|chiodi}.", "wrong_form": 1, "grammar": "plural",
+            "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Nagel|Nägel, mit Umlaut}.", "sl": "{Ena stvar je v ednini|Od dveh naprej je množina}: {n} {Nagel|Nägel, s preglasom}.", "en": "{One takes the singular|From two on, the plural}: {n} {Nagel|Nägel, with an umlaut}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Nagel|Nägel, con l'Umlaut}." },
+            "reply": { "face": "thinking", "de": "Nur einer? Hm. Noch einmal, langsam.", "sl": "Samo eden? Hm. Še enkrat, počasi.", "en": "Only one? Hm. Once more, slowly.", "it": "Uno solo? Mm. Ancora, piano." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Zähl noch einmal.", "sl": "Kako, prosim? Preštej še enkrat.", "en": "Sorry? Count again.", "it": "Come? Conta di nuovo." } },
+        { "who": "franz", "de": "Für das Regal brauche ich zehn. Der Rest kommt zurück in die Dose.", "sl": "Za polico jih potrebujem deset. Ostali gredo nazaj v pločevinko.", "en": "I need ten for the shelf. The rest go back in the tin.", "it": "Per lo scaffale me ne servono dieci. Il resto torna nella scatoletta." },
+        { "who": "franz", "face": "curious", "de": "Hast du einen Hammer zu Hause?", "sl": "Imaš doma kladivo?", "en": "Do you have a hammer at home?", "it": "Hai un martello a casa?" },
+        { "choices": [
+          { "de": "Nein, ich habe keinen Hammer.", "sl": "Ne, nimam kladiva.", "en": "No, I don't have a hammer.", "it": "No, non ho un martello.", "ok": true,
+            "reply": { "face": "happy", "de": "Dann schenke ich dir einen alten. Werkzeug muss arbeiten.", "sl": "Potem ti podarim starega. Orodje mora delati.", "en": "Then I'll give you an old one. Tools have to work.", "it": "Allora te ne regalo uno vecchio. Gli attrezzi devono lavorare." } },
+          { "de": "Nein, ich habe nicht Hammer.", "sl": "Ne, nimam kladiva.", "en": "No, I have not hammer.", "it": "No, non ho martello.", "grammar": "kein-nicht",
+            "why": { "de": "Vor einem Nomen verneint man mit kein, als Objekt: keinen Hammer.", "sl": "Pred samostalnikom zanikaš s kein, kot predmet: keinen Hammer.", "en": "Before a noun you say no with kein, as the object: keinen Hammer.", "it": "Davanti a un nome si nega con kein, come oggetto: keinen Hammer." },
+            "reply": { "face": "thinking", "de": "Nicht Hammer? Hm. So sagt man das nicht.", "sl": "Nicht Hammer? Hm. Tako se ne reče.", "en": "Nicht Hammer? Hm. That's not how you say it.", "it": "Nicht Hammer? Mm. Non si dice così." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, bitte.", "sl": "Kako, prosim? Počasi, prosim.", "en": "Sorry? Slowly, please.", "it": "Come? Piano, per favore." } }
+      ]
+    },
+    {
+      "id": "saege-kehren",
+      "memory": { "de": "das Sägemehl, das wir in den Garten gekehrt haben", "sl": "žagovino, ki sva jo pometala na vrt", "en": "the sawdust we swept out into the garden", "it": "la segatura che abbiamo spazzato in giardino" },
+      "lines": [
+        { "who": "franz", "de": "Grüß dich. Ich säge, und Jakob kehrt. Schau, so viel Sägemehl!", "sl": "Živjo. Jaz žagam, Jakob pa pometa. Poglej, koliko žagovine!", "en": "Hello. I saw, and Jakob sweeps. Look, so much sawdust!", "it": "Ciao. Io sego e Jakob spazza. Guarda quanta segatura!", "fx": { "dust": 1 } },
+        { "who": "jakob", "face": "curious", "de": "Ich kehre es weg. Aber wohin damit?", "sl": "Jaz jo pometem. Ampak kam z njo?", "en": "I'll sweep it up. But where to?", "it": "La spazzo io. Ma dove la metto?" },
+        { "choices": [
+          { "de": "In den Garten!", "sl": "Na vrt!", "en": "Into the garden!", "it": "In giardino!", "ok": true,
+            "reply": { "face": "happy", "de": "Ja! Opa sagt, das ist gut für die Erde.", "sl": "Ja! Dedek pravi, da je to dobro za zemljo.", "en": "Yes! Grandpa says it's good for the soil.", "it": "Sì! Il nonno dice che fa bene alla terra." } },
+          { "de": "In dem Garten!", "sl": "Na vrtu!", "en": "In the garden!", "it": "Nel giardino, già lì!", "grammar": "wechselpraepositionen",
+            "why": { "de": "Wohin? Eine Richtung: in den Garten, mit Akkusativ. In dem Garten sagt, wo.", "sl": "Kam? Smer: in den Garten, s tožilnikom. In dem Garten pove, kje.", "en": "Where to? A direction: in den Garten, accusative. In dem Garten says where.", "it": "Verso dove? Una direzione: in den Garten, con l'accusativo. In dem Garten dice dove." },
+            "reply": { "face": "laugh", "de": "In dem Garten? Da ist es ja noch nicht. Hihi.", "sl": "Na vrtu? Saj še ni tam. Hihi.", "en": "In the garden? It isn't there yet. Hee hee.", "it": "Nel giardino? Ma non c'è ancora. Ih ih." } }
+        ], "puzzled": { "face": "confused", "de": "Was?", "sl": "Kaj?", "en": "What?", "it": "Cosa?" } },
+        { "who": "jakob", "face": "proud", "de": "Ich kann schon bis hundert zählen. Zählst du mit? Eins, zwei, drei …", "sl": "Znam že šteti do sto. Šteješ z mano? Ena, dve, tri …", "en": "I can count to a hundred already. Will you count with me? One, two, three …", "it": "So già contare fino a cento. Conti con me? Uno, due, tre …" },
+        { "choices": [
+          { "de": "Vier, fünf, sechs!", "sl": "Štiri, pet, šest!", "en": "Four, five, six!", "it": "Quattro, cinque, sei!", "ok": true,
+            "reply": { "face": "laugh", "de": "Sieben, acht, neun, zehn! Super!", "sl": "Sedem, osem, devet, deset! Super!", "en": "Seven, eight, nine, ten! Great!", "it": "Sette, otto, nove, dieci! Grande!" } },
+          { "de": "Vier, sechs, fünf!", "sl": "Štiri, šest, pet!", "en": "Four, six, five!", "it": "Quattro, sei, cinque!",
+            "why": { "de": "Nach vier kommt fünf, dann sechs.", "sl": "Po štiri pride pet, potem šest.", "en": "After four comes five, then six.", "it": "Dopo il quattro viene il cinque, poi il sei." },
+            "reply": { "face": "laugh", "de": "Hihi, du zählst wie ein Hase, der hüpft!", "sl": "Hihi, šteješ kot zajec, ki skače!", "en": "Hee hee, you count like a hopping hare!", "it": "Ih ih, conti come una lepre che salta!" } }
+        ] },
+        { "who": "jakob", "face": "happy", "de": "Fertig! Alles sauber. Opa wird sich freuen.", "sl": "Gotovo! Vse je čisto. Dedek bo vesel.", "en": "Done! All clean. Grandpa will be pleased.", "it": "Fatto! Tutto pulito. Il nonno sarà contento." }
+      ]
+    },
+    {
+      "id": "pferd-name",
+      "memory": { "de": "den Namen für mein Holzpferd", "sl": "ime za mojega lesenega konjička", "en": "the name for my wooden horse", "it": "il nome per il mio cavallino di legno" },
+      "lines": [
+        { "who": "jakob", "face": "happy", "de": "Opa hat mein Pferd geklebt. Aber es hat noch keinen Namen.", "sl": "Dedek je zlepil mojega konjička. Ampak še nima imena.", "en": "Grandpa glued my horse. But it hasn't got a name yet.", "it": "Il nonno ha incollato il mio cavallino. Ma non ha ancora un nome.", "fx": { "toy": 0.7 } },
+        { "who": "jakob", "face": "curious", "de": "Wie soll es heißen? Hilfst du mir?", "sl": "Kako naj mu bo ime? Mi pomagaš?", "en": "What should it be called? Will you help me?", "it": "Come lo chiamiamo? Mi aiuti?" },
+        { "choices": [
+          { "de": "Vielleicht Blitz?", "sl": "Mogoče Blisk?", "en": "Maybe Lightning?", "it": "Forse Lampo?", "ok": true,
+            "reply": { "face": "laugh", "de": "Blitz! Weil er so schnell ist!", "sl": "Blisk! Ker je tako hiter!", "en": "Lightning! Because he's so fast!", "it": "Lampo! Perché è così veloce!" } },
+          { "de": "Wie wäre es mit Hansi?", "sl": "Kaj pa Hansi?", "en": "How about Hansi?", "it": "Che ne dici di Hansi?", "ok": true,
+            "reply": { "face": "happy", "de": "Hansi! Wie der Noriker vom Nachbarn!", "sl": "Hansi! Kot sosedov noriški konj!", "en": "Hansi! Like the neighbour's Noriker!", "it": "Hansi! Come il norico del vicino!" } },
+          { "de": "Vielleicht Tisch?", "sl": "Mogoče Miza?", "en": "Maybe Table?", "it": "Forse Tavolo?",
+            "why": { "de": "Tisch ist ein Möbel, kein Name für ein Pferd.", "sl": "Tisch (miza) je pohištvo, ne ime za konja.", "en": "Tisch (table) is a piece of furniture, not a name for a horse.", "it": "Tisch (tavolo) è un mobile, non un nome per un cavallo." },
+            "reply": { "face": "laugh", "de": "Tisch? Hihi! Ein Pferd heißt doch nicht Tisch!", "sl": "Miza? Hihi! Konju vendar ni ime Miza!", "en": "Table? Hee hee! A horse isn't called Table!", "it": "Tavolo? Ih ih! Un cavallo non si chiama Tavolo!" } }
+        ] },
+        { "who": "jakob", "face": "proud", "de": "Noriker sind die stärksten Pferde in Kärnten. Sie ziehen alles!", "sl": "Noriški konji so najmočnejši konji na Koroškem. Vse potegnejo!", "en": "Norikers are the strongest horses in Carinthia. They pull anything!", "it": "I norici sono i cavalli più forti della Carinzia. Tirano tutto!" },
+        { "who": "jakob", "face": "curious", "de": "Hast du schon einmal ein echtes Pferd gesehen?", "sl": "Si že kdaj {m:videl|f:videla} pravega konja?", "en": "Have you ever seen a real horse?", "it": "Hai mai visto un cavallo vero?" },
+        { "choices": [
+          { "de": "Ja, ich habe schon ein Pferd gesehen.", "sl": "Ja, sem že {m:videl|f:videla} konja.", "en": "Yes, I've seen a horse.", "it": "Sì, ho già visto un cavallo.", "ok": true,
+            "reply": { "face": "happy", "de": "Ich auch! Beim Kufenstechen. Groß wie ein Haus!", "sl": "Jaz tudi! Na Kufenstechnu. Velik kot hiša!", "en": "Me too! At the Kufenstechen. As big as a house!", "it": "Anch'io! Al Kufenstechen. Grande come una casa!", "fx": { "toy": 1 } } },
+          { "de": "Ja, ich habe gesehen schon ein Pferd.", "sl": "Ja, sem že {m:videl|f:videla} konja.", "en": "Yes, I have seen already a horse.", "it": "Sì, ho visto già un cavallo.", "grammar": "perfekt",
+            "why": { "de": "Im Perfekt steht das Partizip am Ende: Ich habe schon ein Pferd gesehen.", "sl": "V perfektu stoji deležnik na koncu: Ich habe schon ein Pferd gesehen.", "en": "In the perfect the participle goes at the end: Ich habe schon ein Pferd gesehen.", "it": "Al passato il participio va in fondo: Ich habe schon ein Pferd gesehen." },
+            "reply": { "face": "laugh", "de": "Hihi, das klingt ganz verdreht! Noch einmal?", "sl": "Hihi, to zveni čisto narobe obrnjeno! Še enkrat?", "en": "Hee hee, that sounds all twisted! Again?", "it": "Ih ih, suona tutto storto! Di nuovo?" } }
+        ], "puzzled": { "face": "confused", "de": "Was?", "sl": "Kaj?", "en": "What?", "it": "Cosa?" } },
+        { "who": "jakob", "face": "happy", "de": "Morgen zeige ich dir den echten Noriker vom Nachbarn.", "sl": "Jutri ti pokažem sosedovega pravega noriškega konja.", "en": "Tomorrow I'll show you the neighbour's real Noriker.", "it": "Domani ti faccio vedere il norico vero del vicino." }
+      ]
+    },
+    {
+      "id": "schindeln-dach",
+      "memory": { "de": "die Schindeln für das Dach vom Gasthaus", "sl": "skodle za streho gostilne", "en": "the shingles for the Gasthaus roof", "it": "le scandole per il tetto della locanda" },
+      "lines": [
+        { "who": "franz", "de": "Grüß dich. Die Schindeln sind für das Dach vom Gasthaus. Hilfst du mir tragen?", "sl": "Živjo. Skodle so za streho gostilne. Mi pomagaš nositi?", "en": "Hello. The shingles are for the Gasthaus roof. Will you help me carry them?", "it": "Ciao. Le scandole sono per il tetto della locanda. Mi aiuti a portarle?" },
+        { "choices": [
+          { "de": "Ja, gern. Wie viele soll ich tragen?", "sl": "Ja, z veseljem. Koliko naj jih nesem?", "en": "Yes, gladly. How many should I carry?", "it": "Sì, volentieri. Quante ne devo portare?", "ok": true,
+            "reply": { "face": "happy", "de": "Zehn auf einmal. Nicht mehr.", "sl": "Deset naenkrat. Ne več.", "en": "Ten at a time. No more.", "it": "Dieci alla volta. Non di più." } },
+          { "de": "Ja, gern. Wie viele sollst ich tragen?", "sl": "Ja, z veseljem. Koliko naj jih nesem?", "en": "Yes, gladly. How many shalt I carry?", "it": "Sì, volentieri. Quante ne devo portare?", "grammar": "modalverben",
+            "why": { "de": "Bei ich heißt es soll, ohne Endung: Wie viele soll ich tragen?", "sl": "Pri ich se reče soll, brez končnice.", "en": "With ich it's soll, with no ending.", "it": "Con ich si dice soll, senza desinenza." },
+            "reply": { "face": "thinking", "de": "Sollst ich? Hm. Langsam. Noch einmal.", "sl": "Sollst ich? Hm. Počasi. Še enkrat.", "en": "Sollst ich? Hm. Slowly. Once more.", "it": "Sollst ich? Mm. Piano. Di nuovo." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, bitte.", "sl": "Kako, prosim? Počasi, prosim.", "en": "Sorry? Slowly, please.", "it": "Come? Piano, per favore." } },
+        { "who": "franz", "face": "curious", "de": "Früher hatten hier alle Häuser Schindeln. Wie sind die Dächer bei dir zu Hause?", "sl": "Včasih so imele tu vse hiše skodle. Kakšne so strehe pri vas doma?", "en": "In the old days every house here had shingles. What are the roofs like where you live?", "it": "Una volta qui tutte le case avevano le scandole. Come sono i tetti a casa tua?" },
+        { "choices": [
+          { "de": "Bei uns sind die Dächer rot.", "sl": "Pri nas so strehe rdeče.", "en": "Ours are red.", "it": "Da noi i tetti sono rossi.", "ok": true,
+            "reply": { "face": "happy", "de": "Rot. Ziegel also. Die halten auch lang.", "sl": "Rdeče. Torej opeka. Tudi ta dolgo zdrži.", "en": "Red. Tiles, then. They last a long time too.", "it": "Rossi. Tegole, quindi. Durano anche quelle." } },
+          { "de": "Bei uns sind die Dächer auch aus Holz.", "sl": "Pri nas so strehe tudi iz lesa.", "en": "Ours are made of wood too.", "it": "Da noi i tetti sono di legno anche loro.", "ok": true,
+            "reply": { "face": "proud", "de": "Aus Holz! Dann weißt du, wie schön das ist.", "sl": "Iz lesa! Potem veš, kako lepo je to.", "en": "Wood! Then you know how lovely that is.", "it": "Di legno! Allora sai quanto è bello." } },
+          { "de": "Bei uns sind die Dächer aus Käse.", "sl": "Pri nas so strehe iz sira.", "en": "Ours are made of cheese.", "it": "Da noi i tetti sono di formaggio.",
+            "why": { "de": "Ein Dach ist aus Ziegeln, Blech oder Holz, nicht aus Käse.", "sl": "Streha je iz opeke, pločevine ali lesa, ne iz sira.", "en": "A roof is made of tiles, tin or wood, not cheese.", "it": "Un tetto è di tegole, lamiera o legno, non di formaggio." },
+            "reply": { "face": "surprised", "de": "Aus Käse? Dann regnet es aber hinein! Hm.", "sl": "Iz sira? Potem pa noter dežuje! Hm.", "en": "Cheese? Then the rain must come in! Hm.", "it": "Di formaggio? Allora ci piove dentro! Mm." } }
+        ] },
+        { "who": "franz", "face": "proud", "de": "So. Zehn Schindeln. Noch hundertneunzig Mal.", "sl": "Tako. Deset skodel. Še stodevetdesetkrat.", "en": "There. Ten shingles. A hundred and ninety more times.", "it": "Ecco. Dieci scandole. Altre centonovanta volte." }
+      ]
+    },
+    {
+      "id": "besen-rechen",
+      "memory": { "de": "den Rechen mit den zwölf Zähnen", "sl": "grablje z dvanajstimi zobmi", "en": "the rake with twelve teeth", "it": "il rastrello con dodici denti" },
+      "lines": [
+        { "who": "jakob", "face": "happy", "de": "Im Sommer rechen wir das Heu, Opa und ich. Weißt du, wo der Rechen ist?", "sl": "Poleti z dedkom grabiva seno. Veš, kje so grablje?", "en": "In summer Grandpa and I rake the hay. Do you know where the rake is?", "it": "D'estate io e il nonno rastrelliamo il fieno. Sai dov'è il rastrello?" },
+        { "choices": [
+          { "de": "Er steht neben dem Besen!", "sl": "Stojijo zraven metle!", "en": "It's next to the broom!", "it": "È vicino alla scopa!", "ok": true, "tap": "rake", "grammar": "wechselpraepositionen",
+            "reply": { "face": "happy", "de": "Ja! Ich hole ihn.", "sl": "Ja! Grem ponje.", "en": "Yes! I'll get it.", "it": "Sì! Vado a prenderlo." } },
+          { "de": "Er lehnt an der Wand!", "sl": "Naslonjene so na steno!", "en": "It's leaning against the wall!", "it": "È appoggiato al muro!", "tap": "ladder",
+            "why": { "de": "Ein Rechen ist lang, aus Holz, und unten hat er viele Zähne.", "sl": "Grablje so dolge, lesene, spodaj imajo veliko zob.", "en": "A rake is long and wooden, with lots of teeth at the bottom.", "it": "Un rastrello è lungo, di legno, con tanti denti in fondo." },
+            "reply": { "face": "laugh", "de": "Das ist die Leiter. Die ist viel zu hoch für mich!", "sl": "To je lestev. Ta je zame previsoka!", "en": "That's the ladder. It's far too tall for me!", "it": "Quella è la scala. È troppo alta per me!" } },
+          { "de": "Er hängt am Brett!", "sl": "Visijo na deski!", "en": "It's hanging on the board!", "it": "È appeso alla tavola!", "tap": "tools",
+            "why": { "de": "Ein Rechen ist lang, aus Holz, und unten hat er viele Zähne.", "sl": "Grablje so dolge, lesene, spodaj imajo veliko zob.", "en": "A rake is long and wooden, with lots of teeth at the bottom.", "it": "Un rastrello è lungo, di legno, con tanti denti in fondo." },
+            "reply": { "face": "laugh", "de": "Das ist Opas Werkzeug. Da hängt kein Rechen.", "sl": "To je dedkovo orodje. Tam ni grabelj.", "en": "That's Grandpa's tools. There's no rake there.", "it": "Quelli sono gli attrezzi del nonno. Lì non c'è il rastrello." } }
+        ] },
+        { "who": "jakob", "face": "proud", "de": "Der Rechen hat zwölf Zähne. Ich habe sie gezählt! Und wie viele Zähne hast du?", "sl": "Grablje imajo dvanajst zob. Preštel sem jih! Pa ti, koliko zob imaš?", "en": "The rake has twelve teeth. I counted them! And how many teeth have you got?", "it": "Il rastrello ha dodici denti. Li ho contati! E tu quanti denti hai?" },
+        { "choices": [
+          { "de": "Ich habe zweiunddreißig Zähne.", "sl": "Imam dvaintrideset zob.", "en": "I have thirty-two teeth.", "it": "Ho trentadue denti.", "ok": true,
+            "reply": { "face": "surprised", "de": "Zweiunddreißig! Ich habe nur zwanzig. Und einer wackelt.", "sl": "Dvaintrideset! Jaz jih imam samo dvajset. In eden se maje.", "en": "Thirty-two! I've only got twenty. And one is wobbly.", "it": "Trentadue! Io ne ho solo venti. E uno dondola." } },
+          { "de": "Ich bin zweiunddreißig Zähne.", "sl": "Imam dvaintrideset zob.", "en": "I am thirty-two teeth.", "it": "Sono trentadue denti.", "grammar": "sein-haben",
+            "why": { "de": "Zähne hat man: ich habe zweiunddreißig Zähne.", "sl": "Zobe imaš: ich habe zweiunddreißig Zähne.", "en": "You have teeth: ich habe zweiunddreißig Zähne.", "it": "I denti si hanno: ich habe zweiunddreißig Zähne." },
+            "reply": { "face": "laugh", "de": "Du bist Zähne? Hihi! Du bist doch ein Mensch!", "sl": "Ti si zobje? Hihi! Saj si človek!", "en": "You are teeth? Hee hee! You're a person!", "it": "Tu sei denti? Ih ih! Ma sei una persona!" } }
+        ], "puzzled": { "face": "confused", "de": "Was?", "sl": "Kaj?", "en": "What?", "it": "Cosa?" } },
+        { "who": "jakob", "face": "happy", "de": "Komm, wir zeigen Opa den Rechen!", "sl": "Pridi, pokaživa dedku grablje!", "en": "Come on, let's show Grandpa the rake!", "it": "Vieni, facciamo vedere il rastrello al nonno!" }
+      ]
+    }
+  ]
+}
