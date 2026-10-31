@@ -12,6 +12,7 @@ into the app:
                                                             variant (default: the base one), named as their aliases
   python3 app_icon.py wordmark CONCEPT OUT_DIR              the wordmark "Lani" as SVG, for a light and a dark ground
   uv run --no-project --with pillow python3 app_icon.py sheets OUT_DIR [CONCEPT ...]
+  uv run --no-project --with pillow python3 app_icon.py ages OUT_DIR    the ages' sheets (step 1b)
                                                             a contact sheet of each concept (masks, sizes, wallpapers,
                                                             the themed icon, the variants, the wordmark, a home screen)
 
@@ -140,6 +141,13 @@ CULTURE_NAMES = {"base": "Osnova · Base", "primorska": "Primorska", "friuli": "
 SEASON_NAMES = {"spring": "Pomlad · Spring", "summer": "Poletje · Summer", "autumn": "Jesen · Autumn",
                 "winter": "Zima · Winter"}
 TIME_NAMES = {"day": "Dan · Day", "dusk": "Mrak · Dusk", "night": "Noč · Night"}
+AGES = ["ogenj", "tabor", "zaselek", "vas", "trg", "mesto"]   # game/Model.kt Age
+AGE_NAMES = {"ogenj": "🔥 Ogenj · Campfire", "tabor": "⛺ Tabor · Camp", "zaselek": "🛖 Zaselek · Hamlet",
+             "vas": "🏘️ Vas · Village", "trg": "🏛️ Trg · Market town", "mesto": "🏰 Mesto · Town"}
+# What's happening, a sign drawn into the age's icon for the day (docs/plans/05-built/app-icon.md "What's happening"):
+EVENTS = ["newage", "festival", "built", "newcomer", "watch"]
+EVENT_NAMES = {"newage": "Nova doba · A new age", "festival": "Praznik · A festival", "built": "Zgrajeno · Built",
+               "newcomer": "Prišlek · Someone new", "watch": "Straža · The watch"}
 FEST_NAMES = {"lights": "Luči · Lights", "carnival": "Pust · Carnival", "bonfire": "Kres · Bonfire",
               "harvest": "Trgatev · Harvest"}
 
@@ -151,6 +159,8 @@ class Variant:
     time: str = ""          # "": the concept's own light; day, dusk, night
     fest: str = ""
     waiting: bool = False   # today's practice isn't done yet: the gentle state
+    age: str = ""           # "": the concept's own; ogenj, tabor, zaselek, vas, trg, mesto (the "ages" concept)
+    event: str = ""         # "": none; newage, festival, built, newcomer, watch (the "ages" concept)
 
     @property
     def look(self) -> Look:
@@ -158,7 +168,8 @@ class Variant:
 
     @property
     def key(self) -> str:
-        parts = [self.culture, self.season] + ([self.time] if self.time else []) + ([self.fest] if self.fest else []) + (["waiting"] if self.waiting else [])
+        parts = [self.culture] + ([self.age] if self.age else []) + [self.season] + ([self.time] if self.time else []) + \
+            ([self.fest] if self.fest else []) + ([self.event] if self.event else []) + (["waiting"] if self.waiting else [])
         return ".".join(parts)
 
     @staticmethod
@@ -170,6 +181,8 @@ class Variant:
             elif p in TIMES: v = replace(v, time=p)
             elif p in FESTS: v = replace(v, fest=p)
             elif p == "waiting": v = replace(v, waiting=True)
+            elif p in AGES: v = replace(v, age=p)
+            elif p in EVENTS: v = replace(v, event=p)
             elif p: raise SystemExit(f"unknown variant part: {p}")
         return v
 
@@ -1066,6 +1079,280 @@ def draw_ltower(v: Variant) -> Icon:
     return Icon(bg, fg, mono)
 
 
+# ---- 6. Zvonik through the ages: the L grows with the village (step 1b) -----------------------------------------
+# The village's six ages (game/Model.kt Age, companion/GAME.md "Ages"): the fire in a clearing, the camp's tent, the
+# hamlet's watchtower and hut behind the palisade, the village's church (the L of step 1), the market town's fair and
+# two storeys, the town's clock tower, its flag and its wall. The vertical stroke on the left, the long shape along the
+# bottom, the bubble at the top right: the same L at every age, so the icon stays Lani's as it grows.
+HUT_LOOK = {   # the hamlet's huts by culture (FireStyle.hutStone): walls, roof
+    "base": ("log", SHINGLE), "primorska": ("log", SHINGLE), "kaernten": ("log", SHINGLE),
+    "friuli": ("stone", (hx(0xC8683E), hx(0xA4502E), hx(0x7A3820))), "lakeland": ("stone", SLATE),
+}
+HUT_STONE = {"friuli": (hx(0xD8C8A8), hx(0xBCA886), hx(0x968264)), "lakeland": (hx(0x9AA0A4), hx(0x7C8286), hx(0x5E6468))}
+BUNTING = (hx(0xE8303A), hx(0xFFD74A), hx(0x2E8AE0), hx(0x3EB04E), hx(0xFF8A2A))
+
+
+def slim_spruce(layer: Layer, cx, top, base, maxhalf=5, snow=False):
+    """The tall spruce at the clearing's edge: tiers of four rows widening downwards, on a trunk."""
+    for y in range(top, base):
+        r = y - top
+        t, k = divmod(r, 4)
+        half = min(maxhalf, t + 1 + k // 2) if r > 0 else 0
+        for i in range(-half, half + 1):
+            c = PINE[0] if i == -half else PINE[1] if i <= 0 else PINE[2]
+            if snow and (k == 0 and i <= 0 or r == 0):
+                c = SNOW[0] if r == 0 or i == -half else SNOW[1]
+            layer.put(cx + i, y, c)
+    layer.rect(cx, base, cx, base, LOG[2])
+    layer.put(cx - 1, base, LOG[1])
+
+
+def bunting(layer: Layer, x0, y0, x1, y1, sag=2, lights=False):
+    """A garland of little flags (or, on snow, a string of lights) hung between two points."""
+    n = x1 - x0
+    pts = []
+    for i in range(n + 1):
+        t = i / n
+        pts.append((x0 + i, round(y0 + (y1 - y0) * t + sag * 4 * t * (1 - t))))
+    for i, (x, y) in enumerate(pts):
+        if lights:
+            if i % 2 == 0: layer.put(x, y, LIGHTS[(i // 2) % 4])
+            else: layer.put(x, y, INK)
+        else:
+            layer.put(x, y, WOOD[3])
+            if i % 3 == 1:
+                c = BUNTING[(i // 3) % len(BUNTING)]
+                layer.put(x - 1, y + 1, c); layer.put(x, y + 1, c); layer.put(x + 1, y + 1, c); layer.put(x, y + 2, c)
+
+
+def burst(layer: Layer, x, y, c):
+    """A little firework: a centre and eight rays."""
+    layer.put(x, y, WHITE)
+    for dx, dy in ((0, -2), (0, 2), (-2, 0), (2, 0), (-1, -1), (1, 1), (-1, 1), (1, -1)):
+        layer.put(x + dx, y + dy, c)
+
+
+def likof(layer: Layer, x, y):
+    """The roofing feast's little spruce with ribbons, its foot at (x, y): something was built."""
+    layer.sprite(x - 2, y - 5, ["..g..", ".ggg.", "rgggb", ".ggg.", "rgggb", "..w.."],
+                 {"g": PINE[1], "r": GERANIUM[0], "b": hx(0x2E8AE0), "w": WOOD[2]})
+
+
+def traveller(layer: Layer, x, y):
+    """Someone new at the road: a chibi with a hat and a bundle on a stick, standing on (x, y)."""
+    layer.sprite(x, y - 8, [
+        "......wb",
+        ".hhh.wbb",
+        "hhhhhw..",
+        ".sese...",
+        ".ssss...",
+        "ccccw...",
+        ".cc.....",
+        ".p.p....",
+    ], {"h": hx(0x8A5A32), "s": SKIN[0], "e": INK, "c": hx(0x2E8AE0), "p": DOOR, "w": WOOD[2], "b": hx(0xE8303A)})
+
+
+def paws(layer: Layer, pts, c):
+    for (x, y) in pts:
+        layer.put(x, y, c); layer.put(x + 1, y, c); layer.put(x, y - 1, c)
+
+
+def roof_band(L: Layer, x0, x1, y_top, roof, rows=5, stripes=True):
+    """The long house's roof seen from its long side: a band widening to the eave, its tile courses."""
+    for j in range(rows):
+        a = x0 + max(0, 1 - j) + (1 if j == 0 else 0)
+        b = x1 - 2 + min(j, 3)
+        L.rect(a, y_top + j, b, y_top + j, roof[0] if j == 0 else roof[1] if j < rows - 1 else roof[2])
+    if stripes:
+        for x in range(x0 + 1, x1 + 1, 3):
+            L.put(x, y_top + 2, roof[2])
+
+
+@concept("ages", "Zvonik skozi dobe", "The L through the ages",
+         "The L grows with the village: the fire, the camp's tent, the hamlet's watchtower, the church, the market town, the town.")
+def draw_ages(v: Variant) -> Icon:
+    bg, fg, mono = Layer(), Layer(), Layer()
+    age = v.age or "vas"
+    look = v.look
+    snow = v.season == "winter"
+    time = v.time or "day"
+    night = time == "night"
+    top, mid, hor = SKY[time]
+    if time == "day":
+        top, mid, hor = hx(0x2F6FC0), hx(0x5E9AD8), hx(0xA8D2F0)
+    sky(bg, time, top=top, mid=mid, hor=hor)
+    g = ground("winter" if snow else ("summer" if v.season == "summer" else v.season), time)
+    hill = lambda x, y: y >= 29 + ((x - 18) ** 2) / 90.0
+    bg.fill(hill, lambda x, y: g[1] if (x * 3 + y * 5) % 9 else g[2])
+    bg.fill(lambda x, y: hill(x, y) and not hill(x, y - 1), SNOW[0] if snow else g[3])
+    roof = (look.roof if not snow else SNOW)
+    win = LIT[0] if night or time == "dusk" else GLASS[0]
+    open_c = LIT[0] if night or time == "dusk" or v.event == "watch" else INK
+    L = Layer()          # what's outlined: the age's L
+    loose = Layer()      # drawn after the outline: the fire, the signs
+    cut = set()          # the openings, cut out of the themed icon
+    bubble_at = (17, 5)
+
+    if age in ("ogenj", "tabor"):
+        slim_spruce(L, 9, 8, 28, snow=snow)
+        if age == "ogenj":
+            # the log to sit on, its cut end to the right; the fire at the L's corner
+            L.rect(22, 25, 29, 25, WOOD[0]); L.rect(22, 26, 29, 26, LOG[1]); L.rect(22, 27, 29, 27, LOG[2])
+            L.rect(30, 25, 30, 27, WOOD[0]); L.put(30, 26, WOOD[2])
+            if snow: L.rect(22, 24, 29, 24, SNOW[0])
+            for i in range(10):
+                a = i / 10 * 2 * math.pi
+                loose.put(round(17.5 + math.cos(a) * 3.6 - 0.5), round(27.6 + math.sin(a) * 1.4 - 0.5), STONE[0] if math.sin(a) < 0.2 else STONE[2])
+            loose.rect(15, 27, 19, 27, LOG[1])
+            fire_flame(loose, 17.5, 26, 10, 3.2)
+            loose.put(14, 18, FLAME[1]); loose.put(21, 16, FLAME[1])
+        else:
+            # the tent, its door, the pole and its pennant; a small fire between the spruce and the tent
+            for y in range(17, 29):
+                half = (y - 17) * 6 // 11
+                for x in range(23 - half, 24 + half):
+                    c = CANVAS[0] if x < 23 else CANVAS[1]
+                    if x in (23 - half, 23 + half): c = CANVAS[2]
+                    if snow and y - 17 <= 2 + (x - 23) // 3 and x <= 23: c = SNOW[0]
+                    L.put(x, y, c)
+            for y in range(23, 29):
+                for x in range(23 - (y - 23) // 2, 24 + (y - 23) // 2):
+                    L.put(x, y, DOOR if not night else LIT[1])
+                    cut.add((x, y))
+            L.rect(23, 14, 23, 16, WOOD[2])
+            L.rect(24, 14, 26, 14, GERANIUM[0]); L.rect(24, 15, 25, 15, GERANIUM[0])
+            for i in range(8):
+                a = i / 8 * 2 * math.pi
+                loose.put(round(14.5 + math.cos(a) * 2.6 - 0.5), round(28 + math.sin(a) * 1.1 - 0.5), STONE[1])
+            fire_flame(loose, 14.5, 27, 6, 2.0)
+    elif age == "zaselek":
+        # the watchtower on its stilts, its cabin and roof; the hut beside it; the palisade's stakes at the end
+        L.rect(8, 18, 8, 28, WOOD[1]); L.rect(13, 18, 13, 28, WOOD[2])
+        for k in range(4):
+            L.put(9 + k, 20 + k, WOOD[2]); L.put(12 - k, 20 + k, WOOD[1])
+            L.put(9 + k, 24 + k, WOOD[2]); L.put(12 - k, 24 + k, WOOD[1])
+        L.rect(7, 17, 14, 17, WOOD[0])
+        L.rect(8, 13, 13, 16, LOG[0]); L.rect(8, 14, 13, 14, LOG[1]); L.rect(12, 13, 13, 16, LOG[1])
+        L.rect(10, 14, 11, 15, open_c); cut |= {(10, 14), (11, 14), (10, 15), (11, 15)}
+        hr = SHINGLE if not snow else SNOW
+        for j, (a, b) in enumerate([(10, 11), (9, 12), (8, 13), (7, 14)]):
+            L.rect(a, 9 + j, b, 9 + j, hr[0] if j < 2 else hr[1])
+        walls, hroof = HUT_LOOK[look.id]
+        hroof = hroof if not snow else SNOW
+        for y in range(22, 29):
+            for x in range(15, 28):
+                if walls == "log":
+                    c = (LOG[0] if x < 26 else LOG[1]) if y % 2 else (LOG[1] if x < 26 else LOG[2])
+                else:
+                    st = HUT_STONE[look.id]
+                    c = st[2] if (y % 3 == 2 or (x + (y // 3) * 2) % 5 == 4) else (st[0] if x < 26 else st[1])
+                L.put(x, y, c)
+        roof_band(L, 14, 28, 17, hroof)
+        L.rect(17, 25, 18, 28, DOOR); cut |= {(17, y) for y in range(25, 29)} | {(18, y) for y in range(25, 29)}
+        L.rect(22, 24, 23, 25, win); cut |= {(22, 24), (23, 24), (22, 25), (23, 25)}
+        for x in range(29, 33):
+            top_y = 19 + (x % 2)
+            L.rect(x, top_y, x, 28, LOG[1] if x % 2 else LOG[2])
+            L.put(x, top_y - 1, LOG[0] if x % 2 else LOG[1])
+    else:
+        # the church tower and the long house (step 1's L), and what the market town and the town add
+        wl, wm, wd = look.tower_wall
+        hl, hm, hd = look.wall
+        ttop = look.tower_top if not (snow and look.tower in ("campanile", "onion", "pyramid", "spire")) else SNOW
+        tall = age == "mesto"
+        two = age in ("trg", "mesto")
+        tx0, tx1, base = 8, 13, 28
+        ty0 = 11 if tall else 13
+        L.rect(tx0, ty0, tx1, base, wl); L.rect(tx1, ty0, tx1, base, wm)
+        wall_top = 19 if two else 22
+        L.rect(tx1 + 1, wall_top, 28, base, hl); L.rect(tx1 + 1, wall_top, 28, wall_top, hm)
+        roof_band(L, 14, 29, wall_top - 5, roof)
+        rows = L_TOPS[look.tower]
+        L.sprite(tx0 - 1, ty0 - len(rows), rows, {"t": ttop[0], "u": ttop[1], "v": ttop[2], "w": wl, "d": wd})
+        if look.tower == "campanile":
+            for xx in (tx0 + 1, tx0 + 4):
+                L.rect(xx, ty0 + 1, xx, ty0 + 3, open_c); cut |= {(xx, ty0 + 1), (xx, ty0 + 2), (xx, ty0 + 3)}
+        else:
+            L.rect(tx0 + 2, ty0 + 2, tx0 + 3, ty0 + 4, open_c)
+            cut |= {(tx0 + a, ty0 + b) for a in (2, 3) for b in (2, 3, 4)}
+        if age != "vas":   # the clock: the market town's and the town's
+            L.rect(tx0 + 2, ty0 + 8, tx0 + 3, ty0 + 9, GOLD[1]); cut |= {(tx0 + a, ty0 + b) for a in (2, 3) for b in (8, 9)}
+        L.rect(tx0 + 2, base - 3, tx0 + 3, base, DOOR); cut |= {(tx0 + a, base - b) for a in (2, 3) for b in range(4)}
+        rows_y = [24] if not two else [21, 25]
+        for wy in rows_y:
+            for wx in (17, 23):
+                L.rect(wx, wy, wx + 1, wy + 2, win); cut |= {(wx + a, wy + b) for a in (0, 1) for b in (0, 1, 2)}
+                if look.shutter:
+                    for y in range(wy, wy + 3):
+                        L.put(wx - 1, y, look.shutter[1]); L.put(wx + 2, y, look.shutter[1])
+        if look.stone:
+            for y in range(ty0, base + 1):
+                for x in range(tx0, 29):
+                    if L.get(x, y) in (wl, hl) and (x * 5 + y * 3) % 7 == 0:
+                        L.put(x, y, wm)
+        if look.timber:
+            for x in range(tx1 + 1, 29):
+                L.put(x, wall_top, WOOD[2]); L.put(x, wall_top + 1, WOOD[1] if x % 3 else WOOD[2])
+        if age == "trg":   # the fair: a stall with a striped awning before the house, its counter of goods
+            for x in range(19, 29):
+                L.put(x, 24, GERANIUM[0] if (x // 2) % 2 else CREAM[0]); L.put(x, 25, GERANIUM[0] if (x // 2) % 2 else CREAM[0])
+                if x % 2: L.put(x, 26, GERANIUM[1] if (x // 2) % 2 else CREAM[1])
+            L.rect(20, 27, 27, 28, WOOD[1])
+            for x, c in ((20, hx(0xF08A2A)), (22, GERANIUM[0]), (24, LEAF), (26, hx(0xF08A2A))):
+                L.put(x, 26, c)
+        if age == "mesto":  # the town: its banners down the tower, its wall with battlements and a gate before the house
+            L.rect(20, wall_top + 1, 21, wall_top + 4, GERANIUM[0]); L.rect(20, wall_top + 1, 21, wall_top + 1, GOLD[1])
+            L.put(20, wall_top + 5, GERANIUM[1])   # the town's banner down the house's front
+            for y in range(25, 29):
+                for x in range(14, 30):
+                    L.put(x, y, STONE[0] if (x + (y % 2) * 2) % 4 else STONE[1])
+            L.rect(14, 24, 29, 24, STONE[0])
+            for x in range(14, 30, 4):
+                L.rect(x, 22, x + 1, 23, STONE[0])
+            L.rect(21, 26, 22, 28, INK); L.put(21, 25, STONE[2]); L.put(22, 25, STONE[2])
+            cut |= {(21, y) for y in (26, 27, 28)} | {(22, y) for y in (26, 27, 28)}
+
+    # the signs of what's happening, drawn into the age's picture
+    ev = v.event
+    signs = Layer()
+    if ev == "festival":
+        span = {"ogenj": (12, 15, 31, 21), "tabor": (12, 15, 22, 17), "zaselek": (14, 12, 31, 18), "vas": (14, 15, 29, 18),
+                "trg": (14, 19, 29, 20), "mesto": (14, 18, 29, 19)}[age]
+        bunting(signs, *span, sag=2, lights=snow)
+    if ev == "newage":
+        burst(signs, 4, 6, hx(0xFF5A8A)); burst(signs, 31, 16, GOLD[1]); burst(signs, 3, 15, hx(0x5AD45A))
+        for (x, y) in [(6, 2), (1, 10), (33, 12), (15, 2), (31, 20)]:
+            signs.put(x, y, CONFETTI[(x + y) % len(CONFETTI)])
+    if ev == "built":
+        spot = {"ogenj": (31, 24), "tabor": (31, 28), "zaselek": (16, 17), "vas": (15, 17), "trg": (15, 14), "mesto": (15, 14)}[age]
+        likof(signs, *spot)
+    if ev == "newcomer":
+        traveller(signs, 26 if age not in ("ogenj",) else 26, 30)
+    if ev == "watch":
+        paws(signs, [(3, 31), (6, 30), (9, 31), (12, 30)], hx(0x6A5A4A) if not snow else hx(0x8A9AB0))
+        if age in ("ogenj", "tabor"):
+            loose.rect(16, 13, 18, 15, LIT[0])
+    L.outline(INK)
+    fg.over(L).over(loose).over(signs)
+    bubble(fg, *bubble_at, 13, 8, tail="downleft", r=3)
+    # monochrome: the age's L with its openings cut out, the flame, the bubble (no signs: the themed icon stays calm)
+    m = L.mask_of(keep=lambda c: c != INK)
+    for (x, y) in cut:
+        m.put(x, y, None)
+    if age in ("vas", "trg", "mesto", "zaselek"):
+        wt = {"zaselek": 21, "vas": 21, "trg": 18, "mesto": 18}[age]
+        for x in range(14, 30):
+            if m.get(x, wt) is not None and m.get(x, wt + 1) is not None:
+                m.put(x, wt, None)
+    if age == "ogenj":
+        fire_flame(None, 17.5, 26, 10, 3.2, mask=m)
+    if age == "tabor":
+        fire_flame(None, 14.5, 27, 6, 2.0, mask=m)
+    bubble_mono(m, *bubble_at, 13, 8, "downleft")
+    mono.over(m)
+    return Icon(bg, fg, mono)
+
+
 # ---------------------------------------------------------------------------------------------------------- wordmarks
 # "Lani" in the app's own pixel letters: 2 px strokes, the capital 10 px, the small letters 7; a concept dresses it.
 GLYPHS = {
@@ -1230,6 +1517,9 @@ def main(argv):
     elif cmd == "sheets":
         import app_icon_sheets  # Pillow
         app_icon_sheets.sheets(Path(argv[1]), argv[2:] or list(CONCEPTS))
+    elif cmd == "ages":
+        import app_icon_sheets  # Pillow
+        app_icon_sheets.ages_sheets(Path(argv[1]))
     elif cmd == "preview":
         import app_icon_sheets
         app_icon_sheets.preview(Path(argv[1]), argv[2:] or list(CONCEPTS))

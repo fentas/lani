@@ -430,3 +430,207 @@ def overview(out: Path, ids):
         y += rowh
     s.im.convert("RGB").save(out / "overview.png", optimize=True)
     print("wrote", out / "overview.png")
+
+
+# ---------------------------------------------------------------------------------------------------------- step 1b: the ages
+AGES_CULTURES = ["primorska", "friuli", "kaernten", "lakeland"]
+
+
+def ages_icon(**kw):
+    return A.CONCEPTS["ages"]["draw"](A.Variant(**kw))
+
+
+def notif_dot(im: Image.Image, kind="dot", n=1) -> Image.Image:
+    """The launcher's mark for a waiting notification: Pixel's dot, or One UI's count."""
+    pad = im.width // 6
+    out = Image.new("RGBA", (im.width + pad, im.height + pad), (0, 0, 0, 0))
+    out.alpha_composite(im, (0, pad))
+    d = ImageDraw.Draw(out)
+    if kind == "dot":
+        r = im.width * 0.11
+        cx, cy = im.width * 0.86, pad + im.height * 0.14
+        d.ellipse([cx - r - 2, cy - r - 2, cx + r + 2, cy + r + 2], fill=(255, 255, 255, 255))
+        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(0xE8, 0x50, 0x1A, 255))
+    else:
+        r = im.width * 0.17
+        cx, cy = im.width * 0.9, pad + im.height * 0.08
+        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=(0xE5, 0x39, 0x35, 255))
+        d.text((cx, cy), str(n), font=font(int(r * 1.4), True), fill=(255, 255, 255), anchor="mm")
+    return out
+
+
+def popup(lines, w=520):
+    """A launcher's long-press card: the app's shortcuts' place, its waiting notifications."""
+    h = 64 + 66 * len(lines)
+    im = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([0, 0, w - 1, h - 1], radius=28, fill=(0xFB, 0xFA, 0xF7, 255), outline=(0xD8, 0xD4, 0xCC, 255))
+    d.text((24, 18), "Obvestila · Notifications", font=font(20, True), fill=MUTED)
+    for i, (title, text) in enumerate(lines):
+        y = 56 + i * 66
+        d.text((24, y), title, font=font(22, True), fill=TEXT)
+        d.text((24, y + 28), text, font=font(19), fill=MUTED)
+    return im
+
+
+def ages_sheets(out: Path):
+    out.mkdir(parents=True, exist_ok=True)
+    # 1. each age in each culture
+    W = 1760
+    s = Sheet(W, 3000)
+    s.text((40, 24), "Zvonik skozi dobe · The L through the ages", 40, True)
+    s.text((40, 80), "Each age as the village has built it (game/Model.kt Age): 72 dp in squircles; the camp's ages are the same "
+                      "for every culture, the village's look from the hamlet on.", 22, fill=MUTED)
+    y = 130
+    cw = 250
+    for i, a in enumerate(A.AGES):
+        s.text((260 + i * cw + 72, y), A.AGE_NAMES[a].split(" ", 1)[1], 21, True, anchor="mt")
+    y += 40
+    for c in AGES_CULTURES:
+        s.text((40, y + 60), A.CULTURE_NAMES[c], 24, True)
+        for i, a in enumerate(A.AGES):
+            im = icon_image(ages_icon(culture=c, age=a), 72, "squircle")
+            s.paste(shadowed(im), (260 + i * cw, y))
+        y += 190
+    s.text((40, y), "Winter (Primorska and Friuli) and the themed icon (light and dark)", 24, True); y += 44
+    for c in ("primorska", "friuli"):
+        for i, a in enumerate(A.AGES):
+            im = icon_image(ages_icon(culture=c, age=a, season="winter"), 72, "squircle")
+            s.paste(shadowed(im), (260 + i * cw, y))
+        s.text((40, y + 60), A.CULTURE_NAMES[c] + " · zima", 22)
+        y += 180
+    for th in ("light", "dark"):
+        for i, a in enumerate(A.AGES):
+            im = icon_image(ages_icon(culture="primorska", age=a), 72, "circle", th)
+            s.paste(shadowed(im), (260 + i * cw, y))
+        s.text((40, y + 60), "themed · " + th, 22)
+        y += 180
+    s.text((40, y), "At 48 dp on a light and a dark wallpaper (circle, squircle; Primorska, then Friuli)", 24, True); y += 44
+    for dark in (False, True):
+        wp = wallpaper(W - 80, 150, dark)
+        x = 30
+        for c in ("primorska", "friuli"):
+            for a in A.AGES:
+                im = shadowed(icon_image(ages_icon(culture=c, age=a), 48, "circle" if not dark else "squircle"))
+                wp.alpha_composite(im, (x, 24)); x += 135
+            x += 30
+        s.paste(wp, (40, y)); y += 170
+    s.im.crop((0, 0, W, y + 20)).convert("RGB").save(out / "ages.png", optimize=True)
+    print("wrote", out / "ages.png")
+
+    # 2. the events on one age, by priority; the watch drawn, but kept out of the icon
+    s = Sheet(W, 2200)
+    s.text((40, 24), "Kaj se dogaja · What's happening: a sign for the day, at most one switch a day", 36, True)
+    s.text((40, 78), "By priority, left to right; the plain icon when nothing happens. On snow the festival's garland is "
+                      "a string of lights (the December lights).", 22, fill=MUTED)
+    y = 130
+    evs = ["newage", "festival", "built", "newcomer", "", "watch"]
+    names = [A.EVENT_NAMES.get(e, "Navadno · Plain") for e in evs]
+    names[-1] = "Straža · The watch"
+    rows = [("Vas · Primorska", dict(culture="primorska", age="vas")),
+            ("Vas · Primorska, zima", dict(culture="primorska", age="vas", season="winter")),
+            ("Trg · Friuli", dict(culture="friuli", age="trg")),
+            ("Zaselek · Lake District", dict(culture="lakeland", age="zaselek")),
+            ("Tabor (every culture)", dict(culture="kaernten", age="tabor"))]
+    for i, nm in enumerate(names):
+        s.text((300 + i * 235 + 72, y), (str(i + 1) + ". " + nm) if evs[i] and evs[i] != "watch" else nm, 18, True, anchor="mt")
+    s.text((300 + 5 * 235 + 72, y + 24), "(not in the icon: a notification)", 16, fill=MUTED, anchor="mt")
+    y += 56
+    for title, kw in rows:
+        s.text((40, y + 60), title, 22, True)
+        for i, e in enumerate(evs):
+            if kw.get("age") == "tabor" and e == "newage":
+                pass
+            im = icon_image(ages_icon(event=e, **kw), 72, "squircle")
+            s.paste(shadowed(im), (300 + i * 235, y))
+        y += 185
+    s.text((40, y), "The same at 48 dp (Vas · Primorska)", 24, True); y += 44
+    wp = wallpaper(W - 80, 150, False)
+    for i, e in enumerate(evs):
+        wp.alpha_composite(shadowed(icon_image(ages_icon(culture="primorska", age="vas", event=e), 48, "circle")), (300 + i * 235 - 40 + 24, 24))
+    s.paste(wp, (40, y)); y += 170
+    s.im.crop((0, 0, W, y + 20)).convert("RGB").save(out / "events.png", optimize=True)
+    print("wrote", out / "events.png")
+
+    # 3. what's waiting: the launcher's dot and count, and the long-press card, for Jan and for Teo
+    s = Sheet(W, 1500)
+    s.text((40, 24), "Kaj čaka · What's waiting: the launcher's notification dot, not the icon", 36, True)
+    s.text((40, 78), "Only the waits someone sent: the tutor's answer, the family's message, a guest or a question from a "
+                      "town, homework, the watchman's news. Never the cards due.", 22, fill=MUTED)
+    y = 130
+    for who, c, a, kind, n, lines in [
+        ("Jan's phone (Pixel-like launcher: a dot)", "primorska", "vas", "dot", 1,
+         [("Tutor: odgovor · Your tutor answered", "Bravo! »Se vidimo« je čisto prav …"),
+          ("Gost iz Trnovega · A guest from Trnovo", "Ana prinaša darilo · Ana brings a gift")]),
+        ("Teo's tablet (One UI-like launcher: a count)", "friuli", "zaselek", "count", 2,
+         [("Papà ti manda una sfida · Papa schickt dir eine Aufgabe", "Trova 5 animali nel bosco! · Finde 5 Tiere im Wald!"),
+          ("La guardia ha visto qualcosa · Der Wächter hat etwas gesehen", "Vieni a vedere · Komm schauen")]),
+    ]:
+        s.text((40, y), who, 24, True); y += 44
+        wp = wallpaper(W - 80, 420, c == "friuli")
+        icon = ages_icon(culture=c, age=a)
+        cell = 150
+        apps = GENERIC[:2] + [("Lani", None, None)] + GENERIC[2:4]
+        fgc = (255, 255, 255) if c == "friuli" else (0x20, 0x20, 0x24)
+        d = ImageDraw.Draw(wp)
+        for i, (name, col, glyph) in enumerate(apps):
+            im = icon_image(icon, 48, "circle") if col is None else generic_icon(col, glyph, 48, "circle")
+            if col is None:
+                im = notif_dot(im, kind, n)
+            else:
+                im2 = Image.new("RGBA", (im.width + im.width // 6, im.height + im.width // 6), (0, 0, 0, 0)); im2.alpha_composite(im, (0, im.width // 6)); im = im2
+            wp.alpha_composite(shadowed(im), (40 + i * cell, 250))
+            d.text((40 + i * cell + 56, 250 + 130), name, font=font(22), fill=fgc, anchor="mt")
+        p = popup(lines, 800)
+        wp.alpha_composite(p, (300, 250 - p.height - 20 + 10))
+        # the dot alone, big, beside
+        big = notif_dot(icon_image(icon, 128, "circle"), kind, n)
+        wp.alpha_composite(shadowed(big), (1260, 30))
+        d.text((1260 + 140, 372), "128 dp: the dot / the count", font=font(20), fill=fgc, anchor="mt")
+        s.paste(wp, (40, y)); y += 440
+    s.im.crop((0, 0, W, y + 20)).convert("RGB").save(out / "dots.png", optimize=True)
+    print("wrote", out / "dots.png")
+
+    # 4. home screen rows at 48 dp
+    s = Sheet(W, 1400)
+    s.text((40, 24), "On the home screen at 48 dp", 36, True)
+    y = 90
+    for title, kw, dark, mask, th in [
+        ("Jan: Vas in Primorska, a festival day, light wallpaper, circles", dict(culture="primorska", age="vas", event="festival"), False, "circle", None),
+        ("Jan: the same, themed", dict(culture="primorska", age="vas"), False, "circle", "light"),
+        ("Teo: Zaselek in Friuli, winter, dark wallpaper, squircles", dict(culture="friuli", age="zaselek", season="winter"), True, "squircle", None),
+        ("Teo: Tabor (the camp), someone new arrived, dark wallpaper, rounded squares", dict(culture="friuli", age="tabor", event="newcomer"), True, "rounded", None),
+    ]:
+        s.text((40, y), title, 22, True); y += 36
+        r = home_row(ages_icon(**kw), dark, mask, th)
+        s.paste(r, (40, y)); y += r.height + 24
+    s.im.crop((0, 0, W, y + 20)).convert("RGB").save(out / "home.png", optimize=True)
+    print("wrote", out / "home.png")
+
+    # 5. the overview: every age in every culture, the events, a dot
+    s = Sheet(W, 1500)
+    s.text((40, 24), "Lani's icon through the ages: what's happening, what's waiting", 36, True)
+    y = 84
+    for i, a in enumerate(A.AGES):
+        s.text((250 + i * 200 + 64, y), A.AGE_NAMES[a].split(" ", 1)[1], 19, True, anchor="mt")
+    y += 34
+    for c in AGES_CULTURES:
+        s.text((40, y + 50), A.CULTURE_NAMES[c], 22, True)
+        for i, a in enumerate(A.AGES):
+            s.paste(shadowed(icon_image(ages_icon(culture=c, age=a), 64, "squircle")), (250 + i * 200, y))
+        y += 156
+    s.text((40, y), "What's happening (Vas · Primorska), by priority, and on snow", 24, True); y += 40
+    x = 40
+    for e in ["newage", "festival", "built", "newcomer"]:
+        for se in ("summer", "winter"):
+            s.paste(shadowed(icon_image(ages_icon(culture="primorska", age="vas", event=e, season=se), 64, "squircle")), (x, y))
+            x += 150
+        s.text((x - 225, y + 140), A.EVENT_NAMES[e], 18, fill=MUTED, anchor="mt")
+        x += 40
+    y += 180
+    s.text((40, y), "What's waiting: the launcher's dot (Pixel) or count (One UI) on the same icon", 24, True); y += 40
+    s.paste(shadowed(notif_dot(icon_image(ages_icon(culture="primorska", age="vas"), 64, "circle"), "dot")), (40, y))
+    s.paste(shadowed(notif_dot(icon_image(ages_icon(culture="friuli", age="zaselek"), 64, "circle"), "count", 2)), (240, y))
+    y += 190
+    s.im.crop((0, 0, W, y)).convert("RGB").save(out / "overview.png", optimize=True)
+    print("wrote", out / "overview.png")
