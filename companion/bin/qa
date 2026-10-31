@@ -7077,10 +7077,10 @@ def target_next_age():
     village a hamlet (QA's hook "hearths:zaselek"), aiming at A2, then the tutor's set_target_level B1 through the dev
     bridge (POST /tutor/tools/set_target_level, as the app's own tutor calls it): the profile's target_level_next from Vas,
     the target still A2. The ages' sheet: Vas's words at A2's 45, under them "🎯 Od naslednje dobe: B1 · From the next
-    age: B1" and Trg's 500; the progress screen's pill (and both in Teo's pair, QA's hook "pair:it-de", where the screen
-    follows it). Then the age-up (QA's hook "ageup:vas", the moment to its card): the dev bridge's profile at B1, nothing
-    waiting; the ages' sheet asks Trg's 500 words of B1, no note; the progress screen's B1, no pill. Shots tna-*.png, also
-    in $LANI_QA_TNA_SHOTS."""
+    age: B1" and Trg's 500; the progress screen's pill (the labels in Teo's pair, it · de, are AimsTest's). Then the
+    age-up (QA's hook "ageup:vas", the moment to its card): the dev bridge's profile at B1, nothing waiting; the ages'
+    sheet asks Trg's 500 words of B1, no note; the progress screen's B1, no pill. Shots tna-*.png, also in
+    $LANI_QA_TNA_SHOTS."""
     out = Path(os.environ["LANI_QA_TNA_SHOTS"]) if os.environ.get("LANI_QA_TNA_SHOTS") else None
     note, then = "Od naslednje dobe: B1 · From the next age: B1", "500 besed · "
 
@@ -7125,17 +7125,6 @@ def target_next_age():
     def words_need() -> list:
         return [int(m[1]) for t, _ in nodes() if (m := re.fullmatch(r"\d+ / (\d+)", t))]
 
-    def in_teos_pair(name: str, text: str):
-        """[name] again in Teo's pair (QA's hook "pair:it-de"), where the open screen follows it; then sl · en again."""
-        qa_hook("pair:it-de")
-        time.sleep(2.5)
-        if wait_for(text, 6):
-            snap(name)
-        else:
-            print(f"    {name}: the open screen didn't follow the pair, no shot")
-        qa_hook("pair:sl-en")
-        time.sleep(2)
-
     try:
         culture = api("/culture").get("id")
     except (OSError, RuntimeError, ValueError):
@@ -7162,7 +7151,8 @@ def target_next_age():
     assert find(note) is not None, "the note under the words"
     assert find(then) is not None, "the age after it, Trg, with B1's 500 words"
     snap("tna-ages-before")
-    in_teos_pair("tna-ages-before-it-de", "Dalla prossima età: B1")
+    go_home()
+    to_top()  # Home's progress line from its top (scrolled to its end, the line lies under the tutor's bar)
     open_progress()
     assert wait_for(note, 6), "the progress screen's pill"
     snap("tna-progress-before")
@@ -7185,7 +7175,8 @@ def target_next_age():
     assert 500 in words_need() and 45 not in words_need(), f"Trg's words at B1's 500 ({words_need()})"
     assert find("Od naslednje dobe") is None, "nothing waits: no note"
     snap("tna-ages-after")
-    in_teos_pair("tna-ages-after-it-de", "Parole · Wörter")
+    go_home()
+    to_top()
     open_progress()
     assert find("Od naslednje dobe") is None, "no pill on the progress screen"
     snap("tna-progress-after")
