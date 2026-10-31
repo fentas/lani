@@ -4597,6 +4597,44 @@ device doesn't repeat them); the settings turn them off and show them again; the
 `tips`) and points at one (`show_tip`). QA's hooks: "tips:<moment>" (the village readied for it, the moment asked as
 `show_tip` asks it), "tips:reset", "tips:tentmove" (the shepherd's request asked anew and started: QA's step `guidance`).
 
+### Notifications
+
+While the app is closed, the background check (`data/BackgroundCheck.kt`, about every 15 minutes) turns what the app
+hasn't shown into notifications (`data/NotifyChannels.kt`: what each says and where it goes; `data/Notifier.kt`: posting).
+They go to six channels, named in the learner's pair (renamed when the pair changes), so the phone's settings can tune
+each kind:
+
+| Channel | What goes there | Dot on the icon |
+|---|---|---|
+| 💬 Sporočila · Messages | the tutor's answer (the chat, a talk, a family challenge's thread), a family challenge, a guest from a linked town, a town's question or answer, a link between towns | yes |
+| 🏘️ Vas · Village | the village's event: wolves, a bear, a storm, a merchant, a festival | yes |
+| 📝 Šola · School | the tutor's homework, the case trainer's assignment | yes |
+| ✨ Novo · New in Lani | a new challenge, words, a reading, a grammar page, a scene, a story, a dialog; a linked town's week | no, and silent |
+| 🔔 Opomniki · Reminders | the evening's "🔥 5 kartic čaka" | no |
+| ⚙️ Sistem · System | an update, a write the node didn't keep, a tool's approval the tutor waits for | no |
+
+The launcher draws its dot (Pixel) or count (One UI) only for the first three: what waits for the learner. Every
+notification counts 1 (never the cards due), and there is one per thread, person or thing (a new one replaces it: the
+chat's latest answer, a guest's latest visit), so a count stays small. When the learner sees the thing in the app, its
+notification goes and the dot with it: the chat opened, the talk, the family challenge, the village (its event and the
+guests' visits; also once the event is over), a scene (its news and stories), a town's question, Friends (the links), a
+town's progress, the unit with the homework, the case trainer, the packs, the reading corner, the grammar book, the
+reviews (the reminder), Home's update banner (and the update installed); a tool's approval as soon as the app is on
+screen. A tap on a notification takes it away too. The small icon is Lani's L (`res/drawable/ic_notify.xml`). The road's
+getting ready keeps its own channel (`road/RoadPrepService.kt`).
+
+Before this, every notification went to one channel, "Tutor". The app makes the new channels at its start and before any
+post, carries over what the learner set there (blocked: every new channel is made blocked; silenced: none is louder;
+without the dot: none has one), and only then deletes the old one.
+
+**A child's profile (Teo).** A child's village alert has no alarm and no hours left: "🏰 Stražar je nekaj videl · The
+watchman saw something", "Pridi pogledat · Come and look" (a merchant or a festival as for an adult). The evening reminder
+is off on a child's profile; a parent turns it on in "⚙️ Nastavitve · Settings" → "🔔 Obvestila · Notifications" (a
+parent's page on a child's device, opened by a hold), and then it says neither a streak nor a number: "🔥 Vas te pričakuje ·
+The village is looking forward to you", "Pridi se igrat · Come and play". The same page has "🔔 Večerni opomnik · Evening
+reminder" for every learner (on for an adult) and the way to the phone's settings of the app's notifications. Its texts
+(`notify.*` in the string tables) are machine-written in sl, en, de and it, for a native speaker's check.
+
 ### Getting the APK
 
 The APK comes from one of three places:
