@@ -1,0 +1,143 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "at-the-market",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the market in its Lakeland look (the village's stall with its scales and brass weights, the round cheese in its cloth band, the cottage loaves, the dark heather honey, Sam's cart with its barrel of ale and brown bottles; the rest as MarketPainter and na-trznici's clues have them); the hen and the pigeons are never placed; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "stall": {
+      "clues": [
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's on the left, at the front.", "sl": "Je na levi, spredaj.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "trait", "en": "There are eggs and cheese on it.", "sl": "Na tem so jajca in sir.", "grammar": ["there-is-are", "prepositions-place"] },
+        { "kind": "use", "en": "We buy food at it.", "sl": "Tam kupujemo hrano.", "grammar": ["present-simple"] }
+      ]
+    },
+    "scale": {
+      "clues": [
+        { "kind": "colour", "en": "It's golden.", "sl": "Je zlate barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has two pans.", "sl": "Ima dve skodelici.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's on the stall.", "sl": "Je na stojnici.", "grammar": ["to-be", "prepositions-place"], "ref": "stall" },
+        { "kind": "use", "en": "It tells us how heavy things are.", "sl": "Pove nam, kako težke so stvari.", "grammar": ["present-simple"] }
+      ]
+    },
+    "weights": {
+      "clues": [
+        { "kind": "trait", "en": "It's small, but it's heavy.", "sl": "To je nekaj majhnega, ampak težkega.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of metal.", "sl": "Je iz kovine.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's next to the scales.", "sl": "Je zraven tehtnice.", "grammar": ["to-be", "prepositions-place"], "ref": "scale" },
+        { "kind": "use", "en": "We put it on the scales.", "sl": "To položimo na tehtnico.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "eggs": {
+      "clues": [
+        { "kind": "colour", "en": "It's white or brown.", "sl": "Je bele ali rjave barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's on the stall.", "sl": "Je na stojnici.", "grammar": ["to-be", "prepositions-place"], "ref": "stall" },
+        { "kind": "does", "en": "It breaks easily.", "sl": "Hitro se razbije.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "A hen lays it.", "sl": "To znese kokoš.", "grammar": ["present-simple"] }
+      ]
+    },
+    "bread": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's round.", "sl": "To je nekaj okroglega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's on the stall.", "sl": "Je na stojnici.", "grammar": ["to-be", "prepositions-place"], "ref": "stall" },
+        { "kind": "does", "en": "It smells lovely.", "sl": "Lepo diši.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "We bake it in the oven.", "sl": "To pečemo v pečici.", "grammar": ["present-simple"] }
+      ]
+    },
+    "cheese": {
+      "clues": [
+        { "kind": "colour", "en": "It's yellow.", "sl": "Je rumene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's round, with a cloth round it.", "sl": "To je nekaj okroglega, ovitega v blago.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's on the stall.", "sl": "Je na stojnici.", "grammar": ["to-be", "prepositions-place"], "ref": "stall" },
+        { "kind": "use", "en": "We make it from milk.", "sl": "To delamo iz mleka.", "grammar": ["present-simple"] }
+      ]
+    },
+    "honey": {
+      "clues": [
+        { "kind": "colour", "en": "It's dark gold.", "sl": "Je temno zlate barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's sweet.", "sl": "To je nekaj sladkega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in jars.", "sl": "Je v kozarcih.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "Bees make it.", "sl": "To delajo čebele.", "grammar": ["present-simple"] }
+      ]
+    },
+    "apples": {
+      "clues": [
+        { "kind": "colour", "en": "It's red or yellow.", "sl": "Je rdeče ali rumene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's sweet and juicy.", "sl": "To je nekaj sladkega in sočnega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in front of the stall.", "sl": "Je pred stojnico.", "grammar": ["to-be", "prepositions-place"], "ref": "stall" },
+        { "kind": "does", "en": "It grows on a tree.", "sl": "Raste na drevesu.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "vegetables": {
+      "clues": [
+        { "kind": "colour", "en": "They're all colours.", "sl": "Je vseh barv.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "They're good for you.", "sl": "To je zdravo.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "They're next to the apples.", "sl": "Je zraven jabolk.", "grammar": ["to-be", "prepositions-place"], "ref": "apples" },
+        { "kind": "does", "en": "They grow in the garden.", "sl": "Raste na vrtu.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "use", "en": "We buy them for soup.", "sl": "To kupimo za juho.", "grammar": ["present-simple"] }
+      ]
+    },
+    "basket": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a handle.", "sl": "Ima ročaj.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's next to the apples.", "sl": "Je zraven jabolk.", "grammar": ["to-be", "prepositions-place"], "ref": "apples" },
+        { "kind": "use", "en": "There's fruit in it.", "sl": "V tem je sadje.", "grammar": ["there-is-are", "prepositions-place"] }
+      ]
+    },
+    "crate": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's empty.", "sl": "To je nekaj praznega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's next to the cart.", "sl": "Je zraven voza.", "grammar": ["to-be", "prepositions-place"], "ref": "cart" }
+      ]
+    },
+    "hen": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a red comb on its head.", "sl": "Na glavi ima rdeč greben.", "grammar": ["to-have"] },
+        { "kind": "does", "en": "It lays eggs.", "sl": "Nese jajca.", "grammar": ["present-simple"] },
+        { "kind": "does", "en": "It says cluck, cluck.", "sl": "Pravi ko, ko.", "grammar": ["present-simple"] }
+      ]
+    },
+    "cart": {
+      "clues": [
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has big wheels.", "sl": "Ima velika kolesa.", "grammar": ["to-have"] },
+        { "kind": "trait", "en": "There's a barrel on it.", "sl": "Na tem je sod.", "grammar": ["there-is-are", "prepositions-place"] },
+        { "kind": "use", "en": "We carry ale on it.", "sl": "S tem vozimo pivo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "wine": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of glass.", "sl": "Je iz stekla.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a long neck.", "sl": "Ima dolg vrat.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's on the cart.", "sl": "Je na vozu.", "grammar": ["to-be", "prepositions-place"], "ref": "cart" },
+        { "kind": "use", "en": "There's ale in it.", "sl": "V tem je pivo.", "grammar": ["there-is-are", "prepositions-place"] }
+      ]
+    },
+    "pigeon": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's smaller than a hen.", "sl": "To je nekaj manjšega od kokoši.", "grammar": ["to-be"] },
+        { "kind": "does", "en": "It pecks at the ground.", "sl": "Kljuva po tleh.", "grammar": ["present-simple"] },
+        { "kind": "does", "en": "It says coo, coo.", "sl": "Grulji.", "grammar": ["present-simple"] }
+      ]
+    },
+    "bell": {
+      "clues": [
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a little rope.", "sl": "Ima majhno vrv.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It hangs on a post.", "sl": "Visi na drogu.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "where", "en": "There's a little roof over it.", "sl": "Nad tem je majhna streha.", "grammar": ["there-is-are", "prepositions-place"] },
+        { "kind": "does", "en": "It calls people to the market.", "sl": "Ljudi kliče na tržnico.", "grammar": ["present-simple"] }
+      ]
+    }
+  }
+}
