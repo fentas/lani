@@ -195,7 +195,7 @@ internal fun beginsIn(): String = bi("school.beginsInHamlet", "age" to Age.ZASEL
  */
 @Composable
 internal fun BeginsCard(vm: AppViewModel, s: GameState) {
-    val check = GameEngine.advanceCheck(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.wordsRusty)
+    val check = GameEngine.advanceCheck(s, vm.content.wordsKnown, vm.content.targetAt(s.age), vm.content.wordsRusty)
     Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer), modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text("${Age.ZASELEK.emoji}🏫 ${beginsIn()}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)

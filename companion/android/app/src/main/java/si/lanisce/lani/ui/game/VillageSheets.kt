@@ -400,13 +400,15 @@ private fun InfoRow(emoji: String, label: String, value: String) {
  * The next age's sheet, the ring's (companion/GAME.md "The village's HUD"): the age and the track of all of them, how far
  * the way to the next one is, ONE action for its next step at the top ([next]: the goal card's, "✨ Napreduj · Advance"
  * once it can), then every step with its count, a bar and its own button, and at its foot the switch for the row of cards
- * under the HUD's bar ([cards], null: none; the ring's long press does the same).
+ * under the HUD's bar ([cards], null: none; the ring's long press does the same). [aim]: a raised target waiting for the
+ * next age, under the words ([Aims.note], and the age after it with its words, [Aims.thenLine]); null when none waits.
  */
 @Composable
 fun AgeSheet(
     s: GameState, check: AdvanceCheck, onAdvance: () -> Unit, onGather: (Res) -> Unit, onBuild: () -> Unit, onLearn: () -> Unit,
     onPolish: () -> Unit, onFriends: () -> Unit, onDismiss: () -> Unit,
     next: Pair<String, () -> Unit>? = null, cards: Boolean? = null, onCards: (Boolean) -> Unit = {},
+    aim: Pair<String, String?>? = null,
 ) {
     Sheet(onDismiss) {
       // it scrolls: a tablet held on its side has room for fewer steps than a phone
@@ -445,6 +447,7 @@ fun AgeSheet(
                     null -> null
                 }
                 StepRow(step, act)
+                if (step.kind == AgeStep.Kind.WORDS) aim?.let { (note, then) -> AimNote(note, then) }
                 if (step.kind == AgeStep.Kind.FRIENDS && !step.done) Text(
                     "${bi("villageSheets.friend")}: ♥♥ ${bi("villageSheets.orMore")}. ${bi("villageSheets.helpAndTalk")}.",
                     style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(start = 32.dp),
@@ -459,6 +462,20 @@ fun AgeSheet(
             }
         }
       }
+    }
+}
+
+/**
+ * A raised target waiting for the next age, under the words' step: "🎯 Od naslednje dobe: B1 · From the next age: B1",
+ * and under it the age after the next with its words on the way to it, "🏛️ Trg: 500 besed · Market town: 500 words".
+ */
+@Composable
+private fun AimNote(note: String, then: String?) {
+    Surface(color = XpGold.copy(alpha = 0.12f), shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth().padding(start = 32.dp)) {
+        Column(Modifier.padding(horizontal = 10.dp, vertical = 6.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(note, style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.SemiBold)
+            then?.let { Text(it, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        }
     }
 }
 

@@ -79,6 +79,7 @@ import kotlinx.coroutines.flow.first
 import si.lanisce.lani.AppViewModel
 import si.lanisce.lani.game.AdvanceCheck
 import si.lanisce.lani.game.Age
+import si.lanisce.lani.game.Aims
 import si.lanisce.lani.game.BuildOption
 import si.lanisce.lani.game.EventKind
 import si.lanisce.lani.game.GameEngine
@@ -957,6 +958,8 @@ fun VillageScreen(vm: AppViewModel) {
                 onPolish = { sheet = null; vm.startPolish() },
             ).let { a -> a.label to a.run },
             cards = hudState.cards(null), onCards = { hudState.toggleCards(null) },
+            // a raised target waiting for the next age: said under the words (GAME.md "Ages", "A target raised later")
+            aim = Aims.note(vm.content.targetNext, s.age)?.let { it to Aims.thenLine(vm.content.targetNext, s.age) },
             onGather = { r -> sheet = null; scrollOpen = false; vm.startGather(r) },
             onBuild = { sheet = VillageSheet.Build },
             onLearn = { sheet = null; vm.openPacks() },

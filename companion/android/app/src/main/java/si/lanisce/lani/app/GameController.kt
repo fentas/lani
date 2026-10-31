@@ -762,7 +762,8 @@ class GameController(
     /** Advances to the next age; returns it, or null when the checklist isn't complete. */
     fun advance(): Age? {
         val s = state ?: return null
-        val n = GameEngine.advance(s, content.wordsKnown, System.currentTimeMillis(), content.targetLevel, content.wordsRusty)
+        // the target the step from this age counts with: a raise waiting for the next age counts from the age-up on (Aims)
+        val n = GameEngine.advance(s, content.wordsKnown, System.currentTimeMillis(), content.targetAt(s.age), content.wordsRusty)
         if (n.age == s.age) return null
         commit(n)
         // the fireworks come with the age's moment's cheer (ui/game/AgeUpMoment: [cheer])

@@ -62,6 +62,7 @@ import si.lanisce.lani.data.ProgressStats
 import si.lanisce.lani.data.Projection
 import si.lanisce.lani.data.SkillMastery
 import si.lanisce.lani.data.Trend
+import si.lanisce.lani.game.Aims
 import si.lanisce.lani.game.LevelReadiness
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.ui.GradientHeader
@@ -116,7 +117,8 @@ fun ProgressScreen(vm: AppViewModel) {
     }
     Box(Modifier.fillMaxSize()) {
         LazyColumn(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), state = list, contentPadding = PaddingValues(bottom = 32.dp)) {
-            item { Hero(p, vm.backLabel, vm::back) }
+            // the target as the village's step counts with it, and a raise waiting for the next age (GAME.md "Ages")
+            item { Hero(p, vm.backLabel, vm::back, age = s?.age ?: si.lanisce.lani.game.Age.OGENJ) }
             if (p == null) {
                 item {
                     Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
@@ -170,8 +172,13 @@ private fun chartColors(): ChartColors {
     )
 }
 
+/**
+ * The words learned, the level and the target, the streak and the words' goal. [age]: the village's, which the target
+ * counts by ([Aims.at]: a raise from the next age once the village has reached it); while it waits, "🎯 Od naslednje dobe:
+ * B1 · From the next age: B1" under the levels.
+ */
 @Composable
-private fun Hero(p: ProgressStats?, back: String, onBack: () -> Unit) {
+private fun Hero(p: ProgressStats?, back: String, onBack: () -> Unit, age: si.lanisce.lani.game.Age = si.lanisce.lani.game.Age.OGENJ) {
     GradientHeader(back, onBack) {
         Text("📊 ${bi("common.progress")}", style = MaterialTheme.typography.headlineMedium, color = Color.White)
         if (p == null) return@GradientHeader
@@ -195,9 +202,15 @@ private fun Hero(p: ProgressStats?, back: String, onBack: () -> Unit) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             LevelBadge(p.level, filled = true)
             Text("→", color = Color.White)
-            LevelBadge(p.targetLevel, filled = false)
+            LevelBadge(Aims.at(p.targetLevel, p.targetNext, age), filled = false)
             Spacer(Modifier.width(4.dp))
             Text("🔥 ${p.streaks.current}  ·  ⏱ ${p.totalMinutes} min", color = Color.White.copy(alpha = 0.9f), style = MaterialTheme.typography.labelLarge)
+        }
+        Aims.note(p.targetNext, age)?.let { note ->
+            Spacer(Modifier.height(6.dp))
+            Surface(color = Color.White.copy(alpha = 0.16f), shape = RoundedCornerShape(50)) {
+                Text(note, color = Color.White, style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp))
+            }
         }
         Spacer(Modifier.height(14.dp))
         // the words goal: the level's own, then on to the next one once passed (the level rises with the treasure map)

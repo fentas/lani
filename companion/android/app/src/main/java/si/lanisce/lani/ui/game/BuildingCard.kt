@@ -90,8 +90,8 @@ fun rememberBuildOptions(vm: AppViewModel, s: GameState): List<BuildOption> =
 /** How far [s] is from its next age, with the learner's words as they stand. */
 @Composable
 fun rememberAdvanceCheck(vm: AppViewModel, s: GameState): AdvanceCheck =
-    remember(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.wordsRusty) {
-        GameEngine.advanceCheck(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.wordsRusty)
+    remember(s, vm.content.wordsKnown, vm.content.targetLevel, vm.content.targetNext, vm.content.wordsRusty) {
+        GameEngine.advanceCheck(s, vm.content.wordsKnown, vm.content.targetAt(s.age), vm.content.wordsRusty)
     }
 
 /**

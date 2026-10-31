@@ -75,6 +75,8 @@ data class ProgressStats(
     val name: String,
     val level: String,
     val targetLevel: String,
+    /** A raised target that starts with the village's next age (learner.target_level_next), null when none waits. */
+    val targetNext: TargetNext? = null,
     val nextLevel: String,
     /** The words for [nextLevel] ([Stats.vocabGoal] of [level]). */
     val nextGoal: Int,
@@ -360,7 +362,8 @@ object Stats {
             today = today,
             name = learner.str("name") ?: "",
             level = level,
-            targetLevel = learner.str("target_level") ?: "B2",
+            targetLevel = TargetNext.target(learner["target_level"]),
+            targetNext = TargetNext.parse(learner["target_level_next"]),
             nextLevel = nextLevel(level),
             nextGoal = goal,
             wordsKnown = known,

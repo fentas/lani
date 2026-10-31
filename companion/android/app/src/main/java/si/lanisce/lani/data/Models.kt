@@ -606,6 +606,7 @@ data class ReviewMark(val day: java.time.LocalDate, val quality: Int, val level:
 data class Dashboard(
     val name: String,
     val level: String,
+    /** The level the village's ages lead to (learner.target_level; B2 when the profile names none). */
     val targetLevel: String,
     val streak: Int,
     val achievements: Int,
@@ -634,6 +635,11 @@ data class Dashboard(
      * item the app can't show as a card (no answer) isn't here, so it holds nothing back.
      */
     val rusty: List<ReviewCard> = emptyList(),
+    /**
+     * A raised target that starts with the village's next age (learner.target_level_next): the step the village is on
+     * keeps [targetLevel]'s words ([si.lanisce.lani.game.Aims]); null when none waits.
+     */
+    val targetNext: TargetNext? = null,
     /** The learner's languages (learner profile): their town's (target) and the one explaining (base); sl · en by default. */
     val pair: LangPair = LangPair.DEFAULT,
     /**
@@ -823,7 +829,8 @@ data class Dashboard(
             return Dashboard(
                 name = learner.str("name") ?: "",
                 level = learner.str("current_level") ?: "A1",
-                targetLevel = learner.str("target_level") ?: "B2",
+                targetLevel = TargetNext.target(learner["target_level"]),
+                targetNext = TargetNext.parse(learner["target_level_next"]),
                 streak = profile.int("current_streak_days"),
                 achievements = (profile["achievements"] as? JsonArray)?.size ?: 0,
                 // XP is derived, never stored: 10 per correct answer, 25 per session.

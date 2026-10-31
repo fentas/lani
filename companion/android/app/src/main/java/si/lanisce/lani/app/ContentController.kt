@@ -49,6 +49,15 @@ class ContentController(
     /** The learner's target level (the last age of the village is reached with it). */
     val targetLevel: String get() = dashboard?.targetLevel ?: si.lanisce.lani.game.Catalog.DEFAULT_TARGET
 
+    /** A raised target that starts with the village's next age (learner.target_level_next), null when none waits. */
+    val targetNext: si.lanisce.lani.data.TargetNext? get() = dashboard?.targetNext
+
+    /**
+     * The target the village's step from [age] counts with ([si.lanisce.lani.game.Aims.at]): [targetLevel], or the raised
+     * one once the village has reached its age, before the bridge has applied it in the profile (offline too).
+     */
+    fun targetAt(age: si.lanisce.lani.game.Age): String = si.lanisce.lani.game.Aims.at(targetLevel, targetNext, age)
+
     /**
      * Review answers ([results]: item id → quality) the node hasn't counted yet: a rusty word answered right is
      * polished at once, and one not learned yet learned, so the village's next age and a building's upgrade don't wait
