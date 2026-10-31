@@ -314,8 +314,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        (QA's hook "school:reveal"), Maestra Elena preparing the next lessons while some are planned, else
                        A1 done in one line; the school's card on the map and "🚪 Entra" into A scuola at 10 o'clock, the
                        roll call on (no «Vedo, vedo» offered during it); "friuli-school-unit" (the same learner, a run of its
-                       own: each is about 8 minutes) the unit ciao end to end ("school:ciao"), kept done; both also as
-                       fs-*.png in $LANI_QA_FRIULI_SHOTS; "friuli-watchtower" (only when named; the same learner)
+                       own: each is about 8 minutes) a unit end to end, $LANI_QA_IT_UNIT (ciao by default; an A2 unit
+                       after the school with A1 done), kept done, then its sheet printed (fit.js as in Chromium, the PDF);
+                       both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "friuli-watchtower" (only when named; the same learner)
                        Teo's watchtower at level 2 (QA's hook "hearths:trg"): its card on the map and "🚪 Entra" into
                        Sulla torre, closer up, on the tablet, «Vedo, vedo» (the horn), Davide's lookout in the evening
                        (fw-*.png there too);
@@ -7316,7 +7317,9 @@ def school_b1():
 
 
 QA_UNIT = os.environ.get("LANI_QA_UNIT", "pogojnik-polno")  # the unit "school-unit" plays (a B1 unit by default)
+IT_UNIT = os.environ.get("LANI_QA_IT_UNIT", "ciao")  # the Italian unit "friuli-school-unit" plays (A1's first by default)
 ASCII = str.maketrans("čšžćđČŠŽĆĐ", "cszcdCSZCD")  # what adb can type: č, š, ž forgotten is almost right (half an item)
+IT_ASCII = str.maketrans("àèéìòùÀÈÉÌÒÙ", "aeeiouAEEIOU")  # the same for Italian's accents
 
 
 def unit_text(s: str) -> str:
@@ -7502,19 +7505,22 @@ def friuli_school(part: str = "scene"):
     planned (else A1 done in one line), the rest of A1 folded; the village: the school's building on the map, its card's "🚪 Entra · Geh hinein" into "A scuola" at 10
     o'clock (QA's hooks "hour:10", "happening:a-scuola/appello"): Maestra Elena at the board in the Friuli classroom (the
     map of Friuli, the tricolore), closer up. [part] "unit" (the step friuli-school-unit, a run of its own: together
-    they take longer than one run should): "school:ciao" (the unit as never begun) and the unit ciao end to end from its
-    file (its texts in German): its intro's quick questions (a gap typed into the step's field), the summary, its first
-    worksheet, its test straight away, passed: the dev bridge's village keeping it/ciao done. Also as fs-*.png in
-    $LANI_QA_FRIULI_SHOTS."""
+    they take longer than one run should): the school with A1 done ("school:reveal"), then "school:<unit>" (the unit as
+    never begun, its level open) and the unit end to end from its file (its texts in German): $LANI_QA_IT_UNIT, ciao by
+    default (an A2 unit: riflessivi …); its intro's quick questions (a gap typed into the step's field), the summary, its
+    first worksheet (a table's cells too), its test straight away, passed: the dev bridge's village keeping it done; then
+    its sheet printed from the unit ("🖨️ Stampa la scheda"): fit.js in the WebView choosing as headless Chromium does,
+    the dialog's preview, the PDF saved through it (A4, its pages as chosen). Also as fs-*.png in $LANI_QA_FRIULI_SHOTS."""
     try:
         culture = api("/culture").get("id")
     except (OSError, RuntimeError, ValueError):
         culture = None
     if culture != "friuli":
         return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
-    path = ROOT / "companion/course/it/units/ciao.json"
+    unit = IT_UNIT if part == "unit" else "ciao"
+    path = ROOT / f"companion/course/it/units/{unit}.json"
     if not path.exists():
-        return f"no unit ciao here ({path})"
+        return f"no unit {unit} here ({path})"
     pair = ["it", "de"]
     u = based(json.loads(path.read_text()), pair[1])
     out = Path(os.environ["LANI_QA_FRIULI_SHOTS"]) if os.environ.get("LANI_QA_FRIULI_SHOTS") else None
@@ -7563,8 +7569,9 @@ def friuli_school(part: str = "scene"):
         return None
 
     def typed(s: str) -> str:
-        """What adb types of an answer: the learner's name in, the punctuation at its end left out (graded without it)."""
-        return re.sub(r"[!?.,]+$", "", unit_text(s)).translate(ASCII)
+        """What adb types of an answer: the learner's name in, the punctuation at its end left out (graded without it),
+        an accent left out (adb types no à, è: almost right, half an item)."""
+        return re.sub(r"[!?.,]+$", "", unit_text(s)).translate(ASCII).translate(IT_ASCII)
 
     check, nxt = lab("playerScreen.check"), lab("common.next")
 
@@ -7585,6 +7592,12 @@ def friuli_school(part: str = "scene"):
                 for w in col["words"]:
                     assert tap(unit_text(w), 4), f"{where}: the word «{w}»"
                     assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
+        elif kind == "table":
+            for r in e["rows"]:
+                for c, cell in enumerate(r["cells"]):
+                    if isinstance(cell, dict):  # TalkBack's name of a cell: "<row>, <column>" (its column in the base)
+                        label = f'{r["label"]}, {e["columns"][c]}'
+                        assert fill(label, typed(cell["accept"][0])), f"{where}: the cell {label}"
         else:
             raise AssertionError(f"{where}: QA doesn't play a {kind} here")
         assert tap_above(check, 2400), f"{where}: check"
@@ -7729,9 +7742,20 @@ def friuli_school(part: str = "scene"):
             qa_hook("happening:")
             qa_hook("hour:")
         else:
-            # --- the unit ciao end to end -------------------------------------------------------------------------------
-            qa_hook("school:ciao")
+            # --- the school with A1 done (and A2's first unit done, the next begun), then the unit end to end -----------
+            if u["level"] != "A1":
+                qa_hook("school:reveal")
+                assert wait_for(half("school.level", level="A1"), 15), "the school's levels"
+                time.sleep(1.5)
+                snap("fs-school-a1-done")
+                c = scroll_to(half("school.level", level=u["level"]), 12)
+                assert c is not None, f"the level {u['level']}"
+                time.sleep(1)
+                snap(f"fs-school-{u['level'].lower()}")
+            qa_hook(f"school:{unit}")  # the unit as never begun, its level open, the units before it in its level done
             assert wait_for(half("school.level", level="A1"), 15), "the school's levels"
+            if u["level"] != "A1":
+                assert scroll_to(half("school.level", level=u["level"]), 12) is not None, f"the level {u['level']}"
             title = unit_text(u["title"]["it"])
             c = scroll_to(title, 10)
             assert c is not None, f"the unit «{title}», next"
@@ -7809,7 +7833,37 @@ def friuli_school(part: str = "scene"):
                 if done and done.get("done"):
                     break
                 time.sleep(2)
-            assert done and done.get("done"), f"the dev bridge's village keeps it/ciao done ({done})"
+            assert done and done.get("done"), f"the dev bridge's village keeps it/{unit} done ({done})"
+            # --- its sheet printed from the unit: fit.js in the WebView as in Chromium, the dialog, the PDF ---------------
+            adb("logcat", "-c")
+            c = scroll_to(half("school.printSheet"), 8) or find(half("school.printSheet"))
+            assert c is not None, "🖨️ Stampa la scheda on the unit"
+            snap("fs-print-button")
+            course = json.loads((ROOT / "companion/course/it/course.json").read_text())
+            level = next(lv for lv in course["levels"] if lv["level"] == u["level"])
+            written = [x["id"] for x in level["units"] if not x.get("planned") and (ROOT / f"companion/course/it/units/{x['id']}.json").exists()]
+            job = f"Lani – {u['level']} – {written.index(unit) + 1:02d} {unit}"
+            tap_at(c)
+            assert print_dialog(), "the print dialog"
+            time.sleep(4 * slow())
+            snap("fs-print-preview")
+            app, chrome = webview_fit(job), chromium_fit(f"/course/sheet/{unit}?base=de", f"fs-print-{unit}")
+            (OUT / f"fs-print-fit.txt").write_text(f"{job}\n  WebView:  {json.dumps(app)}\n  Chromium: {json.dumps(chrome)}\n")
+            assert app is not None, f"fit.js's choice in the log (LaniPrint, {job})"
+            assert chrome is None or same_fit(app, chrome), f"fit.js chose otherwise in the WebView ({app}) than in Chromium ({chrome})"
+            pdf = save_pdf(job, f"fs-print-{unit}.pdf")
+            assert pdf is not None, "the PDF saved through the print dialog"
+            info = sh("pdfinfo", str(pdf), check=False) if shutil.which("pdfinfo") else ""
+            pages = int(m.group(1)) if (m := re.search(r"^Pages:\s+(\d+)", info, re.M)) else None
+            assert pages is None or pages == app[0]["pages"], f"the PDF has {pages} pages, fit.js chose {app[0]['pages']}"
+            assert not info or "A4" in info, "the PDF is A4"
+            if shutil.which("pdftoppm"):
+                first = OUT / f"{len(shots) + 1:02d}-fs-print-pdf.png"
+                sh("pdftoppm", "-png", "-r", "60", "-f", "1", "-l", "1", "-singlefile", str(pdf), str(first.with_suffix("")), check=False)
+                if first.exists():
+                    shots.append(first)
+                    if out is not None:
+                        shutil.copy(first, out / "fs-print-pdf.png")
     finally:
         qa_hook("happening:")
         qa_hook("hour:")
@@ -8118,9 +8172,10 @@ def guidance_home():
 
 
 def friuli_school_unit():
-    """The Friuli village's school for Teo, its unit ciao end to end (friuli_school's [part] "unit"; the same synthetic
-    learner and env, a run of its own): "school:ciao", the intro's quick questions, the summary, the first worksheet,
-    the test straight away, passed; the dev bridge's village keeping it/ciao done."""
+    """The Friuli village's school for Teo, a unit end to end (friuli_school's [part] "unit"; the same synthetic learner
+    and env, a run of its own): $LANI_QA_IT_UNIT (ciao by default; an A2 unit after the school with A1 done),
+    "school:<unit>", the intro's quick questions, the summary, the first worksheet, the test straight away, passed; the
+    dev bridge's village keeping it done; its sheet printed."""
     return friuli_school("unit")
 
 
