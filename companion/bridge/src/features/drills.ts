@@ -6,7 +6,7 @@ import { json } from '../http'
 
 export const drills: FeatureFactory = ({ drills: store }) => ({
   routes: [
-    { method: 'GET', path: '/drills', addressed: true, handle: () => json(store.all()) },
+    { method: 'GET', path: '/drills', addressed: true, areas: ['content'], handle: () => json(store.all()) },
     {
       method: 'GET',
       path: /^\/drills\/([a-z0-9-]+)$/,

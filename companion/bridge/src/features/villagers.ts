@@ -100,7 +100,7 @@ export const villagers: FeatureFactory = ctx => {
     instructions: villagersInstructions(place, villagers.all(), LANGUAGES[place.target] ?? place.target),
     routes: [
       // a line's `when` only to an app that reads it (it says its time of day); an older one gets the lines without
-      { method: 'GET', path: '/villagers', addressed: true, handle: ({ url }) => json(villagers.all().map(v => (readsWhen(url) ? v : withoutWhen(v)))) },
+      { method: 'GET', path: '/villagers', addressed: true, areas: ['content'], handle: ({ url }) => json(villagers.all().map(v => (readsWhen(url) ? v : withoutWhen(v)))) },
       {
         method: 'GET',
         path: /^\/villagers\/([a-z0-9-]+)$/,

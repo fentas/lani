@@ -14,7 +14,7 @@ publish_module / list_modules / get_module / rollback_module. Never write module
 export const modules: FeatureFactory = ({ modules: store, events, voice, grammar, addressee, game }) => ({
   instructions,
   routes: [
-    { method: 'GET', path: '/modules', addressed: true, handle: () => json(store.list()) },
+    { method: 'GET', path: '/modules', addressed: true, areas: ['content'], handle: () => json(store.list()) },
     {
       method: 'GET',
       path: /^\/modules\/([a-z0-9-]+)$/,

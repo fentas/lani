@@ -358,6 +358,7 @@ export const friendship: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, g
         // every linked town's friendship, as both towns agree it (each is asked for its counts now, 3 s)
         method: 'GET',
         path: '/towns/friendship',
+        areas: ['towns', 'village', 'learner', 'content'],
         handle: async () => {
           const rows = await Promise.all(store.links().map(async l => row(l, await friends.with(l))))
           return json({ self: { id: self, child: profile.child, language }, levels: FRIEND_LEVELS, points: FRIEND_POINTS, feast_days: FEAST_DAYS, towns: rows })

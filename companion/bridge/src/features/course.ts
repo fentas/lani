@@ -153,6 +153,7 @@ export const course: FeatureFactory = ({ course: store, prints, grammar, game, e
       {
         method: 'GET',
         path: '/course',
+        areas: ['content'],
         addressed: true,
         handle: () => {
           const c = store.served()

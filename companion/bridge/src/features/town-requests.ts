@@ -252,6 +252,7 @@ export const townRequests: FeatureFactory = ({ cfg, townKey: key, profile, cultu
       {
         method: 'GET',
         path: '/towns/children',
+        areas: ['towns', 'content'],
         handle: async () => {
           if (profile.child) return json({ children: [], can_link_local: false })
           const out = new Map<string, Child>()

@@ -3,6 +3,7 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { mentionsLearner, renderDeep, type Addressee } from './addressee'
+import type { Area } from './changes'
 import type { Log } from './config'
 
 /** Who is asking: the app (Jan's token), the family page (the family token), or nobody. */
@@ -24,6 +25,12 @@ export type Route = {
    * ([addressed], addressee.ts) before it goes out.
    */
   addressed?: boolean
+  /**
+   * The areas of what the bridge serves that this GET's answer depends on (changes.ts: the learner's own data, the
+   * village, the towns, the family's, the content): its answer says their versions (Lani-Areas), and the app asks again
+   * only once one of them moved. None: the app asks again whenever anything moved.
+   */
+  areas?: readonly Area[]
   handle: (c: RouteCtx) => Response | Promise<Response>
 }
 

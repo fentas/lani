@@ -26,6 +26,7 @@ export const culture: FeatureFactory = ({ culture, log, profile }) => {
       {
         method: 'GET',
         path: '/culture',
+        areas: ['content'],
         handle: () => json({
           id: culture.id,
           ...(culture.wanted !== culture.id ? { wanted: culture.wanted, why: culture.why } : {}),

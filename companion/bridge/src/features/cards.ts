@@ -34,7 +34,7 @@ export const cards: FeatureFactory = ({ cards: store, grammar: book, game, event
   return {
     instructions,
     routes: [
-      { method: 'GET', path: '/cards', addressed: true, handle: () => json(store.all()) },
+      { method: 'GET', path: '/cards', addressed: true, areas: ['content'], handle: () => json(store.all()) },
       {
         method: 'GET',
         path: /^\/cards\/([a-z0-9-]+)$/,

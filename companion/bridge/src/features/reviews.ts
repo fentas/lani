@@ -344,6 +344,7 @@ export const reviews: FeatureFactory = ({ cfg, learner, channel, outbox, culture
       {
         method: 'GET',
         path: '/state',
+        areas: ['learner'],
         // ?language=it: that language's databases (the same shape); always with every language's summary (languages)
         // and what this bridge takes (features: an app sends a dialog's words only when "dialog-words" is there)
         handle: ({ url }) => {

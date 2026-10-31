@@ -196,7 +196,7 @@ export const voice: FeatureFactory = ctx => {
     },
     instructions: voiceInstructions,
     routes: [
-      { method: 'GET', path: '/voice/index', access: 'any', handle: () => json(voice.index()) },
+      { method: 'GET', path: '/voice/index', access: 'any', areas: ['content'], handle: () => json(voice.index()) },
       {
         method: 'GET',
         path: /^\/voice\/file\/([^/]+)$/,
@@ -244,7 +244,7 @@ export const voice: FeatureFactory = ctx => {
       { method: 'POST', path: '/voice/prepare', handle: ({ req }) => handlePrepare(req) },
       { method: 'GET', path: '/voice/status', handle: async () => json({ ...(await voice.status(voiceCorpus(ctx))), profiles: views().people }) },
       // Everyone's voice: their speaker (their own "@id", else their archetype) and the pitch and pace to play it with.
-      { method: 'GET', path: '/voice/profiles', handle: () => json(views()) },
+      { method: 'GET', path: '/voice/profiles', areas: ['content'], handle: () => json(views()) },
       // The learner's own voice ("🗣️ Moj glas · My voice"): the voices offered them (their gender's, their age's), the one
       // in effect, whether they have chosen, and the sample line their ▶ says.
       { method: 'GET', path: '/learner/voice', handle: () => json(myVoiceNow()) },

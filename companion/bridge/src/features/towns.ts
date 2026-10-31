@@ -735,6 +735,7 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
       {
         method: 'GET',
         path: '/towns',
+        areas: ['towns', 'content'],
         handle: async () => {
           const rows = await Promise.all(
             store.links().map(async l => {
@@ -791,6 +792,7 @@ export const towns: FeatureFactory = ({ cfg, townKey: bridgeKey, profile, game, 
         // what guests brought this town, newest first: the app applies each once (GameState.guestbook) and shows them
         method: 'GET',
         path: '/towns/guests',
+        areas: ['towns', 'content'],
         handle: () => json({ entries: guests.entries().slice(-100).reverse() }),
       },
       {

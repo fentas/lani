@@ -174,6 +174,7 @@ export const cases: FeatureFactory = ({ cases: store, learner, channel, events, 
       {
         method: 'GET',
         path: '/cases',
+        areas: ['content'],
         addressed: true,
         handle: () => {
           const s = slovene ? store.served() : null

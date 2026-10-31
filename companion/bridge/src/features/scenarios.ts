@@ -58,7 +58,7 @@ at the post office"), load lani-studio and use publish_scenario.
 export const scenarios: FeatureFactory = ({ scenarios, events, voice, addressee, cfg, culture, profile }) => ({
   instructions: (p => scenariosInstructions(p.target, p.base))(talkPlace({ cfg, culture, profile })),
   routes: [
-    { method: 'GET', path: '/scenarios', addressed: true, handle: () => json(scenarios.all()) },
+    { method: 'GET', path: '/scenarios', addressed: true, areas: ['content'], handle: () => json(scenarios.all()) },
     {
       method: 'GET',
       path: /^\/scenarios\/([a-z0-9-]+)$/,

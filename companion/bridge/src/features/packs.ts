@@ -81,6 +81,7 @@ export const packs: FeatureFactory = ({ packs, learner, channel, events, outbox,
       {
         method: 'GET',
         path: '/packs',
+        areas: ['learner', 'content'],
         addressed: true,
         handle: () => {
           const items = learner.srItems()

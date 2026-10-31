@@ -309,6 +309,7 @@ export const townQuestions: FeatureFactory = ({ cfg, townKey: bridgeKey, profile
         // both sides, newest first; answers that didn't reach their town yet are sent again first
         method: 'GET',
         path: '/towns/questions',
+        areas: ['towns', 'content'],
         handle: async () => {
           const waiting = book.received().filter(q => q.answer && !q.answer.sent && store.get(q.from.id))
           if (waiting.length) await Promise.all(waiting.slice(-5).map(q => deliver(q.key, 3_000)))

@@ -74,7 +74,7 @@ export const grammar: FeatureFactory = ({ grammar: book, modules, game, events, 
     // Jan's paragraph as written; a village in another language says whose book it is
     instructions: own === 'sl' ? instructions : `${instructions}\n${otherBook(own, LANGUAGES[own] ?? own, book.curated().length)}`,
     routes: [
-      { method: 'GET', path: '/grammar', addressed: true, handle: () => json(book.all()) },
+      { method: 'GET', path: '/grammar', addressed: true, areas: ['content'], handle: () => json(book.all()) },
       {
         method: 'GET',
         path: /^\/grammar\/([a-z0-9-]+)$/,

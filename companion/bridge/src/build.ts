@@ -390,8 +390,8 @@ export function appApi(b: Pick<BuiltBridge, 'ctx' | 'isApp' | 'features'>): { ro
   const roleOf = (req: Request): Role => (isApp(req) || ctx.devices.authorize(req) ? 'app' : ctx.family.authorized(req) ? 'family' : null)
   // the app's writes are refused (423) while another side holds the learner's data (the lease: lease.ts)
   // a GET's JSON answer has its ETag, and the same answer asked again with it is a 304 (changes.ts: conditional); GET /changes
-  // says whether anything the reads come from moved
-  const routes = conditional(guardRoutes(addressed([health, changesRoute(ctx.changes), ...features.flatMap(f => f.routes ?? [])], ctx.addressee), ctx.lease))
+  // says whether anything the reads come from moved, and what of it (its areas: what each read depends on says their versions)
+  const routes = conditional(guardRoutes(addressed([health, changesRoute(ctx.changes), ...features.flatMap(f => f.routes ?? [])], ctx.addressee), ctx.lease), ctx.changes)
   return { routes, roleOf }
 }
 

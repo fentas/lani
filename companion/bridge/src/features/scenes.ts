@@ -218,6 +218,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       {
         method: 'GET',
         path: '/scenes',
+        areas: ['content'],
         addressed: true,
         handle: ({ url }) => {
           const told = stories.resolved()
