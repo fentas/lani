@@ -179,6 +179,11 @@ export type NewLearner = {
   gender?: 'male' | 'female'
   /** Minutes a day (default 30, a child's 15). */
   goal?: number
+  /**
+   * The aim, "🎯 Cilj · Aim" in the app's setup (docs/plans/05-built/setup-refresh.md): the CEFR level the village's ages
+   * lead to. Taken when it is above [level] (C2 at C2); else the default.
+   */
+  targetLevel?: string
   /** Where the tutor's session result files go (default: next to the data, ../results). */
   results?: string
 }
@@ -218,7 +223,7 @@ export function initLearnerData(projectDir: string, dataDir: string, l: NewLearn
       target_language: target,
       target_language_code: l.target,
       current_level: level,
-      target_level: ({ A1: 'A2', A2: 'B1', B1: 'B2', B2: 'C1', C1: 'C2' } as Record<string, string>)[level] ?? 'C2',
+      target_level: aimOf(level, l.targetLevel) ?? ({ A1: 'A2', A2: 'B1', B1: 'B2', B2: 'C1', C1: 'C2' } as Record<string, string>)[level] ?? 'C2',
       daily_goal_minutes: l.goal ?? (l.child ? 15 : 30),
       learning_style: 'balanced',
       motivation: 'family',
@@ -231,6 +236,16 @@ export function initLearnerData(projectDir: string, dataDir: string, l: NewLearn
     achievements: [{ id: 'profile_created', name: 'Getting Started', earned_date: date, description: 'Created your learning profile' }],
   }
   writeFileSync(join(dataDir, 'learner-profile.json'), JSON.stringify(profile, null, 2) + '\n')
+}
+
+const CEFR = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
+/** [aim] as an aim for a learner at [level]: a CEFR level above it (C2 at C2), else undefined. */
+export function aimOf(level: string, aim: string | undefined): string | undefined {
+  const a = aim?.trim().toUpperCase() ?? ''
+  const i = CEFR.indexOf(a)
+  const l = CEFR.indexOf(level.trim().toUpperCase())
+  return i >= 0 && (i > l || (i === l && a === 'C2')) ? a : undefined
 }
 
 /** A new registry entry for [id], with its ports and names picked; the caller writes the registry. */

@@ -1,12 +1,14 @@
 // The level-up ("🗺️ Zemljevid zaklada · The treasure map"): the app's treasure hunt tests the end of the learner's level
 // and, passed, posts the next level (POST /level). Persisted like a flashcard review: update-db.py sets the language's
 // current_level and level_since, no LLM; the tutor hears it and plans the new level.
+import { readFileSync, renameSync, writeFileSync } from 'node:fs'
+import { join } from 'node:path'
 import { z } from 'zod'
 import type { FeatureFactory } from '../feature'
 import { titleEn } from '../grammar'
 import { json, readJson } from '../http'
 import { languageParam } from '../learner'
-import { LANGUAGES } from '../learners'
+import { aimOf, LANGUAGES } from '../learners'
 
 const instructions = `
 Level-ups: the app offers "🗺️ Zemljevid zaklada · The treasure map" once the learner is ready (most of the level's
@@ -88,7 +90,53 @@ export function levelPayload(d: LevelUp, o: { session_id: string; date: string; 
   }
 }
 
-export const level: FeatureFactory = ({ learner, channel, outbox, grammar }) => {
+/** POST /learner/target: the aim ("🎯 Cilj · Aim"), a CEFR level. */
+const targetIn = z.object({ level: cefr })
+
+/**
+ * The aim in [dataDir]'s learner profile: `learner.target_level` = [aim], everything else as it is (read just before,
+ * written beside it and renamed over it). Throws when there's no profile.
+ */
+export function writeTarget(dataDir: string, aim: string) {
+  const path = join(dataDir, 'learner-profile.json')
+  const p = JSON.parse(readFileSync(path, 'utf8'))
+  if (!p?.learner || typeof p.learner !== 'object') throw new Error("learner-profile.json has no learner")
+  p.learner.target_level = aim
+  const tmp = `${path}.target.tmp`
+  writeFileSync(tmp, JSON.stringify(p, null, 2) + '\n')
+  renameSync(tmp, path)
+}
+
+export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, grammar }) => {
+  /** The home language's level and aim, as the profile says them. */
+  function aimNow() {
+    const l = learner.state().databases?.learner_profile?.learner
+    const current = levelOf(l?.current_level) ?? 'A1'
+    return { level: current, target: levelOf(l?.target_level) ?? null }
+  }
+
+  /**
+   * POST /learner/target {level}: the aim the app's setup chose ("🎯 Cilj · Aim", docs/plans/05-built/setup-refresh.md),
+   * kept as the profile's target_level at once: the village's ages follow it (the words each age needs). A level at or
+   * below the learner's is refused (C2 at C2 is fine). It writes the learner's data: the lease guards it.
+   */
+  function handleTarget(body: unknown): Response {
+    const r = targetIn.safeParse(body)
+    if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
+    const now = aimNow()
+    const aim = aimOf(now.level, r.data.level)
+    if (!aim) return json({ error: `an aim above the learner's level (${now.level})`, code: 'not_above' }, 400)
+    if (aim === now.target) return json({ ...now, already: true })
+    try {
+      writeTarget(cfg.dataDir, aim)
+    } catch (e) {
+      return json({ error: `the aim couldn't be kept: ${(e as Error).message}`, code: 'not_kept' }, 409)
+    }
+    log(`aim: ${now.target ?? '-'} → ${aim}`)
+    return json({ level: now.level, target: aim })
+  }
+
+
   async function handleLevel(req: Request): Promise<Response> {
     const r = levelUp.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
@@ -119,6 +167,11 @@ export const level: FeatureFactory = ({ learner, channel, outbox, grammar }) => 
 
   return {
     instructions,
-    routes: [{ method: 'POST', path: '/level', handle: ({ req, url }) => outbox.once(req, url.pathname, handleLevel) }],
+    routes: [
+      { method: 'POST', path: '/level', handle: ({ req, url }) => outbox.once(req, url.pathname, handleLevel) },
+      // the aim ("🎯 Cilj · Aim"): the learner's level and target_level; the app's setup sets it
+      { method: 'GET', path: '/learner/target', handle: () => json(aimNow()) },
+      { method: 'POST', path: '/learner/target', handle: async ({ req }) => handleTarget(await readJson(req)) },
+    ],
   }
 }

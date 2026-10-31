@@ -1,6 +1,7 @@
 // Smoke checks: the level-up (features/level.ts): the treasure map passed in the app (POST /level) is persisted via
 // update-db.py (current_level and level_since; once, by client_id and by the level), the tutor hears level_up with the
-// new level's grammar pages; a level that isn't the next one, or a bad station, is refused.
+// new level's grammar pages; a level that isn't the next one, or a bad station, is refused. The aim (GET and POST
+// /learner/target): kept as target_level, refused at or below the level.
 import { auth, base, channelEvents, check, guideOf } from './harness'
 
 const stations = [
@@ -92,4 +93,20 @@ export default async function level() {
 
   const guide = await guideOf()
   check('the channel guide says how level-ups happen: the treasure map, level_up already persisted', guide.includes('Zemljevid zaklada') && guide.includes('level_up') && guide.includes('Sem pripravljen'))
+
+  // --- the aim (the app's setup: docs/plans/05-built/setup-refresh.md) ----------------------------------------------
+  const aim = (body: object) => fetch(`${base}/learner/target`, { method: 'POST', headers: auth, body: JSON.stringify(body) })
+  const got = await (await fetch(`${base}/learner/target`, { headers: auth })).json()
+  check('GET /learner/target: the level and the aim the profile says', got.level === 'A2' && typeof got.target === 'string', got)
+  const set = await aim({ level: 'b2' })
+  const sb = await set.json()
+  const after = (await state()).databases.learner_profile.learner
+  check('POST /learner/target {B2}: the aim kept as target_level, the level as it was', set.ok && sb.target === 'B2' && after.target_level === 'B2' && after.current_level === 'A2', { sb, after })
+  const again = await (await aim({ level: 'B2' })).json()
+  check('… the same aim again: already', again.already === true && again.target === 'B2', again)
+  for (const [label, body] of [['the level itself', { level: 'A2' }], ['a level below', { level: 'A1' }], ['not a level', { level: 'A3' }]] as const) {
+    const res = await aim(body)
+    check(`POST /learner/target refuses ${label} (400)`, res.status === 400, await res.json())
+  }
+  check('… and kept B2', (await state()).databases.learner_profile.learner.target_level === 'B2')
 }

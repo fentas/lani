@@ -8,7 +8,7 @@ import { spawnSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { adoptEnvFile, learnerSetting, parseEnvFile, readEnvFile, setting } from '../../src/env'
-import { initLearnerData, learnerFacts } from '../../src/learners'
+import { aimOf, initLearnerData, learnerFacts } from '../../src/learners'
 import { releaseDir, releaseDirs, resultsDirOf, voiceDir } from '../../src/paths'
 import { check, culturesDir, port as smokePort, tempDir } from './harness'
 
@@ -81,6 +81,14 @@ export default async function setup() {
   initLearnerData(repo, data, { name: 'Ana', target: 'sl', base: 'en', gender: 'female', goal: 20, results: join(data, 'results') })
   const profile = JSON.parse(readFileSync(join(data, 'learner-profile.json'), 'utf8'))
   check("initLearnerData: the learner's gender and daily goal; results inside the data", profile.learner.gender === 'female' && profile.learner.daily_goal_minutes === 20 && existsSync(join(data, 'results')) && !existsSync(join(data, '..', 'results')), profile.learner)
+  // the aim the app's setup chose (docs/plans/05-built/setup-refresh.md): taken when above the level, else the default
+  const aimed = (level: string, targetLevel?: string) => {
+    const d = tempDir('lani-smoke-setup-aim-')
+    initLearnerData(repo, d, { name: 'Teo', target: 'it', base: 'de', level, child: true, ...(targetLevel ? { targetLevel } : {}), results: join(d, 'results') })
+    return JSON.parse(readFileSync(join(d, 'learner-profile.json'), 'utf8')).learner.target_level
+  }
+  check('initLearnerData: the aim chosen at setup is the target level (above the level; C2 at C2)', aimed('A1', 'B2') === 'B2' && aimed('B2', 'C1') === 'C1' && aimed('C2', 'C2') === 'C2' && aimOf('A1', 'b1') === 'B1')
+  check('… an aim at or below the level, or none, leaves the default', aimed('B1', 'A2') === aimed('B1') && aimed('B1', 'B1') === aimed('B1') && aimOf('B1', 'X9') === undefined)
   mkdirSync(join(data, '.git'), { recursive: true }) // a data repository, as lani-setup makes it (only its root matters here)
   const childEnv: Record<string, string> = {}
   for (const [k, v] of Object.entries(process.env)) if (v !== undefined && !k.startsWith('LANI_') && !k.startsWith('FLUENT_') && !k.startsWith('XDG_')) childEnv[k] = v

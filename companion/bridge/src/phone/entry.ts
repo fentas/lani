@@ -223,7 +223,7 @@ async function call(id: number) {
 }
 
 /** What the hosted mode's onboarding asks (the app's setup, as lani-setup asks it: cli/setup.ts). */
-type NewLearnerAnswers = { name: string; gender?: string; target: string; base: string; level?: string; goal?: number }
+type NewLearnerAnswers = { name: string; gender?: string; target: string; base: string; level?: string; goal?: number; targetLevel?: string }
 
 /**
  * A new learner's data in the app's data directory, before the bridge is booted (its stores read the profile when they
@@ -242,6 +242,7 @@ function initLearner(answers: string): string {
   const gender = (GENDERS as readonly string[]).includes(a.gender ?? '') ? (a.gender as (typeof GENDERS)[number]) : undefined
   initLearnerData(c.projectDir, c.dataDir, {
     name, target: a.target, base: a.base, level: a.level || 'A1', goal: a.goal && a.goal > 0 ? a.goal : undefined,
+    ...(typeof a.targetLevel === 'string' ? { targetLevel: a.targetLevel } : {}),
     ...(gender ? { gender } : {}), culture, results: join(c.dataDir, 'results'),
   })
   return JSON.stringify({ culture, language: a.target })
