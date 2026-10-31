@@ -25,7 +25,9 @@ internal object CuratedContent {
 
     /** "pack/word" → the word's emoji, of every pack (Jan's, the Italian ones, the culture packs'). */
     val emojis: Map<String, String?> by lazy {
-        val dirs = listOf(companion.resolve("packs"), companion.resolve("packs/it")) + companion.resolve("cultures").listFiles().orEmpty().map { it.resolve("packs") }
+        // every language's starter packs (German's and English's for Kärnten's and the Lake District's scenes too) and the cultures'
+        val dirs = listOf(companion.resolve("packs"), companion.resolve("packs/it"), companion.resolve("packs/de"), companion.resolve("packs/en")) +
+            companion.resolve("cultures").listFiles().orEmpty().map { it.resolve("packs") }
         dirs.flatMap { it.listFiles { f -> f.extension == "json" }.orEmpty().toList() }.flatMap { f ->
             val p = json.parseToJsonElement(f.readText()).jsonObject
             val id = p.getValue("id").jsonPrimitive.content

@@ -11,7 +11,68 @@ this one: `places-kaernten-rooms` (the kitchen, the Stube, the cellar, the attic
 the tent) and `places-kaernten-outdoors` (the field, the square, the market, the bee house, the church, the gate, the
 watchtower); the looks, the tests, the docs and the QA are this branch's own.
 
-<!-- SCENES -->
+## The way in, before and after
+
+| A Carinthian learner taps … | Before | Now |
+|---|---|---|
+| the tent | its card, no way in | "🚪 Hineingehen · Go in: ⛺ Im Zelt" |
+| the field or the Harpfe | no way in | Auf dem Feld |
+| the linden or the well | no way in | Auf dem Dorfplatz |
+| the hut | no way in | In der Küche |
+| a house | no way in | its room, by who lives there: In der Küche (anyone's), In der Stube (Opa Sepp's), Im Keller (Mostbauer Stefan's, Imker Stanko lodging), Am Dachboden (Kathi and Maxi's), In der Werkstatt (Franz and Jakob's) |
+| the bee house, the palisade, the watchtower, the smithy, the church, the school, the market | no way in | Beim Bienenhaus, Am Tor, Auf dem Wachturm, In der Schmiede, In der Kirche, In der Schule, Auf dem Markt |
+
+The cards read the culture's scenes (`from`), so nothing in the app changed for the doors: the scenes are content, served by
+the bridge as soon as the node's checkout has them.
+
+## The scenes (German with Slovene, English and Italian; A1 first, for an adult)
+
+Every scene machine-written, its `review` saying so and naming what a native speaker should look at; SCENES.md "Scenes of a
+culture pack" has a row for each with what happens there.
+
+| Scene (art, from) | Level | People | Happenings | Dialogs | Turns | Wrong choices (naming a page) | Tap turns | Counting | Pack | I spy things / clues |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `in-der-kueche` In der Küche (`kitchen`; the hut, a house: anyone's) | A1 | Oma Resi, Tante Mitzi, Lena | 6 | 12 | 27 | 28 (15) | 1 | 1 | 15 | 27 / 111 |
+| `in-der-stube` In der Stube (`livingroom`; Opa Sepp's house) | A1 | Opa Sepp, Lena (Bello) | 5 | 12 | 25 | 30 (14) | 4 | 1 | 13 | 16 / 65 |
+| `im-keller` Im Keller (`cellar`; Stefan's) | A2 | Mostbauer Stefan, Imker Stanko | 5 | 10 | 22 | 23 (13) | 1 | 2 | 14 | 15 / 65 |
+| `am-dachboden` Am Dachboden (`attic`; Kathi and Maxi's) | A1 | Wirtin Kathi, Maxi | 5 | 10 | 21 | 22 (14) | 1 | 1 | 13 | 14 / 56 |
+| `in-der-werkstatt` In der Werkstatt (`workshop`; Franz and Jakob's) | A2 | Müller Franz, Jakob | 5 | 10 | 20 | 22 (12) | 2 | 1 | 13 | 15 / 61 |
+| `in-der-schmiede` In der Schmiede (`smithy`) | A2 | Schmied Toni, Maxi, Mostbauer Stefan | 5 | 10 | 21 | 22 (17) | 1 | 1 | 13 | 14 / 57 |
+| `in-der-schule` In der Schule (`school`) | A1 | Lehrerin Eva, Lena, Maxi, Jakob | 6 | 13 | 28 | 31 (12) | 2 | 1 | 12 | 14 / 58 |
+| `im-zelt` Im Zelt (`tent`) | A1 | Hirte Florian, Lena, Jakob | 5 | 10 | 23 | 24 (11) | 1 | 1 | 12 | 12 / 48 |
+| `auf-dem-feld` Auf dem Feld (`field`; the field, the Harpfe) | A1 | Müller Franz, Jakob | 5 | 13 | 30 | 33 (21) | 2 | 2 | 18 | 21 / 88 |
+| `auf-dem-dorfplatz` Auf dem Dorfplatz (`square`; the linden, the well) | A1 | Opa Sepp, Maxi, Lena, Lehrerin Eva, Wirtin Kathi | 6 | 14 | 32 | 35 (24) | 2 | 1 | 13 | 15 / 66 |
+| `auf-dem-markt` Auf dem Markt (`market`) | A2 | Oma Resi, Wirtin Kathi, Mostbauer Stefan | 5 | 14 | 31 | 33 (24) | 2 | 2 | 14 | 16 / 65 |
+| `beim-bienenhaus` Beim Bienenhaus (`apiary`; the bee house) | A1 | Imker Stanko, Opa Sepp, Lena | 5 | 14 | 31 | 32 (22) | 1 | 1 | 16 | 13 / 53 |
+| `in-der-kirche` In der Kirche (`church`) | A2 | Tante Mitzi, Oma Resi, Jakob | 5 | 13 | 27 | 28 (22) | 1 | 1 | 13 | 12 / 53 |
+| `am-tor` Am Tor (`palisade`, at its level) | A1 | Hirte Florian, Schmied Toni, Maxi, Lena | 6 | 12 | 26 | 28 (20) | 2 | 1 | 14 | 15 / 59 |
+| `auf-dem-wachturm` Auf dem Wachturm (`watchtower`) | A2 | Hirte Florian, Maxi, Müller Franz | 5 | 13 | 29 | 31 (26) | 2 | 2 | 13 | 16 / 64 |
+| **15 scenes** | 9 A1, 6 A2 | | **79** | **180** | **393** | **422 (267)** | **25** | **19** | **206 words** | **235 things, 969 clues** |
+
+Across them: every slot of each art a thing, once (`needs` as the Slovene scene of the art has it); every effect of each
+art cued (the square leaves its projects' to them); something on in every month; faces where a line carries a feeling, a
+`puzzled` reaction on the form turns, a why in all four languages on every wrong choice and a reaction that never gives the
+right form away; registers as the cast has them (Sie and "Herr Franz", "Herr Toni", "Frau Kathi", "Frau Lehrerin"; du with
+everyone else); everything that agrees with the learner a gender pair; never Most or Schnaps for a child. The A2 scenes'
+turns test the Perfekt, the dative, the modal verbs, the separable verbs, the Wechselpräpositionen and the subordinate
+clause; a few lines go to B1 (ich hätte gern, könnten Sie, würdest du, weil), each scene's `review` says which.
+Bilingual Carinthia shows where it is natural: Stanko's "Dober dan!" and his bees' Slovene name, Resi counting eggs "ena,
+dve, tri", Lena's Slovene words from the bilingual school, Sepp's mother's "zvon", the Kärntnerlied's Rož, Podjuna, Zila,
+the place names (Villach · Beljak, Klagenfurt · Celovec, Faaker See · Baško jezero), the HONIG · MED sign.
+
+**Words shared between the scenes**: one card wherever a word is met. The workshop's rake is the field's (`auf-dem-feld`
+`rechen`), the gate's ladder the workshop's (`in-der-werkstatt` `leiter`), the workshop's hammer and nail the smithy's;
+where both helpers needed a near word they took distinct ones (die Bank and das Bankerl, die Uhr and die Kirchturmuhr, der
+Ball and der Fußball, die Kiste and die Steige, die Flasche and die Mostflasche).
+
+**For the native check** (the scenes' `review`s have the full lists): the Austrian words (Sparherd, Häferl, Kredenz,
+Polster, Kasten, Scheibtruhe, Hausübung, Zündholz, Kletzen, heuer, gell, Tormann, die Harpfe, der Heiden, Heidensterz, das
+Kraut, der Rechen, in der Früh, Pfiat di, die Jause, das Bankerl, das Kracherl, der Verlängerte, Vergelt's Gott, die
+Steige, das Glöckerl, das Martinigansl, die Ratsche, die Kraxe and der Kraxenträger, die Lade, das Pfeiferl, der
+Zwiebelturm), idioms ("Haben wir zusammen Schweine gehütet?") and invented sayings beside real ones, the Carinthian
+Slovene (Resi's counting, kasnudli, butara, kranjska čebela, lipov čaj, the lake names, "Aja tutaja"), facts (the
+Kufenstechen, the Kirchtagssuppe, the 11.11 at 11:11), and all the Slovene, English and Italian with the women's forms.
+
 
 ## Carinthia's look
 

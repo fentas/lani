@@ -181,17 +181,29 @@ class AlpsLooksTest {
      * scenes, none for German or English yet, then its pack's own): its fire and its horizon, both in its look (the fire's
      * village FireStyle's, the horizon's this art's); no building of it has a scene, so none has "Vstopi · Go in".
      */
-    @Test fun `a Carinthian or a Lake District village goes into its fire and its horizon only, both in its look`() {
+    @Test fun `a Lake District village goes into its fire and its horizon only, a Carinthian one into every building, all in its look`() {
         val companion = listOf(File("../.."), File("..")).first { File(it, "cultures").isDirectory && File(it, "scenes").isDirectory }
         val state = GameEngine.newGame(3, 0L).copy(age = Age.MESTO, buildings = BuildingType.entries.mapIndexed { i, t -> Building("b$i", t, i) })
-        for ((culture, language) in listOf("kaernten" to "de", "lakeland" to "en")) {
-            val dirs = listOf(File(companion, "scenes/$language"), File(companion, "cultures/$culture/scenes")).filter { it.isDirectory }
-            val scenes = dirs.flatMap { d -> d.listFiles { f -> f.extension == "json" }!!.sortedBy { it.name }.map { parseScene(it.readText()) } }
-            assertEquals(culture, setOf("campfire", "alps"), scenes.map { it.art }.toSet())
-            assertEquals(culture, setOf("fire", "spot:horizon"), scenes.flatMap { it.from }.toSet())
-            for (b in state.buildings) assertEquals("$culture ${b.type}", emptyList<String>(), Homes.scenesOf(b, scenes, state).map { it.id })
-            assertTrue(culture, CultureLooks.of(culture).touches("alps"))
+        fun scenes(culture: String, language: String) =
+            listOf(File(companion, "scenes/$language"), File(companion, "cultures/$culture/scenes")).filter { it.isDirectory }
+                .flatMap { d -> d.listFiles { f -> f.extension == "json" }!!.sortedBy { it.name }.map { parseScene(it.readText()) } }
+        val lake = scenes("lakeland", "en")
+        assertEquals(setOf("campfire", "alps"), lake.map { it.art }.toSet())
+        assertEquals(setOf("fire", "spot:horizon"), lake.flatMap { it.from }.toSet())
+        for (b in state.buildings) assertEquals("lakeland ${b.type}", emptyList<String>(), Homes.scenesOf(b, lake, state).map { it.id })
+        assertTrue(CultureLooks.of("lakeland").touches("alps"))
+        // Carinthia since places-kaernten: every building has its place, each in Carinthia's look (the house's rooms by who lives there)
+        val kae = scenes("kaernten", "de")
+        val look = CultureLooks.of("kaernten")
+        for (s in kae) assertTrue("${s.id} (${s.art}) in Carinthia's look", look.touches(s.art))
+        for (b in state.buildings.filter { it.type != BuildingType.HOUSE && it.type != BuildingType.HUT }) {
+            assertTrue("kaernten ${b.type} has a way in", Homes.scenesOf(b, kae, state).isNotEmpty() || kae.none { s -> b.type.name.lowercase() in s.from })
         }
+        val types = kae.flatMap { it.from }.filter { !it.contains(':') && it != "fire" }.toSet()
+        assertEquals(
+            setOf("tent", "field", "kozolec", "well", "lipa", "hut", "house", "beehive", "palisade", "watchtower", "smithy", "church", "school", "market"),
+            types,
+        )
     }
 
     private fun write(c: PixelCanvas, f: File, scale: Int) {
