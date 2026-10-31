@@ -1160,8 +1160,9 @@ the end of the children's game is right now, as people say it.
 
 The arts are the fourth version of the arts (`SceneArt.VERSION` 4, `SCENE_ARTS_VERSION`, `ADDED`): an app of version 3 doesn't
 get their scenes (`forApp`). The sixth (2026-10-31, culture-source) gave three of them a thing Friuli's look alone makes a
-word, `bocce`'s `inn`, `playground`'s `fontanella` and `chapel`'s `altarcandle` (`SceneFixtures.A_LOOK_ONLY`, the bridge's
-`LOOK_ONLY`: the curated Slovene scenes don't name them): an app of version 5 gets their scenes without those things. Each has its Friuli look from the start ([Culture looks](#culture-looks)), and the Friuli village has
+word, `bocce`'s `inn`, `playground`'s `fontanella` and `chapel`'s `altarcandle` (`SceneFixtures.A_LOOK_ONLY`, the
+bridge's `LOOK_ONLY`: the curated Slovene scenes don't name them): an app of version 5 gets their scenes without those
+things. Each has its Friuli look from the start ([Culture looks](#culture-looks)), and the Friuli village has
 its scene on each ([Scenes of a culture pack](#scenes-of-a-culture-pack); docs/plans/05-built/places-it-arts.md). `PlacesRenderTest` renders them for review (`build/scene-snapshots/places/`: each art by day, in the
 evening, at night, the seasons, rain, fog and a storm, the Friuli look, every detail, each effect from 0 to 1, the pokes, the
 palisade at every level, a contact sheet of each) and checks that every effect changes the picture, that Friuli's look changes

@@ -397,8 +397,8 @@ object CultureLooks {
     /**
      * Friuli's wayside chapel (ChapelPainter): an ancona, its walls ochre under coppi, the bell on an iron bracket under its
      * gable, the fresco of the Madonna and Child on a blue ground with stars, the white candle on the altar on a brass
-     * candlestick (`altarcandle`, la candela of Alla cappelletta, a thing of its own in this look: SceneFixtures); maize in the field, Lombardy poplars along a far ditch,
-     * the village on the hill as Friuli builds it with its campanile.
+     * candlestick (`altarcandle`, la candela of Alla cappelletta, a thing of its own in this look: SceneFixtures); maize in
+     * the field, Lombardy poplars along a far ditch, the village on the hill as Friuli builds it with its campanile.
      */
     private val FRIULI_CHAPEL = Table.of(
         "chapel",
