@@ -1,0 +1,280 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-the-attic",
+  "language": "en",
+  "title": { "en": "In the attic", "sl": "V podstrešju", "it": "In soffitta", "de": "Auf dem Dachboden" },
+  "emoji": "🛏️",
+  "level": "A1",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "art": "attic",
+  "from": ["house"],
+  "household": ["birkett", "harry"],
+  "pack": "in-the-attic",
+  "objects": [
+    { "slot": "bed", "word": "bed", "pack": "home-and-kitchen" },
+    { "slot": "pillow", "word": "pillow" },
+    { "slot": "blanket", "word": "quilt" },
+    { "slot": "cradle", "word": "cradle" },
+    { "slot": "chest", "word": "chest", "pack": "in-the-living-room" },
+    { "slot": "roof", "word": "roof" },
+    { "slot": "window", "word": "window", "pack": "home-and-kitchen" },
+    { "slot": "stairs", "word": "stairs", "pack": "home-and-kitchen" },
+    { "slot": "wardrobe", "word": "wardrobe", "needs": { "level": 2 } },
+    { "slot": "rug", "word": "rug", "pack": "in-the-living-room", "needs": { "level": 2 } },
+    { "slot": "lamp", "word": "lamp", "pack": "in-the-living-room", "needs": { "level": 2 } },
+    { "slot": "ball", "word": "ball", "needs": { "level": 2 } },
+    { "slot": "mirror", "word": "mirror", "needs": { "level": 3 } },
+    { "slot": "toy", "word": "teddy-bear", "needs": { "level": 3 } }
+  ],
+  "people": [
+    { "id": "harry", "name": "Harry", "emoji": "🧒", "art": "child1", "slot": "bed", "villager": "harry" },
+    { "id": "birkett", "name": "Mrs Birkett", "emoji": "🍽️", "art": "innkeeper", "slot": "stairs", "villager": "birkett" }
+  ],
+  "happenings": [
+    {
+      "id": "wake-up", "title": { "en": "Harry won't get up", "sl": "Harry noče vstati", "it": "Harry non vuole alzarsi", "de": "Harry will nicht aufstehen" }, "who": "harry",
+      "when": ["dawn", "morning"], "chance": 0.5, "act": { "harry": { "to": "in-bed" } }, "dialog": "wake-up", "dialogs": ["wake-up-school", "wake-up"], "reward": { "food": 15 }, "marker": "⏰",
+      "memory": { "en": "the morning you got me out of bed", "sl": "jutro, ko si me {m:spravil|f:spravila} iz postelje", "it": "la mattina in cui mi hai tirato giù dal letto", "de": "den Morgen, an dem du mich aus dem Bett geholt hast" }
+    },
+    {
+      "id": "cradle", "title": { "en": "Mrs Birkett and the old cradle", "sl": "Gospa Birkett in stara zibelka", "it": "La signora Birkett e la vecchia culla", "de": "Frau Birkett und die alte Wiege" }, "who": "birkett",
+      "when": ["afternoon"], "chance": 0.45, "dialog": "cradle", "dialogs": ["cradle-lullaby", "cradle"], "reward": { "food": 15 }, "marker": "🍼",
+      "memory": { "en": "the afternoon we rocked the old cradle", "sl": "popoldne, ko sva zibala staro zibelko", "it": "il pomeriggio in cui abbiamo dondolato la vecchia culla", "de": "den Nachmittag, an dem wir die alte Wiege geschaukelt haben" }
+    },
+    {
+      "id": "storm", "title": { "en": "A storm at night", "sl": "Nevihta ponoči", "it": "Un temporale di notte", "de": "Ein Sturm in der Nacht" }, "who": "harry",
+      "when": ["night"], "months": [10, 11, 12, 1, 2, 3], "chance": 0.4, "needs": { "level": 2 }, "act": { "harry": { "to": "in-bed" } }, "dialog": "storm", "dialogs": ["storm-thunder", "storm"], "reward": { "wisdom": 15 }, "marker": "🌬️",
+      "memory": { "en": "the stormy night you shut the window", "sl": "viharno noč, ko si {m:zaprl|f:zaprla} okno", "it": "la notte di tempesta in cui hai chiuso la finestra", "de": "die Sturmnacht, in der du das Fenster zugemacht hast" }
+    },
+    {
+      "id": "ball", "title": { "en": "Harry wants to play ball", "sl": "Harry bi se igral z žogo", "it": "Harry vuole giocare a pallone", "de": "Harry will Ball spielen" }, "who": "harry",
+      "when": ["afternoon", "evening"], "chance": 0.4, "needs": { "level": 2 }, "dialog": "ball", "dialogs": ["ball-where", "ball"], "reward": { "food": 10 }, "marker": "⚽",
+      "memory": { "en": "our football up in the attic", "sl": "najin nogomet na podstrešju", "it": "la nostra partita di pallone in soffitta", "de": "unser Fußballspiel auf dem Dachboden" }
+    },
+    {
+      "id": "chest", "title": { "en": "Mrs Birkett opens the old chest", "sl": "Gospa Birkett odpre staro skrinjo", "it": "La signora Birkett apre la vecchia cassapanca", "de": "Frau Birkett öffnet die alte Truhe" }, "who": "birkett",
+      "when": ["morning", "afternoon"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "chest", "dialogs": ["chest-teddy", "chest"], "reward": { "wisdom": 15 }, "marker": "🧸",
+      "memory": { "en": "the old things in the chest", "sl": "stare reči v skrinji", "it": "le vecchie cose nella cassapanca", "de": "die alten Sachen in der Truhe" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "wake-up",
+      "lines": [
+        { "who": "harry", "face": "sad", "en": "Mmm… five more minutes…", "sl": "Mmm … še pet minut …", "it": "Mmm… ancora cinque minuti…", "de": "Mmm … noch fünf Minuten …" },
+        { "choices": [
+          { "en": "Harry! Wake up! The sun's up!", "sl": "Harry! Zbudi se! Sonce je že vzšlo!", "it": "Harry! Svegliati! Il sole è già alto!", "de": "Harry! Wach auf! Die Sonne ist schon da!", "ok": true,
+            "reply": { "face": "sad", "en": "Oh, all right. I'm awake… nearly.", "sl": "No, prav. Buden sem … skoraj.", "it": "Va bene, va bene. Sono sveglio… quasi.", "de": "Na gut. Ich bin wach … fast.", "act": { "harry": { "pose": "sit" } } } },
+          { "en": "Harry! Wake down! The sun's up!", "sl": "Harry! Zbudi se dol! Sonce je že vzšlo!", "it": "Harry! Svegliati giù! Il sole è già alto!", "de": "Harry! Wach ab! Die Sonne ist schon da!",
+            "why": { "en": "Wake up means stop sleeping. There's no wake down!", "sl": "Wake up pomeni zbuditi se. Wake down ne obstaja!", "it": "Wake up vuol dire svegliarsi. Wake down non esiste!", "de": "Wake up heißt aufwachen. Wake down gibt es nicht!" }, "reply": { "face": "laugh", "en": "Wake down? OK… back to sleep, then. Zzz…", "sl": "Wake down? Prav … potem pa nazaj spat. Zzz …", "it": "Wake down? Va bene… allora torno a dormire. Zzz…", "de": "Wake down? Okay … dann schlaf ich weiter. Zzz …", "act": { "harry": { "pose": "sleep" } } } }
+        ] },
+        { "who": "harry", "face": "curious", "en": "Is it raining? If it's raining, I'm staying in bed!", "sl": "Dežuje? Če dežuje, ostanem v postelji!", "it": "Piove? Se piove, resto a letto!", "de": "Regnet es? Wenn es regnet, bleibe ich im Bett!" },
+        { "choices": [
+          { "en": "No, it isn't. It's sunny!", "sl": "Ne, ne dežuje. Sončno je!", "it": "No, non piove. C'è il sole!", "de": "Nein, tut es nicht. Es ist sonnig!", "ok": true,
+            "reply": { "face": "laugh", "en": "Sunny? Football on the green! I'm up!", "sl": "Sončno? Nogomet na trati! Vstal sem!", "it": "Il sole? Calcio sul prato! Mi alzo!", "de": "Sonnig? Fußball auf der Wiese! Ich bin auf!", "act": { "harry": { "to": "bed" } } } },
+          { "en": "No, it doesn't. It's sunny!", "sl": "Ne, ne dežuje. Sončno je!", "it": "No, non piove. C'è il sole!", "de": "Nein, tut es nicht. Es ist sonnig!", "grammar": "questions-do",
+            "why": { "en": "The question has is, so the short answer has is too: no, it isn't. Be takes no do.", "sl": "Vprašanje ima is, zato ga ima tudi kratek odgovor: no, it isn't. Be ne potrebuje do.", "it": "La domanda ha is, quindi anche la risposta breve: no, it isn't. Be non vuole do.", "de": "Die Frage hat is, also auch die kurze Antwort: no, it isn't. Be braucht kein do." }, "reply": { "face": "confused", "en": "It doesn't what? I'm too sleepy for this!", "sl": "Ne kaj? Preveč sem zaspan za to!", "it": "Non cosa? Ho troppo sonno per queste cose!", "de": "Es tut was nicht? Dafür bin ich zu müde!" } }
+        ], "puzzled": { "face": "confused", "en": "Huh? I'm still asleep, {learner}…", "sl": "Ha? Še spim, {learner} …", "it": "Eh? Sto ancora dormendo, {learner}…", "de": "Hä? Ich schlafe noch, {learner} …" } },
+        { "who": "harry", "face": "curious", "en": "What's for breakfast? I'm starving!", "sl": "Kaj je za zajtrk? Umiram od lakote!", "it": "Cosa c'è per colazione? Sto morendo di fame!", "de": "Was gibt's zum Frühstück? Ich verhungere!" },
+        { "choices": [
+          { "en": "I don't know. Let's go and see!", "sl": "Ne vem. Pojdiva pogledat!", "it": "Non lo so. Andiamo a vedere!", "de": "Weiß ich nicht. Lass uns nachsehen!", "ok": true,
+            "reply": { "face": "laugh", "en": "Race you downstairs! Last one's a rotten egg!", "sl": "Kdo bo prej spodaj! Zadnji je gnilo jajce!", "it": "Facciamo a gara fino giù! L'ultimo è un uovo marcio!", "de": "Wer zuerst unten ist! Der Letzte ist ein faules Ei!" } },
+          { "en": "I not know. Let's go and see!", "sl": "Ne vem. Pojdiva pogledat!", "it": "Non lo so. Andiamo a vedere!", "de": "Weiß ich nicht. Lass uns nachsehen!", "grammar": "questions-do",
+            "why": { "en": "A no in the present needs do: I don't (do not) know.", "sl": "Zanikanje v sedanjiku potrebuje do: I don't (do not) know.", "it": "La negazione al presente vuole do: I don't (do not) know.", "de": "Die Verneinung im Präsens braucht do: I don't (do not) know." }, "reply": { "face": "laugh", "en": "You not know? Me neither! Come on!", "sl": "Ne veš? Jaz tudi ne! Pridi!", "it": "Non sai? Neanch'io! Andiamo!", "de": "Du weißt nicht? Ich auch nicht! Komm!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "cradle",
+      "lines": [
+        { "who": "birkett", "face": "happy", "en": "Look at this old cradle, love. Harry slept in it when he was a baby.", "sl": "Poglej to staro zibelko, srček. Harry je spal v njej, ko je bil dojenček.", "it": "Guarda questa vecchia culla, tesoro. Harry ci dormiva quando era piccolo.", "de": "Schau dir diese alte Wiege an, Schatz. Harry hat darin geschlafen, als er ein Baby war." },
+        { "choices": [
+          { "en": "Who sleeps in it now, Mrs Birkett?", "sl": "Kdo pa spi v njej zdaj, gospa Birkett?", "it": "E adesso chi ci dorme, signora Birkett?", "de": "Wer schläft jetzt darin, Frau Birkett?", "ok": true,
+            "reply": { "face": "laugh", "en": "Nobody now! My grandmother made it, long ago.", "sl": "Zdaj nihče! Naredila jo je moja stara mama, že zdavnaj.", "it": "Adesso nessuno! L'ha fatta mia nonna, tanto tempo fa.", "de": "Jetzt niemand! Meine Großmutter hat sie gemacht, vor langer Zeit." } },
+          { "en": "Who does sleep in it now, Mrs Birkett?", "sl": "Kdo pa spi v njej zdaj, gospa Birkett?", "it": "E adesso chi ci dorme, signora Birkett?", "de": "Wer schläft jetzt darin, Frau Birkett?", "grammar": "questions-do",
+            "why": { "en": "Here who is the one who sleeps, so no does: who sleeps in it?", "sl": "Tu je who tisti, ki spi, zato brez does: who sleeps in it?", "it": "Qui who è chi dorme, quindi niente does: who sleeps in it?", "de": "Hier ist who der, der schläft, also kein does: who sleeps in it?" }, "reply": { "face": "curious", "en": "Does? Say it again, love. Quick, I'm busy!", "sl": "Does? Povej še enkrat, srček. Hitro, mudi se mi!", "it": "Does? Ripeti, tesoro. Svelto, ho da fare!", "de": "Does? Sag's noch mal, Schatz. Schnell, ich hab zu tun!" } }
+        ] },
+        { "who": "birkett", "face": "proud", "en": "She made it for my mum. Then I slept in it, and then Harry.", "sl": "Naredila jo je za mojo mamo. Potem sem v njej spala jaz in potem Harry.", "it": "L'ha fatta per mia mamma. Poi ci ho dormito io, e poi Harry.", "de": "Sie hat sie für meine Mama gemacht. Dann habe ich darin geschlafen, und dann Harry." },
+        { "choices": [
+          { "en": "So it's your mum's cradle too!", "sl": "Torej je tudi zibelka vaše mame!", "it": "Allora è anche la culla di Sua mamma!", "de": "Dann ist es auch die Wiege Ihrer Mama!", "ok": true,
+            "reply": { "face": "happy", "en": "And mine, and Harry's. Rock it, love. Gently.", "sl": "In moja in Harryjeva. Zaziblji jo, srček. Nežno.", "it": "E mia, e di Harry. Dondolala, tesoro. Piano.", "de": "Und meine, und Harrys. Schaukel sie, Schatz. Sanft.", "fx": { "cradle": 0.6 } } },
+          { "en": "So it's your mum cradle too!", "sl": "Torej je tudi zibelka vaše mame!", "it": "Allora è anche la culla di Sua mamma!", "de": "Dann ist es auch die Wiege Ihrer Mama!", "grammar": "possessive-s",
+            "why": { "en": "Whose cradle? Your mum's: add 's to the owner.", "sl": "Čigava zibelka? Your mum's: lastniku dodaš 's.", "it": "Di chi è la culla? Your mum's: al proprietario si aggiunge 's.", "de": "Wessen Wiege? Your mum's: An den Besitzer kommt 's." }, "reply": { "face": "laugh", "en": "My mum cradle? She'd laugh at that, love!", "sl": "Mum cradle? Tega bi se nasmejala, srček!", "it": "Mum cradle? Ci riderebbe sopra, tesoro!", "de": "Mum cradle? Darüber würde sie lachen, Schatz!" } }
+        ], "puzzled": { "face": "confused", "en": "Sorry, love? Say that again.", "sl": "Prosim, srček? Povej še enkrat.", "it": "Come, tesoro? Ripeti.", "de": "Wie bitte, Schatz? Sag das noch mal." } },
+        { "who": "birkett", "face": "shy", "en": "Oh, I miss the baby days. Now he's nine, and so loud!", "sl": "Oh, pogrešam tiste dojenčkove dni. Zdaj ima devet let in je tako glasen!", "it": "Oh, mi mancano i tempi in cui era piccolo. Adesso ha nove anni, ed è così rumoroso!", "de": "Ach, ich vermisse die Babyzeit. Jetzt ist er neun, und so laut!", "fx": { "cradle": 0.3 } }
+      ]
+    },
+    {
+      "id": "storm",
+      "lines": [
+        { "who": "harry", "face": "worried", "en": "{learner}! Are you there? Listen to the wind!", "sl": "{learner}! Si tukaj? Poslušaj veter!", "it": "{learner}! Ci sei? Senti il vento!", "de": "{learner}! Bist du da? Hör mal, der Wind!", "sky": { "rain": 0.6, "wind": 0.7, "gloom": 0.8 }, "fx": { "lamp": 0 } },
+        { "who": "harry", "face": "surprised", "en": "Bang! Oh no, the window's open! It's so cold!", "sl": "Bum! Ojoj, okno se je odprlo! Tako mrzlo je!", "it": "Bum! Oh no, la finestra si è aperta! Che freddo!", "de": "Bumm! Oh nein, das Fenster ist auf! Es ist so kalt!", "fx": { "window": 1 }, "act": { "harry": { "pose": "sit" } } },
+        { "choices": [
+          { "en": "Don't worry, Harry. I'm shutting it now.", "sl": "Brez skrbi, Harry. Zdaj ga bom {m:zaprl|f:zaprla}.", "it": "Non preoccuparti, Harry. La chiudo adesso.", "de": "Keine Sorge, Harry. Ich mache es jetzt zu.", "ok": true,
+            "reply": { "face": "happy", "en": "Phew! Thanks, {learner}. That wind is very strong.", "sl": "Fuh! Hvala, {learner}. Ta veter je zelo močan.", "it": "Uff! Grazie, {learner}. Quel vento è fortissimo.", "de": "Puh! Danke, {learner}. Der Wind ist sehr stark.", "fx": { "window": 0 } } },
+          { "en": "Don't worry, Harry. I'm shut it now.", "sl": "Brez skrbi, Harry. Zdaj ga bom {m:zaprl|f:zaprla}.", "it": "Non preoccuparti, Harry. La chiudo adesso.", "de": "Keine Sorge, Harry. Ich mache es jetzt zu.", "grammar": "present-continuous",
+            "why": { "en": "Am goes with the -ing form: I'm (I am) shutting it.", "sl": "Am gre z obliko na -ing: I'm (I am) shutting it.", "it": "Am va con la forma in -ing: I'm (I am) shutting it.", "de": "Am geht mit der -ing-Form: I'm (I am) shutting it." }, "reply": { "face": "worried", "en": "You're what? Quick, the rain's coming in!", "sl": "Kaj si? Hitro, dež gre noter!", "it": "Tu sei cosa? Svelto, entra la pioggia!", "de": "Du bist was? Schnell, der Regen kommt rein!" } }
+        ] },
+        { "who": "harry", "face": "worried", "en": "Can you put the lamp on? I don't like the dark.", "sl": "Lahko prižgeš svetilko? Ne maram teme.", "it": "Puoi accendere la lampada? Non mi piace il buio.", "de": "Kannst du die Lampe anmachen? Ich mag die Dunkelheit nicht.", "sky": { "lightning": true } },
+        { "choices": [
+          { "en": "Here you are. The lamp is on.", "sl": "Izvoli. Svetilka je prižgana.", "it": "Ecco. La lampada è accesa.", "de": "Bitte schön. Die Lampe ist an.", "ok": true,
+            "reply": { "face": "happy", "en": "That's better. Now I'm not scared.", "sl": "Tako je bolje. Zdaj me ni več strah.", "it": "Così va meglio. Adesso non ho più paura.", "de": "So ist es besser. Jetzt habe ich keine Angst mehr.", "fx": { "lamp": 1 } } },
+          { "en": "Here you are. The lamp is in.", "sl": "Izvoli. Svetilka je notri.", "it": "Ecco. La lampada è dentro.", "de": "Bitte schön. Die Lampe ist drin.",
+            "why": { "en": "A lamp is on (shining) or off. In is for inside something.", "sl": "Svetilka je on (prižgana) ali off. In pomeni v nečem.", "it": "Una lampada è on (accesa) oppure off. In vuol dire dentro qualcosa.", "de": "Eine Lampe ist on (an) oder off. In heißt in etwas drin." }, "reply": { "face": "confused", "en": "In? In where? It's still dark, {learner}!", "sl": "Notri? Kje notri? Še vedno je temno, {learner}!", "it": "Dentro? Dentro dove? È ancora buio, {learner}!", "de": "Drin? Wo drin? Es ist immer noch dunkel, {learner}!" } }
+        ] },
+        { "who": "harry", "en": "Thanks… Good night, {learner}… zzz…", "sl": "Hvala … Lahko noč, {learner} … zzz …", "it": "Grazie… Buonanotte, {learner}… zzz…", "de": "Danke … Gute Nacht, {learner} … zzz …", "act": { "harry": { "pose": "sleep" } } }
+      ]
+    },
+    {
+      "id": "ball",
+      "lines": [
+        { "who": "harry", "face": "happy", "en": "{learner}! Let's play football up here! Mum's downstairs.", "sl": "{learner}! Igrajva nogomet tukaj gori! Mama je spodaj.", "it": "{learner}! Giochiamo a calcio quassù! La mamma è di sotto.", "de": "{learner}! Lass uns hier oben Fußball spielen! Mama ist unten." },
+        { "choices": [
+          { "en": "Here? In the attic? OK, but quietly!", "sl": "Tukaj? Na podstrešju? Prav, ampak tiho!", "it": "Qui? In soffitta? Va bene, ma piano!", "de": "Hier? Auf dem Dachboden? Okay, aber leise!", "ok": true,
+            "reply": { "face": "laugh", "en": "Quietly! Pass the ball!", "sl": "Tiho! Podaj žogo!", "it": "Piano! Passa la palla!", "de": "Leise! Spiel mir den Ball zu!" } },
+          { "en": "Here? On the attic? OK, but quietly!", "sl": "Tukaj? Na podstrešju? Prav, ampak tiho!", "it": "Qui? In soffitta? Va bene, ma piano!", "de": "Hier? Auf dem Dachboden? Okay, aber leise!", "grammar": "prepositions-place",
+            "why": { "en": "We're inside the room: in the attic. On the attic is on its roof!", "sl": "Sva v prostoru: in the attic. On the attic bi bilo na strehi!", "it": "Siamo dentro la stanza: in the attic. On the attic sarebbe sul tetto!", "de": "Wir sind im Raum drin: in the attic. On the attic wäre auf dem Dach!" }, "reply": { "face": "laugh", "en": "On the attic? On the roof? No way!", "sl": "Na podstrešju zgoraj? Na strehi? Nikakor!", "it": "Sopra la soffitta? Sul tetto? Neanche per sogno!", "de": "Auf dem Dachboden oben drauf? Auf dem Dach? Auf keinen Fall!" } }
+        ] },
+        { "who": "birkett", "face": "cross", "en": "Harry! What's that noise up there?", "sl": "Harry! Kaj pa je ta hrup tam gori?", "it": "Harry! Cos'è questo rumore lassù?", "de": "Harry! Was ist das für ein Lärm da oben?" },
+        { "choices": [
+          { "en": "Sorry, Mrs Birkett! We're playing ball.", "sl": "Oprostite, gospa Birkett! Igrava se z žogo.", "it": "Mi scusi, signora Birkett! Stiamo giocando a pallone.", "de": "Entschuldigung, Frau Birkett! Wir spielen Ball.", "ok": true,
+            "reply": { "face": "laugh", "en": "Not in the house! Out on the green, both of you!", "sl": "Ne v hiši! Ven na trato, oba!", "it": "Non in casa! Fuori sul prato, tutti e due!", "de": "Nicht im Haus! Raus auf die Wiese, alle beide!" } },
+          { "en": "Sorry, Mrs Birkett! We playing ball.", "sl": "Oprostite, gospa Birkett! Igrava se z žogo.", "it": "Mi scusi, signora Birkett! Stiamo giocando a pallone.", "de": "Entschuldigung, Frau Birkett! Wir spielen Ball.", "grammar": "present-continuous",
+            "why": { "en": "The -ing form needs are with we: we're (we are) playing.", "sl": "Oblika na -ing z we potrebuje are: we're (we are) playing.", "it": "Con we la forma in -ing vuole are: we're (we are) playing.", "de": "Mit we braucht die -ing-Form are: we're (we are) playing." }, "reply": { "face": "cross", "en": "You what? Speak up, love. And stop that noise!", "sl": "Vidva kaj? Glasneje, srček. In nehajta s tem hrupom!", "it": "Voi cosa? Più forte, tesoro. E smettetela con quel rumore!", "de": "Ihr was? Lauter, Schatz. Und hört mit dem Lärm auf!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "chest",
+      "lines": [
+        { "who": "birkett", "face": "happy", "en": "Love, help me open the chest. It's full of old things.", "sl": "Srček, pomagaj mi odpreti skrinjo. Polna je starih reči.", "it": "Tesoro, aiutami ad aprire la cassapanca. È piena di cose vecchie.", "de": "Schatz, hilf mir, die Truhe aufzumachen. Sie ist voller alter Sachen." },
+        { "choices": [
+          { "en": "What's in it, Mrs Birkett?", "sl": "Kaj je v njej, gospa Birkett?", "it": "Cosa c'è dentro, signora Birkett?", "de": "Was ist drin, Frau Birkett?", "ok": true,
+            "reply": { "face": "happy", "en": "Old clothes, old photos, and Harry's baby shoes!", "sl": "Stara oblačila, stare fotografije in Harryjevi dojenčkovi čeveljčki!", "it": "Vestiti vecchi, vecchie foto e le scarpine di Harry da piccolo!", "de": "Alte Kleider, alte Fotos und Harrys Babyschuhe!" } },
+          { "en": "What's on it, Mrs Birkett?", "sl": "Kaj je na njej, gospa Birkett?", "it": "Cosa c'è sopra, signora Birkett?", "de": "Was ist darauf, Frau Birkett?", "grammar": "prepositions-place",
+            "why": { "en": "The old things are inside the chest: in it. On it is on top.", "sl": "Stare reči so v skrinji: in it. On it je na vrhu.", "it": "Le cose vecchie sono dentro la cassapanca: in it. On it è sopra.", "de": "Die alten Sachen sind in der Truhe: in it. On it ist obendrauf." }, "reply": { "face": "laugh", "en": "On it? Just dust, love! Ha!", "sl": "Na njej? Samo prah, srček! Ha!", "it": "Sopra? Solo polvere, tesoro! Ah!", "de": "Darauf? Nur Staub, Schatz! Ha!" } }
+        ] },
+        { "who": "birkett", "face": "proud", "en": "See these tiny shoes? Harry's feet are so big now.", "sl": "Vidiš te majcene čeveljčke? Harry ima zdaj tako velika stopala.", "it": "Vedi queste scarpine minuscole? Adesso Harry ha i piedi così grandi.", "de": "Siehst du diese winzigen Schuhe? Harrys Füße sind jetzt so groß." },
+        { "choices": [
+          { "en": "They're so small!", "sl": "Tako majhni so!", "it": "Sono così piccole!", "de": "Die sind so klein!", "ok": true,
+            "reply": { "face": "shy", "en": "Aye. Nine years go so fast, love.", "sl": "Ja. Devet let mine tako hitro, srček.", "it": "Già. Nove anni passano così in fretta, tesoro.", "de": "Ja. Neun Jahre vergehen so schnell, Schatz." } },
+          { "en": "They're so smalls!", "sl": "Tako majhni so!", "it": "Sono così piccole!", "de": "Die sind so klein!",
+            "why": { "en": "Adjectives never take -s in English: small shoes, they're small.", "sl": "Pridevniki v angleščini nikoli ne dobijo -s: small shoes, they're small.", "it": "In inglese gli aggettivi non prendono mai la -s: small shoes, they're small.", "de": "Adjektive bekommen im Englischen nie ein -s: small shoes, they're small." }, "reply": { "face": "laugh", "en": "Smalls? That's what my gran called her underwear!", "sl": "Smalls? Tako je moja babica rekla svojemu spodnjemu perilu!", "it": "Smalls? Così mia nonna chiamava la biancheria intima!", "de": "Smalls? So hat meine Oma ihre Unterwäsche genannt!" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "wake-up-school",
+      "months": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6],
+      "memory": { "en": "the school morning you woke me up", "sl": "šolsko jutro, ko si me {m:zbudil|f:zbudila}", "it": "la mattina di scuola in cui mi hai svegliato", "de": "den Schulmorgen, an dem du mich geweckt hast" },
+      "lines": [
+        { "who": "harry", "face": "sad", "en": "Mmm… is it school today? No… I want to sleep!", "sl": "Mmm … je danes šola? Ne … spati hočem!", "it": "Mmm… oggi c'è scuola? No… voglio dormire!", "de": "Mmm … ist heute Schule? Nein … ich will schlafen!" },
+        { "choices": [
+          { "en": "Yes, it is! It's a school day, Harry.", "sl": "Ja, je! Šolski dan je, Harry.", "it": "Sì, c'è! È un giorno di scuola, Harry.", "de": "Ja, ist sie! Heute ist Schultag, Harry.", "ok": true,
+            "reply": { "face": "sad", "en": "Oh no. A spelling test today. Five more minutes!", "sl": "Ojoj. Danes je narek. Še pet minut!", "it": "Oh no. Oggi c'è il dettato. Ancora cinque minuti!", "de": "Oh nein. Heute ist ein Diktat. Noch fünf Minuten!", "act": { "harry": { "pose": "sit" } } } },
+          { "en": "Yes, it does! It's a school day, Harry.", "sl": "Ja, je! Šolski dan je, Harry.", "it": "Sì, c'è! È un giorno di scuola, Harry.", "de": "Ja, ist sie! Heute ist Schultag, Harry.", "grammar": "questions-do",
+            "why": { "en": "The question has is, so the answer is yes, it is. Be takes no do.", "sl": "Vprašanje ima is, zato je odgovor yes, it is. Be ne potrebuje do.", "it": "La domanda ha is, quindi la risposta è yes, it is. Be non vuole do.", "de": "Die Frage hat is, also heißt die Antwort yes, it is. Be braucht kein do." }, "reply": { "face": "confused", "en": "It does? Does what? I'm too sleepy, {learner}…", "sl": "It does? Kaj does? Preveč sem zaspan, {learner} …", "it": "It does? Does cosa? Ho troppo sonno, {learner}…", "de": "It does? Was does? Ich bin zu müde, {learner} …" } }
+        ] },
+        { "who": "birkett", "face": "happy", "en": "Harry Birkett! Breakfast is on the table! {learner}, is he up?", "sl": "Harry Birkett! Zajtrk je na mizi! {learner}, je vstal?", "it": "Harry Birkett! La colazione è in tavola! {learner}, si è alzato?", "de": "Harry Birkett! Das Frühstück steht auf dem Tisch! {learner}, ist er auf?" },
+        { "choices": [
+          { "en": "He's getting up, Mrs Birkett!", "sl": "Ravno vstaja, gospa Birkett!", "it": "Si sta alzando, signora Birkett!", "de": "Er steht gerade auf, Frau Birkett!", "ok": true,
+            "reply": { "face": "laugh", "en": "Good! Porridge in five minutes. And brush your hair, Harry!", "sl": "Dobro! Kaša čez pet minut. In počeši se, Harry!", "it": "Bene! Porridge tra cinque minuti. E pettinati, Harry!", "de": "Gut! Haferbrei in fünf Minuten. Und kämm dir die Haare, Harry!" } },
+          { "en": "He's get up, Mrs Birkett!", "sl": "Ravno vstaja, gospa Birkett!", "it": "Si sta alzando, signora Birkett!", "de": "Er steht gerade auf, Frau Birkett!", "grammar": "present-continuous",
+            "why": { "en": "He's (he is) goes with the -ing form: he's getting up.", "sl": "He's (he is) gre z obliko na -ing: he's getting up.", "it": "He's (he is) va con la forma in -ing: he's getting up.", "de": "He's (he is) geht mit der -ing-Form: he's getting up." }, "reply": { "face": "curious", "en": "He's what, love? Up, or not up?", "sl": "Kaj je, srček? Je vstal ali ne?", "it": "Cosa, tesoro? È in piedi o no?", "de": "Was ist er, Schatz? Auf oder nicht auf?" } }
+        ], "puzzled": { "face": "confused", "en": "What's that, love? I can't hear you!", "sl": "Kaj, srček? Ne slišim te!", "it": "Come, tesoro? Non ti sento!", "de": "Was, Schatz? Ich hör dich nicht!" } },
+        { "who": "harry", "face": "sad", "en": "OK, OK! I'm up. Where are my socks?", "sl": "Prav, prav! Vstal sem. Kje so moje nogavice?", "it": "Va bene, va bene! Sono in piedi. Dove sono i miei calzini?", "de": "Okay, okay! Ich bin auf. Wo sind meine Socken?", "act": { "harry": { "to": "bed" } } }
+      ]
+    },
+    {
+      "id": "cradle-lullaby",
+      "memory": { "en": "the lullaby by the old cradle", "sl": "uspavanko ob stari zibelki", "it": "la ninna nanna accanto alla vecchia culla", "de": "das Schlaflied an der alten Wiege" },
+      "lines": [
+        { "who": "birkett", "face": "happy", "en": "Shall I sing you a lullaby, love? My mum sang it to me in this cradle.", "sl": "Ti zapojem uspavanko, srček? Mama mi jo je pela v tej zibelki.", "it": "Ti canto una ninna nanna, tesoro? Me la cantava la mia mamma in questa culla.", "de": "Soll ich dir ein Schlaflied singen, Schatz? Meine Mama hat es mir in dieser Wiege gesungen.", "fx": { "cradle": 0.4 } },
+        { "choices": [
+          { "en": "Yes, please, Mrs Birkett!", "sl": "Ja, prosim, gospa Birkett!", "it": "Sì, per favore, signora Birkett!", "de": "Ja, bitte, Frau Birkett!", "ok": true,
+            "reply": { "face": "happy", "en": "Here it is, then. Shh, quietly now…", "sl": "Pa poslušaj. Pst, zdaj tiho …", "it": "Allora eccola. Ssst, adesso piano…", "de": "Dann hör zu. Pst, jetzt leise …", "fx": { "cradle": 0.8 } } },
+          { "en": "Oh, I'd love that.", "sl": "Oh, z veseljem.", "it": "Oh, mi piacerebbe tanto.", "de": "Oh, das wäre schön.", "ok": true,
+            "reply": { "face": "shy", "en": "I haven't sung it for years! Here goes…", "sl": "Že leta je nisem pela! Pa dajmo …", "it": "Non la canto da anni! Ecco…", "de": "Ich habe es seit Jahren nicht gesungen! Also los …", "fx": { "cradle": 0.8 } } },
+          { "en": "Good night, Mrs Birkett!", "sl": "Lahko noč, gospa Birkett!", "it": "Buonanotte, signora Birkett!", "de": "Gute Nacht, Frau Birkett!",
+            "why": { "en": "Good night is for going to bed. In the afternoon, say yes, please.", "sl": "Good night rečeš, ko greš spat. Popoldne reci yes, please.", "it": "Good night si dice quando si va a letto. Di pomeriggio di' yes, please.", "de": "Good night sagt man, wenn man schlafen geht. Am Nachmittag sag yes, please." }, "reply": { "face": "laugh", "en": "Good night? It's the afternoon, love! Not yet!", "sl": "Lahko noč? Saj je popoldne, srček! Še ne!", "it": "Buonanotte? È pomeriggio, tesoro! Non ancora!", "de": "Gute Nacht? Es ist Nachmittag, Schatz! Noch nicht!" } }
+        ] },
+        { "who": "birkett", "face": "happy", "en": "Hush-a-bye, baby, on the tree top… When the wind blows, the cradle will rock!", "sl": "Aja tutaja, dete na drevesu … Ko zapiha veter, se zibka zaziblje!", "it": "Ninna nanna, bimbo in cima all'albero… Quando soffia il vento, la culla dondolerà!", "de": "Schlaf, Kindlein, oben im Baum … Wenn der Wind weht, schaukelt die Wiege!", "fx": { "cradle": 1 } },
+        { "choices": [
+          { "en": "That's lovely. What does hush mean?", "sl": "Kako lepo. Kaj pomeni hush?", "it": "Che bella. Che cosa vuol dire hush?", "de": "Wie schön. Was bedeutet hush?", "ok": true,
+            "reply": { "face": "happy", "en": "Hush means quiet. Shh! Like this. Babies love it.", "sl": "Hush pomeni tiho. Pst! Takole. Dojenčki to obožujejo.", "it": "Hush vuol dire zitto, piano. Ssst! Così. Ai bimbi piace tanto.", "de": "Hush heißt still. Pst! So. Babys lieben das.", "fx": { "cradle": 0.3 } } },
+          { "en": "That's lovely. What means hush?", "sl": "Kako lepo. Kaj pomeni hush?", "it": "Che bella. Che cosa vuol dire hush?", "de": "Wie schön. Was bedeutet hush?", "grammar": "questions-do",
+            "why": { "en": "A question with mean needs does: what does hush mean?", "sl": "Vprašanje z mean potrebuje does: what does hush mean?", "it": "Una domanda con mean vuole does: what does hush mean?", "de": "Eine Frage mit mean braucht does: what does hush mean?" }, "reply": { "face": "confused", "en": "What means? Eh? Ask me again, love.", "sl": "What means? Kaj? Vprašaj me še enkrat, srček.", "it": "What means? Eh? Chiedimelo di nuovo, tesoro.", "de": "What means? Hä? Frag mich noch mal, Schatz." } }
+        ] }
+      ]
+    },
+    {
+      "id": "storm-thunder",
+      "memory": { "en": "the night of the thunder", "sl": "noč, ko je grmelo", "it": "la notte dei tuoni", "de": "die Nacht mit dem Donner" },
+      "lines": [
+        { "who": "harry", "face": "worried", "en": "{learner}, I can't sleep. The thunder is so loud!", "sl": "{learner}, ne morem spati. Tako glasno grmi!", "it": "{learner}, non riesco a dormire. I tuoni sono fortissimi!", "de": "{learner}, ich kann nicht schlafen. Der Donner ist so laut!", "sky": { "rain": 0.5, "wind": 0.6, "gloom": 0.8, "lightning": true }, "act": { "harry": { "pose": "sit" } } },
+        { "choices": [
+          { "en": "Are you scared, Harry?", "sl": "Te je strah, Harry?", "it": "Hai paura, Harry?", "de": "Hast du Angst, Harry?", "ok": true,
+            "reply": { "face": "shy", "en": "A bit. Don't tell my mum! Put the lamp on, please.", "sl": "Malo. Ne povej mami! Prižgi svetilko, prosim.", "it": "Un po'. Non dirlo alla mamma! Accendi la lampada, per favore.", "de": "Ein bisschen. Sag's nicht meiner Mama! Mach bitte die Lampe an." } },
+          { "en": "Do you scared, Harry?", "sl": "Te je strah, Harry?", "it": "Hai paura, Harry?", "de": "Hast du Angst, Harry?", "grammar": "questions-do",
+            "why": { "en": "Scared goes with be, and be takes no do: are you scared?", "sl": "Scared gre z be, be pa ne potrebuje do: are you scared?", "it": "Scared va con be, e be non vuole do: are you scared?", "de": "Scared geht mit be, und be braucht kein do: are you scared?" }, "reply": { "face": "confused", "en": "Do I what? I can't hear you, the rain's too loud!", "sl": "Kaj? Ne slišim te, dež je preglasen!", "it": "Cosa? Non ti sento, la pioggia è troppo forte!", "de": "Was? Ich hör dich nicht, der Regen ist zu laut!" } }
+        ] },
+        { "who": "harry", "face": "happy", "en": "That's better. Tell me something nice. What's your favourite place?", "sl": "Tako je bolje. Povej mi kaj lepega. Kateri je tvoj najljubši kraj?", "it": "Così va meglio. Dimmi qualcosa di bello. Qual è il tuo posto preferito?", "de": "So ist es besser. Erzähl mir was Schönes. Was ist dein Lieblingsort?", "fx": { "lamp": 1 } },
+        { "choices": [
+          { "en": "My favourite place is the lake.", "sl": "Moj najljubši kraj je jezero.", "it": "Il mio posto preferito è il lago.", "de": "Mein Lieblingsort ist der See.", "ok": true,
+            "reply": { "face": "happy", "en": "The lake! I skim stones there. Seven bounces!", "sl": "Jezero! Tam spuščam žabice. Sedem odbojev!", "it": "Il lago! Lì faccio rimbalzare i sassi. Sette rimbalzi!", "de": "Der See! Da lasse ich Steine hüpfen. Sieben Sprünge!", "act": { "harry": { "pose": "lie" } } } },
+          { "en": "My favourite place are the lake.", "sl": "Moj najljubši kraj je jezero.", "it": "Il mio posto preferito è il lago.", "de": "Mein Lieblingsort ist der See.", "grammar": "to-be",
+            "why": { "en": "Place is one thing, so is: my favourite place is the lake.", "sl": "Place je ena stvar, zato is: my favourite place is the lake.", "it": "Place è una cosa sola, quindi is: my favourite place is the lake.", "de": "Place ist eine Sache, also is: my favourite place is the lake." }, "reply": { "face": "curious", "en": "Are? How many lakes? Say it again!", "sl": "Are? Koliko jezer? Povej še enkrat!", "it": "Are? Quanti laghi? Ripeti!", "de": "Are? Wie viele Seen? Sag's noch mal!" } }
+        ] },
+        { "who": "harry", "en": "Seven bounces… good night… zzz…", "sl": "Sedem odbojev … lahko noč … zzz …", "it": "Sette rimbalzi… buonanotte… zzz…", "de": "Sieben Sprünge … gute Nacht … zzz …", "act": { "harry": { "pose": "sleep" } } }
+      ]
+    },
+    {
+      "id": "ball-where",
+      "memory": { "en": "the day you found my ball", "sl": "dan, ko si {m:našel|f:našla} mojo žogo", "it": "il giorno in cui hai trovato il mio pallone", "de": "den Tag, an dem du meinen Ball gefunden hast" },
+      "lines": [
+        { "who": "harry", "face": "worried", "en": "Oh no! Where's my ball? I kicked it and now it's gone!", "sl": "Ojoj! Kje je moja žoga? Brcnil sem jo in zdaj je ni!", "it": "Oh no! Dov'è il mio pallone? L'ho calciato e adesso non c'è più!", "de": "Oh nein! Wo ist mein Ball? Ich habe ihn geschossen, und jetzt ist er weg!" },
+        { "choices": [
+          { "en": "There it is, on the floor!", "sl": "Tam je, na tleh!", "it": "Eccolo, per terra!", "de": "Da ist er, auf dem Boden!", "ok": true, "tap": "ball", "grammar": "prepositions-place",
+            "reply": { "face": "laugh", "en": "Yes! Thanks, {learner}. You've got eagle eyes!", "sl": "Ja! Hvala, {learner}. Oči imaš kot orel!", "it": "Sì! Grazie, {learner}. Hai gli occhi di un'aquila!", "de": "Ja! Danke, {learner}. Du hast Adleraugen!" } },
+          { "en": "It's under the bed!", "sl": "Pod posteljo je!", "it": "È sotto il letto!", "de": "Er ist unter dem Bett!", "tap": "bed",
+            "why": { "en": "Not under the bed. Look for something round and red and white.", "sl": "Ne pod posteljo. Poišči nekaj okroglega, rdeče in belo.", "it": "Non sotto il letto. Cerca qualcosa di rotondo, rosso e bianco.", "de": "Nicht unter dem Bett. Such etwas Rundes, Rot-Weißes." }, "reply": { "face": "laugh", "en": "Under the bed? There are only old socks there!", "sl": "Pod posteljo? Tam so samo stare nogavice!", "it": "Sotto il letto? Lì ci sono solo calzini vecchi!", "de": "Unter dem Bett? Da sind nur alte Socken!" } },
+          { "en": "It's in the wardrobe!", "sl": "V omari je!", "it": "È nell'armadio!", "de": "Er ist im Schrank!", "tap": "wardrobe",
+            "why": { "en": "Not in the wardrobe. Look for something round on the floor.", "sl": "Ne v omari. Poišči nekaj okroglega na tleh.", "it": "Non nell'armadio. Cerca qualcosa di rotondo per terra.", "de": "Nicht im Schrank. Such etwas Rundes auf dem Boden." }, "reply": { "face": "laugh", "en": "In the wardrobe? Only my school clothes are in there!", "sl": "V omari? Tam so samo moja šolska oblačila!", "it": "Nell'armadio? Lì ci sono solo i vestiti di scuola!", "de": "Im Schrank? Da sind nur meine Schulsachen drin!" } }
+        ] },
+        { "who": "harry", "face": "curious", "en": "Do you like football, {learner}?", "sl": "Imaš {m:rad|f:rada} nogomet, {learner}?", "it": "Ti piace il calcio, {learner}?", "de": "Magst du Fußball, {learner}?" },
+        { "choices": [
+          { "en": "Yes, I do! I love it.", "sl": "Ja! Obožujem ga.", "it": "Sì! Lo adoro.", "de": "Ja! Ich liebe ihn.", "ok": true,
+            "reply": { "face": "laugh", "en": "Great! You can play for Carlisle United with me!", "sl": "Super! Lahko boš z mano {m:igral|f:igrala} za Carlisle United!", "it": "Grande! Puoi giocare con me nel Carlisle United!", "de": "Super! Du kannst mit mir bei Carlisle United spielen!" } },
+          { "en": "Not really. I like walking on the fells.", "sl": "Pravzaprav ne. {m:Rad|f:Rada} hodim po hribih.", "it": "Non molto. Mi piace camminare in collina.", "de": "Nicht wirklich. Ich wandere gern auf den Bergen.", "ok": true,
+            "reply": { "face": "curious", "en": "Walking? Boring! … OK, the tarn is nice.", "sl": "Hoja? Dolgčas! … No ja, gorsko jezerce je lepo.", "it": "Camminare? Che noia! … Va bene, il laghetto è bello.", "de": "Wandern? Langweilig! … Na gut, der Bergsee ist schön." } },
+          { "en": "Yes, I do! I hate it.", "sl": "Ja! Sovražim ga.", "it": "Sì! Lo odio.", "de": "Ja! Ich hasse ihn.",
+            "why": { "en": "Love and hate are opposites. With yes, say I love it.", "sl": "Love in hate sta nasprotji. Z yes reci I love it.", "it": "Love e hate sono contrari. Con yes di' I love it.", "de": "Love und hate sind Gegensätze. Mit yes sag I love it." }, "reply": { "face": "confused", "en": "Yes, and you hate it? You're funny, {learner}!", "sl": "Ja, pa ga sovražiš? Smešen si, {learner}!", "it": "Sì, e lo odi? Sei buffo, {learner}!", "de": "Ja, und du hasst ihn? Du bist lustig, {learner}!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "chest-teddy",
+      "memory": { "en": "Mr Biscuit, the old teddy bear", "sl": "gospoda Piškota, starega medvedka", "it": "il signor Biscotto, il vecchio orsacchiotto", "de": "Herrn Keks, den alten Teddybären" },
+      "lines": [
+        { "who": "birkett", "face": "happy", "en": "And look, on the chest: Harry's old teddy bear.", "sl": "In poglej, na skrinji: Harryjev stari medvedek.", "it": "E guarda, sulla cassapanca: il vecchio orsacchiotto di Harry.", "de": "Und schau, auf der Truhe: Harrys alter Teddybär." },
+        { "choices": [
+          { "en": "There's a hole in his ear!", "sl": "V ušesu ima luknjo!", "it": "Ha un buco nell'orecchio!", "de": "Er hat ein Loch im Ohr!", "ok": true,
+            "reply": { "face": "laugh", "en": "Harry loved him to bits! His name is Mr Biscuit.", "sl": "Harry ga je imel neizmerno rad! Ime mu je gospod Piškot.", "it": "Harry gli voleva un bene dell'anima! Si chiama signor Biscotto.", "de": "Harry hat ihn heiß und innig geliebt! Er heißt Herr Keks." } },
+          { "en": "There are a hole in his ear!", "sl": "V ušesu ima luknjo!", "it": "Ha un buco nell'orecchio!", "de": "Er hat ein Loch im Ohr!", "grammar": "there-is-are",
+            "why": { "en": "One hole: there is (there's) a hole. There are is for more than one.", "sl": "Ena luknja: there is (there's) a hole. There are je za več kot eno.", "it": "Un buco solo: there is (there's) a hole. There are è per più di uno.", "de": "Ein Loch: there is (there's) a hole. There are ist für mehr als eins." }, "reply": { "face": "curious", "en": "Are? How many holes? Just the one, I hope!", "sl": "Are? Koliko lukenj? Upam, da samo ena!", "it": "Are? Quanti buchi? Spero uno solo!", "de": "Are? Wie viele Löcher? Hoffentlich nur eins!" } }
+        ] },
+        { "who": "birkett", "face": "shy", "en": "Don't tell Harry, but sometimes he still sleeps with Mr Biscuit.", "sl": "Ne povej Harryju, ampak včasih še vedno spi z gospodom Piškotom.", "it": "Non dirlo a Harry, ma a volte dorme ancora con il signor Biscotto.", "de": "Sag's Harry nicht, aber manchmal schläft er noch mit Herrn Keks." },
+        { "choices": [
+          { "en": "Your secret is safe with me.", "sl": "Vaša skrivnost je pri meni na varnem.", "it": "Il Suo segreto è al sicuro con me.", "de": "Ihr Geheimnis ist bei mir sicher.", "ok": true,
+            "reply": { "face": "happy", "en": "Thank you, love. You're a good friend to him.", "sl": "Hvala, srček. Dober prijatelj si mu.", "it": "Grazie, tesoro. Sei un buon amico per lui.", "de": "Danke, Schatz. Du bist ein guter Freund für ihn." } },
+          { "en": "I won't tell anyone, Mrs Birkett.", "sl": "Nikomur ne bom {m:povedal|f:povedala}, gospa Birkett.", "it": "Non lo dirò a nessuno, signora Birkett.", "de": "Ich sage es niemandem, Frau Birkett.", "ok": true,
+            "reply": { "face": "laugh", "en": "Good! Not even Mr Biscuit knows I told you.", "sl": "Dobro! Še gospod Piškot ne ve, da sem ti povedala.", "it": "Bene! Neanche il signor Biscotto sa che te l'ho detto.", "de": "Gut! Nicht mal Herr Keks weiß, dass ich es dir gesagt habe." } },
+          { "en": "I won't tell anyone. Only the whole village!", "sl": "Nikomur ne bom {m:povedal|f:povedala}. Samo celi vasi!", "it": "Non lo dirò a nessuno. Solo a tutto il villaggio!", "de": "Ich sage es niemandem. Nur dem ganzen Dorf!",
+            "why": { "en": "Not anyone and the whole village don't go together: a secret stays a secret.", "sl": "Nikomur in cela vas ne gresta skupaj: skrivnost ostane skrivnost.", "it": "A nessuno e a tutto il villaggio non vanno insieme: un segreto resta un segreto.", "de": "Niemandem und dem ganzen Dorf passt nicht zusammen: Ein Geheimnis bleibt ein Geheimnis." }, "reply": { "face": "laugh", "en": "The whole village? Then everyone will know by lunch!", "sl": "Celi vasi? Potem bodo do kosila vedeli vsi!", "it": "A tutto il villaggio? Allora entro pranzo lo sapranno tutti!", "de": "Dem ganzen Dorf? Dann weiß es bis zum Mittag jeder!" } }
+        ] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-the-attic",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the scene's picture in the Lake District's look (the slates under the roof at level 1, lined with boards from 2; the oak wardrobe and chest; the fells through the gable window) and the default attic's colours and places; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "bed": { "clues": [
+      { "kind": "trait", "en": "It's soft.", "sl": "To je nekaj mehkega.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's under the roof.", "sl": "Je pod streho.", "grammar": ["to-be", "prepositions-place"], "ref": "roof" },
+      { "kind": "use", "en": "Harry sleeps in it.", "sl": "V tem spi Harry.", "grammar": ["present-simple"] }
+    ] },
+    "pillow": { "clues": [
+      { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's soft.", "sl": "To je nekaj mehkega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the bed.", "sl": "Je na postelji.", "grammar": ["to-be", "prepositions-place"], "ref": "bed" },
+      { "kind": "use", "en": "We put our head on it at night.", "sl": "Ponoči na to položimo glavo.", "grammar": ["present-simple", "prepositions-place"] }
+    ] },
+    "blanket": { "clues": [
+      { "kind": "colour", "en": "It's colourful.", "sl": "Je pisane barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has lots of little squares.", "sl": "Ima veliko majhnih kvadratkov.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's on the bed.", "sl": "Je na postelji.", "grammar": ["to-be", "prepositions-place"], "ref": "bed" },
+      { "kind": "does", "en": "At night it keeps us warm.", "sl": "Ponoči nas greje.", "grammar": ["present-simple"] }
+    ] },
+    "cradle": { "clues": [
+      { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's by the bed.", "sl": "Je ob postelji.", "grammar": ["to-be", "prepositions-place"], "ref": "bed" },
+      { "kind": "use", "en": "A baby sleeps in it.", "sl": "V tem spi dojenček.", "grammar": ["present-simple"] }
+    ] },
+    "chest": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has a lid.", "sl": "Ima pokrov.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's against the wall.", "sl": "Je ob steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's under the mirror.", "sl": "Je pod ogledalom.", "grammar": ["to-be", "prepositions-place"], "ref": "mirror" },
+      { "kind": "use", "en": "There are old things in it.", "sl": "V tem so stare reči.", "grammar": ["there-is-are", "prepositions-place"] }
+    ] },
+    "roof": { "clues": [
+      { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's steep.", "sl": "To je nekaj strmega.", "grammar": ["to-be"] },
+      { "kind": "does", "en": "It keeps the rain off us.", "sl": "Varuje nas pred dežjem.", "grammar": ["present-simple"] },
+      { "kind": "where", "en": "It's over all of us, up high.", "sl": "Je nad vsemi nami, visoko zgoraj.", "grammar": ["to-be", "prepositions-place"] }
+    ] },
+    "window": { "clues": [
+      { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's high up on the wall.", "sl": "Je visoko na steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's next to the wardrobe.", "sl": "Je zraven omare.", "grammar": ["to-be", "prepositions-place"], "ref": "wardrobe" },
+      { "kind": "use", "en": "You can see the fells through it.", "sl": "Skozi to vidiš hribe.", "grammar": ["can"] }
+    ] },
+    "stairs": { "number": "pl", "clues": [
+      { "kind": "material", "en": "They're made of wood.", "sl": "So iz lesa.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "They have a rail round them.", "sl": "Okoli njih je ograja.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "They're in the corner.", "sl": "So v kotu.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We go down them to the kitchen.", "sl": "Po teh gremo dol v kuhinjo.", "grammar": ["present-simple"] }
+    ] },
+    "wardrobe": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "size", "en": "It's tall.", "sl": "To je nekaj visokega.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of oak.", "sl": "Je iz hrastovine.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's next to the window.", "sl": "Je zraven okna.", "grammar": ["to-be", "prepositions-place"], "ref": "window" },
+      { "kind": "use", "en": "Clothes hang in it.", "sl": "V tem visijo oblačila.", "grammar": ["present-simple"] }
+    ] },
+    "rug": { "clues": [
+      { "kind": "colour", "en": "It's colourful.", "sl": "Je pisane barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's soft.", "sl": "To je nekaj mehkega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the floor.", "sl": "Je na tleh.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's in front of the bed.", "sl": "Je pred posteljo.", "grammar": ["to-be", "prepositions-place"], "ref": "bed" },
+      { "kind": "use", "en": "We walk on it with no shoes.", "sl": "Po tem hodimo bosi.", "grammar": ["present-simple", "prepositions-place"] }
+    ] },
+    "lamp": { "clues": [
+      { "kind": "trait", "en": "It has a green shade.", "sl": "Ima zelen senčnik.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It hangs on a chain.", "sl": "Visi na verigi.", "grammar": ["present-simple", "prepositions-place"] },
+      { "kind": "where", "en": "It's above the bed.", "sl": "Je nad posteljo.", "grammar": ["to-be", "prepositions-place"], "ref": "bed" },
+      { "kind": "use", "en": "We put it on in the evening.", "sl": "Zvečer to prižgemo.", "grammar": ["present-simple"] }
+    ] },
+    "ball": { "clues": [
+      { "kind": "colour", "en": "It's red and white.", "sl": "Je rdeče-bele barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's round.", "sl": "Je okrogle oblike.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the floor.", "sl": "Je na tleh.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We kick it outside.", "sl": "To zunaj brcamo.", "grammar": ["present-simple"] }
+    ] },
+    "mirror": { "clues": [
+      { "kind": "trait", "en": "It has a wooden frame.", "sl": "Ima lesen okvir.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's on the wall.", "sl": "Je na steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's above the chest.", "sl": "Je nad skrinjo.", "grammar": ["to-be", "prepositions-place"], "ref": "chest" },
+      { "kind": "use", "en": "We see ourselves in it.", "sl": "V tem vidimo sebe.", "grammar": ["present-simple"] }
+    ] },
+    "toy": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has a red bow.", "sl": "Ima rdečo pentljo.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's sitting on the chest.", "sl": "Sedi na skrinji.", "grammar": ["present-continuous", "prepositions-place"], "ref": "chest" },
+      { "kind": "use", "en": "Children hug it at night.", "sl": "Otroci to ponoči objemajo.", "grammar": ["present-simple"] }
+    ] }
+  }
+}
