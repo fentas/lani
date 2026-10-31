@@ -1,0 +1,455 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "participi-irregolari",
+  "language": "it",
+  "level": "A2",
+  "emoji": "✍️",
+  "title": { "it": "Ho fatto, ho visto, ho preso", "de": "Unregelmäßige Partizipien: ho fatto, ho visto", "sl": "Nepravilni deležniki: ho fatto, ho visto", "en": "Irregular participles: ho fatto, ho visto" },
+  "goal": {
+    "de": "Du erzählst, was passiert ist, auch mit den Verben, die ein eigenes Partizip haben (ho scritto, ho messo, ho aperto, abbiamo vinto, è venuta).",
+    "sl": "Poveš, kaj se je zgodilo, tudi z glagoli, ki imajo svoj deležnik (ho scritto, ho messo, ho aperto, abbiamo vinto, è venuta).",
+    "en": "You can tell what happened with the verbs that have a participle of their own too (ho scritto, ho messo, ho aperto, abbiamo vinto, è venuta)."
+  },
+  "grammar": ["participi-irregolari", "passato-prossimo"],
+  "words": [
+    "scrivere",
+    "rompere",
+    "mettere",
+    "chiudere",
+    "perdere",
+    "accendere",
+    "spegnere",
+    "chiedere",
+    "rispondere",
+    "aprire",
+    "coprire",
+    "vincere",
+    "dipingere",
+    "bere",
+    "rimanere",
+    "scendere",
+    "la lettera",
+    "il biglietto",
+    "la cartolina",
+    "il vaso",
+    "il pallone",
+    "il bicchiere",
+    "la finestra",
+    "la porta",
+    "la luce",
+    "il fuoco",
+    "la candelina",
+    "la torta",
+    "il regalo",
+    "il compleanno",
+    "la partita",
+    "la corsa",
+    "il cappello",
+    "la cantina",
+    "il frigo",
+    "l'aranciata",
+    "il tiglio"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "infinito", "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive" },
+        { "it": "participio", "de": "Partizip", "sl": "deležnik", "en": "participle" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Du kennst schon **fatto** (gemacht), **detto** (gesagt) und **letto** (gelesen). Hörst du es? Alle enden auf **-tto**. Zu dieser Familie gehören auch **scrivere → scritto** (geschrieben) und **rompere → rotto** (kaputt gemacht): **Giulia ha scritto una lettera.** (Giulia hat einen Brief geschrieben.) Diese Partizipien lernst du auswendig, wie im Deutschen gehen und gegangen.",
+          "sl": "Že poznaš **fatto** (narejeno), **detto** (rečeno) in **letto** (prebrano). Slišiš? Vsi se končajo na **-tto**. V to družino spadata tudi **scrivere → scritto** (napisan) in **rompere → rotto** (razbit): **Giulia ha scritto una lettera.** (Giulia je napisala pismo.) Te deležnike se naučiš na pamet.",
+          "en": "You already know **fatto** (done), **detto** (said) and **letto** (read). Can you hear it? They all end in **-tto**. **scrivere → scritto** (written) and **rompere → rotto** (broken) belong to the same family: **Giulia ha scritto una lettera.** (Giulia has written a letter.) You learn these participles by heart."
+        },
+        "examples": [
+          {
+            "it": "Giulia ha scritto una lettera alla zia.",
+            "de": "Giulia hat der Tante einen Brief geschrieben.",
+            "sl": "Giulia je teti napisala pismo.",
+            "en": "Giulia has written a letter to her aunt."
+          },
+          {
+            "it": "Tommaso ha rotto il vaso con il pallone.",
+            "de": "Tommaso hat die Vase mit dem Ball kaputt gemacht.",
+            "sl": "Tommaso je z žogo razbil vazo.",
+            "en": "Tommaso broke the vase with the ball."
+          }
+        ],
+        "rows": [
+          ["scrivere", "scritto", "ho scritto"],
+          ["rompere", "rotto", "ha rotto"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "participi-irregolari",
+          "prompt": "Giulia ha ___ il suo nome sulla lavagna. (scrivere)",
+          "options": ["scritto", "scrivuto", "scrivito"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**scrivere** → **scritto**, wie fatto, detto, letto (-tto)\n- scrivuto, scrivito gibt es nicht",
+            "sl": "**scrivere** → **scritto**, kot fatto, detto, letto (-tto)\n- scrivuto, scrivito ne obstajata",
+            "en": "**scrivere** → **scritto**, like fatto, detto, letto (-tto)\n- scrivuto, scrivito don't exist"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Eine große Familie endet auf **-so**. **prendere → preso** (genommen) kennst du schon. Dazu: **mettere → messo** (gelegt, gestellt), **chiudere → chiuso** (zugemacht), **perdere → perso** (verloren) und **accendere → acceso** (angezündet, eingeschaltet). **Ho messo il latte nel frigo.** (Ich habe die Milch in den Kühlschrank gestellt.)",
+          "sl": "Velika družina se konča na **-so**. **prendere → preso** (vzet) že poznaš. Še: **mettere → messo** (dan, postavljen), **chiudere → chiuso** (zaprt), **perdere → perso** (izgubljen) in **accendere → acceso** (prižgan). **Ho messo il latte nel frigo.** ({m:Dal|f:Dala} sem mleko v hladilnik.)",
+          "en": "A big family ends in **-so**. You already know **prendere → preso** (taken). Also: **mettere → messo** (put), **chiudere → chiuso** (closed), **perdere → perso** (lost) and **accendere → acceso** (lit, switched on). **Ho messo il latte nel frigo.** (I've put the milk in the fridge.)"
+        },
+        "examples": [
+          {
+            "it": "Ho messo il latte nel frigo.",
+            "de": "Ich habe die Milch in den Kühlschrank gestellt.",
+            "sl": "{m:Dal|f:Dala} sem mleko v hladilnik.",
+            "en": "I've put the milk in the fridge."
+          },
+          {
+            "it": "Lorenzo ha perso il cappello nel bosco.",
+            "de": "Lorenzo hat im Wald seinen Hut verloren.",
+            "sl": "Lorenzo je v gozdu izgubil klobuk.",
+            "en": "Lorenzo lost his hat in the wood."
+          }
+        ],
+        "rows": [
+          ["mettere", "messo", "ho messo"],
+          ["chiudere", "chiuso", "ha chiuso"],
+          ["perdere", "perso", "ha perso"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "participi-irregolari",
+          "text": "Nonno Bepi ha ___ il fuoco. (accendere)",
+          "accept": ["acceso"],
+          "hint": "-so",
+          "explain": {
+            "de": "**accendere** → **acceso** (-so), wie preso, messo, chiuso",
+            "sl": "**accendere** → **acceso** (-so), kot preso, messo, chiuso",
+            "en": "**accendere** → **acceso** (-so), like preso, messo, chiuso"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auf **-sto** enden **vedere → visto** (gesehen), **chiedere → chiesto** (gefragt) und **rispondere → risposto** (geantwortet). Und drei Verben auf **-ire** machen **-erto**: **aprire → aperto** (aufgemacht), **coprire → coperto** (zugedeckt), **offrire → offerto** (angeboten). **Chi ha aperto la porta?** (Wer hat die Tür aufgemacht?)",
+          "sl": "Na **-sto** se končajo **vedere → visto** (viden), **chiedere → chiesto** (vprašan) in **rispondere → risposto** (odgovorjen). Trije glagoli na **-ire** pa imajo **-erto**: **aprire → aperto** (odprt), **coprire → coperto** (pokrit), **offrire → offerto** (ponujen). **Chi ha aperto la porta?** (Kdo je odprl vrata?)",
+          "en": "**vedere → visto** (seen), **chiedere → chiesto** (asked) and **rispondere → risposto** (answered) end in **-sto**. And three verbs in **-ire** make **-erto**: **aprire → aperto** (opened), **coprire → coperto** (covered), **offrire → offerto** (offered). **Chi ha aperto la porta?** (Who opened the door?)"
+        },
+        "examples": [
+          {
+            "it": "Lorenzo ha chiesto un gelato e il nonno ha risposto di sì.",
+            "de": "Lorenzo hat um ein Eis gebeten, und der Opa hat ja gesagt.",
+            "sl": "Lorenzo je prosil za sladoled in dedek je rekel ja.",
+            "en": "Lorenzo asked for an ice cream and his grandpa said yes."
+          },
+          {
+            "it": "Chi ha aperto la porta? Che freddo!",
+            "de": "Wer hat die Tür aufgemacht? Wie kalt!",
+            "sl": "Kdo je odprl vrata? Kako je mrzlo!",
+            "en": "Who opened the door? It's so cold!"
+          }
+        ],
+        "rows": [
+          ["chiedere", "chiesto", "ho chiesto"],
+          ["rispondere", "risposto", "ha risposto"],
+          ["aprire", "aperto", "ho aperto"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "participi-irregolari",
+          "prompt": "Chi ha ___ la finestra? (aprire)",
+          "options": ["aprito", "aperto", "apruto"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**aprire** → **aperto** (-erto), wie coperto, offerto\n- aprito gibt es nicht",
+            "sl": "**aprire** → **aperto** (-erto), kot coperto, offerto\n- aprito ne obstaja",
+            "en": "**aprire** → **aperto** (-erto), like coperto, offerto\n- aprito doesn't exist"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auf **-nto** enden **vincere → vinto** (gewonnen), **spegnere → spento** (ausgemacht) und **dipingere → dipinto** (gemalt). **Abbiamo vinto!** (Wir haben gewonnen!) Und zwei sehen ganz anders aus als ihr Verb: **bere → bevuto** (getrunken) und **venire → venuto** (gekommen).",
+          "sl": "Na **-nto** se končajo **vincere → vinto** (zmagal), **spegnere → spento** (ugasnjen) in **dipingere → dipinto** (naslikan). **Abbiamo vinto!** (Zmagali smo!) Dva pa sta čisto drugačna od svojega glagola: **bere → bevuto** (popit) in **venire → venuto** (prišel).",
+          "en": "**vincere → vinto** (won), **spegnere → spento** (switched off, blown out) and **dipingere → dipinto** (painted) end in **-nto**. **Abbiamo vinto!** (We won!) And two look quite unlike their verb: **bere → bevuto** (drunk) and **venire → venuto** (come)."
+        },
+        "examples": [
+          {
+            "it": "Abbiamo vinto la partita!",
+            "de": "Wir haben das Spiel gewonnen!",
+            "sl": "Zmagali smo na tekmi!",
+            "en": "We won the match!"
+          },
+          {
+            "it": "Lorenzo ha spento le candeline.",
+            "de": "Lorenzo hat die Kerzen ausgeblasen.",
+            "sl": "Lorenzo je upihnil svečke.",
+            "en": "Lorenzo blew out the candles."
+          }
+        ],
+        "rows": [
+          ["vincere", "vinto", "abbiamo vinto"],
+          ["bere", "bevuto", "ho bevuto"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "participi-irregolari",
+          "text": "Tommaso ha ___ la corsa! (vincere)",
+          "accept": ["vinto"],
+          "hint": "-nto",
+          "explain": {
+            "de": "**vincere** → **vinto** (-nto), wie spento, dipinto",
+            "sl": "**vincere** → **vinto** (-nto), kot spento, dipinto",
+            "en": "**vincere** → **vinto** (-nto), like spento, dipinto"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ein paar von ihnen gehen mit **essere**, und dann passt sich das Partizip wieder an: **venire → Giulia è venuta** (Giulia ist gekommen), **rimanere → le pecore sono rimaste** (die Schafe sind geblieben), **scendere → la nonna è scesa** (die Oma ist hinuntergegangen). Mit **avere** bleibt es gleich: **Giulia ha scritto**.",
+          "sl": "Nekaj jih gre z **essere** in takrat se deležnik spet ujema: **venire → Giulia è venuta** (Giulia je prišla), **rimanere → le pecore sono rimaste** (ovce so ostale), **scendere → la nonna è scesa** (babica je šla dol). Z **avere** ostane enak: **Giulia ha scritto**.",
+          "en": "A few of them take **essere**, and then the participle agrees again: **venire → Giulia è venuta** (Giulia came), **rimanere → le pecore sono rimaste** (the sheep stayed), **scendere → la nonna è scesa** (Granny went down). With **avere** it stays as it is: **Giulia ha scritto**."
+        },
+        "examples": [
+          {
+            "it": "Zia Nives è venuta a cena.",
+            "de": "Zia Nives ist zum Abendessen gekommen.",
+            "sl": "Teta Nives je prišla na večerjo.",
+            "en": "Zia Nives came for dinner."
+          },
+          {
+            "it": "Le pecore sono rimaste nella stalla.",
+            "de": "Die Schafe sind im Stall geblieben.",
+            "sl": "Ovce so ostale v hlevu.",
+            "en": "The sheep stayed in the barn."
+          }
+        ],
+        "rows": [
+          ["venire", "venuto", "è venuta"],
+          ["rimanere", "rimasto", "sono rimaste"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "participi-irregolari",
+          "prompt": "Nonna Rosa è ___ in cantina. (scendere)",
+          "options": ["sceso", "scesa", "scenduta"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**scendere** → sceso, mit **essere** angepasst: Nonna Rosa → **scesa**\n- scenduta gibt es nicht",
+            "sl": "**scendere** → sceso, z **essere** usklajen: Nonna Rosa → **scesa**\n- scenduta ne obstaja",
+            "en": "**scendere** → sceso, agreeing with **essere**: Nonna Rosa → **scesa**\n- scenduta doesn't exist"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "participi-irregolari-1",
+      "title": { "it": "Le famiglie dei participi", "de": "Die Familien der Partizipien", "sl": "Družine deležnikov", "en": "The participles' families" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "participi-irregolari",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "infinito → participio",
+          "columns": [{ "de": "participio · Partizip", "sl": "participio · deležnik", "en": "participio · participle" }],
+          "rows": [
+            { "label": "fare", "cells": ["fatto"] },
+            { "label": "scrivere", "cells": [{"accept": ["scritto"], "hint": "-tto"}] },
+            { "label": "rompere", "cells": [{"accept": ["rotto"]}] },
+            { "label": "mettere", "cells": [{"accept": ["messo"], "hint": "-so"}] },
+            { "label": "chiudere", "cells": [{"accept": ["chiuso"]}] },
+            { "label": "perdere", "cells": [{"accept": ["perso", "perduto"]}] },
+            { "label": "chiedere", "cells": [{"accept": ["chiesto"], "hint": "-sto"}] },
+            { "label": "aprire", "cells": [{"accept": ["aperto"], "hint": "-erto"}] },
+            { "label": "vincere", "cells": [{"accept": ["vinto"], "hint": "-nto"}] },
+            {
+              "label": "bere",
+              "cells": [
+                { "accept": ["bevuto"], "hint": {"de": "unregelmäßig", "sl": "nepravilen", "en": "irregular"} }
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**-tto** scritto, rotto · **-so** messo, chiuso, perso\n- **-sto** chiesto · **-erto** aperto · **-nto** vinto\n- bere → bevuto",
+            "sl": "**-tto** scritto, rotto · **-so** messo, chiuso, perso\n- **-sto** chiesto · **-erto** aperto · **-nto** vinto\n- bere → bevuto",
+            "en": "**-tto** scritto, rotto · **-so** messo, chiuso, perso\n- **-sto** chiesto · **-erto** aperto · **-nto** vinto\n- bere → bevuto"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "participi-irregolari",
+          "instruction": { "de": "Quale famiglia? · Welche Familie?", "sl": "Quale famiglia? · Katera družina?", "en": "Quale famiglia? · Which family?" },
+          "columns": [
+            { "label": "-tto (fatto)", "words": ["dire", "leggere"] },
+            { "label": "-so (preso)", "words": ["prendere", "accendere"] },
+            { "label": "-sto (visto)", "words": ["vedere", "rispondere"] },
+            { "label": "-nto (vinto)", "words": ["spegnere", "dipingere"] }
+          ],
+          "explain": {
+            "de": "dire → detto, leggere → letto\n- prendere → preso, accendere → acceso\n- vedere → visto, rispondere → risposto\n- spegnere → spento, dipingere → dipinto",
+            "sl": "dire → detto, leggere → letto\n- prendere → preso, accendere → acceso\n- vedere → visto, rispondere → risposto\n- spegnere → spento, dipingere → dipinto",
+            "en": "dire → detto, leggere → letto\n- prendere → preso, accendere → acceso\n- vedere → visto, rispondere → risposto\n- spegnere → spento, dipingere → dipinto"
+          }
+        }
+      ]
+    },
+    {
+      "id": "participi-irregolari-2",
+      "title": { "it": "Il compleanno di Lorenzo", "de": "Lorenzos Geburtstag", "sl": "Lorenzov rojstni dan", "en": "Lorenzo's birthday" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "participi-irregolari",
+          "instruction": { "de": "Completa con il passato · Setz die Vergangenheit ein", "sl": "Completa con il passato · Vstavi preteklik", "en": "Completa con il passato · Fill in the past" },
+          "title": "Il compleanno di Lorenzo",
+          "text": "Ieri è stato il compleanno di Lorenzo. Nonna Rosa ___ (fare) una torta. Giulia ___ (scrivere) un biglietto con tanti cuori. Il nonno Franco ___ (accendere) sei candeline, e Lorenzo ___ (spegnere) tutte le candeline con un soffio! Poi Lorenzo ___ (aprire) i regali. Abbiamo cantato e ___ (noi · bere) tanta aranciata. Anche Moro ___ (venire) alla festa!",
+          "gaps": [
+            { "accept": ["ha fatto"] },
+            { "accept": ["ha scritto"], "hint": "-tto" },
+            { "accept": ["ha acceso"], "hint": "-so" },
+            { "accept": ["ha spento"], "hint": "-nto" },
+            { "accept": ["ha aperto"], "hint": "-erto" },
+            { "accept": ["abbiamo bevuto"], "hint": "noi …" },
+            {
+              "accept": ["è venuto"],
+              "hint": "venire → essere",
+              "explain": {
+                "de": "**venire** nimmt essere: Moro **è venuto**.",
+                "sl": "**venire** gre z essere: Moro **è venuto**.",
+                "en": "**venire** takes essere: Moro **è venuto**."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["ha spegnuto", "ha aprito", "abbiamo bevito"],
+          "translation": {
+            "de": "Gestern hatte Lorenzo Geburtstag. Nonna Rosa hat einen Kuchen gebacken. Giulia hat eine Karte mit vielen Herzen geschrieben. Opa Franco hat sechs Kerzen angezündet, und Lorenzo hat alle Kerzen mit einem Pusten ausgeblasen! Dann hat Lorenzo die Geschenke aufgemacht. Wir haben gesungen und viel Orangenlimonade getrunken. Auch Moro ist zum Fest gekommen!",
+            "sl": "Včeraj je imel Lorenzo rojstni dan. Babica Rosa je spekla torto. Giulia je napisala voščilnico s polno srčki. Dedek Franco je prižgal šest svečk in Lorenzo je z enim pihom upihnil vse svečke! Potem je Lorenzo odprl darila. Peli smo in spili veliko oranžade. Tudi Moro je prišel na zabavo!",
+            "en": "Yesterday was Lorenzo's birthday. Nonna Rosa made a cake. Giulia wrote a card with lots of hearts. Grandpa Franco lit six candles, and Lorenzo blew out all the candles in one puff! Then Lorenzo opened his presents. We sang and drank lots of orange juice. Moro came to the party too!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "participi-irregolari",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Lorenzo ha ___ una domanda alla maestra.",
+          "options": ["chiesto", "chiesta", "chieduto"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**chiedere** → **chiesto**; mit avere bleibt es gleich (nicht chiesta)",
+            "sl": "**chiedere** → **chiesto**; z avere ostane enak (ne chiesta)",
+            "en": "**chiedere** → **chiesto**; with avere it stays as it is (not chiesta)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "participi-irregolari-3",
+      "title": { "it": "Che cosa è successo?", "de": "Was ist passiert?", "sl": "Kaj se je zgodilo?", "en": "What happened?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "participi-irregolari",
+          "instruction": { "de": "Metti al passato · Setz es in die Vergangenheit", "sl": "Metti al passato · Postavi v preteklik", "en": "Metti al passato · Put it in the past" },
+          "items": [
+            {
+              "from": "Scrivo una cartolina alla nonna.",
+              "accept": ["Ho scritto una cartolina alla nonna."],
+              "hint": "scrivere → ?"
+            },
+            { "from": "Giulia mette lo zaino sotto il banco.", "accept": ["Giulia ha messo lo zaino sotto il banco."] },
+            { "from": "Tommaso rompe un bicchiere.", "accept": ["Tommaso ha rotto un bicchiere."] },
+            {
+              "from": "Lorenzo perde la palla.",
+              "accept": ["Lorenzo ha perso la palla.", "Lorenzo ha perduto la palla."]
+            },
+            { "from": "Rispondo alla maestra.", "accept": ["Ho risposto alla maestra."] },
+            { "from": "Bevete il latte?", "accept": ["Avete bevuto il latte?"] },
+            {
+              "from": "Giulia viene a scuola in bici.",
+              "accept": ["Giulia è venuta a scuola in bici."],
+              "hint": "venire → essere"
+            }
+          ],
+          "explain": {
+            "de": "**avere** + das eigene Partizip: scrivo → ho scritto, rompe → ha rotto\n- **essere** und angepasst: viene → è venuta",
+            "sl": "**avere** + lastni deležnik: scrivo → ho scritto, rompe → ha rotto\n- **essere** in usklajen: viene → è venuta",
+            "en": "**avere** + its own participle: scrivo → ho scritto, rompe → ha rotto\n- **essere**, agreeing: viene → è venuta"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "participi-irregolari",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": [{ "de": "participio · Partizip", "sl": "participio · deležnik", "en": "participio · participle" }],
+        "rows": [
+          { "label": "leggere", "cells": ["letto"] },
+          { "label": "dire", "cells": [{"accept": ["detto"]}] },
+          { "label": "aprire", "cells": [{"accept": ["aperto"]}] },
+          { "label": "spegnere", "cells": [{"accept": ["spento"]}] },
+          { "label": "rimanere", "cells": [{"accept": ["rimasto"]}] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "participi-irregolari",
+        "instruction": { "de": "Completa con il passato · Setz die Vergangenheit ein", "sl": "Completa con il passato · Vstavi preteklik", "en": "Completa con il passato · Fill in the past" },
+        "text": "Ieri sera Nonno Bepi ___ (accendere) il fuoco sotto il tiglio. Tutti i bambini ___ (venire) ad ascoltare. Il nonno ___ (dire): «Adesso racconto una storia.» Giulia ___ (chiedere): «È una storia vera?» E il nonno ___ (rispondere): «Forse!»",
+        "gaps": [
+          { "accept": ["ha acceso"] },
+          { "accept": ["sono venuti"] },
+          { "accept": ["ha detto"] },
+          { "accept": ["ha chiesto"] },
+          { "accept": ["ha risposto"] }
+        ],
+        "translation": {
+          "de": "Gestern Abend hat Nonno Bepi unter der Linde das Feuer angezündet. Alle Kinder sind zum Zuhören gekommen. Der Opa hat gesagt: „Jetzt erzähle ich eine Geschichte.“ Giulia hat gefragt: „Ist die Geschichte wahr?“ Und der Opa hat geantwortet: „Vielleicht!“",
+          "sl": "Včeraj zvečer je dedek Bepi pod lipo zakuril ogenj. Vsi otroci so prišli poslušat. Dedek je rekel: »Zdaj bom povedal zgodbo.« Giulia je vprašala: »Je to resnična zgodba?« In dedek je odgovoril: »Mogoče!«",
+          "en": "Last night Nonno Bepi lit the fire under the linden. All the children came to listen. Grandpa said: “Now I'll tell a story.” Giulia asked: “Is it a true story?” And Grandpa answered: “Maybe!”"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "participi-irregolari",
+        "instruction": { "de": "Metti al passato · Setz es in die Vergangenheit", "sl": "Metti al passato · Postavi v preteklik", "en": "Metti al passato · Put it in the past" },
+        "items": [
+          { "from": "Prendo il pane.", "accept": ["Ho preso il pane."] },
+          { "from": "Lorenzo vince la gara.", "accept": ["Lorenzo ha vinto la gara."] },
+          { "from": "Le pecore rimangono nella stalla.", "accept": ["Le pecore sono rimaste nella stalla."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "participi-irregolari",
+        "prompt": "Chi ha ___ la luce?",
+        "options": ["spento", "spegnuto", "spenta"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**spegnere** → **spento**; mit avere bleibt es gleich",
+          "sl": "**spegnere** → **spento**; z avere ostane enak",
+          "en": "**spegnere** → **spento**; with avere it stays as it is"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the families by sound as a child's rule, perso and perduto both right, spegnere le candeline, è scesa in cantina"
+}
