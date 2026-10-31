@@ -1,0 +1,140 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "on-the-watchtower",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the watchtower's view in its Lakeland look (the village below in grey stone under slate with the battlemented church tower, dry-stone walls, the fells for the mountains, St George's cross on the flag: a white pennant with a red cross below level 4); the tower's own build changes with its level (logs, then stone), so its clues say nothing of what it is made of; the rest as the default view and na-stolpu's clues say; the crow is described, never placed; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "tower": {
+      "clues": [
+        { "kind": "size", "en": "It's very tall.", "sl": "To je nekaj zelo visokega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a roof and a railing.", "sl": "Ima streho in ograjo.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "We're standing on it now.", "sl": "Zdaj stojimo na tem.", "grammar": ["present-continuous", "prepositions-place"] },
+        { "kind": "use", "en": "From the top we can see the whole dale.", "sl": "Od zgoraj vidimo vso dolino.", "grammar": ["can"] }
+      ]
+    },
+    "railing": {
+      "clues": [
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It goes all round the top of the tower.", "sl": "Teče okoli vrha stolpa.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "use", "en": "It stops us from falling.", "sl": "Varuje nas, da ne pademo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "torch": {
+      "clues": [
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's on the right post.", "sl": "Je na desnem stebru.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "does", "en": "At night it burns.", "sl": "Ponoči gori.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "It gives us light in the dark.", "sl": "V temi nam daje svetlobo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "horn": {
+      "clues": [
+        { "kind": "trait", "en": "It's curved.", "sl": "To je nekaj ukrivljenega.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "Once it was on a cow's head.", "sl": "Nekoč je bilo na kravji glavi.", "grammar": ["past-simple"] },
+        { "kind": "where", "en": "It hangs on the left post.", "sl": "Visi na levem stebru.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "does", "en": "It's very loud.", "sl": "To je nekaj zelo glasnega.", "grammar": ["to-be"] },
+        { "kind": "use", "en": "We blow it to call the whole village.", "sl": "Vanj zatrobimo, da pokličemo vso vas.", "grammar": ["present-simple"] }
+      ]
+    },
+    "spyglass": {
+      "clues": [
+        { "kind": "colour", "en": "It's golden.", "sl": "Je zlate barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of metal.", "sl": "Je iz kovine.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's lying on the railing.", "sl": "Leži na ograji.", "grammar": ["present-continuous", "prepositions-place"], "ref": "railing" },
+        { "kind": "use", "en": "With it, we can see very far.", "sl": "S tem vidimo zelo daleč.", "grammar": ["can"] }
+      ]
+    },
+    "flag": {
+      "clues": [
+        { "kind": "colour", "en": "It's white and red.", "sl": "Je bele in rdeče barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a red cross on it.", "sl": "Na tem je rdeč križ.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's on a pole.", "sl": "Je na drogu.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "does", "en": "It flutters in the wind.", "sl": "Plapola v vetru.", "grammar": ["present-simple"] }
+      ]
+    },
+    "crow": {
+      "clues": [
+        { "kind": "colour", "en": "It's black.", "sl": "Je črne barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a grey beak.", "sl": "Ima siv kljun.", "grammar": ["to-have"] },
+        { "kind": "trait", "en": "It's a very clever bird.", "sl": "To je zelo pametna ptica.", "grammar": ["to-be"] },
+        { "kind": "does", "en": "It says caw, caw.", "sl": "Dela kra, kra.", "grammar": ["present-simple"] }
+      ]
+    },
+    "roofs": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of slate.", "sl": "Je iz skrilavca.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "There's a chimney on it.", "sl": "Na tem je dimnik.", "grammar": ["there-is-are"] },
+        { "kind": "use", "en": "Under it, people stay dry.", "sl": "Pod tem ljudje ostanejo suhi.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "palisade": {
+      "clues": [
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has sharp points.", "sl": "Ima ostre konice.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It goes all round the village.", "sl": "Teče okoli vse vasi.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "use", "en": "It keeps the wolves out.", "sl": "Volkove drži zunaj.", "grammar": ["present-simple"] }
+      ]
+    },
+    "gate": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in the palisade.", "sl": "Je v palisadi.", "grammar": ["to-be", "prepositions-place"], "ref": "palisade" },
+        { "kind": "trait", "en": "By day it's open.", "sl": "Podnevi je odprto.", "grammar": ["to-be"] },
+        { "kind": "use", "en": "At night we shut it.", "sl": "Ponoči to zapremo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "road": {
+      "clues": [
+        { "kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It goes from the gate over the fields.", "sl": "Pelje od vrat čez polja.", "grammar": ["present-simple", "prepositions-place"], "ref": "gate" },
+        { "kind": "does", "en": "It goes out of the village.", "sl": "Pelje ven iz vasi.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "We walk on it.", "sl": "Po tem hodimo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "forest": {
+      "clues": [
+        { "kind": "colour", "en": "In summer it's green.", "sl": "Poleti je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has lots of trees.", "sl": "Ima veliko dreves.", "grammar": ["to-have"] },
+        { "kind": "use", "en": "Wolves live in it.", "sl": "Tam živijo volkovi.", "grammar": ["present-simple"] }
+      ]
+    },
+    "river": {
+      "clues": [
+        { "kind": "trait", "en": "It's long and winding.", "sl": "To je nekaj dolgega in vijugastega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It runs through the dale.", "sl": "Teče skozi dolino.", "grammar": ["present-simple", "prepositions-place"], "ref": "valley" },
+        { "kind": "trait", "en": "Its water is very cold.", "sl": "Voda v tem je zelo mrzla.", "grammar": ["to-be"] },
+        { "kind": "use", "en": "Fish swim in it.", "sl": "V tem plavajo ribe.", "grammar": ["present-simple"] }
+      ]
+    },
+    "valley": {
+      "clues": [
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "In summer it's green.", "sl": "Poleti je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It lies below the fells.", "sl": "Leži pod hribi.", "grammar": ["present-simple", "prepositions-place"], "ref": "mountains" },
+        { "kind": "trait", "en": "There are fields and walls in it.", "sl": "Tam so polja in zidovi.", "grammar": ["there-is-are"] },
+        { "kind": "use", "en": "A river runs through it.", "sl": "Skozi to teče reka.", "grammar": ["present-simple"] }
+      ]
+    },
+    "mountains": {
+      "clues": [
+        { "kind": "colour", "en": "In summer it's green, with grey rocks.", "sl": "Poleti je zelene barve, s sivimi skalami.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's very high.", "sl": "To je nekaj zelo visokega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's on the other side of the dale.", "sl": "Je na drugi strani doline.", "grammar": ["to-be", "prepositions-place"], "ref": "valley" },
+        { "kind": "use", "en": "In winter there's snow on top.", "sl": "Pozimi je zgoraj sneg.", "grammar": ["there-is-are"] }
+      ]
+    },
+    "horizon": {
+      "clues": [
+        { "kind": "colour", "en": "It's light blue.", "sl": "Je svetlo modre barve.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's very far away.", "sl": "Je zelo daleč.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's between the sky and the land.", "sl": "Je med nebom in zemljo.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "We can never get to it.", "sl": "Tja ne moremo nikoli priti.", "grammar": ["can"] }
+      ]
+    }
+  }
+}

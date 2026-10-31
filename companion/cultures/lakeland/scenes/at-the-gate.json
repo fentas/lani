@@ -1,0 +1,415 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "at-the-gate",
+  "language": "en",
+  "title": { "en": "At the gate", "sl": "Pri vratih", "it": "Al portone", "de": "Am Tor" },
+  "emoji": "🚪",
+  "level": "A1",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "art": "palisade",
+  "from": ["palisade"],
+  "pack": "at-the-gate",
+  "objects": [
+    { "slot": "palisade", "word": "palisade", "pack": "on-the-watchtower" },
+    { "slot": "stake", "word": "stake" },
+    { "slot": "gate", "word": "gate", "pack": "on-the-watchtower" },
+    { "slot": "bar", "word": "bar" },
+    { "slot": "torch", "word": "torch", "pack": "on-the-watchtower", "needs": { "level": 2 } },
+    { "slot": "flag", "word": "flag", "pack": "feast-st-george", "needs": { "level": 3 } },
+    { "slot": "roof", "word": "roof", "pack": "on-the-watchtower", "needs": { "level": 3 } },
+    { "slot": "ladder", "word": "ladder", "pack": "tales", "needs": { "level": 4 } },
+    { "slot": "bell", "word": "bell", "pack": "on-the-fell", "needs": { "level": 5 } },
+    { "slot": "road", "word": "road", "pack": "in-the-village" },
+    { "slot": "forest", "word": "wood", "pack": "on-the-watchtower" },
+    { "slot": "meadow", "word": "meadow", "pack": "on-the-fell" },
+    { "slot": "bench", "word": "bench", "pack": "on-the-green" },
+    { "slot": "trough", "word": "trough" },
+    { "slot": "hills", "word": "fell", "pack": "on-the-fell" }
+  ],
+  "people": [
+    { "id": "jack", "name": "Shepherd Jack", "emoji": "🐑", "art": "shepherd", "slot": "road", "villager": "jack" },
+    { "id": "dixon", "name": "Mr Dixon", "emoji": "⚒️", "art": "smith", "slot": "gate", "villager": "dixon" },
+    { "id": "harry", "name": "Harry", "emoji": "🧒", "art": "child1", "slot": "bench", "villager": "harry" },
+    { "id": "poppy", "name": "Poppy", "emoji": "👧", "art": "child2", "slot": "gate", "villager": "poppy" }
+  ],
+  "happenings": [
+    {
+      "id": "flock-out", "title": { "en": "The sheep go out", "sl": "Ovce gredo ven", "it": "Le pecore escono", "de": "Die Schafe gehen hinaus" }, "who": "jack",
+      "when": ["dawn"], "months": [3, 4, 5, 6, 7, 8, 9, 10, 11], "chance": 0.55,
+      "dialog": "flock-out", "dialogs": ["flock-out-fog", "flock-out"], "reward": { "food": 20 }, "marker": "🐑",
+      "memory": { "en": "the sheep going out at dawn", "sl": "ovce, ki so ob zori šle ven", "it": "le pecore che uscivano all'alba", "de": "die Schafe, die im Morgengrauen hinausgingen" }
+    },
+    {
+      "id": "flock-home", "title": { "en": "The sheep come home", "sl": "Ovce se vračajo domov", "it": "Le pecore tornano a casa", "de": "Die Schafe kommen heim" }, "who": "jack",
+      "when": ["evening"], "months": [3, 4, 5, 6, 7, 8, 9, 10, 11], "chance": 0.55,
+      "dialog": "flock-home", "dialogs": ["flock-home-count", "flock-home"], "reward": { "food": 20 }, "marker": "🌇",
+      "memory": { "en": "Sooty, always the last one home", "sl": "Sooty, ki pride domov vedno zadnja", "it": "Sooty, sempre l'ultima a tornare", "de": "Sooty, die immer als Letzte heimkommt" }
+    },
+    {
+      "id": "bar", "title": { "en": "Mr Dixon shuts the gate", "sl": "Gospod Dixon zapira vrata", "it": "Il signor Dixon chiude il portone", "de": "Mr Dixon schließt das Tor" }, "who": "dixon",
+      "when": ["evening"], "chance": 0.5,
+      "dialog": "bar", "dialogs": ["bar-wolves", "bar"], "reward": { "wisdom": 20 }, "marker": "🌙",
+      "memory": { "en": "the gate barred for the night", "sl": "vrata, zapahnjena za noč", "it": "il portone sbarrato per la notte", "de": "das Tor, für die Nacht verriegelt" }
+    },
+    {
+      "id": "torches", "title": { "en": "The torches at the gate", "sl": "Bakli pri vratih", "it": "Le torce del portone", "de": "Die Fackeln am Tor" }, "who": "dixon",
+      "when": ["evening"], "chance": 0.5, "needs": { "level": 2 },
+      "dialog": "torches", "dialogs": ["torches-hinge", "torches"], "reward": { "stone": 20 }, "marker": "🔥",
+      "memory": { "en": "the torches we lit on the gateposts", "sl": "bakli, ki sva ju prižgala na stebrih vrat", "it": "le torce che abbiamo acceso sui pali del portone", "de": "die Fackeln, die wir an den Torpfosten angezündet haben" }
+    },
+    {
+      "id": "packman", "title": { "en": "The packman comes up the road", "sl": "Krošnjar prihaja po cesti", "it": "Il venditore ambulante sale per la strada", "de": "Der Hausierer kommt die Straße herauf" }, "who": "harry",
+      "when": ["morning", "afternoon"], "chance": 0.45,
+      "dialog": "packman", "dialogs": ["packman-needles", "packman"], "reward": { "food": 15 }, "marker": "🎒",
+      "memory": { "en": "the packman coming up the road", "sl": "krošnjarja, ki je prihajal po cesti", "it": "il venditore ambulante che saliva per la strada", "de": "den Hausierer, der die Straße heraufkam" }
+    },
+    {
+      "id": "bell", "title": { "en": "Poppy and the bell", "sl": "Poppy in zvon", "it": "Poppy e la campana", "de": "Poppy und die Glocke" }, "who": "poppy",
+      "when": ["afternoon"], "chance": 0.45, "needs": { "level": 5 },
+      "dialog": "bell", "dialogs": ["bell-danger", "bell"], "reward": { "wisdom": 15 }, "marker": "🔔",
+      "memory": { "en": "the bell that isn't a toy", "sl": "zvon, ki ni igrača", "it": "la campana che non è un giocattolo", "de": "die Glocke, die kein Spielzeug ist" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "flock-out",
+      "fx_stays": true,
+      "lines": [
+        { "who": "jack", "face": "happy", "en": "Now then, mate! Good morning! Can you open the gate? The sheep are going up the fell.", "sl": "Živjo, {m:stari|f:stara}! Dobro jutro! Lahko odpreš vrata? Ovce gredo na hrib.", "it": "Ciao, {m:amico|f:amica}! Buongiorno! Puoi aprire il portone? Le pecore salgono sul monte.", "de": "Hallo, Kumpel! Guten Morgen! Kannst du das Tor aufmachen? Die Schafe gehen auf den Berg.", "fx": { "gate": 0 } },
+        { "choices": [
+          { "en": "Of course! I'll open it now.", "sl": "Seveda! Takoj jih odprem.", "it": "Certo! Lo apro subito.", "de": "Klar! Ich mach es gleich auf.", "ok": true,
+            "reply": { "face": "happy", "en": "Cheers, mate. Come by, Meg! Away they go!", "sl": "Hvala, {m:stari|f:stara}. Come by, Meg! Pa gredo!", "it": "Grazie, {m:amico|f:amica}. Come by, Meg! Eccole che vanno!", "de": "Danke, Kumpel. Come by, Meg! Und los geht's!", "fx": { "gate": 1 } } },
+          { "en": "Of course! I'll shut it now.", "sl": "Seveda! Takoj jih zaprem.", "it": "Certo! Lo chiudo subito.", "de": "Klar! Ich mach es gleich zu.",
+            "why": { "en": "Jack wants it open for the sheep. Shut is the other way.", "sl": "Jack hoče, da so vrata za ovce odprta. Shut je ravno nasprotno.", "it": "Jack lo vuole aperto per le pecore. Shut è il contrario.", "de": "Jack will es für die Schafe offen haben. Shut ist das Gegenteil." },
+            "reply": { "face": "laugh", "en": "Shut it? Then the sheep stay in all day!", "sl": "Zapreš? Potem ovce ves dan ostanejo notri!", "it": "Chiuderlo? Allora le pecore restano dentro tutto il giorno!", "de": "Zumachen? Dann bleiben die Schafe den ganzen Tag drin!" } },
+          { "en": "Of course! I open it now.", "sl": "Seveda! Takoj jih odprem.", "it": "Certo! Lo apro subito.", "de": "Klar! Ich mach es gleich auf.", "grammar": "future",
+            "why": { "en": "To say you'll do something at once, use I'll: I'll open it now.", "sl": "Ko obljubiš, da boš nekaj takoj naredil, rečeš I'll: I'll open it now.", "it": "Per dire che fai subito qualcosa si usa I'll: I'll open it now.", "de": "Wenn du sagst, dass du etwas gleich tust, nimmst du I'll: I'll open it now." },
+            "reply": { "face": "curious", "en": "Now? Aye, go on then, mate!", "sl": "Zdaj? Ja, kar daj, {m:stari|f:stara}!", "it": "Adesso? Sì, dai, {m:amico|f:amica}!", "de": "Jetzt? Ja, mach schon, Kumpel!" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, mate?", "sl": "Kaj? Še enkrat, {m:stari|f:stara}?", "it": "Eh? Ripeti, {m:amico|f:amica}?", "de": "Hm? Sag das noch mal, Kumpel?" } },
+        { "who": "jack", "face": "happy", "en": "There they go! First the meadow, then up the fell.", "sl": "Pa gredo! Najprej travnik, potem gor na hrib.", "it": "Eccole! Prima il prato, poi su per il monte.", "de": "Da gehen sie! Erst die Wiese, dann den Berg hinauf.", "fx": { "flock": 0.4 } },
+        { "choices": [
+          { "en": "How many sheep have you got, Jack?", "sl": "Koliko ovac imaš, Jack?", "it": "Quante pecore hai, Jack?", "de": "Wie viele Schafe hast du, Jack?", "ok": true,
+            "reply": { "face": "proud", "en": "Over a hundred. And Sooty, the little black lamb.", "sl": "Več kot sto. Pa še Sooty, majhno črno jagnje.", "it": "Più di cento. E Sooty, l'agnellino nero.", "de": "Über hundert. Und Sooty, das kleine schwarze Lamm." } },
+          { "en": "How many sheeps have you got, Jack?", "sl": "Koliko ovac imaš, Jack?", "it": "Quante pecore hai, Jack?", "de": "Wie viele Schafe hast du, Jack?", "grammar": "plurals",
+            "why": { "en": "Sheep has no -s: one sheep, a hundred sheep.", "sl": "Sheep nima -s: one sheep, a hundred sheep.", "it": "Sheep non prende la -s: one sheep, a hundred sheep.", "de": "Sheep hat kein -s: one sheep, a hundred sheep." },
+            "reply": { "face": "laugh", "en": "Sheeps? Shh, don't let Meg hear that!", "sl": "Sheeps? Pst, da te Meg ne sliši!", "it": "Sheeps? Sst, che Meg non ti senta!", "de": "Sheeps? Pst, lass das nicht Meg hören!" } },
+          { "en": "How much sheep have you got, Jack?", "sl": "Koliko ovac imaš, Jack?", "it": "Quante pecore hai, Jack?", "de": "Wie viele Schafe hast du, Jack?", "grammar": "some-any",
+            "why": { "en": "You can count sheep: how many. How much is for things you can't count.", "sl": "Ovce lahko prešteješ: how many. How much je za stvari, ki jih ne štejemo.", "it": "Le pecore si contano: how many. How much è per le cose che non si contano.", "de": "Schafe kann man zählen: how many. How much ist für Dinge, die man nicht zählt." },
+            "reply": { "face": "laugh", "en": "How much? Sooty's priceless, mate!", "sl": "Koliko stanejo? Sooty je neprecenljiva!", "it": "Quanto costano? Sooty non ha prezzo!", "de": "Wie viel sie kosten? Sooty ist unbezahlbar!" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, mate?", "sl": "Kaj? Še enkrat, {m:stari|f:stara}?", "it": "Eh? Ripeti, {m:amico|f:amica}?", "de": "Hm? Sag das noch mal, Kumpel?" } },
+        { "who": "jack", "en": "They'll be back at dusk. Leave the gate open for them, eh?", "sl": "Ob mraku se vrnejo. Pusti jim vrata odprta, ja?", "it": "Tornano al crepuscolo. Lasciagli il portone aperto, eh?", "de": "In der Abenddämmerung sind sie zurück. Lass ihnen das Tor offen, ja?", "fx": { "flock": 0.5 } }
+      ]
+    },
+    {
+      "id": "flock-home",
+      "fx_stays": true,
+      "lines": [
+        { "who": "jack", "face": "happy", "en": "Now then, mate! The sheep are coming home. Open the gate, will you?", "sl": "Živjo, {m:stari|f:stara}! Ovce prihajajo domov. Mi odpreš vrata?", "it": "Ciao, {m:amico|f:amica}! Le pecore tornano a casa. Mi apri il portone?", "de": "Hallo, Kumpel! Die Schafe kommen heim. Machst du mir das Tor auf?", "fx": { "gate": 0, "flock": 0.55 } },
+        { "choices": [
+          { "en": "Yes, I'm opening it now.", "sl": "Ja, ravno jih odpiram.", "it": "Sì, lo sto aprendo.", "de": "Ja, ich mach es gerade auf.", "ok": true,
+            "reply": { "face": "happy", "en": "Grand. In you come, girls! That'll do, Meg!", "sl": "Super. Noter, ovčke! That'll do, Meg!", "it": "Perfetto. Dentro, ragazze! That'll do, Meg!", "de": "Prima. Rein mit euch, Mädels! That'll do, Meg!", "fx": { "gate": 1, "flock": 0.8 } } },
+          { "en": "Yes, I opening it now.", "sl": "Ja, ravno jih odpiram.", "it": "Sì, lo sto aprendo.", "de": "Ja, ich mach es gerade auf.", "grammar": "present-continuous",
+            "why": { "en": "For now, use am + -ing: I'm opening.", "sl": "Za zdaj uporabiš am + -ing: I'm opening.", "it": "Per adesso si usa am + -ing: I'm opening.", "de": "Für jetzt nimmst du am + -ing: I'm opening." },
+            "reply": { "face": "laugh", "en": "You opening? Quick, then, before Sooty runs off!", "sl": "Odpiraš? Hitro, preden Sooty pobegne!", "it": "Lo apri? Presto, prima che Sooty scappi!", "de": "Du machst auf? Schnell, bevor Sooty wegläuft!" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, mate?", "sl": "Kaj? Še enkrat, {m:stari|f:stara}?", "it": "Eh? Ripeti, {m:amico|f:amica}?", "de": "Hm? Sag das noch mal, Kumpel?" } },
+        { "who": "jack", "face": "worried", "en": "Where's Sooty? She's always the last one.", "sl": "Kje je Sooty? Vedno je zadnja.", "it": "Dov'è Sooty? È sempre l'ultima.", "de": "Wo ist Sooty? Sie ist immer die Letzte." },
+        { "choices": [
+          { "en": "There she is, on the road!", "sl": "Tam je, na cesti!", "it": "Eccola, sulla strada!", "de": "Da ist sie, auf der Straße!", "ok": true,
+            "reply": { "face": "happy", "en": "Good girl, Sooty! In you come. Last again!", "sl": "Pridna, Sooty! Noter. Spet zadnja!", "it": "Brava, Sooty! Dentro. Di nuovo ultima!", "de": "Brave Sooty! Rein mit dir. Wieder die Letzte!", "fx": { "flock": 1 } } },
+          { "en": "There she are, on the road!", "sl": "Tam je, na cesti!", "it": "Eccola, sulla strada!", "de": "Da ist sie, auf der Straße!", "grammar": "to-be",
+            "why": { "en": "She goes with is: there she is.", "sl": "She gre z is: there she is.", "it": "She va con is: there she is.", "de": "She geht mit is: there she is." },
+            "reply": { "face": "laugh", "en": "She are? Only one Sooty, mate. Thank goodness!", "sl": "She are? Samo ena Sooty je, {m:stari|f:stara}. Hvala bogu!", "it": "She are? C'è una Sooty sola, {m:amico|f:amica}. Per fortuna!", "de": "She are? Es gibt nur eine Sooty, Kumpel. Zum Glück!" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, mate?", "sl": "Kaj? Še enkrat, {m:stari|f:stara}?", "it": "Eh? Ripeti, {m:amico|f:amica}?", "de": "Hm? Sag das noch mal, Kumpel?" } },
+        { "who": "jack", "en": "All in. Shut the gate, mate. Good night, sheep!", "sl": "Vse so notri. Zapri vrata, {m:stari|f:stara}. Lahko noč, ovce!", "it": "Tutte dentro. Chiudi il portone, {m:amico|f:amica}. Buonanotte, pecore!", "de": "Alle drin. Mach das Tor zu, Kumpel. Gute Nacht, Schafe!", "fx": { "gate": 0 } },
+        { "choices": [
+          { "en": "Good night, sheep!", "sl": "Lahko noč, ovce!", "it": "Buonanotte, pecore!", "de": "Gute Nacht, Schafe!", "ok": true,
+            "reply": { "face": "laugh", "en": "Ha! They say it back: baa!", "sl": "Ha! Odgovorijo ti: bee!", "it": "Ah! Ti rispondono: beee!", "de": "Ha! Sie antworten: mäh!" } },
+          { "en": "Good night, Jack!", "sl": "Lahko noč, Jack!", "it": "Buonanotte, Jack!", "de": "Gute Nacht, Jack!", "ok": true,
+            "reply": { "face": "happy", "en": "Night, mate. Same time tomorrow!", "sl": "Lahko noč, {m:stari|f:stara}. Jutri ob isti uri!", "it": "Notte, {m:amico|f:amica}. Domani alla stessa ora!", "de": "Nacht, Kumpel. Morgen um die gleiche Zeit!" } },
+          { "en": "Good morning, sheep!", "sl": "Dobro jutro, ovce!", "it": "Buongiorno, pecore!", "de": "Guten Morgen, Schafe!",
+            "why": { "en": "It's evening, and they're going to sleep: good night.", "sl": "Večer je in ovce gredo spat: good night.", "it": "È sera e le pecore vanno a dormire: good night.", "de": "Es ist Abend, und sie gehen schlafen: good night." },
+            "reply": { "face": "laugh", "en": "Morning? They're off to bed, mate!", "sl": "Jutro? Spat gredo, {m:stari|f:stara}!", "it": "Mattina? Vanno a letto, {m:amico|f:amica}!", "de": "Morgen? Die gehen ins Bett, Kumpel!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "bar",
+      "fx_stays": true,
+      "lines": [
+        { "who": "dixon", "en": "Evening, {m:lad|f:lass}. Time to shut the gate.", "sl": "Dober večer. Čas je, da zapremo vrata.", "it": "Buonasera, {m:ragazzo|f:ragazza}. È ora di chiudere il portone.", "de": "'n Abend, {m:Junge|f:Mädchen}. Zeit, das Tor zuzumachen.", "fx": { "gate": 1 } },
+        { "choices": [
+          { "en": "Good evening, Mr Dixon. Can I help?", "sl": "Dober večer, gospod Dixon. Lahko pomagam?", "it": "Buonasera, signor Dixon. Posso aiutarLa?", "de": "Guten Abend, Mr Dixon. Kann ich helfen?", "ok": true,
+            "reply": { "face": "happy", "en": "Aye. You push the left one. I'll do the right.", "sl": "Ja. Ti potisni levo krilo, jaz bom desno.", "it": "Sì. Tu spingi l'anta sinistra. Io faccio la destra.", "de": "Ja. Du drückst den linken Flügel, ich den rechten.", "fx": { "gate": 0 } } },
+          { "en": "Evening, Mr Dixon! I'll push this side.", "sl": "Dober večer, gospod Dixon! Jaz bom {m:potisnil|f:potisnila} to stran.", "it": "Buonasera, signor Dixon! Spingo io da questa parte.", "de": "'n Abend, Mr Dixon! Ich drück auf dieser Seite.", "ok": true,
+            "reply": { "face": "happy", "en": "Good. Together, then. Push!", "sl": "Dobro. Skupaj, torej. Potisni!", "it": "Bene. Insieme, allora. Spingi!", "de": "Gut. Zusammen also. Drück!", "fx": { "gate": 0 } } },
+          { "en": "Good morning, Mr Dixon. Can I help?", "sl": "Dobro jutro, gospod Dixon. Lahko pomagam?", "it": "Buongiorno, signor Dixon. Posso aiutarLa?", "de": "Guten Morgen, Mr Dixon. Kann ich helfen?",
+            "why": { "en": "It's evening: good evening. Good morning is until twelve.", "sl": "Večer je: good evening. Good morning rečeš do poldneva.", "it": "È sera: good evening. Good morning si dice fino a mezzogiorno.", "de": "Es ist Abend: good evening. Good morning sagt man bis zwölf Uhr." },
+            "reply": { "face": "cross", "en": "Morning? The sun's going down, {m:lad|f:lass}.", "sl": "Jutro? Sonce zahaja.", "it": "Mattina? Il sole sta tramontando, {m:ragazzo|f:ragazza}.", "de": "Morgen? Die Sonne geht unter, {m:Junge|f:Mädchen}." } }
+        ] },
+        { "who": "dixon", "en": "Now the bar. It's heavy. Put it across the gate.", "sl": "Zdaj pa zapah. Težak je. Daj ga čez vrata.", "it": "Adesso la sbarra. È pesante. Mettila di traverso sul portone.", "de": "Jetzt der Riegel. Er ist schwer. Leg ihn quer über das Tor." },
+        { "choices": [
+          { "en": "It's very heavy! Is it made of oak?", "sl": "Zelo težak je! Je iz hrastovine?", "it": "È pesantissima! È di quercia?", "de": "Er ist sehr schwer! Ist er aus Eiche?", "ok": true,
+            "reply": { "face": "proud", "en": "Aye. Old oak. Older than me.", "sl": "Ja. Star hrast. Starejši od mene.", "it": "Sì. Quercia vecchia. Più vecchia di me.", "de": "Ja. Alte Eiche. Älter als ich." } },
+          { "en": "It's very heavy! Is it of oak made?", "sl": "Zelo težak je! Je iz hrastovine?", "it": "È pesantissima! È di quercia?", "de": "Er ist sehr schwer! Ist er aus Eiche?", "grammar": "word-order",
+            "why": { "en": "Made comes before of: Is it made of oak?", "sl": "Made pride pred of: Is it made of oak?", "it": "Made va prima di of: Is it made of oak?", "de": "Made steht vor of: Is it made of oak?" },
+            "reply": { "face": "confused", "en": "Like a riddle, that. Again, {m:lad|f:lass}.", "sl": "Kot uganka. Še enkrat.", "it": "Sembra un indovinello. Di nuovo, {m:ragazzo|f:ragazza}.", "de": "Wie ein Rätsel. Noch mal, {m:Junge|f:Mädchen}." } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Again.", "sl": "Kaj? Še enkrat.", "it": "Eh? Di nuovo.", "de": "Hm? Noch mal." } },
+        { "who": "dixon", "face": "proud", "en": "There. Barred. Nothing comes in tonight.", "sl": "Tako. Zapahnjeno. Nocoj ne pride nič noter.", "it": "Ecco. Sbarrato. Stanotte non entra niente.", "de": "So. Verriegelt. Heute Nacht kommt nichts rein." },
+        { "choices": [
+          { "en": "Thank you, Mr Dixon. Good night!", "sl": "Hvala, gospod Dixon. Lahko noč!", "it": "Grazie, signor Dixon. Buonanotte!", "de": "Danke, Mr Dixon. Gute Nacht!", "ok": true,
+            "reply": { "face": "happy", "en": "Night, {m:lad|f:lass}. Sleep well.", "sl": "Lahko noč. Lepo spi.", "it": "Notte, {m:ragazzo|f:ragazza}. Dormi bene.", "de": "Nacht, {m:Junge|f:Mädchen}. Schlaf gut." } },
+          { "en": "Thanks you, Mr Dixon. Good night!", "sl": "Hvala, gospod Dixon. Lahko noč!", "it": "Grazie, signor Dixon. Buonanotte!", "de": "Danke, Mr Dixon. Gute Nacht!",
+            "why": { "en": "Say thank you, or just thanks: never thanks you.", "sl": "Reci thank you ali samo thanks, nikoli thanks you.", "it": "Si dice thank you, o solo thanks: mai thanks you.", "de": "Man sagt thank you oder nur thanks, nie thanks you." },
+            "reply": { "face": "cross", "en": "Thanks you? Hm. Once more, properly.", "sl": "Thanks you? Hm. Še enkrat, pravilno.", "it": "Thanks you? Mh. Ancora una volta, come si deve.", "de": "Thanks you? Hm. Noch mal, richtig." } }
+        ] }
+      ]
+    },
+    {
+      "id": "torches",
+      "fx_stays": true,
+      "lines": [
+        { "who": "dixon", "en": "Dusk, {m:lad|f:lass}. Where are the torches?", "sl": "Mrak je. Kje sta bakli?", "it": "È il crepuscolo, {m:ragazzo|f:ragazza}. Dove sono le torce?", "de": "Dämmerung, {m:Junge|f:Mädchen}. Wo sind die Fackeln?", "fx": { "torch": 0 } },
+        { "choices": [
+          { "en": "They're on the gateposts!", "sl": "Na stebrih vrat sta!", "it": "Sono sui pali del portone!", "de": "Sie sind an den Torpfosten!", "ok": true, "tap": "torch", "grammar": "prepositions-place",
+            "reply": { "face": "happy", "en": "Aye. Light them both.", "sl": "Ja. Prižgi obe.", "it": "Sì. Accendile tutte e due.", "de": "Ja. Zünd beide an." } },
+          { "en": "They're on the bench!", "sl": "Na klopi sta!", "it": "Sono sulla panchina!", "de": "Sie sind auf der Bank!", "tap": "bench",
+            "why": { "en": "Torches are up high, where they can light the gate.", "sl": "Bakle so visoko, da osvetlijo vrata.", "it": "Le torce stanno in alto, per illuminare il portone.", "de": "Fackeln sind oben, damit sie das Tor beleuchten." },
+            "reply": { "face": "cross", "en": "On the bench? Then we'd sit on them. Look up.", "sl": "Na klopi? Potem bi sedeli nanju. Poglej gor.", "it": "Sulla panchina? Allora ci sederemmo sopra. Guarda su.", "de": "Auf der Bank? Dann säßen wir drauf. Schau hoch." } },
+          { "en": "They're in the trough!", "sl": "V koritu sta!", "it": "Sono nell'abbeveratoio!", "de": "Sie sind im Trog!", "tap": "trough",
+            "why": { "en": "Fire and water don't mix. Look up high, by the gate.", "sl": "Ogenj in voda ne gresta skupaj. Poglej visoko, pri vratih.", "it": "Fuoco e acqua non vanno d'accordo. Guarda in alto, vicino al portone.", "de": "Feuer und Wasser vertragen sich nicht. Schau hoch, am Tor." },
+            "reply": { "face": "laugh", "en": "In the water? Wet torches don't burn, {m:lad|f:lass}.", "sl": "V vodi? Mokre bakle ne gorijo.", "it": "Nell'acqua? Le torce bagnate non bruciano, {m:ragazzo|f:ragazza}.", "de": "Im Wasser? Nasse Fackeln brennen nicht, {m:Junge|f:Mädchen}." } }
+        ] },
+        { "who": "dixon", "en": "Here. Take the fire.", "sl": "Na. Vzemi ogenj.", "it": "Tieni. Prendi il fuoco.", "de": "Hier. Nimm das Feuer." },
+        { "choices": [
+          { "en": "I'll light both of them.", "sl": "{m:Prižgal|f:Prižgala} bom obe.", "it": "Le accendo tutte e due.", "de": "Ich zünde beide an.", "ok": true,
+            "reply": { "face": "proud", "en": "Good. Fire keeps watch. Wolves don't like fire.", "sl": "Dobro. Ogenj straži. Volkovi ne marajo ognja.", "it": "Bene. Il fuoco fa la guardia. Ai lupi il fuoco non piace.", "de": "Gut. Feuer hält Wache. Wölfe mögen kein Feuer.", "fx": { "torch": 1 } } },
+          { "en": "I'll lights both of them.", "sl": "{m:Prižgal|f:Prižgala} bom obe.", "it": "Le accendo tutte e due.", "de": "Ich zünde beide an.", "grammar": "future",
+            "why": { "en": "After will ('ll), the verb is in its base form: I'll light.", "sl": "Za will ('ll) pride osnovna oblika glagola: I'll light.", "it": "Dopo will ('ll) viene la forma base: I'll light.", "de": "Nach will ('ll) kommt die Grundform: I'll light." },
+            "reply": { "face": "cross", "en": "Lights? It's right, or it isn't. Again.", "sl": "Lights? Ali je prav ali ni. Še enkrat.", "it": "Lights? O è giusto o non lo è. Di nuovo.", "de": "Lights? Entweder richtig oder nicht. Noch mal." } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Again.", "sl": "Kaj? Še enkrat.", "it": "Eh? Di nuovo.", "de": "Hm? Noch mal." } },
+        { "who": "dixon", "face": "happy", "en": "There. Both burning. That's right.", "sl": "Tako. Obe gorita. Tako je prav.", "it": "Ecco. Bruciano tutte e due. Così va bene.", "de": "So. Beide brennen. So ist's richtig." }
+      ]
+    },
+    {
+      "id": "packman",
+      "fx_stays": true,
+      "lines": [
+        { "who": "harry", "face": "surprised", "en": "{learner}! Look at the road! Someone's coming with a big pack on his back. Where's he coming from?", "sl": "{learner}! Poglej cesto! Nekdo prihaja z veliko krošnjo na hrbtu. Od kod prihaja?", "it": "{learner}! Guarda la strada! Arriva qualcuno con un grande zaino sulle spalle. Da dove viene?", "de": "{learner}! Schau auf die Straße! Da kommt jemand mit einer großen Kiepe auf dem Rücken. Wo kommt er her?", "fx": { "pedlar": 0.3 } },
+        { "choices": [
+          { "en": "He's coming from the wood!", "sl": "Iz gozda prihaja!", "it": "Viene dal bosco!", "de": "Er kommt aus dem Wald!", "ok": true, "tap": "forest", "grammar": "prepositions-place",
+            "reply": { "face": "happy", "en": "Yes! It's the packman! He comes every month.", "sl": "Ja! Krošnjar je! Pride vsak mesec.", "it": "Sì! È il venditore ambulante! Viene ogni mese.", "de": "Ja! Das ist der Hausierer! Er kommt jeden Monat." } },
+          { "en": "He's coming from the meadow!", "sl": "S travnika prihaja!", "it": "Viene dal prato!", "de": "Er kommt von der Wiese!", "tap": "meadow",
+            "why": { "en": "Follow the road with your eyes: where does it begin?", "sl": "S pogledom sledi cesti: kje se začne?", "it": "Segui la strada con gli occhi: dove comincia?", "de": "Folg der Straße mit den Augen: Wo fängt sie an?" },
+            "reply": { "face": "laugh", "en": "From the meadow? He's not a sheep, {learner}!", "sl": "S travnika? Saj ni ovca, {learner}!", "it": "Dal prato? Non è mica una pecora, {learner}!", "de": "Von der Wiese? Er ist doch kein Schaf, {learner}!" } },
+          { "en": "He's coming from the trough!", "sl": "Iz korita prihaja!", "it": "Viene dall'abbeveratoio!", "de": "Er kommt aus dem Trog!", "tap": "trough",
+            "why": { "en": "The trough is right here by us. Look far away, where the road begins.", "sl": "Korito je čisto tukaj pri nas. Poglej daleč, kjer se začne cesta.", "it": "L'abbeveratoio è proprio qui vicino. Guarda lontano, dove comincia la strada.", "de": "Der Trog steht direkt hier bei uns. Schau weit weg, wo die Straße anfängt." },
+            "reply": { "face": "laugh", "en": "From the trough? Did he swim here? Ha ha!", "sl": "Iz korita? Je priplaval? Ha ha!", "it": "Dall'abbeveratoio? È arrivato a nuoto? Ah ah!", "de": "Aus dem Trog? Ist er hergeschwommen? Haha!" } }
+        ] },
+        { "who": "harry", "face": "curious", "en": "What's in his pack, do you think?", "sl": "Kaj misliš, kaj ima v krošnji?", "it": "Secondo te cosa c'è nel suo zaino?", "de": "Was ist wohl in seiner Kiepe?", "fx": { "pedlar": 0.7 } },
+        { "choices": [
+          { "en": "There are buttons, needles and ribbons.", "sl": "Gumbi, šivanke in trakovi.", "it": "Ci sono bottoni, aghi e nastri.", "de": "Da sind Knöpfe, Nadeln und Bänder drin.", "ok": true,
+            "reply": { "face": "happy", "en": "And sweets! I hope he's got sweets.", "sl": "Pa bonboni! Upam, da ima bonbone.", "it": "E caramelle! Spero che abbia le caramelle.", "de": "Und Bonbons! Hoffentlich hat er Bonbons.", "fx": { "pedlar": 1 } } },
+          { "en": "There is buttons, needles and ribbons.", "sl": "Gumbi, šivanke in trakovi.", "it": "Ci sono bottoni, aghi e nastri.", "de": "Da sind Knöpfe, Nadeln und Bänder drin.", "grammar": "there-is-are",
+            "why": { "en": "More than one thing: there are.", "sl": "Več stvari: there are.", "it": "Più cose: there are.", "de": "Mehrere Sachen: there are." },
+            "reply": { "face": "curious", "en": "Just one button? That's a small shop!", "sl": "Samo en gumb? To je pa majhna trgovina!", "it": "Un bottone solo? Che negozio piccolo!", "de": "Nur ein Knopf? Das ist aber ein kleiner Laden!" } }
+        ], "puzzled": { "face": "confused", "en": "Huh? Say it again!", "sl": "Ha? Povej še enkrat!", "it": "Eh? Ridillo!", "de": "Hä? Sag's noch mal!" } },
+        { "who": "harry", "face": "laugh", "en": "He's at the gate! Come on, let's go and say hello!", "sl": "Pri vratih je! Pridi, greva ga pozdravit!", "it": "È al portone! Dai, andiamo a salutarlo!", "de": "Er ist am Tor! Komm, wir sagen Hallo!" }
+      ]
+    },
+    {
+      "id": "bell",
+      "lines": [
+        { "who": "poppy", "face": "curious", "en": "{learner}, look! There's a bell under the gate's roof. Can I ring it?", "sl": "{learner}, poglej! Pod streho vrat je zvon. Lahko pozvonim?", "it": "{learner}, guarda! C'è una campana sotto il tetto del portone. Posso suonarla?", "de": "{learner}, schau! Unter dem Dach vom Tor hängt eine Glocke. Darf ich sie läuten?" },
+        { "choices": [
+          { "en": "No, Poppy. It isn't a toy.", "sl": "Ne, Poppy. To ni igrača.", "it": "No, Poppy. Non è un giocattolo.", "de": "Nein, Poppy. Das ist kein Spielzeug.", "ok": true,
+            "reply": { "face": "sad", "en": "Oh. What is it for, then?", "sl": "Oh. Za kaj pa je potem?", "it": "Oh. E allora a cosa serve?", "de": "Oh. Wofür ist sie denn dann?" } },
+          { "en": "No, Poppy. It isn't an toy.", "sl": "Ne, Poppy. To ni igrača.", "it": "No, Poppy. Non è un giocattolo.", "de": "Nein, Poppy. Das ist kein Spielzeug.", "grammar": "articles",
+            "why": { "en": "Before a consonant sound, say a: a toy.", "sl": "Pred soglasnikom rečeš a: a toy.", "it": "Davanti a un suono consonantico si dice a: a toy.", "de": "Vor einem Konsonanten sagt man a: a toy." },
+            "reply": { "face": "curious", "en": "An toy? That sounds funny. Try again!", "sl": "An toy? To zveni smešno. Poskusi znova!", "it": "An toy? Suona buffo. Riprova!", "de": "An toy? Das klingt komisch. Versuch's noch mal!" } }
+        ], "puzzled": { "face": "confused", "en": "Hmm? Say that again?", "sl": "Hm? Še enkrat?", "it": "Mh? Ripeti?", "de": "Hm? Noch mal?" } },
+        { "who": "poppy", "face": "thinking", "en": "I know! You ring it when there's danger. Like wolves!", "sl": "Vem! Pozvoniš, ko je nevarnost. Na primer volkovi!", "it": "Lo so! Si suona quando c'è pericolo. Tipo i lupi!", "de": "Ich weiß! Man läutet, wenn Gefahr droht. Zum Beispiel Wölfe!" },
+        { "choices": [
+          { "en": "That's right. Only when there's danger.", "sl": "Tako je. Samo ob nevarnosti.", "it": "Esatto. Solo quando c'è pericolo.", "de": "Genau. Nur bei Gefahr.", "ok": true,
+            "reply": { "face": "proud", "en": "Then I'll watch the wood for you. All day!", "sl": "Potem bom zate pazila na gozd. Ves dan!", "it": "Allora sorveglio il bosco per te. Tutto il giorno!", "de": "Dann pass ich für dich auf den Wald auf. Den ganzen Tag!" } },
+          { "en": "That's right. Only when there are danger.", "sl": "Tako je. Samo ob nevarnosti.", "it": "Esatto. Solo quando c'è pericolo.", "de": "Genau. Nur bei Gefahr.", "grammar": "there-is-are",
+            "why": { "en": "Danger is one thing here: there's danger.", "sl": "Danger je tukaj ena stvar: there's danger.", "it": "Danger qui è una cosa sola: there's danger.", "de": "Danger ist hier eine Sache: there's danger." },
+            "reply": { "face": "surprised", "en": "Are danger? Lots of dangers? Eek!", "sl": "Are danger? Veliko nevarnosti? Ojoj!", "it": "Are danger? Tanti pericoli? Aiuto!", "de": "Are danger? Ganz viele Gefahren? Hilfe!" } }
+        ], "puzzled": { "face": "confused", "en": "Hmm? Say that again?", "sl": "Hm? Še enkrat?", "it": "Mh? Ripeti?", "de": "Hm? Noch mal?" } },
+        { "who": "poppy", "face": "shy", "en": "Oops! I only touched it. Ding!", "sl": "Ups! Samo dotaknila sem se ga. Cink!", "it": "Ops! L'ho solo toccata. Din!", "de": "Hoppla! Ich hab sie nur angefasst. Bim!", "fx": { "bell": 0.2 } },
+        { "choices": [
+          { "en": "Careful, Poppy!", "sl": "Previdno, Poppy!", "it": "Attenta, Poppy!", "de": "Vorsicht, Poppy!", "ok": true,
+            "reply": { "face": "shy", "en": "Sorry! I won't do it again. Promise.", "sl": "Oprosti! Ne bom več. Obljubim.", "it": "Scusa! Non lo faccio più. Promesso.", "de": "Entschuldigung! Ich mach's nicht wieder. Versprochen.", "fx": { "bell": 0 } } },
+          { "en": "That's enough, Poppy.", "sl": "Dovolj je, Poppy.", "it": "Basta così, Poppy.", "de": "Das reicht, Poppy.", "ok": true,
+            "reply": { "face": "shy", "en": "OK, OK. Only for danger. I know.", "sl": "Prav, prav. Samo ob nevarnosti. Vem.", "it": "Va bene, va bene. Solo per il pericolo. Lo so.", "de": "Okay, okay. Nur bei Gefahr. Ich weiß.", "fx": { "bell": 0 } } },
+          { "en": "Do it again, Poppy!", "sl": "Še enkrat, Poppy!", "it": "Rifallo, Poppy!", "de": "Noch mal, Poppy!",
+            "why": { "en": "The bell is only for danger: don't ask her to ring it again.", "sl": "Zvon je samo za nevarnost: ne prosi je, naj spet pozvoni.", "it": "La campana è solo per il pericolo: non chiederle di suonarla ancora.", "de": "Die Glocke ist nur für Gefahr: Bitte sie nicht, noch mal zu läuten." },
+            "reply": { "face": "surprised", "en": "Again? But you said it isn't a toy!", "sl": "Še enkrat? Saj si {m:rekel|f:rekla}, da ni igrača!", "it": "Ancora? Ma hai detto che non è un giocattolo!", "de": "Noch mal? Aber du hast gesagt, das ist kein Spielzeug!" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "flock-out-fog",
+      "months": [3, 4, 10, 11],
+      "sky_stays": false,
+      "fx_stays": true,
+      "memory": { "en": "the misty morning Meg led the way", "sl": "megleno jutro, ko je Meg kazala pot", "it": "la mattina di nebbia in cui Meg faceva strada", "de": "den nebligen Morgen, an dem Meg den Weg gezeigt hat" },
+      "lines": [
+        { "who": "jack", "face": "worried", "en": "Now then, mate. Look at the fell. Mist! I hate the mist.", "sl": "Živjo, {m:stari|f:stara}. Poglej hrib. Megla! Sovražim meglo.", "it": "Ciao, {m:amico|f:amica}. Guarda il monte. Nebbia! Odio la nebbia.", "de": "Hallo, Kumpel. Schau auf den Berg. Nebel! Ich hasse Nebel.", "sky": { "fog": 0.6 }, "fx": { "gate": 0 } },
+        { "choices": [
+          { "en": "Why do you hate it?", "sl": "Zakaj jo sovražiš?", "it": "Perché la odi?", "de": "Warum hasst du ihn?", "ok": true,
+            "reply": { "face": "sad", "en": "The sheep get lost in it. Sooty most of all.", "sl": "Ovce se v njej izgubijo. Najbolj Sooty.", "it": "Le pecore ci si perdono. Sooty più di tutte.", "de": "Die Schafe verlaufen sich darin. Sooty am meisten." } },
+          { "en": "Why does you hate it?", "sl": "Zakaj jo sovražiš?", "it": "Perché la odi?", "de": "Warum hasst du ihn?", "grammar": "questions-do",
+            "why": { "en": "With you, ask with do: Why do you …? Does is for he, she and it.", "sl": "Pri you vprašaš z do: Why do you …? Does je za he, she in it.", "it": "Con you si chiede con do: Why do you …? Does è per he, she e it.", "de": "Bei you fragt man mit do: Why do you …? Does ist für he, she und it." },
+            "reply": { "face": "laugh", "en": "Does you? Ha! You sound sleepy, mate. Too early?", "sl": "Does you? Ha! Zaspano zveniš, {m:stari|f:stara}. Prezgodaj?", "it": "Does you? Ah! Sembri {m:assonnato|f:assonnata}, {m:amico|f:amica}. Troppo presto?", "de": "Does you? Ha! Du klingst verschlafen, Kumpel. Zu früh?" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Say that again, mate?", "sl": "Kaj? Še enkrat, {m:stari|f:stara}?", "it": "Eh? Ripeti, {m:amico|f:amica}?", "de": "Hm? Sag das noch mal, Kumpel?" } },
+        { "who": "jack", "en": "Open the gate, mate. Meg, away! Watch Sooty!", "sl": "Odpri vrata, {m:stari|f:stara}. Meg, away! Pazi na Sooty!", "it": "Apri il portone, {m:amico|f:amica}. Meg, away! Attenta a Sooty!", "de": "Mach das Tor auf, Kumpel. Meg, away! Pass auf Sooty auf!", "fx": { "gate": 1, "flock": 0.3 } },
+        { "choices": [
+          { "en": "Be careful, Jack!", "sl": "Pazi nase, Jack!", "it": "Stai attento, Jack!", "de": "Pass auf dich auf, Jack!", "ok": true,
+            "reply": { "face": "happy", "en": "I will. See you at dusk, mate!", "sl": "Bom. Se vidiva ob mraku, {m:stari|f:stara}!", "it": "Lo farò. Ci vediamo al crepuscolo, {m:amico|f:amica}!", "de": "Mach ich. Bis heute Abend, Kumpel!", "fx": { "flock": 0.5 } } },
+          { "en": "Good luck in the mist!", "sl": "Srečno v megli!", "it": "Buona fortuna nella nebbia!", "de": "Viel Glück im Nebel!", "ok": true,
+            "reply": { "face": "happy", "en": "Thanks! Meg knows the way better than me.", "sl": "Hvala! Meg pozna pot bolje kot jaz.", "it": "Grazie! Meg conosce la strada meglio di me.", "de": "Danke! Meg kennt den Weg besser als ich.", "fx": { "flock": 0.5 } } },
+          { "en": "Be careful, Jack! Good night!", "sl": "Pazi nase, Jack! Lahko noč!", "it": "Stai attento, Jack! Buonanotte!", "de": "Pass auf dich auf, Jack! Gute Nacht!",
+            "why": { "en": "It's morning: good night is for bedtime. Say see you, or have a good day.", "sl": "Jutro je: good night je za spanje. Reci see you ali have a good day.", "it": "È mattina: good night è per andare a dormire. Di' see you o have a good day.", "de": "Es ist Morgen: good night ist fürs Schlafengehen. Sag see you oder have a good day." },
+            "reply": { "face": "laugh", "en": "Good night? I've only just got up, mate!", "sl": "Lahko noč? Saj sem komaj vstal, {m:stari|f:stara}!", "it": "Buonanotte? Mi sono appena alzato, {m:amico|f:amica}!", "de": "Gute Nacht? Ich bin doch gerade erst aufgestanden, Kumpel!" } }
+        ] },
+        { "who": "jack", "face": "laugh", "en": "And there goes Sooty, last again. Come on, Sooty!", "sl": "In tam gre Sooty, spet zadnja. Daj, Sooty!", "it": "Ed ecco Sooty, di nuovo ultima. Dai, Sooty!", "de": "Und da geht Sooty, wieder als Letzte. Komm schon, Sooty!" }
+      ]
+    },
+    {
+      "id": "flock-home-count",
+      "count": { "from": "dice", "min": 12, "max": 30 },
+      "fx_stays": true,
+      "memory": { "en": "the day we counted the sheep at the gate", "sl": "dan, ko sva štela ovce pri vratih", "it": "il giorno in cui abbiamo contato le pecore al portone", "de": "den Tag, an dem wir die Schafe am Tor gezählt haben" },
+      "lines": [
+        { "who": "jack", "face": "happy", "en": "Now then, mate! The sheep are home. Count them at the gate, will you?", "sl": "Živjo, {m:stari|f:stara}! Ovce so doma. Jih prešteješ pri vratih?", "it": "Ciao, {m:amico|f:amica}! Le pecore sono a casa. Me le conti al portone?", "de": "Hallo, Kumpel! Die Schafe sind daheim. Zählst du sie am Tor?", "fx": { "flock": 0.6, "gate": 1 } },
+        { "choices": [
+          { "en": "There {is|are} {n} sheep at the gate.", "sl": "Pri vratih {je|sta|so|je} {n} {ovca|ovci|ovce|ovac}.", "it": "Al portone {c'è|ci sono} {n} {pecora|pecore}.", "de": "Am Tor {ist|sind} {n} {Schaf|Schafe}.", "ok": true,
+            "reply": { "face": "happy", "en": "Spot on! And the last one's Sooty, as always.", "sl": "Točno! In zadnja je Sooty, kot vedno.", "it": "Esatto! E l'ultima è Sooty, come sempre.", "de": "Genau! Und die Letzte ist Sooty, wie immer.", "fx": { "flock": 1 } } },
+          { "en": "There {is|are} {n} sheeps at the gate.", "sl": "Pri vratih {je|sta|so|je} {n} {ovca|ovci|ovce|ovac}.", "it": "Al portone {c'è|ci sono} {n} {pecora|pecore}.", "de": "Am Tor {ist|sind} {n} {Schaf|Schafe}.", "grammar": "plurals",
+            "why": { "en": "Sheep has no -s: one sheep, {n} sheep.", "sl": "Sheep nima -s: one sheep, {n} sheep.", "it": "Sheep non prende la -s: one sheep, {n} sheep.", "de": "Sheep hat kein -s: one sheep, {n} sheep." },
+            "reply": { "face": "laugh", "en": "Sheeps? Count again, mate, and slowly!", "sl": "Sheeps? Štej še enkrat, {m:stari|f:stara}, in počasi!", "it": "Sheeps? Conta di nuovo, {m:amico|f:amica}, e piano!", "de": "Sheeps? Zähl noch mal, Kumpel, und langsam!" } },
+          { "en": "There {!is|are} {n} sheep at the gate.", "sl": "Pri vratih {!je|sta|so|je} {n} {ovca|ovci|ovce|ovac}.", "it": "Al portone {!c'è|ci sono} {n} {pecora|pecore}.", "de": "Am Tor {!ist|sind} {n} {Schaf|Schafe}.", "wrong_form": 1, "grammar": "there-is-are",
+            "why": { "en": "{One takes is|More than one takes are}: there {is|are} {n} sheep.", "sl": "{Za eno je is|Za več je are}: there {is|are} {n} sheep.", "it": "{Per uno si dice is|Per più di uno si dice are}: there {is|are} {n} sheep.", "de": "{Bei einem heißt es is|Bei mehreren heißt es are}: there {is|are} {n} sheep." },
+            "reply": { "face": "curious", "en": "Just the one? Look again, mate. The gate's full!", "sl": "Samo ena? Poglej še enkrat. Vrata so polna!", "it": "Una sola? Guarda di nuovo. Il portone è pieno!", "de": "Nur eins? Schau noch mal, Kumpel. Das Tor ist voll!" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Count again, mate?", "sl": "Kaj? Še enkrat preštej?", "it": "Eh? Riconta, {m:amico|f:amica}?", "de": "Hm? Zähl noch mal, Kumpel?" } },
+        { "who": "jack", "face": "laugh", "en": "Sooty's the last. Always the last, the little monkey!", "sl": "Sooty je zadnja. Vedno zadnja, mala opica!", "it": "Sooty è l'ultima. Sempre l'ultima, la birbante!", "de": "Sooty ist die Letzte. Immer die Letzte, der kleine Frechdachs!" },
+        { "choices": [
+          { "en": "Come on, Sooty! Hurry up!", "sl": "Daj, Sooty! Pohiti!", "it": "Dai, Sooty! Sbrigati!", "de": "Komm schon, Sooty! Beeil dich!", "ok": true,
+            "reply": { "face": "happy", "en": "That's it. All in. Shut the gate behind her.", "sl": "Tako. Vse so notri. Zapri vrata za njo.", "it": "Ecco. Tutte dentro. Chiudi il portone dietro di lei.", "de": "So ist's gut. Alle drin. Mach das Tor hinter ihr zu.", "fx": { "gate": 0 } } },
+          { "en": "Well done, Sooty!", "sl": "Bravo, Sooty!", "it": "Brava, Sooty!", "de": "Gut gemacht, Sooty!", "ok": true,
+            "reply": { "face": "laugh", "en": "Well done for being last? Ha! All in, anyway.", "sl": "Bravo, ker je zadnja? Ha! Vse so notri, vseeno.", "it": "Brava perché è l'ultima? Ah! Comunque, tutte dentro.", "de": "Gut gemacht fürs Letztsein? Ha! Alle drin, jedenfalls.", "fx": { "gate": 0 } } },
+          { "en": "Come on, Sooty! Slow down!", "sl": "Daj, Sooty! Počasneje!", "it": "Dai, Sooty! Rallenta!", "de": "Komm schon, Sooty! Langsamer!",
+            "why": { "en": "Sooty is too slow already: you want her to hurry up.", "sl": "Sooty je že tako prepočasna: hočeš, da pohiti (hurry up).", "it": "Sooty è già troppo lenta: vuoi che si sbrighi (hurry up).", "de": "Sooty ist schon zu langsam: Du willst, dass sie sich beeilt (hurry up)." },
+            "reply": { "face": "laugh", "en": "Slow down? She's already as slow as a snail!", "sl": "Počasneje? Saj je že počasna kot polž!", "it": "Rallentare? È già lenta come una lumaca!", "de": "Langsamer? Sie ist doch schon langsam wie eine Schnecke!" } }
+        ] },
+        { "who": "jack", "face": "happy", "en": "Thanks, mate. Tomorrow at dawn, again!", "sl": "Hvala, {m:stari|f:stara}. Jutri ob zori spet!", "it": "Grazie, {m:amico|f:amica}. Domani all'alba, di nuovo!", "de": "Danke, Kumpel. Morgen im Morgengrauen wieder!" }
+      ]
+    },
+    {
+      "id": "bar-wolves",
+      "memory": { "en": "the wolves at the edge of the wood", "sl": "volkove na robu gozda", "it": "i lupi al margine del bosco", "de": "die Wölfe am Waldrand" },
+      "lines": [
+        { "who": "dixon", "face": "worried", "en": "Shh. Look. By the wood.", "sl": "Pst. Poglej. Pri gozdu.", "it": "Sss. Guarda. Vicino al bosco.", "de": "Pst. Schau. Am Wald.", "fx": { "wolves": 0.5 } },
+        { "choices": [
+          { "en": "I can see them! Are they wolves?", "sl": "Vidim jih! So to volkovi?", "it": "Li vedo! Sono lupi?", "de": "Ich sehe sie! Sind das Wölfe?", "ok": true,
+            "reply": { "face": "worried", "en": "Aye. Two, three. Hungry ones.", "sl": "Ja. Dva, trije. Lačni.", "it": "Sì. Due, tre. Affamati.", "de": "Ja. Zwei, drei. Hungrige." } },
+          { "en": "I can see them! Are they wolfs?", "sl": "Vidim jih! So to volkovi?", "it": "Li vedo! Sono lupi?", "de": "Ich sehe sie! Sind das Wölfe?", "grammar": "plurals",
+            "why": { "en": "One wolf, two wolves: the f becomes ves.", "sl": "One wolf, two wolves: f postane ves.", "it": "One wolf, two wolves: la f diventa ves.", "de": "One wolf, two wolves: aus f wird ves." },
+            "reply": { "face": "cross", "en": "Wolfs? No such thing. Again, {m:lad|f:lass}.", "sl": "Wolfs? Kaj takega ne obstaja. Še enkrat.", "it": "Wolfs? Non esiste. Di nuovo, {m:ragazzo|f:ragazza}.", "de": "Wolfs? Gibt's nicht. Noch mal, {m:Junge|f:Mädchen}." } },
+          { "en": "I can see they! Are they wolves?", "sl": "Vidim jih! So to volkovi?", "it": "Li vedo! Sono lupi?", "de": "Ich sehe sie! Sind das Wölfe?",
+            "why": { "en": "After a verb, they becomes them: I can see them.", "sl": "Za glagolom they postane them: I can see them.", "it": "Dopo un verbo they diventa them: I can see them.", "de": "Nach einem Verb wird they zu them: I can see them." },
+            "reply": { "face": "confused", "en": "See they? Speak plain, {m:lad|f:lass}.", "sl": "See they? Govori naravnost.", "it": "See they? Parla chiaro, {m:ragazzo|f:ragazza}.", "de": "See they? Sprich deutlich, {m:Junge|f:Mädchen}." } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Again.", "sl": "Kaj? Še enkrat.", "it": "Eh? Di nuovo.", "de": "Hm? Noch mal." } },
+        { "who": "dixon", "en": "The gate's shut. Barred. Nothing gets in.", "sl": "Vrata so zaprta. Zapahnjena. Nič ne pride noter.", "it": "Il portone è chiuso. Sbarrato. Non entra niente.", "de": "Das Tor ist zu. Verriegelt. Nichts kommt rein.", "fx": { "gate": 0 } },
+        { "choices": [
+          { "en": "With you here, I'm not afraid, Mr Dixon.", "sl": "Z vami tukaj me ni strah, gospod Dixon.", "it": "Con Lei qui non ho paura, signor Dixon.", "de": "Mit Ihnen hier hab ich keine Angst, Mr Dixon.", "ok": true,
+            "reply": { "face": "shy", "en": "Hm. Good. Neither am I.", "sl": "Hm. Dobro. Mene tudi ne.", "it": "Mh. Bene. Nemmeno io.", "de": "Hm. Gut. Ich auch nicht." } },
+          { "en": "With you here, I don't afraid, Mr Dixon.", "sl": "Z vami tukaj me ni strah, gospod Dixon.", "it": "Con Lei qui non ho paura, signor Dixon.", "de": "Mit Ihnen hier hab ich keine Angst, Mr Dixon.", "grammar": "to-be",
+            "why": { "en": "Afraid isn't a verb: use be. I'm not afraid.", "sl": "Afraid ni glagol: uporabiš be. I'm not afraid.", "it": "Afraid non è un verbo: si usa be. I'm not afraid.", "de": "Afraid ist kein Verb: man nimmt be. I'm not afraid." },
+            "reply": { "face": "cross", "en": "Don't afraid? Hm. Say it right.", "sl": "Don't afraid? Hm. Povej prav.", "it": "Don't afraid? Mh. Dillo bene.", "de": "Don't afraid? Hm. Sag's richtig." } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Again.", "sl": "Kaj? Še enkrat.", "it": "Eh? Di nuovo.", "de": "Hm? Noch mal." } },
+        { "who": "dixon", "en": "Look. They're going back into the wood. Wolves sleep too.", "sl": "Poglej. Vračajo se v gozd. Tudi volkovi spijo.", "it": "Guarda. Tornano nel bosco. Anche i lupi dormono.", "de": "Schau. Sie gehen zurück in den Wald. Auch Wölfe schlafen.", "fx": { "wolves": 0 } }
+      ]
+    },
+    {
+      "id": "torches-hinge",
+      "fx_stays": true,
+      "memory": { "en": "the hinge that stopped squeaking", "sl": "tečaj, ki je nehal škripati", "it": "il cardine che ha smesso di cigolare", "de": "die Angel, die nicht mehr quietschte" },
+      "lines": [
+        { "who": "dixon", "face": "cross", "en": "Listen. Squeak, squeak. The hinge again.", "sl": "Poslušaj. Škrip, škrip. Spet tečaj.", "it": "Ascolta. Cigola, cigola. Di nuovo il cardine.", "de": "Hör mal. Quietsch, quietsch. Schon wieder die Angel.", "fx": { "gate": 0.5 } },
+        { "choices": [
+          { "en": "Does it need some oil?", "sl": "Potrebuje malo olja?", "it": "Ha bisogno di un po' d'olio?", "de": "Braucht sie etwas Öl?", "ok": true,
+            "reply": { "face": "happy", "en": "Aye. A drop of oil. There.", "sl": "Ja. Kapljico olja. Tako.", "it": "Sì. Una goccia d'olio. Ecco.", "de": "Ja. Einen Tropfen Öl. So." } },
+          { "en": "Do it need some oil?", "sl": "Potrebuje malo olja?", "it": "Ha bisogno di un po' d'olio?", "de": "Braucht sie etwas Öl?", "grammar": "questions-do",
+            "why": { "en": "It is one thing: Does it …? Do is for I, you, we and they.", "sl": "It je ena stvar: Does it …? Do je za I, you, we in they.", "it": "It è una cosa sola: Does it …? Do è per I, you, we e they.", "de": "It ist eine Sache: Does it …? Do ist für I, you, we und they." },
+            "reply": { "face": "cross", "en": "Do it? Hm. Try again.", "sl": "Do it? Hm. Poskusi znova.", "it": "Do it? Mh. Riprova.", "de": "Do it? Hm. Versuch's noch mal." } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Again.", "sl": "Kaj? Še enkrat.", "it": "Eh? Di nuovo.", "de": "Hm? Noch mal." } },
+        { "who": "dixon", "en": "Now listen. Not a sound.", "sl": "Zdaj pa poslušaj. Niti glasu.", "it": "Adesso ascolta. Neanche un rumore.", "de": "Jetzt hör hin. Kein Laut.", "fx": { "gate": 1 } },
+        { "choices": [
+          { "en": "It's quiet now!", "sl": "Zdaj je tiho!", "it": "Adesso è silenzioso!", "de": "Jetzt ist es leise!", "ok": true,
+            "reply": { "face": "happy", "en": "Aye. A good gate is a quiet gate.", "sl": "Ja. Dobra vrata so tiha vrata.", "it": "Sì. Un buon portone è un portone silenzioso.", "de": "Ja. Ein gutes Tor ist ein leises Tor." } },
+          { "en": "Well done, Mr Dixon!", "sl": "Odlično, gospod Dixon!", "it": "Ben fatto, signor Dixon!", "de": "Gut gemacht, Mr Dixon!", "ok": true,
+            "reply": { "face": "shy", "en": "Hm. It's only a drop of oil.", "sl": "Hm. Saj je samo kapljica olja.", "it": "Mh. È solo una goccia d'olio.", "de": "Hm. Ist nur ein Tropfen Öl." } },
+          { "en": "It's loud now!", "sl": "Zdaj je glasno!", "it": "Adesso fa rumore!", "de": "Jetzt ist es laut!",
+            "why": { "en": "No more squeak: it's quiet. Loud means a lot of noise.", "sl": "Nič več ne škriplje: it's quiet. Loud pomeni glasno.", "it": "Non cigola più: it's quiet. Loud vuol dire rumoroso.", "de": "Kein Quietschen mehr: it's quiet. Loud heißt laut." },
+            "reply": { "face": "laugh", "en": "Loud? Your ears need oil too, {m:lad|f:lass}!", "sl": "Glasno? Tudi tvoja ušesa potrebujejo olje!", "it": "Rumore? Anche le tue orecchie hanno bisogno d'olio, {m:ragazzo|f:ragazza}!", "de": "Laut? Deine Ohren brauchen auch Öl, {m:Junge|f:Mädchen}!" } }
+        ] },
+        { "who": "dixon", "en": "Right. We shut it, we light the torches, then I'm off home to my tea.", "sl": "Tako. Zapreva, prižgeva bakli, potem pa grem domov na čaj.", "it": "Bene. Chiudiamo, accendiamo le torce, e poi io vado a casa per il tè.", "de": "So. Wir machen zu, zünden die Fackeln an, und dann geh ich heim zum Tee.", "fx": { "gate": 0, "torch": 1 } }
+      ]
+    },
+    {
+      "id": "packman-needles",
+      "fx_stays": true,
+      "memory": { "en": "the wooden whistle from the packman", "sl": "leseno piščalko od krošnjarja", "it": "il fischietto di legno del venditore ambulante", "de": "die Holzpfeife vom Hausierer" },
+      "lines": [
+        { "who": "harry", "face": "happy", "en": "{learner}! The packman's coming up the road again. Mum wants needles and buttons.", "sl": "{learner}! Krošnjar spet prihaja po cesti. Mama hoče šivanke in gumbe.", "it": "{learner}! Il venditore ambulante risale di nuovo la strada. La mamma vuole aghi e bottoni.", "de": "{learner}! Der Hausierer kommt wieder die Straße herauf. Mama will Nadeln und Knöpfe.", "fx": { "pedlar": 0.4 } },
+        { "choices": [
+          { "en": "How many needles does she want?", "sl": "Koliko šivank hoče?", "it": "Quanti aghi vuole?", "de": "Wie viele Nadeln will sie?", "ok": true,
+            "reply": { "face": "happy", "en": "Three needles and ten buttons. She sews all day!", "sl": "Tri šivanke in deset gumbov. Ves dan šiva!", "it": "Tre aghi e dieci bottoni. Cuce tutto il giorno!", "de": "Drei Nadeln und zehn Knöpfe. Sie näht den ganzen Tag!" } },
+          { "en": "How many needles do she want?", "sl": "Koliko šivank hoče?", "it": "Quanti aghi vuole?", "de": "Wie viele Nadeln will sie?", "grammar": "questions-do",
+            "why": { "en": "With she: does. Do is for I, you, we and they.", "sl": "Pri she: does. Do je za I, you, we in they.", "it": "Con she: does. Do è per I, you, we e they.", "de": "Bei she: does. Do ist für I, you, we und they." },
+            "reply": { "face": "laugh", "en": "Do she? You sound like my little cousin!", "sl": "Do she? Zveniš kot moj mali bratranec!", "it": "Do she? Sembri il mio cuginetto!", "de": "Do she? Du klingst wie mein kleiner Cousin!" } },
+          { "en": "How much needles does she want?", "sl": "Koliko šivank hoče?", "it": "Quanti aghi vuole?", "de": "Wie viele Nadeln will sie?", "grammar": "some-any",
+            "why": { "en": "You can count needles: how many.", "sl": "Šivanke lahko prešteješ: how many.", "it": "Gli aghi si contano: how many.", "de": "Nadeln kann man zählen: how many." },
+            "reply": { "face": "laugh", "en": "How much? Mum's got the money, not me!", "sl": "Koliko stanejo? Denar ima mama, ne jaz!", "it": "Quanto costano? I soldi li ha la mamma, non io!", "de": "Wie viel? Das Geld hat Mama, nicht ich!" } }
+        ], "puzzled": { "face": "confused", "en": "Huh? Say it again!", "sl": "Ha? Povej še enkrat!", "it": "Eh? Ridillo!", "de": "Hä? Sag's noch mal!" } },
+        { "who": "harry", "face": "surprised", "en": "Look, he's got a wooden whistle! Have you got a penny for me?", "sl": "Glej, leseno piščalko ima! Imaš en peni zame?", "it": "Guarda, ha un fischietto di legno! Hai un penny per me?", "de": "Schau, er hat eine Holzpfeife! Hast du einen Penny für mich?", "fx": { "pedlar": 0.8 } },
+        { "choices": [
+          { "en": "Yes, here you are.", "sl": "Ja, izvoli.", "it": "Sì, ecco qua.", "de": "Ja, hier, bitte.", "ok": true,
+            "reply": { "face": "laugh", "en": "Thanks! Now I can whistle like a shepherd!", "sl": "Hvala! Zdaj lahko žvižgam kot pastir!", "it": "Grazie! Adesso posso fischiare come un pastore!", "de": "Danke! Jetzt kann ich pfeifen wie ein Schäfer!", "fx": { "pedlar": 1 } } },
+          { "en": "Sorry, I haven't got any money.", "sl": "Oprosti, nimam denarja.", "it": "Scusa, non ho soldi.", "de": "Tut mir leid, ich habe kein Geld.", "ok": true,
+            "reply": { "face": "laugh", "en": "Never mind. I'll whistle with my fingers. Fweeet!", "sl": "Nič hudega. Bom žvižgal s prsti. Fiiit!", "it": "Pazienza. Fischio con le dita. Fiii!", "de": "Macht nichts. Ich pfeif mit den Fingern. Fiiiet!", "fx": { "pedlar": 1 } } },
+          { "en": "Yes, you are here.", "sl": "Ja, tukaj si.", "it": "Sì, sei qui.", "de": "Ja, du bist hier.",
+            "why": { "en": "Here you are: when you give something. You are here: you are in this place.", "sl": "Here you are: ko nekaj daš (izvoli). You are here: si na tem kraju.", "it": "Here you are: quando dai qualcosa (ecco). You are here: sei in questo posto.", "de": "Here you are: wenn du etwas gibst (bitte schön). You are here: du bist an diesem Ort." },
+            "reply": { "face": "laugh", "en": "I know! But the penny, {learner}? The penny!", "sl": "Vem! Ampak peni, {learner}? Peni!", "it": "Lo so! Ma il penny, {learner}? Il penny!", "de": "Weiß ich! Aber der Penny, {learner}? Der Penny!" } }
+        ] },
+        { "who": "harry", "face": "happy", "en": "He's in at the gate. Hello, Mr Packman!", "sl": "Že je pri vratih. Dober dan, gospod krošnjar!", "it": "È entrato dal portone. Buongiorno, signor venditore!", "de": "Er ist schon am Tor. Guten Tag, Herr Hausierer!" }
+      ]
+    },
+    {
+      "id": "bell-danger",
+      "memory": { "en": "the day we rang the bell for danger", "sl": "dan, ko sva zaradi nevarnosti {m:pozvonila|f:pozvonili}", "it": "il giorno in cui abbiamo suonato la campana per il pericolo", "de": "den Tag, an dem wir die Glocke bei Gefahr geläutet haben" },
+      "lines": [
+        { "who": "poppy", "face": "worried", "en": "{learner}! Look, by the wood! Something grey is moving!", "sl": "{learner}! Poglej, pri gozdu! Nekaj sivega se premika!", "it": "{learner}! Guarda, vicino al bosco! Si muove qualcosa di grigio!", "de": "{learner}! Schau, am Wald! Da bewegt sich was Graues!", "fx": { "wolves": 0.4 } },
+        { "choices": [
+          { "en": "It's a wolf! Ring the bell, quick!", "sl": "Volk je! Hitro, pozvoni!", "it": "È un lupo! Suona la campana, presto!", "de": "Das ist ein Wolf! Läute die Glocke, schnell!", "ok": true,
+            "reply": { "face": "worried", "en": "Ding, dong! Ding, dong! Everyone can hear it!", "sl": "Bim, bam! Bim, bam! Vsi slišijo!", "it": "Din, don! Din, don! Lo sentono tutti!", "de": "Bim, bam! Bim, bam! Alle können es hören!", "fx": { "bell": 1 } } },
+          { "en": "It's an wolf! Ring the bell, quick!", "sl": "Volk je! Hitro, pozvoni!", "it": "È un lupo! Suona la campana, presto!", "de": "Das ist ein Wolf! Läute die Glocke, schnell!", "grammar": "articles",
+            "why": { "en": "Before a consonant sound, say a: a wolf.", "sl": "Pred soglasnikom rečeš a: a wolf.", "it": "Davanti a un suono consonantico si dice a: a wolf.", "de": "Vor einem Konsonanten sagt man a: a wolf." },
+            "reply": { "face": "worried", "en": "An wolf? Never mind words now! Ring it!", "sl": "An wolf? Pusti zdaj besede! Zvoni!", "it": "An wolf? Lascia stare le parole! Suona!", "de": "An wolf? Vergiss jetzt die Wörter! Läute!" } }
+        ], "puzzled": { "face": "confused", "en": "Hmm? Say that again?", "sl": "Hm? Še enkrat?", "it": "Mh? Ripeti?", "de": "Hm? Noch mal?" } },
+        { "who": "poppy", "face": "surprised", "en": "Look! The wolf is running back into the wood. It's scared of the bell!", "sl": "Glej! Volk beži nazaj v gozd. Zvona se boji!", "it": "Guarda! Il lupo scappa di nuovo nel bosco. Ha paura della campana!", "de": "Schau! Der Wolf rennt zurück in den Wald. Er hat Angst vor der Glocke!", "fx": { "bell": 0, "wolves": 0 } },
+        { "choices": [
+          { "en": "Now we're safe.", "sl": "Zdaj sva {m:varna|f:varni}.", "it": "Adesso siamo al sicuro.", "de": "Jetzt sind wir sicher.", "ok": true,
+            "reply": { "face": "happy", "en": "Because we rang it for danger. Not for fun!", "sl": "Ker sva {m:pozvonila|f:pozvonili} zaradi nevarnosti. Ne za šalo!", "it": "Perché l'abbiamo suonata per il pericolo. Non per gioco!", "de": "Weil wir sie bei Gefahr geläutet haben. Nicht zum Spaß!" } },
+          { "en": "Now we is safe.", "sl": "Zdaj sva {m:varna|f:varni}.", "it": "Adesso siamo al sicuro.", "de": "Jetzt sind wir sicher.", "grammar": "to-be",
+            "why": { "en": "We goes with are: we're safe.", "sl": "We gre z are: we're safe.", "it": "We va con are: we're safe.", "de": "We geht mit are: we're safe." },
+            "reply": { "face": "laugh", "en": "We is? Ha! The wolf scared your English away!", "sl": "We is? Ha! Volk ti je pregnal angleščino!", "it": "We is? Ah! Il lupo ti ha fatto scappare l'inglese!", "de": "We is? Ha! Der Wolf hat dein Englisch verscheucht!" } }
+        ], "puzzled": { "face": "confused", "en": "Hmm? Say that again?", "sl": "Hm? Še enkrat?", "it": "Mh? Ripeti?", "de": "Hm? Noch mal?" } },
+        { "who": "poppy", "face": "proud", "en": "I'm going to tell everyone. We saved the sheep!", "sl": "Vsem bom povedala. {m:Rešila|f:Rešili} sva ovce!", "it": "Lo racconto a tutti. Abbiamo salvato le pecore!", "de": "Das erzähl ich allen. Wir haben die Schafe gerettet!" }
+      ]
+    }
+  ]
+}
