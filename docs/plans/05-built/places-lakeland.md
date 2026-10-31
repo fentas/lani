@@ -199,16 +199,10 @@ culture. Nothing else changed.
   some lines and "Lake District" in others, "čatni" for the ploughman's pickle; and the facts the lines state: Old Wilf's
   snowy winter of 1947 (he is eighty-four), Captain the crow's grey beak (the clue agrees; a carrion crow's is black),
   Bassenthwaite the only "Lake", Windermere about eleven miles long.
-- **Who answers in a scene.** The app has the happening's person answer every turn of a scene's dialog (`DialogRun`'s
-  partner; `DialogReactionsTest` holds the reactions to them), while the panel's header shows the turn's `to`, else whoever
-  spoke last. The Lake District's turns that come after someone else's line name the happening's person as their `to`, so
-  the header and the voice agree (SCENES.md "Format" says so now). The older scenes have turns where they don't: 15 in
-  Slovene (`na-cebeljem-travniku`'s roj, roj-dim and koncnice-nejc, `na-mostu`'s voda-tone twice, `pod-mlajem`'s
-  straza-vrh twice and ples-postavljanje, `pod-uro`'s zamuda-ancka, `pri-vodnjaku`'s lekcija-dvojina, vecer, vecer-zvon,
-  vaja and vaja-vedra, `pri-vratih`'s zapah-nejc) and 7 in Friuli (`in-bottega`'s sega-segatura, cavallino and cavallino-gamba,
-  `in-cantina`'s brocca twice and brocca-bottiglie, `in-soffitta`'s palla): the header shows one person and another answers. Either
-  their turns name `to` (and their replies are read for that person), or the app takes `repliersOf` in a scene as it does
-  in an arrival, which would change who voices those replies; the lead's call.
+- **Who answers in a scene.** Done on `scene-replier` ([scene-replier.md](scene-replier.md)): the app has the happening's
+  person answer every turn of a scene's dialog, while the panel's header shows the turn's `to`, else whoever spoke last.
+  The older scenes' 26 turns that came after someone else's line without `to` (15 in Slovene, 7 in Friuli and 4 in
+  Kärnten) now name the happening's person and are written for them, and `WhoAnswersTest` keeps it so.
 - **Turns chosen, never typed.** About 47 of the form turns' wrong choices add, drop or move a word ("I can to hear",
   "Why they are …") or split a contraction ("It are" for "It's"): real mistakes, kept, but `Forms.turn` asks for typing
   only a turn whose wrong choice swaps one word in its place, so these are always chosen.
