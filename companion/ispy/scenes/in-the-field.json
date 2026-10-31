@@ -3,7 +3,7 @@
   "scene": "in-the-field",
   "language": "en",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in en, with sl translations, from the field in its Lakeland look (the stone field barn and its hay, the dry-stone walls for the fences, the fells behind; the rest as the default field and na-njivi's clues say); the wild animals are described, never placed; the toplar slot (the bank barn) is said only big, far off, roofed, as the look doesn't say yet how it is drawn; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the field in its Lakeland look (the stone field barn and its hay, the dry-stone walls for the fences, the fells behind; the rest as the default field and na-njivi's clues say); the wild animals are described, never placed; the toplar slot is the default picture's open timber hay barn (eight posts, a plank roof, no walls); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
   "things": {
     "wheat": {
       "clues": [
@@ -171,9 +171,10 @@
     "toplar": {
       "clues": [
         { "kind": "size", "en": "It's very big.", "sl": "To je nekaj zelo velikega.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has eight big posts and a roof, but no walls.", "sl": "Ima osem velikih stebrov in streho, sten pa ne.", "grammar": ["to-have"] },
         { "kind": "where", "en": "It's far away in the field.", "sl": "Je daleč na polju.", "grammar": ["to-be", "prepositions-place"] },
-        { "kind": "trait", "en": "It has a big roof.", "sl": "Ima veliko streho.", "grammar": ["to-have"] },
-        { "kind": "use", "en": "The hay stays dry under its roof.", "sl": "Seno je tam na suhem.", "grammar": ["present-simple", "prepositions-place"] }
+        { "kind": "use", "en": "We hang the hay on it to dry.", "sl": "Nanj obesimo seno, da se suši.", "grammar": ["present-simple"] }
       ]
     }
   }
