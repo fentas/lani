@@ -788,6 +788,32 @@ the whole of A1 (the past with avere and essere among it) and use only A1 and th
 - **The print's rule line** of a step is its first sentence and the next ones with forms, about 200 characters at most
   (`prints/sheet.ts`, `condense`): the point of a step goes in its first sentence, or the sheet loses it.
 
+### The Italian course: A2, units 13–18
+
+A2's last six units, the short words and the polite forms, after the pronouns that take the place of a thing (A2's
+`pronomi-diretti`, unit 12). Around their gaps they use A1 and A2's units before them only (the reflexives, the modals,
+the partitive, the comparatives, the past with essere, lo and la), in the outline's order:
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 13 | `pronomi-indiretti` 🎁 | gli and le from piace on to dare, dire, portare; a + the person replaced; mi, ti, ci, vi, gli for a loro; Le to Maestra Elena (ti as almost: the register); telefonare a takes le, aiutare takes lo | pronomi-indiretti, piacere |
+| 14 | `ci-ne` 🧺 | ci for a place named (Sì, ci vado), non ci; ne after a number (Ne ho sette, never ho sette) and an amount (ne voglio un po', non ne ho); ce n'è, ce ne sono | ci-ne, ce-ci-sono, partitivo |
+| 15 | `negazioni` 🙅 | non … mai, niente (nulla too), nessuno, più, ancora; nessuno first without non; one-word answers (Nessuno! Niente!) | negazioni |
+| 16 | `vorrei` 🍦 | vorrei against voglio (voglio as almost: right, but sharp); vorresti, vorrebbe (Lei), vorremmo, vorreste, vorrebbero; potrei, potresti, potrebbe (Lei); mi piacerebbe | vorrei, verbi-irregolari, tu-lei |
+| 17 | `imperativo-pronomi` 👉 | the short word on the end (guardami, prendilo, portagli); da', di', fa' doubling (dammi, dimmi, fallo; dagli single); noi and voi (aiutiamolo, ascoltatemi); non toccarlo and non lo toccare, both right | imperativo-pronomi, imperativo, pronomi-indiretti |
+| 18 | `relative-che` 🔗 | che joining two sentences, for people and things; che never changing, the verb after it agreeing (i bambini che giocano); che as the object (il libro che leggo); chi only the question | relative-che |
+
+- **Pages written for them**, A2, the book's usual size: `pronomi-indiretti`, `ci-ne`, `negazioni`, `vorrei`,
+  `imperativo-pronomi`, `relative-che`. Each unit names its own first (the summary card), then the earlier pages it
+  builds on.
+- **The grading** (`grading/it.json`): ci and ne not elided before e are almost, as an article not elided is (ce ne è for
+  ce n'è, ci è for c'è, ci era for c'era: `GradingLanguagesTest`). Both orders of a negative with a pronoun are right
+  (non toccarlo, non lo toccare: listed in `accept`), and so are niente and nulla, the subject named or left out in an
+  answer with ci (Sì, Giulia ci va. Sì, ci va.), sì or no left out in front.
+- **A choice's `almost`** is a right form in the wrong register: voglio for vorrei, ti or potresti to the teacher.
+- **No trick**: no distractor of a word bank fits its gap in grammar (no voglio where Io vorrei is asked, no sempre in
+  a sentence with non); vorrei's gap text has none.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future

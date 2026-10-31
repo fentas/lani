@@ -74,6 +74,18 @@ class GradingLanguagesTest {
         assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("un'amico", "un amico"))
     }
 
+    @Test fun `ci and ne not elided before e are almost, as an article is - the A2 units ci-ne and imperfetto`() {
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("ce ne è", "ce n'è"))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("Sì, ce ne è!", "Sì, ce n'è!"))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("ci è un gatto", "C'è un gatto."))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("Ci era una volta", "C'era una volta"))
+        // ne before another word, and ci before ne, keep their vowel: right as they are, and ce n'è is not ce ne sono
+        assertGraded(Verdict.CORRECT, Hint.NONE, it("Ne ho tre.", "Ne ho tre."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, it("ce ne sono sei", "Ce ne sono sei."))
+        assertEquals(Verdict.WRONG, it("ce ne sono", "ce n'è").verdict)
+        assertEquals(Verdict.WRONG, it("ci ne è", "ce n'è").verdict)
+    }
+
     @Test fun `accents and apostrophes both off is still almost`() =
         assertEquals(Verdict.ALMOST, it("la acqua e fredda", "L'acqua è fredda.").verdict)
 
