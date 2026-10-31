@@ -73,7 +73,7 @@ class MillRenderTest {
     }
 
     @Test fun `stopped, the stones and the wheels stand still, grinding, they turn`() {
-        for (slot in listOf("wheel", "gear", "millstone")) {
+        for (slot in listOf("wheel", "gear", "millstone", "shaft", "flume")) {
             val (a, _, pa) = render(frame(fx = mapOf("grind" to 0f), time = 3.0))
             val (b, _, pb) = render(frame(fx = mapOf("grind" to 0f), time = 3.45))
             assertEquals("$slot still at grind 0", pixelsOf(a, pa, slot), pixelsOf(b, pb, slot))

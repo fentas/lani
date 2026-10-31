@@ -25,8 +25,9 @@ import kotlin.math.sqrt
  * little shoe shaking it into the runner's eye. From the vat's front a wooden spout runs the flour into an open sack on the
  * floor, spilled flour round it. Under the platform the big cog wheel turns, half sunk in its pit, on the shaft that comes in
  * through the front-right wall from the waterwheel outside; its pegs drive a lantern pinion on the stones' spindle. Outside
- * on the right the overshot wheel turns in the mill race under the flume, the water falling on its buckets, and the race
- * pours off the plot's front edge. Along the right wall under the small window the miller's bench with the brass scale and
+ * on the right the overshot wheel turns in the mill race under the flume: the flume runs just past the wheel's top and its
+ * water pours into the buckets on the downstream side; they ride down full, slopping, and tip out into the race near the
+ * bottom, which runs on downstream and pours off the plot's front edge. Along the right wall under the small window the miller's bench with the brass scale and
  * the measure (merica, the miller's toll); a sieve hangs high on its peg. Along the left wall the sacks of grain under the
  * loft, a gallery on knee braces with more sacks on it, the ladder up to it, and the plank door with the lantern on its
  * hook beside it. The cat crouches by the sacks, watching the mouse at its hole at the foot of the wall. An old millstone
@@ -34,8 +35,9 @@ import kotlin.math.sqrt
  *
  * By day the window's light falls in a slanting beam full of flour dust; at night the lantern lights the room. Rain runs
  * down the window's glass and falls on the yard and the race; in winter snow lies outside, ice along the race's banks
- * and icicles hang from the flume's end and the wheel. The waterwheel, the cog wheel, the pinion and the runner turn
- * together, as one shaft drives them.
+ * and icicles hang from the flume's end, and from the wheel while it stands still. The waterwheel and the cog wheel turn
+ * together on one shaft, their tops going downstream with the water; the cog wheel drives the pinion and the runner round
+ * three times as fast (how it turns: [mark], [spindle]).
  *
  * Its effects ([si.lanisce.lani.game.scene.SceneArt.effects]), each drawn from its level, so every look agrees:
  * - `grind`: the stones grinding: below 0.12 stopped (the water off the flume, the wheel and the gears still, no flour
@@ -124,14 +126,30 @@ internal class MillPainter : RoomPainter() {
 
     // ------------------------------------------------------------------ how it turns
 
+    /*
+     * The drive train, as a mill's is built. One shaft along x carries the waterwheel outside and the cog wheel inside, so
+     * both turn by the same angle a ([angle]): the mark m of a wheel sits at the angle m − a of its plane ([mark]; the angle
+     * from +y, downstream, up to +z), so as a grows their tops go downstream, the way the race runs (+y) and the way the
+     * flume's water falls into the buckets just past the top. The cog wheel's pegs at its top drive the lantern pinion over
+     * it on the pinion's side toward them (+x; the spindle stands behind the cog wheel's face), and that side goes downstream
+     * with them: the pinion, and the runner on its spindle, turn GEARING times as fast from +x toward +y ([spindle]), seen
+     * from above clockwise (x, y and z up are a left-handed set), in the picture their near side going left.
+     */
+
     /** How fast the waterwheel and the cog wheel turn (rad/s), as `grind` has it: still, an easy turn, hard. */
     private fun spin(): Float {
         val g = fx("grind") ?: return EASY
         return when { g < 0.12f -> 0f; g < 0.6f -> EASY; else -> HARD }
     }
 
-    /** The wheel's and the cog wheel's angle now; the pinion and the runner turn [GEARING] times as fast. */
+    /** The shaft's angle now: the waterwheel's and the cog wheel's ([mark]). */
     private fun angle(): Float = ((t * spin()) % (2.0 * PI * 12.0)).toFloat()
+
+    /** Which mark of a wheel on the shaft lies at ([dy], [dz]) of its plane (from its axle) when the shaft has turned [a]. */
+    private fun mark(dy: Float, dz: Float, a: Float): Float = atan2(dz, dy) + a
+
+    /** The pinion's and the runner's angle, from +x toward +y, when the shaft has turned [a]: [GEARING] times as far. */
+    private fun spindle(a: Float): Float = a * GEARING
 
     override fun paint() {
         fit()
@@ -170,10 +188,10 @@ internal class MillPainter : RoomPainter() {
         // the platform: its back posts, the cog wheel and the pinion under it, its front posts and its top, then the stones,
         // the hopper's frame, the hopper and its grain, the shoe, and the spout down to the flour sack
         prop { posts(back = true) }
-        thing("gear") { gear(a) }
-        prop { pinion(a * GEARING) }
+        // the cog wheel and the pinion it drives (under the platform, its top hiding it from us), the gearing tapped as one
+        thing("gear") { gear(a); part(); pinion(spindle(a)) }
         prop { posts(back = false); platformTop() }
-        thing("millstone") { stones(a * GEARING, turning) }
+        thing("millstone") { stones(spindle(a), turning) }
         prop { horse() }
         thing("hopper") { hopperBack() }
         thing("grain", slop = 1) { grain(turning) }
@@ -188,10 +206,11 @@ internal class MillPainter : RoomPainter() {
         // race under the flume, the old millstone in the grass, the race pouring off the plot's front edge
         millStubs()
         thing("shaft") { shaft(a) }
-        thing("wheel") { waterwheel(a) }
+        thing("wheel") { waterwheel(a, if (turning) 0.75f + 0.25f * gush() else 0f) }
         if (turning) prop(outline = 0) { wheelWater() }
         prop { trestle() }
         thing("flume") { flume(turning) }
+        if (turning) prop(outline = 0) { pour() }
         prop { oldStone() }
         waterfall()
         fireflies(iso.ix(0f, 12f), iso.iy(12f, 12f, 20f), iso.ix(12f, 0f), iso.iy(12f, 12f, 0f), 10, 9)
@@ -867,15 +886,16 @@ internal class MillPainter : RoomPainter() {
 
     /**
      * The cog wheel on the shaft under the platform, in the plane x = GX, its face toward us: a rim of boards, six arms, the
-     * hub round the shaft, wooden pegs round the rim; turning by [a]; its lower half down in its pit (not drawn under the floor).
+     * hub round the shaft, wooden pegs round the rim; turning by [a] with the shaft, as the waterwheel does ([mark]), its top
+     * going downstream; its lower half down in its pit (not drawn under the floor).
      */
     private fun gear(a: Float) {
-        val gf = GX + 0.18f
+        val gf = GF
         val rr = GR
         onX(gf, SY - GRY - 0.3f, SY + GRY + 0.3f, fl, gz + rr + 1.4f) { y, z, px, py ->
             val dy = (y - SY) * CELL_Z; val dz = z - gz
             val r = sqrt(dy * dy + dz * dz)
-            val ang = atan2(dz, dy) - a
+            val ang = mark(dy, dz, a)
             when {
                 r > rr + 1.2f -> 0
                 r > rr -> {
@@ -895,14 +915,15 @@ internal class MillPainter : RoomPainter() {
         }
     }
 
-    /** The lantern pinion on the stones' spindle, above the cog wheel's top: two discs and the staves between them, turning by [a]. */
+    /**
+     * The lantern pinion on the stones' spindle, over the cog wheel's top: two discs and the staves between them, turning by
+     * [a] ([spindle]): the cog wheel's pegs drive its side toward them downstream, so its near side goes left.
+     */
     private fun pinion(a: Float) {
-        val px0 = GX - 0.42f
-        val z0 = gz + GR - 0.6f; val z1 = z0 + 2.4f
-        val cx = iso.sx(px0, SY); val y0p = iso.sy(px0, SY, z0); val y1p = iso.sy(px0, SY, z1)
-        val rx = 0.3f * 11.3f * detail; val ry = rx * 0.5f
+        val (cx, y0p, y1p, rx) = pinionShape()
+        val ry = rx * 0.5f
         // the spindle up to the platform's underside
-        iso.post(px0, SY, z1, pz - 0.8f, ironC)
+        iso.post(PIN_X, SY, pinTop, pz - 0.8f, ironC)
         c.fillEllipse(cx, y0p, rx, ry, Pal.WOOD_D)
         for (k in 0 until 6) {
             val ang = a + k * PI.toFloat() / 3f
@@ -919,7 +940,8 @@ internal class MillPainter : RoomPainter() {
      * opening where the runner's grooved top shows, turning by [a] while it grinds; the eye in its middle.
      */
     private fun stones(a: Float, turning: Boolean) {
-        val cx = iso.sx(SX, SY); val p = detail.toFloat()
+        val (cx, rt, ro) = runnerShape()
+        val p = detail.toFloat()
         val rb = 1.12f * 11.3f * detail
         // the bed stone
         drum(cx, iso.sy(SX, SY, pz), iso.sy(SX, SY, bedTop), rb, rb * 0.5f, stoneL, stoneM, stoneD, stoneHi)
@@ -948,8 +970,6 @@ internal class MillPainter : RoomPainter() {
         // the lid: a ring of planks, the opening, the runner inside
         c.fillEllipse(cx, vt, rv, rv * 0.5f, boardL)
         if (fine) c.fillEllipse(cx, vt + 0.5f * p, rv - 0.6f * p, rv * 0.5f - 0.4f * p, boardM)
-        val ro = 0.62f * 11.3f * detail
-        val rt = iso.sy(SX, SY, runTop)
         c.fillEllipse(cx, vt + 0.3f * p, ro + 0.5f * p, ro * 0.5f + 0.3f * p, boardX)
         c.fillEllipse(cx, rt, ro, ro * 0.5f, stoneM)
         // the runner's furrows, turning
@@ -1138,18 +1158,20 @@ internal class MillPainter : RoomPainter() {
 
     // ------------------------------------------------------------------ the shaft, the wheel, the flume
 
-    /** The shaft from the cog wheel out through the front-right wall to the waterwheel: a thick round log, iron hoops on it, turning. */
+    /**
+     * The shaft from the cog wheel out through the front-right wall to the waterwheel: a thick round log, iron hoops on it,
+     * turning with them by [a]: two knots in its wood go round with it, over its top downstream and down its face toward us.
+     */
     private fun shaft(a: Float) {
         val xa = GX + 0.18f; val xb = WX - 0.3f
         val r = 1.1f
-        // its face toward us, round: lit on top, dark under it, the hoops and a knot going round with it
+        // its face toward us, round: lit on top, dark under it, the hoops and the knots coming round on it
         onY(SY + 0.2f, xa, xb, gz - r, gz + r) { x, z, _, _ ->
             val v = (z - gz) / r
             val hoop = abs(x - GX - 0.6f) < 0.07f || abs(x - x1 - 0.2f) < 0.07f || abs(x - WX + 0.8f) < 0.07f
-            val knot = ((x * 1.3f + a / (2f * PI.toFloat())) % 1f) < 0.04f && abs(v + 0.1f) < 0.4f
             when {
                 hoop -> if (v > 0.3f) ironHi else ironC
-                knot -> boardX
+                knotOnFace(x, v, a) -> boardX
                 v > 0.55f -> boardL
                 v < -0.6f -> boardD
                 fine && Noise.v2(x * 3f, v * 2f, 85) > 0.7f -> Col.mix(boardM, boardD, 0.4f)
@@ -1157,31 +1179,62 @@ internal class MillPainter : RoomPainter() {
             }
         }
         // its top, seen from above
-        onFlat(gz + r, xa, SY - 0.2f, xb, SY + 0.2f) { x, _, _, _ ->
-            if (abs(x - GX - 0.6f) < 0.07f || abs(x - x1 - 0.2f) < 0.07f || abs(x - WX + 0.8f) < 0.07f) ironHi else Col.mix(boardL, Col.hex(0xE8C090), 0.3f)
+        onFlat(gz + r, xa, SY - 0.2f, xb, SY + 0.2f) { x, y, _, _ ->
+            when {
+                abs(x - GX - 0.6f) < 0.07f || abs(x - x1 - 0.2f) < 0.07f || abs(x - WX + 0.8f) < 0.07f -> ironHi
+                knotOnTop(x, y, a) -> boardX
+                else -> Col.mix(boardL, Col.hex(0xE8C090), 0.3f)
+            }
         }
+    }
+
+    /** Whether a knot of the shaft lies at [x] along it, [v] up its face toward us (−1 its bottom … 1 its top), turned by [a]. */
+    private fun knotOnFace(x: Float, v: Float, a: Float): Boolean {
+        for (k in KNOTS.indices) {
+            if (abs(x - KNOTS[k]) > 0.09f) continue
+            // where it is round the shaft: the angle from +y up to +z, going round as the wheels do ([mark])
+            val b = KNOT_AT[k] - a
+            if (cos(b) > 0.2f && abs(v - sin(b)) < 0.24f) return true
+        }
+        return false
+    }
+
+    /** Whether a knot of the shaft lies at ([x], [y]) on its top, turned by [a]. */
+    private fun knotOnTop(x: Float, y: Float, a: Float): Boolean {
+        for (k in KNOTS.indices) {
+            if (abs(x - KNOTS[k]) > 0.09f) continue
+            val b = KNOT_AT[k] - a
+            if (sin(b) > 0.6f && abs(y - SY - cos(b) * 0.2f) < 0.07f) return true
+        }
+        return false
     }
 
     /**
      * The overshot waterwheel outside in the race, in the plane x = WX, its outer face toward us: the shroud with its buckets
-     * round the rim, eight arms, the hub on the shaft; turning by [a] (as the cog wheel does: they share the shaft); still in
-     * winter, rime on its rim; under the race's water nothing shows.
+     * round the rim, eight arms, the hub on the shaft; turning by [a] with the shaft, as the cog wheel does ([mark]), its top
+     * going downstream. Between its two shrouds, seen over the near one's edge, the buckets on their way down ride full
+     * ([full], 0 with the water off): filled under the flume's end just past the top, slopping, tipping out toward the bottom.
+     * Still in winter, rime on its rim and icicles hanging from it; under the race's water nothing shows.
      */
-    private fun waterwheel(a: Float) {
+    private fun waterwheel(a: Float, full: Float) {
         val r = WR
+        val still = spin() == 0f
         // the inner shroud, darker, then the buckets between, then the outer one
-        for ((k, wx) in floatArrayOf(WX - 0.25f, WX + 0.25f).withIndex()) {
+        for ((k, wx) in floatArrayOf(W_IN, W_OUT).withIndex()) {
             val outer = k == 1
             onX(wx, SY - WRY - 0.2f, SY + WRY + 0.2f, RACE_WATER, wz + r + 0.6f) { y, z, px, py ->
                 val dy = (y - SY) * CELL_Z; val dz = z - wz
                 val rr = sqrt(dy * dy + dz * dz)
-                val ang = atan2(dz, dy) + a
+                val ang = mark(dy, dz, a)
                 when {
                     rr > r -> 0
                     rr > r - 2.2f -> {
                         // the shroud's ring with the buckets' ends standing in it every 1/16 turn
                         val q = ((ang / (2f * PI.toFloat()) * BUCKETS) % 1f + 1f) % 1f
                         val bucket = q < 0.18f
+                        // the water in a bucket, against its lower board: what of the inner ring shows is the rim between them
+                        val wet = if (!outer && !bucket && full > 0f && rr < r - 0.3f) bucketWater(dy, dz, ang, q, full, px, py) else 0
+                        if (wet != 0) return@onX wet
                         val col = when {
                             bucket -> if (outer) boardX else Col.scale(boardX, 0.7f)
                             rr > r - 0.5f -> if (dz > 0f) boardL else boardM
@@ -1189,7 +1242,7 @@ internal class MillPainter : RoomPainter() {
                         }
                         val c0 = if (outer) col else Col.scale(col, 0.7f)
                         // frozen still in winter: rime on its rim
-                        if (winter && spin() == 0f && dz > -1f && Noise.rnd(px, py, 88) < 0.45f) Col.mix(c0, Pal.ICE_L, 0.6f) else c0
+                        if (winter && still && dz > -1f && Noise.rnd(px, py, 88) < 0.45f) Col.mix(c0, Pal.ICE_L, 0.6f) else c0
                     }
                     !outer -> 0
                     rr < 1.4f -> if (rr < 0.7f) Pal.WOOD_X else ironC
@@ -1201,43 +1254,171 @@ internal class MillPainter : RoomPainter() {
                 }
             }
         }
-        // icicles hanging from the rim in winter
-        if (winter) for (k in 0 until 5) {
+        // icicles hanging from the rim in winter, while it stands still (turning it sheds them)
+        if (winter && still) for (k in 0 until 5) {
             val ang = PI.toFloat() * (1.15f + k * 0.17f)
             val iy = SY + cos(ang) * WRY * 0.98f; val iz = wz + sin(ang) * r
-            val ix = iso.ix(WX + 0.25f, iy); val itop = iso.iy(WX + 0.25f, iy, iz)
+            val ix = iso.ix(W_OUT, iy); val itop = iso.iy(W_OUT, iy, iz)
             for (j in 0 until (2 + k % 3) * detail) c.set(ix, itop + j, if (j % 2 == 0) Pal.ICE_L else Pal.ICE_M)
         }
     }
 
     /**
-     * The water from the flume onto the waterwheel's buckets at its top, running down its back and spilling into the race,
-     * while it turns (more as it grinds hard); its spray where it falls.
+     * How full the buckets ride at the angle [phi] of the wheel's plane (from +y, downstream, up to +z), 0..1: the ones on
+     * their way up empty; filling under the flume's end just past the top; full on the way down the downstream side; tipping
+     * out from level with the axle until they are empty, before they reach the race.
+     */
+    private fun bucketFill(phi: Float): Float {
+        val d = phi * (180f / PI.toFloat())
+        return when {
+            d > FILL_FROM -> 0f
+            d > FILL_TO -> (FILL_FROM - d) / (FILL_FROM - FILL_TO)
+            d > TIP_FROM -> 1f
+            d > TIP_TO -> (d - TIP_TO) / (TIP_FROM - TIP_TO)
+            else -> 0f
+        }
+    }
+
+    /**
+     * The water a bucket holds at ([dy], [dz]) of the wheel's plane (its mark [ang], [q] of the way from its lower board to
+     * the next), [full] as the flume gives: lying against its lower board as deep as the bucket is full there, its surface
+     * slopping and glinting; 0 where the bucket is dry.
+     */
+    private fun bucketWater(dy: Float, dz: Float, ang: Float, q: Float, full: Float, px: Int, py: Int): Int {
+        val fill = bucketFill(atan2(dz, dy))
+        if (fill <= 0f) return 0
+        val n = floor(ang / (2f * PI.toFloat()) * BUCKETS).toInt()
+        val slop = sin(t * 4.6 + n * 1.9).toFloat() * 0.05f
+        val level = 0.18f + 0.82f * (fill * full * 0.62f + slop * fill)
+        if (q >= level) return 0
+        val glint = Noise.rnd(n, (t * 5).toInt(), 103) < 0.35f && Noise.rnd(px / detail, py / detail, 104) < 0.5f
+        return when {
+            level - q < 0.07f -> env.lit(if (glint) Col.hex(0xF2F6FA) else waterL)
+            q < 0.25f -> env.lit(waterD)
+            else -> env.lit(water)
+        }
+    }
+
+    /** Whether the picture pixel ([px], [py]) lies on the waterwheel's near shroud: what is behind the wheel doesn't show there. */
+    private fun onWheelFace(px: Int, py: Int): Boolean {
+        val dy = (wallXy(px, W_OUT) - SY) * CELL_Z; val dz = wallXz(px, py, W_OUT) - wz
+        return dy * dy + dz * dz <= WR * WR && dz >= RACE_WATER - wz
+    }
+
+    /** How much water the flume gives while the wheel turns: an easy run, a gush grinding hard. */
+    private fun gush(): Float = if (spin() >= HARD) 1f else 0.55f
+
+    /**
+     * The water off the buckets while the wheel turns, behind its near shroud where that is in front of it: drops slopping
+     * out of the buckets on their way down, flung off downstream; the buckets tipping out low on the downstream side, the
+     * water falling from them past the rim into the race and the spray where it lands; the race running on downstream,
+     * flecks of foam on it.
      */
     private fun wheelWater() {
         val r = WR
-        val gush = if (spin() >= HARD) 1f else 0.55f
-        val topY = SY - 0.55f
-        onX(WX, topY - 0.25f, topY + 0.2f * gush, RACE_WATER, wz + r + 1f) { _, z, px, py ->
-            val dz = z - wz
-            if (dz > r + 0.8f) return@onX 0
-            val shine = Noise.rnd(px / detail, (py / detail + (t * 30).toInt()), 87) < 0.3f
-            if (shine) Col.hex(0xF2F6FA) else Col.mix(waterL, Col.hex(0xFFFFFF), 0.25f)
+        val gush = gush()
+        val speed = spin() * r
+        val p = detail
+        // the drops slopping out of the buckets going down, flung off with the rim and falling
+        for (j in 0 until (3 + 5 * gush).toInt()) {
+            val life = 0.55f
+            val ph = (((t + Noise.rnd(j, 105) * 7.0) % life) / life).toFloat()
+            val from = (TIP_FROM + 8f + Noise.rnd(j, 106) * (FILL_TO - TIP_FROM - 14f)) * (PI.toFloat() / 180f)
+            val tt = ph * life
+            // off the rim with its speed (going round, its angle falling), a little outward, then gravity
+            val vy = sin(from) * speed + cos(from) * 2.2f; val vz = -cos(from) * speed + sin(from) * 2.2f
+            val dy = cos(from) * (r + 0.2f) + vy * tt; val dz = sin(from) * (r + 0.2f) + vz * tt - 26f * tt * tt
+            if (wz + dz < RACE_WATER + 0.3f) continue
+            val y = SY + dy / CELL_Z
+            val sx = iso.ix(WX, y); val sy = iso.iy(WX, y, wz + dz)
+            if (onWheelFace(sx, sy)) continue
+            c.fillRect(sx, sy, p, p, env.lit(if (j % 3 == 0) Col.hex(0xF2F6FA) else waterL))
         }
+        // the buckets tipping out low on the downstream side: the water falls from their mouths past the rim into the race
+        val top = sin(TIP_FROM * PI.toFloat() / 180f - 0.09f) * r
+        val outTo = r * cos(TIP_FROM * PI.toFloat() / 180f - 0.09f) + 0.4f + 0.5f * gush
+        val fall = (t * 2.6).toFloat()
+        onX(WX, SY + 3.5f / CELL_Z, SY + (outTo + 0.3f) / CELL_Z, RACE_WATER, wz + top) { y, z, px, py ->
+            if (onWheelFace(px, py)) return@onX 0
+            val dy = (y - SY) * CELL_Z; val dz = z - wz
+            // inside the rim's curve nothing; out to where the water leaving the highest tipping bucket falls
+            val rim = sqrt(max(0f, r * r - dz * dz))
+            val out = outTo - (dz - top) * 0.06f
+            if (dy < rim - 0.1f || dy > out) return@onX 0
+            val streak = Noise.v2((dy - rim) * 3.5f, (dz + fall * 3f) * 0.45f, 107)
+            when {
+                streak > 0.64f -> env.lit(Col.hex(0xF2F6FA))
+                streak > 0.4f -> env.lit(waterL)
+                else -> env.lit(water)
+            }
+        }
+        // the spray where it lands, and the foam it leaves on the race running on downstream
+        val landY = SY + (r * cos(-0.5f) + 0.6f) / CELL_Z
         s.fx {
-            val sx0 = iso.sx(WX, SY - WRY * 0.7f); val sy0 = iso.sy(WX, SY - WRY * 0.7f, RACE_WATER)
+            val sx0 = iso.sx(WX, landY); val sy0 = iso.sy(WX, landY, RACE_WATER)
             for (j in 0 until (5 + 8 * gush).toInt()) {
                 val ph = ((t * 1.7 + Noise.rnd(j, 89)) % 1.0).toFloat()
-                val dx = (Noise.rnd(j, 90) - 0.5f) * 10f * detail; val dz = sin(ph * PI.toFloat()) * 5f * detail * Noise.rnd(j, 91)
+                val dx = (Noise.rnd(j, 90) - 0.6f) * 8f * detail; val dz = sin(ph * PI.toFloat()) * 4f * detail * Noise.rnd(j, 91)
                 c.blend(floor(sx0 + dx).toInt(), floor(sy0 - dz).toInt(), Col.hex(0xF2F6FA), 0.8f * (1f - ph))
+            }
+            for (j in 0 until 6) {
+                val ph = ((t * 0.45 + j / 6.0) % 1.0).toFloat()
+                val fx = RACE_A + 0.3f + Noise.rnd(j, 108) * (RACE_B - RACE_A - 0.6f); val fy = landY + 0.25f + ph * 2.4f
+                c.blend(iso.ix(fx, fy), iso.iy(fx, fy, RACE_WATER), Col.hex(0xF2F6FA), 0.55f * (1f - ph))
             }
         }
     }
 
-    /** The flume: a wooden trough on a trestle from the plot's back edge to over the wheel's top, the water in it while it turns. */
+    /**
+     * The flume's water pouring off its end into the bucket under it, just past the wheel's top on the downstream side, while
+     * the wheel turns (more of it grinding hard); spray where it hits the bucket. The wheel's near shroud is in front of the
+     * water once it is in the bucket.
+     */
+    private fun pour() {
+        val gush = gush()
+        val yw = FLUME_END + 0.07f
+        val half = 0.13f + 0.04f * gush
+        val dy = (yw - SY) * CELL_Z
+        val land = wz + sqrt(WR * WR - dy * dy) - 1f
+        val top = flumeTop() - 0.25f
+        val fall = (t * 3.2).toFloat()
+        // in bands down from the lip, each a little further on downstream: the jet's arc as it falls
+        val bands = 4
+        for (b in 0 until bands) {
+            val z1 = top - (top - land) * b / bands; val z0 = top - (top - land) * (b + 1) / bands
+            val f = (b + 0.5f) / bands
+            onY(yw + 0.16f * f * f, WX - half, WX + half, z0, z1) { x, z, px, py ->
+                if (onWheelFace(px, py)) return@onY 0
+                val streak = Noise.v2((x - WX) * 14f, (z + fall * 3f) * 0.5f, 109)
+                when {
+                    top - z < 0.45f || streak > 0.66f -> env.lit(Col.hex(0xF2F6FA))
+                    streak > 0.38f -> env.lit(waterL)
+                    else -> env.lit(Col.mix(water, waterL, 0.3f))
+                }
+            }
+        }
+        // the spray where it hits the bucket, flung up and on downstream
+        s.fx {
+            val sx0 = iso.sx(WX, yw + 0.12f); val sy0 = iso.sy(WX, yw + 0.12f, wz + sqrt(WR * WR - dy * dy) + 0.4f)
+            for (j in 0 until (3 + 5 * gush).toInt()) {
+                val ph = ((t * 2.1 + Noise.rnd(j, 110)) % 1.0).toFloat()
+                val dx = -(Noise.rnd(j, 111) * 6f + 1f) * ph * detail; val up = sin(ph * PI.toFloat()) * 3f * detail * Noise.rnd(j, 112)
+                c.blend(floor(sx0 + dx).toInt(), floor(sy0 - up).toInt(), Col.hex(0xF2F6FA), 0.75f * (1f - ph))
+            }
+        }
+    }
+
+    /** The flume trough's bottom and the top of its sides (nominal px), over the wheel's top. */
+    private fun flumeBottom(): Float = wz + WR + 0.8f
+    private fun flumeTop(): Float = flumeBottom() + 1.6f
+
+    /**
+     * The flume: a wooden trough on a trestle from the plot's back edge to just past the wheel's top, the water running in
+     * it while the wheel turns.
+     */
     private fun flume(turning: Boolean) {
-        val xa = WX - 0.24f; val xb = WX + 0.24f; val ya = 0f; val yb = SY - 0.45f
-        val zb = wz + WR + 0.8f; val zt = zb + 1.6f
+        val xa = WX - 0.24f; val xb = WX + 0.24f; val ya = 0f; val yb = FLUME_END
+        val zb = flumeBottom(); val zt = flumeTop()
         // the trough: its front and right faces, the water in it (its trestle in the race is drawn first, scenery)
         iso.box(xa, ya, zb, xb - xa, yb - ya, zt - zb, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
         val flow = turning
@@ -1257,7 +1438,7 @@ internal class MillPainter : RoomPainter() {
 
     /** The flume's trestle standing in the race: two posts from the water up to the trough. */
     private fun trestle() {
-        val zb = wz + WR + 0.8f
+        val zb = flumeBottom()
         iso.post(WX, 0.45f, RACE_WATER, zb, Pal.WOOD_D)
         iso.post(WX - 0.2f, 0.45f, RACE_WATER, zb, Pal.WOOD_M)
     }
@@ -1279,6 +1460,36 @@ internal class MillPainter : RoomPainter() {
         }
         c.fillRect(floor(cx - detail).toInt(), floor(top - detail / 2f).toInt(), 2 * detail, max(1, detail), Col.hex(0x3A3630))
     }
+
+    // ------------------------------------------------------------------ where the turning parts lie (MillMechanicsTest)
+
+    /** The pinion's bottom disc and its top disc (nominal px high), just under the cog wheel's top and over it. */
+    private val pinBottom: Float get() = gz + GR - 0.6f
+    private val pinTop: Float get() = pinBottom + 2.4f
+
+    /** The pinion in the picture, as drawn: its middle's x, the rows of its bottom and its top discs, its half width (px). */
+    internal fun pinionShape(): FloatArray =
+        floatArrayOf(iso.sx(PIN_X, SY), iso.sy(PIN_X, SY, pinBottom), iso.sy(PIN_X, SY, pinTop), PIN_R * 11.3f * detail)
+
+    /** The pinion's spindle (x, y): on the cog wheel's far side from us (its face toward us is at [GF]). */
+    internal fun pinionAxis(): FloatArray = floatArrayOf(PIN_X, SY)
+
+    /** The runner's grooved top in the picture, as drawn: its middle (x, then the row) and its half width (px). */
+    internal fun runnerShape(): FloatArray = floatArrayOf(iso.sx(SX, SY), iso.sy(SX, SY, runTop), 0.62f * 11.3f * detail)
+
+    /** The wheels on the shaft, as drawn: the plane of the face we see (x), the axle (y, its height), the radius (px), px a cell along y. */
+    internal fun waterwheelFace(): FloatArray = floatArrayOf(W_OUT, SY, wz, WR, CELL_Z)
+    internal fun cogWheelFace(): FloatArray = floatArrayOf(GF, SY, gz, GR, CELL_Z)
+
+    /** The waterwheel's inner shroud (x), whose ring shows the buckets' water over the near shroud's edge; the plane the water off it falls in. */
+    internal val innerShroud: Float get() = W_IN
+    internal val waterPlane: Float get() = WX
+
+    /** The plane x = [x]'s point under the picture pixel ([px], [py]) in the frame last drawn: its y, then its height. */
+    internal fun onPlaneX(px: Int, py: Int, x: Float): FloatArray = floatArrayOf(wallXy(px, x), wallXz(px, py, x))
+
+    /** The picture point of the world point ([x], [y], [z]) in the frame last drawn. */
+    internal fun pictureOf(x: Float, y: Float, z: Float): FloatArray = floatArrayOf(iso.sx(x, y), iso.sy(x, y, z))
 
     // ------------------------------------------------------------------ light and dust
 
@@ -1440,13 +1651,32 @@ internal class MillPainter : RoomPainter() {
         /** The flour sack under the spout. */
         const val FLOUR_X = 7.0f; const val FLOUR_Y = 4.6f
 
-        /** The cog wheel's plane and its radius (px, and cells along y), its pegs; the waterwheel's plane, radius and buckets. */
-        const val GX = 8.0f
+        /**
+         * The cog wheel's plane, the plane of its face toward us and its radius (px, and cells along y), its pegs; the pinion's
+         * spindle over its top (x; at SY) and its radius (cells); the waterwheel's plane, its inner and outer shroud's, its
+         * radius and its buckets.
+         */
+        const val GX = 8.0f; const val GF = GX + 0.18f
         const val GR = 5.8f; const val GRY = GR / CELL_Z
         const val PEGS = 16f
-        const val WX = 10.75f
+        const val PIN_X = GX - 0.42f; const val PIN_R = 0.3f
+        const val WX = 10.75f; const val W_IN = WX - 0.25f; const val W_OUT = WX + 0.25f
         const val WR = 9f; const val WRY = WR / CELL_Z
         const val BUCKETS = 16f
+
+        /** Where the flume ends (y): just past the wheel's top, so its water falls into the buckets on the downstream side. */
+        const val FLUME_END = SY + 0.3f
+
+        /**
+         * Where round the wheel (degrees from +y, downstream, up to +z) its buckets fill under the flume's end (from, to) and
+         * tip out on the way down (from level with the axle, empty before the race's water at about −32°).
+         */
+        const val FILL_FROM = 86f; const val FILL_TO = 72f
+        const val TIP_FROM = 0f; const val TIP_TO = -30f
+
+        /** The shaft's two knots: where along it (x), and where round it they are at the shaft's angle 0 (from +y up to +z). */
+        val KNOTS = floatArrayOf(8.4f, 9.05f)
+        val KNOT_AT = floatArrayOf(0.4f, 2.9f)
 
         /** The mill race: its banks (x) and its water's level (px under the yard). */
         const val RACE_A = 10.05f; const val RACE_B = 11.45f
