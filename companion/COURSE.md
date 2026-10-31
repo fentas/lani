@@ -837,7 +837,7 @@ the partitive, the comparatives, the past with essere, lo and la), in the outlin
 | 14 | `ci-ne` 🧺 | ci for a place named (Sì, ci vado), non ci; ne after a number (Ne ho sette, never ho sette) and an amount (ne voglio un po', non ne ho); ce n'è, ce ne sono | ci-ne, ce-ci-sono, partitivo |
 | 15 | `negazioni` 🙅 | non … mai, niente (nulla too), nessuno, più, ancora; nessuno first without non; one-word answers (Nessuno! Niente!) | negazioni |
 | 16 | `vorrei` 🍦 | vorrei against voglio (voglio as almost: right, but sharp); vorresti, vorrebbe (Lei), vorremmo, vorreste, vorrebbero; potrei, potresti, potrebbe (Lei); mi piacerebbe | vorrei, verbi-irregolari, tu-lei |
-| 17 | `imperativo-pronomi` 👉 | the short word on the end (guardami, prendilo, portagli); da', di', fa' doubling (dammi, dimmi, fallo; dagli single); noi and voi (aiutiamolo, ascoltatemi); non toccarlo and non lo toccare, both right | imperativo-pronomi, imperativo, pronomi-indiretti |
+| 17 | `imperativo-pronomi` 👉 | the short word on the end (guardami, prendilo, portagli); da', di', fa' doubling (dammi, dimmi, fallo; dagli single); noi and voi (aiutiamolo, ascoltatemi); non toccarlo and non lo toccare, both right | imperativo-pronomi, imperativo, pronomi-diretti, pronomi-indiretti |
 | 18 | `relative-che` 🔗 | che joining two sentences, for people and things; che never changing, the verb after it agreeing (i bambini che giocano); che as the object (il libro che leggo); chi only the question | relative-che |
 
 - **Pages written for them**, A2, the book's usual size: `pronomi-indiretti`, `ci-ne`, `negazioni`, `vorrei`,
