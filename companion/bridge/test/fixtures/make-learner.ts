@@ -3,12 +3,13 @@
 // second town's, test/fixtures/dev-town.json, with the people of the learner's culture pack). Nothing of a real learner.
 // The "📈 Napredek · Progress" steps run on it: the parent's town of the QA's child town.
 // Run: bun test/fixtures/make-learner.ts <dir> [--name Ana] [--target sl] [--base en]   (the dir must not hold a learner)
+// The village is the target language's culture pack's: sl Primorska, it Friuli, de Kärnten, en the Lake District.
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { parseArgs } from 'node:util'
 import { initLearnerData } from '../../src/learners'
 import { localDate } from '../../src/towns'
-import { writeLearning } from './learning'
+import { type Language, writeLearning } from './learning'
 
 const { values, positionals } = parseArgs({
   args: process.argv.slice(2),
@@ -16,16 +17,17 @@ const { values, positionals } = parseArgs({
   options: { name: { type: 'string', default: 'Ana' }, target: { type: 'string', default: 'sl' }, base: { type: 'string', default: 'en' } },
 })
 const dir = positionals[0]
-if (!dir || !['sl', 'it'].includes(values.target!)) {
-  console.error('usage: bun test/fixtures/make-learner.ts <dir> [--name Ana] [--target sl|it] [--base en|de|sl]')
+const CULTURES: Record<Language, string> = { sl: 'primorska', it: 'friuli', de: 'kaernten', en: 'lakeland' }
+if (!dir || !(values.target! in CULTURES)) {
+  console.error('usage: bun test/fixtures/make-learner.ts <dir> [--name Ana] [--target sl|it|de|en] [--base en|de|sl|it]')
   process.exit(1)
 }
 const data = resolve(dir)
-initLearnerData(resolve(import.meta.dir, '../../../..'), data, { name: values.name!, target: values.target!, base: values.base!, culture: values.target === 'it' ? 'friuli' : 'primorska', child: false })
-writeLearning(data, { language: values.target as 'sl' | 'it', base: values.base! })
+initLearnerData(resolve(import.meta.dir, '../../../..'), data, { name: values.name!, target: values.target!, base: values.base!, culture: CULTURES[values.target as Language], child: false })
+writeLearning(data, { language: values.target as Language, base: values.base! })
 
 // a village of some weeks (the second town's buildings and days), its people the culture pack's own ("@day": today)
-const culture = values.target === 'it' ? 'friuli' : 'primorska'
+const culture = CULTURES[values.target as Language]
 const projectDir = resolve(import.meta.dir, '../../../..')
 const cast = readdirSync(join(projectDir, 'companion/cultures', culture, 'villagers')).filter(f => f.endsWith('.json')).map(f => f.replace(/\.json$/, '')).sort().slice(0, 6)
 const day = (n: number) => localDate(Date.now() + n * 86_400_000)

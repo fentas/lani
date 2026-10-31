@@ -9,7 +9,10 @@ import { localDate } from '../../src/towns'
 
 type Word = { id: string; word: string; meanings: Record<string, string> }
 
-const WORDS: Record<'it' | 'sl', Word[]> = {
+/** The languages a synthetic learner can learn: each culture pack's (Primorska's, Friuli's, Kärnten's, the Lake District's). */
+export type Language = 'it' | 'sl' | 'de' | 'en'
+
+const WORDS: Record<Language, Word[]> = {
   it: [
     { id: 'vocab_cane', word: 'il cane', meanings: { de: 'der Hund', sl: 'pes', en: 'the dog' } },
     { id: 'vocab_casa', word: 'la casa', meanings: { de: 'das Haus', sl: 'hiša', en: 'the house' } },
@@ -34,9 +37,33 @@ const WORDS: Record<'it' | 'sl', Word[]> = {
     { id: 'vocab_sonce', word: 'sonce', meanings: { en: 'sun', de: 'die Sonne', it: 'il sole' } },
     { id: 'vocab_jabolko', word: 'jabolko', meanings: { en: 'apple', de: 'der Apfel', it: 'la mela' } },
   ],
+  de: [
+    { id: 'vocab_haus', word: 'das Haus', meanings: { sl: 'hiša', en: 'the house', it: 'la casa' } },
+    { id: 'vocab_hund', word: 'der Hund', meanings: { sl: 'pes', en: 'the dog', it: 'il cane' } },
+    { id: 'vocab_katze', word: 'die Katze', meanings: { sl: 'mačka', en: 'the cat', it: 'il gatto' } },
+    { id: 'vocab_brot', word: 'das Brot', meanings: { sl: 'kruh', en: 'the bread', it: 'il pane' } },
+    { id: 'vocab_wasser', word: 'das Wasser', meanings: { sl: 'voda', en: 'the water', it: "l'acqua" } },
+    { id: 'vocab_schule', word: 'die Schule', meanings: { sl: 'šola', en: 'the school', it: 'la scuola' } },
+    { id: 'vocab_buch', word: 'das Buch', meanings: { sl: 'knjiga', en: 'the book', it: 'il libro' } },
+    { id: 'vocab_fenster', word: 'das Fenster', meanings: { sl: 'okno', en: 'the window', it: 'la finestra' } },
+    { id: 'vocab_sonne', word: 'die Sonne', meanings: { sl: 'sonce', en: 'the sun', it: 'il sole' } },
+    { id: 'vocab_apfel', word: 'der Apfel', meanings: { sl: 'jabolko', en: 'the apple', it: 'la mela' } },
+  ],
+  en: [
+    { id: 'vocab_house', word: 'house', meanings: { sl: 'hiša', de: 'das Haus', it: 'la casa' } },
+    { id: 'vocab_dog', word: 'dog', meanings: { sl: 'pes', de: 'der Hund', it: 'il cane' } },
+    { id: 'vocab_cat', word: 'cat', meanings: { sl: 'mačka', de: 'die Katze', it: 'il gatto' } },
+    { id: 'vocab_bread', word: 'bread', meanings: { sl: 'kruh', de: 'das Brot', it: 'il pane' } },
+    { id: 'vocab_water', word: 'water', meanings: { sl: 'voda', de: 'das Wasser', it: "l'acqua" } },
+    { id: 'vocab_school', word: 'school', meanings: { sl: 'šola', de: 'die Schule', it: 'la scuola' } },
+    { id: 'vocab_book', word: 'book', meanings: { sl: 'knjiga', de: 'das Buch', it: 'il libro' } },
+    { id: 'vocab_window', word: 'window', meanings: { sl: 'okno', de: 'das Fenster', it: 'la finestra' } },
+    { id: 'vocab_sun', word: 'sun', meanings: { sl: 'sonce', de: 'die Sonne', it: 'il sole' } },
+    { id: 'vocab_apple', word: 'apple', meanings: { sl: 'jabolko', de: 'der Apfel', it: 'la mela' } },
+  ],
 }
 
-const PATTERNS: Record<'it' | 'sl', { id: string; description: string; category: string; cards: string[] }[]> = {
+const PATTERNS: Record<Language, { id: string; description: string; category: string; cards: string[] }[]> = {
   it: [
     { id: 'articles_il_la', description: 'Articoli: il / la', category: 'grammar', cards: ['vocab_casa', 'vocab_finestra'] },
     { id: 'apostrophe_l', description: "L'apostrofo: l'acqua", category: 'spelling', cards: ['vocab_acqua'] },
@@ -45,6 +72,14 @@ const PATTERNS: Record<'it' | 'sl', { id: string; description: string; category:
     { id: 'dual_endings', description: 'Dvojina: -a / -i', category: 'grammar', cards: ['vocab_hisa', 'vocab_knjiga'] },
     { id: 'accusative_fem', description: 'Tožilnik ženskega spola: -o', category: 'grammar', cards: ['vocab_macka'] },
   ],
+  de: [
+    { id: 'articles_der_die_das', description: 'Artikel: der / die / das', category: 'grammar', cards: ['vocab_haus', 'vocab_sonne'] },
+    { id: 'umlaut_spelling', description: 'Umlaut: Äpfel', category: 'spelling', cards: ['vocab_apfel'] },
+  ],
+  en: [
+    { id: 'articles_a_an', description: 'Articles: a / an', category: 'grammar', cards: ['vocab_apple', 'vocab_house'] },
+    { id: 'third_person_s', description: 'Present simple: he/she/it + -s', category: 'grammar', cards: ['vocab_dog'] },
+  ],
 }
 
 /**
@@ -52,7 +87,7 @@ const PATTERNS: Record<'it' | 'sl', { id: string; description: string; category:
  * meanings in [base], two error patterns with mistakes this week and one from long ago, sessions on the last [streak]
  * days. [secret] goes into everything that must never leave the town.
  */
-export function writeLearning(dataDir: string, o: { language: 'it' | 'sl'; base: string; secret?: string; streak?: number; now?: number }) {
+export function writeLearning(dataDir: string, o: { language: Language; base: string; secret?: string; streak?: number; now?: number }) {
   const now = o.now ?? Date.now()
   // calendar days, not 24-hour steps: across a change to or from summer time a day has 23 or 25 hours, and n × 24 h from
   // the day's last hour lands two sessions on one date (the streak one short)
