@@ -7328,16 +7328,38 @@ def unit_text(s: str) -> str:
     return s.replace("{learner}", os.environ.get("LANI_QA_LEARNER", "Ana"))
 
 
-def option_at(text: str, swipes=6):
+def option_at(text: str, swipes=6, after: str | None = None):
     """A choice's option [text] (the exact label, the last of that text on screen: the table above may show it too)
-    scrolled into view, clear of the bottom bar's "Naprej" (under 2150 px); None when it never shows."""
+    scrolled into view, clear of the bottom bar's "Naprej" (under 2150 px); None when it never shows. [after]: a piece of
+    the question's prompt, which its options come below: a cell of the intro's table with the same word ("Le") is above
+    it, and the options may still be under the screen's edge."""
+    seen = False
     for _ in range(swipes + 1):
-        c = ([c for t, c in nodes() if t == text and 300 < c[1] < 2150] or [None])[-1]
-        if c is not None:
-            return c
+        ns = list(nodes())
+        floor = 300
+        if after:
+            ys = [c[1] for t, c in ns if after in t]
+            if ys:
+                seen, floor = True, max(floor, ys[-1])
+            elif not seen:
+                floor = None  # the prompt not on screen yet: nothing of the table taken for an option
+        if floor is not None:
+            c = ([c for t, c in ns if t == text and floor < c[1] < 2150] or [None])[-1]
+            if c is not None:
+                return c
         adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
         time.sleep(1)
     return None
+
+
+def prompt_piece(prompt) -> str | None:
+    """The longest piece of a choice's prompt between its gaps, as the screen shows it (its learner filled in): what
+    option_at finds the question by. None for a prompt without words."""
+    if not isinstance(prompt, str):
+        return None
+    parts = [x.strip() for x in re.split(r"_{3,}", unit_text(prompt))]
+    best = max(parts, key=len, default="")
+    return best or None
 
 
 def sheet_exercise(e: dict, where: str):
@@ -7576,15 +7598,16 @@ def friuli_school(part: str = "scene"):
 
     check, nxt = lab("playerScreen.check"), lab("common.next")
 
-    def pick(option: str):
-        """A choice's option [option] scrolled into view; asked typed instead (the app asks a choice typed once its rule
-        is secure: game/Adaptive), back to the options first ("✋ Fammi scegliere · Lass mich wählen"). None without it."""
-        c = option_at(option, swipes=1)
+    def pick(option: str, after: str | None = None):
+        """A choice's option [option] scrolled into view, below [after] (its prompt: not a same word in a table above);
+        asked typed instead (the app asks a choice typed once its rule is secure: game/Adaptive), back to the options
+        first ("✋ Fammi scegliere · Lass mich wählen"). None without it."""
+        c = option_at(option, swipes=1, after=after)
         if c is None and find(half("adaptive.letMeChoose")) is not None:
             assert tap(half("adaptive.letMeChoose"), 4), "✋ Fammi scegliere"
             time.sleep(1)
-            c = option_at(option)
-        return c if c is not None else option_at(option)
+            c = option_at(option, after=after)
+        return c if c is not None else option_at(option, after=after)
 
     def exercise(e: dict, where: str):
         kind = e["type"]
@@ -7594,7 +7617,7 @@ def friuli_school(part: str = "scene"):
                 label = lab("school.gapN" if kind == "gaptext" else "school.lineN", n=i)
                 assert fill(label, typed(it["accept"][0])), f"{where}: {label}"
         elif kind == "choice":
-            c = pick(unit_text(e["options"][e["answer"]]))
+            c = pick(unit_text(e["options"][e["answer"]]), after=prompt_piece(e.get("prompt")))
             assert c is not None, f"{where}: the option «{e['options'][e['answer']]}»"
             tap_at(c)
             return  # a tap answers it
@@ -7794,7 +7817,7 @@ def friuli_school(part: str = "scene"):
                     continue
                 if a["type"] == "choice":
                     option = unit_text(a["options"][a["answer"]])
-                    c = pick(option)
+                    c = pick(option, after=prompt_piece(a.get("prompt")))
                     assert c is not None, f"step {i}'s option «{option}»"
                     tap_at(c)
                 else:
