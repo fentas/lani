@@ -8,6 +8,10 @@ aliases, the setting, the switch). The generator draws every concept already, so
 Today's icon (`companion/android/tools/launcher_icon.py`) is a speech bubble with Č over Triglav at dusk. It is
 Slovene, and it is wrong on Teo's tablet, where Teo learns Italian in Friuli.
 
+**Step 1b** (Jan saw the five concepts: "maybe for every age a new icon + state what is happening or waiting - incl.
+events"): see "Step 1b: the icon through the ages" below. Where they differ, step 1b replaces step 1's changing icon:
+the aliases, the setting and the events.
+
 ## How the concepts are drawn
 
 `companion/android/tools/app_icon.py` draws all five concepts pixel by pixel, in the village's own palette (`Pal`,
@@ -164,7 +168,7 @@ speech bubble.
 If Jan wants the icon to be a character, **Sosed** is the second choice, for Teo's sake. **Mehurček** is the safe
 choice that keeps today's bubble. **Ogenj** is a good look for the midsummer fire, not for every day.
 
-## The changing icon
+## The changing icon (step 1; step 1b below replaces the aliases and the setting)
 
 ### What changes, and what I advise
 
@@ -292,12 +296,181 @@ Checked against AOSP's source and reports (a research pass, 2026-10-31; paths ar
   icons without it too). Launcher3 reloads a package's cached icons on every change, so the icon is not stale.
   Restore after a reinstall goes back to the manifest (the base form) until the first switch.
 
+## Step 1b: the icon through the ages
+
+Jan, 2026-10-31, after the five concepts: "maybe for every age a new icon + state what is happening or waiting - incl.
+events". Still concepts only: nothing is built into the app.
+
+Sheets (made again with `uv run --no-project --with pillow python3 companion/android/tools/app_icon.py ages OUT_DIR`):
+`/tmp/claude-1000/-mnt-scratch-github-fentas-ai-slo/721724ea-4389-48ad-b641-b6d1d5157803/scratchpad/ux-app-icon/ages/`
+has `overview.png`, `ages.png` (each age in each culture, winter, themed, 48 dp), `events.png` (the signs by
+priority on four ages), `dots.png` (what's waiting: the dot, the count, the long-press card) and `home.png` (home
+screen rows at 48 dp). A copy of the overviews, which survives a reboot:
+`/mnt/scratch/github/fentas/.lani-lead-kit/icon-concepts/`.
+
+### One icon per age: Zvonik grows with the village
+
+The village's six ages (`game/Model.kt` `Age`, GAME.md "Ages") start at a fire in a clearing, so the ages join two
+concepts: the village starts as Ogenj (the fire) and grows into Zvonik (the L). Every age keeps the same L: a tall
+shape on the left, a long one along the bottom, the bubble at the top right. So the icon stays Lani's as it grows, and
+each age is clear at 48 dp. The concept is `ages` in the generator (`draw_ages`).
+
+| Age | What the map has (GAME.md) | The icon |
+|---|---|---|
+| 🔥 Ogenj · Campfire | a fire in a clearing, 2 plots | a tall spruce, the fire in its ring of stones, a log to sit on |
+| ⛺ Tabor · Camp | the tent (it starts the age) | the spruce, the tent with its pennant, a small fire |
+| 🛖 Zaselek · Hamlet | the palisade and the field; huts, the watchtower | the watchtower on its stilts, a hut, the palisade's stakes |
+| 🏘️ Vas · Village | the church, the linden, houses | step 1's L: the church tower and the long house |
+| 🏛️ Trg · Market town | the market, the school, the well | the house in two storeys, the fair's stall with its striped awning, the tower's clock |
+| 🏰 Mesto · Town | the watchtower, the smithy, 5 houses | a taller tower, the town's banner, the town wall with its battlements and gate |
+
+- **The cultures.** Ogenj and Tabor look the same in every culture: the camp has no culture look, and before setup
+  a new install has no culture either. From Zaselek on, the culture shows:
+  - Zaselek: huts of logs under shingles (Primorska, Kärnten), of stone under coppi (Friuli) or under slate (Lake
+    District), as `FireStyle.hutStone` builds them.
+  - From Vas on: each culture's tower (spire, campanile, onion, battlements), walls, roofs and shutters, as in step 1.
+- **No separate base form.** The icon a new install shows is Ogenj's, so the manifest's enabled alias needs no
+  culture. A new learner's village is at Ogenj, so there is no switch right after setup, which is the riskiest moment
+  (step 1 needed one). The neutral Vas L (step 1's base) stays the logo for the README and prints.
+- **Seasons**, reduced to what shows in this picture: green (March to November) and snow (December to February), on
+  the hill, the roofs and the spruce. The spring and autumn tints changed little and would cost switches.
+- **The themed icon** follows the age only, never the signs: each age's silhouette, with its openings cut out, and
+  the bubble.
+
+### What's happening: one sign for the day, in the icon
+
+An icon can only follow what lasts a day: it switches at most once a day, and only in the background. So the icon
+shows the events that are the day's news and can't go stale. Each gets a small, kind sign drawn into the age's
+picture. They are listed by priority: when two compete, the higher shows and the lower is dropped.
+
+1. **Nova doba · A new age** (the day the age came, and the day after): fireworks and confetti over the new age's
+   picture. The new age's picture is itself the big change.
+2. **Praznik · A festival** (the culture's festival days, `festivals.json`, and the village's own festival event): a
+   garland of little flags from the tower to the house. On snow it is a string of lights, and that is the December
+   lights too: from December 20 to January 6 the festival look stays up.
+3. **Zgrajeno · Built** (a building or a project finished in the last 2 days): the likof's little spruce with ribbons
+   on the roof, the roofing feast's sign. Primorska has the likof, Kärnten and Lake District have their topping-out
+   tree.
+4. **Prišlek · Someone new** (a villager moved in during the last 2 days, `ArrivalPublished`): a traveller with a
+   hat and a bundle on a stick, standing at the house.
+
+Left out of the icon, each for a reason:
+
+- **Straža · The watch** (wolves, a bear or a storm). It is drawn on the sheet: the paw prints and the belfry's
+  lantern lit. A threat is solved within its 36 hours, often within the hour. The icon would show it for the rest of
+  the day, which would be stale, and it is the one sign that could worry a child. It stays a notification, with the
+  dot (below).
+- **The merchant, the pedlar and the day's surprise.** They come and go within a session, or nearly every day.
+- **A guest from a town, and a gift.** These are waits (below), not the day's news.
+- **The weekly feast and the storyteller's evening.** The learner starts them, or they happen every evening.
+
+**When the icon switches.** It decides at the first background moment of a calendar day: the ON_STOP job (15
+minutes), or a daily WorkManager job early in the morning. That covers days when the app isn't opened. After a switch,
+nothing changes until the next day. An event that happens after the day's switch shows the next morning, while it is
+still news (the 2 days). The icon only reads the state saved on the phone and the calendar. It never runs the game.
+
+**How often.** At most once a day. For an active learner it is about 100 to 150 times a year, mostly the "built"
+days while the village grows. In "Age and season" mode it is about 6 times a year, plus each new age.
+
+### What's waiting: the launcher's dot, not the icon
+
+Requests, reviews due and gifts change many times a day. An icon would need several switches a day, with the
+duplicate or lost icons of some launchers. Every Android launcher already draws a dot (Pixel, Launcher3) or a count
+(One UI) on an app's icon while it has a notification in a channel that allows badges. Lani uses that, from its
+existing notifications (`BackgroundCheck`). Today they all post to one channel, "tutor". Step 2 splits it, because a
+channel's badge is fixed when it is made:
+
+| Channel | Its notifications | Dot | A child's profile (Teo) |
+|---|---|---|---|
+| Sporočila · Messages | the tutor's answer, the family's challenge, a guest, question or link from a town | yes | yes |
+| Vas · Village | the watchman's news (`VillageAlert`: wolves, a bear, a storm, the merchant) | yes | yes, in kind words: "Stražar je nekaj videl · The watchman saw something", never "attacking" |
+| Šola · School | new homework from the tutor or the family | yes | yes: "Nova naloga · A new task" |
+| Novo · New in Lani | new challenges, words, readings, grammar pages, scenes, stories, the week's progress | no: they wait marked "new" in the app | no |
+| Opomniki · Reminders | the evening's "cards waiting" | no: a reminder must not leave a dot all day | none unless a parent turns it on, and then no count and no streak: "Vas te pričakuje · The village is looking forward to you" |
+| Sistem · System | an update, "not saved", the approval request | no | no |
+
+- One notification per person or thread, each with `setNumber(1)`, so a One UI count stays small: 1 to 3, never the
+  cards due.
+- The app removes a notification when its thing is seen (the answer read, the guest greeted), so the dot goes with it.
+- A long press on the icon shows the waiting notifications in the launcher's card (the mock in `dots.png`).
+- Nothing in a dot nags: no "you haven't practised", no numbers of cards, no streak, nothing red in words.
+
+### The aliases: a scheme that stays sane
+
+An alias is one picture: (the age, the culture from Zaselek on, the look of the day). The looks are:
+
+- plain, on green or on snow;
+- the festival, on green (the garland) or on snow (the lights);
+- a new age, on green or snow (not at Ogenj, which is the start);
+- built, on green or snow;
+- someone new, on green or snow (not at Ogenj: the first newcomers come in Tabor).
+
+| | Frames | Looks | Aliases |
+|---|---|---|---|
+| Ogenj (every culture) | 1 | 6 | 6 |
+| Tabor (every culture) | 1 | 10 | 10 |
+| Zaselek, Vas, Trg, Mesto × 4 cultures | 16 | 10 | 160 |
+| **All** | 18 | | **176** |
+
+- **Names**, made by the generator: `.icon.<Culture><Age><Look>`, for example `.icon.FriuliZaselekSnow` and
+  `.icon.PrimorskaVasFestival`. `.icon.Ogenj` is the only alias enabled in the manifest. The generator also writes
+  the manifest's alias block between markers. A unit test keeps the list, because an alias is never renamed or
+  removed (step 1, "The aliases").
+- **The APK**, measured from the generator:
+  - flat, one set of three drawables per alias: 6.9 MB of XML, 950 KB zipped. Too much.
+  - with the identical layers shared by content: 2 backgrounds (the sky and the hill, green and snow, 7 KB zipped)
+    and 16 monochrome layers (8 KB zipped). The 166 foregrounds that differ are 201 KB zipped, and the 176 mipmap XML
+    files about 45 KB. **About 260 KB in all.** This is my proposal: plain vector drawables, nothing unusual for a
+    launcher.
+  - halving it again: each foreground as a `<layer-list>` of the frame (36: 18 frames, green and snow) and the
+    sign's overlay (about 24 small vectors). Adaptive icons accept any drawable, but this is one more thing to test on
+    every launcher. Only if the size matters.
+- **The system:** 176 aliases are 176 entries in the manifest (about 90 KB of binary XML, compressed in the APK) and a
+  few hundred KB in the package manager's memory. Launchers only see the one enabled alias.
+- **What's dropped when two things compete:**
+  - The age and the culture always show.
+  - Snow follows the date: December to February, whatever else shows.
+  - Of the day's signs, only the highest shows: a new age, then a festival (and the December lights), then built,
+    then someone new. The lower one is dropped. "Built" and "someone new" can still show the next day, while they are
+    2 days old.
+  - The threat, the waits and the time of day are never in the icon.
+
+### The setting, replacing step 1's
+
+"🎨 Ikona · App icon", under "🌐 Languages":
+
+- **Kaj se dogaja · What's happening**: the age, the season, the festivals, built and someone new. At most once a
+  day. On by default where the launcher keeps the icon in place: the default home app is Launcher3-based (Pixel,
+  AOSP; Nothing's once Jan's phone passes the test).
+- **Doba in letni čas · Age and season**: the age, snow and the December lights. About 6 switches a year, plus each
+  new age. The default on other launchers: One UI, MIUI and unknown ones (Teo's tablet until it is tested).
+- **Ne spreminjaj · Keep it as it is**: never switches.
+
+Strings (machine-written, for a native check): sl "Kaj se dogaja", "Doba in letni čas", "Ne spreminjaj"; en
+"What's happening", "Age and season", "Keep it as it is"; de "Was gerade los ist", "Zeitalter und Jahreszeit",
+"So lassen"; it "Cosa succede", "Epoca e stagione", "Lascia così". Also the age and sign labels on the sheets (Nova
+doba, Praznik, Zgrajeno, Prišlek, Straža, Obvestila) and the channel names and dot texts in the table above.
+
+### The risks, added to "The Android risks" above
+
+- **More switches, more exposure.** Every switch is another chance for a launcher to duplicate (One UI) or lose
+  (EMUI) the icon. Hence "What's happening" is on by default only where the launcher is known to keep it, and the
+  developer button tests a phone first.
+- **The icon lags by up to a day.** Only day-long news belongs in it. The waits go in the dot.
+- **176 fixed names.** The art can change under them; the names can't. A new kind of sign later means new aliases.
+- **The manifest is generated.** The generator writes the alias block, and the test checks it against the list.
+- **A child's profile.** The signs are joyful only, the watch is never in the icon, and the dot's words are kind. The
+  reminder is off unless a parent turns it on.
+
 ## What's left (step 2, after Jan picks)
 
-- Build the picked concept: the 21 aliases' drawables from the generator (backgrounds shared), the manifest aliases,
-  `MainActivity` without its launcher filter, `ic_notify`.
-- The switch (`IconChooser`, pure, with date tests; `IconSwitcher` with the background job and the repair), the
-  setting "🎨 Ikona · App icon" in sl, en, de and it, a test that keeps the alias list.
+- Build the picked concept: with step 1b, the 176 aliases' drawables from the generator (backgrounds and monochrome
+  layers shared), the generated manifest block, `MainActivity` without its launcher filter, `ic_notify`.
+- The switch (`IconChooser`, pure, with date and priority tests; `IconSwitcher` with the background jobs, the
+  once-a-day rule and the repair), the setting "🎨 Ikona · App icon" in sl, en, de and it, a test that keeps the alias
+  list.
+- The notification channels for the dot (Messages, Village, School with badges; New, Reminders, System without), the
+  child's profile's wording, and cancelling a notification when its thing is seen.
 - The wordmark into the README, the setup welcome screen (above "Welcome!") and `site/` (favicon, apple-touch-icon).
 - Test on the emulator (Launcher3), Jan's Nothing Phone (4a) and Teo's tablet with the developer button.
   Screenshots of the home screen before and after.
