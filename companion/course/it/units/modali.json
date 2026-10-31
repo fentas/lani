@@ -1,0 +1,326 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "modali",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🙋",
+  "title": { "it": "Posso, voglio, devo", "de": "Können, wollen, müssen: posso, voglio, devo", "sl": "Lahko, hočem, moram: posso, voglio, devo", "en": "Can, want, must: posso, voglio, devo" },
+  "goal": {
+    "de": "Du fragst, ob du etwas darfst (Posso giocare?), sagst, was du musst und willst (devo, voglio), und was du kannst, weil du es gelernt hast (so nuotare).",
+    "sl": "Vprašaš, ali kaj smeš (Posso giocare?), poveš, kaj moraš in hočeš (devo, voglio), in kaj znaš (so nuotare).",
+    "en": "You can ask if you may do something (Posso giocare?), say what you must and want to do (devo, voglio), and what you can do because you've learned it (so nuotare)."
+  },
+  "grammar": ["modali", "riflessivi"],
+  "words": ["potere", "volere", "dovere", "sapere", "nuotare", "leggere", "contare", "imparare", "aiutare", "giocare", "andare in bagno", "andare in bicicletta", "i compiti", "la piazza", "il calcio", "il mulino", "la cucina", "la gubana", "il falò", "il fuoco", "i fiammiferi", "la stalla", "la cena", "presto", "tardi", "stasera", "dopo", "ancora"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "verbo", "de": "Verb", "sl": "glagol", "en": "verb" },
+        { "it": "io · tu · lui, lei", "de": "io · tu · lui, lei (ich, du, er, sie)", "sl": "io · tu · lui, lei (jaz, ti, on, ona)", "en": "io · tu · lui, lei (I, you, he, she)" },
+        { "it": "noi · voi · loro", "de": "noi · voi · loro (wir, ihr, sie)", "sl": "noi · voi · loro (mi, vi, oni)", "en": "noi · voi · loro (we, you, they)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Potere** heißt können und dürfen: **posso** (ich kann, ich darf), **puoi** (du kannst), **può** (er, sie kann), **possiamo, potete, possono**. Danach kommt ein Verb in der Grundform: **Posso giocare?** (Darf ich spielen?) So fragst du die Maestra: **Posso andare in bagno?**",
+          "sl": "**Potere** pomeni moči in smeti: **posso** (lahko, smem), **puoi** (lahko, smeš), **può** (lahko, sme), **possiamo, potete, possono**. Za njim pride glagol v nedoločniku: **Posso giocare?** (Se lahko igram?) Tako vprašaš učiteljico: **Posso andare in bagno?**",
+          "en": "**Potere** is can and may: **posso** (I can, I may), **puoi** (you can), **può** (he, she can), **possiamo, potete, possono**. After it comes a verb as the dictionary has it: **Posso giocare?** (May I play?) That's how you ask the maestra: **Posso andare in bagno?**"
+        },
+        "examples": [
+          { "it": "Maestra, posso andare in bagno?", "de": "Frau Lehrerin, darf ich auf die Toilette?", "sl": "Učiteljica, smem na stranišče?", "en": "Miss, may I go to the toilet?" },
+          { "it": "Nonna, possiamo giocare in piazza?", "de": "Oma, dürfen wir auf dem Platz spielen?", "sl": "Babica, se lahko igramo na trgu?", "en": "Grandma, can we play in the square?" }
+        ],
+        "rows": [["potere", "posso, puoi, può", "possiamo, potete, possono"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "modali",
+          "prompt": "Maestra, ___ andare in bagno?",
+          "options": ["posso", "può", "possono"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**io** → **posso**: Posso andare in bagno?\n- può · lui, lei\n- possono · loro"
+        }
+      },
+      {
+        "say": {
+          "de": "**Dovere** heißt müssen: **devo** (ich muss), **devi** (du musst), **deve** (er, sie muss), **dobbiamo, dovete, devono**. Auch danach kommt die Grundform: **Devo fare i compiti.** (Ich muss die Hausaufgaben machen.) **Lorenzo deve aiutare il nonno.** (Lorenzo muss dem Opa helfen.)",
+          "sl": "**Dovere** pomeni morati: **devo** (moram), **devi** (moraš), **deve** (mora), **dobbiamo, dovete, devono**. Tudi za njim pride nedoločnik: **Devo fare i compiti.** (Narediti moram domačo nalogo.) **Lorenzo deve aiutare il nonno.** (Lorenzo mora pomagati dedku.)",
+          "en": "**Dovere** is must, have to: **devo** (I must), **devi** (you must), **deve** (he, she must), **dobbiamo, dovete, devono**. After it comes the infinitive too: **Devo fare i compiti.** (I have to do my homework.) **Lorenzo deve aiutare il nonno.** (Lorenzo has to help his grandpa.)"
+        },
+        "examples": [
+          { "it": "Devo fare i compiti prima di cena.", "de": "Ich muss vor dem Abendessen die Hausaufgaben machen.", "sl": "Pred večerjo moram narediti domačo nalogo.", "en": "I have to do my homework before dinner." },
+          { "it": "Lorenzo deve aiutare il nonno al mulino.", "de": "Lorenzo muss dem Opa in der Mühle helfen.", "sl": "Lorenzo mora pomagati dedku v mlinu.", "en": "Lorenzo has to help his grandpa at the mill." }
+        ],
+        "rows": [["dovere", "devo, devi, deve", "dobbiamo, dovete, devono"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "modali",
+          "text": "Tommaso, è tardi: ___ andare a casa! (dovere)",
+          "accept": ["devi"],
+          "hint": "tu → ?",
+          "explain": "**tu** → **devi**\n- devo · io\n- deve · lui, lei"
+        }
+      },
+      {
+        "say": {
+          "de": "**Volere** (wollen) kennst du schon: **voglio, vuoi, vuole, vogliamo, volete, vogliono**. Pass auf, wo das zweite Verb steht: im Deutschen am Ende, im Italienischen gleich nach dem ersten. **Voglio giocare a calcio.** (Ich will Fußball spielen.) **Vogliamo andare al mare.** (Wir wollen ans Meer fahren.)",
+          "sl": "**Volere** (hoteti) že poznaš: **voglio, vuoi, vuole, vogliamo, volete, vogliono**. Drugi glagol stoji takoj za prvim: **Voglio giocare a calcio.** (Hočem igrati nogomet.) **Vogliamo andare al mare.** (Hočemo iti na morje.)",
+          "en": "You know **volere** (want) already: **voglio, vuoi, vuole, vogliamo, volete, vogliono**. The second verb comes right after the first: **Voglio giocare a calcio.** (I want to play football.) **Vogliamo andare al mare.** (We want to go to the sea.)"
+        },
+        "examples": [
+          { "it": "Tommaso vuole giocare a calcio in piazza.", "de": "Tommaso will auf dem Platz Fußball spielen.", "sl": "Tommaso hoče na trgu igrati nogomet.", "en": "Tommaso wants to play football in the square." },
+          { "it": "I bambini vogliono sentire una storia.", "de": "Die Kinder wollen eine Geschichte hören.", "sl": "Otroci hočejo slišati zgodbo.", "en": "The children want to hear a story." }
+        ],
+        "rows": [["volere", "voglio, vuoi, vuole", "vogliamo, volete, vogliono"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "modali",
+          "prompt": "Giulia ___ in piazza.",
+          "options": ["vuole giocare", "giocare vuole", "vuole gioca"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**vuole** + die Grundform gleich danach: **vuole giocare**\n- giocare vuole: das Verb steht nicht am Ende\n- vuole gioca: nach vuole die Grundform",
+            "sl": "**vuole** + nedoločnik takoj za njim: **vuole giocare**\n- giocare vuole: glagol ni na koncu\n- vuole gioca: za vuole nedoločnik",
+            "en": "**vuole** + the infinitive right after it: **vuole giocare**\n- giocare vuole: the verb doesn't go last\n- vuole gioca: after vuole the infinitive"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Im Deutschen sagst du *ich kann schwimmen*. Hast du es gelernt, sagt das Italienische **sapere**: **So nuotare.** (Ich kann schwimmen.) **Sai leggere?** (Kannst du lesen?) Die Formen: **so, sai, sa, sappiamo, sapete, sanno**. **Posso nuotare?** heißt dagegen: Darf ich schwimmen?",
+          "sl": "Kar znaš, na primer plavati ali brati, pove **sapere** (znati): **So nuotare.** (Znam plavati.) **Sai leggere?** (Znaš brati?) Oblike: **so, sai, sa, sappiamo, sapete, sanno**. **Posso nuotare?** pa pomeni: Smem plavati?",
+          "en": "In English you say *I can swim*. When it's something you've learned, Italian says **sapere**: **So nuotare.** (I can swim.) **Sai leggere?** (Can you read?) Its forms: **so, sai, sa, sappiamo, sapete, sanno**. **Posso nuotare?** means: May I swim?"
+        },
+        "examples": [
+          { "it": "Sai nuotare? Sì, so nuotare!", "de": "Kannst du schwimmen? Ja, ich kann schwimmen!", "sl": "Znaš plavati? Ja, znam plavati!", "en": "Can you swim? Yes, I can swim!" },
+          { "it": "Lorenzo sa contare fino a cento.", "de": "Lorenzo kann bis hundert zählen.", "sl": "Lorenzo zna šteti do sto.", "en": "Lorenzo can count to a hundred." }
+        ],
+        "rows": [["sapere", "so, sai, sa", "sappiamo, sapete, sanno"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "modali",
+          "prompt": "«___ nuotare?» «Sì, ho imparato al mare!»",
+          "options": ["Sai", "Puoi", "Devi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Gelernt → **sapere**: **Sai nuotare?**\n- Puoi nuotare? · Darfst du schwimmen?\n- Devi nuotare? · Musst du schwimmen?",
+            "sl": "Naučeno → **sapere**: **Sai nuotare?**\n- Puoi nuotare? · Smeš plavati?\n- Devi nuotare? · Moraš plavati?",
+            "en": "Learned → **sapere**: **Sai nuotare?**\n- Puoi nuotare? · May you swim?\n- Devi nuotare? · Must you swim?"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Non** steht vor dem Modalverb: **Non posso venire.** (Ich kann nicht kommen.) Bei einem reflexiven Verb hängt das kleine Wort an der Grundform: **Devo lavarmi le mani.** (Ich muss mir die Hände waschen.) **Devi alzarti!** Oder es steht ganz vorne: **Mi devo lavare le mani.** Beides ist richtig!",
+          "sl": "**Non** gre pred naklonski glagol: **Non posso venire.** (Ne morem priti.) Pri povratnem glagolu se mala beseda pripne nedoločniku: **Devo lavarmi le mani.** (Umiti si moram roke.) **Devi alzarti!** Ali pa gre čisto naprej: **Mi devo lavare le mani.** Oboje je prav!",
+          "en": "**Non** goes before the modal: **Non posso venire.** (I can't come.) With a reflexive verb the little word joins the infinitive: **Devo lavarmi le mani.** (I have to wash my hands.) **Devi alzarti!** Or it goes first: **Mi devo lavare le mani.** Both are right!"
+        },
+        "examples": [
+          { "it": "Devo lavarmi le mani. Mi devo lavare le mani.", "de": "Ich muss mir die Hände waschen.", "sl": "Umiti si moram roke.", "en": "I have to wash my hands." },
+          { "it": "Giulia, devi alzarti: andiamo!", "de": "Giulia, du musst aufstehen: Wir gehen!", "sl": "Giulia, vstati moraš: gremo!", "en": "Giulia, you have to get up: let's go!" }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "modali",
+          "text": "Sono le sette: devo ___! (alzarsi)",
+          "accept": ["alzarmi"],
+          "hint": "io: -si → -mi",
+          "explain": {
+            "de": "**io** → das kleine Wort **mi** an der Grundform: devo **alzarmi**\n- auch richtig: mi devo alzare\n- tu: devi alzarti",
+            "sl": "**io** → mala beseda **mi** na nedoločniku: devo **alzarmi**\n- prav je tudi: mi devo alzare\n- tu: devi alzarti",
+            "en": "**io** → the little word **mi** on the infinitive: devo **alzarmi**\n- right too: mi devo alzare\n- tu: devi alzarti"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "modali-1",
+      "title": { "it": "Posso, devo, so", "de": "Ich darf, ich muss, ich kann", "sl": "Smem, moram, znam", "en": "I may, I must, I can" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "modali",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "potere (können, dürfen), dovere (müssen), sapere (können, weil gelernt)", "sl": "potere (moči, smeti), dovere (morati), sapere (znati)", "en": "potere (can, may), dovere (must), sapere (know how)" },
+          "columns": ["potere", "dovere", "sapere"],
+          "rows": [
+            { "label": "io", "cells": ["posso", { "accept": ["devo"] }, { "accept": ["so"] }] },
+            { "label": "tu", "cells": [{ "accept": ["puoi"] }, "devi", { "accept": ["sai"] }] },
+            { "label": "lui, lei", "cells": [{ "accept": ["può"] }, { "accept": ["deve"] }, "sa"] },
+            { "label": "noi", "cells": ["possiamo", { "accept": ["dobbiamo"], "hint": "noi: -iamo" }, { "accept": ["sappiamo"] }] },
+            { "label": "voi", "cells": [{ "accept": ["potete"] }, "dovete", { "accept": ["sapete"] }] },
+            { "label": "loro", "cells": [{ "accept": ["possono"] }, { "accept": ["devono"] }, "sanno"] }
+          ],
+          "explain": {
+            "de": "**Auswendig lernen**, wie ein Lied\n- posso, puoi, può · devo, devi, deve\n- so, sai, sa · dobbiamo, sappiamo",
+            "sl": "**Na pamet**, kot pesmico\n- posso, puoi, può · devo, devi, deve\n- so, sai, sa · dobbiamo, sappiamo",
+            "en": "**Learn them by heart**, like a song\n- posso, puoi, può · devo, devi, deve\n- so, sai, sa · dobbiamo, sappiamo"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "modali",
+          "instruction": { "de": "Potere o sapere? · Dürfen oder gelernt?", "sl": "Potere o sapere? · Smeš ali znaš?", "en": "Potere o sapere? · Allowed or learned?" },
+          "prompt": "«Nonna, ___ andare al mare con Tommaso?» «Sì, ma torna presto!»",
+          "options": ["posso", "so"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Darf ich? → **posso**\n- so · gelernt: so nuotare",
+            "sl": "Smem? → **posso**\n- so · naučeno: so nuotare",
+            "en": "May I? → **posso**\n- so · learned: so nuotare"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "modali",
+          "instruction": { "de": "Potere o sapere? · Dürfen oder gelernt?", "sl": "Potere o sapere? · Smeš ali znaš?", "en": "Potere o sapere? · Allowed or learned?" },
+          "prompt": "«Tommaso, ___ andare in bicicletta?» «Sì, ho imparato quest'estate!»",
+          "options": ["sai", "puoi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Gelernt → **sai**\n- puoi · darfst du?",
+            "sl": "Naučeno → **sai**\n- puoi · smeš?",
+            "en": "Learned → **sai**\n- puoi · are you allowed?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "modali-2",
+      "title": { "it": "Una giornata piena", "de": "Ein voller Tag", "sl": "Poln dan", "en": "A busy day" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "modali",
+          "instruction": { "de": "Completa · Ergänze potere, dovere, volere, sapere", "sl": "Completa · Dopolni potere, dovere, volere, sapere", "en": "Completa · Fill in potere, dovere, volere, sapere" },
+          "title": "Una giornata piena",
+          "text": "Oggi Giulia non ___ (potere) giocare in piazza: ___ (dovere) aiutare Nonna Rosa in cucina. Tommaso arriva: «Giulia, ___ (tu · volere) giocare a calcio?» «Non ___ (io · potere), faccio la gubana!» Nonna Rosa ride: «Bambini, ___ (voi · potere) giocare dopo. Ma prima ___ (voi · dovere) mangiare la gubana!» «Tommaso, ___ (tu · sapere) fare la gubana?» «No, ma voglio imparare!»",
+          "gaps": [
+            { "accept": ["può"], "hint": "lei → ?" },
+            { "accept": ["Deve"], "hint": "lei → ?" },
+            { "accept": ["vuoi"] },
+            { "accept": ["posso"] },
+            { "accept": ["potete"], "hint": "voi → ?" },
+            { "accept": ["dovete"] },
+            {
+              "accept": ["Sai"],
+              "explain": {
+                "de": "Fare la gubana lernt man: **sapere** → tu → **sai**.",
+                "sl": "Peči gubano se naučiš: **sapere** → tu → **sai**.",
+                "en": "Making gubana is learned: **sapere** → tu → **sai**."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["puoi", "devono"],
+          "translation": {
+            "de": "Heute darf Giulia nicht auf dem Platz spielen: Sie muss Nonna Rosa in der Küche helfen. Tommaso kommt: „Giulia, willst du Fußball spielen?“ „Ich kann nicht, ich mache Gubana!“ Nonna Rosa lacht: „Kinder, ihr dürft danach spielen. Aber zuerst müsst ihr die Gubana essen!“ „Tommaso, kannst du Gubana machen?“ „Nein, aber ich will es lernen!“",
+            "sl": "Danes se Giulia ne sme igrati na trgu: pomagati mora babici Rosi v kuhinji. Pride Tommaso: »Giulia, hočeš igrati nogomet?« »Ne morem, pečem gubano!« Babica Rosa se smeje: »Otroka, igrata se lahko pozneje. Ampak najprej morata pojesti gubano!« »Tommaso, znaš speči gubano?« »Ne, ampak se hočem naučiti!«",
+            "en": "Today Giulia can't play in the square: she has to help Nonna Rosa in the kitchen. Tommaso comes along: \"Giulia, do you want to play football?\" \"I can't, I'm making gubana!\" Nonna Rosa laughs: \"Children, you can play afterwards. But first you have to eat the gubana!\" \"Tommaso, can you make gubana?\" \"No, but I want to learn!\""
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "modali",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "La sera le pecore ___ tornare nella stalla.",
+          "options": ["deve", "devono", "dobbiamo"],
+          "answer": 1,
+          "say_options": true,
+          "explain": "**le pecore** → loro → **devono**\n- deve · lui, lei\n- dobbiamo · noi"
+        }
+      ]
+    },
+    {
+      "id": "modali-3",
+      "title": { "it": "Posso? Devo!", "de": "Darf ich? Ich muss!", "sl": "Smem? Moram!", "en": "May I? I must!" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "modali",
+          "instruction": { "de": "Usa il verbo tra parentesi · Mit dem Verb in Klammern", "sl": "Usa il verbo tra parentesi · Z glagolom v oklepaju", "en": "Usa il verbo tra parentesi · With the verb in brackets" },
+          "cue": "→",
+          "items": [
+            { "from": "Gioco in piazza? (potere)", "accept": ["Posso giocare in piazza?"], "hint": "posso + giocare" },
+            { "from": "Lorenzo aiuta il nonno. (dovere)", "accept": ["Lorenzo deve aiutare il nonno."] },
+            { "from": "Andiamo al mare? (potere)", "accept": ["Possiamo andare al mare?"] },
+            { "from": "Nuoto. (sapere)", "accept": ["So nuotare."] },
+            { "from": "I bambini mangiano il gelato. (volere)", "accept": ["I bambini vogliono mangiare il gelato."] },
+            {
+              "from": "Mi lavo le mani. (dovere)",
+              "accept": ["Devo lavarmi le mani.", "Mi devo lavare le mani."],
+              "hint": { "de": "mi wandert an die Grundform: lavarmi", "sl": "mi gre na nedoločnik: lavarmi", "en": "mi joins the infinitive: lavarmi" }
+            },
+            { "from": "Ti alzi presto. (dovere)", "accept": ["Devi alzarti presto.", "Ti devi alzare presto."] }
+          ],
+          "explain": {
+            "de": "**Das Modalverb** bekommt die Person, das zweite Verb bleibt in der Grundform\n- gioco → posso giocare\n- mi lavo → devo lavarmi · mi devo lavare",
+            "sl": "**Naklonski glagol** dobi osebo, drugi glagol ostane v nedoločniku\n- gioco → posso giocare\n- mi lavo → devo lavarmi · mi devo lavare",
+            "en": "**The modal** takes the person, the second verb stays as the dictionary has it\n- gioco → posso giocare\n- mi lavo → devo lavarmi · mi devo lavare"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "modali",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": ["potere", "dovere"],
+        "rows": [
+          { "label": "io", "cells": ["posso", { "accept": ["devo"] }] },
+          { "label": "lui, lei", "cells": [{ "accept": ["può"] }, "deve"] },
+          { "label": "noi", "cells": [{ "accept": ["possiamo"] }, { "accept": ["dobbiamo"] }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "modali",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Stasera c'è il falò. «Nonno, ___ (noi · potere) andare al fuoco?» «Sì, ma ___ (voi · dovere) stare vicino a me.» Tommaso ___ (sapere) accendere il fuoco, ma oggi non ___ (potere) toccare i fiammiferi.",
+        "gaps": [{ "accept": ["possiamo"] }, { "accept": ["dovete"] }, { "accept": ["sa"] }, { "accept": ["può"] }],
+        "translation": {
+          "de": "Heute Abend gibt es das Lagerfeuer. „Opa, dürfen wir zum Feuer gehen?“ „Ja, aber ihr müsst bei mir bleiben.“ Tommaso kann Feuer machen, aber heute darf er die Streichhölzer nicht anfassen.",
+          "sl": "Nocoj je kres. »Dedek, smemo k ognju?« »Ja, ampak ostati morate blizu mene.« Tommaso zna zakuriti ogenj, a danes se vžigalic ne sme dotakniti.",
+          "en": "There's a bonfire tonight. \"Grandpa, can we go to the fire?\" \"Yes, but you have to stay close to me.\" Tommaso knows how to light a fire, but today he mustn't touch the matches."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "modali",
+        "instruction": { "de": "Usa il verbo tra parentesi · Mit dem Verb in Klammern", "sl": "Usa il verbo tra parentesi · Z glagolom v oklepaju", "en": "Usa il verbo tra parentesi · With the verb in brackets" },
+        "cue": "→",
+        "items": [
+          { "from": "Leggo una storia. (volere)", "accept": ["Voglio leggere una storia."] },
+          { "from": "Giochiamo a calcio? (potere)", "accept": ["Possiamo giocare a calcio?"] },
+          { "from": "Tommaso si veste. (dovere)", "accept": ["Tommaso deve vestirsi.", "Tommaso si deve vestire."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "modali",
+        "prompt": "«Lorenzo, ___ andare in bicicletta?» «No, devo ancora imparare!»",
+        "options": ["sai", "puoi", "devi"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "Etwas Gelerntes → **sapere**: **sai** andare in bicicletta?\n- puoi · darfst du?\n- devi · musst du?",
+          "sl": "Naučeno → **sapere**: **sai** andare in bicicletta?\n- puoi · smeš?\n- devi · moraš?",
+          "en": "Something learned → **sapere**: **sai** andare in bicicletta?\n- puoi · are you allowed?\n- devi · do you have to?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: sapere against potere for a child (sai andare in bicicletta), devo alzarmi / mi devo alzare, the German"
+}

@@ -1,0 +1,345 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "riflessivi",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🧼",
+  "title": { "it": "Mi lavo, mi vesto", "de": "Reflexive Verben: mi lavo, mi vesto", "sl": "Povratni glagoli: mi lavo, mi vesto", "en": "Reflexive verbs: mi lavo, mi vesto" },
+  "goal": {
+    "de": "Du erzählst, wie dein Morgen geht: wann du aufwachst, aufstehst, dich wäschst und anziehst (mi sveglio, mi alzo, mi lavo, mi vesto), und sagst es auch für die anderen (Giulia si lava, ci laviamo).",
+    "sl": "Poveš, kako poteka tvoje jutro: kdaj se zbudiš, vstaneš, umiješ in oblečeš (mi sveglio, mi alzo, mi lavo, mi vesto), in to poveš tudi za druge (Giulia si lava, ci laviamo).",
+    "en": "You can tell how your morning goes: when you wake up, get up, wash and get dressed (mi sveglio, mi alzo, mi lavo, mi vesto), and say it for the others too (Giulia si lava, ci laviamo)."
+  },
+  "grammar": ["riflessivi", "presente-regolare"],
+  "words": ["lavarsi", "vestirsi", "alzarsi", "svegliarsi", "addormentarsi", "chiamarsi", "pettinarsi", "divertirsi", "scaldarsi", "la mattina", "la sera", "presto", "tardi", "subito", "poi", "prima di", "la faccia", "la mano", "le mani", "i denti", "i capelli", "il pigiama", "lo specchio", "la fontana", "il ruscello", "il fuoco", "la tenda", "la colazione", "la festa", "il sonno", "freddo"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "chi", "de": "wer", "sl": "kdo", "en": "who" },
+        { "it": "lavarsi", "de": "lavarsi (sich waschen)", "sl": "lavarsi (umivati se)", "en": "lavarsi (to wash)" },
+        { "it": "vestirsi", "de": "vestirsi (sich anziehen)", "sl": "vestirsi (oblačiti se)", "en": "vestirsi (to get dressed)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Manches machst du mit dir selbst, wie im Deutschen *ich wasche mich*. Im Italienischen steht das kleine Wort vor dem Verb und ändert sich mit der Person: **mi lavo** (ich wasche mich), **ti lavi** (du wäschst dich), **si lava** (er, sie wäscht sich). Eines kennst du schon: **Mi chiamo Giulia.** (Ich heiße Giulia.)",
+          "sl": "Nekaj narediš sebi, kot v slovenščini *umivam se*. V italijanščini gre mala beseda pred glagol in se menja z osebo: **mi lavo** (umivam se), **ti lavi** (umivaš se), **si lava** (umiva se). Enega že poznaš: **Mi chiamo Giulia.** (Ime mi je Giulia.)",
+          "en": "Some things you do to yourself: *I wash myself*. In Italian the little word comes before the verb and changes with the person: **mi lavo** (I wash), **ti lavi** (you wash), **si lava** (he, she washes). You know one already: **Mi chiamo Giulia.** (My name is Giulia.)"
+        },
+        "examples": [
+          { "it": "La mattina mi lavo con l'acqua fredda.", "de": "Am Morgen wasche ich mich mit kaltem Wasser.", "sl": "Zjutraj se umijem z mrzlo vodo.", "en": "In the morning I wash in cold water." },
+          { "it": "Giulia si veste e va a scuola.", "de": "Giulia zieht sich an und geht zur Schule.", "sl": "Giulia se obleče in gre v šolo.", "en": "Giulia gets dressed and goes to school." }
+        ],
+        "rows": [["io", "mi lavo", "mi vesto"], ["tu", "ti lavi", "ti vesti"], ["lui, lei", "si lava", "si veste"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "riflessivi",
+          "prompt": "Ogni mattina Lorenzo ___ veste.",
+          "options": ["mi", "ti", "si"],
+          "answer": 2,
+          "say_options": true,
+          "explain": "**Lorenzo** → lui → **si** veste\n- mi vesto · io\n- ti vesti · tu"
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **ci laviamo** (wir waschen uns), **vi lavate** (ihr wascht euch), **si lavano** (sie waschen sich). **Si** kommt zweimal vor: für **lui, lei** und für **loro**: **Giulia si lava**, **i bambini si lavano**. Das Verb hat die Endungen, die du schon kennst.",
+          "sl": "Za več oseb: **ci laviamo** (umivamo se), **vi lavate** (umivate se), **si lavano** (umivajo se). **Si** pride dvakrat: za **lui, lei** in za **loro**: **Giulia si lava**, **i bambini si lavano**. Glagol ima končnice, ki jih že poznaš.",
+          "en": "For more people: **ci laviamo** (we wash), **vi lavate** (you all wash), **si lavano** (they wash). **Si** comes twice: for **lui, lei** and for **loro**: **Giulia si lava**, **i bambini si lavano**. The verb has the endings you know already."
+        },
+        "examples": [
+          { "it": "D'estate ci laviamo alla fontana.", "de": "Im Sommer waschen wir uns am Brunnen.", "sl": "Poleti se umivamo pri vodnjaku.", "en": "In summer we wash at the fountain." },
+          { "it": "I bambini si vestono per la festa.", "de": "Die Kinder ziehen sich für das Fest an.", "sl": "Otroci se oblečejo za praznik.", "en": "The children get dressed for the festa." }
+        ],
+        "rows": [["noi", "ci laviamo", "ci vestiamo"], ["voi", "vi lavate", "vi vestite"], ["loro", "si lavano", "si vestono"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "riflessivi",
+          "text": "Bambini, ___ lavate alla fontana?",
+          "accept": ["vi"],
+          "hint": "voi → ?",
+          "explain": "**voi** → **vi** lavate\n- ci laviamo · noi\n- si lavano · loro"
+        }
+      },
+      {
+        "say": {
+          "de": "Im Wörterbuch hat so ein Verb **-si** am Ende: **lavarsi**, **vestirsi**, **chiamarsi**. Manche sind nur im Italienischen reflexiv: **alzarsi** (aufstehen): **mi alzo** (ich stehe auf); **svegliarsi** (aufwachen): **mi sveglio** (ich wache auf); **addormentarsi** (einschlafen): **mi addormento** (ich schlafe ein).",
+          "sl": "V slovarju ima tak glagol na koncu **-si**: **lavarsi**, **vestirsi**, **chiamarsi**. Nekateri so povratni le v italijanščini: **alzarsi** (vstati): **mi alzo** (vstanem); **addormentarsi** (zaspati): **mi addormento** (zaspim). Drugi tudi v slovenščini: **svegliarsi** (zbuditi se): **mi sveglio** (zbudim se).",
+          "en": "In the dictionary such a verb ends in **-si**: **lavarsi**, **vestirsi**, **chiamarsi**. Some are reflexive in Italian but not in English: **alzarsi** (to get up): **mi alzo** (I get up); **svegliarsi** (to wake up): **mi sveglio** (I wake up); **addormentarsi** (to fall asleep): **mi addormento** (I fall asleep)."
+        },
+        "examples": [
+          { "it": "Mi sveglio alle sette e mi alzo.", "de": "Ich wache um sieben auf und stehe auf.", "sl": "Zbudim se ob sedmih in vstanem.", "en": "I wake up at seven and get up." },
+          { "it": "La sera Lorenzo si addormenta subito.", "de": "Am Abend schläft Lorenzo sofort ein.", "sl": "Zvečer Lorenzo takoj zaspi.", "en": "In the evening Lorenzo falls asleep straight away." }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "riflessivi",
+          "prompt": "Ogni mattina Tommaso ___ alle otto.",
+          "options": ["alza", "si alza", "si alzo"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**alzarsi** (aufstehen) braucht sein kleines Wort: Tommaso **si alza**\n- alza: das si fehlt\n- mi alzo · io",
+            "sl": "**alzarsi** (vstati) potrebuje malo besedo: Tommaso **si alza**\n- alza: manjka si\n- mi alzo · io",
+            "en": "**alzarsi** (to get up) needs its little word: Tommaso **si alza**\n- alza: the si is missing\n- mi alzo · io"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wenn du nein sagst, steht **non** ganz vorne, vor dem kleinen Wort: **Non mi alzo!** (Ich stehe nicht auf!) **Lorenzo non si veste.** (Lorenzo zieht sich nicht an.) Nie zwischen **mi** und dem Verb.",
+          "sl": "Ko rečeš ne, gre **non** čisto naprej, pred malo besedo: **Non mi alzo!** (Ne vstanem!) **Lorenzo non si veste.** (Lorenzo se ne obleče.) Nikoli med **mi** in glagol.",
+          "en": "To say no, **non** goes first, before the little word: **Non mi alzo!** (I'm not getting up!) **Lorenzo non si veste.** (Lorenzo isn't getting dressed.) Never between **mi** and the verb."
+        },
+        "examples": [
+          { "it": "Domenica non mi alzo presto.", "de": "Am Sonntag stehe ich nicht früh auf.", "sl": "V nedeljo ne vstanem zgodaj.", "en": "On Sunday I don't get up early." },
+          { "it": "Lorenzo ha sonno e non si veste.", "de": "Lorenzo ist müde und zieht sich nicht an.", "sl": "Lorenzo je zaspan in se ne obleče.", "en": "Lorenzo is sleepy and isn't getting dressed." }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "riflessivi",
+          "prompt": "Domenica Tommaso ___ presto.",
+          "options": ["non si alza", "si non alza", "non alza si"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**non** vor dem kleinen Wort: **non si alza**",
+            "sl": "**non** pred malo besedo: **non si alza**",
+            "en": "**non** before the little word: **non si alza**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wäschst du dir die Hände, sagst du den Artikel, nicht *mein*: **Mi lavo le mani.** (Ich wasche mir die Hände.) **Giulia si pettina i capelli.** (Giulia kämmt sich die Haare.) **Ti lavi i denti?** (Putzt du dir die Zähne?) Das kleine Wort sagt schon, wessen Hände es sind.",
+          "sl": "Ko si umiješ roke, rečeš člen, ne *moj*: **Mi lavo le mani.** (Umijem si roke.) **Giulia si pettina i capelli.** (Giulia si češe lase.) **Ti lavi i denti?** (Si umiješ zobe?) Mala beseda že pove, čigave so roke.",
+          "en": "When you wash your hands, say the article, not *my*: **Mi lavo le mani.** (I wash my hands.) **Giulia si pettina i capelli.** (Giulia combs her hair.) **Ti lavi i denti?** (Are you brushing your teeth?) The little word already says whose hands they are."
+        },
+        "examples": [
+          { "it": "Prima di mangiare mi lavo le mani.", "de": "Vor dem Essen wasche ich mir die Hände.", "sl": "Pred jedjo si umijem roke.", "en": "Before eating I wash my hands." },
+          { "it": "Giulia si pettina i capelli davanti allo specchio.", "de": "Giulia kämmt sich vor dem Spiegel die Haare.", "sl": "Giulia si pred ogledalom češe lase.", "en": "Giulia combs her hair in front of the mirror." }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "riflessivi",
+          "prompt": "Prima di cena, Lorenzo si lava ___.",
+          "options": ["le mani", "le sue mani", "sue mani"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Beim Körperteil der Artikel: si lava **le mani**\n- das si sagt schon, wessen Hände",
+            "sl": "Pri delu telesa člen: si lava **le mani**\n- si že pove, čigave roke",
+            "en": "A part of the body takes the article: si lava **le mani**\n- the si already says whose hands"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "de": "Das kleine Wort steht vor dem Verb: **mi lavo, ti lavi, si lava, ci laviamo, vi lavate, si lavano**. Im Wörterbuch hat das Verb **-si** am Ende: **lavarsi, alzarsi, svegliarsi**. **Non** steht ganz vorne: **non mi alzo**. Beim Körperteil der Artikel: **mi lavo le mani**.",
+      "sl": "Mala beseda je pred glagolom: **mi lavo, ti lavi, si lava, ci laviamo, vi lavate, si lavano**. V slovarju ima glagol na koncu **-si**: **lavarsi, alzarsi, svegliarsi**. **Non** je čisto naprej: **non mi alzo**. Pri delu telesa člen: **mi lavo le mani**.",
+      "en": "The little word comes before the verb: **mi lavo, ti lavi, si lava, ci laviamo, vi lavate, si lavano**. In the dictionary the verb ends in **-si**: **lavarsi, alzarsi, svegliarsi**. **Non** goes first: **non mi alzo**. A part of the body takes the article: **mi lavo le mani**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "riflessivi-1",
+      "title": { "it": "Mi lavo, ti lavi", "de": "Ich wasche mich, du wäschst dich", "sl": "Umivam se, umivaš se", "en": "I wash, you wash" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "riflessivi",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "alzarsi (aufstehen), svegliarsi (aufwachen)", "sl": "alzarsi (vstati), svegliarsi (zbuditi se)", "en": "alzarsi (to get up), svegliarsi (to wake up)" },
+          "columns": [
+            { "de": "alzarsi · aufstehen", "sl": "alzarsi · vstati", "en": "alzarsi · get up" },
+            { "de": "svegliarsi · aufwachen", "sl": "svegliarsi · zbuditi se", "en": "svegliarsi · wake up" }
+          ],
+          "rows": [
+            { "label": "io", "cells": ["mi alzo", { "accept": ["mi sveglio"] }] },
+            { "label": "tu", "cells": [{ "accept": ["ti alzi"], "hint": "tu → ti …" }, "ti svegli"] },
+            { "label": "lui, lei", "cells": [{ "accept": ["si alza"] }, { "accept": ["si sveglia"] }] },
+            { "label": "noi", "cells": ["ci alziamo", { "accept": ["ci svegliamo"], "hint": "noi → ci …" }] },
+            { "label": "voi", "cells": [{ "accept": ["vi alzate"] }, "vi svegliate"] },
+            { "label": "loro", "cells": [{ "accept": ["si alzano"] }, { "accept": ["si svegliano"], "hint": "loro → si …" }] }
+          ],
+          "explain": {
+            "de": "**mi, ti, si, ci, vi, si** vor dem Verb\n- io mi alzo · noi ci alziamo\n- loro si svegliano",
+            "sl": "**mi, ti, si, ci, vi, si** pred glagolom\n- io mi alzo · noi ci alziamo\n- loro si svegliano",
+            "en": "**mi, ti, si, ci, vi, si** before the verb\n- io mi alzo · noi ci alziamo\n- loro si svegliano"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "riflessivi",
+          "instruction": { "de": "Mi, ti, si o ci? · Welches kleine Wort passt?", "sl": "Mi, ti, si o ci? · Katera mala beseda?", "en": "Mi, ti, si o ci? · Which little word?" },
+          "columns": [
+            { "label": "mi …", "words": ["lavo", "sveglio"] },
+            { "label": "ti …", "words": ["lavi", "alzi", "diverti"] },
+            { "label": "si …", "words": ["lava", "alzano"] },
+            { "label": "ci …", "words": ["laviamo", "vestiamo"] }
+          ],
+          "explain": {
+            "de": "**Die Endung des Verbs** sagt die Person\n- -o → mi · -i → ti\n- -a, -ano → si · -iamo → ci",
+            "sl": "**Končnica glagola** pove osebo\n- -o → mi · -i → ti\n- -a, -ano → si · -iamo → ci",
+            "en": "**The verb's ending** tells the person\n- -o → mi · -i → ti\n- -a, -ano → si · -iamo → ci"
+          }
+        }
+      ]
+    },
+    {
+      "id": "riflessivi-2",
+      "title": { "it": "La mattina di Lorenzo", "de": "Lorenzos Morgen", "sl": "Lorenzovo jutro", "en": "Lorenzo's morning" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "riflessivi",
+          "instruction": { "de": "Completa · Ergänze das Verb mit mi, ti, si …", "sl": "Completa · Dopolni glagol z mi, ti, si …", "en": "Completa · Fill in the verb with mi, ti, si …" },
+          "title": "La mattina di Lorenzo",
+          "text": "Lorenzo ___ (svegliarsi) alle sette. ___ (alzarsi) subito e va in bagno. ___ (lavarsi) la faccia con l'acqua fredda: brrr! Poi ___ (vestirsi) e fa colazione con il nonno. Dopo, il nonno e Lorenzo ___ (lavarsi) i denti. «Nonno, oggi al mulino ___ (noi · divertirsi)!»",
+          "gaps": [
+            { "accept": ["si sveglia"], "hint": "lui → si …" },
+            { "accept": ["Si alza"], "hint": { "de": "alzarsi: aufstehen", "sl": "alzarsi: vstati", "en": "alzarsi: to get up" } },
+            { "accept": ["Si lava"] },
+            { "accept": ["si veste"] },
+            {
+              "accept": ["si lavano"],
+              "hint": "loro → si …",
+              "explain": {
+                "de": "il nonno e Lorenzo → loro → **si lavano**",
+                "sl": "il nonno e Lorenzo → loro → **si lavano**",
+                "en": "il nonno e Lorenzo → loro → **si lavano**"
+              }
+            },
+            { "accept": ["ci divertiamo"], "hint": "noi → ci …" }
+          ],
+          "bank": true,
+          "distractors": ["mi sveglio", "vi lavate"],
+          "translation": {
+            "de": "Lorenzo wacht um sieben auf. Er steht sofort auf und geht ins Bad. Er wäscht sich das Gesicht mit kaltem Wasser: brrr! Dann zieht er sich an und frühstückt mit dem Opa. Danach putzen sich der Opa und Lorenzo die Zähne. „Opa, heute haben wir in der Mühle Spaß!“",
+            "sl": "Lorenzo se zbudi ob sedmih. Takoj vstane in gre v kopalnico. Obraz si umije z mrzlo vodo: brrr! Potem se obleče in z dedkom zajtrkuje. Nato si dedek in Lorenzo umijeta zobe. »Dedek, danes se bova v mlinu zabavala!«",
+            "en": "Lorenzo wakes up at seven. He gets up straight away and goes to the bathroom. He washes his face with cold water: brrr! Then he gets dressed and has breakfast with his grandpa. After that, Grandpa and Lorenzo brush their teeth. \"Grandpa, we're going to have fun at the mill today!\""
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "riflessivi",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "«Come ___ chiami?» «Mi chiamo Giulia.»",
+          "options": ["mi", "ti", "si"],
+          "answer": 1,
+          "say_options": true,
+          "explain": "**tu** → **ti** chiami\n- mi chiamo · io\n- si chiama · lui, lei"
+        }
+      ]
+    },
+    {
+      "id": "riflessivi-3",
+      "title": { "it": "Tutti si alzano!", "de": "Alle stehen auf!", "sl": "Vsi vstajajo!", "en": "Everyone's getting up!" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "riflessivi",
+          "instruction": { "de": "Cambia la persona · Schreib es für die Person in Klammern", "sl": "Cambia la persona · Napiši za osebo v oklepaju", "en": "Cambia la persona · Write it for the person in brackets" },
+          "cue": "→",
+          "items": [
+            { "from": "Mi alzo alle sette. (Tommaso)", "accept": ["Tommaso si alza alle sette."], "hint": "Tommaso → si …" },
+            { "from": "Ti lavi le mani. (noi)", "accept": ["Ci laviamo le mani.", "Noi ci laviamo le mani."] },
+            { "from": "Mi sveglio presto. (i bambini)", "accept": ["I bambini si svegliano presto."] },
+            { "from": "Si diverte al mare. (voi)", "accept": ["Vi divertite al mare.", "Voi vi divertite al mare."], "hint": "voi → vi …" },
+            { "from": "Ci scaldiamo vicino al fuoco. (io)", "accept": ["Mi scaldo vicino al fuoco.", "Io mi scaldo vicino al fuoco."] }
+          ],
+          "explain": {
+            "de": "**Das kleine Wort und das Verb** ändern sich mit der Person\n- io mi alzo → Tommaso si alza\n- noi ci laviamo · voi vi divertite",
+            "sl": "**Mala beseda in glagol** se menjata z osebo\n- io mi alzo → Tommaso si alza\n- noi ci laviamo · voi vi divertite",
+            "en": "**The little word and the verb** change with the person\n- io mi alzo → Tommaso si alza\n- noi ci laviamo · voi vi divertite"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "riflessivi",
+          "instruction": { "de": "Di' di no · Sag es mit non", "sl": "Di' di no · Povej z non", "en": "Di' di no · Say it with non" },
+          "cue": "non",
+          "items": [
+            { "from": "Mi alzo presto.", "accept": ["Non mi alzo presto."] },
+            { "from": "Lorenzo si addormenta subito.", "accept": ["Lorenzo non si addormenta subito."] },
+            { "from": "Ci laviamo nel ruscello.", "accept": ["Non ci laviamo nel ruscello."] }
+          ],
+          "explain": {
+            "de": "**non** vor dem kleinen Wort\n- non mi alzo · non si addormenta",
+            "sl": "**non** pred malo besedo\n- non mi alzo · non si addormenta",
+            "en": "**non** before the little word\n- non mi alzo · non si addormenta"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "riflessivi",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": [{ "de": "divertirsi · Spaß haben", "sl": "divertirsi · zabavati se", "en": "divertirsi · have fun" }],
+        "rows": [
+          { "label": "io", "cells": ["mi diverto"] },
+          { "label": "tu", "cells": [{ "accept": ["ti diverti"] }] },
+          { "label": "noi", "cells": [{ "accept": ["ci divertiamo"] }] },
+          { "label": "voi", "cells": [{ "accept": ["vi divertite"] }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "riflessivi",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "È sera. I bambini ___ (scaldarsi) vicino al fuoco. Nonno Bepi racconta una storia e tutti ___ (divertirsi). Poi Giulia ___ (lavarsi) i denti al ruscello. Lorenzo è stanco: ___ (addormentarsi) subito nella tenda.",
+        "gaps": [{ "accept": ["si scaldano"] }, { "accept": ["si divertono"] }, { "accept": ["si lava"] }, { "accept": ["si addormenta"] }],
+        "translation": {
+          "de": "Es ist Abend. Die Kinder wärmen sich am Feuer. Nonno Bepi erzählt eine Geschichte und alle haben Spaß. Dann putzt sich Giulia am Bach die Zähne. Lorenzo ist müde: Er schläft im Zelt sofort ein.",
+          "sl": "Večer je. Otroci se grejejo ob ognju. Dedek Bepi pripoveduje zgodbo in vsi se zabavajo. Potem si Giulia pri potoku umije zobe. Lorenzo je utrujen: v šotoru takoj zaspi.",
+          "en": "It's evening. The children warm up by the fire. Nonno Bepi tells a story and everyone has fun. Then Giulia brushes her teeth at the stream. Lorenzo is tired: he falls asleep in the tent straight away."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "riflessivi",
+        "instruction": { "de": "Cambia la persona · Schreib es für die Person in Klammern", "sl": "Cambia la persona · Napiši za osebo v oklepaju", "en": "Cambia la persona · Write it for the person in brackets" },
+        "cue": "→",
+        "items": [
+          { "from": "Mi pettino i capelli. (Giulia)", "accept": ["Giulia si pettina i capelli."] },
+          { "from": "Ci svegliamo alle otto. (tu)", "accept": ["Ti svegli alle otto.", "Tu ti svegli alle otto."] },
+          { "from": "Si alzano tardi. (io)", "accept": ["Mi alzo tardi.", "Io mi alzo tardi."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "riflessivi",
+        "prompt": "Tommaso ha sonno e ___.",
+        "options": ["non si alza", "si non alza", "non alza si"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**non** vor dem kleinen Wort: **non si alza**",
+          "sl": "**non** pred malo besedo: **non si alza**",
+          "en": "**non** before the little word: **non si alza**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "riflessivi",
+        "prompt": "«Lorenzo, ti lavi ___?» «Sì, nonno!»",
+        "options": ["le mani", "le tue mani", "tue mani"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "Beim Körperteil der Artikel: ti lavi **le mani**",
+          "sl": "Pri delu telesa člen: ti lavi **le mani**",
+          "en": "A part of the body takes the article: ti lavi **le mani**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: le mani (not le tue), si addormenta, ci divertiamo al mulino, the German for a child"
+}

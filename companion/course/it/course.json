@@ -28,8 +28,8 @@
     {
       "level": "A2",
       "units": [
-        { "id": "riflessivi", "title": { "it": "Mi lavo, mi vesto", "de": "Reflexive Verben: mi lavo, mi vesto", "sl": "Povratni glagoli: mi lavo, mi vesto", "en": "Reflexive verbs: mi lavo, mi vesto" }, "grammar": [], "planned": true },
-        { "id": "modali", "title": { "it": "Posso, voglio, devo", "de": "Können, wollen, müssen: posso, voglio, devo", "sl": "Lahko, hočem, moram: posso, voglio, devo", "en": "Can, want, must: posso, voglio, devo" }, "grammar": [], "planned": true },
+        { "id": "riflessivi", "title": { "it": "Mi lavo, mi vesto", "de": "Reflexive Verben: mi lavo, mi vesto", "sl": "Povratni glagoli: mi lavo, mi vesto", "en": "Reflexive verbs: mi lavo, mi vesto" }, "grammar": ["riflessivi", "presente-regolare"] },
+        { "id": "modali", "title": { "it": "Posso, voglio, devo", "de": "Können, wollen, müssen: posso, voglio, devo", "sl": "Lahko, hočem, moram: posso, voglio, devo", "en": "Can, want, must: posso, voglio, devo" }, "grammar": ["modali", "riflessivi"] },
         { "id": "stare-gerundio", "title": { "it": "Sto giocando!", "de": "Gerade jetzt: sto giocando", "sl": "Ravno zdaj: sto giocando", "en": "Right now: sto giocando" }, "grammar": [], "planned": true },
         { "id": "partitivo", "title": { "it": "Del pane, delle mele", "de": "Etwas davon: del pane, delle mele", "sl": "Nekaj: del pane, delle mele", "en": "Some: del pane, delle mele" }, "grammar": ["partitivo"], "planned": true },
         { "id": "comparativi", "title": { "it": "Più grande di te", "de": "Größer als: più grande di", "sl": "Večji kot: più grande di", "en": "Bigger than: più grande di" }, "grammar": [], "planned": true },
