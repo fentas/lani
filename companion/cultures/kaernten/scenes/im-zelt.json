@@ -1,0 +1,341 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "im-zelt",
+  "language": "de",
+  "title": { "de": "Im Zelt", "sl": "V šotoru", "en": "In the tent", "it": "Nella tenda" },
+  "emoji": "⛺",
+  "level": "A1",
+  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; check Florian's words (gell, he) and the Lindwurm",
+  "art": "tent",
+  "from": ["tent"],
+  "pack": "im-zelt",
+  "objects": [
+    { "slot": "lantern", "word": "laterne", "pack": "fest-martini" },
+    { "slot": "sleepingbag", "word": "schlafsack" },
+    { "slot": "blanket", "word": "decke", "pack": "am-dachboden" },
+    { "slot": "pillow", "word": "polster", "pack": "am-dachboden" },
+    { "slot": "backpack", "word": "rucksack" },
+    { "slot": "map", "word": "schatzkarte" },
+    { "slot": "boots", "word": "bergschuh" },
+    { "slot": "coat", "word": "jacke" },
+    { "slot": "hat", "word": "hut" },
+    { "slot": "book", "word": "buch", "pack": "in-der-stube" },
+    { "slot": "cup", "word": "haeferl", "pack": "in-der-kueche" },
+    { "slot": "rope", "word": "seil" }
+  ],
+  "people": [
+    { "id": "florian", "name": "Hirte Florian", "emoji": "🐑", "art": "shepherd", "slot": "door", "villager": "florian" },
+    { "id": "jakob", "name": "Jakob", "emoji": "👦", "art": "child3", "slot": "left", "villager": "jakob" },
+    { "id": "lena", "name": "Lena", "emoji": "👧", "art": "child2", "slot": "right", "villager": "lena" }
+  ],
+  "happenings": [
+    {
+      "id": "laterne", "title": { "de": "Florian und die Laterne", "sl": "Florian in svetilka", "en": "Florian and the lantern", "it": "Florian e la lanterna" }, "who": "florian",
+      "when": ["evening"], "chance": 0.5, "dialog": "laterne", "dialogs": ["laterne-buch", "laterne"], "reward": { "wood": 15 }, "marker": "🏮",
+      "memory": { "de": "die Laterne im Zelt am Abend", "sl": "svetilko v šotoru zvečer", "en": "the lantern in the tent in the evening", "it": "la lanterna nella tenda la sera" }
+    },
+    {
+      "id": "gewitter", "title": { "de": "Ein Gewitter über dem Lager", "sl": "Nevihta nad taborom", "en": "A storm over the camp", "it": "Un temporale sull'accampamento" }, "who": "florian",
+      "when": ["afternoon"], "months": [5, 6, 7, 8, 9], "chance": 0.3, "dialog": "gewitter", "dialogs": ["gewitter-donner", "gewitter"], "reward": { "wood": 15 }, "marker": "⛈️",
+      "memory": { "de": "das Gewitter, als du mich ins Zelt geholt hast", "sl": "nevihto, ko si me {m:poklical|f:poklicala} v šotor", "en": "the storm when you called me into the tent", "it": "il temporale quando mi hai fatto entrare nella tenda" }
+    },
+    {
+      "id": "geschichte", "title": { "de": "Eine Geschichte für Jakob", "sl": "Zgodba za Jakoba", "en": "A story for Jakob", "it": "Una storia per Jakob" }, "who": "jakob",
+      "when": ["evening", "night"], "chance": 0.4, "act": { "jakob": { "pose": "lie" } }, "dialog": "geschichte", "dialogs": ["geschichte-lindwurm", "geschichte"], "reward": { "wisdom": 20 }, "marker": "📖",
+      "memory": { "de": "die Geschichte, bei der ich eingeschlafen bin", "sl": "zgodbo, ob kateri sem zaspal", "en": "the story I fell asleep to", "it": "la storia durante la quale mi sono addormentato" }
+    },
+    {
+      "id": "karte", "title": { "de": "Lenas Schatzkarte", "sl": "Lenin zemljevid zaklada", "en": "Lena's treasure map", "it": "La mappa del tesoro di Lena" }, "who": "lena",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "karte", "dialogs": ["karte-schatz", "karte"], "reward": { "food": 15 }, "marker": "🗺️",
+      "memory": { "de": "unsere Schatzsuche hinter dem Zelt", "sl": "najino iskanje zaklada za šotorom", "en": "our treasure hunt behind the tent", "it": "la nostra caccia al tesoro dietro la tenda" }
+    },
+    {
+      "id": "morgen", "title": { "de": "Florian geht auf die Alm", "sl": "Florian gre na planino", "en": "Florian is off to the Alm", "it": "Florian va all'alpeggio" }, "who": "florian",
+      "when": ["dawn", "morning"], "chance": 0.4, "dialog": "morgen", "dialogs": ["morgen-rucksack", "morgen"], "reward": { "food": 15 }, "marker": "🐑",
+      "memory": { "de": "den Morgen, bevor ich auf die Alm gegangen bin", "sl": "jutro, preden sem šel na planino", "en": "the morning before I went up to the Alm", "it": "la mattina prima di andare all'alpeggio" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "laterne",
+      "lines": [
+        { "who": "florian", "face": "happy", "de": "He, servus! Es wird dunkel. Machen wir die Laterne an?", "sl": "Hej, živjo! Mrači se. Prižgeva svetilko?", "en": "Hey, hi! It's getting dark. Shall we light the lantern?", "it": "Ehi, ciao! Si fa buio. Accendiamo la lanterna?", "fx": { "lantern": 0 } },
+        { "choices": [
+          { "de": "Ja! Ich mache sie an.", "sl": "Ja! Prižgem jo.", "en": "Yes! I'll light it.", "it": "Sì! La accendo io.", "ok": true,
+            "reply": { "face": "happy", "de": "Super! Schau, jetzt ist es hell im Zelt.", "sl": "Super! Poglej, zdaj je v šotoru svetlo.", "en": "Great! Look, now it's light in the tent.", "it": "Bello! Guarda, adesso nella tenda c'è luce.", "fx": { "lantern": 1 } } },
+          { "de": "Ja! Ich mache es an.", "sl": "Ja! Prižgem ga.", "en": "Yes! I'll light it (das).", "it": "Sì! Lo accendo io.", "grammar": "akkusativ",
+            "why": { "de": "Laterne ist feminin: die Laterne. Darum: Ich mache sie an.", "sl": "Laterne je ženskega spola: die Laterne. Zato: Ich mache sie an.", "en": "Laterne is feminine: die Laterne. So: Ich mache sie an.", "it": "Laterne è femminile: die Laterne. Quindi: Ich mache sie an." },
+            "reply": { "face": "laugh", "de": "Es? Was denn? Das Zelt? Hoffentlich nicht! He!", "sl": "Ga? Kaj pa? Šotor? Upam, da ne! Hej!", "en": "Es, it? What? The tent? I hope not! Hey!", "it": "Lo? Cosa? La tenda? Speriamo di no! Ehi!" } }
+        ], "puzzled": { "face": "confused", "de": "He? Wie bitte?", "sl": "Hej? Kako, prosim?", "en": "Eh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "florian", "de": "Draußen sind meine Schafe: Flocke, Wolke und Bella. Hörst du sie?", "sl": "Zunaj so moje ovce: Flocke, Wolke in Bella. Jih slišiš?", "en": "My sheep are outside: Flocke, Wolke and Bella. Can you hear them?", "it": "Fuori ci sono le mie pecore: Flocke, Wolke e Bella. Le senti?" },
+        { "choices": [
+          { "de": "Ja, ich höre sie!", "sl": "Ja, slišim jih!", "en": "Yes, I can hear them!", "it": "Sì, le sento!", "ok": true,
+            "reply": { "face": "laugh", "de": "Mäh! Das ist Flocke. Die Kleine ruft immer.", "sl": "Mee! To je Flocke. Mala vedno kliče.", "en": "Baa! That's Flocke. The little one always calls.", "it": "Beee! È Flocke. La piccola chiama sempre." } },
+          { "de": "Nein, ich höre nichts.", "sl": "Ne, nič ne slišim.", "en": "No, I can't hear anything.", "it": "No, non sento niente.", "ok": true,
+            "reply": { "face": "curious", "de": "Psst … Mäh! Und jetzt?", "sl": "Pst … Mee! Pa zdaj?", "en": "Shh … Baa! And now?", "it": "Ssst … Beee! E adesso?" } },
+          { "de": "Ja, ich sehe sie nicht.", "sl": "Ja, ne vidim jih.", "en": "Yes, I can't see them.", "it": "Sì, non le vedo.",
+            "why": { "de": "Florian fragt, ob du sie hörst, nicht ob du sie siehst.", "sl": "Florian sprašuje, ali jih slišiš, ne ali jih vidiš.", "en": "Florian asks if you can hear them, not see them.", "it": "Florian chiede se le senti, non se le vedi." },
+            "reply": { "face": "laugh", "de": "Klar, die sind ja draußen! Aber hörst du sie?", "sl": "Seveda, saj so zunaj! Ampak ali jih slišiš?", "en": "Of course, they're outside! But can you hear them?", "it": "Certo, sono fuori! Ma le senti?" } }
+        ] },
+        { "who": "florian", "face": "laugh", "de": "Gute Nacht, Schafe! Juhuu! … Psst, nicht so laut, Florian.", "sl": "Lahko noč, ovce! Juhuu! … Pst, ne tako glasno, Florian.", "en": "Good night, sheep! Yoo-hoo! … Shh, not so loud, Florian.", "it": "Buonanotte, pecore! Iuhuu! … Ssst, non così forte, Florian." }
+      ]
+    },
+    {
+      "id": "gewitter",
+      "act_stays": true,
+      "lines": [
+        { "who": "florian", "face": "worried", "de": "He! Schau, die Wolken über dem Dobratsch! Ein Gewitter kommt!", "sl": "Hej! Poglej oblake nad Dobračem! Nevihta prihaja!", "en": "Hey! Look at the clouds over the Dobratsch! A storm's coming!", "it": "Ehi! Guarda le nuvole sul Dobratsch! Arriva un temporale!", "sky": { "gloom": 0.6, "wind": 0.5 } },
+        { "choices": [
+          { "de": "Komm schnell ins Zelt, Florian!", "sl": "Pridi hitro v šotor, Florian!", "en": "Come into the tent, quick, Florian!", "it": "Vieni subito nella tenda, Florian!", "ok": true,
+            "reply": { "face": "happy", "de": "Danke! Hier drinnen ist es trocken.", "sl": "Hvala! Tukaj notri je suho.", "en": "Thanks! It's dry in here.", "it": "Grazie! Qui dentro è asciutto.", "sky": { "rain": 0.7, "gloom": 0.8, "lightning": true }, "act": { "florian": { "to": "lantern", "pose": "sit" } } } },
+          { "de": "Komm schnell im Zelt, Florian!", "sl": "Pridi hitro v šotoru, Florian!", "en": "Come in the tent, quick, Florian!", "it": "Vieni subito dentro la tenda, Florian!", "grammar": "wechselpraepositionen",
+            "why": { "de": "Wohin? Eine Richtung nimmt den Akkusativ: ins Zelt, in das Zelt. Im Zelt sagt, wo.", "sl": "Kam? Smer zahteva tožilnik: ins Zelt, in das Zelt. Im Zelt pove, kje.", "en": "Where to? A direction takes the accusative: ins Zelt, in das Zelt. Im Zelt says where.", "it": "Verso dove? Una direzione vuole l'accusativo: ins Zelt, in das Zelt. Im Zelt dice dove." },
+            "reply": { "face": "confused", "de": "Im Zelt? Da bin ich ja noch nicht. Darf ich hinein?", "sl": "V šotoru? Saj še nisem notri. Smem noter?", "en": "In the tent? I'm not in there yet. May I come in?", "it": "Dentro la tenda? Ma non ci sono ancora. Posso entrare?" } }
+        ], "puzzled": { "face": "confused", "de": "He? Der Wind! Wie bitte?", "sl": "Hej? Veter! Kako, prosim?", "en": "Eh? The wind! Sorry?", "it": "Eh? Il vento! Come?" } },
+        { "who": "florian", "face": "worried", "de": "Puh, das war knapp. Und meine Schafe? Die stehen unter den Bäumen.", "sl": "Fuh, za las. Pa moje ovce? Stojijo pod drevesi.", "en": "Phew, that was close. And my sheep? They're under the trees.", "it": "Uff, per un pelo. E le mie pecore? Sono sotto gli alberi." },
+        { "who": "florian", "face": "curious", "de": "Hast du Angst vor dem Gewitter?", "sl": "Se bojiš nevihte?", "en": "Are you scared of the storm?", "it": "Hai paura del temporale?" },
+        { "choices": [
+          { "de": "Nein, im Zelt bin ich sicher.", "sl": "Ne, v šotoru sem na varnem.", "en": "No, I'm safe in the tent.", "it": "No, nella tenda sono al sicuro.", "ok": true,
+            "reply": { "face": "happy", "de": "Genau. Und ich bin auch da.", "sl": "Točno. Pa tudi jaz sem tu.", "en": "Exactly. And I'm here too.", "it": "Esatto. E ci sono anch'io." } },
+          { "de": "Ja, ein bisschen.", "sl": "Ja, malo.", "en": "Yes, a little.", "it": "Sì, un po'.", "ok": true,
+            "reply": { "face": "happy", "de": "Keine Angst. Ich bleibe bei dir, bis es vorbei ist.", "sl": "Brez strahu. Ostanem s tabo, dokler ne mine.", "en": "Don't be scared. I'll stay with you till it's over.", "it": "Niente paura. Resto con te finché passa." } },
+          { "de": "Nein, ich habe Angst vor dem Käse.", "sl": "Ne, bojim se sira.", "en": "No, I'm scared of the cheese.", "it": "No, ho paura del formaggio.",
+            "why": { "de": "Florian fragt nach dem Gewitter, nicht nach dem Käse.", "sl": "Florian sprašuje po nevihti, ne po siru.", "en": "Florian is asking about the storm, not the cheese.", "it": "Florian chiede del temporale, non del formaggio." },
+            "reply": { "face": "laugh", "de": "Vor dem Käse? Hihi! Der donnert doch nicht!", "sl": "Sira? Hihi! Saj ne grmi!", "en": "The cheese? Hee hee! It doesn't thunder!", "it": "Del formaggio? Ih ih! Mica tuona!" } }
+        ] },
+        { "who": "florian", "face": "happy", "de": "Wie man bei uns sagt: Nach dem Regen kommt die Sonne.", "sl": "Kot pravimo pri nas: za dežjem pride sonce.", "en": "As we say here: after the rain comes the sun.", "it": "Come si dice da noi: dopo la pioggia viene il sole." }
+      ]
+    },
+    {
+      "id": "geschichte",
+      "lines": [
+        { "who": "jakob", "face": "shy", "de": "Erzählst du mir eine Geschichte? Bitte, bitte!", "sl": "Mi poveš zgodbo? Prosim, prosim!", "en": "Will you tell me a story? Please, please!", "it": "Mi racconti una storia? Per favore, per favore!" },
+        { "choices": [
+          { "de": "Ja, gern. Es war einmal ein Pferd …", "sl": "Ja, z veseljem. Nekoč je bil konj …", "en": "Yes, gladly. Once upon a time there was a horse …", "it": "Sì, volentieri. C'era una volta un cavallo …", "ok": true,
+            "reply": { "face": "happy", "de": "Ein Pferd! Ein Noriker? Toll!", "sl": "Konj! Noriški? Super!", "en": "A horse! A Noriker? Great!", "it": "Un cavallo! Un norico? Che bello!" } },
+          { "de": "Ja. Es war einmal ein Drache …", "sl": "Ja. Nekoč je bil zmaj …", "en": "Yes. Once upon a time there was a dragon …", "it": "Sì. C'era una volta un drago …", "ok": true,
+            "reply": { "face": "surprised", "de": "Ein Drache! Wie der Lindwurm?", "sl": "Zmaj! Kot Lindwurm?", "en": "A dragon! Like the Lindwurm?", "it": "Un drago! Come il Lindwurm?" } },
+          { "de": "Nein, ich erzähle dir eine Geschichte.", "sl": "Ne, povem ti zgodbo.", "en": "No, I'll tell you a story.", "it": "No, ti racconto una storia.",
+            "why": { "de": "Nein und dann doch eine Geschichte: Das passt nicht zusammen.", "sl": "Ne in potem vendarle zgodba: to ne gre skupaj.", "en": "No, and then a story after all: that doesn't fit.", "it": "No, e poi una storia lo stesso: non va." },
+            "reply": { "face": "laugh", "de": "Nein? Aber dann doch? Hihi, du bist lustig.", "sl": "Ne? Ampak potem vendarle? Hihi, {m:smešen|f:smešna} si.", "en": "No? But then yes? Hee hee, you're funny.", "it": "No? Ma poi sì? Ih ih, sei {m:buffo|f:buffa}." } }
+        ] },
+        { "who": "jakob", "face": "curious", "de": "Und dann? Was passiert dann?", "sl": "Pa potem? Kaj se zgodi potem?", "en": "And then? What happens then?", "it": "E poi? Cosa succede poi?" },
+        { "choices": [
+          { "de": "Es fliegt über den Berg, ganz hoch.", "sl": "Leti čez goro, čisto visoko.", "en": "It flies over the mountain, up high.", "it": "Vola sopra la montagna, altissimo.", "ok": true,
+            "reply": { "face": "happy", "de": "Ganz hoch … über den Berg …", "sl": "Čisto visoko … čez goro …", "en": "Up high … over the mountain …", "it": "Altissimo … sopra la montagna …" } },
+          { "de": "Es fliegen über den Berg, ganz hoch.", "sl": "Letijo čez goro, čisto visoko.", "en": "It fly over the mountain, up high.", "it": "Volano sopra la montagna, altissimo.", "grammar": "praesens",
+            "why": { "de": "Es ist eins: es fliegt. Fliegen ist für wir, sie und Sie.", "sl": "Es je en sam: es fliegt. Fliegen je za wir, sie in Sie.", "en": "Es is one: es fliegt. Fliegen is for wir, sie and Sie.", "it": "Es è uno solo: es fliegt. Fliegen è per wir, sie e Sie." },
+            "reply": { "face": "confused", "de": "Viele? Ich dachte, es ist nur eins …", "sl": "Veliko? Mislil sem, da je samo eden …", "en": "Lots of them? I thought there was only one …", "it": "Tanti? Pensavo che fosse uno solo …" } }
+        ], "puzzled": { "face": "confused", "de": "Was? Gähn …", "sl": "Kaj? Zeh …", "en": "What? Yawn …", "it": "Cosa? Sbadiglio …" } },
+        { "who": "jakob", "de": "Ich bin gar nicht müde … gar nicht …", "sl": "Sploh nisem zaspan … sploh ne …", "en": "I'm not tired at all … not at all …", "it": "Non ho per niente sonno … per niente …" },
+        { "choices": [
+          { "de": "Gute Nacht, Jakob. Schlaf gut.", "sl": "Lahko noč, Jakob. Lepo spi.", "en": "Good night, Jakob. Sleep well.", "it": "Buonanotte, Jakob. Dormi bene.", "ok": true,
+            "reply": { "de": "Mmm … gute Nacht …", "sl": "Mmm … lahko noč …", "en": "Mmm … good night …", "it": "Mmm … buonanotte …", "act": { "jakob": { "pose": "sleep" } } } },
+          { "de": "Psst … er schläft schon.", "sl": "Pst … že spi.", "en": "Shh … he's asleep already.", "it": "Ssst … dorme già.", "ok": true,
+            "reply": { "de": "Zzz …", "sl": "Zzz …", "en": "Zzz …", "it": "Zzz …", "act": { "jakob": { "pose": "sleep" } } } },
+          { "de": "Guten Morgen, Jakob!", "sl": "Dobro jutro, Jakob!", "en": "Good morning, Jakob!", "it": "Buongiorno, Jakob!",
+            "why": { "de": "Es ist Abend, und Jakob schläft ein: gute Nacht.", "sl": "Večer je in Jakob zaspi: gute Nacht.", "en": "It's evening and Jakob is dropping off: gute Nacht.", "it": "È sera e Jakob si addormenta: gute Nacht." },
+            "reply": { "face": "confused", "de": "Morgen? Schon? Oh nein … Zzz.", "sl": "Jutro? Že? O ne … Zzz.", "en": "Morning? Already? Oh no … Zzz.", "it": "Mattina? Già? Oh no … Zzz." } }
+        ] }
+      ]
+    },
+    {
+      "id": "karte",
+      "lines": [
+        { "who": "lena", "face": "happy", "de": "Psst! Ich habe eine Schatzkarte gemalt. Sie hängt im Zelt. Findest du sie?", "sl": "Pst! Narisala sem zemljevid zaklada. Visi v šotoru. Ga najdeš?", "en": "Shh! I've drawn a treasure map. It's hanging in the tent. Can you find it?", "it": "Ssst! Ho disegnato una mappa del tesoro. È appesa nella tenda. La trovi?" },
+        { "choices": [
+          { "de": "Da, an der Wand über dem Bett!", "sl": "Tam, na steni nad posteljo!", "en": "There, on the wall above the bed!", "it": "Lì, sul muro sopra il letto!", "ok": true, "tap": "map", "grammar": "wechselpraepositionen",
+            "reply": { "face": "proud", "de": "Ja! Meine Schatzkarte! Siehst du den Weg?", "sl": "Ja! Moj zemljevid zaklada! Vidiš pot?", "en": "Yes! My treasure map! Can you see the path?", "it": "Sì! La mia mappa del tesoro! Vedi il sentiero?" } },
+          { "de": "Da, auf dem Tisch!", "sl": "Tam, na mizi!", "en": "There, on the table!", "it": "Lì, sul tavolo!", "tap": "book",
+            "why": { "de": "Such ein Blatt mit einem Weg darauf. Es hängt.", "sl": "Poišči list s potjo. Visi.", "en": "Look for a sheet with a path on it. It's hanging up.", "it": "Cerca un foglio con un sentiero. È appeso." },
+            "reply": { "face": "laugh", "de": "Das ist Florians Buch. Kalt, kalt!", "sl": "To je Florianova knjiga. Mrzlo, mrzlo!", "en": "That's Florian's book. Cold, cold!", "it": "Quello è il libro di Florian. Acqua, acqua!" } },
+          { "de": "Da, im Rucksack!", "sl": "Tam, v nahrbtniku!", "en": "There, in the backpack!", "it": "Lì, nello zaino!", "tap": "backpack",
+            "why": { "de": "Such ein Blatt mit einem Weg darauf. Es hängt.", "sl": "Poišči list s potjo. Visi.", "en": "Look for a sheet with a path on it. It's hanging up.", "it": "Cerca un foglio con un sentiero. È appeso." },
+            "reply": { "face": "laugh", "de": "Im Rucksack? Nein, da ist nur Florians Jause.", "sl": "V nahrbtniku? Ne, tam je samo Florianova malica.", "en": "In the backpack? No, there's only Florian's snack.", "it": "Nello zaino? No, lì c'è solo la merenda di Florian." } }
+        ] },
+        { "who": "lena", "face": "curious", "de": "Der Schatz ist hinter dem Zelt, unter einem Stein! Gehen wir suchen?", "sl": "Zaklad je za šotorom, pod kamnom! Greva iskat?", "en": "The treasure's behind the tent, under a stone! Shall we go and look?", "it": "Il tesoro è dietro la tenda, sotto un sasso! Andiamo a cercarlo?" },
+        { "choices": [
+          { "de": "Ja, gehen wir!", "sl": "Ja, greva!", "en": "Yes, let's go!", "it": "Sì, andiamo!", "ok": true,
+            "reply": { "face": "laugh", "de": "Juhu! Ich gehe vor!", "sl": "Juhu! Jaz grem prva!", "en": "Yay! I'll go first!", "it": "Evviva! Vado avanti io!" } },
+          { "de": "Später. Zuerst trinke ich meinen Tee.", "sl": "Pozneje. Najprej popijem čaj.", "en": "Later. First I'll drink my tea.", "it": "Dopo. Prima bevo il mio tè.", "ok": true,
+            "reply": { "face": "sad", "de": "Na gut. Aber nicht zu langsam!", "sl": "No dobro. Ampak ne prepočasi!", "en": "All right. But not too slowly!", "it": "Va bene. Ma non troppo piano!" } },
+          { "de": "Ja, gehen wir! Mit dem Auto.", "sl": "Ja, greva! Z avtom.", "en": "Yes, let's go! By car.", "it": "Sì, andiamo! In macchina.",
+            "why": { "de": "Der Schatz ist gleich hinter dem Zelt. Da braucht man kein Auto.", "sl": "Zaklad je takoj za šotorom. Za to ne rabiš avta.", "en": "The treasure is just behind the tent. No need for a car.", "it": "Il tesoro è proprio dietro la tenda. Non serve la macchina." },
+            "reply": { "face": "laugh", "de": "Mit dem Auto? Es sind nur drei Schritte! Hihi.", "sl": "Z avtom? Saj so samo trije koraki! Hihi.", "en": "By car? It's only three steps! Hee hee.", "it": "In macchina? Sono solo tre passi! Ih ih." } }
+        ] },
+        { "who": "lena", "face": "proud", "de": "Weißt du, was Schatz auf Slowenisch heißt? Zaklad!", "sl": "Veš, kako se Schatz reče po slovensko? Zaklad!", "en": "Do you know what Schatz is in Slovene? Zaklad!", "it": "Sai come si dice Schatz in sloveno? Zaklad!" }
+      ]
+    },
+    {
+      "id": "morgen",
+      "lines": [
+        { "who": "florian", "face": "happy", "de": "Juhuu! Guten Morgen! Die Schafe warten schon.", "sl": "Juhuu! Dobro jutro! Ovce že čakajo.", "en": "Yoo-hoo! Good morning! The sheep are waiting already.", "it": "Iuhuu! Buongiorno! Le pecore aspettano già." },
+        { "choices": [
+          { "de": "Guten Morgen, Florian!", "sl": "Dobro jutro, Florian!", "en": "Good morning, Florian!", "it": "Buongiorno, Florian!", "ok": true,
+            "reply": { "face": "happy", "de": "Servus! Gut geschlafen?", "sl": "Živjo! Si dobro {m:spal|f:spala}?", "en": "Hi! Sleep well?", "it": "Ciao! Dormito bene?" } },
+          { "de": "Servus! Schon so früh wach?", "sl": "Živjo! Že tako zgodaj pokonci?", "en": "Hi! Up so early?", "it": "Ciao! Già sveglio così presto?", "ok": true,
+            "reply": { "face": "proud", "de": "Ein Hirte schläft nie lang!", "sl": "Pastir nikoli ne spi dolgo!", "en": "A shepherd never sleeps long!", "it": "Un pastore non dorme mai a lungo!" } },
+          { "de": "Gute Nacht, Florian!", "sl": "Lahko noč, Florian!", "en": "Good night, Florian!", "it": "Buonanotte, Florian!",
+            "why": { "de": "Am Morgen sagt man guten Morgen.", "sl": "Zjutraj rečeš guten Morgen.", "en": "In the morning it's guten Morgen.", "it": "Di mattina si dice guten Morgen." },
+            "reply": { "face": "laugh", "de": "Gute Nacht? Jetzt stehen wir doch auf! He!", "sl": "Lahko noč? Saj zdaj vstajamo! Hej!", "en": "Good night? We're getting up now! Hey!", "it": "Buonanotte? Adesso ci alziamo! Ehi!" } }
+        ] },
+        { "who": "florian", "face": "curious", "de": "Wo sind meine Bergschuhe? Ich brauche sie für die Alm.", "sl": "Kje so moji gojzarji? Potrebujem jih za planino.", "en": "Where are my hiking boots? I need them for the Alm.", "it": "Dove sono i miei scarponi? Mi servono per l'alpeggio." },
+        { "choices": [
+          { "de": "Sie stehen auf dem Boden.", "sl": "Stojijo na tleh.", "en": "They're standing on the floor.", "it": "Sono per terra.", "ok": true,
+            "reply": { "face": "happy", "de": "Ah, da! Danke!", "sl": "A, tam so! Hvala!", "en": "Ah, there! Thanks!", "it": "Ah, eccoli! Grazie!" } },
+          { "de": "Sie steht auf dem Boden.", "sl": "Stoji na tleh.", "en": "It's standing on the floor.", "it": "È per terra.", "grammar": "praesens",
+            "why": { "de": "Die Bergschuhe sind zwei, also Plural: sie stehen.", "sl": "Gojzarja sta dva, torej množina: sie stehen.", "en": "The boots are two, so plural: sie stehen.", "it": "Gli scarponi sono due, quindi plurale: sie stehen." },
+            "reply": { "face": "confused", "de": "Sie steht? Nur einer? Und wo ist der andere? He!", "sl": "Stoji? Samo eden? Kje pa je drugi? Hej!", "en": "It stands? Only one? And where's the other one? Hey!", "it": "È per terra? Uno solo? E l'altro dov'è? Ehi!" } }
+        ], "puzzled": { "face": "confused", "de": "He? Wie bitte?", "sl": "Hej? Kako, prosim?", "en": "Eh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "florian", "face": "happy", "de": "Hut auf, Rucksack auf, und los! Kommst du mit auf die Alm?", "sl": "Klobuk na glavo, nahrbtnik na hrbet, pa gremo! Greš z mano na planino?", "en": "Hat on, backpack on, and off we go! Are you coming up to the Alm?", "it": "Cappello in testa, zaino in spalla, e via! Vieni all'alpeggio?" },
+        { "choices": [
+          { "de": "Ja, ich komme mit!", "sl": "Ja, grem zraven!", "en": "Yes, I'm coming!", "it": "Sì, vengo!", "ok": true,
+            "reply": { "face": "laugh", "de": "Juhuu! Flocke freut sich!", "sl": "Juhuu! Flocke bo vesela!", "en": "Yoo-hoo! Flocke will be pleased!", "it": "Iuhuu! Flocke sarà contenta!" } },
+          { "de": "Heute nicht, danke.", "sl": "Danes ne, hvala.", "en": "Not today, thanks.", "it": "Oggi no, grazie.", "ok": true,
+            "reply": { "face": "sad", "de": "Schade! Dann bis heute Abend!", "sl": "Škoda! Potem pa do večera!", "en": "Shame! See you this evening, then!", "it": "Peccato! Allora a stasera!" } },
+          { "de": "Ja, ich komme mit! Mit dem Boot.", "sl": "Ja, grem zraven! S čolnom.", "en": "Yes, I'm coming! By boat.", "it": "Sì, vengo! In barca.",
+            "why": { "de": "Auf die Alm geht man zu Fuß, nicht mit dem Boot.", "sl": "Na planino greš peš, ne s čolnom.", "en": "You walk up to the Alm, you don't go by boat.", "it": "All'alpeggio si va a piedi, non in barca." },
+            "reply": { "face": "laugh", "de": "Mit dem Boot? Auf der Alm gibt es nur Gras, kein Wasser!", "sl": "S čolnom? Na planini je samo trava, ni vode!", "en": "By boat? On the Alm there's only grass, no water!", "it": "In barca? All'alpeggio c'è solo erba, niente acqua!" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "laterne-buch",
+      "memory": { "de": "das Buch über die Alm, das wir gelesen haben", "sl": "knjigo o planini, ki sva jo brala", "en": "the book about the Alm we read", "it": "il libro sull'alpeggio che abbiamo letto" },
+      "lines": [
+        { "who": "florian", "face": "happy", "de": "Servus! Schau, das Buch auf dem Tisch. Ich lese am Abend gern.", "sl": "Živjo! Poglej knjigo na mizi. Zvečer rad berem.", "en": "Hi! Look, the book on the table. I like reading in the evening.", "it": "Ciao! Guarda il libro sul tavolo. La sera mi piace leggere.", "fx": { "lantern": 1 } },
+        { "who": "florian", "face": "curious", "de": "Liest du auch gern?", "sl": "Tudi ti {m:rad|f:rada} bereš?", "en": "Do you like reading too?", "it": "Anche a te piace leggere?" },
+        { "choices": [
+          { "de": "Ja, ich lese sehr gern.", "sl": "Ja, zelo {m:rad|f:rada} berem.", "en": "Yes, I love reading.", "it": "Sì, mi piace molto leggere.", "ok": true,
+            "reply": { "face": "happy", "de": "Super! Dann lesen wir zusammen.", "sl": "Super! Potem bereva skupaj.", "en": "Great! Then we'll read together.", "it": "Fantastico! Allora leggiamo insieme." } },
+          { "de": "Ja, ich liest sehr gern.", "sl": "Ja, zelo {m:rad|f:rada} berem.", "en": "Yes, I reads with pleasure.", "it": "Sì, mi piace molto leggere.", "grammar": "praesens",
+            "why": { "de": "Lesen ändert den Vokal nur bei du und er: du liest. Bei ich bleibt das e.", "sl": "Lesen spremeni samoglasnik le pri du in er: du liest. Pri ich ostane e.", "en": "Lesen changes its vowel only with du and er: du liest. With ich the e stays.", "it": "Lesen cambia la vocale solo con du ed er: du liest. Con ich resta la e." },
+            "reply": { "face": "laugh", "de": "Ich liest? Hihi. Das steht aber in keinem Buch!", "sl": "Ich liest? Hihi. Tega pa ni v nobeni knjigi!", "en": "Ich liest? Hee hee. That's not in any book!", "it": "Ich liest? Ih ih. Questo non c'è in nessun libro!" } }
+        ], "puzzled": { "face": "confused", "de": "He? Wie bitte?", "sl": "Hej? Kako, prosim?", "en": "Eh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "florian", "de": "Das Buch ist über die Alm. Über Kühe, Schafe und Gämsen.", "sl": "Knjiga je o planini. O kravah, ovcah in gamsih.", "en": "The book's about the Alm. About cows, sheep and chamois.", "it": "Il libro parla dell'alpeggio. Di mucche, pecore e camosci." },
+        { "who": "florian", "face": "curious", "de": "Was ist dein Lieblingstier?", "sl": "Katera je tvoja najljubša žival?", "en": "What's your favourite animal?", "it": "Qual è il tuo animale preferito?" },
+        { "choices": [
+          { "de": "Mein Lieblingstier ist das Schaf.", "sl": "Moja najljubša žival je ovca.", "en": "My favourite animal is the sheep.", "it": "Il mio animale preferito è la pecora.", "ok": true,
+            "reply": { "face": "laugh", "de": "Wie bei mir! Mäh!", "sl": "Kot pri meni! Mee!", "en": "Same as me! Baa!", "it": "Come me! Beee!" } },
+          { "de": "Ich mag Pferde am liebsten.", "sl": "Najraje imam konje.", "en": "I like horses best.", "it": "I cavalli mi piacciono di più.", "ok": true,
+            "reply": { "face": "happy", "de": "Pferde! Da musst du Jakob fragen. Er liebt die Noriker.", "sl": "Konji! Potem moraš vprašati Jakoba. Obožuje noriške konje.", "en": "Horses! Then you must ask Jakob. He loves Norikers.", "it": "I cavalli! Allora devi chiedere a Jakob. Adora i norici." } },
+          { "de": "Mein Lieblingstier ist der Tisch.", "sl": "Moja najljubša žival je miza.", "en": "My favourite animal is the table.", "it": "Il mio animale preferito è il tavolo.",
+            "why": { "de": "Ein Tisch ist kein Tier.", "sl": "Miza ni žival.", "en": "A table isn't an animal.", "it": "Un tavolo non è un animale." },
+            "reply": { "face": "laugh", "de": "Der Tisch? Hihi, vier Beine hat er, aber er sagt nicht mäh!", "sl": "Miza? Hihi, štiri noge ima, ampak ne reče mee!", "en": "The table? Hee hee, it has four legs, but it doesn't say baa!", "it": "Il tavolo? Ih ih, ha quattro gambe, ma non fa beee!" } }
+        ] },
+        { "who": "florian", "face": "happy", "de": "So. Jetzt lese ich noch ein bisschen. Gute Nacht!", "sl": "Tako. Zdaj pa še malo berem. Lahko noč!", "en": "There. Now I'll read a little more. Good night!", "it": "Ecco. Adesso leggo ancora un po'. Buonanotte!" }
+      ]
+    },
+    {
+      "id": "gewitter-donner",
+      "act_stays": true,
+      "count": { "from": "dice", "min": 2, "max": 9, "gender": "f" },
+      "memory": { "de": "die Sekunden bis zum Donner, die du gezählt hast", "sl": "sekunde do groma, ki si jih {m:preštel|f:preštela}", "en": "the seconds to the thunder you counted", "it": "i secondi fino al tuono che hai contato" },
+      "lines": [
+        { "who": "florian", "face": "surprised", "de": "Schau, ein Blitz! Zähl die Sekunden bis zum Donner!", "sl": "Poglej, strela! Štej sekunde do groma!", "en": "Look, lightning! Count the seconds to the thunder!", "it": "Guarda, un lampo! Conta i secondi fino al tuono!", "sky": { "gloom": 0.8, "rain": 0.6, "lightning": true }, "act": { "florian": { "to": "lantern", "pose": "sit" } } },
+        { "choices": [
+          { "de": "Das {war|waren} {n} {Sekunde|Sekunden}.", "sl": "To {je bila|sta bili|so bile|je bilo} {n} {sekunda|sekundi|sekunde|sekund}.", "en": "That was {n} {second|seconds}.", "it": "{È stato|Sono stati} {n} {secondo|secondi}.", "ok": true,
+            "reply": { "face": "happy", "de": "Gut gezählt! Drei Sekunden sind ungefähr ein Kilometer.", "sl": "Dobro si {m:preštel|f:preštela}! Tri sekunde so približno en kilometer.", "en": "Well counted! Three seconds are about a kilometre.", "it": "Contato bene! Tre secondi sono circa un chilometro." } },
+          { "de": "Das {war|waren} {n} {!Sekunde|Sekunden}.", "sl": "To {je bila|sta bili|so bile|je bilo} {n} {!sekunda|sekundi|sekunde|sekund}.", "en": "That was {n} {!second|seconds}.", "it": "{È stato|Sono stati} {n} {!secondo|secondi}.", "wrong_form": 1, "grammar": "plural",
+            "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Sekunde|Sekunden}.", "sl": "{Ena stvar je v ednini|Od dveh naprej je množina}: {n} {Sekunde|Sekunden}.", "en": "{One takes the singular|From two on, the plural}: {n} {Sekunde|Sekunden}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Sekunde|Sekunden}." },
+            "reply": { "face": "surprised", "de": "Nur eine? Dann ist das Gewitter ja direkt über uns!", "sl": "Samo ena? Potem je nevihta točno nad nama!", "en": "Only one? Then the storm's right above us!", "it": "Uno solo? Allora il temporale è proprio sopra di noi!" } }
+        ], "puzzled": { "face": "confused", "de": "He? Der Donner! Wie bitte?", "sl": "Hej? Grom! Kako, prosim?", "en": "Eh? The thunder! Sorry?", "it": "Eh? Il tuono! Come?" } },
+        { "who": "florian", "de": "Der Blitz ist schnell, der Donner ist langsam. Wie ich am Morgen.", "sl": "Strela je hitra, grom je počasen. Kot jaz zjutraj.", "en": "Lightning is fast, thunder is slow. Like me in the morning.", "it": "Il lampo è veloce, il tuono è lento. Come me la mattina." },
+        { "who": "florian", "face": "curious", "de": "Ist dir kalt? Nimm die rote Decke!", "sl": "Te zebe? Vzemi rdečo odejo!", "en": "Are you cold? Take the red blanket!", "it": "Hai freddo? Prendi la coperta rossa!" },
+        { "choices": [
+          { "de": "Danke, Florian. Die Decke ist warm.", "sl": "Hvala, Florian. Odeja je topla.", "en": "Thanks, Florian. The blanket is warm.", "it": "Grazie, Florian. La coperta è calda.", "ok": true,
+            "reply": { "face": "proud", "de": "Gell? Echte Schafwolle!", "sl": "Kajne? Prava ovčja volna!", "en": "Isn't it? Real sheep's wool!", "it": "Vero? Vera lana di pecora!" } },
+          { "de": "Danke, Florian. Der Decke ist warm.", "sl": "Hvala, Florian. Odeja je topla.", "en": "Thanks, Florian. The blanket is warm.", "it": "Grazie, Florian. La coperta è calda.", "grammar": "artikel-genus",
+            "why": { "de": "Decke ist feminin: die Decke.", "sl": "Decke je ženskega spola: die Decke.", "en": "Decke is feminine: die Decke.", "it": "Decke è femminile: die Decke." },
+            "reply": { "face": "laugh", "de": "Der Decke? He, hast du Fieber? Hihi.", "sl": "Der Decke? Hej, imaš vročino? Hihi.", "en": "Der Decke? Hey, have you got a fever? Hee hee.", "it": "Der Decke? Ehi, hai la febbre? Ih ih." } }
+        ], "puzzled": { "face": "confused", "de": "He? Wie bitte?", "sl": "Hej? Kako, prosim?", "en": "Eh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "florian", "face": "happy", "de": "Hörst du? Der Regen wird weniger. Bald ist es vorbei.", "sl": "Slišiš? Dež pojenja. Kmalu bo mimo.", "en": "Hear that? The rain is easing off. It'll soon be over.", "it": "Senti? La pioggia diminuisce. Tra poco è finita.", "sky": { "rain": 0.2, "gloom": 0.4, "lightning": false } }
+      ]
+    },
+    {
+      "id": "geschichte-lindwurm",
+      "memory": { "de": "die Geschichte vom Lindwurm, bei der ich eingeschlafen bin", "sl": "zgodbo o Lindwurmu, ob kateri sem zaspal", "en": "the Lindwurm story I fell asleep to", "it": "la storia del Lindwurm durante la quale mi sono addormentato" },
+      "lines": [
+        { "who": "jakob", "face": "curious", "de": "Kennst du die Geschichte vom Lindwurm, dem Drachen von Klagenfurt?", "sl": "Poznaš zgodbo o Lindwurmu, zmaju iz Celovca?", "en": "Do you know the story of the Lindwurm, the dragon of Klagenfurt?", "it": "Conosci la storia del Lindwurm, il drago di Klagenfurt?" },
+        { "choices": [
+          { "de": "Ja, ich kenne sie.", "sl": "Ja, poznam jo.", "en": "Yes, I know it.", "it": "Sì, la conosco.", "ok": true,
+            "reply": { "face": "happy", "de": "Erzähl sie mir! Ich habe keine Angst.", "sl": "Povej mi jo! Nič se ne bojim.", "en": "Tell it to me! I'm not scared.", "it": "Raccontamela! Non ho paura." } },
+          { "de": "Nein. Erzählst du sie mir?", "sl": "Ne. Mi jo poveš?", "en": "No. Will you tell it to me?", "it": "No. Me la racconti?", "ok": true,
+            "reply": { "face": "proud", "de": "Der Lindwurm wohnt im Sumpf. Er ist grün und riesig!", "sl": "Lindwurm živi v močvirju. Zelen je in ogromen!", "en": "The Lindwurm lives in the swamp. He's green and huge!", "it": "Il Lindwurm vive nella palude. È verde ed enorme!" } },
+          { "de": "Ja, ich kenne den Bäcker.", "sl": "Ja, poznam peka.", "en": "Yes, I know the baker.", "it": "Sì, conosco il fornaio.",
+            "why": { "de": "Jakob fragt nach der Geschichte vom Lindwurm, nicht nach dem Bäcker.", "sl": "Jakob sprašuje po zgodbi o Lindwurmu, ne po peku.", "en": "Jakob is asking about the Lindwurm story, not the baker.", "it": "Jakob chiede della storia del Lindwurm, non del fornaio." },
+            "reply": { "face": "laugh", "de": "Den Bäcker? Hihi! Der ist doch kein Drache!", "sl": "Peka? Hihi! Saj ni zmaj!", "en": "The baker? Hee hee! He's not a dragon!", "it": "Il fornaio? Ih ih! Mica è un drago!" } }
+        ] },
+        { "who": "jakob", "face": "surprised", "de": "Die Männer haben einen Stier an eine Kette gebunden. Und der Lindwurm hat angebissen!", "sl": "Možje so na verigo privezali bika. In Lindwurm je zagrabil!", "en": "The men tied a bull to a chain. And the Lindwurm took the bait!", "it": "Gli uomini hanno legato un toro a una catena. E il Lindwurm ha abboccato!" },
+        { "who": "jakob", "face": "curious", "de": "Hast du Angst vor Drachen?", "sl": "Se bojiš zmajev?", "en": "Are you scared of dragons?", "it": "Hai paura dei draghi?" },
+        { "choices": [
+          { "de": "Nein, ich habe keine Angst.", "sl": "Ne, ne bojim se.", "en": "No, I'm not scared.", "it": "No, non ho paura.", "ok": true,
+            "reply": { "face": "shy", "de": "Ich auch nicht … nur ein bisschen …", "sl": "Jaz tudi ne … samo malo …", "en": "Me neither … just a little …", "it": "Neanch'io … solo un pochino …" } },
+          { "de": "Nein, ich habe nicht Angst.", "sl": "Ne, ne bojim se.", "en": "No, I have not fear.", "it": "No, non ho paura.", "grammar": "kein-nicht",
+            "why": { "de": "Vor einem Nomen ohne Artikel verneint man mit kein: keine Angst.", "sl": "Pred samostalnikom brez člena zanikaš s kein: keine Angst.", "en": "Before a noun with no article, say no with kein: keine Angst.", "it": "Davanti a un nome senza articolo si nega con kein: keine Angst." },
+            "reply": { "face": "confused", "de": "Nicht Angst? Hm … klingt komisch. Gähn …", "sl": "Nicht Angst? Hm … zveni čudno. Zeh …", "en": "Nicht Angst? Hm … sounds funny. Yawn …", "it": "Nicht Angst? Mm … suona strano. Sbadiglio …" } }
+        ], "puzzled": { "face": "confused", "de": "Was? Gähn …", "sl": "Kaj? Zeh …", "en": "What? Yawn …", "it": "Cosa? Sbadiglio …" } },
+        { "who": "jakob", "de": "Der Lindwurm … der Stier … Zzz.", "sl": "Lindwurm … bik … Zzz.", "en": "The Lindwurm … the bull … Zzz.", "it": "Il Lindwurm … il toro … Zzz.", "act": { "jakob": { "pose": "sleep" } } }
+      ]
+    },
+    {
+      "id": "karte-schatz",
+      "memory": { "de": "die Schokolade, die wir als Schatz gefunden haben", "sl": "čokolado, ki sva jo {m:našla|f:našli} kot zaklad", "en": "the chocolate we found as treasure", "it": "il cioccolato che abbiamo trovato come tesoro" },
+      "lines": [
+        { "who": "lena", "face": "laugh", "de": "Ich habe den Schatz gefunden! Rate mal, was es ist!", "sl": "Našla sem zaklad! Ugani, kaj je!", "en": "I've found the treasure! Guess what it is!", "it": "Ho trovato il tesoro! Indovina cos'è!" },
+        { "choices": [
+          { "de": "Gold?", "sl": "Zlato?", "en": "Gold?", "it": "Oro?", "ok": true,
+            "reply": { "face": "proud", "de": "Nein! Viel besser: Schokolade!", "sl": "Ne! Veliko boljše: čokolada!", "en": "No! Much better: chocolate!", "it": "No! Molto meglio: cioccolato!" } },
+          { "de": "Ich weiß es nicht. Sag es mir!", "sl": "Ne vem. Povej mi!", "en": "I don't know. Tell me!", "it": "Non lo so. Dimmelo!", "ok": true,
+            "reply": { "face": "laugh", "de": "Schokolade! Florian hat sie versteckt.", "sl": "Čokolado! Florian jo je skril.", "en": "Chocolate! Florian hid it.", "it": "Cioccolato! L'ha nascosto Florian." } },
+          { "de": "Ein Elefant?", "sl": "Slon?", "en": "An elephant?", "it": "Un elefante?",
+            "why": { "de": "Ein Elefant passt nicht unter einen Stein.", "sl": "Slon ne gre pod kamen.", "en": "An elephant doesn't fit under a stone.", "it": "Un elefante non sta sotto un sasso." },
+            "reply": { "face": "laugh", "de": "Ein Elefant? Unter dem Stein? Hihi, der ist zu groß!", "sl": "Slon? Pod kamnom? Hihi, prevelik je!", "en": "An elephant? Under the stone? Hee hee, he's too big!", "it": "Un elefante? Sotto il sasso? Ih ih, è troppo grande!" } }
+        ] },
+        { "who": "lena", "face": "curious", "de": "Willst du auch was?", "sl": "Bi tudi ti kaj?", "en": "Do you want some too?", "it": "Ne vuoi un po' anche tu?" },
+        { "choices": [
+          { "de": "Ja, ich möchte ein Stück, bitte.", "sl": "Ja, {m:rad|f:rada} bi košček, prosim.", "en": "Yes, I'd like a piece, please.", "it": "Sì, ne vorrei un pezzo, per favore.", "ok": true,
+            "reply": { "face": "happy", "de": "Bitte schön! Eins für dich, eins für mich.", "sl": "Izvoli! Enega zate, enega zame.", "en": "Here you are! One for you, one for me.", "it": "Ecco! Uno per te, uno per me." } },
+          { "de": "Ja, ich möchte einen Stück, bitte.", "sl": "Ja, {m:rad|f:rada} bi košček, prosim.", "en": "Yes, I'd like a piece, please.", "it": "Sì, ne vorrei un pezzo, per favore.", "grammar": "akkusativ",
+            "why": { "de": "Stück ist neutral: das Stück, ein Stück. Einen gibt es nur bei der.", "sl": "Stück je srednjega spola: das Stück, ein Stück. Einen je samo pri der.", "en": "Stück is neuter: das Stück, ein Stück. Einen is only for der nouns.", "it": "Stück è neutro: das Stück, ein Stück. Einen è solo per i nomi con der." },
+            "reply": { "face": "laugh", "de": "Einen Stück? Hihi, Stück ist doch kein Er!", "sl": "Einen Stück? Hihi, košček vendar ni on!", "en": "Einen Stück? Hee hee, Stück isn't a he!", "it": "Einen Stück? Ih ih, Stück mica è un lui!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Wie bitte?", "sl": "Ha? Kako, prosim?", "en": "Huh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "lena", "face": "curious", "de": "Und eins für Florian. Teilen ist schön, oder?", "sl": "Pa enega za Floriana. Deliti je lepo, ne?", "en": "And one for Florian. Sharing is nice, isn't it?", "it": "E uno per Florian. Condividere è bello, vero?" },
+        { "choices": [
+          { "de": "Ja, teilen ist schön.", "sl": "Ja, deliti je lepo.", "en": "Yes, sharing is nice.", "it": "Sì, condividere è bello.", "ok": true,
+            "reply": { "face": "happy", "de": "Das sagt Oma auch immer.", "sl": "To pravi tudi oma.", "en": "Oma always says so too.", "it": "Lo dice sempre anche la nonna." } },
+          { "de": "Ja, teilen schön ist.", "sl": "Ja, deliti je lepo.", "en": "Yes, sharing nice is.", "it": "Sì, condividere è bello.", "grammar": "wortstellung",
+            "why": { "de": "Im Hauptsatz steht das Verb an zweiter Stelle: Teilen ist schön.", "sl": "V glavnem stavku je glagol na drugem mestu: Teilen ist schön.", "en": "In a main clause the verb comes second: Teilen ist schön.", "it": "Nella frase principale il verbo sta al secondo posto: Teilen ist schön." },
+            "reply": { "face": "laugh", "de": "Hihi, du redest wie ein Zwerg im Märchen!", "sl": "Hihi, govoriš kot palček v pravljici!", "en": "Hee hee, you talk like a dwarf in a fairy tale!", "it": "Ih ih, parli come un nano delle fiabe!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Wie bitte?", "sl": "Ha? Kako, prosim?", "en": "Huh? Sorry?", "it": "Eh? Come?" } }
+      ]
+    },
+    {
+      "id": "morgen-rucksack",
+      "memory": { "de": "den Rucksack, den wir für die Alm gepackt haben", "sl": "nahrbtnik, ki sva ga spakirala za planino", "en": "the backpack we packed for the Alm", "it": "lo zaino che abbiamo preparato per l'alpeggio" },
+      "lines": [
+        { "who": "florian", "face": "happy", "de": "Servus! Ich packe meinen Rucksack für die Alm. Was brauche ich? Hilf mir!", "sl": "Živjo! Pakiram nahrbtnik za planino. Kaj potrebujem? Pomagaj mi!", "en": "Hi! I'm packing my backpack for the Alm. What do I need? Help me!", "it": "Ciao! Preparo lo zaino per l'alpeggio. Cosa mi serve? Aiutami!" },
+        { "choices": [
+          { "de": "Du brauchst eine Jacke.", "sl": "Potrebuješ jakno.", "en": "You need a jacket.", "it": "Ti serve una giacca.", "ok": true,
+            "reply": { "face": "happy", "de": "Stimmt! Oben auf der Alm ist es kalt.", "sl": "Res je! Gori na planini je mrzlo.", "en": "True! It's cold up on the Alm.", "it": "Vero! Su all'alpeggio fa freddo." } },
+          { "de": "Du brauchst ein Seil.", "sl": "Potrebuješ vrv.", "en": "You need a rope.", "it": "Ti serve una corda.", "ok": true,
+            "reply": { "face": "proud", "de": "Gute Idee! Für die Schafe am Felsen.", "sl": "Dobra ideja! Za ovce na skali.", "en": "Good idea! For the sheep on the rocks.", "it": "Buona idea! Per le pecore sulle rocce." } },
+          { "de": "Du brauchst einen Kühlschrank.", "sl": "Potrebuješ hladilnik.", "en": "You need a fridge.", "it": "Ti serve un frigorifero.",
+            "why": { "de": "Einen Kühlschrank trägt man nicht auf die Alm!", "sl": "Hladilnika ne neseš na planino!", "en": "You don't carry a fridge up to the Alm!", "it": "Un frigorifero non si porta all'alpeggio!" },
+            "reply": { "face": "laugh", "de": "Einen Kühlschrank? Im Rucksack? He, der ist zu schwer!", "sl": "Hladilnik? V nahrbtniku? Hej, pretežak je!", "en": "A fridge? In my backpack? Hey, it's too heavy!", "it": "Un frigorifero? Nello zaino? Ehi, è troppo pesante!" } }
+        ] },
+        { "who": "florian", "face": "curious", "de": "Und mein Hut. Ohne Hut gehe ich nie auf die Alm. Wo ist er?", "sl": "Pa moj klobuk. Brez klobuka nikoli ne grem na planino. Kje je?", "en": "And my hat. I never go up to the Alm without my hat. Where is it?", "it": "E il mio cappello. Senza cappello non vado mai all'alpeggio. Dov'è?" },
+        { "choices": [
+          { "de": "Dein Hut hängt an der Stange.", "sl": "Tvoj klobuk visi na drogu.", "en": "Your hat is hanging on the pole.", "it": "Il tuo cappello è appeso al palo.", "ok": true,
+            "reply": { "face": "happy", "de": "Ah, da! Danke!", "sl": "A, tam je! Hvala!", "en": "Ah, there! Thanks!", "it": "Ah, eccolo! Grazie!" } },
+          { "de": "Dein Hut hängt an die Stange.", "sl": "Tvoj klobuk visi na drog.", "en": "Your hat is hanging onto the pole.", "it": "Il tuo cappello è appeso verso il palo.", "grammar": "wechselpraepositionen",
+            "why": { "de": "Wo? Ein Ort nimmt den Dativ: an der Stange.", "sl": "Kje? Kraj zahteva dajalnik: an der Stange.", "en": "Where? A place takes the dative: an der Stange.", "it": "Dove? Un luogo vuole il dativo: an der Stange." },
+            "reply": { "face": "confused", "de": "An die Stange? Er hängt doch schon dort! He?", "sl": "Na drog? Saj že visi tam! Hej?", "en": "Onto the pole? It's already hanging there! Eh?", "it": "Verso il palo? Ma è già appeso lì! Eh?" } }
+        ], "puzzled": { "face": "confused", "de": "He? Wie bitte?", "sl": "Hej? Kako, prosim?", "en": "Eh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "florian", "face": "laugh", "de": "Jetzt bin ich fertig. Flocke, Wolke, Bella: Auf geht's! Juhuu!", "sl": "Zdaj sem pripravljen. Flocke, Wolke, Bella: gremo! Juhuu!", "en": "Now I'm ready. Flocke, Wolke, Bella: off we go! Yoo-hoo!", "it": "Adesso sono pronto. Flocke, Wolke, Bella: si parte! Iuhuu!" }
+      ]
+    }
+  ]
+}

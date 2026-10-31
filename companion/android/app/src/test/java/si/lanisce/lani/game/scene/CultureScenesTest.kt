@@ -107,7 +107,8 @@ class CultureScenesTest {
             // Kathi and Maxi's attic (Maxi woken for school, the old cradle, the storm at night, the Kletzen, his ball),
             // Müller Franz and Jakob's workshop of larch logs (the nails, the saw, the wooden Noriker, the shingles, the broom),
             // Schmied Toni's smithy (a horseshoe for a Noriker, Maxi at the bellows, Stefan's wheel, der-die-das, an order),
-            // Lehrerin Eva's classroom (the roll call, der-die-das and the umlauts, the map of Kärnten, Lena, Jakob, Maxi at break)
+            // Lehrerin Eva's classroom (the roll call, der-die-das and the umlauts, the map of Kärnten, Lena, Jakob, Maxi at break),
+            // the tent at the camp (Florian's lantern, a summer storm, Jakob's bedtime story, Lena's treasure map, off to the Alm)
             listOf("kaernten", "in-der-kueche", "kitchen", "hut,house"),
             listOf("kaernten", "in-der-stube", "livingroom", "house"),
             listOf("kaernten", "im-keller", "cellar", "house"),
@@ -115,6 +116,7 @@ class CultureScenesTest {
             listOf("kaernten", "in-der-werkstatt", "workshop", "house"),
             listOf("kaernten", "in-der-schmiede", "smithy", "smithy"),
             listOf("kaernten", "in-der-schule", "school", "school"),
+            listOf("kaernten", "im-zelt", "tent", "tent"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             // Kärnten (places-kaernten, outdoors): Müller Franz's field below the Dobratsch with the Harpfe, the square under the
             // linden, the market, Imker Stanko's bee house, the church, the palisade's gate and the view from the watchtower

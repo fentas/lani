@@ -1,0 +1,586 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "im-zelt",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl, en and it translations, from Kärnten's tent (Austria's pennant on the front post, the slanted grey Schragenzaun along the meadow; the rest as the default tent draws it); not reviewed by a native speaker",
+  "things": {
+    "lantern": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist schwarz.",
+          "sl": "Je črna.",
+          "en": "It's black.",
+          "it": "È nera.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hängt an einer Kette.",
+          "sl": "Visi na verigi.",
+          "en": "It hangs on a chain.",
+          "it": "È appesa a una catena.",
+          "grammar": [
+            "sein-haben",
+            "akkusativ"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Sie hängt über dem Tisch.",
+          "sl": "Visi nad mizo.",
+          "en": "It hangs above the table.",
+          "it": "È appesa sopra il tavolo.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "does",
+          "de": "Am Abend leuchtet sie.",
+          "sl": "Zvečer sveti.",
+          "en": "It shines in the evening.",
+          "it": "La sera fa luce.",
+          "grammar": [
+            "praesens",
+            "wortstellung"
+          ]
+        }
+      ]
+    },
+    "sleepingbag": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist grün.",
+          "sl": "Je zelena.",
+          "en": "It's green.",
+          "it": "È verde.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat einen Reißverschluss.",
+          "sl": "Ima zadrgo.",
+          "en": "It has a zip.",
+          "it": "Ha una cerniera.",
+          "grammar": [
+            "sein-haben",
+            "akkusativ"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Er liegt auf dem Bett.",
+          "sl": "Leži na postelji.",
+          "en": "It's lying on the bed.",
+          "it": "È sul letto.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Darin schlafen wir warm.",
+          "sl": "V njej toplo spimo.",
+          "en": "We sleep warm in it.",
+          "it": "Ci dormiamo al caldo.",
+          "grammar": [
+            "praesens",
+            "wortstellung"
+          ]
+        }
+      ]
+    },
+    "blanket": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist rot.",
+          "sl": "Je rdeča.",
+          "en": "It's red.",
+          "it": "È rossa.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "material",
+          "de": "Sie ist aus Wolle.",
+          "sl": "Je iz volne.",
+          "en": "It's made of wool.",
+          "it": "È di lana.",
+          "grammar": [
+            "sein-haben"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Sie liegt auf dem Bett.",
+          "sl": "Leži na postelji.",
+          "en": "It's lying on the bed.",
+          "it": "È sul letto.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Wenn es kalt ist, nehmen wir sie.",
+          "sl": "Ko je mrzlo, jo vzamemo.",
+          "en": "When it's cold, we take it.",
+          "it": "Quando fa freddo la prendiamo.",
+          "grammar": [
+            "praesens",
+            "wortstellung"
+          ]
+        }
+      ]
+    },
+    "pillow": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist weiß.",
+          "sl": "Je bela.",
+          "en": "It's white.",
+          "it": "È bianco.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "trait",
+          "de": "Er ist weich.",
+          "sl": "Je mehka.",
+          "en": "It's soft.",
+          "it": "È morbido.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Er liegt auf dem Bett.",
+          "sl": "Leži na postelji.",
+          "en": "It's lying on the bed.",
+          "it": "È sul letto.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Darauf liegt in der Nacht der Kopf.",
+          "sl": "Ponoči je na njej glava.",
+          "en": "Your head lies on it at night.",
+          "it": "Di notte ci si appoggia la testa.",
+          "grammar": [
+            "praesens",
+            "wortstellung"
+          ]
+        }
+      ]
+    },
+    "backpack": {
+      "clues": [
+        {
+          "kind": "trait",
+          "de": "Er hat eine Tasche vorne.",
+          "sl": "Spredaj ima žep.",
+          "en": "It has a pocket at the front.",
+          "it": "Ha una tasca davanti.",
+          "grammar": [
+            "sein-haben",
+            "akkusativ"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Er steht neben der Jacke.",
+          "sl": "Stoji zraven jakne.",
+          "en": "It stands next to the jacket.",
+          "it": "È vicino alla giacca.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ],
+          "ref": "coat"
+        },
+        {
+          "kind": "does",
+          "de": "Er steht auf dem Boden.",
+          "sl": "Stoji na tleh.",
+          "en": "It stands on the floor.",
+          "it": "È per terra.",
+          "grammar": [
+            "praesens",
+            "wortstellung"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Darin tragen wir Sachen für den Ausflug.",
+          "sl": "V njem nosimo stvari za izlet.",
+          "en": "We carry things for a trip in it.",
+          "it": "Ci portiamo le cose per la gita.",
+          "grammar": [
+            "praesens",
+            "plural"
+          ]
+        }
+      ]
+    },
+    "map": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist grün und blau.",
+          "sl": "Je zelen in moder.",
+          "en": "It's green and blue.",
+          "it": "È verde e blu.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Sie hängt über dem Bett.",
+          "sl": "Visi nad posteljo.",
+          "en": "It hangs above the bed.",
+          "it": "È appesa sopra il letto.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "trait",
+          "de": "Darauf sieht man einen Weg.",
+          "sl": "Na njem se vidi pot.",
+          "en": "You can see a path on it.",
+          "it": "Ci si vede un sentiero.",
+          "grammar": [
+            "praesens",
+            "akkusativ"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Damit finden wir einen Schatz.",
+          "sl": "Z njim najdemo zaklad.",
+          "en": "We find a treasure with it.",
+          "it": "Con lei troviamo un tesoro.",
+          "grammar": [
+            "praesens",
+            "akkusativ"
+          ]
+        }
+      ]
+    },
+    "boots": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist braun.",
+          "sl": "So rjavi.",
+          "en": "It's brown.",
+          "it": "Sono marroni.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "material",
+          "de": "Er ist aus Leder.",
+          "sl": "So iz usnja.",
+          "en": "It's made of leather.",
+          "it": "Sono di cuoio.",
+          "grammar": [
+            "sein-haben"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Er steht auf dem Boden.",
+          "sl": "Stojijo na tleh.",
+          "en": "It stands on the floor.",
+          "it": "Sono per terra.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Damit gehen wir auf die Alm.",
+          "sl": "Z njimi gremo na planino.",
+          "en": "We go up to the Alm in it.",
+          "it": "Ci andiamo all'alpeggio.",
+          "grammar": [
+            "praesens",
+            "wortstellung"
+          ]
+        }
+      ]
+    },
+    "coat": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist blau.",
+          "sl": "Je modra.",
+          "en": "It's blue.",
+          "it": "È blu.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hat gelbe Knöpfe.",
+          "sl": "Ima rumene gumbe.",
+          "en": "It has yellow buttons.",
+          "it": "Ha i bottoni gialli.",
+          "grammar": [
+            "sein-haben",
+            "plural"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Sie hängt unter dem Hut.",
+          "sl": "Visi pod klobukom.",
+          "en": "It hangs under the hat.",
+          "it": "È appesa sotto il cappello.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ],
+          "ref": "hat"
+        },
+        {
+          "kind": "use",
+          "de": "Wenn es kalt ist, ziehen wir sie an.",
+          "sl": "Ko je mrzlo, jo oblečemo.",
+          "en": "When it's cold, we put it on.",
+          "it": "Quando fa freddo la mettiamo.",
+          "grammar": [
+            "praesens",
+            "akkusativ"
+          ]
+        }
+      ]
+    },
+    "hat": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist braun.",
+          "sl": "Je rjav.",
+          "en": "It's brown.",
+          "it": "È marrone.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat eine Feder.",
+          "sl": "Ima pero.",
+          "en": "It has a feather.",
+          "it": "Ha una piuma.",
+          "grammar": [
+            "sein-haben",
+            "akkusativ"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Er ist über der Jacke.",
+          "sl": "Je nad jakno.",
+          "en": "It's above the jacket.",
+          "it": "È sopra la giacca.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ],
+          "ref": "coat"
+        },
+        {
+          "kind": "use",
+          "de": "Wir tragen ihn auf dem Kopf.",
+          "sl": "Nosimo ga na glavi.",
+          "en": "We wear it on our head.",
+          "it": "Lo portiamo in testa.",
+          "grammar": [
+            "praesens",
+            "akkusativ"
+          ]
+        }
+      ]
+    },
+    "book": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Es hat einen roten Umschlag.",
+          "sl": "Ima rdeče platnice.",
+          "en": "It has a red cover.",
+          "it": "Ha la copertina rossa.",
+          "grammar": [
+            "sein-haben",
+            "akkusativ"
+          ]
+        },
+        {
+          "kind": "trait",
+          "de": "Es ist offen.",
+          "sl": "Je odprta.",
+          "en": "It's open.",
+          "it": "È aperto.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Es liegt auf dem Tisch.",
+          "sl": "Leži na mizi.",
+          "en": "It's lying on the table.",
+          "it": "È sul tavolo.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Am Abend lesen wir es.",
+          "sl": "Zvečer jo beremo.",
+          "en": "We read it in the evening.",
+          "it": "La sera lo leggiamo.",
+          "grammar": [
+            "praesens",
+            "akkusativ"
+          ]
+        }
+      ]
+    },
+    "cup": {
+      "clues": [
+        {
+          "kind": "size",
+          "de": "Es ist klein.",
+          "sl": "Je majhna.",
+          "en": "It's small.",
+          "it": "È piccola.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "trait",
+          "de": "Es hat einen Henkel.",
+          "sl": "Ima ročaj.",
+          "en": "It has a handle.",
+          "it": "Ha un manico.",
+          "grammar": [
+            "sein-haben",
+            "akkusativ"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Es steht auf dem Tisch.",
+          "sl": "Stoji na mizi.",
+          "en": "It stands on the table.",
+          "it": "È sul tavolo.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Daraus trinken wir Tee.",
+          "sl": "Iz nje pijemo čaj.",
+          "en": "We drink tea out of it.",
+          "it": "Ci beviamo il tè.",
+          "grammar": [
+            "praesens",
+            "wortstellung"
+          ]
+        }
+      ]
+    },
+    "rope": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Es ist hellbraun.",
+          "sl": "Je svetlo rjava.",
+          "en": "It's light brown.",
+          "it": "È marrone chiaro.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "size",
+          "de": "Es ist lang.",
+          "sl": "Je dolga.",
+          "en": "It's long.",
+          "it": "È lunga.",
+          "grammar": [
+            "sein-haben",
+            "artikel-genus"
+          ]
+        },
+        {
+          "kind": "where",
+          "de": "Es liegt draußen auf dem Boden.",
+          "sl": "Leži zunaj na tleh.",
+          "en": "It's lying outside on the ground.",
+          "it": "È fuori per terra.",
+          "grammar": [
+            "wechselpraepositionen",
+            "dativ"
+          ]
+        },
+        {
+          "kind": "use",
+          "de": "Damit binden wir das Zelt fest.",
+          "sl": "Z njo privežemo šotor.",
+          "en": "We tie the tent down with it.",
+          "it": "Ci leghiamo la tenda.",
+          "grammar": [
+            "praesens",
+            "akkusativ"
+          ]
+        }
+      ]
+    }
+  }
+}
