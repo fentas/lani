@@ -77,17 +77,17 @@
         ] },
         { "who": "arthur", "face": "curious", "en": "Shh… Listen. Can you hear them? The bees hear everything, you know.", "sl": "Pst … Poslušaj. Jih slišiš? Čebele slišijo vse, veš.", "it": "Sss… Ascolta. Le senti? Le api sentono tutto, sai.", "de": "Pst … Hör mal. Hörst du sie? Die Bienen hören alles, weißt du.", "fx": { "smoke": 1 } },
         { "choices": [
-          { "en": "Yes, I can. They're buzzing.", "sl": "Ja, slišim jih. Brenčijo.", "it": "Sì, le sento. Ronzano.", "de": "Ja, ich höre sie. Sie summen.", "ok": true,
+          { "en": "Yes, I can hear them. They're buzzing.", "sl": "Ja, slišim jih. Brenčijo.", "it": "Sì, le sento. Ronzano.", "de": "Ja, ich höre sie. Sie summen.", "ok": true,
             "reply": { "face": "happy", "en": "That's a happy buzz. A busy one.", "sl": "To je veselo brenčanje. Pridno.", "it": "È un ronzio felice. Un ronzio indaffarato.", "de": "Das ist ein fröhliches Summen. Ein fleißiges." } },
-          { "en": "Yes, I can to hear them.", "sl": "Ja, slišim jih.", "it": "Sì, le sento.", "de": "Ja, ich höre sie.", "grammar": "can",
+          { "en": "Yes, I can to hear them. They're buzzing.", "sl": "Ja, slišim jih. Brenčijo.", "it": "Sì, le sento. Ronzano.", "de": "Ja, ich höre sie. Sie summen.", "grammar": "can",
             "why": { "en": "After can, no to: I can hear them. Or short: Yes, I can.", "sl": "Za can ni to: I can hear them. Ali na kratko: Yes, I can.", "it": "Dopo can niente to: I can hear them. O in breve: Yes, I can.", "de": "Nach can kein to: I can hear them. Oder kurz: Yes, I can." },
             "reply": { "face": "laugh", "en": "Can to hear? Too many words. The bees like it short.", "sl": "Can to hear? Preveč besed. Čebele imajo rade na kratko.", "it": "Can to hear? Troppe parole. Alle api piace corto.", "de": "Can to hear? Zu viele Wörter. Die Bienen mögen es kurz." } }
-        ], "puzzled": { "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
+        ], "puzzled": { "face": "confused", "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
         { "who": "arthur", "face": "proud", "en": "Look at the honeycomb. Full! Would you like to taste it?", "sl": "Poglej satje. Polno je! Bi {m:poskusil|f:poskusila}?", "it": "Guarda il favo. È pieno! Vuoi assaggiarlo?", "de": "Schau dir die Wabe an. Voll! Möchtest du probieren?", "fx": { "smoke": 0.3 } },
         { "choices": [
           { "en": "Yes, please! Just a little.", "sl": "Ja, prosim! Samo malo.", "it": "Sì, grazie! Solo un po'.", "de": "Ja, bitte! Nur ein bisschen.", "ok": true,
             "reply": { "face": "happy", "en": "Heather honey from last summer. Dark and sweet, like the fells.", "sl": "Med iz vresja od lanskega poletja. Temen in sladek, kot hribi.", "it": "Miele d'erica dell'estate scorsa. Scuro e dolce, come i monti.", "de": "Heidehonig vom letzten Sommer. Dunkel und süß, wie die Berge." } },
-          { "en": "Yes, please! Just a few.", "sl": "Ja, prosim! Samo nekaj.", "it": "Sì, grazie! Solo qualcuno.", "de": "Ja, bitte! Nur ein paar.",
+          { "en": "Yes, please! Just a few.", "sl": "Ja, prosim! Samo nekaj.", "it": "Sì, grazie! Solo qualcuno.", "de": "Ja, bitte! Nur ein paar.", "grammar": "some-any",
             "why": { "en": "Honey can't be counted: a little honey. A few is for things you count: a few bees.", "sl": "Medu ne štejemo: a little honey. A few je za stvari, ki jih štejemo: a few bees.", "it": "Il miele non si conta: a little honey. A few è per le cose che si contano: a few bees.", "de": "Honig zählt man nicht: a little honey. A few ist für Dinge, die man zählt: a few bees." },
             "reply": { "face": "laugh", "en": "A few? A few what? A few bees? No, thank you!", "sl": "Nekaj? Nekaj česa? Nekaj čebel? Ne, hvala!", "it": "Qualcuno? Qualcuno cosa? Qualche ape? No, grazie!", "de": "Ein paar? Ein paar was? Ein paar Bienen? Nein, danke!" } }
         ] },
@@ -104,7 +104,7 @@
           { "en": "Wow! Is they dangerous?", "sl": "Uau! So nevarne?", "it": "Wow! Sono pericolose?", "de": "Wow! Sind die gefährlich?", "grammar": "to-be",
             "why": { "en": "They goes with are: Are they …?", "sl": "They gre z are: Are they …?", "it": "They va con are: Are they …?", "de": "They geht mit are: Are they …?" },
             "reply": { "face": "laugh", "en": "Is they? All of them, {m:son|f:lass}! Ten thousand!", "sl": "Is they? Vse, kar jih je! Deset tisoč!", "it": "Is they? Tutte quante, {m:figliolo|f:figliola}! Diecimila!", "de": "Is they? Alle, {m:mein Junge|f:mein Mädchen}! Zehntausend!" } }
-        ], "puzzled": { "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
         { "who": "wilf", "face": "worried", "en": "Somebody tell Arthur! He can put them in an empty hive.", "sl": "Naj kdo pove Arthurju! Lahko jih da v prazen panj.", "it": "Qualcuno lo dica ad Arthur! Può metterle in un'arnia vuota.", "de": "Sag jemand Arthur Bescheid! Er kann sie in einen leeren Stock tun." },
         { "choices": [
           { "en": "I'll go and tell him!", "sl": "Grem mu povedat!", "it": "Vado a dirglielo!", "de": "Ich sag's ihm!", "ok": true,
@@ -128,7 +128,7 @@
           { "en": "Mmm! Can I has some too?", "sl": "Mmm! Lahko dobim tudi jaz malo?", "it": "Mmm! Posso averne un po' anch'io?", "de": "Mmm! Kann ich auch etwas haben?", "grammar": "can",
             "why": { "en": "After can, the verb stays as it is: Can I have …?", "sl": "Za can ostane glagol v osnovni obliki: Can I have …?", "it": "Dopo can il verbo resta nella forma base: Can I have …?", "de": "Nach can bleibt das Verb in der Grundform: Can I have …?" },
             "reply": { "face": "laugh", "en": "Can I has? Oh dear. Say it again, nicely!", "sl": "Can I has? Ojoj. Povej še enkrat, lepo!", "it": "Can I has? Oh, cielo. Ridillo, per bene!", "de": "Can I has? Oje. Sag's noch mal, schön!" } }
-        ], "puzzled": { "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
+        ], "puzzled": { "face": "confused", "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
         { "who": "poppy", "face": "curious", "en": "Can you read Arthur's sign? I can! What does it say?", "sl": "Znaš prebrati Arthurjev napis? Jaz znam! Kaj piše?", "it": "Sai leggere il cartello di Arthur? Io sì! Cosa c'è scritto?", "de": "Kannst du Arthurs Schild lesen? Ich schon! Was steht drauf?" },
         { "choices": [
           { "en": "It says HONEY.", "sl": "Piše HONEY (med).", "it": "C'è scritto HONEY (miele).", "de": "Da steht HONEY (Honig).", "ok": true,
@@ -136,7 +136,7 @@
           { "en": "It say HONEY.", "sl": "Piše HONEY (med).", "it": "C'è scritto HONEY (miele).", "de": "Da steht HONEY (Honig).", "grammar": "present-simple",
             "why": { "en": "With it, the verb takes -s: it says.", "sl": "Pri it dobi glagol -s: it says.", "it": "Con it il verbo prende la -s: it says.", "de": "Bei it bekommt das Verb ein -s: it says." },
             "reply": { "face": "laugh", "en": "It say? Ooh, that's a mistake. Try again!", "sl": "It say? Uh, to je napaka. Poskusi še enkrat!", "it": "It say? Uh, questo è un errore. Riprova!", "de": "It say? Oh, das ist ein Fehler. Versuch's noch mal!" } }
-        ], "puzzled": { "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
+        ], "puzzled": { "face": "confused", "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
         { "who": "poppy", "face": "curious", "en": "Why do bees make honey, {learner}? For us?", "sl": "Zakaj čebele delajo med, {learner}? Za nas?", "it": "Perché le api fanno il miele, {learner}? Per noi?", "de": "Warum machen Bienen Honig, {learner}? Für uns?" },
         { "choices": [
           { "en": "No, it's their food for the winter.", "sl": "Ne, to je njihova hrana za zimo.", "it": "No, è il loro cibo per l'inverno.", "de": "Nein, das ist ihr Essen für den Winter.", "ok": true,
@@ -150,6 +150,7 @@
     },
     {
       "id": "evening",
+      "months": [3, 4, 5, 6, 7],
       "lines": [
         { "who": "arthur", "face": "happy", "en": "Good evening, {learner}. Come and listen to the hives with me.", "sl": "Dober večer, {learner}. Pridi z mano poslušat panje.", "it": "Buonasera, {learner}. Vieni ad ascoltare le arnie con me.", "de": "Guten Abend, {learner}. Komm, hör mit mir den Bienenstöcken zu." },
         { "choices": [
@@ -168,7 +169,7 @@
           { "en": "What beautiful sound!", "sl": "Kako lep zvok!", "it": "Che bel suono!", "de": "Was für ein schöner Klang!", "grammar": "articles",
             "why": { "en": "One sound: a sound. What a beautiful sound!", "sl": "En zvok: a sound. What a beautiful sound!", "it": "Un suono solo: a sound. What a beautiful sound!", "de": "Ein Klang: a sound. What a beautiful sound!" },
             "reply": { "face": "curious", "en": "Hm? One small word flew off, I think.", "sl": "Hm? Ena besedica je odletela, se mi zdi.", "it": "Mh? Una parolina è volata via, credo.", "de": "Hm? Ein kleines Wort ist weggeflogen, glaub ich." } }
-        ], "puzzled": { "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
+        ], "puzzled": { "face": "confused", "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
         { "who": "arthur", "face": "happy", "en": "Good night, bees. Good night, {learner}. Sleep gently.", "sl": "Lahko noč, čebele. Lahko noč, {learner}. Lepo spi.", "it": "Buonanotte, api. Buonanotte, {learner}. Dormi {m:tranquillo|f:tranquilla}.", "de": "Gute Nacht, Bienen. Gute Nacht, {learner}. Schlaf sanft." }
       ]
     },
@@ -182,15 +183,15 @@
           { "en": "Mmm, it smell sweet.", "sl": "Mmm, sladko diši.", "it": "Mmm, ha un profumo dolce.", "de": "Mmm, das riecht süß.", "grammar": "present-simple",
             "why": { "en": "With it, the verb takes -s: it smells.", "sl": "Pri it dobi glagol -s: it smells.", "it": "Con it il verbo prende la -s: it smells.", "de": "Bei it bekommt das Verb ein -s: it smells." },
             "reply": { "face": "curious", "en": "It smell? Eh? The bees are too loud, {m:son|f:lass}.", "sl": "It smell? Kaj? Čebele so preglasne.", "it": "It smell? Eh? Le api fanno troppo rumore, {m:figliolo|f:figliola}.", "de": "It smell? Hm? Die Bienen sind zu laut, {m:mein Junge|f:mein Mädchen}." } }
-        ], "puzzled": { "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
-        { "who": "wilf", "face": "curious", "en": "Listen. Thousands of bees up there, in the flowers.", "sl": "Poslušaj. Na tisoče čebel je tam gori, v cvetovih.", "it": "Ascolta. Migliaia di api lassù, tra i fiori.", "de": "Hör mal. Tausende Bienen da oben, in den Blüten." },
+        ], "puzzled": { "face": "confused", "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
+        { "who": "wilf", "face": "happy", "en": "Listen. Thousands of bees up there, in the flowers.", "sl": "Poslušaj. Na tisoče čebel je tam gori, v cvetovih.", "it": "Ascolta. Migliaia di api lassù, tra i fiori.", "de": "Hör mal. Tausende Bienen da oben, in den Blüten." },
         { "choices": [
           { "en": "I can hear them! It's like music.", "sl": "Slišim jih! Kot glasba je.", "it": "Le sento! È come una musica.", "de": "Ich höre sie! Wie Musik.", "ok": true,
-            "reply": { "face": "proud", "en": "Aye. Wordsworth never wrote about bees. A shame.", "sl": "Ja. Wordsworth ni nikoli pisal o čebelah. Škoda.", "it": "Già. Wordsworth non ha mai scritto delle api. Peccato.", "de": "Ja. Wordsworth hat nie über Bienen geschrieben. Schade." } },
+            "reply": { "face": "happy", "en": "Aye. Bee music. The best music in the dale!", "sl": "Ja. Čebelja glasba. Najlepša glasba v dolini!", "it": "Già. La musica delle api. La più bella della valle!", "de": "Ja. Bienenmusik. Die schönste Musik im Tal!" } },
           { "en": "I can hearing them! It's like music.", "sl": "Slišim jih! Kot glasba je.", "it": "Le sento! È come una musica.", "de": "Ich höre sie! Wie Musik.", "grammar": "can",
             "why": { "en": "After can, the verb stays as it is: I can hear.", "sl": "Za can ostane glagol v osnovni obliki: I can hear.", "it": "Dopo can il verbo resta nella forma base: I can hear.", "de": "Nach can bleibt das Verb in der Grundform: I can hear." },
             "reply": { "face": "laugh", "en": "Hearing? Eh, my old ears are worse than yours!", "sl": "Hearing? Eh, moja stara ušesa so slabša od tvojih!", "it": "Hearing? Eh, le mie vecchie orecchie sono peggio delle tue!", "de": "Hearing? Ach, meine alten Ohren sind schlechter als deine!" } }
-        ], "puzzled": { "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
         { "who": "wilf", "face": "happy", "en": "Sit with me a while. Slow and steady, like the bees on a warm day.", "sl": "Posedi malo z mano. Počasi in vztrajno, kot čebele na topel dan.", "it": "Siediti un po' con me. Piano e con calma, come le api in una giornata calda.", "de": "Setz dich ein Weilchen zu mir. Langsam und stetig, wie die Bienen an einem warmen Tag." }
       ]
     }
@@ -208,7 +209,7 @@
           { "en": "Why does the bees go up there?", "sl": "Zakaj gredo čebele tja gor?", "it": "Perché le api vanno lassù?", "de": "Warum gehen die Bienen da hinauf?", "grammar": "questions-do",
             "why": { "en": "Bees are more than one: do. Does is for he, she and it.", "sl": "Čebel je več: do. Does je za he, she in it.", "it": "Le api sono tante: do. Does è per he, she e it.", "de": "Bienen sind mehrere: do. Does ist für he, she und it." },
             "reply": { "face": "laugh", "en": "Does the bees? All of them, friend. Thousands!", "sl": "Does the bees? Vse, {m:prijatelj|f:prijateljica}. Na tisoče!", "it": "Does the bees? Tutte, {m:amico mio|f:amica mia}. A migliaia!", "de": "Does the bees? Alle, {m:mein Freund|f:meine Freundin}. Tausende!" } }
-        ], "puzzled": { "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
+        ], "puzzled": { "face": "confused", "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
         { "who": "arthur", "en": "A little smoke, and then we close the hives for the journey. Gently now.", "sl": "Malo dima, potem pa zapreva panje za pot. Nežno.", "it": "Un po' di fumo, e poi chiudiamo le arnie per il viaggio. Piano, adesso.", "de": "Ein bisschen Rauch, und dann machen wir die Stöcke für die Reise zu. Ganz sanft.", "fx": { "smoke": 0.5 } },
         { "choices": [
           { "en": "Can I come with you?", "sl": "Lahko grem s tabo?", "it": "Posso venire con te?", "de": "Kann ich mitkommen?", "ok": true,
@@ -234,7 +235,7 @@
           { "en": "Ouch! A bee stinged me!", "sl": "Av! Čebela me je pičila!", "it": "Ahi! Un'ape mi ha punto!", "de": "Au! Eine Biene hat mich gestochen!", "grammar": "past-simple",
             "why": { "en": "Sting is irregular: sting, stung. A bee stung me.", "sl": "Sting je nepravilen glagol: sting, stung. A bee stung me.", "it": "Sting è irregolare: sting, stung. A bee stung me.", "de": "Sting ist unregelmäßig: sting, stung. A bee stung me." },
             "reply": { "face": "surprised", "en": "Stinged? Ouch is enough, friend. Show me.", "sl": "Stinged? Av je dovolj, {m:prijatelj|f:prijateljica}. Pokaži.", "it": "Stinged? Basta un ahi, {m:amico mio|f:amica mia}. Fammi vedere.", "de": "Stinged? Au reicht, {m:mein Freund|f:meine Freundin}. Zeig mal." } }
-        ], "puzzled": { "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
+        ], "puzzled": { "face": "confused", "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
         { "who": "arthur", "en": "There. The sting is out. A bit of cold water, and it's fine.", "sl": "Tako. Žela ni več. Malo hladne vode in bo v redu.", "it": "Ecco. Il pungiglione è fuori. Un po' d'acqua fredda e passa.", "de": "So. Der Stachel ist raus. Ein bisschen kaltes Wasser, und es ist gut." },
         { "choices": [
           { "en": "Thank you, Arthur. It hurts a little.", "sl": "Hvala, Arthur. Malo boli.", "it": "Grazie, Arthur. Fa un po' male.", "de": "Danke, Arthur. Es tut ein bisschen weh.", "ok": true,
@@ -251,7 +252,7 @@
             "reply": { "face": "happy", "en": "Then they'll like you. The bees and me.", "sl": "Potem te bodo imele rade. Čebele in jaz.", "it": "Allora ti vorranno bene. Le api e io.", "de": "Dann mögen sie dich. Die Bienen und ich." } },
           { "en": "I understand. I'll be very quite.", "sl": "Razumem. Zelo tiho bom.", "it": "Capisco. Farò pianissimo.", "de": "Verstehe. Ich bin ganz leise.",
             "why": { "en": "Quiet means with no noise. Quite means fairly.", "sl": "Quiet pomeni tiho. Quite pomeni precej.", "it": "Quiet vuol dire silenzioso. Quite vuol dire piuttosto.", "de": "Quiet heißt leise. Quite heißt ziemlich." },
-            "reply": { "face": "laugh", "en": "Quite what? Quite loud? Shh, friend!", "sl": "Precej kaj? Precej glasen? Pst!", "it": "Piuttosto cosa? Piuttosto rumoroso? Sss!", "de": "Ziemlich was? Ziemlich laut? Pst!" } }
+            "reply": { "face": "laugh", "en": "Quite what? Quite loud? Shh, friend!", "sl": "Precej kaj? Precej {m:glasen|f:glasna}? Pst!", "it": "Piuttosto cosa? Piuttosto {m:rumoroso|f:rumorosa}? Sss!", "de": "Ziemlich was? Ziemlich laut? Pst!" } }
         ] }
       ]
     },
@@ -277,7 +278,7 @@
           { "en": "I'm not move. I'm a statue!", "sl": "Ne premikam se. Kip sem!", "it": "Non mi muovo. Sono una statua!", "de": "Ich beweg mich nicht. Ich bin eine Statue!", "grammar": "present-continuous",
             "why": { "en": "Now, going on: am + -ing. I'm not moving.", "sl": "Zdaj, v teku: am + -ing. I'm not moving.", "it": "Adesso, in corso: am + -ing. I'm not moving.", "de": "Gerade jetzt: am + -ing. I'm not moving." },
             "reply": { "face": "laugh", "en": "Not move? Good. Now not talk, either!", "sl": "Not move? Dobro. Zdaj pa še ne govori!", "it": "Not move? Bene. Adesso non parlare neanche!", "de": "Not move? Gut. Jetzt auch nicht reden!" } }
-        ], "puzzled": { "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
         { "who": "wilf", "face": "proud", "en": "All in. Thousands of bees in one box. Arthur says thank you!", "sl": "Vse so notri. Na tisoče čebel v enem panju. Arthur se zahvaljuje!", "it": "Tutte dentro. Migliaia di api in una cassetta. Arthur ringrazia!", "de": "Alle drin. Tausende Bienen in einem Kasten. Arthur sagt danke!", "fx": { "swarm": 0 } }
       ]
     },
@@ -293,7 +294,7 @@
           { "en": "Can I turns it too?", "sl": "Lahko tudi jaz vrtim?", "it": "Posso girarla anch'io?", "de": "Darf ich auch drehen?", "grammar": "can",
             "why": { "en": "After can, the verb has no -s: Can I turn …?", "sl": "Za can glagol nima -s: Can I turn …?", "it": "Dopo can il verbo non prende la -s: Can I turn …?", "de": "Nach can hat das Verb kein -s: Can I turn …?" },
             "reply": { "face": "laugh", "en": "Turns? You sound like a baby bee, {learner}!", "sl": "Turns? Slišiš se kot čebelji dojenček, {learner}!", "it": "Turns? Sembri un'ape bambina, {learner}!", "de": "Turns? Du klingst wie ein Bienenbaby, {learner}!" } }
-        ], "puzzled": { "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
+        ], "puzzled": { "face": "confused", "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
         { "who": "poppy", "face": "curious", "en": "Arthur's honey is dark. Why is it so dark?", "sl": "Arthurjev med je temen. Zakaj je tako temen?", "it": "Il miele di Arthur è scuro. Perché è così scuro?", "de": "Arthurs Honig ist dunkel. Warum ist er so dunkel?" },
         { "choices": [
           { "en": "It's from the heather on the fells.", "sl": "Iz vresja na hribih je.", "it": "Viene dall'erica sui monti.", "de": "Er ist vom Heidekraut auf den Bergen.", "ok": true,
@@ -301,15 +302,15 @@
           { "en": "It's from the heather in the fells.", "sl": "Iz vresja v hribih je.", "it": "Viene dall'erica dentro i monti.", "de": "Er ist vom Heidekraut in den Bergen.", "grammar": "prepositions-place",
             "why": { "en": "On a hill or a mountain: on the fells. In is inside.", "sl": "Na hribu ali gori: on the fells. In pomeni znotraj.", "it": "Su una collina o un monte: on the fells. In vuol dire dentro.", "de": "Auf einem Hügel oder Berg: on the fells. In heißt drinnen." },
             "reply": { "face": "laugh", "en": "In the fells? Inside the mountains? Ha ha!", "sl": "In the fells? Znotraj gora? Ha ha!", "it": "In the fells? Dentro le montagne? Ah ah!", "de": "In the fells? In den Bergen drin? Haha!" } }
-        ], "puzzled": { "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
+        ], "puzzled": { "face": "confused", "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
         { "who": "poppy", "face": "proud", "en": "Now I write the labels: HEATHER HONEY. I've got the best writing in the village!", "sl": "Zdaj napišem nalepke: HEATHER HONEY. Najlepšo pisavo v vasi imam!", "it": "Adesso scrivo le etichette: HEATHER HONEY. Ho la scrittura più bella del paese!", "de": "Jetzt schreibe ich die Etiketten: HEATHER HONEY. Ich hab die schönste Schrift im Dorf!", "fx": { "honey": 0.8 } },
         { "choices": [
           { "en": "Your writing is beautiful, Poppy.", "sl": "Lepo pišeš, Poppy.", "it": "Hai una bella scrittura, Poppy.", "de": "Deine Schrift ist schön, Poppy.", "ok": true,
             "reply": { "face": "shy", "en": "Thank you! I practise every day.", "sl": "Hvala! Vsak dan vadim.", "it": "Grazie! Mi esercito tutti i giorni.", "de": "Danke! Ich übe jeden Tag." } },
           { "en": "Your writing are beautiful, Poppy.", "sl": "Lepo pišeš, Poppy.", "it": "Hai una bella scrittura, Poppy.", "de": "Deine Schrift ist schön, Poppy.", "grammar": "to-be",
             "why": { "en": "Writing is one thing: is. Are is for more than one.", "sl": "Writing je ena stvar: is. Are je za več stvari.", "it": "Writing è una cosa sola: is. Are è per più cose.", "de": "Writing ist eine Sache: is. Are ist für mehrere." },
-            "reply": { "face": "laugh", "en": "Are? I've only got one writing, silly!", "sl": "Are? Saj imam samo eno pisavo, smešnica!", "it": "Are? Ho una scrittura sola, sciocchino!", "de": "Are? Ich hab doch nur eine Schrift, du Dummerchen!" } }
-        ], "puzzled": { "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } }
+            "reply": { "face": "laugh", "en": "Are? I've only got one writing, silly!", "sl": "Are? Saj imam samo eno pisavo, {m:smešnež|f:smešnica}!", "it": "Are? Ho una scrittura sola, {m:sciocchino|f:sciocchina}!", "de": "Are? Ich hab doch nur eine Schrift, du Dummerchen!" } }
+        ], "puzzled": { "face": "confused", "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } }
       ]
     },
     {
@@ -327,7 +328,7 @@
           { "en": "You've got {n} {jar|jars} of money.", "sl": "Imaš {n} {kozarec|kozarca|kozarce|kozarcev} denarja.", "it": "Hai {n} {vasetto|vasetti} di soldi.", "de": "Du hast {n} {Glas|Gläser} Geld.",
             "why": { "en": "Money is pounds and pence. In the jars there's honey.", "sl": "Money je denar. V kozarcih je med: honey.", "it": "Money sono i soldi. Nei vasetti c'è il miele: honey.", "de": "Money ist Geld. In den Gläsern ist Honig: honey." },
             "reply": { "face": "laugh", "en": "Money? I wish! Then I could buy a pony.", "sl": "Denar? Ko bi le! Potem bi si kupila ponija.", "it": "Soldi? Magari! Così mi comprerei un pony.", "de": "Geld? Schön wär's! Dann könnte ich mir ein Pony kaufen." } }
-        ], "puzzled": { "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
+        ], "puzzled": { "face": "confused", "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
         { "who": "poppy", "face": "curious", "en": "Arthur sells them for five pounds each. Is that a lot?", "sl": "Arthur jih prodaja po pet funtov. Je to veliko?", "it": "Arthur li vende a cinque sterline l'uno. È tanto?", "de": "Arthur verkauft sie für fünf Pfund das Stück. Ist das viel?" },
         { "choices": [
           { "en": "No, it isn't. It's good honey.", "sl": "Ne, ni. Dober med je.", "it": "No, non è tanto. È un miele buono.", "de": "Nein, ist es nicht. Das ist guter Honig.", "ok": true,
@@ -337,7 +338,7 @@
           { "en": "No, it doesn't. It's good honey.", "sl": "Ne, ni. Dober med je.", "it": "No, non è tanto. È un miele buono.", "de": "Nein, ist es nicht. Das ist guter Honig.", "grammar": "to-be",
             "why": { "en": "To a question with is, answer with is: No, it isn't.", "sl": "Na vprašanje z is odgovoriš z is: No, it isn't.", "it": "A una domanda con is si risponde con is: No, it isn't.", "de": "Auf eine Frage mit is antwortest du mit is: No, it isn't." },
             "reply": { "face": "confused", "en": "Doesn't? Doesn't what? I'm confused now!", "sl": "Doesn't? Kaj doesn't? Zdaj sem zmedena!", "it": "Doesn't? Doesn't cosa? Adesso sono confusa!", "de": "Doesn't? Was doesn't? Jetzt bin ich verwirrt!" } }
-        ], "puzzled": { "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
+        ], "puzzled": { "face": "confused", "en": "What? Say it properly, please!", "sl": "Kaj? Povej pravilno, prosim!", "it": "Cosa? Dillo per bene, per favore!", "de": "Was? Sag's richtig, bitte!" } },
         { "who": "poppy", "face": "happy", "en": "OK! I carry the jars, and you carry the bread.", "sl": "Dobro! Jaz nesem kozarce, ti pa kruh.", "it": "Va bene! Io porto i vasetti, e tu il pane.", "de": "Okay! Ich trag die Gläser, und du das Brot." }
       ]
     },
@@ -353,7 +354,7 @@
           { "en": "Have they cold?", "sl": "Jih zebe?", "it": "Hanno freddo?", "de": "Frieren sie?", "grammar": "to-be",
             "why": { "en": "For cold and hot, English uses be: Are they cold?", "sl": "Za mraz in vročino angleščina uporablja be: Are they cold?", "it": "Per freddo e caldo l'inglese usa be, non have: Are they cold?", "de": "Für kalt und warm nimmt das Englische be: Are they cold?" },
             "reply": { "face": "curious", "en": "Have they got a cold? No, friend, bees don't get colds!", "sl": "So prehlajene? Ne, čebele se ne prehladijo!", "it": "Hanno il raffreddore? No, le api non si raffreddano!", "de": "Ob sie erkältet sind? Nein, Bienen erkälten sich nicht!" } }
-        ], "puzzled": { "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
+        ], "puzzled": { "face": "confused", "en": "Hm? Softly, friend. Once more?", "sl": "Hm? Tiho, {m:prijatelj|f:prijateljica}. Še enkrat?", "it": "Mh? Piano, {m:amico mio|f:amica mia}. Ancora una volta?", "de": "Hm? Leise, {m:mein Freund|f:meine Freundin}. Noch einmal?" } },
         { "who": "arthur", "en": "And they eat the honey from the summer. That's why I leave them a lot.", "sl": "In jedo med od poletja. Zato jim ga pustim veliko.", "it": "E mangiano il miele dell'estate. Per questo gliene lascio tanto.", "de": "Und sie fressen den Honig vom Sommer. Darum lasse ich ihnen viel." },
         { "choices": [
           { "en": "That's very kind of you, Arthur.", "sl": "To je zelo lepo od tebe, Arthur.", "it": "È molto gentile da parte tua, Arthur.", "de": "Das ist sehr lieb von dir, Arthur.", "ok": true,
@@ -386,7 +387,7 @@
           { "en": "We drinks it in my country too!", "sl": "Tudi pri nas ga pijemo!", "it": "Lo beviamo anche nel mio paese!", "de": "Bei uns trinkt man ihn auch!", "grammar": "present-simple",
             "why": { "en": "With we, the verb has no -s: we drink.", "sl": "Pri we glagol nima -s: we drink.", "it": "Con we il verbo non prende la -s: we drink.", "de": "Bei we hat das Verb kein -s: we drink." },
             "reply": { "face": "laugh", "en": "Drinks? One cup at a time, {m:son|f:lass}!", "sl": "Drinks? Po eno skodelico naenkrat!", "it": "Drinks? Una tazza alla volta, {m:figliolo|f:figliola}!", "de": "Drinks? Eine Tasse nach der anderen, {m:mein Junge|f:mein Mädchen}!" } }
-        ], "puzzled": { "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? The bees are too loud. Once more?", "sl": "Kaj? Čebele so preglasne. Še enkrat?", "it": "Eh? Le api fanno troppo rumore. Ancora?", "de": "Hm? Die Bienen sind zu laut. Noch mal?" } },
         { "who": "wilf", "face": "happy", "en": "Lime tea, heather honey and a friend on the bench. What more do you need?", "sl": "Lipov čaj, med iz vresja in prijatelj na klopi. Kaj še potrebuješ?", "it": "Tè di tiglio, miele d'erica e un amico sulla panchina. Cosa serve di più?", "de": "Lindenblütentee, Heidehonig und ein Freund auf der Bank. Was braucht man mehr?" }
       ]
     }
