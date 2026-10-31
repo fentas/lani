@@ -112,6 +112,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        inside: no way in before it grinds ("step:mlin/6"), then its card's "🚪 Vstopi" on the map
                        ("step:mlin/7"), the stream's mill's bubble with it, inside by day and at night, a dialog with the
                        stones grinding (Friuli's Nel mulino with LANI_CULTURE=friuli, an Italian learner, the phone in sl · en: LANI_QA_PAIR=sl-en);
+                       "mill-turning" the mill's wheels turning: in from the stream's mill, closer up, the waterwheel
+                       dragged to the middle (its area: tag SceneAt), a burst of screenshots on the device a fraction of a
+                       second apart and the wheel's frames side by side ($LANI_QA_MILL_SHOTS; Friuli's the same);
                        "places" the village's places: the bocce court finished, its landmark's card, "🚪 Vstopi", a dialog
                        and «Vidim, vidim» there, then the playground, the chapel, the fire station, the lookout and the
                        palisade's gate by day and at night ($LANI_QA_PLACES_SHOTS; with LANI_CULTURE=friuli and an
@@ -4915,6 +4918,91 @@ def mill():
         tap(T["close"], 3)
     finally:
         qa_hook("happening:")
+        qa_hook("hour:")
+        qa_hook("step:")
+        qa_hook("bubbles:")
+    return None
+
+
+def device_burst(name: str, n: int, out: Path | None = None) -> list[float]:
+    """[n] screenshots as fast as the device takes them (screencap on the device, its uptime noted at each), so a picture
+    moving shows from one to the next: <run>/NN-<name>-<i>.png (also in [out]); the seconds from each to the next."""
+    adb("shell", "; ".join(f"cat /proc/uptime > /sdcard/lani-qa-burst-{i}.t; screencap -p /sdcard/lani-qa-burst-{i}.png" for i in range(n)))
+    times = []
+    for i in range(n):
+        path = OUT / f"{len(shots) + 1:02d}-{name}-{i}.png"
+        adb("pull", f"/sdcard/lani-qa-burst-{i}.png", str(path))
+        times.append(float(adb("shell", "cat", f"/sdcard/lani-qa-burst-{i}.t").split()[0]))
+        shots.append(path)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(path, out / f"{name}-{i}.png")
+    adb("shell", "rm -f /sdcard/lani-qa-burst-*")
+    return [round(b - a, 2) for a, b in zip(times, times[1:])]
+
+
+def mill_turning():
+    """The mill's wheels turning (docs/plans/05-built/mill-mechanics.md): into the mill from the stream's mill (QA's hook
+    "step:mlin/7", the deep link "scene:ob-potoku@mill", its bubble's "🚪 Vstopi"), by day ("hour:11"), closer up ("zoom")
+    and the waterwheel dragged to the middle (its area from the debug build's log, tag SceneAt); then a burst of
+    screenshots a fraction of a second apart (screencap on the device): the waterwheel turning its top downstream, the
+    flume's water pouring into its buckets just past the top, the buckets riding down full and tipping out into the race,
+    nothing over the wheel's face; and the cog wheel inside turning the same way. Friuli's Nel mulino the same with
+    LANI_CULTURE=friuli (an Italian learner, the phone in sl · en: LANI_QA_PAIR=sl-en). Also as mill-turning-*.png, and a
+    strip of the wheel's frames (mill-turning-wheel.png), in $LANI_QA_MILL_SHOTS."""
+    T = mill_texts()
+    sid = T["scene"]["id"]
+    out = Path(os.environ["LANI_QA_MILL_SHOTS"]) if os.environ.get("LANI_QA_MILL_SHOTS") else None
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    plain_village()
+    try:
+        qa_hook("bubbles:0")
+        qa_hook("step:mlin/7")
+        adb("logcat", "-c")
+        qa_hook("hour:11", f"scene:{T['stream']}@mill")
+        assert wait_for(T["back"], 10), "the stream opens"
+        assert wait_for(T["inside"], 8), "the stream's mill's bubble: its way in"
+        assert tap(T["inside"], 4), "into the mill from the stream"
+        assert wait_for(T["back_stream"], 10), f"the mill opens from the stream, its way back to it: {T['back_stream']}"
+        time.sleep(3)
+        snap("mill-turning-inside")
+        adb("logcat", "-c")
+        qa_hook("zoom")
+        time.sleep(3)
+        at = scene_at()
+        wheel = at["things"].get("wheel") if at and at["scene"] == sid else None
+        assert wheel is not None, f"the waterwheel's area on the screen (SceneAt): {at}"
+        # the wheel dragged to the middle of the screen's width, slowly (a drag, not a fling), from well inside the screen's
+        # edge (a swipe in from the edge is the system's Back)
+        cx, cy = (wheel[0] + wheel[2]) // 2, (wheel[1] + wheel[3]) // 2
+        if abs(cx - 540) > 60:
+            adb("logcat", "-c")
+            x0 = 880 if cx > 540 else 200
+            adb("shell", "input", "swipe", str(x0), str(cy), str(x0 - (cx - 540)), str(cy), "900")
+            time.sleep(2.5)
+            at = scene_at()
+            wheel = (at["things"].get("wheel") if at and at["scene"] == sid else None) or wheel
+        snap("mill-turning-closer")
+        gaps = device_burst("mill-turning", 8, out)
+        print(f"    the burst: {gaps} s apart; the wheel at {wheel}")
+        # the wheel's frames side by side (its area and some round it)
+        l, t, r, b = wheel
+        m = (r - l) // 4
+        crop = f"{r - l + 2 * m}x{b - t + 2 * m}+{max(0, l - m)}+{max(0, t - m)}"
+        strip = OUT / f"{len(shots) + 1:02d}-mill-turning-wheel.png"
+        sh("magick", *[str(p) for p in shots[-8:]], "-crop", crop, "+repage", "+append", str(strip))
+        if out is not None:
+            shutil.copy(strip, out / "mill-turning-wheel.png")
+        assert moving("mill-turning", n=2, gap=0.4) > 0, "the mill turns: the picture moves"
+        assert tap(T["back_stream"], 3), "back from the mill to the stream"
+        assert wait_for(T["back"], 10), "the stream again"
+    finally:
         qa_hook("hour:")
         qa_hook("step:")
         qa_hook("bubbles:")
@@ -15093,6 +15181,7 @@ def plan():
         ("kopa", kopa, v, False, ""),
         ("bridges", bridges, v, False, ""),
         ("mill", mill, v, False, ""),
+        ("mill-turning", mill_turning, v, False, ""),
         ("places", places, v, False, ""),
         # only with --steps culture-source: the map and the scenes in one culture, Friuli's art requests (LANI_CULTURE=friuli)
         ("culture-source", culture_source, v, False, ""),

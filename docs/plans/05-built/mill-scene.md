@@ -20,7 +20,7 @@ Under the platform the cog wheel turns, half in its pit, on the shaft that comes
 waterwheel; its pegs turn the lantern pinion on the stones' spindle. Outside on the right the overshot wheel turns in its
 race under the flume, the water falling on its buckets, and the race pours off the plot's front edge. The waterwheel, the
 cog wheel, the pinion and the runner turn together, from one angle (the shaft's), the pinion and the runner three times as
-fast. Under the window the miller's bench with the brass scale and the measure (merica, the miller's toll); the sieve high
+fast (which way each turns and where the water falls, made right on 2026-10-31: [mill-mechanics.md](mill-mechanics.md)). Under the window the miller's bench with the brass scale and the measure (merica, the miller's toll); the sieve high
 on its peg; the mouse at its hole at the wall's foot; the sacks of grain along the left wall under the loft's gallery and on
 it, the ladder up to it, the plank door with the lantern on its hook beside it, the cat crouched by the sacks. An old
 millstone lies in the grass in front.

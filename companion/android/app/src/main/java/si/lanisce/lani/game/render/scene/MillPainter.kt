@@ -27,11 +27,11 @@ import kotlin.math.sqrt
  * through the front-right wall from the waterwheel outside; its pegs drive a lantern pinion on the stones' spindle. Outside
  * on the right the overshot wheel turns in the mill race under the flume: the flume runs just past the wheel's top and its
  * water pours into the buckets on the downstream side; they ride down full, slopping, and tip out into the race near the
- * bottom, which runs on downstream and pours off the plot's front edge. Along the right wall under the small window the miller's bench with the brass scale and
- * the measure (merica, the miller's toll); a sieve hangs high on its peg. Along the left wall the sacks of grain under the
- * loft, a gallery on knee braces with more sacks on it, the ladder up to it, and the plank door with the lantern on its
- * hook beside it. The cat crouches by the sacks, watching the mouse at its hole at the foot of the wall. An old millstone
- * lies in the grass in front.
+ * bottom, which runs on downstream and pours off the plot's front edge. Along the right wall under the small window the
+ * miller's bench with the brass scale and the measure (merica, the miller's toll); a sieve hangs high on its peg. Along
+ * the left wall the sacks of grain under the loft, a gallery on knee braces with more sacks on it, the ladder up to it,
+ * and the plank door with the lantern on its hook beside it. The cat crouches by the sacks, watching the mouse at its
+ * hole at the foot of the wall. An old millstone lies in the grass in front.
  *
  * By day the window's light falls in a slanting beam full of flour dust; at night the lantern lights the room. Rain runs
  * down the window's glass and falls on the yard and the race; in winter snow lies outside, ice along the race's banks
