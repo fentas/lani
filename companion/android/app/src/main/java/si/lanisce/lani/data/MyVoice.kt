@@ -119,6 +119,30 @@ object MyVoices {
      * twice while the app runs ([offered]). Never a wall: the line is said meanwhile and the dialog goes on.
      */
     fun offerDue(mine: MineVoice?, offered: Boolean): Boolean = mine != null && !mine.chosen && !mine.off && mine.voice != null && !offered
+
+    /**
+     * The voice the first launch shows chosen (docs/plans/05-built/setup-refresh.md) for a learner of [gender] ("male",
+     * "female", null: not said), a [child] or not, from what the node said ([s]): their own choice once they made one
+     * ([OFF] for none); else the first voice offered of their gender and age (a boy's for Teo: the cast's child voices,
+     * the default first), else the node's default. Null when the node offers nothing.
+     */
+    fun preselect(s: MyVoiceState, gender: String?, child: Boolean): String? {
+        if (s.chosen) return if (s.off) OFF else s.voice
+        val age = if (child) CHILD else ADULT
+        return s.options.firstOrNull { it.age == age && (gender == null || it.gender == gender) && (gender != null || it.id == s.voice) }?.id
+            ?: s.voice ?: s.options.firstOrNull()?.id
+    }
+
+    /**
+     * What the first launch keeps as the learner's choice when they go on with [picked] showing: "default" when it is the
+     * node's default (it then follows their gender, age and the cast), else the voice itself; nothing to keep once they
+     * chose on the node already, or when nothing is offered.
+     */
+    fun keepAtSetup(s: MyVoiceState, picked: String?): String? = when {
+        s.chosen || picked == null -> null
+        picked == s.voice -> DEFAULT
+        else -> picked
+    }
 }
 
 /**

@@ -4,9 +4,11 @@ import si.lanisce.lani.l10n.inBase
 
 /**
  * A piece of the hint said out loud: [text] in the learner's base language (the phone's own voice says it), or, with
- * [target], in the language learned (the app's voice: a clip of the voice store, else the phone's voice for it).
+ * [target], in the language learned (the app's voice: a clip of the voice store, else the phone's voice for it). [lang]:
+ * the language it is in when it isn't the learner's pair's (the first launch's, before or while the pair is chosen:
+ * game/SetupSpeech); null, the pair's.
  */
-data class HintPiece(val text: String, val target: Boolean)
+data class HintPiece(val text: String, val target: Boolean, val lang: si.lanisce.lani.l10n.Lang? = null)
 
 /**
  * What the 🔊 of "📖 Namig · Hint" says (companion/SCENES.md, "The hint"): the turn's rule as a short TL;DR, built from

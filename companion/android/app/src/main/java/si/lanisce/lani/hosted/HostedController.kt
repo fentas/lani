@@ -33,6 +33,11 @@ data class HostedAnswers(
     val goal: Int = 30,
     /** The learner is a child: the tutor speaks as to a child, keys and accounts are a parent's (app/ParentGate). */
     val child: Boolean = false,
+    /**
+     * "🎯 Cilj · Aim" (app/Aim; docs/plans/05-built/setup-refresh.md): the level the village's ages lead to, above [level];
+     * the bridge keeps it as the profile's target_level (learners.ts initLearnerData's targetLevel).
+     */
+    val targetLevel: String = si.lanisce.lani.app.Aim.default(level),
 ) {
     fun json(): String = buildJsonObject {
         put("name", name.trim())
@@ -42,6 +47,7 @@ data class HostedAnswers(
         put("level", level)
         put("goal", goal)
         if (child) put("child", true)
+        put("targetLevel", si.lanisce.lani.app.Aim.keep(targetLevel, level))
     }.toString()
 
     companion object {

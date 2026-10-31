@@ -207,4 +207,118 @@ class SetupFlowTest {
         assertTrue("\"child\":true" in a.json())
         assertFalse("child" in si.lanisce.lani.hosted.HostedAnswers("Ana", "female", "sl", "en").json())
     }
+
+    // --- the aim (docs/plans/05-built/setup-refresh.md) ------------------------------------------------------------------
+
+    @Test fun `the aim is B2 by default, above the level from B2 on`() {
+        // Jan: "b2 should be default aim"
+        for (level in listOf("A1", "A2", "B1")) assertEquals(level, "B2", Aim.default(level))
+        assertEquals("C1", Aim.default("B2"))
+        assertEquals("C2", Aim.default("C1"))
+        assertEquals("C2", Aim.default("C2"))
+        assertEquals("a level that isn't one counts as A1", "B2", Aim.default("x"))
+        // only the levels above the learner's; C2 at C2
+        assertEquals(listOf("A2", "B1", "B2", "C1", "C2"), Aim.choices("A1"))
+        assertEquals(listOf("C1", "C2"), Aim.choices("b2"))
+        assertEquals(listOf("C2"), Aim.choices("C2"))
+        for (level in Aim.LEVELS) assertTrue(level, Aim.default(level) in Aim.choices(level))
+    }
+
+    @Test fun `an aim chosen stays while it is above the level, else the default for the new level`() {
+        assertEquals("C1", Aim.keep("C1", "A1"))
+        assertEquals("B1", Aim.keep("b1", "A2"))
+        // the level raised to the aim or past it: the default again
+        assertEquals("C1", Aim.keep("B2", "B2"))
+        assertEquals("B2", Aim.keep("A2", "B1"))
+        assertEquals("nothing chosen: the default", "B2", Aim.keep(null, "A1"))
+    }
+
+    @Test fun `the hosted answers carry the aim, B2 unless chosen`() {
+        assertTrue("\"targetLevel\":\"B2\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", "female", "sl", "en").json())
+        val teo = si.lanisce.lani.hosted.HostedAnswers("Teo", "male", "it", "de", goal = 15, child = true, targetLevel = "B1")
+        assertTrue("\"targetLevel\":\"B1\"" in teo.json())
+        // a learner at B2 aims at C1; an aim not above the level is sent as the default
+        assertTrue("\"targetLevel\":\"C1\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", null, "sl", "en", level = "B2").json())
+        assertTrue("\"targetLevel\":\"C1\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", null, "sl", "en", level = "B2", targetLevel = "A2").json())
+    }
+
+    // --- paired: "Še o tebi · A little about you" ---------------------------------------------------------------------
+
+    @Test fun `paired with the computer on the first launch, the aim and the voice come before Home`() {
+        val computer = SetupFlow.start("en").chooseTarget(Lang.SL).next().choose(Way.COMPUTER)
+        assertTrue(computer.asksAbout)
+        val about = computer.manual().edit(url = "https://node.ts.net", token = "t").connecting().done().paired()
+        assertEquals(Step.ABOUT, about.step)
+        assertFalse(about.busy)
+        assertNull(about.trouble)
+        // the aim chosen there; null: the node's
+        assertNull(about.aim)
+        assertEquals("C1", about.chooseAim("c1").aim)
+        assertNull(about.chooseAim("Z9").aim)
+        // just this device asks it in its questions; the way back from the phone to a computer asks nothing again
+        assertFalse(SetupFlow.start("de").chooseTarget(Lang.IT).next().choose(Way.DEVICE).asksAbout)
+        assertFalse(SetupFlow(step = Step.COMPUTER, target = Lang.SL, base = Lang.EN, way = Way.COMPUTER, firstRun = false).asksAbout)
+    }
+
+    @Test fun `Back on every step`() {
+        val welcome = SetupFlow.start("de")
+        val languages = welcome.chooseTarget(Lang.IT)
+        val ways = languages.next()
+        val device = ways.choose(Way.DEVICE)
+        val computer = ways.choose(Way.COMPUTER)
+        val manual = computer.manual()
+        val about = computer.paired()
+        val back = mapOf(
+            welcome to Step.WELCOME, languages to Step.WELCOME, ways to Step.LANGUAGES, device to Step.WAYS,
+            computer to Step.WAYS, manual to Step.COMPUTER, about to Step.ABOUT,
+        )
+        assertEquals("every step has its Back", Step.entries.toSet(), back.keys.map { it.step }.toSet())
+        for ((f, to) in back) assertEquals("${f.step}", to, f.back().step)
+        // Back keeps what was chosen, and drops what went wrong and the spinner
+        assertEquals(Lang.IT, ways.back().back().target)
+        assertNull(manual.failed(PairTrouble.of(PairFailure.UNREACHABLE)).back().trouble)
+        assertFalse(manual.edit(url = "https://node.ts.net", token = "t").connecting().back().busy)
+    }
+
+    // --- my voice at setup ------------------------------------------------------------------------------------------------
+
+    /** The node's voices for a child: two boys', two girls' (a profile without a gender is offered both). */
+    private fun state(voice: String?, chosen: Boolean = false, off: Boolean = false, options: List<si.lanisce.lani.data.MyVoiceOption> = childOptions) =
+        si.lanisce.lani.data.MyVoiceState(options, voice, off, chosen, "child", "Ciao! Sono Teo.", "it")
+
+    private val childOptions = listOf(
+        si.lanisce.lani.data.MyVoiceOption("player-girl-a", "player-girl-a", "Mia", "female", "child", 0, true),
+        si.lanisce.lani.data.MyVoiceOption("player-girl-b", "player-girl-b", "Sofia", "female", "child", 1, false),
+        si.lanisce.lani.data.MyVoiceOption("player-boy-a", "player-boy-a", "Teddy", "male", "child", 0, true),
+        si.lanisce.lani.data.MyVoiceOption("player-boy-b", "player-boy-b", "Leo", "male", "child", 1, false),
+    )
+
+    @Test fun `a child's voice at setup is a child's of their gender`() {
+        val v = si.lanisce.lani.data.MyVoices
+        // Teo, a boy: the first boy's voice, whatever the node's default before it knew him
+        assertEquals("player-boy-a", v.preselect(state("player-girl-a"), "male", child = true))
+        assertEquals("player-girl-a", v.preselect(state("player-boy-a"), "female", child = true))
+        // no gender said: the node's default
+        assertEquals("player-girl-a", v.preselect(state("player-girl-a"), null, child = true))
+        // a grown-up gets a grown-up's (Jan: Luka)
+        val adults = listOf(
+            si.lanisce.lani.data.MyVoiceOption("male.sl", "male", "Luka", "male", "adult", 0, true),
+            si.lanisce.lani.data.MyVoiceOption("player-man-a", "player-man-a", "Matej", "male", "adult", 1, false),
+        )
+        assertEquals("male.sl", v.preselect(state("male.sl", options = adults), "male", child = false))
+        // chosen on the node already: their choice, or none
+        assertEquals("player-boy-b", v.preselect(state("player-boy-b", chosen = true), "male", child = true))
+        assertEquals(si.lanisce.lani.data.MyVoices.OFF, v.preselect(state("player-boy-a", chosen = true, off = true), "male", child = true))
+        // nothing offered: nothing
+        assertNull(v.preselect(state(null, options = emptyList()), "male", child = true))
+    }
+
+    @Test fun `going on at setup keeps the voice shown, the node's default as default`() {
+        val v = si.lanisce.lani.data.MyVoices
+        assertEquals(si.lanisce.lani.data.MyVoices.DEFAULT, v.keepAtSetup(state("player-boy-a"), "player-boy-a"))
+        assertEquals("player-boy-a", v.keepAtSetup(state("player-girl-a"), "player-boy-a"))
+        // chosen already (a tap on a row), or nothing shown: nothing more
+        assertNull(v.keepAtSetup(state("player-boy-b", chosen = true), "player-boy-b"))
+        assertNull(v.keepAtSetup(state(null, options = emptyList()), null))
+    }
 }

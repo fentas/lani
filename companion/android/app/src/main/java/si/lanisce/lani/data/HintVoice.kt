@@ -103,7 +103,7 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
      */
     fun warm(script: List<HintPiece>) {
         scope.launch {
-            runCatching { for (p in script) if (!p.target) render(L10n.pair.base, p.text, BASE_RATE) }
+            runCatching { for (p in script) if (!p.target) render(p.lang ?: L10n.pair.base, p.text, BASE_RATE) }
         }
     }
 
@@ -138,11 +138,14 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
      * store or the phone's voice (else left out). Each piece's source is logged (tag HintVoice: QA's evidence).
      */
     private suspend fun files(script: List<HintPiece>, needsBase: Boolean): List<File> = coroutineScope {
-        val base = L10n.pair.base
-        val got = script.map { p ->
-            async { if (p.target) target(p.text) else render(base, p.text, BASE_RATE)?.let { Sourced(listOf(it), "tts:${base.code}") } }
+        val pair = L10n.pair
+        // each piece's language: its own (the first launch's), else the pair's
+        val langs = script.map { p -> p.lang ?: if (p.target) pair.target else pair.base }
+        val got = script.mapIndexed { i, p ->
+            val lang = langs[i]
+            async { if (p.target) target(p.text, lang, own = p.lang != null) else render(lang, p.text, BASE_RATE)?.let { Sourced(listOf(it), "tts:${lang.code}") } }
         }.awaitAll()
-        script.forEachIndexed { i, p -> Log.i(TAG, "${i + 1}/${script.size} ${if (p.target) L10n.pair.target.code else base.code} ${got[i]?.source ?: "none"} \"${p.text.take(60)}\"") }
+        script.forEachIndexed { i, p -> Log.i(TAG, "${i + 1}/${script.size} ${langs[i].code} ${got[i]?.source ?: "none"} \"${p.text.take(60)}\"") }
         playable(script, got.map { it?.files }, needsBase)
     }
 
@@ -152,19 +155,20 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
     /**
      * A Slovene piece's clips: the narrator's on the phone, else the node gets or voices it now (waiting as long as a
      * line's 🔊 does), else another narrator's on the phone, else the phone's own voice for the language learned; null when
-     * none can say it.
+     * none can say it. [lang]: the piece's language; [own]: it is the piece's own (game/SetupSpeech), not the pair's.
      */
-    private suspend fun target(text: String): Sourced? {
+    private suspend fun target(text: String, lang: Lang, own: Boolean = false): Sourced? {
         val c = speaker.clips
-        if (c != null) {
+        // the narrator's clips are the village's language: a piece in another (the first launch's, before pairing) is the phone's
+        if (c != null && lang == L10n.pair.target) {
             c.onDevice(text, NARRATOR.take(1))?.let { return Sourced(it, "clip") }
             if (c.online && !c.missedRecently(text, NARRATOR) && withTimeoutOrNull(Clips.WAIT_MS) { c.load(text, NARRATOR) } == true) {
                 c.onDevice(text, NARRATOR)?.let { return Sourced(it, "node") }
             }
             c.onDevice(text, NARRATOR.drop(1))?.let { return Sourced(it, "clip:other") }
         }
-        if (!speaker.available) return null
-        val lang = L10n.pair.target
+        // [Speaker.available] is about the pair's language; a piece in a language of its own asks the phone's voice for it
+        if (!own && !speaker.available) return null
         return render(lang, text, TARGET_RATE)?.let { Sourced(listOf(it), "tts:${lang.code}") }
     }
 
