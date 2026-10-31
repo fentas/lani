@@ -1,0 +1,333 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "stare-gerundio",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🏃",
+  "title": { "it": "Sto giocando!", "de": "Gerade jetzt: sto giocando", "sl": "Ravno zdaj: sto giocando", "en": "Right now: sto giocando" },
+  "goal": {
+    "de": "Du sagst, was gerade jetzt passiert: was du machst (sto giocando, sto leggendo) und was die anderen machen (Nonna Rosa sta cucinando), und fragst: Che cosa stai facendo?",
+    "sl": "Poveš, kaj se dogaja ravno zdaj: kaj delaš ti (sto giocando, sto leggendo) in kaj drugi (Nonna Rosa sta cucinando), in vprašaš: Che cosa stai facendo?",
+    "en": "You can say what's happening right now: what you're doing (sto giocando, sto leggendo) and what the others are doing (Nonna Rosa sta cucinando), and ask: Che cosa stai facendo?"
+  },
+  "grammar": ["stare-gerundio", "verbi-irregolari"],
+  "words": ["stare", "giocare", "mangiare", "cucinare", "nuotare", "cantare", "raccontare", "disegnare", "leggere", "scrivere", "correre", "battere", "dormire", "aprire", "finire", "fare", "dire", "bere", "adesso", "proprio", "ogni", "il nascondino", "il gelato", "il libro", "il giornale", "il tiglio", "l'erba", "il latte", "il disegno", "il castello di sabbia", "la storia", "la polenta", "il ferro", "il prato", "la radio", "la cartolina"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "infinito", "de": "Grundform", "sl": "nedoločnik", "en": "infinitive" },
+        { "it": "gerundio", "de": "Gerundium", "sl": "gerundij", "en": "gerund" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Was gerade jetzt passiert, sagst du mit **stare** und einer neuen Form, dem Gerundium. Bei -are wird es -ando: **giocare → giocando**. **Sto giocando.** (Ich spiele gerade.) **Tommaso sta mangiando.** (Tommaso isst gerade.) **Stare** kennst du schon: **sto, stai, sta**.",
+          "sl": "Kar se dogaja ravno zdaj, poveš s **stare** in novo obliko, gerundijem. Pri -are postane -ando: **giocare → giocando**. **Sto giocando.** (Ravno se igram.) **Tommaso sta mangiando.** (Tommaso ravno je.) **Stare** že poznaš: **sto, stai, sta**.",
+          "en": "What is happening right now you say with **stare** and a new form, the gerund. With -are it becomes -ando: **giocare → giocando**. **Sto giocando.** (I'm playing.) **Tommaso sta mangiando.** (Tommaso is eating.) You know **stare** already: **sto, stai, sta**."
+        },
+        "examples": [
+          { "it": "Shh! Sto giocando a nascondino.", "de": "Pst! Ich spiele gerade Verstecken.", "sl": "Pst! Ravno se igram skrivalnice.", "en": "Shh! I'm playing hide-and-seek." },
+          { "it": "Tommaso sta mangiando un gelato.", "de": "Tommaso isst gerade ein Eis.", "sl": "Tommaso ravno je sladoled.", "en": "Tommaso is eating an ice cream." }
+        ],
+        "rows": [["giocare", "giocando", "sto giocando"], ["mangiare", "mangiando", "sta mangiando"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "stare-gerundio",
+          "prompt": "Adesso Tommaso ___ giocando a calcio.",
+          "options": ["sto", "sta", "stanno"],
+          "answer": 1,
+          "say_options": true,
+          "explain": "**Tommaso** → lui → **sta** giocando\n- sto · io\n- stanno · loro"
+        }
+      },
+      {
+        "say": {
+          "de": "Bei -ere und -ire wird es -endo: **leggere** (lesen) → **leggendo**, **scrivere** (schreiben) → **scrivendo**, **dormire** (schlafen) → **dormendo**. **Shh! Lorenzo sta dormendo.** (Pst! Lorenzo schläft gerade.) **Giulia sta leggendo un libro.** (Giulia liest gerade ein Buch.)",
+          "sl": "Pri -ere in -ire postane -endo: **leggere** (brati) → **leggendo**, **scrivere** (pisati) → **scrivendo**, **dormire** (spati) → **dormendo**. **Shh! Lorenzo sta dormendo.** (Pst! Lorenzo spi.) **Giulia sta leggendo un libro.** (Giulia bere knjigo.)",
+          "en": "With -ere and -ire it becomes -endo: **leggere** (to read) → **leggendo**, **scrivere** (to write) → **scrivendo**, **dormire** (to sleep) → **dormendo**. **Shh! Lorenzo sta dormendo.** (Shh! Lorenzo is sleeping.) **Giulia sta leggendo un libro.** (Giulia is reading a book.)"
+        },
+        "examples": [
+          { "it": "Shh! Lorenzo sta dormendo.", "de": "Pst! Lorenzo schläft gerade.", "sl": "Pst! Lorenzo spi.", "en": "Shh! Lorenzo is sleeping." },
+          { "it": "Giulia sta leggendo un libro sotto il tiglio.", "de": "Giulia liest gerade unter der Linde ein Buch.", "sl": "Giulia pod lipo bere knjigo.", "en": "Giulia is reading a book under the linden." }
+        ],
+        "rows": [["leggere", "leggendo", "sta leggendo"], ["scrivere", "scrivendo", "sto scrivendo"], ["dormire", "dormendo", "sta dormendo"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "stare-gerundio",
+          "text": "Nonno Bepi sta ___ il giornale. (leggere)",
+          "accept": ["leggendo"],
+          "hint": "-ere → -endo",
+          "explain": "**leggere** → -ere → **-endo**: leggendo\n- dormire → dormendo\n- giocare → giocando"
+        }
+      },
+      {
+        "say": {
+          "de": "**Stare** ändert sich mit der Person: **sto, stai, sta, stiamo, state, stanno**. Das Gerundium bleibt immer gleich, für einen Jungen, ein Mädchen und für alle: **Giulia sta cantando.** **I bambini stanno nuotando.** (Die Kinder schwimmen gerade.)",
+          "sl": "**Stare** se menja z osebo: **sto, stai, sta, stiamo, state, stanno**. Gerundij ostane vedno enak, za dečka, za deklico in za vse: **Giulia sta cantando.** **I bambini stanno nuotando.** (Otroci ravno plavajo.)",
+          "en": "**Stare** changes with the person: **sto, stai, sta, stiamo, state, stanno**. The gerund always stays the same, for a boy, a girl and for everyone: **Giulia sta cantando.** **I bambini stanno nuotando.** (The children are swimming.)"
+        },
+        "examples": [
+          { "it": "I bambini stanno nuotando nel mare!", "de": "Die Kinder schwimmen gerade im Meer!", "sl": "Otroci ravno plavajo v morju!", "en": "The children are swimming in the sea!" },
+          { "it": "Le pecore stanno mangiando l'erba.", "de": "Die Schafe fressen gerade Gras.", "sl": "Ovce ravno jedo travo.", "en": "The sheep are eating the grass." }
+        ],
+        "rows": [["nuotare", "nuotando", "stiamo nuotando"], ["cantare", "cantando", "state cantando"], ["correre", "correndo", "stanno correndo"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "stare-gerundio",
+          "prompt": "Le pecore di Davide stanno ___.",
+          "options": ["dormendo", "dormono", "dormire"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**stanno** + das Gerundium, das sich nie ändert: **stanno dormendo**\n- dormono: das passt ohne stare\n- dormire: die Grundform",
+            "sl": "**stanno** + gerundij, ki se nikoli ne spremeni: **stanno dormendo**\n- dormono: to gre brez stare\n- dormire: nedoločnik",
+            "en": "**stanno** + the gerund, which never changes: **stanno dormendo**\n- dormono: that goes without stare\n- dormire: the infinitive"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Drei Verben machen es anders: **fare → facendo**, **dire → dicendo**, **bere** (trinken) → **bevendo**. Die Frage, die du am meisten hörst: **Che cosa stai facendo?** (Was machst du gerade?) **Sto facendo un disegno!** (Ich male gerade ein Bild!)",
+          "sl": "Trije glagoli so drugačni: **fare → facendo**, **dire → dicendo**, **bere** (piti) → **bevendo**. Vprašanje, ki ga slišiš največkrat: **Che cosa stai facendo?** (Kaj pa delaš?) **Sto facendo un disegno!** (Ravno rišem sliko!)",
+          "en": "Three verbs do it differently: **fare → facendo**, **dire → dicendo**, **bere** (to drink) → **bevendo**. The question you'll hear most: **Che cosa stai facendo?** (What are you doing?) **Sto facendo un disegno!** (I'm doing a drawing!)"
+        },
+        "examples": [
+          { "it": "Che cosa stai facendo? Sto facendo un disegno.", "de": "Was machst du gerade? Ich male ein Bild.", "sl": "Kaj pa delaš? Rišem sliko.", "en": "What are you doing? I'm doing a drawing." },
+          { "it": "Il gatto sta bevendo il latte.", "de": "Die Katze trinkt gerade die Milch.", "sl": "Muc ravno pije mleko.", "en": "The cat is drinking the milk." }
+        ],
+        "rows": [["fare", "facendo", "stai facendo"], ["dire", "dicendo", "sta dicendo"], ["bere", "bevendo", "sta bevendo"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "stare-gerundio",
+          "prompt": "«Che cosa state ___?» «Un castello di sabbia!»",
+          "options": ["facendo", "fando", "fare"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**fare** → **facendo** (anders als die anderen)\n- fando: das gibt es nicht\n- state fare: nach stare das Gerundium",
+            "sl": "**fare** → **facendo** (drugače kot drugi)\n- fando: tega ni\n- state fare: za stare gerundij",
+            "en": "**fare** → **facendo** (not like the others)\n- fando: there's no such word\n- state fare: after stare the gerund"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Stare** und das Gerundium heißen *gerade jetzt, mittendrin*. Was du jeden Tag machst, sagst du mit der Gegenwart: **Ogni mattina Lorenzo va al mulino.** (Jeden Morgen geht Lorenzo zur Mühle.) **Adesso sta giocando.** (Jetzt spielt er gerade.) Bei einem reflexiven Verb steht das kleine Wort vorne: **Mi sto lavando i denti.** (Ich putze mir gerade die Zähne.)",
+          "sl": "**Stare** in gerundij pomenita *ravno zdaj, sredi tega*. Kar delaš vsak dan, poveš s sedanjikom: **Ogni mattina Lorenzo va al mulino.** (Vsako jutro gre Lorenzo k mlinu.) **Adesso sta giocando.** (Zdaj se ravno igra.) Pri povratnem glagolu je mala beseda spredaj: **Mi sto lavando i denti.** (Ravno si umivam zobe.)",
+          "en": "**Stare** and the gerund mean *right now, in the middle of it*. What you do every day you say with the present: **Ogni mattina Lorenzo va al mulino.** (Every morning Lorenzo goes to the mill.) **Adesso sta giocando.** (Right now he's playing.) With a reflexive verb the little word goes first: **Mi sto lavando i denti.** (I'm brushing my teeth.)"
+        },
+        "examples": [
+          { "it": "Ogni mattina Lorenzo va al mulino. Adesso sta giocando.", "de": "Jeden Morgen geht Lorenzo zur Mühle. Jetzt spielt er gerade.", "sl": "Vsako jutro gre Lorenzo k mlinu. Zdaj se ravno igra.", "en": "Every morning Lorenzo goes to the mill. Right now he's playing." },
+          { "it": "Mi sto lavando i denti!", "de": "Ich putze mir gerade die Zähne!", "sl": "Ravno si umivam zobe!", "en": "I'm brushing my teeth!" }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "stare-gerundio",
+          "prompt": "Ogni sera Nonno Bepi ___ una storia.",
+          "options": ["racconta", "sta raccontando"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**Ogni sera** (jeden Abend) → die Gegenwart: **racconta**\n- sta raccontando · gerade jetzt",
+            "sl": "**Ogni sera** (vsak večer) → sedanjik: **racconta**\n- sta raccontando · ravno zdaj",
+            "en": "**Ogni sera** (every evening) → the present: **racconta**\n- sta raccontando · right now"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "stare-gerundio-1",
+      "title": { "it": "Il gerundio", "de": "Das Gerundium", "sl": "Gerundij", "en": "The gerund" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "stare-gerundio",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "infinito → gerundio",
+          "columns": [{ "de": "gerundio · Gerundium", "sl": "gerundio · gerundij", "en": "gerundio · gerund" }],
+          "rows": [
+            { "label": "cantare", "cells": ["cantando"] },
+            { "label": "pescare", "cells": [{ "accept": ["pescando"], "hint": "-are → -ando" }] },
+            { "label": "correre", "cells": [{ "accept": ["correndo"], "hint": "-ere → -endo" }] },
+            { "label": "aprire", "cells": [{ "accept": ["aprendo"], "hint": "-ire → -endo" }] },
+            { "label": "disegnare", "cells": [{ "accept": ["disegnando"] }] },
+            { "label": "scrivere", "cells": [{ "accept": ["scrivendo"] }] },
+            { "label": "partire", "cells": [{ "accept": ["partendo"] }] },
+            { "label": "fare", "cells": [{ "accept": ["facendo"], "hint": { "de": "anders als die anderen", "sl": "drugačen", "en": "not like the others" } }] },
+            { "label": "bere", "cells": [{ "accept": ["bevendo"], "hint": { "de": "anders als die anderen", "sl": "drugačen", "en": "not like the others" } }] }
+          ],
+          "explain": {
+            "de": "**-are → -ando · -ere, -ire → -endo**\n- anders: facendo, dicendo, bevendo",
+            "sl": "**-are → -ando · -ere, -ire → -endo**\n- drugače: facendo, dicendo, bevendo",
+            "en": "**-are → -ando · -ere, -ire → -endo**\n- not like the others: facendo, dicendo, bevendo"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "stare-gerundio",
+          "instruction": { "de": "-ando o -endo? · Sortiere die Verben", "sl": "-ando o -endo? · Razvrsti glagole", "en": "-ando o -endo? · Sort the verbs" },
+          "columns": [
+            { "label": "-ando", "words": ["ballare", "guardare", "lavorare", "ascoltare", "saltare"] },
+            { "label": "-endo", "words": ["vedere", "sentire", "prendere", "pulire", "vendere"] }
+          ],
+          "explain": {
+            "de": "**-are → -ando**\n- -ere, -ire → -endo: vedendo, sentendo",
+            "sl": "**-are → -ando**\n- -ere, -ire → -endo: vedendo, sentendo",
+            "en": "**-are → -ando**\n- -ere, -ire → -endo: vedendo, sentendo"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stare-gerundio-2",
+      "title": { "it": "Che cosa stanno facendo?", "de": "Was machen sie gerade?", "sl": "Kaj pa delajo?", "en": "What are they doing?" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "stare-gerundio",
+          "instruction": { "de": "Completa con stare + gerundio · Ergänze, was gerade passiert", "sl": "Completa con stare + gerundio · Dopolni, kaj se dogaja", "en": "Completa con stare + gerundio · Fill in what's going on" },
+          "title": "Mezzogiorno in paese",
+          "text": "È mezzogiorno in paese. Nonna Rosa ___ (cucinare) la polenta. Nella fucina Bruno ___ (battere) il ferro. Davide e le pecore ___ (tornare) dal prato. Giulia e Lorenzo ___ (giocare) a nascondino. Io ___ (leggere) un libro sotto il tiglio. E tu, che cosa ___ (fare)?",
+          "gaps": [
+            { "accept": ["sta cucinando"], "hint": "lei → sta …" },
+            { "accept": ["sta battendo"], "hint": "-ere → -endo" },
+            { "accept": ["stanno tornando"], "hint": "loro → stanno …" },
+            { "accept": ["stanno giocando"] },
+            { "accept": ["sto leggendo"] },
+            {
+              "accept": ["stai facendo"],
+              "explain": {
+                "de": "tu → **stai**; fare → **facendo**: che cosa **stai facendo**?",
+                "sl": "tu → **stai**; fare → **facendo**: che cosa **stai facendo**?",
+                "en": "tu → **stai**; fare → **facendo**: che cosa **stai facendo**?"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["sta facendo", "stiamo leggendo"],
+          "translation": {
+            "de": "Es ist Mittag im Dorf. Nonna Rosa kocht gerade Polenta. In der Schmiede schlägt Bruno das Eisen. Davide und die Schafe kommen gerade von der Wiese zurück. Giulia und Lorenzo spielen Verstecken. Ich lese gerade unter der Linde ein Buch. Und du, was machst du gerade?",
+            "sl": "V vasi je poldne. Babica Rosa kuha polento. V kovačnici Bruno kuje železo. Davide in ovce se vračajo s travnika. Giulia in Lorenzo se igrata skrivalnice. Jaz pod lipo berem knjigo. Pa ti, kaj delaš?",
+            "en": "It's noon in the village. Nonna Rosa is cooking polenta. In the smithy Bruno is hammering the iron. Davide and the sheep are coming back from the meadow. Giulia and Lorenzo are playing hide-and-seek. I'm reading a book under the linden. And you, what are you doing?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "stare-gerundio",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Shh! Moro ___ sotto il tavolo.",
+          "options": ["sta dormendo", "sta dormire", "sto dormendo"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**Moro** → lui → **sta dormendo**\n- sta dormire: nach stare das Gerundium\n- sto · io",
+            "sl": "**Moro** → lui → **sta dormendo**\n- sta dormire: za stare gerundij\n- sto · io",
+            "en": "**Moro** → lui → **sta dormendo**\n- sta dormire: after stare the gerund\n- sto · io"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stare-gerundio-3",
+      "title": { "it": "Proprio adesso!", "de": "Genau jetzt!", "sl": "Ravno zdaj!", "en": "Right now!" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "stare-gerundio",
+          "instruction": { "de": "Usa stare + gerundio · Sag, was gerade passiert", "sl": "Usa stare + gerundio · Povej, kaj se dogaja zdaj", "en": "Usa stare + gerundio · Say what's going on right now" },
+          "cue": "adesso",
+          "items": [
+            { "from": "Giulia canta.", "accept": ["Giulia sta cantando.", "Adesso Giulia sta cantando."] },
+            { "from": "Leggiamo una storia.", "accept": ["Stiamo leggendo una storia.", "Adesso stiamo leggendo una storia."] },
+            { "from": "Che cosa fai?", "accept": ["Che cosa stai facendo?", "Che cosa stai facendo adesso?", "Adesso che cosa stai facendo?"], "hint": "fare → facendo" },
+            { "from": "I bambini corrono in piazza.", "accept": ["I bambini stanno correndo in piazza.", "Adesso i bambini stanno correndo in piazza."] },
+            { "from": "Il gatto beve il latte.", "accept": ["Il gatto sta bevendo il latte.", "Adesso il gatto sta bevendo il latte."], "hint": "bere → bevendo" },
+            {
+              "from": "Mi lavo i denti.",
+              "accept": ["Mi sto lavando i denti.", "Sto lavandomi i denti.", "Adesso mi sto lavando i denti.", "Adesso sto lavandomi i denti."],
+              "hint": { "de": "das kleine Wort vorne: mi sto …", "sl": "mala beseda spredaj: mi sto …", "en": "the little word first: mi sto …" }
+            },
+            { "from": "Nonno Bepi racconta una storia.", "accept": ["Nonno Bepi sta raccontando una storia.", "Adesso Nonno Bepi sta raccontando una storia."] }
+          ],
+          "explain": {
+            "de": "**stare** mit der Person + das Gerundium, das gleich bleibt\n- canta → sta cantando · leggiamo → stiamo leggendo\n- mi lavo → mi sto lavando",
+            "sl": "**stare** z osebo + gerundij, ki ostane enak\n- canta → sta cantando · leggiamo → stiamo leggendo\n- mi lavo → mi sto lavando",
+            "en": "**stare** with the person + the gerund, which stays the same\n- canta → sta cantando · leggiamo → stiamo leggendo\n- mi lavo → mi sto lavando"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "stare-gerundio",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": [{ "de": "gerundio · Gerundium", "sl": "gerundio · gerundij", "en": "gerundio · gerund" }],
+        "rows": [
+          { "label": "parlare", "cells": ["parlando"] },
+          { "label": "ridere", "cells": [{ "accept": ["ridendo"] }] },
+          { "label": "finire", "cells": [{ "accept": ["finendo"] }] },
+          { "label": "dire", "cells": [{ "accept": ["dicendo"] }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "stare-gerundio",
+        "instruction": { "de": "Completa con stare + gerundio · Ergänze, was gerade passiert", "sl": "Completa con stare + gerundio · Dopolni, kaj se dogaja", "en": "Completa con stare + gerundio · Fill in what's going on" },
+        "text": "Piove e tutti sono a casa. Nonna Rosa ___ (preparare) il tè. Zia Nives ___ (ascoltare) la radio. Tommaso e Giulia ___ (disegnare) e io ___ (scrivere) una cartolina.",
+        "gaps": [{ "accept": ["sta preparando"] }, { "accept": ["sta ascoltando"] }, { "accept": ["stanno disegnando"] }, { "accept": ["sto scrivendo"] }],
+        "translation": {
+          "de": "Es regnet und alle sind zu Hause. Nonna Rosa macht gerade Tee. Zia Nives hört Radio. Tommaso und Giulia malen, und ich schreibe gerade eine Postkarte.",
+          "sl": "Dežuje in vsi so doma. Babica Rosa pripravlja čaj. Teta Nives posluša radio. Tommaso in Giulia rišeta, jaz pa pišem razglednico.",
+          "en": "It's raining and everyone is at home. Nonna Rosa is making tea. Zia Nives is listening to the radio. Tommaso and Giulia are drawing, and I'm writing a postcard."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "stare-gerundio",
+        "instruction": { "de": "Usa stare + gerundio · Sag, was gerade passiert", "sl": "Usa stare + gerundio · Povej, kaj se dogaja zdaj", "en": "Usa stare + gerundio · Say what's going on right now" },
+        "cue": "adesso",
+        "items": [
+          { "from": "Davide chiama le pecore.", "accept": ["Davide sta chiamando le pecore.", "Adesso Davide sta chiamando le pecore."] },
+          { "from": "Che cosa dici?", "accept": ["Che cosa stai dicendo?", "Che cosa stai dicendo adesso?", "Adesso che cosa stai dicendo?"] },
+          { "from": "Ci vestiamo per la festa.", "accept": ["Ci stiamo vestendo per la festa.", "Stiamo vestendoci per la festa.", "Adesso ci stiamo vestendo per la festa.", "Adesso stiamo vestendoci per la festa."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "stare-gerundio",
+        "prompt": "Ogni domenica ___ a casa della nonna.",
+        "options": ["mangiamo", "stiamo mangiando"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**Ogni domenica** (jeden Sonntag) → die Gegenwart: **mangiamo**\n- stiamo mangiando · gerade jetzt",
+          "sl": "**Ogni domenica** (vsako nedeljo) → sedanjik: **mangiamo**\n- stiamo mangiando · ravno zdaj",
+          "en": "**Ogni domenica** (every Sunday) → the present: **mangiamo**\n- stiamo mangiando · right now"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "stare-gerundio",
+        "prompt": "«Dov'è Lorenzo?» «Shh! ___!»",
+        "options": ["Sta dormendo", "Sta dormire", "Stanno dormendo"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**Lorenzo** → lui → **sta dormendo**\n- sta dormire: nach stare das Gerundium\n- stanno · loro",
+          "sl": "**Lorenzo** → lui → **sta dormendo**\n- sta dormire: za stare gerundij\n- stanno · loro",
+          "en": "**Lorenzo** → lui → **sta dormendo**\n- sta dormire: after stare the gerund\n- stanno · loro"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: sto lavandomi beside mi sto lavando, fando as a made-up wrong option, Bruno sta battendo il ferro, the German"
+}

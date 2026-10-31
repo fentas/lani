@@ -1,0 +1,366 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "partitivo",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🧺",
+  "title": { "it": "Del pane, delle mele", "de": "Etwas davon: del pane, delle mele", "sl": "Nekaj: del pane, delle mele", "en": "Some: del pane, delle mele" },
+  "goal": {
+    "de": "Du sagst, dass du etwas oder ein paar Dinge willst oder hast (del pane, delle mele, un po' di miele, qualche fungo), und dass etwas fehlt (non c'è pane).",
+    "sl": "Poveš, da hočeš ali imaš nekaj česa (del pane, delle mele, un po' di miele, qualche fungo), in da česa ni (non c'è pane).",
+    "en": "You can say you want or have some of something (del pane, delle mele, un po' di miele, qualche fungo), and that there's none (non c'è pane)."
+  },
+  "grammar": ["partitivo", "preposizioni-articolate"],
+  "words": ["il pane", "il latte", "l'acqua", "il formaggio", "il miele", "lo zucchero", "la farina", "la frutta", "la polenta", "la torta", "la minestra", "il fungo", "i funghi", "la mela", "le mele", "la ciliegia", "le ciliegie", "l'uovo", "le uova", "l'agnello", "il pomodoro", "il fiore", "il cesto", "il mercato", "il tè", "il caffè", "il frico", "la gubana", "la merenda", "comprare", "prendere", "mettere", "bere", "un po' di", "qualche"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "articolo", "de": "Artikel", "sl": "člen", "en": "article" },
+        { "it": "di + articolo", "de": "di + Artikel", "sl": "di + člen", "en": "di + article" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Willst du *etwas* Brot oder *ein bisschen* Mehl, sagt das Italienische **di** mit dem Artikel: **il pane → del pane** (etwas Brot), **la farina → della farina** (etwas Mehl). Im Deutschen steht oft gar nichts: **Vuoi del pane?** (Willst du Brot?) Das kennst du schon: **di + il = del**, wie in **la casa del nonno**.",
+          "sl": "Ko hočeš *nekaj* kruha ali *malo* moke, italijanščina reče **di** s členom: **il pane → del pane** (nekaj kruha), **la farina → della farina** (nekaj moke). Slovenščina ima tu rodilnik: **Vuoi del pane?** (Bi kruha?) To že poznaš: **di + il = del**, kot v **la casa del nonno**.",
+          "en": "When you want *some* bread or *a bit of* flour, Italian says **di** with the article: **il pane → del pane** (some bread), **la farina → della farina** (some flour). English often says nothing: **Vuoi del pane?** (Do you want bread?) You know this already: **di + il = del**, as in **la casa del nonno**."
+        },
+        "examples": [
+          { "it": "Vuoi del pane, tesoro?", "de": "Willst du Brot, Schatz?", "sl": "Bi kruha, zaklad?", "en": "Do you want some bread, sweetheart?" },
+          { "it": "Nonna Rosa compra della farina per la gubana.", "de": "Nonna Rosa kauft Mehl für die Gubana.", "sl": "Babica Rosa kupi moko za gubano.", "en": "Nonna Rosa buys some flour for the gubana." }
+        ],
+        "rows": [["il", "del", "del pane"], ["la", "della", "della farina"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "partitivo",
+          "prompt": "Nonna Rosa mette ___ formaggio nel frico.",
+          "options": ["del", "della", "dei"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**il formaggio** → di + il → **del** formaggio\n- della · la\n- dei · i"
+        }
+      },
+      {
+        "say": {
+          "de": "Wie beim Artikel: **lo zucchero → dello zucchero** (etwas Zucker), **l'acqua → dell'acqua** (etwas Wasser). Vor einem Vokal also **dell'** mit Apostroph: **Bevo dell'acqua.** (Ich trinke Wasser.)",
+          "sl": "Kot pri členu: **lo zucchero → dello zucchero** (nekaj sladkorja), **l'acqua → dell'acqua** (nekaj vode). Pred samoglasnikom torej **dell'** z opuščajem: **Bevo dell'acqua.** (Pijem vodo.)",
+          "en": "As with the article: **lo zucchero → dello zucchero** (some sugar), **l'acqua → dell'acqua** (some water). So before a vowel it's **dell'** with an apostrophe: **Bevo dell'acqua.** (I drink some water.)"
+        },
+        "examples": [
+          { "it": "Nonno Bepi vuole dello zucchero nel caffè.", "de": "Nonno Bepi will Zucker in den Kaffee.", "sl": "Dedek Bepi hoče v kavo malo sladkorja.", "en": "Nonno Bepi wants some sugar in his coffee." },
+          { "it": "Ho sete: bevo dell'acqua.", "de": "Ich habe Durst: Ich trinke Wasser.", "sl": "{m:Žejen|f:Žejna} sem: pijem vodo.", "en": "I'm thirsty: I'll drink some water." }
+        ],
+        "rows": [["lo", "dello", "dello zucchero"], ["l'", "dell'", "dell'acqua"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "partitivo",
+          "text": "Nel tè Zia Nives mette ___ zucchero.",
+          "accept": ["dello"],
+          "hint": "lo zucchero → ?",
+          "explain": "**lo zucchero** → di + lo → **dello**\n- l'acqua → dell'acqua\n- il pane → del pane"
+        }
+      },
+      {
+        "say": {
+          "de": "Bei mehreren Dingen heißt es *ein paar*: **i funghi → dei funghi** (ein paar Pilze), **gli agnelli → degli agnelli** (ein paar Lämmer), **le mele → delle mele** (ein paar Äpfel). **Nel cesto ci sono delle mele.** (Im Korb sind ein paar Äpfel.)",
+          "sl": "Pri več stvareh pomeni *nekaj*: **i funghi → dei funghi** (nekaj gob), **gli agnelli → degli agnelli** (nekaj jagnjet), **le mele → delle mele** (nekaj jabolk). **Nel cesto ci sono delle mele.** (V košari je nekaj jabolk.)",
+          "en": "With more than one thing it means *some, a few*: **i funghi → dei funghi** (some mushrooms), **gli agnelli → degli agnelli** (some lambs), **le mele → delle mele** (some apples). **Nel cesto ci sono delle mele.** (There are some apples in the basket.)"
+        },
+        "examples": [
+          { "it": "Nel bosco troviamo dei funghi.", "de": "Im Wald finden wir ein paar Pilze.", "sl": "V gozdu najdemo nekaj gob.", "en": "We find some mushrooms in the wood." },
+          { "it": "Davide ha degli agnelli nuovi.", "de": "Davide hat ein paar neue Lämmer.", "sl": "Davide ima nekaj novih jagnjet.", "en": "Davide has some new lambs." }
+        ],
+        "rows": [["i", "dei", "dei funghi"], ["gli", "degli", "degli agnelli"], ["le", "delle", "delle mele"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "partitivo",
+          "prompt": "Nel prato ci sono ___ fiori.",
+          "options": ["dei", "degli", "delle"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**i fiori** → di + i → **dei** fiori\n- degli · gli\n- delle · le"
+        }
+      },
+      {
+        "say": {
+          "de": "Für *ein bisschen* von etwas, das man nicht zählt, gibt es **un po' di**: **un po' di miele** (ein bisschen Honig), **un po' di latte** (ein bisschen Milch). Vor einem Vokal: **un po' d'acqua**. Das passt immer, auch wenn du **del** oder **della** vergisst!",
+          "sl": "Za *malo* nečesa, česar ne šteješ, je **un po' di**: **un po' di miele** (malo medu), **un po' di latte** (malo mleka). Pred samoglasnikom: **un po' d'acqua** (malo vode). To gre vedno, tudi če pozabiš **del** ali **della**!",
+          "en": "For *a little* of something you don't count there's **un po' di**: **un po' di miele** (a little honey), **un po' di latte** (a little milk). Before a vowel: **un po' d'acqua**. It always works, even if you forget **del** or **della**!"
+        },
+        "examples": [
+          { "it": "Aldo, posso avere un po' di miele?", "de": "Aldo, darf ich ein bisschen Honig haben?", "sl": "Aldo, lahko dobim malo medu?", "en": "Aldo, may I have a little honey?" },
+          { "it": "Prendi un po' di polenta!", "de": "Nimm ein bisschen Polenta!", "sl": "Vzemi si malo polente!", "en": "Have a little polenta!" }
+        ],
+        "rows": [["—", "un po' di", "un po' d'acqua"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "partitivo",
+          "text": "Posso avere un po' ___ latte?",
+          "accept": ["di"],
+          "hint": "un po' …",
+          "explain": "**un po' di** latte\n- un po' di miele · un po' d'acqua"
+        }
+      },
+      {
+        "say": {
+          "de": "Sagst du nein, steht nichts vor dem Ding, wo das Deutsche *kein* sagt: **Non c'è pane.** (Es gibt kein Brot.) **Oggi non abbiamo latte.** (Heute haben wir keine Milch.) Nach **non** also kein **del**.",
+          "sl": "Ko rečeš ne, pred stvarjo ni ničesar, slovenščina pa ima rodilnik: **Non c'è pane.** (Ni kruha.) **Oggi non abbiamo latte.** (Danes nimamo mleka.) Za **non** torej ni **del**.",
+          "en": "When you say no, nothing goes before the thing: **Non c'è pane.** (There's no bread.) **Oggi non abbiamo latte.** (We haven't got any milk today.) So no **del** after **non**."
+        },
+        "examples": [
+          { "it": "Mamma mia, non c'è pane!", "de": "Oje, es gibt kein Brot!", "sl": "Joj, ni kruha!", "en": "Oh no, there's no bread!" },
+          { "it": "Oggi non abbiamo latte.", "de": "Heute haben wir keine Milch.", "sl": "Danes nimamo mleka.", "en": "We haven't got any milk today." }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partitivo",
+          "prompt": "Oggi Franco non ha ___.",
+          "options": ["farina", "della farina"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Nach **non** steht nichts davor: non ha **farina**\n- della farina: nur ohne non",
+            "sl": "Za **non** ni ničesar pred stvarjo: non ha **farina**\n- della farina: le brez non",
+            "en": "After **non** nothing goes before it: non ha **farina**\n- della farina: only without non"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Noch ein Wort für *ein paar*: **qualche**. Danach steht die Einzahl, obwohl es mehrere sind: **qualche mela** (ein paar Äpfel), **qualche fungo** (ein paar Pilze). Darum sagst du auch **c'è**: **C'è qualche fungo nel bosco.** (Im Wald sind ein paar Pilze.)",
+          "sl": "Še ena beseda za *nekaj*: **qualche**. Za njo je ednina, čeprav jih je več: **qualche mela** (nekaj jabolk), **qualche fungo** (nekaj gob). Zato rečeš tudi **c'è**: **C'è qualche fungo nel bosco.** (V gozdu je nekaj gob.)",
+          "en": "One more word for *some, a few*: **qualche**. It takes the singular, though there are several: **qualche mela** (some apples), **qualche fungo** (a few mushrooms). That's why you also say **c'è**: **C'è qualche fungo nel bosco.** (There are a few mushrooms in the wood.)"
+        },
+        "examples": [
+          { "it": "Al mercato compro qualche ciliegia.", "de": "Auf dem Markt kaufe ich ein paar Kirschen.", "sl": "Na tržnici kupim nekaj češenj.", "en": "At the market I buy a few cherries." },
+          { "it": "C'è qualche fungo vicino all'albero.", "de": "Neben dem Baum sind ein paar Pilze.", "sl": "Ob drevesu je nekaj gob.", "en": "There are a few mushrooms near the tree." }
+        ],
+        "rows": [["—", "qualche", "qualche mela"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "partitivo",
+          "prompt": "Giulia mangia qualche ___.",
+          "options": ["ciliegia", "ciliegie"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**qualche** + die Einzahl: qualche **ciliegia**\n- delle ciliegie: mit delle die Mehrzahl",
+            "sl": "**qualche** + ednina: qualche **ciliegia**\n- delle ciliegie: z delle množina",
+            "en": "**qualche** + the singular: qualche **ciliegia**\n- delle ciliegie: with delle the plural"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "partitivo-1",
+      "title": { "it": "Del, dello, della", "de": "Del, dello, della", "sl": "Del, dello, della", "en": "Del, dello, della" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "partitivo",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "il pane → del pane",
+          "columns": [{ "de": "di + articolo · etwas, ein paar", "sl": "di + articolo · nekaj", "en": "di + articolo · some" }],
+          "rows": [
+            { "label": "il pane", "cells": ["del pane"] },
+            { "label": "lo zucchero", "cells": [{ "accept": ["dello zucchero"], "hint": "lo → ?" }] },
+            { "label": "l'acqua", "cells": [{ "accept": ["dell'acqua"], "hint": { "de": "vor einem Vokal: '", "sl": "pred samoglasnikom: '", "en": "before a vowel: '" } }] },
+            { "label": "la farina", "cells": [{ "accept": ["della farina"] }] },
+            { "label": "il miele", "cells": [{ "accept": ["del miele"] }] },
+            { "label": "i funghi", "cells": [{ "accept": ["dei funghi"] }] },
+            { "label": "gli agnelli", "cells": [{ "accept": ["degli agnelli"], "hint": "gli → ?" }] },
+            { "label": "le mele", "cells": [{ "accept": ["delle mele"] }] }
+          ],
+          "explain": {
+            "de": "**di + der Artikel** wird ein Wort\n- il → del · lo → dello · l' → dell' · la → della\n- i → dei · gli → degli · le → delle",
+            "sl": "**di + člen** postane ena beseda\n- il → del · lo → dello · l' → dell' · la → della\n- i → dei · gli → degli · le → delle",
+            "en": "**di + the article** becomes one word\n- il → del · lo → dello · l' → dell' · la → della\n- i → dei · gli → degli · le → delle"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "partitivo",
+          "instruction": { "de": "Del, della, dei o delle? · Sortiere", "sl": "Del, della, dei o delle? · Razvrsti", "en": "Del, della, dei o delle? · Sort" },
+          "columns": [
+            { "label": "del …", "words": ["formaggio", "latte"] },
+            { "label": "della …", "words": ["frutta", "polenta", "torta"] },
+            { "label": "dei …", "words": ["fiori", "pomodori"] },
+            { "label": "delle …", "words": ["ciliegie", "patate", "uova"] }
+          ],
+          "explain": {
+            "de": "**Der Artikel** entscheidet\n- il formaggio → del · la torta → della\n- i fiori → dei · le uova → delle",
+            "sl": "**Člen** odloči\n- il formaggio → del · la torta → della\n- i fiori → dei · le uova → delle",
+            "en": "**The article** decides\n- il formaggio → del · la torta → della\n- i fiori → dei · le uova → delle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "partitivo-2",
+      "title": { "it": "Al mercato", "de": "Auf dem Markt", "sl": "Na tržnici", "en": "At the market" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "partitivo",
+          "instruction": { "de": "Completa · Ergänze del, dello, della, dei, delle, di", "sl": "Completa · Dopolni del, dello, della, dei, delle, di", "en": "Completa · Fill in del, dello, della, dei, delle, di" },
+          "title": "Al mercato",
+          "text": "Sabato Nonna Rosa e Giulia vanno al mercato. Per la gubana Nonna Rosa compra ___ farina e ___ zucchero. Da Aldo prende ___ miele. Giulia vuole ___ ciliegie. «Nonna, compriamo anche ___ pomodori per la minestra?» «Sì, e un po' ___ formaggio per il frico!»",
+          "gaps": [
+            { "accept": ["della"], "hint": "la farina → ?" },
+            { "accept": ["dello"], "hint": "lo zucchero → ?" },
+            { "accept": ["del"], "hint": "il miele → ?" },
+            { "accept": ["delle"], "hint": "le ciliegie → ?" },
+            { "accept": ["dei"], "hint": "i pomodori → ?" },
+            {
+              "accept": ["di"],
+              "hint": "un po' …",
+              "explain": {
+                "de": "**un po' di** + das Ding, ohne Artikel: un po' **di** formaggio.",
+                "sl": "**un po' di** + stvar, brez člena: un po' **di** formaggio.",
+                "en": "**un po' di** + the thing, no article: un po' **di** formaggio."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["degli", "dell'"],
+          "translation": {
+            "de": "Am Samstag gehen Nonna Rosa und Giulia auf den Markt. Für die Gubana kauft Nonna Rosa Mehl und Zucker. Bei Aldo nimmt sie Honig. Giulia will ein paar Kirschen. „Oma, kaufen wir auch ein paar Tomaten für die Suppe?“ „Ja, und ein bisschen Käse für den Frico!“",
+            "sl": "V soboto gresta babica Rosa in Giulia na tržnico. Za gubano babica Rosa kupi moko in sladkor. Pri Aldu vzame med. Giulia hoče nekaj češenj. »Babica, kupiva še nekaj paradižnikov za juho?« »Ja, in malo sira za frico!«",
+            "en": "On Saturday Nonna Rosa and Giulia go to the market. For the gubana Nonna Rosa buys some flour and sugar. At Aldo's she gets some honey. Giulia wants some cherries. \"Grandma, shall we buy some tomatoes for the soup too?\" \"Yes, and a little cheese for the frico!\""
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "partitivo",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Al mercato Davide vende qualche ___.",
+          "options": ["formaggio", "formaggi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**qualche** + die Einzahl: qualche **formaggio**",
+            "sl": "**qualche** + ednina: qualche **formaggio**",
+            "en": "**qualche** + the singular: qualche **formaggio**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "partitivo-3",
+      "title": { "it": "Pane, latte e miele", "de": "Brot, Milch und Honig", "sl": "Kruh, mleko in med", "en": "Bread, milk and honey" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "partitivo",
+          "instruction": { "de": "Usa del, della, dei … · Sag es mit del, della, dei …", "sl": "Usa del, della, dei … · Povej z del, della, dei …", "en": "Usa del, della, dei … · Say it with del, della, dei …" },
+          "cue": "→",
+          "items": [
+            { "from": "Vuoi un po' di pane?", "accept": ["Vuoi del pane?"] },
+            { "from": "Nonna Rosa compra un po' di farina.", "accept": ["Nonna Rosa compra della farina."] },
+            { "from": "Mettiamo un po' di zucchero nel tè.", "accept": ["Mettiamo dello zucchero nel tè."], "hint": "lo zucchero" },
+            { "from": "Bevo un po' d'acqua.", "accept": ["Bevo dell'acqua."] },
+            {
+              "from": "C'è qualche mela nel cesto.",
+              "accept": ["Ci sono delle mele nel cesto.", "Nel cesto ci sono delle mele."],
+              "hint": { "de": "mehrere: ci sono …", "sl": "več: ci sono …", "en": "more than one: ci sono …" }
+            },
+            { "from": "Davide ha qualche agnello.", "accept": ["Davide ha degli agnelli."] }
+          ],
+          "explain": {
+            "de": "**di + der Artikel** für etwas, ein paar\n- un po' di pane → del pane\n- qualche mela → delle mele (die Mehrzahl)",
+            "sl": "**di + člen** za nekaj\n- un po' di pane → del pane\n- qualche mela → delle mele (množina)",
+            "en": "**di + the article** for some\n- un po' di pane → del pane\n- qualche mela → delle mele (the plural)"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "partitivo",
+          "instruction": { "de": "Di' di no · Sag es mit non", "sl": "Di' di no · Povej z non", "en": "Di' di no · Say it with non" },
+          "cue": "non",
+          "items": [
+            { "from": "Abbiamo del latte.", "accept": ["Non abbiamo latte."] },
+            { "from": "C'è del pane.", "accept": ["Non c'è pane."] },
+            { "from": "Franco ha della farina.", "accept": ["Franco non ha farina."] }
+          ],
+          "explain": {
+            "de": "**non** und nichts vor dem Ding\n- abbiamo del latte → non abbiamo latte",
+            "sl": "**non** in nič pred stvarjo\n- abbiamo del latte → non abbiamo latte",
+            "en": "**non** and nothing before the thing\n- abbiamo del latte → non abbiamo latte"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "partitivo",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": [{ "de": "di + articolo · etwas, ein paar", "sl": "di + articolo · nekaj", "en": "di + articolo · some" }],
+        "rows": [
+          { "label": "il latte", "cells": ["del latte"] },
+          { "label": "l'olio", "cells": [{ "accept": ["dell'olio"] }] },
+          { "label": "la minestra", "cells": [{ "accept": ["della minestra"] }] },
+          { "label": "gli scoiattoli", "cells": [{ "accept": ["degli scoiattoli"] }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "partitivo",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "A merenda Lorenzo mangia ___ pane con un po' ___ miele. Il nonno mette ___ zucchero nel caffè. Nel cesto ci sono ___ ciliegie.",
+        "gaps": [{ "accept": ["del"] }, { "accept": ["di"] }, { "accept": ["dello"] }, { "accept": ["delle"] }],
+        "translation": {
+          "de": "Zum Snack isst Lorenzo Brot mit ein bisschen Honig. Der Opa tut Zucker in den Kaffee. Im Korb sind ein paar Kirschen.",
+          "sl": "Za malico Lorenzo je kruh z malo medu. Dedek si v kavo dene sladkor. V košari je nekaj češenj.",
+          "en": "For his snack Lorenzo eats some bread with a little honey. Grandpa puts some sugar in his coffee. There are some cherries in the basket."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "partitivo",
+        "instruction": { "de": "Usa del, della, dei … · Sag es mit del, della, dei …", "sl": "Usa del, della, dei … · Povej z del, della, dei …", "en": "Usa del, della, dei … · Say it with del, della, dei …" },
+        "cue": "→",
+        "items": [
+          { "from": "Vuoi un po' di latte?", "accept": ["Vuoi del latte?"] },
+          { "from": "Davide vende un po' di formaggio.", "accept": ["Davide vende del formaggio."] },
+          { "from": "C'è qualche fiore nel prato.", "accept": ["Ci sono dei fiori nel prato.", "Nel prato ci sono dei fiori."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "partitivo",
+        "prompt": "Mamma mia, non abbiamo ___!",
+        "options": ["pane", "del pane"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "Nach **non** steht nichts davor: non abbiamo **pane**",
+          "sl": "Za **non** ni ničesar pred stvarjo: non abbiamo **pane**",
+          "en": "After **non** nothing goes before it: non abbiamo **pane**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "partitivo",
+        "prompt": "Nel bosco Lorenzo trova qualche ___.",
+        "options": ["fungo", "funghi"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**qualche** + die Einzahl: qualche **fungo**",
+          "sl": "**qualche** + ednina: qualche **fungo**",
+          "en": "**qualche** + the singular: qualche **fungo**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Oggi Franco non ha farina, qualche + the singular for a child, delle uova, the German"
+}
