@@ -48,7 +48,7 @@ const FEATURE_TOPICS: Record<string, { id: string; title: string; summary: strin
   arrivals: { id: 'arrivals', title: 'Arrivals', summary: 'For villager_arrived: how the learner meets someone new (publish_arrival, get_arrival).' },
   family: { id: 'family', title: 'Family challenges', summary: 'For partner_challenge and partner_answer from the family page, and its untrusted content.' },
   voice: { id: 'voices', title: 'Voices', summary: "When a voice or a clip sounds wrong, or the learner asks about audio (voice_profiles, voice_redesign)." },
-  level: { id: 'level-up', title: 'Level-ups', summary: 'For level_up, or when the learner asks whether they are ready for the next level (the treasure map).' },
+  level: { id: 'level-up', title: 'Level-ups and the target', summary: 'For level_up, readiness for the next level (the treasure map), or a change of the target level (set_target_level).' },
   towns: { id: 'visits', title: 'Visits', summary: 'For talks and sessions on a visit to a linked town (town:, market:) and town_gift.' },
   friendship: { id: 'friendship', title: 'Friendship between towns', summary: "When a friend town's neighbour moves in (villager_arrived, kind moved)." },
   questions: { id: 'town-questions', title: 'Questions between towns', summary: 'For town_check, town_asked, town_answer, town_question and town_answered.' },

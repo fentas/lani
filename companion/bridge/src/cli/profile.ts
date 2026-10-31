@@ -2,10 +2,14 @@
 // companion/bin/lani-profile: the learners on this machine (companion/README.md, "Learners").
 //
 //   lani-profile add <id> --name <name> --target <lang> --base <lang> --gender male|female [--child] [--level A1]
-//                           [--culture <pack>] [--landscape valley|hills|lake|mountains|coast]
+//                           [--target-level B2] [--culture <pack>] [--landscape valley|hills|lake|mountains|coast]
 //                           [--port N] [--https-port N]
 //   lani-profile list                  (also: lani-session --list)
 //   lani-profile show <id>             where it lives, how to publish it, start it and pair a phone
+//   lani-profile set-target <id> <level> [--from-next-age]
+//                                        the level the village's ages lead to (companion/GAME.md "Ages"): a raise with
+//                                        --from-next-age starts with the village's next age; without it, and a lower
+//                                        target always, at once
 //   lani-profile session <id> [--keys FILE] [--mode classic|service]
 //                                        for lani-session: the tmux session's name, then its command (service: the
 //                                        tutor with the shim, the bridge in lani-bridge; docs/plans/04-bridge-service.md)
@@ -16,6 +20,9 @@ import { join } from 'node:path'
 import { keysFile, parseEnvFile } from '../env'
 import { APP_LANGUAGES, cultureIds, culturesIn, DEFAULT_CULTURE, LANDSCAPES, landscapesOf, readManifest } from '../cultures'
 import { entryDataDir, GENDERS, initLearnerData, languageCode, LANGUAGES, newEntry, readRegistry, writeRegistry, type ProfileEntry } from '../learners'
+import { defaultTarget, levelOf, readProfile, setTargetIn } from '../aim'
+import { LeaseGuard } from '../lease'
+import { localDate } from '../rhythm'
 import { allProfiles, bridgeEnv, bridgeUp, die, projectDir, q, registryDir, resolveProfile, serveCommand, serviceSocket, short, table, tailnetUrl, tmuxUp, type Resolved } from './common'
 
 const [cmd, ...rest] = process.argv.slice(2)
@@ -99,6 +106,7 @@ async function add() {
       child: { type: 'boolean', default: false },
       gender: { type: 'string' },
       level: { type: 'string', default: 'A1' },
+      'target-level': { type: 'string' },
       culture: { type: 'string' },
       landscape: { type: 'string' },
       port: { type: 'string' },
@@ -124,6 +132,8 @@ async function add() {
   if (g !== undefined && !gender) die(`--gender: ${GENDERS.join(' or ')}`)
   const level = values.level.toUpperCase()
   if (!/^[ABC][12]$/.test(level)) die('--level: A1, A2, B1, B2, C1 or C2')
+  // the level the village's ages lead to: B2, or the level above theirs from B2 on, unless chosen (at once: no village yet)
+  const targetLevel = values['target-level'] === undefined ? defaultTarget(level) : levelOf(values['target-level']) ?? die('--target-level: A1, A2, B1, B2, C1 or C2')
   const culture = values.culture?.trim() || cultureFor(target)
   const manifest = readManifest(culturesDir, culture)
   if (!manifest.ok) die(`--culture: a culture pack, one of ${cultureIds(culturesDir).join(', ')}\n${manifest.errors}`)
@@ -146,12 +156,12 @@ async function add() {
     die((e as Error).message)
   }
   try {
-    initLearnerData(projectDir, entryDataDir(registryDir, entry), { name, target, base, level, child: values.child, ...(gender ? { gender } : {}) })
+    initLearnerData(projectDir, entryDataDir(registryDir, entry), { name, target, base, level, targetLevel, child: values.child, ...(gender ? { gender } : {}) })
   } catch (e) {
     die((e as Error).message)
   }
   writeRegistry(registryDir, { ...r, profiles: [...r.profiles, entry] })
-  console.log(`Added ${id}: ${name}${values.child ? ' (child)' : ''}${gender ? `, ${gender}` : ''}, learns ${LANGUAGES[target]} from ${LANGUAGES[base]}, level ${level}.`)
+  console.log(`Added ${id}: ${name}${values.child ? ' (child)' : ''}${gender ? `, ${gender}` : ''}, learns ${LANGUAGES[target]} from ${LANGUAGES[base]}, level ${level}, aims at ${targetLevel}.`)
   if (manifest.manifest.language !== target) console.log(`  The ${culture} culture pack is in ${LANGUAGES[manifest.manifest.language] ?? manifest.manifest.language}, not ${LANGUAGES[target]}: its village speaks that.`)
   if (!gender)
     console.log(
@@ -220,6 +230,39 @@ function show() {
   describe(p)
 }
 
+/**
+ * lani-profile set-target <id> <level> [--from-next-age]: the level the learner's village's ages lead to (companion/GAME.md
+ * "Ages"; src/aim.ts). A raise with --from-next-age waits for the village's next age (learner.target_level_next); without
+ * the flag, at the last age, and for a lower or the same target, at once. Says what the steps then need. Refused while the
+ * learner's data isn't this node's to write (the lease: the phone holds it).
+ */
+function setTargetCmd() {
+  const { values, positionals } = parseArgs({ args: rest, allowPositionals: true, options: { 'from-next-age': { type: 'boolean', default: false } } })
+  const usage = 'usage: lani-profile set-target <id> <level> [--from-next-age]   (level: A1, A2, B1, B2, C1 or C2; id "default" for the default learner)'
+  if (positionals.length !== 2) die(usage)
+  const level = levelOf(positionals[1]) ?? die(`${positionals[1]}: not a level\n${usage}`)
+  const p = resolveProfile(positionals[0])
+  const refused = new LeaseGuard(p.dataDir).refusal()
+  if (refused) die(refused)
+  let before: { target?: string; next?: unknown }
+  try {
+    const l = readProfile(p.dataDir).learner ?? {}
+    before = { target: l.target_level, next: l.target_level_next }
+  } catch (e) {
+    die(`${p.id}: no learner profile in ${short(p.dataDir)} (${(e as Error).message})`)
+  }
+  const r = setTargetIn(p.dataDir, level, { fromNextAge: values['from-next-age'], today: localDate(new Date()) })
+  console.log(`${p.id} (${p.name}): ${r.text}`)
+  if (values['from-next-age'] && r.change.mode === 'now' && r.change.why === 'lower') console.log('  (--from-next-age is for a raise: a lower target never makes a step harder, so it applies at once.)')
+  const json = 'learner-profile.json'
+  if (r.change.mode === 'next_age') console.log(`  ${json}: target_level stays ${r.change.before}; target_level_next ${JSON.stringify({ level, from_age: r.change.from_age })}.`)
+  else if (r.change.mode === 'now') {
+    const target = before.target === level ? `target_level stays ${level}` : `target_level ${before.target ?? '(none: B2)'} → ${level}`
+    console.log(`  ${json}: ${target}${before.next !== undefined ? '; target_level_next removed' : ''}.`)
+  }
+  if (r.change.mode !== 'unchanged') console.log("  The app shows it the next time it reads the learner's data (at once while it is open).")
+}
+
 switch (cmd) {
   case 'add':
     await add()
@@ -234,6 +277,9 @@ switch (cmd) {
   case 'session':
     session()
     break
+  case 'set-target':
+    setTargetCmd()
+    break
   default:
-    die(`unknown command: ${cmd}\nusage: lani-profile add|list|show|session …`)
+    die(`unknown command: ${cmd}\nusage: lani-profile add|list|show|session|set-target …`)
 }

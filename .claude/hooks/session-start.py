@@ -46,7 +46,11 @@ def main():
 
         print(f"[Lani] 🌍 Welcome back, {name}!")
         print(f"[Lani] 📚 Learning: {target_lang}")
-        print(f"[Lani] 🎯 Level: {current_level} → {target_level}")
+        # a raised target that starts with the village's next age (companion/GAME.md "Ages", learner.target_level_next)
+        pending = learner.get("target_level_next")
+        then = (f" ({pending.get('level')} from the village's age {str(pending.get('from_age', '')).title()} on)"
+                if isinstance(pending, dict) and pending.get("level") and pending.get("from_age") else "")
+        print(f"[Lani] 🎯 Level: {current_level} → {target_level}{then}")
         print(f"[Lani] 🔥 Streak: {streak} days")
 
         sr_path = data / "spaced-repetition.json"

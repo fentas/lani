@@ -9,6 +9,9 @@ import { titleEn } from '../grammar'
 import { json, readJson } from '../http'
 import { languageParam } from '../learner'
 import { aimOf, LANGUAGES } from '../learners'
+import { setTargetIn, TARGET_LEVELS } from '../aim'
+import { localDate } from '../rhythm'
+import { fail, ok } from '../tool'
 
 const instructions = `
 Level-ups: the app offers "🗺️ Zemljevid zaklada · The treasure map" once the learner is ready (most of the level's
@@ -18,6 +21,14 @@ test the end of the level; passed, the app posts the new level. level_up: ALREAD
 set current_level and level_since): don't persist it again. Don't raise the level yourself for a learner who can take
 the map: a report's "level" is for a real placement (/lani-setup) or a correction. When they ask "am I ready for A2?",
 point them to the map. An older app (no treasure map) keeps the old way: you judge, and a report's "level" sets it.
+The target level (learner.target_level; B2 for a new learner, or the level above theirs from B2 on) is where the village's
+ages lead: each age needs a share of its words (get_village's aim: the next age and its words). A raised target starts
+with the village's next age: the step the village is on keeps the words it asked, so a learner close to an age isn't
+handed hundreds more at once (learner.target_level_next {level, from_age}: the app shows "From the next age: B1" on the
+age card and the progress screen; the bridge applies it when the village reaches that age). A lower target applies at
+once (it never makes a step harder); the current target again takes a waiting raise back. Change it only when the
+learner or their parent asks, with set_target_level, never by editing the profile: for a raise it sets the pending
+target, not the target. Say what it answers: what the step now and the next one need.
 `.trim()
 
 export const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
@@ -172,6 +183,28 @@ export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, gram
       // the aim ("🎯 Cilj · Aim"): the learner's level and target_level; the app's setup sets it
       { method: 'GET', path: '/learner/target', handle: () => json(aimNow()) },
       { method: 'POST', path: '/learner/target', handle: async ({ req }) => handleTarget(await readJson(req)) },
+    ],
+    tools: [
+      {
+        name: 'set_target_level',
+        description:
+          "Set the learner's target level (learner.target_level: where the village's ages lead, each age a share of its words; companion/GAME.md \"Ages\"). A raise starts with the village's next age (learner.target_level_next): the step the village is on keeps its words, the new target counts from the next age on, and the bridge applies it when the village gets there. A lower target, or the current one again (which takes a waiting raise back), applies at once. Only when the learner or their parent asks. Answers what changed and what the step now and the next one need.",
+        inputSchema: {
+          type: 'object',
+          properties: { level: { type: 'string', enum: [...TARGET_LEVELS], description: 'The CEFR level to aim at: A1, A2, B1, B2, C1 or C2' } },
+          required: ['level'],
+        },
+        handle: args => {
+          const level = TARGET_LEVELS.find(l => l === String(args.level ?? '').trim().toUpperCase())
+          if (!level) return fail(`level: one of ${TARGET_LEVELS.join(', ')}`)
+          try {
+            // the home language's profile: the village's ages follow it
+            return ok(setTargetIn(learner.dataDir, level, { fromNextAge: true, today: localDate(new Date()) }).text)
+          } catch (e) {
+            return fail(`the learner profile can't be changed: ${(e as Error).message}`)
+          }
+        },
+      },
     ],
   }
 }

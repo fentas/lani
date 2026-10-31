@@ -10,6 +10,7 @@ import { json, readText } from '../http'
 import { localDate } from '../rhythm'
 import { calendarOn } from '../towns'
 import { isTipMoment, TIP_MOMENTS } from '../tips'
+import { ageOf, applyPendingTarget, describeAim, readProfile } from '../aim'
 
 const instructions = `
 The app has a village game, "Moja vas": practice earns resources (vocabulary → food, listening →
@@ -77,7 +78,7 @@ congratulate Jan, or ask about the party, in the chat; the app plays it, you don
 
 const gamePut = z.object({ rev: z.number().int().min(0), state: z.record(z.string(), z.unknown()) })
 
-export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar, events }) => ({
+export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar, events, learner, log }) => ({
   instructions,
   routes: [
     {
@@ -114,6 +115,18 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar,
         const state = Object.keys(kept).length ? { ...r.data.state, ...kept } : r.data.state
         const next = { rev: r.data.rev + 1, state }
         game.write(next)
+        // a raised target that starts with the next age (aim.ts; GAME.md "Ages"): the village saved at its age applies it,
+        // once, whoever reached the age (the app counts with it already); a save at an age before it changes nothing
+        const age = ageOf(state.age)
+        if (age) {
+          try {
+            const applied = applyPendingTarget(learner.dataDir, age, localDate(new Date()))
+            if (applied) log(`the village reached ${age}: the target is ${applied} now (learner.target_level_next applied)`)
+          } catch (e) {
+            // the village is saved either way; the next save tries again
+            log(`target_level_next: ${(e as Error).message}`)
+          }
+        }
         return json({ rev: next.rev })
       },
     },
@@ -122,7 +135,7 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar,
     {
       name: 'get_village',
       description:
-        "Summary of the learner's village in the app's game: age, resources, buildings, the hearths (each hut, house, the school, the forge and the centre its own fire: lit of all, the ones out, the wood a day and the days the store lasts, the forge's charcoal), who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps and task_passed once that task is passed: the drill is optional practice then; on_map: the app's map shows it today; back: tried below the pass mark, when it comes back), resting (who rests after a run of theirs, until when: no new task for them now), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), spots (the landscape's spots with work over real days, the charcoal pile: its stage today, the day of it, a breakout tonight, the last delivery to the smith, the village's wood for it: given or waited for), the school's course (the day the class began, the units done and in progress: get_course has the rest), numbers (the numbers module 🔢 Števila, once the unit stevila's intro is done: the ranges open, the newest one's last answers right of how many, 8 of the last 10 opening the next, the numbers missed coming back as asked, the runs), cases (the case trainer 🧩 Skloni, once played: each case's and rule's last answers right of how many, the items coming back, the rules the case lens showed, the sessions; get_cases has more), looked_up (the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first: page, title, n answers given with one of its cards open, the last day; left out when none: work potential, get_course names their units), grown and parties (the day each age came, the day its party was had), recent chronicle.",
+        "Summary of the learner's village in the app's game: age, aim (the target level its ages lead to: the one the step it is on counts with, the next age and the words it needs, and from_next_age: a raised target waiting for the next age, the age it starts with and the words after it), resources, buildings, the hearths (each hut, house, the school, the forge and the centre its own fire: lit of all, the ones out, the wood a day and the days the store lasts, the forge's charcoal), who is here and met (people.known: all a scene, a request or a line may name) and who waits to be met (people.to_meet), active event, open quests (their module, tries, best try and pass mark, the grammar pages missed, the task a drill helps and task_passed once that task is passed: the drill is optional practice then; on_map: the app's map shows it today; back: tried below the pass mark, when it comes back), resting (who rests after a run of theirs, until when: no new task for them now), help (🤝, earned by helping villagers, spent on a moba), friends, the chest's tools and goods, the village projects (steps done; landmarks_down: finished ones whose landmark is down for the season now, as the maypole after May: not standing in the village or on its square), the calendar (the culture's days on now and the next, a quiet one marked: remembered, not celebrated), spots (the landscape's spots with work over real days, the charcoal pile: its stage today, the day of it, a breakout tonight, the last delivery to the smith, the village's wood for it: given or waited for), the school's course (the day the class began, the units done and in progress: get_course has the rest), numbers (the numbers module 🔢 Števila, once the unit stevila's intro is done: the ranges open, the newest one's last answers right of how many, 8 of the last 10 opening the next, the numbers missed coming back as asked, the runs), cases (the case trainer 🧩 Skloni, once played: each case's and rule's last answers right of how many, the items coming back, the rules the case lens showed, the sessions; get_cases has more), looked_up (the grammar pages Jan looked up on the cheat sheet during exercises in the last two weeks, most first: page, title, n answers given with one of its cards open, the last day; left out when none: work potential, get_course names their units), grown and parties (the day each age came, the day its party was had), recent chronicle.",
       inputSchema: { type: 'object', properties: {} },
       // the calendar as the app has it today: the days on, the next, which are quiet (towns.ts calendarOn); what was looked
       // up on the cheat sheet, in its language (the village's)
@@ -138,6 +151,13 @@ export const game: FeatureFactory = ({ game, villagers, culture, cards, grammar,
             ),
           // the forge burns charcoal where a spot's cycle brings it to the smith (Primorska's kopa), else wood
           Object.values(spots).some(sp => sp?.cycle?.delivery),
+          age => {
+            try {
+              return describeAim(readProfile(learner.dataDir).learner, ageOf(age) ?? 'OGENJ')
+            } catch {
+              return undefined
+            }
+          },
         ))
       },
     },

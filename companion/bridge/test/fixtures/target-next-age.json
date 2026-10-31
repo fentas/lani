@@ -1,0 +1,25 @@
+{
+  "_note": "The learner's aim as the bridge (src/aim.ts) and the app (game/Aims.kt, Catalog.ageWords) both count it: test/smoke/aim.ts and the app's AimsParityTest read these cases, so the two can't drift (companion/GAME.md \"Ages\", docs/plans/05-built/target-next-age.md). age_words: the words learned to reach each age on the way to a target. aims: a profile's learner and the village's age → the target the step from that age counts with, the words the next age needs, and the raise still waiting (null: none, or applied by then). defaults: a new learner's target by their level.",
+  "age_words": {
+    "A1": { "OGENJ": 0, "TABOR": 10, "ZASELEK": 40, "VAS": 45, "TRG": 150, "MESTO": 300 },
+    "A2": { "OGENJ": 0, "TABOR": 10, "ZASELEK": 40, "VAS": 45, "TRG": 150, "MESTO": 300 },
+    "B1": { "OGENJ": 0, "TABOR": 10, "ZASELEK": 40, "VAS": 150, "TRG": 500, "MESTO": 1000 },
+    "B2": { "OGENJ": 0, "TABOR": 10, "ZASELEK": 60, "VAS": 300, "TRG": 1000, "MESTO": 2000 },
+    "C1": { "OGENJ": 0, "TABOR": 10, "ZASELEK": 105, "VAS": 525, "TRG": 1750, "MESTO": 3500 },
+    "C2": { "OGENJ": 0, "TABOR": 10, "ZASELEK": 150, "VAS": 750, "TRG": 2500, "MESTO": 5000 }
+  },
+  "aims": [
+    { "why": "Teo at Zaselek with B1 waiting for Vas: the step to Vas keeps A2's 45 words", "learner": { "target_level": "A2", "target_level_next": { "level": "B1", "from_age": "VAS", "set": "2026-10-31" } }, "age": "ZASELEK", "target": "A2", "words_next_age": 45, "waiting": "B1" },
+    { "why": "… the village at Vas: B1 counts, Trg needs B1's 500", "learner": { "target_level": "A2", "target_level_next": { "level": "B1", "from_age": "VAS", "set": "2026-10-31" } }, "age": "VAS", "target": "B1", "words_next_age": 500, "waiting": null },
+    { "why": "… past Vas while no save came through: still B1", "learner": { "target_level": "A2", "target_level_next": { "level": "B1", "from_age": "VAS" } }, "age": "TRG", "target": "B1", "words_next_age": 1000, "waiting": null },
+    { "why": "… applied by the bridge: the same", "learner": { "target_level": "B1", "target_level_since": "2026-11-02" }, "age": "VAS", "target": "B1", "words_next_age": 500, "waiting": null },
+    { "why": "a raise far ahead waits as long", "learner": { "target_level": "B2", "target_level_next": { "level": "C1", "from_age": "TRG" } }, "age": "TABOR", "target": "B2", "words_next_age": 60, "waiting": "C1" },
+    { "why": "no target named: B2", "learner": { "current_level": "A1" }, "age": "ZASELEK", "target": "B2", "words_next_age": 300, "waiting": null },
+    { "why": "a level written in lower case counts", "learner": { "target_level": "b1", "target_level_next": { "level": "c1", "from_age": "vas" } }, "age": "ZASELEK", "target": "B1", "words_next_age": 150, "waiting": "C1" },
+    { "why": "a pending target that isn't a level is no raise", "learner": { "target_level": "A2", "target_level_next": { "level": "B9", "from_age": "VAS" } }, "age": "VAS", "target": "A2", "words_next_age": 150, "waiting": null },
+    { "why": "a pending target without an age is no raise", "learner": { "target_level": "A2", "target_level_next": { "level": "B1" } }, "age": "VAS", "target": "A2", "words_next_age": 150, "waiting": null },
+    { "why": "a pending target as a bare string is no raise", "learner": { "target_level": "A2", "target_level_next": "B1" }, "age": "ZASELEK", "target": "A2", "words_next_age": 45, "waiting": null },
+    { "why": "the town: no next age", "learner": { "target_level": "B2" }, "age": "MESTO", "target": "B2", "words_next_age": null, "waiting": null }
+  ],
+  "defaults": { "A1": "B2", "A2": "B2", "B1": "B2", "B2": "C1", "C1": "C2", "C2": "C2" }
+}

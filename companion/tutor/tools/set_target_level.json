@@ -1,0 +1,24 @@
+{
+  "name": "set_target_level",
+  "description": "Set the learner's target level (learner.target_level: where the village's ages lead, each age a share of its words; companion/GAME.md \"Ages\"). A raise starts with the village's next age (learner.target_level_next): the step the village is on keeps its words, the new target counts from the next age on, and the bridge applies it when the village gets there. A lower target, or the current one again (which takes a waiting raise back), applies at once. Only when the learner or their parent asks. Answers what changed and what the step now and the next one need.",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "level": {
+        "type": "string",
+        "enum": [
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ],
+        "description": "The CEFR level to aim at: A1, A2, B1, B2, C1 or C2"
+      }
+    },
+    "required": [
+      "level"
+    ]
+  }
+}

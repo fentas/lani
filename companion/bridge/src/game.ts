@@ -245,7 +245,8 @@ export class GameStore {
    * A compact view of the village for the tutor: enough to talk about it, not the whole state. [nameOf]: a cast member's
    * name ("Čebelar Anton"), for who lives there; [calendar]: the culture's calendar now, given the festivals kept (id →
    * day): the days on and the next (towns.ts calendarOn), a quiet one said to be quiet; [lookedUp]: the topics looked up
-   * on the cheat sheet during exercises of late, given the state's sheet (cards.ts topicsLookedUp; none: left out).
+   * on the cheat sheet during exercises of late, given the state's sheet (cards.ts topicsLookedUp; none: left out); [aim]: the
+   * learner's target as the village at its age counts with it (aim.ts describeAim; none: left out).
    */
   summary(
     nameOf: (id: string) => string | undefined = () => undefined,
@@ -253,6 +254,7 @@ export class GameStore {
     lookedUp?: (sheet: unknown) => unknown[],
     spots?: (cycles: Record<string, unknown>, state: any) => unknown,
     charcoal = false,
+    aim?: (age: unknown) => unknown,
   ): string {
     const g = this.read()
     if (!g) return 'No village yet: Jan has not opened the game.'
@@ -274,6 +276,9 @@ export class GameStore {
     return JSON.stringify(
       {
         age: s.age,
+        // the target the village's ages lead to (GAME.md "Ages"): the one the step it is on counts with, the next age's words,
+        // and a raise that starts with the next age (from_next_age: its level, the age it starts with, the words after it)
+        aim: aim?.(s.age),
         // the land it stands on (GAME.md, "The land"): classic for a village from before generated land
         land: typeof s.land?.kind === 'string' ? s.land.kind : 'classic',
         resources: s.resources,
