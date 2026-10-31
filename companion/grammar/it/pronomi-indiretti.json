@@ -1,0 +1,109 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "pronomi-indiretti",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🎁",
+  "title": {
+    "it": "Gli do, le dico: i pronomi indiretti",
+    "sl": "Mu dam, ji rečem: zaimki v dajalniku",
+    "en": "To him, to her: the indirect pronouns",
+    "de": "Ihm, ihr: die Dativpronomen"
+  },
+  "rule": {
+    "en": "To whom do you give, say, bring or write something? Italian says it with **a** + the person: **Do la palla a Lorenzo.** Once you know who it is, a short word takes the place of a + the person (*pronome indiretto*): **Gli do la palla.** (I give him the ball.)\n\nThe short words: **mi** (to me), **ti** (to you), **gli** (to him), **le** (to her), **Le** (to you, polite: Lei), **ci** (to us), **vi** (to you all), **gli** (to them; written also **a loro** after the verb). They are the same as with **piace**: **gli piace**, **le piace**.\n\nThey stand right before the verb, and **non** before them: **Le porto un fiore.** **Non gli dico il segreto.** In the past they stand before avere, and the participle doesn't change: **Le ho dato un fiore.**\n\nMost verbs go as in English: give, say, bring, write, tell to someone. **Telefonare** takes **a** too: **Telefono a Giulia → Le telefono.** But **aiutare** (help) takes the direct pronoun, as *help him* does: **Aiuto Lorenzo → Lo aiuto** (said mostly **l'aiuto**; pronomi diretti: lo, la, li, le).",
+    "sl": "Komu nekaj daš, rečeš, prineseš ali napišeš? Italijanščina to pove z **a** + osebo: **Do la palla a Lorenzo.** (Dam žogo Lorenzu.) Ko veš, kdo je, kratka beseda zamenja a + osebo (*pronome indiretto*): **Gli do la palla.** (Dam mu žogo.)\n\nKratke besede: **mi** (meni, mi), **ti** (tebi, ti), **gli** (njemu, mu), **le** (njej, ji), **Le** (vam, vljudno: Lei), **ci** (nam), **vi** (vam, več osebam), **gli** (njim; tudi **a loro** za glagolom). Iste so kot pri **piace**: **gli piace**, **le piace**.\n\nStojijo tik pred glagolom, **non** pa pred njimi: **Le porto un fiore.** (Prinesem ji rožo.) **Non gli dico il segreto.** (Ne povem mu skrivnosti.) V pretekliku stojijo pred avere, deležnik pa se ne spremeni: **Le ho dato un fiore.**\n\nVečina glagolov gre kot v slovenščini: dati, reči, prinesti, napisati komu. **Telefonare** gre z **a**: **Telefono a Giulia → Le telefono.** (Pokličem jo.) **Aiutare** (pomagati) pa vzame premi zaimek, čeprav slovensko rečeš *mu*: **Aiuto Lorenzo → Lo aiuto** (pomagam mu; v govoru večinoma **l'aiuto**; pronomi diretti: lo, la, li, le).",
+    "de": "Wem gibst, sagst, bringst oder schreibst du etwas? Das Italienische sagt es mit **a** + der Person: **Do la palla a Lorenzo.** (Ich gebe Lorenzo den Ball.) Weißt du schon, wer es ist, nimmt ein kurzes Wort den Platz von a + Person ein (*pronome indiretto*): **Gli do la palla.** (Ich gebe ihm den Ball.)\n\nDie kurzen Wörter: **mi** (mir), **ti** (dir), **gli** (ihm), **le** (ihr), **Le** (Ihnen: Lei), **ci** (uns), **vi** (euch), **gli** (ihnen; auch **a loro** nach dem Verb). Es sind dieselben wie bei **piace**: **gli piace**, **le piace**.\n\nSie stehen direkt vor dem Verb, **non** steht davor: **Le porto un fiore.** (Ich bringe ihr eine Blume.) **Non gli dico il segreto.** (Ich sage ihm das Geheimnis nicht.) In der Vergangenheit stehen sie vor avere, und das Partizip ändert sich nicht: **Le ho dato un fiore.**\n\nWem? (Dativ) → gli, le. Wen? (Akkusativ) → lo, la. Meistens wie im Deutschen. Zwei sind anders: **telefonare a**: **Le telefono.** (Ich rufe sie an.) Und **aiutare** nimmt lo, la: **Aiuto Lorenzo → Lo aiuto.** (Ich helfe ihm; gesprochen meist **l'aiuto**.)"
+  },
+  "table": {
+    "head": [
+      { "it": "a chi?", "sl": "komu?", "en": "to whom?", "de": "wem?" },
+      { "it": "pronome", "sl": "zaimek", "en": "pronoun", "de": "Pronomen" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      [{ "it": "a me", "sl": "meni", "en": "to me", "de": "mir" }, "mi", "Mi dai la mano?"],
+      [{ "it": "a te", "sl": "tebi", "en": "to you", "de": "dir" }, "ti", "Ti racconto una storia."],
+      [{ "it": "a lui", "sl": "njemu", "en": "to him", "de": "ihm" }, "gli", "Gli do la palla."],
+      [{ "it": "a lei", "sl": "njej", "en": "to her", "de": "ihr" }, "le", "Le porto un fiore."],
+      [{ "it": "a Lei", "sl": "vam (vljudno)", "en": "to you (polite)", "de": "Ihnen" }, "Le", "Maestra, Le do il quaderno."],
+      [{ "it": "a noi", "sl": "nam", "en": "to us", "de": "uns" }, "ci", "Nonno, ci leggi una storia?"],
+      [{ "it": "a voi", "sl": "vam (več osebam)", "en": "to you all", "de": "euch" }, "vi", "Bambini, vi porto il miele."],
+      [{ "it": "a loro", "sl": "njim", "en": "to them", "de": "ihnen" }, "gli", "Gli do il pane."]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Lorenzo ha fame: gli do un panino.",
+      "sl": "Lorenzo je lačen: dam mu sendvič.",
+      "en": "Lorenzo is hungry: I give him a sandwich.",
+      "de": "Lorenzo hat Hunger: Ich gebe ihm ein Brötchen.",
+      "note": {
+        "sl": "gli = a Lorenzo, njemu. Stoji pred glagolom: gli do.",
+        "en": "gli = a Lorenzo, to him. It stands before the verb: gli do.",
+        "de": "gli = a Lorenzo, ihm. Es steht vor dem Verb: gli do."
+      }
+    },
+    {
+      "it": "Giulia è triste: le porto un fiore.",
+      "sl": "Giulia je žalostna: prinesem ji rožo.",
+      "en": "Giulia is sad: I bring her a flower.",
+      "de": "Giulia ist traurig: Ich bringe ihr eine Blume."
+    },
+    {
+      "it": "Nonno Bepi ci racconta una storia.",
+      "sl": "Dedek Bepi nam pripoveduje zgodbo.",
+      "en": "Nonno Bepi tells us a story.",
+      "de": "Nonno Bepi erzählt uns eine Geschichte."
+    },
+    {
+      "it": "Maestra, Le do il mio disegno.",
+      "sl": "Učiteljica, dam vam svojo risbo.",
+      "en": "Miss, I'm giving you my drawing.",
+      "de": "Frau Lehrerin, ich gebe Ihnen meine Zeichnung.",
+      "note": {
+        "sl": "Lei (vikanje) → Le, z veliko začetnico.",
+        "en": "Lei (polite) → Le, often with a capital.",
+        "de": "Lei (Sie) → Le, oft großgeschrieben."
+      }
+    },
+    {
+      "it": "Non gli dico il segreto!",
+      "sl": "Ne povem mu skrivnosti!",
+      "en": "I'm not telling him the secret!",
+      "de": "Ich sage ihm das Geheimnis nicht!",
+      "note": {
+        "sl": "non stoji pred zaimkom: non gli dico.",
+        "en": "non goes before the pronoun: non gli dico.",
+        "de": "non steht vor dem Pronomen: non gli dico."
+      }
+    },
+    {
+      "it": "Telefono a Zia Nives. Le telefono ogni sera.",
+      "sl": "Pokličem teto Nives. Pokličem jo vsak večer.",
+      "en": "I phone Zia Nives. I phone her every evening.",
+      "de": "Ich rufe Zia Nives an. Ich rufe sie jeden Abend an.",
+      "note": {
+        "sl": "telefonare a → le, čeprav slovensko rečeš jo.",
+        "en": "telefonare a → le: phoning someone is to someone in Italian.",
+        "de": "telefonare a → le, obwohl du auf Deutsch sie anrufen sagst."
+      }
+    },
+    {
+      "it": "Le ho dato un biscotto.",
+      "sl": "Dal sem ji piškot.",
+      "en": "I gave her a biscuit.",
+      "de": "Ich habe ihr einen Keks gegeben.",
+      "note": {
+        "sl": "Z gli in le se deležnik ne spremeni: ho dato.",
+        "en": "With gli and le the participle stays as it is: ho dato.",
+        "de": "Mit gli und le bleibt das Partizip, wie es ist: ho dato."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["pronouns", "pronomi", "indirect-object", "dative", "gli", "le"],
+  "see": ["piacere", "verbi-irregolari", "tu-lei", "imperativo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

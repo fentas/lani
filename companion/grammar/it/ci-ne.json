@@ -1,0 +1,98 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "ci-ne",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🧺",
+  "title": {
+    "it": "Ci vado, ne ho tre: ci e ne",
+    "sl": "Tja grem, imam jih tri: ci in ne",
+    "en": "I go there, I've got three of them: ci and ne",
+    "de": "Ich gehe hin, ich habe drei davon: ci und ne"
+  },
+  "rule": {
+    "en": "**Ci** stands for a place already named: *there*. **Vai al mare? Sì, ci vado.** (Yes, I'm going there.) **Abiti a Grado? No, non ci abito.** It's the ci of **c'è** and **ci sono** (there is, there are). Like the other short words it goes right before the verb, **non** before it.\n\n**Ne** stands for *some of it, of them* after a number or an amount: **Quante mele hai? Ne ho tre.** (I've got three.) **Vuoi del pane? Sì, ne voglio un po'.** **Non ne ho.** (I haven't got any.) English often says nothing there; Italian always says **ne**: not *ho tre*, but **ne ho tre**.\n\nWith ne, **ci** becomes **ce**: **C'è del latte? Sì, ce n'è.** (there is some) **Quante uova ci sono? Ce ne sono sei.**\n\nWhen the whole thing is meant, not a part, it is lo, la, li, le: **Il gelato? Lo mangio.** (all of it) But **Gelato? Ne mangio un po'.** (some of it)",
+    "sl": "**Ci** stoji namesto kraja, ki je že omenjen: *tja, tam*. **Vai al mare? Sì, ci vado.** (Ja, grem tja.) **Abiti a Grado? No, non ci abito.** (Ne, ne živim tam.) To je isti ci kot v **c'è** in **ci sono** (je, so). Kot druge kratke besede stoji tik pred glagolom, **non** pred njim.\n\n**Ne** pomeni *od tega, jih* za številom ali količino: **Quante mele hai? Ne ho tre.** (Imam jih tri.) **Vuoi del pane? Sì, ne voglio un po'.** (Ja, malo ga bom.) **Non ne ho.** (Nimam ga, jih.) Slovenščina reče *jih*, italijanščina vedno **ne**: ne *ho tre*, temveč **ne ho tre**.\n\nPred ne postane **ci** → **ce**: **C'è del latte? Sì, ce n'è.** (ja, je ga) **Quante uova ci sono? Ce ne sono sei.** (Šest jih je.)\n\nKo misliš celo stvar, ne dela, je lo, la, li, le: **Il gelato? Lo mangio.** (ves) Toda **Gelato? Ne mangio un po'.** (malo ga)",
+    "de": "**Ci** steht für einen Ort, den man schon genannt hat: *dort, dorthin*. **Vai al mare? Sì, ci vado.** (Ja, ich gehe hin.) **Abiti a Grado? No, non ci abito.** (Nein, ich wohne nicht dort.) Es ist das ci von **c'è** und **ci sono** (es gibt, da ist). Wie die anderen kurzen Wörter steht es direkt vor dem Verb, **non** davor.\n\n**Ne** heißt *davon* nach einer Zahl oder Menge: **Quante mele hai? Ne ho tre.** (Ich habe drei davon.) **Vuoi del pane? Sì, ne voglio un po'.** (Ja, ich möchte ein bisschen davon.) **Non ne ho.** (Ich habe keins, keine.) Das Deutsche kann davon weglassen, das Italienische sagt immer **ne**: nicht *ho tre*, sondern **ne ho tre**.\n\nVor ne wird **ci** zu **ce**: **C'è del latte? Sì, ce n'è.** (es gibt welche) **Quante uova ci sono? Ce ne sono sei.** (Es sind sechs.)\n\nMeinst du die ganze Sache, nicht einen Teil, ist es lo, la, li, le: **Il gelato? Lo mangio.** (das ganze) Aber **Gelato? Ne mangio un po'.** (ein bisschen davon)"
+  },
+  "table": {
+    "head": [
+      { "it": "parola", "sl": "beseda", "en": "word", "de": "Wort" },
+      { "it": "significa", "sl": "pomeni", "en": "means", "de": "heißt" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      ["ci", { "it": "lì, là", "sl": "tja, tam", "en": "there", "de": "dorthin, dort" }, "Vai al mare? Sì, ci vado."],
+      ["non ci", { "it": "non lì", "sl": "ne tja, ne tam", "en": "not there", "de": "nicht dorthin, nicht dort" }, "No, non ci vado."],
+      ["ne", { "it": "di questo, di questi", "sl": "od tega, jih", "en": "of it, of them", "de": "davon" }, "Quante mele hai? Ne ho tre."],
+      ["ne … un po'", { "it": "un po' di questo", "sl": "malo tega", "en": "a bit of it", "de": "ein bisschen davon" }, "Sì, ne voglio un po'."],
+      ["non ne", { "it": "niente", "sl": "nič tega", "en": "none of it", "de": "keins, keine" }, "Non ne ho."],
+      ["ce n'è", { "it": "c'è + ne", "sl": "je ga", "en": "there is some", "de": "es gibt welche, eins" }, "C'è del latte? Sì, ce n'è."],
+      ["ce ne sono", { "it": "ci sono + ne", "sl": "jih je", "en": "there are … of them", "de": "es sind … davon" }, "Ce ne sono sei."]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Vai a scuola a piedi? Sì, ci vado a piedi.",
+      "sl": "Greš peš v šolo? Ja, peš grem tja.",
+      "en": "Do you walk to school? Yes, I walk there.",
+      "de": "Gehst du zu Fuß zur Schule? Ja, ich gehe zu Fuß hin.",
+      "note": {
+        "sl": "ci = a scuola, tja. Stoji pred glagolom.",
+        "en": "ci = a scuola, there. It goes before the verb.",
+        "de": "ci = a scuola, dorthin. Es steht vor dem Verb."
+      }
+    },
+    {
+      "it": "Nonno Bepi va sotto il tiglio e ci sta tutto il pomeriggio.",
+      "sl": "Dedek Bepi gre pod lipo in tam ostane vse popoldne.",
+      "en": "Nonno Bepi goes under the linden and stays there all afternoon.",
+      "de": "Nonno Bepi geht unter die Linde und bleibt den ganzen Nachmittag dort."
+    },
+    {
+      "it": "Quante pecore ha Davide? Ne ha venti.",
+      "sl": "Koliko ovc ima Davide? Ima jih dvajset.",
+      "en": "How many sheep has Davide got? He's got twenty.",
+      "de": "Wie viele Schafe hat Davide? Er hat zwanzig.",
+      "note": {
+        "sl": "ne = od ovc, jih. Brez ne stavek ni cel: ne ha venti.",
+        "en": "ne = of the sheep. Without it the sentence isn't whole: ne ha venti.",
+        "de": "ne = davon, von den Schafen. Ohne ne ist der Satz nicht ganz: ne ha venti."
+      }
+    },
+    {
+      "it": "Vuoi delle ciliegie? Sì, ne voglio tante!",
+      "sl": "Bi češnje? Ja, veliko jih hočem!",
+      "en": "Would you like some cherries? Yes, lots!",
+      "de": "Möchtest du Kirschen? Ja, ganz viele!"
+    },
+    {
+      "it": "Hai delle caramelle? No, non ne ho.",
+      "sl": "Imaš kaj bonbonov? Ne, nimam jih.",
+      "en": "Have you got any sweets? No, I haven't got any.",
+      "de": "Hast du Bonbons? Nein, ich habe keine."
+    },
+    {
+      "it": "C'è ancora della gubana? Sì, ce n'è un pezzo.",
+      "sl": "Je še kaj gubane? Ja, še en kos je.",
+      "en": "Is there any gubana left? Yes, there's a piece.",
+      "de": "Gibt es noch Gubana? Ja, es gibt noch ein Stück.",
+      "note": {
+        "sl": "ci + ne → ce ne; pred è → ce n'è.",
+        "en": "ci + ne → ce ne; before è → ce n'è.",
+        "de": "ci + ne → ce ne; vor è → ce n'è."
+      }
+    },
+    {
+      "it": "Quante barche ci sono al porto? Ce ne sono quattro.",
+      "sl": "Koliko čolnov je v pristanišču? Štirje so.",
+      "en": "How many boats are there in the harbour? There are four.",
+      "de": "Wie viele Boote sind im Hafen? Es sind vier."
+    }
+  ],
+  "modules": [],
+  "tags": ["ci", "ne", "pronouns", "pronomi", "place", "quantity"],
+  "see": ["ce-ci-sono", "partitivo", "numeri", "pronomi-indiretti"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

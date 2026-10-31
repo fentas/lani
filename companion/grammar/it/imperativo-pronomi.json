@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "imperativo-pronomi",
+  "language": "it",
+  "level": "A2",
+  "emoji": "👉",
+  "title": {
+    "it": "Dammi! Prendilo! L'imperativo con i pronomi",
+    "sl": "Daj mi! Vzemi ga! Velelnik z zaimki",
+    "en": "Give me! Take it! The imperative with pronouns",
+    "de": "Gib mir! Nimm ihn! Der Imperativ mit Pronomen"
+  },
+  "rule": {
+    "en": "In an order to tu, noi or voi the short word goes at the end and is written together with the verb: **guarda + mi → guardami!** (look at me!), **prendi + lo → prendilo!** (take it!), **porta + gli → portagli il pane!** (take him the bread!), **aiutiamo + la → aiutiamola!** (let's help her!), **ascoltate + mi → ascoltatemi!** (listen to me!). The stress stays where it was: guàrdami, prèndilo.\n\nThe short ones double the consonant of the pronoun: **da' → dammi, dallo, dalla**; **di' → dimmi, dillo**; **fa' → fammi, fallo**; **sta' → stammi vicino**; **va' → vacci**. Only **gli** stays single: **dagli, digli, fagli**.\n\nThe negative to one person is **non** + the infinitive, and the pronoun goes on the infinitive without its last -e, or before it: **Non toccarlo!** or **Non lo toccare!** (Don't touch it!) Both are right. To several: **Non toccatelo!** or **Non lo toccate!**\n\nTo someone you say Lei to, the pronoun stays in front: **Mi scusi!** (Excuse me!) **Mi dica!** (Tell me, go ahead!)",
+    "sl": "V velelniku za tu, noi ali voi gre kratka beseda na konec in se piše skupaj z glagolom: **guarda + mi → guardami!** (poglej me!), **prendi + lo → prendilo!** (vzemi ga!), **porta + gli → portagli il pane!** (nesi mu kruh!), **aiutiamo + la → aiutiamola!** (pomagajmo ji!), **ascoltate + mi → ascoltatemi!** (poslušajte me!). Naglas ostane, kjer je bil: guàrdami, prèndilo.\n\nKratki velelniki podvojijo soglasnik zaimka: **da' → dammi, dallo, dalla**; **di' → dimmi, dillo**; **fa' → fammi, fallo**; **sta' → stammi vicino**; **va' → vacci**. Samo **gli** ostane enojen: **dagli, digli, fagli**.\n\nPrepoved eni osebi je **non** + nedoločnik, zaimek pa gre na nedoločnik brez končnega -e ali predenj: **Non toccarlo!** ali **Non lo toccare!** (Ne dotikaj se ga!) Oboje je prav. Več osebam: **Non toccatelo!** ali **Non lo toccate!**\n\nČe nekoga vikaš (Lei), ostane zaimek spredaj: **Mi scusi!** (Oprostite!) **Mi dica!** (Izvolite, povejte!)",
+    "de": "Im Imperativ für tu, noi oder voi kommt das kurze Wort ans Ende und wird mit dem Verb zusammengeschrieben: **guarda + mi → guardami!** (schau mich an!), **prendi + lo → prendilo!** (nimm ihn, nimm es!), **porta + gli → portagli il pane!** (bring ihm das Brot!), **aiutiamo + la → aiutiamola!** (helfen wir ihr!), **ascoltate + mi → ascoltatemi!** (hört mir zu!). Die Betonung bleibt, wo sie war: guàrdami, prèndilo.\n\nDie kurzen verdoppeln den Mitlaut des Pronomens: **da' → dammi, dallo, dalla**; **di' → dimmi, dillo**; **fa' → fammi, fallo**; **sta' → stammi vicino**; **va' → vacci**. Nur **gli** bleibt einfach: **dagli, digli, fagli**.\n\nVerbieten zu einer Person: **non** + Infinitiv, das Pronomen hängt am Infinitiv ohne sein letztes -e oder steht davor: **Non toccarlo!** oder **Non lo toccare!** (Fass es nicht an!) Beides ist richtig. Zu mehreren: **Non toccatelo!** oder **Non lo toccate!**\n\nZu jemandem, den du siezt (Lei), bleibt das Pronomen vorn: **Mi scusi!** (Entschuldigen Sie!) **Mi dica!** (Bitte, sagen Sie!)"
+  },
+  "table": {
+    "head": [
+      { "it": "imperativo", "sl": "velelnik", "en": "imperative", "de": "Imperativ" },
+      { "it": "+ pronome", "sl": "+ zaimek", "en": "+ pronoun", "de": "+ Pronomen" },
+      { "it": "significato", "sl": "pomen", "en": "meaning", "de": "Bedeutung" }
+    ],
+    "rows": [
+      ["guarda!", "guardami!", { "it": "guarda me", "sl": "poglej me!", "en": "look at me!", "de": "schau mich an!" }],
+      ["aiuta!", "aiutami!", { "it": "aiuta me", "sl": "pomagaj mi!", "en": "help me!", "de": "hilf mir!" }],
+      ["prendi!", "prendilo! prendila!", { "it": "prendi lui, lei", "sl": "vzemi ga, jo!", "en": "take it!", "de": "nimm ihn, sie, es!" }],
+      ["porta!", "portagli! portale!", { "it": "porta a lui, a lei", "sl": "nesi mu, ji!", "en": "take him, her …!", "de": "bring ihm, ihr …!" }],
+      ["da'!", "dammi! dallo! dagli!", { "it": "da' a me, da' quello, da' a lui", "sl": "daj mi! daj ga! daj mu!", "en": "give me! give it! give him!", "de": "gib mir! gib es! gib ihm!" }],
+      ["di'!", "dimmi! dillo!", { "it": "di' a me, di' quello", "sl": "povej mi! povej to!", "en": "tell me! say it!", "de": "sag mir! sag es!" }],
+      ["fa'!", "fammi! fallo!", { "it": "fa' a me, fa' quello", "sl": "pusti mi! naredi to!", "en": "let me! do it!", "de": "lass mich! mach es!" }],
+      ["aiutiamo!", "aiutiamolo!", { "it": "aiutiamo lui", "sl": "pomagajmo mu!", "en": "let's help him!", "de": "helfen wir ihm!" }],
+      ["ascoltate!", "ascoltatemi!", { "it": "ascoltate me", "sl": "poslušajte me!", "en": "listen to me!", "de": "hört mir zu!" }],
+      ["non toccare!", "non toccarlo! non lo toccare!", { "it": "non toccare quello", "sl": "ne dotikaj se ga!", "en": "don't touch it!", "de": "fass es nicht an!" }]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Aspettami, Tommaso!",
+      "sl": "Počakaj me, Tommaso!",
+      "en": "Wait for me, Tommaso!",
+      "de": "Warte auf mich, Tommaso!",
+      "note": {
+        "sl": "aspetta + mi → aspettami: ena beseda.",
+        "en": "aspetta + mi → aspettami: one word.",
+        "de": "aspetta + mi → aspettami: ein Wort."
+      }
+    },
+    {
+      "it": "Ecco la palla: prendila!",
+      "sl": "Tukaj je žoga: vzemi jo!",
+      "en": "Here's the ball: catch it!",
+      "de": "Hier ist der Ball: Nimm ihn!",
+      "note": {
+        "sl": "la palla → la: prendila.",
+        "en": "la palla → la: prendila.",
+        "de": "la palla → la: prendila (der Ball ist italienisch weiblich)."
+      }
+    },
+    {
+      "it": "Lorenzo, dammi la mano!",
+      "sl": "Lorenzo, daj mi roko!",
+      "en": "Lorenzo, give me your hand!",
+      "de": "Lorenzo, gib mir die Hand!",
+      "note": {
+        "sl": "da' + mi → dammi, z dvema m.",
+        "en": "da' + mi → dammi, with two m.",
+        "de": "da' + mi → dammi, mit zwei m."
+      }
+    },
+    {
+      "it": "Moro ha fame: dagli un osso!",
+      "sl": "Moro je lačen: daj mu kost!",
+      "en": "Moro is hungry: give him a bone!",
+      "de": "Moro hat Hunger: Gib ihm einen Knochen!"
+    },
+    {
+      "it": "Dimmi, che cosa hai visto?",
+      "sl": "Povej mi, kaj si videl?",
+      "en": "Tell me, what did you see?",
+      "de": "Sag mal, was hast du gesehen?"
+    },
+    {
+      "it": "Il ferro è caldo: non toccarlo!",
+      "sl": "Železo je vroče: ne dotikaj se ga!",
+      "en": "The iron is hot: don't touch it!",
+      "de": "Das Eisen ist heiß: Fass es nicht an!",
+      "note": {
+        "sl": "Tudi prav: Non lo toccare!",
+        "en": "Also right: Non lo toccare!",
+        "de": "Auch richtig: Non lo toccare!"
+      }
+    },
+    {
+      "it": "Bambini, ascoltatemi!",
+      "sl": "Otroci, poslušajte me!",
+      "en": "Children, listen to me!",
+      "de": "Kinder, hört mir zu!"
+    },
+    {
+      "it": "Mi scusi, maestra!",
+      "sl": "Oprostite, učiteljica!",
+      "en": "Excuse me, Miss!",
+      "de": "Entschuldigung, Frau Lehrerin!"
+    }
+  ],
+  "modules": [],
+  "tags": ["imperative", "imperativo", "pronouns", "pronomi", "orders"],
+  "see": ["imperativo", "pronomi-indiretti", "tu-lei", "verbi-irregolari"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

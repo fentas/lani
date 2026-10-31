@@ -1,0 +1,97 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "vorrei",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🍦",
+  "title": {
+    "it": "Vorrei, potrei: chiedere gentilmente",
+    "sl": "Rad bi, bi lahko: vljudna prošnja",
+    "en": "I'd like, could I: asking politely",
+    "de": "Ich möchte, könnte ich: höflich bitten"
+  },
+  "rule": {
+    "en": "**Voglio** is *I want*: fine among friends, but rather sharp for asking. **Vorrei** is *I'd like*, the polite way, with **per favore** (please): **Vorrei un gelato, per favore.** It goes with a thing or with a verb as the dictionary has it: **Vorrei giocare.** (I'd like to play.)\n\nIts forms (*condizionale*): **vorrei**, **vorresti** (would you like?), **vorrebbe** (he, she; you with Lei), **vorremmo** (we), **vorreste** (you all), **vorrebbero** (they). Two r all through; noi has two m: **vorremmo**.\n\n**Potere** goes the same way, to ask for help or for leave: **potrei** (could I?), **potresti** (could you?), **potrebbe** (could you? with Lei): **Potrei avere un bicchiere d'acqua?** **Mi potresti aiutare?** **Maestra, potrebbe ripetere, per favore?**\n\n**Mi piacerebbe** + a verb is *I'd love to*: **Mi piacerebbe vedere i cavalli.** **Ti piacerebbe venire?** It is piacere's, so it stays piacerebbe with a verb.\n\nThe answers: **grazie** (thank you), **prego** (you're welcome; also *please, go ahead*).",
+    "sl": "**Voglio** je *hočem*: med prijatelji v redu, za prošnjo pa precej oster. **Vorrei** je *rad bi, želel bi*, vljudno, s **per favore** (prosim): **Vorrei un gelato, per favore.** (Rad bi sladoled, prosim.) Gre s stvarjo ali z nedoločnikom: **Vorrei giocare.** (Rad bi se igral.)\n\nOblike (*condizionale*): **vorrei**, **vorresti** (bi rad?), **vorrebbe** (on, ona; vi z Lei), **vorremmo** (mi), **vorreste** (vi), **vorrebbero** (oni). Povsod dva r; noi ima dva m: **vorremmo**.\n\nEnako gre **potere**, ko prosiš za pomoč ali dovoljenje: **potrei** (bi lahko?), **potresti** (bi lahko ti?), **potrebbe** (bi lahko vi? z Lei): **Potrei avere un bicchiere d'acqua?** (Bi lahko dobil kozarec vode?) **Mi potresti aiutare?** (Bi mi lahko pomagal?) **Maestra, potrebbe ripetere, per favore?**\n\n**Mi piacerebbe** + glagol pomeni *zelo rad bi*: **Mi piacerebbe vedere i cavalli.** **Ti piacerebbe venire?** (Bi rad prišel?) Je od piacere, zato z glagolom ostane piacerebbe.\n\nOdgovori: **grazie** (hvala), **prego** (prosim, ni za kaj; tudi *izvolite*).",
+    "de": "**Voglio** heißt *ich will*: unter Freunden in Ordnung, zum Bitten aber ziemlich hart. **Vorrei** heißt *ich möchte*, die höfliche Art, mit **per favore** (bitte): **Vorrei un gelato, per favore.** (Ich möchte ein Eis, bitte.) Es geht mit einer Sache oder einem Verb in der Grundform: **Vorrei giocare.** (Ich möchte spielen.)\n\nSeine Formen (*condizionale*): **vorrei**, **vorresti** (möchtest du?), **vorrebbe** (er, sie; Sie mit Lei), **vorremmo** (wir), **vorreste** (ihr), **vorrebbero** (sie). Immer zwei r; noi hat zwei m: **vorremmo**.\n\nGenauso geht **potere**, um Hilfe oder Erlaubnis zu bitten: **potrei** (könnte ich?), **potresti** (könntest du?), **potrebbe** (könnten Sie? mit Lei): **Potrei avere un bicchiere d'acqua?** (Könnte ich ein Glas Wasser haben?) **Mi potresti aiutare?** (Könntest du mir helfen?) **Maestra, potrebbe ripetere, per favore?**\n\n**Mi piacerebbe** + Verb heißt *ich würde gern*: **Mi piacerebbe vedere i cavalli.** **Ti piacerebbe venire?** (Würdest du gern kommen?) Es ist von piacere, darum bleibt es mit einem Verb piacerebbe.\n\nDie Antworten: **grazie** (danke), **prego** (bitte sehr, gern geschehen)."
+  },
+  "table": {
+    "head": [
+      { "it": "chi", "sl": "kdo", "en": "who", "de": "wer" },
+      { "it": "volere", "sl": "volere (rad bi)", "en": "volere (would like)", "de": "volere (möchte)" },
+      { "it": "potere", "sl": "potere (bi lahko)", "en": "potere (could)", "de": "potere (könnte)" }
+    ],
+    "rows": [
+      ["io", "vorrei", "potrei"],
+      ["tu", "vorresti", "potresti"],
+      [{ "it": "lui, lei, Lei", "sl": "lui, lei, Lei (on, ona, vi)", "en": "lui, lei, Lei (he, she, you)", "de": "lui, lei, Lei (er, sie, Sie)" }, "vorrebbe", "potrebbe"],
+      ["noi", "vorremmo", "potremmo"],
+      ["voi", "vorreste", "potreste"],
+      ["loro", "vorrebbero", "potrebbero"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Vorrei un gelato al cioccolato, per favore.",
+      "sl": "Rad bi čokoladni sladoled, prosim.",
+      "en": "I'd like a chocolate ice cream, please.",
+      "de": "Ich möchte ein Schokoladeneis, bitte.",
+      "note": {
+        "sl": "Voglio un gelato! zveni, kot bi ukazoval. Vorrei je vljudno.",
+        "en": "Voglio un gelato! sounds like an order. Vorrei is polite.",
+        "de": "Voglio un gelato! klingt wie ein Befehl. Vorrei ist höflich."
+      }
+    },
+    {
+      "it": "Vorresti un po' di frico?",
+      "sl": "Bi malo frike?",
+      "en": "Would you like some frico?",
+      "de": "Möchtest du ein bisschen Frico?"
+    },
+    {
+      "it": "Lorenzo vorrebbe un cavallo tutto suo.",
+      "sl": "Lorenzo bi rad imel svojega konja.",
+      "en": "Lorenzo would like a horse of his own.",
+      "de": "Lorenzo hätte gern ein eigenes Pferd."
+    },
+    {
+      "it": "Vorremmo andare allo stagno.",
+      "sl": "Radi bi šli do ribnika.",
+      "en": "We'd like to go to the pond.",
+      "de": "Wir möchten zum Teich gehen.",
+      "note": {
+        "sl": "noi: vorremmo, z dvema m.",
+        "en": "noi: vorremmo, with two m.",
+        "de": "noi: vorremmo, mit zwei m."
+      }
+    },
+    {
+      "it": "Signora Marisa, potrei avere un bicchiere d'acqua?",
+      "sl": "Gospa Marisa, bi lahko dobil kozarec vode?",
+      "en": "Signora Marisa, could I have a glass of water?",
+      "de": "Frau Marisa, könnte ich ein Glas Wasser haben?"
+    },
+    {
+      "it": "Maestra, potrebbe ripetere, per favore?",
+      "sl": "Učiteljica, bi lahko ponovili, prosim?",
+      "en": "Miss, could you say it again, please?",
+      "de": "Frau Lehrerin, könnten Sie das bitte wiederholen?",
+      "note": {
+        "sl": "Lei (vikanje) → potrebbe, kot lui, lei.",
+        "en": "Lei (polite) → potrebbe, as lui, lei.",
+        "de": "Lei (Sie) → potrebbe, wie lui, lei."
+      }
+    },
+    {
+      "it": "Mi piacerebbe vedere il mare d'inverno.",
+      "sl": "Rad bi videl morje pozimi.",
+      "en": "I'd love to see the sea in winter.",
+      "de": "Ich würde gern das Meer im Winter sehen."
+    }
+  ],
+  "modules": [],
+  "tags": ["conditional", "condizionale", "polite", "vorrei", "potrei", "requests"],
+  "see": ["verbi-irregolari", "tu-lei", "piacere", "partitivo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

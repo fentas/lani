@@ -1,0 +1,102 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "relative-che",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🔗",
+  "title": {
+    "it": "Il cane che abbaia: le frasi con che",
+    "sl": "Pes, ki laja: oziralni stavki s che",
+    "en": "The dog that barks: clauses with che",
+    "de": "Der Hund, der bellt: Relativsätze mit che"
+  },
+  "rule": {
+    "en": "**Che** joins two sentences about the same person or thing: **Ho un cane. Il cane abbaia. → Ho un cane che abbaia.** It is *who*, *which* and *that* in one word, for people, animals and things: **la bambina che canta**, **il gabbiano che vola**, **la barca che è rossa**.\n\n**Che** never changes: **il cane che**, **la casa che**, **i bambini che**, **le pecore che**. The verb after it goes with the noun before it: **il bambino che gioca**, **i bambini che giocano**.\n\nIt is also the one done to, where English often drops *that*: **il libro che leggo** (the book I'm reading), **la torta che fa la nonna**. Italian never leaves che out: not *il libro leggo*.\n\n**Chi** is the question *who?*: **Chi canta?** But: **la bambina che canta**. After a preposition (with whom, in which) Italian uses **cui**: **la casa in cui abito**. That comes later.\n\nThe word order stays as in any sentence, and there is usually no comma: **il cane che abbaia in giardino**.",
+    "sl": "**Che** poveže dva stavka o isti osebi ali stvari: **Ho un cane. Il cane abbaia. → Ho un cane che abbaia.** (Imam psa, ki laja.) Pomeni *ki*, *kateri*, za ljudi, živali in stvari: **la bambina che canta** (deklica, ki poje), **il gabbiano che vola**, **la barca che è rossa**.\n\n**Che** se nikoli ne spremeni, kot slovenski *ki*: **il cane che**, **la casa che**, **i bambini che**, **le pecore che**. Glagol za njim se ravna po samostalniku pred njim: **il bambino che gioca**, **i bambini che giocano**.\n\nPomeni tudi *ki ga, ki jo* (predmet): **il libro che leggo** (knjiga, ki jo berem), **la torta che fa la nonna** (torta, ki jo peče babica). Che ostane brez dodatka: ne *che lo leggo*.\n\n**Chi** je vprašanje *kdo?*: **Chi canta?** Toda: **la bambina che canta**. Za predlogom (s katerim, v kateri) italijanščina reče **cui**: **la casa in cui abito**. To pride pozneje.\n\nBesedni red ostane kot v vsakem stavku, vejice navadno ni: **il cane che abbaia in giardino**.",
+    "de": "**Che** verbindet zwei Sätze über dieselbe Person oder Sache: **Ho un cane. Il cane abbaia. → Ho un cane che abbaia.** (Ich habe einen Hund, der bellt.) Es ist *der, die, das* (auch *welcher*), für Menschen, Tiere und Dinge: **la bambina che canta** (das Mädchen, das singt), **il gabbiano che vola**, **la barca che è rossa**.\n\n**Che** ändert sich nie, anders als der, die, das: **il cane che**, **la casa che**, **i bambini che**, **le pecore che**. Das Verb danach richtet sich nach dem Nomen davor: **il bambino che gioca**, **i bambini che giocano**.\n\nEs steht auch für den, die, das im Akkusativ: **il libro che leggo** (das Buch, das ich lese), **la torta che fa la nonna** (der Kuchen, den Oma backt). Immer che: nie den, nie die.\n\n**Chi** ist die Frage *wer?*: **Chi canta?** Aber: **la bambina che canta**. Nach einer Präposition (mit dem, in dem) sagt man **cui**: **la casa in cui abito**. Das kommt später.\n\nDas Verb rutscht nicht ans Ende wie im Deutschen, und meist steht kein Komma: **il cane che abbaia in giardino** (der Hund, der im Garten bellt)."
+  },
+  "table": {
+    "head": [
+      { "it": "nome", "sl": "samostalnik", "en": "noun", "de": "Nomen" },
+      { "it": "che …", "sl": "ki …", "en": "that, who …", "de": "der, die, das …" },
+      { "it": "significato", "sl": "pomen", "en": "meaning", "de": "Bedeutung" }
+    ],
+    "rows": [
+      ["il cane", "che abbaia", { "it": "il cane abbaia", "sl": "pes, ki laja", "en": "the dog that barks", "de": "der Hund, der bellt" }],
+      ["la bambina", "che canta", { "it": "la bambina canta", "sl": "deklica, ki poje", "en": "the girl who sings", "de": "das Mädchen, das singt" }],
+      ["i bambini", "che giocano", { "it": "i bambini giocano", "sl": "otroci, ki se igrajo", "en": "the children who play", "de": "die Kinder, die spielen" }],
+      ["le pecore", "che mangiano", { "it": "le pecore mangiano", "sl": "ovce, ki jedo", "en": "the sheep that eat", "de": "die Schafe, die fressen" }],
+      ["il libro", "che leggo", { "it": "io leggo il libro", "sl": "knjiga, ki jo berem", "en": "the book (that) I read", "de": "das Buch, das ich lese" }],
+      ["la torta", "che fa la nonna", { "it": "la nonna fa la torta", "sl": "torta, ki jo peče babica", "en": "the cake (that) Grandma makes", "de": "der Kuchen, den Oma backt" }]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Moro è un cane che dorme tanto.",
+      "sl": "Moro je pes, ki veliko spi.",
+      "en": "Moro is a dog that sleeps a lot.",
+      "de": "Moro ist ein Hund, der viel schläft.",
+      "note": {
+        "sl": "che = ki: Moro è un cane. Il cane dorme tanto.",
+        "en": "che = that: Moro è un cane. Il cane dorme tanto.",
+        "de": "che = der: Moro è un cane. Il cane dorme tanto."
+      }
+    },
+    {
+      "it": "La bambina che canta è Giulia.",
+      "sl": "Deklica, ki poje, je Giulia.",
+      "en": "The girl who's singing is Giulia.",
+      "de": "Das Mädchen, das singt, ist Giulia."
+    },
+    {
+      "it": "I bambini che giocano in piazza sono tanti.",
+      "sl": "Otrok, ki se igrajo na trgu, je veliko.",
+      "en": "There are lots of children playing in the square.",
+      "de": "Es sind viele Kinder, die auf dem Platz spielen.",
+      "note": {
+        "sl": "i bambini → giocano: glagol za che gre s samostalnikom pred njim.",
+        "en": "i bambini → giocano: the verb after che goes with the noun before it.",
+        "de": "i bambini → giocano: Das Verb nach che richtet sich nach dem Nomen davor."
+      }
+    },
+    {
+      "it": "Il libro che leggo è pieno di cavalli.",
+      "sl": "Knjiga, ki jo berem, je polna konj.",
+      "en": "The book I'm reading is full of horses.",
+      "de": "Das Buch, das ich lese, ist voller Pferde."
+    },
+    {
+      "it": "La gubana che fa Nonna Rosa è buonissima.",
+      "sl": "Gubana, ki jo peče babica Rosa, je odlična.",
+      "en": "The gubana Nonna Rosa makes is delicious.",
+      "de": "Die Gubana, die Nonna Rosa backt, ist superlecker.",
+      "note": {
+        "sl": "Še vedno che, čeprav slovensko rečeš ki jo.",
+        "en": "Still che, though English can leave that out.",
+        "de": "Immer noch che, obwohl es auf Deutsch die (Akkusativ) ist."
+      }
+    },
+    {
+      "it": "Chi è il signore che lavora nella fucina? È Bruno.",
+      "sl": "Kdo je gospod, ki dela v kovačnici? Bruno je.",
+      "en": "Who's the man working in the forge? It's Bruno.",
+      "de": "Wer ist der Mann, der in der Schmiede arbeitet? Das ist Bruno.",
+      "note": {
+        "sl": "Chi? je vprašanje, che poveže.",
+        "en": "Chi? asks, che joins.",
+        "de": "Chi? fragt, che verbindet."
+      }
+    },
+    {
+      "it": "È un animale che fa il miele. Che cos'è? L'ape!",
+      "sl": "To je žival, ki dela med. Kaj je to? Čebela!",
+      "en": "It's an animal that makes honey. What is it? The bee!",
+      "de": "Es ist ein Tier, das Honig macht. Was ist das? Die Biene!"
+    }
+  ],
+  "modules": [],
+  "tags": ["relative", "che", "clauses", "frasi-relative"],
+  "see": ["domande", "presente-regolare", "articoli-genere"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

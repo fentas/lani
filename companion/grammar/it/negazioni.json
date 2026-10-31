@@ -1,0 +1,93 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "negazioni",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🙅",
+  "title": {
+    "it": "Non… mai, niente, nessuno: la negazione",
+    "sl": "Nikoli, nič, nihče: zanikanje",
+    "en": "Never, nothing, nobody: saying no",
+    "de": "Nie, nichts, niemand: die Verneinung"
+  },
+  "rule": {
+    "en": "Italian says no twice. **Non** goes before the verb, the second word after it: **non … mai** (never), **non … niente** or **non … nulla** (nothing), **non … nessuno** (nobody), **non … più** (no more, not any longer), **non … ancora** (not yet). **Moro non morde mai.** (Moro never bites.) **Non vedo niente.** (I can't see anything.) **Non c'è nessuno.** (There's nobody here.) **Non piove più.** (It isn't raining any more.)\n\nEnglish says *never* or *not … anything*, one no; Italian keeps both, never *mai morde* or *vedo niente*.\n\nThe short words stand between non and the verb: **Non lo vedo mai.** **Non gli dico niente.**\n\nWhen **nessuno** or **niente** comes first, as the subject, there is no non: **Nessuno gioca con me.** (Nobody plays with me.) **Niente è perfetto.** A short answer is the word alone: **Chi c'è? Nessuno.** **Che cosa hai? Niente!** **Mai!**\n\n**Nessun, nessuna** + a noun is *no …*: **Non c'è nessuna barca.** (There's no boat.) *Me neither* is **neanch'io** or **nemmeno io**.",
+    "sl": "Italijanščina zanika dvakrat, kot slovenščina. **Non** stoji pred glagolom, druga beseda za njim: **non … mai** (nikoli), **non … niente** ali **non … nulla** (nič), **non … nessuno** (nihče, nikogar), **non … più** (nič več, ne več), **non … ancora** (še ne). **Moro non morde mai.** (Moro nikoli ne grize.) **Non vedo niente.** (Nič ne vidim.) **Non c'è nessuno.** (Nikogar ni.) **Non piove più.** (Ne dežuje več.)\n\nKot v slovenščini (*nikoli ne*, *nič ne*) ostaneta obe besedi: nikoli *mai morde* ali *vedo niente*.\n\nKratke besede stojijo med non in glagolom: **Non lo vedo mai.** (Nikoli ga ne vidim.) **Non gli dico niente.** (Nič mu ne rečem.)\n\nKo **nessuno** ali **niente** stoji spredaj kot osebek, non odpade (drugače kot v slovenščini): **Nessuno gioca con me.** (Nihče se ne igra z mano.) **Niente è perfetto.** Kratek odgovor je beseda sama: **Chi c'è? Nessuno.** **Che cosa hai? Niente!** **Mai!**\n\n**Nessun, nessuna** + samostalnik pomeni *noben, nobena*: **Non c'è nessuna barca.** (Ni nobenega čolna.) *Jaz tudi ne* je **neanch'io** ali **nemmeno io**.",
+    "de": "Das Italienische verneint doppelt. **Non** steht vor dem Verb, das zweite Wort danach: **non … mai** (nie), **non … niente** oder **non … nulla** (nichts), **non … nessuno** (niemand), **non … più** (nicht mehr), **non … ancora** (noch nicht). **Moro non morde mai.** (Moro beißt nie.) **Non vedo niente.** (Ich sehe nichts.) **Non c'è nessuno.** (Niemand ist da.) **Non piove più.** (Es regnet nicht mehr.)\n\nIm Deutschen reicht ein Wort, *nie* oder *nichts*; im Italienischen bleiben beide, nie *mai morde* oder *vedo niente*.\n\nDie kurzen Wörter stehen zwischen non und dem Verb: **Non lo vedo mai.** (Ich sehe ihn nie.) **Non gli dico niente.** (Ich sage ihm nichts.)\n\nSteht **nessuno** oder **niente** vorn als Subjekt, fällt non weg, wie im Deutschen: **Nessuno gioca con me.** (Niemand spielt mit mir.) **Niente è perfetto.** Eine kurze Antwort ist das Wort allein: **Chi c'è? Nessuno.** **Che cosa hai? Niente!** **Mai!**\n\n**Nessun, nessuna** + Nomen heißt *kein, keine*: **Non c'è nessuna barca.** (Da ist kein Boot.) *Ich auch nicht* heißt **neanch'io** oder **nemmeno io**."
+  },
+  "table": {
+    "head": [
+      { "it": "negazione", "sl": "zanikanje", "en": "saying no", "de": "Verneinung" },
+      { "it": "significa", "sl": "pomeni", "en": "means", "de": "heißt" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      ["non … mai", { "it": "in nessun momento", "sl": "nikoli", "en": "never", "de": "nie" }, "Moro non morde mai."],
+      ["non … niente, nulla", { "it": "nessuna cosa", "sl": "nič", "en": "nothing", "de": "nichts" }, "Non vedo niente."],
+      ["non … nessuno", { "it": "nessuna persona", "sl": "nihče, nikogar", "en": "nobody", "de": "niemand" }, "Non c'è nessuno."],
+      ["non … più", { "it": "prima sì, adesso no", "sl": "ne več", "en": "no more, not any longer", "de": "nicht mehr" }, "Non piove più."],
+      ["non … ancora", { "it": "adesso no, dopo sì", "sl": "še ne", "en": "not yet", "de": "noch nicht" }, "Il frico non è ancora pronto."],
+      ["nessuno …", { "it": "nessuno all'inizio", "sl": "nihče … (spredaj)", "en": "nobody … (first)", "de": "niemand … (vorn)" }, "Nessuno gioca con me."],
+      ["nessun, nessuna", { "it": "non uno, non una", "sl": "noben, nobena", "en": "no (+ a noun)", "de": "kein, keine" }, "Non c'è nessuna barca."]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Lorenzo non mangia mai i funghi.",
+      "sl": "Lorenzo nikoli ne je gob.",
+      "en": "Lorenzo never eats mushrooms.",
+      "de": "Lorenzo isst nie Pilze.",
+      "note": {
+        "sl": "non pred glagolom, mai za njim: dve besedi, kot nikoli ne.",
+        "en": "non before the verb, mai after it: two words for never.",
+        "de": "non vor dem Verb, mai danach: zwei Wörter für nie."
+      }
+    },
+    {
+      "it": "È buio: non vedo niente!",
+      "sl": "Tema je: nič ne vidim!",
+      "en": "It's dark: I can't see anything!",
+      "de": "Es ist dunkel: Ich sehe nichts!"
+    },
+    {
+      "it": "C'è qualcuno? No, non c'è nessuno.",
+      "sl": "Je kdo tu? Ne, nikogar ni.",
+      "en": "Is anybody there? No, there's nobody.",
+      "de": "Ist da jemand? Nein, da ist niemand."
+    },
+    {
+      "it": "Basta, non ho più fame!",
+      "sl": "Dovolj, nisem več lačen!",
+      "en": "That's enough, I'm not hungry any more!",
+      "de": "Genug, ich habe keinen Hunger mehr!"
+    },
+    {
+      "it": "Lorenzo non sa ancora leggere.",
+      "sl": "Lorenzo še ne zna brati.",
+      "en": "Lorenzo can't read yet.",
+      "de": "Lorenzo kann noch nicht lesen."
+    },
+    {
+      "it": "Nessuno sa dov'è la palla.",
+      "sl": "Nihče ne ve, kje je žoga.",
+      "en": "Nobody knows where the ball is.",
+      "de": "Niemand weiß, wo der Ball ist.",
+      "note": {
+        "sl": "nessuno spredaj: brez non (slovensko pa nihče ne).",
+        "en": "nessuno first: no non.",
+        "de": "nessuno vorn: kein non, wie im Deutschen."
+      }
+    },
+    {
+      "it": "«Che cosa hai in mano?» «Niente!»",
+      "sl": "»Kaj imaš v roki?« »Nič!«",
+      "en": "“What have you got in your hand?” “Nothing!”",
+      "de": "„Was hast du in der Hand?“ „Nichts!“"
+    }
+  ],
+  "modules": [],
+  "tags": ["negation", "negazione", "non", "mai", "niente", "nessuno"],
+  "see": ["essere-avere", "domande", "pronomi-indiretti"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}
