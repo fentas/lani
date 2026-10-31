@@ -32,7 +32,39 @@ its checkout has them. The looks and the I spy clues come with the next app buil
 
 ### The scenes
 
-SCENES_TABLE
+Fifteen scenes, one for each building the village can build, in `companion/cultures/lakeland/scenes/`, each with its
+word pack of the same id in `packs/` and its I spy clues in `companion/ispy/scenes/`. They follow Friuli's
+(places-it-buildings): every slot the content names is a thing of the scene's pack or of the culture's starter packs
+(`home-and-kitchen`, `food`), the people are the culture's cast (`villager`, voiced by its voice-cast), the happenings
+spread over the day and the year (the months where it matters: the fire lit October to April, the hay June to September,
+the show in summer, the shepherds' meet in autumn, the carols in December), and every dialog has variants, faces, its
+learner's turns asked by the rules the learner has (adaptive turns naming the English book's pages) and a why for every
+wrong choice in Slovene, Italian, German and English. Two are A2 (the cellar and the watchtower), the rest A1.
+
+| Scene (art) | From | People | Happenings | Dialogs | Turns | Wrong | Two right | Tap | Counted | Pack words | I spy things, clues |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| `in-the-kitchen`, In the kitchen (`kitchen`, A1) | the hut, a house | Granny Maggie, Auntie Edna | Granny Maggie makes breakfast (morning); Granny Maggie is baking (morning/afternoon); Auntie Edna is listening to the radio (afternoon); Granny Maggie is making tatie pot (evening) | 4 + 4 | 19 | 21 | 6 | 0 | 1 | 14 | 27, 118 |
+| `in-the-living-room`, In the living room (`livingroom`, A1) | a house (Old Wilf) | Old Wilf, Poppy | Old Wilf is lighting the fire (dawn/morning, Oct–Apr); Poppy is playing with Bess (afternoon); Poppy wants to play hide-and-seek (morning/evening); Old Wilf is looking at an old photo (evening); Old Wilf's cup of tea (afternoon) | 5 + 6 | 25 | 29 | 2 | 4 | 1 | 14 | 16, 70 |
+| `in-the-cellar`, In the cellar (`cellar`, A2) | a house (Brewer Sam) | Brewer Sam, Mrs Birkett, Beekeeper Arthur | Mrs Birkett fetches ale for the inn (morning/afternoon); Brewer Sam lights the candle (evening); Brewer Sam's damsons (afternoon, Sep); Brewer Sam gets ready for the show (morning, Jul–Aug); Brewer Sam shows the ham (afternoon); Beekeeper Arthur brings his honey (afternoon) | 6 + 6 | 25 | 29 | 3 | 1 | 2 | 14 | 15, 64 |
+| `in-the-attic`, In the attic (`attic`, A1) | a house (Mrs Birkett, Harry) | Harry, Mrs Birkett | Harry won't get up (dawn/morning); Mrs Birkett and the old cradle (afternoon); A storm at night (night, Oct–Mar); Harry wants to play ball (afternoon/evening); Mrs Birkett opens the old chest (morning/afternoon) | 5 + 5 | 21 | 22 | 3 | 1 | 0 | 12 | 14, 59 |
+| `in-the-workshop`, In the workshop (`workshop`, A1) | a house (Mr Tyson, Alfie) | Mr Tyson, Alfie | Mr Tyson is hammering nails (morning); Mr Tyson is sawing boards (afternoon); Alfie's wooden horse (evening); Mr Tyson carves a crook (afternoon, Sep–Nov); Alfie sweeps the workshop (morning) | 5 + 5 | 20 | 23 | 2 | 1 | 1 | 14 | 15, 62 |
+| `in-the-tent`, In the tent (`tent`, A1) | the tent | Shepherd Jack, Alfie, Poppy | Shepherd Jack shelters from the rain (morning/afternoon); Alfie wants a bedtime story (evening/night); Poppy is looking for her treasure map (afternoon); A summer evening at the tent (evening, May–Sep) | 4 + 4 | 18 | 19 | 3 | 1 | 0 | 12 | 12, 48 |
+| `in-the-smithy`, In the smithy (`smithy`, A1) | the smithy | Mr Dixon, Harry | Mr Dixon is making a horseshoe (morning); Harry is working the bellows (afternoon); Brewer Sam's cart has a broken wheel (afternoon/evening); Mr Dixon sharpens the shears (morning/afternoon, Jun–Jul) | 4 + 4 | 18 | 19 | 2 | 0 | 1 | 12 | 14, 58 |
+| `in-church`, In the church (`church`, A1) | the church | Auntie Edna, Granny Maggie, Alfie | Auntie Edna brings flowers for Sunday (morning); Alfie rings the noon bell (afternoon); Auntie Edna and the organ (afternoon); Granny Maggie lights a candle (evening); Alfie and the painting (morning) | 5 + 7 | 24 | 26 | 4 | 1 | 1 | 11 | 12, 50 |
+| `in-the-field`, In the field (`field`, A1) | the field, the hay barn | Mr Tyson, Alfie | Mr Tyson makes hay (afternoon, Jun–Sep); Alfie and the scarecrow (morning); Where's Bonny? (afternoon); Evening in the field (evening) | 4 + 5 | 20 | 26 | 5 | 1 | 0 | 16 | 21, 88 |
+| `on-the-green`, On the village green (`square`, A1) | the oak, the pump | Old Wilf, Harry, Mrs Hartley | Old Wilf on his bench (morning/afternoon); Where's Bess? (evening); Harry's football (afternoon); The cat up the oak (morning/evening); Mrs Hartley at the pump (morning, Sep–Jun); The summer fête (evening, Jun–Aug) | 6 + 7 | 30 | 33 | 10 | 1 | 1 | 12 | 15, 65 |
+| `at-the-bees`, At the bees (`apiary`, A1) | the beehives | Beekeeper Arthur, Poppy, Old Wilf | Arthur opens the hives (morning, Mar–Oct); A swarm! (afternoon, May–Jun); Poppy's bread and honey (afternoon); Arthur listens to his bees (evening); The lime tree in flower (morning, Jun–Jul) | 5 + 7 | 28 | 30 | 7 | 1 | 1 | 14 | 13, 57 |
+| `at-school`, At school (`school`, A1) | the school | Mrs Hartley, Poppy, Alfie, Harry | The morning register (morning, Sep–Jun); The mistakes on the board (afternoon, Sep–Jun); The map of the Lakes (morning, Sep–Jun); Poppy at the globe (afternoon); Harry's homework (afternoon, Sep–Jun); Harry at the door (morning/afternoon) | 6 + 8 | 29 | 44 | 10 | 0 | 1 | 15 | 14, 59 |
+| `at-the-market`, At the market (`market`, A1) | the market | Granny Maggie, Mrs Birkett, Brewer Sam | Granny Maggie's stall (morning); The hen runs off! (morning/afternoon); Mrs Birkett shops for the inn (morning); Brewer Sam's cart (afternoon/evening); Show day (afternoon, Aug–Nov) | 5 + 9 | 32 | 47 | 12 | 2 | 2 | 14 | 16, 70 |
+| `on-the-watchtower`, On the watchtower (`watchtower`, A2) | the watchtower | Shepherd Jack, Harry, Mr Tyson | Jack on watch (evening/night); The packman is coming (morning/afternoon); A storm over the fells (afternoon, Apr–Oct); The village from up high (morning); Harry and the crow (evening) | 5 + 7 | 30 | 36 | 4 | 2 | 2 | 16 | 16, 67 |
+| `at-the-gate`, At the gate (`palisade`, A1) | the palisade | Shepherd Jack, Mr Dixon, Harry, Poppy | The sheep go out (dawn, Mar–Nov); The sheep come home (evening, Mar–Nov); Mr Dixon shuts the gate (evening); The torches at the gate (evening); The packman comes up the road (morning/afternoon); Poppy and the bell (afternoon) | 6 + 6 | 27 | 34 | 7 | 2 | 1 | 13 | 15, 59 |
+| **15 scenes** | | | 75 | 165 | 366 | 438 | 80 | 18 | 15 | 203 | 235, 994 |
+
+In all: 75 happenings, 165 dialogs (75 the happenings' first, 90 variants), 366 turns, 438 wrong
+choices, 306 of them a rule of the English book (270 at A1, 36 at A2: the past simple, the future, the present
+perfect, some and any) and 132 a word's meaning or a greeting's hour; 80 turns with two right answers, 18 tap
+turns, 15 dialogs counting something of the village, 203 pack words, 235 things to spy with 994 clues.
+The English book has no B1 page yet, so the few B1 sentences are lines to read, never a rule asked.
 
 ### The Lake District's look
 
