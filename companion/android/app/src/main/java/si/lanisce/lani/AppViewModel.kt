@@ -845,7 +845,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         // the areas' versions now, when only what moved is read: each read whose answer said its areas at them is left out
         var at = now?.areas?.takeIf { !whole && it.isNotEmpty() && last != null && last.within(now) }
         fun fresh(path: String) = at?.let { b.fresh(path, it) } == true
-        fun stale(vararg paths: String) = paths.any { !fresh(it) }
+        // whether anything was read again (the day's audio is planned anew only then)
+        var read = at == null
+        fun stale(vararg paths: String) = paths.any { !fresh(it) }.also { if (it) read = true }
         readFor = null
         // first the culture the bridge plays: what the village, its founding and everything after read (a new phone has
         // the default's until then, and a step below that fails mustn't keep it from coming); another one: everything
@@ -883,8 +885,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         if (people) clips.syncProfiles(villagers.voicePeople(game.state))
         // the node has the new level now, or the learner is ready for the next: the storyteller offers the map
         treasure.check()
-        // what the learner will likely hear today and tomorrow, for the background job to get on Wi-Fi
-        offlineAudio.plan(::dayGather)
+        // what the learner will likely hear today and tomorrow, for the background job to get on Wi-Fi (when anything was
+        // read: a Back after a move in the village alone read nothing, and the plan read the packs it names again)
+        if (read || decks) offlineAudio.plan(::dayGather)
         // read: until something moves, Home coming back reads nothing again (the time of the last whole reading kept). For
         // the learner, the pair and the culture the reading settled on: the dashboard says them (a new phone learns them
         // there, and the reads before it don't depend on them: the culture's, the family's, the towns', the clips'); read
