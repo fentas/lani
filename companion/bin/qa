@@ -176,6 +176,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        Teo's tablet on its side (2560 × 1600): at rest, closer, closest and panned, the ground kept and
                        drawn whole (QA's hook "render:full"): the map's render time (tag TownScene) and the frames'
                        (dumpsys gfxinfo), a table, also frames.tsv in $LANI_QA_COAST_SHOTS;
+                       "culture-source" (only when named) the map and the scenes in one culture (LANI_CULTURE=friuli, the
+                       dev bridge's Slovene learner: the culture and the course apart): the map, the bocce court's card and
+                       inside (NOI | VOI, the osteria), the osteria, the fontanella and the altar candle tapped (their word
+                       cards), the cramâr under his crassigne at the gate; also as cs-*.png in $LANI_QA_CULTURE_SHOTS;
                        "friuli-looks" (only when named) Friuli's outdoor scenes in its look on a synthetic Italian learner
                        (LANI_DEV_DATA from make-learner.ts --target it, LANI_CULTURE=friuli, LANI_QA_PAIR=sl-en): the
                        village as a Vas, then Nel campo, Nel bosco, Al ruscello, Allo stagno and Il mare by day and closer,
@@ -5016,6 +5020,105 @@ def places():
         qa_hook("step:")
         qa_hook("bubbles:")
     return None
+
+
+def culture_source():
+    """The map and the scenes in one culture, and Friuli's art requests (docs/plans/05-built/culture-source.md), on the dev
+    bridge's learner with LANI_CULTURE=friuli (a Slovene course by default, the phone in its pair: the culture and the
+    course apart): the map in Friuli's look; the bocce court finished, its landmark, its card's way in, inside in the same
+    look (NOI | VOI on the scoreboard, the osteria with its frasca), closer; the osteria, the playground's fontanella and the
+    chapel's candle on the altar each tapped (SceneAt's areas: their word cards); the cramâr coming up the road to the gate
+    under his crassigne (Tommaso's cramar dialog, QA's hook "happening:al-portone/cramar/cramar-cassetti"). Also as cs-*.png
+    in $LANI_QA_CULTURE_SHOTS."""
+    if api("/culture").get("id") != "friuli":
+        return "skipped: the dev bridge's village isn't of the Friuli culture (LANI_CULTURE=friuli)"
+    out = Path(os.environ["LANI_QA_CULTURE_SHOTS"]) if os.environ.get("LANI_QA_CULTURE_SHOTS") else None
+    pair = (os.environ.get("LANI_QA_PAIR") or "sl-en").split("-")
+    table = lambda lang: json.loads((ANDROID / f"app/src/main/resources/l10n/{lang}.json").read_text())
+    back = "‹ " + " · ".join(table(l)["common.village"] for l in pair)
+    close = " · ".join(table(l)["common.close"] for l in pair)
+    culture = ROOT / "companion/cultures/friuli"
+    scene_of = lambda sid: json.loads((culture / f"scenes/{sid}.json").read_text())
+    projects = {p["id"]: p for p in json.loads((culture / "projects.json").read_text())["projects"]}
+    court = scene_of("al-campo-da-bocce")
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def word_card(sid: str, slot: str, word: str, name: str):
+        """[slot] of the open scene [sid] tapped where nothing covers it: its word's card ([word], the Italian)."""
+        adb("logcat", "-c")
+        time.sleep(2 * slow())
+        if tap_in_scene("things", slot) and wait_for(word, 8) is not None:
+            time.sleep(1)
+            snap(name)
+            adb("shell", "input", "keyevent", "KEYCODE_BACK")
+            time.sleep(1.5)
+            return True
+        snap(name + "-not-found")
+        return False
+
+    plain_village()
+    found = []
+    try:
+        qa_hook("bubbles:0")
+        qa_hook("hour:12")
+        time.sleep(3 * slow())
+        snap("cs-map")
+        # the court finished: its landmark, its card's way in, the court inside in the map's look
+        qa_hook(f"step:balinisce/{len(projects['balinisce']['steps']) + 1}")
+        plain_village()
+        qa_hook("show:project:balinisce")
+        time.sleep(3 * slow())
+        snap("cs-court-map")
+        assert tap(projects["balinisce"]["name"][pair[0]] if pair[0] in projects["balinisce"]["name"] else projects["balinisce"]["name"]["it"], 5), "the bocce court's landmark on the map"
+        go = "🚪 " + " · ".join(table(l)["placeCard.go"] for l in pair) + ": " + court["emoji"]
+        assert wait_for(go, 8), "its card: the way in"
+        assert tap(go, 4), "into Al campo da bocce from its card"
+        assert wait_for(back, 10), "the court opens"
+        qa_hook("hour:16")
+        time.sleep(3 * slow())
+        snap("cs-court-inside")
+        found.append(word_card("al-campo-da-bocce", "inn", "osteria", "cs-court-inn"))
+        qa_hook("zoom")
+        time.sleep(3 * slow())
+        snap("cs-court-closer")
+        assert tap(back, 3), "back from the court"
+        # the playground's fontanella, the chapel's candle on the altar
+        for sid, proj, slot, word, hour in (("al-parco-giochi", "igrisce", "fontanella", "fontanella", "11"),
+                                            ("alla-cappelletta", "kapelica", "altarcandle", "candela", "11")):
+            plain_village()
+            qa_hook(f"step:{proj}/{len(projects[proj]['steps']) + 1}")
+            qa_hook(f"hour:{hour}", f"scene:{sid}")
+            if wait_for(back, 10) is None:
+                snap(f"cs-{sid}-not-open")
+                continue
+            time.sleep(3 * slow())
+            snap(f"cs-{sid}")
+            found.append(word_card(sid, slot, word, f"cs-{sid}-{slot}"))
+            tap(back, 3)
+        # the cramâr up the road to the gate under his crassigne
+        plain_village()
+        qa_hook("hour:10")
+        qa_hook("happening:al-portone/cramar/cramar-cassetti", "scene:al-portone@al-portone/cramar")
+        if wait_for(back, 10) is not None and wait_for(close, 10) is not None:
+            time.sleep(4 * slow())
+            snap("cs-gate-cramar")
+            qa_hook("zoom")
+            time.sleep(3 * slow())
+            snap("cs-gate-cramar-closer")
+            tap(close, 3)
+        else:
+            snap("cs-gate-not-open")
+        qa_hook("happening:")
+    finally:
+        qa_hook("hour:")
+        qa_hook("show:")
+        qa_hook("bubbles:")
+    assert all(found), f"the new things' word cards: {found}"
 
 
 def places_friuli():
@@ -14726,6 +14829,8 @@ def plan():
         ("bridges", bridges, v, False, ""),
         ("mill", mill, v, False, ""),
         ("places", places, v, False, ""),
+        # only with --steps culture-source: the map and the scenes in one culture, Friuli's art requests (LANI_CULTURE=friuli)
+        ("culture-source", culture_source, v, False, ""),
         ("place-life", place_life, v, False, ""),
         ("projects", projects, v, False, ""),
         ("project-step", project_step, v, False, ""),
@@ -15092,7 +15197,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames", "home-return", "friuli-looks", "friuli-watchtower", "guidance", "guidance-tips", "guidance-retry", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames", "home-return", "friuli-looks", "culture-source", "friuli-watchtower", "guidance", "guidance-tips", "guidance-retry", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
