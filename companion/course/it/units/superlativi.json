@@ -16,8 +16,7 @@
     "table": {
       "head": [
         { "it": "aggettivo", "de": "Adjektiv", "sl": "pridevnik", "en": "adjective" },
-        { "it": "superlativo", "de": "Superlativ", "sl": "presežnik", "en": "superlative" },
-        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+        { "it": "superlativo", "de": "Superlativ", "sl": "presežnik", "en": "superlative" }
       ]
     },
     "steps": [
@@ -31,7 +30,7 @@
           { "it": "Lorenzo è il più piccolo.", "de": "Lorenzo ist der Kleinste.", "sl": "Lorenzo je najmanjši.", "en": "Lorenzo is the smallest." },
           { "it": "Di tutte le pecore, Bianca è la più piccola.", "de": "Von allen Schafen ist Bianca das kleinste.", "sl": "Od vseh ovc je Bianca najmanjša.", "en": "Of all the sheep, Bianca is the smallest." }
         ],
-        "rows": [["piccolo", "il più piccolo", "Lorenzo è il più piccolo."], ["alta", "la più alta", "La torre è la più alta."]],
+        "rows": [["piccolo", "il più piccolo"], ["alta", "la più alta"]],
         "ask": {
           "type": "choice",
           "grammar": "superlativi",
@@ -56,7 +55,7 @@
           { "it": "Nonno Bepi è il più vecchio del paese.", "de": "Nonno Bepi ist der Älteste im Dorf.", "sl": "Dedek Bepi je najstarejši v vasi.", "en": "Nonno Bepi is the oldest in the village." },
           { "it": "Tommaso è il più veloce di tutti.", "de": "Tommaso ist der Schnellste von allen.", "sl": "Tommaso je najhitrejši od vseh.", "en": "Tommaso is the fastest of all." }
         ],
-        "rows": [["vecchio", "il più vecchio", "il più vecchio del paese"], ["brava", "la più brava", "la più brava della classe"]],
+        "rows": [["vecchio", "il più vecchio del paese"], ["brava", "la più brava della classe"]],
         "ask": {
           "type": "cloze",
           "grammar": "superlativi",
@@ -76,7 +75,7 @@
           { "it": "Il tiglio è l'albero più vecchio della piazza.", "de": "Die Linde ist der älteste Baum auf dem Platz.", "sl": "Lipa je najstarejše drevo na trgu.", "en": "The linden is the oldest tree in the square." },
           { "it": "Lorenzo è il bambino più piccolo del paese.", "de": "Lorenzo ist das kleinste Kind im Dorf.", "sl": "Lorenzo je najmanjši otrok v vasi.", "en": "Lorenzo is the smallest child in the village." }
         ],
-        "rows": [["vecchio", "l'albero più vecchio", "l'albero più vecchio del bosco"], ["piccolo", "il bambino più piccolo", "il bambino più piccolo del paese"]],
+        "rows": [["vecchio", "l'albero più vecchio del bosco"], ["piccolo", "il bambino più piccolo del paese"]],
         "ask": {
           "type": "choice",
           "grammar": "superlativi",
@@ -101,7 +100,7 @@
           { "it": "Il campanile è altissimo!", "de": "Der Kirchturm ist sehr hoch!", "sl": "Zvonik je zelo visok!", "en": "The bell tower is very tall!" },
           { "it": "Questo gelato è buonissimo!", "de": "Dieses Eis ist superlecker!", "sl": "Ta sladoled je odličen!", "en": "This ice cream is really good!" }
         ],
-        "rows": [["alto", "altissimo", "una torre altissima"], ["bello", "bellissimo", "un mare bellissimo"], ["buono", "buonissimo", "un gelato buonissimo"]],
+        "rows": [["alto", "altissimo, altissima"], ["bello", "bellissimo, bellissima"], ["buono", "buonissimo, buonissima"]],
         "ask": {
           "type": "cloze",
           "grammar": "superlativi",
@@ -121,7 +120,7 @@
           { "it": "Dopo la festa i bambini sono stanchissimi.", "de": "Nach dem Fest sind die Kinder sehr müde.", "sl": "Po prazniku so otroci zelo utrujeni.", "en": "After the festa the children are very tired." },
           { "it": "D'estate le giornate sono lunghissime.", "de": "Im Sommer sind die Tage sehr lang.", "sl": "Poleti so dnevi zelo dolgi.", "en": "In summer the days are very long." }
         ],
-        "rows": [["stanco", "stanchissimo", "i bambini stanchissimi"], ["lungo", "lunghissimo", "le giornate lunghissime"]],
+        "rows": [["stanco", "stanchissimo, stanchissimi"], ["lungo", "lunghissimo, lunghissime"]],
         "ask": {
           "type": "choice",
           "grammar": "superlativi",
@@ -146,7 +145,7 @@
           { "it": "La gubana di Nonna Rosa è la migliore!", "de": "Nonna Rosas Gubana ist die beste!", "sl": "Gubana babice Rose je najboljša!", "en": "Nonna Rosa's gubana is the best!" },
           { "it": "Per Tommaso l'Udinese è la squadra migliore del mondo.", "de": "Für Tommaso ist Udinese die beste Mannschaft der Welt.", "sl": "Za Tommasa je Udinese najboljše moštvo na svetu.", "en": "For Tommaso, Udinese is the best team in the world." }
         ],
-        "rows": [["buono", "il migliore", "la gubana migliore"], ["cattivo", "il peggiore", "il tempo peggiore"]],
+        "rows": [["buono", "il migliore, la migliore"], ["cattivo", "il peggiore, la peggiore"]],
         "ask": {
           "type": "choice",
           "grammar": "superlativi",
