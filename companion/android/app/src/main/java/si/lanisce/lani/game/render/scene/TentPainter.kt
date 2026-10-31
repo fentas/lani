@@ -110,12 +110,19 @@ internal class TentPainter : DioramaPainter() {
     private var scarpets = false
     private var vines = false
 
+    /**
+     * Carinthia's camp ([look]): Austria's pennant, red, white and red, on the front post ([austria]), and along the meadow's
+     * back edge a Schragenzaun, the Alpine fence of slanted grey poles between pairs of stakes ([fence]).
+     */
+    private var austria = false
+    private var fence = false
+
     override fun paint() {
         lv = frame.world.level(si.lanisce.lani.game.BuildingType.TENT).coerceIn(1, 5)
         planksUp = lv >= 2; rugUp = lv >= 3; ropesUp = lv >= 4; pathUp = lv >= 5
         fit()
         vignette()
-        pennant = variant("pennant") == "friuli"; scarpets = variant("slippers") == "scarpets"; vines = variant("vines") == "collio"
+        pennant = variant("pennant") == "friuli"; austria = variant("pennant") == "austria"; fence = variant("fence") == "schragen"; scarpets = variant("slippers") == "scarpets"; vines = variant("vines") == "collio"
         val asleep = peopleAt(BED).firstOrNull()
         // the lantern burns from dusk, or as a dialog has it (its "lantern": 0 dark, 1 lit); turned low for a sleeper
         val low = asleep != null && fx("lantern") == null
@@ -126,6 +133,7 @@ internal class TentPainter : DioramaPainter() {
         tufts(90, 7) { x, y -> (x in x0 - 0.2f..x1 + 0.3f && y in y0 - 0.2f..y1 + 0.3f) || (pathUp && pathDist(x, y) < 0.5f) || hypot(x - coilAt.first, y - coilAt.second) < 1f }
         if (pathUp) prop { steppingStones() }
         if (vines) prop { vineRow() }
+        if (fence) prop { schragenzaun() }
         // the tent's shade on the grass beside the low wall and in front of the floor
         shade(iso.sx(x1 + 0.6f, (y0 + yr) / 2), iso.sy(x1 + 0.6f, (y0 + yr) / 2, 0f), 3.2f * 4 * K, 1.1f * 4 * K, 0.8f, groundId)
 
@@ -161,7 +169,7 @@ internal class TentPainter : DioramaPainter() {
         thing("blanket") { blanket() }
         thing("boots", slop = 1) { boots() }
         if (scarpets) prop { scarpets() }
-        if (pennant) prop { pennant() }
+        if (pennant || austria) prop { pennant() }
 
         // outside
         if (ropesUp) {
@@ -1125,6 +1133,8 @@ internal class TentPainter : DioramaPainter() {
             val eagle = (abs(eu) < 0.28f && ev in -0.55f..0.45f) || (abs(eu) < 0.95f && ev in -0.05f..0.3f && abs(ev - 0.12f - abs(eu) * 0.3f) < 0.22f) ||
                 (hypot(eu, ev - 0.62f) < 0.24f)
             when {
+                // Austria's: red, white, red along its length
+                austria -> if (abs(v) < 0.34f) (if (v > 0.2f && detail > 1) Col.hex(0xE6E2DA) else Pal.FLAG_WHITE) else if (v > 0.7f) Col.scale(Pal.FLAG_RED, 0.8f) else Pal.FLAG_RED
                 detail == 1 -> if (eu * eu + ev * ev < 0.5f) gold else if (v > 0.55f) blueD else blue
                 eagle -> if (ev < -0.1f && abs(eu) < 0.28f) goldD else gold
                 v < -0.7f -> blueD
@@ -1204,6 +1214,32 @@ internal class TentPainter : DioramaPainter() {
             val gx = iso.sx(x, ya + 0.04f); val gy = iso.sy(x, ya + 0.04f, wz - 0.4f)
             val grape = if (k % 2 == 0) Col.hex(0x5A2E6A) else Col.hex(0xC8C060)
             for (r in 0 until 3) for (q in 0..(2 - r)) c.fillCircle(gx + (q - (2 - r) / 2f) * 0.9f * K, gy + r * 0.8f * K, 0.5f * K, if (q == 0 && r == 0) Col.mix(grape, Col.hex(0xFFFFFF), 0.3f) else grape)
+        }
+    }
+
+    /**
+     * The Schragenzaun along the meadow's back edge behind the tent (Carinthia's look, [fence]): pairs of stakes, and between
+     * them the poles laid aslant, one over the next, of larch weathered grey, tied with withies; a cap of snow on each
+     * stake in winter.
+     */
+    private fun schragenzaun() {
+        val ya = 0.35f; val xa = 8.6f; val xb = 13.9f; val top = 5.6f
+        val grey = Col.hex(0x8E877C); val greyL = Col.hex(0xB4ADA2); val greyD = Col.hex(0x5E5850)
+        // the slanted poles, each leaning to the right from the ground up to the stakes' pair beyond it
+        var x = xa - 0.6f
+        while (x < xb - 0.2f) {
+            val x1 = (x + 1.35f).coerceAtMost(xb)
+            val z1 = top * ((x1 - x) / 1.35f) - 0.4f
+            iso.line(max(x, xa), ya, if (x < xa) (xa - x) / 1.35f * top else 0.3f, x1, ya, z1, grey)
+            iso.line(max(x, xa), ya, (if (x < xa) (xa - x) / 1.35f * top else 0.3f) + 0.6f, x1, ya, z1 + 0.6f, greyL)
+            x += 0.42f
+        }
+        // the pairs of stakes, tied with withies where the poles cross them
+        for (k in 0..4) {
+            val sx = xa + k * (xb - xa) / 4f
+            iso.post(sx - 0.06f, ya, 0f, top + 0.8f, greyD); iso.post(sx + 0.08f, ya + 0.02f, 0f, top + 0.6f, grey)
+            iso.px(sx, ya, top - 0.6f, Col.hex(0x6A4A30)); iso.px(sx, ya, 2.2f, Col.hex(0x6A4A30))
+            if (winter) iso.px(sx, ya, top + 1f, Pal.SNOW_L)
         }
     }
 

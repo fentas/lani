@@ -53,6 +53,14 @@ internal class WorkshopPainter : RoomPainter() {
     private var cobbles = false
     private var chairs = false
 
+    /**
+     * Carinthia's look ([look]): Müller Franz's workshop in a log house, its walls of brown larch logs laid one on the next
+     * with their pale chinking ([logs]); by the broom a stack of fresh shingles he splits for the roofs and the froe he splits
+     * them with ([shingles]); the Karawanken through the window.
+     */
+    private var logs = false
+    private var shingles = false
+
     /** Plain whitewash, greyed and scuffed low down where boards and tools lean on it; no dado and no border (in Friuli river cobbles). */
     override fun inner(along: Float, z: Float, px: Int, py: Int, dim: Float, sootF: Float): Int {
         val h = z - fl
@@ -61,6 +69,7 @@ internal class WorkshopPainter : RoomPainter() {
             if (h < 1.1f) col = Col.scale(col, 0.85f)
             return Col.scale(col, dim)
         }
+        if (logs) return Col.scale(logWall(along, h, px, py), dim)
         val n = Noise.rnd(px, py, 7)
         val scuff = h < 6f && Noise.v2(along * 2f, h * 0.4f, 13) > 0.62f - (6f - h) * 0.03f
         var col = when {
@@ -108,6 +117,7 @@ internal class WorkshopPainter : RoomPainter() {
         lv = frame.world.hereLevel.coerceIn(1, 5)
         readLook()
         cobbles = variant("walls") == "cobbles"; chairs = variant("chairs") != null
+        logs = variant("walls") == "logs"; shingles = variant("shingles") != null
         val lit = env.windows > 0.35f && there("lantern")
         // turned low for anyone asleep
         val low = lit && asleepHere
@@ -137,6 +147,7 @@ internal class WorkshopPainter : RoomPainter() {
         if (there("ladder")) thing("ladder", slop = 1) { ladder() }
         if (there("rake")) thing("rake", slop = 1) { rake() }
         if (chairs) { prop { hangingChair() }; prop { spindles() } }
+        if (shingles) prop { shingleStack() }
         // the workbench and what is on it, the lantern over it
         thing("workbench") { workbench() }
         thing("nails", slop = 2) { nails(1.95f, 1.45f, wz) }
@@ -510,6 +521,44 @@ internal class WorkshopPainter : RoomPainter() {
                 else -> 0
             }
         }
+    }
+
+    /**
+     * Carinthia's log wall ([logs]) at [along] cells and [h] nominal px up: brown larch logs one on the next, each rounded (lit
+     * along its top, shaded under), the pale lime chinking between them, the grain and a knot now and then, darker low down.
+     */
+    private fun logWall(along: Float, h: Float, px: Int, py: Int): Int {
+        val lh = 1.9f
+        val li = floor(h / lh).toInt(); val lf = h / lh - li
+        val grain = Noise.v2(along * 6f + li * 2.3f, h * 0.2f, 211)
+        var col = when {
+            lf < 0.09f -> Col.hex(0xD8CCB0)
+            lf < 0.16f -> Col.hex(0x4A2E1A)
+            lf > 0.82f -> Col.hex(0xB8844E)
+            lf < 0.32f -> Col.hex(0x6E4628)
+            grain > 0.7f -> Col.hex(0x7E5230)
+            P > 1 && Noise.rnd(floor(along * 3f).toInt(), li, 213) < 0.08f && abs(lf - 0.55f) < 0.12f -> Col.hex(0x4E321C)
+            else -> if (Noise.rnd(px, py, 215) < 0.06f) Col.hex(0xA06E40) else Col.hex(0x92623A)
+        }
+        if (h < 1.6f) col = Col.scale(col, 0.82f)
+        return col
+    }
+
+    /**
+     * Carinthia's shingles by the broom ([shingles]): a neat stack of fresh larch shingles, pale and split along their grain,
+     * crossed course on course, and the froe leaning on it, its iron blade and its wooden handle.
+     */
+    private fun shingleStack() {
+        val bx = x0 + 0.65f; val by = 7.55f
+        val pale = Col.hex(0xE6C890); val paleM = Col.hex(0xD0AE72); val paleD = Col.hex(0xA8844E)
+        for (r in 0 until 7) {
+            val z = fl + r * 0.75f
+            if (r % 2 == 0) iso.box(bx - 0.35f, by - 0.5f, z, 0.7f, 1.0f, 0.75f, pale, paleM, paleD)
+            else iso.box(bx - 0.45f, by - 0.4f, z, 0.9f, 0.8f, 0.75f, Col.mix(pale, paleM, 0.4f), paleM, paleD)
+        }
+        // the froe: an iron blade with its handle standing up, leaning on the stack
+        rod(bx + 0.5f, by + 0.55f, fl + 0.3f, bx + 0.25f, by + 0.5f, fl + 7.5f, Pal.WOOD_D, Pal.WOOD_M, Pal.WOOD_D, Pal.WOOD_X)
+        rod(bx + 0.25f, by + 0.5f, fl + 7.4f, bx - 0.45f, by + 0.5f, fl + 7.6f, iron, ironL, iron, ironD)
     }
 
     /** Friuli's basket of turned chair legs by the broom ([chairs]): a round wicker basket, the pale legs standing in it. */

@@ -146,6 +146,11 @@ internal class ChurchPainter : DioramaPainter() {
      * gable of ponca (`gable`), the faux marble of the loft (`loft`).
      */
     private var trusses = false
+    /**
+     * Carinthia's look ([look]): a Gothic village church, its vault's end a net vault from level 3 ([ribs]): white, its ribs
+     * in red ochre crossing in a net up the arch, a boss where they meet, for the blue starry vault.
+     */
+    private var ribs = false
     private var rulli = false
     private var cottoFloor = false
     private var pala = false
@@ -156,7 +161,7 @@ internal class ChurchPainter : DioramaPainter() {
 
     private fun readLevel() {
         lv = frame.world.level(si.lanisce.lani.game.BuildingType.CHURCH).coerceIn(1, 5)
-        trusses = variant("roof") == "trusses"; rulli = variant("glass") == "rulli"; cottoFloor = variant("floor") == "cotto"
+        trusses = variant("roof") == "trusses"; ribs = variant("roof") == "ribs"; rulli = variant("glass") == "rulli"; cottoFloor = variant("floor") == "cotto"
         pala = variant("altarpiece") == "pala"; frescoWalls = variant("walls") == "frescoes"; ponca = variant("gable") == "ponca"
         fauxMarble = variant("loft") == "marble"; friuliGrip = variant("rope") == "friuli"
         colourGlass = lv >= 2; windowB = lv >= 2; dadoUp = lv >= 2; lampUp = lv >= 2; benchOut = lv >= 2
@@ -531,6 +536,8 @@ internal class ChurchPainter : DioramaPainter() {
     private fun archTop(x: Float): Float {
         val u = (x - xm) / hw
         if (trusses) return wallH + archH * max(0f, 1f - abs(u))
+        // Carinthia's Gothic church: a pointed arch, its two arcs meeting at the apex
+        if (ribs) return wallH + archH * (sqrt(max(0f, 1f - (abs(u) * 0.62f + 0.38f).let { it * it })) / sqrt(1f - 0.38f * 0.38f))
         return wallH + archH * sqrt(max(0f, 1f - u * u))
     }
 
@@ -656,6 +663,7 @@ internal class ChurchPainter : DioramaPainter() {
     /** The vault's end over the far wall: deep blue, lighter at its foot, golden stars, an ochre band along the arch. */
     private fun lunette(x: Float, z: Float, top: Float): Int {
         if (trusses) return roofEnd(x, z, top)
+        if (ribs) return netVault(x, z, top)
         if (!vaultPainted) return if (top - z < 0.5f) plasterD else if (Noise.v2(x * 5f, z * 0.5f, 16) > 0.8f) plasterM else plasterL
         val v = z - wallH
         if (v < 0.55f) return if (v < 0.25f) goldD else goldL
@@ -677,6 +685,27 @@ internal class ChurchPainter : DioramaPainter() {
         }
         val shade = v / archH
         return if (shade < 0.25f) vaultL else if (shade > 0.8f && Dither.at(x.toInt(), z.toInt()) < 0.5f) vaultD else vault
+    }
+
+    /**
+     * Carinthia's net vault over the far wall ([ribs]): whitewash, and from the third level the ribs, red ochre with a lit
+     * edge, springing in pairs from the arch's foot and crossing up it in a net of diamonds, a round boss of gold where they
+     * meet, a band of ochre along the arch.
+     */
+    private fun netVault(x: Float, z: Float, top: Float): Int {
+        val v = z - wallH
+        if (!vaultPainted) return if (top - z < 0.5f) plasterD else if (Noise.v2(x * 5f, z * 0.5f, 16) > 0.8f) plasterM else plasterL
+        if (top - z < 0.5f) return ochreD
+        if (top - z < 0.85f) return ochre
+        val d = (x - xm) * 4.47f
+        val period = 2.6f
+        val a = (d + v * 1.1f) / period; val b = (d - v * 1.1f) / period
+        val fa = abs(a - floor(a + 0.5f)) * period; val fb = abs(b - floor(b + 0.5f)) * period
+        val w = 0.26f + 0.1f / K
+        if (fa < w * 1.6f && fb < w * 1.6f && v > 0.8f) return if (fa + fb < w * 1.4f) goldHi else goldL
+        if (fa < w) return if (fine && a - floor(a + 0.5f) < 0f) RIB_L else RIB
+        if (fb < w) return if (fine && b - floor(b + 0.5f) > 0f) RIB_L else RIB
+        return if (v < 0.6f) plasterM else if (Noise.v2(x * 3f, z * 0.3f, 16) > 0.72f) plasterM else plasterL
     }
 
     /**
@@ -1795,6 +1824,8 @@ internal class ChurchPainter : DioramaPainter() {
     }
 
     companion object {
+        /** Carinthia's net vault's ribs ([netVault]): red ochre, and their lit edge. */
+        private val RIB = Col.hex(0xA8503A); private val RIB_L = Col.hex(0xC8745A)
         /** The sparrow on the window's sill: no word, a poke of its own. */
         const val SPARROW = "sparrow"
 

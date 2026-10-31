@@ -142,6 +142,12 @@ internal class SmithyPainter : DioramaPainter() {
 
     /** Friuli's smithy ([look]): cobble walls with brick bands, the window's grille, the black notebook, the moka. */
     private var cobbles = false
+    /**
+     * Carinthia's look ([look]): Schmied Toni's smithy of rough stone whitewashed over, the lime worn off a stone here and
+     * there and grey with soot over the forge ([whitewash]); a horseshoe nailed over the door for luck, its ends up ([luck]).
+     */
+    private var whitewash = false
+    private var luck = false
     private var grille = false
 
     /** The smithy's level (1 … [Catalog.MAX_LEVEL]), read once a frame: its yard (see the class's comment). */
@@ -151,7 +157,7 @@ internal class SmithyPainter : DioramaPainter() {
         fit()
         vignette()
         level = frame.world.level(BuildingType.SMITHY).coerceIn(1, Catalog.MAX_LEVEL)
-        cobbles = variant("walls") == "cobbles"; grille = variant("window") == "grille"
+        cobbles = variant("walls") == "cobbles"; whitewash = variant("walls") == "whitewash"; luck = variant("door") == "horseshoe"; grille = variant("window") == "grille"
         val lit = env.windows > 0.35f
         // Tone asleep by it: the fire banked for the night, the bellows at rest (unless a dialog fires the forge up); the
         // forge cold (no charcoal, the smithy damaged: companion/GAME.md "Hearths"), its coals under ash the same way
@@ -172,6 +178,7 @@ internal class SmithyPainter : DioramaPainter() {
         thing("window") { window() }
         if (variant("notebook") != null) prop { notebook() }
         thing("door") { door(lit) }
+        if (luck) prop { luckyShoe() }
         thing("horseshoe", slop = 1) { horseshoes() }
         if (there("axe")) thing("axe", slop = 1) { axe() }
 
@@ -734,6 +741,7 @@ internal class SmithyPainter : DioramaPainter() {
      */
     private fun stoneAt(a: Float, z: Float, px: Int, py: Int, soot: Float, light: Float): Int {
         if (cobbles) return cobbleAt(a, z, px, py, soot, light)
+        if (whitewash) return limed(a, z, px, py, soot, light)
         if (fine) return stoneFine(a, z, px, py, soot, light)
         val ch = 3f
         val zz = z + (Noise.v2(a * 4.1f, z * 0.35f, 3) - 0.5f) * 1.1f
@@ -1110,6 +1118,45 @@ internal class SmithyPainter : DioramaPainter() {
      * The plank door in the right wall, in a frame of dressed stones: boards, three iron straps with rivets from
      * the hinges, the ring; a line of daylight under it by day.
      */
+    /**
+     * Carinthia's walls ([whitewash]) at [a] cells along and [z] px up: the stones' shapes soft under the lime, a pale grey
+     * joint between them, a stone showing where the lime has worn off (more low down), soot greying it over the forge.
+     */
+    private fun limed(a: Float, z: Float, px: Int, py: Int, soot: Float, light: Float): Int {
+        val ch = 3f
+        val zz = z + (Noise.v2(a * 4.1f, z * 0.35f, 3) - 0.5f) * 1.1f
+        val course = floor(zz / ch).toInt(); val fz = zz - course * ch
+        val bl = 0.9f + Noise.rnd(course, 41) * 0.7f
+        val u = a / bl + Noise.rnd(course, 42) * 5f
+        val b = floor(u).toInt(); val fa = (u - b) * bl
+        val worn = Noise.rnd(b, course, 47) < (if (z < ft + 6f) 0.16f else 0.05f)
+        var col = when {
+            worn -> if (fz > ch - 0.55f) stoneL else stoneM
+            fz < 0.4f || fa < 0.1f -> LIME_J
+            fz > ch - 0.5f -> LIME_L
+            Noise.rnd(px, py, 48) < 0.05f -> LIME_D
+            else -> LIME
+        }
+        if (soot > 0f) col = Col.mix(col, Col.hex(0x3A342E), (soot * 0.8f + (Dither.at(px, py) - 0.5f) * 0.2f).coerceIn(0f, 0.85f))
+        return if (light == 1f) col else Col.scale(col, light)
+    }
+
+    /** The horseshoe over the door for luck ([luck]), nailed on the wall above the lintel with its ends up, iron grey, a nail head closer up. */
+    private fun luckyShoe() {
+        val x = (da + db) / 2f; val yd = y0 + 0.03f; val z = doorTop + 1.6f
+        val cx = iso.sx(x, yd); val cy = iso.sy(x, yd, z)
+        val p = detail.toFloat()
+        val iron = Col.hex(0x5E5A60); val ironL = Col.hex(0x8A8690)
+        for (k in 0..10) {
+            val ang = PI * (k / 10.0)
+            val px = cx + (cos(ang) * 1.4f * p).toFloat(); val py = cy + (sin(ang) * 1.6f * p).toFloat()
+            c.fillRect(floor(px).toInt(), floor(py).toInt(), max(1, detail), max(1, detail), if (k < 4) ironL else iron)
+        }
+        c.fillRect(floor(cx - 1.4f * p).toInt(), floor(cy - 1.2f * p).toInt(), max(1, detail), max(1, (1.2f * p).toInt()), iron)
+        c.fillRect(floor(cx + 1.4f * p).toInt(), floor(cy - 1.2f * p).toInt(), max(1, detail), max(1, (1.2f * p).toInt()), iron)
+        if (detail > 1) c.set(floor(cx).toInt(), floor(cy + 1.6f * p).toInt(), ironL)
+    }
+
     private fun door(lit: Boolean) {
         val yd = y0 + 0.03f
         val fr = doorFr; val top = doorTop
@@ -2336,6 +2383,8 @@ internal class SmithyPainter : DioramaPainter() {
     }
 
     private companion object {
+        /** Carinthia's lime over the stone ([limed]): the wash, its lit and its shaded tone, the joints. */
+        val LIME = Col.hex(0xEAE4D6); val LIME_L = Col.hex(0xF6F2E8); val LIME_D = Col.hex(0xD2CAB8); val LIME_J = Col.hex(0xC4BCAA)
         /** Friuli's cobble walls: the stones, pale and rounded, their mortar and its shadow ([cobbleAt]). */
         val COB_HI = Col.hex(0xDCD6C8); val COB_L = Col.hex(0xC4BDAE); val COB_M = Col.hex(0xA9A193); val COB_D = Col.hex(0x8A8276)
         val COB_SAND = Col.hex(0xBCA886); val COB_MORTAR = Col.hex(0x9A9282); val COB_JOINT = Col.hex(0x6E685C)

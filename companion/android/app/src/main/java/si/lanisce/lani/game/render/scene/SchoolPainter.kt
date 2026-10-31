@@ -124,6 +124,8 @@ internal class SchoolPainter : DioramaPainter() {
     private var friezeLook: String? = null
     private var greetingLook: String? = null
     private var abacusLook: String? = null
+    /** A small wooden cross over the blackboard, as Austrian classrooms have it (Carinthia's look, "cross"). */
+    private var crossLook: String? = null
 
     /** The school's level (1 … [Catalog.MAX_LEVEL]), read once a frame: what it has (see the class's comment). */
     private var level = Catalog.MAX_LEVEL
@@ -134,6 +136,7 @@ internal class SchoolPainter : DioramaPainter() {
         painted = material("wainscot", "wood") == "painted"
         paintL = colour("wainscot.l", PAINT_L); paintM = colour("wainscot.m", PAINT_M); paintD = colour("wainscot.d", PAINT_D)
         mapLook = variant("map"); flagLook = variant("flag"); friezeLook = variant("frieze"); greetingLook = variant("greeting"); abacusLook = variant("abacus")
+        crossLook = variant("cross")
     }
     private val slate = Col.hex(0x2E4A3A); private val slateL = Col.hex(0x3A5A48); private val slateD = Col.hex(0x253D30)
     private val chalkW = Col.hex(0xF4F2E8); private val chalkD = Col.hex(0xC8CCC0); private val chalkY = Col.hex(0xF2D46A)
@@ -197,6 +200,7 @@ internal class SchoolPainter : DioramaPainter() {
         thing("window") { window(true, waA, waB) }
         prop { window(false, wbA, wbB) }
         thing("blackboard") { blackboard() }
+        if (crossLook != null) prop { boardCross() }
         thing("chalk", slop = 2) { chalk() }
         thing("sponge", slop = 2) { sponge() }
         // the school's upgrades ([SceneFixtures]): the map and the globe at its second level, the clock at its third
@@ -1302,11 +1306,13 @@ internal class SchoolPainter : DioramaPainter() {
         val land = Col.hex(0x8CC25A); val landD = Col.hex(0x5C9A48); val sea = Col.hex(0x7FB8E0)
         val paper = Col.hex(0xF0E8D0); val paperD = Col.hex(0xD8CCA8)
         val friuli = mapLook == "friuli"
+        val kaernten = mapLook == "kaernten"
         quadFill(xm, ma, mz0, xm, mb, mz0, xm, mb, mz1, xm, ma, mz1) { px, py ->
             val y = wallXy(px, xm); val z = wallXz(px, py, xm)
             val u = (mb - y) / (mb - ma); val v = (mz1 - z) / (mz1 - mz0)
             // the map of the culture's look (Friuli's), else Slovenia's
             if (friuli) return@quadFill if (detail > 1) friuliFine(u, v, paper, paperD) else friuliMap(u, v, paper, paperD)
+            if (kaernten) return@quadFill kaerntenMap(u, v, paper, paperD)
             if (detail > 1) return@quadFill mapFine(u, v, paper, paperD)
             val col = ((u - 0.05f) / 0.9f * 30f).toInt(); val row = ((v - 0.14f) / 0.78f * 16f).toInt()
             val inLand = row in 0..15 && col in 0..29 && SLOVENIA[row][col] == '#'
@@ -1502,6 +1508,69 @@ internal class SchoolPainter : DioramaPainter() {
         if (neat) return Col.mix(paperD, Col.hex(0x8A7A5A), 0.3f)
         val grid = abs(cf / 7.5f - floor(cf / 7.5f + 0.5f)) * 7.5f < dc * 0.5f || abs(rf / 4f - floor(rf / 4f + 0.5f)) * 4f < dr * 0.5f
         return if (grid && u in 0.035f..0.955f && v in 0.12f..0.94f) Col.mix(paper, paperD, 0.55f) else paper
+    }
+
+    /**
+     * The map of Kärnten (Carinthia's look, "kaernten") at [u] across and [v] down its paper, on the scene's canvas and closer up
+     * alike (the finer, the more of it shows): the land of [KAERNTEN] in green with its border, the Hohe Tauern white and grey
+     * in the north-west, the Karawanken grey along the south, the Drau running from west to east with the lakes by it (the
+     * Millstätter See, the Ossiacher See, the Wörthersee, the Faaker See), Villach and Klagenfurt (the capital, a red dot),
+     * the title KÄRNTEN in the red band.
+     */
+    private fun kaerntenMap(u: Float, v: Float, paper: Int, paperD: Int): Int {
+        val land = Col.hex(0x8CC25A); val landD = Col.hex(0x4E8A40); val lake = Col.hex(0x5EA0D8)
+        val pu = 1f / ((mb - ma) * 4f * K); val pv = 1f / ((mz1 - mz0) * K)
+        val dc = pu / 0.9f * 30f; val dr = pv / 0.78f * 16f
+        if (v < 0.1f) return if (detail > 1) mapTitle(u, v, KAERNTEN_TITLE) else Col.hex(0xB83A2E)
+        if (u > 0.97f || v > 0.96f) return paperD
+        val cf = (u - 0.05f) / 0.9f * 30f; val rf = (v - 0.14f) / 0.78f * 16f
+        fun land(c: Float, r: Float) = landness(c, r, KAERNTEN) > 0.5f
+        if (land(cf, rf)) {
+            if (!land(cf - dc, rf) || !land(cf + dc, rf) || !land(cf, rf - dr) || !land(cf, rf + dr)) return landD
+            // Klagenfurt, the capital, a red dot in a white ring; Villach a dark dot
+            val kl = hypot((cf - 19.2f) / max(dc, 0.7f), (rf - 9.4f) / max(dr, 0.7f))
+            if (kl < 1.2f) return Pal.FLAG_RED
+            if (detail > 1 && kl < 2f) return Col.hex(0xFFFFFF)
+            if (hypot((cf - 12.6f) / max(dc, 0.7f), (rf - 9.2f) / max(dr, 0.7f)) < 1f) return Col.hex(0x3A2A24)
+            // the lakes, then the Drau
+            for (k in LAKES.indices step 4) if (hypot((cf - LAKES[k]) / LAKES[k + 2], (rf - LAKES[k + 1]) / LAKES[k + 3]) < 1f) return lake
+            val drau = 7.2f + (cf - 1f) * 0.06f + sin(cf * 0.45f) * 0.7f
+            if (abs(rf - drau) < max(0.32f, dr * 0.6f)) return Col.hex(0x4E8EC8)
+            // the mountains: the Hohe Tauern in the north-west, the Karawanken along the south; lit from the upper left
+            val e = kElevation(cf, rf); val lit = e - kElevation(cf - 0.4f, rf - 0.4f)
+            return when {
+                e > 0.74f -> if (lit > 0.02f) Col.hex(0xC8C4B8) else Col.hex(0xF4F4F0)
+                e > 0.5f -> if (lit > 0.02f) Col.hex(0x9A8A6A) else Col.hex(0xB8A888)
+                e > 0.3f -> Col.mix(land, Col.hex(0xB8A888), if (lit > 0.02f) 0.6f else 0.35f)
+                detail > 1 && Noise.v2(cf * 0.7f, rf * 0.7f, 35) > 0.66f -> Col.mix(land, Col.hex(0xC8E080), 0.4f)
+                else -> land
+            }
+        }
+        if (detail > 1) {
+            val neat = (abs(u - 0.035f) < pu * 0.6f || abs(u - 0.955f) < pu * 0.6f) && v in 0.12f..0.94f ||
+                (abs(v - 0.12f) < pv * 0.6f || abs(v - 0.94f) < pv * 0.6f) && u in 0.035f..0.955f
+            if (neat) return Col.mix(paperD, Col.hex(0x8A7A5A), 0.3f)
+            val grid = abs(cf / 7.5f - floor(cf / 7.5f + 0.5f)) * 7.5f < dc * 0.5f || abs(rf / 4f - floor(rf / 4f + 0.5f)) * 4f < dr * 0.5f
+            if (grid && u in 0.035f..0.955f && v in 0.12f..0.94f) return Col.mix(paper, paperD, 0.55f)
+        }
+        return paper
+    }
+
+    /** The height of the land on the map of Kärnten at ([cf], [rf]): the Hohe Tauern in the north-west, the Karawanken along the south. */
+    private fun kElevation(cf: Float, rf: Float): Float {
+        val tauern = 1.05f - hypot((cf - 5f) / 5f, (rf - 2.2f) / 2.4f)
+        val karawanken = 0.85f - abs(rf - (12.6f - (cf - 8f) * 0.04f)) / 1.4f
+        val nock = 0.55f - hypot((cf - 14f) / 4f, (rf - 3.5f) / 1.8f) * 0.55f
+        return max(max(tauern, if (cf in 8f..25f) karawanken else -1f), nock) + (Noise.v2(cf * 0.9f, rf * 0.9f, 33) - 0.5f) * 0.35f
+    }
+
+    /** The small wooden cross over the blackboard ([crossLook]): dark wood, the pale corpus closer up. */
+    private fun boardCross() {
+        val x = (ba + bb) / 2f; val yb = y0 + 0.03f
+        val dark = Col.hex(0x5A3A22); val darkL = Col.hex(0x7E5634)
+        iso.line(x, yb, bz1 + 0.15f, x, yb, hw - 0.25f, dark)
+        iso.line(x - 0.18f, yb, bz1 + 0.95f, x + 0.18f, yb, bz1 + 0.95f, darkL)
+        if (detail > 1) iso.px(x, yb, bz1 + 0.75f, Col.hex(0xE8D2B0))
     }
 
     /** The school clock over the map: a wooden rim, the hours, the hands at the hour of the day, the red second hand ticking. */
@@ -2092,7 +2161,12 @@ internal class SchoolPainter : DioramaPainter() {
             val x = wallYx(px, y); val u = (x - poleX - 0.1f) / len
             val wave = sin(t * 4 - u * 7).toFloat() * 0.7f * u
             val v = (wallYz(px, py, y) - z0 - wave) / fh
-            if (v in 0f..1f && flagLook == "it") {
+            if (v in 0f..1f && flagLook == "at") {
+                // Austria's flag (Carinthia's look): red, white, red
+                var col = if ((v * 3f).toInt() == 1) Pal.FLAG_WHITE else Pal.FLAG_RED
+                if (sin(t * 4 - u * 7) > 0.6f) col = Col.scale(col, 0.85f)
+                c.set(px, py, col)
+            } else if (v in 0f..1f && flagLook == "it") {
                 // the Italian tricolore (the culture's look): green at the hoist, white, red at the fly
                 var col = ITALY[(u * 3f).toInt().coerceIn(0, 2)]
                 if (sin(t * 4 - u * 7) > 0.6f) col = Col.scale(col, 0.85f)
@@ -2366,6 +2440,7 @@ internal class SchoolPainter : DioramaPainter() {
         private val GREETINGS: Map<String?, Triple<String, String, String>> = mapOf(
             null to Triple("Dober dan!", "Kako si?", "Dobro."),
             "it" to Triple("Ciao!", "Come va?", "Bene!"),
+            "de" to Triple("Grüß Gott!", "Wie geht's?", "Gut!"),
         )
 
         /** A rough outline of Friuli Venezia Giulia, 30 × 16, north up: the Alps along the top, the coast and Trieste at the foot. */
@@ -2386,6 +2461,40 @@ internal class SchoolPainter : DioramaPainter() {
             "......................###.....",
             ".......................##.....",
             "........................#.....",
+        )
+
+        /** A rough outline of Kärnten, 30 × 16, north up: the narrow upper Drau valley in the west, the Nockberge's bulge, the Lavanttal in the east, the Karawanken along the south. */
+        private val KAERNTEN = arrayOf(
+            "........#######...............",
+            "......###########.....####....",
+            "....###############.########..",
+            "..##########################..",
+            ".###########################..",
+            "############################..",
+            "#############################.",
+            "#############################.",
+            ".############################.",
+            "..###########################.",
+            "...#########################..",
+            ".....#####################....",
+            ".......########.#########.....",
+            ".........####.....######......",
+            "...................##.........",
+            "..............................",
+        )
+
+        /** The lakes on the map of Kärnten, as (column, row, half width, half height) of [KAERNTEN]: the Millstätter See, the Ossiacher See, the Wörthersee, the Faaker See. */
+        private val LAKES = floatArrayOf(10.6f, 5.4f, 1.4f, 0.42f, 14.2f, 7.8f, 1.1f, 0.38f, 16.4f, 9.4f, 2.1f, 0.48f, 13.4f, 10.5f, 0.6f, 0.42f)
+
+        /** The map of Kärnten's title in small capitals: KÄRNTEN. */
+        private val KAERNTEN_TITLE = arrayOf(
+            arrayOf("#.#", "#.#", "##.", "#.#", "#.#"), // K
+            arrayOf("#.#", ".#.", "#.#", "###", "#.#"), // Ä
+            arrayOf("##.", "#.#", "##.", "#.#", "#.#"), // R
+            arrayOf("#..#", "##.#", "#.##", "#..#", "#..#"), // N
+            arrayOf("###", ".#.", ".#.", ".#.", ".#."), // T
+            arrayOf("###", "#..", "##.", "#..", "###"), // E
+            arrayOf("#..#", "##.#", "#.##", "#..#", "#..#"), // N
         )
 
         /** Towns on the map of Friuli closer up, as (column, row) of [FRIULI]: Pordenone, Tolmezzo, Gorizia, Trieste. */
@@ -2511,6 +2620,16 @@ internal object ChalkFont {
         'B' to arrayOf("###.", "#..#", "###.", "#..#", "#..#", "###."),
         'm' to arrayOf(".....", ".....", "####.", "#.#.#", "#.#.#", "#.#.#"),
         'v' to arrayOf("...", "...", "#.#", "#.#", "#.#", ".#."),
+        // the German greeting's (Carinthia's look: "Grüß Gott! Wie geht's? Gut!")
+        'G' to arrayOf(".##.", "#...", "#...", "#.##", "#..#", ".##."),
+        'W' to arrayOf("#...#", "#...#", "#...#", "#.#.#", "#.#.#", ".#.#."),
+        'g' to arrayOf("....", "....", ".###", "#..#", ".###", "...#", ".##."),
+        'h' to arrayOf("#...", "#...", "###.", "#..#", "#..#", "#..#"),
+        't' to arrayOf(".#.", ".#.", "###", ".#.", ".#.", "..#"),
+        'u' to arrayOf("....", "....", "#..#", "#..#", "#..#", ".###"),
+        'ü' to arrayOf("....", "#..#", "....", "#..#", "#..#", ".###"),
+        'ß' to arrayOf(".##.", "#..#", "#.#.", "#..#", "#..#", "#.#."),
+        '\'' to arrayOf("#", "#", ".", ".", ".", "."),
     )
 
     /**
@@ -2572,6 +2691,15 @@ internal object ChalkHand {
         'B' to arrayOf(p(0f, 0f, 0f, 5f), p(0f, 0f, 1.7f, 0f, 2.5f, 0.6f, 2.5f, 1.8f, 1.7f, 2.4f, 0f, 2.4f), p(1.7f, 2.4f, 2.7f, 2.9f, 3f, 3.8f, 2.6f, 4.6f, 1.6f, 5f, 0f, 5f)),
         'm' to arrayOf(p(0f, 2f, 0f, 5f), p(0f, 3f, 0.5f, 2.2f, 1.2f, 2f, 2f, 2.6f, 2f, 5f), p(2f, 2.8f, 2.6f, 2.1f, 3.4f, 2f, 4f, 2.6f, 4f, 5f)),
         'v' to arrayOf(p(0f, 2f, 1f, 5f, 2f, 2f)),
+        'G' to arrayOf(arc(1.5f, 2.5f, 1.5f, 2.5f, 40f, 330f, 16), p(1.8f, 3f, 3f, 3f, 3f, 4.4f)),
+        'W' to arrayOf(p(0f, 0f, 1f, 5f, 2f, 2f, 3f, 5f, 4f, 0f)),
+        'g' to arrayOf(arc(1.5f, 3f, 1.5f, 1f), p(3f, 2f, 3f, 5.4f, 2.4f, 6f, 1.4f, 6.1f, 0.6f, 5.8f)),
+        'h' to arrayOf(p(0f, 0f, 0f, 5f), p(0f, 3.2f, 0.5f, 2.4f, 1.3f, 2f, 2.2f, 2.1f, 2.8f, 2.6f, 3f, 3.4f, 3f, 5f)),
+        't' to arrayOf(p(1f, 0.4f, 1f, 4.4f, 1.4f, 5f, 2f, 5f), p(0f, 2f, 2f, 2f)),
+        'u' to arrayOf(p(0f, 2f, 0f, 4f, 0.6f, 4.8f, 1.5f, 5f, 2.4f, 4.8f, 3f, 4f), p(3f, 2f, 3f, 5f)),
+        'ü' to arrayOf(p(0f, 2.8f, 0f, 4.1f, 0.6f, 4.8f, 1.5f, 5f, 2.4f, 4.8f, 3f, 4.1f), p(3f, 2.8f, 3f, 5f), p(0f, 1.2f), p(3f, 1.2f)),
+        'ß' to arrayOf(p(0f, 5f, 0f, 1f, 0.5f, 0.2f, 1.4f, 0f, 2.3f, 0.4f, 2.4f, 1.3f, 1.5f, 2.2f, 2.6f, 2.8f, 3f, 3.8f, 2.5f, 4.7f, 1.4f, 5f)),
+        '\'' to arrayOf(p(0f, 0f, 0f, 1.2f)),
     )
 
     /** The strokes of [ch] (none for a space or a letter it doesn't know). */

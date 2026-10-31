@@ -93,6 +93,14 @@ internal class MarketPainter : VistaPainter() {
     private var friAwnings = false
     private var collio = false
     private var riverCobbles = false
+    /**
+     * Carinthia's look ([style]'s tower an onion): the houses round the market white below with a timbered upper storey and a
+     * geranium balcony under dark shingles ([houseFront], [sideHouse]), the church's tower under an onion dome of green copper
+     * ([church]); its goods ([kaeGoods]): slabs of Speck on the stall's back beam, a Reindling, the ring cake, by the loaves,
+     * Stefan's Most golden in green bottles on his cart.
+     */
+    private var alpine = false
+    private var kaeGoods = false
     private var coast = false
 
     override fun paint() {
@@ -101,8 +109,10 @@ internal class MarketPainter : VistaPainter() {
         val lit = env.windows > 0.35f
         level = frame.world.level(BuildingType.MARKET).coerceIn(1, Catalog.MAX_LEVEL)
         style = if (variant("village") != null) FireStyle.of(frame.world.culture, frame.world.landscape) else null
-        friGoods = variant("goods") != null
-        friAwnings = variant("awnings") != null
+        friGoods = variant("goods") == "friuli"
+        friAwnings = variant("awnings") == "friuli"
+        alpine = style?.tower == Tower.ONION
+        kaeGoods = variant("goods") == "kaernten"
         collio = variant("hills") != null
         riverCobbles = variant("ground") != null
         coast = look.landscape == Landscape.COAST.id
@@ -115,7 +125,7 @@ internal class MarketPainter : VistaPainter() {
 
         items.clear()
         // the square's end: the church's tower over the roofs, the houses, the linden; a house along the right
-        items.add(62f to { prop { style?.let { campanile(lit, it) } ?: church(lit) } })
+        items.add(62f to { prop { style?.let { if (alpine) church(lit, it) else campanile(lit, it) } ?: church(lit) } })
         for ((i, hs) in HOUSES.withIndex()) items.add(hs[1] to { prop { houseFront(hs[0], hs[2], hs[1], i, lit) } })
         items.add(SIDE_D1 to { prop { sideHouse(lit) } })
         items.add(lindenD to { groundShadow(lindenX + 0.8f, lindenD + 0.5f, 3.5f, 0.8f); prop(Pal.OUTLINE_TREE) { linden() } })
@@ -268,16 +278,16 @@ internal class MarketPainter : VistaPainter() {
     // ------------------------------------------------------------------ the square's end
 
     /** The church behind the houses: its white tower with the belfry and the clock, the spire, a gold cross; the nave's roof. */
-    private fun church(lit: Boolean) {
+    private fun church(lit: Boolean, st: FireStyle? = null) {
         val d = 62f; val x = 6f
         val p = pm(d)
-        val wall = hazy(Pal.WALL_L, d); val wallD = hazy(Pal.WALL_D, d)
+        val wall = hazy(st?.churchWall?.get(0) ?: Pal.WALL_L, d); val wallD = hazy(st?.churchWall?.get(2) ?: Pal.WALL_D, d)
         val tw = 3.6f
         val tl = gx(x - tw / 2f, d); val tr = gx(x + tw / 2f, d)
         val top = hy(d, 19f)
         // the nave's roof behind, to the right
         c.polyBegin(); c.polyAdd(tr, hy(d, 7f)); c.polyAdd(gx(x + 9f, d), hy(d, 7f)); c.polyAdd(gx(x + 8f, d + 4f), hy(d + 4f, 11f)); c.polyAdd(tr, hy(d + 4f, 11f))
-        c.polyFill(hazy(if (env.snow) Pal.SNOW_M else Pal.ROOF_M, d))
+        c.polyFill(hazy(if (env.snow) Pal.SNOW_M else st?.roof?.get(1) ?: Pal.ROOF_M, d))
         for (y in max(top.toInt(), c.top) until min(gy(d).toInt() + 1, c.bottom)) for (xx in max(tl.toInt(), c.left) until min(tr.toInt() + 1, c.right)) {
             val hm = (gy(d) - y) / p
             c.set(xx, y, if (xx >= tr.toInt() - max(1, (0.5f * p).toInt())) wallD else if (abs(hm - 13.5f) < 0.15f) wallD else wall)
@@ -288,6 +298,34 @@ internal class MarketPainter : VistaPainter() {
         c.set(bx.toInt(), hy(d, 16.8f).toInt(), Pal.GOLD)
         c.fillCircle(bx, hy(d, 15f), max(1f, 0.7f * p), Pal.GOLD)
         if (p > 2.5f) c.fillCircle(bx, hy(d, 15f), 0.5f * p, if (lit) Pal.WINDOW_LIT else Col.hex(0xF4F2EA))
+        // Carinthia's onion dome: swelling out over the tower, drawn in to its neck, a little lantern, the spike and the cross
+        if (st != null) {
+            val prof = floatArrayOf(0f, 1.0f, 0.6f, 1.22f, 1.3f, 1.2f, 2.1f, 0.95f, 2.8f, 0.4f, 3.1f, 0.3f, 3.8f, 0.3f, 4.0f, 0.42f, 4.6f, 0.28f, 5f, 0.08f)
+            val y0 = hy(d, 19f); val half = (tw / 2f + 0.2f) * p
+            val hgt = prof[prof.size - 2]
+            for (yy in max((y0 - hgt * p).toInt(), c.top)..min(y0.toInt(), c.bottom - 1)) {
+                val m = (y0 - yy) / p
+                var i = 0
+                while (i < prof.size - 4 && prof[i + 2] < m) i += 2
+                val f = ((m - prof[i]) / max(0.001f, prof[i + 2] - prof[i])).coerceIn(0f, 1f)
+                val hw = (prof[i + 1] + (prof[i + 3] - prof[i + 1]) * f) * half
+                val lantern = m in 3.1f..3.8f
+                for (xx in max((bx - hw).toInt(), c.left)..min((bx + hw).toInt(), c.right - 1)) {
+                    val u = (xx - bx) / max(1f, hw)
+                    c.set(xx, yy, hazy(when {
+                        lantern -> if (abs(u) < 0.4f) (if (lit) Pal.WINDOW_LIT else Col.hex(0x2A2226)) else st.churchWall[0]
+                        env.snow && m in 0.6f..1.7f -> Pal.SNOW_L
+                        u < -0.3f -> st.towerTop[0]
+                        u > 0.45f -> st.towerTop[2]
+                        else -> st.towerTop[1]
+                    }, d))
+                }
+            }
+            val tip = (y0 - hgt * p).toInt()
+            c.vline(bx.toInt(), tip - (1.1f * p).toInt(), tip, Pal.GOLD)
+            c.hline((bx - 0.4f * p).toInt(), (bx + 0.4f * p).toInt(), tip - (0.75f * p).toInt(), Pal.GOLD)
+            return
+        }
         // the spire
         val sh = 6f
         val ys = hy(d, 19f)
@@ -385,6 +423,17 @@ internal class MarketPainter : VistaPainter() {
             val shutter = !door && (bf in 0.55f..0.8f || bf in 1.5f..1.75f) && (hm in 1.1f..2.3f || hm in 3.9f..5.1f) && xm < hw - 0.5f
             val on = lit && Noise.rnd(bi, (hm / 2.8f).toInt(), seed + 31) < 0.7f
             c.penEmissive = win && on
+            // Carinthia's upper storey of dark boards, its balcony across the front (geraniums on it in summer)
+            val balcony = alpine && hm in 3.25f..4.25f && xm > 0.2f && xm < hw - 0.2f
+            if (alpine && hm > 3.1f && !win && !shutter) col = hazy(if (((hm / 0.3f).toInt() and 1) == 1) Col.scale(TIMBER, 0.82f) else TIMBER, d)
+            if (balcony) col = hazy(when {
+                hm < 3.4f -> Pal.WOOD_D
+                hm > 4.0f && env.month in 5..10 && Noise.rnd(x / max(1, z), y / max(1, z), seed + 33) < 0.65f -> if ((x + y) % 3 == 0) Pal.GERANIUM_D else Pal.GERANIUM
+                hm > 3.9f -> Pal.WOOD_L
+                ((xm / 0.25f) - floor(xm / 0.25f)) < 0.45f -> Pal.WOOD_M
+                else -> Col.scale(TIMBER, 0.7f)
+            }, d)
+            if (balcony) { c.set(x, y, col); c.penEmissive = false; continue }
             col = when {
                 door -> hazy(Pal.DOOR, d)
                 win -> if (on) Pal.WINDOW_LIT else hazy(if (bf < 1f) Pal.GLASS_HI else Pal.GLASS, d)
@@ -400,9 +449,10 @@ internal class MarketPainter : VistaPainter() {
         c.polyBegin()
         c.polyAdd(gx(x0 - 0.4f, d - 0.4f), ey); c.polyAdd(gx(x0 + hw + 0.4f, d - 0.4f), ey)
         c.polyAdd(gx(x0 + hw + 0.4f, d + 4f), ry); c.polyAdd(gx(x0 - 0.4f, d + 4f), ry)
-        if (st != null) coppi(st, d, ey, ry)
+        if (st != null && !alpine) coppi(st, d, ey, ry)
         else {
-            val roof = hazy(if (env.snow) Pal.SNOW_L else Pal.ROOF_L, d); val roofD = hazy(if (env.snow) Pal.SNOW_D else Pal.ROOF_M, d)
+            // the art's tiles, or Carinthia's dark shingles
+            val roof = hazy(if (env.snow) Pal.SNOW_L else st?.roof?.get(0) ?: Pal.ROOF_L, d); val roofD = hazy(if (env.snow) Pal.SNOW_D else st?.roof?.get(1) ?: Pal.ROOF_M, d)
             c.polyFill { _, py -> if (((py - ry) / max(1f, 0.5f * z)).toInt() % 2 == 0) roof else roofD }
         }
         c.hline(gx(x0 - 0.4f, d - 0.4f).toInt(), gx(x0 + hw + 0.4f, d - 0.4f).toInt(), ey.toInt(), hazy(st?.roof?.get(2) ?: Pal.ROOF_D, d))
@@ -449,7 +499,14 @@ internal class MarketPainter : VistaPainter() {
         val pg = pm(d0); val by = gy(d0)
         c.polyBegin(); c.polyAdd(gx(xw, d0), by); c.polyAdd(gx(xw + 5f, d0), by); c.polyAdd(gx(xw + 5f, d0), by - top * pg)
         c.polyAdd(gx(xw + 2.5f, d0), by - (top + 3.2f) * pg); c.polyAdd(gx(xw, d0), by - top * pg)
-        c.polyFill { px, py -> if (py > by - 0.5f * pg) hazy(Pal.STONE_M, d0) else hazy(if (Noise.rnd(px, py, 141) < 0.06f) wallD else Col.mix(wall, wallD, 0.35f), d0) }
+        c.polyFill { px, py ->
+            when {
+                py > by - 0.5f * pg -> hazy(Pal.STONE_M, d0)
+                // Carinthia: the gable's upper storey of dark boards
+                alpine && py < by - 3.2f * pg -> hazy(if (((by - py) / max(1f, 0.3f * pg)).toInt() % 2 == 1) Col.scale(TIMBER, 0.82f) else TIMBER, d0)
+                else -> hazy(if (Noise.rnd(px, py, 141) < 0.06f) wallD else Col.mix(wall, wallD, 0.35f), d0)
+            }
+        }
         // its windows: two on each floor, one up in the gable, shutters, lit at night
         for ((wxm, whm) in listOf(1.0f to 1.1f, 3.1f to 1.1f, 1.0f to 3.9f, 3.1f to 3.9f, 2.05f to 6.6f)) {
             val x0 = gx(xw + wxm, d0); val x1 = gx(xw + wxm + 0.85f, d0)
@@ -480,6 +537,14 @@ internal class MarketPainter : VistaPainter() {
             val on = lit && Noise.rnd(bi, (hm / 2.8f).toInt(), 142) < 0.7f
             c.penEmissive = win && on
             val col = when {
+                alpine && hm in 3.25f..4.25f && inBays -> when {
+                    hm < 3.4f -> Pal.WOOD_D
+                    hm > 4.0f && summer && Noise.rnd(px, py, 146) < 0.65f -> if ((px + py) % 3 == 0) Pal.GERANIUM_D else Pal.GERANIUM
+                    hm > 3.9f -> Pal.WOOD_L
+                    ((along / 0.25f) - floor(along / 0.25f)) < 0.45f -> Pal.WOOD_M
+                    else -> Col.scale(TIMBER, 0.7f)
+                }
+                alpine && hm > 3.1f && hm < top - 0.3f && !win && !shutter -> if (((hm / 0.3f).toInt() and 1) == 1) Col.scale(TIMBER, 0.82f) else TIMBER
                 hm < 0.45f -> if (Noise.rnd(px, py, 143) < 0.3f) Pal.STONE_D else Pal.STONE_M
                 door -> if (bf < 0.78f || bf > 1.52f || hm > 2.2f) Pal.WOOD_X else Pal.DOOR
                 sill && summer -> if (Noise.rnd(px, py, 144) < 0.6f) Pal.GERANIUM else Pal.LEAF
@@ -498,7 +563,7 @@ internal class MarketPainter : VistaPainter() {
         c.polyBegin()
         c.polyAdd(gx(xw - 0.4f, d0 - 0.4f), hy(d0 - 0.4f, top - 0.1f)); c.polyAdd(gx(xw - 0.4f, d1), hy(d1, top - 0.1f))
         c.polyAdd(gx(xw + 2.5f, d1), hy(d1, top + 3.2f)); c.polyAdd(gx(xw + 2.5f, d0 - 0.4f), hy(d0 - 0.4f, top + 3.2f))
-        if (st != null) {
+        if (st != null && !alpine) {
             // the coppi: channels down the slope toward the square, a course's lip across them
             val lip = max(2, 2 * detail)
             c.polyFill { px, py -> hazy(if (((py / lip) % 3) == 0 && py % lip == 0) roofD else if (((px - gx(xw, d0).toInt()) / max(1, detail)) % 3 == 0) Col.mix(roof, roofD, 0.55f) else roof, 20f) }
@@ -622,7 +687,7 @@ internal class MarketPainter : VistaPainter() {
                 if (f < 0.2f) Col.scale(cloth, 0.84f) else if (f > 0.8f) Col.mix(cloth, Col.hex(0xFFFFFF), 0.12f) else cloth
             }
             // strings of garlic, red peppers, onions hanging from the back beam; in Friuli a San Daniele ham, salami and garlic
-            if (friGoods) hams() else for ((k, sx) in floatArrayOf(-6.9f, -6.1f, -4.6f, -3.4f).withIndex()) {
+            if (friGoods) hams() else if (kaeGoods) specks() else for ((k, sx) in floatArrayOf(-6.9f, -6.1f, -4.6f, -3.4f).withIndex()) {
                 val dd = MAIN_BACK - 0.1f
                 val pp = pm(dd)
                 val bx = gx(sx, dd)
@@ -961,10 +1026,42 @@ internal class MarketPainter : VistaPainter() {
         if (detail > 1) for (j in 0 until 3) c.set((bx + (0.25f + 0.18f * j) * r).toInt(), (ty + (j % 2) * th * 0.45f).toInt(), Col.hex(0xD8C490))
     }
 
+    /**
+     * Carinthia's Speck on the stall's back beam ([kaeGoods]): three slabs of smoked bacon on their strings, the crust dark
+     * brown, the meat red, the fat white along the bottom; a string of garlic beside them.
+     */
+    private fun specks() {
+        val dd = MAIN_BACK - 0.1f
+        val pp = pm(dd)
+        for ((k, sx) in floatArrayOf(-6.8f, -5.9f, -5.0f).withIndex()) {
+            val bx = gx(sx, dd); val top = hy(dd, 2.45f); val y0 = hy(dd, 2.1f); val y1 = hy(dd, 1.35f + 0.1f * (k % 2))
+            c.vline(bx.toInt(), top.toInt(), y0.toInt(), Col.hex(0xB8A070))
+            val hw = max(1f, 0.28f * pp)
+            c.fillRect((bx - hw).toInt(), y0.toInt(), max(2, (2 * hw).toInt()), max(2, (y1 - y0).toInt()), Col.hex(0x6A3420))
+            c.fillRect((bx - hw).toInt() + 1, y0.toInt() + 1, max(1, (2 * hw).toInt() - 2), max(1, (y1 - y0).toInt() - 2), Col.hex(0x8A4028))
+            c.hline((bx - hw).toInt(), (bx + hw).toInt(), y1.toInt(), Col.hex(0xF0E6D2))
+        }
+        val gxp = gx(-3.6f, dd); var y = hy(dd, 2.45f); val y1 = hy(dd, 1.3f)
+        c.vline(gxp.toInt(), y.toInt(), y1.toInt(), Col.hex(0xB8A070))
+        while (y < y1) { c.fillCircle(gxp, y + 0.1f * pp, max(1f, 0.1f * pp), Col.hex(0xF2EEE2)); y += max(2f, 0.18f * pp) }
+    }
+
+    /** Carinthia's Reindling by the loaves ([kaeGoods]): a round ring cake, golden brown, sugar dusted on its crown, the hole in its middle. */
+    private fun reindling(x: Float, d: Float) {
+        val p = pm(d)
+        val bx = gx(x, d); val by = hy(d, 0.95f)
+        val rx = max(1.5f, 0.2f * p); val ry = max(1f, 0.1f * p)
+        c.fillEllipse(bx, by - ry, rx, ry * 1.4f, Col.hex(0x9A5A26))
+        c.fillEllipse(bx, by - ry * 1.5f, rx * 0.95f, ry, Col.hex(0xC8803A))
+        c.fillEllipse(bx, by - ry * 1.6f, rx * 0.35f, ry * 0.4f, Col.hex(0x5A3418))
+        if (p > 6f) for (j in 0 until 5) c.set((bx - rx * 0.7f + j * rx * 0.35f).toInt(), (by - ry * 2f).toInt(), Col.hex(0xF6F2EA))
+    }
+
     /** Round loaves of bread, golden brown, scored across the top, flour on them; in Friuli a gubana beside two loaves. */
     private fun bread(x: Float, d: Float) {
         if (friGoods) gubana(x + 0.22f, d + 0.04f)
-        for (k in 0 until if (friGoods) 2 else 3) {
+        if (kaeGoods) reindling(x + 0.22f, d + 0.04f)
+        for (k in 0 until if (friGoods || kaeGoods) 2 else 3) {
             val dd = d + (k % 2) * 0.14f - 0.05f; val xx = x + (k - 1) * 0.22f
             val p = pm(dd)
             val bx = gx(xx, dd); val by = hy(dd, 0.95f)
@@ -1328,7 +1425,7 @@ internal class MarketPainter : VistaPainter() {
             val bx = gx(xx, dd); val by = hy(dd, base + 0.2f)
             val bw = max(1f, 0.05f * p); val bh = max(3f, 0.32f * p)
             // in Friuli Matteo's Collio whites: pale gold wine in clear glass, a white label
-            val glass = if (friGoods) (if (k % 3 == 1) Col.hex(0xD8C068) else Col.hex(0xE8D488)) else if (k % 3 == 1) Col.hex(0x6A8A2A) else Col.hex(0x2E5A2E)
+            val glass = if (friGoods) (if (k % 3 == 1) Col.hex(0xD8C068) else Col.hex(0xE8D488)) else if (kaeGoods) (if (k % 3 == 1) Col.hex(0xB0A030) else Col.hex(0x8A9A3A)) else if (k % 3 == 1) Col.hex(0x6A8A2A) else Col.hex(0x2E5A2E)
             c.fillRect((bx - bw).toInt(), (by - bh * 0.6f).toInt(), max(1, (2 * bw).toInt()), max(1, (bh * 0.6f).toInt()), glass)
             c.fillRect((bx - bw * 0.4f).toInt(), (by - bh).toInt(), max(1, (0.8f * bw).toInt()), max(1, (bh * 0.4f).toInt()), if (friGoods) Col.hex(0x9AB89A) else glass)
             c.set((bx - bw * 0.4f).toInt(), (by - bh).toInt(), Col.hex(0xD8C8A0))

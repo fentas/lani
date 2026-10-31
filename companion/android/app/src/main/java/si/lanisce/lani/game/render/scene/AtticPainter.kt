@@ -66,6 +66,14 @@ internal class AtticPainter : RoomPainter() {
      */
     private var coppi = false
     private var maize = false
+
+    /**
+     * Carinthia's look ([look]): Kathi and Maxi's Dachboden under a roof of larch shingles, their grey-brown undersides in
+     * overlapping courses between the battens at level 1 ([shingles]); strings of Kletzen (dried pears) and a bundle of herbs
+     * drying from the ridge beam ([kletzen]); the Karawanken through the gable window.
+     */
+    private var shingles = false
+    private var kletzen = false
     private var scarpets = false
 
     /** Plaster: rough and patchy at level 1, whitewashed from level 2. */
@@ -124,7 +132,7 @@ internal class AtticPainter : RoomPainter() {
         vignette()
         lv = frame.world.hereLevel.coerceIn(1, 5)
         readLook()
-        coppi = variant("roof") == "coppi"; maize = variant("maize") != null; scarpets = variant("slippers") == "scarpets"
+        coppi = variant("roof") == "coppi"; maize = variant("maize") != null; shingles = variant("roof") == "shingles"; kletzen = variant("drying") == "kletzen"; scarpets = variant("slippers") == "scarpets"
         // the lamp: as a dialog has it, else lit from dusk, and put out for anyone asleep
         val lit = (fx("lamp")?.let { it > 0.5f } ?: (env.windows > 0.35f && !asleepHere)) && there("lamp")
         plot { x, y, px, py -> ground(x, y, px, py) }
@@ -173,6 +181,7 @@ internal class AtticPainter : RoomPainter() {
         if (there("lamp")) thing("lamp", slop = 1) { hangingLamp(lit) }
         // Friuli's maize drying from the ridge beam, also behind whoever stands below it
         if (maize) prop { maizeBunches() }
+        if (kletzen) prop { kletzenStrings() }
         if (scarpets) prop { slippers() }
         cast("bed")
         // by the gable: the chest, the toy on it
@@ -247,6 +256,23 @@ internal class AtticPainter : RoomPainter() {
                         abs(f - 0.5f) > 0.42f -> Col.hex(0x6A2A1C)
                         abs(f - 0.5f) < 0.16f -> Col.hex(0xC8603E)
                         else -> if (Dither.at(px, py) < 0.3f) Col.hex(0x8A3A28) else Col.hex(0xA84A30)
+                    }
+                }
+                shingles && !lined -> {
+                    // larch shingles from below: overlapping courses, each shingle its own length and shade, grey-brown, a
+                    // chink of daylight here and there
+                    val course = along * 14f; val ci = floor(course).toInt(); val cf = course - ci
+                    val su = (x - x0 + (ci % 2) * 0.13f) / 0.26f; val si = floor(su).toInt()
+                    val batten = along * 7f - floor(along * 7f) < 0.12f
+                    val tone = Noise.rnd(si, ci, 173)
+                    when {
+                        batten -> Col.hex(0x7A5634)
+                        cf < 0.14f -> Col.hex(0x3E3028)
+                        su - si < 0.08f -> Col.hex(0x4A3A2E)
+                        tone < 0.03f && env.dark < 0.5f -> Col.hex(0xFFF0C8)
+                        tone < 0.35f -> Col.hex(0x6E5A48)
+                        tone > 0.8f -> Col.hex(0x8E7660)
+                        else -> if (Dither.at(px, py) < 0.25f) Col.hex(0x6A5644) else Col.hex(0x7C6652)
                     }
                 }
                 lined -> {
@@ -405,6 +431,35 @@ internal class AtticPainter : RoomPainter() {
                 }
             }
         }
+    }
+
+    /**
+     * Carinthia's drying under the roof ([kletzen]): two strings of Kletzen, little dried pears dark brown and wrinkled, hanging
+     * from the ridge beam on their cords, and a bundle of herbs (yarrow, mint, St John's wort) upside down, tied with string.
+     */
+    private fun kletzenStrings() {
+        val p = P.toFloat()
+        val pear = intArrayOf(Col.hex(0x6A4426), Col.hex(0x553420), Col.hex(0x3E2616)); val cord = Col.hex(0xC8B890)
+        for ((k, bx) in floatArrayOf(1.55f, 8.2f).withIndex()) {
+            val cx = iso.sx(bx, ym); val top = iso.sy(bx, ym, rh - 1.4f)
+            val len = (9f + k * 2f) * p
+            c.vline(floor(cx).toInt(), floor(top).toInt(), floor(top + len).toInt(), cord)
+            var y = top + 1.6f * p
+            var j = 0
+            while (y < top + len) {
+                val ox = if (j % 2 == 0) -0.6f * p else 0.6f * p
+                c.fillCircle(cx + ox, y + 0.5f * p, max(1f, 0.75f * p), pear[j % 3])
+                c.set(floor(cx + ox - 0.3f * p).toInt(), floor(y + 0.2f * p).toInt(), Col.hex(0x8A5E36))
+                c.set(floor(cx + ox).toInt(), floor(y - 0.4f * p).toInt(), Col.hex(0x2A1A10))
+                y += 1.6f * p; j++
+            }
+        }
+        // the herbs, a bundle hanging head down
+        val hx = iso.sx(2.6f, ym); val ht = iso.sy(2.6f, ym, rh - 1.4f)
+        c.vline(floor(hx).toInt(), floor(ht).toInt(), floor(ht + 3f * p).toInt(), cord)
+        for (h in -3..3) c.line(floor(hx).toInt(), floor(ht + 3f * p).toInt(), floor(hx + h * 0.7f * p).toInt(), floor(ht + 9f * p - abs(h) * 0.6f * p).toInt(), if (h % 2 == 0) Col.hex(0x7A9A5A) else Col.hex(0x9AA878))
+        for (h in -2..2 step 2) c.set(floor(hx + h * 0.8f * p).toInt(), floor(ht + 8.6f * p).toInt(), if (h == 0) Col.hex(0xF0E6C8) else Col.hex(0xE8C840))
+        c.hline(floor(hx - p).toInt(), floor(hx + p).toInt(), floor(ht + 3f * p).toInt(), Col.hex(0xC8402E))
     }
 
     /** Friuli's scarpets ([scarpets]) by the bed: black velvet slippers with a little flower embroidered on each toe, pale rope soles. */

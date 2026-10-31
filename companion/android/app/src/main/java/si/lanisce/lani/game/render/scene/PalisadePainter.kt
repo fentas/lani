@@ -100,8 +100,16 @@ internal class PalisadePainter : VistaPainter() {
 
     private fun readLook2() {
         friuli = variant("land") == "friuli"
+        kaernten = variant("land") == "kaernten"
         cramar = variant("pedlar") == "cramar"
     }
+
+    /**
+     * Carinthia's land beyond the gate ([variant] "land": "kaernten"): larches and spruces along the road, a Harpfe on the
+     * meadow with hay on it in the summer, and on the far hill a white village with its timbered storeys under dark shingles
+     * round the church with its onion dome; the mountains behind higher and sharper, the Karawanken.
+     */
+    private var kaernten = false
 
     private fun gateOpen(): Float = fx("gate") ?: if (env.dark > 0.55f) 0f else 1f
     private fun torchLit(): Boolean = lv >= 2 && (fx("torch")?.let { it > 0.5f } ?: (env.windows > 0.35f))
@@ -125,11 +133,13 @@ internal class PalisadePainter : VistaPainter() {
         readLook2()
         val z = z
         vistaSky(4, 71, moonX = ox + 190 * z, moonY = oy + 12 * z)
-        val far = ridge(hz.toFloat() - 6f * z, 16f * z, 0.011f, 711, Col.hex(0x6A86A2), 0.55f, snowLine = 0.7f)
+        // the far mountains (in Carinthia the Karawanken, higher and sharper, grey limestone)
+        val far = if (kaernten) ridge(hz.toFloat() - 8f * z, 26f * z, 0.019f, 711, Col.hex(0x8A96A4), 0.5f, snowLine = 0.62f)
+        else ridge(hz.toFloat() - 6f * z, 16f * z, 0.011f, 711, Col.hex(0x6A86A2), 0.55f, snowLine = 0.7f)
         treeline(far, 5 * z, 2.4f * z, Col.hex(0x56728E), 0.5f, 712)
         thing("hills", outline = 0) {
             val mid = ridge(hz.toFloat() - 1f * z, 9f * z, 0.02f, 713, Col.hex(0x587E52), 0.32f)
-            if (friuli) farVillage(mid)
+            if (friuli) farVillage(mid) else if (kaernten) farVillageKaernten(mid)
         }
         // the land from the forest to our feet: the meadow beyond the stakes, the trodden ground inside
         c.penId = 0
@@ -144,6 +154,10 @@ internal class PalisadePainter : VistaPainter() {
 
         items.clear()
         if (friuli) items.add(46f to { prop(Pal.OUTLINE_TREE) { friuliTrees() } })
+        if (kaernten) {
+            items.add(44f to { prop(Pal.OUTLINE_TREE) { kaerntenTrees() } })
+            items.add(38f to { prop { harpfe(-15.5f, -9.5f, 38f, 761) } })
+        }
         flock(outside = true)
         fx("pedlar")?.let { p -> if (p > 0f && p < 1f) { val d = forestD - 4f - (forestD - 4f - pd - 0.6f) * p; items.add(d to { prop { pedlar(d) } }) } }
         // whoever is on the road stands out there while the gate is open; shut (at night, or barred), they're in for the
@@ -188,6 +202,27 @@ internal class PalisadePainter : VistaPainter() {
         }
         val cx = ox + 50 * z
         if (cx in 0 until w) farCampanile(cx, crest[cx] + 4 * z, st, lit, 0.32f, tall = 12)
+    }
+
+    /** Carinthia's village on the far hill: white houses with timbered storeys under dark shingles, the church with its onion dome. */
+    private fun farVillageKaernten(crest: IntArray) {
+        val z = z
+        val st = FireStyle.of(frame.world.culture, frame.world.landscape)
+        val lit = env.windows > 0.35f
+        for (i in 0 until 4) {
+            val hx = ox + (30 + i * 9) * z
+            if (hx < 0 || hx >= w) continue
+            farAlpineHouse(hx, crest[hx] + 5 * z + (i % 2) * z, 5 * z, 4 * z, st, i, lit, 0.32f)
+        }
+        val cx = ox + 50 * z
+        if (cx in 0 until w) farOnionChurch(cx, crest[cx] + 4 * z, st, lit, 0.32f, tall = 10)
+    }
+
+    /** Larches and a spruce or two along the road beyond the gate (Carinthia's look). */
+    private fun kaerntenTrees() {
+        for (k in 0 until 4) larch(road(30f + k * 10f) + 3.4f, 30f + k * 10f, 13f + (k % 2) * 2f, 771 + k)
+        for (k in 0 until 3) if (k == 1) spruce(road(34f + k * 10f) - 3.6f, 34f + k * 10f, 14f, 781 + k) else larch(road(34f + k * 10f) - 3.6f, 34f + k * 10f, 12f, 781 + k)
+        larch(11f, 44f, 12f, 791); spruce(15.5f, 46f, 13f, 792)
     }
 
     /** Lombardy poplars along the road beyond the gate, mulberries with the vines between them on the meadow (Friuli's look). */

@@ -166,6 +166,16 @@ class MapLooksTest {
             assertEquals("$c's mountains", look.variant("alps", "range"), MapLook.of(c).range.id)
             assertEquals("$c's camp flag", look.variant("campfire", "flag"), MapLook.of(c).pennant?.id)
         }
+        // Carinthia's buildings' own scenes (places-kaernten): the field's Harpfe, the tent's pennant, the watchtower's flag, the
+        // square's wooden fountain, the bee house's bunting in the feasts' colours; the village round them as the fire's
+        val kaernten = CultureLooks.of("kaernten")
+        assertEquals(kaernten.variant("field", "kozolec"), MapLook.of("kaernten").hayrack.id)
+        assertEquals(kaernten.variant("tent", "pennant"), MapLook.of("kaernten").pennant?.id)
+        assertEquals(kaernten.variant("watchtower", "flag"), MapLook.of("kaernten").flag.id)
+        assertEquals(kaernten.variant("square", "well"), MapLook.of("kaernten").well.id)
+        assertEquals(Flag.AUSTRIA, MapLook.of("kaernten").festive.banner)
+        assertEquals("austria", kaernten.variant("apiary", "bunting"))
+        for (art in listOf("field", "square", "market", "watchtower")) assertEquals("Carinthia's $art draws the fire's village", "kaernten", kaernten.variant(art, "village"))
         // the village as the fire's scene builds it: the map's houses, church and huts are the FireStyle's
         for ((c, l) in cultures.drop(1)) {
             val look = MapLook.of(c, l.id)

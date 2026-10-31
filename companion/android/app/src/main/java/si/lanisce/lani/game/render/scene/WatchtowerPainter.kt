@@ -96,6 +96,17 @@ internal class WatchtowerPainter : VistaPainter() {
     private var stone = false
     /** Friuli's pedlar ([pedlar]): the cramâr from Carnia with his crassigne, the wooden case of little drawers on his back. */
     private var cramar = false
+
+    /**
+     * Carinthia's look ([village]'s tower an onion; companion/SCENES.md "Culture looks"): the village below white with its
+     * timbered upper storeys and geranium balconies under dark shingles, its huts of logs, the white church tower with its
+     * onion dome of green copper among the roofs ([onionTower]); Austria's flag, red, white and red, its pennant the same
+     * below the fourth level ([flagAustria]).
+     */
+    private var alpine = false
+    private var flagAustria = false
+    /** The Friulian land: the Isonzo emerald, vine rows in the fields (the village's look, not Carinthia's). */
+    private val friuliLand: Boolean get() = village != null && !alpine
     private var edgeRow = IntArray(0)
     private var sunLeft = true
     private var lit = false
@@ -113,8 +124,10 @@ internal class WatchtowerPainter : VistaPainter() {
         val z = z
         lv = frame.world.level(si.lanisce.lani.game.BuildingType.WATCHTOWER).coerceIn(1, EYES.size)
         landEye = EYES[lv - 1]
-        village = if (variant("village") == "friuli") FireStyle.of("friuli", look.landscape) else null
+        village = variant("village")?.let { FireStyle.of(it, look.landscape) }
+        alpine = village?.tower == Tower.ONION
         flagFriuli = variant("flag") == "friuli"
+        flagAustria = variant("flag") == "austria"
         stone = variant("tower") == "stone"
         cramar = variant("pedlar") == "cramar"
         sunLeft = (sunAt()?.first ?: vx) < vx
@@ -144,7 +157,7 @@ internal class WatchtowerPainter : VistaPainter() {
         items.clear()
         // right below the tower: gardens, a haystack, a woodpile, a cart; the platform hides them from the top (level 5)
         for ((i, n) in NEAR.withIndex()) items.add(n.d to { prop { near(n, i) } })
-        if (village != null) items.add(CAMPANILE_D + 1.6f to { prop { campanile() } })
+        if (village != null) items.add(CAMPANILE_D + 1.6f to { prop { if (alpine) onionTower() else campanile() } })
         items.add(RING_D + RING_RD to { thing("palisade") { palisade() } })
         items.add(GATE_D + 0.1f to { thing("gate") { gate() } })
         for ((i, hs) in HOUSES.withIndex()) items.add(hs.d + hs.dep / 2f to { house(hs, i) })
@@ -305,7 +318,7 @@ internal class WatchtowerPainter : VistaPainter() {
             for (px in max(max(0, x0), c.left)..min(min(w - 1, x1), c.right - 1)) {
                 if (py >= edgeRow[px]) continue
                 val glint = Noise.rnd(px / z, (py / z + (t * 1.5).toInt()), 961) > 0.8f
-                var col = if (glint) Col.mix(skyAt(0.15f), Col.hex(0xFFFFFF), 0.3f) else if (village != null) Col.hex(0x3E9E94) else Col.hex(0x5E86A8)
+                var col = if (glint) Col.mix(skyAt(0.15f), Col.hex(0xFFFFFF), 0.3f) else if (friuliLand) Col.hex(0x3E9E94) else Col.hex(0x5E86A8)
                 if (env.snow) col = if (glint) Pal.ICE_L else Pal.ICE_M
                 c.set(px, py, Col.mix(env.lit(col), env.skyHorizon, haze))
             }
@@ -343,8 +356,8 @@ internal class WatchtowerPainter : VistaPainter() {
             0, 1 -> { val n = Noise.v2(x * 0.3f, d * 0.2f, 973) + (Dither.at(px, py) - 0.5f) * 0.3f; if (n > 0.6f) g[0] else if (n > 0.3f) g[1] else g[2] }
             2 -> when (env.season) { Season.SPRING -> Col.hex(0x8AC458); Season.SUMMER -> Pal.HAY_M; Season.AUTUMN -> Pal.SOIL_M; else -> Pal.SOIL_M }
             3 -> when (env.season) { Season.SPRING -> Pal.SOIL_L; Season.SUMMER -> Col.hex(0x6E9E42); Season.AUTUMN -> Col.hex(0xA88A4A); else -> Pal.SOIL_L }
-            4 -> if (village != null) vines(x, d, px, py) else if (env.season == Season.SUMMER) Pal.HAY_L else Col.hex(0x96B85A)
-            else -> if (village != null && kind == 5 && band % 2 == 0) vines(x, d, px, py) else Col.mix(g[1], Pal.SOIL_M, 0.35f)
+            4 -> if (friuliLand) vines(x, d, px, py) else if (env.season == Season.SUMMER) Pal.HAY_L else Col.hex(0x96B85A)
+            else -> if (friuliLand && kind == 5 && band % 2 == 0) vines(x, d, px, py) else Col.mix(g[1], Pal.SOIL_M, 0.35f)
         }
         if (!env.snow && edge) col = Col.scale(g[2], 0.85f)
         // furrows closer up
@@ -742,11 +755,12 @@ internal class WatchtowerPainter : VistaPainter() {
         // Friuli's: its plaster in turn under coppi, huts of stone (on the coast the lagoon's casoni, thatched with reed)
         val plaster = fs?.walls?.get(seed % fs.walls.size)
         val thatch = fs != null && hs.hut && fs.thatch
-        val wall = when { fs != null && hs.hut -> if (thatch) Col.hex(0xC8B08A) else Col.hex(0xC9BFAC); plaster != null -> plaster[0]; hs.hut -> Pal.LOG_M; hs.ochre -> Pal.OCHRE_L; else -> Pal.WALL_L }
-        val wallD = when { fs != null && hs.hut -> if (thatch) Col.hex(0xA08A66) else Col.hex(0xA79C88); plaster != null -> plaster[1]; hs.hut -> Pal.LOG_D; hs.ochre -> Pal.OCHRE_M; else -> Pal.WALL_M }
+        val stoneHut = fs != null && hs.hut && (fs.hutStone || thatch)
+        val wall = when { stoneHut -> if (thatch) Col.hex(0xC8B08A) else Col.hex(0xC9BFAC); plaster != null -> plaster[0]; hs.hut -> Pal.LOG_M; hs.ochre -> Pal.OCHRE_L; else -> Pal.WALL_L }
+        val wallD = when { stoneHut -> if (thatch) Col.hex(0xA08A66) else Col.hex(0xA79C88); plaster != null -> plaster[1]; hs.hut -> Pal.LOG_D; hs.ochre -> Pal.OCHRE_M; else -> Pal.WALL_M }
         val roof = when { env.snow -> Pal.SNOW_L; thatch -> Col.hex(0xB89A5E); fs != null -> fs.roof[0]; hs.hut -> Pal.SHINGLE_M; else -> Pal.ROOF_L }
         val roofD = when { env.snow -> Pal.SNOW_D; thatch -> Col.hex(0x8A7040); fs != null -> fs.roof[2]; hs.hut -> Pal.SHINGLE_D; else -> Pal.ROOF_M }
-        val coppi = fs != null && !thatch
+        val coppi = fs != null && !thatch && fs.roofKind == RoofKind.COPPI
         // which side shows: the one toward the middle
         val side = when { hs.x > hs.w / 2f -> x0; hs.x < -hs.w / 2f -> x1; else -> Float.NaN }
         prop {
@@ -756,7 +770,7 @@ internal class WatchtowerPainter : VistaPainter() {
                 c.polyAdd(lx(side, dm), lyh(dm, r)); c.polyAdd(lx(side, d0), lyh(d0, e))
                 c.polyFill { px, py ->
                     val shade = Col.scale(wallD, 0.9f)
-                    if (hs.hut && fs == null && ((py - lyh(dm, 0f)) / max(1f, lpm(dm) * 0.3f)).toInt() % 2 == 0) Col.scale(shade, 0.88f) else shade
+                    if (hs.hut && !stoneHut && ((py - lyh(dm, 0f)) / max(1f, lpm(dm) * 0.3f)).toInt() % 2 == 0) Col.scale(shade, 0.88f) else shade
                 }
                 // a window in the side wall
                 val wp = lpm(dm)
@@ -771,9 +785,11 @@ internal class WatchtowerPainter : VistaPainter() {
             for (y in max(top.toInt(), c.top) until min(foot.toInt() + 1, c.bottom)) for (x in max(fx0.toInt(), c.left) until min(fx1.toInt() + 1, c.right)) {
                 val hm = (foot - (y + 0.5f)) / p
                 var col = if (hm < 0.5f && !hs.hut) Pal.STONE_M else wall
-                if (hs.hut && fs == null && ((hm / 0.3f).toInt() % 2 == 1)) col = wallD
+                if (hs.hut && !stoneHut && ((hm / 0.3f).toInt() % 2 == 1)) col = wallD
                 // a stone hut's courses, closer up
-                if (hs.hut && fs != null && !thatch && z > 1 && Noise.rnd(x / z, y / z, seed + 1045) < 0.18f) col = wallD
+                if (stoneHut && !thatch && z > 1 && Noise.rnd(x / z, y / z, seed + 1045) < 0.18f) col = wallD
+                // Carinthia's upper storey of dark larch boards
+                if (alpine && !hs.hut && hm > 2.9f) col = if (z > 1 && ((hm / 0.3f).toInt() % 2 == 1)) Col.scale(TIMBER, 0.82f) else TIMBER
                 if (x == fx1.toInt()) col = wallD
                 c.set(x, y, col)
             }
@@ -785,6 +801,13 @@ internal class WatchtowerPainter : VistaPainter() {
                 val wx = if (nWin == 1) hs.x - (doorX - hs.x) else hs.x + (k - 0.5f) * hs.w * 0.45f - (doorX - hs.x) * 0.3f
                 winAt(lx(wx - 0.5f, d0), lyh(d0, if (hs.hut) 1.9f else 1.9f), max(1f, 1.0f * p), max(1f, 1.1f * p), seed * 5 + k)
                 if (!hs.hut) winAt(lx(wx - 0.5f, d0), lyh(d0, 4.0f), max(1f, 1.0f * p), max(1f, 1.1f * p), seed * 5 + k + 2)
+            }
+            // Carinthia's balcony across the upper storey, geraniums on it from May to September
+            if (alpine && !hs.hut) {
+                val ry = lyh(d0, 3.15f).toInt()
+                c.hline(fx0.toInt() - max(1, z / 2), fx1.toInt() + max(1, z / 2), ry, Pal.WOOD_L)
+                if (z > 1) c.hline(fx0.toInt(), fx1.toInt(), ry + 1, Pal.WOOD_D)
+                if (env.month in 5..9 && !env.snow) for (x in fx0.toInt()..fx1.toInt()) if (Math.floorMod(x + seed, 2) == 0) c.set(x, ry - 1, Pal.GERANIUM)
             }
         }
         // the roof's front slope, the chimney on it
@@ -1015,6 +1038,65 @@ internal class WatchtowerPainter : VistaPainter() {
         val cx = ((fx0 + fx1) / 2f).toInt()
         c.fillRect(cx, (top - capH - 1.2f * p).toInt(), max(1, z / 2 + 1), max(2, (1.2f * p).toInt()), hazy(Col.hex(0x3A3432), d * 0.4f))
         c.fillRect(cx - max(1, (0.3f * p).toInt()), (top - capH - 0.9f * p).toInt(), max(1, (0.6f * p).toInt()) + 1, max(1, z / 2 + 1), hazy(Col.hex(0x3A3432), d * 0.4f))
+    }
+
+    /**
+     * Carinthia's church tower among the roofs ([alpine]), where Friuli's campanile stands: white, its side toward the middle
+     * in shade, the clock, the belfry's two arched openings (the bell's glint by day, lit at night) between cornices, and on
+     * top the onion dome of green copper swelling out and drawn in to its neck, a little lantern, the spike and the cross.
+     */
+    private fun onionTower() {
+        val fs = village ?: return
+        val z = z
+        val x0 = CAMPANILE_X - 1.9f; val x1 = CAMPANILE_X + 1.9f; val d = CAMPANILE_D
+        val p = lpm(d)
+        val foot = ly(d); val top = lyh(d, 14.5f); val belfry = lyh(d, 13.4f); val belfryLow = lyh(d, 11.4f)
+        val fx0 = lx(x0, d); val fx1 = lx(x1, d)
+        val (wl, wm, wd) = Triple(fs.churchWall[0], fs.churchWall[1], fs.churchWall[2])
+        val sideX = if (CAMPANILE_X < 0f) x1 else x0
+        val sx0 = lx(sideX, d); val sx1 = lx(sideX, d + 3.8f)
+        for (y in max(top.toInt(), c.top)..min(foot.toInt(), c.bottom - 1)) {
+            for (x in max(min(sx0, sx1).toInt(), c.left)..min(max(sx0, sx1).toInt(), c.right - 1)) c.set(x, y, hazy(wd, d * 0.4f))
+            for (x in max(fx0.toInt(), c.left)..min(fx1.toInt(), c.right - 1)) {
+                var col = if (x == fx0.toInt()) wm else wl
+                val u = (x + 0.5f - fx0) / max(1f, fx1 - fx0)
+                if (y >= belfry && y < belfryLow && (abs(u - 0.3f) < 0.12f || abs(u - 0.7f) < 0.12f)) {
+                    col = if (lit && Noise.rnd((t / 8).toInt(), 1341) < 0.5f) Pal.WINDOW_LIT else Col.hex(0x2A2020)
+                    if (!lit && abs(u - 0.3f) < 0.05f && y > belfry + (belfryLow - belfry) * 0.4f) col = Pal.GOLD
+                }
+                // the clock under the belfry
+                val cy = lyh(d, 9.6f)
+                if (kotlin.math.hypot((u - 0.5f) * (fx1 - fx0), y - cy) < max(1f, 0.6f * p)) col = if (lit) Pal.WINDOW_LIT else Pal.GOLD_L
+                if (abs(y - belfry + 1f) < 1f || abs(y - belfryLow - 1f) < 1f) col = wm
+                c.set(x, y, hazy(col, d * 0.4f))
+            }
+        }
+        // the onion: its profile in metres up from the cornice against the tower's half width
+        val prof = floatArrayOf(0f, 1.0f, 0.5f, 1.2f, 1.1f, 1.25f, 1.9f, 1.0f, 2.5f, 0.45f, 2.8f, 0.3f, 3.5f, 0.3f, 3.7f, 0.42f, 4.2f, 0.3f, 4.5f, 0.1f)
+        val half = (fx1 - fx0) / 2f; val mx = (fx0 + fx1) / 2f
+        val h = prof[prof.size - 2]
+        for (y in max((top - h * p).toInt(), c.top)..min(top.toInt(), c.bottom - 1)) {
+            val m = (top - y) / p
+            var i = 0
+            while (i < prof.size - 4 && prof[i + 2] < m) i += 2
+            val f = ((m - prof[i]) / max(0.001f, prof[i + 2] - prof[i])).coerceIn(0f, 1f)
+            val hw = (prof[i + 1] + (prof[i + 3] - prof[i + 1]) * f) * half
+            val lantern = m in 2.8f..3.5f
+            for (x in max((mx - hw).toInt(), c.left)..min((mx + hw).toInt(), c.right - 1)) {
+                val sunny = (x < mx) == sunLeft
+                val col = when {
+                    lantern -> if (abs(x - mx) < hw * 0.4f) (if (lit) Pal.WINDOW_LIT else Col.hex(0x2A2020)) else wl
+                    env.snow && m in 0.6f..1.6f -> Pal.SNOW_L
+                    sunny -> fs.towerTop[0]
+                    abs(x - mx) > hw * 0.55f -> fs.towerTop[2]
+                    else -> fs.towerTop[1]
+                }
+                c.set(x, y, hazy(col, d * 0.4f))
+            }
+        }
+        val cx = mx.toInt(); val tip = top - h * p
+        c.fillRect(cx, (tip - 1.1f * p).toInt(), max(1, z / 2 + 1), max(2, (1.1f * p).toInt()), hazy(Pal.GOLD, d * 0.4f))
+        c.fillRect(cx - max(1, (0.3f * p).toInt()), (tip - 0.8f * p).toInt(), max(1, (0.6f * p).toInt()) + 1, max(1, z / 2 + 1), hazy(Pal.GOLD, d * 0.4f))
     }
 
     /** A window [ww] × [hh] px at ([x], [y]): glass by day, lit at night (some dark). */
@@ -1280,7 +1362,7 @@ internal class WatchtowerPainter : VistaPainter() {
         val z = z
         val bx = w - 9 * z; val by = oy + 46 * z
         val tx = w - 22 * z; val ty = oy + 17 * z
-        if (lv < 4 || flagFriuli) return otherFlag(bx, by, tx, ty)
+        if (lv < 4 || flagFriuli || flagAustria) return otherFlag(bx, by, tx, ty)
         // the pole, a gold knob on its top
         val steps = by - ty
         for (j in 0..steps) {
@@ -1371,7 +1453,8 @@ internal class WatchtowerPainter : VistaPainter() {
                             else -> if (j >= fh - max(1, z / 2 + 1)) blueD else blue
                         }
                     }
-                } else intArrayOf(Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.FLAG_RED)[min(2, (v * 3f).toInt())]
+                } else if (flagAustria) intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_RED)[min(2, (v * 3f).toInt())]
+                else intArrayOf(Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.FLAG_RED)[min(2, (v * 3f).toInt())]
                 if (((i / z + (t * 3).toInt()) % 7) == 0) col = Col.scale(col, 0.88f)
                 c.set(xx, yy, col)
             }

@@ -2694,7 +2694,7 @@ internal class SquarePainter : VistaPainter() {
      * Carinthia's village fountain for the well ([trough]), its foot at ([cx], [by]) (sprite px, [detail] times), by WELL's
      * level: at the first a short trough hollowed out of a log on the ground and a wooden pipe on a forked stake running
      * into it; from the second the long trough of larch on two stones, its spout on a squared post at its right end; from
-     * the third the post carved, its cap and a little ladle hanging on it, and the ground round it flagged; from the fourth a
+     * the third the post carved, its cap and a little ladle on it, a basin for the overflow, the ground flagged; from the fourth a
      * shingle roof over the whole fountain on two posts; at the fifth a box of geraniums on its front post (and the square's
      * lamp post). The water runs from the spout all the time, splashing in the trough; frozen in its icicles in winter.
      */
@@ -2735,6 +2735,8 @@ internal class SquarePainter : VistaPainter() {
             r(px - 1, postTop, 4, -postTop + foot, wm); r(px - 1, postTop, 1, -postTop + foot, wl); r(px + 2, postTop, 1, -postTop + foot, wd)
         }
         if (lv >= 3) {
+            // the little basin below the trough's far end, where the overflow runs for the animals
+            r(-26, -6, 8, 5, wm); r(-26, -6, 8, 1, if (env.snow) Pal.SNOW_L else wl); r(-25, -5, 6, 1, water); r(-26, -2, 8, 1, wd)
             // the carved post: its cap, the notches up it, the year carved on it, a ladle on its peg
             r(px - 2, postTop - 2, 6, 2, wd); r(px - 2, postTop - 3, 6, 1, wl)
             for (j in 0 until 4) dot(px + 1, postTop + 4 + j * 4, wx)

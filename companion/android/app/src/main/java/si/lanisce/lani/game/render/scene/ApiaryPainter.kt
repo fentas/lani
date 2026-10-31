@@ -134,6 +134,13 @@ internal class ApiaryPainter : DioramaPainter() {
     private var acacia = false
     private var paleHoney = false
     private var bunting2 = false
+    /**
+     * Carinthia's look ([look]): Imker Stanko's bee house as the art's, its painted fronts his Carinthian Slovene pride;
+     * World Bee Day's bunting in Austria's red and white ([austria]); by the path his little sign, HONIG over MED, German
+     * and Slovene ([honig]).
+     */
+    private var austria = false
+    private var honig = false
 
     /** The bee meadow along the garden's front, once the village has made it ([beeMeadow]); in Friuli's look its sunflowers. */
     private var meadowOn = true
@@ -150,6 +157,7 @@ internal class ApiaryPainter : DioramaPainter() {
         acacia = variant("tree") == "acacia"
         paleHoney = variant("honey") == "acacia"
         bunting2 = variant("bunting") == "friuli"
+        austria = variant("bunting") == "austria"; honig = variant("sign") == "honig"
         meadowOn = there("meadow")
         girasoli = variant("meadow") != null
         if (friuli) {
@@ -235,6 +243,7 @@ internal class ApiaryPainter : DioramaPainter() {
         if (garden) prop { basin() }
         thing("flowers") { flowerHeads() }
         if (sign) thing("panel", slop = 1) { aldoSign() }
+        if (honig) prop { honigSign() }
         thing("bee", slop = 3) { bigBee() }
 
         bees()
@@ -812,7 +821,7 @@ internal class ApiaryPainter : DioramaPainter() {
 
     /** Bunting for World Bee Day: little flags in white, blue and red along the eave (in Friuli yellow, blue and white). */
     private fun bunting() {
-        val cols = if (bunting2) intArrayOf(Col.hex(0xF2C230), Col.hex(0x2E5AA8), Pal.FLAG_WHITE) else intArrayOf(Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.FLAG_RED)
+        val cols = if (bunting2) intArrayOf(Col.hex(0xF2C230), Col.hex(0x2E5AA8), Pal.FLAG_WHITE) else if (austria) intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_RED) else intArrayOf(Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.FLAG_RED)
         val eave = eaveZ
         val n = 14
         for (i in 0 until n) {
@@ -1373,6 +1382,27 @@ internal class ApiaryPainter : DioramaPainter() {
         if (winter) c.fillRect(x0, y0 - d, bw, d, Pal.SNOW_L)
     }
 
+    /** Stanko's sign by the path ([honig]): a little board on two posts, HONIG over MED in brown on cream, snow on it in winter. */
+    private fun honigSign() {
+        val bx = iso.sx(signX, signY); val by = iso.sy(signX, signY, 0f)
+        val d = detail
+        val top = "HONIG"; val bot = "MED"
+        val tw = BoardFont.width(top)
+        val bw = (tw + 4) * d; val bh = 17 * d
+        val x0 = floor(bx - bw / 2f).toInt(); val y0 = floor(by - 15f * K).toInt()
+        for (px in intArrayOf(x0 + d, x0 + bw - 3 * d)) {
+            c.fillRect(px, y0 + d, 2 * d, floor(by).toInt() - y0 - d, woodM)
+            c.fillRect(px + d, y0 + d, d, floor(by).toInt() - y0 - d, woodD)
+        }
+        c.fillRect(x0, y0, bw, bh, woodX)
+        c.fillRect(x0 + d, y0 + d, bw - 2 * d, bh - 2 * d, HONIG_CREAM)
+        val ink = Col.hex(0x6A3A1A)
+        BoardFont.write(top) { _, x, k, row, _ -> if (row in 0..5) c.fillRect(x0 + (2 + x + k) * d, y0 + (2 + row) * d, d, d, ink) }
+        val off = (tw - BoardFont.width(bot)) / 2
+        BoardFont.write(bot) { _, x, k, row, _ -> if (row in 0..5) c.fillRect(x0 + (2 + off + x + k) * d, y0 + (9 + row) * d, d, d, Col.hex(0x8A4A1A)) }
+        if (winter) c.fillRect(x0, y0 - d, bw, d, Pal.SNOW_L)
+    }
+
     // ------------------------------------------------------------------ the painted fronts, closer
 
     /**
@@ -1405,6 +1435,8 @@ internal class ApiaryPainter : DioramaPainter() {
     }
 
     companion object {
+        /** Stanko's sign's board ([honigSign]): cream. */
+        private val HONIG_CREAM = Col.hex(0xF4E8C8)
         private fun h(v: Long) = Col.hex(v)
         private fun d(x: Float, y: Float) = sqrt(x * x + y * y)
 

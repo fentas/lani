@@ -423,60 +423,6 @@ object CultureLooks {
     /** Friuli's looks of the village's places, added up (each place's table above). */
     private val FRIULI_PLACES: Table get() = FRIULI_FIRESTATION + FRIULI_BOCCE + FRIULI_PLAYGROUND + FRIULI_CHAPEL + FRIULI_PALISADE + FRIULI_LOOKOUT
 
-    // ------------------------------------------------------------------ Carinthia's buildings and their rooms (places-kaernten)
-    // The lower Gailtal below the Dobratsch: white walls with a timbered upper storey and geranium balconies under dark
-    // shingles, the onion-domed church, the Harpfe, the Stube with its Kachelofen and its Herrgottswinkel. Each art's table on
-    // its own; every one of them reads the Karawanken through its window.
-
-    /**
-     * Oma Resi's kitchen (In der Küche, KitchenPainter): the open hearth of the Rauchkuchl at level 1 as the art's, the Sparherd
-     * from level 2 in white tiles (its iron top and brass rail the art's), the Herrgottswinkel with its Palmbuschen for the holy
-     * corner (level 3), the Kredenz in plain panels of pale Zirbe for the painted dresser, the Karawanken through the window.
-     */
-    private val KAERNTEN_KITCHEN = Table.of(
-        "kitchen",
-        colours = mapOf(
-            "tile.l" to 0xFFFCFAF4.toInt(), "tile.m" to 0xFFE6E2D8.toInt(), "tile.d" to 0xFFBEB8AC.toInt(),
-            "cupboard.l" to 0xFFE2B47A.toInt(), "cupboard.m" to 0xFFC8945A.toInt(), "cupboard.d" to 0xFF9A6A3C.toInt(), "cupboard.back" to 0xFF6A4A2C.toInt(),
-        ),
-        variants = mapOf("corner" to "herrgottswinkel", "cupboard" to "walnut", "view" to "karawanken"),
-    )
-
-    /**
-     * Opa Sepp's Stube (In der Stube, LivingRoomPainter): the Kachelofen for the kmečka peč, whitewashed at level 1, its dark
-     * green bowl tiles from level 2 (`stove` "kachelofen", the tiles' colours); the walls panelled in honey-coloured Zirbe
-     * (material `dado` "wood"); the Herrgottswinkel with the Palmbuschen behind the crucifix (`corner`); the Karawanken through
-     * the window.
-     */
-    private val KAERNTEN_LIVINGROOM = Table.of(
-        "livingroom",
-        colours = mapOf("tile.l" to 0xFF5E9A6A.toInt(), "tile.m" to 0xFF3A7048.toInt(), "tile.d" to 0xFF22482E.toInt()),
-        materials = mapOf("dado" to "wood"),
-        variants = mapOf("stove" to "kachelofen", "corner" to "herrgottswinkel", "view" to "karawanken"),
-    )
-
-    /**
-     * Müller Franz's field (Auf dem Feld, FieldPainter): the Harpfe for the kozolec, taller, its many thin poles of larch
-     * weathered silver-grey close together like a harp's strings, under a steeper roof of dark shingles (`kozolec`, as the
-     * map's hayrack and Am See's far shore have it); the village on the hill as Carinthia builds it (`village`: white houses
-     * with their timbered upper storeys and balconies under dark shingles, the church with its onion dome), and on the slopes
-     * its farmsteads with their little Harpfen.
-     */
-    internal val KAERNTEN_FIELD = Table.of("field", variants = mapOf("kozolec" to "harpfe", "village" to "kaernten"))
-
-    /**
-     * The village square (Auf dem Dorfplatz, SquarePainter): the houses round it white below with a timbered upper storey, a
-     * balcony of geraniums across it and dark shingles (`village`: the fire's village's style); the church's tower under an
-     * onion dome of green copper; the nearest house Kathi's Gasthaus zur Linde with its wrought-iron sign, a golden linden
-     * leaf (`osteria` "gasthaus"); the village's wooden fountain for the well, a trough hewn from a larch log with its spout on
-     * a carved post, roofed from WELL's fourth level (`well` "trough", as the map's well); the Maibaum's ribbons red and white
-     * (`maypole` "maibaum"). The linden, the bench and the cat are the art's own.
-     */
-    internal val KAERNTEN_SQUARE = Table.of("square", variants = mapOf("village" to "kaernten", "well" to "trough", "osteria" to "gasthaus", "maypole" to "maibaum"))
-
-    /** Carinthia's looks of its buildings and rooms, added up (each art's table above). */
-    private val KAERNTEN_PLACES: Table get() = KAERNTEN_KITCHEN + KAERNTEN_LIVINGROOM + KAERNTEN_FIELD + KAERNTEN_SQUARE
-
     // ------------------------------------------------------------------ the village map (companion/GAME.md "The map in a culture's look")
 
     /**
@@ -536,7 +482,7 @@ object CultureLooks {
 
     /** Each culture's look: its arts' tables added up. A culture not here draws every art as the default culture does. */
     private val tables: Map<String, Table> = mapOf(
-        "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE + KAERNTEN_PLACES + KAERNTEN_MAP,
+        "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE + KaerntenLooks.PLACES + KAERNTEN_MAP,
         "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE + LAKELAND_MAP,
         "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA + FRIULI_SCHOOL +
             FRIULI_WATCHTOWER +

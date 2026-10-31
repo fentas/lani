@@ -378,6 +378,77 @@ internal abstract class VistaPainter : ArtPainter() {
         c.set(bx.toInt(), (by - hh).toInt(), mid)
     }
 
+    /**
+     * A larch [d] m away at side [x] m, [height] m tall (Carinthia's): a slender cone of soft tiers, light green from May, its
+     * needles gold in October and November, bare grey-brown twigs from December to April (a frost of snow on them in winter).
+     */
+    protected fun larch(x: Float, d: Float, height: Float, seed: Int) {
+        val p = pm(d)
+        val bx = gx(x, d); val by = gy(d)
+        val hh = height * p; val half = height * 0.16f * p
+        val m = env.month
+        val bare = m == 12 || m in 1..4
+        val (dark, mid, light) = when {
+            bare -> Triple(Col.hex(0x5A4A3E), Col.hex(0x7A6656), Col.hex(0x9A8470))
+            m in 10..11 -> Triple(Col.hex(0xA8701E), Col.hex(0xD69A2E), Col.hex(0xF0C450))
+            m == 5 -> Triple(Col.hex(0x5E8A3A), Col.hex(0x86B850), Col.hex(0xAAD870))
+            else -> Triple(Col.hex(0x3E6A30), Col.hex(0x5E8E42), Col.hex(0x82B05A))
+        }
+        val trunk = Col.hex(0x5A3E2E)
+        c.fillRect((bx - max(1f, 0.16f * p) / 2).toInt(), (by - hh).toInt(), max(1, (0.16f * p).toInt()), hh.toInt() + 1, trunk)
+        val tiers = max(4, (hh / 4f).toInt())
+        for (i in 0 until tiers) {
+            val f = (i + 1) / tiers.toFloat()
+            val ty = by - hh * 0.1f - (hh * 0.9f) * (1f - f)
+            val tw = half * f
+            val th = max(1f, hh * 0.9f / tiers * 0.8f)
+            for (yy in 0 until th.toInt().coerceAtLeast(1)) {
+                val y = (ty + yy).toInt()
+                val ww = tw * (0.6f + 0.4f * yy / th)
+                if (bare) {
+                    // the bare twigs, drooping a little at their ends
+                    if (yy == 0) { c.set((bx - ww).toInt(), y + 1, mid); c.set((bx + ww).toInt(), y + 1, dark); c.hline((bx - ww * 0.8f).toInt(), (bx + ww * 0.8f).toInt(), y, if (env.snow) Pal.SNOW_L else mid) }
+                    continue
+                }
+                for (xx in (bx - ww).toInt()..(bx + ww).toInt()) if (Noise.rnd(xx, y, seed) < 0.82f) c.set(xx, y, if (xx < bx - ww * 0.4f) light else if (yy == th.toInt() - 1) dark else mid)
+            }
+        }
+    }
+
+    /**
+     * A Carinthian Harpfe in the open [d] m away from side [x0] to [x1] m: its posts of grey larch on stone feet, the many
+     * thin poles across them like a harp's strings, hay on the lower ones from June to October, a little roof of dark shingles
+     * over it (snow on it in winter).
+     */
+    protected fun harpfe(x0: Float, x1: Float, d: Float, seed: Int) {
+        val p = pm(d); val by = gy(d)
+        val wood = hazy(Col.hex(0x8E877C), d); val woodL = hazy(Col.hex(0xB4ADA2), d); val woodD = hazy(Col.hex(0x625C54), d)
+        val roof = hazy(if (env.snow) Pal.SNOW_L else Pal.SHINGLE_M, d); val roofD = hazy(if (env.snow) Pal.SNOW_M else Pal.SHINGLE_D, d)
+        val posts = 3
+        val xs = (0 until posts).map { gx(x0 + (x1 - x0) * it / (posts - 1f), d) }
+        val hay = env.month in 6..10 && !env.snow
+        for (j in 0 until 8) {
+            val y = (by - (0.6f + j * 0.48f) * p).toInt()
+            c.hline(xs.first().toInt(), xs.last().toInt(), y, woodL)
+            if (hay && j < 5) for (xx in xs.first().toInt() + 1 until xs.last().toInt()) if (Noise.rnd(xx, j, seed) < 0.8f) {
+                val hang = max(1, (0.4f * p * (0.7f + Noise.rnd(xx, j + 9, seed) * 0.5f)).toInt())
+                c.vline(xx, y + 1, y + hang, hazy(if (Noise.rnd(xx, j, seed + 1) < 0.3f) Pal.HAY_L else Pal.HAY_M, d))
+            }
+        }
+        val pw = max(1f, 0.22f * p)
+        for (x in xs) {
+            c.fillRect((x - pw / 2).toInt(), (by - 4.6f * p).toInt(), pw.toInt().coerceAtLeast(1), (4.6f * p).toInt(), wood)
+            c.vline((x + pw / 2).toInt(), (by - 4.6f * p).toInt(), by.toInt() - 1, woodD)
+        }
+        val over = 0.7f * p
+        val ry0 = by - 4.6f * p; val ry1 = by - 5.8f * p
+        for (y in ry1.toInt()..ry0.toInt()) {
+            val u = (y - ry1) / max(1f, ry0 - ry1)
+            c.hline((xs.first() - over * u - 1).toInt(), (xs.last() + over * u + 1).toInt(), y, if ((y - ry1.toInt()) % max(2, (0.25f * p).toInt()) == 0) roofD else roof)
+        }
+        c.hline((xs.first() - over).toInt(), (xs.last() + over).toInt(), ry0.toInt() + 1, woodD)
+    }
+
     /** A soft shadow on the plain ground (id 0) under something [d] m away at side [x] m, [r] m across. */
     protected fun groundShadow(x: Float, d: Float, r: Float, f: Float = 0.78f) {
         val p = pm(d)

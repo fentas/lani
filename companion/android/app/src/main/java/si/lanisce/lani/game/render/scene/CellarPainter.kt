@@ -71,6 +71,20 @@ internal class CellarPainter : RoomPainter() {
     private var salami = false
     private var frasca = false
 
+    /**
+     * Carinthia's look ([look]): Mostbauer Stefan's Mostkeller. Apples, red and yellow, in the crate for the grapes ([apples]);
+     * the Most golden and cloudy where the art has red wine: from the tap into the jug, in the balloon in its wicker, in the
+     * glass, the bottles of green glass with it golden through them ([most]); a slab of Kärntner Speck with a string of
+     * Hauswürstel beside it for the pršut ([speck]); the Karawanken through the slit.
+     */
+    private var apples = false
+    private var most = false
+    private var speck = false
+    /** The drink's colours: red wine, or Carinthia's golden Most ([most]): dark, middle, light. */
+    private val drinkD: Int get() = if (most) Col.hex(0xA8701A) else Col.hex(0x5A1620)
+    private val drinkM: Int get() = if (most) Col.hex(0xD8A030) else Col.hex(0x7A1E28)
+    private val drinkL: Int get() = if (most) Col.hex(0xF2C850) else Col.hex(0xB0303A)
+
     /** A cellar is dim: the candle and the window light it. */
     override fun ambient(): FloatArray {
         val a = super.ambient()
@@ -139,6 +153,7 @@ internal class CellarPainter : RoomPainter() {
         readLook()
         cobbles = variant("walls") == "cobbles"; ribolla = variant("grapes") == "ribolla"
         salami = variant("salami") != null; frasca = variant("frasca") != null
+        apples = variant("grapes") == "apples"; most = variant("wine") == "most"; speck = variant("ham") == "speck"
         // the candle: out at 0, lit otherwise; set, its flame flares up (just lit), not set it burns calm, low while Marko sleeps
         val candle = fx("candle")?.let { it > 0.02f } ?: true
         val flare = if (candle) fxOn("candle").coerceIn(0f, 1f) else 0f
@@ -344,7 +359,7 @@ internal class CellarPainter : RoomPainter() {
         for ((row, z) in listOf(0 to fl + 7.5f, 1 to fl + 12f)) for (k in 0 until 5) {
             val x = 5.15f + k * 0.3f + row * 0.1f; val y = y0 + 0.4f
             val cx = iso.sx(x, y); val by = iso.sy(x, y, z)
-            val g = if ((k + row) % 3 == 0) Col.hex(0x5A2E2A) else Col.hex(0x2E4A2E)
+            val g = if ((k + row) % 3 == 0) (if (most) Col.hex(0x8A8A2E) else Col.hex(0x5A2E2A)) else if (most && (k + row) % 3 == 1) Col.hex(0x6A7A2A) else Col.hex(0x2E4A2E)
             c.fillRect(floor(cx - 1f * p).toInt(), floor(by - 5f * p).toInt(), max(2, floor(2f * p).toInt()), floor(5f * p).toInt(), g)
             c.fillRect(floor(cx - 0.5f * p).toInt(), floor(by - 7f * p).toInt(), max(1, P), floor(2f * p).toInt(), g)
             c.fillRect(floor(cx - 0.5f * p).toInt(), floor(by - 7.8f * p).toInt(), max(1, P), max(1, P), Col.hex(0xC8A070))
@@ -354,6 +369,7 @@ internal class CellarPainter : RoomPainter() {
 
     /** The pršut hanging on its peg in the wall (level 3): the leg, dark red under a white rind of fat, the hoof on its string. */
     private fun ham() {
+        if (speck) { speckSlab(); return }
         val x = 2.5f; val y = y0 + 0.25f
         val cx = iso.sx(x, y); val top = iso.sy(x, y, fl + 20f)
         val p = P.toFloat()
@@ -364,6 +380,32 @@ internal class CellarPainter : RoomPainter() {
         c.fillEllipse(cx + 0.4f * p, top + 9.2f * p, 2.6f * p, 4.4f * p, Col.hex(0x9A3A2E))
         c.fillEllipse(cx + 0.8f * p, top + 10.2f * p, 1.6f * p, 2.8f * p, Col.hex(0xB84A3A))
         c.fillEllipse(cx - 1.4f * p, top + 7f * p, 0.8f * p, 2.6f * p, Col.hex(0xF4EEDC))
+    }
+
+    /**
+     * Carinthia's Speck for the pršut ([speck]), from the same peg: a slab of smoked bacon on its string, its crust dark
+     * brown, the meat red under it, the white fat along its lower edge; beside it a string of Hauswürstel, thin smoked
+     * sausages hanging in a loop.
+     */
+    private fun speckSlab() {
+        val x = 2.5f; val y = y0 + 0.25f
+        val cx = iso.sx(x, y); val top = iso.sy(x, y, fl + 20f)
+        val p = P.toFloat()
+        iso.px(x, y0 + 0.05f, fl + 20.5f, ironD)
+        c.vline(floor(cx).toInt(), floor(top).toInt(), floor(top + 2f * p).toInt(), Col.hex(0xD8C8A0))
+        val l = floor(cx - 2.6f * p).toInt(); val r = floor(cx + 2.6f * p).toInt(); val t0 = floor(top + 2f * p).toInt(); val b0 = floor(top + 12f * p).toInt()
+        c.fillRect(l, t0, r - l, b0 - t0, Col.hex(0x5A2E1A))
+        c.fillRect(l + max(1, P / 2), t0 + max(1, P), r - l - max(1, P), b0 - t0 - 2 * max(1, P), Col.hex(0x7A3A24))
+        c.fillRect(l, b0 - 2 * max(1, P), r - l, 2 * max(1, P), Col.hex(0xF0E6D2))
+        if (P > 1) for (k in 1..3) c.hline(l + P, r - P, t0 + k * (b0 - t0) / 4, Col.hex(0x9A4A30))
+        c.vline(l, t0, b0 - 1, Col.hex(0x3A1E10))
+        // the Hauswürstel beside it, a loop on the next peg
+        val sx = iso.sx(x + 1.4f, y); val st = iso.sy(x + 1.4f, y, fl + 20f)
+        for (k in 0 until 4) {
+            val ox = (k - 1.5f) * 1.1f * p
+            c.line(floor(sx).toInt(), floor(st).toInt(), floor(sx + ox).toInt(), floor(st + 9f * p - abs(ox) * 0.6f).toInt(), if (k % 2 == 0) Col.hex(0x6A2A1A) else Col.hex(0x8A3A22))
+            if (P > 1) c.line(floor(sx + 1).toInt(), floor(st).toInt(), floor(sx + ox + 1).toInt(), floor(st + 9f * p - abs(ox) * 0.6f).toInt(), Col.hex(0x5A2214))
+        }
     }
 
     /** Friuli's salami beside the ham ([salami]): three on a string from the same beam, dark red, their skins white with bloom. */
@@ -480,12 +522,12 @@ internal class CellarPainter : RoomPainter() {
         val p = P.toFloat()
         s.fx {
             // the jug's mouth full of wine, a ring spreading from where the stream falls in
-            c.fillEllipse(jx, jy, 1.8f * p, 0.5f * p, Col.hex(0x5A1620))
+            c.fillEllipse(jx, jy, 1.8f * p, 0.5f * p, drinkD)
             val ring = ((t * 2.5) % 1.0).toFloat()
-            arc(x + 0.5f * p, jy, (0.6f + 1.2f * ring) * p, (0.2f + 0.35f * ring) * p, Col.hex(0xB0303A))
+            arc(x + 0.5f * p, jy, (0.6f + 1.2f * ring) * p, (0.2f + 0.35f * ring) * p, drinkL)
             for (y in top.toInt() until bot.toInt()) {
                 val wob = (sin(t * 20.0 + y * 0.7).toFloat() * 0.5f * level).toInt()
-                for (o in 0 until max(1, P)) c.set(x.toInt() + wob + o, y, if ((y + (t * 30).toInt()) % 5 == 0) Col.hex(0xB0303A) else Col.hex(0x7A1E28))
+                for (o in 0 until max(1, P)) c.set(x.toInt() + wob + o, y, if ((y + (t * 30).toInt()) % 5 == 0) drinkL else drinkM)
             }
         }
     }
@@ -547,10 +589,10 @@ internal class CellarPainter : RoomPainter() {
             if (((px / max(1, P)) + (py / max(1, P))) % 2 == 0) (if (u > 0.4f) wd else w) else (if (u > 0.4f) Col.scale(wd, 0.85f) else Col.hex(0xB08448))
         }
         // the neck: glass, the wine in it, the cork
-        c.fillRect(floor(cx - 1f * p).toInt(), floor(by - 12f * p).toInt(), max(2, floor(2f * p).toInt()), floor(3.4f * p).toInt(), Col.hex(0x7A1E28))
+        c.fillRect(floor(cx - 1f * p).toInt(), floor(by - 12f * p).toInt(), max(2, floor(2f * p).toInt()), floor(3.4f * p).toInt(), drinkM)
         c.vline(floor(cx - 1f * p).toInt(), floor(by - 12f * p).toInt(), floor(by - 8.8f * p).toInt(), Col.hex(0xE8C8D0))
         c.fillRect(floor(cx - 1f * p).toInt(), floor(by - 13f * p).toInt(), max(2, floor(2f * p).toInt()), max(1, P), Col.hex(0xC8A070))
-        c.fillEllipse(cx, by - 8.6f * p, 1.6f * p, 0.6f * p, Col.hex(0x9A2E3A))
+        c.fillEllipse(cx, by - 8.6f * p, 1.6f * p, 0.6f * p, if (most) drinkL else Col.hex(0x9A2E3A))
     }
 
     /** A wooden crate by the press: slats, a handle hole in its end; empty with a little straw at level 1. */
@@ -567,6 +609,7 @@ internal class CellarPainter : RoomPainter() {
     /** The grapes heaped in the crate (level 2): dark blue bunches with their bloom, a green leaf. */
     private fun grapes(x: Float, y: Float) {
         val p = P.toFloat()
+        if (apples) { appleHeap(x, y); return }
         for (k in 0 until 14) {
             val gx = x - 0.4f + Noise.rnd(k, 81) * 0.8f; val gy = y - 0.28f + Noise.rnd(k, 82) * 0.56f
             val cx = iso.sx(gx, gy); val cy = iso.sy(gx, gy, fl + 3.4f + Noise.rnd(k, 83) * 1.2f)
@@ -578,6 +621,24 @@ internal class CellarPainter : RoomPainter() {
         val lx = iso.sx(x + 0.3f, y - 0.1f); val ly = iso.sy(x + 0.3f, y - 0.1f, fl + 4.6f)
         c.fillEllipse(lx, ly, 2.2f * p, 1.2f * p, Col.hex(0x4E8A3A))
         c.line(floor(lx - 1.8f * p).toInt(), floor(ly).toInt(), floor(lx + 1.8f * p).toInt(), floor(ly).toInt(), Col.hex(0x3A6A2A))
+    }
+
+    /**
+     * Carinthia's apples heaped in the crate for the grapes ([apples]): round, red and yellow ones mixed, each lit on its upper
+     * left, a stalk on some, a green leaf.
+     */
+    private fun appleHeap(x: Float, y: Float) {
+        val p = P.toFloat()
+        for (k in 0 until 9) {
+            val gx = x - 0.38f + Noise.rnd(k, 81) * 0.76f; val gy = y - 0.26f + Noise.rnd(k, 82) * 0.52f
+            val cx = iso.sx(gx, gy); val cy = iso.sy(gx, gy, fl + 3.5f + Noise.rnd(k, 83) * 1.1f)
+            val red = k % 3 != 1
+            c.fillCircle(cx, cy, 1.5f * p, if (red) Col.hex(0xA8241E) else Col.hex(0xC8B23A))
+            c.fillCircle(cx - 0.35f * p, cy - 0.35f * p, 1.0f * p, if (red) Col.hex(0xD8402E) else Col.hex(0xE8D85A))
+            if (P > 1) { c.set(floor(cx - 0.7f * p).toInt(), floor(cy - 0.8f * p).toInt(), Col.hex(0xFFF0D0)); c.set(floor(cx).toInt(), floor(cy - 1.5f * p).toInt(), Col.hex(0x5A3A20)) }
+        }
+        val lx = iso.sx(x + 0.3f, y - 0.1f); val ly = iso.sy(x + 0.3f, y - 0.1f, fl + 4.8f)
+        c.fillEllipse(lx, ly, 1.8f * p, 1f * p, Col.hex(0x4E8A3A))
     }
 
     /** The small table: a plank on two stumps. */
@@ -604,7 +665,7 @@ internal class CellarPainter : RoomPainter() {
         lathe(cx, by - 2.4f * p, 3.4f, { h -> 0.8f + h * 0.35f }) { u, _, h, _, _ ->
             when {
                 u < -0.75f -> Col.hex(0xFFFFFF)
-                h < 2.2f -> if (u > 0.5f) Col.hex(0x5A1620) else Col.hex(0x8A2230)
+                h < 2.2f -> if (u > 0.5f) drinkD else if (most) drinkM else Col.hex(0x8A2230)
                 else -> Col.hex(0xDCEAF2)
             }
         }
