@@ -788,6 +788,42 @@ the whole of A1 (the past with avere and essere among it) and use only A1 and th
 - **The print's rule line** of a step is its first sentence and the next ones with forms, about 200 characters at most
   (`prints/sheet.ts`, `condense`): the point of a step goes in its first sentence, or the sheet loses it.
 
+### The Italian course: A2, units 7–12
+
+A2's middle six go on from A1 and A2's first six (riflessivi to superlativi) to the past with essere, the
+participles of their own, the imperfetto and the two pasts together, the future and lo, la, li, le, in the village's
+life: Giulia's day at the market in Cividale, Lorenzo's sixth birthday, Nonno Bepi's stories and the Agane of the
+streams, the night of the bora, Matteo's grape harvest, Zia Nives's radio, Davide's sheep and fog
+(docs/plans/05-built/course-it-a2b.md):
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 7 | `passato-essere` 🚶 | essere's past with -o or -a (sono andato, sono andata), -i for several or mixed, -e only girls; the other verbs of going, coming and staying (the German "bin, ist" as a guide); stato for essere and stare; the reflexive verbs (mi sono lavato, ci siamo divertiti) | passato-prossimo, essere-avere |
+| 8 | `participi-irregolari` ✍️ | the participles of their own in families that sound alike (-tto, -so, -sto, -erto, -nto; bevuto, venuto), with essere agreeing (è venuta, sono rimaste, è scesa) | participi-irregolari, passato-prossimo |
+| 9 | `imperfetto` 📜 | C'era una volta; ero … erano, c'era and c'erano; -avo, -evo, -ivo; facevo, dicevo, bevevo, faceva freddo; what someone was like, what always used to happen | imperfetto |
+| 10 | `imperfetto-passato` 🎬 | the picture and what happens in it (Dormivo quando è arrivato Moro); mentre; the words that decide (sempre, ogni giorno against ieri, all'improvviso); a story; a counted time (per due ore) | imperfetto-passato, imperfetto, passato-prossimo |
+| 11 | `futuro` 🔮 | -ò … -anno, -are's a → e, -ire's i; the short ones (sarò, avrò, andrò, farò, verrò, vorrò); giocherò, mangerò; plans, the forecast, quando with the future, the present for tomorrow | futuro |
+| 12 | `pronomi-diretti` 👉 | lo, la, li, le before the verb (the Italian gender: la palla → la); mi, ti, ci, vi; non lo so, voglio vederlo or lo voglio vedere; l'ho vista, li ho presi | pronomi-diretti, passato-prossimo |
+
+- **Pages written for them**, all A2: `participi-irregolari` (passato-prossimo's table is full at 12 rows, and the
+  cheat sheet needs the families during the unit's sheets), `imperfetto`, `imperfetto-passato`, `futuro`,
+  `pronomi-diretti`. `passato-prossimo` now lists every verb with essere, the reflexive verbs and a boy and a girl
+  together (-i), with three more examples.
+- **Only what comes before around a gap**: passato-essere's gaps take regular participles and A1's stato and venuto
+  (rimasto and sceso are the next unit's); imperfetto asks for the forms, the choice between the two pasts is
+  imperfetto-passato's; pronomi-diretti uses the modals (A2's `modali`) for voglio vederlo.
+- **Whose sentence it is**: a gap of the first person says who speaks ("Giulia: «Ieri sono ___ al mare.»", "Mi chiamo
+  Giulia."), so the -o or -a is never the child's own; the Slovene of a first or second person's past or future pairs
+  the learner's gender (`{m:spal|f:spala} sem`).
+- **No sentence where both pasts would do**: each of imperfetto-passato's has a word that decides (ogni giorno,
+  all'improvviso, mentre, per due ore); its transform lists say `whole`.
+- **No gap whose answer is a bare l'**: an unelided lo there couldn't be told from a slip, so a pronoun's gap is one
+  word (lo, la, li, le, mi, ti, ci, vi) and l'ho vista is typed whole, in a transform line.
+- **The grading A2 needs** (`grading/it.json`): a participle that doesn't agree is wrong, as an ending is; lo or la
+  before avere is almost only where the participle agrees (la ho vista); the regular stem where a form has its own is
+  wrong, never a slip in the stem (`wrong`: anderò, ferò, mangierò, venito, bevito), so the distractors that make
+  that mistake on purpose are wrong for the grading too.
+
 ### The Italian course: A2, units 13–18
 
 A2's last six units, the short words and the polite forms, after the pronouns that take the place of a thing (A2's
