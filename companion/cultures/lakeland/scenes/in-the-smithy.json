@@ -96,7 +96,7 @@
             "reply": { "face": "happy", "en": "Yes! Both hands. Up… and down! Good!", "sl": "Ja! Z obema rokama. Gor … in dol! Dobro!", "it": "Sì! Tutte e due le mani. Su… e giù! Bene!", "de": "Ja! Beide Hände. Rauf … und runter! Gut!", "fx": { "forge": 1 } } },
           { "en": "Can I trying, Harry?", "sl": "Lahko poskusim, Harry?", "it": "Posso provare, Harry?", "de": "Darf ich mal, Harry?", "grammar": "can",
             "why": { "en": "After can, the verb in its base form: can I try?", "sl": "Za can glagol v osnovni obliki: can I try?", "it": "Dopo can il verbo alla forma base: can I try?", "de": "Nach can das Verb in der Grundform: can I try?" }, "reply": { "face": "laugh", "en": "Trying? You're not trying yet! Hee hee!", "sl": "Trying? Saj še ne poskušaš! Hi hi!", "it": "Trying? Non stai ancora provando! Ih ih!", "de": "Trying? Du versuchst ja noch gar nicht! Hihi!" } }
-        ], "puzzled": { "face": "confused", "en": "Eh? Say it again, {learner}!", "sl": "Kaj? Povej še enkrat, {learner}!", "it": "Eh? Ripeti, {learner}!", "de": "Hä? Sag's noch mal, {learner}!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? Say it again, {learner}!", "sl": "Kaj? Povej še enkrat, {learner}!", "it": "Eh? Ripeti, {learner}!", "de": "Hä? Sag's noch mal, {learner}!" }, "to": "harry" },
         { "who": "harry", "face": "laugh", "en": "You're good at it! Better than me. Don't tell anyone!", "sl": "Dober si v tem! Boljši kot jaz. Nikomur ne povej!", "it": "Sei bravo! Meglio di me. Non dirlo a nessuno!", "de": "Du kannst das gut! Besser als ich. Sag's niemandem!" },
         { "choices": [
           { "en": "Thanks, Harry!", "sl": "Hvala, Harry!", "it": "Grazie, Harry!", "de": "Danke, Harry!", "ok": true,
@@ -189,7 +189,7 @@
             "reply": { "face": "laugh", "en": "Ten! Maybe twelve! He says it's thirsty work.", "sl": "Deset! Mogoče dvanajst! Pravi, da je to žejno delo.", "it": "Dieci! Forse dodici! Dice che è un lavoro che mette sete.", "de": "Zehn! Vielleicht zwölf! Er sagt, das ist durstige Arbeit." } },
           { "en": "How many mug does he drink a day, Harry?", "sl": "Koliko loncev popije na dan, Harry?", "it": "Quante tazze beve al giorno, Harry?", "de": "Wie viele Becher trinkt er am Tag, Harry?", "grammar": "plurals",
             "why": { "en": "How many asks about more than one: how many mugs?", "sl": "How many sprašuje po več kot enem: how many mugs?", "it": "How many chiede di più cose: how many mugs?", "de": "How many fragt nach mehr als einem: how many mugs?" }, "reply": { "face": "laugh", "en": "Mug? One? No way! Ha!", "sl": "Mug? En lonček? Kje pa! Ha!", "it": "Mug? Una sola? Ma figurati! Ah!", "de": "Mug? Einer? Von wegen! Ha!" } }
-        ] },
+        ], "to": "harry" },
         { "who": "dixon", "en": "Right. Back to work.", "sl": "Tako. Nazaj na delo.", "it": "Bene. Torniamo al lavoro.", "de": "So. Zurück an die Arbeit.", "fx": { "sparks": 1 }, "act": { "dixon": { "to": "anvil" } } }
       ]
     },
