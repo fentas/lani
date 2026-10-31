@@ -1,0 +1,376 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-der-stube",
+  "language": "de",
+  "title": { "de": "In der Stube", "sl": "V hiši", "en": "In the Stube", "it": "Nella stube" },
+  "emoji": "🛋️",
+  "level": "A1",
+  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; check Sepp's sayings and the Slovene of the Carinthian valleys (Rož, Podjuna, Zila)",
+  "art": "livingroom",
+  "from": ["house"],
+  "household": ["sepp"],
+  "pack": "in-der-stube",
+  "objects": [
+    { "slot": "stove", "word": "kachelofen" },
+    { "slot": "bench", "word": "ofenbank" },
+    { "slot": "table", "word": "tisch", "pack": "haus-und-kueche" },
+    { "slot": "chest", "word": "truhe" },
+    { "slot": "window", "word": "fenster", "pack": "haus-und-kueche" },
+    { "slot": "door", "word": "tuer", "pack": "haus-und-kueche" },
+    { "slot": "dog", "word": "hund", "pack": "familie" },
+    { "slot": "chair", "word": "stuhl", "pack": "haus-und-kueche", "needs": { "level": 2 } },
+    { "slot": "curtains", "word": "vorhang", "pack": "in-der-kueche", "needs": { "level": 2 } },
+    { "slot": "rug", "word": "teppich", "needs": { "level": 2 } },
+    { "slot": "lamp", "word": "lampe", "needs": { "level": 2 } },
+    { "slot": "clock", "word": "uhr", "pack": "in-der-kueche", "needs": { "level": 2 } },
+    { "slot": "corner", "word": "herrgottswinkel", "pack": "in-der-kueche", "needs": { "level": 3 } },
+    { "slot": "photo", "word": "foto", "needs": { "level": 3 } },
+    { "slot": "glasses", "word": "brille", "needs": { "level": 3 } },
+    { "slot": "book", "word": "buch", "needs": { "level": 3 } }
+  ],
+  "people": [
+    { "id": "sepp", "name": "Opa Sepp", "emoji": "👴", "art": "grandpa", "slot": "table", "villager": "sepp" },
+    { "id": "lena", "name": "Lena", "emoji": "👧", "art": "child2", "slot": "stove", "villager": "lena" }
+  ],
+  "happenings": [
+    {
+      "id": "ofen", "title": { "de": "Opa Sepp heizt den Kachelofen ein", "sl": "Opa Sepp zakuri krušno peč", "en": "Opa Sepp is lighting the tiled stove", "it": "Opa Sepp accende la stufa di maiolica" }, "who": "sepp",
+      "when": ["dawn", "morning"], "months": [10, 11, 12, 1, 2, 3, 4], "chance": 0.5, "dialog": "ofen", "dialogs": ["ofen-scheite", "ofen-bello", "ofen"], "reward": { "wood": 15 }, "marker": "🔥",
+      "memory": { "de": "den kalten Morgen, an dem wir den Kachelofen eingeheizt haben", "sl": "mrzlo jutro, ko sva zakurila krušno peč", "en": "the cold morning we lit the tiled stove", "it": "la mattina fredda in cui abbiamo acceso la stufa" }
+    },
+    {
+      "id": "bello", "title": { "de": "Lena spielt mit Bello", "sl": "Lena se igra z Bellom", "en": "Lena is playing with Bello", "it": "Lena gioca con Bello" }, "who": "lena",
+      "when": ["afternoon"], "chance": 0.5, "dialog": "bello", "dialogs": ["bello-versteckt", "bello-wurst", "bello"], "reward": { "food": 10 }, "marker": "🐕",
+      "memory": { "de": "Bello, der mit dem Schwanz gewedelt hat", "sl": "Bella, ki je mahal z repom", "en": "Bello wagging his tail", "it": "Bello che scodinzolava" }
+    },
+    {
+      "id": "foto", "title": { "de": "Opa Sepp und das alte Foto", "sl": "Opa Sepp in stara fotografija", "en": "Opa Sepp and the old photo", "it": "Opa Sepp e la vecchia foto" }, "who": "sepp",
+      "when": ["evening"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "foto", "dialogs": ["foto-brille", "foto"], "reward": { "wisdom": 20 }, "marker": "🖼️",
+      "memory": { "de": "das Foto meiner Hochzeit, das ich dir gezeigt habe", "sl": "fotografijo s poroke, ki sem ti jo pokazal", "en": "the photo of my wedding I showed you", "it": "la foto del mio matrimonio che ti ho mostrato" }
+    },
+    {
+      "id": "verstecken", "title": { "de": "Lena will Verstecken spielen", "sl": "Lena bi se igrala skrivalnice", "en": "Lena wants to play hide-and-seek", "it": "Lena vuole giocare a nascondino" }, "who": "lena",
+      "when": ["morning", "evening"], "chance": 0.5, "dialog": "verstecken", "dialogs": ["verstecken-tuer", "verstecken"], "reward": { "wood": 15 }, "marker": "🙈",
+      "memory": { "de": "das Versteckspiel in Opas Stube", "sl": "skrivalnice v opovi hiši", "en": "hide-and-seek in Opa's Stube", "it": "il nascondino nella stube del nonno" }
+    },
+    {
+      "id": "glockner", "title": { "de": "Opa Sepp erzählt vom Großglockner", "sl": "Opa Sepp pripoveduje o Velikem Kleku", "en": "Opa Sepp talks about the Großglockner", "it": "Opa Sepp racconta del Grossglockner" }, "who": "sepp",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "glockner", "dialogs": ["glockner-lied", "glockner"], "reward": { "wisdom": 15 }, "marker": "🏔️",
+      "memory": { "de": "den Großglockner, von dem ich dir erzählt habe", "sl": "Veliki Klek, o katerem sem ti pripovedoval", "en": "the Großglockner I told you about", "it": "il Grossglockner di cui ti ho raccontato" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "ofen",
+      "lines": [
+        { "who": "sepp", "de": "Guten Morgen. Kalt ist es heute! Ich heize den Kachelofen ein.", "sl": "Dobro jutro. Mrzlo je danes! Zakuril bom krušno peč.", "en": "Good morning. It's cold today! I'm lighting the tiled stove.", "it": "Buongiorno. Fa freddo oggi! Accendo la stufa di maiolica.", "fx": { "stove": 0.5 } },
+        { "who": "sepp", "face": "curious", "de": "Bringst du mir ein bisschen Holz?", "sl": "Mi prineseš malo drv?", "en": "Will you bring me a bit of wood?", "it": "Mi porti un po' di legna?" },
+        { "choices": [
+          { "de": "Ja, ich bringe dir Holz.", "sl": "Ja, prinesem ti drva.", "en": "Yes, I'll bring you wood.", "it": "Sì, ti porto la legna.", "ok": true,
+            "reply": { "face": "happy", "de": "Danke. Langsam, langsam, nicht so viel auf einmal.", "sl": "Hvala. Počasi, počasi, ne toliko naenkrat.", "en": "Thank you. Slowly, slowly, not so much at once.", "it": "Grazie. Piano, piano, non tanta in una volta." } },
+          { "de": "Ja, ich bringst dir Holz.", "sl": "Ja, prinesem ti drva.", "en": "Yes, I brings you wood.", "it": "Sì, ti porto la legna.", "grammar": "praesens",
+            "why": { "de": "Bei ich endet das Verb auf -e: ich bringe. Du bringst sagt man zu dir.", "sl": "Pri ich se glagol konča na -e: ich bringe. Du bringst je za ti.", "en": "With ich the verb ends in -e: ich bringe. Du bringst is for you.", "it": "Con ich il verbo finisce in -e: ich bringe. Du bringst è per il tu." },
+            "reply": { "face": "thinking", "de": "Ich bringst? Hm. Wie man so sagt: Zuerst denken, dann reden.", "sl": "Ich bringst? Hm. Kot pravijo: najprej misli, potem govori.", "en": "Ich bringst? Hm. As they say: think first, then speak.", "it": "Ich bringst? Mm. Come si dice: prima pensa, poi parla." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "face": "proud", "de": "Schau, jetzt brennt er. Der Kachelofen ist langsam, wie ich. Aber er bleibt lange warm.", "sl": "Poglej, zdaj gori. Krušna peč je počasna, kot jaz. Ampak dolgo ostane topla.", "en": "Look, now the stove is burning. It's slow, like me. But it stays warm for a long time.", "it": "Guarda, adesso brucia. La stufa è lenta, come me. Ma resta calda a lungo.", "fx": { "stove": 1 } },
+        { "choices": [
+          { "de": "Der Ofen ist schon warm!", "sl": "Peč je že topla!", "en": "The stove is warm already!", "it": "La stufa è già calda!", "ok": true,
+            "reply": { "face": "happy", "de": "Ja. Setz dich auf die Ofenbank, da ist es am wärmsten.", "sl": "Ja. Sedi na zapeček, tam je najtopleje.", "en": "Yes. Sit on the stove bench, it's warmest there.", "it": "Sì. Siediti sulla panca della stufa, lì fa più caldo." } },
+          { "de": "Die Ofen ist schon warm!", "sl": "Peč je že topla!", "en": "The stove is warm already!", "it": "La stufa è già calda!", "grammar": "artikel-genus",
+            "why": { "de": "Ofen ist maskulin: der Ofen, der Kachelofen.", "sl": "Ofen je v nemščini moškega spola: der Ofen (peč je v slovenščini ženskega).", "en": "Ofen is masculine: der Ofen, der Kachelofen.", "it": "Ofen è maschile: der Ofen (in italiano la stufa è femminile)." },
+            "reply": { "face": "laugh", "de": "Die Ofen? Hoho. Mein Ofen ist ein Mann, ein alter, wie ich!", "sl": "Die Ofen? Hoho. Moja peč je moški, star, kot jaz!", "en": "Die Ofen? Ho ho. My stove is a man, an old one, like me!", "it": "Die Ofen? Oh oh. La mia stufa è un uomo, un vecchio, come me!" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "de": "Wie man so sagt: Ein warmer Ofen, ein warmes Herz.", "sl": "Kot pravijo: topla peč, toplo srce.", "en": "As they say: a warm stove, a warm heart.", "it": "Come si dice: stufa calda, cuore caldo." }
+      ]
+    },
+    {
+      "id": "bello",
+      "lines": [
+        { "who": "lena", "face": "happy", "de": "Hallo! Schau, Bello schläft schon wieder. Wecken wir ihn?", "sl": "Živjo! Poglej, Bello spet spi. Ga zbudiva?", "en": "Hi! Look, Bello the dog is asleep again. Shall we wake him?", "it": "Ciao! Guarda, Bello dorme di nuovo. Lo svegliamo?" },
+        { "choices": [
+          { "de": "Ja! Bello, komm!", "sl": "Ja! Bello, pridi!", "en": "Yes! Bello, come!", "it": "Sì! Bello, vieni!", "ok": true,
+            "reply": { "face": "laugh", "de": "Schau, er wedelt mit dem Schwanz!", "sl": "Poglej, maha z repom!", "en": "Look, he's wagging his tail!", "it": "Guarda, scodinzola!", "fx": { "dog": 1 } } },
+          { "de": "Nein, lass ihn schlafen.", "sl": "Ne, pusti ga spati.", "en": "No, let him sleep.", "it": "No, lascialo dormire.", "ok": true,
+            "reply": { "face": "laugh", "de": "Zu spät! Schau, er wacht schon auf.", "sl": "Prepozno! Poglej, že se zbuja.", "en": "Too late! Look, he's waking up already.", "it": "Troppo tardi! Guarda, si sta già svegliando.", "fx": { "dog": 1 } } },
+          { "de": "Ja! Bello, geh!", "sl": "Ja! Bello, pojdi!", "en": "Yes! Bello, go away!", "it": "Sì! Bello, vattene!",
+            "why": { "de": "Geh! schickt Bello weg. Er soll zu dir kommen.", "sl": "Geh! (pojdi) Bella odžene. Ti hočeš, da pride k tebi.", "en": "Geh! sends Bello away. You want him to come to you.", "it": "Geh! (vattene) manda via Bello. Tu vuoi che venga da te." },
+            "reply": { "face": "sad", "de": "Geh? Armer Bello. Er will doch spielen!", "sl": "Pojdi? Ubogi Bello. Saj se hoče igrati!", "en": "Go away? Poor Bello. He wants to play!", "it": "Vattene? Povero Bello. Lui vuole giocare!" } }
+        ] },
+        { "who": "lena", "face": "curious", "de": "Weißt du, wie alt Bello ist?", "sl": "Veš, koliko je Bello star?", "en": "Do you know how old Bello is?", "it": "Sai quanti anni ha Bello?" },
+        { "choices": [
+          { "de": "Ist er zwölf Jahre alt?", "sl": "Ima dvanajst let?", "en": "Is he twelve years old?", "it": "Ha dodici anni?", "ok": true,
+            "reply": { "face": "proud", "de": "Ja! Zwölf! So alt wie ich und noch vier dazu.", "sl": "Ja! Dvanajst! Toliko kot jaz in še štiri zraven.", "en": "Yes! Twelve! As old as me plus four.", "it": "Sì! Dodici! Quanti me più quattro." } },
+          { "de": "Hat er zwölf Jahre alt?", "sl": "Ima dvanajst let?", "en": "Has he twelve years old?", "it": "Ha dodici anni?", "grammar": "sein-haben",
+            "why": { "de": "Das Alter sagt man mit sein: Er ist zwölf Jahre alt.", "sl": "Starost v nemščini poveš s sein: Er ist zwölf Jahre alt (v slovenščini leta imaš).", "en": "Age goes with sein in German: Er ist zwölf Jahre alt.", "it": "L'età in tedesco si dice con sein: Er ist zwölf Jahre alt (in italiano gli anni si hanno)." },
+            "reply": { "face": "laugh", "de": "Hat er zwölf? Zwölf was? Zwölf Würste? Hihi!", "sl": "Hat er zwölf? Dvanajst česa? Dvanajst klobas? Hihi!", "en": "Hat er zwölf? Twelve what? Twelve sausages? Hee hee!", "it": "Hat er zwölf? Dodici cosa? Dodici salsicce? Ih ih!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Wie bitte?", "sl": "Ha? Kako, prosim?", "en": "Huh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "lena", "face": "proud", "de": "Opa sagt, Bello ist der beste Hund im ganzen Gailtal.", "sl": "Opa pravi, da je Bello najboljši pes v vsej Ziljski dolini.", "en": "Opa says Bello is the best dog in the whole Gailtal.", "it": "Il nonno dice che Bello è il cane migliore di tutta la Gailtal." }
+      ]
+    },
+    {
+      "id": "foto",
+      "lines": [
+        { "who": "sepp", "de": "Komm her. Schau, das Foto an der Wand. Das war meine Hochzeit.", "sl": "Pridi sem. Poglej fotografijo na steni. To je bila moja poroka.", "en": "Come here. Look, the photo on the wall. That was my wedding.", "it": "Vieni qui. Guarda la foto sul muro. Era il mio matrimonio." },
+        { "choices": [
+          { "de": "Wie schön! Ist das deine Frau?", "sl": "Kako lepo! Je to tvoja žena?", "en": "How lovely! Is that your wife?", "it": "Che bello! È tua moglie?", "ok": true,
+            "reply": { "face": "happy", "de": "Ja, meine Hanni. Die beste Tänzerin im Gailtal.", "sl": "Ja, moja Hanni. Najboljša plesalka v Ziljski dolini.", "en": "Yes, my Hanni. The best dancer in the Gailtal.", "it": "Sì, la mia Hanni. La miglior ballerina della Gailtal." } },
+          { "de": "Wie schön! Ist das dein Frau?", "sl": "Kako lepo! Je to tvoja žena?", "en": "How lovely! Is that your wife?", "it": "Che bello! È tua moglie?", "grammar": "artikel-genus",
+            "why": { "de": "Frau ist feminin: die Frau, eine Frau, deine Frau.", "sl": "Frau je ženskega spola: die Frau, eine Frau, deine Frau.", "en": "Frau is feminine: die Frau, eine Frau, deine Frau.", "it": "Frau è femminile: die Frau, eine Frau, deine Frau." },
+            "reply": { "face": "confused", "de": "Dein Frau? Langsam, langsam. Noch einmal.", "sl": "Dein Frau? Počasi, počasi. Še enkrat.", "en": "Dein Frau? Slowly, slowly. Once more.", "it": "Dein Frau? Piano, piano. Un'altra volta." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "face": "happy", "de": "Das war vor sechzig Jahren, im Mai. Wir haben die ganze Nacht getanzt.", "sl": "To je bilo pred šestdesetimi leti, maja. Vso noč sva plesala.", "en": "That was sixty years ago, in May. We danced all night.", "it": "Era sessant'anni fa, a maggio. Abbiamo ballato tutta la notte." },
+        { "who": "sepp", "face": "curious", "de": "Tanzt du gern?", "sl": "{m:Rad|f:Rada} plešeš?", "en": "Do you like dancing?", "it": "Ti piace ballare?" },
+        { "choices": [
+          { "de": "Ja, ich tanze gern!", "sl": "Ja, {m:rad|f:rada} plešem!", "en": "Yes, I like dancing!", "it": "Sì, mi piace ballare!", "ok": true,
+            "reply": { "face": "laugh", "de": "Dann tanzen wir beim Kirchtag. Ich bin noch nicht zu alt!", "sl": "Potem bova plesala na žegnanju. Nisem še prestar!", "en": "Then we'll dance at the Kirchtag. I'm not too old yet!", "it": "Allora balliamo al Kirchtag. Non sono ancora troppo vecchio!" } },
+          { "de": "Nein, ich tanze nicht gern.", "sl": "Ne, ne plešem {m:rad|f:rada}.", "en": "No, I don't like dancing.", "it": "No, non mi piace ballare.", "ok": true,
+            "reply": { "face": "happy", "de": "Macht nichts. Dann singen wir eben.", "sl": "Nič hudega. Potem pa pojeva.", "en": "Never mind. Then we'll sing instead.", "it": "Non fa niente. Allora cantiamo." } },
+          { "de": "Ja, ich schlafe gern!", "sl": "Ja, {m:rad|f:rada} spim!", "en": "Yes, I like sleeping!", "it": "Sì, mi piace dormire!",
+            "why": { "de": "Sepp fragt nach dem Tanzen, nicht nach dem Schlafen.", "sl": "Sepp sprašuje o plesu, ne o spanju.", "en": "Sepp is asking about dancing, not sleeping.", "it": "Sepp chiede del ballo, non del sonno." },
+            "reply": { "face": "laugh", "de": "Schlafen? Hoho, das mache ich auch gern!", "sl": "Spati? Hoho, tudi jaz rad spim!", "en": "Sleeping? Ho ho, I like that too!", "it": "Dormire? Oh oh, piace anche a me!" } }
+        ] },
+        { "who": "sepp", "de": "Wie man so sagt: Die Zeit vergeht, die Liebe bleibt.", "sl": "Kot pravijo: čas mine, ljubezen ostane.", "en": "As they say: time passes, love stays.", "it": "Come si dice: il tempo passa, l'amore resta." }
+      ]
+    },
+    {
+      "id": "verstecken",
+      "lines": [
+        { "who": "lena", "face": "happy", "de": "Spielen wir Verstecken? Du zählst bis zehn, ich verstecke mich!", "sl": "Se greva skrivalnice? Ti šteješ do deset, jaz se skrijem!", "en": "Shall we play hide-and-seek? You count to ten, I'll hide!", "it": "Giochiamo a nascondino? Tu conti fino a dieci, io mi nascondo!" },
+        { "choices": [
+          { "de": "Gut! Acht, neun, zehn! Ich komme!", "sl": "Prav! Osem, devet, deset! Grem iskat!", "en": "OK! Eight, nine, ten! Here I come!", "it": "Va bene! Otto, nove, dieci! Arrivo!", "ok": true,
+            "reply": { "face": "laugh", "de": "Ich bin bereit! Such mich!", "sl": "Pripravljena sem! Poišči me!", "en": "I'm ready! Find me!", "it": "Sono pronta! Trovami!", "act": { "lena": { "to": "under-table", "pose": "hide" } } } },
+          { "de": "Gut! Acht, neun, elf! Ich komme!", "sl": "Prav! Osem, devet, enajst! Grem iskat!", "en": "OK! Eight, nine, eleven! Here I come!", "it": "Va bene! Otto, nove, undici! Arrivo!",
+            "why": { "de": "Nach neun kommt zehn.", "sl": "Po devet pride deset.", "en": "After nine comes ten.", "it": "Dopo il nove viene il dieci." },
+            "reply": { "face": "laugh", "de": "Elf? Du hast eine Zahl gefressen! Hihi!", "sl": "Enajst? Eno številko si {m:pojedel|f:pojedla}! Hihi!", "en": "Eleven? You've eaten a number! Hee hee!", "it": "Undici? Ti sei {m:mangiato|f:mangiata} un numero! Ih ih!" } },
+          { "de": "Gut! Acht, sieben, sechs! Ich komme!", "sl": "Prav! Osem, sedem, šest! Grem iskat!", "en": "OK! Eight, seven, six! Here I come!", "it": "Va bene! Otto, sette, sei! Arrivo!",
+            "why": { "de": "Lena will, dass du bis zehn zählst, nicht rückwärts.", "sl": "Lena hoče, da šteješ do deset, ne nazaj.", "en": "Lena wants you to count up to ten, not backwards.", "it": "Lena vuole che conti fino a dieci, non all'indietro." },
+            "reply": { "face": "laugh", "de": "Rückwärts? Dann bist du ja nie fertig! Hihi!", "sl": "Nazaj? Potem pa nikoli ne končaš! Hihi!", "en": "Backwards? Then you'll never finish! Hee hee!", "it": "All'indietro? Così non finisci mai! Ih ih!" } }
+        ] },
+        { "choices": [
+          { "de": "Ich hab dich! Du bist unter dem Tisch!", "sl": "Imam te! Pod mizo si!", "en": "Got you! You're under the table!", "it": "Presa! Sei sotto il tavolo!", "ok": true, "tap": "under-table", "grammar": "wechselpraepositionen",
+            "reply": { "face": "laugh", "de": "Oh nein! Wie hast du das gewusst?", "sl": "O ne! Kako si vedel?", "en": "Oh no! How did you know?", "it": "Oh no! Come hai fatto a saperlo?", "act": { "lena": { "to": "under-table" } } } },
+          { "de": "Du bist hinter der Tür!", "sl": "Za vrati si!", "en": "You're behind the door!", "it": "Sei dietro la porta!", "tap": "behind-door",
+            "why": { "de": "Such etwas von Lena, das man sieht: einen Schuh, einen Zopf.", "sl": "Poišči kaj Leninega, kar se vidi: čevelj, kito.", "en": "Look for something of Lena's that shows: a shoe, a plait.", "it": "Cerca qualcosa di Lena che si vede: una scarpa, una treccia." },
+            "reply": { "face": "laugh", "de": "Kalt, kalt! Hihi!", "sl": "Mrzlo, mrzlo! Hihi!", "en": "Cold, cold! Hee hee!", "it": "Acqua, acqua! Ih ih!", "act": { "lena": { "pose": "peek" } } } },
+          { "de": "Du bist hinter dem Ofen!", "sl": "Za pečjo si!", "en": "You're behind the stove!", "it": "Sei dietro la stufa!", "tap": "stove",
+            "why": { "de": "Such etwas von Lena, das man sieht: einen Schuh, einen Zopf.", "sl": "Poišči kaj Leninega, kar se vidi: čevelj, kito.", "en": "Look for something of Lena's that shows: a shoe, a plait.", "it": "Cerca qualcosa di Lena che si vede: una scarpa, una treccia." },
+            "reply": { "face": "laugh", "de": "Hier bin ich nicht! Hihi!", "sl": "Tukaj me ni! Hihi!", "en": "I'm not here! Hee hee!", "it": "Qui non ci sono! Ih ih!", "act": { "lena": { "pose": "peek" } } } }
+        ] },
+        { "who": "lena", "face": "curious", "de": "Was hast du gesehen? Meine Schuhe?", "sl": "Kaj si {m:videl|f:videla}? Moje čevlje?", "en": "What did you see? My shoes?", "it": "Cosa hai visto? Le mie scarpe?" },
+        { "choices": [
+          { "de": "Ja, ich habe deine Schuhe gesehen.", "sl": "Ja, {m:videl|f:videla} sem tvoje čevlje.", "en": "Yes, I saw your shoes.", "it": "Sì, ho visto le tue scarpe.", "ok": true,
+            "reply": { "face": "happy", "de": "Meine Schuhe! Nächstes Mal ziehe ich sie aus.", "sl": "Moji čevlji! Naslednjič jih sezujem.", "en": "My shoes! Next time I'll take them off.", "it": "Le mie scarpe! La prossima volta me le tolgo." } },
+          { "de": "Ja, ich habe deine Schuhe gesieht.", "sl": "Ja, {m:videl|f:videla} sem tvoje čevlje.", "en": "Yes, I seed your shoes.", "it": "Sì, ho vedito le tue scarpe.", "grammar": "perfekt",
+            "why": { "de": "Sehen ist unregelmäßig: ich habe gesehen.", "sl": "Sehen je nepravilni glagol: ich habe gesehen.", "en": "Sehen is irregular: ich habe gesehen.", "it": "Sehen è irregolare: ich habe gesehen." },
+            "reply": { "face": "laugh", "de": "Gesieht? Hihi, das Wort gibt es nicht!", "sl": "Gesieht? Hihi, te besede ni!", "en": "Gesieht? Hee hee, that's not a word!", "it": "Gesieht? Ih ih, questa parola non esiste!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Wie bitte?", "sl": "Ha? Kako, prosim?", "en": "Huh? Sorry?", "it": "Eh? Come?" } },
+        { "who": "lena", "face": "happy", "de": "Noch einmal? Morgen wieder!", "sl": "Še enkrat? Jutri spet!", "en": "Again? Tomorrow!", "it": "Ancora? Domani di nuovo!" }
+      ]
+    },
+    {
+      "id": "glockner",
+      "lines": [
+        { "who": "sepp", "face": "proud", "de": "Weißt du, wie oft ich auf dem Großglockner war? Fünfmal!", "sl": "Veš, kolikokrat sem bil na Velikem Kleku? Petkrat!", "en": "Do you know how many times I've been up the Großglockner? Five times!", "it": "Sai quante volte sono salito sul Grossglockner? Cinque volte!" },
+        { "choices": [
+          { "de": "Fünfmal? Wie hoch ist er?", "sl": "Petkrat? Kako visok je?", "en": "Five times? How high is it?", "it": "Cinque volte? Quanto è alto?", "ok": true,
+            "reply": { "face": "proud", "de": "Dreitausendsiebenhundertachtundneunzig Meter. Der höchste Berg in Österreich!", "sl": "Tri tisoč sedemsto osemindevetdeset metrov. Najvišja gora v Avstriji!", "en": "Three thousand seven hundred and ninety-eight metres. The highest mountain in Austria!", "it": "Tremilasettecentonovantotto metri. La montagna più alta dell'Austria!" } },
+          { "de": "Fünfmal? Wo hoch ist er?", "sl": "Petkrat? Kje visok je?", "en": "Five times? Where high is it?", "it": "Cinque volte? Dove alto è?", "grammar": "fragen",
+            "why": { "de": "Nach der Höhe fragt man mit wie: Wie hoch? Wo fragt nach dem Ort.", "sl": "Po višini vprašaš z wie: Wie hoch? Wo sprašuje po kraju.", "en": "Ask about height with wie: Wie hoch? Wo asks about a place.", "it": "L'altezza si chiede con wie: Wie hoch? Wo chiede il luogo." },
+            "reply": { "face": "confused", "de": "Wo? Zwischen Kärnten und Tirol. Aber was willst du wissen?", "sl": "Kje? Med Koroško in Tirolsko. Ampak kaj hočeš vedeti?", "en": "Where? Between Carinthia and Tyrol. But what do you want to know?", "it": "Dove? Tra la Carinzia e il Tirolo. Ma cosa vuoi sapere?" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "de": "Das erste Mal war ich zwanzig. Das letzte Mal sechzig.", "sl": "Prvič sem imel dvajset let. Zadnjič šestdeset.", "en": "The first time I was twenty. The last time, sixty.", "it": "La prima volta avevo vent'anni. L'ultima, sessanta." },
+        { "who": "sepp", "face": "curious", "de": "Gehst du auch gern in die Berge?", "sl": "Ali tudi ti {m:rad|f:rada} hodiš v hribe?", "en": "Do you like going to the mountains too?", "it": "Anche a te piace andare in montagna?" },
+        { "choices": [
+          { "de": "Ja, ich wandere gern.", "sl": "Ja, {m:rad|f:rada} hodim v hribe.", "en": "Yes, I like hiking.", "it": "Sì, mi piace camminare in montagna.", "ok": true,
+            "reply": { "face": "happy", "de": "Dann geh einmal auf den Dobratsch. Langsam, langsam, dann kommst du an.", "sl": "Potem pojdi enkrat na Dobrač. Počasi, počasi, pa prideš gor.", "en": "Then go up the Dobratsch some time. Slowly, slowly, and you'll get there.", "it": "Allora sali una volta sul Dobratsch. Piano piano, e ci arrivi." } },
+          { "de": "Ja, ich wanderst gern.", "sl": "Ja, {m:rad|f:rada} hodim v hribe.", "en": "Yes, I likes hiking.", "it": "Sì, mi piace camminare in montagna.", "grammar": "praesens",
+            "why": { "de": "Bei ich endet das Verb auf -e: ich wandere. Du wanderst sagt man zu dir.", "sl": "Pri ich se glagol konča na -e: ich wandere. Du wanderst je za ti.", "en": "With ich the verb ends in -e: ich wandere. Du wanderst is for you.", "it": "Con ich il verbo finisce in -e: ich wandere. Du wanderst è per il tu." },
+            "reply": { "face": "laugh", "de": "Ich wanderst? Hoho. Die Berge verstehen dich trotzdem.", "sl": "Ich wanderst? Hoho. Gore te vseeno razumejo.", "en": "Ich wanderst? Ho ho. The mountains understand you anyway.", "it": "Ich wanderst? Oh oh. Le montagne ti capiscono lo stesso." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "de": "Wie man so sagt: Der Berg läuft nicht davon.", "sl": "Kot pravijo: gora ne bo ušla.", "en": "As they say: the mountain won't run away.", "it": "Come si dice: la montagna non scappa." }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "ofen-scheite",
+      "count": { "from": "dice", "min": 3, "max": 9, "gender": "n", "case": "acc" },
+      "memory": { "de": "die Scheite, die du für den Ofen gezählt hast", "sl": "polena, ki si jih {m:preštel|f:preštela} za peč", "en": "the logs you counted for the stove", "it": "i ciocchi che hai contato per la stufa" },
+      "lines": [
+        { "who": "sepp", "de": "Grüß dich. Der Ofen braucht Holz. Wie viele Scheite hast du gebracht?", "sl": "Živjo. Peč potrebuje drva. Koliko polen si {m:prinesel|f:prinesla}?", "en": "Hello. The stove needs wood. How many logs have you brought?", "it": "Ciao. La stufa ha bisogno di legna. Quanti ciocchi hai portato?", "fx": { "stove": 0.4 } },
+        { "choices": [
+          { "de": "Ich habe {n} {Scheit|Scheite}.", "sl": "Imam {n} {poleno|polena|polena|polen}.", "en": "I have {n} {log|logs}.", "it": "Ho {n} {ciocco|ciocchi}.", "ok": true,
+            "reply": { "face": "happy", "de": "Gut. Das reicht für den ganzen Vormittag.", "sl": "Dobro. To zadošča za vse dopoldne.", "en": "Good. That's enough for the whole morning.", "it": "Bene. Basta per tutta la mattina.", "fx": { "stove": 1 } } },
+          { "de": "Ich habe {n} {!Scheit|Scheite}.", "sl": "Imam {n} {!poleno|polena|polena|polen}.", "en": "I have {n} {!log|logs}.", "it": "Ho {n} {!ciocco|ciocchi}.", "wrong_form": 1, "grammar": "plural",
+            "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Scheit|Scheite}.", "sl": "{Ena stvar je v ednini|Od dveh naprej je množina}: {n} {Scheit|Scheite}.", "en": "{One takes the singular|From two on, the plural}: {n} {Scheit|Scheite}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Scheit|Scheite}." },
+            "reply": { "face": "surprised", "de": "Nur eins? Langsam, langsam, zähl noch einmal.", "sl": "Samo eno? Počasi, počasi, preštej še enkrat.", "en": "Only one? Slowly, slowly, count again.", "it": "Uno solo? Piano, piano, conta di nuovo." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "face": "happy", "de": "Danke. Meine Mama hat zum Holz drva gesagt. Sie war aus dem Rosental.", "sl": "Hvala. Moja mama je lesu rekla drva. Bila je iz Roža.", "en": "Thank you. My mum called firewood drva. She was from the Rosental.", "it": "Grazie. La mia mamma la legna la chiamava drva. Era del Rosental." },
+        { "who": "sepp", "face": "curious", "de": "Ist dir jetzt warm?", "sl": "Ti je zdaj toplo?", "en": "Are you warm now?", "it": "Hai caldo adesso?" },
+        { "choices": [
+          { "de": "Ja, mir ist schön warm.", "sl": "Ja, prijetno toplo mi je.", "en": "Yes, I'm nice and warm.", "it": "Sì, sto bello al caldo.", "ok": true,
+            "reply": { "face": "happy", "de": "Gut so. Wie man so sagt: Wer heizt, der friert nicht.", "sl": "Prav tako. Kot pravijo: kdor kuri, ne zmrzuje.", "en": "Good. As they say: who heats doesn't freeze.", "it": "Bene. Come si dice: chi accende la stufa non gela." } },
+          { "de": "Ja, ich bin schön warm.", "sl": "Ja, prijetno {m:topel|f:topla} sem.", "en": "Yes, I'm nice and warm to the touch.", "it": "Sì, sono bello {m:caldo|f:calda} al tatto.", "grammar": "dativ",
+            "why": { "de": "Wenn du dich warm fühlst, sagst du: mir ist warm. Ich bin warm heißt: du fühlst dich warm an.", "sl": "Ko ti je toplo, rečeš mir ist warm. Ich bin warm pomeni, da si {m:topel|f:topla} na otip.", "en": "When you feel warm, say mir ist warm. Ich bin warm means you're warm to the touch.", "it": "Quando senti caldo dici mir ist warm. Ich bin warm vuol dire che sei {m:caldo|f:calda} al tatto." },
+            "reply": { "face": "laugh", "de": "Du bist warm? Wie mein Kachelofen? Hoho!", "sl": "Du bist warm? Kot moja krušna peč? Hoho!", "en": "Du bist warm? Like my tiled stove? Ho ho!", "it": "Du bist warm? Come la mia stufa? Oh oh!" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } }
+      ]
+    },
+    {
+      "id": "ofen-bello",
+      "memory": { "de": "den Morgen auf der Ofenbank mit Bello", "sl": "jutro na zapečku z Bellom", "en": "the morning on the stove bench with Bello", "it": "la mattina sulla panca della stufa con Bello" },
+      "lines": [
+        { "who": "sepp", "face": "happy", "de": "Servus. Der Ofen ist schon warm. Schau, Bello liegt auf der Ofenbank.", "sl": "Živjo. Peč je že topla. Poglej, Bello leži na zapečku.", "en": "Hi. The stove is warm already. Look, Bello is lying on the stove bench.", "it": "Ciao. La stufa è già calda. Guarda, Bello è sdraiato sulla panca della stufa.", "fx": { "stove": 1 } },
+        { "choices": [
+          { "de": "Darf ich mich auf die Ofenbank setzen?", "sl": "Smem sesti na zapeček?", "en": "May I sit down on the stove bench?", "it": "Posso sedermi sulla panca della stufa?", "ok": true,
+            "reply": { "face": "happy", "de": "Freilich. Rutsch ein bisschen, Bello!", "sl": "Seveda. Pomakni se malo, Bello!", "en": "Of course. Move over a bit, Bello!", "it": "Certo. Fatti un po' più in là, Bello!", "fx": { "dog": 1 } } },
+          { "de": "Darf ich mich auf der Ofenbank setzen?", "sl": "Smem sesti na zapečku?", "en": "May I sit down at on the stove bench?", "it": "Posso sedermi stando sulla panca della stufa?", "grammar": "wechselpraepositionen",
+            "why": { "de": "Wohin du dich setzt, ist eine Richtung: auf die Ofenbank, mit Akkusativ. Danach sitzt du auf der Ofenbank.", "sl": "Kam se usedeš, je smer: auf die Ofenbank, s tožilnikom. Potem sediš auf der Ofenbank.", "en": "Where you sit down to is a direction: auf die Ofenbank, accusative. Then you sit auf der Ofenbank.", "it": "Dove ti siedi è una direzione: auf die Ofenbank, con l'accusativo. Poi stai auf der Ofenbank." },
+            "reply": { "face": "confused", "de": "Auf der Ofenbank? Da liegt doch schon Bello. Hm?", "sl": "Na zapečku? Saj tam že leži Bello. Hm?", "en": "On the stove bench? Bello's already lying there. Hm?", "it": "Sulla panca? Ma lì c'è già Bello. Mm?" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "de": "Bello ist zwölf Jahre alt. Wie man so sagt: ein alter Herr. Wie ich.", "sl": "Bello ima dvanajst let. Kot pravijo: star gospod. Kot jaz.", "en": "Bello is twelve years old. An old gentleman, as they say. Like me.", "it": "Bello ha dodici anni. Un vecchio signore, come si dice. Come me." },
+        { "who": "sepp", "face": "curious", "de": "Hast du auch einen Hund?", "sl": "Imaš tudi ti psa?", "en": "Do you have a dog too?", "it": "Hai anche tu un cane?" },
+        { "choices": [
+          { "de": "Nein, ich habe keinen Hund.", "sl": "Ne, nimam psa.", "en": "No, I don't have a dog.", "it": "No, non ho un cane.", "ok": true,
+            "reply": { "face": "happy", "de": "Dann ist Bello auch ein bisschen dein Hund.", "sl": "Potem je Bello malo tudi tvoj pes.", "en": "Then Bello is a bit your dog too.", "it": "Allora Bello è un po' anche il tuo cane." } },
+          { "de": "Nein, ich habe kein Hund.", "sl": "Ne, nimam psa.", "en": "No, I have no dog.", "it": "No, non ho un cane.", "grammar": "akkusativ",
+            "why": { "de": "Hund ist maskulin. Als Objekt steht er im Akkusativ: kein wird zu keinen.", "sl": "Hund je moškega spola. Kot predmet je v tožilniku: kein postane keinen.", "en": "Hund is masculine. As the object it takes the accusative: kein becomes keinen.", "it": "Hund è maschile. Come oggetto va all'accusativo: kein diventa keinen." },
+            "reply": { "face": "laugh", "de": "Kein Hund? Bello, hörst du? Hoho!", "sl": "Kein Hund? Bello, slišiš? Hoho!", "en": "Kein Hund? Bello, do you hear? Ho ho!", "it": "Kein Hund? Bello, senti? Oh oh!" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "de": "So. Jetzt bleiben wir hier, bis die Sonne kommt.", "sl": "Tako. Zdaj ostaneva tukaj, dokler ne pride sonce.", "en": "There. Now we'll stay here until the sun comes.", "it": "Ecco. Adesso restiamo qui finché arriva il sole." }
+      ]
+    },
+    {
+      "id": "bello-versteckt",
+      "fx_stays": true,
+      "memory": { "de": "Bellos Schwanz hinter der Tür", "sl": "Bellov rep za vrati", "en": "Bello's tail behind the door", "it": "la coda di Bello dietro la porta" },
+      "lines": [
+        { "who": "lena", "face": "happy", "de": "Bello spielt Verstecken! Mach die Augen zu und zähl bis fünf.", "sl": "Bello se igra skrivalnice! Zapri oči in štej do pet.", "en": "Bello is playing hide-and-seek! Close your eyes and count to five.", "it": "Bello gioca a nascondino! Chiudi gli occhi e conta fino a cinque.", "fx": { "dog-hides": 1 } },
+        { "choices": [
+          { "de": "Eins, zwei, drei, vier, fünf! Wo ist Bello?", "sl": "Ena, dve, tri, štiri, pet! Kje je Bello?", "en": "One, two, three, four, five! Where's Bello?", "it": "Uno, due, tre, quattro, cinque! Dov'è Bello?", "ok": true,
+            "reply": { "face": "curious", "de": "Such ihn! Siehst du etwas?", "sl": "Poišči ga! Vidiš kaj?", "en": "Look for him! Can you see anything?", "it": "Cercalo! Vedi qualcosa?" } },
+          { "de": "Eins, zwei, drei, vier, sechs! Wo ist Bello?", "sl": "Ena, dve, tri, štiri, šest! Kje je Bello?", "en": "One, two, three, four, six! Where's Bello?", "it": "Uno, due, tre, quattro, sei! Dov'è Bello?",
+            "why": { "de": "Nach vier kommt fünf.", "sl": "Po štiri pride pet.", "en": "After four comes five.", "it": "Dopo il quattro viene il cinque." },
+            "reply": { "face": "laugh", "de": "Sechs? Du hast eine Zahl vergessen! Hihi!", "sl": "Šest? Eno številko si {m:pozabil|f:pozabila}! Hihi!", "en": "Six? You've forgotten a number! Hee hee!", "it": "Sei? Hai dimenticato un numero! Ih ih!" } }
+        ] },
+        { "choices": [
+          { "de": "Da, hinter der Tür! Ich sehe seinen Schwanz!", "sl": "Tam, za vrati! Vidim njegov rep!", "en": "There, behind the door! I can see his tail!", "it": "Lì, dietro la porta! Vedo la sua coda!", "ok": true, "tap": "dog", "grammar": "wechselpraepositionen",
+            "reply": { "face": "happy", "de": "Gefunden! Bello, du versteckst dich schlecht!", "sl": "Najden! Bello, slabo se skrivaš!", "en": "Found! Bello, you're bad at hiding!", "it": "Trovato! Bello, ti nascondi proprio male!", "fx": { "dog-hides": 0, "dog": 1 } } },
+          { "de": "Da, hinter der Truhe!", "sl": "Tam, za skrinjo!", "en": "There, behind the chest!", "it": "Lì, dietro la cassapanca!", "tap": "chest",
+            "why": { "de": "Such etwas, das sich bewegt: Ein Schwanz zeigt, wo er ist.", "sl": "Poišči nekaj, kar se premika: rep pokaže, kje je.", "en": "Look for something moving: a tail shows where he is.", "it": "Cerca qualcosa che si muove: una coda mostra dov'è." },
+            "reply": { "face": "laugh", "de": "Hinter der Truhe? Da ist nur Staub! Hihi.", "sl": "Za skrinjo? Tam je samo prah! Hihi.", "en": "Behind the chest? There's only dust there! Hee hee.", "it": "Dietro la cassapanca? Lì c'è solo polvere! Ih ih." } },
+          { "de": "Da, unter dem Tisch!", "sl": "Tam, pod mizo!", "en": "There, under the table!", "it": "Lì, sotto il tavolo!", "tap": "table",
+            "why": { "de": "Such etwas, das sich bewegt: Ein Schwanz zeigt, wo er ist.", "sl": "Poišči nekaj, kar se premika: rep pokaže, kje je.", "en": "Look for something moving: a tail shows where he is.", "it": "Cerca qualcosa che si muove: una coda mostra dov'è." },
+            "reply": { "face": "laugh", "de": "Unter dem Tisch? Da ist nur ein Brösel!", "sl": "Pod mizo? Tam je samo drobtinica!", "en": "Under the table? There's only a crumb there!", "it": "Sotto il tavolo? Lì c'è solo una briciola!" } }
+        ] },
+        { "who": "lena", "face": "laugh", "de": "Bello ist der beste Hund. Aber Verstecken kann er nicht!", "sl": "Bello je najboljši pes. Ampak skrivati se ne zna!", "en": "Bello's the best dog. But he can't play hide-and-seek!", "it": "Bello è il cane migliore. Ma a nascondino non è capace!" }
+      ]
+    },
+    {
+      "id": "bello-wurst",
+      "memory": { "de": "Bello und meine Wurst", "sl": "Bella in mojo klobaso", "en": "Bello and my sausage", "it": "Bello e la mia salsiccia" },
+      "lines": [
+        { "who": "lena", "face": "laugh", "de": "Hilfe! Bello will meine Wurst!", "sl": "Na pomoč! Bello hoče mojo klobaso!", "en": "Help! Bello wants my sausage!", "it": "Aiuto! Bello vuole la mia salsiccia!", "fx": { "dog": 1 } },
+        { "who": "lena", "face": "curious", "de": "Sag ihm, er soll sich hinsetzen!", "sl": "Reci mu, naj sede!", "en": "Tell him to sit down!", "it": "Digli di sedersi!" },
+        { "choices": [
+          { "de": "Sitz, Bello! Bleib!", "sl": "Sedi, Bello! Ostani!", "en": "Sit, Bello! Stay!", "it": "Seduto, Bello! Fermo!", "ok": true,
+            "reply": { "face": "happy", "de": "Er sitzt! Braver Hund, Bello!", "sl": "Sedi! Priden pes, Bello!", "en": "He's sitting! Good dog, Bello!", "it": "Si è seduto! Bravo cane, Bello!" } },
+          { "de": "Sitzen Sie, Bello! Bleiben Sie!", "sl": "Sedite, Bello! Ostanite!", "en": "Sit down, Bello, please, sir! Stay, sir!", "it": "Si sieda, Bello! Resti lì!", "grammar": "du-sie",
+            "why": { "de": "Zu einem Hund sagt man du, wie zu einem Kind.", "sl": "Psa tikaš, kot otroka.", "en": "You say du to a dog, as to a child.", "it": "Al cane si dà del tu, come a un bambino." },
+            "reply": { "face": "laugh", "de": "Sie? Zu Bello? Hihi, jetzt ist er ein feiner Herr!", "sl": "Vikaš Bella? Hihi, zdaj je pa fin gospod!", "en": "Sie? To Bello? Hee hee, now he's a fine gentleman!", "it": "Lei? A Bello? Ih ih, adesso è un gran signore!" } }
+        ] },
+        { "who": "lena", "face": "curious", "de": "Bello darf ein kleines Stück haben, oder? Er ist so lieb.", "sl": "Bello lahko dobi majhen košček, ne? Tako je ljub.", "en": "Bello can have a little piece, can't he? He's so sweet.", "it": "Bello può avere un pezzettino, vero? È così buono." },
+        { "choices": [
+          { "de": "Ja, ein kleines Stück.", "sl": "Ja, majhen košček.", "en": "Yes, a little piece.", "it": "Sì, un pezzettino.", "ok": true,
+            "reply": { "face": "happy", "de": "Da, Bello! Aber nur eins.", "sl": "Na, Bello! Ampak samo enega.", "en": "Here, Bello! But only one.", "it": "Tieni, Bello! Ma solo uno." } },
+          { "de": "Nein, Wurst ist nicht gut für Hunde.", "sl": "Ne, klobasa ni dobra za pse.", "en": "No, sausage isn't good for dogs.", "it": "No, la salsiccia non fa bene ai cani.", "ok": true,
+            "reply": { "face": "sad", "de": "Na gut. Dann bekommt er einen Knochen.", "sl": "No dobro. Potem dobi kost.", "en": "All right. Then he gets a bone.", "it": "Va bene. Allora gli diamo un osso." } },
+          { "de": "Ja, die ganze Wurst!", "sl": "Ja, celo klobaso!", "en": "Yes, the whole sausage!", "it": "Sì, tutta la salsiccia!",
+            "why": { "de": "Die ganze Wurst? Dann hat Lena keine Jause mehr!", "sl": "Celo klobaso? Potem Lena nima več malice!", "en": "The whole sausage? Then Lena has no snack left!", "it": "Tutta la salsiccia? Allora Lena resta senza merenda!" },
+            "reply": { "face": "surprised", "de": "Die ganze Wurst? Und was esse ich dann?", "sl": "Celo klobaso? Kaj pa bom potem jedla jaz?", "en": "The whole sausage? And what do I eat then?", "it": "Tutta la salsiccia? E io cosa mangio?" } }
+        ] },
+        { "who": "lena", "face": "laugh", "de": "Bello leckt mir die Hand. Er sagt danke!", "sl": "Bello mi liže roko. Pravi hvala!", "en": "Bello is licking my hand. He's saying thank you!", "it": "Bello mi lecca la mano. Dice grazie!" }
+      ]
+    },
+    {
+      "id": "foto-brille",
+      "memory": { "de": "die Brille, die du für mich gefunden hast", "sl": "očala, ki si mi jih {m:našel|f:našla}", "en": "the glasses you found for me", "it": "gli occhiali che hai trovato per me" },
+      "lines": [
+        { "who": "sepp", "face": "worried", "de": "Wo ist nur meine Brille? Ohne Brille sehe ich das Foto nicht.", "sl": "Kje so le moja očala? Brez očal ne vidim fotografije.", "en": "Where on earth are my glasses? Without them I can't see the photo.", "it": "Ma dove sono i miei occhiali? Senza occhiali non vedo la foto." },
+        { "choices": [
+          { "de": "Da ist sie, auf dem Tisch!", "sl": "Tukaj so, na mizi!", "en": "There they are, on the table!", "it": "Eccoli, sul tavolo!", "ok": true, "tap": "glasses", "grammar": "wechselpraepositionen",
+            "reply": { "face": "happy", "de": "Ah, danke! Neben dem Buch. Wie immer.", "sl": "A, hvala! Zraven knjige. Kot vedno.", "en": "Ah, thank you! Next to the book. As always.", "it": "Ah, grazie! Vicino al libro. Come sempre." } },
+          { "de": "Da ist sie, über dem Tisch!", "sl": "Tukaj so, nad mizo!", "en": "There they are, above the table!", "it": "Eccoli, sopra il tavolo!", "tap": "lamp",
+            "why": { "de": "Such etwas Kleines mit zwei Gläsern, ganz nah beim Buch.", "sl": "Poišči nekaj majhnega z dvema steklcema, čisto blizu knjige.", "en": "Look for something small with two lenses, right by the book.", "it": "Cerca qualcosa di piccolo con due lenti, vicino al libro." },
+            "reply": { "face": "laugh", "de": "Über dem Tisch? Das ist die Lampe, keine Brille!", "sl": "Nad mizo? To je svetilka, ne očala!", "en": "Above the table? That's the lamp, not glasses!", "it": "Sopra il tavolo? Quella è la lampada, non gli occhiali!" } },
+          { "de": "Da ist sie, an der Wand!", "sl": "Tukaj so, na steni!", "en": "There they are, on the wall!", "it": "Eccoli, sul muro!", "tap": "clock",
+            "why": { "de": "Such etwas Kleines mit zwei Gläsern, ganz nah beim Buch.", "sl": "Poišči nekaj majhnega z dvema steklcema, čisto blizu knjige.", "en": "Look for something small with two lenses, right by the book.", "it": "Cerca qualcosa di piccolo con due lenti, vicino al libro." },
+            "reply": { "face": "laugh", "de": "An der Wand hängt die Uhr. Die setz ich nicht auf!", "sl": "Na steni visi ura. Te si ne nataknem na nos!", "en": "That's the clock on the wall. I can't wear that!", "it": "Sul muro c'è l'orologio. Quello non me lo metto!" } }
+        ] },
+        { "who": "sepp", "face": "happy", "de": "So. Jetzt sehe ich alles. Schau, meine Hanni und ich.", "sl": "Tako. Zdaj vse vidim. Poglej, moja Hanni in jaz.", "en": "There. Now I can see everything. Look, my Hanni and me in the photo.", "it": "Ecco. Adesso vedo tutto. Guarda, la mia Hanni e io." },
+        { "who": "sepp", "face": "curious", "de": "Und jetzt? Wo ist meine Brille jetzt?", "sl": "Pa zdaj? Kje so moja očala zdaj?", "en": "And now? Where are my glasses now?", "it": "E adesso? Dove sono adesso i miei occhiali?" },
+        { "choices": [
+          { "de": "Deine Brille ist auf deiner Nase!", "sl": "Tvoja očala so na tvojem nosu!", "en": "Your glasses are on your nose!", "it": "I tuoi occhiali sono sul tuo naso!", "ok": true,
+            "reply": { "face": "laugh", "de": "Hoho! Richtig. Wie man so sagt: Wer sucht, der findet.", "sl": "Hoho! Res je. Kot pravijo: kdor išče, najde.", "en": "Ho ho! Right. As they say: seek and you shall find.", "it": "Oh oh! Giusto. Come si dice: chi cerca trova." } },
+          { "de": "Deine Brille sind auf deiner Nase!", "sl": "Tvoja očala so na tvojem nosu!", "en": "Your glasses are on your nose!", "it": "I tuoi occhiali sono sul tuo naso!", "grammar": "plural",
+            "why": { "de": "Die Brille ist auf Deutsch Singular: die Brille ist …", "sl": "Die Brille je v nemščini ednina: die Brille ist … (očala so v slovenščini množina).", "en": "Die Brille is singular in German: die Brille ist …, though English says glasses are.", "it": "Die Brille in tedesco è singolare: die Brille ist … (gli occhiali in italiano sono plurale)." },
+            "reply": { "face": "confused", "de": "Sind? Habe ich jetzt zwei Brillen auf? Hoho.", "sl": "Sind? Imam zdaj dvoje očal? Hoho.", "en": "Sind? Am I wearing two pairs now? Ho ho.", "it": "Sind? Adesso porto due paia di occhiali? Oh oh." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "face": "happy", "de": "Danke dir. Ohne dich hätte ich bis morgen gesucht.", "sl": "Hvala ti. Brez tebe bi iskal do jutri.", "en": "Thank you. Without you I'd have been looking till tomorrow.", "it": "Grazie. Senza di te avrei cercato fino a domani." }
+      ]
+    },
+    {
+      "id": "verstecken-tuer",
+      "memory": { "de": "das Versteckspiel, als mich mein Zopf verraten hat", "sl": "skrivalnice, ko me je izdala kita", "en": "the hide-and-seek when my plait gave me away", "it": "il nascondino quando la treccia mi ha tradita" },
+      "lines": [
+        { "who": "lena", "face": "happy", "de": "Verstecken! Du zählst, ich verstecke mich. Aber nicht schauen!", "sl": "Skrivalnice! Ti šteješ, jaz se skrijem. Ampak ne gledaj!", "en": "Hide-and-seek! You count, I hide. But no peeking!", "it": "Nascondino! Tu conti, io mi nascondo. Ma non guardare!" },
+        { "choices": [
+          { "de": "Eins, zwei, drei … zehn! Ich komme!", "sl": "Ena, dve, tri … deset! Grem iskat!", "en": "One, two, three … ten! Here I come!", "it": "Uno, due, tre … dieci! Arrivo!", "ok": true,
+            "reply": { "face": "laugh", "de": "Fertig! Wo bin ich?", "sl": "Gotovo! Kje sem?", "en": "Ready! Where am I?", "it": "Pronta! Dove sono?", "act": { "lena": { "to": "behind-door", "pose": "hide" } } } },
+          { "de": "Ich zähle bis zwanzig, dann komme ich!", "sl": "Štejem do dvajset, potem pridem!", "en": "I'll count to twenty, then I'm coming!", "it": "Conto fino a venti, poi arrivo!", "ok": true,
+            "reply": { "face": "laugh", "de": "Zwanzig? Super, dann habe ich viel Zeit!", "sl": "Dvajset? Super, potem imam veliko časa!", "en": "Twenty? Great, then I've got lots of time!", "it": "Venti? Fantastico, allora ho tanto tempo!", "act": { "lena": { "to": "behind-door", "pose": "hide" } } } },
+          { "de": "Eins, zwei, drei … zehn! Ich gehe!", "sl": "Ena, dve, tri … deset! Grem stran!", "en": "One, two, three … ten! I'm leaving!", "it": "Uno, due, tre … dieci! Me ne vado!",
+            "why": { "de": "Ich gehe heißt: du gehst weg. Beim Verstecken ruft man: Ich komme!", "sl": "Ich gehe pomeni, da odideš. Pri skrivalnicah zakličeš: Ich komme!", "en": "Ich gehe means you're leaving. In hide-and-seek you call out: Ich komme!", "it": "Ich gehe vuol dire che te ne vai. A nascondino si grida: Ich komme!" },
+            "reply": { "face": "surprised", "de": "Du gehst? Wohin denn? Wir spielen doch!", "sl": "Greš? Kam pa? Saj se igrava!", "en": "You're leaving? Where to? We're playing!", "it": "Te ne vai? E dove? Stiamo giocando!" } }
+        ] },
+        { "choices": [
+          { "de": "Hinter der Tür! Ich sehe deinen Zopf!", "sl": "Za vrati! Vidim tvojo kito!", "en": "Behind the door! I can see your plait!", "it": "Dietro la porta! Vedo la tua treccia!", "ok": true, "tap": "behind-door", "grammar": "wechselpraepositionen",
+            "reply": { "face": "laugh", "de": "Mein Zopf! Der verrät mich immer.", "sl": "Moja kita! Ta me vedno izda.", "en": "My plait! It always gives me away.", "it": "La mia treccia! Mi tradisce sempre.", "act": { "lena": { "to": "door" } } } },
+          { "de": "Unter dem Tisch!", "sl": "Pod mizo!", "en": "Under the table!", "it": "Sotto il tavolo!", "tap": "under-table",
+            "why": { "de": "Such etwas, das hinter etwas hervorschaut.", "sl": "Poišči nekaj, kar gleda izza nečesa.", "en": "Look for something peeping out from behind something.", "it": "Cerca qualcosa che spunta da dietro qualcosa." },
+            "reply": { "face": "laugh", "de": "Kalt, kalt! Hihi!", "sl": "Mrzlo, mrzlo! Hihi!", "en": "Cold, cold! Hee hee!", "it": "Acqua, acqua! Ih ih!", "act": { "lena": { "pose": "peek" } } } },
+          { "de": "Auf der Ofenbank!", "sl": "Na zapečku!", "en": "On the stove bench!", "it": "Sulla panca della stufa!", "tap": "bench",
+            "why": { "de": "Such etwas, das hinter etwas hervorschaut.", "sl": "Poišči nekaj, kar gleda izza nečesa.", "en": "Look for something peeping out from behind something.", "it": "Cerca qualcosa che spunta da dietro qualcosa." },
+            "reply": { "face": "laugh", "de": "Da liegt Bello, nicht ich! Hihi!", "sl": "Tam leži Bello, ne jaz! Hihi!", "en": "That's Bello lying there, not me! Hee hee!", "it": "Lì c'è Bello, non io! Ih ih!", "act": { "lena": { "pose": "peek" } } } }
+        ] },
+        { "who": "lena", "face": "proud", "de": "Morgen verstecke ich mich besser. Ganz bestimmt!", "sl": "Jutri se bolje skrijem. Čisto zagotovo!", "en": "Tomorrow I'll hide better. Definitely!", "it": "Domani mi nascondo meglio. Di sicuro!" }
+      ]
+    },
+    {
+      "id": "glockner-lied",
+      "memory": { "de": "das Kärntnerlied, das ich dir vorgesungen habe", "sl": "koroško pesem, ki sem ti jo zapel", "en": "the Carinthian song I sang to you", "it": "il canto della Carinzia che ti ho cantato" },
+      "lines": [
+        { "who": "sepp", "face": "happy", "de": "Am Donnerstag singe ich im Chor. Kärntnerlieder. Ich singe den Bass.", "sl": "Ob četrtkih pojem v zboru. Koroške pesmi. Pojem bas.", "en": "On Thursdays I sing in the choir. Carinthian songs. I sing bass.", "it": "Il giovedì canto nel coro. Canti della Carinzia. Faccio il basso." },
+        { "who": "sepp", "face": "curious", "de": "Kennst du ein Kärntnerlied?", "sl": "Poznaš kakšno koroško pesem?", "en": "Do you know a Carinthian song?", "it": "Conosci un canto della Carinzia?" },
+        { "choices": [
+          { "de": "Nein. Singst du mir eins vor?", "sl": "Ne. Mi zapoješ eno?", "en": "No. Will you sing me one?", "it": "No. Me ne canti uno?", "ok": true,
+            "reply": { "face": "happy", "de": "Gern. Is schon still uman See … So geht es.", "sl": "Rad. Is schon still uman See (ob jezeru je že tiho) … Tako gre.", "en": "Gladly. Is schon still uman See, it's quiet by the lake now … That's how it goes.", "it": "Volentieri. Is schon still uman See, è già silenzio sul lago … Fa così." } },
+          { "de": "Nein. Singen Sie mir eins vor?", "sl": "Ne. Mi zapojete eno?", "en": "No. Will you (formal) sing me one?", "it": "No. Me ne canta uno Lei?", "grammar": "du-sie",
+            "why": { "de": "Opa Sepp sagt zu allen du, und alle sagen du zu ihm.", "sl": "Opa Sepp vse tika in vsi tikajo njega.", "en": "Opa Sepp says du to everyone, and everyone says du to him.", "it": "Opa Sepp dà del tu a tutti, e tutti danno del tu a lui." },
+            "reply": { "face": "laugh", "de": "Sie? Bin ich der Bürgermeister? Bei uns redet man anders!", "sl": "Vikaš me? Sem mar župan? Pri nas se govori drugače!", "en": "Sie? Am I the mayor? We don't talk like that here!", "it": "Lei? Sono forse il sindaco? Qui da noi si parla diversamente!" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, langsam.", "sl": "Kako, prosim? Počasi, počasi.", "en": "Sorry? Slowly, slowly.", "it": "Come? Piano, piano." } },
+        { "who": "sepp", "de": "Meine Mama hat auch slowenisch gesungen: Rož, Podjuna, Zila. Das sind unsere Täler.", "sl": "Moja mama je pela tudi po slovensko: Rož, Podjuna, Zila. To so naše doline.", "en": "My mum sang in Slovene too: Rož, Podjuna, Zila. Those are our valleys.", "it": "La mia mamma cantava anche in sloveno: Rož, Podjuna, Zila. Sono le nostre valli." },
+        { "choices": [
+          { "de": "Das klingt schön, Opa Sepp.", "sl": "To lepo zveni, opa Sepp.", "en": "That sounds lovely, Opa Sepp.", "it": "Suona bene, Opa Sepp.", "ok": true,
+            "reply": { "face": "happy", "de": "Danke. Musik ist für alle gleich, in jeder Sprache.", "sl": "Hvala. Glasba je za vse enaka, v vsakem jeziku.", "en": "Thank you. Music is the same for everyone, in every language.", "it": "Grazie. La musica è uguale per tutti, in ogni lingua." } },
+          { "de": "Sing noch einmal, bitte!", "sl": "Zapoj še enkrat, prosim!", "en": "Sing it again, please!", "it": "Cantala ancora, per favore!", "ok": true,
+            "reply": { "face": "laugh", "de": "Noch einmal? Hoho, dann holen wir den ganzen Chor!", "sl": "Še enkrat? Hoho, potem pa pokličeva cel zbor!", "en": "Again? Ho ho, then we'll fetch the whole choir!", "it": "Ancora? Oh oh, allora chiamiamo tutto il coro!" } },
+          { "de": "Das schmeckt schön, Opa Sepp.", "sl": "To lepo diši, opa Sepp.", "en": "That tastes lovely, Opa Sepp.", "it": "Ha un buon sapore, Opa Sepp.",
+            "why": { "de": "Ein Lied schmeckt nicht, man hört es.", "sl": "Pesem nima okusa, poslušaš jo.", "en": "A song has no taste: you hear it.", "it": "Una canzone non ha sapore: si ascolta." },
+            "reply": { "face": "laugh", "de": "Schmeckt? Hoho! Ein Lied ist doch kein Reindling!", "sl": "Ima okus? Hoho! Pesem vendar ni reindling!", "en": "Tastes? Ho ho! A song isn't a Reindling!", "it": "Ha sapore? Oh oh! Una canzone mica è un Reindling!" } }
+        ] },
+        { "who": "sepp", "de": "Wie man so sagt: Wer singt, hat keine Sorgen.", "sl": "Kot pravijo: kdor poje, nima skrbi.", "en": "As they say: who sings has no worries.", "it": "Come si dice: chi canta non ha pensieri." }
+      ]
+    }
+  ]
+}
