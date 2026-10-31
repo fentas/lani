@@ -138,7 +138,7 @@ Primorska's journeys are as they were (no new thing there).
   (5), `PlacesRenderTest`, `ScenePaintersTest`, `CultureScenesTest`, `ScenesContentTest`, `ISpyContentTest`,
   `WordStickersTest`, `SceneWorldTest`: green.
 - **The Android unit suite** (lani-slot.sh): 3,528 tests in 447 classes, 0 failures, 2 skipped.
-- **The bridge**: `tsc` clean; the smoke on ports 9290–9308 (`LANI_SMOKE_DRAMA3_PORT=9308`): 3,155 checks, all passed; `tutor-export
+- **The bridge**: `tsc` clean; the smoke on ports 9290–9308 (`LANI_SMOKE_DRAMA3_PORT=9308`): 3,156 checks, all passed; `tutor-export
   --check`: 88 files match.
 - **Python** (bin/qa changed): 251 tests and 135 (11 skipped), all passing.
 - **On the emulator** (qa-slot, the new step `culture-source`: a synthetic Slovene learner, `make-learner.ts`, with
