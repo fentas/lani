@@ -260,14 +260,15 @@ branch's full unit suite ran beside it, so its frames waited for the processor m
 - QA: home-return measures the requests, the allocations and the frames' phases; the mill step leaves the mill gone into
   from the stream with the system's Back too.
 
-The checks on the branch rebased onto main `e5c5d810`: the bridge's `tsc` clean; the smoke 3,145 checks, all passing
-(twice, the second with `LANI_SMOKE_DRAMA3_PORT=9128`); `tutor-export --check` 88 files match; Python `companion/tests`
-131 (11 skipped) and `tests` 251, all passing. The Android unit suite (through lani-slot, 29 min): 3,500 tests, 2
-skipped, 3 failures, all three since fixed or explained: ScreenStackTest's two checks of the moment after showing waited
-on a timer and a clock's age that Robolectric's clocks never gave (they step the test's frame clock now: ScreenStackTest
-7 of 7), and LaniSheetTest's canary (Material's own sheet still bouncing), which passes on its own and with the whole
-`ui` package in one JVM (600 tests, 0 failures) and failed only in the runs where those two checks timed out and left
-their frame waits behind (its own comment: a later Compose test in the same JVM gets no frames).
+The checks on the branch rebased onto main `a72c4979` (2026-10-31, the last rebase): the bridge's `tsc` clean; the smoke
+3,151 checks, all passing (`LANI_SMOKE_DRAMA3_PORT=9128`); `tutor-export --check` 88 files match; Python
+`companion/tests` 132 (11 skipped) and `tests` 251, all passing; the Android unit suite (through lani-slot, 16 min on a
+quiet machine): **3,508 tests, 2 skipped, 0 failures**. On the way: a run on `e5c5d810` had 3 failures, since fixed:
+ScreenStackTest's two checks of the moment after showing waited on a timer and a clock's age that Robolectric's clocks
+never gave (they step the test's frame clock now), and LaniSheetTest's canary (Material's own sheet still bouncing),
+which failed only in the runs where those two checks timed out and left their frame waits behind (its own comment: a
+later Compose test in the same JVM gets no frames); it passes on its own, with the whole `ui` package in one JVM and in
+the last full run.
 
 ## How to use it
 
@@ -301,6 +302,4 @@ view, detail and window before the change and compare after; for the kitchen's f
   three of QA's swipes of Today"): its Today card is long (two new modules, a tip, two arrivals to meet, "Še 7 v vasi"),
   a learner's content, not the kept Home: the before build fails it at the same check on the same learner. The step's
   other checks didn't run there; it needs a learner whose Today is shorter, or a check that allows for a long one.
-- **The full unit suite once more** at the gate: after the last fixes only ScreenStackTest (7/7) and the `ui` package
-  (600, LaniSheetTest among them) ran again.
 - Measured on the emulator and the desktop JVM, not on Jan's phone.
