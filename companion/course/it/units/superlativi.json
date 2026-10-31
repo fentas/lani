@@ -1,0 +1,390 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "superlativi",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🏆",
+  "title": { "it": "Il più alto, altissimo", "de": "Am größten: il più alto, altissimo", "sl": "Največji: il più alto, altissimo", "en": "The biggest: il più alto, altissimo" },
+  "goal": {
+    "de": "Du sagst, wer oder was im Dorf am meisten ist (il più piccolo, la più brava della classe, l'albero più vecchio), was sehr ist (altissimo, buonissimo) und was das Beste ist (il migliore).",
+    "sl": "Poveš, kdo ali kaj je v vasi naj… (il più piccolo, la più brava della classe, l'albero più vecchio), kaj je zelo … (altissimo, buonissimo) in kaj je najboljše (il migliore).",
+    "en": "You can say who or what in the village is the most (il più piccolo, la più brava della classe, l'albero più vecchio), what is very (altissimo, buonissimo), and what is the best (il migliore)."
+  },
+  "grammar": ["superlativi", "comparativi"],
+  "words": ["alto", "piccolo", "grande", "vecchio", "bello", "buono", "cattivo", "veloce", "bravo", "stanco", "lungo", "dolce", "caldo", "molto", "tutti", "il migliore", "il peggiore", "il campanile", "la torre", "il tiglio", "l'albero", "il bosco", "il paese", "la piazza", "la classe", "la festa", "l'albero della cuccagna", "la cima", "la gubana", "il gelato", "il frico", "la squadra", "il mondo", "la strada", "la giornata", "il gregge", "la banda", "la canzone"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "aggettivo", "de": "Adjektiv", "sl": "pridevnik", "en": "adjective" },
+        { "it": "superlativo", "de": "Superlativ", "sl": "presežnik", "en": "superlative" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Wer ist der Kleinste von allen? Du sagst den Artikel, **più** und das Adjektiv: **Lorenzo è il più piccolo.** (Lorenzo ist der Kleinste.) **La torre è la più alta.** (Der Turm ist der höchste.) Der Artikel passt sich an: **il più**, **la più**, **i più**, **le più**.",
+          "sl": "Kdo je najmanjši od vseh? Rečeš člen, **più** in pridevnik: **Lorenzo è il più piccolo.** (Lorenzo je najmanjši.) **La torre è la più alta.** (Stolp je najvišji.) Člen se ujema: **il più**, **la più**, **i più**, **le più**.",
+          "en": "Who is the smallest of all? Say the article, **più** and the adjective: **Lorenzo è il più piccolo.** (Lorenzo is the smallest.) **La torre è la più alta.** (The tower is the tallest.) The article agrees: **il più**, **la più**, **i più**, **le più**."
+        },
+        "examples": [
+          { "it": "Lorenzo è il più piccolo.", "de": "Lorenzo ist der Kleinste.", "sl": "Lorenzo je najmanjši.", "en": "Lorenzo is the smallest." },
+          { "it": "Di tutte le pecore, Bianca è la più piccola.", "de": "Von allen Schafen ist Bianca das kleinste.", "sl": "Od vseh ovc je Bianca najmanjša.", "en": "Of all the sheep, Bianca is the smallest." }
+        ],
+        "rows": [["piccolo", "il più piccolo", "Lorenzo è il più piccolo."], ["alta", "la più alta", "La torre è la più alta."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "superlativi",
+          "prompt": "Tommaso, Giulia e Lorenzo: Lorenzo è ___.",
+          "options": ["il più piccolo", "più piccolo", "la più piccola"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**Lorenzo** von allen → il + più + piccolo: **il più piccolo**\n- più piccolo: nur kleiner als einer\n- la più piccola: für ein Mädchen",
+            "sl": "**Lorenzo** od vseh → il + più + piccolo: **il più piccolo**\n- più piccolo: le manjši od nekoga\n- la più piccola: za deklico",
+            "en": "**Lorenzo** of all → il + più + piccolo: **il più piccolo**\n- più piccolo: only smaller than someone\n- la più piccola: for a girl"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die Gruppe kommt mit **di**, das mit dem Artikel verschmilzt: **il più vecchio del paese** (der Älteste im Dorf), **la più brava della classe** (die Beste in der Klasse), **il più veloce di tutti** (der Schnellste von allen). Im Deutschen sagst du oft *im* oder *in der*, im Italienischen **di**.",
+          "sl": "Skupina pride z **di**, ki se zlije s členom: **il più vecchio del paese** (najstarejši v vasi), **la più brava della classe** (najbolj pridna v razredu), **il più veloce di tutti** (najhitrejši od vseh). V slovenščini rečeš pogosto *v*, v italijanščini **di**.",
+          "en": "The group comes with **di**, melting with the article: **il più vecchio del paese** (the oldest in the village), **la più brava della classe** (the best in the class), **il più veloce di tutti** (the fastest of all). English often says *in*, Italian says **di**."
+        },
+        "examples": [
+          { "it": "Nonno Bepi è il più vecchio del paese.", "de": "Nonno Bepi ist der Älteste im Dorf.", "sl": "Dedek Bepi je najstarejši v vasi.", "en": "Nonno Bepi is the oldest in the village." },
+          { "it": "Moro è il più veloce di tutti.", "de": "Moro ist der Schnellste von allen.", "sl": "Moro je najhitrejši od vseh.", "en": "Moro is the fastest of all." }
+        ],
+        "rows": [["vecchio", "il più vecchio", "il più vecchio del paese"], ["brava", "la più brava", "la più brava della classe"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "superlativi",
+          "text": "Il campanile è il più alto ___ paese.",
+          "accept": ["del"],
+          "hint": "di + il → ?",
+          "explain": "**il paese** → di + il → **del** paese\n- della classe · di tutti"
+        }
+      },
+      {
+        "say": {
+          "de": "Steht ein Nomen dabei, kommt es gleich nach dem Artikel, dann **più** und das Adjektiv: **il bambino più piccolo** (das kleinste Kind), **l'albero più vecchio del bosco** (der älteste Baum im Wald). **Il tiglio è l'albero più vecchio della piazza.** (Die Linde ist der älteste Baum auf dem Platz.)",
+          "sl": "Če je zraven samostalnik, pride takoj za členom, potem **più** in pridevnik: **il bambino più piccolo** (najmanjši otrok), **l'albero più vecchio del bosco** (najstarejše drevo v gozdu). **Il tiglio è l'albero più vecchio della piazza.** (Lipa je najstarejše drevo na trgu.)",
+          "en": "With a noun, the noun comes right after the article, then **più** and the adjective: **il bambino più piccolo** (the smallest child), **l'albero più vecchio del bosco** (the oldest tree in the wood). **Il tiglio è l'albero più vecchio della piazza.** (The linden is the oldest tree in the square.)"
+        },
+        "examples": [
+          { "it": "Il tiglio è l'albero più vecchio della piazza.", "de": "Die Linde ist der älteste Baum auf dem Platz.", "sl": "Lipa je najstarejše drevo na trgu.", "en": "The linden is the oldest tree in the square." },
+          { "it": "Lorenzo è il bambino più piccolo del paese.", "de": "Lorenzo ist das kleinste Kind im Dorf.", "sl": "Lorenzo je najmlajši otrok v vasi.", "en": "Lorenzo is the youngest child in the village." }
+        ],
+        "rows": [["vecchio", "l'albero più vecchio", "l'albero più vecchio del bosco"], ["piccolo", "il bambino più piccolo", "il bambino più piccolo del paese"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "superlativi",
+          "prompt": "Tommaso ha preso ___ dello stagno!",
+          "options": ["il pesce più grande", "il pesce il più grande", "più il pesce grande"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Artikel, Nomen, **più**, Adjektiv: **il pesce più grande**\n- il pesce il più grande: der Artikel nur einmal",
+            "sl": "Člen, samostalnik, **più**, pridevnik: **il pesce più grande**\n- il pesce il più grande: člen le enkrat",
+            "en": "Article, noun, **più**, adjective: **il pesce più grande**\n- il pesce il più grande: the article only once"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "*Sehr* sagst du mit **-issimo**: Es kommt statt des letzten Buchstabens. **Alto → altissimo** (sehr hoch), **bello → bellissimo** (sehr schön), **buono → buonissimo** (sehr gut). **Il campanile è altissimo!** Das ist dasselbe wie **molto alto**, nur stärker.",
+          "sl": "*Zelo* rečeš z **-issimo**: pride namesto zadnje črke. **Alto → altissimo** (zelo visok), **bello → bellissimo** (zelo lep), **buono → buonissimo** (zelo dober). **Il campanile è altissimo!** To je isto kot **molto alto**, le močneje.",
+          "en": "*Very* you say with **-issimo**: it takes the place of the last letter. **Alto → altissimo** (very tall), **bello → bellissimo** (very beautiful), **buono → buonissimo** (very good). **Il campanile è altissimo!** It's the same as **molto alto**, only stronger."
+        },
+        "examples": [
+          { "it": "Il campanile è altissimo!", "de": "Der Kirchturm ist sehr hoch!", "sl": "Zvonik je zelo visok!", "en": "The bell tower is very tall!" },
+          { "it": "Questo gelato è buonissimo!", "de": "Dieses Eis ist superlecker!", "sl": "Ta sladoled je odličen!", "en": "This ice cream is really good!" }
+        ],
+        "rows": [["alto", "altissimo", "una torre altissima"], ["bello", "bellissimo", "un mare bellissimo"], ["buono", "buonissimo", "un gelato buonissimo"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "superlativi",
+          "text": "Il castello di sabbia è ___! (grande)",
+          "accept": ["grandissimo"],
+          "hint": "-issimo",
+          "explain": "**grande** → grand + **-issimo**: grandissimo\n- alto → altissimo · bello → bellissimo"
+        }
+      },
+      {
+        "say": {
+          "de": "**-issimo** passt sich an wie jedes Adjektiv: **una torre altissima**, **i bambini stanchissimi**. Endet ein Adjektiv auf -co oder -go, kommt ein **h** dazu, damit es hart bleibt: **stanco → stanchissimo** (sehr müde), **lungo → lunghissimo** (sehr lang).",
+          "sl": "**-issimo** se ujema kot vsak pridevnik: **una torre altissima**, **i bambini stanchissimi**. Če se pridevnik konča na -co ali -go, se doda **h**, da ostane trd: **stanco → stanchissimo** (zelo utrujen), **lungo → lunghissimo** (zelo dolg).",
+          "en": "**-issimo** agrees like any adjective: **una torre altissima**, **i bambini stanchissimi**. If an adjective ends in -co or -go, an **h** comes in to keep it hard: **stanco → stanchissimo** (very tired), **lungo → lunghissimo** (very long)."
+        },
+        "examples": [
+          { "it": "Dopo la festa i bambini sono stanchissimi.", "de": "Nach dem Fest sind die Kinder sehr müde.", "sl": "Po prazniku so otroci zelo utrujeni.", "en": "After the festa the children are very tired." },
+          { "it": "D'estate le giornate sono lunghissime.", "de": "Im Sommer sind die Tage sehr lang.", "sl": "Poleti so dnevi zelo dolgi.", "en": "In summer the days are very long." }
+        ],
+        "rows": [["stanco", "stanchissimo", "i bambini stanchissimi"], ["lungo", "lunghissimo", "le giornate lunghissime"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "superlativi",
+          "prompt": "Dopo la cuccagna Tommaso è ___.",
+          "options": ["stanchissimo", "stancissimo", "stanchissima"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**stanco** → stanc**h**issimo: Das h hält das k hart\n- stanchissima: für ein Mädchen",
+            "sl": "**stanco** → stanc**h**issimo: h ohrani trdi k\n- stanchissima: za deklico",
+            "en": "**stanco** → stanc**h**issimo: the h keeps the k hard\n- stanchissima: for a girl"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für **buono** (gut) gibt es **il migliore** (der beste), für **cattivo** (schlecht) **il peggiore** (der schlechteste): **La gubana di Nonna Rosa è la migliore!** (Nonna Rosas Gubana ist die beste!) Beim Essen hört man auch **la più buona**. Und für Tommaso ist **l'Udinese** **la squadra migliore del mondo**.",
+          "sl": "Za **buono** (dober) je **il migliore** (najboljši), za **cattivo** (slab) **il peggiore** (najslabši): **La gubana di Nonna Rosa è la migliore!** (Gubana babice Rose je najboljša!) Pri hrani se sliši tudi **la più buona**. Za Tommasa pa je **l'Udinese** **la squadra migliore del mondo** (najboljše moštvo na svetu).",
+          "en": "For **buono** (good) there's **il migliore** (the best), for **cattivo** (bad) **il peggiore** (the worst): **La gubana di Nonna Rosa è la migliore!** (Nonna Rosa's gubana is the best!) For food you'll hear **la più buona** too. And for Tommaso, **l'Udinese** is **la squadra migliore del mondo** (the best team in the world)."
+        },
+        "examples": [
+          { "it": "La gubana di Nonna Rosa è la migliore!", "de": "Nonna Rosas Gubana ist die beste!", "sl": "Gubana babice Rose je najboljša!", "en": "Nonna Rosa's gubana is the best!" },
+          { "it": "Per Tommaso l'Udinese è la squadra migliore del mondo.", "de": "Für Tommaso ist Udinese die beste Mannschaft der Welt.", "sl": "Za Tommasa je Udinese najboljše moštvo na svetu.", "en": "For Tommaso, Udinese is the best team in the world." }
+        ],
+        "rows": [["buono", "il migliore", "la gubana migliore"], ["cattivo", "il peggiore", "il tempo peggiore"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "superlativi",
+          "prompt": "«Chi è il ___ giocatore della squadra?» «Tommaso, naturalmente!»",
+          "options": ["migliore", "più buono", "meglio"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Der beste Spieler → **il migliore**\n- più buono: buono heißt hier lieb, nicht geschickt\n- meglio: mit einem Verb",
+            "sl": "Najboljši igralec → **il migliore**\n- più buono: buono tu pomeni priden, ne spreten\n- meglio: z glagolom",
+            "en": "The best player → **il migliore**\n- più buono: buono here means kind, not skilled\n- meglio: with a verb"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "superlativi-1",
+      "title": { "it": "Bellissimo!", "de": "Wunderschön!", "sl": "Prelepo!", "en": "Beautiful!" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "superlativi",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "-issimo (sehr …)", "sl": "-issimo (zelo …)", "en": "-issimo (very …)" },
+          "columns": ["-issimo", "-issima"],
+          "rows": [
+            { "label": "bello", "cells": ["bellissimo", { "accept": ["bellissima"] }] },
+            { "label": "alto", "cells": [{ "accept": ["altissimo"] }, "altissima"] },
+            { "label": "buono", "cells": [{ "accept": ["buonissimo"] }, { "accept": ["buonissima"] }] },
+            { "label": "piccolo", "cells": [{ "accept": ["piccolissimo"] }, "piccolissima"] },
+            { "label": "grande", "cells": [{ "accept": ["grandissimo"], "hint": "grand + issimo" }, { "accept": ["grandissima"] }] },
+            { "label": "stanco", "cells": [{ "accept": ["stanchissimo"], "hint": "-co → -chissimo" }, { "accept": ["stanchissima"] }] },
+            { "label": "lungo", "cells": ["lunghissimo", { "accept": ["lunghissima"], "hint": "-go → -ghissima" }] }
+          ],
+          "explain": {
+            "de": "**-issimo** statt des letzten Buchstabens, und es passt sich an\n- alto → altissimo, altissima\n- stanco → stanchissimo (das h!)",
+            "sl": "**-issimo** namesto zadnje črke, in se ujema\n- alto → altissimo, altissima\n- stanco → stanchissimo (h!)",
+            "en": "**-issimo** in place of the last letter, and it agrees\n- alto → altissimo, altissima\n- stanco → stanchissimo (the h!)"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "superlativi",
+          "instruction": { "de": "Il più … o -issimo? · Am meisten oder sehr?", "sl": "Il più … o -issimo? · Naj… ali zelo?", "en": "Il più … o -issimo? · The most, or very?" },
+          "prompt": "Il campanile è ___ del paese.",
+          "options": ["il più alto", "altissimo"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**del paese** (von allen im Dorf) → **il più alto**\n- altissimo: sehr hoch, ohne Vergleich",
+            "sl": "**del paese** (od vseh v vasi) → **il più alto**\n- altissimo: zelo visok, brez primerjave",
+            "en": "**del paese** (of all in the village) → **il più alto**\n- altissimo: very tall, no comparing"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "superlativi",
+          "instruction": { "de": "Il più … o -issimo? · Am meisten oder sehr?", "sl": "Il più … o -issimo? · Naj… ali zelo?", "en": "Il più … o -issimo? · The most, or very?" },
+          "prompt": "molto buono = ___",
+          "options": ["buonissimo", "il più buono", "più buono"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**molto** (sehr) → **-issimo**: buonissimo\n- il più buono: der beste von allen\n- più buono: besser als …",
+            "sl": "**molto** (zelo) → **-issimo**: buonissimo\n- il più buono: najboljši od vseh\n- più buono: boljši od …",
+            "en": "**molto** (very) → **-issimo**: buonissimo\n- il più buono: the best of all\n- più buono: better than …"
+          }
+        }
+      ]
+    },
+    {
+      "id": "superlativi-2",
+      "title": { "it": "La festa del paese", "de": "Das Dorffest", "sl": "Vaški praznik", "en": "The village festa" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "superlativi",
+          "instruction": { "de": "Completa · Ergänze il più, -issimo, migliore", "sl": "Completa · Dopolni il più, -issimo, migliore", "en": "Completa · Fill in il più, -issimo, migliore" },
+          "title": "La festa del paese",
+          "text": "Oggi c'è la festa del paese. In piazza c'è l'albero della cuccagna: è ___ (alto)! Tommaso è il bambino ___ veloce della festa e sale in cima. Lorenzo è ___ piccolo di tutti, ma vuole salire anche lui. Nonna Rosa porta la sua gubana: è la ___ (buono) del paese! La banda suona una canzone ___ (bello). La sera i bambini sono ___ (stanco).",
+          "gaps": [
+            { "accept": ["altissimo"], "hint": "-issimo" },
+            { "accept": ["più"], "hint": "il bambino … veloce" },
+            { "accept": ["il più"] },
+            {
+              "accept": ["migliore", "più buona"],
+              "explain": {
+                "de": "buono → **la migliore** del paese (beim Essen auch: la più buona).",
+                "sl": "buono → **la migliore** del paese (pri hrani tudi: la più buona).",
+                "en": "buono → **la migliore** del paese (for food also: la più buona)."
+              }
+            },
+            { "accept": ["bellissima"], "hint": { "de": "la canzone: weiblich", "sl": "la canzone: ženski spol", "en": "la canzone: feminine" } },
+            {
+              "accept": ["stanchissimi"],
+              "explain": {
+                "de": "i bambini → -i; stanco → **stanchissimi** (das h hält das k hart).",
+                "sl": "i bambini → -i; stanco → **stanchissimi** (h ohrani trdi k).",
+                "en": "i bambini → -i; stanco → **stanchissimi** (the h keeps the k hard)."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["stancissimi", "altissima"],
+          "translation": {
+            "de": "Heute ist das Dorffest. Auf dem Platz steht der Klettermast: Er ist sehr hoch! Tommaso ist das schnellste Kind auf dem Fest und klettert bis zur Spitze. Lorenzo ist der Kleinste von allen, aber er will auch hinauf. Nonna Rosa bringt ihre Gubana: Sie ist die beste im Dorf! Die Kapelle spielt ein wunderschönes Lied. Am Abend sind die Kinder sehr müde.",
+            "sl": "Danes je vaški praznik. Na trgu stoji drog z nagradami: zelo visok je! Tommaso je najhitrejši otrok na prazniku in spleza na vrh. Lorenzo je najmanjši od vseh, a tudi on hoče gor. Babica Rosa prinese svojo gubano: najboljša je v vasi! Godba igra prelepo pesem. Zvečer so otroci zelo utrujeni.",
+            "en": "Today is the village festa. In the square stands the greasy pole: it's very tall! Tommaso is the fastest child at the festa and climbs to the top. Lorenzo is the smallest of all, but he wants to climb up too. Nonna Rosa brings her gubana: it's the best in the village! The band plays a beautiful song. In the evening the children are very tired."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "superlativi",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Giulia è ___ della classe.",
+          "options": ["la più brava", "il più bravo", "la più bravo"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**Giulia** ist ein Mädchen → **la più brava**",
+            "sl": "**Giulia** je deklica → **la più brava**",
+            "en": "**Giulia** is a girl → **la più brava**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "superlativi-3",
+      "title": { "it": "Il più bello di tutti", "de": "Der Schönste von allen", "sl": "Najlepši od vseh", "en": "The most beautiful of all" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "superlativi",
+          "instruction": { "de": "Usa -issimo · Sag es mit -issimo", "sl": "Usa -issimo · Povej z -issimo", "en": "Usa -issimo · Say it with -issimo" },
+          "cue": "molto → -issimo",
+          "items": [
+            { "from": "Il campanile è molto alto.", "accept": ["Il campanile è altissimo."] },
+            { "from": "La gubana è molto buona.", "accept": ["La gubana è buonissima."] },
+            { "from": "Siamo molto stanchi.", "accept": ["Siamo stanchissimi."], "hint": "-co → -chissimo" },
+            { "from": "La strada è molto lunga.", "accept": ["La strada è lunghissima."] }
+          ],
+          "explain": {
+            "de": "**molto + Adjektiv** → -issimo, das sich anpasst\n- molto buona → buonissima\n- molto stanchi → stanchissimi",
+            "sl": "**molto + pridevnik** → -issimo, ki se ujema\n- molto buona → buonissima\n- molto stanchi → stanchissimi",
+            "en": "**molto + adjective** → -issimo, which agrees\n- molto buona → buonissima\n- molto stanchi → stanchissimi"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "superlativi",
+          "instruction": { "de": "Usa il più … di · Sag, wer am meisten ist", "sl": "Usa il più … di · Povej, kdo je naj…", "en": "Usa il più … di · Say who is the most" },
+          "cue": "il più … di",
+          "items": [
+            { "from": "Lorenzo è piccolo. (i bambini)", "accept": ["Lorenzo è il più piccolo dei bambini."] },
+            { "from": "Nonno Bepi è vecchio. (il paese)", "accept": ["Nonno Bepi è il più vecchio del paese."] },
+            {
+              "from": "Il tiglio è un albero vecchio. (la piazza)",
+              "accept": ["Il tiglio è l'albero più vecchio della piazza."],
+              "hint": { "de": "l'albero più …", "sl": "l'albero più …", "en": "l'albero più …" }
+            },
+            { "from": "Bianca è una pecora piccola. (il gregge)", "accept": ["Bianca è la pecora più piccola del gregge."] }
+          ],
+          "explain": {
+            "de": "**il più** + Adjektiv + **di** + die Gruppe; mit einem Nomen: l'albero più vecchio\n- il più piccolo dei bambini\n- la pecora più piccola del gregge",
+            "sl": "**il più** + pridevnik + **di** + skupina; s samostalnikom: l'albero più vecchio\n- il più piccolo dei bambini\n- la pecora più piccola del gregge",
+            "en": "**il più** + adjective + **di** + the group; with a noun: l'albero più vecchio\n- il più piccolo dei bambini\n- la pecora più piccola del gregge"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "superlativi",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": ["-issimo", "-issima"],
+        "rows": [
+          { "label": "veloce", "cells": [{ "accept": ["velocissimo"] }, "velocissima"] },
+          { "label": "dolce", "cells": ["dolcissimo", { "accept": ["dolcissima"] }] },
+          { "label": "lungo", "cells": [{ "accept": ["lunghissimo"] }, "lunghissima"] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "superlativi",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Nonna Rosa è ___ vecchia delle due sorelle. Il suo frico è ___ (buono) del Friuli! Oggi fa ___ (caldo): andiamo al mare! Il mare è ___ (bello).",
+        "gaps": [{ "accept": ["la più"] }, { "accept": ["il migliore", "il più buono"] }, { "accept": ["caldissimo"] }, { "accept": ["bellissimo"] }],
+        "translation": {
+          "de": "Nonna Rosa ist die ältere der zwei Schwestern. Ihr Frico ist der beste im Friaul! Heute ist es sehr heiß: Wir fahren ans Meer! Das Meer ist wunderschön.",
+          "sl": "Babica Rosa je starejša od obeh sester. Njen frico je najboljši v Furlaniji! Danes je zelo vroče: gremo na morje! Morje je prelepo.",
+          "en": "Nonna Rosa is the older of the two sisters. Her frico is the best in Friuli! It's very hot today: let's go to the sea! The sea is beautiful."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "superlativi",
+        "instruction": { "de": "Usa il più … di · Sag, wer am meisten ist", "sl": "Usa il più … di · Povej, kdo je naj…", "en": "Usa il più … di · Say who is the most" },
+        "cue": "il più … di",
+        "items": [
+          { "from": "Tommaso è veloce. (la squadra)", "accept": ["Tommaso è il più veloce della squadra."] },
+          { "from": "Giulia è brava. (la classe)", "accept": ["Giulia è la più brava della classe."] },
+          { "from": "Il gelato al limone è buono. (tutti)", "accept": ["Il gelato al limone è il migliore di tutti.", "Il gelato al limone è il più buono di tutti."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "superlativi",
+        "prompt": "Dopo la festa Giulia è ___.",
+        "options": ["stanchissima", "stancissima", "stanchissimo"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**Giulia** → -a; stanco → **stanchissima** (das h!)",
+          "sl": "**Giulia** → -a; stanco → **stanchissima** (h!)",
+          "en": "**Giulia** → -a; stanco → **stanchissima** (the h!)"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "superlativi",
+        "prompt": "Questa è la strada ___ del paese.",
+        "options": ["più lunga", "la più lunga", "lunghissima"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "Mit einem Nomen: la strada **più lunga**, der Artikel nur einmal\n- lunghissima: sehr lang, ohne Vergleich",
+          "sl": "S samostalnikom: la strada **più lunga**, člen le enkrat\n- lunghissima: zelo dolga, brez primerjave",
+          "en": "With a noun: la strada **più lunga**, the article only once\n- lunghissima: very long, no comparing"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: la più buona beside la migliore, il più buono for a player, l'albero della cuccagna, Udinese, the German"
+}
