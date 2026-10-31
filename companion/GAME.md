@@ -572,8 +572,8 @@ Practise the words for the hut ›": the run, then its card.
 **Each building type's pack** (`BuildingWords.PACKS`: one table for every culture pack; a test checks that every culture
 has one for every type, in its language, of its own packs and not a festival's, with at least 8 words). Primorska's
 buildings mostly have scenes, and its packs are theirs (the palisade, which has none, the forest's, whose trees are its
-stakes; a house whose room nobody lives in yet the home's). The other cultures' villages have no rooms to step into yet
-(their scenes are the campfire and the horizon), so each building asks for the pack of what it is for: the campfire's for
+stakes; a house whose room nobody lives in yet the home's). The other cultures' buildings (Friuli's and, since
+places-kaernten, Carinthia's have their scenes too, a pack each) still ask for the pack of what they are for: the campfire's for
 the tent, food for the fields, the hayrack, the bee house and the market, the house and kitchen for the hut, the village
 for the well and the palisade, the greetings for the linden (people meet under it), the family for the house, the
 culture's landscape for the watchtower (the view from it), the charcoal pile for the smithy (its fire), the night sky for
@@ -2285,6 +2285,15 @@ the Harpfe (A1) and his book of proverbs 11 proverbs, each with its meaning (and
 all in German with Slovene, English and Italian (`readings/`). The voice cast (`voice-cast.json`) has the same
 archetypes, in German: an Austrian narrator (Fiona) and old man (Helmut), the others voices of the account (README,
 "Voice").
+
+Since places-kaernten (docs/plans/05-built/places-kaernten.md) every building of the Carinthian village has its scene, its
+card's "🚪 Hineingehen · Go in": the tent (Im Zelt), the field and the Harpfe (Auf dem Feld), the linden and the well (Auf dem
+Dorfplatz), the hut's and a house's kitchen (In der Küche) and a house's rooms by who lives there (Opa Sepp's Stube, Mostbauer
+Stefan's Keller, Kathi and Maxi's Dachboden, Franz and Jakob's Werkstatt), the bee house (Beim Bienenhaus), the palisade (Am
+Tor), the watchtower (Auf dem Wachturm), the smithy (In der Schmiede), the church (In der Kirche), the school (In der Schule)
+and the market (Auf dem Markt), each its pack and its I spy clues (SCENES.md "Scenes of a culture pack"), in Carinthia's look
+(SCENES.md "Culture looks": the Kachelofen, the Herrgottswinkel, the Harpfe, the onion dome, timbered houses with geranium
+balconies under shingles, the Karawanken through the windows). Its projects' places are the next wave.
 
 ### The lakeland pack
 
