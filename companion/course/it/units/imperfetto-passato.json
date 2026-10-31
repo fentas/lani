@@ -1,0 +1,495 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "imperfetto-passato",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🎬",
+  "title": { "it": "Dormivo quando è arrivato", "de": "Imperfekt oder Perfekt: dormivo, è arrivato", "sl": "Imperfetto ali preteklik: dormivo, è arrivato", "en": "Imperfetto or the past: dormivo, è arrivato" },
+  "goal": {
+    "de": "Du erzählst eine Geschichte mit beiden Vergangenheiten: was gerade lief (dormivo, pioveva) und was passiert ist (è arrivato Moro).",
+    "sl": "Poveš zgodbo z obema pretekloma časoma: kaj je ravno trajalo (dormivo, pioveva) in kaj se je zgodilo (è arrivato Moro).",
+    "en": "You can tell a story with both pasts: what was going on (dormivo, pioveva) and what happened (è arrivato Moro)."
+  },
+  "grammar": ["imperfetto-passato", "imperfetto", "passato-prossimo"],
+  "words": [
+    "mentre",
+    "quando",
+    "sempre",
+    "ogni giorno",
+    "di solito",
+    "da piccolo",
+    "ieri",
+    "un giorno",
+    "all'improvviso",
+    "poi",
+    "tre volte",
+    "per due ore",
+    "la notte",
+    "la sera",
+    "la bora",
+    "il temporale",
+    "la nebbia",
+    "la pioggia",
+    "la finestra",
+    "la porta",
+    "la minestra",
+    "il biscotto",
+    "la moneta",
+    "il gatto",
+    "bussare",
+    "cucinare",
+    "scappare",
+    "abbaiare",
+    "contare",
+    "raccontare",
+    "correre",
+    "aprirsi",
+    "buio",
+    "caldo",
+    "freddo"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "imperfetto: com'era", "de": "imperfetto: wie es war", "sl": "imperfetto: kakšno je bilo", "en": "imperfetto: how it was" },
+        { "it": "passato prossimo: che cosa è successo", "de": "passato prossimo: was passiert ist", "sl": "passato prossimo: kaj se je zgodilo", "en": "passato prossimo: what happened" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Du kennst jetzt zwei Vergangenheiten. Das **imperfetto** ist wie das Bild im Hintergrund: was gerade lief. Das **passato prossimo** ist, was in diesem Bild passiert: **Dormivo quando è arrivato Moro.** (Ich schlief, als Moro gekommen ist.) Das Schlafen lief schon, Moro kam einmal. Im Deutschen sagst du oft beides gleich, im Italienischen wählst du.",
+          "sl": "Zdaj poznaš dva pretekla časa. **Imperfetto** je kot slika v ozadju: kar je ravno trajalo. **Passato prossimo** je tisto, kar se na tej sliki zgodi: **Dormivo quando è arrivato Moro.** ({m:Spal|f:Spala} sem, ko je prišel Moro.) Podobno kot slovenski nedovršni (spal) in dovršni glagol (prišel).",
+          "en": "You now know two pasts. The **imperfetto** is like the picture in the background: what was going on. The **passato prossimo** is what happens in that picture: **Dormivo quando è arrivato Moro.** (I was sleeping when Moro came.) The sleeping was already going on; Moro came once."
+        },
+        "examples": [
+          {
+            "it": "Dormivo quando è arrivato Moro.",
+            "de": "Ich schlief, als Moro gekommen ist.",
+            "sl": "{m:Spal|f:Spala} sem, ko je prišel Moro.",
+            "en": "I was sleeping when Moro came."
+          },
+          {
+            "it": "Lorenzo giocava quando è arrivata la nonna.",
+            "de": "Lorenzo spielte, als die Oma gekommen ist.",
+            "sl": "Lorenzo se je igral, ko je prišla babica.",
+            "en": "Lorenzo was playing when Granny arrived."
+          }
+        ],
+        "rows": [
+          ["Dormivo …", "… quando è arrivato Moro."],
+          ["Lorenzo giocava …", "… quando è arrivata la nonna."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperfetto-passato",
+          "prompt": "Giulia ___ quando è arrivato Tommaso.",
+          "options": ["leggeva", "ha letto", "legge"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Was gerade lief → **imperfetto**: Giulia **leggeva**\n- è arrivato Tommaso: was passiert ist\n- legge · jetzt",
+            "sl": "Kar je ravno trajalo → **imperfetto**: Giulia **leggeva**\n- è arrivato Tommaso: kar se je zgodilo\n- legge · zdaj",
+            "en": "What was going on → **imperfetto**: Giulia **leggeva**\n- è arrivato Tommaso: what happened\n- legge · now"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach **mentre** (während) kommt das **imperfetto**, denn es läuft gerade etwas: **Mentre Giulia leggeva, Moro è entrato.** (Während Giulia las, ist Moro hereingekommen.) Laufen zwei Dinge gleichzeitig, stehen beide im **imperfetto**: **Mentre la nonna cucinava, il nonno dormiva.** (Während die Oma kochte, schlief der Opa.)",
+          "sl": "Za **mentre** (medtem ko) pride **imperfetto**, ker nekaj ravno traja: **Mentre Giulia leggeva, Moro è entrato.** (Medtem ko je Giulia brala, je Moro vstopil.) Če trajata dve stvari hkrati, sta obe v **imperfetto**: **Mentre la nonna cucinava, il nonno dormiva.** (Medtem ko je babica kuhala, je dedek spal.)",
+          "en": "After **mentre** (while) comes the **imperfetto**, since something is going on: **Mentre Giulia leggeva, Moro è entrato.** (While Giulia was reading, Moro came in.) Two things going on at once are both in the **imperfetto**: **Mentre la nonna cucinava, il nonno dormiva.** (While Granny was cooking, Grandpa was sleeping.)"
+        },
+        "examples": [
+          {
+            "it": "Mentre Giulia leggeva, Moro è entrato in cucina.",
+            "de": "Während Giulia las, ist Moro in die Küche gekommen.",
+            "sl": "Medtem ko je Giulia brala, je Moro prišel v kuhinjo.",
+            "en": "While Giulia was reading, Moro came into the kitchen."
+          },
+          {
+            "it": "Mentre la nonna cucinava, il nonno dormiva.",
+            "de": "Während die Oma kochte, schlief der Opa.",
+            "sl": "Medtem ko je babica kuhala, je dedek spal.",
+            "en": "While Granny was cooking, Grandpa was sleeping."
+          }
+        ],
+        "rows": [
+          ["Mentre Giulia leggeva, …", "… Moro è entrato."],
+          ["Mentre la nonna cucinava, il nonno dormiva.", "—"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "imperfetto-passato",
+          "text": "Mentre Lorenzo ___, è caduto. (correre)",
+          "accept": ["correva"],
+          "hint": "mentre → imperfetto",
+          "explain": {
+            "de": "**mentre** → **imperfetto**: Lorenzo **correva**\n- è caduto: was passiert ist",
+            "sl": "**mentre** → **imperfetto**: Lorenzo **correva**\n- è caduto: kar se je zgodilo",
+            "en": "**mentre** → **imperfetto**: Lorenzo **correva**\n- è caduto: what happened"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Kleine Wörter helfen dir. **sempre** (immer), **ogni giorno** (jeden Tag), **di solito** (normalerweise) und **da piccolo** (als ich klein war): das war immer so, also **imperfetto**. **ieri** (gestern), **un giorno** (eines Tages), **all'improvviso** (plötzlich) und **poi** (dann): das ist einmal passiert, also **passato prossimo**.",
+          "sl": "Male besede ti pomagajo. **sempre** (vedno), **ogni giorno** (vsak dan), **di solito** (navadno) in **da piccolo** (ko sem bil majhen): tako je bilo vedno, torej **imperfetto**. **ieri** (včeraj), **un giorno** (nekega dne), **all'improvviso** (naenkrat) in **poi** (potem): to se je zgodilo enkrat, torej **passato prossimo**.",
+          "en": "Little words help you. **sempre** (always), **ogni giorno** (every day), **di solito** (usually) and **da piccolo** (as a child): it was always so, so **imperfetto**. **ieri** (yesterday), **un giorno** (one day), **all'improvviso** (suddenly) and **poi** (then): it happened once, so **passato prossimo**."
+        },
+        "examples": [
+          {
+            "it": "Di solito Lorenzo andava a letto alle otto.",
+            "de": "Normalerweise ging Lorenzo um acht ins Bett.",
+            "sl": "Navadno je Lorenzo šel spat ob osmih.",
+            "en": "Lorenzo usually went to bed at eight."
+          },
+          {
+            "it": "Un giorno Lorenzo è andato a letto alle dieci!",
+            "de": "Eines Tages ist Lorenzo um zehn ins Bett gegangen!",
+            "sl": "Nekega dne je Lorenzo šel spat ob desetih!",
+            "en": "One day Lorenzo went to bed at ten!"
+          }
+        ],
+        "rows": [
+          ["sempre, ogni giorno, di solito", "ieri, un giorno, all'improvviso"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperfetto-passato",
+          "prompt": "Da piccola, ogni estate Giulia ___ al mare con la zia.",
+          "options": ["andava", "è andata", "andavano"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ogni estate**: das war immer so → **imperfetto**: andava\n- è andata · einmal\n- andavano · loro",
+            "sl": "**ogni estate**: tako je bilo vedno → **imperfetto**: andava\n- è andata · enkrat\n- andavano · loro",
+            "en": "**ogni estate**: it was always so → **imperfetto**: andava\n- è andata · once\n- andavano · loro"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "In einer Geschichte malt das **imperfetto** zuerst das Bild: **Era una notte buia. Pioveva.** (Es war eine dunkle Nacht. Es regnete.) Dann passiert etwas, im **passato prossimo**: **All'improvviso qualcuno ha bussato alla porta.** (Plötzlich hat jemand an die Tür geklopft.) Wer war es? Moro!",
+          "sl": "V zgodbi **imperfetto** najprej nariše sliko: **Era una notte buia. Pioveva.** (Bila je temna noč. Deževalo je.) Potem se nekaj zgodi, v **passato prossimo**: **All'improvviso qualcuno ha bussato alla porta.** (Naenkrat je nekdo potrkal na vrata.) Kdo je bil? Moro!",
+          "en": "In a story the **imperfetto** paints the picture first: **Era una notte buia. Pioveva.** (It was a dark night. It was raining.) Then something happens, in the **passato prossimo**: **All'improvviso qualcuno ha bussato alla porta.** (Suddenly someone knocked at the door.) Who was it? Moro!"
+        },
+        "examples": [
+          {
+            "it": "Era una notte buia e pioveva.",
+            "de": "Es war eine dunkle Nacht, und es regnete.",
+            "sl": "Bila je temna noč in deževalo je.",
+            "en": "It was a dark night and it was raining."
+          },
+          {
+            "it": "All'improvviso qualcuno ha bussato alla porta.",
+            "de": "Plötzlich hat jemand an die Tür geklopft.",
+            "sl": "Naenkrat je nekdo potrkal na vrata.",
+            "en": "Suddenly someone knocked at the door."
+          }
+        ],
+        "rows": [
+          ["Era una notte buia. Pioveva.", "All'improvviso qualcuno ha bussato."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperfetto-passato",
+          "prompt": "Era una bella giornata. All'improvviso ___ la bora.",
+          "options": ["arrivava", "è arrivata", "è arrivato"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**all'improvviso**: es passiert → **passato prossimo**, la bora → **è arrivata**\n- arrivava · das Bild\n- è arrivato · für einen",
+            "sl": "**all'improvviso**: se zgodi → **passato prossimo**, la bora → **è arrivata**\n- arrivava · slika\n- è arrivato · za moški spol",
+            "en": "**all'improvviso**: it happens → **passato prossimo**, la bora → **è arrivata**\n- arrivava · the picture\n- è arrivato · masculine"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Und noch etwas: Zählst du, wie lange oder wie oft, ist es abgeschlossen und steht im **passato prossimo**: **Ieri ho giocato per due ore.** (Gestern habe ich zwei Stunden gespielt.) **Siamo andati al mare tre volte.** (Wir sind dreimal ans Meer gefahren.) Ohne Zählen, als Gewohnheit: **Giocavo sempre.** (Ich spielte immer.)",
+          "sl": "Še nekaj: če šteješ, kako dolgo ali kolikokrat, je zaključeno in v **passato prossimo**: **Ieri ho giocato per due ore.** (Včeraj sem se dve uri {m:igral|f:igrala}.) **Siamo andati al mare tre volte.** (Trikrat smo šli na morje.) Brez štetja, kot navada: **Giocavo sempre.** (Vedno sem se {m:igral|f:igrala}.)",
+          "en": "One more thing: if you count how long or how often, it's finished and in the **passato prossimo**: **Ieri ho giocato per due ore.** (Yesterday I played for two hours.) **Siamo andati al mare tre volte.** (We went to the sea three times.) Without counting, as a habit: **Giocavo sempre.** (I always played.)"
+        },
+        "examples": [
+          {
+            "it": "Ieri abbiamo giocato a calcio per due ore.",
+            "de": "Gestern haben wir zwei Stunden Fußball gespielt.",
+            "sl": "Včeraj smo dve uri igrali nogomet.",
+            "en": "Yesterday we played football for two hours."
+          },
+          {
+            "it": "Quest'estate siamo andati al mare tre volte.",
+            "de": "Diesen Sommer sind wir dreimal ans Meer gefahren.",
+            "sl": "To poletje smo bili trikrat na morju.",
+            "en": "This summer we went to the sea three times."
+          }
+        ],
+        "rows": [
+          ["Giocavo sempre.", "Ho giocato per due ore."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperfetto-passato",
+          "prompt": "Ieri Tommaso ___ a calcio per tre ore!",
+          "options": ["giocava", "ha giocato", "giocavano"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**per tre ore**: gezählt, mit Ende → **passato prossimo**: ha giocato",
+            "sl": "**per tre ore**: šteto, s koncem → **passato prossimo**: ha giocato",
+            "en": "**per tre ore**: counted, with an end → **passato prossimo**: ha giocato"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "imperfetto-passato-1",
+      "title": { "it": "Le parole che aiutano", "de": "Die Wörter, die helfen", "sl": "Besede, ki pomagajo", "en": "Words that help" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "imperfetto-passato",
+          "instruction": {
+            "de": "Imperfetto o passato prossimo? · Imperfekt oder Perfekt?",
+            "sl": "Imperfetto o passato prossimo? · Imperfetto ali passato prossimo?",
+            "en": "Imperfetto o passato prossimo? · Imperfetto or passato prossimo?"
+          },
+          "columns": [
+            {
+              "label": { "de": "imperfetto · wie es war", "sl": "imperfetto · kakšno je bilo", "en": "imperfetto · how it was" },
+              "words": ["sempre", "ogni giorno", "di solito", "da piccolo", "mentre"]
+            },
+            {
+              "label": { "de": "passato prossimo · was passiert ist", "sl": "passato prossimo · kaj se je zgodilo", "en": "passato prossimo · what happened" },
+              "words": ["ieri", "all'improvviso", "un giorno", "poi", "tre volte"]
+            }
+          ],
+          "explain": {
+            "de": "**immer, gewöhnlich, während** → imperfetto\n- **einmal, plötzlich, gezählt** → passato prossimo",
+            "sl": "**vedno, navadno, medtem ko** → imperfetto\n- **enkrat, naenkrat, šteto** → passato prossimo",
+            "en": "**always, usually, while** → imperfetto\n- **once, suddenly, counted** → passato prossimo"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "imperfetto-passato",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Mentre Nonna Rosa ___, Lorenzo ha mangiato un biscotto.",
+          "options": ["cucinava", "ha cucinato", "cucina"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**mentre** → **imperfetto**: cucinava",
+            "sl": "**mentre** → **imperfetto**: cucinava",
+            "en": "**mentre** → **imperfetto**: cucinava"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "imperfetto-passato",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Dormivo quando ___ Moro.",
+          "options": ["arrivava", "è arrivato", "arriva"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "Was passiert ist, einmal → **passato prossimo**: è arrivato",
+            "sl": "Kar se je zgodilo, enkrat → **passato prossimo**: è arrivato",
+            "en": "What happened, once → **passato prossimo**: è arrivato"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperfetto-passato-2",
+      "title": { "it": "La notte della bora", "de": "Die Nacht der Bora", "sl": "Noč burje", "en": "The night of the bora" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "imperfetto-passato",
+          "instruction": {
+            "de": "Completa: imperfetto o passato? · Ergänze: Imperfekt oder Perfekt?",
+            "sl": "Completa: imperfetto o passato? · Dopolni: imperfetto ali preteklik?",
+            "en": "Completa: imperfetto o passato? · Fill in: imperfetto or the past?"
+          },
+          "title": "La notte della bora",
+          "text": "Era sera a casa di Nonna Rosa. Fuori ___ (fare) freddo. La nonna ___ (cucinare) la minestra e Giulia ___ (leggere) un libro. All'improvviso ___ (arrivare) la bora! Una finestra ___ (aprirsi) e il gatto ___ (scappare) sotto il tavolo. Giulia ___ (chiudere) la finestra, e poi la nonna e Giulia ___ (mangiare) la minestra calda.",
+          "gaps": [
+            { "accept": ["faceva"], "hint": "il tempo: imperfetto" },
+            { "accept": ["cucinava"] },
+            { "accept": ["leggeva"] },
+            {
+              "accept": ["è arrivata"],
+              "hint": "all'improvviso …",
+              "explain": {
+                "de": "**all'improvviso** → passato prossimo; la bora → **è arrivata**.",
+                "sl": "**all'improvviso** → passato prossimo; la bora → **è arrivata**.",
+                "en": "**all'improvviso** → passato prossimo; la bora → **è arrivata**."
+              }
+            },
+            { "accept": ["si è aperta"], "hint": "aprirsi → si è …" },
+            { "accept": ["è scappato"] },
+            { "accept": ["ha chiuso"] },
+            { "accept": ["hanno mangiato"] }
+          ],
+          "bank": true,
+          "distractors": ["è arrivato", "ha cucinato", "chiudeva"],
+          "translation": {
+            "de": "Es war Abend bei Nonna Rosa. Draußen war es kalt. Die Oma kochte die Suppe, und Giulia las ein Buch. Plötzlich ist die Bora gekommen! Ein Fenster ist aufgegangen, und die Katze ist unter den Tisch gelaufen. Giulia hat das Fenster zugemacht, und dann haben die Oma und Giulia die warme Suppe gegessen.",
+            "sl": "Bil je večer pri babici Rosi. Zunaj je bilo mrzlo. Babica je kuhala juho, Giulia pa je brala knjigo. Naenkrat je prišla burja! Okno se je odprlo in mačka je zbežala pod mizo. Giulia je zaprla okno, potem pa sta babica in Giulia pojedli toplo juho.",
+            "en": "It was evening at Nonna Rosa's. Outside it was cold. Granny was cooking the soup and Giulia was reading a book. Suddenly the bora came! A window flew open and the cat ran under the table. Giulia closed the window, and then Granny and Giulia ate the warm soup."
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperfetto-passato-3",
+      "title": { "it": "Racconta al passato", "de": "Erzähl in der Vergangenheit", "sl": "Pripoveduj v pretekliku", "en": "Tell it in the past" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "imperfetto-passato",
+          "instruction": {
+            "de": "Metti al passato: imperfetto o passato prossimo? · In die Vergangenheit: Imperfekt oder Perfekt?",
+            "sl": "Metti al passato: imperfetto o passato prossimo? · V preteklik: imperfetto ali passato prossimo?",
+            "en": "Metti al passato: imperfetto o passato prossimo? · Into the past: imperfetto or passato prossimo?"
+          },
+          "whole": true,
+          "items": [
+            {
+              "from": "Ogni giorno Lorenzo va a scuola a piedi.",
+              "accept": ["Ogni giorno Lorenzo andava a scuola a piedi."],
+              "hint": "ogni giorno …"
+            },
+            {
+              "from": "All'improvviso Moro abbaia.",
+              "accept": ["All'improvviso Moro ha abbaiato."],
+              "hint": "all'improvviso …"
+            },
+            { "from": "Di solito Nonna Rosa fa il frico.", "accept": ["Di solito Nonna Rosa faceva il frico."] },
+            { "from": "Un giorno Tommaso trova una moneta.", "accept": ["Un giorno Tommaso ha trovato una moneta."] },
+            {
+              "from": "Mentre Giulia dorme, il gatto gioca.",
+              "accept": ["Mentre Giulia dormiva, il gatto giocava."],
+              "hint": "mentre …"
+            },
+            {
+              "from": "Mentre Lorenzo legge, arriva la nonna.",
+              "accept": ["Mentre Lorenzo leggeva, è arrivata la nonna.", "Mentre Lorenzo leggeva, la nonna è arrivata."]
+            },
+            {
+              "from": "Giochiamo a calcio per due ore.",
+              "accept": ["Abbiamo giocato a calcio per due ore."],
+              "hint": "per due ore …"
+            },
+            { "from": "Di sera c'è sempre la nebbia.", "accept": ["Di sera c'era sempre la nebbia."] }
+          ],
+          "explain": {
+            "de": "**ogni giorno, di solito, sempre, mentre** → imperfetto\n- **all'improvviso, un giorno, per due ore** → passato prossimo",
+            "sl": "**ogni giorno, di solito, sempre, mentre** → imperfetto\n- **all'improvviso, un giorno, per due ore** → passato prossimo",
+            "en": "**ogni giorno, di solito, sempre, mentre** → imperfetto\n- **all'improvviso, un giorno, per due ore** → passato prossimo"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "imperfetto-passato",
+        "instruction": {
+          "de": "Completa: imperfetto o passato? · Ergänze: Imperfekt oder Perfekt?",
+          "sl": "Completa: imperfetto o passato? · Dopolni: imperfetto ali preteklik?",
+          "en": "Completa: imperfetto o passato? · Fill in: imperfetto or the past?"
+        },
+        "text": "Domenica ___ (essere) una bella giornata e ___ (fare) caldo. I bambini ___ (giocare) in piazza. All'improvviso ___ (arrivare) un temporale! Tutti ___ (tornare) a casa di corsa.",
+        "gaps": [
+          { "accept": ["era"] },
+          { "accept": ["faceva"] },
+          { "accept": ["giocavano"] },
+          { "accept": ["è arrivato"] },
+          { "accept": ["sono tornati"] }
+        ],
+        "translation": {
+          "de": "Am Sonntag war ein schöner Tag, und es war warm. Die Kinder spielten auf dem Platz. Plötzlich ist ein Gewitter gekommen! Alle sind schnell nach Hause gelaufen.",
+          "sl": "V nedeljo je bil lep dan in bilo je toplo. Otroci so se igrali na trgu. Naenkrat je prišla nevihta! Vsi so stekli domov.",
+          "en": "On Sunday it was a lovely day and it was warm. The children were playing in the square. Suddenly a storm came! Everyone ran home."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperfetto-passato",
+        "prompt": "Mentre Davide ___ le pecore, è arrivata la nebbia.",
+        "options": ["contava", "ha contato", "contavano"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**mentre** → **imperfetto**: contava",
+          "sl": "**mentre** → **imperfetto**: contava",
+          "en": "**mentre** → **imperfetto**: contava"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperfetto-passato",
+        "prompt": "Ieri Giulia ___ due gelati!",
+        "options": ["mangiava", "ha mangiato", "mangia"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**ieri**, einmal → **passato prossimo**: ha mangiato",
+          "sl": "**ieri**, enkrat → **passato prossimo**: ha mangiato",
+          "en": "**ieri**, once → **passato prossimo**: ha mangiato"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperfetto-passato",
+        "prompt": "Da piccolo Tommaso ___ paura del buio.",
+        "options": ["aveva", "ha avuto", "avevano"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**da piccolo**: wie es war → **imperfetto**: aveva",
+          "sl": "**da piccolo**: kakšno je bilo → **imperfetto**: aveva",
+          "en": "**da piccolo**: how it was → **imperfetto**: aveva"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperfetto-passato",
+        "prompt": "Quando ero piccolo, ogni domenica il nonno ___ una storia.",
+        "options": ["raccontava", "ha raccontato", "raccontavo"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**ogni domenica**: eine Gewohnheit → **imperfetto**: raccontava",
+          "sl": "**ogni domenica**: navada → **imperfetto**: raccontava",
+          "en": "**ogni domenica**: a habit → **imperfetto**: raccontava"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "imperfetto-passato",
+        "instruction": {
+          "de": "Metti al passato: imperfetto o passato prossimo? · In die Vergangenheit: Imperfekt oder Perfekt?",
+          "sl": "Metti al passato: imperfetto o passato prossimo? · V preteklik: imperfetto ali passato prossimo?",
+          "en": "Metti al passato: imperfetto o passato prossimo? · Into the past: imperfetto or passato prossimo?"
+        },
+        "whole": true,
+        "items": [
+          { "from": "Ogni sabato andiamo al mercato.", "accept": ["Ogni sabato andavamo al mercato."] },
+          { "from": "All'improvviso Lorenzo cade.", "accept": ["All'improvviso Lorenzo è caduto."] },
+          { "from": "Mentre la nonna dorme, Giulia legge.", "accept": ["Mentre la nonna dormiva, Giulia leggeva."] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the picture and what happens as a child's rule, the Slovene aspect hint, è arrivato un temporale, la finestra si è aperta"
+}
