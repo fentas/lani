@@ -33,7 +33,7 @@
   "happenings": [
     {
       "id": "wake-up", "title": { "en": "Harry won't get up", "sl": "Harry noče vstati", "it": "Harry non vuole alzarsi", "de": "Harry will nicht aufstehen" }, "who": "harry",
-      "when": ["dawn", "morning"], "chance": 0.5, "act": { "harry": { "to": "in-bed" } }, "dialog": "wake-up", "dialogs": ["wake-up-school", "wake-up"], "reward": { "food": 15 }, "marker": "⏰",
+      "when": ["dawn", "morning"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.5, "act": { "harry": { "to": "in-bed" } }, "dialog": "wake-up", "dialogs": ["wake-up-school", "wake-up"], "reward": { "food": 15 }, "marker": "⏰",
       "memory": { "en": "the morning you got me out of bed", "sl": "jutro, ko si me {m:spravil|f:spravila} iz postelje", "it": "la mattina in cui mi hai tirato giù dal letto", "de": "den Morgen, an dem du mich aus dem Bett geholt hast" }
     },
     {
@@ -101,7 +101,7 @@
           { "en": "So it's your mum cradle too!", "sl": "Torej je tudi zibelka vaše mame!", "it": "Allora è anche la culla di Sua mamma!", "de": "Dann ist es auch die Wiege Ihrer Mama!", "grammar": "possessive-s",
             "why": { "en": "Whose cradle? Your mum's: add 's to the owner.", "sl": "Čigava zibelka? Your mum's: lastniku dodaš 's.", "it": "Di chi è la culla? Your mum's: al proprietario si aggiunge 's.", "de": "Wessen Wiege? Your mum's: An den Besitzer kommt 's." }, "reply": { "face": "laugh", "en": "My mum cradle? She'd laugh at that, love!", "sl": "Mum cradle? Tega bi se nasmejala, srček!", "it": "Mum cradle? Ci riderebbe sopra, tesoro!", "de": "Mum cradle? Darüber würde sie lachen, Schatz!" } }
         ], "puzzled": { "face": "confused", "en": "Sorry, love? Say that again.", "sl": "Prosim, srček? Povej še enkrat.", "it": "Come, tesoro? Ripeti.", "de": "Wie bitte, Schatz? Sag das noch mal." } },
-        { "who": "birkett", "face": "shy", "en": "Oh, I miss the baby days. Now he's nine, and so loud!", "sl": "Oh, pogrešam tiste dojenčkove dni. Zdaj ima devet let in je tako glasen!", "it": "Oh, mi mancano i tempi in cui era piccolo. Adesso ha nove anni, ed è così rumoroso!", "de": "Ach, ich vermisse die Babyzeit. Jetzt ist er neun, und so laut!", "fx": { "cradle": 0.3 } }
+        { "who": "birkett", "face": "happy", "en": "Oh, I miss the baby days. Now he's nine, and so loud!", "sl": "Oh, pogrešam tiste dojenčkove dni. Zdaj ima devet let in je tako glasen!", "it": "Oh, mi mancano i tempi in cui era piccolo. Adesso ha nove anni, ed è così rumoroso!", "de": "Ach, ich vermisse die Babyzeit. Jetzt ist er neun, und so laut!", "fx": { "cradle": 0.3 } }
       ]
     },
     {
@@ -157,7 +157,7 @@
         { "who": "birkett", "face": "proud", "en": "See these tiny shoes? Harry's feet are so big now.", "sl": "Vidiš te majcene čeveljčke? Harry ima zdaj tako velika stopala.", "it": "Vedi queste scarpine minuscole? Adesso Harry ha i piedi così grandi.", "de": "Siehst du diese winzigen Schuhe? Harrys Füße sind jetzt so groß." },
         { "choices": [
           { "en": "They're so small!", "sl": "Tako majhni so!", "it": "Sono così piccole!", "de": "Die sind so klein!", "ok": true,
-            "reply": { "face": "shy", "en": "Aye. Nine years go so fast, love.", "sl": "Ja. Devet let mine tako hitro, srček.", "it": "Già. Nove anni passano così in fretta, tesoro.", "de": "Ja. Neun Jahre vergehen so schnell, Schatz." } },
+            "reply": { "face": "happy", "en": "Aye. Nine years go so fast, love.", "sl": "Ja. Devet let mine tako hitro, srček.", "it": "Già. Nove anni passano così in fretta, tesoro.", "de": "Ja. Neun Jahre vergehen so schnell, Schatz." } },
           { "en": "They're so smalls!", "sl": "Tako majhni so!", "it": "Sono così piccole!", "de": "Die sind so klein!",
             "why": { "en": "Adjectives never take -s in English: small shoes, they're small.", "sl": "Pridevniki v angleščini nikoli ne dobijo -s: small shoes, they're small.", "it": "In inglese gli aggettivi non prendono mai la -s: small shoes, they're small.", "de": "Adjektive bekommen im Englischen nie ein -s: small shoes, they're small." }, "reply": { "face": "laugh", "en": "Smalls? That's what my gran called her underwear!", "sl": "Smalls? Tako je moja babica rekla svojemu spodnjemu perilu!", "it": "Smalls? Così mia nonna chiamava la biancheria intima!", "de": "Smalls? So hat meine Oma ihre Unterwäsche genannt!" } }
         ] }
@@ -250,7 +250,7 @@
           { "en": "Not really. I like walking on the fells.", "sl": "Pravzaprav ne. {m:Rad|f:Rada} hodim po hribih.", "it": "Non molto. Mi piace camminare in collina.", "de": "Nicht wirklich. Ich wandere gern auf den Bergen.", "ok": true,
             "reply": { "face": "curious", "en": "Walking? Boring! … OK, the tarn is nice.", "sl": "Hoja? Dolgčas! … No ja, gorsko jezerce je lepo.", "it": "Camminare? Che noia! … Va bene, il laghetto è bello.", "de": "Wandern? Langweilig! … Na gut, der Bergsee ist schön." } },
           { "en": "Yes, I do! I hate it.", "sl": "Ja! Sovražim ga.", "it": "Sì! Lo odio.", "de": "Ja! Ich hasse ihn.",
-            "why": { "en": "Love and hate are opposites. With yes, say I love it.", "sl": "Love in hate sta nasprotji. Z yes reci I love it.", "it": "Love e hate sono contrari. Con yes di' I love it.", "de": "Love und hate sind Gegensätze. Mit yes sag I love it." }, "reply": { "face": "confused", "en": "Yes, and you hate it? You're funny, {learner}!", "sl": "Ja, pa ga sovražiš? Smešen si, {learner}!", "it": "Sì, e lo odi? Sei buffo, {learner}!", "de": "Ja, und du hasst ihn? Du bist lustig, {learner}!" } }
+            "why": { "en": "Love and hate are opposites. With yes, say I love it.", "sl": "Love in hate sta nasprotji. Z yes reci I love it.", "it": "Love e hate sono contrari. Con yes di' I love it.", "de": "Love und hate sind Gegensätze. Mit yes sag I love it." }, "reply": { "face": "confused", "en": "Yes, and you hate it? You're funny, {learner}!", "sl": "Ja, pa ga sovražiš? {m:Smešen|f:Smešna} si, {learner}!", "it": "Sì, e lo odi? Sei {m:buffo|f:buffa}, {learner}!", "de": "Ja, und du hasst ihn? Du bist lustig, {learner}!" } }
         ] }
       ]
     },
@@ -268,7 +268,7 @@
         { "who": "birkett", "face": "shy", "en": "Don't tell Harry, but sometimes he still sleeps with Mr Biscuit.", "sl": "Ne povej Harryju, ampak včasih še vedno spi z gospodom Piškotom.", "it": "Non dirlo a Harry, ma a volte dorme ancora con il signor Biscotto.", "de": "Sag's Harry nicht, aber manchmal schläft er noch mit Herrn Keks." },
         { "choices": [
           { "en": "Your secret is safe with me.", "sl": "Vaša skrivnost je pri meni na varnem.", "it": "Il Suo segreto è al sicuro con me.", "de": "Ihr Geheimnis ist bei mir sicher.", "ok": true,
-            "reply": { "face": "happy", "en": "Thank you, love. You're a good friend to him.", "sl": "Hvala, srček. Dober prijatelj si mu.", "it": "Grazie, tesoro. Sei un buon amico per lui.", "de": "Danke, Schatz. Du bist ein guter Freund für ihn." } },
+            "reply": { "face": "happy", "en": "Thank you, love. You're a good friend to him.", "sl": "Hvala, srček. {m:Dober prijatelj|f:Dobra prijateljica} si mu.", "it": "Grazie, tesoro. Sei {m:un buon amico|f:una buona amica} per lui.", "de": "Danke, Schatz. Du bist {m:ein guter Freund|f:eine gute Freundin} für ihn." } },
           { "en": "I won't tell anyone, Mrs Birkett.", "sl": "Nikomur ne bom {m:povedal|f:povedala}, gospa Birkett.", "it": "Non lo dirò a nessuno, signora Birkett.", "de": "Ich sage es niemandem, Frau Birkett.", "ok": true,
             "reply": { "face": "laugh", "en": "Good! Not even Mr Biscuit knows I told you.", "sl": "Dobro! Še gospod Piškot ne ve, da sem ti povedala.", "it": "Bene! Neanche il signor Biscotto sa che te l'ho detto.", "de": "Gut! Nicht mal Herr Keks weiß, dass ich es dir gesagt habe." } },
           { "en": "I won't tell anyone. Only the whole village!", "sl": "Nikomur ne bom {m:povedal|f:povedala}. Samo celi vasi!", "it": "Non lo dirò a nessuno. Solo a tutto il villaggio!", "de": "Ich sage es niemandem. Nur dem ganzen Dorf!",
