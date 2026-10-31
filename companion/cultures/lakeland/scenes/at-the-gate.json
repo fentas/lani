@@ -144,7 +144,7 @@
             "reply": { "face": "happy", "en": "Good. Together, then. Push!", "sl": "Dobro. Skupaj, torej. Potisni!", "it": "Bene. Insieme, allora. Spingi!", "de": "Gut. Zusammen also. Drück!", "fx": { "gate": 0 } } },
           { "en": "Good morning, Mr Dixon. Can I help?", "sl": "Dobro jutro, gospod Dixon. Lahko pomagam?", "it": "Buongiorno, signor Dixon. Posso aiutarLa?", "de": "Guten Morgen, Mr Dixon. Kann ich helfen?",
             "why": { "en": "It's evening: good evening. Good morning is until twelve.", "sl": "Večer je: good evening. Good morning rečeš do poldneva.", "it": "È sera: good evening. Good morning si dice fino a mezzogiorno.", "de": "Es ist Abend: good evening. Good morning sagt man bis zwölf Uhr." },
-            "reply": { "face": "cross", "en": "Morning? The sun's going down, {m:lad|f:lass}.", "sl": "Jutro? Sonce zahaja.", "it": "Mattina? Il sole sta tramontando, {m:ragazzo|f:ragazza}.", "de": "Morgen? Die Sonne geht unter, {m:Junge|f:Mädchen}." } }
+            "reply": { "face": "surprised", "en": "Morning? The sun's going down, {m:lad|f:lass}.", "sl": "Jutro? Sonce zahaja.", "it": "Mattina? Il sole sta tramontando, {m:ragazzo|f:ragazza}.", "de": "Morgen? Die Sonne geht unter, {m:Junge|f:Mädchen}." } }
         ] },
         { "who": "dixon", "en": "Now the bar. It's heavy. Put it across the gate.", "sl": "Zdaj pa zapah. Težak je. Daj ga čez vrata.", "it": "Adesso la sbarra. È pesante. Mettila di traverso sul portone.", "de": "Jetzt der Riegel. Er ist schwer. Leg ihn quer über das Tor." },
         { "choices": [
@@ -174,7 +174,7 @@
             "reply": { "face": "happy", "en": "Aye. Light them both.", "sl": "Ja. Prižgi obe.", "it": "Sì. Accendile tutte e due.", "de": "Ja. Zünd beide an." } },
           { "en": "They're on the bench!", "sl": "Na klopi sta!", "it": "Sono sulla panchina!", "de": "Sie sind auf der Bank!", "tap": "bench",
             "why": { "en": "Torches are up high, where they can light the gate.", "sl": "Bakle so visoko, da osvetlijo vrata.", "it": "Le torce stanno in alto, per illuminare il portone.", "de": "Fackeln sind oben, damit sie das Tor beleuchten." },
-            "reply": { "face": "cross", "en": "On the bench? Then we'd sit on them. Look up.", "sl": "Na klopi? Potem bi sedeli nanju. Poglej gor.", "it": "Sulla panchina? Allora ci sederemmo sopra. Guarda su.", "de": "Auf der Bank? Dann säßen wir drauf. Schau hoch." } },
+            "reply": { "face": "confused", "en": "On the bench? Then we'd sit on them. Look up.", "sl": "Na klopi? Potem bi sedeli nanju. Poglej gor.", "it": "Sulla panchina? Allora ci sederemmo sopra. Guarda su.", "de": "Auf der Bank? Dann säßen wir drauf. Schau hoch." } },
           { "en": "They're in the trough!", "sl": "V koritu sta!", "it": "Sono nell'abbeveratoio!", "de": "Sie sind im Trog!", "tap": "trough",
             "why": { "en": "Fire and water don't mix. Look up high, by the gate.", "sl": "Ogenj in voda ne gresta skupaj. Poglej visoko, pri vratih.", "it": "Fuoco e acqua non vanno d'accordo. Guarda in alto, vicino al portone.", "de": "Feuer und Wasser vertragen sich nicht. Schau hoch, am Tor." },
             "reply": { "face": "laugh", "en": "In the water? Wet torches don't burn, {m:lad|f:lass}.", "sl": "V vodi? Mokre bakle ne gorijo.", "it": "Nell'acqua? Le torce bagnate non bruciano, {m:ragazzo|f:ragazza}.", "de": "Im Wasser? Nasse Fackeln brennen nicht, {m:Junge|f:Mädchen}." } }
@@ -317,7 +317,7 @@
             "reply": { "face": "worried", "en": "Aye. Two, three. Hungry ones.", "sl": "Ja. Dva, trije. Lačni.", "it": "Sì. Due, tre. Affamati.", "de": "Ja. Zwei, drei. Hungrige." } },
           { "en": "I can see them! Are they wolfs?", "sl": "Vidim jih! So to volkovi?", "it": "Li vedo! Sono lupi?", "de": "Ich sehe sie! Sind das Wölfe?", "grammar": "plurals",
             "why": { "en": "One wolf, two wolves: the f becomes ves.", "sl": "One wolf, two wolves: f postane ves.", "it": "One wolf, two wolves: la f diventa ves.", "de": "One wolf, two wolves: aus f wird ves." },
-            "reply": { "face": "cross", "en": "Wolfs? No such thing. Again, {m:lad|f:lass}.", "sl": "Wolfs? Kaj takega ne obstaja. Še enkrat.", "it": "Wolfs? Non esiste. Di nuovo, {m:ragazzo|f:ragazza}.", "de": "Wolfs? Gibt's nicht. Noch mal, {m:Junge|f:Mädchen}." } },
+            "reply": { "face": "confused", "en": "Wolfs? No such thing. Again, {m:lad|f:lass}.", "sl": "Wolfs? Kaj takega ne obstaja. Še enkrat.", "it": "Wolfs? Non esiste. Di nuovo, {m:ragazzo|f:ragazza}.", "de": "Wolfs? Gibt's nicht. Noch mal, {m:Junge|f:Mädchen}." } },
           { "en": "I can see they! Are they wolves?", "sl": "Vidim jih! So to volkovi?", "it": "Li vedo! Sono lupi?", "de": "Ich sehe sie! Sind das Wölfe?",
             "why": { "en": "After a verb, they becomes them: I can see them.", "sl": "Za glagolom they postane them: I can see them.", "it": "Dopo un verbo they diventa them: I can see them.", "de": "Nach einem Verb wird they zu them: I can see them." },
             "reply": { "face": "confused", "en": "See they? Speak plain, {m:lad|f:lass}.", "sl": "See they? Govori naravnost.", "it": "See they? Parla chiaro, {m:ragazzo|f:ragazza}.", "de": "See they? Sprich deutlich, {m:Junge|f:Mädchen}." } }
@@ -328,7 +328,7 @@
             "reply": { "face": "shy", "en": "Hm. Good. Neither am I.", "sl": "Hm. Dobro. Mene tudi ne.", "it": "Mh. Bene. Nemmeno io.", "de": "Hm. Gut. Ich auch nicht." } },
           { "en": "With you here, I don't afraid, Mr Dixon.", "sl": "Z vami tukaj me ni strah, gospod Dixon.", "it": "Con Lei qui non ho paura, signor Dixon.", "de": "Mit Ihnen hier hab ich keine Angst, Mr Dixon.", "grammar": "to-be",
             "why": { "en": "Afraid isn't a verb: use be. I'm not afraid.", "sl": "Afraid ni glagol: uporabiš be. I'm not afraid.", "it": "Afraid non è un verbo: si usa be. I'm not afraid.", "de": "Afraid ist kein Verb: man nimmt be. I'm not afraid." },
-            "reply": { "face": "cross", "en": "Don't afraid? Hm. Say it right.", "sl": "Don't afraid? Hm. Povej prav.", "it": "Don't afraid? Mh. Dillo bene.", "de": "Don't afraid? Hm. Sag's richtig." } }
+            "reply": { "face": "confused", "en": "Don't afraid? Hm. Say it right.", "sl": "Don't afraid? Hm. Povej prav.", "it": "Don't afraid? Mh. Dillo bene.", "de": "Don't afraid? Hm. Sag's richtig." } }
         ], "puzzled": { "face": "confused", "en": "Eh? Again.", "sl": "Kaj? Še enkrat.", "it": "Eh? Di nuovo.", "de": "Hm? Noch mal." } },
         { "who": "dixon", "en": "Look. They're going back into the wood. Wolves sleep too.", "sl": "Poglej. Vračajo se v gozd. Tudi volkovi spijo.", "it": "Guarda. Tornano nel bosco. Anche i lupi dormono.", "de": "Schau. Sie gehen zurück in den Wald. Auch Wölfe schlafen.", "fx": { "wolves": 0 } }
       ]
@@ -344,7 +344,7 @@
             "reply": { "face": "happy", "en": "Aye. A drop of oil. There.", "sl": "Ja. Kapljico olja. Tako.", "it": "Sì. Una goccia d'olio. Ecco.", "de": "Ja. Einen Tropfen Öl. So." } },
           { "en": "Do it need some oil?", "sl": "Potrebuje malo olja?", "it": "Ha bisogno di un po' d'olio?", "de": "Braucht sie etwas Öl?", "grammar": "questions-do",
             "why": { "en": "It is one thing: Does it …? Do is for I, you, we and they.", "sl": "It je ena stvar: Does it …? Do je za I, you, we in they.", "it": "It è una cosa sola: Does it …? Do è per I, you, we e they.", "de": "It ist eine Sache: Does it …? Do ist für I, you, we und they." },
-            "reply": { "face": "cross", "en": "Do it? Hm. Try again.", "sl": "Do it? Hm. Poskusi znova.", "it": "Do it? Mh. Riprova.", "de": "Do it? Hm. Versuch's noch mal." } }
+            "reply": { "face": "confused", "en": "Do it? Hm. Try again.", "sl": "Do it? Hm. Poskusi znova.", "it": "Do it? Mh. Riprova.", "de": "Do it? Hm. Versuch's noch mal." } }
         ], "puzzled": { "face": "confused", "en": "Eh? Again.", "sl": "Kaj? Še enkrat.", "it": "Eh? Di nuovo.", "de": "Hm? Noch mal." } },
         { "who": "dixon", "en": "Now listen. Not a sound.", "sl": "Zdaj pa poslušaj. Niti glasu.", "it": "Adesso ascolta. Neanche un rumore.", "de": "Jetzt hör hin. Kein Laut.", "fx": { "gate": 1 } },
         { "choices": [
