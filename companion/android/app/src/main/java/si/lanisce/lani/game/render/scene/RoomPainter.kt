@@ -83,10 +83,17 @@ internal abstract class RoomPainter : DioramaPainter() {
     /** The painted dresser's paint, and the back of its shelves: blue with tulips on its panels, or ([cupboardPlain]) walnut with plain fielded panels. */
     protected var cupL = Col.hex(0x7C9EC4); protected var cupM = Col.hex(0x5A7EA8); protected var cupD = Col.hex(0x3E5C82); protected var cupBack = Col.hex(0x3E4E66)
     protected var cupboardPlain = false
+    /** What the window looks out on in Carinthia ("view": "karawanken"): a meadow, a larch and the grey limestone peaks of the Karawanken, snow on their tops. */
+    protected var karawanken = false
+    /** The dado of boards (material "dado": "wood", a Carinthian Stube's panelling of honey-coloured Zirbe), not paint. */
+    protected var woodDado = false
+    /** The holy corner as Carinthia has it ("corner": "herrgottswinkel"): the Palmbuschen behind the crucifix for the holy picture. */
+    protected var herrgott = false
 
     /**
      * Reads what the frame's culture paints its own way in the room (its walls' dado and border, the window's view, the
-     * dresser): once a frame, at the top of [paint]. The default culture's look keeps every one of them as it always was.
+     * dresser, the stove's tiles, the holy corner): once a frame, at the top of [paint]. The default culture's look keeps
+     * every one of them as it always was.
      */
     protected fun readLook() {
         dado = colour("dado", DADO); dadoD = colour("dado.d", DADO_D); border = colour("border", BORDER)
@@ -94,9 +101,14 @@ internal abstract class RoomPainter : DioramaPainter() {
         collio = variant("view") == "collio"
         cupboardPlain = variant("cupboard") == "walnut"
         cupL = colour("cupboard.l", paintL); cupM = colour("cupboard.m", paintM); cupD = colour("cupboard.d", paintD); cupBack = colour("cupboard.back", Col.hex(0x3E4E66))
+        tileL = colour("tile.l", TILE_L); tileM = colour("tile.m", TILE_M); tileD = colour("tile.d", TILE_D)
+        karawanken = variant("view") == "karawanken"
+        woodDado = material("dado", "paint") == "wood"
+        herrgott = variant("corner") == "herrgottswinkel"
     }
     protected val iron = Col.hex(0x34303A); protected val ironL = Col.hex(0x5E5A64); protected val ironD = Col.hex(0x1E1A20)
-    protected val tileL = Col.hex(0x9ACAA6); protected val tileM = Col.hex(0x6FA282); protected val tileD = Col.hex(0x4F8064); protected val grout = Col.hex(0xE6E0CA)
+    /** The stove's glazed tiles: green, or the culture's ("tile.l", "tile.m", "tile.d": Carinthia's white Sparherd, its dark green Kachelofen), read in [readLook]. */
+    protected var tileL = TILE_L; protected var tileM = TILE_M; protected var tileD = TILE_D; protected val grout = Col.hex(0xE6E0CA)
     protected val china = Col.hex(0xF7F5EE); protected val chinaD = Col.hex(0xD2CEC2); protected val chinaBlue = Col.hex(0x3E6FB0)
     protected val paintL = Col.hex(0x7C9EC4); protected val paintM = Col.hex(0x5A7EA8); protected val paintD = Col.hex(0x3E5C82)
     protected val brass = Col.hex(0xD9A441); protected val brassL = Col.hex(0xF6D27A); protected val brassD = Col.hex(0x96692A)
@@ -433,6 +445,8 @@ internal abstract class RoomPainter : DioramaPainter() {
     protected open fun inner(along: Float, z: Float, px: Int, py: Int, dim: Float, sootF: Float): Int {
         val h = z - fl
         var col = when {
+            woodDado && lv >= 2 && h < 7.4f -> panelling(along, h, px, py)
+            woodDado && lv >= 2 && h < 7.9f -> if (h > 7.75f) ZIRBE_L else ZIRBE_D
             lv >= 2 && h < 4.3f -> if (Dither.at(px, py) < 0.22f || Noise.rnd(px, py, 3) < 0.08f) dadoD else dado
             lv >= 2 && h < 4.9f -> border
             lv < 2 -> {
@@ -457,6 +471,27 @@ internal abstract class RoomPainter : DioramaPainter() {
         if (z > hw - 0.6f) col = limeL
         if (sootF > 0f) col = if (lv < 2) Col.mix(col, Col.hex(0x3A342E), sootF * 0.85f + (Dither.at(px, py) - 0.5f) * 0.12f) else Col.mix(col, Col.hex(0x6A6058), sootF * 0.7f)
         return Col.scale(col, dim)
+    }
+
+    /**
+     * The Stube's panelling ([woodDado]) at [along] cells and [h] nominal px up: upright boards of honey-coloured Zirbe, a dark
+     * joint between them, the grain running up each with a knot here and there, a skirting board along the floor.
+     */
+    protected fun panelling(along: Float, h: Float, px: Int, py: Int): Int {
+        if (h < 0.6f) return if (h > 0.45f) ZIRBE_L else ZIRBE_D
+        val bw = 0.42f
+        val b = along / bw; val bi = floor(b).toInt(); val f = (b - bi) * bw
+        if (f < 0.045f + 0.02f * (P - 1)) return ZIRBE_D
+        if (f < 0.09f) return ZIRBE_L
+        val grain = Noise.v2(along * 9f + bi * 3.1f, h * 0.35f, 61)
+        val knot = P > 1 && hypot((f - 0.22f) * 18f, (h - 2.5f - (bi % 3) * 1.6f) * 0.7f) < 0.7f && bi % 4 == 1
+        return when {
+            knot -> ZIRBE_D
+            grain > 0.68f -> Col.mix(ZIRBE_M, ZIRBE_D, 0.45f)
+            grain < 0.25f -> Col.mix(ZIRBE_M, ZIRBE_L, 0.55f)
+            Noise.rnd(px, py, 63) < 0.05f -> ZIRBE_L
+            else -> ZIRBE_M
+        }
     }
 
     /**
@@ -617,6 +652,7 @@ internal abstract class RoomPainter : DioramaPainter() {
             if (abs((u - fu) * ww) < 0.6f && abs((v - fv) * wh) < 0.6f) return Col.hex(0xFFFFFF)
         }
         if (collio) collioView(u, v, ww, wh, px, py)?.let { return it }
+        if (karawanken) karawankenView(u, v, ww, wh, px, py)?.let { return it }
         // the spruce and the hills
         val spruce = (0.64f - v) * wh * 0.38f - abs(u - 0.24f) * ww
         val far = 0.36f + Noise.v1(u * 2.4f + 1.3f, 5) * 0.14f
@@ -682,6 +718,47 @@ internal abstract class RoomPainter : DioramaPainter() {
         // the far hills, and the little church's tower on the highest
         val tower = abs((u - 0.68f) * ww) < 0.55f && v < far + 0.12f
         if (v < far || tower) return env.lit(if (tower) (if (v > far + 0.08f) Col.hex(0xB06A4A) else Col.hex(0xE8DCC4)) else if (snow) Col.hex(0xC8D4E4) else Col.hex(0x7E9A72))
+        return null
+    }
+
+    /**
+     * The Karawanken through the window at ([u], [v]) of the glass ([karawanken]): the meadow, a larch on the left (gold in
+     * October, bare in winter), the wooded foothills, and over them the grey limestone ridge, jagged, its gullies darker, snow
+     * on its tops from October to May (all of it white in winter); null above it, where the sky shows.
+     */
+    private fun karawankenView(u: Float, v: Float, ww: Float, wh: Float, px: Int, py: Int): Int? {
+        val snow = winter
+        val near = 0.18f + u * 0.08f + Noise.v1(u * 4f, 9) * 0.04f
+        // the larch: a narrow cone, its tiers of soft needles
+        val du = (u - 0.2f) * ww; val lt = (v - 0.12f) / 0.6f
+        if (lt in 0f..1f && abs(du) < 1.4f * (1f - lt) + 0.2f) {
+            if (abs(du) < 0.25f) return env.lit(Col.hex(0x5A3E2A))
+            val tier = ((lt * 7f) % 1f) < 0.35f
+            return env.lit(when {
+                snow -> if (tier) Pal.SNOW_L else Col.hex(0x6A5A48)
+                env.month == 10 || env.month == 11 -> if (tier) Col.hex(0xE0A83A) else Col.hex(0xC08A2A)
+                else -> if (tier) Col.hex(0x6E9A48) else Col.hex(0x4E7A36)
+            })
+        }
+        if (v < near) return env.lit(if (snow) (if (Dither.at(px, py) < 0.3f) Pal.SNOW_M else Pal.SNOW_L) else when (env.season) {
+            Season.AUTUMN -> if (Dither.at(px, py) < 0.3f) Col.hex(0x9A8A3E) else Col.hex(0xB09A48)
+            else -> if (Dither.at(px, py) < 0.3f) Col.hex(0x5C9A48) else Col.hex(0x72B25A)
+        })
+        // the wooded foothills
+        val wood = 0.3f + Noise.v1(u * 3.4f + 2f, 7) * 0.06f
+        if (v < wood) return env.lit(if (snow) Col.hex(0xB8C4CE) else if (Dither.at(px, py) < 0.25f) Col.hex(0x2E5A36) else Col.hex(0x3A6A40))
+        // the ridge: sharp peaks, its snow line, gullies down its face
+        val peaks = 0.62f + abs(((u * 3.1f + 0.3f) % 1f) - 0.5f) * -0.36f + Noise.v1(u * 9f, 13) * 0.07f
+        if (v < peaks) {
+            val top = peaks - v < 0.07f + (if (env.month in 10..12 || env.month in 1..5) 0.08f else 0f)
+            val gully = abs(((u * 13f + v * 3f) % 1f) - 0.5f) < 0.08f
+            return env.lit(when {
+                snow || top -> if (gully) Col.hex(0xC8D2DE) else Col.hex(0xEEF2F6)
+                gully -> Col.hex(0x7E8288)
+                Dither.at(px, py) < 0.2f -> Col.hex(0x9EA2A6)
+                else -> Col.hex(0xAEB0B2)
+            })
+        }
         return null
     }
 
@@ -1533,8 +1610,10 @@ internal abstract class RoomPainter : DioramaPainter() {
     protected fun corner() {
         val cy = y1 - 0.48f; val sz = fl + 13.4f
         val dark = Col.hex(0x5A3A22); val darkL = Col.hex(0x7E5634); val darkD = Col.hex(0x3A2414)
+        // Carinthia's Herrgottswinkel ([herrgott]): the Palmbuschen tucked behind the crucifix, no picture
+        if (herrgott) palmbuschen(cy, sz)
         // the picture on the wall beside the corner: a gilt frame, the Virgin's blue cloak and red dress
-        onX(x0 + 0.03f, cy - 2.05f, cy - 1.15f, sz + 3f, sz + 8.4f) { y, z, _, _ ->
+        else onX(x0 + 0.03f, cy - 2.05f, cy - 1.15f, sz + 3f, sz + 8.4f) { y, z, _, _ ->
             val u = (y - (cy - 2.05f)) / 0.9f; val v = (z - sz - 3f) / 5.4f
             when {
                 u < 0.12f || u > 0.88f || v < 0.08f || v > 0.92f -> if (u < 0.12f || v > 0.92f) brassL else brass
@@ -1571,6 +1650,39 @@ internal abstract class RoomPainter : DioramaPainter() {
         val vx = iso.ix(x0 + 0.32f, cy - 0.28f); val vy = iso.iy(x0 + 0.32f, cy - 0.28f, sz)
         c.fillRect(vx - P, vy - 2 * P, 2 * P + 1, 2 * P, Col.hex(0x3E6FB0))
         for (k in -1..1) c.line(vx, vy - 2 * P, vx + k * 2 * P, vy - (5 + abs(k)) * P, Col.hex(0x6E8A5A))
+    }
+
+    /**
+     * The Palmbuschen of a Carinthian Herrgottswinkel ([herrgott]): the bundle blessed on Palm Sunday, tucked in behind the
+     * crucifix, on the left wall beside it: willow twigs with their grey catkins and sprigs of box and juniper fanning up from
+     * the binding, ribbons in red, yellow and white hanging down from it, a crisp apple at its foot closer up.
+     */
+    protected fun palmbuschen(cy: Float, sz: Float) {
+        val by = cy - 1.25f; val bz = sz + 2.6f
+        val bx = iso.ix(x0 + 0.04f, by); val bt = iso.iy(x0 + 0.04f, by, bz)
+        // the twigs, from the binding up and out
+        for (k in 0..6) {
+            val lean = (k - 3) * 0.9f
+            val len = (9 + (k % 3) * 2) * P
+            val tx = bx + (lean * P).toInt(); val ty = bt - len
+            c.line(bx, bt, tx, ty, if (k % 2 == 0) Col.hex(0x6A4A30) else Col.hex(0x7E5A3A))
+            // catkins (grey, soft) on the willow, green box on the others
+            val leaf = if (k % 3 == 0) Col.hex(0xCFCBC2) else if (k % 3 == 1) Col.hex(0x3E7A3A) else Col.hex(0x5A8A44)
+            for (j in 1..3) {
+                val fx = bx + ((tx - bx) * j / 3.5f).toInt(); val fy = bt + ((ty - bt) * j / 3.5f).toInt()
+                c.set(fx - 1, fy, leaf); c.set(fx + 1, fy - 1, leaf)
+                if (P > 1) { c.set(fx, fy - 1, leaf); c.set(fx - 1, fy - 1, Col.mix(leaf, Col.hex(0xFFFFFF), 0.2f)) }
+            }
+            c.set(tx, ty, if (k % 3 == 0) Col.hex(0xE6E2D8) else Col.hex(0x4E8A40))
+        }
+        // the binding and the ribbons hanging from it, red, yellow, white
+        c.fillRect(bx - P, bt - P, 2 * P + 1, 2 * P, Col.hex(0x8A2A22))
+        for ((i, rc) in intArrayOf(Col.hex(0xD23A32), Col.hex(0xF0C838), Col.hex(0xF6F2EA), Col.hex(0xD23A32)).withIndex()) {
+            val rx = bx - P + i * P / 2 + (i - 1)
+            val len = (5 + (i % 2) * 2) * P
+            for (j in 0 until len) c.set(rx + (if ((j / P) % 3 == 1) 1 else 0), bt + P + j, rc)
+        }
+        if (P > 1) c.fillRect(bx - P / 2, bt + 2 * P, P, P, Col.hex(0xC8402E))
     }
 
     // ------------------------------------------------------------------ the left wall
@@ -2982,6 +3094,9 @@ internal abstract class RoomPainter : DioramaPainter() {
 
         /** The painted dado of the walls from level 2, its stipple, and the red line over it and round the stencilled border. */
         val DADO = Col.hex(0x93A98F); val DADO_D = Col.hex(0x7C927A); val BORDER = Col.hex(0xB0503C)
+        val TILE_L = Col.hex(0x9ACAA6); val TILE_M = Col.hex(0x6FA282); val TILE_D = Col.hex(0x4F8064)
+        /** A Carinthian Stube's boards (Zirbe, the Swiss stone pine): honey, its grain and its joints. */
+        val ZIRBE_L = Col.hex(0xE2B47A); val ZIRBE_M = Col.hex(0xC8945A); val ZIRBE_D = Col.hex(0x9A6A3C)
 
         /** The grapes of the vine frieze ([vineStencil]): the berries' middles (eighths of a cell, nominal px) and colours. */
         private val GRAPES = listOf(-0.22f to 0.55f, 0.22f to 0.55f, 0f to 0.1f, -0.42f to 0.12f, 0.42f to 0.12f, -0.2f to -0.32f, 0.2f to -0.32f, 0f to -0.74f)

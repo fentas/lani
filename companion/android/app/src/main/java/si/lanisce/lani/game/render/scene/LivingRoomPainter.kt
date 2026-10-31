@@ -84,6 +84,15 @@ internal class LivingRoomPainter : RoomPainter() {
      */
     private var fogolar = false
 
+    /**
+     * Carinthia's look ([look]: the living room's "stove" is "kachelofen"; companion/SCENES.md "Culture looks"): Opa Sepp's
+     * Stube. The Kachelofen for the kmečka peč, whitewashed at level 1 and from level 2 of dark green bowl tiles
+     * (Schüsselkacheln: rows of round glazed hollows set in white lime), its rail for the socks; the walls panelled in
+     * honey-coloured Zirbe (material "dado": "wood"), the Herrgottswinkel with its Palmbuschen for the holy corner, the
+     * Karawanken through the window ([readLook]).
+     */
+    private var kachel = false
+
     /** No soot: the stove is fed from the kitchen. Friuli's fogolâr blackens its corner until its hood comes (level 2). */
     override fun soot(d: Float, z: Float): Float {
         if (!fogolar || lv >= 2 || z < hz) return 0f
@@ -107,6 +116,7 @@ internal class LivingRoomPainter : RoomPainter() {
         lv = frame.world.hereLevel.coerceIn(1, 5)
         readLook()
         fogolar = variant("stove") == "fogolar"
+        kachel = variant("stove") == "kachelofen"
         val asleep = peopleAt(BED).firstOrNull()
         // the lamp over the table burns from dusk, and is put out for whoever is asleep
         val lit = env.windows > 0.35f && there("lamp") && !asleepHere
@@ -237,7 +247,7 @@ internal class LivingRoomPainter : RoomPainter() {
 
     /** A face of the stove at [a] cells along and height [z]: tiles on an iron plinth, or plaster over a grey plinth; warmed by [warm]. */
     private fun face(a: Float, z: Float, px: Int, py: Int, dim: Float, tiled: Boolean, warm: Float): Int {
-        val col = if (tiled) tiles(a, z, px, py, dim) else {
+        val col = if (tiled && kachel) bowlTiles(a, z, px, py, dim) else if (tiled) tiles(a, z, px, py, dim) else {
             val h = z - fl
             val n = Noise.rnd(px, py, 93)
             val crack = abs(Noise.v2(a * 2.2f, h * 0.2f, 95) - 0.5f) < 0.012f && h > 3f
@@ -252,10 +262,35 @@ internal class LivingRoomPainter : RoomPainter() {
         return if (warm > 0.02f) Col.mix(col, Col.hex(0xFFA060), 0.14f * warm) else col
     }
 
+    /**
+     * The Kachelofen's bowl tiles ([kachel]) at [a] cells along and height [z]: a grid of square tiles in white lime, each a
+     * round hollow glazed dark green, lit on its lower right where the light from the room falls into it, its rim catching
+     * the light on the upper left; on a stone plinth.
+     */
+    private fun bowlTiles(a: Float, z: Float, px: Int, py: Int, dim: Float): Int {
+        val h = z - fl
+        if (h < 0.9f) return Col.scale(if (Noise.rnd(px, py, 41) < 0.4f) Pal.STONE_D else Pal.STONE_M, dim)
+        val tw = 0.62f; val th = 2.8f
+        val fu = a - floor(a / tw) * tw; val hv = h - 0.9f; val fv = hv - floor(hv / th) * th
+        val du = (fu / tw - 0.5f) * 2f; val dv = (fv / th - 0.5f) * 2f
+        val r = hypot(du, dv)
+        val col = when {
+            fu < 0.08f || fv < 0.35f -> grout
+            r > 0.86f -> if (du + dv < 0f) Col.mix(grout, tileL, 0.25f) else Col.mix(grout, tileD, 0.2f)
+            r > 0.7f -> if (du - dv < -0.2f) tileL else tileM
+            // the hollow: dark at its far side, the glaze pooling, a glint where the light falls in
+            du - dv > 0.35f && r < 0.5f -> if (P > 1 && r < 0.22f) Col.mix(tileL, Col.hex(0xFFFFFF), 0.25f) else tileM
+            Noise.rnd(px, py, 43) > 0.96f -> tileM
+            else -> tileD
+        }
+        return Col.scale(col, dim)
+    }
+
     /** The cap on the stove at [a] cells along and [h] up its [ch]: its upper edge rounded (lighter), tiles or plaster. */
     private fun cap(a: Float, h: Float, ch: Float, px: Int, py: Int, dim: Float, tiled: Boolean): Int {
         val round = h > ch - 0.8f
         val col = when {
+            tiled && kachel && !round -> bowlTiles(a, fl + 0.9f + h * 0.9f, px, py, 1f)
             tiled && !round -> tiles(a, fl + 0.9f + h * 0.9f, px, py, 1f)
             tiled -> tileL
             round -> limeL

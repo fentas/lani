@@ -81,6 +81,8 @@ internal class FieldPainter : WildPainter() {
     private val cartD = 18.5f
 
     private companion object {
+        /** The Harpfe's larch, weathered silver-grey ([harpfe]): lit, middle, dark and its darkest. */
+        val HARPFE_L = Col.hex(0xB4ADA2); val HARPFE_M = Col.hex(0x8E877C); val HARPFE_D = Col.hex(0x625C54); val HARPFE_X = Col.hex(0x423E3A)
         /** The village project this field shows as it's built: the double hayrack. */
         const val TOPLAR = "toplar"
 
@@ -196,7 +198,8 @@ internal class FieldPainter : WildPainter() {
         setup()
         val season = env.season
         val k = detail
-        fienile = variant("kozolec") != null
+        fienile = variant("kozolec") == "fienile"
+        harpfe = variant("kozolec") == "harpfe"
         collio = variant("hills") != null
         piantata = variant("trees") != null
         pannocchie = variant("toplar") != null
@@ -319,13 +322,16 @@ internal class FieldPainter : WildPainter() {
         var top = (vx + 30 * k).toInt().coerceIn(0, w - 1)
         for (x in (vx + 10 * k).toInt()..(vx + 70 * k).toInt()) if (x in 0 until w && near[x] < near[top]) top = x
         val st = villageStyle
-        if (st != null) villageFriuli(near, top, st) else village(near, top)
+        val alpine = st?.tower == Tower.ONION
+        if (st != null && alpine) villageKaernten(near, top, st) else if (st != null) villageFriuli(near, top, st) else village(near, top)
         // farmsteads here and there on the slopes
         for (i in 0 until 5) {
             val fx = (ox + Noise.rnd(i, 63) * STAGE_W * k).toInt()
             if (fx !in 4 * k until w - 6 * k || abs(fx - top) < 40 * k) continue
-            if (st != null) farmsteadFriuli(fx, near[fx] + (3 + (Noise.rnd(i, 64) * 3).toInt()) * k, i, st)
-            else farmstead(fx, near[fx] + (3 + (Noise.rnd(i, 64) * 3).toInt()) * k, i)
+            val fb = near[fx] + (3 + (Noise.rnd(i, 64) * 3).toInt()) * k
+            if (st != null && alpine) farmsteadKaernten(fx, fb, i, st)
+            else if (st != null) farmsteadFriuli(fx, fb, i, st)
+            else farmstead(fx, fb, i)
         }
     }
 
@@ -504,6 +510,46 @@ internal class FieldPainter : WildPainter() {
         }
         val bell = farCampanile(cx - 4 * k, base, st, lit, 0.15f)
         belfryX = bell[0]; belfryY = bell[1]
+        c.penEmissive = false
+    }
+
+    /**
+     * The village on the near hill as Carinthia builds it ([villageStyle], [FireStyle]'s Carinthian colours): white houses with
+     * their timbered upper storeys and balconies under steep dark shingles ([farAlpineHouse]), smoke from a chimney or two, and
+     * in the middle the white church with its onion dome of green copper ([farOnionChurch]), where the evening bell rings.
+     */
+    private fun villageKaernten(crest: IntArray, cx: Int, st: FireStyle) {
+        val lit = env.windows > 0.35f
+        val k = detail
+        c.penEmissive = true
+        val base = crest[cx.coerceIn(0, w - 1)] + 3 * k
+        for ((i, off) in intArrayOf(-28, -19, -11, 14, 22, 30).withIndex()) {
+            val hx = cx + off * k; if (hx !in 2 * k until w - 8 * k) continue
+            val hw = (6 + (i % 2)) * k; val hh = (if (i % 3 == 1) 6 else 5) * k
+            val hb = min(base + k, crest[hx.coerceIn(0, w - 1)] + 4 * k)
+            farAlpineHouse(hx, hb, hw, hh, st, i, lit, 0.15f)
+            if (i % 3 == 0 && env.dark < 0.8f) s.smoke(hx + hw - 1.5f * k, hb - hh - 4f * k, 0.35f, i + 5)
+        }
+        val bell = farOnionChurch(cx - 4 * k, base, st, lit, 0.15f)
+        belfryX = bell[0]; belfryY = bell[1]
+        c.penEmissive = false
+    }
+
+    /** A Carinthian farmstead far off ([st]'s colours): the house with its timbered storey, and every other one a little Harpfe beside it. */
+    private fun farmsteadKaernten(x: Int, base: Int, seed: Int, st: FireStyle) {
+        val k = detail
+        val lit = env.windows > 0.35f
+        c.penEmissive = true
+        if (seed % 2 == 0) {
+            // the Harpfe: two grey posts, the poles across, a dark shingle roof over them
+            val hx = x + 6 * k
+            val wood = far(HARPFE_M, 0.12f); val roof = far(if (env.snow) Pal.SNOW_M else st.roof[2], 0.12f)
+            c.vline(hx, base - 4 * k, base - 1, wood); c.vline(hx + 4 * k, base - 4 * k, base - 1, wood)
+            for (r in 1..3) c.hline(hx, hx + 4 * k, base - r * k, if (env.month in 6..10) far(Pal.HAY_M, 0.12f) else wood)
+            c.hline(hx - k / 2 - 1, hx + 4 * k + k / 2 + 1, base - 4 * k - 1, roof)
+            if (k > 1) c.hline(hx - k / 2, hx + 4 * k + k / 2, base - 4 * k - 2, roof)
+        }
+        farAlpineHouse(x, base, 5 * k, 4 * k, st, seed + 1, lit, 0.12f)
         c.penEmissive = false
     }
 
@@ -1257,21 +1303,21 @@ internal class FieldPainter : WildPainter() {
         // its posts, as many bays as the level has (the bays the full kozolec's)
         val xs = (0..kBays).map { gx(xa + (xb - xa) * it / 3f, d) }
         val xr = xs.last()
-        val eave = by - 4.4f * p; val ridge = by - 5.4f * p
+        val eave = by - kEave * p; val ridge = by - kRidge * p
         val pw = max(2f, 0.26f * p)
         // rails first, then the posts over them
-        for (z in rails) {
+        for (z in kRails) {
             val y = (by - z * p).toInt()
-            c.hline(xs[0].toInt(), xr.toInt(), y, Pal.WOOD_L); c.hline(xs[0].toInt(), xr.toInt(), y + 1, Pal.WOOD_D)
+            c.hline(xs[0].toInt(), xr.toInt(), y, woodL); c.hline(xs[0].toInt(), xr.toInt(), y + 1, woodD)
         }
         for (x in xs) {
-            c.fillRect((x - pw / 2).toInt(), eave.toInt(), pw.toInt(), (by - eave).toInt(), Pal.WOOD_M)
-            c.vline((x - pw / 2).toInt(), eave.toInt(), by.toInt() - 1, Pal.WOOD_L)
-            c.vline((x + pw / 2).toInt() - 1, eave.toInt(), by.toInt() - 1, Pal.WOOD_D)
+            c.fillRect((x - pw / 2).toInt(), eave.toInt(), pw.toInt(), (by - eave).toInt(), woodM)
+            c.vline((x - pw / 2).toInt(), eave.toInt(), by.toInt() - 1, woodL)
+            c.vline((x + pw / 2).toInt() - 1, eave.toInt(), by.toInt() - 1, woodD)
             c.fillRect((x - pw).toInt(), (by - 0.22f * p).toInt(), (pw * 2).toInt(), (0.22f * p).toInt() + 1, Pal.STONE_M)
             c.hline((x - pw).toInt(), (x + pw).toInt() - 1, (by - 0.22f * p).toInt(), Pal.STONE_L)
-            c.line(x.toInt(), (eave + 0.8f * p).toInt(), (x - 0.7f * p).toInt(), eave.toInt(), Pal.WOOD_D)
-            c.line(x.toInt(), (eave + 0.8f * p).toInt(), (x + 0.7f * p).toInt(), eave.toInt(), Pal.WOOD_D)
+            c.line(x.toInt(), (eave + 0.8f * p).toInt(), (x - 0.7f * p).toInt(), eave.toInt(), woodD)
+            c.line(x.toInt(), (eave + 0.8f * p).toInt(), (x + 0.7f * p).toInt(), eave.toInt(), woodD)
         }
         // the roof: its front slope as a band widening down to the eaves, shingled; snow on it in winter
         val over = 0.8f * p
@@ -1290,8 +1336,8 @@ internal class FieldPainter : WildPainter() {
             c.hline(xl, xrr, y, col)
             if (!env.snow && p > 9f && (y - ridge.toInt()) % step != 0) { var sx = xl + (row % 2) * 3; while (sx < xrr) { c.set(sx, y, Pal.SHINGLE_D); sx += 6 } }
         }
-        c.hline((xs[0] - over - 0.25f * p).toInt(), (xr + over + 0.25f * p).toInt(), ridge.toInt() - 1, if (env.snow) Pal.SNOW_L else Pal.WOOD_X)
-        c.hline((xs[0] - over).toInt(), (xr + over).toInt(), eave.toInt() + 1, Pal.WOOD_X)
+        c.hline((xs[0] - over - 0.25f * p).toInt(), (xr + over + 0.25f * p).toInt(), ridge.toInt() - 1, if (env.snow) Pal.SNOW_L else woodX)
+        c.hline((xs[0] - over).toInt(), (xr + over).toInt(), eave.toInt() + 1, woodX)
     }
 
     /** A row of the kozolec's first roof, of boards down its slope (before the shingles): seams between them, snow in winter. */
@@ -1301,10 +1347,10 @@ internal class FieldPainter : WildPainter() {
             val b = floor((x - xl) / bw).toInt(); val f = (x - xl) / bw - b
             c.set(x, y, when {
                 env.snow && u < 0.75f -> if (f < 0.12f) Pal.SNOW_M else Pal.SNOW_L
-                f < 0.12f -> Pal.WOOD_X
-                Noise.rnd(b, 85) < 0.35f -> Pal.WOOD_L
-                u > 0.85f -> Pal.WOOD_D
-                else -> Pal.WOOD_M
+                f < 0.12f -> woodX
+                Noise.rnd(b, 85) < 0.35f -> woodL
+                u > 0.85f -> woodD
+                else -> woodM
             })
         }
     }
@@ -1315,27 +1361,27 @@ internal class FieldPainter : WildPainter() {
         val p = pm(d); val by = gy(d)
         val xs = (0..kBays).map { gx(xa + (xb - xa) * it / 3f, d) }
         val xl3 = xs.last()
-        val eave = by - 4.4f * p; val ridge = by - 5.4f * p
+        val eave = by - kEave * p; val ridge = by - kRidge * p
         val pw = max(2f, 0.26f * p)
-        val grain = Col.mix(Pal.WOOD_M, Pal.WOOD_D, 0.45f)
-        val railMid = Col.mix(Pal.WOOD_L, Pal.WOOD_M, 0.5f)
-        for ((ri, z) in rails.withIndex()) {
+        val grain = Col.mix(woodM, woodD, 0.45f)
+        val railMid = Col.mix(woodL, woodM, 0.5f)
+        for ((ri, z) in kRails.withIndex()) {
             val y = (by - z * p).toInt()
             val th = 2 * k
-            for (j in 0 until th) c.hline(xs[0].toInt(), xl3.toInt(), y + j, when (j) { 0 -> Pal.WOOD_L; th - 1 -> Pal.WOOD_D; 1 -> railMid; else -> Pal.WOOD_M })
+            for (j in 0 until th) c.hline(xs[0].toInt(), xl3.toInt(), y + j, when (j) { 0 -> woodL; th - 1 -> woodD; 1 -> railMid; else -> woodM })
             for (xx in max(xs[0].toInt(), c.left)..min(xl3.toInt(), c.right - 1)) if (Noise.rnd(xx / 5, ri, 74) < 0.3f && xx % 5 != 0) c.set(xx, y + th / 2, grain)
         }
         for ((pi, x) in xs.withIndex()) {
             val x0 = (x - pw / 2).toInt(); val pwi = pw.toInt()
-            c.fillRect(x0, eave.toInt(), pwi, (by - eave).toInt(), Pal.WOOD_M)
-            c.vline(x0, eave.toInt(), by.toInt() - 1, Pal.WOOD_L)
-            c.vline((x + pw / 2).toInt() - 1, eave.toInt(), by.toInt() - 1, Pal.WOOD_D)
+            c.fillRect(x0, eave.toInt(), pwi, (by - eave).toInt(), woodM)
+            c.vline(x0, eave.toInt(), by.toInt() - 1, woodL)
+            c.vline((x + pw / 2).toInt() - 1, eave.toInt(), by.toInt() - 1, woodD)
             for (gc in x0 + 1 until x0 + pwi - 1) {
                 if (gc < c.left || gc >= c.right || Noise.rnd(gc, pi, 75) > 0.45f) continue
                 for (yy in max(eave.toInt(), c.top) until min(by.toInt(), c.bottom)) if (Noise.rnd(gc, yy / 4, 76) < 0.55f) c.set(gc, yy, grain)
             }
             // the pegs through the rails
-            for (z in rails) { val y = (by - z * p).toInt(); c.fillRect(x.toInt() - 1, y + k - 1, 2, 2, Pal.WOOD_D); c.set(x.toInt() - 1, y + k - 1, Pal.WOOD_L) }
+            for (z in kRails) { val y = (by - z * p).toInt(); c.fillRect(x.toInt() - 1, y + k - 1, 2, 2, woodD); c.set(x.toInt() - 1, y + k - 1, woodL) }
             // the stone foot, lit on top, a crack in it
             val fy = (by - 0.22f * p).toInt()
             c.fillRect((x - pw).toInt(), fy, (pw * 2).toInt(), (0.22f * p).toInt() + 1, Pal.STONE_M)
@@ -1344,7 +1390,7 @@ internal class FieldPainter : WildPainter() {
             c.line((x - pw * 0.3f).toInt(), fy + 1, (x - pw * 0.1f).toInt(), by.toInt() - 1, Pal.STONE_D)
             // braces under the eave, lit along their tops
             for (i in 0 until k) {
-                val col = if (i == 0) Pal.WOOD_M else Pal.WOOD_D
+                val col = if (i == 0) woodM else woodD
                 c.line(x.toInt(), (eave + 0.8f * p).toInt() + i, (x - 0.7f * p).toInt(), eave.toInt() + i, col)
                 c.line(x.toInt(), (eave + 0.8f * p).toInt() + i, (x + 0.7f * p).toInt(), eave.toInt() + i, col)
             }
@@ -1381,13 +1427,29 @@ internal class FieldPainter : WildPainter() {
         }
         val th = max(1, k - 1)
         for (i in 0 until th) {
-            c.hline((xs[0] - over - 0.25f * p).toInt(), (xl3 + over + 0.25f * p).toInt(), ridge.toInt() - 1 - i, if (env.snow) Pal.SNOW_L else Pal.WOOD_X)
-            c.hline((xs[0] - over).toInt(), (xl3 + over).toInt(), eave.toInt() + 1 + i, if (i == 0) Pal.WOOD_X else Pal.WOOD_D)
+            c.hline((xs[0] - over - 0.25f * p).toInt(), (xl3 + over + 0.25f * p).toInt(), ridge.toInt() - 1 - i, if (env.snow) Pal.SNOW_L else woodX)
+            c.hline((xs[0] - over).toInt(), (xl3 + over).toInt(), eave.toInt() + 1 + i, if (i == 0) woodX else woodD)
         }
     }
 
     /** The kozolec's rails, heights in metres. */
     private val rails = floatArrayOf(0.85f, 1.5f, 2.15f, 2.8f, 3.45f, 4.05f)
+
+    /**
+     * Carinthia's Harpfe for the kozolec ([variant] "kozolec": "harpfe"; companion/SCENES.md "Culture looks"): taller, its
+     * many thin poles close together like a harp's strings (its name), of larch weathered silver-grey, under a steeper roof
+     * of dark shingles; its levels as the kozolec's (the bays, the boards, then the shingles).
+     */
+    private var harpfe = false
+    private val harpfeRails = floatArrayOf(0.7f, 1.15f, 1.6f, 2.05f, 2.5f, 2.95f, 3.4f, 3.85f, 4.3f)
+    /** The hayrack's rails, its eave's and its ridge's height (m) and its wood as the frame's culture builds it: the kozolec's, or the Harpfe's. */
+    private val kRails: FloatArray get() = if (harpfe) harpfeRails else rails
+    private val kEave: Float get() = if (harpfe) 4.85f else 4.4f
+    private val kRidge: Float get() = if (harpfe) 6.3f else 5.4f
+    private val woodL: Int get() = if (harpfe) HARPFE_L else Pal.WOOD_L
+    private val woodM: Int get() = if (harpfe) HARPFE_M else Pal.WOOD_M
+    private val woodD: Int get() = if (harpfe) HARPFE_D else Pal.WOOD_D
+    private val woodX: Int get() = if (harpfe) HARPFE_X else Pal.WOOD_X
 
     // ------------------------------------------------------------------ Friuli's fienile
 
@@ -1805,7 +1867,7 @@ internal class FieldPainter : WildPainter() {
             val x0 = gx(xa + (xb - xa) * bay / 3f, d).toInt() + max(2, (0.2f * p).toInt())
             val x1 = gx(xa + (xb - xa) * (bay + 1) / 3f, d).toInt() - max(2, (0.2f * p).toInt())
             for (kk in 0 until fill[bay]) {
-                val top = (by - rails[kk] * p).toInt() - k
+                val top = (by - kRails[kk] * p).toInt() - k
                 val hangM = 0.52f * p
                 if (k == 1) {
                     for (x in x0..x1) {

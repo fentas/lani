@@ -189,6 +189,15 @@ internal class SquarePainter : VistaPainter() {
     /** Friuli's greasy pole with its wheel of prizes, and its fountain's stone pine cone ([maypole], [trough]). */
     private var cuccagna = false
     private var pigna = false
+    /**
+     * Carinthia's look ([style]'s tower an onion): the houses white below with a timbered upper storey and a balcony of
+     * geraniums under dark shingles ([house], [roof]), the church's tower under an onion dome of green copper ([church]),
+     * Kathi's Gasthaus zur Linde with its wrought-iron sign ([gasthaus]), the village's wooden fountain for the well
+     * ([trough]: a trough hewn from a larch log, its spout on a post), the Maibaum's ribbons red and white.
+     */
+    private var alpine = false
+    private var gasthaus = false
+    private var trough = false
 
     override fun paint() {
         setup()
@@ -198,12 +207,15 @@ internal class SquarePainter : VistaPainter() {
         wellLevel = frame.world.level(BuildingType.WELL).coerceIn(1, Catalog.MAX_LEVEL)
         LINDEN[lipa - 1].let { trunkH = it[0]; trunkHalf = it[1]; crown = it[2] }
         style = if (variant("village") != null) FireStyle.of(frame.world.culture, frame.world.landscape) else null
-        friWell = variant("well") != null
+        friWell = variant("well") == "vera"
         friBench = variant("bench") != null
-        osteria = variant("osteria") != null
+        osteria = variant("osteria") == "frasca"
         collio = variant("hills") != null
         shutterC = style?.shutter ?: Pal.SHUTTER
-        cuccagna = variant("maypole") != null
+        cuccagna = variant("maypole") == "cuccagna"
+        alpine = style?.tower == Tower.ONION
+        gasthaus = variant("osteria") == "gasthaus"
+        trough = variant("well") == "trough"
         pigna = variant("fountain") != null
         // ---- sky: the sun is a thing by day; at night the moon stands in its place as scenery
         sky(0, hz + 2 * k)
@@ -221,7 +233,7 @@ internal class SquarePainter : VistaPainter() {
         items.clear()
         // what the village has built stands here only once it's there (the church, the well), the maypole and the fountain as
         // far as they've come
-        if (there("tower")) items.add(churchD to { thing("tower") { style?.let { churchFriuli(it) } ?: church() } })
+        if (there("tower")) items.add(churchD to { thing("tower") { style?.let { if (alpine) church(it) else churchFriuli(it) } ?: church() } })
         maypole()
         fountain()
         // what a dialog brings: a cart up the square, the band under the linden, couples dancing
@@ -438,7 +450,17 @@ internal class SquarePainter : VistaPainter() {
                 c.polyFill(Col.mix(Pal.WOOD_D, Pal.ROOF_D, 0.5f))
             }
             c.polyBegin(); c.polyAdd(x0, by); c.polyAdd(x1, by); c.polyAdd(x1, by - top * p); c.polyAdd(xm, by - (top + 3.2f) * p); c.polyAdd(x0, by - top * p)
-            if (k == 1) c.polyFill { px, py -> if (py > by - 0.5f * p) Pal.STONE_M else if (Noise.rnd(px, py, 17) < 0.06f) wallDC else Col.mix(wallC, wallDC, 0.35f) }
+            if (alpine) c.polyFill { px, py ->
+                val z = (by - py) / p
+                when {
+                    py > by - 0.5f * p -> Pal.STONE_M
+                    // Carinthia: the gable's upper storey of dark boards above the white wall
+                    z > top - 2.7f -> if (k > 1 && Math.floorMod(((px - x0) / max(1f, 0.32f * p)).toInt(), 2) == 0 && ((px - x0) % max(2f, 0.32f * p)) < 1f) TIMBER_L else TIMBER
+                    Noise.rnd(px, py, 17) < 0.06f -> wallDC
+                    else -> Col.mix(wallC, wallDC, 0.35f)
+                }
+            }
+            else if (k == 1) c.polyFill { px, py -> if (py > by - 0.5f * p) Pal.STONE_M else if (Noise.rnd(px, py, 17) < 0.06f) wallDC else Col.mix(wallC, wallDC, 0.35f) }
             else {
                 val shade = Col.mix(wallC, wallDC, 0.35f)
                 c.polyFill { px, py ->
@@ -473,6 +495,8 @@ internal class SquarePainter : VistaPainter() {
             val sill = inBays && !door && bf in 0.7f..1.6f && (abs(z - 0.95f) < 0.12f || (hs.floors == 2 && abs(z - 3.75f) < 0.12f))
             val flower = sill && summer && Noise.rnd(px, py, 19) < 0.7f
             c.penEmissive = win && lit
+            // Carinthia: the upper storey timbered, its balcony across the front, geraniums on it in summer
+            if (alpine && hs.floors == 2) alpineFront(z, along, hs.d1 - hs.d0, win, shutter, summer, lit, px, py, 1f / pm(d))?.let { return@polyFill it }
             if (k == 1) when {
                 z < 0.45f -> if (Noise.rnd(px, py, 21) < 0.3f) Pal.STONE_D else Pal.STONE_M
                 door -> if (bf < 0.78f || bf > 1.52f || z > 2.2f) Pal.WOOD_X else if (abs(bf - 1.15f) < 0.04f) Col.scale(Pal.DOOR, 0.8f) else Pal.DOOR
@@ -542,6 +566,8 @@ internal class SquarePainter : VistaPainter() {
         roof(xw, hs.d0, hs.d1, top)
         // Marisa's osteria in Friuli's piazza: its sign over the door and the frasca hung beside it
         if (near && osteria) osteriaFront(hs, top)
+        // Kathi's Gasthaus zur Linde in Carinthia's square: its wrought-iron sign over the door
+        if (near && gasthaus) gasthausSign(hs)
         // a chimney
         val cd = (hs.d0 + hs.d1) / 2f + 1.2f
         val cxp = gx(xw + 1.6f, cd); val cp = pm(cd); val cy = gy(cd) - (top + 2.6f) * cp
@@ -568,6 +594,35 @@ internal class SquarePainter : VistaPainter() {
         if (env.month !in 6..8 || env.dark > 0.5f) s.smoke(cxp, cy - 1.6f * cp, 0.6f, (hs.d0 * 3).toInt())
     }
 
+    /**
+     * Carinthia's upper storey of a two-storey house front ([alpine]) at [z] m up and [along] m along its [len], or null where
+     * the art's own front shows (the white storey below, the windows): dark larch boards running across, the balcony across the
+     * whole front from 3.5 to 4.4 m (its floor, turned balusters, a rail, the window boxes on it red with geraniums from May to
+     * October, a flower here and there closer up), [one] m a picture px.
+     */
+    private fun alpineFront(z: Float, along: Float, len: Float, win: Boolean, shutter: Boolean, summer: Boolean, lit: Boolean, px: Int, py: Int, one: Float): Int? {
+        if (z < 3.35f) return null
+        val inside = along > 0.25f && along < len - 0.25f
+        if (inside && z < 4.75f) {
+            when {
+                z < 3.55f -> return if (z > 3.55f - one) Pal.WOOD_L else Pal.WOOD_D
+                z > 4.3f && z < 4.42f -> return Pal.WOOD_L
+                z >= 4.42f && summer -> {
+                    if (Noise.rnd(px / max(1, detail), py / max(1, detail), 23) < 0.6f) return if ((px + py) % 3 == 0) Pal.GERANIUM_D else Pal.GERANIUM
+                    if (Noise.rnd(px, py, 24) < 0.4f) return Pal.LEAF
+                }
+                z < 4.3f -> {
+                    val b = along / 0.24f
+                    return if (b - floor(b) < 0.42f) (if (b - floor(b) < 0.14f) Pal.WOOD_L else Pal.WOOD_M) else Col.scale(TIMBER, 0.7f)
+                }
+            }
+        }
+        if (win || shutter) return null
+        // the boards, across, their joints
+        val row = z / 0.28f
+        return if (row - floor(row) < one / 0.28f + 0.05f) Col.scale(TIMBER, 0.75f) else if (Noise.rnd(px, py, 26) < 0.08f) TIMBER_L else TIMBER
+    }
+
     /** The tiled roof over a house front: from the eave above the wall up and away to the ridge, rows of tiles. */
     private fun roof(xw: Float, d0: Float, d1: Float, top: Float) {
         val k = detail
@@ -576,7 +631,7 @@ internal class SquarePainter : VistaPainter() {
         val r0 = floatArrayOf(gx(xw + 2.3f, d0 - 0.4f), gy(d0 - 0.4f) - (top + 3.2f) * pm(d0 - 0.4f))
         val r1 = floatArrayOf(gx(xw + 2.3f, d1 + 0.4f), gy(d1 + 0.4f) - (top + 3.2f) * pm(d1 + 0.4f))
         val snow = env.snow
-        style?.let { st ->
+        style?.takeIf { !alpine }?.let { st ->
             // Friuli's coppi: the curved tiles in channels running from the eave up to the ridge, lit and in shade by turns, a
             // course's lip across them now and then
             c.polyBegin(); c.polyAdd(e0[0], e0[1]); c.polyAdd(e1[0], e1[1]); c.polyAdd(r1[0], r1[1]); c.polyAdd(r0[0], r0[1])
@@ -604,7 +659,9 @@ internal class SquarePainter : VistaPainter() {
             }
             return
         }
-        val tileL = Col.mix(Pal.ROOF_M, Pal.ROOF_L, 0.6f); val tileS = Col.mix(Pal.ROOF_M, Pal.ROOF_D, 0.4f)
+        // the art's red tiles, or Carinthia's dark shingles in their courses ([alpine])
+        val rL = if (alpine) style!!.roof[0] else Pal.ROOF_L; val rM = if (alpine) style!!.roof[1] else Pal.ROOF_M; val rD = if (alpine) style!!.roof[2] else Pal.ROOF_D
+        val tileL = Col.mix(rM, rL, 0.6f); val tileS = Col.mix(rM, rD, 0.4f)
         c.polyBegin(); c.polyAdd(e0[0], e0[1]); c.polyAdd(e1[0], e1[1]); c.polyAdd(r1[0], r1[1]); c.polyAdd(r0[0], r0[1])
         c.polyFill { px, py ->
             // how far up from the eave line this pixel is, in rows of tiles that shrink with depth
@@ -618,20 +675,20 @@ internal class SquarePainter : VistaPainter() {
             val joint = tf * 0.3f * pm(d) < 1f && 0.3f * pm(d) >= 3f
             if (k == 1) when {
                 snow -> if (up - rowI < 0.2f && Dither.at(px, py) < 0.4f) Pal.SNOW_M else Pal.SNOW_L
-                up - rowI < 0.22f -> Pal.ROOF_D
-                joint -> Pal.ROOF_D
-                up - rowI > 0.75f -> Pal.ROOF_L
-                else -> Pal.ROOF_M
+                up - rowI < 0.22f -> rD
+                joint -> rD
+                up - rowI > 0.75f -> rL
+                else -> rM
             } else {
                 // closer up each tile is round: a lit crown, a shaded side, its lip lit, some weathered darker
                 val tilePx = 0.3f * pm(d)
-                val base = if (Noise.rnd(floor(d / 0.3f + rowI * 0.5f).toInt(), rowI, 26) < 0.2f) Col.mix(Pal.ROOF_M, Pal.ROOF_D, 0.3f) else Pal.ROOF_M
+                val base = if (Noise.rnd(floor(d / 0.3f + rowI * 0.5f).toInt(), rowI, 26) < 0.2f) Col.mix(rM, rD, 0.3f) else rM
                 when {
                     snow -> if (up - rowI < 0.2f && Dither.at(px, py) < 0.4f) Pal.SNOW_M else Pal.SNOW_L
-                    up - rowI < 0.22f -> Pal.ROOF_D
-                    joint -> Pal.ROOF_D
-                    up - rowI > 0.75f -> Pal.ROOF_L
-                    tilePx >= 4f && tf > 0.12f && tf < 0.42f -> if (base == Pal.ROOF_M) tileL else Col.mix(tileL, Pal.ROOF_D, 0.25f)
+                    up - rowI < 0.22f -> rD
+                    joint -> rD
+                    up - rowI > 0.75f -> rL
+                    tilePx >= 4f && tf > 0.12f && tf < 0.42f -> if (base == rM) tileL else Col.mix(tileL, rD, 0.25f)
                     tilePx >= 4f && tf > 0.82f -> tileS
                     else -> base
                 }
@@ -640,8 +697,41 @@ internal class SquarePainter : VistaPainter() {
         val th = if (k == 1) 1 else k - 1
         for (i in 0 until th) {
             c.line(e0[0].toInt(), e0[1].toInt() + 1 + i, e1[0].toInt(), e1[1].toInt() + 1 + i, if (i == 0) Pal.WOOD_X else Pal.WOOD_D)
-            c.line(r0[0].toInt(), r0[1].toInt() - 1 - i, r1[0].toInt(), r1[1].toInt() - 1 - i, if (snow) Pal.SNOW_L else Col.hex(0x55200F))
+            c.line(r0[0].toInt(), r0[1].toInt() - 1 - i, r1[0].toInt(), r1[1].toInt() - 1 - i, if (snow) Pal.SNOW_L else (if (alpine) rD else Col.hex(0x55200F)))
         }
+    }
+
+    /**
+     * Kathi's Gasthaus zur Linde ([gasthaus], Carinthia's look): out from the near house's front beside its door a
+     * wrought-iron arm with a scroll under it, and hanging from its end the sign, a golden linden leaf in a ring.
+     */
+    private fun gasthausSign(hs: House) {
+        val k = detail
+        val xw = row
+        val da = hs.d0 + 0.8f + 2.7f + 0.35f
+        val p = pm(da)
+        val iron = Col.hex(0x2A2624)
+        // the arm out from the wall toward the square, its scroll under it
+        val ax0 = gx(xw - 0.02f, da); val ax1 = gx(xw - 0.95f, da); val ay = hy(da, 3.35f)
+        for (i in 0 until max(1, k - 1)) c.line(ax0.toInt(), ay.toInt() + i, ax1.toInt(), ay.toInt() + i, iron)
+        c.line(ax0.toInt(), hy(da, 2.85f).toInt(), ((ax0 + ax1) / 2f).toInt(), ay.toInt(), iron)
+        if (k > 1) arcScroll((ax0 + ax1) / 2f, ay + 0.25f * p, 0.18f * p, iron)
+        // the sign hanging from its end: a ring, the golden linden leaf in it
+        val sx = ax1 + 0.15f * p; val sy = hy(da, 2.95f); val r = max(1.5f, 0.32f * p)
+        c.vline(sx.toInt(), ay.toInt(), (sy - r).toInt(), iron)
+        c.fillCircle(sx, sy, r, iron)
+        c.fillCircle(sx, sy, max(1f, r - max(1f, 0.08f * p)), Col.hex(0x3A3430))
+        // the leaf: a heart with its tip down, its stalk, lit on its left
+        val lr = max(1f, r * 0.62f)
+        c.fillCircle(sx - lr * 0.35f, sy - lr * 0.2f, lr * 0.55f, Pal.GOLD); c.fillCircle(sx + lr * 0.35f, sy - lr * 0.2f, lr * 0.55f, Pal.GOLD)
+        for (j in 0..(lr.toInt())) c.hline((sx - lr * 0.75f + j * 0.75f).toInt(), (sx + lr * 0.75f - j * 0.75f).toInt(), (sy + j * 0.6f).toInt(), Pal.GOLD)
+        if (k > 1) { c.set((sx - lr * 0.45f).toInt(), (sy - lr * 0.35f).toInt(), Pal.GOLD_L); c.vline(sx.toInt(), (sy - lr * 0.6f).toInt(), (sy + lr * 0.4f).toInt(), Col.scale(Pal.GOLD, 0.75f)) }
+    }
+
+    /** A little scroll of wrought iron, [r] px round, at ([x], [y]). */
+    private fun arcScroll(x: Float, y: Float, r: Float, col: Int) {
+        val n = max(6, (r * 6).toInt())
+        for (i in 0..n) { val a = i * 1.6 * PI / n; c.set((x + cos(a) * r * (1f - i * 0.4f / n)).toInt(), (y + sin(a) * r * (1f - i * 0.4f / n)).toInt(), col) }
     }
 
     /**
@@ -755,11 +845,11 @@ internal class SquarePainter : VistaPainter() {
      * The church closing the square: the nave's front with a round window and the arched door, the bell tower
      * beside it with the clock (lit at night), the bell in its arches and the spire with a gold cross.
      */
-    private fun church() {
+    private fun church(st: FireStyle? = null) {
         val k = detail
         val d = churchD; val p = pm(d); val by = gy(d)
         val lit = env.windows > 0.35f
-        val wall = Pal.WALL_L; val wallD = Pal.WALL_M
+        val wall = st?.churchWall?.get(0) ?: Pal.WALL_L; val wallD = st?.churchWall?.get(1) ?: Pal.WALL_M
         // the nave: front wall and gable, the roof's edge
         val nx0 = gx(-3.4f, d); val nx1 = gx(4.6f, d); val nm = gx(0.6f, d)
         c.polyBegin(); c.polyAdd(nx0, by); c.polyAdd(nx1, by); c.polyAdd(nx1, by - 8.5f * p); c.polyAdd(nm, by - 13f * p); c.polyAdd(nx0, by - 8.5f * p)
@@ -768,9 +858,10 @@ internal class SquarePainter : VistaPainter() {
             if (py > by - 0.5f * p) (if (((by - py) / p) % 0.25f < 1f / p || ((px - nx0) / p + (((by - py) / p / 0.25f).toInt() and 1) * 0.2f) % 0.4f < 1f / p) Pal.STONE_D else Pal.STONE_M)
             else if (px > nm + (nx1 - nm) * 0.8f) wallD else if (Noise.rnd(px, py, 27) < 0.04f) wallD else wall
         }
-        val roofEdge = if (env.snow) Pal.SNOW_L else Pal.ROOF_D
+        // the roof's edge along the gable: red tiles, or Carinthia's dark shingles
+        val roofEdge = if (env.snow) Pal.SNOW_L else st?.roof?.get(2) ?: Pal.ROOF_D
         for (i in 0 until (if (k == 1) 1 else max(2, (0.3f * p).toInt()))) {
-            val col = if (i == 0) roofEdge else if (env.snow) Pal.SNOW_M else Pal.ROOF_M
+            val col = if (i == 0) roofEdge else if (env.snow) Pal.SNOW_M else st?.roof?.get(1) ?: Pal.ROOF_M
             c.line(nx0.toInt() - 1, (by - 8.5f * p).toInt() - i, nm.toInt(), (by - 13.2f * p).toInt() - 1 - i, col)
             c.line(nm.toInt(), (by - 13.2f * p).toInt() - 1 - i, nx1.toInt() + 1, (by - 8.5f * p).toInt() - i, col)
         }
@@ -864,6 +955,8 @@ internal class SquarePainter : VistaPainter() {
             c.set((tm - swing * 0.12f * p).toInt(), bb.toInt() + 1, Col.scale(Pal.GOLD, 0.6f))
             c.hline((tm - bw / 2).toInt() - 1, (tm + bw / 2).toInt() + 1, (ot + oh).toInt(), Pal.STONE_M)
         }
+        // Carinthia's onion dome, its lantern and the cross
+        if (st != null) { onion(tm, by - shaft, (tx1 - tx0) / 2f, p, st); return }
         // the spire, a ball and a cross
         val sTop = by - 20.5f * p
         val slate = Col.hex(0x5C5560); val slateD = Col.hex(0x3E3842)
@@ -892,6 +985,55 @@ internal class SquarePainter : VistaPainter() {
             c.fillCircle(tm + 0.5f, sTop - 0.5f, max(1.2f, 0.22f * p), Pal.GOLD)
             c.set(tm.toInt() - 1, sTop.toInt() - 1, Pal.GOLD_L)
         }
+    }
+
+    /**
+     * The onion dome on Carinthia's tower ([alpine]), its foot at row [base] over the tower's cornice, [half] px either side of
+     * [tm]: the green copper swelling out over the cornice and drawn in to its neck, the little lantern with its dark
+     * windows, a smaller onion over it, the spike, a gold ball and the cross; lit on its left, its seams closer up, snow on
+     * its shoulders in winter.
+     */
+    private fun onion(tm: Float, base: Float, half: Float, p: Float, st: FireStyle) {
+        val k = detail
+        val cop = st.towerTop[0]; val copM = st.towerTop[1]; val copD = st.towerTop[2]
+        // the cornice under it
+        c.fillRect((tm - half - max(1f, 0.2f * p)).toInt(), (base - max(1f, 0.3f * p)).toInt(), (2 * half + 2 * max(1f, 0.2f * p)).toInt(), max(1, (0.35f * p).toInt()), Pal.STONE_L)
+        // its profile, metres up from its foot against its half width
+        val prof = floatArrayOf(0f, 1.0f, 0.4f, 1.18f, 1.0f, 1.24f, 1.8f, 1.02f, 2.5f, 0.5f, 2.8f, 0.34f, 3.0f, 0.36f, 3.7f, 0.36f, 3.85f, 0.5f, 4.3f, 0.4f, 4.6f, 0.12f, 5.6f, 0.06f)
+        val top = prof[prof.size - 2]
+        val y0 = base - max(1f, 0.3f * p)
+        for (y in max((y0 - top * p).toInt(), c.top)..min(y0.toInt(), c.bottom - 1)) {
+            val m = (y0 - y) / p
+            var i = 0
+            while (i < prof.size - 4 && prof[i + 2] < m) i += 2
+            val f = ((m - prof[i]) / max(0.001f, prof[i + 2] - prof[i])).coerceIn(0f, 1f)
+            val w = (prof[i + 1] + (prof[i + 3] - prof[i + 1]) * f) * half
+            val lantern = m in 3.0f..3.7f
+            for (x in max((tm - w).toInt(), c.left)..min((tm + w).toInt(), c.right - 1)) {
+                val u = (x - tm) / max(1f, w)
+                var col = when {
+                    lantern && abs(u) < 0.5f && m in 3.1f..3.6f -> if (env.windows > 0.35f) Pal.WINDOW_LIT else Col.hex(0x2A2226)
+                    lantern -> if (u > 0.4f) Pal.STONE_M else Pal.STONE_L
+                    m > 4.6f -> if (u > 0f) Col.scale(Pal.GOLD, 0.8f) else Pal.GOLD
+                    u > 0.45f -> copD
+                    u < -0.3f -> cop
+                    else -> copM
+                }
+                // the copper's seams running up it, closer up
+                if (k > 1 && !lantern && m < 4.6f && abs((u * 3f + 6f) % 1f - 0.5f) < 0.06f) col = Col.mix(col, copD, 0.45f)
+                // snow on its shoulders
+                if (env.snow && !lantern && m in 0.9f..1.9f && u < 0.5f && Dither.at(x, y) < 0.7f) col = Pal.SNOW_L
+                c.set(x, y, col)
+            }
+        }
+        // the gold ball and the cross over the spike
+        val tip = y0 - top * p
+        val th = max(1, k - 1)
+        c.fillCircle(tm + 0.5f, tip, max(1f, 0.16f * p), Pal.GOLD)
+        val ct = (tip - 1.1f * p).toInt()
+        c.fillRect(tm.toInt() - th / 2, ct, th, (tip - ct).toInt(), Pal.GOLD)
+        c.fillRect(tm.toInt() - (0.35f * p).toInt(), ct + (0.3f * p).toInt(), (0.7f * p).toInt() + 1, th, Pal.GOLD)
+        if (k > 1) c.vline(tm.toInt() - th / 2, ct, tip.toInt() - 1, Pal.GOLD_L)
     }
 
     /**
@@ -1172,7 +1314,8 @@ internal class SquarePainter : VistaPainter() {
     private val poleX = -1.2f; private val poleD = 26f
 
     /** The maypole's ribbons: red, white, blue and gold; in Friuli the blue and gold of its flag with green and red. */
-    private val ribbons: IntArray get() = if (style != null) FRI_RIBBONS else RIBBONS
+    private val ribbons: IntArray get() = if (alpine) KAE_RIBBONS else if (style != null) FRI_RIBBONS else RIBBONS
+    private val KAE_RIBBONS = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_RED, Pal.FLAG_WHITE)
     private val RIBBONS = intArrayOf(Pal.FLAG_RED, Pal.FLAG_WHITE, Pal.FLAG_BLUE, Pal.GOLD)
     private val FRI_RIBBONS = intArrayOf(Col.hex(0x1F5AA8), Pal.GOLD, Col.hex(0x3E8A3A), Pal.GERANIUM)
 
@@ -2372,6 +2515,7 @@ internal class SquarePainter : VistaPainter() {
      */
     private fun well(cx: Int, by: Int) {
         val m = detail
+        if (trough) { woodTrough(cx, by); return }
         if (wellLevel <= 1) { curbWell(cx, by); return }
         if (friWell) { vera(cx, by); return }
         if (m == 1) {
@@ -2544,6 +2688,93 @@ internal class SquarePainter : VistaPainter() {
         c.fillEllipse(axis, top + 0.4f * m, 8.5f * m, 1.8f * m, if (env.snow) Pal.ICE_M else Pal.WATER_D)
         if (!env.snow && m > 1) c.hline((axis - 4f * m).toInt(), (axis - 1f * m).toInt(), (top - 0.1f * m).toInt(), Pal.WATER_M)
         forkedPole(cx, by, top)
+    }
+
+    /**
+     * Carinthia's village fountain for the well ([trough]), its foot at ([cx], [by]) (sprite px, [detail] times), by WELL's
+     * level: at the first a short trough hollowed out of a log on the ground and a wooden pipe on a forked stake running
+     * into it; from the second the long trough of larch on two stones, its spout on a squared post at its right end; from
+     * the third the post carved, its cap and a little ladle hanging on it, and the ground round it flagged; from the fourth a
+     * shingle roof over the whole fountain on two posts; at the fifth a box of geraniums on its front post (and the square's
+     * lamp post). The water runs from the spout all the time, splashing in the trough; frozen in its icicles in winter.
+     */
+    private fun woodTrough(cx: Int, by: Int) {
+        val m = detail
+        fun r(x: Int, y: Int, w: Int, h: Int, col: Int) = c.fillRect(cx + x * m, by + y * m, w * m, h * m, col)
+        fun dot(x: Int, y: Int, col: Int) = c.fillRect(cx + x * m, by + y * m, m, m, col)
+        val wl = Col.hex(0xC8945A); val wm = Col.hex(0xA0703E); val wd = Col.hex(0x6E4A28); val wx = Col.hex(0x4A3018)
+        val water = if (env.snow) Pal.ICE_M else Pal.WATER_D; val waterL = if (env.snow) Pal.ICE_L else Pal.WATER_M
+        val lv = wellLevel
+        // the flagged ground round it, from the third level
+        if (lv >= 3) for (j in 0 until 7) {
+            val y = -1 + j / 3; val x0 = -26 + (j % 3) * 18
+            r(x0, y - 1, 16, 2, if (env.snow) Pal.SNOW_M else if (j % 2 == 0) Pal.STONE_M else Pal.STONE_L)
+            r(x0 + 16, y - 1, 1, 2, Pal.STONE_D)
+        }
+        // the roof's back post, behind the trough, from the fourth level
+        if (lv >= 4) { r(-19, -40, 2, 39, wd); r(-19, -40, 1, 39, wm) }
+        val (ta, tb, top) = if (lv < 2) Triple(-10, 6, -6) else Triple(-17, 14, -10)
+        val foot = if (lv < 2) 0 else -2
+        // the stones under the long trough
+        if (lv >= 2) { r(-15, -2, 5, 2, Pal.STONE_M); r(7, -2, 5, 2, Pal.STONE_M); r(-15, -2, 5, 1, Pal.STONE_L); r(7, -2, 5, 1, Pal.STONE_L) }
+        // the trough: its front, the grain along it, the log's end with its rings, the rim and the water in it
+        r(ta, top + 1, tb - ta, foot - top - 1, wm)
+        r(ta, foot - 1, tb - ta, 1, wd)
+        r(ta, top + 1, tb - ta, 1, wl)
+        if (m > 1) for (x in ta until tb) if (Noise.rnd(x, 31) < 0.3f) r(x, top + 3, 1, 1, wd)
+        r(tb, top, 2, foot - top, wd); dot(tb, top + (foot - top) / 2, wl)
+        r(ta, top - 1, tb - ta, 2, if (env.snow) Pal.SNOW_L else wl)
+        r(ta + 1, top, tb - ta - 2, 1, water)
+        dot(ta + 3, top, waterL)
+        // the spout: a pipe on a forked stake at the first level, on its squared post from the second
+        val px = if (lv < 2) 9 else 15
+        val postTop = if (lv < 2) -16 else if (lv < 3) -28 else -34
+        if (lv < 2) {
+            r(px, postTop, 1, -postTop, wd); dot(px - 1, postTop, wd); dot(px + 1, postTop, wd)
+        } else {
+            r(px - 1, postTop, 4, -postTop + foot, wm); r(px - 1, postTop, 1, -postTop + foot, wl); r(px + 2, postTop, 1, -postTop + foot, wd)
+        }
+        if (lv >= 3) {
+            // the carved post: its cap, the notches up it, the year carved on it, a ladle on its peg
+            r(px - 2, postTop - 2, 6, 2, wd); r(px - 2, postTop - 3, 6, 1, wl)
+            for (j in 0 until 4) dot(px + 1, postTop + 4 + j * 4, wx)
+            r(px - 5, postTop + 9, 3, 1, wx); r(px - 6, postTop + 10, 2, 2, Pal.STONE_X)
+        }
+        val sy = if (lv < 2) -12 else -22
+        r(px - 6, sy, 6, 1, wx); dot(px - 6, sy + 1, wx)
+        // the water from the spout into the trough, splashing; frozen in winter
+        if (env.snow) {
+            for (j in 0 until 3) r(px - 6 + j * 2, sy + 1, 1, 2 + j % 2, Pal.ICE_L)
+        } else {
+            for (y in sy + 1 until top) {
+                val wob = if (Noise.rnd(y, ((t * 8).toInt()), 33) < 0.3f) 1 else 0
+                dot(px - 6 + wob * (if (y % 2 == 0) 1 else 0), y, if ((y + (t * 10).toInt()) % 3 == 0) Col.hex(0xE8F4FC) else waterL)
+            }
+            dot(px - 7, top - 1, Col.hex(0xE8F4FC)); dot(px - 5, top - 1, waterL)
+        }
+        if (lv >= 4) {
+            // the roof over the fountain: its front post, the shingles in their courses, its gable's boards; snow on it in winter
+            r(px + 3, -40, 2, 40 + foot, wd); r(px + 3, -40, 1, 40 + foot, wm)
+            for (j in 0 until 11) {
+                val y = -50 + j
+                val half = 4 + j * 2
+                val col = when {
+                    env.snow && j < 8 -> if (j % 3 == 0) Pal.SNOW_M else Pal.SNOW_L
+                    j % 3 == 0 -> Pal.SHINGLE_D
+                    j < 4 -> Pal.SHINGLE_L
+                    else -> Pal.SHINGLE_M
+                }
+                r(-1 - half, y, 2 * half + 2, 1, col)
+            }
+            r(-25, -39, 50, 1, wx)
+            if (env.snow) for (j in 0 until 6) r(-22 + j * 8, -38, 1, 2 + j % 2, Pal.ICE_L)
+        }
+        if (lv >= Catalog.MAX_LEVEL) {
+            // a box of geraniums on the front post, flowering from May to October
+            r(px - 1, -31, 7, 3, wd); r(px - 1, -31, 7, 1, wl)
+            if (env.month in 5..10) for (j in 0 until 7) { dot(px - 1 + j, -32 - j % 2, if (j % 2 == 0) Pal.GERANIUM else Pal.LEAF); if (j % 3 == 0) dot(px - 1 + j, -34, Pal.GERANIUM_D) }
+            else for (j in 0 until 7 step 2) dot(px - 1 + j, -32, Pal.LEAF)
+        }
     }
 
     /**

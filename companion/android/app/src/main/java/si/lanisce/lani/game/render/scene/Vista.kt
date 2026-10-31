@@ -879,6 +879,116 @@ internal abstract class VistaPainter : ArtPainter() {
         return floatArrayOf(cx + 0.5f, (bt + bb) / 2f)
     }
 
+    // ------------------------------------------------------------------ Carinthia's village far off (places-kaernten)
+
+    /**
+     * A village's house far off as Carinthia builds it ([style]'s colours, the fire's village's: [FireStyle]): white walls
+     * below, the upper storey of dark timber with its boards, a wooden balcony across it (red geraniums on it from May to
+     * September), a steep roof of dark shingles with a little half-hip at its gable (the Krüppelwalm), green shutters, a lit
+     * window at night. [ww] × [hh] picture px with its foot at row [base] from column [x].
+     */
+    protected fun farAlpineHouse(x: Int, base: Int, ww: Int, hh: Int, style: FireStyle, i: Int, lit: Boolean, haze: Float) {
+        val k = detail
+        val wallT = style.walls[Math.floorMod(i, style.walls.size)]
+        val wall = env.lit(Col.mix(wallT[0], env.skyHorizon, haze)); val wallD = env.lit(Col.mix(wallT[2], env.skyHorizon, haze))
+        val timber = env.lit(Col.mix(TIMBER, env.skyHorizon, haze)); val timberL = env.lit(Col.mix(TIMBER_L, env.skyHorizon, haze))
+        val roofL = env.lit(Col.mix(if (env.snow) Pal.SNOW_L else style.roof[0], env.skyHorizon, haze))
+        val roof = env.lit(Col.mix(if (env.snow) Pal.SNOW_M else style.roof[1], env.skyHorizon, haze))
+        val roofD = env.lit(Col.mix(if (env.snow) Pal.SNOW_D else style.roof[2], env.skyHorizon, haze))
+        val shutter = env.lit(Col.mix(style.shutter, env.skyHorizon, haze))
+        val upper = max(1, hh * 2 / 5)
+        // the walls: white below, the timbered storey above
+        c.fillRect(x, base - hh, ww, hh, wall)
+        c.fillRect(x + ww - max(1, k), base - hh + upper, max(1, k), hh - upper, wallD)
+        c.fillRect(x, base - hh, ww, upper, timber)
+        if (k > 1) for (xx in x until x + ww) if (Math.floorMod(xx - x, k + 1) == 0) c.vline(xx, base - hh, base - hh + upper - 1, timberL)
+        // the balcony across the upper storey, its flowers in summer
+        val by = base - hh + upper
+        c.hline(x - max(1, k / 2), x + ww - 1 + max(1, k / 2), by, timberL)
+        if (env.month in 5..9 && !env.snow) for (xx in x until x + ww) if (Math.floorMod(xx + i, 2) == 0) c.set(xx, by - 1, env.lit(Col.mix(Pal.GERANIUM, env.skyHorizon, haze)))
+        // the steep shingle roof, the half-hip cutting its gable's top
+        val rows = max(3, 2 * k + 1)
+        for (j in 0 until rows) {
+            val a = x - k + j * ww / (2 * rows) ; val b = x + ww + k - 1 - j * ww / (2 * rows)
+            if (a > b) break
+            for (xx in a..b) c.set(xx, base - hh - 1 - j, when {
+                j == 0 -> roofD
+                env.snow -> roof
+                j == rows - 1 -> roofD
+                k > 1 && Math.floorMod(base - hh - j, 2) == 0 && Math.floorMod(xx, 3) == 0 -> roofD
+                xx < (a + b) / 2 -> roofL
+                else -> roof
+            })
+        }
+        // a window or two in the white storey with their shutters, lit at night
+        val glass = if (lit) Pal.WINDOW_LIT else env.lit(Pal.GLASS)
+        val nWin = max(1, (ww / k - 1) / 3)
+        for (wi in 0 until nWin) {
+            val wx = x + k + wi * 3 * k
+            if (wx + k > x + ww - k) break
+            val wy = by + max(1, (hh - upper) / 3)
+            c.fillRect(wx, wy, k, k, if (lit && (i + wi) % 2 == 0) Pal.WINDOW_LIT else glass)
+            if (k > 1) { c.vline(wx - 1, wy, wy + k - 1, shutter); c.vline(wx + k, wy, wy + k - 1, shutter) }
+        }
+        if (k > 1) c.fillRect(x + ww / 2, base - k - k / 2, max(1, k - 1), k + k / 2, env.lit(Col.mix(Pal.DOOR, env.skyHorizon, haze)))
+        // the chimney through the shingles
+        c.fillRect(x + ww - 2 * k, base - hh - rows - k / 2, max(1, k), k + 1, wallD)
+    }
+
+    /**
+     * A Carinthian church far off ([style]'s colours, as the fire's village has them): the white nave under its steep dark
+     * shingles, the white tower at its front with its clock and its belfry's arched windows, and on top the onion dome of
+     * green copper with its lantern and the cross. [cx] is the tower's middle column, [base] its foot's row; [tall] the
+     * tower's height to the dome in scene px. Returns where its bell hangs (picture px), for the evening bell's rings.
+     */
+    protected fun farOnionChurch(cx: Int, base: Int, style: FireStyle, lit: Boolean, haze: Float, tall: Int = 17): FloatArray {
+        val k = detail
+        fun far(col: Int, more: Float = 0f) = env.lit(Col.mix(col, env.skyHorizon, haze + more))
+        val wall = far(style.churchWall[0]); val wallM = far(style.churchWall[1]); val wallD = far(style.churchWall[2])
+        val roof = far(if (env.snow) Pal.SNOW_M else style.roof[1]); val roofD = far(if (env.snow) Pal.SNOW_D else style.roof[2])
+        val cop = far(if (env.snow) Pal.SNOW_L else style.towerTop[0]); val copM = far(if (env.snow) Pal.SNOW_M else style.towerTop[1]); val copD = far(style.towerTop[2])
+        val glass = if (lit) Pal.WINDOW_LIT else env.lit(Pal.GLASS)
+        // the nave behind the tower, to the right, under its steep roof
+        val nx = cx + k; val nw = 10 * k; val nh = 6 * k
+        c.fillRect(nx, base - nh, nw, nh, wall)
+        c.fillRect(nx + nw - k, base - nh, k, nh, wallD)
+        for (j in 0 until 3 * k) c.hline(nx - k / 2 + j / 2, nx + nw - 1 + k / 2, base - nh - 1 - j, if (j == 0) roofD else if (j % 2 == 1 && k > 1) roofD else roof)
+        for (wi in 0..1) {
+            val wx = nx + 3 * k + wi * 4 * k
+            if (k == 1) c.set(wx, base - 4, glass) else c.fillRect(wx, base - nh + 2 * k, k, 2 * k, glass)
+        }
+        // the tower, white, its shaded side, the clock and the belfry under its cornice
+        val tw = 4 * k
+        val tl = cx - tw / 2
+        val top = base - tall * k
+        c.fillRect(tl, top, tw, base - top, wall)
+        c.fillRect(tl + tw - k, top, k, base - top, wallD)
+        c.hline(tl, tl + tw - 1, top + 3 * k + k / 2, wallM)
+        c.fillRect(cx - k / 2, top + 5 * k, max(1, k), max(1, k), Pal.GOLD_L)
+        val bt = top + k
+        if (k == 1) c.set(cx, bt + 1, far(Col.hex(0x241E1C))) else for (a in 0..1) c.fillRect(tl + k / 2 + a * (tw / 2), bt, max(1, tw / 2 - k), 2 * k, far(Col.hex(0x241E1C)))
+        if (k > 1) c.fillRect(cx - k / 4, bt + k, max(1, k / 2), k, Pal.GOLD)
+        c.hline(tl - k / 2, tl + tw - 1 + k / 2, top, wallM)
+        // the onion: swelling out over the cornice, drawn in to its neck, its lantern and the tip with the cross
+        val prof = floatArrayOf(1.6f, 2.3f, 2.5f, 2.2f, 1.5f, 0.8f, 0.5f, 0.7f, 0.5f, 0.3f)
+        val rows = prof.size * k
+        for (r in 0 until rows) {
+            val v = r / k.toFloat(); val i = v.toInt().coerceAtMost(prof.size - 2); val f = v - i
+            val half = (prof[i] + (prof[i + 1] - prof[i]) * f) * k
+            val y = top - 1 - r
+            val a = (cx - half).toInt(); val b = (cx + half).toInt()
+            for (x in a..b) c.set(x, y, when {
+                x > cx + half * 0.45f -> copD
+                x < cx - half * 0.35f -> cop
+                else -> copM
+            })
+        }
+        val tip = top - 1 - rows
+        c.vline(cx, tip - 2 * k + 1, tip, Pal.GOLD)
+        c.hline(cx - k / 2, cx + k / 2, tip - k - k / 2 + 1, Pal.GOLD)
+        return floatArrayOf(cx + 0.5f, bt + k.toFloat())
+    }
+
     // ------------------------------------------------------------------ weather
 
     override fun weather() {
@@ -921,6 +1031,9 @@ internal abstract class VistaPainter : ArtPainter() {
 
     companion object {
         private val SPLASH = Col.hex(0xC4D2E6)
+
+        /** A Carinthian house's timbered upper storey ([farAlpineHouse]): the dark larch boards, and their lit edges. */
+        val TIMBER = Col.hex(0x5E3E26); val TIMBER_L = Col.hex(0x8A6038)
 
         /** A Lombardy poplar's grey bark ([poplar]). */
         private val POPLAR_BARK = Col.hex(0x7A7468)
