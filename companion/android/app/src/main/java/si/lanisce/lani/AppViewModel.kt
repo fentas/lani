@@ -833,7 +833,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         }
         val now = changes?.let {
             si.lanisce.lani.app.Fresh(it.version, java.time.LocalDate.now(), si.lanisce.lani.game.scene.TimeOfDay.now(), L10n.pair,
-                si.lanisce.lani.l10n.Learner.current, Cultures.current.id, android.os.SystemClock.elapsedRealtime(), it.areas)
+                si.lanisce.lani.l10n.Learner.current, si.lanisce.lani.game.culture.VillageCulture.shown.id, android.os.SystemClock.elapsedRealtime(), it.areas)
         }
         val last = readFor
         if (!whole && now != null && last?.sameAs(now) == true) {
@@ -852,9 +852,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         // first the culture the bridge plays: what the village, its founding and everything after read (a new phone has
         // the default's until then, and a step below that fails mustn't keep it from coming); another one: everything
         if (stale(Bridge.CULTURE)) {
-            val before = Cultures.current.id
+            val before = si.lanisce.lani.game.culture.VillageCulture.shown.id
             reloadCulture(b)
-            if (Cultures.current.id != before) at = null
+            if (si.lanisce.lani.game.culture.VillageCulture.shown.id != before) at = null
         }
         if (stale(*si.lanisce.lani.data.FamilyApi.READS.toTypedArray())) family.refresh()
         // guests' questions, and the answers to the learner's (their ties with each town)
@@ -892,7 +892,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         // the learner, the pair and the culture the reading settled on: the dashboard says them (a new phone learns them
         // there, and the reads before it don't depend on them: the culture's, the family's, the towns', the clips'); read
         // for those at its start, the first Back after setup read everything again
-        readFor = now?.copy(pair = L10n.pair, learner = si.lanisce.lani.l10n.Learner.current, culture = Cultures.current.id, at = if (at != null && last != null) last.at else now.at)
+        readFor = now?.copy(pair = L10n.pair, learner = si.lanisce.lani.l10n.Learner.current, culture = si.lanisce.lani.game.culture.VillageCulture.shown.id, at = if (at != null && last != null) last.at else now.at)
     }
 
     /** The days ahead's audio, from what the app has now (app/DayAudioGather); null before the learner's cards are loaded. */
