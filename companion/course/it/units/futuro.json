@@ -1,0 +1,476 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "futuro",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🔮",
+  "title": { "it": "Domani andrò al mare", "de": "Die Zukunft: domani andrò", "sl": "Prihodnjik: domani andrò", "en": "The future: domani andrò" },
+  "goal": {
+    "de": "Du sagst, was morgen und später sein wird: Pläne, Versprechen und das Wetter (domani andrò al mare, verrà anche Lorenzo, domani pioverà).",
+    "sl": "Poveš, kaj bo jutri in pozneje: načrte, obljube in vreme (domani andrò al mare, verrà anche Lorenzo, domani pioverà).",
+    "en": "You can say what will happen tomorrow and later: plans, promises and the weather (domani andrò al mare, verrà anche Lorenzo, domani pioverà)."
+  },
+  "grammar": ["futuro"],
+  "words": [
+    "domani",
+    "stasera",
+    "stanotte",
+    "sabato prossimo",
+    "quando",
+    "parlare",
+    "leggere",
+    "dormire",
+    "partire",
+    "essere",
+    "avere",
+    "andare",
+    "fare",
+    "potere",
+    "dovere",
+    "vedere",
+    "venire",
+    "volere",
+    "bere",
+    "giocare",
+    "mangiare",
+    "cercare",
+    "piovere",
+    "la vendemmia",
+    "l'uva",
+    "le forbici",
+    "il treno",
+    "la tenda",
+    "la radio",
+    "il cavallo",
+    "le carte",
+    "la conchiglia",
+    "il calciatore",
+    "la veterinaria",
+    "contento",
+    "grande",
+    "Grado"
+  ],
+  "intro": {
+    "table": { "head": [{"it": "infinito", "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive"}, "io", "lui, lei", "noi"] },
+    "steps": [
+      {
+        "say": {
+          "de": "Was morgen sein wird, sagst du auf Italienisch mit einem Wort, dem **futuro**: **Domani parlerò con la maestra.** (Morgen werde ich mit der Lehrerin sprechen.) Die Endungen: **-ò, -ai, -à, -emo, -ete, -anno**. Bei **-are** wird das **a** zu **e**: **parlare → parlerò**. Bei **-ere** bleibt es: **leggere → leggerò** (ich werde lesen). Und **ò** und **à** haben einen Akzent.",
+          "sl": "Kar bo jutri, poveš v italijanščini z eno besedo, s **futuro**: **Domani parlerò con la maestra.** (Jutri bom govoril z učiteljico.) Končnice: **-ò, -ai, -à, -emo, -ete, -anno**. Pri **-are** se **a** spremeni v **e**: **parlare → parlerò**. Pri **-ere** ostane: **leggere → leggerò** (bral bom). **ò** in **à** imata naglas.",
+          "en": "What will be tomorrow you say in Italian with one word, the **futuro**: **Domani parlerò con la maestra.** (Tomorrow I'll talk to the teacher.) The endings: **-ò, -ai, -à, -emo, -ete, -anno**. In **-are** the **a** becomes **e**: **parlare → parlerò**. In **-ere** it stays: **leggere → leggerò** (I'll read). And **ò** and **à** carry an accent."
+        },
+        "examples": [
+          {
+            "it": "Domani parlerò con la maestra.",
+            "de": "Morgen spreche ich mit der Lehrerin.",
+            "sl": "Jutri bom {m:govoril|f:govorila} z učiteljico.",
+            "en": "Tomorrow I'll talk to the teacher."
+          },
+          {
+            "it": "Stasera Giulia leggerà una storia.",
+            "de": "Heute Abend liest Giulia eine Geschichte vor.",
+            "sl": "Nocoj bo Giulia brala zgodbo.",
+            "en": "Tonight Giulia will read a story."
+          }
+        ],
+        "rows": [
+          ["parlare", "parlerò", "parlerà", "parleremo"],
+          ["leggere", "leggerò", "leggerà", "leggeremo"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "futuro",
+          "text": "Domani Lorenzo ___ un libro. (leggere)",
+          "accept": ["leggerà"],
+          "hint": "lui: -à",
+          "explain": {
+            "de": "**leggere** → legger- + **-à**: leggerà\n- io leggerò, noi leggeremo",
+            "sl": "**leggere** → legger- + **-à**: leggerà\n- io leggerò, noi leggeremo",
+            "en": "**leggere** → legger- + **-à**: leggerà\n- io leggerò, noi leggeremo"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei **-ire** behältst du das **i**: **dormire → dormirò** (ich werde schlafen), **partire → partirà** (er, sie wird abfahren). Für **voi**: **dormirete**, für **loro**: **dormiranno**. **Stanotte dormiremo nella tenda!** (Heute Nacht schlafen wir im Zelt!)",
+          "sl": "Pri **-ire** ostane **i**: **dormire → dormirò** (spal bom), **partire → partirà** (odšel bo, odpeljal bo). Za **voi**: **dormirete**, za **loro**: **dormiranno**. **Stanotte dormiremo nella tenda!** (Nocoj bomo spali v šotoru!)",
+          "en": "In **-ire** the **i** stays: **dormire → dormirò** (I'll sleep), **partire → partirà** (he, she will leave). For **voi**: **dormirete**, for **loro**: **dormiranno**. **Stanotte dormiremo nella tenda!** (Tonight we'll sleep in the tent!)"
+        },
+        "examples": [
+          {
+            "it": "Stanotte dormiremo nella tenda!",
+            "de": "Heute Nacht schlafen wir im Zelt!",
+            "sl": "Nocoj bomo spali v šotoru!",
+            "en": "Tonight we'll sleep in the tent!"
+          },
+          {
+            "it": "Il treno partirà alle otto.",
+            "de": "Der Zug fährt um acht ab.",
+            "sl": "Vlak bo odpeljal ob osmih.",
+            "en": "The train will leave at eight."
+          }
+        ],
+        "rows": [
+          ["dormire", "dormirò", "dormirà", "dormiremo"],
+          ["partire", "partirò", "partirà", "partiremo"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "futuro",
+          "prompt": "Sabato noi ___ per Grado.",
+          "options": ["partiremo", "partirò", "partiranno"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**noi** → **-emo**: partiremo\n- partirò · io\n- partiranno · loro",
+            "sl": "**noi** → **-emo**: partiremo\n- partirò · io\n- partiranno · loro",
+            "en": "**noi** → **-emo**: partiremo\n- partirò · io\n- partiranno · loro"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die wichtigsten Verben sind kurz: **essere → sarò** (ich werde sein), **avere → avrò** (ich werde haben), **andare → andrò** (ich werde gehen), **fare → farò** (ich werde machen). Auch bei **potere → potrò**, **dovere → dovrò** und **vedere → vedrò** fällt das **e** weg. **Domani sarà una bella giornata.** (Morgen wird ein schöner Tag.)",
+          "sl": "Najpomembnejši glagoli so kratki: **essere → sarò** (bom), **avere → avrò** (imel bom), **andare → andrò** (šel bom), **fare → farò** (delal bom). Tudi pri **potere → potrò**, **dovere → dovrò** in **vedere → vedrò** **e** odpade. **Domani sarà una bella giornata.** (Jutri bo lep dan.)",
+          "en": "The most important verbs are short: **essere → sarò** (I'll be), **avere → avrò** (I'll have), **andare → andrò** (I'll go), **fare → farò** (I'll do). In **potere → potrò**, **dovere → dovrò** and **vedere → vedrò** the **e** goes too. **Domani sarà una bella giornata.** (Tomorrow will be a lovely day.)"
+        },
+        "examples": [
+          {
+            "it": "Domani sarà una bella giornata.",
+            "de": "Morgen wird ein schöner Tag.",
+            "sl": "Jutri bo lep dan.",
+            "en": "Tomorrow will be a lovely day."
+          },
+          {
+            "it": "Domenica andremo al mare.",
+            "de": "Am Sonntag fahren wir ans Meer.",
+            "sl": "V nedeljo bomo šli na morje.",
+            "en": "On Sunday we'll go to the sea."
+          }
+        ],
+        "rows": [
+          ["essere", "sarò", "sarà", "saremo"],
+          ["avere", "avrò", "avrà", "avremo"],
+          ["andare", "andrò", "andrà", "andremo"],
+          ["fare", "farò", "farà", "faremo"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "futuro",
+          "text": "Domani ___ caldo. (fare)",
+          "accept": ["farà"],
+          "hint": "fare → far-",
+          "explain": {
+            "de": "**fare** → **far-** + -à: farà\n- fa caldo → farà caldo",
+            "sl": "**fare** → **far-** + -à: farà\n- fa caldo → farà caldo",
+            "en": "**fare** → **far-** + -à: farà\n- fa caldo → farà caldo"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zwei haben ein **rr**: **venire → verrò** (ich werde kommen), **volere → vorrò** (ich werde wollen). Und die Schreibung: **giocare → giocherò**, mit **h**, damit es hart klingt wie in **gioco**; **mangiare → mangerò**, ohne **i**. **Giocheremo a carte con Nonno Bepi.** (Wir werden mit Nonno Bepi Karten spielen.)",
+          "sl": "Dva imata **rr**: **venire → verrò** (prišel bom), **volere → vorrò** (hotel bom). In pravopis: **giocare → giocherò**, s **h**, da ostane trdo kot v **gioco**; **mangiare → mangerò**, brez **i**. **Giocheremo a carte con Nonno Bepi.** (Z dedkom Bepijem bomo igrali karte.)",
+          "en": "Two have **rr**: **venire → verrò** (I'll come), **volere → vorrò** (I'll want). And the spelling: **giocare → giocherò**, with **h**, so it sounds hard as in **gioco**; **mangiare → mangerò**, no **i**. **Giocheremo a carte con Nonno Bepi.** (We'll play cards with Nonno Bepi.)"
+        },
+        "examples": [
+          {
+            "it": "Verrai anche tu alla festa?",
+            "de": "Kommst du auch zum Fest?",
+            "sl": "Boš tudi ti {m:prišel|f:prišla} na praznik?",
+            "en": "Will you come to the festival too?"
+          },
+          {
+            "it": "Giocheremo a carte con Nonno Bepi.",
+            "de": "Wir spielen mit Nonno Bepi Karten.",
+            "sl": "Z dedkom Bepijem bomo igrali karte.",
+            "en": "We'll play cards with Nonno Bepi."
+          }
+        ],
+        "rows": [
+          ["venire", "verrò", "verrà", "verremo"],
+          ["giocare", "giocherò", "giocherà", "giocheremo"],
+          ["mangiare", "mangerò", "mangerà", "mangeremo"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "futuro",
+          "prompt": "Domani Tommaso ___ a calcio.",
+          "options": ["giocerà", "giocherà", "giocarà"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**giocare** → **giocherà**: das h hält das c hart\n- giocarà · das a wird zu e",
+            "sl": "**giocare** → **giocherà**: h ohrani trdi c\n- giocarà · a se spremeni v e",
+            "en": "**giocare** → **giocherà**: the h keeps the c hard\n- giocarà · the a becomes e"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit dem **futuro** sagst du Pläne, Versprechen und was du vermutest. Zia Nives hört Radio: **Domani pioverà.** (Morgen wird es regnen.) Nach **quando** (wenn) kommt auch das **futuro**, anders als im Deutschen: **Quando Lorenzo sarà grande, avrà un cavallo.** (Wenn Lorenzo groß ist, hat er ein Pferd.) Für morgen geht auch das Präsens: **Domani vado al mare.**",
+          "sl": "S **futuro** poveš načrte, obljube in kar domnevaš. Teta Nives posluša radio: **Domani pioverà.** (Jutri bo deževalo.) Za **quando** (ko) pride tudi **futuro**, kot v slovenščini: **Quando Lorenzo sarà grande, avrà un cavallo.** (Ko bo Lorenzo velik, bo imel konja.) Za jutri je dober tudi sedanjik: **Domani vado al mare.**",
+          "en": "With the **futuro** you say plans, promises and guesses. Zia Nives listens to the radio: **Domani pioverà.** (Tomorrow it will rain.) After **quando** (when) the **futuro** comes too, where English has the present: **Quando Lorenzo sarà grande, avrà un cavallo.** (When Lorenzo grows up, he'll have a horse.) For tomorrow the present does as well: **Domani vado al mare.**"
+        },
+        "examples": [
+          {
+            "it": "Zia Nives dice: «Domani pioverà.»",
+            "de": "Zia Nives sagt: „Morgen regnet es.“",
+            "sl": "Teta Nives pravi: »Jutri bo deževalo.«",
+            "en": "Zia Nives says: “Tomorrow it will rain.”"
+          },
+          {
+            "it": "Quando Lorenzo sarà grande, avrà un cavallo.",
+            "de": "Wenn Lorenzo groß ist, hat er ein Pferd.",
+            "sl": "Ko bo Lorenzo velik, bo imel konja.",
+            "en": "When Lorenzo grows up, he'll have a horse."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "futuro",
+          "prompt": "Quando Giulia ___ grande, farà la veterinaria.",
+          "options": ["è", "sarà", "era"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "Nach **quando** für später → **futuro**: sarà\n- è · jetzt\n- era · früher",
+            "sl": "Za **quando** za pozneje → **futuro**: sarà\n- è · zdaj\n- era · nekoč",
+            "en": "After **quando** for later → **futuro**: sarà\n- è · now\n- era · in the past"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "futuro-1",
+      "title": { "it": "Le forme del futuro", "de": "Die Formen der Zukunft", "sl": "Oblike prihodnjika", "en": "The future's forms" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "futuro",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "futuro",
+          "columns": ["parlare", "leggere", "dormire"],
+          "rows": [
+            {
+              "label": "io",
+              "cells": [
+                "parlerò",
+                { "accept": ["leggerò"], "hint": "-erò" },
+                { "accept": ["dormirò"], "hint": "-irò" }
+              ]
+            },
+            {
+              "label": "tu",
+              "cells": [
+                { "accept": ["parlerai"], "hint": "-erai" },
+                "leggerai",
+                { "accept": ["dormirai"] }
+              ]
+            },
+            { "label": "lui · lei", "cells": [{"accept": ["parlerà"]}, {"accept": ["leggerà"]}, "dormirà"] },
+            {
+              "label": "loro",
+              "cells": [
+                { "accept": ["parleranno"], "hint": "-eranno" },
+                { "accept": ["leggeranno"] },
+                { "accept": ["dormiranno"] }
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**-are → -erò · -ere → -erò · -ire → -irò**\n- dann -ò, -ai, -à, -emo, -ete, -anno",
+            "sl": "**-are → -erò · -ere → -erò · -ire → -irò**\n- nato -ò, -ai, -à, -emo, -ete, -anno",
+            "en": "**-are → -erò · -ere → -erò · -ire → -irò**\n- then -ò, -ai, -à, -emo, -ete, -anno"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "futuro",
+          "instruction": { "de": "Di quale verbo? · Von welchem Verb?", "sl": "Di quale verbo? · Kateri glagol?", "en": "Di quale verbo? · Which verb?" },
+          "columns": [
+            { "label": "essere", "words": ["sarò", "saranno"] },
+            { "label": "avere", "words": ["avrai", "avremo"] },
+            { "label": "andare", "words": ["andrò", "andrete"] },
+            { "label": "venire", "words": ["verrà", "verremo"] }
+          ],
+          "explain": {
+            "de": "**sar-** essere · **avr-** avere · **andr-** andare · **verr-** venire",
+            "sl": "**sar-** essere · **avr-** avere · **andr-** andare · **verr-** venire",
+            "en": "**sar-** essere · **avr-** avere · **andr-** andare · **verr-** venire"
+          }
+        }
+      ]
+    },
+    {
+      "id": "futuro-2",
+      "title": { "it": "La vendemmia", "de": "Die Weinlese", "sl": "Trgatev", "en": "The grape harvest" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "futuro",
+          "instruction": { "de": "Completa con il futuro · Setz die Zukunft ein", "sl": "Completa con il futuro · Vstavi prihodnjik", "en": "Completa con il futuro · Fill in the future" },
+          "title": "La vendemmia",
+          "text": "Sabato prossimo Matteo ___ (fare) la vendemmia. Tutti i bambini ___ (venire) ad aiutare. Noi ___ (raccogliere) l'uva con le forbici. Lorenzo ___ (mangiare) più uva di tutti! A mezzogiorno Nonna Rosa ___ (portare) il frico. La sera ___ (noi · cantare) intorno al fuoco e Matteo ___ (essere) contento.",
+          "gaps": [
+            { "accept": ["farà"], "hint": "fare → far-" },
+            { "accept": ["verranno"], "hint": "venire → verr-" },
+            { "accept": ["raccoglieremo"] },
+            {
+              "accept": ["mangerà"],
+              "hint": { "de": "mangiare: ohne i", "sl": "mangiare: brez i", "en": "mangiare: no i" }
+            },
+            { "accept": ["porterà"] },
+            { "accept": ["canteremo"], "hint": "-are → -er-" },
+            { "accept": ["sarà"], "hint": "essere → sar-" }
+          ],
+          "bank": true,
+          "distractors": ["mangierà", "veniranno", "sarò"],
+          "translation": {
+            "de": "Nächsten Samstag macht Matteo die Weinlese. Alle Kinder kommen zum Helfen. Wir pflücken die Trauben mit der Schere. Lorenzo wird mehr Trauben essen als alle anderen! Am Mittag bringt Nonna Rosa den Frico. Am Abend singen wir am Feuer, und Matteo wird froh sein.",
+            "sl": "Prihodnjo soboto bo Matteo trgal grozdje. Vsi otroci bodo prišli pomagat. Grozdje bomo trgali s škarjami. Lorenzo bo pojedel več grozdja kot vsi drugi! Opoldne bo babica Rosa prinesla frico. Zvečer bomo peli ob ognju in Matteo bo vesel.",
+            "en": "Next Saturday Matteo will have the grape harvest. All the children will come and help. We'll pick the grapes with scissors. Lorenzo will eat more grapes than anyone! At noon Nonna Rosa will bring frico. In the evening we'll sing round the fire and Matteo will be happy."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "futuro",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Domani io ___ la nonna a Udine.",
+          "options": ["vedrò", "vederò", "vedrà"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**vedere** → **vedr-**, das e fällt weg: vedrò\n- vedrà · lui, lei",
+            "sl": "**vedere** → **vedr-**, e odpade: vedrò\n- vedrà · lui, lei",
+            "en": "**vedere** → **vedr-**, the e goes: vedrò\n- vedrà · lui, lei"
+          }
+        }
+      ]
+    },
+    {
+      "id": "futuro-3",
+      "title": { "it": "Domani!", "de": "Morgen!", "sl": "Jutri!", "en": "Tomorrow!" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "futuro",
+          "instruction": { "de": "Metti al futuro · Setz es in die Zukunft", "sl": "Metti al futuro · Postavi v prihodnjik", "en": "Metti al futuro · Put it in the future" },
+          "cue": "domani",
+          "items": [
+            {
+              "from": "Faccio i compiti.",
+              "accept": ["Farò i compiti.", "Domani farò i compiti.", "Farò i compiti domani."]
+            },
+            {
+              "from": "Giulia è a Udine.",
+              "accept": ["Giulia sarà a Udine.", "Domani giulia sarà a Udine.", "Giulia sarà a Udine domani."]
+            },
+            {
+              "from": "Lorenzo viene con noi.",
+              "accept": ["Lorenzo verrà con noi.", "Domani lorenzo verrà con noi.", "Lorenzo verrà con noi domani."],
+              "hint": "venire → verr-"
+            },
+            {
+              "from": "Giochiamo in piazza.",
+              "accept": ["Giocheremo in piazza.", "Domani giocheremo in piazza.", "Giocheremo in piazza domani."],
+              "hint": "giocare → giocher-"
+            },
+            {
+              "from": "Mangi la polenta?",
+              "accept": ["Mangerai la polenta?", "Domani mangerai la polenta?", "Mangerai la polenta domani?"]
+            },
+            {
+              "from": "I bambini dormono nella tenda.",
+              "accept": [
+                "I bambini dormiranno nella tenda.",
+                "Domani i bambini dormiranno nella tenda.",
+                "I bambini dormiranno nella tenda domani."
+              ]
+            },
+            {
+              "from": "Andate al mare?",
+              "accept": ["Andrete al mare?", "Domani andrete al mare?", "Andrete al mare domani?"]
+            }
+          ],
+          "explain": {
+            "de": "**futuro**: ein Wort\n- faccio → farò · è → sarà · viene → verrà\n- giochiamo → giocheremo · mangi → mangerai",
+            "sl": "**futuro**: ena beseda\n- faccio → farò · è → sarà · viene → verrà\n- giochiamo → giocheremo · mangi → mangerai",
+            "en": "**futuro**: one word\n- faccio → farò · è → sarà · viene → verrà\n- giochiamo → giocheremo · mangi → mangerai"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "futuro",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": [{ "de": "futuro · Zukunft", "sl": "futuro · prihodnjik", "en": "futuro · future" }],
+        "rows": [
+          { "label": "essere · io", "cells": [{"accept": ["sarò"]}] },
+          { "label": "avere · noi", "cells": [{"accept": ["avremo"]}] },
+          { "label": "andare · loro", "cells": [{"accept": ["andranno"]}] },
+          { "label": "potere · tu", "cells": [{"accept": ["potrai"]}] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "futuro",
+        "instruction": { "de": "Completa con il futuro · Setz die Zukunft ein", "sl": "Completa con il futuro · Vstavi prihodnjik", "en": "Completa con il futuro · Fill in the future" },
+        "text": "Zia Nives ascolta la radio: «Domani ___ (piovere) in montagna, ma al mare ___ (esserci) il sole. Sabato ___ (fare) caldo.» Zia Nives dice a Giulia: «Allora sabato ___ (noi · andare) al mare!»",
+        "gaps": [
+          { "accept": ["pioverà"] },
+          { "accept": ["ci sarà"] },
+          { "accept": ["farà"] },
+          { "accept": ["andremo"] }
+        ],
+        "translation": {
+          "de": "Zia Nives hört Radio: „Morgen regnet es in den Bergen, aber am Meer scheint die Sonne. Am Samstag wird es warm.“ Zia Nives sagt zu Giulia: „Dann fahren wir am Samstag ans Meer!“",
+          "sl": "Teta Nives posluša radio: »Jutri bo v hribih deževalo, na morju pa bo sonce. V soboto bo toplo.« Teta Nives reče Giulii: »Potem bova v soboto šli na morje!«",
+          "en": "Zia Nives listens to the radio: “Tomorrow it will rain in the mountains, but at the sea there'll be sun. On Saturday it will be hot.” Zia Nives says to Giulia: “Then on Saturday we'll go to the sea!”"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "futuro",
+        "instruction": { "de": "Metti al futuro · Setz es in die Zukunft", "sl": "Metti al futuro · Postavi v prihodnjik", "en": "Metti al futuro · Put it in the future" },
+        "cue": "domani",
+        "items": [
+          {
+            "from": "Bevo il latte.",
+            "accept": ["Berrò il latte.", "Domani berrò il latte.", "Berrò il latte domani."]
+          },
+          {
+            "from": "Tommaso vuole un gelato.",
+            "accept": ["Tommaso vorrà un gelato.", "Domani tommaso vorrà un gelato.", "Tommaso vorrà un gelato domani."]
+          },
+          {
+            "from": "Cerchiamo le conchiglie.",
+            "accept": ["Cercheremo le conchiglie.", "Domani cercheremo le conchiglie.", "Cercheremo le conchiglie domani."]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "futuro",
+        "prompt": "Quando ___ grande, Tommaso farà il calciatore.",
+        "options": ["è", "sarà", "era"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "Nach **quando** für später → **futuro**: sarà",
+          "sl": "Za **quando** za pozneje → **futuro**: sarà",
+          "en": "After **quando** for later → **futuro**: sarà"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: quando + futuro, farà la veterinaria, raccoglieremo l'uva, the German present for the future in the translations"
+}
