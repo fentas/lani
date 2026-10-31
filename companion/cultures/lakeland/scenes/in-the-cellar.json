@@ -97,6 +97,7 @@
     },
     {
       "id": "candle",
+      "fx_stays": true,
       "lines": [
         { "who": "sam", "face": "surprised", "en": "Whoops! The candle's gone out. It's very dark down here!", "sl": "Ups! Sveča je ugasnila. Tukaj spodaj je zelo temno!", "it": "Ops! La candela si è spenta. Quaggiù è buio pesto!", "de": "Hoppla! Die Kerze ist ausgegangen. Hier unten ist es stockdunkel!", "fx": { "candle": 0 } },
         { "choices": [
@@ -225,6 +226,7 @@
     },
     {
       "id": "candle-glass",
+      "fx_stays": true,
       "memory": { "en": "the evening you found my glass by the candle", "sl": "večer, ko si {m:našel|f:našla} moj kozarec ob sveči", "it": "la sera in cui hai trovato il mio bicchiere vicino alla candela", "de": "den Abend, an dem du mein Glas bei der Kerze gefunden hast" },
       "lines": [
         { "who": "sam", "face": "worried", "en": "Now where's my glass? I had it a minute ago.", "sl": "No, kje je moj kozarec? Pred minuto sem ga še imel.", "it": "Allora, dov'è il mio bicchiere? Ce l'avevo un minuto fa.", "de": "Wo ist denn mein Glas? Eben hatte ich es noch." },

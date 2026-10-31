@@ -1,0 +1,277 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-the-workshop",
+  "language": "en",
+  "title": { "en": "In the workshop", "sl": "V delavnici", "it": "In laboratorio", "de": "In der Werkstatt" },
+  "emoji": "🔨",
+  "level": "A1",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "art": "workshop",
+  "from": ["house"],
+  "household": ["tyson", "alfie"],
+  "pack": "in-the-workshop",
+  "objects": [
+    { "slot": "workbench", "word": "workbench" },
+    { "slot": "hammer", "word": "hammer" },
+    { "slot": "nails", "word": "nail" },
+    { "slot": "boards", "word": "board" },
+    { "slot": "axe", "word": "axe", "pack": "by-the-fire" },
+    { "slot": "broom", "word": "broom" },
+    { "slot": "window", "word": "window", "pack": "home-and-kitchen" },
+    { "slot": "door", "word": "door", "pack": "home-and-kitchen" },
+    { "slot": "saw", "word": "saw", "needs": { "level": 2 } },
+    { "slot": "tools", "word": "tools", "needs": { "level": 2 } },
+    { "slot": "ladder", "word": "ladder", "pack": "tales", "needs": { "level": 2 } },
+    { "slot": "rake", "word": "rake", "needs": { "level": 2 } },
+    { "slot": "wheelbarrow", "word": "wheelbarrow", "needs": { "level": 3 } },
+    { "slot": "horse", "word": "wooden-horse", "needs": { "level": 3 } },
+    { "slot": "lantern", "word": "lantern", "pack": "in-the-tent", "needs": { "level": 3 } }
+  ],
+  "people": [
+    { "id": "tyson", "name": "Mr Tyson", "emoji": "🧑‍🌾", "art": "farmer", "slot": "bench", "villager": "tyson" },
+    { "id": "alfie", "name": "Alfie", "emoji": "👦", "art": "child3", "slot": "floor", "villager": "alfie" }
+  ],
+  "happenings": [
+    {
+      "id": "hammer", "title": { "en": "Mr Tyson is hammering nails", "sl": "Gospod Tyson zabija žeblje", "it": "Il signor Tyson pianta i chiodi", "de": "Herr Tyson schlägt Nägel ein" }, "who": "tyson",
+      "when": ["morning"], "chance": 0.5, "dialog": "hammer", "dialogs": ["hammer-nails", "hammer"], "reward": { "stone": 15 }, "marker": "🔨",
+      "memory": { "en": "the morning we mended the field gate", "sl": "jutro, ko sva popravila vrata na polje", "it": "la mattina in cui abbiamo aggiustato il cancello del campo", "de": "den Morgen, an dem wir das Feldgatter repariert haben" }
+    },
+    {
+      "id": "saw", "title": { "en": "Mr Tyson is sawing boards", "sl": "Gospod Tyson žaga deske", "it": "Il signor Tyson sega le assi", "de": "Herr Tyson sägt Bretter" }, "who": "tyson",
+      "when": ["afternoon"], "chance": 0.45, "needs": { "level": 2 }, "dialog": "saw", "dialogs": ["saw-alfie", "saw"], "reward": { "wood": 15 }, "marker": "🪚",
+      "memory": { "en": "the afternoon we sawed the boards", "sl": "popoldne, ko sva žagala deske", "it": "il pomeriggio in cui abbiamo segato le assi", "de": "den Nachmittag, an dem wir die Bretter gesägt haben" }
+    },
+    {
+      "id": "horse", "title": { "en": "Alfie's wooden horse", "sl": "Alfiejev leseni konjiček", "it": "Il cavallino di legno di Alfie", "de": "Alfies Holzpferd" }, "who": "alfie",
+      "when": ["evening"], "chance": 0.45, "needs": { "level": 3 }, "dialog": "horse", "dialogs": ["horse-legs", "horse"], "reward": { "food": 15 }, "marker": "🐴",
+      "memory": { "en": "the evening Grandad mended my wooden horse", "sl": "večer, ko je dedek popravil mojega lesenega konjička", "it": "la sera in cui il nonno ha aggiustato il mio cavallino di legno", "de": "den Abend, an dem Opa mein Holzpferd repariert hat" }
+    },
+    {
+      "id": "crook", "title": { "en": "Mr Tyson carves a crook", "sl": "Gospod Tyson izdeluje pastirsko palico", "it": "Il signor Tyson intaglia un bastone da pastore", "de": "Herr Tyson schnitzt einen Hirtenstab" }, "who": "tyson",
+      "when": ["afternoon"], "months": [9, 10, 11], "chance": 0.4, "dialog": "crook", "dialogs": ["crook-horn", "crook"], "reward": { "wisdom": 15 }, "marker": "🦯",
+      "memory": { "en": "the crook for the shepherds' meet", "sl": "pastirsko palico za srečanje pastirjev", "it": "il bastone da pastore per il raduno dei pastori", "de": "den Hirtenstab für das Schäfertreffen" }
+    },
+    {
+      "id": "broom", "title": { "en": "Alfie sweeps the workshop", "sl": "Alfie pometa delavnico", "it": "Alfie spazza il laboratorio", "de": "Alfie fegt die Werkstatt" }, "who": "alfie",
+      "when": ["morning"], "chance": 0.4, "dialog": "broom", "dialogs": ["broom-sawdust", "broom"], "reward": { "food": 10 }, "marker": "🧹",
+      "memory": { "en": "the morning we swept the workshop", "sl": "jutro, ko sva pometala delavnico", "it": "la mattina in cui abbiamo spazzato il laboratorio", "de": "den Morgen, an dem wir die Werkstatt gefegt haben" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "hammer",
+      "lines": [
+        { "who": "tyson", "en": "Morning, {learner}. The field gate is broken. Pass me the hammer, please.", "sl": "Dobro jutro, {learner}. Vrata na polje so polomljena. Podaj mi kladivo, prosim.", "it": "Buongiorno, {learner}. Il cancello del campo è rotto. Passami il martello, per favore.", "de": "Morgen, {learner}. Das Feldgatter ist kaputt. Gib mir bitte den Hammer." },
+        { "choices": [
+          { "en": "Here you are, Mr Tyson.", "sl": "Izvolite, gospod Tyson.", "it": "Ecco a Lei, signor Tyson.", "de": "Bitte schön, Herr Tyson.", "ok": true,
+            "reply": { "face": "happy", "en": "Thank you. One nail… and bang!", "sl": "Hvala. En žebelj … in bum!", "it": "Grazie. Un chiodo… e bang!", "de": "Danke. Ein Nagel … und peng!", "fx": { "hammer": 1 } } },
+          { "en": "Here's the hammer, Mr Tyson.", "sl": "Tukaj je kladivo, gospod Tyson.", "it": "Ecco il martello, signor Tyson.", "de": "Hier ist der Hammer, Herr Tyson.", "ok": true,
+            "reply": { "face": "happy", "en": "Good {m:lad|f:lass}. Now, the nails. Bang!", "sl": "Bravo. Zdaj pa žeblji. Bum!", "it": "{m:Bravo|f:Brava}. Adesso i chiodi. Bang!", "de": "Gut so. Jetzt die Nägel. Peng!", "fx": { "hammer": 1 } } },
+          { "en": "Here you are, Tyson.", "sl": "Izvolite, Tyson.", "it": "Ecco a Lei, Tyson.", "de": "Bitte schön, Tyson.",
+            "why": { "en": "Say Mr Tyson. He's older, and he likes it polite.", "sl": "Reci Mr Tyson. Starejši je in ima rad vljudnost.", "it": "Di' Mr Tyson. È più anziano e gli piace la cortesia.", "de": "Sag Mr Tyson. Er ist älter und mag es höflich." }, "reply": { "face": "cross", "en": "Just Tyson? Hmph. My sheep call me that!", "sl": "Samo Tyson? Hm. Tako mi rečejo ovce!", "it": "Solo Tyson? Mah. Così mi chiamano le pecore!", "de": "Einfach Tyson? Hmpf. So nennen mich meine Schafe!" } }
+        ] },
+        { "who": "tyson", "face": "proud", "en": "Yan, tyan, tethera… That's one, two, three, the old shepherds' way.", "sl": "Yan, tyan, tethera … To je ena, dva, tri, po starem pastirskem.", "it": "Yan, tyan, tethera… Vuol dire uno, due, tre, come i vecchi pastori.", "de": "Yan, tyan, tethera … Das ist eins, zwei, drei, auf die alte Schäferart.", "fx": { "hammer": 1 } },
+        { "choices": [
+          { "en": "Does everybody count like that here?", "sl": "Ali tukaj vsi tako štejejo?", "it": "Qui contano tutti così?", "de": "Zählen hier alle so?", "ok": true,
+            "reply": { "face": "laugh", "en": "Not now. Only old men like me. And Alfie!", "sl": "Zdaj ne več. Samo starci, kot sem jaz. In Alfie!", "it": "Adesso no. Solo i vecchi come me. E Alfie!", "de": "Heute nicht mehr. Nur alte Männer wie ich. Und Alfie!" } },
+          { "en": "Do everybody count like that here?", "sl": "Ali tukaj vsi tako štejejo?", "it": "Qui contano tutti così?", "de": "Zählen hier alle so?", "grammar": "questions-do",
+            "why": { "en": "Everybody takes does, like he or she: does everybody count …?", "sl": "Everybody dobi does, kot he ali she: does everybody count …?", "it": "Everybody vuole does, come he o she: does everybody count …?", "de": "Everybody bekommt does, wie he oder she: does everybody count …?" }, "reply": { "face": "confused", "en": "Do everybody? Hmm. Say that again, slowly.", "sl": "Do everybody? Hm. Povej še enkrat, počasi.", "it": "Do everybody? Mm. Ripeti, piano.", "de": "Do everybody? Hm. Sag das noch mal, langsam." } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Once more, {m:lad|f:lass}.", "sl": "Kaj? Še enkrat.", "it": "Eh? Ancora una volta.", "de": "Hä? Noch einmal." } },
+        { "who": "tyson", "en": "Right. Gate done. Ten nails. Good.", "sl": "Tako. Vrata so narejena. Deset žebljev. Dobro.", "it": "Ecco. Cancello fatto. Dieci chiodi. Bene.", "de": "So. Gatter fertig. Zehn Nägel. Gut.", "fx": { "hammer": 0 } }
+      ]
+    },
+    {
+      "id": "saw",
+      "lines": [
+        { "who": "tyson", "en": "Now then. This board is too long. I need the saw. It's on the wall.", "sl": "No, tako. Ta deska je predolga. Potrebujem žago. Na steni je.", "it": "Allora. Quest'asse è troppo lunga. Mi serve la sega. È sul muro.", "de": "Also dann. Dieses Brett ist zu lang. Ich brauche die Säge. Sie hängt an der Wand." },
+        { "choices": [
+          { "en": "Here it is! Where do you want to cut it?", "sl": "Tukaj je! Kje jo želite prežagati?", "it": "Eccola! Dove la vuole tagliare?", "de": "Hier ist sie! Wo wollen Sie es absägen?", "ok": true,
+            "reply": { "face": "proud", "en": "Here, at the mark. Measure twice, cut once!", "sl": "Tukaj, pri oznaki. Dvakrat izmeri, enkrat odreži!", "it": "Qui, al segno. Misura due volte, taglia una volta!", "de": "Hier, an der Markierung. Zweimal messen, einmal sägen!" } },
+          { "en": "Here it is! Where you want to cut it?", "sl": "Tukaj je! Kje jo želite prežagati?", "it": "Eccola! Dove la vuole tagliare?", "de": "Hier ist sie! Wo wollen Sie es absägen?", "grammar": "questions-do",
+            "why": { "en": "A question needs do: where do you want …?", "sl": "Vprašanje potrebuje do: where do you want …?", "it": "La domanda ha bisogno di do: where do you want …?", "de": "Die Frage braucht do: where do you want …?" }, "reply": { "face": "confused", "en": "Where I want? Ask it properly, {m:lad|f:lass}.", "sl": "Kje hočem? Vprašaj pravilno.", "it": "Dove voglio? Chiedilo bene.", "de": "Wo ich will? Frag richtig." } }
+        ] },
+        { "who": "tyson", "en": "Saw, saw, saw… Look at all the sawdust!", "sl": "Žagam, žagam, žagam … Poglej, koliko žagovine!", "it": "Sega, sega, sega… Guarda quanta segatura!", "de": "Säg, säg, säg … Schau dir das ganze Sägemehl an!", "fx": { "dust": 1 } },
+        { "choices": [
+          { "en": "There's sawdust everywhere!", "sl": "Povsod je žagovina!", "it": "C'è segatura dappertutto!", "de": "Überall ist Sägemehl!", "ok": true,
+            "reply": { "face": "laugh", "en": "Aye. Alfie will sweep it up. He loves the broom.", "sl": "Ja. Alfie jo bo pometel. Obožuje metlo.", "it": "Già. Alfie la spazzerà. Adora la scopa.", "de": "Ja. Alfie fegt es zusammen. Er liebt den Besen.", "fx": { "dust": 0 } } },
+          { "en": "There are sawdust everywhere!", "sl": "Povsod je žagovina!", "it": "C'è segatura dappertutto!", "de": "Überall ist Sägemehl!", "grammar": "there-is-are",
+            "why": { "en": "You can't count sawdust: there is (there's) sawdust.", "sl": "Žagovine ne moreš šteti: there is (there's) sawdust.", "it": "La segatura non si conta: there is (there's) sawdust.", "de": "Sägemehl kann man nicht zählen: there is (there's) sawdust." }, "reply": { "face": "laugh", "en": "Are? Sawdusts? Ha. It's all one big mess!", "sl": "Are? Žagovine? Ha. Vse je ena sama zmeda!", "it": "Are? Segature? Ah. È tutto un unico pasticcio!", "de": "Are? Sägemehle? Ha. Das ist alles ein großes Durcheinander!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "horse",
+      "fx_stays": true,
+      "lines": [
+        { "who": "alfie", "face": "sad", "en": "{learner}, look! My horse has got a broken leg.", "sl": "{learner}, poglej! Moj konjiček ima zlomljeno nogo.", "it": "{learner}, guarda! Il mio cavallino ha una gamba rotta.", "de": "{learner}, schau! Mein Pferdchen hat ein kaputtes Bein.", "fx": { "toy": 0 } },
+        { "choices": [
+          { "en": "Oh no! Has he got three legs now?", "sl": "Ojoj! Ima zdaj samo tri noge?", "it": "Oh no! Adesso ha tre gambe?", "de": "Oh nein! Hat es jetzt nur drei Beine?", "ok": true,
+            "reply": { "face": "sad", "en": "Yes. One, two, three. He can't stand up!", "sl": "Ja. Ena, dve, tri. Ne more stati!", "it": "Sì. Una, due, tre. Non sta in piedi!", "de": "Ja. Eins, zwei, drei. Es kann nicht stehen!" } },
+          { "en": "Oh no! Has he got three leg now?", "sl": "Ojoj! Ima zdaj samo tri noge?", "it": "Oh no! Adesso ha tre gambe?", "de": "Oh nein! Hat es jetzt nur drei Beine?", "grammar": "plurals",
+            "why": { "en": "More than one takes -s: three legs.", "sl": "Za več kot eno dodaš -s: three legs.", "it": "Per più di una si aggiunge -s: three legs.", "de": "Bei mehr als einem kommt -s dazu: three legs." }, "reply": { "face": "curious", "en": "Leg? He's got three! One, two, three!", "sl": "Leg? Tri ima! Ena, dve, tri!", "it": "Leg? Ne ha tre! Una, due, tre!", "de": "Leg? Es hat drei! Eins, zwei, drei!" } }
+        ] },
+        { "who": "tyson", "face": "happy", "en": "Give him to me, Alfie. A bit of glue, and he's as good as new.", "sl": "Daj mi ga, Alfie. Malo lepila in bo kot nov.", "it": "Dammelo, Alfie. Un po' di colla, e torna come nuovo.", "de": "Gib es mir, Alfie. Ein bisschen Leim, und es ist wie neu.", "fx": { "toy": 0.4 } },
+        { "choices": [
+          { "en": "Can you mend him, Mr Tyson?", "sl": "Ga lahko popravite, gospod Tyson?", "it": "Lo può aggiustare, signor Tyson?", "de": "Können Sie es reparieren, Herr Tyson?", "ok": true,
+            "reply": { "face": "proud", "en": "There. Four legs again. Wait for the glue to dry, Alfie!", "sl": "Tako. Spet štiri noge. Počakaj, da se lepilo posuši, Alfie!", "it": "Ecco. Di nuovo quattro gambe. Aspetta che la colla si asciughi, Alfie!", "de": "So. Wieder vier Beine. Warte, bis der Leim trocken ist, Alfie!", "fx": { "toy": 1 } } },
+          { "en": "Can you mends him, Mr Tyson?", "sl": "Ga lahko popravite, gospod Tyson?", "it": "Lo può aggiustare, signor Tyson?", "de": "Können Sie es reparieren, Herr Tyson?", "grammar": "can",
+            "why": { "en": "After can, the verb has no -s: can you mend …?", "sl": "Za can glagol nima -s: can you mend …?", "it": "Dopo can il verbo non ha la -s: can you mend …?", "de": "Nach can hat das Verb kein -s: can you mend …?" }, "reply": { "face": "confused", "en": "Mends? Hmph. Can you say that again?", "sl": "Mends? Hm. Lahko to še enkrat poveš?", "it": "Mends? Mah. Puoi ripeterlo?", "de": "Mends? Hmpf. Kannst du das noch mal sagen?" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Once more, {m:lad|f:lass}.", "sl": "Kaj? Še enkrat.", "it": "Eh? Ancora una volta.", "de": "Hä? Noch einmal." } },
+        { "who": "alfie", "face": "laugh", "en": "He's better! Giddy up, horsey!", "sl": "Spet je zdrav! Hija, konjiček!", "it": "È guarito! Arri, cavallino!", "de": "Es ist wieder gesund! Hü, Pferdchen!" }
+      ]
+    },
+    {
+      "id": "crook",
+      "lines": [
+        { "who": "tyson", "face": "proud", "en": "See the crooks on the wall? I made them. This one is for the shepherds' meet in November.", "sl": "Vidiš pastirske palice na steni? Sam sem jih naredil. Ta je za srečanje pastirjev novembra.", "it": "Vedi i bastoni da pastore sul muro? Li ho fatti io. Questo è per il raduno dei pastori a novembre.", "de": "Siehst du die Hirtenstäbe an der Wand? Die habe ich gemacht. Dieser ist für das Schäfertreffen im November." },
+        { "choices": [
+          { "en": "What do shepherds do with a crook?", "sl": "Kaj pastirji počnejo s palico?", "it": "Che cosa fanno i pastori con il bastone?", "de": "Was machen Schäfer mit einem Hirtenstab?", "ok": true,
+            "reply": { "face": "happy", "en": "They catch a sheep by its neck or its leg. Gently, mind!", "sl": "Z njo ujamejo ovco za vrat ali za nogo. Nežno, seveda!", "it": "Prendono la pecora per il collo o per la zampa. Con delicatezza, eh!", "de": "Sie fangen damit ein Schaf am Hals oder am Bein. Aber sanft!" } },
+          { "en": "What do shepherds do with crook?", "sl": "Kaj pastirji počnejo s palico?", "it": "Che cosa fanno i pastori con il bastone?", "de": "Was machen Schäfer mit einem Hirtenstab?", "grammar": "articles",
+            "why": { "en": "One crook, any crook: say a crook.", "sl": "Ena palica, katerakoli: reci a crook.", "it": "Un bastone, uno qualsiasi: di' a crook.", "de": "Ein Hirtenstab, irgendeiner: sag a crook." }, "reply": { "face": "confused", "en": "With crook? With which crook? Ask again.", "sl": "S palico? S katero palico? Vprašaj še enkrat.", "it": "Con bastone? Con quale bastone? Chiedi di nuovo.", "de": "Mit Hirtenstab? Mit welchem? Frag noch mal." } }
+        ] },
+        { "who": "tyson", "en": "The handle is a ram's horn. I carve it with my knife, slowly. Weeks of work.", "sl": "Ročaj je iz ovnovega roga. Izrezljam ga z nožem, počasi. Tedni dela.", "it": "Il manico è un corno di montone. Lo intaglio con il coltello, piano. Settimane di lavoro.", "de": "Der Griff ist ein Widderhorn. Ich schnitze ihn mit meinem Messer, langsam. Wochen Arbeit." },
+        { "choices": [
+          { "en": "Do you usually win a prize?", "sl": "Ali navadno dobite nagrado?", "it": "Di solito vince un premio?", "de": "Gewinnen Sie normalerweise einen Preis?", "ok": true,
+            "reply": { "face": "proud", "en": "Usually! Three rosettes in ten years. Not bad, eh?", "sl": "Navadno! Tri rozete v desetih letih. Ni slabo, kaj?", "it": "Di solito! Tre coccarde in dieci anni. Niente male, eh?", "de": "Normalerweise! Drei Rosetten in zehn Jahren. Nicht schlecht, was?" } },
+          { "en": "Do you win usually a prize?", "sl": "Ali navadno dobite nagrado?", "it": "Di solito vince un premio?", "de": "Gewinnen Sie normalerweise einen Preis?", "grammar": "word-order",
+            "why": { "en": "Usually goes before the main verb: do you usually win …?", "sl": "Usually stoji pred glavnim glagolom: do you usually win …?", "it": "Usually va prima del verbo principale: do you usually win …?", "de": "Usually steht vor dem Hauptverb: do you usually win …?" }, "reply": { "face": "confused", "en": "Eh? Say that again, {m:lad|f:lass}. Slowly.", "sl": "Kaj? Povej še enkrat. Počasi.", "it": "Eh? Ripeti. Piano.", "de": "Hä? Sag das noch mal. Langsam." } }
+        ] }
+      ]
+    },
+    {
+      "id": "broom",
+      "lines": [
+        { "who": "alfie", "face": "curious", "en": "Grandad says: first we sweep, then we work. Where's the broom?", "sl": "Dedek pravi: najprej pometemo, potem delamo. Kje je metla?", "it": "Il nonno dice: prima si spazza, poi si lavora. Dov'è la scopa?", "de": "Opa sagt: Erst fegen wir, dann arbeiten wir. Wo ist der Besen?" },
+        { "choices": [
+          { "en": "There it is, in the corner!", "sl": "Tam je, v kotu!", "it": "Eccola, nell'angolo!", "de": "Da ist er, in der Ecke!", "ok": true, "tap": "broom", "grammar": "prepositions-place",
+            "reply": { "face": "laugh", "en": "Found it! Swish, swish!", "sl": "Našel sem jo! Švist, švist!", "it": "Trovata! Fsss, fsss!", "de": "Gefunden! Wisch, wisch!" } },
+          { "en": "It's under the workbench!", "sl": "Pod delovno mizo je!", "it": "È sotto il banco da lavoro!", "de": "Er ist unter der Werkbank!", "tap": "workbench",
+            "why": { "en": "Not under the workbench. Look for something long in a corner.", "sl": "Ne pod delovno mizo. Poišči nekaj dolgega v kotu.", "it": "Non sotto il banco. Cerca qualcosa di lungo in un angolo.", "de": "Nicht unter der Werkbank. Such etwas Langes in einer Ecke." }, "reply": { "face": "laugh", "en": "Under the bench? Only a spider lives there!", "sl": "Pod mizo? Tam živi samo pajek!", "it": "Sotto il banco? Lì ci vive solo un ragno!", "de": "Unter der Bank? Da wohnt nur eine Spinne!" } },
+          { "en": "It's by the door!", "sl": "Pri vratih je!", "it": "È vicino alla porta!", "de": "Er ist bei der Tür!", "tap": "door",
+            "why": { "en": "Not by the door. Look in a corner.", "sl": "Ne pri vratih. Poglej v kot.", "it": "Non vicino alla porta. Guarda in un angolo.", "de": "Nicht bei der Tür. Schau in eine Ecke." }, "reply": { "face": "laugh", "en": "By the door? No, that's the way out! Hee hee!", "sl": "Pri vratih? Ne, tam se gre ven! Hi hi!", "it": "Vicino alla porta? No, quella è l'uscita! Ih ih!", "de": "Bei der Tür? Nein, da geht's raus! Hihi!" } }
+        ] },
+        { "who": "alfie", "face": "happy", "en": "See the basket of bobbins? Grandad says they're from the old bobbin mill.", "sl": "Vidiš košaro vretenc? Dedek pravi, da so iz stare tovarne vretenc.", "it": "Vedi il cesto di rocchetti? Il nonno dice che vengono dal vecchio mulino dei rocchetti.", "de": "Siehst du den Korb mit den Spulen? Opa sagt, sie sind aus der alten Spulenfabrik." },
+        { "choices": [
+          { "en": "What are bobbins for, Alfie?", "sl": "Za kaj so vretenca, Alfie?", "it": "A che cosa servono i rocchetti, Alfie?", "de": "Wofür sind Spulen, Alfie?", "ok": true,
+            "reply": { "face": "proud", "en": "For thread! The mills put cotton on them. A long time ago.", "sl": "Za nit! V tovarnah so nanje navijali bombaž. Pred davnimi časi.", "it": "Per il filo! Nelle fabbriche ci avvolgevano il cotone. Tanto tempo fa.", "de": "Für Garn! In den Fabriken hat man Baumwolle draufgewickelt. Vor langer Zeit." } },
+          { "en": "What is bobbins for, Alfie?", "sl": "Za kaj so vretenca, Alfie?", "it": "A che cosa servono i rocchetti, Alfie?", "de": "Wofür sind Spulen, Alfie?", "grammar": "to-be",
+            "why": { "en": "Bobbins is plural, so are: what are bobbins for?", "sl": "Bobbins je množina, zato are: what are bobbins for?", "it": "Bobbins è plurale, quindi are: what are bobbins for?", "de": "Bobbins ist Plural, also are: what are bobbins for?" }, "reply": { "face": "laugh", "en": "Is? Silly! Ask me again!", "sl": "Is? Smešno! Vprašaj me še enkrat!", "it": "Is? Che buffo! Chiedimelo di nuovo!", "de": "Is? Quatsch! Frag mich noch mal!" } }
+        ] }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "hammer-nails",
+      "count": { "from": "dice", "min": 3, "max": 9 },
+      "memory": { "en": "the nails we counted the old way", "sl": "žeblje, ki sva jih štela po starem", "it": "i chiodi che abbiamo contato all'antica", "de": "die Nägel, die wir auf die alte Art gezählt haben" },
+      "lines": [
+        { "who": "tyson", "en": "Morning, {learner}. Give me {n} nails from the tin, please.", "sl": "Dobro jutro, {learner}. Daj mi {n} {žebelj|žeblja|žeblje|žebljev} iz škatle, prosim.", "it": "Buongiorno, {learner}. Dammi {n} chiodi dalla scatola, per favore.", "de": "Morgen, {learner}. Gib mir bitte {n} Nägel aus der Dose.", "fx": { "hammer": 1 } },
+        { "choices": [
+          { "en": "Here are {n} nails, Mr Tyson.", "sl": "Tukaj {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}, gospod Tyson.", "it": "Ecco {n} chiodi, signor Tyson.", "de": "Hier sind {n} Nägel, Herr Tyson.", "ok": true,
+            "reply": { "face": "proud", "en": "Good counting. You'd make a shepherd, {m:lad|f:lass}!", "sl": "Lepo si {m:preštel|f:preštela}. {m:Bil bi dober pastir|f:Bila bi dobra pastirica}!", "it": "{m:Bravo|f:Brava} a contare. Saresti {m:un buon pastore|f:una brava pastora}!", "de": "Gut gezählt. Aus dir wird {m:ein guter Schäfer|f:eine gute Schäferin}!" } },
+          { "en": "Here are {n} {!nail|nails}, Mr Tyson.", "sl": "Tukaj {je|sta|so|je} {n} {!žebelj|žeblja|žeblji|žebljev}, gospod Tyson.", "it": "Ecco {n} {!chiodo|chiodi}, signor Tyson.", "de": "Hier sind {n} {!Nagel|Nägel}, Herr Tyson.", "wrong_form": 1, "grammar": "plurals",
+            "why": { "en": "{One takes the singular|More than one takes -s}: {n} {nail|nails}.", "sl": "{Eno je v ednini|Za več kot enega dodaš -s}: {n} {nail|nails}.", "it": "{Uno vuole il singolare|Per più di uno si aggiunge -s}: {n} {nail|nails}.", "de": "{Eins steht im Singular|Bei mehr als einem kommt -s dazu}: {n} {nail|nails}." }, "reply": { "face": "surprised", "en": "Just one nail? That won't hold a gate! Again.", "sl": "Samo en žebelj? To ne bo držalo vrat! Še enkrat.", "it": "Un chiodo solo? Così il cancello non sta su! Di nuovo.", "de": "Nur ein Nagel? Das hält kein Gatter! Noch mal." } },
+          { "en": "Here is {n} nails, Mr Tyson.", "sl": "Tukaj {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}, gospod Tyson.", "it": "Ecco {n} chiodi, signor Tyson.", "de": "Hier sind {n} Nägel, Herr Tyson.", "grammar": "to-be",
+            "why": { "en": "Nails is plural, so are: here are {n} nails.", "sl": "Nails je množina, zato are: here are {n} nails.", "it": "Nails è plurale, quindi are: here are {n} nails.", "de": "Nails ist Plural, also are: here are {n} nails." }, "reply": { "face": "confused", "en": "Here is? Count them again, {m:lad|f:lass}.", "sl": "Here is? Preštej jih še enkrat.", "it": "Here is? Contali di nuovo.", "de": "Here is? Zähl sie noch mal." } }
+        ] },
+        { "who": "tyson", "en": "Now hold the board still. Mind your fingers!", "sl": "Zdaj pa drži desko pri miru. Pazi na prste!", "it": "Adesso tieni ferma l'asse. Attento alle dita!", "de": "Jetzt halt das Brett still. Pass auf deine Finger auf!" },
+        { "choices": [
+          { "en": "I'm holding it, Mr Tyson. Go on!", "sl": "Držim jo, gospod Tyson. Kar dajte!", "it": "La tengo, signor Tyson. Vada pure!", "de": "Ich halte es, Herr Tyson. Los!", "ok": true,
+            "reply": { "face": "happy", "en": "Bang! Bang! There. Strong as a stone wall.", "sl": "Bum! Bum! Tako. Trdno kot kamnit zid.", "it": "Bang! Bang! Ecco. Solido come un muro di pietra.", "de": "Peng! Peng! So. Fest wie eine Steinmauer.", "fx": { "hammer": 1 } } },
+          { "en": "I'm hold it, Mr Tyson. Go on!", "sl": "Držim jo, gospod Tyson. Kar dajte!", "it": "La tengo, signor Tyson. Vada pure!", "de": "Ich halte es, Herr Tyson. Los!", "grammar": "present-continuous",
+            "why": { "en": "I'm (I am) goes with the -ing form: I'm holding it.", "sl": "I'm (I am) gre z obliko na -ing: I'm holding it.", "it": "I'm (I am) va con la forma in -ing: I'm holding it.", "de": "I'm (I am) geht mit der -ing-Form: I'm holding it." }, "reply": { "face": "worried", "en": "You're what? Hold it, or my hammer finds your thumb!", "sl": "Kaj? Drži jo, sicer moje kladivo najde tvoj palec!", "it": "Cosa? Tienila, o il martello trova il tuo pollice!", "de": "Du was? Halt es fest, sonst trifft mein Hammer deinen Daumen!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "saw-alfie",
+      "memory": { "en": "the day Alfie helped with the saw", "sl": "dan, ko je Alfie pomagal pri žaganju", "it": "il giorno in cui Alfie ha aiutato con la sega", "de": "den Tag, an dem Alfie beim Sägen geholfen hat" },
+      "lines": [
+        { "who": "alfie", "face": "curious", "en": "{learner}! Grandad is sawing. Can I saw too?", "sl": "{learner}! Dedek žaga. Lahko žagam tudi jaz?", "it": "{learner}! Il nonno sta segando. Posso segare anch'io?", "de": "{learner}! Opa sägt. Darf ich auch sägen?" },
+        { "choices": [
+          { "en": "No, Alfie. It's too sharp for you.", "sl": "Ne, Alfie. Za tebe je preostra.", "it": "No, Alfie. È troppo affilata per te.", "de": "Nein, Alfie. Sie ist zu scharf für dich.", "ok": true,
+            "reply": { "face": "sad", "en": "Oh. When I'm seven, then.", "sl": "Oh. Potem pa, ko bom star sedem let.", "it": "Oh. Allora quando avrò sette anni.", "de": "Oh. Dann wenn ich sieben bin." } },
+          { "en": "No, Alfie. It's too sharp for your.", "sl": "Ne, Alfie. Za tebe je preostra.", "it": "No, Alfie. È troppo affilata per te.", "de": "Nein, Alfie. Sie ist zu scharf für dich.", "grammar": "possessive-s",
+            "why": { "en": "After for, say you: for you. Your goes with a thing: your hammer.", "sl": "Za for reci you: for you. Your gre s stvarjo: your hammer.", "it": "Dopo for si dice you: for you. Your va con una cosa: your hammer.", "de": "Nach for sagt man you: for you. Your geht mit einer Sache: your hammer." }, "reply": { "face": "confused", "en": "For my what? My hammer?", "sl": "Za moje kaj? Moje kladivo?", "it": "Per il mio cosa? Il mio martello?", "de": "Für mein was? Meinen Hammer?" } }
+        ] },
+        { "who": "tyson", "face": "happy", "en": "Alfie, you can hold the board. Both hands, now.", "sl": "Alfie, ti lahko držiš desko. Z obema rokama.", "it": "Alfie, tu puoi tenere l'asse. Con tutte e due le mani.", "de": "Alfie, du darfst das Brett halten. Mit beiden Händen.", "fx": { "dust": 1 } },
+        { "choices": [
+          { "en": "Well done, Alfie! You're a good helper.", "sl": "Bravo, Alfie! Dober pomočnik si.", "it": "Bravo, Alfie! Sei un bravo aiutante.", "de": "Gut gemacht, Alfie! Du bist ein guter Helfer.", "ok": true,
+            "reply": { "face": "proud", "en": "I'm a good helper! One, two, three: three boards!", "sl": "Dober pomočnik sem! Ena, dve, tri: tri deske!", "it": "Sono un bravo aiutante! Una, due, tre: tre assi!", "de": "Ich bin ein guter Helfer! Eins, zwei, drei: drei Bretter!" } },
+          { "en": "Well done, Alfie! You're a good helpers.", "sl": "Bravo, Alfie! Dober pomočnik si.", "it": "Bravo, Alfie! Sei un bravo aiutante.", "de": "Gut gemacht, Alfie! Du bist ein guter Helfer.", "grammar": "plurals",
+            "why": { "en": "Alfie is one helper: a good helper, no -s.", "sl": "Alfie je en pomočnik: a good helper, brez -s.", "it": "Alfie è un aiutante solo: a good helper, senza -s.", "de": "Alfie ist ein Helfer: a good helper, ohne -s." }, "reply": { "face": "laugh", "en": "Helpers? I'm only one, {learner}! One Alfie!", "sl": "Pomočniki? Saj sem samo eden, {learner}! En Alfie!", "it": "Aiutanti? Sono uno solo, {learner}! Un Alfie!", "de": "Helfer, viele? Ich bin nur einer, {learner}! Ein Alfie!" } }
+        ], "to": "alfie" },
+        { "who": "tyson", "en": "Good. Now sweep up the sawdust, Alfie. Into the garden with it.", "sl": "Dobro. Zdaj pa pometi žagovino, Alfie. Ven na vrt z njo.", "it": "Bene. Adesso spazza la segatura, Alfie. Fuori in giardino.", "de": "Gut. Jetzt feg das Sägemehl zusammen, Alfie. Raus in den Garten damit.", "fx": { "dust": 0 } }
+      ]
+    },
+    {
+      "id": "horse-legs",
+      "fx_stays": true,
+      "memory": { "en": "the evening we counted my horse's legs", "sl": "večer, ko sva štela noge mojega konjička", "it": "la sera in cui abbiamo contato le gambe del mio cavallino", "de": "den Abend, an dem wir die Beine meines Pferdchens gezählt haben" },
+      "lines": [
+        { "who": "alfie", "face": "curious", "en": "{learner}, how many legs has a horse got?", "sl": "{learner}, koliko nog ima konj?", "it": "{learner}, quante gambe ha un cavallo?", "de": "{learner}, wie viele Beine hat ein Pferd?" },
+        { "choices": [
+          { "en": "A horse has got four legs.", "sl": "Konj ima štiri noge.", "it": "Un cavallo ha quattro gambe.", "de": "Ein Pferd hat vier Beine.", "ok": true,
+            "reply": { "face": "sad", "en": "Four! But my horse has only got three. Look!", "sl": "Štiri! Ampak moj konjiček jih ima samo tri. Poglej!", "it": "Quattro! Ma il mio cavallino ne ha solo tre. Guarda!", "de": "Vier! Aber mein Pferdchen hat nur drei. Schau!", "fx": { "toy": 0 } } },
+          { "en": "A horse have got four legs.", "sl": "Konj ima štiri noge.", "it": "Un cavallo ha quattro gambe.", "de": "Ein Pferd hat vier Beine.", "grammar": "to-have",
+            "why": { "en": "A horse is it, so has: a horse has got four legs.", "sl": "A horse je it, zato has: a horse has got four legs.", "it": "A horse è it, quindi has: a horse has got four legs.", "de": "A horse ist it, also has: a horse has got four legs." }, "reply": { "face": "laugh", "en": "Have got? Hee hee! Again, {learner}!", "sl": "Have got? Hi hi! Še enkrat, {learner}!", "it": "Have got? Ih ih! Di nuovo, {learner}!", "de": "Have got? Hihi! Noch mal, {learner}!" } }
+        ] },
+        { "who": "alfie", "face": "curious", "en": "Grandad can mend it. Grandad can mend everything!", "sl": "Dedek ga lahko popravi. Dedek zna popraviti vse!", "it": "Il nonno lo può aggiustare. Il nonno aggiusta tutto!", "de": "Opa kann es reparieren. Opa kann alles reparieren!" },
+        { "choices": [
+          { "en": "Let's ask him, Alfie.", "sl": "Vprašajva ga, Alfie.", "it": "Chiediamoglielo, Alfie.", "de": "Fragen wir ihn, Alfie.", "ok": true,
+            "reply": { "face": "happy", "en": "Grandad! Please mend my horse!", "sl": "Dedek! Prosim, popravi mojega konjička!", "it": "Nonno! Per favore, aggiusta il mio cavallino!", "de": "Opa! Bitte reparier mein Pferdchen!" } },
+          { "en": "Let's to ask him, Alfie.", "sl": "Vprašajva ga, Alfie.", "it": "Chiediamoglielo, Alfie.", "de": "Fragen wir ihn, Alfie.",
+            "why": { "en": "After let's comes the verb without to: let's ask.", "sl": "Za let's pride glagol brez to: let's ask.", "it": "Dopo let's viene il verbo senza to: let's ask.", "de": "Nach let's kommt das Verb ohne to: let's ask." }, "reply": { "face": "curious", "en": "Let's to? To where, {learner}?", "sl": "Let's to? Kam, {learner}?", "it": "Let's to? Dove, {learner}?", "de": "Let's to? Wohin, {learner}?" } }
+        ] },
+        { "who": "tyson", "face": "proud", "en": "Glue, a little peg, and… done. Four legs, Alfie. Count them!", "sl": "Lepilo, majhen klinček in … narejeno. Štiri noge, Alfie. Preštej jih!", "it": "Colla, un pioletto e… fatto. Quattro gambe, Alfie. Contale!", "de": "Leim, ein kleiner Dübel und … fertig. Vier Beine, Alfie. Zähl sie!", "fx": { "toy": 1 } }
+      ]
+    },
+    {
+      "id": "crook-horn",
+      "memory": { "en": "the ram's horn for my crook", "sl": "ovnov rog za mojo pastirsko palico", "it": "il corno di montone per il mio bastone", "de": "das Widderhorn für meinen Hirtenstab" },
+      "lines": [
+        { "who": "tyson", "en": "Hold this horn, {learner}. It's from an old Herdwick ram.", "sl": "Podrži ta rog, {learner}. Od starega herdwiškega ovna je.", "it": "Tieni questo corno, {learner}. Viene da un vecchio montone Herdwick.", "de": "Halt dieses Horn, {learner}. Es ist von einem alten Herdwick-Widder." },
+        { "choices": [
+          { "en": "It's heavy! And very hard.", "sl": "Težak je! In zelo trd.", "it": "È pesante! E durissimo.", "de": "Es ist schwer! Und sehr hart.", "ok": true,
+            "reply": { "face": "proud", "en": "Aye. A ram's horn is strong. It lasts a hundred years.", "sl": "Ja. Ovnov rog je trden. Zdrži sto let.", "it": "Già. Il corno di montone è forte. Dura cent'anni.", "de": "Ja. Widderhorn ist stark. Es hält hundert Jahre." } },
+          { "en": "It's heavy! And very hardly.", "sl": "Težak je! In zelo komaj.", "it": "È pesante! E molto appena.", "de": "Es ist schwer! Und sehr kaum.",
+            "why": { "en": "Hard says what the horn is like. Hardly means almost not!", "sl": "Hard pove, kakšen je rog. Hardly pomeni komaj!", "it": "Hard dice com'è il corno. Hardly vuol dire appena, quasi per niente!", "de": "Hard sagt, wie das Horn ist. Hardly heißt kaum!" }, "reply": { "face": "laugh", "en": "Hardly? It's like a rock, {m:lad|f:lass}!", "sl": "Komaj? Kot skala je!", "it": "Appena? È come una roccia!", "de": "Kaum? Es ist wie ein Fels!" } }
+        ] },
+        { "who": "tyson", "face": "curious", "en": "Shall I carve a crook for you too? With your name on it.", "sl": "Naj tudi tebi izrezljam pastirsko palico? S tvojim imenom.", "it": "Vuoi che intagli un bastone anche per te? Con il tuo nome sopra.", "de": "Soll ich dir auch einen Hirtenstab schnitzen? Mit deinem Namen drauf." },
+        { "choices": [
+          { "en": "Yes, please! That would be wonderful.", "sl": "Ja, prosim! To bi bilo čudovito.", "it": "Sì, grazie! Sarebbe meraviglioso.", "de": "Ja, bitte! Das wäre wunderbar.", "ok": true,
+            "reply": { "face": "proud", "en": "Then you'll have it by Christmas. Weeks of work!", "sl": "Potem jo boš {m:imel|f:imela} do božiča. Tedni dela!", "it": "Allora l'avrai per Natale. Settimane di lavoro!", "de": "Dann hast du ihn bis Weihnachten. Wochen Arbeit!" } },
+          { "en": "Really? Thank you, Mr Tyson!", "sl": "Res? Hvala, gospod Tyson!", "it": "Davvero? Grazie, signor Tyson!", "de": "Wirklich? Danke, Herr Tyson!", "ok": true,
+            "reply": { "face": "happy", "en": "My pleasure. Everybody needs a good crook on the fells.", "sl": "Z veseljem. Na hribih vsak potrebuje dobro palico.", "it": "Con piacere. Sulle colline tutti hanno bisogno di un buon bastone.", "de": "Gern geschehen. Auf den Bergen braucht jeder einen guten Stab." } },
+          { "en": "No, please!", "sl": "Ne, prosim!", "it": "No, per favore!", "de": "Nein, bitte!",
+            "why": { "en": "No, please sounds like you're scared! Say yes, please or no, thank you.", "sl": "No, please zveni, kot da te je strah! Reci yes, please ali no, thank you.", "it": "No, please sembra che tu abbia paura! Di' yes, please o no, thank you.", "de": "No, please klingt, als hättest du Angst! Sag yes, please oder no, thank you." }, "reply": { "face": "surprised", "en": "No, please? It's only a stick, {m:lad|f:lass}! Don't be scared!", "sl": "Ne, prosim? Saj je samo palica! Ne boj se!", "it": "No, per favore? È solo un bastone! Non avere paura!", "de": "Nein, bitte? Das ist doch nur ein Stock! Keine Angst!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "broom-sawdust",
+      "memory": { "en": "the morning Alfie swept up the sawdust", "sl": "jutro, ko je Alfie pometel žagovino", "it": "la mattina in cui Alfie ha spazzato la segatura", "de": "den Morgen, an dem Alfie das Sägemehl zusammengefegt hat" },
+      "lines": [
+        { "who": "alfie", "face": "laugh", "en": "Sawdust! Lots of sawdust! Can I sweep it, {learner}?", "sl": "Žagovina! Polno žagovine! Jo lahko pometem, {learner}?", "it": "Segatura! Tanta segatura! La posso spazzare, {learner}?", "de": "Sägemehl! Ganz viel Sägemehl! Darf ich es fegen, {learner}?" },
+        { "choices": [
+          { "en": "Of course you can, Alfie.", "sl": "Seveda lahko, Alfie.", "it": "Certo che puoi, Alfie.", "de": "Natürlich darfst du, Alfie.", "ok": true,
+            "reply": { "face": "happy", "en": "Swish, swish! Into the garden it goes!", "sl": "Švist, švist! Ven na vrt z njo!", "it": "Fsss, fsss! Fuori in giardino!", "de": "Wisch, wisch! Ab in den Garten!" } },
+          { "en": "Of course you can't, Alfie.", "sl": "Seveda ne smeš, Alfie.", "it": "Certo che non puoi, Alfie.", "de": "Natürlich darfst du nicht, Alfie.",
+            "why": { "en": "Can't is can not. Alfie wants to help: say you can.", "sl": "Can't je can not. Alfie hoče pomagati: reci you can.", "it": "Can't è can not. Alfie vuole aiutare: di' you can.", "de": "Can't ist can not. Alfie will helfen: Sag you can." }, "reply": { "face": "sad", "en": "Can't? Oh… But I'm a good sweeper!", "sl": "Ne smem? Oh … Ampak dobro pometam!", "it": "Non posso? Oh… Ma sono bravo a spazzare!", "de": "Nicht? Oh … Aber ich fege doch so gut!" } },
+          { "en": "Of course you cans, Alfie.", "sl": "Seveda lahko, Alfie.", "it": "Certo che puoi, Alfie.", "de": "Natürlich darfst du, Alfie.", "grammar": "can",
+            "why": { "en": "Can never takes -s: you can, he can, she can.", "sl": "Can nikoli ne dobi -s: you can, he can, she can.", "it": "Can non prende mai la -s: you can, he can, she can.", "de": "Can bekommt nie ein -s: you can, he can, she can." }, "reply": { "face": "laugh", "en": "Cans? Like tins of beans? Hee hee!", "sl": "Cans? Kot konzerve fižola? Hi hi!", "it": "Cans? Come le lattine di fagioli? Ih ih!", "de": "Cans? Wie Bohnendosen? Hihi!" } }
+        ] },
+        { "who": "alfie", "face": "proud", "en": "I'm six. Six is big. I can sweep all the workshop!", "sl": "Star sem šest let. Šest je že veliko. Lahko pometem vso delavnico!", "it": "Ho sei anni. Sei è grande. Posso spazzare tutto il laboratorio!", "de": "Ich bin sechs. Sechs ist groß. Ich kann die ganze Werkstatt fegen!" },
+        { "choices": [
+          { "en": "You're very good at it, Alfie.", "sl": "Res si dober v tem, Alfie.", "it": "Sei bravissimo, Alfie.", "de": "Das kannst du sehr gut, Alfie.", "ok": true,
+            "reply": { "face": "shy", "en": "Thank you! When I'm big, I'm going to be a farmer like Grandad.", "sl": "Hvala! Ko bom velik, bom kmet kot dedek.", "it": "Grazie! Da grande farò il contadino come il nonno.", "de": "Danke! Wenn ich groß bin, werde ich Bauer wie Opa." } },
+          { "en": "You're very good on it, Alfie.", "sl": "Res si dober v tem, Alfie.", "it": "Sei bravissimo, Alfie.", "de": "Das kannst du sehr gut, Alfie.",
+            "why": { "en": "We say good at something: good at sweeping, good at football.", "sl": "Rečemo good at something: good at sweeping, good at football.", "it": "Si dice good at something: good at sweeping, good at football.", "de": "Man sagt good at something: good at sweeping, good at football." }, "reply": { "face": "laugh", "en": "On it? On the broom? Like a witch? Hee hee!", "sl": "Na njej? Na metli? Kot čarovnica? Hi hi!", "it": "Sopra? Sulla scopa? Come una strega? Ih ih!", "de": "Drauf? Auf dem Besen? Wie eine Hexe? Hihi!" } }
+        ] }
+      ]
+    }
+  ]
+}
