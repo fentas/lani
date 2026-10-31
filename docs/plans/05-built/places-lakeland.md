@@ -115,7 +115,8 @@ all the same: no new art id, no new slot, no new effect (`SceneArt.VERSION` unch
 the packs and scenarios its village is served and its language's grammar pages (new on this branch, for writing a
 culture's scenes).
 
-QA, with a synthetic learner of English (never a real learner's data):
+QA, with a synthetic learner of English (never a real learner's data; `make-learner.ts` takes `--target en` and `de` since
+this branch, the village's people the target language's culture pack's):
 
 ```
 bun companion/bridge/test/fixtures/make-learner.ts <dir> --name Jan --target en --base sl
@@ -123,9 +124,10 @@ LANI_DEV_DATA=<dir> LANI_ENV_FILE=/dev/null LANI_CULTURE=lakeland LANI_QA_SETUP_
 companion/bin/qa-slot --no-town --steps lakeland-places
 ```
 
-The step (`lakeland-places`, only when named) makes the village a Trg (QA's hook `hearths:trg`), taps the church on the map,
-goes in by its card's "🚪 Go in", opens every building's scene by its link (a few closer up), plays a round of «I spy» on the
-green and opens Granny Maggie's breakfast in the kitchen.
+The step (`lakeland-places`, only when named) makes the village a Trg (QA's hook `hearths:trg`), taps the church on the map
+with the village's bubbles hidden (`bubbles:0`: a newcomer's suitcase over the church took the first run's tap), goes in by
+its card's "🚪 Go in", opens every building's scene by its link (a few closer up), plays a round of «I spy» on the green (a
+tip's card over the offer tapped away, the game started by `ispy_play`) and opens Granny Maggie's breakfast in the kitchen.
 
 ## Tap counts
 
@@ -135,7 +137,26 @@ culture. Nothing else changed.
 ## What is left
 
 - **A native check** of all the English (and its Slovene, Italian and German): every scene, pack and clue file says
-  "machine-written" in its `review`.
+  "machine-written" in its `review`. For the reader in particular: the Slovene for the dale's ways of address ("love" as
+  "srček", as By the fire has it; "mate" as "{m:stari|f:stara}", as On the fell), the Lake District as "Jezerno okrožje" in
+  some lines and "Lake District" in others, "čatni" for the ploughman's pickle; and the facts the lines state: Old Wilf's
+  snowy winter of 1947 (he is eighty-four), Captain the crow's grey beak (the clue agrees; a carrion crow's is black),
+  Bassenthwaite the only "Lake", Windermere about eleven miles long.
+- **Who answers in a scene.** The app has the happening's person answer every turn of a scene's dialog (`DialogRun`'s
+  partner; `DialogReactionsTest` holds the reactions to them), while the panel's header shows the turn's `to`, else whoever
+  spoke last. The Lake District's turns that come after someone else's line name the happening's person as their `to`, so
+  the header and the voice agree (SCENES.md "Format" says so now). The older scenes have turns where they don't: 15 in
+  Slovene (`na-cebeljem-travniku`'s roj, roj-dim and koncnice-nejc, `na-mostu`'s voda-tone twice, `pod-mlajem`'s
+  straza-vrh twice and ples-postavljanje, `pod-uro`'s zamuda-ancka, `pri-vodnjaku`'s lekcija-dvojina, vecer, vecer-zvon,
+  vaja and vaja-vedra, `pri-vratih`'s zapah-nejc) and 7 in Friuli (`in-bottega`'s sega-segatura, cavallino and cavallino-gamba,
+  `in-cantina`'s brocca twice and brocca-bottiglie, `in-soffitta`'s palla): the header shows one person and another answers. Either
+  their turns name `to` (and their replies are read for that person), or the app takes `repliersOf` in a scene as it does
+  in an arrival, which would change who voices those replies; the lead's call.
+- **Turns chosen, never typed.** About 47 of the form turns' wrong choices add, drop or move a word ("I can to hear",
+  "Why they are …") or split a contraction ("It are" for "It's"): real mistakes, kept, but `Forms.turn` asks for typing
+  only a turn whose wrong choice swaps one word in its place, so these are always chosen.
+- **The wild animals.** The field's boar and the wolves at the watchtower and the gate are the game's wild animals in every
+  culture; the Lakes have neither today. A Lakeland look could draw a fox or a badger there, with its word.
 - **The projects, the third wave.** The Lake District's thirteen projects have no place of their own yet, and the arts that
   draw them on this branch draw the default build: the maypole with its long ribbons (`mlaj`, the green; red, white and blue
   there), the packhorse bridge of slate with one arch (`most`, the beck: the stream's cart bridge is the default timber one),
