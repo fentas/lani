@@ -23,7 +23,7 @@ internal object CuratedContent {
         files.map { parseScene(it.readText()) }
     }
 
-    /** "pack/word" → the word's emoji, of every pack (Jan's, the Italian ones, the culture packs'). */
+    /** "pack/word" → the word's emoji, of every pack (Jan's, the Italian, German and English starters, the culture packs'). */
     val emojis: Map<String, String?> by lazy {
         // every language's starter packs (German's and English's for Kärnten's and the Lake District's scenes too) and the cultures'
         val dirs = listOf(companion.resolve("packs"), companion.resolve("packs/it"), companion.resolve("packs/de"), companion.resolve("packs/en")) +
