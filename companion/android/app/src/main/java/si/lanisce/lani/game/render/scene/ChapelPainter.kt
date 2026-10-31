@@ -32,8 +32,8 @@ import kotlin.math.sqrt
  *
  * Its effects ([si.lanisce.lani.game.scene.SceneArt.effects]):
  * - `bell`: the little bell swinging in its turret and ringing (how hard), its rings going out over the fields.
- * - `candles`: 0 all out, 1 all lit (the two red glass candles on the step, `candle`, and the white one on the altar,
- *   `altarcandle`), one more lit with every third. Not set: one red one burns.
+ * - `candles`: 0 all out, 1 all lit (the two red glass candles on the step and the white one on the altar: `candle`, in
+ *   Friuli's look the altar's `altarcandle`), one more lit with every third. Not set: one red one burns.
  * - `flowers`: the flowers in the vases and the pot: 0 wilted, brown and drooping; 1 fresh in the season's colours, fading
  *   and drooping more the lower. Not set: fresh.
  * - `traveller`: a traveller with his staff and his hat walking up the road from our feet past the chapel and on toward the
@@ -315,8 +315,12 @@ internal class ChapelPainter : VistaPainter() {
         thing("cloth") { altarCloth() }
         thing("grille") { grille() }
         prop { step() }
-        thing("candle", slop = 1) { stepCandles() }
-        thing("altarcandle", slop = 2) { altarCandle() }
+        // the altar's candle a thing of its own where the culture's look makes it one (Friuli's, on its candlestick), else one
+        // with the lumini as it always was
+        if (there("altarcandle")) {
+            thing("candle", slop = 1) { stepCandles() }
+            thing("altarcandle", slop = 2) { altarCandle() }
+        } else thing("candle", slop = 1) { stepCandles(); altarCandle() }
         thing("flowers", slop = 1) { flowers() }
         thing("bell", slop = 2) { bell() }
         thing("cross", slop = 1) { cross() }

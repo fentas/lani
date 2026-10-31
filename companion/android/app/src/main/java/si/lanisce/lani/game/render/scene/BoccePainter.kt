@@ -50,8 +50,8 @@ import kotlin.math.sqrt
  * Closer up ([detail] 2 and 3): the sand's grain and the rake's lines, the boards' joints, the balls' grooves and glints, the
  * vine's leaves and grapes, the chalk on the slate, the roof's tiles.
  *
- * The inn is a thing of its own (`inn`): its walls, roof and chimney with the sign over its door (Friuli's frasca), not the
- * barrel and the crates before it.
+ * In Friuli's look the inn is a thing of its own (`inn`, SceneFixtures): its walls, roof and chimney with the frasca over
+ * its door, not the barrel and the crates before it; elsewhere it is scenery.
  *
  * Friuli's court ([look]; companion/SCENES.md "Culture looks"): an osteria in ochre under coppi, its shutters brown, the
  * frasca (a leafy branch, the old sign of an osteria with its own wine open) hung over its door instead of the painted sign;
@@ -137,11 +137,15 @@ internal class BoccePainter : RoomPainter() {
         // at the back: the linden on the left, the inn on the right and what stands against it, the pergola's table
         thing("linden") { linden() }
         thing("pergola") { pergolaBack() }
-        // the inn and the sign over its door (two parts of one thing, outlined as they always were)
-        thing("inn") {
+        // the inn and the sign over its door: a thing where the culture's look makes it one (Friuli's osteria with its frasca,
+        // two parts of one thing, outlined as props are), else scenery as it always was
+        if (there("inn")) thing("inn") {
             inn()
             part()
             if (frasca) frascaBranch() else grapesSign()
+        } else {
+            prop { inn() }
+            if (frasca) prop { frascaBranch() } else prop { grapesSign() }
         }
         prop { barrel() }
         thing("table") { innTable() }

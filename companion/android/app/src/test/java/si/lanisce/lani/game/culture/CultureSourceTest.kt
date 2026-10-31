@@ -158,8 +158,7 @@ class CultureSourceTest {
             for (args in calls(text, Regex("""(?<![A-Za-z.])Frame\("""))) for (m in cultureArg.findAll(args)) {
                 if (!fromSource(m.groupValues[1])) wrong += "$path: Frame(culture = ${m.groupValues[1].trim()})"
             }
-            // the scenes' worlds: none built or copied with a culture of its own, but in SceneWorld itself (from VillageCulture)
-            if (path.endsWith("game/scene/SceneWorld.kt") || path.endsWith("game/culture/VillageCulture.kt")) continue
+            // the scenes' worlds (SceneWorld.of, its fallbacks, a visit's places): none built or copied with a culture of its own
             val scenic = "SceneWorld" in text || listOf("game/scene/", "ui/scene/", "ui/towns/", "game/render/").any { it in path }
             if (scenic) for (args in calls(text, Regex("""(?<![A-Za-z])SceneWorld\(|\.copy\("""))) for (m in cultureArg.findAll(args)) {
                 if (!fromSource(m.groupValues[1])) wrong += "$path: a scene world's culture = ${m.groupValues[1].trim()}"

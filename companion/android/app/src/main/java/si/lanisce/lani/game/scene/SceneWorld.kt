@@ -175,7 +175,9 @@ data class SceneWorld(
          * Everything there, in the culture of the village on screen ([si.lanisce.lani.game.culture.VillageCulture.shown]):
          * a scene opened before its village is read (no state yet) is in the look its map will have.
          */
-        val shown: SceneWorld get() = si.lanisce.lani.game.culture.VillageCulture.shown.id.let { c -> if (c == ALL.culture) ALL else ALL.copy(culture = c) }
+        val shown: SceneWorld get() =
+            if (si.lanisce.lani.game.culture.VillageCulture.shown.id == ALL.culture) ALL
+            else ALL.copy(culture = si.lanisce.lani.game.culture.VillageCulture.shown.id)
 
         /** Nothing built yet: the campfire's first day (a room of it is at its first level). */
         val NONE = SceneWorld(Age.OGENJ, emptyMap(), emptyMap())
@@ -303,8 +305,10 @@ object SceneFixtures {
     private val L3 = SceneNeeds(level = 3)
 
     /**
-     * A thing of an art only a culture's look draws (the playground's fontanella, Friuli's): a level no place reaches, so it
-     * isn't there in any other culture's picture; the look that draws it says so ([CultureLook.fixes], always there).
+     * A thing of an art only a culture's look draws as a thing of its own (the playground's fontanella, the bocce court's
+     * osteria, the chapel's candle on the altar: Friuli's): a level no place reaches, so it isn't there in any other culture's
+     * picture; the look that draws it says so ([CultureLook.fixes], always there). The bridge keeps a copy (scenes.ts,
+     * LOOK_ONLY).
      */
     val A_LOOK_ONLY = SceneNeeds(level = Catalog.MAX_LEVEL + 1)
 
@@ -347,8 +351,12 @@ object SceneFixtures {
         // the gate's roof and its pennant from the third, the walkway along the stakes and its ladder from the fourth, the
         // bell under the gate's roof at the fifth
         "palisade" to mapOf("torch" to L2, "roof" to L3, "flag" to L3, "ladder" to SceneNeeds(level = 4), "bell" to SceneNeeds(level = 5)),
-        // a thing only a culture's look draws: the playground's fontanella, Friuli's ([CultureLook.fixes] it there)
+        // things only a culture's look makes things of their own ([CultureLook.fixes] them there; Friuli's): the bocce court's
+        // osteria with its frasca, the playground's fontanella, the chapel's candle on the altar (elsewhere the inn is scenery
+        // and the altar's candle one with the lumini, as they always were)
+        "bocce" to mapOf("inn" to A_LOOK_ONLY),
         "playground" to mapOf("fontanella" to A_LOOK_ONLY),
+        "chapel" to mapOf("altarcandle" to A_LOOK_ONLY),
     )
 
     /**

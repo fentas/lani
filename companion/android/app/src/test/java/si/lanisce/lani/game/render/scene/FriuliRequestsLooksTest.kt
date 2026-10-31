@@ -22,11 +22,11 @@ import javax.imageio.ImageIO
 
 /**
  * Friuli's art requests of places-it-arts (docs/plans/05-built/culture-source.md): NOI | VOI on the bocce court's scoreboard,
- * the osteria with its frasca a thing of the court (`inn`), the playground's fontanella (`fontanella`, Friuli's only), the
- * chapel's altar candle apart from the lumini (`altarcandle`) and the cramâr's crassigne on the road to the palisade's gate
- * and below the watchtower. Contact sheets of each beside Primorska's (build/scene-snapshots/culture-source/), and what they
- * promise: Friuli's picture shows each its own way, each new thing is there to tap once at every detail (the fontanella only
- * in Friuli), and Primorska's draws none of Friuli's (CultureLooksTest holds its pixels to the digests).
+ * the osteria with its frasca a thing of the court (`inn`), the playground's fontanella (`fontanella`), the chapel's altar
+ * candle apart from the lumini (`altarcandle`), each a thing of Friuli's look only, and the cramâr's crassigne on the road to
+ * the palisade's gate and below the watchtower. Contact sheets of each beside Primorska's (build/scene-snapshots/culture-source/), and what they
+ * promise: Friuli's picture shows each its own way, each new thing is there to tap once at every detail in Friuli and is none
+ * in Primorska, whose pictures draw none of Friuli's (CultureLooksTest holds its pixels to the digests).
  */
 class FriuliRequestsLooksTest {
     private val dir = File("build/scene-snapshots/culture-source").apply { mkdirs() }
@@ -131,7 +131,9 @@ class FriuliRequestsLooksTest {
             chapel += Shot("chapel $name altarcandle", render("chapel", frame("chapel", w, highlight = "altarcandle")).first)
             for (k in 1..3) {
                 val (c, hits) = render("chapel", frame("chapel", w, highlight = "altarcandle", fx = mapOf("candles" to 1f)), k)
-                chapel += Shot("chapel $name altarcandle d$k", c, around(hitOf(hits, "altarcandle"), c, 24))
+                // (Primorska's altar candle is one thing with the lumini: round the altar there)
+                val at = hits.firstOrNull { it.target == SceneTarget.Thing("altarcandle") } ?: hitOf(hits, "altar")
+                chapel += Shot("chapel $name altarcandle d$k", c, around(at, c, 24))
             }
         }
         sheet("chapel", chapel, 4)
@@ -162,14 +164,14 @@ class FriuliRequestsLooksTest {
         }
     }
 
-    @Test fun `each new thing is there to tap once at every detail, the fontanella only in Friuli`() {
+    @Test fun `each new thing is there to tap once at every detail in Friuli, none of them in Primorska`() {
         for (k in 1..3) for (hour in listOf(11f, 22.5f)) {
-            for ((art, slot) in listOf("bocce" to "inn", "chapel" to "altarcandle")) for (w in listOf(primorska, friuli)) {
-                val hits = render(art, frame(art, w, hour = hour), k).second
-                assertEquals("$art/$slot in ${w.culture} at d$k, $hour h", 1, hits.count { it.target == SceneTarget.Thing(slot) })
+            for ((art, slot) in listOf("bocce" to "inn", "chapel" to "altarcandle", "playground" to "fontanella")) {
+                val inFriuli = render(art, frame(art, friuli, hour = hour), k).second
+                assertEquals("$art/$slot in Friuli at d$k, $hour h", 1, inFriuli.count { it.target == SceneTarget.Thing(slot) })
+                val inPrimorska = render(art, frame(art, primorska, hour = hour), k).second
+                assertEquals("$art/$slot not a thing in Primorska at d$k, $hour h", 0, inPrimorska.count { it.target == SceneTarget.Thing(slot) })
             }
-            assertEquals("the fontanella in Friuli at d$k", 1, render("playground", frame("playground", friuli, hour = hour), k).second.count { it.target == SceneTarget.Thing("fontanella") })
-            assertEquals("no fontanella in Primorska at d$k", 0, render("playground", frame("playground", primorska, hour = hour), k).second.count { it.target == SceneTarget.Thing("fontanella") })
         }
     }
 

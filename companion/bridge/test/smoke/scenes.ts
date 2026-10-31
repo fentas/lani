@@ -5,7 +5,7 @@ import { join, resolve } from 'node:path'
 import { cultureProjects } from '../../src/cultures'
 import { PackStore } from '../../src/packs'
 import { ScenarioStore } from '../../src/scenarios'
-import { ALL_FACES, arrive, emptyMonths, FACES, FACES_SAID, firstPose, forApp, inSeason, monthsSaid, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
+import { ALL_FACES, arrive, emptyMonths, FACES, FACES_SAID, firstPose, forApp, inSeason, LOOK_ONLY, monthsSaid, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
 import { allHeard } from '../../src/variants'
 import { cleanScenes } from '../../src/visits'
 import { VillagerStore } from '../../src/villagers'
@@ -85,6 +85,14 @@ export default async function scenes() {
       JSON.stringify(before5.variants) === '[{"id":"kocke","count":{"from":"dice"}}]' && JSON.stringify(before5.happenings[0].dialogs) === '["x"]' &&
       JSON.stringify(forApp([square], 5)[0]) === JSON.stringify(square), before5)
   check('the bridge registry matches SceneArt.kt and Model.kt', JSON.stringify(kt) === JSON.stringify(SCENE_ART), { kt, ts: SCENE_ART })
+  // the slots only a culture's look draws, as SceneWorld.kt (SceneFixtures: A_LOOK_ONLY) and CultureLook.kt (its fixture) have them
+  const world = readFileSync(join(android, 'scene/SceneWorld.kt'), 'utf8')
+  const looks = readFileSync(join(android, 'scene/CultureLook.kt'), 'utf8')
+  const ktOnly = [...world.matchAll(/"(\w+)" to mapOf\("(\w+)" to A_LOOK_ONLY\)/g)].map(m => `${m[1]}.${m[2]}`).sort()
+  const tsOnly = Object.entries(LOOK_ONLY).flatMap(([art, slots]) => Object.keys(slots).map(s => `${art}.${s}`)).sort()
+  check('the slots only a culture\'s look draws match SceneWorld.kt, each a slot of its art and fixed in its culture\'s look',
+    JSON.stringify(ktOnly) === JSON.stringify(tsOnly) && Object.entries(LOOK_ONLY).every(([art, slots]) => Object.keys(slots).every(s => SCENE_ART.objects[art].includes(s) && new RegExp(`fixtures = mapOf\\([^)]*"${s}" to null`).test(looks))),
+    { ktOnly, tsOnly })
   // the faces a line is said with (companion/SCENES.md, "Faces"): the app's, neutral first, the resting face never written
   const faceKt = readFileSync(join(android, 'scene/Face.kt'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '')
   const ktFaces = [...(/enum class Face\(val key: String\) \{([^;]*);/.exec(faceKt)?.[1] ?? '').matchAll(/[A-Z]+\("(\w+)"\)/g)].map(m => m[1])
@@ -110,7 +118,8 @@ export default async function scenes() {
     if (!v.ok) continue
     const s = v.scene
     curated.push({ ...s, source: 'curated' })
-    const slots = SCENE_ART.objects[s.art]
+    // every slot its picture draws (a slot only another culture's look draws isn't one: LOOK_ONLY)
+    const slots = SCENE_ART.objects[s.art].filter(x => !LOOK_ONLY[s.art]?.[x])
     check(`${s.id}: every slot of "${s.art}" has a word`, slots.every(x => s.objects.some(o => o.slot === x)), slots.filter(x => !s.objects.some(o => o.slot === x)))
     check(`${s.id}: everyone is a villager of the cast and every happening leaves a memory`, s.people.every(p => p.villager && cast.some(v => v.id === p.villager)) && s.happenings.every(h => h.memory?.sl && h.memory.en), { people: s.people.map(p => p.villager), memories: s.happenings.map(h => h.memory?.sl) })
     // every dialog and every variant is some happening's (its dialog, or one of its dialogs)

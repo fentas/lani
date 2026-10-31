@@ -82,16 +82,15 @@ export const SCENE_ART = {
     ],
     bocce: [
       'court', 'board', 'sand', 'jack', 'ball', 'linden', 'bench', 'table', 'jug', 'glass', 'scoreboard', 'rake',
-      'meter', 'pergola', 'lantern', 'inn',
+      'meter', 'pergola', 'inn', 'lantern',
     ],
-    // the fontanella only Friuli's look draws (SceneFixtures in SceneWorld.kt)
     playground: [
       'swing', 'slide', 'sandpit', 'sand', 'bucket', 'spade', 'climber', 'house', 'ball', 'hopscotch', 'bench',
       'tree', 'fence', 'gate', 'fontanella', 'school',
     ],
     chapel: [
       'chapel', 'roof', 'bell', 'altar', 'cloth', 'picture', 'candle', 'flowers', 'grille', 'bench', 'linden',
-      'road', 'field', 'cross', 'hills', 'altarcandle',
+      'road', 'field', 'cross', 'altarcandle', 'hills',
     ],
     palisade: [
       'palisade', 'stake', 'gate', 'bar', 'torch', 'flag', 'roof', 'ladder', 'bell', 'road', 'forest', 'meadow',
@@ -321,11 +320,21 @@ export function arrive(art: string, from: { spot: string; pose: string }, cue: {
  * and the kitchen's level slots, 3 the mill inside, 4 the village's places (the fire station, the bocce court, the playground,
  * the wayside chapel, the palisade's gate, the lookout tower), 5 the finished projects as things of their pictures (the
  * square's maypole, fountain and clock, the stream's cart bridge, the field's toplar, the apiary's bee meadow), the square's
- * standing spots by them, and a count of the hour, 6 the places' things of their own (the bocce court's inn, Friuli's
- * fontanella at the playground, the chapel's altar candle). The app says it when it asks for its scenes (GET
+ * standing spots by them, and a count of the hour, 6 the places' things Friuli's look makes words (the bocce court's
+ * osteria, the playground's fontanella, the chapel's altar candle: LOOK_ONLY). The app says it when it asks for its scenes (GET
  * /scenes?arts=6); one that doesn't is an older one, which gets what the first arts drew ([forApp]).
  */
 export const SCENE_ARTS_VERSION = 6
+/**
+ * The slots of an art only some cultures' looks draw as things of their own (SceneFixtures.A_LOOK_ONLY in SceneWorld.kt,
+ * each such culture's look `fixes` it): art → slot → the cultures. A scene of another culture doesn't name them (the app
+ * leaves them out: not drawn there), and the curated Slovene scenes needn't word them.
+ */
+export const LOOK_ONLY: Record<string, Record<string, string[]>> = {
+  bocce: { inn: ['friuli'] },
+  playground: { fontanella: ['friuli'] },
+  chapel: { altarcandle: ['friuli'] },
+}
 /**
  * What each version after the first added: its new arts, new slots of an art the version before had, new person spots of
  * one (for an older app each stands at the spot it had for them instead), and new sources of a count (an older app plays no

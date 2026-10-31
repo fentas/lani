@@ -372,13 +372,15 @@ object CultureLooks {
 
     /**
      * Friuli's bocce court (BoccePainter): an osteria's wall in ochre under coppi, its shutters brown, and the frasca, the leafy
-     * branch hung over the door of an osteria that has its own wine open (the `inn`, a thing of the scene with its frasca);
+     * branch hung over the door of an osteria that has its own wine open (the `inn`, a thing of the scene with its frasca,
+     * always there in this look: SceneFixtures);
      * NOI | VOI on the scoreboard, we and you, for the Slovene MI | VI (`scoreboard`).
      */
     private val FRIULI_BOCCE = Table.of(
         "bocce",
         colours = mapOf("shutter" to 0xFF6E4A2E.toInt(), "shutter.l" to 0xFF8E6440.toInt()),
         variants = mapOf("inn" to "osteria", "frasca" to "frasca", "scoreboard" to "noi"),
+        fixtures = mapOf("inn" to null),
     )
 
     /**
@@ -395,12 +397,13 @@ object CultureLooks {
     /**
      * Friuli's wayside chapel (ChapelPainter): an ancona, its walls ochre under coppi, the bell on an iron bracket under its
      * gable, the fresco of the Madonna and Child on a blue ground with stars, the white candle on the altar on a brass
-     * candlestick (`altarcandle`, la candela of Alla cappelletta); maize in the field, Lombardy poplars along a far ditch,
+     * candlestick (`altarcandle`, la candela of Alla cappelletta, a thing of its own in this look: SceneFixtures); maize in the field, Lombardy poplars along a far ditch,
      * the village on the hill as Friuli builds it with its campanile.
      */
     private val FRIULI_CHAPEL = Table.of(
         "chapel",
         variants = mapOf("chapel" to "ancona", "field" to "maize", "village" to "friuli", "trees" to "pioppi", "altarcandle" to "candlestick"),
+        fixtures = mapOf("altarcandle" to null),
     )
 
     /**
