@@ -137,10 +137,10 @@
         ] },
         { "who": "birkett", "face": "cross", "en": "Harry! What's that noise up there?", "sl": "Harry! Kaj pa je ta hrup tam gori?", "it": "Harry! Cos'è questo rumore lassù?", "de": "Harry! Was ist das für ein Lärm da oben?" },
         { "choices": [
-          { "en": "Sorry, Mrs Birkett! We're playing ball.", "sl": "Oprostite, gospa Birkett! Igrava se z žogo.", "it": "Mi scusi, signora Birkett! Stiamo giocando a pallone.", "de": "Entschuldigung, Frau Birkett! Wir spielen Ball.", "ok": true,
-            "reply": { "face": "laugh", "en": "Not in the house! Out on the green, both of you!", "sl": "Ne v hiši! Ven na trato, oba!", "it": "Non in casa! Fuori sul prato, tutti e due!", "de": "Nicht im Haus! Raus auf die Wiese, alle beide!" } },
-          { "en": "Sorry, Mrs Birkett! We playing ball.", "sl": "Oprostite, gospa Birkett! Igrava se z žogo.", "it": "Mi scusi, signora Birkett! Stiamo giocando a pallone.", "de": "Entschuldigung, Frau Birkett! Wir spielen Ball.", "grammar": "present-continuous",
-            "why": { "en": "The -ing form needs are with we: we're (we are) playing.", "sl": "Oblika na -ing z we potrebuje are: we're (we are) playing.", "it": "Con we la forma in -ing vuole are: we're (we are) playing.", "de": "Mit we braucht die -ing-Form are: we're (we are) playing." }, "reply": { "face": "cross", "en": "You what? Speak up, love. And stop that noise!", "sl": "Vidva kaj? Glasneje, srček. In nehajta s tem hrupom!", "it": "Voi cosa? Più forte, tesoro. E smettetela con quel rumore!", "de": "Ihr was? Lauter, Schatz. Und hört mit dem Lärm auf!" } }
+          { "en": "Shh! Your mum can hear us, Harry!", "sl": "Pst! Mama naju sliši, Harry!", "it": "Ssst! La tua mamma ci sente, Harry!", "de": "Pst! Deine Mama hört uns, Harry!", "ok": true,
+            "reply": { "face": "laugh", "en": "Oops! Let's go out on the green. Race you!", "sl": "Ups! Pojdiva ven na trato. Kdo bo prej!", "it": "Ops! Andiamo fuori sul prato. Facciamo a gara!", "de": "Hoppla! Lass uns raus auf die Wiese. Wer zuerst da ist!" } },
+          { "en": "Shh! Your mum can hears us, Harry!", "sl": "Pst! Mama naju sliši, Harry!", "it": "Ssst! La tua mamma ci sente, Harry!", "de": "Pst! Deine Mama hört uns, Harry!", "grammar": "can",
+            "why": { "en": "After can, the verb has no -s: she can hear.", "sl": "Za can glagol nima -s: she can hear.", "it": "Dopo can il verbo non ha la -s: she can hear.", "de": "Nach can hat das Verb kein -s: she can hear." }, "reply": { "face": "laugh", "en": "Hears? Shh! Say it quietly!", "sl": "Hears? Pst! Povej tiho!", "it": "Hears? Ssst! Dillo piano!", "de": "Hears? Pst! Sag's leise!" } }
         ] }
       ]
     },
@@ -179,11 +179,11 @@
         ] },
         { "who": "birkett", "face": "happy", "en": "Harry Birkett! Breakfast is on the table! {learner}, is he up?", "sl": "Harry Birkett! Zajtrk je na mizi! {learner}, je vstal?", "it": "Harry Birkett! La colazione è in tavola! {learner}, si è alzato?", "de": "Harry Birkett! Das Frühstück steht auf dem Tisch! {learner}, ist er auf?" },
         { "choices": [
-          { "en": "He's getting up, Mrs Birkett!", "sl": "Ravno vstaja, gospa Birkett!", "it": "Si sta alzando, signora Birkett!", "de": "Er steht gerade auf, Frau Birkett!", "ok": true,
-            "reply": { "face": "laugh", "en": "Good! Porridge in five minutes. And brush your hair, Harry!", "sl": "Dobro! Kaša čez pet minut. In počeši se, Harry!", "it": "Bene! Porridge tra cinque minuti. E pettinati, Harry!", "de": "Gut! Haferbrei in fünf Minuten. Und kämm dir die Haare, Harry!" } },
-          { "en": "He's get up, Mrs Birkett!", "sl": "Ravno vstaja, gospa Birkett!", "it": "Si sta alzando, signora Birkett!", "de": "Er steht gerade auf, Frau Birkett!", "grammar": "present-continuous",
-            "why": { "en": "He's (he is) goes with the -ing form: he's getting up.", "sl": "He's (he is) gre z obliko na -ing: he's getting up.", "it": "He's (he is) va con la forma in -ing: he's getting up.", "de": "He's (he is) geht mit der -ing-Form: he's getting up." }, "reply": { "face": "curious", "en": "He's what, love? Up, or not up?", "sl": "Kaj je, srček? Je vstal ali ne?", "it": "Cosa, tesoro? È in piedi o no?", "de": "Was ist er, Schatz? Auf oder nicht auf?" } }
-        ], "puzzled": { "face": "confused", "en": "What's that, love? I can't hear you!", "sl": "Kaj, srček? Ne slišim te!", "it": "Come, tesoro? Non ti sento!", "de": "Was, Schatz? Ich hör dich nicht!" } },
+          { "en": "Harry, your mum is calling you!", "sl": "Harry, mama te kliče!", "it": "Harry, la mamma ti chiama!", "de": "Harry, deine Mama ruft dich!", "ok": true,
+            "reply": { "face": "sad", "en": "I know, I know! OK, I'm getting up.", "sl": "Vem, vem! Prav, vstajam.", "it": "Lo so, lo so! Va bene, mi alzo.", "de": "Ich weiß, ich weiß! Okay, ich steh auf." } },
+          { "en": "Harry, your mum are calling you!", "sl": "Harry, mama te kliče!", "it": "Harry, la mamma ti chiama!", "de": "Harry, deine Mama ruft dich!", "grammar": "to-be",
+            "why": { "en": "Your mum is one person, so is: your mum is calling.", "sl": "Mama je ena oseba, zato is: your mum is calling.", "it": "La mamma è una persona sola, quindi is: your mum is calling.", "de": "Deine Mama ist eine Person, also is: your mum is calling." }, "reply": { "face": "laugh", "en": "Are? I've only got one mum, {learner}!", "sl": "Are? Saj imam samo eno mamo, {learner}!", "it": "Are? Ho una mamma sola, {learner}!", "de": "Are? Ich hab doch nur eine Mama, {learner}!" } }
+        ], "puzzled": { "face": "confused", "en": "Huh? I'm still asleep, {learner}…", "sl": "Ha? Še spim, {learner} …", "it": "Eh? Sto ancora dormendo, {learner}…", "de": "Hä? Ich schlafe noch, {learner} …" } },
         { "who": "harry", "face": "sad", "en": "OK, OK! I'm up. Where are my socks?", "sl": "Prav, prav! Vstal sem. Kje so moje nogavice?", "it": "Va bene, va bene! Sono in piedi. Dove sono i miei calzini?", "de": "Okay, okay! Ich bin auf. Wo sind meine Socken?", "act": { "harry": { "to": "bed" } } }
       ]
     },

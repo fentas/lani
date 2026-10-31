@@ -98,12 +98,12 @@
     {
       "id": "baking",
       "lines": [
-        { "who": "maggie", "face": "happy", "en": "Now then, love! The range is hot. Let's bake some scones!", "sl": "Now then, srček! Štedilnik je vroč. Spečeva pogačice!", "it": "Now then, tesoro! La cucina economica è calda. Facciamo gli scones!", "de": "Now then, Schatz! Der Herd ist heiß. Lass uns Scones backen!", "fx": { "oven": 1 } },
+        { "who": "maggie", "face": "happy", "en": "Now then, love! The range is hot. Let's bake some scones!", "sl": "Živjo, srček! Štedilnik je vroč. Spečeva pogačice!", "it": "Ciao, tesoro! La cucina economica è calda. Facciamo gli scones!", "de": "Hallo, Schatz! Der Herd ist heiß. Lass uns Scones backen!", "fx": { "oven": 1 } },
         { "choices": [
           { "en": "Yes! What can I do?", "sl": "Ja! Kaj lahko naredim?", "it": "Sì! Cosa posso fare?", "de": "Ja! Was kann ich tun?", "ok": true,
             "reply": { "face": "happy", "en": "Get the milk and two eggs for me, please.", "sl": "Prinesi mi mleko in dve jajci, prosim.", "it": "Prendimi il latte e due uova, per favore.", "de": "Hol mir bitte die Milch und zwei Eier." } },
           { "en": "Yes! What can I to do?", "sl": "Ja! Kaj lahko naredim?", "it": "Sì! Cosa posso fare?", "de": "Ja! Was kann ich tun?", "grammar": "can",
-            "why": { "en": "After can comes the verb without to: what can I do?", "sl": "Za can pride glagol brez to: what can I do?", "it": "Dopo can viene il verbo senza to: what can I do?", "de": "Nach can kommt das Verb ohne to: what can I do?" }, "reply": { "face": "confused", "en": "To do? To do what, love? You've lost me!", "sl": "To do? Kaj pa, srček? Zdaj sem se pa izgubila!", "it": "To do? Fare cosa, tesoro? Non ti seguo!", "de": "To do? Was denn, Schatz? Da komme ich nicht mit!" } }
+            "why": { "en": "After can comes the verb without to: what can I do?", "sl": "Za can pride glagol brez to: what can I do?", "it": "Dopo can viene il verbo senza to: what can I do?", "de": "Nach can kommt das Verb ohne to: what can I do?" }, "reply": { "face": "confused", "en": "To do? To do what, love? You've lost me!", "sl": "To do? Kaj pa, srček? Zdaj sem pa čisto zmedena!", "it": "To do? Fare cosa, tesoro? Non ti seguo!", "de": "To do? Was denn, Schatz? Da komme ich nicht mit!" } }
         ] },
         { "who": "maggie", "en": "Flour, butter, milk, an egg… Now mix it all with the spoon.", "sl": "Moka, maslo, mleko, jajce … Zdaj vse skupaj zmešaj z žlico.", "it": "Farina, burro, latte, un uovo… Adesso mescola tutto con il cucchiaio.", "de": "Mehl, Butter, Milch, ein Ei … Jetzt rühr alles mit dem Löffel um." },
         { "choices": [
@@ -117,20 +117,20 @@
           { "en": "Mmm, they smell lovely!", "sl": "Mmm, čudovito dišijo!", "it": "Mmm, che profumo!", "de": "Mmm, die riechen herrlich!", "ok": true,
             "reply": { "face": "laugh", "en": "Jam first or cream first? Here we don't argue, love: we eat!", "sl": "Najprej marmelada ali smetana? Tukaj se ne prepiramo, srček: jemo!", "it": "Prima la marmellata o la panna? Qui non litighiamo, tesoro: mangiamo!", "de": "Erst Marmelade oder erst Sahne? Hier streiten wir nicht, Schatz: Wir essen!" } },
           { "en": "Mmm, they smells lovely!", "sl": "Mmm, čudovito dišijo!", "it": "Mmm, che profumo!", "de": "Mmm, die riechen herrlich!", "grammar": "present-simple",
-            "why": { "en": "They takes no -s: they smell. The -s is only for he, she and it.", "sl": "Pri they ni -s: they smell. -s je samo za he, she in it.", "it": "Con they niente -s: they smell. La -s è solo per he, she e it.", "de": "Bei they kein -s: they smell. Das -s gibt es nur bei he, she und it." }, "reply": { "face": "laugh", "en": "Smells? Aye, like heaven, love!", "sl": "Smells? Ja, kot nebesa, srček!", "it": "Smells? Sì, di paradiso, tesoro!", "de": "Smells? Ja, himmlisch, Schatz!" } }
+            "why": { "en": "They takes no -s: they smell. The -s is only for he, she and it.", "sl": "Pri they ni -s: they smell. -s je samo za he, she in it.", "it": "Con they niente -s: they smell. La -s è solo per he, she e it.", "de": "Bei they kein -s: they smell. Das -s gibt es nur bei he, she und it." }, "reply": { "face": "laugh", "en": "Smells? Who smells, love? Not me, I hope!", "sl": "Smells? Kdo pa smrdi, srček? Upam, da ne jaz!", "it": "Smells? Chi è che puzza, tesoro? Spero non io!", "de": "Smells? Wer stinkt denn, Schatz? Hoffentlich nicht ich!" } }
         ] }
       ]
     },
     {
       "id": "radio",
       "lines": [
-        { "who": "edna", "face": "curious", "en": "Shh, love! It's the weather forecast. BBC Radio Cumbria!", "sl": "Pst, srček! Vremenska napoved je. BBC Radio Cumbria!", "it": "Ssst, tesoro! Ci sono le previsioni del tempo. BBC Radio Cumbria!", "de": "Pst, Schatz! Der Wetterbericht kommt. BBC Radio Cumbria!" },
-        { "who": "edna", "face": "worried", "en": "Eh? What did he say? Rain or sun? My ears, love!", "sl": "Kaj? Kaj je rekel? Dež ali sonce? Moja ušesa, srček!", "it": "Eh? Cosa ha detto? Pioggia o sole? Le mie orecchie, tesoro!", "de": "Hä? Was hat er gesagt? Regen oder Sonne? Meine Ohren, Schatz!", "sky": { "gloom": 0.4, "wind": 0.2 } },
+        { "who": "edna", "en": "Shh, love! It's the weather forecast. BBC Radio Cumbria!", "sl": "Pst, srček! Vremenska napoved je. BBC Radio Cumbria!", "it": "Ssst, tesoro! Ci sono le previsioni del tempo. BBC Radio Cumbria!", "de": "Pst, Schatz! Der Wetterbericht kommt. BBC Radio Cumbria!" },
+        { "who": "edna", "face": "curious", "en": "Eh? What did he say? Rain or sun? My ears, love!", "sl": "Kaj? Kaj je rekel? Dež ali sonce? Moja ušesa, srček!", "it": "Eh? Cosa ha detto? Pioggia o sole? Le mie orecchie, tesoro!", "de": "Hä? Was hat er gesagt? Regen oder Sonne? Meine Ohren, Schatz!", "sky": { "gloom": 0.4, "wind": 0.2 } },
         { "choices": [
           { "en": "He says rain, Auntie Edna. Rain all afternoon.", "sl": "Pravi, da bo dež, teta Edna. Dež vse popoldne.", "it": "Dice pioggia, zia Edna. Pioggia tutto il pomeriggio.", "de": "Er sagt Regen, Tante Edna. Regen den ganzen Nachmittag.", "ok": true,
             "reply": { "face": "sad", "en": "Rain? Again? Oh, my washing! It's out on the line!", "sl": "Dež? Spet? Joj, moje perilo! Zunaj na vrvi je!", "it": "Pioggia? Di nuovo? Oh, il mio bucato! È steso fuori!", "de": "Regen? Schon wieder? Oh, meine Wäsche! Die hängt draußen!", "sky": { "gloom": 0.6, "rain": 0.2, "wind": 0.3 } } },
           { "en": "He say rain, Auntie Edna. Rain all afternoon.", "sl": "Pravi, da bo dež, teta Edna. Dež vse popoldne.", "it": "Dice pioggia, zia Edna. Pioggia tutto il pomeriggio.", "de": "Er sagt Regen, Tante Edna. Regen den ganzen Nachmittag.", "grammar": "present-simple",
-            "why": { "en": "He, she and it take -s: he says.", "sl": "He, she in it dobijo -s: he says.", "it": "He, she e it prendono la -s: he says.", "de": "He, she und it bekommen ein -s: he says." }, "reply": { "face": "confused", "en": "He what? Speak up, love! Louder!", "sl": "Kaj je? Glasneje, srček! Glasneje!", "it": "Lui cosa? Parla più forte, tesoro! Più forte!", "de": "Er was? Lauter, Schatz! Lauter!" } }
+            "why": { "en": "He, she and it take -s: he says.", "sl": "He, she in it dobijo -s: he says.", "it": "He, she e it prendono la -s: he says.", "de": "He, she und it bekommen ein -s: he says." }, "reply": { "face": "confused", "en": "He what? Speak up, love! Louder!", "sl": "On kaj? Glasneje, srček! Glasneje!", "it": "Lui cosa? Parla più forte, tesoro! Più forte!", "de": "Er was? Lauter, Schatz! Lauter!" } }
         ], "puzzled": { "face": "confused", "en": "Eh? Say that again, love. Louder!", "sl": "Kaj? Povej še enkrat, srček. Glasneje!", "it": "Eh? Ripeti, tesoro. Più forte!", "de": "Hä? Sag das noch mal, Schatz. Lauter!" } },
         { "who": "edna", "en": "Is it raining now? Look out of the window, love.", "sl": "Ali že dežuje? Poglej skozi okno, srček.", "it": "Piove già? Guarda dalla finestra, tesoro.", "de": "Regnet es schon? Schau mal aus dem Fenster, Schatz." },
         { "choices": [
@@ -213,9 +213,9 @@
         ] },
         { "who": "maggie", "en": "Ginger, sugar, butter and flour. But how much of each? That's the secret!", "sl": "Ingver, sladkor, maslo in moka. Ampak koliko česa? To je skrivnost!", "it": "Zenzero, zucchero, burro e farina. Ma quanto di ognuno? Questo è il segreto!", "de": "Ingwer, Zucker, Butter und Mehl. Aber wie viel von jedem? Das ist das Geheimnis!" },
         { "choices": [
-          { "en": "Does it taste like cake?", "sl": "Ima okus po torti?", "it": "Sa di torta?", "de": "Schmeckt er wie Kuchen?", "ok": true,
-            "reply": { "face": "laugh", "en": "No! It's chewy and a bit crumbly. Wait and see!", "sl": "Ne! Je žvečljiv in malo drobljiv. Boš {m:videl|f:videla}!", "it": "No! È gommoso e un po' friabile. Aspetta e vedrai!", "de": "Nein! Er ist zäh und ein bisschen krümelig. Warte nur ab!" } },
-          { "en": "Do it taste like cake?", "sl": "Ima okus po torti?", "it": "Sa di torta?", "de": "Schmeckt er wie Kuchen?", "grammar": "questions-do",
+          { "en": "Does it taste like cake?", "sl": "Imajo okus po torti?", "it": "Sa di torta?", "de": "Schmeckt er wie Kuchen?", "ok": true,
+            "reply": { "face": "laugh", "en": "No! It's chewy and a bit crumbly. Wait and see!", "sl": "Ne! So žvečljivi in malo drobljivi. Boš {m:videl|f:videla}!", "it": "No! È gommoso e un po' friabile. Aspetta e vedrai!", "de": "Nein! Er ist zäh und ein bisschen krümelig. Warte nur ab!" } },
+          { "en": "Do it taste like cake?", "sl": "Imajo okus po torti?", "it": "Sa di torta?", "de": "Schmeckt er wie Kuchen?", "grammar": "questions-do",
             "why": { "en": "With it, the question takes does: does it taste …?", "sl": "Z it se vprašanje začne z does: does it taste …?", "it": "Con it la domanda vuole does: does it taste …?", "de": "Mit it braucht die Frage does: does it taste …?" }, "reply": { "face": "confused", "en": "Eh? Say that again, love. Slowly.", "sl": "Kaj? Povej še enkrat, srček. Počasi.", "it": "Eh? Ripeti, tesoro. Piano.", "de": "Hä? Sag das noch mal, Schatz. Langsam." } }
         ] },
         { "who": "maggie", "face": "proud", "en": "There! Out of the oven. Smell that ginger!", "sl": "Tako! Iz pečice. Povonjaj ta ingver!", "it": "Ecco! Fuori dal forno. Senti lo zenzero!", "de": "So! Raus aus dem Ofen. Riech mal den Ingwer!", "fx": { "oven": 0.5 } }
@@ -263,7 +263,7 @@
           { "en": "Wow! Your mother's pot is very old!", "sl": "Uau! Lonec tvoje mame je zelo star!", "it": "Wow! La pentola di tua madre è vecchissima!", "de": "Wow! Der Topf deiner Mutter ist sehr alt!", "ok": true,
             "reply": { "face": "laugh", "en": "Aye, older than me! And it still makes the best tatie pot.", "sl": "Ja, starejši od mene! In še vedno skuha najboljši tatie pot.", "it": "Sì, più vecchia di me! E fa ancora il tatie pot più buono.", "de": "Ja, älter als ich! Und er kocht immer noch den besten Tatie Pot." } },
           { "en": "Wow! Your mother pot is very old!", "sl": "Uau! Lonec tvoje mame je zelo star!", "it": "Wow! La pentola di tua madre è vecchissima!", "de": "Wow! Der Topf deiner Mutter ist sehr alt!", "grammar": "possessive-s",
-            "why": { "en": "Whose pot? Her mother's pot: add 's to the owner.", "sl": "Čigav lonec? Her mother's pot: lastniku dodaš 's.", "it": "Di chi è la pentola? Her mother's pot: al proprietario si aggiunge 's.", "de": "Wessen Topf? Her mother's pot: an den Besitzer kommt 's." }, "reply": { "face": "curious", "en": "A mother pot? Is that a new kind of pot, love?", "sl": "Mother pot? Je to nova vrsta lonca, srček?", "it": "Mother pot? È un nuovo tipo di pentola, tesoro?", "de": "Mother pot? Ist das eine neue Art Topf, Schatz?" } }
+            "why": { "en": "Whose pot? Your mother's pot: add 's to the owner.", "sl": "Čigav lonec? Your mother's pot: lastniku dodaš 's.", "it": "Di chi è la pentola? Your mother's pot: al proprietario si aggiunge 's.", "de": "Wessen Topf? Your mother's pot: an den Besitzer kommt 's." }, "reply": { "face": "curious", "en": "A mother pot? Is that a new kind of pot, love?", "sl": "Mother pot? Je to nova vrsta lonca, srček?", "it": "Mother pot? È un nuovo tipo di pentola, tesoro?", "de": "Mother pot? Ist das eine neue Art Topf, Schatz?" } }
         ] }
       ]
     }
