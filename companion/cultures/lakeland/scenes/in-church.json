@@ -35,7 +35,7 @@
       "memory": { "en": "the flowers we put on the altar", "sl": "rože, ki sva jih {m:postavila|f:postavili} na oltar", "it": "i fiori che abbiamo messo sull'altare", "de": "die Blumen, die wir auf den Altar gestellt haben" }
     },
     {
-      "id": "bell", "title": { "en": "Alfie rings the noon bell", "sl": "Alfie zvoni opoldne", "it": "Alfie suona la campana di mezzogiorno", "de": "Alfie läutet die Mittagsglocke" }, "who": "alfie",
+      "id": "bell", "title": { "en": "Alfie wants to ring the bell", "sl": "Alfie bi rad zvonil", "it": "Alfie vuole suonare la campana", "de": "Alfie will die Glocke läuten" }, "who": "alfie",
       "when": ["afternoon"], "chance": 0.5, "dialog": "bell", "dialogs": ["bell-rope", "bell"], "reward": { "wisdom": 15 }, "marker": "🔔",
       "memory": { "en": "the day I rang the bell", "sl": "dan, ko sem zvonil", "it": "il giorno in cui ho suonato la campana", "de": "den Tag, an dem ich die Glocke geläutet habe" }
     },
@@ -78,14 +78,14 @@
     {
       "id": "bell",
       "lines": [
-        { "who": "alfie", "face": "happy", "en": "{learner}! It's twelve o'clock! Can I ring the bell?", "sl": "{learner}! Dvanajst je ura! Lahko pozvonim?", "it": "{learner}! È mezzogiorno! Posso suonare la campana?", "de": "{learner}! Es ist zwölf Uhr! Darf ich die Glocke läuten?" },
+        { "who": "alfie", "face": "happy", "en": "{learner}! Can I ring the bell? Just once!", "sl": "{learner}! Lahko pozvonim? Samo enkrat!", "it": "{learner}! Posso suonare la campana? Solo una volta!", "de": "{learner}! Darf ich die Glocke läuten? Nur einmal!" },
         { "choices": [
           { "en": "Yes! But the rope is very high.", "sl": "Ja! Ampak vrv je zelo visoko.", "it": "Sì! Ma la corda è molto in alto.", "de": "Ja! Aber das Seil hängt sehr hoch.", "ok": true,
             "reply": { "face": "sad", "en": "I can't reach! I'm too small.", "sl": "Ne dosežem je! Premajhen sem.", "it": "Non ci arrivo! Sono troppo piccolo.", "de": "Ich komme nicht dran! Ich bin zu klein." } },
           { "en": "Yes! But the rope is very tall.", "sl": "Ja! Ampak vrv je zelo visoka.", "it": "Sì! Ma la corda è molto alta.", "de": "Ja! Aber das Seil ist sehr groß.",
             "why": { "en": "High: far up from the floor. Tall is for people, trees and towers.", "sl": "High: visoko od tal. Tall je za ljudi, drevesa in stolpe.", "it": "High: in alto, lontano dal pavimento. Tall è per le persone, gli alberi e le torri.", "de": "High: weit oben über dem Boden. Tall ist für Menschen, Bäume und Türme." }, "reply": { "face": "laugh", "en": "Tall? The rope isn't a person, {learner}!", "sl": "Visoka? Vrv ni človek, {learner}!", "it": "Alta? La corda non è una persona, {learner}!", "de": "Groß? Das Seil ist doch kein Mensch, {learner}!" } }
         ] },
-        { "who": "alfie", "face": "curious", "en": "Lift me up, please! Pleeease!", "sl": "Dvigni me, prosim! Prosiiim!", "it": "Sollevami, per favore! Ti preeego!", "de": "Heb mich hoch, bitte! Biiitte!" },
+        { "who": "alfie", "face": "happy", "en": "Lift me up, please! Pleeease!", "sl": "Dvigni me, prosim! Prosiiim!", "it": "Sollevami, per favore! Ti preeego!", "de": "Heb mich hoch, bitte! Biiitte!" },
         { "choices": [
           { "en": "Up you go, Alfie! Hold the rope.", "sl": "Hop, Alfie! Primi vrv.", "it": "Su, Alfie! Tieni la corda.", "de": "Hoch mit dir, Alfie! Halt das Seil.", "ok": true,
             "reply": { "face": "laugh", "en": "Ding, dong! Ding, dong! I'm ringing the bell!", "sl": "Bim, bam! Bim, bam! Zvonim!", "it": "Din, don! Din, don! Suono la campana!", "de": "Bim, bam! Bim, bam! Ich läute die Glocke!", "fx": { "bell": 1 }, "act": { "alfie": { "to": "rope" } } } },
@@ -126,7 +126,7 @@
           { "en": "Can I lights one too?", "sl": "Lahko prižgem še eno?", "it": "Posso accenderne una anch'io?", "de": "Darf ich auch eine anzünden?", "grammar": "can",
             "why": { "en": "After can, the verb has no -s: can I light …?", "sl": "Za can glagol nima -s: can I light …?", "it": "Dopo can il verbo non ha la -s: can I light …?", "de": "Nach can hat das Verb kein -s: can I light …?" }, "reply": { "face": "curious", "en": "Lights? Eh, love? Say it again, quietly.", "sl": "Lights? Kaj, srček? Povej še enkrat, tiho.", "it": "Lights? Eh, tesoro? Ripeti, piano.", "de": "Lights? Hm, Schatz? Sag's noch mal, leise." } }
         ] },
-        { "who": "maggie", "face": "shy", "en": "My mother lit a candle here every Sunday. Now I do it.", "sl": "Moja mama je tukaj vsako nedeljo prižgala svečo. Zdaj to delam jaz.", "it": "Mia madre accendeva una candela qui ogni domenica. Adesso lo faccio io.", "de": "Meine Mutter hat hier jeden Sonntag eine Kerze angezündet. Jetzt mache ich das." },
+        { "who": "maggie", "face": "sad", "en": "My mother lit a candle here every Sunday. Now I do it.", "sl": "Moja mama je tukaj vsako nedeljo prižgala svečo. Zdaj to delam jaz.", "it": "Mia madre accendeva una candela qui ogni domenica. Adesso lo faccio io.", "de": "Meine Mutter hat hier jeden Sonntag eine Kerze angezündet. Jetzt mache ich das." },
         { "choices": [
           { "en": "Did she live in the dale too?", "sl": "Je tudi ona živela v dolini?", "it": "Anche lei viveva nella valle?", "de": "Hat sie auch im Tal gewohnt?", "ok": true,
             "reply": { "face": "proud", "en": "All her life. In the cottage by the beck.", "sl": "Vse življenje. V hišici ob potoku.", "it": "Tutta la vita. Nella casetta vicino al torrente.", "de": "Ihr ganzes Leben. Im Häuschen am Bach." } },
@@ -283,10 +283,10 @@
           { "en": "I closing the door, Maggie!", "sl": "Zapiram vrata, Maggie!", "it": "Chiudo la porta, Maggie!", "de": "Ich mache die Tür zu, Maggie!", "grammar": "present-continuous",
             "why": { "en": "The -ing form needs am: I'm (I am) closing.", "sl": "Oblika na -ing potrebuje am: I'm (I am) closing.", "it": "La forma in -ing vuole am: I'm (I am) closing.", "de": "Die -ing-Form braucht am: I'm (I am) closing." }, "reply": { "face": "worried", "en": "You what, love? Quick, the wind!", "sl": "Ti kaj, srček? Hitro, veter!", "it": "Tu cosa, tesoro? Svelto, il vento!", "de": "Du was, Schatz? Schnell, der Wind!" } }
         ] },
-        { "who": "maggie", "face": "worried", "en": "The matches are wet. How can we light my candle now?", "sl": "Vžigalice so mokre. Kako bova zdaj prižgala mojo svečo?", "it": "I fiammiferi sono bagnati. Come accendiamo adesso la mia candela?", "de": "Die Streichhölzer sind nass. Wie zünden wir jetzt meine Kerze an?" },
+        { "who": "maggie", "face": "worried", "en": "The matches are wet. How can we light my candle now?", "sl": "Vžigalice so mokre. Kako bova zdaj {m:prižgala|f:prižgali} mojo svečo?", "it": "I fiammiferi sono bagnati. Come accendiamo adesso la mia candela?", "de": "Die Streichhölzer sind nass. Wie zünden wir jetzt meine Kerze an?" },
         { "choices": [
           { "en": "With another candle!", "sl": "Z drugo svečo!", "it": "Con un'altra candela!", "de": "Mit einer anderen Kerze!", "ok": true,
-            "reply": { "face": "laugh", "en": "Clever! There. It's burning again.", "sl": "Pametno! Tako. Spet gori.", "it": "Furbo! Ecco. Brucia di nuovo.", "de": "Schlau! So. Sie brennt wieder.", "fx": { "candles": 0.25 } } },
+            "reply": { "face": "laugh", "en": "Clever! There. It's burning again.", "sl": "Pametno! Tako. Spet gori.", "it": "Geniale! Ecco. Brucia di nuovo.", "de": "Schlau! So. Sie brennt wieder.", "fx": { "candles": 0.25 } } },
           { "en": "With some water!", "sl": "Z vodo!", "it": "Con un po' d'acqua!", "de": "Mit Wasser!",
             "why": { "en": "Water puts a flame out! You need fire to light a candle.", "sl": "Voda ogenj pogasi! Za svečo potrebuješ ogenj.", "it": "L'acqua spegne la fiamma! Per accendere una candela ci vuole il fuoco.", "de": "Wasser löscht eine Flamme! Zum Anzünden brauchst du Feuer." }, "reply": { "face": "laugh", "en": "Water? Then it's out for good, love!", "sl": "Z vodo? Potem bo za vedno ugasnila, srček!", "it": "Acqua? Allora si spegne per sempre, tesoro!", "de": "Wasser? Dann ist sie für immer aus, Schatz!" } }
         ] },
