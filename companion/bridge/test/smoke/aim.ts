@@ -4,10 +4,11 @@
 // - the rules: a raise from the next age waits, a lower target applies at once, the current one again takes a raise back,
 //   a raise at the town applies at once; the pending target applied exactly once, never before its age;
 // - the bridge: set_target_level sets the pending target for a raise, PUT /game applies it once the village reaches the age
-//   (and never before, nor twice), get_village's aim says the step now and the next one;
+//   (and never before, nor twice), get_village's aim says the step now and the next one; the app's POST /learner/target
+//   (the setup's and the settings' aim) by the same rule, at once without a village;
 // - lani-profile: add's default B2 and --target-level, set-target with and without --from-next-age, on a synthetic child at
 //   Zaselek: the age-up then counts B1's words.
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { ageWords, aimAt, applyDue, applyPendingTarget, defaultTarget, describeAim, pendingOf, readProfile, setTarget, villageAge, type VillageAge } from '../../src/aim'
 import { initLearnerData } from '../../src/learners'
@@ -124,6 +125,33 @@ export default async function aim() {
     check('set_target_level A2 (lower): at once', learnerNow().target_level === 'A2' && learnerNow().target_level_next === undefined && lower.includes('is A2 now'), lower)
     const bad = await client.callTool({ name: 'set_target_level', arguments: { level: 'D1' } })
     check('set_target_level D1: refused, the levels named', bad.isError && text(bad).includes('A1, A2, B1, B2, C1, C2'), bad)
+
+    // the app's "🎯 Cilj · Aim" (the setup's and the settings'): POST /learner/target by the same rule
+    const target = (level: string) => fetch(`${base}/learner/target`, { method: 'POST', headers: auth, body: JSON.stringify({ level }) }).then(r => r.json())
+    setLearner({ current_level: 'A1', target_level: 'A2' })
+    await save('ZASELEK')
+    const raised = await target('B1')
+    const got = await (await fetch(`${base}/learner/target`, { headers: auth })).json()
+    check(
+      'POST /learner/target B1 with a village at Zaselek: waits for the next age (target A2, next B1 from Vas); GET says so',
+      raised.change === 'next_age' && raised.target === 'A2' && raised.next?.level === 'B1' && raised.next?.from_age === 'VAS' && got.target === 'A2' && got.next?.level === 'B1' && learnerNow().target_level_next?.from_age === 'VAS',
+      { raised, got },
+    )
+    const same = await target('B1')
+    check('… asked again: already, nothing changed', same.already === true && same.change === 'unchanged' && same.next?.level === 'B1', same)
+    const back = await target('A2')
+    check('POST /learner/target A2 (the current aim): the raise taken back, at once', back.change === 'now' && back.target === 'A2' && back.next === null && learnerNow().target_level_next === undefined, back)
+    setLearner({ current_level: 'A1', target_level: 'B2', target_level_next: { level: 'C1', from_age: 'VAS' } })
+    const lowered = await target('A2')
+    check('POST /learner/target A2 for a learner aiming at B2 (C1 waiting): lower, at once, the raise dropped', lowered.change === 'now' && lowered.target === 'A2' && lowered.next === null, lowered)
+    // no village yet (the setup's case): a raise at once
+    renameSync(gamePath, `${gamePath}.away`)
+    try {
+      const atSetup = await target('B2')
+      check('POST /learner/target B2 without a village (the setup): at once', atSetup.change === 'now' && atSetup.target === 'B2' && atSetup.next === null && learnerNow().target_level === 'B2', atSetup)
+    } finally {
+      renameSync(`${gamePath}.away`, gamePath)
+    }
   } finally {
     writeFileSync(profilePath, savedProfile)
     if (savedGame !== undefined) writeFileSync(gamePath, savedGame)
@@ -152,7 +180,12 @@ export default async function aim() {
   check('lani-profile add (a child, A1): aims at B2, and says so', added.code === 0 && readProfile(teoData).learner.target_level === 'B2' && added.out.includes('level A1, aims at B2'), added.out)
   const chose = run('add', 'mia', '--name', 'Mia', '--target', 'it', '--base', 'sl', '--gender', 'f', '--target-level', 'a2', '--port', '18962', '--https-port', '19962')
   const odd = run('add', 'zed', '--name', 'Zed', '--target', 'it', '--base', 'sl', '--target-level', 'B3', '--port', '18963', '--https-port', '19963')
-  check('lani-profile add --target-level A2: kept; B3 refused', chose.code === 0 && readProfile(join(profiles, 'mia/data')).learner.target_level === 'A2' && odd.code !== 0 && odd.out.includes('--target-level: A1, A2, B1, B2, C1 or C2'), { chose: chose.out, odd: odd.out })
+  const below = run('add', 'ida', '--name', 'Ida', '--target', 'it', '--base', 'sl', '--level', 'B1', '--target-level', 'A2', '--port', '18964', '--https-port', '19964')
+  check(
+    'lani-profile add --target-level A2: kept; B3, and A2 for a learner at B1, refused',
+    chose.code === 0 && readProfile(join(profiles, 'mia/data')).learner.target_level === 'A2' && odd.code !== 0 && odd.out.includes('--target-level: A1, A2, B1, B2, C1 or C2') && below.code !== 0 && below.out.includes('above the level (B1'),
+    { chose: chose.out, odd: odd.out, below: below.out },
+  )
   // Teo's village at Zaselek, aiming at A2 (setup's old default)
   mkdirSync(join(teoData, 'app'), { recursive: true })
   writeFileSync(join(teoData, 'app/game.json'), JSON.stringify({ rev: 3, state: { age: 'ZASELEK', buildings: [] } }))

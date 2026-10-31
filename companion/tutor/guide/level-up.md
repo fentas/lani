@@ -12,4 +12,5 @@ handed hundreds more at once (learner.target_level_next {level, from_age}: the a
 age card and the progress screen; the bridge applies it when the village reaches that age). A lower target applies at
 once (it never makes a step harder); the current target again takes a waiting raise back. Change it only when the
 learner or their parent asks, with set_target_level, never by editing the profile: for a raise it sets the pending
-target, not the target. Say what it answers: what the step now and the next one need.
+target, not the target. Say what it answers: what the step now and the next one need. The app's setup and its settings
+("🎯 Cilj · Aim") set it by the same rule.

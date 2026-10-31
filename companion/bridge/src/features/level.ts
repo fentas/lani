@@ -1,7 +1,7 @@
 // The level-up ("🗺️ Zemljevid zaklada · The treasure map"): the app's treasure hunt tests the end of the learner's level
 // and, passed, posts the next level (POST /level). Persisted like a flashcard review: update-db.py sets the language's
 // current_level and level_since, no LLM; the tutor hears it and plans the new level.
-import { readFileSync, renameSync, writeFileSync } from 'node:fs'
+import { existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { z } from 'zod'
 import type { FeatureFactory } from '../feature'
@@ -9,7 +9,7 @@ import { titleEn } from '../grammar'
 import { json, readJson } from '../http'
 import { languageParam } from '../learner'
 import { aimOf, LANGUAGES } from '../learners'
-import { setTargetIn, TARGET_LEVELS } from '../aim'
+import { pendingOf, setTargetIn, TARGET_LEVELS, type TargetLevel } from '../aim'
 import { localDate } from '../rhythm'
 import { fail, ok } from '../tool'
 
@@ -28,7 +28,8 @@ handed hundreds more at once (learner.target_level_next {level, from_age}: the a
 age card and the progress screen; the bridge applies it when the village reaches that age). A lower target applies at
 once (it never makes a step harder); the current target again takes a waiting raise back. Change it only when the
 learner or their parent asks, with set_target_level, never by editing the profile: for a raise it sets the pending
-target, not the target. Say what it answers: what the step now and the next one need.
+target, not the target. Say what it answers: what the step now and the next one need. The app's setup and its settings
+("🎯 Cilj · Aim") set it by the same rule.
 `.trim()
 
 export const LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
@@ -104,48 +105,45 @@ export function levelPayload(d: LevelUp, o: { session_id: string; date: string; 
 /** POST /learner/target: the aim ("🎯 Cilj · Aim"), a CEFR level. */
 const targetIn = z.object({ level: cefr })
 
-/**
- * The aim in [dataDir]'s learner profile: `learner.target_level` = [aim], everything else as it is (read just before,
- * written beside it and renamed over it). Throws when there's no profile.
- */
-export function writeTarget(dataDir: string, aim: string) {
-  const path = join(dataDir, 'learner-profile.json')
-  const p = JSON.parse(readFileSync(path, 'utf8'))
-  if (!p?.learner || typeof p.learner !== 'object') throw new Error("learner-profile.json has no learner")
-  p.learner.target_level = aim
-  const tmp = `${path}.target.tmp`
-  writeFileSync(tmp, JSON.stringify(p, null, 2) + '\n')
-  renameSync(tmp, path)
-}
-
 export const level: FeatureFactory = ({ cfg, log, learner, channel, outbox, grammar }) => {
-  /** The home language's level and aim, as the profile says them. */
+  /**
+   * The home language's level and aim, as the profile says them: [next], a raise waiting for the village's next age
+   * (learner.target_level_next: its level and the age it starts with; aim.ts), null when none waits.
+   */
   function aimNow() {
     const l = learner.state().databases?.learner_profile?.learner
     const current = levelOf(l?.current_level) ?? 'A1'
-    return { level: current, target: levelOf(l?.target_level) ?? null }
+    const n = pendingOf(l)
+    return { level: current, target: levelOf(l?.target_level) ?? null, next: n ? { level: n.level, from_age: n.from_age } : null }
   }
 
   /**
-   * POST /learner/target {level}: the aim the app's setup chose ("🎯 Cilj · Aim", docs/plans/05-built/setup-refresh.md),
-   * kept as the profile's target_level at once: the village's ages follow it (the words each age needs). A level at or
-   * below the learner's is refused (C2 at C2 is fine). It writes the learner's data: the lease guards it.
+   * POST /learner/target {level}: the aim the app chose ("🎯 Cilj · Aim": the setup, docs/plans/05-built/setup-refresh.md,
+   * and the settings), the level the village's ages lead to (the words each age needs). A level at or below the learner's
+   * is refused (C2 at C2 is fine). Kept by aim.ts's rule (companion/GAME.md "A target raised later"): a raise waits for the
+   * village's next age once there is a village (app/game.json), at once before (the setup); a lower aim, or the current one
+   * again (which takes a waiting raise back), at once. Answers the level, the target, the raise waiting and what changed
+   * (change: now, next_age or unchanged, already for the last). It writes the learner's data: the lease guards it.
    */
   function handleTarget(body: unknown): Response {
     const r = targetIn.safeParse(body)
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
     const now = aimNow()
-    const aim = aimOf(now.level, r.data.level)
+    const aim = aimOf(now.level, r.data.level) as TargetLevel | undefined
     if (!aim) return json({ error: `an aim above the learner's level (${now.level})`, code: 'not_above' }, 400)
-    if (aim === now.target) return json({ ...now, already: true })
+    let change: string
     try {
-      writeTarget(cfg.dataDir, aim)
+      const village = existsSync(join(cfg.dataDir, 'app', 'game.json'))
+      change = setTargetIn(cfg.dataDir, aim, { fromNextAge: village, today: localDate(new Date()) }).change.mode
     } catch (e) {
       return json({ error: `the aim couldn't be kept: ${(e as Error).message}`, code: 'not_kept' }, 409)
     }
-    log(`aim: ${now.target ?? '-'} → ${aim}`)
-    return json({ level: now.level, target: aim })
+    const after = aimNow()
+    if (change === 'unchanged') return json({ ...after, change, already: true })
+    log(`aim: ${now.target ?? '-'}${now.next ? ` (${now.next.level} from ${now.next.from_age})` : ''} → ${after.target ?? '-'}${after.next ? ` (${after.next.level} from ${after.next.from_age})` : ''}`)
+    return json({ ...after, change })
   }
+
 
 
   async function handleLevel(req: Request): Promise<Response> {

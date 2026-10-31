@@ -19,7 +19,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { keysFile, parseEnvFile } from '../env'
 import { APP_LANGUAGES, cultureIds, culturesIn, DEFAULT_CULTURE, LANDSCAPES, landscapesOf, readManifest } from '../cultures'
-import { entryDataDir, GENDERS, initLearnerData, languageCode, LANGUAGES, newEntry, readRegistry, writeRegistry, type ProfileEntry } from '../learners'
+import { aimOf, entryDataDir, GENDERS, initLearnerData, languageCode, LANGUAGES, newEntry, readRegistry, writeRegistry, type ProfileEntry } from '../learners'
 import { defaultTarget, levelOf, readProfile, setTargetIn } from '../aim'
 import { LeaseGuard } from '../lease'
 import { localDate } from '../rhythm'
@@ -133,7 +133,7 @@ async function add() {
   const level = values.level.toUpperCase()
   if (!/^[ABC][12]$/.test(level)) die('--level: A1, A2, B1, B2, C1 or C2')
   // the level the village's ages lead to: B2, or the level above theirs from B2 on, unless chosen (at once: no village yet)
-  const targetLevel = values['target-level'] === undefined ? defaultTarget(level) : levelOf(values['target-level']) ?? die('--target-level: A1, A2, B1, B2, C1 or C2')
+  const targetLevel = values['target-level'] === undefined ? defaultTarget(level) : aimOf(level, values['target-level']) ?? die(`--target-level: A1, A2, B1, B2, C1 or C2, above the level (${level}; C2 at C2)`)
   const culture = values.culture?.trim() || cultureFor(target)
   const manifest = readManifest(culturesDir, culture)
   if (!manifest.ok) die(`--culture: a culture pack, one of ${cultureIds(culturesDir).join(', ')}\n${manifest.errors}`)
