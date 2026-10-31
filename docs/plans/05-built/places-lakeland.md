@@ -50,7 +50,7 @@ wrong choice in Slovene, Italian, German and English. Two are A2 (the cellar and
 | `in-the-workshop`, In the workshop (`workshop`, A1) | a house (Mr Tyson, Alfie) | Mr Tyson, Alfie | Mr Tyson is hammering nails (morning); Mr Tyson is sawing boards (afternoon); Alfie's wooden horse (evening); Mr Tyson carves a crook (afternoon, Sep–Nov); Alfie sweeps the workshop (morning) | 5 + 5 | 20 | 23 | 2 | 1 | 1 | 14 | 15, 62 |
 | `in-the-tent`, In the tent (`tent`, A1) | the tent | Shepherd Jack, Alfie, Poppy | Shepherd Jack shelters from the rain (morning/afternoon); Alfie wants a bedtime story (evening/night); Poppy is looking for her treasure map (afternoon); A summer evening at the tent (evening, May–Sep) | 4 + 4 | 18 | 19 | 3 | 1 | 0 | 12 | 12, 48 |
 | `in-the-smithy`, In the smithy (`smithy`, A1) | the smithy | Mr Dixon, Harry | Mr Dixon is making a horseshoe (morning); Harry is working the bellows (afternoon); Brewer Sam's cart has a broken wheel (afternoon/evening); Mr Dixon sharpens the shears (morning/afternoon, Jun–Jul) | 4 + 4 | 18 | 19 | 2 | 0 | 1 | 12 | 14, 58 |
-| `in-church`, In the church (`church`, A1) | the church | Auntie Edna, Granny Maggie, Alfie | Auntie Edna brings flowers for Sunday (morning); Alfie rings the noon bell (afternoon); Auntie Edna and the organ (afternoon); Granny Maggie lights a candle (evening); Alfie and the painting (morning) | 5 + 7 | 24 | 26 | 4 | 1 | 1 | 11 | 12, 50 |
+| `in-church`, In the church (`church`, A1) | the church | Auntie Edna, Granny Maggie, Alfie | Auntie Edna brings flowers for Sunday (morning); Alfie wants to ring the bell (afternoon); Auntie Edna and the organ (afternoon); Granny Maggie lights a candle (evening); Alfie and the painting (morning) | 5 + 7 | 24 | 26 | 4 | 1 | 1 | 11 | 12, 50 |
 | `in-the-field`, In the field (`field`, A1) | the field, the hay barn | Mr Tyson, Alfie | Mr Tyson makes hay (afternoon, Jun–Sep); Alfie and the scarecrow (morning); Where's Bonny? (afternoon); Evening in the field (evening) | 4 + 5 | 20 | 26 | 5 | 1 | 0 | 16 | 21, 88 |
 | `on-the-green`, On the village green (`square`, A1) | the oak, the pump | Old Wilf, Harry, Mrs Hartley | Old Wilf on his bench (morning/afternoon); Where's Bess? (evening); Harry's football (afternoon); The cat up the oak (morning/evening); Mrs Hartley at the pump (morning, Sep–Jun); The summer fête (evening, Jun–Aug) | 6 + 7 | 30 | 33 | 10 | 1 | 1 | 12 | 15, 65 |
 | `at-the-bees`, At the bees (`apiary`, A1) | the beehives | Beekeeper Arthur, Poppy, Old Wilf | Arthur opens the hives (morning, Mar–Oct); A swarm! (afternoon, May–Jun); Poppy's bread and honey (afternoon); Arthur listens to his bees (evening); The lime tree in flower (morning, Jun–Jul) | 5 + 7 | 28 | 30 | 7 | 1 | 1 | 14 | 13, 57 |
@@ -61,8 +61,8 @@ wrong choice in Slovene, Italian, German and English. Two are A2 (the cellar and
 | **15 scenes** | | | 75 | 165 | 366 | 438 | 80 | 18 | 15 | 203 | 235, 994 |
 
 In all: 75 happenings, 165 dialogs (75 the happenings' first, 90 variants), 366 turns, 438 wrong
-choices, 306 of them a rule of the English book (270 at A1, 36 at A2: the past simple, the future, the present
-perfect, some and any) and 132 a word's meaning or a greeting's hour; 80 turns with two right answers, 18 tap
+choices, 308 of them a rule of the English book (269 at A1, 39 at A2: the past simple, the future, the present
+perfect, some and any) and 130 a word's meaning or a greeting's hour; 80 turns with two right answers, 18 tap
 turns, 15 dialogs counting something of the village, 203 pack words, 235 things to spy with 994 clues.
 The English book has no B1 page yet, so the few B1 sentences are lines to read, never a rule asked.
 
