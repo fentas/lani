@@ -234,12 +234,12 @@ class SetupFlowTest {
     }
 
     @Test fun `the hosted answers carry the aim, B2 unless chosen`() {
-        assertTrue("\"targetLevel\":\"B2\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", "female", "sl", "en").json())
+        assertTrue("\"target_level\":\"B2\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", "female", "sl", "en").json())
         val teo = si.lanisce.lani.hosted.HostedAnswers("Teo", "male", "it", "de", goal = 15, child = true, targetLevel = "B1")
-        assertTrue("\"targetLevel\":\"B1\"" in teo.json())
+        assertTrue("\"target_level\":\"B1\"" in teo.json())
         // a learner at B2 aims at C1; an aim not above the level is sent as the default
-        assertTrue("\"targetLevel\":\"C1\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", null, "sl", "en", level = "B2").json())
-        assertTrue("\"targetLevel\":\"C1\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", null, "sl", "en", level = "B2", targetLevel = "A2").json())
+        assertTrue("\"target_level\":\"C1\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", null, "sl", "en", level = "B2").json())
+        assertTrue("\"target_level\":\"C1\"" in si.lanisce.lani.hosted.HostedAnswers("Ana", null, "sl", "en", level = "B2", targetLevel = "A2").json())
     }
 
     // --- paired: "Še o tebi · A little about you" ---------------------------------------------------------------------

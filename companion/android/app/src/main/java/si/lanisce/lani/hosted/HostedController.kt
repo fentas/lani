@@ -35,7 +35,8 @@ data class HostedAnswers(
     val child: Boolean = false,
     /**
      * "🎯 Cilj · Aim" (app/Aim; docs/plans/05-built/setup-refresh.md): the level the village's ages lead to, above [level];
-     * the bridge keeps it as the profile's target_level (learners.ts initLearnerData's targetLevel).
+     * sent as target_level, the bridge keeps it as the profile's target_level at once (no village yet: learners.ts
+     * initLearnerData's targetLevel).
      */
     val targetLevel: String = si.lanisce.lani.app.Aim.default(level),
 ) {
@@ -47,7 +48,7 @@ data class HostedAnswers(
         put("level", level)
         put("goal", goal)
         if (child) put("child", true)
-        put("targetLevel", si.lanisce.lani.app.Aim.keep(targetLevel, level))
+        put("target_level", si.lanisce.lani.app.Aim.keep(targetLevel, level))
     }.toString()
 
     companion object {
