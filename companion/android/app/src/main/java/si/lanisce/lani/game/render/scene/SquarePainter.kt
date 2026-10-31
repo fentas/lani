@@ -542,7 +542,9 @@ internal class SquarePainter : VistaPainter() {
             val door = inBays && bi == 1 && bf in 0.7f..1.6f && z < 2.3f
             val winZ = (z in 1.0f..2.3f) || (hs.floors == 2 && z in 3.8f..5.1f)
             val win = inBays && !door && bf in 0.8f..1.5f && winZ
-            val shutter = inBays && !door && (bf in 0.52f..0.8f || bf in 1.5f..1.78f) && winZ
+            // the Lake District's cottages have no shutters: a white frame round each window instead ([lakes])
+            val shutter = !lakes && inBays && !door && (bf in 0.52f..0.8f || bf in 1.5f..1.78f) && winZ
+            val whiteFrame = lakes && inBays && !door && (bf in 0.7f..0.8f || bf in 1.5f..1.6f) && (z in 0.9f..2.4f || (hs.floors == 2 && z in 3.7f..5.2f))
             val sill = inBays && !door && bf in 0.7f..1.6f && (abs(z - 0.95f) < 0.12f || (hs.floors == 2 && abs(z - 3.75f) < 0.12f))
             val flower = sill && summer && Noise.rnd(px, py, 19) < 0.7f
             c.penEmissive = win && lit
@@ -555,6 +557,7 @@ internal class SquarePainter : VistaPainter() {
                 sill -> Pal.WOOD_M
                 win -> if (lit) (if (bf < 1.0f && (z % 2.8f) > 1.8f) Pal.WINDOW_LIT_HI else Pal.WINDOW_LIT) else if (abs(bf - 1.15f) < 0.05f || abs(z - 1.65f) < 0.06f || abs(z - 4.45f) < 0.06f) wallDC else if (bf < 1.0f) Pal.GLASS_HI else Pal.GLASS
                 shutter -> if (((z * 6f).toInt() and 1) == 0) shutterC else Col.scale(shutterC, 0.8f)
+                whiteFrame -> Col.hex(0xF4F4EE)
                 z > top - 0.3f -> wallDC
                 else -> if (Noise.rnd(px, py, 25) < 0.05f) wallDC else wallC
             } else {
@@ -589,7 +592,7 @@ internal class SquarePainter : VistaPainter() {
                     sill -> if (z > zs + 0.12f - one) Pal.WOOD_L else if (z < zs - 0.12f + one) Pal.WOOD_D else Pal.WOOD_M
                     win -> when {
                         // the frame round the glass, the mullion and the transom, panes lit or reflecting the sky
-                        bf < 0.8f + one || bf > 1.5f - one || z < wz0 + one || z > wz1 - one -> if (lit) litFrame else frameC
+                        bf < 0.8f + one || bf > 1.5f - one || z < wz0 + one || z > wz1 - one -> if (lit) litFrame else if (lakes) Col.hex(0xF4F4EE) else frameC
                         abs(bf - 1.15f) < 0.05f || abs(z - (wz0 + 0.65f)) < 0.06f -> if (lit) litFrame else wallDC
                         lit -> if (bf < 1.0f && (z % 2.8f) > 1.8f) Pal.WINDOW_LIT_HI else Pal.WINDOW_LIT
                         (bf - 0.8f) + (wz1 - z) * 0.5f < 0.28f -> Col.mix(Pal.GLASS_HI, Col.hex(0xFFFFFF), 0.25f)
@@ -602,6 +605,7 @@ internal class SquarePainter : VistaPainter() {
                         ((z * 14f).toInt() and 1) == 0 -> shutterC
                         else -> Col.scale(shutterC, 0.82f)
                     }
+                    whiteFrame -> if (bf < 0.72f || bf > 1.58f) Col.hex(0xD8D8D2) else Col.hex(0xF4F4EE)
                     // a stone lintel over each window
                     inBays && !door && bf in 0.72f..1.58f && winZ.not() && (abs(z - 2.36f) < 0.06f || (hs.floors == 2 && abs(z - 5.16f) < 0.06f)) -> lintelC
                     z > top - 0.3f -> {
@@ -2875,11 +2879,11 @@ internal class SquarePainter : VistaPainter() {
      * dark water down in it; the forked post and its pole with the rope and the bucket ([forkedPole]).
      */
     /**
-     * The Lake District's village pump for the well ([pump]), by WELL's level: at 1 a low trough of rough stones fed by a spring
-     * through a wooden spout, a bucket by it; at 2 a long trough of dressed stone with the spring's headstone behind it; at 3
-     * the cast-iron pump on a flagged step in the headstone's place, dark green, its long handle and its spout over the
-     * trough; at 4 a little slate roof over it on two posts; at 5 a planter of flowers at the trough's end and a bucket on its
-     * hook (the lamp post beside it is the square's own, at the well's top level).
+     * The Lake District's village pump for the well ([pump]), by WELL's level: at 1 a wooden pump, a square oak post with its
+     * spout and iron handle, over a low trough of rough stones, a bucket by it; at 2 a long trough of dressed stone, the pump
+     * against the spring's headstone; at 3 the cast-iron pump on a flagged step in their place, dark green, its long handle
+     * and its spout over the trough; at 4 a little slate roof over it on two posts; at 5 a planter of flowers at the trough's
+     * end and a bucket on its hook (the lamp post beside it is the square's own, at the well's top level).
      */
     private fun pumpWell(cx: Int, by: Int) {
         val m = detail
@@ -2905,18 +2909,19 @@ internal class SquarePainter : VistaPainter() {
         }
         val px = cx + 6 * m
         if (lv <= 2) {
-            // the spring's spout: at 1 a wooden pipe out of a mossy stone; at 2 out of a tall dressed headstone
-            if (lv <= 1) {
-                c.fillEllipse(px + 4f * m, top - 3f * m, 5f * m, 4f * m, st[2]); c.fillEllipse(px + 3f * m, top - 4f * m, 3f * m, 2f * m, Col.hex(0x5E8A4A))
-                c.fillRect(px - 3 * m, top - 4 * m, 6 * m, m, Pal.WOOD_M)
-            } else {
-                c.fillRect(px - 2 * m, top - 22 * m, 7 * m, 22 * m, st[1]); c.vline(px - 2 * m, top - 22 * m, top - 1, st[0]); c.fillRect(px + 4 * m, top - 22 * m, m, 22 * m, st[2])
-                c.fillRect(px - 2 * m, top - 24 * m, 7 * m, 2 * m, st[0])
-                c.fillRect(px - 5 * m, top - 14 * m, 4 * m, m, Pal.STONE_X)
+            // a wooden pump: a square post of oak, its spout over the trough and its iron handle; from 2 it stands against the
+            // spring's dressed headstone
+            if (lv >= 2) {
+                c.fillRect(px - 2 * m, top - 26 * m, 9 * m, 26 * m, st[1]); c.vline(px - 2 * m, top - 26 * m, top - 1, st[0]); c.fillRect(px + 6 * m, top - 26 * m, m, 26 * m, st[2])
+                c.fillRect(px - 3 * m, top - 28 * m, 11 * m, 2 * m, st[0])
             }
-            // the trickle into the trough
-            val sx = px - (if (lv <= 1) 3 else 5) * m; val sy = top - (if (lv <= 1) 3 else 13) * m
-            if (!env.snow) for (y in sy until top - m) c.set(sx + (if ((y + (t * 12).toInt()) % 3 == 0) 1 else 0), y, Col.hex(0xC8E0F0))
+            val wl = Pal.WOOD_L; val wm = Pal.WOOD_M; val wd = Pal.WOOD_D
+            val postTop = top - 22 * m
+            c.fillRect(px - m, postTop, 4 * m, 22 * m, wm); c.vline(px - m, postTop, top - 1, wl); c.fillRect(px + 2 * m, postTop, m, 22 * m, wd)
+            c.fillRect(px - 2 * m, postTop - 2 * m, 6 * m, 2 * m, wd)
+            c.fillRect(px - 5 * m, postTop + 7 * m, 4 * m, 2 * m, wd)
+            for (o in 0 until m) c.line(px + 3 * m, postTop + 2 * m + o, px + 12 * m, postTop - 2 * m + o, Pal.STONE_X)
+            if (!env.snow) c.set(px - 5 * m, postTop + 11 * m, Col.hex(0xC8E0F0))
             // the bucket by it at 1
             if (lv <= 1) { c.fillRect(cx - hw - 6 * m, by - 5 * m, 5 * m, 5 * m, Pal.WOOD_M); c.hline(cx - hw - 6 * m, cx - hw - 2 * m, by - 5 * m, Pal.STONE_D); c.vline(cx - hw - 6 * m, by - 5 * m, by - 1, Pal.WOOD_L) }
             return

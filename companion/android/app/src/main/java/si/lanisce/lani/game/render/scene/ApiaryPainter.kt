@@ -134,8 +134,8 @@ internal class ApiaryPainter : DioramaPainter() {
 
     /**
      * The Lake District's bee garden ([look]; docs/plans/05-built/places-lakeland.md): Friuli's build of a shed with its hives
-     * on tiers ([friuli] is set for it too), but of the dale's slate stone under slate ([lake]), with two bee boles in its
-     * end wall, arched recesses with a straw skep in each, from its second level; the hives white WBC hives, their lifts
+     * on tiers ([friuli] is set for it too), but of the dale's slate stone under slate ([lake]) from its first level, with two
+     * bee boles in its end wall, arched recesses with a straw skep in each; the hives white WBC hives, their lifts
      * stepping out one over another under a little pitched roof, and the hive apart one of them ([wbc]); Arthur's sign by the
      * path a green board with HONEY in white ([honeySign]); dark amber heather honey in the jars ([heather]).
      */
@@ -181,7 +181,8 @@ internal class ApiaryPainter : DioramaPainter() {
             tierHives[0] = if (lv == 1) 3 else F_HIVES
             tierHives[1] = when { lv >= 4 -> F_HIVES; lv == 3 -> 3; else -> 0 }
             eaveZ = if (rows == 2) eave else F_EAVE1
-            boards = lv == 1
+            // the Lake District's shed is of stone with its bee boles from the first (Friuli's is a lean-to of boards at 1)
+            boards = lv == 1 && !lake
             footing = lv >= 2
         } else {
             rows = when (lv) { 1 -> 1; 2 -> 2; else -> 3 }

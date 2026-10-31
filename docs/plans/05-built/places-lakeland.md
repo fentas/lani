@@ -1,164 +1,121 @@
 # Built: the Lake District village gets its places (places-lakeland, wave 2)
 
-(In progress: the looks below are the spec the scenes are written against; the rest of this note comes with the work.)
+Jan, 2026-10-31: "ok do all" (the third batch of follow-ups, 7–8: "the Carinthian and Lake District villages get their
+places"). The Lake District village (culture `lakeland`: English, for an adult learning English from Slovene, German or
+Italian) had two scenes, the fire and the fell at the horizon, against Friuli's 33. Since map-culture its map had its own
+look (stone cottages under slate, the battlemented tower, the field barn, the pump, the oak, WBC hives), but none of its
+buildings had a scene, so a building's card had no way in, and the arts its buildings would open drew Slovenia.
 
+This branch gives every building the village can build a scene of its own, in English with Slovene, Italian and German,
+and draws every art those buildings open in the Lake District's look. The projects are the next wave (below). Two helpers
+wrote half the scenes each, on branches merged into this one (`places-lakeland-homes`: the house's rooms, the tent, the
+smithy and the church; `places-lakeland-village`: the field, the green, the bee garden, the school, the market, the
+watchtower and the gate); the pictures, the integration and this note are the lead's. Everything is machine-written and
+waits for a native check.
 
-What each art draws in the Lake District village (culture `lakeland`), set in `CultureLooks` (game/scene/CultureLook.kt)
-and drawn by the painters. **Nothing moves**: every slot, person spot, stage spot and hiding place is where the default
-(Primorska) picture has it; only what a thing looks like changes where listed. A thing not listed here looks as in the
-default picture: read its colour and place in the painter's class comment (game/render/scene/<Art>Painter.kt) and in the
-Slovene scene's I spy clues (companion/ispy/scenes/<slovene-id>.json), whose "where"s hold for Lakeland too.
+## What
 
-Shared by every Lakeland picture: grey stone cottages and whitewashed ones under blue-grey **slate**, white window frames,
-no shutters; the church's square **tower with battlements**; **dry-stone walls** for fences; the **fells** (rounded green
-hills with bracken, grey crags and walls climbing them) in every view out; the **oak** for the linden on the green;
-**St George's cross** (red on white) for the flags.
+### The way in, before and after
 
-Slovene scene of each art (for its default things): kitchen kuhinja, livingroom v-hisi, cellar v-kleti, attic
-v-podstresju, workshop v-delavnici, tent v-sotoru, smithy v-kovacnici, church v-cerkvi, field na-njivi, square na-vasi,
-market na-trznici, school v-soli, apiary pri-cebelnjaku, watchtower na-stolpu, palisade pri-vratih.
+| A learner of the Lake District taps … | Before | Now |
+|---|---|---|
+| the tent | its card, no way in | its card's "🚪 Go in: In the tent" (2 taps) |
+| the hut | its card, no way in | "🚪 Go in: In the kitchen" (2 taps) |
+| a house | its card, no way in | the room of whoever lives there: In the living room (Old Wilf), In the cellar (Brewer Sam, Arthur lodging), In the attic (Mrs Birkett and Harry), In the workshop (Mr Tyson and Alfie), else the kitchen (2 taps) |
+| the field, the hay barn | its card, no way in | "In the field" (2 taps) |
+| the oak, the well (the pump) | its card, no way in | "On the village green" (2 taps) |
+| the beehives, the palisade, the watchtower, the smithy | their cards, no way in | "At the bees", "At the gate", "On the watchtower", "In the smithy" (2 taps each) |
+| the church, the school, the market | their cards, no way in | "In the church", "At school", "At the market" (2 taps each) |
 
-## The rooms (kitchen, livingroom, cellar, attic, workshop): shared
+The cards read the culture's scenes (`from`), so the doors are content: a Lakeland village's bridge serves them as soon as
+its checkout has them. The looks and the I spy clues come with the next app build.
 
-- **Window view**: the fells (green slopes, a dry-stone wall across them, a grey crag on top, sky), not the spruce.
-- **Floor**: beaten earth at level 1 as before; from level 2 **slate flags**, blue-grey irregular flagstones (not
-  terracotta tiles / planks). The rag rug stays (kitchen L4, livingroom L2).
-- **Walls**: whitewash (lime) as before; the painted dado from level 2 is a soft **duck-egg blue-green**; at level 4,
-  instead of the stencilled flower border, an **oak plate rail** under the top with blue-and-white plates standing on it.
-- **Outside**: the bench by the wall (L4), geraniums in pots (L5), the hen, the cat: as before.
+### The scenes
 
-### kitchen (Granny Maggie's farmhouse kitchen; from hut, house)
-- `stove` (L2+): the **range**: a black cast-iron kitchen range in the back-right corner where the tiled stove stood:
-  black iron, its fire glowing behind bars in the middle, the oven door beside it with a brass knob, a brass rail along
-  its front, a black kettle on its hob, its pipe up the wall. Not green tiles.
-- `hearth` (L1 only): the open hearth in the corner, as before (an old down-hearth).
-- `cupboard` (L3+): the **oak dresser**: brown oak, plain panels, its rack of shelves holding **blue-and-white plates**
-  (not the blue painted dresser with tulips).
-- `corner` (L3+): no holy corner. A small **framed sampler** (cream linen, a little red house and green letters
-  stitched on it) high in the front corner, over a little shelf with a **brass candlestick** on it.
-- `chair`: **ladder-back chairs**, three cross slats in the back (no heart cut-out).
-- Everything else as the default kitchen (the table with its checked cloth, bread, plate, bowl, cup, glass, cutlery,
-  salt, eggs in a basket, sack of potatoes, milk and water jugs, the clock, the lamp, the curtains, the shelf to L2, the
-  straw bed at L1, the bench under the window).
+SCENES_TABLE
 
-### livingroom (Old Wilf's room by the fire; household wilf)
-- `stove`: the **fireplace** where the big tiled stove stood, in the back corner: a hearth of grey slate stones low in
-  the corner with the fire burning in a black iron fire basket; at level 1 the corner over it black with smoke; from
-  level 2 a whitewashed **chimney breast** over it with an **oak mantel beam**, and on the mantel shelf two brass
-  candlesticks and a white china dog. The `stove` effect builds the fire up and lights the bench.
-- `bench`: the benches along the fire, as the zapeček ran: **oak settles** (high backs) round the hearth. Bess the dog
-  (the `dog`) curls up on it.
-- `chest`: a plain **oak chest** (kist) with a carved front band (not painted with flowers).
-- `corner` (L3+): the **framed sampler** with the brass candlestick on its shelf (as the kitchen's).
-- Everything else as the default living room (table, chair, curtains, rug, lamp, clock, photo, glasses, book, window,
-  door).
+### The Lake District's look
 
-### cellar (Brewer Sam's cellar; household sam, Arthur lodges)
-- **Walls of slate stone**: rough grey-blue stone in thin courses, no whitewash.
-- `grapes` (L2+): **damsons** in the crate: small dark purple-blue plums with a pale bloom (not grapes).
-- `wine` (L2+): the demijohn in its wicker holds **dark red-purple damson wine**.
-- `bottle` (L2+): **brown glass** bottles (ale) on the shelf.
-- `barrel`, `press` (an apple / fruit press: the same screw press), `jug`, `glass`, `candle`, `crate`, `ham` (a cured
-  Cumberland ham on the wall, L3), `cheese` (a round cheese, L3), `stairs`, `door`, `window` (barred slit; fells
-  through it): as the default cellar.
+Each art's table is in `game/scene/LakelandLooks.kt`, added to the culture's `CultureLooks` entry beside its fells, its
+campfire and its map (a file of its own, so the Carinthian round's tables sit beside it without a conflict). The shared
+materials are in `game/render/scene/LakelandArt.kt` (`Lakeland`: the dale's slate stone in thin courses, dry or pointed with
+lime, slate flags, dry-stone walls with their cope stones, the oak of the furniture, the willow pattern's blue); the far
+views' houses, church and fells in `Vista.kt` (`farSlateHouse`, `farTowerChurch`, `fellSlope`). Every slot, person spot,
+stage spot and hiding place is where the default picture has it; only how a thing looks changes. SCENES.md "Culture looks"
+has a row per art, and "Every building at its level" the levels; in short:
 
-### attic (Mrs Birkett and Harry's attic bedroom)
-- `roof`: at level 1 grey-blue **slates** showing between the battens (not red tiles); from level 2 lined with boards as
-  before.
-- The wardrobe (L2) and the chest of **oak**, brown (not painted blue).
-- Window view: the fells. Everything else as the default attic (bed, pillow, patchwork quilt, cradle, rug, lamp, ball,
-  mirror, teddy bear, stairs).
+| Art | The Lake District's look |
+|---|---|
+| the rooms | slate flags from level 2, a duck-egg dado, an oak plate rail with blue-and-white plates at 4 (for the stencilled border), the fells through the window |
+| `kitchen` | the black cast-iron range (oven door, fire behind bars, boiler and tap, brass rail), the oak dresser with willow-pattern plates, a sampler and a brass candlestick for the holy corner, ladder-back chairs, limewash thin on slate stone at level 1 |
+| `livingroom` | the fireplace: a slate hearth, the fire in an iron basket, the smoke hood with its oak mantel, brass candlesticks and a china dog; oak settles and chest |
+| `cellar` | slate-stone walls, damsons in the crate, brown ale bottles |
+| `attic` | slates between the battens at level 1, the wardrobe and the chest of oak |
+| `workshop` | slate-stone walls, shepherd's crooks on the wall, a basket of bobbins |
+| `tent` | St George's pennant, a dry-stone wall with bracken and foxgloves, green wellingtons |
+| `smithy` | slate-stone walls, the yard flagged with slate |
+| `church` | slate flags, clear leaded quarries, the open timber roof, the Good Shepherd in an oak frame and a gilt text board, a slate plinth, memorial tablets, a slate bellcote, an oak loft, a brass eagle lectern, a yew |
+| `school` | green and cream, an alphabet frieze, the map of the Lakes (LAKES), St George's cross, "Hello! / How are you? / Fine, thanks.", writing slates |
+| `field` | the stone field barn by its level (cart door, byre door, pointed walls, through-stones and steps, quoins, slits and an owl hole, the loft full), dry-stone walls, the fells, the village round its battlemented tower |
+| `square` | the green (grass, daisies, a gravel path, flags by the houses), the oak, the village pump by its level, the battlemented church, slate cottages with white window frames and no shutters, a dry-stone wall, daffodils, the fells |
+| `market` | slate houses with white frames, the battlemented clock tower, green and cream awnings, heather honey, onions, rhubarb and leeks, ale on the cart, the fells |
+| `apiary` | Friuli's build of a shed with tiers, of slate stone under slate with two bee boles, white WBC hives, a green HONEY sign, heather honey |
+| `watchtower` | a slate village round its battlemented tower below, walled fields, the fell; St George's cross; the tower under slate, on slate-stone pillars, a battlemented parapet |
+| `palisade` | the fells beyond the gate, their walls and bracken, a cairn, a hamlet round a battlemented tower, oak and birch woods |
 
-### workshop (Mr Tyson and Alfie's workshop)
-- **Walls of slate stone** (as the cellar's).
-- High on the left wall: **two shepherd's crooks and a walking stick with a horn handle** (scenery, not a slot).
-- By the broom: a **basket of wooden bobbins** (from the Lakeland bobbin mills; scenery, not a slot).
-- Everything else as the default workshop (workbench, hammer, nails, boards, axe, broom, saw, tools, ladder, rake,
-  wheelbarrow, the wooden horse, lantern, window, door).
+The map agrees (`MapLooksTest`): the field's barn is the map's hay barn, the green's pump its well, the bee garden's WBC
+hives its hives, the watchtower's St George's cross its flag and the tent's its pennant, the school's flag goes with the
+map's school of stone; the map's watchtower now stands on pillars of slate stone from level 3, as its view builds it
+(`MapLook.peleTower`, `BuildingLooks.towerPillars(slate = true)`). The school's chalk hand learnt the letters of the English
+greeting (`ChalkHand`: H, l, w, y, u, F, t, h and the comma).
 
-## tent (the camp's tent)
-- The pennant on the front post: **St George's cross**, red on white.
-- Along the meadow's back edge: a **dry-stone wall** with **bracken** in front of it (green in summer, russet from
-  October, brown in winter) and **foxgloves** in June and July (not vines).
-- `boots`: **green wellington boots** by the camp bed.
-- Everything else as the default tent.
+## How it was checked
 
-## smithy (Mr Dixon's smithy)
-- **Walls of slate stone** (grey-blue, thin courses). The yard (level 4) of **slate flags**, not cobbles.
-- Everything else as the default smithy.
+CHECKS
 
-## church (the dale church)
-- **Floor of slate flags** (blue-grey).
-- `window`: clear **leaded glass in diamond panes** (quarries), a faint green tint; level 2 adds the second window (no
-  coloured glass anywhere; the light on the floor is pale, not coloured).
-- From level 3 an **open timber roof** of dark oak instead of the starry vault.
-- `painting`: the painting over the altar is **the Good Shepherd**: a shepherd in a red cloak carrying a white lamb on his
-  shoulders, a green fell and blue sky behind; from level 4 in a carved **oak frame**, from level 5 a gilt text board over
-  it.
-- The dado a grey slate plinth; at level 4 white **memorial tablets** on the walls instead of consecration crosses.
-- `bell` (in the gable over the door): a **bellcote** of grey slate stone with a slate cap.
-- `rope`: its grip, the sally, striped **red, white and blue**.
-- The organ loft's front plain **oak** (no painted tulips).
-- At level 4, where the Virgin on her pedestal stood: a **brass eagle lectern** holding a Bible.
-- Outside at level 5: a dark **yew** for the cypress.
-- Everything else as the default church (altar, candles, cross, flowers, pews, organ, font, door).
+## How to use
 
-## field (Mr Tyson's field)
-- `kozolec`: the **stone field barn**: a small barn of grey stone under slate, by KOZOLEC's level (1: one bay, open at the
-  front with the hay heaped in it; 2: two bays, walls up; 3: the big arched cart door; 4: the slate roof whole, an owl
-  hole in the gable; 5: hay to the loft door). `hay`: the hay in the barn (its door and its loft).
-- `fence`: **dry-stone walls**, grey, for the fences (the near one at 1, the middle one at 2, the far one at 4).
-- Behind: the **fells**; the village on the near hill in grey stone under slate with the battlemented church tower.
-- Everything else as the default field (wheat, corn: maize, potatoes, cabbage, scythe, rake, basket, cart, horse,
-  scarecrow, path).
+Nothing to switch on. A Lake District village's bridge serves the scenes and packs at once; the app draws the looks and
+bundles the I spy clues from its next build. An older app draws the buildings in the default picture and plays the scenes
+all the same: no new art id, no new slot, no new effect (`SceneArt.VERSION` unchanged).
 
-## square (the village green; from the oak, the well)
-- `linden`: the **oak**: a broad oak with lobed dark green leaves, brown-gold in autumn, bare in winter, growing with
-  LIPA's level (a staked sapling at 1 … the old oak at 5). The cat climbs it.
-- `well`: the **village pump** by WELL's level: 1 a low stone trough fed by a spring, a bucket by it; 2 the trough of
-  dressed stone; 3 the cast-iron **pump**, painted dark green, its handle and spout over the trough; 4 a little slate
-  roof over it on two posts; 5 the lamp post beside it. The word is the pump.
-- `tower`: the church with its **square battlemented tower** of grey stone (the bell in its louvred opening).
-- `house`: the cottages on the right of grey stone and whitewash under slate, white window frames, no shutters, a slate
-  porch; the bicycle against the nearest.
-- `fence`: the garden wall on the left: a low **dry-stone wall**.
-- The ground: the **green**: grass with a gravel path, not cobbles.
-- `flowers`: the flower bed: **daffodils** in March and April, otherwise as the default bed.
-- Fells behind. Everything else as the default square (bench, ball, dog: Bess, cat, bicycle, sun).
+`bun test/check-culture.ts lakeland` (companion/bridge) validates a culture pack as the bridge does at start, with its cast,
+the packs and scenarios its village is served and its language's grammar pages (new on this branch, for writing a
+culture's scenes).
 
-## market (market day)
-- The houses round it grey stone and whitewash under slate; instead of the white church tower and spire a **square
-  battlemented clock tower** of grey stone.
-- Fells on the hill behind. The lane's cobbles (level 4) grey stone setts.
-- Awnings: the village's own stall **green and cream**; the farther ones red and white, blue and white, yellow and green.
-- Goods on the village's stall: a round **cheese** with a cloth band, **cottage loaves**, a tray of eggs, jars of dark
-  amber **heather honey**; at the stall's back strings of **onions**; the crate by season (rhubarb in spring,
-  strawberries in June, tomatoes in summer, apples and a pumpkin in autumn, leeks in winter).
-- `wine`: on Sam's cart a barrel of **ale** and a crate of **brown bottles** with cream labels (ale, not wine).
-- Everything else as the default market (scale, weights, eggs, bread, basket, crate, hen in its coop, cart, pigeons,
-  bell, apples, vegetables).
+QA, with a synthetic learner of English (never a real learner's data):
 
-## apiary (Beekeeper Arthur's bee garden)
-- `beehouse`: not a painted bee house: a **dry-stone wall with bee boles**, arched recesses in it, a **straw skep** in each,
-  a slate coping on top; in front of it **white WBC hives** (tiered white boxes with a little pitched roof) in a row on
-  stands, by BEEHIVE's level (1: three hives and two boles; 2: six; 3: a second row; 4: the slate coping and every bole with
-  its skep; 5: the path, the bees' water, the lantern).
-- `hive` (the hive apart): a **white WBC hive**.
-- `panel`: Arthur's sign by the path, a green board with **HONEY** in white.
-- `honey`: dark amber **heather honey** in the jars.
-- World Bee Day's bunting red, white and blue.
-- Everything else as the default apiary (bee, comb, flowers, tree: the lime (linden), smoker, extractor, wax, bench).
+```
+bun companion/bridge/test/fixtures/make-learner.ts <dir> --name Jan --target en --base sl
+LANI_DEV_DATA=<dir> LANI_ENV_FILE=/dev/null LANI_CULTURE=lakeland LANI_QA_SETUP_PAIR=en-sl LANI_QA_LAKELAND_SHOTS=<shots> \
+companion/bin/qa-slot --no-town --steps lakeland-places
+```
 
-## watchtower (the view from the watchtower)
-- The village below in grey stone and whitewash under slate, the **battlemented church tower** among the roofs, smoke from
-  the chimneys; the fields with **dry-stone walls**; the `mountains` are **fells** with crags.
-- `flag`: **St George's cross** (below level 4 a white pennant with a red cross at the hoist).
-- The tower: from level 2 the underside of a **slate** roof; from level 3 pillars of grey **stone**; from level 4 a low
-  stone **parapet with battlements** under the wooden railing (the `railing` stays the wooden rail on top).
-- Everything else as the default view (torch, horn, spyglass, crow, roofs, palisade, gate, road, forest, river, valley,
-  horizon).
+The step (`lakeland-places`, only when named) makes the village a Trg (QA's hook `hearths:trg`), taps the church on the map,
+goes in by its card's "🚪 Go in", opens every building's scene by its link (a few closer up), plays a round of «I spy» on the
+green and opens Granny Maggie's breakfast in the kitchen.
 
-## palisade (at the gate)
-- The land beyond the gate: the **fells** with **dry-stone walls** climbing them, bracken, a grey crag and a cairn.
-- Everything else as the default gate (stakes, gate, bar, torches, flag, roof, ladder, bell, road, forest, meadow,
-  bench, trough).
+## Tap counts
+
+Into a building's scene: before, none (the card had no way in); now 2 (the building, "🚪 Go in"), as in every other
+culture. Nothing else changed.
+
+## What is left
+
+- **A native check** of all the English (and its Slovene, Italian and German): every scene, pack and clue file says
+  "machine-written" in its `review`.
+- **The projects, the third wave.** The Lake District's thirteen projects have no place of their own yet, and the arts that
+  draw them on this branch draw the default build: the maypole with its long ribbons (`mlaj`, the green; red, white and blue
+  there), the packhorse bridge of slate with one arch (`most`, the beck: the stream's cart bridge is the default timber one),
+  the mill on the beck (`mlin`), the bowling green (`balinisce`: the bocce art), the little stone chapel by the road
+  (`kapelica`), the damson orchard on terraces (`vinograd`: the hills art), the wildflower meadow for the bees
+  (`cebelji_travnik`, the bee garden), the mountain rescue hut (`gasilski_dom`: the fire station art), the playground
+  (`igrisce`), the drinking fountain on the square (`vodnjak_na_trgu`: the green draws the default fountain), the bank barn
+  (`toplar`: the field draws the default double hayrack, so the field's `toplar` word is "hay barn" until it draws the bank
+  barn the map has), the viewing station with its coloured windows (`razgledni_stolp`: the lookout art) and the church clock
+  (`mestna_ura`, the green's tower: its face is drawn). Each wants its scene, its pack and clues, its project steps
+  (`project-steps/`), and its art's look.
+- **The landscape's spots**: the wood, the beck and the tarn (`forest`, `spot:riverbank`, `spot:pond`) have no Lakeland scene
+  yet (Friuli's have theirs); a tap there opens nothing. They aren't buildings, so not this round's.
+- **Small closer up only**: the sampler's stitches, the plate rail's willow pattern, the china dog and the text board read at
+  detail 2 and 3; at detail 1 they're a few pixels.
