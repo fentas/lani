@@ -138,7 +138,52 @@ written unit's.
 
 ## Tests
 
-(filled in below)
+- **The content, before the app**: a port of the app's grading (`Grading`, `Spelling`, `Sheets.check`, `withoutPerson`)
+  over every Italian unit, rendered for a boy and for a girl: the 24 units' 1,876 answers graded right, every word bank's
+  distractor wrong for every gap (the A1 units' 1,398 answers as before the grading change). The bridge's `validateUnit`
+  (bases de, sl, en) and `validateGrammar`: the six units, the 23 Italian pages and the outline validate; every page a
+  unit names is in the book.
+- **The grading**: `GradingLanguagesTest` 21 (three new: a participle that doesn't agree, lo or la before avere, the
+  known mistakes), `GradingTest` 18.
+- **The app's content tests**: `ItalianCourseContentTest` 5 (the six units parsed and played at A2, every right answer
+  graded right by the app's Italian grading, no distractor right or almost, every page named in the bundled book, every
+  text per base in de, sl and en), `CourseContentTest` 4, `CourseTest` 8, `GrammarTest` 16, `SchoolBoardTest` 5 (the
+  blackboard writes every letter of the Italian course, ò and à of the future among them), `SchoolRevealTest` 10,
+  `IntroSpeechTest` 9, `IntroSpeechParityTest` 2, `GameIntroSpeechTest` 7.
+- **An independent language review** (a second reader, not the writer): 4 must-fix, 12 should-fix and some nits, all
+  taken but one way of fixing the bora's gaps (a state decides there: Giulia era sul divano); the commit "after an
+  independent language review" lists them.
+- **The bridge**: `bunx tsc --noEmit -p .` clean; `tutor-export --check`: 88 files match. The smoke (ports 9230–9249,
+  Drama 3 on 9248): its first run 3,153 checks passed and one failed, Friuli's `GET /course` check, which took A1's
+  written units for all the course serves; generalised to every level's (course-it-a2a did the same: at the rebase its
+  version is kept). Run again: all 3,154 checks passed.
+- **The app's full unit suite** (before the rebase, main b3ff5280): 3,522 tests in 445 classes, none failed (2 skipped).
+- **Python**: `python3 -m unittest discover -s tests` 251 OK, `-s companion/tests` 135 OK (11 skipped).
+- **Prints**: `companion/bin/school-prints --language it --level A2` in de, sl and en: six sheets and the booklet each;
+  in German pronomi-diretti and participi-irregolari on one page, the other four on two (passato-essere 21 mm, imperfetto
+  14 mm, imperfetto-passato 5 mm, futuro 1 mm too long for one); in Slovene and English futuro on one page too. "Attenzione"
+  pairs each wrong form a choice offers with its fix (Tommaso ha caduto → è caduto, Le ho trovato → trovate).
+
+## QA
+
+On the emulator through `qa-slot` (slot 2), a synthetic Teo (make-learner.ts, it · de, Friuli, a child), the step
+`friuli-school-unit` with `LANI_QA_IT_UNIT=pronomi-diretti`; screenshots in
+scratchpad/ux-course-it-a2b/qa-3 (fs-*.png, contact-sheet.png, fs-print-fit.txt, the PDF):
+
+- **The school with A1 done**: A1's 18 units in one line ("✅ 18 unità fatte"), A2 with the units before it done and
+  "★ La prossima · Als Nächstes · A2: Lo vedo, la prendo", "altre 12 in arrivo" (the other parts' units still planned).
+- **The unit start to finish**: its intro's five steps (three choices, two typed gaps: "Le", "mangiarlo"), on the
+  tablet on its side and upright, the summary card (the page pronomi-diretti), the first worksheet (the sort 14/14 and
+  two choices), the test straight away (12/12, pass 80 %), "Unità completata!", the dev bridge's village keeping
+  it/pronomi-diretti done.
+- **Its print**: "🖨️ Stampa la scheda", fit.js in the WebView choosing as headless Chromium does (one page, density 3,
+  both), the print dialog's preview, "Lani – A2 – 06 pronomi-diretti.pdf" saved through it: A4, one page.
+- Two runs failed before at the intro's first question: its option "la" lay under the bottom bar and the only "la" in
+  view was the intro table's cell, so QA tapped the cell. `option_at` now takes a node that can be tapped (a choice's
+  button), scrolling until one shows (commit "a choice's option, not the intro's table cell"); the shot of the failure:
+  qa-1/failed-step1-table-cell.png.
+- No "before" run: before this branch units 7–12 were planned, a read-only "📝 Kmalu" line (COURSE.md, "What the school
+  shows"); nothing of the screens changed.
 
 ## For the native check
 
