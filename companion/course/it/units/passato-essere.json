@@ -1,0 +1,491 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passato-essere",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🚶",
+  "title": {
+    "it": "Sono andata, siamo arrivati",
+    "de": "Das Perfekt mit essere: sono andata, siamo arrivati",
+    "sl": "Preteklik z essere: sono andata, siamo arrivati",
+    "en": "The past with essere: sono andata, siamo arrivati"
+  },
+  "goal": {
+    "de": "Du erzählst, wohin du und die anderen gegangen sind: mit essere, das Partizip passend zu wem (Giulia è andata, siamo arrivati, ci siamo divertiti).",
+    "sl": "Poveš, kam si {m:šel|f:šla} ti in kam so šli drugi: z essere, deležnik pa se ujema s tem, kdo je šel (Giulia è andata, siamo arrivati, ci siamo divertiti).",
+    "en": "You can tell where you and the others went: with essere, the participle agreeing with who went (Giulia è andata, siamo arrivati, ci siamo divertiti)."
+  },
+  "grammar": ["passato-prossimo", "essere-avere"],
+  "words": [
+    "ieri",
+    "stamattina",
+    "sabato",
+    "domenica",
+    "andare",
+    "venire",
+    "partire",
+    "arrivare",
+    "tornare",
+    "uscire",
+    "entrare",
+    "salire",
+    "cadere",
+    "restare",
+    "stare",
+    "svegliarsi",
+    "vestirsi",
+    "lavarsi",
+    "divertirsi",
+    "il mercato",
+    "la stazione",
+    "la bici",
+    "la pasticceria",
+    "la gubana",
+    "il ponte",
+    "il fiume",
+    "la piazza",
+    "la collina",
+    "la pecora",
+    "la stalla",
+    "il mulino",
+    "la festa",
+    "presto",
+    "tardi",
+    "stanco",
+    "felice",
+    "Cividale"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "persona", "de": "Person", "sl": "oseba", "en": "person" },
+        { "it": "maschile ♂", "de": "männlich ♂", "sl": "moški ♂", "en": "masculine ♂" },
+        { "it": "femminile ♀", "de": "weiblich ♀", "sl": "ženski ♀", "en": "feminine ♀" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Erzählst du, wohin jemand gegangen ist, nimmst du **essere** (sein), wie im Deutschen: **sono andato** (ich bin gegangen). Das Partizip passt sich an, wie ein Adjektiv: Lorenzo sagt **sono andato**, Giulia sagt **sono andata**. Bei **tu** und **lui, lei** genauso: **sei andata** (du bist gegangen), **è andato** (er ist gegangen).",
+          "sl": "Kadar poveš, kam je kdo šel, vzameš **essere** (biti): **sono andato** (šel sem). Deležnik se ujema kot pridevnik, tako kot v slovenščini šel in šla: Lorenzo reče **sono andato**, Giulia reče **sono andata**. Pri **tu** in **lui, lei** prav tako: **sei andata** (šla si), **è andato** (šel je).",
+          "en": "To tell where someone went, you use **essere** (be): **sono andato** (I went). The participle agrees, like an adjective: Lorenzo says **sono andato**, Giulia says **sono andata**. The same with **tu** and **lui, lei**: **sei andata** (you went), **è andato** (he went)."
+        },
+        "examples": [
+          {
+            "it": "Lorenzo: «Sono andato al mulino con il nonno.»",
+            "de": "Lorenzo: „Ich bin mit dem Opa zur Mühle gegangen.“",
+            "sl": "Lorenzo: »Z dedkom sem šel k mlinu.«",
+            "en": "Lorenzo: “I went to the mill with Grandpa.”"
+          },
+          {
+            "it": "Giulia: «Sono andata al mercato con la nonna.»",
+            "de": "Giulia: „Ich bin mit der Oma auf den Markt gegangen.“",
+            "sl": "Giulia: »Z babico sem šla na tržnico.«",
+            "en": "Giulia: “I went to the market with Granny.”"
+          }
+        ],
+        "rows": [
+          ["io", "sono andato", "sono andata"],
+          ["tu", "sei andato", "sei andata"],
+          ["lui, lei", "è andato", "è andata"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passato-prossimo",
+          "text": "Giulia: «Ieri sono ___ al mare.» (andare)",
+          "accept": ["andata"],
+          "hint": "Giulia → -a",
+          "explain": {
+            "de": "**essere** → das Partizip passt sich an: Giulia sagt sono **andata**\n- Lorenzo sagt sono andato",
+            "sl": "**essere** → deležnik se ujema: Giulia reče sono **andata**\n- Lorenzo reče sono andato",
+            "en": "**essere** → the participle agrees: Giulia says sono **andata**\n- Lorenzo says sono andato"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei mehreren Personen: **siamo andati** (wir sind gegangen), **siete andati** (ihr seid gegangen), **sono andati** (sie sind gegangen), mit **-i**. Sind es nur Mädchen oder Frauen, dann **-e**: **Giulia e la nonna sono andate**. Ein Junge und ein Mädchen zusammen: **-i**, auch wenn nur ein Junge dabei ist: **Giulia e Lorenzo sono andati**.",
+          "sl": "Pri več osebah: **siamo andati** (šli smo), **siete andati** (šli ste), **sono andati** (šli so), z **-i**. Če so samo deklice ali ženske, **-e**: **Giulia e la nonna sono andate**. Fant in dekle skupaj: **-i**, tudi če je fant en sam: **Giulia e Lorenzo sono andati**. Dvojine italijanščina nima: sta šla je tudi **sono andati**.",
+          "en": "For several people: **siamo andati** (we went), **siete andati** (you went), **sono andati** (they went), with **-i**. Only girls or women: **-e**: **Giulia e la nonna sono andate**. A boy and a girl together: **-i**, even with just one boy: **Giulia e Lorenzo sono andati**."
+        },
+        "examples": [
+          {
+            "it": "Giulia e la nonna sono andate al mercato.",
+            "de": "Giulia und die Oma sind auf den Markt gegangen.",
+            "sl": "Giulia in babica sta šli na tržnico.",
+            "en": "Giulia and her grandmother went to the market."
+          },
+          {
+            "it": "Giulia e Lorenzo sono andati allo stagno.",
+            "de": "Giulia und Lorenzo sind zum Teich gegangen.",
+            "sl": "Giulia in Lorenzo sta šla k ribniku.",
+            "en": "Giulia and Lorenzo went to the pond."
+          }
+        ],
+        "rows": [
+          ["noi", "siamo andati", "siamo andate"],
+          ["voi", "siete andati", "siete andate"],
+          ["loro", "sono andati", "sono andate"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passato-prossimo",
+          "prompt": "Giulia e Nonna Rosa sono ___ a Cividale.",
+          "options": ["andati", "andate", "andata"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Giulia e Nonna Rosa**: nur Mädchen und Frauen → **-e**: andate\n- andati · Jungen, oder gemischt\n- andata · nur eine",
+            "sl": "**Giulia e Nonna Rosa**: samo deklice in ženske → **-e**: andate\n- andati · fantje ali mešano\n- andata · samo ena",
+            "en": "**Giulia e Nonna Rosa**: only girls and women → **-e**: andate\n- andati · boys, or mixed\n- andata · just one"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nicht nur **andare** nimmt **essere**. Auch **venire** (kommen), **arrivare** (ankommen), **partire** (abfahren), **tornare** (zurückkommen), **uscire** (hinausgehen), **entrare** (hineingehen), **salire** (hinaufsteigen), **cadere** (fallen) und **restare** (bleiben). Ein Tipp: Wo du im Deutschen bin oder ist sagst, sagst du fast immer auch auf Italienisch **essere**: Tommaso ist gefallen, **Tommaso è caduto**.",
+          "sl": "Ne samo **andare** gre z **essere**. Tudi **venire** (priti), **arrivare** (prispeti), **partire** (oditi, odpeljati), **tornare** (vrniti se), **uscire** (iti ven), **entrare** (vstopiti), **salire** (iti gor), **cadere** (pasti) in **restare** (ostati). To so glagoli premikanja in ostajanja: **Tommaso è caduto** (Tommaso je padel).",
+          "en": "Not only **andare** takes **essere**. So do **venire** (come), **arrivare** (arrive), **partire** (leave), **tornare** (come back), **uscire** (go out), **entrare** (go in), **salire** (go up, get on), **cadere** (fall) and **restare** (stay): verbs of going, coming and staying. **Tommaso è caduto** (Tommaso fell)."
+        },
+        "examples": [
+          {
+            "it": "Tommaso è caduto dalla bici.",
+            "de": "Tommaso ist vom Fahrrad gefallen.",
+            "sl": "Tommaso je padel s kolesa.",
+            "en": "Tommaso fell off his bike."
+          },
+          {
+            "it": "Le pecore sono uscite dalla stalla.",
+            "de": "Die Schafe sind aus dem Stall gekommen.",
+            "sl": "Ovce so šle iz hleva.",
+            "en": "The sheep have come out of the barn."
+          }
+        ],
+        "rows": [
+          ["lui, lei: uscire", "è uscito", "è uscita"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passato-prossimo",
+          "prompt": "Tommaso ___ caduto dalla bici.",
+          "options": ["ha", "è", "sono"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**cadere** → essere: Tommaso **è** caduto\n- ha · avere: ha mangiato\n- sono · io oder loro",
+            "sl": "**cadere** → essere: Tommaso **è** caduto\n- ha · avere: ha mangiato\n- sono · io ali loro",
+            "en": "**cadere** → essere: Tommaso **è** caduto\n- ha · avere: ha mangiato\n- sono · io or loro"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**essere** (sein) und **stare** (sein, bleiben) haben dasselbe Partizip: **stato**. Beide nehmen **essere**: **Dove sei stato?** (Wo bist du gewesen?) **Sono stata dalla nonna.** (Ich war bei der Oma.) Im Deutschen sagst du oft einfach ich war; auf Italienisch ist es **sono stato** oder **sono stata**.",
+          "sl": "**essere** (biti) in **stare** (biti, ostati) imata isti deležnik: **stato**. Oba gresta z **essere**: **Dove sei stato?** (Kje si bil?) **Sono stata dalla nonna.** (Bila sem pri babici.)",
+          "en": "**essere** (be) and **stare** (be, stay) share one participle: **stato**. Both take **essere**: **Dove sei stato?** (Where have you been?) **Sono stata dalla nonna.** (I was at Granny's.)"
+        },
+        "examples": [
+          {
+            "it": "Dove sei stato ieri, Tommaso?",
+            "de": "Wo warst du gestern, Tommaso?",
+            "sl": "Kje si bil včeraj, Tommaso?",
+            "en": "Where were you yesterday, Tommaso?"
+          },
+          {
+            "it": "Giulia è stata a casa con la febbre.",
+            "de": "Giulia war mit Fieber zu Hause.",
+            "sl": "Giulia je bila doma z vročino.",
+            "en": "Giulia stayed at home with a temperature."
+          }
+        ],
+        "rows": [
+          ["lui, lei: stare", "è stato", "è stata"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "passato-prossimo",
+          "text": "Ieri Giulia è ___ dalla zia. (stare)",
+          "accept": ["stata"],
+          "hint": "stare → stat-",
+          "explain": {
+            "de": "**stare** → **stato**, mit essere: Giulia è **stata**\n- Lorenzo è stato",
+            "sl": "**stare** → **stato**, z essere: Giulia è **stata**\n- Lorenzo è stato",
+            "en": "**stare** → **stato**, with essere: Giulia è **stata**\n- Lorenzo è stato"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die Verben mit **mi, ti, si** nehmen im Perfekt immer **essere**, auch wenn das Deutsche haben sagt: **mi sono lavato** (ich habe mich gewaschen), **Giulia si è vestita** (Giulia hat sich angezogen), **ci siamo divertiti** (wir haben uns amüsiert). Das Partizip passt sich an wie bei **andare**.",
+          "sl": "Glagoli z **mi, ti, si** gredo v pretekliku vedno z **essere**: **mi sono lavato** (umil sem se), **Giulia si è vestita** (Giulia se je oblekla), **ci siamo divertiti** (zabavali smo se). Deležnik se ujema kot pri **andare**.",
+          "en": "Verbs with **mi, ti, si** always take **essere** in the past: **mi sono lavato** (I washed), **Giulia si è vestita** (Giulia got dressed), **ci siamo divertiti** (we had fun). The participle agrees as with **andare**."
+        },
+        "examples": [
+          {
+            "it": "Stamattina Giulia si è svegliata presto.",
+            "de": "Heute Morgen ist Giulia früh aufgewacht.",
+            "sl": "Danes zjutraj se je Giulia zgodaj zbudila.",
+            "en": "This morning Giulia woke up early."
+          },
+          {
+            "it": "Alla festa ci siamo divertiti tanto!",
+            "de": "Auf dem Fest haben wir viel Spaß gehabt!",
+            "sl": "Na prazniku smo se zelo zabavali!",
+            "en": "We had a lot of fun at the festival!"
+          }
+        ],
+        "rows": [
+          ["io: lavarsi", "mi sono lavato", "mi sono lavata"],
+          ["noi: divertirsi", "ci siamo divertiti", "ci siamo divertite"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "passato-prossimo",
+          "prompt": "Stamattina Lorenzo e Tommaso si sono ___ presto.",
+          "options": ["svegliato", "svegliati", "svegliate"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**si sono** + Partizip: **Lorenzo e Tommaso** → zwei Jungen → **-i**: svegliati\n- svegliato · nur einer\n- svegliate · nur Mädchen",
+            "sl": "**si sono** + deležnik: **Lorenzo e Tommaso** → dva fanta → **-i**: svegliati\n- svegliato · samo eden\n- svegliate · samo deklice",
+            "en": "**si sono** + participle: **Lorenzo e Tommaso** → two boys → **-i**: svegliati\n- svegliato · just one\n- svegliate · only girls"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passato-essere-1",
+      "title": { "it": "Andato o andata?", "de": "Andato oder andata?", "sl": "Andato ali andata?", "en": "Andato or andata?" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "passato-prossimo",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "andare: passato prossimo",
+          "columns": [
+            { "de": "maschile · männlich", "sl": "maschile · moški", "en": "maschile · masculine" },
+            { "de": "femminile · weiblich", "sl": "femminile · ženski", "en": "femminile · feminine" }
+          ],
+          "rows": [
+            { "label": "io", "cells": ["sono andato", {"accept": ["sono andata"], "hint": "-a"}] },
+            { "label": "tu", "cells": [{"accept": ["sei andato"]}, "sei andata"] },
+            { "label": "lui · lei", "cells": [{"accept": ["è andato"]}, {"accept": ["è andata"]}] },
+            { "label": "noi", "cells": ["siamo andati", {"accept": ["siamo andate"], "hint": "-e"}] },
+            { "label": "voi", "cells": [{"accept": ["siete andati"], "hint": "-i"}, {"accept": ["siete andate"]}] },
+            { "label": "loro", "cells": [{"accept": ["sono andati"]}, {"accept": ["sono andate"]}] }
+          ],
+          "explain": {
+            "de": "**essere** + Partizip, das sich anpasst\n- einer **-o**, eine **-a**\n- mehrere **-i**, nur Mädchen oder Frauen **-e**",
+            "sl": "**essere** + deležnik, ki se ujema\n- en **-o**, ena **-a**\n- več **-i**, samo deklice ali ženske **-e**",
+            "en": "**essere** + a participle that agrees\n- one male **-o**, one female **-a**\n- several **-i**, only girls or women **-e**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "passato-prossimo",
+          "instruction": { "de": "Di chi parliamo? · Von wem ist die Rede?", "sl": "Di chi parliamo? · O kom govorimo?", "en": "Di chi parliamo? · Who is it about?" },
+          "columns": [
+            { "label": "Lorenzo", "words": ["è caduto", "è uscito"] },
+            { "label": "Giulia", "words": ["è tornata", "è salita"] },
+            { "label": "Lorenzo e Tommaso", "words": ["sono arrivati", "sono partiti"] },
+            { "label": "Giulia e la nonna", "words": ["sono entrate", "sono restate"] }
+          ],
+          "explain": {
+            "de": "**-o** einer · **-a** eine\n- **-i** mehrere, oder gemischt · **-e** nur Mädchen oder Frauen",
+            "sl": "**-o** en · **-a** ena\n- **-i** več, ali mešano · **-e** samo deklice ali ženske",
+            "en": "**-o** one male · **-a** one female\n- **-i** several, or mixed · **-e** only girls or women"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passato-essere-2",
+      "title": { "it": "Al mercato di Cividale", "de": "Auf dem Markt in Cividale", "sl": "Na tržnici v Čedadu", "en": "At the market in Cividale" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "passato-prossimo",
+          "instruction": { "de": "Completa con il passato · Setz die Vergangenheit ein", "sl": "Completa con il passato · Vstavi preteklik", "en": "Completa con il passato · Fill in the past" },
+          "title": "Al mercato di Cividale",
+          "text": "Mi chiamo Giulia. Sabato io e la nonna ___ (partire) presto. ___ (noi · arrivare) a Cividale alle nove. Anche Lorenzo e suo nonno ___ (venire) con noi. Lorenzo ___ (restare) sul ponte del Diavolo a guardare il fiume. Io ___ (entrare) in una pasticceria e ho comprato la gubana. A mezzogiorno Lorenzo e io ___ (andare) in piazza. La sera ___ (noi · tornare) a casa, stanchi e felici.",
+          "gaps": [
+            { "accept": ["siamo partite"], "hint": "io (Giulia) e la nonna: -e" },
+            { "accept": ["siamo arrivate"], "hint": "noi: -e" },
+            { "accept": ["sono venuti"], "hint": "venire → essere" },
+            { "accept": ["è restato"], "hint": "Lorenzo: -o" },
+            { "accept": ["sono entrata"], "hint": "io: Giulia" },
+            { "accept": ["siamo andati"], "hint": "Lorenzo e io: -i" },
+            {
+              "accept": ["siamo tornati"],
+              "hint": "stanchi: -i",
+              "explain": {
+                "de": "Jetzt sind alle zusammen, Jungen und Mädchen → **-i**, wie stanchi: **siamo tornati**.",
+                "sl": "Zdaj so vsi skupaj, fantje in deklice → **-i**, kot stanchi: **siamo tornati**.",
+                "en": "Now they are all together, boys and girls → **-i**, like stanchi: **siamo tornati**."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["siamo partiti", "sono entrato", "abbiamo tornato"],
+          "translation": {
+            "de": "Ich heiße Giulia. Am Samstag sind die Oma und ich früh losgefahren. Um neun sind wir in Cividale angekommen. Auch Lorenzo und sein Opa sind mit uns gekommen. Lorenzo ist auf der Teufelsbrücke geblieben und hat auf den Fluss geschaut. Ich bin in eine Konditorei gegangen und habe die Gubana gekauft. Am Mittag sind Lorenzo und ich auf den Platz gegangen. Am Abend sind wir nach Hause gekommen, müde und glücklich.",
+            "sl": "Ime mi je Giulia. V soboto sva z babico zgodaj odšli. Ob devetih sva prispeli v Čedad. Z nama sta prišla tudi Lorenzo in njegov dedek. Lorenzo je ostal na Hudičevem mostu in gledal reko. Jaz sem stopila v slaščičarno in kupila gubanco. Opoldne sva šla z Lorenzom na trg. Zvečer smo se vrnili domov, utrujeni in srečni.",
+            "en": "My name is Giulia. On Saturday Granny and I left early. We arrived in Cividale at nine. Lorenzo and his grandpa came with us too. Lorenzo stayed on the Devil's Bridge watching the river. I went into a pastry shop and bought the gubana. At noon Lorenzo and I went to the square. In the evening we came home, tired and happy."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "passato-prossimo",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Giulia: «Ieri sono ___ dalla zia.»",
+          "options": ["stato", "stata", "stati"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**stare** → stato, mit essere angepasst: Giulia → **stata**",
+            "sl": "**stare** → stato, z essere usklajen: Giulia → **stata**",
+            "en": "**stare** → stato, agreeing with essere: Giulia → **stata**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passato-essere-3",
+      "title": { "it": "Dove siete andati?", "de": "Wo seid ihr hingegangen?", "sl": "Kam ste šli?", "en": "Where did you go?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "passato-prossimo",
+          "instruction": {
+            "de": "Metti al passato · In die Vergangenheit, für die Person in Klammern",
+            "sl": "Metti al passato · V preteklik, za osebo v oklepaju",
+            "en": "Metti al passato · Into the past, for the person in brackets"
+          },
+          "items": [
+            { "from": "Vado al mare. (Giulia)", "accept": ["Giulia è andata al mare.", "È andata al mare."] },
+            { "from": "Torno a casa. (Lorenzo)", "accept": ["Lorenzo è tornato a casa.", "È tornato a casa."] },
+            {
+              "from": "Usciamo in giardino. (Giulia e Lorenzo)",
+              "accept": ["Giulia e Lorenzo sono usciti in giardino.", "Sono usciti in giardino."],
+              "hint": "Giulia e Lorenzo: -i"
+            },
+            {
+              "from": "Partiamo presto. (Giulia e la nonna)",
+              "accept": ["Giulia e la nonna sono partite presto.", "Sono partite presto."],
+              "hint": "Giulia e la nonna: -e"
+            },
+            {
+              "from": "Cado dalla bici. (Tommaso)",
+              "accept": ["Tommaso è caduto dalla bici.", "È caduto dalla bici."],
+              "hint": "cadere → essere"
+            },
+            {
+              "from": "Mi sveglio presto. (Giulia)",
+              "accept": ["Giulia si è svegliata presto.", "Si è svegliata presto."],
+              "hint": "mi sveglio → si è …"
+            },
+            {
+              "from": "Ci divertiamo alla festa. (i bambini)",
+              "accept": ["I bambini si sono divertiti alla festa.", "Si sono divertiti alla festa."]
+            }
+          ],
+          "explain": {
+            "de": "**essere** + das Partizip, angepasst an die Person in Klammern\n- vado → Giulia è andata\n- mi sveglio → Giulia si è svegliata",
+            "sl": "**essere** + deležnik, usklajen z osebo v oklepaju\n- vado → Giulia è andata\n- mi sveglio → Giulia si è svegliata",
+            "en": "**essere** + the participle, agreeing with the person in brackets\n- vado → Giulia è andata\n- mi sveglio → Giulia si è svegliata"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "passato-prossimo",
+        "instruction": { "de": "Completa con il passato · Setz die Vergangenheit ein", "sl": "Completa con il passato · Vstavi preteklik", "en": "Completa con il passato · Fill in the past" },
+        "text": "Domenica Davide ___ (partire) presto con le sue pecore. Le pecore ___ (salire) sulla collina. Bianca, la più piccola, ___ (restare) indietro, e Davide ___ (tornare) da lei. La sera tutti ___ (arrivare) a casa.",
+        "gaps": [
+          { "accept": ["è partito"] },
+          { "accept": ["sono salite"] },
+          { "accept": ["è restata"] },
+          { "accept": ["è tornato"] },
+          { "accept": ["sono arrivati"] }
+        ],
+        "translation": {
+          "de": "Am Sonntag ist Davide früh mit seinen Schafen aufgebrochen. Die Schafe sind auf den Hügel gestiegen. Bianca, die Kleinste, ist zurückgeblieben, und Davide ist zu ihr zurückgegangen. Am Abend sind alle zu Hause angekommen.",
+          "sl": "V nedeljo je Davide zgodaj odšel s svojimi ovcami. Ovce so se povzpele na grič. Bianca, najmanjša, je zaostala in Davide se je vrnil ponjo. Zvečer so vsi prišli domov.",
+          "en": "On Sunday Davide set off early with his sheep. The sheep climbed the hill. Bianca, the smallest, stayed behind, and Davide went back for her. In the evening they all got home."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "passato-prossimo",
+        "instruction": {
+          "de": "Metti al passato · In die Vergangenheit, für die Person in Klammern",
+          "sl": "Metti al passato · V preteklik, za osebo v oklepaju",
+          "en": "Metti al passato · Into the past, for the person in brackets"
+        },
+        "items": [
+          {
+            "from": "Esco con il cane. (Nonno Bepi)",
+            "accept": ["Nonno Bepi è uscito con il cane.", "È uscito con il cane."]
+          },
+          {
+            "from": "Arriviamo alla stazione. (Giulia e Zia Nives)",
+            "accept": ["Giulia e Zia Nives sono arrivate alla stazione.", "Sono arrivate alla stazione."]
+          },
+          {
+            "from": "Torniamo a casa. (i bambini)",
+            "accept": ["I bambini sono tornati a casa.", "Sono tornati a casa."]
+          },
+          { "from": "Mi vesto da sola. (Giulia)", "accept": ["Giulia si è vestita da sola.", "Si è vestita da sola."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "passato-prossimo",
+        "prompt": "Giulia e Lorenzo sono ___ al mare.",
+        "options": ["andati", "andate", "andato"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "Ein Junge und ein Mädchen zusammen → **-i**: andati",
+          "sl": "Fant in dekle skupaj → **-i**: andati",
+          "en": "A boy and a girl together → **-i**: andati"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passato-prossimo",
+        "prompt": "La maestra Elena ___ venuta a scuola in bici.",
+        "options": ["ha", "è", "si è"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**venire** → essere: la maestra **è** venuta",
+          "sl": "**venire** → essere: la maestra **è** venuta",
+          "en": "**venire** → essere: la maestra **è** venuta"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "passato-prossimo",
+        "prompt": "Stamattina Tommaso si è ___ tardi.",
+        "options": ["svegliato", "svegliata", "svegliati"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**si è** + Partizip, Tommaso → **-o**: svegliato",
+          "sl": "**si è** + deležnik, Tommaso → **-o**: svegliato",
+          "en": "**si è** + participle, Tommaso → **-o**: svegliato"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: siamo partite for Giulia and Granny, è restato, the ponte del Diavolo, mi vesto da sola, the German bin/ist tip"
+}
