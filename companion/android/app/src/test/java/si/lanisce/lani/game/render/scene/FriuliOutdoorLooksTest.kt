@@ -288,7 +288,8 @@ class FriuliOutdoorLooksTest {
      * Friuli's outdoor pictures as built on 2026-10-28 (the stream's cart bridge on its pillars of cobbles and brick, the big
      * hay barn's maize from August to March: 2026-10-30, place-life), inland and on the coast: by day with someone at every spot and
      * everything built, by day before anything is (the fienile not yet, the mill and the bridges not begun, the field at its
-     * first level: its first plots, since 2026-10-30), a winter's
+     * first level: its first plots, since 2026-10-30; the stream's mill wheel with its water in its buckets and turning in the
+     * snow: 2026-10-31, mill-mechanics), a winter's
      * dusk in a tall view, a night closer up, a summer's afternoon at the closest. A change to one of them is a change to
      * Friuli's look: look at the review renders, then take the new digests from the test's output.
      */
@@ -335,15 +336,15 @@ class FriuliOutdoorLooksTest {
         "forest/coast/dusk-winter" to "f4532a55c215c252",
         "forest/coast/night-k2" to "2f330679144b3e16",
         "forest/coast/afternoon-k3" to "9314086eeb27d90e",
-        "stream/classic/day" to "e6d37a50eff717db",
+        "stream/classic/day" to "5192b2c78348795b",
         "stream/classic/day-unbuilt" to "512cdcec17f6ae41",
-        "stream/classic/dusk-winter" to "62ad9399d2bc5a78",
-        "stream/classic/night-k2" to "37e75adf397b0c2e",
+        "stream/classic/dusk-winter" to "4a5b5aac915b1a83",
+        "stream/classic/night-k2" to "153204026284abdc",
         "stream/classic/afternoon-k3" to "386e18bf8c6f8c87",
-        "stream/coast/day" to "e6d37a50eff717db",
+        "stream/coast/day" to "5192b2c78348795b",
         "stream/coast/day-unbuilt" to "512cdcec17f6ae41",
-        "stream/coast/dusk-winter" to "62ad9399d2bc5a78",
-        "stream/coast/night-k2" to "8fc94a550547e13a",
+        "stream/coast/dusk-winter" to "4a5b5aac915b1a83",
+        "stream/coast/night-k2" to "30577de6be8ce818",
         "stream/coast/afternoon-k3" to "386e18bf8c6f8c87",
         "pond/classic/day" to "c2b3d0f661f38dcd",
         "pond/classic/day-unbuilt" to "40a6a8ed193539ba",

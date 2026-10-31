@@ -489,8 +489,8 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
      * France's water mill on the village's bank of the stream: a timber house on a stone footing under a shingled roof,
      * a mill race dug off the stream past its front (its end toward the water, -x), the wheel standing in the race.
      * Half-built, the footing with the frame going up on it and the race dug, dry; then the walls under bare rafters in
-     * scaffolding, the wheel standing still; finished, the race runs, the wheel turns, a sack of flour waits by the door
-     * and the window glows at night.
+     * scaffolding, the wheel standing still; finished, the race runs off the stream (+x), the wheel turning with it, a sack
+     * of flour waits by the door and the window glows at night; the race frozen in the snow, the wheel stands.
      */
     private fun mlin(x: Float, y: Float, w: Float, d: Float, look: BuildLook) {
         val hx = x + 0.45f; val hy = y + 0.15f; val hw = w - 0.6f; val hd = d - 0.85f
@@ -538,17 +538,21 @@ internal class LandmarkPainter(private val s: SceneCtx, private val b: BuildingP
         // the wheel in the race by the house's front, its axle into the wall
         val cx = hx + 0.5f; val cz = 3.8f
         i.line(cx, hy + hd, cz, cx, ry, cz, IRON)
-        millWheel(cx, ry, cz, 0.55f, 4f, turning = done)
+        // it turns while the race runs (frozen in the snow, it stands still)
+        millWheel(cx, ry, cz, 0.55f, 4f, turning = done && !env.snow)
         if (done && !env.snow) {
-            // the water it throws up where it dips into the race
+            // the water its paddles throw up where they come out of the race, downstream
             val fx = i.ix(cx + 0.35f, ry); val fy = i.iy(cx + 0.35f, ry, 0.5f)
             s.sprite(fx, fy) { for (q in 0..2) c.set(fx + q, fy - (((s.time * 8).toInt() + q) % 3), if (q == 1) Pal.FLAG_WHITE else Pal.WATER_L) }
         }
     }
 
-    /** An undershot wheel in the plane y = [y] round ([cx], [cz]): its rim, spokes and paddles, turning when [turning]. */
+    /**
+     * An undershot wheel in the plane y = [y] round ([cx], [cz]): its rim, spokes and paddles, turning when [turning], its
+     * paddles down in the race going with the water (+x, the way the race runs off the stream), its top against it.
+     */
     private fun millWheel(cx: Float, y: Float, cz: Float, rx: Float, rz: Float, turning: Boolean) {
-        val a0 = if (turning) (-s.time * 1.3).toFloat() else 0.3f
+        val a0 = if (turning) (s.time * 1.3).toFloat() else 0.3f
         fun at(a: Float, f: Float) = floatArrayOf(cx + cos(a) * rx * f, cz + sin(a) * rz * f)
         val n = 14
         for (j in 0 until n) {

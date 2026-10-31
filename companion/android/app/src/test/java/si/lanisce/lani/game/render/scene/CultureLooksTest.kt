@@ -55,8 +55,8 @@ class CultureLooksTest {
 
     /**
      * The default culture's pictures as the painters drew them before the culture looks (2026-10-28); the village's places'
-     * arts as they came (2026-10-30); the mill's with its wheels' water and turning made right (2026-10-31, mill-mechanics:
-     * the cog wheel turning with the waterwheel, the water in the buckets, never over the wheel's face).
+     * arts as they came (2026-10-30); the mill's and the stream's with their wheels' water and turning made right (2026-10-31,
+     * mill-mechanics: the cog wheel turning with the waterwheel, the water in the buckets, never over the wheel's face).
      */
     private val golden: Map<String, Map<String, String>> = mapOf(
         "alps" to mapOf("day" to "5a5d0afa6df563f4", "dusk-winter" to "be61904231098891", "night-k2" to "bce95d26f149895d"),
@@ -83,7 +83,7 @@ class CultureLooksTest {
         "sea" to mapOf("day" to "2838a9cce526e19e", "dusk-winter" to "aceed89f35199027", "night-k2" to "bc0cebb5ceef25a"),
         "smithy" to mapOf("day" to "379e5416ff29f6f9", "dusk-winter" to "78a0f6270a03270d", "night-k2" to "bece5f761feff57a"),
         "square" to mapOf("day" to "3f23f32460ebc75d", "dusk-winter" to "47c0dad001349fdd", "night-k2" to "5d0df14d9e9ec979"),
-        "stream" to mapOf("day" to "ebcb8ae092ec5972", "dusk-winter" to "5dd25be9bad7ab17", "night-k2" to "9d476b3ecdf3d5c2"),
+        "stream" to mapOf("day" to "4530e3e6545fce56", "dusk-winter" to "a046cfc67af59078", "night-k2" to "4480ed3c47028140"),
         "tent" to mapOf("day" to "6185d761453dbfe2", "dusk-winter" to "1760c092b5e36332", "night-k2" to "a66740c25f4018a8"),
         "watchtower" to mapOf("day" to "f6cc0d626eb6cbcb", "dusk-winter" to "c7e90b29a80fe587", "night-k2" to "a769b98b8858554c"),
         "workshop" to mapOf("day" to "fc680e9a7f866b70", "dusk-winter" to "39e3b3b46ae4dcda", "night-k2" to "ecc8580900399aae"),

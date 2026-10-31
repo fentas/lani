@@ -711,22 +711,30 @@ internal class StreamPainter : WildPainter() {
         }
         val th = max(2, (0.38f * pm(dA)).toInt())
         for (j in 0 until th) c.line(xa.toInt(), ya.toInt() + j, xb.toInt(), (yb + j * pm(dB) / pm(dA)).toInt(), if (j == 0) Pal.WOOD_L else if (j == th - 1) Pal.WOOD_D else Pal.WOOD_M)
-        // the water in it, running
-        val gush = gushOf()
-        if (gush > 0.05f && !env.snow) c.line(xa.toInt(), ya.toInt(), xb.toInt(), yb.toInt(), Col.mix(Pal.WATER_L, Col.hex(0xFFFFFF), 0.3f))
+        // the water in it, running while it turns the wheel (in the snow too)
+        if (wheelSpin() > 0.0) c.line(xa.toInt(), ya.toInt(), xb.toInt(), yb.toInt(), Col.mix(Pal.WATER_L, Col.hex(0xFFFFFF), 0.3f))
     }
 
-    /** The overshot wheel facing us: rim, spokes and paddles, turning as fast as its water runs; the tailrace under it. */
-    private fun wheel() {
-        val z = z
+    /** How fast the mill wheel turns (rad/s): as fast as its water runs ("wheel"), still before the water is let in. */
+    private fun wheelSpin(): Double {
         val lv = fx("wheel")
-        val spin = when {
+        return when {
             !wheelIn -> 0.0 // not there yet
             lv == null -> if (millDone) 0.8 else 0.0 // new, and no water on it yet until the step lets it in
             lv < 0.12f -> 0.0
             lv < 0.5f -> 0.8
             else -> 1.9
         }
+    }
+
+    /**
+     * The overshot wheel facing us: rim, spokes and paddles, turning as fast as its water runs ([wheelSpin]), its top to the
+     * right, the way the flume's water comes to it and falls past the top; the water riding down in its buckets on that side
+     * and emptying into the tailrace under it. Standing still, snow on its top in winter.
+     */
+    private fun wheel() {
+        val z = z
+        val spin = wheelSpin()
         val a0 = (t * spin + 0.4).toFloat()
         val p = pm(wheelD)
         val cx = gx(wheelX, wheelD); val cy = gy(wheelD) - axleH * p
@@ -759,17 +767,20 @@ internal class StreamPainter : WildPainter() {
         }
         c.fillCircle(cx, cy, max(1.5f, 0.16f * p), Pal.WOOD_X)
         c.fillRect(cx.toInt(), (cy - max(1f, 0.06f * p)).toInt(), (gx(millL, wheelD) - cx).toInt(), max(1, (0.12f * p).toInt()), Pal.WOOD_X)
-        if (env.snow) for (x in (cx - r * 0.7f).toInt()..(cx + r * 0.7f).toInt()) c.set(x, (cy - sqrt(max(0f, r * r - (x - cx) * (x - cx)))).toInt() - 1, Pal.SNOW_L)
-        // the water pouring off the flume onto the paddles, and its spray
+        // snow on its top while it stands still (turning, it sheds it)
+        if (env.snow && spin == 0.0) for (x in (cx - r * 0.7f).toInt()..(cx + r * 0.7f).toInt()) c.set(x, (cy - sqrt(max(0f, r * r - (x - cx) * (x - cx)))).toInt() - 1, Pal.SNOW_L)
+        // the water pouring off the flume just past the top into the buckets on the way down (its right, outside the rim
+        // between the paddles, never over the spokes), and its spray where they empty into the tailrace
         val gush = gushOf()
-        if (gush > 0.05f && !env.snow) {
+        if (spin > 0.0) {
             val topY = cy - r - 0.3f * p
             val wx = cx + r * 0.15f
             val wide = max(1f, 0.22f * p * gush)
+            val rb = r + 0.02f * p
             for (y in topY.toInt()..(cy + r * 0.8f).toInt()) {
                 val f = (y - topY) / (r * 1.8f + 0.3f * p)
-                val bend = sqrt(max(0f, r * r - (y - cy) * (y - cy))) * 0.85f
-                val xw = if (y < cy - r) wx else cx + max(bend, r * 0.15f)
+                val arc = sqrt(max(0f, rb * rb - (y - cy) * (y - cy)))
+                val xw = if (y < cy - rb) wx else cx + max(arc, r * 0.15f)
                 for (q in 0 until wide.toInt().coerceAtLeast(1)) {
                     val shine = Noise.rnd(q, y / z, (t * 9).toInt()) < 0.3f
                     c.set(xw.toInt() + q, y, if (shine) Col.hex(0xF2F6FA) else Col.mix(Pal.WATER_L, Col.hex(0xFFFFFF), 0.25f + f * 0.2f))
