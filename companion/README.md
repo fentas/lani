@@ -368,7 +368,8 @@ lani://pair?v=1&u=<bridge URL>&c=<code>&p=<profile>&f=<bridge key fingerprint>
 
 In the app's first launch, after the languages: "🖥️ S svojim računalnikom · With my family's computer" →
 "📷 Skeniraj kodo · Scan the code" (the URL and token, or the `lani://pair?…` text pasted, are behind "Ročno · Enter
-manually"); or, to pair again, ⚙️ Nastavitve · Settings → 🔗 Povezava · Connection → "📷 Skeniraj QR kodo" (the ⚙️ on
+manually"); once paired, "✨ Še o tebi · A little about you" asks the aim and the voice, then Home
+([setup-refresh.md](../docs/plans/05-built/setup-refresh.md)); or, to pair again, ⚙️ Nastavitve · Settings → 🔗 Povezava · Connection → "📷 Skeniraj QR kodo" (the ⚙️ on
 Home: its dot is the tutor's status). The app asks for the camera only then,
 reads the code with CameraX and ZXing (no Google Play services), calls `POST /pair` and shows which
 learner it paired with. The phone must be on the tailnet: the Tailscale app, signed in to your tailnet,
@@ -4173,11 +4174,14 @@ say "☁️ Lani na tej napravi · Lani on this device". The bridge runs in the 
 [docs/plans/05-built/hosted-mode.md](../docs/plans/05-built/hosted-mode.md).
 
 - **The first launch:** a fresh start asks what `lani-setup` asks (the name, how the village speaks to them, the level,
-  the minutes a day, and "🧒 Za otroka · For a child"; the languages come from the setup's first steps) and makes the six
-  databases from `data-examples/`; or "📥 Uvozi izvoz · Import an export" takes a file `lani export` made. Then the
-  tutor's step ("🔑 Claude (svoj ključ)", "Nadaljuj s ChatGPT · Continue with ChatGPT", or "Pozneje · Later"; on a
+  the minutes a day, and "🧒 Za otroka · For a child"; the languages come from the setup's first steps) and "🎯 Cilj ·
+  Aim" (B2 by default; the level the village's ages lead to, sent as the profile's `target_level`), and makes the six
+  databases from `data-examples/`; or "📥 Uvozi izvoz · Import an export" takes a file `lani export` made. Then one page:
+  "🗣️ Moj glas · My voice" (the voices the cast offers, each with its ▶, a child's of their gender marked for a child) and
+  the tutor's step ("🔑 Claude (svoj ključ)", "Nadaljuj s ChatGPT · Continue with ChatGPT", or "Pozneje · Later"; on a
   child's device "👪 To nastavi starš · A parent sets this up" and a two-second hold), then Home, where the
-  village is founded.
+  village is founded. Every step reads itself aloud as it opens, offline by the phone's voice
+  ([setup-refresh.md](../docs/plans/05-built/setup-refresh.md)).
 - **Moving a learner here from a node:**
 
   ```bash
@@ -4775,9 +4779,17 @@ render time every 24 pictures (tag `TownScene`); `companion/bin/qa --steps zoom-
 
 On first launch, choose the language to learn and the explanations' language, then "🖥️ S svojim računalnikom · With my
 family's computer" and scan the QR code from `companion/bin/lani-pair` ("📷 Skeniraj kodo · Scan the code"); "Ročno ·
-Enter manually" takes the code's text or the bridge URL (`tailscale serve status`) and the token. Without a node, choose
-"📱 Samo ta telefon / tablica · Just this device" instead ([Lani on this phone](#lani-on-this-phone-no-node)). The
-steps: [docs/plans/05-built/onboarding.md](../docs/plans/05-built/onboarding.md). For Slovene speech, install the
+Enter manually" takes the code's text or the bridge URL (`tailscale serve status`) and the token. Once paired, "✨ Še o
+tebi · A little about you" offers "🎯 Cilj · Aim" (the learner's aim on the node, `GET`/`POST /learner/target`) and "🗣️
+Moj glas · My voice", each with its default: "🏡 V mojo vas · To my village" (or Back) keeps them. Without a node, choose
+"📱 Samo ta telefon / tablica · Just this device" instead ([Lani on this phone](#lani-on-this-phone-no-node)).
+
+Every step reads itself aloud as it opens, as the intro does (the school's "🔊 Beri razlago" on, no screen reader): its
+title in the language learned, then in the base what it shows; before a language is chosen, the welcome in the phone's
+language; a language's tile says its name in it ("italiano"). The 🔊 at a step's top right reads it again or stops it.
+On a tablet on its side the picture and the greeting stand beside the choices. The steps:
+[docs/plans/05-built/onboarding.md](../docs/plans/05-built/onboarding.md) and
+[docs/plans/05-built/setup-refresh.md](../docs/plans/05-built/setup-refresh.md). For Slovene speech, install the
 Slovenian voice in Android's text-to-speech settings (Google Speech Services → sl-SI).
 
 The story notebook's handwriting is Kalam (Indian Type Foundry, SIL Open Font License 1.1), bundled in
@@ -4841,6 +4853,7 @@ LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/qa
   companion/bin/qa --steps friends,town-progress,town-progress-child   # a parent sees a child's progress, then the child's side
 companion/bin/qa --steps visit-voices,visit-voices-silent,visit-sky   # a visit's voices on a tablet without Slovene (a synthetic Italian learner from German, the Slovene fixture town with its own clips, a fake ElevenLabs; LANI_DEV_TOWN_PORT of your own): the town's clip, one voiced on the node, the offer, Ne zdaj, the 🔇 note, the download, Piper; the moon's card on the visit in sl · de
 LANI_DEV_DATA=<a synthetic learner> LANI_QA_MILL_SHOTS=<dir> companion/bin/qa-slot --steps mill-turning   # the mill's wheels turning: in from the stream's mill, closer up, the waterwheel in the middle, a burst of screenshots a fraction of a second apart, the wheel's frames side by side (docs/plans/05-built/mill-mechanics.md)
+LANI_QA_SETUP_PAIR=it-de LANI_QA_TOUR_SHOTS=<dir> companion/bin/qa-slot --steps setup-tour   # the first launch on Teo's tablet (2560 × 1600, on its side and upright), alone (no node): a child learning Italian from German on this device, each step's shots, what it said (tour-speech.txt), Back, the aim, the voice, the founding; the taps counted (docs/plans/05-built/setup-refresh.md)
 companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest

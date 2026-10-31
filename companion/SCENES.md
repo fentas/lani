@@ -159,7 +159,10 @@ line is said aloud as it comes, in their voice, and the other side's reply waits
     once, at the first line of theirs a dialog says: a sheet over the dialog, "🗣️ Kateri glas je tvoj? · Which voice is
     yours?", while the line is said in the default and the dialog goes on behind; a tap on a voice chooses it and closes
     the sheet, ▶ only listens, "✓ V redu · OK" or a tap beside the sheet keeps the default, which the node remembers as
-    chosen too, so it never comes again on any device.
+    chosen too, so it never comes again on any device. Since 2026-10-31 the first launch offers it too
+    (docs/plans/05-built/setup-refresh.md): on this device alone above the tutor's step, with the family's computer on
+    "✨ Še o tebi · A little about you" once paired, the voice the learner would hear marked (a child's of their gender for
+    a child); going on keeps it as chosen, so the sheet at the first line doesn't come.
   - **The ▶:** a short line in the village's language with the learner's name ("Ciao! Sono Teo.", "Živjo! Jaz sem
     Jan."), made by the node in that voice the first time it is tapped, on the normal clip path (a live line, a few
     characters; the reserve's rules), then kept on the node and the phone.
