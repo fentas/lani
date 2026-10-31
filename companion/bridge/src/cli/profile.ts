@@ -260,7 +260,7 @@ function setTargetCmd() {
     const target = before.target === level ? `target_level stays ${level}` : `target_level ${before.target ?? '(none: B2)'} → ${level}`
     console.log(`  ${json}: ${target}${before.next !== undefined ? '; target_level_next removed' : ''}.`)
   }
-  if (r.change.mode !== 'unchanged') console.log("  The app shows it the next time it reads the learner's data (at once while it is open).")
+  if (r.change.mode !== 'unchanged') console.log("  The app shows it the next time it reads the learner's data (back on Home, or opened again).")
 }
 
 switch (cmd) {

@@ -180,7 +180,8 @@ You MUST implement these evidence-based methods:
     "target_language": "string",
     "native_language": "string",
     "current_level": "A1|A2|B1|B2|C1|C2",
-    "target_level": "A2|B1|B2|C1|C2"
+    "target_level": "A2|B1|B2|C1|C2",
+    "target_level_next": {"level": "B1", "from_age": "VAS", "set": "YYYY-MM-DD"}
   },
   "home_language": "sl",
   "languages": [{"code": "it", "name": "Italian", "level": "A1", "source": "visits", "since": "YYYY-MM-DD"}],
@@ -192,6 +193,10 @@ You MUST implement these evidence-based methods:
   }
 }
 ```
+
+`target_level` is where the village's ages lead (B2 for a new learner). `target_level_next`, only while one waits, is a
+raised target that starts with the village's next age (`from_age`): change the target with the bridge's
+`set_target_level` or `lani-profile set-target`, never by hand (companion/GAME.md "A target raised later").
 
 ### Spaced Repetition Structure
 ```json

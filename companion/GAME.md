@@ -117,8 +117,10 @@ three designs on 2026-10-16: a sheet from the bar, a row of cards, a side panel)
   all of them, "🏛️ Naslednja doba · Next age: Trg" with the steps done of all as the ring says them ("4/9"; no "Doba 4 / 6"
   and no percentage beside it any more) and a bar, ONE button for the next step at the top (the goal card's: its first
   open step's action, "🌾 Nabiraj · Gather food", "🔨 Gradi · Build ⛪ ›", "📚 Uči se novih besed · Learn new words" …, else
-  the goal's own; "✨ Napreduj · Advance" once it can), then every step with its count, its bar and its own button, and at
-  its foot "🗂️ Kartice pod vrstico · Cards under the bar", a switch. A long press on the ring shows or hides the row of
+  the goal's own; "✨ Napreduj · Advance" once it can), then every step with its count, its bar and its own button (under
+  the words, while a raised target waits for the next age, "🎯 Od naslednje dobe: B1 · From the next age: B1" and the age
+  after with its words: "A target raised later" under "Ages"), and at its foot "🗂️ Kartice pod vrstico · Cards under the
+  bar", a switch. A long press on the ring shows or hides the row of
   cards as before (TalkBack: its action "Kaj potrebuje naslednja doba · What the next age needs", the long press "Skrij
   kartice · Hide the cards"), animated; the choice is the phone's (`HudPrefs.cardsShown`, not the village's): the village
   opens as it was left. While the cards are hidden, a red dot on the ring says one of them has something new. While the
@@ -604,7 +606,7 @@ resources): the run of a few minutes comes on top of its sessions.
 
 ## Ages
 
-The ages are milestones on the way to the learner's target level (`Dashboard.targetLevel`, B2 unless the learner profile says otherwise): Vas at A2, Trg at B1, Mesto at the target. The words a level needs come from `data/Stats.kt` (`wordsToReach`: A2 300, B1 1000, B2 2000, C1 3500, C2 5000; A1 counts as A2). Each age needs a share of the target's words, at least its minimum, and always more than the age before (`Catalog.ageWords`).
+The ages are milestones on the way to the learner's target level (`Dashboard.targetLevel`, the profile's `learner.target_level`; B2 when it names none): Vas at A2, Trg at B1, Mesto at the target. A new learner aims at B2, or at the level above theirs when they start at B2 or higher (C2 stays C2; Jan, 2026-10-31: "b2 should be default aim"); they can choose another in setup, and it changes later as "A target raised later" below says. The words a level needs come from `data/Stats.kt` (`wordsToReach`: A2 300, B1 1000, B2 2000, C1 3500, C2 5000; A1 counts as A2). Each age needs a share of the target's words, at least its minimum, and always more than the age before (`Catalog.ageWords`).
 
 | Age | Plots | Buildings needed | Cost | Words learned | Friends |
 |---|---|---|---|---|---|
@@ -648,6 +650,35 @@ An age once reached is never taken back by rust.
 "Friends" are villagers who live here at friendship level 2 ("Prijatelj · Friend", 30 points) or more (`Bonds.friends`; a friend who moved away doesn't count). They are a step of the age like the words, with a "💬 Pomagaj · Help" button to the register. Zaselek needs 1, Vas 3, Trg 5 and Mesto 8: the ages are long (they follow the target level), and the people carry them. The cast gives enough people for each age: Micka, Luka, Janez, France and the children from the start, Ančka and Anton from Tabor, Tone, Marko, Vida and Nejc from Zaselek, Mojca from Zaselek too, with the school (13 in all), and the people who move in. Requests, talks, gifts, the village projects, the festivals and the day's surprise all grow the friendships; `SimulationTest` checks that the friends never hold an age back for B2 and that eight are within reach long before Mesto's words (see "Pacing").
 
 An age once reached is never taken back: a village already past a milestone that the target raised keeps its age, and only the next age waits for the new number.
+
+### A target raised later
+
+A raised target starts with the village's next age (2026-10-31; docs/plans/05-built/target-next-age.md). Teo, a child who
+aimed at A2, had the 45 words his hamlet needed for Vas; B1 at once would have asked 150 for the same step. Jan: "lets do
+b1 with the next age then; to do it now would be sad for him". So the step the village is on keeps the words of the target
+it began with, and the new target counts from the next age on:
+
+- The profile keeps the raise as `learner.target_level_next = {"level": "B1", "from_age": "VAS", "set": "2026-10-31"}`:
+  the age it starts with is the one after the village's age when it was set. `target_level` stays until then.
+- The step to `from_age` counts the old target's words (Zaselek → Vas: A2's 45); from `from_age` on the new target's (Vas
+  → Trg: B1's 500, A2's would have been 150). The app counts so at once (`game/Aims.kt`, `ContentController.targetAt`),
+  before the bridge has the age-up, offline too.
+- The bridge owns the profile: when the village is saved at `from_age` or later (`PUT /game`, on the node or the phone's
+  own bridge) it applies the raise, `target_level` = the level, `target_level_since` the day, the pending one gone
+  (`bridge/src/aim.ts`). A save before that age changes nothing; applying it again finds nothing to do, so whoever
+  reaches the age, and whichever applies it first, the target is the same.
+- A lower target applies at once (it never makes the step harder), and the current target asked again takes a waiting
+  raise back. A raise at Mesto, the last age, applies at once: no step is left to keep. A raise can be applied at once
+  on purpose too (`lani-profile set-target <id> B1` without `--from-next-age`).
+- While a raise waits, the age card says it under the words, "🎯 Od naslednje dobe: B1 · From the next age: B1" and the
+  age after with its words ("🏛️ Trg: 500 besed · Market town: 500 words"), and the progress screen under the levels.
+- It is set with `lani-profile set-target <id> B1 --from-next-age` on the node (README "Learners"), or by the tutor's
+  `set_target_level` (a raise is always from the next age there). `get_village`'s `aim` tells the tutor the target
+  the step counts with, the next age's words and the raise waiting.
+
+One edge: the age it starts with is the village's age as the bridge knows it when the raise is set. A village that reached
+that age on a phone offline, its save not on the bridge yet, counts the raise as soon as the app reads the profile, for the
+step it is on then.
 
 ### Ages and their celebrations
 

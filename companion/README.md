@@ -35,7 +35,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | `bin/lani-setup` | Sets up this machine step by step, or changes it: the learner, their data as a git repository of its own, a private remote, voices, the network, running, pairing ([docs/setup.md](../docs/setup.md)). `bin/lani <command>` runs `bin/lani-<command>` (`lani setup`, `lani pair`, …). |
 | `bin/lani-session` | Starts or re-attaches the always-on session in tmux, with the channel and Remote Control. Loads `~/.config/lani/keys.env`. `--profile <id>` starts another learner's session, `--list` shows the learners (see [Learners](#learners)). `--service` starts the bridge service first and the session with the shim, `--classic` the bridge inside the session (see [The bridge as a service](#the-bridge-as-a-service)). |
 | `bin/lani-bridge` | Runs each learner's bridge service in tmux: `start`, `restart` (deploys new bridge code without a tutor restart), `status`, `stop`, `logs` (see [The bridge as a service](#the-bridge-as-a-service)). `systemd/` has a user unit template for it, not installed. |
-| `bin/lani-profile` | Adds a learner (their own data, bridge port, tmux session and tokens) and shows how to publish, start and pair them. |
+| `bin/lani-profile` | Adds a learner (their own data, bridge port, tmux session and tokens), shows how to publish, start and pair them, and sets their target level (`set-target`). |
 | `bin/lani-pair` | Pairs a phone with a learner's tutor: prints a one-time QR code; lists and unpairs phones (see [Pair a phone](#pair-a-phone)). |
 | `bin/lani-send-app` | Sends the app (the newest APK of the release directory) to a phone over Tailscale (Taildrop), no cable (see [Android app](#android-app)). |
 | `bin/lani-town` | Links learners' towns: invitations (a one-time QR code), accepting one, linking two towns of this node, unlinking; what each town shares of its learning, a child's guardian (see [Towns](#towns), [Progress between towns](#progress-between-towns)). |
@@ -230,7 +230,8 @@ app and the bridge say it to the learner of the profile ([SCENES.md](SCENES.md#t
 companion/bin/lani-profile add luka --name Luka --target it --base sl --gender male --child --culture friuli --landscape hills
 ```
 
-It makes the six learner databases from `data-examples/` (level A1 unless `--level`), picks the ports,
+It makes the six learner databases from `data-examples/` (level A1 unless `--level`; the target level B2, or the level
+above theirs from B2 on, unless `--target-level`: see "The target level" below), picks the ports,
 registers the profile with its village's culture pack and prints the next steps. `--target` and `--base` are two
 different app languages (`sl`, `en`, `it`, `de`, or their English names). The village is the culture pack of the
 target language (`primorska` for Slovene, `friuli` for Italian, `kaernten` for German); `--culture` picks another pack (the village then
@@ -257,6 +258,25 @@ profile's env): a tapped word then finds only the word packs, the supplement, th
 2. Start the tutor: `companion/bin/lani-session --profile luka`. On the first start, confirm the
    development channel and approve the `lani` MCP server, as for the default session.
 3. Pair the learner's phone: `companion/bin/lani-pair --profile luka`.
+
+**The target level.** `learner.target_level` is where the village's ages lead: each age needs a share of the target's
+words ([GAME.md "Ages"](GAME.md#ages)). A new learner aims at B2 (the level above theirs when they start at B2 or
+higher); lani-setup, `lani-profile add` and the phone's setup set it at once, since there is no village yet
+(`--target-level`; the hosted setup's answers carry `target_level`). Change it later with
+
+```bash
+companion/bin/lani-profile set-target teo B1 --from-next-age
+```
+
+A raise with `--from-next-age` starts with the village's next age: the step the village is on keeps its words, the
+profile gets `learner.target_level_next {"level": "B1", "from_age": "VAS"}`, the app shows "🎯 Od naslednje dobe: B1 ·
+From the next age: B1" on the age card and the progress screen, and the bridge applies it (`target_level` B1) when the
+village is saved at that age. Without the flag a raise applies at once; a lower target, or the current one again (which
+takes a waiting raise back), always does. It says what the step now and the next one need: "The target stays A2 for the
+step the village is on and becomes B1 with the next age. The village is Zaselek: the step to Vas keeps 45 words; from Vas
+on, Trg needs 500 words (it needed 150)." `default` is the default learner. While the phone holds the data (the lease) it
+is refused; the tutor's `set_target_level` does the same (a raise always from the next age) and `get_village` shows the
+`aim`.
 
 `companion/bin/lani-session --list` (or `lani-profile list`) shows every learner, their village's
 culture, their port, tmux session and whether their bridge and session run; `lani-profile show <id>`
@@ -2226,7 +2246,9 @@ XP, achievements) and from the village HUD's "Naselje · Settlement" ("📊 Napr
   The words don't raise the level, the treasure map does, so once the level's own goal is passed the bar moves on to the
   next one, "312 / 1000 besed za B1 · words for B1", with the goal passed marked under it ("✅ 300 besed za A2 · 300
   words for A2"); past C2's 5000 (at C2 its own 8000) it stays full. The forecast follows the bar's goal: at the recent
-  pace, and with a word pack a day ("1000 besed okoli …" once past the level's own).
+  pace, and with a word pack a day ("1000 besed okoli …" once past the level's own). Beside it the level and the target
+  ("A1 → A2", the target the village's step counts with); while a raised target waits for the village's next age, a pill
+  under them, "🎯 Od naslednje dobe: B1 · From the next age: B1" ([GAME.md "A target raised later"](GAME.md#a-target-raised-later)).
 - **"🧭 Do A2 · To A2".** How the level rises: "Raven zraste z zemljevidom zaklada, ki ti ga Stari Janez da, ko so
   izpolnjeni trije znaki" (the storyteller: `TreasureController.tellerName`; [GAME.md](GAME.md#zemljevid-zaklada--the-treasure-map),
   `LevelReadiness`). A line each, ✅ or ⏳ with its numbers: 📚 the words (the level's goal: a milestone, not one of the
