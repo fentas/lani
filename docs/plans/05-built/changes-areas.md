@@ -175,7 +175,7 @@ The first Back from the village read everything (42 and 32 requests), the second
 had moved the one version); the Back from Settings after a change read everything (24 to 40), and once a Back from
 Settings too (37: the ten minutes).
 
-**After** (this branch; after2: `b2383ac1`, the learner settled on, emulator 1, 4 tries; the first after build, after1,
+**After** (this branch; after2: up to the reading recording the learner it settled on, emulator 1, 4 tries; the first after build, after1,
 before that fix, read everything at its first Back too: 43 requests):
 
 | From | | requests in 6 s | allocated MB in 6 s | collections | main thread besides frames, ms (3 s) | longest frame's main thread, ms | all frames' main thread, ms (6 s) |
@@ -200,7 +200,11 @@ after this run):
 
 - **The first Back after setup** is `/changes` and the day's audio plan's packs (7 requests: the plan read the three
   packs it names twice), against 42 and 32: nothing of the reading. The last commit plans the day's audio only when the
-  reading read something, so a Back after a move in the village alone is `/changes`.
+  reading read something, so a Back after a move in the village alone is `/changes`: a short run of the branch's last
+  build (the rebased branch, emulator 1, 2 tries, while QA's second emulator ran another agent's QA) had its first Back
+  from the village one request (`GET /changes`), the others one or two (QA's voice prefetch), 15.3 MB in 6 s; Home at
+  rest 6.8 MB; a Back after a change 15 to 21 requests. Its frames were that run's load (the village's longest frame 32
+  to 49 ms, Home at rest's frames 55 ms in 6 s against after3's 36).
 - **Home at rest** makes 7 MB in 6 s, 1.2 MB a second (before 13 to 21 MB, 2.2 to 3.5 a second), with a collection
   every few seconds less; its frames take 41 ms of the main thread in 6 s against 180 and 319, the longest 2 ms against
   20 and 43. The work besides the frames grew by about 10 ms in 3 s: the clock's ticks ask for the pictures there now (in
@@ -247,6 +251,12 @@ after this run):
 - The render tests' pixels (`GroundCacheTest`, `PalisadeTest`, `VillageRendererTest`, `MapLooksTest`,
   `HearthsRenderTest`), unchanged: the footpaths, the order, the date, the festival day and the palisade's lookups draw
   the same.
+
+The checks on the branch rebased onto main `eb156262` (2026-10-31): the bridge's `tsc` clean; the smoke 3,171 checks, all
+passing (`LANI_SMOKE_PORT=9310`, `LANI_SMOKE_DRAMA3_PORT=9328`; a run beside heavy builds once failed the chat section's
+waits for a notification, which passed again on their own and in the next full run); `tutor-export --check` 88 files
+match; Python `companion/tests` 135 (11 skipped) and `tests` 251, all passing; the Android unit suite (through
+lani-slot): **3,537 tests, 2 skipped, 0 failures**.
 
 ## Tap counts, strings, the hosted mode
 
