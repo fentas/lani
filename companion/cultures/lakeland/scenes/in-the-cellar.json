@@ -69,7 +69,7 @@
       "id": "jug",
       "lines": [
         { "who": "birkett", "face": "happy", "en": "Hello, love! Is Sam here? I need a jug of ale for the inn. Walkers everywhere today!", "sl": "Živjo, srček! Je Sam tukaj? Za gostilno potrebujem vrč piva. Danes so povsod pohodniki!", "it": "Ciao, tesoro! C'è Sam? Mi serve una brocca di birra per la locanda. Oggi ci sono escursionisti dappertutto!", "de": "Hallo, Schatz! Ist Sam da? Ich brauche einen Krug Bier fürs Gasthaus. Heute sind überall Wanderer!" },
-        { "who": "sam", "face": "happy", "en": "Now then, Mrs Birkett! {learner}, can you hold the jug for her?", "sl": "Now then, gospa Birkett! {learner}, ji podržiš vrč?", "it": "Now then, signora Birkett! {learner}, le tieni la brocca?", "de": "Now then, Frau Birkett! {learner}, hältst du ihr den Krug?" },
+        { "who": "sam", "face": "happy", "en": "Now then, Mrs Birkett! {learner}, can you hold the jug for her?", "sl": "Pozdravljeni, gospa Birkett! {learner}, ji podržiš vrč?", "it": "Salve, signora Birkett! {learner}, le tieni la brocca?", "de": "Hallo, Frau Birkett! {learner}, hältst du ihr den Krug?" },
         { "choices": [
           { "en": "Sure. I'm holding it under the tap.", "sl": "Seveda. Držim ga pod pipo.", "it": "Certo. La tengo sotto il rubinetto.", "de": "Klar. Ich halte ihn unter den Zapfhahn.", "ok": true,
             "reply": { "face": "happy", "en": "Perfect, love! Open the tap, Sam… and here comes the ale!", "sl": "Odlično, srček! Odpri pipo, Sam … in že teče pivo!", "it": "Perfetto, tesoro! Apri il rubinetto, Sam… ed ecco la birra!", "de": "Perfekt, Schatz! Mach den Hahn auf, Sam … und da kommt das Bier!", "fx": { "tap": 1 } } },
@@ -91,7 +91,7 @@
           { "en": "Yes, please! See you tonight.", "sl": "Ja, prosim! Se vidimo zvečer.", "it": "Sì, volentieri! Ci vediamo stasera.", "de": "Ja, gern! Bis heute Abend.", "ok": true,
             "reply": { "face": "laugh", "en": "See you tonight! Bring your appetite, love.", "sl": "Se vidimo zvečer! Prinesi s sabo tek, srček.", "it": "A stasera! Porta l'appetito, tesoro.", "de": "Bis heute Abend! Bring Hunger mit, Schatz." } },
           { "en": "Yes, please! See you yesterday.", "sl": "Ja, prosim! Se vidimo včeraj.", "it": "Sì, volentieri! Ci vediamo ieri.", "de": "Ja, gern! Bis gestern.",
-            "why": { "en": "Yesterday is the day before today. For later, say tonight or tomorrow.", "sl": "Yesterday je dan pred danes. Za pozneje rečeš tonight ali tomorrow.", "it": "Yesterday è il giorno prima di oggi. Per dopo si dice tonight o tomorrow.", "de": "Yesterday ist der Tag vor heute. Für später sagst du tonight oder tomorrow." }, "reply": { "face": "laugh", "en": "Yesterday? Ooh, you're quick, love, but not that quick!", "sl": "Včeraj? Oho, hiter si, srček, ampak ne tako hiter!", "it": "Ieri? Oh, sei velocissimo, tesoro, ma non così tanto!", "de": "Gestern? Oh, du bist schnell, Schatz, aber so schnell nun auch nicht!" } }
+            "why": { "en": "Yesterday is the day before today. For later, say tonight or tomorrow.", "sl": "Yesterday je dan pred danes. Za pozneje rečeš tonight ali tomorrow.", "it": "Yesterday è il giorno prima di oggi. Per dopo si dice tonight o tomorrow.", "de": "Yesterday ist der Tag vor heute. Für später sagst du tonight oder tomorrow." }, "reply": { "face": "laugh", "en": "Yesterday? Ooh, you're quick, love, but not that quick!", "sl": "Včeraj? Oho, {m:hiter|f:hitra} si, srček, ampak ne tako {m:hiter|f:hitra}!", "it": "Ieri? Oh, sei {m:velocissimo|f:velocissima}, tesoro, ma non così tanto!", "de": "Gestern? Oh, du bist schnell, Schatz, aber so schnell nun auch nicht!" } }
         ] }
       ]
     },
@@ -139,7 +139,7 @@
     {
       "id": "show",
       "lines": [
-        { "who": "sam", "face": "happy", "en": "Now then, {learner}! The valley show is in August. I want a prize for my ale this year!", "sl": "Now then, {learner}! Dolinska razstava je avgusta. Letos hočem nagrado za svoje pivo!", "it": "Now then, {learner}! La fiera della valle è ad agosto. Quest'anno voglio un premio per la mia birra!", "de": "Now then, {learner}! Die Schau im Tal ist im August. Dieses Jahr will ich einen Preis für mein Bier!" },
+        { "who": "sam", "face": "happy", "en": "Now then, {learner}! The valley show is in August. I want a prize for my ale this year!", "sl": "Živjo, {learner}! Dolinska razstava je avgusta. Letos hočem nagrado za svoje pivo!", "it": "Ciao, {learner}! La fiera della valle è ad agosto. Quest'anno voglio un premio per la mia birra!", "de": "Hallo, {learner}! Die Schau im Tal ist im August. Dieses Jahr will ich einen Preis für mein Bier!" },
         { "choices": [
           { "en": "Did you win a prize last year?", "sl": "Si lani dobil nagrado?", "it": "L'anno scorso hai vinto un premio?", "de": "Hast du letztes Jahr einen Preis gewonnen?", "ok": true,
             "reply": { "face": "sad", "en": "No! Second, behind a farmer from Keswick. Not this year!", "sl": "Ne! Drugi, za nekim kmetom iz Keswicka. Letos pa ne!", "it": "No! Secondo, dietro un contadino di Keswick. Quest'anno no!", "de": "Nein! Zweiter, hinter einem Bauern aus Keswick. Dieses Jahr nicht!" } },
@@ -202,9 +202,9 @@
     {
       "id": "jug-saturday",
       "count": { "from": "dice", "min": 3, "max": 12 },
-      "memory": { "en": "the Saturday night we counted the jugs", "sl": "sobotni večer, ko smo šteli vrče", "it": "il sabato sera in cui abbiamo contato le brocche", "de": "den Samstagabend, an dem wir die Krüge gezählt haben" },
+      "memory": { "en": "the jugs we counted for quiz night", "sl": "vrče, ki smo jih šteli za večer kviza", "it": "le brocche che abbiamo contato per la serata del quiz", "de": "die Krüge, die wir für den Quizabend gezählt haben" },
       "lines": [
-        { "who": "birkett", "face": "worried", "en": "Oh, love, it's Saturday night! The whole village is coming to the inn. I need {n} jugs of ale!", "sl": "Joj, srček, sobota zvečer je! Cela vas pride v gostilno. Potrebujem {n} {vrč|vrča|vrče|vrčev} piva!", "it": "Oh, tesoro, è sabato sera! Tutto il villaggio viene alla locanda. Mi servono {n} brocche di birra!", "de": "Ach, Schatz, es ist Samstagabend! Das ganze Dorf kommt ins Gasthaus. Ich brauche {n} Krüge Bier!" },
+        { "who": "birkett", "face": "worried", "en": "Oh, love, it's quiz night at the inn! The whole village is coming. I need {n} jugs of ale!", "sl": "Joj, srček, nocoj je v gostilni kviz! Cela vas pride. Potrebujem {n} {vrč|vrča|vrče|vrčev} piva!", "it": "Oh, tesoro, stasera alla locanda c'è il quiz! Viene tutto il villaggio. Mi servono {n} brocche di birra!", "de": "Ach, Schatz, heute Abend ist Quizabend im Gasthaus! Das ganze Dorf kommt. Ich brauche {n} Krüge Bier!" },
         { "who": "sam", "face": "laugh", "en": "{n}? Right! {learner}, how many jugs? Say it back to me.", "sl": "{n}? Prav! {learner}, koliko vrčev? Ponovi za mano.", "it": "{n}? Va bene! {learner}, quante brocche? Ripetilo.", "de": "{n}? Gut! {learner}, wie viele Krüge? Sag's mir noch mal.", "fx": { "tap": 1 } },
         { "choices": [
           { "en": "{n} jugs of ale for Mrs Birkett.", "sl": "{n} {vrč|vrča|vrči|vrčev} piva za gospo Birkett.", "it": "{n} brocche di birra per la signora Birkett.", "de": "{n} Krüge Bier für Frau Birkett.", "ok": true,
@@ -305,7 +305,7 @@
           { "en": "It smell very strong!", "sl": "Zelo močno diši!", "it": "Ha un odore fortissimo!", "de": "Der riecht sehr stark!", "grammar": "present-simple",
             "why": { "en": "It takes -s: it smells.", "sl": "It dobi -s: it smells.", "it": "Con it ci vuole la -s: it smells.", "de": "Bei it kommt ein -s dazu: it smells." }, "reply": { "face": "laugh", "en": "Smell it? I can smell it from here, ha!", "sl": "Povonjati? Vonjam ga že od tukaj, ha!", "it": "Annusarlo? Lo sento da qui, ah!", "de": "Dran riechen? Ich rieche ihn schon von hier, ha!" } }
         ] },
-        { "who": "sam", "face": "curious", "en": "Cheese, ham, bread and pickle: a ploughman's lunch. Shall we have one?", "sl": "Sir, šunka, kruh in kisle kumarice: kmečka malica. Si jo privoščiva?", "it": "Formaggio, prosciutto, pane e sottaceti: il pranzo del contadino. Ce lo facciamo?", "de": "Käse, Schinken, Brot und Pickles: ein Bauernvesper. Wollen wir eins essen?" },
+        { "who": "sam", "face": "curious", "en": "Cheese, ham, bread and pickle: a ploughman's lunch. Shall we have one?", "sl": "Sir, šunka, kruh in čatni: kmečka malica. Si jo privoščiva?", "it": "Formaggio, prosciutto, pane e sottaceti: il pranzo del contadino. Ce lo facciamo?", "de": "Käse, Schinken, Brot und Pickles: ein Bauernvesper. Wollen wir eins essen?" },
         { "choices": [
           { "en": "Yes, let's!", "sl": "Ja, dajva!", "it": "Sì, dai!", "de": "Ja, los!", "ok": true,
             "reply": { "face": "happy", "en": "Grand! I'll get the bread from upstairs.", "sl": "Odlično! Grem po kruh gor.", "it": "Grande! Vado a prendere il pane di sopra.", "de": "Prima! Ich hole oben das Brot." } },
