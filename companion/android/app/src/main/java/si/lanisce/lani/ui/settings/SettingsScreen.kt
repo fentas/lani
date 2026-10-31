@@ -62,6 +62,7 @@ enum class SettingsSection(val id: String, val emoji: String, val key: String) {
     LANGUAGES("languages", "🌐", "connectionSheet.languages"),
     SOUND("sound", "🔊", "settings.sound"),
     TIPS("tips", "💡", "tips.title"),
+    NOTIFY("notifications", "🔔", "notify.title"),
     CONNECTION("connection", "🔗", "connectionSheet.connection"),
     DEVELOPER("developer", "🛠️", "developer.title"),
     ;
@@ -77,8 +78,9 @@ enum class SettingsSection(val id: String, val emoji: String, val key: String) {
  * key, the spend), "💾 Podatki · Data" (git, the handover, the backup), "🌐 Jeziki · Languages", "🔊 Zvok in glas · Sound
  * and voice" (the learner's own voice, "🗣️ Moj glas · My voice"; the background sounds, the explanations read aloud, a
  * talk's line sent by itself, the offline audio and voice), "🔗 Povezava · Connection"
- * (the node or Lani on this phone, pairing again by QR code). On a child's device the tutor's and the data's pages are a
- * parent's (a hold opens them: ui/setup/ParentGated). The version line at the end, tapped seven times, shows
+ * (the node or Lani on this phone, pairing again by QR code), "🔔 Obvestila · Notifications" (the evening reminder, the
+ * phone's settings of the notifications). On a child's device the tutor's, the data's, the tips' and the notifications'
+ * pages are a parent's (a hold opens them: ui/setup/ParentGated). The version line at the end, tapped seven times, shows
  * "🛠️ Razvijalec · Developer".
  */
 @Composable
@@ -104,7 +106,8 @@ private fun Sections(vm: AppViewModel) {
 }
 
 /** The tutor's and the data's are a parent's on a child's device (keys and accounts: app/ParentGate). */
-private val SettingsSection.parents: Boolean get() = this == SettingsSection.TUTOR || this == SettingsSection.DATA || this == SettingsSection.TIPS
+private val SettingsSection.parents: Boolean get() = this == SettingsSection.TUTOR || this == SettingsSection.DATA || this == SettingsSection.TIPS ||
+    this == SettingsSection.NOTIFY
 
 /** What a section holds now, in a line for its row. */
 private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
@@ -117,6 +120,7 @@ private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
     SettingsSection.LANGUAGES -> vm.langPair.let { "${it.target.ownName} · ${it.base.ownName}" }
     SettingsSection.SOUND -> bi("settings.soundAbout")
     SettingsSection.TIPS -> if (vm.game.state?.tips?.off == true) bi("tips.offNow") else bi("tips.onNow")
+    SettingsSection.NOTIFY -> "🔔 " + if (vm.notify.reminderOn(vm.child)) bi("notify.reminderOnNow") else bi("notify.reminderOffNow")
     SettingsSection.CONNECTION -> linkLabel(vm.link, vm.unpaired, vm.hosted.active)
     SettingsSection.DEVELOPER -> vm.shadow.status
 }
@@ -166,6 +170,8 @@ private fun Page(vm: AppViewModel, s: SettingsSection) {
                 SettingsSection.DEVELOPER -> Developer(vm)
                 // a child's tips are a parent's to turn off (a hold opens them)
                 SettingsSection.TIPS -> si.lanisce.lani.ui.setup.ParentGated(vm.child) { Tips(vm) }
+                // a child's evening reminder is a parent's to turn on
+                SettingsSection.NOTIFY -> si.lanisce.lani.ui.setup.ParentGated(vm.child) { NotifySettings(vm) }
             }
         }
     }

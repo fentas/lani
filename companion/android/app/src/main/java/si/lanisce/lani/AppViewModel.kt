@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
 import si.lanisce.lani.app.ChatController
 import si.lanisce.lani.app.ChatStore
@@ -41,6 +42,7 @@ import si.lanisce.lani.data.TownQuestions
 import si.lanisce.lani.data.TownRequest
 import si.lanisce.lani.data.VisitWrite
 import si.lanisce.lani.app.UpdateController
+import si.lanisce.lani.app.NotifyController
 import si.lanisce.lani.app.launchSafely
 import si.lanisce.lani.data.BackgroundCheck
 import si.lanisce.lani.data.Bridge
@@ -403,6 +405,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         stray = { chat.onReply(it) }, // an answer under a debrief left behind shows in the chat
     )
     val update = UpdateController(app, viewModelScope, node, notices)
+    /** The notifications' channels, what the learner saw taken away, the evening reminder (companion/README.md "Notifications"). */
+    val notify = NotifyController(app, viewModelScope, prefs)
     val progress = ProgressController(app, viewModelScope, node, notices)
     /** The people of the village and the friendship with each. */
     val villagers = VillagerController(app, viewModelScope, node, notices, game, post = { sync.submitLater(it) }, level = ::levelIn).also { v ->
@@ -603,6 +607,13 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
                     if (want) live.setOn(true)?.let { si.lanisce.lani.hosted.HostedRuntime.say("the tutor in the app didn't turn on: $it") }
                 }
         }
+        // what the learner sees on screen: its notifications go, the launcher's dot with them (and on coming back: onForeground)
+        viewModelScope.launch {
+            snapshotFlow { seenNow() }.distinctUntilChanged().collect { if (foreground) notify.seen(it) }
+        }
+        // the channels' names follow the learner's pair; the background check knows a child's profile
+        viewModelScope.launch { snapshotFlow { langPair }.distinctUntilChanged().drop(1).collect { notify.renamed() } }
+        viewModelScope.launch { snapshotFlow { child }.distinctUntilChanged().collect { notify.child(it) } }
         // the learner opening the chat runs the shadow tutor's digest (plan 5, "Events to turns")
         viewModelScope.launch {
             snapshotFlow { chat.isOpen }.distinctUntilChanged().collect { if (it) { if (live.settings.on) live.onChatOpened() else shadow.onChatOpened() } }
@@ -1098,6 +1109,7 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     /** The app is on screen again: live events resume where they stopped. */
     fun onForeground() {
         foreground = true
+        notify.seen(seenNow())
         if (bridge != null) events.start()
         networkBack.start()
         commitRoadRatings()
@@ -1185,6 +1197,12 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             is DeepLink.Cases -> openCases(link.focus)
         }
     }
+
+    /** What the learner sees now, whose notifications go ([si.lanisce.lani.data.NotifyChannels.seen]). */
+    private fun seenNow() = si.lanisce.lani.data.NotifyChannels.seen(
+        screen, chat.isOpen, updateShown = update.release != null, // Home's banner of it (ui/home/HomeHero)
+        villageCalm = si.lanisce.lani.data.VillageAlert.calm(game.state, System.currentTimeMillis()),
+    )
 
     /** Every sheet over the screens (the chat, the cheat sheet, a grammar page, a word's card …) closed: a link leads elsewhere. */
     private fun closeSheets() {

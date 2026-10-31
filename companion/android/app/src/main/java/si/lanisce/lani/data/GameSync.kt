@@ -52,12 +52,21 @@ object GameSync {
     fun decode(raw: String): GameCache? = runCatching { json.decodeFromString(GameCache.serializer(), raw) }.getOrNull()
 }
 
-/** Village event notifications from the background check: once per event, only while it runs. */
+/**
+ * Village event notifications from the background check: once per event, only while it runs. A child's profile is told
+ * kindly: no attack, no hours left, "🏰 Stražar je nekaj videl · The watchman saw something", "Pridi pogledat · Come and look".
+ */
 object VillageAlert {
+    /** The events an adult's notification sounds the alarm for; a child's says the watchman saw something. */
+    val ALARMING = setOf(EventKind.WOLVES, EventKind.BEAR, EventKind.STORM)
+
     fun pending(state: GameState?, notifiedId: String?, now: Long): GameEvent? =
         state?.event?.takeIf { it.id != notifiedId && it.deadline > now }
 
-    fun title(kind: EventKind): String = when (kind) {
+    /** No event running in [state] (none, or its time is up): its notification, if any, can go. */
+    fun calm(state: GameState?, now: Long): Boolean = state != null && state.event.let { it == null || it.deadline <= now }
+
+    fun title(kind: EventKind, child: Boolean = false): String = if (child && kind in ALARMING) "🏰 ${bi("notify.watchmanSaw")}" else when (kind) {
         EventKind.WOLVES -> "🐺 ${bi("gameSync.wolvesAttackingVillage")}"
         EventKind.BEAR -> "🐻 ${bi("gameSync.bearVillage")}"
         EventKind.STORM -> "⛈️ ${bi("gameSync.stormComing")}"
@@ -65,7 +74,8 @@ object VillageAlert {
         EventKind.FESTIVAL -> "🎉 ${bi("gameSync.festivalVillage")}"
     }
 
-    fun text(e: GameEvent, now: Long): String {
+    fun text(e: GameEvent, now: Long, child: Boolean = false): String {
+        if (child) return bi("notify.comeAndLook")
         val h = ((e.deadline - now) / 3_600_000).coerceAtLeast(0)
         val left = if (h >= 1) "$h h" else "<1 h"
         return "${bi("gameSync.timeLeft", "left" to left)}. ${bi("gameSync.openLaniToRespond")}"

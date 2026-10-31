@@ -22,6 +22,8 @@ class Prefs(private val context: Context) {
     private val gameEventNotified = stringPreferencesKey("game_event_notified")
     private val chestUnseen = stringSetPreferencesKey("chest_unseen") // what came into the chest since it was opened: "good:potica", "tool:luka"
     private val tipsMemory = stringPreferencesKey("tips_memory") // the tips dealt with on this phone, for a village founded anew (game/Guidance)
+    private val eveningReminder = booleanPreferencesKey("evening_reminder") // the learner's choice; none: the profile's default
+    private val learnerChild = booleanPreferencesKey("learner_child") // the app's last word on it, for the background check
 
     private val plan = stringPreferencesKey("today_plan") // "yyyy-MM-dd\n<markdown>"
 
@@ -113,6 +115,17 @@ class Prefs(private val context: Context) {
     suspend fun chestUnseen(): Set<String> = context.store.data.first()[chestUnseen] ?: emptySet()
     suspend fun saveChestUnseen(keys: Set<String>) = context.store.edit { it[chestUnseen] = keys }
     suspend fun markSeen(key: String) = context.store.edit { it[seen] = (it[seen] ?: emptySet()) + key }
+
+    /** "🔔 Večerni opomnik · Evening reminder" as the settings set it; null: never set (on for an adult, off for a child). */
+    suspend fun eveningReminder(): Boolean? = context.store.data.first()[eveningReminder]
+    suspend fun saveEveningReminder(on: Boolean) = context.store.edit { it[eveningReminder] = on }
+
+    /**
+     * Whether the learner of this phone is a child, as the app last knew it ([si.lanisce.lani.AppViewModel.child]: the
+     * pairing's, the hosted onboarding's or the town's own row); null before the app said.
+     */
+    suspend fun learnerChild(): Boolean? = context.store.data.first()[learnerChild]
+    suspend fun saveLearnerChild(child: Boolean) = context.store.edit { it[learnerChild] = child }
 
     /**
      * What this phone remembers of the tips (companion/GAME.md "Guidance"): its learner's, for a village they found anew
