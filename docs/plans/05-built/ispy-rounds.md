@@ -99,12 +99,34 @@ is tested, and what is left. The rules as built are in companion/SCENES.md ("I s
 
 ## The emulator
 
-See "The checks" below for the runs and their shots in the round's scratchpad, `ux-ispy-rounds/` (`before/` from
-place-life's run, `qa-sl/` and `qa-fr/` this round's).
+QA's step `place-life` through `companion/bin/qa-slot` on this round's debug build, on synthetic learners made by
+`make-learner.ts` (shots in the round's scratchpad, `ux-ispy-rounds/`; `before/` holds place-life's from its own run):
+
+- **The Slovene village** (Ana, A1, Slovene from English; `LANI_QA_PLACE_LIFE_ONLY=na-mostu,na-cebeljem-travniku`, slot 2):
+  in Na mostu Tine's "🔍 Igrajva" pressed low on the short panel, the first round the cart bridge ("Je širok."), found by one
+  tap on its deck ("Most? · Ja, to je most! Bravo!"), then its word outside the game; Na čebeljem travniku the same with the
+  meadow ("Poleti je pisan." · "Ja, to je travnik! Bravo!"). Before: `before/pl-sl-na-mostu-ispy-not-started.png`, the card
+  on screen and no game.
+- **The Friuli village** (Teo, Italian from German, the app in it · de; `LANI_CULTURE=friuli`, `LANI_QA_SETUP_PAIR=it-de`,
+  `LANI_QA_PLACE_LIFE_ONLY=l-orologio,la-cuccagna,il-ponte,il-prato-delle-api`, slot 1): L'orologio's clock and La
+  cuccagna's greasy pole spied and found (before: no game), Il ponte's cart bridge found by one tap ("È largo." · "Il ponte?
+  · Sì, è il ponte! Bravo!"; before: "Il ruscello? ✗", `before/pl-fr-il-ponte-ispy-tapped.png`) and Il prato delle api's
+  meadow ("È verde e pieno di fiori." · "Il prato? · Sì, è il prato! Bravo!"; before: Aldo's sign); then the clock's
+  strokes and the climb as place-life has them.
+- `place-life` passed in both runs ("spied: na-mostu/cartbridge, na-cebeljem-travniku/meadow" and "spied:
+  l-orologio/clock, la-cuccagna/maypole, il-ponte/cartbridge, il-prato-delle-api/meadow"), and it now fails on any place
+  not offered, not started or not found. No crash in either run.
 
 ## The checks
 
-To be filled in at the end of the round.
+On the branch at main b3ff5280 (main hadn't moved when the round ended, so the rebase was a no-op):
+
+- The Android unit suite through lani-slot.sh: 3,528 tests in 447 classes, 2 skipped, none failed (`ISpyRoundsTest` 3,
+  `TapPointsTest` 4, `ISpyTest` 17, `ISpyContentTest` 5 among them).
+- The bridge (untouched by this round): `tsc` clean; the smoke on ports 9270–9275 and 9288 (Drama 3's worker): 3,154 checks,
+  all passed; `tutor-export --check`: 88 files match.
+- The Python tests (QA's script changed): `companion/tests` 135 (11 skipped), `tests` 251, all pass.
+- Emulator QA: `place-life` in both villages, above.
 
 ## What is left
 
