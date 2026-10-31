@@ -7570,8 +7570,9 @@ def friuli_school(part: str = "scene"):
 
     def typed(s: str) -> str:
         """What adb types of an answer: the learner's name in, the punctuation at its end left out (graded without it),
-        an accent left out (adb types no à, è: almost right, half an item)."""
-        return re.sub(r"[!?.,]+$", "", unit_text(s)).translate(ASCII).translate(IT_ASCII)
+        an accent left out (adb types no à, è: almost right, half an item), an apostrophe escaped for the device's shell
+        (l'acqua, ce n'è: else an open quote there, and nothing typed)."""
+        return re.sub(r"[!?.,]+$", "", unit_text(s)).translate(ASCII).translate(IT_ASCII).replace("'", "\\'")
 
     check, nxt = lab("playerScreen.check"), lab("common.next")
 
@@ -7625,7 +7626,15 @@ def friuli_school(part: str = "scene"):
             course = json.loads((ROOT / "companion/course/it/course.json").read_text())
             later = [u["id"] for lv in course["levels"] if lv["level"] in ("A1", "A2") for u in lv["units"]
                      if u.get("planned") or not (ROOT / f"companion/course/it/units/{u['id']}.json").exists()]
-            if later:
+            # the reveal leaves A2's first written unit done and its second begun: with two or more written, A2 has
+            # lessons to do, and Elena prepares none (School.preparing: only when nothing written is left)
+            a2_written = [u for lv in course["levels"] if lv["level"] == "A2" for u in lv["units"]
+                          if not u.get("planned") and (ROOT / f"companion/course/it/units/{u['id']}.json").exists()]
+            if len(a2_written) >= 2:
+                assert scroll_to(half("school.level", level="A2"), 8) is not None, "A2 open, its written units to do"
+                assert scroll_to(unit_text(a2_written[1]["title"]["it"]), 6) is not None, f"A2's unit begun, {a2_written[1]['id']}"
+                assert find(half("school.preparing")[:24]) is None, "no lessons in preparation while A2 has written ones to do"
+            elif later:
                 assert wait_for(half("school.preparing")[:24], 8), f"the next lessons in preparation, said kindly ({len(later)} planned)"
             else:
                 a1 = sum(len(lv["units"]) for lv in course["levels"] if lv["level"] == "A1")
