@@ -124,10 +124,11 @@ LANI_DEV_DATA=<dir> LANI_ENV_FILE=/dev/null LANI_CULTURE=friuli LANI_CHILD=1 LAN
 LANI_QA_IT_UNIT=pronomi-diretti LANI_QA_FRIULI_SHOTS=<shots> companion/bin/qa-slot --no-town --steps friuli-school-unit
 ```
 
-QA's `friuli-school-unit` plays any Italian unit now (`LANI_QA_IT_UNIT`): a later level's after "school:reveal" (A1 done,
-its one line), then "school:<unit>" (its level open, the units before it done), the intro, the summary, the first
-worksheet, the test straight away, the unit kept done on the dev bridge, and, but for ciao, its sheet printed through the
-print dialog (fit.js in the WebView against headless Chromium, the PDF saved, A4, its pages as chosen).
+QA's `friuli-school-unit`, as course-it-a2a extended it (`LANI_QA_IT_UNIT`), plays any Italian unit: a later level's after
+"school:reveal" (A1 done, its one line), then "school:<unit>" (its level open, the units before it done), the intro, the
+summary, the first worksheet, the test straight away, the unit kept done on the dev bridge, and its sheet printed through
+the print dialog (fit.js in the WebView against headless Chromium, the PDF saved, A4, its pages as chosen). This branch
+wrote the same before a2a's was known and dropped it for a2a's.
 
 ## Tap counts
 
