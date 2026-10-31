@@ -22,6 +22,10 @@ import java.util.concurrent.ConcurrentHashMap
  *   for "l'acqua").
  * [dropSubject]: the language leaves its subject out where the verb's ending says the person (Slovene "Spita v šotoru.",
  * Italian "Dormono in tenda."): a worksheet's person in brackets may be left out of the answer ([Sheets.withoutPerson]).
+ * [wrong]: words that are a known mistake, never a slip of the keyboard, matched whole against a word of the answer as
+ * [Grading.fold] writes it (Italian's regular stem where the form has its own: "anderò" for andrò, "ferò" for farò,
+ * "mangierò" for mangerò, "venito" for venuto): one letter off the right word, such a word is wrong, not forgiven as a
+ * slip in the stem.
  * A language without a table compares letters as they are.
  */
 class Spelling(
@@ -32,6 +36,7 @@ class Spelling(
     val loose: List<Rule> = emptyList(),
     val looseHint: Grading.Hint = Grading.Hint.NONE,
     val dropSubject: Boolean = false,
+    val wrong: List<Regex> = emptyList(),
 ) {
     class Rule(val pattern: Regex, val replacement: String) {
         fun apply(s: String): String = pattern.replace(s, replacement)
@@ -58,6 +63,7 @@ class Spelling(
                 loose = rules(o, "loose"),
                 looseHint = hint(o, "loose_hint"),
                 dropSubject = o["drop_subject"]?.jsonPrimitive?.booleanOrNull ?: false,
+                wrong = (o["wrong"] as? JsonArray).orEmpty().map { Regex(it.jsonPrimitive.content) },
             )
         }
 

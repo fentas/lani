@@ -1,6 +1,7 @@
 package si.lanisce.lani.data
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import si.lanisce.lani.data.Grading.Hint
 import si.lanisce.lani.data.Grading.Verdict
@@ -99,6 +100,48 @@ class GradingLanguagesTest {
     @Test fun `italian typos in the stem are forgiven`() =
         assertGraded(Verdict.ALMOST, Hint.TYPO, it("Bongiorno", "Buongiorno!"))
 
+    // --- Italian A2: the participle's agreement, the future's and the participles' own stems -----------------------
+
+    @Test fun `a participle that doesn't agree is wrong, with essere and with lo, la, li, le`() {
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("Giulia è andato al mare", "Giulia è andata al mare."))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("siamo arrivate", "siamo arrivati"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("ci siamo divertito", "ci siamo divertiti"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("l'ho visto", "L'ho vista."))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("li ho preso", "Li ho presi."))
+        assertEquals(Verdict.WRONG, it("l'ho visti", "Li ho visti.").verdict)
+        // without its accent the essere is almost, as in A1
+        assertGraded(Verdict.ALMOST, Hint.ACCENT, it("Giulia e andata al mare", "Giulia è andata al mare."))
+    }
+
+    @Test fun `lo or la not elided before avere is almost only where the participle agrees`() {
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("la ho vista", "L'ho vista."))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("lo ho visto", "L'ho visto."))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("la abbiamo presa", "L'abbiamo presa."))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("lo ho già visto", "L'ho già visto."))
+        // the pronoun's gender against its participle: a mistake, not an apostrophe
+        assertEquals(Verdict.WRONG, it("lo ho vista", "L'ho vista.").verdict)
+        assertEquals(Verdict.WRONG, it("la ho visto", "L'ho visto.").verdict)
+        assertEquals(Verdict.WRONG, it("la ho già visto", "L'ho già visto.").verdict)
+        assertEquals(Verdict.WRONG, it("lo abbiamo vista", "L'abbiamo vista.").verdict)
+        // the article as before
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("la acqua", "l'acqua"))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("lo hotel", "l'hotel"))
+    }
+
+    @Test fun `the regular stem where a form has its own is wrong, never a slip`() {
+        for ((answer, right) in listOf(
+            "anderò" to "andrò", "averò" to "avrò", "vederai" to "vedrai", "poterò" to "potrò", "anderemo" to "andremo",
+            "ferò" to "farò", "sterai" to "starai", "mangierò" to "mangerò", "comincierà" to "comincerà", "anderei" to "andrei",
+            "venito" to "venuto", "è venita" to "è venuta", "bevito" to "bevuto",
+        )) assertEquals("«$answer» for «$right»", Verdict.WRONG, it(answer, right).verdict)
+        // the accent forgotten stays almost, a slip in the stem of another word stays forgiven
+        assertGraded(Verdict.ALMOST, Hint.ACCENT, it("andro", "andrò"))
+        assertGraded(Verdict.ALMOST, Hint.ACCENT, it("mangero", "mangerò"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("giocerò", "giocherò"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("bandira", "bandiera"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, it("Venite qui", "Venite qui!"))
+    }
+
     // --- German ---------------------------------------------------------------------------------------------------
 
     @Test fun `german ae oe ue ss for ä ö ü ß are almost, with the umlaut hint`() {
@@ -159,6 +202,8 @@ class GradingLanguagesTest {
         assertEquals(Hint.DIACRITICS, Spelling.of(Lang.SL).foldHint)
         assertEquals(Hint.ACCENT, Spelling.of(Lang.IT).foldHint)
         assertEquals(Hint.APOSTROPHE, Spelling.of(Lang.IT).looseHint)
+        assertTrue("Italian's known wrong forms", Spelling.of(Lang.IT).wrong.isNotEmpty())
+        assertTrue("none for Slovene", Spelling.of(Lang.SL).wrong.isEmpty())
         assertEquals(Hint.UMLAUT, Spelling.of(Lang.DE).foldHint)
         assertEquals(Hint.NONE, Spelling.of(Lang.EN).foldHint)
     }

@@ -1,5 +1,5 @@
 {
-  "_note": "How an answer in Italian is compared (see sl.json for the fields). same: l' acqua is l'acqua (an apostrophe after a consonant is an elision; after a vowel it stands for an accent: perche'). fold: the accents (è for e, perchè or perche' for perché) are almost right, hint accent. loose: the apostrophe and the elided article (un amica for un'amica, la acqua or l acqua for l'acqua), ci and ne not elided before e (ci è for c'è, ci era for c'era, ce ne è for ce n'è) are almost right, hint apostrophe.",
+  "_note": "How an answer in Italian is compared (see sl.json for the fields). same: l' acqua is l'acqua (an apostrophe after a consonant is an elision; after a vowel it stands for an accent: perche'). fold: the accents (è for e, perchè or perche' for perché) are almost right, hint accent. loose: the apostrophe and the elided article (un amica for un'amica, la acqua or l acqua for l'acqua), ci and ne not elided before e (ci è for c'è, ci era for c'era, ce ne è for ce n'è) are almost right, hint apostrophe; lo or la before a form of avere only where the participle after it agrees (la ho vista for l'ho vista, lo ho visto for l'ho visto: almost; lo ho vista, la ho visto: the pronoun's gender wrong, wrong). wrong: the regular stem where a form has its own (anderò, averò, vederò, poterò for andrò, avrò, vedrò, potrò; ferò, sterò, derò for farò, starò, darò; mangierò, comincierò for mangerò, comincerò; the conditional's alike: anderei; venito, bevito, piacito for venuto, bevuto, piaciuto), matched against a word folded (no accents): wrong, never a slip in the stem.",
   "same": [["(?<=[^aeiou ])' +", "'"]],
   "fold": [
     ["[àáâ]", "a"], ["[èéê]", "e"], ["[ìíî]", "i"], ["[òóô]", "o"], ["[ùúû]", "u"],
@@ -7,7 +7,9 @@
   ],
   "fold_hint": "accent",
   "loose": [
-    ["(?<!\\p{L})(?:lo|la) (?=[aeiouh])", "l'"],
+    ["(?<!\\p{L})lo (?=(?:ho|hai|ha|abbiamo|avete|hanno)(?: (?:gia|mai|sempre|ancora|appena|anche|proprio|subito|bene|tutto))* (?!(?:gia|mai|sempre|ancora|appena|anche|proprio|subito|bene|tutto)(?!\\p{L}))\\p{L}+o(?!\\p{L}))", "l'"],
+    ["(?<!\\p{L})la (?=(?:ho|hai|ha|abbiamo|avete|hanno)(?: (?:gia|mai|sempre|ancora|appena|anche|proprio|subito|bene|tutto))* (?!(?:gia|mai|sempre|ancora|appena|anche|proprio|subito|bene|tutto)(?!\\p{L}))\\p{L}+a(?!\\p{L}))", "l'"],
+    ["(?<!\\p{L})(?:lo|la) (?=[aeiouh])(?!(?:ho|hai|ha|abbiamo|avete|hanno)(?: (?:gia|mai|sempre|ancora|appena|anche|proprio|subito|bene|tutto))* (?!(?:gia|mai|sempre|ancora|appena|anche|proprio|subito|bene|tutto)(?!\\p{L}))\\p{L}+[oa](?!\\p{L}))", "l'"],
     ["(?<!\\p{L})una (?=[aeiou])", "un'"],
     ["(?<!\\p{L})(de|ne|a|da|su)(?:llo|lla) (?=[aeiouh])", "$1ll'"],
     ["(?<!\\p{L})(quel|bel)(?:lo|la) (?=[aeiou])", "$1l'"],
@@ -18,5 +20,11 @@
     [" +", " "]
   ],
   "loose_hint": "apostrophe",
+  "wrong": [
+    "(?:and|av|ved|pot|dov|sap|viv|cad)er(?:o|ai|a|emo|ete|anno|ei|esti|ebbe|emmo|este|ebbero)",
+    "(?:f|st|d)er(?:o|ai|a|emo|ete|anno|ei|esti|ebbe|emmo|este|ebbero)",
+    "\\p{L}*[cg]ier(?:o|ai|a|emo|ete|anno|ei|esti|ebbe|emmo|este|ebbero)",
+    "(?:ven|bev|mor|piac)it[oaie]"
+  ],
   "drop_subject": true
 }

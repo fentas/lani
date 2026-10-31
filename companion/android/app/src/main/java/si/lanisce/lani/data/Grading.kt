@@ -11,7 +11,8 @@ import si.lanisce.lani.l10n.Lang
  *
  * Typos are forgiven only in a word's stem. Slovene grammar lives in the endings
  * (moj → moja, Berlin → Berlina, dober → dobro), so a one-letter slip there
- * is a real mistake, not a typo; Italian's (amico → amica) and German's too.
+ * is a real mistake, not a typo; Italian's (amico → amica) and German's too. Where a form has a stem of its own
+ * (Italian's andrò, farò, venuto), the regular one a learner makes of it is a mistake too ([Spelling.wrong]).
  */
 object Grading {
     enum class Verdict { CORRECT, ALMOST, WRONG }
@@ -94,7 +95,8 @@ object Grading {
         val w = answerWords[differing[0]]
         val d = distance(e, w)
         return when {
-            d in 1..typosAllowed(e) && editInStem(e, w) -> Result(Verdict.ALMOST, Hint.TYPO, best, marks)
+            // a known mistake (the language's [Spelling.wrong]: "anderò" for andrò) is grammar, never a slip in the stem
+            d in 1..typosAllowed(e) && editInStem(e, w) && spelling.wrong.none { it.matches(w) } -> Result(Verdict.ALMOST, Hint.TYPO, best, marks)
             d <= 2 && !editInStem(e, w) -> Result(Verdict.WRONG, Hint.ENDING, best, marks)
             else -> Result(Verdict.WRONG, Hint.NONE, best, marks)
         }
