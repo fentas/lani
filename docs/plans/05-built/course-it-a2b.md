@@ -10,7 +10,7 @@ summary); A1's way is docs/plans/05-built/course-it-b.md and course-it-c.md.
 
 | # | unit | intro | worksheets (items) | test | its pages |
 |---|---|---|---|---|---|
-| 7 | `passato-essere` 🚶 Sono andata, siamo arrivati | 5 steps, 10 examples | table + sort (17) · gap text with a bank + choice (8) · transform (7): 32 | 12 items | passato-prossimo, essere-avere |
+| 7 | `passato-essere` 🚶 Sono andata, siamo arrivati | 5 steps, 10 examples | table + sort (17) · gap text with a bank + choice (8) · transform (7): 32 | 12 items | passato-prossimo, essere-avere, riflessivi |
 | 8 | `participi-irregolari` ✍️ Ho fatto, ho visto, ho preso | 5, 10 | table + sort (17) · gap text with a bank + choice (8) · transform (7): 32 | 13 | participi-irregolari, passato-prossimo |
 | 9 | `imperfetto` 📜 C'era una volta | 5, 10 | table + sort (17) · gap text with a bank + choice (8) · transform (7): 32 | 12 | imperfetto |
 | 10 | `imperfetto-passato` 🎬 Dormivo quando è arrivato | 5, 10 | sort + 2 choices (12) · gap text with a bank (8) · transform (8): 28 | 12 | imperfetto-passato, imperfetto, passato-prossimo |

@@ -798,7 +798,7 @@ streams, the night of the bora, Matteo's grape harvest, Zia Nives's radio, David
 
 | # | unit | what it teaches | its pages |
 |---|---|---|---|
-| 7 | `passato-essere` 🚶 | essere's past with -o or -a (sono andato, sono andata), -i for several or mixed, -e only girls; the other verbs of going, coming and staying (the German "bin, ist" as a guide); stato for essere and stare; the reflexive verbs (mi sono lavato, ci siamo divertiti) | passato-prossimo, essere-avere |
+| 7 | `passato-essere` 🚶 | essere's past with -o or -a (sono andato, sono andata), -i for several or mixed, -e only girls; the other verbs of going, coming and staying (the German "bin, ist" as a guide); stato for essere and stare; the reflexive verbs (mi sono lavato, ci siamo divertiti) | passato-prossimo, essere-avere, riflessivi |
 | 8 | `participi-irregolari` ✍️ | the participles of their own in families that sound alike (-tto, -so, -sto, -erto, -nto; bevuto, venuto), with essere agreeing (è venuta, sono rimaste, è scesa) | participi-irregolari, passato-prossimo |
 | 9 | `imperfetto` 📜 | C'era una volta; ero … erano, c'era and c'erano; -avo, -evo, -ivo; facevo, dicevo, bevevo, faceva freddo; what someone was like, what always used to happen | imperfetto |
 | 10 | `imperfetto-passato` 🎬 | the picture and what happens in it (Dormivo quando è arrivato Moro); mentre; the words that decide (sempre, ogni giorno against un giorno, all'improvviso; ieri only says when); a story; a counted time (per due ore) | imperfetto-passato, imperfetto, passato-prossimo |
