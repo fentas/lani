@@ -480,6 +480,35 @@ export function turnToErrors(l: { to?: string; choices: unknown[] }, here: strin
 }
 
 /**
+ * The turns of [d], played in [partner]'s happening, whose answerer the dialog panel's header can't show
+ * (docs/plans/05-built/scene-speakers.md; companion/SCENES.md "Format", `to`): the app has a turn answered by its `to`,
+ * else the happening's person, while the header shows the turn's `to`, else whoever spoke last (a line's speaker, or the
+ * one who answered the turn before). A turn that comes after someone else's line names who answers it, so the header and
+ * the voice that answers are one person. Every way through the right choices counts: one with a reply and one without
+ * leave a different person speaking last. Checked when the tutor publishes (publish_scene, publish_dialog_variant).
+ */
+export function answererErrors(d: { lines: { who?: string; to?: string; choices: { ok?: boolean; reply?: unknown }[] }[] }, partner: string, here: string): string[] {
+  const errs: string[] = []
+  let last = new Set<string>() // who may have spoken last; none yet: the header shows the happening's person
+  d.lines.forEach((l, i) => {
+    if (!l.choices.length) {
+      last = new Set([l.who ?? partner])
+      return
+    }
+    const answers = l.to ?? partner
+    const shown = l.to ? [] : [...last].filter(w => w !== partner)
+    if (shown.length)
+      errs.push(`${here}.lines[${i}]: the header shows ${shown.join(' or ')} (who spoke last) but ${partner}, the happening's person, answers: name "to": "${partner}" on the turn and write its replies for them (or let ${partner} speak before it)`)
+    const rights = l.choices.filter(c => c.ok)
+    const replied = rights.filter(c => c.reply !== undefined).length
+    const next = new Set<string>(replied ? [answers] : [])
+    if (replied < rights.length) for (const w of last) next.add(w)
+    last = next
+  })
+  return errs
+}
+
+/**
  * A face as the content writes it: any string here, so that crossCheck (faceErrors) can say where a wrong name is and
  * which there are. Declared on a learner's turn and a choice too, only to report it there (zod would strip it unseen).
  */

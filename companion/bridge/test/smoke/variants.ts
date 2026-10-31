@@ -214,6 +214,29 @@ export default async function variants() {
   const nowhere = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'smoke-potok', happening: 'nope', dialog: fresh } })
   const noScene = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'nope', happening: 'ovce', dialog: fresh } })
   check('publish_dialog_variant of a happening or a scene that does not exist fails', nowhere.isError && noScene.isError && text(nowhere).includes('has no happening'), [nowhere, noScene])
+  // who answers a turn is whom the header shows (docs/plans/05-built/scene-speakers.md): a scene of two people, Luka's
+  // sheep with Nejc by the ford; a turn after Nejc's line that Luka, the happening's person, answers without naming him
+  // is refused, saying where and what to do, and taken with its "to"
+  const pair = { ...(good as any), id: 'smoke-dvojica', people: [...(good as any).people, { id: 'nejc', name: 'Nejc', emoji: '🧒', art: 'child1', slot: 'ford', villager: 'nejc' }] }
+  writeFileSync(join(scenesDir, 'smoke-dvojica.json'), JSON.stringify(pair))
+  const nejcFirst = {
+    id: 'ovce-nejc',
+    lines: [{ who: 'nejc', sl: 'Jan, ovce so lačne!', en: 'Jan, the sheep are hungry!' }, { choices: fresh.lines[1].choices }, fresh.lines[2]],
+  }
+  const unshown = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'smoke-dvojica', happening: 'ovce', dialog: nejcFirst } })
+  check("publish_dialog_variant refuses a turn after someone else's line that the happening's person answers without its to",
+    !!unshown.isError && text(unshown).includes('dialog ovce-nejc.lines[1]: the header shows nejc') && text(unshown).includes('"to": "luka"') && text(unshown).includes('nothing published'), text(unshown))
+  const named = { ...nejcFirst, lines: [nejcFirst.lines[0], { ...nejcFirst.lines[1], to: 'luka' }, nejcFirst.lines[2]] }
+  const shown = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'smoke-dvojica', happening: 'ovce', dialog: named } })
+  check('… and publishes it with "to" naming the happening\'s person', !shown.isError, text(shown))
+  const after = { ...nejcFirst, id: 'ovce-nejc-2', lines: [fresh.lines[0], { ...fresh.lines[1], choices: fresh.lines[1].choices.map((c: any) => (c.ok ? { ...c, reply: undefined } : c)) }, { who: 'nejc', sl: 'Ovce so žejne.', en: 'The sheep are thirsty.' }, { choices: fresh.lines[1].choices }, fresh.lines[2]] }
+  const later = await client.callTool({ name: 'publish_dialog_variant', arguments: { scene: 'smoke-dvojica', happening: 'ovce', dialog: after } })
+  check('… a later turn too (lines[3], after Nejc)', !!later.isError && text(later).includes('dialog ovce-nejc-2.lines[3]') && !text(later).includes('lines[1]'), text(later))
+  const sceneUnshown = await client.callTool({ name: 'publish_scene', arguments: { scene: { ...pair, id: 'smoke-dvojica-2', variants: [], dialogs: [nejcFirst], happenings: [{ ...pair.happenings[0], dialog: 'ovce-nejc', dialogs: undefined }] } } })
+  check('publish_scene refuses such a turn of a happening\'s dialog, nothing published',
+    !!sceneUnshown.isError && text(sceneUnshown).includes('dialog ovce-nejc (happening ovce).lines[1]: the header shows nejc') && text(sceneUnshown).includes('nothing published'), text(sceneUnshown))
+  await client.callTool({ name: 'remove_dialog_variant', arguments: { scene: 'smoke-dvojica', happening: 'ovce', id: 'ovce-nejc' } })
+  unlinkSync(join(scenesDir, 'smoke-dvojica.json'))
   const ls = text(await client.callTool({ name: 'list_scenes', arguments: {} }))
   check("list_scenes shows a happening's variants and the tutor's among them", ls.includes('"tutor_variants"') && ls.includes('"ovce-tutor"') && ls.includes('"variants"'), ls.slice(0, 200))
 

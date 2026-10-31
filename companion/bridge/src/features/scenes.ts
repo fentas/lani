@@ -11,7 +11,7 @@ import { learnerLangs } from '../learners'
 import { localDate } from '../rhythm'
 import { knownIds, Names, residentsNamed, sceneMentions } from '../mentions'
 import { checkWoven, fittingWords, lemmaFinder, testedAt, WEAVES_A_DAY, wordsToWeave, wovenToday, type Card, type WeaveWord } from '../dialog-words'
-import { artsOf, dialogGrammar, FACES, FACES_SAID, forApp, forHost, inSeason, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
+import { answererErrors, artsOf, dialogGrammar, FACES, FACES_SAID, forApp, forHost, inSeason, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
 import { attachStories } from '../stories'
 import { allHeard, variantNote, VariantAsks, weakSpots } from '../variants'
 import { learnerLevel } from '../villagers'
@@ -270,6 +270,15 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
         handle: args => {
           const v = validateScene(args.scene, refs())
           if (!v.ok) return fail(`scene invalid, nothing published:\n${v.errors}`)
+          // each happening's dialogs: who answers a turn is whom the header shows (scene-speakers)
+          const all = [...v.scene.dialogs, ...v.scene.variants]
+          const unshown = v.scene.happenings.flatMap(h =>
+            [...new Set([h.dialog, ...(h.dialogs ?? [])].filter((x): x is string => !!x))].flatMap(id => {
+              const d = all.find(x => x.id === id)
+              return d ? answererErrors(d, h.who, `dialog ${d.id} (happening ${h.id})`) : []
+            }),
+          )
+          if (unshown.length) return fail(`scene invalid, nothing published:\n${[...new Set(unshown)].map(e => `✖ ${e}`).join('\n')}`)
           const note = noteIn.safeParse(args.note)
           if (!note.success) return badNote()
           // the dialogs that weave the learner's words: each word tested by a turn
@@ -338,6 +347,9 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
           }
           const v = validateScene(candidate, refs())
           if (!v.ok) return fail(`dialog invalid, nothing published:\n${v.errors}`)
+          // who answers a turn is whom the header shows (scene-speakers)
+          const unshown = answererErrors(v.scene.variants.find(d => d.id === did)!, h.who, `dialog ${did}`)
+          if (unshown.length) return fail(`dialog invalid, nothing published:\n${unshown.map(e => `✖ ${e}`).join('\n')}`)
           const note = noteIn.safeParse(args.note)
           if (!note.success) return badNote()
           const dialog = v.scene.variants.find(d => d.id === did)!
