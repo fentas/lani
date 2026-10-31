@@ -89,10 +89,12 @@ class ClassicLandTest {
         // one bridge, the village's, where the road crosses the stream: no track, no gate of its own (2026-10-19); the
         // people react to the wolves at the gate (GAME.md "People react"): the defenders, the fire's gathering, the hens,
         // the unnamed by the fire, nobody else about (2026-10-20); the hearths (GAME.md "Hearths", 2026-10-20): the town's
-        // fire basket on the square (burning for the wolves' gathering in the dark), its lanterns, smoke from the chimneys
+        // fire basket on the square (burning for the wolves' gathering in the dark), its lanterns, smoke from the chimneys;
+        // the mill's undershot wheel turning with its race, its paddles in the water going the way it runs, standing in the
+        // frozen race in winter (2026-10-31, mill-mechanics: only the wheel's few pixels differ)
         "town" to mapOf(
-            "side-day" to "d7a25cebb4f12829", "tall-day" to "2425b077810c30cd", "tall-dusk-k2" to "f64c6689a34a339c",
-            "tall-night-k3" to "1b9b2665aed8a183", "compact" to "98dbb1dc41bafb3d", "widget" to "b7eee1ac5c5e8a3a",
+            "side-day" to "e621ed5e6cd53805", "tall-day" to "a6d6413741e36e2e", "tall-dusk-k2" to "89134b18bc100943",
+            "tall-night-k3" to "608999d437910e1", "compact" to "80bef03194f9dfe5", "widget" to "6dbed316403a0f42",
         ),
     )
 

@@ -76,8 +76,10 @@ also checks the shaft and the flume still at grind 0 and moving while it turns.
 **Digests taken again**, after looking at the frames: `CultureLooksTest` "mill" (day, dusk-winter, night-k2: only the
 wheel, its water, the flume's end, the shaft and the cog wheel differ; a diff of the whole picture marks nothing else)
 and "stream" (its wheel's water and its winter); `FriuliOutdoorLooksTest` "stream/classic" and "stream/coast" (day,
-dusk-winter, night-k2; unbuilt and the afternoon closer up don't show the wheel and kept theirs). Friuli's indoor look
-has no digests (FriuliIndoorLooksTest compares it with the Slovene one).
+dusk-winter, night-k2; unbuilt and the afternoon closer up don't show the wheel and kept theirs); `ClassicLandTest`
+"town" (its finished mill on the map: all six views, each differing only in the wheel's box, 8 × 12 px at detail 1 up to
+18 × 20 at detail 3: its paddles going with the race, standing in the frozen race of the winter night). Friuli's indoor
+look has no digests (FriuliIndoorLooksTest compares it with the Slovene one).
 
 ## How to look at it
 
