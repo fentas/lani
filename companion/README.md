@@ -313,7 +313,8 @@ pair switches:
   Jeziki · Languages switches the pair on the phone, for testing.
 - **Grading** (`resources/grading/<code>.json`): a missing č/š/ž, Italian accent or German umlaut (also ae/oe/ue/ss
   for ä/ö/ü/ß) is almost right, with its hint; English contractions are the same answer. Answers are lowercased in the
-  target's locale; a word's stem forgives one slip from 4 letters, two from 9.
+  target's locale; a word's stem forgives one slip from 4 letters, two from 9, but not a known mistake the table lists
+  (`wrong`: Italian's anderò for andrò, venito for venuto).
 - **Speech**: the phone's recognizer and text-to-speech take the target's locale (sl-SI, it-IT, de-DE, en-GB); the
   node's Whisper has Slovene's model and serves Italian, German and English with the general one
   ([stt-local](stt-local/README.md#languages)). ElevenLabs gets the village's `language_code`, and a narrator says a
@@ -3176,7 +3177,9 @@ request to the worker (`plain=1`: the audio encoded once), and the two readings 
 right is a table per language (`android/app/src/main/resources/grading/<code>.json`, `data/Spelling.kt`), so
 another language is a new table, not new code: Slovene's č/š/ž; Italian's accents (è for e, perché
 typed perche, perchè or perche') and apostrophes (un amica for un'amica, la acqua for l'acqua), each
-almost right with its hint; German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
+almost right with its hint (lo or la before avere only where the participle agrees: la ho vista for l'ho vista; lo ho
+vista, the pronoun's gender wrong, is wrong), and its known mistakes, never a slip in the stem (`wrong`: the regular
+stem where a form has its own, anderò for andrò, ferò for farò, mangierò for mangerò, venito for venuto); German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
 contractions (don't = do not). Choosing a dialog's answer by voice folds the same letters. Speech
 labels name the target language (`{targetLang, select, …}` in the string tables).
 
