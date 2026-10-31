@@ -64,7 +64,7 @@
     },
     {
       "id": "football", "title": { "en": "Harry at the door", "sl": "Harry pri vratih", "it": "Harry alla porta", "de": "Harry an der Tür" }, "who": "harry",
-      "when": ["morning", "afternoon"], "chance": 0.4,
+      "when": ["morning", "afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4,
       "dialog": "football", "dialogs": ["football-playtime", "football"], "reward": { "food": 15 }, "marker": "⚽",
       "memory": { "en": "our football team", "sl": "najino nogometno ekipo", "it": "la nostra squadra di calcio", "de": "unsere Fußballmannschaft" }
     }
@@ -96,7 +96,7 @@
           { "en": "I fine, thank you.", "sl": "Dobro, hvala.", "it": "Bene, grazie.", "de": "Gut, danke.", "grammar": "to-be",
             "why": { "en": "You need am: I am fine, I'm fine.", "sl": "Potrebuješ am: I am fine, I'm fine.", "it": "Serve am: I am fine, I'm fine.", "de": "Du brauchst am: I am fine, I'm fine." },
             "reply": { "face": "curious", "en": "I fine? Oh dear, a little word ran away!", "sl": "I fine? Joj, ena besedica je pobegnila!", "it": "I fine? Oh, una parolina è scappata!", "de": "I fine? Oje, ein kleines Wort ist weggelaufen!" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } }
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } }
       ]
     },
     {
@@ -113,7 +113,7 @@
           { "en": "The shepherd have got two hundred sheep.", "sl": "Pastir ima dvesto ovac.", "it": "Il pastore ha duecento pecore.", "de": "Der Schäfer hat zweihundert Schafe.", "grammar": "to-have",
             "why": { "en": "With he, she or one person, have becomes has: the shepherd has got.", "sl": "Pri he, she ali eni osebi postane have has: the shepherd has got.", "it": "Con he, she o una sola persona have diventa has: the shepherd has got.", "de": "Bei he, she oder einer Person wird have zu has: the shepherd has got." },
             "reply": { "face": "curious", "en": "Have? Are there two shepherds now?", "sl": "Have? Sta zdaj dva pastirja?", "it": "Have? Adesso i pastori sono due?", "de": "Have? Sind es jetzt zwei Schäfer?" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "en": "Number two: There are four childs in our school.", "sl": "Drugi: There are four childs in our school.", "it": "Numero due: There are four childs in our school.", "de": "Nummer zwei: There are four childs in our school." },
         { "choices": [
           { "en": "There are four children in our school.", "sl": "V naši šoli so štirje otroci.", "it": "Nella nostra scuola ci sono quattro bambini.", "de": "In unserer Schule sind vier Kinder.", "ok": true,
@@ -124,7 +124,7 @@
           { "en": "There is four children in our school.", "sl": "V naši šoli so štirje otroci.", "it": "Nella nostra scuola ci sono quattro bambini.", "de": "In unserer Schule sind vier Kinder.", "grammar": "there-is-are",
             "why": { "en": "Four children are more than one: there are. There is goes with one.", "sl": "Štirje otroci so več kot eden: there are. There is je za enega.", "it": "Quattro bambini sono più di uno: there are. There is va con uno solo.", "de": "Vier Kinder sind mehr als eins: there are. There is steht bei einem." },
             "reply": { "face": "surprised", "en": "There is? Only one child? Then who's making all this noise?", "sl": "There is? Samo en otrok? Kdo pa potem dela ta hrup?", "it": "There is? Un bambino solo? E allora chi fa tutto questo rumore?", "de": "There is? Nur ein Kind? Wer macht dann den ganzen Lärm?" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "en": "And number three: The cat has got two mouses.", "sl": "In tretji: The cat has got two mouses.", "it": "E numero tre: The cat has got two mouses.", "de": "Und Nummer drei: The cat has got two mouses." },
         { "choices": [
           { "en": "The cat has got two mice.", "sl": "Mačka ima dve miški.", "it": "Il gatto ha due topi.", "de": "Die Katze hat zwei Mäuse.", "ok": true,
@@ -135,7 +135,7 @@
           { "en": "The cat has got two mices.", "sl": "Mačka ima dve miški.", "it": "Il gatto ha due topi.", "de": "Die Katze hat zwei Mäuse.", "grammar": "plurals",
             "why": { "en": "Mice is a plural already: no -s.", "sl": "Mice je že množina: brez -s.", "it": "Mice è già plurale: niente -s.", "de": "Mice ist schon Plural: kein -s." },
             "reply": { "face": "curious", "en": "Mices? So close! One letter too many.", "sl": "Mices? Čisto blizu! Ena črka preveč.", "it": "Mices? Vicinissimo! Una lettera di troppo.", "de": "Mices? Ganz knapp! Ein Buchstabe zu viel." } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "face": "proud", "en": "Three out of three! Sheep, children, mice: English plurals are naughty.", "sl": "Tri od treh! Sheep, children, mice: angleške množine so poredne.", "it": "Tre su tre! Sheep, children, mice: i plurali inglesi sono birichini.", "de": "Drei von drei! Sheep, children, mice: Englische Plurale sind frech." }
       ]
     },
@@ -152,7 +152,7 @@
           { "en": "It's a mountain.", "sl": "To je gora.", "it": "È una montagna.", "de": "Das ist ein Berg.",
             "why": { "en": "It's blue on the map: water. Windermere is a lake.", "sl": "Na zemljevidu je modro: voda. Windermere je jezero.", "it": "Sulla cartina è blu: acqua. Il Windermere è un lago.", "de": "Auf der Karte ist es blau: Wasser. Windermere ist ein See." },
             "reply": { "face": "laugh", "en": "A blue mountain? Then bring your swimming costume!", "sl": "Modra gora? Potem pa vzemi kopalke!", "it": "Una montagna blu? Allora porta il costume da bagno!", "de": "Ein blauer Berg? Dann bring deinen Badeanzug mit!" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "face": "surprised", "en": "In the Lakes there are sixteen big lakes. But only one has lake in its name: Bassenthwaite Lake!", "sl": "V Jezernem okrožju je šestnajst velikih jezer. A samo eno ima v imenu besedo lake: Bassenthwaite Lake!", "it": "Nel Distretto dei Laghi ci sono sedici grandi laghi. Ma solo uno ha lake nel nome: Bassenthwaite Lake!", "de": "Im Lake District gibt es sechzehn große Seen. Aber nur einer hat lake im Namen: Bassenthwaite Lake!" },
         { "choices": [
           { "en": "There are a lot of lakes here!", "sl": "Tukaj je veliko jezer!", "it": "Qui ci sono tanti laghi!", "de": "Hier gibt es viele Seen!", "ok": true,
@@ -163,7 +163,7 @@
           { "en": "There are a lot of lake here!", "sl": "Tukaj je veliko jezer!", "it": "Qui ci sono tanti laghi!", "de": "Hier gibt es viele Seen!", "grammar": "plurals",
             "why": { "en": "A lot of takes the plural: a lot of lakes.", "sl": "Za a lot of pride množina: a lot of lakes.", "it": "Dopo a lot of ci vuole il plurale: a lot of lakes.", "de": "Nach a lot of kommt der Plural: a lot of lakes." },
             "reply": { "face": "laugh", "en": "A lot of lake? One very big wet one?", "sl": "A lot of lake? Eno samo, zelo veliko in mokro?", "it": "A lot of lake? Uno solo, enorme e bagnato?", "de": "A lot of lake? Ein einziger, riesiger, nasser?" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "face": "proud", "en": "And Windermere is the longest lake in England: about eleven miles.", "sl": "Windermere pa je najdaljše jezero v Angliji: dolgo je približno enajst milj.", "it": "E il Windermere è il lago più lungo d'Inghilterra: circa undici miglia.", "de": "Und Windermere ist der längste See Englands: etwa elf Meilen lang." }
       ]
     },
@@ -180,7 +180,7 @@
           { "en": "Here is it! It's an island.", "sl": "Tukaj je! Otok je.", "it": "Eccola! È un'isola.", "de": "Hier ist es! Es ist eine Insel.", "grammar": "word-order",
             "why": { "en": "Here it is: it comes before is when you show something.", "sl": "Here it is: ko nekaj pokažeš, pride it pred is.", "it": "Here it is: quando mostri qualcosa, it va prima di is.", "de": "Here it is: Wenn du etwas zeigst, steht it vor is." },
             "reply": { "face": "laugh", "en": "Ooh, back to front! Like my socks today!", "sl": "Oho, narobe! Kot moje nogavice danes!", "it": "Oh, al contrario! Come i miei calzini oggi!", "de": "Oh, verkehrt herum! Wie meine Socken heute!" } }
-        ], "puzzled": { "en": "What? Say it again!", "sl": "Kaj? Povej še enkrat!", "it": "Cosa? Ripetilo!", "de": "Was? Sag's noch mal!" } },
+        ], "puzzled": { "face": "confused", "en": "What? Say it again!", "sl": "Kaj? Povej še enkrat!", "it": "Cosa? Ripetilo!", "de": "Was? Sag's noch mal!" } },
         { "who": "poppy", "face": "curious", "en": "Why is the sea so big? And why is it blue? Why?", "sl": "Zakaj je morje tako veliko? In zakaj je modro? Zakaj?", "it": "Perché il mare è così grande? E perché è blu? Perché?", "de": "Warum ist das Meer so groß? Und warum ist es blau? Warum?" },
         { "choices": [
           { "en": "I don't know. Ask Mrs Hartley!", "sl": "Ne vem. Vprašaj gospo Hartley!", "it": "Non lo so. Chiedilo alla signora Hartley!", "de": "Weiß ich nicht. Frag Mrs Hartley!", "ok": true,
@@ -204,7 +204,7 @@
           { "en": "Don't worry. I can helping you.", "sl": "Brez skrbi. Lahko ti pomagam.", "it": "Non preoccuparti. Posso aiutarti.", "de": "Keine Sorge. Ich kann dir helfen.", "grammar": "can",
             "why": { "en": "After can, the base form: I can help.", "sl": "Za can pride osnovna oblika: I can help.", "it": "Dopo can va la forma base: I can help.", "de": "Nach can kommt die Grundform: I can help." },
             "reply": { "face": "laugh", "en": "Can helping? Now we've got two problems!", "sl": "Can helping? Zdaj imava dve težavi!", "it": "Can helping? Adesso i problemi sono due!", "de": "Can helping? Jetzt haben wir zwei Probleme!" } }
-        ], "puzzled": { "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
         { "who": "harry", "face": "curious", "en": "Word one: knife. Is there a k at the start?", "sl": "Prva beseda: knife. Je na začetku k?", "it": "Prima parola: knife. C'è una k all'inizio?", "de": "Erstes Wort: knife. Steht am Anfang ein k?" },
         { "choices": [
           { "en": "Yes, but we don't say it.", "sl": "Ja, ampak ga ne izgovorimo.", "it": "Sì, ma non la pronunciamo.", "de": "Ja, aber wir sprechen es nicht aus.", "ok": true,
@@ -215,7 +215,7 @@
           { "en": "Yes, but we not say it.", "sl": "Ja, ampak ga ne izgovorimo.", "it": "Sì, ma non la pronunciamo.", "de": "Ja, aber wir sprechen es nicht aus.", "grammar": "questions-do",
             "why": { "en": "A no in the present simple needs do: we don't say it.", "sl": "Zanikanje v present simple potrebuje do: we don't say it.", "it": "La negazione al present simple vuole do: we don't say it.", "de": "Die Verneinung im Present Simple braucht do: we don't say it." },
             "reply": { "face": "laugh", "en": "We not say it? Ha! That's how I talk on Mondays!", "sl": "We not say it? Ha! Tako jaz govorim ob ponedeljkih!", "it": "We not say it? Ah! Io parlo così il lunedì!", "de": "We not say it? Ha! So rede ich montags!" } }
-        ], "puzzled": { "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
         { "who": "harry", "face": "proud", "en": "Knife, lamb, comb… Silent letters are silly. But I've got them all! Now… football?", "sl": "Knife, lamb, comb … Neme črke so neumne. Ampak imam jih vse! Zdaj pa … nogomet?", "it": "Knife, lamb, comb… Le lettere mute sono sciocche. Ma le ho fatte tutte! E adesso… calcio?", "de": "Knife, lamb, comb … Stumme Buchstaben sind albern. Aber ich hab alle! Und jetzt … Fußball?" }
       ]
     },
@@ -256,12 +256,12 @@
         { "who": "alfie", "face": "shy", "en": "Shh, Poppy! He's my friend. His name's Hoppy.", "sl": "Pst, Poppy! Moj prijatelj je. Ime mu je Hoppy.", "it": "Sss, Poppy! È mio amico. Si chiama Hoppy.", "de": "Pst, Poppy! Er ist mein Freund. Er heißt Hoppy." },
         { "choices": [
           { "en": "Is he a real frog?", "sl": "Je prava žaba?", "it": "È una rana vera?", "de": "Ist das ein echter Frosch?", "ok": true,
-            "reply": { "face": "proud", "en": "Yes! He's green, and he can jump very high.", "sl": "Ja! Zelen je in skoči zelo visoko.", "it": "Sì! È verde e salta altissimo.", "de": "Ja! Er ist grün und kann ganz hoch springen." } },
+            "reply": { "face": "surprised", "en": "A real frog? Alfie, show me your pocket!", "sl": "Prava žaba? Alfie, pokaži mi žep!", "it": "Una rana vera? Alfie, fammi vedere la tasca!", "de": "Ein echter Frosch? Alfie, zeig mir deine Tasche!" } },
           { "en": "Is he a real frogs?", "sl": "Je prava žaba?", "it": "È una rana vera?", "de": "Ist das ein echter Frosch?", "grammar": "articles",
             "why": { "en": "A is for one thing: a frog. With an -s there's no a.", "sl": "A je za eno stvar: a frog. Pred -s ni a.", "it": "A è per una cosa sola: a frog. Con la -s niente a.", "de": "A steht für eine Sache: a frog. Mit -s kein a." },
-            "reply": { "face": "curious", "en": "Frogs? No, just Hoppy. He's all alone!", "sl": "Žabe? Ne, samo Hoppy. Čisto sam je!", "it": "Rane? No, solo Hoppy. È tutto solo!", "de": "Frösche? Nein, nur Hoppy. Er ist ganz allein!" } }
-        ], "puzzled": { "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" } },
-        { "who": "hartley", "face": "cross", "en": "A frog? In my classroom? Alfie, he goes back to the beck at playtime.", "sl": "Žaba? V mojem razredu? Alfie, med odmorom gre nazaj v potok.", "it": "Una rana? Nella mia classe? Alfie, alla ricreazione torna nel ruscello.", "de": "Ein Frosch? In meinem Klassenzimmer? Alfie, in der Pause kommt er zurück in den Bach." },
+            "reply": { "face": "curious", "en": "Frogs? I do hope there's only one, {learner}!", "sl": "Žabe? Upam, da je samo ena, {learner}!", "it": "Rane? Spero proprio che ce ne sia una sola, {learner}!", "de": "Frösche? Ich hoffe doch, es ist nur einer, {learner}!" } }
+        ], "puzzled": { "face": "confused", "en": "Hmm? What did you say?", "sl": "Hm? Kaj si {m:rekel|f:rekla}?", "it": "Mh? Cosa hai detto?", "de": "Hm? Was hast du gesagt?" }, "to": "hartley" },
+        { "who": "hartley", "face": "cross", "en": "Oh, Alfie. A frog in my classroom! He goes back to the beck at playtime.", "sl": "Oh, Alfie. Žaba v mojem razredu! Med odmorom gre nazaj v potok.", "it": "Oh, Alfie. Una rana nella mia classe! Alla ricreazione torna nel ruscello.", "de": "Ach, Alfie. Ein Frosch in meinem Klassenzimmer! In der Pause kommt er zurück in den Bach." },
         { "who": "alfie", "face": "sad", "en": "OK, Mrs Hartley…", "sl": "Prav, gospa Hartley …", "it": "Va bene, signora Hartley…", "de": "Okay, Mrs Hartley …" },
         { "who": "hartley", "face": "curious", "en": "Now then. And {learner}? Are you here today?", "sl": "No. Pa {learner}? Si danes tukaj?", "it": "Allora. E {learner}? Ci sei oggi?", "de": "So. Und {learner}? Bist du heute da?" },
         { "choices": [
@@ -272,7 +272,7 @@
           { "en": "Yes, I do!", "sl": "Ja, sem!", "it": "Sì, ci sono!", "de": "Ja, bin ich!", "grammar": "to-be",
             "why": { "en": "To a question with are, answer with am: Yes, I am. Do is for do questions.", "sl": "Na vprašanje z are odgovoriš z am: Yes, I am. Do je za vprašanja z do.", "it": "A una domanda con are si risponde con am: Yes, I am. Do è per le domande con do.", "de": "Auf eine Frage mit are antwortest du mit am: Yes, I am. Do ist für Fragen mit do." },
             "reply": { "face": "curious", "en": "You do? You do what, {learner}?", "sl": "You do? Kaj delaš, {learner}?", "it": "You do? Fai cosa, {learner}?", "de": "You do? Was tust du, {learner}?" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } }
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } }
       ]
     },
     {
@@ -280,7 +280,7 @@
       "memory": { "en": "the lesson about a and an", "sl": "uro o a in an", "it": "la lezione su a e an", "de": "die Stunde über a und an" },
       "lines": [
         { "who": "hartley", "face": "curious", "en": "Today: a and an. Listen to the start of the word. Ready?", "sl": "Danes: a in an. Poslušaj začetek besede. Si {m:pripravljen|f:pripravljena}?", "it": "Oggi: a e an. Ascolta l'inizio della parola. {m:Pronto|f:Pronta}?", "de": "Heute: a und an. Hör auf den Anfang des Wortes. Bereit?" },
-        { "who": "hartley", "en": "What's in your bag today? An egg? An apple?", "sl": "Kaj imaš danes v torbi? Jajce? Jabolko?", "it": "Cos'hai nella cartella oggi? Un uovo? Una mela?", "de": "Was hast du heute in der Tasche? Ein Ei? Einen Apfel?" },
+        { "who": "hartley", "en": "What's in your bag today? Something to eat?", "sl": "Kaj imaš danes v torbi? Kaj za pojest?", "it": "Cos'hai nella cartella oggi? Qualcosa da mangiare?", "de": "Was hast du heute in der Tasche? Etwas zu essen?" },
         { "choices": [
           { "en": "I've got an egg and an apple.", "sl": "Imam jajce in jabolko.", "it": "Ho un uovo e una mela.", "de": "Ich habe ein Ei und einen Apfel.", "ok": true,
             "reply": { "face": "happy", "en": "Perfect! A healthy lunch, too.", "sl": "Odlično! Pa še zdrava malica.", "it": "Perfetto! E anche un pranzo sano.", "de": "Perfekt! Und ein gesundes Mittagessen." } },
@@ -290,7 +290,7 @@
           { "en": "I've got an egg and a apple.", "sl": "Imam jajce in jabolko.", "it": "Ho un uovo e una mela.", "de": "Ich habe ein Ei und einen Apfel.", "grammar": "articles",
             "why": { "en": "Apple starts with a vowel sound: an apple.", "sl": "Apple se začne s samoglasnikom: an apple.", "it": "Apple comincia con una vocale: an apple.", "de": "Apple fängt mit einem Vokal an: an apple." },
             "reply": { "face": "laugh", "en": "A apple? Listen: your tongue trips over it!", "sl": "A apple? Poslušaj: jezik se ti spotakne!", "it": "A apple? Ascolta: la lingua inciampa!", "de": "A apple? Hör mal: Da stolpert die Zunge!" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "face": "curious", "en": "Now a hard one. In hour, the h is silent. Playtime is in one hour. What do we say?", "sl": "Zdaj pa težka. V hour je h nem. Odmor je čez eno uro. Kako rečemo?", "it": "Adesso una difficile. In hour la h è muta. La ricreazione è tra un'ora. Come si dice?", "de": "Jetzt eine schwere. In hour ist das h stumm. In einer Stunde ist Pause. Wie sagen wir?" },
         { "choices": [
           { "en": "It's an hour to playtime.", "sl": "Do odmora je še ura.", "it": "Manca un'ora alla ricreazione.", "de": "Es ist noch eine Stunde bis zur Pause.", "ok": true,
@@ -298,7 +298,7 @@
           { "en": "It's a hour to playtime.", "sl": "Do odmora je še ura.", "it": "Manca un'ora alla ricreazione.", "de": "Es ist noch eine Stunde bis zur Pause.", "grammar": "articles",
             "why": { "en": "The h in hour is silent, so it starts with a vowel sound: an hour.", "sl": "H v hour je nem, zato se beseda začne s samoglasnikom: an hour.", "it": "La h di hour è muta, quindi la parola comincia con una vocale: an hour.", "de": "Das h in hour ist stumm, also fängt das Wort mit einem Vokal an: an hour." },
             "reply": { "face": "laugh", "en": "A hour? Then you'd say the h! Hhhour?", "sl": "A hour? Potem bi {m:moral|f:morala} izgovoriti h! Hhhour?", "it": "A hour? Allora dovresti dire la h! Hhhour?", "de": "A hour? Dann müsstest du das h sagen! Hhhour?" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "face": "laugh", "en": "Lovely. The h in hour is a ghost: it's there, but you can't hear it.", "sl": "Lepo. H v hour je kot duh: je tam, a ga ne slišiš.", "it": "Bene. La h di hour è un fantasma: c'è, ma non la senti.", "de": "Schön. Das h in hour ist ein Gespenst: Es ist da, aber man hört es nicht." }
       ]
     },
@@ -316,7 +316,7 @@
           { "en": "Two knive.", "sl": "Dva noža.", "it": "Due coltelli.", "de": "Zwei Messer.", "grammar": "plurals",
             "why": { "en": "Two needs the plural, with -s at the end: knives.", "sl": "Za two potrebuješ množino s -s na koncu: knives.", "it": "Con two serve il plurale, con la -s finale: knives.", "de": "Nach two brauchst du den Plural, mit -s am Ende: knives." },
             "reply": { "face": "laugh", "en": "Knive? That's half a word!", "sl": "Knive? To je pol besede!", "it": "Knive? È mezza parola!", "de": "Knive? Das ist ein halbes Wort!" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "face": "laugh", "en": "And the k? We write it, but we don't say it. A silent letter!", "sl": "Pa k? Zapišemo ga, a ga ne izgovorimo. Nema črka!", "it": "E la k? La scriviamo, ma non la diciamo. Una lettera muta!", "de": "Und das k? Wir schreiben es, aber wir sagen es nicht. Ein stummer Buchstabe!" },
         { "who": "hartley", "en": "Now: one foot, two… A pony has got four of them.", "sl": "Zdaj pa: one foot, two … Poni jih ima štiri.", "it": "Adesso: one foot, two… Un pony ne ha quattro.", "de": "Jetzt: one foot, two … Ein Pony hat vier davon." },
         { "choices": [
@@ -328,7 +328,7 @@
           { "en": "Ponies has got four feet.", "sl": "Poniji imajo štiri noge.", "it": "I pony hanno quattro zampe.", "de": "Ponys haben vier Füße.", "grammar": "to-have",
             "why": { "en": "Ponies are more than one: they have got. Has is for one.", "sl": "Ponies je več kot eden: they have got. Has je za enega.", "it": "Ponies sono più di uno: they have got. Has è per uno solo.", "de": "Ponies sind mehr als eins: they have got. Has ist für eins." },
             "reply": { "face": "curious", "en": "Has? Lots of ponies, but has? Tut tut!", "sl": "Has? Veliko ponijev, pa has? Ts ts!", "it": "Has? Tanti pony, ma has? Ts ts!", "de": "Has? So viele Ponys, aber has? Tss tss!" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "face": "proud", "en": "Knives, feet, sheep, mice… English is full of surprises. That's why I love it!", "sl": "Knives, feet, sheep, mice … Angleščina je polna presenečenj. Zato jo imam tako rada!", "it": "Knives, feet, sheep, mice… L'inglese è pieno di sorprese. Per questo lo adoro!", "de": "Knives, feet, sheep, mice … Englisch steckt voller Überraschungen. Darum liebe ich es!" }
       ]
     },
@@ -347,7 +347,7 @@
           { "en": "Wow! We can climb it one day?", "sl": "Uau! Lahko nekoč splezamo nanj?", "it": "Wow! Possiamo salirci un giorno?", "de": "Wow! Können wir eines Tages hinaufsteigen?", "grammar": "can",
             "why": { "en": "In a question, can comes first: Can we climb it?", "sl": "V vprašanju pride can na začetek: Can we climb it?", "it": "Nella domanda can va all'inizio: Can we climb it?", "de": "In der Frage steht can vorne: Can we climb it?" },
             "reply": { "face": "curious", "en": "Is that a question, or a promise? Ha!", "sl": "Je to vprašanje ali obljuba? Ha!", "it": "È una domanda o una promessa? Ah!", "de": "Ist das eine Frage oder ein Versprechen? Ha!" } }
-        ], "puzzled": { "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
+        ], "puzzled": { "face": "confused", "en": "Sorry? Once more, slowly, please.", "sl": "Oprosti? Še enkrat, počasi, prosim.", "it": "Scusa? Ancora una volta, piano, per favore.", "de": "Wie bitte? Noch einmal, langsam, bitte." } },
         { "who": "hartley", "face": "curious", "en": "Do you like walking in the mountains?", "sl": "{m:Rad|f:Rada} hodiš v hribe?", "it": "Ti piace camminare in montagna?", "de": "Wanderst du gern in den Bergen?" },
         { "choices": [
           { "en": "Yes, I do. I love it!", "sl": "Ja. Obožujem to!", "it": "Sì. Mi piace tantissimo!", "de": "Ja. Ich liebe es!", "ok": true,
@@ -372,7 +372,7 @@
           { "en": "Really? Does they have Christmas on the beach?", "sl": "Res? Praznujejo božič na plaži?", "it": "Davvero? Festeggiano il Natale in spiaggia?", "de": "Wirklich? Feiern sie Weihnachten am Strand?", "grammar": "questions-do",
             "why": { "en": "With they, ask with do: Do they have …? Does is for he, she and it.", "sl": "Pri they vprašaš z do: Do they have …? Does je za he, she in it.", "it": "Con they la domanda si fa con do: Do they have …? Does è per he, she e it.", "de": "Bei they fragt man mit do: Do they have …? Does ist für he, she und it." },
             "reply": { "face": "laugh", "en": "Does they? You sound like me when I was six!", "sl": "Does they? Govoriš kot jaz, ko sem imela šest let!", "it": "Does they? Parli come me quando avevo sei anni!", "de": "Does they? Du redest wie ich, als ich sechs war!" } }
-        ], "puzzled": { "en": "What? Say it again!", "sl": "Kaj? Povej še enkrat!", "it": "Cosa? Ripetilo!", "de": "Was? Sag's noch mal!" } },
+        ], "puzzled": { "face": "confused", "en": "What? Say it again!", "sl": "Kaj? Povej še enkrat!", "it": "Cosa? Ripetilo!", "de": "Was? Sag's noch mal!" } },
         { "who": "poppy", "face": "curious", "en": "I want to go there one day. Do you want to come with me?", "sl": "Nekoč hočem iti tja. Greš z mano?", "it": "Un giorno ci voglio andare. Vuoi venire con me?", "de": "Da will ich eines Tages hin. Kommst du mit?" },
         { "choices": [
           { "en": "Yes, please! Let's go together.", "sl": "Ja, prosim! Pojdiva skupaj.", "it": "Sì, dai! Andiamoci insieme.", "de": "Ja, bitte! Gehen wir zusammen.", "ok": true,
@@ -401,7 +401,7 @@
           { "en": "There {!is|are} {n} {pencil|pencils}.", "sl": "Tu {je|sta|so|je} {n} {svinčnik|svinčnika|svinčniki|svinčnikov}.", "it": "{!C'è|Ci sono} {n} {matita|matite}.", "de": "Das {!ist|sind} {n} {Bleistift|Bleistifte}.", "wrong_form": 1, "grammar": "there-is-are",
             "why": { "en": "{One: there is|More than one: there are}: {n} {pencil|pencils}.", "sl": "{Za enega: there is|Za več: there are}: {n} {pencil|pencils}.", "it": "{Per uno: there is|Per più di uno: there are}: {n} {pencil|pencils}.", "de": "{Für eins: there is|Für mehrere: there are}: {n} {pencil|pencils}." },
             "reply": { "face": "curious", "en": "Only one? I can see lots on the floor!", "sl": "Samo en? Jaz jih vidim na tleh cel kup!", "it": "Una sola? Io ne vedo tante per terra!", "de": "Nur einer? Ich seh ganz viele auf dem Boden!" } }
-        ], "puzzled": { "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
         { "who": "harry", "face": "curious", "en": "Now, which one is mine? The short red one.", "sl": "Kateri pa je moj? Kratki rdeči.", "it": "E adesso, qual è la mia? Quella rossa e corta.", "de": "Und welcher ist meiner? Der kurze rote." },
         { "choices": [
           { "en": "Here's your pencil.", "sl": "Tukaj je tvoj svinčnik.", "it": "Ecco la tua matita.", "de": "Hier ist dein Bleistift.", "ok": true,
@@ -412,7 +412,7 @@
           { "en": "Here's yours pencil.", "sl": "Tukaj je tvoj svinčnik.", "it": "Ecco la tua matita.", "de": "Hier ist dein Bleistift.", "grammar": "possessive-s",
             "why": { "en": "Yours stands alone: it's yours. Before a noun: your pencil.", "sl": "Yours stoji sam: it's yours. Pred samostalnikom: your pencil.", "it": "Yours sta da solo: it's yours. Davanti a un nome: your pencil.", "de": "Yours steht allein: it's yours. Vor einem Nomen: your pencil." },
             "reply": { "face": "laugh", "en": "Yours pencil? Hmm, even I know that's funny!", "sl": "Yours pencil? Hm, celo jaz vem, da je to smešno!", "it": "Yours pencil? Mh, perfino io so che fa ridere!", "de": "Yours pencil? Hm, sogar ich weiß, dass das komisch ist!" } }
-        ], "puzzled": { "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
         { "who": "harry", "face": "laugh", "en": "Short, red and chewed. Definitely mine!", "sl": "Kratek, rdeč in ogrizen. Zagotovo moj!", "it": "Corta, rossa e rosicchiata. Sicuramente mia!", "de": "Kurz, rot und angekaut. Ganz sicher meiner!" }
       ]
     },
@@ -440,7 +440,7 @@
           { "en": "Say sorry. Ask: I can bring it tomorrow?", "sl": "Reci oprostite. Vprašaj: Jo lahko prinesem jutri?", "it": "Chiedi scusa. Chiedi: Posso portarli domani?", "de": "Entschuldige dich. Frag: Kann ich sie morgen bringen?", "grammar": "can",
             "why": { "en": "In a question, can comes before I: Can I bring it?", "sl": "V vprašanju pride can pred I: Can I bring it?", "it": "Nella domanda can va prima di I: Can I bring it?", "de": "In der Frage steht can vor I: Can I bring it?" },
             "reply": { "face": "curious", "en": "Is that a question? Sounds like a promise to me!", "sl": "Je to vprašanje? Meni zveni kot obljuba!", "it": "È una domanda? A me sembra una promessa!", "de": "Ist das eine Frage? Klingt für mich wie ein Versprechen!" } }
-        ], "puzzled": { "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
         { "who": "harry", "face": "laugh", "en": "And Bess? Bess is innocent. Mostly.", "sl": "Pa Bess? Bess je nedolžna. Večinoma.", "it": "E Bess? Bess è innocente. Più o meno.", "de": "Und Bess? Bess ist unschuldig. Meistens." }
       ]
     },
@@ -451,15 +451,15 @@
       "lines": [
         { "who": "harry", "face": "happy", "en": "Yes! Playtime! Ten minutes! Have you got a ball?", "sl": "Ja! Odmor! Deset minut! Imaš žogo?", "it": "Sì! Ricreazione! Dieci minuti! Hai una palla?", "de": "Ja! Pause! Zehn Minuten! Hast du einen Ball?" },
         { "choices": [
-          { "en": "No, I haven't. Have you?", "sl": "Ne, nimam. Pa ti?", "it": "No, non ce l'ho. E tu?", "de": "Nein, hab ich nicht. Und du?", "ok": true,
+          { "en": "No, I haven't got one. Have you?", "sl": "Ne, nimam. Pa ti?", "it": "No, non ce l'ho. E tu?", "de": "Nein, hab ich nicht. Und du?", "ok": true,
             "reply": { "face": "proud", "en": "Yes! It's in my school bag. Come on!", "sl": "Ja! V šolski torbi jo imam. Daj no!", "it": "Sì! È nella mia cartella. Dai!", "de": "Ja! Er ist in meiner Schultasche. Komm!" } },
-          { "en": "No, I haven't got.", "sl": "Ne, nimam.", "it": "No, non ce l'ho.", "de": "Nein, hab ich nicht.", "grammar": "to-have",
+          { "en": "No, I haven't got. Have you?", "sl": "Ne, nimam. Pa ti?", "it": "No, non ce l'ho. E tu?", "de": "Nein, hab ich nicht. Und du?", "grammar": "to-have",
             "why": { "en": "Haven't got needs a thing after it: I haven't got one. Or short: No, I haven't.", "sl": "Za haven't got mora nekaj slediti: I haven't got one. Ali na kratko: No, I haven't.", "it": "Dopo haven't got serve qualcosa: I haven't got one. Oppure breve: No, I haven't.", "de": "Nach haven't got muss etwas kommen: I haven't got one. Oder kurz: No, I haven't." },
             "reply": { "face": "laugh", "en": "Haven't got… what? A ball? A sandwich? A dog?", "sl": "Haven't got … kaj? Žogo? Sendvič? Psa?", "it": "Haven't got… cosa? Una palla? Un panino? Un cane?", "de": "Haven't got … was? Einen Ball? Ein Sandwich? Einen Hund?" } },
-          { "en": "No, I don't have got.", "sl": "Ne, nimam.", "it": "No, non ce l'ho.", "de": "Nein, hab ich nicht.", "grammar": "to-have",
+          { "en": "No, I don't have got one. Have you?", "sl": "Ne, nimam. Pa ti?", "it": "No, non ce l'ho. E tu?", "de": "Nein, hab ich nicht. Und du?", "grammar": "to-have",
             "why": { "en": "Have got makes its no without do: I haven't got. Or: I don't have one.", "sl": "Have got tvori zanikanje brez do: I haven't got. Ali: I don't have one.", "it": "Have got fa la negazione senza do: I haven't got. Oppure: I don't have one.", "de": "Have got bildet die Verneinung ohne do: I haven't got. Oder: I don't have one." },
             "reply": { "face": "laugh", "en": "Don't have got? Ha! That's a funny one!", "sl": "Don't have got? Ha! Ta je pa smešna!", "it": "Don't have got? Ah! Questa è buffa!", "de": "Don't have got? Ha! Das ist lustig!" } }
-        ], "puzzled": { "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
+        ], "puzzled": { "face": "confused", "en": "Eh? What? Quick, I've got no time!", "sl": "A? Kaj? Hitro, nimam časa!", "it": "Eh? Cosa? Presto, non ho tempo!", "de": "Hä? Was? Schnell, ich hab keine Zeit!" } },
         { "who": "harry", "face": "happy", "en": "And Mum gave me two biscuits. Do you want one?", "sl": "Pa še mama mi je dala dva piškota. Hočeš enega?", "it": "E la mamma mi ha dato due biscotti. Ne vuoi uno?", "de": "Und Mama hat mir zwei Kekse gegeben. Willst du einen?" },
         { "choices": [
           { "en": "Yes, please! Thanks, Harry.", "sl": "Ja, prosim! Hvala, Harry.", "it": "Sì, grazie! Grazie, Harry.", "de": "Ja, bitte! Danke, Harry.", "ok": true,
