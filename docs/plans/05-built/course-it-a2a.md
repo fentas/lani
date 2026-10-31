@@ -75,9 +75,55 @@ with forms, about 200 characters at most (`condense`), so four steps were rewrit
 3, modali 5, comparativi 5, superlativi 5). Words without a pack's meaning (stare, grande, lo zucchero …) are left out of
 a sheet's words, as A1's are.
 
+## A second read
+
+A reviewer agent (read only, the files and COURSE.md, not this branch's reasoning) read every item fresh. Fixed from its
+report before the merge: right answers that were marked wrong (the gerund lists' cue "adesso", which a child puts at the
+end too; the partitivo and superlativi tests' gap texts saying only "Completa", so lo zucchero or molto caldo were right;
+"Lorenzo è ___ piccolo di tutti", where più fits too); choices where another option was Italian too (Lorenzo mi veste,
+Maestra, può …?, il miglior giocatore; the partitivo cloze that took lo); the cast (Moro is Nonno Bepi's old dog, not the
+fastest; Lorenzo goes to the field with Franco; a miller without flour was a riddle); hints that gave the form away;
+one gap a sentence; la domenica for every Sunday; Slovene enako visoka, najboljša v razredu; meanings for bold forms; the
+worksheets at 30 items. Its notes on the cast held: ages, Rosa older than Nives, Bepi the oldest, Giulia reading better
+than Tommaso.
+
 ## Checks
 
-(filled in below)
+- **The bridge**: `bunx tsc --noEmit -p .` clean; the smoke (`LANI_SMOKE_PORT=9210 LANI_SMOKE_DRAMA3_PORT=9228`):
+  3154 checks, all passed. Its course section validates the outline and every unit of `course/it` (the six in their
+  bases), its grammar section every Italian page in sl, en and de, its course-speech section Elena's lines (none German).
+  Its Friuli check of `GET /course` asked for A1's written units only and for the planned ones after them: now every
+  level's written units in the outline's order, each served (A2 is written in parts side by side, so its written units
+  needn't be its first).
+- `tutor-export --check`: 88 files match.
+- **The app**: `ItalianCourseContentTest` 5/5 (every unit parsed and played at A2, every right answer graded right by the
+  Italian grading, no distractor right, every text per base in de, sl, en), `SchoolBoardTest` 5/5 (the board writes
+  every letter of the six titles and forms), `GrammarTest` 16, `CourseTest` 8, `CourseContentTest` 4,
+  `SchoolRevealTest` 10. The full suite (`testDebugUnitTest` through lani-slot.sh): 3519 tests in 445 classes, none failed
+  (2 skipped).
+- **Python**: `tests` 251 OK, `companion/tests` 135 OK (11 skipped).
+- **The prints**: in de, sl and en, every sheet fits (above); the app's print of riflessivi in QA fitted as Chromium
+  does.
+
+## QA (emulator, `companion/bin/qa-slot`)
+
+A synthetic Teo (`make-learner.ts --name Teo --target it --base de`, `LANI_CULTURE=friuli`, `LANI_CHILD=1`,
+`LANI_QA_SETUP_PAIR=it-de`), `LANI_QA_IT_UNIT=riflessivi companion/bin/qa-slot --no-town --steps friuli-school-unit`:
+the step played only ciao before and knew no table and no print; now it plays any Italian unit (`$LANI_QA_IT_UNIT`), an
+A2 one after the school with A1 done, fills a table's cells, picks a choice the app asks typed (once a rule is secure,
+`game/Adaptive`: "✋ Fammi scegliere"), and prints the unit's sheet from the unit.
+
+- Run 1 stopped at the test's fourth item, «non si alza», asked typed: the step fixed (above).
+- Run 2, green: the school with A1 done (18/18, one line) and A2 shown (riflessivi done, modali begun, 15 more folded);
+  riflessivi from A2 as never begun; its intro's five steps (three choices, a gap typed), on the tablet both ways; its
+  own summary card; worksheet 1 (the table of alzarsi and svegliarsi, the sort) 15/15; the test straight away, 12/12,
+  "Unità completata!"; the dev bridge keeping it/riflessivi done; "🖨️ Stampa la scheda": fit.js in the WebView as in
+  Chromium (one page, the table beside the rule), the dialog, the PDF "Lani – A2 – 01 riflessivi" saved, A4, one page.
+- Shots: scratchpad `ux-course-it-a2a/fs/` (fs-*.png), `qa-run2/` (the run and its PDF), `prints/` (the sheets and
+  booklets in de, sl, en with previews).
+
+Tap counts: no screen changed; a unit is reached as any (Home's school tile, the unit's row: two taps), and a sheet
+prints with one tap on the unit as before.
 
 ## For the native check
 
@@ -98,5 +144,9 @@ for the child's German):
 - A2's units 7–18 are course-it-a2b's and course-it-a2c's; the outline's entries of each part flip on their own branch.
 - The print's rule line takes a step's first sentence; a unit writer who puts the point later loses it on the sheet. A
   check in the smoke (the point's forms present in the printed line) would catch it; not added.
+- superlativi prints on two pages (its table of 13 rows); the others on one.
+- The read-aloud's fallback (when the explanation's one clip can't be had) reads the endings -ando, -endo, -issimo and
+  the letter h with the phone's German voice; every bold Italian form is Elena's.
+- In the explanation bubble, a bold form the intro's words make Italian (si lava) isn't underlined for a tap as the
+  forms the app's own check knows are (mi lavo): seen in QA, the app's, not this content's.
 
-No screen changed: tap counts are as before. QA (below) plays riflessivi end to end on the emulator and prints its sheet.
