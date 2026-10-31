@@ -132,7 +132,8 @@ village (FireStyle) that the map's houses are.
   through lani-slot.sh, 3,532 tests in 448 classes, 0 failures (2 skipped); the bridge `tsc` clean; the smoke on ports
   9330–9348 (its Drama 3 worker on 9348), 3,169 checks, all passed (before the rebase one timing check, the words' note
   within 1.3 s, missed once under a load near 40, and passed in this run); `tutor-export --check` 88 files match; the Python
-  tests (`bin/qa` changed) 251, and 135 (11 skipped).
+  tests (`bin/qa` changed) 251, and 135 (11 skipped). Then rebased once more onto f23976ba (course-it's grading and docs;
+  `bin/qa` merged without a conflict): the Carinthian pack validates, `bin/qa` parses.
 
 ## On the emulator
 
