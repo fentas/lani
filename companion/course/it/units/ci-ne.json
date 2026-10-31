@@ -1,0 +1,301 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "ci-ne",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🧺",
+  "title": { "it": "Ci vado, ne ho tre", "de": "Dort und davon: ci vado, ne ho tre", "sl": "Tja in od tega: ci vado, ne ho tre", "en": "There and of it: ci vado, ne ho tre" },
+  "goal": {
+    "de": "Du sagst dorthin mit ci (Sì, ci vado!) und davon mit ne (Ne ho tre. Non ne ho.), und was es noch gibt: ce n'è, ce ne sono.",
+    "sl": "Tja poveš s ci (Sì, ci vado!), od tega z ne (Ne ho tre. Non ne ho.) in koliko česa je: ce n'è, ce ne sono.",
+    "en": "You can say there with ci (Sì, ci vado!) and of it with ne (Ne ho tre. Non ne ho.), and how much there is: ce n'è, ce ne sono."
+  },
+  "grammar": ["ci-ne", "ce-ci-sono", "partitivo"],
+  "words": ["il mare", "la festa", "lo stagno", "la piazza", "il mercato", "la mela", "le ciliegie", "il pane", "il miele", "il latte", "le uova", "la pecora", "la conchiglia", "il gatto", "le caramelle", "il biscotto", "la gubana", "la barca", "il porto", "il pesce", "la rana", "il formaggio", "il chilo", "il cesto", "il tiglio", "abitare", "restare", "tornare", "comprare", "prendere", "contare", "un po'", "tanto"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "parola", "de": "Wort", "sl": "beseda", "en": "word" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Wohin gehst du? Statt den Ort noch einmal zu sagen, sagst du **ci** (dorthin) vor dem Verb: **Vai al mare? Sì, ci vado.** (Ja, ich gehe hin.) **Vieni alla festa? Sì, ci vengo!** (Ja, ich komme!) Es ist dasselbe **ci** wie in **c'è** (da ist).",
+          "sl": "Kam greš? Namesto da kraj ponoviš, rečeš **ci** (tja) pred glagolom: **Vai al mare? Sì, ci vado.** (Ja, grem tja.) **Vieni alla festa? Sì, ci vengo!** (Ja, pridem!) To je isti **ci** kot v **c'è** (tam je).",
+          "en": "Where are you going? Instead of naming the place again, say **ci** (there) before the verb: **Vai al mare? Sì, ci vado.** (Yes, I'm going there.) **Vieni alla festa? Sì, ci vengo!** (Yes, I'm coming!) It's the same **ci** as in **c'è** (there is)."
+        },
+        "examples": [
+          { "it": "Vai a scuola a piedi? Sì, ci vado a piedi.", "de": "Gehst du zu Fuß zur Schule? Ja, ich gehe zu Fuß hin.", "sl": "Greš peš v šolo? Ja, peš grem tja.", "en": "Do you walk to school? Yes, I walk there." },
+          { "it": "Giulia va al mare e ci va con la nonna.", "de": "Giulia fährt ans Meer, und sie fährt mit Oma hin.", "sl": "Giulia gre na morje, in tja gre z babico.", "en": "Giulia goes to the sea, and she goes there with her grandma." }
+        ],
+        "rows": [
+          ["ci", { "de": "dorthin, dort", "sl": "tja, tam", "en": "there" }, "Sì, ci vado."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "ci-ne", "prompt": "«Vieni allo stagno?» «Sì, ___ vengo!»", "options": ["ci", "ne", "lo"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**allo stagno** → dorthin → **ci**\n- ne · davon\n- lo · ihn, es",
+            "sl": "**allo stagno** → tja → **ci**\n- ne · od tega\n- lo · ga",
+            "en": "**allo stagno** → there → **ci**\n- ne · of it\n- lo · him, it"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Ci** heißt auch *dort*, wo jemand wohnt oder bleibt: **Lorenzo abita a Grado? No, non ci abita.** (Nein, er wohnt nicht dort.) **Nonno Bepi va sotto il tiglio e ci sta tutto il pomeriggio.** (Er bleibt den ganzen Nachmittag dort.) **Non** steht vor **ci**: **non ci vado** (ich gehe nicht hin).",
+          "sl": "**Ci** pomeni tudi *tam*, kjer kdo živi ali ostane: **Lorenzo abita a Grado? No, non ci abita.** (Ne, ne živi tam.) **Nonno Bepi va sotto il tiglio e ci sta tutto il pomeriggio.** (Tam ostane vse popoldne.) **Non** stoji pred **ci**: **non ci vado** (ne grem tja).",
+          "en": "**Ci** is also *there* where someone lives or stays: **Lorenzo abita a Grado? No, non ci abita.** (No, he doesn't live there.) **Nonno Bepi va sotto il tiglio e ci sta tutto il pomeriggio.** (He stays there all afternoon.) **Non** goes before **ci**: **non ci vado** (I'm not going there)."
+        },
+        "examples": [
+          { "it": "Lorenzo abita a Grado? No, non ci abita.", "de": "Wohnt Lorenzo in Grado? Nein, er wohnt nicht dort.", "sl": "Ali Lorenzo živi v Gradežu? Ne, ne živi tam.", "en": "Does Lorenzo live in Grado? No, he doesn't live there." },
+          { "it": "Andate in piazza? No, oggi non ci andiamo.", "de": "Geht ihr auf den Platz? Nein, heute gehen wir nicht hin.", "sl": "Greste na trg? Ne, danes ne gremo tja.", "en": "Are you going to the square? No, we're not going there today." }
+        ],
+        "rows": [
+          ["non ci", { "de": "nicht dorthin, nicht dort", "sl": "ne tja, ne tam", "en": "not there" }, "No, non ci vado."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "ci-ne", "text": "«Andate allo stagno?» «No, oggi non ___ andiamo.»", "accept": ["ci"], "hint": { "de": "dorthin", "sl": "tja", "en": "there" },
+          "explain": {
+            "de": "**allo stagno** → dorthin → **ci**, und **non** davor: non ci andiamo.",
+            "sl": "**allo stagno** → tja → **ci**, **non** pa pred njim: non ci andiamo.",
+            "en": "**allo stagno** → there → **ci**, with **non** before it: non ci andiamo."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wie viele? Dann sagst du **ne** (davon) vor dem Verb: **Quante pecore ha Davide? Ne ha venti.** (Er hat zwanzig.) Lorenzo zählt alles: **Quante conchiglie hai? Ne ho sette!** Im Deutschen kannst du *davon* weglassen, im Italienischen nie: nicht *ho sette*, sondern **ne ho sette**.",
+          "sl": "Koliko? Takrat rečeš **ne** pred glagolom: **Quante pecore ha Davide? Ne ha venti.** (Ima jih dvajset.) Lorenzo šteje vse: **Quante conchiglie hai? Ne ho sette!** (Imam jih sedem!) Slovensko rečeš *jih*, italijansko vedno **ne**: ne *ho sette*, temveč **ne ho sette**.",
+          "en": "How many? Then you say **ne** (of them) before the verb: **Quante pecore ha Davide? Ne ha venti.** (He's got twenty.) Lorenzo counts everything: **Quante conchiglie hai? Ne ho sette!** (I've got seven!) English needs nothing there, Italian always says **ne**: not *ho sette*, but **ne ho sette**."
+        },
+        "examples": [
+          { "it": "Quante pecore ha Davide? Ne ha venti.", "de": "Wie viele Schafe hat Davide? Er hat zwanzig.", "sl": "Koliko ovc ima Davide? Ima jih dvajset.", "en": "How many sheep has Davide got? He's got twenty." },
+          { "it": "Quanti gatti vedi? Ne vedo tre.", "de": "Wie viele Katzen siehst du? Ich sehe drei.", "sl": "Koliko mačk vidiš? Vidim tri.", "en": "How many cats can you see? I can see three." }
+        ],
+        "rows": [
+          ["ne", { "de": "davon", "sl": "od tega, jih", "en": "of it, of them" }, "Ne ho tre."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "ci-ne", "text": "«Quante conchiglie hai?» «___ ho sette!»", "accept": ["Ne"], "hint": { "de": "davon", "sl": "jih", "en": "of them" },
+          "explain": {
+            "de": "**eine Zahl** → **ne** davor: Ne ho sette.\n- nie nur ho sette",
+            "sl": "**število** → **ne** pred glagolom: Ne ho sette.\n- nikoli samo ho sette",
+            "en": "**a number** → **ne** before the verb: Ne ho sette.\n- never just ho sette"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Ne** geht auch mit einer Menge: **Vuoi del pane? Sì, ne voglio un po'.** (Ja, ich möchte ein bisschen.) **Ne prendo due.** (Ich nehme zwei davon.) Und für *keins, keine*: **Hai delle caramelle? No, non ne ho.** (Nein, ich habe keine.)",
+          "sl": "**Ne** gre tudi s količino: **Vuoi del pane? Sì, ne voglio un po'.** (Ja, malo ga bom.) **Ne prendo due.** (Vzamem dva.) In za *nič*: **Hai delle caramelle? No, non ne ho.** (Ne, nimam jih.)",
+          "en": "**Ne** goes with an amount too: **Vuoi del pane? Sì, ne voglio un po'.** (Yes, I'd like a bit.) **Ne prendo due.** (I'll take two.) And for *none*: **Hai delle caramelle? No, non ne ho.** (No, I haven't got any.)"
+        },
+        "examples": [
+          { "it": "Vuoi delle ciliegie? Sì, ne voglio tante!", "de": "Möchtest du Kirschen? Ja, ganz viele!", "sl": "Bi češnje? Ja, veliko jih hočem!", "en": "Would you like some cherries? Yes, lots!" },
+          { "it": "Hai delle caramelle? No, non ne ho.", "de": "Hast du Bonbons? Nein, ich habe keine.", "sl": "Imaš kaj bonbonov? Ne, nimam jih.", "en": "Have you got any sweets? No, I haven't got any." }
+        ],
+        "rows": [
+          ["ne … un po'", { "de": "ein bisschen davon", "sl": "malo tega", "en": "a bit of it" }, "Ne voglio un po'."],
+          ["non ne", { "de": "keins, keine", "sl": "nič tega", "en": "none of it" }, "Non ne ho."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "ci-ne", "prompt": "«Vuoi del miele?» «Sì, ___ un po', grazie.»", "options": ["ne voglio", "lo voglio", "ci voglio"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**ein bisschen davon** → **ne**: ne voglio un po'\n- lo voglio · ich will ihn (den ganzen)\n- ci · dorthin",
+            "sl": "**malo tega** → **ne**: ne voglio un po'\n- lo voglio · hočem ga (celega)\n- ci · tja",
+            "en": "**a bit of it** → **ne**: ne voglio un po'\n- lo voglio · I want it (all of it)\n- ci · there"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit **ne** wird **ci** zu **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Ja, es gibt noch welche.) **Quante uova ci sono? Ce ne sono sei.** (Es sind sechs.) Vor **è** schreibst du **n'** mit Apostroph: **ce n'è**.",
+          "sl": "Z **ne** postane **ci** → **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Ja, še je.) **Quante uova ci sono? Ce ne sono sei.** (Šest jih je.) Pred **è** pišeš **n'** z opuščajem: **ce n'è**.",
+          "en": "With **ne**, **ci** becomes **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Yes, there's some.) **Quante uova ci sono? Ce ne sono sei.** (There are six.) Before **è** you write **n'** with an apostrophe: **ce n'è**."
+        },
+        "examples": [
+          { "it": "Quante barche ci sono al porto? Ce ne sono quattro.", "de": "Wie viele Boote sind im Hafen? Es sind vier.", "sl": "Koliko čolnov je v pristanišču? Štirje so.", "en": "How many boats are there in the harbour? There are four." },
+          { "it": "C'è del latte? Sì, ce n'è.", "de": "Gibt es Milch? Ja, es gibt welche.", "sl": "Je kaj mleka? Ja, je ga.", "en": "Is there any milk? Yes, there is." }
+        ],
+        "rows": [
+          ["ce n'è", { "de": "es gibt welche", "sl": "je ga, je je", "en": "there is some" }, "Sì, ce n'è."],
+          ["ce ne sono", { "de": "es sind … davon", "sl": "jih je …", "en": "there are … of them" }, "Ce ne sono sei."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "ci-ne", "prompt": "«Quante pecore ci sono sul prato?» «___ venti.»", "options": ["Ci ne sono", "Ce ne sono", "Ce n'è"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**mehrere** (sono) → **Ce ne sono** venti\n- ce n'è · für eine, für etwas\n- nie ci ne: vor ne heißt es ce",
+            "sl": "**več** (sono) → **Ce ne sono** venti\n- ce n'è · za eno, za nekaj\n- nikoli ci ne: pred ne je ce",
+            "en": "**more than one** (sono) → **Ce ne sono** venti\n- ce n'è · for one, for some\n- never ci ne: before ne it's ce"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "ci-ne-1",
+      "title": { "it": "Ci o ne?", "de": "Ci oder ne?", "sl": "Ci ali ne?", "en": "Ci or ne?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "ci-ne", "instruction": { "de": "Ci o ne? · Was passt zur Antwort?", "sl": "Ci o ne? · Kaj gre v odgovor?", "en": "Ci o ne? · Which goes in the answer?" },
+          "columns": [
+            { "label": { "de": "Sì, ci … · dorthin", "sl": "Sì, ci … · tja", "en": "Sì, ci … · there" }, "words": ["Vai al mare?", "Vieni alla festa?", "Torni a casa?", "Andate in piazza?", "Lorenzo va a scuola?"] },
+            { "label": { "de": "… ne … · davon", "sl": "… ne … · od tega", "en": "… ne … · of it" }, "words": ["Quante mele hai?", "Vuoi del pane?", "Quanti anni ha Lorenzo?", "Quante pecore vedi?", "Hai delle caramelle?"] }
+          ],
+          "explain": {
+            "de": "**ein Ort** (al mare, a casa) → ci · **eine Zahl, eine Menge** (quante, del pane) → ne\n- Vai al mare? Sì, ci vado.\n- Quante mele hai? Ne ho tre.",
+            "sl": "**kraj** (al mare, a casa) → ci · **število, količina** (quante, del pane) → ne\n- Vai al mare? Sì, ci vado.\n- Quante mele hai? Ne ho tre.",
+            "en": "**a place** (al mare, a casa) → ci · **a number, an amount** (quante, del pane) → ne\n- Vai al mare? Sì, ci vado.\n- Quante mele hai? Ne ho tre."
+          }
+        },
+        {
+          "type": "choice", "grammar": "ci-ne", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Vai al mercato con la nonna?» «Sì, ___ vado sabato.»", "options": ["ci", "ne"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**al mercato** → dorthin → **ci**",
+            "sl": "**al mercato** → tja → **ci**",
+            "en": "**al mercato** → there → **ci**"
+          }
+        },
+        {
+          "type": "choice", "grammar": "ci-ne", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Quanti biscotti vuoi?» «___ voglio due.»", "options": ["Ci", "Ne", "Li"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**zwei davon** → **ne**: Ne voglio due.\n- li · sie (alle)",
+            "sl": "**dva od tega** → **ne**: Ne voglio due.\n- li · jih (vse)",
+            "en": "**two of them** → **ne**: Ne voglio due.\n- li · them (all of them)"
+          }
+        },
+        {
+          "type": "choice", "grammar": "ci-ne", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«C'è ancora del frico?» «Sì, ___.»", "options": ["ce n'è", "ci ne è", "ce ne sono"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**etwas davon** (è) → **ce n'è**\n- ce ne sono · für mehrere\n- nie ci ne",
+            "sl": "**nekaj tega** (è) → **ce n'è**\n- ce ne sono · za več\n- nikoli ci ne",
+            "en": "**some of it** (è) → **ce n'è**\n- ce ne sono · for more than one\n- never ci ne"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ci-ne-2",
+      "title": { "it": "Al mercato", "de": "Auf dem Markt", "sl": "Na tržnici", "en": "At the market" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "ci-ne", "instruction": { "de": "Completa con ci o ne · Ergänze mit ci oder ne", "sl": "Completa con ci o ne · Dopolni s ci ali ne", "en": "Completa con ci o ne · Fill in ci or ne" }, "title": "Al mercato",
+          "text": "Sabato Nonna Rosa va al mercato, e {learner} ___ va con lei. «Nonna, quante mele compriamo?» «___ compriamo sei.» «Avete del montasio?» «Mi dispiace, oggi non ___ ho.» «C'è ancora del pane?» «Sì, ___!» Il pescatore ha tanti pesci: ___ ha cento! «Torniamo al mercato sabato prossimo?» «Sì, ___ torniamo!»",
+          "gaps": [
+            { "accept": ["ci"], "hint": { "de": "al mercato: dorthin", "sl": "al mercato: tja", "en": "al mercato: there" } },
+            { "accept": ["Ne"], "hint": { "de": "sechs davon", "sl": "šest jih", "en": "six of them" } },
+            { "accept": ["ne"], "hint": { "de": "keinen davon", "sl": "nič ga", "en": "none of it" } },
+            { "accept": ["ce n'è"], "hint": { "de": "ci + ne + è", "sl": "ci + ne + è", "en": "ci + ne + è" }, "explain": { "de": "**ci + ne** → ce ne, vor è: **ce n'è**.", "sl": "**ci + ne** → ce ne, pred è: **ce n'è**.", "en": "**ci + ne** → ce ne, before è: **ce n'è**." } },
+            { "accept": ["ne"], "hint": { "de": "hundert davon", "sl": "sto jih", "en": "a hundred of them" } },
+            { "accept": ["ci"], "hint": { "de": "al mercato: dorthin", "sl": "al mercato: tja", "en": "al mercato: there" } }
+          ],
+          "bank": true, "distractors": ["li", "ce"],
+          "translation": {
+            "de": "Am Samstag geht Nonna Rosa auf den Markt, und {learner} geht mit ihr hin. „Oma, wie viele Äpfel kaufen wir?“ „Wir kaufen sechs.“ „Haben Sie Montasio?“ „Tut mir leid, heute habe ich keinen.“ „Gibt es noch Brot?“ „Ja, es gibt welches!“ Der Fischer hat viele Fische: Er hat hundert! „Kommen wir nächsten Samstag wieder auf den Markt?“ „Ja, wir kommen wieder!“",
+            "sl": "V soboto gre babica Rosa na tržnico, in {learner} gre tja z njo. »Babica, koliko jabolk kupiva?« »Kupiva jih šest.« »Imate montasio?« »Žal ga danes nimam.« »Je še kaj kruha?« »Ja, je ga!« Ribič ima veliko rib: ima jih sto! »Prideva naslednjo soboto spet na tržnico?« »Ja, spet prideva!«",
+            "en": "On Saturday Nonna Rosa goes to the market, and {learner} goes there with her. \"Grandma, how many apples shall we buy?\" \"We'll buy six.\" \"Have you got any montasio?\" \"I'm sorry, I haven't got any today.\" \"Is there any bread left?\" \"Yes, there is!\" The fisherman has lots of fish: he's got a hundred! \"Shall we come back to the market next Saturday?\" \"Yes, we'll come back!\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "ci-ne", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Quante uova ci sono nel cesto?» «___ sei.»", "options": ["Ce ne sono", "Ce n'è", "Ci ne sono"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**sechs** (mehrere) → **Ce ne sono** sei.",
+            "sl": "**šest** (več) → **Ce ne sono** sei.",
+            "en": "**six** (more than one) → **Ce ne sono** sei."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ci-ne-3",
+      "title": { "it": "Rispondi!", "de": "Antworte!", "sl": "Odgovori!", "en": "Answer!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "ci-ne", "instruction": { "de": "Rispondi di sì con ci · Antworte mit ja und ci", "sl": "Rispondi di sì con ci · Odgovori z ja in ci", "en": "Rispondi di sì con ci · Say yes with ci" }, "cue": "ci",
+          "items": [
+            { "from": "Vai al mare?", "accept": ["Sì, ci vado.", "Ci vado."] },
+            { "from": "Venite alla festa?", "accept": ["Sì, ci veniamo.", "Ci veniamo."], "hint": { "de": "voi → noi", "sl": "voi → noi", "en": "voi → noi" } },
+            { "from": "Giulia va a scuola?", "accept": ["Sì, ci va.", "Ci va.", "Sì, Giulia ci va.", "Giulia ci va."] },
+            { "from": "Andate in piazza?", "accept": ["Sì, ci andiamo.", "Ci andiamo."] }
+          ],
+          "explain": {
+            "de": "**der Ort** fällt weg, **ci** kommt vor das Verb\n- Vai al mare? → Sì, ci vado.",
+            "sl": "**kraj** odpade, **ci** pride pred glagol\n- Vai al mare? → Sì, ci vado.",
+            "en": "**the place** goes, **ci** goes before the verb\n- Vai al mare? → Sì, ci vado."
+          }
+        },
+        {
+          "type": "transform", "grammar": "ci-ne", "instruction": { "de": "Rispondi con ne · Antworte mit ne", "sl": "Rispondi con ne · Odgovori z ne", "en": "Rispondi con ne · Answer with ne" }, "cue": "ne",
+          "items": [
+            { "from": "Quante pecore ha Davide? (venti)", "accept": ["Ne ha venti.", "Davide ne ha venti."] },
+            { "from": "Quanti gelati vuoi? (due)", "accept": ["Ne voglio due."] },
+            { "from": "Quante uova ci sono? (sei)", "accept": ["Ce ne sono sei."], "hint": "ci + ne → ?" },
+            { "from": "Hai delle caramelle? (no)", "accept": ["No, non ne ho.", "Non ne ho."] }
+          ],
+          "explain": {
+            "de": "**ne** vor das Verb, die Zahl danach\n- Ne ha venti. · Ce ne sono sei. · Non ne ho.",
+            "sl": "**ne** pred glagol, število za njim\n- Ne ha venti. · Ce ne sono sei. · Non ne ho.",
+            "en": "**ne** before the verb, the number after it\n- Ne ha venti. · Ce ne sono sei. · Non ne ho."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "ci-ne", "instruction": { "de": "Completa con ci o ne · Ergänze mit ci oder ne", "sl": "Completa con ci o ne · Dopolni s ci ali ne", "en": "Completa con ci o ne · Fill in ci or ne" },
+        "text": "Oggi i bambini vanno allo stagno. Tommaso ___ va in bicicletta. «Quante rane vedi?» chiede Giulia. «___ vedo cinque!» dice Lorenzo. «Ci sono anche dei pesci?» «Sì, ___ sono tanti!» «Hai dei biscotti?» «No, non ___ ho.»",
+        "gaps": [
+          { "accept": ["ci"] },
+          { "accept": ["Ne"] },
+          { "accept": ["ce ne"] },
+          { "accept": ["ne"] }
+        ],
+        "translation": {
+          "de": "Heute gehen die Kinder zum Teich. Tommaso fährt mit dem Fahrrad hin. „Wie viele Frösche siehst du?“, fragt Giulia. „Ich sehe fünf!“, sagt Lorenzo. „Gibt es auch Fische?“ „Ja, es gibt ganz viele!“ „Hast du Kekse?“ „Nein, ich habe keine.“",
+          "sl": "Danes gredo otroci do ribnika. Tommaso gre tja s kolesom. »Koliko žab vidiš?« vpraša Giulia. »Vidim jih pet!« reče Lorenzo. »So tudi ribe?« »Ja, veliko jih je!« »Imaš kaj piškotov?« »Ne, nimam jih.«",
+          "en": "Today the children go to the pond. Tommaso goes there by bike. \"How many frogs can you see?\" asks Giulia. \"I can see five!\" says Lorenzo. \"Are there fish too?\" \"Yes, there are lots!\" \"Have you got any biscuits?\" \"No, I haven't got any.\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "ci-ne", "instruction": { "de": "Rispondi con ci o ne · Antworte mit ci oder ne", "sl": "Rispondi con ci o ne · Odgovori s ci ali ne", "en": "Rispondi con ci o ne · Answer with ci or ne" },
+        "items": [
+          { "from": "Vai al mercato?", "accept": ["Sì, ci vado.", "Ci vado."] },
+          { "from": "Quante mele hai? (tre)", "accept": ["Ne ho tre."] },
+          { "from": "C'è del latte?", "accept": ["Sì, ce n'è.", "Ce n'è."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "ci-ne", "prompt": "«Vieni al mare con noi?» «No, oggi non ___ vengo.»", "options": ["ci", "ne", "lo"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**al mare** → dorthin → **non ci vengo**",
+          "sl": "**al mare** → tja → **non ci vengo**",
+          "en": "**al mare** → there → **non ci vengo**"
+        }
+      },
+      {
+        "type": "choice", "grammar": "ci-ne", "prompt": "«Quanti anni ha Lorenzo?» «___ sei.»", "options": ["Ne ha", "Ci ha", "Ce n'è"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**sechs davon** (Jahre) → **Ne ha sei.**",
+          "sl": "**šest od tega** (let) → **Ne ha sei.**",
+          "en": "**six of them** (years) → **Ne ha sei.**"
+        }
+      },
+      {
+        "type": "sort", "grammar": "ci-ne", "instruction": { "de": "Ci o ne? · Was passt zur Antwort?", "sl": "Ci o ne? · Kaj gre v odgovor?", "en": "Ci o ne? · Which goes in the answer?" },
+        "columns": [
+          { "label": { "de": "Sì, ci … · dorthin", "sl": "Sì, ci … · tja", "en": "Sì, ci … · there" }, "words": ["Vai a Grado?", "Resti a casa?"] },
+          { "label": { "de": "… ne … · davon", "sl": "… ne … · od tega", "en": "… ne … · of it" }, "words": ["Quanti libri hai?", "Vuoi dell'acqua?"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: ce n'è, Ne ha sei for an age, Avete del montasio?, ci va con la nonna, ci vado a piedi, the German for a child"
+}

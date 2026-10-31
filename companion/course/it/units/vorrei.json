@@ -1,0 +1,327 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "vorrei",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🍦",
+  "title": { "it": "Vorrei un gelato, per favore", "de": "Höflich bitten: vorrei, potrei", "sl": "Vljudna prošnja: vorrei, potrei", "en": "Asking politely: vorrei, potrei" },
+  "goal": {
+    "de": "Du bittest höflich (Vorrei un gelato, per favore. Potrei avere …?), bietest etwas an (Vorresti …?) und sagst, was du gern tun würdest: Mi piacerebbe …",
+    "sl": "Vljudno prosiš (Vorrei un gelato, per favore. Potrei avere …?), kaj ponudiš (Vorresti …?) in poveš, kaj bi rad počel: Mi piacerebbe …",
+    "en": "You can ask politely (Vorrei un gelato, per favore. Potrei avere …?), offer something (Vorresti …?) and say what you'd love to do: Mi piacerebbe …"
+  },
+  "grammar": ["vorrei", "verbi-irregolari", "tu-lei"],
+  "words": ["per favore", "grazie", "prego", "il gelato", "il bicchiere", "l'acqua", "l'aranciata", "il frico", "la gubana", "la fetta", "il biscotto", "la ciliegia", "il cavallo", "la spiaggia", "lo stagno", "la festa", "l'osteria", "la finestra", "la porta", "il cono", "il limone", "la fragola", "il cioccolato", "la mela", "il pane", "ripetere", "aiutare", "chiudere", "aprire", "giocare", "subito", "certo", "anche"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "chi", "de": "wer", "sl": "kdo", "en": "who" },
+        { "it": "forma", "de": "Form", "sl": "oblika", "en": "form" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Voglio** (ich will) kennst du schon. Zum Bitten klingt es ein bisschen hart. Höflich sagst du **vorrei** (ich möchte), mit **per favore** (bitte): **Vorrei un gelato, per favore.** (Ich möchte ein Eis, bitte.) **Vorrei un bicchiere d'acqua.** (Ich möchte ein Glas Wasser.)",
+          "sl": "**Voglio** (hočem) že poznaš. Za prošnjo zveni malo ostro. Vljudno rečeš **vorrei** (rad bi, želim), s **per favore** (prosim): **Vorrei un gelato, per favore.** (Želim sladoled, prosim.) **Vorrei un bicchiere d'acqua.** (Želim kozarec vode.)",
+          "en": "You know **voglio** (I want). For asking, it sounds a bit sharp. The polite way is **vorrei** (I'd like), with **per favore** (please): **Vorrei un gelato, per favore.** (I'd like an ice cream, please.) **Vorrei un bicchiere d'acqua.** (I'd like a glass of water.)"
+        },
+        "examples": [
+          { "it": "Vorrei un gelato al cioccolato, per favore.", "de": "Ich möchte ein Schokoladeneis, bitte.", "sl": "Želim čokoladni sladoled, prosim.", "en": "I'd like a chocolate ice cream, please." },
+          { "it": "Vorrei un bicchiere d'acqua.", "de": "Ich möchte ein Glas Wasser.", "sl": "Želim kozarec vode.", "en": "I'd like a glass of water." }
+        ],
+        "rows": [
+          ["io", "vorrei", "Vorrei un gelato."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vorrei", "prompt": "Alla festa, al signore dei gelati: «___ un gelato, per favore.»", "options": ["Vorrei", "Voglio", "Vuoi"], "answer": 0, "almost": [1], "say_options": true,
+          "explain": {
+            "de": "**höflich** → **Vorrei** … per favore\n- voglio · ich will: nicht falsch, aber hart\n- vuoi · du willst",
+            "sl": "**vljudno** → **Vorrei** … per favore\n- voglio · hočem: ni narobe, a je ostro\n- vuoi · hočeš",
+            "en": "**polite** → **Vorrei** … per favore\n- voglio · I want: not wrong, but sharp\n- vuoi · you want"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach **vorrei** kann auch ein Verb in der Grundform kommen, wie nach *ich möchte*: **Vorrei giocare con Moro.** (Ich möchte mit Moro spielen.) **Vorrei andare in spiaggia.** (Ich möchte an den Strand gehen.)",
+          "sl": "Za **vorrei** lahko pride tudi glagol v nedoločniku, kot za *rad bi*: **Vorrei giocare con Moro.** (Rad bi se igral z Morom.) **Vorrei andare in spiaggia.** (Rad bi šel na plažo.)",
+          "en": "**Vorrei** can be followed by a verb as the dictionary has it, as *I'd like to* is: **Vorrei giocare con Moro.** (I'd like to play with Moro.) **Vorrei andare in spiaggia.** (I'd like to go to the beach.)"
+        },
+        "examples": [
+          { "it": "Vorrei giocare con Moro.", "de": "Ich möchte mit Moro spielen.", "sl": "Rad bi se igral z Morom.", "en": "I'd like to play with Moro." },
+          { "it": "Nonna, vorrei aiutare in cucina!", "de": "Oma, ich möchte in der Küche helfen!", "sl": "Babica, rad bi pomagal v kuhinji!", "en": "Grandma, I'd like to help in the kitchen!" }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "vorrei", "text": "«Nonna, ___ andare in spiaggia!» «Va bene, andiamo.»", "accept": ["vorrei"], "hint": { "de": "ich möchte", "sl": "rad bi", "en": "I'd like" },
+          "explain": {
+            "de": "**ich möchte** + Verb → **vorrei andare**",
+            "sl": "**rad bi** + glagol → **vorrei andare**",
+            "en": "**I'd like to** + a verb → **vorrei andare**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Fragst du jemanden, sagst du **vorresti?** (möchtest du?): **Vorresti un po' di frico?** Für er, sie und für **Lei** (Sie) heißt es **vorrebbe**: **Lorenzo vorrebbe un cavallo.** (Lorenzo hätte gern ein Pferd.) **Maestra, vorrebbe un biscotto?** (Möchten Sie einen Keks?)",
+          "sl": "Ko koga vprašaš, rečeš **vorresti?** (bi rad?): **Vorresti un po' di frico?** (Bi malo frike?) Za on, ona in za **Lei** (vi) je **vorrebbe**: **Lorenzo vorrebbe un cavallo.** (Lorenzo bi rad imel konja.) **Maestra, vorrebbe un biscotto?** (Bi piškot?)",
+          "en": "To ask someone, say **vorresti?** (would you like?): **Vorresti un po' di frico?** For he, she, and for **Lei** (the polite you) it's **vorrebbe**: **Lorenzo vorrebbe un cavallo.** (Lorenzo would like a horse.) **Maestra, vorrebbe un biscotto?** (Would you like a biscuit?)"
+        },
+        "examples": [
+          { "it": "Vorresti un po' di frico?", "de": "Möchtest du ein bisschen Frico?", "sl": "Bi malo frike?", "en": "Would you like some frico?" },
+          { "it": "Lorenzo vorrebbe un cavallo tutto suo.", "de": "Lorenzo hätte gern ein eigenes Pferd.", "sl": "Lorenzo bi rad imel svojega konja.", "en": "Lorenzo would like a horse of his own." }
+        ],
+        "rows": [
+          ["tu", "vorresti", "Vorresti del frico?"],
+          [{ "it": "lui, lei, Lei", "de": "lui, lei, Lei (er, sie, Sie)", "sl": "lui, lei, Lei (on, ona, vi)", "en": "lui, lei, Lei (he, she, you)" }, "vorrebbe", "Lorenzo vorrebbe un cavallo."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vorrei", "prompt": "«Giulia, ___ una ciliegia?»", "options": ["vorrei", "vorresti", "vorrebbe"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**zu Giulia** (tu) → **vorresti?**\n- vorrei · ich\n- vorrebbe · er, sie, Lei",
+            "sl": "**Giuliji** (tu) → **vorresti?**\n- vorrei · jaz\n- vorrebbe · on, ona, Lei",
+            "en": "**to Giulia** (tu) → **vorresti?**\n- vorrei · I\n- vorrebbe · he, she, Lei"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **vorremmo** (wir möchten), **vorreste** (ihr möchtet), **vorrebbero** (sie möchten). **Vorremmo andare allo stagno.** (Wir möchten zum Teich gehen.) Pass auf: **vorremmo** hat zwei m, und alle Formen haben zwei r.",
+          "sl": "Za več oseb: **vorremmo** (radi bi), **vorreste** (radi bi, vi), **vorrebbero** (radi bi, oni). **Vorremmo andare allo stagno.** (Radi bi šli do ribnika.) Pazi: **vorremmo** ima dva m, vse oblike pa dva r.",
+          "en": "For more people: **vorremmo** (we'd like), **vorreste** (you'd like, to several), **vorrebbero** (they'd like). **Vorremmo andare allo stagno.** (We'd like to go to the pond.) Watch out: **vorremmo** has two m, and every form has two r."
+        },
+        "examples": [
+          { "it": "Vorremmo andare allo stagno.", "de": "Wir möchten zum Teich gehen.", "sl": "Radi bi šli do ribnika.", "en": "We'd like to go to the pond." },
+          { "it": "Bambini, vorreste un gelato?", "de": "Kinder, möchtet ihr ein Eis?", "sl": "Otroci, bi sladoled?", "en": "Children, would you like an ice cream?" }
+        ],
+        "rows": [
+          ["noi", "vorremmo", "Vorremmo andare allo stagno."],
+          ["voi", "vorreste", "Vorreste un gelato?"],
+          ["loro", "vorrebbero", "Vorrebbero giocare."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "vorrei", "text": "Io e Giulia ___ giocare a palla.", "accept": ["vorremmo"], "hint": "io e Giulia = noi",
+          "explain": {
+            "de": "**io e Giulia** = noi → **vorremmo**, mit zwei m",
+            "sl": "**io e Giulia** = noi → **vorremmo**, z dvema m",
+            "en": "**io e Giulia** = noi → **vorremmo**, with two m"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Genauso fragst du, ob du etwas darfst oder ob dir jemand hilft: **potrei?** (könnte ich?), **potresti?** (könntest du?), **potrebbe?** (könnten Sie?). **Potrei avere un bicchiere d'acqua?** **Mi potresti aiutare?** (Könntest du mir helfen?) **Maestra, potrebbe ripetere, per favore?**",
+          "sl": "Enako vprašaš, ali smeš ali ti kdo lahko pomaga: **potrei?** (bi lahko?), **potresti?** (bi lahko ti?), **potrebbe?** (bi lahko vi?). **Potrei avere un bicchiere d'acqua?** (Bi lahko dobil kozarec vode?) **Mi potresti aiutare?** (Bi mi lahko pomagal?) **Maestra, potrebbe ripetere, per favore?**",
+          "en": "The same way you ask whether you may, or whether someone could help: **potrei?** (could I?), **potresti?** (could you?), **potrebbe?** (could you? with Lei). **Potrei avere un bicchiere d'acqua?** **Mi potresti aiutare?** (Could you help me?) **Maestra, potrebbe ripetere, per favore?**"
+        },
+        "examples": [
+          { "it": "Signora Marisa, potrei avere un bicchiere d'acqua?", "de": "Frau Marisa, könnte ich ein Glas Wasser haben?", "sl": "Gospa Marisa, bi lahko dobil kozarec vode?", "en": "Signora Marisa, could I have a glass of water?" },
+          { "it": "Maestra, potrebbe ripetere, per favore?", "de": "Frau Lehrerin, könnten Sie das bitte wiederholen?", "sl": "Učiteljica, bi lahko ponovili, prosim?", "en": "Miss, could you say it again, please?" }
+        ],
+        "rows": [
+          ["io", "potrei", "Potrei avere dell'acqua?"],
+          ["tu", "potresti", "Mi potresti aiutare?"],
+          [{ "it": "Lei", "de": "Lei (Sie)", "sl": "Lei (vi)", "en": "Lei (polite you)" }, "potrebbe", "Potrebbe ripetere?"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vorrei", "prompt": "«Maestra, ___ ripetere, per favore?»", "options": ["potresti", "potrebbe", "puoi"], "answer": 1, "almost": [0], "say_options": true,
+          "explain": {
+            "de": "**zur Lehrerin** (Lei) → **potrebbe**\n- potresti · zu einem Kind (tu)\n- puoi · du kannst",
+            "sl": "**učiteljici** (Lei) → **potrebbe**\n- potresti · otroku (tu)\n- puoi · lahko (ti)",
+            "en": "**to the teacher** (Lei) → **potrebbe**\n- potresti · to a child (tu)\n- puoi · you can"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Und wenn du etwas sehr gern tun würdest: **mi piacerebbe** und ein Verb (ich würde gern). **Mi piacerebbe vedere i cavalli.** (Ich würde gern die Pferde sehen.) **Ti piacerebbe venire alla festa?** (Würdest du gern zum Fest kommen?) Es ist **piace**, nur weicher: darum **mi** und **ti** davor.",
+          "sl": "Ko bi nekaj zelo rad počel: **mi piacerebbe** in glagol. **Mi piacerebbe vedere i cavalli.** (Rad bi videl konje.) **Ti piacerebbe venire alla festa?** (Bi rad prišel na praznik?) To je **piace**, le mehkejši: zato **mi** in **ti** spredaj.",
+          "en": "And for something you'd love to do: **mi piacerebbe** and a verb (I'd love to). **Mi piacerebbe vedere i cavalli.** (I'd love to see the horses.) **Ti piacerebbe venire alla festa?** (Would you like to come to the festa?) It's **piace**, only softer: so **mi** and **ti** go in front."
+        },
+        "examples": [
+          { "it": "Mi piacerebbe vedere il mare d'inverno.", "de": "Ich würde gern das Meer im Winter sehen.", "sl": "Rad bi videl morje pozimi.", "en": "I'd love to see the sea in winter." },
+          { "it": "Ti piacerebbe venire alla festa?", "de": "Würdest du gern zum Fest kommen?", "sl": "Bi rad prišel na praznik?", "en": "Would you like to come to the festa?" }
+        ],
+        "rows": [
+          [{ "it": "a me", "de": "mir (ich würde gern)", "sl": "meni (rad bi)", "en": "to me (I'd love to)" }, "mi piacerebbe", "Mi piacerebbe nuotare."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "vorrei", "prompt": "«Ti piacerebbe venire al mare?» «Sì, mi ___ tanto!»", "options": ["piacerebbe", "vorrei", "piacerei"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**mi** … → **piacerebbe**, wie mi piace\n- mi vorrei: nie\n- piacerei · gibt es hier nicht",
+            "sl": "**mi** … → **piacerebbe**, kot mi piace\n- mi vorrei: nikoli\n- piacerei · tu ne gre",
+            "en": "**mi** … → **piacerebbe**, as mi piace\n- mi vorrei: never\n- piacerei · not here"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "vorrei-1",
+      "title": { "it": "Voglio o vorrei?", "de": "Voglio oder vorrei?", "sl": "Voglio ali vorrei?", "en": "Voglio or vorrei?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "vorrei", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "volere → vorrei · will → möchte", "sl": "volere → vorrei · hočem → rad bi", "en": "volere → vorrei · want → would like" },
+          "columns": [
+            { "de": "voglio … · ich will", "sl": "voglio … · hočem", "en": "voglio … · I want" },
+            { "de": "vorrei … · ich möchte", "sl": "vorrei … · rad bi", "en": "vorrei … · I'd like" }
+          ],
+          "rows": [
+            { "label": "io", "cells": ["voglio", { "accept": ["vorrei"] }] },
+            { "label": "tu", "cells": ["vuoi", { "accept": ["vorresti"] }] },
+            { "label": "lui, lei", "cells": ["vuole", { "accept": ["vorrebbe"] }] },
+            { "label": "noi", "cells": [{ "accept": ["vogliamo"] }, { "accept": ["vorremmo"], "hint": "-emmo: mm" }] },
+            { "label": "voi", "cells": ["volete", { "accept": ["vorreste"] }] },
+            { "label": "loro", "cells": [{ "accept": ["vogliono"] }, "vorrebbero"] }
+          ]
+        },
+        {
+          "type": "sort", "grammar": "vorrei", "instruction": { "de": "Chiedi o offri? · Bittest du oder bietest du an?", "sl": "Chiedi o offri? · Prosiš ali ponujaš?", "en": "Chiedi o offri? · Asking or offering?" },
+          "columns": [
+            { "label": { "de": "chiedo · ich bitte", "sl": "chiedo · prosim", "en": "chiedo · I'm asking" }, "words": ["Vorrei un gelato.", "Potrei avere dell'acqua?", "Mi potresti aiutare?"] },
+            { "label": { "de": "offro · ich biete an", "sl": "offro · ponujam", "en": "offro · I'm offering" }, "words": ["Vorresti un biscotto?", "Ti piacerebbe venire?", "Vorreste del miele?"] }
+          ],
+          "explain": {
+            "de": "**für mich** (io): vorrei, potrei · **für dich, euch** (tu, voi): vorresti?, vorreste?, ti piacerebbe?\n- Vorrei un gelato. · Vorresti un biscotto?",
+            "sl": "**zase** (io): vorrei, potrei · **zate, za vas** (tu, voi): vorresti?, vorreste?, ti piacerebbe?\n- Vorrei un gelato. · Vorresti un biscotto?",
+            "en": "**for me** (io): vorrei, potrei · **for you** (tu, voi): vorresti?, vorreste?, ti piacerebbe?\n- Vorrei un gelato. · Vorresti un biscotto?"
+          }
+        },
+        {
+          "type": "choice", "grammar": "vorrei", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Signora Marisa, ___ un'aranciata, per favore.»", "options": ["vorrei", "voglio", "vuole"], "answer": 0, "almost": [1], "say_options": true,
+          "explain": {
+            "de": "**höflich** → **vorrei** … per favore\n- voglio · ich will: zu hart\n- vuole · er, sie will",
+            "sl": "**vljudno** → **vorrei** … per favore\n- voglio · hočem: preostro\n- vuole · on, ona hoče",
+            "en": "**polite** → **vorrei** … per favore\n- voglio · I want: too sharp\n- vuole · he, she wants"
+          }
+        },
+        {
+          "type": "choice", "grammar": "vorrei", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Tommaso, ___ venire con noi?»", "options": ["vorresti", "vorrebbe", "vorrei"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**zu Tommaso** (tu) → **vorresti?**",
+            "sl": "**Tommasu** (tu) → **vorresti?**",
+            "en": "**to Tommaso** (tu) → **vorresti?**"
+          }
+        },
+        {
+          "type": "choice", "grammar": "vorrei", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Signora Marisa, Lei ___ un caffè?»", "options": ["vorrebbe", "vorresti", "vorrei"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Lei** (Sie) → wie lui, lei: **vorrebbe**",
+            "sl": "**Lei** (vi) → kot lui, lei: **vorrebbe**",
+            "en": "**Lei** (polite you) → as lui, lei: **vorrebbe**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vorrei-2",
+      "title": { "it": "All'osteria di Marisa", "de": "In Marisas Gasthaus", "sl": "V Marisini gostilni", "en": "At Marisa's inn" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "vorrei", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "All'osteria di Marisa",
+          "text": "Tommaso e {learner} entrano nell'osteria. «Ciao, bambini! Che cosa ___?» chiede la signora Marisa. «Buongiorno, signora! ___ un'aranciata, per favore.» dice {learner}. «Mamma, anch'io ___ un'aranciata!» dice Tommaso. «E ___ anche una fetta di gubana?» «Sì, grazie! Signora, ci ___ portare anche due bicchieri d'acqua?» «Certo, subito! E domenica c'è la festa: vi ___ venire?»",
+          "gaps": [
+            { "accept": ["vorreste"], "hint": { "de": "ihr möchtet", "sl": "bi radi (vi)", "en": "you'd like (voi)" } },
+            { "accept": ["Vorrei"], "hint": { "de": "ich möchte", "sl": "rad bi", "en": "I'd like" } },
+            { "accept": ["vorrei"], "hint": { "de": "ich möchte", "sl": "rad bi", "en": "I'd like" } },
+            { "accept": ["vorreste"], "hint": { "de": "ihr möchtet", "sl": "bi radi (vi)", "en": "you'd like (voi)" } },
+            { "accept": ["potrebbe"], "hint": { "de": "könnten Sie", "sl": "bi lahko (vi, Lei)", "en": "could you (Lei)" }, "explain": { "de": "**Signora** → Lei → **potrebbe**, wie lui, lei.", "sl": "**Signora** → Lei → **potrebbe**, kot lui, lei.", "en": "**Signora** → Lei → **potrebbe**, as lui, lei." } },
+            { "accept": ["piacerebbe"], "hint": "vi piace → vi …?" }
+          ],
+          "bank": true,
+          "translation": {
+            "de": "Tommaso und {learner} gehen ins Gasthaus. „Hallo, Kinder! Was möchtet ihr?“, fragt Frau Marisa. „Guten Tag! Ich möchte eine Orangenlimo, bitte“, sagt {learner}. „Mama, ich möchte auch eine Orangenlimo!“, sagt Tommaso. „Und möchtet ihr auch ein Stück Gubana?“ „Ja, danke! Könnten Sie uns auch zwei Gläser Wasser bringen?“ „Natürlich, sofort! Und am Sonntag ist das Fest: Würdet ihr gern kommen?“",
+            "sl": "Tommaso in {learner} vstopita v gostilno. »Živjo, otroka! Kaj bi rada?« vpraša gospa Marisa. »Dober dan, gospa! Oranžado, prosim,« reče {learner}. »Mama, tudi jaz bi oranžado!« reče Tommaso. »Pa bi tudi kos gubane?« »Ja, hvala! Gospa, bi nama lahko prinesli še dva kozarca vode?« »Seveda, takoj! V nedeljo pa je praznik: bi rada prišla?«",
+            "en": "Tommaso and {learner} go into the inn. \"Hello, children! What would you like?\" asks Signora Marisa. \"Good morning! I'd like an orange soda, please,\" says {learner}. \"Mum, I'd like an orange soda too!\" says Tommaso. \"And would you like a piece of gubana as well?\" \"Yes, thank you! Could you bring us two glasses of water too?\" \"Of course, right away! And on Sunday there's the festa: would you like to come?\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "vorrei", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Lorenzo al signore dei gelati: «___ un gelato alla fragola, per favore.»", "options": ["Vorrei", "Vorrebbe", "Vorresti"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Lorenzo bittet für sich** (io) → **Vorrei**",
+            "sl": "**Lorenzo prosi zase** (io) → **Vorrei**",
+            "en": "**Lorenzo asks for himself** (io) → **Vorrei**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vorrei-3",
+      "title": { "it": "Chiedi gentilmente", "de": "Frag höflich", "sl": "Prosi vljudno", "en": "Ask politely" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "vorrei", "instruction": { "de": "Chiedi gentilmente · Frag höflich", "sl": "Chiedi gentilmente · Prosi vljudno", "en": "Chiedi gentilmente · Ask politely" },
+          "items": [
+            { "from": "Voglio un gelato.", "accept": ["Vorrei un gelato.", "Vorrei un gelato, per favore."] },
+            { "from": "Vuoi del frico?", "accept": ["Vorresti del frico?"] },
+            { "from": "Lorenzo vuole un cavallo.", "accept": ["Lorenzo vorrebbe un cavallo."] },
+            { "from": "Vogliamo giocare.", "accept": ["Vorremmo giocare."], "hint": "-emmo: mm" },
+            { "from": "Puoi chiudere la porta?", "accept": ["Potresti chiudere la porta?"] },
+            { "from": "Posso avere un bicchiere d'acqua?", "accept": ["Potrei avere un bicchiere d'acqua?"] }
+          ],
+          "explain": {
+            "de": "**voglio → vorrei** · **posso → potrei**: dieselbe Person, höflich\n- vuoi → vorresti · vuole → vorrebbe · vogliamo → vorremmo\n- puoi → potresti",
+            "sl": "**voglio → vorrei** · **posso → potrei**: ista oseba, vljudno\n- vuoi → vorresti · vuole → vorrebbe · vogliamo → vorremmo\n- puoi → potresti",
+            "en": "**voglio → vorrei** · **posso → potrei**: the same person, politely\n- vuoi → vorresti · vuole → vorrebbe · vogliamo → vorremmo\n- puoi → potresti"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "vorrei", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Alla festa del paese c'è il gelato. «Che cosa ___, bella?» chiede il signore a Giulia. «___ un gelato al limone, per favore.» Lorenzo e Tommaso dicono: «Anche noi ___ un gelato!» «Signore, ci ___ dare due coni piccoli?»",
+        "gaps": [
+          { "accept": ["vorresti"] },
+          { "accept": ["Vorrei"] },
+          { "accept": ["vorremmo"] },
+          { "accept": ["potrebbe"] }
+        ],
+        "translation": {
+          "de": "Beim Dorffest gibt es Eis. „Was möchtest du, Kleine?“, fragt der Mann Giulia. „Ich möchte ein Zitroneneis, bitte.“ Lorenzo und Tommaso sagen: „Wir möchten auch ein Eis!“ „Könnten Sie uns zwei kleine Waffeln geben?“",
+          "sl": "Na vaškem prazniku je sladoled. »Kaj bi rada, punčka?« vpraša gospod. Giulia reče: »Limonin sladoled, prosim.« Lorenzo in Tommaso rečeta: »Tudi midva bi sladoled!« »Gospod, bi nama lahko dali dva majhna kornetka?«",
+          "en": "At the village festa there's ice cream. \"What would you like, love?\" the man asks Giulia. \"I'd like a lemon ice cream, please.\" Lorenzo and Tommaso say: \"We'd like an ice cream too!\" \"Could you give us two small cones?\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "vorrei", "instruction": { "de": "Chiedi gentilmente · Frag höflich", "sl": "Chiedi gentilmente · Prosi vljudno", "en": "Chiedi gentilmente · Ask politely" },
+        "items": [
+          { "from": "Voglio una mela.", "accept": ["Vorrei una mela.", "Vorrei una mela, per favore."] },
+          { "from": "Vuoi venire?", "accept": ["Vorresti venire?"] },
+          { "from": "Puoi ripetere?", "accept": ["Potresti ripetere?"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "vorrei", "prompt": "«Maestra, ___ venire alla nostra festa?»", "options": ["Le piacerebbe", "Ti piacerebbe", "Gli piacerebbe"], "answer": 0, "almost": [1], "say_options": true,
+        "explain": {
+          "de": "**zur Lehrerin** (Lei) → **Le piacerebbe?**\n- ti piacerebbe · zu einem Kind\n- gli · ihm",
+          "sl": "**učiteljici** (Lei) → **Le piacerebbe?**\n- ti piacerebbe · otroku\n- gli · njemu",
+          "en": "**to the teacher** (Lei) → **Le piacerebbe?**\n- ti piacerebbe · to a child\n- gli · to him"
+        }
+      },
+      {
+        "type": "choice", "grammar": "vorrei", "prompt": "Io e Tommaso ___ andare al mare.", "options": ["vorremmo", "vorrebbero", "vorrei"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**io e Tommaso** = noi → **vorremmo**",
+          "sl": "**io e Tommaso** = noi → **vorremmo**",
+          "en": "**io e Tommaso** = noi → **vorremmo**"
+        }
+      },
+      {
+        "type": "sort", "grammar": "vorrei", "instruction": { "de": "Chiedi o offri? · Bittest du oder bietest du an?", "sl": "Chiedi o offri? · Prosiš ali ponujaš?", "en": "Chiedi o offri? · Asking or offering?" },
+        "columns": [
+          { "label": { "de": "chiedo · ich bitte", "sl": "chiedo · prosim", "en": "chiedo · I'm asking" }, "words": ["Vorrei del pane.", "Potrei giocare?"] },
+          { "label": { "de": "offro · ich biete an", "sl": "offro · ponujam", "en": "offro · I'm offering" }, "words": ["Vorresti una mela?", "Ti piacerebbe nuotare?"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: voglio as almost, Che cosa vorreste? from Marisa, Che cosa vorresti, bella?, Le piacerebbe, the German for a child"
+}

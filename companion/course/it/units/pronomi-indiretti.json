@@ -1,0 +1,312 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "pronomi-indiretti",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🎁",
+  "title": { "it": "Gli do, le dico", "de": "Ihm, ihr: gli do, le dico", "sl": "Mu, ji: gli do, le dico", "en": "To him, to her: gli do, le dico" },
+  "goal": {
+    "de": "Du sagst, wem du etwas gibst, sagst oder bringst, ohne den Namen zu wiederholen: gli do, le dico, mi dai?, ci racconta, Le do (zur Lehrerin).",
+    "sl": "Poveš, komu nekaj daš, rečeš ali prineseš, ne da bi ponovil ime: gli do, le dico, mi dai?, ci racconta, Le do (učiteljici).",
+    "en": "You can say who you give, say or bring something to without saying the name again: gli do, le dico, mi dai?, ci racconta, Le do (to the teacher)."
+  },
+  "grammar": ["pronomi-indiretti", "piacere"],
+  "words": ["dare", "dire", "portare", "regalare", "raccontare", "scrivere", "mostrare", "telefonare", "aiutare", "la palla", "il libro", "il fiore", "il panino", "la storia", "la lettera", "il compleanno", "l'osso", "il segreto", "il disegno", "il quaderno", "la torta", "la fetta", "il pezzo", "la mano", "il miele", "le caramelle", "il biscotto", "la pecora", "il lupo", "triste", "solo"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "a chi?", "de": "wem?", "sl": "komu?", "en": "to whom?" },
+        { "it": "pronome", "de": "Pronomen", "sl": "zaimek", "en": "pronoun" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Von **piace** kennst du schon **gli** (ihm) und **le** (ihr): **Gli piace il gelato.** Mit vielen Verben geht es genauso, mit **dare** (geben), **dire** (sagen) und **portare** (bringen): **Gli do la palla.** (Ich gebe ihm den Ball.) **Le dico ciao.** (Ich sage ihr Hallo.) Das kurze Wort steht vor dem Verb.",
+          "sl": "Pri **piace** že poznaš **gli** (mu) in **le** (ji): **Gli piace il gelato.** (Sladoled mu je všeč.) Enako gre z mnogimi glagoli, z **dare** (dati), **dire** (reči) in **portare** (prinesti): **Gli do la palla.** (Dam mu žogo.) **Le dico ciao.** (Rečem ji živjo.) Kratka beseda stoji pred glagolom.",
+          "en": "You know **gli** (to him) and **le** (to her) from **piace**: **Gli piace il gelato.** Many verbs go the same way, with **dare** (give), **dire** (say) and **portare** (bring): **Gli do la palla.** (I give him the ball.) **Le dico ciao.** (I say hi to her.) The short word goes before the verb."
+        },
+        "examples": [
+          { "it": "Lorenzo ha fame: gli do un panino.", "de": "Lorenzo hat Hunger: Ich gebe ihm ein Brötchen.", "sl": "Lorenzo je lačen: dam mu sendvič.", "en": "Lorenzo is hungry: I give him a sandwich." },
+          { "it": "Giulia è triste: le porto un fiore.", "de": "Giulia ist traurig: Ich bringe ihr eine Blume.", "sl": "Giulia je žalostna: prinesem ji rožo.", "en": "Giulia is sad: I bring her a flower." }
+        ],
+        "rows": [
+          [{ "it": "a lui", "de": "ihm", "sl": "njemu", "en": "to him" }, "gli", "Gli do la palla."],
+          [{ "it": "a lei", "de": "ihr", "sl": "njej", "en": "to her" }, "le", "Le dico ciao."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pronomi-indiretti", "prompt": "Giulia è triste. ___ porto un fiore.", "options": ["Gli", "Le", "Mi"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**Giulia** → ihr → **le**\n- gli · ihm\n- mi · mir",
+            "sl": "**Giulia** → njej → **le**\n- gli · njemu\n- mi · meni",
+            "en": "**Giulia** → to her → **le**\n- gli · to him\n- mi · to me"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das kurze Wort steht für **a** und eine Person: **Do la palla a Lorenzo.** wird zu **Gli do la palla.** **Porto il pane a Nonna Rosa.** wird zu **Le porto il pane.** Wie im Deutschen: *dem Lorenzo* wird *ihm*, *der Oma* wird *ihr*. So sagst du den Namen nicht zweimal.",
+          "sl": "Kratka beseda stoji namesto **a** in osebe: **Do la palla a Lorenzo.** postane **Gli do la palla.** **Porto il pane a Nonna Rosa.** postane **Le porto il pane.** Kot v slovenščini: *Lorenzu* postane *mu*, *babici* postane *ji*. Tako imena ne rečeš dvakrat.",
+          "en": "The short word stands for **a** and a person: **Do la palla a Lorenzo.** becomes **Gli do la palla.** **Porto il pane a Nonna Rosa.** becomes **Le porto il pane.** Like *to Lorenzo* becoming *to him*, *to Grandma* becoming *to her*. So you don't say the name twice."
+        },
+        "examples": [
+          { "it": "Scrivo una lettera a Zia Nives. Le scrivo ogni mese.", "de": "Ich schreibe Zia Nives einen Brief. Ich schreibe ihr jeden Monat.", "sl": "Pišem pismo teti Nives. Pišem ji vsak mesec.", "en": "I'm writing Zia Nives a letter. I write to her every month." },
+          { "it": "Do un osso a Moro. Gli do un osso grande.", "de": "Ich gebe Moro einen Knochen. Ich gebe ihm einen großen Knochen.", "sl": "Moru dam kost. Dam mu veliko kost.", "en": "I give Moro a bone. I give him a big bone." }
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pronomi-indiretti", "text": "Racconto una storia a Lorenzo. ___ racconto la storia del lupo.", "accept": ["Gli"], "hint": "a Lorenzo → ?",
+          "explain": {
+            "de": "**a Lorenzo** → ihm → **gli**: Gli racconto la storia.",
+            "sl": "**a Lorenzo** → njemu → **gli**: Gli racconto la storia.",
+            "en": "**a Lorenzo** → to him → **gli**: Gli racconto la storia."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für dich und mich: **mi** (mir) und **ti** (dir). **Mi dai la mano?** (Gibst du mir die Hand?) **Ti racconto una storia.** (Ich erzähle dir eine Geschichte.) Das sagt Nonno Bepi jeden Abend unter der Linde.",
+          "sl": "Zate in zame: **mi** (meni, mi) in **ti** (tebi, ti). **Mi dai la mano?** (Mi daš roko?) **Ti racconto una storia.** (Povem ti zgodbo.) To reče dedek Bepi vsak večer pod lipo.",
+          "en": "For you and me: **mi** (to me) and **ti** (to you). **Mi dai la mano?** (Will you give me your hand?) **Ti racconto una storia.** (I'll tell you a story.) Nonno Bepi says that every evening under the linden."
+        },
+        "examples": [
+          { "it": "Nonno, mi racconti una storia?", "de": "Opa, erzählst du mir eine Geschichte?", "sl": "Dedek, mi poveš zgodbo?", "en": "Grandpa, will you tell me a story?" },
+          { "it": "Giulia, ti do una caramella.", "de": "Giulia, ich gebe dir ein Bonbon.", "sl": "Giulia, dam ti bonbon.", "en": "Giulia, I'll give you a sweet." }
+        ],
+        "rows": [
+          [{ "it": "a me", "de": "mir", "sl": "meni", "en": "to me" }, "mi", "Mi dai la mano?"],
+          [{ "it": "a te", "de": "dir", "sl": "tebi", "en": "to you" }, "ti", "Ti racconto una storia."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "pronomi-indiretti", "text": "«Nonno, ___ racconti una storia?» «Sì, ti racconto la storia del lupo.»", "accept": ["mi"], "hint": "a me → ?",
+          "explain": {
+            "de": "**mir** → **mi**: Nonno, mi racconti una storia?\n- ti · dir: die Antwort des Opas",
+            "sl": "**meni** → **mi**: Nonno, mi racconti una storia?\n- ti · tebi: dedkov odgovor",
+            "en": "**to me** → **mi**: Nonno, mi racconti una storia?\n- ti · to you: Grandpa's answer"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **ci** (uns), **vi** (euch), und für *ihnen* wieder **gli**: **Nonno Bepi ci racconta una storia.** (Er erzählt uns eine Geschichte.) **Bambini, vi porto il miele!** (Kinder, ich bringe euch Honig!) **I bambini hanno fame: gli do il pane.** (Ich gebe ihnen Brot.)",
+          "sl": "Za več oseb: **ci** (nam), **vi** (vam), za *njim* pa spet **gli**: **Nonno Bepi ci racconta una storia.** (Pripoveduje nam zgodbo.) **Bambini, vi porto il miele!** (Otroci, prinesem vam med!) **I bambini hanno fame: gli do il pane.** (Dam jim kruh.)",
+          "en": "For more people: **ci** (to us), **vi** (to you all), and for *to them* **gli** again: **Nonno Bepi ci racconta una storia.** (He tells us a story.) **Bambini, vi porto il miele!** (Children, I'll bring you honey!) **I bambini hanno fame: gli do il pane.** (I give them bread.)"
+        },
+        "examples": [
+          { "it": "Aldo ci mostra le api.", "de": "Aldo zeigt uns die Bienen.", "sl": "Aldo nam pokaže čebele.", "en": "Aldo shows us the bees." },
+          { "it": "Bambini, vi porto il miele!", "de": "Kinder, ich bringe euch Honig!", "sl": "Otroci, prinesem vam med!", "en": "Children, I'll bring you honey!" }
+        ],
+        "rows": [
+          [{ "it": "a noi", "de": "uns", "sl": "nam", "en": "to us" }, "ci", "Nonno Bepi ci racconta una storia."],
+          [{ "it": "a voi", "de": "euch", "sl": "vam", "en": "to you all" }, "vi", "Bambini, vi porto il miele!"],
+          [{ "it": "a loro", "de": "ihnen", "sl": "njim", "en": "to them" }, "gli", "Gli do il pane."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pronomi-indiretti", "prompt": "I bambini hanno sete. ___ do l'acqua.", "options": ["Gli", "Le", "Ci"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**i bambini** → ihnen → **gli**\n- le · ihr (eine Frau, ein Mädchen)\n- ci · uns",
+            "sl": "**i bambini** → njim → **gli**\n- le · njej (ena ženska, deklica)\n- ci · nam",
+            "en": "**i bambini** → to them → **gli**\n- le · to her (one woman or girl)\n- ci · to us"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Zu Maestra Elena und Signora Marisa sagst du **Lei** (Sie). Dann heißt *Ihnen* **Le**, oft mit großem L: **Maestra, Le do il quaderno.** (Ich gebe Ihnen das Heft.) **Signora Marisa, Le porto i piatti.** (Ich bringe Ihnen die Teller.) Es ist dasselbe Wort wie **le** (ihr), nur höflich.",
+          "sl": "Učiteljici Eleni in gospe Marisi rečeš **Lei** (vi). Takrat je *vam* **Le**, pogosto z veliko začetnico: **Maestra, Le do il quaderno.** (Dam vam zvezek.) **Signora Marisa, Le porto i piatti.** (Prinesem vam krožnike.) Ista beseda je kot **le** (ji), le vljudna.",
+          "en": "To Maestra Elena and Signora Marisa you say **Lei** (the polite you). Then *to you* is **Le**, often with a capital L: **Maestra, Le do il quaderno.** (I'm giving you my exercise book.) **Signora Marisa, Le porto i piatti.** (I'll bring you the plates.) It's the same word as **le** (to her), only polite."
+        },
+        "examples": [
+          { "it": "Maestra, Le do il mio disegno.", "de": "Frau Lehrerin, ich gebe Ihnen meine Zeichnung.", "sl": "Učiteljica, dam vam svojo risbo.", "en": "Miss, I'm giving you my drawing." },
+          { "it": "Signora Marisa, Le porto i piatti.", "de": "Frau Marisa, ich bringe Ihnen die Teller.", "sl": "Gospa Marisa, prinesem vam krožnike.", "en": "Signora Marisa, I'll bring you the plates." }
+        ],
+        "rows": [
+          [{ "it": "a Lei", "de": "Ihnen", "sl": "vam (vljudno)", "en": "to you (polite)" }, "Le", "Maestra, Le do il quaderno."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pronomi-indiretti", "prompt": "«Maestra, ___ do il mio disegno.»", "options": ["Ti", "Le", "Gli"], "answer": 1, "almost": [0], "say_options": true,
+          "explain": {
+            "de": "**Lei** (zur Lehrerin) → **Le**\n- ti · dir, zu einem Kind\n- gli · ihm",
+            "sl": "**Lei** (učiteljici) → **Le**\n- ti · tebi, otroku\n- gli · njemu",
+            "en": "**Lei** (to the teacher) → **Le**\n- ti · to you, to a child\n- gli · to him"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wem? oder wen? Meistens wie im Deutschen: *ich gebe ihm* ist **gli do**, *ich sehe ihn* ist **lo vedo**. Zwei sind anders: **telefonare a** (anrufen) nimmt **gli, le**: **Le telefono.** (Ich rufe sie an.) Und **aiutare** (helfen) nimmt **lo, la**: **Lo aiuto.** (Ich helfe ihm.)",
+          "sl": "Komu? ali koga? Večinoma kot v slovenščini: *dam mu* je **gli do**, *vidim ga* je **lo vedo**. Drugačna sta dva: **telefonare a** (poklicati) vzame **gli, le**: **Le telefono.** (Pokličem jo.) **Aiutare** (pomagati) pa vzame **lo, la**: **Lo aiuto.** (Pomagam mu.)",
+          "en": "To whom, or whom? *I give him* is **gli do**, *I see him* is **lo vedo**. Two to watch: **telefonare a** (phone) takes **gli, le**, as you phone *to* someone in Italian: **Le telefono.** (I phone her.) And **aiutare** (help) takes **lo, la**: **Lo aiuto.** (I help him.)"
+        },
+        "examples": [
+          { "it": "Vedo Lorenzo in piazza. Lo vedo.", "de": "Ich sehe Lorenzo auf dem Platz. Ich sehe ihn.", "sl": "Vidim Lorenza na trgu. Vidim ga.", "en": "I see Lorenzo in the square. I see him." },
+          { "it": "Telefono a Zia Nives. Le telefono ogni sera.", "de": "Ich rufe Zia Nives an. Ich rufe sie jeden Abend an.", "sl": "Pokličem teto Nives. Pokličem jo vsak večer.", "en": "I phone Zia Nives. I phone her every evening." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "pronomi-indiretti", "prompt": "Zia Nives è sola. ___ telefono stasera.", "options": ["La", "Le"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**telefonare a** Zia Nives → ihr → **le**: Le telefono.\n- la · sie (wen?): La vedo.",
+            "sl": "**telefonare a** Zia Nives → njej → **le**: Le telefono.\n- la · jo (koga?): La vedo.",
+            "en": "**telefonare a** Zia Nives → to her → **le**: Le telefono.\n- la · her (whom?): La vedo."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "pronomi-indiretti-1",
+      "title": { "it": "A chi?", "de": "Wem?", "sl": "Komu?", "en": "To whom?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "pronomi-indiretti", "instruction": { "de": "Gli o le? · Gli oder le?", "sl": "Gli o le? · Gli ali le?", "en": "Gli o le? · Gli or le?" },
+          "columns": [
+            { "label": { "de": "gli · ihm, ihnen", "sl": "gli · njemu, njim", "en": "gli · to him, to them" }, "words": ["a Lorenzo", "al nonno", "a Moro", "ai bambini", "a Davide", "a Tommaso"] },
+            { "label": { "de": "le · ihr", "sl": "le · njej", "en": "le · to her" }, "words": ["a Giulia", "alla nonna", "a Zia Nives", "alla pecora Bianca", "alla signora Marisa", "a Nonna Rosa"] }
+          ],
+          "explain": {
+            "de": "**ein Mann, ein Junge, ein Tier (il) oder mehrere** → gli · **eine Frau, ein Mädchen, ein Tier (la)** → le\n- a Lorenzo → gli · ai bambini → gli\n- a Giulia → le · alla pecora → le",
+            "sl": "**moški, deček, žival (il) ali več** → gli · **ženska, deklica, žival (la)** → le\n- a Lorenzo → gli · ai bambini → gli\n- a Giulia → le · alla pecora → le",
+            "en": "**a man, a boy, an animal (il) or more than one** → gli · **a woman, a girl, an animal (la)** → le\n- a Lorenzo → gli · ai bambini → gli\n- a Giulia → le · alla pecora → le"
+          }
+        },
+        {
+          "type": "choice", "grammar": "pronomi-indiretti", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Moro ha fame! ___ do un osso.", "options": ["Gli", "Le", "Lo"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Moro** → wem? ihm → **gli**\n- le · ihr\n- lo · ihn (wen?): Lo vedo.",
+            "sl": "**Moro** → komu? njemu → **gli**\n- le · njej\n- lo · ga (koga?): Lo vedo.",
+            "en": "**Moro** → to whom? to him → **gli**\n- le · to her\n- lo · him (whom?): Lo vedo."
+          }
+        },
+        {
+          "type": "choice", "grammar": "pronomi-indiretti", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "I bambini ascoltano: Nonno Bepi ___ racconta una storia.", "options": ["gli", "le", "li"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**i bambini** → wem? ihnen → **gli**\n- le · ihr\n- li · sie (wen?): Li vedo.",
+            "sl": "**i bambini** → komu? njim → **gli**\n- le · njej\n- li · jih (koga?): Li vedo.",
+            "en": "**i bambini** → to whom? to them → **gli**\n- le · to her\n- li · them (whom?): Li vedo."
+          }
+        }
+      ]
+    },
+    {
+      "id": "pronomi-indiretti-2",
+      "title": { "it": "Il compleanno di Lorenzo", "de": "Lorenzos Geburtstag", "sl": "Lorenzov rojstni dan", "en": "Lorenzo's birthday" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "pronomi-indiretti", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "Il compleanno di Lorenzo",
+          "text": "Oggi è il compleanno di Lorenzo. Giulia ___ regala un libro di cavalli. Tommaso ___ dà una palla nuova. «Lorenzo, ___ dai un pezzo di torta?» chiede {learner}. «Sì, ___ do il pezzo più grande!» Nonna Rosa pensa a Zia Nives: ___ porta una fetta. La sera i bambini sono stanchi e Nonno Bepi ___ racconta una storia: «Bambini, ___ racconto la storia del lupo!»",
+          "gaps": [
+            { "accept": ["gli"], "hint": { "de": "Lorenzo: ihm", "sl": "Lorenzo: njemu", "en": "Lorenzo: to him" } },
+            { "accept": ["gli"], "hint": { "de": "immer noch Lorenzo", "sl": "še vedno Lorenzo", "en": "still Lorenzo" } },
+            { "accept": ["mi"], "hint": { "de": "mir", "sl": "meni", "en": "to me" } },
+            { "accept": ["ti"], "hint": { "de": "dir", "sl": "tebi", "en": "to you" } },
+            { "accept": ["le"], "hint": { "de": "Zia Nives: ihr", "sl": "Zia Nives: njej", "en": "Zia Nives: to her" } },
+            { "accept": ["gli"], "hint": { "de": "i bambini: ihnen", "sl": "i bambini: njim", "en": "i bambini: to them" }, "explain": { "de": "**a loro** (den Kindern) → **gli**, wie für ihm.", "sl": "**a loro** (otrokom) → **gli**, kot za njemu.", "en": "**a loro** (to the children) → **gli**, as for to him." } },
+            { "accept": ["vi"], "hint": { "de": "euch", "sl": "vam", "en": "to you all" } }
+          ],
+          "bank": true, "distractors": ["lo", "la"],
+          "translation": {
+            "de": "Heute hat Lorenzo Geburtstag. Giulia schenkt ihm ein Pferdebuch. Tommaso gibt ihm einen neuen Ball. „Lorenzo, gibst du mir ein Stück Kuchen?“, fragt {learner}. „Ja, ich gebe dir das größte Stück!“ Nonna Rosa denkt an Zia Nives: Sie bringt ihr ein Stück. Am Abend sind die Kinder müde, und Nonno Bepi erzählt ihnen eine Geschichte: „Kinder, ich erzähle euch die Geschichte vom Wolf!“",
+            "sl": "Danes ima Lorenzo rojstni dan. Giulia mu podari knjigo o konjih. Tommaso mu da novo žogo. »Lorenzo, mi daš kos torte?« vpraša {learner}. »Ja, dam ti največji kos!« Babica Rosa misli na teto Nives: prinese ji rezino. Zvečer so otroci utrujeni in dedek Bepi jim pripoveduje zgodbo: »Otroci, povem vam zgodbo o volku!«",
+            "en": "Today is Lorenzo's birthday. Giulia gives him a book about horses. Tommaso gives him a new ball. \"Lorenzo, will you give me a piece of cake?\" asks {learner}. \"Yes, I'll give you the biggest piece!\" Nonna Rosa thinks of Zia Nives: she takes her a slice. In the evening the children are tired, and Nonno Bepi tells them a story: \"Children, I'll tell you the story of the wolf!\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "pronomi-indiretti", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Lorenzo chiede il segreto. Tommaso: «No, ___ il segreto!»", "options": ["non ti dico", "ti non dico"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**non** vor dem kurzen Wort: **non ti dico**\n- nie ti non dico",
+            "sl": "**non** pred kratko besedo: **non ti dico**\n- nikoli ti non dico",
+            "en": "**non** before the short word: **non ti dico**\n- never ti non dico"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pronomi-indiretti-3",
+      "title": { "it": "Gli, le, ci", "de": "Gli, le, ci", "sl": "Gli, le, ci", "en": "Gli, le, ci" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "pronomi-indiretti", "instruction": { "de": "Usa gli o le · Nimm gli oder le", "sl": "Usa gli o le · Uporabi gli ali le", "en": "Usa gli o le · Use gli or le" },
+          "items": [
+            { "from": "Do la palla a Lorenzo.", "accept": ["Gli do la palla."] },
+            { "from": "Porto un fiore a Giulia.", "accept": ["Le porto un fiore."] },
+            { "from": "Racconto una storia ai bambini.", "accept": ["Gli racconto una storia."], "hint": { "de": "ai bambini: ihnen", "sl": "ai bambini: njim", "en": "ai bambini: to them" } },
+            { "from": "Scrivo una lettera a Zia Nives.", "accept": ["Le scrivo una lettera."] },
+            { "from": "Mostro le api a Tommaso.", "accept": ["Gli mostro le api."] }
+          ],
+          "explain": {
+            "de": "**a + Person** fällt weg, das kurze Wort kommt vor das Verb\n- Do la palla a Lorenzo. → Gli do la palla.",
+            "sl": "**a + oseba** odpade, kratka beseda pride pred glagol\n- Do la palla a Lorenzo. → Gli do la palla.",
+            "en": "**a + the person** goes, the short word goes before the verb\n- Do la palla a Lorenzo. → Gli do la palla."
+          }
+        },
+        {
+          "type": "transform", "grammar": "pronomi-indiretti", "instruction": { "de": "Di' di no · Sag nein", "sl": "Di' di no · Reci ne", "en": "Di' di no · Say no" },
+          "items": [
+            { "from": "Gli do la palla.", "accept": ["Non gli do la palla."] },
+            { "from": "Le dico il segreto.", "accept": ["Non le dico il segreto."] },
+            { "from": "Nonno Bepi ci racconta una storia.", "accept": ["Nonno Bepi non ci racconta una storia."], "hint": { "de": "Nonno Bepi, dann non", "sl": "Nonno Bepi, nato non", "en": "Nonno Bepi, then non" } }
+          ],
+          "explain": {
+            "de": "**non** vor das kurze Wort: **Non gli do …**",
+            "sl": "**non** pred kratko besedo: **Non gli do …**",
+            "en": "**non** before the short word: **Non gli do …**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "pronomi-indiretti", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Davide ha una pecora piccola, Pallina. Ogni mattina ___ dà il latte. Giulia la vuole vedere: «Davide, ___ mostri Pallina?» «Sì, e ___ mostro anche le altre pecore!» La sera Giulia telefona a Nonna Rosa e ___ dice: «Sono con Davide!»",
+        "gaps": [
+          { "accept": ["le"] },
+          { "accept": ["mi"] },
+          { "accept": ["ti"] },
+          { "accept": ["le"] }
+        ],
+        "translation": {
+          "de": "Davide hat ein kleines Schaf, Pallina. Jeden Morgen gibt er ihm Milch. Giulia will es sehen: „Davide, zeigst du mir Pallina?“ „Ja, und ich zeige dir auch die anderen Schafe!“ Am Abend ruft Giulia Nonna Rosa an und sagt ihr: „Ich bin bei Davide!“",
+          "sl": "Davide ima majhno ovco, Pallino. Vsako jutro ji da mleko. Giulia jo hoče videti: »Davide, mi pokažeš Pallino?« »Ja, in pokažem ti tudi druge ovce!« Zvečer Giulia pokliče babico Roso in ji reče: »S Davidom sem!«",
+          "en": "Davide has a little sheep, Pallina. Every morning he gives her milk. Giulia wants to see her: \"Davide, will you show me Pallina?\" \"Yes, and I'll show you the other sheep too!\" In the evening Giulia phones Nonna Rosa and tells her: \"I'm with Davide!\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "pronomi-indiretti", "instruction": { "de": "Usa il pronome · Nimm das kurze Wort", "sl": "Usa il pronome · Uporabi kratko besedo", "en": "Usa il pronome · Use the short word" },
+        "items": [
+          { "from": "Do un biscotto a Moro.", "accept": ["Gli do un biscotto."] },
+          { "from": "Porto l'acqua alla nonna.", "accept": ["Le porto l'acqua."] },
+          { "from": "Dico ciao ai bambini.", "accept": ["Gli dico ciao."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "pronomi-indiretti", "prompt": "«Maestra, ___ porto il quaderno.»", "options": ["Le", "Ti", "La"], "answer": 0, "almost": [1], "say_options": true,
+        "explain": {
+          "de": "**Lei** (zur Lehrerin) → **Le**\n- ti · zu einem Kind\n- la · sie (wen?)",
+          "sl": "**Lei** (učiteljici) → **Le**\n- ti · otroku\n- la · jo (koga?)",
+          "en": "**Lei** (to the teacher) → **Le**\n- ti · to a child\n- la · her (whom?)"
+        }
+      },
+      {
+        "type": "choice", "grammar": "pronomi-indiretti", "prompt": "Lorenzo è solo a casa: ___ telefono subito.", "options": ["lo", "gli"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**telefonare a** Lorenzo → ihm → **gli telefono**",
+          "sl": "**telefonare a** Lorenzo → njemu → **gli telefono**",
+          "en": "**telefonare a** Lorenzo → to him → **gli telefono**"
+        }
+      },
+      {
+        "type": "sort", "grammar": "pronomi-indiretti", "instruction": { "de": "Gli o le? · Gli oder le?", "sl": "Gli o le? · Gli ali le?", "en": "Gli o le? · Gli or le?" },
+        "columns": [
+          { "label": { "de": "gli · ihm, ihnen", "sl": "gli · njemu, njim", "en": "gli · to him, to them" }, "words": ["a Bruno", "ai gatti"] },
+          { "label": { "de": "le · ihr", "sl": "le · njej", "en": "le · to her" }, "words": ["alla mucca", "a Giulia"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Le with a capital, gli for a loro, la storia del lupo, alla pecora Bianca, Le telefono, the German for a child"
+}

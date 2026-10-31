@@ -1,0 +1,303 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "negazioni",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🙅",
+  "title": { "it": "Non... mai, niente, nessuno", "de": "Nie, nichts, niemand: non... mai, niente, nessuno", "sl": "Nikoli, nič, nihče: non... mai, niente, nessuno", "en": "Never, nothing, nobody: non... mai, niente, nessuno" },
+  "goal": {
+    "de": "Du sagst nie, nichts, niemand, nicht mehr und noch nicht (non … mai, niente, nessuno, più, ancora) und antwortest kurz: Nessuno! Niente!",
+    "sl": "Poveš nikoli, nič, nihče, ne več in še ne (non … mai, niente, nessuno, più, ancora) in kratko odgovoriš: Nessuno! Niente!",
+    "en": "You can say never, nothing, nobody, no more and not yet (non … mai, niente, nessuno, più, ancora) and answer short: Nessuno! Niente!"
+  },
+  "grammar": ["negazioni"],
+  "words": ["mai", "niente", "nulla", "nessuno", "più", "ancora", "sempre", "spesso", "qualcosa", "qualcuno", "tutto", "tutti", "il fungo", "la tenda", "il buio", "la paura", "la radio", "la porta", "la palla", "la risposta", "il frico", "la scatola", "mordere", "abbaiare", "sentire", "ridere", "piovere", "funzionare", "spegnere", "pronto", "rotto", "fuori"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "negazione", "de": "Verneinung", "sl": "zanikanje", "en": "saying no" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Im Deutschen sagst du *nie*, ein Wort. Im Italienischen sagst du zweimal nein: **non** vor dem Verb und **mai** danach. **Moro non morde mai.** (Moro beißt nie.) **Lorenzo non mangia mai i funghi.** (Lorenzo isst nie Pilze.)",
+          "sl": "Kot v slovenščini zanikaš dvakrat, *nikoli ne*: **non** stoji pred glagolom, **mai** za njim. **Moro non morde mai.** (Moro nikoli ne grize.) **Lorenzo non mangia mai i funghi.** (Lorenzo nikoli ne je gob.)",
+          "en": "English says *never*, one word. Italian says no twice: **non** before the verb and **mai** after it. **Moro non morde mai.** (Moro never bites.) **Lorenzo non mangia mai i funghi.** (Lorenzo never eats mushrooms.)"
+        },
+        "examples": [
+          { "it": "Moro non morde mai.", "de": "Moro beißt nie.", "sl": "Moro nikoli ne grize.", "en": "Moro never bites." },
+          { "it": "Lorenzo non mangia mai i funghi.", "de": "Lorenzo isst nie Pilze.", "sl": "Lorenzo nikoli ne je gob.", "en": "Lorenzo never eats mushrooms." }
+        ],
+        "rows": [
+          ["non … mai", { "de": "nie", "sl": "nikoli", "en": "never" }, "Moro non morde mai."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "negazioni", "prompt": "Moro è buono: ___.", "options": ["non morde mai", "morde mai", "non mai morde"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**non** vor dem Verb, **mai** danach: non morde mai\n- nie nur morde mai",
+            "sl": "**non** pred glagolom, **mai** za njim: non morde mai\n- nikoli samo morde mai",
+            "en": "**non** before the verb, **mai** after it: non morde mai\n- never just morde mai"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "*Nichts* geht genauso: **non** … **niente**. **Non vedo niente!** (Ich sehe nichts!) Zia Nives hört schlecht: **Come? Non sento niente!** (Wie bitte? Ich höre nichts!) Statt **niente** kannst du auch **nulla** sagen.",
+          "sl": "*Nič* gre enako: **non** … **niente**. **Non vedo niente!** (Nič ne vidim!) Teta Nives slabo sliši: **Come? Non sento niente!** (Kako? Nič ne slišim!) Namesto **niente** lahko rečeš tudi **nulla**.",
+          "en": "*Nothing* goes the same way: **non** … **niente**. **Non vedo niente!** (I can't see anything!) Zia Nives can't hear well: **Come? Non sento niente!** (What? I can't hear a thing!) Instead of **niente** you can also say **nulla**."
+        },
+        "examples": [
+          { "it": "È buio: non vedo niente!", "de": "Es ist dunkel: Ich sehe nichts!", "sl": "Tema je: nič ne vidim!", "en": "It's dark: I can't see anything!" },
+          { "it": "Zia Nives: «Come? Non sento niente!»", "de": "Zia Nives: „Wie bitte? Ich höre nichts!“", "sl": "Teta Nives: »Kako? Nič ne slišim!«", "en": "Zia Nives: “What? I can't hear a thing!”" }
+        ],
+        "rows": [
+          ["non … niente", { "de": "nichts", "sl": "nič", "en": "nothing" }, "Non vedo niente."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "negazioni", "text": "È buio nel bosco: non vedo ___.", "accept": ["niente", "nulla"], "hint": { "de": "nichts", "sl": "nič", "en": "nothing" },
+          "explain": {
+            "de": "**nichts** → **non** … **niente** (oder nulla)",
+            "sl": "**nič** → **non** … **niente** (ali nulla)",
+            "en": "**nothing** → **non** … **niente** (or nulla)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "*Niemand* ist **nessuno**, auch mit **non** vor dem Verb: **Non c'è nessuno.** (Niemand ist da.) **Tommaso non ha paura di nessuno.** (Tommaso hat vor niemandem Angst.) **Niente** ist für Sachen, **nessuno** für Menschen.",
+          "sl": "*Nihče, nikogar* je **nessuno**, tudi z **non** pred glagolom: **Non c'è nessuno.** (Nikogar ni.) **Tommaso non ha paura di nessuno.** (Tommaso se ne boji nikogar.) **Niente** je za stvari, **nessuno** za ljudi.",
+          "en": "*Nobody* is **nessuno**, with **non** before the verb too: **Non c'è nessuno.** (There's nobody here.) **Tommaso non ha paura di nessuno.** (Tommaso isn't afraid of anybody.) **Niente** is for things, **nessuno** for people."
+        },
+        "examples": [
+          { "it": "C'è qualcuno? No, non c'è nessuno.", "de": "Ist da jemand? Nein, da ist niemand.", "sl": "Je kdo tu? Ne, nikogar ni.", "en": "Is anybody there? No, there's nobody." },
+          { "it": "Tommaso non ha paura di nessuno.", "de": "Tommaso hat vor niemandem Angst.", "sl": "Tommaso se ne boji nikogar.", "en": "Tommaso isn't afraid of anybody." }
+        ],
+        "rows": [
+          ["non … nessuno", { "de": "niemand", "sl": "nihče, nikogar", "en": "nobody" }, "Non c'è nessuno."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "negazioni", "prompt": "«Chi c'è in classe?» «Non c'è ___.»", "options": ["nessuno", "niente", "mai"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Menschen** (chi?) → **nessuno**\n- niente · für Sachen\n- mai · nie",
+            "sl": "**ljudje** (chi?) → **nessuno**\n- niente · za stvari\n- mai · nikoli",
+            "en": "**people** (chi?) → **nessuno**\n- niente · for things\n- mai · never"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Noch zwei: **non … più** (nicht mehr) und **non … ancora** (noch nicht). **Basta, non ho più fame!** (Genug, ich habe keinen Hunger mehr!) **Il frico non è ancora pronto.** (Der Frico ist noch nicht fertig.)",
+          "sl": "Še dve: **non … più** (ne več) in **non … ancora** (še ne). **Basta, non ho più fame!** (Dovolj, nisem več lačen!) **Il frico non è ancora pronto.** (Frika še ni gotova.)",
+          "en": "Two more: **non … più** (no more, not any longer) and **non … ancora** (not yet). **Basta, non ho più fame!** (That's enough, I'm not hungry any more!) **Il frico non è ancora pronto.** (The frico isn't ready yet.)"
+        },
+        "examples": [
+          { "it": "Non piove più: andiamo fuori!", "de": "Es regnet nicht mehr: Gehen wir raus!", "sl": "Ne dežuje več: gremo ven!", "en": "It isn't raining any more: let's go out!" },
+          { "it": "Lorenzo non sa ancora leggere.", "de": "Lorenzo kann noch nicht lesen.", "sl": "Lorenzo še ne zna brati.", "en": "Lorenzo can't read yet." }
+        ],
+        "rows": [
+          ["non … più", { "de": "nicht mehr", "sl": "ne več", "en": "no more, not any longer" }, "Non piove più."],
+          ["non … ancora", { "de": "noch nicht", "sl": "še ne", "en": "not yet" }, "Non è ancora pronto."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "negazioni", "text": "Lorenzo ha mangiato tanto: non ha ___ fame.", "accept": ["più"], "hint": { "de": "nicht mehr", "sl": "ne več", "en": "no more" },
+          "explain": {
+            "de": "**nicht mehr** → **non** … **più**: non ha più fame\n- ancora · noch",
+            "sl": "**ne več** → **non** … **più**: non ha più fame\n- ancora · še",
+            "en": "**no more** → **non** … **più**: non ha più fame\n- ancora · still, yet"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Steht **nessuno** ganz vorn, fällt **non** weg, wie im Deutschen: **Nessuno gioca con me.** (Niemand spielt mit mir.) **Nessuno sa dov'è la palla.** (Niemand weiß, wo der Ball ist.) Als kurze Antwort reicht ein Wort: **Chi c'è? Nessuno.** **Che cosa hai? Niente!**",
+          "sl": "Ko **nessuno** stoji čisto spredaj, **non** odpade, slovensko pa rečeš *nihče ne*: **Nessuno gioca con me.** (Nihče se ne igra z mano.) **Nessuno sa dov'è la palla.** (Nihče ne ve, kje je žoga.) Za kratek odgovor zadošča ena beseda: **Chi c'è? Nessuno.** **Che cosa hai? Niente!**",
+          "en": "When **nessuno** comes first, **non** goes: **Nessuno gioca con me.** (Nobody plays with me.) **Nessuno sa dov'è la palla.** (Nobody knows where the ball is.) A short answer is one word: **Chi c'è? Nessuno.** **Che cosa hai? Niente!**"
+        },
+        "examples": [
+          { "it": "Nessuno sa dov'è la palla.", "de": "Niemand weiß, wo der Ball ist.", "sl": "Nihče ne ve, kje je žoga.", "en": "Nobody knows where the ball is." },
+          { "it": "«Che cosa hai in mano?» «Niente!»", "de": "„Was hast du in der Hand?“ „Nichts!“", "sl": "»Kaj imaš v roki?« »Nič!«", "en": "“What have you got in your hand?” “Nothing!”" }
+        ],
+        "rows": [
+          ["nessuno …", { "de": "niemand … (vorn)", "sl": "nihče … (spredaj)", "en": "nobody … (first)" }, "Nessuno gioca con me."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "negazioni", "prompt": "___ sa la risposta.", "options": ["Nessuno", "Non nessuno", "Niente"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**niemand** vorn → **Nessuno** sa …, ohne non\n- niente · nichts, für Sachen",
+            "sl": "**nihče** spredaj → **Nessuno** sa …, brez non\n- niente · nič, za stvari",
+            "en": "**nobody** first → **Nessuno** sa …, no non\n- niente · nothing, for things"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "negazioni-1",
+      "title": { "it": "Il contrario", "de": "Das Gegenteil", "sl": "Nasprotje", "en": "The opposite" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "negazioni", "instruction": { "de": "Il contrario · Was ist das Gegenteil?", "sl": "Il contrario · Kaj je nasprotje?", "en": "Il contrario · What's the opposite?" },
+          "columns": [
+            { "label": { "de": "non … mai · nie", "sl": "non … mai · nikoli", "en": "non … mai · never" }, "words": ["sempre", "spesso", "ogni giorno"] },
+            { "label": { "de": "non … niente · nichts", "sl": "non … niente · nič", "en": "non … niente · nothing" }, "words": ["qualcosa", "tutto", "un po'"] },
+            { "label": { "de": "non … nessuno · niemand", "sl": "non … nessuno · nihče", "en": "non … nessuno · nobody" }, "words": ["qualcuno", "tutti"] }
+          ],
+          "explain": {
+            "de": "**wann?** sempre, spesso → non … mai · **was?** qualcosa, tutto → non … niente · **wer?** qualcuno, tutti → non … nessuno\n- Gioco sempre. → Non gioco mai.",
+            "sl": "**kdaj?** sempre, spesso → non … mai · **kaj?** qualcosa, tutto → non … niente · **kdo?** qualcuno, tutti → non … nessuno\n- Gioco sempre. → Non gioco mai.",
+            "en": "**when?** sempre, spesso → non … mai · **what?** qualcosa, tutto → non … niente · **who?** qualcuno, tutti → non … nessuno\n- Gioco sempre. → Non gioco mai."
+          }
+        },
+        {
+          "type": "choice", "grammar": "negazioni", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Lorenzo ha paura del buio: di notte ___ fuori.", "options": ["non va mai", "va mai", "non mai va"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**non** + Verb + **mai**: non va mai",
+            "sl": "**non** + glagol + **mai**: non va mai",
+            "en": "**non** + the verb + **mai**: non va mai"
+          }
+        },
+        {
+          "type": "choice", "grammar": "negazioni", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Chi ha mangiato la torta?» «___!» dice Tommaso.", "options": ["Nessuno", "Niente", "Mai"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**chi?** (wer?) → **Nessuno!** (niemand)\n- niente · nichts\n- mai · nie",
+            "sl": "**chi?** (kdo?) → **Nessuno!** (nihče)\n- niente · nič\n- mai · nikoli",
+            "en": "**chi?** (who?) → **Nessuno!** (nobody)\n- niente · nothing\n- mai · never"
+          }
+        },
+        {
+          "type": "choice", "grammar": "negazioni", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Il pranzo non è ___ pronto: aspettiamo!", "options": ["ancora", "più"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**noch nicht** (gleich ist es fertig) → **non** … **ancora**\n- non … più · nicht mehr",
+            "sl": "**še ne** (kmalu bo gotovo) → **non** … **ancora**\n- non … più · ne več",
+            "en": "**not yet** (it'll be ready soon) → **non** … **ancora**\n- non … più · no more"
+          }
+        }
+      ]
+    },
+    {
+      "id": "negazioni-2",
+      "title": { "it": "Di notte nella tenda", "de": "Nachts im Zelt", "sl": "Ponoči v šotoru", "en": "At night in the tent" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "negazioni", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "Di notte nella tenda",
+          "text": "È notte, i bambini dormono nella tenda. «Senti qualcosa?» chiede Giulia. «No, non sento ___.» dice {learner}. «C'è qualcuno fuori?» «No, non c'è ___.» Moro è con loro e non abbaia ___ di notte. Ma Lorenzo non dorme ___: ha paura del buio. «Dai, Lorenzo, ___ ha paura qui!» dice Tommaso. «È vero» dice Lorenzo. «Adesso non ho ___ paura.»",
+          "gaps": [
+            { "accept": ["niente", "nulla"], "hint": { "de": "nichts", "sl": "nič", "en": "nothing" } },
+            { "accept": ["nessuno"], "hint": { "de": "niemand", "sl": "nihče", "en": "nobody" } },
+            { "accept": ["mai"], "hint": { "de": "nie", "sl": "nikoli", "en": "never" } },
+            { "accept": ["ancora"], "hint": { "de": "noch nicht", "sl": "še ne", "en": "not yet" } },
+            { "accept": ["nessuno"], "hint": { "de": "niemand, vorn", "sl": "nihče, spredaj", "en": "nobody, first" }, "explain": { "de": "**nessuno** vorn: ohne non.", "sl": "**nessuno** spredaj: brez non.", "en": "**nessuno** first: no non." } },
+            { "accept": ["più"], "hint": { "de": "nicht mehr", "sl": "ne več", "en": "no more" } }
+          ],
+          "bank": true, "distractors": ["no"],
+          "translation": {
+            "de": "Es ist Nacht, die Kinder schlafen im Zelt. „Hörst du etwas?“, fragt Giulia. „Nein, ich höre nichts“, sagt {learner}. „Ist jemand draußen?“ „Nein, da ist niemand.“ Moro ist bei ihnen und bellt nachts nie. Aber Lorenzo schläft noch nicht: Er hat Angst vor der Dunkelheit. „Komm schon, Lorenzo, hier hat niemand Angst!“, sagt Tommaso. „Stimmt“, sagt Lorenzo. „Jetzt habe ich keine Angst mehr.“",
+            "sl": "Noč je, otroci spijo v šotoru. »Slišiš kaj?« vpraša Giulia. »Ne, nič ne slišim,« reče {learner}. »Je kdo zunaj?« »Ne, nikogar ni.« Moro je z njimi in ponoči nikoli ne laja. Lorenzo pa še ne spi: boji se teme. »Daj no, Lorenzo, tu se nihče ne boji!« reče Tommaso. »Res je,« reče Lorenzo. »Zdaj me ni več strah.«",
+            "en": "It's night, and the children are sleeping in the tent. \"Can you hear anything?\" asks Giulia. \"No, I can't hear anything,\" says {learner}. \"Is anybody outside?\" \"No, there's nobody.\" Moro is with them and never barks at night. But Lorenzo isn't asleep yet: he's afraid of the dark. \"Come on, Lorenzo, nobody's afraid here!\" says Tommaso. \"That's true,\" says Lorenzo. \"I'm not afraid any more.\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "negazioni", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«C'è ancora del frico?» «No, non ce n'è ___.»", "options": ["più", "nessuno"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**nicht mehr** → non … **più**: non ce n'è più\n- nessuno · niemand",
+            "sl": "**ne več** → non … **più**: non ce n'è più\n- nessuno · nihče",
+            "en": "**no more** → non … **più**: non ce n'è più\n- nessuno · nobody"
+          }
+        }
+      ]
+    },
+    {
+      "id": "negazioni-3",
+      "title": { "it": "Di' il contrario", "de": "Sag das Gegenteil", "sl": "Povej nasprotno", "en": "Say the opposite" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "negazioni", "instruction": { "de": "Di' il contrario · Sag das Gegenteil", "sl": "Di' il contrario · Povej nasprotno", "en": "Di' il contrario · Say the opposite" },
+          "items": [
+            { "from": "Moro abbaia sempre.", "accept": ["Moro non abbaia mai."] },
+            { "from": "Vedo qualcosa.", "accept": ["Non vedo niente.", "Non vedo nulla."] },
+            { "from": "C'è qualcuno in piazza.", "accept": ["Non c'è nessuno in piazza."] },
+            { "from": "Lorenzo ha ancora fame.", "accept": ["Lorenzo non ha più fame."], "hint": { "de": "ancora → non … più", "sl": "ancora → non … più", "en": "ancora → non … più" } },
+            { "from": "Qualcuno canta.", "accept": ["Nessuno canta."], "hint": { "de": "nessuno vorn: ohne non", "sl": "nessuno spredaj: brez non", "en": "nessuno first: no non" } },
+            { "from": "Giulia mangia sempre i funghi.", "accept": ["Giulia non mangia mai i funghi."] }
+          ],
+          "explain": {
+            "de": "**sempre** → non … mai · **qualcosa** → non … niente · **qualcuno** → non … nessuno · **ancora** → non … più\n- Qualcuno canta. → Nessuno canta.",
+            "sl": "**sempre** → non … mai · **qualcosa** → non … niente · **qualcuno** → non … nessuno · **ancora** → non … più\n- Qualcuno canta. → Nessuno canta.",
+            "en": "**sempre** → non … mai · **qualcosa** → non … niente · **qualcuno** → non … nessuno · **ancora** → non … più\n- Qualcuno canta. → Nessuno canta."
+          }
+        },
+        {
+          "type": "transform", "grammar": "negazioni", "instruction": { "de": "Non ancora · Noch nicht", "sl": "Non ancora · Še ne", "en": "Non ancora · Not yet" },
+          "items": [
+            { "from": "Il frico è pronto.", "accept": ["Il frico non è ancora pronto."] },
+            { "from": "Lorenzo sa leggere.", "accept": ["Lorenzo non sa ancora leggere."] },
+            { "from": "Giulia dorme.", "accept": ["Giulia non dorme ancora."] }
+          ],
+          "explain": {
+            "de": "**non** vor das Verb, **ancora** danach\n- Il frico non è ancora pronto.",
+            "sl": "**non** pred glagol, **ancora** za njim\n- Il frico non è ancora pronto.",
+            "en": "**non** before the verb, **ancora** after it\n- Il frico non è ancora pronto."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "negazioni", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Zia Nives sente poco. «Zia, senti la musica?» «Come? Non sento ___!» «Zia, c'è qualcuno alla porta!» «Non c'è ___, tesoro.» Zia Nives non spegne ___ la sua radio. Ma oggi la radio non funziona ___: è rotta!",
+        "gaps": [
+          { "accept": ["niente", "nulla"] },
+          { "accept": ["nessuno"] },
+          { "accept": ["mai"] },
+          { "accept": ["più"] }
+        ],
+        "translation": {
+          "de": "Zia Nives hört schlecht. „Tante, hörst du die Musik?“ „Wie bitte? Ich höre nichts!“ „Tante, da ist jemand an der Tür!“ „Da ist niemand, Schatz.“ Zia Nives schaltet ihr Radio nie aus. Aber heute geht das Radio nicht mehr: Es ist kaputt!",
+          "sl": "Teta Nives slabo sliši. »Teta, slišiš glasbo?« »Kako? Nič ne slišim!« »Teta, nekdo je pri vratih!« »Nikogar ni, srček.« Teta Nives nikoli ne ugasne svojega radia. Danes pa radio ne dela več: pokvarjen je!",
+          "en": "Zia Nives can't hear well. \"Auntie, can you hear the music?\" \"What? I can't hear anything!\" \"Auntie, there's someone at the door!\" \"There's nobody, sweetheart.\" Zia Nives never turns her radio off. But today the radio doesn't work any more: it's broken!"
+        }
+      },
+      {
+        "type": "transform", "grammar": "negazioni", "instruction": { "de": "Di' il contrario · Sag das Gegenteil", "sl": "Di' il contrario · Povej nasprotno", "en": "Di' il contrario · Say the opposite" },
+        "items": [
+          { "from": "Mangio sempre le ciliegie.", "accept": ["Non mangio mai le ciliegie."] },
+          { "from": "C'è qualcuno nella tenda.", "accept": ["Non c'è nessuno nella tenda."] },
+          { "from": "Qualcuno ride.", "accept": ["Nessuno ride."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "negazioni", "prompt": "«___ gioca con me!» dice Lorenzo, triste.", "options": ["Nessuno", "Non nessuno", "Niente"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**niemand** vorn → **Nessuno** gioca …, ohne non",
+          "sl": "**nihče** spredaj → **Nessuno** gioca …, brez non",
+          "en": "**nobody** first → **Nessuno** gioca …, no non"
+        }
+      },
+      {
+        "type": "choice", "grammar": "negazioni", "prompt": "Il gelato è finito: non ce n'è ___.", "options": ["più", "nessuno"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**nicht mehr** → non … **più**",
+          "sl": "**ne več** → non … **più**",
+          "en": "**no more** → non … **più**"
+        }
+      },
+      {
+        "type": "sort", "grammar": "negazioni", "instruction": { "de": "Il contrario · Was ist das Gegenteil?", "sl": "Il contrario · Kaj je nasprotje?", "en": "Il contrario · What's the opposite?" },
+        "columns": [
+          { "label": { "de": "non … mai · nie", "sl": "non … mai · nikoli", "en": "non … mai · never" }, "words": ["sempre", "spesso"] },
+          { "label": { "de": "non … niente · nichts", "sl": "non … niente · nič", "en": "non … niente · nothing" }, "words": ["qualcosa"] },
+          { "label": { "de": "non … nessuno · niemand", "sl": "non … nessuno · nihče", "en": "non … nessuno · nobody" }, "words": ["qualcuno"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: niente and nulla both accepted, Zia Nives sente poco, non spegne mai la radio, Nessuno ride, the German for a child"
+}
