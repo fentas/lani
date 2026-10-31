@@ -84,6 +84,11 @@ export default async function scenes() {
     JSON.stringify(before5.objects) === '[{"slot":"bench"}]' && before5.people.map((p: any) => p.slot).join() === 'play2,bench,play1,play3' &&
       JSON.stringify(before5.variants) === '[{"id":"kocke","count":{"from":"dice"}}]' && JSON.stringify(before5.happenings[0].dialogs) === '["x"]' &&
       JSON.stringify(forApp([square], 5)[0]) === JSON.stringify(square), before5)
+  // arts 6: the things Friuli's look alone makes words (the osteria, the fontanella, the altar candle)
+  const places6 = [{ art: 'bocce', objects: [{ slot: 'court' }, { slot: 'inn' }] }, { art: 'playground', objects: [{ slot: 'fontanella' }, { slot: 'swing' }] }, { art: 'chapel', objects: [{ slot: 'altarcandle' }, { slot: 'candle' }] }]
+  const before6 = forApp(places6, 5)
+  check('an app before arts 6 gets the bocce court, the playground and the chapel without the osteria, the fontanella and the altar candle; arts 6 all',
+    JSON.stringify(before6.map(s => s.objects.map(o => o.slot))) === '[["court"],["swing"],["candle"]]' && JSON.stringify(forApp(places6, 6)) === JSON.stringify(places6), before6)
   check('the bridge registry matches SceneArt.kt and Model.kt', JSON.stringify(kt) === JSON.stringify(SCENE_ART), { kt, ts: SCENE_ART })
   // the slots only a culture's look draws, as SceneWorld.kt (SceneFixtures: A_LOOK_ONLY) and CultureLook.kt (its fixture) have them
   const world = readFileSync(join(android, 'scene/SceneWorld.kt'), 'utf8')
