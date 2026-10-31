@@ -176,9 +176,9 @@
       },
       {
         "say": {
-          "de": "Auf **-nto** enden **vincere → vinto** (gewonnen), **spegnere → spento** (ausgemacht) und **dipingere → dipinto** (gemalt). **Abbiamo vinto!** (Wir haben gewonnen!) Und zwei sehen ganz anders aus als ihr Verb: **bere → bevuto** (getrunken) und **venire → venuto** (gekommen).",
-          "sl": "Na **-nto** se končajo **vincere → vinto** (zmagal), **spegnere → spento** (ugasnjen) in **dipingere → dipinto** (naslikan). **Abbiamo vinto!** (Zmagali smo!) Dva pa sta čisto drugačna od svojega glagola: **bere → bevuto** (popit) in **venire → venuto** (prišel).",
-          "en": "**vincere → vinto** (won), **spegnere → spento** (switched off, blown out) and **dipingere → dipinto** (painted) end in **-nto**. **Abbiamo vinto!** (We won!) And two look quite unlike their verb: **bere → bevuto** (drunk) and **venire → venuto** (come)."
+          "de": "Auf **-nto** enden **vincere → vinto** (gewonnen), **spegnere → spento** (ausgemacht) und **dipingere → dipinto** (gemalt). **Abbiamo vinto!** (Wir haben gewonnen!) Und zwei auf **-uto**: **bere → bevuto** (getrunken, aus bev-) und **venire → venuto** (gekommen, mit -uto statt -ito).",
+          "sl": "Na **-nto** se končajo **vincere → vinto** (zmagal), **spegnere → spento** (ugasnjen) in **dipingere → dipinto** (naslikan). **Abbiamo vinto!** (Zmagali smo!) In dva na **-uto**: **bere → bevuto** (popit, iz bev-) in **venire → venuto** (prišel, z -uto namesto -ito).",
+          "en": "**vincere → vinto** (won), **spegnere → spento** (switched off, blown out) and **dipingere → dipinto** (painted) end in **-nto**. **Abbiamo vinto!** (We won!) And two in **-uto**: **bere → bevuto** (drunk, from bev-) and **venire → venuto** (come, -uto instead of -ito)."
         },
         "examples": [
           {
@@ -319,7 +319,7 @@
             { "accept": ["ha acceso"], "hint": "-so" },
             { "accept": ["ha spento"], "hint": "-nto" },
             { "accept": ["ha aperto"], "hint": "-erto" },
-            { "accept": ["abbiamo bevuto"], "hint": "noi …" },
+            { "accept": ["abbiamo bevuto", "bevuto"], "hint": "noi …" },
             {
               "accept": ["è venuto"],
               "hint": "venire → essere",
@@ -334,15 +334,15 @@
           "distractors": ["ha spegnuto", "ha aprito", "abbiamo bevito"],
           "translation": {
             "de": "Gestern hatte Lorenzo Geburtstag. Nonna Rosa hat einen Kuchen gebacken. Giulia hat eine Karte mit vielen Herzen geschrieben. Opa Franco hat sechs Kerzen angezündet, und Lorenzo hat alle Kerzen mit einem Pusten ausgeblasen! Dann hat Lorenzo die Geschenke aufgemacht. Wir haben gesungen und viel Orangenlimonade getrunken. Auch Moro ist zum Fest gekommen!",
-            "sl": "Včeraj je imel Lorenzo rojstni dan. Babica Rosa je spekla torto. Giulia je napisala voščilnico s polno srčki. Dedek Franco je prižgal šest svečk in Lorenzo je z enim pihom upihnil vse svečke! Potem je Lorenzo odprl darila. Peli smo in spili veliko oranžade. Tudi Moro je prišel na zabavo!",
-            "en": "Yesterday was Lorenzo's birthday. Nonna Rosa made a cake. Giulia wrote a card with lots of hearts. Grandpa Franco lit six candles, and Lorenzo blew out all the candles in one puff! Then Lorenzo opened his presents. We sang and drank lots of orange juice. Moro came to the party too!"
+            "sl": "Včeraj je imel Lorenzo rojstni dan. Babica Rosa je spekla torto. Giulia je napisala voščilnico z veliko srčki. Dedek Franco je prižgal šest svečk in Lorenzo je z enim pihom upihnil vse svečke! Potem je Lorenzo odprl darila. Peli smo in spili veliko oranžade. Tudi Moro je prišel na zabavo!",
+            "en": "Yesterday was Lorenzo's birthday. Nonna Rosa made a cake. Giulia wrote a card with lots of hearts. Grandpa Franco lit six candles, and Lorenzo blew out all the candles in one puff! Then Lorenzo opened his presents. We sang and drank lots of orangeade. Moro came to the party too!"
           }
         },
         {
           "type": "choice",
           "grammar": "participi-irregolari",
           "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
-          "prompt": "Lorenzo ha ___ una domanda alla maestra.",
+          "prompt": "Lorenzo ha ___ aiuto alla maestra.",
           "options": ["chiesto", "chiesta", "chieduto"],
           "answer": 0,
           "say_options": true,

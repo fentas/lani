@@ -56,7 +56,7 @@
       {
         "say": {
           "de": "Was morgen sein wird, sagst du auf Italienisch mit einem Wort, dem **futuro**: **Domani parlerò con la maestra.** (Morgen werde ich mit der Lehrerin sprechen.) Die Endungen: **-ò, -ai, -à, -emo, -ete, -anno**. Bei **-are** wird das **a** zu **e**: **parlare → parlerò**. Bei **-ere** bleibt es: **leggere → leggerò** (ich werde lesen). Und **ò** und **à** haben einen Akzent.",
-          "sl": "Kar bo jutri, poveš v italijanščini z eno besedo, s **futuro**: **Domani parlerò con la maestra.** (Jutri bom govoril z učiteljico.) Končnice: **-ò, -ai, -à, -emo, -ete, -anno**. Pri **-are** se **a** spremeni v **e**: **parlare → parlerò**. Pri **-ere** ostane: **leggere → leggerò** (bral bom). **ò** in **à** imata naglas.",
+          "sl": "Kar bo jutri, poveš v italijanščini z eno besedo, s **futuro**: **Domani parlerò con la maestra.** (Jutri bom {m:govoril|f:govorila} z učiteljico.) Končnice: **-ò, -ai, -à, -emo, -ete, -anno**. Pri **-are** se **a** spremeni v **e**: **parlare → parlerò**. Pri **-ere** ostane: **leggere → leggerò** ({m:bral|f:brala} bom). **ò** in **à** imata naglas.",
           "en": "What will be tomorrow you say in Italian with one word, the **futuro**: **Domani parlerò con la maestra.** (Tomorrow I'll talk to the teacher.) The endings: **-ò, -ai, -à, -emo, -ete, -anno**. In **-are** the **a** becomes **e**: **parlare → parlerò**. In **-ere** it stays: **leggere → leggerò** (I'll read). And **ò** and **à** carry an accent."
         },
         "examples": [
@@ -68,7 +68,7 @@
           },
           {
             "it": "Stasera Giulia leggerà una storia.",
-            "de": "Heute Abend liest Giulia eine Geschichte vor.",
+            "de": "Heute Abend liest Giulia eine Geschichte.",
             "sl": "Nocoj bo Giulia brala zgodbo.",
             "en": "Tonight Giulia will read a story."
           }
@@ -80,7 +80,7 @@
         "ask": {
           "type": "cloze",
           "grammar": "futuro",
-          "text": "Domani Lorenzo ___ un libro. (leggere)",
+          "text": "Domani Lorenzo ___ un libro. (leggere · futuro)",
           "accept": ["leggerà"],
           "hint": "lui: -à",
           "explain": {
@@ -93,7 +93,7 @@
       {
         "say": {
           "de": "Bei **-ire** behältst du das **i**: **dormire → dormirò** (ich werde schlafen), **partire → partirà** (er, sie wird abfahren). Für **voi**: **dormirete**, für **loro**: **dormiranno**. **Stanotte dormiremo nella tenda!** (Heute Nacht schlafen wir im Zelt!)",
-          "sl": "Pri **-ire** ostane **i**: **dormire → dormirò** (spal bom), **partire → partirà** (odšel bo, odpeljal bo). Za **voi**: **dormirete**, za **loro**: **dormiranno**. **Stanotte dormiremo nella tenda!** (Nocoj bomo spali v šotoru!)",
+          "sl": "Pri **-ire** ostane **i**: **dormire → dormirò** ({m:spal|f:spala} bom), **partire → partirà** (odšel bo, odšla bo). Za **voi**: **dormirete**, za **loro**: **dormiranno**. **Stanotte dormiremo nella tenda!** (Nocoj bomo spali v šotoru!)",
           "en": "In **-ire** the **i** stays: **dormire → dormirò** (I'll sleep), **partire → partirà** (he, she will leave). For **voi**: **dormirete**, for **loro**: **dormiranno**. **Stanotte dormiremo nella tenda!** (Tonight we'll sleep in the tent!)"
         },
         "examples": [
@@ -130,9 +130,9 @@
       },
       {
         "say": {
-          "de": "Die wichtigsten Verben sind kurz: **essere → sarò** (ich werde sein), **avere → avrò** (ich werde haben), **andare → andrò** (ich werde gehen), **fare → farò** (ich werde machen). Auch bei **potere → potrò**, **dovere → dovrò** und **vedere → vedrò** fällt das **e** weg. **Domani sarà una bella giornata.** (Morgen wird ein schöner Tag.)",
-          "sl": "Najpomembnejši glagoli so kratki: **essere → sarò** (bom), **avere → avrò** (imel bom), **andare → andrò** (šel bom), **fare → farò** (delal bom). Tudi pri **potere → potrò**, **dovere → dovrò** in **vedere → vedrò** **e** odpade. **Domani sarà una bella giornata.** (Jutri bo lep dan.)",
-          "en": "The most important verbs are short: **essere → sarò** (I'll be), **avere → avrò** (I'll have), **andare → andrò** (I'll go), **fare → farò** (I'll do). In **potere → potrò**, **dovere → dovrò** and **vedere → vedrò** the **e** goes too. **Domani sarà una bella giornata.** (Tomorrow will be a lovely day.)"
+          "de": "Die wichtigsten Verben sind kurz: **essere → sarò** (ich werde sein), **avere → avrò** (ich werde haben), **andare → andrò** (ich werde gehen), **fare → farò** (ich werde machen). Auch **potere → potrò**, **dovere → dovrò** und **vedere → vedrò** sind kurz: ohne das **e** von -ere. **Domani sarà una bella giornata.** (Morgen wird ein schöner Tag.)",
+          "sl": "Najpomembnejši glagoli so kratki: **essere → sarò** (bom), **avere → avrò** ({m:imel|f:imela} bom), **andare → andrò** ({m:šel|f:šla} bom), **fare → farò** ({m:delal|f:delala} bom). Tudi **potere → potrò**, **dovere → dovrò** in **vedere → vedrò** so kratki: brez **e** iz -ere. **Domani sarà una bella giornata.** (Jutri bo lep dan.)",
+          "en": "The most important verbs are short: **essere → sarò** (I'll be), **avere → avrò** (I'll have), **andare → andrò** (I'll go), **fare → farò** (I'll do). **potere → potrò**, **dovere → dovrò** and **vedere → vedrò** are short too: no **e** of -ere. **Domani sarà una bella giornata.** (Tomorrow will be a lovely day.)"
         },
         "examples": [
           {
@@ -157,7 +157,7 @@
         "ask": {
           "type": "cloze",
           "grammar": "futuro",
-          "text": "Domani ___ caldo. (fare)",
+          "text": "Domani ___ caldo. (fare · futuro)",
           "accept": ["farà"],
           "hint": "fare → far-",
           "explain": {
@@ -169,9 +169,9 @@
       },
       {
         "say": {
-          "de": "Zwei haben ein **rr**: **venire → verrò** (ich werde kommen), **volere → vorrò** (ich werde wollen). Und die Schreibung: **giocare → giocherò**, mit **h**, damit es hart klingt wie in **gioco**; **mangiare → mangerò**, ohne **i**. **Giocheremo a carte con Nonno Bepi.** (Wir werden mit Nonno Bepi Karten spielen.)",
-          "sl": "Dva imata **rr**: **venire → verrò** (prišel bom), **volere → vorrò** (hotel bom). In pravopis: **giocare → giocherò**, s **h**, da ostane trdo kot v **gioco**; **mangiare → mangerò**, brez **i**. **Giocheremo a carte con Nonno Bepi.** (Z dedkom Bepijem bomo igrali karte.)",
-          "en": "Two have **rr**: **venire → verrò** (I'll come), **volere → vorrò** (I'll want). And the spelling: **giocare → giocherò**, with **h**, so it sounds hard as in **gioco**; **mangiare → mangerò**, no **i**. **Giocheremo a carte con Nonno Bepi.** (We'll play cards with Nonno Bepi.)"
+          "de": "Drei haben ein **rr**: **venire → verrò** (ich werde kommen), **volere → vorrò** (ich werde wollen), **bere → berrò** (ich werde trinken). Und die Schreibung: **giocare → giocherò**, **cercare → cercherò**, mit **h**, damit es hart klingt wie in **gioco**; **mangiare → mangerò**, ohne **i**. **Giocheremo a carte con Nonno Bepi.** (Wir werden mit Nonno Bepi Karten spielen.)",
+          "sl": "Trije imajo **rr**: **venire → verrò** ({m:prišel|f:prišla} bom), **volere → vorrò** ({m:hotel|f:hotela} bom), **bere → berrò** ({m:pil|f:pila} bom). In pravopis: **giocare → giocherò**, **cercare → cercherò**, s **h**, da ostane trdo kot v **gioco**; **mangiare → mangerò**, brez **i**. **Giocheremo a carte con Nonno Bepi.** (Z dedkom Bepijem bomo igrali karte.)",
+          "en": "Three have **rr**: **venire → verrò** (I'll come), **volere → vorrò** (I'll want), **bere → berrò** (I'll drink). And the spelling: **giocare → giocherò**, **cercare → cercherò**, with **h**, so it sounds hard as in **gioco**; **mangiare → mangerò**, no **i**. **Giocheremo a carte con Nonno Bepi.** (We'll play cards with Nonno Bepi.)"
         },
         "examples": [
           {
@@ -189,6 +189,7 @@
         ],
         "rows": [
           ["venire", "verrò", "verrà", "verremo"],
+          ["bere", "berrò", "berrà", "berremo"],
           ["giocare", "giocherò", "giocherà", "giocheremo"],
           ["mangiare", "mangerò", "mangerà", "mangeremo"]
         ],
@@ -366,11 +367,21 @@
             },
             {
               "from": "Giulia è a Udine.",
-              "accept": ["Giulia sarà a Udine.", "Domani giulia sarà a Udine.", "Giulia sarà a Udine domani."]
+              "accept": [
+                "Giulia sarà a Udine.",
+                "Domani Giulia sarà a Udine.",
+                "Giulia sarà a Udine domani.",
+                "Giulia domani sarà a Udine."
+              ]
             },
             {
               "from": "Lorenzo viene con noi.",
-              "accept": ["Lorenzo verrà con noi.", "Domani lorenzo verrà con noi.", "Lorenzo verrà con noi domani."],
+              "accept": [
+                "Lorenzo verrà con noi.",
+                "Domani Lorenzo verrà con noi.",
+                "Lorenzo verrà con noi domani.",
+                "Lorenzo domani verrà con noi."
+              ],
               "hint": "venire → verr-"
             },
             {
@@ -387,7 +398,8 @@
               "accept": [
                 "I bambini dormiranno nella tenda.",
                 "Domani i bambini dormiranno nella tenda.",
-                "I bambini dormiranno nella tenda domani."
+                "I bambini dormiranno nella tenda domani.",
+                "I bambini domani dormiranno nella tenda."
               ]
             },
             {
@@ -448,7 +460,12 @@
           },
           {
             "from": "Tommaso vuole un gelato.",
-            "accept": ["Tommaso vorrà un gelato.", "Domani tommaso vorrà un gelato.", "Tommaso vorrà un gelato domani."]
+            "accept": [
+              "Tommaso vorrà un gelato.",
+              "Domani Tommaso vorrà un gelato.",
+              "Tommaso vorrà un gelato domani.",
+              "Tommaso domani vorrà un gelato."
+            ]
           },
           {
             "from": "Cerchiamo le conchiglie.",

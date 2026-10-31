@@ -143,7 +143,7 @@
       },
       {
         "say": {
-          "de": "Nicht nur **andare** nimmt **essere**. Auch **venire** (kommen), **arrivare** (ankommen), **partire** (abfahren), **tornare** (zurückkommen), **uscire** (hinausgehen), **entrare** (hineingehen), **salire** (hinaufsteigen), **cadere** (fallen) und **restare** (bleiben). Ein Tipp: Wo du im Deutschen bin oder ist sagst, sagst du fast immer auch auf Italienisch **essere**: Tommaso ist gefallen, **Tommaso è caduto**.",
+          "de": "Nicht nur **andare** nimmt **essere**. Auch **venire** (kommen), **arrivare** (ankommen), **partire** (abfahren), **tornare** (zurückkommen), **uscire** (hinausgehen), **entrare** (hineingehen), **salire** (hinaufsteigen), **cadere** (fallen) und **restare** (bleiben). Ein Tipp: Wo du im Deutschen bin oder ist sagst, sagst du oft auch auf Italienisch **essere**: Tommaso ist gefallen, **Tommaso è caduto**.",
           "sl": "Ne samo **andare** gre z **essere**. Tudi **venire** (priti), **arrivare** (prispeti), **partire** (oditi, odpeljati), **tornare** (vrniti se), **uscire** (iti ven), **entrare** (vstopiti), **salire** (iti gor), **cadere** (pasti) in **restare** (ostati). To so glagoli premikanja in ostajanja: **Tommaso è caduto** (Tommaso je padel).",
           "en": "Not only **andare** takes **essere**. So do **venire** (come), **arrivare** (arrive), **partire** (leave), **tornare** (come back), **uscire** (go out), **entrare** (go in), **salire** (go up, get on), **cadere** (fall) and **restare** (stay): verbs of going, coming and staying. **Tommaso è caduto** (Tommaso fell)."
         },
@@ -156,7 +156,7 @@
           },
           {
             "it": "Le pecore sono uscite dalla stalla.",
-            "de": "Die Schafe sind aus dem Stall gekommen.",
+            "de": "Die Schafe sind aus dem Stall herausgekommen.",
             "sl": "Ovce so šle iz hleva.",
             "en": "The sheep have come out of the barn."
           }
@@ -309,12 +309,12 @@
           "grammar": "passato-prossimo",
           "instruction": { "de": "Completa con il passato · Setz die Vergangenheit ein", "sl": "Completa con il passato · Vstavi preteklik", "en": "Completa con il passato · Fill in the past" },
           "title": "Al mercato di Cividale",
-          "text": "Mi chiamo Giulia. Sabato io e la nonna ___ (partire) presto. ___ (noi · arrivare) a Cividale alle nove. Anche Lorenzo e suo nonno ___ (venire) con noi. Lorenzo ___ (restare) sul ponte del Diavolo a guardare il fiume. Io ___ (entrare) in una pasticceria e ho comprato la gubana. A mezzogiorno Lorenzo e io ___ (andare) in piazza. La sera ___ (noi · tornare) a casa, stanchi e felici.",
+          "text": "Mi chiamo Giulia. Sabato io e la nonna ___ (partire) presto. ___ (noi · arrivare) a Cividale alle nove. Anche Lorenzo e suo nonno ___ (venire) a Cividale, più tardi. Lorenzo ___ (restare) sul ponte del Diavolo a guardare il fiume. Io ___ (entrare) in una pasticceria e ho comprato la gubana. A mezzogiorno Lorenzo e io ___ (andare) in piazza. La sera ___ (noi · tornare) a casa, stanchi e felici.",
           "gaps": [
             { "accept": ["siamo partite"], "hint": "io (Giulia) e la nonna: -e" },
             { "accept": ["siamo arrivate"], "hint": "noi: -e" },
             { "accept": ["sono venuti"], "hint": "venire → essere" },
-            { "accept": ["è restato"], "hint": "Lorenzo: -o" },
+            { "accept": ["è restato", "è rimasto"], "hint": "Lorenzo: -o" },
             { "accept": ["sono entrata"], "hint": "io: Giulia" },
             { "accept": ["siamo andati"], "hint": "Lorenzo e io: -i" },
             {
@@ -330,9 +330,9 @@
           "bank": true,
           "distractors": ["siamo partiti", "sono entrato", "abbiamo tornato"],
           "translation": {
-            "de": "Ich heiße Giulia. Am Samstag sind die Oma und ich früh losgefahren. Um neun sind wir in Cividale angekommen. Auch Lorenzo und sein Opa sind mit uns gekommen. Lorenzo ist auf der Teufelsbrücke geblieben und hat auf den Fluss geschaut. Ich bin in eine Konditorei gegangen und habe die Gubana gekauft. Am Mittag sind Lorenzo und ich auf den Platz gegangen. Am Abend sind wir nach Hause gekommen, müde und glücklich.",
-            "sl": "Ime mi je Giulia. V soboto sva z babico zgodaj odšli. Ob devetih sva prispeli v Čedad. Z nama sta prišla tudi Lorenzo in njegov dedek. Lorenzo je ostal na Hudičevem mostu in gledal reko. Jaz sem stopila v slaščičarno in kupila gubanco. Opoldne sva šla z Lorenzom na trg. Zvečer smo se vrnili domov, utrujeni in srečni.",
-            "en": "My name is Giulia. On Saturday Granny and I left early. We arrived in Cividale at nine. Lorenzo and his grandpa came with us too. Lorenzo stayed on the Devil's Bridge watching the river. I went into a pastry shop and bought the gubana. At noon Lorenzo and I went to the square. In the evening we came home, tired and happy."
+            "de": "Ich heiße Giulia. Am Samstag sind die Oma und ich früh losgefahren. Um neun sind wir in Cividale angekommen. Auch Lorenzo und sein Opa sind später nach Cividale gekommen. Lorenzo ist auf der Teufelsbrücke geblieben und hat auf den Fluss geschaut. Ich bin in eine Konditorei gegangen und habe die Gubana gekauft. Am Mittag sind Lorenzo und ich auf den Platz gegangen. Am Abend sind wir nach Hause gekommen, müde und glücklich.",
+            "sl": "Ime mi je Giulia. V soboto sva z babico zgodaj odšli. Ob devetih sva prispeli v Čedad. Pozneje sta v Čedad prišla tudi Lorenzo in njegov dedek. Lorenzo je ostal na Hudičevem mostu in gledal reko. Jaz sem stopila v slaščičarno in kupila gubanco. Opoldne sva šla z Lorenzom na trg. Zvečer smo se vrnili domov, utrujeni in srečni.",
+            "en": "My name is Giulia. On Saturday Granny and I left early. We arrived in Cividale at nine. Lorenzo and his grandpa came to Cividale too, later. Lorenzo stayed on the Devil's Bridge watching the river. I went into a pastry shop and bought the gubana. At noon Lorenzo and I went to the square. In the evening we came home, tired and happy."
           }
         },
         {
@@ -411,7 +411,7 @@
         "gaps": [
           { "accept": ["è partito"] },
           { "accept": ["sono salite"] },
-          { "accept": ["è restata"] },
+          { "accept": ["è restata", "è rimasta"] },
           { "accept": ["è tornato"] },
           { "accept": ["sono arrivati"] }
         ],
