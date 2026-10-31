@@ -1,4 +1,4 @@
-# Plan: Lani's app icon and logo, and an icon that changes (app-icon, 2026-10-31)
+# Built: Lani's app icon and logo, an icon that grows with the village (app-icon, 2026-10-31)
 
 Jan, 2026-10-31: "also lets design a nice app logo/icon - maybe also a changing one? - duolingo does it".
 
@@ -461,6 +461,88 @@ doba, Praznik, Zgrajeno, Prišlek, Straža, Obvestila) and the channel names and
 - **The manifest is generated.** The generator writes the alias block, and the test checks it against the list.
 - **A child's profile.** The signs are joyful only, the watch is never in the icon, and the dot's words are kind. The
   reminder is off unless a parent turns it on.
+
+## Step 2: built (Jan: "ok yes" to step 1b)
+
+### What
+
+- **The launcher icon is the village's picture of the day:** 176 activity aliases of `MainActivity`, step 1b's scheme.
+  - The art is drawn by `companion/android/tools/app_icon.py build`: per alias a foreground and an adaptive icon in
+    `mipmap-anydpi-v26/ic_icon_*.xml`, the 2 backgrounds and 19 monochrome layers shared by content.
+  - The generator writes the manifest's alias block between markers. Only `.icon.Ogenj` is enabled there.
+    `MainActivity` keeps every intent filter but the launcher's.
+  - The application's own icon (`ic_launcher`: Settings → Apps, the share sheet) is the neutral L.
+- **What it shows** (`data/AppIcons.kt`, pure), from the saved village and the calendar:
+  - the age;
+  - the culture from Zaselek on (a culture without a look: Primorska's);
+  - snow from December to February;
+  - the day's highest sign: a new age (its day and the next), then a festival (its day, its grace days while it isn't
+    celebrated, the village's own festival event, and December 20 to January 6 the lights), then something built (a
+    building's `builtAt` or a project's `projectsFinished` in the last 2 days), then someone new (a resident's `since`
+    in the last 2 days, the founders not).
+  - Ogenj has neither a new age nor a newcomer.
+- **When it switches** (`data/AppIconWork.kt`):
+  - It decides at the first background moment of the day: 15 minutes after the app goes to the background
+    (`ProcessLifecycleOwner` ON_STOP; ON_START cancels it), or the daily job that first runs at 04:30. It never
+    decides while the app is in the foreground.
+  - It decides once a day. A new choice in the setting, or the developer's button, decides again, a few seconds after
+    the app goes to the background.
+  - `AppIconSwitch.show` enables the new alias first, then sets the others to DEFAULT (`.icon.Ogenj` to DISABLED), in
+    one `setComponentEnabledSettings` on Android 13+, in that order with `DONT_KILL_APP` below.
+  - **The repair:** at every start, if no launcher entry is enabled, the last one shown is enabled again. This only
+    ever enables, so it is safe in the foreground. After an update, `AppIconUpdateReceiver` (`MY_PACKAGE_REPLACED`)
+    repairs and decides a minute later. Two entries left by a switch cut short are put right by the day's decision.
+- **The setting** "🎨 Ikona · App icon", under ⚙️ Settings → 🌐 Jeziki · Languages:
+  - "Kaj se dogaja · What's happening", "Doba in letni čas · Age and season", "Ne spreminjaj · Keep it as it is".
+  - Until the learner chooses, the default is "What's happening" only on Pixel's or AOSP's Launcher3
+    (`com.google.android.apps.nexuslauncher`, `com.android.launcher3`). Everywhere else it is "Age and season",
+    Nothing's launcher and Teo's tablet included, and the note under the choices says why.
+- **The developer's button:** 🛠️ Developer → "🎨 Preizkusi naslednjo ikono · Try the next icon" cycles ten pictures.
+  "Ikona dneva · The day's icon" goes back. QA's hook "icon:<alias>" does the same.
+- **`ic_notify`**: a 24 dp white silhouette of the neutral L, for every notification's small icon.
+- **The wordmark:**
+  - the setup's welcome, over "Welcome!" (`lani_wordmark`);
+  - the README's top, with the icon;
+  - the site's header (the icon) and hero (the wordmark, a dark one for a dark scheme);
+  - the site's favicons (SVG, 32 px, the 180 px touch icon).
+  - All of it comes from the same build, and `build --check` covers it.
+- **Retired:** `launcher_icon.py`, the bubble with Č.
+- **The notification channels and the dot:** see "The notifications" below.
+
+### How to use
+
+- **Rebuild the art** after changing the drawing: `python3 companion/android/tools/app_icon.py build`. The Python
+  test `companion/tests/test_app_icon.py` runs `build --check`, so a drawing changed without a build, or a generated
+  file edited by hand, fails.
+- **A new picture** (a new sign, a new culture): add it to `icon_looks()` and `AppIcons.all` in the same order, build,
+  and append its names to `app/src/test/resources/app-icon-aliases.txt`. Never rename or remove a name in that file.
+- **Test a launcher:** 🛠️ Developer → "Try the next icon", then press Home. In a few seconds the icon changes in
+  place. Look for a second Lani icon, or a lost one.
+- **QA:** `companion/bin/qa-slot --no-town --steps app-icon`.
+
+### The numbers
+
+- **176 aliases.** The generator writes 378 files: 176 foregrounds, 176 adaptive icons, 2 backgrounds, 19 monochrome
+  layers, the application's icon (4), `lani_wordmark`.
+- **In the debug APK** (measured): 379 icon files, 1 673 KB of binary XML, **349 KB compressed**. The manifest is
+  99 KB (12 KB compressed). That is about 0.5 % of the 65 MB debug APK. Step 1b estimated about 260 KB from the plain
+  XML: the binary form is larger.
+- **Switches:** at most one a day; about 6 a year in "Age and season", plus each new age.
+
+### QA
+
+QA_RESULTS
+
+### Strings for the native check
+
+Machine-written, in sl, en, de and it: `appIcon.title`, `appIcon.happening`, `appIcon.ageSeason`, `appIcon.keep`,
+`appIcon.note`, `appIcon.tested`, `appIcon.untested`, `developer.iconNext`, `developer.iconDay`,
+`developer.iconNote`, and the notification channels' and dot texts (below).
+
+### Tap counts
+
+Before: the icon couldn't be changed. Now "Automatic" needs no tap. A fixed choice takes 4 taps from Home: ⚙️ →
+🌐 Jeziki · Languages → the mode's chip (the setting's section is on the Languages page).
 
 ## What's left (step 2, after Jan picks)
 
