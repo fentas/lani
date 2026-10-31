@@ -1,0 +1,440 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "imperfetto",
+  "language": "it",
+  "level": "A2",
+  "emoji": "📜",
+  "title": { "it": "C'era una volta", "de": "Es war einmal: das Imperfekt", "sl": "Nekoč je bil: imperfetto", "en": "Once upon a time: the imperfetto" },
+  "goal": {
+    "de": "Du erzählst, wie es früher war und was man immer machte (da piccolo giocavo, era sera, faceva freddo), und beginnst eine Geschichte mit C'era una volta.",
+    "sl": "Poveš, kakšno je bilo nekoč in kaj se je delalo vedno (da piccolo giocavo, era sera, faceva freddo), in začneš pravljico s C'era una volta.",
+    "en": "You can tell how things were and what people always did (da piccolo giocavo, era sera, faceva freddo), and begin a story with C'era una volta."
+  },
+  "grammar": ["imperfetto"],
+  "words": [
+    "c'era una volta",
+    "da piccolo",
+    "da giovane",
+    "sempre",
+    "ogni giorno",
+    "ogni estate",
+    "una volta",
+    "giocare",
+    "abitare",
+    "cantare",
+    "leggere",
+    "avere",
+    "dormire",
+    "uscire",
+    "sentire",
+    "fare",
+    "dire",
+    "bere",
+    "il gigante",
+    "il drago",
+    "la fata",
+    "il ruscello",
+    "il fiume",
+    "il mulino",
+    "la montagna",
+    "la neve",
+    "la barba",
+    "il cielo",
+    "la bambola",
+    "il latte",
+    "il miele",
+    "la canzone",
+    "il porcellino",
+    "freddo",
+    "alto",
+    "giovane"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "infinito", "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive" },
+        "io",
+        "lui, lei",
+        "loro"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Nonno Bepi beginnt jede Geschichte so: **C'era una volta** (Es war einmal). Das ist das **imperfetto**, die Vergangenheit für Geschichten und Beschreibungen. Von **essere** (sein): **ero** (ich war), **era** (er, sie, es war), **erano** (sie waren). **C'era** heißt es gab, für mehrere **c'erano**: **C'erano tre porcellini.** (Es waren einmal drei kleine Schweinchen.)",
+          "sl": "Dedek Bepi začne vsako pravljico tako: **C'era una volta** (Nekoč je živel). To je **imperfetto**, pretekli čas za pravljice in opise. Od **essere** (biti): **ero** (bil sem), **era** (bil je, bila je), **erano** (bili so). **C'era** pomeni bil je, za več **c'erano**: **C'erano tre porcellini.** (Nekoč so bili trije prašički.)",
+          "en": "Nonno Bepi starts every story like this: **C'era una volta** (Once upon a time there was). That's the **imperfetto**, the past for stories and descriptions. From **essere** (be): **ero** (I was), **era** (he, she, it was), **erano** (they were). **C'era** means there was, for more than one **c'erano**: **C'erano tre porcellini.** (Once there were three little pigs.)"
+        },
+        "examples": [
+          {
+            "it": "C'era una volta un gigante, l'Orcolat.",
+            "de": "Es war einmal ein Riese, der Orcolat.",
+            "sl": "Nekoč je živel velikan, Orcolat.",
+            "en": "Once upon a time there was a giant, the Orcolat."
+          },
+          {
+            "it": "Era sera e il cielo era nero.",
+            "de": "Es war Abend, und der Himmel war schwarz.",
+            "sl": "Bil je večer in nebo je bilo črno.",
+            "en": "It was evening and the sky was black."
+          }
+        ],
+        "rows": [
+          ["essere", "ero", "era", "erano"],
+          ["esserci", "—", "c'era", "c'erano"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperfetto",
+          "prompt": "C'___ una volta un drago.",
+          "options": ["era", "è", "erano"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Eine Geschichte: **imperfetto**, ein Drache → **c'era**\n- c'è · jetzt\n- c'erano · mehrere",
+            "sl": "Pravljica: **imperfetto**, en zmaj → **c'era**\n- c'è · zdaj\n- c'erano · več",
+            "en": "A story: **imperfetto**, one dragon → **c'era**\n- c'è · now\n- c'erano · more than one"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei **-are** nimmst du **-re** weg und hängst **-vo, -vi, -va** an: **giocare → giocavo** (ich spielte), **giocava** (er, sie spielte), **giocavano** (sie spielten). Für **noi** und **voi**: **giocavamo**, **giocavate**. Nonno Bepi erzählt: **Da piccolo giocavo nel fiume.** (Als ich klein war, spielte ich im Fluss.)",
+          "sl": "Pri **-are** odvzameš **-re** in dodaš **-vo, -vi, -va**: **giocare → giocavo** (igral sem se), **giocava** (igral se je), **giocavano** (igrali so se). Za **noi** in **voi**: **giocavamo**, **giocavate**. Dedek Bepi pripoveduje: **Da piccolo giocavo nel fiume.** (Ko sem bil majhen, sem se igral v reki.)",
+          "en": "With **-are** take off **-re** and add **-vo, -vi, -va**: **giocare → giocavo** (I played), **giocava** (he, she played), **giocavano** (they played). For **noi** and **voi**: **giocavamo**, **giocavate**. Nonno Bepi tells: **Da piccolo giocavo nel fiume.** (As a boy I played in the river.)"
+        },
+        "examples": [
+          {
+            "it": "Da piccolo Nonno Bepi giocava nel fiume.",
+            "de": "Als Nonno Bepi klein war, spielte er im Fluss.",
+            "sl": "Ko je bil dedek Bepi majhen, se je igral v reki.",
+            "en": "As a boy Nonno Bepi played in the river."
+          },
+          {
+            "it": "Le Agane abitavano nei ruscelli.",
+            "de": "Die Aganen wohnten in den Bächen.",
+            "sl": "Agane so živele v potokih.",
+            "en": "The Agane lived in the streams."
+          }
+        ],
+        "rows": [
+          ["giocare", "giocavo", "giocava", "giocavano"],
+          ["abitare", "abitavo", "abitava", "abitavano"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "imperfetto",
+          "text": "Da piccola Nonna Rosa ___ con le bambole. (giocare)",
+          "accept": ["giocava"],
+          "hint": "lei: -va",
+          "explain": {
+            "de": "**giocare** → gioca- + **-va**: giocava\n- io giocavo, loro giocavano",
+            "sl": "**giocare** → gioca- + **-va**: giocava\n- io giocavo, loro giocavano",
+            "en": "**giocare** → gioca- + **-va**: giocava\n- io giocavo, loro giocavano"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei **-ere** wird es **-evo**: **leggere → leggevo** (ich las), **avere → avevo** (ich hatte). Bei **-ire** **-ivo**: **dormire → dormivo** (ich schlief). Die Endungen danach sind bei allen gleich: **-vo, -vi, -va, -vamo, -vate, -vano**. **Nonna Rosa aveva un gatto bianco.** (Nonna Rosa hatte eine weiße Katze.)",
+          "sl": "Pri **-ere** postane **-evo**: **leggere → leggevo** (bral sem), **avere → avevo** (imel sem). Pri **-ire** **-ivo**: **dormire → dormivo** (spal sem). Končnice so potem pri vseh enake: **-vo, -vi, -va, -vamo, -vate, -vano**. **Nonna Rosa aveva un gatto bianco.** (Babica Rosa je imela belo mačko.)",
+          "en": "With **-ere** it's **-evo**: **leggere → leggevo** (I read), **avere → avevo** (I had). With **-ire** **-ivo**: **dormire → dormivo** (I slept). The endings after that are the same for all: **-vo, -vi, -va, -vamo, -vate, -vano**. **Nonna Rosa aveva un gatto bianco.** (Nonna Rosa had a white cat.)"
+        },
+        "examples": [
+          {
+            "it": "Nonna Rosa aveva un gatto bianco.",
+            "de": "Nonna Rosa hatte eine weiße Katze.",
+            "sl": "Babica Rosa je imela belo mačko.",
+            "en": "Nonna Rosa had a white cat."
+          },
+          {
+            "it": "Lorenzo dormiva nella tenda.",
+            "de": "Lorenzo schlief im Zelt.",
+            "sl": "Lorenzo je spal v šotoru.",
+            "en": "Lorenzo was sleeping in the tent."
+          }
+        ],
+        "rows": [
+          ["leggere", "leggevo", "leggeva", "leggevano"],
+          ["avere", "avevo", "aveva", "avevano"],
+          ["dormire", "dormivo", "dormiva", "dormivano"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperfetto",
+          "prompt": "Da giovane Nonno Bepi ___ un cane nero.",
+          "options": ["aveva", "avevo", "avevano"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**Nonno Bepi** → lui → **aveva**\n- avevo · io\n- avevano · loro",
+            "sl": "**Nonno Bepi** → lui → **aveva**\n- avevo · io\n- avevano · loro",
+            "en": "**Nonno Bepi** → lui → **aveva**\n- avevo · io\n- avevano · loro"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nur wenige sind unregelmäßig: **fare → facevo** (ich machte), **dire → dicevo** (ich sagte), **bere → bevevo** (ich trank). Mit **fare** sagst du auch, wie das Wetter war: **Faceva freddo.** (Es war kalt.) **Faceva caldo.** (Es war warm.) Und Nonno Bepi **diceva sempre: «Piano, piano!»** (sagte immer: Langsam, langsam!)",
+          "sl": "Nepravilnih je le nekaj: **fare → facevo** (delal sem), **dire → dicevo** (govoril sem), **bere → bevevo** (pil sem). S **fare** poveš tudi, kakšno je bilo vreme: **Faceva freddo.** (Bilo je mrzlo.) **Faceva caldo.** (Bilo je vroče.) Dedek Bepi pa **diceva sempre: «Piano, piano!»** (je vedno rekel: Počasi, počasi!)",
+          "en": "Only a few are irregular: **fare → facevo** (I did, made), **dire → dicevo** (I said), **bere → bevevo** (I drank). With **fare** you also say what the weather was like: **Faceva freddo.** (It was cold.) **Faceva caldo.** (It was hot.) And Nonno Bepi **diceva sempre: «Piano, piano!»** (always said: Slowly, slowly!)"
+        },
+        "examples": [
+          {
+            "it": "Quel giorno faceva un gran freddo.",
+            "de": "An jenem Tag war es sehr kalt.",
+            "sl": "Tisti dan je bilo zelo mrzlo.",
+            "en": "That day it was very cold."
+          },
+          {
+            "it": "Il nonno diceva sempre: «Piano, piano!»",
+            "de": "Der Opa sagte immer: „Langsam, langsam!“",
+            "sl": "Dedek je vedno rekel: »Počasi, počasi!«",
+            "en": "Grandpa always said: “Slowly, slowly!”"
+          }
+        ],
+        "rows": [
+          ["fare", "facevo", "faceva", "facevano"],
+          ["dire", "dicevo", "diceva", "dicevano"],
+          ["bere", "bevevo", "beveva", "bevevano"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "imperfetto",
+          "text": "In montagna ___ freddo. (fare)",
+          "accept": ["faceva"],
+          "hint": "fare → face-",
+          "explain": {
+            "de": "**fare** → **face-** + -va: faceva\n- fa freddo → faceva freddo",
+            "sl": "**fare** → **face-** + -va: faceva\n- fa freddo → faceva freddo",
+            "en": "**fare** → **face-** + -va: faceva\n- fa freddo → faceva freddo"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das **imperfetto** erzählt, wie jemand oder etwas war: **Il gigante era alto e aveva una barba lunga.** (Der Riese war groß und hatte einen langen Bart.) Und was man früher immer machte: **Ogni estate andavamo al mare.** (Jeden Sommer fuhren wir ans Meer.) Wörter wie **sempre** (immer), **ogni giorno** (jeden Tag) und **da piccolo** (als ich klein war) passen gut dazu.",
+          "sl": "**Imperfetto** pove, kakšen je bil kdo ali kaj: **Il gigante era alto e aveva una barba lunga.** (Velikan je bil visok in je imel dolgo brado.) In kaj se je nekoč vedno delalo: **Ogni estate andavamo al mare.** (Vsako poletje smo hodili na morje.) Zraven se dobro podajo besede **sempre** (vedno), **ogni giorno** (vsak dan) in **da piccolo** (ko sem bil majhen).",
+          "en": "The **imperfetto** tells what someone or something was like: **Il gigante era alto e aveva una barba lunga.** (The giant was tall and had a long beard.) And what people always used to do: **Ogni estate andavamo al mare.** (Every summer we went to the sea.) Words like **sempre** (always), **ogni giorno** (every day) and **da piccolo** (as a child) go well with it."
+        },
+        "examples": [
+          {
+            "it": "Il gigante era alto e aveva una barba lunga.",
+            "de": "Der Riese war groß und hatte einen langen Bart.",
+            "sl": "Velikan je bil visok in je imel dolgo brado.",
+            "en": "The giant was tall and had a long beard."
+          },
+          {
+            "it": "Ogni estate andavamo al mare.",
+            "de": "Jeden Sommer fuhren wir ans Meer.",
+            "sl": "Vsako poletje smo hodili na morje.",
+            "en": "Every summer we went to the sea."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperfetto",
+          "prompt": "Da giovane, ogni domenica Nonna Rosa ___ il frico per tutti.",
+          "options": ["faceva", "facevi", "facevano"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Eine Gewohnheit, **Nonna Rosa** → lei → **faceva**\n- facevi · tu\n- facevano · loro",
+            "sl": "Navada, **Nonna Rosa** → lei → **faceva**\n- facevi · tu\n- facevano · loro",
+            "en": "A habit, **Nonna Rosa** → lei → **faceva**\n- facevi · tu\n- facevano · loro"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "imperfetto-1",
+      "title": { "it": "Le forme", "de": "Die Formen", "sl": "Oblike", "en": "The forms" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "imperfetto",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "imperfetto",
+          "columns": ["giocare", "leggere", "dormire"],
+          "rows": [
+            {
+              "label": "io",
+              "cells": [
+                "giocavo",
+                { "accept": ["leggevo"], "hint": "-evo" },
+                { "accept": ["dormivo"], "hint": "-ivo" }
+              ]
+            },
+            { "label": "lui · lei", "cells": [{"accept": ["giocava"]}, "leggeva", {"accept": ["dormiva"]}] },
+            {
+              "label": "noi",
+              "cells": [
+                { "accept": ["giocavamo"], "hint": "-vamo" },
+                { "accept": ["leggevamo"] },
+                "dormivamo"
+              ]
+            },
+            {
+              "label": "loro",
+              "cells": [
+                { "accept": ["giocavano"], "hint": "-vano" },
+                { "accept": ["leggevano"] },
+                { "accept": ["dormivano"] }
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**-are → -avo · -ere → -evo · -ire → -ivo**\n- dann: -vo, -vi, -va, -vamo, -vate, -vano",
+            "sl": "**-are → -avo · -ere → -evo · -ire → -ivo**\n- nato: -vo, -vi, -va, -vamo, -vate, -vano",
+            "en": "**-are → -avo · -ere → -evo · -ire → -ivo**\n- then: -vo, -vi, -va, -vamo, -vate, -vano"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "imperfetto",
+          "instruction": { "de": "Chi? · Wer?", "sl": "Chi? · Kdo?", "en": "Chi? · Who?" },
+          "columns": [
+            { "label": "io", "words": ["ero", "avevo"] },
+            { "label": "lui · lei", "words": ["era", "faceva"] },
+            { "label": "noi", "words": ["eravamo", "dicevamo"] },
+            { "label": "loro", "words": ["erano", "bevevano"] }
+          ],
+          "explain": {
+            "de": "**-o** io · **-a** lui, lei · **-amo** noi · **-ano** loro\n- ero, era, eravamo, erano",
+            "sl": "**-o** io · **-a** lui, lei · **-amo** noi · **-ano** loro\n- ero, era, eravamo, erano",
+            "en": "**-o** io · **-a** lui, lei · **-amo** noi · **-ano** loro\n- ero, era, eravamo, erano"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperfetto-2",
+      "title": { "it": "Le Agane", "de": "Die Aganen", "sl": "Agane", "en": "The Agane" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "imperfetto",
+          "instruction": { "de": "Completa con l'imperfetto · Setz das Imperfekt ein", "sl": "Completa con l'imperfetto · Vstavi imperfetto", "en": "Completa con l'imperfetto · Fill in the imperfetto" },
+          "title": "Le Agane",
+          "text": "C'era una volta, nei ruscelli del Friuli, un popolo di fate: le Agane. ___ (essere) belle e ___ (avere) i capelli lunghi. Di giorno ___ (dormire) sotto l'acqua. Di notte ___ (uscire) dall'acqua e ___ (cantare) vicino al mulino. Da piccolo Nonno Bepi ___ (sentire) le loro canzoni. Sua mamma ___ (dire) sempre: «Non andare al ruscello di notte!»",
+          "gaps": [
+            { "accept": ["erano"], "hint": "loro: essere" },
+            { "accept": ["avevano"] },
+            { "accept": ["dormivano"], "hint": "-ire → -ivano" },
+            { "accept": ["uscivano"] },
+            { "accept": ["cantavano"] },
+            { "accept": ["sentiva"], "hint": "lui …" },
+            { "accept": ["diceva"], "hint": "dire → dice-" }
+          ],
+          "bank": true,
+          "distractors": ["era", "cantavamo", "dormivo"],
+          "translation": {
+            "de": "Es war einmal, in den Bächen von Friaul, ein Feenvolk: die Aganen. Sie waren schön und hatten lange Haare. Am Tag schliefen sie unter dem Wasser. In der Nacht kamen sie aus dem Wasser und sangen bei der Mühle. Als Nonno Bepi klein war, hörte er ihre Lieder. Seine Mama sagte immer: „Geh nachts nicht zum Bach!“",
+            "sl": "Nekoč so v furlanskih potokih živele vile: Agane. Bile so lepe in so imele dolge lase. Podnevi so spale pod vodo. Ponoči so prišle iz vode in pele pri mlinu. Ko je bil dedek Bepi majhen, je slišal njihove pesmi. Mama je vedno govorila: »Ponoči ne hodi k potoku!«",
+            "en": "Once upon a time, in the streams of Friuli, there lived a people of fairies: the Agane. They were beautiful and had long hair. By day they slept under the water. At night they came out of the water and sang by the mill. As a boy, Nonno Bepi heard their songs. His mother always said: “Don't go to the stream at night!”"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "imperfetto",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Quando ero piccolo, ___ sempre il latte con il miele.",
+          "options": ["bevevo", "beveva", "bevevano"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ero piccolo** → io → **bevevo**\n- beveva · lui, lei\n- bevevano · loro",
+            "sl": "**ero piccolo** → io → **bevevo**\n- beveva · lui, lei\n- bevevano · loro",
+            "en": "**ero piccolo** → io → **bevevo**\n- beveva · lui, lei\n- bevevano · loro"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperfetto-3",
+      "title": { "it": "Com'era una volta?", "de": "Wie war es früher?", "sl": "Kako je bilo nekoč?", "en": "How was it in the old days?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "imperfetto",
+          "instruction": { "de": "Racconta com'era una volta · Erzähl, wie es früher war", "sl": "Racconta com'era una volta · Povej, kako je bilo nekoč", "en": "Racconta com'era una volta · Tell how it used to be" },
+          "items": [
+            { "from": "Nonno Bepi abita in montagna.", "accept": ["Nonno Bepi abitava in montagna."] },
+            { "from": "Gioco a nascondino con gli amici.", "accept": ["Giocavo a nascondino con gli amici."] },
+            { "from": "Nonna Rosa ha un cane.", "accept": ["Nonna Rosa aveva un cane."], "hint": "avere → ave-" },
+            { "from": "Siamo stanchi.", "accept": ["Eravamo stanchi."], "hint": "noi: essere" },
+            { "from": "Fa freddo.", "accept": ["Faceva freddo."] },
+            { "from": "Le pecore dormono nella stalla.", "accept": ["Le pecore dormivano nella stalla."] },
+            { "from": "Lorenzo beve il latte.", "accept": ["Lorenzo beveva il latte."], "hint": "bere → beve-" }
+          ],
+          "explain": {
+            "de": "**imperfetto**: -avo, -evo, -ivo\n- siamo → eravamo · fa → faceva · beve → beveva",
+            "sl": "**imperfetto**: -avo, -evo, -ivo\n- siamo → eravamo · fa → faceva · beve → beveva",
+            "en": "**imperfetto**: -avo, -evo, -ivo\n- siamo → eravamo · fa → faceva · beve → beveva"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "imperfetto",
+        "instruction": { "de": "Completa con l'imperfetto · Setz das Imperfekt ein", "sl": "Completa con l'imperfetto · Vstavi imperfetto", "en": "Completa con l'imperfetto · Fill in the imperfetto" },
+        "text": "Quando Nonno Bepi ___ (essere) giovane, ___ (abitare) in una casa vicino al fiume. Ogni mattina ___ (andare) a scuola a piedi. D'inverno ___ (fare) molto freddo e la neve ___ (essere) alta.",
+        "gaps": [
+          { "accept": ["era"] },
+          { "accept": ["abitava"] },
+          { "accept": ["andava"] },
+          { "accept": ["faceva"] },
+          { "accept": ["era"] }
+        ],
+        "translation": {
+          "de": "Als Nonno Bepi jung war, wohnte er in einem Haus am Fluss. Jeden Morgen ging er zu Fuß zur Schule. Im Winter war es sehr kalt, und der Schnee lag hoch.",
+          "sl": "Ko je bil dedek Bepi mlad, je živel v hiši ob reki. Vsako jutro je hodil peš v šolo. Pozimi je bilo zelo mrzlo in sneg je bil visok.",
+          "en": "When Nonno Bepi was young, he lived in a house by the river. Every morning he walked to school. In winter it was very cold and the snow was deep."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "imperfetto",
+        "instruction": { "de": "Racconta com'era una volta · Erzähl, wie es früher war", "sl": "Racconta com'era una volta · Povej, kako je bilo nekoč", "en": "Racconta com'era una volta · Tell how it used to be" },
+        "items": [
+          { "from": "Abbiamo un gatto nero.", "accept": ["Avevamo un gatto nero."] },
+          { "from": "Giulia legge tanti libri.", "accept": ["Giulia leggeva tanti libri."] },
+          { "from": "I bambini giocano in piazza.", "accept": ["I bambini giocavano in piazza."] }
+        ]
+      },
+      {
+        "type": "table",
+        "grammar": "imperfetto",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": [{ "de": "imperfetto · Imperfekt", "sl": "imperfetto · imperfetto", "en": "imperfetto · imperfetto" }],
+        "rows": [
+          { "label": "dire · io", "cells": [{"accept": ["dicevo"]}] },
+          { "label": "essere · noi", "cells": [{"accept": ["eravamo"]}] },
+          { "label": "dormire · loro", "cells": [{"accept": ["dormivano"]}] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "imperfetto",
+        "prompt": "C'___ tre porcellini.",
+        "options": ["era", "erano", "eravamo"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**tre porcellini**: mehrere → **c'erano**",
+          "sl": "**tre porcellini**: več → **c'erano**",
+          "en": "**tre porcellini**: more than one → **c'erano**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the Agane and the Orcolat as the child's legends, Nonno Bepi's «Piano, piano!», c'erano tre porcellini, giocare con le bambole"
+}
