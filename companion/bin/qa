@@ -8560,6 +8560,7 @@ def lakeland_places():
     try:
         qa_hook("hearths:trg")
         qa_hook("hour:11")
+        qa_hook("bubbles:0")  # no bubble over the church: the newcomers' suitcases hid it from a tap (QA's first run)
         adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
         end = time.time() + 40 * slow()
         while time.time() < end and find(lab("villageScreen.scroll")) is None:
@@ -8594,6 +8595,7 @@ def lakeland_places():
             snap("ll-church-card")
             tap_at(go_in)
         assert wait_for(back, 12), "into In the church (its way back to the village in the top bar)"
+        qa_hook("bubbles:")
         time.sleep(3 * slow())
         snap("ll-in-church")
         tap(back, 4)
@@ -8661,6 +8663,7 @@ def lakeland_places():
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(2)
     finally:
+        qa_hook("bubbles:")
         qa_hook("happening:")
         qa_hook("hour:")
         restore = os.environ.get("LANI_QA_PAIR")
