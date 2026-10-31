@@ -113,7 +113,8 @@ says its mistakes as "(never *…*)", which the print's "Achtung · Watch out" t
 - **The app**: ItalianCourseContentTest 5 (every unit parsed and played at its level, every right answer graded right,
   no distractor right, every text per base in de, sl and en), SchoolBoardTest 5 (the blackboard writes every letter of
   the A2 titles and forms), GrammarTest 16, GradingLanguagesTest 19 (the new elision test among them),
-  CourseContentTest 4: 49 tests, none failed. The full suite: below.
+  CourseContentTest 4: 49 tests, none failed. The full suite (`testDebugUnitTest` through lani-slot.sh): 3,520 tests
+  in 445 classes, none failed (2 skipped).
 - **The prints**: `school-prints --language it --level A2` in de, sl and en: every sheet fits (one or two pages), the
   booklet 11 pages in each.
 - **Python**: `python3 -m unittest discover -s tests` 251 tests OK; `-s companion/tests` 135 OK (11 skipped).
@@ -133,7 +134,20 @@ lezioni" while A2 has written units to do.
 
 Tap counts: no screen changed. A unit of A2 is as many taps away as one of A1 (the school, the level's row, the unit).
 
-(results below)
+The run (slot 1, 2026-10-31): setup, friuli-school-unit and the crash check ok. The school: A1 "Fatte 18/18", "✅ 18
+unità fatte" in one line; A2 "Fatte 1/6 · altre 12 in arrivo", its six units listed, ci-ne starred as the next; the
+unit's six quick questions right (phone, and the first on the tablet on its side and upright), the summary card (the
+page pronomi-indiretti met: "Nuova pagina nel libro"), the first sheet 14 of 14, the test 13 of 13, "Unità
+completata!", kept done by the dev bridge; the sheet printed: fit.js chose two pages in the WebView as in Chromium (12 mm
+over one page), the PDF saved through the dialog, A4, two pages. Before this branch the same school showed A2 all
+"📝 In arrivo" and Elena "preparing the next lessons".
+
+Two QA fixes came out of it: the first run tapped the intro table's "Le" (the row a Lei) for the quick question's
+option "Le" still under the screen's edge, so `option_at` now takes an option only below a piece of its prompt
+(`prompt_piece`); the second came to the test's «Maestra, ___ porto il quaderno.» as a gap to type (the app's adaptive
+turns: the rule right on the sheet just before), so the step's choices tap "✋ Fammi scegliere" first when it shows.
+Shots: scratchpad/ux-course-it-a2c/qa/ (fs-*.png, the contact sheet, the fit report, the PDF; run1-fail-table-le.png and
+run2-fail-typed-choice.png the two failures).
 
 ## For the native check
 
@@ -157,7 +171,9 @@ for the child's German, a Slovene one's for the Slovene):
 ## What's left
 
 - **The rebase**: the three A2 parts edit the outline's A2 entries and COURSE.md's Italian sections; each flips only
-  its own six. Once a2b's `pronomi-diretti` page is on main, `pronomi-indiretti`'s and `imperativo-pronomi`'s pages can
+  its own six, and this part's section comes after a2b's ("A2, units 7–12"). The Friuli smoke's `GET /course` check:
+  a2a's version is taken (it checks every level's written units in the outline's order, as this branch's did). The QA
+  step is a2a's commit, carried here unchanged; the rebase drops it once a2a is on main. Once a2b's `pronomi-diretti` page is on main, `pronomi-indiretti`'s and `imperativo-pronomi`'s pages can
   name it in `see`, and imperativo-pronomi's unit in its `grammar` (it uses lo, la, li, le).
 - The voice ahead: `voice-build`'s course source reads the Italian units as the app does; Elena's clips of A2 are made
   when it runs for Teo's node (ElevenLabs credits: ask Jan first).
