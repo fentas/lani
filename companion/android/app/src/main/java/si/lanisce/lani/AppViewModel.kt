@@ -885,8 +885,11 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         treasure.check()
         // what the learner will likely hear today and tomorrow, for the background job to get on Wi-Fi
         offlineAudio.plan(::dayGather)
-        // read: until something moves, Home coming back reads nothing again (the time of the last whole reading kept)
-        readFor = now?.let { n -> if (at != null && last != null) n.copy(at = last.at, culture = Cultures.current.id) else n.copy(culture = Cultures.current.id) }
+        // read: until something moves, Home coming back reads nothing again (the time of the last whole reading kept). For
+        // the learner, the pair and the culture the reading settled on: the dashboard says them (a new phone learns them
+        // there, and the reads before it don't depend on them: the culture's, the family's, the towns', the clips'); read
+        // for those at its start, the first Back after setup read everything again
+        readFor = now?.copy(pair = L10n.pair, learner = si.lanisce.lani.l10n.Learner.current, culture = Cultures.current.id, at = if (at != null && last != null) last.at else now.at)
     }
 
     /** The days ahead's audio, from what the app has now (app/DayAudioGather); null before the learner's cards are loaded. */
