@@ -7575,6 +7575,16 @@ def friuli_school(part: str = "scene"):
 
     check, nxt = lab("playerScreen.check"), lab("common.next")
 
+    def pick(option: str):
+        """A choice's option [option] scrolled into view; asked typed instead (the app asks a choice typed once its rule
+        is secure: game/Adaptive), back to the options first ("✋ Fammi scegliere · Lass mich wählen"). None without it."""
+        c = option_at(option, swipes=1)
+        if c is None and find(half("adaptive.letMeChoose")) is not None:
+            assert tap(half("adaptive.letMeChoose"), 4), "✋ Fammi scegliere"
+            time.sleep(1)
+            c = option_at(option)
+        return c if c is not None else option_at(option)
+
     def exercise(e: dict, where: str):
         kind = e["type"]
         if kind in ("gaptext", "transform"):
@@ -7583,7 +7593,7 @@ def friuli_school(part: str = "scene"):
                 label = lab("school.gapN" if kind == "gaptext" else "school.lineN", n=i)
                 assert fill(label, typed(it["accept"][0])), f"{where}: {label}"
         elif kind == "choice":
-            c = option_at(unit_text(e["options"][e["answer"]]))
+            c = pick(unit_text(e["options"][e["answer"]]))
             assert c is not None, f"{where}: the option «{e['options'][e['answer']]}»"
             tap_at(c)
             return  # a tap answers it
@@ -7775,7 +7785,7 @@ def friuli_school(part: str = "scene"):
                     continue
                 if a["type"] == "choice":
                     option = unit_text(a["options"][a["answer"]])
-                    c = option_at(option)
+                    c = pick(option)
                     assert c is not None, f"step {i}'s option «{option}»"
                     tap_at(c)
                 else:
