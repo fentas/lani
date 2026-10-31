@@ -81,7 +81,11 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        faces, folded with the keyboard up; "scene-replier" (only when named) who answers a turn after
                        someone else's line: the header's name at the turn, the reaction's face (the Faces log), Jože's
                        gate (zapah-nejc), with LANI_CULTURE=friuli Marisa's jug (brocca), also in $LANI_QA_REPLIER_SHOTS
-                       (docs/plans/05-built/scene-replier.md); "player-voice" the learner's voice in
+                       (docs/plans/05-built/scene-replier.md); "scene-speakers" (only when named) every line of a
+                       happening's dialog as its own speaker: Nejc's lines in Nejc's voice (tag Speaker), the header on
+                       whom the turn names and on Nejc as he speaks, Jože's reaction as Jože; with LANI_CULTURE=friuli
+                       Matteo at Marisa's jug; also in $LANI_QA_SPEAKERS_SHOTS (docs/plans/05-built/scene-speakers.md);
+                       "player-voice" the learner's voice in
                        Babica's soup: a choice tapped said in it before her reply (tag Speaker, player-voice.log), its
                        line's 🔊, a turn by the 🎤 (QA's hook "mic:right") not said again, a turn typed right said; "my-voice"
                        "🗣️ Moj glas · My voice": offered at the learner's first line (QA's hook "audio:myvoice:offer"), a voice's
@@ -3962,6 +3966,108 @@ def scene_replier_run(culture: str, sid: str, hid: str, did: str):
     assert reacted, f"{answers}'s reaction «{text(wrong['reply'])}» said"
     assert face in got, f"{answers}'s face of the reaction ({face}): {got}"
     assert then == answers, f"the header at the reaction shows {then}"
+    return None
+
+
+# the culture → a happening's dialog with someone else's lines in it, the wrong choice the step picks at its first turn, and
+# the text said after its right one (docs/plans/05-built/scene-speakers.md)
+SPEAKER_DIALOGS = {
+    "primorska": ("pri-vratih", "zapah", "zapah-nejc", "Ja, Nejc! Gremo takoj!", "Zakaj ne? Saj nisem majhen!"),
+    "friuli": ("in-cantina", "brocca", "brocca", "Ecco, il brocca è sotto il rubinetto.", "Bravo! Matteo, apri il rubinetto!"),
+}
+
+
+def scene_speakers():
+    """Every line of a scene's happening dialog shows and sounds like its own speaker (docs/plans/05-built/scene-speakers.md):
+    the village culture's dialog (Primorska's: Jože bars the gate, Nejc wants to go into the forest; Friuli's, with
+    LANI_CULTURE=friuli: Marisa's jug, Matteo at the tap) opened through QA's hook. Its first turn: the other speaker's
+    line said in their own voice (the log, tag Speaker: "heard «…» (nejc, in nejc's voice)"), the header on whom the turn
+    names; a wrong choice: the happening's person reacts as themselves, in their voice; the right one, and what comes after
+    it (Nejc's own line: the header on Nejc while he speaks). Screenshots of each, also as speakers-*.png in
+    $LANI_QA_SPEAKERS_SHOTS; the shots before the checks, so a run of an older app shows everyone as the happening's person."""
+    culture = api("/culture").get("id") or "primorska"
+    if culture not in SPEAKER_DIALOGS:
+        return f"skipped: no dialog of {culture}'s to look at"
+    try:
+        return scene_speakers_run(culture, *SPEAKER_DIALOGS[culture])
+    finally:
+        qa_hook("happening:")
+
+
+def heard_as(log, text: str):
+    """Who [text] was heard as and in whose voice, from [said_in_log]'s log: "nejc, in nejc's voice"; None when not heard."""
+    return next((rest.split("(", 1)[-1].rstrip(")") for k, t, rest in log if k == "heard" and t == norm(text)), None)
+
+
+def scene_speakers_run(culture: str, sid: str, hid: str, did: str, wrong_text: str, after_right: str):
+    """[scene_speakers] on [sid]'s [did], [hid] counted as on."""
+    out = Path(os.environ["LANI_QA_SPEAKERS_SHOTS"]) if os.environ.get("LANI_QA_SPEAKERS_SHOTS") else None
+
+    def snap(name: str):
+        shot(f"speakers-{culture}-{name}")
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"speakers-{culture}-{name}.png")
+
+    scene = next((s for s in api("/scenes?arts=99") if isinstance(s, dict) and s.get("id") == sid), None)
+    if scene is None:
+        return f"skipped: the dev bridge has no {sid}"
+    lang = scene.get("language") or "sl"
+    dialog = next(d for d in scene["dialogs"] if d.get("id") == did)
+    names = {p["id"]: p["name"] for p in scene["people"]}
+    who = next(h for h in scene["happenings"] if h["id"] == hid)["who"]
+    text = lambda c: c.get(lang) or c.get("sl") or ""
+    k = next(i for i, l in enumerate(dialog["lines"]) if l.get("choices"))
+    turn = dialog["lines"][k]
+    before = [l for l in dialog["lines"][:k] if l.get("who") and l["who"] != who]
+    right = {text(c) for c in turn["choices"] if c.get("ok")}
+    later = next((l for l in dialog["lines"][k + 1:] if text(l) == after_right), None)
+    then_who = later["who"] if later else (turn.get("to") or who)
+    try:
+        dev_bridge("/learner/voice", {"voice": "default"})
+    except (OSError, ValueError):
+        pass
+    adb("logcat", "-c")
+    qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
+    if wait_for("Zapri · Close", 15) is None:
+        return f"skipped: {sid}/{did} didn't open (no QA hook in this build?)"
+    assert at_turn(), "the dialog's first turn"
+    if any("Izberi raje" in t for t, _ in nodes()):
+        tap("Izberi raje", 2)
+    log = wait_said(text(before[-1])) if before else said_in_log()
+    time.sleep(1)
+    at = header_name(set(names.values()))
+    others = {text(l): heard_as(log, text(l)) for l in before}
+    print(f"    at the turn the header shows {at}; the others' lines heard as {others}")
+    snap("turn")
+    c = next((c for t, c in nodes() if t == wrong_text or t.startswith(wrong_text + ",") or t.startswith(wrong_text + " ")), None)
+    assert c is not None, f"the wrong choice «{wrong_text}» on screen"
+    tap_at(c)
+    time.sleep(0.6)
+    if find(MY_VOICE_OFFER) is not None:
+        tap("V redu · OK", 3)
+    reaction = text(next(ch for ch in turn["choices"] if text(ch) == wrong_text)["reply"])
+    log = wait_said(reaction)
+    time.sleep(1)
+    reacted_as, at_reaction = heard_as(log, reaction), header_name(set(names.values()))
+    print(f"    the reaction «{reaction}» heard as {reacted_as}; the header {at_reaction}")
+    snap("reaction")
+    assert answer_right(right), "the right choice on screen"
+    log = wait_said(after_right)
+    time.sleep(1.5)
+    next_as, at_next = heard_as(log, after_right), header_name(set(names.values()))
+    print(f"    «{after_right}» heard as {next_as}; the header {at_next}")
+    snap("next")
+    tap("Zapri · Close", 3)
+    time.sleep(1)
+    if find("‹ Vas · Village") is not None:
+        tap("‹ Vas · Village", 4)
+    plain_village()
+    assert at == names[turn.get("to") or who], f"at the turn the header shows {at}"
+    for l in before:
+        assert others[text(l)] == f"{l['who']}, in {l['who']}'s voice", f"{names[l['who']]}'s line «{text(l)}» heard as {others[text(l)]}"
+    assert reacted_as == f"{who}, in {who}'s voice" and at_reaction == names[who], f"the reaction: {reacted_as}, the header {at_reaction}"
+    assert next_as == f"{then_who}, in {then_who}'s voice" and at_next == names[then_who], f"«{after_right}»: {next_as}, the header {at_next}"
     return None
 
 
@@ -15355,6 +15461,8 @@ def plan():
         ("faces", faces, v, False, ""),
         # only when named: who answers a turn after someone else's line (Jože's gate; Marisa's jug with LANI_CULTURE=friuli)
         ("scene-replier", scene_replier, v, False, ""),
+        # only when named: every line of a happening's dialog as its own speaker (Nejc at Jože's gate; Matteo at Marisa's jug)
+        ("scene-speakers", scene_speakers, v, False, ""),
         ("ispy", ispy, v, False, ""),
         ("scene-people", scene_people, v, False, ""),
         ("your-words", your_words, v, False, ""),
@@ -15761,7 +15869,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
