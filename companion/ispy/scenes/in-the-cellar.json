@@ -1,0 +1,103 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-the-cellar",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the scene's picture in the Lake District's look (walls of slate stone, ale in the barrel, the fruit press, damsons in the crate, damson wine in the demijohn, brown bottles, the Cumberland ham, the fells through the barred slit) and the default cellar's colours and places; the glass's drink left unsaid; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "barrel": { "clues": [
+      { "kind": "size", "en": "It's big and round.", "sl": "To je nekaj velikega in okroglega.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has a tap.", "sl": "Ima pipo.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's against the wall.", "sl": "Je ob steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "There's ale in it.", "sl": "V tem je pivo.", "grammar": ["there-is-are", "prepositions-place"] }
+    ] },
+    "press": { "clues": [
+      { "kind": "trait", "en": "It has a big screw.", "sl": "Ima velik vijak.", "grammar": ["to-have"] },
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's in the middle of the cellar.", "sl": "Je sredi kleti.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We press apples in it.", "sl": "V tem stiskamo jabolka.", "grammar": ["present-simple"] },
+      { "kind": "does", "en": "Juice runs out of it.", "sl": "Iz tega teče sok.", "grammar": ["present-simple"] }
+    ] },
+    "stairs": { "number": "pl", "clues": [
+      { "kind": "colour", "en": "They're grey.", "sl": "So sive barve.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "They're made of stone.", "sl": "So iz kamna.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "They're below the door.", "sl": "So pod vrati.", "grammar": ["to-be", "prepositions-place"], "ref": "door" },
+      { "kind": "use", "en": "We go up them to the house.", "sl": "Po teh gremo gor v hišo.", "grammar": ["present-simple"] }
+    ] },
+    "door": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's round at the top.", "sl": "Zgoraj je okrogle oblike.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's next to the shelf.", "sl": "Je zraven police.", "grammar": ["to-be", "prepositions-place"], "ref": "shelf" },
+      { "kind": "use", "en": "We open it and go out.", "sl": "To odpremo in gremo ven.", "grammar": ["present-simple"] }
+    ] },
+    "window": { "clues": [
+      { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has iron bars.", "sl": "Ima železne palice.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's high up on the wall.", "sl": "Je visoko na steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's above the shelf.", "sl": "Je nad polico.", "grammar": ["to-be", "prepositions-place"], "ref": "shelf" },
+      { "kind": "use", "en": "A little light comes in through it.", "sl": "Skozi to pride malo svetlobe.", "grammar": ["present-simple"] }
+    ] },
+    "candle": { "clues": [
+      { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "trait", "en": "It's made of wax.", "sl": "Je iz voska.", "grammar": ["to-be"] },
+      { "kind": "use", "en": "We light it in the dark.", "sl": "To prižgemo v temi.", "grammar": ["present-simple"] }
+    ] },
+    "jug": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has a handle.", "sl": "Ima ročaj.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's under the barrel.", "sl": "Je pod sodom.", "grammar": ["to-be", "prepositions-place"], "ref": "barrel" },
+      { "kind": "use", "en": "We carry ale in it.", "sl": "V tem nosimo pivo.", "grammar": ["present-simple"] }
+    ] },
+    "glass": { "clues": [
+      { "kind": "trait", "en": "You can see through it.", "sl": "Skozi to vidiš.", "grammar": ["can"] },
+      { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+      { "kind": "use", "en": "We drink out of it.", "sl": "Iz tega pijemo.", "grammar": ["present-simple"] }
+    ] },
+    "crate": { "clues": [
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the floor.", "sl": "Je na tleh.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's next to the press.", "sl": "Je zraven stiskalnice.", "grammar": ["to-be", "prepositions-place"], "ref": "press" },
+      { "kind": "use", "en": "We carry fruit in it.", "sl": "V tem nosimo sadje.", "grammar": ["present-simple"] }
+    ] },
+    "shelf": { "clues": [
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the wall.", "sl": "Je na steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's next to the door.", "sl": "Je zraven vrat.", "grammar": ["to-be", "prepositions-place"], "ref": "door" },
+      { "kind": "use", "en": "There are bottles on it.", "sl": "Na tem so steklenice.", "grammar": ["there-is-are", "prepositions-place"] }
+    ] },
+    "bottle": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of glass.", "sl": "Je iz stekla.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the shelf.", "sl": "Je na polici.", "grammar": ["to-be", "prepositions-place"], "ref": "shelf" },
+      { "kind": "use", "en": "There's ale in it.", "sl": "V tem je pivo.", "grammar": ["there-is-are", "prepositions-place"] }
+    ] },
+    "grapes": { "clues": [
+      { "kind": "colour", "en": "It's dark purple.", "sl": "Je temno vijolične barve.", "grammar": ["to-be"] },
+      { "kind": "size", "en": "It's small and round.", "sl": "To je nekaj majhnega in okroglega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's next to the press.", "sl": "Je zraven stiskalnice.", "grammar": ["to-be", "prepositions-place"], "ref": "press" },
+      { "kind": "does", "en": "It grows on a tree.", "sl": "To raste na drevesu.", "grammar": ["present-simple"] },
+      { "kind": "use", "en": "We make jam and wine out of it.", "sl": "Iz tega delamo marmelado in vino.", "grammar": ["present-simple"] }
+    ] },
+    "wine": { "clues": [
+      { "kind": "colour", "en": "It's dark red.", "sl": "Je temno rdeče barve.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's in a big glass bottle.", "sl": "Je v velikem steklenem balonu.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's in front of the press.", "sl": "Je pred stiskalnico.", "grammar": ["to-be", "prepositions-place"], "ref": "press" },
+      { "kind": "use", "en": "Grown-ups drink it.", "sl": "To pijejo odrasli.", "grammar": ["present-simple"] }
+    ] },
+    "ham": { "clues": [
+      { "kind": "colour", "en": "It's red and white.", "sl": "Je rdeče-bele barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's salty.", "sl": "To je nekaj slanega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It hangs on the wall.", "sl": "Visi na steni.", "grammar": ["present-simple", "prepositions-place"] },
+      { "kind": "where", "en": "It's next to the window.", "sl": "Je zraven okna.", "grammar": ["to-be", "prepositions-place"], "ref": "window" },
+      { "kind": "use", "en": "We eat it with bread.", "sl": "To jemo s kruhom.", "grammar": ["present-simple"] }
+    ] },
+    "cheese": { "clues": [
+      { "kind": "colour", "en": "It's yellow.", "sl": "Je rumene barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's round.", "sl": "Je okrogle oblike.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "material", "en": "It's made from milk.", "sl": "To je iz mleka.", "grammar": ["to-be"] }
+    ] }
+  }
+}

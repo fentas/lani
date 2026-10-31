@@ -1,0 +1,338 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-the-cellar",
+  "language": "en",
+  "title": { "en": "In the cellar", "sl": "V kleti", "it": "In cantina", "de": "Im Keller" },
+  "emoji": "🍺",
+  "level": "A2",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the memories): machine-written (Claude), not reviewed by a native speaker",
+  "art": "cellar",
+  "from": ["house"],
+  "household": ["sam"],
+  "pack": "in-the-cellar",
+  "objects": [
+    { "slot": "barrel", "word": "barrel" },
+    { "slot": "press", "word": "press" },
+    { "slot": "stairs", "word": "stairs", "pack": "home-and-kitchen" },
+    { "slot": "door", "word": "door", "pack": "home-and-kitchen" },
+    { "slot": "window", "word": "window", "pack": "home-and-kitchen" },
+    { "slot": "candle", "word": "candle" },
+    { "slot": "jug", "word": "jug" },
+    { "slot": "glass", "word": "glass", "pack": "home-and-kitchen" },
+    { "slot": "crate", "word": "crate" },
+    { "slot": "shelf", "word": "shelf", "pack": "in-the-kitchen", "needs": { "level": 2 } },
+    { "slot": "bottle", "word": "bottle", "needs": { "level": 2 } },
+    { "slot": "grapes", "word": "damson", "needs": { "level": 2 } },
+    { "slot": "wine", "word": "wine", "needs": { "level": 2 } },
+    { "slot": "ham", "word": "ham", "needs": { "level": 3 } },
+    { "slot": "cheese", "word": "cheese", "pack": "food", "needs": { "level": 3 } }
+  ],
+  "people": [
+    { "id": "sam", "name": "Brewer Sam", "emoji": "🍺", "art": "winemaker", "slot": "barrel", "villager": "sam" },
+    { "id": "birkett", "name": "Mrs Birkett", "emoji": "🍽️", "art": "innkeeper", "slot": "stairs", "villager": "birkett" },
+    { "id": "arthur", "name": "Beekeeper Arthur", "emoji": "🐝", "art": "beekeeper", "slot": "press", "villager": "arthur" }
+  ],
+  "happenings": [
+    {
+      "id": "jug", "title": { "en": "Mrs Birkett fetches ale for the inn", "sl": "Gospa Birkett pride po pivo za gostilno", "it": "La signora Birkett viene a prendere la birra per la locanda", "de": "Frau Birkett holt Bier fürs Gasthaus" }, "who": "birkett",
+      "when": ["morning", "afternoon"], "chance": 0.5, "dialog": "jug", "dialogs": ["jug-saturday", "jug"], "reward": { "food": 15 }, "marker": "🍺",
+      "memory": { "en": "the jug of ale for the Packhorse Inn", "sl": "vrč piva za gostilno Packhorse", "it": "la brocca di birra per il Packhorse Inn", "de": "den Krug Bier für das Packhorse Inn" }
+    },
+    {
+      "id": "candle", "title": { "en": "Brewer Sam lights the candle", "sl": "Pivovar Sam prižge svečo", "it": "Il birraio Sam accende la candela", "de": "Brauer Sam zündet die Kerze an" }, "who": "sam",
+      "when": ["evening"], "chance": 0.45, "dialog": "candle", "dialogs": ["candle-glass", "candle"], "reward": { "wood": 10 }, "marker": "🕯️",
+      "memory": { "en": "the evening the candle went out", "sl": "večer, ko je ugasnila sveča", "it": "la sera in cui si è spenta la candela", "de": "den Abend, an dem die Kerze ausgegangen ist" }
+    },
+    {
+      "id": "damsons", "title": { "en": "Brewer Sam's damsons", "sl": "Pivovar Sam in njegove slive", "it": "Le susine del birraio Sam", "de": "Brauer Sams Pflaumen" }, "who": "sam",
+      "when": ["afternoon"], "months": [9], "chance": 0.5, "needs": { "level": 2 }, "dialog": "damsons", "dialogs": ["damsons-wine", "damsons"], "reward": { "food": 20 }, "marker": "🫐",
+      "memory": { "en": "the damsons in September", "sl": "septembrske slive", "it": "le susine di settembre", "de": "die Pflaumen im September" }
+    },
+    {
+      "id": "show", "title": { "en": "Brewer Sam gets ready for the show", "sl": "Pivovar Sam se pripravlja na razstavo", "it": "Il birraio Sam si prepara per la fiera", "de": "Brauer Sam bereitet sich auf die Schau vor" }, "who": "sam",
+      "when": ["morning"], "months": [7, 8], "chance": 0.5, "needs": { "level": 2 }, "dialog": "show", "dialogs": ["show-bottles", "show"], "reward": { "wisdom": 15 }, "marker": "🏆",
+      "memory": { "en": "the bottles we got ready for the show", "sl": "steklenice, ki sva jih pripravila za razstavo", "it": "le bottiglie che abbiamo preparato per la fiera", "de": "die Flaschen, die wir für die Schau fertig gemacht haben" }
+    },
+    {
+      "id": "ham", "title": { "en": "Brewer Sam shows the ham", "sl": "Pivovar Sam pokaže šunko", "it": "Il birraio Sam mostra il prosciutto", "de": "Brauer Sam zeigt den Schinken" }, "who": "sam",
+      "when": ["afternoon"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "ham", "dialogs": ["ham-cheese", "ham"], "reward": { "food": 15 }, "marker": "🍖",
+      "memory": { "en": "the Cumberland ham on the wall", "sl": "cumberlandsko šunko na steni", "it": "il prosciutto del Cumberland appeso al muro", "de": "den Cumberland-Schinken an der Wand" }
+    },
+    {
+      "id": "honey", "title": { "en": "Beekeeper Arthur brings his honey", "sl": "Čebelar Arthur prinese svoj med", "it": "L'apicoltore Arthur porta il suo miele", "de": "Imker Arthur bringt seinen Honig" }, "who": "arthur",
+      "when": ["afternoon"], "chance": 0.4, "dialog": "honey", "dialogs": ["honey-jars", "honey"], "reward": { "food": 15 }, "marker": "🍯",
+      "memory": { "en": "the heather honey we kept cool in the cellar", "sl": "vresov med, ki sva ga hranila na hladnem v kleti", "it": "il miele di brugo che abbiamo messo al fresco in cantina", "de": "den Heidehonig, den wir im Keller kühl gelagert haben" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "jug",
+      "lines": [
+        { "who": "birkett", "face": "happy", "en": "Hello, love! Is Sam here? I need a jug of ale for the inn. Walkers everywhere today!", "sl": "Živjo, srček! Je Sam tukaj? Za gostilno potrebujem vrč piva. Danes so povsod pohodniki!", "it": "Ciao, tesoro! C'è Sam? Mi serve una brocca di birra per la locanda. Oggi ci sono escursionisti dappertutto!", "de": "Hallo, Schatz! Ist Sam da? Ich brauche einen Krug Bier fürs Gasthaus. Heute sind überall Wanderer!" },
+        { "who": "sam", "face": "happy", "en": "Now then, Mrs Birkett! Here I am. {learner}, can you hold the jug for me?", "sl": "Now then, gospa Birkett! Tukaj sem. {learner}, mi podržiš vrč?", "it": "Now then, signora Birkett! Eccomi. {learner}, mi tieni la brocca?", "de": "Now then, Frau Birkett! Hier bin ich. {learner}, hältst du mir den Krug?" },
+        { "choices": [
+          { "en": "Sure. I'm holding it under the tap.", "sl": "Seveda. Držim ga pod pipo.", "it": "Certo. La tengo sotto il rubinetto.", "de": "Klar. Ich halte ihn unter den Zapfhahn.", "ok": true,
+            "reply": { "face": "happy", "en": "Perfect. Now I open the tap… and here comes the ale!", "sl": "Odlično. Zdaj odprem pipo … in že teče pivo!", "it": "Perfetto. Adesso apro il rubinetto… ed ecco la birra!", "de": "Perfekt. Jetzt mache ich den Hahn auf … und da kommt das Bier!", "fx": { "tap": 1 } } },
+          { "en": "Sure. I'm holding it on the tap.", "sl": "Seveda. Držim ga na pipi.", "it": "Certo. La tengo sul rubinetto.", "de": "Klar. Ich halte ihn auf den Zapfhahn.", "grammar": "prepositions-place",
+            "why": { "en": "The jug goes below the tap, so the ale runs in: under the tap.", "sl": "Vrč je spodaj, da pivo steče vanj: under the tap (pod pipo).", "it": "La brocca va sotto, così la birra ci scende dentro: under the tap.", "de": "Der Krug kommt darunter, damit das Bier hineinläuft: under the tap." }, "reply": { "face": "laugh", "en": "On the tap? Then the ale goes on the floor!", "sl": "Na pipi? Potem gre pivo po tleh!", "it": "Sul rubinetto? Allora la birra finisce per terra!", "de": "Auf den Hahn? Dann läuft das Bier auf den Boden!" } }
+        ] },
+        { "who": "birkett", "face": "worried", "en": "Not too fast, Sam! Last time it went all over my shoes.", "sl": "Ne prehitro, Sam! Zadnjič mi je steklo po čevljih.", "it": "Non troppo veloce, Sam! L'ultima volta mi è finita sulle scarpe.", "de": "Nicht so schnell, Sam! Letztes Mal ist es mir über die Schuhe gelaufen." },
+        { "choices": [
+          { "en": "Oh no! Did it go everywhere, Mrs Birkett?", "sl": "Ojoj! Je steklo povsod, gospa Birkett?", "it": "Oh no! È andata dappertutto, signora Birkett?", "de": "Oh nein! Ist es überall hingelaufen, Frau Birkett?", "ok": true,
+            "reply": { "face": "laugh", "en": "Everywhere! My best shoes smelled of ale for a week!", "sl": "Povsod! Moji najboljši čevlji so cel teden dišali po pivu!", "it": "Dappertutto! Le mie scarpe migliori hanno puzzato di birra per una settimana!", "de": "Überall! Meine besten Schuhe haben eine Woche nach Bier gerochen!" } },
+          { "en": "Oh no! Did it went everywhere, Mrs Birkett?", "sl": "Ojoj! Je steklo povsod, gospa Birkett?", "it": "Oh no! È andata dappertutto, signora Birkett?", "de": "Oh nein! Ist es überall hingelaufen, Frau Birkett?", "grammar": "past-simple",
+            "why": { "en": "After did, the verb is in its base form: did it go? Went is without did: it went.", "sl": "Za did je glagol v osnovni obliki: did it go? Went je brez did: it went.", "it": "Dopo did il verbo è alla forma base: did it go? Went si usa senza did: it went.", "de": "Nach did steht das Verb in der Grundform: did it go? Went ohne did: it went." }, "reply": { "face": "laugh", "en": "It went everywhere, love! My best shoes!", "sl": "Steklo je povsod, srček! Moji najboljši čevlji!", "it": "È andata dappertutto, tesoro! Le mie scarpe migliori!", "de": "Es ist überall hingelaufen, Schatz! Meine besten Schuhe!" } }
+        ] },
+        { "who": "sam", "en": "There you are, Mrs Birkett. A full jug, and not a drop on your shoes.", "sl": "Izvolite, gospa Birkett. Poln vrč in niti kapljice na vaših čevljih.", "it": "Ecco a Lei, signora Birkett. Una brocca piena, e neanche una goccia sulle scarpe.", "de": "Bitte schön, Frau Birkett. Ein voller Krug, und kein Tropfen auf Ihren Schuhen.", "fx": { "tap": 0 } },
+        { "who": "birkett", "face": "happy", "en": "Thank you both! Come to the inn tonight, love: tatie pot and a pint!", "sl": "Hvala obema! Pridi zvečer v gostilno, srček: tatie pot in pinta!", "it": "Grazie a tutti e due! Vieni alla locanda stasera, tesoro: tatie pot e una pinta!", "de": "Danke euch beiden! Komm heute Abend ins Gasthaus, Schatz: Tatie Pot und ein Pint!" },
+        { "choices": [
+          { "en": "Thank you, Mrs Birkett! I'd love to.", "sl": "Hvala, gospa Birkett! Z veseljem.", "it": "Grazie, signora Birkett! Con piacere.", "de": "Danke, Frau Birkett! Sehr gern.", "ok": true,
+            "reply": { "face": "happy", "en": "Lovely! Seven o'clock, love. I'll keep you a seat by the fire.", "sl": "Lepo! Ob sedmih, srček. Prihranila ti bom prostor ob ognju.", "it": "Benissimo! Alle sette, tesoro. Ti tengo un posto vicino al fuoco.", "de": "Schön! Um sieben, Schatz. Ich halte dir einen Platz am Feuer frei." } },
+          { "en": "Yes, please! See you tonight.", "sl": "Ja, prosim! Se vidimo zvečer.", "it": "Sì, volentieri! Ci vediamo stasera.", "de": "Ja, gern! Bis heute Abend.", "ok": true,
+            "reply": { "face": "laugh", "en": "See you tonight! Bring your appetite, love.", "sl": "Se vidimo zvečer! Prinesi s sabo tek, srček.", "it": "A stasera! Porta l'appetito, tesoro.", "de": "Bis heute Abend! Bring Hunger mit, Schatz." } },
+          { "en": "Yes, please! See you yesterday.", "sl": "Ja, prosim! Se vidimo včeraj.", "it": "Sì, volentieri! Ci vediamo ieri.", "de": "Ja, gern! Bis gestern.",
+            "why": { "en": "Yesterday is the day before today. For later, say tonight or tomorrow.", "sl": "Yesterday je dan pred danes. Za pozneje rečeš tonight ali tomorrow.", "it": "Yesterday è il giorno prima di oggi. Per dopo si dice tonight o tomorrow.", "de": "Yesterday ist der Tag vor heute. Für später sagst du tonight oder tomorrow." }, "reply": { "face": "laugh", "en": "Yesterday? Ooh, you're quick, love, but not that quick!", "sl": "Včeraj? Oho, hiter si, srček, ampak ne tako hiter!", "it": "Ieri? Oh, sei velocissimo, tesoro, ma non così tanto!", "de": "Gestern? Oh, du bist schnell, Schatz, aber so schnell nun auch nicht!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "candle",
+      "lines": [
+        { "who": "sam", "face": "surprised", "en": "Whoops! The candle's gone out. It's very dark down here!", "sl": "Ups! Sveča je ugasnila. Tukaj spodaj je zelo temno!", "it": "Ops! La candela si è spenta. Quaggiù è buio pesto!", "de": "Hoppla! Die Kerze ist ausgegangen. Hier unten ist es stockdunkel!", "fx": { "candle": 0 } },
+        { "choices": [
+          { "en": "Have you got a match, Sam?", "sl": "Imaš vžigalico, Sam?", "it": "Hai un fiammifero, Sam?", "de": "Hast du ein Streichholz, Sam?", "ok": true,
+            "reply": { "face": "happy", "en": "Aye, in my pocket. There!", "sl": "Ja, v žepu. Tako!", "it": "Sì, in tasca. Ecco!", "de": "Ja, in der Tasche. So!", "fx": { "candle": 1 } } },
+          { "en": "Do you have got a match, Sam?", "sl": "Imaš vžigalico, Sam?", "it": "Hai un fiammifero, Sam?", "de": "Hast du ein Streichholz, Sam?", "grammar": "to-have",
+            "why": { "en": "Say have you got …? or do you have …? Not both at once.", "sl": "Reči have you got …? ali do you have …? Ne obojega hkrati.", "it": "Si dice have you got …? oppure do you have …? Non tutti e due insieme.", "de": "Sag have you got …? oder do you have …? Nicht beides auf einmal." }, "reply": { "face": "confused", "en": "Eh? Say that again. I'm in a muddle!", "sl": "Kaj? Povej še enkrat. Čisto sem zmeden!", "it": "Eh? Ripeti. Mi sono confuso!", "de": "Hä? Sag das noch mal. Ich bin ganz durcheinander!" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? What's that?", "sl": "Kaj? Kako?", "it": "Eh? Come?", "de": "Hä? Wie bitte?" } },
+        { "who": "sam", "face": "happy", "en": "Light again! Can you see the barrel now? That's my best.", "sl": "Spet je svetlo! Zdaj vidiš sod? To je moje najboljše.", "it": "Di nuovo luce! Adesso vedi la botte? È la mia migliore.", "de": "Wieder hell! Siehst du jetzt das Fass? Das ist mein bestes." },
+        { "choices": [
+          { "en": "Is there ale in it?", "sl": "Je v njem pivo?", "it": "C'è della birra dentro?", "de": "Ist da Bier drin?", "ok": true,
+            "reply": { "face": "proud", "en": "Aye, my best ale. Made with water from the beck.", "sl": "Ja, moje najboljše pivo. Narejeno z vodo iz potoka.", "it": "Sì, la mia birra migliore. Fatta con l'acqua del torrente.", "de": "Ja, mein bestes Bier. Gebraut mit Wasser aus dem Bach." } },
+          { "en": "Are there ale in it?", "sl": "Je v njem pivo?", "it": "C'è della birra dentro?", "de": "Ist da Bier drin?", "grammar": "there-is-are",
+            "why": { "en": "Ale is something you can't count: is there ale …? Are there is for plurals.", "sl": "Piva ne moreš šteti: is there ale …? Are there je za množino.", "it": "La birra non si conta: is there ale …? Are there è per il plurale.", "de": "Bier kann man nicht zählen: is there ale …? Are there ist für den Plural." }, "reply": { "face": "laugh", "en": "Are there? How many ales? Just the one kind, my best!", "sl": "Are there? Koliko piv? Samo ena vrsta, moja najboljša!", "it": "Are there? Quante birre? Una sola, la mia migliore!", "de": "Are there? Wie viele Biere? Nur eine Sorte, meine beste!" } }
+        ] },
+        { "who": "sam", "en": "In the evening the cellar is cool and quiet. I like it down here.", "sl": "Zvečer je v kleti hladno in tiho. Rad sem tukaj spodaj.", "it": "La sera in cantina è fresco e silenzioso. Mi piace stare quaggiù.", "de": "Abends ist es im Keller kühl und still. Ich bin gern hier unten." }
+      ]
+    },
+    {
+      "id": "damsons",
+      "lines": [
+        { "who": "sam", "face": "happy", "en": "It's September, {learner}! Look in the crate: damsons, from the trees up the dale.", "sl": "September je, {learner}! Poglej v zaboj: slive, z dreves v dolini.", "it": "È settembre, {learner}! Guarda nella cassetta: susine, dagli alberi della valle.", "de": "Es ist September, {learner}! Schau in die Kiste: Pflaumen, von den Bäumen oben im Tal." },
+        { "choices": [
+          { "en": "They're very dark. Are they sweet?", "sl": "Zelo temne so. So sladke?", "it": "Sono scurissime. Sono dolci?", "de": "Die sind sehr dunkel. Sind sie süß?", "ok": true,
+            "reply": { "face": "laugh", "en": "Try one! … Sour, eh? That's why we cook them.", "sl": "Poskusi eno! … Kisla, kajne? Zato jih kuhamo.", "it": "Assaggiane una! … Aspra, eh? Per questo le cuciniamo.", "de": "Probier eine! … Sauer, was? Deshalb kochen wir sie." } },
+          { "en": "They're very dark. Is they sweet?", "sl": "Zelo temne so. So sladke?", "it": "Sono scurissime. Sono dolci?", "de": "Die sind sehr dunkel. Sind sie süß?", "grammar": "to-be",
+            "why": { "en": "With they, use are: are they sweet?", "sl": "S they uporabiš are: are they sweet?", "it": "Con they si usa are: are they sweet?", "de": "Mit they nimmst du are: are they sweet?" }, "reply": { "face": "curious", "en": "Is they? Eh, try that again, {learner}.", "sl": "Is they? Eh, poskusi še enkrat, {learner}.", "it": "Is they? Eh, riprova, {learner}.", "de": "Is they? Hm, versuch's noch mal, {learner}." } }
+        ] },
+        { "who": "sam", "en": "Damson jam, damson gin, damson wine… The whole dale makes something with them.", "sl": "Slivova marmelada, slivov gin, slivovo vino … Cela dolina naredi kaj iz njih.", "it": "Marmellata di susine, gin alle susine, vino di susine… Tutta la valle ci fa qualcosa.", "de": "Pflaumenmarmelade, Pflaumengin, Pflaumenwein … Das ganze Tal macht etwas daraus." },
+        { "choices": [
+          { "en": "What are you going to make, Sam?", "sl": "Kaj boš pa ti naredil, Sam?", "it": "Tu cosa farai, Sam?", "de": "Was wirst du machen, Sam?", "ok": true,
+            "reply": { "face": "proud", "en": "Damson wine, in the big glass bottle. Ready for Christmas!", "sl": "Slivovo vino, v velikem steklenem balonu. Do božiča bo nared!", "it": "Vino di susine, nella damigiana. Pronto per Natale!", "de": "Pflaumenwein, im großen Glasballon. Fertig bis Weihnachten!" } },
+          { "en": "What are you going make, Sam?", "sl": "Kaj boš pa ti naredil, Sam?", "it": "Tu cosa farai, Sam?", "de": "Was wirst du machen, Sam?", "grammar": "future",
+            "why": { "en": "Going to + the verb: what are you going to make?", "sl": "Going to + glagol: what are you going to make?", "it": "Going to + il verbo: what are you going to make?", "de": "Going to + Verb: what are you going to make?" }, "reply": { "face": "confused", "en": "Going make? Going where, {learner}?", "sl": "Going make? Kam pa greš, {learner}?", "it": "Going make? Dove vai, {learner}?", "de": "Going make? Wohin gehst du, {learner}?" } }
+        ], "puzzled": { "face": "confused", "en": "Eh? Come again?", "sl": "Kaj? Še enkrat?", "it": "Eh? Come?", "de": "Hä? Wie bitte?" } },
+        { "who": "sam", "face": "laugh", "en": "And jam for the inn's scones. Everybody wins!", "sl": "In marmelada za pogačice v gostilni. Vsi so na boljšem!", "it": "E la marmellata per gli scones della locanda. Ci guadagnano tutti!", "de": "Und Marmelade für die Scones im Gasthaus. Alle gewinnen!" }
+      ]
+    },
+    {
+      "id": "show",
+      "lines": [
+        { "who": "sam", "face": "happy", "en": "Now then, {learner}! The valley show is in August. I want a prize for my ale this year!", "sl": "Now then, {learner}! Dolinska razstava je avgusta. Letos hočem nagrado za svoje pivo!", "it": "Now then, {learner}! La fiera della valle è ad agosto. Quest'anno voglio un premio per la mia birra!", "de": "Now then, {learner}! Die Schau im Tal ist im August. Dieses Jahr will ich einen Preis für mein Bier!" },
+        { "choices": [
+          { "en": "Did you win a prize last year?", "sl": "Si lani dobil nagrado?", "it": "L'anno scorso hai vinto un premio?", "de": "Hast du letztes Jahr einen Preis gewonnen?", "ok": true,
+            "reply": { "face": "sad", "en": "No! Second, behind a farmer from Keswick. Not this year!", "sl": "Ne! Drugi, za nekim kmetom iz Keswicka. Letos pa ne!", "it": "No! Secondo, dietro un contadino di Keswick. Quest'anno no!", "de": "Nein! Zweiter, hinter einem Bauern aus Keswick. Dieses Jahr nicht!" } },
+          { "en": "Did you won a prize last year?", "sl": "Si lani dobil nagrado?", "it": "L'anno scorso hai vinto un premio?", "de": "Hast du letztes Jahr einen Preis gewonnen?", "grammar": "past-simple",
+            "why": { "en": "After did, the base form: did you win? Won is without did: I won.", "sl": "Za did osnovna oblika: did you win? Won je brez did: I won.", "it": "Dopo did la forma base: did you win? Won si usa senza did: I won.", "de": "Nach did die Grundform: did you win? Won ohne did: I won." }, "reply": { "face": "laugh", "en": "Won? Ha, I wish! Ask me again.", "sl": "Won? Ha, ko bi le! Vprašaj me še enkrat.", "it": "Won? Ah, magari! Chiedimelo di nuovo.", "de": "Won? Ha, schön wär's! Frag mich noch mal." } }
+        ] },
+        { "who": "sam", "face": "proud", "en": "Look at the shelf: my best bottles. Brown glass, cream labels.", "sl": "Poglej polico: moje najboljše steklenice. Rjavo steklo, krem nalepke.", "it": "Guarda la mensola: le mie bottiglie migliori. Vetro marrone, etichette color crema.", "de": "Schau aufs Regal: meine besten Flaschen. Braunes Glas, cremefarbene Etiketten." },
+        { "choices": [
+          { "en": "Which one is the best?", "sl": "Katera je najboljša?", "it": "Qual è la migliore?", "de": "Welche ist die beste?", "ok": true,
+            "reply": { "face": "proud", "en": "This one. Brewed in May, with fell water. Fingers crossed!", "sl": "Ta. Varjena maja, z vodo s hribov. Držimo pesti!", "it": "Questa. Fatta a maggio, con l'acqua delle colline. Incrociamo le dita!", "de": "Die hier. Im Mai gebraut, mit Bergwasser. Daumen drücken!" } },
+          { "en": "Which one are the best?", "sl": "Katera je najboljša?", "it": "Qual è la migliore?", "de": "Welche ist die beste?", "grammar": "to-be",
+            "why": { "en": "Which one is one thing: which one is the best?", "sl": "Which one je ena stvar: which one is the best?", "it": "Which one è una cosa sola: which one is the best?", "de": "Which one ist eine Sache: which one is the best?" }, "reply": { "face": "laugh", "en": "All of them, I hope! Ha! But pick one.", "sl": "Upam, da vse! Ha! Ampak izberi eno.", "it": "Tutte, spero! Ah! Ma scegline una.", "de": "Alle, hoffe ich! Ha! Aber such eine aus." } }
+        ] }
+      ]
+    },
+    {
+      "id": "ham",
+      "lines": [
+        { "who": "sam", "face": "proud", "en": "See the ham on the wall? A Cumberland ham. Salted and dried, the old way.", "sl": "Vidiš šunko na steni? Cumberlandska šunka. Nasoljena in posušena, po starem.", "it": "Vedi il prosciutto sul muro? Un prosciutto del Cumberland. Salato e stagionato, all'antica.", "de": "Siehst du den Schinken an der Wand? Ein Cumberland-Schinken. Gesalzen und getrocknet, wie früher." },
+        { "choices": [
+          { "en": "How long does it hang there?", "sl": "Kako dolgo visi tam?", "it": "Per quanto tempo resta appeso lì?", "de": "Wie lange hängt er da?", "ok": true,
+            "reply": { "face": "proud", "en": "Months! Six months at least. Patience, {learner}.", "sl": "Mesece! Vsaj šest mesecev. Potrpežljivost, {learner}.", "it": "Mesi! Almeno sei mesi. Pazienza, {learner}.", "de": "Monate! Mindestens sechs Monate. Geduld, {learner}." } },
+          { "en": "How long does it hangs there?", "sl": "Kako dolgo visi tam?", "it": "Per quanto tempo resta appeso lì?", "de": "Wie lange hängt er da?", "grammar": "questions-do",
+            "why": { "en": "After does, the verb has no -s: how long does it hang?", "sl": "Za does glagol nima -s: how long does it hang?", "it": "Dopo does il verbo non ha la -s: how long does it hang?", "de": "Nach does hat das Verb kein -s: how long does it hang?" }, "reply": { "face": "curious", "en": "Hangs? Aye, it hangs! But ask me again.", "sl": "Hangs? Ja, visi! Ampak vprašaj me še enkrat.", "it": "Hangs? Sì, è appeso! Ma chiedimelo di nuovo.", "de": "Hangs? Ja, er hängt! Aber frag mich noch mal." } }
+        ] },
+        { "who": "sam", "face": "curious", "en": "Would you like some, with bread?", "sl": "Bi malo, s kruhom?", "it": "Ne vuoi un po', con il pane?", "de": "Möchtest du etwas, mit Brot?" },
+        { "choices": [
+          { "en": "Yes, please! I'd love some.", "sl": "Ja, prosim! Z veseljem malo.", "it": "Sì, grazie! Volentieri un po'.", "de": "Ja, bitte! Gern ein bisschen.", "ok": true,
+            "reply": { "face": "happy", "en": "Here you are. A thin slice, the best way.", "sl": "Izvoli. Tanka rezina, tako je najboljše.", "it": "Ecco qua. Una fetta sottile, è il modo migliore.", "de": "Bitte schön. Eine dünne Scheibe, so ist es am besten." } },
+          { "en": "Yes, please! I'd love any.", "sl": "Ja, prosim! Z veseljem malo.", "it": "Sì, grazie! Volentieri un po'.", "de": "Ja, bitte! Gern ein bisschen.", "grammar": "some-any",
+            "why": { "en": "When you say yes to an offer, use some: I'd love some.", "sl": "Ko ponudbo sprejmeš, uporabiš some: I'd love some.", "it": "Quando accetti un'offerta si usa some: I'd love some.", "de": "Wenn du ein Angebot annimmst, nimmst du some: I'd love some." }, "reply": { "face": "confused", "en": "Any? Any what? Say it again, {learner}.", "sl": "Any? Kaj any? Povej še enkrat, {learner}.", "it": "Any? Any cosa? Ripeti, {learner}.", "de": "Any? Any was? Sag's noch mal, {learner}." } },
+          { "en": "Yes, please! I'd love a ham.", "sl": "Ja, prosim! Z veseljem celo šunko.", "it": "Sì, grazie! Volentieri un prosciutto intero.", "de": "Ja, bitte! Gern einen ganzen Schinken.", "grammar": "some-any",
+            "why": { "en": "A ham is the whole leg! Say some ham, or a slice of ham.", "sl": "A ham je cela šunka! Reci some ham ali a slice of ham.", "it": "A ham è il prosciutto intero! Di' some ham o a slice of ham.", "de": "A ham ist der ganze Schinken! Sag some ham oder a slice of ham." }, "reply": { "face": "laugh", "en": "The whole thing? You'll need a bigger plate!", "sl": "Celo? {m:Potreboval|f:Potrebovala} boš večji krožnik!", "it": "Tutto intero? Ti servirà un piatto più grande!", "de": "Den ganzen? Da brauchst du einen größeren Teller!" } }
+        ] },
+        { "who": "sam", "face": "laugh", "en": "Salty, eh? That's why Cumbrians drink so much tea!", "sl": "Slano, kajne? Zato v Cumbrii popijejo toliko čaja!", "it": "Salato, eh? Per questo in Cumbria si beve tanto tè!", "de": "Salzig, was? Deshalb trinken die Leute in Cumbria so viel Tee!" }
+      ]
+    },
+    {
+      "id": "honey",
+      "lines": [
+        { "who": "arthur", "face": "happy", "en": "Hello, friend. Shh… gently. I'm bringing my honey down here. The cellar is nice and cool.", "sl": "Živjo, prijatelj. Pst … nežno. Svoj med nosim sem dol. V kleti je prijetno hladno.", "it": "Ciao, amico. Ssst… piano. Porto qui giù il mio miele. La cantina è bella fresca.", "de": "Hallo, mein Freund. Pst … sachte. Ich bringe meinen Honig hier herunter. Der Keller ist schön kühl." },
+        { "choices": [
+          { "en": "Why do you keep it here, Arthur?", "sl": "Zakaj ga hraniš tukaj, Arthur?", "it": "Perché lo tieni qui, Arthur?", "de": "Warum bewahrst du ihn hier auf, Arthur?", "ok": true,
+            "reply": { "face": "happy", "en": "In summer the house is warm. Honey likes it cool and dark.", "sl": "Poleti je v hiši toplo. Med ima rad hladno in temno.", "it": "D'estate in casa fa caldo. Il miele vuole il fresco e il buio.", "de": "Im Sommer ist es im Haus warm. Honig mag es kühl und dunkel." } },
+          { "en": "Why you keep it here, Arthur?", "sl": "Zakaj ga hraniš tukaj, Arthur?", "it": "Perché lo tieni qui, Arthur?", "de": "Warum bewahrst du ihn hier auf, Arthur?", "grammar": "questions-do",
+            "why": { "en": "A question needs do: why do you keep it here?", "sl": "Vprašanje potrebuje do: why do you keep it here?", "it": "La domanda ha bisogno di do: why do you keep it here?", "de": "Die Frage braucht do: why do you keep it here?" }, "reply": { "face": "curious", "en": "Why I keep it? Ask me again, friend. Slowly.", "sl": "Zakaj ga hranim? Vprašaj me še enkrat, prijatelj. Počasi.", "it": "Perché lo tengo? Chiedimelo di nuovo, amico. Piano.", "de": "Warum ich ihn aufbewahre? Frag mich noch mal, mein Freund. Langsam." } }
+        ], "puzzled": { "face": "confused", "en": "Hmm? Gently, friend. Again?", "sl": "Hm? Nežno, prijatelj. Še enkrat?", "it": "Mm? Piano, amico. Di nuovo?", "de": "Hm? Sachte, mein Freund. Noch mal?" } },
+        { "who": "arthur", "face": "proud", "en": "This is heather honey, from the fells in August. It's dark, like strong tea!", "sl": "To je vresov med, s hribov avgusta. Temen je kot močan čaj!", "it": "Questo è miele di brugo, dalle colline ad agosto. È scuro come il tè forte!", "de": "Das ist Heidehonig, von den Bergen im August. Er ist dunkel wie starker Tee!" },
+        { "choices": [
+          { "en": "Can I taste a little?", "sl": "Lahko malo poskusim?", "it": "Posso assaggiarne un po'?", "de": "Darf ich ein bisschen probieren?", "ok": true,
+            "reply": { "face": "happy", "en": "Of course. Here, on a spoon. Gently now…", "sl": "Seveda. Na, na žlički. Počasi …", "it": "Certo. Ecco, su un cucchiaino. Piano…", "de": "Natürlich. Hier, auf einem Löffel. Sachte …" } },
+          { "en": "Can I taste a few?", "sl": "Lahko malo poskusim?", "it": "Posso assaggiarne un po'?", "de": "Darf ich ein bisschen probieren?", "grammar": "some-any",
+            "why": { "en": "You can't count honey: a little, not a few. A few is for things you count.", "sl": "Medu ne moreš šteti: a little, ne a few. A few je za stvari, ki jih šteješ.", "it": "Il miele non si conta: a little, non a few. A few è per le cose che si contano.", "de": "Honig kann man nicht zählen: a little, nicht a few. A few ist für Dinge, die man zählt." }, "reply": { "face": "laugh", "en": "A few honeys? Ha… one spoon, friend.", "sl": "Nekaj medov? Ha … ena žlička, prijatelj.", "it": "Qualche miele? Ah… un cucchiaino, amico.", "de": "Ein paar Honige? Ha … ein Löffel, mein Freund." } }
+        ] },
+        { "who": "arthur", "en": "The bees work all summer for that spoon. Think of them when you eat it.", "sl": "Čebele delajo celo poletje za to žličko. Spomni se nanje, ko ga ješ.", "it": "Le api lavorano tutta l'estate per quel cucchiaino. Pensa a loro quando lo mangi.", "de": "Die Bienen arbeiten den ganzen Sommer für diesen Löffel. Denk an sie, wenn du ihn isst." }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "jug-saturday",
+      "count": { "from": "dice", "min": 3, "max": 12 },
+      "memory": { "en": "the Saturday night we counted the jugs", "sl": "sobotni večer, ko smo šteli vrče", "it": "il sabato sera in cui abbiamo contato le brocche", "de": "den Samstagabend, an dem wir die Krüge gezählt haben" },
+      "lines": [
+        { "who": "birkett", "face": "worried", "en": "Oh, love, it's Saturday night! The whole village is coming to the inn. I need {n} jugs of ale!", "sl": "Joj, srček, sobota zvečer je! Cela vas pride v gostilno. Potrebujem {n} {vrč|vrča|vrče|vrčev} piva!", "it": "Oh, tesoro, è sabato sera! Tutto il villaggio viene alla locanda. Mi servono {n} brocche di birra!", "de": "Ach, Schatz, es ist Samstagabend! Das ganze Dorf kommt ins Gasthaus. Ich brauche {n} Krüge Bier!" },
+        { "who": "sam", "face": "laugh", "en": "{n}? Right! {learner}, how many jugs? Say it back to me.", "sl": "{n}? Prav! {learner}, koliko vrčev? Ponovi za mano.", "it": "{n}? Va bene! {learner}, quante brocche? Ripetilo.", "de": "{n}? Gut! {learner}, wie viele Krüge? Sag's mir noch mal.", "fx": { "tap": 1 } },
+        { "choices": [
+          { "en": "{n} jugs of ale for Mrs Birkett.", "sl": "{n} {vrč|vrča|vrči|vrčev} piva za gospo Birkett.", "it": "{n} brocche di birra per la signora Birkett.", "de": "{n} Krüge Bier für Frau Birkett.", "ok": true,
+            "reply": { "face": "happy", "en": "{n} jugs. That's a busy night!", "sl": "{n} {vrč|vrča|vrči|vrčev}. To bo pa naporen večer!", "it": "{n} brocche. Sarà una serata piena!", "de": "{n} Krüge. Das wird ein voller Abend!" } },
+          { "en": "{n} {!jug|jugs} of ale for Mrs Birkett.", "sl": "{n} {!vrč|vrča|vrči|vrčev} piva za gospo Birkett.", "it": "{n} {!brocca|brocche} di birra per la signora Birkett.", "de": "{n} {!Krug|Krüge} Bier für Frau Birkett.", "wrong_form": 1, "grammar": "plurals",
+            "why": { "en": "{One takes the singular|More than one takes -s}: {n} {jug|jugs}.", "sl": "{Eno je v ednini|Za več kot enega dodaš -s}: {n} {jug|jugs}.", "it": "{Uno vuole il singolare|Per più di uno si aggiunge -s}: {n} {jug|jugs}.", "de": "{Eins steht im Singular|Bei mehr als einem kommt -s dazu}: {n} {jug|jugs}." }, "reply": { "face": "surprised", "en": "Just one? Mrs Birkett will be cross! Count again.", "sl": "Samo enega? Gospa Birkett bo jezna! Štej še enkrat.", "it": "Una sola? La signora Birkett si arrabbierà! Conta di nuovo.", "de": "Nur einer? Frau Birkett wird böse! Zähl noch mal." } },
+          { "en": "{n} jugs of ales for Mrs Birkett.", "sl": "{n} {vrč|vrča|vrči|vrčev} piva za gospo Birkett.", "it": "{n} brocche di birra per la signora Birkett.", "de": "{n} Krüge Bier für Frau Birkett.", "grammar": "some-any",
+            "why": { "en": "Ale is like water, you can't count it: no -s. A jug of ale, {n} jugs of ale.", "sl": "Pivo je kot voda, ne moreš ga šteti: brez -s. A jug of ale, {n} jugs of ale.", "it": "La birra è come l'acqua, non si conta: niente -s. A jug of ale, {n} jugs of ale.", "de": "Bier ist wie Wasser, man kann es nicht zählen: kein -s. A jug of ale, {n} jugs of ale." }, "reply": { "face": "laugh", "en": "Ales? It's all one kind, {learner}! My best.", "sl": "Ales? Vse je ena vrsta, {learner}! Moje najboljše.", "it": "Ales? È tutta di un tipo, {learner}! La mia migliore.", "de": "Ales? Es ist alles eine Sorte, {learner}! Meine beste." } }
+        ] },
+        { "who": "birkett", "face": "laugh", "en": "And damson juice for the children. Never ale for them!", "sl": "In slivov sok za otroke. Njim nikoli piva!", "it": "E succo di susine per i bambini. A loro mai birra!", "de": "Und Pflaumensaft für die Kinder. Für sie nie Bier!" },
+        { "choices": [
+          { "en": "Are you going to be very busy tonight, Mrs Birkett?", "sl": "Boste nocoj zelo zaposleni, gospa Birkett?", "it": "Stasera avrà molto da fare, signora Birkett?", "de": "Werden Sie heute Abend viel zu tun haben, Frau Birkett?", "ok": true,
+            "reply": { "face": "laugh", "en": "Run off my feet, love! But I love a busy night.", "sl": "Ne bom vedela, kje se me glava drži, srček! Ampak poln večer imam rada.", "it": "Non mi fermerò un attimo, tesoro! Ma mi piacciono le serate piene.", "de": "Ich werde rennen, Schatz! Aber ich mag volle Abende." } },
+          { "en": "Are you go to be very busy tonight, Mrs Birkett?", "sl": "Boste nocoj zelo zaposleni, gospa Birkett?", "it": "Stasera avrà molto da fare, signora Birkett?", "de": "Werden Sie heute Abend viel zu tun haben, Frau Birkett?", "grammar": "future",
+            "why": { "en": "The future with going to: are you going to be …?", "sl": "Prihodnjik z going to: are you going to be …?", "it": "Il futuro con going to: are you going to be …?", "de": "Die Zukunft mit going to: are you going to be …?" }, "reply": { "face": "confused", "en": "Go to be? Say it again, love. Slowly, I'm in a rush!", "sl": "Go to be? Povej še enkrat, srček. Počasi, mudi se mi!", "it": "Go to be? Ripeti, tesoro. Piano, vado di fretta!", "de": "Go to be? Sag's noch mal, Schatz. Langsam, ich hab's eilig!" } }
+        ] },
+        { "who": "sam", "en": "There. Full jugs, and a full inn tonight!", "sl": "Tako. Polni vrči in nocoj polna gostilna!", "it": "Ecco. Brocche piene, e stasera locanda piena!", "de": "So. Volle Krüge, und heute Abend ein volles Gasthaus!", "fx": { "tap": 0 } }
+      ]
+    },
+    {
+      "id": "candle-glass",
+      "memory": { "en": "the evening you found my glass by the candle", "sl": "večer, ko si {m:našel|f:našla} moj kozarec ob sveči", "it": "la sera in cui hai trovato il mio bicchiere vicino alla candela", "de": "den Abend, an dem du mein Glas bei der Kerze gefunden hast" },
+      "lines": [
+        { "who": "sam", "face": "worried", "en": "Now where's my glass? I had it a minute ago.", "sl": "No, kje je moj kozarec? Pred minuto sem ga še imel.", "it": "Allora, dov'è il mio bicchiere? Ce l'avevo un minuto fa.", "de": "Wo ist denn mein Glas? Eben hatte ich es noch." },
+        { "choices": [
+          { "en": "It's on the table, by the candle!", "sl": "Na mizi je, ob sveči!", "it": "È sul tavolo, vicino alla candela!", "de": "Es steht auf dem Tisch, bei der Kerze!", "ok": true, "tap": "glass", "grammar": "prepositions-place",
+            "reply": { "face": "laugh", "en": "So it is! Thanks, {learner}. Now more light.", "sl": "Res je! Hvala, {learner}. Zdaj pa več svetlobe.", "it": "È vero! Grazie, {learner}. Adesso più luce.", "de": "Tatsächlich! Danke, {learner}. Jetzt mehr Licht.", "fx": { "candle": 1 } } },
+          { "en": "It's under the barrel!", "sl": "Pod sodom je!", "it": "È sotto la botte!", "de": "Es steht unter dem Fass!", "tap": "barrel",
+            "why": { "en": "Under the barrel there's the jug. Look on the table.", "sl": "Pod sodom je vrč. Poglej na mizo.", "it": "Sotto la botte c'è la brocca. Guarda sul tavolo.", "de": "Unter dem Fass steht der Krug. Schau auf den Tisch." }, "reply": { "face": "laugh", "en": "That's the jug, not my glass!", "sl": "To je vrč, ne moj kozarec!", "it": "Quella è la brocca, non il mio bicchiere!", "de": "Das ist der Krug, nicht mein Glas!" } },
+          { "en": "It's on the stairs!", "sl": "Na stopnicah je!", "it": "È sulle scale!", "de": "Es steht auf der Treppe!", "tap": "stairs",
+            "why": { "en": "Not on the stairs. Look by the candle.", "sl": "Ne na stopnicah. Poglej ob sveči.", "it": "Non sulle scale. Guarda vicino alla candela.", "de": "Nicht auf der Treppe. Schau bei der Kerze." }, "reply": { "face": "surprised", "en": "On the stairs? Then I'll step on it!", "sl": "Na stopnicah? Potem bom stopil nanj!", "it": "Sulle scale? Allora ci metto un piede sopra!", "de": "Auf der Treppe? Dann trete ich drauf!" } }
+        ] },
+        { "who": "sam", "face": "curious", "en": "Have you ever tried damson juice, {learner}?", "sl": "Si že kdaj {m:poskusil|f:poskusila} slivov sok, {learner}?", "it": "Hai mai assaggiato il succo di susine, {learner}?", "de": "Hast du schon mal Pflaumensaft probiert, {learner}?" },
+        { "choices": [
+          { "en": "No, I've never tried it.", "sl": "Ne, še nikoli ga nisem {m:poskusil|f:poskusila}.", "it": "No, non l'ho mai assaggiato.", "de": "Nein, den habe ich noch nie probiert.", "ok": true,
+            "reply": { "face": "happy", "en": "Then here you are! Sweet and a bit sour, like a damson.", "sl": "Potem pa izvoli! Sladek in malo kisel, kot sliva.", "it": "Allora ecco qua! Dolce e un po' aspro, come una susina.", "de": "Dann bitte schön! Süß und ein bisschen sauer, wie eine Pflaume." } },
+          { "en": "No, I've never try it.", "sl": "Ne, še nikoli ga nisem {m:poskusil|f:poskusila}.", "it": "No, non l'ho mai assaggiato.", "de": "Nein, den habe ich noch nie probiert.", "grammar": "present-perfect",
+            "why": { "en": "The present perfect is have + the past participle: I've never tried it.", "sl": "Present perfect je have + deležnik: I've never tried it.", "it": "Il present perfect è have + il participio passato: I've never tried it.", "de": "Das present perfect ist have + Partizip: I've never tried it." }, "reply": { "face": "laugh", "en": "Never try it? Then try it now!", "sl": "Never try it? Potem ga poskusi zdaj!", "it": "Never try it? Allora assaggialo adesso!", "de": "Never try it? Dann probier ihn jetzt!" } }
+        ] },
+        { "who": "sam", "en": "Cheers! And mind the stairs on your way up.", "sl": "Na zdravje! In pazi na stopnice, ko greš gor.", "it": "Salute! E attento alle scale quando sali.", "de": "Prost! Und pass auf der Treppe auf, wenn du hochgehst." }
+      ]
+    },
+    {
+      "id": "damsons-wine",
+      "memory": { "en": "the damson wine in the big glass bottle", "sl": "slivovo vino v velikem steklenem balonu", "it": "il vino di susine nella damigiana", "de": "den Pflaumenwein im großen Glasballon" },
+      "lines": [
+        { "who": "sam", "face": "proud", "en": "Look at the wine in that big glass bottle, {learner}. Last year's damson wine.", "sl": "Poglej vino v tistem velikem steklenem balonu, {learner}. Lansko slivovo vino.", "it": "Guarda il vino in quella damigiana, {learner}. Il vino di susine dell'anno scorso.", "de": "Schau dir den Wein in dem großen Glasballon an, {learner}. Der Pflaumenwein vom letzten Jahr." },
+        { "choices": [
+          { "en": "How long has it been there?", "sl": "Kako dolgo je že tam?", "it": "Da quanto tempo è lì?", "de": "Wie lange steht er schon da?", "ok": true,
+            "reply": { "face": "happy", "en": "A whole year. Wine needs time, like a good friend.", "sl": "Celo leto. Vino potrebuje čas, tako kot dober prijatelj.", "it": "Un anno intero. Il vino ha bisogno di tempo, come un buon amico.", "de": "Ein ganzes Jahr. Wein braucht Zeit, wie ein guter Freund." } },
+          { "en": "How long is it there?", "sl": "Kako dolgo je že tam?", "it": "Da quanto tempo è lì?", "de": "Wie lange steht er schon da?", "grammar": "present-perfect",
+            "why": { "en": "From then until now: the present perfect, how long has it been there?", "sl": "Od takrat do zdaj: present perfect, how long has it been there?", "it": "Da allora fino ad adesso: il present perfect, how long has it been there?", "de": "Von damals bis jetzt: das present perfect, how long has it been there?" }, "reply": { "face": "curious", "en": "Is it there? Aye, it's there! But since when?", "sl": "Je tam? Ja, tam je! Ampak od kdaj?", "it": "È lì? Sì, è lì! Ma da quando?", "de": "Steht er da? Ja, er steht da! Aber seit wann?" } }
+        ] },
+        { "who": "sam", "face": "curious", "en": "Would you like to try a little? Only a little, mind!", "sl": "Bi malo {m:poskusil|f:poskusila}? Samo malo, pazi!", "it": "Ne vuoi assaggiare un po'? Solo un pochino, eh!", "de": "Möchtest du ein bisschen probieren? Aber nur ein bisschen!" },
+        { "choices": [
+          { "en": "Yes, please. Just a little.", "sl": "Ja, prosim. Samo malo.", "it": "Sì, grazie. Solo un pochino.", "de": "Ja, bitte. Nur ein bisschen.", "ok": true,
+            "reply": { "face": "proud", "en": "Cheers! … Well? Strong and sweet, eh?", "sl": "Na zdravje! … No? Močno in sladko, kajne?", "it": "Salute! … Allora? Forte e dolce, eh?", "de": "Prost! … Und? Stark und süß, was?" } },
+          { "en": "No, thank you. I don't drink wine.", "sl": "Ne, hvala. Vina ne pijem.", "it": "No, grazie. Non bevo vino.", "de": "Nein, danke. Ich trinke keinen Wein.", "ok": true,
+            "reply": { "face": "happy", "en": "Fair enough! Have some damson juice, then.", "sl": "Prav! Potem pa vzemi slivov sok.", "it": "Va bene! Allora prendi del succo di susine.", "de": "In Ordnung! Dann nimm Pflaumensaft." } },
+          { "en": "Yes, please. A big bucket!", "sl": "Ja, prosim. Cel škaf!", "it": "Sì, grazie. Un secchio intero!", "de": "Ja, bitte. Einen ganzen Eimer!",
+            "why": { "en": "A bucket is far too much! Say just a little, or a glass.", "sl": "Škaf je veliko preveč! Reci just a little ali a glass.", "it": "Un secchio è decisamente troppo! Di' just a little o a glass.", "de": "Ein Eimer ist viel zu viel! Sag just a little oder a glass." }, "reply": { "face": "laugh", "en": "A bucket? Steady on, {learner}! It's strong stuff!", "sl": "Škaf? Počasi, {learner}! To je močna reč!", "it": "Un secchio? Calma, {learner}! È roba forte!", "de": "Einen Eimer? Langsam, {learner}! Das ist starkes Zeug!" } }
+        ] },
+        { "who": "sam", "en": "Now, back up the stairs, carefully. These steps are old!", "sl": "Zdaj pa nazaj gor po stopnicah, previdno. Te stopnice so stare!", "it": "Adesso su per le scale, con calma. Questi gradini sono vecchi!", "de": "Jetzt die Treppe wieder hoch, vorsichtig. Die Stufen sind alt!" }
+      ]
+    },
+    {
+      "id": "show-bottles",
+      "count": { "from": "dice", "min": 4, "max": 12 },
+      "memory": { "en": "the morning we counted the bottles for the show", "sl": "jutro, ko sva štela steklenice za razstavo", "it": "la mattina in cui abbiamo contato le bottiglie per la fiera", "de": "den Morgen, an dem wir die Flaschen für die Schau gezählt haben" },
+      "lines": [
+        { "who": "sam", "face": "happy", "en": "Morning, {learner}! I'm taking {n} bottles to the show. One for the judges, the rest for the party!", "sl": "Jutro, {learner}! Na razstavo nesem {n} {steklenico|steklenici|steklenice|steklenic}. Eno za sodnike, ostale za zabavo!", "it": "Buongiorno, {learner}! Porto {n} bottiglie alla fiera. Una per i giudici, le altre per la festa!", "de": "Morgen, {learner}! Ich nehme {n} Flaschen mit zur Schau. Eine für die Preisrichter, der Rest für das Fest!" },
+        { "choices": [
+          { "en": "{n} bottles! That's a lot of ale!", "sl": "{n} {steklenica|steklenici|steklenice|steklenic}! To je pa veliko piva!", "it": "{n} bottiglie! Quanta birra!", "de": "{n} Flaschen! Das ist viel Bier!", "ok": true,
+            "reply": { "face": "laugh", "en": "It is! The whole dale comes to the show.", "sl": "Res je! Na razstavo pride cela dolina.", "it": "È vero! Alla fiera viene tutta la valle.", "de": "Stimmt! Das ganze Tal kommt zur Schau." } },
+          { "en": "{n} {!bottle|bottles}! That's a lot of ale!", "sl": "{n} {!steklenica|steklenici|steklenice|steklenic}! To je pa veliko piva!", "it": "{n} {!bottiglia|bottiglie}! Quanta birra!", "de": "{n} {!Flasche|Flaschen}! Das ist viel Bier!", "wrong_form": 1, "grammar": "plurals",
+            "why": { "en": "{One takes the singular|More than one takes -s}: {n} {bottle|bottles}.", "sl": "{Ena je v ednini|Za več kot eno dodaš -s}: {n} {bottle|bottles}.", "it": "{Una vuole il singolare|Per più di una si aggiunge -s}: {n} {bottle|bottles}.", "de": "{Eine steht im Singular|Bei mehr als einer kommt -s dazu}: {n} {bottle|bottles}." }, "reply": { "face": "surprised", "en": "Just one? For the whole show? Count again!", "sl": "Samo eno? Za celo razstavo? Štej še enkrat!", "it": "Una sola? Per tutta la fiera? Conta di nuovo!", "de": "Nur eine? Für die ganze Schau? Zähl noch mal!" } },
+          { "en": "{n} bottles! That's a lot of ales!", "sl": "{n} {steklenica|steklenici|steklenice|steklenic}! To je pa veliko piva!", "it": "{n} bottiglie! Quanta birra!", "de": "{n} Flaschen! Das ist viel Bier!", "grammar": "some-any",
+            "why": { "en": "You can't count ale, so no -s: a lot of ale.", "sl": "Piva ne moreš šteti, zato brez -s: a lot of ale.", "it": "La birra non si conta, quindi niente -s: a lot of ale.", "de": "Bier kann man nicht zählen, also kein -s: a lot of ale." }, "reply": { "face": "laugh", "en": "Ales? It's all one kind, {learner}!", "sl": "Ales? Vse je ena vrsta, {learner}!", "it": "Ales? È tutta di un tipo, {learner}!", "de": "Ales? Das ist alles eine Sorte, {learner}!" } }
+        ] },
+        { "who": "sam", "en": "Now the labels. Can you help me?", "sl": "Zdaj pa nalepke. Mi pomagaš?", "it": "Adesso le etichette. Mi aiuti?", "de": "Jetzt die Etiketten. Hilfst du mir?" },
+        { "choices": [
+          { "en": "Yes! Can I write the names on them?", "sl": "Ja! Lahko nanje napišem imena?", "it": "Sì! Posso scriverci sopra i nomi?", "de": "Ja! Darf ich die Namen draufschreiben?", "ok": true,
+            "reply": { "face": "happy", "en": "Please! Your writing is better than mine. Sam's Best Ale.", "sl": "Prosim! Ti lepše pišeš kot jaz. Samovo najboljše pivo.", "it": "Sì, ti prego! Scrivi meglio di me. La birra migliore di Sam.", "de": "Bitte! Du schreibst schöner als ich. Sams bestes Bier." } },
+          { "en": "Yes! Can I writing the names on them?", "sl": "Ja! Lahko nanje napišem imena?", "it": "Sì! Posso scriverci sopra i nomi?", "de": "Ja! Darf ich die Namen draufschreiben?", "grammar": "can",
+            "why": { "en": "After can, the verb in its base form: can I write …?", "sl": "Za can pride glagol v osnovni obliki: can I write …?", "it": "Dopo can il verbo alla forma base: can I write …?", "de": "Nach can steht das Verb in der Grundform: can I write …?" }, "reply": { "face": "confused", "en": "Writing? You're not writing yet! Say it again.", "sl": "Writing? Saj še ne pišeš! Povej še enkrat.", "it": "Writing? Ma non stai ancora scrivendo! Ripeti.", "de": "Writing? Du schreibst doch noch gar nicht! Sag's noch mal." } }
+        ] }
+      ]
+    },
+    {
+      "id": "ham-cheese",
+      "memory": { "en": "the ploughman's lunch in the cellar", "sl": "kmečko malico v kleti", "it": "il pranzo del contadino in cantina", "de": "das Bauernvesper im Keller" },
+      "lines": [
+        { "who": "sam", "face": "happy", "en": "And here's a round cheese, from a farm up the dale.", "sl": "In tukaj je okrogel sir, s kmetije v dolini.", "it": "Ed ecco un formaggio tondo, da una fattoria della valle.", "de": "Und hier ist ein runder Käse, von einem Hof oben im Tal." },
+        { "choices": [
+          { "en": "It smells very strong!", "sl": "Zelo močno diši!", "it": "Ha un odore fortissimo!", "de": "Der riecht sehr stark!", "ok": true,
+            "reply": { "face": "laugh", "en": "Strong cheese, strong ale. That's the Cumbrian way!", "sl": "Močan sir, močno pivo. Tako je v Cumbrii!", "it": "Formaggio forte, birra forte. Così si fa in Cumbria!", "de": "Starker Käse, starkes Bier. So macht man das in Cumbria!" } },
+          { "en": "It smell very strong!", "sl": "Zelo močno diši!", "it": "Ha un odore fortissimo!", "de": "Der riecht sehr stark!", "grammar": "present-simple",
+            "why": { "en": "It takes -s: it smells.", "sl": "It dobi -s: it smells.", "it": "Con it ci vuole la -s: it smells.", "de": "Bei it kommt ein -s dazu: it smells." }, "reply": { "face": "laugh", "en": "Smell it? I can smell it from here, ha!", "sl": "Povonjati? Vonjam ga že od tukaj, ha!", "it": "Annusarlo? Lo sento da qui, ah!", "de": "Dran riechen? Ich rieche ihn schon von hier, ha!" } }
+        ] },
+        { "who": "sam", "face": "curious", "en": "Cheese, ham, bread and pickle: a ploughman's lunch. Shall we have one?", "sl": "Sir, šunka, kruh in kisle kumarice: kmečka malica. Si jo privoščiva?", "it": "Formaggio, prosciutto, pane e sottaceti: il pranzo del contadino. Ce lo facciamo?", "de": "Käse, Schinken, Brot und Pickles: ein Bauernvesper. Wollen wir eins essen?" },
+        { "choices": [
+          { "en": "Yes, let's!", "sl": "Ja, dajva!", "it": "Sì, dai!", "de": "Ja, los!", "ok": true,
+            "reply": { "face": "happy", "en": "Grand! I'll get the bread from upstairs.", "sl": "Odlično! Grem po kruh gor.", "it": "Grande! Vado a prendere il pane di sopra.", "de": "Prima! Ich hole oben das Brot." } },
+          { "en": "Sounds lovely, Sam.", "sl": "Sliši se super, Sam.", "it": "Che bello, Sam.", "de": "Klingt herrlich, Sam.", "ok": true,
+            "reply": { "face": "proud", "en": "Champion! Bread's upstairs. Back in a minute.", "sl": "Imenitno! Kruh je zgoraj. Takoj se vrnem.", "it": "Benissimo! Il pane è di sopra. Torno subito.", "de": "Klasse! Das Brot ist oben. Bin gleich zurück." } },
+          { "en": "No, let's!", "sl": "Ne, dajva!", "it": "No, dai!", "de": "Nein, los!",
+            "why": { "en": "No and let's don't go together. Say yes, let's! or no, thanks.", "sl": "No in let's ne gresta skupaj. Reci yes, let's! ali no, thanks.", "it": "No e let's non vanno insieme. Di' yes, let's! oppure no, thanks.", "de": "No und let's passen nicht zusammen. Sag yes, let's! oder no, thanks." }, "reply": { "face": "confused", "en": "No? Let's? Make up your mind, {learner}!", "sl": "Ne? Dajva? Odloči se že, {learner}!", "it": "No? Dai? Deciditi, {learner}!", "de": "Nein? Los? Entscheide dich, {learner}!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "honey-jars",
+      "memory": { "en": "the jars of honey we put by the barrel", "sl": "kozarce medu, ki sva jih postavila k sodu", "it": "i vasetti di miele che abbiamo messo vicino alla botte", "de": "die Honiggläser, die wir neben das Fass gestellt haben" },
+      "lines": [
+        { "who": "arthur", "face": "curious", "en": "Friend, can you help me? I've got jars of honey here. They need a cool place.", "sl": "Prijatelj, mi pomagaš? Tukaj imam kozarce medu. Potrebujejo hladen prostor.", "it": "Amico, mi aiuti? Ho qui dei vasetti di miele. Hanno bisogno di un posto fresco.", "de": "Mein Freund, hilfst du mir? Ich habe hier Honiggläser. Sie brauchen einen kühlen Platz." },
+        { "choices": [
+          { "en": "Shall I put them next to the barrel?", "sl": "Naj jih postavim zraven soda?", "it": "Li metto vicino alla botte?", "de": "Soll ich sie neben das Fass stellen?", "ok": true,
+            "reply": { "face": "happy", "en": "Yes, there. It's the coolest place. Thank you, friend.", "sl": "Ja, tja. Tam je najbolj hladno. Hvala, prijatelj.", "it": "Sì, lì. È il posto più fresco. Grazie, amico.", "de": "Ja, dorthin. Da ist es am kühlsten. Danke, mein Freund." } },
+          { "en": "Shall I put them next the barrel?", "sl": "Naj jih postavim zraven soda?", "it": "Li metto vicino alla botte?", "de": "Soll ich sie neben das Fass stellen?", "grammar": "prepositions-place",
+            "why": { "en": "It's two words: next to the barrel.", "sl": "To sta dve besedi: next to the barrel.", "it": "Sono due parole: next to the barrel.", "de": "Das sind zwei Wörter: next to the barrel." }, "reply": { "face": "curious", "en": "Next … the barrel? Gently, friend. Again?", "sl": "Zraven … soda? Nežno, prijatelj. Še enkrat?", "it": "Vicino … la botte? Piano, amico. Di nuovo?", "de": "Neben … das Fass? Sachte, mein Freund. Noch mal?" } }
+        ] },
+        { "who": "arthur", "face": "proud", "en": "In August I carry my hives up the fell. The bees love the purple heather.", "sl": "Avgusta nesem panje na hrib. Čebele obožujejo vijolično vresje.", "it": "Ad agosto porto le arnie sulla collina. Le api adorano il brugo viola.", "de": "Im August trage ich meine Bienenstöcke auf den Berg. Die Bienen lieben die lila Heide." },
+        { "choices": [
+          { "en": "Do the bees go up the fell too?", "sl": "Gredo tudi čebele na hrib?", "it": "Anche le api vanno sulla collina?", "de": "Gehen die Bienen auch mit auf den Berg?", "ok": true,
+            "reply": { "face": "laugh", "en": "In their hives, on my cart. Very slowly, very gently!", "sl": "V panjih, na mojem vozu. Zelo počasi, zelo nežno!", "it": "Nelle arnie, sul mio carretto. Molto piano, molto delicatamente!", "de": "In ihren Stöcken, auf meinem Karren. Ganz langsam, ganz sachte!" } },
+          { "en": "Does the bees go up the fell too?", "sl": "Gredo tudi čebele na hrib?", "it": "Anche le api vanno sulla collina?", "de": "Gehen die Bienen auch mit auf den Berg?", "grammar": "questions-do",
+            "why": { "en": "Bees is plural, so do: do the bees go …?", "sl": "Bees je množina, zato do: do the bees go …?", "it": "Bees è plurale, quindi do: do the bees go …?", "de": "Bees ist Plural, also do: do the bees go …?" }, "reply": { "face": "confused", "en": "Hmm? Say it again, friend. Gently.", "sl": "Hm? Povej še enkrat, prijatelj. Nežno.", "it": "Mm? Ripeti, amico. Piano.", "de": "Hm? Sag's noch mal, mein Freund. Sachte." } }
+        ] }
+      ]
+    }
+  ]
+}
