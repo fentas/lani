@@ -50,7 +50,7 @@ class WhoAnswersTest {
                 val played = d.count?.let { Counts.render(d, it.min, s.language) } ?: d
                 turns += played.lines.count { it.choices.isNotEmpty() }
                 s.happenings.filter { it.dialog == d.id || d.id in it.dialogs }.map { it.who }.distinct().flatMap { partner ->
-                    parted(played, partner).map { "${s.id} (${f.parentFile.parentFile.name}/${f.name}), dialog ${d.id}, $it: name $partner as its to" }
+                    parted(played, partner).map { "${s.id} (${f.relativeTo(companion).path}), dialog ${d.id}, $it: name $partner as its to" }
                 }
             }
         }
