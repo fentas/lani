@@ -23,9 +23,9 @@
     "steps": [
       {
         "say": {
-          "de": "Von **piace** kennst du schon **gli** (ihm) und **le** (ihr): **Gli piace il gelato.** Mit vielen Verben geht es genauso, mit **dare** (geben), **dire** (sagen) und **portare** (bringen): **Gli do la palla.** (Ich gebe ihm den Ball.) **Le dico ciao.** (Ich sage ihr Hallo.) Das kurze Wort steht vor dem Verb.",
-          "sl": "Pri **piace** že poznaš **gli** (mu) in **le** (ji): **Gli piace il gelato.** (Sladoled mu je všeč.) Enako gre z mnogimi glagoli, z **dare** (dati), **dire** (reči) in **portare** (prinesti): **Gli do la palla.** (Dam mu žogo.) **Le dico ciao.** (Rečem ji živjo.) Kratka beseda stoji pred glagolom.",
-          "en": "You know **gli** (to him) and **le** (to her) from **piace**: **Gli piace il gelato.** Many verbs go the same way, with **dare** (give), **dire** (say) and **portare** (bring): **Gli do la palla.** (I give him the ball.) **Le dico ciao.** (I say hi to her.) The short word goes before the verb."
+          "de": "Von **piace** kennst du schon **gli** (ihm) und **le** (ihr): **Gli piace il gelato.** Mit vielen Verben geht es genauso, mit **dare** (geben), **dire** (sagen) und **portare** (bringen): **Gli do la palla.** (Ich gebe ihm den Ball.) **Le dico ciao.** (Ich sage ihr Hallo.) Das kurze Wort steht vor dem Verb: **gli do** (nie *do gli*).",
+          "sl": "Pri **piace** že poznaš **gli** (mu) in **le** (ji): **Gli piace il gelato.** (Sladoled mu je všeč.) Enako gre z mnogimi glagoli, z **dare** (dati), **dire** (reči) in **portare** (prinesti): **Gli do la palla.** (Dam mu žogo.) **Le dico ciao.** (Rečem ji živjo.) Kratka beseda stoji pred glagolom: **gli do** (nikoli *do gli*).",
+          "en": "You know **gli** (to him) and **le** (to her) from **piace**: **Gli piace il gelato.** Many verbs go the same way, with **dare** (give), **dire** (say) and **portare** (bring): **Gli do la palla.** (I give him the ball.) **Le dico ciao.** (I say hi to her.) The short word goes before the verb: **gli do** (never *do gli*)."
         },
         "examples": [
           { "it": "Lorenzo ha fame: gli do un panino.", "de": "Lorenzo hat Hunger: Ich gebe ihm ein Brötchen.", "sl": "Lorenzo je lačen: dam mu sendvič.", "en": "Lorenzo is hungry: I give him a sandwich." },
@@ -98,7 +98,7 @@
         ],
         "rows": [
           [{ "it": "a noi", "de": "uns", "sl": "nam", "en": "to us" }, "ci", "Nonno Bepi ci racconta una storia."],
-          [{ "it": "a voi", "de": "euch", "sl": "vam", "en": "to you all" }, "vi", "Bambini, vi porto il miele!"],
+          [{ "it": "a voi", "de": "euch", "sl": "vam", "en": "to you all" }, "vi", "Vi porto il miele!"],
           [{ "it": "a loro", "de": "ihnen", "sl": "njim", "en": "to them" }, "gli", "Gli do il pane."]
         ],
         "ask": {
@@ -121,7 +121,7 @@
           { "it": "Signora Marisa, Le porto i piatti.", "de": "Frau Marisa, ich bringe Ihnen die Teller.", "sl": "Gospa Marisa, prinesem vam krožnike.", "en": "Signora Marisa, I'll bring you the plates." }
         ],
         "rows": [
-          [{ "it": "a Lei", "de": "Ihnen", "sl": "vam (vljudno)", "en": "to you (polite)" }, "Le", "Maestra, Le do il quaderno."]
+          [{ "it": "a Lei", "de": "Ihnen", "sl": "vam (vljudno)", "en": "to you (polite)" }, "Le", "Le do il quaderno."]
         ],
         "ask": {
           "type": "choice", "grammar": "pronomi-indiretti", "prompt": "«Maestra, ___ do il mio disegno.»", "options": ["Ti", "Le", "Gli"], "answer": 1, "almost": [0], "say_options": true,
@@ -134,9 +134,9 @@
       },
       {
         "say": {
-          "de": "Wem? oder wen? Meistens wie im Deutschen: *ich gebe ihm* ist **gli do**, *ich sehe ihn* ist **lo vedo**. Zwei sind anders: **telefonare a** (anrufen) nimmt **gli, le**: **Le telefono.** (Ich rufe sie an.) Und **aiutare** (helfen) nimmt **lo, la**: **Lo aiuto.** (Ich helfe ihm.)",
-          "sl": "Komu? ali koga? Večinoma kot v slovenščini: *dam mu* je **gli do**, *vidim ga* je **lo vedo**. Drugačna sta dva: **telefonare a** (poklicati) vzame **gli, le**: **Le telefono.** (Pokličem jo.) **Aiutare** (pomagati) pa vzame **lo, la**: **Lo aiuto.** (Pomagam mu.)",
-          "en": "To whom, or whom? *I give him* is **gli do**, *I see him* is **lo vedo**. Two to watch: **telefonare a** (phone) takes **gli, le**, as you phone *to* someone in Italian: **Le telefono.** (I phone her.) And **aiutare** (help) takes **lo, la**: **Lo aiuto.** (I help him.)"
+          "de": "Wem? oder wen? Meistens wie im Deutschen: *ich gebe ihm* ist **gli do**, *ich sehe ihn* ist **lo vedo**. Zwei sind anders: **telefonare a** (anrufen) nimmt **gli, le**: **Le telefono** (nie *la telefono*), ich rufe sie an. Und **aiutare** (helfen) nimmt **lo, la**: **Lo aiuto.** (Ich helfe ihm.)",
+          "sl": "Komu? ali koga? Večinoma kot v slovenščini: *dam mu* je **gli do**, *vidim ga* je **lo vedo**. Drugačna sta dva: **telefonare a** (poklicati) vzame **gli, le**: **Le telefono** (nikoli *la telefono*), pokličem jo. **Aiutare** (pomagati) pa vzame **lo, la**: **Lo aiuto.** (Pomagam mu.)",
+          "en": "To whom, or whom? *I give him* is **gli do**, *I see him* is **lo vedo**. Two to watch: **telefonare a** (phone) takes **gli, le**, as you phone *to* someone in Italian: **Le telefono** (never *la telefono*), I phone her. And **aiutare** (help) takes **lo, la**: **Lo aiuto.** (I help him.)"
         },
         "examples": [
           { "it": "Vedo Lorenzo in piazza. Lo vedo.", "de": "Ich sehe Lorenzo auf dem Platz. Ich sehe ihn.", "sl": "Vidim Lorenza na trgu. Vidim ga.", "en": "I see Lorenzo in the square. I see him." },
@@ -230,7 +230,7 @@
           "items": [
             { "from": "Do la palla a Lorenzo.", "accept": ["Gli do la palla."] },
             { "from": "Porto un fiore a Giulia.", "accept": ["Le porto un fiore."] },
-            { "from": "Racconto una storia ai bambini.", "accept": ["Gli racconto una storia."], "hint": { "de": "ai bambini: ihnen", "sl": "ai bambini: njim", "en": "ai bambini: to them" } },
+            { "from": "Racconto una storia ai bambini.", "accept": ["Gli racconto una storia.", "Racconto loro una storia."], "hint": { "de": "ai bambini: ihnen", "sl": "ai bambini: njim", "en": "ai bambini: to them" } },
             { "from": "Scrivo una lettera a Zia Nives.", "accept": ["Le scrivo una lettera."] },
             { "from": "Mostro le api a Tommaso.", "accept": ["Gli mostro le api."] }
           ],

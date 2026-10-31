@@ -32,7 +32,7 @@
           { "it": "Giulia va al mare e ci va con la nonna.", "de": "Giulia fährt ans Meer, und sie fährt mit Oma hin.", "sl": "Giulia gre na morje, in tja gre z babico.", "en": "Giulia goes to the sea, and she goes there with her grandma." }
         ],
         "rows": [
-          ["ci", { "de": "dorthin, dort", "sl": "tja, tam", "en": "there" }, "Sì, ci vado."]
+          ["ci", { "de": "dorthin, dort", "sl": "tja, tam", "en": "there" }, "ci vado"]
         ],
         "ask": {
           "type": "choice", "grammar": "ci-ne", "prompt": "«Vieni allo stagno?» «Sì, ___ vengo!»", "options": ["ci", "ne", "lo"], "answer": 0, "say_options": true,
@@ -54,7 +54,7 @@
           { "it": "Andate in piazza? No, oggi non ci andiamo.", "de": "Geht ihr auf den Platz? Nein, heute gehen wir nicht hin.", "sl": "Greste na trg? Ne, danes ne gremo tja.", "en": "Are you going to the square? No, we're not going there today." }
         ],
         "rows": [
-          ["non ci", { "de": "nicht dorthin, nicht dort", "sl": "ne tja, ne tam", "en": "not there" }, "No, non ci vado."]
+          ["non ci", { "de": "nicht dorthin, nicht dort", "sl": "ne tja, ne tam", "en": "not there" }, "non ci vado"]
         ],
         "ask": {
           "type": "cloze", "grammar": "ci-ne", "text": "«Andate allo stagno?» «No, oggi non ___ andiamo.»", "accept": ["ci"], "hint": { "de": "dorthin", "sl": "tja", "en": "there" },
@@ -76,7 +76,7 @@
           { "it": "Quanti gatti vedi? Ne vedo tre.", "de": "Wie viele Katzen siehst du? Ich sehe drei.", "sl": "Koliko mačk vidiš? Vidim tri.", "en": "How many cats can you see? I can see three." }
         ],
         "rows": [
-          ["ne", { "de": "davon", "sl": "od tega, jih", "en": "of it, of them" }, "Ne ho tre."]
+          ["ne", { "de": "davon", "sl": "od tega, jih", "en": "of it, of them" }, "ne ho tre"]
         ],
         "ask": {
           "type": "cloze", "grammar": "ci-ne", "text": "«Quante conchiglie hai?» «___ ho sette!»", "accept": ["Ne"], "hint": { "de": "davon", "sl": "jih", "en": "of them" },
@@ -98,8 +98,8 @@
           { "it": "Hai delle caramelle? No, non ne ho.", "de": "Hast du Bonbons? Nein, ich habe keine.", "sl": "Imaš kaj bonbonov? Ne, nimam jih.", "en": "Have you got any sweets? No, I haven't got any." }
         ],
         "rows": [
-          ["ne … un po'", { "de": "ein bisschen davon", "sl": "malo tega", "en": "a bit of it" }, "Ne voglio un po'."],
-          ["non ne", { "de": "keins, keine", "sl": "nič tega", "en": "none of it" }, "Non ne ho."]
+          ["ne … un po'", { "de": "ein bisschen davon", "sl": "malo tega", "en": "a bit of it" }, "ne voglio un po'"],
+          ["non ne", { "de": "keins, keine", "sl": "nič tega", "en": "none of it" }, "non ne ho"]
         ],
         "ask": {
           "type": "choice", "grammar": "ci-ne", "prompt": "«Vuoi del miele?» «Sì, ___ un po', grazie.»", "options": ["ne voglio", "lo voglio", "ci voglio"], "answer": 0, "say_options": true,
@@ -112,17 +112,17 @@
       },
       {
         "say": {
-          "de": "Mit **ne** wird **ci** zu **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Ja, es gibt noch welche.) **Quante uova ci sono? Ce ne sono sei.** (Es sind sechs.) Vor **è** schreibst du **n'** mit Apostroph: **ce n'è**.",
-          "sl": "Z **ne** postane **ci** → **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Ja, še je.) **Quante uova ci sono? Ce ne sono sei.** (Šest jih je.) Pred **è** pišeš **n'** z opuščajem: **ce n'è**.",
-          "en": "With **ne**, **ci** becomes **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Yes, there's some.) **Quante uova ci sono? Ce ne sono sei.** (There are six.) Before **è** you write **n'** with an apostrophe: **ce n'è**."
+          "de": "Mit **ne** wird **ci** zu **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Ja, es gibt noch welche.) **Quante uova ci sono? Ce ne sono sei.** (Es sind sechs.) Vor **è** schreibst du **n'** mit Apostroph: **ce n'è** (nie *ci n'è*).",
+          "sl": "Z **ne** postane **ci** → **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Ja, še je.) **Quante uova ci sono? Ce ne sono sei.** (Šest jih je.) Pred **è** pišeš **n'** z opuščajem: **ce n'è** (nikoli *ci n'è*).",
+          "en": "With **ne**, **ci** becomes **ce**: **C'è ancora della gubana? Sì, ce n'è.** (Yes, there's some.) **Quante uova ci sono? Ce ne sono sei.** (There are six.) Before **è** you write **n'** with an apostrophe: **ce n'è** (never *ci n'è*)."
         },
         "examples": [
           { "it": "Quante barche ci sono al porto? Ce ne sono quattro.", "de": "Wie viele Boote sind im Hafen? Es sind vier.", "sl": "Koliko čolnov je v pristanišču? Štirje so.", "en": "How many boats are there in the harbour? There are four." },
           { "it": "C'è del latte? Sì, ce n'è.", "de": "Gibt es Milch? Ja, es gibt welche.", "sl": "Je kaj mleka? Ja, je ga.", "en": "Is there any milk? Yes, there is." }
         ],
         "rows": [
-          ["ce n'è", { "de": "es gibt welche", "sl": "je ga, je je", "en": "there is some" }, "Sì, ce n'è."],
-          ["ce ne sono", { "de": "es sind … davon", "sl": "jih je …", "en": "there are … of them" }, "Ce ne sono sei."]
+          ["ce n'è", { "de": "es gibt welche", "sl": "je ga, je je", "en": "there is some" }, "ce n'è ancora"],
+          ["ce ne sono", { "de": "es sind … davon", "sl": "jih je …", "en": "there are … of them" }, "ce ne sono sei"]
         ],
         "ask": {
           "type": "choice", "grammar": "ci-ne", "prompt": "«Quante pecore ci sono sul prato?» «___ venti.»", "options": ["Ci ne sono", "Ce ne sono", "Ce n'è"], "answer": 1, "say_options": true,
