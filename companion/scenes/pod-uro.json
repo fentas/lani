@@ -4,7 +4,7 @@
   "title": { "sl": "Pod uro", "en": "Under the clock", "de": "Unter der Uhr", "it": "Sotto l'orologio" },
   "emoji": "🕰️",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), unreviewed; to check: četrt na enajst, pol ure čez eno, navijat uro, zamuja/prehiteva, Nisva skupaj krav pasla, Bilo je pet udarcev",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), unreviewed; to check: četrt na enajst, pol ure čez eno, navijat uro, zamuja/prehiteva, Nisva skupaj krav pasla, Bilo je pet udarcev; scene-replier (2026-10-31): Mojca answers zamuda-ancka's turn to Ančka: her replies machine-written, to check",
   "art": "square",
   "from": ["project:mestna_ura"],
   "pack": "pod-uro",
@@ -1996,6 +1996,7 @@
           "it": "Cosa? Già alle otto? Alla radio hanno detto alle nove!"
         },
         {
+          "to": "mojca",
           "choices": [
             {
               "sl": "Dober večer! Pridite, vaje se začnejo.",
@@ -2005,10 +2006,10 @@
               "ok": true,
               "reply": {
                 "face": "happy",
-                "sl": "Hvala, {learner}. Tako {m:prijazen|f:prijazna} si!",
-                "en": "Thank you, {learner}. You're so kind!",
-                "de": "Danke, {learner}. Du bist so lieb!",
-                "it": "Grazie, {learner}. Sei così gentile!"
+                "sl": "Hvala, {learner}. Teta Ančka, tukaj je vaše mesto!",
+                "en": "Thank you, {learner}. Aunt Ančka, here's your place!",
+                "de": "Danke, {learner}. Tante Ančka, hier ist Ihr Platz!",
+                "it": "Grazie, {learner}. Zia Ančka, ecco il Suo posto!"
               }
             },
             {
@@ -2023,11 +2024,11 @@
                 "it": "Ančka è più anziana: vi, pridite."
               },
               "reply": {
-                "face": "cross",
-                "sl": "Pridi? Glasneje! … A tako, tikaš me.",
-                "en": "Pridi? Louder! … Oh, I see, you're saying ti to me.",
-                "de": "Pridi? Lauter! … Ach so, du duzt mich.",
-                "it": "Pridi? Più forte! … Ah, mi dai del tu."
+                "face": "surprised",
+                "sl": "Pridi? Oho, teto Ančko tikate?",
+                "en": "Pridi? Oho, you're saying ti to Aunt Ančka?",
+                "de": "Pridi? Oho, Sie duzen Tante Ančka?",
+                "it": "Pridi? Oh, Lei dà del tu alla zia Ančka?"
               }
             },
             {
@@ -2042,20 +2043,20 @@
                 "it": "Vaje è plurale: se začnejo."
               },
               "reply": {
-                "face": "confused",
-                "sl": "Začne? Kaj se začne? Glasneje!",
-                "en": "Začne? What's starting? Louder!",
-                "de": "Začne? Was fängt an? Lauter!",
-                "it": "Začne? Che cosa comincia? Più forte!"
+                "face": "curious",
+                "sl": "Začne? Hm, kaj se začne, {learner}?",
+                "en": "Začne? Hm, what's starting, {learner}?",
+                "de": "Začne? Hm, was fängt an, {learner}?",
+                "it": "Začne? Mm, che cosa comincia, {learner}?"
               }
             }
           ],
           "puzzled": {
             "face": "confused",
-            "sl": "Kaj? Glasneje, prosim!",
-            "en": "What? Louder, please!",
-            "de": "Was? Lauter, bitte!",
-            "it": "Cosa? Più forte, per favore!"
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
           }
         },
         {

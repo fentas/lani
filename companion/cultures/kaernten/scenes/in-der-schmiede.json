@@ -5,7 +5,7 @@
   "title": { "de": "In der Schmiede", "sl": "V kovačnici", "en": "In the smithy", "it": "Nella fucina" },
   "emoji": "⚒️",
   "level": "A2",
-  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; B1: könnten Sie; check the Kufenstechen and Schweine gehütet",
+  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; B1: könnten Sie; check the Kufenstechen and Schweine gehütet; scene-replier (2026-10-31): Stefan answers rad's turn after Toni: his replies machine-written, to check",
   "art": "smithy",
   "from": ["smithy"],
   "pack": "in-der-schmiede",
@@ -128,13 +128,13 @@
             "reply": { "face": "laugh", "de": "Können? Ist Toni jetzt zwei Leute? Hoho.", "sl": "Können? Je Toni zdaj dva človeka? Hoho.", "en": "Können? Is Toni two people now? Ho ho.", "it": "Können? Adesso Toni è due persone? Oh oh." } }
         ], "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come?" } },
         { "who": "toni", "de": "Zeit habe ich. Halt das Rad. Gerade.", "sl": "Čas imam. Drži kolo. Naravnost.", "en": "I've got time. Hold the wheel. Straight.", "it": "Il tempo ce l'ho. Tieni la ruota. Dritta." },
-        { "choices": [
+        { "to": "stefan", "choices": [
           { "de": "Ja, Herr Toni. Ich halte es gerade.", "sl": "Ja, gospod Toni. Držim ga naravnost.", "en": "Yes, Herr Toni. I'm holding it straight.", "it": "Sì, signor Toni. La tengo dritta.", "ok": true,
-            "reply": { "de": "Gut. So.", "sl": "Dobro. Tako.", "en": "Good. Like that.", "it": "Bene. Così.", "fx": { "cart": 1 } } },
+            "reply": { "face": "happy", "de": "Super! Gleich ist es wieder dran.", "sl": "Super! Takoj bo spet na vozu.", "en": "Great! It'll be back on in a moment.", "it": "Ottimo! Tra un attimo è di nuovo al suo posto.", "fx": { "cart": 1 } } },
           { "de": "Ja, Herr Toni. Ich halte ihn gerade.", "sl": "Ja, gospod Toni. Držim ga naravnost.", "en": "Yes, Herr Toni. I'm holding him straight.", "it": "Sì, signor Toni. Lo tengo dritto.", "grammar": "artikel-genus",
             "why": { "de": "Rad ist neutral: das Rad. Darum: Ich halte es.", "sl": "Rad je srednjega spola: das Rad. Zato: Ich halte es.", "en": "Rad is neuter: das Rad. So: Ich halte es.", "it": "Rad è neutro: das Rad. Quindi: Ich halte es." },
-            "reply": { "face": "cross", "de": "Ihn? Das Rad ist kein Mann. Genau sein.", "sl": "Njega? Kolo ni moški. Natančno, prosim.", "en": "Him? The wheel isn't a man. Be exact.", "it": "Lui? La ruota non è un uomo. Precisione." } }
-        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+            "reply": { "face": "laugh", "de": "Ihn? Hoho, das Rad ist doch kein Mann!", "sl": "Njega? Hoho, kolo vendar ni moški!", "en": "Him? Ho ho, the wheel isn't a man!", "it": "Lui? Oh oh, la ruota mica è un uomo!" } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come?" } },
         { "who": "stefan", "face": "happy", "de": "Schau! Wieder vier Räder! Danke, Toni. Und danke dir!", "sl": "Poglej! Spet štiri kolesa! Hvala, Toni. In hvala tebi!", "en": "Look! Four wheels again! Thanks, Toni. And thank you!", "it": "Guarda! Di nuovo quattro ruote! Grazie, Toni. E grazie a te!" },
         { "who": "toni", "de": "Bitte. Aber fahr langsam.", "sl": "Prosim. Ampak vozi počasi.", "en": "You're welcome. But drive slowly.", "it": "Prego. Ma va' piano." }
       ]

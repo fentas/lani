@@ -4,7 +4,7 @@
   "title": { "sl": "Pri vratih", "en": "At the gate", "de": "Am Tor", "it": "Al portone" },
   "emoji": "🚪",
   "level": "A1",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: kol, zapah, tečaj, škripati, krošnjar, pojdiva vprašat",
+  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: kol, zapah, tečaj, škripati, krošnjar, pojdiva vprašat; scene-replier (2026-10-31): Jože answers both of zapah-nejc's turns (Nejc's own words lines of his after them): Jože's replies machine-written, to check",
   "art": "palisade",
   "from": ["palisade"],
   "pack": "pri-vratih",
@@ -1471,20 +1471,14 @@
           "it": "{learner}! Jože! Andiamo nel bosco! Di notte è fantastico!"
         },
         {
+          "to": "joze",
           "choices": [
             {
               "sl": "Ne, Nejc. Ponoči ne gremo v gozd.",
               "en": "No, Nejc. We don't go into the forest at night.",
               "de": "Nein, Nejc. Nachts gehen wir nicht in den Wald.",
               "it": "No, Nejc. Di notte nel bosco non si va.",
-              "ok": true,
-              "reply": {
-                "face": "sad",
-                "sl": "Zakaj ne? Saj nisem majhen!",
-                "en": "Why not? I'm not little!",
-                "de": "Warum nicht? Ich bin doch nicht klein!",
-                "it": "Perché no? Non sono piccolo!"
-              }
+              "ok": true
             },
             {
               "sl": "Ne, Nejc. Ponoči ne gremo v gozdu.",
@@ -1498,11 +1492,11 @@
                 "it": "Dove vai è una direzione: v + l'accusativo, v gozd."
               },
               "reply": {
-                "face": "laugh",
-                "sl": "V gozdu? Saj sem še tu, ha ha!",
-                "en": "In the forest? I'm still here, ha ha!",
-                "de": "Im Wald? Ich bin doch noch hier, ha ha!",
-                "it": "Nel bosco? Ma sono ancora qui, ah ah!"
+                "face": "curious",
+                "sl": "V gozdu? Nismo v gozdu, smo pri vratih.",
+                "en": "In the forest? We're not in the forest, we're at the gate.",
+                "de": "Im Wald? Wir sind nicht im Wald, wir sind am Tor.",
+                "it": "Nel bosco? Non siamo nel bosco, siamo al portone."
               }
             },
             {
@@ -1516,21 +1510,29 @@
                 "it": "Di notte il portone resta chiuso: nel bosco ci sono i lupi."
               },
               "reply": {
-                "face": "laugh",
-                "sl": "Juhu! … Ampak Jože gleda grdo.",
-                "en": "Yippee! … But Jože is giving us a look.",
-                "de": "Juhu! … Aber Jože schaut böse.",
-                "it": "Evviva! … Ma Jože ci guarda storto."
+                "face": "cross",
+                "sl": "Takoj? Hm. Vrata so že zaprta.",
+                "en": "Right now? Hm. The gate is already shut.",
+                "de": "Sofort? Hm. Das Tor ist schon zu.",
+                "it": "Subito? Mm. Il portone è già chiuso."
               }
             }
           ],
           "puzzled": {
             "face": "confused",
-            "sl": "Kaj? Ne slišim, ha ha!",
-            "en": "What? Can't hear you, ha ha!",
-            "de": "Was? Ich hör dich nicht, ha ha!",
-            "it": "Cosa? Non ti sento, ah ah!"
+            "sl": "Pst … kako, prosim?",
+            "en": "Shh … sorry, what?",
+            "de": "Pst … wie bitte?",
+            "it": "Sst … come, scusa?"
           }
+        },
+        {
+          "who": "nejc",
+          "sl": "Zakaj ne? Saj nisem majhen!",
+          "en": "Why not? I'm not little!",
+          "de": "Warum nicht? Ich bin doch nicht klein!",
+          "it": "Perché no? Non sono piccolo!",
+          "face": "sad"
         },
         {
           "who": "joze",
@@ -1541,20 +1543,14 @@
           "fx": { "wolves": 0.4 }
         },
         {
+          "to": "joze",
           "choices": [
             {
               "sl": "Jože ima prav. Gremo jutri, podnevi.",
               "en": "Jože is right. We'll go tomorrow, in daylight.",
               "de": "Jože hat recht. Wir gehen morgen, bei Tag.",
               "it": "Jože ha ragione. Andiamo domani, di giorno.",
-              "ok": true,
-              "reply": {
-                "face": "sad",
-                "sl": "Prav … Ampak jutri zgodaj!",
-                "en": "All right … But early tomorrow!",
-                "de": "Na gut … Aber morgen früh!",
-                "it": "Va bene … Ma domani presto!"
-              }
+              "ok": true
             },
             {
               "sl": "Jože je prav. Gremo jutri, podnevi.",
@@ -1567,21 +1563,29 @@
                 "it": "Avere ragione è imeti prav: Jože ima prav."
               },
               "reply": {
-                "face": "laugh",
-                "sl": "Jože je prav? Kaj je prav? Ha ha!",
-                "en": "Jože is right? What's right? Ha ha!",
-                "de": "Jože ist recht? Was ist recht? Ha ha!",
-                "it": "Jože è ragione? Che cosa è ragione? Ah ah!"
+                "face": "curious",
+                "sl": "Jože je prav? Hm. Jože je tu, pri vratih.",
+                "en": "Jože je prav? Hm. Jože is here, at the gate.",
+                "de": "Jože je prav? Hm. Jože ist hier, am Tor.",
+                "it": "Jože je prav? Mm. Jože è qui, al portone."
               }
             }
           ],
           "puzzled": {
             "face": "confused",
-            "sl": "Kaj? Ne slišim, ha ha!",
-            "en": "What? Can't hear you, ha ha!",
-            "de": "Was? Ich hör dich nicht, ha ha!",
-            "it": "Cosa? Non ti sento, ah ah!"
+            "sl": "Pst … kako, prosim?",
+            "en": "Shh … sorry, what?",
+            "de": "Pst … wie bitte?",
+            "it": "Sst … come, scusa?"
           }
+        },
+        {
+          "who": "nejc",
+          "sl": "Prav … Ampak jutri zgodaj!",
+          "en": "All right … But early tomorrow!",
+          "de": "Na gut … Aber morgen früh!",
+          "it": "Va bene … Ma domani presto!",
+          "face": "sad"
         },
         {
           "who": "joze",

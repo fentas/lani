@@ -4,7 +4,7 @@
   "title": { "sl": "Pod mlajem", "en": "Under the maypole", "de": "Unter dem Maibaum", "it": "Sotto l'albero di maggio" },
   "emoji": "🌲",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; words to check: godba, stražiti mlaj, Živijo! as a toast, vlečem; place-life lines too",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; words to check: godba, stražiti mlaj, Živijo! as a toast, vlečem; place-life lines too; scene-replier (2026-10-31): Luka answers straza-vrh's turns after Marko, Marko ples-postavljanje's pull: the reactions rewritten for them machine-written, to check",
   "art": "square",
   "from": ["project:mlaj"],
   "pack": "pod-mlajem",
@@ -1056,6 +1056,7 @@
           "it": "Ciao, {learner}! Un po' di ribolla? Così non ti addormenti."
         },
         {
+          "to": "luka",
           "choices": [
             {
               "sl": "Ja, hvala, samo malo vina.",
@@ -1084,10 +1085,10 @@
               },
               "reply": {
                 "face": "laugh",
-                "sl": "Malo vino? Moje vino ni malo, je veliko! Ha ha.",
-                "en": "Malo vino (a small wine)? My wine isn't small, it's great! Ha ha.",
-                "de": "Malo vino (ein kleiner Wein)? Mein Wein ist nicht klein, er ist groß! Haha.",
-                "it": "Malo vino (un vino piccolo)? Il mio vino non è piccolo, è grande! Ah ah."
+                "sl": "Malo vino? Ha ha! Marko, slišiš? Tvoje vino je malo!",
+                "en": "Malo vino (a small wine)? Ha ha! Marko, hear that? Your wine is small!",
+                "de": "Malo vino (ein kleiner Wein)? Haha! Marko, hörst du? Dein Wein ist klein!",
+                "it": "Malo vino (un vino piccolo)? Ah ah! Marko, senti? Il tuo vino è piccolo!"
               }
             },
             {
@@ -1101,20 +1102,20 @@
                 "it": "Marko ti offre vino (vino), non latte."
               },
               "reply": {
-                "face": "surprised",
-                "sl": "Mleka? Pri meni je samo rebula, {learner}!",
-                "en": "Milk? I've only got rebula, {learner}!",
-                "de": "Milch? Bei mir gibt's nur Rebula, {learner}!",
-                "it": "Latte? Da me c'è solo ribolla, {learner}!"
+                "face": "laugh",
+                "sl": "Mleka? Ha ha, mleko imajo moje ovce!",
+                "en": "Milk? Ha ha, my sheep have the milk!",
+                "de": "Milch? Haha, Milch haben meine Schafe!",
+                "it": "Latte? Ah ah, il latte ce l'hanno le mie pecore!"
               }
             }
           ],
           "puzzled": {
             "face": "confused",
-            "sl": "Allora? Kako, prosim?",
-            "en": "Allora? Sorry, what?",
-            "de": "Allora? Wie bitte?",
-            "it": "Allora? Come, scusa?"
+            "sl": "Kaj? Ej, še enkrat!",
+            "en": "What? Hey, once more!",
+            "de": "Was? He, noch mal!",
+            "it": "Cosa? Ehi, ancora!"
           }
         },
         {
@@ -1134,6 +1135,7 @@
           "it": "È solo il vento, Luka. Salute!"
         },
         {
+          "to": "luka",
           "choices": [
             {
               "sl": "Na zdravje! Za naš mlaj!",
@@ -1651,6 +1653,7 @@
           "it": "Tutti alle corde! Quando dico ora, tiriamo. … Ora!"
         },
         {
+          "to": "marko",
           "choices": [
             {
               "sl": "Vlečem! Hej, hop!",
@@ -1680,10 +1683,10 @@
               },
               "reply": {
                 "face": "laugh",
-                "sl": "Kdo vleče? Marko? Marko pije! Ha ha.",
-                "en": "Who's pulling? Marko? Marko's drinking! Ha ha.",
-                "de": "Wer zieht? Marko? Marko trinkt! Haha.",
-                "it": "Chi tira? Marko? Marko beve! Ah ah."
+                "sl": "Kdo vleče? Jaz? Ha ha, jaz samo gledam!",
+                "en": "Who's pulling? Me? Ha ha, I'm only watching!",
+                "de": "Wer zieht? Ich? Haha, ich schau nur zu!",
+                "it": "Chi tira? Io? Ah ah, io sto solo a guardare!"
               }
             },
             {

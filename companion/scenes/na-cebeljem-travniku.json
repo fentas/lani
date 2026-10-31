@@ -4,7 +4,7 @@
   "title": { "sl": "Na čebeljem travniku", "en": "In the bee meadow", "de": "Auf der Bienenwiese", "it": "Nel prato delle api" },
   "emoji": "🌼",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; checked against Fran 2026-10-30: facelija, točim med, v gruči; to check: Mlad svet, de Smoker",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; checked against Fran 2026-10-30: facelija, točim med, v gruči; to check: Mlad svet, de Smoker; scene-replier (2026-10-31): Nejc answers roj and roj-dim's turn after Anton, Zala koncnice-nejc's first turn: their replies and puzzled lines machine-written, to check",
   "art": "apiary",
   "from": ["project:cebelji_travnik"],
   "pack": "na-cebeljem-travniku",
@@ -550,6 +550,7 @@
           "it": "Calma, calma. Uno sciame non è pericoloso. Le api cercano una nuova casa. Dove volano?"
         },
         {
+          "to": "nejc",
           "choices": [
             {
               "sl": "V čebelnjak!",
@@ -564,10 +565,10 @@
               },
               "reply": {
                 "face": "curious",
-                "sl": "V čebelnjak? Ne, ta roj išče nov dom.",
-                "en": "Into the bee house? No, this swarm wants a new home.",
-                "de": "Ins Bienenhaus? Nein, dieser Schwarm sucht ein neues Zuhause.",
-                "it": "Nell'apiario? No, questo sciame cerca una nuova casa."
+                "sl": "V čebelnjak? Ne, saj iščejo nov dom!",
+                "en": "Into the bee house? No, they're looking for a new home!",
+                "de": "Ins Bienenhaus? Nein, sie suchen doch ein neues Zuhause!",
+                "it": "Nell'apiario? No, cercano una casa nuova!"
               }
             },
             {
@@ -580,10 +581,10 @@
               "grammar": "kam-tozilnik",
               "reply": {
                 "face": "happy",
-                "sl": "Tako je. Na lipi se bodo ustavile.",
-                "en": "That's right. They'll settle on the linden.",
-                "de": "Genau. Auf der Linde lassen sie sich nieder.",
-                "it": "Esatto. Si fermeranno sul tiglio.",
+                "sl": "Ja! Glej, vse so na lipi!",
+                "en": "Yes! Look, they're all on the linden!",
+                "de": "Ja! Schau, alle sitzen auf der Linde!",
+                "it": "Sì! Guarda, sono tutte sul tiglio!",
                 "fx": { "swarm": 1 }
               }
             },
@@ -599,11 +600,11 @@
                 "it": "Uno sciame vola in alto: guarda su vicino al grande albero."
               },
               "reply": {
-                "face": "curious",
-                "sl": "Na rože? Ne, roj leti visoko.",
-                "en": "Onto the flowers? No, a swarm flies high.",
-                "de": "Auf die Blumen? Nein, ein Schwarm fliegt hoch.",
-                "it": "Sui fiori? No, uno sciame vola in alto."
+                "face": "laugh",
+                "sl": "Na rože? Ne, ne! Višje, višje!",
+                "en": "Onto the flowers? No, no! Higher, higher!",
+                "de": "Auf die Blumen? Nein, nein! Höher, höher!",
+                "it": "Sui fiori? No, no! Più in alto, più in alto!"
               }
             }
           ]
@@ -1401,6 +1402,7 @@
           "it": "Bravo, Nejc. {learner}, mi passi l'affumicatore, per favore. Lì, sul ceppo."
         },
         {
+          "to": "nejc",
           "choices": [
             {
               "sl": "Izvolite, kadilnik.",
@@ -1410,10 +1412,10 @@
               "ok": true,
               "reply": {
                 "face": "happy",
-                "sl": "Hvala. Malo dima … in čebele so mirne.",
-                "en": "Thank you. A little smoke … and the bees are calm.",
-                "de": "Danke. Ein bisschen Rauch … und die Bienen sind ruhig.",
-                "it": "Grazie. Un po' di fumo … e le api stanno tranquille.",
+                "sl": "Glej, dim! Čebele so že mirne.",
+                "en": "Look, smoke! The bees are calm already.",
+                "de": "Schau, Rauch! Die Bienen sind schon ruhig.",
+                "it": "Guarda, il fumo! Le api sono già tranquille.",
                 "fx": { "smoke": 1 }
               }
             },
@@ -1429,11 +1431,11 @@
                 "it": "Anton ti dà del vi e si aspetta il vi: izvolite."
               },
               "reply": {
-                "face": "surprised",
-                "sl": "Izvoli? … Mlad svet, mlad svet.",
-                "en": "Izvoli? … Young folk, young folk.",
-                "de": "Izvoli? … Die Jugend, die Jugend.",
-                "it": "Izvoli? … I giovani, i giovani."
+                "face": "laugh",
+                "sl": "Izvoli? Ha ha, Anton ni otrok!",
+                "en": "Izvoli? Ha ha, Anton isn't a kid!",
+                "de": "Izvoli? Haha, Anton ist doch kein Kind!",
+                "it": "Izvoli? Ah ah, Anton mica è un bambino!"
               }
             },
             {
@@ -1449,19 +1451,19 @@
               },
               "reply": {
                 "face": "curious",
-                "sl": "Kadilnika? Dva? Eden je dovolj.",
-                "en": "Kadilnika? Two? One is enough.",
-                "de": "Kadilnika? Zwei? Einer reicht.",
-                "it": "Kadilnika? Due? Ne basta uno."
+                "sl": "Kadilnika? Dva? Na štoru je samo eden!",
+                "en": "Kadilnika? Two? There's only one on the stump!",
+                "de": "Kadilnika? Zwei? Auf dem Stumpf liegt nur einer!",
+                "it": "Kadilnika? Due? Sul ceppo ce n'è solo uno!"
               }
             }
           ],
           "puzzled": {
             "face": "confused",
-            "sl": "Hm? … Počasi, prosim.",
-            "en": "Hm? … Slowly, please.",
-            "de": "Hm? … Langsam, bitte.",
-            "it": "Mm? … Piano, per favore."
+            "sl": "Kaj? Govori hitreje, {learner}!",
+            "en": "What? Talk faster, {learner}!",
+            "de": "Was? Red schneller, {learner}!",
+            "it": "Cosa? Parla più veloce, {learner}!"
           }
         },
         {
@@ -1563,6 +1565,7 @@
           "it": "{learner}! Il mio diavolo è il più bello dell'apiario!"
         },
         {
+          "to": "zala",
           "choices": [
             {
               "sl": "Meni je všeč, Nejc!",
@@ -1571,11 +1574,11 @@
               "it": "A me piace, Nejc!",
               "ok": true,
               "reply": {
-                "face": "proud",
-                "sl": "Vidiš? Ti imaš dober okus!",
-                "en": "See? You've got good taste!",
-                "de": "Siehst du? Du hast einen guten Geschmack!",
-                "it": "Vedi? Tu hai buon gusto!"
+                "face": "laugh",
+                "sl": "Res? Ti si pa {m:prijazen|f:prijazna}, {learner}!",
+                "en": "Really? You're being kind, {learner}!",
+                "de": "Wirklich? Du bist aber nett, {learner}!",
+                "it": "Davvero? Sei gentile, {learner}!"
               }
             },
             {
@@ -1591,10 +1594,10 @@
               },
               "reply": {
                 "face": "laugh",
-                "sl": "Mene? Kaj mene? Ha ha, ne razumem!",
-                "en": "Mene? What about me? Ha ha, I don't get it!",
-                "de": "Mene? Was mich? Haha, versteh ich nicht!",
-                "it": "Mene? Cosa me? Ah ah, non capisco!"
+                "sl": "Mene? Kaj mene? Hi hi, ne razumem!",
+                "en": "Mene? What about me? Hee hee, I don't get it!",
+                "de": "Mene? Was mich? Hihi, versteh ich nicht!",
+                "it": "Mene? Cosa me? Ih ih, non capisco!"
               }
             },
             {
@@ -1609,20 +1612,20 @@
                 "it": "Všeč vuole il dativo: meni je všeč."
               },
               "reply": {
-                "face": "confused",
-                "sl": "Jaz? Ti si všeč? Komu?",
-                "en": "Jaz? You're liked? By whom?",
-                "de": "Jaz? Du gefällst? Wem denn?",
-                "it": "Jaz? Tu piaci? A chi?"
+                "face": "laugh",
+                "sl": "Jaz? Ti si všeč? Komu pa, hi hi?",
+                "en": "Jaz? You're liked? By whom, hee hee?",
+                "de": "Jaz? Du gefällst? Wem denn, hihi?",
+                "it": "Jaz? Tu piaci? A chi, ih ih?"
               }
             }
           ],
           "puzzled": {
             "face": "confused",
-            "sl": "Kaj? Govori hitreje, {learner}!",
-            "en": "What? Talk faster, {learner}!",
-            "de": "Was? Red schneller, {learner}!",
-            "it": "Cosa? Parla più veloce, {learner}!"
+            "sl": "Kaj? Hi hi, ne razumem!",
+            "en": "What? Hee hee, I don't get it!",
+            "de": "Was? Hihi, versteh ich nicht!",
+            "it": "Cosa? Ih ih, non capisco!"
           }
         },
         {

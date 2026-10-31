@@ -10,7 +10,7 @@
   },
   "emoji": "🍷",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; wine only for the grown-ups, the must (grape juice) for the child",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; wine only for the grown-ups, the must (grape juice) for the child; scene-replier (2026-10-31): Marisa answers the turns after Matteo in brocca and brocca-bottiglie: her replies machine-written, to check",
   "art": "cellar",
   "from": [
     "house"
@@ -306,6 +306,7 @@
           "de": "Sofort! {learner}, hilfst du mir? Stell den Krug unter den Hahn."
         },
         {
+          "to": "marisa",
           "choices": [
             {
               "it": "Ecco, la brocca è sotto il rubinetto.",
@@ -315,10 +316,10 @@
               "ok": true,
               "reply": {
                 "face": "happy",
-                "it": "Bene. Adesso apro il rubinetto.",
-                "sl": "Dobro. Zdaj odprem pipo.",
-                "en": "Good. Now I'll open the tap.",
-                "de": "Gut. Jetzt mache ich den Hahn auf.",
+                "it": "{m:Bravo|f:Brava}! Matteo, apri il rubinetto!",
+                "sl": "Bravo! Matteo, odpri pipo!",
+                "en": "Well done! Matteo, open the tap!",
+                "de": "Gut gemacht! Matteo, mach den Hahn auf!",
                 "fx": {
                   "tap": 0.5
                 }
@@ -357,6 +358,7 @@
           }
         },
         {
+          "to": "marisa",
           "choices": [
             {
               "it": "Basta, Matteo! La brocca è piena!",
@@ -389,7 +391,7 @@
               "reply": {
                 "face": "laugh",
                 "it": "Pieno? Chi è pieno? Io no, ho fame!",
-                "sl": "Pieno? Kdo je sit? Jaz ne, lačen sem!",
+                "sl": "Pieno? Kdo je sit? Jaz ne, lačna sem!",
                 "en": "Pieno? Who's full? Not me, I'm hungry!",
                 "de": "Pieno? Wer ist satt? Ich nicht, ich habe Hunger!"
               }
@@ -957,6 +959,7 @@
           "de": "Ich lege sie in die Kiste. Wer trägt sie die Treppe hinauf?"
         },
         {
+          "to": "marisa",
           "choices": [
             {
               "it": "La porto io!",

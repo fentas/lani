@@ -5,7 +5,7 @@
   "title": { "de": "In der Werkstatt", "sl": "V delavnici", "en": "In the workshop", "it": "In bottega" },
   "emoji": "🪚",
   "level": "A2",
-  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; check Franz's numbers, kehren and die Scheibtruhe",
+  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; check Franz's numbers, kehren and die Scheibtruhe; scene-replier (2026-10-31): Jakob answers pferd's turn after Franz, Franz both of saege-kehren's turns after Jakob (and Jakob's last line speaks to him): their replies machine-written, to check",
   "art": "workshop",
   "from": ["house"],
   "household": ["franz", "jakob"],
@@ -124,13 +124,13 @@
         ] },
         { "who": "franz", "de": "Zeig her. Ein Bein, ein Loch, ein Tropfen Leim. So.", "sl": "Pokaži. Ena noga, ena luknja, kapljica lepila. Tako.", "en": "Show me. One leg, one hole, one drop of glue. There.", "it": "Fa' vedere. Una gamba, un buco, una goccia di colla. Ecco.", "fx": { "toy": 0.4 } },
         { "who": "franz", "face": "curious", "de": "Jetzt muss der Leim trocknen. Wie lange, glaubst du?", "sl": "Zdaj se mora lepilo posušiti. Koliko časa, misliš?", "en": "Now the glue has to dry. How long do you think?", "it": "Adesso la colla deve asciugare. Quanto, secondo te?" },
-        { "choices": [
+        { "to": "jakob", "choices": [
           { "de": "Eine Stunde?", "sl": "Eno uro?", "en": "An hour?", "it": "Un'ora?", "ok": true,
-            "reply": { "face": "happy", "de": "Eine Stunde. Genau. Und dann steht er wieder.", "sl": "Eno uro. Točno. Potem spet stoji.", "en": "An hour. Exactly. And then he stands again.", "it": "Un'ora. Esatto. E poi sta di nuovo in piedi.", "fx": { "toy": 1 } } },
+            "reply": { "face": "happy", "de": "Eine Stunde! Und dann kann er wieder laufen!", "sl": "Eno uro! Potem lahko spet teče!", "en": "An hour! And then he can run again!", "it": "Un'ora! E poi può correre di nuovo!", "fx": { "toy": 1 } } },
           { "de": "Ein Stunde?", "sl": "Eno uro?", "en": "An hour?", "it": "Un'ora?", "grammar": "artikel-genus",
             "why": { "de": "Stunde ist feminin: die Stunde, eine Stunde.", "sl": "Stunde je ženskega spola: die Stunde, eine Stunde.", "en": "Stunde is feminine: die Stunde, eine Stunde.", "it": "Stunde è femminile: die Stunde, eine Stunde." },
-            "reply": { "face": "thinking", "de": "Ein Stunde? Hm. Fast. Genau sein, bitte.", "sl": "Ein Stunde? Hm. Skoraj. Natančno, prosim.", "en": "Ein Stunde? Hm. Nearly. Exactly, please.", "it": "Ein Stunde? Mm. Quasi. Con precisione, per favore." } }
-        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, bitte.", "sl": "Kako, prosim? Počasi, prosim.", "en": "Sorry? Slowly, please.", "it": "Come? Piano, per favore." } },
+            "reply": { "face": "laugh", "de": "Ein Stunde? Hihi, das klingt komisch!", "sl": "Ein Stunde? Hihi, to se sliši smešno!", "en": "Ein Stunde? Hee hee, that sounds funny!", "it": "Ein Stunde? Ih ih, suona strano!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was hast du gesagt?", "sl": "A? Kaj si {m:rekel|f:rekla}?", "en": "Huh? What did you say?", "it": "Eh? Cosa hai detto?" } },
         { "who": "jakob", "face": "laugh", "de": "Schau! Mein Noriker steht wieder! Danke, Opa!", "sl": "Poglej! Moj noriški konjiček spet stoji! Hvala, dedek!", "en": "Look! My Noriker horse is standing again! Thanks, Grandpa!", "it": "Guarda! Il mio cavallino norico sta di nuovo in piedi! Grazie, nonno!" }
       ]
     },
@@ -217,22 +217,22 @@
       "lines": [
         { "who": "franz", "de": "Grüß dich. Ich säge, und Jakob kehrt. Schau, so viel Sägemehl!", "sl": "Živjo. Jaz žagam, Jakob pa pometa. Poglej, koliko žagovine!", "en": "Hello. I saw, and Jakob sweeps. Look, so much sawdust!", "it": "Ciao. Io sego e Jakob spazza. Guarda quanta segatura!", "fx": { "dust": 1 } },
         { "who": "jakob", "face": "curious", "de": "Ich kehre es weg. Aber wohin damit?", "sl": "Jaz jo pometem. Ampak kam z njo?", "en": "I'll sweep it up. But where to?", "it": "La spazzo io. Ma dove la metto?" },
-        { "choices": [
+        { "to": "franz", "choices": [
           { "de": "In den Garten!", "sl": "Na vrt!", "en": "Into the garden!", "it": "In giardino!", "ok": true,
-            "reply": { "face": "happy", "de": "Ja! Opa sagt, das ist gut für die Erde.", "sl": "Ja! Dedek pravi, da je to dobro za zemljo.", "en": "Yes! Grandpa says it's good for the soil.", "it": "Sì! Il nonno dice che fa bene alla terra." } },
+            "reply": { "face": "happy", "de": "Genau. Sägemehl ist gut für die Erde.", "sl": "Točno. Žagovina je dobra za zemljo.", "en": "Exactly. Sawdust is good for the soil.", "it": "Esatto. La segatura fa bene alla terra." } },
           { "de": "In dem Garten!", "sl": "Na vrtu!", "en": "In the garden!", "it": "Nel giardino, già lì!", "grammar": "wechselpraepositionen",
             "why": { "de": "Wohin? Eine Richtung: in den Garten, mit Akkusativ. In dem Garten sagt, wo.", "sl": "Kam? Smer: in den Garten, s tožilnikom. In dem Garten pove, kje.", "en": "Where to? A direction: in den Garten, accusative. In dem Garten says where.", "it": "Verso dove? Una direzione: in den Garten, con l'accusativo. In dem Garten dice dove." },
-            "reply": { "face": "laugh", "de": "In dem Garten? Da ist es ja noch nicht. Hihi.", "sl": "Na vrtu? Saj še ni tam. Hihi.", "en": "In the garden? It isn't there yet. Hee hee.", "it": "Nel giardino? Ma non c'è ancora. Ih ih." } }
-        ], "puzzled": { "face": "confused", "de": "Was?", "sl": "Kaj?", "en": "What?", "it": "Cosa?" } },
+            "reply": { "face": "curious", "de": "In dem Garten? Da ist es ja noch nicht.", "sl": "In dem Garten? Saj še ni tam.", "en": "In dem Garten? It isn't there yet.", "it": "In dem Garten? Ma non c'è ancora." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
         { "who": "jakob", "face": "proud", "de": "Ich kann schon bis hundert zählen. Zählst du mit? Eins, zwei, drei …", "sl": "Znam že šteti do sto. Šteješ z mano? Ena, dve, tri …", "en": "I can count to a hundred already. Will you count with me? One, two, three …", "it": "So già contare fino a cento. Conti con me? Uno, due, tre …" },
-        { "choices": [
+        { "to": "franz", "choices": [
           { "de": "Vier, fünf, sechs!", "sl": "Štiri, pet, šest!", "en": "Four, five, six!", "it": "Quattro, cinque, sei!", "ok": true,
-            "reply": { "face": "laugh", "de": "Sieben, acht, neun, zehn! Super!", "sl": "Sedem, osem, devet, deset! Super!", "en": "Seven, eight, nine, ten! Great!", "it": "Sette, otto, nove, dieci! Grande!" } },
+            "reply": { "face": "laugh", "de": "Sieben, acht … Ihr zählt ja schneller, als ich säge!", "sl": "Sedem, osem … Hitreje štejeta, kot jaz žagam!", "en": "Seven, eight … You two count faster than I saw!", "it": "Sette, otto … Contate più svelti di me con la sega!" } },
           { "de": "Vier, sechs, fünf!", "sl": "Štiri, šest, pet!", "en": "Four, six, five!", "it": "Quattro, sei, cinque!",
             "why": { "de": "Nach vier kommt fünf, dann sechs.", "sl": "Po štiri pride pet, potem šest.", "en": "After four comes five, then six.", "it": "Dopo il quattro viene il cinque, poi il sei." },
-            "reply": { "face": "laugh", "de": "Hihi, du zählst wie ein Hase, der hüpft!", "sl": "Hihi, šteješ kot zajec, ki skače!", "en": "Hee hee, you count like a hopping hare!", "it": "Ih ih, conti come una lepre che salta!" } }
+            "reply": { "face": "laugh", "de": "Hoppla! Du zählst ja wie ein Hase, der hüpft.", "sl": "Hopla! Šteješ kot zajec, ki skače.", "en": "Whoops! You count like a hopping hare.", "it": "Oplà! Conti come una lepre che salta." } }
         ] },
-        { "who": "jakob", "face": "happy", "de": "Fertig! Alles sauber. Opa wird sich freuen.", "sl": "Gotovo! Vse je čisto. Dedek bo vesel.", "en": "Done! All clean. Grandpa will be pleased.", "it": "Fatto! Tutto pulito. Il nonno sarà contento." }
+        { "who": "jakob", "face": "happy", "de": "Fertig! Alles sauber, Opa!", "sl": "Gotovo! Vse je čisto, dedek!", "en": "Done! All clean, Grandpa!", "it": "Fatto! Tutto pulito, nonno!" }
       ]
     },
     {

@@ -4,7 +4,7 @@
   "title": { "sl": "Na mostu", "en": "On the bridge", "de": "Auf der Brücke", "it": "Sul ponte" },
   "emoji": "🌉",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; to check: narasel, upade, zdržal, šumi, Nisva skupaj krav pasla; place-life too",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; to check: narasel, upade, zdržal, šumi, Nisva skupaj krav pasla; place-life too; scene-replier (2026-10-31): voda-tone opens with France (whose morning it is) and he answers its turns: his line, replies and the why machine-written, to check",
   "art": "stream",
   "from": ["project:most"],
   "pack": "na-mostu",
@@ -1621,14 +1621,16 @@
       "fx_stays": true,
       "lines": [
         {
-          "who": "tone",
-          "sl": "Jutro. Voda je visoka. Pregledam stebra.",
-          "en": "Morning. The water is high. I'm checking the two pillars.",
-          "de": "Morgen. Das Wasser ist hoch. Ich prüfe die beiden Pfeiler.",
-          "it": "Buongiorno. L'acqua è alta. Controllo i due pilastri.",
+          "face": "worried",
+          "who": "france",
+          "sl": "Jutro, {learner}. Voda je visoka. Tone pregleduje stebra.",
+          "en": "Morning, {learner}. The water is high. Tone is checking the two pillars.",
+          "de": "Morgen, {learner}. Das Wasser ist hoch. Tone prüft die beiden Pfeiler.",
+          "it": "Buongiorno, {learner}. L'acqua è alta. Tone controlla i due pilastri.",
           "fx": { "full": 0.7 }
         },
         {
+          "to": "france",
           "choices": [
             {
               "sl": "Vam lahko pomagam?",
@@ -1669,16 +1671,16 @@
               "it": "Posso aiutarti?",
               "grammar": "ti-vi",
               "why": {
-                "en": "Tone says ti to you but expects vi: vam lahko pomagam.",
-                "de": "Tone sagt ti zu dir, erwartet aber vi: vam lahko pomagam.",
-                "it": "Tone ti dà del ti, ma si aspetta il vi: vam lahko pomagam."
+                "en": "France says ti to you but expects vi: vam lahko pomagam.",
+                "de": "France sagt ti zu dir, erwartet aber vi: vam lahko pomagam.",
+                "it": "France ti dà del ti, ma si aspetta il vi: vam lahko pomagam."
               },
               "reply": {
-                "face": "cross",
-                "sl": "Ti? Hm. Spet ta ti …",
-                "en": "Ti? Hm. That ti again …",
-                "de": "Ti? Hm. Schon wieder dieses ti …",
-                "it": "Ti? Mm. Di nuovo questo ti …"
+                "face": "surprised",
+                "sl": "Ti? Tikaš me? No, prav …",
+                "en": "Ti? You're saying ti to me? Well, all right …",
+                "de": "Ti? Du duzt mich? Na gut …",
+                "it": "Ti? Mi dai del tu? Va be' …"
               }
             }
           ],
@@ -1698,6 +1700,7 @@
           "it": "Allora? Qualcosa non va con le pietre?"
         },
         {
+          "to": "france",
           "choices": [
             {
               "sl": "Ne, vse je v redu. Nobene razpoke ni.",
@@ -1706,11 +1709,11 @@
               "it": "No, va tutto bene. Non c'è nessuna crepa.",
               "ok": true,
               "reply": {
-                "face": "proud",
-                "sl": "Dobro. Ali je prav, ali ni: je prav.",
-                "en": "Good. It's either right or it isn't: it's right.",
-                "de": "Gut. Entweder es stimmt oder nicht: Es stimmt.",
-                "it": "Bene. O è giusto o non lo è: è giusto."
+                "face": "happy",
+                "sl": "Dobro! Ko voda upade, peljem voz čez.",
+                "en": "Good! When the water goes down, I'll take the cart over.",
+                "de": "Gut! Wenn das Wasser sinkt, fahre ich mit dem Wagen hinüber.",
+                "it": "Bene! Quando l'acqua cala, passo col carro."
               }
             },
             {
@@ -1725,11 +1728,11 @@
                 "it": "Dopo una negazione, il genitivo: nobene razpoke ni."
               },
               "reply": {
-                "face": "cross",
-                "sl": "Nobena razpoka? Hm. Ali je prav, ali ni.",
-                "en": "Nobena razpoka? Hm. It's either right or it isn't.",
-                "de": "Nobena razpoka? Hm. Entweder es stimmt oder nicht.",
-                "it": "Nobena razpoka? Mm. O è giusto o non lo è."
+                "face": "confused",
+                "sl": "Nobena razpoka? Hm. Tone, kaj pravi {learner}?",
+                "en": "Nobena razpoka? Hm. Tone, what's {learner} saying?",
+                "de": "Nobena razpoka? Hm. Tone, was sagt {learner}?",
+                "it": "Nobena razpoka? Mm. Tone, che cosa dice {learner}?"
               }
             },
             {
@@ -1744,11 +1747,11 @@
                 "it": "Lo sloveno raddoppia la negazione: nobene razpoke ni."
               },
               "reply": {
-                "face": "cross",
-                "sl": "Je? Hm. Povej jasno, {learner}.",
-                "en": "Je? Hm. Say it clearly, {learner}.",
-                "de": "Je? Hm. Sag es klar, {learner}.",
-                "it": "Je? Mm. Dillo chiaro, {learner}."
+                "face": "worried",
+                "sl": "Je? Kje? Tone, poglej še enkrat!",
+                "en": "Je? Where? Tone, take another look!",
+                "de": "Je? Wo? Tone, schau noch mal nach!",
+                "it": "Je? Dove? Tone, guarda di nuovo!"
               }
             }
           ],

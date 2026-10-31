@@ -10,7 +10,7 @@
   },
   "emoji": "🔨",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; scene-replier (2026-10-31): Franco answers sega-segatura's turn after Lorenzo, Lorenzo the turns after Franco in cavallino and cavallino-gamba: their replies machine-written, to check",
   "art": "workshop",
   "from": [
     "house"
@@ -575,6 +575,7 @@
           }
         },
         {
+          "to": "lorenzo",
           "choices": [
             {
               "it": "Che bravo, signor Franco!",
@@ -583,11 +584,11 @@
               "de": "Wie geschickt, Herr Franco!",
               "ok": true,
               "reply": {
-                "face": "laugh",
-                "it": "Ah ah, i nonni sanno fare tutto!",
-                "sl": "Ha ha, dedki znajo vse!",
-                "en": "Ha ha, grandpas can do everything!",
-                "de": "Haha, Opas können alles!"
+                "face": "proud",
+                "it": "Sì! Il nonno sa fare tutto!",
+                "sl": "Ja! Dedek zna vse!",
+                "en": "Yes! Grandpa can do everything!",
+                "de": "Ja! Opa kann alles!"
               }
             },
             {
@@ -603,10 +604,10 @@
               },
               "reply": {
                 "face": "laugh",
-                "it": "Brava? Io? Ah ah, sono un nonno, sai!",
-                "sl": "Spretna? Jaz? Ha ha, dedek sem, veš!",
-                "en": "Clever (feminine)? Me? Ha ha, I'm a grandpa, you know!",
-                "de": "Geschickt (weiblich)? Ich? Haha, ich bin ein Opa, weißt du!"
+                "it": "Brava? Ah ah, il nonno non è una signora!",
+                "sl": "Spretna? Ha ha, dedek ni gospa!",
+                "en": "Brava? Ha ha, grandpa isn't a lady!",
+                "de": "Brava? Haha, Opa ist doch keine Frau!"
               }
             }
           ]
@@ -1013,6 +1014,7 @@
           "de": "So viel Sägemehl! Wohin damit?"
         },
         {
+          "to": "franco",
           "choices": [
             {
               "it": "Mettiamola fuori, nell'orto!",
@@ -1021,11 +1023,11 @@
               "de": "Bringen wir es raus, in den Gemüsegarten!",
               "ok": true,
               "reply": {
-                "face": "laugh",
-                "it": "Sì! Il nonno dice che piace all'insalata.",
-                "sl": "Ja! Dedek pravi, da je solati všeč.",
-                "en": "Yes! Grandpa says the lettuce likes it.",
-                "de": "Ja! Opa sagt, der Salat mag das."
+                "face": "happy",
+                "it": "Sì, bravi! La segatura fa bene all'orto.",
+                "sl": "Ja, pridna sta! Žagovina je dobra za vrt.",
+                "en": "Yes, well done, you two! Sawdust is good for the garden.",
+                "de": "Ja, brav, ihr zwei! Sägemehl tut dem Garten gut."
               }
             },
             {
@@ -1041,10 +1043,10 @@
               },
               "reply": {
                 "face": "laugh",
-                "it": "Lo? Il nonno? No, il nonno resta qui! Ah ah!",
-                "sl": "Ga? Dedka? Ne, dedek ostane tukaj! Ha ha!",
-                "en": "Him? Grandpa? No, grandpa stays here! Ha ha!",
-                "de": "Ihn? Opa? Nein, Opa bleibt hier! Haha!"
+                "it": "Lo? Chi, me? No, il nonno resta qui! Ah ah!",
+                "sl": "Ga? Koga, mene? Ne, dedek ostane tukaj! Ha ha!",
+                "en": "Him? Who, me? No, grandpa stays here! Ha ha!",
+                "de": "Ihn? Wen, mich? Nein, der Opa bleibt hier! Haha!"
               }
             }
           ]
@@ -1115,6 +1117,7 @@
           }
         },
         {
+          "to": "lorenzo",
           "choices": [
             {
               "it": "Ecco la colla!",
@@ -1123,11 +1126,11 @@
               "de": "Hier ist der Leim!",
               "ok": true,
               "reply": {
-                "face": "happy",
-                "it": "Grazie. Ecco: quattro gambe!",
-                "sl": "Hvala. Tako: štiri noge!",
-                "en": "Thanks. There: four legs!",
-                "de": "Danke. So: vier Beine!",
+                "face": "laugh",
+                "it": "Evviva! Adesso ha di nuovo quattro gambe!",
+                "sl": "Juhu! Zdaj ima spet štiri noge!",
+                "en": "Hooray! Now it's got four legs again!",
+                "de": "Juhu! Jetzt hat es wieder vier Beine!",
                 "fx": {
                   "toy": 1
                 }
@@ -1145,11 +1148,11 @@
                 "de": "Colla ist feminin: la colla."
               },
               "reply": {
-                "face": "confused",
-                "it": "Hm? Cosa mi passi? Ripeti.",
-                "sl": "Hm? Kaj mi podajaš? Ponovi.",
-                "en": "Hm? What are you passing me? Say it again.",
-                "de": "Hm? Was gibst du mir? Sag es noch mal."
+                "face": "laugh",
+                "it": "Il colla? Ah ah, parli strano!",
+                "sl": "Il colla? Ha ha, smešno govoriš!",
+                "en": "Il colla? Ha ha, you talk funny!",
+                "de": "Il colla? Haha, du redest komisch!"
               }
             }
           ]

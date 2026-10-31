@@ -4,7 +4,7 @@
   "title": { "sl": "Pri vodnjaku", "en": "At the fountain", "de": "Am Brunnen", "it": "Alla fontana" },
   "emoji": "⛲",
   "level": "A1",
-  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; checked against Fran: štirna (spoken), curek, brizgalna, Nisva skupaj krav pasla; place-life too",
+  "review": "sl lines, reactions, variants, de, it: machine-written (Claude), not reviewed by a native speaker; checked against Fran: štirna (spoken), curek, brizgalna, Nisva skupaj krav pasla; place-life too; scene-replier (2026-10-31): Tone answers the turns after France (vecer, vaja, vecer-zvon, vaja-vedra), Mojca lekcija-dvojina's after Zala: the replies rewritten for them machine-written, to check",
   "art": "square",
   "from": ["project:vodnjak_na_trgu"],
   "pack": "pri-vodnjaku",
@@ -806,6 +806,7 @@
           "it": "Sì, qui sentiamo tutte le novità. Chi si sposa, chi è malato …"
         },
         {
+          "to": "tone",
           "choices": [
             {
               "sl": "Kaj je novega v vasi?",
@@ -943,6 +944,7 @@
           "it": "Ooh, Sivko! Qui, alla fontana, fermo!"
         },
         {
+          "to": "tone",
           "choices": [
             {
               "sl": "Kaj naj naredim?",
@@ -1304,6 +1306,7 @@
           "it": "Io non sono una donna, sono una bambina! Però porto due secchi."
         },
         {
+          "to": "mojca",
           "choices": [
             {
               "sl": "Obe vedri sta polni.",
@@ -1313,10 +1316,10 @@
               "ok": true,
               "reply": {
                 "face": "happy",
-                "sl": "Bravo! In nič vode na tleh.",
-                "en": "Well done! And no water on the ground.",
-                "de": "Bravo! Und kein Wasser auf dem Boden.",
-                "it": "Bene! E niente acqua per terra."
+                "sl": "Odlično! In nič vode na tleh, Zala?",
+                "en": "Excellent! And no water on the ground, Zala?",
+                "de": "Ausgezeichnet! Und kein Wasser auf dem Boden, Zala?",
+                "it": "Ottimo! E niente acqua per terra, Zala?"
               }
             },
             {
@@ -1350,20 +1353,20 @@
                 "it": "Due secchi: il duale, sta polni. Je polno è per uno solo."
               },
               "reply": {
-                "face": "laugh",
-                "sl": "Je? Samo eno? Hi hi, eno sem spila!",
-                "en": "Je? Only one? Hee hee, I drank one!",
-                "de": "Je? Nur einer? Hihi, einen hab ich ausgetrunken!",
-                "it": "Je? Solo uno? Ih ih, uno l'ho bevuto!"
+                "face": "curious",
+                "sl": "Je? Samo eno vedro? Zala, kje je drugo?",
+                "en": "Je? Only one bucket? Zala, where's the other one?",
+                "de": "Je? Nur ein Eimer? Zala, wo ist der andere?",
+                "it": "Je? Un secchio solo? Zala, dov'è l'altro?"
               }
             }
           ],
           "puzzled": {
             "face": "confused",
-            "sl": "Kaj? Hi hi, ne razumem!",
-            "en": "What? Hee hee, I don't get it!",
-            "de": "Was? Hihi, versteh ich nicht!",
-            "it": "Cosa? Ih ih, non capisco!"
+            "sl": "Hm? Še enkrat, prosim, počasi.",
+            "en": "Hm? Once more, please, slowly.",
+            "de": "Hm? Noch einmal, bitte, langsam.",
+            "it": "Mm? Ancora una volta, per favore, piano."
           }
         },
         {
@@ -2025,6 +2028,7 @@
           "it": "Buonasera, {learner}! Vieni, bevi. L'acqua della fontana è la migliore."
         },
         {
+          "to": "tone",
           "choices": [
             {
               "sl": "Hvala. Res je dobra in mrzla.",
@@ -2049,10 +2053,10 @@
               "why": { "en": "Voda is feminine: dobra.", "de": "Voda ist weiblich: dobra.", "it": "Voda è femminile: dobra." },
               "reply": {
                 "face": "laugh",
-                "sl": "Dober? Kdo, Tone? Ha ha, včasih.",
-                "en": "Dober? Who, Tone? Ha ha, sometimes.",
-                "de": "Dober? Wer, Tone? Haha, manchmal.",
-                "it": "Dober? Chi, Tone? Ah ah, a volte."
+                "sl": "Dober? Kdo, jaz? Ha, včasih.",
+                "en": "Dober? Who, me? Ha, sometimes.",
+                "de": "Dober? Wer, ich? Ha, manchmal.",
+                "it": "Dober? Chi, io? Ah, a volte."
               }
             }
           ],
@@ -2215,6 +2219,7 @@
           "it": "Uno, due, tre … {learner}, continua tu a contare. Quanti ce ne sono già nella pompa?"
         },
         {
+          "to": "tone",
           "choices": [
             {
               "sl": "V brizgalni {je|sta|so|je} že {n} {!vedro|vedri|vedra|veder} vode.",

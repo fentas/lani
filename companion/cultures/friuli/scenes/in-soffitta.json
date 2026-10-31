@@ -10,7 +10,7 @@
   },
   "emoji": "🛏️",
   "level": "A1",
-  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker",
+  "review": "it, sl, en, de (the lines, the reactions, the variants): machine-written, not reviewed by a native speaker; scene-replier (2026-10-31): Tommaso answers palla's turn after Marisa: his replies machine-written, to check",
   "art": "attic",
   "from": [
     "house"
@@ -807,6 +807,7 @@
           "de": "Tommaso! Kein Ball auf dem Dachboden. Die Wiege ist alt!"
         },
         {
+          "to": "tommaso",
           "choices": [
             {
               "it": "Scusi, signora Marisa. Andiamo in cortile.",
@@ -815,11 +816,11 @@
               "de": "Entschuldigung, Frau Marisa. Wir gehen in den Hof.",
               "ok": true,
               "reply": {
-                "face": "happy",
-                "it": "{m:Bravo|f:Brava}. E portate anche il pallone!",
-                "sl": "Bravo. In vzemita še nogometno žogo!",
-                "en": "Good. And take the football too!",
-                "de": "Gut so. Und nehmt auch den Fußball mit!"
+                "face": "laugh",
+                "it": "Sì! In cortile! Chi arriva primo?",
+                "sl": "Ja! Na dvorišče! Kdo bo prvi?",
+                "en": "Yes! To the yard! Race you!",
+                "de": "Ja! In den Hof! Wer ist zuerst da?"
               }
             },
             {
@@ -834,11 +835,11 @@
                 "de": "Zu signora Marisa sagst du Lei: scusi, signora Marisa. Scusa ist für Freunde."
               },
               "reply": {
-                "face": "surprised",
-                "it": "Come mi hai chiamata? Ah ah!",
-                "sl": "Kako si me {m:poklical|f:poklicala}? Ha ha!",
-                "en": "What did you call me? Ha ha!",
-                "de": "Wie hast du mich genannt? Haha!"
+                "face": "laugh",
+                "it": "Scusa, Marisa? Ah ah, sei {m:coraggioso|f:coraggiosa}!",
+                "sl": "Oprosti, Marisa? Ha ha, {m:pogumen|f:pogumna} si!",
+                "en": "Sorry, Marisa? Ha ha, you're brave!",
+                "de": "Entschuldige, Marisa? Haha, du traust dich was!"
               }
             }
           ]
