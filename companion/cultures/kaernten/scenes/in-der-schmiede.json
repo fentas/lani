@@ -1,0 +1,321 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-der-schmiede",
+  "language": "de",
+  "title": { "de": "In der Schmiede", "sl": "V kovačnici", "en": "In the smithy", "it": "Nella fucina" },
+  "emoji": "⚒️",
+  "level": "A2",
+  "review": "reactions, second right answers, variants (de, sl, en, it): machine-written, not reviewed by a native speaker; B1: könnten Sie; check the Kufenstechen and Schweine gehütet",
+  "art": "smithy",
+  "from": ["smithy"],
+  "pack": "in-der-schmiede",
+  "objects": [
+    { "slot": "forge", "word": "esse" },
+    { "slot": "fire", "word": "feuer", "pack": "am-feuer" },
+    { "slot": "anvil", "word": "amboss" },
+    { "slot": "hammer", "word": "hammer" },
+    { "slot": "tongs", "word": "zange" },
+    { "slot": "bellows", "word": "blasebalg", "needs": { "level": 2 } },
+    { "slot": "horseshoe", "word": "hufeisen" },
+    { "slot": "nails", "word": "nagel" },
+    { "slot": "bucket", "word": "kuebel", "pack": "am-feuer" },
+    { "slot": "chain", "word": "kette", "pack": "geschichten", "needs": { "level": 2 } },
+    { "slot": "axe", "word": "axt", "pack": "am-feuer", "needs": { "level": 3 } },
+    { "slot": "wheel", "word": "rad", "needs": { "level": 3 } },
+    { "slot": "window", "word": "fenster", "pack": "haus-und-kueche" },
+    { "slot": "door", "word": "tuer", "pack": "haus-und-kueche" }
+  ],
+  "people": [
+    { "id": "toni", "name": "Schmied Toni", "emoji": "⚒️", "art": "smith", "slot": "anvil", "villager": "toni" },
+    { "id": "maxi", "name": "Maxi", "emoji": "🧒", "art": "child1", "slot": "forge", "villager": "maxi" },
+    { "id": "stefan", "name": "Mostbauer Stefan", "emoji": "🍎", "art": "winemaker", "slot": "door", "villager": "stefan" }
+  ],
+  "happenings": [
+    {
+      "id": "hufeisen", "title": { "de": "Toni macht ein Hufeisen", "sl": "Toni dela podkev", "en": "Toni is making a horseshoe", "it": "Toni fa un ferro di cavallo" }, "who": "toni",
+      "when": ["morning"], "chance": 0.5, "dialog": "hufeisen", "dialogs": ["hufeisen-naegel", "hufeisen"], "reward": { "stone": 20 }, "marker": "🐴",
+      "memory": { "de": "das Hufeisen für den Noriker", "sl": "podkev za noriškega konja", "en": "the horseshoe for the Noriker", "it": "il ferro per il cavallo norico" }
+    },
+    {
+      "id": "blasebalg", "title": { "de": "Maxi am Blasebalg", "sl": "Maxi pri mehu", "en": "Maxi at the bellows", "it": "Maxi al mantice" }, "who": "maxi",
+      "when": ["afternoon"], "chance": 0.4, "needs": { "level": 2 }, "dialog": "blasebalg", "dialogs": ["blasebalg-funken", "blasebalg"], "reward": { "stone": 15 }, "marker": "🔥",
+      "memory": { "de": "den Blasebalg, den wir zusammen gedrückt haben", "sl": "meh, ki sva ga skupaj stiskala", "en": "the bellows we worked together", "it": "il mantice che abbiamo azionato insieme" }
+    },
+    {
+      "id": "rad", "title": { "de": "Stefans Rad ist kaputt", "sl": "Stefanovo kolo je pokvarjeno", "en": "Stefan's wheel is broken", "it": "La ruota di Stefan è rotta" }, "who": "stefan",
+      "when": ["afternoon"], "chance": 0.4, "needs": { "level": 3 }, "dialog": "rad", "dialogs": ["rad-kisten", "rad"], "reward": { "wood": 15 }, "marker": "🛞",
+      "memory": { "de": "das Rad, das wir in der Schmiede repariert haben", "sl": "kolo, ki smo ga popravili v kovačnici", "en": "the wheel we mended at the smithy", "it": "la ruota che abbiamo riparato nella fucina" }
+    },
+    {
+      "id": "artikel", "title": { "de": "Toni fragt: der, die oder das?", "sl": "Toni sprašuje: der, die ali das?", "en": "Toni asks: der, die or das?", "it": "Toni chiede: der, die o das?" }, "who": "toni",
+      "when": ["evening"], "chance": 0.4, "dialog": "artikel", "dialogs": ["artikel-dativ", "artikel"], "reward": { "wisdom": 15 }, "marker": "📖",
+      "memory": { "de": "der, die, das in meiner Schmiede", "sl": "der, die, das v moji kovačnici", "en": "der, die, das in my smithy", "it": "der, die, das nella mia fucina" }
+    },
+    {
+      "id": "bestellung", "title": { "de": "Eine Bestellung für Toni", "sl": "Naročilo za Tonija", "en": "An order for Toni", "it": "Un ordine per Toni" }, "who": "toni",
+      "when": ["afternoon"], "weekdays": [1, 2, 3, 4, 5], "chance": 0.4, "dialog": "bestellung", "dialogs": ["bestellung-brief", "bestellung"], "reward": { "stone": 20 }, "marker": "📒",
+      "memory": { "de": "die Bestellung in meinem schwarzen Heft", "sl": "naročilo v mojem črnem zvezku", "en": "the order in my black notebook", "it": "l'ordine nel mio quaderno nero" }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "hufeisen",
+      "lines": [
+        { "who": "toni", "de": "Grüß Gott. Heute mache ich ein Hufeisen. Für einen Noriker.", "sl": "{m:Pozdravljen|f:Pozdravljena}. Danes delam podkev. Za noriškega konja.", "en": "Hello. Today I'm making a horseshoe. For a Noriker horse.", "it": "Salve. Oggi faccio un ferro di cavallo. Per un cavallo norico.", "fx": { "forge": 1, "iron": 1 } },
+        { "choices": [
+          { "de": "Grüß Gott, Herr Toni!", "sl": "Dober dan, gospod Toni!", "en": "Hello, Herr Toni!", "it": "Salve, signor Toni!", "ok": true,
+            "reply": { "de": "Grüß dich. Komm her. Aber nicht zu nah.", "sl": "Živjo. Pridi sem. Ampak ne preblizu.", "en": "Hello. Come here. But not too close.", "it": "Ciao. Vieni qui. Ma non troppo vicino." } },
+          { "de": "Guten Morgen, Herr Toni!", "sl": "Dobro jutro, gospod Toni!", "en": "Good morning, Herr Toni!", "it": "Buongiorno, signor Toni!", "ok": true,
+            "reply": { "de": "Morgen. Komm her. Aber nicht zu nah.", "sl": "Jutro. Pridi sem. Ampak ne preblizu.", "en": "Morning. Come here. But not too close.", "it": "Giorno. Vieni qui. Ma non troppo vicino." } },
+          { "de": "Servus, Toni!", "sl": "Živjo, Toni!", "en": "Hiya, Toni!", "it": "Ciao, Toni!", "grammar": "du-sie",
+            "why": { "de": "Zum Schmied sagt man Sie und Herr Toni. Servus sagt man zu Freunden.", "sl": "Kovača vikaš in mu rečeš Herr Toni. Servus rečeš prijateljem.", "en": "The smith gets Sie and Herr Toni. Servus is for friends.", "it": "Al fabbro si dà del Lei e si dice Herr Toni. Servus è per gli amici." },
+            "reply": { "face": "cross", "de": "Servus? Hm. So reden die Burschen am Kirchtag.", "sl": "Živjo? Hm. Tako govorijo fantje na žegnanju.", "en": "Servus? Hm. That's how the lads talk at the Kirchtag.", "it": "Servus? Mm. Così parlano i ragazzi alla sagra." } }
+        ] },
+        { "who": "toni", "de": "Schau. Das Eisen ist heiß. Gelb, fast weiß.", "sl": "Poglej. Železo je vroče. Rumeno, skoraj belo.", "en": "Look. The iron is hot. Yellow, almost white.", "it": "Guarda. Il ferro è rovente. Giallo, quasi bianco.", "fx": { "iron": 0.95, "sparks": 0.6 } },
+        { "choices": [
+          { "de": "Darf ich den Hammer halten, Herr Toni?", "sl": "Smem držati kladivo, gospod Toni?", "en": "May I hold the hammer, Herr Toni?", "it": "Posso tenere il martello, signor Toni?", "ok": true,
+            "reply": { "de": "Nein. Zu schwer. Du schaust zu.", "sl": "Ne. Pretežko je. Ti glej.", "en": "No. Too heavy. You watch.", "it": "No. Troppo pesante. Tu guarda." } },
+          { "de": "Darf ich der Hammer halten, Herr Toni?", "sl": "Smem držati kladivo, gospod Toni?", "en": "May I hold the hammer, Herr Toni?", "it": "Posso tenere il martello, signor Toni?", "grammar": "akkusativ",
+            "why": { "de": "Hammer ist maskulin. Als Objekt steht er im Akkusativ: der wird zu den.", "sl": "Hammer je moškega spola. Kot predmet je v tožilniku: der postane den.", "en": "Hammer is masculine. As the object it takes the accusative: der becomes den.", "it": "Hammer è maschile. Come oggetto va all'accusativo: der diventa den." },
+            "reply": { "face": "cross", "de": "Der Hammer? Hm. Das ist nicht egal. Noch einmal.", "sl": "Der Hammer? Hm. To ni vseeno. Še enkrat.", "en": "Der Hammer? Hm. That matters. Once more.", "it": "Der Hammer? Mm. Non è la stessa cosa. Di nuovo." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "de": "Jetzt biege ich es. Bumm, bumm. Das ist für ein Pferd vom Kufenstechen in Feistritz an der Gail.", "sl": "Zdaj ga upognem. Bum, bum. To je za konja s Kufenstechna v Bistrici na Zilji.", "en": "Now I bend it. Bang, bang. It's for a horse from the Kufenstechen in Feistritz an der Gail.", "it": "Adesso lo piego. Bum, bum. È per un cavallo del Kufenstechen a Feistritz an der Gail.", "fx": { "iron": 0.6, "sparks": 1 } },
+        { "who": "toni", "face": "curious", "de": "Warst du schon beim Kufenstechen?", "sl": "Si že {m:bil|f:bila} na Kufenstechnu?", "en": "Have you been to the Kufenstechen?", "it": "Sei mai {m:stato|f:stata} al Kufenstechen?" },
+        { "choices": [
+          { "de": "Nein, ich bin noch nie dort gewesen.", "sl": "Ne, še nikoli nisem {m:bil|f:bila} tam.", "en": "No, I've never been there.", "it": "No, non ci sono mai {m:stato|f:stata}.", "ok": true,
+            "reply": { "de": "Die Reiter schlagen mit einer Keule auf ein Fass. Bis es kaputt ist.", "sl": "Jezdeci s kijem udarjajo po sodu. Dokler se ne razbije.", "en": "The riders hit a barrel with a club. Until it breaks.", "it": "I cavalieri colpiscono una botte con una mazza. Finché si rompe." } },
+          { "de": "Nein, ich habe noch nie dort gewesen.", "sl": "Ne, še nikoli nisem {m:bil|f:bila} tam.", "en": "No, I have never been there.", "it": "No, non ci ho mai {m:stato|f:stata}.", "grammar": "perfekt",
+            "why": { "de": "Sein bildet das Perfekt mit sein: ich bin gewesen.", "sl": "Sein tvori perfekt s sein: ich bin gewesen.", "en": "Sein forms its perfect with sein: ich bin gewesen.", "it": "Sein forma il passato con sein: ich bin gewesen." },
+            "reply": { "face": "cross", "de": "Habe gewesen? Hm. Das klingt nicht gut.", "sl": "Habe gewesen? Hm. To ne zveni dobro.", "en": "Habe gewesen? Hm. That doesn't sound right.", "it": "Habe gewesen? Mm. Non suona bene." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "de": "Fertig. Ins Wasser damit.", "sl": "Gotovo. V vodo z njo.", "en": "Done. Into the water with it.", "it": "Fatto. Nell'acqua.", "fx": { "iron": 0.1, "sparks": 0 } }
+      ]
+    },
+    {
+      "id": "blasebalg",
+      "lines": [
+        { "who": "maxi", "face": "proud", "de": "Servus! Ich helfe Herrn Toni. Ich mache den Blasebalg!", "sl": "Živjo! Pomagam gospodu Toniju. Delam z mehom!", "en": "Hi! I'm helping Herr Toni. I'm working the bellows!", "it": "Ciao! Aiuto il signor Toni. Faccio andare il mantice!", "fx": { "forge": 0.6 } },
+        { "who": "maxi", "face": "curious", "de": "Willst du auch einmal? Du musst fest drücken!", "sl": "Bi tudi ti {m:poskusil|f:poskusila}? Močno moraš pritisniti!", "en": "Do you want a go too? You have to push hard!", "it": "Vuoi provare anche tu? Devi spingere forte!" },
+        { "choices": [
+          { "de": "Ja, ich will es probieren!", "sl": "Ja, hočem poskusiti!", "en": "Yes, I want to try!", "it": "Sì, voglio provare!", "ok": true,
+            "reply": { "face": "laugh", "de": "Los geht's! Fest, fester!", "sl": "Gremo! Močno, močneje!", "en": "Let's go! Hard, harder!", "it": "Dai! Forte, più forte!", "fx": { "forge": 1 } } },
+          { "de": "Ja, ich wollen es probieren!", "sl": "Ja, hočem poskusiti!", "en": "Yes, I wants to try!", "it": "Sì, voglio provare!", "grammar": "modalverben",
+            "why": { "de": "Bei ich heißt es will, ohne Endung.", "sl": "Pri ich se reče will, brez končnice.", "en": "With ich it's will, with no ending.", "it": "Con ich si dice will, senza desinenza." },
+            "reply": { "face": "laugh", "de": "Ich wollen? Hihi, so redet nicht einmal ich!", "sl": "Ich wollen? Hihi, tako niti jaz ne govorim!", "en": "Ich wollen? Hee hee, even I don't talk like that!", "it": "Ich wollen? Ih ih, così non parlo neanche io!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was?", "sl": "Ha? Kaj?", "en": "Huh? What?", "it": "Eh? Cosa?" } },
+        { "who": "maxi", "face": "surprised", "de": "Schau, das Feuer! Es wird ganz hell!", "sl": "Poglej ogenj! Čisto svetel postaja!", "en": "Look at the fire! It's getting really bright!", "it": "Guarda il fuoco! Diventa luminosissimo!", "fx": { "forge": 1 } },
+        { "choices": [
+          { "de": "Wow! Das Feuer ist so heiß!", "sl": "Vau! Ogenj je tako vroč!", "en": "Wow! The fire is so hot!", "it": "Wow! Il fuoco è così caldo!", "ok": true,
+            "reply": { "face": "happy", "de": "Ja! Heiß ist gut, sagt Herr Toni.", "sl": "Ja! Vroče je dobro, pravi gospod Toni.", "en": "Yes! Hot is good, Herr Toni says.", "it": "Sì! Caldo va bene, dice il signor Toni." } },
+          { "de": "Wow! Der Feuer ist so heiß!", "sl": "Vau! Ogenj je tako vroč!", "en": "Wow! The fire is so hot!", "it": "Wow! Il fuoco è così caldo!", "grammar": "artikel-genus",
+            "why": { "de": "Feuer ist neutral: das Feuer.", "sl": "Feuer je srednjega spola: das Feuer.", "en": "Feuer is neuter: das Feuer.", "it": "Feuer è neutro: das Feuer." },
+            "reply": { "face": "laugh", "de": "Der Feuer? Oje, hoffentlich hört Herr Toni nichts!", "sl": "Der Feuer? Ojej, upam, da gospod Toni ne sliši!", "en": "Der Feuer? Oh dear, I hope Herr Toni didn't hear!", "it": "Der Feuer? Oddio, speriamo che il signor Toni non senta!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was?", "sl": "Ha? Kaj?", "en": "Huh? What?", "it": "Eh? Cosa?" } },
+        { "who": "maxi", "face": "proud", "de": "Später werde ich Schmied. Oder Eishockeyspieler. Oder beides!", "sl": "Ko bom velik, bom kovač. Ali hokejist. Ali oboje!", "en": "When I'm big I'll be a smith. Or an ice hockey player. Or both!", "it": "Da grande farò il fabbro. O il giocatore di hockey. O tutti e due!" }
+      ]
+    },
+    {
+      "id": "rad",
+      "fx_stays": true,
+      "lines": [
+        { "who": "stefan", "face": "worried", "de": "Servus! Schau meinen Wagen an. Ein Rad ist kaputt!", "sl": "Živjo! Poglej moj voz. Eno kolo je pokvarjeno!", "en": "Hi! Look at my cart. A wheel is broken!", "it": "Ciao! Guarda il mio carro. Una ruota è rotta!", "fx": { "cart": 0 } },
+        { "who": "stefan", "face": "worried", "de": "Und am Samstag muss ich mit dem Most nach Villach fahren.", "sl": "V soboto pa moram z moštom v Beljak.", "en": "And on Saturday I have to take the Most to Villach.", "it": "E sabato devo portare il Most a Villaco." },
+        { "choices": [
+          { "de": "Herr Toni kann das Rad reparieren.", "sl": "Gospod Toni lahko popravi kolo.", "en": "Herr Toni can mend the wheel.", "it": "Il signor Toni può riparare la ruota.", "ok": true,
+            "reply": { "face": "happy", "de": "Stimmt! Toni, hast du Zeit?", "sl": "Res je! Toni, imaš čas?", "en": "That's right! Toni, have you got time?", "it": "Giusto! Toni, hai tempo?" } },
+          { "de": "Herr Toni können das Rad reparieren.", "sl": "Gospod Toni lahko popravi kolo.", "en": "Herr Toni are able to mend the wheel.", "it": "Il signor Toni possono riparare la ruota.", "grammar": "modalverben",
+            "why": { "de": "Toni ist einer: er kann. Können ist für wir, sie und Sie.", "sl": "Toni je en sam: er kann. Können je za wir, sie in Sie.", "en": "Toni is one person: er kann. Können is for wir, sie and Sie.", "it": "Toni è uno solo: er kann. Können è per wir, sie e Sie." },
+            "reply": { "face": "laugh", "de": "Können? Ist Toni jetzt zwei Leute? Hoho.", "sl": "Können? Je Toni zdaj dva človeka? Hoho.", "en": "Können? Is Toni two people now? Ho ho.", "it": "Können? Adesso Toni è due persone? Oh oh." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come?" } },
+        { "who": "toni", "de": "Zeit habe ich. Halt das Rad. Gerade.", "sl": "Čas imam. Drži kolo. Naravnost.", "en": "I've got time. Hold the wheel. Straight.", "it": "Il tempo ce l'ho. Tieni la ruota. Dritta." },
+        { "choices": [
+          { "de": "Ja, Herr Toni. Ich halte es gerade.", "sl": "Ja, gospod Toni. Držim ga naravnost.", "en": "Yes, Herr Toni. I'm holding it straight.", "it": "Sì, signor Toni. La tengo dritta.", "ok": true,
+            "reply": { "de": "Gut. So.", "sl": "Dobro. Tako.", "en": "Good. Like that.", "it": "Bene. Così.", "fx": { "cart": 1 } } },
+          { "de": "Ja, Herr Toni. Ich halte ihn gerade.", "sl": "Ja, gospod Toni. Držim ga naravnost.", "en": "Yes, Herr Toni. I'm holding him straight.", "it": "Sì, signor Toni. Lo tengo dritto.", "grammar": "artikel-genus",
+            "why": { "de": "Rad ist neutral: das Rad. Darum: Ich halte es.", "sl": "Rad je srednjega spola: das Rad. Zato: Ich halte es.", "en": "Rad is neuter: das Rad. So: Ich halte es.", "it": "Rad è neutro: das Rad. Quindi: Ich halte es." },
+            "reply": { "face": "cross", "de": "Ihn? Das Rad ist kein Mann. Genau sein.", "sl": "Njega? Kolo ni moški. Natančno, prosim.", "en": "Him? The wheel isn't a man. Be exact.", "it": "Lui? La ruota non è un uomo. Precisione." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "stefan", "face": "happy", "de": "Schau! Wieder vier Räder! Danke, Toni. Und danke dir!", "sl": "Poglej! Spet štiri kolesa! Hvala, Toni. In hvala tebi!", "en": "Look! Four wheels again! Thanks, Toni. And thank you!", "it": "Guarda! Di nuovo quattro ruote! Grazie, Toni. E grazie a te!" },
+        { "who": "toni", "de": "Bitte. Aber fahr langsam.", "sl": "Prosim. Ampak vozi počasi.", "en": "You're welcome. But drive slowly.", "it": "Prego. Ma va' piano." }
+      ]
+    },
+    {
+      "id": "artikel",
+      "lines": [
+        { "who": "toni", "de": "Bald ist Feierabend. Aber zuerst eine Frage. Der, die oder das?", "sl": "Kmalu bo konec dela. Ampak najprej vprašanje. Der, die ali das?", "en": "Nearly time to knock off. But first a question. Der, die or das?", "it": "Tra poco si stacca. Ma prima una domanda. Der, die o das?", "fx": { "forge": 0.3 } },
+        { "who": "toni", "face": "curious", "de": "Schau, das hier, unter dem Hammer. Was ist das?", "sl": "Poglej tole tukaj, pod kladivom. Kaj je to?", "en": "Look, this here, under the hammer. What's that?", "it": "Guarda questo qui, sotto il martello. Cos'è?" },
+        { "choices": [
+          { "de": "Das ist der Amboss, Herr Toni.", "sl": "To je nakovalo, gospod Toni.", "en": "That's the anvil, Herr Toni.", "it": "È l'incudine, signor Toni.", "ok": true,
+            "reply": { "de": "Richtig. Der Amboss.", "sl": "Pravilno. Der Amboss.", "en": "Right. Der Amboss.", "it": "Giusto. Der Amboss." } },
+          { "de": "Das ist die Amboss, Herr Toni.", "sl": "To je nakovalo, gospod Toni.", "en": "That's the anvil, Herr Toni.", "it": "È l'incudine, signor Toni.", "grammar": "artikel-genus",
+            "why": { "de": "Amboss ist maskulin: der Amboss.", "sl": "Amboss je moškega spola: der Amboss (nakovalo je v slovenščini srednjega).", "en": "Amboss is masculine: der Amboss.", "it": "Amboss è maschile: der Amboss (in italiano l'incudine è femminile)." },
+            "reply": { "face": "cross", "de": "Die Amboss? Nein. Das ist nicht egal. Noch einmal.", "sl": "Die Amboss? Ne. To ni vseeno. Še enkrat.", "en": "Die Amboss? No. That matters. Once more.", "it": "Die Amboss? No. Non è la stessa cosa. Di nuovo." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "face": "curious", "de": "Jetzt du. Wo hängt das Hufeisen?", "sl": "Zdaj ti. Kje visi podkev?", "en": "Your turn. Where does the horseshoe hang?", "it": "Adesso tu. Dov'è appeso il ferro di cavallo?" },
+        { "choices": [
+          { "de": "An der Wand, neben der Tür!", "sl": "Na steni, zraven vrat!", "en": "On the wall, next to the door!", "it": "Sul muro, vicino alla porta!", "ok": true, "tap": "horseshoe", "grammar": "wechselpraepositionen",
+            "reply": { "de": "Richtig. Du hast Augen im Kopf.", "sl": "Pravilno. Oči imaš v glavi.", "en": "Right. You've got eyes in your head.", "it": "Giusto. Hai gli occhi in testa." } },
+          { "de": "Im Kübel!", "sl": "V vedru!", "en": "In the bucket!", "it": "Nel secchio!", "tap": "bucket",
+            "why": { "de": "Das Hufeisen ist aus Eisen und hat die Form von einem U. Es hängt.", "sl": "Podkev je železna in ima obliko črke U. Visi.", "en": "The horseshoe is iron, shaped like a U. It hangs.", "it": "Il ferro di cavallo è di ferro, a forma di U. È appeso." },
+            "reply": { "face": "cross", "de": "Im Kübel? Da ist Wasser. Schau genauer.", "sl": "V vedru? Tam je voda. Poglej natančneje.", "en": "In the bucket? That's water. Look closer.", "it": "Nel secchio? C'è l'acqua. Guarda meglio." } },
+          { "de": "Am Fenster!", "sl": "Na oknu!", "en": "At the window!", "it": "Alla finestra!", "tap": "window",
+            "why": { "de": "Das Hufeisen ist aus Eisen und hat die Form von einem U. Es hängt.", "sl": "Podkev je železna in ima obliko črke U. Visi.", "en": "The horseshoe is iron, shaped like a U. It hangs.", "it": "Il ferro di cavallo è di ferro, a forma di U. È appeso." },
+            "reply": { "face": "cross", "de": "Am Fenster? Das ist Glas. Schau genauer.", "sl": "Na oknu? To je steklo. Poglej natančneje.", "en": "At the window? That's glass. Look closer.", "it": "Alla finestra? Quello è vetro. Guarda meglio." } }
+        ] },
+        { "who": "toni", "face": "happy", "de": "Gut. Genug für heute. Morgen wieder.", "sl": "Dobro. Dovolj za danes. Jutri spet.", "en": "Good. Enough for today. Again tomorrow.", "it": "Bene. Basta per oggi. Domani di nuovo." }
+      ]
+    },
+    {
+      "id": "bestellung",
+      "lines": [
+        { "who": "toni", "de": "Grüß dich. Brauchst du etwas? Ich schreibe es in mein Heft.", "sl": "Živjo. Ali kaj potrebuješ? Zapišem v svoj zvezek.", "en": "Hello. Need something? I'll write it in my notebook.", "it": "Ciao. Ti serve qualcosa? Lo scrivo nel quaderno." },
+        { "choices": [
+          { "de": "Ja. Könnten Sie mir einen Haken machen, Herr Toni?", "sl": "Ja. Bi mi lahko naredili kavelj, gospod Toni?", "en": "Yes. Could you make me a hook, Herr Toni?", "it": "Sì. Potrebbe farmi un gancio, signor Toni?", "ok": true,
+            "reply": { "de": "Einen Haken. Gut. Für die Jacke?", "sl": "Kavelj. Dobro. Za jakno?", "en": "A hook. Good. For a jacket?", "it": "Un gancio. Bene. Per la giacca?" } },
+          { "de": "Ja. Könntest du mir einen Haken machen, Herr Toni?", "sl": "Ja. Bi mi lahko naredil kavelj, gospod Toni?", "en": "Yes. Could you (informal) make me a hook, Herr Toni?", "it": "Sì. Potresti farmi un gancio, signor Toni?", "grammar": "du-sie",
+            "why": { "de": "Zu Herrn Toni sagst du Sie: Könnten Sie …?", "sl": "Gospoda Tonija vikaš: Könnten Sie …?", "en": "You say Sie to Herr Toni: Könnten Sie …?", "it": "Al signor Toni dai del Lei: Könnten Sie …?" },
+            "reply": { "face": "cross", "de": "Du? Hm. Haben wir zusammen Schweine gehütet?", "sl": "Tikaš me? Hm. Sva mar skupaj pasla prašiče?", "en": "Du? Hm. Did we herd pigs together, then?", "it": "Mi dai del tu? Mm. Abbiamo forse custodito i maiali insieme?" } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "face": "curious", "de": "Wann brauchst du ihn?", "sl": "Kdaj ga potrebuješ?", "en": "When do you need it?", "it": "Quando ti serve?" },
+        { "choices": [
+          { "de": "Am Freitag, bitte.", "sl": "V petek, prosim.", "en": "On Friday, please.", "it": "Venerdì, per favore.", "ok": true,
+            "reply": { "de": "Freitag. Geht.", "sl": "Petek. Gre.", "en": "Friday. Can do.", "it": "Venerdì. Si può." } },
+          { "de": "Es eilt nicht, Herr Toni.", "sl": "Ne mudi se, gospod Toni.", "en": "There's no hurry, Herr Toni.", "it": "Non c'è fretta, signor Toni.", "ok": true,
+            "reply": { "face": "happy", "de": "Gut. Dann nächste Woche.", "sl": "Dobro. Potem prihodnji teden.", "en": "Good. Next week, then.", "it": "Bene. Allora la settimana prossima." } },
+          { "de": "Gestern, bitte.", "sl": "Včeraj, prosim.", "en": "Yesterday, please.", "it": "Ieri, per favore.",
+            "why": { "de": "Gestern ist schon vorbei. Für eine Bestellung sagst du einen Tag, der kommt.", "sl": "Včeraj je že mimo. Za naročilo povej dan, ki pride.", "en": "Yesterday is over. For an order, name a day still to come.", "it": "Ieri è già passato. Per un ordine di' un giorno che deve venire." },
+            "reply": { "face": "cross", "de": "Gestern? Hm. Zaubern kann ich nicht.", "sl": "Včeraj? Hm. Čarati pa ne znam.", "en": "Yesterday? Hm. I can't do magic.", "it": "Ieri? Mm. Fare magie non so." } }
+        ] },
+        { "who": "toni", "de": "So. Steht im Heft. Was ich aufschreibe, mache ich.", "sl": "Tako. Je v zvezku. Kar zapišem, naredim.", "en": "There. It's in the notebook. What I write down, I make.", "it": "Ecco. È nel quaderno. Quello che scrivo, lo faccio." }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "hufeisen-naegel",
+      "count": { "from": "dice", "min": 3, "max": 12, "gender": "m" },
+      "memory": { "de": "die Nägel, die du für mich gezählt hast", "sl": "žeblje, ki si mi jih {m:preštel|f:preštela}", "en": "the nails you counted for me", "it": "i chiodi che hai contato per me" },
+      "lines": [
+        { "who": "toni", "de": "Grüß dich. Für das Hufeisen brauche ich Nägel. Zähl die Nägel in der Schachtel.", "sl": "Živjo. Za podkev potrebujem žeblje. Preštej žeblje v škatli.", "en": "Hello. I need nails for the horseshoe. Count the nails in the box.", "it": "Ciao. Per il ferro mi servono chiodi. Conta i chiodi nella scatola.", "fx": { "forge": 0.6 } },
+        { "choices": [
+          { "de": "In der Schachtel {ist|sind} {n} {Nagel|Nägel}.", "sl": "V škatli {je|sta|so|je} {n} {žebelj|žeblja|žeblji|žebljev}.", "en": "There {is|are} {n} {nail|nails} in the box.", "it": "Nella scatola {c'è|ci sono} {n} {chiodo|chiodi}.", "ok": true,
+            "reply": { "de": "Gut gezählt. Danke.", "sl": "Dobro si {m:preštel|f:preštela}. Hvala.", "en": "Well counted. Thanks.", "it": "Contati bene. Grazie." } },
+          { "de": "In der Schachtel {ist|sind} {n} {!Nagel|Nägel}.", "sl": "V škatli {je|sta|so|je} {n} {!žebelj|žeblja|žeblji|žebljev}.", "en": "There {is|are} {n} {!nail|nails} in the box.", "it": "Nella scatola {c'è|ci sono} {n} {!chiodo|chiodi}.", "wrong_form": 1, "grammar": "plural",
+            "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Nagel|Nägel, mit Umlaut}.", "sl": "{Ena stvar je v ednini|Od dveh naprej je množina}: {n} {Nagel|Nägel, s preglasom}.", "en": "{One takes the singular|From two on, the plural}: {n} {Nagel|Nägel, with an umlaut}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Nagel|Nägel, con l'Umlaut}." },
+            "reply": { "face": "cross", "de": "Nur einer? Hm. Zähl noch einmal. Genau.", "sl": "Samo eden? Hm. Preštej še enkrat. Natančno.", "en": "Only one? Hm. Count again. Exactly.", "it": "Uno solo? Mm. Conta di nuovo. Con precisione." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Zähl noch einmal.", "sl": "Hm? Preštej še enkrat.", "en": "Hm? Count again.", "it": "Mm? Conta di nuovo." } },
+        { "who": "toni", "de": "Acht Nägel für ein Hufeisen. Vier auf jeder Seite.", "sl": "Osem žebljev za eno podkev. Štirje na vsaki strani.", "en": "Eight nails for one horseshoe. Four on each side.", "it": "Otto chiodi per un ferro. Quattro per lato." },
+        { "who": "toni", "face": "curious", "de": "Und wie viele Hufeisen braucht ein Pferd?", "sl": "Pa koliko podkev potrebuje konj?", "en": "And how many horseshoes does a horse need?", "it": "E quanti ferri servono a un cavallo?" },
+        { "choices": [
+          { "de": "Ein Pferd braucht vier Hufeisen.", "sl": "Konj potrebuje štiri podkve.", "en": "A horse needs four horseshoes.", "it": "Un cavallo ha bisogno di quattro ferri.", "ok": true,
+            "reply": { "face": "happy", "de": "Richtig. Vier Hufe, vier Eisen.", "sl": "Pravilno. Štiri kopita, štiri podkve.", "en": "Right. Four hooves, four shoes.", "it": "Giusto. Quattro zoccoli, quattro ferri." } },
+          { "de": "Ein Pferd braucht vier Hufeisens.", "sl": "Konj potrebuje štiri podkve.", "en": "A horse needs four horseshoeses.", "it": "Un cavallo ha bisogno di quattro ferri.", "grammar": "plural",
+            "why": { "de": "Hufeisen hat im Plural keine Endung: ein Hufeisen, vier Hufeisen.", "sl": "Hufeisen v množini nima končnice: ein Hufeisen, vier Hufeisen.", "en": "Hufeisen adds no ending in the plural: ein Hufeisen, vier Hufeisen.", "it": "Hufeisen al plurale non prende desinenza: ein Hufeisen, vier Hufeisen." },
+            "reply": { "face": "cross", "de": "Hufeisens? Das gibt es nicht. Genau sein!", "sl": "Hufeisens? Tega ni. Natančno, prosim!", "en": "Hufeisens? No such thing. Be exact!", "it": "Hufeisens? Non esiste. Precisione!" } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "face": "happy", "de": "Gut. Du lernst schnell.", "sl": "Dobro. Hitro se učiš.", "en": "Good. You learn fast.", "it": "Bene. Impari in fretta." }
+      ]
+    },
+    {
+      "id": "blasebalg-funken",
+      "memory": { "de": "die Funken, wie ein Feuerwerk", "sl": "iskre, kot ognjemet", "en": "the sparks, like fireworks", "it": "le scintille, come fuochi d'artificio" },
+      "lines": [
+        { "who": "maxi", "face": "happy", "de": "He! Komm schnell! Herr Toni schmiedet, und ich mache den Wind.", "sl": "Hej! Pridi hitro! Gospod Toni kuje, jaz pa delam veter.", "en": "Hey! Come quick! Herr Toni is forging and I'm making the wind.", "it": "Ehi! Vieni presto! Il signor Toni batte il ferro e io faccio il vento.", "fx": { "forge": 1, "sparks": 1 } },
+        { "who": "maxi", "face": "laugh", "de": "Schau, die Funken! Wie ein Feuerwerk!", "sl": "Poglej iskre! Kot ognjemet!", "en": "Look at the sparks! Like fireworks!", "it": "Guarda le scintille! Come i fuochi d'artificio!" },
+        { "choices": [
+          { "de": "Super! Aber pass auf deine Hände auf!", "sl": "Super! Ampak pazi na roke!", "en": "Great! But mind your hands!", "it": "Forte! Ma attento alle mani!", "ok": true,
+            "reply": { "face": "proud", "de": "Keine Sorge. Ich stehe weit weg.", "sl": "Brez skrbi. Stojim daleč stran.", "en": "Don't worry. I'm standing well back.", "it": "Tranquillo. Sto bello lontano." } },
+          { "de": "Super! Aber aufpass auf deine Hände!", "sl": "Super! Ampak pazi na roke!", "en": "Great! But out-mind your hands!", "it": "Forte! Ma attento alle mani!", "grammar": "trennbare-verben",
+            "why": { "de": "Aufpassen ist trennbar: Pass auf! Das auf kommt ans Ende.", "sl": "Aufpassen je ločljiv: Pass auf! Auf gre na konec.", "en": "Aufpassen is separable: Pass auf! The auf goes to the end.", "it": "Aufpassen è separabile: Pass auf! L'auf va in fondo." },
+            "reply": { "face": "laugh", "de": "Aufpass? Hihi, so redet doch keiner!", "sl": "Aufpass? Hihi, tako nihče ne govori!", "en": "Aufpass? Hee hee, nobody talks like that!", "it": "Aufpass? Ih ih, nessuno parla così!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was?", "sl": "Ha? Kaj?", "en": "Huh? What?", "it": "Eh? Cosa?" } },
+        { "who": "maxi", "face": "curious", "de": "Was macht Herr Toni heute? Rate mal!", "sl": "Kaj dela gospod Toni danes? Ugani!", "en": "What's Herr Toni making today? Guess!", "it": "Cosa fa oggi il signor Toni? Indovina!" },
+        { "choices": [
+          { "de": "Ein Hufeisen?", "sl": "Podkev?", "en": "A horseshoe?", "it": "Un ferro di cavallo?", "ok": true,
+            "reply": { "face": "happy", "de": "Ja! Für ein Pferd aus dem Gailtal.", "sl": "Ja! Za konja iz Ziljske doline.", "en": "Yes! For a horse from the Gailtal.", "it": "Sì! Per un cavallo della Gailtal." } },
+          { "de": "Ich weiß es nicht. Sag es mir!", "sl": "Ne vem. Povej mi!", "en": "I don't know. Tell me!", "it": "Non lo so. Dimmelo!", "ok": true,
+            "reply": { "face": "proud", "de": "Ein Hufeisen! Für ein Pferd aus dem Gailtal.", "sl": "Podkev! Za konja iz Ziljske doline.", "en": "A horseshoe! For a horse from the Gailtal.", "it": "Un ferro di cavallo! Per un cavallo della Gailtal." } },
+          { "de": "Eine Pizza?", "sl": "Pico?", "en": "A pizza?", "it": "Una pizza?",
+            "why": { "de": "In der Schmiede macht man Dinge aus Eisen, keine Pizza.", "sl": "V kovačnici se delajo stvari iz železa, ne pice.", "en": "At the smithy they make things of iron, not pizza.", "it": "Nella fucina si fanno cose di ferro, non pizze." },
+            "reply": { "face": "laugh", "de": "Eine Pizza? Hihi! In der Esse? Das wär lustig!", "sl": "Pico? Hihi! V ognjišču? To bi bilo smešno!", "en": "A pizza? Hee hee! In the forge? That'd be funny!", "it": "Una pizza? Ih ih! Nella forgia? Sarebbe divertente!" } }
+        ] },
+        { "who": "maxi", "face": "happy", "de": "Morgen helfe ich wieder. Los geht's!", "sl": "Jutri spet pomagam. Gremo!", "en": "I'll help again tomorrow. Let's go!", "it": "Domani aiuto di nuovo. Si parte!" }
+      ]
+    },
+    {
+      "id": "rad-kisten",
+      "fx_stays": true,
+      "memory": { "de": "den Wagen, der wieder fahren kann", "sl": "voz, ki spet lahko vozi", "en": "the cart that can roll again", "it": "il carro che può ripartire" },
+      "lines": [
+        { "who": "stefan", "face": "worried", "de": "Servus! Mein Wagen steht im Hof. Schau, das Rad lehnt daneben.", "sl": "Živjo! Moj voz stoji na dvorišču. Poglej, kolo je naslonjeno zraven.", "en": "Hi! My cart is in the yard. Look, the wheel is leaning next to it.", "it": "Ciao! Il mio carro è nel cortile. Guarda, la ruota è appoggiata lì accanto.", "fx": { "cart": 0 } },
+        { "who": "stefan", "face": "curious", "de": "Weißt du, wohin ich die Kisten am Samstag bringe?", "sl": "Veš, kam v soboto peljem zaboje?", "en": "Do you know where I'm taking the crates on Saturday?", "it": "Sai dove porto le cassette sabato?" },
+        { "choices": [
+          { "de": "Nach Villach, auf den Markt.", "sl": "V Beljak, na tržnico.", "en": "To Villach, to the market.", "it": "A Villaco, al mercato.", "ok": true,
+            "reply": { "face": "happy", "de": "Genau! Villach, Beljak. Und dort ist viel los.", "sl": "Točno! Beljak. In tam je zelo živahno.", "en": "Exactly! Villach, Beljak in Slovene. And it's busy there.", "it": "Esatto! Villach, Beljak in sloveno. E lì c'è un gran movimento." } },
+          { "de": "Nach Villach, auf dem Markt.", "sl": "V Beljak, na tržnici.", "en": "To Villach, at the market.", "it": "A Villaco, nel mercato.", "grammar": "wechselpraepositionen",
+            "why": { "de": "Wohin? Eine Richtung: auf den Markt, mit Akkusativ. Auf dem Markt sagt, wo.", "sl": "Kam? Smer: auf den Markt, s tožilnikom. Auf dem Markt pove, kje.", "en": "Where to? A direction: auf den Markt, accusative. Auf dem Markt says where.", "it": "Verso dove? Una direzione: auf den Markt, con l'accusativo. Auf dem Markt dice dove." },
+            "reply": { "face": "confused", "de": "Auf dem Markt? Da bin ich noch nicht. Ich fahre erst hin!", "sl": "Na tržnici? Tam še nisem. Šele grem tja!", "en": "At the market? I'm not there yet. I'm only on my way!", "it": "Nel mercato? Non ci sono ancora. Ci sto andando!" } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come?" } },
+        { "who": "toni", "de": "So. Das Rad sitzt wieder.", "sl": "Tako. Kolo je spet na mestu.", "en": "There. The wheel's back on.", "it": "Ecco. La ruota è di nuovo al suo posto.", "fx": { "cart": 1 } },
+        { "who": "stefan", "face": "happy", "de": "Danke, Toni! Und du? Willst du am Samstag mitfahren?", "sl": "Hvala, Toni! Pa ti? Bi v soboto {m:šel|f:šla} zraven?", "en": "Thanks, Toni! And you? Do you want to come along on Saturday?", "it": "Grazie, Toni! E tu? Vuoi venire sabato?" },
+        { "choices": [
+          { "de": "Ja, gern! Ich fahre mit.", "sl": "Ja, z veseljem! Grem zraven.", "en": "Yes, gladly! I'll come along.", "it": "Sì, volentieri! Vengo anch'io.", "ok": true,
+            "reply": { "face": "laugh", "de": "Super! Samstag um acht. Villach, wir kommen!", "sl": "Super! V soboto ob osmih. Beljak, prihajamo!", "en": "Great! Saturday at eight. Villach, here we come!", "it": "Grande! Sabato alle otto. Villaco, arriviamo!" } },
+          { "de": "Nein, danke. Ich bleibe hier.", "sl": "Ne, hvala. Ostanem tukaj.", "en": "No, thanks. I'll stay here.", "it": "No, grazie. Resto qui.", "ok": true,
+            "reply": { "face": "happy", "de": "Schade! Dann bringe ich dir einen Apfelsaft mit.", "sl": "Škoda! Potem ti prinesem jabolčni sok.", "en": "Shame! Then I'll bring you back an apple juice.", "it": "Peccato! Allora ti porto un succo di mela." } },
+          { "de": "Ja, gern! Ich fliege mit.", "sl": "Ja, z veseljem! Letim zraven.", "en": "Yes, gladly! I'll fly along.", "it": "Sì, volentieri! Volo anch'io.",
+            "why": { "de": "Mit dem Wagen fliegt man nicht, man fährt.", "sl": "Z vozom se ne leti, se vozi.", "en": "You don't fly in a cart, you ride: fahren.", "it": "Col carro non si vola, si va: fahren." },
+            "reply": { "face": "laugh", "de": "Fliegen? Mit meinem alten Wagen? Hoho, schön wär's!", "sl": "Leteti? Z mojim starim vozom? Hoho, ko bi le!", "en": "Fly? In my old cart? Ho ho, if only!", "it": "Volare? Col mio vecchio carro? Oh oh, magari!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "artikel-dativ",
+      "memory": { "de": "dem oder den: einer ist richtig", "sl": "dem ali den: eden je pravilen", "en": "dem or den: one of them is right", "it": "dem o den: uno è giusto" },
+      "lines": [
+        { "who": "toni", "de": "Noch eine Frage. Dem oder den? Einer ist richtig.", "sl": "Še eno vprašanje. Dem ali den? Eden je pravilen.", "en": "One more question. Dem or den? One of them is right.", "it": "Un'altra domanda. Dem o den? Uno è giusto.", "fx": { "forge": 0.4, "iron": 0.5 } },
+        { "who": "toni", "face": "curious", "de": "Womit schlage ich das Eisen?", "sl": "S čim udarjam po železu?", "en": "What do I hit the iron with?", "it": "Con cosa batto il ferro?" },
+        { "choices": [
+          { "de": "Mit dem Hammer, Herr Toni.", "sl": "S kladivom, gospod Toni.", "en": "With the hammer, Herr Toni.", "it": "Col martello, signor Toni.", "ok": true,
+            "reply": { "de": "Richtig. Mit dem Hammer.", "sl": "Pravilno. Mit dem Hammer.", "en": "Right. Mit dem Hammer.", "it": "Giusto. Mit dem Hammer." } },
+          { "de": "Mit den Hammer, Herr Toni.", "sl": "S kladivom, gospod Toni.", "en": "With the hammer, Herr Toni.", "it": "Col martello, signor Toni.", "grammar": "dativ",
+            "why": { "de": "Mit nimmt immer den Dativ: der Hammer, mit dem Hammer.", "sl": "Mit vedno zahteva dajalnik: der Hammer, mit dem Hammer.", "en": "Mit always takes the dative: der Hammer, mit dem Hammer.", "it": "Mit vuole sempre il dativo: der Hammer, mit dem Hammer." },
+            "reply": { "face": "cross", "de": "Den? Nein. Genau sein. Noch einmal.", "sl": "Den? Ne. Natančno, prosim. Še enkrat.", "en": "Den? No. Be exact. Once more.", "it": "Den? No. Precisione. Di nuovo." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "face": "curious", "de": "Und wohin lege ich das heiße Eisen?", "sl": "Pa kam položim vroče železo?", "en": "And where do I put the hot iron?", "it": "E dove metto il ferro caldo?" },
+        { "choices": [
+          { "de": "In den Kübel, ins Wasser.", "sl": "V vedro, v vodo.", "en": "Into the bucket, into the water.", "it": "Nel secchio, nell'acqua.", "ok": true,
+            "reply": { "face": "happy", "de": "Ja. Zisch! Jetzt ist es kalt.", "sl": "Ja. Cccc! Zdaj je mrzlo.", "en": "Yes. Hiss! Now it's cold.", "it": "Sì. Sss! Adesso è freddo.", "fx": { "iron": 0 } } },
+          { "de": "In dem Kübel, ins Wasser.", "sl": "V vedru, v vodo.", "en": "In the bucket, into the water.", "it": "Dentro il secchio, nell'acqua.", "grammar": "wechselpraepositionen",
+            "why": { "de": "Wohin? Eine Richtung nimmt den Akkusativ: in den Kübel.", "sl": "Kam? Smer zahteva tožilnik: in den Kübel.", "en": "Where to? A direction takes the accusative: in den Kübel.", "it": "Verso dove? Una direzione vuole l'accusativo: in den Kübel." },
+            "reply": { "face": "cross", "de": "In dem Kübel? Es ist ja noch gar nicht drin. Hm.", "sl": "V vedru? Saj še sploh ni notri. Hm.", "en": "In the bucket? It isn't in there yet. Hm.", "it": "Dentro il secchio? Ma non c'è ancora dentro. Mm." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "face": "happy", "de": "Gut. Der, die, das, dem, den. Morgen wieder.", "sl": "Dobro. Der, die, das, dem, den. Jutri spet.", "en": "Good. Der, die, das, dem, den. Again tomorrow.", "it": "Bene. Der, die, das, dem, den. Domani di nuovo." }
+      ]
+    },
+    {
+      "id": "bestellung-brief",
+      "memory": { "de": "den Brief aus Klagenfurt, den du mir vorgelesen hast", "sl": "pismo iz Celovca, ki si mi ga {m:prebral|f:prebrala}", "en": "the letter from Klagenfurt you read out to me", "it": "la lettera da Klagenfurt che mi hai letto" },
+      "lines": [
+        { "who": "toni", "de": "Grüß dich. Ein Brief aus Klagenfurt. Meine Augen sind müde.", "sl": "Živjo. Pismo iz Celovca. Oči so mi utrujene.", "en": "Hello. A letter from Klagenfurt. My eyes are tired.", "it": "Ciao. Una lettera da Klagenfurt. Ho gli occhi stanchi." },
+        { "who": "toni", "face": "curious", "de": "Liest du ihn mir vor?", "sl": "Mi ga prebereš?", "en": "Will you read it out to me?", "it": "Me la leggi?" },
+        { "choices": [
+          { "de": "Ja, ich lese ihn Ihnen vor.", "sl": "Ja, preberem vam ga.", "en": "Yes, I'll read it out to you.", "it": "Sì, gliela leggo.", "ok": true,
+            "reply": { "de": "Gut. Langsam.", "sl": "Dobro. Počasi.", "en": "Good. Slowly.", "it": "Bene. Piano." } },
+          { "de": "Ja, ich vorlese ihn Ihnen.", "sl": "Ja, preberem vam ga.", "en": "Yes, I out-read it to you.", "it": "Sì, gliela leggo.", "grammar": "trennbare-verben",
+            "why": { "de": "Vorlesen ist trennbar: Ich lese ihn Ihnen vor.", "sl": "Vorlesen je ločljiv: Ich lese ihn Ihnen vor.", "en": "Vorlesen is separable: Ich lese ihn Ihnen vor.", "it": "Vorlesen è separabile: Ich lese ihn Ihnen vor." },
+            "reply": { "face": "cross", "de": "Vorlese? Hm. So redet bei uns keiner.", "sl": "Vorlese? Hm. Tako pri nas nihče ne govori.", "en": "Vorlese? Hm. Nobody here talks like that.", "it": "Vorlese? Mm. Da noi nessuno parla così." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "face": "surprised", "de": "Zwölf Hufeisen bis Montag? Für die Pferde vom Kufenstechen. Das ist viel.", "sl": "Dvanajst podkev do ponedeljka? Za konje s Kufenstechna. To je veliko.", "en": "Twelve horseshoes by Monday? For the Kufenstechen horses. That's a lot.", "it": "Dodici ferri entro lunedì? Per i cavalli del Kufenstechen. Sono tanti." },
+        { "choices": [
+          { "de": "Schaffen Sie das, Herr Toni?", "sl": "Vam bo uspelo, gospod Toni?", "en": "Can you manage that, Herr Toni?", "it": "Ce la fa, signor Toni?", "ok": true,
+            "reply": { "face": "proud", "de": "Ich schaffe das. Immer.", "sl": "Uspelo mi bo. Vedno mi uspe.", "en": "I'll manage. Always.", "it": "Ce la faccio. Sempre." } },
+          { "de": "Schaffst du das, Herr Toni?", "sl": "Ti bo uspelo, gospod Toni?", "en": "Can you (informal) manage that, Herr Toni?", "it": "Ce la fai, signor Toni?", "grammar": "du-sie",
+            "why": { "de": "Zu Herrn Toni sagst du Sie: Schaffen Sie das?", "sl": "Gospoda Tonija vikaš: Schaffen Sie das?", "en": "You say Sie to Herr Toni: Schaffen Sie das?", "it": "Al signor Toni dai del Lei: Schaffen Sie das?" },
+            "reply": { "face": "cross", "de": "Du? Hm. Beim Schmied redet man anders.", "sl": "Tikaš me? Hm. S kovačem se govori drugače.", "en": "Du? Hm. You talk differently to the smith.", "it": "Mi dai del tu? Mm. Col fabbro si parla diversamente." } }
+        ], "puzzled": { "face": "confused", "de": "Hm? Noch einmal. Langsam.", "sl": "Hm? Še enkrat. Počasi.", "en": "Hm? Once more. Slowly.", "it": "Mm? Di nuovo. Piano." } },
+        { "who": "toni", "face": "happy", "de": "Danke fürs Lesen. Du bist eine Hilfe.", "sl": "Hvala za branje. V pomoč si mi.", "en": "Thanks for reading. You're a help.", "it": "Grazie per la lettura. Mi sei d'aiuto." }
+      ]
+    }
+  ]
+}

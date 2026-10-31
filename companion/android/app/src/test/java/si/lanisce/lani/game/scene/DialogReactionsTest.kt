@@ -161,7 +161,7 @@ class DialogReactionsTest {
 
     @Test fun `every scene of Jan's and of the culture packs is here`() {
         // the Slovene village's, the culture packs' before, Kärnten's rooms (places-kaernten)
-        assertEquals(31 + 44 + 4, files.size)
+        assertEquals(31 + 44 + 5, files.size)
         // and the talks of the charcoal burner at every culture's pile, and the test pack's
         assertEquals(setOf("primorska/kopa", "friuli/kopa", "kaernten/kopa", "lakeland/kopa", "tinyland/kopa"), talks.map { it.str("id") }.toSet())
         // and the evening stories of every culture, each with its tellings (new ones are held to the same)
