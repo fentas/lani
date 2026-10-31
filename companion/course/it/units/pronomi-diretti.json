@@ -1,0 +1,448 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "pronomi-diretti",
+  "language": "it",
+  "level": "A2",
+  "emoji": "👉",
+  "title": { "it": "Lo vedo, la prendo", "de": "Ihn, sie, es: lo vedo, la prendo", "sl": "Ga, jo: lo vedo, la prendo", "en": "Him, her, it: lo vedo, la prendo" },
+  "goal": {
+    "de": "Du sagst ihn, sie, es mit lo, la, li, le, ohne das Wort zu wiederholen (Moro? Lo vedo! La palla? L'ho presa!).",
+    "sl": "Rečeš ga, jo, jih z lo, la, li, le, brez ponavljanja besede (Moro? Lo vedo! La palla? L'ho presa!).",
+    "en": "You can say him, her, it and them with lo, la, li, le, without saying the word again (Moro? Lo vedo! La palla? L'ho presa!)."
+  },
+  "grammar": ["pronomi-diretti", "passato-prossimo"],
+  "words": [
+    "lo",
+    "la",
+    "li",
+    "le",
+    "mi",
+    "ti",
+    "ci",
+    "vi",
+    "vedere",
+    "prendere",
+    "aspettare",
+    "chiamare",
+    "trovare",
+    "cercare",
+    "portare",
+    "sentire",
+    "aiutare",
+    "la palla",
+    "la luna",
+    "il biscotto",
+    "la mela",
+    "la pecora",
+    "il pascolo",
+    "lo zaino",
+    "la giacca",
+    "lo stivale",
+    "la matita",
+    "il pane",
+    "la merenda",
+    "la chiave",
+    "gli occhiali",
+    "il bastone",
+    "la sciarpa",
+    "la conchiglia",
+    "il drago",
+    "la gita"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "chi, che cosa", "de": "wen, was", "sl": "koga, kaj", "en": "whom, what" },
+        { "it": "pronome", "de": "Pronomen", "sl": "zaimek", "en": "pronoun" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Damit du ein Wort nicht zweimal sagst, nimmst du ein kleines Wort: **lo** für einen (ihn, es), **la** für eine (sie, es). **Vedi Moro? Sì, lo vedo!** (Siehst du Moro? Ja, ich sehe ihn!) Es steht vor dem Verb, anders als im Deutschen. Und es zählt das italienische Geschlecht: **la palla** (der Ball) → **La prendo!** (Ich nehme ihn!)",
+          "sl": "Da besede ne rečeš dvakrat, vzameš majhno besedico: **lo** za moški spol (ga), **la** za ženski (jo). **Vedi Moro? Sì, lo vedo!** (Vidiš Mora? Ja, vidim ga!) Stoji pred glagolom. Šteje italijanski spol: **il pane** (kruh) → **lo**, **la palla** (žoga) → **La prendo!** (Vzamem jo!)",
+          "en": "So as not to say a word twice, you use a little word: **lo** for a masculine one (him, it), **la** for a feminine one (her, it). **Vedi Moro? Sì, lo vedo!** (Do you see Moro? Yes, I see him!) It goes before the verb. The Italian gender counts: **la palla** (the ball) → **La prendo!** (I'll get it!)"
+        },
+        "examples": [
+          {
+            "it": "Vedi Moro? Sì, lo vedo!",
+            "de": "Siehst du Moro? Ja, ich sehe ihn!",
+            "sl": "Vidiš Mora? Ja, vidim ga!",
+            "en": "Do you see Moro? Yes, I see him!"
+          },
+          {
+            "it": "Dov'è la palla? La prendo io!",
+            "de": "Wo ist der Ball? Ich hole ihn!",
+            "sl": "Kje je žoga? Jaz jo vzamem!",
+            "en": "Where's the ball? I'll get it!"
+          }
+        ],
+        "rows": [
+          ["Moro, il pane", "lo", "Lo vedo."],
+          ["Giulia, la palla", "la", "La prendo."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomi-diretti",
+          "prompt": "Vedi la luna? Sì, ___ vedo!",
+          "options": ["lo", "la", "le"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**la luna** ist weiblich → **la** vedo (auch wenn es der Mond ist)\n- lo · männlich\n- le · mehrere",
+            "sl": "**la luna** je ženskega spola → **la** vedo\n- lo · moški spol\n- le · več",
+            "en": "**la luna** is feminine → **la** vedo\n- lo · masculine\n- le · more than one"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere: **li** für männlich oder gemischt, **le** nur für weiblich. **I biscotti? Li mangia Moro!** (Die Kekse? Die frisst Moro!) **Le pecore? Davide le porta al pascolo.** (Die Schafe? Davide bringt sie auf die Weide.)",
+          "sl": "Za več: **li** za moški ali mešani spol, **le** samo za ženski. **I biscotti? Li mangia Moro!** (Piškote? Moro jih poje!) **Le pecore? Davide le porta al pascolo.** (Ovce? Davide jih odpelje na pašnik.)",
+          "en": "For more than one: **li** for masculine or mixed, **le** for feminine only. **I biscotti? Li mangia Moro!** (The biscuits? Moro eats them!) **Le pecore? Davide le porta al pascolo.** (The sheep? Davide takes them to the pasture.)"
+        },
+        "examples": [
+          {
+            "it": "I biscotti? Li mangia Moro!",
+            "de": "Die Kekse? Die frisst Moro!",
+            "sl": "Piškote? Moro jih poje!",
+            "en": "The biscuits? Moro eats them!"
+          },
+          {
+            "it": "Davide chiama le pecore e le porta al pascolo.",
+            "de": "Davide ruft die Schafe und bringt sie auf die Weide.",
+            "sl": "Davide pokliče ovce in jih odpelje na pašnik.",
+            "en": "Davide calls the sheep and takes them to the pasture."
+          }
+        ],
+        "rows": [
+          ["i biscotti, i bambini", "li", "Li mangio."],
+          ["le pecore, le mele", "le", "Le vedo."]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "pronomi-diretti",
+          "text": "Le mele? ___ compra la nonna.",
+          "accept": ["Le"],
+          "hint": "le mele → ?",
+          "explain": {
+            "de": "**le mele**: weiblich, mehrere → **le**",
+            "sl": "**le mele**: ženski spol, več → **le**",
+            "en": "**le mele**: feminine, more than one → **le**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für Personen gibt es auch **mi** (mich), **ti** (dich), **ci** (uns) und **vi** (euch): **Mi vedi?** (Siehst du mich?) **La maestra ci chiama.** (Die Lehrerin ruft uns.) Achtung: **Ti aspetto!** heißt Ich warte auf dich! Das Italienische braucht dafür kein auf.",
+          "sl": "Za ljudi so še **mi** (me), **ti** (te), **ci** (nas) in **vi** (vas): **Mi vedi?** (Me vidiš?) **La maestra ci chiama.** (Učiteljica nas kliče.) **Ti aspetto!** (Čakam te!)",
+          "en": "For people there are also **mi** (me), **ti** (you), **ci** (us) and **vi** (you, more than one): **Mi vedi?** (Can you see me?) **La maestra ci chiama.** (The teacher is calling us.) **Ti aspetto!** (I'll wait for you!)"
+        },
+        "examples": [
+          {
+            "it": "Mi vedi? Sono qui!",
+            "de": "Siehst du mich? Ich bin hier!",
+            "sl": "Me vidiš? Tu sem!",
+            "en": "Can you see me? I'm here!"
+          },
+          {
+            "it": "Ti aspetto davanti alla scuola.",
+            "de": "Ich warte vor der Schule auf dich.",
+            "sl": "Čakam te pred šolo.",
+            "en": "I'll wait for you in front of the school."
+          }
+        ],
+        "rows": [
+          ["io", "mi", "Mi vedi?"],
+          ["tu", "ti", "Ti aspetto."],
+          ["noi", "ci", "Ci chiama."],
+          ["voi", "vi", "Vi aspetto."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomi-diretti",
+          "prompt": "Giulia, ___ senti? Sono io, Lorenzo!",
+          "options": ["mi", "ti", "ci"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "Lorenzo spricht von sich: mich → **mi**\n- ti · dich\n- ci · uns",
+            "sl": "Lorenzo govori o sebi: me → **mi**\n- ti · te\n- ci · nas",
+            "en": "Lorenzo is talking about himself: me → **mi**\n- ti · you\n- ci · us"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit **non** steht das kleine Wort zwischen **non** und dem Verb: **Non lo so.** (Ich weiß es nicht.) **Non la trovo.** (Ich finde sie nicht.) Mit **voglio** oder **posso** und einem Infinitiv hängst du es hinten an, das **e** fällt weg: **Voglio vederlo!** (Ich will ihn sehen!) Oder du stellst es nach vorn: **Lo voglio vedere!** Beides ist richtig.",
+          "sl": "Z **non** stoji besedica med **non** in glagolom: **Non lo so.** (Ne vem.) **Non la trovo.** (Ne najdem je.) Z **voglio** ali **posso** in nedoločnikom jo pripneš zadaj, **e** odpade: **Voglio vederlo!** (Hočem ga videti!) Lahko pa jo postaviš naprej: **Lo voglio vedere!** Oboje je prav.",
+          "en": "With **non** the little word goes between **non** and the verb: **Non lo so.** (I don't know.) **Non la trovo.** (I can't find it.) With **voglio** or **posso** and an infinitive you join it to the end, the **e** dropping: **Voglio vederlo!** (I want to see it!) Or put it in front: **Lo voglio vedere!** Both are right."
+        },
+        "examples": [
+          {
+            "it": "Dov'è il mio zaino? Non lo trovo!",
+            "de": "Wo ist mein Rucksack? Ich finde ihn nicht!",
+            "sl": "Kje je moj nahrbtnik? Ne najdem ga!",
+            "en": "Where's my rucksack? I can't find it!"
+          },
+          {
+            "it": "Il drago? Voglio vederlo!",
+            "de": "Der Drache? Ich will ihn sehen!",
+            "sl": "Zmaj? Hočem ga videti!",
+            "en": "The dragon? I want to see it!"
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "pronomi-diretti",
+          "text": "Il gelato? Voglio ___! (mangiare)",
+          "accept": ["mangiarlo"],
+          "hint": "mangiare + lo",
+          "explain": {
+            "de": "An den Infinitiv gehängt, ohne e: mangiare + lo → **mangiarlo**",
+            "sl": "Pripeto na nedoločnik, brez e: mangiare + lo → **mangiarlo**",
+            "en": "Joined to the infinitive, no e: mangiare + lo → **mangiarlo**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Vor **ho, hai, ha** wird aus **lo** und **la** ein **l'**: **L'ho visto.** (Ich habe ihn gesehen.) Und dann passt sich das Partizip an, wie bei **essere**: **la palla → L'ho presa.** (Den Ball habe ich genommen.) **i biscotti → Li ho mangiati.** **le pecore → Le ho viste.**",
+          "sl": "Pred **ho, hai, ha** postaneta **lo** in **la** **l'**: **L'ho visto.** ({m:Videl|f:Videla} sem ga.) Takrat se deležnik ujema, kot pri **essere**: **la palla → L'ho presa.** ({m:Vzel|f:Vzela} sem jo.) **i biscotti → Li ho mangiati.** **le pecore → Le ho viste.**",
+          "en": "Before **ho, hai, ha**, **lo** and **la** become **l'**: **L'ho visto.** (I saw him.) And then the participle agrees, as with **essere**: **la palla → L'ho presa.** (I took it.) **i biscotti → Li ho mangiati.** **le pecore → Le ho viste.**"
+        },
+        "examples": [
+          {
+            "it": "La palla? L'ho presa io!",
+            "de": "Der Ball? Den habe ich genommen!",
+            "sl": "Žoga? Jaz sem jo {m:vzel|f:vzela}!",
+            "en": "The ball? I took it!"
+          },
+          {
+            "it": "I biscotti? Li ha mangiati Moro!",
+            "de": "Die Kekse? Die hat Moro gefressen!",
+            "sl": "Piškote? Pojedel jih je Moro!",
+            "en": "The biscuits? Moro ate them!"
+          }
+        ],
+        "rows": [
+          ["Moro", "l'", "L'ho visto."],
+          ["le pecore", "le", "Le ho viste."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomi-diretti",
+          "prompt": "Le conchiglie? Le ho ___ io!",
+          "options": ["trovato", "trovate", "trovati"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**le** conchiglie → das Partizip passt sich an: **trovate**\n- trovato · ohne Pronomen davor\n- trovati · männlich",
+            "sl": "**le** conchiglie → deležnik se ujema: **trovate**\n- trovato · brez zaimka pred njim\n- trovati · moški spol",
+            "en": "**le** conchiglie → the participle agrees: **trovate**\n- trovato · with no pronoun before it\n- trovati · masculine"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "pronomi-diretti-1",
+      "title": { "it": "Lo, la, li, le", "de": "Lo, la, li, le", "sl": "Lo, la, li, le", "en": "Lo, la, li, le" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "pronomi-diretti",
+          "instruction": { "de": "Lo, la, li o le? · Lo, la, li oder le?", "sl": "Lo, la, li o le? · Lo, la, li ali le?", "en": "Lo, la, li o le? · Lo, la, li or le?" },
+          "columns": [
+            { "label": "lo", "words": ["il pane", "il gelato", "Moro"] },
+            { "label": "la", "words": ["la palla", "la torta", "la nonna"] },
+            { "label": "li", "words": ["i biscotti", "gli zaini", "i bambini"] },
+            { "label": "le", "words": ["le pecore", "le mele", "le scarpe"] }
+          ],
+          "explain": {
+            "de": "**il, lo** → lo · **la** → la\n- **i, gli** → li · **le** → le\n- das italienische Geschlecht zählt: la palla → la",
+            "sl": "**il, lo** → lo · **la** → la\n- **i, gli** → li · **le** → le",
+            "en": "**il, lo** → lo · **la** → la\n- **i, gli** → li · **le** → le"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomi-diretti",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Vedi Giulia? Sì, ___ vedo.",
+          "options": ["lo", "la", "le"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "de": "**Giulia**: eine → **la**",
+            "sl": "**Giulia**: ena → **la**",
+            "en": "**Giulia**: one female → **la**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomi-diretti",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Dove sono i libri? ___ ho messi nello zaino.",
+          "options": ["Li", "Le", "L'"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**i libri** → **li**, und das Partizip: messi\n- l' · nur lo, la",
+            "sl": "**i libri** → **li**, deležnik: messi\n- l' · samo lo, la",
+            "en": "**i libri** → **li**, and the participle: messi\n- l' · only lo, la"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pronomi-diretti-2",
+      "title": { "it": "Dov'è?", "de": "Wo ist es?", "sl": "Kje je?", "en": "Where is it?" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "pronomi-diretti",
+          "instruction": {
+            "de": "Completa con lo, la, li, le, mi, ti, ci, vi · Ergänze das kleine Wort",
+            "sl": "Completa con lo, la, li, le, mi, ti, ci, vi · Dopolni z zaimkom",
+            "en": "Completa con lo, la, li, le, mi, ti, ci, vi · Fill in the little word"
+          },
+          "title": "Dov'è?",
+          "text": "È mattina. Lorenzo cerca le sue cose per la gita. «Giulia, dov'è il mio zaino?» «___ vedo, è sotto il letto!» «E la mia giacca?» «___ ha la nonna.» «E i miei stivali?» «___ ha presi Moro!» «E le mie matite colorate?» «Non ___ trovo.» «Uffa! Mi aiuti?» «Sì, ___ aiuto.» Tommaso chiama: «Venite? ___ aspetto in piazza!» Lorenzo dice: «Il pane per la merenda ___ porto io!»",
+          "gaps": [
+            { "accept": ["Lo"], "hint": "lo zaino → ?" },
+            { "accept": ["La"], "hint": "la giacca → ?" },
+            { "accept": ["Li"], "hint": "gli stivali → ?" },
+            { "accept": ["le"], "hint": "le matite → ?" },
+            { "accept": ["ti"], "hint": "mi aiuti? → ?" },
+            { "accept": ["Vi"], "hint": "venite → voi" },
+            {
+              "accept": ["lo"],
+              "hint": "il pane → ?",
+              "explain": {
+                "de": "**Il pane** steht vorn, **lo** sagt es noch einmal: Il pane lo porto io.",
+                "sl": "**Il pane** stoji spredaj, **lo** ga ponovi: Il pane lo porto io.",
+                "en": "**Il pane** comes first, **lo** says it again: Il pane lo porto io."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["gli", "ci"],
+          "translation": {
+            "de": "Es ist Morgen. Lorenzo sucht seine Sachen für den Ausflug. „Giulia, wo ist mein Rucksack?“ „Ich sehe ihn, er ist unter dem Bett!“ „Und meine Jacke?“ „Die hat die Oma.“ „Und meine Stiefel?“ „Die hat Moro genommen!“ „Und meine Buntstifte?“ „Ich finde sie nicht.“ „Mist! Hilfst du mir?“ „Ja, ich helfe dir.“ Tommaso ruft: „Kommt ihr? Ich warte auf dem Platz auf euch!“ Lorenzo sagt: „Das Brot für die Jause bringe ich mit!“",
+            "sl": "Jutro je. Lorenzo išče svoje stvari za izlet. »Giulia, kje je moj nahrbtnik?« »Vidim ga, pod posteljo je!« »Pa moja jakna?« »Ima jo babica.« »Pa moji škornji?« »Vzel jih je Moro!« »Pa moje barvice?« »Ne najdem jih.« »Ojoj! Mi pomagaš?« »Ja, pomagam ti.« Tommaso kliče: »Pridete? Čakam vas na trgu!« Lorenzo reče: »Kruh za malico prinesem jaz!«",
+            "en": "It's morning. Lorenzo is looking for his things for the trip. “Giulia, where's my rucksack?” “I can see it, it's under the bed!” “And my jacket?” “Granny has it.” “And my boots?” “Moro took them!” “And my coloured pencils?” “I can't find them.” “Oh no! Will you help me?” “Yes, I'll help you.” Tommaso calls: “Are you coming? I'll wait for you in the square!” Lorenzo says: “I'll bring the bread for the snack!”"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomi-diretti",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "La torta? ___ ha fatta Nonna Rosa.",
+          "options": ["L'", "Lo", "Li"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**la torta** → la → vor ha: **l'**, und das Partizip: fatta",
+            "sl": "**la torta** → la → pred ha: **l'**, deležnik: fatta",
+            "en": "**la torta** → la → before ha: **l'**, and the participle: fatta"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pronomi-diretti-3",
+      "title": { "it": "Senza ripetere", "de": "Ohne zu wiederholen", "sl": "Brez ponavljanja", "en": "Without saying it twice" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "pronomi-diretti",
+          "instruction": { "de": "Usa lo, la, li, le · Nimm lo, la, li, le", "sl": "Usa lo, la, li, le · Uporabi lo, la, li, le", "en": "Usa lo, la, li, le · Use lo, la, li, le" },
+          "items": [
+            { "from": "Mangio la mela.", "accept": ["La mangio."] },
+            { "from": "Davide chiama le pecore.", "accept": ["Davide le chiama."] },
+            { "from": "Vedo Moro.", "accept": ["Lo vedo."] },
+            { "from": "Prendiamo i biscotti.", "accept": ["Li prendiamo."] },
+            { "from": "Non trovo la chiave.", "accept": ["Non la trovo."], "hint": "non + ? + verbo" },
+            { "from": "Voglio leggere il libro.", "accept": ["Voglio leggerlo.", "Lo voglio leggere."] },
+            { "from": "Ho visto la luna.", "accept": ["L'ho vista."], "hint": "la → l', vist-?" },
+            { "from": "Ho preso i biscotti.", "accept": ["Li ho presi."], "hint": "li … pres-?" }
+          ],
+          "explain": {
+            "de": "**lo, la, li, le** vor dem Verb, an den Infinitiv gehängt\n- mangio la mela → la mangio\n- ho visto la luna → l'ho vista",
+            "sl": "**lo, la, li, le** pred glagolom, pripeti na nedoločnik\n- mangio la mela → la mangio\n- ho visto la luna → l'ho vista",
+            "en": "**lo, la, li, le** before the verb, joined to an infinitive\n- mangio la mela → la mangio\n- ho visto la luna → l'ho vista"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "pronomi-diretti",
+        "instruction": { "de": "Completa con lo, la, li, le, ci · Ergänze das kleine Wort", "sl": "Completa con lo, la, li, le, ci · Dopolni z zaimkom", "en": "Completa con lo, la, li, le, ci · Fill in the little word" },
+        "text": "Nonno Bepi cerca le sue cose. «Dove sono i miei occhiali?» «___ hai sul naso, nonno!» «E il mio bastone?» «___ ha Moro in bocca!» «E la mia sciarpa?» «___ porta Giulia.» «E le chiavi?» «Non ___ trovo.» «E voi bambini, dove siete?» «Siamo qui, nonno! Non ___ vedi?»",
+        "gaps": [
+          { "accept": ["Li"] },
+          { "accept": ["Lo"] },
+          { "accept": ["La"] },
+          { "accept": ["le"] },
+          { "accept": ["ci"] }
+        ],
+        "translation": {
+          "de": "Nonno Bepi sucht seine Sachen. „Wo ist meine Brille?“ „Die hast du auf der Nase, Opa!“ „Und mein Stock?“ „Den hat Moro im Maul!“ „Und mein Schal?“ „Den trägt Giulia.“ „Und die Schlüssel?“ „Ich finde sie nicht.“ „Und ihr Kinder, wo seid ihr?“ „Wir sind hier, Opa! Siehst du uns nicht?“",
+          "sl": "Dedek Bepi išče svoje stvari. »Kje so moja očala?« »Na nosu jih imaš, dedek!« »Pa moja palica?« »Moro jo ima v gobcu!« »Pa moj šal?« »Nosi ga Giulia.« »Pa ključi?« »Ne najdem jih.« »Pa vi otroci, kje ste?« »Tu smo, dedek! Nas ne vidiš?«",
+          "en": "Nonno Bepi is looking for his things. “Where are my glasses?” “You've got them on your nose, Grandpa!” “And my stick?” “Moro has it in his mouth!” “And my scarf?” “Giulia is wearing it.” “And the keys?” “I can't find them.” “And you children, where are you?” “We're here, Grandpa! Can't you see us?”"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "pronomi-diretti",
+        "instruction": { "de": "Usa lo, la, li, le · Nimm lo, la, li, le", "sl": "Usa lo, la, li, le · Uporabi lo, la, li, le", "en": "Usa lo, la, li, le · Use lo, la, li, le" },
+        "items": [
+          { "from": "Compro il pane.", "accept": ["Lo compro."] },
+          { "from": "Aspettiamo la nonna.", "accept": ["La aspettiamo.", "L'aspettiamo."] },
+          {
+            "from": "Tommaso vuole vedere le pecore.",
+            "accept": ["Tommaso vuole vederle.", "Tommaso le vuole vedere."]
+          },
+          { "from": "Vedo Giulia e Lorenzo.", "accept": ["Li vedo."] },
+          { "from": "Ho mangiato i biscotti.", "accept": ["Li ho mangiati."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "pronomi-diretti",
+        "prompt": "La lettera? L'ho ___ io.",
+        "options": ["scritto", "scritta", "scritte"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "**la lettera** → l' → das Partizip: **scritta**",
+          "sl": "**la lettera** → l' → deležnik: **scritta**",
+          "en": "**la lettera** → l' → the participle: **scritta**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "pronomi-diretti",
+        "prompt": "Mi senti? Sì, ___ sento!",
+        "options": ["mi", "ti", "lo"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "de": "Du hörst mich? Ja, ich höre **dich** → **ti**",
+          "sl": "Me slišiš? Ja, slišim **te** → **ti**",
+          "en": "Can you hear me? Yes, I can hear **you** → **ti**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Il pane lo porto io, la aspettiamo and l'aspettiamo both right, Li hai sul naso, the German 'auf dich warten' tip"
+}
