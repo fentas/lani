@@ -103,10 +103,12 @@ class CultureScenesTest {
             listOf("friuli", "al-portone", "palisade", "palisade"),
             // Kärnten (places-kaernten, the rooms): Oma Resi's kitchen (Kasnudeln, the Reindling on Sundays, Mitzi's radio,
             // Lena's Jause and the Palmbuschen), Opa Sepp's Stube (the Kachelofen, Bello, hide-and-seek, the wedding photo),
-            // Mostbauer Stefan's Mostkeller (the Most from the tap, Stanko's candle, the press in autumn, the Jause, the Dreiländereck)
+            // Mostbauer Stefan's Mostkeller (the Most from the tap, Stanko's candle, the press in autumn, the Jause, the Dreiländereck),
+            // Kathi and Maxi's attic (Maxi woken for school, the old cradle, the storm at night, the Kletzen, his ball)
             listOf("kaernten", "in-der-kueche", "kitchen", "hut,house"),
             listOf("kaernten", "in-der-stube", "livingroom", "house"),
             listOf("kaernten", "im-keller", "cellar", "house"),
+            listOf("kaernten", "am-dachboden", "attic", "house"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
             // Kärnten (places-kaernten, outdoors): Müller Franz's field below the Dobratsch with the Harpfe, the square under the
             // linden, the market, Imker Stanko's bee house, the church, the palisade's gate and the view from the watchtower
