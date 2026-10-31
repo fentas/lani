@@ -4556,6 +4556,31 @@ explanations read aloud, the offline audio), 💡 Namigi · Tips (on or off, "�
 parent's on a child's device: [Tips](#tips)), 🔗 Povezava · Connection (the node, pairing again, Lani on this phone), and
 🛠️ Razvijalec · Developer once the version line was tapped seven times.
 
+### The launcher icon
+
+The icon on the home screen is the village's picture of the day (`data/AppIcons.kt`, `data/AppIconWork.kt`; the plan and
+the Android risks: docs/plans/05-built/app-icon.md). It grows through the six ages: the fire in its clearing, the camp's
+tent, the hamlet's watchtower and hut, the church and the long house (Lani's L), the market town's fair, the town's wall.
+From the hamlet on it is in the learner's culture (Primorska, Friuli, Kärnten, Lake District). From December to February it
+is under snow. It shows at most one sign of the day: fireworks for a new age, a garland for a festival (the December lights
+on snow), the likof's little spruce for something built, a traveller for someone new. Each picture is an activity alias of
+`MainActivity` (176 of them, drawn and listed by `companion/android/tools/app_icon.py build`; only `.icon.Ogenj`, the fire,
+is enabled in the manifest). The app switches the alias at most once a day, at the first background moment (15 minutes
+after the learner leaves the app, or an early-morning job), never while the app is on screen. It enables the new alias
+before it turns the old one off.
+
+- **⚙️ Nastavitve · Settings → 🌐 Jeziki · Languages → 🎨 Ikona · App icon**: "Kaj se dogaja · What's happening" (the
+  age, the season, the day's sign), "Doba in letni čas · Age and season" (the age, the snow, the December lights), "Ne
+  spreminjaj · Keep it as it is". Until the learner chooses, "What's happening" is the default only on a launcher known to
+  keep the icon in its place when it changes (Pixel's, AOSP's Launcher3). Every other launcher, Nothing's and One UI
+  included, gets "Age and season" until it is tested, and the note under the choice says so.
+- **Testing a launcher:** 🛠️ Razvijalec · Developer → "🎨 Preizkusi naslednjo ikono · Try the next icon" cycles ten
+  pictures. Each shows a few seconds after the app goes to the background. "Ikona dneva · The day's icon" goes back.
+- **What's waiting** isn't in the icon: the launcher's own notification dot (or One UI's count) shows it.
+- **Rebuilding the art:** `python3 companion/android/tools/app_icon.py build` (`--check` compares only; the Python tests
+  run it). The wordmark and the site's icons come from the same build. Alias names are pinned in
+  `app/src/test/resources/app-icon-aliases.txt` and are never renamed or removed.
+
 ### Tips
 
 "💡 Namigi · Tips" ([GAME.md](GAME.md#guidance--namigi--tips); docs/plans/05-built/guidance.md): the game notices a

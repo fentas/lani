@@ -723,6 +723,11 @@ no dialog. The tutor sees the days in `get_village` (`grown`, `parties`). QA: "a
 an age and plays its moment, "ageup:at:<s>" holds it at a second, "level:<lv>" sets the dialogs' level
 (`companion/bin/qa --steps age-up`).
 
+**The launcher icon follows the ages.** The icon on the home screen is the village as it has been built: the fire, the
+camp's tent, the hamlet's watchtower and hut, the church (Lani's L), the market town's fair, the town's wall. It is in the
+culture's look from the hamlet on, and for a day or two it shows the village's news: a new age, a festival, something
+built, someone new. It changes at most once a day, while the app is in the background (README "The launcher icon").
+
 ## Pacing
 
 `SimulationTest` plays 60 days of three learner profiles against the engine, for Jan's target, B2. Jan starts with 23 learned words and their first tent. A word-pack session adds 6 learned words. A review answered wrong (15 % of them) leaves its word rusty: it doesn't count, the rusty words come back first in the next day's review (right or almost right 85 % of the time), and when they are all that holds the next age back, the sim player polishes them at once. There are at most 4 to 8 rusty words at a time; polishing comes up in 2 to 4 sessions of a run, and no age comes later for it.

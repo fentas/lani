@@ -386,10 +386,13 @@ object QaHooks {
         review: () -> Unit = {}, numbers: (String) -> Unit = {}, event: (String) -> Unit = {}, hearths: (String) -> Unit = {},
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, sentence: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
-        cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {},
+        cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {}, icon: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
+            // "icon:<alias>": the launcher shows that alias a few seconds after the app goes to the background, as the
+            // developer's "Try the next icon" does; "icon:" the day's icon again (data/AppIconWork.kt)
+            command.startsWith("icon:") -> icon(command.removePrefix("icon:"))
             command == "main:watch" -> MainWatch.watch()
             command.startsWith("main:report:") -> command.removePrefix("main:report:").trim().toLongOrNull()?.let(MainWatch::report)
             command.startsWith("event:") -> event(command.removePrefix("event:").trim())
