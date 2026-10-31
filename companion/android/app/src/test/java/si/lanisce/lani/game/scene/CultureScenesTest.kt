@@ -104,6 +104,7 @@ class CultureScenesTest {
             // Kärnten (places-kaernten, outdoors): Müller Franz's field below the Dobratsch with the Harpfe, the square under the
             // linden, the market, Imker Stanko's bee house, the church, the palisade's gate and the view from the watchtower
             listOf("kaernten", "auf-dem-feld", "field", "field,kozolec"),
+            listOf("kaernten", "auf-dem-dorfplatz", "square", "lipa,well"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
