@@ -1945,6 +1945,10 @@ to play «Vedo, vedo» while Maestra Elena calls the names. The words panel offe
 today": "🔍 Vidim, vidim · I spy", the child asking «Se igrava «Vidim, vidim»?» with its meaning under it, the games left
 today and "🔍 Igrajva · Let's play"; a 🔍 over the child in the picture does the same (unless a happening of theirs has its
 own marker). Two games a day in each scene (`ISpy.GAMES_PER_DAY`), then "✓ Vidim, vidim: jutri spet · again tomorrow".
+Only where a round can start: the offer asks `ISpy.canStart` first (a thing in the picture with two clues to give, by the
+same grammar gate the game uses), so neither the card nor the 🔍 shows where "Igrajva" would find nothing to spy (a
+tutor's scene with too few clues, the picture changed); "Zdaj tu ni ničesar za iskanje · Nothing to spy here right now"
+stays only for a picture that changed between the offer and the tap (a wild animal gone).
 A game has three rounds (`ROUNDS`), fewer where fewer things can be spied.
 
 **A round** (`ISpyRun`): "Vidim, vidim nekaj, česar ti ne vidiš …" (the next rounds: "Še enkrat! …") and the first clue;
@@ -2003,9 +2007,11 @@ book (a scene of another language than the book's gates none):
 | what it is made of (iz), where with zraven, sredi, blizu | Je iz lesa. Visi zraven kredence. | `rodilnik-predlogi` | A2 |
 | a comparison | Je večji od vedra. | `primernik`, `rodilnik-predlogi` | A2 |
 
-A thing with fewer than two clues to give (a scene the tutor wrote has no clue file) gets clues that need no picture: its
-first letter ("Začne se s črko K.") and, a word of one piece, how many letters it has ("Ima štiri črke.", the forms that
-agree with the number as a [counting dialog's](#numbers-counting-what-the-village-has); voiced when played).
+A thing with fewer than two clues to give (a scene the tutor wrote has no clue file) gets clues that need no picture: the
+first letter of its noun ("Začne se s črko K."; after the article in Italian, German and English: "il ponte" starts with
+P, "der Brunnen" with B; "kačji pastir" with K) and, a noun of one piece, how many letters it has ("Ima štiri črke.",
+"Ha cinque lettere." for "il ponte", the forms that agree with the number as a [counting
+dialog's](#numbers-counting-what-the-village-has); voiced when played).
 
 **What it brings.** At the end each round pays as an answer (🌾, [GAME.md](GAME.md#resources)): a quick find (within
 `QUICK`, two clues) as a right one, a later find as an almost, a thing shown still something; the first game of the day
@@ -2058,7 +2064,13 @@ the dictionary lacks takes the regular paradigm, listed in the test's output, or
 the picture, each art drawn as the scene view draws it at every level, wherever the two are drawn together ("na" on its
 top, "v" inside, "pod" under, "nad" above, "pri", "ob", "zraven" right by it, "za" behind, "pred" in front); Italian
 adjectives and German pronouns by the noun's gender. `ISpyTest`: the clues by the grammar, the things picked, who plays,
-the day, a game's turns, the reviews, the content as the app reads it.
+the day, a game's turns, the reviews, the content as the app reads it, the nouns' letters, `canStart`. `ISpyRoundsTest`:
+every scene of every culture (read from the files, so a new culture's scenes too) gives a beginner a round, as the app
+plays it (a learner at A1 with nothing introduced: the pages above A1 not yet), in each world it is seen in (everything
+built, nothing built, its building at levels 1 to 3), at dawn, morning, midday, afternoon, dusk and night in every season,
+wherever the picture shows something: a round can start with a thing whose two clues are its own, a whole game where
+three things show with everything built, and a round by the nouns' letters even with no page of the book at all.
+`TapPointsTest`: where QA taps a thing, a pixel it painted itself (`TapPoints`), in every art's picture.
 
 **The voices.** voice-build voices the child's lines, each scene's clues and each thing's find and reveal with its word
 ("Ja, to je nož! Bravo!"), after the scenes' dialogs (its "ispy" row), in the voice of each child who may play in the
@@ -2073,7 +2085,8 @@ Tisch" with `wechselpraepositionen`, A2).
 
 **QA:** `companion/bin/qa --steps ispy`: by the fire, QA's hook ("ispy:ob-ognju/stump") offers the game whatever the day
 and spies the stump first; a wrong thing tapped in the picture, the stump, the rounds to the end card (the debug build logs
-where each round's things are on the screen, tag `ISpy`). The lines in turn, from the debug build's log (tags `Speaker`
+where each round's things are on the screen, tag `ISpy`: a point on a pixel each painted itself, `SceneAnchors.point`, so
+a tap there lands on it, not the middle of its area, which may be another thing's). The lines in turn, from the debug build's log (tags `Speaker`
 and `Voice`): each of the child's lines starts ("said «…»", "clip start") only after the one before it has ended ("clip
 end", "heard «…»"), no clip of the game is stopped before its end until the game is left, and the game's line, heard to
 its end, comes before the first clue.

@@ -4786,7 +4786,7 @@ companion/bin/qa --steps scroll                  # the village's scroll: its cou
 companion/bin/qa --steps scene-people            # I spy in the church, the kitchen, the smithy: who stands where (SCENES.md "Where people stand"); the church's top bar in German, its pills apart
 companion/bin/qa --steps bubbles-follow          # the village's bubbles with their people: dragged, zoomed in, the edge chip tapped
 companion/bin/qa --steps village-life            # the village's day on the map at 8, 11, 15, 19 o'clock, walkers by the field
-companion/bin/qa --no-town --steps place-life    # the projects as things of their scenes (spied, tapped, their word), the square's standing spots, the clock striking the hour, the lad up the maypole (Friuli's with LANI_CULTURE=friuli and an Italian learner; shots in $LANI_QA_PLACE_LIFE_SHOTS)
+companion/bin/qa --no-town --steps place-life    # the projects as things of their scenes (spied, tapped on their own pixels, their word; fails when one isn't offered, started or found), the square's standing spots, the clock striking the hour, the lad up the maypole (Friuli's with LANI_CULTURE=friuli and an Italian learner; shots in $LANI_QA_PLACE_LIFE_SHOTS)
 companion/bin/qa --steps palisade-walk           # nobody through the palisade's stakes: the path's gate into the woods and the main gate up close at the moments someone goes through ($LANI_QA_GATE_WALK, "h:mm[:ss][/spot]")
 companion/bin/qa --steps reactions               # the people reacting: wolves coming and there, a villager's card then, at night, the cheer, the bear, a storm, the merchant, a feast
 companion/bin/qa --steps storm                   # the storm: the map in the rain, a soft flash, a house's room with its people at home and rain on its window, the field, the wolves by the fire (a synthetic learner: LANI_DEV_DATA)
@@ -5165,9 +5165,12 @@ by the fire (`happening:ob-ognju/juha/juha-sol`): a choice tapped is said in the
 before her reply starts (the debug build's log, tag `Speaker`: "said «…»: node clip (player)", "heard «…» after …"; the
 run's `player-voice.log`), its line has its 🔊 (a screenshot), the next turn by the 🎤 isn't said again (her reply only),
 and the dialog again with its turn typed right says it before the reply.
-`ispy:<scene>/<slot>` offers «Vidim, vidim» in that scene whatever the day (a child comes by if none is there), its first
-round spying that thing, and the debug build logs where each round's things are on the screen (tag `ISpy`, with the
-thing's word); `ispy` (companion/SCENES.md, "I spy") plays a game by the fire: the stump spied, a wrong thing (the
+`ispy:<scene>/<slot>` offers «Vidim, vidim» in that scene whatever the day (a child comes by if none is there; never where
+no round can start), its first round spying that thing, and the debug build logs where each round's things are on the
+screen (tag `ISpy`, with the thing's word): a point on a pixel each thing painted itself (`SceneAnchors.point`), not the
+middle of its area, which may be another thing's (the stream under a bridge's deck); the tap turns' log (tag `TapTurn`)
+the same. QA's `ispy_play` presses the card's "🔍 Igrajva" wherever it sits (low on a short panel), else the 🔍 over the
+child; `ispy` (companion/SCENES.md, "I spy") plays a game by the fire: the stump spied, a wrong thing (the
 woodpile) tapped in the picture, the child's reaction and the next clue, the stump tapped and cheered, the other rounds'
 things through "✋ Izberi raje · Let me choose", the end card. An app without the hooks gets the steps as before (the
 fire's card, the scenes' links; the double taps).
