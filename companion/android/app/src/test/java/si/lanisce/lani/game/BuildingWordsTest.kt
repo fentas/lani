@@ -309,11 +309,14 @@ class BuildingWordsTest {
         }
     }
 
-    @Test fun `in the four cultures a hut asks for its words, Primorska's, Friuli's and Carinthia's kitchen, the Lake District's home and kitchen pack`() {
-        // the kitchen's pot, window and door, where the culture has a kitchen to step into
-        val kitchen = mapOf("primorska" to listOf("lonec", "okno", "vrata"), "friuli" to listOf("pentola", "finestra", "porta"), "kaernten" to listOf("topf", "fenster", "tuer"))
-        // Carinthia's kitchen since places-kaernten (In der Küche); the Lake District's hut still asks for its pack
-        val expected = mapOf("primorska" to null, "friuli" to null, "kaernten" to null, "lakeland" to "home-and-kitchen")
+    @Test fun `in the four cultures a hut asks for its words, each culture's kitchen`() {
+        // the kitchen's pot, window and door, where the culture has a kitchen to step into (Carinthia's since places-kaernten,
+        // In der Küche; the Lake District's since places-lakeland, Granny Maggie's): every culture has one now
+        val kitchen = mapOf(
+            "primorska" to listOf("lonec", "okno", "vrata"), "friuli" to listOf("pentola", "finestra", "porta"),
+            "kaernten" to listOf("topf", "fenster", "tuer"), "lakeland" to listOf("pot", "window", "door"),
+        )
+        val expected = mapOf<String, String?>("primorska" to null, "friuli" to null, "kaernten" to null, "lakeland" to null)
         for ((id, pack) in expected) {
             val language = Cultures.use(id).manifest.language
             val sc = scenes(id, language)
