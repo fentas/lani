@@ -82,15 +82,16 @@ export const SCENE_ART = {
     ],
     bocce: [
       'court', 'board', 'sand', 'jack', 'ball', 'linden', 'bench', 'table', 'jug', 'glass', 'scoreboard', 'rake',
-      'meter', 'pergola', 'lantern',
+      'meter', 'pergola', 'lantern', 'inn',
     ],
+    // the fontanella only Friuli's look draws (SceneFixtures in SceneWorld.kt)
     playground: [
       'swing', 'slide', 'sandpit', 'sand', 'bucket', 'spade', 'climber', 'house', 'ball', 'hopscotch', 'bench',
-      'tree', 'fence', 'gate', 'school',
+      'tree', 'fence', 'gate', 'fontanella', 'school',
     ],
     chapel: [
       'chapel', 'roof', 'bell', 'altar', 'cloth', 'picture', 'candle', 'flowers', 'grille', 'bench', 'linden',
-      'road', 'field', 'cross', 'hills',
+      'road', 'field', 'cross', 'hills', 'altarcandle',
     ],
     palisade: [
       'palisade', 'stake', 'gate', 'bar', 'torch', 'flag', 'roof', 'ladder', 'bell', 'road', 'forest', 'meadow',
@@ -320,10 +321,11 @@ export function arrive(art: string, from: { spot: string; pose: string }, cue: {
  * and the kitchen's level slots, 3 the mill inside, 4 the village's places (the fire station, the bocce court, the playground,
  * the wayside chapel, the palisade's gate, the lookout tower), 5 the finished projects as things of their pictures (the
  * square's maypole, fountain and clock, the stream's cart bridge, the field's toplar, the apiary's bee meadow), the square's
- * standing spots by them, and a count of the hour. The app says it when it asks for its scenes (GET /scenes?arts=5); one
- * that doesn't is an older one, which gets what the first arts drew ([forApp]).
+ * standing spots by them, and a count of the hour, 6 the places' things of their own (the bocce court's inn, Friuli's
+ * fontanella at the playground, the chapel's altar candle). The app says it when it asks for its scenes (GET
+ * /scenes?arts=6); one that doesn't is an older one, which gets what the first arts drew ([forApp]).
  */
-export const SCENE_ARTS_VERSION = 5
+export const SCENE_ARTS_VERSION = 6
 /**
  * What each version after the first added: its new arts, new slots of an art the version before had, new person spots of
  * one (for an older app each stands at the spot it had for them instead), and new sources of a count (an older app plays no
@@ -340,6 +342,7 @@ const ADDED: Record<number, { arts: string[]; slots: Record<string, string[]>; s
     spots: { square: { maypole: 'play1', clock: 'play2', fountain: 'play3' } },
     counts: ['hour'],
   },
+  6: { arts: [], slots: { bocce: ['inn'], playground: ['fontanella'], chapel: ['altarcandle'] } },
 }
 
 /** The arts version an app asked with (`?arts=`): 1, the first, when it doesn't say (an older app). */

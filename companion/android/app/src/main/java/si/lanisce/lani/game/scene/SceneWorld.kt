@@ -302,6 +302,12 @@ object SceneFixtures {
     private val L2 = SceneNeeds(level = 2)
     private val L3 = SceneNeeds(level = 3)
 
+    /**
+     * A thing of an art only a culture's look draws (the playground's fontanella, Friuli's): a level no place reaches, so it
+     * isn't there in any other culture's picture; the look that draws it says so ([CultureLook.fixes], always there).
+     */
+    val A_LOOK_ONLY = SceneNeeds(level = Catalog.MAX_LEVEL + 1)
+
     val slots: Map<String, Map<String, SceneNeeds>> = mapOf(
         "campfire" to mapOf("tent" to SceneNeeds(building = "TENT")),
         // level 1 bare: the open hearth, a plain bench, the straw bed, a shelf with the jugs; level 2 the tiled stove, the
@@ -341,6 +347,8 @@ object SceneFixtures {
         // the gate's roof and its pennant from the third, the walkway along the stakes and its ladder from the fourth, the
         // bell under the gate's roof at the fifth
         "palisade" to mapOf("torch" to L2, "roof" to L3, "flag" to L3, "ladder" to SceneNeeds(level = 4), "bell" to SceneNeeds(level = 5)),
+        // a thing only a culture's look draws: the playground's fontanella, Friuli's ([CultureLook.fixes] it there)
+        "playground" to mapOf("fontanella" to A_LOOK_ONLY),
     )
 
     /**

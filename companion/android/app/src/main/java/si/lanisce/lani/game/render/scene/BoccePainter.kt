@@ -50,8 +50,12 @@ import kotlin.math.sqrt
  * Closer up ([detail] 2 and 3): the sand's grain and the rake's lines, the boards' joints, the balls' grooves and glints, the
  * vine's leaves and grapes, the chalk on the slate, the roof's tiles.
  *
+ * The inn is a thing of its own (`inn`): its walls, roof and chimney with the sign over its door (Friuli's frasca), not the
+ * barrel and the crates before it.
+ *
  * Friuli's court ([look]; companion/SCENES.md "Culture looks"): an osteria in ochre under coppi, its shutters brown, the
- * frasca (a leafy branch, the old sign of an osteria with its own wine open) hung over its door instead of the painted sign.
+ * frasca (a leafy branch, the old sign of an osteria with its own wine open) hung over its door instead of the painted sign;
+ * the scoreboard's slate a little wider, NOI | VOI over its two sides (we | you) instead of the Slovene MI | VI.
  */
 internal class BoccePainter : RoomPainter() {
     override val art = "bocce"
@@ -97,10 +101,13 @@ internal class BoccePainter : RoomPainter() {
     private val slate = Col.hex(0x2E3A3A); private val chalk = Col.hex(0xEEF0EA)
     private val shutter = Col.hex(0x3F6B3A); private val shutterL = Col.hex(0x5E8E54)
 
-    /** Friuli's osteria ([readInn]): ochre under coppi, brown shutters, the frasca over the door. */
+    /** Friuli's osteria ([readInn]): ochre under coppi, brown shutters, the frasca over the door; NOI | VOI on a wider slate. */
     private var ochre = false
     private var frasca = false
     private var shutC = shutter; private var shutCL = shutterL
+    private var noi = false
+    /** The slate's sides along x (wider for NOI | VOI, three letters each). */
+    private var slateX0 = sbX0; private var slateX1 = sbX1
 
     private val fine: Boolean get() = detail > 1
 
@@ -114,6 +121,8 @@ internal class BoccePainter : RoomPainter() {
         ochre = variant("inn") == "osteria"
         frasca = variant("frasca") != null
         shutC = colour("shutter", shutter); shutCL = colour("shutter.l", shutterL)
+        noi = variant("scoreboard") == "noi"
+        slateX0 = if (noi) sbX0 - SLATE_WIDER else sbX0; slateX1 = if (noi) sbX1 + SLATE_WIDER else sbX1
     }
 
     private fun lanternLit(): Boolean = fx("lantern")?.let { it > 0.5f } ?: (env.windows > 0.35f)
@@ -128,8 +137,12 @@ internal class BoccePainter : RoomPainter() {
         // at the back: the linden on the left, the inn on the right and what stands against it, the pergola's table
         thing("linden") { linden() }
         thing("pergola") { pergolaBack() }
-        prop { inn() }
-        if (frasca) prop { frascaBranch() } else prop { grapesSign() }
+        // the inn and the sign over its door (two parts of one thing, outlined as they always were)
+        thing("inn") {
+            inn()
+            part()
+            if (frasca) frascaBranch() else grapesSign()
+        }
         prop { barrel() }
         thing("table") { innTable() }
         thing("jug", slop = 1) { jug() }
@@ -570,24 +583,67 @@ internal class BoccePainter : RoomPainter() {
         return (n.coerceIn(0, 15) * l.coerceIn(0f, 1f) + 0.01f).toInt() to 3
     }
 
-    /** The scoreboard: a slate in a wooden frame on two posts behind the court, facing it, MI | VI and the tally marks. */
+    /**
+     * The scoreboard: a slate in a wooden frame on two posts behind the court, facing it, MI | VI and the tally marks
+     * (Friuli's: NOI | VOI, the slate a little wider for them).
+     */
     private fun scoreboard() {
-        for (x in floatArrayOf(sbX0 + 0.1f, sbX1 - 0.1f)) iso.box(x - 0.08f, sbY - 0.08f, 0f, 0.16f, 0.16f, 9.5f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        val x0 = slateX0; val x1 = slateX1
+        for (x in floatArrayOf(x0 + 0.1f, x1 - 0.1f)) iso.box(x - 0.08f, sbY - 0.08f, 0f, 0.16f, 0.16f, 9.5f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
         val z0 = 9f; val z1 = 16.5f
         val (mi, vi) = marks()
-        onY(sbY + 0.1f, sbX0, sbX1, z0, z1) { x, z, px, py ->
-            val e = min(min(x - sbX0, sbX1 - x) * 4f, min(z - z0, z1 - z))
+        onY(sbY + 0.1f, x0, x1, z0, z1) { x, z, px, py ->
+            val e = min(min(x - x0, x1 - x) * 4f, min(z - z0, z1 - z))
             if (e < 0.5f) return@onY Pal.WOOD_M
-            val u = (x - sbX0) / (sbX1 - sbX0); val v = (z - z0) / (z1 - z0)
-            if (abs(u - 0.5f) < 0.025f || (abs(v - 0.72f) < 0.035f && u in 0.08f..0.92f)) return@onY chalk
+            val u = (x - x0) / (x1 - x0); val v = (z - z0) / (z1 - z0)
+            // the line under the headings: lower on Friuli's slate, its words written in chalk pixels above it
+            if (abs(u - 0.5f) < 0.025f || (abs(v - (if (noi) 0.62f else 0.72f)) < 0.035f && u in 0.08f..0.92f)) return@onY chalk
             if (Noise.rnd(px, py, 141) < 0.04f) Col.mix(slate, chalk, 0.3f) else slate
         }
         tallies(mi, 0.07f, z0, z1)
         tallies(vi, 0.57f, z0, z1)
+        if (noi) {
+            // NOI | VOI, each word centred on its side
+            for ((word, mid) in listOf("NOI" to 0.267f, "VOI" to 0.733f)) chalkWord(word, x0 + (x1 - x0) * mid, z1 - 0.65f)
+            return
+        }
         // MI | VI over the marks, a nominal px a stroke
         for ((word, ax) in listOf("MI" to sbX0 + (sbX1 - sbX0) * 0.12f, "VI" to sbX0 + (sbX1 - sbX0) * 0.62f)) for ((k, ch) in word.withIndex()) {
             val rows = LETTERS[ch] ?: continue
             for ((r, line) in rows.withIndex()) for ((q, cc) in line.withIndex()) if (cc == 'X') iso.px(ax + (k * 4 + q) * 0.06f, sbY + 0.11f, z1 - 1.0f - r * 0.42f, chalk)
+        }
+    }
+
+    /**
+     * A letter of Friuli's headings: the I a single stroke, so three letters fit a side; on the scene's canvas (detail 1)
+     * the N three strokes wide and the letters close together, as many pixels as there are.
+     */
+    private fun glyph(ch: Char): List<String>? = when {
+        ch == 'I' -> NARROW_I
+        ch == 'N' && detail == 1 -> NARROW_N
+        else -> LETTERS[ch]
+    }
+
+    /**
+     * [word] in chalk on Friuli's slate, centred on [mx] along it, its top at [topZ]: strokes of canvas pixels (two
+     * closer up), each column on the slate's plane, so the word runs with its frame, a stroke between letters closer up.
+     */
+    private fun chalkWord(word: String, mx: Float, topZ: Float) {
+        val y = sbY + 0.11f
+        val s = if (detail >= 3) 2 else 1
+        val gap = if (detail == 1) 0 else s
+        val glyphs = word.mapNotNull(::glyph)
+        val wpx = glyphs.sumOf { it.first().length * s } + gap * (glyphs.size - 1)
+        var left = iso.sx(mx, y) - wpx / 2f
+        for (g in glyphs) {
+            for (q in g.first().indices) for (dx in 0 until s) {
+                val sx = floor(left + q * s + dx)
+                // the slate's plane under that column (y fixed: x from the screen's), its top row there
+                val wx = (sx + 0.5f - iso.ox) / (4f * K) + y
+                val top = floor(iso.sy(wx, y, topZ)).toInt()
+                for ((r, line) in g.withIndex()) if (line[q] == 'X') for (dy in 0 until s) c.set(sx.toInt(), top + r * s + dy, chalk)
+            }
+            left += g.first().length * s + gap
         }
     }
 
@@ -598,8 +654,8 @@ internal class BoccePainter : RoomPainter() {
     private fun tallies(n: Int, left: Float, z0: Float, z1: Float) {
         val y = sbY + 0.11f
         val wpx = if (detail >= 3) 2 else 1
-        fun sx(u: Float) = iso.ix(sbX0 + u * (sbX1 - sbX0), y)
-        fun sy(u: Float, v: Float) = iso.iy(sbX0 + u * (sbX1 - sbX0), y, z0 + v * (z1 - z0))
+        fun sx(u: Float) = iso.ix(slateX0 + u * (slateX1 - slateX0), y)
+        fun sy(u: Float, v: Float) = iso.iy(slateX0 + u * (slateX1 - slateX0), y, z0 + v * (z1 - z0))
         for (k in 0 until n.coerceAtMost(15)) {
             val row = k / 5; val j = k % 5
             val top = 0.6f - row * 0.19f; val bottom = top - 0.14f
@@ -682,11 +738,25 @@ internal class BoccePainter : RoomPainter() {
         /** Where a thrown ball comes down on the sand, to roll on to the jack. */
         private const val LAND_X = 7.6f
 
-        /** MI and VI on the scoreboard, three columns of five rows. */
+        /** How much wider Friuli's slate is on each side, for NOI | VOI (m): three letters a side at every detail. */
+        private const val SLATE_WIDER = 0.35f
+
+        /**
+         * MI and VI on the scoreboard, three columns of five rows; NOI and VOI on Friuli's ([chalkWord]: the N four columns,
+         * the O three, the I one).
+         */
         private val LETTERS = mapOf(
             'M' to listOf("X.X", "XXX", "X.X", "X.X", "X.X"),
             'I' to listOf(".X.", ".X.", ".X.", ".X.", ".X."),
             'V' to listOf("X.X", "X.X", "X.X", "X.X", ".X."),
+            'N' to listOf("X..X", "XX.X", "X.XX", "X..X", "X..X"),
+            'O' to listOf(".X.", "X.X", "X.X", "X.X", ".X."),
         )
+
+        /** The I of Friuli's headings: one stroke wide. */
+        private val NARROW_I = listOf("X", "X", "X", "X", "X")
+
+        /** The N of Friuli's headings on the scene's canvas: three strokes wide. */
+        private val NARROW_N = listOf("X.X", "XXX", "XXX", "X.X", "X.X")
     }
 }

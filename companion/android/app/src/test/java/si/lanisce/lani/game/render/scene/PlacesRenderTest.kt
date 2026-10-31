@@ -135,7 +135,10 @@ class PlacesRenderTest {
             val ha = pa.render(a, frame(art)).map { it.target }.toSet()
             val hb = pb.render(b, frame(art, world = friuli)).map { it.target }.toSet()
             assertNotEquals("$art: Friuli looks like Primorska", a.pixels.toList(), b.pixels.toList())
-            assertEquals("$art: the same things and people to tap in Friuli", ha, hb)
+            // the same things and people, and those only Friuli's look draws (the playground's fontanella: SceneFixtures)
+            val only = SceneArt.objects.getValue(art).filter { si.lanisce.lani.game.scene.SceneFixtures.of(art, it) == si.lanisce.lani.game.scene.SceneFixtures.A_LOOK_ONLY }
+            assertEquals("$art: the same things and people to tap in Friuli", ha + only.map { SceneTarget.Thing(it) }, hb)
+            for (slot in only) assertTrue("$art/$slot not drawn in Primorska", SceneTarget.Thing(slot) !in ha)
             for (slot in SceneArt.objects.getValue(art)) assertTrue("$art/$slot tappable in Friuli", SceneTarget.Thing(slot) in hb)
         }
     }

@@ -94,6 +94,8 @@ internal class WatchtowerPainter : VistaPainter() {
     private var village: FireStyle? = null
     private var flagFriuli = false
     private var stone = false
+    /** Friuli's pedlar ([pedlar]): the cramâr from Carnia with his crassigne, the wooden case of little drawers on his back. */
+    private var cramar = false
     private var edgeRow = IntArray(0)
     private var sunLeft = true
     private var lit = false
@@ -114,6 +116,7 @@ internal class WatchtowerPainter : VistaPainter() {
         village = if (variant("village") == "friuli") FireStyle.of("friuli", look.landscape) else null
         flagFriuli = variant("flag") == "friuli"
         stone = variant("tower") == "stone"
+        cramar = variant("pedlar") == "cramar"
         sunLeft = (sunAt()?.first ?: vx) < vx
         lit = env.windows > 0.35f
         towerFrom = Int.MAX_VALUE
@@ -426,7 +429,9 @@ internal class WatchtowerPainter : VistaPainter() {
      * The pedlar a dialog sees coming ("pedlar": Nejc's "Tam je, na cesti! Velik koš ima na hrbtu!"): the krošnjar walking
      * down the road from where it comes past the forest's edge to the gate, the level how far he has come (at 1 he is in).
      * A little man in a black hat and a white shirt under his krošnja, its frame higher than his hat with a sieve on top:
-     * a sprite, so the eye finds him from up here (a man's size would be a pixel or two), in the haze of the road.
+     * a sprite, so the eye finds him from up here (a man's size would be a pixel or two), in the haze of the road. In
+     * Friuli ([cramar]) the cramâr in his brown jacket under his crassigne, a walnut case of little drawers, its rows
+     * lighter at their edges, higher than his hat ("Ha una cassetta di legno sulla schiena!").
      */
     private fun pedlar(level: Float) {
         if (level >= 0.995f) return
@@ -442,15 +447,26 @@ internal class WatchtowerPainter : VistaPainter() {
         // outlined as the roofs below are, in the haze
         prop(col(Pal.OUTLINE)) {
             sprite(bx, by) {
-                // the krošnja behind him: two posts from his hips up past his hat, rails across, a sieve on the top rail
-                c.vline(bx + 1, by - 8, by - 3, woodD); c.vline(bx + 3, by - 8, by - 3, wood)
-                c.hline(bx + 1, bx + 3, by - 8, woodL); c.hline(bx + 1, bx + 3, by - 5, wood)
-                c.set(bx + 2, by - 7, woodD); c.set(bx + 2, by - 6, wood)
-                c.set(bx + 2, by - 10, woodL); c.set(bx + 1, by - 9, woodL); c.set(bx + 3, by - 9, wood); c.set(bx + 2, by - 9, mesh)
+                if (cramar) {
+                    // the crassigne behind him: a walnut case from his hips up past his hat, its drawers in rows, a ledge on top
+                    val walnut = col(Col.hex(0x7A4A2C)); val walnutL = col(Col.hex(0xA8703E)); val walnutD = col(Col.hex(0x4E2E1C))
+                    c.fillRect(bx + 1, by - 9, 3, 6, walnut)
+                    c.vline(bx + 3, by - 9, by - 4, walnutD)
+                    for (r in intArrayOf(by - 8, by - 6)) c.hline(bx + 1, bx + 2, r, walnutL)
+                    // a brass knob on each drawer
+                    for (r in intArrayOf(by - 7, by - 5)) c.set(bx + 2, r, col(Pal.GOLD))
+                    c.hline(bx + 1, bx + 3, by - 10, walnutD)
+                } else {
+                    // the krošnja behind him: two posts from his hips up past his hat, rails across, a sieve on the top rail
+                    c.vline(bx + 1, by - 8, by - 3, woodD); c.vline(bx + 3, by - 8, by - 3, wood)
+                    c.hline(bx + 1, bx + 3, by - 8, woodL); c.hline(bx + 1, bx + 3, by - 5, wood)
+                    c.set(bx + 2, by - 7, woodD); c.set(bx + 2, by - 6, wood)
+                    c.set(bx + 2, by - 10, woodL); c.set(bx + 1, by - 9, woodL); c.set(bx + 3, by - 9, wood); c.set(bx + 2, by - 9, mesh)
+                }
                 // the legs, the body, the head under the hat
                 c.hline(bx - 1, bx, by - 2, legs)
                 if (step) { c.set(bx - 2, by - 1, legs); c.set(bx + 1, by - 1, legs) } else c.hline(bx - 1, bx, by - 1, legs)
-                c.fillRect(bx - 1, by - 4, 2, 2, shirt)
+                c.fillRect(bx - 1, by - 4, 2, 2, if (cramar) col(Col.hex(0x5A4232)) else shirt)
                 c.set(bx - 1, by - 5, skin); c.set(bx, by - 5, skin)
                 c.hline(bx - 2, bx + 1, by - 6, hat); c.set(bx - 1, by - 7, hat); c.set(bx, by - 7, hat)
             }

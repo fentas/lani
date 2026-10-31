@@ -12,11 +12,12 @@ object SceneArt {
      * slots, 3 the mill inside, 4 the village's places (the fire station, the bocce court, the playground, the wayside
      * chapel, the palisade's gate, the lookout tower), 5 the finished projects as things of the pictures they stand in (the
      * square's maypole, fountain and clock, the stream's cart bridge, the field's toplar, the apiary's bee meadow), the
-     * square's standing spots by them, its climb and its strike, and a count of the hour. The app asks for its scenes with
-     * it (GET /scenes?arts=5); the bridge gives an app that asks for less, or doesn't say, only what its arts drew, so an
-     * older app never gets a place it can't paint (bridge/src/scenes.ts, `forApp`).
+     * square's standing spots by them, its climb and its strike, and a count of the hour, 6 the places' things of their own
+     * (the bocce court's inn, the playground's fontanella in Friuli, the chapel's altar candle). The app asks for its scenes
+     * with it (GET /scenes?arts=6); the bridge gives an app that asks for less, or doesn't say, only what its arts drew, so
+     * an older app never gets a place it can't paint (bridge/src/scenes.ts, `forApp`).
      */
-    const val VERSION = 5
+    const val VERSION = 6
 
     /** art id → object slots, back to front roughly. */
     val objects: Map<String, List<String>> = mapOf(
@@ -124,22 +125,24 @@ object SceneArt {
             "bench", "horn", "lantern", "window",
         ),
         // Na balinišču: the bocce court under the linden by the inn, its sand between the boards, the balls round the jack,
-        // the table under the vine pergola, the scoreboard.
+        // the table under the vine pergola, the scoreboard; the inn itself with its sign (Friuli's osteria and its frasca).
         "bocce" to listOf(
             "court", "board", "sand", "jack", "ball", "linden", "bench", "table", "jug", "glass", "scoreboard", "rake",
-            "meter", "pergola", "lantern",
+            "meter", "pergola", "lantern", "inn",
         ),
         // Na igrišču: the playground by the school, the swing, the slide, the sandpit with its bucket and spade, the
-        // climbing frame and the little house, the hopscotch in chalk, the chestnut tree, the fence and its gate.
+        // climbing frame and the little house, the hopscotch in chalk, the chestnut tree, the fence and its gate; in Friuli
+        // the fontanella by the fence (only its look draws it: SceneFixtures).
         "playground" to listOf(
             "swing", "slide", "sandpit", "sand", "bucket", "spade", "climber", "house", "ball", "hopscotch", "bench",
-            "tree", "fence", "gate", "school",
+            "tree", "fence", "gate", "fontanella", "school",
         ),
         // Pri kapelici: the wayside chapel by the road among the fields, its little bell in the turret, the altar with its
-        // embroidered cloth behind the grille, the bench and the linden beside it, the hills beyond.
+        // embroidered cloth behind the grille, the bench and the linden beside it, the hills beyond; the red candles on the
+        // step (candle) and the white one on the altar (altarcandle).
         "chapel" to listOf(
             "chapel", "roof", "bell", "altar", "cloth", "picture", "candle", "flowers", "grille", "bench", "linden",
-            "road", "field", "cross", "hills",
+            "road", "field", "cross", "hills", "altarcandle",
         ),
         // Pri vratih: the palisade's gate from inside, the road out through it over the meadow to the forest; it grows with
         // the palisade's level (SceneFixtures): the torches, the gate's roof and its pennant, the walkway's ladder, the bell.

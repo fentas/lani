@@ -32,8 +32,8 @@ import kotlin.math.sqrt
  *
  * Its effects ([si.lanisce.lani.game.scene.SceneArt.effects]):
  * - `bell`: the little bell swinging in its turret and ringing (how hard), its rings going out over the fields.
- * - `candles`: 0 all out, 1 all lit (the two red glass candles on the step and the one on the altar), one more lit with
- *   every third. Not set: one red one burns.
+ * - `candles`: 0 all out, 1 all lit (the two red glass candles on the step, `candle`, and the white one on the altar,
+ *   `altarcandle`), one more lit with every third. Not set: one red one burns.
  * - `flowers`: the flowers in the vases and the pot: 0 wilted, brown and drooping; 1 fresh in the season's colours, fading
  *   and drooping more the lower. Not set: fresh.
  * - `traveller`: a traveller with his staff and his hat walking up the road from our feet past the chapel and on toward the
@@ -45,9 +45,9 @@ import kotlin.math.sqrt
  * the painting's face and halo, the wheat's ears, the road's stones.
  *
  * Friuli's look ([look]; companion/SCENES.md "Culture looks"): an ancona: its walls ochre, its roof of coppi, no turret but
- * the bell on an iron bracket under the gable; inside a fresco of the Madonna and Child on a blue ground with stars; maize in
- * the field instead of wheat, Lombardy poplars along the far ditch, the village on the hill as Friuli builds it, with its
- * campanile.
+ * the bell on an iron bracket under the gable; inside a fresco of the Madonna and Child on a blue ground with stars, the white
+ * candle on the altar on a brass candlestick; maize in the field instead of wheat, Lombardy poplars along the far ditch, the
+ * village on the hill as Friuli builds it, with its campanile.
  */
 internal class ChapelPainter : VistaPainter() {
     override val art = "chapel"
@@ -81,10 +81,11 @@ internal class ChapelPainter : VistaPainter() {
     private val cloth = Col.hex(0xFAF6EC); private val clothBorder = Col.hex(0xC0302A)
     private val glassRed = Col.hex(0xB0202A)
 
-    /** Friuli's look ([readLook2]): the ancona, the maize, the Friulian village, the poplars. */
+    /** Friuli's look ([readLook2]): the ancona, the maize, the Friulian village, the poplars; the altar candle on its candlestick. */
     private var ancona = false
     private var maize = false
     private var friuliVillage = false
+    private var candlestick = false
 
     private val z: Int get() = detail
 
@@ -94,6 +95,7 @@ internal class ChapelPainter : VistaPainter() {
         ancona = variant("chapel") == "ancona"
         maize = variant("field") == "maize"
         friuliVillage = variant("village") != null
+        candlestick = variant("altarcandle") == "candlestick"
     }
 
     /** How hard the bell swings: the effect, else a tap's ring. */
@@ -313,7 +315,8 @@ internal class ChapelPainter : VistaPainter() {
         thing("cloth") { altarCloth() }
         thing("grille") { grille() }
         prop { step() }
-        thing("candle", slop = 1) { candles() }
+        thing("candle", slop = 1) { stepCandles() }
+        thing("altarcandle", slop = 2) { altarCandle() }
         thing("flowers", slop = 1) { flowers() }
         thing("bell", slop = 2) { bell() }
         thing("cross", slop = 1) { cross() }
@@ -520,8 +523,8 @@ internal class ChapelPainter : VistaPainter() {
     /** How many of the candles burn: `candles` (0 none, 1 all three), else one red one. */
     private fun litCandles(): Int = fx("candles")?.let { (it * 3f + 0.5f).toInt().coerceIn(0, 3) } ?: 1
 
-    /** The two red glass candles on the step and the white one on the altar, their flames as `candles` has them. */
-    private fun candles() {
+    /** The two red glass candles on the step (the lumini, `candle`), their flames as `candles` has them. */
+    private fun stepCandles() {
         val n = litCandles()
         val d0 = cd - 0.4f
         for ((k, cxm) in floatArrayOf(ax0 + 0.05f, ax1 - 0.05f).withIndex()) {
@@ -539,12 +542,31 @@ internal class ChapelPainter : VistaPainter() {
                 c.set((cx - r).toInt(), (base - hh).toInt(), env.lit(Col.hex(0xE85A5A)))
             }
         }
-        // the altar's candle, a white stick on the cloth's right
+    }
+
+    /**
+     * The altar's candle (`altarcandle`), a white stick on the cloth's right: lit with the third of `candles`. In Friuli's
+     * look ([candlestick]) on a brass candlestick, as wide as a pixel of the picture, so a child finds la candela.
+     */
+    private fun altarCandle() {
         val dB = cdb - 0.35f
         val ax = gx(cmid + 0.38f, dB); val ab = hy(dB, 0.98f)
         val ch = 0.3f * pm(dB)
-        c.vline(ax.toInt(), (ab - ch).toInt(), ab.toInt(), env.lit(Col.hex(0xF6F0DC)))
-        if (n >= 3) flame(ax, ab - ch, 0.45f, 2)
+        val wax = env.lit(Col.hex(0xF6F0DC))
+        if (candlestick) {
+            val brass = env.lit(Pal.GOLD); val brassD = env.lit(Col.hex(0xB07A1A))
+            val x = ax.toInt(); val foot = ab.toInt()
+            // the foot, the stem, the drip pan; the candle on it
+            c.fillRect(x - z, foot - z, 3 * z, z, brassD)
+            c.fillRect(x, foot - 3 * z, z, 2 * z, brass)
+            c.fillRect(x - z / 2, foot - 3 * z - max(1, z / 2), 2 * z - z / 2, max(1, z / 2), brass)
+            val top = foot - 3 * z - max(1, z / 2) - (ch * 0.9f).toInt()
+            c.fillRect(x, top, z, foot - 3 * z - max(1, z / 2) - top, wax)
+            if (litCandles() >= 3) flame(x + z / 2f, top.toFloat(), 0.45f, 2)
+            return
+        }
+        c.vline(ax.toInt(), (ab - ch).toInt(), ab.toInt(), wax)
+        if (litCandles() >= 3) flame(ax, ab - ch, 0.45f, 2)
     }
 
     private fun flame(x: Float, y: Float, size: Float, seed: Int) {

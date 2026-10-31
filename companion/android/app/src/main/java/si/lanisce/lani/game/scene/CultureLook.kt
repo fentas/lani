@@ -238,9 +238,10 @@ object CultureLooks {
      * plaster under coppi, its huts of stone (on the coast the lagoon's casoni, thatched with reed), the free-standing brick
      * campanile among the roofs, vine rows in the fields and the Isonzo emerald in the valley; Friuli's flag, the golden
      * eagle on blue; the tower's top built of river cobbles with bands of brick from its third level, a brick arch from each
-     * pillar to the eave, the tavelle (flat terracotta tiles) under its roof and an iron railing from its fourth.
+     * pillar to the eave, the tavelle (flat terracotta tiles) under its roof and an iron railing from its fourth; the pedlar
+     * on the road the cramâr from Carnia under his crassigne, the wooden case of little drawers (`pedlar`).
      */
-    internal val FRIULI_WATCHTOWER = Table.of("watchtower", variants = mapOf("village" to "friuli", "flag" to "friuli", "tower" to "stone"))
+    internal val FRIULI_WATCHTOWER = Table.of("watchtower", variants = mapOf("village" to "friuli", "flag" to "friuli", "tower" to "stone", "pedlar" to "cramar"))
 
     /**
      * Friuli's market (Al mercato, MarketPainter): a market day in a Collio village. The houses round it as Friuli builds them
@@ -371,32 +372,43 @@ object CultureLooks {
 
     /**
      * Friuli's bocce court (BoccePainter): an osteria's wall in ochre under coppi, its shutters brown, and the frasca, the leafy
-     * branch hung over the door of an osteria that has its own wine open.
+     * branch hung over the door of an osteria that has its own wine open (the `inn`, a thing of the scene with its frasca);
+     * NOI | VOI on the scoreboard, we and you, for the Slovene MI | VI (`scoreboard`).
      */
     private val FRIULI_BOCCE = Table.of(
         "bocce",
         colours = mapOf("shutter" to 0xFF6E4A2E.toInt(), "shutter.l" to 0xFF8E6440.toInt()),
-        variants = mapOf("inn" to "osteria", "frasca" to "frasca"),
+        variants = mapOf("inn" to "osteria", "frasca" to "frasca", "scoreboard" to "noi"),
     )
 
     /**
      * Friuli's playground (PlaygroundPainter): the school's wall pale yellow over a green dado, as Maestra Elena's classroom
-     * has it, and a fontanella by the fence, the green cast-iron drinking fountain of the Italian towns.
+     * has it, and a fontanella by the fence, the green cast-iron drinking fountain of the Italian towns: a thing of the scene
+     * only this look draws, always there in it (SceneFixtures' `fontanella`, not there in any other culture's).
      */
-    private val FRIULI_PLAYGROUND = Table.of("playground", variants = mapOf("school" to "friuli", "fontanella" to "fontanella"))
+    private val FRIULI_PLAYGROUND = Table.of(
+        "playground",
+        variants = mapOf("school" to "friuli", "fontanella" to "fontanella"),
+        fixtures = mapOf("fontanella" to null),
+    )
 
     /**
      * Friuli's wayside chapel (ChapelPainter): an ancona, its walls ochre under coppi, the bell on an iron bracket under its
-     * gable, the fresco of the Madonna and Child on a blue ground with stars; maize in the field, Lombardy poplars along a far
-     * ditch, the village on the hill as Friuli builds it with its campanile.
+     * gable, the fresco of the Madonna and Child on a blue ground with stars, the white candle on the altar on a brass
+     * candlestick (`altarcandle`, la candela of Alla cappelletta); maize in the field, Lombardy poplars along a far ditch,
+     * the village on the hill as Friuli builds it with its campanile.
      */
-    private val FRIULI_CHAPEL = Table.of("chapel", variants = mapOf("chapel" to "ancona", "field" to "maize", "village" to "friuli", "trees" to "pioppi"))
+    private val FRIULI_CHAPEL = Table.of(
+        "chapel",
+        variants = mapOf("chapel" to "ancona", "field" to "maize", "village" to "friuli", "trees" to "pioppi", "altarcandle" to "candlestick"),
+    )
 
     /**
      * Friuli's palisade gate (PalisadePainter): the land beyond it is Friuli's, Lombardy poplars along the road, the vines strung
-     * between pollarded mulberries on the meadow, the campanile of a village on the far hill.
+     * between pollarded mulberries on the meadow, the campanile of a village on the far hill; the pedlar coming up the road
+     * the cramâr from Carnia under his crassigne, the walnut case of little drawers (`pedlar`), not the Ribnica krošnja.
      */
-    private val FRIULI_PALISADE = Table.of("palisade", variants = mapOf("land" to "friuli"))
+    private val FRIULI_PALISADE = Table.of("palisade", variants = mapOf("land" to "friuli", "pedlar" to "cramar"))
 
     /**
      * Friuli's lookout tower (LookoutPainter): the view of Friuli, the Collio's hills striped with vines, the plain with its rows

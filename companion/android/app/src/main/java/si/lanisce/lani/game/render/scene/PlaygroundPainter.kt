@@ -40,7 +40,8 @@ import kotlin.math.sin
  * grain, the chestnut's leaves.
  *
  * Friuli's playground ([look]; companion/SCENES.md "Culture looks"): the school's wall pale yellow over a green dado, as the
- * Friuli school's classroom; a fontanella by the fence, the green cast-iron drinking fountain of the Italian towns.
+ * Friuli school's classroom; a fontanella by the fence, the green cast-iron drinking fountain of the Italian towns, a thing
+ * of its own (`fontanella`): only Friuli's look draws it ([si.lanisce.lani.game.scene.SceneFixtures]).
  */
 internal class PlaygroundPainter : RoomPainter() {
     override val art = "playground"
@@ -108,7 +109,7 @@ internal class PlaygroundPainter : RoomPainter() {
         thing("school") { school() }
         thing("fence") { fences() }
         thing("gate") { gate() }
-        if (fontanella) prop { fontanella() }
+        if (fontanella) thing("fontanella", slop = 1) { fontanella() }
         thing("tree") { chestnut() }
         thing("bench") { bench() }
         bubbles()

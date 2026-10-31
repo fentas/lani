@@ -40,7 +40,8 @@ import kotlin.math.sin
  *   them by day (how many: up to five).
  * - `flock`: Luka's flock (as many as the dialog counts, else twelve): to 0.5 they go out through the gate and down the road
  *   to the meadow, from 0.5 they come home through it, 1 all in.
- * - `pedlar`: the pedlar under his krošnja coming up the road out of the forest to the gate (how far: 1 in at the gate).
+ * - `pedlar`: the pedlar under his krošnja coming up the road out of the forest to the gate (how far: 1 in at the gate); in
+ *   Friuli the cramâr from Carnia under his crassigne, a walnut case of little drawers.
  * - `bell`: the bell under the gate's roof swinging and ringing (how hard, at the fifth level).
  *
  * Tapped ([pokes]): the bell rings once, then twice (at the fifth level; a knock on the gate's post before it).
@@ -49,7 +50,8 @@ import kotlin.math.sin
  * flames, the grass of the meadow, the sheep's wool.
  *
  * Friuli's gate ([look]; companion/SCENES.md "Culture looks"): the land beyond is Friuli's: Lombardy poplars along the road,
- * the vines strung between pollarded mulberries over the meadow, the campanile of a village on the far hill.
+ * the vines strung between pollarded mulberries over the meadow, the campanile of a village on the far hill; the pedlar on
+ * the road the cramâr with his crassigne ("una cassetta con tanti cassettini").
  */
 internal class PalisadePainter : VistaPainter() {
     override val art = "palisade"
@@ -90,11 +92,16 @@ internal class PalisadePainter : VistaPainter() {
 
     /** Friuli's land beyond ([readLook2]). */
     private var friuli = false
+    /** Friuli's pedlar ([readLook2]): the cramâr from Carnia under his crassigne, the wooden case of little drawers. */
+    private var cramar = false
 
     private val z: Int get() = detail
     private val items = ArrayList<Pair<Float, () -> Unit>>()
 
-    private fun readLook2() { friuli = variant("land") == "friuli" }
+    private fun readLook2() {
+        friuli = variant("land") == "friuli"
+        cramar = variant("pedlar") == "cramar"
+    }
 
     private fun gateOpen(): Float = fx("gate") ?: if (env.dark > 0.55f) 0f else 1f
     private fun torchLit(): Boolean = lv >= 2 && (fx("torch")?.let { it > 0.5f } ?: (env.windows > 0.35f))
@@ -684,13 +691,45 @@ internal class PalisadePainter : VistaPainter() {
         val hgt = 1.7f * p
         c.line(bx.toInt(), (by - hgt * 0.42f).toInt(), (bx + step * 0.12f * p).toInt(), by.toInt(), env.lit(Col.hex(0x2A2A2E)))
         c.line(bx.toInt(), (by - hgt * 0.42f).toInt(), (bx - step * 0.12f * p).toInt(), by.toInt(), env.lit(Col.hex(0x1E1E22)))
-        // the krošnja on his back: a wooden frame stacked with sieves and spoons, higher than his head
-        c.fillRect((bx - 0.35f * p).toInt(), (by - hgt * 1.25f).toInt(), max(2, (0.5f * p).toInt()), max(2, (hgt * 0.8f).toInt()), env.lit(Col.hex(0xB08A5A)))
-        c.fillEllipse(bx - 0.1f * p, by - hgt * 1.28f, max(1f, 0.3f * p), max(1f, 0.1f * p), env.lit(Col.hex(0xE0C898)))
-        c.fillRect((bx - 0.12f * p).toInt(), (by - hgt * 0.85f).toInt(), max(2, (0.28f * p).toInt()), max(1, (hgt * 0.45f).toInt()), env.lit(Col.hex(0xF0EEE6)))
+        if (cramar) crassigne(bx, by, p, hgt)
+        else {
+            // the krošnja on his back: a wooden frame stacked with sieves and spoons, higher than his head
+            c.fillRect((bx - 0.35f * p).toInt(), (by - hgt * 1.25f).toInt(), max(2, (0.5f * p).toInt()), max(2, (hgt * 0.8f).toInt()), env.lit(Col.hex(0xB08A5A)))
+            c.fillEllipse(bx - 0.1f * p, by - hgt * 1.28f, max(1f, 0.3f * p), max(1f, 0.1f * p), env.lit(Col.hex(0xE0C898)))
+        }
+        // his shirt (the cramâr's brown jacket)
+        c.fillRect((bx - 0.12f * p).toInt(), (by - hgt * 0.85f).toInt(), max(2, (0.28f * p).toInt()), max(1, (hgt * 0.45f).toInt()), env.lit(if (cramar) Col.hex(0x5A4232) else Col.hex(0xF0EEE6)))
         c.fillCircle(bx, by - hgt * 0.9f, max(0.6f, 0.13f * p), env.lit(Pal.SKIN))
         c.hline((bx - 0.2f * p).toInt(), (bx + 0.2f * p).toInt(), (by - hgt * 0.97f).toInt(), env.lit(Col.hex(0x1A1A1E)))
         c.fillRect((bx - 0.1f * p).toInt(), (by - hgt * 1.05f).toInt(), max(1, (0.2f * p).toInt()), max(1, (0.08f * p).toInt()), env.lit(Col.hex(0x1A1A1E)))
+    }
+
+    /**
+     * The cramâr's crassigne on his back (Friuli): a walnut case from his hips up past his hat, [p] px a metre, [hgt] his
+     * height, standing out on his left; its little drawers in rows, each with its brass knob once there are pixels for it,
+     * the ledge of its lid on top.
+     */
+    private fun crassigne(bx: Float, by: Float, p: Float, hgt: Float) {
+        val left = (bx - 0.4f * p).toInt(); val top = (by - hgt * 1.22f).toInt()
+        val wd = max(2, (0.5f * p).toInt()); val ht = max(3, (hgt * 0.78f).toInt())
+        val walnut = env.lit(Col.hex(0x7A4A2C)); val walnutL = env.lit(Col.hex(0xA8703E)); val walnutD = env.lit(Col.hex(0x4E2E1C))
+        c.fillRect(left, top, wd, ht, walnut)
+        c.vline(left + wd - 1, top, top + ht - 1, walnutD)
+        // the drawers: a row every [row] px, lighter along its top edge, a knob in the middle of each
+        val row = max(2, (0.16f * p).toInt())
+        var y = top + row
+        while (y < top + ht - 1) {
+            c.hline(left, left + wd - 2, y, walnutD)
+            if (y + 1 < top + ht - 1) c.hline(left, left + wd - 2, y + 1, walnutL)
+            if (wd >= 4) for (col in 0 until if (wd >= 7) 2 else 1) {
+                val kx = left + (if (wd >= 7) (wd - 1) * (col * 2 + 1) / 4 else (wd - 1) / 2)
+                c.set(kx, y - max(1, row / 2), env.lit(Pal.GOLD))
+            }
+            y += row
+        }
+        // the lid's ledge, a little wider than the case
+        c.hline(left - 1, left + wd, top - 1, walnutD)
+        if (p > 8f) c.hline(left - 1, left + wd, top - 2, walnutL)
     }
 
     private fun lights() {

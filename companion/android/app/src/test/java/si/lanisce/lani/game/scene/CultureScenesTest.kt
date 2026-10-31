@@ -105,7 +105,9 @@ class CultureScenesTest {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
             assertEquals(art, s.art)
             assertEquals(from.split(","), s.from)
-            assertTrue("$id: every slot of the art, once", s.objects.map { it.slot }.sorted() == SceneArt.objects.getValue(art).sorted())
+            // every slot the art draws in the culture's look (a thing only another culture's look draws isn't one: SceneFixtures)
+            val drawn = SceneArt.objects.getValue(art).filter { SceneFixtures.of(art, it, culture) != SceneFixtures.A_LOOK_ONLY }
+            assertTrue("$id: every slot of the art, once", s.objects.map { it.slot }.sorted() == drawn.sorted())
             assertTrue("$id: spots", s.people.all { it.slot in SceneArt.personSlots.getValue(art) && it.art in SceneArt.people && it.villager != null })
             val used = s.dialogs.flatMap { d -> d.lines.flatMap { l -> l.fx.keys + l.choices.flatMap { it.reply?.fx.orEmpty().keys } } }.toSet()
             // an effect that brings one of the wild animals is used where a line has someone see it (the ibex on his crag in
