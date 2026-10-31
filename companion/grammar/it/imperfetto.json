@@ -1,0 +1,100 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "imperfetto",
+  "language": "it",
+  "level": "A2",
+  "emoji": "📜",
+  "title": {
+    "it": "L'imperfetto: ero, giocavo, c'era una volta",
+    "sl": "Imperfetto: ero, giocavo, c'era una volta",
+    "en": "The imperfetto: ero, giocavo, c'era una volta",
+    "de": "Das Imperfekt: ero, giocavo, c'era una volta"
+  },
+  "rule": {
+    "en": "The **imperfetto** tells how things were and what used to happen: a description (**Era sera. Faceva freddo.** It was evening. It was cold.), a habit (**Da piccolo Nonno Bepi giocava sempre nel fiume.** As a boy Nonno Bepi always played in the river.), and the start of every story: **C'era una volta …** (Once upon a time there was …).\n\nTake the infinitive without **-re** and add **-vo, -vi, -va, -vamo, -vate, -vano**: **giocare → giocavo**, **leggere → leggevo**, **dormire → dormivo**. **avere** is regular: **avevo**.\n\nOnly a few are irregular: **essere → ero, eri, era, eravamo, eravate, erano** (**c'era, c'erano**: there was, there were), **fare → facevo**, **dire → dicevo**, **bere → bevevo**.\n\nWhat happened once stays the passato prossimo: **Ieri Lorenzo è caduto.**",
+    "sl": "**Imperfetto** pove, kakšno je bilo in kaj se je dogajalo navadno: opis (**Era sera. Faceva freddo.** Bil je večer. Bilo je mrzlo.), navado (**Da piccolo Nonno Bepi giocava sempre nel fiume.** Ko je bil dedek Bepi majhen, se je vedno igral v reki.) in začetek vsake pravljice: **C'era una volta …** (Nekoč je živel …).\n\nNedoločniku odvzameš **-re** in dodaš **-vo, -vi, -va, -vamo, -vate, -vano**: **giocare → giocavo**, **leggere → leggevo**, **dormire → dormivo**. **avere** je pravilen: **avevo**.\n\nNepravilnih je le nekaj: **essere → ero, eri, era, eravamo, eravate, erano** (**c'era, c'erano**: bil je, bili so), **fare → facevo**, **dire → dicevo**, **bere → bevevo**.\n\nKar se je zgodilo enkrat, ostane v passato prossimo: **Ieri Lorenzo è caduto.** (Včeraj je Lorenzo padel.)",
+    "de": "Das **imperfetto** erzählt, wie es war und was früher immer passierte: eine Beschreibung (**Era sera. Faceva freddo.** Es war Abend. Es war kalt.), eine Gewohnheit (**Da piccolo Nonno Bepi giocava sempre nel fiume.** Als Nonno Bepi klein war, spielte er immer im Fluss.) und den Anfang jeder Geschichte: **C'era una volta …** (Es war einmal …). Oft passt das deutsche Präteritum: era (war), aveva (hatte).\n\nNimm den Infinitiv ohne **-re** und häng **-vo, -vi, -va, -vamo, -vate, -vano** an: **giocare → giocavo**, **leggere → leggevo**, **dormire → dormivo**. **avere** ist regelmäßig: **avevo**.\n\nUnregelmäßig sind nur wenige: **essere → ero, eri, era, eravamo, eravate, erano** (**c'era, c'erano**: es gab), **fare → facevo**, **dire → dicevo**, **bere → bevevo**.\n\nWas einmal passiert ist, bleibt im passato prossimo: **Ieri Lorenzo è caduto.**"
+  },
+  "table": {
+    "head": [
+      { "it": "persona", "de": "Person", "sl": "oseba", "en": "person" },
+      { "it": "essere", "de": "essere (sein)", "sl": "essere (biti)", "en": "essere (be)" },
+      { "it": "giocare", "de": "giocare (spielen)", "sl": "giocare (igrati se)", "en": "giocare (play)" },
+      { "it": "leggere", "de": "leggere (lesen)", "sl": "leggere (brati)", "en": "leggere (read)" }
+    ],
+    "rows": [
+      ["io", "ero", "giocavo", "leggevo"],
+      ["tu", "eri", "giocavi", "leggevi"],
+      ["lui, lei", "era", "giocava", "leggeva"],
+      ["noi", "eravamo", "giocavamo", "leggevamo"],
+      ["voi", "eravate", "giocavate", "leggevate"],
+      ["loro", "erano", "giocavano", "leggevano"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "C'era una volta un gigante, l'Orcolat.",
+      "de": "Es war einmal ein Riese, der Orcolat.",
+      "sl": "Nekoč je živel velikan, Orcolat.",
+      "en": "Once upon a time there was a giant, the Orcolat."
+    },
+    {
+      "it": "Era sera e faceva freddo.",
+      "de": "Es war Abend, und es war kalt.",
+      "sl": "Bil je večer in bilo je mrzlo.",
+      "en": "It was evening and it was cold.",
+      "note": { "de": "Eine Beschreibung: wie es war.", "sl": "Opis: kakšno je bilo.", "en": "A description: how it was." }
+    },
+    {
+      "it": "Da piccolo Nonno Bepi giocava nel fiume.",
+      "de": "Als Nonno Bepi klein war, spielte er im Fluss.",
+      "sl": "Ko je bil dedek Bepi majhen, se je igral v reki.",
+      "en": "As a boy Nonno Bepi played in the river.",
+      "note": {
+        "de": "Eine Gewohnheit: was früher immer war.",
+        "sl": "Navada: kar je bilo nekoč vedno.",
+        "en": "A habit: what always used to be."
+      }
+    },
+    {
+      "it": "Le Agane abitavano nei ruscelli.",
+      "de": "Die Aganen wohnten in den Bächen.",
+      "sl": "Agane so živele v potokih.",
+      "en": "The Agane lived in the streams."
+    },
+    {
+      "it": "Nonna Rosa aveva un gatto bianco.",
+      "de": "Nonna Rosa hatte eine weiße Katze.",
+      "sl": "Babica Rosa je imela belo mačko.",
+      "en": "Nonna Rosa had a white cat."
+    },
+    {
+      "it": "Ogni estate andavamo al mare.",
+      "de": "Jeden Sommer fuhren wir ans Meer.",
+      "sl": "Vsako poletje smo hodili na morje.",
+      "en": "Every summer we went to the sea."
+    },
+    {
+      "it": "Lorenzo dormiva nella tenda.",
+      "de": "Lorenzo schlief im Zelt.",
+      "sl": "Lorenzo je spal v šotoru.",
+      "en": "Lorenzo was sleeping in the tent."
+    },
+    {
+      "it": "Che cosa facevi da piccola, nonna?",
+      "de": "Was hast du gemacht, als du klein warst, Oma?",
+      "sl": "Kaj si delala, ko si bila majhna, babica?",
+      "en": "What did you do as a little girl, Granny?",
+      "note": {
+        "de": "fare → facevo, facevi: unregelmäßig.",
+        "sl": "fare → facevo, facevi: nepravilen.",
+        "en": "fare → facevo, facevi: irregular."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["imperfetto", "imperfect", "past_tense", "past", "c_era"],
+  "see": ["imperfetto-passato", "passato-prossimo", "essere-avere"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

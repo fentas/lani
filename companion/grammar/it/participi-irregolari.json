@@ -1,0 +1,107 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "participi-irregolari",
+  "language": "it",
+  "level": "A2",
+  "emoji": "✍️",
+  "title": {
+    "it": "I participi irregolari: fatto, scritto, messo",
+    "sl": "Nepravilni deležniki: fatto, scritto, messo",
+    "en": "Irregular participles: fatto, scritto, messo",
+    "de": "Unregelmäßige Partizipien: fatto, scritto, messo"
+  },
+  "rule": {
+    "en": "Many common verbs, mostly in **-ere**, have a past participle of their own: **fare → fatto**, **scrivere → scritto**, **mettere → messo**. Learn them by heart, in families that sound alike:\n\n**-tto**: fatto (fare), detto (dire), letto (leggere), scritto (scrivere), rotto (rompere). **-so**: preso (prendere), messo (mettere), chiuso (chiudere), perso (perdere; perduto too), acceso (accendere), sceso (scendere). **-sto**: visto (vedere), chiesto (chiedere), risposto (rispondere), rimasto (rimanere). **-erto**: aperto (aprire), coperto (coprire), offerto (offrire). **-nto**: vinto (vincere), spento (spegnere), dipinto (dipingere). And **bevuto** (bere), **venuto** (venire), **nato** (nascere), **stato** (essere, stare).\n\nThey work as the regular ones do: with **avere** they stay as they are (**Giulia ha scritto**), with **essere** they agree (**Nonna Rosa è scesa**, **le pecore sono rimaste**).",
+    "sl": "Mnogi pogosti glagoli, večinoma na **-ere**, imajo svoj deležnik: **fare → fatto**, **scrivere → scritto**, **mettere → messo**. Naučiš se jih na pamet, v družinah, ki zvenijo podobno:\n\n**-tto**: fatto (fare), detto (dire), letto (leggere), scritto (scrivere), rotto (rompere). **-so**: preso (prendere), messo (mettere), chiuso (chiudere), perso (perdere; tudi perduto), acceso (accendere), sceso (scendere). **-sto**: visto (vedere), chiesto (chiedere), risposto (rispondere), rimasto (rimanere). **-erto**: aperto (aprire), coperto (coprire), offerto (offrire). **-nto**: vinto (vincere), spento (spegnere), dipinto (dipingere). In še **bevuto** (bere), **venuto** (venire), **nato** (nascere), **stato** (essere, stare).\n\nDelujejo kot pravilni: z **avere** ostanejo enaki (**Giulia ha scritto**, Giulia je napisala), z **essere** se ujemajo (**Nonna Rosa è scesa**, **le pecore sono rimaste**).",
+    "de": "Viele häufige Verben, meist auf **-ere**, haben ein eigenes Partizip: **fare → fatto**, **scrivere → scritto**, **mettere → messo**. Wie im Deutschen (gehen → gegangen) lernst du sie auswendig, am besten in Familien, die gleich klingen:\n\n**-tto**: fatto (fare), detto (dire), letto (leggere), scritto (scrivere), rotto (rompere). **-so**: preso (prendere), messo (mettere), chiuso (chiudere), perso (perdere; auch perduto), acceso (accendere), sceso (scendere). **-sto**: visto (vedere), chiesto (chiedere), risposto (rispondere), rimasto (rimanere). **-erto**: aperto (aprire), coperto (coprire), offerto (offrire). **-nto**: vinto (vincere), spento (spegnere), dipinto (dipingere). Und **bevuto** (bere), **venuto** (venire), **nato** (nascere), **stato** (essere, stare).\n\nSie funktionieren wie die regelmäßigen: mit **avere** bleiben sie gleich (**Giulia ha scritto**), mit **essere** richten sie sich nach dem Subjekt (**Nonna Rosa è scesa**, **le pecore sono rimaste**)."
+  },
+  "table": {
+    "head": [
+      { "it": "famiglia", "de": "Familie", "sl": "družina", "en": "family" },
+      { "it": "infinito", "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive" },
+      { "it": "participio", "de": "Partizip", "sl": "deležnik", "en": "participle" }
+    ],
+    "rows": [
+      ["-tto", "fare · dire · leggere", "fatto · detto · letto"],
+      ["-tto", "scrivere · rompere", "scritto · rotto"],
+      ["-so", "prendere · mettere · chiudere", "preso · messo · chiuso"],
+      ["-so", "perdere · accendere · scendere", "perso · acceso · sceso"],
+      ["-sto", "vedere · chiedere · rispondere", "visto · chiesto · risposto"],
+      ["-sto", "rimanere", "rimasto"],
+      ["-erto", "aprire · coprire · offrire", "aperto · coperto · offerto"],
+      ["-nto", "vincere · spegnere · dipingere", "vinto · spento · dipinto"],
+      ["-uto", "bere · venire", "bevuto · venuto"],
+      ["—", "nascere · essere, stare", "nato · stato"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Giulia ha scritto il suo nome sulla lavagna.",
+      "de": "Giulia hat ihren Namen an die Tafel geschrieben.",
+      "sl": "Giulia je napisala svoje ime na tablo.",
+      "en": "Giulia has written her name on the blackboard."
+    },
+    {
+      "it": "Chi ha aperto la finestra?",
+      "de": "Wer hat das Fenster aufgemacht?",
+      "sl": "Kdo je odprl okno?",
+      "en": "Who opened the window?"
+    },
+    {
+      "it": "Tommaso ha rotto il vaso con il pallone.",
+      "de": "Tommaso hat die Vase mit dem Ball kaputt gemacht.",
+      "sl": "Tommaso je z žogo razbil vazo.",
+      "en": "Tommaso broke the vase with the ball."
+    },
+    {
+      "it": "Moro ha preso il cappello di Nonno Bepi!",
+      "de": "Moro hat Nonno Bepis Hut genommen!",
+      "sl": "Moro je vzel dedku Bepiju klobuk!",
+      "en": "Moro has taken Nonno Bepi's hat!"
+    },
+    {
+      "it": "Abbiamo vinto la partita!",
+      "de": "Wir haben das Spiel gewonnen!",
+      "sl": "Zmagali smo na tekmi!",
+      "en": "We won the match!"
+    },
+    {
+      "it": "Lorenzo ha chiesto un gelato e il nonno ha risposto di sì.",
+      "de": "Lorenzo hat um ein Eis gebeten, und der Opa hat ja gesagt.",
+      "sl": "Lorenzo je prosil za sladoled in dedek je rekel ja.",
+      "en": "Lorenzo asked for an ice cream and his grandpa said yes.",
+      "note": {
+        "de": "chiedere → chiesto, rispondere → risposto: dieselbe Familie (-sto).",
+        "sl": "chiedere → chiesto, rispondere → risposto: ista družina (-sto).",
+        "en": "chiedere → chiesto, rispondere → risposto: the same family (-sto)."
+      }
+    },
+    {
+      "it": "Nonna Rosa è scesa in cantina.",
+      "de": "Nonna Rosa ist in den Keller hinuntergegangen.",
+      "sl": "Babica Rosa je šla dol v klet.",
+      "en": "Nonna Rosa has gone down to the cellar.",
+      "note": {
+        "de": "essere: das Partizip richtet sich nach Nonna Rosa, scesa.",
+        "sl": "essere: deležnik se ujema z babico Roso, scesa.",
+        "en": "essere: the participle agrees with Nonna Rosa, scesa."
+      }
+    },
+    {
+      "it": "Le pecore sono rimaste nella stalla.",
+      "de": "Die Schafe sind im Stall geblieben.",
+      "sl": "Ovce so ostale v hlevu.",
+      "en": "The sheep have stayed in the barn.",
+      "note": {
+        "de": "rimanere nimmt essere, wie bleiben: le pecore → rimaste.",
+        "sl": "rimanere gre z essere: le pecore → rimaste.",
+        "en": "rimanere takes essere: le pecore → rimaste."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["past_participle", "irregular_participle", "participio", "passato_prossimo", "irregular", "past_tense"],
+  "see": ["passato-prossimo", "verbi-irregolari", "essere-avere"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

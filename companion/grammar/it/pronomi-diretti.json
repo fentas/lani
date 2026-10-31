@@ -1,0 +1,110 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "pronomi-diretti",
+  "language": "it",
+  "level": "A2",
+  "emoji": "👉",
+  "title": { "it": "Lo, la, li, le: lo vedo, la prendo", "sl": "Ga, jo, jih: lo vedo, la prendo", "en": "Him, her, it, them: lo vedo, la prendo", "de": "Ihn, sie, es: lo vedo, la prendo" },
+  "rule": {
+    "en": "A pronoun stands for someone or something already named, so it isn't said twice: **Vedi Moro? Sì, lo vedo.** (Do you see Moro? Yes, I see him.) **lo** for one masculine (him, it), **la** for one feminine (her, it), **li** for masculine or mixed plural, **le** for feminine plural: **I biscotti? Li mangia Moro!** And for people **mi, ti, ci, vi**: **Mi vedi?** **Ti aspetto.**\n\nIt goes before the verb: **La prendo io.** **Non lo so.** With an infinitive it is joined to its end, the infinitive losing its **e**: **Voglio vederlo** (or **Lo voglio vedere**). **Ecco** takes it too: **Eccolo!** (There he is!)\n\n**lo** and **la** become **l'** before a vowel or an h: **L'ho visto.** In the passato prossimo the participle agrees with lo, la, li, le: **L'ho vista** (la palla), **Li ho presi** (i biscotti), **Le ho viste** (le pecore).",
+    "sl": "Zaimek stoji namesto nekoga ali nečesa, kar je že imenovano, da tega ne rečeš dvakrat: **Vedi Moro? Sì, lo vedo.** (Vidiš Mora? Ja, vidim ga.) **lo** za eno stvar moškega spola (ga), **la** za eno ženskega (jo), **li** za moški ali mešani množinski, **le** za ženski množinski (jih): **I biscotti? Li mangia Moro!** Za ljudi še **mi, ti, ci, vi** (me, te, nas, vas): **Mi vedi?** **Ti aspetto.**\n\nStoji pred glagolom: **La prendo io.** **Non lo so.** (Ne vem.) Z nedoločnikom se pripne na konec, nedoločnik izgubi **e**: **Voglio vederlo** (ali **Lo voglio vedere**). Tudi **ecco**: **Eccolo!** (Tu je!)\n\n**lo** in **la** postaneta **l'** pred samoglasnikom ali h: **L'ho visto.** V passato prossimo se deležnik ujema z lo, la, li, le: **L'ho vista** (la palla), **Li ho presi** (i biscotti), **Le ho viste** (le pecore).",
+    "de": "Ein Pronomen steht für jemanden oder etwas, das schon genannt wurde, damit man es nicht zweimal sagt: **Vedi Moro? Sì, lo vedo.** (Siehst du Moro? Ja, ich sehe ihn.) **lo** für eins männlich (ihn, es), **la** für eins weiblich (sie, es), **li** für männlich oder gemischt Plural, **le** für weiblich Plural: **I biscotti? Li mangia Moro!** Es zählt das italienische Geschlecht: **la palla** → **la** (den Ball → ihn). Für Personen auch **mi, ti, ci, vi** (mich, dich, uns, euch).\n\nEs steht vor dem Verb: **La prendo io.** **Non lo so.** (Ich weiß es nicht.) An einen Infinitiv wird es hinten angehängt, der Infinitiv verliert sein **e**: **Voglio vederlo** (oder **Lo voglio vedere**). Auch an **ecco**: **Eccolo!** (Da ist er!)\n\n**lo** und **la** werden vor Vokal oder h zu **l'**: **L'ho visto.** Im passato prossimo richtet sich das Partizip nach lo, la, li, le: **L'ho vista** (la palla), **Li ho presi** (i biscotti), **Le ho viste** (le pecore)."
+  },
+  "table": {
+    "head": [
+      { "it": "chi, che cosa", "de": "wen, was", "sl": "koga, kaj", "en": "whom, what" },
+      { "it": "pronome", "de": "Pronomen", "sl": "zaimek", "en": "pronoun" },
+      { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+    ],
+    "rows": [
+      ["io", "mi", "Mi vedi?"],
+      ["tu", "ti", "Ti aspetto."],
+      ["Moro, il pane", "lo · l'", "Lo vedo. L'ho visto."],
+      ["Giulia, la palla", "la · l'", "La prendo. L'ho presa."],
+      ["noi", "ci", "La maestra ci chiama."],
+      ["voi", "vi", "Vi aspetto."],
+      ["i biscotti, i bambini", "li", "Li mangio. Li ho mangiati."],
+      ["le pecore, le mele", "le", "Le vedo. Le ho viste."]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Vedi Moro? Sì, lo vedo!",
+      "de": "Siehst du Moro? Ja, ich sehe ihn!",
+      "sl": "Vidiš Mora? Ja, vidim ga!",
+      "en": "Do you see Moro? Yes, I see him!"
+    },
+    {
+      "it": "Dov'è la palla? La prendo io!",
+      "de": "Wo ist der Ball? Ich hole ihn!",
+      "sl": "Kje je žoga? Jaz jo vzamem!",
+      "en": "Where's the ball? I'll get it!",
+      "note": {
+        "de": "la palla ist weiblich → la, auch wenn es im Deutschen der Ball ist.",
+        "sl": "la palla je ženskega spola → la (jo).",
+        "en": "la palla is feminine → la."
+      }
+    },
+    {
+      "it": "I biscotti? Li ha mangiati Moro!",
+      "de": "Die Kekse? Die hat Moro gegessen!",
+      "sl": "Piškote? Pojedel jih je Moro!",
+      "en": "The biscuits? Moro ate them!",
+      "note": {
+        "de": "li → mangiati: das Partizip richtet sich nach li.",
+        "sl": "li → mangiati: deležnik se ujema z li.",
+        "en": "li → mangiati: the participle agrees with li."
+      }
+    },
+    {
+      "it": "Davide chiama le pecore e le porta al pascolo.",
+      "de": "Davide ruft die Schafe und bringt sie auf die Weide.",
+      "sl": "Davide pokliče ovce in jih odpelje na pašnik.",
+      "en": "Davide calls the sheep and takes them to the pasture."
+    },
+    {
+      "it": "Nonna Rosa ci aspetta per cena.",
+      "de": "Nonna Rosa wartet zum Abendessen auf uns.",
+      "sl": "Babica Rosa nas čaka za večerjo.",
+      "en": "Nonna Rosa is waiting for us for dinner."
+    },
+    {
+      "it": "Non lo so.",
+      "de": "Ich weiß es nicht.",
+      "sl": "Ne vem.",
+      "en": "I don't know.",
+      "note": {
+        "de": "lo steht hier für das, was gesagt wurde: es.",
+        "sl": "lo tu pomeni tisto, kar je bilo rečeno.",
+        "en": "lo here stands for what was said: it."
+      }
+    },
+    {
+      "it": "Il drago? Voglio vederlo!",
+      "de": "Der Drache? Ich will ihn sehen!",
+      "sl": "Zmaj? Hočem ga videti!",
+      "en": "The dragon? I want to see it!",
+      "note": {
+        "de": "vedere + lo → vederlo; auch: Lo voglio vedere.",
+        "sl": "vedere + lo → vederlo; tudi: Lo voglio vedere.",
+        "en": "vedere + lo → vederlo; also: Lo voglio vedere."
+      }
+    },
+    {
+      "it": "La lettera? L'ho scritta io.",
+      "de": "Der Brief? Den habe ich geschrieben.",
+      "sl": "Pismo? Jaz sem ga {m:napisal|f:napisala}.",
+      "en": "The letter? I wrote it.",
+      "note": {
+        "de": "la lettera → l'ho scritta.",
+        "sl": "la lettera → l'ho scritta (ženski spol).",
+        "en": "la lettera → l'ho scritta."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["direct_object", "object_pronoun", "pronomi_diretti", "pronoun", "clitic", "lo_la"],
+  "see": ["passato-prossimo", "participi-irregolari"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

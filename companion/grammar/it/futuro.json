@@ -1,0 +1,105 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "futuro",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🔮",
+  "title": { "it": "Il futuro: sarò, andrò, giocherò", "sl": "Prihodnjik: sarò, andrò, giocherò", "en": "The future: sarò, andrò, giocherò", "de": "Die Zukunft: sarò, andrò, giocherò" },
+  "rule": {
+    "en": "The future (**futuro semplice**) is one word: **Domani andrò al mare.** (Tomorrow I'll go to the sea.) The endings are the same for every verb, **-ò, -ai, -à, -emo, -ete, -anno**, on the infinitive without its last **-e**: **leggere → leggerò**, **dormire → dormirò**; in **-are** the **a** becomes **e**: **parlare → parlerò**. The **ò** and the **à** carry an accent.\n\nSpelling: **giocare → giocherò**, **cercare → cercherò** (the h keeps the sound hard); **mangiare → mangerò**, **cominciare → comincerò** (the i goes).\n\nShort ones: **essere → sarò**, **avere → avrò**, **andare → andrò**, **fare → farò**, **stare → starò**, **dare → darò**, **potere → potrò**, **dovere → dovrò**, **vedere → vedrò**, **sapere → saprò**, **venire → verrò**, **volere → vorrò**, **bere → berrò**.\n\nFor plans, promises and guesses: **Domani pioverà.** After **quando** too: **Quando sarò grande, avrò un cavallo.** For tomorrow the present is fine as well: **Domani vado al mare.**",
+    "sl": "Prihodnjik (**futuro semplice**) je ena beseda: **Domani andrò al mare.** (Jutri bom {m:šel|f:šla} na morje.) Končnice so pri vseh glagolih enake, **-ò, -ai, -à, -emo, -ete, -anno**, na nedoločniku brez zadnjega **-e**: **leggere → leggerò**, **dormire → dormirò**; pri **-are** se **a** spremeni v **e**: **parlare → parlerò**. **ò** in **à** imata naglas.\n\nPravopis: **giocare → giocherò**, **cercare → cercherò** (h ohrani trdi glas); **mangiare → mangerò**, **cominciare → comincerò** (i odpade).\n\nKratki: **essere → sarò**, **avere → avrò**, **andare → andrò**, **fare → farò**, **stare → starò**, **dare → darò**, **potere → potrò**, **dovere → dovrò**, **vedere → vedrò**, **sapere → saprò**, **venire → verrò**, **volere → vorrò**, **bere → berrò**.\n\nZa načrte, obljube in ugibanja: **Domani pioverà.** (Jutri bo deževalo.) Tudi za **quando**: **Quando sarò grande, avrò un cavallo.** (Ko bom {m:velik|f:velika}, bom {m:imel|f:imela} konja.) Za jutri je dober tudi sedanjik: **Domani vado al mare.**",
+    "de": "Die Zukunft (**futuro semplice**) ist ein Wort: **Domani andrò al mare.** (Morgen fahre ich ans Meer.) Die Endungen sind bei allen Verben gleich, **-ò, -ai, -à, -emo, -ete, -anno**, am Infinitiv ohne sein letztes **-e**: **leggere → leggerò**, **dormire → dormirò**; bei **-are** wird das **a** zu **e**: **parlare → parlerò**. **ò** und **à** haben einen Akzent.\n\nSchreibung: **giocare → giocherò**, **cercare → cercherò** (das h hält den Laut hart); **mangiare → mangerò**, **cominciare → comincerò** (das i fällt weg).\n\nKurze: **essere → sarò**, **avere → avrò**, **andare → andrò**, **fare → farò**, **stare → starò**, **dare → darò**, **potere → potrò**, **dovere → dovrò**, **vedere → vedrò**, **sapere → saprò**, **venire → verrò**, **volere → vorrò**, **bere → berrò**.\n\nFür Pläne, Versprechen und Vermutungen: **Domani pioverà.** Auch nach **quando**, wo das Deutsche das Präsens nimmt: **Quando sarò grande, avrò un cavallo.** (Wenn ich groß bin, …) Für morgen geht auch das Präsens: **Domani vado al mare.**"
+  },
+  "table": {
+    "head": [
+      { "it": "persona", "de": "Person", "sl": "oseba", "en": "person" },
+      { "it": "parlare", "de": "parlare (sprechen)", "sl": "parlare (govoriti)", "en": "parlare (speak)" },
+      { "it": "leggere", "de": "leggere (lesen)", "sl": "leggere (brati)", "en": "leggere (read)" },
+      { "it": "essere", "de": "essere (sein)", "sl": "essere (biti)", "en": "essere (be)" }
+    ],
+    "rows": [
+      ["io", "parlerò", "leggerò", "sarò"],
+      ["tu", "parlerai", "leggerai", "sarai"],
+      ["lui, lei", "parlerà", "leggerà", "sarà"],
+      ["noi", "parleremo", "leggeremo", "saremo"],
+      ["voi", "parlerete", "leggerete", "sarete"],
+      ["loro", "parleranno", "leggeranno", "saranno"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Domani andrò al mare con Nonna Rosa.",
+      "de": "Morgen fahre ich mit Nonna Rosa ans Meer.",
+      "sl": "Jutri bom {m:šel|f:šla} z babico Roso na morje.",
+      "en": "Tomorrow I'll go to the sea with Nonna Rosa."
+    },
+    {
+      "it": "Zia Nives dice che domani pioverà.",
+      "de": "Zia Nives sagt, dass es morgen regnen wird.",
+      "sl": "Teta Nives pravi, da bo jutri deževalo.",
+      "en": "Zia Nives says it will rain tomorrow."
+    },
+    {
+      "it": "A settembre faremo la vendemmia da Matteo.",
+      "de": "Im September machen wir bei Matteo die Weinlese.",
+      "sl": "Septembra bomo pri Matteu trgali grozdje.",
+      "en": "In September we'll do the grape harvest at Matteo's."
+    },
+    {
+      "it": "Quando sarò grande, avrò un cavallo.",
+      "de": "Wenn ich groß bin, habe ich ein Pferd.",
+      "sl": "Ko bom {m:velik|f:velika}, bom {m:imel|f:imela} konja.",
+      "en": "When I grow up, I'll have a horse.",
+      "note": {
+        "de": "Nach quando das futuro, im Deutschen das Präsens: wenn ich groß bin.",
+        "sl": "Za quando prihodnjik, kot v slovenščini: ko bom {m:velik|f:velika}.",
+        "en": "After quando the future, where English has the present: when I grow up."
+      }
+    },
+    {
+      "it": "Lorenzo verrà con noi?",
+      "de": "Kommt Lorenzo mit uns?",
+      "sl": "Bo Lorenzo prišel z nami?",
+      "en": "Will Lorenzo come with us?",
+      "note": {
+        "de": "venire → verrò, verrà: kurz.",
+        "sl": "venire → verrò, verrà: kratek.",
+        "en": "venire → verrò, verrà: a short one."
+      }
+    },
+    {
+      "it": "Stasera giocheremo a carte con Nonno Bepi.",
+      "de": "Heute Abend spielen wir mit Nonno Bepi Karten.",
+      "sl": "Nocoj bomo z dedkom Bepijem igrali karte.",
+      "en": "Tonight we'll play cards with Nonno Bepi.",
+      "note": {
+        "de": "giocare → giocheremo: das h hält den Laut hart.",
+        "sl": "giocare → giocheremo: h ohrani trdi glas.",
+        "en": "giocare → giocheremo: the h keeps the sound hard."
+      }
+    },
+    {
+      "it": "Mangerai la polenta?",
+      "de": "Wirst du die Polenta essen?",
+      "sl": "Boš {m:jedel|f:jedla} polento?",
+      "en": "Will you eat the polenta?",
+      "note": { "de": "mangiare → mangerai: ohne i.", "sl": "mangiare → mangerai: brez i.", "en": "mangiare → mangerai: no i." }
+    },
+    {
+      "it": "Domani vado al mare.",
+      "de": "Morgen fahre ich ans Meer.",
+      "sl": "Jutri grem na morje.",
+      "en": "Tomorrow I'm going to the sea.",
+      "note": {
+        "de": "Für morgen geht auch das Präsens.",
+        "sl": "Za jutri gre tudi sedanjik.",
+        "en": "For tomorrow the present does too."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["futuro", "future", "future_tense", "futuro_semplice"],
+  "see": ["verbi-irregolari", "presente-regolare"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}
