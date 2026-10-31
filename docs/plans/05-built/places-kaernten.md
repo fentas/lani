@@ -110,7 +110,46 @@ tent's and the watchtower's flags are the map's, the square's wooden fountain is
 house's bunting is the feasts' red and white, and the field, the square, the market and the watchtower draw the fire's
 village (FireStyle) that the map's houses are.
 
-<!-- CHECKS -->
+## How it was checked
+
+- **The looks**: `KaerntenLooksTest` (new; every art a Carinthian building opens): Carinthia's picture differs from the
+  default culture's at every level of every building that opens it; every thing a level has is tappable as often as in
+  the default culture's picture at every detail, by day and at night; the people stand where they did; a frame stays
+  inside its budget (`FrameBudget`). `BuildingLevelsTest` holds Carinthia's pictures to its rule too (each level 300 pixels
+  or more from the one before: the wooden fountain's third level got its basin for it), `CultureLooksTest` keeps
+  Primorska's digests, `FriuliOutdoorLooksTest`, `FriuliPlacesLooksTest`, `FriuliMarketSquareLooksTest`,
+  `FriuliApiaryChurchLooksTest`, `FriuliIndoorLooksTest` and `SchoolLooksTest` Friuli's pictures, `SchoolBoardTest` the
+  board's chalk, `MapLooksTest` the map's agreement with the scenes.
+- **The content**: the bridge's own validation of the Carinthian pack (as the smoke runs it, with its cast and the packs
+  its village is served): ok. `CultureScenesTest` (each scene opens from its place and uses every slot of its art once and
+  every effect), `DialogReactionsTest`, `SceneCoherenceTest`, `ISpyContentTest`, `ISpyRoundsTest` (a beginner's full game
+  in every world, hour and season), `DialogVariantsTest`, `IntroductionContentTest`, `DialogWordsContentTest`,
+  `TurnHintTest`, `AlpsLooksTest` (every Carinthian building has its place), `BuildingWordsTest` (Carinthia's hut asks for
+  its kitchen's words), `StickersTest` and `WordStickersTest` (they read the German and English starter packs' emojis now,
+  so a German word that has one isn't cut out of a scene); `bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed
+  placeholders, 0 turns the same for one gender.
+- **The full checks** after the rebase onto main (b7b801bc, ispy-rounds and course-it-a2a merged): the Android unit suite
+  through lani-slot.sh, 3,532 tests in 448 classes, 0 failures (2 skipped); the bridge `tsc` clean; the smoke on ports
+  9330–9348 (its Drama 3 worker on 9348), 3,169 checks, all passed (before the rebase one timing check, the words' note
+  within 1.3 s, missed once under a load near 40, and passed in this run); `tutor-export --check` 88 files match; the Python
+  tests (`bin/qa` changed) 251, and 135 (11 skipped).
+
+## On the emulator
+
+QA's new step `visit-places` (only when named), on a synthetic Slovene learner visiting the Carinthian fixture town
+Probedorf (`LANI_DEV_TOWN_FIXTURE=dev-town-kaernten.json companion/bin/qa-slot --no-build --steps friends,visit,visit-places`):
+the second town now serves Im Zelt, In der Küche and In der Schmiede among its places besides Am Feuer and Am See (before:
+those two only, docs/plans/05-built/map-culture.md); the smithy's card ("Schmiede · Smithy, Stufe · Level 1", "🚪 Geh
+hinein · Go in: ⚒️ In der Schmiede · In the smithy ›") into the smithy in Carinthia's look at level 1 (the whitewashed
+stone, its things to find "0/10", the "still hidden" ones by their levels); the house's card ("Haus · House, Stufe 1 · Opa
+Sepp", "🚪 Geh hinein: 🛋️ In der Stube") into Opa Sepp's Stube at level 1 (the Kachelofen whitewashed, the Zirbe
+panelling comes with level 2), closer up. Every visit step passed, and the crash check. Screenshots in the round's
+scratchpad, `ux-places-kaernten/qa/` (22–27 `visit-places-*`); the contact sheets in `ux-places-kaernten/` (`sheets/` a row
+a level by day and in the evening, Primorska beside Carinthia; `closer/` at details 2 and 3; `moments/` a winter night,
+December, an October dusk, a phone's view in the rain; `levels/` `BuildingLevelsTest`'s sheets with Carinthia's column).
+The step didn't find the Harpfe's node among the visited map's nodes, so its card wasn't opened on the emulator (not
+looked into further; that Auf dem Feld opens from the field and the Harpfe is `AlpsLooksTest`'s and `CultureScenesTest`'s).
+
 
 ## How to use
 
