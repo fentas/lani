@@ -350,7 +350,7 @@ voice-build):
 
 ## What's left
 
-- **Each speaker as themselves (the app).** In a scene's happening the panel draws and voices everyone as the happening's
+- **Each speaker as themselves (the app).** Done on `scene-speakers` ([scene-speakers.md](scene-speakers.md)). In a scene's happening the panel draws and voices everyone as the happening's
   person (above): Nejc's lines under Jože's portrait and in his voice, Anton's in the swarm as Nejc's, Tone's at the bridge
   as France's, in every scene where two people speak. Giving `DialogPanel` the scene's people who speak in the dialog as
   `speakers` (as a project step's cast is), and letting the picture's `facing` follow `run.facing` there too, would show

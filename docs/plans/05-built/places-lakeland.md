@@ -203,8 +203,8 @@ culture. Nothing else changed.
   26 turns that came after someone else's line without `to` (15 in Slovene, 7 in Friuli and 4 in Kärnten) name the
   happening's person and are written for them, and `WhoAnswersTest` keeps it so. On the screen the scene's panel turned
   out to draw and voice every line of a happening's dialog as the happening's person (`SceneScreen` gives it no other
-  speakers): the header never showed anyone else, the replies were the other speaker's words in their mouth. Showing
-  each speaker is an app change, there.
+  speakers): the header never showed anyone else, the replies were the other speaker's words in their mouth. Done on
+  `scene-speakers` ([scene-speakers.md](scene-speakers.md)): every line shows and sounds like its own speaker.
 - **Turns chosen, never typed.** About 47 of the form turns' wrong choices add, drop or move a word ("I can to hear",
   "Why they are …") or split a contraction ("It are" for "It's"): real mistakes, kept, but `Forms.turn` asks for typing
   only a turn whose wrong choice swaps one word in its place, so these are always chosen.
