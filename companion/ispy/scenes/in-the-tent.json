@@ -1,0 +1,81 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-the-tent",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the scene's picture in the Lake District's look (the green wellies by the camp bed, St George's cross on the pennant, the dry-stone wall and the bracken behind) and the default tent's colours and places; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "lantern": { "clues": [
+      { "kind": "colour", "en": "It's black.", "sl": "Je črne barve.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It hangs on a chain.", "sl": "Visi na verižici.", "grammar": ["present-simple", "prepositions-place"] },
+      { "kind": "where", "en": "It's above the table.", "sl": "Je nad mizo.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We light it in the evening.", "sl": "Zvečer to prižgemo.", "grammar": ["present-simple"] }
+    ] },
+    "sleepingbag": { "clues": [
+      { "kind": "colour", "en": "It's green.", "sl": "Je zelene barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has a zip.", "sl": "Ima zadrgo.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's on the bed.", "sl": "Je na postelji.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We sleep in it at night.", "sl": "Ponoči spimo v tem.", "grammar": ["present-simple"] }
+    ] },
+    "blanket": { "clues": [
+      { "kind": "colour", "en": "It's red.", "sl": "Je rdeče barve.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of wool.", "sl": "Je iz volne.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the bed.", "sl": "Je na postelji.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "When we're cold, we take it.", "sl": "Ko nas zebe, to vzamemo.", "grammar": ["present-simple", "to-be"] }
+    ] },
+    "pillow": { "clues": [
+      { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's soft.", "sl": "To je nekaj mehkega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the bed.", "sl": "Je na postelji.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We put our head on it.", "sl": "Na to položimo glavo.", "grammar": ["present-simple", "prepositions-place"] }
+    ] },
+    "backpack": { "clues": [
+      { "kind": "trait", "en": "It has a pocket.", "sl": "Ima žep.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's on the floor.", "sl": "Je na tleh.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's next to the coat.", "sl": "Je zraven jakne.", "grammar": ["to-be", "prepositions-place"], "ref": "coat" },
+      { "kind": "use", "en": "We carry things in it on our back.", "sl": "V tem nosimo stvari na hrbtu.", "grammar": ["present-simple"] }
+    ] },
+    "map": { "clues": [
+      { "kind": "colour", "en": "It's green and blue.", "sl": "Je zelene in modre barve.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the wall.", "sl": "Je na steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's above the bed.", "sl": "Je nad posteljo.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "trait", "en": "There's a path to a treasure on it.", "sl": "Na tem je pot do zaklada.", "grammar": ["there-is-are", "prepositions-place"] }
+    ] },
+    "boots": { "number": "pl", "clues": [
+      { "kind": "colour", "en": "They're green.", "sl": "So zelene barve.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "They're made of rubber.", "sl": "So iz gume.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "They're on the floor, by the bed.", "sl": "So na tleh, ob postelji.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We wear them in the rain and the mud.", "sl": "Nosimo jih v dežju in blatu.", "grammar": ["present-simple"] }
+    ] },
+    "coat": { "clues": [
+      { "kind": "colour", "en": "It's blue.", "sl": "Je modre barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has yellow buttons.", "sl": "Ima rumene gumbe.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's under the hat.", "sl": "Je pod klobukom.", "grammar": ["to-be", "prepositions-place"], "ref": "hat" },
+      { "kind": "use", "en": "We put it on when it's cold.", "sl": "To oblečemo, ko je mrzlo.", "grammar": ["present-simple"] }
+    ] },
+    "hat": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has a feather.", "sl": "Ima pero.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's above the coat.", "sl": "Je nad jakno.", "grammar": ["to-be", "prepositions-place"], "ref": "coat" },
+      { "kind": "use", "en": "We wear it on our head.", "sl": "To nosimo na glavi.", "grammar": ["present-simple", "prepositions-place"] }
+    ] },
+    "book": { "clues": [
+      { "kind": "colour", "en": "It has a red cover.", "sl": "Ima rdeče platnice.", "grammar": ["to-have"] },
+      { "kind": "trait", "en": "It's open.", "sl": "Je odprto.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We read it in the evening.", "sl": "To beremo zvečer.", "grammar": ["present-simple"] }
+    ] },
+    "cup": { "clues": [
+      { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has a handle.", "sl": "Ima ročaj.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "We drink tea out of it.", "sl": "Iz tega pijemo čaj.", "grammar": ["present-simple"] }
+    ] },
+    "rope": { "clues": [
+      { "kind": "colour", "en": "It's light brown.", "sl": "Je svetlo rjave barve.", "grammar": ["to-be"] },
+      { "kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's outside, on the ground.", "sl": "Je zunaj, na tleh.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "use", "en": "It holds the tent down in the wind.", "sl": "V vetru drži šotor pri tleh.", "grammar": ["present-simple"] }
+    ] }
+  }
+}
