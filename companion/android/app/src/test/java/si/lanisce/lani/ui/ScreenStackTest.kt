@@ -22,6 +22,7 @@ import androidx.compose.ui.test.click
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.foundation.clickable
@@ -134,6 +135,34 @@ class ScreenStackTest {
         compose.onRoot().performTouchInput { click(Offset(width - 5f, height - 5f)) }
         compose.waitForIdle()
         assertEquals("on top, touched again", 1, homeTaps)
+    }
+
+    @Test fun `the screen Back leaves for Home ends after the frame that shows Home, out of sight meanwhile`() {
+        val nav = home()
+        compose.setContent { Screens(nav) }
+        compose.runOnIdle { nav.go(Screen.Packs) }
+        compose.onNodeWithText("Packs 0").assertExists()
+        compose.mainClock.autoAdvance = false
+        compose.runOnIdle { nav.back() }
+        // frame by frame up to the one that shows Home
+        var frames = 0
+        while (compose.onAllNodesWithText("Home 0").fetchSemanticsNodes().isEmpty() && frames < 10) {
+            compose.mainClock.advanceTimeByFrame()
+            frames++
+        }
+        // the Back's frame: Home shows, the screen left still composed, out of sight and out of TalkBack's reach
+        compose.onNodeWithText("Home 0").assertExists()
+        compose.onNodeWithText("Packs 0").assertDoesNotExist()
+        assertEquals("its composition not ended in the Back's frame", null, ended["Packs"])
+        assertEquals(false, homeCovered)
+        compose.mainClock.autoAdvance = true
+        compose.waitForIdle()
+        assertEquals("ended a frame or two later", 1, ended["Packs"])
+        assertEquals("Home composed once", 1, began["Home"])
+        // going there again composes it anew, as before
+        compose.runOnIdle { nav.go(Screen.Packs) }
+        compose.onNodeWithText("Packs 0").assertExists()
+        assertEquals(2, began["Packs"])
     }
 
     @Test fun `a covered Home takes no Back, its own Back works again once on top`() {

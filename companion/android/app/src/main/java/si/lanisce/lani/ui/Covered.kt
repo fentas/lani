@@ -97,9 +97,11 @@ fun rememberShownAt(): Long {
  */
 @Composable
 fun Covered(covered: Boolean, shown: Boolean = !covered, content: @Composable () -> Unit) {
-    // Back's dispatchers of its own, off while covered: a BackHandler in the covered screen never takes Back from the one
-    // on top (BackHandler registers with the navigation events' dispatcher, else with the activity's OnBackPressedDispatcher)
-    val events = LocalNavigationEventDispatcherOwner.current?.let { rememberNavigationEventDispatcherOwner(enabled = !covered, parent = it) }
+    // Back's dispatchers of its own, off, while covered: a BackHandler in the covered screen never takes Back from the one
+    // on top (BackHandler registers with the navigation events' dispatcher, else with the activity's OnBackPressedDispatcher);
+    // on top, the real ones, as for a screen not kept
+    val realEvents = LocalNavigationEventDispatcherOwner.current
+    val events = realEvents?.let { rememberNavigationEventDispatcherOwner(enabled = false, parent = it) }
     val real = LocalOnBackPressedDispatcherOwner.current
     val idle = remember(real) {
         real?.let { owner ->
@@ -113,7 +115,7 @@ fun Covered(covered: Boolean, shown: Boolean = !covered, content: @Composable ()
         content = {
             val provided = listOfNotNull(
                 LocalCovered provides covered,
-                events?.let { LocalNavigationEventDispatcherOwner provides it },
+                events?.let { LocalNavigationEventDispatcherOwner provides if (covered) it else realEvents },
                 if (real != null && idle != null) LocalOnBackPressedDispatcherOwner provides if (covered) idle else real else null,
             )
             CompositionLocalProvider(*provided.toTypedArray(), content = content)
@@ -137,7 +139,8 @@ internal const val OUT_OF_THE_WAY = -1_000_000
  * to it shows it as it was, without composing it again (62 ms of the main thread on the emulator, every Back, before).
  * Every other screen below the top is its remembered state only, composed again when Back returns to it. [peek]: Back
  * is being swiped (its progress), the screen below drawn behind the shrinking top when it is the kept one; [top] the
- * top screen's look meanwhile (it shrinks), [behind] what is drawn between them (the scrim).
+ * top screen's look meanwhile (it shrinks), [behind] what is drawn between them (the scrim). The screen Back leaves for
+ * the kept one ends two frames after it shows, covered meanwhile.
  */
 @Composable
 fun ScreenStack(
@@ -151,6 +154,14 @@ fun ScreenStack(
 ) {
     val entry = entries.last()
     val root = entries.first().takeIf { it.screen == kept }
+    // the screen Back just left for the kept one: composed on, out of the way and covered, for two frames, so its
+    // composition ends after the frame that shows the kept screen, not in it (docs/plans/05-built/changes-areas.md: the
+    // village's ending was most of the Back's frame)
+    var leaving by remember { mutableStateOf<NavEntry?>(null) }
+    val lastTop = remember { arrayOfNulls<NavEntry>(1) }
+    val before = lastTop[0]
+    if (before != null && before.id != entry.id && root?.id == entry.id && before.id != root.id && entries.none { it.id == before.id }) leaving = before
+    lastTop[0] = entry
     // the kept screen first, always at this place in the composition: on top or under another, the same composition
     if (root != null) {
         val under = root.id != entry.id
@@ -158,10 +169,21 @@ fun ScreenStack(
             states.SaveableStateProvider(root.id) { key(root.id) { Box(Modifier.fillMaxSize()) { screen(root.screen) } } }
         }
     }
-    if (root?.id != entry.id) {
-        behind()
-        Box(Modifier.fillMaxSize().then(top)) {
-            states.SaveableStateProvider(entry.id) { key(entry.id) { screen(entry.screen) } }
+    if (root?.id != entry.id) behind()
+    // the top screen, or the one leaving: the same place in the composition, so the one leaving isn't composed anew
+    val shownTop = if (root?.id != entry.id) entry else leaving?.takeIf { it.id != entry.id }
+    if (shownTop != null) {
+        val gone = shownTop.id != entry.id
+        Covered(covered = gone, shown = !gone) {
+            Box(Modifier.fillMaxSize().then(if (gone) Modifier else top)) {
+                states.SaveableStateProvider(shownTop.id) { key(shownTop.id) { screen(shownTop.screen) } }
+            }
         }
+    }
+    LaunchedEffect(leaving?.id) {
+        if (leaving == null) return@LaunchedEffect
+        withFrameNanos { }
+        withFrameNanos { }
+        leaving = null
     }
 }
