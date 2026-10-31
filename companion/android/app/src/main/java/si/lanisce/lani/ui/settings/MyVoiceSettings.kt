@@ -87,13 +87,17 @@ fun MyVoiceOffer(vm: AppViewModel) {
 }
 
 /**
- * The voices to choose from and "🔇 Brez glasu · No voice", the one in effect marked; [onPick] gets the id chosen ("off"
- * for none). While the node's answer is on its way, a line says so; offline or from an older node, why there is none.
+ * The voices to choose from and "🔇 Brez glasu · No voice", the one in effect marked ([shown]: the one to mark instead,
+ * the first launch's preselection: MyVoices.preselect); [onPick] gets the id chosen ("off" for none). While the node's
+ * answer is on its way, a line says so; offline or from an older node, why there is none. [muted]: the lines' colour (the
+ * first launch's blue).
  */
 @Composable
-private fun MyVoiceChoices(c: MyVoiceController, onPick: (String) -> Unit) {
+internal fun MyVoiceChoices(
+    c: MyVoiceController, shown: String? = null, muted: androidx.compose.ui.graphics.Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    onPick: (String) -> Unit,
+) {
     val s = c.state
-    val muted = MaterialTheme.colorScheme.onSurfaceVariant
     when {
         s == null && c.loading -> Row(verticalAlignment = Alignment.CenterVertically) {
             CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
@@ -111,7 +115,7 @@ private fun MyVoiceChoices(c: MyVoiceController, onPick: (String) -> Unit) {
                     emoji = faceOf(o),
                     name = o.name,
                     note = if (o.default) bi("myVoice.default") else null,
-                    selected = !s.off && s.voice == o.id,
+                    selected = if (shown != null) shown == o.id else !s.off && s.voice == o.id,
                     busy = c.saving == o.id,
                     onPick = { onPick(o.id) },
                     playing = c.playing == o.id,
@@ -119,7 +123,7 @@ private fun MyVoiceChoices(c: MyVoiceController, onPick: (String) -> Unit) {
                 )
             }
             VoiceRow(
-                emoji = "🔇", name = bi("myVoice.off"), note = bi("myVoice.offWhat"), selected = s.off, busy = c.saving == MyVoices.OFF,
+                emoji = "🔇", name = bi("myVoice.off"), note = bi("myVoice.offWhat"), selected = if (shown != null) shown == MyVoices.OFF else s.off, busy = c.saving == MyVoices.OFF,
                 onPick = { onPick(MyVoices.OFF) },
             )
         }

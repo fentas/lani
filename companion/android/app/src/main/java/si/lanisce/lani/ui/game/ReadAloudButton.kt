@@ -20,16 +20,19 @@ import si.lanisce.lani.l10n.bi
 /**
  * A screen's 🔊 (the founding, the news sheet: [si.lanisce.lani.game.ReadAloud]), as the village's first words have it:
  * a tap reads [speech] ([HintVoice]: the language learned in the narrator's voice, the base by the phone's), a tap again
- * stops it; it spins while the pieces are got ready and shows ⏹ while they play. Leaving the screen stops it. TalkBack
- * hears "Preberi na glas · Read aloud". Nothing without a [voice] (a preview).
+ * stops it; it spins while the pieces are got ready and shows ⏹ while they play. Leaving the screen stops it ([stopOnLeave];
+ * the first launch's screens are built anew in each language chosen, so it stops them itself: ui/setup). TalkBack hears
+ * "Preberi na glas · Read aloud". Nothing without a [voice] (a preview).
  */
 @Composable
-fun ReadAloudButton(voice: HintVoice?, speech: List<HintPiece>, modifier: Modifier = Modifier, color: Color = Color.Unspecified) {
+fun ReadAloudButton(
+    voice: HintVoice?, speech: List<HintPiece>, modifier: Modifier = Modifier, color: Color = Color.Unspecified, stopOnLeave: Boolean = true,
+) {
     if (voice == null || speech.isEmpty()) return
     val mine = voice.current == speech
     // the base's pieces rendered ahead, so a tap plays at once (nothing is asked of the node before the tap)
     LaunchedEffect(speech) { voice.warm(speech) }
-    DisposableEffect(speech) { onDispose { if (voice.current == speech) voice.stop() } }
+    DisposableEffect(speech, stopOnLeave) { onDispose { if (stopOnLeave && voice.current == speech) voice.stop() } }
     TextButton(
         onClick = { voice.toggle(speech, needsBase = false) },
         modifier = modifier.semantics { contentDescription = if (mine) bi("components.stop") else bi("gameIntro.readAloud") },

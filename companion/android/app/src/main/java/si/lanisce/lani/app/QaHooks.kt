@@ -130,6 +130,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "request:<card id>,<card id>…": the village (the dev bridge's copy) gets Mojca's request "Napake na tabli" of those
  *   cards of the learner's ([withRequest]: the cards a request was made from, a grammar card among them) and its challenge
  *   starts, as from its bubble: what the challenge asks of each card (companion/GAME.md, "Cards in a challenge").
+ * - "setup:phone:<code>": the first launch from its welcome as on a phone in that language ("setup:phone:de": Teo's
+ *   German tablet on an English emulator).
  * - "pair:<target>-<base>": the app shown in that language pair ("pair:sl-de"), as the settings' languages page
  *   chooses it; "pair:" follows the learner profile again.
  * - "kopa:<day>": the spots' cycles (the charcoal pile's rounds, game/scene/SpotCycles) are as on that day ("2026-07-14",
@@ -387,9 +389,13 @@ object QaHooks {
         request: (List<String>) -> Unit = {}, word: (String) -> Unit = {}, sentence: (String) -> Unit = {}, friends: () -> Unit = {},
         sheet: (String, String) -> Unit = { _, _ -> }, grammar: (String) -> Unit = {}, talk: (String) -> Unit = {},
         cases: (String) -> Unit = {}, tips: (String) -> Unit = {}, news: () -> Unit = {}, icon: (String) -> Unit = {}, notify: (String) -> Unit = {},
+        setupPhone: (String) -> Unit = {},
     ) {
         if (!enabled || command.isNullOrBlank()) return
         when {
+            // "setup:phone:<code>": the first launch starts again as on a phone in that language ("setup:phone:de": Teo's
+            // German tablet), its welcome in it (docs/plans/05-built/setup-refresh.md)
+            command.startsWith("setup:phone:") -> setupPhone(command.removePrefix("setup:phone:").trim())
             // "icon:<alias>": the launcher shows that alias a few seconds after the app goes to the background, as the
             // developer's "Try the next icon" does; "icon:" the day's icon again (data/AppIconWork.kt)
             command.startsWith("icon:") -> icon(command.removePrefix("icon:"))

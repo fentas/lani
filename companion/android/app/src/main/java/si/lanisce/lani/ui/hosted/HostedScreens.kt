@@ -23,6 +23,8 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
@@ -67,13 +69,14 @@ private val ZIP_TYPES = arrayOf("application/zip", "application/x-zip-compressed
 private enum class Step { START, LEARNER, WORKING, TUTOR }
 
 /**
- * "☁️ Lani na tej napravi · Lani on this device" (docs/plans/05-built/hosted-mode.md, onboarding.md): the setup's way
- * "📱 Samo ta telefon / tablica · Just this device". A new learner (what /lani-setup and lani-setup ask: the name, how the
- * village speaks to them, the level, the minutes a day, and whether a child learns here; the languages the setup asked
- * already: [chosenTarget], [chosenBase], [onLanguages] to change them), an export imported (from `lani export` on a computer, or this
- * app's), or the data already on the phone; then the tutor; then Home, where the village is founded as with a node.
- * [onBack]: to the setup's choice (or, switching from a node, back to it: then the languages are asked here, as the
- * learner's are now).
+ * "☁️ Lani na tej napravi · Lani on this device" (docs/plans/05-built/hosted-mode.md, onboarding.md, setup-refresh.md):
+ * the setup's way "📱 Samo ta telefon / tablica · Just this device". A new learner (what /lani-setup and lani-setup ask:
+ * the name, whether a child learns here, how the village speaks to them, the level, "🎯 Cilj · Aim" (B2, above the level
+ * from B2 on: app/Aim) and the minutes a day; the languages the setup asked already: [chosenTarget], [chosenBase],
+ * [onLanguages] to change them), an export imported (from `lani export` on a computer, or this app's), or the data
+ * already on the phone; then "🗣️ Moj glas · My voice" and the tutor on one page; then Home, where the village is founded
+ * as with a node. Each step reads itself aloud as it opens and on its 🔊 (game/SetupSpeech). [onBack]: to the setup's
+ * choice (or, switching from a node, back to it: then the languages are asked here, as the learner's are now).
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -90,23 +93,46 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
     var target by remember { mutableStateOf(chosenTarget ?: own.target.code) }
     var base by remember { mutableStateOf(chosenBase?.takeIf { it != target } ?: own.base.code.takeIf { it != target } ?: if (target == "en") "sl" else "en") }
     var level by remember { mutableStateOf("A1") }
+    // 🎯 the aim: B2, or above the level (app/Aim); null while the default's
+    var aim by remember { mutableStateOf<String?>(null) }
     var goal by remember { mutableStateOf(30) }
     var child by remember { mutableStateOf(false) }
     var config by remember { mutableStateOf<si.lanisce.lani.data.BridgeConfig?>(null) }
     val scope = rememberCoroutineScope()
+    val aimNow = si.lanisce.lani.app.Aim.keep(aim, level)
 
     fun done(r: Result<si.lanisce.lani.data.BridgeConfig>) {
-        r.onSuccess { config = it; error = null; step = Step.TUTOR }
+        r.onSuccess {
+            config = it
+            error = null
+            step = Step.TUTOR
+            // the phone's bridge is up: the voices it offers the learner ("🗣️ Moj glas"), on the next page
+            vm.myVoice.connect(it)
+            vm.myVoice.load()
+        }
             .onFailure { error = it.message ?: it.toString(); step = if (step == Step.WORKING && name.isNotBlank()) Step.LEARNER else if (onPhone != null) Step.START else Step.LEARNER }
     }
-    // Back does what each step's "‹ Nazaj" does (the start, the step before the setup's); a moment's work isn't left
-    BackHandler(enabled = step != Step.TUTOR) {
+    // Back does what each step's "‹ Nazaj" does (the start, the step before the setup's); a moment's work isn't left;
+    // the voice and the tutor (the learner's data made): on to the village, the tutor later (TutorStep's way back first)
+    BackHandler(enabled = step != Step.WORKING) {
         when (step) {
             Step.START -> onBack()
             Step.LEARNER -> if (onPhone != null) step = Step.START else onBack()
-            Step.WORKING, Step.TUTOR -> Unit
+            Step.TUTOR -> config?.let { c -> vm.hintVoice.stop(); keepVoice(vm, h.child, gender); vm.hostedReady(c) }
+            Step.WORKING -> Unit
         }
     }
+    // each step read as it opens, and on its 🔊 (the pair the setup chose: the hosted steps come after it)
+    val pair = si.lanisce.lani.l10n.LangPair(Lang.of(target) ?: Lang.SL, Lang.of(base) ?: Lang.EN)
+    val speech = remember(step, pair, h.child) {
+        when (step) {
+            Step.START -> si.lanisce.lani.game.SetupSpeech.deviceStart(pair)
+            Step.LEARNER -> si.lanisce.lani.game.SetupSpeech.questions(pair)
+            Step.WORKING -> emptyList()
+            Step.TUTOR -> si.lanisce.lani.game.SetupSpeech.voiceAndTutor(pair, h.child)
+        }
+    }
+    if (step != Step.WORKING) si.lanisce.lani.ui.setup.SetupReading(vm, "DEVICE:${step.name}", speech)
     val pick = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         if (uri == null) return@rememberLauncherForActivityResult
         step = Step.WORKING
@@ -124,9 +150,12 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
     )
     BoxWithConstraints(Modifier.fillMaxSize().background(Brush.verticalGradient(listOf(SloBlueDeep, SloBlue))).safeDrawingPadding()) {
         Column(
-            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).heightIn(min = maxHeight).padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp, Alignment.CenterVertically),
+            Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).heightIn(min = maxHeight).padding(start = 24.dp, end = 24.dp, top = 52.dp, bottom = 24.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+          // at most 640 dp wide: the tablet's questions in a column, not across the screen
+          Column(Modifier.widthIn(max = 640.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             Text("📱", style = MaterialTheme.typography.displayMedium)
             Text(bi("hosted.title"), style = MaterialTheme.typography.headlineMedium, color = white)
             error?.let { Text("⚠️ $it", color = Color(0xFFFFD1D8)) }
@@ -160,8 +189,9 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
                     if (child) Text(bi("hosted.forChildWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
                     Label(bi("hosted.gender"))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(gender == "female", { gender = "female" }, { Text(bi("hosted.asWoman")) }, colors = chipColors)
-                        FilterChip(gender == "male", { gender = "male" }, { Text(bi("hosted.asMan")) }, colors = chipColors)
+                        // a child is a girl or a boy, not a woman or a man
+                        FilterChip(gender == "female", { gender = "female" }, { Text(bi(if (child) "hosted.asGirl" else "hosted.asWoman")) }, colors = chipColors)
+                        FilterChip(gender == "male", { gender = "male" }, { Text(bi(if (child) "hosted.asBoy" else "hosted.asMan")) }, colors = chipColors)
                     }
                     Text(bi("hosted.genderWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
                     if (onLanguages != null) {
@@ -192,6 +222,15 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
                         for (l in HostedAnswers.LEVELS) FilterChip(level == l, { level = l }, { Text(l) }, colors = chipColors)
                     }
                     Text(bi("hosted.levelWhat"), color = muted, style = MaterialTheme.typography.bodySmall)
+                    // 🎯 the aim: where the village's ages lead (B2 by default; only above the level)
+                    Label("🎯 ${bi("setup.aim")}")
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        for (a in si.lanisce.lani.app.Aim.choices(level)) FilterChip(aimNow == a, { aim = a }, { Text(a) }, colors = chipColors)
+                    }
+                    Text(
+                        bi("setup.aimWhat", "words" to si.lanisce.lani.game.Catalog.wordsFor(si.lanisce.lani.game.Age.MESTO, aimNow), "aim" to aimNow),
+                        color = muted, style = MaterialTheme.typography.bodySmall,
+                    )
                     Label(bi("hosted.goal"))
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         for (g in HostedAnswers.GOALS) FilterChip(goal == g, { goal = g }, { Text("$g min") }, colors = chipColors)
@@ -202,7 +241,7 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
                         onClick = {
                             error = null
                             step = Step.WORKING
-                            scope.launch { done(h.create(HostedAnswers(name.trim(), gender, target, base, level, goal, child))) }
+                            scope.launch { done(h.create(HostedAnswers(name.trim(), gender, target, base, level, goal, child, targetLevel = aimNow))) }
                         },
                         color = TriglavRed, disabledColor = white.copy(alpha = 0.2f),
                     )
@@ -216,11 +255,45 @@ fun HostedSetup(vm: AppViewModel, onBack: () -> Unit, chosenTarget: String? = nu
                 }
                 Step.TUTOR -> {
                     note?.let { Text("✅ $it", color = white) }
-                    TutorStep(vm, child = h.child, onDone = { config?.let(vm::hostedReady) })
+                    // 🗣️ the voice the learner's own lines are said in: the phone's bridge offers its cast's (a child's
+                    // voice of their gender for a child), each with its ▶; then the tutor
+                    VoiceStep(vm, child = h.child, gender = gender)
+                    TutorStep(vm, child = h.child, onDone = { config?.let { c -> vm.hintVoice.stop(); keepVoice(vm, h.child, gender); vm.hostedReady(c) } })
                 }
             }
+          }
         }
+        si.lanisce.lani.ui.game.ReadAloudButton(
+            vm.hintVoice, speech,
+            Modifier.align(Alignment.TopEnd).padding(4.dp).clip(androidx.compose.foundation.shape.CircleShape).background(Color.Black.copy(alpha = 0.18f)),
+            color = white, stopOnLeave = false,
+        )
     }
+}
+
+/**
+ * "🗣️ Moj glas · My voice" on the hosted onboarding's last page (docs/plans/05-built/setup-refresh.md): the settings'
+ * picker (ui/settings/MyVoiceChoices) on the setup's blue, the voice the learner would hear preselected
+ * ([si.lanisce.lani.data.MyVoices.preselect]: a boy's for Teo), each with its ▶; a tap chooses it at once.
+ */
+@Composable
+private fun VoiceStep(vm: AppViewModel, child: Boolean, gender: String?) {
+    val c = vm.myVoice
+    val muted = Color.White.copy(alpha = 0.85f)
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text("🗣️ ${bi("myVoice.title")}", style = MaterialTheme.typography.titleLarge, color = Color.White, fontWeight = FontWeight.SemiBold)
+        Text(bi("myVoice.offerText"), color = muted)
+        val shown = c.state?.let { si.lanisce.lani.data.MyVoices.preselect(it, gender, child) }
+        si.lanisce.lani.ui.settings.MyVoiceChoices(c, shown = shown, muted = muted) { c.choose(it) }
+        Text(bi("myVoice.later"), color = muted, style = MaterialTheme.typography.bodySmall)
+    }
+}
+
+/** The voice shown kept as the learner's choice when they go on without tapping one (once: "default" for the node's own). */
+private fun keepVoice(vm: AppViewModel, child: Boolean, gender: String? = null) {
+    val c = vm.myVoice
+    val s = c.state ?: return
+    si.lanisce.lani.data.MyVoices.keepAtSetup(s, si.lanisce.lani.data.MyVoices.preselect(s, gender, child))?.let(c::choose)
 }
 
 private enum class TutorWay { CLAUDE }

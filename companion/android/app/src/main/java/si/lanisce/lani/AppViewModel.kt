@@ -643,6 +643,34 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     var setupFlow by mutableStateOf(SetupFlow.start(java.util.Locale.getDefault().language))
 
     /**
+     * The first launch's step read aloud last as it opened (game/SetupSpeech): a step isn't read again when its screen is
+     * only built anew (a language chosen rebuilds every screen in the new pair; the chip said its name meanwhile).
+     */
+    var setupRead: String? = null
+
+    /** The first launch's way on from "Še o tebi · A little about you" (SetupFlow.Step.ABOUT): Home, the choices kept. */
+    fun setupFinished() {
+        nav.reset(Screen.Home)
+    }
+
+    /** The learner's level and aim on the node (GET /learner/target); null from an older node or offline. */
+    suspend fun aimNow(): si.lanisce.lani.data.AimApi.Aim? = connected?.let { c ->
+        runCatching { si.lanisce.lani.data.AimApi(c).get() }.onFailure { android.util.Log.i("LaniSetup", "the aim: ${it.message}") }.getOrNull()
+    }
+
+    /** Keeps [level] as the learner's aim on the node (POST /learner/target), then reads everything anew (the ages follow it). */
+    suspend fun setAim(level: String): Boolean {
+        val c = connected ?: return false
+        val ok = runCatching { si.lanisce.lani.data.AimApi(c).set(level) != null }
+            .onFailure { android.util.Log.i("LaniSetup", "the aim not kept: ${it.message}") }.getOrDefault(false)
+        if (ok) {
+            readFor = null
+            refresh()
+        }
+        return ok
+    }
+
+    /**
      * The setup's languages ([SetupFlow.pair]): every label reads in them from now on, as the learner profile's pair until
      * the learner's profile says its own (a node's, or the one the hosted onboarding makes from them).
      */
@@ -701,10 +729,12 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         clips.connect(c)
         myVoice.connect(c)
         stt.connect(c)
-        // Home, or the screens the learner was on before the process died (the stack saved, Nav.kt)
+        // Home, or the screens the learner was on before the process died (the stack saved, Nav.kt); paired on the first
+        // launch, "Še o tebi · A little about you" first (the aim and the voice: SetupFlow.Step.ABOUT)
         val back = restoring
         restoring = null
-        if (back == null || !nav.restore(back)) nav.reset(Screen.Home)
+        if (nav.top == Screen.Setup && !setupHosted && !hosted.isHosted(c) && setupFlow.asksAbout) setupFlow = setupFlow.paired()
+        else if (back == null || !nav.restore(back)) nav.reset(Screen.Home)
         // everything read anew (Home's own [shown] doesn't again while it runs); a notification tapped before the app ran
         // opens once it's read (its scene, its page, the cards due are there then)
         readFor = null
@@ -773,8 +803,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             bridgeUrl = null
             paired = null
             setupHosted = false
-            // to the computer's code, in the learner's languages
-            setupFlow = SetupFlow(step = SetupFlow.Step.COMPUTER, target = L10n.ownPair.target, base = L10n.ownPair.base, way = SetupFlow.Way.COMPUTER)
+            // to the computer's code, in the learner's languages (their aim and voice chosen already: Home once paired)
+            setupFlow = SetupFlow(step = SetupFlow.Step.COMPUTER, target = L10n.ownPair.target, base = L10n.ownPair.base, way = SetupFlow.Way.COMPUTER, firstRun = false)
             nav.reset(Screen.Setup)
         }
     }
