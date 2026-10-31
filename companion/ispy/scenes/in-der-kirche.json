@@ -1,0 +1,110 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-der-kirche",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl, en and it, from the church's picture (the art's altar, painting, organ loft and bell gable; Carinthia's net vault changes no thing to find) and the painter's places; not reviewed by a native speaker",
+  "things": {
+    "altar": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist weiß.", "sl": "Je bel.", "en": "It's white.", "it": "È bianco.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Er ist aus Stein.", "sl": "Je iz kamna.", "en": "It's made of stone.", "it": "È di pietra.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Er steht unter dem Bild.", "sl": "Stoji pod sliko.", "en": "It stands under the painting.", "it": "Sta sotto il quadro.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "painting" },
+        { "kind": "trait", "de": "Darauf stehen Kerzen.", "sl": "Na njem stojijo sveče.", "en": "Candles stand on it.", "it": "Sopra ci sono le candele.", "grammar": ["wortstellung", "plural"] }
+      ]
+    },
+    "candles": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist weiß.", "sl": "Je bela.", "en": "It's white.", "it": "È bianca.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Sie ist lang und dünn.", "sl": "Je dolga in tanka.", "en": "It's long and thin.", "it": "È lunga e sottile.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Sie steht auf dem Altar.", "sl": "Stoji na oltarju.", "en": "It stands on the altar.", "it": "Sta sull'altare.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "altar" },
+        { "kind": "does", "de": "Sie gibt Licht.", "sl": "Daje svetlobo.", "en": "It gives light.", "it": "Fa luce.", "grammar": ["praesens"] },
+        { "kind": "use", "de": "Man zündet sie mit einem Zündholz an.", "sl": "Prižgemo jo z vžigalico.", "en": "You light it with a match.", "it": "La si accende con un fiammifero.", "grammar": ["trennbare-verben"] }
+      ]
+    },
+    "cross": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist dunkelbraun.", "sl": "Je temno rjav.", "en": "It's dark brown.", "it": "È marrone scuro.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Es ist aus Holz.", "sl": "Je lesen.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Es hängt an der Wand.", "sl": "Visi na steni.", "en": "It hangs on the wall.", "it": "È appesa al muro.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "where", "de": "Es hängt neben dem Fenster.", "sl": "Visi zraven okna.", "en": "It hangs next to the window.", "it": "È appesa accanto alla finestra.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "window" }
+      ]
+    },
+    "painting": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist golden und blau.", "sl": "Je zlata in modra.", "en": "It's gold and blue.", "it": "È dorato e blu.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Es hat einen goldenen Rahmen.", "sl": "Ima zlat okvir.", "en": "It has a golden frame.", "it": "Ha una cornice dorata.", "grammar": ["sein-haben", "akkusativ"] },
+        { "kind": "trait", "de": "Darauf ist die Mutter Gottes.", "sl": "Na njej je Marija.", "en": "Mary is on it.", "it": "Sopra c'è la Madonna.", "grammar": ["wortstellung"] },
+        { "kind": "where", "de": "Es hängt über dem Altar.", "sl": "Visi nad oltarjem.", "en": "It hangs above the altar.", "it": "È appeso sopra l'altare.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "altar" }
+      ]
+    },
+    "pews": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist braun.", "sl": "Je rjava.", "en": "It's brown.", "it": "È marrone.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Sie ist aus Holz.", "sl": "Je lesena.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "size", "de": "Sie ist lang.", "sl": "Je dolga.", "en": "It's long.", "it": "È lunga.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Sie steht vor dem Altar.", "sl": "Stoji pred oltarjem.", "en": "It stands in front of the altar.", "it": "Sta davanti all'altare.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "altar" },
+        { "kind": "use", "de": "Am Sonntag sitzen wir darin.", "sl": "Ob nedeljah sedimo v njej.", "en": "We sit in it on Sundays.", "it": "La domenica ci sediamo.", "grammar": ["wortstellung"] }
+      ]
+    },
+    "flowers": {
+      "clues": [
+        { "kind": "colour", "de": "Im Sommer ist sie rot und weiß.", "sl": "Poleti so rdeče in bele.", "en": "In summer it's red and white.", "it": "D'estate è rosso e bianco.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "where", "de": "Sie steht in einer Vase.", "sl": "Stojijo v vazi.", "en": "It's standing in a vase.", "it": "Sta in un vaso.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "where", "de": "Sie steht beim Altar.", "sl": "Stojijo pri oltarju.", "en": "It stands by the altar.", "it": "Sta vicino all'altare.", "grammar": ["dativ"], "ref": "altar" },
+        { "kind": "trait", "de": "Sie duftet.", "sl": "Dišijo.", "en": "It smells sweet.", "it": "Profuma.", "grammar": ["praesens"] }
+      ]
+    },
+    "window": {
+      "clues": [
+        { "kind": "size", "de": "Es ist hoch und schmal.", "sl": "Je visoko in ozko.", "en": "It's tall and narrow.", "it": "È alta e stretta.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Es ist aus Glas.", "sl": "Je stekleno.", "en": "It's made of glass.", "it": "È di vetro.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Es ist in der linken Wand.", "sl": "Je v levi steni.", "en": "It's in the left wall.", "it": "È nel muro di sinistra.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "where", "de": "Es ist neben dem Kreuz.", "sl": "Je zraven križa.", "en": "It's next to the cross.", "it": "È accanto alla croce.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "cross" },
+        { "kind": "does", "de": "Am Tag kommt Licht herein.", "sl": "Podnevi pride skozenj svetloba.", "en": "By day light comes in through it.", "it": "Di giorno fa entrare la luce.", "grammar": ["wortstellung", "trennbare-verben"] }
+      ]
+    },
+    "organ": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist silbern.", "sl": "So srebrne.", "en": "It's silver.", "it": "È argentato.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Sie ist groß.", "sl": "So velike.", "en": "It's big.", "it": "È grande.", "grammar": ["sein-haben"] },
+        { "kind": "trait", "de": "Sie hat lange Pfeifen.", "sl": "Imajo dolge piščali.", "en": "It has long pipes.", "it": "Ha le canne lunghe.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "where", "de": "Sie ist über der Tür.", "sl": "So nad vrati.", "en": "It's above the door.", "it": "È sopra la porta.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "door" },
+        { "kind": "use", "de": "Am Sonntag hören wir sie.", "sl": "Ob nedeljah jih slišimo.", "en": "We hear it on Sundays.", "it": "La domenica lo sentiamo.", "grammar": ["wortstellung", "akkusativ"] }
+      ]
+    },
+    "font": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist hellgrau.", "sl": "Je svetlo siv.", "en": "It's light grey.", "it": "È grigio chiaro.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Es ist aus Stein.", "sl": "Je iz kamna.", "en": "It's made of stone.", "it": "È di pietra.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Es steht bei der Tür.", "sl": "Stoji pri vratih.", "en": "It stands by the door.", "it": "Sta vicino alla porta.", "grammar": ["dativ"], "ref": "door" },
+        { "kind": "trait", "de": "Darin ist Weihwasser.", "sl": "V njem je blagoslovljena voda.", "en": "There's holy water in it.", "it": "Dentro c'è l'acqua santa.", "grammar": ["wortstellung"] }
+      ]
+    },
+    "bell": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist golden.", "sl": "Je zlat.", "en": "It's golden.", "it": "È dorata.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie ist schwer.", "sl": "Je težak.", "en": "It's heavy.", "it": "È pesante.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Sie hängt ganz oben über der Tür.", "sl": "Visi čisto zgoraj nad vrati.", "en": "It hangs right at the top over the door.", "it": "È appesa in alto sopra la porta.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "door" },
+        { "kind": "use", "de": "Sie ruft die Leute zur Messe.", "sl": "Kliče ljudi k maši.", "en": "It calls people to Mass.", "it": "Chiama la gente alla messa.", "grammar": ["praesens"] }
+      ]
+    },
+    "rope": {
+      "clues": [
+        { "kind": "size", "de": "Es ist lang.", "sl": "Je dolga.", "en": "It's long.", "it": "È lunga.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Es hängt bei der Tür.", "sl": "Visi pri vratih.", "en": "It hangs by the door.", "it": "Pende vicino alla porta.", "grammar": ["dativ"], "ref": "door" },
+        { "kind": "trait", "de": "Es hängt von ganz oben herunter.", "sl": "Visi čisto od zgoraj.", "en": "It hangs down from right at the top.", "it": "Pende giù dall'alto.", "grammar": ["praesens", "trennbare-verben"] },
+        { "kind": "use", "de": "Man zieht daran, und die Glocke läutet.", "sl": "Potegneš jo in zvon zazvoni.", "en": "You pull it and the bell rings.", "it": "La tiri e la campana suona.", "grammar": ["praesens"] }
+      ]
+    },
+    "door": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist braun.", "sl": "So rjava.", "en": "It's brown.", "it": "È marrone.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Sie ist aus Holz.", "sl": "So lesena.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "trait", "de": "Oben ist sie rund.", "sl": "Zgoraj so obokana.", "en": "It's rounded at the top.", "it": "In alto è arrotondata.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "where", "de": "Sie ist unter der Orgel.", "sl": "So pod orglami.", "en": "It's under the organ.", "it": "È sotto l'organo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "organ" },
+        { "kind": "use", "de": "Wir machen sie auf und gehen hinein.", "sl": "Odpremo jih in vstopimo.", "en": "We open it and go in.", "it": "La apriamo ed entriamo.", "grammar": ["trennbare-verben"] }
+      ]
+    }
+  }
+}
