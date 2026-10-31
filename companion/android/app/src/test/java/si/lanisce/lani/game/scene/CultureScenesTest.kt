@@ -57,6 +57,7 @@ class CultureScenesTest {
         // (places-it-projects, place-life), In piazza leaves them out
         "square" to setOf("maypole", "fountain", "cart-pump", "cart-stone", "climb", "strike"),
         "apiary" to emptySet(), "church" to emptySet(),
+        "field" to emptySet(),
         // the village's places (places-sl's arts): every effect of each is cued in its Friuli scene too
         "firestation" to emptySet(), "bocce" to emptySet(), "playground" to emptySet(), "chapel" to emptySet(),
         "palisade" to emptySet(), "lookout" to emptySet(),
@@ -100,6 +101,9 @@ class CultureScenesTest {
             listOf("friuli", "sulla-torre-panoramica", "lookout", "project:razgledni_stolp"),
             listOf("friuli", "al-portone", "palisade", "palisade"),
             listOf("kaernten", "am-see", "alps", "spot:${TownSpots.HORIZON}"),
+            // Kärnten (places-kaernten, outdoors): Müller Franz's field below the Dobratsch with the Harpfe, the square under the
+            // linden, the market, Imker Stanko's bee house, the church, the palisade's gate and the view from the watchtower
+            listOf("kaernten", "auf-dem-feld", "field", "field,kozolec"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
         )) {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
