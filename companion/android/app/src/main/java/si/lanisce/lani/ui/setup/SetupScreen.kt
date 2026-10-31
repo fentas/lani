@@ -119,8 +119,10 @@ fun SetupScreen(vm: AppViewModel) {
     // the step read as it opens (its own pieces: the hosted steps and "Še o tebi" read theirs)
     val speech = remember(flow.step, flow.target, flow.base) { stepSpeech(flow) }
     if (flow.step != Step.DEVICE && flow.step != Step.ABOUT) SetupReading(vm, readKey(flow), speech)
-    // a language's tile or chip: its name, in it ("italiano"), as it's chosen
-    fun sayName(l: Lang) = vm.hintVoice.play(SetupSpeech.name(l), needsBase = false)
+    // a language's tile or chip: its name, in it ("italiano"), as it's chosen (TalkBack says the tile's text itself)
+    fun sayName(l: Lang) {
+        if (!vm.introVoice.screenReader) vm.hintVoice.play(SetupSpeech.name(l), needsBase = false)
+    }
 
     when (flow.step) {
         Step.WELCOME -> Welcome(vm, flow, speech, onTarget = { sayName(it); go(flow.chooseTarget(it)) })

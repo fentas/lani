@@ -97,7 +97,7 @@ export default async function level() {
   // --- the aim (the app's setup: docs/plans/05-built/setup-refresh.md) ----------------------------------------------
   const aim = (body: object) => fetch(`${base}/learner/target`, { method: 'POST', headers: auth, body: JSON.stringify(body) })
   const got = await (await fetch(`${base}/learner/target`, { headers: auth })).json()
-  check('GET /learner/target: the level and the aim the profile says', got.level === 'A2' && typeof got.target === 'string', got)
+  check("GET /learner/target: the level and the aim the profile says (none in the smoke's fixture)", got.level === 'A2' && (got.target === null || typeof got.target === 'string'), got)
   const set = await aim({ level: 'b2' })
   const sb = await set.json()
   const after = (await state()).databases.learner_profile.learner
