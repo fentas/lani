@@ -1486,7 +1486,7 @@ internal class SchoolPainter : DioramaPainter() {
     private fun lakesMap(u: Float, v: Float, paper: Int, paperD: Int): Int {
         val land = Col.hex(0x8CC25A); val landD = Col.hex(0x5C9A48); val sea = Col.hex(0x7FB8E0); val lake = Col.hex(0x3E7EC8)
         val col = ((u - 0.05f) / 0.9f * 30f).toInt(); val row = ((v - 0.14f) / 0.78f * 16f).toInt()
-        fun at(r: Int, c: Int) = r in 0..15 && c in 0..29 && LAKES[r][c] == '#'
+        fun at(r: Int, c: Int) = r in 0..15 && c in 0..29 && LAKE_DISTRICT[r][c] == '#'
         val inLand = at(row, col)
         return when {
             v < 0.1f -> Col.hex(0xB83A2E)
@@ -1504,7 +1504,7 @@ internal class SchoolPainter : DioramaPainter() {
     }
 
     /**
-     * The map of the Lakes closer up: the outline smoothed out of [LAKES] with a fine border, the lakes out of [LAKES_WATER],
+     * The map of the Lakes closer up: the outline smoothed out of [LAKE_DISTRICT] with a fine border, the lakes out of [LAKES_WATER],
      * the fells in relief round Scafell Pike and Helvellyn, the towns (Keswick red in a white ring), the sea rippled, the grid,
      * the title LAKES in the red band.
      */
@@ -1515,7 +1515,7 @@ internal class SchoolPainter : DioramaPainter() {
         if (v < 0.1f) return mapTitle(u, v, LAKES_TITLE)
         if (u > 0.97f || v > 0.96f) return paperD
         val cf = (u - 0.05f) / 0.9f * 30f; val rf = (v - 0.14f) / 0.78f * 16f
-        fun land(c: Float, r: Float) = landness(c, r, LAKES) > 0.5f
+        fun land(c: Float, r: Float) = landness(c, r, LAKE_DISTRICT) > 0.5f
         if (land(cf, rf)) {
             if (!land(cf - dc, rf) || !land(cf + dc, rf) || !land(cf, rf - dr) || !land(cf, rf + dr)) return landD
             if (landness(cf, rf, LAKES_WATER) > 0.62f) return if (landness(cf, rf, LAKES_WATER) < 0.72f) Col.hex(0x2E5E98) else lake
@@ -2610,7 +2610,7 @@ internal class SchoolPainter : DioramaPainter() {
         private val FRIULI_TOWNS = floatArrayOf(8.5f, 8.3f, 12.6f, 3.4f, 21.6f, 9.4f, 23.6f, 13.6f)
 
         /** A rough outline of the Lake District on the school's map (the Lake District's look), 30 × 16, north up: the land, its lakes in it ([LAKES_WATER]). */
-        private val LAKES = arrayOf(
+        private val LAKE_DISTRICT = arrayOf(
             "....##########################",
             "..############################",
             "..############################",
