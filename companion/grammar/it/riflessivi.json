@@ -1,0 +1,103 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "riflessivi",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🧼",
+  "title": {
+    "it": "Mi lavo, mi vesto: i verbi riflessivi",
+    "sl": "Povratni glagoli: mi lavo, mi vesto",
+    "en": "Reflexive verbs: mi lavo, mi vesto",
+    "de": "Reflexive Verben: mi lavo, mi vesto"
+  },
+  "rule": {
+    "en": "A reflexive verb is something you do to yourself: **lavarsi** (to wash yourself), **vestirsi** (to get dressed). Its dictionary form ends in **-si**. In the present the little word goes before the verb and changes with the person: **mi lavo, ti lavi, si lava, ci laviamo, vi lavate, si lavano**. The verb itself takes the endings of the present you know.\n\nMany verbs are reflexive in Italian but not in English: **mi alzo** (I get up), **mi sveglio** (I wake up), **mi siedo** (I sit down), **mi diverto** (I have fun), **mi addormento** (I fall asleep). You know one already: **mi chiamo** (my name is) is **chiamarsi**.\n\n**Non** comes before the little word: **Non mi alzo.** (I don't get up.)\n\nWith a part of the body Italian says the article, not *my*: **Mi lavo le mani.** (I wash my hands.) **Giulia si pettina i capelli.**\n\nAfter **voglio, posso, devo** the **-si** of the infinitive becomes the person (**devo lavarmi**), or the little word goes in front (**mi devo lavare**): see the page on modal verbs.",
+    "sl": "Povratni glagol pove, kar narediš sebi: **lavarsi** (umivati se), **vestirsi** (oblačiti se). V slovarju se konča na **-si**. V sedanjiku gre mala beseda pred glagol in se menja z osebo: **mi lavo, ti lavi, si lava, ci laviamo, vi lavate, si lavano**. Kot v slovenščini *se umivam*, le da ima italijanščina za vsako osebo svojo besedo, ne le *se*. Glagol ima končnice sedanjika, ki jih poznaš.\n\nMnogi so povratni v obeh jezikih: **mi sveglio** (zbudim se), **mi diverto** (zabavam se). Nekateri pa le v italijanščini: **mi alzo** (vstanem), **mi addormento** (zaspim). Enega že poznaš: **mi chiamo** (ime mi je) je **chiamarsi**.\n\n**Non** gre pred malo besedo: **Non mi alzo.** (Ne vstanem.)\n\nPri delu telesa italijanščina reče člen, ne *moj*: **Mi lavo le mani.** (Umijem si roke.) **Giulia si pettina i capelli.** (Giulia si češe lase.)\n\nZa **voglio, posso, devo** se **-si** nedoločnika spremeni v osebo (**devo lavarmi**), ali pa gre mala beseda spredaj (**mi devo lavare**): glej stran o naklonskih glagolih.",
+    "de": "Ein reflexives Verb ist etwas, das du mit dir selbst machst: **lavarsi** (sich waschen), **vestirsi** (sich anziehen). Seine Grundform endet auf **-si**. In der Gegenwart steht das kleine Wort vor dem Verb und ändert sich mit der Person: **mi lavo, ti lavi, si lava, ci laviamo, vi lavate, si lavano**. Wie im Deutschen *ich wasche mich, du wäschst dich*, aber das kleine Wort steht vorne. Das Verb hat die Endungen der Gegenwart, die du kennst.\n\nManche Verben sind nur im Italienischen reflexiv: **mi alzo** (ich stehe auf), **mi sveglio** (ich wache auf), **mi addormento** (ich schlafe ein), **mi diverto** (ich habe Spaß). Eines kennst du schon: **mi chiamo** (ich heiße) ist **chiamarsi**.\n\n**Non** steht vor dem kleinen Wort: **Non mi alzo.** (Ich stehe nicht auf.)\n\nBei einem Körperteil sagt das Italienische den Artikel, nicht *mein*: **Mi lavo le mani.** (Ich wasche mir die Hände.) **Giulia si pettina i capelli.** (Giulia kämmt sich die Haare.)\n\nNach **voglio, posso, devo** wird das **-si** der Grundform zur Person (**devo lavarmi**), oder das kleine Wort steht vorne (**mi devo lavare**): siehe die Seite über die Modalverben."
+  },
+  "table": {
+    "head": [
+      { "it": "persona", "sl": "oseba", "en": "person", "de": "Person" },
+      { "it": "lavarsi", "sl": "lavarsi (umivati se)", "en": "lavarsi (wash)", "de": "lavarsi (sich waschen)" },
+      { "it": "alzarsi", "sl": "alzarsi (vstajati)", "en": "alzarsi (get up)", "de": "alzarsi (aufstehen)" },
+      { "it": "vestirsi", "sl": "vestirsi (oblačiti se)", "en": "vestirsi (get dressed)", "de": "vestirsi (sich anziehen)" }
+    ],
+    "rows": [
+      ["io", "mi lavo", "mi alzo", "mi vesto"],
+      ["tu", "ti lavi", "ti alzi", "ti vesti"],
+      ["lui, lei", "si lava", "si alza", "si veste"],
+      ["noi", "ci laviamo", "ci alziamo", "ci vestiamo"],
+      ["voi", "vi lavate", "vi alzate", "vi vestite"],
+      ["loro", "si lavano", "si alzano", "si vestono"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Mi sveglio alle sette e mi alzo subito.",
+      "sl": "Zbudim se ob sedmih in takoj vstanem.",
+      "en": "I wake up at seven and get up straight away.",
+      "de": "Ich wache um sieben auf und stehe sofort auf."
+    },
+    {
+      "it": "Come ti chiami? Mi chiamo Lorenzo.",
+      "sl": "Kako ti je ime? Ime mi je Lorenzo.",
+      "en": "What's your name? My name is Lorenzo.",
+      "de": "Wie heißt du? Ich heiße Lorenzo.",
+      "note": {
+        "sl": "chiamarsi: mi chiamo, ti chiami, si chiama.",
+        "en": "chiamarsi: mi chiamo, ti chiami, si chiama.",
+        "de": "chiamarsi: mi chiamo, ti chiami, si chiama."
+      }
+    },
+    {
+      "it": "Giulia si lava i denti.",
+      "sl": "Giulia si umiva zobe.",
+      "en": "Giulia is brushing her teeth.",
+      "de": "Giulia putzt sich die Zähne.",
+      "note": {
+        "sl": "i denti, ne i suoi denti: pri delu telesa člen.",
+        "en": "i denti, not i suoi denti: a part of the body takes the article.",
+        "de": "i denti, nicht i suoi denti: beim Körperteil der Artikel."
+      }
+    },
+    {
+      "it": "Nonno Bepi si siede sotto il tiglio.",
+      "sl": "Dedek Bepi se usede pod lipo.",
+      "en": "Nonno Bepi sits down under the linden.",
+      "de": "Nonno Bepi setzt sich unter die Linde.",
+      "note": {
+        "sl": "sedersi je nepravilen: mi siedo, ti siedi, si siede, ci sediamo, vi sedete, si siedono.",
+        "en": "sedersi is irregular: mi siedo, ti siedi, si siede, ci sediamo, vi sedete, si siedono.",
+        "de": "sedersi ist unregelmäßig: mi siedo, ti siedi, si siede, ci sediamo, vi sedete, si siedono."
+      }
+    },
+    {
+      "it": "Ci divertiamo al mare!",
+      "sl": "Na morju se zabavamo!",
+      "en": "We're having fun at the sea!",
+      "de": "Wir haben Spaß am Meer!"
+    },
+    {
+      "it": "Domenica Tommaso non si alza presto.",
+      "sl": "V nedeljo Tommaso ne vstane zgodaj.",
+      "en": "On Sunday Tommaso doesn't get up early.",
+      "de": "Am Sonntag steht Tommaso nicht früh auf.",
+      "note": {
+        "sl": "non pred malo besedo: non si alza.",
+        "en": "non before the little word: non si alza.",
+        "de": "non vor dem kleinen Wort: non si alza."
+      }
+    },
+    {
+      "it": "I bambini si lavano le mani prima di mangiare.",
+      "sl": "Otroci si pred jedjo umijejo roke.",
+      "en": "The children wash their hands before eating.",
+      "de": "Die Kinder waschen sich vor dem Essen die Hände."
+    }
+  ],
+  "modules": [],
+  "tags": ["reflexive_verbs", "riflessivi", "mi_ti_si", "lavarsi", "alzarsi", "chiamarsi", "present_tense"],
+  "see": ["presente-regolare", "verbi-irregolari", "modali"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

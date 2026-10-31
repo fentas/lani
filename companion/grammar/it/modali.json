@@ -1,0 +1,100 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "modali",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🙋",
+  "title": {
+    "it": "Posso, voglio, devo, so: i verbi modali",
+    "sl": "Naklonski glagoli: lahko, hočem, moram, znam",
+    "en": "Modal verbs: can, want, must, know how",
+    "de": "Die Modalverben: können, wollen, müssen"
+  },
+  "rule": {
+    "en": "Three verbs say what you can, want or must do: **potere** (can, may), **volere** (want), **dovere** (must, have to). All three are irregular (see the table). After them comes a verb as the dictionary has it, right after them: **Posso giocare?** (May I play?) **Devo fare i compiti.** (I have to do my homework.)\n\n**Potere** is both *can* and *may*: **Posso venire?** (May I come?) **Non posso venire: devo aiutare la nonna.** (I can't come: I have to help Grandma.)\n\nA *can* you have learned, as swimming or reading, is **sapere** (know how): **So nuotare.** (I can swim.) **Sai leggere?** (Can you read?)\n\n**Non** goes before the modal: **Non voglio dormire!**\n\nA reflexive verb keeps its little word: at the end of the infinitive (**devo lavarmi**, **vuoi alzarti**) or before the modal (**mi devo lavare**, **ti vuoi alzare**). Both are right.",
+    "sl": "Trije glagoli povedo, kaj lahko, hočeš ali moraš: **potere** (moči, smeti), **volere** (hoteti), **dovere** (morati). Vsi trije so nepravilni (glej preglednico). Za njimi pride glagol v nedoločniku, takoj za njimi: **Posso giocare?** (Se lahko igram?) **Devo fare i compiti.** (Moram narediti domačo nalogo.)\n\n**Potere** je *lahko* in *smem*: **Posso venire?** (Smem priti?) **Non posso venire: devo aiutare la nonna.** (Ne morem priti: pomagati moram babici.)\n\nKar znaš, na primer plavati ali brati, je **sapere** (znati): **So nuotare.** (Znam plavati.) **Sai leggere?** (Znaš brati?)\n\n**Non** gre pred naklonski glagol: **Non voglio dormire!** (Nočem spati!)\n\nPovratni glagol obdrži malo besedo: na koncu nedoločnika (**devo lavarmi**, **vuoi alzarti**) ali pred naklonskim glagolom (**mi devo lavare**, **ti vuoi alzare**). Oboje je prav.",
+    "de": "Drei Verben sagen, was du kannst, willst oder musst: **potere** (können, dürfen), **volere** (wollen), **dovere** (müssen). Alle drei sind unregelmäßig (siehe Tabelle). Danach kommt ein Verb in der Grundform, und zwar gleich danach, nicht am Satzende wie im Deutschen: **Posso giocare in piazza?** (Darf ich auf dem Platz spielen?) **Devo fare i compiti.** (Ich muss die Hausaufgaben machen.)\n\n**Potere** ist *können* und *dürfen*: **Posso venire?** (Darf ich mitkommen?) **Non posso venire: devo aiutare la nonna.** (Ich kann nicht kommen: Ich muss der Oma helfen.)\n\nEin *können*, das du gelernt hast, wie Schwimmen oder Lesen, ist **sapere** (wissen, können): **So nuotare.** (Ich kann schwimmen.) **Sai leggere?** (Kannst du lesen?)\n\n**Non** steht vor dem Modalverb: **Non voglio dormire!** (Ich will nicht schlafen!)\n\nEin reflexives Verb behält sein kleines Wort: am Ende der Grundform (**devo lavarmi**, **vuoi alzarti**) oder vor dem Modalverb (**mi devo lavare**, **ti vuoi alzare**). Beides ist richtig."
+  },
+  "table": {
+    "head": [
+      { "it": "verbo", "sl": "glagol", "en": "verb", "de": "Verb" },
+      { "it": "io, tu, lui/lei", "sl": "io, tu, lui/lei (jaz, ti, on/ona)", "en": "io, tu, lui/lei (I, you, he/she)", "de": "io, tu, lui/lei (ich, du, er/sie)" },
+      { "it": "noi, voi, loro", "sl": "noi, voi, loro (mi, vi, oni)", "en": "noi, voi, loro (we, you, they)", "de": "noi, voi, loro (wir, ihr, sie)" }
+    ],
+    "rows": [
+      [{ "it": "potere", "sl": "potere (moči, smeti)", "en": "potere (can, may)", "de": "potere (können, dürfen)" }, "posso, puoi, può", "possiamo, potete, possono"],
+      [{ "it": "volere", "sl": "volere (hoteti)", "en": "volere (want)", "de": "volere (wollen)" }, "voglio, vuoi, vuole", "vogliamo, volete, vogliono"],
+      [{ "it": "dovere", "sl": "dovere (morati)", "en": "dovere (must)", "de": "dovere (müssen)" }, "devo, devi, deve", "dobbiamo, dovete, devono"],
+      [{ "it": "sapere", "sl": "sapere (znati, vedeti)", "en": "sapere (know how, know)", "de": "sapere (können, wissen)" }, "so, sai, sa", "sappiamo, sapete, sanno"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Maestra, posso andare in bagno?",
+      "sl": "Učiteljica, smem iti na stranišče?",
+      "en": "Miss, may I go to the toilet?",
+      "de": "Frau Lehrerin, darf ich auf die Toilette gehen?",
+      "note": {
+        "sl": "potere za dovoljenje: posso …? (smem …?).",
+        "en": "potere to ask: posso …? (may I …?).",
+        "de": "potere zum Fragen: posso …? (darf ich …?)."
+      }
+    },
+    {
+      "it": "Lorenzo deve aiutare il nonno al mulino.",
+      "sl": "Lorenzo mora pomagati dedku v mlinu.",
+      "en": "Lorenzo has to help his grandpa at the mill.",
+      "de": "Lorenzo muss dem Opa in der Mühle helfen."
+    },
+    {
+      "it": "Vogliamo giocare a calcio in piazza.",
+      "sl": "Na trgu se hočemo igrati nogomet.",
+      "en": "We want to play football in the square.",
+      "de": "Wir wollen auf dem Platz Fußball spielen.",
+      "note": {
+        "sl": "Nedoločnik takoj za naklonskim glagolom: vogliamo giocare.",
+        "en": "The infinitive right after the modal: vogliamo giocare.",
+        "de": "Die Grundform gleich nach dem Modalverb: vogliamo giocare (nicht am Ende)."
+      }
+    },
+    {
+      "it": "Sai nuotare? Sì, so nuotare!",
+      "sl": "Znaš plavati? Ja, znam plavati!",
+      "en": "Can you swim? Yes, I can swim!",
+      "de": "Kannst du schwimmen? Ja, ich kann schwimmen!",
+      "note": {
+        "sl": "Kar znaš: sapere (so nuotare), ne potere.",
+        "en": "What you've learned: sapere (so nuotare), not potere.",
+        "de": "Was du gelernt hast: sapere (so nuotare), nicht potere."
+      }
+    },
+    {
+      "it": "Oggi non posso venire: devo fare i compiti.",
+      "sl": "Danes ne morem priti: moram narediti domačo nalogo.",
+      "en": "I can't come today: I have to do my homework.",
+      "de": "Heute kann ich nicht kommen: Ich muss Hausaufgaben machen."
+    },
+    {
+      "it": "Devi lavarti le mani. Ti devi lavare le mani.",
+      "sl": "Umiti si moraš roke.",
+      "en": "You have to wash your hands.",
+      "de": "Du musst dir die Hände waschen.",
+      "note": {
+        "sl": "Oboje je prav: devi lavarti in ti devi lavare.",
+        "en": "Both are right: devi lavarti and ti devi lavare.",
+        "de": "Beides ist richtig: devi lavarti und ti devi lavare."
+      }
+    },
+    {
+      "it": "I bambini vogliono sentire una storia.",
+      "sl": "Otroci hočejo slišati zgodbo.",
+      "en": "The children want to hear a story.",
+      "de": "Die Kinder wollen eine Geschichte hören."
+    }
+  ],
+  "modules": [],
+  "tags": ["modal_verbs", "modali", "potere", "volere", "dovere", "sapere", "infinitive"],
+  "see": ["verbi-irregolari", "riflessivi", "presente-regolare"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

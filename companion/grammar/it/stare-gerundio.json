@@ -1,0 +1,100 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "stare-gerundio",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🏃",
+  "title": {
+    "it": "Sto giocando: stare + gerundio",
+    "sl": "Ravno zdaj: stare + gerundij",
+    "en": "Right now: stare + the gerund",
+    "de": "Gerade jetzt: stare + Gerundium"
+  },
+  "rule": {
+    "en": "What is going on right now is **stare** + the gerund: **Sto giocando.** (I'm playing.) **Che cosa stai facendo?** (What are you doing?) **Stare** changes with the person: **sto, stai, sta, stiamo, state, stanno**.\n\nThe gerund: **-are → -ando** (**giocare → giocando**), **-ere** and **-ire → -endo** (**leggere → leggendo**, **dormire → dormendo**, **finire → finendo**). It never changes: **Giulia sta cantando**, **le pecore stanno mangiando**.\n\nA few come from an older form of the verb: **fare → facendo**, **dire → dicendo**, **bere → bevendo**.\n\nA reflexive verb: **Mi sto lavando.** (I'm washing.) **Sto lavandomi** is right too.\n\nOnly for right now. What you do every day, or often, is the present: **Ogni mattina gioco in piazza.** Right now you can say the present too (**Adesso leggo.**); **sto leggendo** says *just now, in the middle of it*.",
+    "sl": "Kar se dogaja ravno zdaj, je **stare** + gerundij: **Sto giocando.** (Ravno se igram.) **Che cosa stai facendo?** (Kaj pa delaš?) **Stare** se menja z osebo: **sto, stai, sta, stiamo, state, stanno**.\n\nGerundij: **-are → -ando** (**giocare → giocando**), **-ere** in **-ire → -endo** (**leggere → leggendo**, **dormire → dormendo**, **finire → finendo**). Nikoli se ne spremeni: **Giulia sta cantando**, **le pecore stanno mangiando**.\n\nNekaj jih pride iz starejše oblike glagola: **fare → facendo**, **dire → dicendo**, **bere → bevendo**.\n\nPovratni glagol: **Mi sto lavando.** (Ravno se umivam.) Prav je tudi **sto lavandomi**.\n\nSamo za ravno zdaj. Kar delaš vsak dan ali pogosto, je sedanjik: **Ogni mattina gioco in piazza.** (Vsako jutro se igram na trgu.) Tudi za zdaj lahko rečeš sedanjik (**Adesso leggo.**); **sto leggendo** pove *ravno zdaj, sredi tega*.",
+    "de": "Was gerade jetzt passiert, ist **stare** + Gerundium: **Sto giocando.** (Ich spiele gerade.) **Che cosa stai facendo?** (Was machst du gerade?) **Stare** ändert sich mit der Person: **sto, stai, sta, stiamo, state, stanno**.\n\nDas Gerundium: **-are → -ando** (**giocare → giocando**), **-ere** und **-ire → -endo** (**leggere → leggendo**, **dormire → dormendo**, **finire → finendo**). Es ändert sich nie: **Giulia sta cantando**, **le pecore stanno mangiando**.\n\nEin paar kommen von einer älteren Form des Verbs: **fare → facendo**, **dire → dicendo**, **bere → bevendo**.\n\nEin reflexives Verb: **Mi sto lavando.** (Ich wasche mich gerade.) Auch **sto lavandomi** ist richtig.\n\nNur für gerade jetzt. Was du jeden Tag oder oft machst, ist die Gegenwart: **Ogni mattina gioco in piazza.** (Jeden Morgen spiele ich auf dem Platz.) Auch für jetzt kannst du die Gegenwart sagen (**Adesso leggo.**); **sto leggendo** sagt *gerade, mittendrin*."
+  },
+  "table": {
+    "head": [
+      { "it": "infinito", "sl": "nedoločnik", "en": "infinitive", "de": "Grundform" },
+      { "it": "gerundio", "sl": "gerundij", "en": "gerund", "de": "Gerundium" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      ["giocare", "giocando", "sto giocando"],
+      ["mangiare", "mangiando", "stai mangiando"],
+      ["leggere", "leggendo", "sta leggendo"],
+      ["scrivere", "scrivendo", "stiamo scrivendo"],
+      ["dormire", "dormendo", "state dormendo"],
+      ["finire", "finendo", "stanno finendo"],
+      ["fare", "facendo", "che cosa stai facendo?"],
+      ["dire", "dicendo", "che cosa sta dicendo?"],
+      ["bere", "bevendo", "il gatto sta bevendo"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Shh! Lorenzo sta dormendo.",
+      "sl": "Pst! Lorenzo spi.",
+      "en": "Shh! Lorenzo is sleeping.",
+      "de": "Pst! Lorenzo schläft gerade."
+    },
+    {
+      "it": "Che cosa stai facendo? Sto disegnando un cavallo.",
+      "sl": "Kaj pa delaš? Rišem konja.",
+      "en": "What are you doing? I'm drawing a horse.",
+      "de": "Was machst du gerade? Ich male ein Pferd.",
+      "note": {
+        "sl": "fare → facendo (iz starejše oblike).",
+        "en": "fare → facendo (from an older form).",
+        "de": "fare → facendo (von einer älteren Form)."
+      }
+    },
+    {
+      "it": "Nonna Rosa sta cucinando la polenta.",
+      "sl": "Babica Rosa kuha polento.",
+      "en": "Nonna Rosa is cooking polenta.",
+      "de": "Nonna Rosa kocht gerade Polenta."
+    },
+    {
+      "it": "Le pecore stanno mangiando l'erba.",
+      "sl": "Ovce jedo travo.",
+      "en": "The sheep are eating the grass.",
+      "de": "Die Schafe fressen gerade Gras.",
+      "note": {
+        "sl": "Gerundij se ne spreminja: stanno mangiando.",
+        "en": "The gerund never changes: stanno mangiando.",
+        "de": "Das Gerundium ändert sich nie: stanno mangiando."
+      }
+    },
+    {
+      "it": "Mi sto lavando i denti.",
+      "sl": "Ravno si umivam zobe.",
+      "en": "I'm brushing my teeth.",
+      "de": "Ich putze mir gerade die Zähne."
+    },
+    {
+      "it": "Ogni mattina Lorenzo va al mulino. Adesso sta giocando.",
+      "sl": "Vsako jutro gre Lorenzo k mlinu. Zdaj se igra.",
+      "en": "Every morning Lorenzo goes to the mill. Right now he's playing.",
+      "de": "Jeden Morgen geht Lorenzo zur Mühle. Jetzt spielt er gerade.",
+      "note": {
+        "sl": "Vsak dan: sedanjik (va). Ravno zdaj: sta giocando.",
+        "en": "Every day: the present (va). Right now: sta giocando.",
+        "de": "Jeden Tag: Gegenwart (va). Gerade jetzt: sta giocando."
+      }
+    },
+    {
+      "it": "Il gatto sta bevendo il latte.",
+      "sl": "Muc pije mleko.",
+      "en": "The cat is drinking the milk.",
+      "de": "Die Katze trinkt gerade die Milch."
+    }
+  ],
+  "modules": [],
+  "tags": ["gerund", "gerundio", "stare", "progressive", "right_now", "present_tense"],
+  "see": ["verbi-irregolari", "presente-regolare", "riflessivi"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

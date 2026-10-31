@@ -1,0 +1,110 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "comparativi",
+  "language": "it",
+  "level": "A2",
+  "emoji": "⚖️",
+  "title": {
+    "it": "Più grande di te: il comparativo",
+    "sl": "Primerjava: večji kot ti",
+    "en": "Comparing: bigger than you",
+    "de": "Der Vergleich: größer als du"
+  },
+  "rule": {
+    "en": "To compare, Italian puts **più** (more) before the adjective and **di** (than) before the other one: **Tommaso è più grande di Giulia.** (Tommaso is older than Giulia.) The adjective agrees as always: **Giulia è più alta di Lorenzo.**\n\n**Di** melts with the article: **più alto del nonno** (di + il), **più alto della casa** (di + la), **più grande dello stagno**, **più dolci dei limoni**. With a person: **di me, di te, di lui, di lei**: **Bruno è più forte di me.**\n\n**Meno … di** is *less … than*: **Oggi fa meno freddo di ieri.**\n\nThe same: **come** or **quanto**: **Giulia è alta come Tommaso.** **Il latte è bianco come la neve.**\n\nTwo are irregular. **Buono → migliore** (better), **cattivo → peggiore** (worse): **Il miele di Aldo è migliore dello zucchero.** For food **più buono** is heard too. But how you do something is **bene → meglio**, **male → peggio**: **Giulia legge meglio di Tommaso.** English says *better* for both; Italian says **migliore** with a thing or a person, **meglio** with a verb.",
+    "sl": "Za primerjavo italijanščina postavi **più** (bolj) pred pridevnik in **di** (kot) pred drugo stvar: **Tommaso è più grande di Giulia.** (Tommaso je starejši od Giulie.) Pridevnik se ujema kot vedno: **Giulia è più alta di Lorenzo.** (Giulia je višja od Lorenza.)\n\n**Di** se zlije s členom: **più alto del nonno** (di + il), **più alto della casa** (di + la), **più grande dello stagno**, **più dolci dei limoni**. Z osebo: **di me, di te, di lui, di lei**: **Bruno è più forte di me.** (Bruno je močnejši od mene.)\n\n**Meno … di** je *manj … kot*: **Oggi fa meno freddo di ieri.** (Danes je manj mrzlo kot včeraj.)\n\nEnako: **come** ali **quanto**: **Giulia è alta come Tommaso.** (Giulia je visoka kot Tommaso.) **Il latte è bianco come la neve.**\n\nDva sta nepravilna. **Buono → migliore** (boljši), **cattivo → peggiore** (slabši): **Il miele di Aldo è migliore dello zucchero.** Pri hrani se sliši tudi **più buono**. Kako kaj delaš, pa je **bene → meglio** (bolje), **male → peggio** (slabše): **Giulia legge meglio di Tommaso.** (Giulia bere bolje kot Tommaso.) Kot v slovenščini *boljši* in *bolje*: **migliore** s stvarjo ali osebo, **meglio** z glagolom.",
+    "de": "Zum Vergleichen stellt das Italienische **più** (mehr) vor das Adjektiv und **di** (als) vor das andere: **Tommaso è più grande di Giulia.** (Tommaso ist älter als Giulia.) Das Adjektiv passt sich an wie immer: **Giulia è più alta di Lorenzo.**\n\n**Di** verschmilzt mit dem Artikel: **più alto del nonno** (di + il), **più alto della casa** (di + la), **più grande dello stagno**, **più dolci dei limoni**. Mit einer Person: **di me, di te, di lui, di lei**: **Bruno è più forte di me.** (Bruno ist stärker als ich.)\n\n**Meno … di** ist *weniger … als*: **Oggi fa meno freddo di ieri.**\n\nGleich: **come** oder **quanto**: **Giulia è alta come Tommaso.** (Giulia ist so groß wie Tommaso.) **Il latte è bianco come la neve.**\n\nZwei sind unregelmäßig. **Buono → migliore** (besser), **cattivo → peggiore** (schlechter): **Il miele di Aldo è migliore dello zucchero.** Beim Essen hört man auch **più buono**. Wie man etwas macht, ist aber **bene → meglio**, **male → peggio**: **Giulia legge meglio di Tommaso.** (Giulia liest besser als Tommaso.) Im Deutschen ist beides *besser*; im Italienischen **migliore** mit einem Ding oder einer Person, **meglio** mit einem Verb."
+  },
+  "table": {
+    "head": [
+      { "it": "confronto", "sl": "primerjava", "en": "comparing", "de": "Vergleich" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" },
+      { "it": "significato", "sl": "pomen", "en": "meaning", "de": "Bedeutung" }
+    ],
+    "rows": [
+      ["più … di", "più grande di Giulia", { "it": "più grande di Giulia", "sl": "večji od Giulie", "en": "bigger than Giulia", "de": "größer als Giulia" }],
+      ["di + il, la …", "più alto del nonno", { "it": "più alto del nonno", "sl": "višji od dedka", "en": "taller than Grandpa", "de": "größer als der Opa" }],
+      ["di me, di te", "più forte di me", { "it": "più forte di me", "sl": "močnejši od mene", "en": "stronger than me", "de": "stärker als ich" }],
+      ["meno … di", "meno freddo di ieri", { "it": "meno freddo di ieri", "sl": "manj mrzlo kot včeraj", "en": "less cold than yesterday", "de": "weniger kalt als gestern" }],
+      ["come, quanto", "alta come Tommaso", { "it": "alta come Tommaso", "sl": "visoka kot Tommaso", "en": "as tall as Tommaso", "de": "so groß wie Tommaso" }],
+      ["buono → migliore", "un pane migliore", { "it": "un pane migliore", "sl": "boljši kruh", "en": "a better bread", "de": "ein besseres Brot" }],
+      ["cattivo → peggiore", "un tempo peggiore", { "it": "un tempo peggiore", "sl": "slabše vreme", "en": "worse weather", "de": "schlechteres Wetter" }],
+      ["bene → meglio", "legge meglio", { "it": "legge meglio", "sl": "bere bolje", "en": "reads better", "de": "liest besser" }],
+      ["male → peggio", "canta peggio", { "it": "canta peggio", "sl": "poje slabše", "en": "sings worse", "de": "singt schlechter" }]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Tommaso è più grande di Giulia.",
+      "sl": "Tommaso je starejši od Giulie.",
+      "en": "Tommaso is older than Giulia.",
+      "de": "Tommaso ist älter als Giulia.",
+      "note": {
+        "sl": "grande pri otrocih pomeni tudi starejši.",
+        "en": "With children grande often means older.",
+        "de": "Bei Kindern heißt grande auch älter."
+      }
+    },
+    {
+      "it": "Il campanile è più alto della casa.",
+      "sl": "Zvonik je višji od hiše.",
+      "en": "The bell tower is taller than the house.",
+      "de": "Der Kirchturm ist höher als das Haus.",
+      "note": {
+        "sl": "di + la casa = della casa.",
+        "en": "di + la casa = della casa.",
+        "de": "di + la casa = della casa."
+      }
+    },
+    {
+      "it": "Bruno è più forte di me.",
+      "sl": "Bruno je močnejši od mene.",
+      "en": "Bruno is stronger than me.",
+      "de": "Bruno ist stärker als ich.",
+      "note": {
+        "sl": "di me, di te, ne di io.",
+        "en": "di me, di te, never di io.",
+        "de": "di me, di te, nie di io."
+      }
+    },
+    {
+      "it": "Oggi fa meno freddo di ieri.",
+      "sl": "Danes je manj mrzlo kot včeraj.",
+      "en": "It's less cold today than yesterday.",
+      "de": "Heute ist es weniger kalt als gestern."
+    },
+    {
+      "it": "Giulia è alta come Tommaso.",
+      "sl": "Giulia je visoka kot Tommaso.",
+      "en": "Giulia is as tall as Tommaso.",
+      "de": "Giulia ist so groß wie Tommaso."
+    },
+    {
+      "it": "Il miele di Aldo è migliore dello zucchero.",
+      "sl": "Aldov med je boljši od sladkorja.",
+      "en": "Aldo's honey is better than sugar.",
+      "de": "Aldos Honig ist besser als Zucker.",
+      "note": {
+        "sl": "buono → migliore (boljši).",
+        "en": "buono → migliore (better).",
+        "de": "buono → migliore (besser)."
+      }
+    },
+    {
+      "it": "Giulia legge meglio di Tommaso.",
+      "sl": "Giulia bere bolje kot Tommaso.",
+      "en": "Giulia reads better than Tommaso.",
+      "de": "Giulia liest besser als Tommaso.",
+      "note": {
+        "sl": "Z glagolom (legge): bene → meglio.",
+        "en": "With a verb (legge): bene → meglio.",
+        "de": "Mit einem Verb (legge): bene → meglio."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["comparative", "comparativo", "piu_di", "meno_di", "come", "migliore", "meglio", "adjectives"],
+  "see": ["superlativi", "aggettivi-accordo", "preposizioni-articolate"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}
