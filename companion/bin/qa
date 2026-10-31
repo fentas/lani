@@ -5028,7 +5028,8 @@ def culture_source():
     course apart): the map in Friuli's look; the bocce court finished, its landmark, its card's way in, inside in the same
     look (NOI | VOI on the scoreboard, the osteria with its frasca), closer; the osteria, the playground's fontanella and the
     chapel's candle on the altar each tapped (SceneAt's areas: their word cards); the cramâr coming up the road to the gate
-    under his crassigne (Tommaso's cramar dialog, QA's hook "happening:al-portone/cramar/cramar-cassetti"). Also as cs-*.png
+    under his crassigne (Tommaso's cramar dialog, QA's hook "happening:al-portone/cramar/cramar": far off, then near once its
+    first turn is answered). Also as cs-*.png
     in $LANI_QA_CULTURE_SHOTS."""
     if api("/culture").get("id") != "friuli":
         return "skipped: the dev bridge's village isn't of the Friuli culture (LANI_CULTURE=friuli)"
@@ -5049,10 +5050,17 @@ def culture_source():
             shutil.copy(shots[-1], out / f"{name}.png")
 
     def word_card(sid: str, slot: str, word: str, name: str):
-        """[slot] of the open scene [sid] tapped where nothing covers it: its word's card ([word], the Italian)."""
-        adb("logcat", "-c")
+        """[slot] of the open scene [sid] tapped where nothing covers it: its word's card ([word], the Italian). A thing a few
+        pixels wide (the candle on the altar) on its own area's middle, its pixels there (SceneAt's area: them and their slop)."""
         time.sleep(2 * slow())
-        if tap_in_scene("things", slot) and wait_for(word, 8) is not None:
+        # the open scene's areas as it logged them last (not cleared first: it logs when the picture's layout changes)
+        at = scene_at()
+        area = (at or {}).get("things", {}).get(slot) if (at or {}).get("scene") == sid else None
+        small = area is not None and (area[2] - area[0] < 48 or area[3] - area[1] < 48)
+        if small:
+            print(f"    {slot}: its area {area}, small: tapped at its middle")
+            tap_at(((area[0] + area[2]) // 2, (area[1] + area[3]) // 2))
+        if (small or tap_in_scene("things", slot)) and wait_for(word, 8) is not None:
             time.sleep(1)
             snap(name)
             adb("shell", "input", "keyevent", "KEYCODE_BACK")
@@ -5100,13 +5108,28 @@ def culture_source():
             snap(f"cs-{sid}")
             found.append(word_card(sid, slot, word, f"cs-{sid}-{slot}"))
             tap(back, 3)
-        # the cramâr up the road to the gate under his crassigne
+        # the cramâr up the road to the gate under his crassigne: far off at first, then near («Ha tanti cassettini!»)
         plain_village()
         qa_hook("hour:10")
-        qa_hook("happening:al-portone/cramar/cramar-cassetti", "scene:al-portone@al-portone/cramar")
+        qa_hook("happening:al-portone/cramar/cramar", "scene:al-portone@al-portone/cramar")
         if wait_for(back, 10) is not None and wait_for(close, 10) is not None:
             time.sleep(4 * slow())
             snap("cs-gate-cramar")
+            oks = mill_oks(scene_of("al-portone"), "cramar", "it")
+            for _ in range(4):
+                if find("Kateri glas je tvoj?") is not None:
+                    tap("V redu · OK", 2)
+                    time.sleep(1.5)
+                    continue
+                if answer_choice(oks):
+                    break
+                time.sleep(1.5)
+            # the learner's own voice offered at their first line (a fresh install): the default kept, the road in view
+            time.sleep(2.5)
+            if find("Kateri glas je tvoj?") is not None:
+                tap("V redu · OK", 2)
+            time.sleep(3 * slow())
+            snap("cs-gate-cramar-near")
             qa_hook("zoom")
             time.sleep(3 * slow())
             snap("cs-gate-cramar-closer")
