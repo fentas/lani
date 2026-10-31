@@ -75,7 +75,7 @@ internal object LakelandLooks {
 
     /**
      * Mrs Hartley's village school (SchoolPainter): cream walls over a dark green painted dado, an alphabet frieze, the map of
-     * the Lakes, St George's cross on the pole, "Hello! How are you? Fine, thanks." on the board, the children's writing
+     * the Lakes, St George's cross on the pole, "Hello! All well? Yes!" on the board, the children's writing
      * slates on a stool where the basket stands.
      */
     val SCHOOL = Table.of(

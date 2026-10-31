@@ -55,7 +55,7 @@ has a row per art, and "Every building at its level" the levels; in short:
 | `tent` | St George's pennant, a dry-stone wall with bracken and foxgloves, green wellingtons |
 | `smithy` | slate-stone walls, the yard flagged with slate |
 | `church` | slate flags, clear leaded quarries, the open timber roof, the Good Shepherd in an oak frame and a gilt text board, a slate plinth, memorial tablets, a slate bellcote, an oak loft, a brass eagle lectern, a yew |
-| `school` | green and cream, an alphabet frieze, the map of the Lakes (LAKES), St George's cross, "Hello! / How are you? / Fine, thanks.", writing slates |
+| `school` | green and cream, an alphabet frieze, the map of the Lakes (LAKES), St George's cross, "Hello! / All well? / Yes!", writing slates |
 | `field` | the stone field barn by its level (cart door, byre door, pointed walls, through-stones and steps, quoins, slits and an owl hole, the loft full), dry-stone walls, the fells, the village round its battlemented tower |
 | `square` | the green (grass, daisies, a gravel path, flags by the houses), the oak, the village pump by its level, the battlemented church, slate cottages with white window frames and no shutters, a dry-stone wall, daffodils, the fells |
 | `market` | slate houses with white frames, the battlemented clock tower, green and cream awnings, heather honey, onions, rhubarb and leeks, ale on the cart, the fells |
@@ -67,7 +67,7 @@ The map agrees (`MapLooksTest`): the field's barn is the map's hay barn, the gre
 hives its hives, the watchtower's St George's cross its flag and the tent's its pennant, the school's flag goes with the
 map's school of stone; the map's watchtower now stands on pillars of slate stone from level 3, as its view builds it
 (`MapLook.peleTower`, `BuildingLooks.towerPillars(slate = true)`). The school's chalk hand learnt the letters of the English
-greeting (`ChalkHand`: H, l, w, y, u, F, t, h and the comma).
+greeting (`ChalkFont` and `ChalkHand`: H, l, A, w and Y).
 
 ## How it was checked
 

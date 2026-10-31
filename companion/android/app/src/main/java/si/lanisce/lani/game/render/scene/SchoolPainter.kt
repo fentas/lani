@@ -2548,7 +2548,8 @@ internal class SchoolPainter : DioramaPainter() {
             null to Triple("Dober dan!", "Kako si?", "Dobro."),
             "it" to Triple("Ciao!", "Come va?", "Bene!"),
             "de" to Triple("Grüß Gott!", "Wie geht's?", "Gut!"),
-            "en" to Triple("Hello!", "How are you?", "Fine, thanks."),
+            // the Lake District's, short enough for the board's three lines (12 letters at most, the third clear of the sun)
+            "en" to Triple("Hello!", "All well?", "Yes!"),
         )
 
         /** A rough outline of Friuli Venezia Giulia, 30 × 16, north up: the Alps along the top, the coast and Trieste at the foot. */
@@ -2790,6 +2791,12 @@ internal object ChalkFont {
         'ü' to arrayOf("....", "#..#", "....", "#..#", "#..#", ".###"),
         'ß' to arrayOf(".##.", "#..#", "#.#.", "#..#", "#..#", "#.#."),
         '\'' to arrayOf("#", "#", ".", ".", ".", "."),
+        // the Lake District's greeting's ("Hello! All well? Yes!")
+        'H' to arrayOf("#..#", "#..#", "####", "#..#", "#..#", "#..#"),
+        'l' to arrayOf("#", "#", "#", "#", "#", "#"),
+        'A' to arrayOf(".##.", "#..#", "#..#", "####", "#..#", "#..#"),
+        'w' to arrayOf(".....", ".....", "#...#", "#.#.#", "#.#.#", ".#.#."),
+        'Y' to arrayOf("#.#", "#.#", ".#.", ".#.", ".#.", ".#."),
     )
 
     /**
@@ -2860,13 +2867,12 @@ internal object ChalkHand {
         'ü' to arrayOf(p(0f, 2.8f, 0f, 4.1f, 0.6f, 4.8f, 1.5f, 5f, 2.4f, 4.8f, 3f, 4.1f), p(3f, 2.8f, 3f, 5f), p(0f, 1.2f), p(3f, 1.2f)),
         'ß' to arrayOf(p(0f, 5f, 0f, 1f, 0.5f, 0.2f, 1.4f, 0f, 2.3f, 0.4f, 2.4f, 1.3f, 1.5f, 2.2f, 2.6f, 2.8f, 3f, 3.8f, 2.5f, 4.7f, 1.4f, 5f)),
         '\'' to arrayOf(p(0f, 0f, 0f, 1.2f)),
-        // the Lake District's greeting: "Hello! How are you? Fine, thanks."
+        // the Lake District's greeting: "Hello! All well? Yes!"
         'H' to arrayOf(p(0f, 0f, 0f, 5f), p(3f, 0f, 3f, 5f), p(0f, 2.5f, 3f, 2.5f)),
         'l' to arrayOf(p(0f, 0f, 0f, 5f)),
+        'A' to arrayOf(p(0f, 5f, 0f, 1.5f, 0.5f, 0.4f, 1.5f, 0f, 2.5f, 0.4f, 3f, 1.5f, 3f, 5f), p(0f, 3f, 3f, 3f)),
         'w' to arrayOf(p(0f, 2f, 1f, 5f, 2f, 3f, 3f, 5f, 4f, 2f)),
-        'y' to arrayOf(p(0f, 2f, 1.5f, 5f), p(3f, 2f, 1.5f, 5f, 0.8f, 6.6f)),
-        'F' to arrayOf(p(0f, 0f, 0f, 5f), p(0f, 0f, 3f, 0f), p(0f, 2.4f, 2.2f, 2.4f)),
-        ',' to arrayOf(p(0.3f, 4.6f, 0f, 6f)),
+        'Y' to arrayOf(p(0f, 0f, 1f, 2.6f), p(2f, 0f, 1f, 2.6f, 1f, 5f)),
     )
 
     /** The strokes of [ch] (none for a space or a letter it doesn't know). */

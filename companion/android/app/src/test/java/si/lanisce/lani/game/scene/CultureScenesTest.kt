@@ -62,6 +62,8 @@ class CultureScenesTest {
         // the village's places (places-sl's arts): every effect of each is cued in its Friuli scene too
         "firestation" to emptySet(), "bocce" to emptySet(), "playground" to emptySet(), "chapel" to emptySet(),
         "palisade" to emptySet(), "lookout" to emptySet(),
+        // the Lake District's (places-lakeland): every effect of the kitchen, the tent, the smithy and the field cued too
+        "kitchen" to emptySet(), "tent" to emptySet(), "smithy" to emptySet(), "field" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -128,6 +130,25 @@ class CultureScenesTest {
             listOf("kaernten", "am-tor", "palisade", "palisade"),
             listOf("kaernten", "auf-dem-wachturm", "watchtower", "watchtower"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
+            // the Lake District's buildings (places-lakeland): the house's rooms (Granny Maggie's kitchen, anyone's; Old Wilf's
+            // room by the fire, Brewer Sam's cellar, Mrs Birkett and Harry's attic, Mr Tyson and Alfie's workshop), the tent,
+            // the smithy, the church, the school, the field and its barn, the green from the oak or the pump, the market, the
+            // bee garden, the watchtower and the gate
+            listOf("lakeland", "in-the-kitchen", "kitchen", "hut,house"),
+            listOf("lakeland", "in-the-living-room", "livingroom", "house"),
+            listOf("lakeland", "in-the-cellar", "cellar", "house"),
+            listOf("lakeland", "in-the-attic", "attic", "house"),
+            listOf("lakeland", "in-the-workshop", "workshop", "house"),
+            listOf("lakeland", "in-the-tent", "tent", "tent"),
+            listOf("lakeland", "in-the-smithy", "smithy", "smithy"),
+            listOf("lakeland", "in-church", "church", "church"),
+            listOf("lakeland", "at-school", "school", "school"),
+            listOf("lakeland", "in-the-field", "field", "field,kozolec"),
+            listOf("lakeland", "on-the-green", "square", "lipa,well"),
+            listOf("lakeland", "at-the-market", "market", "market"),
+            listOf("lakeland", "at-the-bees", "apiary", "beehive"),
+            listOf("lakeland", "on-the-watchtower", "watchtower", "watchtower"),
+            listOf("lakeland", "at-the-gate", "palisade", "palisade"),
         )) {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
             assertEquals(art, s.art)
