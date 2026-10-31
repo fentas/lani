@@ -15,8 +15,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.layout
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.onPlaced
+import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.test.click
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -34,10 +38,10 @@ import si.lanisce.lani.Screen
 import si.lanisce.lani.ui.game.rememberNow
 
 /**
- * The back stack's screens as composed (ui/Covered.kt, docs/plans/05-built/nav-perf.md): Home kept composed under the
- * screens opened from it, out of the way while covered (nothing of it shown, touched or found by TalkBack, its Back taken
- * by nobody, its tickers stopped), and on top again as it was, nothing composed anew; any other screen below the top is
- * its remembered state only.
+ * The back stack's screens as composed (ui/Covered.kt, docs/plans/05-built/nav-perf.md, changes-areas.md): Home kept
+ * composed under the screens opened from it, out of the way while covered (placed out of the window: nothing of it shown,
+ * touched or found by TalkBack, its Back taken by nobody, its tickers stopped), and on top again as it was, nothing composed
+ * anew; any other screen below the top is its remembered state only.
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [35])
@@ -50,7 +54,9 @@ class ScreenStackTest {
     private val backs = mutableListOf<String>()
     private var homeCovered: Boolean? = null
     private var homePlaced = 0
-    private var homeMeasured = 0
+    /** Where Home was placed last (its x in the root, px), and how often it was tapped where the screens' texts aren't. */
+    private var homeX = 0f
+    private var homeTaps = 0
     /** What Home shows besides its name: changed while it is covered. */
     private var homeNews by mutableIntStateOf(0)
 
@@ -68,9 +74,9 @@ class ScreenStackTest {
         ScreenStack(nav.entries, states, peek = peek) { s ->
             val n = name(s)
             remember(n) { Life(n) }
-            val measured = if (s == Screen.Home) Modifier.layout { m, c -> homeMeasured++; val p = m.measure(c); layout(p.width, p.height) { p.place(0, 0) } } else Modifier
-            Box(Modifier.fillMaxSize().then(if (s == Screen.Home) Modifier.onPlaced { homePlaced++ } else Modifier)) {
-                Box(measured) {
+            val home = if (s == Screen.Home) Modifier.onPlaced { homePlaced++; homeX = it.positionInRoot().x }.clickable { homeTaps++ } else Modifier
+            Box(Modifier.fillMaxSize().then(home)) {
+                Box {
                     var taps by rememberSaveable { mutableIntStateOf(0) }
                     Text("$n $taps", Modifier.clickable { taps++ })
                     if (s == Screen.Home) {
@@ -110,19 +116,24 @@ class ScreenStackTest {
         assertEquals(2, began["Village"])
     }
 
-    @Test fun `a covered Home is neither measured nor drawn while what it shows changes, and shows it once on top`() {
+    @Test fun `a covered Home lies out of the window, nothing of it touched, and shows what changed once on top`() {
         val nav = home()
         compose.setContent { Screens(nav) }
         compose.runOnIdle { nav.go(Screen.Packs) }
         compose.waitForIdle()
-        val measured = homeMeasured
-        val placed = homePlaced
+        assertTrue("placed out of the window (its pictures kept for when it shows)", homeX < -10_000f)
         compose.runOnIdle { homeNews = 3 }
         compose.waitForIdle()
-        assertEquals("not measured while covered", measured, homeMeasured)
-        assertEquals("not placed while covered", placed, homePlaced)
+        // a tap where the screen on top has nothing: none of Home's
+        compose.onRoot().performTouchInput { click(Offset(width - 5f, height - 5f)) }
+        compose.waitForIdle()
+        assertEquals("nothing of a covered Home is touched", 0, homeTaps)
         compose.runOnIdle { nav.back() }
         compose.onNodeWithText("news 3").assertExists()
+        assertEquals("on top again where it was", 0f, homeX)
+        compose.onRoot().performTouchInput { click(Offset(width - 5f, height - 5f)) }
+        compose.waitForIdle()
+        assertEquals("on top, touched again", 1, homeTaps)
     }
 
     @Test fun `a covered Home takes no Back, its own Back works again once on top`() {

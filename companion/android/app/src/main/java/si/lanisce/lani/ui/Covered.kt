@@ -19,6 +19,7 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
@@ -28,8 +29,8 @@ import si.lanisce.lani.Screen
 
 /**
  * Whether the screen around this is kept composed under another one on top of it ([ScreenStack]: Home under the screens
- * opened from it; docs/plans/05-built/nav-perf.md). While it is, nothing of it is measured, placed, drawn, touched or
- * read by TalkBack, and what would run by itself in it waits: the header village's clock, the tickers ([si.lanisce.lani.
+ * opened from it; docs/plans/05-built/nav-perf.md). While it is, nothing of it is drawn, touched or read by TalkBack (it
+ * lies out of the window), and what would run by itself in it waits: the header village's clock, the tickers ([si.lanisce.lani.
  * ui.game.rememberNow]), a tip's being shown, its sheets. Back on top, it is there as it was, nothing composed again.
  */
 val LocalCovered = compositionLocalOf { false }
@@ -84,10 +85,15 @@ fun rememberShownAt(): Long {
 }
 
 /**
- * [content] composed, and while [covered] kept as it is out of the way: neither measured nor placed (nothing drawn, nothing
- * to touch), no semantics (TalkBack and QA's dumps don't see it), its BackHandlers on a dispatcher nobody presses (the
+ * [content] composed, and while [covered] kept as it is out of the way: placed out of the window (nothing there to touch)
+ * and not drawn, no semantics (TalkBack and QA's dumps don't see it), its BackHandlers on a dispatcher nobody presses (the
  * screen on top has Back), [LocalCovered] true for what would run by itself in it. [shown]: placed and drawn all the same,
  * behind a back gesture's shrinking screen, still covered for the rest.
+ *
+ * Kept placed (2026-10-31, docs/plans/05-built/changes-areas.md): a screen neither measured nor placed while covered was
+ * laid out and its pictures (display lists) recorded anew the moment it showed again, in the Back's frame (from the
+ * village 19 to 24 ms of the main thread on the emulator, against 10 when Home was composed anew); placed out of the way
+ * it keeps them, and what changed in it meanwhile is laid out while it is covered.
  */
 @Composable
 fun Covered(covered: Boolean, shown: Boolean = !covered, content: @Composable () -> Unit) {
@@ -112,16 +118,17 @@ fun Covered(covered: Boolean, shown: Boolean = !covered, content: @Composable ()
             )
             CompositionLocalProvider(*provided.toTypedArray(), content = content)
         },
-        modifier = if (covered) Modifier.clearAndSetSemantics {} else Modifier,
+        modifier = (if (covered) Modifier.clearAndSetSemantics {} else Modifier).drawWithContent { if (shown) drawContent() },
     ) { measurables, constraints ->
-        if (!shown) {
-            layout(constraints.maxWidth, constraints.maxHeight) {}
-        } else {
-            val placeables = measurables.map { it.measure(constraints) }
-            layout(constraints.maxWidth, constraints.maxHeight) { placeables.forEach { it.place(0, 0) } }
+        val placeables = measurables.map { it.measure(constraints) }
+        layout(constraints.maxWidth, constraints.maxHeight) {
+            placeables.forEach { if (shown) it.place(0, 0) else it.place(OUT_OF_THE_WAY, 0) }
         }
     }
 }
+
+/** Where a covered screen is placed ([Covered]): left of the window, far beyond any screen's width (px). */
+internal const val OUT_OF_THE_WAY = -1_000_000
 
 /**
  * The back stack's screens as composed (MainActivity, docs/plans/05-built/nav-perf.md): the top one, each under its
