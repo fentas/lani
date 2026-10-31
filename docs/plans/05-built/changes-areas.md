@@ -82,6 +82,9 @@ It read everything once (35 to 43 requests), for two reasons:
 
 ### Back from the village
 
+Two changes for the Back's own frame; on the emulator neither moved its median (Before and after): what came down is all
+the Back's frames' work and what they make for the collector.
+
 - **Home covered lies out of the way, placed** (`ui/Covered.kt`): measured and placed left of the window
   (`OUT_OF_THE_WAY`, a million pixels: nothing there to touch) and not drawn (`drawWithContent` draws nothing while it
   isn't shown), its semantics cleared, its Back handlers off, `LocalCovered` as before. nav-perf's covered Home was
@@ -183,6 +186,21 @@ before that fix, read everything at its first Back too: 43 requests):
 | Back from Settings after a change | after2 | 15–36 (18) | 43.9–90.9 (65.1) | 1–2 | 51.2–131.5 (67.0) | 6.0–12.9 (7.9) | 40.0–70.4 (48.1) |
 | Opening the village | after2 | 4 | 22.2–24.4 (23.0) | 1 | 22.2–42.3 (25.8) | 8.6–48.9 (18.6) | 273.7–493.5 (304.9) |
 
+**The final build** (after3: the branch with the screen left ending after the Back's frame and QA's screenshots left
+out of the content, emulator 1, 4 tries; its last commit, the day's audio planned only when something was read, came
+after this run):
+
+| From | | requests in 6 s | allocated MB in 6 s | collections | main thread besides frames, ms (3 s) | longest frame's main thread, ms | all frames' main thread, ms (6 s) |
+|---|---|---|---|---|---|---|---|
+| idle on Home | after3 | 0–1 (0) | 6.7–8.7 (6.9) | 0–1 | 10.5–33.5 (13.6) | 0.5–35.1 (2.2) | 29.1–89.4 (36.0) |
+| Back from the village | after3 | 1–7 (2) | 15.1–59.1 (15.9) | 0–2 | 48.4–56.6 (52.5) | 8.0–24.8 (18.8) | 63.4–87.5 (77.3) |
+| Back from Settings | after3 | 1 | 14.9–15.3 (15.1) | 0–1 | 23.5–75.0 (26.4) | 5.3–11.3 (8.4) | 41.4–68.2 (50.0) |
+| Back from Settings after a change | after3 | 15–21 (16) | 44.5–85.7 (65.2) | 1–3 | 116.5–157.5 (124.6) | 18.5–84.8 (29.7) | 79.7–147.3 (89.5) |
+| Opening the village | after3 | 3–4 (3) | 18.6–26.8 (24.0) | 1 | 18.3–40.1 (24.6) | 7.7–81.7 (26.8) | 200.9–620.5 (334.5) |
+
+- **The first Back after setup** is `/changes` and the day's audio plan's packs (7 requests: the plan read the three
+  packs it names twice), against 42 and 32: nothing of the reading. The last commit plans the day's audio only when the
+  reading read something, so a Back after a move in the village alone is `/changes`.
 - **Home at rest** makes 7 MB in 6 s, 1.2 MB a second (before 13 to 21 MB, 2.2 to 3.5 a second), with a collection
   every few seconds less; its frames take 41 ms of the main thread in 6 s against 180 and 319, the longest 2 ms against
   20 and 43. The work besides the frames grew by about 10 ms in 3 s: the clock's ticks ask for the pictures there now (in
@@ -195,12 +213,15 @@ before that fix, read everything at its first Back too: 43 requests):
   try is the ten-minute whole reading (36). Its frames: 48 ms in 6 s against 238, the longest 8 against 19.
 - **The first Back after setup**: 29 requests in after2, all of them the content's (none of the state, the forms, the
   towns' list): the content's version had moved between the first reading and the Back, by QA's own screenshots and logs
-  under `companion/qa-shots`, which the walk of the project took for content (`e9a873f3` leaves them out). The final run
-  below has it without.
-- **Back from the village** allocates 15.8 MB in 6 s against 24.5 and 36.6, its frames 91 ms against 126 and 266.
-  Its longest frame (9 to 24 ms, 18 in the median) is in the range of the before runs (4 to 24 and 25 to 42 ms): the
-  Back's own frame, composing Home's covered parts again and ending the village's composition, which the final change
-  splits (below).
+  under `companion/qa-shots`, which the walk of the project took for content (now left out). The final run has it
+  without (above).
+- **Back from the village** allocates 15.9 MB in 6 s against 24.5 and 36.6, its frames 77 ms against 126 and 266.
+  **Its longest frame did not come down measurably**: 8 to 25 ms (19 in the median) in after3, 9 to 24 (18) in after2,
+  against 4 to 24 (11) in the morning's before run and 25 to 42 (29) in the afternoon's; nav-perf measured 13 to 21 (19)
+  and 15 to 39 (24) after, 10 to 21 (10) before. On this shared machine a frame's main thread varies by 20 ms from one
+  try to the next; the longest frame is composing (8 to 24 ms of it), and neither keeping Home placed while covered nor
+  ending the village's composition after the Back's frame moved its median. What did come down is what the Back's
+  frames do in all (77 ms in 6 s against 126 in the morning) and what they make for the collector.
 - **Back from Settings** without a change: one request (as before), 14.9 MB against 21.5 and 27.9, its longest frame 8
   against 17 and 46.
 
@@ -227,6 +248,15 @@ before that fix, read everything at its first Back too: 43 requests):
   `HearthsRenderTest`), unchanged: the footpaths, the order, the date, the festival day and the palisade's lookups draw
   the same.
 
+## Tap counts, strings, the hosted mode
+
+- **Tap counts**: none changed (no screen, no way through the app; a Back is one tap as before).
+- **Strings**: none new (nothing for the native check).
+- **The hosted mode** (the phone's own bridge, `src/phone/entry.ts`): the same `appApi`, so the same areas and headers;
+  its content came with the APK and isn't walked (`contentChanges: false`), so `content` is the tutor's stores in its
+  data and the learner's identity. The smoke's phone section bundles it; `PhoneBridgeTest` and `PhoneBridgeNodeTest` run
+  it in QuickJS in the unit suite; QA's hosted step ran it on the emulator (below).
+
 ## How to use it
 
 Nothing to do: the app asks a bridge that has the areas (this branch's, the phone's own bridge with the APK built from
@@ -251,5 +281,9 @@ smoke's changes section lists it with them.
 - **The header village's render thread** still makes about 85 KB a picture (a closure and an object for each thing
   drawn, the painters' way: a tree, a stake, a building); a renderer that kept what doesn't move between pictures (the
   buildings, the trees, the palisade) would make less and draw less.
+- **Back from the village's longest frame** is still 8 to 25 ms on the emulator (composing: Home's covered parts again,
+  and the village's leaving); the emulator under the shared machine's load can't tell 5 ms apart. A trace of the
+  Back's frame on a quiet machine or on Jan's phone (Perfetto, not am profile's sampling, whose R8 names map back only
+  roughly) would say what is left in it.
 - **Measured on the emulator and the desktop JVM**, not on Jan's phone; the emulator's frames are its software
   rendering's and the shared machine's load (other agents' builds), so the frames' numbers are noisy (see the tables).
