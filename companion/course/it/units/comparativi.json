@@ -6,7 +6,7 @@
   "emoji": "⚖️",
   "title": { "it": "Più grande di te", "de": "Größer als: più grande di", "sl": "Večji kot: più grande di", "en": "Bigger than: più grande di" },
   "goal": {
-    "de": "Du vergleichst Kinder, Tiere und Dinge im Dorf: mehr, weniger, gleich (più grande di Giulia, meno freddo di ieri, alta come Tommaso), und sagst besser richtig (migliore, meglio).",
+    "de": "Du vergleichst Kinder, Tiere und Dinge im Dorf: mehr, weniger, gleich (più grande di Giulia, meno freddo di ieri, alta come Tommaso), und sagst „besser“ richtig (migliore, meglio).",
     "sl": "Primerjaš otroke, živali in stvari v vasi: bolj, manj, enako (più grande di Giulia, meno freddo di ieri, alta come Tommaso), in pravilno rečeš boljši in bolje (migliore, meglio).",
     "en": "You can compare children, animals and things in the village: more, less, the same (più grande di Giulia, meno freddo di ieri, alta come Tommaso), and say better the right way (migliore, meglio)."
   },
@@ -47,9 +47,9 @@
       },
       {
         "say": {
-          "de": "**Di** verschmilzt mit dem Artikel, wie du es kennst: **più alto del nonno** (größer als der Opa), **più alto della casa**, **più grande dello zio**. Mit einer Person sagst du **di me** (als ich), **di te** (als du): **Bruno è più forte di me.** (Bruno ist stärker als ich.) Nie **di io**!",
-          "sl": "**Di** se zlije s členom, kot že poznaš: **più alto del nonno** (višji od dedka), **più alto della casa**, **più grande dello zio**. Z osebo rečeš **di me** (od mene), **di te** (od tebe): **Bruno è più forte di me.** (Bruno je močnejši od mene.) Nikoli **di io**!",
-          "en": "**Di** melts with the article, as you know: **più alto del nonno** (taller than Grandpa), **più alto della casa**, **più grande dello zio**. With a person you say **di me** (than me), **di te** (than you): **Bruno è più forte di me.** (Bruno is stronger than me.) Never **di io**!"
+          "de": "**Di** verschmilzt mit dem Artikel, wie du es kennst: **più alto del nonno** (größer als der Opa), **più alto della casa** (höher als das Haus), **più grande dello zio** (größer als der Onkel). Mit einer Person sagst du **di me** (als ich), **di te** (als du): **Bruno è più forte di me.** (Bruno ist stärker als ich.) Nie **di io**!",
+          "sl": "**Di** se zlije s členom, kot že poznaš: **più alto del nonno** (višji od dedka), **più alto della casa** (višji od hiše), **più grande dello zio** (večji od strica). Z osebo rečeš **di me** (od mene), **di te** (od tebe): **Bruno è più forte di me.** (Bruno je močnejši od mene.) Nikoli **di io**!",
+          "en": "**Di** melts with the article, as you know: **più alto del nonno** (taller than Grandpa), **più alto della casa** (taller than the house), **più grande dello zio** (bigger than the uncle). With a person you say **di me** (than me), **di te** (than you): **Bruno è più forte di me.** (Bruno is stronger than me.) Never **di io**!"
         },
         "examples": [
           { "it": "Il campanile è più alto della casa.", "de": "Der Kirchturm ist höher als das Haus.", "sl": "Zvonik je višji od hiše.", "en": "The bell tower is taller than the house." },
@@ -79,25 +79,25 @@
         "ask": {
           "type": "cloze",
           "grammar": "comparativi",
-          "text": "Lorenzo ha sei anni: è ___ grande di Tommaso.",
+          "text": "Il limone è ___ dolce della ciliegia.",
           "accept": ["meno"],
           "hint": "−",
           "explain": {
-            "de": "Lorenzo ist sechs, Tommaso neun: **meno** grande\n- più grande: andersherum",
-            "sl": "Lorenzo ima šest let, Tommaso devet: **meno** grande\n- più grande: ravno obratno",
-            "en": "Lorenzo is six, Tommaso nine: **meno** grande\n- più grande: the other way round"
+            "de": "Die Kirsche ist süß, die Zitrone sauer: **meno** dolce\n- più dolce: andersherum",
+            "sl": "Češnja je sladka, limona kisla: **meno** dolce\n- più dolce: ravno obratno",
+            "en": "The cherry is sweet, the lemon sour: **meno** dolce\n- più dolce: the other way round"
           }
         }
       },
       {
         "say": {
-          "de": "Sind beide gleich, sagst du **come** (wie) oder **quanto**: **Giulia è alta come Tommaso.** (Giulia ist so groß wie Tommaso.) **Lorenzo è bravo quanto Giulia.** (Lorenzo ist so brav wie Giulia.) Und ein schönes Bild: **bianco come la neve** (weiß wie Schnee).",
-          "sl": "Kadar sta enaka, rečeš **come** (kot) ali **quanto**: **Giulia è alta come Tommaso.** (Giulia je visoka kot Tommaso.) **Lorenzo è bravo quanto Giulia.** (Lorenzo je priden kot Giulia.) In lepa slika: **bianco come la neve** (bel kot sneg).",
+          "de": "Sind beide gleich, sagst du **come** (wie) oder **quanto**: **Giulia è alta come Tommaso.** (Giulia ist so groß wie Tommaso.) **Lorenzo è bravo quanto Giulia.** (Lorenzo ist so gut wie Giulia.) Und ein schönes Bild: **bianco come la neve** (weiß wie Schnee).",
+          "sl": "Kadar sta enaka, rečeš **come** (kot) ali **quanto**: **Giulia è alta come Tommaso.** (Giulia je enako visoka kot Tommaso.) **Lorenzo è bravo quanto Giulia.** (Lorenzo je priden kot Giulia.) In lepa slika: **bianco come la neve** (bel kot sneg).",
           "en": "When both are the same, say **come** (as) or **quanto**: **Giulia è alta come Tommaso.** (Giulia is as tall as Tommaso.) **Lorenzo è bravo quanto Giulia.** (Lorenzo is as good as Giulia.) And a nice picture: **bianco come la neve** (as white as snow)."
         },
         "examples": [
-          { "it": "Giulia è alta come Tommaso.", "de": "Giulia ist so groß wie Tommaso.", "sl": "Giulia je visoka kot Tommaso.", "en": "Giulia is as tall as Tommaso." },
-          { "it": "Lorenzo è bravo quanto Giulia.", "de": "Lorenzo ist so brav wie Giulia.", "sl": "Lorenzo je priden kot Giulia.", "en": "Lorenzo is as good as Giulia." }
+          { "it": "Giulia è alta come Tommaso.", "de": "Giulia ist so groß wie Tommaso.", "sl": "Giulia je enako visoka kot Tommaso.", "en": "Giulia is as tall as Tommaso." },
+          { "it": "Lorenzo è bravo quanto Giulia.", "de": "Lorenzo ist so gut wie Giulia.", "sl": "Lorenzo je priden kot Giulia.", "en": "Lorenzo is as good as Giulia." }
         ],
         "rows": [["come, quanto", "alta come Tommaso"]],
         "ask": {
@@ -116,9 +116,9 @@
       },
       {
         "say": {
-          "de": "Zwei sind besonders. **Buono → migliore** (besser), für ein Ding oder eine Person: **Il miele di Aldo è migliore dello zucchero.** Wie man etwas macht, ist **bene → meglio**: **Giulia legge meglio di Tommaso.** (Giulia liest besser als Tommaso.) Im Deutschen ist beides *besser*. Genauso **peggiore** und **peggio** (schlechter).",
-          "sl": "Dva sta posebna. **Buono → migliore** (boljši), za stvar ali osebo: **Il miele di Aldo è migliore dello zucchero.** Kako kaj delaš, pa je **bene → meglio** (bolje): **Giulia legge meglio di Tommaso.** (Giulia bere bolje kot Tommaso.) Kot *boljši* in *bolje* v slovenščini. Enako **peggiore** in **peggio** (slabši, slabše).",
-          "en": "Two are special. **Buono → migliore** (better), for a thing or a person: **Il miele di Aldo è migliore dello zucchero.** How you do something is **bene → meglio**: **Giulia legge meglio di Tommaso.** (Giulia reads better than Tommaso.) English says *better* for both. The same with **peggiore** and **peggio** (worse)."
+          "de": "*Besser* hat im Italienischen zwei Wörter: **buono** (gut) **→ migliore** bei einem Ding oder einer Person, **bene** (gut) **→ meglio** dabei, wie man etwas macht. **Il miele di Aldo è migliore dello zucchero.** (Aldos Honig ist besser als Zucker.) **Giulia legge meglio di Tommaso.** (Giulia liest besser als Tommaso.) Genauso **peggiore** und **peggio** (schlechter).",
+          "sl": "Kot v slovenščini *boljši* in *bolje*: **buono** (dober) **→ migliore** pri stvari ali osebi, **bene** (dobro) **→ meglio** pri tem, kako kaj delaš. **Il miele di Aldo è migliore dello zucchero.** (Aldov med je boljši od sladkorja.) **Giulia legge meglio di Tommaso.** (Giulia bere bolje kot Tommaso.) Enako **peggiore** in **peggio** (slabši, slabše).",
+          "en": "*Better* is two words in Italian: **buono** (good) **→ migliore** for a thing or a person, **bene** (well) **→ meglio** for how you do something. **Il miele di Aldo è migliore dello zucchero.** (Aldo's honey is better than sugar.) **Giulia legge meglio di Tommaso.** (Giulia reads better than Tommaso.) The same with **peggiore** and **peggio** (worse)."
         },
         "examples": [
           { "it": "Il miele di Aldo è migliore dello zucchero.", "de": "Aldos Honig ist besser als Zucker.", "sl": "Aldov med je boljši od sladkorja.", "en": "Aldo's honey is better than sugar." },
@@ -173,7 +173,7 @@
           "grammar": "comparativi",
           "instruction": { "de": "Migliore o meglio? · Ein Ding oder wie man etwas macht?", "sl": "Migliore o meglio? · Stvar ali kako kaj delaš?", "en": "Migliore o meglio? · A thing, or how it's done?" },
           "columns": [
-            { "label": "… è migliore", "words": ["il pane di Rosa", "il miele di Aldo", "la mia bicicletta"] },
+            { "label": "… è migliore", "words": ["il pane di Nonna Rosa", "il miele di Aldo", "la mia bicicletta"] },
             { "label": "… meglio", "words": ["Giulia legge", "Tommaso corre", "Lorenzo conta"] }
           ],
           "explain": {
@@ -193,10 +193,10 @@
           "grammar": "comparativi",
           "instruction": { "de": "Completa · Ergänze più, meno, come, di …", "sl": "Completa · Dopolni più, meno, come, di …", "en": "Completa · Fill in più, meno, come, di …" },
           "title": "Chi è più grande?",
-          "text": "Tommaso ha nove anni, Giulia otto e Lorenzo sei. Tommaso è ___ grande di Giulia. Lorenzo è ___ grande di Giulia. Giulia è alta ___ Tommaso. Ma Giulia legge ___ (bene) di Tommaso. Lorenzo dice: «Io sono piccolo, ma conto meglio ___ voi!» E la gubana di Nonna Rosa? È ___ (buono) della torta di Zia Nives!",
+          "text": "Tommaso ha nove anni, Giulia otto e Lorenzo sei. Tommaso è ___ grande di Giulia. Lorenzo è ___ alto di Giulia. Giulia è alta ___ Tommaso. Ma Giulia legge ___ (bene) di Tommaso. Lorenzo dice: «Io sono piccolo, ma conto meglio ___ voi!» E la gubana di Nonna Rosa? È ___ (buono) della torta di Zia Nives!",
           "gaps": [
             { "accept": ["più"], "hint": "9 > 8" },
-            { "accept": ["meno"], "hint": "6 < 8" },
+            { "accept": ["meno"], "hint": { "de": "Lorenzo ist kleiner", "sl": "Lorenzo je manjši", "en": "Lorenzo is smaller" } },
             { "accept": ["come", "quanto"], "hint": "=" },
             {
               "accept": ["meglio"],
@@ -206,7 +206,7 @@
                 "en": "**legge** (how she reads) → bene → **meglio**."
               }
             },
-            { "accept": ["di"], "hint": "voi → ?" },
+            { "accept": ["di"], "hint": { "de": "als → ?", "sl": "kot → ?", "en": "than → ?" } },
             {
               "accept": ["migliore", "più buona"],
               "explain": {
@@ -219,9 +219,9 @@
           "bank": true,
           "distractors": ["del", "più bene"],
           "translation": {
-            "de": "Tommaso ist neun, Giulia acht und Lorenzo sechs. Tommaso ist älter als Giulia. Lorenzo ist jünger als Giulia. Giulia ist so groß wie Tommaso. Aber Giulia liest besser als Tommaso. Lorenzo sagt: „Ich bin klein, aber ich zähle besser als ihr!“ Und Nonna Rosas Gubana? Sie ist besser als Zia Nives' Kuchen!",
-            "sl": "Tommaso ima devet let, Giulia osem in Lorenzo šest. Tommaso je starejši od Giulie. Lorenzo je mlajši od Giulie. Giulia je visoka kot Tommaso. Ampak Giulia bere bolje kot Tommaso. Lorenzo pravi: »Majhen sem, ampak štejem bolje kot vidva!« Pa gubana babice Rose? Boljša je od tetine Nivesine torte!",
-            "en": "Tommaso is nine, Giulia eight and Lorenzo six. Tommaso is older than Giulia. Lorenzo is younger than Giulia. Giulia is as tall as Tommaso. But Giulia reads better than Tommaso. Lorenzo says: \"I'm small, but I count better than you two!\" And Nonna Rosa's gubana? It's better than Zia Nives's cake!"
+            "de": "Tommaso ist neun, Giulia acht und Lorenzo sechs. Tommaso ist älter als Giulia. Lorenzo ist kleiner als Giulia. Giulia ist so groß wie Tommaso. Aber Giulia liest besser als Tommaso. Lorenzo sagt: „Ich bin klein, aber ich zähle besser als ihr!“ Und Nonna Rosas Gubana? Sie ist besser als Zia Nives' Kuchen!",
+            "sl": "Tommaso ima devet let, Giulia osem in Lorenzo šest. Tommaso je starejši od Giulie. Lorenzo je manjši od Giulie. Giulia je enako visoka kot Tommaso. Ampak Giulia bere bolje kot Tommaso. Lorenzo pravi: »Majhen sem, ampak štejem bolje kot vidva!« Pa gubana babice Rose? Boljša je od torte tete Nives!",
+            "en": "Tommaso is nine, Giulia eight and Lorenzo six. Tommaso is older than Giulia. Lorenzo is shorter than Giulia. Giulia is as tall as Tommaso. But Giulia reads better than Tommaso. Lorenzo says: \"I'm small, but I count better than you two!\" And Nonna Rosa's gubana? It's better than Zia Nives's cake!"
           }
         },
         {
@@ -252,16 +252,16 @@
           "items": [
             { "from": "Tommaso è grande. (Giulia)", "accept": ["Tommaso è più grande di Giulia."] },
             { "from": "Il campanile è alto. (la casa)", "accept": ["Il campanile è più alto della casa."], "hint": "di + la → ?" },
-            { "from": "Moro è veloce. (il gatto)", "accept": ["Moro è più veloce del gatto."] },
+            { "from": "Il cavallo è veloce. (la pecora)", "accept": ["Il cavallo è più veloce della pecora."] },
             { "from": "Le ciliegie sono dolci. (i limoni)", "accept": ["Le ciliegie sono più dolci dei limoni."] },
             { "from": "Nonno Bepi è vecchio. (Nonna Rosa)", "accept": ["Nonno Bepi è più vecchio di Nonna Rosa."] },
             { "from": "Bruno è forte. (io)", "accept": ["Bruno è più forte di me."], "hint": "io → me" },
             { "from": "Il mare è grande. (lo stagno)", "accept": ["Il mare è più grande dello stagno."] }
           ],
           "explain": {
-            "de": "**più** vor dem Adjektiv, **di** vor dem anderen\n- più alto della casa · più veloce del gatto\n- più forte di me",
-            "sl": "**più** pred pridevnikom, **di** pred drugim\n- più alto della casa · più veloce del gatto\n- più forte di me",
-            "en": "**più** before the adjective, **di** before the other one\n- più alto della casa · più veloce del gatto\n- più forte di me"
+            "de": "**più** vor dem Adjektiv, **di** vor dem anderen\n- più alto della casa · più veloce della pecora\n- più forte di me",
+            "sl": "**più** pred pridevnikom, **di** pred drugim\n- più alto della casa · più veloce della pecora\n- più forte di me",
+            "en": "**più** before the adjective, **di** before the other one\n- più alto della casa · più veloce della pecora\n- più forte di me"
           }
         }
       ]
@@ -286,12 +286,12 @@
         "type": "gaptext",
         "grammar": "comparativi",
         "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
-        "text": "Il Monte Sabotino è più alto ___ campanile. Lo stagno è ___ grande del mare. Matteo canta ___ (bene) di Davide. Il formaggio di Davide è ___ (buono) del formaggio del negozio.",
+        "text": "Il Monte Sabotino è più alto ___ campanile. Il ruscello è ___ lungo del fiume. Matteo canta ___ (bene) di Davide. Il formaggio di Davide è ___ (buono) del formaggio del negozio.",
         "gaps": [{ "accept": ["del"] }, { "accept": ["meno"] }, { "accept": ["meglio"] }, { "accept": ["migliore", "più buono"] }],
         "translation": {
-          "de": "Der Monte Sabotino ist höher als der Kirchturm. Der Teich ist weniger groß als das Meer. Matteo singt besser als Davide. Davides Käse ist besser als der Käse aus dem Laden.",
-          "sl": "Sabotin je višji od zvonika. Ribnik je manjši od morja. Matteo poje bolje kot Davide. Davidov sir je boljši od sira iz trgovine.",
-          "en": "Monte Sabotino is higher than the bell tower. The pond is less big than the sea. Matteo sings better than Davide. Davide's cheese is better than the cheese from the shop."
+          "de": "Der Monte Sabotino ist höher als der Kirchturm. Der Bach ist weniger lang als der Fluss. Matteo singt besser als Davide. Davides Käse ist besser als der Käse aus dem Laden.",
+          "sl": "Sabotin je višji od zvonika. Potok je krajši od reke. Matteo poje bolje kot Davide. Davidov sir je boljši od sira iz trgovine.",
+          "en": "Monte Sabotino is higher than the bell tower. The stream is less long than the river. Matteo sings better than Davide. Davide's cheese is better than the cheese from the shop."
         }
       },
       {

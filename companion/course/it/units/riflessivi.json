@@ -35,18 +35,18 @@
         "ask": {
           "type": "choice",
           "grammar": "riflessivi",
-          "prompt": "Ogni mattina Lorenzo ___ veste.",
+          "prompt": "Il cane di Nonno Bepi ___ chiama Moro.",
           "options": ["mi", "ti", "si"],
           "answer": 2,
           "say_options": true,
-          "explain": "**Lorenzo** → lui → **si** veste\n- mi vesto · io\n- ti vesti · tu"
+          "explain": "**il cane** → lui → **si** chiama\n- mi chiamo · io\n- ti chiami · tu"
         }
       },
       {
         "say": {
-          "de": "Für mehrere: **ci laviamo** (wir waschen uns), **vi lavate** (ihr wascht euch), **si lavano** (sie waschen sich). **Si** kommt zweimal vor: für **lui, lei** und für **loro**: **Giulia si lava**, **i bambini si lavano**. Das Verb hat die Endungen, die du schon kennst.",
-          "sl": "Za več oseb: **ci laviamo** (umivamo se), **vi lavate** (umivate se), **si lavano** (umivajo se). **Si** pride dvakrat: za **lui, lei** in za **loro**: **Giulia si lava**, **i bambini si lavano**. Glagol ima končnice, ki jih že poznaš.",
-          "en": "For more people: **ci laviamo** (we wash), **vi lavate** (you all wash), **si lavano** (they wash). **Si** comes twice: for **lui, lei** and for **loro**: **Giulia si lava**, **i bambini si lavano**. The verb has the endings you know already."
+          "de": "Für mehrere: **ci laviamo** (wir waschen uns), **vi lavate** (ihr wascht euch), **si lavano** (sie waschen sich). **Si** kommt zweimal vor: für **lui, lei** und für **loro**: **Giulia si lava** (Giulia wäscht sich), **i bambini si lavano** (die Kinder waschen sich). Das Verb hat die Endungen, die du schon kennst.",
+          "sl": "Za več oseb: **ci laviamo** (umivamo se), **vi lavate** (umivate se), **si lavano** (umivajo se). **Si** pride dvakrat: za **lui, lei** in za **loro**: **Giulia si lava** (Giulia se umiva), **i bambini si lavano** (otroci se umivajo). Glagol ima končnice, ki jih že poznaš.",
+          "en": "For more people: **ci laviamo** (we wash), **vi lavate** (you all wash), **si lavano** (they wash). **Si** comes twice: for **lui, lei** and for **loro**: **Giulia si lava** (Giulia washes), **i bambini si lavano** (the children wash). The verb has the endings you know already."
         },
         "examples": [
           { "it": "D'estate ci laviamo alla fontana.", "de": "Im Sommer waschen wir uns am Brunnen.", "sl": "Poleti se umivamo pri vodnjaku.", "en": "In summer we wash at the fountain." },
@@ -64,9 +64,9 @@
       },
       {
         "say": {
-          "de": "Im Wörterbuch hat so ein Verb **-si** am Ende: **lavarsi**, **vestirsi**, **chiamarsi**. Manche sind nur im Italienischen reflexiv: **alzarsi** (aufstehen): **mi alzo** (ich stehe auf); **svegliarsi** (aufwachen): **mi sveglio** (ich wache auf); **addormentarsi** (einschlafen): **mi addormento** (ich schlafe ein).",
-          "sl": "V slovarju ima tak glagol na koncu **-si**: **lavarsi**, **vestirsi**, **chiamarsi**. Nekateri so povratni le v italijanščini: **alzarsi** (vstati): **mi alzo** (vstanem); **addormentarsi** (zaspati): **mi addormento** (zaspim). Drugi tudi v slovenščini: **svegliarsi** (zbuditi se): **mi sveglio** (zbudim se).",
-          "en": "In the dictionary such a verb ends in **-si**: **lavarsi**, **vestirsi**, **chiamarsi**. Some are reflexive in Italian but not in English: **alzarsi** (to get up): **mi alzo** (I get up); **svegliarsi** (to wake up): **mi sveglio** (I wake up); **addormentarsi** (to fall asleep): **mi addormento** (I fall asleep)."
+          "de": "Im Wörterbuch hat so ein Verb **-si** am Ende, und manche sind nur im Italienischen reflexiv: **alzarsi** → **mi alzo** (ich stehe auf), **svegliarsi** → **mi sveglio** (ich wache auf). Genauso **addormentarsi** → **mi addormento** (ich schlafe ein). Auch **lavarsi** (sich waschen), **vestirsi** (sich anziehen) und **chiamarsi** (heißen) haben ihr **-si**.",
+          "sl": "V slovarju ima tak glagol na koncu **-si**, nekateri pa so povratni le v italijanščini: **alzarsi** → **mi alzo** (vstanem), **addormentarsi** → **mi addormento** (zaspim). Drugi tudi v slovenščini: **svegliarsi** → **mi sveglio** (zbudim se). Tudi **lavarsi** (umivati se), **vestirsi** (oblačiti se) in **chiamarsi** (imenovati se) imajo svoj **-si**.",
+          "en": "In the dictionary such a verb ends in **-si**, and some are reflexive in Italian but not in English: **alzarsi** → **mi alzo** (I get up), **svegliarsi** → **mi sveglio** (I wake up). The same with **addormentarsi** → **mi addormento** (I fall asleep). **Lavarsi** (to wash), **vestirsi** (to get dressed) and **chiamarsi** (to be called) have their **-si** too."
         },
         "examples": [
           { "it": "Mi sveglio alle sette e mi alzo.", "de": "Ich wache um sieben auf und stehe auf.", "sl": "Zbudim se ob sedmih in vstanem.", "en": "I wake up at seven and get up." },
@@ -93,13 +93,13 @@
           "en": "To say no, **non** goes first, before the little word: **Non mi alzo!** (I'm not getting up!) **Lorenzo non si veste.** (Lorenzo isn't getting dressed.) Never between **mi** and the verb."
         },
         "examples": [
-          { "it": "Domenica non mi alzo presto.", "de": "Am Sonntag stehe ich nicht früh auf.", "sl": "V nedeljo ne vstanem zgodaj.", "en": "On Sunday I don't get up early." },
+          { "it": "La domenica non mi alzo presto.", "de": "Sonntags stehe ich nicht früh auf.", "sl": "Ob nedeljah ne vstanem zgodaj.", "en": "On Sundays I don't get up early." },
           { "it": "Lorenzo ha sonno e non si veste.", "de": "Lorenzo ist müde und zieht sich nicht an.", "sl": "Lorenzo je zaspan in se ne obleče.", "en": "Lorenzo is sleepy and isn't getting dressed." }
         ],
         "ask": {
           "type": "choice",
           "grammar": "riflessivi",
-          "prompt": "Domenica Tommaso ___ presto.",
+          "prompt": "La domenica Tommaso ___ presto.",
           "options": ["non si alza", "si non alza", "non alza si"],
           "answer": 0,
           "say_options": true,
@@ -175,9 +175,9 @@
           "instruction": { "de": "Mi, ti, si o ci? · Welches kleine Wort passt?", "sl": "Mi, ti, si o ci? · Katera mala beseda?", "en": "Mi, ti, si o ci? · Which little word?" },
           "columns": [
             { "label": "mi …", "words": ["lavo", "sveglio"] },
-            { "label": "ti …", "words": ["lavi", "alzi", "diverti"] },
+            { "label": "ti …", "words": ["lavi", "alzi"] },
             { "label": "si …", "words": ["lava", "alzano"] },
-            { "label": "ci …", "words": ["laviamo", "vestiamo"] }
+            { "label": "ci …", "words": ["laviamo"] }
           ],
           "explain": {
             "de": "**Die Endung des Verbs** sagt die Person\n- -o → mi · -i → ti\n- -a, -ano → si · -iamo → ci",
@@ -199,8 +199,8 @@
           "text": "Lorenzo ___ (svegliarsi) alle sette. ___ (alzarsi) subito e va in bagno. ___ (lavarsi) la faccia con l'acqua fredda: brrr! Poi ___ (vestirsi) e fa colazione con il nonno. Dopo, il nonno e Lorenzo ___ (lavarsi) i denti. «Nonno, oggi al mulino ___ (noi · divertirsi)!»",
           "gaps": [
             { "accept": ["si sveglia"], "hint": "lui → si …" },
-            { "accept": ["Si alza"], "hint": { "de": "alzarsi: aufstehen", "sl": "alzarsi: vstati", "en": "alzarsi: to get up" } },
-            { "accept": ["Si lava"] },
+            { "accept": ["si alza"], "hint": { "de": "alzarsi: aufstehen", "sl": "alzarsi: vstati", "en": "alzarsi: to get up" } },
+            { "accept": ["si lava"] },
             { "accept": ["si veste"] },
             {
               "accept": ["si lavano"],

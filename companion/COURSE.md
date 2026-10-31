@@ -761,6 +761,33 @@ the possessives (units 7–12), and use only those around their gaps:
   `FORMS_LANGUAGES`), "What a unit turns on" (no Italian forms cards, counting cards or numbers module), the smoke's
   check of a gap's answer against the word in brackets (the dictionary's forms, Slovene only).
 
+### The Italian course: A2, units 1–6
+
+A2 is outlined in `course.json` (18 units, 2026-10-31) and written in three parts side by side. Its first six come after
+the whole of A1 (the past with avere and essere among it) and use only A1 and the A2 units before them around a gap:
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 1 | `riflessivi` 🧼 | mi lavo … si lavano (lavarsi, vestirsi); the -si infinitive and the verbs reflexive only in Italian (alzarsi, svegliarsi, addormentarsi); non before the little word; le mani with the article | riflessivi, presente-regolare |
+| 2 | `modali` 🙋 | potere (Posso andare in bagno?), dovere, volere with the infinitive right after it, sapere for a can that is learned (Sai nuotare?); non before the modal; devo lavarmi and mi devo lavare | modali, riflessivi |
+| 3 | `stare-gerundio` 🏃 | sto, stai … + -ando, -endo; the gerund that never changes; facendo, dicendo, bevendo; right now against every day; mi sto lavando | stare-gerundio, verbi-irregolari |
+| 4 | `partitivo` 🧺 | del, della as di + the article (la casa del nonno); dello, dell', dei, degli, delle; un po' di; nothing after non; qualche + the singular | partitivo, preposizioni-articolate |
+| 5 | `comparativi` ⚖️ | più, meno … di; di with the article and di me, di te; come, quanto; migliore with a thing, meglio with a verb; peggiore, peggio | comparativi, aggettivi-accordo |
+| 6 | `superlativi` 🏆 | il più … with di and the group (il più vecchio del paese); the noun inside (l'albero più vecchio); -issimo with its agreement and its h (stanchissimi); il migliore | superlativi, comparativi |
+
+- **Pages written for them** (A2): `riflessivi`, `modali`, `stare-gerundio`, `comparativi`, `superlativi`; `partitivo`
+  has qualche + the singular and alcuni, alcune now (the unit's last step).
+- **A summary of its own**: `riflessivi` ends its intro on `intro.summary`, as `ciao` does: its page goes on to the
+  modals (devo lavarmi), the next unit.
+- **Several right answers** where Italian has them: devo lavarmi and mi devo lavare, mi sto lavando and sto lavandomi,
+  come and quanto, and beside migliore for food the spoken più buono, più buona.
+- **No trick**: a choice's wrong option is wrong Italian, or wrong by what its own sentence says (the ages given;
+  «Sì, ho imparato al mare!» for sapere against potere). Where mi, ti and si would each make a sentence (Lorenzo mi veste:
+  dresses me), the sentence leaves only the reflexive one.
+- **The grading** needed no change for them: an accent or an apostrophe forgotten stays almost (può, dell'acqua, un po').
+- **The print's rule line** of a step is its first sentence and the next ones with forms, about 200 characters at most
+  (`prints/sheet.ts`, `condense`): the point of a step goes in its first sentence, or the sheet loses it.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future

@@ -2177,8 +2177,8 @@ cases, pronouns, the comparative, aspect, the conditional (14 units); then B1's 
 levels"); a unit's "⏩ Znam že: kar na test" tests out of it at once.
 
 **The Italian school** (the Friuli village's: [COURSE.md](COURSE.md#the-italian-course), docs/plans/05-built/friuli-school.md).
-A village of the Friuli culture gets the Italian course (`companion/course/it`: A1's first six units written, ciao to
-numeri; the rest planned) and Maestra Elena teaches it, in her voice of the culture's cast. Its exercises' instructions,
+A village of the Friuli culture gets the Italian course (`companion/course/it`: A1's 18 units and the A2 units written
+so far, as COURSE.md lists them; the rest planned) and Maestra Elena teaches it, in her voice of the culture's cast. Its exercises' instructions,
 hints and whys come in the learner's own language (German for Teo; [COURSE.md](COURSE.md#texts-in-the-learners-language)),
 its sheets print headed in Italian and the base. While the next units are planned, Elena says she is preparing them
 ("Sto preparando le prossime lezioni. Torna presto!") and Home's tile "📝 Nuove lezioni in arrivo". The school building's
@@ -4811,7 +4811,7 @@ companion/bin/qa --steps school-build            # the school built in the hamle
 companion/bin/qa --steps school-scene            # the teacher in the school's scene: her requests as on the map, the lesson by her, the blackboard
 companion/bin/qa --steps school-seats            # the school's scene at 10: the pupils at their desks and the blackboard's lesson, zoomed in
 companion/bin/qa --no-town --steps friuli-school  # the Friuli village's school for a synthetic Teo (LANI_DEV_DATA: make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo): Maestra Elena preparing the next lessons while some are planned (else A1 done in one line), the school's card's "🚪 Entra" into A scuola, the room during the roll call (no «Vedo, vedo»), the roll call, phone and tablet
-companion/bin/qa --no-town --steps friuli-school-unit  # the same learner, a run of its own: the Italian unit ciao end to end (intro, summary, a worksheet, the test passed), kept done
+companion/bin/qa --no-town --steps friuli-school-unit  # the same learner, a run of its own: an Italian unit end to end ($LANI_QA_IT_UNIT, ciao by default; an A2 one after the school with A1 done: intro, summary, a worksheet, the test passed), kept done, its sheet printed
 companion/bin/qa --no-town --steps friuli-watchtower  # the same learner: the village a Trg (QA's hook hearths:trg), the watchtower at level 2, its card's "🚪 Entra" into Sulla torre, closer up, on the tablet, «Vedo, vedo» (the horn), Davide's lookout in the evening (docs/plans/05-built/places-it-buildings.md)
 companion/bin/qa --steps school-print            # the unit biti's sheet printed: fit.js in the WebView as in Chromium, the print dialog, the PDF saved
 companion/bin/qa --no-town --steps school-reveal  # a level a bit at a time (QA's hook school:reveal; a synthetic learner: LANI_DEV_DATA): A1 done one line, A2's current and next two, the rest folded and listed, B1 closed

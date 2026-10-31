@@ -11,7 +11,7 @@
     "en": "You can say you want or have some of something (del pane, delle mele, un po' di miele, qualche fungo), and that there's none (non c'è pane)."
   },
   "grammar": ["partitivo", "preposizioni-articolate"],
-  "words": ["il pane", "il latte", "l'acqua", "il formaggio", "il miele", "lo zucchero", "la farina", "la frutta", "la polenta", "la torta", "la minestra", "il fungo", "i funghi", "la mela", "le mele", "la ciliegia", "le ciliegie", "l'uovo", "le uova", "l'agnello", "il pomodoro", "il fiore", "il cesto", "il mercato", "il tè", "il caffè", "il frico", "la gubana", "la merenda", "comprare", "prendere", "mettere", "bere", "un po' di", "qualche"],
+  "words": ["il pane", "il latte", "l'acqua", "il formaggio", "il miele", "lo zucchero", "la farina", "la frutta", "la polenta", "la torta", "la minestra", "il fungo", "la mela", "la ciliegia", "l'uovo", "l'agnello", "il pomodoro", "il fiore", "il cesto", "il mercato", "il tè", "il caffè", "il frico", "la gubana", "la merenda", "comprare", "prendere", "mettere", "bere", "un po' di", "qualche"],
   "intro": {
     "table": {
       "head": [
@@ -54,12 +54,13 @@
         ],
         "rows": [["lo", "dello", "dello zucchero"], ["l'", "dell'", "dell'acqua"]],
         "ask": {
-          "type": "cloze",
+          "type": "choice",
           "grammar": "partitivo",
-          "text": "Nel tè Zia Nives mette ___ zucchero.",
-          "accept": ["dello"],
-          "hint": "lo zucchero → ?",
-          "explain": "**lo zucchero** → di + lo → **dello**\n- l'acqua → dell'acqua\n- il pane → del pane"
+          "prompt": "Nel tè Zia Nives mette ___ zucchero.",
+          "options": ["dello", "del", "della"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**lo zucchero** → di + lo → **dello**\n- del · il\n- della · la"
         }
       },
       {
@@ -116,7 +117,7 @@
         "ask": {
           "type": "choice",
           "grammar": "partitivo",
-          "prompt": "Oggi Franco non ha ___.",
+          "prompt": "Oggi Nonna Rosa non ha ___.",
           "options": ["farina", "della farina"],
           "answer": 0,
           "say_options": true,
@@ -170,7 +171,6 @@
             { "label": "lo zucchero", "cells": [{ "accept": ["dello zucchero"], "hint": "lo → ?" }] },
             { "label": "l'acqua", "cells": [{ "accept": ["dell'acqua"], "hint": { "de": "vor einem Vokal: '", "sl": "pred samoglasnikom: '", "en": "before a vowel: '" } }] },
             { "label": "la farina", "cells": [{ "accept": ["della farina"] }] },
-            { "label": "il miele", "cells": [{ "accept": ["del miele"] }] },
             { "label": "i funghi", "cells": [{ "accept": ["dei funghi"] }] },
             { "label": "gli agnelli", "cells": [{ "accept": ["degli agnelli"], "hint": "gli → ?" }] },
             { "label": "le mele", "cells": [{ "accept": ["delle mele"] }] }
@@ -188,8 +188,8 @@
           "columns": [
             { "label": "del …", "words": ["formaggio", "latte"] },
             { "label": "della …", "words": ["frutta", "polenta", "torta"] },
-            { "label": "dei …", "words": ["fiori", "pomodori"] },
-            { "label": "delle …", "words": ["ciliegie", "patate", "uova"] }
+            { "label": "dei …", "words": ["fiori"] },
+            { "label": "delle …", "words": ["ciliegie", "uova"] }
           ],
           "explain": {
             "de": "**Der Artikel** entscheidet\n- il formaggio → del · la torta → della\n- i fiori → dei · le uova → delle",
@@ -208,7 +208,7 @@
           "grammar": "partitivo",
           "instruction": { "de": "Completa · Ergänze del, dello, della, dei, delle, di", "sl": "Completa · Dopolni del, dello, della, dei, delle, di", "en": "Completa · Fill in del, dello, della, dei, delle, di" },
           "title": "Al mercato",
-          "text": "Sabato Nonna Rosa e Giulia vanno al mercato. Per la gubana Nonna Rosa compra ___ farina e ___ zucchero. Da Aldo prende ___ miele. Giulia vuole ___ ciliegie. «Nonna, compriamo anche ___ pomodori per la minestra?» «Sì, e un po' ___ formaggio per il frico!»",
+          "text": "Sabato Nonna Rosa e Giulia vanno al mercato. Per la gubana Nonna Rosa compra ___ farina. Poi compra ___ zucchero. Da Aldo prende ___ miele. Giulia vuole ___ ciliegie. «Nonna, compriamo anche ___ pomodori per la minestra?» «Sì, e un po' ___ formaggio per il frico!»",
           "gaps": [
             { "accept": ["della"], "hint": "la farina → ?" },
             { "accept": ["dello"], "hint": "lo zucchero → ?" },
@@ -228,9 +228,9 @@
           "bank": true,
           "distractors": ["degli", "dell'"],
           "translation": {
-            "de": "Am Samstag gehen Nonna Rosa und Giulia auf den Markt. Für die Gubana kauft Nonna Rosa Mehl und Zucker. Bei Aldo nimmt sie Honig. Giulia will ein paar Kirschen. „Oma, kaufen wir auch ein paar Tomaten für die Suppe?“ „Ja, und ein bisschen Käse für den Frico!“",
-            "sl": "V soboto gresta babica Rosa in Giulia na tržnico. Za gubano babica Rosa kupi moko in sladkor. Pri Aldu vzame med. Giulia hoče nekaj češenj. »Babica, kupiva še nekaj paradižnikov za juho?« »Ja, in malo sira za frico!«",
-            "en": "On Saturday Nonna Rosa and Giulia go to the market. For the gubana Nonna Rosa buys some flour and sugar. At Aldo's she gets some honey. Giulia wants some cherries. \"Grandma, shall we buy some tomatoes for the soup too?\" \"Yes, and a little cheese for the frico!\""
+            "de": "Am Samstag gehen Nonna Rosa und Giulia auf den Markt. Für die Gubana kauft Nonna Rosa Mehl. Dann kauft sie Zucker. Bei Aldo nimmt sie Honig. Giulia will ein paar Kirschen. „Oma, kaufen wir auch ein paar Tomaten für die Suppe?“ „Ja, und ein bisschen Käse für den Frico!“",
+            "sl": "V soboto gresta babica Rosa in Giulia na tržnico. Za gubano babica Rosa kupi moko. Potem kupi še sladkor. Pri Aldu vzame med. Giulia hoče nekaj češenj. »Babica, kupiva še nekaj paradižnikov za juho?« »Ja, in malo sira za frico!«",
+            "en": "On Saturday Nonna Rosa and Giulia go to the market. For the gubana Nonna Rosa buys some flour. Then she buys some sugar. At Aldo's she gets some honey. Giulia wants some cherries. \"Grandma, shall we buy some tomatoes for the soup too?\" \"Yes, and a little cheese for the frico!\""
           }
         },
         {
@@ -284,7 +284,7 @@
           "items": [
             { "from": "Abbiamo del latte.", "accept": ["Non abbiamo latte."] },
             { "from": "C'è del pane.", "accept": ["Non c'è pane."] },
-            { "from": "Franco ha della farina.", "accept": ["Franco non ha farina."] }
+            { "from": "Nonna Rosa ha della farina.", "accept": ["Nonna Rosa non ha farina."] }
           ],
           "explain": {
             "de": "**non** und nichts vor dem Ding\n- abbiamo del latte → non abbiamo latte",
@@ -313,13 +313,13 @@
       {
         "type": "gaptext",
         "grammar": "partitivo",
-        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
-        "text": "A merenda Lorenzo mangia ___ pane con un po' ___ miele. Il nonno mette ___ zucchero nel caffè. Nel cesto ci sono ___ ciliegie.",
+        "instruction": { "de": "Completa · Ergänze del, dello, della, dei, delle, di", "sl": "Completa · Dopolni del, dello, della, dei, delle, di", "en": "Completa · Fill in del, dello, della, dei, delle, di" },
+        "text": "A merenda Lorenzo mangia ___ pane. Sul pane mette un po' ___ miele. Il nonno mette ___ zucchero nel caffè. Nel cesto ci sono ___ ciliegie.",
         "gaps": [{ "accept": ["del"] }, { "accept": ["di"] }, { "accept": ["dello"] }, { "accept": ["delle"] }],
         "translation": {
-          "de": "Zum Snack isst Lorenzo Brot mit ein bisschen Honig. Der Opa tut Zucker in den Kaffee. Im Korb sind ein paar Kirschen.",
-          "sl": "Za malico Lorenzo je kruh z malo medu. Dedek si v kavo dene sladkor. V košari je nekaj češenj.",
-          "en": "For his snack Lorenzo eats some bread with a little honey. Grandpa puts some sugar in his coffee. There are some cherries in the basket."
+          "de": "Zum Snack isst Lorenzo Brot. Auf das Brot tut er ein bisschen Honig. Der Opa tut Zucker in den Kaffee. Im Korb sind ein paar Kirschen.",
+          "sl": "Za malico Lorenzo je kruh. Na kruh si namaže malo medu. Dedek si v kavo dene sladkor. V košari je nekaj češenj.",
+          "en": "For his snack Lorenzo eats some bread. On the bread he puts a little honey. Grandpa puts some sugar in his coffee. There are some cherries in the basket."
         }
       },
       {
@@ -362,5 +362,5 @@
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker. Native check: Oggi Franco non ha farina, qualche + the singular for a child, delle uova, the German"
+  "review": "machine-written, not reviewed by a native speaker. Native check: Oggi Nonna Rosa non ha farina, qualche + the singular for a child, delle uova, the German"
 }

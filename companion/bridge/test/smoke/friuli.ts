@@ -244,14 +244,15 @@ export default async function friuli() {
     // --- the school's course: Italian (companion/course/it), its texts in the child's base (Slovene) -----------------
     const course = await (await fetch(`${base}/course`, { headers: auth })).json()
     const a1 = course.levels?.[0]?.units ?? []
-    // the units written so far come first, in the outline's order (from ciao on), and each is served; the planned ones after them
+    // the units written so far, of every level, in the outline's order (A1 from ciao on), each served; a planned one not
+    // (A2 is written in parts side by side: its written units needn't be its first)
     const first = ['ciao', 'essere', 'articoli', 'plurale', 'avere', 'numeri']
-    const written = a1.filter((u: any) => !u.planned).map((u: any) => u.id)
+    const outlined = (course.levels ?? []).flatMap((l: any) => l.units ?? [])
+    const written = outlined.filter((u: any) => !u.planned).map((u: any) => u.id)
     check(
-      "friuli: GET /course serves the Italian course: A1's written units first, in the outline's order from ciao on, each served, the planned ones after them",
-      course.language === 'it' && a1.length === 18 && written.slice(0, 6).join() === first.join() &&
-        a1.slice(written.length).every((u: any) => u.planned) && course.units.map((u: any) => u.id).join() === written.join(),
-      { language: course.language, units: course.units?.map((u: any) => u.id), planned: a1.filter((u: any) => u.planned).length },
+      "friuli: GET /course serves the Italian course: its written units in the outline's order (A1 from ciao on), each served, a planned one not",
+      course.language === 'it' && a1.length === 18 && written.slice(0, 6).join() === first.join() && course.units.map((u: any) => u.id).join() === written.join(),
+      { language: course.language, units: course.units?.map((u: any) => u.id), planned: outlined.filter((u: any) => u.planned).length },
     )
     const ciao = course.units?.find((u: any) => u.id === 'ciao')
     const sort = ciao?.worksheets[0].exercises[0]

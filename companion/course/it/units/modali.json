@@ -23,9 +23,9 @@
     "steps": [
       {
         "say": {
-          "de": "**Potere** heißt können und dürfen: **posso** (ich kann, ich darf), **puoi** (du kannst), **può** (er, sie kann), **possiamo, potete, possono**. Danach kommt ein Verb in der Grundform: **Posso giocare?** (Darf ich spielen?) So fragst du die Maestra: **Posso andare in bagno?**",
-          "sl": "**Potere** pomeni moči in smeti: **posso** (lahko, smem), **puoi** (lahko, smeš), **può** (lahko, sme), **possiamo, potete, possono**. Za njim pride glagol v nedoločniku: **Posso giocare?** (Se lahko igram?) Tako vprašaš učiteljico: **Posso andare in bagno?**",
-          "en": "**Potere** is can and may: **posso** (I can, I may), **puoi** (you can), **può** (he, she can), **possiamo, potete, possono**. After it comes a verb as the dictionary has it: **Posso giocare?** (May I play?) That's how you ask the maestra: **Posso andare in bagno?**"
+          "de": "**Potere** heißt können und dürfen: **posso** (ich kann, ich darf), **puoi** (du kannst), **può** (er, sie kann), **possiamo, potete, possono**. Danach kommt ein Verb in der Grundform: **Posso giocare?** (Darf ich spielen?) So fragst du die Maestra: **Posso andare in bagno?** (Darf ich auf die Toilette?)",
+          "sl": "**Potere** pomeni moči in smeti: **posso** (lahko, smem), **puoi** (lahko, smeš), **può** (lahko, sme), **possiamo, potete, possono**. Za njim pride glagol v nedoločniku: **Posso giocare?** (Se lahko igram?) Tako vprašaš učiteljico: **Posso andare in bagno?** (Smem na stranišče?)",
+          "en": "**Potere** is can and may: **posso** (I can, I may), **puoi** (you can), **può** (he, she can), **possiamo, potete, possono**. After it comes a verb as the dictionary has it: **Posso giocare?** (May I play?) That's how you ask the maestra: **Posso andare in bagno?** (May I go to the toilet?)"
         },
         "examples": [
           { "it": "Maestra, posso andare in bagno?", "de": "Frau Lehrerin, darf ich auf die Toilette?", "sl": "Učiteljica, smem na stranišče?", "en": "Miss, may I go to the toilet?" },
@@ -35,7 +35,7 @@
         "ask": {
           "type": "choice",
           "grammar": "modali",
-          "prompt": "Maestra, ___ andare in bagno?",
+          "prompt": "«Maestra, ___ andare in bagno?» «Sì, vai pure!»",
           "options": ["posso", "può", "possono"],
           "answer": 0,
           "say_options": true,
@@ -108,15 +108,15 @@
           "explain": {
             "de": "Gelernt → **sapere**: **Sai nuotare?**\n- Puoi nuotare? · Darfst du schwimmen?\n- Devi nuotare? · Musst du schwimmen?",
             "sl": "Naučeno → **sapere**: **Sai nuotare?**\n- Puoi nuotare? · Smeš plavati?\n- Devi nuotare? · Moraš plavati?",
-            "en": "Learned → **sapere**: **Sai nuotare?**\n- Puoi nuotare? · May you swim?\n- Devi nuotare? · Must you swim?"
+            "en": "Learned → **sapere**: **Sai nuotare?**\n- Puoi nuotare? · Are you allowed to swim?\n- Devi nuotare? · Do you have to swim?"
           }
         }
       },
       {
         "say": {
-          "de": "**Non** steht vor dem Modalverb: **Non posso venire.** (Ich kann nicht kommen.) Bei einem reflexiven Verb hängt das kleine Wort an der Grundform: **Devo lavarmi le mani.** (Ich muss mir die Hände waschen.) **Devi alzarti!** Oder es steht ganz vorne: **Mi devo lavare le mani.** Beides ist richtig!",
-          "sl": "**Non** gre pred naklonski glagol: **Non posso venire.** (Ne morem priti.) Pri povratnem glagolu se mala beseda pripne nedoločniku: **Devo lavarmi le mani.** (Umiti si moram roke.) **Devi alzarti!** Ali pa gre čisto naprej: **Mi devo lavare le mani.** Oboje je prav!",
-          "en": "**Non** goes before the modal: **Non posso venire.** (I can't come.) With a reflexive verb the little word joins the infinitive: **Devo lavarmi le mani.** (I have to wash my hands.) **Devi alzarti!** Or it goes first: **Mi devo lavare le mani.** Both are right!"
+          "de": "Bei einem reflexiven Verb hängt das kleine Wort an der Grundform: **devo lavarmi** (ich muss mich waschen), **devi alzarti** (du musst aufstehen). Es kann auch ganz vorne stehen: **mi devo lavare** (ich muss mich waschen). Beides ist richtig! Und **non** steht vor dem Modalverb: **Non posso venire.** (Ich kann nicht kommen.)",
+          "sl": "Pri povratnem glagolu se mala beseda pripne nedoločniku: **devo lavarmi** (umiti se moram), **devi alzarti** (vstati moraš). Lahko gre tudi čisto naprej: **mi devo lavare** (umiti se moram). Oboje je prav! **Non** pa gre pred naklonski glagol: **Non posso venire.** (Ne morem priti.)",
+          "en": "With a reflexive verb the little word joins the infinitive: **devo lavarmi** (I have to wash), **devi alzarti** (you have to get up). It can also go first: **mi devo lavare** (I have to wash). Both are right! And **non** goes before the modal: **Non posso venire.** (I can't come.)"
         },
         "examples": [
           { "it": "Devo lavarmi le mani. Mi devo lavare le mani.", "de": "Ich muss mir die Hände waschen.", "sl": "Umiti si moram roke.", "en": "I have to wash my hands." },
@@ -204,13 +204,13 @@
           "text": "Oggi Giulia non ___ (potere) giocare in piazza: ___ (dovere) aiutare Nonna Rosa in cucina. Tommaso arriva: «Giulia, ___ (tu · volere) giocare a calcio?» «Non ___ (io · potere), faccio la gubana!» Nonna Rosa ride: «Bambini, ___ (voi · potere) giocare dopo. Ma prima ___ (voi · dovere) mangiare la gubana!» «Tommaso, ___ (tu · sapere) fare la gubana?» «No, ma voglio imparare!»",
           "gaps": [
             { "accept": ["può"], "hint": "lei → ?" },
-            { "accept": ["Deve"], "hint": "lei → ?" },
+            { "accept": ["deve"], "hint": "lei → ?" },
             { "accept": ["vuoi"] },
             { "accept": ["posso"] },
             { "accept": ["potete"], "hint": "voi → ?" },
             { "accept": ["dovete"] },
             {
-              "accept": ["Sai"],
+              "accept": ["sai"],
               "explain": {
                 "de": "Fare la gubana lernt man: **sapere** → tu → **sai**.",
                 "sl": "Peči gubano se naučiš: **sapere** → tu → **sai**.",
@@ -248,7 +248,7 @@
           "instruction": { "de": "Usa il verbo tra parentesi · Mit dem Verb in Klammern", "sl": "Usa il verbo tra parentesi · Z glagolom v oklepaju", "en": "Usa il verbo tra parentesi · With the verb in brackets" },
           "cue": "→",
           "items": [
-            { "from": "Gioco in piazza? (potere)", "accept": ["Posso giocare in piazza?"], "hint": "posso + giocare" },
+            { "from": "Gioco in piazza? (potere)", "accept": ["Posso giocare in piazza?"], "hint": { "de": "io → potere + die Grundform", "sl": "io → potere + nedoločnik", "en": "io → potere + the infinitive" } },
             { "from": "Lorenzo aiuta il nonno. (dovere)", "accept": ["Lorenzo deve aiutare il nonno."] },
             { "from": "Andiamo al mare? (potere)", "accept": ["Possiamo andare al mare?"] },
             { "from": "Nuoto. (sapere)", "accept": ["So nuotare."] },
@@ -256,7 +256,7 @@
             {
               "from": "Mi lavo le mani. (dovere)",
               "accept": ["Devo lavarmi le mani.", "Mi devo lavare le mani."],
-              "hint": { "de": "mi wandert an die Grundform: lavarmi", "sl": "mi gre na nedoločnik: lavarmi", "en": "mi joins the infinitive: lavarmi" }
+              "hint": { "de": "mi wandert an die Grundform: -si → -mi", "sl": "mi gre na nedoločnik: -si → -mi", "en": "mi joins the infinitive: -si → -mi" }
             },
             { "from": "Ti alzi presto. (dovere)", "accept": ["Devi alzarti presto.", "Ti devi alzare presto."] }
           ],
@@ -287,7 +287,7 @@
         "type": "gaptext",
         "grammar": "modali",
         "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
-        "text": "Stasera c'è il falò. «Nonno, ___ (noi · potere) andare al fuoco?» «Sì, ma ___ (voi · dovere) stare vicino a me.» Tommaso ___ (sapere) accendere il fuoco, ma oggi non ___ (potere) toccare i fiammiferi.",
+        "text": "Stasera c'è il falò. «Nonno, ___ (noi · potere) andare vicino al fuoco?» «Sì, ma ___ (voi · dovere) stare vicino a me.» Tommaso ___ (sapere) accendere il fuoco, ma oggi non ___ (potere) toccare i fiammiferi.",
         "gaps": [{ "accept": ["possiamo"] }, { "accept": ["dovete"] }, { "accept": ["sa"] }, { "accept": ["può"] }],
         "translation": {
           "de": "Heute Abend gibt es das Lagerfeuer. „Opa, dürfen wir zum Feuer gehen?“ „Ja, aber ihr müsst bei mir bleiben.“ Tommaso kann Feuer machen, aber heute darf er die Streichhölzer nicht anfassen.",
