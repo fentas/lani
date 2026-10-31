@@ -1,0 +1,317 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "imperativo-pronomi",
+  "language": "it",
+  "level": "A2",
+  "emoji": "👉",
+  "title": { "it": "Dammi! Non toccarlo!", "de": "Befehle mit Pronomen: dammi! non toccarlo!", "sl": "Velelnik z zaimki: dammi! non toccarlo!", "en": "Commands with pronouns: dammi! non toccarlo!" },
+  "goal": {
+    "de": "Du sagst Befehle mit einem kurzen Wort am Ende (guardami!, prendilo!, dammi!, dagli!, ascoltatemi!) und verbietest etwas: Non toccarlo! Non lo toccare!",
+    "sl": "Ukazuješ s kratko besedo na koncu (guardami!, prendilo!, dammi!, dagli!, ascoltatemi!) in kaj prepoveš: Non toccarlo! Non lo toccare!",
+    "en": "You can give orders with the short word on the end (guardami!, prendilo!, dammi!, dagli!, ascoltatemi!) and say don't: Non toccarlo! Non lo toccare!"
+  },
+  "grammar": ["imperativo-pronomi", "imperativo", "pronomi-indiretti"],
+  "words": ["guardare", "aiutare", "aspettare", "prendere", "mangiare", "portare", "dare", "dire", "fare", "toccare", "ascoltare", "chiamare", "mettere", "rompere", "svegliare", "raccontare", "la palla", "il gelato", "l'acqua", "la mano", "l'osso", "il ferro", "il libro", "il latte", "le uova", "la ciotola", "il tavolo", "la gubana", "le ciliegie", "la pecora", "il compito", "caldo", "veloce"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "imperativo", "de": "Imperativ", "sl": "velelnik", "en": "imperative" },
+        { "it": "+ pronome", "de": "+ Pronomen", "sl": "+ zaimek", "en": "+ pronoun" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Bei einem Befehl kommt das kurze Wort ans Ende und klebt am Verb: **guarda** und **mi** werden **guardami!** (schau mich an!). **Aiutami!** (hilf mir!) **Aspettami!** (warte auf mich!) Auf Deutsch sind es zwei Wörter, auf Italienisch eins.",
+          "sl": "Pri ukazu gre kratka beseda na konec in se prilepi na glagol: **guarda** in **mi** postaneta **guardami!** (poglej me!). **Aiutami!** (pomagaj mi!) **Aspettami!** (počakaj me!) Slovensko sta dve besedi, italijansko ena.",
+          "en": "In an order the short word goes at the end and sticks to the verb: **guarda** and **mi** become **guardami!** (look at me!). **Aiutami!** (help me!) **Aspettami!** (wait for me!) Two words in English, one in Italian."
+        },
+        "examples": [
+          { "it": "Aspettami, Tommaso!", "de": "Warte auf mich, Tommaso!", "sl": "Počakaj me, Tommaso!", "en": "Wait for me, Tommaso!" },
+          { "it": "Nonna, guardami: so nuotare!", "de": "Oma, schau mich an: Ich kann schwimmen!", "sl": "Babica, poglej me: znam plavati!", "en": "Grandma, look at me: I can swim!" }
+        ],
+        "rows": [
+          ["guarda!", "guardami!", { "de": "schau mich an!", "sl": "poglej me!", "en": "look at me!" }],
+          ["aiuta!", "aiutami!", { "de": "hilf mir!", "sl": "pomagaj mi!", "en": "help me!" }],
+          ["aspetta!", "aspettami!", { "de": "warte auf mich!", "sl": "počakaj me!", "en": "wait for me!" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "imperativo-pronomi", "prompt": "Tommaso corre veloce. Giulia: «Tommaso, ___!»", "options": ["aspettami", "mi aspetta", "aspetta mi"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**zu einer Person** (tu): aspetta + mi → **aspettami!**, ein Wort\n- mi aspetta · er wartet auf mich, kein Befehl",
+            "sl": "**eni osebi** (tu): aspetta + mi → **aspettami!**, ena beseda\n- mi aspetta · on me čaka, ni ukaz",
+            "en": "**to one person** (tu): aspetta + mi → **aspettami!**, one word\n- mi aspetta · he waits for me, not an order"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Genauso mit **lo, la, li, le** (ihn, sie, es) und **gli, le** (ihm, ihr): **Ecco la palla: prendila!** (Nimm ihn!) **Il gelato? Mangialo!** (Iss es!) **Moro ha sete: portagli l'acqua!** (Bring ihm Wasser!) Pass auf: **la palla** ist auf Italienisch weiblich, darum **prendila**.",
+          "sl": "Enako z **lo, la, li, le** (ga, jo, jih) in **gli, le** (mu, ji): **Ecco la palla: prendila!** (Vzemi jo!) **Il gelato? Mangialo!** (Pojej ga!) **Moro ha sete: portagli l'acqua!** (Nesi mu vodo!)",
+          "en": "The same with **lo, la, li, le** (him, her, it, them) and **gli, le** (to him, to her): **Ecco la palla: prendila!** (Catch it!) **Il gelato? Mangialo!** (Eat it!) **Moro ha sete: portagli l'acqua!** (Take him some water!)"
+        },
+        "examples": [
+          { "it": "Ecco la palla: prendila!", "de": "Hier ist der Ball: Nimm ihn!", "sl": "Tukaj je žoga: vzemi jo!", "en": "Here's the ball: catch it!" },
+          { "it": "Moro ha sete: portagli l'acqua!", "de": "Moro hat Durst: Bring ihm Wasser!", "sl": "Moro je žejen: nesi mu vodo!", "en": "Moro is thirsty: take him some water!" }
+        ],
+        "rows": [
+          ["prendi!", "prendilo! prendila!", { "de": "nimm ihn, sie, es!", "sl": "vzemi ga, jo!", "en": "take it!" }],
+          ["porta!", "portagli!", { "de": "bring ihm …!", "sl": "nesi mu …!", "en": "take him …!" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "imperativo-pronomi", "text": "Ecco il libro: ___! (leggi + lo)", "accept": ["leggilo"], "hint": "leggi + lo",
+          "explain": {
+            "de": "**il libro** → lo, hinten dran: **leggilo!** (lies es!)",
+            "sl": "**il libro** → lo, zadaj: **leggilo!** (preberi jo!)",
+            "en": "**il libro** → lo, on the end: **leggilo!** (read it!)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die kurzen Befehle **da'**, **di'** und **fa'** verdoppeln den ersten Buchstaben des kurzen Worts: **dammi!** (gib mir!), **dimmi!** (sag mir!), **fallo!** (mach es!). Nur **gli** bleibt einfach: **dagli!** (gib ihm!)",
+          "sl": "Kratki ukazi **da'**, **di'** in **fa'** podvojijo prvo črko kratke besede: **dammi!** (daj mi!), **dimmi!** (povej mi!), **fallo!** (naredi to!). Samo **gli** ostane enojen: **dagli!** (daj mu!)",
+          "en": "The short orders **da'**, **di'** and **fa'** double the first letter of the short word: **dammi!** (give me!), **dimmi!** (tell me!), **fallo!** (do it!). Only **gli** stays single: **dagli!** (give him!)"
+        },
+        "examples": [
+          { "it": "Lorenzo, dammi la mano!", "de": "Lorenzo, gib mir die Hand!", "sl": "Lorenzo, daj mi roko!", "en": "Lorenzo, give me your hand!" },
+          { "it": "Moro ha fame: dagli un osso!", "de": "Moro hat Hunger: Gib ihm einen Knochen!", "sl": "Moro je lačen: daj mu kost!", "en": "Moro is hungry: give him a bone!" }
+        ],
+        "rows": [
+          ["da'!", "dammi! dagli!", { "de": "gib mir! gib ihm!", "sl": "daj mi! daj mu!", "en": "give me! give him!" }],
+          ["di'!", "dimmi!", { "de": "sag mir!", "sl": "povej mi!", "en": "tell me!" }],
+          ["fa'!", "fammi! fallo!", { "de": "lass mich! mach es!", "sl": "pusti mi! naredi to!", "en": "let me! do it!" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "imperativo-pronomi", "prompt": "«Lorenzo, ___ la palla!» (da' + mi)", "options": ["dami", "dammi", "da mi"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**da'** + **mi** → **dammi**, mit zwei m\n- dagli · nur gli bleibt einfach",
+            "sl": "**da'** + **mi** → **dammi**, z dvema m\n- dagli · samo gli ostane enojen",
+            "en": "**da'** + **mi** → **dammi**, with two m\n- dagli · only gli stays single"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch bei **noi** und **voi** hängt das kurze Wort hinten dran: **Aiutiamolo!** (Helfen wir ihm!) **Prendiamola!** (Nehmen wir sie!) **Bambini, ascoltatemi!** (Kinder, hört mir zu!) **Guardatelo!** (Schaut ihn an!)",
+          "sl": "Tudi pri **noi** in **voi** gre kratka beseda zadaj: **Aiutiamolo!** (Pomagajmo mu!) **Prendiamola!** (Vzemimo jo!) **Bambini, ascoltatemi!** (Otroci, poslušajte me!) **Guardatelo!** (Poglejte ga!)",
+          "en": "With **noi** and **voi** the short word goes on the end too: **Aiutiamolo!** (Let's help him!) **Prendiamola!** (Let's take it!) **Bambini, ascoltatemi!** (Children, listen to me!) **Guardatelo!** (Look at him!)"
+        },
+        "examples": [
+          { "it": "Lorenzo è caduto: aiutiamolo!", "de": "Lorenzo ist hingefallen: Helfen wir ihm!", "sl": "Lorenzo je padel: pomagajmo mu!", "en": "Lorenzo has fallen over: let's help him!" },
+          { "it": "Bambini, ascoltatemi!", "de": "Kinder, hört mir zu!", "sl": "Otroci, poslušajte me!", "en": "Children, listen to me!" }
+        ],
+        "rows": [
+          ["aiutiamo!", "aiutiamolo!", { "de": "helfen wir ihm!", "sl": "pomagajmo mu!", "en": "let's help him!" }],
+          ["ascoltate!", "ascoltatemi!", { "de": "hört mir zu!", "sl": "poslušajte me!", "en": "listen to me!" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "imperativo-pronomi", "text": "«Bambini, ___!» dice la maestra Elena. (ascoltate + mi)", "accept": ["ascoltatemi"], "hint": "ascoltate + mi",
+          "explain": {
+            "de": "**voi** + **mi** → **ascoltatemi!**, ein Wort",
+            "sl": "**voi** + **mi** → **ascoltatemi!**, ena beseda",
+            "en": "**voi** + **mi** → **ascoltatemi!**, one word"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Verbieten zu einer Person: **non** und die Grundform. Das kurze Wort hängt an der Grundform, die ihr letztes **-e** verliert: **Non toccarlo!** (Fass es nicht an!) Oder es steht davor: **Non lo toccare!** Beides ist richtig. Zu mehreren: **Non toccatelo!**",
+          "sl": "Prepoved eni osebi: **non** in nedoločnik. Kratka beseda se prilepi na nedoločnik, ki izgubi zadnji **-e**: **Non toccarlo!** (Ne dotikaj se ga!) Ali pa stoji pred njim: **Non lo toccare!** Oboje je prav. Več osebam: **Non toccatelo!**",
+          "en": "To tell one person not to: **non** and the infinitive. The short word goes on the infinitive, which drops its last **-e**: **Non toccarlo!** (Don't touch it!) Or it goes in front: **Non lo toccare!** Both are right. To several: **Non toccatelo!**"
+        },
+        "examples": [
+          { "it": "Il ferro è caldo: non toccarlo!", "de": "Das Eisen ist heiß: Fass es nicht an!", "sl": "Železo je vroče: ne dotikaj se ga!", "en": "The iron is hot: don't touch it!" },
+          { "it": "Bambini, la torta è per la festa: non mangiatela!", "de": "Kinder, der Kuchen ist fürs Fest: Esst ihn nicht!", "sl": "Otroci, torta je za praznik: ne jejte je!", "en": "Children, the cake is for the festa: don't eat it!" }
+        ],
+        "rows": [
+          ["non toccare!", "non toccarlo! non lo toccare!", { "de": "fass es nicht an!", "sl": "ne dotikaj se ga!", "en": "don't touch it!" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "imperativo-pronomi", "prompt": "Il ferro di Bruno è caldo: «___!»", "options": ["Non toccarlo", "Non toccalo", "Toccarlo"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**non** + Grundform ohne -e + lo: **Non toccarlo!** (auch richtig: Non lo toccare!)\n- toccalo! · fass es an!",
+            "sl": "**non** + nedoločnik brez -e + lo: **Non toccarlo!** (tudi prav: Non lo toccare!)\n- toccalo! · dotakni se ga!",
+            "en": "**non** + the infinitive without -e + lo: **Non toccarlo!** (also right: Non lo toccare!)\n- toccalo! · touch it!"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "imperativo-pronomi-1",
+      "title": { "it": "Dammi, prendilo!", "de": "Gib mir, nimm es!", "sl": "Daj mi, vzemi ga!", "en": "Give me, take it!" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "imperativo-pronomi", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "Imperativ + mi, lo, la", "sl": "velelnik + mi, lo, la", "en": "imperative + mi, lo, la" },
+          "columns": [
+            { "de": "+ mi · mir, mich", "sl": "+ mi · mi, me", "en": "+ mi · me" },
+            { "de": "+ lo · ihn, es", "sl": "+ lo · ga", "en": "+ lo · him, it" },
+            { "de": "+ la · sie", "sl": "+ la · jo", "en": "+ la · her, it" }
+          ],
+          "rows": [
+            { "label": "guarda!", "cells": ["guardami", { "accept": ["guardalo"] }, { "accept": ["guardala"] }] },
+            { "label": "prendi!", "cells": [{ "accept": ["prendimi"] }, "prendilo", { "accept": ["prendila"] }] },
+            { "label": "aspetta!", "cells": [{ "accept": ["aspettami"] }, { "accept": ["aspettalo"] }, "aspettala"] },
+            { "label": "da'!", "cells": [{ "accept": ["dammi"], "hint": "da' + mi: mm" }, { "accept": ["dallo"] }, "dalla"] },
+            { "label": "fa'!", "cells": ["fammi", { "accept": ["fallo"], "hint": "fa' + lo: ll" }, { "accept": ["falla"] }] }
+          ],
+          "explain": {
+            "de": "**das kurze Wort hinten dran**: guarda + lo → guardalo · **da', fa'** verdoppeln: dammi, fallo",
+            "sl": "**kratka beseda zadaj**: guarda + lo → guardalo · **da', fa'** podvojita: dammi, fallo",
+            "en": "**the short word on the end**: guarda + lo → guardalo · **da', fa'** double: dammi, fallo"
+          }
+        },
+        {
+          "type": "choice", "grammar": "imperativo-pronomi", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Nonno, ___ una storia!» (racconta + mi)", "options": ["raccontami", "mi racconta", "raccontimi"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**racconta** + **mi** → **raccontami!** (erzähl mir!)\n- mi racconta · er erzählt mir, kein Befehl",
+            "sl": "**racconta** + **mi** → **raccontami!** (povej mi!)\n- mi racconta · on mi pripoveduje, ni ukaz",
+            "en": "**racconta** + **mi** → **raccontami!** (tell me!)\n- mi racconta · he tells me, not an order"
+          }
+        },
+        {
+          "type": "choice", "grammar": "imperativo-pronomi", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Moro ha fame: «___ un osso!»", "options": ["Dagli", "Daggli", "Dalli"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**da'** + **gli** → **dagli**: nur gli bleibt einfach\n- dalli · gib sie (mehrere)",
+            "sl": "**da'** + **gli** → **dagli**: samo gli ostane enojen\n- dalli · daj jih",
+            "en": "**da'** + **gli** → **dagli**: only gli stays single\n- dalli · give them"
+          }
+        },
+        {
+          "type": "choice", "grammar": "imperativo-pronomi", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "La maestra Elena alla classe: «Bambini, ___!» (aiutate + mi)", "options": ["aiutatemi", "aiutami", "mi aiutate"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**zu mehreren** (voi): aiutate + mi → **aiutatemi!**\n- aiutami · zu einer Person",
+            "sl": "**več osebam** (voi): aiutate + mi → **aiutatemi!**\n- aiutami · eni osebi",
+            "en": "**to several** (voi): aiutate + mi → **aiutatemi!**\n- aiutami · to one person"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperativo-pronomi-2",
+      "title": { "it": "In cucina con Nonna Rosa", "de": "In der Küche mit Nonna Rosa", "sl": "V kuhinji z babico Roso", "en": "In the kitchen with Nonna Rosa" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "imperativo-pronomi", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "In cucina con Nonna Rosa",
+          "text": "«{learner}, vieni qui e ___ (aiuta + mi)!» dice Nonna Rosa. «Ecco il latte: ___ (prendi + lo) e ___ (metti + lo) sul tavolo. Le uova? ___ (rompi + le) nella ciotola.» «La gubana è calda: non ___ (toccare + la)!» «Moro ha fame: ___ (da' + gli) un pezzo di pane.» «E adesso ___ (di' + mi): ti piace la gubana?»",
+          "gaps": [
+            { "accept": ["aiutami"], "hint": "aiuta + mi" },
+            { "accept": ["prendilo"], "hint": "prendi + lo" },
+            { "accept": ["mettilo"], "hint": "metti + lo" },
+            { "accept": ["Rompile"], "hint": "rompi + le" },
+            { "accept": ["toccarla", "la toccare"], "hint": { "de": "non + Grundform ohne -e + la", "sl": "non + nedoločnik brez -e + la", "en": "non + the infinitive without -e + la" }, "explain": { "de": "**non toccarla** oder **non la toccare**: beides richtig.", "sl": "**non toccarla** ali **non la toccare**: oboje je prav.", "en": "**non toccarla** or **non la toccare**: both are right." } },
+            { "accept": ["dagli"], "hint": { "de": "da' + gli: gli bleibt einfach", "sl": "da' + gli: gli ostane enojen", "en": "da' + gli: gli stays single" } },
+            { "accept": ["dimmi"], "hint": "di' + mi: mm" }
+          ],
+          "bank": true, "distractors": ["prendi", "toccare"],
+          "translation": {
+            "de": "„{learner}, komm her und hilf mir!“, sagt Nonna Rosa. „Hier ist die Milch: Nimm sie und stell sie auf den Tisch. Die Eier? Schlag sie in die Schüssel.“ „Die Gubana ist heiß: Fass sie nicht an!“ „Moro hat Hunger: Gib ihm ein Stück Brot.“ „Und jetzt sag mir: Schmeckt dir die Gubana?“",
+            "sl": "»{learner}, pridi sem in mi pomagaj!« reče babica Rosa. »Tukaj je mleko: vzemi ga in ga postavi na mizo. Jajca? Razbij jih v skledo.« »Gubana je vroča: ne dotikaj se je!« »Moro je lačen: daj mu kos kruha.« »Zdaj pa mi povej: ti je gubana všeč?«",
+            "en": "\"{learner}, come here and help me!\" says Nonna Rosa. \"Here's the milk: take it and put it on the table. The eggs? Crack them into the bowl.\" \"The gubana is hot: don't touch it!\" \"Moro is hungry: give him a piece of bread.\" \"And now tell me: do you like the gubana?\""
+          }
+        },
+        {
+          "type": "choice", "grammar": "imperativo-pronomi", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Le ciliegie? ___!» dice la nonna.", "options": ["Mangiale", "Mangiali", "Mangiala"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**le ciliegie** (weiblich, mehrere) → **le**: Mangiale!\n- mangiali · für i (männlich, mehrere)\n- mangiala · für eine",
+            "sl": "**le ciliegie** (ženske, več) → **le**: Mangiale!\n- mangiali · za i (moške, več)\n- mangiala · za eno",
+            "en": "**le ciliegie** (feminine, more than one) → **le**: Mangiale!\n- mangiali · for i (masculine plural)\n- mangiala · for one"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperativo-pronomi-3",
+      "title": { "it": "Fallo! Non farlo!", "de": "Mach es! Mach es nicht!", "sl": "Naredi to! Ne delaj tega!", "en": "Do it! Don't do it!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "imperativo-pronomi", "instruction": { "de": "Usa il pronome · Nimm das kurze Wort", "sl": "Usa il pronome · Uporabi kratko besedo", "en": "Usa il pronome · Use the short word" },
+          "items": [
+            { "from": "Prendi la palla!", "accept": ["Prendila!"] },
+            { "from": "Mangia il gelato!", "accept": ["Mangialo!"] },
+            { "from": "Guarda le pecore!", "accept": ["Guardale!"] },
+            { "from": "Chiama Lorenzo!", "accept": ["Chiamalo!"] },
+            { "from": "Aiuta la nonna!", "accept": ["Aiutala!"] }
+          ],
+          "explain": {
+            "de": "**il → lo, la → la, i → li, le → le**, hinten am Befehl\n- Prendi la palla! → Prendila!",
+            "sl": "**il → lo, la → la, i → li, le → le**, zadaj na ukazu\n- Prendi la palla! → Prendila!",
+            "en": "**il → lo, la → la, i → li, le → le**, on the end of the order\n- Prendi la palla! → Prendila!"
+          }
+        },
+        {
+          "type": "transform", "grammar": "imperativo-pronomi", "instruction": { "de": "Di' di no · Verbiete es", "sl": "Di' di no · Prepovej", "en": "Di' di no · Say don't" }, "cue": "!",
+          "items": [
+            { "from": "Toccalo!", "accept": ["Non toccarlo!", "Non lo toccare!"] },
+            { "from": "Mangiala!", "accept": ["Non mangiarla!", "Non la mangiare!"] },
+            { "from": "Apritela!", "accept": ["Non apritela!", "Non la aprite!", "Non l'aprite!"], "hint": { "de": "voi: non + die voi-Form", "sl": "voi: non + oblika za voi", "en": "voi: non + the voi form" } }
+          ],
+          "explain": {
+            "de": "**zu einer Person**: non + Grundform ohne -e + Pronomen (oder das Pronomen davor) · **zu mehreren**: non + voi-Form\n- Non toccarlo! · Non lo toccare! · Non apritela!",
+            "sl": "**eni osebi**: non + nedoločnik brez -e + zaimek (ali zaimek spredaj) · **več osebam**: non + oblika za voi\n- Non toccarlo! · Non lo toccare! · Non apritela!",
+            "en": "**to one person**: non + the infinitive without -e + the pronoun (or the pronoun in front) · **to several**: non + the voi form\n- Non toccarlo! · Non lo toccare! · Non apritela!"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table", "grammar": "imperativo-pronomi", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "columns": ["+ mi", "+ lo"],
+        "rows": [
+          { "label": "da'!", "cells": [{ "accept": ["dammi"] }, "dallo"] },
+          { "label": "di'!", "cells": ["dimmi", { "accept": ["dillo"] }] },
+          { "label": "aiuta!", "cells": [{ "accept": ["aiutami"] }, "aiutalo"] }
+        ]
+      },
+      {
+        "type": "gaptext", "grammar": "imperativo-pronomi", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Tommaso gioca ad acchiapparella: «Dai, ___ (prendi + mi), se puoi!» Lorenzo corre e cade. «Lorenzo! ___ (aiutiamo + lo)!» dice Giulia. «___ (da' + mi) la mano!» Ma Lorenzo ride: «Non ___ (guardare + mi) così, sto bene!»",
+        "gaps": [
+          { "accept": ["prendimi"] },
+          { "accept": ["Aiutiamolo"] },
+          { "accept": ["Dammi"] },
+          { "accept": ["guardarmi", "mi guardare"] }
+        ],
+        "translation": {
+          "de": "Tommaso spielt Fangen: „Komm schon, fang mich, wenn du kannst!“ Lorenzo rennt und fällt hin. „Lorenzo! Helfen wir ihm!“, sagt Giulia. „Gib mir die Hand!“ Aber Lorenzo lacht: „Schau mich nicht so an, mir geht's gut!“",
+          "sl": "Tommaso se igra lovljenje: »Daj, ujemi me, če moreš!« Lorenzo teče in pade. »Lorenzo! Pomagajmo mu!« reče Giulia. »Daj mi roko!« Lorenzo pa se smeje: »Ne glej me tako, v redu sem!«",
+          "en": "Tommaso is playing tag: \"Come on, catch me if you can!\" Lorenzo runs and falls over. \"Lorenzo! Let's help him!\" says Giulia. \"Give me your hand!\" But Lorenzo laughs: \"Don't look at me like that, I'm fine!\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "imperativo-pronomi", "instruction": { "de": "Usa il pronome · Nimm das kurze Wort", "sl": "Usa il pronome · Uporabi kratko besedo", "en": "Usa il pronome · Use the short word" },
+        "items": [
+          { "from": "Prendi il libro!", "accept": ["Prendilo!"] },
+          { "from": "Fa' il compito!", "accept": ["Fallo!"] },
+          { "from": "Porta l'acqua a Moro!", "accept": ["Portagli l'acqua!"], "hint": { "de": "a Moro: ihm", "sl": "a Moro: njemu", "en": "a Moro: to him" } }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "imperativo-pronomi", "prompt": "Ecco le ciliegie: ___!", "options": ["prendile", "prendili", "prendila"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**le ciliegie** → **le**: prendile!",
+          "sl": "**le ciliegie** → **le**: prendile!",
+          "en": "**le ciliegie** → **le**: prendile!"
+        }
+      },
+      {
+        "type": "choice", "grammar": "imperativo-pronomi", "prompt": "Il gatto dorme: «Non ___!»", "options": ["svegliarlo", "sveglialo", "svegliare lo"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**non** + Grundform ohne -e + lo: **non svegliarlo!** (auch richtig: non lo svegliare!)",
+          "sl": "**non** + nedoločnik brez -e + lo: **non svegliarlo!** (tudi prav: non lo svegliare!)",
+          "en": "**non** + the infinitive without -e + lo: **non svegliarlo!** (also right: non lo svegliare!)"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: non toccarlo and non lo toccare, prendimi in a game of tag, Rompile nella ciotola, dalla, falla, the German for a child"
+}

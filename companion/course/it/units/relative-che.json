@@ -1,0 +1,298 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "relative-che",
+  "language": "it",
+  "level": "A2",
+  "emoji": "🔗",
+  "title": { "it": "Il cane che abbaia", "de": "Relativsätze: il cane che abbaia", "sl": "Oziralni stavki: il cane che abbaia", "en": "Relative clauses: il cane che abbaia" },
+  "goal": {
+    "de": "Du machst mit che aus zwei Sätzen einen (Ho un cane che abbaia.), für Menschen, Tiere und Dinge, und sagst, wer wer ist: La bambina che canta è Giulia.",
+    "sl": "S che iz dveh stavkov narediš enega (Ho un cane che abbaia.), za ljudi, živali in stvari, in poveš, kdo je kdo: La bambina che canta è Giulia.",
+    "en": "You can make one sentence out of two with che (Ho un cane che abbaia.), for people, animals and things, and say who is who: La bambina che canta è Giulia."
+  },
+  "grammar": ["relative-che"],
+  "words": ["il cane", "il gatto", "la bambina", "il bambino", "il ragazzo", "il signore", "la signora", "la pecora", "la mucca", "il gabbiano", "l'ape", "la barca", "il porto", "il pescatore", "la fucina", "il tiglio", "il giardino", "il tetto", "l'erba", "la lana", "la matita", "il libro", "la torta", "la gubana", "il frico", "il gelato", "l'indovinello", "abbaiare", "volare", "lavorare", "cucinare", "conoscere", "cercare", "usare", "nuotare", "ridere"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "nome", "de": "Nomen", "sl": "samostalnik", "en": "noun" },
+        { "it": "che …", "de": "der, die, das …", "sl": "ki …", "en": "that, who …" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Mit **che** machst du aus zwei Sätzen einen: **Ho un cane. Il cane abbaia.** wird **Ho un cane che abbaia.** (Ich habe einen Hund, der bellt.) **Che** ist hier *der, die, das*. **Moro è un cane che dorme tanto.** (Moro ist ein Hund, der viel schläft.)",
+          "sl": "S **che** iz dveh stavkov narediš enega: **Ho un cane. Il cane abbaia.** postane **Ho un cane che abbaia.** (Imam psa, ki laja.) **Che** je tu *ki*. **Moro è un cane che dorme tanto.** (Moro je pes, ki veliko spi.)",
+          "en": "With **che** you make one sentence out of two: **Ho un cane. Il cane abbaia.** becomes **Ho un cane che abbaia.** (I've got a dog that barks.) **Che** is *that, which, who* here. **Moro è un cane che dorme tanto.** (Moro is a dog that sleeps a lot.)"
+        },
+        "examples": [
+          { "it": "Moro è un cane che dorme tanto.", "de": "Moro ist ein Hund, der viel schläft.", "sl": "Moro je pes, ki veliko spi.", "en": "Moro is a dog that sleeps a lot." },
+          { "it": "Ecco il gabbiano che vola sopra la barca.", "de": "Da ist die Möwe, die über das Boot fliegt.", "sl": "Tam je galeb, ki leti nad čolnom.", "en": "There's the seagull that's flying over the boat." }
+        ],
+        "rows": [
+          ["il cane", "che abbaia", { "de": "der Hund, der bellt", "sl": "pes, ki laja", "en": "the dog that barks" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "relative-che", "prompt": "Vedo un gatto ___ dorme sul tetto.", "options": ["che", "chi", "cosa"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**zwei Sätze verbinden** → **che**: un gatto che dorme\n- chi · wer? (eine Frage)\n- cosa · was?",
+            "sl": "**povezati dva stavka** → **che**: un gatto che dorme\n- chi · kdo? (vprašanje)\n- cosa · kaj?",
+            "en": "**joining two sentences** → **che**: un gatto che dorme\n- chi · who? (a question)\n- cosa · what?"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Che** geht auch für Menschen: **La bambina che canta è Giulia.** (Das Mädchen, das singt, ist Giulia.) **Il signore che lavora nella fucina è Bruno.** (Der Mann, der in der Schmiede arbeitet, ist Bruno.) **Chi** ist nur die Frage *wer?*: **Chi canta?**",
+          "sl": "**Che** gre tudi za ljudi: **La bambina che canta è Giulia.** (Deklica, ki poje, je Giulia.) **Il signore che lavora nella fucina è Bruno.** (Gospod, ki dela v kovačnici, je Bruno.) **Chi** je samo vprašanje *kdo?*: **Chi canta?**",
+          "en": "**Che** works for people too: **La bambina che canta è Giulia.** (The girl who's singing is Giulia.) **Il signore che lavora nella fucina è Bruno.** (The man working in the forge is Bruno.) **Chi** is only the question *who?*: **Chi canta?**"
+        },
+        "examples": [
+          { "it": "La bambina che canta è Giulia.", "de": "Das Mädchen, das singt, ist Giulia.", "sl": "Deklica, ki poje, je Giulia.", "en": "The girl who's singing is Giulia." },
+          { "it": "Chi è il ragazzo che ha le pecore? È Davide.", "de": "Wer ist der junge Mann, der die Schafe hat? Das ist Davide.", "sl": "Kdo je fant, ki ima ovce? Davide je.", "en": "Who's the young man with the sheep? It's Davide." }
+        ],
+        "rows": [
+          ["la bambina", "che canta", { "de": "das Mädchen, das singt", "sl": "deklica, ki poje", "en": "the girl who sings" }],
+          ["il signore", "che lavora", { "de": "der Mann, der arbeitet", "sl": "gospod, ki dela", "en": "the man who works" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "relative-che", "text": "Il ragazzo ___ ha le pecore è Davide.", "accept": ["che"], "hint": { "de": "der", "sl": "ki", "en": "who" },
+          "explain": {
+            "de": "**il ragazzo** + ha le pecore → **che**\n- chi · nur für die Frage wer?",
+            "sl": "**il ragazzo** + ha le pecore → **che**\n- chi · samo za vprašanje kdo?",
+            "en": "**il ragazzo** + ha le pecore → **che**\n- chi · only for the question who?"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Che** bleibt immer gleich, ob der, die, das oder mehrere: **il cane che**, **la mucca che**, **i bambini che**, **le pecore che**. Das Verb danach richtet sich nach dem Nomen davor: **il bambino che gioca**, aber **i bambini che giocano**.",
+          "sl": "**Che** ostane vedno enak, kot slovenski *ki*: **il cane che**, **la mucca che**, **i bambini che**, **le pecore che**. Glagol za njim se ravna po samostalniku pred njim: **il bambino che gioca**, toda **i bambini che giocano**.",
+          "en": "**Che** never changes, whatever comes before it: **il cane che**, **la mucca che**, **i bambini che**, **le pecore che**. The verb after it goes with the noun before it: **il bambino che gioca**, but **i bambini che giocano**."
+        },
+        "examples": [
+          { "it": "I bambini che giocano in piazza sono tanti.", "de": "Es sind viele Kinder, die auf dem Platz spielen.", "sl": "Otrok, ki se igrajo na trgu, je veliko.", "en": "There are lots of children playing in the square." },
+          { "it": "Le pecore che mangiano l'erba sono di Davide.", "de": "Die Schafe, die das Gras fressen, gehören Davide.", "sl": "Ovce, ki jedo travo, so Davidove.", "en": "The sheep that are eating the grass are Davide's." }
+        ],
+        "rows": [
+          ["i bambini", "che giocano", { "de": "die Kinder, die spielen", "sl": "otroci, ki se igrajo", "en": "the children who play" }],
+          ["le pecore", "che mangiano", { "de": "die Schafe, die fressen", "sl": "ovce, ki jedo", "en": "the sheep that eat" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "relative-che", "prompt": "I bambini che ___ in piazza sono i miei amici.", "options": ["gioca", "giocano", "giocare"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**i bambini** (mehrere) → **giocano**\n- gioca · für einen\n- giocare · die Grundform",
+            "sl": "**i bambini** (več) → **giocano**\n- gioca · za enega\n- giocare · nedoločnik",
+            "en": "**i bambini** (more than one) → **giocano**\n- gioca · for one\n- giocare · the infinitive"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Che** steht auch dort, wo es auf Deutsch *den* oder *die* heißt: **Il libro che leggo è bello.** (Das Buch, das ich lese, ist schön.) **La gubana che fa Nonna Rosa è buonissima.** (Die Gubana, die Nonna Rosa backt, ist superlecker.) Immer **che**: nie den, nie die.",
+          "sl": "**Che** stoji tudi tam, kjer slovensko rečeš *ki ga, ki jo*: **Il libro che leggo è bello.** (Knjiga, ki jo berem, je lepa.) **La gubana che fa Nonna Rosa è buonissima.** (Gubana, ki jo peče babica Rosa, je odlična.) Vedno samo **che**, brez dodatka.",
+          "en": "**Che** is also the thing someone does something to, where English often says nothing: **Il libro che leggo è bello.** (The book I'm reading is nice.) **La gubana che fa Nonna Rosa è buonissima.** (The gubana Nonna Rosa makes is delicious.) Italian never leaves **che** out."
+        },
+        "examples": [
+          { "it": "Il libro che leggo è pieno di cavalli.", "de": "Das Buch, das ich lese, ist voller Pferde.", "sl": "Knjiga, ki jo berem, je polna konj.", "en": "The book I'm reading is full of horses." },
+          { "it": "La gubana che fa Nonna Rosa è buonissima.", "de": "Die Gubana, die Nonna Rosa backt, ist superlecker.", "sl": "Gubana, ki jo peče babica Rosa, je odlična.", "en": "The gubana Nonna Rosa makes is delicious." }
+        ],
+        "rows": [
+          ["il libro", "che leggo", { "de": "das Buch, das ich lese", "sl": "knjiga, ki jo berem", "en": "the book (that) I read" }],
+          ["la gubana", "che fa la nonna", { "de": "die Gubana, die Oma backt", "sl": "gubana, ki jo peče babica", "en": "the gubana (that) Grandma makes" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "relative-che", "text": "Il gelato ___ mangio è alla fragola.", "accept": ["che"], "hint": { "de": "das (ich esse es)", "sl": "ki ga", "en": "that, or nothing in English" },
+          "explain": {
+            "de": "**il gelato** + mangio → **che**, auch wo das Deutsche den, das sagt",
+            "sl": "**il gelato** + mangio → **che**, tudi kjer slovensko rečeš ki ga",
+            "en": "**il gelato** + mangio → **che**, though English can leave it out"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auf Deutsch rutscht das Verb ans Ende: *der Hund, der im Garten bellt*. Auf Italienisch nicht: **il cane che abbaia in giardino**, und meist ohne Komma. **La barca che vedi al porto è del pescatore.** (Das Boot, das du im Hafen siehst, gehört dem Fischer.)",
+          "sl": "Besedni red ostane kot v vsakem stavku, vejice navadno ni: **il cane che abbaia in giardino** (pes, ki laja na vrtu). **La barca che vedi al porto è del pescatore.** (Čoln, ki ga vidiš v pristanišču, je ribičev.) In **che** nikoli ne izpustiš.",
+          "en": "Italian never leaves **che** out, as English can: *the boat you can see* is **la barca che vedi**. The words stay in their usual order, mostly with no comma: **il cane che abbaia in giardino**. **La barca che vedi al porto è del pescatore.** (The boat you can see in the harbour is the fisherman's.)"
+        },
+        "examples": [
+          { "it": "Il cane che abbaia in giardino è Moro.", "de": "Der Hund, der im Garten bellt, ist Moro.", "sl": "Pes, ki laja na vrtu, je Moro.", "en": "The dog barking in the garden is Moro." },
+          { "it": "La barca che vedi al porto è del pescatore.", "de": "Das Boot, das du im Hafen siehst, gehört dem Fischer.", "sl": "Čoln, ki ga vidiš v pristanišču, je ribičev.", "en": "The boat you can see in the harbour is the fisherman's." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "relative-che", "instruction": { "de": "Come si dice? · Wie sagt man das?", "sl": "Come si dice? · Kako se reče?", "en": "Come si dice? · How do you say it?" },
+          "prompt": { "de": "der Ball, den ich suche", "sl": "žoga, ki jo iščem", "en": "the ball I'm looking for" },
+          "options": ["la palla che cerco", "la palla cerco", "la palla chi cerco"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**immer che**, auch für den: **la palla che cerco**\n- chi · nur die Frage wer?",
+            "sl": "**vedno che**, tudi za ki jo: **la palla che cerco**\n- chi · samo vprašanje kdo?",
+            "en": "**always che**, even where English drops it: **la palla che cerco**\n- chi · only the question who?"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "relative-che-1",
+      "title": { "it": "Che o chi?", "de": "Che oder chi?", "sl": "Che ali chi?", "en": "Che or chi?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "relative-che", "instruction": { "de": "Uno o più? · Einer oder mehrere?", "sl": "Uno o più? · Eden ali več?", "en": "Uno o più? · One or more?" },
+          "columns": [
+            { "label": { "de": "il bambino … · einer", "sl": "il bambino … · eden", "en": "il bambino … · one" }, "words": ["che gioca", "che canta", "che dorme", "che legge"] },
+            { "label": { "de": "i bambini … · mehrere", "sl": "i bambini … · več", "en": "i bambini … · more than one" }, "words": ["che giocano", "che cantano", "che dormono", "che leggono"] }
+          ],
+          "explain": {
+            "de": "**che** bleibt gleich, **das Verb** richtet sich nach dem Nomen davor\n- il bambino che gioca · i bambini che giocano",
+            "sl": "**che** ostane enak, **glagol** se ravna po samostalniku pred njim\n- il bambino che gioca · i bambini che giocano",
+            "en": "**che** stays the same, **the verb** goes with the noun before it\n- il bambino che gioca · i bambini che giocano"
+          }
+        },
+        {
+          "type": "choice", "grammar": "relative-che", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«___ ha preso la mia palla?» chiede Tommaso.", "options": ["Chi", "Che"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**eine Frage: wer?** → **Chi**",
+            "sl": "**vprašanje: kdo?** → **Chi**",
+            "en": "**a question: who?** → **Chi**"
+          }
+        },
+        {
+          "type": "choice", "grammar": "relative-che", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Tommaso cerca il bambino ___ ha preso la palla.", "options": ["che", "chi"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**il bambino** + ha preso la palla → **che** verbindet",
+            "sl": "**il bambino** + ha preso la palla → **che** poveže",
+            "en": "**il bambino** + ha preso la palla → **che** joins"
+          }
+        },
+        {
+          "type": "choice", "grammar": "relative-che", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Ecco le pecore che ___ l'erba.", "options": ["mangia", "mangiano"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**le pecore** (mehrere) → **mangiano**",
+            "sl": "**le pecore** (več) → **mangiano**",
+            "en": "**le pecore** (more than one) → **mangiano**"
+          }
+        },
+        {
+          "type": "choice", "grammar": "relative-che", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Chi è la signora che ___ il frico?", "options": ["cucina", "cucinano"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**la signora** (eine) → **cucina**",
+            "sl": "**la signora** (ena) → **cucina**",
+            "en": "**la signora** (one) → **cucina**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relative-che-2",
+      "title": { "it": "Chi è chi in paese?", "de": "Wer ist wer im Dorf?", "sl": "Kdo je kdo v vasi?", "en": "Who's who in the village?" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "relative-che", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "Chi è chi in paese?",
+          "text": "In paese tutti conoscono tutti. La signora ___ cucina il frico è Nonna Rosa. Il signore che ___ (lavorare) nella fucina è Bruno. Il ragazzo ___ ha le pecore è Davide. Il cane che ___ (dormire) sotto il tiglio è Moro. I bambini che ___ (giocare) in piazza sono Giulia, Lorenzo e Tommaso. E il libro ___ legge Giulia? È pieno di gatti!",
+          "gaps": [
+            { "accept": ["che"], "hint": { "de": "die", "sl": "ki", "en": "who" } },
+            { "accept": ["lavora"], "hint": { "de": "il signore: einer", "sl": "il signore: eden", "en": "il signore: one" } },
+            { "accept": ["che"], "hint": { "de": "der", "sl": "ki", "en": "who" } },
+            { "accept": ["dorme"], "hint": { "de": "il cane: einer", "sl": "il cane: eden", "en": "il cane: one" } },
+            { "accept": ["giocano"], "hint": { "de": "i bambini: mehrere", "sl": "i bambini: več", "en": "i bambini: more than one" } },
+            { "accept": ["che"], "hint": { "de": "das (Giulia liest es)", "sl": "ki jo", "en": "that" }, "explain": { "de": "**il libro** + legge Giulia → **che**, auch für das, den.", "sl": "**il libro** + legge Giulia → **che**, tudi za ki jo.", "en": "**il libro** + legge Giulia → **che**, though English can leave it out." } }
+          ],
+          "bank": true, "distractors": ["chi", "dormono"],
+          "translation": {
+            "de": "Im Dorf kennt jeder jeden. Die Frau, die Frico kocht, ist Nonna Rosa. Der Mann, der in der Schmiede arbeitet, ist Bruno. Der junge Mann, der die Schafe hat, ist Davide. Der Hund, der unter der Linde schläft, ist Moro. Die Kinder, die auf dem Platz spielen, sind Giulia, Lorenzo und Tommaso. Und das Buch, das Giulia liest? Es ist voller Katzen!",
+            "sl": "V vasi vsak pozna vsakogar. Gospa, ki kuha friko, je babica Rosa. Gospod, ki dela v kovačnici, je Bruno. Fant, ki ima ovce, je Davide. Pes, ki spi pod lipo, je Moro. Otroci, ki se igrajo na trgu, so Giulia, Lorenzo in Tommaso. Pa knjiga, ki jo bere Giulia? Polna je mačk!",
+            "en": "In the village everybody knows everybody. The lady who cooks frico is Nonna Rosa. The man who works in the forge is Bruno. The young man with the sheep is Davide. The dog sleeping under the linden is Moro. The children playing in the square are Giulia, Lorenzo and Tommaso. And the book Giulia is reading? It's full of cats!"
+          }
+        },
+        {
+          "type": "choice", "grammar": "relative-che", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Chi è la bambina ___ legge sotto il tiglio?» «È Giulia.»", "options": ["che", "chi"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Chi è …?** ist die Frage, **la bambina che legge** verbindet",
+            "sl": "**Chi è …?** je vprašanje, **la bambina che legge** poveže",
+            "en": "**Chi è …?** is the question, **la bambina che legge** joins"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relative-che-3",
+      "title": { "it": "Unisci con che", "de": "Verbinde mit che", "sl": "Poveži s che", "en": "Join with che" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "relative-che", "instruction": { "de": "Unisci con che · Verbinde mit che", "sl": "Unisci con che · Poveži s che", "en": "Unisci con che · Join with che" },
+          "items": [
+            { "from": "Ho un cane. Il cane abbaia.", "accept": ["Ho un cane che abbaia."] },
+            { "from": "Vedo una barca. La barca è rossa.", "accept": ["Vedo una barca che è rossa."] },
+            { "from": "Conosco una bambina. La bambina canta bene.", "accept": ["Conosco una bambina che canta bene."] },
+            { "from": "Ecco il gatto. Il gatto dorme sul tetto.", "accept": ["Ecco il gatto che dorme sul tetto."] },
+            { "from": "Ecco i bambini. I bambini giocano a calcio.", "accept": ["Ecco i bambini che giocano a calcio."] },
+            { "from": "Il libro è bello. Leggo il libro.", "accept": ["Il libro che leggo è bello.", "Il libro che io leggo è bello."], "hint": { "de": "il libro che …", "sl": "il libro che …", "en": "il libro che …" } },
+            { "from": "La torta è buona. La nonna fa la torta.", "accept": ["La torta che fa la nonna è buona.", "La torta che la nonna fa è buona."], "hint": { "de": "la torta che …", "sl": "la torta che …", "en": "la torta che …" } }
+          ],
+          "explain": {
+            "de": "**das Nomen** einmal, dann **che** und der Rest\n- Ho un cane. Il cane abbaia. → Ho un cane che abbaia.\n- Il libro è bello. Leggo il libro. → Il libro che leggo è bello.",
+            "sl": "**samostalnik** enkrat, nato **che** in ostalo\n- Ho un cane. Il cane abbaia. → Ho un cane che abbaia.\n- Il libro è bello. Leggo il libro. → Il libro che leggo è bello.",
+            "en": "**the noun** once, then **che** and the rest\n- Ho un cane. Il cane abbaia. → Ho un cane che abbaia.\n- Il libro è bello. Leggo il libro. → Il libro che leggo è bello."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "relative-che", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "Indovinelli",
+        "text": "È un animale ___ fa il miele: l'ape! È un uccello ___ vola sopra il mare: il gabbiano! Sono animali che ___ (dare) la lana: le pecore! È una cosa ___ usi a scuola per scrivere: la matita!",
+        "gaps": [
+          { "accept": ["che"] },
+          { "accept": ["che"] },
+          { "accept": ["danno"] },
+          { "accept": ["che"] }
+        ],
+        "translation": {
+          "de": "Es ist ein Tier, das Honig macht: die Biene! Es ist ein Vogel, der über das Meer fliegt: die Möwe! Es sind Tiere, die Wolle geben: die Schafe! Es ist ein Ding, das du in der Schule zum Schreiben benutzt: der Bleistift!",
+          "sl": "To je žival, ki dela med: čebela! To je ptica, ki leti nad morjem: galeb! To so živali, ki dajejo volno: ovce! To je stvar, ki jo v šoli uporabljaš za pisanje: svinčnik!",
+          "en": "It's an animal that makes honey: the bee! It's a bird that flies over the sea: the seagull! They're animals that give wool: the sheep! It's a thing you use at school for writing: the pencil!"
+        }
+      },
+      {
+        "type": "transform", "grammar": "relative-che", "instruction": { "de": "Unisci con che · Verbinde mit che", "sl": "Unisci con che · Poveži s che", "en": "Unisci con che · Join with che" },
+        "items": [
+          { "from": "Ho un gatto. Il gatto è nero.", "accept": ["Ho un gatto che è nero."] },
+          { "from": "Ecco le pecore. Le pecore mangiano.", "accept": ["Ecco le pecore che mangiano."] },
+          { "from": "La palla è nuova. Tommaso ha la palla.", "accept": ["La palla che ha Tommaso è nuova.", "La palla che Tommaso ha è nuova."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "relative-che", "prompt": "«___ ha mangiato la gubana?» «Lorenzo!»", "options": ["Chi", "Che"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**die Frage wer?** → **Chi**",
+          "sl": "**vprašanje kdo?** → **Chi**",
+          "en": "**the question who?** → **Chi**"
+        }
+      },
+      {
+        "type": "choice", "grammar": "relative-che", "prompt": "I gabbiani che ___ sopra la barca sono tanti.", "options": ["vola", "volano"], "answer": 1, "say_options": true,
+        "explain": {
+          "de": "**i gabbiani** (mehrere) → **volano**",
+          "sl": "**i gabbiani** (več) → **volano**",
+          "en": "**i gabbiani** (more than one) → **volano**"
+        }
+      },
+      {
+        "type": "sort", "grammar": "relative-che", "instruction": { "de": "Uno o più? · Einer oder mehrere?", "sl": "Uno o più? · Eden ali več?", "en": "Uno o più? · One or more?" },
+        "columns": [
+          { "label": { "de": "il bambino … · einer", "sl": "il bambino … · eden", "en": "il bambino … · one" }, "words": ["che nuota", "che ride"] },
+          { "label": { "de": "i bambini … · mehrere", "sl": "i bambini … · več", "en": "i bambini … · more than one" }, "words": ["che nuotano", "che ridono"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: la torta che fa la nonna and che la nonna fa, che è rossa, the riddles, chi against che, the German for a child"
+}
