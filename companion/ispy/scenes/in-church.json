@@ -1,0 +1,83 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-church",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the scene's picture in the Lake District's look (the Good Shepherd over the altar in his red cloak with a white lamb, the clear leaded windows in little diamonds, the slate floor, the bellcote, the rope's sally red, white and blue) and the default church's colours and places; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "altar": { "clues": [
+      { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's under the painting.", "sl": "Je pod sliko.", "grammar": ["to-be", "prepositions-place"], "ref": "painting" },
+      { "kind": "trait", "en": "There are candles on it.", "sl": "Na tem so sveče.", "grammar": ["there-is-are", "prepositions-place"] }
+    ] },
+    "candles": { "clues": [
+      { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+      { "kind": "size", "en": "It's tall and thin.", "sl": "To je nekaj visokega in tankega.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of wax.", "sl": "Je iz voska.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the altar.", "sl": "Je na oltarju.", "grammar": ["to-be", "prepositions-place"], "ref": "altar" },
+      { "kind": "use", "en": "We light it with a match.", "sl": "To prižgemo z vžigalico.", "grammar": ["present-simple"] }
+    ] },
+    "cross": { "clues": [
+      { "kind": "colour", "en": "It's dark brown.", "sl": "Je temno rjave barve.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's on the wall.", "sl": "Je na steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's next to the window.", "sl": "Je zraven okna.", "grammar": ["to-be", "prepositions-place"], "ref": "window" }
+    ] },
+    "painting": { "clues": [
+      { "kind": "colour", "en": "It's red, white, green and blue.", "sl": "Je rdeče, bele, zelene in modre barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "There's a shepherd with a white lamb in it.", "sl": "Na tem je pastir z belim jagnjetom.", "grammar": ["there-is-are", "prepositions-place"] },
+      { "kind": "where", "en": "It's above the altar.", "sl": "Je nad oltarjem.", "grammar": ["to-be", "prepositions-place"], "ref": "altar" },
+      { "kind": "trait", "en": "The shepherd has got a red cloak.", "sl": "Pastir ima rdeč plašč.", "grammar": ["to-have"] }
+    ] },
+    "pews": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's in front of the altar.", "sl": "Je pred oltarjem.", "grammar": ["to-be", "prepositions-place"], "ref": "altar" },
+      { "kind": "use", "en": "We sit on it on Sundays.", "sl": "Ob nedeljah sedimo na tem.", "grammar": ["present-simple", "prepositions-place"] }
+    ] },
+    "flowers": { "clues": [
+      { "kind": "trait", "en": "It's in a vase.", "sl": "Je v vazi.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's by the altar.", "sl": "Je ob oltarju.", "grammar": ["to-be", "prepositions-place"], "ref": "altar" },
+      { "kind": "does", "en": "It smells nice.", "sl": "Lepo diši.", "grammar": ["present-simple"] },
+      { "kind": "use", "en": "Auntie Edna brings it for Sunday.", "sl": "To prinese teta Edna za nedeljo.", "grammar": ["present-simple"] }
+    ] },
+    "window": { "clues": [
+      { "kind": "size", "en": "It's tall and narrow.", "sl": "To je nekaj visokega in ozkega.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has lots of little diamonds of glass.", "sl": "Ima veliko majhnih steklenih rombov.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's in the left wall.", "sl": "Je v levi steni.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's next to the cross.", "sl": "Je zraven križa.", "grammar": ["to-be", "prepositions-place"], "ref": "cross" }
+    ] },
+    "organ": { "clues": [
+      { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It has long silver pipes.", "sl": "Ima dolge srebrne piščali.", "grammar": ["to-have"] },
+      { "kind": "where", "en": "It's above the door.", "sl": "Je nad vrati.", "grammar": ["to-be", "prepositions-place"], "ref": "door" },
+      { "kind": "use", "en": "We hear it on Sundays.", "sl": "Ob nedeljah to slišimo.", "grammar": ["present-simple"] }
+    ] },
+    "font": { "clues": [
+      { "kind": "colour", "en": "It's light grey.", "sl": "Je svetlo sive barve.", "grammar": ["to-be"] },
+      { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's by the door.", "sl": "Je pri vratih.", "grammar": ["to-be", "prepositions-place"], "ref": "door" },
+      { "kind": "use", "en": "There's water in it for a baby's name day.", "sl": "V tem je voda, ko dojenček dobi ime.", "grammar": ["there-is-are", "prepositions-place"] }
+    ] },
+    "bell": { "clues": [
+      { "kind": "colour", "en": "It's golden.", "sl": "Je zlate barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's heavy.", "sl": "To je nekaj težkega.", "grammar": ["to-be"] },
+      { "kind": "where", "en": "It's at the top of the church.", "sl": "Je na vrhu cerkve.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "does", "en": "It rings at twelve o'clock.", "sl": "Opoldne zvoni.", "grammar": ["present-simple"] }
+    ] },
+    "rope": { "clues": [
+      { "kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"] },
+      { "kind": "colour", "en": "At the bottom it's red, white and blue.", "sl": "Spodaj je rdeče, bele in modre barve.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It hangs by the door.", "sl": "Visi pri vratih.", "grammar": ["present-simple", "prepositions-place"], "ref": "door" },
+      { "kind": "use", "en": "We pull it and the bell rings.", "sl": "Potegnemo in zvon zazvoni.", "grammar": ["present-simple"] }
+    ] },
+    "door": { "clues": [
+      { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+      { "kind": "trait", "en": "It's round at the top.", "sl": "Zgoraj je okrogle oblike.", "grammar": ["to-be", "prepositions-place"] },
+      { "kind": "where", "en": "It's under the organ.", "sl": "Je pod orglami.", "grammar": ["to-be", "prepositions-place"], "ref": "organ" },
+      { "kind": "use", "en": "We open it and go in.", "sl": "To odpremo in gremo noter.", "grammar": ["present-simple"] }
+    ] }
+  }
+}
