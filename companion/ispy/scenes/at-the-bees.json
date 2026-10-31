@@ -1,0 +1,118 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "at-the-bees",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the bee garden in its Lakeland look (the dry-stone wall with its bee boles and the white WBC hives before it, growing with BEEHIVE's level, so no clue counts them; the white hive apart; Arthur's green HONEY sign; the dark heather honey in the jars; the lime tree by the bench; the rest as the default apiary and pri-cebelnjaku's clues say); the bee is described, never placed; the smoker and the sign are never placed, as their stumps and the path come with the levels; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "beehouse": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of stones.", "sl": "Je iz kamnov.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has little arches in it.", "sl": "V tem so majhni oboki.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's at the back.", "sl": "Je zadaj.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "The white hives stand in front of it.", "sl": "Pred tem stojijo beli panji.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "hive": {
+      "clues": [
+        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a little roof.", "sl": "Ima majhno streho.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It stands next to the wall.", "sl": "Stoji zraven zidu.", "grammar": ["present-simple", "prepositions-place"], "ref": "beehouse" },
+        { "kind": "use", "en": "Bees live in it.", "sl": "V tem živijo čebele.", "grammar": ["present-simple"] }
+      ]
+    },
+    "panel": {
+      "clues": [
+        { "kind": "colour", "en": "It's green.", "sl": "Je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "There are white letters on it.", "sl": "Na tem so bele črke.", "grammar": ["there-is-are", "prepositions-place"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "use", "en": "It says HONEY.", "sl": "Piše HONEY.", "grammar": ["present-simple"] }
+      ]
+    },
+    "bee": {
+      "clues": [
+        { "kind": "colour", "en": "It's yellow and black.", "sl": "Je rumene in črne barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's very small.", "sl": "To je nekaj zelo majhnega.", "grammar": ["to-be"] },
+        { "kind": "does", "en": "It buzzes.", "sl": "Brenči.", "grammar": ["present-simple"] },
+        { "kind": "trait", "en": "It can sting.", "sl": "Lahko piči.", "grammar": ["can"] },
+        { "kind": "use", "en": "It makes honey.", "sl": "Dela med.", "grammar": ["present-simple"] }
+      ]
+    },
+    "honey": {
+      "clues": [
+        { "kind": "colour", "en": "It's dark gold.", "sl": "Je temno zlate barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's very sweet.", "sl": "To je nekaj zelo sladkega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in glass jars.", "sl": "Je v steklenih kozarcih.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "We eat it on bread.", "sl": "To jemo na kruhu.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "Bees make it.", "sl": "To delajo čebele.", "grammar": ["present-simple"] }
+      ]
+    },
+    "comb": {
+      "clues": [
+        { "kind": "colour", "en": "It's yellow.", "sl": "Je rumene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has lots of little holes.", "sl": "Ima veliko luknjic.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "There's honey in it.", "sl": "V tem je med.", "grammar": ["there-is-are", "prepositions-place"] }
+      ]
+    },
+    "flowers": {
+      "clues": [
+        { "kind": "colour", "en": "In summer it's colourful.", "sl": "Poleti je pisano.", "grammar": ["to-be"] },
+        { "kind": "does", "en": "It smells nice.", "sl": "Lepo diši.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "Bees love it.", "sl": "Čebele imajo to zelo rade.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "Bees get their food from it.", "sl": "Čebele tu dobijo hrano.", "grammar": ["present-simple"] }
+      ]
+    },
+    "tree": {
+      "clues": [
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "In summer it's green.", "sl": "Poleti je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "In July it has pale yellow flowers.", "sl": "Julija ima bledo rumene cvetove.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It stands by the bench.", "sl": "Stoji ob klopi.", "grammar": ["present-simple", "prepositions-place"], "ref": "bench" },
+        { "kind": "use", "en": "We make tea from its flowers.", "sl": "Iz cvetov delamo čaj.", "grammar": ["present-simple"] }
+      ]
+    },
+    "smoker": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of metal.", "sl": "Je iz kovine.", "grammar": ["to-be"] },
+        { "kind": "does", "en": "Smoke comes out of it.", "sl": "Iz tega prihaja dim.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "We make the bees calm with it.", "sl": "S tem pomirimo čebele.", "grammar": ["present-simple"] }
+      ]
+    },
+    "extractor": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of metal.", "sl": "Je iz kovine.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has three legs.", "sl": "Ima tri noge.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It stands next to the table.", "sl": "Stoji zraven mize.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "does", "en": "Honey runs out of it.", "sl": "Iz tega teče med.", "grammar": ["present-simple"] }
+      ]
+    },
+    "wax": {
+      "clues": [
+        { "kind": "colour", "en": "It's yellow.", "sl": "Je rumene barve.", "grammar": ["to-be"] },
+        { "kind": "does", "en": "It smells of honey.", "sl": "Diši po medu.", "grammar": ["present-simple"] },
+        { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "We make candles from it.", "sl": "Iz tega delamo sveče.", "grammar": ["present-simple"] }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It stands under the lime tree.", "sl": "Stoji pod lipo.", "grammar": ["present-simple", "prepositions-place"], "ref": "tree" },
+        { "kind": "use", "en": "We sit on it.", "sl": "Na tem sedimo.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "meadow": {
+      "clues": [
+        { "kind": "colour", "en": "In summer it's colourful.", "sl": "Poleti je pisano.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has tall grass.", "sl": "Ima visoko travo.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's in front of the bench.", "sl": "Je pred klopjo.", "grammar": ["to-be", "prepositions-place"], "ref": "bench" },
+        { "kind": "does", "en": "It smells lovely.", "sl": "Čudovito diši.", "grammar": ["present-simple"] }
+      ]
+    }
+  }
+}
