@@ -60,6 +60,7 @@ enum class SettingsSection(val id: String, val emoji: String, val key: String) {
     TUTOR("tutor", "🧑‍🏫", "common.tutor"),
     DATA("data", "💾", "dataSync.title"),
     LANGUAGES("languages", "🌐", "connectionSheet.languages"),
+    AIM("aim", "🎯", "setup.aim"),
     SOUND("sound", "🔊", "settings.sound"),
     TIPS("tips", "💡", "tips.title"),
     NOTIFY("notifications", "🔔", "notify.title"),
@@ -75,12 +76,13 @@ enum class SettingsSection(val id: String, val emoji: String, val key: String) {
 /**
  * "⚙️ Nastavitve · Settings" (docs/plans/05-built/navigation.md, "Settings"), from the ⚙️ on Home: its sections, each a row
  * with what it holds now in a line, a tap its page ([section]): "🧑‍🏫 Učitelj · Tutor" (who answers, the provider and its
- * key, the spend), "💾 Podatki · Data" (git, the handover, the backup), "🌐 Jeziki · Languages", "🔊 Zvok in glas · Sound
+ * key, the spend), "💾 Podatki · Data" (git, the handover, the backup), "🌐 Jeziki · Languages", "🎯 Cilj · Aim" (the level
+ * the village's ages lead to, a raise from the next age: AimSettings), "🔊 Zvok in glas · Sound
  * and voice" (the learner's own voice, "🗣️ Moj glas · My voice"; the background sounds, the explanations read aloud, a
  * talk's line sent by itself, the offline audio and voice), "🔗 Povezava · Connection"
  * (the node or Lani on this phone, pairing again by QR code), "🔔 Obvestila · Notifications" (the evening reminder, the
- * phone's settings of the notifications). On a child's device the tutor's, the data's, the tips' and the notifications'
- * pages are a parent's (a hold opens them: ui/setup/ParentGated). The version line at the end, tapped seven times, shows
+ * phone's settings of the notifications). On a child's device the tutor's, the data's, the aim's, the tips' and the
+ * notifications' pages are a parent's (a hold opens them: ui/setup/ParentGated). The version line at the end, tapped seven times, shows
  * "🛠️ Razvijalec · Developer".
  */
 @Composable
@@ -107,7 +109,7 @@ private fun Sections(vm: AppViewModel) {
 
 /** The tutor's and the data's are a parent's on a child's device (keys and accounts: app/ParentGate). */
 private val SettingsSection.parents: Boolean get() = this == SettingsSection.TUTOR || this == SettingsSection.DATA || this == SettingsSection.TIPS ||
-    this == SettingsSection.NOTIFY
+    this == SettingsSection.NOTIFY || this == SettingsSection.AIM
 
 /** What a section holds now, in a line for its row. */
 private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
@@ -118,6 +120,7 @@ private fun summary(vm: AppViewModel, s: SettingsSection): String = when (s) {
     }
     SettingsSection.DATA -> si.lanisce.lani.ui.data.dataSummary(vm.data)
     SettingsSection.LANGUAGES -> vm.langPair.let { "${it.target.ownName} · ${it.base.ownName}" }
+    SettingsSection.AIM -> AimShown.of(vm.content.dashboard, vm.game.state?.age ?: si.lanisce.lani.game.Age.OGENJ)?.summary() ?: "…"
     SettingsSection.SOUND -> bi("settings.soundAbout")
     SettingsSection.TIPS -> if (vm.game.state?.tips?.off == true) bi("tips.offNow") else bi("tips.onNow")
     SettingsSection.NOTIFY -> "🔔 " + if (vm.notify.reminderOn(vm.child)) bi("notify.reminderOnNow") else bi("notify.reminderOffNow")
@@ -157,6 +160,8 @@ private fun Page(vm: AppViewModel, s: SettingsSection) {
                     si.lanisce.lani.ui.data.DataContent(vm.data, banner = { vm.notices.banner = it }, title = false)
                 }
                 SettingsSection.LANGUAGES -> Languages(vm)
+                // the level the village's ages lead to: a child's is a parent's to change (a hold opens it)
+                SettingsSection.AIM -> si.lanisce.lani.ui.setup.ParentGated(vm.child) { AimSettings(vm) }
                 SettingsSection.SOUND -> {
                     // the voice the learner's own lines are said in (the node's choice of voices; none in the hosted mode's yet)
                     MyVoiceSettings(vm.myVoice, Modifier.padding(bottom = 8.dp))

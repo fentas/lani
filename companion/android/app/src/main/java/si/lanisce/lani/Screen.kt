@@ -108,7 +108,7 @@ sealed interface Screen {
     data class CasesRun(val planned: List<si.lanisce.lani.data.CasePlanned>, val focus: String? = null, val run: Int = 0, val storm: Boolean = false) : Screen
     /**
      * "⚙️ Nastavitve · Settings" (ui/settings/SettingsScreen): its sections ([section] null), or one of them as a page of its
-     * own ([SettingsSection]'s ids: "tutor", "data", "languages", "sound", "tips", "notifications", "connection",
+     * own ([SettingsSection]'s ids: "tutor", "data", "languages", "aim", "sound", "tips", "notifications", "connection",
      * "developer").
      */
     data class Settings(val section: String? = null) : Screen

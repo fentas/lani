@@ -659,15 +659,23 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     }
 
     /** Keeps [level] as the learner's aim on the node (POST /learner/target), then reads everything anew (the ages follow it). */
-    suspend fun setAim(level: String): Boolean {
-        val c = connected ?: return false
-        val ok = runCatching { si.lanisce.lani.data.AimApi(c).set(level) != null }
-            .onFailure { android.util.Log.i("LaniSetup", "the aim not kept: ${it.message}") }.getOrDefault(false)
-        if (ok) {
+    suspend fun setAim(level: String): Boolean = keepAim(level) != null
+
+    /**
+     * Keeps [level] as the learner's aim (POST /learner/target, the setup's and the settings' "🎯 Cilj · Aim"): the node
+     * keeps it by aim.ts's rule (a raise waits for the village's next age once there is a village, a lower aim at once:
+     * companion/GAME.md "A target raised later"); then reads everything anew. Its answer, null when it couldn't (offline,
+     * an older node, refused).
+     */
+    suspend fun keepAim(level: String): si.lanisce.lani.data.AimApi.Aim? {
+        val c = connected ?: return null
+        val a = runCatching { si.lanisce.lani.data.AimApi(c).set(level) }
+            .onFailure { android.util.Log.i("LaniSetup", "the aim not kept: ${it.message}") }.getOrNull()
+        if (a != null) {
             readFor = null
             refresh()
         }
-        return ok
+        return a
     }
 
     /**

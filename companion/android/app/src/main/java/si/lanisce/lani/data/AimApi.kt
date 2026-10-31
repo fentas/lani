@@ -17,8 +17,12 @@ import java.io.IOException
 class AimApi(private val config: BridgeConfig) {
     private val http = Http.client(connectSeconds = 3, readSeconds = 15)
 
-    /** The learner's level and aim ([level] to [target]); null from an older node (404). */
-    data class Aim(val level: String, val target: String?)
+    /**
+     * The learner's level and aim ([level] to [target]); [next]: a raise waiting for the village's next age and [fromAge] the
+     * age it starts with (companion/GAME.md "A target raised later"), null when none waits or from an older node; [change]
+     * after a POST: what the node did ("now", "next_age" or "unchanged"), null from an older node or a GET.
+     */
+    data class Aim(val level: String, val target: String?, val next: String? = null, val fromAge: String? = null, val change: String? = null)
 
     suspend fun get(): Aim? {
         val (code, raw) = http.exchange(config.request(PATH).build())
@@ -39,11 +43,13 @@ class AimApi(private val config: BridgeConfig) {
     companion object {
         const val PATH = "/learner/target"
 
-        /** GET or POST /learner/target's answer {level, target}; null when it isn't one. */
+        /** GET or POST /learner/target's answer {level, target, next?: {level, from_age}, change?}; null when it isn't one. */
         fun parse(raw: String): Aim? = runCatching {
             val o = json.parseToJsonElement(raw).jsonObject
             val level = o["level"]?.jsonPrimitive?.contentOrNull ?: return null
-            Aim(level, o["target"]?.let { runCatching { it.jsonPrimitive.contentOrNull }.getOrNull() })
+            fun s(e: kotlinx.serialization.json.JsonElement?) = e?.let { runCatching { it.jsonPrimitive.contentOrNull }.getOrNull() }
+            val next = o["next"] as? kotlinx.serialization.json.JsonObject
+            Aim(level, s(o["target"]), s(next?.get("level")), s(next?.get("from_age")), s(o["change"]))
         }.getOrNull()
     }
 }
