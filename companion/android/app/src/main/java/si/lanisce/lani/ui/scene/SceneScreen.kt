@@ -462,12 +462,14 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         greeted = null
         if (!vm.ispy.start(scene, o, state, groups.now.map { it.slot }.toSet(), found)) vm.notices.banner = bi("ispy.nothing")
     }
-    // where the picture is in the window: a debug build logs where a round's things are on the screen, for QA to tap them
+    // where the picture is in the window: a debug build logs where a round's things are on the screen, for QA to tap them:
+    // a pixel each painted itself (SceneAnchors.point), not the middle of its area, which may be another thing's
     var viewAt by remember { mutableStateOf(Offset.Zero) }
     LaunchedEffect(ispy?.run?.round, ispy?.run?.step, anchors.hits.isNotEmpty(), viewAt) {
         val r = ispy?.run?.takeIf { it.step == ISpyRun.Step.FIND } ?: return@LaunchedEffect
+        if (!si.lanisce.lani.BuildConfig.QA) return@LaunchedEffect
         val at = groups.now.mapNotNull { o ->
-            anchors.bounds(SceneTarget.Thing(o.slot))?.let { b -> o.slot to ((viewAt.x + b.center.x).toInt() to (viewAt.y + b.center.y).toInt()) }
+            anchors.point(SceneTarget.Thing(o.slot))?.let { p -> o.slot to ((viewAt.x + p.x).toInt() to (viewAt.y + p.y).toInt()) }
         }.toMap()
         vm.ispy.log(r.round, r.current?.slot.orEmpty(), r.current?.word.orEmpty(), at)
     }
@@ -476,7 +478,7 @@ private fun Scene(vm: AppViewModel, spec: SceneSpec, focus: String?, building: S
         val run = talk?.run ?: return@LaunchedEffect
         if (!si.lanisce.lani.BuildConfig.QA || run.mode != si.lanisce.lani.game.TurnMode.TAP) return@LaunchedEffect
         val at = run.taps.mapNotNull { t ->
-            (anchors.bounds(SceneTarget.Thing(t)) ?: anchors.bounds(SceneTarget.Person(t)))?.let { b -> "$t@${(viewAt.x + b.center.x).toInt()},${(viewAt.y + b.center.y).toInt()}" }
+            (anchors.point(SceneTarget.Thing(t)) ?: anchors.point(SceneTarget.Person(t)))?.let { p -> "$t@${(viewAt.x + p.x).toInt()},${(viewAt.y + p.y).toInt()}" }
         }
         val right = run.dialog.lines.getOrNull(run.at)?.choices?.firstOrNull { it.ok }?.tap
         android.util.Log.d("TapTurn", "turn ${run.at} right $right places ${at.joinToString(" ")}")

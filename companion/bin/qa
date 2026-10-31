@@ -1054,12 +1054,13 @@ def intro_voice():
     assert any(t.startswith(today) for t, _ in nodes()), "back to Home"
 
 
-def scroll_to(text: str, swipes=5, exact=False):
+def scroll_to(text: str, swipes=5, exact=False, bottom=1850):
     """Scrolls down until [text] is on screen clear of the header and the tutor bar; its centre, or None. [exact]: only a
-    label that is exactly [text] (Home's "Pogovor" tile, not a row that says "Pogovori se")."""
+    label that is exactly [text] (Home's "Pogovor" tile, not a row that says "Pogovori se"). [bottom]: how low on the screen
+    it may be (a screen without the tutor bar: lower, as the last card of a panel that scrolls no further sits)."""
     for _ in range(swipes + 1):
         c = next((c for t, c in nodes() if t == text), None) if exact else find(text)
-        if c is not None and 300 < c[1] < 1850:
+        if c is not None and 300 < c[1] < bottom:
             return c
         adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
         time.sleep(1)
@@ -2602,6 +2603,30 @@ def story_faces():
     finally:
         qa_hook("happening:")
     return None
+
+
+def ispy_play(lab, timeout=20.0):
+    """Starts the «Vidim, vidim» offered in the open scene ([lab]: a key's label in the learner's pair): the card's "🔍 Igrajva ·
+    Let's play" on the panel, scrolled to (on a short panel, Na mostu's with nobody "Here today", it stays low on the screen:
+    scroll_to's tutor-bar limit kept it out, and place-life once took the card's title for the button), else the 🔍 over the
+    child. (the round as ispy_positions has it, None) once a round started; (None, "no offer") when the game isn't offered
+    (none can start there now: ISpyController.offer); (None, "not started") when the taps started none."""
+    play = "🔍 " + lab("ispy.play")
+    over = lab("ispy.title") + ". " + lab("ispy.play")  # the 🔍 over the child: "<child>: Vidim, vidim · I spy. Igrajva · Let's play"
+    if wait_for(lab("ispy.title"), timeout) is None:
+        return None, "no offer"
+    low = screen_size()[1] - 160
+    for attempt in range(3):
+        c = scroll_to(play, 5, bottom=low) or find(over)
+        if c is None:
+            return None, "no offer"
+        if attempt:
+            time.sleep(1.5 * slow())  # the panel may still move (a bubble over the child, the minute's redraw)
+        tap_at(c)
+        got = ispy_positions(25 if attempt == 0 else 15)
+        if got is not None:
+            return got, ""
+    return None, "not started"
 
 
 def ispy_positions(timeout=10.0):
@@ -4694,27 +4719,15 @@ def place_life():
                 continue
             time.sleep(3 * slow())
             snap(f"pl-{tag}-{sid}")
-            marker = wait_for(lab("ispy.title"), 20)
-            card = scroll_to("🔍 " + lab("ispy.play"), 5) or marker
-            if card is None:
+            got, why = ispy_play(lab)
+            if got is None and why == "no offer":
                 snap(f"pl-{tag}-{sid}-no-ispy")
+                played.append(f"{sid}/{slot} (not offered)")
                 qa_hook("ispy:")
                 tap(back, 3)
                 continue
-            tap_at(card)
-            got = ispy_positions(25)
-            for _ in range(2):
-                if got is not None:
-                    break
-                # the bubble over the child may offer a talk too, a slow tap may land as the panel moves: the panel's card,
-                # the game's own way in, again
-                snap(f"pl-{tag}-{sid}-ispy-not-started")
-                again = scroll_to("🔍 " + lab("ispy.play"), 6)
-                if again is not None:
-                    time.sleep(1.5 * slow())
-                    tap_at(scroll_to("🔍 " + lab("ispy.play"), 3) or again)
-                    got = ispy_positions(25)
             if got is None:
+                snap(f"pl-{tag}-{sid}-ispy-not-started")
                 played.append(f"{sid}/{slot} (no round started)")
                 qa_hook("ispy:")
                 adb("shell", "input", "keyevent", "KEYCODE_BACK")
@@ -4772,6 +4785,9 @@ def place_life():
         qa_hook("step:")
         qa_hook("bubbles:")
     print("    spied: " + ", ".join(played))
+    # every place's thing spied and found by a tap on its own pixels (ispy-rounds: never offered where no round starts)
+    missed = [p for p in played if "(" in p]
+    assert not missed, f"I spy at the places: {', '.join(missed)}"
     return None
 
 

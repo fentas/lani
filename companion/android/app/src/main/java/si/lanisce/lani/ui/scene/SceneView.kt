@@ -48,6 +48,7 @@ import si.lanisce.lani.game.scene.SceneWorld
 import si.lanisce.lani.game.scene.SkyEase
 import si.lanisce.lani.game.scene.Sleep
 import si.lanisce.lani.game.scene.Stage
+import si.lanisce.lani.game.scene.TapPoints
 import si.lanisce.lani.game.sky.SkyCards
 import si.lanisce.lani.game.sky.SkyTap
 import si.lanisce.lani.ui.game.TownCameraState
@@ -56,6 +57,7 @@ import si.lanisce.lani.ui.game.rememberSceneCamera
 import si.lanisce.lani.l10n.bi
 import java.time.LocalDateTime
 import kotlin.math.floor
+import kotlin.math.roundToInt
 import kotlin.math.roundToInt
 
 /** How far (canvas px, at the fitted zoom) a tap may miss a thing and still land on it; closer up, the same on screen. */
@@ -93,6 +95,23 @@ class SceneAnchors(val camera: TownCameraState) {
     fun shown(target: SceneTarget): IntRect? {
         val r = camera.rig ?: return null
         return bounds(target)?.intersect(IntRect(0, 0, r.viewW, r.viewH))?.takeIf { !it.isEmpty }
+    }
+
+    /**
+     * The canvas pixel (at detail 1) of [target] a tap lands on, from the picture's last frame ([TapPoints.of]); the view
+     * sets it. Null: not drawn, or no picture yet.
+     */
+    internal var own: (SceneTarget) -> Pair<Int, Int>? = { null }
+
+    /**
+     * Where on the view a tap on [target] lands on it (QA's taps): the middle of a pixel it painted itself ([own]), not of
+     * its area, which may be another thing's (the stream under a bridge's deck); else the middle of its area. Reads the
+     * picture's last frame, so only for QA's logs (a debug build), not each frame.
+     */
+    fun point(target: SceneTarget): IntOffset? {
+        val c = camera.camera
+        own(target)?.let { (x, y) -> return IntOffset(c.toScreenX(x + 0.5f).roundToInt(), c.toScreenY(y + 0.5f).roundToInt()) }
+        return bounds(target)?.center
     }
 
     /** What's under the view pixel ([px], [py]): the front-most hit. */
@@ -201,6 +220,11 @@ fun SceneView(
     val currentView by rememberUpdatedState(view)
     val currentPainter by rememberUpdatedState(painter)
     val currentCloser by rememberUpdatedState(closer)
+    // QA's taps (SceneAnchors.point): a pixel each thing painted itself in the scene's canvas, read under the pictures' lock
+    DisposableEffect(anchors, pics, painter) {
+        anchors.own = { target -> synchronized(pics.lock) { TapPoints.of(target, pics.hits, pics.w, pics.h) { x, y -> painter.targetAt(pics.baseCanvas, x, y, 0) } } }
+        onDispose { anchors.own = { null } }
+    }
     // the system's animations off: the picture's sky without its flashes of lightning (the thunder still rolls)
     val calm = si.lanisce.lani.ui.stage.rememberReducedMotion()
 
