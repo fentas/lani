@@ -158,6 +158,12 @@ written unit's.
   written units for all the course serves; generalised to every level's (course-it-a2a did the same: at the rebase its
   version is kept). Run again: all 3,154 checks passed.
 - **The app's full unit suite** (before the rebase, main b3ff5280): 3,522 tests in 445 classes, none failed (2 skipped).
+- **After the rebase onto main with course-it-a2a's units 1–6** (b7b801bc): the outline's twelve A2 lines kept, each
+  part its own six; COURSE.md's sections in order; friuli.ts main's (a2a's), this branch's commit for it dropped. Then
+  `tsc` clean, `tutor-export --check` 88 files, the bridge's validators (28 pages, the outline, 30 units), the grading
+  port (30 units, 2,360 answers, every distractor wrong), the smoke all 3,154 checks passed, Python 251 OK and 135 OK (11
+  skipped; one run before under load had one failure that didn't come back in three runs), the app's full suite 3,531
+  tests in 447 classes, none failed (2 skipped). passato-essere names a2a's page riflessivi now (its reflexive past).
 - **Python**: `python3 -m unittest discover -s tests` 251 OK, `-s companion/tests` 135 OK (11 skipped).
 - **Prints**: `companion/bin/school-prints --language it --level A2` in de, sl and en: six sheets and the booklet each;
   in German pronomi-diretti and participi-irregolari on one page, the other four on two (passato-essere 21 mm, imperfetto
@@ -179,9 +185,13 @@ scratchpad/ux-course-it-a2b/qa-3 (fs-*.png, contact-sheet.png, fs-print-fit.txt,
 - **Its print**: "🖨️ Stampa la scheda", fit.js in the WebView choosing as headless Chromium does (one page, density 3,
   both), the print dialog's preview, "Lani – A2 – 06 pronomi-diretti.pdf" saved through it: A4, one page.
 - Two runs failed before at the intro's first question: its option "la" lay under the bottom bar and the only "la" in
-  view was the intro table's cell, so QA tapped the cell. `option_at` now takes a node that can be tapped (a choice's
-  button), scrolling until one shows (commit "a choice's option, not the intro's table cell"); the shot of the failure:
-  qa-1/failed-step1-table-cell.png.
+  view was the intro table's cell, so QA tapped the cell (qa-1/failed-step1-table-cell.png). This branch fixed it in
+  `option_at` (a node that can be tapped) for its runs; course-it-a2c fixed the same in `friuli-school-unit`'s `pick`
+  (an option below its prompt), so this branch's fix was dropped for a2c's: until a2c is on main the step stops there
+  for pronomi-diretti.
+- **Again after the rebase** onto main with a2a's units (qa-4): the same journey passed; the school after the reveal
+  shows A2 with all twelve written units (1/12 done, "altre 6 in arrivo"), and the sheet prints as "Lani – A2 – 12
+  pronomi-diretti" (one page, WebView as Chromium).
 - No "before" run: before this branch units 7–12 were planned, a read-only "📝 Kmalu" line (COURSE.md, "What the school
   shows"); nothing of the screens changed.
 
