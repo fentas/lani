@@ -198,6 +198,11 @@ internal class SquarePainter : VistaPainter() {
     private var alpine = false
     private var gasthaus = false
     private var trough = false
+    /**
+     * Carinthia's Maibaum (Unter dem Maibaum, kaernten-projects-a): the Kraxler's prize hung under its wreath for the
+     * Maibaumkraxeln, two strings of Hauswürstel and a slab of Speck ([kraxelPrize]).
+     */
+    private var kraxel = false
 
     /**
      * The Lake District's village green ([look]; docs/plans/05-built/places-lakeland.md): its houses of grey stone and
@@ -232,6 +237,7 @@ internal class SquarePainter : VistaPainter() {
         alpine = style?.tower == Tower.ONION
         gasthaus = variant("osteria") == "gasthaus"
         trough = variant("well") == "trough"
+        kraxel = variant("kraxel") == "wuerste"
         pigna = variant("fountain") != null
         lakes = style?.tower == Tower.BATTLEMENTS
         oak = variant("linden") == "oak"; pump = variant("well") == "pump"; green = variant("ground") == "green"
@@ -1549,6 +1555,35 @@ internal class SquarePainter : VistaPainter() {
         }
         // the cuccagna's prizes on their wheel, just under the wreath
         if (cuccagna) prizeWheel(bx, hy(poleD, PRIZES_H), p, standing = true)
+        // the Kraxler's prize under the Maibaum's wreath
+        if (kraxel) kraxelPrize(bx, wy + max(1f, wr * 0.3f), half, p)
+    }
+
+    /**
+     * Carinthia's Maibaum's prize for the Maibaumkraxeln ([kraxel]), hung from the pole just under its wreath at ([bx], [wy]):
+     * two strings of Hauswürstel, reddish brown, on either side of the pole and a slab of Speck between, swaying a little.
+     */
+    private fun kraxelPrize(bx: Float, wy: Float, half: Float, p: Float) {
+        val k = detail
+        val sway = sin(t * 1.4).toFloat() * 0.04f * p
+        val wurst = Col.hex(0x9A4A30); val wurstL = Col.hex(0xC0704A); val string = Col.hex(0xE8E0CC)
+        for (side in intArrayOf(-1, 1)) {
+            val ax = bx + side * (half + max(1f, 0.12f * p))
+            c.set(ax.toInt(), wy.toInt(), string)
+            // a string of three Würstel, one under the other
+            for (q in 0 until 3) {
+                val y = wy + max(1f, 0.08f * p) + q * max(1.5f, 0.24f * p)
+                val x = ax + sway * (q + 1) / 3f
+                c.fillEllipse(x, y + max(1f, 0.1f * p), max(1f, 0.07f * p), max(1f, 0.11f * p), wurst)
+                if (k > 1) c.set(x.toInt() - (if (side < 0) 0 else 1), (y + 0.06f * p).toInt(), wurstL)
+            }
+        }
+        // the Speck: a dark-rinded slab with its white fat showing, on a loop of string from the pole
+        val sy = wy + max(2f, 0.55f * p)
+        val sw = max(2f, 0.22f * p); val sh = max(1.5f, 0.16f * p)
+        c.fillRect((bx - sw / 2f + sway).toInt(), sy.toInt(), max(2, sw.toInt()), max(1, sh.toInt()), Col.hex(0x6E3A26))
+        c.hline((bx - sw / 2f + sway).toInt(), (bx + sw / 2f + sway).toInt() - 1, (sy + sh).toInt(), Col.hex(0xF0E6D6))
+        if (k > 1) c.hline((bx - sw / 2f + sway).toInt(), (bx + sw / 2f + sway).toInt() - 1, (sy + sh * 0.5f).toInt(), Col.hex(0xC86A5A))
     }
 
     /**
