@@ -1,6 +1,6 @@
 // Smoke checks: word lookup in the dialogs (GET /lookup), adding a word (POST /words) and the tutor's glosses
 // (publish_gloss). Runs after the packs section: its packs (kruh, mleko …) are the curated ones here.
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { Lexicon, lookup as lookUp, normalizeForm, validateExtra, wordItemId, type LexiconFile } from '../../src/lexicon'
 import { fetchLexicon, parseLexicon } from '../../src/lexicon-download'
@@ -22,6 +22,15 @@ export default async function lexicon() {
   const extra = JSON.parse(readFileSync(join(repo, 'sl.extra.json'), 'utf8'))
   const checked = validateExtra(extra)
   check('the supplement (sl.extra.json) validates, every entry, and says it is not reviewed', checked.errors.length === 0 && checked.entries.length > 300 && extra.meta.reviewed === false && /not reviewed/.test(extra.meta.note), checked.errors)
+  // every language's supplement (lexicon/<language>.extra.json: the bridge's, the prints' and the APK's, read the same way)
+  for (const f of readdirSync(repo).filter(f => /^[a-z]{2,3}\.extra\.json$/.test(f)).sort()) {
+    const lang = f.split('.')[0]
+    const x = JSON.parse(readFileSync(join(repo, f), 'utf8'))
+    const r = validateExtra(x)
+    const foreign = r.entries.filter(e => Object.keys(e.meanings ?? {}).some(l => l === lang || !['sl', 'en', 'de', 'it'].includes(l))).map(e => e.lemma)
+    check(`the supplement ${f} validates, every entry, says its language and whether it is reviewed, its meanings in Lani's other languages`,
+      r.errors.length === 0 && r.entries.length > 0 && x.meta.language === lang && (x.meta.reviewed === true || /not reviewed/.test(x.meta.note)) && foreign.length === 0, [r.errors.slice(0, 5), foreign.slice(0, 5)])
+  }
   check('normalizing drops tonal accents, keeps the caron: potọ́ka → potoka, žȅna → žena', normalizeForm('potọ́ka', 'sl') === 'potoka' && normalizeForm('Žȅna', 'sl') === 'žena' && normalizeForm('bȋł', 'sl') === 'bil')
   check("normalizing Italian: the stress marks inside a word go, the written accent stays, one apostrophe: casìna → casina, città, L’acqua → l'acqua", normalizeForm('casìna', 'it') === 'casina' && normalizeForm('Città', 'it') === 'città' && normalizeForm('perché', 'it') === 'perché' && normalizeForm('L’acqua', 'it') === "l'acqua" && normalizeForm("perche'", 'it') === "perche'")
   check('a word\'s review item: vocab_word_<lemma>, č š ž as c s z', wordItemId('Na svidenje') === 'vocab_word_na-svidenje' && wordItemId('čebela') === 'vocab_word_cebela')
