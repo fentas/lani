@@ -1075,6 +1075,28 @@ then each base).
 - **A choice never offers "nothing"**: a gap with no article is a choice of whole sentences (`We're at home.`, `We're at
   the home.`), so the sentence read after the answer is a real one.
 
+### The English course: units 1–6
+
+A1's first six units, the greetings to the numbers (units 7–18 are written by the course's other parts):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `hello` 👋 | hello, hi, good morning, afternoon, evening, good night only when you leave; I'm, My name's, What's your name?, And you?; you for everyone, Mr, Mrs, Ms, Miss with the surname; This is Jack. He's a shepherd. Nice to meet you (too); How are you? Fine, thanks; goodbye, bye, see you | pronouns (its own summary card: the greetings) |
+| `to-be` 🟰 | I am, you are, he/she/it is, we/you/they are (two with and are they); I'm … they're, Jack's on the fell; not after the verb (isn't, aren't, I'm not, never amn't); Are you …? Is she …? Yes, I am (never Yes, I'm); I'm hungry, I'm cold with be | to-be, pronouns |
+| `articles` 🏷️ | a for one thing named the first time, the same before every noun; an by the sound (an hour, a uniform); the for what both know, the village's one; a with a job (Jack is a shepherd); no article in general (Dogs are friendly) and in at home, at school, in bed, by bus | articles |
+| `plurals` 🐑 | + -s; -es after s, x, ch, sh, potatoes; -y → -ies, -ay, -ey + -s; -f, -fe → -ves (but roofs); men, women, children, feet, teeth, mice, people; sheep, fish, deer the same, the verb showing how many; the plural from two on | plurals, articles |
+| `have-got` 🐕 | I've got, she's got ('s is has here); haven't got, hasn't got; Have you got …? Yes, I have; have alone and American Do you have …? (both right); have breakfast, have a cup of tea, never have got | to-have |
+| `numbers` 🔢 | 1–20 (zero, oh on the phone), -teen and -ty (forty without u, the stress of thirty and thirteen), 21–99 with a hyphen, How many …? with the plural, age with be, a hundred and five, no -s on hundred after a number, three pounds fifty | numbers, plurals |
+
+- **The grammar of units before only, around a gap**: possessives (my, his, her, Jack's dog) come with `possessive`, the
+  present simple with `present-simple`, there is with `there-is`: units 1–6 say "Jack's got" (has got, unit 5 on),
+  "My name's" (a phrase of `hello`), never "her cakes" or "Sam says" in a sentence with a gap.
+- **A known mistake as a distractor**: plurals' knifes, childs, berrys and numbers' fourty, twelf, five hundreds are
+  wrong by grading/en.json (its `wrong`, an ending or the distance), never almost (`EnglishCourseContentTest`).
+- **The spelled forms in the intro's table** (buses, dishes, families, calves, roofs): a bold form of the explanation is
+  read in Mrs Hartley's voice when English's frequent words or the intro's own words make it English; a plural the
+  table doesn't show would be read by the phone's voice of the base. Only the endings -teen and -ty are left to it.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
