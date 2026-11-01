@@ -100,7 +100,100 @@ asphalt, flooded for ice in winter, and summer Stockschießen grew out of the wi
 ([LK Salzburg](https://sbg.lko.at/eisschützen-haben-jetzt-hochsaison+2400+3963479),
 [an Asphalt- und Eisstockbahn](https://www.kitzbueheler-alpen.com/de/stjo/infra/a-z/gasthof-mitterjager-asphalt-eisstockbahn.html)).
 
-<!-- CHECKS -->
+## For the native check
+
+Everything German, and its Slovene, English and Italian, is machine-written (each file's `review` says so). A spoken form is
+never graded wrong; register and naturalness are the speaker's to judge.
+
+- **Austrian and Carinthian words, with sources:** das Schwammerl ([Duden](https://www.duden.de/rechtschreibung/Schwammerl):
+  bayrisch, österreichisch), das Eierschwammerl ([Duden](https://www.duden.de/rechtschreibung/Eierschwammerl)), die Schwarzbeere
+  ([Duden](https://www.duden.de/rechtschreibung/Schwarzbeere): süddeutsch, österreichisch), der Hochstand
+  ([Duden](https://www.duden.de/rechtschreibung/Hochstand): Jagdwesen), der Metzen ([Duden](https://www.duden.de/rechtschreibung/Metzen):
+  an old grain measure), die Gelse ([Duden](https://www.duden.de/rechtschreibung/Gelse)), der Meterstab
+  ([Duden](https://www.duden.de/rechtschreibung/Meterstab)), die Stockbahn, die Daube, der Eisstock, die Bande
+  ([Austria-Forum, Eisstocksport](https://austria-forum.org/af/AEIOU/Eisstocksport),
+  [Stocksport Austria's rules](https://www.stocksport-austria.at/wp-content/uploads/2023/05/Regelwerk_Stocksport_Stand_2023.pdf)),
+  asphalt lanes flooded for ice ([LK Salzburg](https://sbg.lko.at/eisschützen-haben-jetzt-hochsaison+2400+3963479)), the
+  Maibaumkraxeln and the Maibaumstehlen ([Salzburg's magazine](https://www.salzburg.info/de/magazin/kunst-kultur/Von-Maibaumkraxlern-und-Maibaumdieben_a_282454)),
+  das Eichkatzerl (a note only; [Wiktionary](https://de.wiktionary.org/wiki/Eichkatzerl)).
+- **Without a source yet, for the speaker:** das Schwaiberl for the Maibaum's poles (found in Bavarian sources,
+  [dewiki: Maibaum](https://dewiki.de/Lexikon/Maibaum); Carinthian use not confirmed; it is projects.json's own word), die Laube,
+  das Glöckerl, Vergelt's Gott, die Wegkapelle, die Kletzen, die Steige, das Wetterläuten, die Maiandacht, the Marterl (drawn, not
+  said), "Gut Ding braucht Weile", Servus, Grüß Gott, Pfiat di, gell, Jessas, Na geh, Hü, Hau ruck, der Verlängerte, das
+  Heidenmehl, der Heidensterz.
+- **The mill's words:** der Trichter for the hopper (also der Rumpf), die Welle for the shaft, die Rinne for the flume (das
+  Gerinne).
+- **Facts:** a foot pilgrimage from the lower Gailtal to Maria Luggau ("a few days" is a guess); the Maschanzker is the
+  Steirischer Maschanzker, grown in Styria and Carinthia
+  ([BMLUK](https://www.bmluk.gv.at/themen/lebensmittel/trad-lebensmittel/getraenke/steir_maschanzker.html)), so `projects.json`'s
+  vinograd step 4 ("den Kärntner Maschanzker", a chronicle line already in learners' villages) is loose; bears' tracks in the
+  Gailtal's woods; the Stockbahn's asphalt (above).
+- **Slovene and Italian choices:** kegelj and tarča for the stock and the Daube (as projects.json has them), brajda for the
+  Laube, šmarnice, končnice, krhlji, mošancelj, "lunin les" for das Mondholz, "uravnan" for eben; birillo and bersaglio, la
+  ghirlanda for der Kranz, la parete for die Wand; and every gender pair.
+- **Jokes:** a few reactions joke about a noun's grammatical gender ("Mein Honig ist doch ein Mann"), never about the learner's.
+
+## How it was checked
+
+- **The looks**: `KaerntenProjectsLooksTest` (new; seven arts): Carinthia's picture differs from the default culture's in each
+  art's month by day, an October evening, January and April; every thing is drawn and tappable as often as in the default
+  picture at every detail, by day and at night, and once where it is there; the people stand where they did; the Stockbahn is
+  asphalt in June and ice in January; the cart bridge differs from its logs on; a frame stays inside its budget. With
+  `KaerntenLooksTest`, `CultureLooksTest` (Primorska's digests), `FriuliOutdoorLooksTest` and `FriuliPlacesLooksTest`
+  (Friuli's pictures), `MapLooksTest`, `StepScenesRenderTest` and `PlacesRenderTest`: 48 tests, 0 failures. Two things the
+  first runs found are fixed in the painter: the slate keeps its size for WIR \| IHR (a wider one hid whoever stands behind it),
+  and the stocks' handles are short enough not to cover the person by the Daube.
+- **The content**: `bun test/check-culture.ts kaernten` ok; `bun test/check-steps.ts kaernten` ok (7 files, 41 steps, 82
+  dialogs, 499 lines); `bun test/learner-content.ts` 0 texts naming Jan, 0 malformed placeholders, 0 turns the same for one
+  gender; every new pack validates (`validatePack`; a pack's review is at most 200 characters, else PackStore drops it); no
+  pack or scene id is another culture's; the new words' prompts no longer share an answer with a word on main (kaernten-projects-b's
+  comparison: der Kranz, die Mauer and die Wand, der Wald, das Mondholz, the mill's wheel step now on das Mühlrad, eben).
+  `check-steps` itself kept the dictionary's flag (`1e58bcda`), so a German form is guessed from the stem and the plural.
+- **The full checks**: the bridge `tsc` clean; the smoke on ports 9730–9748 (its Drama 3 worker on 9748), 3,327 checks, all
+  passed; `tutor-export --check` 89 files match; the Python tests 251 and 142 (11 skipped); the Android unit suite through
+  lani-slot.sh, 3,692 tests in 476 classes, 2 failures, both fixed (`acbb84d5`: the orchard's press had one dialog, and
+  `AlpsLooksTest` took the wood for a building) and their 8 classes run again, 54 tests, 0 failures.
+- **No rebase needed yet**: main (605d5f26) is behind this branch's base (`outlines-de-en`), wave A still at the gate.
+
+## On the emulator
+
+QA's new step `kaernten-projects-a` (only when named), with a synthetic learner of German from Slovene in the Carinthian
+village (`make-learner.ts --target de --base sl`, `LANI_CULTURE=kaernten`, the phone in de · sl), green on qa-slot's slot 2:
+the village a Trg (QA's hook `hearths:trg`); the Stockschießbahn finished (`step:balinisce/6`) and its landmark on the map, its
+card ("Die Stockschießbahn · Steza za kegljanje na ledu", "🚪 Geh hinein · Vstopi: 🥌 Auf der Stockbahn · Na stezi za
+kegljanje na ledu ›") into Auf der Stockbahn in Carinthia's look (the asphalt lane, the stocks, the Gasthaus under shingles,
+"🔍 0/15"), by day and at dusk; the orchard's landmark and card into Im Obstgarten; the wood's card into Im Wald (the larches
+gold in November, the Marterl by the path, 24 things), closer up; then Unter dem Maibaum, An der Brücke, In der Mühle, Bei der
+Wegkapelle and Auf der Bienenwiese by their links. The dev village hasn't finished the Maibaum, so its scene opened by the
+link shows the square without it ("🔒 vollende: Der Maibaum"); the standing Maibaum, its prize and the Schwaiberl are in the
+contact sheets. The first run stopped on QA's `plain_village`, which reads Jan's sl · en labels; the step now goes home by the
+app's link (`e282233b`). Screenshots: the round's scratchpad, `ux-kaernten-projects-a/qa2/` (kp-*.png); the contact sheets
+in `ux-kaernten-projects-a/looks/` (`<art>-sheet.png`, `-k2`, `-k3`, `-night-december`, `-phone-rain`,
+`stream-bridge-stages.png`), the earlier rounds in `looks1/` to `looks3/`.
+
+## Tap counts
+
+| Into … | Before | Now |
+|---|---|---|
+| the wood's scene | none: a tap on the wood opened nothing | 2 taps: the wood, "🚪 Geh hinein: 🌲 Im Wald" |
+| a finished project's place (the bridge, the mill, the Stockbahn, the Wegkapelle, the orchard, the bee meadow; the Maibaum in May) | none: the landmark opened the projects sheet | 2 taps: the landmark, "🚪 Geh hinein: <its scene>" |
+| a step of the seven projects | the projects sheet's practice | the same taps, and the step is a short scene where it happens |
+
+## What is left
+
+- **The native check** above, of everything German and its Slovene, English and Italian.
+- **Voices**: none built (no ElevenLabs credits spent). A voice build would say about 67,000 German characters: 34,131 for
+  the steps' 1,065 texts in their speakers' voices (`bun test/step-chars.ts kaernten`) and about 33,000 for the eight scenes'
+  lines and replies.
+- **The rebase**: main hasn't moved past this branch's base yet; once wave A and kaernten-projects-b land, `DialogReactionsTest`'s
+  count keeps one term for am-bach (this branch cherry-picked b's `am-bach`, `am-bach`'s fixes and b's check-steps fix:
+  they drop at the rebase), and the scenes' and looks' rows in SCENES.md sit beside b's.
+- **projects.json**: vinograd's fourth chronicle line says "den Kärntner Maschanzker" (the variety is the Steirischer
+  Maschanzker, grown in Carinthia too); left, as the line is in learners' villages already.
+- **No smoke check for two words with one prompt** in a culture: the old packs have many such pairs card.py tolerates
+  (synonyms, self-rated flashcards), so a check needs card.py's `overlap()` and a baseline; not done here.
+- **Im Obstgarten** has no tap turn (the other seven scenes have one or more).
+- **The villagers' days**: no routine goes to the new places yet, so their people are there with their happenings only.
 
 ## How to use
 
