@@ -15569,6 +15569,31 @@ def on_home(timeout=8.0) -> bool:
     return False
 
 
+TILES_SWIPES = 10
+"""QA's swipes (600 px each) a learner's Today may take before the learning tiles: a grown learner's is long (two new
+modules, a tip, two arrivals to meet, "Še 7 v vasi": nav-perf.md), a new learner's takes none or one."""
+
+
+def tiles_under_today(screens: list, heading: str, first_row: str, after: list) -> tuple | str:
+    """Whether Home's learning tiles come right under Today, however long the learner's Today is (navigation.md, "the
+    learning tiles right under Today"). [screens]: Home's labelled nodes, (text, y), at its top and after each of QA's
+    swipes down. Their [heading] is the first of Home's later sections to come into view: none of [after] (the
+    villagers' strip, which comes after the tiles) shows before it, above it on its screen or on an earlier one. Their
+    [first_row] is in view on the heading's screen or the next one's. The swipes to the heading and to the first row,
+    else what failed."""
+    at = next((i for i, sc in enumerate(screens) if any(t == heading for t, _ in sc)), None)
+    if at is None:
+        return f"the learning tiles' heading not within {len(screens) - 1} of QA's swipes of Today"
+    top = min(y for t, y in screens[at] if t == heading)
+    early = sorted({t for i, sc in enumerate(screens[: at + 1]) for t, y in sc for a in after if t == a and (i < at or y < top)})
+    if early:
+        return f"{', '.join(early)} before the learning tiles: something came between Today and the tiles"
+    row = next((i for i, sc in enumerate(screens) if i >= at and any(first_row in t and 300 < y < 1850 for t, y in sc)), None)
+    if row is None or row - at > 1:
+        return f"the tiles' first row ({first_row}) not in view within one swipe of their heading"
+    return at, row
+
+
 def navigation():
     """The back stack and the tidy Home (docs/plans/05-built/navigation.md): Home's ⚙️ and 🤝 in its header and the
     learning tiles right under Today; the settings in two taps (⚙️ → "Učitelj · Tutor", its page under "‹ Nastavitve ·
@@ -15579,8 +15604,20 @@ def navigation():
     go_home()
     to_top()
     assert find(SETTINGS) and find("Prijatelji · Friends"), "Home's ⚙️ and 🤝"
-    # QA's swipe is a quarter of the screen (scroll_to: 600 px): the first row within three, under Today's capped calls
-    assert scroll_to("Moje besede", 3), "the learning tiles' first row within three of QA's swipes of Today"
+    # the tiles right under Today, however long this learner's Today is (tiles_under_today): QA's swipes down (600 px) until
+    # their heading and first row are in view
+    heading, after = label("learningGrid.learning"), [label("villagersStrip.villagersNeed")]
+    screens = []
+    for i in range(TILES_SWIPES + 1):
+        screens.append([(t, c[1]) for t, c in nodes()])
+        if not isinstance(tiles_under_today(screens, heading, "Moje besede", after), str):
+            break
+        if i < TILES_SWIPES:
+            adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+            time.sleep(1)
+    placed = tiles_under_today(screens, heading, "Moje besede", after)
+    assert not isinstance(placed, str), placed
+    print(f"    Today took {placed[0]} of QA's swipes, the tiles' first row in view after {placed[1]}")
     assert find("Učenje · Learning"), "the learning tiles' heading"
     assert scroll_to("Slovnica", 2), "the grammar book's tile"
     shot("nav-home-tiles")
