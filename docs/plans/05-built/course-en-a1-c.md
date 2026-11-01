@@ -50,16 +50,18 @@ A2 and sees was-were; was-were keeps its own tags (past-simple has `was_were`, t
 
 ### The grading (grading/en.json, shared with parts a and b)
 
-Four commits, each relayed by the lead to parts a and b, in this order:
+Five commits, relayed by the lead to parts a and b in this order (their hashes before the rebase onto main: a1eda926,
+ef4ec9da, 8f38a297, 537452c0; the QA fix was ddb65f29):
 
 | Commit | What |
 |---|---|
-| `a1eda926` | known mistakes, each only for a word of its rule: the -ing spelling (siting, runing, swiming, hoping; makeing, comeing, writeing; writting, comming), the ordinals (nineth, eigth, twentyth, thirtyth, fourtieth), were and where for each other |
-| `ef4ec9da` | a contraction typed without its apostrophe is almost with the apostrophe hint, never right (cant, isnt, dont, wont, Im, youre, theyre, ive, theyve, hes got, whats, theres …); words of their own stay out (its, were, well, ill, id, lets, hell, shell, wed, shed), so were for we're stays wrong |
-| `8f38a297` | the apostrophe hint's examples follow the language learned, from its grading table (`loose_examples`): Italian's "l'acqua, un'amica" as Teo had them, English's "can't, I'm"; `Spelling.looseExamples`; the l10n strings the plain sentence |
-| `537452c0` | an ordinal from 21 to 99 with or without its hyphen (twenty first = twenty-first); twelth, fith, fivth wrong |
+| `eac4224d` | known mistakes, each only for a word of its rule: the -ing spelling (siting, runing, swiming, hoping; makeing, comeing, writeing; writting, comming), the ordinals (nineth, eigth, twentyth, thirtyth, fourtieth), were and where for each other |
+| `97b1a373` | a contraction typed without its apostrophe is almost with the apostrophe hint, never right (cant, isnt, dont, wont, Im, youre, theyre, ive, theyve, hes got, whats, theres …); words of their own stay out (its, were, well, ill, id, lets, hell, shell, wed, shed), so were for we're stays wrong |
+| `8151d6e4` | the apostrophe hint's examples follow the language learned, from its grading table (`loose_examples`): Italian's "l'acqua, un'amica" as Teo had them, English's "can't, I'm"; `Spelling.looseExamples`; the l10n strings the plain sentence |
+| `f415549f` | an ordinal from 21 to 99 with or without its hyphen (twenty first = twenty-first); twelth, fith, fivth wrong |
+| `5b9eb581` | a language's ending length (`ending_letters`, `Spelling.endingLetters`, 2 when left out): English's is 1, so a slip just before a long word's last letter is a slip (usualy, walkd, thirten), the -s, -ed, -ing still the ending; potatos, tomatos paired wrong |
 
-`GradingLanguagesTest` has each (37 tests); `ApostropheHintTest` (new, 2) the hint for Italian and English learners.
+`GradingLanguagesTest` has each (38 tests); `ApostropheHintTest` (new, 2) the hint for Italian and English learners.
 
 ### Words on the prints (lexicon/en.extra.json)
 
@@ -76,16 +78,17 @@ words, the packs meaning another sense.
 ### A pack fixed (companion/packs/en/numbers-and-time.json)
 
 half past's German was "halb" and its Slovene "in pol": a learner from German reads halb sieben (6:30) for half past
-seven. Now "halb (3:30 = halb vier)" and "pol (3.30 = pol štirih)", without the English the card asks for (`d9c35e61`).
+seven. Now "halb (3:30 = halb vier)" and "pol (3.30 = pol štirih)", without the English the card asks for (`322866bd`).
 The pack's other time words were right in each base.
 
 ### Shared pieces: cherry-picked, and the QA step fixed
 
 | Commit | What |
 |---|---|
-| `b734776c` | part a's 137c4af2: EnglishCourseContentTest, SchoolBoardTest's English board, the smoke's Lakeland course-speech and English-sheet checks |
-| `59c25287` | the lead's 79099d49 (course-speech's BASE_WORDS); the Lakeland block keeps its check of the base's letters and takes BASE_WORDS for the base's words |
-| `ddb65f29` | the QA step `course-unit` (shared with German): a quick question's field found above the Check button, wherever the step scrolled to |
+| `6feb6c6e` | part a's 137c4af2: EnglishCourseContentTest, SchoolBoardTest's English board, the smoke's Lakeland course-speech and English-sheet checks |
+| `62c1c59b` | the lead's 79099d49 (course-speech's BASE_WORDS); the Lakeland block keeps its check of the base's letters and takes BASE_WORDS for the base's words |
+| `201d43c9` | the lead's 66c1ad9c (part a's): `course-unit` plays a reorder and a multi too |
+| `8f4b3715` | the QA step `course-unit` (shared with German): a quick question's field found above the Check button, wherever the step scrolled to |
 
 ## How the units are written
 
@@ -100,6 +103,8 @@ units 13–18"):
   pairs each with its own right form (she cans · she can, He can to drive. · He can drive., Do you can swim? · Can you
   swim?, I'm knowing. · I know., I know him Jack. · Jack? I know him., you was · you were, Yes, I were. · Yes, I was.,
   Auntie Edna is born in 1952. · Auntie Edna was born in 1952.).
+- **A worksheet's title per base in that base's words only** (`V, na, pod`, not `In, on, under · V, na, pod`): the app
+  shows the English title beside it (part a's finding on the emulator; `9a1ef414` for units 13–18).
 - **Each step's point on the rule line**: the half-seven warning, at night, there was/were, born and the dates were
   rewritten until the sheet's line kept them; no `?` inside a bracketed translation (the sentence splitter cut there).
 - **The dates are the village's**: May Day (1 May), St George's Day (23 April), Rushbearing (5 August), the show (31
@@ -115,17 +120,18 @@ on demand when an intro opens or with `voice-build --explanations`, about 9,900 
 ## Checks
 
 - Bridge: `bunx tsc --noEmit -p .` clean; the smoke with ports 9930– (LANI_SMOKE_DRAMA3_PORT 9948): 3324 checks, all
-  passed, again after `1d656e8f` (course/en validates with its 12 written units and their pages; each step's point on the sheet's rule line in
-  every base; the Lakeland school's course-speech in Mrs Hartley's voice, never the base; the English sheet; every
-  supplement's meanings).
+  passed, again after `3da0a9d8`, and 3380 after the rebase onto main (7e2acd5c): course/en validates with its 12
+  written units and their pages; each step's point on the sheet's rule line in every base; the Lakeland school's
+  course-speech in Mrs Hartley's voice, never the base; the English sheet; every supplement's meanings.
 - `tutor-export --check`: 89 files match (54 tools, 32 guide topics). Python: `tests` 251 OK, `companion/tests` 142 OK
-  (11 skipped).
-- Android, through lani-slot.sh: `EnglishCourseContentTest` (6: every unit played at its level, every right answer
-  graded right, no distractor right or almost, every text in sl, de, it and en), `SchoolBoardTest` (6: the English
-  board writes every letter of the 12 units' titles and forms), `GradingLanguagesTest` (37), `ApostropheHintTest` (2),
-  `ItalianCourseContentTest` (6, after it.json's loose_examples), `IntroSpeechParityTest` (2), `PrintsTest` (6),
-  `GrammarTest` (16), `SheetsTest` (15), `SentenceGrammarTest` (5): all pass. The full suite (before `1d656e8f`;
-  the focused tests ran again after it): 3704 tests, 0 failures, 0 errors.
+  (11 skipped), before and after the rebase.
+- Android, through lani-slot.sh: the full suite 3704 tests before `3da0a9d8` and 3707 after the rebase onto main, 0
+  failures, 0 errors. Focused runs after each later commit: `EnglishCourseContentTest` (6: every unit played at its
+  level, every right answer graded right, no distractor right or almost, every text in sl, de, it and en),
+  `SchoolBoardTest` (6: the English board writes every letter of the 12 units' titles and forms), `GradingLanguagesTest`
+  (38, after `5b9eb581`), `GradingTest` (18), `SpeechGradingTest` (13), `ApostropheHintTest` (2),
+  `ItalianCourseContentTest` (6), `CourseContentTest` (5), `IntroSpeechParityTest` (2), `PrintsTest` (6), `GrammarTest`
+  (16), `SheetsTest` (15), `SentenceGrammarTest` (5): all pass.
 - Quick checks while writing (scripts in the scratchpad): the bridge's `validateUnit` in each base and `validateGrammar`
   for every unit and page, the say and summary lengths, each step's rule line; a TypeScript port of `Grading.check`
   with grading/en.json for the likely wrong answers (he for him, they for them, was for were, a wrong preposition,
@@ -140,9 +146,9 @@ on demand when an intro opens or with `voice-build --explanations`, about 9,900 
   underlined for her voice), the summary, the first worksheet checked, the test passed 10/10 ("Next unit: At seven, on
   Monday"), the sheet printed (the dialog's preview, the PDF); ✅ setup, ✅ course-unit, ✅ crash check. Its first run
   failed at step 2's gap: the shared step's text_field() took a field only with its centre above 1850 px, and a quick question's field
-  sits at about 1870 px once a long step has scrolled to its end. Fixed in `ddb65f29` (above the Check button's top,
+  sits at about 1870 px once a long step has scrolled to its end. Fixed in `8f4b3715` (above the Check button's top,
   else 2150 px), with the lead's go-ahead. That run also showed reading and lying in step 4 not marked for her voice;
-  the content fix (`1d656e8f`) came after the run. Screenshots: the scratchpad's ux-course-en-a1-c/ (cu-school,
+  the content fix (`3da0a9d8`) came after the run. Screenshots: the scratchpad's ux-course-en-a1-c/ (cu-school,
   cu-school-next, cu-unit, cu-intro-1 to 6, cu-intro-summary, cu-sheet, cu-sheet-1-checked, cu-sheet-2-checked,
   cu-sheet-done, cu-test, cu-test-passed, cu-print-button, cu-print-preview, cu-print-pdf).
 - Tap counts: no journey changed. A unit of part c plays as any unit: the school, the unit (1 tap), the intro (1), a
