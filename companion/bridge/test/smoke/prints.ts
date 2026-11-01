@@ -2,12 +2,13 @@
 // GET /course/sheet/<unit>, GET /course/booklet/<level> and GET /course/overview/<page> serve the generator's own HTML
 // (companion/prints/build.ts, overview.ts) of the fixture course and the grammar book, for the bridge's learner (Jan, a
 // man) or as the query says, kept until the content changes.
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { sheetsOf, unitDoc } from '../../../prints/build'
+import { headsOf } from '../../../prints/html'
 import { buildOverview, markAdjective, markDeclension, OVERVIEWS, overviewDoc } from '../../../prints/overview'
-import { loadContent, plain, ruleLine } from '../../../prints/sheet'
-import { auth, base, check, courseRoot, curatedDir } from './harness'
+import { Dictionary, loadContent, plain, ruleLine } from '../../../prints/sheet'
+import { auth, base, check, courseRoot, curatedDir, tempDir } from './harness'
 
 const repo = resolve(import.meta.dir, '../../../..')
 const get = (path: string, headers: Record<string, string> = auth) => fetch(`${base}${path}`, { headers })
@@ -140,6 +141,29 @@ export default async function prints() {
       steps > 500 && lost.length === 0,
       lost,
     )
+  }
+
+  // --- a German or an English course's sheet: its headings, its words without their article --------------------------------
+  check("a course's headings in its language: Regel, Lektion (German), Rule, Unit (English), Regola (Italian), Pravilo otherwise",
+    headsOf('de').rule === 'Regel' && headsOf('de').unit === 'Lektion' && headsOf('de').units(2) === '2 Lektionen' && headsOf('en').rule === 'Rule' && headsOf('en').unit === 'Unit' &&
+      headsOf('en').units(1) === '1 unit' && headsOf('it').rule === 'Regola' && headsOf('sl').rule === 'Pravilo' && headsOf('fr').rule === 'Pravilo')
+  {
+    const root = tempDir('lani-smoke-print-words-')
+    for (const d of ['de', 'en', 'lexicon']) mkdirSync(join(root, d), { recursive: true })
+    writeFileSync(join(root, 'de/tiere.json'), JSON.stringify({ words: [{ id: 'hund', de: 'der Hund', en: 'dog', sl: 'pes', gender: 'm', plural: 'die Hunde' }] }))
+    writeFileSync(join(root, 'en/animals.json'), JSON.stringify({ words: [{ id: 'cat', en: 'the cat', de: 'die Katze', sl: 'mačka' }] }))
+    writeFileSync(join(root, 'lexicon/de.extra.json'), JSON.stringify({ entries: [{ lemma: 'Katze', pos: 'noun', gender: 'f', gloss: ['cat'], meanings: { sl: ['mačka'] }, forms: { Katze: 'nominative singular' } }] }))
+    const ctx = { sl: new Set<string>(), en: new Set<string>(), glosses: new Map<string, string>(), lemmaOf: new Map<string, string>() }
+    const de = new Dictionary({ packs: join(root, 'de'), lexicon: join(root, 'lexicon') }, 'de')
+    const en = new Dictionary({ packs: join(root, 'en'), lexicon: join(root, 'lexicon') }, 'en')
+    const hund = de.meaning('Hund', 'sl', ctx)
+    const hunde = de.meaning('die Hunde', 'en', ctx)
+    const katze = de.meaning('die Katze', 'sl', ctx)
+    const bare = de.meaning('Katze', 'en', ctx)
+    const cat = en.meaning('cat', 'de', ctx)
+    check("a German unit's word finds the pack's noun without its article (Hund: der Hund), its plural with it (die Hunde), the supplement's noun with its article by its gender (die Katze, also for Katze); an English one (cat: the cat)",
+      hund?.lemma === 'der Hund' && hund.gloss === 'pes' && hund.gender === 'm' && hunde?.lemma === 'der Hund' && hunde.gloss === 'dog' && katze?.lemma === 'die Katze' && katze.gloss === 'mačka' && bare?.lemma === 'die Katze' && bare.gloss === 'cat' && cat?.lemma === 'the cat' && cat.gloss === 'die Katze',
+      [hund, hunde, katze, bare, cat])
   }
 
   // --- what there is none of, what is refused ------------------------------------------------------------------------------
