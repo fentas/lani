@@ -117,6 +117,7 @@ export default async function lexicon() {
   const add = { client_id: 'words-gozd-0001', sl: 'gozd', en: 'forest', pos: 'noun', item_id: 'vocab_word_gozd', example_sl: 'V gozdu je tiho.', example_en: "It's quiet in the forest.", from: 'scene' }
   const firstAdd = Date.now()
   const w1r = await words(add)
+  const firstAdded = Date.now()
   const w1 = await w1r.json()
   const w1again = await words(add)
   const w1againBody = await w1again.json()
@@ -155,12 +156,27 @@ export default async function lexicon() {
     words({ sl: 'gozd', en: 'forest', from: 'nowhere' }),
   ])
   check('POST /words: 400 for an item id not from a lookup, a word too long, no meaning, an unknown origin', bad.every(r => r.status === 400), bad.map(r => r.status))
-  // the words reach the tutor gathered, LANI_WORDS_NOTE_MS (1 s in the harness) after the first
-  await Bun.sleep(Math.max(0, 1300 - (Date.now() - firstAdd)))
+  // The words reach the tutor gathered, LANI_WORDS_NOTE_MS (1 s in the harness) after the first. The note is awaited
+  // rather than slept for (under load the POSTs above, or the note's way over stdio, can take longer than a fixed
+  // margin), then its timing is checked by the bridge's own clock (its msg_id is the moment it was sent), so a slow
+  // bridge still fails, by its own check and with its numbers.
+  const NOTE_MS = 1000
+  const wordsNotes = () => channelEvents.filter(n => n.params?.meta?.kind === 'words_added')
+  const deadline = firstAdd + NOTE_MS + 10_000
+  while (!wordsNotes().length && Date.now() < deadline) await Bun.sleep(50)
+  await Bun.sleep(300) // a second note, which would break "one line", has its moment to come
   const backlog = (await (await fetch(`${base}/events/backlog?since=0`, { headers: auth })).json()) as { event: any }[]
   check('POST /words: the app hears words_added', backlog.some(b => b.event.type === 'words_added' && b.event.item_ids?.[0] === 'vocab_word_gozd'))
-  const note = channelEvents.filter(n => n.params?.meta?.kind === 'words_added')
+  const note = wordsNotes()
   check('POST /words: the tutor hears the words added, gathered in one line', note.length === 1 && note[0].params.content.includes('gozd (forest) from a scene') && note[0].params.content.includes('nož (knife)') && note[0].params.content.includes('pratika (almanac) from a reading') && note[0].params.content.includes('ALREADY persisted'), note.map(n => n.params.content))
+  // sent: when the bridge's gathering timer fired; it was set while the first word's POST was handled
+  const sentAt = parseInt(String(note[0]?.params?.meta?.msg_id ?? '').replace(/^w/, ''), 36)
+  const timing = { sent_after_first_post_began_ms: sentAt - firstAdd, late_after_first_post_answered_ms: sentAt - firstAdded - NOTE_MS }
+  check(
+    'POST /words: the words-added note is sent LANI_WORDS_NOTE_MS after the first word, not at once and not more than 2 s late',
+    Number.isFinite(sentAt) && sentAt - firstAdd >= NOTE_MS && sentAt - firstAdded - NOTE_MS <= 2_000,
+    timing,
+  )
 
   // --- the tutor's glosses --------------------------------------------------------------------------------------
   const badGloss = await client.callTool({ name: 'publish_gloss', arguments: { form: 'prinesel', lemma: 'prinesti', gloss: [] } })
