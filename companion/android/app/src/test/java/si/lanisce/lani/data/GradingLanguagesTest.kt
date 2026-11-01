@@ -199,6 +199,9 @@ class GradingLanguagesTest {
         // a slip in the word itself, or in another word beside it, stays forgiven
         assertGraded(Verdict.ALMOST, Hint.TYPO, it("dlla maestra", "dalla maestra"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, it("Gioca con la plla", "Gioca con la palla."))
+        // one of them typed for another word is a slip as before: della for bella, alla for palla
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("una della casa", "una bella casa"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("alla", "palla"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, it("è scritta dalla mestra", "è scritta dalla maestra"))
         assertGraded(Verdict.CORRECT, Hint.NONE, it("Il miele è fatto dalle api", "Il miele è fatto dalle api."))
     }

@@ -25,7 +25,8 @@ import java.util.concurrent.ConcurrentHashMap
  * [wrong]: words that are a known mistake, never a slip of the keyboard, matched whole against a word of the answer as
  * [Grading.fold] writes it (Italian's regular stem where the form has its own: "anderò" for andrò, "ferò" for farò,
  * "mangierò" for mangerò, "venito" for venuto): one letter off the right word, such a word is wrong, not forgiven as a
- * slip in the stem.
+ * slip in the stem. A [Mistake] with `for` is one only where the right word matches that too (an articulated
+ * preposition for another, "delle" for dalle, while "della" for bella stays a slip).
  * A language without a table compares letters as they are.
  */
 class Spelling(
@@ -36,10 +37,15 @@ class Spelling(
     val loose: List<Rule> = emptyList(),
     val looseHint: Grading.Hint = Grading.Hint.NONE,
     val dropSubject: Boolean = false,
-    val wrong: List<Regex> = emptyList(),
+    val wrong: List<Mistake> = emptyList(),
 ) {
     class Rule(val pattern: Regex, val replacement: String) {
         fun apply(s: String): String = pattern.replace(s, replacement)
+    }
+
+    /** A known mistake: [word] typed for the right word, or only for one that matches [forWord] where it's given. */
+    class Mistake(val word: Regex, val forWord: Regex? = null) {
+        fun matches(typed: String, right: String): Boolean = word.matches(typed) && (forWord?.matches(right) ?: true)
     }
 
     /** Lowercasing follows the language (Turkish-safe, and whatever else a locale knows). */
@@ -63,7 +69,10 @@ class Spelling(
                 loose = rules(o, "loose"),
                 looseHint = hint(o, "loose_hint"),
                 dropSubject = o["drop_subject"]?.jsonPrimitive?.booleanOrNull ?: false,
-                wrong = (o["wrong"] as? JsonArray).orEmpty().map { Regex(it.jsonPrimitive.content) },
+                wrong = (o["wrong"] as? JsonArray).orEmpty().map { m ->
+                    (m as? JsonObject)?.let { Mistake(Regex(it.getValue("word").jsonPrimitive.content), it["for"]?.let { f -> Regex(f.jsonPrimitive.content) }) }
+                        ?: Mistake(Regex(m.jsonPrimitive.content))
+                },
             )
         }
 

@@ -96,7 +96,7 @@ object Grading {
         val d = distance(e, w)
         return when {
             // a known mistake (the language's [Spelling.wrong]: "anderò" for andrò) is grammar, never a slip in the stem
-            d in 1..typosAllowed(e) && editInStem(e, w) && spelling.wrong.none { it.matches(w) } -> Result(Verdict.ALMOST, Hint.TYPO, best, marks)
+            d in 1..typosAllowed(e) && editInStem(e, w) && spelling.wrong.none { it.matches(w, e) } -> Result(Verdict.ALMOST, Hint.TYPO, best, marks)
             d <= 2 && !editInStem(e, w) -> Result(Verdict.WRONG, Hint.ENDING, best, marks)
             else -> Result(Verdict.WRONG, Hint.NONE, best, marks)
         }
