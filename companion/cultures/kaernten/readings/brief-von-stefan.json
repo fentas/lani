@@ -1,0 +1,62 @@
+{
+  "id": "brief-von-stefan",
+  "kind": "letter",
+  "level": "A1",
+  "title": { "de": "Ein Brief von Stefan", "sl": "Pismo od Stefana", "en": "A letter from Stefan", "it": "Una lettera di Stefan" },
+  "by": "stefan",
+  "intro": { "de": "Mostbauer Stefan hat {learner} einen kurzen Brief geschrieben.", "sl": "Sadjar Stefan je {learner:dat} napisal kratko pismo.", "en": "Stefan the cider maker wrote {learner} a short letter.", "it": "Stefan, il produttore di sidro, ha scritto a {learner} una breve lettera." },
+  "lines": [
+    { "text": { "de": "{m:Lieber|f:Liebe} {learner},", "sl": "{m:Dragi|f:Draga} {learner},", "en": "Dear {learner},", "it": "{m:Caro|f:Cara} {learner}," } },
+    { "text": { "de": "Ende Juli ist in Villach Kirchtag. Er dauert eine ganze Woche!", "sl": "Konec julija je v Beljaku žegnanje. Traja cel teden!", "en": "At the end of July it's Kirchtag in Villach. It lasts a whole week!", "it": "A fine luglio a Villach c'è la sagra, il Kirchtag. Dura una settimana intera!" } },
+    { "text": { "de": "Jedes Jahr kommen mehr als 400.000 Leute.", "sl": "Vsako leto pride več kot 400.000 ljudi.", "en": "More than 400,000 people come every year.", "it": "Ogni anno arrivano più di 400.000 persone." } },
+    { "text": { "de": "Auf allen Plätzen spielt Musik, und viele Leute tragen Dirndl und Lederhose.", "sl": "Na vseh trgih igra glasba, in veliko ljudi nosi dirndl in irhovke.", "en": "Music plays in every square, and lots of people wear dirndls and lederhosen.", "it": "In tutte le piazze suona la musica, e tanta gente porta il dirndl e i calzoni di pelle." } },
+    { "text": { "de": "Zu Mittag essen wir die Kirchtagssuppe. Sie ist gelb und hat drei Sorten Fleisch.", "sl": "Opoldne jemo žegnanjsko juho. Rumena je in ima tri vrste mesa.", "en": "At midday we eat the Kirchtag soup. It's yellow and has three kinds of meat.", "it": "A mezzogiorno mangiamo la zuppa della sagra. È gialla e ha tre tipi di carne." } },
+    { "text": { "de": "Dazu gibt es Reindling, einen süßen Kuchen.", "sl": "Zraven je reindling, sladek kolač.", "en": "With it there's Reindling, a sweet cake.", "it": "Con la zuppa c'è il reindling, un dolce lievitato." } },
+    { "text": { "de": "Kommst du mit? Ich fahre am Samstag. Bring gute Schuhe mit, wir tanzen!", "sl": "Greš zraven? Jaz grem v soboto. Prinesi dobre čevlje, plesali bomo!", "en": "Are you coming? I'm going on Saturday. Bring good shoes, we're going dancing!", "it": "Vieni anche tu? Io vado sabato. Porta delle buone scarpe, si balla!" } },
+    { "text": { "de": "Servus, Stefan", "sl": "Lep pozdrav, Stefan", "en": "Cheers, Stefan", "it": "Ciao, Stefan" } }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "ask": { "de": "Warum schreibt Stefan?", "sl": "Zakaj piše Stefan?", "en": "Why is Stefan writing?", "it": "Perché scrive Stefan?" },
+      "options": ["Er lädt zum Kirchtag in Villach ein", "Er braucht neue Schuhe", "Er ist krank"],
+      "explain": { "de": "Stefan fährt zum Villacher Kirchtag und fragt: „Kommst du mit?“", "sl": "Stefan gre na beljaško žegnanje in vpraša: »Greš zraven?«", "en": "Stefan is going to the Villach Kirchtag and asks: 'Are you coming?'", "it": "Stefan va alla sagra di Villach e chiede: «Vieni anche tu?»" }
+    },
+    {
+      "type": "detail",
+      "ask": { "de": "Wie lange dauert der Kirchtag in Villach?", "sl": "Koliko časa traja žegnanje v Beljaku?", "en": "How long does the Kirchtag in Villach last?", "it": "Quanto dura la sagra di Villach?" },
+      "options": ["Eine ganze Woche", "Einen Tag", "Einen Monat"],
+      "explain": { "de": "»Er dauert eine ganze Woche!«", "sl": "»Traja cel teden!«", "en": "»It lasts a whole week!«", "it": "»Dura una settimana intera!«" }
+    },
+    {
+      "type": "word",
+      "word": "Lederhose",
+      "ask": { "de": "Was ist eine »Lederhose«?", "sl": "Kaj je »Lederhose«?", "en": "What is a »Lederhose«?", "it": "Che cos'è una »Lederhose«?" },
+      "options": ["Eine Hose aus Leder, zur Tracht", "Eine Suppe mit Fleisch", "Ein süßer Kuchen"],
+      "explain": { "de": "Die Lederhose ist eine Hose aus Leder. Man trägt sie zur Tracht, wie das Dirndl.", "sl": "Lederhose so hlače iz usnja, irhovke. Nosijo jih k noši, kot dirndl.", "en": "Lederhosen are trousers made of leather. People wear them with traditional dress, like the dirndl.", "it": "La Lederhose è un paio di calzoni di pelle. Si porta con il costume tradizionale, come il dirndl." }
+    },
+    {
+      "type": "true_false",
+      "ask": { "de": "Die Kirchtagssuppe ist grün.", "sl": "Žegnanjska juha je zelena.", "en": "The Kirchtag soup is green.", "it": "La zuppa della sagra è verde." },
+      "answer": false,
+      "explain": { "de": "Stimmt nicht: Die Suppe ist gelb und hat drei Sorten Fleisch.", "sl": "Ne drži: juha je rumena in ima tri vrste mesa.", "en": "False: the soup is yellow and has three kinds of meat.", "it": "Falso: la zuppa è gialla e ha tre tipi di carne." }
+    },
+    {
+      "type": "inference",
+      "ask": { "de": "Warum soll man gute Schuhe mitbringen?", "sl": "Zakaj naj prineseš dobre čevlje?", "en": "Why should you bring good shoes?", "it": "Perché bisogna portare delle buone scarpe?" },
+      "options": ["Weil man am Kirchtag tanzt", "Weil es in Villach immer regnet", "Weil man zu Fuß nach Villach geht"],
+      "explain": { "de": "Stefan schreibt: „Wir tanzen!“ Zum Tanzen braucht man gute Schuhe.", "sl": "Stefan piše: »Plesali bomo!« Za ples potrebuješ dobre čevlje.", "en": "Stefan writes: 'We're going dancing!' For dancing you need good shoes.", "it": "Stefan scrive: «Si balla!» Per ballare ci vogliono buone scarpe." }
+    }
+  ],
+  "words": [
+    { "word": "dauern", "form": "dauert", "pos": "verb", "means": { "sl": "trajati", "en": "to last", "it": "durare" } },
+    { "word": "Lederhose", "pos": "noun", "means": { "sl": "irhovke, usnjene hlače", "en": "lederhosen, leather trousers", "it": "i calzoni di pelle" } },
+    { "word": "Dirndl", "pos": "noun", "means": { "sl": "dirndl (ženska noša)", "en": "a dirndl (a woman's traditional dress)", "it": "il dirndl (abito tradizionale femminile)" } },
+    { "word": "gelb", "pos": "adjective", "means": { "sl": "rumen", "en": "yellow", "it": "giallo" } },
+    { "word": "süß", "form": "süßen", "pos": "adjective", "means": { "sl": "sladek", "en": "sweet", "it": "dolce" } },
+    { "word": "Schuh", "form": "Schuhe", "pos": "noun", "means": { "sl": "čevelj", "en": "a shoe", "it": "la scarpa" } }
+  ],
+  "topics": ["Kirchtag", "Villach", "invitation", "food"],
+  "machine_written": true,
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}
