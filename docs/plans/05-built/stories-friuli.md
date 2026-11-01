@@ -117,7 +117,7 @@ own `lookup` over Wiktionary's `it.json` and the supplement, base de and sl).
 
 ## Checks
 
-- Bridge: `bunx tsc --noEmit -p .` clean; `bun test/check-culture.ts friuli`: ok; the whole smoke, 3,311 checks, all
+- Bridge: `bunx tsc --noEmit -p .` clean; `bun test/check-culture.ts friuli`: ok; the whole smoke, 3,274 checks in the final run, all
   passed (`LANI_SMOKE_PORT=9650`, `LANI_SMOKE_DRAMA3_PORT=9668`), its stories section now counting Friuli's 16 (as many as
   Janez's), the four packs' 52 stories with 133 pictures and notes for their 124 tellings, and its Friuli section the
   fire's 16 stories; `bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed placeholders, 0 turns the same for
@@ -125,7 +125,7 @@ own `lookup` over Wiktionary's `it.json` and the supplement, base de and sl).
 - Android: the full unit suite, 3,686 tests: two failed on the first run and were fixed (StoriesTest's count of Bepi's
   stories, now 16 with the benandanti next once the ten are heard; NotebookTest: a quoted question in the happy man's
   shirt's A2, «Contento? …», read as the teller's aside when the notebook writes the telling down, now said without a
-  question); NotebookTest, StoriesTest, StoryBooksTest and DialogReactionsTest again: 36 tests, all passed.
+  question); then the full suite again: 3,686 tests, 0 failures (2 skipped).
   CuratedPicturesTest counts 133 pictures, NotebookTest 124 tellings and notes.
 - QA through `qa-slot` on a synthetic Teo (it · de, a child, the Friuli village): `story-faces` played tonight's story,
   I benandanti, to its end at A1 (Bepi's portrait in the header, his faces curious, happy, worried, proud, surprised;
