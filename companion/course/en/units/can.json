@@ -1,0 +1,927 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "can",
+  "language": "en",
+  "level": "A1",
+  "emoji": "💪",
+  "title": {
+    "en": "I can swim",
+    "de": "Können: I can, I can't",
+    "sl": "Znam, lahko: I can, I can't",
+    "it": "Potere, sapere: I can, I can't"
+  },
+  "goal": {
+    "sl": "Poveš, kaj kdo zna in česa ne (I can, she can't), vprašaš Can you …? s kratkimi odgovori, prosiš in dovoliš s can, vljudno pa vprašaš Could you …, please?",
+    "de": "Du sagst, was jemand kann und nicht kann (I can, she can't), fragst Can you …? mit kurzen Antworten, bittest und erlaubst mit can und fragst höflich Could you …, please?",
+    "it": "Dici che cosa qualcuno sa o può fare e che cosa no (I can, she can't), chiedi Can you …? con le risposte brevi, chiedi e permetti con can e chiedi con gentilezza Could you …, please?",
+    "en": "You can say what people can and can't do (I can, she can't), ask Can you …? with short answers, ask and allow with can, and ask politely: Could you …, please?"
+  },
+  "grammar": [
+    "can"
+  ],
+  "words": [
+    "can",
+    "can't",
+    "cannot",
+    "could",
+    "please",
+    "of course",
+    "swim",
+    "run",
+    "drive",
+    "ride",
+    "cook",
+    "sing",
+    "climb",
+    "help",
+    "open",
+    "carry",
+    "take",
+    "wash",
+    "make",
+    "find",
+    "sit",
+    "park",
+    "come",
+    "gate",
+    "horseshoe",
+    "scone",
+    "bike",
+    "piano",
+    "bill",
+    "cup",
+    "ale",
+    "tree",
+    "story",
+    "bird",
+    "field",
+    "tomorrow",
+    "week",
+    "fast",
+    "at all"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "raba",
+          "de": "Gebrauch",
+          "it": "uso",
+          "en": "use"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**can** pove, kaj kdo zna ali zmore: **I can swim.** (Znam plavati.) **Jack can run fast.** (Jack zna hitro teči.) Za vse osebe je enak, brez -s: **she can**, nikoli *she cans*. Glagol za njim je brez **to**: **He can drive.** (Zna voziti.), ne *can to drive*.",
+          "de": "**can** sagt, was jemand kann: **I can swim.** (Ich kann schwimmen.) **Jack can run fast.** (Jack kann schnell laufen.) Es ist für alle Personen gleich, ohne -s: **she can**, nie *she cans*. Das Verb danach hat kein **to**: **He can drive.** (Er kann Auto fahren.), nicht *can to drive*.",
+          "it": "**can** dice che cosa qualcuno sa o riesce a fare: **I can swim.** (So nuotare.) **Jack can run fast.** (Jack sa correre veloce.) È uguale per tutte le persone, senza -s: **she can**, mai *she cans*. Il verbo dopo non ha **to**: **He can drive.** (Sa guidare.), non *can to drive*.",
+          "en": "**can** says what someone is able to do: **I can swim.** **Jack can run fast.** It is the same for every person, with no -s: **she can** (never *she cans*). The verb after it has no **to**: **He can drive.** (never *He can to drive.*)"
+        },
+        "examples": [
+          {
+            "en": "Meg can run very fast.",
+            "sl": "Meg zna zelo hitro teči.",
+            "de": "Meg kann sehr schnell laufen.",
+            "it": "Meg sa correre velocissima."
+          },
+          {
+            "en": "Mr Dixon can make a gate in a day.",
+            "sl": "Gospod Dixon zna v enem dnevu narediti ograjna vrata.",
+            "de": "Mr Dixon kann an einem Tag ein Tor machen.",
+            "it": "Mr Dixon sa fare un cancello in un giorno."
+          },
+          {
+            "en": "Arthur can name every bird of the dale.",
+            "sl": "Arthur zna poimenovati vsako ptico v dolini.",
+            "de": "Arthur kann jeden Vogel im Tal benennen.",
+            "it": "Arthur sa il nome di ogni uccello della valle."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "znati, zmoči",
+              "de": "können",
+              "it": "sapere, riuscire",
+              "en": "able to"
+            },
+            "I can swim. She can drive."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "can",
+          "prompt": "Granny Maggie ___ make lovely scones.",
+          "options": [
+            "can",
+            "cans",
+            "can to"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**can za vse osebe, brez -s in brez to**\n- she can make (zna narediti) · never she cans, can to make",
+            "de": "**can für alle, ohne -s und ohne to**\n- she can make (sie kann machen) · nie she cans, can to make",
+            "it": "**can per tutti, senza -s e senza to**\n- she can make (sa fare) · mai she cans, can to make",
+            "en": "**can for everyone, with no -s and no to**\n- she can make · never she cans, can to make"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zanikano je **can't**, v celoti **cannot**, v eni besedi: **I can't swim.** (Ne znam plavati.) **Sam can't come today.** (Sam danes ne more priti.) **I can't find my keys!** (Ne najdem ključev!) Napisano pogosto **cannot**, v govoru **can't**.",
+          "de": "Verneint heißt es **can't**, ausgeschrieben **cannot**, in einem Wort: **I can't swim.** (Ich kann nicht schwimmen.) **Sam can't come today.** (Sam kann heute nicht kommen.) **I can't find my keys!** (Ich finde meine Schlüssel nicht!) Geschrieben oft **cannot**, gesprochen **can't**.",
+          "it": "La negazione è **can't**, per intero **cannot**, una parola sola: **I can't swim.** (Non so nuotare.) **Sam can't come today.** (Sam oggi non può venire.) **I can't find my keys!** (Non trovo le chiavi!) Per iscritto spesso **cannot**, a voce **can't**.",
+          "en": "The negative is **can't**, in full **cannot**, one word: **I can't swim.** **Sam can't come today.** **I can't find my keys!** Written often **cannot**, spoken **can't**."
+        },
+        "examples": [
+          {
+            "en": "Meg can't climb trees.",
+            "sl": "Meg ne zna plezati po drevesih.",
+            "de": "Meg kann nicht auf Bäume klettern.",
+            "it": "Meg non sa arrampicarsi sugli alberi."
+          },
+          {
+            "en": "Old Wilf can't walk up the fell now, but he can tell a good story.",
+            "sl": "Stari Wilf zdaj ne more več na hrib, zna pa povedati dobro zgodbo.",
+            "de": "Der alte Wilf kann jetzt nicht mehr auf den Berg gehen, aber er kann gut Geschichten erzählen.",
+            "it": "Il vecchio Wilf ora non riesce più a salire sul monte, ma sa raccontare una bella storia."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "ne znati, ne moči",
+              "de": "nicht können",
+              "it": "non sapere, non potere",
+              "en": "not able to"
+            },
+            "I can't swim. (cannot)"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "can",
+          "text": "Sooty is too small. He ___ jump over the wall. (not)",
+          "accept": [
+            "can't"
+          ],
+          "hint": "can + not",
+          "explain": {
+            "sl": "**can + not: can't (cannot)**\n- He can't jump. (Ne more skočiti.)",
+            "de": "**can + not: can't (cannot)**\n- He can't jump. (Er kann nicht springen.)",
+            "it": "**can + not: can't (cannot)**\n- He can't jump. (Non riesce a saltare.)",
+            "en": "**can + not: can't (cannot)**\n- He can't jump."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V vprašanju gre **can** na začetek, brez do: **Can you swim?** (Znaš plavati?) **Can Jack drive?** (Zna Jack voziti?) Kratki odgovor: **Yes, I can.** (Ja, znam.) **No, he can't.** (Ne, ne zna.) Nikoli *Do you can …?*",
+          "de": "In der Frage steht **can** vorn, ohne do: **Can you swim?** (Kannst du schwimmen?) **Can Jack drive?** (Kann Jack Auto fahren?) Die Kurzantwort: **Yes, I can.** (Ja.) **No, he can't.** (Nein.) Nie *Do you can …?*",
+          "it": "Nella domanda **can** va all'inizio, senza do: **Can you swim?** (Sai nuotare?) **Can Jack drive?** (Jack sa guidare?) La risposta breve: **Yes, I can.** (Sì.) **No, he can't.** (No.) Mai *Do you can …?*",
+          "en": "A question puts **can** first, with no do: **Can you swim?** (never *Do you can swim?*) **Can Jack drive?** The short answer: **Yes, I can.** **No, he can't.**"
+        },
+        "examples": [
+          {
+            "en": "Can you ride a bike? — Yes, I can.",
+            "sl": "Znaš voziti kolo? — Ja, znam.",
+            "de": "Kannst du Rad fahren? — Ja.",
+            "it": "Sai andare in bici? — Sì."
+          },
+          {
+            "en": "Can Mr Tyson come to the market? — No, he can't.",
+            "sl": "Lahko gospod Tyson pride na tržnico? — Ne, ne more.",
+            "de": "Kann Mr Tyson auf den Markt kommen? — Nein.",
+            "it": "Mr Tyson può venire al mercato? — No."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "vprašanje",
+              "de": "Frage",
+              "it": "domanda",
+              "en": "question"
+            },
+            "Can you swim? Yes, I can. No, I can't."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "can",
+          "prompt": "___ you ride a horse? — Yes, I can.",
+          "options": [
+            "Can",
+            "Do",
+            "Are"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vprašanje: can na začetek, brez do**\n- Can you ride? (Znaš jahati?) — Yes, I can.",
+            "de": "**Die Frage: can nach vorn, ohne do**\n- Can you ride? (Kannst du reiten?) — Yes, I can.",
+            "it": "**La domanda: can all'inizio, senza do**\n- Can you ride? (Sai andare a cavallo?) — Yes, I can.",
+            "en": "**A question: can first, no do**\n- Can you ride? — Yes, I can."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "S **can** tudi prosiš in dovoliš: **Can I help?** (Lahko pomagam?) **Can you help me?** (Mi lahko pomagaš?) **You can sit here.** (Lahko sedeš sem.) **You can't park here.** (Tu ne smeš parkirati.) Za znati, moči in smeti reče angleščina **can**.",
+          "de": "Mit **can** bittest und erlaubst du auch: **Can I help?** (Kann ich helfen?) **Can you help me?** (Kannst du mir helfen?) **You can sit here.** (Du kannst dich hier hinsetzen.) **You can't park here.** (Hier darfst du nicht parken.) Für können und dürfen sagt Englisch oft nur **can**.",
+          "it": "Con **can** chiedi e permetti anche: **Can I help?** (Posso aiutare?) **Can you help me?** (Mi puoi aiutare?) **You can sit here.** (Puoi sederti qui.) **You can't park here.** (Qui non puoi parcheggiare.) Per sapere e potere l'inglese dice **can**.",
+          "en": "**can** also asks and allows: **Can I help?** (an offer) **Can you help me?** (asking) **You can sit here.** (it is allowed) **You can't park here.** (it isn't)"
+        },
+        "examples": [
+          {
+            "en": "Can I help you, Mr Tyson?",
+            "sl": "Vam lahko pomagam, gospod Tyson?",
+            "de": "Kann ich Ihnen helfen, Mr Tyson?",
+            "it": "Posso aiutarla, Mr Tyson?"
+          },
+          {
+            "en": "You can leave your bike behind the inn.",
+            "sl": "Kolo lahko pustiš za gostilno.",
+            "de": "Du kannst dein Fahrrad hinter dem Gasthaus lassen.",
+            "it": "Puoi lasciare la bici dietro la locanda."
+          },
+          {
+            "en": "Can I have a cup of tea, please?",
+            "sl": "Lahko dobim skodelico čaja, prosim?",
+            "de": "Kann ich bitte eine Tasse Tee haben?",
+            "it": "Posso avere una tazza di tè, per favore?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "prošnja, dovoljenje",
+              "de": "Bitte, Erlaubnis",
+              "it": "richiesta, permesso",
+              "en": "asking, allowed"
+            },
+            "Can I help? You can sit here."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "can",
+          "prompt": "Mrs Birkett, ___ I have a cup of tea, please?",
+          "options": [
+            "can",
+            "do",
+            "am"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Prošnja: Can I …?**\n- Can I have a cup of tea? (Lahko dobim skodelico čaja?)",
+            "de": "**Eine Bitte: Can I …?**\n- Can I have a cup of tea? (Kann ich eine Tasse Tee haben?)",
+            "it": "**Una richiesta: Can I …?**\n- Can I have a cup of tea? (Posso avere una tazza di tè?)",
+            "en": "**Asking for something: Can I …?**\n- Can I have a cup of tea?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Še bolj vljudno vprašaš s **could**: **Could you open the gate, please?** (Bi lahko odprli vrata, prosim?) **Could I have the bill, please?** (Lahko prosim račun?) Gospod Tyson ima rad **Could I …?** Odgovor je pogosto **Of course.** (Seveda.) ali **Yes, sure.** (Ja, lahko.)",
+          "de": "Höflicher fragst du mit **could**: **Could you open the gate, please?** (Könnten Sie bitte das Tor aufmachen?) **Could I have the bill, please?** (Könnte ich bitte die Rechnung haben?) Mr Tyson hört gern **Could I …?** Die Antwort ist oft **Of course.** (Natürlich.) oder **Yes, sure.** (Ja, klar.)",
+          "it": "Per chiedere con più gentilezza usi **could**: **Could you open the gate, please?** (Potrebbe aprire il cancello, per favore?) **Could I have the bill, please?** (Potrei avere il conto, per favore?) A Mr Tyson piace **Could I …?** La risposta è spesso **Of course.** (Certo.) o **Yes, sure.** (Sì, certo.)",
+          "en": "To ask more politely, say **could**: **Could you open the gate, please?** **Could I have the bill, please?** Mr Tyson likes **Could I …?** The answer is often **Of course.** or **Yes, sure.**"
+        },
+        "examples": [
+          {
+            "en": "Could you open the gate, please, Jack?",
+            "sl": "Bi lahko odprl vrata, prosim, Jack?",
+            "de": "Könntest du bitte das Tor aufmachen, Jack?",
+            "it": "Potresti aprire il cancello, per favore, Jack?"
+          },
+          {
+            "en": "Could I have the bill, please? — Of course.",
+            "sl": "Lahko prosim račun? — Seveda.",
+            "de": "Könnte ich bitte die Rechnung haben? — Natürlich.",
+            "it": "Potrei avere il conto, per favore? — Certo."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "vljudno",
+              "de": "höflich",
+              "it": "gentile",
+              "en": "polite"
+            },
+            "Could you open the gate, please?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "can",
+          "prompt": "___ you close the gate, please? — Of course.",
+          "options": [
+            "Could",
+            "Do",
+            "Are"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vljudna prošnja: Could you …, please?**\n- Could you close the gate, please? (Bi lahko zaprli vrata, prosim?)",
+            "de": "**Eine höfliche Bitte: Could you …, please?**\n- Could you close the gate, please? (Könnten Sie bitte das Tor zumachen?)",
+            "it": "**Una richiesta gentile: Could you …, please?**\n- Could you close the gate, please? (Potrebbe chiudere il cancello, per favore?)",
+            "en": "**A polite request: Could you …, please?**\n- Could you close the gate, please?"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**can** + glagol brez to, za vse osebe enako: **I can swim**, **she can drive** (nikoli *cans*, *can to*). Zanikano **can't** (**cannot**). Vprašanje brez do: **Can you …?** **Yes, I can.** **No, I can't.** S **can** tudi prosiš in dovoliš: **Can I help?** **You can sit here.** Bolj vljudno: **Could you …, please?**",
+      "de": "**can** + Verb ohne to, für alle gleich: **I can swim**, **she can drive** (nie *cans*, *can to*). Verneint **can't** (**cannot**). Die Frage ohne do: **Can you …?** **Yes, I can.** **No, I can't.** Mit **can** bittest und erlaubst du auch: **Can I help?** **You can sit here.** Höflicher: **Could you …, please?**",
+      "it": "**can** + il verbo senza to, uguale per tutti: **I can swim**, **she can drive** (mai *cans*, *can to*). Negazione **can't** (**cannot**). La domanda senza do: **Can you …?** **Yes, I can.** **No, I can't.** Con **can** chiedi e permetti anche: **Can I help?** **You can sit here.** Più gentile: **Could you …, please?**",
+      "en": "**can** + the verb without to, the same for everyone: **I can swim**, **she can drive** (never *cans*, *can to*). No: **can't** (**cannot**). A question without do: **Can you …?** **Yes, I can.** **No, I can't.** **can** also asks and allows: **Can I help?** **You can sit here.** More polite: **Could you …, please?**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "can-1",
+      "title": {
+        "sl": "Can, can't · Znam, ne znam",
+        "de": "Can, can't · Ich kann, ich kann nicht",
+        "it": "Can, can't · So, non so",
+        "en": "Can, can't"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "can",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "can swim · znati plavati: da in ne",
+            "de": "can swim · schwimmen können: ja und nein",
+            "it": "can swim · saper nuotare: sì e no",
+            "en": "can swim: yes and no"
+          },
+          "columns": [
+            {
+              "sl": "yes · da",
+              "de": "yes · ja",
+              "it": "yes · sì",
+              "en": "yes"
+            },
+            {
+              "sl": "no · ne",
+              "de": "no · nein",
+              "it": "no · no",
+              "en": "no"
+            }
+          ],
+          "rows": [
+            {
+              "label": "I",
+              "cells": [
+                "can swim",
+                "can't swim"
+              ]
+            },
+            {
+              "label": "you",
+              "cells": [
+                {
+                  "accept": [
+                    "can swim"
+                  ]
+                },
+                {
+                  "accept": [
+                    "can't swim"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "she",
+              "cells": [
+                {
+                  "accept": [
+                    "can swim"
+                  ],
+                  "hint": {
+                    "sl": "brez -s",
+                    "de": "ohne -s",
+                    "it": "senza -s",
+                    "en": "no -s"
+                  }
+                },
+                {
+                  "accept": [
+                    "can't swim"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "we",
+              "cells": [
+                {
+                  "accept": [
+                    "can swim"
+                  ]
+                },
+                {
+                  "accept": [
+                    "can't swim"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Meg",
+              "cells": [
+                {
+                  "accept": [
+                    "can swim"
+                  ]
+                },
+                {
+                  "accept": [
+                    "can't swim"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**can in can't za vse osebe enako**\n- I can swim · she can swim · Meg can't swim",
+            "de": "**can und can't für alle gleich**\n- I can swim · she can swim · Meg can't swim",
+            "it": "**can e can't uguali per tutti**\n- I can swim · she can swim · Meg can't swim",
+            "en": "**can and can't, the same for everyone**\n- I can swim · she can swim · Meg can't swim"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "can",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Auntie Edna ___ play the piano.",
+          "options": [
+            "can",
+            "cans",
+            "can to"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**can brez -s in brez to**\n- Edna can play the piano. (Edna zna igrati klavir.)",
+            "de": "**can ohne -s und ohne to**\n- Edna can play the piano. (Edna kann Klavier spielen.)",
+            "it": "**can senza -s e senza to**\n- Edna can play the piano. (Edna sa suonare il pianoforte.)",
+            "en": "**can with no -s and no to**\n- Edna can play the piano."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "can",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Can Jack drive? — No, he ___.",
+          "options": [
+            "can't",
+            "doesn't",
+            "isn't"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor s can: No, he can't.**\n- Can Jack drive? — Yes, he can. · No, he can't.",
+            "de": "**Die Kurzantwort mit can: No, he can't.**\n- Can Jack drive? — Yes, he can. · No, he can't.",
+            "it": "**La risposta breve con can: No, he can't.**\n- Can Jack drive? — Yes, he can. · No, he can't.",
+            "en": "**The short answer with can: No, he can't.**\n- Can Jack drive? — Yes, he can. · No, he can't."
+          }
+        }
+      ]
+    },
+    {
+      "id": "can-2",
+      "title": {
+        "sl": "At the inn · V gostilni",
+        "de": "At the inn · Im Gasthaus",
+        "it": "At the inn · Alla locanda",
+        "en": "At the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "can",
+          "instruction": {
+            "sl": "Fill in with can · Dopolni s can",
+            "de": "Fill in with can · Ergänze mit can",
+            "it": "Fill in with can · Completa con can",
+            "en": "Fill in with can"
+          },
+          "text": "Mrs Birkett ___ cook for forty people at the inn. Brewer Sam ___ (not) cook at all, but he makes very good ale. — ___ I help you, Mrs Birkett? — Oh yes, thank you! ___ you take these cups to the kitchen, please? — Of course. And I ___ wash them, too.",
+          "gaps": [
+            {
+              "accept": [
+                "can"
+              ]
+            },
+            {
+              "accept": [
+                "can't"
+              ],
+              "hint": "can + not"
+            },
+            {
+              "accept": [
+                "Can",
+                "Could"
+              ],
+              "hint": {
+                "sl": "ponudba",
+                "de": "ein Angebot",
+                "it": "un'offerta",
+                "en": "an offer"
+              }
+            },
+            {
+              "accept": [
+                "Could",
+                "Can"
+              ],
+              "hint": {
+                "sl": "vljudna prošnja",
+                "de": "eine höfliche Bitte",
+                "it": "una richiesta gentile",
+                "en": "a polite request"
+              }
+            },
+            {
+              "accept": [
+                "can"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "cans",
+            "do"
+          ],
+          "translation": {
+            "sl": "Gospa Birkett zna v gostilni skuhati za štirideset ljudi. Pivovar Sam sploh ne zna kuhati, dela pa zelo dobro pivo. — Vam lahko pomagam, gospa Birkett? — O ja, hvala! Lahko odneseš te skodelice v kuhinjo, prosim? — Seveda. Lahko jih tudi pomijem.",
+            "de": "Mrs Birkett kann im Gasthaus für vierzig Leute kochen. Brauer Sam kann überhaupt nicht kochen, aber er braut sehr gutes Bier. — Kann ich Ihnen helfen, Mrs Birkett? — Oh ja, danke! Könntest du bitte diese Tassen in die Küche bringen? — Natürlich. Und ich kann sie auch abwaschen.",
+            "it": "Mrs Birkett sa cucinare per quaranta persone alla locanda. Il birraio Sam non sa cucinare per niente, ma fa una birra molto buona. — Posso aiutarla, Mrs Birkett? — Oh sì, grazie! Potresti portare queste tazze in cucina, per favore? — Certo. E posso anche lavarle.",
+            "en": "Mrs Birkett can cook for forty people at the inn. Brewer Sam can't cook at all, but he makes very good ale. — Can I help you, Mrs Birkett? — Oh yes, thank you! Could you take these cups to the kitchen, please? — Of course. And I can wash them, too."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "can",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Can you come to the market tomorrow? — Yes, ___",
+          "options": [
+            "I can.",
+            "I do.",
+            "I am."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor: Yes, I can.**\n- Yes, I can. · No, I can't.",
+            "de": "**Die Kurzantwort: Yes, I can.**\n- Yes, I can. · No, I can't.",
+            "it": "**La risposta breve: Yes, I can.**\n- Yes, I can. · No, I can't.",
+            "en": "**The short answer: Yes, I can.**\n- Yes, I can. · No, I can't."
+          }
+        }
+      ]
+    },
+    {
+      "id": "can-3",
+      "title": {
+        "sl": "No, and questions · Ne in vprašanja",
+        "de": "No, and questions · Nein und Fragen",
+        "it": "No, and questions · No e domande",
+        "en": "No, and questions"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "can",
+          "instruction": {
+            "sl": "Say it with not · Povej z not",
+            "de": "Say it with not · Sag es mit not",
+            "it": "Say it with not · Dillo con not",
+            "en": "Say it with not"
+          },
+          "cue": "not",
+          "items": [
+            {
+              "from": "I can swim.",
+              "accept": [
+                "I can't swim."
+              ]
+            },
+            {
+              "from": "Meg can open the gate.",
+              "accept": [
+                "Meg can't open the gate."
+              ]
+            },
+            {
+              "from": "We can come tomorrow.",
+              "accept": [
+                "We can't come tomorrow."
+              ]
+            },
+            {
+              "from": "Mr Dixon can sing.",
+              "accept": [
+                "Mr Dixon can't sing."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**can + not: can't (cannot)**\n- I can swim. → I can't swim.",
+            "de": "**can + not: can't (cannot)**\n- I can swim. → I can't swim.",
+            "it": "**can + not: can't (cannot)**\n- I can swim. → I can't swim.",
+            "en": "**can + not: can't (cannot)**\n- I can swim. → I can't swim."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "can",
+          "instruction": {
+            "sl": "Ask · Postavi vprašanje",
+            "de": "Ask · Mach eine Frage",
+            "it": "Ask · Fai la domanda",
+            "en": "Ask"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "You can ride a bike.",
+              "accept": [
+                "Can you ride a bike?"
+              ],
+              "hint": {
+                "sl": "can na začetek",
+                "de": "can nach vorn",
+                "it": "can all'inizio",
+                "en": "can first"
+              }
+            },
+            {
+              "from": "Arthur can name every bird.",
+              "accept": [
+                "Can Arthur name every bird?"
+              ]
+            },
+            {
+              "from": "They can stay at the inn.",
+              "accept": [
+                "Can they stay at the inn?"
+              ]
+            },
+            {
+              "from": "Sam can drive the van.",
+              "accept": [
+                "Can Sam drive the van?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**can na začetek, brez do**\n- You can ride a bike. → Can you ride a bike?",
+            "de": "**can nach vorn, ohne do**\n- You can ride a bike. → Can you ride a bike?",
+            "it": "**can all'inizio, senza do**\n- You can ride a bike. → Can you ride a bike?",
+            "en": "**can first, no do**\n- You can ride a bike. → Can you ride a bike?"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "can",
+          "instruction": {
+            "sl": "Ask politely · Vprašaj vljudno",
+            "de": "Ask politely · Frag höflich",
+            "it": "Ask politely · Chiedi con gentilezza",
+            "en": "Ask politely"
+          },
+          "cue": "Could you …, please?",
+          "items": [
+            {
+              "from": "Open the gate.",
+              "accept": [
+                "Could you open the gate, please?",
+                "Could you please open the gate?",
+                "Can you open the gate, please?",
+                "Can you please open the gate?"
+              ]
+            },
+            {
+              "from": "Help me with this box.",
+              "accept": [
+                "Could you help me with this box, please?",
+                "Could you please help me with this box?",
+                "Can you help me with this box, please?",
+                "Can you please help me with this box?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Vljudno: Could you …, please?**\n- Open the gate. → Could you open the gate, please?",
+            "de": "**Höflich: Could you …, please?**\n- Open the gate. → Could you open the gate, please?",
+            "it": "**Con gentilezza: Could you …, please?**\n- Open the gate. → Could you open the gate, please?",
+            "en": "**Politely: Could you …, please?**\n- Open the gate. → Could you open the gate, please?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "can",
+        "instruction": {
+          "sl": "Fill in with can · Dopolni s can",
+          "de": "Fill in with can · Ergänze mit can",
+          "it": "Fill in with can · Completa con can",
+          "en": "Fill in with can"
+        },
+        "text": "Mr Dixon ___ make gates and horseshoes. — ___ you make a gate for my field, Mr Dixon? — Yes, I ___. But I ___ (not) make it this week. ___ you come back next week?",
+        "gaps": [
+          {
+            "accept": [
+              "can"
+            ]
+          },
+          {
+            "accept": [
+              "Can",
+              "Could"
+            ]
+          },
+          {
+            "accept": [
+              "can"
+            ]
+          },
+          {
+            "accept": [
+              "can't"
+            ]
+          },
+          {
+            "accept": [
+              "Can",
+              "Could"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Gospod Dixon zna narediti ograjna vrata in podkve. — Mi lahko naredite vrata za pašnik, gospod Dixon? — Ja, lahko. Ampak ta teden jih ne morem narediti. Lahko pridete nazaj naslednji teden?",
+          "de": "Mr Dixon kann Tore und Hufeisen machen. — Können Sie mir ein Tor für meine Weide machen, Mr Dixon? — Ja. Aber diese Woche kann ich es nicht machen. Können Sie nächste Woche wiederkommen?",
+          "it": "Mr Dixon sa fare cancelli e ferri di cavallo. — Può farmi un cancello per il mio campo, Mr Dixon? — Sì. Ma questa settimana non posso farlo. Può tornare la settimana prossima?",
+          "en": "Mr Dixon can make gates and horseshoes. — Can you make a gate for my field, Mr Dixon? — Yes, I can. But I can't make it this week. Can you come back next week?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "can",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Meg can run fast, but she ___ climb trees.",
+        "options": [
+          "can't",
+          "don't",
+          "isn't"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Zanikano: can't, brez do**\n- She can't climb trees. (Ne zna plezati po drevesih.)",
+          "de": "**Verneint: can't, ohne do**\n- She can't climb trees. (Sie kann nicht auf Bäume klettern.)",
+          "it": "**La negazione: can't, senza do**\n- She can't climb trees. (Non sa arrampicarsi sugli alberi.)",
+          "en": "**No: can't, with no do**\n- She can't climb trees."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "can",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Excuse me, ___ I sit here? — Yes, of course.",
+        "options": [
+          "can",
+          "do",
+          "am"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Dovoljenje: Can I …?**\n- Can I sit here? (Lahko sedem sem?)",
+          "de": "**Erlaubnis: Can I …?**\n- Can I sit here? (Kann ich mich hier hinsetzen?)",
+          "it": "**Il permesso: Can I …?**\n- Can I sit here? (Posso sedermi qui?)",
+          "en": "**Asking if it's allowed: Can I …?**\n- Can I sit here?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "can",
+        "instruction": {
+          "sl": "Ask · Postavi vprašanje",
+          "de": "Ask · Mach eine Frage",
+          "it": "Ask · Fai la domanda",
+          "en": "Ask"
+        },
+        "cue": "?",
+        "items": [
+          {
+            "from": "Granny Maggie can make scones.",
+            "accept": [
+              "Can Granny Maggie make scones?"
+            ]
+          },
+          {
+            "from": "You can come to the inn tonight.",
+            "accept": [
+              "Can you come to the inn tonight?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**can na začetek, brez do**\n- You can come. → Can you come?",
+          "de": "**can nach vorn, ohne do**\n- You can come. → Can you come?",
+          "it": "**can all'inizio, senza do**\n- You can come. → Can you come?",
+          "en": "**can first, no do**\n- You can come. → Can you come?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "can",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          {
+            "from": "Jack can come to the market.",
+            "accept": [
+              "Jack can't come to the market."
+            ]
+          },
+          {
+            "from": "I can find my keys.",
+            "accept": [
+              "I can't find my keys."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**can + not: can't (cannot)**\n- I can find my keys. → I can't find my keys.",
+          "de": "**can + not: can't (cannot)**\n- I can find my keys. → I can't find my keys.",
+          "it": "**can + not: can't (cannot)**\n- I can find my keys. → I can't find my keys.",
+          "en": "**can + not: can't (cannot)**\n- I can find my keys. → I can't find my keys."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: Could you …, please? beside Can you …?, a gate for a field, can for znati, moči and smeti"
+}
