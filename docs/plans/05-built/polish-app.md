@@ -258,8 +258,8 @@ passes before that point.
 
 ## Tests and checks
 
-- **Android unit suite:** 3,660 tests in 471 classes, 0 failures, 2 skipped (the whole branch, the helpers' commits
-  in). Gradle ran with `-Pkotlin.compiler.execution.strategy=in-process -Dorg.gradle.jvmargs=-Xmx5g`: the shared Kotlin
+- **Android unit suite:** 3,661 tests in 471 classes, 0 failures, 2 skipped (the whole branch, the helpers' commits
+  in, rebased on main at 87f550cf; main's later commits up to 6294254c are course content and docs). Gradle ran with `-Pkotlin.compiler.execution.strategy=in-process -Dorg.gradle.jvmargs=-Xmx5g`: the shared Kotlin
   daemon ran out of memory on the busy machine. New or extended in this
   round:
   - `FeedbackPlaceTest` (+2: the fold, the height kept, the reset, no stage)
@@ -271,7 +271,7 @@ passes before that point.
   - `ExerciseSpeechTest` (6), `VisitAheadTest` (2), `VisitClipsTest` (+1), `HintVoiceOfflineTest` (2)
   - `MillLightTest` (3), `CultureLooksTest` "mill" (two digests retaken)
   - `TurnHintTest` (14), `CaseTriggersTest` (3), `TurnHintLensTest` (1), `IntroBoldTapTest` (2)
-- **Bridge:** `bunx tsc --noEmit -p .` clean. The smoke passed with 3,269 checks (`LANI_SMOKE_PORT=9630`, `…FRIULI…=9633`,
+- **Bridge:** `bunx tsc --noEmit -p .` clean. The smoke passed with 3,272 checks on main at 6294254c (`LANI_SMOKE_PORT=9630`, `…FRIULI…=9633`,
   `…TOWN…=9636`, `LANI_SMOKE_DRAMA3_PORT=9648`). New checks: the words-added note's timing, the look-only refusal and
   rule, every culture pack's scenes, the visit voices' re-checks, prepare and own voice (43, from 31), and the hint
   fixture against the lens. `tutor-export --check`: 89 files match (54 tools, 32 guide topics). The voices helper ran the
