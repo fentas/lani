@@ -1,0 +1,566 @@
+{
+ "schema": "lani.ispy/v0",
+ "scene": "at-the-tarn",
+ "language": "en",
+ "machine_written": true,
+ "review": "clues: machine-written (Claude) in en, with sl translations, from the pond's picture in its Lakeland look (the tarn dark and still below the fells, pines and birches round it, the water lilies, the reeds, the wooden jetty and its boat; the colours as allo-stagno's clues have them); the animals when they are out; not reviewed by a native speaker",
+ "things": {
+  "pond": {
+   "clues": [
+    {
+     "kind": "trait",
+     "en": "Its water is still and dark.",
+     "sl": "Njegova voda je mirna in temna.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "where",
+     "en": "It lies below the fells.",
+     "sl": "Leži pod hribi.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "In winter it freezes.",
+     "sl": "Pozimi zamrzne.",
+     "grammar": [
+      "present-simple"
+     ]
+    },
+    {
+     "kind": "use",
+     "en": "Ducks swim on it.",
+     "sl": "Po njem plavajo race.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    }
+   ]
+  },
+  "lilies": {
+   "clues": [
+    {
+     "kind": "trait",
+     "en": "It has big round leaves.",
+     "sl": "Ima velike okrogle liste.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "In summer it has white flowers.",
+     "sl": "Poleti ima bele cvetove.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It floats on the water.",
+     "sl": "Plava na vodi.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "where",
+     "en": "A frog sits on it.",
+     "sl": "Na njem sedi žaba.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    }
+   ]
+  },
+  "reeds": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "In summer it's green.",
+     "sl": "Poleti je zelene barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "size",
+     "en": "It's tall.",
+     "sl": "Visok je.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "where",
+     "en": "It grows at the edge of the water.",
+     "sl": "Raste ob robu vode.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "use",
+     "en": "Ducks hide in it.",
+     "sl": "Race se skrivajo v njem.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    }
+   ]
+  },
+  "frog": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "It's green.",
+     "sl": "Je zelene barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "size",
+     "en": "It's small.",
+     "sl": "Majhna je.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It says ribbit.",
+     "sl": "Rega.",
+     "grammar": [
+      "present-simple"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It's good at jumping.",
+     "sl": "Dobro skače.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "use",
+     "en": "It catches flies.",
+     "sl": "Lovi muhe.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "ducks": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "It's brown.",
+     "sl": "Je rjave barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has a flat beak.",
+     "sl": "Ima ploščat kljun.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It swims on the tarn.",
+     "sl": "Plava po jezercu.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It says quack.",
+     "sl": "Gaga.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "jetty": {
+   "clues": [
+    {
+     "kind": "material",
+     "en": "It's made of wood.",
+     "sl": "Narejen je iz lesa.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "size",
+     "en": "It's long.",
+     "sl": "Dolg je.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "where",
+     "en": "It goes out over the water.",
+     "sl": "Sega nad vodo.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "where",
+     "en": "There's a boat next to it.",
+     "sl": "Zraven je čoln.",
+     "grammar": [
+      "there-is-are",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "use",
+     "en": "Old Wilf fishes from it.",
+     "sl": "Stari Wilf z njega lovi ribe.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "boat": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "It's brown.",
+     "sl": "Je rjave barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "material",
+     "en": "It's made of wood.",
+     "sl": "Narejen je iz lesa.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "where",
+     "en": "It's by the jetty.",
+     "sl": "Je ob pomolu.",
+     "grammar": [
+      "to-be",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It's tied with a rope.",
+     "sl": "Privezan je z vrvjo.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "use",
+     "en": "We go out on the water in it.",
+     "sl": "Z njim gremo na vodo.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "fish": {
+   "clues": [
+    {
+     "kind": "trait",
+     "en": "It has no legs.",
+     "sl": "Nima nog.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has scales.",
+     "sl": "Ima luske.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It swims under the water.",
+     "sl": "Plava pod vodo.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It jumps out of the water.",
+     "sl": "Skoči iz vode.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "heron": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "It's grey.",
+     "sl": "Je sive barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has long legs.",
+     "sl": "Ima dolge noge.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has a long beak.",
+     "sl": "Ima dolg kljun.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It catches fish.",
+     "sl": "Lovi ribe.",
+     "grammar": [
+      "present-simple"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It stands still for a long time.",
+     "sl": "Dolgo stoji pri miru.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "dragonfly": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "It's red.",
+     "sl": "Je rdeče barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has a long body.",
+     "sl": "Ima dolgo telo.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has four wings.",
+     "sl": "Ima štiri krila.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It flies fast over the water.",
+     "sl": "Hitro leti nad vodo.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "deer": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "It's brown.",
+     "sl": "Je rjave barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It's shy.",
+     "sl": "Plašna je.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has thin legs.",
+     "sl": "Ima tanke noge.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It lives in the wood.",
+     "sl": "Živi v gozdu.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "In the morning and the evening it drinks here.",
+     "sl": "Zjutraj in zvečer tu pije.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "fox": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "It's orange.",
+     "sl": "Je oranžne barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has a bushy tail.",
+     "sl": "Ima košat rep.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It's clever.",
+     "sl": "Zvita je.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It hunts mice.",
+     "sl": "Lovi miši.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  },
+  "butterfly": {
+   "clues": [
+    {
+     "kind": "size",
+     "en": "It's small.",
+     "sl": "Majhen je.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "trait",
+     "en": "It has colourful wings.",
+     "sl": "Ima pisana krila.",
+     "grammar": [
+      "to-have"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It likes flowers.",
+     "sl": "Ima rad rože.",
+     "grammar": [
+      "present-simple"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It flies from flower to flower.",
+     "sl": "Leta od cveta do cveta.",
+     "grammar": [
+      "present-simple",
+      "prepositions-place"
+     ]
+    }
+   ]
+  },
+  "bat": {
+   "clues": [
+    {
+     "kind": "colour",
+     "en": "It's black.",
+     "sl": "Je črne barve.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "size",
+     "en": "It's small.",
+     "sl": "Majhen je.",
+     "grammar": [
+      "to-be"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It flies at night.",
+     "sl": "Leta ponoči.",
+     "grammar": [
+      "present-simple"
+     ]
+    },
+    {
+     "kind": "does",
+     "en": "It sleeps upside down.",
+     "sl": "Spi z glavo navzdol.",
+     "grammar": [
+      "present-simple"
+     ]
+    }
+   ]
+  }
+ }
+}
