@@ -28,6 +28,8 @@ import si.lanisce.lani.game.scene.SceneSpec
 import si.lanisce.lani.game.scene.Stories
 import si.lanisce.lani.game.villagers.Residents
 import si.lanisce.lani.game.villagers.Villager
+import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.LangPair
 import si.lanisce.lani.ui.scene.SceneWords
 import si.lanisce.lani.ui.stage.Cast
 import si.lanisce.lani.ui.stage.Run
@@ -70,6 +72,11 @@ class DayAudioGather(
     private val isSlovene: (String) -> Boolean = { false },
     /** The node voices an explanation as one clip ([si.lanisce.lani.data.IntroVoice.FEATURE]): only then are they asked for. */
     private val explains: Boolean = false,
+    /**
+     * The learner's own pair ([L10n.ownPair]): the day is the learner's own village's, said in its language, also while a
+     * visit shows another town's (the labels' pair is then the town's: the villagers' lines would be their translations).
+     */
+    private val pair: LangPair = L10n.ownPair,
 ) {
     /** Today's list and tomorrow's ([now]: what of today is already past isn't asked for). */
     suspend fun plan(now: LocalDateTime = LocalDateTime.now()): DayPlan {
@@ -164,7 +171,7 @@ class DayAudioGather(
     /** Everyone in the village that day ([Residents.present]): their lines and the day's greetings, in their voices. */
     private fun villagers(d: LocalDate): List<DayWant> {
         val present = state?.let { Residents.present(it, d) }
-        return cast.filter { present == null || it.id in present }.flatMap { v -> DayAudio.villager(v, { it.target }, greetings, voicesOf(v)) }
+        return cast.filter { present == null || it.id in present }.flatMap { v -> DayAudio.villager(v, { it.target(pair) }, greetings, voicesOf(v)) }
     }
 
     /**

@@ -82,7 +82,6 @@ import si.lanisce.lani.ui.theme.SloBlueDeep
 import si.lanisce.lani.l10n.L10n
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.bi
-import si.lanisce.lani.l10n.inTarget
 
 /** Lani's page in the system settings: after "don't ask again", only there can a permission be allowed. */
 fun openAppSettings(context: Context) = runCatching {
@@ -372,12 +371,19 @@ fun GradientHeader(title: String, subtitle: String?, back: String, onBack: () ->
         }
     }
 
-/** A greeting for the time of day in the learner's target language: in Slovene, the ones from lesson 1 and 2. */
-fun greeting(hour: Int): String = when (hour) {
-    in 4..9 -> inTarget("components.goodMorning")
-    in 10..17 -> inTarget("components.goodDay")
-    else -> inTarget("components.goodEvening")
-}
+/**
+ * A greeting for the time of day in the learner's target language ([lang]: the labels' own, a visit's on a visit): in
+ * Slovene, the ones from lesson 1 and 2.
+ */
+fun greeting(hour: Int, lang: Lang = L10n.pair.target): String = L10n.text(
+    lang,
+    when (hour) {
+        in 4..9 -> "components.goodMorning"
+        in 10..17 -> "components.goodDay"
+        else -> "components.goodEvening"
+    },
+    emptyMap(),
+)
 
 /**
  * A bar behind the status bar that fades in once [list] scrolls past its first item (an edge-to-edge

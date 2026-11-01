@@ -963,9 +963,10 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
             pack = { id -> runCatching { b.pack(id) }.getOrNull() ?: scenes.packs[id] },
             state = game.state, scenes = scenes.all, cast = villagers.all, profiles = clips.profiles, level = ::levelIn,
             grammar = if (grammar.language == target) grammar.pages else emptyList(), mastery = grammar::mastery, ispy = ispy::book,
-            greetings = listOf(6, 12, 20).map { si.lanisce.lani.ui.greeting(it) }, target = target,
+            // the learner's own village's day, in its language: never a visit's labels (L10n.pair is the town's then)
+            greetings = listOf(6, 12, 20).map { si.lanisce.lani.ui.greeting(it, L10n.ownPair.target) }, target = target,
             course = school.course, teacher = school.teacher(), base = L10n.ownPair.base.code, isSlovene = speaker::isSlovene,
-            explains = d.features.contains(si.lanisce.lani.data.IntroVoice.FEATURE),
+            explains = d.features.contains(si.lanisce.lani.data.IntroVoice.FEATURE), pair = L10n.ownPair,
         )
     }
 
