@@ -314,6 +314,28 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, en("let's go", "Let us go."))
     }
 
+    @Test fun `an english contraction without its apostrophe is almost, a word of its own stays wrong`() {
+        // a phone keyboard hides the apostrophe: almost, with the hint, never right
+        for ((typed, right) in listOf("cant" to "can't", "isnt" to "isn't", "I dont know" to "I don't know.", "Im here" to "I'm here.", "youre late" to "you're late",
+            "theyve got a dog" to "They've got a dog.", "wont" to "won't", "Jack wasnt there" to "Jack wasn't there.", "hes got a cat" to "He's got a cat.", "wheres Meg" to "Where's Meg?")) {
+            val r = en(typed, right)
+            assertEquals("$typed for $right", Verdict.ALMOST to Hint.APOSTROPHE, r.verdict to r.hint)
+        }
+        // a word of its own is another word: were and we're, its and it's, each wrong for the other
+        assertEquals(Verdict.WRONG, en("were", "we're").verdict)
+        assertEquals(Verdict.WRONG, en("We're at home.", "We were at home.").verdict)
+        assertEquals(Verdict.WRONG, en("Were at home", "We're at home.").verdict)
+        assertEquals(Verdict.WRONG, en("its", "it's").verdict)
+        assertEquals(Verdict.WRONG, en("Its raining", "It's raining.").verdict)
+        assertEquals(Verdict.WRONG, en("lets go", "Let's go.").verdict)
+        // with the apostrophe, or in full, it stays right
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("can't", "can't"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("cannot", "can't"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("can not", "can't"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("The dog wags its tail", "The dog wags its tail."))
+        assertEquals(Hint.APOSTROPHE, Spelling.of(Lang.EN).looseHint)
+    }
+
     @Test fun `english has no letters to fold`() {
         assertEquals(Verdict.WRONG, en("I do know", "I don't know.").verdict)
         assertEquals("café", Grading.fold("Café", Lang.EN))
