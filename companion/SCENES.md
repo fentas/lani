@@ -2546,7 +2546,7 @@ has, the story first ([What someone has here](#what-someone-has-here)).
 
 A telling is a scene dialog told by the teller: his lines have no `who` (the happening's person says them; the panel's
 header shows him with his face, [Faces](#faces-the-person-you-talk-to-and-their-expressions): his lines and replies may
-carry a `face` as a scene's do: the curated ones have theirs, 1,997 in the 52 stories, the teller acting the tale out, about
+carry a `face` as a scene's do: the curated ones have theirs, 2,228 in the 58 stories, the teller acting the tale out, about
 half his lines, every reaction and nearly every reply; docs/plans/05-built/ux-polish.md), the first is his, and it has at least one turn for the
 learner: a question he asks ("Povej: kaj je naredil lovec?") that the
 choices answer, or a reaction ("O, ne! Ubogi Zlatorog!"); every wrong choice has its `why` and the teller's reaction as
@@ -2608,7 +2608,7 @@ telling only when its clips exist. A line without a clip yet is voiced when it i
 | `primorska` | Stari Janez | Zlatorog (A1–B1), Kralj Matjaž (A1–B1), Martin Krpan (4 chapters, A1–A2), Peter Klepec, Lepa Vida (A1–B1), Povodni mož, Zvon želja (the wishing bell of Bled), Desetnica, Ajdovska deklica (A1–A2); then Ljubljanski zmaj (A1–B1), Mojca Pokrajculja, Bogatinovo zlato (A1–B1, going on from Zlatorog), Pegam in Lambergar (A1–B1), Kekec, Veronika Deseniška (2 chapters, A1–B1), Jurij Kozjak (3 chapters) (A1–A2 where not said, machine-written); their words in `packs/zgodbe.json` and `packs/pripovedke.json` |
 | `friuli` | Nonno Bepi | Le agane, Il Ponte del Diavolo (Cividale), Il colle di Udine, Gli sbilfs, L'Orcolat; then La Madonna del Lussari (Svete Višarje), Le krivapete (Benečija), La Bora e Tergesteo (Trieste), La Dama Bianca di Duino, Lopichis e il lupo (Paul the Deacon); then I benandanti (told kindly: fennel against sorghum for the harvest), Il mantello di San Martino, Il fumo del Pignarûl (Tarcento's Epiphany fire), Il viaggio del cramâr (over the Monte Croce pass with the crassigne), La notte delle lanterne (the carnival of Sauris), La camicia dell'uomo contento (Calvino's Friulian tale) (A1–A2, in Italian with Slovene, English and German, machine-written; docs/plans/05-built/stories-friuli.md); their words in `packs/storie.json`, `packs/leggende.json` and `packs/racconti.json` |
 | `kaernten` | Opa Sepp | Der Lindwurm (Klagenfurt), Als der Dobratsch brach (1348), Wie der Wörthersee entstand, König Matthias in der Petzen (Kralj Matjaž), Die Riesen in den Karawanken; then Die Maultasch vor Hochosterwitz (the bull full of rye), Das Kasermandl, Die Perchtl (Pehtra baba), Die tausend Statuen von Millstatt, Die heilige Hemma (A1–A2, in German with Slovene, English and Italian, machine-written); their words in `packs/geschichten.json` and `packs/sagen.json` |
-| `lakeland` | Old Wilf | The Borrowdale cuckoo, The Bowder Stone, The Lady of the Lake (Bassenthwaite), The Giant's Grave (Penrith), The hob; then The Crier of Claife, Long Meg and her Daughters, The Luck of Edenhall, King Dunmail's Crown, Tom Fool of Muncaster (A1–A2, in English with Slovene, Italian and German, machine-written); their words in `packs/tales.json` and `packs/legends.json` |
+| `lakeland` | Old Wilf | The Borrowdale cuckoo, The Bowder Stone, The Lady of the Lake (Bassenthwaite), The Giant's Grave (Penrith), The hob; then The Crier of Claife, Long Meg and her Daughters, The Luck of Edenhall, King Dunmail's Crown, Tom Fool of Muncaster; then The Lambton Worm (the north's worm tale, from over the Pennines), The Kings of Mardale (Hugh's Cave and the village under Haweswater), The Black Lead of Borrowdale (the Keswick pencil), The Herdwicks (the heaf and the shepherds' meet), Mrs Heelis of Hill Top (Beatrix Potter's farms), The Rushbearing (A1–A2, in English with Slovene, Italian and German, machine-written; docs/plans/05-built/stories-lakeland.md); their words in `packs/tales.json`, `packs/legends.json` and `packs/yarns.json` |
 
 ### The story notebook
 
@@ -2677,7 +2677,7 @@ fair hair, a shining sword or bell, the treasure) and a caption; the far ones ar
 
 The bridge checks them (`validateStory`: the ids, where they stand, the evening and the paragraph, the caption's
 languages; a culture's check wants 2–4 for a curated story, one or two an evening in chapters), and `publish_story`
-takes a tutor's story with its pictures. The four packs' 52 stories have 133 between them, their captions in the app's
+takes a tutor's story with its pictures. The four packs' 58 stories have 151 between them, their captions in the app's
 four languages (machine-written, like the packs' other stories): Zlatorog white with his golden horns above the white
 ladies, King Matjaž asleep at his stone table, an evening each of Martin Krpan (his mare lifted into the snow, Brdavs
 in Vienna, the club from the empress's linden, the fight), the wishing bell sinking in the storm and ringing on its

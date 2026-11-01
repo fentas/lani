@@ -1705,7 +1705,10 @@ five or six new words. The chest's readings have their questions' types, a true/
 context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
 readings say so in their `review`). Friuli's corner has as many, nine: besides Nonna Rosa's recipes and Nonno Bepi's
 books, Tommaso's letter and Giulia's trip to Aquileia (A1), the Tagliamento and the cjarsons (A2), the pilgrims of
-Monte Lussari (B1), each with five questions of every type (see "The friuli pack").
+Monte Lussari (B1), each with five questions of every type (see "The friuli pack"). The Lake District's has nine too:
+besides Granny Maggie's recipes, Old Wilf's books and Mrs Hartley's schoolbook, Auntie Edna's letter from Keswick and
+Poppy's rushbearing day (A1), Shepherd Jack on lost sheep and the shepherds' meet (A2), and Mr Tyson on Mrs Heelis and
+her farms (B1, its first), each with five questions of every type (see "The lakeland pack").
 
 A reading opens in the chest's reading view: its lines to read first, then, once started, its questions one at a time with the text hidden ("Read first, then answer"), each with its type ("Glavna misel · The main idea", "Podrobnost · A detail", "Beseda v besedilu · A word in context", "Drži ali ne drži? · True or false?", "Med vrsticami · Between the lines"): a true/false statement offers "Drži" and "Ne drži". Once they're all answered, the score and its new words, each with what it means and "➕ Dodaj" (a review item, `POST /words`, the line it stands in as the example); every other word opens its word card, with its own ➕.
 
@@ -2401,16 +2404,24 @@ is left out: it is Scottish, not Cumbrian. Each feast has its word pack in `cult
 words). Its own place is On the fell (`scenes/on-the-fell.json`, the `alps` art at the horizon: the fell above a lake,
 the little chapel and its packhorse bridge, a drystone wall, a force; the chamois and the ibex the painter draws are a
 wild goat and a Herdwick ram here), its words in `packs/on-the-fell.json`; its campfire is By the fire
-(`scenes/by-the-fire.json`, words in `packs/by-the-fire.json`), where Old Wilf tells his five legends in the evening
-(`stories/`: the Borrowdale cuckoo, the Bowder Stone, the Lady of the Lake, the Giant's Grave at Penrith, the hob;
-words in `packs/tales.json`). The starter packs of English are in `companion/packs/en/`: `greetings`, `family`,
+(`scenes/by-the-fire.json`, words in `packs/by-the-fire.json`), where Old Wilf tells his legends in the evening
+(`stories/`, 16 as Primorska has: the Borrowdale cuckoo, the Bowder Stone, the Lady of the Lake, the Giant's Grave at
+Penrith, the hob and eleven more, companion/SCENES.md "Stories"; words in `packs/tales.json`, `packs/legends.json` and
+`packs/yarns.json`). The starter packs of English are in `companion/packs/en/`: `greetings`, `family`,
 `home-and-kitchen`, `food`, `numbers-and-time`, `in-the-village` (A1, 21–24 words each, without articles, with their
 plurals, examples in all four languages, and notes on false friends and British words). The thanks goods are the
 region's (sticky toffee pudding, porridge oats, heather honey, Herdwick wool, Lakeland ale, a knitted tea cosy, Kendal
 mint cake, tatie pot …); the packman sells Cumberland ham, Morecambe Bay shrimps, tea and spices from Whitehaven. Granny
 Maggie's recipes are tatie pot (A1) and sticky toffee pudding (A2), Old Wilf's old book a page about counting sheep the
 old way (yan, tyan, tethera, A1) and his book of sayings (A2), Mrs Hartley's schoolbook a page on the irregular plurals
-(A2), all in English with Slovene, Italian and German (`readings/`). The voice cast (`voice-cast.json`) has the same
+(A2), all in English with Slovene, Italian and German (`readings/`). The reading corner has four more, nine in all
+as Primorska has: Auntie Edna's letter ("A letter from Keswick", A1: a rainy day at the Pencil Museum, its giant pencil
+and the secret map pencil of the war), Poppy's school page ("Rushbearing day", A1: her harp of rushes, the band, the six
+Rush Maidens and their white sheet, the gingerbread), Shepherd Jack on the strays ("Lost sheep and the shepherds' meet",
+A2: the heaf a ewe teaches her lamb, the lug marks, the Shepherds' Guide of 1817, the strays given back at the inn) and
+Mr Tyson on his landlord ("Mrs Heelis and her farms", B1: Beatrix Potter's Hill Top, her Herdwicks and the fifteen farms
+she left to the National Trust); each with five questions, one of every type, and six to eight new words meant in
+Slovene, Italian and German (machine-written, `review`; docs/plans/05-built/stories-lakeland.md). The voice cast (`voice-cast.json`) has the same
 archetypes, in English: British voices for the narrators and the grandparents, no northern one yet (README, "Voice").
 
 ### The map in a culture's look
