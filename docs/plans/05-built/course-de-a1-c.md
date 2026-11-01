@@ -134,18 +134,26 @@ meaning for the word …".
 ## Checks
 
 - `bunx tsc --noEmit -p .`: clean.
-- The smoke (ports 9870, 9873, 9876; Drama 3 on 9888): see the report's numbers. The one failure is part a's
-  kaernten print check, which wants "Ich bin Eva." where the sheet bolds the form ("Ich <b>bin</b> Eva."). Part a is
-  fixing it.
+- The smoke (ports 9870, 9873, 9876; Drama 3 on 9888): 3,328 checks pass, none fail. That is with part a's fix of
+  its kaernten print check (e6321930, cherry-picked) and the shared course-speech fix.
+- `tutor-export --check`: 89 files match the bridge. Python: 251 tests (tests) and 142 (companion/tests, 11 skipped),
+  all pass.
 - The units' own checks, from the scratchpad:
   - `validateUnit` in en, sl and it, every text in each base, every step's point on the print's rule line;
   - every right answer correct in a Python port of `Grading`, every distractor wrong, no choice option close to its
     answer;
   - every page valid with every base.
-- Android: GermanCourseContentTest, GradingLanguagesTest, GrammarTest, SchoolBoardTest, and the full suite through
-  lani-slot (the report has the numbers).
-- Emulator QA (qa-slot, `--steps course-unit`): a synthetic learner of German from Slovene in the Carinthian
-  village, uhrzeit end to end and its print. The screenshots are in the scratchpad's `ux-course-de-a1-c/`.
+- Android, the full unit suite through lani-slot: 3,702 tests in 475 classes, none failed (2 skipped). Among them:
+  GermanCourseContentTest 5 (every unit parsed and played, every right answer graded right, no distractor even
+  almost right, every text in en, sl and it), GradingLanguagesTest 38, GrammarTest 16, SchoolBoardTest 6 (the
+  blackboard writes every letter of the six units), CourseContentTest 5 and ItalianCourseContentTest 6.
+- Emulator QA (qa-slot slot 1, `--steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`,
+  `LANI_QA_COURSE_UNIT=uhrzeit`): a synthetic learner of German from Slovene in the Carinthian village plays uhrzeit
+  end to end and passes. The run covers Eva's five steps with each quick question typed, the summary, the first
+  worksheet and the test, then prints the A4 sheet to a PDF; setup, course-unit and the crash check are all ok. The
+  18 screenshots (cu-*.png: the school, the unit, the intro's steps, the sheet checked, the test passed, the print's
+  preview and PDF) are in the scratchpad's `ux-course-de-a1-c/`. The print reads "Lektion 8" because only units 1–6
+  and 13–18 are written on this branch; it becomes 14 once part b lands.
 
 ## Voice (no credits spent)
 
