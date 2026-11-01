@@ -47,6 +47,9 @@ import kotlin.math.sin
  * Friuli's fire station ([look]; companion/SCENES.md "Culture looks"): the tower and the walls' outsides of river cobbles in
  * courses with bands of brick, its roof of coppi; the sign VVF (vigili del fuoco); the helmets of polished steel; the
  * picture of Santa Barbara, the patron of the Italian firemen, with her tower; the banner the tricolore.
+ *
+ * Carinthia's (kaernten-projects-b): the sign FF (Freiwillige Feuerwehr) over the doors and the banner Austria's red, white
+ * and red; St Florian, the Austrian firemen's patron too, is the art's own picture.
  */
 internal class FirestationPainter : RoomPainter() {
     override val art = "firestation"
@@ -108,6 +111,8 @@ internal class FirestationPainter : RoomPainter() {
     private var chrome = false
     private var barbara = false
     private var tricolore = false
+    /** Carinthia's banner: Austria's red, white and red, in bands down the cloth. */
+    private var austria = false
 
     private var bellAngle = 0f
 
@@ -127,10 +132,11 @@ internal class FirestationPainter : RoomPainter() {
     private fun readStation() {
         cobbles = material("walls", "plaster") == "cobbles"
         coppi = material("roof", "shingles") == "coppi"
-        sign = if (variant("sign") == "vvf") "VVF" else "PGD"
+        sign = when (variant("sign")) { "vvf" -> "VVF"; "ff" -> "FF"; else -> "PGD" }
         chrome = variant("helmet") == "chrome"
         barbara = variant("picture") == "barbara"
         tricolore = variant("flag") == "it"
+        austria = variant("flag") == "at"
     }
 
     /** The doors' angle, 0 shut … 1 wide open: as `doors` has it, else open by day and shut at night. */
@@ -418,7 +424,7 @@ internal class FirestationPainter : RoomPainter() {
         return Col.scale(col, dim)
     }
 
-    /** The brigade's sign over the doors: a cream board, a red border, the letters PGD (in Friuli VVF). */
+    /** The brigade's sign over the doors: a cream board, a red border, the letters PGD (in Friuli VVF, in Carinthia FF). */
     private fun signBoard() {
         val ya = y0 + 0.04f
         val a0 = (da + db) / 2f - 1.45f; val a1 = (da + db) / 2f + 1.45f
@@ -505,6 +511,7 @@ internal class FirestationPainter : RoomPainter() {
             when {
                 z < hem + 0.7f -> if (Dither.at(px, py) < 0.5f) Pal.GOLD else bellD
                 tricolore -> when { u < 0.33f -> Col.hex(0x2E8A44); u < 0.67f -> Pal.FLAG_WHITE; else -> Pal.FLAG_RED }.let { if (e < 0.6f) Col.scale(it, 0.85f) else it }
+                austria -> (if (abs((z - za) / (zb - za) - 0.5f) < 1f / 6f) Pal.FLAG_WHITE else Pal.FLAG_RED).let { if (e < 0.6f) Col.scale(it, 0.85f) else it }
                 e < 0.6f -> Pal.GOLD
                 // a white cross in a ring on the red
                 abs(u - 0.5f) * 1.3f < 0.07f && abs(z - (za + zb) / 2f - 0.5f) < 3f -> Col.hex(0xF6EEDC)

@@ -189,6 +189,8 @@ internal class SquarePainter : VistaPainter() {
     /** Friuli's greasy pole with its wheel of prizes, and its fountain's stone pine cone ([maypole], [trough]). */
     private var cuccagna = false
     private var pigna = false
+    /** Carinthia's Dorfbrunnen: St Florian on its pillar's cap, as on many an Austrian village's Florianibrunnen ([florian]). */
+    private var florianOnTop = false
     /**
      * Carinthia's look ([style]'s tower an onion): the houses white below with a timbered upper storey and a balcony of
      * geraniums under dark shingles ([house], [roof]), the church's tower under an onion dome of green copper ([church]),
@@ -233,6 +235,7 @@ internal class SquarePainter : VistaPainter() {
         gasthaus = variant("osteria") == "gasthaus"
         trough = variant("well") == "trough"
         pigna = variant("fountain") == "pigna"
+        florianOnTop = variant("fountain") == "florian"
         lakes = style?.tower == Tower.BATTLEMENTS
         oak = variant("linden") == "oak"; pump = variant("well") == "pump"; green = variant("ground") == "green"
         drywall = variant("fence") == "drystone"; daffodils = variant("flowers") == "daffodils"; fells = variant("hills") == "fells"
@@ -1953,6 +1956,7 @@ internal class SquarePainter : VistaPainter() {
         c.vline((cx - pw).toInt(), pTop.toInt(), pBot.toInt(), lime[0]); c.vline((cx + pw).toInt() - 1, pTop.toInt(), pBot.toInt(), lime[2])
         c.fillRect((cx - pw * 1.4f).toInt(), (pTop - 0.08f * p).toInt(), max(3, (2.8f * pw).toInt()), max(1, (0.12f * p).toInt()), lime[0])
         if (pigna && st >= 3) pineCone(cx, pTop - 0.08f * p, p)
+        else if (florianOnTop && st >= 3) florian(cx, pTop - 0.08f * p, p)
         else c.fillCircle(cx, pTop - 0.2f * p, max(1f, 0.16f * p), if (env.snow) Pal.SNOW_L else lime[0])
         // the pipes, fitted to the pillar
         val iron = Col.hex(0x3A3A44); val ironL = Col.hex(0x6A6A78)
@@ -1994,6 +1998,42 @@ internal class SquarePainter : VistaPainter() {
         }
         // its moulded collar on the cap
         c.hline((cx - rw).toInt(), (cx + rw).toInt(), y.toInt(), lime[1])
+    }
+
+    /**
+     * Carinthia's fountain ([florianOnTop]): a little figure of St Florian on the pillar's cap at row [y], the fire brigade's
+     * patron, as on the Florianibrunnen of Austrian villages: a Roman soldier in his red cloak and grey armour, his helmet,
+     * tipping his bucket of water; painted stone, snow on his helmet and shoulders in winter.
+     */
+    private fun florian(cx: Float, y: Float, p: Float) {
+        val k = detail
+        val hh = max(5f, 0.75f * p); val rw = max(1.2f, 0.12f * p)
+        val skin = Col.hex(0xE8B894); val armour = Col.hex(0x9AA0A8); val cloak = Col.hex(0xB8303A); val cloakD = Col.hex(0x8A2028)
+        // the plinth, a small block on the cap
+        c.fillRect((cx - rw * 1.3f).toInt(), (y - 0.12f * p).toInt(), max(3, (2.6f * rw).toInt()), max(1, (0.12f * p).toInt()), lime[1])
+        val foot = y - 0.12f * p
+        for (yy in max((foot - hh).toInt(), c.top)..min(foot.toInt(), c.bottom - 1)) {
+            val u = (foot - yy) / hh // 0 at the feet, 1 at the helmet's top
+            val half = when { u > 0.82f -> rw * 0.55f; u > 0.7f -> rw * 0.5f; else -> rw * (0.75f + 0.25f * (1f - u)) }
+            for (xx in (cx - half).toInt()..(cx + half).toInt()) {
+                val left = xx < cx
+                c.set(xx, yy, when {
+                    env.snow && (u > 0.88f || (u in 0.62f..0.7f && !left)) -> Pal.SNOW_L
+                    u > 0.82f -> if (left) Col.hex(0xC8CCD2) else armour // the helmet
+                    u > 0.7f -> skin // the face
+                    left && u < 0.66f -> if (u < 0.08f) cloakD else cloak // the cloak down his back
+                    u < 0.12f -> Col.hex(0x6A4A30) // the boots
+                    else -> armour
+                })
+            }
+        }
+        // his arm out to the right with the bucket, water tipping from it
+        val ay = foot - hh * 0.55f
+        c.hline(cx.toInt(), (cx + rw * 1.6f).toInt(), ay.toInt(), skin)
+        val bx = cx + rw * 1.6f
+        c.fillRect(bx.toInt(), ay.toInt(), max(2, (0.12f * p).toInt()), max(2, (0.1f * p).toInt()), Col.hex(0x7A5A3A))
+        if (!env.snow) for (j in 1..max(1, (0.18f * p).toInt())) c.blend((bx + 0.12f * p).toInt() + j / 3, ay.toInt() + j, Pal.WATER_L, 0.7f)
+        if (k > 1) c.set((cx - rw * 0.2f).toInt(), (foot - hh * 0.76f).toInt(), Col.hex(0x3A2A20))
     }
 
     /** The four jets ([much] 0..1) from the pipes at row [pipeY], [pl] px long out of a pillar [pw] px thick, down to [waterY]. */

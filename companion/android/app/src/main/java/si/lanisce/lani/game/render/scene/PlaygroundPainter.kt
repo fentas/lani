@@ -42,6 +42,9 @@ import kotlin.math.sin
  * Friuli's playground ([look]; companion/SCENES.md "Culture looks"): the school's wall pale yellow over a green dado, as the
  * Friuli school's classroom; a fontanella by the fence, the green cast-iron drinking fountain of the Italian towns, a thing
  * of its own (`fontanella`): only Friuli's look draws it ([si.lanisce.lani.game.scene.SceneFixtures]).
+ *
+ * Carinthia's playground (kaernten-projects-b): the school's side whitewashed as the art's, under dark larch shingles, its
+ * classroom window between green shutters folded back, and a window box under it, red geraniums in it from May to September.
  */
 internal class PlaygroundPainter : RoomPainter() {
     override val art = "playground"
@@ -87,6 +90,9 @@ internal class PlaygroundPainter : RoomPainter() {
     /** Friuli's look ([readLook2]): the school's wall pale yellow over a green dado, and the fontanella by the fence. */
     private var friuliSchool = false
     private var fontanella = false
+    /** Carinthia's look: the school's roof of dark larch shingles, green shutters by its window, geraniums in a box under it. */
+    private var kaerntenSchool = false
+    private val SHINGLE = Col.hex(0x5E5048); private val SHINGLE_L = Col.hex(0x7A6A5C); private val SHINGLE_D = Col.hex(0x3E342E)
 
     private val fine: Boolean get() = detail > 1
 
@@ -94,6 +100,7 @@ internal class PlaygroundPainter : RoomPainter() {
 
     private fun readLook2() {
         friuliSchool = variant("school") == "friuli"
+        kaerntenSchool = variant("school") == "kaernten"
         fontanella = variant("fontanella") != null
     }
 
@@ -180,6 +187,13 @@ internal class PlaygroundPainter : RoomPainter() {
                     if (e < 0.45f) Pal.STONE_L else if (abs(x - (swA + swB) / 2f) < 0.06f || abs(z - (swZa + swZb) * 0.55f) < 0.3f || abs(z - swZa - 2.5f) < 0.25f) Pal.WOOD_L
                     else if (env.windows > 0.3f) Col.hex(0x34465A) else Col.mix(Pal.GLASS_HI, skyAt(0.3f), 0.4f)
                 }
+                // Carinthia's: the window's green shutters folded back either side, their slats; a window box of red geraniums
+                // under it from May to September (the box itself all year)
+                kaerntenSchool && z in swZa..swZb && (x in swA - 0.85f..swA - 0.05f || x in swB + 0.05f..swB + 0.85f) ->
+                    if (((z - swZa) * 2.2f) % 1f < 0.3f) Col.hex(0x2E5A36) else if (x < swA) Col.hex(0x3E7A48) else Col.hex(0x356A40)
+                kaerntenSchool && x in swA - 0.25f..swB + 0.25f && z in swZa - 1.3f..swZa - 0.15f ->
+                    if (z < swZa - 0.75f || frame.month !in 5..9) (if (n < 0.2f) Pal.WOOD_D else Pal.WOOD_M)
+                    else if (Noise.rnd((x * 7f).toInt(), (z * 5f).toInt(), 213) < 0.45f) Col.hex(0xD8283A) else Col.hex(0x3E8A3A)
                 friuliSchool && z < 4.2f -> if (n < 0.1f) Col.hex(0x6F8F7A) else Col.hex(0xA9C9B2)
                 z < 2.2f -> if (n < 0.3f) Pal.STONE_D else if (n < 0.85f) Pal.STONE_M else Pal.STONE_L
                 z < 2.6f -> Pal.STONE_L
@@ -190,9 +204,9 @@ internal class PlaygroundPainter : RoomPainter() {
         }
         // its corner and the eave of its roof
         onX(sx1, sy0 - 0.5f, sy0, 0f, sh) { _, z, _, _ -> Col.scale(if (z < 2.2f) Pal.STONE_M else wm, 0.8f) }
-        val roof = if (winter) Pal.SNOW_L else Pal.ROOF_M
+        val roof = if (winter) Pal.SNOW_L else if (kaerntenSchool) SHINGLE else Pal.ROOF_M
         iso.quad(sx0 - 0.2f, sy0 - 0.6f, sh + 3.4f, sx1 + 0.3f, sy0 - 0.6f, sh + 3.4f, sx1 + 0.3f, sy0 + 0.5f, sh - 0.4f, sx0 - 0.2f, sy0 + 0.5f, sh - 0.4f, roof)
-        if (!winter) for (k in 0 until 4) { val f = k / 3f; iso.line(sx0 - 0.2f, sy0 - 0.6f + 1.1f * f, sh + 3.4f - 3.8f * f, sx1 + 0.3f, sy0 - 0.6f + 1.1f * f, sh + 3.4f - 3.8f * f, if (k == 3) Pal.ROOF_D else Pal.ROOF_L) }
+        if (!winter) for (k in 0 until 4) { val f = k / 3f; iso.line(sx0 - 0.2f, sy0 - 0.6f + 1.1f * f, sh + 3.4f - 3.8f * f, sx1 + 0.3f, sy0 - 0.6f + 1.1f * f, sh + 3.4f - 3.8f * f, if (k == 3) (if (kaerntenSchool) SHINGLE_D else Pal.ROOF_D) else if (kaerntenSchool) SHINGLE_L else Pal.ROOF_L) }
         // the lamp on its bracket at the corner, lit from dusk
         val lx = sx1 - 0.4f
         rod(lx, sy0, sh - 5f, lx, sy0 + 0.6f, sh - 5f, iron)

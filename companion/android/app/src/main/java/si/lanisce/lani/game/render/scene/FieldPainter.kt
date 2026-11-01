@@ -216,6 +216,7 @@ internal class FieldPainter : WildPainter() {
         collio = variant("hills") != null
         piantata = variant("trees") != null
         pannocchie = variant("toplar") == "pannocchie"
+        doppelharpfe = variant("toplar") == "harpfe"
         barn = variant("kozolec") == "barn"; drywall = variant("fence") == "drystone"; fells = variant("hills") == "fells"
         badger = variant("boar") == "badger"
         if (fells) collio = false
@@ -1908,8 +1909,19 @@ internal class FieldPainter : WildPainter() {
         else items.add(topD to { prop { toplar(st) } })
     }
 
+    /**
+     * Carinthia's Doppelharpfe for the toplar ([variant] "toplar": "harpfe"; kaernten-projects-b): its two racks of larch
+     * weathered silver-grey like the Harpfe's, taller, nine thin rails close together like a harp's strings, under a steeper
+     * roof of dark larch shingles laid in courses; built in the same steps (the logs, the stone feet, the eight posts, the
+     * rails, the roof, the first hay).
+     */
+    private var doppelharpfe = false
+
     private fun toplar(st: Int) {
         val k = detail
+        val wL = if (doppelharpfe) HARPFE_L else Pal.WOOD_L; val wM = if (doppelharpfe) HARPFE_M else Pal.WOOD_M
+        val wD = if (doppelharpfe) HARPFE_D else Pal.WOOD_D; val wX = if (doppelharpfe) HARPFE_X else Pal.WOOD_X
+        val railsHere = if (doppelharpfe) harpfeRails else rails
         val xsF = (0..3).map { topA + (topB - topA) * it / 3f }
         val dB = topD + topGap
         val p = pm(topD); val pB = pm(dB)
@@ -1935,24 +1947,24 @@ internal class FieldPainter : WildPainter() {
             c.hline((fx - 0.3f * pp).toInt(), (fx + 0.3f * pp).toInt() - 1, (fy - 0.3f * pp).toInt(), if (snow) Pal.SNOW_L else Pal.STONE_L)
         }
         if (st < 3) return
-        val eave = 4.7f; val ridgeH = 7f
+        val eave = if (doppelharpfe) 5.3f else 4.7f; val ridgeH = if (doppelharpfe) 8.4f else 7f
         // the back rack's posts, their poles, then the front rack's
         for ((d, pp) in listOf(dB to pB, topD to p)) {
             val back = d == dB
             val by = gy(d)
-            if (st >= 4) for (z in rails) {
+            if (st >= 4) for (z in railsHere) {
                 val y = (by - z * pp).toInt()
-                c.hline(gx(topA, d).toInt(), gx(topB, d).toInt(), y, if (back) Pal.WOOD_M else Pal.WOOD_L)
-                if (!back || k > 1) c.hline(gx(topA, d).toInt(), gx(topB, d).toInt(), y + 1, Pal.WOOD_D)
+                c.hline(gx(topA, d).toInt(), gx(topB, d).toInt(), y, if (back) wM else wL)
+                if (!back || k > 1) c.hline(gx(topA, d).toInt(), gx(topB, d).toInt(), y + 1, wD)
             }
             if (st >= 6 && !back) hay(topA, topB, d, full = true)
             for (x in xsF) {
                 val px = gx(x, d); val pw = max(1f, 0.28f * pp)
-                c.fillRect((px - pw / 2).toInt(), (by - eave * pp).toInt(), max(1, pw.toInt()), (eave * pp).toInt(), if (back) Pal.WOOD_D else Pal.WOOD_M)
-                if (!back && pw >= 2f) c.vline((px - pw / 2).toInt(), (by - eave * pp).toInt(), by.toInt() - 1, Pal.WOOD_L)
+                c.fillRect((px - pw / 2).toInt(), (by - eave * pp).toInt(), max(1, pw.toInt()), (eave * pp).toInt(), if (back) wD else wM)
+                if (!back && pw >= 2f) c.vline((px - pw / 2).toInt(), (by - eave * pp).toInt(), by.toInt() - 1, wL)
             }
             // the tie beams along the tops of the posts
-            c.hline(gx(topA, d).toInt() - k, gx(topB, d).toInt() + k, (by - eave * pp).toInt(), if (back) Pal.WOOD_D else Pal.WOOD_M)
+            c.hline(gx(topA, d).toInt() - k, gx(topB, d).toInt() + k, (by - eave * pp).toInt(), if (back) wD else wM)
         }
         if (st < 5) return
         // the plank roof over both racks: its front slope from the front eave up to the ridge above the middle, the boards
@@ -1968,6 +1980,17 @@ internal class FieldPainter : WildPainter() {
                 val board = (x - xl) / max(1, 2 * k)
                 c.set(x, y, when {
                     snow && u < 0.8f -> if (Noise.rnd(x, y, 91) < 0.1f) Pal.SNOW_M else Pal.SNOW_L
+                    // Carinthia's: dark larch shingles in courses down the slope, their joints staggered
+                    doppelharpfe -> {
+                        val step = max(2, 2 * k)
+                        val row = (y - yR.toInt()) / step
+                        when {
+                            (y - yR.toInt()) % step == 0 -> Pal.SHINGLE_D
+                            k > 1 && (x - xl + (row % 2) * 3 * k) % (6 * k) == 0 -> Pal.SHINGLE_D
+                            u < 0.3f -> Pal.SHINGLE_L
+                            else -> Pal.SHINGLE_M
+                        }
+                    }
                     (x - xl) % max(2, 2 * k) == 0 && k > 1 -> Pal.WOOD_D
                     Noise.rnd(board, 0, 92) < 0.3f -> Pal.WOOD_M
                     u < 0.25f -> Pal.WOOD_L
@@ -1975,8 +1998,8 @@ internal class FieldPainter : WildPainter() {
                 })
             }
         }
-        c.hline(gx(topA - over, dR).toInt(), gx(topB + over, dR).toInt(), yR.toInt() - 1, if (snow) Pal.SNOW_L else Pal.WOOD_X)
-        c.hline(gx(topA - over, dF).toInt(), gx(topB + over, dF).toInt(), yE.toInt() + 1, Pal.WOOD_X)
+        c.hline(gx(topA - over, dR).toInt(), gx(topB + over, dR).toInt(), yR.toInt() - 1, if (snow) Pal.SNOW_L else wX)
+        c.hline(gx(topA - over, dF).toInt(), gx(topB + over, dF).toInt(), yE.toInt() + 1, wX)
         if (pannocchie && st >= stages(TOPLAR) && (frame.month >= 8 || frame.month <= 3)) maizeCobs(xsF, eave)
     }
 

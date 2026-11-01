@@ -134,8 +134,59 @@ internal object KaerntenLooks {
      */
     val MARKET = Table.of("market", variants = mapOf("village" to "kaernten", "goods" to "kaernten"))
 
+    // ------------------------------------------------------------------ the village's projects and spots (kaernten-projects-b)
+
+    /**
+     * Florian's Feuerwehrhaus (Beim Feuerwehrhaus, FirestationPainter): the sign FF (Freiwillige Feuerwehr) over the doors
+     * (`sign`), the banner Austria's red, white and red in bands down the cloth (`flag`); St Florian pouring his bucket, the
+     * Austrian brigades' patron too, is the art's own picture.
+     */
+    val FIRESTATION = Table.of("firestation", variants = mapOf("sign" to "ff", "flag" to "at"))
+
+    /**
+     * Lehrerin Eva's Spielplatz (Am Spielplatz, PlaygroundPainter): the school's side under dark larch shingles, its classroom
+     * window between green shutters folded back, a window box under it, red geraniums in it from May to September (`school`).
+     */
+    val PLAYGROUND = Table.of("playground", variants = mapOf("school" to "kaernten"))
+
+    /**
+     * Kathi's Aussichtsturm (Auf dem Aussichtsturm, LookoutPainter): the view east down the lower Gailtal (`view`): the
+     * Dobratsch with its transmitter mast on the left, the Karawanken along the sky with the Mittagskogel's pyramid and its
+     * summit cross (the `peak`), the Faaker See in the valley under it (the art's `sea`), the village below as Carinthia
+     * builds it round its onion-domed church, Villach far off; Austria's flag on the roof.
+     */
+    val LOOKOUT = Table.of("lookout", variants = mapOf("view" to "kaernten"))
+
+    /**
+     * The Doppelharpfe beyond the wheat (Bei der Doppelharpfe, FieldPainter's toplar): its two racks of grey larch, taller,
+     * nine thin rails like a harp's strings, a steeper roof of dark larch shingles in courses (`toplar`), as the Harpfe is.
+     */
+    val FIELD_TOPLAR = Table.of("field", variants = mapOf("toplar" to "harpfe"))
+
+    /**
+     * The Dorfbrunnen in the middle of the square (Am Dorfbrunnen, SquarePainter's fountain): the art's eight-sided trough of
+     * white stone with its pillar and four iron spouts, and on the pillar's cap St Florian with his bucket (`fountain`), as on
+     * the Florianibrunnen of Austrian villages. The church tower's clock (Unter der Kirchturmuhr) is the art's, in the onion-
+     * domed tower SQUARE draws.
+     */
+    val SQUARE_BRUNNEN = Table.of("square", variants = mapOf("fountain" to "florian"))
+
+    /**
+     * The stream below the village (Am Bach, StreamPainter): larches among the alders and spruces along the banks (`trees`),
+     * the Karawanken higher and sharper over the valley and a hamlet of white timbered houses round an onion-domed church on
+     * the hill (`hills`). The cart bridge's larch is branch a's (its own table).
+     */
+    val STREAM_LAND = Table.of("stream", variants = mapOf("trees" to "larch", "hills" to "kaernten"))
+
+    /** The pond in the wood (Am Teich, PondPainter): larches among the spruces on its near shores (`trees`). */
+    val POND = Table.of("pond", variants = mapOf("trees" to "larch"))
+
+    /** The looks of the projects' and spots' arts above (kaernten-projects-b), added up. */
+    val PROJECTS_B: Table get() = FIRESTATION + PLAYGROUND + LOOKOUT + FIELD_TOPLAR + SQUARE_BRUNNEN + STREAM_LAND + POND
+
     /** Carinthia's looks of its buildings and rooms, added up (each art's table above). */
     val PLACES: Table get() = PEOPLE + KITCHEN + LIVINGROOM + FIELD + SQUARE + WATCHTOWER +
         PALISADE + TENT + ATTIC + WORKSHOP + CELLAR + SCHOOL + CHURCH +
-        APIARY + SMITHY + MARKET
+        APIARY + SMITHY + MARKET +
+        PROJECTS_B
 }
