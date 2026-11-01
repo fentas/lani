@@ -1,0 +1,114 @@
+{
+  "schema": "lani.pack/v0",
+  "id": "at-the-tarn",
+  "language": "en",
+  "title": { "en": "At the tarn", "sl": "Pri gorskem jezercu", "it": "Al laghetto", "de": "Am Bergsee" },
+  "emoji": "🪷",
+  "level": "A1",
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker",
+  "description": {
+    "en": "The tarn above the village: water lilies, reeds and a frog on its leaf, tadpoles in spring, the ducks, the grey heron, the wooden jetty and the boat; Old Wilf fishing with Bess, the float, a perch in the bucket, and the ice in winter.",
+    "sl": "Gorsko jezerce nad vasjo: lokvanji, trstičje in žaba na listu, paglavci spomladi, race, siva čaplja, lesen pomol in čoln; stari Wilf lovi ribe z Bess, plovec, ostriž v vedru in pozimi led.",
+    "it": "Il laghetto sopra il paese: le ninfee, le canne e una rana sulla sua foglia, i girini in primavera, le anatre, l'airone cenerino, il pontile di legno e la barca; il vecchio Wilf che pesca con Bess, il galleggiante, un pesce persico nel secchio, e il ghiaccio d'inverno.",
+    "de": "Der Bergsee über dem Dorf: Seerosen, Schilf und ein Frosch auf seinem Blatt, Kaulquappen im Frühling, die Enten, der Graureiher, der hölzerne Bootssteg und das Boot; der alte Wilf, der mit Bess angelt, der Schwimmer, ein Barsch im Eimer und im Winter das Eis."
+  },
+  "giver": { "name": "Old Wilf", "emoji": "👴" },
+  "words": [
+    {
+      "id": "water-lily", "en": "water lily", "sl": "lokvanj", "it": "ninfea", "de": "Seerose", "emoji": "🪷", "plural": "water lilies",
+      "example_en": "A frog is sitting on the water lily.", "example_sl": "Na lokvanju sedi žaba.", "example_it": "Una rana è seduta sulla ninfea.", "example_de": "Ein Frosch sitzt auf der Seerose.",
+      "note": "A flower that floats on still water, with big round leaves. Lily Tarn, above Ambleside, is named after them. Plural: water lilies (y → ies).",
+      "note_sl": "Cvetlica, ki plava na mirni vodi, z velikimi okroglimi listi. Po njih se imenuje Lily Tarn nad Amblesidom. Množina: water lilies (y → ies).",
+      "note_it": "Un fiore che galleggia sull'acqua ferma, con grandi foglie rotonde. Il Lily Tarn, sopra Ambleside, prende il nome da loro. Plurale: water lilies (y → ies).",
+      "note_de": "Eine Blume, die auf stillem Wasser schwimmt, mit großen runden Blättern. Der Lily Tarn über Ambleside ist nach ihnen benannt. Plural: water lilies (y → ies)."
+    },
+    {
+      "id": "reed", "en": "reed", "sl": "trst", "it": "canna palustre", "de": "Schilfrohr", "emoji": "🌾", "plural": "reeds",
+      "example_en": "The ducks hide in the reeds.", "example_sl": "Race se skrivajo v trstičju.", "example_it": "Le anatre si nascondono tra le canne.", "example_de": "Die Enten verstecken sich im Schilf.",
+      "note": "A tall grass that grows in the water at the edge of a tarn. Usually plural: in the reeds.",
+      "note_sl": "Visoka trava, ki raste v vodi ob robu jezerca. Navadno v množini: in the reeds (v trstičju).",
+      "note_it": "Un'erba alta che cresce nell'acqua sul bordo del laghetto. Di solito al plurale: in the reeds (tra le canne).",
+      "note_de": "Ein hohes Gras, das am Rand des Sees im Wasser wächst. Meist im Plural: in the reeds (im Schilf)."
+    },
+    {
+      "id": "frog", "en": "frog", "sl": "žaba", "it": "rana", "de": "Frosch", "emoji": "🐸", "plural": "frogs",
+      "example_en": "The frog jumps into the water.", "example_sl": "Žaba skoči v vodo.", "example_it": "La rana salta nell'acqua.", "example_de": "Der Frosch springt ins Wasser.",
+      "note": "Green or brown, with long back legs for jumping. In English it says ribbit.",
+      "note_sl": "Zelena ali rjava, z dolgimi zadnjimi nogami za skakanje. V angleščini reče ribbit (rega, rega).",
+      "note_it": "Verde o marrone, con lunghe zampe posteriori per saltare. In inglese fa ribbit (cra cra).",
+      "note_de": "Grün oder braun, mit langen Hinterbeinen zum Springen. Auf Englisch macht er ribbit (quak)."
+    },
+    {
+      "id": "tadpole", "en": "tadpole", "sl": "paglavec", "it": "girino", "de": "Kaulquappe", "emoji": "🐸", "plural": "tadpoles",
+      "example_en": "In spring there are tadpoles in the tarn.", "example_sl": "Spomladi so v jezercu paglavci.", "example_it": "In primavera nel laghetto ci sono i girini.", "example_de": "Im Frühling gibt es Kaulquappen im See.",
+      "note": "A baby frog: a little black head with a tail, swimming. Then come the legs!",
+      "note_sl": "Žabji mladič: majhna črna glavica z repom, ki plava. Potem zrastejo noge!",
+      "note_it": "Una rana piccola: una testolina nera con la coda, che nuota. Poi spuntano le zampe!",
+      "note_de": "Ein Froschbaby: ein kleiner schwarzer Kopf mit Schwanz, der schwimmt. Dann kommen die Beine!"
+    },
+    {
+      "id": "duck", "en": "duck", "sl": "raca", "it": "anatra", "de": "Ente", "emoji": "🦆", "plural": "ducks",
+      "example_en": "Three ducks are swimming on the tarn.", "example_sl": "Po jezercu plavajo tri race.", "example_it": "Tre anatre nuotano nel laghetto.", "example_de": "Drei Enten schwimmen auf dem See.",
+      "note": "A water bird that says quack. In parts of England people call each other duck; in Cumbria it's love!",
+      "note_sl": "Vodna ptica, ki reče quack (ga ga). V delu Anglije ljudem rečejo duck (račka), v Cumbrii pa love (srček)!",
+      "note_it": "Un uccello d'acqua che fa quack (qua qua). In una parte dell'Inghilterra la gente si chiama duck (paperotto), in Cumbria invece love (tesoro)!",
+      "note_de": "Ein Wasservogel, der quack macht. In Teilen Englands nennt man Leute duck (Entchen), in Cumbria aber love (Schätzchen)!"
+    },
+    {
+      "id": "heron", "en": "heron", "sl": "čaplja", "it": "airone", "de": "Reiher", "emoji": "🪶", "plural": "herons",
+      "example_en": "The heron stands very still in the water.", "example_sl": "Čaplja stoji čisto pri miru v vodi.", "example_it": "L'airone sta immobile nell'acqua.", "example_de": "Der Reiher steht ganz still im Wasser.",
+      "note": "A tall grey bird with long legs and a long neck. It waits, then catches a fish with its beak.",
+      "note_sl": "Visoka siva ptica z dolgimi nogami in dolgim vratom. Čaka, potem pa s kljunom ujame ribo.",
+      "note_it": "Un uccello alto e grigio con le zampe lunghe e il collo lungo. Aspetta, poi prende un pesce col becco.",
+      "note_de": "Ein großer grauer Vogel mit langen Beinen und langem Hals. Er wartet und fängt dann mit dem Schnabel einen Fisch."
+    },
+    {
+      "id": "jetty", "en": "jetty", "sl": "pomol", "it": "pontile", "de": "Bootssteg", "emoji": "🛶", "plural": "jetties",
+      "example_en": "Old Wilf is fishing from the jetty.", "example_sl": "Stari Wilf lovi ribe s pomola.", "example_it": "Il vecchio Wilf pesca dal pontile.", "example_de": "Der alte Wilf angelt vom Bootssteg aus.",
+      "note": "A little wooden platform out into the water, for boats and for fishing. Plural: jetties.",
+      "note_sl": "Majhen lesen pomol v vodo, za čolne in za ribolov. Množina: jetties.",
+      "note_it": "Una piccola piattaforma di legno sull'acqua, per le barche e per pescare. Plurale: jetties.",
+      "note_de": "Eine kleine Holzplattform ins Wasser hinaus, für Boote und zum Angeln. Plural: jetties."
+    },
+    {
+      "id": "fishing-rod", "en": "fishing rod", "sl": "ribiška palica", "it": "canna da pesca", "de": "Angelrute", "emoji": "🎣", "plural": "fishing rods",
+      "example_en": "Hold the fishing rod with both hands.", "example_sl": "Drži ribiško palico z obema rokama.", "example_it": "Tieni la canna da pesca con tutte e due le mani.", "example_de": "Halt die Angelrute mit beiden Händen.",
+      "note": "The long stick with a line for fishing. To go fishing: I go fishing, I'm fishing.",
+      "note_sl": "Dolga palica z vrvico za ribolov. Iti na ribe: I go fishing, I'm fishing.",
+      "note_it": "Il lungo bastone con la lenza per pescare. Andare a pesca: I go fishing, I'm fishing.",
+      "note_de": "Der lange Stock mit der Schnur zum Angeln. Angeln gehen: I go fishing, I'm fishing."
+    },
+    {
+      "id": "float", "en": "float", "sl": "plovec", "it": "galleggiante", "de": "Schwimmer", "emoji": "🔴", "plural": "floats",
+      "example_en": "The float goes under: a fish!", "example_sl": "Plovec se potopi: riba!", "example_it": "Il galleggiante va sotto: un pesce!", "example_de": "Der Schwimmer geht unter: ein Fisch!",
+      "note": "The little red and white ball on the fishing line. It floats; when a fish bites, it goes under.",
+      "note_sl": "Majhna rdeče-bela kroglica na ribiški vrvici. Plava; ko riba prime, se potopi.",
+      "note_it": "La pallina rossa e bianca sulla lenza. Galleggia; quando un pesce abbocca, va sotto.",
+      "note_de": "Die kleine rot-weiße Kugel an der Angelschnur. Sie schwimmt; wenn ein Fisch anbeißt, geht sie unter."
+    },
+    {
+      "id": "perch", "en": "perch", "sl": "ostriž", "it": "pesce persico", "de": "Barsch", "emoji": "🐟", "plural": "perch",
+      "example_en": "Old Wilf caught a perch.", "example_sl": "Stari Wilf je ujel ostriža.", "example_it": "Il vecchio Wilf ha preso un pesce persico.", "example_de": "Der alte Wilf hat einen Barsch gefangen.",
+      "note": "A green fish with dark stripes and red fins that lives in the lakes and tarns. One perch, two perch, like trout and fish.",
+      "note_sl": "Zelena riba s temnimi progami in rdečimi plavutmi, ki živi v jezerih. One perch, two perch, kot trout in fish.",
+      "note_it": "Un pesce verde a strisce scure con le pinne rosse che vive nei laghi. One perch, two perch, come trout e fish.",
+      "note_de": "Ein grüner Fisch mit dunklen Streifen und roten Flossen, der in den Seen lebt. One perch, two perch, wie trout und fish."
+    },
+    {
+      "id": "catch", "en": "to catch", "sl": "ujeti", "it": "prendere", "de": "fangen", "emoji": "🎣",
+      "example_en": "Did you catch anything today?", "example_sl": "Si danes kaj {m:ujel|f:ujela}?", "example_it": "Hai preso qualcosa oggi?", "example_de": "Hast du heute etwas gefangen?",
+      "note": "catch, caught, caught: its past has its own form. I caught a fish!",
+      "note_sl": "catch, caught, caught: preteklik ima svojo obliko. I caught a fish! ({m:Ujel|f:Ujela} sem ribo!)",
+      "note_it": "catch, caught, caught: il passato ha una forma sua. I caught a fish! (Ho preso un pesce!)",
+      "note_de": "catch, caught, caught: die Vergangenheit hat ihre eigene Form. I caught a fish! (Ich habe einen Fisch gefangen!)"
+    },
+    {
+      "id": "ice", "en": "ice", "sl": "led", "it": "ghiaccio", "de": "Eis", "emoji": "🧊",
+      "example_en": "Never walk on the ice!", "example_sl": "Nikoli ne hodi po ledu!", "example_it": "Non camminare mai sul ghiaccio!", "example_de": "Geh nie aufs Eis!",
+      "note": "Frozen water. In winter the tarn can freeze, but the ice is often thin: stay off it. Uncountable: some ice.",
+      "note_sl": "Zamrznjena voda. Pozimi jezerce lahko zamrzne, led pa je pogosto tanek: ne stopi nanj. Neštevno: some ice.",
+      "note_it": "Acqua gelata. D'inverno il laghetto può gelare, ma il ghiaccio è spesso sottile: non salirci. Non numerabile: some ice.",
+      "note_de": "Gefrorenes Wasser. Im Winter kann der See zufrieren, aber das Eis ist oft dünn: Bleib runter. Nicht zählbar: some ice."
+    }
+  ]
+}
