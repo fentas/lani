@@ -149,6 +149,17 @@ class CultureScenesTest {
             listOf("lakeland", "at-the-bees", "apiary", "beehive"),
             listOf("lakeland", "on-the-watchtower", "watchtower", "watchtower"),
             listOf("lakeland", "at-the-gate", "palisade", "palisade"),
+            // the Lake District's landscape and its projects, the third wave (lakeland-projects-b): the beck and the tarn,
+            // the mountain rescue hut, the playground, the drinking fountain and the church clock on the green, the bank
+            // barn in the field and the viewing station above the lake
+            listOf("lakeland", "by-the-beck", "stream", "spot:riverbank"),
+            listOf("lakeland", "at-the-tarn", "pond", "spot:pond"),
+            listOf("lakeland", "at-the-rescue-hut", "firestation", "project:gasilski_dom"),
+            listOf("lakeland", "at-the-playground", "playground", "project:igrisce"),
+            listOf("lakeland", "at-the-fountain", "square", "project:vodnjak_na_trgu"),
+            listOf("lakeland", "under-the-clock", "square", "project:mestna_ura"),
+            listOf("lakeland", "at-the-bank-barn", "field", "project:toplar"),
+            listOf("lakeland", "at-the-viewing-station", "lookout", "project:razgledni_stolp"),
         )) {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
             assertEquals(art, s.art)
