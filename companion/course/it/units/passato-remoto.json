@@ -1,0 +1,328 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passato-remoto",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🏰",
+  "title": { "it": "C'era una volta un re che andò", "de": "Märchenzeit: andò, fu, disse", "sl": "Pravljični čas: andò, fu, disse", "en": "Fairy-tale past: andò, fu, disse" },
+  "goal": {
+    "de": "Du erkennst die Märchenzeit (andò, fu, disse, ebbe, venne), verstehst, was im Märchen passiert, und erzählst es wie beim Reden: andò → è andato.",
+    "sl": "Prepoznaš pravljični čas (andò, fu, disse, ebbe, venne), razumeš, kaj se zgodi v pravljici, in to poveš kot v govoru: andò → è andato.",
+    "en": "You can recognise the fairy-tale past (andò, fu, disse, ebbe, venne), follow what happens in a tale, and tell it as people talk: andò → è andato."
+  },
+  "grammar": ["passato-remoto", "imperfetto", "passato-prossimo"],
+  "words": ["c'era una volta", "un giorno", "all'improvviso", "allora", "il re", "la principessa", "il principe", "il lupo", "il drago", "la fata", "la strega", "il castello", "il bosco", "il torrente", "il cestino", "la spada", "il cavaliere", "la magia", "il regalo", "il pettine", "l'oro", "la paura", "felice", "contento", "gentile", "arrivare", "partire", "dormire", "uscire", "cantare", "volare", "chiamare", "scappare", "rispondere", "vivere", "sposarsi"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "verbo", "de": "Verb", "sl": "glagol", "en": "verb" },
+        { "it": "passato remoto", "de": "passato remoto (im Märchen)", "sl": "passato remoto (v pravljici)", "en": "passato remoto (in a tale)" },
+        { "it": "passato prossimo", "de": "passato prossimo (beim Reden)", "sl": "passato prossimo (v govoru)", "en": "passato prossimo (in talk)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Im Märchen erzählt Nonno Bepi mit dem **passato remoto**: Bei -are endet es auf **-ò**, und **arrivò** heißt **è arrivato** (ist gekommen). **C'era una volta un lupo. Un giorno il lupo arrivò nel bosco.** (Es war einmal ein Wolf. Eines Tages kam der Wolf in den Wald.) Wie im Deutschen: Im Märchen sagst du *kam, ging*, beim Reden *ist gekommen*.",
+          "sl": "V pravljici Nonno Bepi pripoveduje s **passato remoto**: pri -are se konča na **-ò**, **arrivò** pa je **è arrivato** (je prišel). **C'era una volta un lupo. Un giorno il lupo arrivò nel bosco.** (Nekoč je živel volk. Nekega dne je volk prišel v gozd.)",
+          "en": "In a fairy tale Nonno Bepi tells it in the **passato remoto**: -are verbs end in **-ò**, and **arrivò** is **è arrivato** (came). **C'era una volta un lupo. Un giorno il lupo arrivò nel bosco.** (Once upon a time there was a wolf. One day the wolf came into the wood.)"
+        },
+        "examples": [
+          { "it": "C'era una volta un lupo. Un giorno il lupo arrivò nel bosco.", "de": "Es war einmal ein Wolf. Eines Tages kam der Wolf in den Wald.", "sl": "Nekoč je živel volk. Nekega dne je volk prišel v gozd.", "en": "Once upon a time there was a wolf. One day the wolf came into the wood." },
+          { "it": "Cappuccetto Rosso andò dalla nonna con un cestino.", "de": "Rotkäppchen ging mit einem Körbchen zur Großmutter.", "sl": "Rdeča kapica je šla k babici s košarico.", "en": "Little Red Riding Hood went to her grandmother's with a basket." }
+        ],
+        "rows": [
+          ["arrivare", "arrivò", "è arrivato"],
+          ["andare", "andò", "è andato"],
+          ["cantare", "cantò", "ha cantato"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passato-remoto", "prompt": "La principessa andò al ballo. Quando parliamo, diciamo: la principessa ___ al ballo.", "options": ["è andata", "è andato", "andrà"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**andò** → **è andata** (ist gegangen), la principessa: -a\n- è andato · für einen Jungen\n- andrà · sie wird gehen",
+            "sl": "**andò** → **è andata** (je šla), la principessa: -a\n- è andato · za fanta\n- andrà · bo šla",
+            "en": "**andò** → **è andata** (went), la principessa: -a\n- è andato · for a boy\n- andrà · she will go"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei -ire endet es auf **-ì**: **partì** (ist abgereist), **dormì** (hat geschlafen), **uscì** (ist hinausgegangen). **Il re partì per un lungo viaggio.** (Der König brach zu einer langen Reise auf.) **La principessa dormì per cento anni.** (Die Prinzessin schlief hundert Jahre lang.)",
+          "sl": "Pri -ire se konča na **-ì**: **partì** (je odšel), **dormì** (je spal), **uscì** (je šel ven). **Il re partì per un lungo viaggio.** (Kralj je odšel na dolgo pot.) **La principessa dormì per cento anni.** (Princesa je spala sto let.)",
+          "en": "-ire verbs end in **-ì**: **partì** (left), **dormì** (slept), **uscì** (went out). **Il re partì per un lungo viaggio.** (The king set off on a long journey.) **La principessa dormì per cento anni.** (The princess slept for a hundred years.)"
+        },
+        "examples": [
+          { "it": "Il re partì per un lungo viaggio.", "de": "Der König brach zu einer langen Reise auf.", "sl": "Kralj je odšel na dolgo pot.", "en": "The king set off on a long journey." },
+          { "it": "La principessa dormì per cento anni.", "de": "Die Prinzessin schlief hundert Jahre lang.", "sl": "Princesa je spala sto let.", "en": "The princess slept for a hundred years." }
+        ],
+        "rows": [
+          ["partire", "partì", "è partito"],
+          ["dormire", "dormì", "ha dormito"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passato-remoto", "prompt": "La strega uscì dal castello. Uscì viene da …", "options": ["uscire", "usare", "urlare"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**-ì** → ein Verb auf -ire: **uscire** (hinausgehen)\n- usare · benutzen: usò\n- urlare · schreien: urlò",
+            "sl": "**-ì** → glagol na -ire: **uscire** (iti ven)\n- usare · uporabiti: usò\n- urlare · kričati: urlò",
+            "en": "**-ì** → an -ire verb: **uscire** (to go out)\n- usare · to use: usò\n- urlare · to shout: urlò"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die wichtigsten Verben haben eine eigene Form: **fu** (war), **ebbe** (hatte), **disse** (sagte), **fece** (machte), **venne** (kam). **Il lupo disse: «Che bella bambina!»** (Der Wolf sagte: „Was für ein hübsches Mädchen!“) **Il drago ebbe paura e scappò.** (Der Drache bekam Angst und lief davon.)",
+          "sl": "Najpomembnejši glagoli imajo svojo obliko: **fu** (je bil), **ebbe** (je imel), **disse** (je rekel), **fece** (je naredil), **venne** (je prišel). **Il lupo disse: «Che bella bambina!»** (Volk je rekel: »Kako lepa deklica!«) **Il drago ebbe paura e scappò.** (Zmaj se je ustrašil in pobegnil.)",
+          "en": "The most important verbs have a form of their own: **fu** (was), **ebbe** (had), **disse** (said), **fece** (did, made), **venne** (came). **Il lupo disse: «Che bella bambina!»** (The wolf said: \"What a pretty girl!\") **Il drago ebbe paura e scappò.** (The dragon got scared and ran away.)"
+        },
+        "examples": [
+          { "it": "Il lupo disse: «Che bella bambina!»", "de": "Der Wolf sagte: „Was für ein hübsches Mädchen!“", "sl": "Volk je rekel: »Kako lepa deklica!«", "en": "The wolf said: \"What a pretty girl!\"" },
+          { "it": "Il drago ebbe paura e scappò.", "de": "Der Drache bekam Angst und lief davon.", "sl": "Zmaj se je ustrašil in pobegnil.", "en": "The dragon got scared and ran away." }
+        ],
+        "rows": [
+          ["essere", "fu", "è stato"],
+          ["avere", "ebbe", "ha avuto"],
+          ["dire", "disse", "ha detto"],
+          ["fare", "fece", "ha fatto"],
+          ["venire", "venne", "è venuto"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passato-remoto", "prompt": "«Chi sei?» disse il lupo. Disse viene da …", "options": ["dire", "dare", "dormire"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**disse** → **dire**: ha detto (hat gesagt)\n- dare · geben: diede\n- dormire · schlafen: dormì",
+            "sl": "**disse** → **dire**: ha detto (je rekel)\n- dare · dati: diede\n- dormire · spati: dormì",
+            "en": "**disse** → **dire**: ha detto (said)\n- dare · to give: diede\n- dormire · to sleep: dormì"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere endet es auf **-rono** oder **-ero**: **andarono** (sie gingen), **partirono** (sie reisten ab), **furono** (sie waren), **dissero** (sie sagten), **vennero** (sie kamen). **Le Agane uscirono dal torrente e cantarono.** (Die Aganen kamen aus dem Bach und sangen.) Am Ende vom Märchen: **E vissero felici e contenti.** (Und sie lebten glücklich und zufrieden.)",
+          "sl": "Za več oseb se konča na **-rono** ali **-ero**: **andarono** (so šli), **partirono** (so odšli), **furono** (so bili), **dissero** (so rekli), **vennero** (so prišli). **Le Agane uscirono dal torrente e cantarono.** (Agane so prišle iz potoka in zapele.) Na koncu pravljice: **E vissero felici e contenti.** (In živeli so srečno do konca svojih dni.)",
+          "en": "For several it ends in **-rono** or **-ero**: **andarono** (they went), **partirono** (they left), **furono** (they were), **dissero** (they said), **vennero** (they came). **Le Agane uscirono dal torrente e cantarono.** (The Agane came out of the stream and sang.) At the end of a tale: **E vissero felici e contenti.** (And they lived happily ever after.)"
+        },
+        "examples": [
+          { "it": "Le Agane uscirono dal torrente e cantarono.", "de": "Die Aganen kamen aus dem Bach und sangen.", "sl": "Agane so prišle iz potoka in zapele.", "en": "The Agane came out of the stream and sang." },
+          { "it": "Il principe e la principessa si sposarono e vissero felici e contenti.", "de": "Der Prinz und die Prinzessin heirateten und lebten glücklich und zufrieden.", "sl": "Princ in princesa sta se poročila in živela srečno do konca svojih dni.", "en": "The prince and the princess got married and lived happily ever after." }
+        ],
+        "rows": [
+          [{ "it": "andare (loro)", "de": "andare (loro: sie)", "sl": "andare (loro: oni)", "en": "andare (loro: they)" }, "andarono", "sono andati"],
+          [{ "it": "essere (loro)", "de": "essere (loro: sie)", "sl": "essere (loro: oni)", "en": "essere (loro: they)" }, "furono", "sono stati"],
+          [{ "it": "dire (loro)", "de": "dire (loro: sie)", "sl": "dire (loro: oni)", "en": "dire (loro: they)" }, "dissero", "hanno detto"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passato-remoto", "prompt": "Un giorno le Agane ___ dal torrente.", "options": ["uscirono", "uscì", "usciranno"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**le Agane** = loro → **uscirono** (sie kamen heraus)\n- uscì · eine Person\n- usciranno · sie werden herauskommen",
+            "sl": "**le Agane** = loro → **uscirono** (so prišle ven)\n- uscì · ena oseba\n- usciranno · bodo prišle ven",
+            "en": "**le Agane** = loro → **uscirono** (they came out)\n- uscì · one person\n- usciranno · they will come out"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wie beim passato prossimo malt das **imperfetto** das Bild, und das **passato remoto** erzählt, was passiert. **C'era una volta un re che era vecchio e stanco.** (Es war einmal ein König, der alt und müde war.) **Un giorno chiamò i suoi tre figli.** (Eines Tages rief er seine drei Söhne.) **Un giorno** und **all'improvviso** (plötzlich) sagen dir: Jetzt passiert etwas.",
+          "sl": "Kot pri passato prossimo **imperfetto** nariše sliko, **passato remoto** pa pove, kaj se zgodi. **C'era una volta un re che era vecchio e stanco.** (Nekoč je živel kralj, ki je bil star in utrujen.) **Un giorno chiamò i suoi tre figli.** (Nekega dne je poklical svoje tri sinove.) **Un giorno** in **all'improvviso** (nenadoma) ti povesta: zdaj se nekaj zgodi.",
+          "en": "As with the passato prossimo, the **imperfetto** paints the picture and the **passato remoto** tells what happens. **C'era una volta un re che era vecchio e stanco.** (Once upon a time there was a king who was old and tired.) **Un giorno chiamò i suoi tre figli.** (One day he called his three sons.) **Un giorno** and **all'improvviso** (suddenly) tell you: now something happens."
+        },
+        "examples": [
+          { "it": "C'era una volta un re che era vecchio e stanco. Un giorno chiamò i suoi tre figli.", "de": "Es war einmal ein König, der alt und müde war. Eines Tages rief er seine drei Söhne.", "sl": "Nekoč je živel kralj, ki je bil star in utrujen. Nekega dne je poklical svoje tri sinove.", "en": "Once upon a time there was a king who was old and tired. One day he called his three sons." },
+          { "it": "Era notte e pioveva. All'improvviso arrivò un cavaliere.", "de": "Es war Nacht, und es regnete. Plötzlich kam ein Ritter.", "sl": "Bila je noč in deževalo je. Nenadoma je prišel vitez.", "en": "It was night and it was raining. Suddenly a knight came." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passato-remoto", "prompt": "Il drago dormiva nella grotta. All'improvviso ___ un cavaliere.", "options": ["arrivò", "arrivava", "arriverà"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**all'improvviso** (plötzlich) → es passiert etwas: **arrivò**\n- arrivava · das Bild, wie dormiva\n- arriverà · er wird kommen",
+            "sl": "**all'improvviso** (nenadoma) → nekaj se zgodi: **arrivò**\n- arrivava · slika, kot dormiva\n- arriverà · bo prišel",
+            "en": "**all'improvviso** (suddenly) → something happens: **arrivò**\n- arrivava · the picture, as dormiva\n- arriverà · he will come"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Pass auf den Akzent auf, er zählt: **parlò** (er sprach) ist nicht **parlo** (ich spreche), und **andò** (er ging) ist nicht **andrò** (ich werde gehen). **Il re parlò dal balcone.** (Der König sprach vom Balkon.) Giulia sagt: **Domani andrò dalla nonna.** (Morgen gehe ich zu Oma.)",
+          "sl": "Pazi na naglas, šteje: **parlò** (je govoril) ni **parlo** (govorim), **andò** (je šel) pa ni **andrò** (bom šel). **Il re parlò dal balcone.** (Kralj je govoril z balkona.) Giulia reče: **Domani andrò dalla nonna.** (Jutri bom šla k babici.)",
+          "en": "Watch the accent, it counts: **parlò** (he spoke) isn't **parlo** (I speak), and **andò** (he went) isn't **andrò** (I'll go). **Il re parlò dal balcone.** (The king spoke from the balcony.) Giulia says: **Domani andrò dalla nonna.** (Tomorrow I'll go to Granny's.)"
+        },
+        "examples": [
+          { "it": "Il re parlò dal balcone del castello.", "de": "Der König sprach vom Balkon des Schlosses.", "sl": "Kralj je govoril z balkona gradu.", "en": "The king spoke from the castle balcony." },
+          { "it": "Giulia: «Domani andrò dalla nonna.»", "de": "Giulia: „Morgen gehe ich zu Oma.“", "sl": "Giulia: »Jutri bom šla k babici.«", "en": "Giulia: \"Tomorrow I'll go to Granny's.\"" }
+        ],
+        "rows": [
+          ["parlare", "parlò", "ha parlato"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passato-remoto", "prompt": "C'era una volta un re. Un giorno il re ___ ai suoi figli.", "options": ["parlò", "parlo", "parlerò"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**il re** = lui, im Märchen → **parlò**, mit Akzent\n- parlo · ich spreche\n- parlerò · ich werde sprechen",
+            "sl": "**il re** = lui, v pravljici → **parlò**, z naglasom\n- parlo · govorim\n- parlerò · bom govoril",
+            "en": "**il re** = lui, in a tale → **parlò**, with its accent\n- parlo · I speak\n- parlerò · I will speak"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passato-remoto-1",
+      "title": { "it": "Da quale verbo?", "de": "Von welchem Verb?", "sl": "Iz katerega glagola?", "en": "From which verb?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "passato-remoto", "instruction": { "de": "Da quale verbo? · Von welchem Verb?", "sl": "Da quale verbo? · Iz katerega glagola?", "en": "Da quale verbo? · From which verb?" },
+          "columns": [
+            { "label": { "de": "essere · sein", "sl": "essere · biti", "en": "essere · to be" }, "words": ["fu", "furono"] },
+            { "label": { "de": "avere · haben", "sl": "avere · imeti", "en": "avere · to have" }, "words": ["ebbe", "ebbero"] },
+            { "label": { "de": "dire · sagen", "sl": "dire · reči", "en": "dire · to say" }, "words": ["disse", "dissero"] },
+            { "label": { "de": "venire · kommen", "sl": "venire · priti", "en": "venire · to come" }, "words": ["venne", "vennero"] }
+          ],
+          "explain": {
+            "de": "**fu** → essere · **ebbe** → avere · **disse** → dire · **venne** → venire\n- mehrere: furono, ebbero, dissero, vennero",
+            "sl": "**fu** → essere · **ebbe** → avere · **disse** → dire · **venne** → venire\n- več oseb: furono, ebbero, dissero, vennero",
+            "en": "**fu** → essere · **ebbe** → avere · **disse** → dire · **venne** → venire\n- several: furono, ebbero, dissero, vennero"
+          }
+        },
+        {
+          "type": "table", "grammar": "passato-remoto", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "passato remoto: -are → -ò, -ire → -ì", "sl": "passato remoto: -are → -ò, -ire → -ì", "en": "passato remoto: -are → -ò, -ire → -ì" },
+          "columns": [
+            { "de": "lui, lei · er, sie", "sl": "lui, lei · on, ona", "en": "lui, lei · he, she" },
+            { "de": "loro · sie", "sl": "loro · oni", "en": "loro · they" }
+          ],
+          "rows": [
+            { "label": "andare", "cells": ["andò", { "accept": ["andarono"] }] },
+            { "label": "arrivare", "cells": [{ "accept": ["arrivò"] }, "arrivarono"] },
+            { "label": "cantare", "cells": [{ "accept": ["cantò"] }, { "accept": ["cantarono"] }] },
+            { "label": "partire", "cells": ["partì", { "accept": ["partirono"], "hint": "-irono" }] },
+            { "label": "dormire", "cells": [{ "accept": ["dormì"] }, "dormirono"] }
+          ]
+        },
+        {
+          "type": "choice", "grammar": "passato-remoto", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Il principe vide il drago. Quando parliamo, diciamo: il principe ___ il drago.", "options": ["ha visto", "ha vinto", "ha vissuto"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**vide** → vedere: **ha visto** (hat gesehen)\n- ha vinto · vinse (gewann)\n- ha vissuto · visse (lebte)",
+            "sl": "**vide** → vedere: **ha visto** (je videl)\n- ha vinto · vinse (je zmagal)\n- ha vissuto · visse (je živel)",
+            "en": "**vide** → vedere: **ha visto** (saw)\n- ha vinto · vinse (won)\n- ha vissuto · visse (lived)"
+          }
+        },
+        {
+          "type": "choice", "grammar": "passato-remoto", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Allora la fata fece una magia. Quando parliamo, diciamo: la fata ___ una magia.", "options": ["ha fatto", "ha finito", "ha fermato"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**fece** → fare: **ha fatto** (hat gemacht)\n- ha finito · finì\n- ha fermato · fermò",
+            "sl": "**fece** → fare: **ha fatto** (je naredila)\n- ha finito · finì\n- ha fermato · fermò",
+            "en": "**fece** → fare: **ha fatto** (did, made)\n- ha finito · finì\n- ha fermato · fermò"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passato-remoto-2",
+      "title": { "it": "Le Agane del torrente", "de": "Die Aganen vom Bach", "sl": "Agane iz potoka", "en": "The Agane of the stream" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "passato-remoto", "instruction": { "de": "Completa con il passato remoto · Ergänze mit dem passato remoto", "sl": "Completa con il passato remoto · Dopolni s passato remoto", "en": "Completa con il passato remoto · Fill in with the passato remoto" }, "title": "Le Agane del torrente",
+          "text": "C'era una volta una bambina che si chiamava Mina. Un giorno Mina ___ al torrente a prendere l'acqua. All'improvviso dall'acqua ___ tre Agane con i capelli lunghi. «Chi sei?» ___ la più vecchia. Mina ___ subito paura, ma rispose: «Sono Mina.» Allora le Agane ___ una canzone. La più piccola ___ una magia: un pettine d'oro! Poi Mina ___ a casa felice, e il pettine ___ sempre nei suoi capelli.",
+          "gaps": [
+            { "accept": ["andò"], "hint": { "de": "andare, sie", "sl": "andare, ona", "en": "andare, she" } },
+            { "accept": ["uscirono"], "hint": { "de": "uscire, loro", "sl": "uscire, loro", "en": "uscire, loro" } },
+            { "accept": ["disse"], "hint": { "de": "dire, sie", "sl": "dire, ona", "en": "dire, she" } },
+            { "accept": ["ebbe"], "hint": { "de": "avere, sie", "sl": "avere, ona", "en": "avere, she" } },
+            { "accept": ["cantarono"], "hint": { "de": "cantare, loro", "sl": "cantare, loro", "en": "cantare, loro" } },
+            { "accept": ["fece"], "hint": { "de": "fare, sie", "sl": "fare, ona", "en": "fare, she" } },
+            { "accept": ["tornò"], "hint": { "de": "tornare, sie", "sl": "tornare, ona", "en": "tornare, she" } },
+            { "accept": ["restò", "rimase"], "hint": { "de": "restare, er", "sl": "restare, on", "en": "restare, it" } }
+          ],
+          "bank": true,
+          "distractors": ["parlo", "andrò"],
+          "translation": {
+            "de": "Es war einmal ein Mädchen, das hieß Mina. Eines Tages ging Mina zum Bach, um Wasser zu holen. Plötzlich kamen drei Aganen mit langen Haaren aus dem Wasser. „Wer bist du?“, sagte die älteste. Mina bekam gleich Angst, aber sie antwortete: „Ich bin Mina.“ Da sangen die Aganen ein Lied. Die kleinste zauberte: einen goldenen Kamm! Dann ging Mina glücklich nach Hause, und der Kamm blieb für immer in ihren Haaren.",
+            "sl": "Nekoč je živela deklica, ki ji je bilo ime Mina. Nekega dne je šla Mina k potoku po vodo. Nenadoma so iz vode prišle tri Agane z dolgimi lasmi. »Kdo si?« je rekla najstarejša. Mina se je takoj ustrašila, a je odgovorila: »Mina sem.« Tedaj so Agane zapele pesem. Najmlajša je začarala zlat glavnik! Potem se je Mina srečna vrnila domov, glavnik pa je za vedno ostal v njenih laseh.",
+            "en": "Once upon a time there was a girl called Mina. One day Mina went to the stream to fetch water. Suddenly three Agane with long hair came out of the water. \"Who are you?\" said the eldest. Mina was frightened at once, but she answered: \"I'm Mina.\" Then the Agane sang a song. The youngest cast a spell: a golden comb! Then Mina went home happy, and the comb stayed in her hair for ever."
+          }
+        },
+        {
+          "type": "choice", "grammar": "passato-remoto", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "E vissero felici e contenti. Vissero viene da …", "options": ["vivere", "vedere", "vincere"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**vissero** → vivere (leben): sie lebten\n- vedere · videro (sie sahen)\n- vincere · vinsero (sie gewannen)",
+            "sl": "**vissero** → vivere (živeti): živeli so\n- vedere · videro (videli so)\n- vincere · vinsero (zmagali so)",
+            "en": "**vissero** → vivere (to live): they lived\n- vedere · videro (they saw)\n- vincere · vinsero (they won)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passato-remoto-3",
+      "title": { "it": "Raccontalo come oggi", "de": "Erzähl es wie heute", "sl": "Povej kot danes", "en": "Tell it as we talk" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "passato-remoto", "instruction": { "de": "Dillo con il passato prossimo · Sag es mit dem passato prossimo", "sl": "Dillo con il passato prossimo · Povej s passato prossimo", "en": "Dillo con il passato prossimo · Say it with the passato prossimo" },
+          "items": [
+            { "from": "Il lupo arrivò.", "accept": ["Il lupo è arrivato."] },
+            { "from": "La principessa dormì.", "accept": ["La principessa ha dormito."] },
+            { "from": "Il re fu felice.", "accept": ["Il re è stato felice."], "hint": "fu → essere" },
+            { "from": "Le Agane cantarono.", "accept": ["Le Agane hanno cantato."] },
+            { "from": "Il drago ebbe paura.", "accept": ["Il drago ha avuto paura."] },
+            { "from": "La fata disse di sì.", "accept": ["La fata ha detto di sì."] },
+            { "from": "I bambini vennero al castello.", "accept": ["I bambini sono venuti al castello."] }
+          ],
+          "explain": {
+            "de": "**arrivò → è arrivato** · **dormì → ha dormito**: essere oder avere wie immer\n- fu → è stato · ebbe → ha avuto · disse → ha detto · vennero → sono venuti",
+            "sl": "**arrivò → è arrivato** · **dormì → ha dormito**: essere ali avere kot vedno\n- fu → è stato · ebbe → ha avuto · disse → ha detto · vennero → sono venuti",
+            "en": "**arrivò → è arrivato** · **dormì → ha dormito**: essere or avere as always\n- fu → è stato · ebbe → ha avuto · disse → ha detto · vennero → sono venuti"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "passato-remoto", "instruction": { "de": "Completa con il passato remoto · Ergänze mit dem passato remoto", "sl": "Completa con il passato remoto · Dopolni s passato remoto", "en": "Completa con il passato remoto · Fill in with the passato remoto" },
+        "text": "C'era una volta un piccolo drago che viveva in una grotta. Un giorno il drago ___ (andare) al castello. «Ciao, principessa!» ___ (dire) il drago. La principessa ___ (avere) subito paura, ma poi ___ (essere) felice: il drago era buono!",
+        "gaps": [
+          { "accept": ["andò"] },
+          { "accept": ["disse"] },
+          { "accept": ["ebbe"] },
+          { "accept": ["fu"] }
+        ],
+        "translation": {
+          "de": "Es war einmal ein kleiner Drache, der in einer Höhle lebte. Eines Tages ging der Drache zum Schloss. „Hallo, Prinzessin!“, sagte der Drache. Die Prinzessin bekam Angst, aber dann war sie froh: Der Drache war lieb!",
+          "sl": "Nekoč je živel majhen zmaj, ki je prebival v votlini. Nekega dne je zmaj šel do gradu. »Živijo, princesa!« je rekel zmaj. Princesa se je ustrašila, potem pa je bila vesela: zmaj je bil dober!",
+          "en": "Once upon a time there was a little dragon who lived in a cave. One day the dragon went to the castle. \"Hello, princess!\" said the dragon. The princess was frightened, but then she was happy: the dragon was kind!"
+        }
+      },
+      {
+        "type": "transform", "grammar": "passato-remoto", "instruction": { "de": "Dillo con il passato prossimo · Sag es mit dem passato prossimo", "sl": "Dillo con il passato prossimo · Povej s passato prossimo", "en": "Dillo con il passato prossimo · Say it with the passato prossimo" },
+        "items": [
+          { "from": "La strega partì.", "accept": ["La strega è partita."] },
+          { "from": "Il cavaliere venne.", "accept": ["Il cavaliere è venuto."] },
+          { "from": "Le fate dissero di no.", "accept": ["Le fate hanno detto di no."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "passato-remoto", "prompt": "Il cavaliere prese la spada. Quando parliamo, diciamo: il cavaliere ___ la spada.", "options": ["ha preso", "ha perso", "ha pranzato"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**prese** → prendere: **ha preso** (hat genommen)\n- ha perso · perse (verlor)\n- ha pranzato · pranzò (aß zu Mittag)",
+          "sl": "**prese** → prendere: **ha preso** (je vzel)\n- ha perso · perse (je izgubil)\n- ha pranzato · pranzò (je kosil)",
+          "en": "**prese** → prendere: **ha preso** (took)\n- ha perso · perse (lost)\n- ha pranzato · pranzò (had lunch)"
+        }
+      },
+      {
+        "type": "choice", "grammar": "passato-remoto", "prompt": "La regina era triste. Un giorno ___ un uccellino alla sua finestra.", "options": ["arrivò", "arrivava", "arrivo"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**un giorno** → es passiert etwas: **arrivò**\n- arrivava · das Bild\n- arrivo · ich komme",
+          "sl": "**un giorno** → nekaj se zgodi: **arrivò**\n- arrivava · slika\n- arrivo · pridem",
+          "en": "**un giorno** → something happens: **arrivò**\n- arrivava · the picture\n- arrivo · I arrive"
+        }
+      },
+      {
+        "type": "sort", "grammar": "passato-remoto", "instruction": { "de": "Una o più persone? · Eine oder mehrere Personen?", "sl": "Una o più persone? · Ena ali več oseb?", "en": "Una o più persone? · One person or more?" },
+        "columns": [
+          { "label": { "de": "lui, lei · er, sie", "sl": "lui, lei · on, ona", "en": "lui, lei · he, she" }, "words": ["andò", "fu"] },
+          { "label": { "de": "loro · sie", "sl": "loro · oni", "en": "loro · they" }, "words": ["andarono", "furono"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Mina and the Agane's comb; Quando parliamo, diciamo: as a prompt; restò and rimase; the German Präteritum tip"
+}
