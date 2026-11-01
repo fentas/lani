@@ -1,0 +1,142 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "congiunzioni",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🧩",
+  "title": { "it": "Mentre, siccome, anche se: le congiunzioni", "sl": "Vezniki: mentre, siccome, anche se", "en": "Linking words: mentre, siccome, anche se", "de": "Bindewörter: mentre, siccome, anche se" },
+  "rule": {
+    "en": "Linking words (**le congiunzioni**) join two sentences and say how they belong together.\n\nThe reason: **perché** (because) comes after the other sentence, **siccome** (since, as) at the start: **Resto a casa perché piove.** **Siccome piove, resto a casa.** (never *perché piove, resto a casa*)\n\nWhat follows from it: **quindi**, **allora**, **così** (so): **Ho fame, quindi mangio una mela.**\n\nThe other way: **ma** and **però** (but): **Voglio giocare, ma devo fare i compiti.** **Invece** (whereas, instead) sets two things side by side: **Giulia ama i gatti, Tommaso invece ama i cani.** **Anche se** (even though, even if) says it happens all the same: **Anche se piove, Davide porta fuori le pecore.** After it the verb is as always: **anche se piove**.\n\nThe time: **quando** (when), **mentre** (while) for two things at once, **appena** (as soon as) for right after: **Mentre la nonna cucina, Giulia apparecchia.** **Appena arriva Tommaso, cominciamo.**\n\nA few want the subjunctive after them: **benché** and **sebbene** (although: **benché piova**), **prima che** (before: **prima che arrivi**). With the indicative, say **anche se**: **anche se piove** (never *benché piove*).",
+    "sl": "Vezniki (**le congiunzioni**) povežejo dva stavka in povedo, kako sodita skupaj.\n\nRazlog: **perché** (ker) stoji za drugim stavkom, **siccome** (ker, ker pač) na začetku: **Resto a casa perché piove.** (Ostanem doma, ker dežuje.) **Siccome piove, resto a casa.**\n\nKar sledi: **quindi**, **allora**, **così** (zato, torej): **Ho fame, quindi mangio una mela.** (Lačen sem, zato pojem jabolko.)\n\nNasprotje: **ma** in **però** (ampak, toda): **Voglio giocare, ma devo fare i compiti.** **Invece** (pa, namesto tega) postavi dve stvari drugo ob drugo: **Giulia ama i gatti, Tommaso invece ama i cani.** **Anche se** (čeprav, tudi če) pove, da se vseeno zgodi: **Anche se piove, Davide porta fuori le pecore.** Glagol za njim je kot vedno: **anche se piove**.\n\nČas: **quando** (ko), **mentre** (medtem ko) za dve stvari hkrati, **appena** (brž ko) za takoj potem: **Mentre la nonna cucina, Giulia apparecchia.** **Appena arriva Tommaso, cominciamo.**\n\nNekateri hočejo za seboj konjunktiv: **benché** in **sebbene** (čeprav: **benché piova**), **prima che** (preden: **prima che arrivi**). S povednikom reci **anche se**: **anche se piove**.",
+    "de": "Bindewörter (**le congiunzioni**) verbinden zwei Sätze und sagen, wie sie zusammengehören.\n\nDer Grund: **perché** (weil) steht nach dem anderen Satz, **siccome** (da) am Anfang: **Resto a casa perché piove.** (Ich bleibe zu Hause, weil es regnet.) **Siccome piove, resto a casa.**\n\nDie Folge: **quindi**, **allora**, **così** (also, deshalb): **Ho fame, quindi mangio una mela.**\n\nDas Gegenteil: **ma** und **però** (aber): **Voglio giocare, ma devo fare i compiti.** **Invece** (dagegen, stattdessen) stellt zwei Dinge nebeneinander: **Giulia ama i gatti, Tommaso invece ama i cani.** **Anche se** (obwohl, auch wenn) sagt, dass es trotzdem passiert: **Anche se piove, Davide porta fuori le pecore.** Danach steht das Verb wie immer: **anche se piove**.\n\nDie Zeit: **quando** (wenn, als), **mentre** (während) für zwei Dinge zugleich, **appena** (sobald) für gleich danach: **Mentre la nonna cucina, Giulia apparecchia.** **Appena arriva Tommaso, cominciamo.**\n\nEinige wollen danach den Konjunktiv: **benché** und **sebbene** (obwohl: **benché piova**), **prima che** (bevor: **prima che arrivi**). Mit dem Indikativ sag **anche se**: **anche se piove**."
+  },
+  "table": {
+    "head": [
+      { "it": "parola", "de": "Wort", "sl": "beseda", "en": "word" },
+      { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" },
+      { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+    ],
+    "rows": [
+      [
+        "perché",
+        { "it": "per il motivo che", "de": "weil (danach)", "sl": "ker (za stavkom)", "en": "because (after)" },
+        "Resto a casa perché piove."
+      ],
+      [
+        "siccome",
+        {
+          "it": "dato che (all'inizio)",
+          "de": "da (am Anfang)",
+          "sl": "ker (na začetku)",
+          "en": "since, as (at the start)"
+        },
+        "Siccome piove, resto a casa."
+      ],
+      [
+        "quindi, allora, così",
+        { "it": "per questo", "de": "also, deshalb", "sl": "zato, torej", "en": "so" },
+        "Ho fame, quindi mangio."
+      ],
+      [
+        "ma, però",
+        { "it": "tuttavia", "de": "aber", "sl": "ampak, toda", "en": "but" },
+        "Voglio giocare, ma devo studiare."
+      ],
+      [
+        "invece",
+        { "it": "al contrario", "de": "dagegen, stattdessen", "sl": "pa, namesto tega", "en": "whereas, instead" },
+        "Tommaso invece ama i cani."
+      ],
+      [
+        "anche se",
+        { "it": "nonostante", "de": "obwohl, auch wenn", "sl": "čeprav, tudi če", "en": "even though" },
+        "Anche se piove, Davide esce."
+      ],
+      [
+        "mentre",
+        { "it": "nello stesso tempo", "de": "während", "sl": "medtem ko", "en": "while" },
+        "Mentre la nonna cucina, Giulia apparecchia."
+      ],
+      [
+        "appena",
+        { "it": "subito dopo che", "de": "sobald", "sl": "brž ko", "en": "as soon as" },
+        "Appena arriva Tommaso, cominciamo."
+      ],
+      [
+        "benché, sebbene, prima che",
+        {
+          "it": "+ congiuntivo",
+          "de": "obwohl, bevor: + Konjunktiv",
+          "sl": "čeprav, preden: + konjunktiv",
+          "en": "although, before: + subjunctive"
+        },
+        "Benché piova, esco."
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Siccome piove, Davide porta le pecore nella stalla.",
+      "de": "Da es regnet, bringt Davide die Schafe in den Stall.",
+      "sl": "Ker dežuje, Davide odpelje ovce v hlev.",
+      "en": "As it's raining, Davide takes the sheep into the shed.",
+      "note": {
+        "sl": "siccome na začetku; perché za stavkom: … perché piove.",
+        "en": "siccome at the start; perché after: … perché piove.",
+        "de": "siccome am Anfang; perché danach: Davide porta le pecore nella stalla perché piove."
+      }
+    },
+    {
+      "it": "Lorenzo va a letto presto perché è stanco.",
+      "de": "Lorenzo geht früh ins Bett, weil er müde ist.",
+      "sl": "Lorenzo gre zgodaj spat, ker je utrujen.",
+      "en": "Lorenzo goes to bed early because he's tired."
+    },
+    {
+      "it": "Ho fame, quindi mangio una mela.",
+      "de": "Ich habe Hunger, also esse ich einen Apfel.",
+      "sl": "{m:Lačen|f:Lačna} sem, zato pojem jabolko.",
+      "en": "I'm hungry, so I'll eat an apple."
+    },
+    {
+      "it": "Il mare è bello, ma oggi c'è troppo vento.",
+      "de": "Das Meer ist schön, aber heute ist zu viel Wind.",
+      "sl": "Morje je lepo, ampak danes preveč piha.",
+      "en": "The sea is lovely, but it's too windy today."
+    },
+    {
+      "it": "Giulia ama i gatti, Tommaso invece ama i cani.",
+      "de": "Giulia liebt Katzen, Tommaso dagegen liebt Hunde.",
+      "sl": "Giulia ima rada mačke, Tommaso pa pse.",
+      "en": "Giulia loves cats, whereas Tommaso loves dogs."
+    },
+    {
+      "it": "Anche se l'acqua è fredda, Tommaso fa il bagno.",
+      "de": "Obwohl das Wasser kalt ist, geht Tommaso baden.",
+      "sl": "Čeprav je voda mrzla, se Tommaso kopa.",
+      "en": "Even though the water's cold, Tommaso goes swimming.",
+      "note": {
+        "sl": "anche se + glagol kot vedno: è. Z benché bi bil sia (konjunktiv).",
+        "en": "anche se + the verb as always: è. With benché it would be sia (subjunctive).",
+        "de": "anche se + das Verb wie immer: è. Mit benché wäre es sia (Konjunktiv)."
+      }
+    },
+    {
+      "it": "Mentre il nonno racconta, Moro dorme.",
+      "de": "Während der Opa erzählt, schläft Moro.",
+      "sl": "Medtem ko dedek pripoveduje, Moro spi.",
+      "en": "While Grandpa tells his story, Moro sleeps."
+    },
+    {
+      "it": "Appena arriva il gelataio, i bambini corrono in piazza.",
+      "de": "Sobald der Eismann kommt, rennen die Kinder auf den Platz.",
+      "sl": "Brž ko pride sladoledar, otroci stečejo na trg.",
+      "en": "As soon as the ice-cream man comes, the children run to the square."
+    }
+  ],
+  "modules": [],
+  "tags": ["congiunzioni", "conjunctions", "linking_words", "perche", "siccome", "anche_se", "mentre"],
+  "see": ["imperfetto-passato", "domande", "futuro-anteriore", "relative-che"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

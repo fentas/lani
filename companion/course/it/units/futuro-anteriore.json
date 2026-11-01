@@ -1,0 +1,592 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "futuro-anteriore",
+  "language": "it",
+  "level": "B1",
+  "emoji": "⏳",
+  "title": { "it": "Quando avrò finito, gioco", "de": "Futur II: quando avrò finito", "sl": "Predprihodnjik: quando avrò finito", "en": "Future perfect: quando avrò finito" },
+  "goal": {
+    "de": "Du sagst, was zuerst fertig sein wird (Quando avrò finito i compiti, gioco. Appena Giulia sarà tornata, mangiamo.) und rätst, was passiert ist (Sarà stato Moro!).",
+    "sl": "Poveš, kaj bo najprej narejeno (Quando avrò finito i compiti, gioco. Appena Giulia sarà tornata, mangiamo.), in ugibaš, kaj se je zgodilo (Sarà stato Moro!).",
+    "en": "You can say what will be done first (Quando avrò finito i compiti, gioco. Appena Giulia sarà tornata, mangiamo.) and guess what has happened (Sarà stato Moro!)."
+  },
+  "grammar": ["futuro-anteriore", "futuro", "passato-prossimo"],
+  "words": [
+    "finire",
+    "mangiare",
+    "arrivare",
+    "tornare",
+    "partire",
+    "contare",
+    "cantare",
+    "cucinare",
+    "quando",
+    "appena",
+    "dopo che",
+    "forse",
+    "già",
+    "i compiti",
+    "la stalla",
+    "la torta",
+    "il formaggio",
+    "il gatto",
+    "il nascondino",
+    "la merenda",
+    "la camera",
+    "in ordine",
+    "il compleanno",
+    "il regalo",
+    "le bocce",
+    "la vendemmia",
+    "la finestra",
+    "il vento",
+    "il mercato",
+    "il frico",
+    "la cena",
+    "sparito"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "chi, quando", "de": "wer, wann", "sl": "kdo, kdaj", "en": "who, when" },
+        { "it": "futuro anteriore", "de": "Futur II", "sl": "predprihodnjik", "en": "future perfect" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Mit dem **futuro anteriore** (Futur II) sagst du, was in der Zukunft schon fertig sein wird: **Quando avrò finito i compiti, gioco.** (Wenn ich mit den Hausaufgaben fertig bin, spiele ich.) Du nimmst das Futur von **avere**, **avrò, avrai, avrà**, und das Partizip: **avrò finito** (ich werde fertig sein). Im Deutschen reicht hier oft das Präsens, im Italienischen nicht.",
+          "sl": "S **futuro anteriore** (predprihodnjikom) poveš, kaj bo v prihodnosti že narejeno: **Quando avrò finito i compiti, gioco.** (Ko naredim domačo nalogo, se grem igrat.) Vzameš prihodnjik od **avere**, **avrò, avrai, avrà**, in deležnik: **avrò finito** (ko končam). Slovensko tu rečeš sedanjik, italijansko ne.",
+          "en": "With the **futuro anteriore** (future perfect) you say what will already be done in the future: **Quando avrò finito i compiti, gioco.** (When I've finished my homework, I'll play.) Take the future of **avere**, **avrò, avrai, avrà**, and the participle: **avrò finito** (I'll have finished). English says *I've finished* here, Italian doesn't."
+        },
+        "examples": [
+          {
+            "it": "Quando avrò finito i compiti, gioco.",
+            "de": "Wenn ich mit den Hausaufgaben fertig bin, spiele ich.",
+            "sl": "Ko naredim domačo nalogo, se grem igrat.",
+            "en": "When I've finished my homework, I'll play."
+          },
+          {
+            "it": "Quando Nonna Rosa avrà cucinato, mangeremo tutti insieme.",
+            "de": "Wenn Nonna Rosa gekocht hat, essen wir alle zusammen.",
+            "sl": "Ko babica Rosa skuha, bomo vsi skupaj jedli.",
+            "en": "When Nonna Rosa has cooked, we'll all eat together."
+          }
+        ],
+        "rows": [
+          ["io", "avrò finito"],
+          ["tu", "avrai finito"],
+          ["lui, lei", "avrà finito"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "futuro-anteriore",
+          "prompt": "Quando Tommaso ___ i compiti, andrà al campo.",
+          "options": ["avrà fatto", "averà fatto", "avrò fatto"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**Tommaso** (lui) → **avrà** fatto\n- averà · gibt es nicht: avrò, avrai, avrà\n- avrò · ich",
+            "sl": "**Tommaso** (lui) → **avrà** fatto\n- averà · ne obstaja: avrò, avrai, avrà\n- avrò · jaz",
+            "en": "**Tommaso** (lui) → **avrà** fatto\n- averà · no such form: avrò, avrai, avrà\n- avrò · I"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für **noi, voi, loro** heißt es **avremo, avrete, avranno** und das Partizip: **Quando avremo mangiato, andiamo al mare.** (Wenn wir gegessen haben, gehen wir ans Meer.) **Quando avrete finito, potete uscire.** (Wenn ihr fertig seid, dürft ihr hinaus.) Das Partizip mit **avere** bleibt immer gleich: **finito, mangiato**.",
+          "sl": "Za **noi, voi, loro** je **avremo, avrete, avranno** in deležnik: **Quando avremo mangiato, andiamo al mare.** (Ko pojemo, gremo na morje.) **Quando avrete finito, potete uscire.** (Ko končate, lahko greste ven.) Deležnik z **avere** ostane vedno enak: **finito, mangiato**.",
+          "en": "For **noi, voi, loro** it's **avremo, avrete, avranno** and the participle: **Quando avremo mangiato, andiamo al mare.** (When we've eaten, we'll go to the sea.) **Quando avrete finito, potete uscire.** (When you've finished, you can go out.) With **avere** the participle always stays the same: **finito, mangiato**."
+        },
+        "examples": [
+          {
+            "it": "Quando avremo mangiato, andiamo al mare.",
+            "de": "Wenn wir gegessen haben, gehen wir ans Meer.",
+            "sl": "Ko pojemo, gremo na morje.",
+            "en": "When we've eaten, we'll go to the sea."
+          },
+          {
+            "it": "Quando le pecore avranno mangiato, Davide tornerà a casa.",
+            "de": "Wenn die Schafe gefressen haben, geht Davide nach Hause.",
+            "sl": "Ko se ovce najedo, gre Davide domov.",
+            "en": "When the sheep have eaten, Davide will go home."
+          }
+        ],
+        "rows": [
+          ["noi", "avremo finito"],
+          ["voi", "avrete finito"],
+          ["loro", "avranno finito"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "futuro-anteriore",
+          "text": "Quando i bambini ___ cantato, mangeranno la torta.",
+          "accept": ["avranno"],
+          "hint": "loro → ?",
+          "explain": {
+            "de": "**i bambini** (loro) → **avranno** cantato",
+            "sl": "**i bambini** (loro) → **avranno** cantato",
+            "en": "**i bambini** (loro) → **avranno** cantato"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Verben des Gehens und Kommens nehmen **essere**, **sarò, sarai, sarà**, und das Partizip passt sich an wie im **passato prossimo**. Lorenzo sagt **sarò arrivato** (ich werde angekommen sein), Giulia **sarò arrivata**. **Quando Giulia sarà tornata, mangiamo.** (Wenn Giulia zurück ist, essen wir.) Für mehrere: **saremo partiti** (wir werden abgefahren sein).",
+          "sl": "Glagoli premikanja vzamejo **essere**, **sarò, sarai, sarà**, deležnik pa se ujema kot v **passato prossimo**. Lorenzo reče **sarò arrivato** (ko pridem), Giulia **sarò arrivata**. **Quando Giulia sarà tornata, mangiamo.** (Ko se Giulia vrne, bomo jedli.) Za več: **saremo partiti** (ko odidemo).",
+          "en": "Verbs of going and coming take **essere**, **sarò, sarai, sarà**, and the participle agrees as in the **passato prossimo**. Lorenzo says **sarò arrivato** (I'll have arrived), Giulia **sarò arrivata**. **Quando Giulia sarà tornata, mangiamo.** (When Giulia is back, we'll eat.) For more than one: **saremo partiti** (we'll have left)."
+        },
+        "examples": [
+          {
+            "it": "Quando Giulia sarà tornata, mangiamo.",
+            "de": "Wenn Giulia zurück ist, essen wir.",
+            "sl": "Ko se Giulia vrne, bomo jedli.",
+            "en": "When Giulia is back, we'll eat."
+          },
+          {
+            "it": "Quando i bambini saranno arrivati, la festa comincia.",
+            "de": "Wenn die Kinder da sind, fängt das Fest an.",
+            "sl": "Ko pridejo otroci, se praznik začne.",
+            "en": "When the children have arrived, the festa begins."
+          }
+        ],
+        "rows": [
+          ["io · Lorenzo", "sarò arrivato"],
+          ["io · Giulia", "sarò arrivata"],
+          ["noi, loro", "saremo partiti, saranno partiti"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "futuro-anteriore",
+          "prompt": "Quando Nonna Rosa ___ dal mercato, faremo il frico.",
+          "options": ["sarà tornata", "sarà tornato", "avrà tornata"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**tornare** → essere, **Nonna Rosa** → -a: sarà tornata\n- tornato · für einen Mann\n- avrà · tornare nimmt essere",
+            "sl": "**tornare** → essere, **Nonna Rosa** → -a: sarà tornata\n- tornato · za moškega\n- avrà · tornare vzame essere",
+            "en": "**tornare** → essere, **Nonna Rosa** → -a: sarà tornata\n- tornato · for a man\n- avrà · tornare takes essere"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach **quando** (wenn), **appena** (sobald) und **dopo che** (nachdem) steht das **futuro anteriore** für das, was zuerst passiert, der andere Teil im Futur oder, wie man oft sagt, im Präsens: **Appena avrò finito, ti chiamo.** (Sobald ich fertig bin, rufe ich dich an.) **Dopo che avremo mangiato, andremo al mare.** (Nachdem wir gegessen haben, gehen wir ans Meer.)",
+          "sl": "Za **quando** (ko), **appena** (brž ko) in **dopo che** (potem ko) stoji **futuro anteriore** za tisto, kar se zgodi najprej, drugi del pa v prihodnjiku ali, kot se pogosto reče, v sedanjiku: **Appena avrò finito, ti chiamo.** (Brž ko končam, te pokličem.) **Dopo che avremo mangiato, andremo al mare.** (Potem ko pojemo, bomo šli na morje.)",
+          "en": "After **quando** (when), **appena** (as soon as) and **dopo che** (after), the **futuro anteriore** says what happens first, the other half in the future or, as people often say, the present: **Appena avrò finito, ti chiamo.** (As soon as I've finished, I'll call you.) **Dopo che avremo mangiato, andremo al mare.** (After we've eaten, we'll go to the sea.)"
+        },
+        "examples": [
+          {
+            "it": "Appena avrò finito, ti chiamo.",
+            "de": "Sobald ich fertig bin, rufe ich dich an.",
+            "sl": "Brž ko končam, te pokličem.",
+            "en": "As soon as I've finished, I'll call you."
+          },
+          {
+            "it": "Dopo che Davide avrà contato le pecore, verrà a cena.",
+            "de": "Nachdem Davide die Schafe gezählt hat, kommt er zum Abendessen.",
+            "sl": "Potem ko Davide prešteje ovce, pride na večerjo.",
+            "en": "After Davide has counted the sheep, he'll come to dinner."
+          }
+        ],
+        "rows": [
+          ["appena", "appena avrò finito, ti chiamo"],
+          ["dopo che", "dopo che avremo mangiato, andremo"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "futuro-anteriore",
+          "text": "Appena Lorenzo ___ finito il latte, andrà a letto.",
+          "accept": ["avrà"],
+          "hint": "lui → ?",
+          "explain": {
+            "de": "**appena** + futuro anteriore: Lorenzo (lui) → **avrà** finito",
+            "sl": "**appena** + futuro anteriore: Lorenzo (lui) → **avrà** finito",
+            "en": "**appena** + futuro anteriore: Lorenzo (lui) → **avrà** finito"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit dem **futuro anteriore** kannst du auch raten, was passiert ist: **Sarà stato Moro!** (Das war bestimmt Moro!) **Dove sarà andato il gatto?** (Wo ist die Katze wohl hin?) Im Deutschen sagst du dazu *wohl* oder *bestimmt*, im Italienischen reicht das **futuro anteriore**.",
+          "sl": "S **futuro anteriore** lahko tudi ugibaš, kaj se je zgodilo: **Sarà stato Moro!** (Gotovo je bil Moro!) **Dove sarà andato il gatto?** (Kam je neki šel maček?) Slovensko rečeš *gotovo* ali *neki*, italijansko je dovolj **futuro anteriore**.",
+          "en": "With the **futuro anteriore** you can also guess what has happened: **Sarà stato Moro!** (It must have been Moro!) **Dove sarà andato il gatto?** (Where can the cat have gone?) English says *must have* or *can have*, Italian just uses the **futuro anteriore**."
+        },
+        "examples": [
+          {
+            "it": "La torta non c'è più: l'avrà mangiata Moro!",
+            "de": "Der Kuchen ist weg: Den hat bestimmt Moro gefressen!",
+            "sl": "Torte ni več: gotovo jo je pojedel Moro!",
+            "en": "The cake has gone: Moro must have eaten it!"
+          },
+          {
+            "it": "Giulia non risponde: sarà già andata a dormire.",
+            "de": "Giulia antwortet nicht: Sie ist wohl schon schlafen gegangen.",
+            "sl": "Giulia se ne oglasi: najbrž je že šla spat.",
+            "en": "Giulia isn't answering: she must have gone to bed already."
+          }
+        ],
+        "rows": [
+          ["un'idea", "sarà stato Moro"],
+          ["una domanda", "dove sarà andato?"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "futuro-anteriore",
+          "prompt": "Il formaggio è sparito! ___ il gatto!",
+          "options": ["Sarà stato", "Sarò stato", "Avrà stato"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**eine Vermutung**, il gatto (lui) → **Sarà stato** il gatto!\n- sarò · ich\n- avrà stato · stato geht mit essere",
+            "sl": "**ugibanje**, il gatto (lui) → **Sarà stato** il gatto!\n- sarò · jaz\n- avrà stato · stato gre z essere",
+            "en": "**a guess**, il gatto (lui) → **Sarà stato** il gatto!\n- sarò · I\n- avrà stato · stato goes with essere"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "futuro-anteriore-1",
+      "title": { "it": "Avrò finito, sarò arrivato", "de": "Fertig sein, angekommen sein", "sl": "Ko končam, ko pridem", "en": "Finished, arrived" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "futuro-anteriore",
+          "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "futuro anteriore",
+          "columns": ["finire", "arrivare"],
+          "rows": [
+            { "label": "io · Tommaso", "cells": ["avrò finito", {"accept": ["sarò arrivato"], "hint": "Tommaso: -o"}] },
+            {
+              "label": "tu · Giulia",
+              "cells": [
+                { "accept": ["avrai finito"] },
+                { "accept": ["sarai arrivata"], "hint": "Giulia: -a" }
+              ]
+            },
+            { "label": "lui · Lorenzo", "cells": [{"accept": ["avrà finito"]}, "sarà arrivato"] },
+            {
+              "label": "noi · Giulia e Tommaso",
+              "cells": [
+                { "accept": ["avremo finito"], "hint": "noi: avr…" },
+                { "accept": ["saremo arrivati"], "hint": "-i" }
+              ]
+            },
+            {
+              "label": "voi · Rosa e Nives",
+              "cells": [
+                { "accept": ["avrete finito"] },
+                { "accept": ["sarete arrivate"], "hint": "-e" }
+              ]
+            },
+            { "label": "loro · le pecore", "cells": [{"accept": ["avranno finito"]}, {"accept": ["saranno arrivate"]}] }
+          ],
+          "explain": {
+            "de": "**avere** + finito, immer gleich · **essere** + arrivato, wie wer: -o, -a, -i, -e\n- avrò, avrai, avrà, avremo, avrete, avranno\n- sarò, sarai, sarà, saremo, sarete, saranno",
+            "sl": "**avere** + finito, vedno enako · **essere** + arrivato, kot kdo: -o, -a, -i, -e\n- avrò, avrai, avrà, avremo, avrete, avranno\n- sarò, sarai, sarà, saremo, sarete, saranno",
+            "en": "**avere** + finito, always the same · **essere** + arrivato, as who: -o, -a, -i, -e\n- avrò, avrai, avrà, avremo, avrete, avranno\n- sarò, sarai, sarà, saremo, sarete, saranno"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "futuro-anteriore",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Giulia: «Quando ___ a casa, ti telefono.»",
+          "options": ["sarò arrivata", "sarò arrivato", "avrò arrivata"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**arrivare** → essere, **Giulia** spricht → -a: sarò arrivata\n- arrivato · für einen Jungen\n- avrò · arrivare nimmt essere",
+            "sl": "**arrivare** → essere, govori **Giulia** → -a: sarò arrivata\n- arrivato · za dečka\n- avrò · arrivare vzame essere",
+            "en": "**arrivare** → essere, **Giulia** is speaking → -a: sarò arrivata\n- arrivato · for a boy\n- avrò · arrivare takes essere"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "futuro-anteriore",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Dopo che i bambini ___, Nonna Rosa laverà i piatti.",
+          "options": ["avranno mangiato", "avrà mangiato", "averanno mangiato"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**i bambini** (loro) → **avranno** mangiato\n- avrà · für einen\n- averanno · gibt es nicht",
+            "sl": "**i bambini** (loro) → **avranno** mangiato\n- avrà · za enega\n- averanno · ne obstaja",
+            "en": "**i bambini** (loro) → **avranno** mangiato\n- avrà · for one\n- averanno · no such form"
+          }
+        }
+      ]
+    },
+    {
+      "id": "futuro-anteriore-2",
+      "title": { "it": "Il piano di Giulia", "de": "Giulias Plan", "sl": "Giulijin načrt", "en": "Giulia's plan" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "futuro-anteriore",
+          "instruction": {
+            "de": "Completa con avere o essere al futuro · Ergänze avere oder essere im Futur",
+            "sl": "Completa con avere o essere al futuro · Dopolni z avere ali essere v prihodnjiku",
+            "en": "Completa con avere o essere al futuro · Fill in avere or essere in the future"
+          },
+          "title": "Il piano di Giulia",
+          "text": "Giulia fa un piano per il pomeriggio. «Quando ___ finito i compiti, vado da Davide. Quando le pecore ___ mangiato, le porteremo alla stalla. Appena Tommaso ___ arrivato, giochiamo a nascondino. Dopo che noi ___ giocato, torneremo a casa.» Ma Nonna Rosa dice: «E la tua camera? Quando tu ___ messo in ordine la camera, potrai uscire! E quando tornerai, io ___ già preparato la merenda.»",
+          "gaps": [
+            { "accept": ["avrò"], "hint": "io → ?" },
+            { "accept": ["avranno"], "hint": "loro → ?" },
+            {
+              "accept": ["sarà"],
+              "hint": { "de": "arrivare: essere", "sl": "arrivare: essere", "en": "arrivare: essere" },
+              "explain": {
+                "de": "**arrivare** nimmt essere: Tommaso sarà arrivato.",
+                "sl": "**arrivare** vzame essere: Tommaso sarà arrivato.",
+                "en": "**arrivare** takes essere: Tommaso sarà arrivato."
+              }
+            },
+            { "accept": ["avremo"], "hint": "noi → ?" },
+            { "accept": ["avrai"], "hint": "tu → ?" },
+            { "accept": ["avrò"], "hint": "io → ?" }
+          ],
+          "bank": true,
+          "distractors": ["avrà", "averò"],
+          "translation": {
+            "de": "Giulia macht einen Plan für den Nachmittag. „Wenn ich mit den Hausaufgaben fertig bin, gehe ich zu Davide. Wenn die Schafe gefressen haben, bringen wir sie in den Stall. Sobald Tommaso da ist, spielen wir Verstecken. Nachdem wir gespielt haben, gehen wir nach Hause.“ Aber Nonna Rosa sagt: „Und dein Zimmer? Wenn du dein Zimmer aufgeräumt hast, darfst du hinaus! Und wenn du zurückkommst, habe ich dir schon etwas zu essen gemacht.“",
+            "sl": "Giulia naredi načrt za popoldne. »Ko naredim domačo nalogo, grem k Davidu. Ko se ovce najedo, jih bova odpeljala v hlev. Brž ko pride Tommaso, se gremo skrivalnice. Potem ko se naigramo, se vrnemo domov.« Toda babica Rosa reče: »Pa tvoja soba? Ko pospraviš sobo, lahko greš ven! In ko se vrneš, bom že pripravila malico.«",
+            "en": "Giulia makes a plan for the afternoon. \"When I've finished my homework, I'll go to Davide's. When the sheep have eaten, we'll take them to the shed. As soon as Tommaso has arrived, we'll play hide-and-seek. After we've played, we'll go home.\" But Nonna Rosa says: \"And your room? When you've tidied your room, you can go out! And when you come back, I'll have made your snack.\""
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "futuro-anteriore",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "«Dove ___ Moro? Non lo trovo!»",
+          "options": ["sarà andato", "avrà andato", "sarò andato"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**eine Vermutung**: andare → essere, Moro → **sarà andato**\n- avrà · andare nimmt essere\n- sarò · ich",
+            "sl": "**ugibanje**: andare → essere, Moro → **sarà andato**\n- avrà · andare vzame essere\n- sarò · jaz",
+            "en": "**a guess**: andare → essere, Moro → **sarà andato**\n- avrà · andare takes essere\n- sarò · I"
+          }
+        }
+      ]
+    },
+    {
+      "id": "futuro-anteriore-3",
+      "title": { "it": "Prima questo, poi quello", "de": "Erst das, dann das", "sl": "Najprej to, potem ono", "en": "First this, then that" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "futuro-anteriore",
+          "instruction": {
+            "de": "Unisci con quando, appena o dopo che · Verbinde mit quando, appena oder dopo che",
+            "sl": "Unisci con quando, appena o dopo che · Združi s quando, appena ali dopo che",
+            "en": "Unisci con quando, appena o dopo che · Join with quando, appena or dopo che"
+          },
+          "whole": true,
+          "items": [
+            {
+              "from": "Finisco i compiti. Poi gioco. (quando)",
+              "accept": [
+                "Quando avrò finito i compiti, giocherò.",
+                "Quando avrò finito i compiti, gioco.",
+                "Giocherò quando avrò finito i compiti.",
+                "Gioco quando avrò finito i compiti."
+              ]
+            },
+            {
+              "from": "Davide conta le pecore. Poi viene a cena. (appena)",
+              "accept": [
+                "Appena Davide avrà contato le pecore, verrà a cena.",
+                "Appena Davide avrà contato le pecore, viene a cena.",
+                "Verrà a cena appena Davide avrà contato le pecore.",
+                "Viene a cena appena Davide avrà contato le pecore.",
+                "Davide verrà a cena appena avrà contato le pecore.",
+                "Davide viene a cena appena avrà contato le pecore."
+              ]
+            },
+            {
+              "from": "Giulia torna dal mare. Poi mangiamo. (quando)",
+              "accept": [
+                "Quando Giulia sarà tornata dal mare, mangeremo.",
+                "Quando Giulia sarà tornata dal mare, mangiamo.",
+                "Mangeremo quando Giulia sarà tornata dal mare.",
+                "Mangiamo quando Giulia sarà tornata dal mare."
+              ],
+              "hint": { "de": "tornare: essere", "sl": "tornare: essere", "en": "tornare: essere" }
+            },
+            {
+              "from": "I bambini cantano. Poi mangiano la torta. (dopo che)",
+              "accept": [
+                "Dopo che i bambini avranno cantato, mangeranno la torta.",
+                "Dopo che i bambini avranno cantato, mangiano la torta.",
+                "Mangeranno la torta dopo che i bambini avranno cantato.",
+                "Mangiano la torta dopo che i bambini avranno cantato.",
+                "I bambini mangeranno la torta dopo che avranno cantato.",
+                "I bambini mangiano la torta dopo che avranno cantato."
+              ]
+            },
+            {
+              "from": "Nonna Rosa e Zia Nives arrivano. Poi cominciamo. (appena)",
+              "accept": [
+                "Appena Nonna Rosa e Zia Nives saranno arrivate, cominceremo.",
+                "Appena Nonna Rosa e Zia Nives saranno arrivate, cominciamo.",
+                "Cominceremo appena Nonna Rosa e Zia Nives saranno arrivate.",
+                "Cominciamo appena Nonna Rosa e Zia Nives saranno arrivate."
+              ],
+              "hint": "-e"
+            }
+          ],
+          "explain": {
+            "de": "**was zuerst passiert** → futuro anteriore, das andere im Futur oder Präsens\n- Quando avrò finito i compiti, giocherò.\n- Quando Giulia sarà tornata, mangiamo.",
+            "sl": "**kar se zgodi najprej** → futuro anteriore, drugo v prihodnjiku ali sedanjiku\n- Quando avrò finito i compiti, giocherò.\n- Quando Giulia sarà tornata, mangiamo.",
+            "en": "**what happens first** → futuro anteriore, the other half in the future or present\n- Quando avrò finito i compiti, giocherò.\n- Quando Giulia sarà tornata, mangiamo."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "futuro-anteriore",
+          "instruction": { "de": "Fai un'ipotesi · Rate mit dem Futur II", "sl": "Fai un'ipotesi · Ugibaj s predprihodnjikom", "en": "Fai un'ipotesi · Guess with the future perfect" },
+          "cue": "forse → ?",
+          "items": [
+            { "from": "Forse è stato il vento.", "accept": ["Sarà stato il vento.", "Forse sarà stato il vento."] },
+            {
+              "from": "Forse Giulia è andata da Davide.",
+              "accept": ["Giulia sarà andata da Davide.", "Sarà andata da Davide.", "Forse Giulia sarà andata da Davide."]
+            },
+            {
+              "from": "Forse Lorenzo ha perso la palla.",
+              "accept": ["Lorenzo avrà perso la palla.", "Avrà perso la palla.", "Forse Lorenzo avrà perso la palla."]
+            }
+          ],
+          "explain": {
+            "de": "**eine Vermutung** über das, was passiert ist: futuro anteriore\n- è stato → sarà stato · ha perso → avrà perso",
+            "sl": "**ugibanje** o tem, kar se je zgodilo: futuro anteriore\n- è stato → sarà stato · ha perso → avrà perso",
+            "en": "**a guess** about what has happened: futuro anteriore\n- è stato → sarà stato · ha perso → avrà perso"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "futuro-anteriore",
+        "instruction": {
+          "de": "Completa con avere o essere al futuro · Ergänze avere oder essere im Futur",
+          "sl": "Completa con avere o essere al futuro · Dopolni z avere ali essere v prihodnjiku",
+          "en": "Completa con avere o essere al futuro · Fill in avere or essere in the future"
+        },
+        "text": "Domani è il compleanno di Nonno Bepi. Quando Nonna Rosa ___ fatto la torta, la porterà sotto il tiglio. Appena gli amici ___ arrivati, il nonno aprirà i regali. Dopo che tutti ___ mangiato, giocheranno a bocce. E Lorenzo dice: «Quando ___ compiuto ottant'anni, racconterò storie anch'io!»",
+        "gaps": [
+          { "accept": ["avrà"] },
+          { "accept": ["saranno"] },
+          { "accept": ["avranno"] },
+          { "accept": ["avrò"] }
+        ],
+        "translation": {
+          "de": "Morgen hat Nonno Bepi Geburtstag. Wenn Nonna Rosa den Kuchen gebacken hat, bringt sie ihn unter die Linde. Sobald die Freunde da sind, packt der Opa die Geschenke aus. Nachdem alle gegessen haben, spielen sie Boccia. Und Lorenzo sagt: „Wenn ich achtzig bin, erzähle ich auch Geschichten!“",
+          "sl": "Jutri ima dedek Bepi rojstni dan. Ko babica Rosa speče torto, jo bo odnesla pod lipo. Brž ko pridejo prijatelji, bo dedek odprl darila. Potem ko vsi pojedo, bodo igrali balinanje. In Lorenzo reče: »Ko bom star osemdeset let, bom tudi jaz pripovedoval zgodbe!«",
+          "en": "Tomorrow is Nonno Bepi's birthday. When Nonna Rosa has made the cake, she'll take it under the linden. As soon as his friends have arrived, Grandpa will open his presents. After everyone has eaten, they'll play bocce. And Lorenzo says: \"When I've turned eighty, I'll tell stories too!\""
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "futuro-anteriore",
+        "instruction": {
+          "de": "Unisci con quando, appena o dopo che · Verbinde mit quando, appena oder dopo che",
+          "sl": "Unisci con quando, appena o dopo che · Združi s quando, appena ali dopo che",
+          "en": "Unisci con quando, appena o dopo che · Join with quando, appena or dopo che"
+        },
+        "whole": true,
+        "items": [
+          {
+            "from": "Matteo finisce la vendemmia. Poi fa una festa. (quando)",
+            "accept": [
+              "Quando Matteo avrà finito la vendemmia, farà una festa.",
+              "Quando Matteo avrà finito la vendemmia, fa una festa.",
+              "Farà una festa quando Matteo avrà finito la vendemmia.",
+              "Fa una festa quando Matteo avrà finito la vendemmia.",
+              "Matteo farà una festa quando avrà finito la vendemmia.",
+              "Matteo fa una festa quando avrà finito la vendemmia."
+            ]
+          },
+          {
+            "from": "Le pecore tornano. Poi Davide chiude la stalla. (appena)",
+            "accept": [
+              "Appena le pecore saranno tornate, Davide chiuderà la stalla.",
+              "Appena le pecore saranno tornate, Davide chiude la stalla.",
+              "Davide chiuderà la stalla appena le pecore saranno tornate.",
+              "Davide chiude la stalla appena le pecore saranno tornate."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "futuro-anteriore",
+        "prompt": "«Chi ___ la finestra?» «Sarà stato il vento!»",
+        "options": ["avrà aperto", "averà aperto", "sarà aperto"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**aprire** → avere: **avrà aperto**\n- averà · gibt es nicht\n- sarà aperto · aprire nimmt avere",
+          "sl": "**aprire** → avere: **avrà aperto**\n- averà · ne obstaja\n- sarà aperto · aprire vzame avere",
+          "en": "**aprire** → avere: **avrà aperto**\n- averà · no such form\n- sarà aperto · aprire takes avere"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "futuro-anteriore",
+        "prompt": "Giulia: «Appena ___ dalla scuola, verrò da te.»",
+        "options": ["sarò tornata", "sarò tornato", "avrò tornata"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**tornare** → essere, **Giulia** → -a: sarò tornata",
+          "sl": "**tornare** → essere, **Giulia** → -a: sarò tornata",
+          "en": "**tornare** → essere, **Giulia** → -a: sarò tornata"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "futuro-anteriore",
+        "prompt": "Quando voi ___ i compiti, potrete giocare.",
+        "options": ["avrete fatto", "avremo fatto", "avrete fatti"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**voi** → **avrete** fatto, mit avere bleibt fatto gleich\n- avremo · wir\n- fatti · mit avere nicht",
+          "sl": "**voi** → **avrete** fatto, z avere ostane fatto enak\n- avremo · mi\n- fatti · z avere ne",
+          "en": "**voi** → **avrete** fatto, with avere fatto stays the same\n- avremo · we\n- fatti · not with avere"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "futuro-anteriore",
+        "instruction": { "de": "Avere o essere? · Avere oder essere?", "sl": "Avere o essere? · Avere ali essere?", "en": "Avere o essere? · Avere or essere?" },
+        "columns": [
+          {
+            "label": { "de": "avrò … · mit avere", "sl": "avrò … · z avere", "en": "avrò … · with avere" },
+            "words": ["mangiato", "finito"]
+          },
+          {
+            "label": { "de": "sarò … · mit essere", "sl": "sarò … · z essere", "en": "sarò … · with essere" },
+            "words": ["arrivato", "partito"]
+          }
+        ],
+        "explain": {
+          "de": "**gehen, kommen** → essere · **die anderen** → avere",
+          "sl": "**iti, priti** → essere · **drugi** → avere",
+          "en": "**going, coming** → essere · **the others** → avere"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the present in the main clause (Quando avrò finito, gioco), Sarà stato Moro, l'avrà mangiata Moro, la merenda, the German for a child"
+}

@@ -1,0 +1,531 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "infinito-preposizioni",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🧗",
+  "title": { "it": "Comincio a, finisco di, provo a", "de": "Verben mit a und di: comincio a", "sl": "Glagoli z a in di: comincio a", "en": "Verbs with a and di: comincio a" },
+  "goal": {
+    "de": "Du weißt, welches Verb a oder di vor dem nächsten Verb will (comincio a leggere, finisco di mangiare), wann nichts dazwischen kommt (voglio giocare) und sagst per und prima di.",
+    "sl": "Veš, kateri glagol hoče a ali di pred naslednjim glagolom (comincio a leggere, finisco di mangiare), kdaj ni nič vmes (voglio giocare), in uporabiš per in prima di.",
+    "en": "You know which verb wants a or di before the next verb (comincio a leggere, finisco di mangiare), when nothing goes between (voglio giocare), and you can say per and prima di."
+  },
+  "grammar": ["infinito-preposizioni", "modali"],
+  "words": [
+    "cominciare",
+    "imparare",
+    "insegnare",
+    "andare",
+    "venire",
+    "aiutare",
+    "provare",
+    "continuare",
+    "finire",
+    "smettere",
+    "cercare",
+    "decidere",
+    "dimenticare",
+    "ricordarsi",
+    "avere voglia",
+    "avere paura",
+    "contento",
+    "preferire",
+    "leggere",
+    "nuotare",
+    "fischiare",
+    "saltare",
+    "contare",
+    "cucinare",
+    "abbaiare",
+    "ridere",
+    "la farina",
+    "il mulino",
+    "il cancello",
+    "la gubana",
+    "l'agnellino",
+    "il tamburo",
+    "la fisarmonica",
+    "il fosso",
+    "il forno",
+    "per",
+    "prima di"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "verbo", "de": "Verb", "sl": "glagol", "en": "verb" },
+        { "it": "poi", "de": "danach", "sl": "potem", "en": "then" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Bringt ein Verb ein zweites mit, steht oft ein kleines Wort dazwischen: Nach **cominciare** (anfangen) und **imparare** (lernen) ist es **a**. **Comincio a leggere.** (Ich fange an zu lesen.) **Lorenzo impara a nuotare.** (Lorenzo lernt schwimmen.) Auch **insegnare a** (beibringen): **Davide insegna ai bambini a fischiare.** Im Deutschen steht *zu* oder gar nichts, im Italienischen immer **a**.",
+          "sl": "Kadar glagol prinese s seboj še en glagol, je vmes pogosto majhna beseda: za **cominciare** (začeti) in **imparare** (učiti se) je to **a**. **Comincio a leggere.** (Začnem brati.) **Lorenzo impara a nuotare.** (Lorenzo se uči plavati.) Tudi **insegnare a** (učiti koga): **Davide insegna ai bambini a fischiare.** Slovensko ni vmes nič, italijansko vedno **a**.",
+          "en": "When a verb brings another verb along, there's often a little word between them: after **cominciare** (start) and **imparare** (learn) it's **a**. **Comincio a leggere.** (I start reading.) **Lorenzo impara a nuotare.** (Lorenzo is learning to swim.) **Insegnare a** (teach) too: **Davide insegna ai bambini a fischiare.** English says *to* or nothing, Italian always **a**."
+        },
+        "examples": [
+          {
+            "it": "Giulia comincia a leggere un libro nuovo.",
+            "de": "Giulia fängt an, ein neues Buch zu lesen.",
+            "sl": "Giulia začne brati novo knjigo.",
+            "en": "Giulia starts reading a new book."
+          },
+          {
+            "it": "Davide insegna ai bambini a fischiare.",
+            "de": "Davide bringt den Kindern das Pfeifen bei.",
+            "sl": "Davide uči otroke žvižgati.",
+            "en": "Davide teaches the children to whistle."
+          }
+        ],
+        "rows": [
+          ["cominciare", "a", "comincio a leggere"],
+          ["imparare, insegnare", "a", "impara a nuotare"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "infinito-preposizioni",
+          "text": "Lorenzo comincia ___ contare le pecore.",
+          "accept": ["a"],
+          "hint": "cominciare + ?",
+          "explain": {
+            "de": "**cominciare + a** + Verb: comincia a contare",
+            "sl": "**cominciare + a** + glagol: comincia a contare",
+            "en": "**cominciare + a** + verb: comincia a contare"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch nach **andare** (gehen), **venire** (kommen), **aiutare** (helfen), **provare** (versuchen) und **continuare** (weitermachen) kommt **a**: **Vado a giocare.** (Ich gehe spielen.) **Aiuto la nonna a cucinare.** (Ich helfe der Oma beim Kochen.) **Provo a saltare!** (Ich versuch mal zu springen!)",
+          "sl": "Tudi za **andare** (iti), **venire** (priti), **aiutare** (pomagati), **provare** (poskusiti) in **continuare** (nadaljevati) pride **a**: **Vado a giocare.** (Grem se igrat.) **Aiuto la nonna a cucinare.** (Pomagam babici kuhati.) **Provo a saltare!** (Poskusim skočiti!)",
+          "en": "After **andare** (go), **venire** (come), **aiutare** (help), **provare** (try) and **continuare** (keep on) it's **a** too: **Vado a giocare.** (I'm going to play.) **Aiuto la nonna a cucinare.** (I help Grandma cook.) **Provo a saltare!** (I'll try to jump!)"
+        },
+        "examples": [
+          {
+            "it": "Tommaso va a giocare in piazza.",
+            "de": "Tommaso geht auf dem Platz spielen.",
+            "sl": "Tommaso se gre igrat na trg.",
+            "en": "Tommaso goes to play on the square."
+          },
+          {
+            "it": "Giulia aiuta la nonna a fare la gubana.",
+            "de": "Giulia hilft der Oma, die Gubana zu machen.",
+            "sl": "Giulia pomaga babici peči gubano.",
+            "en": "Giulia helps Grandma make the gubana."
+          }
+        ],
+        "rows": [
+          ["andare, venire", "a", "vado a giocare"],
+          ["aiutare, provare, continuare", "a", "provo a saltare"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinito-preposizioni",
+          "prompt": "«Vieni ___ vedere gli agnellini?» chiede Davide.",
+          "options": ["a", "di", "da"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**venire + a**: vieni a vedere\n- di · nach finire, smettere\n- da · passt hier nicht",
+            "sl": "**venire + a**: vieni a vedere\n- di · za finire, smettere\n- da · tu ne gre",
+            "en": "**venire + a**: vieni a vedere\n- di · after finire, smettere\n- da · doesn't go here"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach **finire** (fertig machen), **smettere** (aufhören), **cercare** (sich bemühen), **decidere** (beschließen) und **dimenticare** (vergessen) kommt **di**: **Finisco di mangiare.** (Ich esse fertig.) **Smetti di ridere!** (Hör auf zu lachen!) Auch **ricordarsi di** (an etwas denken): **Ricordati di chiudere il cancello!** (Denk daran, das Tor zu schließen!)",
+          "sl": "Za **finire** (končati), **smettere** (nehati), **cercare** (truditi se), **decidere** (odločiti se) in **dimenticare** (pozabiti) pride **di**: **Finisco di mangiare.** (Pojem do konca.) **Smetti di ridere!** (Nehaj se smejati!) Tudi **ricordarsi di** (spomniti se): **Ricordati di chiudere il cancello!** (Ne pozabi zapreti vrat!)",
+          "en": "After **finire** (finish), **smettere** (stop), **cercare** (try hard), **decidere** (decide) and **dimenticare** (forget) comes **di**: **Finisco di mangiare.** (I finish eating.) **Smetti di ridere!** (Stop laughing!) **Ricordarsi di** (remember) too: **Ricordati di chiudere il cancello!** (Remember to shut the gate!)"
+        },
+        "examples": [
+          {
+            "it": "Nonna Rosa finisce di cucinare a mezzogiorno.",
+            "de": "Nonna Rosa ist um zwölf mit dem Kochen fertig.",
+            "sl": "Babica Rosa opoldne konča s kuhanjem.",
+            "en": "Nonna Rosa finishes cooking at noon."
+          },
+          {
+            "it": "Moro, smetti di abbaiare!",
+            "de": "Moro, hör auf zu bellen!",
+            "sl": "Moro, nehaj lajati!",
+            "en": "Moro, stop barking!"
+          }
+        ],
+        "rows": [
+          ["finire, smettere", "di", "finisco di mangiare"],
+          ["cercare, decidere, dimenticare, ricordarsi", "di", "ricordati di chiudere"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "infinito-preposizioni",
+          "text": "«Giulia, hai finito ___ fare i compiti?»",
+          "accept": ["di"],
+          "hint": "finire + ?",
+          "explain": {
+            "de": "**finire + di** + Verb: hai finito di fare",
+            "sl": "**finire + di** + glagol: hai finito di fare",
+            "en": "**finire + di** + verb: hai finito di fare"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch nach **avere voglia** (Lust haben), **avere paura** (Angst haben) und **essere contento** (froh sein) kommt **di**: **Ho voglia di giocare.** (Ich habe Lust zu spielen.) **Lorenzo ha paura di cadere.** (Lorenzo hat Angst hinzufallen.) **Giulia è contenta di venire.** (Giulia freut sich mitzukommen.)",
+          "sl": "Tudi za **avere voglia** (imeti voljo), **avere paura** (bati se) in **essere contento** (biti vesel) pride **di**: **Ho voglia di giocare.** (Da se mi igrati.) **Lorenzo ha paura di cadere.** (Lorenzo se boji, da bo padel.) **Giulia è contenta di venire.** (Giulia je vesela, da pride.)",
+          "en": "After **avere voglia** (feel like), **avere paura** (be afraid) and **essere contento** (be glad) it's **di** too: **Ho voglia di giocare.** (I feel like playing.) **Lorenzo ha paura di cadere.** (Lorenzo is afraid of falling.) **Giulia è contenta di venire.** (Giulia is glad to come.)"
+        },
+        "examples": [
+          {
+            "it": "Hai voglia di andare al mare?",
+            "de": "Hast du Lust, ans Meer zu gehen?",
+            "sl": "Se ti da iti na morje?",
+            "en": "Do you feel like going to the sea?"
+          },
+          {
+            "it": "Lorenzo ha paura di cadere dalla bicicletta.",
+            "de": "Lorenzo hat Angst, vom Fahrrad zu fallen.",
+            "sl": "Lorenzo se boji, da bo padel s kolesa.",
+            "en": "Lorenzo is afraid of falling off his bike."
+          }
+        ],
+        "rows": [
+          ["avere voglia, avere paura, essere contento", "di", "ho voglia di giocare"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinito-preposizioni",
+          "prompt": "Tommaso ha voglia ___ giocare a calcio.",
+          "options": ["di", "a", "da"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**avere voglia + di**: ha voglia di giocare\n- a · nach cominciare, andare\n- da · passt hier nicht",
+            "sl": "**avere voglia + di**: ha voglia di giocare\n- a · za cominciare, andare\n- da · tu ne gre",
+            "en": "**avere voglia + di**: ha voglia di giocare\n- a · after cominciare, andare\n- da · doesn't go here"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach **potere, volere, dovere** und **sapere** kommt kein kleines Wort, das zweite Verb folgt direkt: **Voglio giocare.** (Ich will spielen.) **Sai nuotare?** (Kannst du schwimmen?) Genauso nach **mi piace** (ich mag) und **preferire** (lieber wollen): **Mi piace disegnare.** (Ich zeichne gern.)",
+          "sl": "Za **potere, volere, dovere** in **sapere** ni male besede, drugi glagol pride takoj: **Voglio giocare.** (Hočem se igrati.) **Sai nuotare?** (Znaš plavati?) Prav tako za **mi piace** (všeč mi je) in **preferire** (raje imeti): **Mi piace disegnare.** (Všeč mi je risati.)",
+          "en": "After **potere, volere, dovere** and **sapere** there's no little word, the second verb comes straight after: **Voglio giocare.** (I want to play.) **Sai nuotare?** (Can you swim?) The same after **mi piace** (I like) and **preferire** (prefer): **Mi piace disegnare.** (I like drawing.)"
+        },
+        "examples": [
+          {
+            "it": "Posso venire anch'io?",
+            "de": "Darf ich auch mitkommen?",
+            "sl": "Lahko pridem tudi jaz?",
+            "en": "Can I come too?"
+          },
+          {
+            "it": "Giulia preferisce leggere sotto il tiglio.",
+            "de": "Giulia liest lieber unter der Linde.",
+            "sl": "Giulia raje bere pod lipo.",
+            "en": "Giulia prefers reading under the linden."
+          }
+        ],
+        "rows": [
+          ["potere, volere, dovere, sapere", "—", "voglio giocare"],
+          ["piacere, preferire", "—", "mi piace disegnare"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "infinito-preposizioni",
+          "prompt": "«Tommaso, vuoi ___ con noi?»",
+          "options": ["giocare", "a giocare", "di giocare"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**volere** + Verb, nichts dazwischen: vuoi giocare\n- a, di · nicht nach volere, potere, dovere",
+            "sl": "**volere** + glagol, nič vmes: vuoi giocare\n- a, di · ne za volere, potere, dovere",
+            "en": "**volere** + verb, nothing between: vuoi giocare\n- a, di · not after volere, potere, dovere"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Per** (um … zu) und **prima di** (bevor) bringen auch ein Verb in der Grundform mit: **Lorenzo va al mulino per comprare la farina.** (Lorenzo geht zur Mühle, um Mehl zu kaufen.) **Lavati le mani prima di mangiare!** (Wasch dir vor dem Essen die Hände!) Im Deutschen steht das Verb am Ende, im Italienischen gleich nach **per**.",
+          "sl": "**Per** (da bi) in **prima di** (preden) prav tako prineseta glagol v nedoločniku: **Lorenzo va al mulino per comprare la farina.** (Lorenzo gre v mlin kupit moko.) **Lavati le mani prima di mangiare!** (Umij si roke, preden ješ!)",
+          "en": "**Per** (in order to) and **prima di** (before) bring a verb in the infinitive too: **Lorenzo va al mulino per comprare la farina.** (Lorenzo goes to the mill to buy flour.) **Lavati le mani prima di mangiare!** (Wash your hands before eating!)"
+        },
+        "examples": [
+          {
+            "it": "Davide fischia per chiamare le pecore.",
+            "de": "Davide pfeift, um die Schafe zu rufen.",
+            "sl": "Davide žvižga, da pokliče ovce.",
+            "en": "Davide whistles to call the sheep."
+          },
+          {
+            "it": "Prima di dormire, Nonno Bepi racconta una storia.",
+            "de": "Vor dem Schlafen erzählt Nonno Bepi eine Geschichte.",
+            "sl": "Preden gremo spat, dedek Bepi pove zgodbo.",
+            "en": "Before bedtime, Nonno Bepi tells a story."
+          }
+        ],
+        "rows": [
+          ["per", "+ infinito", "per comprare la farina"],
+          ["prima di", "+ infinito", "prima di mangiare"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "infinito-preposizioni",
+          "text": "Lavati i denti ___ di andare a letto!",
+          "accept": ["prima"],
+          "hint": { "de": "bevor", "sl": "preden", "en": "before" },
+          "explain": {
+            "de": "**prima di** + Verb: bevor\n- prima di andare a letto",
+            "sl": "**prima di** + glagol: preden\n- prima di andare a letto",
+            "en": "**prima di** + verb: before\n- prima di andare a letto"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "infinito-preposizioni-1",
+      "title": { "it": "A, di o niente?", "de": "A, di oder nichts?", "sl": "A, di ali nič?", "en": "A, di or nothing?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "infinito-preposizioni",
+          "instruction": { "de": "A, di o niente? · Was kommt dazwischen?", "sl": "A, di o niente? · Kaj pride vmes?", "en": "A, di o niente? · What goes between?" },
+          "columns": [
+            {
+              "label": { "de": "+ a · mit a", "sl": "+ a · z a", "en": "+ a · with a" },
+              "words": ["Comincio … leggere.", "Impariamo … nuotare.", "Vado … giocare.", "Aiuto la nonna … cucinare."]
+            },
+            {
+              "label": { "de": "+ di · mit di", "sl": "+ di · z di", "en": "+ di · with di" },
+              "words": ["Finisco … mangiare.", "Smetti … ridere!", "Cerco … dormire.", "Ho voglia … giocare."]
+            },
+            {
+              "label": { "de": "— · nichts dazwischen", "sl": "— · nič vmes", "en": "— · nothing between" },
+              "words": ["Voglio … giocare.", "Sai … nuotare?", "Mi piace … disegnare.", "Devo … partire."]
+            }
+          ],
+          "explain": {
+            "de": "**anfangen, lernen, gehen, helfen** → a · **aufhören, fertig machen, sich bemühen, Lust haben** → di · **die Modalverben, piacere** → nichts\n- Comincio a leggere. · Finisco di mangiare. · Voglio giocare.",
+            "sl": "**začeti, učiti se, iti, pomagati** → a · **nehati, končati, truditi se, imeti voljo** → di · **naklonski glagoli, piacere** → nič\n- Comincio a leggere. · Finisco di mangiare. · Voglio giocare.",
+            "en": "**start, learn, go, help** → a · **stop, finish, try hard, feel like** → di · **the modals, piacere** → nothing\n- Comincio a leggere. · Finisco di mangiare. · Voglio giocare."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "infinito-preposizioni",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "«Nonno, quando cominci ___ raccontare la storia?»",
+          "options": ["a", "di", "da"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**cominciare + a**: cominci a raccontare",
+            "sl": "**cominciare + a**: cominci a raccontare",
+            "en": "**cominciare + a**: cominci a raccontare"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "infinito-preposizioni",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "«Giulia, non dimenticare ___ dare l'acqua al gatto!»",
+          "options": ["di", "a", "da"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**dimenticare + di**: non dimenticare di dare",
+            "sl": "**dimenticare + di**: non dimenticare di dare",
+            "en": "**dimenticare + di**: non dimenticare di dare"
+          }
+        }
+      ]
+    },
+    {
+      "id": "infinito-preposizioni-2",
+      "title": { "it": "La gubana della domenica", "de": "Die Sonntags-Gubana", "sl": "Nedeljska gubana", "en": "Sunday's gubana" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "infinito-preposizioni",
+          "instruction": { "de": "Completa con a, di o per · Ergänze a, di oder per", "sl": "Completa con a, di o per · Dopolni z a, di ali per", "en": "Completa con a, di o per · Fill in a, di or per" },
+          "title": "La gubana della domenica",
+          "text": "Domenica Giulia aiuta Nonna Rosa ___ fare la gubana. Prima comincia ___ rompere le uova. Poi cerca ___ non sporcare il tavolo, ma il tavolo diventa tutto bianco! Lorenzo continua ___ chiedere: «È pronta?» La nonna accende il forno ___ cuocere la gubana. «Ho voglia ___ assaggiare!» dice Lorenzo. «Aspetta: prima ___ mangiare, deve cuocere un'ora!» Alla fine tutti smettono ___ parlare: è buonissima!",
+          "gaps": [
+            { "accept": ["a"], "hint": "aiutare + ?" },
+            { "accept": ["a"], "hint": "cominciare + ?" },
+            { "accept": ["di"], "hint": {"de": "sich bemühen", "sl": "truditi se", "en": "try hard"} },
+            { "accept": ["a"], "hint": "continuare + ?" },
+            {
+              "accept": ["per"],
+              "hint": { "de": "um … zu", "sl": "da bi", "en": "in order to" },
+              "explain": {
+                "de": "**per** + Verb: um zu backen",
+                "sl": "**per** + glagol: da bi spekla",
+                "en": "**per** + verb: in order to bake"
+              }
+            },
+            { "accept": ["di"], "hint": "avere voglia + ?" },
+            { "accept": ["di"], "hint": {"de": "bevor", "sl": "preden", "en": "before"} },
+            { "accept": ["di"], "hint": "smettere + ?" }
+          ],
+          "bank": true,
+          "distractors": ["da", "con"],
+          "translation": {
+            "de": "Am Sonntag hilft Giulia Nonna Rosa, die Gubana zu machen. Zuerst fängt sie an, die Eier aufzuschlagen. Dann bemüht sie sich, den Tisch nicht schmutzig zu machen, aber der Tisch wird ganz weiß! Lorenzo fragt immer wieder: „Ist sie fertig?“ Die Oma heizt den Ofen an, um die Gubana zu backen. „Ich will probieren!“, sagt Lorenzo. „Warte: Bevor wir sie essen, muss sie eine Stunde backen!“ Am Ende hören alle auf zu reden: Sie ist superlecker!",
+            "sl": "V nedeljo Giulia pomaga babici Rosi peči gubano. Najprej začne razbijati jajca. Potem se trudi, da ne bi umazala mize, a miza postane vsa bela! Lorenzo kar naprej sprašuje: »Je gotova?« Babica prižge pečico, da speče gubano. »Rad bi poskusil!« reče Lorenzo. »Počakaj: preden jo ješ, se mora eno uro peči!« Na koncu vsi nehajo govoriti: odlična je!",
+            "en": "On Sunday Giulia helps Nonna Rosa make the gubana. First she starts cracking the eggs. Then she tries hard not to mess up the table, but the table goes all white! Lorenzo keeps asking: \"Is it ready?\" Grandma lights the oven to bake the gubana. \"I want a taste!\" says Lorenzo. \"Wait: before eating it, it has to bake for an hour!\" In the end everybody stops talking: it's delicious!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "infinito-preposizioni",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "«Sai ___?» chiede Tommaso a Lorenzo.",
+          "options": ["nuotare", "a nuotare", "di nuotare"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**sapere** + Verb, nichts dazwischen: sai nuotare",
+            "sl": "**sapere** + glagol, nič vmes: sai nuotare",
+            "en": "**sapere** + verb, nothing between: sai nuotare"
+          }
+        }
+      ]
+    },
+    {
+      "id": "infinito-preposizioni-3",
+      "title": { "it": "Unisci!", "de": "Verbinde!", "sl": "Združi!", "en": "Join them!" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "infinito-preposizioni",
+          "instruction": { "de": "Unisci i verbi · Verbinde die Verben", "sl": "Unisci i verbi · Združi glagola", "en": "Unisci i verbi · Join the verbs" },
+          "items": [
+            { "from": "Lorenzo nuota. (imparare)", "accept": ["Lorenzo impara a nuotare."] },
+            { "from": "Moro abbaia. (smettere)", "accept": ["Moro smette di abbaiare."] },
+            { "from": "Tommaso salta il fosso. (provare)", "accept": ["Tommaso prova a saltare il fosso."] },
+            {
+              "from": "Zia Nives spegne la radio. (dimenticare)",
+              "accept": ["Zia Nives dimentica di spegnere la radio.", "Zia Nives si dimentica di spegnere la radio."],
+              "hint": "dimenticare + ?"
+            }
+          ],
+          "explain": {
+            "de": "**das Verb in Klammern** zuerst, dann a oder di, dann die Grundform\n- Lorenzo nuota. → Lorenzo impara a nuotare.\n- Moro abbaia. → Moro smette di abbaiare.",
+            "sl": "**glagol v oklepaju** najprej, nato a ali di, nato nedoločnik\n- Lorenzo nuota. → Lorenzo impara a nuotare.\n- Moro abbaia. → Moro smette di abbaiare.",
+            "en": "**the verb in brackets** first, then a or di, then the infinitive\n- Lorenzo nuota. → Lorenzo impara a nuotare.\n- Moro abbaia. → Moro smette di abbaiare."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "infinito-preposizioni",
+          "instruction": { "de": "Unisci con per o prima di · Verbinde mit per oder prima di", "sl": "Unisci con per o prima di · Združi s per ali prima di", "en": "Unisci con per o prima di · Join with per or prima di" },
+          "whole": true,
+          "items": [
+            {
+              "from": "Lorenzo va al mulino. Compra la farina. (per)",
+              "accept": ["Lorenzo va al mulino per comprare la farina."]
+            },
+            {
+              "from": "Nonna Rosa accende il fuoco. Cucina la polenta. (per)",
+              "accept": ["Nonna Rosa accende il fuoco per cucinare la polenta."]
+            },
+            {
+              "from": "Giulia saluta la nonna. Poi esce. (prima di)",
+              "accept": ["Giulia saluta la nonna prima di uscire.", "Prima di uscire, Giulia saluta la nonna."]
+            }
+          ],
+          "explain": {
+            "de": "**per, prima di** + Grundform\n- per comprare · prima di uscire",
+            "sl": "**per, prima di** + nedoločnik\n- per comprare · prima di uscire",
+            "en": "**per, prima di** + the infinitive\n- per comprare · prima di uscire"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "infinito-preposizioni",
+        "instruction": { "de": "Completa con a, di o per · Ergänze a, di oder per", "sl": "Completa con a, di o per · Dopolni z a, di ali per", "en": "Completa con a, di o per · Fill in a, di or per" },
+        "text": "Stasera c'è la festa in piazza. Tommaso impara ___ suonare il tamburo. Giulia ha paura ___ ballare davanti a tutti. Davide corre a casa ___ prendere la fisarmonica. A mezzanotte i bambini smettono ___ ballare: sono stanchissimi!",
+        "gaps": [
+          { "accept": ["a"] },
+          { "accept": ["di"] },
+          { "accept": ["per", "a"] },
+          { "accept": ["di"] }
+        ],
+        "translation": {
+          "de": "Heute Abend ist das Fest auf dem Platz. Tommaso lernt Trommel spielen. Giulia hat Angst, vor allen zu tanzen. Davide rennt nach Hause, um die Ziehharmonika zu holen. Um Mitternacht hören die Kinder auf zu tanzen: Sie sind todmüde!",
+          "sl": "Nocoj je praznik na trgu. Tommaso se uči igrati na boben. Giulia se boji plesati pred vsemi. Davide steče domov po harmoniko. Opolnoči otroci nehajo plesati: zelo so utrujeni!",
+          "en": "Tonight there's the festa on the square. Tommaso is learning to play the drum. Giulia is afraid of dancing in front of everyone. Davide runs home to fetch the accordion. At midnight the children stop dancing: they're worn out!"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "infinito-preposizioni",
+        "instruction": { "de": "Unisci i verbi · Verbinde die Verben", "sl": "Unisci i verbi · Združi glagola", "en": "Unisci i verbi · Join the verbs" },
+        "items": [
+          { "from": "Nonno Bepi racconta. (cominciare)", "accept": ["Nonno Bepi comincia a raccontare."] },
+          { "from": "Lorenzo piange. (smettere)", "accept": ["Lorenzo smette di piangere."] },
+          { "from": "Giulia disegna. (preferire)", "accept": ["Giulia preferisce disegnare."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "infinito-preposizioni",
+        "prompt": "«Hai voglia ___ venire al mare?»",
+        "options": ["di", "a", "da"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**avere voglia + di**: hai voglia di venire",
+          "sl": "**avere voglia + di**: hai voglia di venire",
+          "en": "**avere voglia + di**: hai voglia di venire"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "infinito-preposizioni",
+        "prompt": "Nonno Bepi aiuta Lorenzo ___ salire sul carro.",
+        "options": ["a", "di", "da"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**aiutare + a**: aiuta Lorenzo a salire",
+          "sl": "**aiutare + a**: aiuta Lorenzo a salire",
+          "en": "**aiutare + a**: aiuta Lorenzo a salire"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "infinito-preposizioni",
+        "instruction": { "de": "A o di? · Welches kleine Wort?", "sl": "A o di? · Katera besedica?", "en": "A o di? · Which little word?" },
+        "columns": [
+          {
+            "label": { "de": "+ a · mit a", "sl": "+ a · z a", "en": "+ a · with a" },
+            "words": ["continuare", "insegnare"]
+          },
+          {
+            "label": { "de": "+ di · mit di", "sl": "+ di · z di", "en": "+ di · with di" },
+            "words": ["decidere", "dimenticare"]
+          }
+        ],
+        "explain": {
+          "de": "**weitermachen, beibringen** → a · **beschließen, vergessen** → di",
+          "sl": "**nadaljevati, učiti koga** → a · **odločiti se, pozabiti** → di",
+          "en": "**keep on, teach** → a · **decide, forget** → di"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: a or di after each verb, Davide insegna ai bambini a fischiare, corre a casa per/a prendere, the German for a child"
+}
