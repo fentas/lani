@@ -435,9 +435,12 @@ class GradingLanguagesTest {
             assertEquals("$typed for $right", Verdict.WRONG, en("Jack is $typed", "Jack is $right").verdict)
         }
         // the ordinals' and were, where: each only for its own word
-        for ((typed, right) in listOf("nineth" to "ninth", "eigth" to "eighth", "twentyth" to "twentieth", "thirtyth" to "thirtieth", "fourtieth" to "fortieth", "where" to "were", "were" to "where")) {
+        for ((typed, right) in listOf("nineth" to "ninth", "eigth" to "eighth", "twelth" to "twelfth", "fith" to "fifth", "fivth" to "fifth", "twentyth" to "twentieth", "thirtyth" to "thirtieth", "fourtieth" to "fortieth", "where" to "were", "were" to "where")) {
             assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
         }
+        // an ordinal from 21 to 99 with or without its hyphen, as a number
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("on the twenty first of May", "on the twenty-first of May"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("the thirty-first", "the thirty first"))
         // a slip elsewhere in the word stays one, on these verbs and on the others
         assertGraded(Verdict.ALMOST, Hint.TYPO, en("sittting", "sitting"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, en("siwmming", "swimming"))
