@@ -267,7 +267,7 @@ export default async function friuli() {
     const fuoco = scenes.find((s: any) => s.id === 'al-fuoco')
     check(
       "friuli: Nonno Bepi tells his stories by the fire (al-fuoco comes with them, in Italian, none of Janez's)",
-      fuoco?.culture === 'friuli' && fuoco.art === 'campfire' && fuoco.stories?.length === 10 && fuoco.stories.every((s: any) => s.teller === 'bepi' && s.language === 'it' && s.culture === 'friuli') &&
+      fuoco?.culture === 'friuli' && fuoco.art === 'campfire' && fuoco.stories?.length === 16 && fuoco.stories.every((s: any) => s.teller === 'bepi' && s.language === 'it' && s.culture === 'friuli') &&
         fuoco.stories[0].words.every((w: any) => w.it && w.sl && w.en) && scenes.filter((s: any) => s.id !== 'al-fuoco').every((s: any) => !s.stories),
       fuoco && { stories: fuoco.stories?.map((s: any) => [s.id, s.teller]), words: fuoco.stories?.[0]?.words },
     )
