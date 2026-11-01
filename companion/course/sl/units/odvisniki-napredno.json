@@ -1,0 +1,270 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "odvisniki-napredno",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🧩",
+  "title": { "sl": "Kljub temu da, medtem ko, ne da bi", "en": "Despite, while, without: more clauses", "de": "Obwohl, während, ohne dass: mehr Nebensätze", "it": "Nonostante, mentre, senza: altre subordinate" },
+  "goal": {
+    "en": "You can join ideas as B2 writing and talk do: despite (kljub temu da, četudi), while and whereas (medtem ko), time (potem ko, odkar, dokler ne, takoj ko), unless (razen če), without and instead (ne da bi, namesto da bi), as if (kot da bi) and so … that.",
+    "de": "Du verbindest Gedanken wie auf B2 geschrieben und gesprochen: trotzdem (kljub temu da, četudi), während und wohingegen (medtem ko), die Zeit (potem ko, odkar, dokler ne, takoj ko), außer wenn (razen če), ohne und statt (ne da bi, namesto da bi), als ob (kot da bi) und so … dass.",
+    "it": "Sai unire le idee come si scrive e si parla al B2: nonostante (kljub temu da, četudi), mentre e invece (medtem ko), il tempo (potem ko, odkar, dokler ne, takoj ko), a meno che (razen če), senza e invece di (ne da bi, namesto da bi), come se (kot da bi) e così … che."
+  },
+  "grammar": ["odvisniki-napredno", "odvisniki"],
+  "words": ["kljub temu da", "četudi", "medtem ko", "potem ko", "odkar", "dokler", "takoj ko", "razen če", "ne da bi", "namesto da", "kot da", "posloviti se", "most", "deska", "žagati", "kovati", "praznovati", "lipa", "duh", "lajati", "volk", "kopati se", "premrzel"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "veznik", "en": "joining word", "de": "Bindewort", "it": "congiunzione" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Kljub temu da** (although, despite the fact that) is a longer **čeprav**: **Kljub temu da je deževalo, so kosili.** **Četudi** is *even if*: **Četudi bo deževalo, pridemo.** The comma goes before the whole joining word, never inside it.",
+          "de": "**Kljub temu da** (obwohl, trotzdem dass) ist ein längeres **čeprav**: **Kljub temu da je deževalo, so kosili.** **Četudi** heißt *selbst wenn*: **Četudi bo deževalo, pridemo.** Das Komma steht vor dem ganzen Bindewort, nie darin.",
+          "it": "**Kljub temu da** (nonostante, benché) è un **čeprav** più lungo: **Kljub temu da je deževalo, so kosili.** **Četudi** vuol dire *anche se*: **Četudi bo deževalo, pridemo.** La virgola va prima di tutta la congiunzione, mai dentro."
+        },
+        "examples": [
+          { "sl": "Kljub temu da je deževalo, so kosili.", "en": "Although it was raining, they mowed.", "de": "Obwohl es regnete, mähten sie.", "it": "Nonostante piovesse, hanno falciato." },
+          { "sl": "Četudi bo deževalo, pridemo na trgatev.", "en": "Even if it rains, we'll come to the grape harvest.", "de": "Selbst wenn es regnet, kommen wir zur Weinlese.", "it": "Anche se piove, veniamo alla vendemmia." }
+        ],
+        "rows": [["kljub temu da", { "sl": "čeprav", "en": "although", "de": "obwohl", "it": "nonostante" }, "Kljub temu da je deževalo, so kosili."], ["četudi", { "sl": "tudi če", "en": "even if", "de": "selbst wenn", "it": "anche se" }, "Četudi bo deževalo, pridemo."]],
+        "ask": { "type": "choice", "grammar": "odvisniki-napredno", "prompt": "France je pokosil ves travnik, ___ je bil utrujen.", "options": ["kljub temu da", "zato ker", "razen če"], "answer": 0, "say_options": true, "explain": "**tired, and he mowed all the same** → **kljub temu da** (= čeprav)\n- zato ker · because\n- razen če · unless" }
+      },
+      {
+        "say": {
+          "en": "**Medtem ko** (while) says two things go on at the same time: **Medtem ko je Vida kuhala, je Nejc pospravljal.** It also sets two things against each other, like *whereas*: **Marko pije vino, medtem ko Tone pije samo vodo.**",
+          "de": "**Medtem ko** (während) sagt, dass zwei Dinge gleichzeitig geschehen: **Medtem ko je Vida kuhala, je Nejc pospravljal.** Es stellt auch zwei Dinge gegeneinander, wie *wohingegen*: **Marko pije vino, medtem ko Tone pije samo vodo.**",
+          "it": "**Medtem ko** (mentre) dice che due cose succedono nello stesso momento: **Medtem ko je Vida kuhala, je Nejc pospravljal.** Mette anche due cose a confronto, come *invece*: **Marko pije vino, medtem ko Tone pije samo vodo.**"
+        },
+        "examples": [
+          { "sl": "Medtem ko je Vida kuhala, je Nejc pospravljal mize.", "en": "While Vida was cooking, Nejc was clearing the tables.", "de": "Während Vida kochte, räumte Nejc die Tische ab.", "it": "Mentre Vida cucinava, Nejc sparecchiava i tavoli." },
+          { "sl": "Marko pije vino, medtem ko Tone pije samo vodo.", "en": "Marko drinks wine, whereas Tone drinks only water.", "de": "Marko trinkt Wein, wohingegen Tone nur Wasser trinkt.", "it": "Marko beve vino, mentre Tone beve solo acqua." }
+        ],
+        "rows": [["medtem ko", { "sl": "hkrati; nasprotno", "en": "while; whereas", "de": "während; wohingegen", "it": "mentre; invece" }, "Medtem ko je Vida kuhala, …"]],
+        "ask": { "type": "choice", "grammar": "odvisniki-napredno", "prompt": "___ je Micka pekla potico, je Zala pometala kuhinjo.", "options": ["Medtem ko", "Potem ko", "Namesto da"], "answer": 0, "say_options": true, "explain": "**at the same time**: pekla, pometala, both going on → **Medtem ko**\n- potem ko · after: potem ko je spekla\n- namesto da · instead of, with bi" }
+      },
+      {
+        "say": {
+          "en": "Time: **potem ko** (after), **odkar** (since), **dokler** (as long as), and **dokler ne** (until), with the perfective: **Počakaj pri vodnjaku, dokler ne pridem.** **Odkar je Tone v vasi, imamo nove pluge.**",
+          "de": "Die Zeit: **potem ko** (nachdem), **odkar** (seit), **dokler** (solange) und **dokler ne** (bis), mit dem vollendeten Aspekt: **Počakaj pri vodnjaku, dokler ne pridem.** **Odkar je Tone v vasi, imamo nove pluge.**",
+          "it": "Il tempo: **potem ko** (dopo che), **odkar** (da quando), **dokler** (finché) e **dokler ne** (finché non), con il perfettivo: **Počakaj pri vodnjaku, dokler ne pridem.** **Odkar je Tone v vasi, imamo nove pluge.**"
+        },
+        "examples": [
+          { "sl": "Počakaj pri vodnjaku, dokler ne pridem.", "en": "Wait at the well until I come.", "de": "Warte am Brunnen, bis ich komme.", "it": "Aspetta al pozzo finché non arrivo." },
+          { "sl": "Odkar je Tone v vasi, imamo nove pluge.", "en": "Since Tone has been in the village, we've had new ploughs.", "de": "Seit Tone im Dorf ist, haben wir neue Pflüge.", "it": "Da quando Tone è in paese, abbiamo aratri nuovi." }
+        ],
+        "rows": [["potem ko", { "sl": "po tem", "en": "after", "de": "nachdem", "it": "dopo che" }, "Potem ko je pokosil, …"], ["odkar", { "sl": "od takrat", "en": "since", "de": "seit", "it": "da quando" }, "Odkar je Tone v vasi, …"], ["dokler (ne)", { "sl": "do takrat", "en": "as long as; until", "de": "solange; bis", "it": "finché (non)" }, "Počakaj, dokler ne pridem."]],
+        "ask": { "type": "choice", "grammar": "odvisniki-napredno", "prompt": "Počakaj tukaj, ___ ne pride Luka.", "options": ["dokler", "odkar", "potem ko"], "answer": 0, "say_options": true, "explain": "**until Luka comes** → **dokler ne** + the perfective, pride\n- odkar · since\n- potem ko · after" }
+      },
+      {
+        "say": {
+          "en": "**Takoj ko** (as soon as) and **razen če** (unless): **Takoj ko pride Tone, mi povej. Jutri gremo na planino, razen če bo deževalo.** After razen če the tense is what it means: here the future.",
+          "de": "**Takoj ko** (sobald) und **razen če** (außer wenn): **Takoj ko pride Tone, mi povej. Jutri gremo na planino, razen če bo deževalo.** Nach razen če steht die Zeit, die gemeint ist: hier die Zukunft.",
+          "it": "**Takoj ko** (appena) e **razen če** (a meno che): **Takoj ko pride Tone, mi povej. Jutri gremo na planino, razen če bo deževalo.** Dopo razen če va il tempo che si intende: qui il futuro."
+        },
+        "examples": [
+          { "sl": "Takoj ko pride Tone, mi povej.", "en": "As soon as Tone comes, tell me.", "de": "Sobald Tone kommt, sag es mir.", "it": "Appena arriva Tone, dimmelo." },
+          { "sl": "Jutri gremo na planino, razen če bo deževalo.", "en": "Tomorrow we're going up to the pasture, unless it rains.", "de": "Morgen gehen wir auf die Alm, außer es regnet.", "it": "Domani andiamo all'alpeggio, a meno che non piova." }
+        ],
+        "rows": [["takoj ko", { "sl": "takoj, ko", "en": "as soon as", "de": "sobald", "it": "appena" }, "Takoj ko pride, mi povej."], ["razen če", { "sl": "samo če ne", "en": "unless", "de": "außer wenn", "it": "a meno che" }, "Pridemo, razen če bo deževalo."]],
+        "ask": { "type": "choice", "grammar": "odvisniki-napredno", "prompt": "Jutri gremo kosit, ___ bo deževalo.", "options": ["razen če", "takoj ko", "odkar"], "answer": 0, "say_options": true, "explain": "**not if it rains** → **razen če** (unless)\n- takoj ko · as soon as\n- odkar · since" }
+      },
+      {
+        "say": {
+          "en": "**Ne da bi** (without) and **namesto da bi** (instead of) take **bi** and the l-form, for what didn't happen: **Nejc je odšel, ne da bi se poslovil.** (Nejc left without saying goodbye.) **Namesto da bi pasel ovce, je Luka spal pod lipo.**",
+          "de": "**Ne da bi** (ohne dass) und **namesto da bi** (statt) nehmen **bi** und die l-Form, für das, was nicht geschah: **Nejc je odšel, ne da bi se poslovil.** (Nejc ist gegangen, ohne sich zu verabschieden.) **Namesto da bi pasel ovce, je Luka spal pod lipo.**",
+          "it": "**Ne da bi** (senza) e **namesto da bi** (invece di) vogliono **bi** e la forma in -l, per ciò che non è successo: **Nejc je odšel, ne da bi se poslovil.** (Nejc se n'è andato senza salutare.) **Namesto da bi pasel ovce, je Luka spal pod lipo.**"
+        },
+        "examples": [
+          { "sl": "Nejc je odšel, ne da bi se poslovil.", "en": "Nejc left without saying goodbye.", "de": "Nejc ist gegangen, ohne sich zu verabschieden.", "it": "Nejc se n'è andato senza salutare." },
+          { "sl": "Namesto da bi pasel ovce, je Luka spal pod lipo.", "en": "Instead of grazing the sheep, Luka slept under the linden.", "de": "Statt die Schafe zu hüten, schlief Luka unter der Linde.", "it": "Invece di pascolare le pecore, Luka dormiva sotto il tiglio." }
+        ],
+        "rows": [["ne da bi", { "sl": "brez", "en": "without", "de": "ohne dass", "it": "senza" }, "Odšel je, ne da bi se poslovil."], ["namesto da", { "sl": "mesto tega", "en": "instead of", "de": "statt", "it": "invece di" }, "Namesto da bi pomagal, je spal."]],
+        "ask": { "type": "cloze", "grammar": "odvisniki-napredno", "text": "Zala je vzela jabolko, ne da ___ vprašala.", "accept": ["bi"], "hint": "ne da …", "explain": "**ne da bi** + the l-form: she didn't ask → **ne da bi vprašala**" }
+      },
+      {
+        "say": {
+          "en": "**Kot da** (as if) takes **bi** for what isn't so: **Muri je lajal, kot da bi videl volka.** **Tako … da** says what came of it: **Bil je tako utrujen, da je zaspal za mizo.** And **preveč … da bi** (too … to): **Voda je bila premrzla, da bi se kopali.**",
+          "de": "**Kot da** (als ob) nimmt **bi** für das, was nicht so ist: **Muri je lajal, kot da bi videl volka.** **Tako … da** sagt, was daraus wurde: **Bil je tako utrujen, da je zaspal za mizo.** Und **preveč … da bi** (zu … um zu): **Voda je bila premrzla, da bi se kopali.**",
+          "it": "**Kot da** (come se) vuole **bi** per ciò che non è così: **Muri je lajal, kot da bi videl volka.** **Tako … da** dice che cosa ne è venuto: **Bil je tako utrujen, da je zaspal za mizo.** E **preveč … da bi** (troppo … per): **Voda je bila premrzla, da bi se kopali.**"
+        },
+        "examples": [
+          { "sl": "Muri je lajal, kot da bi videl volka.", "en": "Muri barked as if he had seen a wolf.", "de": "Muri bellte, als ob er einen Wolf gesehen hätte.", "it": "Muri abbaiava come se avesse visto un lupo." },
+          { "sl": "Bil je tako utrujen, da je zaspal za mizo.", "en": "He was so tired that he fell asleep at the table.", "de": "Er war so müde, dass er am Tisch einschlief.", "it": "Era così stanco che si è addormentato a tavola." }
+        ],
+        "rows": [["kot da", { "sl": "kakor da", "en": "as if", "de": "als ob", "it": "come se" }, "Gleda, kot da bi videl duha."], ["tako … da", { "sl": "zato", "en": "so … that", "de": "so … dass", "it": "così … che" }, "Bil je tako utrujen, da je zaspal."]],
+        "ask": { "type": "cloze", "grammar": "odvisniki-napredno", "text": "Nejc je bledel, kot da bi ___ duha. (videti)", "accept": ["videl"], "hint": "Nejc: masculine, the l-form", "explain": "**kot da bi** + the l-form: he didn't see one → **videl**" }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "odvisniki-napredno-1",
+      "title": { "sl": "Kateri veznik?", "en": "Which joining word?", "de": "Welches Bindewort?", "it": "Quale congiunzione?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "odvisniki-napredno",
+          "instruction": "Razvrsti · Sort them",
+          "columns": [
+            { "label": "čas · time", "words": ["medtem ko", "potem ko", "odkar", "dokler ne", "takoj ko"] },
+            { "label": "kljub · despite", "words": ["kljub temu da", "čeprav", "četudi"] },
+            { "label": "drugo · unless, without, as if", "words": ["razen če", "ne da bi", "namesto da", "kot da"] }
+          ],
+          "explain": "**time**: medtem ko, potem ko, odkar, dokler ne, takoj ko · **despite**: kljub temu da, čeprav, četudi · **the others**: unless, without, instead of, as if"
+        },
+        {
+          "type": "choice",
+          "grammar": "odvisniki-napredno",
+          "prompt": "___ je Tone v vasi, imamo nove pluge.",
+          "options": ["Odkar", "Dokler ne", "Takoj ko"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**since** he came, and still → **Odkar**"
+        },
+        {
+          "type": "choice",
+          "grammar": "odvisniki-napredno",
+          "prompt": "Vida ves dan kuha, ___ Nejc samo gleda.",
+          "options": ["medtem ko", "potem ko", "kljub temu da"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**two things set against each other** → **medtem ko** (whereas)"
+        },
+        {
+          "type": "choice",
+          "grammar": "odvisniki-napredno",
+          "prompt": "Bil je ___ utrujen, da je zaspal za mizo.",
+          "options": ["tako", "preveč", "kot"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**what came of it** → **tako … da**\n- preveč · too, with da bi: preveč utrujen, da bi delal"
+        }
+      ]
+    },
+    {
+      "id": "odvisniki-napredno-2",
+      "title": { "sl": "Nov most", "en": "A new bridge", "de": "Eine neue Brücke", "it": "Un ponte nuovo" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "odvisniki-napredno",
+          "instruction": "Dopolni z veznikom · Fill in with a joining word",
+          "title": "Nov most",
+          "text": "___ je voda lani odnesla stari most, hodimo čez potok po deskah. ___ je deževalo ves teden, so možje vsak dan delali. ___ je Tone koval železo, je France žagal deske. Nejc je prinesel orodje, ___ bi ga kdo prosil. Luka je spal pod lipo, ___ bi pomagal. Delali bodo, ___ most ne bo gotov. ___ bo most gotov, bomo praznovali pod lipo. Vsi pridemo, ___ bo spet deževalo.",
+          "gaps": [
+            { "accept": ["Odkar"], "hint": "since then" },
+            { "accept": ["Kljub temu da", "Čeprav"], "hint": "it rained, and all the same" },
+            { "accept": ["Medtem ko"], "hint": "at the same time" },
+            { "accept": ["ne da"], "hint": "nobody asked him" },
+            { "accept": ["namesto da"], "hint": "he slept, he should have helped" },
+            { "accept": ["dokler"], "hint": "until … ne" },
+            { "accept": ["Takoj ko", "Brž ko", "Čim", "Ko"], "hint": "as soon as" },
+            { "accept": ["razen če"], "hint": "unless" }
+          ],
+          "bank": true,
+          "distractors": ["potem ko", "kot da", "zato"],
+          "translation": "Since the water carried the old bridge away last year, we've crossed the stream on planks. Although it rained all week, the men worked every day. While Tone was forging iron, France was sawing planks. Nejc brought the tools without anyone asking him. Luka slept under the linden instead of helping. They will work until the bridge is finished. As soon as the bridge is finished, we'll celebrate under the linden. We'll all come, unless it rains again."
+        },
+        {
+          "type": "choice",
+          "grammar": "odvisniki-napredno",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "Odšel je, ne da bi se poslovil.",
+          "say": "Odšel je, ne da bi se poslovil.",
+          "options": ["He left without saying goodbye.", "He left so as not to say goodbye.", "He didn't leave, and didn't say goodbye."],
+          "answer": 0,
+          "explain": "**ne da bi** (without): he left, and didn't say goodbye"
+        }
+      ]
+    },
+    {
+      "id": "odvisniki-napredno-3",
+      "title": { "sl": "Dva stavka v enega", "en": "Two sentences into one", "de": "Zwei Sätze zu einem", "it": "Due frasi in una" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "odvisniki-napredno",
+          "instruction": "Združi z veznikom v oklepaju · Join them with the word in brackets",
+          "whole": true,
+          "items": [
+            { "from": "Deževalo je. Kosili so. (kljub temu da)", "accept": ["Kljub temu da je deževalo, so kosili.", "Kosili so, kljub temu da je deževalo."], "hint": "the clause takes je right after the joining word" },
+            { "from": "Vida je kuhala. Nejc je pospravljal. (medtem ko)", "accept": ["Medtem ko je Vida kuhala, je Nejc pospravljal.", "Nejc je pospravljal, medtem ko je Vida kuhala."] },
+            { "from": "Odšel je. Ni se poslovil. (ne da bi)", "accept": ["Odšel je, ne da bi se poslovil."], "hint": "bi, se, then the l-form" },
+            { "from": "Luka je spal. Moral bi pasti ovce. (namesto da)", "accept": ["Luka je spal, namesto da bi pasel ovce.", "Namesto da bi pasel ovce, je Luka spal."], "hint": "namesto da bi + the l-form: pasel" },
+            { "from": "Tukaj živim. Lani sem {m:prišel|f:prišla}. (odkar)", "accept": ["Tukaj živim, odkar sem lani {m:prišel|f:prišla}.", "Tukaj živim, odkar sem {m:prišel|f:prišla} lani.", "Odkar sem lani {m:prišel|f:prišla}, živim tukaj."] },
+            { "from": "Gremo na izlet. Lahko bo deževalo. (razen če)", "accept": ["Gremo na izlet, razen če bo deževalo."] },
+            { "from": "Bil je zelo utrujen. Zaspal je za mizo. (tako … da)", "accept": ["Bil je tako utrujen, da je zaspal za mizo."], "hint": "tako instead of zelo" },
+            { "from": "Gleda nas. Zdi se, da je videl duha. (kot da)", "accept": ["Gleda nas, kot da bi videl duha.", "Gleda nas, kakor da bi videl duha."], "hint": "he didn't: kot da bi" }
+          ],
+          "explain": "**a comma before the joining word**, the short words right after it · **ne da bi, namesto da bi, kot da bi** + the l-form for what isn't so"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "odvisniki-napredno",
+        "instruction": "Dopolni z veznikom · Fill in with a joining word",
+        "text": "___ je bil utrujen, je France pomagal pri mostu. Počakaj, ___ ne pridem. Ančka je odšla, ___ bi kaj rekla. ___ je Marko obiral grozdje, je Ančka pripovedovala novice. Pridem na trgatev, ___ bom bolan.",
+        "gaps": [
+          { "accept": ["Kljub temu da", "Čeprav"] },
+          { "accept": ["dokler"] },
+          { "accept": ["ne da"] },
+          { "accept": ["Medtem ko"] },
+          { "accept": ["razen če"] }
+        ],
+        "translation": "Although he was tired, France helped with the bridge. Wait until I come. Ančka left without saying anything. While Marko was picking grapes, Ančka was telling the news. I'll come to the grape harvest unless I'm ill."
+      },
+      {
+        "type": "table",
+        "grammar": "odvisniki-napredno",
+        "instruction": "Kateri veznik? · Which joining word?",
+        "prompt": "veznik · the joining word",
+        "columns": ["veznik · joining word"],
+        "rows": [
+          { "label": "although (= čeprav)", "cells": [{ "accept": ["kljub temu da"] }] },
+          { "label": "as soon as", "cells": [{ "accept": ["takoj ko", "brž ko", "čim"] }] }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "odvisniki-napredno",
+        "instruction": "Združi z veznikom v oklepaju · Join them with the word in brackets",
+        "whole": true,
+        "items": [
+          { "from": "Pozdravil je. Ni se ustavil. (ne da bi)", "accept": ["Pozdravil je, ne da bi se ustavil."] },
+          { "from": "Gostje so odšli. Vida je pospravila. (potem ko)", "accept": ["Potem ko so gostje odšli, je Vida pospravila.", "Vida je pospravila, potem ko so gostje odšli."] },
+          { "from": "Voda je bila mrzla. Nismo se kopali. (preveč … da bi)", "accept": ["Voda je bila premrzla, da bi se kopali.", "Voda je bila preveč mrzla, da bi se kopali."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "odvisniki-napredno",
+        "prompt": "Jože gleda, ___ bi videl duha.",
+        "options": ["kot da", "tako da", "medtem ko"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**as if**, and he didn't → **kot da bi**\n- tako da · so, what came of it"
+      },
+      {
+        "type": "choice",
+        "grammar": "odvisniki-napredno",
+        "prompt": "___ pride Tone, mu povej, da ga iščem.",
+        "options": ["Takoj ko", "Odkar", "Kljub temu da"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**as soon as** he comes → **Takoj ko**\n- odkar · since"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Nov most, Nejc je bledel, kot da bi videl duha, voda premrzla da bi se kopali, preveč mrzla (accepted), the comma of kljub temu da"
+}

@@ -1,0 +1,247 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "oziralni-kateri",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🔎",
+  "title": { "sl": "Kdor išče, najde: kateri, čigar, kdor", "en": "Whoever seeks, finds: kateri, čigar, kdor", "de": "Wer sucht, der findet: kateri, čigar, kdor", "it": "Chi cerca trova: kateri, čigar, kdor" },
+  "goal": {
+    "en": "You can join sentences with kateri in every case (fant, katerega sem videl), say whose (čigar, katere, katerih), use kdor and kar in their cases (kogar, česar, o čemer), kar for a whole sentence, and kamor and od koder.",
+    "de": "Du verbindest Sätze mit kateri in jedem Fall (fant, katerega sem videl), sagst wessen (čigar, katere, katerih), brauchst kdor und kar in ihren Fällen (kogar, česar, o čemer), kar für einen ganzen Satz, und kamor und od koder.",
+    "it": "Sai unire le frasi con kateri in ogni caso (fant, katerega sem videl), dire di chi (čigar, katere, katerih), usare kdor e kar nei loro casi (kogar, česar, o čemer), kar per una frase intera, e kamor e od koder."
+  },
+  "grammar": ["oziralni-kateri", "oziralni-ki"],
+  "words": ["kateri", "čigar", "kdor", "kar", "kamor", "od koder", "kjer", "sestanek", "cesta", "njiva", "most", "gostilna", "soseda", "sosed", "potok", "poplava", "planina", "gozd", "volk", "pregovor", "spomniti se", "posoditi", "razjeziti", "iskati", "najti"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kaj", "en": "what", "de": "was", "it": "che cosa" },
+        { "sl": "oblika", "en": "form", "de": "Form", "it": "forma" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know **ki** with a short pronoun: **fant, ki sem ga videl**. In writing **kateri** can do the same in every case, agreeing like an adjective: **fant, katerega sem videl** (the boy I saw), **ovca, katero Luka išče**. Both are right; speech prefers ki.",
+          "de": "Du kennst **ki** mit einem kurzen Pronomen: **fant, ki sem ga videl**. Geschrieben kann **kateri** dasselbe in jedem Fall tun, angepasst wie ein Adjektiv: **fant, katerega sem videl** (der Junge, den ich gesehen habe), **ovca, katero Luka išče**. Beides ist richtig; gesprochen nimmt man lieber ki.",
+          "it": "Conosci **ki** con un pronome breve: **fant, ki sem ga videl**. Per iscritto **kateri** può fare lo stesso in ogni caso, accordato come un aggettivo: **fant, katerega sem videl** (il ragazzo che ho visto), **ovca, katero Luka išče**. Sono giusti entrambi; nel parlato si preferisce ki."
+        },
+        "examples": [
+          { "sl": "Fant, katerega sem videl pri vodnjaku, je Tine.", "en": "The boy I saw at the well is Tine.", "de": "Der Junge, den ich am Brunnen gesehen habe, ist Tine.", "it": "Il ragazzo che ho visto al pozzo è Tine." },
+          { "sl": "Ovca, katero Luka išče, je Bela.", "en": "The sheep Luka is looking for is Bela.", "de": "Das Schaf, das Luka sucht, ist Bela.", "it": "La pecora che Luka cerca è Bela." }
+        ],
+        "rows": [[{ "sl": "koga? kaj?", "en": "whom (accusative)", "de": "wen (Akkusativ)", "it": "chi (accusativo)" }, "katerega, katero, katere", "fant, katerega sem videl"]],
+        "ask": { "type": "choice", "grammar": "oziralni-kateri", "prompt": "Košara, ___ je Micka pozabila na trgu, je polna jajc.", "options": ["katero", "katera", "kateri"], "answer": 0, "say_options": true, "explain": "**košara** is what she forgot: feminine, koga? kaj? → **katero** (= ki jo)\n- katera · the subject\n- kateri · to whom" }
+      },
+      {
+        "say": {
+          "en": "The other cases go the same way: to whom, **kateremu, kateri, katerim**: **soseda, kateri smo pomagali** (= ki smo ji pomagali). After a no, the genitive: **stvar, katere nimam**.",
+          "de": "Die anderen Fälle gehen genauso: wem, **kateremu, kateri, katerim**: **soseda, kateri smo pomagali** (= ki smo ji pomagali). Nach einer Verneinung der Genitiv: **stvar, katere nimam**.",
+          "it": "Gli altri casi vanno allo stesso modo: a chi, **kateremu, kateri, katerim**: **soseda, kateri smo pomagali** (= ki smo ji pomagali). Dopo una negazione, il genitivo: **stvar, katere nimam**."
+        },
+        "examples": [
+          { "sl": "Soseda, kateri smo pomagali, nam je prinesla jajca.", "en": "The neighbour we helped brought us eggs.", "de": "Die Nachbarin, der wir geholfen haben, hat uns Eier gebracht.", "it": "La vicina che abbiamo aiutato ci ha portato le uova." },
+          { "sl": "To je orodje, katerega Tone nima.", "en": "That's a tool Tone doesn't have.", "de": "Das ist ein Werkzeug, das Tone nicht hat.", "it": "È un attrezzo che Tone non ha." }
+        ],
+        "rows": [[{ "sl": "komu? čemu?", "en": "to whom (dative)", "de": "wem (Dativ)", "it": "a chi (dativo)" }, "kateremu, kateri, katerim", "soseda, kateri smo pomagali"]],
+        "ask": { "type": "cloze", "grammar": "oziralni-kateri", "text": "Babica, ___ smo prinesli rože, je Micka. (komu?)", "accept": ["kateri"], "hint": "komu? feminine", "explain": "**prinesti komu?** babici, feminine → **kateri** (= ki smo ji)" }
+      },
+      {
+        "say": {
+          "en": "Whose: **čigar** for a man, and it never changes: **pastir, čigar ovce so na planini**. For a woman, for many people and for things, the genitive of kateri: **Vida, katere gostilna je polna; sosedje, katerih hiša stoji ob potoku; mlin, katerega kolo se vrti.**",
+          "de": "Wessen: **čigar** für einen Mann, und es ändert sich nie: **pastir, čigar ovce so na planini**. Für eine Frau, für mehrere Menschen und für Dinge der Genitiv von kateri: **Vida, katere gostilna je polna; sosedje, katerih hiša stoji ob potoku; mlin, katerega kolo se vrti.**",
+          "it": "Di cui: **čigar** per un uomo, e non cambia mai: **pastir, čigar ovce so na planini**. Per una donna, per più persone e per le cose, il genitivo di kateri: **Vida, katere gostilna je polna; sosedje, katerih hiša stoji ob potoku; mlin, katerega kolo se vrti.**"
+        },
+        "examples": [
+          { "sl": "Pastir, čigar ovce so na planini, je Luka.", "en": "The shepherd whose sheep are on the pasture is Luka.", "de": "Der Hirte, dessen Schafe auf der Alm sind, ist Luka.", "it": "Il pastore le cui pecore sono all'alpeggio è Luka." },
+          { "sl": "Sosedje, katerih hiša stoji ob potoku, so se bali poplave.", "en": "The neighbours whose house stands by the stream were afraid of a flood.", "de": "Die Nachbarn, deren Haus am Bach steht, hatten Angst vor einer Überschwemmung.", "it": "I vicini la cui casa sta vicino al ruscello avevano paura dell'alluvione." }
+        ],
+        "rows": [[{ "sl": "čigav? moški", "en": "whose: a man", "de": "wessen: ein Mann", "it": "di cui: un uomo" }, "čigar", "pastir, čigar ovce …"], [{ "sl": "čigav? drugi", "en": "whose: the others", "de": "wessen: die anderen", "it": "di cui: gli altri" }, "katere, katerih, katerega", "Vida, katere gostilna …"]],
+        "ask": { "type": "choice", "grammar": "oziralni-kateri", "prompt": "Vida, ___ gostilna je na koncu vasi, kuha za vso vas.", "options": ["katere", "čigar", "katera"], "answer": 0, "almost": [1], "say_options": true, "explain": "**Vida's inn**, whose, a woman → **katere**\n- čigar · the standard keeps it for a man; heard for a woman too\n- katera · the subject, not whose" }
+      },
+      {
+        "say": {
+          "en": "**Kdor** (whoever, the one who) changes as **kdo** does: **kogar, komur, s komer, o komer**. **Kdor išče, najde.** (Whoever seeks, finds.) **Kogar ni bilo na sestanku, naj vpraša Ančko.** The main clause may take it up with **ta**: **Kdor laže, ta krade.**",
+          "de": "**Kdor** (wer, derjenige, der) ändert sich wie **kdo**: **kogar, komur, s komer, o komer**. **Kdor išče, najde.** (Wer sucht, der findet.) **Kogar ni bilo na sestanku, naj vpraša Ančko.** Der Hauptsatz kann es mit **ta** aufnehmen: **Kdor laže, ta krade.**",
+          "it": "**Kdor** (chi, colui che) cambia come **kdo**: **kogar, komur, s komer, o komer**. **Kdor išče, najde.** (Chi cerca trova.) **Kogar ni bilo na sestanku, naj vpraša Ančko.** La principale può riprenderlo con **ta**: **Kdor laže, ta krade.**"
+        },
+        "examples": [
+          { "sl": "Kdor išče, najde.", "en": "Whoever seeks, finds.", "de": "Wer sucht, der findet.", "it": "Chi cerca trova." },
+          { "sl": "Kdor drugemu jamo koplje, sam vanjo pade.", "en": "Whoever digs a pit for another falls into it himself.", "de": "Wer anderen eine Grube gräbt, fällt selbst hinein.", "it": "Chi scava una fossa per un altro ci cade dentro lui stesso." }
+        ],
+        "rows": [[{ "sl": "kdo → kdor", "en": "whoever", "de": "wer", "it": "chi" }, "kdor, kogar, komur, s komer", "Kdor išče, najde."]],
+        "ask": { "type": "cloze", "grammar": "oziralni-kateri", "text": "___ ni bilo na sestanku, naj vpraša Ančko. (whoever wasn't there)", "accept": ["Kogar"], "hint": "kdo? after ni bilo: the genitive", "explain": "**ni bilo koga?** the genitive of kdor → **Kogar**" }
+      },
+      {
+        "say": {
+          "en": "**Kar** (what) changes as **kaj** does: **česar, čemur, o čemer, s čimer**: **To je vse, česar se spomnim.** And **kar** can stand for a whole sentence before it: **Prišel je pozno, kar je Vido razjezilo.** (He came late, which made Vida angry.)",
+          "de": "**Kar** (was) ändert sich wie **kaj**: **česar, čemur, o čemer, s čimer**: **To je vse, česar se spomnim.** Und **kar** kann für den ganzen Satz davor stehen: **Prišel je pozno, kar je Vido razjezilo.** (Er kam spät, was Vida ärgerte.)",
+          "it": "**Kar** (ciò che) cambia come **kaj**: **česar, čemur, o čemer, s čimer**: **To je vse, česar se spomnim.** E **kar** può stare per tutta la frase prima: **Prišel je pozno, kar je Vido razjezilo.** (È arrivato tardi, il che ha fatto arrabbiare Vida.)"
+        },
+        "examples": [
+          { "sl": "To je vse, česar se spomnim.", "en": "That's all I remember.", "de": "Das ist alles, woran ich mich erinnere.", "it": "È tutto ciò che ricordo." },
+          { "sl": "Prišel je pozno, kar je Vido razjezilo.", "en": "He came late, which made Vida angry.", "de": "Er kam spät, was Vida ärgerte.", "it": "È arrivato tardi, il che ha fatto arrabbiare Vida." }
+        ],
+        "rows": [[{ "sl": "kaj → kar", "en": "what", "de": "was", "it": "ciò che" }, "kar, česar, čemur, o čemer", "vse, česar se spomnim"], [{ "sl": "cel stavek", "en": "a whole sentence", "de": "ein ganzer Satz", "it": "una frase intera" }, "kar", "…, kar je Vido razjezilo"]],
+        "ask": { "type": "choice", "grammar": "oziralni-kateri", "prompt": "To je nekaj, o ___ v vasi ne govorimo.", "options": ["čemer", "česar", "katerem"], "answer": 0, "say_options": true, "explain": "**after nekaj**: kar; **govoriti o čem?** → **o čemer**\n- česar · of what\n- katerem · after a noun, not after nekaj" }
+      },
+      {
+        "say": {
+          "en": "For a place: **kjer** (where), **kamor** (where to), **od koder** (where from): **vas, kamor gremo; gozd, od koder prihaja volk.** They answer **kje? kam? od kod?** as v kateri, v katero, iz katerega do.",
+          "de": "Für einen Ort: **kjer** (wo), **kamor** (wohin), **od koder** (woher): **vas, kamor gremo; gozd, od koder prihaja volk.** Sie antworten auf **kje? kam? od kod?** wie v kateri, v katero, iz katerega.",
+          "it": "Per un luogo: **kjer** (dove), **kamor** (verso dove), **od koder** (da dove): **vas, kamor gremo; gozd, od koder prihaja volk.** Rispondono a **kje? kam? od kod?** come v kateri, v katero, iz katerega."
+        },
+        "examples": [
+          { "sl": "Planina, kamor Luka žene ovce, je visoko.", "en": "The pasture Luka drives the sheep to is high up.", "de": "Die Alm, auf die Luka die Schafe treibt, liegt hoch oben.", "it": "L'alpeggio dove Luka porta le pecore è in alto." },
+          { "sl": "To je gozd, od koder prihaja volk.", "en": "That's the forest the wolf comes from.", "de": "Das ist der Wald, aus dem der Wolf kommt.", "it": "È il bosco da cui viene il lupo." }
+        ],
+        "rows": [[{ "sl": "kraj", "en": "a place", "de": "ein Ort", "it": "un luogo" }, "kjer, kamor, od koder", "vas, kamor gremo"]],
+        "ask": { "type": "choice", "grammar": "oziralni-kateri", "prompt": "Mesto, ___ gremo jutri na sejem, je daleč.", "options": ["kamor", "kjer", "od koder"], "answer": 0, "say_options": true, "explain": "**iti kam?** → **kamor**\n- kjer · where it is\n- od koder · where from" }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "oziralni-kateri-1",
+      "title": { "sl": "Ki ga ali katerega?", "en": "Ki ga or katerega?", "de": "Ki ga oder katerega?", "it": "Ki ga o katerega?" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "oziralni-kateri",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "ki + zaimek ali kateri · ki + a pronoun or kateri",
+          "columns": ["ki + zaimek · ki + pronoun", "kateri"],
+          "rows": [
+            { "label": "fant · koga?", "cells": ["ki ga", { "accept": ["katerega"] }] },
+            { "label": "ovca · koga?", "cells": [{ "accept": ["ki jo"] }, { "accept": ["katero"] }] },
+            { "label": "babica · komu?", "cells": [{ "accept": ["ki ji"] }, { "accept": ["kateri"] }] },
+            { "label": "otroci · koga?", "cells": [{ "accept": ["ki jih"] }, { "accept": ["katere"], "hint": "many: as the adjective, katere" }] },
+            { "label": "jagnje · komu?", "cells": [{ "accept": ["ki mu"] }, { "accept": ["kateremu"], "hint": "neuter as masculine" }] },
+            { "label": "stvar · česa? (ne)", "cells": [{ "accept": ["ki je"] }, { "accept": ["katere"], "hint": "after a no: the genitive" }] }
+          ],
+          "explain": "**kateri** agrees as an adjective: koga? katerega, katero, katere · komu? kateremu, kateri, katerim · česa? katerega, katere, katerih"
+        },
+        {
+          "type": "sort",
+          "grammar": "oziralni-kateri",
+          "instruction": "Razvrsti · Sort them",
+          "columns": [
+            { "label": "kdo? → kdor · whoever", "words": ["kdor", "kogar", "komur", "o komer"] },
+            { "label": "kaj? → kar · what", "words": ["kar", "česar", "čemur", "o čemer"] }
+          ],
+          "explain": "**kdor** for people, as kdo: kogar, komur, o komer, s komer · **kar** for things, as kaj: česar, čemur, o čemer, s čimer"
+        }
+      ]
+    },
+    {
+      "id": "oziralni-kateri-2",
+      "title": { "sl": "Vaški sestanek", "en": "The village meeting", "de": "Die Dorfversammlung", "it": "La riunione del paese" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "oziralni-kateri",
+          "instruction": "Dopolni · Fill in",
+          "title": "Vaški sestanek",
+          "text": "Na sestanku, ___ je vodila teta Ančka, so v gostilni govorili o novi cesti. France, ___ njiva leži ob cesti, je bil proti. Vida, ___ gostilna je vedno polna, je bila za. Govorili so tudi o starem mostu, ___ je treba popraviti. Tone je povedal vse, ___ ve o mostovih. Nekaj, o ___ so dolgo govorili, je bil denar. ___ ni bilo na sestanku, naj vpraša Ančko. Mesto, ___ bo vodila cesta, je pol ure daleč. Sestanek je trajal do polnoči, ___ je Vido razjezilo.",
+          "gaps": [
+            { "accept": ["ki ga", "katerega"], "hint": "sestanek: masculine, koga? kaj?" },
+            { "accept": ["čigar", "katerega"], "hint": "whose: a man" },
+            { "accept": ["katere"], "hint": "whose: a woman" },
+            { "accept": ["ki ga", "katerega"], "hint": "most: masculine, koga? kaj?" },
+            { "accept": ["kar"], "hint": "after vse" },
+            { "accept": ["čemer"], "hint": "after nekaj; o čem?" },
+            { "accept": ["Kogar"], "hint": "ni bilo koga?" },
+            { "accept": ["kamor"], "hint": "kam?" },
+            { "accept": ["kar"], "hint": "the whole sentence before" }
+          ],
+          "bank": true,
+          "distractors": ["katerih", "kdor", "česar"],
+          "translation": "At the meeting Aunt Ančka led, they talked at the inn about the new road. France, whose field lies by the road, was against it. Vida, whose inn is always full, was for it. They also talked about the old bridge that needs repairing. Tone told them all he knows about bridges. Something they talked about for a long time was money. Whoever wasn't at the meeting should ask Ančka. The town the road will lead to is half an hour away. The meeting went on until midnight, which made Vida angry."
+        }
+      ]
+    },
+    {
+      "id": "oziralni-kateri-3",
+      "title": { "sl": "Dva stavka v enega", "en": "Two sentences into one", "de": "Zwei Sätze zu einem", "it": "Due frasi in una" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "oziralni-kateri",
+          "instruction": "Združi · Join them",
+          "items": [
+            { "from": "To je Luka. Njegove ovce so na planini.", "accept": ["To je Luka, čigar ovce so na planini.", "To je Luka, katerega ovce so na planini."], "hint": "whose: a man" },
+            { "from": "To je Vida. Njena gostilna je polna.", "accept": ["To je Vida, katere gostilna je polna."], "hint": "whose: a woman" },
+            { "from": "To so sosedje. Njihova hiša stoji ob potoku.", "accept": ["To so sosedje, katerih hiša stoji ob potoku."] },
+            { "from": "To je Tine. Tinetu sem {m:posodil|f:posodila} kolo.", "accept": ["To je Tine, kateremu sem {m:posodil|f:posodila} kolo.", "To je Tine, ki sem mu {m:posodil|f:posodila} kolo."], "hint": "komu?" },
+            { "from": "To je planina. Luka žene ovce na planino.", "accept": ["To je planina, kamor Luka žene ovce.", "To je planina, kamor žene Luka ovce.", "To je planina, na katero Luka žene ovce.", "To je planina, na katero žene Luka ovce."], "hint": "kam?" },
+            { "from": "To je gozd. Iz gozda prihaja volk.", "accept": ["To je gozd, od koder prihaja volk.", "To je gozd, iz katerega prihaja volk."], "hint": "od kod?" },
+            { "from": "Prišel je pozno. To je Vido razjezilo.", "accept": ["Prišel je pozno, kar je Vido razjezilo."], "hint": "the whole sentence: kar" },
+            { "from": "Nekdo išče. Ta najde.", "accept": ["Kdor išče, najde.", "Kdor išče, ta najde."], "hint": "whoever" }
+          ],
+          "explain": "**whose**: čigar (a man), katere, katerih · **komu?** kateremu, ki mu · **kam? od kod?** kamor, od koder · **a whole sentence**: kar · **whoever**: kdor"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "oziralni-kateri",
+        "instruction": "Dopolni s kateri · Fill in with kateri",
+        "prompt": "kateri · which",
+        "columns": ["kateri"],
+        "rows": [
+          { "label": "fant · koga?", "cells": [{ "accept": ["katerega"] }] },
+          { "label": "sestra · komu?", "cells": [{ "accept": ["kateri"] }] },
+          { "label": "sosedje · čigav?", "cells": [{ "accept": ["katerih"] }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "oziralni-kateri",
+        "instruction": "Dopolni · Fill in",
+        "text": "Mlin, ___ kolo se vrti, je Francetov. ___ ne dela, naj ne je. To je vse, ___ se spomnim. V vasi ni nikogar, s ___ bi se Jože rad pogovoril o lovu.",
+        "gaps": [
+          { "accept": ["katerega", "čigar"] },
+          { "accept": ["Kdor"] },
+          { "accept": ["česar"] },
+          { "accept": ["komer"] }
+        ],
+        "translation": "The mill whose wheel is turning is France's. Whoever doesn't work shouldn't eat. That's all I remember. There's nobody in the village Jože would like to talk to about hunting."
+      },
+      {
+        "type": "transform",
+        "grammar": "oziralni-kateri",
+        "instruction": "Združi · Join them",
+        "items": [
+          { "from": "To je Mojca. Njeni učenci so pridni.", "accept": ["To je Mojca, katere učenci so pridni."] },
+          { "from": "To je vas. V vas gremo jutri.", "accept": ["To je vas, kamor gremo jutri.", "To je vas, v katero gremo jutri."] },
+          { "from": "Zamudil je avtobus. To ga je jezilo.", "accept": ["Zamudil je avtobus, kar ga je jezilo."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "oziralni-kateri",
+        "prompt": "Človek, ___ sem {m:srečal|f:srečala} v gozdu, je bil Jože.",
+        "options": ["katerega", "kateri", "čigar"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**srečati koga?** človeka → **katerega** (= ki sem ga)\n- kateri · the subject\n- čigar · whose"
+      },
+      {
+        "type": "choice",
+        "grammar": "oziralni-kateri",
+        "prompt": "Prišli so pozno, ___ je Ančko razjezilo.",
+        "options": ["kar", "ki", "kateri"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**the whole sentence before** made her angry → **kar**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: kateri for ki + a pronoun (both accepted), čigar for a woman (almost) or a thing (accepted), Vaški sestanek, orodje, katerega Tone nima"
+}
