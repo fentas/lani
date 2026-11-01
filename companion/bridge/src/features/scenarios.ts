@@ -4,7 +4,7 @@ import { badNote, fail, noteIn, ok } from '../tool'
 import type { FeatureFactory } from '../feature'
 import { json } from '../http'
 import { LANGUAGES } from '../learners'
-import { validateScenario } from '../scenarios'
+import { scenarioPackErrors, servedScenario, validateScenario } from '../scenarios'
 import { FACES } from '../scenes'
 import { corpus } from '../voice'
 import { talkPlace } from './villagers'
@@ -35,7 +35,7 @@ export function scenariosInstructions(target = 'sl', base = 'en'): string {
     : `{"sl": "<your line, in ${lang}: the key is sl in every language>", "en": "<its translation, in ${baseName}>"`
   return `
 Role-play ("Pogovor · Talk"): kind roleplay carries {scenario_id, turn, heard, alternatives?, unclear?, takes?,
-typed?} plus the scenario brief (role, setting, goals). heard is what Jan typed (typed: true) or what speech
+typed?} plus the scenario brief (role, setting, goals, its language, and child when a child talks: keep to it). heard is what Jan typed (typed: true) or what speech
 recognition made of Jan's line: Jan is a learner, maybe a child, and the recognizer mishears. alternatives are its
 other readings of the same take (one may have a heard non-word matched to a word of the conversation: ${m.near}),
 unclear the words it was unsure of, takes how many times Jan said the line before it went out (more than 2: Jan
@@ -51,48 +51,69 @@ means Jan is stuck: reply {"hint": true, "sl": "<one line Jan could say next${ta
 without moving the scene on. kind roleplay_end carries the transcript: reply out of character with a short debrief
 (what went well, 2 things to practise; a word only the recognizer got wrong is no mistake) and data {"debrief":
 true}, then persist it with the lani-db-updater skill as a speaking session. To write new scenarios ("let's practise
-at the post office"), load lani-studio and use publish_scenario.
+at the post office"), load lani-studio and use publish_scenario: in the village's language, its texts in the learner's base (module-spec.md).
 `.trim()
 }
 
-export const scenarios: FeatureFactory = ({ scenarios, events, voice, addressee, cfg, culture, profile }) => ({
-  instructions: (p => scenariosInstructions(p.target, p.base))(talkPlace({ cfg, culture, profile })),
-  routes: [
-    { method: 'GET', path: '/scenarios', addressed: true, areas: ['content'], handle: () => json(scenarios.all()) },
-    {
-      method: 'GET',
-      path: /^\/scenarios\/([a-z0-9-]+)$/,
-      addressed: true,
-      handle: ({ params: [id] }) => {
-        const s = scenarios.get(id)
-        return s ? json(s) : json({ error: 'not found' }, 404)
-      },
-    },
-  ],
-  tools: [
-    {
-      name: 'publish_scenario',
-      description:
-        'Validate a lani.scenario/v0 role-play scenario and publish it to the app (replaces a tutor scenario with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).',
-      inputSchema: {
-        type: 'object',
-        properties: {
-          scenario: { type: 'object', description: 'The scenario (lani.scenario/v0)' },
-          note: { type: 'string', description: 'One-line announcement shown in the app' },
+export const scenarios: FeatureFactory = ({ scenarios, events, voice, addressee, cfg, culture, profile, packs }) => {
+  /** The learner's pair now (the profile's: its base may change): what a scenario's texts are served in. */
+  const pair = () => talkPlace({ cfg, culture, profile })
+  return {
+    instructions: (p => scenariosInstructions(p.target, p.base))(pair()),
+    routes: [
+      // the village's role-plays (its language's only; a grown-up's never to a child), their texts in the learner's pair
+      {
+        method: 'GET',
+        path: '/scenarios',
+        addressed: true,
+        areas: ['content'],
+        handle: () => {
+          const { target, base } = pair()
+          return json(scenarios.offered(profile.child).map(s => servedScenario(s, target, base)))
         },
-        required: ['scenario'],
       },
-      handle: args => {
-        const v = validateScenario(args.scenario)
-        if (!v.ok) return fail(`scenario invalid, nothing published:\n${v.errors}`)
-        const note = noteIn.safeParse(args.note)
-        if (!note.success) return badNote()
-        const err = scenarios.publish(v.scenario)
-        if (err) return fail(err)
-        events.emit({ type: 'scenario_published', id: v.scenario.id, title: v.scenario.title, emoji: v.scenario.emoji, note: note.data ?? undefined })
-        voice.enqueue(corpus({ packs: [], modules: [], scenarios: [v.scenario], learner: addressee() }))
-        return ok(`published scenario ${v.scenario.id} (${v.scenario.goals.length} goals); curated and published: ${scenarios.all().map(s => s.id).join(', ')}`)
+      {
+        method: 'GET',
+        path: /^\/scenarios\/([a-z0-9-]+)$/,
+        addressed: true,
+        handle: ({ params: [id] }) => {
+          const s = scenarios.offered(profile.child).find(x => x.id === id)
+          const { target, base } = pair()
+          return s ? json(servedScenario(s, target, base)) : json({ error: 'not found' }, 404)
+        },
       },
-    },
-  ],
-})
+    ],
+    tools: [
+      {
+        name: 'publish_scenario',
+        description:
+          'Validate a lani.scenario/v0 role-play scenario and publish it to the app (replaces a tutor scenario with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content). It is in the village\'s language (its "language", left out: the village\'s); for a learner whose base is not English, give its title, goals and who per language and its setting and meanings per base (module-spec.md, "Role-play scenarios").',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            scenario: { type: 'object', description: 'The scenario (lani.scenario/v0)' },
+            note: { type: 'string', description: 'One-line announcement shown in the app' },
+          },
+          required: ['scenario'],
+        },
+        handle: args => {
+          // in the village's language unless it says another (which publish refuses)
+          const input = args.scenario && typeof args.scenario === 'object' && !Array.isArray(args.scenario) ? { language: scenarios.language, ...(args.scenario as object) } : args.scenario
+          const v = validateScenario(input)
+          if (!v.ok) return fail(`scenario invalid, nothing published:\n${v.errors}`)
+          const note = noteIn.safeParse(args.note)
+          if (!note.success) return badNote()
+          const missing = scenarioPackErrors(v.scenario, packs.all().map(p => p.id))
+          if (missing.length) return fail(`scenario invalid, nothing published:\n${missing.map(e => `✖ ${e}`).join('\n')}`)
+          const err = scenarios.publish(v.scenario)
+          if (err) return fail(err)
+          const { target, base } = pair()
+          const title = servedScenario(v.scenario, target, base).title as string
+          events.emit({ type: 'scenario_published', id: v.scenario.id, title, emoji: v.scenario.emoji, note: note.data ?? undefined })
+          voice.enqueue(corpus({ packs: [], modules: [], scenarios: [v.scenario], language: culture.manifest?.language, learner: addressee() }))
+          return ok(`published scenario ${v.scenario.id} (${v.scenario.goals.length} goals); curated and published: ${scenarios.all().map(s => s.id).join(', ')}`)
+        },
+      },
+    ],
+  }
+}

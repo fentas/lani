@@ -19,7 +19,7 @@ const unused = mkdtempSync(join(tmpdir(), 'lani-check-culture-'))
 const cast = new VillagerStore(join(culturesDir, id, 'villagers'), join(unused, 'villagers')).all()
 const refs = {
   packs: new PackStore(packsDirs(join(companion, 'packs'), culturesDir, id, lang), join(unused, 'packs')).all(),
-  scenarios: new ScenarioStore(lang === 'sl' ? join(companion, 'scenarios') : join(companion, 'scenarios', lang), join(unused, 'scenarios')).all(),
+  scenarios: new ScenarioStore(lang === 'sl' ? join(companion, 'scenarios') : join(companion, 'scenarios', lang), join(unused, 'scenarios'), undefined, lang).all(),
 }
 const pages = new Set(readdirSync(join(companion, 'grammar', lang)).filter(f => f.endsWith('.json')).map(f => f.slice(0, -5)))
 const v = validateCulture(culturesDir, id, cast, refs, pages)

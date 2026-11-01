@@ -293,7 +293,8 @@ export function buildBridge<C extends ChannelPort>(platform: Platform<C>, o: Bui
     // The car's audio drills of the village's language (companion/drills/<language>): what they name checked against the
     // grammar book, the packs and the cast (read lazily: the context is being built here).
     drills: new DrillStore(drillsDir(env.LANI_DRILLS_DIR ?? join(projectDir, 'companion/drills'), language), language, () => ({ grammar: new Set(ctx.grammar.all().map(p => p.id)), packs: ctx.packs.all(), villagers: ctx.villagers.all() }), log),
-    scenarios: new ScenarioStore(ofLanguage(env.LANI_SCENARIOS_DIR ?? join(projectDir, 'companion/scenarios')), join(appDir, 'scenarios'), log),
+    // The role-plays of the village's language only (companion/scenarios/<language> for another), then the tutor's in it.
+    scenarios: new ScenarioStore(ofLanguage(env.LANI_SCENARIOS_DIR ?? join(projectDir, 'companion/scenarios')), join(appDir, 'scenarios'), log, language),
     // Scenes reference pack words, scenarios and villagers, so the store reads those through the context (lazily: it is being built here).
     // The curated scenes of the village's language, then its culture pack's own places (its landscape at the horizon).
     // What a scene's things and happenings need of the village names the culture's own projects (the mill, the bridge).

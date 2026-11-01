@@ -1,6 +1,6 @@
 {
   "name": "publish_scenario",
-  "description": "Validate a lani.scenario/v0 role-play scenario and publish it to the app (replaces a tutor scenario with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content).",
+  "description": "Validate a lani.scenario/v0 role-play scenario and publish it to the app (replaces a tutor scenario with the same id). Returns validation errors instead of publishing if invalid. Load the lani-studio skill before using. Say the learner {learner} and what agrees with them {m:…|f:…} (companion/SCENES.md, the learner in the content). It is in the village's language (its \"language\", left out: the village's); for a learner whose base is not English, give its title, goals and who per language and its setting and meanings per base (module-spec.md, \"Role-play scenarios\").",
   "input_schema": {
     "type": "object",
     "properties": {

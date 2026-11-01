@@ -325,22 +325,29 @@ test/check-steps.ts primorska <project>`); there is no tool to publish one. What
 
 ## Role-play scenarios (`lani.scenario/v0`)
 
-A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice or typing). Validator: `companion/bridge/src/scenarios.ts`. Curated scenarios live in `companion/scenarios/<id>.json`; `publish_scenario` writes tutor ones to `<data>/app/scenarios/` (same id = replace; curated ids are refused).
+A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice or typing). Validator: `companion/bridge/src/scenarios.ts`. Curated scenarios live in `companion/scenarios/<id>.json` (Slovene) and `companion/scenarios/<language>/<id>.json` (another language's: `companion/scenarios/it/` for an Italian village, Teo's); `publish_scenario` writes tutor ones to `<data>/app/scenarios/` (same id = replace; curated ids are refused). A village is offered only its own language's scenarios: a file in another language is skipped (a Slovene scenario never reaches an Italian village), and a child is never offered one with `audience: "adult"`.
 
 | Field | Type | Notes |
 |---|---|---|
 | `schema` | `"lani.scenario/v0"` | required, literal |
 | `id` | string | kebab-case, 2-63 chars |
-| `title` | string | "Na pošti · At the post office" |
+| `language` | `sl` \| `it` \| `de` \| `en`? | the language it is played in: the village's. A curated one is its directory's; left out in a tutor's, the village's (publish refuses another) |
+| `audience` | `child` \| `adult`? | `child`: written for a child (the brief tells you how to talk to one); `adult`: a grown-up's situation (wine at the inn, the in-laws), never offered to a child |
+| `title` | string or per language | "Na pošti · At the post office", or `{"it": "Al mercato", "de": "Auf dem Markt", "sl": "Na tržnici", "en": "At the market"}` (its own language and `en`; the learner sees "Al mercato · Auf dem Markt") |
 | `emoji` | string | scene icon (default 🗣️) |
 | `level` | `A1`…`C2` | how you speak in character |
-| `setting` | string | 1-2 sentences, English |
-| `role` | string | who you play. **Starts with the character's name, then a comma** (the app shows the part before the comma): "Uslužbenka Mojca, the clerk at the counter. Patient, says vi." Say ti or vi. |
+| `setting` | string or per base | 1-2 sentences, English, or `{"de": …, "sl": …, "en": …}` (English always): the learner reads it in their base |
+| `role` | string | who you play, in English (for you). **Starts with the character's name, then a comma** (the app shows the part before the comma): "Uslužbenka Mojca, the clerk at the counter. Patient, says vi." Say ti or vi (tu or Lei). A name of the village's cast ("Nonna Rosa", "Giulia") plays them: their sprite and voice, and the talk grows the friendship once the learner has met them |
+| `who` | per language? | who the character is, as the learner reads it: `{"it": "La fruttivendola", "de": "Die Obstverkäuferin", "en": "The fruit seller"}` (else the app shows the role's words after the comma) |
 | `voice` | `female` \| `male` | the character's gender: how they sound in the app (the node's voice store) when no `speaker` is set; default `female`. Set `male` for a male character. |
-| `speaker` | string? | a voice from the voice cast (`companion/voice-cast.json`: `grandma`, `grandpa`, `young-man`, `gruff`, `woman`, `teacher`, `young-woman`, `girl`, `boy`) for the character's lines; of the same gender as `voice`. Leave it out for the narrator's voice. |
-| `goals` | string[] | 3-5 short things Jan should manage to say, in English ("Greet politely") |
-| `opener_sl`, `opener_en` | string | the character's first line (shown and spoken by the app) and its translation |
-| `vocabulary_hints` | `{sl, en}[]` | 0-12 phrases for the intro, each with 🔊 |
+| `speaker` | string? | a voice from the voice cast (`companion/voice-cast.json`, a culture pack's own: `grandma`, `grandpa`, `young-man`, `gruff`, `woman`, `teacher`, `young-woman`, `girl`, `boy`) for the character's lines; of the same gender as `voice`. Leave it out for the narrator's voice. |
+| `goals` | (string or per language)[] | 3-5 short things Jan should manage to say, in English ("Greet politely"), or per language with the scenario's own (`{"it": "Saluta il fornaio", "de": "Begrüße den Bäcker", "en": "Greet the baker"}`: shown "Saluta il fornaio · Begrüße den Bäcker") |
+| `opener_sl`, `opener_en` | string; string or per base | the character's first line, in the scenario's language (the key is `sl` in every language; shown and spoken by the app), and its translation (per base for a learner whose base isn't English) |
+| `vocabulary_hints` | `{sl, en}[]` | 0-12 phrases for the intro, each with 🔊: `sl` in the scenario's language, `en` its meaning (or per base) |
+| `packs` | string[]? | the word packs whose words it uses (at most 6), each one of the village's (`list_packs`) |
+| `review` | string? | who wrote which languages and who checked them: `"it, de, sl: machine-written, not reviewed by a native speaker"` |
+
+The bridge serves every text in the learner's pair (`GET /scenarios`: the title, the goals and `who` as "target · base", the setting and the meanings in the base) and gives you the English on every turn (`data.scenario`: title, role, setting, goals, the opener, its `language`, its `packs`, and `child` when a child talks: kind, short turns, never personal data).
 
 ```json
 { "schema": "lani.scenario/v0", "id": "na-posti", "title": "Na pošti · At the post office", "emoji": "📮", "level": "A1",
@@ -351,7 +358,7 @@ A scene for the app's "Pogovor · Talk": you play a character, Jan speaks (voice
   "vocabulary_hints": [{ "sl": "Rad bi poslal paket.", "en": "I'd like to send a parcel." }, { "sl": "v Nemčijo", "en": "to Germany" }, { "sl": "Koliko stane?", "en": "How much is it?" }] }
 ```
 
-Rules: one real situation from the learner's life (Primorska, family, shops, offices); the opener is a question or invitation the learner can answer with the hints; goals in the order the scene naturally takes; every Slovene line simple and correct at `level`.
+Rules: one real situation from the learner's life (Primorska, family, shops, offices; for a child in Friuli the market, the baker, the paediatrician, the ice-cream shop, break time at school, Sunday lunch at the nonna's, the playground, a phone call to the nonna: `companion/scenarios/it/`); the opener is a question or invitation the learner can answer with the hints; goals in the order the scene naturally takes; every line simple and correct at `level`. For a child (`audience: "child"`): a grown-up close by in the setting (Mamma, Papà), the role kind, with one or two short sentences a turn, asking nothing personal (never the full name, the address, the school, where they are, not even their own birthday), nothing frightening; the adults say tu to the child, who may say tu or Lei (never corrected).
 
 **Playing it** (kind `roleplay` on the channel, `conversation_id` `rp-…`): stay in character, 1-2 short sentences of simple Slovene per turn, and reply with the line as `text` and `data: {"sl", "en", "correction"?, "goals_done", "end"?}`. `heard` comes from a speech recognizer: forgive missing punctuation, capitals and a misheard word; correct only real mistakes (wrong ending, word order, wrong word), gently, as "Rekli bi: **…** · why in English". `goals_done` lists all goal indices (0-based) reached so far; set `end: true` when the scene closes naturally (after the goodbye, or once all goals are done). For `data.hint: true` reply `{"hint": true, "sl", "en"}`: one line the learner could say next, towards the next open goal. On `roleplay_end`, step out of the role: 3-5 lines of debrief (what went well, 2 things to practise, with the correct Slovene) with `data: {"debrief": true}`, then persist with lani-db-updater: `skills_practiced: ["speaking"]`, `skill_scores.speaking` = turns and turns without correction, one `errors[]` entry per real mistake, `command_used: "/lani-app-talk"`. The app has already paid the village; don't mention resources.
 

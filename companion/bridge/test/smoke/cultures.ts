@@ -36,7 +36,7 @@ export default async function cultures() {
     // its scenes' words in the packs its village is served: its language's, then its own
     const refs = {
       packs: new PackStore(packsDirs(join(repo, 'packs'), culturesDir, id, language), join(dataDir, `unused-packs-${id}`)).all(),
-      scenarios: new ScenarioStore(language === 'sl' ? join(repo, 'scenarios') : join(repo, 'scenarios', language), join(dataDir, `unused-scenarios-${id}`)).all(),
+      scenarios: new ScenarioStore(language === 'sl' ? join(repo, 'scenarios') : join(repo, 'scenarios', language), join(dataDir, `unused-scenarios-${id}`), undefined, language).all(),
     }
     const v = validateCulture(culturesDir, id, cast, refs)
     check(`culture pack validates, its people in its cast, its scenes' words in its packs: ${id}`, v.ok, !v.ok && v.errors)
@@ -46,7 +46,7 @@ export default async function cultures() {
   {
     const cast = new VillagerStore(join(culturesDir, 'friuli', 'villagers'), join(dataDir, 'unused-villagers-friuli-town')).all()
     const packs = new PackStore(packsDirs(italianPacksDir, culturesDir, 'friuli', 'it'), join(dataDir, 'unused-packs-friuli-town')).all()
-    const scenarios = new ScenarioStore(join(repo, 'scenarios', 'it'), join(dataDir, 'unused-scenarios-friuli-town')).all()
+    const scenarios = new ScenarioStore(join(repo, 'scenarios', 'it'), join(dataDir, 'unused-scenarios-friuli-town'), undefined, 'it').all()
     const v = validateCulture(culturesDir, 'friuli', cast, { packs, scenarios })
     check("a Friuli village of the smoke's bridges validates with their packs (no \"culture friuli has problems\")", v.ok, !v.ok && v.errors)
   }

@@ -164,15 +164,15 @@ export const chat: FeatureFactory = ctx => {
     if (scenarioId?.startsWith('villager:')) {
       // A talk with a villager: the role-play is built for the friendship, and the persona rides along.
       const t = villagerTalk(villagers, game.read(), scenarioId.slice('villager:'.length), learnerLevel(cfg.dataDir), talkPlace(ctx))
-      if (t) m.data = { ...m.data, scenario: scenarioBrief(t.scenario), villager: t.brief }
+      if (t) m.data = { ...m.data, scenario: scenarioBrief(t.scenario, profile.child), villager: t.brief }
     } else if (scenarioId && /^(town|market):/.test(scenarioId)) {
       // A talk on a visit (features/towns.ts, POST /towns/:id/talk): a host's villager or its market, in the host's
       // language; the persona and the visit ride along.
       const t = visitTalks.get(scenarioId)
-      if (t) m.data = { ...m.data, scenario: scenarioBrief(t.scenario), ...t.data }
+      if (t) m.data = { ...m.data, scenario: scenarioBrief(t.scenario, profile.child), ...t.data }
     } else if (scenarioId) {
       const scenario = scenarios.get(scenarioId)
-      if (scenario) m.data = { ...m.data, scenario: scenarioBrief(scenario) }
+      if (scenario) m.data = { ...m.data, scenario: scenarioBrief(scenario, profile.child) }
     } else if (m.kind === 'villager_arrived' && typeof m.data?.id === 'string') {
       // someone joined the village: what the tutor needs to write their introduction (publish_arrival, features/arrivals.ts)
       m.data = { ...m.data, arrival: arrivalBrief(m.data) }

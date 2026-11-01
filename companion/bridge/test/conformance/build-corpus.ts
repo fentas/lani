@@ -55,7 +55,7 @@ for (const c of CULTURES) {
   languageOf[c] = L
   const tmp = mkdtempSync(join(scratch, `${c}-`))
   const packs = new PackStore(packsDirs(join(companion, 'packs'), culturesDir, c, L), join(tmp, 'packs')).all()
-  const scenarios = new ScenarioStore(L === 'sl' ? join(companion, 'scenarios') : join(companion, 'scenarios', L), join(tmp, 'scenarios')).all()
+  const scenarios = new ScenarioStore(L === 'sl' ? join(companion, 'scenarios') : join(companion, 'scenarios', L), join(tmp, 'scenarios'), undefined, L).all()
   const villagers = new VillagerStore(join(culturesDir, c, 'villagers'), join(tmp, 'villagers')).all()
   const projects = cultureProjects(culturesDir, c)
   const pages = new GrammarStore(grammarDir(join(companion, 'grammar'), L), L, join(tmp, 'grammar')).all().map(p => p.id)

@@ -27,7 +27,7 @@ import { OVERRIDE_KINDS, type OverrideEntry, type OverrideKind, type Overrides }
 import { validatePack } from './packs'
 import { writeAtomic } from './pairing'
 import { checkReading, readingSpec } from './readings'
-import { validateScenario } from './scenarios'
+import { scenarioPackErrors, validateScenario } from './scenarios'
 import { cultureProjects } from './cultures'
 import { validateScene } from './scenes'
 import { validateModule } from './spec'
@@ -248,9 +248,15 @@ export function checkContent(ctx: Ctx, rel: string | undefined, text: string, ki
       return out(ws.id, problems)
     }
     case 'scenario': {
-      const v = validateScenario(input)
+      // in the village's language: a file without one is the village's (the store reads it so)
+      const o = obj(input)
+      const v = validateScenario(o ? { language, ...o } : input)
       if (!v.ok) return rejected(v.errors)
-      return out(v.scenario.id, [...(m ? belongs('scenario', v.scenario.id, rel!, m[1]) : []), ...(ctx.scenarios.isCurated(v.scenario.id) ? [`"${v.scenario.id}" is a curated scenario; pick another id`] : [])])
+      const problems = [...(m ? belongs('scenario', v.scenario.id, rel!, m[1]) : []), ...(ctx.scenarios.isCurated(v.scenario.id) ? [`"${v.scenario.id}" is a curated scenario; pick another id`] : [])]
+      const wrong = ctx.scenarios.languageError(v.scenario)
+      if (wrong) problems.push(wrong)
+      problems.push(...scenarioPackErrors(v.scenario, ctx.packs.all().map(p => p.id)))
+      return out(v.scenario.id, problems)
     }
   }
   return { ok: false, kind: k, errors: `no check for ${k}` }
@@ -286,7 +292,7 @@ function publishedEvent(ctx: Ctx, kind: string, id: string | undefined, value: R
     case 'worksheet':
       return { type: 'worksheet_published', unit: value.unit, id, title: title(value.title) }
     case 'scenario':
-      return { type: 'scenario_published', id, title: value.title, emoji: value.emoji }
+      return { type: 'scenario_published', id, title: title(value.title), emoji: value.emoji }
   }
   return { type: `${kind}_published`, id, file: rel }
 }

@@ -61,19 +61,38 @@ const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; corre
     practise: '*sit sem*, *še malo*',
   },
   it: {
-    hint: { sl: 'Grazie, è molto buona.', en: 'Thanks, it is very good.', de: 'Danke, sie ist sehr gut.' },
-    puzzled: { sl: 'Come, scusa? Puoi ripetere?', en: 'Pardon? Once more?', de: 'Wie bitte? Noch einmal?' },
+    // any of the Italian role-plays (companion/scenarios/it: the market, the baker, the ice-cream shop …), so no soup
+    hint: { sl: 'Grazie, è buonissimo!', en: "Thanks, it's delicious!", de: 'Danke, das ist super lecker!', sl_base: 'Hvala, odlično je!' },
+    puzzled: { sl: 'Come, scusa? Puoi ripetere?', en: 'Pardon? Once more?', de: 'Wie bitte? Noch einmal?', sl_base: 'Kako, prosim? Še enkrat?' },
     turns: [
-      { sl: 'Che piacere! Ancora un po\' di minestra?', en: "I'm glad! A bit more soup?", de: 'Das freut mich! Noch ein bisschen Suppe?' },
-      { sl: 'Davvero? Ti piace la minestra?', en: 'Really? Do you like the soup?', de: 'Wirklich? Schmeckt dir die Suppe?' },
-      { sl: 'Ah ah, hai ragione!', en: "Ha ha, you're right!", de: 'Haha, du hast recht!' },
-      { sl: 'Grazie! È la mia ricetta.', en: "Thank you! It's my recipe.", de: 'Danke! Das ist mein Rezept.' },
+      { sl: 'Che bello! E poi?', en: 'How lovely! And then?', de: 'Wie schön! Und dann?', sl_base: 'Kako lepo! Pa potem?' },
+      { sl: 'Davvero? Ti piace?', en: 'Really? Do you like it?', de: 'Wirklich? Gefällt es dir?', sl_base: 'Res? Ti je všeč?' },
+      { sl: 'Ah ah, che simpatico!', en: 'Ha ha, how funny!', de: 'Haha, wie lustig!', sl_base: 'Ha ha, kako smešno!' },
+      { sl: 'Bravo! Allora ciao, a presto!', en: 'Well done! Bye then, see you soon!', de: 'Bravo! Also tschüss, bis bald!', sl_base: 'Bravo! Pa adijo, se vidiva!' },
     ],
-    correction: { en: 'Si dice: **È molto buona.** · "buona" agrees with the feminine "minestra".', de: 'Man sagt: **È molto buona.** · „buona" richtet sich nach der weiblichen „minestra".' },
-    practise: '*sono sazio*, *ancora un po\'*',
+    correction: { en: 'Si dice: **Mi piace molto.** · "piace" agrees with the thing liked.', de: 'Man sagt: **Mi piace molto.** · „piace“ richtet sich nach dem, was gefällt.', sl: 'Rečemo: **Mi piace molto.** · »piace« se ujema s tem, kar je všeč.' },
+    practise: '*vorrei*, *quanto costa?*',
   },
 }
 const DEBRIEF: Said = { en: '✅ You greeted politely.\n\n📌 Practise', de: '✅ Du hast höflich gegrüßt.\n\n📌 Übe' }
+
+/** The hints given so far in each conversation: the next hint is the scenario's next useful phrase. */
+const hinted = new Map<string, number>()
+
+/** The next of scenario [id]'s useful phrases for [conversation], as the app gets them (in the learner's base); none for a villager's or a visit's. */
+async function scenarioHint(id: string, conversation: string): Promise<{ sl: string; en: string } | undefined> {
+  if (!id || id.includes(':')) return undefined
+  try {
+    const r = await fetch(`http://127.0.0.1:${port}/scenarios/${id}`, { headers: { authorization: 'Bearer dev-token' } })
+    const hints = ((await r.json()) as { vocabulary_hints?: { sl: string; en: string }[] }).vocabulary_hints ?? []
+    if (!hints.length) return undefined
+    const n = hinted.get(conversation) ?? 0
+    hinted.set(conversation, n + 1)
+    return hints[n % hints.length]
+  } catch {
+    return undefined
+  }
+}
 
 /** The course's language (the village's: its culture pack's, GET /culture) and the learner's base, asked once. */
 let course: { target: string; base: string } | undefined
@@ -89,16 +108,22 @@ async function courseLangs(): Promise<{ target: string; base: string }> {
   return course
 }
 
-/** A role-play's language: a visit's talk is in the visited town's (data.visit.language), any other in the course's. */
-async function talkLangs(d: { visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
+/**
+ * A role-play's language: the scenario's own (its brief's language: an Italian role-play in Italian, whatever the course),
+ * a visit's talk the visited town's (data.visit.language), any other the course's.
+ */
+async function talkLangs(d: { scenario?: { language?: string }; visit?: { language?: string } }): Promise<{ lines: (typeof ROLEPLAY)[string]; target: string; base: string }> {
   const c = await courseLangs()
-  const target = d.visit?.language ?? c.target
+  const target = d.scenario?.language ?? d.visit?.language ?? c.target
   const base = c.base === target ? 'en' : c.base
   return { lines: ROLEPLAY[target] ?? ROLEPLAY.sl, target, base }
 }
 
-/** [s] for a reply: its line (`sl`, in the talk's language) and its translation in [base] (`en`), English without one. */
-const said = (s: Said, base: string) => ({ sl: s.sl, en: s[base] ?? s.en })
+/**
+ * [s] for a reply: its line (`sl`, in the talk's language) and its translation in [base] (`en`), English without one. A
+ * Slovene base reads `sl_base` (the key `sl` is the line itself).
+ */
+const said = (s: Said, base: string) => ({ sl: s.sl, en: (base === 'sl' ? s.sl_base : s[base]) ?? s.en })
 
 client.fallbackNotificationHandler = async n => {
   const p = n.params as any
@@ -132,8 +157,12 @@ client.fallbackNotificationHandler = async n => {
     const d = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(p.content))?.[1] ?? '{}')
     await Bun.sleep(2500) // the real tutor takes 10-30 s
     // in the talk's language: the course's (an Italian learner's talk in Italian), a visit's in the town's
-    const { lines, base } = await talkLangs(d)
-    if (d.hint) await reply(conversation_id, lines.hint.sl, { hint: true, ...said(lines.hint, base) })
+    const { lines, base, target } = await talkLangs(d)
+    if (d.hint) {
+      const own = await scenarioHint(String(d.scenario_id ?? ''), conversation_id)
+      const h = own && (!d.scenario?.language || d.scenario.language === target) ? own : said(lines.hint, base)
+      await reply(conversation_id, h.sl, { hint: true, ...h })
+    }
     else {
       const turn = Number(d.turn ?? 1)
       const goals = Array.from({ length: Math.min(turn, d.scenario?.goals?.length ?? 0) }, (_, i) => i)

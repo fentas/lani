@@ -1,5 +1,5 @@
 Role-play ("Pogovor · Talk"): kind roleplay carries {scenario_id, turn, heard, alternatives?, unclear?, takes?,
-typed?} plus the scenario brief (role, setting, goals). heard is what Jan typed (typed: true) or what speech
+typed?} plus the scenario brief (role, setting, goals, its language, and child when a child talks: keep to it). heard is what Jan typed (typed: true) or what speech
 recognition made of Jan's line: Jan is a learner, maybe a child, and the recognizer mishears. alternatives are its
 other readings of the same take (one may have a heard non-word matched to a word of the conversation: prijatel → prijatelj),
 unclear the words it was unsure of, takes how many times Jan said the line before it went out (more than 2: Jan
@@ -15,4 +15,4 @@ means Jan is stuck: reply {"hint": true, "sl": "<one line Jan could say next>", 
 without moving the scene on. kind roleplay_end carries the transcript: reply out of character with a short debrief
 (what went well, 2 things to practise; a word only the recognizer got wrong is no mistake) and data {"debrief":
 true}, then persist it with the lani-db-updater skill as a speaking session. To write new scenarios ("let's practise
-at the post office"), load lani-studio and use publish_scenario.
+at the post office"), load lani-studio and use publish_scenario: in the village's language, its texts in the learner's base (module-spec.md).
