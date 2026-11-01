@@ -221,6 +221,12 @@ offers declined forgotten, the note to come again), "audio:voice:remove:<lang>" 
   its lore and "Besede neba · Die Wörter des Himmels" to tap), without "📚 Learn them".
 - One run with all the steps passing (`--steps visit-voices,visit-voices-silent,visit-sky`: setup, the second town, the
   three steps, the crash check); screenshots and logs in `companion/qa-shots/<run>/` (`visit-voices.log`).
+- **The polish round (2026-11-01)**: the bridge's smoke 3,263 checks, all passing (`test/smoke/visit-voices.ts` 43: Mia's
+  town makes Rosa's line in her own voice for Jan's visit, within its 120 characters, `making` for a slow take, never an
+  archetype's line; a line voiced on Mia's node replaced by Jan's town's own take once its time came; a re-voiced line's
+  new take; `same` for the clip kept; the first lines got ahead, none voiced); the relay's 45; the phone's bundle
+  1,154.9 KB. The app's unit tests 3,639, all passing (2 skipped): new `ExerciseSpeechTest` (6), `HintVoiceOfflineTest`
+  (2), `VisitAheadTest` (2), `VisitClipsTest` (+1). QA's `visit-voices` step checks the first lines got ahead (a0).
 
 ## What's left
 
