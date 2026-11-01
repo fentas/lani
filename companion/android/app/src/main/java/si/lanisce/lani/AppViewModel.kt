@@ -404,6 +404,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         finished = { talkFinished(it) },
         debriefed = { scenario, conversation, data -> talkDebriefed(scenario, conversation, data) },
         stray = { chat.onReply(it) }, // an answer under a debrief left behind shows in the chat
+        // a scenario played by a villager of the cast ("Nonna Rosa", once met): the talk grows the friendship
+        friendOf = { s -> si.lanisce.lani.ui.stage.Cast.talker(s, si.lanisce.lani.ui.stage.StageCast.of(villagers.all, game.state), game.state).id },
     )
     val update = UpdateController(app, viewModelScope, node, notices)
     /** The notifications' channels, what the learner saw taken away, the evening reminder (companion/README.md "Notifications"). */

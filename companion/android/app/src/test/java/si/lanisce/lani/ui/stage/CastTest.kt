@@ -155,6 +155,31 @@ class CastTest {
         assertEquals("a baker in Nova Gorica", baker.role)
     }
 
+    @Test fun `a scenario that names a villager is played by them, one it only suggests by a stranger with their look`() {
+        val met = GameState(bonds = mapOf("micka" to Bond(points = 10, met = "2026-09-01")))
+        // named: Babica Micka herself, the friendship to grow
+        assertEquals("micka", Cast.talker(scenario("nedeljsko-kosilo", "Babica Micka, the grandmother"), cast, met).id)
+        // only suggested ("Gostilničar Vida" is not "Gostilničarka Vida"): her look, no friendship
+        val vida = Cast.talker(scenario("v-gostilni", "Natakarica Vida, the waitress at the inn"), cast, met)
+        assertNull(vida.id)
+        assertEquals("innkeeper", vida.art)
+        assertEquals(0, vida.level)
+    }
+
+    @Test fun `an Italian scenario's people stand in by their titles, with who they are in the learner's pair`() {
+        val doctor = Cast.talker(scenario("dal-pediatra", "Dottor Bassi, a calm paediatrician", voice = Clips.MALE).copy(who = "Il pediatra · Der Kinderarzt"), cast, null)
+        assertNull(doctor.id)
+        assertEquals("man", doctor.art)
+        assertEquals("🩺", doctor.emoji)
+        assertEquals("Il pediatra · Der Kinderarzt", doctor.role)
+        val nonna = Cast.talker(scenario("telefonata-alla-nonna", "Nonna Lucia, the grandmother in Trieste", voice = Clips.FEMALE), cast, null)
+        assertEquals("grandma", nonna.art)
+        assertEquals("the grandmother in Trieste", nonna.role) // no who: the role's words
+        assertEquals("woman", Cast.standIn("Signora Gianna", null).art)
+        assertEquals("man", Cast.standIn("Signor Enzo", null).art)
+        assertEquals(Clips.MALE, Cast.standIn("Andrea", null).voice) // an Italian man's name in -a
+    }
+
     @Test fun `training points left today follow the daily cap`() {
         assertEquals(0, Cast.trainingLeft(null, null, day))
         assertEquals(Bonds.TRAINING, Cast.trainingLeft(GameState(), "luka", day))

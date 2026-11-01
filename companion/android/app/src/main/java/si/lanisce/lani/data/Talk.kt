@@ -14,32 +14,51 @@ import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.put
 import si.lanisce.lani.data.Grading.Verdict
 import si.lanisce.lani.game.scene.Face
+import si.lanisce.lani.game.villagers.BaseLabel
+import si.lanisce.lani.game.villagers.Label
 import java.util.UUID
 
 // --- role-play scenarios (lani.scenario/v0, see companion/bridge/src/scenarios.ts) -----
 
+/**
+ * A useful phrase of a role-play: [sl] in the scenario's language (the key is sl in every language), [en] its meaning in
+ * the learner's base (the bridge serves it so; a file's text per base is read in the base here too).
+ */
 @Serializable
-data class VocabHint(val sl: String, val en: String)
+data class VocabHint(val sl: String, @Serializable(with = BaseLabel::class) val en: String)
 
+/**
+ * A role-play (lani.scenario/v0). The bridge serves its texts in the learner's pair, each a string: the title, the goals and
+ * [who] as "target · base" ("Al mercato · Auf dem Markt"), the setting and the meanings in the base; a text per language
+ * that reaches the app as it was written is read so here too ([Label], [BaseLabel]).
+ */
 @Serializable
 data class Scenario(
     val id: String,
-    val title: String,
+    @Serializable(with = Label::class) val title: String,
     val emoji: String = "🗣️",
     val level: String = "A1",
-    val setting: String,
-    /** Who the tutor plays: "Tašča Marija, the mother-in-law, …". */
+    @Serializable(with = BaseLabel::class) val setting: String,
+    /** Who the tutor plays: "Tašča Marija, the mother-in-law, …" (English, for the tutor). */
     val role: String,
     /** The character's gender: "female" | "male" (node voice clips, and the fallback of [speaker]). */
     val voice: String? = null,
     /** A voice from the node's voice cast ("grandma"; a villager's role-play carries theirs). */
     val speaker: String? = null,
-    val goals: List<String>,
+    val goals: List<@Serializable(with = Label::class) String>,
     @SerialName("opener_sl") val openerSl: String,
-    @SerialName("opener_en") val openerEn: String,
+    @SerialName("opener_en") @Serializable(with = BaseLabel::class) val openerEn: String,
     @SerialName("vocabulary_hints") val vocabularyHints: List<VocabHint> = emptyList(),
     /** curated | tutor */
     val source: String = "curated",
+    /** Who the character is, in the learner's pair ("La fruttivendola · Die Obstverkäuferin"); null: the role's words. */
+    @Serializable(with = Label::class) val who: String? = null,
+    /** The language it is played in, the village's ("it"); null from an older bridge (the village's then too). */
+    val language: String? = null,
+    /** child: written for a child; adult: a grown-up's (the bridge never offers it to a child). */
+    val audience: String? = null,
+    /** The word packs whose words it uses (the village's). */
+    val packs: List<String> = emptyList(),
 ) {
     /** The character's name: the role up to its first comma. */
     val character: String get() = role.substringBefore(',').trim().take(40)

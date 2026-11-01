@@ -9,6 +9,7 @@ import si.lanisce.lani.game.Res
 import si.lanisce.lani.game.Surprises
 import si.lanisce.lani.game.culture.Cultures
 import si.lanisce.lani.game.scene.Happenings
+import si.lanisce.lani.game.villagers.Arrivals
 import si.lanisce.lani.game.villagers.Bonds
 import si.lanisce.lani.game.villagers.Residents
 import si.lanisce.lani.game.villagers.Villager
@@ -180,16 +181,28 @@ object Cast {
         )
     }
 
-    /** A role-play's other person: the villager ("villager:<id>", or the cast's name), else the scenario's character. */
+    /**
+     * A role-play's other person: the villager ("villager:<id>"), else the cast's villager the scenario names ("Nonna
+     * Rosa": their sprite and voice, and the talk grows the friendship once the learner may befriend them: met, or a
+     * village that doesn't introduce its people), else the scenario's character. A villager the name only suggests
+     * ("Natakar Marko", the waiter, for Vinar Marko), or one not met yet, lends their look as a stranger: no friendship
+     * to grow. A stand-in shows who they are in the learner's pair ([Scenario.who]), else the role's words.
+     */
     fun talker(s: Scenario, cast: List<Villager>, state: GameState?): StagePerson {
         val id = s.id.takeIf { it.startsWith(VILLAGER_SCENARIO) }?.removePrefix(VILLAGER_SCENARIO)
-        val v = id?.let { i -> cast.firstOrNull { it.id == i } } ?: find(s.character, cast)
-        if (v != null) return of(v, state)
-        val role = s.role.substringAfter(',', "").trim().trimEnd('.', '…', ' ')
+        id?.let { i -> cast.firstOrNull { it.id == i } }?.let { return of(it, state) }
+        find(s.character, cast)?.let { v ->
+            val named = v.name.equals(s.character.trim(), ignoreCase = true)
+            return if (named && (state == null || befriendable(state, v.id))) of(v, state) else stranger(v)
+        }
+        val role = s.who?.takeIf { it.isNotBlank() } ?: s.role.substringAfter(',', "").trim().trimEnd('.', '…', ' ')
         return standIn(s.character, s.emoji.takeIf { id != null }, s.characterVoice, register = "vi").let { c ->
             if (role.isNotEmpty()) c.copy(role = role) else c // the scenario's own words are more specific than a title's
         }
     }
+
+    /** Whether a talk may grow the friendship with [id]: met, or a village that doesn't introduce its people (Arrivals). */
+    fun befriendable(state: GameState, id: String): Boolean = state.bonds[id]?.met != null || !Arrivals.on(state)
 
     /** Friendship points a session on the stage still brings today (0 once the day's trainings are used). */
     fun trainingLeft(state: GameState?, id: String?, today: LocalDate): Int {
@@ -231,10 +244,19 @@ object Cast {
         "Prodajalec" to Title("man", false, "cast.shopAssistantM", "🛍️"),
         "Dr." to Title("man", false, "cast.doctorM", "🩺"),
         "Zdravnica" to Title("woman", true, "cast.doctorF", "🩺"),
+        // The Italian role-plays' people (companion/scenarios/it), as a child in Friuli calls them.
+        "Nonna" to Title("grandma", true, "cast.grandmother", "👵"),
+        "Nonno" to Title("grandpa", false, "cast.grandfather", "👴"),
+        "Signora" to Title("woman", true, "cast.missus", "👩"),
+        "Signor" to Title("man", false, "cast.mister", "👨"),
+        "Maestra" to Title("teacher", true, "cast.teacherF", "👩‍🏫"),
+        "Maestro" to Title("teacher", false, "cast.teacherM", "👨‍🏫"),
+        "Dottoressa" to Title("woman", true, "cast.doctorF", "🩺"),
+        "Dottor" to Title("man", false, "cast.doctorM", "🩺"),
     )
 
-    /** Slovene given names ending in -a are mostly women's; these are men's. */
-    private val MEN_IN_A = setOf("luka", "jaka", "miha", "andrija", "saša", "nikola")
+    /** Slovene and Italian given names ending in -a are mostly women's; these are men's. */
+    private val MEN_IN_A = setOf("luka", "jaka", "miha", "andrija", "saša", "nikola", "luca", "andrea", "mattia", "elia", "enea", "nicola")
 
     private fun femaleName(name: String): Boolean {
         val first = name.trim().substringAfterLast(' ').lowercase()

@@ -76,6 +76,29 @@ class TalkModelVillagerTest {
         assertNull(talk.friend) // the new conversation's card isn't about it
     }
 
+    @Test fun `a scenario played by a villager of the cast grows the friendship, without a memory`() {
+        val played = TalkModel(
+            CoroutineScope(Dispatchers.Unconfined),
+            send = { kind, _, _, _ -> sent += kind },
+            fetch = { emptyList() },
+            reward = { null },
+            befriend = { id, points, memory ->
+                calls += Triple(id, points, memory)
+                FriendGain(id, "Nonna Rosa", "👵", points, 0, points, memory = memory)
+            },
+            friendOf = { s -> "rosa".takeIf { s.id == "pranzo-dalla-nonna" } },
+        )
+        played.pick(scenario("pranzo-dalla-nonna"))
+        played.start()
+        played.say(Said("Ciao, nonna!", emptyList(), typed = true))
+        played.finish()
+        assertEquals(listOf(Triple("rosa", Bonds.TALK, null as Memory?)), calls)
+        assertEquals(Bonds.TALK, played.friend?.points)
+        // the debrief's memory is a villager talk's: this one keeps none
+        played.onReply(reply(played.state!!.conversationId, """{"debrief": true, "memory": {"sl": "il frico", "en": "the frico"}}"""))
+        assertEquals(1, calls.size)
+    }
+
     @Test fun `other role-plays leave the villagers alone`() {
         talk.pick(scenario("v-pekarni"))
         talk.start()

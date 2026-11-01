@@ -46,6 +46,11 @@ class TalkModel(
     private val debriefed: (scenarioId: String, conversationId: String, data: JsonObject?) -> Unit = { _, _, _ -> },
     /** A reply in the chat under a debrief that is no longer on screen: it goes to the tutor chat instead. */
     private val stray: (BridgeEvent.Reply) -> Unit = {},
+    /**
+     * The cast's villager a scenario's character is, when the talk may grow the friendship with them (a scenario that
+     * names them, "Nonna Rosa", once they are met: [si.lanisce.lani.ui.stage.Cast.talker]); null for anyone else.
+     */
+    private val friendOf: (Scenario) -> String? = { null },
 ) {
     var scenarios by mutableStateOf<List<Scenario>>(emptyList())
         private set
@@ -189,10 +194,11 @@ class TalkModel(
         if (st.turn == 0) return abandon()
         state = Talk.ending(st)
         earned = reward(Talk.verdicts(st))
-        VillagerLogic.villagerOfScenario(st.scenario.id)?.let { id ->
-            awaitingMemory[st.conversationId] = id
-            friend = befriend(id, Bonds.TALK, null)
-        }
+        val villager = VillagerLogic.villagerOfScenario(st.scenario.id)
+        if (villager != null) {
+            awaitingMemory[st.conversationId] = villager
+            friend = befriend(villager, Bonds.TALK, null)
+        } else friendOf(st.scenario)?.let { id -> friend = befriend(id, Bonds.TALK, null) } // a scenario played by a villager: no memory
         awaitingDebrief[st.conversationId] = st.scenario.id
         finished(st)
         post("roleplay_end", "Role-play finished: ${st.scenario.title}", Talk.transcript(st, ScreenClock.app.now()))
