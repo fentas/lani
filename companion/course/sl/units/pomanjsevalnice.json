@@ -4,14 +4,55 @@
   "language": "sl",
   "level": "B2",
   "emoji": "🏡",
-  "title": { "sl": "Hišica, mizica, okence", "en": "Little words: hišica, okence", "de": "Verkleinerungen: hišica, okence", "it": "Diminutivi: hišica, okence" },
+  "title": {
+    "sl": "Hišica, mizica, okence",
+    "en": "Little words: hišica, okence",
+    "de": "Verkleinerungen: hišica, okence",
+    "it": "Diminutivi: hišica, okence"
+  },
   "goal": {
     "en": "You can make the little forms of nouns (hišica, stolček, okence), decline them (na stolčku), and tell when they mean small, a little of, dear, or something of their own (žlička, konjiček).",
     "de": "Du bildest die Verkleinerungen der Nomen (hišica, stolček, okence), deklinierst sie (na stolčku) und erkennst, wann sie klein, ein bisschen, lieb oder etwas Eigenes heißen (žlička, konjiček).",
     "it": "Sai formare i diminutivi dei nomi (hišica, stolček, okence), declinarli (na stolčku) e capire quando vogliono dire piccolo, un po' di, caro o qualcosa di proprio (žlička, konjiček)."
   },
   "grammar": ["pomanjsevalnice", "spol-samostalnikov", "sklanjatev-posebnosti"],
-  "words": ["hišica", "mizica", "okence", "stolček", "kozarček", "košček", "žlička", "skodelica", "ovčica", "ročica", "knjižica", "sobica", "košarica", "mestece", "drevesce", "pisemce", "vince", "zvonček", "konjiček", "lisička", "mlinček", "lonček", "nožek", "voziček", "lučka", "kapljica", "kavica", "mamica", "kuža", "mucek", "sonček", "majčken", "malce", "ribolov", "potica"],
+  "words": [
+    "hišica",
+    "mizica",
+    "okence",
+    "stolček",
+    "kozarček",
+    "košček",
+    "žlička",
+    "skodelica",
+    "ovčica",
+    "ročica",
+    "knjižica",
+    "sobica",
+    "košarica",
+    "mestece",
+    "drevesce",
+    "pisemce",
+    "vince",
+    "zvonček",
+    "konjiček",
+    "lisička",
+    "mlinček",
+    "lonček",
+    "nožek",
+    "voziček",
+    "lučka",
+    "kapljica",
+    "kavica",
+    "mamica",
+    "kuža",
+    "mucek",
+    "sonček",
+    "majčken",
+    "malce",
+    "ribolov",
+    "potica"
+  ],
   "intro": {
     "table": {
       "head": [
@@ -28,35 +69,72 @@
           "it": "Un diminutivo (**pomanjševalnica**) dice che qualcosa è piccolo. Le parole femminili prendono **-ica**: **hiša → hišica** (casetta), **miza → mizica** (tavolino). Davanti a **-ica** alcuni suoni cambiano, k in č, g in ž, c in č: **roka → ročica**, **knjiga → knjižica**, **ovca → ovčica**. La parola piccola tiene il genere di quella grande."
         },
         "examples": [
-          { "sl": "Babica Micka živi v majhni hišici na koncu vasi.", "en": "Granny Micka lives in a small cottage at the end of the village.", "de": "Oma Micka wohnt in einem kleinen Häuschen am Ende des Dorfes.", "it": "Nonna Micka abita in una casetta in fondo al villaggio." },
-          { "sl": "Luka nese ovčico v hlev.", "en": "Luka is carrying the little sheep into the shed.", "de": "Luka trägt das Schäfchen in den Stall.", "it": "Luka porta la pecorella nella stalla." }
+          {
+            "sl": "Babica Micka živi v majhni hišici na koncu vasi.",
+            "en": "Granny Micka lives in a small cottage at the end of the village.",
+            "de": "Oma Micka wohnt in einem kleinen Häuschen am Ende des Dorfes.",
+            "it": "Nonna Micka abita in una casetta in fondo al villaggio."
+          },
+          {
+            "sl": "Luka nese ovčico v hlev.",
+            "en": "Luka is carrying the little sheep into the shed.",
+            "de": "Luka trägt das Schäfchen in den Stall.",
+            "it": "Luka porta la pecorella nella stalla."
+          }
         ],
         "rows": [
-          ["hiša, miza", "hišica, mizica", { "en": "a little house, a little table", "de": "Häuschen, Tischchen", "it": "casetta, tavolino" }],
-          ["roka, knjiga, ovca", "ročica, knjižica, ovčica", { "en": "a little hand, a booklet, a little sheep", "de": "Händchen, Heftchen, Schäfchen", "it": "manina, libretto, pecorella" }]
+          ["hiša, miza", "hišica, mizica", {"en": "a little house, a little table", "de": "Häuschen, Tischchen", "it": "casetta, tavolino"}],
+          [
+            "roka, knjiga, ovca",
+            "ročica, knjižica, ovčica",
+            { "en": "a little hand, a booklet, a little sheep", "de": "Händchen, Heftchen, Schäfchen", "it": "manina, libretto, pecorella" }
+          ]
         ],
         "ask": {
-          "type": "cloze", "grammar": "pomanjsevalnice", "text": "Babica ima v kuhinji staro ___. (majhna miza)", "accept": ["mizico"], "hint": "feminine: -ica, then the case",
+          "type": "cloze",
+          "grammar": "pomanjsevalnice",
+          "text": "Babica ima v kuhinji staro ___. (majhna miza)",
+          "accept": ["mizico"],
+          "hint": "feminine: -ica, then the case",
           "explain": "**miza** is feminine → **mizica**; ima + the accusative: staro **mizico**"
         }
       },
       {
         "say": {
-          "en": "A few feminine words take **-ka**: **žlica → žlička** (a teaspoon), **luč → lučka** (a little light). Masculine words take **-ek**, **-ček** or **-iček**: **nož → nožek**, **kruh → kruhek**, **stol → stolček**, **kozarec → kozarček** (the -ec goes), **konj → konjiček**, **voz → voziček**. Which ending a word takes, you learn with the word.",
-          "de": "Ein paar weibliche Wörter bekommen **-ka**: **žlica → žlička** (Teelöffel), **luč → lučka** (Lämpchen). Männliche Wörter bekommen **-ek**, **-ček** oder **-iček**: **nož → nožek**, **kruh → kruhek**, **stol → stolček**, **kozarec → kozarček** (das -ec fällt weg), **konj → konjiček**, **voz → voziček**. Welche Endung ein Wort nimmt, lernst du mit dem Wort.",
-          "it": "Alcune parole femminili prendono **-ka**: **žlica → žlička** (cucchiaino), **luč → lučka** (lucina). Le parole maschili prendono **-ek**, **-ček** o **-iček**: **nož → nožek**, **kruh → kruhek**, **stol → stolček**, **kozarec → kozarček** (il -ec cade), **konj → konjiček**, **voz → voziček**. Quale terminazione prende una parola, lo impari con la parola."
+          "en": "Masculine words take **-ek**, **-ček** or **-iček**: **nož → nožek**, **stol → stolček**, **kozarec → kozarček** (the -ec goes), **konj → konjiček**. A few feminine words take **-ka**: **žlica → žlička** (a teaspoon), **luč → lučka** (a little light). And **kruh → kruhek**, **voz → voziček**: which ending a word takes, you learn with the word.",
+          "de": "Männliche Wörter bekommen **-ek**, **-ček** oder **-iček**: **nož → nožek**, **stol → stolček**, **kozarec → kozarček** (das -ec fällt weg), **konj → konjiček**. Ein paar weibliche Wörter bekommen **-ka**: **žlica → žlička** (Teelöffel), **luč → lučka** (Lämpchen). Und **kruh → kruhek**, **voz → voziček**: Welche Endung ein Wort nimmt, lernst du mit dem Wort.",
+          "it": "Le parole maschili prendono **-ek**, **-ček** o **-iček**: **nož → nožek**, **stol → stolček**, **kozarec → kozarček** (il -ec cade), **konj → konjiček**. Alcune parole femminili prendono **-ka**: **žlica → žlička** (cucchiaino), **luč → lučka** (lucina). E **kruh → kruhek**, **voz → voziček**: quale terminazione prende una parola, lo impari con la parola."
         },
         "examples": [
-          { "sl": "Jože ima v žepu star nožek.", "en": "Jože has an old penknife in his pocket.", "de": "Jože hat ein altes Taschenmesser in der Tasche.", "it": "Jože ha un vecchio coltellino in tasca." },
-          { "sl": "Na mizi je kozarček domačega soka.", "en": "There's a small glass of home-made juice on the table.", "de": "Auf dem Tisch steht ein Gläschen selbstgemachter Saft.", "it": "Sul tavolo c'è un bicchierino di succo fatto in casa." }
+          {
+            "sl": "Jože ima v žepu star nožek.",
+            "en": "Jože has an old penknife in his pocket.",
+            "de": "Jože hat ein altes Taschenmesser in der Tasche.",
+            "it": "Jože ha un vecchio coltellino in tasca."
+          },
+          {
+            "sl": "Na mizi je kozarček domačega soka.",
+            "en": "There's a small glass of home-made juice on the table.",
+            "de": "Auf dem Tisch steht ein Gläschen selbstgemachter Saft.",
+            "it": "Sul tavolo c'è un bicchierino di succo fatto in casa."
+          }
         ],
         "rows": [
-          ["žlica, luč", "žlička, lučka", { "en": "a teaspoon, a little light", "de": "Teelöffel, Lämpchen", "it": "cucchiaino, lucina" }],
-          ["nož, stol, kozarec", "nožek, stolček, kozarček", { "en": "a penknife, a stool, a small glass", "de": "Messerchen, Hocker, Gläschen", "it": "coltellino, sgabello, bicchierino" }],
-          ["konj, voz", "konjiček, voziček", { "en": "a little horse, a little cart", "de": "Pferdchen, Wägelchen", "it": "cavallino, carrello" }]
+          ["žlica, luč", "žlička, lučka", {"en": "a teaspoon, a little light", "de": "Teelöffel, Lämpchen", "it": "cucchiaino, lucina"}],
+          [
+            "nož, stol, kozarec",
+            "nožek, stolček, kozarček",
+            { "en": "a penknife, a stool, a small glass", "de": "Messerchen, Hocker, Gläschen", "it": "coltellino, sgabello, bicchierino" }
+          ],
+          ["konj, voz", "konjiček, voziček", {"en": "a little horse, a little cart", "de": "Pferdchen, Wägelchen", "it": "cavallino, carrello"}]
         ],
         "ask": {
-          "type": "choice", "grammar": "pomanjsevalnice", "prompt": "Vida prinese ___ žganja. (majhen kozarec)", "options": ["kozarček", "kozarčica", "kozarce"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "pomanjsevalnice",
+          "prompt": "Vida prinese ___ žganja. (majhen kozarec)",
+          "options": ["kozarček", "kozarčica", "kozarce"],
+          "answer": 0,
+          "say_options": true,
           "explain": "**kozarec** is masculine → -ček, the -ec goes: **kozarček**\n- kozarčica · -ica is for feminine words"
         }
       },
@@ -67,15 +145,37 @@
           "it": "Le parole neutre prendono **-ce** o **-ece**: **okno → okence**, **vino → vince**, **pismo → pisemce**, **mesto → mestece** (cittadina). **Drevo** prende **-esce**: **drevesce**. Restano neutre: **mlado drevesce**. Una parola cambia: **sonce → sonček** è maschile."
         },
         "examples": [
-          { "sl": "Skozi okence je posijalo sonce.", "en": "The sun shone in through the little window.", "de": "Durch das Fensterchen schien die Sonne herein.", "it": "Il sole è entrato dalla finestrella." },
-          { "sl": "Na vrtu raste mlado drevesce.", "en": "A young little tree is growing in the garden.", "de": "Im Garten wächst ein junges Bäumchen.", "it": "In giardino cresce un alberello giovane." }
+          {
+            "sl": "Skozi okence je posijalo sonce.",
+            "en": "The sun shone in through the little window.",
+            "de": "Durch das Fensterchen schien die Sonne herein.",
+            "it": "Il sole è entrato dalla finestrella."
+          },
+          {
+            "sl": "Na vrtu raste mlado drevesce.",
+            "en": "A young little tree is growing in the garden.",
+            "de": "Im Garten wächst ein junges Bäumchen.",
+            "it": "In giardino cresce un alberello giovane."
+          }
         ],
         "rows": [
-          ["okno, vino, pismo", "okence, vince, pisemce", { "en": "a little window, a drop of wine, a little letter", "de": "Fensterchen, ein Schlückchen Wein, Briefchen", "it": "finestrella, vinello, letterina" }],
-          ["mesto, drevo", "mestece, drevesce", { "en": "a small town, a little tree", "de": "Städtchen, Bäumchen", "it": "cittadina, alberello" }]
+          [
+            "okno, vino, pismo",
+            "okence, vince, pisemce",
+            {
+              "en": "a little window, a drop of wine, a little letter",
+              "de": "Fensterchen, ein Schlückchen Wein, Briefchen",
+              "it": "finestrella, vinello, letterina"
+            }
+          ],
+          ["mesto, drevo", "mestece, drevesce", {"en": "a small town, a little tree", "de": "Städtchen, Bäumchen", "it": "cittadina, alberello"}]
         ],
         "ask": {
-          "type": "cloze", "grammar": "pomanjsevalnice", "text": "Na vrtu raste mlado ___. (majhno drevo)", "accept": ["drevesce"], "hint": "neuter: -esce",
+          "type": "cloze",
+          "grammar": "pomanjsevalnice",
+          "text": "Na vrtu raste mlado ___. (majhno drevo)",
+          "accept": ["drevesce"],
+          "hint": "neuter: -esce",
           "explain": "**drevo** → **drevesce**, neuter as drevo: mlado **drevesce**"
         }
       },
@@ -86,35 +186,68 @@
           "it": "Una parola piccola si declina secondo la sua terminazione. **-ica** come **hiša**: **v hišici**, **z žličko**. **-ce** come **okno**: **v okencu**, **brez okenca**. In **-ek** la e cade appena arriva una terminazione: **stolček → na stolčku**, **kozarček → dva kozarčka**, **Janezek → Janezka**. L'aggettivo si accorda come sempre: **majhen stolček, majhna hišica, majhno okence**."
         },
         "examples": [
-          { "sl": "Nejc sedi na stolčku pri peči.", "en": "Nejc is sitting on a stool by the stove.", "de": "Nejc sitzt auf einem Hocker beim Ofen.", "it": "Nejc è seduto su uno sgabello vicino alla stufa." },
-          { "sl": "Kava se meša z žličko.", "en": "You stir coffee with a teaspoon.", "de": "Kaffee rührt man mit einem Teelöffel um.", "it": "Il caffè si mescola con il cucchiaino." }
+          {
+            "sl": "Nejc sedi na stolčku pri peči.",
+            "en": "Nejc is sitting on a stool by the stove.",
+            "de": "Nejc sitzt auf einem Hocker beim Ofen.",
+            "it": "Nejc è seduto su uno sgabello vicino alla stufa."
+          },
+          {
+            "sl": "Kava se meša z žličko.",
+            "en": "You stir coffee with a teaspoon.",
+            "de": "Kaffee rührt man mit einem Teelöffel um.",
+            "it": "Il caffè si mescola con il cucchiaino."
+          }
         ],
         "rows": [
-          ["stol: na stolu", "stolček: na stolčku", { "en": "-ek: the e drops", "de": "-ek: das e fällt weg", "it": "-ek: la e cade" }],
-          ["Janez: Janeza", "Janezek: Janezka", { "en": "names too", "de": "auch Namen", "it": "anche i nomi" }],
-          ["okno: v oknu", "okence: v okencu", { "en": "-ce: as okno", "de": "-ce: wie okno", "it": "-ce: come okno" }]
+          ["stol: na stolu", "stolček: na stolčku", {"en": "-ek: the e drops", "de": "-ek: das e fällt weg", "it": "-ek: la e cade"}],
+          ["Janez: Janeza", "Janezek: Janezka", {"en": "names too", "de": "auch Namen", "it": "anche i nomi"}],
+          ["okno: v oknu", "okence: v okencu", {"en": "-ce: as okno", "de": "-ce: wie okno", "it": "-ce: come okno"}]
         ],
         "ask": {
-          "type": "cloze", "grammar": "pomanjsevalnice", "text": "Nejc je sedel na ___ pri peči. (stolček)", "accept": ["stolčku"], "hint": "na + the locative: kje?",
+          "type": "cloze",
+          "grammar": "pomanjsevalnice",
+          "text": "Nejc je sedel na ___ pri peči. (stolček)",
+          "accept": ["stolčku"],
+          "hint": "na + the locative: kje?",
           "explain": "**stolček** → the e of -ek drops: na **stolčku**, as pes → psa"
         }
       },
       {
         "say": {
-          "en": "A little word may mean a little of something (**košček kruha**, **kapljica**), or that you love it: **mamica**, **kuža** (a doggy), **Janezek**. Some have a meaning of their own: **žlička** (a teaspoon), **konjiček** (a hobby), **zvonček** (a snowdrop), **lisička** (a chanterelle), **mlinček** (a coffee grinder). **Skodelica** is simply a cup. And asked warmly: **Ste za kavico?** (Fancy a coffee?)",
-          "de": "Ein kleines Wort kann ein bisschen von etwas heißen (**košček kruha**, **kapljica**) oder dass du es lieb hast: **mamica**, **kuža** (Hündchen), **Janezek**. Manche haben eine eigene Bedeutung: **žlička** (Teelöffel), **konjiček** (Hobby), **zvonček** (Schneeglöckchen), **lisička** (Pfifferling), **mlinček** (Kaffeemühle). **Skodelica** ist einfach eine Tasse. Und herzlich gefragt: **Ste za kavico?** (Lust auf einen Kaffee?)",
-          "it": "Una parola piccola può voler dire un po' di qualcosa (**košček kruha**, **kapljica**) o che le vuoi bene: **mamica**, **kuža** (cagnolino), **Janezek**. Alcune hanno un significato proprio: **žlička** (cucchiaino), **konjiček** (hobby), **zvonček** (bucaneve), **lisička** (gallinaccio), **mlinček** (macinino del caffè). **Skodelica** è semplicemente una tazza. E chiesto con affetto: **Ste za kavico?** (Le va un caffè?)"
+          "en": "A little word may mean a little of something (**košček kruha**), dear (**mamica**, **kuža**), or something of its own: **žlička** (a teaspoon), **konjiček** (a hobby), **zvonček** (a snowdrop). So too **lisička** (a chanterelle) and **mlinček** (a coffee grinder); **skodelica** is simply a cup. And asked warmly: **Ste za kavico?** (Fancy a coffee?)",
+          "de": "Ein kleines Wort kann ein bisschen von etwas heißen (**košček kruha**), lieb (**mamica**, **kuža**) oder etwas Eigenes: **žlička** (Teelöffel), **konjiček** (Hobby), **zvonček** (Schneeglöckchen). Ebenso **lisička** (Pfifferling) und **mlinček** (Kaffeemühle); **skodelica** ist einfach eine Tasse. Und herzlich gefragt: **Ste za kavico?** (Lust auf einen Kaffee?)",
+          "it": "Una parola piccola può voler dire un po' di qualcosa (**košček kruha**), caro (**mamica**, **kuža**) o qualcosa di proprio: **žlička** (cucchiaino), **konjiček** (hobby), **zvonček** (bucaneve). Così anche **lisička** (gallinaccio) e **mlinček** (macinino del caffè); **skodelica** è semplicemente una tazza. E chiesto con affetto: **Ste za kavico?** (Le va un caffè?)"
         },
         "examples": [
-          { "sl": "Jože ima nov konjiček: nabira lisičke.", "en": "Jože has a new hobby: he picks chanterelles.", "de": "Jože hat ein neues Hobby: Er sammelt Pfifferlinge.", "it": "Jože ha un nuovo hobby: raccoglie gallinacci." },
-          { "sl": "Daj mi še košček kruha, prosim.", "en": "Give me another bit of bread, please.", "de": "Gib mir bitte noch ein Stückchen Brot.", "it": "Dammi ancora un pezzetto di pane, per favore." }
+          {
+            "sl": "Jože ima nov konjiček: nabira lisičke.",
+            "en": "Jože has a new hobby: he picks chanterelles.",
+            "de": "Jože hat ein neues Hobby: Er sammelt Pfifferlinge.",
+            "it": "Jože ha un nuovo hobby: raccoglie gallinacci."
+          },
+          {
+            "sl": "Daj mi še košček kruha, prosim.",
+            "en": "Give me another bit of bread, please.",
+            "de": "Gib mir bitte noch ein Stückchen Brot.",
+            "it": "Dammi ancora un pezzetto di pane, per favore."
+          }
         ],
         "rows": [
-          ["kos, kaplja", "košček, kapljica", { "en": "a bit, a drop", "de": "Stückchen, Tröpfchen", "it": "pezzetto, gocciolina" }],
-          ["žlica, konj, zvon", "žlička, konjiček, zvonček", { "en": "a teaspoon, a hobby, a snowdrop", "de": "Teelöffel, Hobby, Schneeglöckchen", "it": "cucchiaino, hobby, bucaneve" }]
+          ["kos, kaplja", "košček, kapljica", {"en": "a bit, a drop", "de": "Stückchen, Tröpfchen", "it": "pezzetto, gocciolina"}],
+          [
+            "žlica, konj, zvon",
+            "žlička, konjiček, zvonček",
+            { "en": "a teaspoon, a hobby, a snowdrop", "de": "Teelöffel, Hobby, Schneeglöckchen", "it": "cucchiaino, hobby, bucaneve" }
+          ]
         ],
         "ask": {
-          "type": "choice", "grammar": "pomanjsevalnice", "prompt": "Tone pravi: »Moj konjiček je ribolov.« Kaj je konjiček?", "options": ["a hobby", "a little horse", "a fishing rod"], "answer": 0, "almost": [1],
+          "type": "choice",
+          "grammar": "pomanjsevalnice",
+          "prompt": "Tone pravi: »Moj konjiček je ribolov.« Kaj je konjiček?",
+          "options": ["a hobby", "a little horse", "a fishing rod"],
+          "answer": 0,
+          "almost": [1],
           "explain": "**konjiček** is a little horse, and also a hobby: here fishing is Tone's **konjiček**"
         }
       }
@@ -126,21 +259,26 @@
       "title": { "sl": "Veliko in majhno", "en": "Big and little", "de": "Groß und klein", "it": "Grande e piccolo" },
       "exercises": [
         {
-          "type": "table", "grammar": "pomanjsevalnice", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "pomanjševalnica · the little word",
+          "type": "table",
+          "grammar": "pomanjsevalnice",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "pomanjševalnica · the little word",
           "columns": ["pomanjševalnica · little word"],
           "rows": [
-            { "label": "miza", "cells": [{ "accept": ["mizica"], "hint": "feminine: -ica" }] },
-            { "label": "knjiga", "cells": [{ "accept": ["knjižica"], "hint": "g → ž before -ica" }] },
-            { "label": "roka", "cells": [{ "accept": ["ročica"], "hint": "k → č before -ica" }] },
-            { "label": "kos", "cells": [{ "accept": ["košček"], "hint": "masculine: -ček, s → š" }] },
-            { "label": "nož", "cells": [{ "accept": ["nožek"], "hint": "masculine: -ek" }] },
-            { "label": "okno", "cells": [{ "accept": ["okence"], "hint": "neuter: -ce" }] },
-            { "label": "mesto", "cells": [{ "accept": ["mestece"], "hint": "neuter: -ece" }] }
+            { "label": "miza", "cells": [{"accept": ["mizica"], "hint": "feminine: -ica"}] },
+            { "label": "knjiga", "cells": [{"accept": ["knjižica"], "hint": "g → ž before -ica"}] },
+            { "label": "roka", "cells": [{"accept": ["ročica"], "hint": "k → č before -ica"}] },
+            { "label": "kos", "cells": [{"accept": ["košček"], "hint": "masculine: -ček, s → š"}] },
+            { "label": "nož", "cells": [{"accept": ["nožek"], "hint": "masculine: -ek"}] },
+            { "label": "okno", "cells": [{"accept": ["okence"], "hint": "neuter: -ce"}] },
+            { "label": "mesto", "cells": [{"accept": ["mestece"], "hint": "neuter: -ece"}] }
           ],
           "explain": "**feminine -ica** (k → č, g → ž), **masculine -ek, -ček**, **neuter -ce, -ece**\n- miza → mizica, knjiga → knjižica\n- nož → nožek, kos → košček\n- okno → okence, mesto → mestece"
         },
         {
-          "type": "sort", "grammar": "pomanjsevalnice", "instruction": "Kakšnega spola? · Which gender?",
+          "type": "sort",
+          "grammar": "pomanjsevalnice",
+          "instruction": "Kakšnega spola? · Which gender?",
           "columns": [
             { "label": "ženski · feminine", "words": ["hišica", "žlička", "skodelica", "ovčica"] },
             { "label": "moški · masculine", "words": ["stolček", "kozarček", "zvonček", "sonček"] },
@@ -155,7 +293,10 @@
       "title": { "sl": "Pri babici Micki", "en": "At Granny Micka's", "de": "Bei Oma Micka", "it": "Da nonna Micka" },
       "exercises": [
         {
-          "type": "gaptext", "grammar": "pomanjsevalnice", "instruction": "Dopolni s pomanjševalnico · Fill in with the little word", "title": "Pri babici Micki",
+          "type": "gaptext",
+          "grammar": "pomanjsevalnice",
+          "instruction": "Dopolni s pomanjševalnico · Fill in with the little word",
+          "title": "Pri babici Micki",
           "text": "Babica Micka živi v ___ (majhna hiša) na koncu vasi. V kuhinji ima staro ___ (majhna miza). Ob njej stojita dva ___ (majhen stol). Ko pridem, mi natoči ___ (majhen kozarec) bezgovega soka. Potem mi odreže ___ (majhen kos) potice. Muc spi na ___ (majhno okno). »Si za ___?« me vpraša babica. Že išče ___ (majhna žlica).",
           "gaps": [
             { "accept": ["hišici"], "hint": "v + kje? the locative" },
@@ -164,10 +305,15 @@
             { "accept": ["kozarček"], "hint": "masculine: -ček" },
             { "accept": ["košček"], "hint": "a bit of: kos → ?" },
             { "accept": ["okencu"], "hint": "na + kje? the locative", "explain": "**okence** goes as okno: na **okencu**, as na oknu" },
-            { "accept": ["kavico"], "hint": "kava, asked warmly", "explain": "**Si za kavico?** a warm way to offer a coffee: kava → kavica, za + the accusative" },
+            {
+              "accept": ["kavico"],
+              "hint": "kava, asked warmly",
+              "explain": "**Si za kavico?** a warm way to offer a coffee: kava → kavica, za + the accusative"
+            },
             { "accept": ["žličko"], "hint": "išče + koga? kaj?" }
           ],
-          "bank": true, "distractors": ["hišico", "stolčki", "okence"],
+          "bank": true,
+          "distractors": ["hišico", "stolčki", "okence"],
           "translation": "Granny Micka lives in a cottage at the end of the village. In the kitchen she has an old little table. Beside it stand two stools. When I come, she pours me a small glass of elderflower juice. Then she cuts me a bit of potica. The cat sleeps on the little window. \"Fancy a coffee?\" Granny asks me. She is already looking for a teaspoon."
         }
       ]
@@ -177,25 +323,51 @@
       "title": { "sl": "Majhno ali nekaj drugega?", "en": "Small, or something else?", "de": "Klein oder etwas anderes?", "it": "Piccolo o qualcos'altro?" },
       "exercises": [
         {
-          "type": "transform", "grammar": "pomanjsevalnice", "instruction": "Povej s pomanjševalnico · Say it with the little word",
+          "type": "transform",
+          "grammar": "pomanjsevalnice",
+          "instruction": "Povej s pomanjševalnico · Say it with the little word",
           "items": [
-            { "from": "Na mizi stoji majhen kozarec.", "accept": ["Na mizi stoji kozarček.", "Na mizi stoji majhen kozarček."], "hint": "kozarec → -ček" },
+            {
+              "from": "Na mizi stoji majhen kozarec.",
+              "accept": ["Na mizi stoji kozarček.", "Na mizi stoji majhen kozarček."],
+              "hint": "kozarec → -ček"
+            },
             { "from": "Zala riše majhno hišo.", "accept": ["Zala riše hišico.", "Zala riše majhno hišico."], "hint": "hiša → -ica, then koga? kaj?" },
             { "from": "Skozi majhno okno vidim vrt.", "accept": ["Skozi okence vidim vrt.", "Skozi majhno okence vidim vrt."], "hint": "okno → -ce" },
-            { "from": "Vida je prinesla majhen kos potice.", "accept": ["Vida je prinesla košček potice.", "Vida je prinesla majhen košček potice."], "hint": "kos → ?" },
-            { "from": "Nejc sedi na majhnem stolu.", "accept": ["Nejc sedi na stolčku.", "Nejc sedi na majhnem stolčku."], "hint": "kje? the e of -ek drops", "explain": "**stolček** in the locative: the e drops, na **stolčku**" },
+            {
+              "from": "Vida je prinesla majhen kos potice.",
+              "accept": ["Vida je prinesla košček potice.", "Vida je prinesla majhen košček potice."],
+              "hint": "kos → ?"
+            },
+            {
+              "from": "Nejc sedi na majhnem stolu.",
+              "accept": ["Nejc sedi na stolčku.", "Nejc sedi na majhnem stolčku."],
+              "hint": "kje? the e of -ek drops",
+              "explain": "**stolček** in the locative: the e drops, na **stolčku**"
+            },
             { "from": "Luka je našel majhno ovco.", "accept": ["Luka je našel ovčico.", "Luka je našel majhno ovčico."], "hint": "c → č before -ica" }
           ],
           "explain": "**the little word** in the case of the big one\n- majhen kozarec → kozarček\n- na majhnem stolu → na stolčku\n- majhno ovco → ovčico"
         },
         {
-          "type": "choice", "grammar": "pomanjsevalnice", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Ančka je prinesla šopek zvončkov.",
-          "options": ["a bunch of snowdrops", "a bunch of little bells", "a bunch of keys"], "answer": 0, "almost": [1], "say": "Ančka je prinesla šopek zvončkov.",
+          "type": "choice",
+          "grammar": "pomanjsevalnice",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "Ančka je prinesla šopek zvončkov.",
+          "options": ["a bunch of snowdrops", "a bunch of little bells", "a bunch of keys"],
+          "answer": 0,
+          "almost": [1],
+          "say": "Ančka je prinesla šopek zvončkov.",
           "explain": "**zvonček** is a little bell, and a snowdrop: a **šopek** (a bunch of flowers) of **zvončki**"
         },
         {
-          "type": "choice", "grammar": "pomanjsevalnice", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "There's a little light in the window.",
-          "options": ["V okencu gori lučka.", "V okencu gori lučica.", "V okenci gori lučka."], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "pomanjsevalnice",
+          "instruction": "Kateri stavek je prav? · Which sentence is right?",
+          "prompt": "There's a little light in the window.",
+          "options": ["V okencu gori lučka.", "V okencu gori lučica.", "V okenci gori lučka."],
+          "answer": 0,
+          "say_options": true,
           "explain": "**luč → lučka** (-ka), **okence** goes as okno: v **okencu**"
         }
       ]
@@ -205,41 +377,53 @@
     "pass": 80,
     "exercises": [
       {
-        "type": "table", "grammar": "pomanjsevalnice", "instruction": "Dopolni · Fill in", "prompt": "pomanjševalnica · the little word",
+        "type": "table",
+        "grammar": "pomanjsevalnice",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "pomanjševalnica · the little word",
         "columns": ["pomanjševalnica · little word"],
         "rows": [
-          { "label": "knjiga", "cells": [{ "accept": ["knjižica"] }] },
-          { "label": "stol", "cells": [{ "accept": ["stolček"] }] },
-          { "label": "okno", "cells": [{ "accept": ["okence"] }] },
-          { "label": "žlica", "cells": [{ "accept": ["žlička"] }] }
+          { "label": "knjiga", "cells": [{"accept": ["knjižica"]}] },
+          { "label": "stol", "cells": [{"accept": ["stolček"]}] },
+          { "label": "okno", "cells": [{"accept": ["okence"]}] },
+          { "label": "žlica", "cells": [{"accept": ["žlička"]}] }
         ]
       },
       {
-        "type": "gaptext", "grammar": "pomanjsevalnice", "instruction": "Dopolni s pomanjševalnico · Fill in with the little word",
+        "type": "gaptext",
+        "grammar": "pomanjsevalnice",
+        "instruction": "Dopolni s pomanjševalnico · Fill in with the little word",
         "text": "Jože je šel zgodaj v gozd. V ___ (majhna košara) je nesel kruh. V žepu je imel ___ (majhen nož). Pod smrekami je nabral polno lisičk. Doma jih je skuhal v ___ (majhen lonec). Za konec je spil še ___ (majhen kozarec) vina.",
-        "gaps": [
-          { "accept": ["košarici"] },
-          { "accept": ["nožek"] },
-          { "accept": ["lončku"] },
-          { "accept": ["kozarček"] }
-        ],
+        "gaps": [{"accept": ["košarici"]}, {"accept": ["nožek"]}, {"accept": ["lončku"]}, {"accept": ["kozarček"]}],
         "translation": "Jože went to the forest early. In a little basket he carried bread. In his pocket he had a penknife. Under the spruces he picked lots of chanterelles. At home he cooked them in a little pot. To finish he drank a small glass of wine."
       },
       {
-        "type": "transform", "grammar": "pomanjsevalnice", "instruction": "Povej s pomanjševalnico · Say it with the little word",
+        "type": "transform",
+        "grammar": "pomanjsevalnice",
+        "instruction": "Povej s pomanjševalnico · Say it with the little word",
         "items": [
           { "from": "Babica išče majhno žlico.", "accept": ["Babica išče žličko.", "Babica išče majhno žličko."] },
           { "from": "Nejc spi v majhni sobi.", "accept": ["Nejc spi v sobici.", "Nejc spi v majhni sobici."] }
         ]
       },
       {
-        "type": "choice", "grammar": "pomanjsevalnice", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "The kitten is sitting on the stool.",
-        "options": ["Mucek sedi na stolčku.", "Mucek sedi na stolčeku.", "Mucek sedi na stolčki."], "answer": 0, "say_options": true,
+        "type": "choice",
+        "grammar": "pomanjsevalnice",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "The kitten is sitting on the stool.",
+        "options": ["Mucek sedi na stolčku.", "Mucek sedi na stolčeku.", "Mucek sedi na stolčki."],
+        "answer": 0,
+        "say_options": true,
         "explain": "**stolček**: the e drops as an ending comes, na **stolčku**"
       },
       {
-        "type": "choice", "grammar": "pomanjsevalnice", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "»Greva na kavico?« vpraša Ančka.",
-        "options": ["Shall we go for a coffee?", "Shall we go for a small coffee?", "Shall we go and buy coffee?"], "answer": 0, "say": "Greva na kavico?",
+        "type": "choice",
+        "grammar": "pomanjsevalnice",
+        "instruction": "Kaj pomeni? · What does it mean?",
+        "prompt": "»Greva na kavico?« vpraša Ančka.",
+        "options": ["Shall we go for a coffee?", "Shall we go for a small coffee?", "Shall we go and buy coffee?"],
+        "answer": 0,
+        "say": "Greva na kavico?",
         "explain": "**na kavico**: for a coffee together; the little form makes it warm, not small"
       }
     ]

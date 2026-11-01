@@ -4,14 +4,60 @@
   "language": "sl",
   "level": "B2",
   "emoji": "🧩",
-  "title": { "sl": "Pek, pekarna, pecivo: izpeljanke", "en": "Word families: pek, pekarna", "de": "Wortbildung: pek, pekarna", "it": "Formazione delle parole: pek, pekarna" },
+  "title": {
+    "sl": "Pek, pekarna, pecivo: izpeljanke",
+    "en": "Word families: pek, pekarna",
+    "de": "Wortbildung: pek, pekarna",
+    "it": "Formazione delle parole: pek, pekarna"
+  },
   "goal": {
     "en": "You can make and guess words from others by their endings: who does it (mlinar, učiteljica), where (pekarna, igrišče), what does it (hladilnik), what it is like (mladost), of it (lesen, vaški) and who lives there (vaščan).",
     "de": "Du bildest und errätst Wörter aus anderen an ihren Endungen: wer es tut (mlinar, učiteljica), wo (pekarna, igrišče), was es tut (hladilnik), wie es ist (mladost), davon (lesen, vaški) und wer dort wohnt (vaščan).",
     "it": "Sai formare e indovinare parole da altre dai loro suffissi: chi lo fa (mlinar, učiteljica), dove (pekarna, igrišče), che cosa lo fa (hladilnik), com'è (mladost), di qualcosa (lesen, vaški) e chi ci abita (vaščan)."
   },
   "grammar": ["izpeljanke", "spol-samostalnikov", "glagolniki"],
-  "words": ["mlinar", "vinar", "čebelar", "kovač", "lovec", "učitelj", "učiteljica", "pripovedovalec", "vinarka", "lovka", "kuharica", "gostilničarka", "prodajalka", "pevka", "pekarna", "knjigarna", "knjižnica", "kovačnica", "učilnica", "čakalnica", "spalnica", "jedilnica", "igrišče", "čebelnjak", "hladilnik", "budilka", "likalnik", "mladost", "starost", "lepota", "višina", "vaški", "mestni", "lesen", "kamnit", "vaščan", "meščan", "pecivo", "pekovski", "pekovka"],
+  "words": [
+    "mlinar",
+    "vinar",
+    "čebelar",
+    "kovač",
+    "lovec",
+    "učitelj",
+    "učiteljica",
+    "pripovedovalec",
+    "vinarka",
+    "lovka",
+    "kuharica",
+    "gostilničarka",
+    "prodajalka",
+    "pevka",
+    "pekarna",
+    "knjigarna",
+    "knjižnica",
+    "kovačnica",
+    "učilnica",
+    "čakalnica",
+    "spalnica",
+    "jedilnica",
+    "igrišče",
+    "čebelnjak",
+    "hladilnik",
+    "budilka",
+    "likalnik",
+    "mladost",
+    "starost",
+    "lepota",
+    "višina",
+    "vaški",
+    "mestni",
+    "lesen",
+    "kamnit",
+    "vaščan",
+    "meščan",
+    "pecivo",
+    "pekovski",
+    "pekovka"
+  ],
   "intro": {
     "table": {
       "head": [
@@ -23,20 +69,42 @@
     "steps": [
       {
         "say": {
-          "en": "Many words are made from others with an ending (**izpeljanke**). Who does something takes **-ar**, **-ač**, **-ec** or **-telj**, and the village's people are named so: **mlin → mlinar** (a miller), **vino → vinar**, **čebela → čebelar**, **kovati → kovač** (a smith), **loviti → lovec** (a hunter), **učiti → učitelj**, **pripovedovati → pripovedovalec** (a storyteller).",
-          "de": "Viele Wörter entstehen aus anderen mit einer Endung (**izpeljanke**). Wer etwas tut, bekommt **-ar**, **-ač**, **-ec** oder **-telj**, und so heißen die Leute im Dorf: **mlin → mlinar** (Müller), **vino → vinar**, **čebela → čebelar**, **kovati → kovač** (Schmied), **loviti → lovec** (Jäger), **učiti → učitelj**, **pripovedovati → pripovedovalec** (Erzähler).",
-          "it": "Molte parole nascono da altre con un suffisso (**izpeljanke**). Chi fa qualcosa prende **-ar**, **-ač**, **-ec** o **-telj**, e così si chiamano le persone del villaggio: **mlin → mlinar** (mugnaio), **vino → vinar**, **čebela → čebelar**, **kovati → kovač** (fabbro), **loviti → lovec** (cacciatore), **učiti → učitelj**, **pripovedovati → pripovedovalec** (narratore)."
+          "en": "Who does something takes **-ar**, **-ač**, **-ec** or **-telj** (**izpeljanke**, words made from words): **mlin → mlinar** (a miller), **kovati → kovač** (a smith), **loviti → lovec** (a hunter), **učiti → učitelj**. The village's people are named so: **vino → vinar**, **čebela → čebelar**, **pripovedovati → pripovedovalec** (a storyteller).",
+          "de": "Wer etwas tut, bekommt **-ar**, **-ač**, **-ec** oder **-telj** (**izpeljanke**, Wörter aus Wörtern): **mlin → mlinar** (Müller), **kovati → kovač** (Schmied), **loviti → lovec** (Jäger), **učiti → učitelj**. So heißen die Leute im Dorf: **vino → vinar**, **čebela → čebelar**, **pripovedovati → pripovedovalec** (Erzähler).",
+          "it": "Chi fa qualcosa prende **-ar**, **-ač**, **-ec** o **-telj** (**izpeljanke**, parole fatte da parole): **mlin → mlinar** (mugnaio), **kovati → kovač** (fabbro), **loviti → lovec** (cacciatore), **učiti → učitelj**. Così si chiamano le persone del villaggio: **vino → vinar**, **čebela → čebelar**, **pripovedovati → pripovedovalec** (narratore)."
         },
         "examples": [
-          { "sl": "France je mlinar kot njegov oče.", "en": "France is a miller like his father.", "de": "France ist Müller wie sein Vater.", "it": "France è mugnaio come suo padre." },
-          { "sl": "Jože je lovec, pozna vsako stezo v gozdu.", "en": "Jože is a hunter, he knows every path in the forest.", "de": "Jože ist Jäger, er kennt jeden Pfad im Wald.", "it": "Jože è cacciatore, conosce ogni sentiero del bosco." }
+          {
+            "sl": "France je mlinar kot njegov oče.",
+            "en": "France is a miller like his father.",
+            "de": "France ist Müller wie sein Vater.",
+            "it": "France è mugnaio come suo padre."
+          },
+          {
+            "sl": "Jože je lovec, pozna vsako stezo v gozdu.",
+            "en": "Jože is a hunter, he knows every path in the forest.",
+            "de": "Jože ist Jäger, er kennt jeden Pfad im Wald.",
+            "it": "Jože è cacciatore, conosce ogni sentiero del bosco."
+          }
         ],
         "rows": [
-          ["mlin, vino, čebela", "mlinar, vinar, čebelar", { "en": "a miller, a winemaker, a beekeeper", "de": "Müller, Winzer, Imker", "it": "mugnaio, vignaiolo, apicoltore" }],
-          ["kovati, loviti, učiti", "kovač, lovec, učitelj", { "en": "a smith, a hunter, a teacher", "de": "Schmied, Jäger, Lehrer", "it": "fabbro, cacciatore, maestro" }]
+          [
+            "mlin, vino, čebela",
+            "mlinar, vinar, čebelar",
+            { "en": "a miller, a winemaker, a beekeeper", "de": "Müller, Winzer, Imker", "it": "mugnaio, vignaiolo, apicoltore" }
+          ],
+          [
+            "kovati, loviti, učiti",
+            "kovač, lovec, učitelj",
+            { "en": "a smith, a hunter, a teacher", "de": "Schmied, Jäger, Lehrer", "it": "fabbro, cacciatore, maestro" }
+          ]
         ],
         "ask": {
-          "type": "cloze", "grammar": "izpeljanke", "text": "France melje žito v mlinu, zato je ___.", "accept": ["mlinar"], "hint": "mlin + who does it",
+          "type": "cloze",
+          "grammar": "izpeljanke",
+          "text": "France melje žito v mlinu, zato je ___.",
+          "accept": ["mlinar"],
+          "hint": "mlin + who does it",
           "explain": "**mlin** + -ar: **mlinar**, who works the mill"
         }
       },
@@ -47,15 +115,38 @@
           "it": "Una donna prende **-ka** o **-ica**: **vinar → vinarka**, **čebelar → čebelarka**, **lovec → lovka** (il -ec cade), **učitelj → učiteljica**, **kuhar → kuharica**, **gostilničar → gostilničarka**. Non tutte le parole ne hanno una in uso: **pek** ha solo l'antico **pekovka** (la moglie del fornaio), quindi una donna che fa il pane lavora semplicemente in una **pekarna** (panetteria)."
         },
         "examples": [
-          { "sl": "Vida je gostilničarka, njen oče je bil gostilničar.", "en": "Vida is an innkeeper, her father was an innkeeper.", "de": "Vida ist Wirtin, ihr Vater war Wirt.", "it": "Vida è ostessa, suo padre era oste." },
-          { "sl": "Mojca je učiteljica že dvajset let.", "en": "Mojca has been a teacher for twenty years.", "de": "Mojca ist seit zwanzig Jahren Lehrerin.", "it": "Mojca fa la maestra da vent'anni." }
+          {
+            "sl": "Vida je gostilničarka, njen oče je bil gostilničar.",
+            "en": "Vida is an innkeeper, her father was an innkeeper.",
+            "de": "Vida ist Wirtin, ihr Vater war Wirt.",
+            "it": "Vida è ostessa, suo padre era oste."
+          },
+          {
+            "sl": "Mojca je učiteljica že dvajset let.",
+            "en": "Mojca has been a teacher for twenty years.",
+            "de": "Mojca ist seit zwanzig Jahren Lehrerin.",
+            "it": "Mojca fa la maestra da vent'anni."
+          }
         ],
         "rows": [
-          ["vinar, čebelar, kuhar", "vinarka, čebelarka, kuharica", { "en": "a woman winemaker, beekeeper, cook", "de": "Winzerin, Imkerin, Köchin", "it": "vignaiola, apicoltrice, cuoca" }],
-          ["lovec, učitelj, gostilničar", "lovka, učiteljica, gostilničarka", { "en": "a huntress, a woman teacher, an innkeeper", "de": "Jägerin, Lehrerin, Wirtin", "it": "cacciatrice, maestra, ostessa" }]
+          [
+            "vinar, čebelar, kuhar",
+            "vinarka, čebelarka, kuharica",
+            { "en": "a woman winemaker, beekeeper, cook", "de": "Winzerin, Imkerin, Köchin", "it": "vignaiola, apicoltrice, cuoca" }
+          ],
+          [
+            "lovec, učitelj, gostilničar",
+            "lovka, učiteljica, gostilničarka",
+            { "en": "a huntress, a woman teacher, an innkeeper", "de": "Jägerin, Lehrerin, Wirtin", "it": "cacciatrice, maestra, ostessa" }
+          ]
         ],
         "ask": {
-          "type": "choice", "grammar": "izpeljanke", "prompt": "Ančkina hči prodaja na trgu. Ona je ___.", "options": ["prodajalka", "prodajalica", "prodajalec"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "izpeljanke",
+          "prompt": "Ančkina hči prodaja na trgu. Ona je ___.",
+          "options": ["prodajalka", "prodajalica", "prodajalec"],
+          "answer": 0,
+          "say_options": true,
           "explain": "**prodajalec** → the -ec goes, + -ka: **prodajalka**, as lovec → lovka\n- prodajalec · a man who sells"
         }
       },
@@ -66,55 +157,118 @@
           "it": "Dove si fa prende **-arna**, **-nica**, **-lnica** o **-išče**: **pek → pekarna** (panetteria), **knjiga → knjigarna** (libreria), **kovač → kovačnica** (fucina), **učiti → učilnica** (aula), **čakati → čakalnica**, **spati → spalnica** (camera da letto), **igrati → igrišče** (parco giochi). Il suffisso dà il genere: **-arna** e **-nica** femminile, **-išče** neutro."
         },
         "examples": [
-          { "sl": "Tone je kovač, v kovačnici dela že trideset let.", "en": "Tone is a blacksmith, he has worked in the smithy for thirty years.", "de": "Tone ist Schmied, er arbeitet seit dreißig Jahren in der Schmiede.", "it": "Tone è fabbro, lavora in fucina da trent'anni." },
-          { "sl": "Otroci se igrajo na igrišču za šolo.", "en": "The children are playing on the playground behind the school.", "de": "Die Kinder spielen auf dem Spielplatz hinter der Schule.", "it": "I bambini giocano nel parco giochi dietro la scuola." }
+          {
+            "sl": "Tone je kovač, v kovačnici dela že trideset let.",
+            "en": "Tone is a blacksmith, he has worked in the smithy for thirty years.",
+            "de": "Tone ist Schmied, er arbeitet seit dreißig Jahren in der Schmiede.",
+            "it": "Tone è fabbro, lavora in fucina da trent'anni."
+          },
+          {
+            "sl": "Otroci se igrajo na igrišču za šolo.",
+            "en": "The children are playing on the playground behind the school.",
+            "de": "Die Kinder spielen auf dem Spielplatz hinter der Schule.",
+            "it": "I bambini giocano nel parco giochi dietro la scuola."
+          }
         ],
         "rows": [
-          ["pek, knjiga", "pekarna, knjigarna", { "en": "a bakery, a bookshop", "de": "Bäckerei, Buchhandlung", "it": "panetteria, libreria" }],
-          ["kovač, učiti, spati", "kovačnica, učilnica, spalnica", { "en": "a smithy, a classroom, a bedroom", "de": "Schmiede, Klassenzimmer, Schlafzimmer", "it": "fucina, aula, camera da letto" }],
-          ["igrati", "igrišče", { "en": "a playground", "de": "Spielplatz", "it": "parco giochi" }]
+          ["pek, knjiga", "pekarna, knjigarna", {"en": "a bakery, a bookshop", "de": "Bäckerei, Buchhandlung", "it": "panetteria, libreria"}],
+          [
+            "kovač, učiti, spati",
+            "kovačnica, učilnica, spalnica",
+            { "en": "a smithy, a classroom, a bedroom", "de": "Schmiede, Klassenzimmer, Schlafzimmer", "it": "fucina, aula, camera da letto" }
+          ],
+          ["igrati", "igrišče", {"en": "a playground", "de": "Spielplatz", "it": "parco giochi"}]
         ],
         "ask": {
-          "type": "cloze", "grammar": "izpeljanke", "text": "Pri zdravniku sem {m:čakal|f:čakala} eno uro v ___.", "accept": ["čakalnici"], "hint": "čakati + where; v + kje?",
+          "type": "cloze",
+          "grammar": "izpeljanke",
+          "text": "Pri zdravniku sem {m:čakal|f:čakala} eno uro v ___.",
+          "accept": ["čakalnici"],
+          "hint": "čakati + where; v + kje?",
           "explain": "**čakati** + -lnica: **čakalnica**; v + the locative: v **čakalnici**"
         }
       },
       {
         "say": {
-          "en": "A thing that does it takes **-lnik** or **-lka**: **hladiti → hladilnik** (a fridge), **likati → likalnik** (an iron), **buditi → budilka** (an alarm clock). What something is like, made from an adjective, takes **-ost**, **-ota** or **-ina**: **mlad → mladost** (youth), **star → starost** (old age), **lep → lepota** (beauty), **visok → višina** (height). They are feminine: **v mladosti** (when young).",
-          "de": "Ein Ding, das es tut, bekommt **-lnik** oder **-lka**: **hladiti → hladilnik** (Kühlschrank), **likati → likalnik** (Bügeleisen), **buditi → budilka** (Wecker). Wie etwas ist, aus einem Adjektiv, bekommt **-ost**, **-ota** oder **-ina**: **mlad → mladost** (Jugend), **star → starost** (Alter), **lep → lepota** (Schönheit), **visok → višina** (Höhe). Sie sind weiblich: **v mladosti** (in der Jugend).",
-          "it": "Una cosa che lo fa prende **-lnik** o **-lka**: **hladiti → hladilnik** (frigorifero), **likati → likalnik** (ferro da stiro), **buditi → budilka** (sveglia). Com'è qualcosa, da un aggettivo, prende **-ost**, **-ota** o **-ina**: **mlad → mladost** (giovinezza), **star → starost** (vecchiaia), **lep → lepota** (bellezza), **visok → višina** (altezza). Sono femminili: **v mladosti** (da giovane)."
+          "en": "A thing that does it takes **-lnik** or **-lka** (**hladilnik**, a fridge; **budilka**, an alarm clock), what something is like **-ost**, **-ota** or **-ina** (**mladost**, youth; **lepota**, beauty). So **likati → likalnik** (an iron), **star → starost** (old age), **visok → višina** (height). The qualities are feminine: **v mladosti** (when young).",
+          "de": "Ein Ding, das es tut, bekommt **-lnik** oder **-lka** (**hladilnik**, Kühlschrank; **budilka**, Wecker), wie etwas ist **-ost**, **-ota** oder **-ina** (**mladost**, Jugend; **lepota**, Schönheit). So **likati → likalnik** (Bügeleisen), **star → starost** (Alter), **visok → višina** (Höhe). Die Eigenschaften sind weiblich: **v mladosti** (in der Jugend).",
+          "it": "Una cosa che lo fa prende **-lnik** o **-lka** (**hladilnik**, frigorifero; **budilka**, sveglia), com'è qualcosa **-ost**, **-ota** o **-ina** (**mladost**, giovinezza; **lepota**, bellezza). Così **likati → likalnik** (ferro da stiro), **star → starost** (vecchiaia), **visok → višina** (altezza). Le qualità sono femminili: **v mladosti** (da giovane)."
         },
         "examples": [
-          { "sl": "Mleko daj v hladilnik.", "en": "Put the milk in the fridge.", "de": "Stell die Milch in den Kühlschrank.", "it": "Metti il latte in frigorifero." },
-          { "sl": "Stari Janez rad govori o svoji mladosti.", "en": "Old Janez likes to talk about his youth.", "de": "Der alte Janez spricht gern über seine Jugend.", "it": "Il vecchio Janez parla volentieri della sua giovinezza." }
+          {
+            "sl": "Mleko daj v hladilnik.",
+            "en": "Put the milk in the fridge.",
+            "de": "Stell die Milch in den Kühlschrank.",
+            "it": "Metti il latte in frigorifero."
+          },
+          {
+            "sl": "Stari Janez rad govori o svoji mladosti.",
+            "en": "Old Janez likes to talk about his youth.",
+            "de": "Der alte Janez spricht gern über seine Jugend.",
+            "it": "Il vecchio Janez parla volentieri della sua giovinezza."
+          }
         ],
         "rows": [
-          ["hladiti, likati, buditi", "hladilnik, likalnik, budilka", { "en": "a fridge, an iron, an alarm clock", "de": "Kühlschrank, Bügeleisen, Wecker", "it": "frigorifero, ferro da stiro, sveglia" }],
-          ["mlad, star, lep, visok", "mladost, starost, lepota, višina", { "en": "youth, old age, beauty, height", "de": "Jugend, Alter, Schönheit, Höhe", "it": "giovinezza, vecchiaia, bellezza, altezza" }]
+          [
+            "hladiti, likati, buditi",
+            "hladilnik, likalnik, budilka",
+            { "en": "a fridge, an iron, an alarm clock", "de": "Kühlschrank, Bügeleisen, Wecker", "it": "frigorifero, ferro da stiro, sveglia" }
+          ],
+          [
+            "mlad, star, lep, visok",
+            "mladost, starost, lepota, višina",
+            { "en": "youth, old age, beauty, height", "de": "Jugend, Alter, Schönheit, Höhe", "it": "giovinezza, vecchiaia, bellezza, altezza" }
+          ]
         ],
         "ask": {
-          "type": "choice", "grammar": "izpeljanke", "prompt": "Ob šestih je zazvonila ___.", "options": ["budilka", "budilec", "budila"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "izpeljanke",
+          "prompt": "Ob šestih je zazvonila ___.",
+          "options": ["budilka", "budilec", "budila"],
+          "answer": 0,
+          "say_options": true,
           "explain": "**buditi** + -lka: **budilka**, the thing that wakes you\n- budilec · a person who wakes others"
         }
       },
       {
         "say": {
-          "en": "An adjective of something takes **-ski**, **-ški**, **-ni**, **-en** or **-it**: **vas → vaški**, **kovač → kovaški**, **mesto → mestni**, **les → lesen** (wooden), **kamen → kamnit** (of stone). Who lives there takes **-an** or **-čan**: **vaščan** (a villager), **meščan**, **Ljubljančan**. So one root makes a family: **peči → pek, pekarna, pecivo, pekovski** (a baker's).",
-          "de": "Ein Adjektiv davon bekommt **-ski**, **-ški**, **-ni**, **-en** oder **-it**: **vas → vaški**, **kovač → kovaški**, **mesto → mestni**, **les → lesen** (hölzern), **kamen → kamnit** (steinern). Wer dort wohnt, bekommt **-an** oder **-čan**: **vaščan** (Dorfbewohner), **meščan**, **Ljubljančan**. So macht eine Wurzel eine Familie: **peči → pek, pekarna, pecivo, pekovski** (Bäcker-).",
-          "it": "Un aggettivo di qualcosa prende **-ski**, **-ški**, **-ni**, **-en** o **-it**: **vas → vaški**, **kovač → kovaški**, **mesto → mestni**, **les → lesen** (di legno), **kamen → kamnit** (di pietra). Chi ci abita prende **-an** o **-čan**: **vaščan** (abitante del paese), **meščan**, **Ljubljančan**. Così una radice fa una famiglia: **peči → pek, pekarna, pecivo, pekovski** (del fornaio)."
+          "en": "An adjective of something takes **-ski**, **-ni**, **-en** or **-it** (**vaški**, **mestni**, **lesen**, **kamnit**), who lives there **-čan** (**vaščan**, **meščan**). So one root makes a family: **peči → pek, pekarna, pecivo, pekovski** (a baker's). More: **kovač → kovaški**, **les → lesen** (wooden), **kamen → kamnit** (of stone), **Ljubljančan**.",
+          "de": "Ein Adjektiv davon bekommt **-ski**, **-ni**, **-en** oder **-it** (**vaški**, **mestni**, **lesen**, **kamnit**), wer dort wohnt **-čan** (**vaščan**, **meščan**). So macht eine Wurzel eine Familie: **peči → pek, pekarna, pecivo, pekovski** (Bäcker-). Mehr: **kovač → kovaški**, **les → lesen** (hölzern), **kamen → kamnit** (steinern), **Ljubljančan**.",
+          "it": "Un aggettivo di qualcosa prende **-ski**, **-ni**, **-en** o **-it** (**vaški**, **mestni**, **lesen**, **kamnit**), chi ci abita **-čan** (**vaščan**, **meščan**). Così una radice fa una famiglia: **peči → pek, pekarna, pecivo, pekovski** (del fornaio). Altri: **kovač → kovaški**, **les → lesen** (di legno), **kamen → kamnit** (di pietra), **Ljubljančan**."
         },
         "examples": [
-          { "sl": "Vaščani so se zbrali pod lipo.", "en": "The villagers gathered under the linden.", "de": "Die Dorfbewohner haben sich unter der Linde versammelt.", "it": "Gli abitanti del paese si sono riuniti sotto il tiglio." },
-          { "sl": "Stare kamnite hiše so lepota naše vasi.", "en": "The old stone houses are the beauty of our village.", "de": "Die alten Steinhäuser sind die Schönheit unseres Dorfes.", "it": "Le vecchie case di pietra sono la bellezza del nostro paese." }
+          {
+            "sl": "Vaščani so se zbrali pod lipo.",
+            "en": "The villagers gathered under the linden.",
+            "de": "Die Dorfbewohner haben sich unter der Linde versammelt.",
+            "it": "Gli abitanti del paese si sono riuniti sotto il tiglio."
+          },
+          {
+            "sl": "Stare kamnite hiše so lepota naše vasi.",
+            "en": "The old stone houses are the beauty of our village.",
+            "de": "Die alten Steinhäuser sind die Schönheit unseres Dorfes.",
+            "it": "Le vecchie case di pietra sono la bellezza del nostro paese."
+          }
         ],
         "rows": [
-          ["vas, mesto, les, kamen", "vaški, mestni, lesen, kamnit", { "en": "village, town, wooden, of stone", "de": "Dorf-, Stadt-, hölzern, steinern", "it": "del paese, cittadino, di legno, di pietra" }],
-          ["vas, mesto", "vaščan, meščan", { "en": "a villager, a townsman", "de": "Dorfbewohner, Städter", "it": "paesano, cittadino" }],
-          ["peči", "pek, pekarna, pecivo", { "en": "a baker, a bakery, pastries", "de": "Bäcker, Bäckerei, Gebäck", "it": "fornaio, panetteria, dolci" }]
+          [
+            "vas, mesto, les, kamen",
+            "vaški, mestni, lesen, kamnit",
+            { "en": "village, town, wooden, of stone", "de": "Dorf-, Stadt-, hölzern, steinern", "it": "del paese, cittadino, di legno, di pietra" }
+          ],
+          ["vas, mesto", "vaščan, meščan", {"en": "a villager, a townsman", "de": "Dorfbewohner, Städter", "it": "paesano, cittadino"}],
+          [
+            "peči",
+            "pek, pekarna, pecivo",
+            { "en": "a baker, a bakery, pastries", "de": "Bäcker, Bäckerei, Gebäck", "it": "fornaio, panetteria, dolci" }
+          ]
         ],
         "ask": {
-          "type": "cloze", "grammar": "izpeljanke", "text": "Na vrtu stoji stara ___ klop. (iz lesa)", "accept": ["lesena"], "hint": "les + -en, agreeing with klop",
+          "type": "cloze",
+          "grammar": "izpeljanke",
+          "text": "Na vrtu stoji stara ___ klop. (iz lesa)",
+          "accept": ["lesena"],
+          "hint": "les + -en, agreeing with klop",
           "explain": "**les** + -en: **lesen**; klop is feminine: stara **lesena** klop"
         }
       }
@@ -126,7 +280,9 @@
       "title": { "sl": "Kdo in kje?", "en": "Who and where?", "de": "Wer und wo?", "it": "Chi e dove?" },
       "exercises": [
         {
-          "type": "sort", "grammar": "izpeljanke", "instruction": "Kdo ali kje? · Who or where?",
+          "type": "sort",
+          "grammar": "izpeljanke",
+          "instruction": "Kdo ali kje? · Who or where?",
           "columns": [
             { "label": "kdo · who does it", "words": ["mlinar", "kovač", "lovec", "učitelj", "čebelar", "prodajalec"] },
             { "label": "kje · where", "words": ["pekarna", "kovačnica", "učilnica", "igrišče", "spalnica", "čebelnjak"] }
@@ -134,15 +290,18 @@
           "explain": "**who**: -ar, -ač, -ec, -telj · **where**: -arna, -nica, -išče\n- čebelnjak · the bee house, where the bees live"
         },
         {
-          "type": "table", "grammar": "izpeljanke", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "on in ona · he and she",
+          "type": "table",
+          "grammar": "izpeljanke",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "on in ona · he and she",
           "columns": ["on · he", "ona · she"],
           "rows": [
-            { "label": "vino", "cells": ["vinar", { "accept": ["vinarka"], "hint": "-ar + ka" }] },
-            { "label": "kuhati", "cells": ["kuhar", { "accept": ["kuharica"], "hint": "-ar + ica" }] },
-            { "label": "učiti", "cells": ["učitelj", { "accept": ["učiteljica"], "hint": "-telj + ica" }] },
-            { "label": "loviti", "cells": ["lovec", { "accept": ["lovka"], "hint": "the -ec goes, + ka" }] },
-            { "label": "peti", "cells": ["pevec", { "accept": ["pevka"], "hint": "the -ec goes, + ka" }] },
-            { "label": "gostilna", "cells": ["gostilničar", { "accept": ["gostilničarka"], "hint": "-ar + ka" }] }
+            { "label": "vino", "cells": ["vinar", {"accept": ["vinarka"], "hint": "-ar + ka"}] },
+            { "label": "kuhati", "cells": ["kuhar", {"accept": ["kuharica"], "hint": "-ar + ica"}] },
+            { "label": "učiti", "cells": ["učitelj", {"accept": ["učiteljica"], "hint": "-telj + ica"}] },
+            { "label": "loviti", "cells": ["lovec", {"accept": ["lovka"], "hint": "the -ec goes, + ka"}] },
+            { "label": "peti", "cells": ["pevec", {"accept": ["pevka"], "hint": "the -ec goes, + ka"}] },
+            { "label": "gostilna", "cells": ["gostilničar", {"accept": ["gostilničarka"], "hint": "-ar + ka"}] }
           ],
           "explain": "**a woman**: -ka or -ica; **-ec** goes before -ka\n- vinar → vinarka, kuhar → kuharica\n- lovec → lovka, pevec → pevka"
         }
@@ -153,7 +312,10 @@
       "title": { "sl": "Sobota v vasi", "en": "Saturday in the village", "de": "Samstag im Dorf", "it": "Sabato in paese" },
       "exercises": [
         {
-          "type": "gaptext", "grammar": "izpeljanke", "instruction": "Dopolni z eno besedo · Fill in with one word", "title": "Sobota v vasi",
+          "type": "gaptext",
+          "grammar": "izpeljanke",
+          "instruction": "Dopolni z eno besedo · Fill in with one word",
+          "title": "Sobota v vasi",
           "text": "V soboto grem najprej v ___ (kjer peče pek) po kruh. Na poti srečam Antona, našega ___ (ima čebele). Pred ___ (kjer dela kovač) stoji Tone. V gostilni mi Vida, naša ___ (ima gostilno), natoči kavo. Popoldne se otroci igrajo na ___ (kjer se igrajo). Mojca v ___ (kjer se učijo) popravlja zvezke. Zvečer se ___ (ljudje iz vasi) zberemo pod lipo. Poslušamo Janeza, starega ___ (kdor pripoveduje).",
           "gaps": [
             { "accept": ["pekarno"], "hint": "v + kam? the accusative" },
@@ -162,10 +324,19 @@
             { "accept": ["gostilničarka"], "hint": "a woman: -ka" },
             { "accept": ["igrišču"], "hint": "na + kje? the locative" },
             { "accept": ["učilnici"], "hint": "v + kje? the locative" },
-            { "accept": ["vaščani"], "hint": "who lives in the village: the plural", "explain": "**vas** → **vaščan**, who lives in the village; we all: **vaščani**" },
-            { "accept": ["pripovedovalca"], "hint": "poslušamo koga? as Janeza", "explain": "**pripovedovati** → **pripovedovalec**; it goes with Janeza, so the accusative: **pripovedovalca**" }
+            {
+              "accept": ["vaščani"],
+              "hint": "who lives in the village: the plural",
+              "explain": "**vas** → **vaščan**, who lives in the village; we all: **vaščani**"
+            },
+            {
+              "accept": ["pripovedovalca"],
+              "hint": "poslušamo koga? as Janeza",
+              "explain": "**pripovedovati** → **pripovedovalec**; it goes with Janeza, so the accusative: **pripovedovalca**"
+            }
           ],
-          "bank": true, "distractors": ["pekarni", "kovačnice", "pripovedovalec"],
+          "bank": true,
+          "distractors": ["pekarni", "kovačnice", "pripovedovalec"],
           "translation": "On Saturday I first go to the bakery for bread. On the way I meet Anton, our beekeeper. Tone is standing in front of the smithy. At the inn Vida, our innkeeper, pours me a coffee. In the afternoon the children play on the playground. Mojca marks exercise books in the classroom. In the evening we villagers gather under the linden. We listen to Janez, the old storyteller."
         }
       ]
@@ -175,20 +346,32 @@
       "title": { "sl": "Z eno besedo", "en": "In one word", "de": "Mit einem Wort", "it": "In una parola" },
       "exercises": [
         {
-          "type": "transform", "grammar": "izpeljanke", "instruction": "Povej z eno besedo · Say it in one word",
+          "type": "transform",
+          "grammar": "izpeljanke",
+          "instruction": "Povej z eno besedo · Say it in one word",
           "items": [
             { "from": "Mojca je ženska, ki uči.", "accept": ["Mojca je učiteljica."], "hint": "učiti → who, a woman" },
             { "from": "Marko je mož, ki dela vino.", "accept": ["Marko je vinar."], "hint": "vino + -ar" },
             { "from": "To je soba, v kateri spimo.", "accept": ["To je spalnica."], "hint": "spati + -lnica" },
             { "from": "Klop je iz lesa.", "accept": ["Klop je lesena."], "hint": "les + -en, agreeing with klop" },
             { "from": "Ljudje iz vasi so prišli na sejem.", "accept": ["Vaščani so prišli na sejem."], "hint": "vas + -čan, the plural" },
-            { "from": "Stare hiše so iz kamna.", "accept": ["Stare hiše so kamnite."], "hint": "kamen + -it, agreeing with hiše", "explain": "**kamen** → **kamnit** (the e drops); hiše are feminine plural: **kamnite**" }
+            {
+              "from": "Stare hiše so iz kamna.",
+              "accept": ["Stare hiše so kamnite."],
+              "hint": "kamen + -it, agreeing with hiše",
+              "explain": "**kamen** → **kamnit** (the e drops); hiše are feminine plural: **kamnite**"
+            }
           ],
           "explain": "**one word** for a whole phrase, by its ending\n- ženska, ki uči → učiteljica\n- soba, v kateri spimo → spalnica\n- iz lesa → lesen"
         },
         {
-          "type": "choice", "grammar": "izpeljanke", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Zala si je v knjigarni kupila slovar.",
-          "options": ["in a bookshop", "in a library", "at a bookbinder's"], "answer": 0, "say": "Zala si je v knjigarni kupila slovar.",
+          "type": "choice",
+          "grammar": "izpeljanke",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "Zala si je v knjigarni kupila slovar.",
+          "options": ["in a bookshop", "in a library", "at a bookbinder's"],
+          "answer": 0,
+          "say": "Zala si je v knjigarni kupila slovar.",
           "explain": "**knjigarna**: where books are sold, as pekarna; a library is a **knjižnica**"
         }
       ]
@@ -198,39 +381,48 @@
     "pass": 80,
     "exercises": [
       {
-        "type": "table", "grammar": "izpeljanke", "instruction": "Dopolni · Fill in", "prompt": "kdo in kje? · who and where?",
+        "type": "table",
+        "grammar": "izpeljanke",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "kdo in kje? · who and where?",
         "columns": ["kdo · who", "kje · where"],
         "rows": [
-          { "label": "kovati", "cells": [{ "accept": ["kovač"] }, { "accept": ["kovačnica"] }] },
-          { "label": "učiti", "cells": [{ "accept": ["učitelj"] }, { "accept": ["učilnica"] }] }
+          { "label": "kovati", "cells": [{"accept": ["kovač"]}, {"accept": ["kovačnica"]}] },
+          { "label": "učiti", "cells": [{"accept": ["učitelj"]}, {"accept": ["učilnica"]}] }
         ]
       },
       {
-        "type": "gaptext", "grammar": "izpeljanke", "instruction": "Dopolni z eno besedo · Fill in with one word",
+        "type": "gaptext",
+        "grammar": "izpeljanke",
+        "instruction": "Dopolni z eno besedo · Fill in with one word",
         "text": "Marko je ___ (dela vino) in ima lepo klet. Njegova žena je ___ (poje v zboru). Za mizo imajo ___ (iz lesa) klop. »V ___ (ko sem bil mlad) sem delal pri kovaču,« pravi Marko.",
-        "gaps": [
-          { "accept": ["vinar"] },
-          { "accept": ["pevka"] },
-          { "accept": ["leseno"] },
-          { "accept": ["mladosti"] }
-        ],
+        "gaps": [{"accept": ["vinar"]}, {"accept": ["pevka"]}, {"accept": ["leseno"]}, {"accept": ["mladosti"]}],
         "translation": "Marko is a winemaker and has a fine cellar. His wife is a singer, she sings in the choir. At the table they have a wooden bench. \"When I was young I worked at the blacksmith's,\" says Marko."
       },
       {
-        "type": "transform", "grammar": "izpeljanke", "instruction": "Povej z eno besedo · Say it in one word",
-        "items": [
-          { "from": "To je soba, v kateri jemo.", "accept": ["To je jedilnica."] },
-          { "from": "Jože je mož, ki lovi.", "accept": ["Jože je lovec."] }
-        ]
+        "type": "transform",
+        "grammar": "izpeljanke",
+        "instruction": "Povej z eno besedo · Say it in one word",
+        "items": [{"from": "To je soba, v kateri jemo.", "accept": ["To je jedilnica."]}, {"from": "Jože je mož, ki lovi.", "accept": ["Jože je lovec."]}]
       },
       {
-        "type": "choice", "grammar": "izpeljanke", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Every morning I buy bread at the bakery.",
-        "options": ["Vsako jutro kupim kruh v pekarni.", "Vsako jutro kupim kruh v pekovski.", "Vsako jutro kupim kruh v pecivu."], "answer": 0, "say_options": true,
+        "type": "choice",
+        "grammar": "izpeljanke",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Every morning I buy bread at the bakery.",
+        "options": ["Vsako jutro kupim kruh v pekarni.", "Vsako jutro kupim kruh v pekovski.", "Vsako jutro kupim kruh v pecivu."],
+        "answer": 0,
+        "say_options": true,
         "explain": "**pekarna**: where the baker bakes; pekovski is an adjective, pecivo the pastries"
       },
       {
-        "type": "choice", "grammar": "izpeljanke", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Vaščani so popravili most.",
-        "options": ["The villagers mended the bridge.", "The townspeople mended the bridge.", "The fishermen mended the bridge."], "answer": 0, "say": "Vaščani so popravili most.",
+        "type": "choice",
+        "grammar": "izpeljanke",
+        "instruction": "Kaj pomeni? · What does it mean?",
+        "prompt": "Vaščani so popravili most.",
+        "options": ["The villagers mended the bridge.", "The townspeople mended the bridge.", "The fishermen mended the bridge."],
+        "answer": 0,
+        "say": "Vaščani so popravili most.",
         "explain": "**vaščan**: who lives in the village (vas); in a town, a **meščan**"
       }
     ]
