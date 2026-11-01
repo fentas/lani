@@ -79,12 +79,12 @@
         { "choices": [
           { "en": "Of course! I'll open it now.", "sl": "Seveda! Takoj jih odprem.", "it": "Certo! Lo apro subito.", "de": "Klar! Ich mach es gleich auf.", "ok": true,
             "reply": { "face": "happy", "en": "Cheers, mate. Come by, Meg! Away they go!", "sl": "Hvala, {m:stari|f:stara}. Come by, Meg! Pa gredo!", "it": "Grazie, {m:amico|f:amica}. Come by, Meg! Eccole che vanno!", "de": "Danke, Kumpel. Come by, Meg! Und los geht's!", "fx": { "gate": 1 } } },
-          { "en": "Of course! I'll shut it now.", "sl": "Seveda! Takoj jih zaprem.", "it": "Certo! Lo chiudo subito.", "de": "Klar! Ich mach es gleich zu.",
-            "why": { "en": "Jack wants it open for the sheep. Shut is the other way.", "sl": "Jack hoče, da so vrata za ovce odprta. Shut je ravno nasprotno.", "it": "Jack lo vuole aperto per le pecore. Shut è il contrario.", "de": "Jack will es für die Schafe offen haben. Shut ist das Gegenteil." },
-            "reply": { "face": "laugh", "en": "Shut it? Then the sheep stay in all day!", "sl": "Zapreš? Potem ovce ves dan ostanejo notri!", "it": "Chiuderlo? Allora le pecore restano dentro tutto il giorno!", "de": "Zumachen? Dann bleiben die Schafe den ganzen Tag drin!" } },
           { "en": "Of course! I open it now.", "sl": "Seveda! Takoj jih odprem.", "it": "Certo! Lo apro subito.", "de": "Klar! Ich mach es gleich auf.", "grammar": "future",
             "why": { "en": "To say you'll do something at once, use I'll: I'll open it now.", "sl": "Ko obljubiš, da boš nekaj takoj naredil, rečeš I'll: I'll open it now.", "it": "Per dire che fai subito qualcosa si usa I'll: I'll open it now.", "de": "Wenn du sagst, dass du etwas gleich tust, nimmst du I'll: I'll open it now." },
-            "reply": { "face": "curious", "en": "Now? Aye, go on then, mate!", "sl": "Zdaj? Ja, kar daj, {m:stari|f:stara}!", "it": "Adesso? Sì, dai, {m:amico|f:amica}!", "de": "Jetzt? Ja, mach schon, Kumpel!" } }
+            "reply": { "face": "curious", "en": "Now? Aye, go on then, mate!", "sl": "Zdaj? Ja, kar daj, {m:stari|f:stara}!", "it": "Adesso? Sì, dai, {m:amico|f:amica}!", "de": "Jetzt? Ja, mach schon, Kumpel!" } },
+          { "en": "Of course! I'll shut it now.", "sl": "Seveda! Takoj jih zaprem.", "it": "Certo! Lo chiudo subito.", "de": "Klar! Ich mach es gleich zu.",
+            "why": { "en": "Jack wants it open for the sheep. Shut is the other way.", "sl": "Jack hoče, da so vrata za ovce odprta. Shut je ravno nasprotno.", "it": "Jack lo vuole aperto per le pecore. Shut è il contrario.", "de": "Jack will es für die Schafe offen haben. Shut ist das Gegenteil." },
+            "reply": { "face": "laugh", "en": "Shut it? Then the sheep stay in all day!", "sl": "Zapreš? Potem ovce ves dan ostanejo notri!", "it": "Chiuderlo? Allora le pecore restano dentro tutto il giorno!", "de": "Zumachen? Dann bleiben die Schafe den ganzen Tag drin!" } }
         ], "puzzled": { "face": "confused", "en": "Eh? Say that again, mate?", "sl": "Kaj? Še enkrat, {m:stari|f:stara}?", "it": "Eh? Ripeti, {m:amico|f:amica}?", "de": "Hm? Sag das noch mal, Kumpel?" } },
         { "who": "jack", "face": "happy", "en": "There they go! First the meadow, then up the fell.", "sl": "Pa gredo! Najprej travnik, potem gor na hrib.", "it": "Eccole! Prima il prato, poi su per il monte.", "de": "Da gehen sie! Erst die Wiese, dann den Berg hinauf.", "fx": { "flock": 0.4 } },
         { "choices": [
@@ -328,7 +328,10 @@
             "reply": { "face": "shy", "en": "Hm. Good. Neither am I.", "sl": "Hm. Dobro. Mene tudi ne.", "it": "Mh. Bene. Nemmeno io.", "de": "Hm. Gut. Ich auch nicht." } },
           { "en": "With you here, I don't afraid, Mr Dixon.", "sl": "Z vami tukaj me ni strah, gospod Dixon.", "it": "Con Lei qui non ho paura, signor Dixon.", "de": "Mit Ihnen hier hab ich keine Angst, Mr Dixon.", "grammar": "to-be",
             "why": { "en": "Afraid isn't a verb: use be. I'm not afraid.", "sl": "Afraid ni glagol: uporabiš be. I'm not afraid.", "it": "Afraid non è un verbo: si usa be. I'm not afraid.", "de": "Afraid ist kein Verb: man nimmt be. I'm not afraid." },
-            "reply": { "face": "confused", "en": "Don't afraid? Hm. Say it right.", "sl": "Don't afraid? Hm. Povej prav.", "it": "Don't afraid? Mh. Dillo bene.", "de": "Don't afraid? Hm. Sag's richtig." } }
+            "reply": { "face": "confused", "en": "Don't afraid? Hm. Say it right.", "sl": "Don't afraid? Hm. Povej prav.", "it": "Don't afraid? Mh. Dillo bene.", "de": "Don't afraid? Hm. Sag's richtig." } },
+          { "en": "With you here, I not afraid, Mr Dixon.", "sl": "Z vami tukaj me ni strah, gospod Dixon.", "it": "Con Lei qui non ho paura, signor Dixon.", "de": "Mit Ihnen hier hab ich keine Angst, Mr Dixon.", "grammar": "to-be",
+            "why": { "en": "Afraid isn't a verb: it needs be. I'm (I am) not afraid.", "sl": "Afraid ni glagol: potrebuje be. I'm (I am) not afraid.", "it": "Afraid non è un verbo: ci vuole be. I'm (I am) not afraid.", "de": "Afraid ist kein Verb: es braucht be. I'm (I am) not afraid." },
+            "reply": { "face": "confused", "en": "Not afraid? Good. But a word's gone missing.", "sl": "Not afraid? Dobro. Ampak ena beseda manjka.", "it": "Not afraid? Bene. Ma manca una parola.", "de": "Not afraid? Gut. Aber da fehlt ein Wort." } }
         ], "puzzled": { "face": "confused", "en": "Eh? Again.", "sl": "Kaj? Še enkrat.", "it": "Eh? Di nuovo.", "de": "Hm? Noch mal." } },
         { "who": "dixon", "en": "Look. They're going back into the wood. Wolves sleep too.", "sl": "Poglej. Vračajo se v gozd. Tudi volkovi spijo.", "it": "Guarda. Tornano nel bosco. Anche i lupi dormono.", "de": "Schau. Sie gehen zurück in den Wald. Auch Wölfe schlafen.", "fx": { "wolves": 0 } }
       ]
