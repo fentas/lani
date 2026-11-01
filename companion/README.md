@@ -275,8 +275,8 @@ village is saved at that age. Without the flag a raise applies at once; a lower 
 takes a waiting raise back), always does. It says what the step now and the next one need: "The target stays A2 for the
 step the village is on and becomes B1 with the next age. The village is Zaselek: the step to Vas keeps 45 words; from Vas
 on, Trg needs 500 words (it needed 150)." `default` is the default learner. While the phone holds the data (the lease) it
-is refused; the tutor's `set_target_level` does the same (a raise always from the next age) and `get_village` shows the
-`aim`. In the app, "⚙️ Nastavitve · Settings → 🎯 Cilj · Aim" (a parent's on a child's device) and the setup's "🎯 Cilj ·
+is refused; the tutor's `set_target_level` does the same (a raise always from the next age), the app's own tutor's too
+(phase A's tools, through the node's `/tutor/tools`, since 2026-11-01), and `get_village` shows the `aim`. In the app, "⚙️ Nastavitve · Settings → 🎯 Cilj · Aim" (a parent's on a child's device) and the setup's "🎯 Cilj ·
 Aim" go through `POST /learner/target` by the same rule: a raise waits for the next age once the learner has a village (at
 setup there is none yet: at once), a level at or below the learner's is refused. `GET /learner/target` answers `{level,
 target, next}` (`next`: the raise waiting, `{level, from_age}`, or null), `POST` also `change` (`now`, `next_age`,
@@ -1676,7 +1676,7 @@ fix, progress, analysis, session-end, studio), with `tools/guide.json` (`guide(t
 the bridge (the smoke section `tutor` runs it): regenerate with `cd companion/bridge && bun src/cli/tutor-export.ts`
 after changing a tool, a feature's paragraph or the curated content the guide names. The app's new tools are
 hand-written in `companion/tutor/app-tools/`. The Gradle task `tutorFiles` bundles `companion/tutor` as resources
-under `tutor/`. Phase A's 17 tools in shadow mode (`tutor/ShadowTools.kt`):
+under `tutor/`. Phase A's 18 tools in shadow mode (`tutor/ShadowTools.kt`):
 - `reply`: into the panel, never the chat, never a notification;
 - reads, through the paired bridge's GET routes only (`tutor/Reads.kt` `ShadowBridge`, the app's bearer token, its
   client refusing anything else, `GetOnly`): `learner_state` (`/state`, summed up), `get_village` (`/game`),
@@ -1684,9 +1684,10 @@ under `tutor/`. Phase A's 17 tools in shadow mode (`tutor/ShadowTools.kt`):
   dictionary as marked untrusted data; fran.si comes later), `card` find, show and overlaps (`/state`'s deck);
   `recent_answers` from the reviews the shadow saw;
 - writes, dry runs (validated against their schema, recorded with their input, never sent): `publish_gloss`,
-  `publish_sentence_note`, `set_rhythm`, `record_session`, `report_problem`, `card` edit, merge, split, regrade and
-  forgive. The model reads what the live tool answers on success, made from the input (`tutor/DryRuns.kt`): the
-  bridge's "kept: …" of a gloss or a sentence note, its rhythm settings, update-db.py's summary, card.py's JSON, the
+  `publish_sentence_note`, `set_rhythm`, `set_target_level`, `record_session`, `report_problem`, `card` edit, merge,
+  split, regrade and forgive. The model reads what the live tool answers on success, made from the input
+  (`tutor/DryRuns.kt`): the bridge's "kept: …" of a gloss or a sentence note, its rhythm settings, the aim's rule (a raise
+  from the next age, a lower one at once), update-db.py's summary, card.py's JSON, the
   report flow's "posted: …". Nothing it reads says shadow or dry run (nor do the reads), so it acts as it would live;
   the record keeps `dryRun`, which the panel and the export show. A refusal the live tool would give where the result
   depends on it (a card write without its card, a report without a session that adds no words) comes back as an error;
@@ -4680,7 +4681,17 @@ guests' visits; also once the event is over), a scene (its news and stories), a 
 town's progress, the unit with the homework, the case trainer, the packs, the reading corner, the grammar book, the
 reviews (the reminder), Home's update banner (and the update installed); a tool's approval as soon as the app is on
 screen. A tap on a notification takes it away too. The small icon is Lani's L (`res/drawable/ic_notify.xml`). The road's
-getting ready keeps its own channel (`road/RoadPrepService.kt`).
+getting ready keeps its own channel, "🚗 Za pot · For the road" (`road-ready`, LOW, no dot: `data/NotifyChannels.kt`
+`RoadChannel`, made by `Notifier.ensureRoadChannel` with the others and before the road's service posts). Until 2026-11 it
+was `road-prep`, made with Android's default badge, so its progress could put a dot on the icon; a channel's badge is fixed
+once made, so the new id replaces it: the old one's importance (blocked stays blocked, never louder than LOW) and lock
+screen carry over, and it is deleted once the new one exists.
+
+**Who is a child, with the app closed.** The background check (`data/BackgroundCheck.kt`, `PhoneChild`) asks what the
+app last said (kept once it knows: paired by a code, hosted, or the town's own row read), the pairing's flag and the hosted
+profile's. A phone set up with a typed token has no pairing flag; until its app had been opened on this version nothing
+had said, and it was notified as an adult's. Now the check asks the node's own town row (`GET /towns`' `self.child`) once
+and keeps the answer; an older node without towns is an adult's, as the app says too; a failed request keeps nothing.
 
 Before this, every notification went to one channel, "Tutor". The app makes the new channels at its start and before any
 post, carries over what the learner set there (blocked: every new channel is made blocked; silenced: none is louder;
