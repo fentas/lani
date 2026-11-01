@@ -1,0 +1,186 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "on-the-bowling-green",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the bowling green in its Lakeland look (the striped flat lawn, the low boards and ditch, the dark brown bowls with red or yellow discs, the small white jack, the slate with its two chalk discs and marks, the stone roller with an iron handle, the yellow folding ruler on the boards, the rose arbour over the table, the glass jug of lemonade, the oak for the linden, the lantern on its post); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "court": {
+      "clues": [
+        {
+          "kind": "colour",
+          "en": "It's green, with light and dark stripes.",
+          "sl": "Je zeleno, s svetlimi in temnimi progami.",
+          "grammar": ["to-be"]
+        },
+        { "kind": "size", "en": "It's big and flat.", "sl": "Je veliko in ravno.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's as flat as a table.", "sl": "Ravno je kot miza.", "grammar": ["to-be"] },
+        { "kind": "use", "en": "We play bowls on it.", "sl": "Na tem balinamo.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "board": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's long and low.", "sl": "Je dolgo in nizko.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It goes all round the green.",
+          "sl": "Gre okoli in okoli trate.",
+          "grammar": ["present-simple", "prepositions-place"],
+          "ref": "court"
+        },
+        { "kind": "use", "en": "It stops the bowls at the end.", "sl": "Na koncu ustavi krogle.", "grammar": ["present-simple"] }
+      ]
+    },
+    "sand": {
+      "clues": [
+        { "kind": "colour", "en": "It's green.", "sl": "Je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's short and soft.", "sl": "Je kratko in mehko.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has light and dark stripes.", "sl": "Ima svetle in temne proge.", "grammar": ["to-have"] },
+        { "kind": "does", "en": "It grows, so we cut it every week.", "sl": "Raste, zato ga vsak teden pokosimo.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "The bowls roll over it.", "sl": "Krogle se kotalijo po tem.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "jack": {
+      "clues": [
+        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's very small.", "sl": "To je nekaj zelo majhnega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's round.", "sl": "Je okroglo.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's on the grass at the far end.",
+          "sl": "Je na travi na drugem koncu.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "sand"
+        },
+        { "kind": "use", "en": "We roll our bowls close to it.", "sl": "Svoje krogle zakotalimo čim bližje temu.", "grammar": ["present-simple"] }
+      ]
+    },
+    "ball": {
+      "clues": [
+        { "kind": "colour", "en": "It's dark brown, with a coloured disc.", "sl": "Je temno rjave barve, z barvnim krogom.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's round and heavy.", "sl": "Je okroglo in težko.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's lying on the grass.",
+          "sl": "Leži na travi.",
+          "grammar": ["present-continuous", "prepositions-place"],
+          "ref": "sand"
+        },
+        { "kind": "does", "en": "It rolls in a curve.", "sl": "Kotali se v loku.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "We roll it to the jack.", "sl": "To zakotalimo k bulinu.", "grammar": ["present-simple"] }
+      ]
+    },
+    "linden": {
+      "clues": [
+        { "kind": "size", "en": "It's big and tall.", "sl": "Je veliko in visoko.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "In summer it's dark green.", "sl": "Poleti je temno zelene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has lots of leaves.", "sl": "Ima veliko listov.", "grammar": ["to-have"] },
+        { "kind": "does", "en": "It gives lots of shade.", "sl": "Daje veliko sence.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "Acorns grow on it.", "sl": "Na tem rastejo želodi.", "grammar": ["present-simple"] }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's long.", "sl": "Je dolgo.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in front of the green.", "sl": "Je pred trato.", "grammar": ["to-be", "prepositions-place"], "ref": "court" },
+        {
+          "kind": "use",
+          "en": "We sit on it and watch the game.",
+          "sl": "Na tem sedimo in gledamo igro.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    },
+    "table": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's under the roses.", "sl": "Je pod vrtnicami.", "grammar": ["to-be", "prepositions-place"], "ref": "pergola" },
+        {
+          "kind": "use",
+          "en": "We put the jug and the glasses on it.",
+          "sl": "Nanj postavimo vrč in kozarce.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    },
+    "jug": {
+      "clues": [
+        { "kind": "material", "en": "It's made of glass.", "sl": "Je iz stekla.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a handle.", "sl": "Ima ročaj.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"], "ref": "table" },
+        { "kind": "use", "en": "There's lemonade in it.", "sl": "V tem je limonada.", "grammar": ["there-is-are", "prepositions-place"] }
+      ]
+    },
+    "glass": {
+      "clues": [
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "You can see through it.", "sl": "Skozi to se vidi.", "grammar": ["can"] },
+        { "kind": "where", "en": "It's on the table.", "sl": "Je na mizi.", "grammar": ["to-be", "prepositions-place"], "ref": "table" },
+        { "kind": "use", "en": "We drink from it.", "sl": "Iz tega pijemo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "scoreboard": {
+      "clues": [
+        { "kind": "colour", "en": "It's black.", "sl": "Je črne barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has white chalk marks.", "sl": "Ima bele črte iz krede.", "grammar": ["to-have"] },
+        {
+          "kind": "trait",
+          "en": "It has a red disc and a yellow disc at the top.",
+          "sl": "Na vrhu ima rdeč in rumen krog.",
+          "grammar": ["to-have", "prepositions-place"]
+        },
+        { "kind": "use", "en": "We count the points on it.", "sl": "Na tem štejemo točke.", "grammar": ["present-simple", "prepositions-place"] }
+      ]
+    },
+    "rake": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has an iron handle.", "sl": "Ima železen ročaj.", "grammar": ["to-have"] },
+        { "kind": "trait", "en": "It's very heavy.", "sl": "Je zelo težko.", "grammar": ["to-be"] },
+        {
+          "kind": "use",
+          "en": "We push it over the grass to make it flat.",
+          "sl": "To potiskamo po travi, da je ravna.",
+          "grammar": ["present-simple"]
+        }
+      ]
+    },
+    "meter": {
+      "clues": [
+        { "kind": "colour", "en": "It's yellow.", "sl": "Je rumene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's long and narrow.", "sl": "Je dolgo in ozko.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's lying on the boards.",
+          "sl": "Leži na deskah.",
+          "grammar": ["present-continuous", "prepositions-place"],
+          "ref": "board"
+        },
+        { "kind": "use", "en": "We measure with it.", "sl": "S tem merimo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "pergola": {
+      "clues": [
+        { "kind": "size", "en": "It's big.", "sl": "Je veliko.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "Roses grow over it.", "sl": "Čez to rastejo vrtnice.", "grammar": ["present-simple", "prepositions-place"] },
+        { "kind": "where", "en": "It's over the table.", "sl": "Je nad mizo.", "grammar": ["to-be", "prepositions-place"], "ref": "table" },
+        { "kind": "use", "en": "There's shade under it.", "sl": "Pod tem je senca.", "grammar": ["there-is-are", "prepositions-place"] }
+      ]
+    },
+    "lantern": {
+      "clues": [
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's on top of a post.", "sl": "Je na vrhu stebrička.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "does", "en": "In the evening it gives light.", "sl": "Zvečer sveti.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "We light it when it's dark.", "sl": "Prižgemo ga, ko je tema.", "grammar": ["present-simple"] }
+      ]
+    }
+  }
+}

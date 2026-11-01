@@ -1,0 +1,250 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "in-the-damson-orchard",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the hills in their Lakeland look (the damson trees in rows on terraces held by dry-stone walls, the whitewashed farmhouse under slate, the church tower with battlements, the yew for the cypress, the apple tree for the persimmon, the fells, Morecambe Bay far off); where things stand as nella-vigna's clues say; the damsons' clue says September, as the picture draws them ripe; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "vineyard": {
+      "clues": [
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has lots of rows of trees.", "sl": "Ima veliko vrst dreves.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It's on the terraces, on both sides of the road.",
+          "sl": "Je na terasah, na obeh straneh ceste.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "road"
+        },
+        {
+          "kind": "use",
+          "en": "The damsons grow in it.",
+          "sl": "V tem rastejo slive.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    },
+    "vine": {
+      "clues": [
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "In April it has white flowers.", "sl": "Aprila ima bele cvetove.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It's next to the crate.",
+          "sl": "Je zraven zaboja.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "crate"
+        },
+        { "kind": "use", "en": "Damsons grow on it.", "sl": "Na tem rastejo slive.", "grammar": ["present-simple"] }
+      ]
+    },
+    "grapes": {
+      "number": "pl",
+      "clues": [
+        {
+          "kind": "colour",
+          "en": "In September they're dark purple.",
+          "sl": "Septembra so temno vijolične barve.",
+          "grammar": ["to-be"]
+        },
+        { "kind": "size", "en": "They're small and round.", "sl": "So majhne in okrogle.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "Off the tree they're sour.", "sl": "Z drevesa so kisle.", "grammar": ["to-be"] },
+        { "kind": "use", "en": "We make jam from them.", "sl": "Iz njih kuhamo marmelado.", "grammar": ["present-simple"] }
+      ]
+    },
+    "hill": {
+      "clues": [
+        { "kind": "colour", "en": "In summer it's green.", "sl": "Poleti je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a church on top.", "sl": "Na vrhu ima cerkev.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's far away.", "sl": "Je daleč.", "grammar": ["to-be"] }
+      ]
+    },
+    "church": {
+      "clues": [
+        { "kind": "size", "en": "From here it looks small.", "sl": "Od tu je videti majhno.", "grammar": ["present-simple"] },
+        { "kind": "material", "en": "It's made of grey stone.", "sl": "Je iz sivega kamna.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's on top of the hill.",
+          "sl": "Je na vrhu hriba.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "hill"
+        },
+        {
+          "kind": "use",
+          "en": "On Sundays lots of people go there.",
+          "sl": "Ob nedeljah gre tja veliko ljudi.",
+          "grammar": ["present-simple"]
+        }
+      ]
+    },
+    "belltower": {
+      "clues": [
+        {
+          "kind": "trait",
+          "en": "It's square, with battlements on top.",
+          "sl": "To je nekaj štirioglatega, z cinami na vrhu.",
+          "grammar": ["to-be"]
+        },
+        {
+          "kind": "where",
+          "en": "It's next to the church.",
+          "sl": "Je zraven cerkve.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "church"
+        },
+        {
+          "kind": "does",
+          "en": "Its bell rings: ding, dong!",
+          "sl": "Zvon v tem zvoni: bim, bam!",
+          "grammar": ["present-simple"]
+        },
+        {
+          "kind": "use",
+          "en": "The bells hang in it.",
+          "sl": "V tem visijo zvonovi.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    },
+    "farmhouse": {
+      "clues": [
+        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a grey slate roof.", "sl": "Ima sivo streho iz skrilavca.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It's at the end of the road.",
+          "sl": "Je na koncu ceste.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "road"
+        },
+        {
+          "kind": "use",
+          "en": "A farming family lives in it.",
+          "sl": "Tam živi kmečka družina.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    },
+    "cypress": {
+      "clues": [
+        { "kind": "colour", "en": "It's dark green.", "sl": "Je temno zelene barve.", "grammar": ["to-be"] },
+        {
+          "kind": "trait",
+          "en": "It lives for hundreds of years.",
+          "sl": "Živi več sto let.",
+          "grammar": ["present-simple"]
+        },
+        {
+          "kind": "where",
+          "en": "It's next to the farmhouse.",
+          "sl": "Je zraven kmečke hiše.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "farmhouse"
+        },
+        { "kind": "does", "en": "In winter it stays green.", "sl": "Pozimi ostane zeleno.", "grammar": ["present-simple"] }
+      ]
+    },
+    "persimmon": {
+      "clues": [
+        { "kind": "trait", "en": "It's a tree.", "sl": "To je drevo.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "In autumn it has red fruit.", "sl": "Jeseni ima rdeče sadeže.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It's behind the wall.",
+          "sl": "Je za zidom.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "wall"
+        },
+        { "kind": "use", "en": "We pick apples from it.", "sl": "S tega obiramo jabolka.", "grammar": ["present-simple"] }
+      ]
+    },
+    "wall": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's long and low.", "sl": "To je nekaj dolgega in nizkega.", "grammar": ["to-be"] },
+        {
+          "kind": "material",
+          "en": "It's made of stones, with no cement.",
+          "sl": "Je iz kamnov, brez malte.",
+          "grammar": ["to-be"]
+        },
+        {
+          "kind": "where",
+          "en": "It's in front of the apple tree.",
+          "sl": "Je pred jablano.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "persimmon"
+        },
+        {
+          "kind": "use",
+          "en": "It holds up the earth of the terrace.",
+          "sl": "Drži zemljo terase.",
+          "grammar": ["present-simple"]
+        }
+      ]
+    },
+    "mountains": {
+      "number": "pl",
+      "clues": [
+        { "kind": "size", "en": "They're very high.", "sl": "So zelo visoki.", "grammar": ["to-be"] },
+        { "kind": "colour", "en": "They're green and brown.", "sl": "So zelene in rjave barve.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "They're far away, under the sky.",
+          "sl": "So daleč, pod nebom.",
+          "grammar": ["to-be", "prepositions-place"]
+        },
+        { "kind": "use", "en": "We walk up them.", "sl": "Nanje hodimo peš.", "grammar": ["present-simple"] }
+      ]
+    },
+    "sea": {
+      "clues": [
+        { "kind": "colour", "en": "It's blue and silver.", "sl": "Je modre in srebrne barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "From here it looks tiny.", "sl": "Od tu je videti drobceno.", "grammar": ["present-simple"] },
+        { "kind": "where", "en": "It's very far away.", "sl": "Je zelo daleč.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It shines in the sun.", "sl": "V soncu se blešči.", "grammar": ["present-simple"] }
+      ]
+    },
+    "road": {
+      "clues": [
+        { "kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's in the middle of the orchard.",
+          "sl": "Je sredi sadovnjaka.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "vineyard"
+        },
+        {
+          "kind": "does",
+          "en": "It goes to the farmhouse.",
+          "sl": "Pelje do kmečke hiše.",
+          "grammar": ["present-simple"],
+          "ref": "farmhouse"
+        },
+        { "kind": "use", "en": "The tractor drives along it.", "sl": "Po tem vozi traktor.", "grammar": ["present-simple"] }
+      ]
+    },
+    "crate": {
+      "clues": [
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's next to a damson tree.",
+          "sl": "Je zraven slivovega drevesa.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "vine"
+        },
+        {
+          "kind": "use",
+          "en": "We put the damsons in it.",
+          "sl": "V to damo slive.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    }
+  }
+}

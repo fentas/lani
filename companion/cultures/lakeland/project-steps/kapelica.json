@@ -1,0 +1,1532 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "kapelica",
+  "language": "en",
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "project-kapelica",
+  "steps": [
+    {
+      "words": ["drawing", "paper"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "{learner}, love, I'm drawing a plan of our chapel. A plan, I said!",
+              "sl": "{learner}, rišem načrt naše kapelice. Načrt, sem rekla!",
+              "it": "{learner}, tesoro, sto disegnando il progetto della nostra cappella. Il progetto, ho detto!",
+              "de": "{learner}, Schatz, ich zeichne einen Plan von unserer Kapelle. Einen Plan, hab ich gesagt!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Here's some paper for you, Auntie Edna.",
+                  "sl": "Izvoli papir, teta Edna.",
+                  "it": "Ecco della carta per te, zia Edna.",
+                  "de": "Hier ist Papier für dich, Tante Edna.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Thank you, love. Nice big paper!",
+                    "sl": "Hvala. Lep velik papir!",
+                    "it": "Grazie, tesoro. Bella carta grande!",
+                    "de": "Danke, Schatz. Schönes großes Papier!"
+                  }
+                },
+                {
+                  "en": "Here's some pepper for you, Auntie Edna.",
+                  "sl": "Izvoli poper, teta Edna.",
+                  "it": "Ecco del pepe per te, zia Edna.",
+                  "de": "Hier ist Pfeffer für dich, Tante Edna.",
+                  "why": {
+                    "en": "Pepper is for food! To draw on, you need paper.",
+                    "sl": "Pepper je poper, za hrano! Za risanje potrebuješ papir: paper.",
+                    "it": "Pepper è il pepe, per il cibo! Per disegnare ci vuole la carta: paper.",
+                    "de": "Pepper ist Pfeffer, fürs Essen! Zum Zeichnen braucht man Papier: paper."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Pepper? Atchoo! I can't draw on that, love!",
+                    "sl": "Poper? Apčih! Na to pa ne morem risati!",
+                    "it": "Pepe? Etciù! Su quello non posso disegnare!",
+                    "de": "Pfeffer? Hatschi! Darauf kann ich nicht zeichnen, Schatz!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "poppy",
+              "face": "happy",
+              "en": "Can I help? I'm good at drawing!",
+              "sl": "Lahko pomagam? Dobro rišem!",
+              "it": "Posso aiutare? Disegno bene!",
+              "de": "Kann ich helfen? Ich kann gut zeichnen!"
+            },
+            {
+              "who": "edna",
+              "face": "proud",
+              "en": "There! Four walls, a roof and a little bell.",
+              "sl": "Tako! Štiri stene, streha in zvonček.",
+              "it": "Ecco! Quattro muri, un tetto e una campanella.",
+              "de": "So! Vier Wände, ein Dach und eine kleine Glocke."
+            },
+            {
+              "choices": [
+                {
+                  "en": "What a lovely drawing!",
+                  "sl": "Kakšna lepa risba!",
+                  "it": "Che bel disegno!",
+                  "de": "Was für eine schöne Zeichnung!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Thank you, love. Now everyone can see our chapel!",
+                    "sl": "Hvala. Zdaj vsi vidijo našo kapelico!",
+                    "it": "Grazie, tesoro. Adesso tutti vedono la nostra cappella!",
+                    "de": "Danke, Schatz. Jetzt sehen alle unsere Kapelle!"
+                  }
+                },
+                {
+                  "en": "What a lovely drink!",
+                  "sl": "Kakšna lepa pijača!",
+                  "it": "Che bella bevanda!",
+                  "de": "Was für ein schönes Getränk!",
+                  "why": {
+                    "en": "A drink is for drinking. Edna made a drawing.",
+                    "sl": "Drink je pijača. Edna je naredila risbo: drawing.",
+                    "it": "Drink è una bevanda. Edna ha fatto un disegno: drawing.",
+                    "de": "Drink ist ein Getränk. Edna hat eine Zeichnung gemacht: drawing."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A drink? It's on paper, love, not in a cup!",
+                    "sl": "Pijača? Na papirju je, ne v skodelici!",
+                    "it": "Una bevanda? È sulla carta, tesoro, non in una tazza!",
+                    "de": "Ein Getränk? Das ist auf Papier, Schatz, nicht in einer Tasse!"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "thinking",
+              "en": "A chapel needs a plan first. I'll draw it on this big paper.",
+              "sl": "Kapelica najprej potrebuje načrt. Narisala ga bom na ta velik papir.",
+              "it": "Una cappella ha bisogno prima di tutto di un progetto. Lo disegno su questa carta grande.",
+              "de": "Eine Kapelle braucht zuerst einen Plan. Ich zeichne ihn auf dieses große Papier."
+            },
+            {
+              "who": "maggie",
+              "en": "Draw a bench too. Walkers will want to sit down.",
+              "sl": "Nariši še klop. Pohodniki bodo hoteli sesti.",
+              "it": "Disegna anche una panchina. Gli escursionisti vorranno sedersi.",
+              "de": "Zeichne auch eine Bank. Die Wanderer wollen sich bestimmt setzen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Do you need more paper?",
+                  "sl": "Potrebuješ še papirja?",
+                  "it": "Ti serve altra carta?",
+                  "de": "Brauchst du mehr Papier?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "No, love, this is enough. Enough, I said!",
+                    "sl": "Ne, to je dovolj. Dovolj, sem rekla!",
+                    "it": "No, tesoro, basta così. Basta, ho detto!",
+                    "de": "Nein, Schatz, das reicht. Das reicht, hab ich gesagt!"
+                  }
+                },
+                {
+                  "en": "Do you need more pepper?",
+                  "sl": "Potrebuješ še popra?",
+                  "it": "Ti serve altro pepe?",
+                  "de": "Brauchst du mehr Pfeffer?",
+                  "why": {
+                    "en": "Pepper is for food. To draw, Edna needs paper.",
+                    "sl": "Pepper je poper. Za risanje Edna potrebuje papir: paper.",
+                    "it": "Pepper è il pepe. Per disegnare Edna ha bisogno di carta: paper.",
+                    "de": "Pepper ist Pfeffer. Zum Zeichnen braucht Edna Papier: paper."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Pepper? I'm drawing, love, not cooking!",
+                    "sl": "Poper? Rišem, ne kuham!",
+                    "it": "Pepe? Sto disegnando, tesoro, non cucinando!",
+                    "de": "Pfeffer? Ich zeichne, Schatz, ich koche nicht!"
+                  }
+                },
+                {
+                  "en": "Does you need more paper?",
+                  "sl": "Potrebuješ še papirja?",
+                  "it": "Ti serve altra carta?",
+                  "de": "Brauchst du mehr Papier?",
+                  "grammar": "questions-do",
+                  "why": {
+                    "en": "With you, the question needs do: do you need …?",
+                    "sl": "Pri you vprašanje potrebuje do: do you need …?",
+                    "it": "Con you la domanda vuole do: do you need …?",
+                    "de": "Bei you braucht die Frage do: do you need …?"
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Does? Eh? My ears, love!",
+                    "sl": "Does? Kaj? Moja ušesa!",
+                    "it": "Does? Eh? Le mie orecchie, tesoro!",
+                    "de": "Does? Hä? Meine Ohren, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            },
+            {
+              "who": "edna",
+              "face": "proud",
+              "en": "There! My drawing's finished.",
+              "sl": "Tako! Moja risba je končana.",
+              "it": "Ecco! Il mio disegno è finito.",
+              "de": "So! Meine Zeichnung ist fertig."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Your drawing is very good, Auntie Edna.",
+                  "sl": "Tvoja risba je zelo dobra, teta Edna.",
+                  "it": "Il tuo disegno è molto bello, zia Edna.",
+                  "de": "Deine Zeichnung ist sehr gut, Tante Edna.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Thank you, love. Tomorrow we start building!",
+                    "sl": "Hvala. Jutri začnemo graditi!",
+                    "it": "Grazie, tesoro. Domani cominciamo a costruire!",
+                    "de": "Danke, Schatz. Morgen fangen wir an zu bauen!"
+                  }
+                },
+                {
+                  "en": "Your dragon is very good, Auntie Edna.",
+                  "sl": "Tvoj zmaj je zelo dober, teta Edna.",
+                  "it": "Il tuo drago è molto bello, zia Edna.",
+                  "de": "Dein Drache ist sehr gut, Tante Edna.",
+                  "why": {
+                    "en": "A dragon breathes fire in stories! Edna made a drawing.",
+                    "sl": "Dragon je zmaj iz pravljic! Edna je naredila risbo: drawing.",
+                    "it": "Dragon è il drago delle favole! Edna ha fatto un disegno: drawing.",
+                    "de": "Dragon ist ein Drache aus Märchen! Edna hat eine Zeichnung gemacht: drawing."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A dragon? I haven't drawn one of those… yet!",
+                    "sl": "Zmaj? Tega pa še nisem narisala … še!",
+                    "it": "Un drago? Quello non l'ho ancora disegnato… per ora!",
+                    "de": "Ein Drache? Den hab ich noch nicht gezeichnet … noch nicht!"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "words": ["foundation", "bottom"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "thinking",
+              "en": "First, the foundation. Strong stones, under the ground.",
+              "sl": "Najprej temelji. Trdni kamni, pod zemljo.",
+              "it": "Prima le fondamenta. Pietre robuste, sotto terra.",
+              "de": "Zuerst das Fundament. Starke Steine, unter der Erde."
+            },
+            {
+              "choices": [
+                {
+                  "en": "We start with the foundation.",
+                  "sl": "Začnemo s temelji.",
+                  "it": "Cominciamo dalle fondamenta.",
+                  "de": "Wir fangen mit dem Fundament an.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "That's right, love. From the bottom up.",
+                    "sl": "Tako je. Od spodaj navzgor.",
+                    "it": "Esatto, tesoro. Dal basso verso l'alto.",
+                    "de": "Richtig, Schatz. Von unten nach oben."
+                  }
+                },
+                {
+                  "en": "We start with the roof.",
+                  "sl": "Začnemo s streho.",
+                  "it": "Cominciamo dal tetto.",
+                  "de": "Wir fangen mit dem Dach an.",
+                  "why": {
+                    "en": "The roof comes last, at the top. You start at the bottom: the foundation.",
+                    "sl": "Streha pride zadnja, na vrh. Začneš spodaj: s temelji, the foundation.",
+                    "it": "Il tetto viene per ultimo, in cima. Si comincia dal basso: le fondamenta, the foundation.",
+                    "de": "Das Dach kommt zuletzt, oben drauf. Man fängt unten an: mit dem Fundament, the foundation."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The roof first? It'd fall on our heads, love!",
+                    "sl": "Najprej streha? Padla bi nam na glavo!",
+                    "it": "Prima il tetto? Ci cadrebbe in testa, tesoro!",
+                    "de": "Zuerst das Dach? Das fällt uns auf den Kopf, Schatz!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "dixon",
+              "en": "Dig deep. A shallow hole is no good.",
+              "sl": "Kopljite globoko. Plitva jama ni dobra.",
+              "it": "Scavate in profondità. Una buca bassa non va bene.",
+              "de": "Tief graben. Ein flaches Loch taugt nichts."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Shall I put the big stones at the bottom?",
+                  "sl": "Naj dam velike kamne na dno?",
+                  "it": "Metto le pietre grandi in fondo?",
+                  "de": "Soll ich die großen Steine nach unten legen?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Yes, love. Big ones at the bottom, small ones on top.",
+                    "sl": "Ja. Veliki na dno, majhni na vrh.",
+                    "it": "Sì, tesoro. Le grandi in fondo, le piccole sopra.",
+                    "de": "Ja, Schatz. Die großen nach unten, die kleinen oben drauf."
+                  }
+                },
+                {
+                  "en": "Shall I put the big stones at the top?",
+                  "sl": "Naj dam velike kamne na vrh?",
+                  "it": "Metto le pietre grandi in cima?",
+                  "de": "Soll ich die großen Steine nach oben legen?",
+                  "why": {
+                    "en": "The big stones hold everything up, so they go down at the bottom.",
+                    "sl": "Veliki kamni nosijo vse ostalo, zato gredo dol, na dno: the bottom.",
+                    "it": "Le pietre grandi reggono tutto, quindi vanno giù, in fondo: the bottom.",
+                    "de": "Die großen Steine tragen alles, darum kommen sie nach unten: the bottom."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "At the top? They'd fall on our heads, love!",
+                    "sl": "Na vrh? Padli bi nam na glavo!",
+                    "it": "In cima? Ci cadrebbero in testa, tesoro!",
+                    "de": "Nach oben? Die fallen uns auf den Kopf, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna"
+            },
+            {
+              "who": "edna",
+              "face": "proud",
+              "en": "Good. On this foundation our chapel will stand for a hundred years!",
+              "sl": "Dobro. Na teh temeljih bo naša kapelica stala sto let!",
+              "it": "Bene. Su queste fondamenta la nostra cappella resterà in piedi cent'anni!",
+              "de": "Gut. Auf diesem Fundament steht unsere Kapelle hundert Jahre!"
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "Today we lay the foundation. Everybody, bring stones!",
+              "sl": "Danes postavljamo temelje. Vsi, prinesite kamne!",
+              "it": "Oggi facciamo le fondamenta. Tutti quanti, portate pietre!",
+              "de": "Heute legen wir das Fundament. Alle, bringt Steine!"
+            },
+            {
+              "who": "dixon",
+              "en": "The hole's ready. Deep and wide.",
+              "sl": "Jama je pripravljena. Globoka in široka.",
+              "it": "La buca è pronta. Profonda e larga.",
+              "de": "Das Loch ist fertig. Tief und breit."
+            },
+            {
+              "choices": [
+                {
+                  "en": "The biggest stones go at the bottom.",
+                  "sl": "Največji kamni gredo na dno.",
+                  "it": "Le pietre più grandi vanno in fondo.",
+                  "de": "Die größten Steine kommen nach unten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "That's right, love. The big ones first.",
+                    "sl": "Tako je. Najprej veliki.",
+                    "it": "Esatto, tesoro. Prima le grandi.",
+                    "de": "Richtig, Schatz. Zuerst die großen."
+                  }
+                },
+                {
+                  "en": "The biggest stones go at the top.",
+                  "sl": "Največji kamni gredo na vrh.",
+                  "it": "Le pietre più grandi vanno in cima.",
+                  "de": "Die größten Steine kommen nach oben.",
+                  "why": {
+                    "en": "The biggest stones hold the chapel up, so they go at the bottom.",
+                    "sl": "Največji kamni nosijo kapelico, zato gredo na dno: the bottom.",
+                    "it": "Le pietre più grandi reggono la cappella, quindi vanno in fondo: the bottom.",
+                    "de": "Die größten Steine tragen die Kapelle, darum kommen sie nach unten: the bottom."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "en": "At the top? Then the chapel would fall over, love!",
+                    "sl": "Na vrh? Potem bi se kapelica prevrnila!",
+                    "it": "In cima? Allora la cappella cadrebbe, tesoro!",
+                    "de": "Nach oben? Dann fällt die Kapelle um, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna"
+            },
+            {
+              "who": "edna",
+              "face": "thinking",
+              "en": "Now pass the stones down, everyone. One by one!",
+              "sl": "Zdaj si vsi podajajte kamne. Enega za drugim!",
+              "it": "Adesso passatevi le pietre, tutti. Una alla volta!",
+              "de": "Jetzt reicht die Steine runter, alle. Einen nach dem anderen!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "These stones are the foundation of our chapel.",
+                  "sl": "Ti kamni so temelji naše kapelice.",
+                  "it": "Queste pietre sono le fondamenta della nostra cappella.",
+                  "de": "Diese Steine sind das Fundament unserer Kapelle.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Strong foundation, strong chapel. Strong, I said!",
+                    "sl": "Trdni temelji, trdna kapelica. Trdna, sem rekla!",
+                    "it": "Fondamenta robuste, cappella robusta. Robusta, ho detto!",
+                    "de": "Starkes Fundament, starke Kapelle. Stark, hab ich gesagt!"
+                  }
+                },
+                {
+                  "en": "These stones are the bell of our chapel.",
+                  "sl": "Ti kamni so zvon naše kapelice.",
+                  "it": "Queste pietre sono la campana della nostra cappella.",
+                  "de": "Diese Steine sind die Glocke unserer Kapelle.",
+                  "why": {
+                    "en": "The bell rings at the top. The stones at the bottom are the foundation.",
+                    "sl": "Zvon zvoni na vrhu. Kamni na dnu so temelji: the foundation.",
+                    "it": "La campana suona in cima. Le pietre in fondo sono le fondamenta: the foundation.",
+                    "de": "Die Glocke läutet oben. Die Steine unten sind das Fundament: the foundation."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The bell? Stones don't ring, love!",
+                    "sl": "Zvon? Kamni ne zvonijo!",
+                    "it": "La campana? Le pietre non suonano, tesoro!",
+                    "de": "Die Glocke? Steine läuten nicht, Schatz!"
+                  }
+                },
+                {
+                  "en": "These stones is the foundation of our chapel.",
+                  "sl": "Ti kamni so temelji naše kapelice.",
+                  "it": "Queste pietre sono le fondamenta della nostra cappella.",
+                  "de": "Diese Steine sind das Fundament unserer Kapelle.",
+                  "grammar": "to-be",
+                  "why": {
+                    "en": "These stones are more than one: are.",
+                    "sl": "These stones je več kamnov: are.",
+                    "it": "These stones sono più di una: are.",
+                    "de": "These stones sind mehrere: are."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Is? Lots and lots of stones, love!",
+                    "sl": "Is? Saj je veliko kamnov!",
+                    "it": "Is? Ci sono tante pietre, tesoro!",
+                    "de": "Is? Das sind doch viele Steine, Schatz!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "words": ["grey", "builder"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "Now the walls. Everybody carry stones! Carry, I said!",
+              "sl": "Zdaj stene. Vsi nosite kamne! Nosite, sem rekla!",
+              "it": "Adesso i muri. Tutti a portare pietre! Portare, ho detto!",
+              "de": "Jetzt die Mauern. Alle Steine tragen! Tragen, hab ich gesagt!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "These stones are grey, like the fells.",
+                  "sl": "Ti kamni so sivi kot hribi.",
+                  "it": "Queste pietre sono grigie, come i monti.",
+                  "de": "Diese Steine sind grau, wie die Berge.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Lakeland stone, love. The best there is.",
+                    "sl": "Kamen iz Lake Districta. Najboljši, kar jih je.",
+                    "it": "Pietra del Lake District, tesoro. La migliore che ci sia.",
+                    "de": "Stein aus dem Lake District, Schatz. Der beste, den es gibt."
+                  }
+                },
+                {
+                  "en": "These stones are pink, like the fells.",
+                  "sl": "Ti kamni so rožnati kot hribi.",
+                  "it": "Queste pietre sono rosa, come i monti.",
+                  "de": "Diese Steine sind rosa, wie die Berge.",
+                  "why": {
+                    "en": "Lakeland stone is grey slate. Pink is for flowers.",
+                    "sl": "Kamen v Lake Districtu je siv skrilavec. Rožnate so rože.",
+                    "it": "La pietra del Lake District è ardesia grigia. Rosa sono i fiori.",
+                    "de": "Der Stein im Lake District ist grauer Schiefer. Rosa sind Blumen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Pink? Our fells aren't pink, love! Well, only at sunset.",
+                    "sl": "Rožnati? Naši hribi niso rožnati! No, samo ob sončnem zahodu.",
+                    "it": "Rosa? I nostri monti non sono rosa, tesoro! Be', solo al tramonto.",
+                    "de": "Rosa? Unsere Berge sind nicht rosa, Schatz! Na ja, nur bei Sonnenuntergang."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "poppy",
+              "face": "proud",
+              "en": "This one's heavy! But I can do it!",
+              "sl": "Ta je težak! Ampak zmorem!",
+              "it": "Questa è pesante! Ma ce la faccio!",
+              "de": "Der ist schwer! Aber ich schaff das!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "We're all builders today!",
+                  "sl": "Danes smo vsi gradbeniki!",
+                  "it": "Oggi siamo tutti muratori!",
+                  "de": "Heute sind wir alle Bauleute!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The best builders in the dale!",
+                    "sl": "Najboljši gradbeniki v dolini!",
+                    "it": "I migliori muratori della valle!",
+                    "de": "Die besten Bauleute im Tal!"
+                  }
+                },
+                {
+                  "en": "We're all bakers today!",
+                  "sl": "Danes smo vsi peki!",
+                  "it": "Oggi siamo tutti fornai!",
+                  "de": "Heute sind wir alle Bäcker!",
+                  "why": {
+                    "en": "Bakers make bread and cakes. Today we build walls: we're builders.",
+                    "sl": "Peki pečejo kruh in pecivo. Danes gradimo stene: builders.",
+                    "it": "I fornai fanno pane e dolci. Oggi costruiamo muri: builders.",
+                    "de": "Bäcker backen Brot und Kuchen. Heute bauen wir Mauern: builders."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Bakers? Then where are the cakes, love?",
+                    "sl": "Peki? Kje je potem pecivo?",
+                    "it": "Fornai? E allora dove sono le torte, tesoro?",
+                    "de": "Bäcker? Wo ist dann der Kuchen, Schatz?"
+                  }
+                },
+                {
+                  "en": "We're all builder today!",
+                  "sl": "Danes smo vsi gradbeniki!",
+                  "it": "Oggi siamo tutti muratori!",
+                  "de": "Heute sind wir alle Bauleute!",
+                  "grammar": "plurals",
+                  "why": {
+                    "en": "We are more than one: the plural, builders.",
+                    "sl": "We je več ljudi: množina, builders.",
+                    "it": "We sono più persone: il plurale, builders.",
+                    "de": "We sind mehrere: der Plural, builders."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Just one? There are lots of us, love!",
+                    "sl": "Samo eden? Saj nas je veliko!",
+                    "it": "Uno solo? Siamo in tanti, tesoro!",
+                    "de": "Nur einer? Wir sind doch viele, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            },
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "Our chapel is growing! Growing, I said!",
+              "sl": "Naša kapelica raste! Raste, sem rekla!",
+              "it": "La nostra cappella cresce! Cresce, ho detto!",
+              "de": "Unsere Kapelle wächst! Wächst, hab ich gesagt!"
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "The walls are getting higher every day.",
+              "sl": "Stene so vsak dan višje.",
+              "it": "I muri crescono ogni giorno.",
+              "de": "Die Mauern werden jeden Tag höher."
+            },
+            {
+              "who": "dixon",
+              "en": "Good stones. Grey slate from the fell.",
+              "sl": "Dobri kamni. Siv skrilavec s hriba.",
+              "it": "Buone pietre. Ardesia grigia del monte.",
+              "de": "Gute Steine. Grauer Schiefer vom Berg."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I love the grey stone.",
+                  "sl": "Siv kamen mi je zelo všeč.",
+                  "it": "Adoro la pietra grigia.",
+                  "de": "Ich liebe den grauen Stein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "So do I, love. It looks like the fells.",
+                    "sl": "Meni tudi. Takšen je kot hribi.",
+                    "it": "Anch'io, tesoro. Somiglia ai monti.",
+                    "de": "Ich auch, Schatz. Er sieht aus wie die Berge."
+                  }
+                },
+                {
+                  "en": "I love the green stone.",
+                  "sl": "Zelen kamen mi je zelo všeč.",
+                  "it": "Adoro la pietra verde.",
+                  "de": "Ich liebe den grünen Stein.",
+                  "why": {
+                    "en": "These stones are grey slate. The green bits are moss.",
+                    "sl": "Ti kamni so siv skrilavec. Zeleni deli so mah.",
+                    "it": "Queste pietre sono ardesia grigia. Il verde è muschio.",
+                    "de": "Diese Steine sind grauer Schiefer. Das Grüne ist Moos."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Green? That's the moss, love!",
+                    "sl": "Zelen? To je mah!",
+                    "it": "Verde? È il muschio, tesoro!",
+                    "de": "Grün? Das ist das Moos, Schatz!"
+                  }
+                },
+                {
+                  "en": "I loves the grey stone.",
+                  "sl": "Siv kamen mi je zelo všeč.",
+                  "it": "Adoro la pietra grigia.",
+                  "de": "Ich liebe den grauen Stein.",
+                  "grammar": "present-simple",
+                  "why": {
+                    "en": "With I, the verb has no -s: I love.",
+                    "sl": "Pri I glagol nima -s: I love.",
+                    "it": "Con I il verbo non prende la -s: I love.",
+                    "de": "Bei I hat das Verb kein -s: I love."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Loves? Eh? Say it again!",
+                    "sl": "Loves? Kaj? Še enkrat?",
+                    "it": "Loves? Eh? Di nuovo, tesoro?",
+                    "de": "Loves? Hä? Noch mal, Schatz?"
+                  }
+                }
+              ],
+              "to": "edna",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            },
+            {
+              "who": "edna",
+              "face": "curious",
+              "en": "Who built these fine walls?",
+              "sl": "Kdo je zgradil te lepe stene?",
+              "it": "Chi ha costruito questi bei muri?",
+              "de": "Wer hat diese schönen Mauern gebaut?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "We did! We're good builders.",
+                  "sl": "Mi! Dobri gradbeniki smo.",
+                  "it": "Noi! Siamo bravi muratori.",
+                  "de": "Wir! Wir sind gute Bauleute.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "The best in the dale, love! The best, I said!",
+                    "sl": "Najboljši v dolini! Najboljši, sem rekla!",
+                    "it": "I migliori della valle, tesoro! I migliori, ho detto!",
+                    "de": "Die besten im Tal, Schatz! Die besten, hab ich gesagt!"
+                  }
+                },
+                {
+                  "en": "We did! We're good bakers.",
+                  "sl": "Mi! Dobri peki smo.",
+                  "it": "Noi! Siamo bravi fornai.",
+                  "de": "Wir! Wir sind gute Bäcker.",
+                  "why": {
+                    "en": "Bakers make bread. People who build walls are builders.",
+                    "sl": "Peki pečejo kruh. Kdor gradi stene, je builder.",
+                    "it": "I fornai fanno il pane. Chi costruisce muri è un builder.",
+                    "de": "Bäcker backen Brot. Wer Mauern baut, ist ein builder."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Bakers? These walls aren't made of bread, love!",
+                    "sl": "Peki? Te stene niso iz kruha!",
+                    "it": "Fornai? Questi muri non sono di pane, tesoro!",
+                    "de": "Bäcker? Die Mauern sind doch nicht aus Brot, Schatz!"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "words": ["wooden", "key"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "Oak beams for the roof, and a heavy wooden door.",
+              "sl": "Hrastovi tramovi za streho in težka lesena vrata.",
+              "it": "Travi di quercia per il tetto e una porta di legno pesante.",
+              "de": "Eichenbalken fürs Dach und eine schwere Holztür."
+            },
+            {
+              "choices": [
+                {
+                  "en": "The door is wooden and heavy.",
+                  "sl": "Vrata so lesena in težka.",
+                  "it": "La porta è di legno e pesante.",
+                  "de": "Die Tür ist aus Holz und schwer.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Oak, love. It'll last a hundred years.",
+                    "sl": "Hrastova. Zdržala bo sto let.",
+                    "it": "Di quercia, tesoro. Durerà cent'anni.",
+                    "de": "Eiche, Schatz. Die hält hundert Jahre."
+                  }
+                },
+                {
+                  "en": "The door is woollen and heavy.",
+                  "sl": "Vrata so volnena in težka.",
+                  "it": "La porta è di lana e pesante.",
+                  "de": "Die Tür ist aus Wolle und schwer.",
+                  "why": {
+                    "en": "Woollen is made of wool, like a jumper! A door made of wood is wooden.",
+                    "sl": "Woollen je volneno, kot pulover! Vrata iz lesa so wooden.",
+                    "it": "Woollen è di lana, come un maglione! Una porta di legno è wooden.",
+                    "de": "Woollen ist aus Wolle, wie ein Pullover! Eine Tür aus Holz ist wooden."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Woollen? I've knitted lots of things, love, but never a door!",
+                    "sl": "Volnena? Spletla sem veliko stvari, a vrat še nikoli!",
+                    "it": "Di lana? Ho fatto a maglia tante cose, tesoro, ma mai una porta!",
+                    "de": "Aus Wolle? Ich hab schon viel gestrickt, Schatz, aber nie eine Tür!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "dixon",
+              "en": "And a big iron key, from the forge.",
+              "sl": "In velik železen ključ iz kovačnice.",
+              "it": "E una grossa chiave di ferro, della fucina.",
+              "de": "Und ein großer Eisenschlüssel, aus der Schmiede."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Can I keep the key, Auntie Edna?",
+                  "sl": "Lahko jaz hranim ključ, teta Edna?",
+                  "it": "Posso tenere io la chiave, zia Edna?",
+                  "de": "Darf ich den Schlüssel behalten, Tante Edna?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Here you are, love. Don't lose it!",
+                    "sl": "Izvoli. Ne izgubi ga!",
+                    "it": "Ecco, tesoro. Non perderla!",
+                    "de": "Hier, Schatz. Verlier ihn nicht!"
+                  }
+                },
+                {
+                  "en": "Can I keep the cake, Auntie Edna?",
+                  "sl": "Lahko jaz obdržim torto, teta Edna?",
+                  "it": "Posso tenere io la torta, zia Edna?",
+                  "de": "Darf ich den Kuchen behalten, Tante Edna?",
+                  "why": {
+                    "en": "A key opens a door. A cake you eat!",
+                    "sl": "Key je ključ, odpre vrata. Cake je torta, ki jo poješ!",
+                    "it": "Key è la chiave, apre la porta. Cake è la torta, si mangia!",
+                    "de": "Key ist der Schlüssel, er öffnet die Tür. Cake ist Kuchen, den isst man!"
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The cake? There isn't one! Well, not yet.",
+                    "sl": "Torto? Saj je ni! No, še ne.",
+                    "it": "La torta? Non c'è! Be', non ancora.",
+                    "de": "Den Kuchen? Es gibt keinen! Na ja, noch nicht."
+                  }
+                },
+                {
+                  "en": "Can I keeps the key, Auntie Edna?",
+                  "sl": "Lahko jaz hranim ključ, teta Edna?",
+                  "it": "Posso tenere io la chiave, zia Edna?",
+                  "de": "Darf ich den Schlüssel behalten, Tante Edna?",
+                  "grammar": "can",
+                  "why": {
+                    "en": "After can, no -s: can I keep?",
+                    "sl": "Za can ni -s: can I keep?",
+                    "it": "Dopo can niente -s: can I keep?",
+                    "de": "Nach can kein -s: can I keep?"
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Keeps? Eh? Say that again, love!",
+                    "sl": "Keeps? Kaj? Še enkrat povej!",
+                    "it": "Keeps? Eh? Ripetilo, tesoro!",
+                    "de": "Keeps? Hä? Sag das noch mal, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            },
+            {
+              "who": "edna",
+              "face": "proud",
+              "en": "Now our chapel has a roof, a door and a key!",
+              "sl": "Zdaj ima naša kapelica streho, vrata in ključ!",
+              "it": "Adesso la nostra cappella ha un tetto, una porta e una chiave!",
+              "de": "Jetzt hat unsere Kapelle ein Dach, eine Tür und einen Schlüssel!"
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "The beams are up and the roof is on. Now the door!",
+              "sl": "Tramovi so gor in streha je na mestu. Zdaj pa vrata!",
+              "it": "Le travi sono su e il tetto è fatto. Adesso la porta!",
+              "de": "Die Balken sind oben, das Dach ist drauf. Jetzt die Tür!"
+            },
+            {
+              "who": "dixon",
+              "en": "Heavy wooden door. Oak. Lasts a hundred years.",
+              "sl": "Težka lesena vrata. Hrastova. Zdržijo sto let.",
+              "it": "Porta di legno pesante. Quercia. Dura cent'anni.",
+              "de": "Schwere Holztür. Eiche. Hält hundert Jahre."
+            },
+            {
+              "choices": [
+                {
+                  "en": "A wooden door is strong.",
+                  "sl": "Lesena vrata so trdna.",
+                  "it": "Una porta di legno è robusta.",
+                  "de": "Eine Holztür ist stabil.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "And it smells lovely, love. Like the wood.",
+                    "sl": "In lepo diši. Po gozdu.",
+                    "it": "E profuma, tesoro. Di bosco.",
+                    "de": "Und sie riecht so gut, Schatz. Nach Wald."
+                  }
+                },
+                {
+                  "en": "A woollen door is strong.",
+                  "sl": "Volnena vrata so trdna.",
+                  "it": "Una porta di lana è robusta.",
+                  "de": "Eine Tür aus Wolle ist stabil.",
+                  "why": {
+                    "en": "Woollen is made of wool. A door made of wood is wooden.",
+                    "sl": "Woollen je volneno. Vrata iz lesa so wooden.",
+                    "it": "Woollen è di lana. Una porta di legno è wooden.",
+                    "de": "Woollen ist aus Wolle. Eine Tür aus Holz ist wooden."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Woollen? I'd knit it, but the wind would blow right through!",
+                    "sl": "Volnena? Spletla bi jih, a veter bi pihal skoznje!",
+                    "it": "Di lana? La farei a maglia, ma il vento ci passerebbe attraverso!",
+                    "de": "Aus Wolle? Ich würde sie stricken, aber der Wind würde durchpfeifen!"
+                  }
+                },
+                {
+                  "en": "A wooden door are strong.",
+                  "sl": "Lesena vrata so trdna.",
+                  "it": "Una porta di legno è robusta.",
+                  "de": "Eine Holztür ist stabil.",
+                  "grammar": "to-be",
+                  "why": {
+                    "en": "One door: is. Are is for more than one.",
+                    "sl": "Ena vrata (door): is. Are je za več.",
+                    "it": "Una porta: is. Are è per più di una.",
+                    "de": "Eine Tür: is. Are ist für mehrere."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Are? It's only one door, love!",
+                    "sl": "Are? Saj so samo ena vrata!",
+                    "it": "Are? È una porta sola, tesoro!",
+                    "de": "Are? Es ist doch nur eine Tür, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            },
+            {
+              "who": "edna",
+              "face": "proud",
+              "en": "And who keeps the key? Me, of course!",
+              "sl": "Kdo pa hrani ključ? Jaz, seveda!",
+              "it": "E chi tiene la chiave? Io, naturalmente!",
+              "de": "Und wer hat den Schlüssel? Ich natürlich!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Don't lose the key, Auntie Edna!",
+                  "sl": "Ne izgubi ključa, teta Edna!",
+                  "it": "Non perdere la chiave, zia Edna!",
+                  "de": "Verlier den Schlüssel nicht, Tante Edna!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Lose it? Never! I'll keep it on a string round my neck.",
+                    "sl": "Izgubiti? Nikoli! Nosila ga bom na vrvici okoli vratu.",
+                    "it": "Perderla? Mai! La terrò su un cordino al collo.",
+                    "de": "Verlieren? Nie! Ich trag ihn an einer Schnur um den Hals."
+                  }
+                },
+                {
+                  "en": "Don't lose the kettle, Auntie Edna!",
+                  "sl": "Ne izgubi kotlička, teta Edna!",
+                  "it": "Non perdere il bollitore, zia Edna!",
+                  "de": "Verlier den Wasserkessel nicht, Tante Edna!",
+                  "why": {
+                    "en": "A kettle is for tea. Edna is talking about the door's key.",
+                    "sl": "Kettle je kotliček za čaj. Edna govori o ključu: key.",
+                    "it": "Kettle è il bollitore per il tè. Edna parla della chiave: key.",
+                    "de": "Kettle ist der Wasserkessel für Tee. Edna spricht vom Schlüssel: key."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The kettle? I'm not making tea, love!",
+                    "sl": "Kotliček? Saj ne kuham čaja!",
+                    "it": "Il bollitore? Non sto facendo il tè, tesoro!",
+                    "de": "Den Wasserkessel? Ich mach doch keinen Tee, Schatz!"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "words": ["cloth", "thread"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "I'm sewing a white cloth for the altar, love.",
+              "sl": "Šivam bel prt za oltar.",
+              "it": "Sto cucendo una tovaglia bianca per l'altare, tesoro.",
+              "de": "Ich nähe ein weißes Tuch für den Altar, Schatz."
+            },
+            {
+              "choices": [
+                {
+                  "en": "What a beautiful cloth!",
+                  "sl": "Kakšen lep prt!",
+                  "it": "Che bella tovaglia!",
+                  "de": "Was für ein schönes Tuch!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "And little flowers on it, see?",
+                    "sl": "Z majhnimi rožicami, vidiš?",
+                    "it": "E con dei fiorellini, vedi?",
+                    "de": "Und mit kleinen Blumen drauf, siehst du?"
+                  }
+                },
+                {
+                  "en": "What a beautiful clock!",
+                  "sl": "Kakšna lepa ura!",
+                  "it": "Che bell'orologio!",
+                  "de": "Was für eine schöne Uhr!",
+                  "why": {
+                    "en": "A clock tells the time. Edna is sewing a cloth.",
+                    "sl": "Clock je ura. Edna šiva prt: cloth.",
+                    "it": "Clock è l'orologio. Edna cuce una tovaglia: cloth.",
+                    "de": "Clock ist eine Uhr. Edna näht ein Tuch: cloth."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A clock? It doesn't tick, love!",
+                    "sl": "Ura? Saj ne tiktaka!",
+                    "it": "Un orologio? Non fa tic tac, tesoro!",
+                    "de": "Eine Uhr? Die tickt doch nicht, Schatz!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "maggie",
+              "en": "Blue flowers and yellow ones. Lovely.",
+              "sl": "Modre rožice in rumene. Krasno.",
+              "it": "Fiori blu e fiori gialli. Che belli.",
+              "de": "Blaue Blumen und gelbe. Wunderschön."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Do you need more thread?",
+                  "sl": "Potrebuješ še sukanca?",
+                  "it": "Ti serve altro filo?",
+                  "de": "Brauchst du mehr Faden?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Yes, love. The yellow thread, please.",
+                    "sl": "Ja. Rumeni sukanec, prosim.",
+                    "it": "Sì, tesoro. Il filo giallo, per favore.",
+                    "de": "Ja, Schatz. Den gelben Faden, bitte."
+                  }
+                },
+                {
+                  "en": "Do you need more bread?",
+                  "sl": "Potrebuješ še kruha?",
+                  "it": "Ti serve altro pane?",
+                  "de": "Brauchst du mehr Brot?",
+                  "why": {
+                    "en": "Bread is for eating. For sewing you need thread.",
+                    "sl": "Bread je kruh. Za šivanje potrebuješ sukanec: thread.",
+                    "it": "Bread è il pane. Per cucire ci vuole il filo: thread.",
+                    "de": "Bread ist Brot. Zum Nähen braucht man Faden: thread."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Bread? I'm sewing, love, not making sandwiches!",
+                    "sl": "Kruha? Šivam, ne delam sendvičev!",
+                    "it": "Pane? Sto cucendo, tesoro, non facendo panini!",
+                    "de": "Brot? Ich nähe, Schatz, ich mach keine Brote!"
+                  }
+                },
+                {
+                  "en": "Does you need more thread?",
+                  "sl": "Potrebuješ še sukanca?",
+                  "it": "Ti serve altro filo?",
+                  "de": "Brauchst du mehr Faden?",
+                  "grammar": "questions-do",
+                  "why": {
+                    "en": "With you, the question needs do: do you need …?",
+                    "sl": "Pri you vprašanje potrebuje do: do you need …?",
+                    "it": "Con you la domanda vuole do: do you need …?",
+                    "de": "Bei you braucht die Frage do: do you need …?"
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Does? Eh? Louder, love!",
+                    "sl": "Does? Kaj? Glasneje!",
+                    "it": "Does? Eh? Più forte, tesoro!",
+                    "de": "Does? Hä? Lauter, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            },
+            {
+              "who": "edna",
+              "face": "proud",
+              "en": "There. A white cloth with little flowers. Finished!",
+              "sl": "Tako. Bel prt z rožicami. Končano!",
+              "it": "Ecco. Una tovaglia bianca con i fiorellini. Finita!",
+              "de": "So. Ein weißes Tuch mit kleinen Blumen. Fertig!"
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "My mother taught me to sew. Now I'm sewing the altar cloth.",
+              "sl": "Šivati me je naučila mama. Zdaj šivam oltarni prt.",
+              "it": "Mia madre mi ha insegnato a cucire. Adesso cucio la tovaglia d'altare.",
+              "de": "Meine Mutter hat mir das Nähen beigebracht. Jetzt nähe ich das Altartuch."
+            },
+            {
+              "who": "poppy",
+              "face": "curious",
+              "en": "Can I sew a flower too?",
+              "sl": "Lahko tudi jaz zašijem rožico?",
+              "it": "Posso cucire anch'io un fiore?",
+              "de": "Darf ich auch eine Blume nähen?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Here's some yellow thread for you.",
+                  "sl": "Izvoli rumen sukanec.",
+                  "it": "Ecco del filo giallo per te.",
+                  "de": "Hier ist gelber Faden für dich.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Thank you! A flower in every corner!",
+                    "sl": "Hvala! V vsakem kotu rožica!",
+                    "it": "Grazie! Un fiore in ogni angolo!",
+                    "de": "Danke! In jede Ecke eine Blume!"
+                  }
+                },
+                {
+                  "en": "Here's some yellow bread for you.",
+                  "sl": "Izvoli rumen kruh.",
+                  "it": "Ecco del pane giallo per te.",
+                  "de": "Hier ist gelbes Brot für dich.",
+                  "why": {
+                    "en": "Bread is for eating. For sewing: thread.",
+                    "sl": "Bread je kruh. Za šivanje: thread, sukanec.",
+                    "it": "Bread è il pane. Per cucire: thread, il filo.",
+                    "de": "Bread ist Brot. Zum Nähen: thread, Faden."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Yellow bread? For the altar cloth? Ha!",
+                    "sl": "Rumen kruh? Za oltarni prt? Ha!",
+                    "it": "Pane giallo? Per la tovaglia d'altare? Ah!",
+                    "de": "Gelbes Brot? Fürs Altartuch? Ha!"
+                  }
+                }
+              ],
+              "to": "edna"
+            },
+            {
+              "who": "edna",
+              "face": "thinking",
+              "en": "Now the last corner…",
+              "sl": "Zdaj pa še zadnji kot …",
+              "it": "Adesso l'ultimo angolo…",
+              "de": "Jetzt noch die letzte Ecke …"
+            },
+            {
+              "choices": [
+                {
+                  "en": "The cloth is ready for the altar!",
+                  "sl": "Prt je pripravljen za oltar!",
+                  "it": "La tovaglia è pronta per l'altare!",
+                  "de": "Das Tuch ist fertig für den Altar!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Ready, love! Ready, I said!",
+                    "sl": "Pripravljen! Pripravljen, sem rekla!",
+                    "it": "Pronta, tesoro! Pronta, ho detto!",
+                    "de": "Fertig, Schatz! Fertig, hab ich gesagt!"
+                  }
+                },
+                {
+                  "en": "The clock is ready for the altar!",
+                  "sl": "Ura je pripravljena za oltar!",
+                  "it": "L'orologio è pronto per l'altare!",
+                  "de": "Die Uhr ist fertig für den Altar!",
+                  "why": {
+                    "en": "A clock tells the time. On the altar goes the cloth.",
+                    "sl": "Clock je ura. Na oltar gre prt: cloth.",
+                    "it": "Clock è l'orologio. Sull'altare va la tovaglia: cloth.",
+                    "de": "Clock ist eine Uhr. Auf den Altar kommt das Tuch: cloth."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A clock? On the altar? Tick, tock!",
+                    "sl": "Ura? Na oltarju? Tik, tak!",
+                    "it": "Un orologio? Sull'altare? Tic, tac!",
+                    "de": "Eine Uhr? Auf dem Altar? Tick, tack!"
+                  }
+                },
+                {
+                  "en": "The cloth are ready for the altar!",
+                  "sl": "Prt je pripravljen za oltar!",
+                  "it": "La tovaglia è pronta per l'altare!",
+                  "de": "Das Tuch ist fertig für den Altar!",
+                  "grammar": "to-be",
+                  "why": {
+                    "en": "One cloth: is. Are is for more than one.",
+                    "sl": "En prt: is. Are je za več.",
+                    "it": "Una tovaglia: is. Are è per più di una.",
+                    "de": "Ein Tuch: is. Are ist für mehrere."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Are? Just the one cloth, love!",
+                    "sl": "Are? Saj je samo en prt!",
+                    "it": "Are? C'è una tovaglia sola, tesoro!",
+                    "de": "Are? Es ist doch nur ein Tuch, Schatz!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "words": ["ring", "sound"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "The last thing: the little bell. Up it goes!",
+              "sl": "Še zadnja stvar: zvonček. Gor z njim!",
+              "it": "L'ultima cosa: la campanella. Su!",
+              "de": "Das Letzte: die kleine Glocke. Hoch damit!"
+            },
+            { "who": "dixon", "en": "Hung. Ready.", "sl": "Obešen. Pripravljen.", "it": "Appesa. Pronta.", "de": "Hängt. Fertig." },
+            {
+              "choices": [
+                {
+                  "en": "Can I ring it, Auntie Edna?",
+                  "sl": "Lahko jaz pozvonim, teta Edna?",
+                  "it": "Posso suonarla io, zia Edna?",
+                  "de": "Darf ich sie läuten, Tante Edna?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Go on, love! Ding, ding!",
+                    "sl": "Kar! Cin, cin!",
+                    "it": "Vai, tesoro! Din, din!",
+                    "de": "Nur zu, Schatz! Bim, bim!",
+                    "fx": { "bell": 1 }
+                  }
+                },
+                {
+                  "en": "Can I sing it, Auntie Edna?",
+                  "sl": "Lahko jo zapojem, teta Edna?",
+                  "it": "Posso cantarla, zia Edna?",
+                  "de": "Darf ich sie singen, Tante Edna?",
+                  "why": {
+                    "en": "You sing a song. A bell, you ring.",
+                    "sl": "Sing je peti, pesem. Zvon pa ring, zvoniš.",
+                    "it": "Sing è cantare, una canzone. La campana si ring, si suona.",
+                    "de": "Sing ist singen, ein Lied. Eine Glocke ring, läutet man."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Sing it? It's a bell, love, not a song!",
+                    "sl": "Zapeti? To je zvon, ne pesem!",
+                    "it": "Cantarla? È una campana, tesoro, non una canzone!",
+                    "de": "Singen? Das ist eine Glocke, Schatz, kein Lied!"
+                  }
+                },
+                {
+                  "en": "Can I rings it, Auntie Edna?",
+                  "sl": "Lahko jaz pozvonim, teta Edna?",
+                  "it": "Posso suonarla io, zia Edna?",
+                  "de": "Darf ich sie läuten, Tante Edna?",
+                  "grammar": "can",
+                  "why": {
+                    "en": "After can, no -s: can I ring?",
+                    "sl": "Za can ni -s: can I ring?",
+                    "it": "Dopo can niente -s: can I ring?",
+                    "de": "Nach can kein -s: can I ring?"
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Rings? Eh? My ears, love!",
+                    "sl": "Rings? Kaj? Moja ušesa!",
+                    "it": "Rings? Eh? Le mie orecchie, tesoro!",
+                    "de": "Rings? Hä? Meine Ohren, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            },
+            {
+              "choices": [
+                {
+                  "en": "What a lovely sound!",
+                  "sl": "Kakšen lep zvok!",
+                  "it": "Che bel suono!",
+                  "de": "Was für ein schöner Klang!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "You can hear it up on the fell! Up on the fell, I said!",
+                    "sl": "Sliši se ga gor na hribu! Na hribu, sem rekla!",
+                    "it": "Si sente fin su sul monte! Sul monte, ho detto!",
+                    "de": "Man hört sie bis oben am Berg! Am Berg, hab ich gesagt!"
+                  }
+                },
+                {
+                  "en": "What a lovely smell!",
+                  "sl": "Kakšen lep vonj!",
+                  "it": "Che bel profumo!",
+                  "de": "Was für ein schöner Duft!",
+                  "why": {
+                    "en": "You hear a bell: it makes a sound. A smell is for your nose.",
+                    "sl": "Zvon slišiš: dela zvok, sound. Smell je vonj, za nos.",
+                    "it": "Una campana si sente: fa un suono, sound. Smell è l'odore, per il naso.",
+                    "de": "Eine Glocke hört man: Sie macht einen Klang, sound. Smell ist ein Geruch, für die Nase."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A smell? Bells don't smell, love!",
+                    "sl": "Vonj? Zvonovi ne dišijo!",
+                    "it": "Un profumo? Le campane non profumano, tesoro!",
+                    "de": "Ein Duft? Glocken riechen nicht, Schatz!"
+                  }
+                }
+              ],
+              "to": "edna"
+            },
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "Our little chapel is finished. Finished, I said!",
+              "sl": "Naša kapelica je dokončana. Dokončana, sem rekla!",
+              "it": "La nostra cappellina è finita. Finita, ho detto!",
+              "de": "Unsere kleine Kapelle ist fertig. Fertig, hab ich gesagt!"
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "edna",
+              "face": "happy",
+              "en": "Today we hang the bell. Then our chapel is finished!",
+              "sl": "Danes obesimo zvonček. Potem je kapelica dokončana!",
+              "it": "Oggi appendiamo la campanella. Poi la cappella è finita!",
+              "de": "Heute hängen wir die Glocke auf. Dann ist die Kapelle fertig!"
+            },
+            {
+              "who": "dixon",
+              "en": "There. Pull the rope. Gently.",
+              "sl": "Tako. Potegni vrv. Nežno.",
+              "it": "Ecco. Tira la corda. Piano.",
+              "de": "So. Zieh am Seil. Sachte."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'm ringing the bell!",
+                  "sl": "Zvonim!",
+                  "it": "Sto suonando la campana!",
+                  "de": "Ich läute die Glocke!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Ding, ding! Hear it, love?",
+                    "sl": "Cin, cin! Slišiš?",
+                    "it": "Din, din! La senti, tesoro?",
+                    "de": "Bim, bim! Hörst du, Schatz?",
+                    "fx": { "bell": 1 }
+                  }
+                },
+                {
+                  "en": "I'm singing the bell!",
+                  "sl": "Pojem zvon!",
+                  "it": "Sto cantando la campana!",
+                  "de": "Ich singe die Glocke!",
+                  "why": {
+                    "en": "You sing a song. A bell, you ring.",
+                    "sl": "Sing je peti. Zvon pa ring, zvoniš.",
+                    "it": "Sing è cantare. La campana si ring, si suona.",
+                    "de": "Sing ist singen. Eine Glocke ring, läutet man."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Singing? Pull the rope, love, don't sing!",
+                    "sl": "Poješ? Potegni vrv, ne poj!",
+                    "it": "Canti? Tira la corda, tesoro, non cantare!",
+                    "de": "Singen? Zieh am Seil, Schatz, nicht singen!"
+                  }
+                },
+                {
+                  "en": "I ringing the bell!",
+                  "sl": "Zvonim!",
+                  "it": "Sto suonando la campana!",
+                  "de": "Ich läute die Glocke!",
+                  "grammar": "present-continuous",
+                  "why": {
+                    "en": "The present continuous needs am: I'm ringing (I am ringing).",
+                    "sl": "Present continuous potrebuje am: I'm ringing (I am ringing).",
+                    "it": "Il present continuous ha bisogno di am: I'm ringing (I am ringing).",
+                    "de": "Das Present Continuous braucht am: I'm ringing (I am ringing)."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "You what? I can't hear you over the bell!",
+                    "sl": "Ti kaj? Zaradi zvona te ne slišim!",
+                    "it": "Tu cosa? Non ti sento con la campana!",
+                    "de": "Du was? Ich hör dich nicht, die Glocke ist so laut!"
+                  }
+                }
+              ],
+              "to": "edna",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Say that again, love! Again!",
+                "sl": "Kaj? Še enkrat povej! Še enkrat!",
+                "it": "Eh? Ripetilo, tesoro! Ancora!",
+                "de": "Hä? Sag das noch mal, Schatz! Noch mal!"
+              }
+            },
+            {
+              "who": "edna",
+              "face": "curious",
+              "en": "Listen. Can you hear it on the fell?",
+              "sl": "Poslušaj. Slišiš, kako odmeva na hribu?",
+              "it": "Ascolta. La senti sul monte?",
+              "de": "Hör mal. Hörst du sie am Berg?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes! The sound goes all the way up the fell.",
+                  "sl": "Ja! Zvok gre vse do vrha hriba.",
+                  "it": "Sì! Il suono arriva fino in cima al monte.",
+                  "de": "Ja! Der Klang geht bis ganz oben auf den Berg.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Our little chapel is finished. Finished, I said!",
+                    "sl": "Naša kapelica je dokončana. Dokončana, sem rekla!",
+                    "it": "La nostra cappellina è finita. Finita, ho detto!",
+                    "de": "Unsere kleine Kapelle ist fertig. Fertig, hab ich gesagt!"
+                  }
+                },
+                {
+                  "en": "Yes! The sand goes all the way up the fell.",
+                  "sl": "Ja! Pesek gre vse do vrha hriba.",
+                  "it": "Sì! La sabbia arriva fino in cima al monte.",
+                  "de": "Ja! Der Sand geht bis ganz oben auf den Berg.",
+                  "why": {
+                    "en": "Sand is at the beach. What you hear is a sound.",
+                    "sl": "Sand je pesek. To, kar slišiš, je sound, zvok.",
+                    "it": "Sand è la sabbia. Quello che senti è un suono, sound.",
+                    "de": "Sand ist Sand. Was man hört, ist ein Klang, sound."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Sand? On the fell? Only stones up there, love!",
+                    "sl": "Pesek? Na hribu? Tam so samo kamni!",
+                    "it": "Sabbia? Sul monte? Lassù ci sono solo sassi, tesoro!",
+                    "de": "Sand? Am Berg? Da oben sind nur Steine, Schatz!"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

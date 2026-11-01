@@ -1,0 +1,1325 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "balinisce",
+  "language": "en",
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "project-balinisce",
+  "steps": [
+    {
+      "scene": "on-the-green",
+      "words": ["flat", "shade"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "happy",
+              "en": "{learner}, we want a bowling green. The ground must be flat.",
+              "sl": "{learner}, radi bi travnato balinišče. Tla morajo biti ravna.",
+              "it": "{learner}, vogliamo un prato da bocce. Il terreno dev'essere piatto.",
+              "de": "{learner}, wir wollen einen Bowlingrasen. Der Boden muss flach sein."
+            },
+            {
+              "choices": [
+                {
+                  "en": "This place is flat. Good for bowls!",
+                  "sl": "Ta prostor je raven. Dober za balinanje!",
+                  "it": "Questo posto è piatto. Va bene per le bocce!",
+                  "de": "Dieser Platz ist flach. Gut für Bowls!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Flat as a table. Good.",
+                    "sl": "Raven kot miza. Dobro.",
+                    "it": "Piatto come un tavolo. Bene.",
+                    "de": "Flach wie ein Tisch. Gut."
+                  }
+                },
+                {
+                  "en": "This place is steep. Good for bowls!",
+                  "sl": "Ta prostor je strm. Dober za balinanje!",
+                  "it": "Questo posto è ripido. Va bene per le bocce!",
+                  "de": "Dieser Platz ist steil. Gut für Bowls!",
+                  "why": {
+                    "en": "Steep goes up a hill: the bowls would roll away. For bowls the ground must be flat.",
+                    "sl": "Strm gre v hrib: krogle bi se skotalile proč. Za balinanje morajo biti tla ravna.",
+                    "it": "Ripido vuol dire in salita: le bocce rotolerebbero via. Per le bocce il terreno dev'essere piatto.",
+                    "de": "Steil geht bergauf: Die Kugeln würden wegrollen. Für Bowls muss der Boden flach sein."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Steep? The bowls would roll all the way to the beck!",
+                    "sl": "Strm? Krogle bi se skotalile vse do potoka!",
+                    "it": "Ripido? Le bocce rotolerebbero fino al ruscello!",
+                    "de": "Steil? Die Kugeln würden bis zum Bach rollen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "wilf",
+              "en": "And an old man needs some shade in the summer.",
+              "sl": "Starec pa poleti potrebuje malo sence.",
+              "it": "E un vecchio d'estate ha bisogno di un po' d'ombra.",
+              "de": "Und ein alter Mann braucht im Sommer etwas Schatten."
+            },
+            {
+              "choices": [
+                {
+                  "en": "The oak gives lots of shade.",
+                  "sl": "Hrast daje veliko sence.",
+                  "it": "La quercia fa tanta ombra.",
+                  "de": "Die Eiche gibt viel Schatten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Then it's here. Under the oak.",
+                    "sl": "Potem bo tukaj. Pod hrastom.",
+                    "it": "Allora è qui. Sotto la quercia.",
+                    "de": "Dann hier. Unter der Eiche."
+                  }
+                },
+                {
+                  "en": "The oak gives lots of rain.",
+                  "sl": "Hrast daje veliko dežja.",
+                  "it": "La quercia fa tanta pioggia.",
+                  "de": "Die Eiche gibt viel Regen.",
+                  "why": {
+                    "en": "Rain comes from the clouds. Under a big tree you get shade.",
+                    "sl": "Dež pride iz oblakov. Pod velikim drevesom je senca: shade.",
+                    "it": "La pioggia viene dalle nuvole. Sotto un grande albero c'è l'ombra: shade.",
+                    "de": "Regen kommt aus den Wolken. Unter einem großen Baum ist Schatten: shade."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Rain? Then I'll bring my umbrella!",
+                    "sl": "Dež? Potem bom prinesel dežnik!",
+                    "it": "Pioggia? Allora porto l'ombrello!",
+                    "de": "Regen? Dann bring ich meinen Schirm mit!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "wilf",
+              "face": "happy",
+              "en": "Under the oak, by my bench. That's our place.",
+              "sl": "Pod hrastom, ob moji klopi. To je naš prostor.",
+              "it": "Sotto la quercia, vicino alla mia panchina. È il nostro posto.",
+              "de": "Unter der Eiche, bei meiner Bank. Das ist unser Platz."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "thinking",
+              "en": "We need a flat place for the bowling green, with shade in the summer.",
+              "sl": "Za balinišče potrebujemo raven prostor, poleti s senco.",
+              "it": "Per il prato da bocce ci serve un posto piatto, con l'ombra d'estate.",
+              "de": "Für den Bowlingrasen brauchen wir einen flachen Platz, mit Schatten im Sommer."
+            },
+            {
+              "who": "sam",
+              "en": "What about the field by the beck? It's quite big.",
+              "sl": "Kaj pa polje ob potoku? Kar veliko je.",
+              "it": "E il campo vicino al ruscello? È abbastanza grande.",
+              "de": "Und das Feld am Bach? Das ist ziemlich groß."
+            },
+            {
+              "who": "wilf",
+              "en": "Too steep. A bowl would roll all the way down.",
+              "sl": "Prestrmo. Krogla bi se skotalila čisto dol.",
+              "it": "Troppo ripido. Una boccia rotolerebbe fino in fondo.",
+              "de": "Zu steil. Eine Kugel würde ganz hinunterrollen."
+            },
+            {
+              "choices": [
+                {
+                  "en": "The ground under the oak is flat.",
+                  "sl": "Tla pod hrastom so ravna.",
+                  "it": "Il terreno sotto la quercia è piatto.",
+                  "de": "Der Boden unter der Eiche ist flach.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "It is. I've sat there for sixty years.",
+                    "sl": "Res je. Tam sedim že šestdeset let.",
+                    "it": "È vero. Mi ci siedo da sessant'anni.",
+                    "de": "Stimmt. Da sitze ich seit sechzig Jahren."
+                  }
+                },
+                {
+                  "en": "The ground under the oak is wet.",
+                  "sl": "Tla pod hrastom so mokra.",
+                  "it": "Il terreno sotto la quercia è bagnato.",
+                  "de": "Der Boden unter der Eiche ist nass.",
+                  "why": {
+                    "en": "Wilf wants it flat, so the bowls roll straight. Wet is the rain's job.",
+                    "sl": "Wilf hoče ravna tla, da se krogle kotalijo naravnost. Mokra so od dežja.",
+                    "it": "Wilf lo vuole piatto, perché le bocce vadano dritte. Bagnato lo fa la pioggia.",
+                    "de": "Wilf will ihn flach, damit die Kugeln gerade rollen. Nass macht ihn der Regen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Wet? Only when it rains. So… nearly every day!",
+                    "sl": "Mokra? Samo ko dežuje. Torej … skoraj vsak dan!",
+                    "it": "Bagnato? Solo quando piove. Cioè… quasi tutti i giorni!",
+                    "de": "Nass? Nur wenn es regnet. Also … fast jeden Tag!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            },
+            {
+              "who": "tyson",
+              "en": "And in July the sun is hot.",
+              "sl": "Julija pa sonce močno pripeka.",
+              "it": "E a luglio il sole scotta.",
+              "de": "Und im Juli ist die Sonne heiß."
+            },
+            {
+              "choices": [
+                {
+                  "en": "There's plenty of shade under the oak.",
+                  "sl": "Pod hrastom je veliko sence.",
+                  "it": "Sotto la quercia c'è tanta ombra.",
+                  "de": "Unter der Eiche gibt es viel Schatten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Then it's settled. Our green goes under the oak.",
+                    "sl": "Potem je odločeno. Naše balinišče bo pod hrastom.",
+                    "it": "Allora è deciso. Il nostro prato va sotto la quercia.",
+                    "de": "Dann ist es entschieden. Unser Rasen kommt unter die Eiche."
+                  }
+                },
+                {
+                  "en": "There's plenty of snow under the oak.",
+                  "sl": "Pod hrastom je veliko snega.",
+                  "it": "Sotto la quercia c'è tanta neve.",
+                  "de": "Unter der Eiche gibt es viel Schnee.",
+                  "why": {
+                    "en": "Snow in July? Under a big tree in summer you get shade.",
+                    "sl": "Sneg julija? Pod velikim drevesom je poleti senca: shade.",
+                    "it": "Neve a luglio? Sotto un grande albero d'estate c'è l'ombra: shade.",
+                    "de": "Schnee im Juli? Unter einem großen Baum gibt es im Sommer Schatten: shade."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Snow? In July? Not even in Cumbria!",
+                    "sl": "Sneg? Julija? Še v Cumbrii ne!",
+                    "it": "Neve? A luglio? Neanche in Cumbria!",
+                    "de": "Schnee? Im Juli? Nicht mal in Cumbria!"
+                  }
+                },
+                {
+                  "en": "There are plenty of shade under the oak.",
+                  "sl": "Pod hrastom je veliko sence.",
+                  "it": "Sotto la quercia c'è tanta ombra.",
+                  "de": "Unter der Eiche gibt es viel Schatten.",
+                  "grammar": "there-is-are",
+                  "why": {
+                    "en": "Shade is one thing you don't count: there's (there is).",
+                    "sl": "Shade je nekaj, česar ne štejemo: there's (there is).",
+                    "it": "Shade non si conta: there's (there is).",
+                    "de": "Shade zählt man nicht: there's (there is)."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Are? Eh? Say it again, slowly.",
+                    "sl": "Are? Kaj? Še enkrat, počasi.",
+                    "it": "Are? Eh? Ripetilo, piano.",
+                    "de": "Are? Hä? Noch mal, langsam."
+                  }
+                }
+              ],
+              "to": "wilf",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "on-the-green",
+      "words": ["ground", "bump"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "thinking",
+              "en": "Now we make the ground flat. There are stones and bumps everywhere.",
+              "sl": "Zdaj tla poravnamo. Povsod so kamni in grbine.",
+              "it": "Adesso spianiamo il terreno. Ci sono sassi e gobbe dappertutto.",
+              "de": "Jetzt machen wir den Boden eben. Überall sind Steine und Buckel."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Let's take the stones out of the ground.",
+                  "sl": "Poberimo kamne iz tal.",
+                  "it": "Togliamo i sassi dal terreno.",
+                  "de": "Holen wir die Steine aus dem Boden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. One stone at a time.",
+                    "sl": "Dobro. Kamen za kamnom.",
+                    "it": "Bene. Un sasso alla volta.",
+                    "de": "Gut. Ein Stein nach dem anderen."
+                  }
+                },
+                {
+                  "en": "Let's take the stones out of the sky.",
+                  "sl": "Poberimo kamne z neba.",
+                  "it": "Togliamo i sassi dal cielo.",
+                  "de": "Holen wir die Steine vom Himmel.",
+                  "why": {
+                    "en": "Stones are in the ground, under our feet. The sky is up there.",
+                    "sl": "Kamni so v tleh, pod nogami. Nebo je zgoraj.",
+                    "it": "I sassi sono nel terreno, sotto i piedi. Il cielo è lassù.",
+                    "de": "Steine sind im Boden, unter den Füßen. Der Himmel ist da oben."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Out of the sky? If stones fall from up there, run!",
+                    "sl": "Z neba? Če padajo kamni od tam, beži!",
+                    "it": "Dal cielo? Se cadono sassi da lassù, scappa!",
+                    "de": "Vom Himmel? Wenn da oben Steine fallen, lauf!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "arthur",
+              "en": "Gently, gently. And step on every bump.",
+              "sl": "Nežno, nežno. In stopi na vsako grbino.",
+              "it": "Piano, piano. E schiaccia ogni gobba.",
+              "de": "Sachte, sachte. Und tritt jeden Buckel platt."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Here's a big bump. I'll make it flat.",
+                  "sl": "Tukaj je velika grbina. Jo bom {m:poravnal|f:poravnala}.",
+                  "it": "Qui c'è una gobba grossa. La spiano io.",
+                  "de": "Hier ist ein großer Buckel. Den mach ich platt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Well done. Now it's flat.",
+                    "sl": "Bravo. Zdaj je ravno.",
+                    "it": "Bravo. Adesso è piatto.",
+                    "de": "Gut gemacht. Jetzt ist es flach."
+                  }
+                },
+                {
+                  "en": "Here's a big bee. I'll make it flat.",
+                  "sl": "Tukaj je velika čebela. Jo bom {m:sploščil|f:sploščila}.",
+                  "it": "Qui c'è un'ape grossa. La schiaccio io.",
+                  "de": "Hier ist eine große Biene. Die mach ich platt.",
+                  "why": {
+                    "en": "A bump is a little hill in the ground. A bee is not for flattening!",
+                    "sl": "Bump je majhna grbina v tleh. Čebele pa ne sploščiš!",
+                    "it": "Bump è una piccola gobba nel terreno. Un'ape non si schiaccia!",
+                    "de": "Bump ist ein kleiner Buckel im Boden. Eine Biene macht man nicht platt!"
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "en": "A bee? Don't touch it, it'll sting you!",
+                    "sl": "Čebelo? Ne dotikaj se je, pičila te bo!",
+                    "it": "Un'ape? Non toccarla, ti punge!",
+                    "de": "Eine Biene? Lass sie, die sticht dich!"
+                  }
+                }
+              ],
+              "to": "wilf"
+            },
+            {
+              "who": "wilf",
+              "face": "proud",
+              "en": "One step at a time, and the job gets done.",
+              "sl": "Korak za korakom, pa je delo opravljeno.",
+              "it": "Un passo alla volta, e il lavoro è fatto.",
+              "de": "Schritt für Schritt, und die Arbeit ist getan."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "thinking",
+              "en": "Today we level the ground. Every bump and every stone must go.",
+              "sl": "Danes poravnamo tla. Vsaka grbina in vsak kamen morata proč.",
+              "it": "Oggi spianiamo il terreno. Ogni gobba e ogni sasso devono sparire.",
+              "de": "Heute ebnen wir den Boden ein. Jeder Buckel und jeder Stein muss weg."
+            },
+            {
+              "who": "tyson",
+              "en": "Two spades and a wheelbarrow. Right.",
+              "sl": "Dve lopati in samokolnica. Tako.",
+              "it": "Due vanghe e una carriola. Bene.",
+              "de": "Zwei Spaten und eine Schubkarre. So."
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'll dig the stones out of the ground.",
+                  "sl": "Jaz bom {m:izkopal|f:izkopala} kamne iz tal.",
+                  "it": "Scavo io i sassi dal terreno.",
+                  "de": "Ich grab die Steine aus dem Boden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. And put them in the wheelbarrow.",
+                    "sl": "Dobro. In jih daj v samokolnico.",
+                    "it": "Bene. E mettili nella carriola.",
+                    "de": "Gut. Und leg sie in die Schubkarre."
+                  }
+                },
+                {
+                  "en": "I'll dig the stones out of the oak.",
+                  "sl": "Jaz bom {m:izkopal|f:izkopala} kamne iz hrasta.",
+                  "it": "Scavo io i sassi dalla quercia.",
+                  "de": "Ich grab die Steine aus der Eiche.",
+                  "why": {
+                    "en": "The stones are in the ground, not in the tree.",
+                    "sl": "Kamni so v tleh, ne v drevesu.",
+                    "it": "I sassi sono nel terreno, non nell'albero.",
+                    "de": "Die Steine sind im Boden, nicht im Baum."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Out of the oak? It's a tree, not a quarry!",
+                    "sl": "Iz hrasta? To je drevo, ne kamnolom!",
+                    "it": "Dalla quercia? È un albero, non una cava!",
+                    "de": "Aus der Eiche? Das ist ein Baum, kein Steinbruch!"
+                  }
+                },
+                {
+                  "en": "I'll digs the stones out of the ground.",
+                  "sl": "Jaz bom {m:izkopal|f:izkopala} kamne iz tal.",
+                  "it": "Scavo io i sassi dal terreno.",
+                  "de": "Ich grab die Steine aus dem Boden.",
+                  "grammar": "future",
+                  "why": {
+                    "en": "After will ('ll), the verb has no -s: I'll dig.",
+                    "sl": "Za will ('ll) glagol nima -s: I'll dig.",
+                    "it": "Dopo will ('ll) il verbo non prende la -s: I'll dig.",
+                    "de": "Nach will ('ll) hat das Verb kein -s: I'll dig."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Digs? Eh? Once more.",
+                    "sl": "Digs? Kaj? Še enkrat.",
+                    "it": "Digs? Eh? Ancora una volta.",
+                    "de": "Digs? Hä? Noch einmal."
+                  }
+                }
+              ],
+              "to": "wilf",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            },
+            {
+              "who": "wilf",
+              "face": "curious",
+              "en": "Now walk across it. Can you feel any bumps?",
+              "sl": "Zdaj pojdi čez. Čutiš kakšno grbino?",
+              "it": "Adesso camminaci sopra. Senti qualche gobba?",
+              "de": "Jetzt geh mal drüber. Spürst du noch Buckel?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, there's a bump here, by the bench.",
+                  "sl": "Ja, tukaj ob klopi je grbina.",
+                  "it": "Sì, qui vicino alla panchina c'è una gobba.",
+                  "de": "Ja, hier bei der Bank ist ein Buckel.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "One more stamp… there. Flat as a table.",
+                    "sl": "Še en udarec z nogo … tako. Ravno kot miza.",
+                    "it": "Un'altra pestata… ecco. Piatto come un tavolo.",
+                    "de": "Noch einmal stampfen … so. Flach wie ein Tisch."
+                  }
+                },
+                {
+                  "en": "Yes, there's a bus here, by the bench.",
+                  "sl": "Ja, tukaj ob klopi je avtobus.",
+                  "it": "Sì, qui vicino alla panchina c'è un autobus.",
+                  "de": "Ja, hier bei der Bank ist ein Bus.",
+                  "why": {
+                    "en": "A bus is a big car for lots of people! A bump is a little hill in the ground.",
+                    "sl": "Bus je avtobus! Bump je majhna grbina v tleh.",
+                    "it": "Bus è l'autobus! Bump è una piccola gobba nel terreno.",
+                    "de": "Bus ist ein Bus! Bump ist ein kleiner Buckel im Boden."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A bus? On our green? I'd have seen that!",
+                    "sl": "Avtobus? Na naši zelenici? To bi že {m:videl|f:videla}!",
+                    "it": "Un autobus? Sul nostro prato? L'avrei visto!",
+                    "de": "Ein Bus? Auf unserer Wiese? Den hätte ich gesehen!"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "on-the-green",
+      "words": ["ditch", "corner"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "thinking",
+              "en": "Round the green we dig a little ditch, and we put wooden boards behind it.",
+              "sl": "Okoli trate izkopljemo majhen jarek, za njim pa postavimo lesene deske.",
+              "it": "Intorno al prato scaviamo un piccolo fossato, e dietro mettiamo delle sponde di legno.",
+              "de": "Um den Rasen graben wir einen kleinen Graben und stellen Holzbretter dahinter."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Why do we need a ditch?",
+                  "sl": "Zakaj potrebujemo jarek?",
+                  "it": "Perché ci serve un fossato?",
+                  "de": "Wozu brauchen wir einen Graben?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "A bowl that rolls too far falls in the ditch. Then it's out!",
+                    "sl": "Krogla, ki se skotali predaleč, pade v jarek. Potem je zunaj!",
+                    "it": "Una boccia che rotola troppo lontano cade nel fossato. Allora è fuori!",
+                    "de": "Eine Kugel, die zu weit rollt, fällt in den Graben. Dann ist sie raus!"
+                  }
+                },
+                {
+                  "en": "Why do we need a dish?",
+                  "sl": "Zakaj potrebujemo krožnik?",
+                  "it": "Perché ci serve un piatto?",
+                  "de": "Wozu brauchen wir eine Schüssel?",
+                  "why": {
+                    "en": "A dish is a plate for food. A ditch is a long, narrow hole round the green.",
+                    "sl": "Dish je krožnik za hrano. Ditch je dolg, ozek jarek okoli trate.",
+                    "it": "Dish è un piatto per il cibo. Ditch è un fossato lungo e stretto intorno al prato.",
+                    "de": "Dish ist eine Schüssel fürs Essen. Ditch ist ein langer, schmaler Graben um den Rasen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A dish? We're not having dinner, {learner}!",
+                    "sl": "Krožnik? Saj ne bomo večerjali, {learner}!",
+                    "it": "Un piatto? Non stiamo cenando, {learner}!",
+                    "de": "Eine Schüssel? Wir essen doch nicht zu Abend, {learner}!"
+                  }
+                },
+                {
+                  "en": "Why does we need a ditch?",
+                  "sl": "Zakaj potrebujemo jarek?",
+                  "it": "Perché ci serve un fossato?",
+                  "de": "Wozu brauchen wir einen Graben?",
+                  "grammar": "questions-do",
+                  "why": {
+                    "en": "With we, the question needs do: why do we …?",
+                    "sl": "Pri we vprašanje potrebuje do: why do we …?",
+                    "it": "Con we la domanda vuole do: why do we …?",
+                    "de": "Bei we braucht die Frage do: why do we …?"
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Does? Eh? Ask me again, {m:son|f:lass}.",
+                    "sl": "Does? Kaj? Vprašaj še enkrat.",
+                    "it": "Does? Eh? Chiedimelo di nuovo.",
+                    "de": "Does? Hä? Frag noch mal."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            },
+            {
+              "who": "sam",
+              "face": "happy",
+              "en": "Hammer, nails, boards. Let's go!",
+              "sl": "Kladivo, žeblji, deske. Gremo!",
+              "it": "Martello, chiodi, assi. Andiamo!",
+              "de": "Hammer, Nägel, Bretter. Los geht's!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Shall I start at this corner?",
+                  "sl": "Naj začnem v tem kotu?",
+                  "it": "Comincio da quest'angolo?",
+                  "de": "Soll ich an dieser Ecke anfangen?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Yes. Four corners, four sides.",
+                    "sl": "Ja. Štirje koti, štiri stranice.",
+                    "it": "Sì. Quattro angoli, quattro lati.",
+                    "de": "Ja. Vier Ecken, vier Seiten."
+                  }
+                },
+                {
+                  "en": "Shall I start at this flower?",
+                  "sl": "Naj začnem pri tej roži?",
+                  "it": "Comincio da questo fiore?",
+                  "de": "Soll ich bei dieser Blume anfangen?",
+                  "why": {
+                    "en": "Start where two sides meet: at a corner.",
+                    "sl": "Začni tam, kjer se stikata stranici: v kotu.",
+                    "it": "Comincia dove si incontrano due lati: in un angolo.",
+                    "de": "Fang da an, wo zwei Seiten sich treffen: an einer Ecke."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "At a flower? Then we'll never finish!",
+                    "sl": "Pri roži? Potem ne bomo nikoli končali!",
+                    "it": "Da un fiore? Così non finiamo più!",
+                    "de": "Bei einer Blume? Dann werden wir nie fertig!"
+                  }
+                }
+              ],
+              "to": "wilf"
+            },
+            {
+              "who": "wilf",
+              "face": "proud",
+              "en": "Four corners, four boards. That's a proper bowling green.",
+              "sl": "Štirje koti, štiri deske. To je pravo balinišče.",
+              "it": "Quattro angoli, quattro sponde. Questo sì che è un prato da bocce.",
+              "de": "Vier Ecken, vier Bretter. Das ist ein richtiger Bowlingrasen."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "wilf",
+              "en": "The boards keep the bowls on the green. But first we dig the ditch.",
+              "sl": "Deske zadržijo krogle na trati. Najprej pa izkopljemo jarek.",
+              "it": "Le sponde tengono le bocce sul prato. Ma prima scaviamo il fossato.",
+              "de": "Die Bretter halten die Kugeln auf dem Rasen. Aber zuerst graben wir den Graben."
+            },
+            {
+              "who": "sam",
+              "en": "How deep must it be, Wilf?",
+              "sl": "Kako globok mora biti, Wilf?",
+              "it": "Quanto dev'essere profondo, Wilf?",
+              "de": "Wie tief muss er sein, Wilf?"
+            },
+            {
+              "who": "wilf",
+              "en": "Not deep. Just enough for a bowl to fall into.",
+              "sl": "Ne globok. Ravno toliko, da krogla pade vanj.",
+              "it": "Non profondo. Quanto basta perché ci cada una boccia.",
+              "de": "Nicht tief. Gerade so, dass eine Kugel hineinfällt."
+            },
+            {
+              "choices": [
+                {
+                  "en": "So a bowl in the ditch is out of the game?",
+                  "sl": "Torej je krogla v jarku izven igre?",
+                  "it": "Quindi una boccia nel fossato è fuori gioco?",
+                  "de": "Also ist eine Kugel im Graben aus dem Spiel?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Unless it touched the jack. But that's for later!",
+                    "sl": "Razen če se je dotaknila bulina. Ampak o tem kasneje!",
+                    "it": "A meno che non abbia toccato il pallino. Ma questo dopo!",
+                    "de": "Außer sie hat die Zielkugel berührt. Aber das kommt später!"
+                  }
+                },
+                {
+                  "en": "So a bowl in the dish is out of the game?",
+                  "sl": "Torej je krogla v krožniku izven igre?",
+                  "it": "Quindi una boccia nel piatto è fuori gioco?",
+                  "de": "Also ist eine Kugel in der Schüssel aus dem Spiel?",
+                  "why": {
+                    "en": "A dish is for food. Round the green there's a ditch.",
+                    "sl": "Dish je krožnik za hrano. Okoli trate je jarek: ditch.",
+                    "it": "Dish è un piatto per il cibo. Intorno al prato c'è il fossato: ditch.",
+                    "de": "Dish ist eine Schüssel fürs Essen. Um den Rasen ist ein Graben: ditch."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "In a dish? With gravy? Ha!",
+                    "sl": "V krožniku? Z omako? Ha!",
+                    "it": "Nel piatto? Col sugo? Ah!",
+                    "de": "In der Schüssel? Mit Soße? Ha!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'll put the last board in the corner.",
+                  "sl": "Zadnjo desko bom {m:dal|f:dala} v kot.",
+                  "it": "Metto l'ultima sponda nell'angolo.",
+                  "de": "Ich setz das letzte Brett in die Ecke.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. Hammer it in tight.",
+                    "sl": "Dobro. Trdno jo zabij.",
+                    "it": "Bene. Inchiodala forte.",
+                    "de": "Gut. Schlag es fest ein."
+                  }
+                },
+                {
+                  "en": "I'll put the last board in the chimney.",
+                  "sl": "Zadnjo desko bom {m:dal|f:dala} v dimnik.",
+                  "it": "Metto l'ultima sponda nel camino.",
+                  "de": "Ich setz das letzte Brett in den Schornstein.",
+                  "why": {
+                    "en": "A chimney is on a roof! The last board goes where two sides meet: the corner.",
+                    "sl": "Dimnik je na strehi! Zadnja deska gre tja, kjer se stikata stranici: v kot.",
+                    "it": "Il camino sta sul tetto! L'ultima sponda va dove si incontrano due lati: nell'angolo.",
+                    "de": "Ein Schornstein ist auf dem Dach! Das letzte Brett kommt dahin, wo zwei Seiten sich treffen: in die Ecke."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The chimney? We're building a green, not a house!",
+                    "sl": "Dimnik? Delamo balinišče, ne hiše!",
+                    "it": "Il camino? Facciamo un prato, non una casa!",
+                    "de": "Den Schornstein? Wir bauen einen Rasen, kein Haus!"
+                  }
+                },
+                {
+                  "en": "I'll puts the last board in the corner.",
+                  "sl": "Zadnjo desko bom {m:dal|f:dala} v kot.",
+                  "it": "Metto l'ultima sponda nell'angolo.",
+                  "de": "Ich setz das letzte Brett in die Ecke.",
+                  "grammar": "future",
+                  "why": {
+                    "en": "After will ('ll), the verb has no -s: I'll put.",
+                    "sl": "Za will ('ll) glagol nima -s: I'll put.",
+                    "it": "Dopo will ('ll) il verbo non prende la -s: I'll put.",
+                    "de": "Nach will ('ll) hat das Verb kein -s: I'll put."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Puts? Eh, {m:son|f:lass}? Once more.",
+                    "sl": "Puts? Kaj? Še enkrat.",
+                    "it": "Puts? Eh? Ancora una volta.",
+                    "de": "Puts? Hä? Noch einmal."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            },
+            {
+              "who": "wilf",
+              "face": "proud",
+              "en": "Done. Now it looks like a bowling green.",
+              "sl": "Gotovo. Zdaj je videti kot balinišče.",
+              "it": "Fatto. Adesso sembra un prato da bocce.",
+              "de": "Fertig. Jetzt sieht es aus wie ein Bowlingrasen."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "on-the-green",
+      "words": ["sow", "smooth"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "happy",
+              "en": "Now we sow fine grass seed. Then we wait for it to grow.",
+              "sl": "Zdaj posejemo drobno travno seme. Potem počakamo, da zraste.",
+              "it": "Adesso seminiamo l'erba fine. Poi aspettiamo che cresca.",
+              "de": "Jetzt säen wir feinen Grassamen. Dann warten wir, bis er wächst."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Can I sow the seed?",
+                  "sl": "Lahko jaz posejem seme?",
+                  "it": "Posso seminare io?",
+                  "de": "Darf ich den Samen säen?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Go on. Thin and even, like a little rain.",
+                    "sl": "Kar. Na redko in enakomerno, kot droben dež.",
+                    "it": "Vai. Rado e uniforme, come una pioggerella.",
+                    "de": "Nur zu. Dünn und gleichmäßig, wie feiner Regen."
+                  }
+                },
+                {
+                  "en": "Can I sew the seed?",
+                  "sl": "Lahko jaz sešijem seme?",
+                  "it": "Posso cucire i semi?",
+                  "de": "Darf ich den Samen nähen?",
+                  "why": {
+                    "en": "Sew is with a needle and thread. Seeds you sow on the ground: they sound the same!",
+                    "sl": "Sew je šivati, z iglo in nitjo. Seme sow, seješ na tla: zvenita enako!",
+                    "it": "Sew è cucire, con ago e filo. I semi si sow, si seminano: suonano uguali!",
+                    "de": "Sew ist nähen, mit Nadel und Faden. Samen sow, sät man: Beide klingen gleich!"
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Sew it? With a needle? That'd take a hundred years!",
+                    "sl": "Sešiti? Z iglo? To bi trajalo sto let!",
+                    "it": "Cucirli? Con l'ago? Ci vorrebbero cent'anni!",
+                    "de": "Nähen? Mit der Nadel? Das würde hundert Jahre dauern!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "arthur",
+              "en": "Rain, sun, rain, sun. And then the grass comes.",
+              "sl": "Dež, sonce, dež, sonce. In potem pride trava.",
+              "it": "Pioggia, sole, pioggia, sole. E poi arriva l'erba.",
+              "de": "Regen, Sonne, Regen, Sonne. Und dann kommt das Gras."
+            },
+            {
+              "who": "wilf",
+              "en": "Now the whole village pushes the stone roller. Push!",
+              "sl": "Zdaj vsa vas potiska kamniti valj. Potiskajte!",
+              "it": "Adesso tutto il paese spinge il rullo di pietra. Spingete!",
+              "de": "Jetzt schiebt das ganze Dorf die Steinwalze. Schieben!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "There! The grass is smooth now.",
+                  "sl": "Tako! Trava je zdaj gladka.",
+                  "it": "Ecco! Adesso l'erba è liscia.",
+                  "de": "So! Jetzt ist das Gras glatt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Smooth as glass. Now we can play.",
+                    "sl": "Gladka kot steklo. Zdaj lahko igramo.",
+                    "it": "Liscia come il vetro. Adesso possiamo giocare.",
+                    "de": "Glatt wie Glas. Jetzt können wir spielen."
+                  }
+                },
+                {
+                  "en": "There! The grass is rough now.",
+                  "sl": "Tako! Trava je zdaj hrapava.",
+                  "it": "Ecco! Adesso l'erba è ruvida.",
+                  "de": "So! Jetzt ist das Gras rau.",
+                  "why": {
+                    "en": "Rough is bumpy. After the roller the grass is smooth, like a table.",
+                    "sl": "Rough je hrapavo, grbinasto. Po valjanju je trava gladka, kot miza.",
+                    "it": "Rough vuol dire ruvido. Dopo il rullo l'erba è liscia, come un tavolo.",
+                    "de": "Rough heißt rau, holprig. Nach der Walze ist das Gras glatt, wie ein Tisch."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "en": "Rough? We've just rolled it ten times!",
+                    "sl": "Hrapava? Saj smo jo pravkar desetkrat povaljali!",
+                    "it": "Ruvida? L'abbiamo appena rullata dieci volte!",
+                    "de": "Rau? Wir haben es gerade zehnmal gewalzt!"
+                  }
+                },
+                {
+                  "en": "There! The grass are smooth now.",
+                  "sl": "Tako! Trava je zdaj gladka.",
+                  "it": "Ecco! Adesso l'erba è liscia.",
+                  "de": "So! Jetzt ist das Gras glatt.",
+                  "grammar": "to-be",
+                  "why": {
+                    "en": "Grass is one thing you don't count: is.",
+                    "sl": "Grass je nekaj, česar ne štejemo: is.",
+                    "it": "Grass non si conta: is.",
+                    "de": "Grass zählt man nicht: is."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Are? Eh? There's only one green, {m:son|f:lass}!",
+                    "sl": "Are? Kaj? Saj je samo ena trata!",
+                    "it": "Are? Eh? C'è un prato solo!",
+                    "de": "Are? Hä? Es gibt doch nur einen Rasen!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "happy",
+              "en": "We sowed the seed in April. Now it's June, and it's grown so well!",
+              "sl": "Seme smo posejali aprila. Zdaj je junij in tako lepo je zraslo!",
+              "it": "Abbiamo seminato ad aprile. Adesso è giugno, ed è cresciuta così bene!",
+              "de": "Wir haben im April gesät. Jetzt ist Juni, und es ist so gut gewachsen!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "We sowed it in April, didn't we?",
+                  "sl": "Aprila smo ga posejali, kajne?",
+                  "it": "L'abbiamo seminata ad aprile, vero?",
+                  "de": "Wir haben es im April gesät, oder?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "We did. Thin and even, like a little rain.",
+                    "sl": "Res je. Na redko in enakomerno, kot droben dež.",
+                    "it": "Sì. Rada e uniforme, come una pioggerella.",
+                    "de": "Haben wir. Dünn und gleichmäßig, wie feiner Regen."
+                  }
+                },
+                {
+                  "en": "We sewed it in April, didn't we?",
+                  "sl": "Aprila smo ga sešili, kajne?",
+                  "it": "L'abbiamo cucita ad aprile, vero?",
+                  "de": "Wir haben es im April genäht, oder?",
+                  "why": {
+                    "en": "Sew is with a needle and thread. Seed is sown: sow, sowed.",
+                    "sl": "Sew je šivati z iglo. Seme se seje: sow, sowed.",
+                    "it": "Sew è cucire con l'ago. I semi si seminano: sow, sowed.",
+                    "de": "Sew ist nähen mit der Nadel. Samen sät man: sow, sowed."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Sewed? With a needle and thread? Ha!",
+                    "sl": "Sešili? Z iglo in nitjo? Ha!",
+                    "it": "Cucita? Con ago e filo? Ah!",
+                    "de": "Genäht? Mit Nadel und Faden? Ha!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "It's still a bit lumpy. We need the roller.",
+              "sl": "Še je malo grbasto. Potrebujemo valj.",
+              "it": "È ancora un po' bitorzoluto. Ci vuole il rullo.",
+              "de": "Es ist noch etwas holprig. Wir brauchen die Walze."
+            },
+            {
+              "who": "wilf",
+              "en": "Everyone push! The roller is heavy.",
+              "sl": "Vsi potiskajte! Valj je težak.",
+              "it": "Spingete tutti! Il rullo è pesante.",
+              "de": "Alle schieben! Die Walze ist schwer."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Now the grass is smooth and flat!",
+                  "sl": "Zdaj je trava gladka in ravna!",
+                  "it": "Adesso l'erba è liscia e piatta!",
+                  "de": "Jetzt ist das Gras glatt und flach!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Smooth as glass. Tomorrow, the first game!",
+                    "sl": "Gladka kot steklo. Jutri prva igra!",
+                    "it": "Liscia come il vetro. Domani, la prima partita!",
+                    "de": "Glatt wie Glas. Morgen das erste Spiel!"
+                  }
+                },
+                {
+                  "en": "Now the grass is rough and flat!",
+                  "sl": "Zdaj je trava hrapava in ravna!",
+                  "it": "Adesso l'erba è ruvida e piatta!",
+                  "de": "Jetzt ist das Gras rau und flach!",
+                  "why": {
+                    "en": "Rough means bumpy. After the roller it's smooth.",
+                    "sl": "Rough pomeni grbasto. Po valjanju je gladka: smooth.",
+                    "it": "Rough vuol dire ruvido. Dopo il rullo è liscia: smooth.",
+                    "de": "Rough heißt holprig. Nach der Walze ist es glatt: smooth."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "en": "Rough? After all that pushing?",
+                    "sl": "Hrapava? Po vsem tem potiskanju?",
+                    "it": "Ruvida? Dopo tutta questa fatica?",
+                    "de": "Rau? Nach all dem Schieben?"
+                  }
+                },
+                {
+                  "en": "Now the grass are smooth and flat!",
+                  "sl": "Zdaj je trava gladka in ravna!",
+                  "it": "Adesso l'erba è liscia e piatta!",
+                  "de": "Jetzt ist das Gras glatt und flach!",
+                  "grammar": "to-be",
+                  "why": {
+                    "en": "Grass is one thing you don't count: is.",
+                    "sl": "Grass je nekaj, česar ne štejemo: is.",
+                    "it": "Grass non si conta: is.",
+                    "de": "Grass zählt man nicht: is."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Are? Eh? Say it again, slowly.",
+                    "sl": "Are? Kaj? Še enkrat, počasi.",
+                    "it": "Are? Eh? Ripetilo, piano.",
+                    "de": "Are? Hä? Noch mal, langsam."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "on-the-green",
+      "words": ["winner", "first"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "happy",
+              "en": "The bowling green is ready! Who rolls the first bowl?",
+              "sl": "Balinišče je pripravljeno! Kdo zakotali prvo kroglo?",
+              "it": "Il prato da bocce è pronto! Chi tira la prima boccia?",
+              "de": "Der Bowlingrasen ist fertig! Wer rollt die erste Kugel?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "You, Wilf! You roll the first bowl.",
+                  "sl": "Ti, Wilf! Ti zakotali prvo kroglo.",
+                  "it": "Tu, Wilf! Tira tu la prima boccia.",
+                  "de": "Du, Wilf! Du rollst die erste Kugel.",
+                  "ok": true,
+                  "reply": { "face": "proud", "en": "Then here goes…", "sl": "Potem pa gremo …", "it": "Allora ecco…", "de": "Dann los …" }
+                },
+                {
+                  "en": "You, Wilf! You roll the last bowl.",
+                  "sl": "Ti, Wilf! Ti zakotali zadnjo kroglo.",
+                  "it": "Tu, Wilf! Tira tu l'ultima boccia.",
+                  "de": "Du, Wilf! Du rollst die letzte Kugel.",
+                  "why": {
+                    "en": "The game is just starting: the first bowl.",
+                    "sl": "Igra se šele začenja: prva krogla, first.",
+                    "it": "La partita sta cominciando: la prima boccia, first.",
+                    "de": "Das Spiel fängt gerade an: die erste Kugel, first."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The last? We haven't even started!",
+                    "sl": "Zadnjo? Saj sploh še nismo začeli!",
+                    "it": "L'ultima? Non abbiamo nemmeno cominciato!",
+                    "de": "Die letzte? Wir haben ja noch gar nicht angefangen!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "en": "Right by the jack. That's a point.",
+              "sl": "Tik ob bulinu. To je točka.",
+              "it": "Proprio vicino al pallino. È un punto.",
+              "de": "Direkt an der Zielkugel. Das ist ein Punkt."
+            },
+            {
+              "who": "wilf",
+              "face": "proud",
+              "en": "And another… and another! I've won!",
+              "sl": "Pa še ena … in še ena! Zmagal sem!",
+              "it": "E un'altra… e un'altra! Ho vinto!",
+              "de": "Und noch eine … und noch eine! Ich hab gewonnen!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Wilf is the winner!",
+                  "sl": "Wilf je zmagovalec!",
+                  "it": "Wilf è il vincitore!",
+                  "de": "Wilf ist der Sieger!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Eighty-four, and still the winner!",
+                    "sl": "Štiriinosemdeset let, pa še vedno zmagovalec!",
+                    "it": "Ottantaquattro anni, e ancora il vincitore!",
+                    "de": "Vierundachtzig, und immer noch der Sieger!"
+                  }
+                },
+                {
+                  "en": "Wilf is the loser!",
+                  "sl": "Wilf je poraženec!",
+                  "it": "Wilf è il perdente!",
+                  "de": "Wilf ist der Verlierer!",
+                  "why": {
+                    "en": "Wilf won, so he's the winner. The loser is the one who loses.",
+                    "sl": "Wilf je zmagal, zato je zmagovalec: winner. Loser je tisti, ki izgubi.",
+                    "it": "Wilf ha vinto, quindi è il vincitore: winner. Il loser è chi perde.",
+                    "de": "Wilf hat gewonnen, also ist er der Sieger: winner. Der loser ist der, der verliert."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "en": "The loser? Count again!",
+                    "sl": "Poraženec? Preštej še enkrat!",
+                    "it": "Il perdente? Conta di nuovo!",
+                    "de": "Der Verlierer? Zähl noch mal!"
+                  }
+                },
+                {
+                  "en": "Wilf are the winner!",
+                  "sl": "Wilf je zmagovalec!",
+                  "it": "Wilf è il vincitore!",
+                  "de": "Wilf ist der Sieger!",
+                  "grammar": "to-be",
+                  "why": {
+                    "en": "For one person, be is is: Wilf is.",
+                    "sl": "Za eno osebo je be v obliki is: Wilf is.",
+                    "it": "Per una persona, be diventa is: Wilf is.",
+                    "de": "Bei einer Person heißt be is: Wilf is."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Are? There's only one of me, {m:son|f:lass}!",
+                    "sl": "Are? Saj sem samo eden!",
+                    "it": "Are? Ce n'è uno solo di me!",
+                    "de": "Are? Mich gibt's nur einmal!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            },
+            {
+              "who": "wilf",
+              "face": "happy",
+              "en": "Thank you, everyone. Now it's your turn, {learner}!",
+              "sl": "Hvala vsem. Zdaj si na vrsti ti, {learner}!",
+              "it": "Grazie a tutti. Adesso tocca a te, {learner}!",
+              "de": "Danke euch allen. Jetzt bist du dran, {learner}!"
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "wilf",
+              "face": "happy",
+              "en": "Today's the day: the first game on our new green!",
+              "sl": "Danes je ta dan: prva igra na naši novi trati!",
+              "it": "Oggi è il giorno: la prima partita sul nostro prato nuovo!",
+              "de": "Heute ist der Tag: das erste Spiel auf unserem neuen Rasen!"
+            },
+            {
+              "who": "sam",
+              "face": "happy",
+              "en": "The whole village is here!",
+              "sl": "Vsa vas je tukaj!",
+              "it": "C'è tutto il paese!",
+              "de": "Das ganze Dorf ist da!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Who's going to roll first?",
+                  "sl": "Kdo bo zakotalil prvi?",
+                  "it": "Chi tira per primo?",
+                  "de": "Wer rollt als Erster?",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Me, of course. Watch…",
+                    "sl": "Jaz, seveda. Glej …",
+                    "it": "Io, naturalmente. Guarda…",
+                    "de": "Ich natürlich. Pass auf …"
+                  }
+                },
+                {
+                  "en": "Who's going to roll last?",
+                  "sl": "Kdo bo zakotalil zadnji?",
+                  "it": "Chi tira per ultimo?",
+                  "de": "Wer rollt als Letzter?",
+                  "why": {
+                    "en": "It's the start of the game: who rolls first?",
+                    "sl": "Igra se začenja: kdo prvi, first?",
+                    "it": "La partita comincia: chi tira per primo, first?",
+                    "de": "Das Spiel fängt an: Wer rollt als Erster, first?"
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Last? Let's start at the beginning, {m:son|f:lass}!",
+                    "sl": "Zadnji? Začnimo na začetku!",
+                    "it": "Per ultimo? Cominciamo dall'inizio!",
+                    "de": "Als Letzter? Fangen wir am Anfang an!"
+                  }
+                },
+                {
+                  "en": "Who's going to rolls first?",
+                  "sl": "Kdo bo zakotalil prvi?",
+                  "it": "Chi tira per primo?",
+                  "de": "Wer rollt als Erster?",
+                  "grammar": "future",
+                  "why": {
+                    "en": "After going to, the verb has no -s: going to roll.",
+                    "sl": "Za going to glagol nima -s: going to roll.",
+                    "it": "Dopo going to il verbo non prende la -s: going to roll.",
+                    "de": "Nach going to hat das Verb kein -s: going to roll."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Rolls? Eh? Once more, louder.",
+                    "sl": "Rolls? Kaj? Še enkrat, glasneje.",
+                    "it": "Rolls? Eh? Ancora, più forte.",
+                    "de": "Rolls? Hä? Noch mal, lauter."
+                  }
+                }
+              ],
+              "to": "wilf",
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            },
+            {
+              "who": "wilf",
+              "face": "proud",
+              "en": "Right by the jack! And another… I've won the first game!",
+              "sl": "Tik ob bulinu! Pa še ena … Prvo igro sem dobil!",
+              "it": "Proprio vicino al pallino! E un'altra… Ho vinto la prima partita!",
+              "de": "Direkt an der Zielkugel! Und noch eine … Ich hab das erste Spiel gewonnen!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "You won, Wilf! You're the winner!",
+                  "sl": "Zmagal si, Wilf! Ti si zmagovalec!",
+                  "it": "Hai vinto, Wilf! Sei il vincitore!",
+                  "de": "Du hast gewonnen, Wilf! Du bist der Sieger!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Slow and steady wins the race. And the game!",
+                    "sl": "Počasi se daleč pride. Pa tudi do zmage!",
+                    "it": "Chi va piano va sano e lontano. E vince la partita!",
+                    "de": "Langsam, aber sicher gewinnt. Auch das Spiel!"
+                  }
+                },
+                {
+                  "en": "You won, Wilf! You're the waiter!",
+                  "sl": "Zmagal si, Wilf! Ti si natakar!",
+                  "it": "Hai vinto, Wilf! Sei il cameriere!",
+                  "de": "Du hast gewonnen, Wilf! Du bist der Kellner!",
+                  "why": {
+                    "en": "A waiter brings food in a café. The one who wins is the winner.",
+                    "sl": "Waiter je natakar. Kdor zmaga, je winner.",
+                    "it": "Waiter è il cameriere. Chi vince è il winner.",
+                    "de": "Waiter ist der Kellner. Wer gewinnt, ist der winner."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A waiter? Shall I bring you a cup of tea, then?",
+                    "sl": "Natakar? Ti potem prinesem skodelico čaja?",
+                    "it": "Il cameriere? Allora ti porto una tazza di tè?",
+                    "de": "Der Kellner? Soll ich dir dann eine Tasse Tee bringen?"
+                  }
+                },
+                {
+                  "en": "You winned, Wilf! You're the winner!",
+                  "sl": "Zmagal si, Wilf! Ti si zmagovalec!",
+                  "it": "Hai vinto, Wilf! Sei il vincitore!",
+                  "de": "Du hast gewonnen, Wilf! Du bist der Sieger!",
+                  "grammar": "past-simple",
+                  "why": {
+                    "en": "Win has its own past: won, not winned.",
+                    "sl": "Win ima svoj preteklik: won, ne winned.",
+                    "it": "Win ha un passato tutto suo: won, non winned.",
+                    "de": "Win hat eine eigene Vergangenheit: won, nicht winned."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Winned? Ha! That's a new word, {m:son|f:lass}!",
+                    "sl": "Winned? Ha! To je nova beseda!",
+                    "it": "Winned? Ah! Questa è una parola nuova!",
+                    "de": "Winned? Ha! Das ist ein neues Wort!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+                "sl": "Kaj? Še enkrat, malo glasneje?",
+                "it": "Eh? Ancora una volta, un po' più forte?",
+                "de": "Hm? Noch einmal, ein bisschen lauter?"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

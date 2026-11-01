@@ -228,6 +228,8 @@ internal class SquarePainter : VistaPainter() {
     private var drywall = false
     private var daffodils = false
     private var fells = false
+    /** The Lake District's maypole ([lakeMaypole]): `maypole` "ribbons". */
+    private var lakeMay = false
 
     override fun paint() {
         setup()
@@ -255,6 +257,7 @@ internal class SquarePainter : VistaPainter() {
         oak = variant("linden") == "oak"; pump = variant("well") == "pump"; green = variant("ground") == "green"
         drywall = variant("fence") == "drystone"; daffodils = variant("flowers") == "daffodils"; fells = variant("hills") == "fells"
         if (pump) friWell = false
+        lakeMay = variant("maypole") == "ribbons"
         // ---- sky: the sun is a thing by day; at night the moon stands in its place as scenery
         sky(0, hz + 2 * k)
         // the real stars over the square (its moon is the sun's word's, where the sun stands by day)
@@ -1469,6 +1472,7 @@ internal class SquarePainter : VistaPainter() {
      * draws it. The pole turns in the plane of its foot, so its top never reaches the houses.
      */
     private fun mlajRising(r: Float) {
+        if (lakeMay) { lakeRising(r); return }
         val k = detail
         val fd = poleD - 2f + 2f * r
         val p = pm(fd)
@@ -1564,6 +1568,7 @@ internal class SquarePainter : VistaPainter() {
     private val stripped = Col.hex(0xE8D4A8); private val strippedD = Col.hex(0xC2A472)
 
     private fun mlajStanding() {
+        if (lakeMay) { lakeStanding(); return }
         val k = detail
         val p = pm(poleD); val bx = gx(poleX, poleD); val by = gy(poleD)
         val top = by - 10.5f * p
@@ -1805,6 +1810,7 @@ internal class SquarePainter : VistaPainter() {
      * of ribbons ready on the cobbles beside it.
      */
     private fun mlajLying(st: Int) {
+        if (lakeMay) { lakeLying(st); return }
         val k = detail
         val p = pm(poleD); val bx = gx(poleX, poleD); val by = gy(poleD)
         // the peg marking the spot, a red ribbon on it
@@ -1862,6 +1868,260 @@ internal class SquarePainter : VistaPainter() {
         if (!env.snow) for (j in 0 until 5) c.fillRect((wx - 0.5f * wp + j * 0.25f * wp).toInt(), (wy - 0.1f * wp).toInt(), max(1, k), max(1, k), Pal.PAINTED[j % 6])
         val cols = ribbons
         for (j in 0 until 4) c.fillRect((wx + 0.8f * wp).toInt(), (wy - (0.05f + j * 0.06f) * wp).toInt(), max(2, (0.7f * wp).toInt()), max(1, k), cols[j])
+    }
+
+    // ------------------------------------------------------------------ the Lake District's maypole
+
+    /*
+     * The Lake District's maypole ([lakeMay], `maypole` "ribbons"; docs/plans/05-built/lakeland-projects-a.md): the larch
+     * Shepherd Jack and the lads chose in the wood, lying on its trestles in its reddish bark with its light green tufts
+     * (brought in); peeled and painted in a red and white spiral by the children, its bark in strips on the grass; the crown of
+     * flowers and the ribbons, red, blue, yellow and green, ready on the grass beside it (tied on); raised, it stands painted up
+     * to its gilt knob, the crown of flowers at its top and eight long ribbons hanging from it. No green top: an English
+     * maypole is a painted pole. While it stands, "dance" is the children's ribbon dance round it ([ribbonDance]).
+     */
+    private val LAKE_RIBBONS = intArrayOf(Pal.FLAG_RED, Pal.FLAG_BLUE, Col.hex(0xF2C230), Col.hex(0x3E9A44))
+    private val LAKE_CROWN = intArrayOf(Col.hex(0xF7F4EC), Col.hex(0xF0A0B8), Col.hex(0xF2D040), Col.hex(0x8AA8E8))
+    private val larchBark = Col.hex(0x7A5444); private val larchBarkD = Col.hex(0x553A30)
+    private val larchTuft = Col.hex(0x8CBA4A); private val larchTuftD = Col.hex(0x5E8A34)
+    private val paintRed = Col.hex(0xD42A30); private val paintRedD = Col.hex(0x9E1E24)
+    private val paintWhite = Col.hex(0xF4F0E6); private val paintWhiteD = Col.hex(0xC8C2B4)
+
+    /** The maypole's paint at [along] m from its foot, [across] -1 (its left) … 1: a red and white spiral, lit on its left. */
+    private fun lakePaint(along: Float, across: Float, lit: Boolean): Int {
+        val band = floor((along + across * 0.28f) / 0.55f).toInt()
+        return if (band % 2 == 0) (if (lit) paintRed else paintRedD) else (if (lit) paintWhite else paintWhiteD)
+    }
+
+    /** Whether the children dance round it now: it stands, raised to the top (not while a dialog raises it). */
+    private fun lakeDancing(): Boolean =
+        stage(MAYPOLE) >= stages(MAYPOLE) && !frame.world.isDown(MAYPOLE) && (fx("maypole") ?: 1f) >= 0.999f
+
+    /** How many children dance ("dance" [level]): one to six, each holding a ribbon. */
+    private fun lakeHeld(level: Float): Int = ceil(level * 6f - 0.01f).toInt().coerceIn(1, 6)
+
+    private fun lakeStanding() {
+        val p = pm(poleD); val bx = gx(poleX, poleD); val by = gy(poleD)
+        val top = by - 10.5f * p
+        val half = max(1f, 0.13f * p)
+        val cy = top + 0.45f * p
+        // a ring of stones round its foot in the grass
+        for (j in 0 until 6) c.fillEllipse(bx - 0.6f * p + j * 0.24f * p, by - 0.05f * p, max(1f, 0.13f * p), max(1f, 0.08f * p), if (j % 2 == 0) Pal.STONE_L else Pal.STONE_M)
+        // the ribbons hanging from the crown round the pole, the pole in front of them
+        lakeRibbons(bx, cy, p, held = if (lakeDancing() && fxOn("dance") > 0.02f) lakeHeld(fxOn("dance")) else 0)
+        // the pole painted red and white, thinner toward the top
+        for (y in max(top.toInt(), c.top)..min(by.toInt(), c.bottom - 1)) {
+            val u = (by - y) / (by - top)
+            val hw = half * (1f - 0.45f * u)
+            for (x in (bx - hw).toInt()..(bx + hw).toInt()) c.set(x, y, lakePaint(u * 10.5f, ((x - bx) / max(0.5f, hw)).coerceIn(-1f, 1f), x < bx - hw * 0.2f))
+        }
+        // its gilt knob, the crown of flowers under it
+        c.fillCircle(bx, top - max(1f, 0.1f * p), max(1f, 0.17f * p), Pal.GOLD)
+        if (detail > 1) c.set((bx - 0.06f * p).toInt(), (top - 0.16f * p).toInt(), Pal.GOLD_L)
+        lakeHoop(bx, cy, p)
+    }
+
+    /**
+     * The eight ribbons from the crown at row [cy] ([p] px a metre), two of each colour, hanging round the pole to a grown-up's
+     * height over the grass and stirring in the wind; the first [held] go to the dancers' hands instead.
+     */
+    private fun lakeRibbons(bx: Float, cy: Float, p: Float, held: Int) {
+        val k = detail
+        val rx = 0.62f * p; val ry = max(1f, 0.2f * p)
+        val ey = gy(poleD) - 1.9f * p
+        for (j in held until 8) {
+            val a = (j + 0.5f) * PI.toFloat() / 4f
+            val sx = bx + cos(a) * rx; val sy = cy + sin(a) * ry
+            val ex = bx + cos(a) * rx * 0.75f
+            val len = ey - sy
+            val n = max(3, (len / k).toInt())
+            for (q in 0..n) {
+                val f = q / n.toFloat()
+                val sway = sin(t * 2.0 + j * 0.9 + f * 2.6).toFloat() * f * f * min(0.3f * gust, RIBBON_SWAY) * p
+                c.fillRect((sx + (ex - sx) * f + sway).toInt(), (sy + len * f).toInt(), max(1, k), max(1, k), LAKE_RIBBONS[j % 4])
+            }
+        }
+    }
+
+    /** The crown of flowers round the pole at row [cy]: a hoop bound with white, pink, yellow and blue flowers among the leaves. */
+    private fun lakeHoop(bx: Float, cy: Float, p: Float) {
+        val rx = 0.62f * p; val ry = max(1f, 0.2f * p)
+        for (a in 0 until 20) {
+            val ang = a * PI.toFloat() / 10f
+            c.fillCircle(bx + cos(ang) * rx, cy + sin(ang) * ry, max(0.7f, rx * 0.17f), if (env.snow) Pal.SNOW_L else if (a % 2 == 0) Pal.LEAF else LAKE_CROWN[(a / 2) % 4])
+        }
+    }
+
+    /**
+     * The children's ribbon dance round the maypole ("dance": how many, one to six): in white, the girls with a sash, each
+     * holding the end of a ribbon from the crown, skipping round it, every other one the other way and in and out as they
+     * pass, weaving the ribbons; the rest of the ribbons hang.
+     */
+    private fun ribbonDance(level: Float) {
+        val n = lakeHeld(level)
+        val p0 = pm(poleD); val bx = gx(poleX, poleD)
+        val cy = gy(poleD) - 10.5f * p0 + 0.45f * p0
+        val rx = 0.62f * p0; val ry = max(1f, 0.2f * p0)
+        for (i in 0 until n) {
+            val dir = if (i % 2 == 0) 1f else -1f
+            val a = i * 2f * PI.toFloat() / n + dir * (t * 0.5).toFloat()
+            val r = 3f + 0.35f * dir * sin(a * 3f)
+            val x = poleX + cos(a) * r; val d = poleD + sin(a) * r * 0.85f
+            val step = ((t * 4.0).toInt() + i) and 1
+            items.add(d to {
+                prop {
+                    val hand = lakeChild(x, d, i, step)
+                    c.line((bx + cos(a) * rx).toInt(), (cy + sin(a) * ry).toInt(), hand.first.toInt(), hand.second.toInt(), LAKE_RIBBONS[i % 4])
+                }
+            })
+        }
+    }
+
+    /** A child of the dance at ([x], [d]), a skip on [step]: white dress and a sash, or a white shirt and dark shorts. Their raised hand. */
+    private fun lakeChild(x: Float, d: Float, i: Int, step: Int): Pair<Float, Float> {
+        val p = pm(d)
+        val bx = gx(x, d); val by = gy(d) - step * 0.05f * p
+        val hgt = 1.25f * p
+        val lw = max(1f, 0.09f * p)
+        val girl = i % 2 == 0
+        val legs = if (girl) Pal.SKIN else Col.hex(0x3A3A48)
+        val lh = max(1, (hgt * 0.25f).toInt())
+        c.fillRect((bx - lw * 1.5f).toInt(), (by - hgt * 0.25f).toInt() - step, max(1, lw.toInt()), lh, legs)
+        c.fillRect((bx + lw * 0.5f).toInt(), (by - hgt * 0.25f).toInt() - (1 - step), max(1, lw.toInt()), lh, legs)
+        val bw = hgt * (if (girl) 0.34f else 0.26f)
+        val bt = by - hgt * 0.64f; val bb = by - hgt * (if (girl) 0.22f else 0.3f)
+        for (y in bt.toInt()..bb.toInt()) {
+            val u = (y - bt) / max(1f, bb - bt)
+            val w = if (girl) bw * (0.6f + 0.4f * u) else bw
+            c.hline((bx - w / 2f).toInt(), (bx + w / 2f).toInt(), y, if (u > 0.85f || (!girl && u > 0.6f)) (if (girl) paintWhiteD else Col.hex(0x3A3A48)) else paintWhite)
+        }
+        if (girl) c.hline((bx - bw * 0.3f).toInt(), (bx + bw * 0.3f).toInt(), (bt + (bb - bt) * 0.3f).toInt(), LAKE_RIBBONS[(i / 2 + 1) % 4])
+        // the arm up to the ribbon, the hand over the head
+        val hx = bx + (gx(poleX, poleD) - bx) * 0.08f; val hy = by - hgt * 1.02f
+        c.line(bx.toInt(), (bt + 1).toInt(), hx.toInt(), hy.toInt(), Pal.SKIN)
+        val hr = max(1f, hgt * 0.12f); val hcy = bt - hr
+        c.fillEllipse(bx, hcy, hr, hr, Pal.SKIN)
+        c.fillEllipse(bx, hcy - hr * 0.45f, hr * 1.05f, max(1f, hr * 0.6f), Pal.HAIR[i % Pal.HAIR.size])
+        return hx to hy
+    }
+
+    /** The maypole being raised ([r], "maypole"), painted, its crown and ribbons on it: as [mlajRising], no green top. */
+    private fun lakeRising(r: Float) {
+        val k = detail
+        val fd = poleD - 2f + 2f * r
+        val p = pm(fd)
+        val fx0 = -6.2f + (poleX + 6.2f) * r; val fh = 0.7f * (1f - r)
+        val th = r * PI.toFloat() / 2f
+        val len = 10.5f
+        fun at(s: Float) = floatArrayOf(gx(fx0 + s * cos(th), fd), hy(fd, fh + s * sin(th)))
+        val foot = at(0f); val tip = at(len)
+        var ax = tip[0] - foot[0]; var ay = tip[1] - foot[1]
+        val al = max(1f, sqrt(ax * ax + ay * ay)); ax /= al; ay /= al
+        val nx = -ay; val ny = ax
+        if (r < 0.3f) {
+            val d = poleD - 2f; val lp = pm(d); val ly = gy(d) - 0.7f * lp
+            for (tx in floatArrayOf(-4.6f, 1.6f)) {
+                val tpx = gx(tx, d)
+                c.line((tpx - 0.35f * lp).toInt(), gy(d).toInt(), (tpx + 0.35f * lp).toInt(), ly.toInt(), Pal.WOOD_D)
+                c.line((tpx + 0.35f * lp).toInt(), gy(d).toInt(), (tpx - 0.35f * lp).toInt(), ly.toInt(), Pal.WOOD_M)
+            }
+        }
+        if (r < 0.98f) {
+            val rp = at(len - 3f)
+            for (gxm in floatArrayOf(-6.6f, 4.4f)) c.line(rp[0].toInt(), rp[1].toInt(), gx(gxm, fd - 3.5f).toInt(), gy(fd - 3.5f).toInt(), Pal.CANVAS_D)
+        }
+        if (r > 0.6f) for (j in 0 until 6) c.fillEllipse(foot[0] - 0.6f * p + j * 0.24f * p, foot[1] - 0.05f * p, max(1f, 0.13f * p), max(1f, 0.08f * p), if (j % 2 == 0) Pal.STONE_L else Pal.STONE_M)
+        val half = max(1f, 0.13f * p)
+        val steps = (al * 2f).toInt().coerceAtLeast(2)
+        for (i in 0..steps) {
+            val f = i / steps.toFloat()
+            val hw = half * (1f - 0.45f * f)
+            val cx = foot[0] + ax * al * f; val cy = foot[1] + ay * al * f
+            var q = -hw
+            while (q <= hw) {
+                c.set((cx + nx * q).toInt(), (cy + ny * q).toInt(), lakePaint(f * len, (q / max(0.5f, hw)).coerceIn(-1f, 1f), q < -hw * 0.2f))
+                q += 0.5f
+            }
+        }
+        c.fillCircle(tip[0], tip[1], max(1f, 0.17f * p), Pal.GOLD)
+        // the crown round it near the top, the ribbons hanging straight down from it
+        val wc = at(len - 0.45f); val wr = 0.62f * p
+        for (j in 0 until 8) {
+            val o = -0.9f + j * 0.26f
+            val sx = wc[0] + nx * o * wr; val sy = wc[1] + ny * o * wr
+            val rl = (1.8f + 0.4f * (j % 2)) * p
+            val n = max(3, rl.toInt())
+            for (q in 0..n) {
+                val f = q / n.toFloat()
+                val sway = sin(t * 2.2 + j * 1.3 + f * 3.0).toFloat() * f * 0.3f * p * gust
+                c.fillRect((sx + sway).toInt(), (sy + f * rl).toInt(), max(1, k), max(1, k), LAKE_RIBBONS[j % 4])
+            }
+        }
+        for (a in 0 until 20) {
+            val ang = a * PI.toFloat() / 10f
+            val px = wc[0] + nx * cos(ang) * wr + ax * sin(ang) * wr * 0.35f; val py = wc[1] + ny * cos(ang) * wr + ay * sin(ang) * wr * 0.35f
+            c.fillCircle(px, py, max(0.7f, wr * 0.17f), if (env.snow) Pal.SNOW_L else if (a % 2 == 0) Pal.LEAF else LAKE_CROWN[(a / 2) % 4])
+        }
+    }
+
+    /**
+     * The Lake District's maypole before it stands: the peg with a red ribbon where it will stand; the larch on two trestles in
+     * its reddish bark with its light green tufts; peeled and painted red and white from end to end, its bark in curled strips
+     * on the grass; the crown of flowers and the four colours of ribbon ready on the grass beside it.
+     */
+    private fun lakeLying(st: Int) {
+        val k = detail
+        val p = pm(poleD); val bx = gx(poleX, poleD); val by = gy(poleD)
+        c.fillRect(bx.toInt(), (by - 0.8f * p).toInt(), max(1, k), (0.8f * p).toInt(), Pal.WOOD_L)
+        c.fillRect(bx.toInt() + k, (by - 0.75f * p).toInt(), max(1, (0.3f * p).toInt()), max(1, k), Pal.FLAG_RED)
+        if (st < 2) return
+        val d = poleD - 2f; val lp = pm(d); val ly = gy(d) - 0.7f * lp
+        val x0 = gx(-6.2f, d); val x1 = gx(4.8f, d)
+        for (tx in floatArrayOf(-4.6f, 1.6f)) {
+            val tpx = gx(tx, d)
+            c.line((tpx - 0.35f * lp).toInt(), gy(d).toInt(), (tpx + 0.35f * lp).toInt(), ly.toInt(), Pal.WOOD_D)
+            c.line((tpx + 0.35f * lp).toInt(), gy(d).toInt(), (tpx - 0.35f * lp).toInt(), ly.toInt(), Pal.WOOD_M)
+        }
+        val painted = st >= 3
+        for (x in max(x0.toInt(), c.left)..min(x1.toInt(), c.right - 1)) {
+            val u = (x - x0) / (x1 - x0)
+            val hw = max(1f, 0.2f * lp * (1f - 0.6f * u))
+            for (y in (ly - hw).toInt()..(ly + hw).toInt()) {
+                val lit = y < ly - hw * 0.2f
+                c.set(x, y, if (painted) lakePaint(u * 10.5f, ((y - ly) / hw).coerceIn(-1f, 1f), lit) else if (lit) larchBark else larchBarkD)
+            }
+        }
+        if (!painted) {
+            // in its bark it still has its branches, the larch's light green tufts thicker toward its top
+            val tuft = if (frame.month in 11..12 || frame.month in 1..3) larchBarkD else larchTuft
+            for (j in 0 until 12) {
+                val u = 0.3f + j * 0.06f
+                val ax = x0 + (x1 - x0) * u
+                val reach = (0.9f - 0.4f * u) * lp
+                val up = if (j % 2 == 0) 1f else -0.6f
+                c.line(ax.toInt(), ly.toInt(), (ax + 0.35f * reach).toInt(), (ly - reach * up).toInt(), larchBarkD)
+                c.fillCircle(ax + 0.35f * reach, ly - reach * up, max(0.8f, 0.18f * lp), if (j % 3 == 0) larchTuftD else tuft)
+            }
+        } else c.fillCircle(x1, ly, max(1f, 0.17f * lp), Pal.GOLD)
+        if (st == 3) for (j in 0 until 9) {
+            val sd = d - 0.4f - Noise.rnd(j, 912) * 0.7f
+            val sx = gx(-5.4f + j * 1.15f + (Noise.rnd(j, 911) - 0.5f) * 0.5f, sd); val sy = gy(sd)
+            val len = max(2, ((0.5f + Noise.rnd(j, 913) * 0.4f) * lp).toInt())
+            val tilt = if (j % 2 == 0) 1 else -1
+            for (q in 0 until len) {
+                val yy = (sy - k - (if (q < len / 3) tilt * q * 0.3f else 0f)).toInt()
+                c.set(sx.toInt() + q, yy, if (q % 3 == 0) larchBarkD else larchBark)
+                if (k > 1) c.set(sx.toInt() + q, yy - 1, Col.hex(0x9A7462))
+            }
+        }
+        if (st < 4) return
+        // the crown of flowers and the ribbons ready on the grass beside it
+        val wx = gx(poleX + 1.6f, poleD - 3.4f); val wy = gy(poleD - 3.4f); val wp = pm(poleD - 3.4f)
+        for (a in 0 until 16) {
+            val ang = a * PI.toFloat() / 8f
+            c.fillCircle(wx + cos(ang) * 0.5f * wp, wy - 0.14f * wp + sin(ang) * 0.18f * wp, max(0.7f, 0.09f * wp), if (env.snow) Pal.SNOW_L else if (a % 2 == 0) Pal.LEAF else LAKE_CROWN[(a / 2) % 4])
+        }
+        for (j in 0 until 4) c.fillRect((wx + 0.8f * wp).toInt(), (wy - (0.05f + j * 0.06f) * wp).toInt(), max(2, (0.9f * wp).toInt()), max(1, k), LAKE_RIBBONS[j])
     }
 
     // ------------------------------------------------------------------ the fountain
@@ -2414,6 +2674,7 @@ internal class SquarePainter : VistaPainter() {
      */
     private fun dancers(level: Float) {
         if (level <= 0.02f) return
+        if (lakeMay && lakeDancing()) { ribbonDance(level); return }
         val n = ceil(level * COUPLES.size - 0.01f).toInt().coerceIn(1, COUPLES.size)
         for (i in 0 until n) {
             val (cx, cd) = COUPLES[i].let { it[0] to it[1] }

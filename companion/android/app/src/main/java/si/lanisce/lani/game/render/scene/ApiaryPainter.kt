@@ -157,6 +157,12 @@ internal class ApiaryPainter : DioramaPainter() {
     /** The bee meadow along the garden's front, once the village has made it ([beeMeadow]); in Friuli's look its sunflowers. */
     private var meadowOn = true
     private var girasoli = false
+    /**
+     * The Lake District's wildflower meadow ([beeMeadow]; docs/plans/05-built/lakeland-projects-a.md): dandelions, cowslips
+     * and daisies in spring; clover, ox-eye daisies, cornflowers, buttercups and blue meadow cranesbill in June and July;
+     * knapweed and harebells in August and September; seed heads and the last knapweed in October.
+     */
+    private var wildflowers = false
 
     /** Friuli's tiers of box hives: how many on each tier at this level. */
     private val tierHives = IntArray(2)
@@ -175,7 +181,8 @@ internal class ApiaryPainter : DioramaPainter() {
         bunting2 = variant("bunting") == "friuli"
         austria = variant("bunting") == "austria"; honig = variant("sign") == "honig"
         meadowOn = there("meadow")
-        girasoli = variant("meadow") != null
+        girasoli = variant("meadow") == "girasoli"
+        wildflowers = variant("meadow") == "wildflowers"
         if (friuli) {
             rows = if (lv >= 3) 2 else 1
             tierHives[0] = if (lv == 1) 3 else F_HIVES
@@ -454,6 +461,14 @@ internal class ApiaryPainter : DioramaPainter() {
         }
         // the flowers by the month: three kinds at a time, a dot of colour each on its stalk
         val kinds: IntArray = when {
+            wildflowers -> when (m) {
+                3, 4 -> intArrayOf(Col.hex(0xF6D83A), Col.hex(0xF0E07A), Col.hex(0xF8F6EC))
+                5 -> intArrayOf(Col.hex(0xF8F6EC), Col.hex(0xF0E07A), Col.hex(0xF8E020))
+                6, 7 -> intArrayOf(Col.hex(0xC85A8A), Col.hex(0xF8F6EC), Col.hex(0x3A5AD8), Col.hex(0xF8E020), Col.hex(0x7A6AD8))
+                8, 9 -> intArrayOf(Col.hex(0x9A4AA8), Col.hex(0x8AA0E8), Col.hex(0xF8F6EC), Col.hex(0x9A4AA8))
+                10 -> intArrayOf(Col.hex(0xA8885A), Col.hex(0x9A4AA8), Col.hex(0xB89A6A))
+                else -> intArrayOf(Col.hex(0xD8D0B0), Col.hex(0xC8B890), Col.hex(0xD8D0B0))
+            }
             m in 3..4 -> intArrayOf(Col.hex(0xF6D83A), Col.hex(0xF8F6EC), Col.hex(0xF6D83A))
             m == 5 -> intArrayOf(Col.hex(0xF8F6EC), Col.hex(0xE87AA8), Col.hex(0xF6D83A))
             girasoli && m in 6..9 -> intArrayOf(Col.hex(0xE87AA8), Col.hex(0xF4F2EA), Col.hex(0x8A7AD8))
@@ -462,12 +477,12 @@ internal class ApiaryPainter : DioramaPainter() {
             m == 10 -> intArrayOf(Col.hex(0x9A6AD0), Col.hex(0xA8443A), Col.hex(0x9A6AD0))
             else -> intArrayOf(Col.hex(0xD8D0B0), Col.hex(0xC8B890), Col.hex(0xD8D0B0))
         }
-        val n = when (m) { in 6..8 -> 190; 5, 9 -> 150; 4, 10 -> 90; else -> 40 }
+        val n = when (m) { in 6..8 -> if (wildflowers) 230 else 190; 5, 9 -> 150; 4, 10 -> 90; else -> 40 }
         for (j in 0 until n) {
             val (x, y) = meadowPoint(j) ?: continue
             val bx = iso.ix(x, y); val by = iso.iy(x, y, 0f)
             val hgt = (2.2f + Noise.rnd(j, 66) * 2.6f) * K
-            val col = kinds[j % 3]
+            val col = kinds[j % kinds.size]
             val sway = floor(sin(t * 1.3 + j * 0.7) * 0.5f * gust).toInt() * k
             c.fillRect(bx, floor(by - hgt).toInt(), k, floor(hgt).toInt(), Col.hex(0x3A6A2E))
             // a small head: a dot, every third one a cluster of two

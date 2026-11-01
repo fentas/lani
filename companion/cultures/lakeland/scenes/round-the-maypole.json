@@ -1,0 +1,2299 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "round-the-maypole",
+  "language": "en",
+  "title": { "en": "Round the maypole", "sl": "Okoli mlaja", "it": "Intorno all'albero di maggio", "de": "Um den Maibaum" },
+  "emoji": "🎀",
+  "level": "A1",
+  "review": "en, sl, it, de (lines, reactions, variants, whys): machine-written (Claude), not reviewed by a native speaker; check: the clout saying, may blossom, nippy, glog, viža",
+  "art": "square",
+  "from": ["project:mlaj"],
+  "pack": "round-the-maypole",
+  "objects": [
+    { "slot": "linden", "word": "oak", "pack": "on-the-green" },
+    { "slot": "bench", "word": "bench", "pack": "on-the-green" },
+    { "slot": "ball", "word": "ball", "pack": "on-the-green" },
+    { "slot": "well", "word": "pump", "pack": "on-the-green", "needs": { "building": "WELL" } },
+    { "slot": "dog", "word": "dog", "pack": "family" },
+    { "slot": "cat", "word": "cat", "pack": "family" },
+    { "slot": "house", "word": "cottage", "pack": "on-the-green" },
+    { "slot": "tower", "word": "church", "pack": "in-the-village", "needs": { "building": "CHURCH" } },
+    { "slot": "bicycle", "word": "bicycle", "pack": "on-the-green" },
+    { "slot": "flowers", "word": "flower", "pack": "on-the-green" },
+    { "slot": "sun", "word": "sun", "pack": "on-the-green" },
+    { "slot": "fence", "word": "drystone-wall", "pack": "on-the-fell" },
+    { "slot": "maypole", "word": "maypole", "pack": "feast-may-day", "needs": { "project": "mlaj" } },
+    { "slot": "fountain", "word": "drinking-fountain", "pack": "on-the-green", "needs": { "project": "vodnjak_na_trgu" } },
+    { "slot": "clock", "word": "clock", "pack": "at-school", "needs": { "building": "CHURCH", "project": "mestna_ura" } }
+  ],
+  "people": [
+    { "id": "jack", "name": "Shepherd Jack", "emoji": "🐑", "art": "shepherd", "slot": "maypole", "villager": "jack" },
+    { "id": "wilf", "name": "Old Wilf", "emoji": "👴", "art": "grandpa", "slot": "bench", "villager": "wilf" },
+    { "id": "harry", "name": "Harry", "emoji": "🧒", "art": "child1", "slot": "play1", "villager": "harry" },
+    { "id": "poppy", "name": "Poppy", "emoji": "👧", "art": "child2", "slot": "play2", "villager": "poppy" },
+    { "id": "alfie", "name": "Alfie", "emoji": "👦", "art": "child3", "slot": "play3", "villager": "alfie" },
+    { "id": "sam", "name": "Brewer Sam", "emoji": "🍺", "art": "winemaker", "slot": "clock", "villager": "sam" }
+  ],
+  "happenings": [
+    {
+      "id": "queen",
+      "title": { "en": "Poppy, the May Queen", "sl": "Poppy, majska kraljica", "it": "Poppy, la regina di maggio", "de": "Poppy, die Maikönigin" },
+      "who": "poppy",
+      "when": ["morning"],
+      "chance": 0.6,
+      "dialog": "queen",
+      "dialogs": ["queen-bell", "queen-speech", "queen"],
+      "reward": { "wisdom": 15 },
+      "marker": "👑",
+      "memory": {
+        "en": "the morning I was May Queen",
+        "sl": "jutro, ko sem bila majska kraljica",
+        "it": "la mattina in cui ero la regina di maggio",
+        "de": "den Morgen, als ich Maikönigin war"
+      }
+    },
+    {
+      "id": "ribbons",
+      "title": { "en": "Alfie and the ribbons", "sl": "Alfie in trakovi", "it": "Alfie e i nastri", "de": "Alfie und die Bänder" },
+      "who": "alfie",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "ribbons",
+      "dialogs": ["ribbons-cat", "ribbons-tallest", "ribbons"],
+      "reward": { "wisdom": 10 },
+      "marker": "🎀",
+      "memory": {
+        "en": "the colours we counted on the maypole",
+        "sl": "barve, ki sva jih preštela na mlaju",
+        "it": "i colori che abbiamo contato sull'albero di maggio",
+        "de": "die Farben, die wir am Maibaum gezählt haben"
+      }
+    },
+    {
+      "id": "dance",
+      "title": { "en": "The ribbon dance", "sl": "Ples s trakovi", "it": "Il ballo dei nastri", "de": "Der Bändertanz" },
+      "who": "harry",
+      "when": ["afternoon"],
+      "chance": 0.55,
+      "dialog": "dance",
+      "dialogs": ["dance-ball", "dance-tangle", "dance"],
+      "reward": { "food": 20 },
+      "marker": "💃",
+      "memory": {
+        "en": "the ribbon dance round the maypole",
+        "sl": "ples s trakovi okoli mlaja",
+        "it": "il ballo dei nastri intorno all'albero di maggio",
+        "de": "den Bändertanz um den Maibaum"
+      }
+    },
+    {
+      "id": "bench",
+      "title": {
+        "en": "Old Wilf watches the dancing",
+        "sl": "Stari Wilf gleda ples",
+        "it": "Il vecchio Wilf guarda il ballo",
+        "de": "Der alte Wilf schaut beim Tanzen zu"
+      },
+      "who": "wilf",
+      "when": ["morning", "afternoon"],
+      "chance": 0.5,
+      "dialog": "bench",
+      "dialogs": ["bench-bess", "bench-clout", "bench"],
+      "reward": { "wisdom": 20 },
+      "marker": "🌸",
+      "memory": {
+        "en": "Annie's crown of may blossom",
+        "sl": "Anniejino krono iz cvetov gloga",
+        "it": "la corona di biancospino di Annie",
+        "de": "Annies Krone aus Weißdornblüten"
+      }
+    },
+    {
+      "id": "pole",
+      "title": { "en": "Shepherd Jack's maypole", "sl": "Mlaj pastirja Jacka", "it": "L'albero di maggio del pastore Jack", "de": "Schäfer Jacks Maibaum" },
+      "who": "jack",
+      "when": ["morning", "evening"],
+      "chance": 0.5,
+      "dialog": "pole",
+      "dialogs": ["pole-raise", "pole"],
+      "reward": { "wood": 15 },
+      "marker": "🌲",
+      "memory": {
+        "en": "the larch from the wood, now our maypole",
+        "sl": "macesen iz gozda, ki je zdaj naš mlaj",
+        "it": "il larice del bosco, adesso il nostro albero di maggio",
+        "de": "die Lärche aus dem Wald, jetzt unser Maibaum"
+      }
+    },
+    {
+      "id": "band",
+      "title": { "en": "The brass band on the green", "sl": "Pihalna godba na zelenici", "it": "La banda sul prato", "de": "Die Blaskapelle auf der Wiese" },
+      "who": "sam",
+      "when": ["evening"],
+      "chance": 0.6,
+      "dialog": "band",
+      "dialogs": ["band-cups", "band"],
+      "reward": { "food": 15 },
+      "marker": "🎺",
+      "memory": {
+        "en": "the May Day tune under the oak",
+        "sl": "prvomajsko vižo pod hrastom",
+        "it": "la melodia del primo maggio sotto la quercia",
+        "de": "die Maimelodie unter der Eiche"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "queen",
+      "lines": [
+        {
+          "who": "poppy",
+          "face": "proud",
+          "en": "{learner}! Guess what? I'm the May Queen this year!",
+          "sl": "{learner}! Veš kaj? Letos sem jaz majska kraljica!",
+          "it": "{learner}! Indovina? Quest'anno la regina di maggio sono io!",
+          "de": "{learner}! Weißt du was? Dieses Jahr bin ich die Maikönigin!"
+        },
+        {
+          "choices": [
+            {
+              "en": "Wow! Are you really the May Queen?",
+              "sl": "Uau! Si res majska kraljica?",
+              "it": "Wow! Sei davvero la regina di maggio?",
+              "de": "Wow! Bist du wirklich die Maikönigin?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Yes, really! I've got a white dress and a crown of flowers.",
+                "sl": "Ja, res! Imam belo obleko in krono iz rož.",
+                "it": "Sì, davvero! Ho un vestito bianco e una corona di fiori.",
+                "de": "Ja, wirklich! Ich hab ein weißes Kleid und eine Krone aus Blumen."
+              }
+            },
+            {
+              "en": "Wow! Is you really the May Queen?",
+              "sl": "Uau! Si res majska kraljica?",
+              "it": "Wow! Sei davvero la regina di maggio?",
+              "de": "Wow! Bist du wirklich die Maikönigin?",
+              "grammar": "to-be",
+              "why": {
+                "en": "With you, be is are: are you …?",
+                "sl": "Pri you je be v obliki are: are you …?",
+                "it": "Con you, be diventa are: are you …?",
+                "de": "Bei you heißt be are: are you …?"
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Is you? Ha ha! Ask me like a queen would, {learner}!",
+                "sl": "Is you? Ha ha! Vprašaj me tako, kot bi vprašala kraljica, {learner}!",
+                "it": "Is you? Ah ah! Chiedimelo come lo chiederebbe una regina, {learner}!",
+                "de": "Is you? Haha! Frag mich so, wie eine Königin fragen würde, {learner}!"
+              }
+            },
+            {
+              "en": "Wow! Do you really the May Queen?",
+              "sl": "Uau! Si res majska kraljica?",
+              "it": "Wow! Sei davvero la regina di maggio?",
+              "de": "Wow! Bist du wirklich die Maikönigin?",
+              "grammar": "to-be",
+              "why": {
+                "en": "With be there's no do: are you …?",
+                "sl": "Pri be ni do: are you …?",
+                "it": "Con be non si usa do: are you …?",
+                "de": "Bei be gibt es kein do: are you …?"
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Do I what? I am the May Queen!",
+                "sl": "Kaj naj? Saj sem majska kraljica!",
+                "it": "Io cosa? Io sono la regina di maggio!",
+                "de": "Ich was? Ich bin die Maikönigin!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Pardon? Say it again, please!",
+            "sl": "Prosim? Še enkrat, prosim!",
+            "it": "Come? Ripetilo, per favore!",
+            "de": "Wie bitte? Sag es noch mal, bitte!"
+          }
+        },
+        {
+          "who": "poppy",
+          "en": "My crown has got daisies, cowslips and white may blossom. May blossom is from the hawthorn, you know.",
+          "sl": "Moja krona ima marjetice, trobentice in belo cvetje gloga. May blossom je cvet gloga, veš.",
+          "it": "La mia corona ha margheritine, primule e fiori bianchi di biancospino. La may blossom è il fiore del biancospino, sai.",
+          "de": "Meine Krone hat Gänseblümchen, Schlüsselblumen und weiße Weißdornblüten. May blossom ist die Blüte vom Weißdorn, weißt du."
+        },
+        {
+          "choices": [
+            {
+              "en": "Your crown sounds beautiful!",
+              "sl": "Tvoja krona je gotovo čudovita!",
+              "it": "La tua corona dev'essere bellissima!",
+              "de": "Deine Krone klingt wunderschön!",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "en": "Thank you! I helped to make it. Well, nearly.",
+                "sl": "Hvala! Pomagala sem jo narediti. No, skoraj.",
+                "it": "Grazie! Ho aiutato a farla. Be', quasi.",
+                "de": "Danke! Ich hab beim Machen geholfen. Na ja, fast."
+              }
+            },
+            {
+              "en": "You crown sounds beautiful!",
+              "sl": "Tvoja krona je gotovo čudovita!",
+              "it": "La tua corona dev'essere bellissima!",
+              "de": "Deine Krone klingt wunderschön!",
+              "grammar": "possessive-s",
+              "why": {
+                "en": "Whose crown? Before a noun, your: your crown. You is the person.",
+                "sl": "Čigava krona? Pred samostalnikom your: your crown. You je oseba.",
+                "it": "Di chi è la corona? Davanti a un nome si usa your: your crown. You è la persona.",
+                "de": "Wessen Krone? Vor einem Nomen your: your crown. You ist die Person."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Me? I'm not the crown, silly. I'm the queen!",
+                "sl": "Jaz? Saj nisem jaz krona, {m:smešnež|f:smešnica}. Jaz sem kraljica!",
+                "it": "Io? Non sono io la corona, {m:sciocchino|f:sciocchina}. Sono la regina!",
+                "de": "Ich? Ich bin doch nicht die Krone, du Dussel. Ich bin die Königin!"
+              }
+            },
+            {
+              "en": "Your clown sounds beautiful!",
+              "sl": "Tvoj klovn je gotovo čudovit!",
+              "it": "Il tuo pagliaccio dev'essere bellissimo!",
+              "de": "Dein Clown klingt wunderschön!",
+              "why": {
+                "en": "A clown makes people laugh at the circus. Poppy has a crown: a queen's.",
+                "sl": "Clown je klovn v cirkusu. Poppy ima krono: crown.",
+                "it": "Clown è il pagliaccio del circo. Poppy ha una corona: crown.",
+                "de": "Clown ist ein Clown im Zirkus. Poppy hat eine Krone: crown."
+              },
+              "reply": {
+                "face": "cross",
+                "en": "A clown? I'm a queen, not a clown!",
+                "sl": "Klovn? Jaz sem kraljica, ne klovn!",
+                "it": "Un pagliaccio? Sono una regina, non un pagliaccio!",
+                "de": "Ein Clown? Ich bin eine Königin, kein Clown!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Pardon? Say it again, please!",
+            "sl": "Prosim? Še enkrat, prosim!",
+            "it": "Come? Ripetilo, per favore!",
+            "de": "Wie bitte? Sag es noch mal, bitte!"
+          }
+        },
+        {
+          "who": "poppy",
+          "face": "happy",
+          "en": "They crown me on the green, and then the dancing starts!",
+          "sl": "Na zelenici me okronajo, potem pa se začne ples!",
+          "it": "Mi incoronano sul prato, e poi comincia il ballo!",
+          "de": "Ich werde auf der Wiese gekrönt, und dann geht der Tanz los!"
+        }
+      ]
+    },
+    {
+      "id": "ribbons",
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "happy",
+          "en": "{learner}! The maypole has got ribbons. Red, blue, yellow and green!",
+          "sl": "{learner}! Mlaj ima trakove. Rdeče, modre, rumene in zelene!",
+          "it": "{learner}! L'albero di maggio ha i nastri. Rossi, blu, gialli e verdi!",
+          "de": "{learner}! Der Maibaum hat Bänder. Rot, blau, gelb und grün!"
+        },
+        {
+          "choices": [
+            {
+              "en": "Which ribbon is yours, Alfie?",
+              "sl": "Kateri trak je tvoj, Alfie?",
+              "it": "Quale nastro è il tuo, Alfie?",
+              "de": "Welches Band ist deins, Alfie?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "The yellow one! Yellow like the sun.",
+                "sl": "Rumeni! Rumen kot sonce.",
+                "it": "Quello giallo! Giallo come il sole.",
+                "de": "Das gelbe! Gelb wie die Sonne."
+              }
+            },
+            {
+              "en": "Which ribbon is your, Alfie?",
+              "sl": "Kateri trak je tvoj, Alfie?",
+              "it": "Quale nastro è il tuo, Alfie?",
+              "de": "Welches Band ist deins, Alfie?",
+              "grammar": "possessive-s",
+              "why": {
+                "en": "Your goes before a noun: your ribbon. At the end, alone: yours.",
+                "sl": "Your stoji pred samostalnikom: your ribbon. Sam na koncu: yours.",
+                "it": "Your va davanti a un nome: your ribbon. Da solo, alla fine: yours.",
+                "de": "Your steht vor einem Nomen: your ribbon. Allein am Ende: yours."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "My what? My ribbon?",
+                "sl": "Moj kaj? Moj trak?",
+                "it": "Il mio cosa? Il mio nastro?",
+                "de": "Mein was? Mein Band?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say it again, slowly?",
+            "sl": "A? Še enkrat, počasi?",
+            "it": "Eh? Ripeti, piano piano?",
+            "de": "Hä? Noch mal, langsam?"
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "proud",
+          "en": "There are four colours. I can count them: one, two, three, four!",
+          "sl": "Štiri barve so. Znam jih prešteti: ena, dve, tri, štiri!",
+          "it": "Ci sono quattro colori. So contarli: uno, due, tre, quattro!",
+          "de": "Es sind vier Farben. Ich kann sie zählen: eins, zwei, drei, vier!"
+        },
+        {
+          "choices": [
+            {
+              "en": "Well done! There are four colours.",
+              "sl": "Bravo! Štiri barve so.",
+              "it": "Bravo! Ci sono quattro colori.",
+              "de": "Super! Es sind vier Farben.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "And lots and lots of ribbons!",
+                "sl": "In ogromno trakov!",
+                "it": "E tantissimi nastri!",
+                "de": "Und ganz, ganz viele Bänder!"
+              }
+            },
+            {
+              "en": "Well done! There is four colours.",
+              "sl": "Bravo! Štiri barve so.",
+              "it": "Bravo! Ci sono quattro colori.",
+              "de": "Super! Es sind vier Farben.",
+              "grammar": "there-is-are",
+              "why": {
+                "en": "More than one thing: there are. There is is for one.",
+                "sl": "Za več stvari: there are. There is je za eno.",
+                "it": "Per più di una cosa: there are. There is è per una sola.",
+                "de": "Bei mehr als einem: there are. There is ist für eins."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Just one colour? But I counted four!",
+                "sl": "Samo ena barva? Saj sem jih preštel štiri!",
+                "it": "Un colore solo? Ma io ne ho contati quattro!",
+                "de": "Nur eine Farbe? Ich hab doch vier gezählt!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say it again, slowly?",
+            "sl": "A? Še enkrat, počasi?",
+            "it": "Eh? Ripeti, piano piano?",
+            "de": "Hä? Noch mal, langsam?"
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "happy",
+          "en": "When I'm big, I'll dance with the yellow one!",
+          "sl": "Ko bom velik, bom plesal z rumenim!",
+          "it": "Quando sarò grande, ballerò con quello giallo!",
+          "de": "Wenn ich groß bin, tanze ich mit dem gelben!"
+        }
+      ]
+    },
+    {
+      "id": "dance",
+      "lines": [
+        {
+          "who": "harry",
+          "face": "happy",
+          "en": "{learner}! Come on, it's the ribbon dance! Grab a ribbon!",
+          "sl": "{learner}! Pridi, ples s trakovi je! Primi trak!",
+          "it": "{learner}! Dai, c'è il ballo dei nastri! Prendi un nastro!",
+          "de": "{learner}! Komm, jetzt ist der Bändertanz! Schnapp dir ein Band!",
+          "fx": { "dance": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Great! I'm coming!",
+              "sl": "Super! Že grem!",
+              "it": "Fantastico! Arrivo!",
+              "de": "Super! Ich komme!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Take the blue one. Hold the end tight!",
+                "sl": "Vzemi modrega. Trdno drži konec!",
+                "it": "Prendi quello blu. Tieni forte la punta!",
+                "de": "Nimm das blaue. Halt das Ende gut fest!"
+              }
+            },
+            {
+              "en": "OK! Which ribbon is mine?",
+              "sl": "Prav! Kateri trak je moj?",
+              "it": "Va bene! Quale nastro è il mio?",
+              "de": "Okay! Welches Band ist meins?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "The blue one! Hold the end tight!",
+                "sl": "Modri! Trdno drži konec!",
+                "it": "Quello blu! Tieni forte la punta!",
+                "de": "Das blaue! Halt das Ende gut fest!"
+              }
+            },
+            {
+              "en": "Great! I'm going home!",
+              "sl": "Super! Grem domov!",
+              "it": "Fantastico! Vado a casa!",
+              "de": "Super! Ich geh nach Hause!",
+              "why": {
+                "en": "Harry wants you in the dance: say you're coming, not going home.",
+                "sl": "Harry te vabi k plesu: reci, da prideš, ne da greš domov.",
+                "it": "Harry ti chiede di ballare: di' che arrivi, non che vai a casa.",
+                "de": "Harry will dich beim Tanz dabeihaben: Sag, dass du kommst, nicht dass du heimgehst."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Home? But the dance is starting now!",
+                "sl": "Domov? Saj se ples ravno začenja!",
+                "it": "A casa? Ma il ballo comincia adesso!",
+                "de": "Nach Hause? Der Tanz fängt doch gerade an!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "harry",
+          "en": "Half of us go one way, half go the other. Under, over, under, over!",
+          "sl": "Pol nas gre v eno smer, pol v drugo. Pod, čez, pod, čez!",
+          "it": "Metà di noi va da una parte, metà dall'altra. Sotto, sopra, sotto, sopra!",
+          "de": "Die Hälfte geht in die eine Richtung, die Hälfte in die andere. Drunter, drüber, drunter, drüber!",
+          "fx": { "dance": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "We're dancing round the maypole!",
+              "sl": "Plešemo okoli mlaja!",
+              "it": "Balliamo intorno all'albero di maggio!",
+              "de": "Wir tanzen um den Maibaum!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "And the ribbons are going round it too!",
+                "sl": "In trakovi gredo z nami okoli njega!",
+                "it": "E anche i nastri gli girano intorno!",
+                "de": "Und die Bänder gehen auch um ihn herum!"
+              }
+            },
+            {
+              "en": "We dancing round the maypole!",
+              "sl": "Plešemo okoli mlaja!",
+              "it": "Balliamo intorno all'albero di maggio!",
+              "de": "Wir tanzen um den Maibaum!",
+              "grammar": "present-continuous",
+              "why": {
+                "en": "The present continuous needs be: we're dancing (we are dancing).",
+                "sl": "Present continuous potrebuje be: we're dancing (we are dancing).",
+                "it": "Il present continuous ha bisogno di be: we're dancing (we are dancing).",
+                "de": "Das Present Continuous braucht be: we're dancing (we are dancing)."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "We what? Keep going, keep going!",
+                "sl": "Mi kaj? Kar naprej, kar naprej!",
+                "it": "Noi cosa? Avanti, avanti!",
+                "de": "Wir was? Weiter, weiter!"
+              }
+            },
+            {
+              "en": "We're dancing on the maypole!",
+              "sl": "Plešemo na mlaju!",
+              "it": "Balliamo sull'albero di maggio!",
+              "de": "Wir tanzen auf dem Maibaum!",
+              "grammar": "prepositions-place",
+              "why": {
+                "en": "On the maypole is up on top of it! In a circle about it: round the maypole.",
+                "sl": "On the maypole pomeni gor na njem! V krogu okoli njega: round the maypole.",
+                "it": "On the maypole vuol dire lassù in cima! In cerchio attorno: round the maypole.",
+                "de": "On the maypole hieße oben drauf! Im Kreis darum herum: round the maypole."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "On it? Nobody climbs our maypole!",
+                "sl": "Na njem? Na naš mlaj nihče ne pleza!",
+                "it": "Sopra? Sul nostro albero di maggio non si arrampica nessuno!",
+                "de": "Oben drauf? Auf unseren Maibaum klettert keiner!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? The band's too loud! Again!",
+            "sl": "Kaj? Godba je preglasna! Še enkrat!",
+            "it": "Cosa? La banda è troppo forte! Ancora!",
+            "de": "Was? Die Kapelle ist zu laut! Noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "face": "proud",
+          "en": "Look at the pole now: red, blue, yellow and green, all plaited!",
+          "sl": "Poglej zdaj drog: rdeča, modra, rumena in zelena, vse spleteno!",
+          "it": "Guarda il palo adesso: rosso, blu, giallo e verde, tutto intrecciato!",
+          "de": "Schau dir jetzt den Mast an: rot, blau, gelb und grün, alles geflochten!"
+        }
+      ]
+    },
+    {
+      "id": "bench",
+      "lines": [
+        {
+          "who": "wilf",
+          "face": "happy",
+          "en": "Hello, {m:son|f:lass}. Sit by me and watch the dancers.",
+          "sl": "{m:Pozdravljen|f:Pozdravljena}. Sedi k meni in glej plesalce.",
+          "it": "Ciao, {m:figliolo|f:figliola}. Siediti accanto a me e guarda i ballerini.",
+          "de": "Hallo, {m:mein Junge|f:mein Mädchen}. Setz dich zu mir und schau den Tänzern zu.",
+          "fx": { "dance": 0.6 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Hello, Wilf! Did you dance round the maypole too?",
+              "sl": "Živjo, Wilf! Si tudi ti plesal okoli mlaja?",
+              "it": "Ciao, Wilf! Anche tu ballavi intorno all'albero di maggio?",
+              "de": "Hallo, Wilf! Hast du auch um den Maibaum getanzt?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "I did! Every May Day, in my best shirt.",
+                "sl": "Seveda! Vsak prvi maj, v najboljši srajci.",
+                "it": "Certo! Ogni primo maggio, con la camicia più bella.",
+                "de": "Und ob! Jeden ersten Mai, im besten Hemd."
+              }
+            },
+            {
+              "en": "Hello, Wilf! Did you danced round the maypole too?",
+              "sl": "Živjo, Wilf! Si tudi ti plesal okoli mlaja?",
+              "it": "Ciao, Wilf! Anche tu ballavi intorno all'albero di maggio?",
+              "de": "Hallo, Wilf! Hast du auch um den Maibaum getanzt?",
+              "grammar": "past-simple",
+              "why": {
+                "en": "After did, the verb has no -ed: did you dance? Did is the past already.",
+                "sl": "Za did glagol nima -ed: did you dance? Did je že preteklik.",
+                "it": "Dopo did il verbo non prende -ed: did you dance? Il passato è già in did.",
+                "de": "Nach did hat das Verb kein -ed: did you dance? Did ist schon die Vergangenheit."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Did I what? These old ears!",
+                "sl": "Sem kaj? Ta stara ušesa!",
+                "it": "Se ho fatto cosa? Queste vecchie orecchie!",
+                "de": "Hab ich was? Diese alten Ohren!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+            "sl": "Kaj? Še enkrat, malo glasneje?",
+            "it": "Eh? Ancora una volta, un po' più forte?",
+            "de": "Hm? Noch einmal, ein bisschen lauter?"
+          }
+        },
+        {
+          "who": "wilf",
+          "face": "happy",
+          "en": "The May Queen that year was Annie. The best dancer in the dale.",
+          "sl": "Majska kraljica je bila tisto leto Annie. Najboljša plesalka v dolini.",
+          "it": "La regina di maggio quell'anno era Annie. La ballerina più brava della valle.",
+          "de": "Die Maikönigin war in dem Jahr Annie. Die beste Tänzerin im Tal."
+        },
+        {
+          "choices": [
+            {
+              "en": "Was Annie your wife?",
+              "sl": "Je bila Annie tvoja žena?",
+              "it": "Annie era tua moglie?",
+              "de": "War Annie deine Frau?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "She was, for fifty-two years.",
+                "sl": "Bila je, dvainpetdeset let.",
+                "it": "Sì, per cinquantadue anni.",
+                "de": "Ja, zweiundfünfzig Jahre lang."
+              }
+            },
+            {
+              "en": "Were Annie your wife?",
+              "sl": "Je bila Annie tvoja žena?",
+              "it": "Annie era tua moglie?",
+              "de": "War Annie deine Frau?",
+              "grammar": "past-simple",
+              "why": {
+                "en": "For one person, the past of be is was: was Annie …? Were is for you, we and they.",
+                "sl": "Za eno osebo je preteklik od be was: was Annie …? Were je za you, we in they.",
+                "it": "Per una persona il passato di be è was: was Annie …? Were è per you, we e they.",
+                "de": "Bei einer Person ist die Vergangenheit von be was: was Annie …? Were ist für you, we und they."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Were? There's only one Annie, {m:son|f:lass}!",
+                "sl": "Were? Annie je bila samo ena!",
+                "it": "Were? Di Annie ce n'era una sola!",
+                "de": "Were? Es gab nur eine Annie!"
+              }
+            },
+            {
+              "en": "Was Annie you wife?",
+              "sl": "Je bila Annie tvoja žena?",
+              "it": "Annie era tua moglie?",
+              "de": "War Annie deine Frau?",
+              "grammar": "possessive-s",
+              "why": {
+                "en": "Before a noun, your: your wife. You is the person.",
+                "sl": "Pred samostalnikom your: your wife. You je oseba.",
+                "it": "Davanti a un nome si usa your: your wife. You è la persona.",
+                "de": "Vor einem Nomen your: your wife. You ist die Person."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Was Annie me? No, no, I'm Wilf!",
+                "sl": "Ali je bila Annie jaz? Ne, ne, jaz sem Wilf!",
+                "it": "Annie ero io? No, no, io sono Wilf!",
+                "de": "War Annie ich? Nein, nein, ich bin Wilf!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+            "sl": "Kaj? Še enkrat, malo glasneje?",
+            "it": "Eh? Ancora una volta, un po' più forte?",
+            "de": "Hm? Noch einmal, ein bisschen lauter?"
+          }
+        },
+        {
+          "who": "wilf",
+          "face": "happy",
+          "en": "She had a crown of may blossom. I can still smell it.",
+          "sl": "Imela je krono iz cvetov gloga. Še zdaj ga čutim.",
+          "it": "Aveva una corona di fiori di biancospino. Ne sento ancora il profumo.",
+          "de": "Sie hatte eine Krone aus Weißdornblüten. Ich rieche sie heute noch."
+        }
+      ]
+    },
+    {
+      "id": "pole",
+      "lines": [
+        {
+          "who": "jack",
+          "face": "curious",
+          "en": "Now then, {learner}! Can you see my larch from the wood?",
+          "sl": "No, {learner}! Vidiš moj macesen iz gozda?",
+          "it": "Allora, {learner}! Lo vedi il mio larice del bosco?",
+          "de": "Na, {learner}! Siehst du meine Lärche aus dem Wald?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, there it is: it's the maypole now!",
+              "sl": "Ja, tam je: zdaj je mlaj!",
+              "it": "Sì, eccolo: adesso è l'albero di maggio!",
+              "de": "Ja, da ist sie: Jetzt ist sie der Maibaum!",
+              "ok": true,
+              "tap": "maypole",
+              "reply": {
+                "face": "proud",
+                "en": "Aye! Peeled, painted and standing tall.",
+                "sl": "Ja! Olupljen, pobarvan in visoko pokonci.",
+                "it": "Già! Scortecciato, dipinto e bello dritto.",
+                "de": "Jawohl! Geschält, bemalt und kerzengerade."
+              }
+            },
+            {
+              "en": "Yes, there it is: the big oak!",
+              "sl": "Ja, tam je: veliki hrast!",
+              "it": "Sì, eccolo: la grande quercia!",
+              "de": "Ja, da ist sie: die große Eiche!",
+              "tap": "linden",
+              "why": {
+                "en": "The oak has stood here for two hundred years. The larch from the wood is the tall red and white pole now.",
+                "sl": "Hrast stoji tu že dvesto let. Macesen iz gozda je zdaj visoki rdeče-beli drog.",
+                "it": "La quercia è qui da duecento anni. Il larice del bosco adesso è il palo alto bianco e rosso.",
+                "de": "Die Eiche steht hier seit zweihundert Jahren. Die Lärche aus dem Wald ist jetzt der hohe rot-weiße Mast."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The oak? That's been here two hundred years!",
+                "sl": "Hrast? Ta je tukaj že dvesto let!",
+                "it": "La quercia? Quella è qui da duecento anni!",
+                "de": "Die Eiche? Die steht hier seit zweihundert Jahren!"
+              }
+            },
+            {
+              "en": "Yes, there it is: the old bench!",
+              "sl": "Ja, tam je: stara klop!",
+              "it": "Sì, eccolo: la vecchia panchina!",
+              "de": "Ja, da ist sie: die alte Bank!",
+              "tap": "bench",
+              "why": {
+                "en": "A bench is for sitting on. Look for the tall pole with the ribbons.",
+                "sl": "Klop je za sedenje. Poišči visoki drog s trakovi.",
+                "it": "La panchina serve per sedersi. Cerca il palo alto con i nastri.",
+                "de": "Eine Bank ist zum Sitzen. Such den hohen Mast mit den Bändern."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The bench? That's Wilf's, not my larch!",
+                "sl": "Klop? Ta je Wilfova, ne moj macesen!",
+                "it": "La panchina? Quella è di Wilf, non il mio larice!",
+                "de": "Die Bank? Die gehört Wilf, das ist nicht meine Lärche!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "jack",
+          "en": "It stands here all through May. Then we take it down till next year.",
+          "sl": "Tukaj stoji ves maj. Potem ga podremo do drugega leta.",
+          "it": "Resta qui per tutto maggio. Poi lo togliamo fino all'anno prossimo.",
+          "de": "Er steht hier den ganzen Mai. Dann bauen wir ihn bis nächstes Jahr ab."
+        },
+        {
+          "choices": [
+            {
+              "en": "Why do you take it down?",
+              "sl": "Zakaj ga podrete?",
+              "it": "Perché lo togliete?",
+              "de": "Warum baut ihr ihn ab?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "So it doesn't rot in the rain. Larch is strong, but not that strong!",
+                "sl": "Da ne zgnije v dežju. Macesen je trden, a ne tako zelo!",
+                "it": "Così non marcisce sotto la pioggia. Il larice è robusto, ma non così tanto!",
+                "de": "Damit er im Regen nicht verfault. Lärche ist stark, aber so stark auch wieder nicht!"
+              }
+            },
+            {
+              "en": "Why you take it down?",
+              "sl": "Zakaj ga podrete?",
+              "it": "Perché lo togliete?",
+              "de": "Warum baut ihr ihn ab?",
+              "grammar": "questions-do",
+              "why": {
+                "en": "A question in the present simple needs do: why do you …?",
+                "sl": "Vprašanje v present simple potrebuje do: why do you …?",
+                "it": "Una domanda al present simple ha bisogno di do: why do you …?",
+                "de": "Eine Frage im Present Simple braucht do: why do you …?"
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Me? Take it down now? Not till June, mate!",
+                "sl": "Jaz? Zdaj ga podreti? Šele junija!",
+                "it": "Io? Toglierlo adesso? Non prima di giugno!",
+                "de": "Ich? Ihn jetzt abbauen? Erst im Juni, Kumpel!"
+              }
+            },
+            {
+              "en": "Why do you takes it down?",
+              "sl": "Zakaj ga podrete?",
+              "it": "Perché lo togliete?",
+              "de": "Warum baut ihr ihn ab?",
+              "grammar": "questions-do",
+              "why": {
+                "en": "After do, the verb has no -s: why do you take …?",
+                "sl": "Za do glagol nima -s: why do you take …?",
+                "it": "Dopo do il verbo non prende la -s: why do you take …?",
+                "de": "Nach do hat das Verb kein -s: why do you take …?"
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Takes? Ask me again, mate. Slowly!",
+                "sl": "Takes? Vprašaj me še enkrat. Počasi!",
+                "it": "Takes? Chiedimelo di nuovo. Piano!",
+                "de": "Takes? Frag mich noch mal, Kumpel. Langsam!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Sorry, mate? The wind took that one.",
+            "sl": "Oprosti? Tega mi je odnesel veter.",
+            "it": "Scusa? Questa se l'è portata via il vento.",
+            "de": "Wie bitte? Das hat der Wind verweht."
+          }
+        },
+        {
+          "who": "jack",
+          "face": "happy",
+          "en": "Right. Off you go and dance!",
+          "sl": "Tako. Zdaj pa pojdi plesat!",
+          "it": "Bene. Adesso vai a ballare!",
+          "de": "So. Und jetzt ab zum Tanzen!"
+        }
+      ]
+    },
+    {
+      "id": "band",
+      "lines": [
+        {
+          "who": "sam",
+          "face": "happy",
+          "en": "Now then, {learner}! Can you hear the brass band? Where are they playing?",
+          "sl": "No, {learner}! Slišiš pihalno godbo? Kje igrajo?",
+          "it": "Allora, {learner}! La senti la banda? Dove suonano?",
+          "de": "Na, {learner}! Hörst du die Blaskapelle? Wo spielen sie?",
+          "fx": { "band": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "They're under the oak!",
+              "sl": "Pod hrastom so!",
+              "it": "Sono sotto la quercia!",
+              "de": "Sie sind unter der Eiche!",
+              "ok": true,
+              "tap": "linden",
+              "grammar": "prepositions-place",
+              "reply": {
+                "face": "happy",
+                "en": "Aye, in the shade, like every year.",
+                "sl": "Ja, v senci, kot vsako leto.",
+                "it": "Già, all'ombra, come ogni anno.",
+                "de": "Jawohl, im Schatten, wie jedes Jahr."
+              }
+            },
+            {
+              "en": "They're by the maypole!",
+              "sl": "Pri mlaju so!",
+              "it": "Sono vicino all'albero di maggio!",
+              "de": "Sie sind beim Maibaum!",
+              "tap": "maypole",
+              "why": {
+                "en": "Listen for the big drum: the band is under the big old tree.",
+                "sl": "Prisluhni velikemu bobnu: godba je pod velikim starim drevesom.",
+                "it": "Ascolta la grancassa: la banda è sotto il grande albero vecchio.",
+                "de": "Hör auf die große Trommel: Die Kapelle ist unter dem großen alten Baum."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "By the maypole? No, that's for the dancers!",
+                "sl": "Pri mlaju? Ne, tam so plesalci!",
+                "it": "Vicino all'albero di maggio? No, quello è per i ballerini!",
+                "de": "Beim Maibaum? Nein, da sind die Tänzer!"
+              }
+            },
+            {
+              "en": "They're on the bench!",
+              "sl": "Na klopi so!",
+              "it": "Sono sulla panchina!",
+              "de": "Sie sind auf der Bank!",
+              "tap": "bench",
+              "why": {
+                "en": "A whole band won't fit on a bench. They stand under the big old tree.",
+                "sl": "Cela godba ne gre na klop. Stojijo pod velikim starim drevesom.",
+                "it": "Una banda intera non ci sta su una panchina. Stanno sotto il grande albero vecchio.",
+                "de": "Eine ganze Kapelle passt nicht auf eine Bank. Sie stehen unter dem großen alten Baum."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "On the bench? All of them? It'd break!",
+                "sl": "Na klopi? Vsi? Saj bi se zlomila!",
+                "it": "Sulla panchina? Tutti quanti? Si romperebbe!",
+                "de": "Auf der Bank? Alle? Die würde ja brechen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "sam",
+          "face": "curious",
+          "en": "Would you like a glass of damson juice? It's from up the dale.",
+          "sl": "Bi kozarec slivovega soka? Je iz doline.",
+          "it": "Vuoi un bicchiere di succo di susine? Viene dalla valle.",
+          "de": "Möchtest du ein Glas Pflaumensaft? Der ist von oben aus dem Tal."
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, please! I love damson juice.",
+              "sl": "Ja, prosim! Obožujem slivov sok.",
+              "it": "Sì, grazie! Adoro il succo di susine.",
+              "de": "Ja, bitte! Ich liebe Pflaumensaft.",
+              "ok": true,
+              "reply": { "face": "happy", "en": "There you go. Cheers!", "sl": "Izvoli. Na zdravje!", "it": "Ecco qua. Salute!", "de": "Bitte schön. Prost!" }
+            },
+            {
+              "en": "No, thanks. Just water, please.",
+              "sl": "Ne, hvala. Samo vodo, prosim.",
+              "it": "No, grazie. Solo acqua, per favore.",
+              "de": "Nein, danke. Nur Wasser, bitte.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Water it is, nice and cold.",
+                "sl": "Pa voda, lepo hladna.",
+                "it": "Acqua, allora, bella fresca.",
+                "de": "Dann Wasser, schön kalt."
+              }
+            },
+            {
+              "en": "Yes, please! I love damson jam.",
+              "sl": "Ja, prosim! Obožujem slivovo marmelado.",
+              "it": "Sì, grazie! Adoro la marmellata di susine.",
+              "de": "Ja, bitte! Ich liebe Pflaumenmarmelade.",
+              "why": {
+                "en": "Jam goes on bread. Sam is offering a glass of juice.",
+                "sl": "Jam je marmelada, za na kruh. Sam ponuja kozarec soka: juice.",
+                "it": "Jam è la marmellata, da spalmare sul pane. Sam offre un bicchiere di succo: juice.",
+                "de": "Jam ist Marmelade, fürs Brot. Sam bietet ein Glas Saft an: juice."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Jam? In a glass? That'd be a sticky drink!",
+                "sl": "Marmelada? V kozarcu? To bi bila lepljiva pijača!",
+                "it": "Marmellata? In un bicchiere? Sarebbe una bevanda appiccicosa!",
+                "de": "Marmelade? Im Glas? Das wär ein klebriges Getränk!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "sam",
+          "face": "happy",
+          "en": "Listen, they're playing the old May Day tune. That's the best bit!",
+          "sl": "Poslušaj, igrajo staro prvomajsko vižo. To je najlepše!",
+          "it": "Ascolta, suonano la vecchia melodia del primo maggio. È il momento più bello!",
+          "de": "Hör mal, sie spielen die alte Maimelodie. Das ist das Schönste!"
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "queen-speech",
+      "memory": {
+        "en": "the speech you helped me with",
+        "sl": "govor, pri katerem si mi {m:pomagal|f:pomagala}",
+        "it": "il discorso che mi hai aiutato a preparare",
+        "de": "die Rede, bei der du mir geholfen hast"
+      },
+      "lines": [
+        {
+          "who": "poppy",
+          "face": "worried",
+          "en": "{learner}, the May Queen has to make a speech before the dancing. I'm a bit scared.",
+          "sl": "{learner}, majska kraljica mora imeti govor, preden se začne ples. Malo me je strah.",
+          "it": "{learner}, la regina di maggio deve fare un discorso prima del ballo. Ho un po' paura.",
+          "de": "{learner}, die Maikönigin muss vor dem Tanz eine Rede halten. Ich hab ein bisschen Angst."
+        },
+        {
+          "choices": [
+            {
+              "en": "Don't worry, Poppy. You can do it!",
+              "sl": "Ne skrbi, Poppy. Zmoreš!",
+              "it": "Non preoccuparti, Poppy. Ce la puoi fare!",
+              "de": "Keine Sorge, Poppy. Du schaffst das!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Can I? OK. Will you listen to me?",
+                "sl": "Res? Prav. Me boš {m:poslušal|f:poslušala}?",
+                "it": "Davvero? Va bene. Mi ascolti?",
+                "de": "Echt? Okay. Hörst du mir zu?"
+              }
+            },
+            {
+              "en": "Don't worry, Poppy. You can to do it!",
+              "sl": "Ne skrbi, Poppy. Zmoreš!",
+              "it": "Non preoccuparti, Poppy. Ce la puoi fare!",
+              "de": "Keine Sorge, Poppy. Du schaffst das!",
+              "grammar": "can",
+              "why": {
+                "en": "After can, the verb comes without to: can do.",
+                "sl": "Za can pride glagol brez to: can do.",
+                "it": "Dopo can il verbo va senza to: can do.",
+                "de": "Nach can steht das Verb ohne to: can do."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Can to? Hmm, that sounds funny, {learner}!",
+                "sl": "Can to? Hm, to se sliši smešno, {learner}!",
+                "it": "Can to? Mmm, suona strano, {learner}!",
+                "de": "Can to? Hm, das klingt komisch, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Pardon? Say it again, please!",
+            "sl": "Prosim? Še enkrat, prosim!",
+            "it": "Come? Ripetilo, per favore!",
+            "de": "Wie bitte? Sag es noch mal, bitte!"
+          }
+        },
+        {
+          "who": "poppy",
+          "face": "thinking",
+          "en": "Here goes: \"Hello, everyone! Welcome to May Day on our green!\"",
+          "sl": "Pa začnimo: »Pozdravljeni vsi! Dobrodošli na prvi maj na naši zelenici!«",
+          "it": "Ecco: «Ciao a tutti! Benvenuti al primo maggio sul nostro prato!»",
+          "de": "Also: »Hallo, alle zusammen! Willkommen zum ersten Mai auf unserer Wiese!«"
+        },
+        {
+          "choices": [
+            {
+              "en": "That's perfect, Your Majesty!",
+              "sl": "Popolno, vaše veličanstvo!",
+              "it": "Perfetto, Vostra Maestà!",
+              "de": "Perfekt, Eure Majestät!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Your Majesty! Hee hee! Say it again!",
+                "sl": "Vaše veličanstvo! Hi hi! Še enkrat povej!",
+                "it": "Vostra Maestà! Ih ih! Dillo ancora!",
+                "de": "Eure Majestät! Hihi! Sag das noch mal!"
+              }
+            },
+            {
+              "en": "Lovely! Everyone will clap.",
+              "sl": "Čudovito! Vsi bodo ploskali.",
+              "it": "Bellissimo! Tutti applaudiranno.",
+              "de": "Toll! Alle werden klatschen.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Then I'll wave like a real queen.",
+                "sl": "Potem bom mahala kot prava kraljica.",
+                "it": "Allora saluterò come una vera regina.",
+                "de": "Dann winke ich wie eine echte Königin."
+              }
+            },
+            {
+              "en": "That's perfect. Good night!",
+              "sl": "Popolno. Lahko noč!",
+              "it": "Perfetto. Buonanotte!",
+              "de": "Perfekt. Gute Nacht!",
+              "why": {
+                "en": "Good night is for going to bed. It's May Day morning: say something kind about her speech.",
+                "sl": "Good night rečeš, ko greš spat. Je jutro prvega maja: reci kaj lepega o njenem govoru.",
+                "it": "Good night si dice quando si va a letto. È la mattina del primo maggio: di' qualcosa di carino sul suo discorso.",
+                "de": "Good night sagt man, wenn man ins Bett geht. Es ist der Morgen des ersten Mai: sag etwas Nettes über ihre Rede."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Good night? But the party hasn't even started!",
+                "sl": "Lahko noč? Saj se zabava še začela ni!",
+                "it": "Buonanotte? Ma la festa non è neanche cominciata!",
+                "de": "Gute Nacht? Das Fest hat doch noch gar nicht angefangen!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "poppy",
+          "face": "happy",
+          "en": "Thank you, {learner}. Now I'm not scared any more!",
+          "sl": "Hvala, {learner}. Zdaj me ni več strah!",
+          "it": "Grazie, {learner}. Adesso non ho più paura!",
+          "de": "Danke, {learner}. Jetzt hab ich keine Angst mehr!"
+        }
+      ]
+    },
+    {
+      "id": "ribbons-tallest",
+      "memory": {
+        "en": "our game of the tallest thing",
+        "sl": "najino igro, kaj je najvišje",
+        "it": "il nostro gioco della cosa più alta",
+        "de": "unser Spiel vom Höchsten"
+      },
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "curious",
+          "en": "{learner}, let's play a game! What's the tallest thing on the green?",
+          "sl": "{learner}, igrajva se! Kaj je najvišje na zelenici?",
+          "it": "{learner}, facciamo un gioco! Qual è la cosa più alta del prato?",
+          "de": "{learner}, lass uns was spielen! Was ist das Höchste auf der Wiese?"
+        },
+        {
+          "choices": [
+            {
+              "en": "The maypole! It's the tallest.",
+              "sl": "Mlaj! Najvišji je.",
+              "it": "L'albero di maggio! È il più alto.",
+              "de": "Der Maibaum! Er ist der höchste.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Yes! It's taller than the oak!",
+                "sl": "Ja! Višji je od hrasta!",
+                "it": "Sì! È più alto della quercia!",
+                "de": "Ja! Er ist höher als die Eiche!"
+              }
+            },
+            {
+              "en": "The oak! It's the tallest.",
+              "sl": "Hrast! Najvišji je.",
+              "it": "La quercia! È la più alta.",
+              "de": "Die Eiche! Sie ist die höchste.",
+              "why": {
+                "en": "The oak is big and wide, but something on the green goes higher: the pole with the ribbons.",
+                "sl": "Hrast je velik in širok, a nekaj na zelenici sega višje: drog s trakovi.",
+                "it": "La quercia è grande e larga, ma sul prato c'è qualcosa di più alto: il palo con i nastri.",
+                "de": "Die Eiche ist groß und breit, aber etwas auf der Wiese ist höher: der Mast mit den Bändern."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "The oak is big. But something here is higher!",
+                "sl": "Hrast je velik. Ampak nekaj tukaj je še višje!",
+                "it": "La quercia è grande. Ma qui c'è qualcosa che arriva più su!",
+                "de": "Die Eiche ist groß. Aber etwas hier ist noch höher!"
+              }
+            },
+            {
+              "en": "The bench! It's the tallest.",
+              "sl": "Klop! Najvišja je.",
+              "it": "La panchina! È la più alta.",
+              "de": "Die Bank! Sie ist die höchste.",
+              "why": {
+                "en": "A bench is low: you sit on it. Look for something tall with ribbons.",
+                "sl": "Klop je nizka: nanjo se sede. Poišči nekaj visokega s trakovi.",
+                "it": "La panchina è bassa: ci si siede sopra. Cerca qualcosa di alto con i nastri.",
+                "de": "Eine Bank ist niedrig: Man sitzt darauf. Such etwas Hohes mit Bändern."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The bench? I'm taller than the bench!",
+                "sl": "Klop? Jaz sem višji od klopi!",
+                "it": "La panchina? Io sono più grande della panchina!",
+                "de": "Die Bank? Ich bin größer als die Bank!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "alfie",
+          "face": "proud",
+          "en": "Yes! It was a tree in the wood. Jack brought it to the green.",
+          "sl": "Ja! Bil je drevo v gozdu. Jack ga je prinesel na zelenico.",
+          "it": "Sì! Era un albero nel bosco. Jack l'ha portato sul prato.",
+          "de": "Ja! Er war ein Baum im Wald. Jack hat ihn auf die Wiese gebracht."
+        },
+        {
+          "choices": [
+            {
+              "en": "Was it a big tree?",
+              "sl": "Je bil veliko drevo?",
+              "it": "Era un albero grande?",
+              "de": "War er ein großer Baum?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "A big larch! The biggest in the wood.",
+                "sl": "Velik macesen! Največji v gozdu.",
+                "it": "Un larice grande! Il più grande del bosco.",
+                "de": "Eine große Lärche! Die größte im Wald."
+              }
+            },
+            {
+              "en": "Were it a big tree?",
+              "sl": "Je bil veliko drevo?",
+              "it": "Era un albero grande?",
+              "de": "War er ein großer Baum?",
+              "grammar": "past-simple",
+              "why": {
+                "en": "With it, the past of be is was: was it …? Were goes with you, we and they.",
+                "sl": "Pri it je preteklik od be was: was it …? Were gre z you, we in they.",
+                "it": "Con it il passato di be è was: was it …? Were va con you, we e they.",
+                "de": "Bei it ist die Vergangenheit von be was: was it …? Were geht mit you, we und they."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Were? Just the one tree, {learner}!",
+                "sl": "Were? Saj je bilo samo eno drevo, {learner}!",
+                "it": "Were? Un albero solo, {learner}!",
+                "de": "Were? Doch nur ein Baum, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say it again, slowly?",
+            "sl": "A? Še enkrat, počasi?",
+            "it": "Eh? Ripeti, piano piano?",
+            "de": "Hä? Noch mal, langsam?"
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "happy",
+          "en": "And now it's got ribbons. One, two, three, four colours!",
+          "sl": "Zdaj pa ima trakove. Ena, dve, tri, štiri barve!",
+          "it": "E adesso ha i nastri. Uno, due, tre, quattro colori!",
+          "de": "Und jetzt hat er Bänder. Eins, zwei, drei, vier Farben!"
+        }
+      ]
+    },
+    {
+      "id": "dance-tangle",
+      "memory": {
+        "en": "the tangle we danced out again",
+        "sl": "zaplet, ki sva ga spet razplesala",
+        "it": "il groviglio che abbiamo sciolto ballando",
+        "de": "das Durcheinander, das wir wieder auseinandergetanzt haben"
+      },
+      "lines": [
+        {
+          "who": "harry",
+          "face": "worried",
+          "en": "Oh no! Someone went the wrong way. The ribbons are in a tangle!",
+          "sl": "Joj! Nekdo je šel v napačno smer. Trakovi so se zapletli!",
+          "it": "Oh no! Qualcuno è andato dalla parte sbagliata. I nastri si sono aggrovigliati!",
+          "de": "Oh nein! Jemand ist falsch herum gegangen. Die Bänder sind verheddert!",
+          "fx": { "dance": 0.6 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Don't worry! Can we go back the other way?",
+              "sl": "Ne skrbi! Gremo lahko nazaj v drugo smer?",
+              "it": "Non preoccuparti! Possiamo tornare indietro dall'altra parte?",
+              "de": "Keine Sorge! Können wir andersherum zurückgehen?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Good idea! Back we go, slowly.",
+                "sl": "Dobra ideja! Pa nazaj, počasi.",
+                "it": "Buona idea! Si torna indietro, piano.",
+                "de": "Gute Idee! Zurück, ganz langsam."
+              }
+            },
+            {
+              "en": "Don't worry! Can we going back the other way?",
+              "sl": "Ne skrbi! Gremo lahko nazaj v drugo smer?",
+              "it": "Non preoccuparti! Possiamo tornare indietro dall'altra parte?",
+              "de": "Keine Sorge! Können wir andersherum zurückgehen?",
+              "grammar": "can",
+              "why": {
+                "en": "After can, the verb in its plain form, with no -ing: can we go?",
+                "sl": "Za can pride glagol v osnovni obliki, brez -ing: can we go?",
+                "it": "Dopo can il verbo va nella forma base, senza -ing: can we go?",
+                "de": "Nach can kommt die Grundform des Verbs, ohne -ing: can we go?"
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Can we what? Quick, the band's still playing!",
+                "sl": "Lahko kaj? Hitro, godba še igra!",
+                "it": "Possiamo cosa? Presto, la banda suona ancora!",
+                "de": "Können wir was? Schnell, die Kapelle spielt noch!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? The band's too loud! Again!",
+            "sl": "Kaj? Godba je preglasna! Še enkrat!",
+            "it": "Cosa? La banda è troppo forte! Ancora!",
+            "de": "Was? Die Kapelle ist zu laut! Noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "en": "Under, over, under, over… it's working! The ribbons are coming undone.",
+          "sl": "Pod, čez, pod, čez … deluje! Trakovi se razpletajo.",
+          "it": "Sotto, sopra, sotto, sopra… funziona! I nastri si stanno sciogliendo.",
+          "de": "Drunter, drüber, drunter, drüber … es klappt! Die Bänder gehen auseinander.",
+          "fx": { "dance": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Hooray! We did it!",
+              "sl": "Hura! Uspelo nam je!",
+              "it": "Evviva! Ce l'abbiamo fatta!",
+              "de": "Hurra! Wir haben's geschafft!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "We did! Team Maypole!",
+                "sl": "Ja! Ekipa Mlaj!",
+                "it": "Sì! Squadra Albero di Maggio!",
+                "de": "Ja! Team Maibaum!"
+              }
+            },
+            {
+              "en": "Phew! That was close.",
+              "sl": "Uf! Za las je šlo.",
+              "it": "Uff! C'è mancato poco.",
+              "de": "Puh! Das war knapp.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Close? That was brilliant!",
+                "sl": "Za las? To je bilo odlično!",
+                "it": "Poco? È stato fantastico!",
+                "de": "Knapp? Das war super!"
+              }
+            },
+            {
+              "en": "Hooray! Now they're in a bigger tangle!",
+              "sl": "Hura! Zdaj so še bolj zapleteni!",
+              "it": "Evviva! Adesso sono ancora più aggrovigliati!",
+              "de": "Hurra! Jetzt sind sie noch mehr verheddert!",
+              "why": {
+                "en": "Harry says the ribbons are coming undone: that's good news, not a bigger tangle.",
+                "sl": "Harry pravi, da se trakovi razpletajo: to je dobra novica.",
+                "it": "Harry dice che i nastri si stanno sciogliendo: è una bella notizia.",
+                "de": "Harry sagt, die Bänder gehen auseinander: Das ist eine gute Nachricht."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Bigger? No, they're fine now, look!",
+                "sl": "Še bolj? Ne, zdaj so v redu, poglej!",
+                "it": "Di più? No, adesso vanno bene, guarda!",
+                "de": "Noch mehr? Nein, jetzt ist alles gut, schau!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "harry",
+          "face": "proud",
+          "en": "Next year I'll show everyone the way!",
+          "sl": "Drugo leto bom jaz vsem pokazal pot!",
+          "it": "L'anno prossimo farò vedere io la strada a tutti!",
+          "de": "Nächstes Jahr zeige ich allen, wo's langgeht!"
+        }
+      ]
+    },
+    {
+      "id": "bench-clout",
+      "memory": {
+        "en": "my mother's saying about the may",
+        "sl": "mamin pregovor o glogu",
+        "it": "il proverbio di mia madre sul biancospino",
+        "de": "den Spruch meiner Mutter über den Weißdorn"
+      },
+      "lines": [
+        {
+          "who": "wilf",
+          "face": "thinking",
+          "en": "It's sunny, but keep your coat on. My mother always said: \"Ne'er cast a clout till May is out.\"",
+          "sl": "Sonce je, a plašč obdrži. Moja mama je vedno rekla: »Ne'er cast a clout till May is out.«",
+          "it": "C'è il sole, ma tieni il cappotto. Mia madre diceva sempre: «Ne'er cast a clout till May is out.»",
+          "de": "Die Sonne scheint, aber lass die Jacke an. Meine Mutter hat immer gesagt: »Ne'er cast a clout till May is out.«"
+        },
+        {
+          "choices": [
+            {
+              "en": "What does that mean, Wilf?",
+              "sl": "Kaj to pomeni, Wilf?",
+              "it": "Che cosa vuol dire, Wilf?",
+              "de": "Was heißt das, Wilf?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Don't take off your warm clothes till the may is out: the hawthorn's white blossom.",
+                "sl": "Ne sleci toplih oblačil, dokler ne zacveti may: beli cvet gloga.",
+                "it": "Non toglierti i vestiti pesanti finché non fiorisce il may: i fiori bianchi del biancospino.",
+                "de": "Zieh die warmen Sachen nicht aus, bevor der May blüht: die weißen Blüten vom Weißdorn."
+              }
+            },
+            {
+              "en": "What does that means, Wilf?",
+              "sl": "Kaj to pomeni, Wilf?",
+              "it": "Che cosa vuol dire, Wilf?",
+              "de": "Was heißt das, Wilf?",
+              "grammar": "questions-do",
+              "why": {
+                "en": "After does, the verb has no -s: what does it mean? Does has the -s already.",
+                "sl": "Za does glagol nima -s: what does it mean? Does ga že ima.",
+                "it": "Dopo does il verbo non prende la -s: what does it mean? Ce l'ha già does.",
+                "de": "Nach does hat das Verb kein -s: what does it mean? Does hat es schon."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Hm? Ask me again, slowly.",
+                "sl": "Hm? Vprašaj me še enkrat, počasi.",
+                "it": "Mm? Chiedimelo di nuovo, piano.",
+                "de": "Hm? Frag mich noch mal, langsam."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+            "sl": "Kaj? Še enkrat, malo glasneje?",
+            "it": "Eh? Ancora una volta, un po' più forte?",
+            "de": "Hm? Noch einmal, ein bisschen lauter?"
+          }
+        },
+        {
+          "who": "wilf",
+          "en": "When the hawthorn's white, summer's on its way. Not before!",
+          "sl": "Ko je glog bel, prihaja poletje. Prej ne!",
+          "it": "Quando il biancospino è bianco, l'estate è in arrivo. Non prima!",
+          "de": "Wenn der Weißdorn weiß ist, kommt der Sommer. Nicht vorher!"
+        },
+        {
+          "choices": [
+            {
+              "en": "So I can take my coat off soon!",
+              "sl": "Torej si bom kmalu lahko {m:slekel|f:slekla} plašč!",
+              "it": "Allora presto potrò togliermi il cappotto!",
+              "de": "Dann kann ich die Jacke bald ausziehen!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Soon. But not today, it's still a bit nippy!",
+                "sl": "Kmalu. Danes pa še ne, še je malo hladno!",
+                "it": "Presto. Ma non oggi, fa ancora un po' freschino!",
+                "de": "Bald. Aber nicht heute, es ist noch ein bisschen frisch!"
+              }
+            },
+            {
+              "en": "So I can takes my coat off soon!",
+              "sl": "Torej si bom kmalu lahko {m:slekel|f:slekla} plašč!",
+              "it": "Allora presto potrò togliermi il cappotto!",
+              "de": "Dann kann ich die Jacke bald ausziehen!",
+              "grammar": "can",
+              "why": {
+                "en": "After can, the verb has no -s: I can take.",
+                "sl": "Za can glagol nima -s: I can take.",
+                "it": "Dopo can il verbo non prende la -s: I can take.",
+                "de": "Nach can hat das Verb kein -s: I can take."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Takes? Keep that coat on a bit longer, {m:son|f:lass}!",
+                "sl": "Takes? Plašč pa še malo obdrži!",
+                "it": "Takes? Il cappotto tienilo ancora un po'!",
+                "de": "Takes? Die Jacke lässt du noch ein bisschen an!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+            "sl": "Kaj? Še enkrat, malo glasneje?",
+            "it": "Eh? Ancora una volta, un po' più forte?",
+            "de": "Hm? Noch einmal, ein bisschen lauter?"
+          }
+        },
+        {
+          "who": "wilf",
+          "face": "proud",
+          "en": "Old sayings, {m:son|f:lass}. They're older than me, and I'm eighty-four!",
+          "sl": "Stari pregovori. Starejši so od mene, jaz pa jih imam štiriinosemdeset!",
+          "it": "Vecchi proverbi. Sono più vecchi di me, e io ho ottantaquattro anni!",
+          "de": "Alte Sprüche. Die sind älter als ich, und ich bin vierundachtzig!"
+        }
+      ]
+    },
+    {
+      "id": "pole-raise",
+      "months": [4],
+      "fx_stays": true,
+      "memory": {
+        "en": "the evening we pulled the maypole up",
+        "sl": "dan, ko sva potegnila mlaj pokonci",
+        "it": "il giorno in cui abbiamo tirato su l'albero di maggio",
+        "de": "den Tag, an dem wir den Maibaum hochgezogen haben"
+      },
+      "lines": [
+        {
+          "who": "jack",
+          "face": "happy",
+          "en": "{learner}! It's the last day of April. The maypole goes up today. Grab a rope!",
+          "sl": "{learner}! Zadnji dan aprila je. Danes postavimo mlaj. Primi vrv!",
+          "it": "{learner}! È l'ultimo giorno di aprile. Oggi si alza l'albero di maggio. Prendi una corda!",
+          "de": "{learner}! Heute ist der letzte Apriltag. Heute stellen wir den Maibaum auf. Schnapp dir ein Seil!",
+          "fx": { "maypole": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "OK! I'm pulling!",
+              "sl": "Prav! Vlečem!",
+              "it": "Va bene! Sto tirando!",
+              "de": "Okay! Ich zieh schon!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Pull… pull… up she goes!",
+                "sl": "Vleci … vleci … gor gre!",
+                "it": "Tira… tira… su che va!",
+                "de": "Zieh… zieh… hoch mit ihm!",
+                "fx": { "maypole": 0.6 }
+              }
+            },
+            {
+              "en": "OK! I pulling!",
+              "sl": "Prav! Vlečem!",
+              "it": "Va bene! Sto tirando!",
+              "de": "Okay! Ich zieh schon!",
+              "grammar": "present-continuous",
+              "why": {
+                "en": "The present continuous needs am: I'm pulling (I am pulling).",
+                "sl": "Present continuous potrebuje am: I'm pulling (I am pulling).",
+                "it": "Il present continuous ha bisogno di am: I'm pulling (I am pulling).",
+                "de": "Das Present Continuous braucht am: I'm pulling (I am pulling)."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "You what? Pull, don't talk!",
+                "sl": "Ti kaj? Vleci, ne govori!",
+                "it": "Tu cosa? Tira, non parlare!",
+                "de": "Du was? Zieh, nicht reden!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Sorry, mate? The wind took that one.",
+            "sl": "Oprosti? Tega mi je odnesel veter.",
+            "it": "Scusa? Questa se l'è portata via il vento.",
+            "de": "Wie bitte? Das hat der Wind verweht."
+          }
+        },
+        {
+          "who": "jack",
+          "face": "proud",
+          "en": "And… she's standing! Well done, everyone!",
+          "sl": "In … stoji! Bravo, vsi!",
+          "it": "E… è in piedi! Bravi tutti!",
+          "de": "Und… er steht! Gut gemacht, alle zusammen!",
+          "fx": { "maypole": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Hooray! The maypole is up!",
+              "sl": "Hura! Mlaj stoji!",
+              "it": "Evviva! L'albero di maggio è su!",
+              "de": "Hurra! Der Maibaum steht!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Aye! A whole month of dancing now.",
+                "sl": "Ja! Zdaj pa cel mesec plesa.",
+                "it": "Già! Adesso un mese intero di balli.",
+                "de": "Jawohl! Jetzt wird einen ganzen Monat getanzt."
+              }
+            },
+            {
+              "en": "Wow! It's so tall!",
+              "sl": "Uau! Tako visok je!",
+              "it": "Wow! È altissimo!",
+              "de": "Wow! Der ist so hoch!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Taller than the oak!",
+                "sl": "Višji od hrasta!",
+                "it": "Più alto della quercia!",
+                "de": "Höher als die Eiche!"
+              }
+            },
+            {
+              "en": "Hooray! The maypole is down!",
+              "sl": "Hura! Mlaj je podrt!",
+              "it": "Evviva! L'albero di maggio è giù!",
+              "de": "Hurra! Der Maibaum liegt!",
+              "why": {
+                "en": "Down is on the ground. It's standing now: it's up.",
+                "sl": "Down pomeni na tleh. Zdaj stoji: up.",
+                "it": "Down vuol dire a terra. Adesso è in piedi: up.",
+                "de": "Down heißt am Boden. Jetzt steht er: up."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Down? Don't say that, we've only just raised it!",
+                "sl": "Podrt? Ne reci tega, ravno smo ga postavili!",
+                "it": "Giù? Non dirlo, l'abbiamo appena alzato!",
+                "de": "Liegt? Sag das nicht, wir haben ihn gerade erst aufgestellt!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "jack",
+          "face": "happy",
+          "en": "Tomorrow's May Day. See you on the green!",
+          "sl": "Jutri je prvi maj. Se vidimo na zelenici!",
+          "it": "Domani è il primo maggio. Ci vediamo sul prato!",
+          "de": "Morgen ist der erste Mai. Wir sehen uns auf der Wiese!"
+        }
+      ]
+    },
+    {
+      "id": "band-cups",
+      "count": { "from": "villagers", "min": 2, "max": 60 },
+      "memory": {
+        "en": "the cups we counted for the May Day tea",
+        "sl": "skodelice, ki sva jih preštela za prvomajski čaj",
+        "it": "le tazze che abbiamo contato per il tè del primo maggio",
+        "de": "die Tassen, die wir für den Maitee gezählt haben"
+      },
+      "lines": [
+        {
+          "who": "sam",
+          "face": "happy",
+          "en": "{learner}, there's tea on the green after the dancing. Everyone in the village is coming: that's {n} of us!",
+          "sl": "{learner}, po plesu bo na zelenici čaj. Vsa vas pride: {n} nas je!",
+          "it": "{learner}, dopo il ballo c'è il tè sul prato. Viene tutto il paese: siamo in {n}!",
+          "de": "{learner}, nach dem Tanz gibt es Tee auf der Wiese. Das ganze Dorf kommt: Wir sind {n}!"
+        },
+        {
+          "who": "sam",
+          "face": "curious",
+          "en": "How many cups do we need?",
+          "sl": "Koliko skodelic potrebujemo?",
+          "it": "Quante tazze ci servono?",
+          "de": "Wie viele Tassen brauchen wir?"
+        },
+        {
+          "choices": [
+            {
+              "en": "We need {n} {cup|cups}.",
+              "sl": "Potrebujemo {n} {skodelico|skodelici|skodelice|skodelic}.",
+              "it": "Ci servono {n} {tazza|tazze}.",
+              "de": "Wir brauchen {n} {Tasse|Tassen}.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Right! I'll fetch them from the inn.",
+                "sl": "Prav! Prinesem jih iz gostilne.",
+                "it": "Giusto! Vado a prenderle alla locanda.",
+                "de": "Genau! Ich hol sie aus dem Gasthaus."
+              }
+            },
+            {
+              "en": "We need {n} {!cup|cups}.",
+              "sl": "Potrebujemo {n} {!skodelico|skodelici|skodelice|skodelic}.",
+              "it": "Ci servono {n} {!tazza|tazze}.",
+              "de": "Wir brauchen {n} {!Tasse|Tassen}.",
+              "grammar": "plurals",
+              "wrong_form": 1,
+              "why": {
+                "en": "{One takes the singular|More than one takes -s}: {n} {cup|cups}.",
+                "sl": "{Eno je v ednini|Za več dodaš -s}: {n} {cup|cups}.",
+                "it": "{Uno vuole il singolare|Per più di uno si aggiunge -s}: {n} {cup|cups}.",
+                "de": "{Eins steht im Singular|Bei mehr als einem kommt -s dazu}: {n} {cup|cups}."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Eh? Say that again, slowly. I'm counting too!",
+                "sl": "A? Še enkrat, počasi. Tudi jaz štejem!",
+                "it": "Eh? Ripetilo, piano. Sto contando anch'io!",
+                "de": "Hä? Noch mal, langsam. Ich zähl auch mit!"
+              }
+            },
+            {
+              "en": "We need {n} {spoon|spoons}.",
+              "sl": "Potrebujemo {n} {žlico|žlici|žlice|žlic}.",
+              "it": "Ci servono {n} {cucchiaio|cucchiai}.",
+              "de": "Wir brauchen {n} {Löffel|Löffel}.",
+              "why": {
+                "en": "A spoon is for stirring. For tea you need cups.",
+                "sl": "Spoon je žlica, za mešanje. Za čaj potrebuješ skodelice: cups.",
+                "it": "Spoon è il cucchiaio, per mescolare. Per il tè ci vogliono le tazze: cups.",
+                "de": "Spoon ist der Löffel, zum Umrühren. Für Tee braucht man Tassen: cups."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Spoons? We'd be drinking tea all night!",
+                "sl": "Žlice? Potem bi čaj pili vso noč!",
+                "it": "Cucchiai? Berremmo il tè tutta la notte!",
+                "de": "Löffel? Dann trinken wir die ganze Nacht Tee!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Sorry? Once more, nice and slow.",
+            "sl": "Oprosti? Še enkrat, lepo počasi.",
+            "it": "Scusa? Ancora una volta, con calma.",
+            "de": "Wie bitte? Noch mal, schön langsam."
+          }
+        },
+        {
+          "who": "sam",
+          "face": "curious",
+          "en": "And do you take milk in your tea?",
+          "sl": "Pa piješ čaj z mlekom?",
+          "it": "E il tè lo prendi con il latte?",
+          "de": "Und nimmst du Milch in den Tee?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I do. And no sugar, please.",
+              "sl": "Ja. In brez sladkorja, prosim.",
+              "it": "Sì. E niente zucchero, per favore.",
+              "de": "Ja. Und keinen Zucker, bitte.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "No sugar. Sweet enough already, eh?",
+                "sl": "Brez sladkorja. Saj si že dovolj {m:sladek|f:sladka}, kajne?",
+                "it": "Niente zucchero. Sei già abbastanza dolce, eh?",
+                "de": "Kein Zucker. Du bist ja schon süß genug, was?"
+              }
+            },
+            {
+              "en": "Yes, I does. And no sugar, please.",
+              "sl": "Ja. In brez sladkorja, prosim.",
+              "it": "Sì. E niente zucchero, per favore.",
+              "de": "Ja. Und keinen Zucker, bitte.",
+              "grammar": "questions-do",
+              "why": {
+                "en": "With I, the short answer is do: yes, I do. Does is for he, she and it.",
+                "sl": "Pri I je kratki odgovor do: yes, I do. Does je za he, she in it.",
+                "it": "Con I la risposta breve è do: yes, I do. Does è per he, she e it.",
+                "de": "Bei I heißt die Kurzantwort do: yes, I do. Does ist für he, she und it."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Eh? That was a yes, I think. Milk it is!",
+                "sl": "A? To je bil ja, mislim. Torej z mlekom!",
+                "it": "Eh? Era un sì, credo. Allora latte!",
+                "de": "Hä? Das war ein Ja, glaub ich. Also Milch!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Sorry? Once more, nice and slow.",
+            "sl": "Oprosti? Še enkrat, lepo počasi.",
+            "it": "Scusa? Ancora una volta, con calma.",
+            "de": "Wie bitte? Noch mal, schön langsam."
+          }
+        },
+        {
+          "who": "sam",
+          "face": "happy",
+          "en": "Grand. Tea for everyone, and juice for the dancers!",
+          "sl": "Odlično. Čaj za vse, sok pa za plesalce!",
+          "it": "Ottimo. Tè per tutti, e succo per i ballerini!",
+          "de": "Prima. Tee für alle und Saft für die Tänzer!"
+        }
+      ]
+    },
+    {
+      "id": "queen-bell",
+      "memory": {
+        "en": "the bell before my crowning",
+        "sl": "zvon pred mojim kronanjem",
+        "it": "la campana prima della mia incoronazione",
+        "de": "die Glocke vor meiner Krönung"
+      },
+      "lines": [
+        {
+          "who": "poppy",
+          "face": "surprised",
+          "en": "Listen! The church bell! It's time for my crowning!",
+          "sl": "Poslušaj! Cerkveni zvon! Čas je za moje kronanje!",
+          "it": "Ascolta! La campana della chiesa! È ora della mia incoronazione!",
+          "de": "Hör mal! Die Kirchenglocke! Jetzt werde ich gekrönt!",
+          "fx": { "bell": 1 }
+        },
+        {
+          "who": "poppy",
+          "face": "worried",
+          "en": "Oh! Is my crown straight? Everyone's watching!",
+          "sl": "Oh! Je moja krona ravna? Vsi gledajo!",
+          "it": "Oh! La mia corona è dritta? Mi guardano tutti!",
+          "de": "Oh! Sitzt meine Krone gerade? Alle schauen zu!"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, it's perfect!",
+              "sl": "Ja, popolna je!",
+              "it": "Sì, è perfetta!",
+              "de": "Ja, sie ist perfekt!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Phew! Then I'm ready.",
+                "sl": "Uf! Potem sem pripravljena.",
+                "it": "Uff! Allora sono pronta.",
+                "de": "Puh! Dann bin ich bereit."
+              }
+            },
+            {
+              "en": "Yes, it's crooked!",
+              "sl": "Ja, postrani je!",
+              "it": "Sì, è storta!",
+              "de": "Ja, sie ist schief!",
+              "why": {
+                "en": "Crooked means not straight. Poppy is worried: tell her it looks lovely.",
+                "sl": "Crooked pomeni postrani, ne ravno. Poppy jo skrbi: povej ji, da je lepa.",
+                "it": "Crooked vuol dire storta. Poppy è preoccupata: dille che sta benissimo.",
+                "de": "Crooked heißt schief. Poppy macht sich Sorgen: Sag ihr, dass sie schön aussieht."
+              },
+              "reply": {
+                "face": "worried",
+                "en": "Crooked? Oh no! Fix it, quick!",
+                "sl": "Postrani? Joj, ne! Hitro jo popravi!",
+                "it": "Storta? Oh no! Sistemala, presto!",
+                "de": "Schief? Oh nein! Schnell, richte sie!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "poppy",
+          "face": "proud",
+          "en": "Here I go. Wave to me, {learner}!",
+          "sl": "Grem. Pomahaj mi, {learner}!",
+          "it": "Vado. Salutami con la mano, {learner}!",
+          "de": "Los geht's. Wink mir zu, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "ribbons-cat",
+      "fx_stays": true,
+      "memory": {
+        "en": "the cat that ran from the band",
+        "sl": "mačko, ki je zbežala pred godbo",
+        "it": "la gatta scappata dalla banda",
+        "de": "die Katze, die vor der Kapelle geflohen ist"
+      },
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "worried",
+          "en": "{learner}! The cat ran up the oak! The band was too loud for her.",
+          "sl": "{learner}! Mačka je zbežala na hrast! Godba je bila zanjo preglasna.",
+          "it": "{learner}! La gatta è scappata sulla quercia! La banda era troppo forte per lei.",
+          "de": "{learner}! Die Katze ist auf die Eiche gerannt! Die Kapelle war ihr zu laut.",
+          "fx": { "cat": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Poor cat! She's scared.",
+              "sl": "Uboga mačka! Prestrašena je.",
+              "it": "Povera gatta! Ha paura.",
+              "de": "Arme Katze! Sie hat Angst.",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "en": "She's crying! Miaow, miaow!",
+                "sl": "Joka! Mijav, mijav!",
+                "it": "Piange! Miao, miao!",
+                "de": "Sie weint! Miau, miau!"
+              }
+            },
+            {
+              "en": "Poor cat! She's hungry.",
+              "sl": "Uboga mačka! Lačna je.",
+              "it": "Povera gatta! Ha fame.",
+              "de": "Arme Katze! Sie hat Hunger.",
+              "why": {
+                "en": "Alfie says the noise frightened her: she's scared, not hungry.",
+                "sl": "Alfie pravi, da jo je prestrašil hrup: scared, ne hungry.",
+                "it": "Alfie dice che il rumore l'ha spaventata: scared, non hungry.",
+                "de": "Alfie sagt, der Lärm hat sie erschreckt: scared, nicht hungry."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Hungry? No, she ran from the drums!",
+                "sl": "Lačna? Ne, pred bobni je zbežala!",
+                "it": "Fame? No, è scappata dai tamburi!",
+                "de": "Hunger? Nein, sie ist vor den Trommeln geflohen!"
+              }
+            },
+            {
+              "en": "Poor cat! She scared.",
+              "sl": "Uboga mačka! Prestrašena je.",
+              "it": "Povera gatta! Ha paura.",
+              "de": "Arme Katze! Sie hat Angst.",
+              "grammar": "to-be",
+              "why": {
+                "en": "Scared goes with be: she's scared (she is scared).",
+                "sl": "Scared gre z be: she's scared (she is scared).",
+                "it": "Scared va con be: she's scared (she is scared).",
+                "de": "Scared geht mit be: she's scared (she is scared)."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "She what? Say it again, {learner}!",
+                "sl": "Ona kaj? Še enkrat povej, {learner}!",
+                "it": "Lei cosa? Ridillo, {learner}!",
+                "de": "Sie was? Sag's noch mal, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say it again, slowly?",
+            "sl": "A? Še enkrat, počasi?",
+            "it": "Eh? Ripeti, piano piano?",
+            "de": "Hä? Noch mal, langsam?"
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "surprised",
+          "en": "She's coming down! Tail first, slowly, slowly…",
+          "sl": "Spušča se! Z repom naprej, počasi, počasi …",
+          "it": "Sta scendendo! Prima la coda, piano, piano…",
+          "de": "Sie kommt runter! Schwanz zuerst, langsam, langsam …",
+          "fx": { "cat": 0.5 }
+        },
+        {
+          "who": "alfie",
+          "face": "laugh",
+          "en": "She's on the bench! And asleep already. Cats!",
+          "sl": "Na klopi je! In že spi. Mačke!",
+          "it": "È sulla panchina! E dorme già. I gatti!",
+          "de": "Sie ist auf der Bank! Und schläft schon. Katzen!",
+          "fx": { "cat": 1 }
+        }
+      ]
+    },
+    {
+      "id": "dance-ball",
+      "fx_stays": true,
+      "memory": {
+        "en": "my goal before the ribbon dance",
+        "sl": "moj gol pred plesom s trakovi",
+        "it": "il mio gol prima del ballo dei nastri",
+        "de": "mein Tor vor dem Bändertanz"
+      },
+      "lines": [
+        {
+          "who": "harry",
+          "face": "worried",
+          "en": "{learner}! One quick game before the dance. But where's the ball?",
+          "sl": "{learner}! Še ena hitra igra pred plesom. Kje pa je žoga?",
+          "it": "{learner}! Una partitina prima del ballo. Ma dov'è il pallone?",
+          "de": "{learner}! Schnell noch ein Spiel vor dem Tanz. Aber wo ist der Ball?",
+          "fx": { "ball": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "It's under the bench!",
+              "sl": "Pod klopjo je!",
+              "it": "È sotto la panchina!",
+              "de": "Er ist unter der Bank!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Got it! You've got sharp eyes, {learner}!",
+                "sl": "Imam jo! Ostre oči imaš, {learner}!",
+                "it": "Preso! Hai la vista acuta, {learner}!",
+                "de": "Hab ihn! Du hast scharfe Augen, {learner}!",
+                "fx": { "ball": 1 }
+              }
+            },
+            {
+              "en": "It's on the bench!",
+              "sl": "Na klopi je!",
+              "it": "È sulla panchina!",
+              "de": "Er ist auf der Bank!",
+              "grammar": "prepositions-place",
+              "why": {
+                "en": "Nothing is lying on the bench. The ball is in the shade below it.",
+                "sl": "Na klopi ni ničesar. Žoga je v senci spodaj.",
+                "it": "Sulla panchina non c'è niente. Il pallone è all'ombra lì sotto.",
+                "de": "Auf der Bank liegt nichts. Der Ball ist im Schatten darunter."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "On it? There's nothing on it, {learner}!",
+                "sl": "Na njej? Na njej ni ničesar, {learner}!",
+                "it": "Sopra? Lì sopra non c'è niente, {learner}!",
+                "de": "Drauf? Da liegt nichts drauf, {learner}!"
+              }
+            },
+            {
+              "en": "It's up the oak!",
+              "sl": "Gor na hrastu je!",
+              "it": "È su sulla quercia!",
+              "de": "Er ist oben in der Eiche!",
+              "why": {
+                "en": "Balls don't climb trees! Look low down, by the bench.",
+                "sl": "Žoge ne plezajo po drevesih! Poišči nizko, pri klopi.",
+                "it": "I palloni non si arrampicano sugli alberi! Cerca in basso, vicino alla panchina.",
+                "de": "Bälle klettern nicht auf Bäume! Such weiter unten, bei der Bank."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Up the oak? That's the cat's job!",
+                "sl": "Na hrastu? To je mačkina naloga!",
+                "it": "Sulla quercia? Quello è il lavoro della gatta!",
+                "de": "In der Eiche? Das ist Sache der Katze!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? The band's too loud! Again!",
+            "sl": "Kaj? Godba je preglasna! Še enkrat!",
+            "it": "Cosa? La banda è troppo forte! Ancora!",
+            "de": "Was? Die Kapelle ist zu laut! Noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "face": "happy",
+          "en": "Right! The goal is between the two satchels. You're in goal!",
+          "sl": "Tako! Gol je med torbama. Ti si v golu!",
+          "it": "Bene! La porta è tra le due cartelle. Tu stai in porta!",
+          "de": "So! Das Tor ist zwischen den zwei Schulranzen. Du bist im Tor!"
+        },
+        {
+          "choices": [
+            {
+              "en": "OK! Kick it!",
+              "sl": "Prav! Brcni!",
+              "it": "Va bene! Tira!",
+              "de": "Okay! Schieß!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Too slow! GOAL! One–nil to me!",
+                "sl": "Prepočasi! GOL! Ena proti nič zame!",
+                "it": "Troppo {m:lento|f:lenta}! GOL! Uno a zero per me!",
+                "de": "Zu langsam! TOR! Eins zu null für mich!",
+                "fx": { "goal": 1 }
+              }
+            },
+            {
+              "en": "Ready! Kick it to me!",
+              "sl": "{m:Pripravljen|f:Pripravljena}! Brcni k meni!",
+              "it": "{m:Pronto|f:Pronta}! Passala a me!",
+              "de": "Bereit! Schieß zu mir!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Past you! GOAL! One–nil to me!",
+                "sl": "Mimo tebe! GOL! Ena proti nič zame!",
+                "it": "Ti è passata accanto! GOL! Uno a zero per me!",
+                "de": "An dir vorbei! TOR! Eins zu null für mich!",
+                "fx": { "goal": 1 }
+              }
+            },
+            {
+              "en": "OK! Kick the satchel!",
+              "sl": "Prav! Brcni torbo!",
+              "it": "Va bene! Tira un calcio alla cartella!",
+              "de": "Okay! Tritt gegen den Ranzen!",
+              "why": {
+                "en": "The satchels are the goalposts: you kick the ball between them.",
+                "sl": "Torbi sta vratnici: žogo brcneš mednju.",
+                "it": "Le cartelle sono i pali: il pallone si tira in mezzo.",
+                "de": "Die Ranzen sind die Torpfosten: Der Ball muss dazwischen."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The satchel? My books are in there!",
+                "sl": "Torbo? Notri so moje knjige!",
+                "it": "La cartella? Dentro ci sono i miei libri!",
+                "de": "Den Ranzen? Da sind meine Bücher drin!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "harry",
+          "face": "happy",
+          "en": "Now the dance! Come on, the ribbons are waiting!",
+          "sl": "Zdaj pa ples! Pridi, trakovi čakajo!",
+          "it": "Adesso il ballo! Dai, i nastri ci aspettano!",
+          "de": "Jetzt der Tanz! Komm, die Bänder warten!"
+        }
+      ]
+    },
+    {
+      "id": "bench-bess",
+      "fx_stays": true,
+      "memory": {
+        "en": "the day Bess came back to you from the dancers",
+        "sl": "dan, ko se je Bess od plesalcev vrnila k tebi",
+        "it": "il giorno in cui Bess è tornata da te dai ballerini",
+        "de": "den Tag, an dem Bess von den Tänzern zu dir zurückkam"
+      },
+      "lines": [
+        {
+          "who": "wilf",
+          "face": "worried",
+          "en": "{m:Son|f:Lass}, have you seen Bess? She ran off after the dancers!",
+          "sl": "Si {m:videl|f:videla} Bess? Stekla je za plesalci!",
+          "it": "{m:Figliolo|f:Figliola}, hai visto Bess? È corsa dietro ai ballerini!",
+          "de": "{m:Mein Junge|f:Mein Mädchen}, hast du Bess gesehen? Sie ist den Tänzern nachgelaufen!",
+          "fx": { "dog": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "No. Can I call her?",
+              "sl": "Ne. Jo lahko pokličem?",
+              "it": "No. Posso chiamarla?",
+              "de": "Nein. Soll ich sie rufen?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Yes, do. She likes young voices.",
+                "sl": "Ja, kar. Rada ima mlade glasove.",
+                "it": "Sì, chiamala. Le piacciono le voci giovani.",
+                "de": "Ja, ruf sie. Sie mag junge Stimmen."
+              }
+            },
+            {
+              "en": "No. Can I calls her?",
+              "sl": "Ne. Jo lahko pokličem?",
+              "it": "No. Posso chiamarla?",
+              "de": "Nein. Soll ich sie rufen?",
+              "grammar": "can",
+              "why": {
+                "en": "After can, the verb has no -s: can I call?",
+                "sl": "Za can glagol nima -s: can I call?",
+                "it": "Dopo can il verbo non prende la -s: can I call?",
+                "de": "Nach can hat das Verb kein -s: can I call?"
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Calls? Eh? These old ears!",
+                "sl": "Calls? Kaj? Ta stara ušesa!",
+                "it": "Calls? Eh? Queste vecchie orecchie!",
+                "de": "Calls? Hä? Diese alten Ohren!"
+              }
+            },
+            {
+              "en": "No. Can I call the band?",
+              "sl": "Ne. Lahko pokličem godbo?",
+              "it": "No. Posso chiamare la banda?",
+              "de": "Nein. Soll ich die Kapelle rufen?",
+              "why": {
+                "en": "Bess is Wilf's dog: you call her, not the band.",
+                "sl": "Bess je Wilfova psička: pokličeš njo, ne godbe.",
+                "it": "Bess è la cagnolina di Wilf: chiami lei, non la banda.",
+                "de": "Bess ist Wilfs Hündin: Du rufst sie, nicht die Kapelle."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The band? They'd only play louder!",
+                "sl": "Godbo? Samo še glasneje bi igrali!",
+                "it": "La banda? Suonerebbero solo più forte!",
+                "de": "Die Kapelle? Die würde nur lauter spielen!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+            "sl": "Kaj? Še enkrat, malo glasneje?",
+            "it": "Eh? Ancora una volta, un po' più forte?",
+            "de": "Hm? Noch einmal, ein bisschen lauter?"
+          }
+        },
+        {
+          "who": "wilf",
+          "en": "There, by the flowers! Her nose is in the daisies.",
+          "sl": "Tam, pri rožah! Z nosom je v marjeticah.",
+          "it": "Là, vicino ai fiori! Ha il naso tra le margheritine.",
+          "de": "Da, bei den Blumen! Sie hat die Nase in den Gänseblümchen.",
+          "fx": { "dog": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Bess! Come here, Bess!",
+              "sl": "Bess! Pridi sem, Bess!",
+              "it": "Bess! Vieni qui, Bess!",
+              "de": "Bess! Komm her, Bess!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Here she comes! Look at that tail go!",
+                "sl": "Že prihaja! Poglej, kako maha z repom!",
+                "it": "Eccola che arriva! Guarda come scodinzola!",
+                "de": "Da kommt sie! Schau, wie der Schwanz wedelt!",
+                "fx": { "dog": 1, "wag": 1 }
+              }
+            },
+            {
+              "en": "Here, Bess! Good girl!",
+              "sl": "Sem, Bess! Pridna!",
+              "it": "Qui, Bess! Brava!",
+              "de": "Hierher, Bess! Braves Mädchen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "She heard you! Back she runs, wagging like mad!",
+                "sl": "Slišala te je! Že teče nazaj in maha kot nora!",
+                "it": "Ti ha sentito! Torna di corsa, scodinzolando come una matta!",
+                "de": "Sie hat dich gehört! Sie rennt zurück und wedelt wie verrückt!",
+                "fx": { "dog": 1, "wag": 1 }
+              }
+            },
+            {
+              "en": "Bess! Go away, Bess!",
+              "sl": "Bess! Pojdi stran, Bess!",
+              "it": "Bess! Vattene, Bess!",
+              "de": "Bess! Geh weg, Bess!",
+              "why": {
+                "en": "Go away sends her off. To call a dog to you: come here.",
+                "sl": "Go away jo odžene. Ko psa kličeš k sebi: come here.",
+                "it": "Go away la manda via. Per chiamare un cane: come here.",
+                "de": "Go away schickt sie weg. Um einen Hund zu rufen: come here."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Away? She's off again! No, no, Bess!",
+                "sl": "Stran? Spet je odšla! Ne, ne, Bess!",
+                "it": "Via? È scappata di nuovo! No, no, Bess!",
+                "de": "Weg? Sie ist schon wieder fort! Nein, nein, Bess!",
+                "fx": { "dog": 0.3 }
+              }
+            }
+          ]
+        },
+        {
+          "who": "wilf",
+          "face": "happy",
+          "en": "Good girl. She's fourteen, but she still loves May Day.",
+          "sl": "Pridna. Štirinajst let ima, pa ima prvi maj še vedno rada.",
+          "it": "Brava. Ha quattordici anni, ma il primo maggio le piace ancora.",
+          "de": "Braves Mädchen. Sie ist vierzehn, aber den ersten Mai liebt sie immer noch.",
+          "fx": { "wag": 1 }
+        }
+      ]
+    }
+  ]
+}

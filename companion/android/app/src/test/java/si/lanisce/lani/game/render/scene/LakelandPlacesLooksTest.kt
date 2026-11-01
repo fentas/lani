@@ -227,12 +227,12 @@ class LakelandPlacesLooksTest {
     companion object {
         /** The digests of the pictures reviewed (the test of that name). */
         private val REVIEWED: Map<String, String> = mapOf(
-            "stream" to "e5cba229eee8",
+            "stream" to "df1abd4a8388",
             "pond" to "da847f28e613",
             "firestation" to "4a676c2b601e",
             "playground" to "347cdb5b7440",
             "lookout" to "38939aeae74e",
-            "square" to "d97bf1fb8a7c",
+            "square" to "74415913ad5d",
             "field" to "6fe7900e36ac",
             "vodnjak_na_trgu/0" to "3afef2b11191",
             "vodnjak_na_trgu/1" to "9da07e18f55f",

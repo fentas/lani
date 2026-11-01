@@ -1,0 +1,1837 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-the-damson-orchard",
+  "language": "en",
+  "title": { "en": "In the damson orchard", "sl": "V slivovem sadovnjaku", "it": "Nel frutteto di susine", "de": "Im Pflaumengarten" },
+  "emoji": "🟣",
+  "level": "A1",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "art": "hills",
+  "from": ["project:vinograd"],
+  "pack": "in-the-damson-orchard",
+  "objects": [
+    { "slot": "vineyard", "word": "orchard" },
+    { "slot": "vine", "word": "damson-tree" },
+    { "slot": "grapes", "word": "damson", "pack": "at-the-market" },
+    { "slot": "hill", "word": "hill", "pack": "in-the-village" },
+    { "slot": "church", "word": "church", "pack": "in-the-village" },
+    { "slot": "belltower", "word": "church-tower" },
+    { "slot": "farmhouse", "word": "farm", "pack": "in-the-village" },
+    { "slot": "cypress", "word": "yew", "pack": "at-the-chapel" },
+    { "slot": "persimmon", "word": "apple-tree" },
+    { "slot": "wall", "word": "drystone-wall", "pack": "on-the-fell" },
+    { "slot": "mountains", "word": "fell", "pack": "on-the-fell" },
+    { "slot": "sea", "word": "sea" },
+    { "slot": "road", "word": "road", "pack": "in-the-village" },
+    { "slot": "crate", "word": "crate", "pack": "at-the-market" }
+  ],
+  "people": [
+    { "id": "sam", "name": "Brewer Sam", "emoji": "🍺", "art": "winemaker", "slot": "vines", "villager": "sam" },
+    { "id": "wilf", "name": "Old Wilf", "emoji": "👴", "art": "grandpa", "slot": "wall", "villager": "wilf" },
+    { "id": "poppy", "name": "Poppy", "emoji": "👧", "art": "child2", "slot": "wall", "villager": "poppy" },
+    { "id": "tyson", "name": "Mr Tyson", "emoji": "🧑‍🌾", "art": "farmer", "slot": "road", "villager": "tyson" },
+    { "id": "alfie", "name": "Alfie", "emoji": "👦", "art": "child3", "slot": "road", "villager": "alfie" }
+  ],
+  "happenings": [
+    {
+      "id": "blossom",
+      "title": { "en": "Brewer Sam and the blossom", "sl": "Sam in cvetje", "it": "Sam e i fiori dei susini", "de": "Sam und die Blüte" },
+      "who": "sam",
+      "when": ["morning"],
+      "months": [4],
+      "chance": 0.6,
+      "dialog": "blossom",
+      "dialogs": ["blossom-day", "blossom"],
+      "reward": { "wisdom": 15 },
+      "marker": "🌸",
+      "memory": {
+        "en": "the terraces white with damson blossom",
+        "sl": "terase, bele od slivovega cvetja",
+        "it": "le terrazze bianche di fiori di susino",
+        "de": "die Terrassen, weiß von Pflaumenblüten"
+      }
+    },
+    {
+      "id": "picking",
+      "title": { "en": "Damson picking", "sl": "Obiranje sliv", "it": "La raccolta delle susine", "de": "Die Pflaumenernte" },
+      "who": "sam",
+      "when": ["afternoon"],
+      "months": [9],
+      "chance": 0.6,
+      "dialog": "picking",
+      "dialogs": ["picking-count", "picking"],
+      "reward": { "food": 25 },
+      "marker": "🧺",
+      "memory": {
+        "en": "the first sour damson off the tree",
+        "sl": "prvo kislo slivo z drevesa",
+        "it": "la prima susina aspra colta dall'albero",
+        "de": "die erste saure Pflaume vom Baum"
+      }
+    },
+    {
+      "id": "view",
+      "title": {
+        "en": "Old Wilf on the wall",
+        "sl": "Stari Wilf na zidu",
+        "it": "Il vecchio Wilf sul muretto",
+        "de": "Der alte Wilf auf der Mauer"
+      },
+      "who": "wilf",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "view",
+      "dialogs": ["view-storm", "view-bay", "view"],
+      "reward": { "wisdom": 20 },
+      "marker": "🏞️",
+      "memory": {
+        "en": "the view from Wilf's wall",
+        "sl": "razgled z Wilfovega zidu",
+        "it": "la vista dal muretto di Wilf",
+        "de": "die Aussicht von Wilfs Mauer"
+      }
+    },
+    {
+      "id": "tractor",
+      "title": {
+        "en": "Mr Tyson's old red tractor",
+        "sl": "Stari rdeči traktor gospoda Tysona",
+        "it": "Il vecchio trattore rosso del signor Tyson",
+        "de": "Mr Tysons alter roter Traktor"
+      },
+      "who": "tyson",
+      "when": ["morning"],
+      "chance": 0.45,
+      "dialog": "tractor",
+      "dialogs": ["tractor-whose", "tractor"],
+      "reward": { "wood": 15 },
+      "marker": "🚜",
+      "memory": {
+        "en": "the tractor with its six crates",
+        "sl": "traktor s šestimi zaboji",
+        "it": "il trattore con le sue sei cassette",
+        "de": "den Traktor mit seinen sechs Kisten"
+      }
+    },
+    {
+      "id": "jam",
+      "title": {
+        "en": "Poppy's damsons for the jam",
+        "sl": "Poppyjine slive za marmelado",
+        "it": "Le susine di Poppy per la marmellata",
+        "de": "Poppys Pflaumen für die Marmelade"
+      },
+      "who": "poppy",
+      "when": ["afternoon"],
+      "months": [9, 10],
+      "chance": 0.5,
+      "dialog": "jam",
+      "dialogs": ["jam-stones", "jam"],
+      "reward": { "food": 15 },
+      "marker": "🫙",
+      "memory": {
+        "en": "Poppy's sour damsons",
+        "sl": "Poppyjine kisle slive",
+        "it": "le susine aspre di Poppy",
+        "de": "Poppys saure Pflaumen"
+      }
+    },
+    {
+      "id": "starlings",
+      "title": { "en": "Alfie and the starlings", "sl": "Alfie in škorci", "it": "Alfie e gli storni", "de": "Alfie und die Stare" },
+      "who": "alfie",
+      "when": ["afternoon"],
+      "months": [8, 9],
+      "chance": 0.5,
+      "dialog": "starlings",
+      "dialogs": ["starlings-scarecrow", "starlings"],
+      "reward": { "food": 15 },
+      "marker": "🐦",
+      "memory": {
+        "en": "the starlings flying off the damson trees",
+        "sl": "škorce, ki so odleteli s sliv",
+        "it": "gli storni che volavano via dai susini",
+        "de": "die Stare, die von den Pflaumenbäumen aufflogen"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "blossom",
+      "lines": [
+        {
+          "who": "sam",
+          "face": "happy",
+          "en": "Now then, {learner}! Look at the orchard!",
+          "sl": "Živjo, {learner}! Poglej sadovnjak!",
+          "it": "Ciao, {learner}! Guarda il frutteto!",
+          "de": "Na, {learner}! Schau dir den Obstgarten an!"
+        },
+        {
+          "choices": [
+            {
+              "en": "The trees are all white!",
+              "sl": "Drevesa so vsa bela!",
+              "it": "Gli alberi sono tutti bianchi!",
+              "de": "Die Bäume sind ganz weiß!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Damson blossom! Every April the whole valley goes white.",
+                "sl": "Slivovo cvetje! Vsak april je vsa dolina bela.",
+                "it": "I fiori dei susini! Ogni aprile tutta la valle diventa bianca.",
+                "de": "Pflaumenblüte! Jeden April wird das ganze Tal weiß."
+              }
+            },
+            {
+              "en": "The trees is all white!",
+              "sl": "Drevesa so vsa bela!",
+              "it": "Gli alberi sono tutti bianchi!",
+              "de": "Die Bäume sind ganz weiß!",
+              "grammar": "to-be",
+              "why": {
+                "en": "Trees are more than one: the trees are.",
+                "sl": "Trees je več kot eno: the trees are.",
+                "it": "Trees sono più di uno: the trees are.",
+                "de": "Trees sind mehrere: the trees are."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Just one tree? I planted hundreds, mate!",
+                "sl": "Samo eno drevo? Na stotine sem jih posadil, {m:stari|f:stara}!",
+                "it": "Un albero solo? Ne ho piantati centinaia, {m:amico|f:amica}!",
+                "de": "Nur ein Baum? Ich hab Hunderte gepflanzt, Kumpel!"
+              }
+            },
+            {
+              "en": "The trees are all yellow!",
+              "sl": "Drevesa so vsa rumena!",
+              "it": "Gli alberi sono tutti gialli!",
+              "de": "Die Bäume sind ganz gelb!",
+              "why": {
+                "en": "Look again: the blossom is white. Yellow is for the leaves in October.",
+                "sl": "Še enkrat poglej: cvetje je belo. Rumeno je listje oktobra.",
+                "it": "Guarda meglio: i fiori sono bianchi. Gialle sono le foglie a ottobre.",
+                "de": "Schau noch mal: Die Blüte ist weiß. Gelb sind die Blätter im Oktober."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Yellow? You're thinking of the daffodils, mate!",
+                "sl": "Rumena? Na narcise misliš, {m:stari|f:stara}!",
+                "it": "Gialli? Stai pensando alle giunchiglie, {m:amico|f:amica}!",
+                "de": "Gelb? Du denkst an die Osterglocken, Kumpel!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say that again, mate. Slowly.",
+            "sl": "Kaj? Še enkrat, {m:stari|f:stara}. Počasi.",
+            "it": "Eh? Ripeti, {m:amico|f:amica}. Piano.",
+            "de": "Hä? Sag das noch mal, Kumpel. Langsam."
+          }
+        },
+        {
+          "who": "sam",
+          "face": "curious",
+          "en": "Blossom now, damsons in September. Do you like damsons?",
+          "sl": "Zdaj cvetje, septembra slive. Imaš {m:rad|f:rada} slive?",
+          "it": "Adesso i fiori, a settembre le susine. Ti piacciono le susine?",
+          "de": "Jetzt die Blüte, im September die Pflaumen. Magst du Pflaumen?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I do. Damson jam is the best!",
+              "sl": "Ja. Slivova marmelada je najboljša!",
+              "it": "Sì. La marmellata di susine è la migliore!",
+              "de": "Ja. Pflaumenmarmelade ist die beste!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Good answer! You'll get a jar in October.",
+                "sl": "Dober odgovor! Oktobra dobiš kozarec.",
+                "it": "Bella risposta! A ottobre ne avrai un vasetto.",
+                "de": "Gute Antwort! Im Oktober kriegst du ein Glas."
+              }
+            },
+            {
+              "en": "I don't know. What do they taste like?",
+              "sl": "Ne vem. Kakšen okus imajo?",
+              "it": "Non lo so. Che sapore hanno?",
+              "de": "Weiß ich nicht. Wie schmecken sie?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Sour off the tree, sweet in jam. Like me before my tea!",
+                "sl": "Z drevesa kisle, v marmeladi sladke. Kot jaz pred čajem!",
+                "it": "Aspre appena colte, dolci nella marmellata. Come me prima del tè!",
+                "de": "Vom Baum sauer, in der Marmelade süß. Wie ich vor meinem Tee!"
+              }
+            },
+            {
+              "en": "Yes, I does. Damson jam is the best!",
+              "sl": "Ja. Slivova marmelada je najboljša!",
+              "it": "Sì. La marmellata di susine è la migliore!",
+              "de": "Ja. Pflaumenmarmelade ist die beste!",
+              "grammar": "present-simple",
+              "why": {
+                "en": "With I, the verb has no -s: yes, I do.",
+                "sl": "Pri I glagol nima -s: yes, I do.",
+                "it": "Con I il verbo non prende la -s: yes, I do.",
+                "de": "Bei I hat das Verb kein -s: yes, I do."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "You does? Ha! Been at the damson juice already, mate?",
+                "sl": "You does? Ha! Si že {m:pil|f:pila} slivov sok, {m:stari|f:stara}?",
+                "it": "You does? Ah! Hai già bevuto il succo di susine, {m:amico|f:amica}?",
+                "de": "You does? Ha! Schon am Pflaumensaft gewesen, Kumpel?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say that again, mate. Slowly.",
+            "sl": "Kaj? Še enkrat, {m:stari|f:stara}. Počasi.",
+            "it": "Eh? Ripeti, {m:amico|f:amica}. Piano.",
+            "de": "Hä? Sag das noch mal, Kumpel. Langsam."
+          }
+        }
+      ]
+    },
+    {
+      "id": "picking",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "sam",
+          "face": "happy",
+          "en": "Now then! Damson picking! Grab a basket, {learner}.",
+          "sl": "Živjo! Obiranje sliv! Primi košaro, {learner}.",
+          "it": "Ciao! Si raccolgono le susine! Prendi un cesto, {learner}.",
+          "de": "Na? Pflaumenernte! Schnapp dir einen Korb, {learner}."
+        },
+        {
+          "choices": [
+            {
+              "en": "Which ones do we pick?",
+              "sl": "Katere obereva?",
+              "it": "Quali raccogliamo?",
+              "de": "Welche pflücken wir?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "The dark purple ones. Soft, not hard. Ripe!",
+                "sl": "Temno vijolične. Mehke, ne trde. Zrele!",
+                "it": "Quelle viola scuro. Morbide, non dure. Mature!",
+                "de": "Die dunkelvioletten. Weich, nicht hart. Reif!"
+              }
+            },
+            {
+              "en": "Which ones we pick?",
+              "sl": "Katere obereva?",
+              "it": "Quali raccogliamo?",
+              "de": "Welche pflücken wir?",
+              "grammar": "questions-do",
+              "why": {
+                "en": "A question needs do: which ones do we pick?",
+                "sl": "Vprašanje potrebuje do: which ones do we pick?",
+                "it": "La domanda vuole do: which ones do we pick?",
+                "de": "Eine Frage braucht do: which ones do we pick?"
+              },
+              "reply": {
+                "face": "confused",
+                "en": "We pick … aye! But which? Ask me properly, mate.",
+                "sl": "We pick … ja! Ampak katere? Vprašaj pravilno, {m:stari|f:stara}.",
+                "it": "We pick … sì! Ma quali? Chiedimelo per bene, {m:amico|f:amica}.",
+                "de": "We pick … ja! Aber welche? Frag mich richtig, Kumpel."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say that again, mate. Slowly.",
+            "sl": "Kaj? Še enkrat, {m:stari|f:stara}. Počasi.",
+            "it": "Eh? Ripeti, {m:amico|f:amica}. Piano.",
+            "de": "Hä? Sag das noch mal, Kumpel. Langsam."
+          }
+        },
+        {
+          "who": "sam",
+          "face": "laugh",
+          "en": "Shoo! The starlings love damsons too. Cheeky birds! Here, try one.",
+          "sl": "Šu! Tudi škorci imajo radi slive. Predrzne ptice! Na, poskusi eno.",
+          "it": "Sciò! Anche agli storni piacciono le susine. Uccelli sfacciati! Tieni, assaggiane una.",
+          "de": "Husch! Die Stare mögen Pflaumen auch. Freche Vögel! Hier, probier eine.",
+          "fx": { "starlings": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Ugh! It's very sour!",
+              "sl": "Fuj! Zelo kisla je!",
+              "it": "Bleah! È molto aspra!",
+              "de": "Igitt! Die ist sehr sauer!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Ha! Told you. Sour off the tree, sweet in jam.",
+                "sl": "Ha! Saj sem ti rekel. Z drevesa kisla, v marmeladi sladka.",
+                "it": "Ah! Te l'avevo detto. Aspra dall'albero, dolce nella marmellata.",
+                "de": "Ha! Hab ich doch gesagt. Vom Baum sauer, in der Marmelade süß."
+              }
+            },
+            {
+              "en": "Ugh! It very sour!",
+              "sl": "Fuj! Zelo kisla je!",
+              "it": "Bleah! È molto aspra!",
+              "de": "Igitt! Die ist sehr sauer!",
+              "grammar": "to-be",
+              "why": {
+                "en": "English needs the verb be: it's very sour (it is).",
+                "sl": "Angleščina potrebuje glagol be: it's very sour (it is).",
+                "it": "L'inglese vuole il verbo be: it's very sour (it is).",
+                "de": "Englisch braucht das Verb be: it's very sour (it is)."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "It very … ? Your face says the rest, mate!",
+                "sl": "It very … ? Ostalo pove tvoj obraz!",
+                "it": "It very … ? Il resto lo dice la tua faccia, {m:amico|f:amica}!",
+                "de": "It very … ? Den Rest sagt dein Gesicht, Kumpel!"
+              }
+            },
+            {
+              "en": "Mmm! It's very sweet!",
+              "sl": "Mmm! Zelo sladka je!",
+              "it": "Mmm! È dolcissima!",
+              "de": "Mmm! Die ist sehr süß!",
+              "why": {
+                "en": "Damsons are sour off the tree; they're sweet in jam, with sugar.",
+                "sl": "Slive damson so z drevesa kisle; sladke so v marmeladi, s sladkorjem.",
+                "it": "Le damson sono aspre appena colte; dolci nella marmellata, con lo zucchero.",
+                "de": "Damsons sind vom Baum sauer; süß sind sie in Marmelade, mit Zucker."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Sweet? Then why is your nose all wrinkled, mate?",
+                "sl": "Sladka? Zakaj se pa potem tako kremžiš, {m:stari|f:stara}?",
+                "it": "Dolce? E allora perché arricci il naso, {m:amico|f:amica}?",
+                "de": "Süß? Und warum rümpfst du dann die Nase, Kumpel?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say that again, mate. Slowly.",
+            "sl": "Kaj? Še enkrat, {m:stari|f:stara}. Počasi.",
+            "it": "Eh? Ripeti, {m:amico|f:amica}. Piano.",
+            "de": "Hä? Sag das noch mal, Kumpel. Langsam."
+          }
+        }
+      ]
+    },
+    {
+      "id": "view",
+      "lines": [
+        {
+          "who": "wilf",
+          "face": "happy",
+          "en": "Sit on the wall with me, {m:son|f:lass}. Listen: the church bell.",
+          "sl": "Sedi z mano na zid. Poslušaj: cerkveni zvon.",
+          "it": "Siediti sul muretto con me, {m:figliolo|f:figliola}. Ascolta: la campana della chiesa.",
+          "de": "Setz dich zu mir auf die Mauer, {m:mein Junge|f:mein Mädchen}. Hör mal: die Kirchenglocke.",
+          "fx": { "bell": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "What a view! I can see the whole village.",
+              "sl": "Kakšen razgled! Vso vas vidim.",
+              "it": "Che vista! Vedo tutto il paese.",
+              "de": "Was für eine Aussicht! Ich sehe das ganze Dorf.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Aye. And the fells all round, like old friends.",
+                "sl": "Ja. In hribi naokrog, kot stari prijatelji.",
+                "it": "Sì. E i monti tutt'intorno, come vecchi amici.",
+                "de": "Ja. Und die Berge rundherum, wie alte Freunde."
+              }
+            },
+            {
+              "en": "What a view! I can sees the whole village.",
+              "sl": "Kakšen razgled! Vso vas vidim.",
+              "it": "Che vista! Vedo tutto il paese.",
+              "de": "Was für eine Aussicht! Ich sehe das ganze Dorf.",
+              "grammar": "can",
+              "why": {
+                "en": "After can, the verb has no -s: I can see.",
+                "sl": "Za can glagol nima -s: I can see.",
+                "it": "Dopo can il verbo non prende la -s: I can see.",
+                "de": "Nach can hat das Verb kein -s: I can see."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Sees? Slow and steady, {m:son|f:lass}. One s too many.",
+                "sl": "Sees? Počasi in vztrajno. En s preveč.",
+                "it": "Sees? Piano e con calma, {m:figliolo|f:figliola}. Una s di troppo.",
+                "de": "Sees? Langsam und stetig, {m:mein Junge|f:mein Mädchen}. Ein s zu viel."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? My old ears, {m:son|f:lass}. Once more, slowly.",
+            "sl": "Kaj? Moja stara ušesa … Še enkrat, počasi.",
+            "it": "Eh? Le mie vecchie orecchie, {m:figliolo|f:figliola}. Ancora una volta, piano.",
+            "de": "Hm? Meine alten Ohren, {m:mein Junge|f:mein Mädchen}. Noch einmal, langsam."
+          }
+        },
+        {
+          "who": "wilf",
+          "face": "curious",
+          "en": "Eighty years I've sat on this wall. Can you see the church tower? Show me.",
+          "sl": "Osemdeset let sedim na tem zidu. Vidiš cerkveni stolp? Pokaži mi.",
+          "it": "Da ottant'anni mi siedo su questo muretto. Vedi il campanile? Fammi vedere.",
+          "de": "Achtzig Jahre sitz ich schon auf dieser Mauer. Siehst du den Kirchturm? Zeig ihn mir."
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, there it is, on the hill!",
+              "sl": "Ja, tam je, na hribu!",
+              "it": "Sì, eccolo, sulla collina!",
+              "de": "Ja, da ist er, auf dem Hügel!",
+              "ok": true,
+              "tap": "belltower",
+              "grammar": "prepositions-place",
+              "reply": {
+                "face": "proud",
+                "en": "That's it. Square, with battlements on top, like a castle.",
+                "sl": "To je to. Štirioglat, z cinami na vrhu, kot grad.",
+                "it": "Esatto. Quadrato, con i merli in cima, come un castello.",
+                "de": "Genau. Viereckig, oben mit Zinnen, wie eine Burg."
+              }
+            },
+            {
+              "en": "Yes, there it is, by the farm!",
+              "sl": "Ja, tam je, pri kmetiji!",
+              "it": "Sì, eccolo, vicino alla fattoria!",
+              "de": "Ja, da ist er, beim Hof!",
+              "tap": "farmhouse",
+              "why": {
+                "en": "Look for something tall and square up on the hill.",
+                "sl": "Išči nekaj visokega in štirioglatega gori na hribu.",
+                "it": "Cerca qualcosa di alto e quadrato su in collina.",
+                "de": "Such etwas Hohes, Viereckiges oben auf dem Hügel."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "That's the farmhouse, {m:son|f:lass}. The tower is taller.",
+                "sl": "To je kmečka hiša. Stolp je višji.",
+                "it": "Quella è la fattoria, {m:figliolo|f:figliola}. Il campanile è più alto.",
+                "de": "Das ist das Bauernhaus, {m:mein Junge|f:mein Mädchen}. Der Turm ist höher."
+              }
+            },
+            {
+              "en": "Yes, there it is, on the fell!",
+              "sl": "Ja, tam je, na hribu v daljavi!",
+              "it": "Sì, eccolo, sul monte!",
+              "de": "Ja, da ist er, am Berg!",
+              "tap": "mountains",
+              "why": {
+                "en": "The fells are far away behind. The tower is on the hill, nearer.",
+                "sl": "Hribi so daleč zadaj. Stolp je bližje, na griču.",
+                "it": "I monti sono lontani, dietro. Il campanile è più vicino, sulla collina.",
+                "de": "Die Berge sind weit hinten. Der Turm ist näher, auf dem Hügel."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "On the fell? That's a long walk to church on a Sunday!",
+                "sl": "Na hribu? To bi bila pa dolga pot k maši!",
+                "it": "Sul monte? Sarebbe una bella camminata per andare a messa!",
+                "de": "Am Berg? Das wär ein weiter Weg zur Kirche am Sonntag!"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tractor",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "tyson",
+          "en": "Morning, {m:lad|f:lass}. Hear that? Here comes my old red tractor, with the crates.",
+          "sl": "Jutro. Slišiš? Moj stari rdeči traktor prihaja, z zaboji.",
+          "it": "Buongiorno, {m:ragazzo|f:ragazza}. Senti? Ecco il mio vecchio trattore rosso, con le cassette.",
+          "de": "Morgen, {m:Junge|f:Mädchen}. Hörst du? Da kommt mein alter roter Traktor, mit den Kisten.",
+          "fx": { "tractor": 0.4 }
+        },
+        {
+          "choices": [
+            {
+              "en": "How many crates has it got?",
+              "sl": "Koliko zabojev ima?",
+              "it": "Quante cassette ha?",
+              "de": "Wie viele Kisten hat er?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Six. I count them every time. Six.",
+                "sl": "Šest. Vsakič jih preštejem. Šest.",
+                "it": "Sei. Le conto ogni volta. Sei.",
+                "de": "Sechs. Ich zähl sie jedes Mal. Sechs."
+              }
+            },
+            {
+              "en": "How many crates it has got?",
+              "sl": "Koliko zabojev ima?",
+              "it": "Quante cassette ha?",
+              "de": "Wie viele Kisten hat er?",
+              "grammar": "to-have",
+              "why": {
+                "en": "In a question, has comes before it: how many crates has it got?",
+                "sl": "V vprašanju pride has pred it: how many crates has it got?",
+                "it": "Nella domanda has va prima di it: how many crates has it got?",
+                "de": "In der Frage steht has vor it: how many crates has it got?"
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Eh? Back to front, that. Ask me properly, {m:lad|f:lass}.",
+                "sl": "Kaj? To je narobe obrnjeno. Vprašaj pravilno.",
+                "it": "Eh? Al contrario, così. Chiedimelo per bene, {m:ragazzo|f:ragazza}.",
+                "de": "Hm? Verkehrt herum, das. Frag mich richtig, {m:Junge|f:Mädchen}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        },
+        {
+          "who": "tyson",
+          "face": "curious",
+          "en": "There it goes, down to the village. Fifty years old, and it never stops. Do you like tractors?",
+          "sl": "Pa gre, dol v vas. Petdeset let je star, pa se nikoli ne ustavi. Imaš {m:rad|f:rada} traktorje?",
+          "it": "Eccolo che scende in paese. Ha cinquant'anni e non si ferma mai. Ti piacciono i trattori?",
+          "de": "Da fährt er, runter ins Dorf. Fünfzig Jahre alt, und er hält nie an. Magst du Traktoren?",
+          "fx": { "tractor": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I do. It's great!",
+              "sl": "Ja. Super je!",
+              "it": "Sì. È fantastico!",
+              "de": "Ja. Der ist toll!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Great? It's older than me, nearly. But it goes.",
+                "sl": "Super? Skoraj starejši je od mene. Ampak dela.",
+                "it": "Fantastico? È quasi più vecchio di me. Ma va.",
+                "de": "Toll? Der ist fast älter als ich. Aber er läuft."
+              }
+            },
+            {
+              "en": "Not really. They're very noisy!",
+              "sl": "Niti ne. Zelo so glasni!",
+              "it": "Non tanto. Fanno un gran rumore!",
+              "de": "Nicht so. Die sind sehr laut!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Noisy? That's the best bit, says Alfie.",
+                "sl": "Glasni? To je najboljše, pravi Alfie.",
+                "it": "Rumorosi? È la parte più bella, dice Alfie.",
+                "de": "Laut? Das ist das Beste, sagt Alfie."
+              }
+            },
+            {
+              "en": "Yes, I am. It's great!",
+              "sl": "Ja. Super je!",
+              "it": "Sì. È fantastico!",
+              "de": "Ja. Der ist toll!",
+              "grammar": "questions-do",
+              "why": {
+                "en": "Do you …? Answer with do: yes, I do.",
+                "sl": "Do you …? Odgovoriš z do: yes, I do.",
+                "it": "Do you …? Si risponde con do: yes, I do.",
+                "de": "Do you …? Antworte mit do: yes, I do."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "You are? A tractor? You don't look red to me.",
+                "sl": "Si? Traktor? Rdeč pa nisi videti.",
+                "it": "Lo sei? Un trattore? Non mi sembri rosso.",
+                "de": "Du bist? Ein Traktor? Rot siehst du nicht aus."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "jam",
+      "months": [9, 10],
+      "lines": [
+        {
+          "who": "poppy",
+          "face": "happy",
+          "en": "{learner}! I picked damsons for Granny's jam. Want one?",
+          "sl": "{learner}! Nabrala sem slive za babičino marmelado. Hočeš eno?",
+          "it": "{learner}! Ho raccolto le susine per la marmellata della nonna. Ne vuoi una?",
+          "de": "{learner}! Ich hab Pflaumen für Omas Marmelade gepflückt. Willst du eine?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, please! Thank you, Poppy.",
+              "sl": "Ja, prosim! Hvala, Poppy.",
+              "it": "Sì, grazie! Grazie, Poppy.",
+              "de": "Ja, bitte! Danke, Poppy.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Careful, it's sour! Ha ha, what a face!",
+                "sl": "Previdno, kisla je! Ha ha, kakšen obraz!",
+                "it": "Attenzione, è aspra! Ah ah, che faccia!",
+                "de": "Vorsicht, die ist sauer! Haha, was für ein Gesicht!"
+              }
+            },
+            {
+              "en": "No, thanks. I'm full.",
+              "sl": "Ne, hvala. {m:Sit|f:Sita} sem.",
+              "it": "No, grazie. Sono {m:pieno|f:piena}.",
+              "de": "Nein, danke. Ich bin satt.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "More for me! … Ugh, sour!",
+                "sl": "Več zame! … Fuj, kisla!",
+                "it": "Di più per me! … Bleah, aspra!",
+                "de": "Mehr für mich! … Igitt, sauer!"
+              }
+            },
+            {
+              "en": "Yes, please! Thanks you, Poppy.",
+              "sl": "Ja, prosim! Hvala, Poppy.",
+              "it": "Sì, grazie! Grazie, Poppy.",
+              "de": "Ja, bitte! Danke, Poppy.",
+              "why": {
+                "en": "Say thank you, or thanks; thanks you isn't English.",
+                "sl": "Reci thank you ali thanks; thanks you ni angleško.",
+                "it": "Si dice thank you, o thanks; thanks you non è inglese.",
+                "de": "Sag thank you oder thanks; thanks you ist kein Englisch."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Thanks you? Ha ha! That's not English, silly!",
+                "sl": "Thanks you? Ha ha! To pa ni angleško!",
+                "it": "Thanks you? Ah ah! Questo non è inglese, {m:sciocchino|f:sciocchina}!",
+                "de": "Thanks you? Haha! Das ist kein Englisch, du Dummerchen!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? That's not how you say it! Try again!",
+            "sl": "Kaj? Tako se pa ne reče! Še enkrat!",
+            "it": "Cosa? Non si dice così! Riprova!",
+            "de": "Was? So sagt man das nicht! Noch mal!"
+          }
+        },
+        {
+          "who": "poppy",
+          "face": "curious",
+          "en": "Granny says damson jam needs lots of sugar. Why?",
+          "sl": "Babica pravi, da slivova marmelada potrebuje veliko sladkorja. Zakaj?",
+          "it": "La nonna dice che la marmellata di susine vuole tanto zucchero. Perché?",
+          "de": "Oma sagt, Pflaumenmarmelade braucht viel Zucker. Warum?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Because damsons are sour!",
+              "sl": "Ker so slive kisle!",
+              "it": "Perché le susine sono aspre!",
+              "de": "Weil Damsons sauer sind!",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "en": "Oh! That's why my face goes funny!",
+                "sl": "Aha! Zato se mi obraz tako čudno nakremži!",
+                "it": "Ah! Ecco perché faccio quella faccia buffa!",
+                "de": "Ach so! Deshalb guck ich so komisch!"
+              }
+            },
+            {
+              "en": "Because damsons is sour!",
+              "sl": "Ker so slive kisle!",
+              "it": "Perché le susine sono aspre!",
+              "de": "Weil Damsons sauer sind!",
+              "grammar": "to-be",
+              "why": {
+                "en": "Damsons are more than one: damsons are.",
+                "sl": "Damsons je več kot ena: damsons are.",
+                "it": "Damsons sono più di una: damsons are.",
+                "de": "Damsons sind mehrere: damsons are."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Damsons IS? Ha ha! You sound like Alfie!",
+                "sl": "Damsons IS? Ha ha! Kot Alfie se slišiš!",
+                "it": "Damsons IS? Ah ah! Sembri Alfie!",
+                "de": "Damsons IS? Haha! Du klingst wie Alfie!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? That's not how you say it! Try again!",
+            "sl": "Kaj? Tako se pa ne reče! Še enkrat!",
+            "it": "Cosa? Non si dice così! Riprova!",
+            "de": "Was? So sagt man das nicht! Noch mal!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starlings",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "surprised",
+          "en": "Look! Hundreds of birds on the damson trees! They're eating them!",
+          "sl": "Poglej! Na stotine ptic na slivah! Jedo jih!",
+          "it": "Guarda! Centinaia di uccelli sui susini! Se le mangiano!",
+          "de": "Schau! Hunderte Vögel auf den Pflaumenbäumen! Die fressen sie!",
+          "fx": { "starlings": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "They're starlings. They love damsons.",
+              "sl": "To so škorci. Obožujejo slive.",
+              "it": "Sono storni. Adorano le susine.",
+              "de": "Das sind Stare. Die lieben Pflaumen.",
+              "ok": true,
+              "reply": {
+                "face": "cross",
+                "en": "Starlings? Shoo! Shoo! Go away!",
+                "sl": "Škorci? Šu! Šu! Pojdite stran!",
+                "it": "Storni? Sciò! Sciò! Via!",
+                "de": "Stare? Husch! Husch! Weg da!",
+                "fx": { "starlings": 1 }
+              }
+            },
+            {
+              "en": "They starlings. They love damsons.",
+              "sl": "To so škorci. Obožujejo slive.",
+              "it": "Sono storni. Adorano le susine.",
+              "de": "Das sind Stare. Die lieben Pflaumen.",
+              "grammar": "to-be",
+              "why": {
+                "en": "English needs the verb be: they're starlings (they are).",
+                "sl": "Angleščina potrebuje glagol be: they're starlings (they are).",
+                "it": "L'inglese vuole il verbo be: they're starlings (they are).",
+                "de": "Englisch braucht das Verb be: they're starlings (they are)."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "They starlings? They what? Tell me!",
+                "sl": "They starlings? Kaj so? Povej!",
+                "it": "They starlings? Sono cosa? Dimmelo!",
+                "de": "They starlings? Die sind was? Sag schon!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "curious",
+          "en": "They flew away! All of them! How many birds were there?",
+          "sl": "Odleteli so! Vsi! Koliko ptic je bilo?",
+          "it": "Sono volati via! Tutti! Quanti uccelli c'erano?",
+          "de": "Sie sind weggeflogen! Alle! Wie viele Vögel waren das?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Lots and lots of birds!",
+              "sl": "Veliko, veliko ptic!",
+              "it": "Tanti tanti uccelli!",
+              "de": "Ganz, ganz viele Vögel!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "A hundred! A thousand! A million!",
+                "sl": "Sto! Tisoč! Milijon!",
+                "it": "Cento! Mille! Un milione!",
+                "de": "Hundert! Tausend! Eine Million!"
+              }
+            },
+            {
+              "en": "Lots and lots of bird!",
+              "sl": "Veliko, veliko ptic!",
+              "it": "Tanti tanti uccelli!",
+              "de": "Ganz, ganz viele Vögel!",
+              "grammar": "plurals",
+              "why": {
+                "en": "Lots of means more than one: birds, with -s.",
+                "sl": "Lots of pomeni več kot ena: birds, z -s.",
+                "it": "Lots of vuol dire più di uno: birds, con la -s.",
+                "de": "Lots of heißt mehr als einer: birds, mit -s."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Bird? One bird? There were hundreds!",
+                "sl": "Bird? Ena ptica? Na stotine jih je bilo!",
+                "it": "Bird? Un uccello solo? Erano centinaia!",
+                "de": "Bird? Ein Vogel? Das waren Hunderte!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "blossom-day",
+      "months": [4],
+      "memory": {
+        "en": "the talk about Damson Day",
+        "sl": "pogovor o dnevu sliv",
+        "it": "le chiacchiere sul Damson Day",
+        "de": "das Gespräch über den Damson Day"
+      },
+      "lines": [
+        {
+          "who": "sam",
+          "face": "curious",
+          "en": "Now then! It's Damson Day on Saturday, at the showground near Kendal. Did you go last year?",
+          "sl": "Živjo! V soboto je dan sliv (Damson Day), na sejmišču pri Kendalu. Si {m:šel|f:šla} lani?",
+          "it": "Ciao! Sabato c'è il Damson Day, al campo della fiera vicino a Kendal. Ci sei {m:andato|f:andata} l'anno scorso?",
+          "de": "Na? Am Samstag ist Damson Day, auf dem Festplatz bei Kendal. Warst du letztes Jahr da?"
+        },
+        {
+          "choices": [
+            {
+              "en": "No, I didn't. What is it?",
+              "sl": "Ne. Kaj pa je to?",
+              "it": "No. Che cos'è?",
+              "de": "Nein. Was ist das?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "A party for the damsons, every April, when they flower. Jam, cake, music!",
+                "sl": "Praznik sliv, vsak april, ko cvetijo. Marmelada, pecivo, glasba!",
+                "it": "Una festa per le susine, ogni aprile, quando fioriscono. Marmellata, torte, musica!",
+                "de": "Ein Fest für die Pflaumen, jeden April, wenn sie blühen. Marmelade, Kuchen, Musik!"
+              }
+            },
+            {
+              "en": "No, I don't. What is it?",
+              "sl": "Ne. Kaj pa je to?",
+              "it": "No. Che cos'è?",
+              "de": "Nein. Was ist das?",
+              "grammar": "past-simple",
+              "why": {
+                "en": "Did you …? Answer with did: no, I didn't.",
+                "sl": "Did you …? Odgovoriš z did: no, I didn't.",
+                "it": "Did you …? Si risponde con did: no, I didn't.",
+                "de": "Did you …? Antworte mit did: no, I didn't."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "You don't? Don't what? Last year, mate!",
+                "sl": "You don't? Kaj ne? Lani, {m:stari|f:stara}!",
+                "it": "You don't? Non cosa? L'anno scorso, {m:amico|f:amica}!",
+                "de": "You don't? Was nicht? Letztes Jahr, Kumpel!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say that again, mate. Slowly.",
+            "sl": "Kaj? Še enkrat, {m:stari|f:stara}. Počasi.",
+            "it": "Eh? Ripeti, {m:amico|f:amica}. Piano.",
+            "de": "Hä? Sag das noch mal, Kumpel. Langsam."
+          }
+        },
+        {
+          "who": "sam",
+          "face": "happy",
+          "en": "Come with me this year. I'm taking twenty jars of jam.",
+          "sl": "Letos pojdi z mano. Peljem dvajset kozarcev marmelade.",
+          "it": "Quest'anno vieni con me. Porto venti vasetti di marmellata.",
+          "de": "Komm dieses Jahr mit. Ich nehm zwanzig Gläser Marmelade mit."
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes! Can I bring my friends?",
+              "sl": "Ja! Lahko pripeljem prijatelje?",
+              "it": "Sì! Posso portare i miei amici?",
+              "de": "Ja! Darf ich meine Freunde mitbringen?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "The more, the merrier! Damson cake for everyone.",
+                "sl": "Več ko nas je, lepše je! Slivovo pecivo za vse.",
+                "it": "Più siamo, meglio è! Torta di susine per tutti.",
+                "de": "Je mehr, desto lustiger! Pflaumenkuchen für alle."
+              }
+            },
+            {
+              "en": "Yes! Can I brings my friends?",
+              "sl": "Ja! Lahko pripeljem prijatelje?",
+              "it": "Sì! Posso portare i miei amici?",
+              "de": "Ja! Darf ich meine Freunde mitbringen?",
+              "grammar": "can",
+              "why": {
+                "en": "After can, the verb has no -s: can I bring?",
+                "sl": "Za can glagol nima -s: can I bring?",
+                "it": "Dopo can il verbo non prende la -s: can I bring?",
+                "de": "Nach can hat das Verb kein -s: can I bring?"
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Brings? Ha! One s too many there, mate!",
+                "sl": "Brings? Ha! En s preveč, {m:stari|f:stara}!",
+                "it": "Brings? Ah! Una s di troppo, {m:amico|f:amica}!",
+                "de": "Brings? Ha! Ein s zu viel, Kumpel!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say that again, mate. Slowly.",
+            "sl": "Kaj? Še enkrat, {m:stari|f:stara}. Počasi.",
+            "it": "Eh? Ripeti, {m:amico|f:amica}. Piano.",
+            "de": "Hä? Sag das noch mal, Kumpel. Langsam."
+          }
+        }
+      ]
+    },
+    {
+      "id": "picking-count",
+      "count": { "from": "dice", "min": 4, "max": 12 },
+      "months": [9],
+      "memory": {
+        "en": "the day we filled the crates with damsons",
+        "sl": "dan, ko sva polnila zaboje s slivami",
+        "it": "il giorno in cui abbiamo riempito le cassette di susine",
+        "de": "den Tag, an dem wir die Kisten mit Pflaumen gefüllt haben"
+      },
+      "lines": [
+        {
+          "who": "sam",
+          "face": "curious",
+          "en": "Phew! How many crates have we filled? Count them by the wall, {learner}.",
+          "sl": "Uf! Koliko zabojev sva napolnila? Preštej jih ob zidu, {learner}.",
+          "it": "Uff! Quante cassette abbiamo riempito? Contale vicino al muretto, {learner}.",
+          "de": "Puh! Wie viele Kisten haben wir voll? Zähl sie an der Mauer, {learner}."
+        },
+        {
+          "choices": [
+            {
+              "en": "There {is|are} {n} crates by the wall.",
+              "sl": "Ob zidu {je|sta|so|je} {n} {zaboj|zaboja|zaboji|zabojev}.",
+              "it": "Vicino al muretto {c'è|ci sono} {n} {cassetta|cassette}.",
+              "de": "An der Mauer {steht|stehen} {n} {Kiste|Kisten}.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Not bad! The jam pan will be busy.",
+                "sl": "Ni slabo! Lonec za marmelado bo imel veliko dela.",
+                "it": "Niente male! La pentola della marmellata avrà da fare.",
+                "de": "Nicht schlecht! Der Marmeladentopf hat zu tun."
+              }
+            },
+            {
+              "en": "There {is|are} {n} crate by the wall.",
+              "sl": "Ob zidu {je|sta|so|je} {n} {zaboj|zaboja|zaboji|zabojev}.",
+              "it": "Vicino al muretto {c'è|ci sono} {n} {cassetta|cassette}.",
+              "de": "An der Mauer {steht|stehen} {n} {Kiste|Kisten}.",
+              "grammar": "plurals",
+              "why": {
+                "en": "More than one: crates, with -s. There are {n} crates.",
+                "sl": "Več kot en: crates, z -s. There are {n} crates.",
+                "it": "Più di una: crates, con la -s. There are {n} crates.",
+                "de": "Mehr als eine: crates, mit -s. There are {n} crates."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "One crate? After all that picking? Look again!",
+                "sl": "En zaboj? Po vsem tem obiranju? Še enkrat poglej!",
+                "it": "Una cassetta? Dopo tutta questa raccolta? Guarda meglio!",
+                "de": "Eine Kiste? Nach dem ganzen Pflücken? Schau noch mal!"
+              }
+            },
+            {
+              "en": "There {!is|are} {n} crates by the wall.",
+              "sl": "Ob zidu {!je|sta|so|je} {n} {zaboj|zaboja|zaboji|zabojev}.",
+              "it": "Vicino al muretto {!c'è|ci sono} {n} {cassetta|cassette}.",
+              "de": "An der Mauer {!steht|stehen} {n} {Kiste|Kisten}.",
+              "wrong_form": 1,
+              "grammar": "there-is-are",
+              "why": {
+                "en": "More than one takes are: there are {n} crates.",
+                "sl": "Za več je are: there are {n} crates.",
+                "it": "Per più di una si dice are: there are {n} crates.",
+                "de": "Bei mehreren heißt es are: there are {n} crates."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Hm? Count again, mate. Slowly.",
+                "sl": "Hm? Še enkrat preštej, {m:stari|f:stara}. Počasi.",
+                "it": "Hm? Conta di nuovo, {m:amico|f:amica}. Piano.",
+                "de": "Hm? Zähl noch mal, Kumpel. Langsam."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say that again, mate. Slowly.",
+            "sl": "Kaj? Še enkrat, {m:stari|f:stara}. Počasi.",
+            "it": "Eh? Ripeti, {m:amico|f:amica}. Piano.",
+            "de": "Hä? Sag das noch mal, Kumpel. Langsam."
+          }
+        },
+        {
+          "who": "sam",
+          "face": "curious",
+          "en": "The inn wants damsons for its pies. Have we got any for them?",
+          "sl": "Gostilna hoče slive za pite. Jih imava kaj zanje?",
+          "it": "La locanda vuole le susine per le torte. Ne abbiamo per loro?",
+          "de": "Das Wirtshaus will Pflaumen für die Kuchen. Haben wir welche für sie?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, we've got some!",
+              "sl": "Ja, nekaj jih imava!",
+              "it": "Sì, ne abbiamo un po'!",
+              "de": "Ja, wir haben welche!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Great. Two crates for the inn, then.",
+                "sl": "Odlično. Potem dva zaboja za gostilno.",
+                "it": "Ottimo. Allora due cassette per la locanda.",
+                "de": "Super. Dann zwei Kisten fürs Wirtshaus."
+              }
+            },
+            {
+              "en": "Yes, we've got any!",
+              "sl": "Ja, nekaj jih imava!",
+              "it": "Sì, ne abbiamo un po'!",
+              "de": "Ja, wir haben welche!",
+              "grammar": "some-any",
+              "why": {
+                "en": "In a yes sentence: some. Any is for questions and for not.",
+                "sl": "V trdilnem stavku: some. Any je za vprašanja in za not.",
+                "it": "Nella frase affermativa: some. Any è per le domande e con not.",
+                "de": "Im bejahten Satz: some. Any ist für Fragen und mit not."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Any? So yes or no, mate?",
+                "sl": "Any? Torej ja ali ne, {m:stari|f:stara}?",
+                "it": "Any? Allora sì o no, {m:amico|f:amica}?",
+                "de": "Any? Also ja oder nein, Kumpel?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say that again, mate. Slowly.",
+            "sl": "Kaj? Še enkrat, {m:stari|f:stara}. Počasi.",
+            "it": "Eh? Ripeti, {m:amico|f:amica}. Piano.",
+            "de": "Hä? Sag das noch mal, Kumpel. Langsam."
+          }
+        }
+      ]
+    },
+    {
+      "id": "view-storm",
+      "months": [5, 6, 7, 8, 9],
+      "sky_stays": true,
+      "memory": {
+        "en": "the storm over the fells from Wilf's wall",
+        "sl": "nevihto nad hribi z Wilfovega zidu",
+        "it": "il temporale sui monti dal muretto di Wilf",
+        "de": "das Gewitter über den Bergen von Wilfs Mauer aus"
+      },
+      "lines": [
+        {
+          "who": "wilf",
+          "face": "worried",
+          "en": "Look at the sky over the fells, {m:son|f:lass}. Black clouds. A storm's coming.",
+          "sl": "Poglej nebo nad hribi. Črni oblaki. Nevihta prihaja.",
+          "it": "Guarda il cielo sopra i monti, {m:figliolo|f:figliola}. Nuvole nere. Arriva un temporale.",
+          "de": "Schau dir den Himmel über den Bergen an, {m:mein Junge|f:mein Mädchen}. Schwarze Wolken. Ein Gewitter kommt.",
+          "sky": { "gloom": 0.6, "wind": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Are we going home now?",
+              "sl": "Greva zdaj domov?",
+              "it": "Andiamo a casa adesso?",
+              "de": "Gehen wir jetzt heim?",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "en": "Aye. Slow and steady, but now. Before the rain.",
+                "sl": "Ja. Počasi in vztrajno, ampak zdaj. Pred dežjem.",
+                "it": "Sì. Piano e con calma, ma adesso. Prima della pioggia.",
+                "de": "Ja. Langsam und stetig, aber jetzt. Vor dem Regen."
+              }
+            },
+            {
+              "en": "Are we go home now?",
+              "sl": "Greva zdaj domov?",
+              "it": "Andiamo a casa adesso?",
+              "de": "Gehen wir jetzt heim?",
+              "grammar": "present-continuous",
+              "why": {
+                "en": "Now: are + -ing. Are we going?",
+                "sl": "Zdaj: are + -ing. Are we going?",
+                "it": "Adesso: are + -ing. Are we going?",
+                "de": "Jetzt: are + -ing. Are we going?"
+              },
+              "reply": {
+                "face": "confused",
+                "en": "We go … aye, we should. Ask me again, slowly.",
+                "sl": "We go … ja, morala bi. Še enkrat vprašaj, počasi.",
+                "it": "We go … sì, dovremmo. Richiedimelo, piano.",
+                "de": "We go … ja, sollten wir. Frag noch mal, langsam."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? My old ears, {m:son|f:lass}. Once more, slowly.",
+            "sl": "Kaj? Moja stara ušesa … Še enkrat, počasi.",
+            "it": "Eh? Le mie vecchie orecchie, {m:figliolo|f:figliola}. Ancora una volta, piano.",
+            "de": "Hm? Meine alten Ohren, {m:mein Junge|f:mein Mädchen}. Noch einmal, langsam."
+          }
+        },
+        {
+          "who": "wilf",
+          "face": "surprised",
+          "en": "There! Lightning over the fell. One, two, three … thunder!",
+          "sl": "Tam! Blisk nad hribom. Ena, dva, tri … grom!",
+          "it": "Là! Un lampo sopra il monte. Uno, due, tre … il tuono!",
+          "de": "Da! Ein Blitz über dem Berg. Eins, zwei, drei … Donner!",
+          "sky": { "lightning": true, "gloom": 0.75, "rain": 0.3 }
+        },
+        {
+          "choices": [
+            {
+              "en": "It's raining! Let's run!",
+              "sl": "Dežuje! Tecimo!",
+              "it": "Piove! Corriamo!",
+              "de": "Es regnet! Lass uns rennen!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Run? At eighty-four? You run, I'll walk!",
+                "sl": "Teči? Pri štiriinosemdesetih? Ti teci, jaz bom hodil!",
+                "it": "Correre? A ottantaquattro anni? Corri tu, io cammino!",
+                "de": "Rennen? Mit vierundachtzig? Du rennst, ich geh!",
+                "sky": { "rain": 0.7, "gloom": 0.8 }
+              }
+            },
+            {
+              "en": "It raining! Let's run!",
+              "sl": "Dežuje! Tecimo!",
+              "it": "Piove! Corriamo!",
+              "de": "Es regnet! Lass uns rennen!",
+              "grammar": "present-continuous",
+              "why": {
+                "en": "Now: is + -ing. It's raining (it is raining).",
+                "sl": "Zdaj: is + -ing. It's raining (it is raining).",
+                "it": "Adesso: is + -ing. It's raining (it is raining).",
+                "de": "Jetzt: is + -ing. It's raining (it is raining)."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Raining? Pouring, {m:son|f:lass}! The whole sentence, now!",
+                "sl": "It raining? Lije kot iz škafa! Celo poved, prosim!",
+                "it": "It raining? Diluvia, {m:figliolo|f:figliola}! Tutta la frase, adesso!",
+                "de": "It raining? Es schüttet, {m:mein Junge|f:mein Mädchen}! Den ganzen Satz, bitte!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? My old ears, {m:son|f:lass}. Once more, slowly.",
+            "sl": "Kaj? Moja stara ušesa … Še enkrat, počasi.",
+            "it": "Eh? Le mie vecchie orecchie, {m:figliolo|f:figliola}. Ancora una volta, piano.",
+            "de": "Hm? Meine alten Ohren, {m:mein Junge|f:mein Mädchen}. Noch einmal, langsam."
+          }
+        }
+      ]
+    },
+    {
+      "id": "view-bay",
+      "memory": {
+        "en": "the sea shining far off from the terraces",
+        "sl": "morje, ki se je bleščalo v daljavi s teras",
+        "it": "il mare che brillava lontano dalle terrazze",
+        "de": "das Meer, das weit weg von den Terrassen glitzerte"
+      },
+      "lines": [
+        {
+          "who": "wilf",
+          "face": "curious",
+          "en": "On a clear day you can see the sea from here: Morecambe Bay. Can you see it?",
+          "sl": "Ob jasnem dnevu se od tod vidi morje: zaliv Morecambe. Ga vidiš?",
+          "it": "Nelle giornate limpide da qui si vede il mare: la baia di Morecambe. Lo vedi?",
+          "de": "An klaren Tagen sieht man von hier das Meer: die Morecambe Bay. Siehst du es?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes! There, far away, shining!",
+              "sl": "Ja! Tam, daleč, se blešči!",
+              "it": "Sì! Là, lontano, che brilla!",
+              "de": "Ja! Da, weit weg, es glitzert!",
+              "ok": true,
+              "tap": "sea",
+              "grammar": "prepositions-place",
+              "reply": {
+                "face": "happy",
+                "en": "That's it. The tide goes out for miles there, over the sand.",
+                "sl": "To je to. Tam se morje ob oseki umakne kilometre daleč čez pesek.",
+                "it": "Proprio. Lì la marea si ritira per chilometri, sulla sabbia.",
+                "de": "Genau. Dort geht das Wasser bei Ebbe kilometerweit über den Sand zurück."
+              }
+            },
+            {
+              "en": "Yes! There, on the road!",
+              "sl": "Ja! Tam, na cesti!",
+              "it": "Sì! Là, sulla strada!",
+              "de": "Ja! Da, auf der Straße!",
+              "tap": "road",
+              "why": {
+                "en": "The sea is far away, shining, beyond all the hills.",
+                "sl": "Morje je daleč, blešči se, za vsemi griči.",
+                "it": "Il mare è lontano, brilla, oltre tutte le colline.",
+                "de": "Das Meer ist weit weg, es glitzert, hinter allen Hügeln."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "That's the road, {m:son|f:lass}. The sea's a bit wetter.",
+                "sl": "To je cesta. Morje je malo bolj mokro.",
+                "it": "Quella è la strada, {m:figliolo|f:figliola}. Il mare è un po' più bagnato.",
+                "de": "Das ist die Straße, {m:mein Junge|f:mein Mädchen}. Das Meer ist etwas nasser."
+              }
+            },
+            {
+              "en": "Yes! There, on the terraces!",
+              "sl": "Ja! Tam, na terasah!",
+              "it": "Sì! Là, sulle terrazze!",
+              "de": "Ja! Da, auf den Terrassen!",
+              "tap": "vineyard",
+              "why": {
+                "en": "The terraces are right here, with the damson trees. Look far away.",
+                "sl": "Terase so tukaj, s slivami. Poglej daleč.",
+                "it": "Le terrazze sono qui, con i susini. Guarda lontano.",
+                "de": "Die Terrassen sind direkt hier, mit den Pflaumenbäumen. Schau weit weg."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The terraces? That's Sam's damsons, not the sea!",
+                "sl": "Terase? To so Samove slive, ne morje!",
+                "it": "Le terrazze? Sono le susine di Sam, non il mare!",
+                "de": "Die Terrassen? Das sind Sams Pflaumen, nicht das Meer!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "wilf",
+          "face": "curious",
+          "en": "Have you ever seen the sea, {m:son|f:lass}?",
+          "sl": "Si že kdaj {m:videl|f:videla} morje?",
+          "it": "Hai mai visto il mare, {m:figliolo|f:figliola}?",
+          "de": "Hast du schon mal das Meer gesehen, {m:mein Junge|f:mein Mädchen}?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I've seen it. I love the sea.",
+              "sl": "Ja, sem ga že {m:videl|f:videla}. {m:Rad|f:Rada} imam morje.",
+              "it": "Sì, l'ho visto. Amo il mare.",
+              "de": "Ja, hab ich schon gesehen. Ich liebe das Meer.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "So do I. But the fells are my sea.",
+                "sl": "Jaz tudi. Ampak moje morje so hribi.",
+                "it": "Anch'io. Ma il mio mare sono i monti.",
+                "de": "Ich auch. Aber die Berge sind mein Meer."
+              }
+            },
+            {
+              "en": "Yes, I've saw it. I love the sea.",
+              "sl": "Ja, sem ga že {m:videl|f:videla}. {m:Rad|f:Rada} imam morje.",
+              "it": "Sì, l'ho visto. Amo il mare.",
+              "de": "Ja, hab ich schon gesehen. Ich liebe das Meer.",
+              "grammar": "present-perfect",
+              "why": {
+                "en": "Have + the third form: I've seen it (see, saw, seen).",
+                "sl": "Have + tretja oblika: I've seen it (see, saw, seen).",
+                "it": "Have + la terza forma: I've seen it (see, saw, seen).",
+                "de": "Have + die dritte Form: I've seen it (see, saw, seen)."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Saw? My old ears heard that wrong, I think.",
+                "sl": "Saw? Moja stara ušesa so to slišala narobe, mislim.",
+                "it": "Saw? Le mie vecchie orecchie hanno sentito male, credo.",
+                "de": "Saw? Das haben meine alten Ohren falsch gehört, glaub ich."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? My old ears, {m:son|f:lass}. Once more, slowly.",
+            "sl": "Kaj? Moja stara ušesa … Še enkrat, počasi.",
+            "it": "Eh? Le mie vecchie orecchie, {m:figliolo|f:figliola}. Ancora una volta, piano.",
+            "de": "Hm? Meine alten Ohren, {m:mein Junge|f:mein Mädchen}. Noch einmal, langsam."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tractor-whose",
+      "fx_stays": true,
+      "memory": {
+        "en": "Mr Tyson's old red tractor",
+        "sl": "stari rdeči traktor gospoda Tysona",
+        "it": "il vecchio trattore rosso del signor Tyson",
+        "de": "Mr Tysons alter roter Traktor"
+      },
+      "lines": [
+        {
+          "who": "tyson",
+          "face": "curious",
+          "en": "Here's the tractor again. Whose is it, {m:lad|f:lass}? Do you know?",
+          "sl": "Spet traktor. Čigav je? Veš?",
+          "it": "Ecco di nuovo il trattore. Di chi è, {m:ragazzo|f:ragazza}? Lo sai?",
+          "de": "Da ist der Traktor wieder. Wem gehört er, {m:Junge|f:Mädchen}? Weißt du's?",
+          "fx": { "tractor": 0.4 }
+        },
+        {
+          "choices": [
+            {
+              "en": "It's yours, Mr Tyson!",
+              "sl": "Vaš je, gospod Tyson!",
+              "it": "È suo, signor Tyson!",
+              "de": "Er gehört Ihnen, Mr Tyson!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Aye, mine. Alfie says it's his, of course.",
+                "sl": "Ja, moj. Alfie pravi, da je njegov, seveda.",
+                "it": "Sì, mio. Alfie dice che è suo, naturalmente.",
+                "de": "Ja, meiner. Alfie sagt natürlich, es ist seiner."
+              }
+            },
+            {
+              "en": "It's your, Mr Tyson!",
+              "sl": "Vaš je, gospod Tyson!",
+              "it": "È suo, signor Tyson!",
+              "de": "Er gehört Ihnen, Mr Tyson!",
+              "grammar": "possessive-s",
+              "why": {
+                "en": "With no thing after it: yours (mine, yours). Your needs a thing: your tractor.",
+                "sl": "Brez samostalnika za njim: yours (mine, yours). Your potrebuje samostalnik: your tractor.",
+                "it": "Senza un nome dopo: yours (mine, yours). Your vuole un nome: your tractor.",
+                "de": "Ohne Nomen danach: yours (mine, yours). Your braucht ein Nomen: your tractor."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "My … what? Finish it, {m:lad|f:lass}.",
+                "sl": "Moj … kaj? Dokončaj.",
+                "it": "Il mio … cosa? Finisci, {m:ragazzo|f:ragazza}.",
+                "de": "Mein … was? Sag's zu Ende, {m:Junge|f:Mädchen}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        },
+        {
+          "who": "tyson",
+          "face": "curious",
+          "en": "Fifty years old, this tractor. Is it fast?",
+          "sl": "Petdeset let je star, ta traktor. Je hiter?",
+          "it": "Cinquant'anni, questo trattore. È veloce?",
+          "de": "Fünfzig Jahre alt, der Traktor. Ist er schnell?",
+          "fx": { "tractor": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "No, it isn't. It's very slow!",
+              "sl": "Ne, ni. Zelo počasen je!",
+              "it": "No. È lentissimo!",
+              "de": "Nein. Der ist sehr langsam!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Slow and sure. Like me.",
+                "sl": "Počasen in zanesljiv. Kot jaz.",
+                "it": "Lento e sicuro. Come me.",
+                "de": "Langsam und sicher. Wie ich."
+              }
+            },
+            {
+              "en": "No, it don't. It's very slow!",
+              "sl": "Ne, ni. Zelo počasen je!",
+              "it": "No. È lentissimo!",
+              "de": "Nein. Der ist sehr langsam!",
+              "grammar": "to-be",
+              "why": {
+                "en": "Is it …? Answer with is: no, it isn't.",
+                "sl": "Is it …? Odgovoriš z is: no, it isn't.",
+                "it": "Is it …? Si risponde con is: no, it isn't.",
+                "de": "Is it …? Antworte mit is: no, it isn't."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "It don't? Don't what? Speak up, {m:lad|f:lass}.",
+                "sl": "It don't? Kaj ne? Glasneje.",
+                "it": "It don't? Non cosa? Parla più forte, {m:ragazzo|f:ragazza}.",
+                "de": "It don't? Was nicht? Lauter, {m:Junge|f:Mädchen}."
+              }
+            },
+            {
+              "en": "Yes, it's very fast!",
+              "sl": "Ja, zelo hiter je!",
+              "it": "Sì, è velocissimo!",
+              "de": "Ja, der ist sehr schnell!",
+              "why": {
+                "en": "A fifty-year-old tractor is slow.",
+                "sl": "Petdeset let star traktor je počasen.",
+                "it": "Un trattore di cinquant'anni è lento.",
+                "de": "Ein fünfzig Jahre alter Traktor ist langsam."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Fast? A sheep walks faster!",
+                "sl": "Hiter? Ovca hodi hitreje!",
+                "it": "Veloce? Una pecora cammina più svelta!",
+                "de": "Schnell? Ein Schaf läuft schneller!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "jam-stones",
+      "months": [9, 10],
+      "memory": {
+        "en": "tinker, tailor with the damson stones",
+        "sl": "tinker, tailor s slivovimi koščicami",
+        "it": "tinker, tailor con i noccioli delle susine",
+        "de": "tinker, tailor mit den Pflaumenkernen"
+      },
+      "lines": [
+        {
+          "who": "poppy",
+          "face": "happy",
+          "en": "Damsons have big stones inside. Granny takes them out of the jam with a spoon!",
+          "sl": "Slive imajo v sebi velike koščice. Babica jih z žlico pobira iz marmelade!",
+          "it": "Le susine hanno dentro dei grossi noccioli. La nonna li toglie dalla marmellata col cucchiaio!",
+          "de": "Pflaumen haben große Kerne drin. Oma holt sie mit dem Löffel aus der Marmelade!"
+        },
+        {
+          "choices": [
+            {
+              "en": "How many stones are in one damson?",
+              "sl": "Koliko koščic je v eni slivi?",
+              "it": "Quanti noccioli ci sono in una susina?",
+              "de": "Wie viele Kerne sind in einer Pflaume?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "One! Only one, silly! A big one.",
+                "sl": "Eno! Samo eno, {m:butec|f:butica}! Veliko.",
+                "it": "Uno! Solo uno, {m:sciocchino|f:sciocchina}! Grosso.",
+                "de": "Einer! Nur einer, du Dummerchen! Ein großer."
+              }
+            },
+            {
+              "en": "How much stones are in one damson?",
+              "sl": "Koliko koščic je v eni slivi?",
+              "it": "Quanti noccioli ci sono in una susina?",
+              "de": "Wie viele Kerne sind in einer Pflaume?",
+              "grammar": "some-any",
+              "why": {
+                "en": "You can count stones: how many. How much is for things you can't count, like sugar.",
+                "sl": "Koščice lahko prešteješ: how many. How much je za tisto, česar ne moreš šteti, kot sladkor.",
+                "it": "I noccioli si possono contare: how many. How much è per ciò che non si conta, come lo zucchero.",
+                "de": "Kerne kann man zählen: how many. How much ist für Dinge, die man nicht zählen kann, wie Zucker."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "How much? Stones aren't money, silly!",
+                "sl": "How much? Koščice niso denar!",
+                "it": "How much? I noccioli non sono soldi, {m:sciocchino|f:sciocchina}!",
+                "de": "How much? Kerne sind doch kein Geld, du Dummerchen!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? That's not how you say it! Try again!",
+            "sl": "Kaj? Tako se pa ne reče! Še enkrat!",
+            "it": "Cosa? Non si dice così! Riprova!",
+            "de": "Was? So sagt man das nicht! Noch mal!"
+          }
+        },
+        {
+          "who": "poppy",
+          "face": "proud",
+          "en": "We count them on the plate: tinker, tailor, soldier, sailor!",
+          "sl": "Na krožniku jih štejemo: tinker, tailor, soldier, sailor!",
+          "it": "Li contiamo sul piatto: tinker, tailor, soldier, sailor!",
+          "de": "Wir zählen sie auf dem Teller: tinker, tailor, soldier, sailor!"
+        },
+        {
+          "choices": [
+            {
+              "en": "What does it mean?",
+              "sl": "Kaj pa to pomeni?",
+              "it": "Cosa vuol dire?",
+              "de": "Was bedeutet das?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "It tells you who you'll marry! Ha ha!",
+                "sl": "Pove ti, s kom se boš {m:poročil|f:poročila}!",
+                "it": "Ti dice chi sposerai! Ah ah!",
+                "de": "Es sagt dir, wen du heiratest! Haha!"
+              }
+            },
+            {
+              "en": "What does it means?",
+              "sl": "Kaj pa to pomeni?",
+              "it": "Cosa vuol dire?",
+              "de": "Was bedeutet das?",
+              "grammar": "questions-do",
+              "why": {
+                "en": "After does, the verb has no -s: what does it mean?",
+                "sl": "Za does glagol nima -s: what does it mean?",
+                "it": "Dopo does il verbo non prende la -s: what does it mean?",
+                "de": "Nach does hat das Verb kein -s: what does it mean?"
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Means? Ha ha! Two s's! That's greedy!",
+                "sl": "Means? Ha ha! Dva s-ja! To je pa požrešno!",
+                "it": "Means? Ah ah! Due s! Che golosità!",
+                "de": "Means? Haha! Zwei s! Wie gierig!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? That's not how you say it! Try again!",
+            "sl": "Kaj? Tako se pa ne reče! Še enkrat!",
+            "it": "Cosa? Non si dice così! Riprova!",
+            "de": "Was? So sagt man das nicht! Noch mal!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "starlings-scarecrow",
+      "months": [8, 9],
+      "memory": {
+        "en": "the scarecrow in Grandad's hat",
+        "sl": "strašilo z dedkovim klobukom",
+        "it": "lo spaventapasseri con il cappello del nonno",
+        "de": "die Vogelscheuche mit Opas Hut"
+      },
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "thinking",
+          "en": "Grandad says we need a scarecrow up here, for the starlings.",
+          "sl": "Dedek pravi, da tukaj gori potrebujemo strašilo, zaradi škorcev.",
+          "it": "Il nonno dice che quassù ci vuole uno spaventapasseri, per gli storni.",
+          "de": "Opa sagt, wir brauchen hier oben eine Vogelscheuche, wegen der Stare."
+        },
+        {
+          "choices": [
+            {
+              "en": "Let's make one! Have you got an old hat?",
+              "sl": "Naredimo ga! Imaš kakšen star klobuk?",
+              "it": "Facciamone uno! Hai un cappello vecchio?",
+              "de": "Lass uns eine machen! Hast du einen alten Hut?",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Yes! Grandad's hat! Don't tell him!",
+                "sl": "Ja! Dedkov klobuk! Ne povej mu!",
+                "it": "Sì! Il cappello del nonno! Non dirglielo!",
+                "de": "Ja! Opas Hut! Nicht verraten!"
+              }
+            },
+            {
+              "en": "Let's make one! Has you got an old hat?",
+              "sl": "Naredimo ga! Imaš kakšen star klobuk?",
+              "it": "Facciamone uno! Hai un cappello vecchio?",
+              "de": "Lass uns eine machen! Hast du einen alten Hut?",
+              "grammar": "to-have",
+              "why": {
+                "en": "With you: have you got …? Has is for he, she and it.",
+                "sl": "Pri you: have you got …? Has je za he, she in it.",
+                "it": "Con you: have you got …? Has è per he, she e it.",
+                "de": "Bei you: have you got …? Has ist für he, she und it."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Has you? Ha ha! You talk funny!",
+                "sl": "Has you? Ha ha! Smešno govoriš!",
+                "it": "Has you? Ah ah! Parli buffo!",
+                "de": "Has you? Haha! Du redest komisch!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "curious",
+          "en": "What does a scarecrow do, {learner}?",
+          "sl": "Kaj pa dela strašilo, {learner}?",
+          "it": "Cosa fa uno spaventapasseri, {learner}?",
+          "de": "Was macht eine Vogelscheuche, {learner}?"
+        },
+        {
+          "choices": [
+            {
+              "en": "It scares the birds away.",
+              "sl": "Ptice prestraši, da odletijo.",
+              "it": "Spaventa gli uccelli e li fa scappare.",
+              "de": "Sie verscheucht die Vögel.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Like me! I'm a scarecrow too! Shoo!",
+                "sl": "Kot jaz! Tudi jaz sem strašilo! Šu!",
+                "it": "Come me! Anch'io sono uno spaventapasseri! Sciò!",
+                "de": "Wie ich! Ich bin auch eine Vogelscheuche! Husch!"
+              }
+            },
+            {
+              "en": "It scare the birds away.",
+              "sl": "Ptice prestraši, da odletijo.",
+              "it": "Spaventa gli uccelli e li fa scappare.",
+              "de": "Sie verscheucht die Vögel.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "It: the verb takes -s. It scares.",
+                "sl": "It: glagol dobi -s. It scares.",
+                "it": "It: il verbo prende la -s. It scares.",
+                "de": "It: Das Verb bekommt ein -s. It scares."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "It scare? Scare who? Me? Ha ha!",
+                "sl": "It scare? Koga? Mene? Ha ha!",
+                "it": "It scare? Chi? Me? Ah ah!",
+                "de": "It scare? Wen? Mich? Haha!"
+              }
+            },
+            {
+              "en": "It eats the damsons.",
+              "sl": "Je slive.",
+              "it": "Mangia le susine.",
+              "de": "Sie isst die Pflaumen.",
+              "why": {
+                "en": "A scarecrow doesn't eat: it scares the birds away from the damsons.",
+                "sl": "Strašilo ne je: ptice prestraši stran od sliv.",
+                "it": "Lo spaventapasseri non mangia: spaventa gli uccelli lontano dalle susine.",
+                "de": "Eine Vogelscheuche isst nicht: Sie verscheucht die Vögel von den Pflaumen."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Eats them? Then it's a starling, not a scarecrow!",
+                "sl": "Jih je? Potem je škorec, ne strašilo!",
+                "it": "Le mangia? Allora è uno storno, non uno spaventapasseri!",
+                "de": "Isst sie? Dann ist es ein Star, keine Vogelscheuche!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        }
+      ]
+    }
+  ]
+}

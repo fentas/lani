@@ -1,0 +1,1410 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "mlaj",
+  "language": "en",
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "project-mlaj",
+  "steps": [
+    {
+      "scene": "in-the-wood",
+      "words": ["crash"],
+      "fx_stays": true,
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "Now then, {learner}! We need a tree for the maypole: the tallest larch in the wood.",
+              "sl": "No, {learner}! Za mlaj potrebujemo drevo: najvišji macesen v gozdu.",
+              "it": "Allora, {learner}! Ci serve un albero per l'albero di maggio: il larice più alto del bosco.",
+              "de": "Na, {learner}! Wir brauchen einen Baum für den Maibaum: die höchste Lärche im Wald."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Here's a tall larch!",
+                  "sl": "Tukaj je visok macesen!",
+                  "it": "Ecco un larice alto!",
+                  "de": "Hier ist eine hohe Lärche!",
+                  "ok": true,
+                  "tap": "spruce",
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye, that's the one!",
+                    "sl": "Ja, to je pravi!",
+                    "it": "Sì, è quello giusto!",
+                    "de": "Jawohl, das ist sie!"
+                  }
+                },
+                {
+                  "en": "Here's a big oak!",
+                  "sl": "Tukaj je velik hrast!",
+                  "it": "Ecco una grande quercia!",
+                  "de": "Hier ist eine große Eiche!",
+                  "tap": "tree",
+                  "why": {
+                    "en": "An oak is wide, with leaves. A larch is tall and thin, with soft needles.",
+                    "sl": "Hrast je širok in ima liste. Macesen je visok in tanek, z mehkimi iglicami.",
+                    "it": "La quercia è larga e ha le foglie. Il larice è alto e sottile, con aghi morbidi.",
+                    "de": "Eine Eiche ist breit und hat Blätter. Eine Lärche ist hoch und schlank, mit weichen Nadeln."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "An oak? We'd need a hundred men to lift that!",
+                    "sl": "Hrast? Za tega bi potrebovali sto mož!",
+                    "it": "Una quercia? Ci vorrebbero cento uomini per sollevarla!",
+                    "de": "Eine Eiche? Dafür bräuchten wir hundert Mann!"
+                  }
+                },
+                {
+                  "en": "Here's a big boulder!",
+                  "sl": "Tukaj je velika skala!",
+                  "it": "Ecco un grosso masso!",
+                  "de": "Hier ist ein großer Felsbrocken!",
+                  "tap": "stone",
+                  "why": {
+                    "en": "A boulder is a big stone. Look for the tallest larch.",
+                    "sl": "Boulder je velika skala. Poišči najvišji macesen.",
+                    "it": "Boulder è un grosso masso. Cerca il larice più alto.",
+                    "de": "Boulder ist ein großer Stein. Such die höchste Lärche."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A boulder? A stone maypole? Ha!",
+                    "sl": "Skala? Kamnit mlaj? Ha!",
+                    "it": "Un masso? Un albero di maggio di pietra? Ah!",
+                    "de": "Ein Felsbrocken? Ein Maibaum aus Stein? Ha!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jack",
+              "face": "curious",
+              "en": "Is it tall enough, do you think?",
+              "sl": "Je dovolj visok, kaj misliš?",
+              "it": "Secondo te è abbastanza alto?",
+              "de": "Ist sie hoch genug, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, it's very tall.",
+                  "sl": "Ja, zelo visok je.",
+                  "it": "Sì, è altissimo.",
+                  "de": "Ja, sie ist sehr hoch.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Taller than any tree on the green!",
+                    "sl": "Višji od vseh dreves na zelenici!",
+                    "it": "Più alto di qualsiasi albero sul prato!",
+                    "de": "Höher als jeder Baum auf der Wiese!"
+                  }
+                },
+                {
+                  "en": "Yes, it's very small.",
+                  "sl": "Ja, zelo majhen je.",
+                  "it": "Sì, è piccolissimo.",
+                  "de": "Ja, sie ist sehr klein.",
+                  "why": {
+                    "en": "Small is little. The larch goes up and up: it's tall.",
+                    "sl": "Small je majhen. Macesen sega visoko gor: tall.",
+                    "it": "Small vuol dire piccolo. Il larice va su su: tall.",
+                    "de": "Small heißt klein. Die Lärche geht hoch hinauf: tall."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Small? It goes right up to the sky, mate!",
+                    "sl": "Majhen? Saj sega do neba!",
+                    "it": "Piccolo? Arriva fino al cielo!",
+                    "de": "Klein? Die reicht bis in den Himmel, Kumpel!"
+                  }
+                }
+              ]
+            },
+            { "who": "sam", "en": "Stand back, everyone!", "sl": "Stopite nazaj, vsi!", "it": "Indietro, tutti!", "de": "Alle zurück!" },
+            {
+              "who": "jack",
+              "face": "surprised",
+              "en": "Timber! Watch out, it's falling!",
+              "sl": "Pozor! Pada!",
+              "it": "Attenzione, sta cadendo!",
+              "de": "Achtung, sie fällt!",
+              "fx": { "fell": 1, "birds": 1 },
+              "done": true
+            },
+            {
+              "choices": [
+                {
+                  "en": "What a crash!",
+                  "sl": "Kakšen tresk!",
+                  "it": "Che schianto!",
+                  "de": "Was für ein Krachen!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Aye! The whole wood heard it.",
+                    "sl": "Ja! Slišal ga je ves gozd.",
+                    "it": "Già! L'ha sentito tutto il bosco.",
+                    "de": "Jawohl! Das hat der ganze Wald gehört."
+                  }
+                },
+                {
+                  "en": "What a crab!",
+                  "sl": "Kakšen rak!",
+                  "it": "Che granchio!",
+                  "de": "Was für eine Krabbe!",
+                  "why": {
+                    "en": "A crab lives by the sea! The noise of a big tree falling is a crash.",
+                    "sl": "Crab je rak ob morju! Hrup velikega padajočega drevesa je crash, tresk.",
+                    "it": "Crab è il granchio del mare! Il rumore di un grande albero che cade è un crash, uno schianto.",
+                    "de": "Crab ist eine Krabbe am Meer! Das Geräusch eines fallenden Baums ist ein crash."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A crab? In the wood? Ha!",
+                    "sl": "Rak? V gozdu? Ha!",
+                    "it": "Un granchio? Nel bosco? Ah!",
+                    "de": "Eine Krabbe? Im Wald? Ha!"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "thinking",
+              "en": "We need the tallest larch in the wood. Straight, with no branches low down.",
+              "sl": "Potrebujemo najvišji macesen v gozdu. Raven, brez nizkih vej.",
+              "it": "Ci serve il larice più alto del bosco. Dritto, senza rami in basso.",
+              "de": "Wir brauchen die höchste Lärche im Wald. Gerade, ohne Äste weit unten."
+            },
+            {
+              "choices": [
+                {
+                  "en": "That one by the path is very tall.",
+                  "sl": "Tisti ob stezi je zelo visok.",
+                  "it": "Quello vicino al sentiero è altissimo.",
+                  "de": "Die am Weg ist sehr hoch.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good eye, mate. That's our maypole.",
+                    "sl": "Dobro oko imaš. To je naš mlaj.",
+                    "it": "Hai occhio. Quello è il nostro albero di maggio.",
+                    "de": "Gutes Auge, Kumpel. Das ist unser Maibaum."
+                  }
+                },
+                {
+                  "en": "That one by the path is very old.",
+                  "sl": "Tisti ob stezi je zelo star.",
+                  "it": "Quello vicino al sentiero è vecchissimo.",
+                  "de": "Die am Weg ist sehr alt.",
+                  "why": {
+                    "en": "Old isn't the point: a maypole must reach up high. It must be tall.",
+                    "sl": "Starost ni pomembna: mlaj mora segati visoko. Biti mora tall.",
+                    "it": "Non conta che sia vecchio: l'albero di maggio deve arrivare in alto. Dev'essere tall.",
+                    "de": "Alt ist egal: Ein Maibaum muss hoch hinaufreichen. Er muss tall sein."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Old? Old trees break, mate. We want one that reaches the sky!",
+                    "sl": "Star? Stara drevesa se lomijo. Hočemo takega, ki sega do neba!",
+                    "it": "Vecchio? Gli alberi vecchi si spezzano. Ne vogliamo uno che arrivi al cielo!",
+                    "de": "Alt? Alte Bäume brechen, Kumpel. Wir wollen einen, der bis zum Himmel reicht!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "sam",
+              "en": "Stand back, everyone! Right back!",
+              "sl": "Stopite nazaj, vsi! Čisto nazaj!",
+              "it": "Indietro, tutti! Ben indietro!",
+              "de": "Alle zurück! Ganz zurück!"
+            },
+            {
+              "who": "jack",
+              "face": "surprised",
+              "en": "Timber! … Down she comes!",
+              "sl": "Pozor! … Pada!",
+              "it": "Attenzione! … Ecco che cade!",
+              "de": "Achtung! … Da fällt sie!",
+              "fx": { "fell": 1, "birds": 1 },
+              "done": true
+            },
+            {
+              "choices": [
+                {
+                  "en": "That crash was so loud!",
+                  "sl": "Tisti tresk je bil tako glasen!",
+                  "it": "Quello schianto è stato fortissimo!",
+                  "de": "Das Krachen war so laut!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Even the birds flew off!",
+                    "sl": "Še ptice so odletele!",
+                    "it": "Sono volati via perfino gli uccelli!",
+                    "de": "Sogar die Vögel sind weggeflogen!"
+                  }
+                },
+                {
+                  "en": "That cat was so loud!",
+                  "sl": "Tista mačka je bila tako glasna!",
+                  "it": "Quel gatto è stato fortissimo!",
+                  "de": "Die Katze war so laut!",
+                  "why": {
+                    "en": "A cat says miaow. A big tree falling makes a crash.",
+                    "sl": "Mačka mijavka. Veliko drevo, ki pade, naredi crash, tresk.",
+                    "it": "Il gatto fa miao. Un grande albero che cade fa un crash.",
+                    "de": "Eine Katze miaut. Ein großer Baum, der fällt, macht einen crash."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A cat? The birds flew off, not a cat!",
+                    "sl": "Mačka? Ptice so odletele, ne mačka!",
+                    "it": "Un gatto? Sono volati via gli uccelli, non un gatto!",
+                    "de": "Eine Katze? Die Vögel sind weggeflogen, keine Katze!"
+                  }
+                },
+                {
+                  "en": "That crash were so loud!",
+                  "sl": "Tisti tresk je bil tako glasen!",
+                  "it": "Quello schianto è stato fortissimo!",
+                  "de": "Das Krachen war so laut!",
+                  "grammar": "past-simple",
+                  "why": {
+                    "en": "One crash: the past of be is was.",
+                    "sl": "En tresk: preteklik od be je was.",
+                    "it": "Uno schianto: il passato di be è was.",
+                    "de": "Ein Krachen: Die Vergangenheit von be ist was."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Were? Just the one crash, mate!",
+                    "sl": "Were? Saj je bil samo en tresk!",
+                    "it": "Were? C'è stato un solo schianto!",
+                    "de": "Were? Es gab doch nur ein Krachen, Kumpel!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "A grand larch. Now we carry it home.",
+              "sl": "Krasen macesen. Zdaj ga nesemo domov.",
+              "it": "Un larice magnifico. Adesso lo portiamo a casa.",
+              "de": "Eine prächtige Lärche. Jetzt tragen wir sie nach Hause."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-the-wood",
+      "words": ["shoulder", "tired"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "Now we carry the larch to the village. On our shoulders!",
+              "sl": "Zdaj macesen nesemo v vas. Na ramenih!",
+              "it": "Adesso portiamo il larice in paese. Sulle spalle!",
+              "de": "Jetzt tragen wir die Lärche ins Dorf. Auf den Schultern!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'll put it on my shoulder.",
+                  "sl": "Dal ga bom na ramo.",
+                  "it": "Me lo metto sulla spalla.",
+                  "de": "Ich nehm sie auf die Schulter.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. Both hands, mate.",
+                    "sl": "Dobro. Z obema rokama.",
+                    "it": "Bene. Con tutte e due le mani.",
+                    "de": "Gut. Mit beiden Händen, Kumpel."
+                  }
+                },
+                {
+                  "en": "I'll put it on my head.",
+                  "sl": "Dal ga bom na glavo.",
+                  "it": "Me lo metto in testa.",
+                  "de": "Ich nehm sie auf den Kopf.",
+                  "why": {
+                    "en": "A long pole goes on your shoulder, not on your head.",
+                    "sl": "Dolg drog neseš na rami, ne na glavi: shoulder.",
+                    "it": "Un palo lungo si porta sulla spalla, non in testa: shoulder.",
+                    "de": "Einen langen Stamm trägt man auf der Schulter, nicht auf dem Kopf: shoulder."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "On your head? You'd look like a unicorn, mate!",
+                    "sl": "Na glavi? Bil bi kot samorog!",
+                    "it": "In testa? Sembreresti un unicorno!",
+                    "de": "Auf dem Kopf? Dann siehst du aus wie ein Einhorn, Kumpel!"
+                  }
+                },
+                {
+                  "en": "I'll puts it on my shoulder.",
+                  "sl": "Dal ga bom na ramo.",
+                  "it": "Me lo metto sulla spalla.",
+                  "de": "Ich nehm sie auf die Schulter.",
+                  "grammar": "future",
+                  "why": {
+                    "en": "After will ('ll), the verb has no -s: I'll put.",
+                    "sl": "Za will ('ll) glagol nima -s: I'll put.",
+                    "it": "Dopo will ('ll) il verbo non prende la -s: I'll put.",
+                    "de": "Nach will ('ll) hat das Verb kein -s: I'll put."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Puts? Eh? Once more, mate.",
+                    "sl": "Puts? Kaj? Še enkrat.",
+                    "it": "Puts? Eh? Ancora una volta.",
+                    "de": "Puts? Hä? Noch mal, Kumpel."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            },
+            {
+              "who": "harry",
+              "face": "surprised",
+              "en": "It's so heavy! One, two, three, lift!",
+              "sl": "Tako težak je! Ena, dve, tri, dvigni!",
+              "it": "È pesantissimo! Uno, due, tre, su!",
+              "de": "Der ist so schwer! Eins, zwei, drei, hoch!"
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "Off we go! Slowly, out of the wood.",
+              "sl": "Gremo! Počasi, ven iz gozda.",
+              "it": "Andiamo! Piano, fuori dal bosco.",
+              "de": "Los geht's! Langsam, raus aus dem Wald.",
+              "done": true
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'm tired, but happy!",
+                  "sl": "{m:Utrujen|f:Utrujena} sem, a {m:srečen|f:srečna}!",
+                  "it": "Sono {m:stanco|f:stanca}, ma {m:contento|f:contenta}!",
+                  "de": "Ich bin müde, aber froh!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Me too. We're nearly there!",
+                    "sl": "Jaz tudi. Skoraj smo tam!",
+                    "it": "Anch'io. Siamo quasi arrivati!",
+                    "de": "Ich auch. Wir sind fast da!"
+                  }
+                },
+                {
+                  "en": "I'm tidy, but happy!",
+                  "sl": "{m:Urejen|f:Urejena} sem, a {m:srečen|f:srečna}!",
+                  "it": "Sono {m:ordinato|f:ordinata}, ma {m:contento|f:contenta}!",
+                  "de": "Ich bin ordentlich, aber froh!",
+                  "why": {
+                    "en": "Tidy is neat and clean. After carrying a tree, you're tired.",
+                    "sl": "Tidy je urejen. Po nošenju drevesa si tired, utrujen.",
+                    "it": "Tidy vuol dire ordinato. Dopo aver portato un albero sei tired, stanco.",
+                    "de": "Tidy heißt ordentlich. Nach dem Baumtragen ist man tired, müde."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Tidy? You're covered in bark, mate!",
+                    "sl": "Urejen? Saj si ves v lubju!",
+                    "it": "Ordinato? Sei tutto pieno di corteccia!",
+                    "de": "Ordentlich? Du bist voller Rinde, Kumpel!"
+                  }
+                },
+                {
+                  "en": "I tired, but happy!",
+                  "sl": "{m:Utrujen|f:Utrujena} sem, a {m:srečen|f:srečna}!",
+                  "it": "Sono {m:stanco|f:stanca}, ma {m:contento|f:contenta}!",
+                  "de": "Ich bin müde, aber froh!",
+                  "grammar": "to-be",
+                  "why": {
+                    "en": "Tired goes with be: I'm tired (I am tired).",
+                    "sl": "Tired gre z be: I'm tired (I am tired).",
+                    "it": "Tired va con be: I'm tired (I am tired).",
+                    "de": "Tired geht mit be: I'm tired (I am tired)."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "You what? You're so tired you forgot a word!",
+                    "sl": "Ti kaj? Tako si {m:utrujen|f:utrujena}, da si {m:pozabil|f:pozabila} besedo!",
+                    "it": "Tu cosa? Sei così {m:stanco|f:stanca} che hai dimenticato una parola!",
+                    "de": "Du was? Du bist so müde, dass du ein Wort vergessen hast!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            },
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "The village is still far. Keep going, everyone!",
+              "sl": "Vas je še daleč. Kar naprej, vsi!",
+              "it": "Il paese è ancora lontano. Avanti, tutti!",
+              "de": "Das Dorf ist noch weit. Weiter, alle!"
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "thinking",
+              "en": "Everyone take a shoulder. It's a long way to the village.",
+              "sl": "Vsak naj podstavi ramo. Do vasi je daleč.",
+              "it": "Ognuno ci metta una spalla. Il paese è lontano.",
+              "de": "Jeder nimmt eine Schulter. Es ist weit bis ins Dorf."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Shall I take the front, on my shoulder?",
+                  "sl": "Naj vzamem sprednji del, na ramo?",
+                  "it": "Prendo io il davanti, sulla spalla?",
+                  "de": "Soll ich vorne nehmen, auf der Schulter?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye. You lead the way.",
+                    "sl": "Ja. Ti vodi.",
+                    "it": "Sì. Fai strada tu.",
+                    "de": "Jawohl. Du gehst voran."
+                  }
+                },
+                {
+                  "en": "Shall I take the front, on my bicycle?",
+                  "sl": "Naj vzamem sprednji del, na kolesu?",
+                  "it": "Prendo io il davanti, in bicicletta?",
+                  "de": "Soll ich vorne nehmen, auf dem Fahrrad?",
+                  "why": {
+                    "en": "A tree is too long for a bicycle! Carry it on your shoulder.",
+                    "sl": "Drevo je predolgo za kolo! Nesi ga na rami: shoulder.",
+                    "it": "Un albero è troppo lungo per la bicicletta! Portalo sulla spalla: shoulder.",
+                    "de": "Ein Baum ist zu lang fürs Fahrrad! Trag ihn auf der Schulter: shoulder."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "On your bike? Ha! You'd wobble into the beck!",
+                    "sl": "Na kolesu? Ha! {m:Zapeljal|f:Zapeljala} bi se v potok!",
+                    "it": "In bici? Ah! Finiresti nel ruscello!",
+                    "de": "Auf dem Rad? Ha! Du würdest in den Bach wackeln!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "alfie",
+              "face": "curious",
+              "en": "Can I carry the little end?",
+              "sl": "Lahko jaz nesem majhen konec?",
+              "it": "Posso portare io la punta piccola?",
+              "de": "Darf ich das kleine Ende tragen?"
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "Lift! … And off we go, out of the wood.",
+              "sl": "Dvignite! … In gremo, ven iz gozda.",
+              "it": "Su! … E andiamo, fuori dal bosco.",
+              "de": "Hoch! … Und los, raus aus dem Wald.",
+              "done": true
+            },
+            {
+              "choices": [
+                {
+                  "en": "Are you tired, Jack?",
+                  "sl": "Si utrujen, Jack?",
+                  "it": "Sei stanco, Jack?",
+                  "de": "Bist du müde, Jack?",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Tired? A fell runner? Never! Well… a little bit.",
+                    "sl": "Utrujen? Tekač po hribih? Nikoli! No … malo.",
+                    "it": "Stanco? Uno che corre sui monti? Mai! Be'… un pochino.",
+                    "de": "Müde? Ein Bergläufer? Nie! Na ja … ein kleines bisschen."
+                  }
+                },
+                {
+                  "en": "Are you tidy, Jack?",
+                  "sl": "Si urejen, Jack?",
+                  "it": "Sei ordinato, Jack?",
+                  "de": "Bist du ordentlich, Jack?",
+                  "why": {
+                    "en": "Tidy is neat and clean. After a long carry, you ask if he's tired.",
+                    "sl": "Tidy je urejen. Po dolgem nošenju vprašaš, ali je tired, utrujen.",
+                    "it": "Tidy vuol dire ordinato. Dopo tanta fatica chiedi se è tired, stanco.",
+                    "de": "Tidy heißt ordentlich. Nach dem langen Tragen fragt man, ob er tired, müde, ist."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Tidy? My boots are full of mud, mate!",
+                    "sl": "Urejen? Škornji so mi polni blata!",
+                    "it": "Ordinato? Ho gli scarponi pieni di fango!",
+                    "de": "Ordentlich? Meine Stiefel sind voller Matsch, Kumpel!"
+                  }
+                },
+                {
+                  "en": "Is you tired, Jack?",
+                  "sl": "Si utrujen, Jack?",
+                  "it": "Sei stanco, Jack?",
+                  "de": "Bist du müde, Jack?",
+                  "grammar": "to-be",
+                  "why": {
+                    "en": "With you, be is are: are you …?",
+                    "sl": "Pri you je be v obliki are: are you …?",
+                    "it": "Con you, be diventa are: are you …?",
+                    "de": "Bei you heißt be are: are you …?"
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Is you? Ha! Ask me again, mate.",
+                    "sl": "Is you? Ha! Vprašaj me še enkrat.",
+                    "it": "Is you? Ah! Chiedimelo di nuovo.",
+                    "de": "Is you? Ha! Frag mich noch mal, Kumpel."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            },
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "The village is still far. Keep going!",
+              "sl": "Vas je še daleč. Kar naprej!",
+              "it": "Il paese è ancora lontano. Avanti!",
+              "de": "Das Dorf ist noch weit. Weiter!"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "on-the-green",
+      "words": ["bark", "stripe"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "First we take the bark off the larch. Off it comes!",
+              "sl": "Najprej z macesna olupimo lubje. Dol z njim!",
+              "it": "Prima togliamo la corteccia al larice. Via!",
+              "de": "Zuerst schälen wir die Rinde von der Lärche. Runter damit!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "The bark comes off in long strips!",
+                  "sl": "Lubje gre dol v dolgih trakovih!",
+                  "it": "La corteccia viene via a lunghe strisce!",
+                  "de": "Die Rinde geht in langen Streifen ab!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "And the wood under it is as white as milk!",
+                    "sl": "Les pod njim je bel kot mleko!",
+                    "it": "E il legno sotto è bianco come il latte!",
+                    "de": "Und das Holz darunter ist weiß wie Milch!"
+                  }
+                },
+                {
+                  "en": "The park comes off in long strips!",
+                  "sl": "Park gre dol v dolgih trakovih!",
+                  "it": "Il parco viene via a lunghe strisce!",
+                  "de": "Der Park geht in langen Streifen ab!",
+                  "why": {
+                    "en": "A park is a place with grass and swings! The skin of a tree is its bark.",
+                    "sl": "Park je park z gugalnicami! Koža drevesa je lubje: bark.",
+                    "it": "Park è il parco con le altalene! La pelle dell'albero è la corteccia: bark.",
+                    "de": "Park ist ein Park mit Schaukeln! Die Haut eines Baums ist die Rinde: bark."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The park? The swings are staying put, mate!",
+                    "sl": "Park? Gugalnice ostanejo, kjer so!",
+                    "it": "Il parco? Le altalene restano dove sono!",
+                    "de": "Der Park? Die Schaukeln bleiben, wo sie sind, Kumpel!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "alfie",
+              "face": "happy",
+              "en": "And now we paint it! Red and white!",
+              "sl": "Zdaj ga pa pobarvamo! Rdeče in belo!",
+              "it": "E adesso lo dipingiamo! Rosso e bianco!",
+              "de": "Und jetzt malen wir ihn an! Rot und weiß!"
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "There! Peeled and painted, red and white round and round.",
+              "sl": "Tako! Olupljen in pobarvan, rdeče in belo okoli in okoli.",
+              "it": "Ecco! Scortecciato e dipinto, rosso e bianco tutto intorno.",
+              "de": "So! Geschält und bemalt, rot und weiß rundherum.",
+              "done": true
+            },
+            {
+              "choices": [
+                {
+                  "en": "I love the red and white stripes!",
+                  "sl": "Rdeče in bele proge so mi zelo všeč!",
+                  "it": "Adoro le strisce rosse e bianche!",
+                  "de": "Ich liebe die rot-weißen Streifen!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "The best maypole in the Lakes!",
+                    "sl": "Najlepši mlaj v Lake Districtu!",
+                    "it": "L'albero di maggio più bello del Lake District!",
+                    "de": "Der schönste Maibaum im Lake District!"
+                  }
+                },
+                {
+                  "en": "I love the red and white stars!",
+                  "sl": "Rdeče in bele zvezde so mi zelo všeč!",
+                  "it": "Adoro le stelle rosse e bianche!",
+                  "de": "Ich liebe die rot-weißen Sterne!",
+                  "why": {
+                    "en": "Stars are in the sky. Long lines of colour round the pole are stripes.",
+                    "sl": "Stars so zvezde na nebu. Dolge barvne črte okoli droga so stripes, proge.",
+                    "it": "Stars sono le stelle del cielo. Le lunghe righe colorate intorno al palo sono stripes, strisce.",
+                    "de": "Stars sind Sterne am Himmel. Lange Farblinien um den Mast sind stripes, Streifen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Stars? It's a maypole, not the night sky!",
+                    "sl": "Zvezde? To je mlaj, ne nočno nebo!",
+                    "it": "Stelle? È un albero di maggio, non il cielo di notte!",
+                    "de": "Sterne? Das ist ein Maibaum, kein Nachthimmel!"
+                  }
+                },
+                {
+                  "en": "I loves the red and white stripes!",
+                  "sl": "Rdeče in bele proge so mi zelo všeč!",
+                  "it": "Adoro le strisce rosse e bianche!",
+                  "de": "Ich liebe die rot-weißen Streifen!",
+                  "grammar": "present-simple",
+                  "why": {
+                    "en": "With I, the verb has no -s: I love.",
+                    "sl": "Pri I glagol nima -s: I love.",
+                    "it": "Con I il verbo non prende la -s: I love.",
+                    "de": "Bei I hat das Verb kein -s: I love."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Loves? Eh? Say it again, mate.",
+                    "sl": "Loves? Kaj? Povej še enkrat.",
+                    "it": "Loves? Eh? Ridillo.",
+                    "de": "Loves? Hä? Sag es noch mal, Kumpel."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "thinking",
+              "en": "We peel the bark off before we paint. Paint won't stay on bark.",
+              "sl": "Preden barvamo, olupimo lubje. Barva se lubja ne prime.",
+              "it": "Togliamo la corteccia prima di dipingere. La vernice non sta sulla corteccia.",
+              "de": "Wir schälen die Rinde, bevor wir malen. Auf Rinde hält keine Farbe."
+            },
+            {
+              "choices": [
+                {
+                  "en": "Here's a big strip of bark!",
+                  "sl": "Tukaj je velik trak lubja!",
+                  "it": "Ecco una lunga striscia di corteccia!",
+                  "de": "Hier ist ein großer Streifen Rinde!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Throw it on the pile. Next one!",
+                    "sl": "Vrzi ga na kup. Naslednjega!",
+                    "it": "Buttala sul mucchio. La prossima!",
+                    "de": "Wirf ihn auf den Haufen. Der nächste!"
+                  }
+                },
+                {
+                  "en": "Here's a big strip of bacon!",
+                  "sl": "Tukaj je velik trak slanine!",
+                  "it": "Ecco una lunga striscia di pancetta!",
+                  "de": "Hier ist ein großer Streifen Speck!",
+                  "why": {
+                    "en": "Bacon is for breakfast! The skin of the tree is its bark.",
+                    "sl": "Bacon je slanina za zajtrk! Koža drevesa je lubje: bark.",
+                    "it": "Bacon è la pancetta della colazione! La pelle dell'albero è la corteccia: bark.",
+                    "de": "Bacon ist Speck zum Frühstück! Die Haut des Baums ist die Rinde: bark."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Bacon? Now I'm hungry, mate!",
+                    "sl": "Slanina? Zdaj sem pa lačen!",
+                    "it": "Pancetta? Adesso ho fame!",
+                    "de": "Speck? Jetzt hab ich Hunger, Kumpel!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "harry",
+              "face": "surprised",
+              "en": "Under the bark it's white and smooth!",
+              "sl": "Pod lubjem je belo in gladko!",
+              "it": "Sotto la corteccia è bianco e liscio!",
+              "de": "Unter der Rinde ist es weiß und glatt!"
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "Peeled! Now the paint: red and white, round and round.",
+              "sl": "Olupljeno! Zdaj barva: rdeča in bela, okoli in okoli.",
+              "it": "Scortecciato! Adesso la vernice: rosso e bianco, tutto intorno.",
+              "de": "Geschält! Jetzt die Farbe: rot und weiß, rundherum.",
+              "done": true
+            },
+            {
+              "choices": [
+                {
+                  "en": "Shall I paint the next stripe red?",
+                  "sl": "Naj naslednjo progo pobarvam rdeče?",
+                  "it": "Dipingo di rosso la prossima striscia?",
+                  "de": "Soll ich den nächsten Streifen rot malen?",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye. Red, white, red, white. Grand!",
+                    "sl": "Ja. Rdeča, bela, rdeča, bela. Krasno!",
+                    "it": "Sì. Rosso, bianco, rosso, bianco. Splendido!",
+                    "de": "Jawohl. Rot, weiß, rot, weiß. Prima!"
+                  }
+                },
+                {
+                  "en": "Shall I paint the next sheep red?",
+                  "sl": "Naj naslednjo ovco pobarvam rdeče?",
+                  "it": "Dipingo di rosso la prossima pecora?",
+                  "de": "Soll ich das nächste Schaf rot malen?",
+                  "why": {
+                    "en": "Sheep are for the fell! On the pole we paint stripes.",
+                    "sl": "Ovce so za hrib! Na drog barvamo proge: stripes.",
+                    "it": "Le pecore stanno sul monte! Sul palo dipingiamo strisce: stripes.",
+                    "de": "Schafe gehören auf den Berg! Auf den Mast malen wir Streifen: stripes."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A red sheep? The farmer would faint!",
+                    "sl": "Rdeča ovca? Kmet bi omedlel!",
+                    "it": "Una pecora rossa? Il contadino sverrebbe!",
+                    "de": "Ein rotes Schaf? Der Bauer würde umfallen!"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "on-the-green",
+      "words": ["knot", "top"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "The children made a crown of flowers for the maypole.",
+              "sl": "Otroci so za mlaj spletli krono iz rož.",
+              "it": "I bambini hanno fatto una corona di fiori per l'albero di maggio.",
+              "de": "Die Kinder haben eine Blumenkrone für den Maibaum gemacht."
+            },
+            {
+              "choices": [
+                {
+                  "en": "It goes on the top of the maypole!",
+                  "sl": "Gre na vrh mlaja!",
+                  "it": "Va in cima all'albero di maggio!",
+                  "de": "Die kommt oben auf den Maibaum!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Right at the top, like a queen's crown.",
+                    "sl": "Čisto na vrh, kot kraljičina krona.",
+                    "it": "Proprio in cima, come la corona di una regina.",
+                    "de": "Ganz oben, wie die Krone einer Königin."
+                  }
+                },
+                {
+                  "en": "It goes on the bottom of the maypole!",
+                  "sl": "Gre na dno mlaja!",
+                  "it": "Va in fondo all'albero di maggio!",
+                  "de": "Die kommt unten an den Maibaum!",
+                  "why": {
+                    "en": "A crown sits on the top, like on a queen's head.",
+                    "sl": "Krona je na vrhu, kot na kraljičini glavi: the top.",
+                    "it": "La corona sta in cima, come sulla testa di una regina: the top.",
+                    "de": "Eine Krone sitzt oben, wie auf dem Kopf einer Königin: the top."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "At the bottom? The dancers would trip over it!",
+                    "sl": "Spodaj? Plesalci bi se spotaknili obnjo!",
+                    "it": "In fondo? I ballerini ci inciamperebbero!",
+                    "de": "Unten? Da würden die Tänzer drüber stolpern!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "alfie",
+              "face": "happy",
+              "en": "And long ribbons! Red, blue, yellow and green!",
+              "sl": "In dolgi trakovi! Rdeči, modri, rumeni in zeleni!",
+              "it": "E lunghi nastri! Rossi, blu, gialli e verdi!",
+              "de": "Und lange Bänder! Rot, blau, gelb und grün!"
+            },
+            {
+              "choices": [
+                {
+                  "en": "I'll tie a knot in each ribbon.",
+                  "sl": "Na vsak trak bom {m:naredil|f:naredila} vozel.",
+                  "it": "Faccio un nodo in ogni nastro.",
+                  "de": "Ich mach in jedes Band einen Knoten.",
+                  "ok": true,
+                  "reply": { "face": "happy", "en": "Good and tight, mate.", "sl": "Lepo trdno.", "it": "Bello stretto.", "de": "Schön fest, Kumpel." }
+                },
+                {
+                  "en": "I'll tie a nut in each ribbon.",
+                  "sl": "Na vsak trak bom {m:privezal|f:privezala} oreh.",
+                  "it": "Lego una noce in ogni nastro.",
+                  "de": "Ich bind in jedes Band eine Nuss.",
+                  "why": {
+                    "en": "A nut grows on a tree. You tie a ribbon with a knot.",
+                    "sl": "Nut je oreh. Trak zavežeš z vozlom: knot.",
+                    "it": "Nut è la noce. Un nastro si lega con un nodo: knot.",
+                    "de": "Nut ist eine Nuss. Ein Band bindet man mit einem Knoten: knot."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A nut? For the squirrels?",
+                    "sl": "Oreh? Za veverice?",
+                    "it": "Una noce? Per gli scoiattoli?",
+                    "de": "Eine Nuss? Für die Eichhörnchen?"
+                  }
+                },
+                {
+                  "en": "I'll ties a knot in each ribbon.",
+                  "sl": "Na vsak trak bom {m:naredil|f:naredila} vozel.",
+                  "it": "Faccio un nodo in ogni nastro.",
+                  "de": "Ich mach in jedes Band einen Knoten.",
+                  "grammar": "future",
+                  "why": {
+                    "en": "After will ('ll), the verb has no -s: I'll tie.",
+                    "sl": "Za will ('ll) glagol nima -s: I'll tie.",
+                    "it": "Dopo will ('ll) il verbo non prende la -s: I'll tie.",
+                    "de": "Nach will ('ll) hat das Verb kein -s: I'll tie."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Ties? Eh? Once more, mate.",
+                    "sl": "Ties? Kaj? Še enkrat.",
+                    "it": "Ties? Eh? Ancora una volta.",
+                    "de": "Ties? Hä? Noch mal, Kumpel."
+                  }
+                }
+              ],
+              "to": "jack",
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "Lovely! The crown and the ribbons are ready.",
+              "sl": "Krasno! Krona in trakovi so pripravljeni.",
+              "it": "Bellissimo! La corona e i nastri sono pronti.",
+              "de": "Wunderbar! Die Krone und die Bänder sind fertig.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "Tomorrow the crown goes on the maypole. Today, the ribbons.",
+              "sl": "Jutri gre krona na mlaj. Danes trakovi.",
+              "it": "Domani la corona va sull'albero di maggio. Oggi, i nastri.",
+              "de": "Morgen kommt die Krone an den Maibaum. Heute die Bänder."
+            },
+            {
+              "who": "harry",
+              "face": "curious",
+              "en": "How do we tie them on?",
+              "sl": "Kako jih privežemo?",
+              "it": "Come li leghiamo?",
+              "de": "Wie binden wir sie fest?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "With a good tight knot!",
+                  "sl": "Z dobrim trdnim vozlom!",
+                  "it": "Con un bel nodo stretto!",
+                  "de": "Mit einem guten, festen Knoten!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye. A ribbon that comes off is no good in the dance.",
+                    "sl": "Ja. Trak, ki pade dol, pri plesu ni za nič.",
+                    "it": "Già. Un nastro che si stacca non va bene per il ballo.",
+                    "de": "Jawohl. Ein Band, das abgeht, taugt nichts beim Tanz."
+                  }
+                },
+                {
+                  "en": "With a good tight sock!",
+                  "sl": "Z dobro tesno nogavico!",
+                  "it": "Con un bel calzino stretto!",
+                  "de": "Mit einer guten, engen Socke!",
+                  "why": {
+                    "en": "A sock goes on your foot! To tie a ribbon, you make a knot.",
+                    "sl": "Sock je nogavica! Trak zavežeš z vozlom: knot.",
+                    "it": "Sock è il calzino! Per legare un nastro si fa un nodo: knot.",
+                    "de": "Sock ist eine Socke! Ein Band bindet man mit einem Knoten: knot."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A sock? On the maypole? Ha!",
+                    "sl": "Nogavica? Na mlaju? Ha!",
+                    "it": "Un calzino? Sull'albero di maggio? Ah!",
+                    "de": "Eine Socke? Am Maibaum? Ha!"
+                  }
+                }
+              ],
+              "to": "jack"
+            },
+            {
+              "who": "jack",
+              "face": "curious",
+              "en": "And where does the crown of flowers go?",
+              "sl": "Kam pa gre krona iz rož?",
+              "it": "E la corona di fiori dove va?",
+              "de": "Und wo kommt die Blumenkrone hin?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Right at the top, above the ribbons.",
+                  "sl": "Čisto na vrh, nad trakove.",
+                  "it": "Proprio in cima, sopra i nastri.",
+                  "de": "Ganz nach oben, über die Bänder.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Grand. Ready for tomorrow!",
+                    "sl": "Krasno. Pripravljeno za jutri!",
+                    "it": "Splendido. Pronta per domani!",
+                    "de": "Prima. Fertig für morgen!"
+                  }
+                },
+                {
+                  "en": "Right at the tap, above the ribbons.",
+                  "sl": "Čisto na pipo, nad trakove.",
+                  "it": "Proprio sul rubinetto, sopra i nastri.",
+                  "de": "Ganz an den Wasserhahn, über die Bänder.",
+                  "why": {
+                    "en": "A tap gives water. The highest part of the pole is the top.",
+                    "sl": "Tap je pipa za vodo. Najvišji del droga je the top, vrh.",
+                    "it": "Tap è il rubinetto. La parte più alta del palo è la top, la cima.",
+                    "de": "Tap ist der Wasserhahn. Der höchste Teil des Masts ist die top, die Spitze."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The tap? We're not washing up, mate!",
+                    "sl": "Pipa? Saj ne pomivamo posode!",
+                    "it": "Il rubinetto? Non stiamo lavando i piatti!",
+                    "de": "Der Wasserhahn? Wir spülen doch nicht ab, Kumpel!"
+                  }
+                },
+                {
+                  "en": "Right at the top, under the ribbons.",
+                  "sl": "Čisto na vrh, pod trakove.",
+                  "it": "Proprio in cima, sotto i nastri.",
+                  "de": "Ganz nach oben, unter die Bänder.",
+                  "grammar": "prepositions-place",
+                  "why": {
+                    "en": "The ribbons hang down from the crown: the crown is above them.",
+                    "sl": "Trakovi visijo s krone: krona je nad njimi, above.",
+                    "it": "I nastri pendono dalla corona: la corona sta sopra, above.",
+                    "de": "Die Bänder hängen von der Krone herab: Die Krone ist darüber, above."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Under? Then the ribbons would hang from nothing!",
+                    "sl": "Pod? Potem bi trakovi viseli iz nič!",
+                    "it": "Sotto? Allora i nastri penderebbero dal nulla!",
+                    "de": "Darunter? Dann hängen die Bänder an nichts!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "The crown and the ribbons are ready. Tomorrow, up she goes!",
+              "sl": "Krona in trakovi so pripravljeni. Jutri gre gor!",
+              "it": "La corona e i nastri sono pronti. Domani si alza!",
+              "de": "Die Krone und die Bänder sind fertig. Morgen geht er hoch!",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "on-the-green",
+      "words": ["slowly", "steady"],
+      "fx_stays": true,
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "The whole village is here! Grab a rope. We pull slowly.",
+              "sl": "Vsa vas je tukaj! Primite vrv. Vlečemo počasi.",
+              "it": "C'è tutto il paese! Prendete una corda. Tiriamo piano.",
+              "de": "Das ganze Dorf ist da! Schnappt euch ein Seil. Wir ziehen langsam.",
+              "fx": { "band": 1 }
+            },
+            {
+              "choices": [
+                {
+                  "en": "OK! We pull slowly.",
+                  "sl": "Prav! Vlečemo počasi.",
+                  "it": "Va bene! Tiriamo piano.",
+                  "de": "Okay! Wir ziehen langsam.",
+                  "ok": true,
+                  "reply": { "face": "happy", "en": "Slowly does it…", "sl": "Počasi, počasi …", "it": "Piano, piano…", "de": "Langsam, langsam …" }
+                },
+                {
+                  "en": "OK! We pull quickly.",
+                  "sl": "Prav! Vlečemo hitro.",
+                  "it": "Va bene! Tiriamo veloce.",
+                  "de": "Okay! Wir ziehen schnell.",
+                  "why": {
+                    "en": "A maypole goes up slowly, or it falls.",
+                    "sl": "Mlaj gre gor počasi, sicer pade: slowly.",
+                    "it": "L'albero di maggio sale piano, se no cade: slowly.",
+                    "de": "Ein Maibaum geht langsam hoch, sonst fällt er: slowly."
+                  },
+                  "reply": {
+                    "face": "worried",
+                    "en": "Quickly? It'd fall on the cottages, mate!",
+                    "sl": "Hitro? Padel bi na hiše!",
+                    "it": "Veloce? Cadrebbe sulle case!",
+                    "de": "Schnell? Der fällt auf die Häuser, Kumpel!"
+                  }
+                },
+                {
+                  "en": "OK! We pulls slowly.",
+                  "sl": "Prav! Vlečemo počasi.",
+                  "it": "Va bene! Tiriamo piano.",
+                  "de": "Okay! Wir ziehen langsam.",
+                  "grammar": "present-simple",
+                  "why": {
+                    "en": "With we, the verb has no -s: we pull.",
+                    "sl": "Pri we glagol nima -s: we pull.",
+                    "it": "Con we il verbo non prende la -s: we pull.",
+                    "de": "Bei we hat das Verb kein -s: we pull."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Pulls? Eh? Never mind, get pulling!",
+                    "sl": "Pulls? Kaj? Nič, samo vleci!",
+                    "it": "Pulls? Eh? Lascia stare, tira!",
+                    "de": "Pulls? Hä? Egal, zieh einfach!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            },
+            { "who": "sam", "en": "Pull… pull…", "sl": "Vleci … vleci …", "it": "Tira… tira…", "de": "Zieh … zieh …" },
+            {
+              "who": "jack",
+              "face": "surprised",
+              "en": "Up she goes!",
+              "sl": "Gor gre!",
+              "it": "Su che va!",
+              "de": "Hoch mit ihm!",
+              "fx": { "maypole": 1 }
+            },
+            {
+              "choices": [
+                {
+                  "en": "It's standing steady now!",
+                  "sl": "Zdaj trdno stoji!",
+                  "it": "Adesso sta su bello fermo!",
+                  "de": "Jetzt steht er fest!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "It stands! The maypole stands on our green!",
+                    "sl": "Stoji! Mlaj stoji na naši zelenici!",
+                    "it": "È in piedi! L'albero di maggio è sul nostro prato!",
+                    "de": "Er steht! Der Maibaum steht auf unserer Wiese!"
+                  }
+                },
+                {
+                  "en": "It's standing sleepy now!",
+                  "sl": "Zdaj zaspano stoji!",
+                  "it": "Adesso sta su tutto assonnato!",
+                  "de": "Jetzt steht er müde da!",
+                  "why": {
+                    "en": "Sleepy is tired! A pole that doesn't wobble is steady.",
+                    "sl": "Sleepy je zaspan! Drog, ki se ne maje, je steady.",
+                    "it": "Sleepy vuol dire assonnato! Un palo che non traballa è steady.",
+                    "de": "Sleepy heißt müde! Ein Mast, der nicht wackelt, ist steady."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Sleepy? It's wide awake, mate!",
+                    "sl": "Zaspan? Saj je čisto buden!",
+                    "it": "Assonnato? È sveglissimo!",
+                    "de": "Müde? Der ist hellwach, Kumpel!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "Our maypole stands! Now the band and the dancing!",
+              "sl": "Naš mlaj stoji! Zdaj pa godba in ples!",
+              "it": "Il nostro albero di maggio è in piedi! Adesso la banda e il ballo!",
+              "de": "Unser Maibaum steht! Jetzt die Kapelle und der Tanz!",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "jack",
+              "face": "happy",
+              "en": "Everyone ready? Pull slowly, all together.",
+              "sl": "Ste vsi pripravljeni? Vlecite počasi, vsi skupaj.",
+              "it": "Tutti pronti? Tirate piano, tutti insieme.",
+              "de": "Alle bereit? Langsam ziehen, alle zusammen.",
+              "fx": { "band": 1 }
+            },
+            {
+              "choices": [
+                {
+                  "en": "Slowly, slowly… it's going up!",
+                  "sl": "Počasi, počasi … gre gor!",
+                  "it": "Piano, piano… sta salendo!",
+                  "de": "Langsam, langsam … er geht hoch!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "That's it! Keep pulling!",
+                    "sl": "Tako! Kar naprej vlecite!",
+                    "it": "Così! Continuate a tirare!",
+                    "de": "Genau! Weiterziehen!",
+                    "fx": { "maypole": 0.6 }
+                  }
+                },
+                {
+                  "en": "Fast, fast… it's going up!",
+                  "sl": "Hitro, hitro … gre gor!",
+                  "it": "Veloce, veloce… sta salendo!",
+                  "de": "Schnell, schnell … er geht hoch!",
+                  "why": {
+                    "en": "Pull a maypole up slowly, or it crashes down.",
+                    "sl": "Mlaj vlečeš gor počasi, sicer pade: slowly.",
+                    "it": "L'albero di maggio si tira su piano, se no cade: slowly.",
+                    "de": "Einen Maibaum zieht man langsam hoch, sonst kracht er runter: slowly."
+                  },
+                  "reply": {
+                    "face": "worried",
+                    "en": "Fast? Easy, mate, easy!",
+                    "sl": "Hitro? Mirno, mirno!",
+                    "it": "Veloce? Calma, calma!",
+                    "de": "Schnell? Ruhig, Kumpel, ruhig!"
+                  }
+                },
+                {
+                  "en": "Slowly, slowly… it going up!",
+                  "sl": "Počasi, počasi … gre gor!",
+                  "it": "Piano, piano… sta salendo!",
+                  "de": "Langsam, langsam … er geht hoch!",
+                  "grammar": "present-continuous",
+                  "why": {
+                    "en": "The present continuous needs is: it's going (it is going).",
+                    "sl": "Present continuous potrebuje is: it's going (it is going).",
+                    "it": "Il present continuous ha bisogno di is: it's going (it is going).",
+                    "de": "Das Present Continuous braucht is: it's going (it is going)."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "It what? Pull, mate, don't talk!",
+                    "sl": "Kaj? Vleci, ne govori!",
+                    "it": "Cosa? Tira, non parlare!",
+                    "de": "Was? Zieh, Kumpel, nicht reden!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Sorry, mate? The wind took that one.",
+                "sl": "Oprosti? Tega mi je odnesel veter.",
+                "it": "Scusa? Questa se l'è portata via il vento.",
+                "de": "Wie bitte? Das hat der Wind verweht."
+              }
+            },
+            {
+              "who": "alfie",
+              "face": "surprised",
+              "en": "It's moving! It's moving!",
+              "sl": "Premika se! Premika se!",
+              "it": "Si muove! Si muove!",
+              "de": "Er bewegt sich! Er bewegt sich!"
+            },
+            {
+              "who": "jack",
+              "en": "Nearly… keep it steady now!",
+              "sl": "Skoraj … zdaj ga držite pri miru!",
+              "it": "Quasi… tenetelo fermo adesso!",
+              "de": "Fast … jetzt ruhig halten!",
+              "fx": { "maypole": 1 }
+            },
+            {
+              "choices": [
+                {
+                  "en": "It's steady now. It isn't moving.",
+                  "sl": "Zdaj je trden. Ne premika se več.",
+                  "it": "Adesso è fermo. Non si muove più.",
+                  "de": "Jetzt steht er fest. Er bewegt sich nicht mehr.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "It stands! And now, the band and the dancing!",
+                    "sl": "Stoji! Zdaj pa godba in ples!",
+                    "it": "È in piedi! E adesso, la banda e il ballo!",
+                    "de": "Er steht! Und jetzt die Kapelle und der Tanz!"
+                  }
+                },
+                {
+                  "en": "It's sticky now. It isn't moving.",
+                  "sl": "Zdaj je lepljiv. Ne premika se več.",
+                  "it": "Adesso è appiccicoso. Non si muove più.",
+                  "de": "Jetzt ist er klebrig. Er bewegt sich nicht mehr.",
+                  "why": {
+                    "en": "Sticky is like honey! Standing still, not wobbling: steady.",
+                    "sl": "Sticky je lepljivo, kot med! Pri miru, brez majanja: steady.",
+                    "it": "Sticky è appiccicoso, come il miele! Fermo, senza traballare: steady.",
+                    "de": "Sticky ist klebrig, wie Honig! Still, ohne Wackeln: steady."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Sticky? Did someone spill honey on it?",
+                    "sl": "Lepljiv? Ga je kdo polil z medom?",
+                    "it": "Appiccicoso? Qualcuno ci ha versato del miele?",
+                    "de": "Klebrig? Hat jemand Honig drübergekippt?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "jack",
+              "face": "proud",
+              "en": "Our maypole stands on the green! Well done, everyone!",
+              "sl": "Naš mlaj stoji na zelenici! Bravo, vsi!",
+              "it": "Il nostro albero di maggio è sul prato! Bravi tutti!",
+              "de": "Unser Maibaum steht auf der Wiese! Gut gemacht, alle!",
+              "done": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

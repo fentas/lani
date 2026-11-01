@@ -1,0 +1,206 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "at-the-chapel",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the chapel in its Lakeland look (grey slate stone under slate, the bellcote and its little bell, the stone cross, the round arch with its iron gate, the white altar cloth with little flowers, the Good Shepherd, the two candles in glass jars on the step, the yew over the bench, the lane between dry-stone walls toward the fells, the hay meadow behind a wall); not reviewed by a native speaker",
+  "things": {
+    "chapel": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's small.", "sl": "Je majhno.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a round arch at the front.", "sl": "Spredaj ima okrogel lok.", "grammar": ["to-have", "prepositions-place"] },
+        { "kind": "where", "en": "It's by the lane.", "sl": "Je ob kolovozu.", "grammar": ["to-be", "prepositions-place"], "ref": "road" }
+      ]
+    },
+    "roof": {
+      "clues": [
+        { "kind": "colour", "en": "It's dark grey.", "sl": "Je temno sive barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of slate.", "sl": "Je iz skrilavca.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's on top of the chapel.",
+          "sl": "Je na vrhu kapelice.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "chapel"
+        },
+        { "kind": "use", "en": "It keeps the rain off the altar.", "sl": "Varuje oltar pred dežjem.", "grammar": ["present-simple"] }
+      ]
+    },
+    "bell": {
+      "clues": [
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of metal.", "sl": "Je iz kovine.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It hangs in a little arch on the roof.",
+          "sl": "Visi v majhnem loku na strehi.",
+          "grammar": ["present-simple", "prepositions-place"],
+          "ref": "roof"
+        },
+        { "kind": "does", "en": "It goes ding, ding.", "sl": "Dela cin, cin.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "We ring it with a rope.", "sl": "Zvonimo z vrvjo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "altar": {
+      "clues": [
+        { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's inside the chapel.", "sl": "Je v kapelici.", "grammar": ["to-be", "prepositions-place"], "ref": "chapel" },
+        { "kind": "trait", "en": "There's a white cloth on it.", "sl": "Na tem je bel prt.", "grammar": ["there-is-are", "prepositions-place"] },
+        {
+          "kind": "use",
+          "en": "We put the flowers and a candle on it.",
+          "sl": "Nanj postavimo rože in svečo.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    },
+    "cloth": {
+      "clues": [
+        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has little flowers on it.", "sl": "Na tem so majhne rožice.", "grammar": ["to-have", "prepositions-place"] },
+        { "kind": "where", "en": "It's on the altar.", "sl": "Je na oltarju.", "grammar": ["to-be", "prepositions-place"], "ref": "altar" },
+        { "kind": "use", "en": "Auntie Edna sewed it.", "sl": "Teta Edna je to sešila.", "grammar": ["past-simple"] }
+      ]
+    },
+    "picture": {
+      "clues": [
+        { "kind": "trait", "en": "There's a shepherd in it.", "sl": "Na tem je pastir.", "grammar": ["there-is-are", "prepositions-place"] },
+        { "kind": "trait", "en": "The shepherd has a little lamb.", "sl": "Pastir ima majhno jagnje.", "grammar": ["to-have"] },
+        { "kind": "where", "en": "It's above the altar.", "sl": "Je nad oltarjem.", "grammar": ["to-be", "prepositions-place"], "ref": "altar" },
+        { "kind": "use", "en": "We look at it in the chapel.", "sl": "V kapelici ga gledamo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "candle": {
+      "clues": [
+        { "kind": "colour", "en": "It's red.", "sl": "Je rdeče barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's in a glass jar.", "sl": "Je v steklenem kozarcu.", "grammar": ["to-be", "prepositions-place"] },
+        {
+          "kind": "where",
+          "en": "It's on the step in front of the gate.",
+          "sl": "Je na stopnici pred vrati.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "grille"
+        },
+        { "kind": "does", "en": "In the evening it gives light.", "sl": "Zvečer sveti.", "grammar": ["present-simple"] }
+      ]
+    },
+    "flowers": {
+      "clues": [
+        { "kind": "colour", "en": "It's colourful.", "sl": "Je pisano.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's in a vase on the altar.",
+          "sl": "Je v vazi na oltarju.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "altar"
+        },
+        { "kind": "does", "en": "It smells nice.", "sl": "Lepo diši.", "grammar": ["present-simple"] },
+        {
+          "kind": "use",
+          "en": "Auntie Edna brings it fresh every morning.",
+          "sl": "Teta Edna to vsako jutro prinese sveže.",
+          "grammar": ["present-simple"]
+        }
+      ]
+    },
+    "grille": {
+      "clues": [
+        { "kind": "colour", "en": "It's black.", "sl": "Je črne barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of iron.", "sl": "Je iz železa.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's in the chapel's arch.",
+          "sl": "Je v loku kapelice.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "chapel"
+        },
+        { "kind": "use", "en": "We open it to go in.", "sl": "Odpremo ga, da gremo noter.", "grammar": ["present-simple"] }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's under the yew.", "sl": "Je pod tiso.", "grammar": ["to-be", "prepositions-place"], "ref": "linden" },
+        {
+          "kind": "use",
+          "en": "Walkers sit on it and rest.",
+          "sl": "Pohodniki sedijo na tem in počivajo.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    },
+    "linden": {
+      "clues": [
+        { "kind": "colour", "en": "It's dark green all year.", "sl": "Vse leto je temno zelene barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's big.", "sl": "Je veliko.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's very, very old.", "sl": "Je zelo, zelo staro.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's by the lane.", "sl": "Je ob kolovozu.", "grammar": ["to-be", "prepositions-place"], "ref": "road" },
+        { "kind": "use", "en": "It gives shade to the bench.", "sl": "Daje senco klopi.", "grammar": ["present-simple"] }
+      ]
+    },
+    "road": {
+      "clues": [
+        { "kind": "trait", "en": "It's long and narrow.", "sl": "Je dolgo in ozko.", "grammar": ["to-be"] },
+        {
+          "kind": "trait",
+          "en": "It has stone walls on both sides.",
+          "sl": "Na obeh straneh ima kamnite zidove.",
+          "grammar": ["to-have", "prepositions-place"]
+        },
+        {
+          "kind": "where",
+          "en": "It goes up to the fells.",
+          "sl": "Pelje gor proti hribom.",
+          "grammar": ["present-simple", "prepositions-place"],
+          "ref": "hills"
+        },
+        { "kind": "use", "en": "Walkers walk along it.", "sl": "Pohodniki hodijo po tem.", "grammar": ["present-simple"] }
+      ]
+    },
+    "field": {
+      "clues": [
+        { "kind": "size", "en": "It's big.", "sl": "Je veliko.", "grammar": ["to-be"] },
+        {
+          "kind": "trait",
+          "en": "There are lots of flowers in it in June.",
+          "sl": "Junija je na tem veliko rož.",
+          "grammar": ["there-is-are", "prepositions-place"]
+        },
+        { "kind": "where", "en": "It's behind a stone wall.", "sl": "Je za kamnitim zidom.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "We make hay from its grass.", "sl": "Iz trave delamo seno.", "grammar": ["present-simple"] }
+      ]
+    },
+    "cross": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's on top of the chapel.",
+          "sl": "Je na vrhu kapelice.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "chapel"
+        }
+      ]
+    },
+    "hills": {
+      "clues": [
+        { "kind": "colour", "en": "It's green and brown.", "sl": "Je zeleno in rjavo.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's very big.", "sl": "Je zelo veliko.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's far away, at the end of the lane.",
+          "sl": "Je daleč, na koncu kolovoza.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "road"
+        },
+        { "kind": "use", "en": "Walkers climb it.", "sl": "Pohodniki se vzpenjajo nanj.", "grammar": ["present-simple"] }
+      ]
+    }
+  }
+}

@@ -70,7 +70,8 @@ class CultureScenesTest {
         // (kaernten-projects-b) the mill's, the bridge's and the fire brigade's; every effect of the tarn and of Kärnten's pond
         // is cued. Kärnten's wood leaves the projects' felling (the maypole's spruce, the hayrack's oak) to their steps
         "stream" to setOf("wheel", "sacks", "cart", "hose", "sheet"), "pond" to emptySet(),
-        "forest" to setOf("fell", "fell-oak"),
+        // the Lake District's wood (lakeland-projects-a) neither: its Herdwick wears no bell and no bear leaves its prints there
+        "forest" to setOf("fell", "fell-oak", "sheepbells", "tracks"),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -197,6 +198,18 @@ class CultureScenesTest {
             listOf("lakeland", "under-the-clock", "square", "project:mestna_ura"),
             listOf("lakeland", "at-the-bank-barn", "field", "project:toplar"),
             listOf("lakeland", "at-the-viewing-station", "lookout", "project:razgledni_stolp"),
+            // and the rest of the wave (lakeland-projects-a): the wood from the first day (Jack's lost Herdwick ewe, Old Wilf
+            // on the high seat, Granny Maggie's mushrooms, Poppy's bluebells, Alfie's red squirrel, dusk), the maypole while it
+            // stands, the packhorse bridge on the beck, the mill once it grinds, the bowling green, the chapel by the lane,
+            // the damson orchard and the wildflower meadow
+            listOf("lakeland", "in-the-wood", "forest", "forest"),
+            listOf("lakeland", "round-the-maypole", "square", "project:mlaj"),
+            listOf("lakeland", "on-the-packhorse-bridge", "stream", "project:most"),
+            listOf("lakeland", "in-the-mill", "mill", "project:mlin"),
+            listOf("lakeland", "on-the-bowling-green", "bocce", "project:balinisce"),
+            listOf("lakeland", "at-the-chapel", "chapel", "project:kapelica"),
+            listOf("lakeland", "in-the-damson-orchard", "hills", "project:vinograd"),
+            listOf("lakeland", "in-the-wildflower-meadow", "apiary", "project:cebelji_travnik"),
         )) {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
             assertEquals(art, s.art)

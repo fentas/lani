@@ -78,6 +78,30 @@ internal class ForestPainter : WildPainter() {
 
     private val items = ArrayList<Pair<Float, () -> Unit>>()
 
+    /**
+     * The Lake District's wood (docs/plans/05-built/lakeland-projects-a.md): the big conifer and the felled one larches
+     * ([larch]: fresh green in April and May, green in summer, gold in October and November, bare twigs from December to
+     * March), oak and birch more than spruce along the edges, the beech's bark the oak's ([oak]); no boar and no bear in the
+     * Lakes ([britain]); the sheep a Herdwick, dark grey with a white face and legs, no bell ([herdwick]); bluebells in April
+     * and May ([bluebells]).
+     */
+    private var larch = false
+    private var oak = false
+    private var britain = false
+    private var herdwick = false
+    private var bluebells = false
+
+    /** The Lake District's bluebells, a blue-violet and a paler one. */
+    private val BLUEBELLS = intArrayOf(Col.hex(0x5A58C8), Col.hex(0x7A72DA), Col.hex(0x5A58C8), Col.hex(0x6A62D0), Col.hex(0x7A72DA))
+
+    /** The larch's needles this month (dark, mid, light), or null while it stands bare. */
+    private fun larchColours(): Triple<Int, Int, Int>? = when (env.month) {
+        4, 5 -> Triple(Col.hex(0x4E7A2E), Col.hex(0x7AAA44), Col.hex(0xA8D46A))
+        10, 11 -> Triple(Col.hex(0x8A5E1A), Col.hex(0xC08A2A), Col.hex(0xE8BE4E))
+        12, 1, 2, 3 -> null
+        else -> Triple(Col.hex(0x2E5A2A), Col.hex(0x46783A), Col.hex(0x68984E))
+    }
+
     /** Picture pixels per scene canvas pixel: every size and offset in pixels is multiplied by it. */
     private val z: Int get() = detail
 
@@ -86,6 +110,8 @@ internal class ForestPainter : WildPainter() {
 
     override fun paint() {
         setup()
+        larch = variant("spruce") == "larch"; oak = variant("tree") == "oak"; britain = variant("wild") == "britain"
+        herdwick = variant("sheep") == "herdwick"; bluebells = variant("flowers") == "bluebells"
         larches = variant("trees") == "larch"
         val z = z
         vistaSky(3, 5, moonX = ox + 46 * z, moonY = oy + 12 * z)
@@ -118,7 +144,7 @@ internal class ForestPainter : WildPainter() {
             val side = if (k % 2 == 0) -1f else 1f
             val d = 26f + Noise.rnd(k, 91) * 34f
             val x = side * (7f + Noise.rnd(k, 92) * 16f + (d - 26f) * 0.15f)
-            val spruce = Noise.rnd(k, 93) < 0.55f
+            val spruce = Noise.rnd(k, 93) < (if (larch) 0.2f else 0.55f)
             val hgt = if (spruce) 11f + Noise.rnd(k, 94) * 6f else 9f + Noise.rnd(k, 94) * 5f
             // Carinthia's look: larches among the spruces for some of the leafy ones (gold in October, bare in winter)
             val larchHere = larches && (!spruce || k % 4 == 1)
@@ -142,7 +168,7 @@ internal class ForestPainter : WildPainter() {
         items.add(15.6f to { thing("stone") { boulder(gx(-2.9f, 15.6f).toInt(), gy(15.6f).toInt()) } })
         // the lost sheep at her place; a dialog's "sheep" has her out of sight behind the big spruce and coming home
         val lost = fx("sheep")
-        if (lost == null || lost >= SHEEP_HOME) items.add(SHEEP_D to { groundShadow(SHEEP_X, SHEEP_D, 0.7f); thing("sheep", slop = 1) { sheep(gx(SHEEP_X, SHEEP_D).toInt(), gy(SHEEP_D).toInt()) }; sheepBell(gx(SHEEP_X, SHEEP_D), gy(SHEEP_D)) })
+        if (lost == null || lost >= SHEEP_HOME) items.add(SHEEP_D to { groundShadow(SHEEP_X, SHEEP_D, 0.7f); thing("sheep", slop = 1) { sheep(gx(SHEEP_X, SHEEP_D).toInt(), gy(SHEEP_D).toInt()) }; if (!herdwick) sheepBell(gx(SHEEP_X, SHEEP_D), gy(SHEEP_D)) })
         else lostSheep(lost)
         items.add(11.2f to { thing("berries", slop = 1) { blueberries(gx(-4.6f, 11.2f).toInt(), gy(11.2f).toInt()) } })
         items.add(10.8f to { thing("flowers", slop = 2) { flowers(gx(5.4f, 10.8f).toInt(), gy(10.8f).toInt()) } })
@@ -784,7 +810,8 @@ internal class ForestPainter : WildPainter() {
     private fun beech(x: Float, d: Float) {
         val z = z
         val p = pm(d); val bx = gx(x, d); val by = gy(d)
-        val barkL = Col.hex(0xB0A694); val bark = Col.hex(0x8A8070); val barkD = Col.hex(0x5E5648)
+        val barkL = if (oak) Col.hex(0x7A6650) else Col.hex(0xB0A694); val bark = if (oak) Col.hex(0x5E4C3A) else Col.hex(0x8A8070)
+        val barkD = if (oak) Col.hex(0x3E3226) else Col.hex(0x5E5648)
         val trunkTop = by - 5.2f * p; val half = 0.38f * p
         for (py in max(trunkTop.toInt(), c.top) until min(by.toInt(), c.bottom)) {
             val u = (by - py) / (by - trunkTop)
@@ -833,10 +860,15 @@ internal class ForestPainter : WildPainter() {
             for (a in floatArrayOf(-0.6f, 0.15f, 0.7f)) branch(bx + sin(a) * 2.2f * p, trunkTop - cos(a) * 2.4f * p, a, 2.2f * p, 3)
             return
         }
-        val (dark, mid, light) = when (env.season) {
+        val (dark, mid, light) = when {
+            // the oak: darker leaves, russet and brown in autumn
+            oak && env.season == Season.AUTUMN -> Triple(Col.hex(0x6A4418), Col.hex(0x9A6A26), Col.hex(0xC49040))
+            oak && env.season != Season.SPRING -> Triple(Col.hex(0x24502A), Col.hex(0x386C32), Col.hex(0x5A8E44))
+            else -> when (env.season) {
             Season.AUTUMN -> Triple(Col.hex(0x8A4A1A), Col.hex(0xC87A2A), Col.hex(0xF0B044))
             Season.SPRING -> Triple(Col.hex(0x3E7A2E), Col.hex(0x6AAA44), Col.hex(0xA8D870))
             else -> Triple(Col.hex(0x2A5A2A), Col.hex(0x3E7A36), Col.hex(0x66A24A))
+            }
         }
         val sunLeft = (sunAt()?.first ?: vx) < bx
         val lx = if (sunLeft) -1f else 1f
@@ -930,7 +962,11 @@ internal class ForestPainter : WildPainter() {
         val z = z
         val p = pm(d); val bx = gx(x, d); val by = gy(d)
         val hh = 10.5f * p; val half = 2.3f * p
-        val dark = Col.hex(0x1A3E2A); val mid = Col.hex(0x285A3A); val light = Col.hex(0x3E7A4E); val tip = Col.hex(0x5A9A62)
+        val lc = if (larch) larchColours() else null
+        val bare = larch && lc == null
+        val twig = Col.hex(0x6A5444); val twigL = Col.hex(0x8A7464)
+        val dark = lc?.first ?: if (bare) twig else Col.hex(0x1A3E2A); val mid = lc?.second ?: if (bare) twig else Col.hex(0x285A3A)
+        val light = lc?.third ?: if (bare) twigL else Col.hex(0x3E7A4E); val tip = if (larch) (lc?.third ?: twigL) else Col.hex(0x5A9A62)
         val sunLeft = (sunAt()?.first ?: vx) < bx
         val trunk = Col.hex(0x4A3428)
         val tw = max(2 * z, (0.28f * p).toInt())
@@ -955,6 +991,8 @@ internal class ForestPainter : WildPainter() {
                 for (xx in max((bx - ww).toInt(), c.left)..min((bx + ww).toInt(), c.right - 1)) {
                     val u = (xx + 0.5f - bx) / max(1f, ww)
                     if (abs(u) > 0.92f && v < 0.8f && Dither.at(xx, y) < 0.5f) continue
+                    // a bare larch: its twigs, the sky through them
+                    if (bare && Noise.rnd(xx / z, y / z, 85) < 0.62f) continue
                     val grain = if (z == 1) (Noise.rnd(xx, y, 81) - 0.5f) * 0.5f else needles(xx - bx.toInt(), y, u)
                     val lit = (if (sunLeft) -u else u) * 0.6f - (1f - v) * 0.4f + grain
                     val col = when {
@@ -1349,7 +1387,8 @@ internal class ForestPainter : WildPainter() {
         val snow = env.snow
         if (!oak) {
             beam(sx(0f, 0f), sy(0f, 0f), sx(0f, hgt * 0.97f), sy(0f, hgt * 0.97f), max(1f, 2f * r * p), bark)
-            val dark = Col.hex(0x1E452C); val mid = Col.hex(0x2C5E3A); val light = Col.hex(0x3E7A4A)
+            val lc = if (larch) larchColours() ?: Triple(Col.hex(0x5A4636), Col.hex(0x6A5444), Col.hex(0x8A7464)) else null
+            val dark = lc?.first ?: Col.hex(0x1E452C); val mid = lc?.second ?: Col.hex(0x2C5E3A); val light = lc?.third ?: Col.hex(0x3E7A4A)
             val n = (hgt * p / (5f * z)).toInt().coerceIn(4, 9)
             for (i in 0 until n) {
                 val f = (i + 1f) / n
@@ -1612,7 +1651,7 @@ internal class ForestPainter : WildPainter() {
                 })
             }
         }
-        if (out("boar")) {
+        if (out("boar") && !britain) {
             val u = spot("boar")
             val bx = -11.5f + u * 4.5f
             val bd = 37f + u * 5f
@@ -1627,7 +1666,7 @@ internal class ForestPainter : WildPainter() {
             // on the beech's lowest branch, over the squirrel's hollow
             items.add(beechD - 0.05f to { creature("dormouse") { dormouse(gx(beechX + 1.3f, beechD), hy(beechD, 5.3f), 0.9f) } })
         }
-        if (out("bear")) {
+        if (out("bear") && !britain) {
             val u = spot("bear")
             // in the dark under the trees where the path goes in
             val bx = 1.6f + u * 2.2f
@@ -2171,7 +2210,9 @@ internal class ForestPainter : WildPainter() {
 
     /** The sheep with her feet at ([cx], [by]), facing right, or [left] (on her way home); [walk]: stepping, bobbing as she goes. */
     private fun sheep(cx: Int, by: Int, left: Boolean = false, walk: Boolean = false) {
-        val wool = if (env.snow) Col.hex(0xECE6DA) else Col.hex(0xF4F0E4); val woolD = Col.hex(0xCFC8B8); val face = Col.hex(0x2E2A2C)
+        // a Herdwick: a dark grey fleece, its face and legs white
+        val wool = if (herdwick) Col.hex(0x5E5854) else if (env.snow) Col.hex(0xECE6DA) else Col.hex(0xF4F0E4)
+        val woolD = if (herdwick) Col.hex(0x423C38) else Col.hex(0xCFC8B8); val face = if (herdwick) Col.hex(0xE8E4DC) else Col.hex(0x2E2A2C)
         val bob = if (walk) (if (sin(t * 7.0) > 0) 0 else 1) else if (sin(t * 1.9) > 0.3) 0 else 1
         if (z > 1) {
             mir = if (left) -1f else 1f
@@ -2243,7 +2284,7 @@ internal class ForestPainter : WildPainter() {
             for (k in 0..4) { val x = cx - 8 + k * 4; c.vline(x, by - 6 - (k % 2) * 2, by - 1, Col.hex(0x8A7A5A)); c.set(x, by - 7 - (k % 2) * 2, Pal.SNOW_L) }
             return
         }
-        val heads = intArrayOf(Col.hex(0xFFFFFF), Pal.GOLD, Col.hex(0x6A7AD8), Col.hex(0xF4B8CC), Col.hex(0xFFFFFF))
+        val heads = if (bluebells && env.month in 4..5) BLUEBELLS else intArrayOf(Col.hex(0xFFFFFF), Pal.GOLD, Col.hex(0x6A7AD8), Col.hex(0xF4B8CC), Col.hex(0xFFFFFF))
         for (k in 0..4) {
             val x = cx - 10 + k * 5 + (k % 2); val hgt = 7 + (k * 3) % 5
             c.vline(x, by - hgt, by - 1, Pal.LEAF); c.set(x - 1, by - 3 - (k % 3), Pal.LEAF)
@@ -2260,7 +2301,7 @@ internal class ForestPainter : WildPainter() {
             for (k in 0..4) { val x = -8f + k * 4 + 0.5f; val top = -6f - (k % 2) * 2; fl(x, 0f, x, top, 0.35f, Col.hex(0x8A7A5A)); fe(x, top - 0.5f, 0.6f, 0.45f, Pal.SNOW_L) }
             return
         }
-        val heads = intArrayOf(Col.hex(0xFFFFFF), Pal.GOLD, Col.hex(0x6A7AD8), Col.hex(0xF4B8CC), Col.hex(0xFFFFFF))
+        val heads = if (bluebells && env.month in 4..5) BLUEBELLS else intArrayOf(Col.hex(0xFFFFFF), Pal.GOLD, Col.hex(0x6A7AD8), Col.hex(0xF4B8CC), Col.hex(0xFFFFFF))
         val stalk = Pal.LEAF; val stalkD = Col.scale(Pal.LEAF, 0.75f)
         for (k in 0..4) {
             val x = -10f + k * 5 + (k % 2) + 0.5f; val hgt = 7 + (k * 3) % 5
