@@ -384,7 +384,7 @@ internal abstract class DioramaPainter : ArtPainter() {
      * hidden (a braid past the door, the shoes under the table) can't be tapped for their card.
      */
     protected fun figure(p: PersonInScene, bx: Int, by: Int, flip: Boolean, crouch: Boolean = false) {
-        prop(Pal.OUTLINE) { sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, false, flip, false, false, p.pose, crouch = crouch) } }
+        prop(Pal.OUTLINE) { sprite(bx, by) { people.draw(c, p.art, bx, by, t, Looks.seedOf(p.id), false, flip, false, false, p.pose, crouch = crouch) } }
     }
 
     /** Whether a tap turn can name the spot [name] (all of the stage's; the campfire's crowd round it can't be one). */

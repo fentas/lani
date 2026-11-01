@@ -1,6 +1,7 @@
 package si.lanisce.lani.game.render
 
 import si.lanisce.lani.game.render.scene.Looks
+import si.lanisce.lani.game.render.scene.Wardrobes
 import si.lanisce.lani.game.scene.Pose
 import kotlin.math.PI
 import kotlin.math.abs
@@ -13,7 +14,8 @@ import kotlin.math.sin
 /**
  * How someone looks in the village's small figures (7 px at the nominal detail, 14 px at k = 2): colours and
  * the few marks that tell the villagers apart (a kerchief, a hat, an apron, a beard, what they carry). The
- * scene's people sprites (k = 3) have their own looks.
+ * scene's people sprites (k = 3) have their own looks ([si.lanisce.lani.game.render.scene.Looks]); in a culture with clothes
+ * of its own ([si.lanisce.lani.game.render.scene.Wardrobes]) the small figures are taken from them ([Effects.lookOf]).
  */
 class Look(
     val shirt: Int, val pants: Int, val hair: Int, val kerchief: Boolean = false, val hat: Int = 0, val straw: Boolean = false,
@@ -24,7 +26,26 @@ class Look(
      * none); a shoulder bag's colour (0: none); a shell on the hat.
      */
     val pack: Int = Looks.PACK_NONE, val bag: Int = 0, val shell: Boolean = false,
-)
+    /** The kerchief's colour and its dots' (0: plain): Primorska's red with white dots. */
+    val kerchiefCol: Int = Pal.FLAG_RED, val kerchiefDot: Int = Pal.FLAG_WHITE,
+    /** The skirt's colour, 0: the [shirt]'s (a dress). */
+    val skirtCol: Int = 0,
+    /** The hat is a cap (a flat cap): a crown flat over the hair and a peak to the front, no brim. */
+    val cap: Boolean = false,
+    /** A tuft in the hat's band at the back (the Gamsbart): its colour, 0 = none. */
+    val plume: Int = 0,
+    /** A waistcoat, a dirndl's bodice: its colour at the body's sides over the [shirt], 0 = none. */
+    val vest: Int = 0,
+    /** The collar and a check over the shirt (at the middle detail): their colours, 0 = none. */
+    val collar: Int = 0, val checks: Int = 0,
+    /** The kerchief is tied at the back of the neck (its knot behind the head), not under the chin. */
+    val nape: Boolean = false,
+    /** The shoes' colour; [boots] (wellies) up the shins; a flower on the toes (the scarpets): its colour, 0 = none. */
+    val shoes: Int = Effects.SHOES, val boots: Boolean = false, val toes: Int = 0,
+) {
+    /** The skirt's colour. */
+    val skirtColour: Int get() = if (skirtCol != 0) skirtCol else shirt
+}
 
 /** Animated bits: the fire, smoke, sparks, people, animals, weather and fireworks. */
 internal class Effects(private val s: SceneCtx) {
@@ -137,11 +158,11 @@ internal class Effects(private val s: SceneCtx) {
 
     /** An unnamed villager (the population beyond the people who live here by name), coloured by [seed]. */
     fun villager(bx: Int, by: Int, seed: Int, walking: Boolean, flip: Boolean, bob: Int = 0) {
-        person(bx, by, null, lookOf(null, seed), seed, if (walking) Activity.WALK else Activity.STAND, flip, bob)
+        person(bx, by, null, lookOf(null, seed, s.look.id), seed, if (walking) Activity.WALK else Activity.STAND, flip, bob)
     }
 
     fun seated(bx: Int, by: Int, seed: Int, flip: Boolean) {
-        person(bx, by, null, lookOf(null, seed), seed, Activity.WARM, flip)
+        person(bx, by, null, lookOf(null, seed, s.look.id), seed, Activity.WARM, flip)
     }
 
     /**
@@ -149,18 +170,24 @@ internal class Effects(private val s: SceneCtx) {
      * a prop at k = 2, the scene's people (faces, clothes) at k = 3; doing what [activity] says: sitting, walking,
      * fishing, chopping, at work (a hoe, the anvil, tending, washing), carrying [load], playing, chatting or waving to
      * the learner. [lantern]: a lit lantern in the hand (or set down beside them while their hands are busy), with its
-     * warm light round them. [art] is their sprite (null: one by [seed]). Returns the figure's height in canvas px.
+     * warm light round them. [art] is their sprite (null: one by [seed]). [lookSeed]: the seed their clothes are chosen by
+     * (the village's own people, dressed as in their scenes: [Looks.seedOf]) in a culture with a wardrobe of its own; null:
+     * [seed]. Returns the figure's height in canvas px.
      */
     fun person(
         bx: Int, by: Int, art: String?, look: Look, seed: Int, activity: Activity, flip: Boolean, bob: Int = 0,
-        lantern: Boolean = false, load: Load = Load.NONE,
+        lantern: Boolean = false, load: Load = Load.NONE, lookSeed: Int? = null,
     ): Int {
         // a child running at play: walking's legs, quicker, with a little hop
-        if (activity == Activity.RUN) return person(bx, by, art, look, seed, Activity.WALK, flip, bob + ((((t * 8).toInt() + seed) and 1)), lantern, load)
+        if (activity == Activity.RUN) return person(bx, by, art, look, seed, Activity.WALK, flip, bob + ((((t * 8).toInt() + seed) and 1)), lantern, load, lookSeed)
         val h = when (k) {
             1 -> small(bx, by, look, seed, activity, flip, bob, lantern, load)
             2 -> middle(bx, by, look, seed, activity, flip, bob, lantern, load)
-            else -> fine(bx, by, art, seed, activity, flip, bob, lantern, load)
+            else -> {
+                val P = s.people
+                P.lookSeed = if (Wardrobes.of(s.look.id) != null) lookSeed else null
+                try { fine(bx, by, art, seed, activity, flip, bob, lantern, load) } finally { P.lookSeed = null }
+            }
         }
         when (activity) {
             Activity.FISH -> rod(bx, by, h)
@@ -557,8 +584,8 @@ internal class Effects(private val s: SceneCtx) {
         tinyHead(bx + d, by - 5, L, flip)
         c.hline(bx - 1, bx + 1, by - 2, if (L.apron != 0) L.apron else L.shirt)
         if (L.apron != 0) c.set(bx - d, by - 2, L.shirt)
-        val legs = if (L.skirt) L.shirt else L.pants
-        c.set(bx - d, by - 1, Col.hex(0x2E2018)); c.set(bx, by - 1, legs); c.set(bx + d, by - 1, legs)
+        val legs = if (L.skirt) L.skirtColour else L.pants
+        c.set(bx - d, by - 1, L.shoes); c.set(bx, by - 1, legs); c.set(bx + d, by - 1, legs)
     }
 
     // ---- the 14 px figure (k = 2)
@@ -869,7 +896,7 @@ internal class Effects(private val s: SceneCtx) {
 
     /** Someone at the finest detail: the scene's sprite at the work (its arms by [PeoplePainter.draw]'s reach), the tool, the load, the lantern. */
     private fun fine(bx: Int, by0: Int, art: String?, seed: Int, a: Activity, flip: Boolean, bob: Int, lantern: Boolean, load: Load): Int {
-        val ar = art?.takeIf { it != "baby" } ?: ANON_ARTS[(seed ushr 5).mod(ANON_ARTS.size)]
+        val ar = art?.takeIf { it != "baby" } ?: anonArt(seed, s.look.id)
         val P = s.people
         val d = if (flip) -1 else 1
         val by = by0 - bob * 3
@@ -1049,7 +1076,7 @@ internal class Effects(private val s: SceneCtx) {
                             reach = intArrayOf(bx + d * (B.tw + 2), by + B.hand - 1 - b, bx + d * (B.tw - 1), by + B.hand - b), holding = true)
                         val y = by + B.legTop - b
                         log(bx - d * 4, y - 3, 13, 3, d); log(bx - d * 3, y - 6, 13, 3, d); log(bx - d, y - 9, 10, 3, d)
-                        c.fillRect(if (d > 0) bx + B.tw + 2 else bx - B.tw - 3, y - 1, 2, 2, Looks.of(ar, seed).skin)
+                        c.fillRect(if (d > 0) bx + B.tw + 2 else bx - B.tw - 3, y - 1, 2, 2, Looks.of(ar, P.lookSeed ?: seed, P.culture).skin)
                     }
                     Load.WATER -> {
                         P.draw(c, ar, bx, by, t, seed, false, flip, true, false, holding = true)
@@ -1426,7 +1453,7 @@ internal class Effects(private val s: SceneCtx) {
     private fun tiny(bx: Int, by: Int, L: Look, walking: Boolean, flip: Boolean, seed: Int, hand: Boolean = true, held: Boolean = hand) {
         val frame = if (walking) (((t * 6).toInt() + seed) and 1) else 0
         val d = if (flip) -1 else 1
-        val shoes = Col.hex(0x2E2018)
+        val shoes = L.shoes
         val top = by - (if (L.small) 6 else 7)
         when (L.pack) {
             Looks.PACK_KROSNJA -> {
@@ -1455,11 +1482,19 @@ internal class Effects(private val s: SceneCtx) {
         }
         tinyHead(bx, top, L, flip)
         var y = top + 3
-        if (!L.small) { c.hline(bx - 1, bx + 1, y, L.shirt); y++ }
+        // the shirt (a waistcoat's or a bodice's sides over it), the apron below
+        if (!L.small) {
+            c.hline(bx - 1, bx + 1, y, L.shirt)
+            if (L.vest != 0) { c.set(bx - 1, y, L.vest); c.set(bx + 1, y, L.vest) }
+            y++
+        }
+        val sides = if (L.vest != 0) L.vest else L.shirt
         c.hline(bx - 1, bx + 1, y, if (L.apron != 0) L.apron else L.shirt)
-        if (L.apron != 0) { c.set(bx - 1, y, L.shirt); c.set(bx + 1, y, L.shirt) }
+        if (L.apron != 0) { c.set(bx - 1, y, sides); c.set(bx + 1, y, sides) }
+        else if (L.vest != 0) { c.set(bx - 1, y, L.vest); c.set(bx + 1, y, L.vest) }
         if (hand) c.set(bx + 2 * d, y - frame, L.skin) // the near hand, swinging
-        val legs = if (L.skirt) L.shirt else L.pants
+        // the legs (wellies up the shins in the boots' colour), or the skirt
+        val legs = if (L.skirt) L.skirtColour else if (L.boots) L.shoes else L.pants
         if (L.skirt) c.hline(bx - 1, bx + 1, by - 2, legs)
         else if (frame == 0) { c.set(bx - 1, by - 2, legs); c.set(bx + 1, by - 2, legs) } else c.set(bx, by - 2, legs)
         if (frame == 0) { c.set(bx - 1, by - 1, shoes); c.set(bx + 1, by - 1, shoes) } else { c.set(bx, by - 1, shoes); c.set(bx + d, by - 1, shoes) }
@@ -1477,14 +1512,19 @@ internal class Effects(private val s: SceneCtx) {
 
     /** The 3 × 3 head of the small figures: hair (or a kerchief) over it and down the sides, the face below, a hat on top. */
     private fun tinyHead(bx: Int, top: Int, L: Look, flip: Boolean) {
-        val hair = if (L.kerchief) Pal.FLAG_RED else L.hair
+        val hair = if (L.kerchief) L.kerchiefCol else L.hair
         c.hline(bx - 1, bx + 1, top, hair)
         c.set(bx - 1, top + 1, hair); c.set(bx, top + 1, L.skin); c.set(bx + 1, top + 1, hair)
         c.hline(bx - 1, bx + 1, top + 2, L.skin)
-        if (L.kerchief) c.set(if (flip) bx + 1 else bx - 1, top, Pal.FLAG_WHITE)
-        if (L.hat != 0) {
+        if (L.kerchief && L.kerchiefDot != 0) c.set(if (flip) bx + 1 else bx - 1, top, L.kerchiefDot)
+        if (L.hat != 0 && L.cap) {
+            // a flat cap: over the head, its peak out to the front
+            val d = if (flip) -1 else 1
+            c.hline(bx - 1, bx + 1, top, L.hat); c.set(bx + 2 * d, top, Col.scale(L.hat, 0.7f))
+        } else if (L.hat != 0) {
             val hat = if (L.straw) Pal.HAY_L else L.hat
             c.hline(bx - 2, bx + 2, top, hat); c.set(bx, top - 1, if (L.straw) Pal.HAY_M else hat)
+            if (L.plume != 0) c.set(if (flip) bx + 1 else bx - 1, top - 1, L.plume) // the Gamsbart at the back
         }
         if (L.beard != 0) c.set(bx, top + 2, L.beard)
     }
@@ -1493,9 +1533,10 @@ internal class Effects(private val s: SceneCtx) {
         val d = if (flip) -1 else 1
         tinyHead(bx, by - 5, L, flip)
         c.hline(bx - 1, bx + 1, by - 2, L.shirt)
-        val legs = if (L.skirt) L.shirt else L.pants
+        if (L.vest != 0) { c.set(bx - 1, by - 2, L.vest); c.set(bx + 1, by - 2, L.vest) }
+        val legs = if (L.skirt) L.skirtColour else L.pants
         c.hline(bx - 1, bx + 1, by - 1, legs)
-        c.set(bx + 2 * d, by - 1, Col.hex(0x2E2018))
+        c.set(bx + 2 * d, by - 1, L.shoes)
     }
 
     /**
@@ -1513,7 +1554,8 @@ internal class Effects(private val s: SceneCtx) {
     ) {
         val d = if (flip) -1 else 1
         val step = if (walking) (((t * 6).toInt() + seed) and 1) else -1
-        val shoes = Col.hex(0x2E2018)
+        val shoes = L.shoes
+        val skirt = L.skirtColour
         val eye = Col.hex(0x1E1618)
         val small = L.small
         val legH = if (small) 2 else 3
@@ -1522,12 +1564,15 @@ internal class Effects(private val s: SceneCtx) {
         val base: Int
         if (sitting) {
             base = by - 2
-            c.fillRect(bx - 2, by - 2, 5, 1, if (L.skirt) L.shirt else L.pants)
+            c.fillRect(bx - 2, by - 2, 5, 1, if (L.skirt) skirt else L.pants)
             c.hline(bx - 2, bx - 1, by - 1, shoes); c.hline(bx + 1, bx + 2, by - 1, shoes)
+            if (L.toes != 0) { c.set(bx - 2, by - 1, L.toes); c.set(bx + 2, by - 1, L.toes) }
         } else if (L.skirt) {
-            for (r in 0 until legH) c.hline(bx - 2 - r / 2, bx + 2 + r / 2, by - legH - 1 + r, if (r == legH - 1) Col.scale(L.shirt, 0.75f) else L.shirt)
+            for (r in 0 until legH) c.hline(bx - 2 - r / 2, bx + 2 + r / 2, by - legH - 1 + r, if (r == legH - 1) Col.scale(skirt, 0.75f) else skirt)
+            if (L.checks != 0 && skirt != L.shirt || L.checks != 0 && L.skirtCol != 0) for (x in bx - 2..bx + 2 step 2) c.set(x, by - legH, L.checks)
             val lift = if (step >= 0) 1 else 0
             c.hline(bx - 2, bx - 1, by - 1 + (if (step == 0) 0 else 0), shoes); c.hline(bx + 1, bx + 2, by - 1, shoes)
+            if (L.toes != 0) { c.set(bx - 2 + (if (d > 0) 1 else 0), by - 1, L.toes); c.set(bx + 1 + (if (d > 0) 1 else 0), by - 1, L.toes) }
             if (lift == 1 && step == 0) c.set(bx - 2, by - 1, L.skin)
             base = by - legH - 1
         } else {
@@ -1536,7 +1581,9 @@ internal class Effects(private val s: SceneCtx) {
                 val shift = if (step >= 0) (if (step == leg) d else -d) else 0
                 val x0 = if (leg == 0) bx - 2 else bx + 1
                 c.fillRect(x0 + shift, by - legH - lift, 2, legH - 1, L.pants)
+                if (L.boots) c.fillRect(x0 + shift, by - 2 - lift, 2, 1, shoes) // wellies up the shin
                 c.fillRect(x0 + shift, by - 1 - lift, 2, 1, shoes)
+                if (L.toes != 0) c.set(x0 + shift + (if (d > 0) 1 else 0), by - 1 - lift, L.toes)
             }
             c.set(bx, by - legH, Col.scale(L.pants, 0.75f))
             base = by - legH
@@ -1546,7 +1593,11 @@ internal class Effects(private val s: SceneCtx) {
         if (L.pack != Looks.PACK_NONE) figurePack(L.pack, bx, tTop - 5, base, d)
         c.fillRect(bx - 2, tTop, 5, torsoH, L.shirt)
         c.vline(bx + 2, tTop + 1, base - 1, Col.scale(L.shirt, 0.8f))
+        if (L.checks != 0) for (y in tTop + 1 until base step 2) for (x in bx - 2..bx + 1 step 2) c.set(x, y, L.checks)
+        // a waistcoat open over the shirt, a dirndl's bodice (the apron over its middle)
+        if (L.vest != 0) { c.fillRect(bx - 2, tTop, 2, torsoH, L.vest); c.fillRect(bx + 1, tTop, 2, torsoH, Col.scale(L.vest, 0.85f)) }
         if (L.apron != 0) { c.fillRect(bx - 1, tTop + 1, 3, torsoH - 1 + (if (sitting || L.skirt) 0 else 1), L.apron); c.vline(bx + 1, tTop + 1, base - 1, Col.scale(L.apron, 0.85f)) }
+        if (L.collar != 0) { c.set(bx - 1, tTop + 1, L.collar); c.set(bx + 1, tTop + 1, L.collar) } // over the apron's bib: the blouse's neckline
         val swing = if (step >= 0) (if (step == 0) 1 else -1) else 0
         // the arms hanging at the sides (one reaching comes after the head, over it)
         val far = reach?.takeIf { it.size >= 4 }
@@ -1564,10 +1615,11 @@ internal class Effects(private val s: SceneCtx) {
         c.vline(hb + 3, hTop + 2, hTop + 4, Col.scale(L.skin, 0.88f))
         when {
             L.kerchief -> {
-                c.hline(hb - 2, hb + 2, hTop - 1, Pal.FLAG_RED); c.hline(hb - 3, hb + 3, hTop, Pal.FLAG_RED); c.hline(hb - 3, hb + 3, hTop + 1, Pal.FLAG_RED)
-                c.vline(hb - 3, hTop + 2, hTop + 4, Pal.FLAG_RED); c.vline(hb + 3, hTop + 2, hTop + 4, Pal.FLAG_RED)
-                c.set(hb + d, hTop + 6, Pal.FLAG_RED)
-                if ((seed ushr 2) % 2 == 0) { c.set(hb - 1, hTop, Pal.FLAG_WHITE); c.set(hb + 1, hTop + 1, Pal.FLAG_WHITE) }
+                val k = L.kerchiefCol
+                c.hline(hb - 2, hb + 2, hTop - 1, k); c.hline(hb - 3, hb + 3, hTop, k); c.hline(hb - 3, hb + 3, hTop + 1, k)
+                c.vline(hb - 3, hTop + 2, hTop + 4, k); c.vline(hb + 3, hTop + 2, hTop + 4, k)
+                if (L.nape) c.set(hb - 4 * d, hTop + 4, Col.scale(k, 0.75f)) else c.set(hb + d, hTop + 6, k)
+                if (L.kerchiefDot != 0 && (seed ushr 2) % 2 == 0) { c.set(hb - 1, hTop, L.kerchiefDot); c.set(hb + 1, hTop + 1, L.kerchiefDot) }
             }
             else -> {
                 // hair over the head, a fringe, down the sides (longer for the women)
@@ -1577,13 +1629,19 @@ internal class Effects(private val s: SceneCtx) {
                 c.set(hb - 2, hTop, Col.mix(L.hair, Col.hex(0xFFFFFF), 0.3f))
             }
         }
-        if (L.hat != 0) {
+        if (L.hat != 0 && L.cap) {
+            // a flat cap: its crown flat over the hair, a sheen on it, the peak out over the brow to the front
+            c.hline(hb - 2, hb + 2, hTop - 2, L.hat); c.fillRect(hb - 3, hTop - 1, 7, 2, L.hat)
+            c.set(hb - 2, hTop - 2, Col.mix(L.hat, Col.hex(0xFFFFFF), 0.25f))
+            c.hline(minOf(hb + d, hb + 4 * d), maxOf(hb + d, hb + 4 * d), hTop + 1, Col.scale(L.hat, 0.7f))
+        } else if (L.hat != 0) {
             val hat = if (L.straw) Pal.HAY_L else L.hat
             val crown = if (L.straw) Pal.HAY_M else hat
             c.hline(hb - 4, hb + 4, hTop + 1, hat)
             c.fillRect(hb - 2, hTop - 2, 5, 3, crown)
             c.hline(hb - 2, hb + 2, hTop, if (L.straw) Pal.FLAG_RED else Col.scale(hat, 0.7f))
             if (L.shell) { c.set(hb, hTop - 1, SHELL); c.set(hb - 1, hTop - 2, SHELL); c.set(hb + 1, hTop - 2, SHELL) } // the pilgrim's scallop
+            if (L.plume != 0) { c.set(hb - 3 * d, hTop - 2, L.plume); c.set(hb - 3 * d, hTop - 3, Col.mix(L.plume, Col.hex(0xFFFFFF), 0.55f)) } // the Gamsbart
         }
         c.set(hb - 1, hTop + 3, eye); c.set(hb + 1, hTop + 3, eye)
         if (L.beard != 0) { c.hline(hb - 2, hb + 2, hTop + 4, L.beard); c.hline(hb - 1, hb + 1, hTop + 5, L.beard); c.set(hb, hTop + 6, L.beard) }
@@ -1608,6 +1666,7 @@ internal class Effects(private val s: SceneCtx) {
             PROP_BOTTLE -> { c.vline(hx + d, hy - 4, hy - 3, Col.hex(0x2E5A3A)); c.fillRect(hx, hy - 2, 2, 3, Col.hex(0x2E5A3A)) }
             PROP_SMOKER -> { c.fillRect(hx, hy - 3, 2, 3, Pal.STONE_M); c.set(hx + d, hy - 4 - ((t * 3).toInt() and 1), Pal.SMOKE) }
             PROP_FLOWER -> { c.vline(hx + d, hy - 3, hy - 1, Pal.LEAF); c.set(hx + d, hy - 4, Pal.GERANIUM) }
+            PROP_GLASS -> { c.fillRect(hx, hy - 3, 2, 2, WINE); c.hline(hx, hx + 1, hy - 4, GLASS) }
             else -> Unit
         }
     }
@@ -1974,6 +2033,11 @@ internal class Effects(private val s: SceneCtx) {
         const val PROP_BOOK = 5; const val PROP_SPOON = 6; const val PROP_MUG = 7; const val PROP_BOTTLE = 8; const val PROP_SMOKER = 9; const val PROP_FLOWER = 10
         /** The pilgrim's tall staff with a gourd. */
         const val PROP_STAFF = 11
+        /** A small glass of red wine (the tajut of a Friulian osteria): the glass's rim, the wine. */
+        const val PROP_GLASS = 12
+        private val GLASS = Col.hex(0xD8E4EA); private val WINE = Col.hex(0x8A1E2E)
+        /** The small figures' shoes: dark brown. */
+        val SHOES = Col.hex(0x2E2018)
         private val GOURD = Col.hex(0xD9A040)
         private val SHELL = Col.hex(0xF4EEDD)
         // the pedlars' loads (figurePack, tiny): Friuli's walnut crassigne; Carinthia's larch Kraxe, its green box and blue
@@ -2017,6 +2081,45 @@ internal class Effects(private val s: SceneCtx) {
         private val ANON_ARTS = listOf("farmer", "aunt", "child1", "child3", "man", "woman", "child2", "innkeeper")
 
         /**
+         * The sprite someone of the unnamed population with [seed] has in [culture]'s village: in a culture with clothes of its
+         * own ([Wardrobes]) a woman or a man of the village, dressed by the same seed at every detail; else one of [ANON_ARTS]
+         * (at the finest detail; the small figures have colours by the seed, [lookOf]).
+         */
+        fun anonArt(seed: Int, culture: String): String =
+            if (Wardrobes.of(culture) != null) (if (((seed ushr 5) and 1) == 0) "woman" else "man") else ANON_ARTS[(seed ushr 5).mod(ANON_ARTS.size)]
+
+        /** The scene sprites' props by the small figures' ([Looks.PROP_NONE] … [Looks.PROP_GLASS] to [PROP_NONE] … [PROP_GLASS]). */
+        internal val PROPS = intArrayOf(PROP_NONE, PROP_STICK, PROP_CROOK, PROP_HAMMER, PROP_BOOK, PROP_SMOKER, PROP_MUG, PROP_BOTTLE, PROP_BASKET, PROP_SPOON, PROP_FLOWER, PROP_STAFF, PROP_GLASS)
+
+        /**
+         * The small figures (7 px and 14 px) of someone the scenes draw as [L] ([si.lanisce.lani.game.render.scene.Look]): the
+         * same clothes in the few pixels there are: the shirt and its waistcoat or bodice, the collar and a check, the trousers
+         * or the skirt, the apron, the hair (a bald crown bare) or the kerchief (its colour, its dots, its knot), the hat (a brimmed one, the straw
+         * hat, a flat cap, the Gamsbart in its band), the beard, the shoes (wellies up the shins, the scarpets' flowers), what
+         * they carry and their load.
+         */
+        internal fun fromScene(L: si.lanisce.lani.game.render.scene.Look): Look {
+            val scarf = L.hat == Looks.HAT_SCARF || L.hat == Looks.HAT_BANDANA
+            val hat = when (L.hat) {
+                Looks.HAT_FELT, Looks.HAT_CAP -> L.hatCol
+                Looks.HAT_STRAW -> Pal.HAY_L
+                Looks.HAT_VEIL -> Pal.CANVAS_L
+                else -> 0
+            }
+            return Look(
+                shirt = L.top, pants = L.bottom, hair = if (L.hairStyle == Looks.HAIR_BALD) L.skin else L.hair, kerchief = scarf, hat = hat, straw = L.hat == Looks.HAT_STRAW,
+                apron = L.apron, prop = PROPS.getOrElse(L.prop) { PROP_NONE }, skirt = L.skirt, beard = L.beard, small = L.child, skin = L.skin,
+                pack = L.pack, bag = L.satchel, shell = L.shell,
+                kerchiefCol = L.hatCol, kerchiefDot = if (L.hat == Looks.HAT_BANDANA) Pal.FLAG_WHITE else L.dots, nape = L.nape,
+                skirtCol = if (L.skirt) L.bottom else 0, cap = L.hat == Looks.HAT_CAP, plume = L.plume, vest = L.vest, collar = L.collar,
+                checks = L.checks, shoes = L.shoes, boots = L.boots, toes = L.toes,
+            )
+        }
+
+        /** [culture]'s small figures of the fixed cast, kept: they are the same every frame. */
+        private val smallLooks = java.util.concurrent.ConcurrentHashMap<String, Look>()
+
+        /**
          * Waiting for the learner at [time] (s): 1.5 s of every 8 an arm up, waving, each at their own moment by the
          * drawing's [seed]; the seconds into the wave, or -1 between. [TownPeople] asks too: whoever waits at their work
          * works between the waves.
@@ -2029,9 +2132,16 @@ internal class Effects(private val s: SceneCtx) {
 
         /**
          * How someone with sprite [art] looks in the small figures; an unknown or missing art gets colours by
-         * [seed] (the unnamed population: the same seed always gives the same person).
+         * [seed] (the unnamed population: the same seed always gives the same person). In a culture with clothes of its own
+         * ([Wardrobes]) they are the sprite's ([fromScene]), the village's own people dressed by [sceneSeed] as in their scenes
+         * ([Looks.seedOf]) and the unnamed by [seed] ([anonArt]); Primorska's are the map's own, drawn for these sizes.
          */
-        fun lookOf(art: String?, seed: Int, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): Look {
+        fun lookOf(art: String?, seed: Int, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT, sceneSeed: Int = seed): Look {
+            if (Wardrobes.of(culture) != null) {
+                val a = art?.takeIf { it != "baby" } ?: return fromScene(Looks.of(anonArt(seed, culture), seed, culture))
+                return if (a == "woman" || a == "man") fromScene(Looks.of(a, sceneSeed, culture))
+                else smallLooks.getOrPut("$culture|$a") { fromScene(Looks.of(a, 0, culture)) }
+            }
             val shirt = Pal.SHIRTS[(seed ushr 3).mod(Pal.SHIRTS.size)]
             val hair = Pal.HAIR[(seed ushr 7).mod(Pal.HAIR.size)]
             val dark = Col.hex(0x3A3246)

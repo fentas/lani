@@ -2072,7 +2072,9 @@ class VillageRenderer {
     private fun addPeople(s: SceneCtx, placed: List<Placed>, comp: Composition, objs: ArrayList<Obj>, painter: BuildingPainter? = null, walk: PalisadeWalk? = null) {
         val k = s.k
         for (p in placed) {
-            val look = Effects.lookOf(p.villager.art, Noise.hash(p.id.hashCode(), 13), s.look.id)
+            // dressed as in their scenes (the same seed for the village's own people: Looks.seedOf)
+            val sceneSeed = si.lanisce.lani.game.render.scene.Looks.seedOf(p.id)
+            val look = Effects.lookOf(p.villager.art, Noise.hash(p.id.hashCode(), 13), s.look.id, sceneSeed)
             val height = when (k) { 1 -> 7f; 2 -> 7f; else -> s.people.height(p.villager.art) / 3f }
             anchors[p.id] = TownPeople.headAnchor(p, comp, if (p.seated) height * 0.7f else height)
             // up on the watchtower: behind its parapet, in front of the rest of it
@@ -2081,7 +2083,7 @@ class VillageRenderer {
                 val bx = s.iso.ix(p.x, p.y); val by = s.iso.iy(p.x, p.y, p.z)
                 owner[s.newObject(Pal.OUTLINE)] = hits.size + 1
                 val seed = TownPeople.drawSeed(p.id)
-                val hh = s.effects.person(bx, by, p.villager.art, look, seed, p.activity, p.flip, lantern = p.lantern, load = p.load)
+                val hh = s.effects.person(bx, by, p.villager.art, look, seed, p.activity, p.flip, lantern = p.lantern, load = p.load, lookSeed = sceneSeed)
                 if (tower != null && painter != null) painter.parapet(tower.x - 1.5f, tower.y - 1.5f)
                 hits.add(VillageHit.OnVillager(p.id) to intArrayOf(bx - 5 * k, by - hh, bx + 5 * k, by + k))
             })

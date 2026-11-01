@@ -211,7 +211,7 @@ internal class PondPainter : WildPainter() {
      * chest, on the rod's butt; as [person]'s reach (the sprite's own px round its feet).
      */
     private fun rodReach(p: PersonInScene, bx: Int, by: Int): IntArray {
-        val b = people.body(p.art, Noise.hash(p.id.hashCode(), 7) ushr 1)
+        val b = people.body(p.art, Looks.seedOf(p.id))
         return intArrayOf(bx - (b.tw + 1), by + b.hand, bx - (b.tw + 3), by + b.armTop + 2)
     }
 
