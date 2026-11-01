@@ -164,6 +164,20 @@ class GradingLanguagesTest {
         assertGraded(Verdict.ALMOST, Hint.TYPO, it("fucile", "facile"))
     }
 
+    @Test fun `a combined pronoun's mistake only for a combined pronoun - a noun's slip stays one`() {
+        // the patterns of glilo and dammilo, portamilo are paired with the right word's glie- and -melo forms
+        assertEquals(Verdict.WRONG, it("dammilo", "dammelo").verdict)
+        assertEquals(Verdict.WRONG, it("portamilo", "portamelo").verdict)
+        assertEquals(Verdict.WRONG, it("glilo", "glielo").verdict)
+        assertEquals(Verdict.WRONG, it("portaglilo", "portaglielo").verdict)
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("cavilo", "cavolo"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("articilo", "articolo"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("gagline", "galline"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("pogline", "polline"))
+        // matila for matita: its t is in the plain two-letter ending, wrong by that as before B1
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("matila", "matita"))
+    }
+
     @Test fun `glielo or gliela not elided before avere is almost only where the participle agrees`() {
         assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("glielo ho dato", "Gliel'ho dato."))
         assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("gliela ho data", "Gliel'ho data."))
