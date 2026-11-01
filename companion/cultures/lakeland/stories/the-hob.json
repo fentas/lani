@@ -70,13 +70,13 @@
     "A2": {
       "sky_stays": false,
       "lines": [
-        { "face": "curious", "en": "Good evening, {m:lad|f:lass}. Did you help Granny Maggie today?", "sl": "Dober večer. Si danes {m:pomagal|f:pomagala} babici Maggie?", "it": "Buonasera, {m:ragazzo|f:ragazza}. Hai aiutato nonna Maggie oggi?", "de": "Guten Abend, {m:Junge|f:Mädchen}. Hast du heute Oma Maggie geholfen?" },
+        { "face": "curious", "en": "Good evening, {m:lad|f:lass}. Did you help out today?", "sl": "Dober večer. Si danes kaj {m:pomagal|f:pomagala}?", "it": "Buonasera, {m:ragazzo|f:ragazza}. Oggi hai dato una mano?", "de": "Guten Abend, {m:Junge|f:Mädchen}. Hast du heute mitgeholfen?" },
         { "choices": [
           { "en": "Yes, I swept the kitchen floor.", "sl": "Ja, {m:pometel|f:pometla} sem kuhinjska tla.", "it": "Sì, ho spazzato il pavimento della cucina.", "de": "Ja, ich habe den Küchenboden gefegt.", "ok": true,
             "reply": { "face": "proud", "en": "Good {m:lad|f:lass}! Then you're like the hob in tonight's story.", "sl": "{m:Priden fant|f:Pridno dekle}! Potem si kot hob iz nocojšnje zgodbe.", "it": "{m:Bravo ragazzo|f:Brava ragazza}! Allora sei come il folletto della storia di stasera.", "de": "{m:Braver Junge|f:Braves Mädchen}! Dann bist du wie der Hob in der Geschichte von heute Abend." } },
           { "en": "Yes, I sweeped the kitchen floor.", "sl": "Ja, {m:pometel|f:pometla} sem kuhinjska tla.", "it": "Sì, ho spazzato il pavimento della cucina.", "de": "Ja, ich habe den Küchenboden gefegt.",
             "why": { "en": "Sweep is irregular: sweep, swept. Not 'sweeped'.", "sl": "Sweep je nepravilni glagol: sweep, swept. Ne 'sweeped'.", "it": "Sweep è irregolare: sweep, swept. Non 'sweeped'.", "de": "Sweep ist unregelmäßig: sweep, swept. Nicht 'sweeped'." },
-            "reply": { "face": "laugh", "en": "Sweeped? Granny Maggie will like the floor. Not the word!", "sl": "Sweeped? Babici Maggie bodo tla všeč. Beseda pa ne!", "it": "Sweeped? A nonna Maggie piacerà il pavimento. La parola no!", "de": "Sweeped? Der Boden wird Oma Maggie gefallen. Das Wort nicht!" } }
+            "reply": { "face": "laugh", "en": "Sweeped? The floor's clean, but that word needs a good sweep!", "sl": "Sweeped? Tla so čista, beseda pa bi še potrebovala metlo!", "it": "Sweeped? Il pavimento è pulito, ma quella parola ha bisogno di una bella spazzata!", "de": "Sweeped? Der Boden ist sauber, aber das Wort muss noch gekehrt werden!" } }
         ] },
         { "en": "Long ago, on a farm in Cumbria, there lived a hob: a little man, as small as a child, and hairy all over.", "sl": "Nekoč je na neki kmetiji v Cumbrii živel hob: možic, majhen kot otrok, in ves kosmat.", "it": "Tanto tempo fa, in una fattoria della Cumbria, viveva un hob: un omino piccolo come un bambino, e tutto peloso.", "de": "Vor langer Zeit lebte auf einem Bauernhof in Cumbria ein Hob: ein Männchen, so klein wie ein Kind und am ganzen Körper haarig." },
         { "en": "Nobody ever saw him, because he worked at night. He swept the floors, fed the hens and threshed the corn in the barn.", "sl": "Nihče ga ni nikoli videl, ker je delal ponoči. Pometal je tla, hranil kokoši in v skednju mlatil žito.", "it": "Nessuno lo vedeva mai, perché lavorava di notte. Spazzava i pavimenti, dava da mangiare alle galline e batteva il grano nel fienile.", "de": "Niemand sah ihn je, denn er arbeitete nachts. Er fegte die Böden, fütterte die Hühner und drosch das Korn in der Scheune." },
@@ -148,5 +148,5 @@
       { "en": "A hob works for love, not for pay, and a present of clothes was like pay to him. So his work was done.", "sl": "Hob dela iz ljubezni, ne za plačilo, in obleka v dar je bila zanj kot plačilo. Zato je bilo njegovega dela konec.", "it": "Un folletto lavora per amore, non per la paga, e dei vestiti in regalo erano per lui come una paga. Così il suo lavoro era finito.", "de": "Ein Hob arbeitet aus Liebe, nicht für Lohn, und Kleider als Geschenk waren für ihn wie Lohn. So war seine Arbeit getan." }
     ] }
   ],
-  "review": "notes: machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker"
+  "review": "notes: machine-written (Claude) in en, sl, it and de; not reviewed by a native speaker; 2026-11 edits (A2 the opening names nobody the learner may not have met): machine-written, not reviewed"
 }
