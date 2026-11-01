@@ -960,6 +960,37 @@ page of its own, its summary card (docs/plans/05-built/it-b1-b.md):
   the unit's `words`: glieli, gliele, gliene are among pronomi-combinati's), so Elena reads it and never the phone's
   German voice; only gerundio's endings -ando, -endo are, as in A2.
 
+### The Italian course: B1, units 13–18
+
+B1 is outlined in `course.json` (18 units, 2026-11-01) and written in three parts side by side, as A2 was; these are
+its last six (docs/plans/05-built/it-b1-c.md). Around a gap they use A1, A2 and B1's units before them in the outline's
+order, B1's earlier ones only lightly:
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 13 | `verbi-pronominali` 💪 | andarsene (me ne vado … se ne vanno: mi becomes me before ne), farcela (ce la faccio, non ce la faccio più), ci vuole and ci vogliono, the past (se n'è andato; ce l'ho fatta, fatta for every speaker) | verbi-pronominali, ci-ne, riflessivi |
+| 14 | `discorso-indiretto` 💬 | dice che with the person changed (mio → suo, ti → mi), chiede se and the question word kept, dice di + the infinitive for an order, ha detto che with the imperfetto for what was so then, the present for what is still to come | discorso-indiretto, possessivi, domande, imperfetto |
+| 15 | `passivo` 🍰 | essere + the participle agreeing (la gubana è fatta), da and its melted forms for the doer, è stato, è stata … with both participles agreeing, an ordinary sentence turned round, venire + the participle for the present | passivo, passato-prossimo, participi-irregolari, preposizioni-articolate |
+| 16 | `infinito-preposizioni` 🧗 | a after starting, learning, going, helping, trying (comincio a, imparo a, provo a); di after finishing, stopping, deciding, forgetting, avere paura, avere voglia (finisco di, smetto di); nothing after the modals, sapere, piacere, preferire; per and prima di | infinito-preposizioni, modali |
+| 17 | `futuro-anteriore` ⏳ | avrò … avranno and sarò … saranno + the participle (agreeing with essere) after quando, dopo che, appena, the other half in the future or the present; a guess about the past (Sarà stato Moro!) | futuro-anteriore, futuro, passato-prossimo |
+| 18 | `congiunzioni` 🧩 | perché after and siccome first; quindi, allora, così; ma, però, invece; anche se; mentre, appena; benché, sebbene and prima che named for the subjunctive, not practised | congiunzioni, imperfetto-passato, domande |
+
+- **Pages written for them**, all B1, the book's usual size, each its unit's summary card: `verbi-pronominali`,
+  `discorso-indiretto`, `passivo`, `infinito-preposizioni`, `futuro-anteriore`, `congiunzioni`.
+- **The present where Italians say it**: Ha detto che viene domani (the title) and Quando avrò finito, gioco, the
+  present and the future both accepted; what was so then, after ha detto, is the imperfetto only (ieri, a pranzo say
+  when, so the present can't be meant).
+- **Several right answers listed**: è fatto and viene fatto; a reported question or order with and without its speaker
+  and mi or ci; joined sentences in either order; every conjunction that fits a gap (Siccome, Poiché, Dato che, Visto
+  che; quindi, allora, così, perciò).
+- **No gap where a and ad would both do**: an infinitive after a gap starts with a consonant (ad stays on the page).
+- **The grading B1 needs** (`grading/it.json`): an articulated preposition for another is wrong, never a slip in the
+  stem (Il miele è fatto delle api for dalle api; alla or nella for dalla: the passive's da), a slip in the word itself
+  (dlla) still forgiven; ce la ho fatta and se ne è andata are almost (the apostrophe), as ce ne è is.
+- **No trick**: congiunzioni's gap text has no distractors (almost every conjunction fits some gap), as vorrei's has
+  none; a wrong option is wrong Italian or wrong by its own sentence (la mia where Davide is told about, sono where
+  Giulia said it).
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
