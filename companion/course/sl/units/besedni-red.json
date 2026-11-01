@@ -1,0 +1,835 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "besedni-red",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🔀",
+  "title": {
+    "sl": "Kaj stoji spredaj: besedni red",
+    "en": "Word order and emphasis",
+    "de": "Wortstellung und Betonung",
+    "it": "Ordine delle parole ed enfasi"
+  },
+  "goal": {
+    "en": "You put what is known first and the news last (Kruh je prinesel Luka), keep the short words second whatever leads, set things against each other with pa, and place tudi and samo where they mean what you mean.",
+    "de": "Du stellst Bekanntes nach vorne und das Neue ans Ende (Kruh je prinesel Luka), hältst die kurzen Wörter an zweiter Stelle, was auch vorne steht, stellst mit pa gegenüber und setzt tudi und samo dorthin, wo sie meinen, was du meinst.",
+    "it": "Metti prima ciò che è noto e la novità alla fine (Kruh je prinesel Luka), tieni le parole brevi al secondo posto qualunque cosa venga prima, contrapponi con pa e metti tudi e samo dove dicono ciò che intendi."
+  },
+  "grammar": [
+    "besedni-red",
+    "naslonke-red"
+  ],
+  "words": [
+    "prinesti",
+    "speči",
+    "zakleniti",
+    "klet",
+    "potica",
+    "ključ",
+    "vino",
+    "grozdje",
+    "trgatev",
+    "škarje",
+    "harmonika",
+    "sejem",
+    "mlinsko kolo",
+    "ples",
+    "tudi",
+    "samo",
+    "že",
+    "še",
+    "pa",
+    "nazadnje",
+    "seno",
+    "pripeljati",
+    "jajce",
+    "pobrati"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "spredaj",
+          "en": "first: known",
+          "de": "vorne: bekannt",
+          "it": "prima: noto"
+        },
+        {
+          "sl": "naslonke",
+          "en": "second: short words",
+          "de": "zweitens: kurze Wörter",
+          "it": "secondo: parole brevi"
+        },
+        {
+          "sl": "na koncu",
+          "en": "last: the news",
+          "de": "am Ende: das Neue",
+          "it": "alla fine: la novità"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Slovene word order is free, but not random: what both of you already know comes first, the news comes last. The question decides. **Kdo je prinesel kruh?** – **Kruh je prinesel Luka.** (Luka is the news.) **Kaj je prinesel Luka?** – **Luka je prinesel kruh.** (the bread is the news). English stresses the word instead: LUKA brought it.",
+          "de": "Die slowenische Wortstellung ist frei, aber nicht beliebig: Was ihr beide schon wisst, steht vorne, das Neue am Ende. Die Frage entscheidet. **Kdo je prinesel kruh?** – **Kruh je prinesel Luka.** (Luka ist das Neue.) **Kaj je prinesel Luka?** – **Luka je prinesel kruh.** (das Brot ist das Neue). Das Deutsche betont stattdessen das Wort: LUKA hat es gebracht.",
+          "it": "L'ordine delle parole in sloveno è libero, ma non a caso: ciò che sapete già tutti e due viene prima, la novità alla fine. Decide la domanda. **Kdo je prinesel kruh?** – **Kruh je prinesel Luka.** (Luka è la novità.) **Kaj je prinesel Luka?** – **Luka je prinesel kruh.** (il pane è la novità). Anche l'italiano mette spesso la novità in fondo: l'ha portato LUKA."
+        },
+        "examples": [
+          {
+            "sl": "Kdo je spekel potico? – Potico je spekla Micka.",
+            "en": "Who baked the potica? – Micka baked it.",
+            "de": "Wer hat die Potica gebacken? – Micka hat sie gebacken.",
+            "it": "Chi ha fatto la potica? – L'ha fatta Micka."
+          },
+          {
+            "sl": "Kaj je spekla Micka? – Micka je spekla potico.",
+            "en": "What did Micka bake? – She baked a potica.",
+            "de": "Was hat Micka gebacken? – Micka hat eine Potica gebacken.",
+            "it": "Che cosa ha fatto Micka? – Micka ha fatto una potica."
+          }
+        ],
+        "rows": [
+          [
+            "Kruh",
+            "je",
+            "prinesel Luka"
+          ],
+          [
+            "Luka",
+            "je",
+            "prinesel kruh"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "besedni-red",
+          "instruction": "Kdo je spekel potico? · Who baked the potica?",
+          "prompt": "Micka baked it.",
+          "options": [
+            "Potico je spekla Micka.",
+            "Micka je spekla potico.",
+            "Potico Micka je spekla."
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": "**the news last**: the question asks who, so Micka goes at the end: Potico je spekla Micka.\n- Micka je spekla potico · right for »Kaj je spekla Micka?«\n- Potico Micka je spekla · je must come second"
+        }
+      },
+      {
+        "say": {
+          "en": "Whatever comes first, the short words (**sem, ga, mi, je, bo** …) come right after it, as you know from B1: **Včeraj sem ga videl.** **Luko sem videl včeraj.** The first place may be one word or a whole phrase: **Na sejmu v Kranju sem ga videl.** **Na sejmu v Kranju** counts as one.",
+          "de": "Was auch vorne steht, die kurzen Wörter (**sem, ga, mi, je, bo** …) kommen direkt danach, wie du aus B1 weißt: **Včeraj sem ga videl.** **Luko sem videl včeraj.** Vorne kann ein Wort stehen oder eine ganze Wortgruppe: **Na sejmu v Kranju sem ga videl.** **Na sejmu v Kranju** zählt als eins.",
+          "it": "Qualunque cosa venga prima, le parole brevi (**sem, ga, mi, je, bo** …) vengono subito dopo, come sai da B1: **Včeraj sem ga videl.** **Luko sem videl včeraj.** Al primo posto può stare una parola o un gruppo intero: **Na sejmu v Kranju sem ga videl.** **Na sejmu v Kranju** conta come uno."
+        },
+        "examples": [
+          {
+            "sl": "Na sejmu v Kranju sem ga videl.",
+            "en": "I saw him at the fair in Kranj.",
+            "de": "Ich habe ihn auf dem Markt in Kranj gesehen.",
+            "it": "L'ho visto alla fiera di Kranj."
+          },
+          {
+            "sl": "Luko sem videl včeraj, ne danes.",
+            "en": "I saw Luka yesterday, not today.",
+            "de": "Luka habe ich gestern gesehen, nicht heute.",
+            "it": "Luka l'ho visto ieri, non oggi."
+          }
+        ],
+        "rows": [
+          [
+            "Včeraj",
+            "sem ga",
+            "videl"
+          ],
+          [
+            "Na sejmu",
+            "sem ga",
+            "videl"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "besedni-red",
+          "prompt": "Na sejmu ___ videl. (I saw him at the fair.)",
+          "options": [
+            "sem ga",
+            "ga sem",
+            "je ga"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**the short words second**, after the whole phrase na sejmu, in their order: sem, then ga"
+        }
+      },
+      {
+        "say": {
+          "en": "To set one thing against another, put it first and add **pa** after it: **Kruha ne jem, sir pa rad jem.** (I don't eat bread, but cheese I like.) **Jaz grem domov, ti pa ostani.** **Jaz pa ne.** (Not me.) **Pa** comes second too, before the short words: **Jaz pa sem ostal doma.**",
+          "de": "Um eines dem anderen gegenüberzustellen, stell es nach vorne und setz **pa** dahinter: **Kruha ne jem, sir pa rad jem.** (Brot esse ich nicht, aber Käse gern.) **Jaz grem domov, ti pa ostani.** **Jaz pa ne.** (Ich nicht.) Auch **pa** steht an zweiter Stelle, vor den kurzen Wörtern: **Jaz pa sem ostal doma.**",
+          "it": "Per contrapporre una cosa a un'altra, mettila prima e aggiungi **pa** dopo: **Kruha ne jem, sir pa rad jem.** (Il pane non lo mangio, il formaggio invece sì.) **Jaz grem domov, ti pa ostani.** **Jaz pa ne.** (Io no.) Anche **pa** sta al secondo posto, prima delle parole brevi: **Jaz pa sem ostal doma.**"
+        },
+        "examples": [
+          {
+            "sl": "Kruha ne jem, sir pa rad jem.",
+            "en": "I don't eat bread, but I do like cheese.",
+            "de": "Brot esse ich nicht, aber Käse esse ich gern.",
+            "it": "Il pane non lo mangio, il formaggio invece lo mangio volentieri."
+          },
+          {
+            "sl": "Jaz grem domov, ti pa ostani.",
+            "en": "I'm going home, but you stay.",
+            "de": "Ich gehe nach Hause, du aber bleib.",
+            "it": "Io vado a casa, tu invece resta."
+          }
+        ],
+        "rows": [
+          [
+            "Sir",
+            "pa",
+            "rad jem"
+          ],
+          [
+            "Ti",
+            "pa",
+            "ostani"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "besedni-red",
+          "prompt": "Luka je šel na sejem, ___ je ostala doma. (but Micka stayed at home)",
+          "options": [
+            "Micka pa",
+            "pa Micka",
+            "Micka ga"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**the contrast first**, **pa** after it, then the short words: Micka pa je ostala doma"
+        }
+      },
+      {
+        "say": {
+          "en": "**Tudi** (too), **samo** (only), **še** (still, more) and **že** (already) stand right before what they are about, so their place changes the meaning: **Tudi Luka je prišel.** (Luka too, as well as the others.) **Samo Micka ve, kje je ključ.** (only Micka knows) **Micka ve samo to.** (she knows only that)",
+          "de": "**Tudi** (auch), **samo** (nur), **še** (noch) und **že** (schon) stehen direkt vor dem, worauf sie sich beziehen; ihr Platz ändert also die Bedeutung: **Tudi Luka je prišel.** (auch Luka, wie die anderen) **Samo Micka ve, kje je ključ.** (nur Micka weiß es) **Micka ve samo to.** (sie weiß nur das)",
+          "it": "**Tudi** (anche), **samo** (solo), **še** (ancora) e **že** (già) stanno subito prima di ciò a cui si riferiscono; il loro posto cambia quindi il senso: **Tudi Luka je prišel.** (anche Luka, come gli altri) **Samo Micka ve, kje je ključ.** (solo Micka lo sa) **Micka ve samo to.** (sa solo questo)"
+        },
+        "examples": [
+          {
+            "sl": "Tudi Luka je prišel na trgatev.",
+            "en": "Luka came to the grape harvest too.",
+            "de": "Auch Luka ist zur Weinlese gekommen.",
+            "it": "Anche Luka è venuto alla vendemmia."
+          },
+          {
+            "sl": "Samo Micka ve, kje je ključ.",
+            "en": "Only Micka knows where the key is.",
+            "de": "Nur Micka weiß, wo der Schlüssel ist.",
+            "it": "Solo Micka sa dov'è la chiave."
+          }
+        ],
+        "rows": [
+          [
+            "Tudi Luka",
+            "je",
+            "prišel"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "besedni-red",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "»Micka ve samo to.«",
+          "options": [
+            "Micka knows only that.",
+            "Only Micka knows that.",
+            "Micka knows that too."
+          ],
+          "answer": 0,
+          "explain": "**samo** stands before what it is about: samo to, only that\n- Only Micka knows that · Samo Micka to ve."
+        }
+      },
+      {
+        "say": {
+          "en": "Long things go to the end, a whole clause above all: **Povedal mi je, da bo jutri prišel.** In a question the question word comes first and the short words right after it: **Kdaj si ga videl?** **Zakaj ti tega ni povedala?** A yes-or-no question may start with **ali**, or with the verb or a short word: **Si ga videl?**",
+          "de": "Langes kommt ans Ende, vor allem ein ganzer Nebensatz: **Povedal mi je, da bo jutri prišel.** In einer Frage steht das Fragewort vorne, die kurzen Wörter gleich danach: **Kdaj si ga videl?** **Zakaj ti tega ni povedala?** Eine Ja-Nein-Frage kann mit **ali** beginnen, oder mit dem Verb oder einem kurzen Wort: **Si ga videl?**",
+          "it": "Le cose lunghe vanno alla fine, soprattutto una frase intera: **Povedal mi je, da bo jutri prišel.** In una domanda la parola interrogativa viene prima e le parole brevi subito dopo: **Kdaj si ga videl?** **Zakaj ti tega ni povedala?** Una domanda sì o no può cominciare con **ali**, o con il verbo o una parola breve: **Si ga videl?**"
+        },
+        "examples": [
+          {
+            "sl": "Kdaj si ga nazadnje videl?",
+            "en": "When did you last see him?",
+            "de": "Wann hast du ihn zuletzt gesehen?",
+            "it": "Quando l'hai visto l'ultima volta?"
+          },
+          {
+            "sl": "Povedal mi je, da bo jutri prišel na trgatev.",
+            "en": "He told me he'd come to the grape harvest tomorrow.",
+            "de": "Er hat mir gesagt, dass er morgen zur Weinlese kommt.",
+            "it": "Mi ha detto che domani sarebbe venuto alla vendemmia."
+          }
+        ],
+        "rows": [
+          [
+            "Kdaj",
+            "si ga",
+            "videl"
+          ],
+          [
+            "Povedal",
+            "mi je",
+            "da bo prišel"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "besedni-red",
+          "prompt": "___ videl? (When did you see him?)",
+          "options": [
+            "Kdaj si ga",
+            "Kdaj ga si",
+            "Si ga kdaj"
+          ],
+          "answer": 0,
+          "almost": [
+            2
+          ],
+          "say_options": true,
+          "explain": "**the question word first**, the short words right after it: Kdaj si ga videl?\n- Si ga kdaj videl? · Have you ever seen him?"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "besedni-red-1",
+      "title": {
+        "sl": "Kaj je novo?",
+        "en": "What's new?",
+        "de": "Was ist neu?",
+        "it": "Che cosa c'è di nuovo?"
+      },
+      "exercises": [
+        {
+          "type": "reorder",
+          "grammar": "besedni-red",
+          "instruction": "Novo na konec · The news at the end",
+          "prompt": "Kdo je prinesel vino? (Tone)",
+          "tokens": [
+            "Vino",
+            "je",
+            "prinesel",
+            "Tone"
+          ],
+          "solutions": [
+            [
+              "Vino",
+              "je",
+              "prinesel",
+              "Tone"
+            ]
+          ],
+          "explain": "**who** is asked: Tone at the end, the wine known, first: Vino je prinesel Tone."
+        },
+        {
+          "type": "reorder",
+          "grammar": "besedni-red",
+          "instruction": "Novo na konec · The news at the end",
+          "prompt": "Komu je Luka dal ključ? (Micka)",
+          "tokens": [
+            "Ključ",
+            "je",
+            "Luka",
+            "dal",
+            "Micki"
+          ],
+          "solutions": [
+            [
+              "Ključ",
+              "je",
+              "Luka",
+              "dal",
+              "Micki"
+            ],
+            [
+              "Luka",
+              "je",
+              "dal",
+              "ključ",
+              "Micki"
+            ],
+            [
+              "Luka",
+              "je",
+              "ključ",
+              "dal",
+              "Micki"
+            ]
+          ],
+          "explain": "**to whom** is asked: Micki at the end"
+        },
+        {
+          "type": "reorder",
+          "grammar": "besedni-red",
+          "instruction": "Novo na konec · The news at the end",
+          "prompt": "Kdo ti je to povedal? (Ančka)",
+          "tokens": [
+            "To",
+            "mi",
+            "je",
+            "povedala",
+            "Ančka"
+          ],
+          "solutions": [
+            [
+              "To",
+              "mi",
+              "je",
+              "povedala",
+              "Ančka"
+            ],
+            [
+              "Povedala",
+              "mi",
+              "je",
+              "to",
+              "Ančka"
+            ]
+          ],
+          "explain": "**who** is asked: Ančka at the end, mi je second"
+        },
+        {
+          "type": "reorder",
+          "grammar": "besedni-red",
+          "instruction": "Novo na konec · The news at the end",
+          "prompt": "Kdaj pride Marko? (jutri)",
+          "tokens": [
+            "Marko",
+            "pride",
+            "jutri"
+          ],
+          "solutions": [
+            [
+              "Marko",
+              "pride",
+              "jutri"
+            ]
+          ],
+          "explain": "**when** is asked: jutri at the end"
+        },
+        {
+          "type": "reorder",
+          "grammar": "besedni-red",
+          "instruction": "Novo na konec · The news at the end",
+          "prompt": "S kom je šla Zala na ples? (s Tinetom)",
+          "tokens": [
+            "Zala",
+            "je",
+            "šla",
+            "na",
+            "ples",
+            "s",
+            "Tinetom"
+          ],
+          "solutions": [
+            [
+              "Zala",
+              "je",
+              "šla",
+              "na",
+              "ples",
+              "s",
+              "Tinetom"
+            ],
+            [
+              "Na",
+              "ples",
+              "je",
+              "šla",
+              "Zala",
+              "s",
+              "Tinetom"
+            ],
+            [
+              "Na",
+              "ples",
+              "je",
+              "Zala",
+              "šla",
+              "s",
+              "Tinetom"
+            ]
+          ],
+          "explain": "**with whom** is asked: s Tinetom at the end"
+        },
+        {
+          "type": "reorder",
+          "grammar": "besedni-red",
+          "instruction": "Novo na konec · The news at the end",
+          "prompt": "Kaj je France popravil? (the mill wheel)",
+          "tokens": [
+            "France",
+            "je",
+            "popravil",
+            "mlinsko",
+            "kolo"
+          ],
+          "solutions": [
+            [
+              "France",
+              "je",
+              "popravil",
+              "mlinsko",
+              "kolo"
+            ]
+          ],
+          "explain": "**what** is asked: mlinsko kolo at the end"
+        },
+        {
+          "type": "choice",
+          "grammar": "besedni-red",
+          "instruction": "Kateri odgovor? · Which answer?",
+          "prompt": "Kdo je zaklenil klet?",
+          "say": "Kdo je zaklenil klet?",
+          "options": [
+            "Klet je zaklenil Janez.",
+            "Janez je zaklenil klet.",
+            "Klet Janez je zaklenil."
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": "**who** is asked: Janez, the news, last\n- Janez je zaklenil klet · the answer to »Kaj je zaklenil Janez?«"
+        },
+        {
+          "type": "choice",
+          "grammar": "besedni-red",
+          "instruction": "Kateri odgovor? · Which answer?",
+          "prompt": "Kaj je zaklenil Janez?",
+          "say": "Kaj je zaklenil Janez?",
+          "options": [
+            "Janez je zaklenil klet.",
+            "Klet je zaklenil Janez.",
+            "Je Janez zaklenil klet."
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": "**what** is asked: klet, the news, last\n- Klet je zaklenil Janez · the answer to »Kdo je zaklenil klet?«"
+        }
+      ]
+    },
+    {
+      "id": "besedni-red-2",
+      "title": {
+        "sl": "Na trgatvi",
+        "en": "At the grape harvest",
+        "de": "Bei der Weinlese",
+        "it": "Alla vendemmia"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "besedni-red",
+          "instruction": "Dopolni · Fill in",
+          "title": "Na trgatvi",
+          "text": "Lani ___ bili na trgatvi pri Tonetu. Grozdje so trgali vsi, babica ___ je kuhala za vse. Tudi Nejc ___ prišel, čeprav ga ni nihče klical. Tone ___ je dal majhne škarje. »Kdaj ___ jih kupil?« ga je vprašal Nejc. Zvečer ___ je France zaigral na harmoniko. Peli so vsi, jaz ___ sem samo {m:poslušal|f:poslušala}.",
+          "gaps": [
+            {
+              "accept": [
+                "smo"
+              ],
+              "hint": "we: the short word second"
+            },
+            {
+              "accept": [
+                "pa"
+              ],
+              "hint": "everyone else, but Granny …",
+              "explain": "**a contrast**: babica first, **pa** after it, then je: babica pa je kuhala"
+            },
+            {
+              "accept": [
+                "je"
+              ],
+              "hint": "tudi Nejc counts as one, then …"
+            },
+            {
+              "accept": [
+                "mu"
+              ],
+              "hint": "to whom? to Nejc"
+            },
+            {
+              "accept": [
+                "si"
+              ],
+              "hint": "the question word first, then: you …"
+            },
+            {
+              "accept": [
+                "nam"
+              ],
+              "hint": "to whom? to us"
+            },
+            {
+              "accept": [
+                "pa"
+              ],
+              "hint": "everyone sang, but I …"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "ga",
+            "sem"
+          ],
+          "translation": "Last year we were at the grape harvest at Tone's. Everyone picked grapes, but Granny cooked for everybody. Nejc came too, though nobody had asked him. Tone gave him small shears. \"When did you buy them?\" Nejc asked him. In the evening France played the accordion for us. Everyone sang, but I only listened."
+        }
+      ]
+    },
+    {
+      "id": "besedni-red-3",
+      "title": {
+        "sl": "Začni s tem",
+        "en": "Start with it",
+        "de": "Fang damit an",
+        "it": "Comincia da qui"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "besedni-red",
+          "instruction": "Začni z besedo v oklepaju · Start with the word in brackets",
+          "whole": true,
+          "items": [
+            {
+              "from": "Videl sem ga včeraj. (včeraj)",
+              "accept": [
+                "Včeraj sem ga videl."
+              ],
+              "hint": "včeraj first, then sem ga"
+            },
+            {
+              "from": "Micka mi je dala jabolko. (jabolko)",
+              "accept": [
+                "Jabolko mi je dala Micka."
+              ],
+              "hint": "jabolko first, mi je second, Micka last"
+            },
+            {
+              "from": "Pomagal ti bom jutri. (jutri)",
+              "accept": [
+                "Jutri ti bom pomagal."
+              ],
+              "hint": "jutri first, then ti bom"
+            },
+            {
+              "from": "Luka se je smejal v gostilni. (v gostilni)",
+              "accept": [
+                "V gostilni se je Luka smejal.",
+                "V gostilni se je smejal Luka."
+              ],
+              "hint": "the whole phrase first"
+            },
+            {
+              "from": "Tone ga ni videl na sejmu. (na sejmu)",
+              "accept": [
+                "Na sejmu ga Tone ni videl.",
+                "Na sejmu ga ni videl Tone."
+              ],
+              "hint": "na sejmu first, ga second"
+            },
+            {
+              "from": "Nihče mi tega ni povedal. (tega)",
+              "accept": [
+                "Tega mi ni nihče povedal.",
+                "Tega mi nihče ni povedal."
+              ],
+              "hint": "tega first, mi second"
+            }
+          ],
+          "explain": "**whatever comes first**, the short words right after it\n- Včeraj sem ga videl.\n- Na sejmu ga Tone ni videl."
+        },
+        {
+          "type": "choice",
+          "grammar": "besedni-red",
+          "instruction": "Kateri stavek je prav? · Which sentence is right?",
+          "prompt": "Only Micka knows that.",
+          "options": [
+            "Samo Micka to ve.",
+            "Micka samo to ve.",
+            "Micka to ve samo."
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": "**samo** before what it is about: samo Micka\n- Micka samo to ve · Micka knows only that"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "reorder",
+        "grammar": "besedni-red",
+        "instruction": "Novo na konec · The news at the end",
+        "prompt": "Kdo je pobral jajca? (Nejc)",
+        "tokens": [
+          "Jajca",
+          "je",
+          "pobral",
+          "Nejc"
+        ],
+        "solutions": [
+          [
+            "Jajca",
+            "je",
+            "pobral",
+            "Nejc"
+          ]
+        ]
+      },
+      {
+        "type": "reorder",
+        "grammar": "besedni-red",
+        "instruction": "Sestavi vprašanje · Build the question",
+        "prompt": "When did you see him?",
+        "tokens": [
+          "Kdaj",
+          "si",
+          "ga",
+          "videl"
+        ],
+        "solutions": [
+          [
+            "Kdaj",
+            "si",
+            "ga",
+            "videl"
+          ]
+        ]
+      },
+      {
+        "type": "reorder",
+        "grammar": "besedni-red",
+        "instruction": "Sestavi stavek · Build the sentence",
+        "prompt": "I'm going home, but you stay.",
+        "tokens": [
+          "Jaz",
+          "grem",
+          "domov",
+          "ti",
+          "pa",
+          "ostani"
+        ],
+        "solutions": [
+          [
+            "Jaz",
+            "grem",
+            "domov",
+            "ti",
+            "pa",
+            "ostani"
+          ]
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "besedni-red",
+        "instruction": "Dopolni · Fill in",
+        "text": "Včeraj ___ {m:videl|f:videla} Luko na sejmu. Ančka je prodajala sir, Tone ___ med. »Kdaj ___ (mi) prideš na obisk?« me je vprašal Luka.",
+        "gaps": [
+          {
+            "accept": [
+              "sem"
+            ]
+          },
+          {
+            "accept": [
+              "pa"
+            ]
+          },
+          {
+            "accept": [
+              "nam"
+            ]
+          }
+        ],
+        "translation": "Yesterday I saw Luka at the fair. Ančka was selling cheese, and Tone honey. \"When are you coming to visit us?\" Luka asked me."
+      },
+      {
+        "type": "transform",
+        "grammar": "besedni-red",
+        "instruction": "Začni z besedo v oklepaju · Start with the word in brackets",
+        "whole": true,
+        "items": [
+          {
+            "from": "Pokazal sem ji vrt. (vrt)",
+            "accept": [
+              "Vrt sem ji pokazal."
+            ]
+          },
+          {
+            "from": "Zala se je smejala ves večer. (ves večer)",
+            "accept": [
+              "Ves večer se je Zala smejala.",
+              "Ves večer se je smejala Zala."
+            ]
+          },
+          {
+            "from": "Nismo ga videli v gostilni. (v gostilni)",
+            "accept": [
+              "V gostilni ga nismo videli."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "besedni-red",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Luka helped too, as well as the others.",
+        "options": [
+          "Tudi Luka je pomagal.",
+          "Luka je pomagal tudi.",
+          "Luka tudi pomagal je."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**tudi** right before what it is about: tudi Luka"
+      },
+      {
+        "type": "choice",
+        "grammar": "besedni-red",
+        "instruction": "Kateri odgovor? · Which answer?",
+        "prompt": "Kdo je pripeljal seno?",
+        "say": "Kdo je pripeljal seno?",
+        "options": [
+          "Seno je pripeljal Jože.",
+          "Jože je pripeljal seno.",
+          "Seno Jože je pripeljal."
+        ],
+        "answer": 0,
+        "almost": [
+          1
+        ],
+        "say_options": true,
+        "explain": "**who** is asked: Jože, the news, last"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the orders accepted (Ključ je Luka dal Micki, Na ples je Zala šla s Tinetom), Tone pa med, the other focus as almost"
+}

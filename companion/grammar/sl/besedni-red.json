@@ -1,0 +1,245 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "besedni-red",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🔀",
+  "title": {
+    "sl": "Besedni red: kaj stoji spredaj",
+    "en": "Word order: what comes first",
+    "de": "Wortstellung: was vorne steht",
+    "it": "L'ordine delle parole: che cosa viene prima"
+  },
+  "rule": {
+    "en": "Slovene word order is free, but not random: **what is known comes first, the news comes last**. The question decides: **Kdo je prinesel kruh? – Kruh je prinesel Luka.** (Luka is the news.) **Kaj je prinesel Luka? – Luka je prinesel kruh.** English stresses the word instead: LUKA brought it.\n\n**The short words stay second**, whatever comes first, one word or a whole phrase: **Včeraj sem ga videl. Na sejmu sem ga videl.** (the order among them: naslonke-red).\n\n**A contrast comes first**, with **pa** after it and before the short words: **Kruha ne jem, sir pa rad jem. Jaz grem domov, ti pa ostani. Jaz pa sem ostal.**\n\n**tudi, samo, še, že** stand right before what they are about: **Tudi Luka je prišel.** (Luka too) **Samo Micka ve, kje je ključ.** (only Micka) **Micka ve samo to.** (only that)\n\n**Long things go to the end**, a whole clause above all: **Povedal mi je, da bo jutri prišel.** In a question the question word comes first, the short words right after it: **Kdaj si ga videl?**",
+    "de": "Die slowenische Wortstellung ist frei, aber nicht beliebig: **Was bekannt ist, steht vorne, das Neue am Ende**. Die Frage entscheidet: **Kdo je prinesel kruh? – Kruh je prinesel Luka.** (Luka ist das Neue.) **Kaj je prinesel Luka? – Luka je prinesel kruh.** Das Deutsche betont stattdessen das Wort: LUKA hat es gebracht.\n\n**Die kurzen Wörter bleiben an zweiter Stelle**, was auch vorne steht, ein Wort oder eine ganze Wortgruppe: **Včeraj sem ga videl. Na sejmu sem ga videl.** (ihre Reihenfolge: naslonke-red).\n\n**Ein Gegensatz steht vorne**, mit **pa** danach und vor den kurzen Wörtern: **Kruha ne jem, sir pa rad jem. Jaz grem domov, ti pa ostani. Jaz pa sem ostal.**\n\n**tudi, samo, še, že** stehen direkt vor dem, worauf sie sich beziehen: **Tudi Luka je prišel.** (auch Luka) **Samo Micka ve, kje je ključ.** (nur Micka) **Micka ve samo to.** (nur das)\n\n**Langes kommt ans Ende**, vor allem ein ganzer Nebensatz: **Povedal mi je, da bo jutri prišel.** In einer Frage steht das Fragewort vorne, die kurzen Wörter gleich danach: **Kdaj si ga videl?**",
+    "it": "L'ordine delle parole in sloveno è libero, ma non a caso: **ciò che è noto viene prima, la novità alla fine**. Decide la domanda: **Kdo je prinesel kruh? – Kruh je prinesel Luka.** (Luka è la novità.) **Kaj je prinesel Luka? – Luka je prinesel kruh.** L'italiano spesso sposta il soggetto in fondo allo stesso modo: l'ha portato LUKA.\n\n**Le parole brevi restano al secondo posto**, qualunque cosa venga prima, una parola o un gruppo intero: **Včeraj sem ga videl. Na sejmu sem ga videl.** (il loro ordine: naslonke-red).\n\n**Un contrasto viene prima**, con **pa** dopo e prima delle parole brevi: **Kruha ne jem, sir pa rad jem. Jaz grem domov, ti pa ostani. Jaz pa sem ostal.**\n\n**tudi, samo, še, že** stanno subito prima di ciò a cui si riferiscono: **Tudi Luka je prišel.** (anche Luka) **Samo Micka ve, kje je ključ.** (solo Micka) **Micka ve samo to.** (solo questo)\n\n**Le cose lunghe vanno alla fine**, soprattutto una frase intera: **Povedal mi je, da bo jutri prišel.** In una domanda la parola interrogativa viene prima, le parole brevi subito dopo: **Kdaj si ga videl?**"
+  },
+  "table": {
+    "head": [
+      {
+        "sl": "spredaj",
+        "en": "first: what is known",
+        "de": "vorne: was bekannt ist",
+        "it": "prima: ciò che è noto"
+      },
+      {
+        "sl": "naslonke",
+        "en": "second: the short words",
+        "de": "an zweiter Stelle: die kurzen Wörter",
+        "it": "al secondo posto: le parole brevi"
+      },
+      {
+        "sl": "na koncu",
+        "en": "last: the news",
+        "de": "am Ende: das Neue",
+        "it": "alla fine: la novità"
+      }
+    ],
+    "rows": [
+      [
+        "Kruh",
+        "je",
+        "prinesel Luka"
+      ],
+      [
+        "Luka",
+        "je",
+        "prinesel kruh"
+      ],
+      [
+        "Včeraj",
+        "sem ga",
+        "videl"
+      ],
+      [
+        "Na sejmu",
+        "sem ga",
+        "videl"
+      ],
+      [
+        "Sir",
+        "pa",
+        "rad jem"
+      ],
+      [
+        "Tudi Luka",
+        "je",
+        "prišel"
+      ],
+      [
+        "Kdaj",
+        "si ga",
+        "videl"
+      ],
+      [
+        "Povedal",
+        "mi je",
+        "da bo prišel"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Kdo je spekel potico? – Potico je spekla Micka.",
+      "en": "Who baked the potica? – Micka baked it.",
+      "de": "Wer hat die Potica gebacken? – Micka hat sie gebacken.",
+      "it": "Chi ha fatto la potica? – L'ha fatta Micka.",
+      "note": {
+        "en": "The news, Micka, comes last.",
+        "de": "Das Neue, Micka, steht am Ende.",
+        "it": "La novità, Micka, va alla fine."
+      }
+    },
+    {
+      "sl": "Kaj je spekla Micka? – Micka je spekla potico.",
+      "en": "What did Micka bake? – She baked a potica.",
+      "de": "Was hat Micka gebacken? – Micka hat eine Potica gebacken.",
+      "it": "Che cosa ha fatto Micka? – Micka ha fatto una potica."
+    },
+    {
+      "sl": "Na sejmu v Kranju sem ga videl.",
+      "en": "I saw him at the fair in Kranj.",
+      "de": "Ich habe ihn auf dem Markt in Kranj gesehen.",
+      "it": "L'ho visto alla fiera di Kranj.",
+      "note": {
+        "en": "A whole phrase first, the short words after it.",
+        "de": "Eine ganze Wortgruppe vorne, die kurzen Wörter danach.",
+        "it": "Un gruppo intero prima, le parole brevi dopo."
+      }
+    },
+    {
+      "sl": "Kruha ne jem, sir pa rad jem.",
+      "en": "I don't eat bread, but I do like cheese.",
+      "de": "Brot esse ich nicht, aber Käse esse ich gern.",
+      "it": "Il pane non lo mangio, il formaggio invece lo mangio volentieri."
+    },
+    {
+      "sl": "Jaz grem domov, ti pa ostani.",
+      "en": "I'm going home, but you stay.",
+      "de": "Ich gehe nach Hause, du aber bleib.",
+      "it": "Io vado a casa, tu invece resta."
+    },
+    {
+      "sl": "Tudi Luka je prišel na trgatev.",
+      "en": "Luka came to the grape harvest too.",
+      "de": "Auch Luka ist zur Weinlese gekommen.",
+      "it": "Anche Luka è venuto alla vendemmia."
+    },
+    {
+      "sl": "Samo Micka ve, kje je ključ.",
+      "en": "Only Micka knows where the key is.",
+      "de": "Nur Micka weiß, wo der Schlüssel ist.",
+      "it": "Solo Micka sa dov'è la chiave."
+    },
+    {
+      "sl": "Kdaj si ga nazadnje videl?",
+      "en": "When did you last see him?",
+      "de": "Wann hast du ihn zuletzt gesehen?",
+      "it": "Quando l'hai visto l'ultima volta?"
+    },
+    {
+      "sl": "Povedal mi je, da bo jutri prišel.",
+      "en": "He told me he'd come tomorrow.",
+      "de": "Er hat mir gesagt, dass er morgen kommt.",
+      "it": "Mi ha detto che sarebbe venuto domani."
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "word_order",
+    "besedni_red",
+    "focus",
+    "emphasis",
+    "topic"
+  ],
+  "see": [
+    "naslonke-red",
+    "naslonke",
+    "vprasalnice",
+    "odvisniki"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "sl": "Besedni red",
+      "en": "Word order · the news last",
+      "de": "Wortstellung · das Neue am Ende",
+      "it": "Ordine · la novità alla fine"
+    },
+    "rule": {
+      "en": "**Known first, news last**: Kdo je prinesel kruh? **Kruh je prinesel Luka.** The short words **second** (Včeraj **sem ga** videl); a contrast first with **pa** (Sir **pa** rad jem); **tudi, samo** before their word.",
+      "de": "**Bekanntes vorne, Neues am Ende**: Kdo je prinesel kruh? **Kruh je prinesel Luka.** Die kurzen Wörter **an zweiter Stelle** (Včeraj **sem ga** videl); ein Gegensatz vorne mit **pa** (Sir **pa** rad jem); **tudi, samo** vor ihrem Wort.",
+      "it": "**Il noto prima, la novità alla fine**: Kdo je prinesel kruh? **Kruh je prinesel Luka.** Le parole brevi **al secondo posto** (Včeraj **sem ga** videl); un contrasto prima con **pa** (Sir **pa** rad jem); **tudi, samo** prima della loro parola."
+    },
+    "table": {
+      "head": [
+        {
+          "sl": "spredaj",
+          "en": "first: what is known",
+          "de": "vorne: was bekannt ist",
+          "it": "prima: ciò che è noto"
+        },
+        {
+          "sl": "naslonke",
+          "en": "second: the short words",
+          "de": "an zweiter Stelle: die kurzen Wörter",
+          "it": "al secondo posto: le parole brevi"
+        },
+        {
+          "sl": "na koncu",
+          "en": "last: the news",
+          "de": "am Ende: das Neue",
+          "it": "alla fine: la novità"
+        }
+      ],
+      "rows": [
+        [
+          "Kruh",
+          "je",
+          "prinesel Luka"
+        ],
+        [
+          "Včeraj",
+          "sem ga",
+          "videl"
+        ],
+        [
+          "Sir",
+          "pa",
+          "rad jem"
+        ],
+        [
+          "Tudi Luka",
+          "je",
+          "prišel"
+        ],
+        [
+          "Kdaj",
+          "si ga",
+          "videl"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Kdo je spekel potico? – Potico je spekla Micka.",
+        "en": "Who baked the potica? – Micka baked it.",
+        "de": "Wer hat die Potica gebacken? – Micka hat sie gebacken.",
+        "it": "Chi ha fatto la potica? – L'ha fatta Micka."
+      },
+      {
+        "sl": "Jaz grem domov, ti pa ostani.",
+        "en": "I'm going home, but you stay.",
+        "de": "Ich gehe nach Hause, du aber bleib.",
+        "it": "Io vado a casa, tu invece resta."
+      }
+    ],
+    "tip": {
+      "en": "💡 Ask yourself what the question was: its answer goes last.",
+      "de": "💡 Frag dich, wie die Frage lautete: ihre Antwort kommt ans Ende.",
+      "it": "💡 Chiediti qual era la domanda: la sua risposta va alla fine."
+    }
+  }
+}
