@@ -174,9 +174,9 @@ object Cast {
             id = null,
             name = name.trim(),
             emoji = emoji ?: title?.emoji ?: if (female) "👩" else "👨",
-            art = title?.art ?: if (female) "woman" else "man",
+            art = title?.art(female) ?: if (female) "woman" else "man",
             voice = if (female) Clips.FEMALE else Clips.MALE,
-            role = title?.role ?: "",
+            role = title?.role(female) ?: "",
             register = register,
         )
     }
@@ -212,9 +212,14 @@ object Cast {
         return Bonds.TRAINING.coerceAtMost(Bonds.TRAINING_PER_DAY - used).coerceAtLeast(0)
     }
 
-    /** [roleKey]: the role's label ("Babica · Grandmother"), read when shown so it is in the pair of the moment. */
-    private class Title(val art: String, val female: Boolean, private val roleKey: String, val emoji: String) {
-        val role: String get() = bi(roleKey)
+    /**
+     * [roleKey]: the role's label ("Babica · Grandmother"), read when shown so it is in the pair of the moment. A title
+     * of either gender ([female] null: "Dr", "Dr.") takes the person's: their sprite (a woman or a man) and [femaleKey].
+     */
+    private class Title(art: String?, val female: Boolean?, private val roleKey: String, val emoji: String, private val femaleKey: String? = null) {
+        private val drawn = art
+        fun role(isFemale: Boolean): String = bi(if (isFemale && femaleKey != null) femaleKey else roleKey)
+        fun art(isFemale: Boolean): String = drawn ?: if (isFemale) "woman" else "man"
     }
 
     /** Village titles and what they suggest about a person. */
@@ -242,7 +247,7 @@ object Cast {
         "Gospa" to Title("woman", true, "cast.missus", "👩"),
         "Prodajalka" to Title("woman", true, "cast.shopAssistantF", "🛍️"),
         "Prodajalec" to Title("man", false, "cast.shopAssistantM", "🛍️"),
-        "Dr." to Title("man", false, "cast.doctorM", "🩺"),
+        "Dr." to Title(null, null, "cast.doctorM", "🩺", "cast.doctorF"),
         "Zdravnica" to Title("woman", true, "cast.doctorF", "🩺"),
         // The Italian role-plays' people (companion/scenarios/it), as a child in Friuli calls them.
         "Nonna" to Title("grandma", true, "cast.grandmother", "👵"),
@@ -253,6 +258,31 @@ object Cast {
         "Maestro" to Title("teacher", false, "cast.teacherM", "👨‍🏫"),
         "Dottoressa" to Title("woman", true, "cast.doctorF", "🩺"),
         "Dottor" to Title("man", false, "cast.doctorM", "🩺"),
+        // The German role-plays' people (companion/scenarios/de), as one says them in Carinthia.
+        "Frau" to Title("woman", true, "cast.missus", "👩"),
+        "Herr" to Title("man", false, "cast.mister", "👨"),
+        "Bäckerin" to Title("woman", true, "cast.shopAssistantF", "🥨"),
+        "Bäcker" to Title("man", false, "cast.shopAssistantM", "🥨"),
+        "Wirtin" to Title("innkeeper", true, "cast.innkeeperF", "🍺"),
+        "Wirt" to Title("innkeeper", false, "cast.innkeeperM", "🍺"),
+        "Kellner" to Title("innkeeper", false, "cast.waiter", "🍽️"),
+        "Nachbarin" to Title("aunt", true, "cast.neighbourF", "👩"),
+        "Nachbar" to Title("farmer", false, "cast.neighbourM", "👨"),
+        "Ärztin" to Title("woman", true, "cast.doctorF", "🩺"),
+        "Arzt" to Title("man", false, "cast.doctorM", "🩺"),
+        "Oma" to Title("grandma", true, "cast.grandmother", "👵"),
+        "Opa" to Title("grandpa", false, "cast.grandfather", "👴"),
+        "Tante" to Title("aunt", true, "cast.aunt", "👩"),
+        // The English ones' (companion/scenarios/en), as one says them in the Lake District.
+        "Mrs" to Title("woman", true, "cast.missus", "👩"),
+        "Ms" to Title("woman", true, "cast.missus", "👩"),
+        "Mr" to Title("man", false, "cast.mister", "👨"),
+        "Dr" to Title(null, null, "cast.doctorM", "🩺", "cast.doctorF"),
+        "Granny" to Title("grandma", true, "cast.grandmother", "👵"),
+        "Grandad" to Title("grandpa", false, "cast.grandfather", "👴"),
+        "Auntie" to Title("aunt", true, "cast.aunt", "👩"),
+        "Landlady" to Title("innkeeper", true, "cast.innkeeperF", "🍺"),
+        "Landlord" to Title("innkeeper", false, "cast.innkeeperM", "🍺"),
     )
 
     /** Slovene and Italian given names ending in -a are mostly women's; these are men's. */
