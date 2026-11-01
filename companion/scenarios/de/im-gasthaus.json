@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "im-gasthaus",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Im Gasthaus", "sl": "V gostilni", "en": "At the inn", "it": "All'osteria" },
+  "emoji": "🍺",
+  "level": "A1",
+  "setting": {
+    "sl": "Petek zvečer v vaški gostilni (Gasthaus). Za omizjem v kotu sedijo stalni gostje, na jedilnem listu so kasnudeln (koroški žlikrofi), frittatensuppe (juha z rezanci iz palačink) in dunajski zrezek.",
+    "en": "Friday evening at the village Gasthaus. The regulars sit at their table in the corner (the Stammtisch); the menu has Carinthian Kasnudeln, Frittatensuppe (broth with pancake strips) and Wiener Schnitzel.",
+    "it": "Venerdì sera nella trattoria del paese (Gasthaus). I clienti abituali siedono al loro tavolo nell'angolo (lo Stammtisch); nel menù ci sono i Kasnudeln carinziani, la Frittatensuppe (brodo con strisce di crespella) e la Wiener Schnitzel."
+  },
+  "role": "Wirtin Kathi, the innkeeper of the village Gasthaus. Warm and brisk, knows every guest, proud of her Kasnudeln. Austrian German: ein Krügerl (half a litre of beer), ein Seidl (a third), g'spritzt (with sparkling water). Says Sie to {learner}.",
+  "who": { "de": "Die Wirtin", "sl": "Gostilničarka", "en": "The innkeeper", "it": "L'ostessa" },
+  "voice": "female",
+  "place": "kitchen",
+  "goals": [
+    { "de": "Bestelle etwas zu trinken", "sl": "Naroči pijačo", "en": "Order a drink", "it": "Ordina da bere" },
+    { "de": "Frag, was sie empfiehlt", "sl": "Vprašaj, kaj priporoča", "en": "Ask what she recommends", "it": "Chiedi che cosa consiglia" },
+    { "de": "Bestelle ein Essen", "sl": "Naroči jed", "en": "Order a meal", "it": "Ordina da mangiare" },
+    { "de": "Bitte um die Rechnung", "sl": "Prosi za račun", "en": "Ask for the bill", "it": "Chiedi il conto" },
+    { "de": "Bedanke dich und verabschiede dich", "sl": "Zahvali se in se poslovi", "en": "Say thank you and goodbye", "it": "Ringrazia e saluta" }
+  ],
+  "opener_sl": "Grüß Gott! Bitte, nehmen Sie Platz. Was darf ich Ihnen zum Trinken bringen?",
+  "opener_en": {
+    "sl": "Dober večer! Izvolite, sedite. Kaj vam lahko prinesem za pijačo?",
+    "en": "Good evening! Please, take a seat. What can I bring you to drink?",
+    "it": "Buonasera! Prego, si accomodi. Che cosa le porto da bere?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ein Krügerl, bitte.", "en": { "sl": "Veliko pivo (pol litra), prosim.", "en": "A large beer (half a litre), please.", "it": "Una birra media (mezzo litro), per favore." } },
+    { "sl": "Einen Apfelsaft g'spritzt, bitte.", "en": { "sl": "Jabolčni sok z mineralno vodo, prosim.", "en": "An apple juice with sparkling water, please.", "it": "Un succo di mela con acqua frizzante, per favore." } },
+    { "sl": "Was empfehlen Sie?", "en": { "sl": "Kaj priporočate?", "en": "What do you recommend?", "it": "Che cosa consiglia?" } },
+    { "sl": "Ich nehme die Kasnudeln.", "en": { "sl": "Vzamem kasnudeln.", "en": "I'll have the Kasnudeln.", "it": "Prendo i Kasnudeln." } },
+    { "sl": "Zahlen, bitte!", "en": { "sl": "Račun, prosim!", "en": "The bill, please!", "it": "Il conto, per favore!" } },
+    { "sl": "Stimmt so.", "en": { "sl": "Je že v redu (drobiž obdržite).", "en": "Keep the change.", "it": "Va bene così (tenga il resto)." } },
+    { "sl": "Es war sehr gut!", "en": { "sl": "Bilo je zelo dobro!", "en": "It was very good!", "it": "Era buonissimo!" } }
+  ],
+  "packs": ["im-gasthaus", "essen", "gruesse", "zahlen-und-uhrzeit"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

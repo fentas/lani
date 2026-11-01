@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "at-the-farm-shop",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "At the farm shop", "sl": "V trgovini na kmetiji", "de": "Im Hofladen", "it": "Allo spaccio della fattoria" },
+  "emoji": "🥚",
+  "level": "A1",
+  "setting": {
+    "sl": "Sobotno jutro v trgovini na kmetiji z ovcami herdwick v dolini. Na policah so sveža jajca, cumberlandska klobasa (svinjska klobasa, zvita v spiralo), marmelada iz slivic (damson) in med iz doline.",
+    "de": "Samstagmorgen im Hofladen eines Bauernhofs mit Herdwick-Schafen im Tal. In den Regalen liegen frische Eier, Cumberland-Würste (eine gewürzte Schweinswurst, zur Schnecke gerollt), Damson-Marmelade (aus kleinen Pflaumen) und Honig aus dem Tal.",
+    "it": "Sabato mattina allo spaccio di una fattoria con pecore Herdwick nella valle. Sugli scaffali ci sono uova fresche, salsiccia del Cumberland (una salsiccia di maiale speziata, arrotolata a spirale), marmellata di damson (piccole susine) e miele della valle.",
+    "en": "Saturday morning at the farm shop of a Herdwick sheep farm in the dale. On the shelves: fresh eggs, Cumberland sausage (a spiced pork sausage in a coil), damson jam and honey from the dale."
+  },
+  "role": "Mrs Atkinson, who runs the farm shop on her family's Herdwick farm in the dale. Friendly and chatty, proud of her eggs and her Cumberland sausage, calls customers \"love\". Simple, kind British English with a light Cumbrian touch.",
+  "who": { "en": "The farmer at the shop", "sl": "Kmetica v trgovini", "de": "Die Bäuerin im Hofladen", "it": "La contadina allo spaccio" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "field",
+  "goals": [
+    { "en": "Greet Mrs Atkinson", "sl": "Pozdravi gospo Atkinson", "de": "Grüße Mrs Atkinson", "it": "Saluta la signora Atkinson" },
+    { "en": "Ask for half a dozen eggs", "sl": "Prosi za pol ducata jajc", "de": "Frag nach sechs Eiern", "it": "Chiedi mezza dozzina di uova" },
+    { "en": "Ask for a Cumberland sausage", "sl": "Prosi za cumberlandsko klobaso", "de": "Frag nach einer Cumberland-Wurst", "it": "Chiedi una salsiccia del Cumberland" },
+    { "en": "Ask how much it is", "sl": "Vprašaj, koliko stane", "de": "Frag, was es kostet", "it": "Chiedi quanto costa" },
+    { "en": "Pay and say goodbye", "sl": "Plačaj in se poslovi", "de": "Bezahle und verabschiede dich", "it": "Paga e saluta" }
+  ],
+  "opener_sl": "Morning, love! The eggs are lovely and fresh today. What can I get you?",
+  "opener_en": {
+    "sl": "Dobro jutro! Jajca so danes lepo sveža. Kaj vam lahko dam?",
+    "de": "Guten Morgen! Die Eier sind heute schön frisch. Was darf es sein?",
+    "it": "Buongiorno! Le uova oggi sono freschissime. Che cosa le do?",
+    "en": "Good morning! The eggs are lovely and fresh today. What can I get you?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Morning!", "en": { "sl": "Dobro jutro!", "de": "Guten Morgen!", "it": "Buongiorno!", "en": "Good morning!" } },
+    { "sl": "Half a dozen eggs, please.", "en": { "sl": "Pol ducata (šest) jajc, prosim.", "de": "Sechs Eier, bitte.", "it": "Mezza dozzina di uova, per favore.", "en": "Six eggs, please." } },
+    { "sl": "Have you got any Cumberland sausage?", "en": { "sl": "Imate cumberlandsko klobaso?", "de": "Haben Sie Cumberland-Wurst?", "it": "Ha della salsiccia del Cumberland?", "en": "Do you have Cumberland sausage?" } },
+    { "sl": "How much is that?", "en": { "sl": "Koliko stane to?", "de": "Was kostet das?", "it": "Quanto costa?", "en": "What's the price?" } },
+    { "sl": "That's everything, thanks.", "en": { "sl": "To je vse, hvala.", "de": "Das ist alles, danke.", "it": "È tutto, grazie.", "en": "That's all, thanks." } },
+    { "sl": "Can I pay by card?", "en": { "sl": "Lahko plačam s kartico?", "de": "Kann ich mit Karte zahlen?", "it": "Posso pagare con la carta?", "en": "Can I pay with a card?" } },
+    { "sl": "Cheers, bye!", "en": { "sl": "Hvala, adijo!", "de": "Danke, tschüss!", "it": "Grazie, ciao!", "en": "Thanks, bye!" } }
+  ],
+  "packs": ["food", "at-the-market", "numbers-and-time", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}
