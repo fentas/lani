@@ -170,7 +170,7 @@ class SceneCoherenceTest {
             }
         }
         assertTrue(bad.joinToString("\n", prefix = "\n"), bad.isEmpty())
-        assertEquals("the steps' done lines (both levels)", 46, marked)
+        assertEquals("the steps' done lines (both levels)", 66, marked)
     }
 
     @Test fun `the step's scene shows its work from the line that says it's done`() {
