@@ -1,0 +1,323 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "congiuntivo",
+  "language": "it",
+  "level": "B1",
+  "emoji": "💭",
+  "title": { "it": "Penso che sia, voglio che venga", "de": "Der Konjunktiv: penso che sia", "sl": "Konjunktiv: penso che sia", "en": "The subjunctive: penso che sia" },
+  "goal": {
+    "de": "Du sagst, was du von anderen willst, hoffst und glaubst: Voglio che tu venga. Spero che Moro dorma. Penso che sia vero. Und für dich selbst: Voglio andare.",
+    "sl": "Poveš, kaj hočeš, upaš in misliš o drugih: Voglio che tu venga. Spero che Moro dorma. Penso che sia vero. In zase: Voglio andare.",
+    "en": "You can say what you want, hope and think about others: Voglio che tu venga. Spero che Moro dorma. Penso che sia vero. And for yourself: Voglio andare."
+  },
+  "grammar": ["congiuntivo", "presente-regolare", "verbi-irregolari"],
+  "words": ["volere", "sperare", "pensare", "giocare", "mangiare", "aiutare", "restare", "dormire", "leggere", "capire", "finire", "chiudere", "venire", "andare", "fare", "stare", "la minestra", "la porta", "il compito", "la storia", "la festa", "la gubana", "il frico", "la pecora", "la stalla", "il giardino", "il calcio", "la pioggia", "il trattore", "vero", "pronto", "felice", "stanco", "contento", "presto", "bene"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "verbo", "de": "Verb", "sl": "glagol", "en": "verb" },
+        { "it": "che io, tu, lui, lei", "de": "che io, tu, lui, lei (dass ich, du, er, sie)", "sl": "che io, tu, lui, lei (da jaz, ti, on, ona)", "en": "che io, tu, lui, lei (that I, you, he, she)" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Willst du, dass *ein anderer* etwas tut, sagst du **voglio che** (ich will, dass) und eine neue Form: den **congiuntivo**. Bei **-are** endet er auf **-i**: **giocare → giochi**. **Voglio che tu giochi con me.** (Ich will, dass du mit mir spielst.) **Nonna vuole che Giulia mangi.** (Oma will, dass Giulia isst.)",
+          "sl": "Ko hočeš, da *kdo drug* nekaj naredi, rečeš **voglio che** (hočem, da) in novo obliko: **congiuntivo**. Pri **-are** se konča na **-i**: **giocare → giochi**. **Voglio che tu giochi con me.** (Hočem, da se igraš z mano.) **Nonna vuole che Giulia mangi.** (Babica hoče, da Giulia je.)",
+          "en": "When you want *someone else* to do something, say **voglio che** (I want … to) and a new form: the **congiuntivo**. With **-are** it ends in **-i**: **giocare → giochi**. **Voglio che tu giochi con me.** (I want you to play with me.) **Nonna vuole che Giulia mangi.** (Grandma wants Giulia to eat.)"
+        },
+        "examples": [
+          { "it": "Voglio che tu giochi con me.", "de": "Ich will, dass du mit mir spielst.", "sl": "Hočem, da se igraš z mano.", "en": "I want you to play with me." },
+          { "it": "Nonna Rosa vuole che Giulia mangi la minestra.", "de": "Nonna Rosa will, dass Giulia die Suppe isst.", "sl": "Babica Rosa hoče, da Giulia poje juho.", "en": "Nonna Rosa wants Giulia to eat her soup." }
+        ],
+        "rows": [
+          ["giocare", "giochi", "Voglio che tu giochi."],
+          ["mangiare", "mangi", "Vuole che Giulia mangi."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "congiuntivo", "prompt": "Nonna Rosa vuole che Giulia ___ la minestra.", "options": ["mangi", "mangia", "mangiare"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**vuole che** + eine andere Person → **congiuntivo**: -are → **mangi**\n- mangia · sie isst (so erzählst du es)\n- mangiare · essen (ohne che)",
+            "sl": "**vuole che** + druga oseba → **congiuntivo**: -are → **mangi**\n- mangia · je (tako pripoveduješ)\n- mangiare · jesti (brez che)",
+            "en": "**vuole che** + someone else → **congiuntivo**: -are → **mangi**\n- mangia · she eats (telling what happens)\n- mangiare · to eat (without che)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei **-ere** und **-ire** endet der congiuntivo auf **-a**: **leggere → legga**, **dormire → dorma**. Nach **spero che** (ich hoffe, dass) geht es genauso: **Spero che Moro dorma.** (Ich hoffe, Moro schläft.) Verben mit **-isc-** behalten es: **capire → capisca**.",
+          "sl": "Pri **-ere** in **-ire** se congiuntivo konča na **-a**: **leggere → legga**, **dormire → dorma**. Za **spero che** (upam, da) gre enako: **Spero che Moro dorma.** (Upam, da Moro spi.) Glagoli z **-isc-** ga obdržijo: **capire → capisca**.",
+          "en": "With **-ere** and **-ire** the congiuntivo ends in **-a**: **leggere → legga**, **dormire → dorma**. After **spero che** (I hope that) it's the same: **Spero che Moro dorma.** (I hope Moro is asleep.) Verbs with **-isc-** keep it: **capire → capisca**."
+        },
+        "examples": [
+          { "it": "Spero che Moro dorma bene.", "de": "Ich hoffe, dass Moro gut schläft.", "sl": "Upam, da Moro dobro spi.", "en": "I hope Moro sleeps well." },
+          { "it": "La maestra vuole che Lorenzo legga una storia.", "de": "Die Lehrerin will, dass Lorenzo eine Geschichte liest.", "sl": "Učiteljica hoče, da Lorenzo prebere zgodbo.", "en": "The teacher wants Lorenzo to read a story." }
+        ],
+        "rows": [
+          ["dormire", "dorma", "Spero che Moro dorma."],
+          ["capire", "capisca", "Spero che tu capisca."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "congiuntivo", "text": "Nonno Bepi vuole che Tommaso ___ la porta. (chiudere)", "accept": ["chiuda"], "hint": "-ere → ?",
+          "explain": {
+            "de": "**vuole che** + Tommaso → -ere → **chiuda**",
+            "sl": "**vuole che** + Tommaso → -ere → **chiuda**",
+            "en": "**vuole che** + Tommaso → -ere → **chiuda**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die zwei wichtigsten Verben haben eigene Formen: **essere → sia**, **avere → abbia**. Mit **penso che** (ich glaube, dass) sagst du, was du meinst: **Penso che sia vero.** (Ich glaube, das ist wahr.) **Penso che Lorenzo abbia fame.** (Ich glaube, Lorenzo hat Hunger.) Beim Reden hört man auch **penso che è**; in der Schule schreibst du **sia**.",
+          "sl": "Najpomembnejša glagola imata svoji obliki: **essere → sia**, **avere → abbia**. S **penso che** (mislim, da) poveš svoje mnenje: **Penso che sia vero.** (Mislim, da je res.) **Penso che Lorenzo abbia fame.** (Mislim, da je Lorenzo lačen.) V govoru slišiš tudi **penso che è**; v šoli pišeš **sia**.",
+          "en": "The two most important verbs have forms of their own: **essere → sia**, **avere → abbia**. With **penso che** (I think that) you say what you believe: **Penso che sia vero.** (I think it's true.) **Penso che Lorenzo abbia fame.** (I think Lorenzo is hungry.) In talk you also hear **penso che è**; at school you write **sia**."
+        },
+        "examples": [
+          { "it": "Penso che sia vero.", "de": "Ich glaube, das ist wahr.", "sl": "Mislim, da je res.", "en": "I think it's true." },
+          { "it": "Penso che Lorenzo abbia fame.", "de": "Ich glaube, Lorenzo hat Hunger.", "sl": "Mislim, da je Lorenzo lačen.", "en": "I think Lorenzo is hungry." }
+        ],
+        "rows": [
+          ["essere", "sia", "Penso che sia vero."],
+          ["avere", "abbia", "Penso che abbia fame."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "congiuntivo", "prompt": "«Dov'è Moro?» «Penso che ___ in giardino.»", "options": ["sia", "è", "abbia"], "answer": 0, "almost": [1], "say_options": true,
+          "explain": {
+            "de": "**penso che** → **sia**\n- è · so sagt man es oft beim Reden; in der Schule: sia\n- abbia · von avere (haben)",
+            "sl": "**penso che** → **sia**\n- è · tako pogosto rečemo v govoru; v šoli: sia\n- abbia · od avere (imeti)",
+            "en": "**penso che** → **sia**\n- è · often said in talk; at school: sia\n- abbia · from avere (have)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Andere kurze Verben haben auch eigene Formen, meist wie das **io** im Präsens: **vado → vada**, **faccio → faccia**, **vengo → venga**, **posso → possa**, **dico → dica**. Nur **stare** macht **stia**. **Voglio che tu venga alla festa.** (Ich will, dass du zum Fest kommst.) **Spero che tu stia bene.** (Ich hoffe, es geht dir gut.)",
+          "sl": "Tudi drugi kratki glagoli imajo svoje oblike, večinoma kot **io** v sedanjiku: **vado → vada**, **faccio → faccia**, **vengo → venga**, **posso → possa**, **dico → dica**. Samo **stare** naredi **stia**. **Voglio che tu venga alla festa.** (Hočem, da prideš na praznik.) **Spero che tu stia bene.** (Upam, da si dobro.)",
+          "en": "Other short verbs have forms of their own too, mostly like the present's **io**: **vado → vada**, **faccio → faccia**, **vengo → venga**, **posso → possa**, **dico → dica**. Only **stare** makes **stia**. **Voglio che tu venga alla festa.** (I want you to come to the festa.) **Spero che tu stia bene.** (I hope you're well.)"
+        },
+        "examples": [
+          { "it": "Voglio che tu venga alla festa.", "de": "Ich will, dass du zum Fest kommst.", "sl": "Hočem, da prideš na praznik.", "en": "I want you to come to the festa." },
+          { "it": "Spero che tu stia bene, Zia Nives!", "de": "Ich hoffe, es geht dir gut, Tante Nives!", "sl": "Upam, da si dobro, teta Nives!", "en": "I hope you're well, Zia Nives!" }
+        ],
+        "rows": [
+          ["andare", "vada", "Vuole che io vada."],
+          ["fare", "faccia", "Spero che faccia bel tempo."],
+          ["venire", "venga", "Voglio che tu venga."],
+          ["stare", "stia", "Spero che tu stia bene."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "congiuntivo", "text": "Giulia vuole che Lorenzo ___ al mare con lei. (venire)", "accept": ["venga"], "hint": "io vengo → che lui …",
+          "explain": {
+            "de": "**vengo** → **venga**: wie das io, mit -a",
+            "sl": "**vengo** → **venga**: kot io, z -a",
+            "en": "**vengo** → **venga**: like io, with -a"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für **loro** (sie, mehrere) kommt **-no** dazu: **giochino**, **dormano**, **siano**, **abbiano**. **Penso che le pecore abbiano sete.** (Ich glaube, die Schafe haben Durst.) **Noi** ist wie im Präsens: **Nonna vuole che giochiamo in giardino.** (Oma will, dass wir im Garten spielen.)",
+          "sl": "Za **loro** (oni, več oseb) dodaš **-no**: **giochino**, **dormano**, **siano**, **abbiano**. **Penso che le pecore abbiano sete.** (Mislim, da so ovce žejne.) **Noi** je kot v sedanjiku: **Nonna vuole che giochiamo in giardino.** (Babica hoče, da se igramo na vrtu.)",
+          "en": "For **loro** (they) add **-no**: **giochino**, **dormano**, **siano**, **abbiano**. **Penso che le pecore abbiano sete.** (I think the sheep are thirsty.) **Noi** is as in the present: **Nonna vuole che giochiamo in giardino.** (Grandma wants us to play in the garden.)"
+        },
+        "examples": [
+          { "it": "Penso che le pecore di Davide abbiano sete.", "de": "Ich glaube, Davides Schafe haben Durst.", "sl": "Mislim, da so Davidove ovce žejne.", "en": "I think Davide's sheep are thirsty." },
+          { "it": "Nonna vuole che giochiamo in giardino.", "de": "Oma will, dass wir im Garten spielen.", "sl": "Babica hoče, da se igramo na vrtu.", "en": "Grandma wants us to play in the garden." }
+        ],
+        "rows": [
+          [{ "it": "loro", "de": "loro (sie)", "sl": "loro (oni)", "en": "loro (they)" }, "giochino, dormano, siano", "Penso che siano stanchi."],
+          [{ "it": "noi", "de": "noi (wir)", "sl": "noi (mi)", "en": "noi (we)" }, "giochiamo, dormiamo", "Vuole che giochiamo."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "congiuntivo", "prompt": "Penso che Bianca e Nerina ___ stanche.", "options": ["siano", "sia", "sono"], "answer": 0, "almost": [2], "say_options": true,
+          "explain": {
+            "de": "**Bianca e Nerina** = loro → **siano**\n- sia · nur eine\n- sono · so sagt man es oft beim Reden; in der Schule: siano",
+            "sl": "**Bianca e Nerina** = loro → **siano**\n- sia · samo ena\n- sono · tako pogosto rečemo v govoru; v šoli: siano",
+            "en": "**Bianca e Nerina** = loro → **siano**\n- sia · just one\n- sono · often said in talk; at school: siano"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Tust du etwas *selbst*, brauchst du kein **che**, nur die Grundform: **Voglio andare al mare.** (Ich will ans Meer gehen.) **Che** und der congiuntivo kommen nur, wenn es um *einen anderen* geht: **Voglio che tu vada al mare.** Und auf eine Frage sagst du kurz **Penso di sì.** (Ich glaube schon.) oder **Penso di no.**",
+          "sl": "Ko nekaj narediš *sam*, ne rabiš **che**, le nedoločnik: **Voglio andare al mare.** (Hočem iti na morje.) **Che** in congiuntivo prideta le, ko gre za *drugega*: **Voglio che tu vada al mare.** Na vprašanje pa kratko rečeš **Penso di sì.** (Mislim, da ja.) ali **Penso di no.**",
+          "en": "When you do something *yourself*, there's no **che**, just the infinitive: **Voglio andare al mare.** (I want to go to the sea.) **Che** and the congiuntivo come only when it's about *someone else*: **Voglio che tu vada al mare.** And to answer a question, say **Penso di sì.** (I think so.) or **Penso di no.**"
+        },
+        "examples": [
+          { "it": "Voglio andare al mare.", "de": "Ich will ans Meer gehen.", "sl": "Hočem iti na morje.", "en": "I want to go to the sea." },
+          { "it": "«Viene anche Tommaso?» «Penso di sì!»", "de": "„Kommt Tommaso auch?“ „Ich glaube schon!“", "sl": "»Pride tudi Tommaso?« »Mislim, da ja!«", "en": "\"Is Tommaso coming too?\" \"I think so!\"" }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "congiuntivo", "prompt": "Tommaso prende il pallone: «Voglio ___ a calcio!»", "options": ["giocare", "che io giochi", "che gioco"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Tommaso spielt selbst** → **voglio giocare**\n- che io giochi · che nur für einen anderen\n- che gioco · so geht es nie",
+            "sl": "**Tommaso se igra sam** → **voglio giocare**\n- che io giochi · che le za drugega\n- che gioco · tako nikoli",
+            "en": "**Tommaso plays himself** → **voglio giocare**\n- che io giochi · che only for someone else\n- che gioco · never like this"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "congiuntivo-1",
+      "title": { "it": "Le forme del congiuntivo", "de": "Die Formen des Konjunktivs", "sl": "Oblike konjunktiva", "en": "The forms of the subjunctive" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "congiuntivo", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "il congiuntivo · der Konjunktiv", "sl": "il congiuntivo · konjunktiv", "en": "il congiuntivo · the subjunctive" },
+          "columns": [
+            { "de": "che io, tu, lui · dass ich, du, er", "sl": "che io, tu, lui · da jaz, ti, on", "en": "che io, tu, lui · that I, you, he" },
+            { "de": "che loro · dass sie", "sl": "che loro · da oni", "en": "che loro · that they" }
+          ],
+          "rows": [
+            { "label": "giocare", "cells": ["giochi", { "accept": ["giochino"], "hint": "loro → ?" }] },
+            { "label": "mangiare", "cells": [{ "accept": ["mangi"], "hint": { "de": "nur ein i", "sl": "samo en i", "en": "just one i" } }, { "accept": ["mangino"] }] },
+            { "label": "dormire", "cells": [{ "accept": ["dorma"], "hint": "-ire → ?" }, { "accept": ["dormano"] }] },
+            { "label": "leggere", "cells": [{ "accept": ["legga"] }, "leggano"] },
+            { "label": "capire", "cells": [{ "accept": ["capisca"], "hint": "-isc-" }, "capiscano"] },
+            { "label": "essere", "cells": [{ "accept": ["sia"] }, { "accept": ["siano"] }] },
+            { "label": "avere", "cells": [{ "accept": ["abbia"] }, { "accept": ["abbiano"] }] },
+            { "label": "andare", "cells": [{ "accept": ["vada"], "hint": "io vado → …" }, { "accept": ["vadano"] }] },
+            { "label": "fare", "cells": [{ "accept": ["faccia"], "hint": "io faccio → …" }, "facciano"] },
+            { "label": "venire", "cells": [{ "accept": ["venga"], "hint": "io vengo → …" }, "vengano"] },
+            { "label": "stare", "cells": ["stia", { "accept": ["stiano"] }] }
+          ],
+          "explain": {
+            "de": "**-are → -i**, **-ere, -ire → -a**; loro + **-no**\n- giocare → giochi, giochino · dormire → dorma, dormano\n- essere → sia · avere → abbia · andare → vada · stare → stia",
+            "sl": "**-are → -i**, **-ere, -ire → -a**; loro + **-no**\n- giocare → giochi, giochino · dormire → dorma, dormano\n- essere → sia · avere → abbia · andare → vada · stare → stia",
+            "en": "**-are → -i**, **-ere, -ire → -a**; loro + **-no**\n- giocare → giochi, giochino · dormire → dorma, dormano\n- essere → sia · avere → abbia · andare → vada · stare → stia"
+          }
+        },
+        {
+          "type": "choice", "grammar": "congiuntivo", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "La maestra vuole che noi ___ in silenzio.", "options": ["lavoriamo", "lavoriate", "lavorare"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**noi** → wie im Präsens: **lavoriamo**\n- lavoriate · voi (ihr)\n- lavorare · ohne che",
+            "sl": "**noi** → kot v sedanjiku: **lavoriamo**\n- lavoriate · voi (vi)\n- lavorare · brez che",
+            "en": "**noi** → as in the present: **lavoriamo**\n- lavoriate · voi (you all)\n- lavorare · without che"
+          }
+        },
+        {
+          "type": "choice", "grammar": "congiuntivo", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Davide spera che le pecore ___ a casa prima della pioggia.", "options": ["tornino", "torni", "tornare"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**le pecore** = loro → **tornino**\n- torni · nur eine\n- tornare · ohne che",
+            "sl": "**le pecore** = loro → **tornino**\n- torni · samo ena\n- tornare · brez che",
+            "en": "**le pecore** = loro → **tornino**\n- torni · just one\n- tornare · without che"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-2",
+      "title": { "it": "Prima della festa", "de": "Vor dem Fest", "sl": "Pred praznikom", "en": "Before the festa" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "congiuntivo", "instruction": { "de": "Completa con il congiuntivo · Ergänze mit dem Konjunktiv", "sl": "Completa con il congiuntivo · Dopolni s konjunktivom", "en": "Completa con il congiuntivo · Fill in with the subjunctive" }, "title": "Prima della festa",
+          "text": "Domani c'è la festa del paese. Nonna Rosa vuole che Giulia ___ (aiutare) in cucina. «Spero che tu ___ (avere) tempo, tesoro!» E la nonna vuole che la gubana ___ (essere) pronta per le dieci. Tommaso vuole che tutti i bambini ___ (giocare) a calcio con lui. Zia Nives spera che non ___ (piovere). E Nonno Bepi vuole che Moro ___ (stare) a casa, perché è vecchio.",
+          "gaps": [
+            { "accept": ["aiuti"], "hint": "-are → ?" },
+            { "accept": ["abbia"] },
+            { "accept": ["sia"], "explain": { "de": "**vuole che** + la gubana → **sia**", "sl": "**vuole che** + la gubana → **sia**", "en": "**vuole che** + la gubana → **sia**" } },
+            { "accept": ["giochino"], "hint": "loro → ?" },
+            { "accept": ["piova"], "hint": "-ere → ?" },
+            { "accept": ["stia"] }
+          ],
+          "bank": true,
+          "distractors": ["aiuta", "ha", "giocano", "sta"],
+          "translation": {
+            "de": "Morgen ist das Dorffest. Nonna Rosa will, dass Giulia in der Küche hilft. „Ich hoffe, du hast Zeit, Schatz!“ Und Oma will, dass die Gubana um zehn fertig ist. Tommaso will, dass alle Kinder mit ihm Fußball spielen. Tante Nives hofft, dass es nicht regnet. Und Nonno Bepi will, dass Moro zu Hause bleibt, weil er alt ist.",
+            "sl": "Jutri je vaški praznik. Babica Rosa hoče, da Giulia pomaga v kuhinji. »Upam, da imaš čas, srček!« Babica pa hoče, da je gubana pripravljena do desetih. Tommaso hoče, da vsi otroci z njim igrajo nogomet. Teta Nives upa, da ne bo deževalo. Dedek Bepi pa hoče, da Moro ostane doma, ker je star.",
+            "en": "Tomorrow is the village festa. Nonna Rosa wants Giulia to help in the kitchen. \"I hope you have time, sweetheart!\" And Grandma wants the gubana to be ready by ten. Tommaso wants all the children to play football with him. Zia Nives hopes it won't rain. And Nonno Bepi wants Moro to stay at home, because he's old."
+          }
+        },
+        {
+          "type": "choice", "grammar": "congiuntivo", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Lorenzo: «Il nonno vuole che io ___ a letto presto.»", "options": ["vada", "vado", "andare"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**il nonno vuole** … **io** gehe: zwei Personen → **che io vada**\n- vado · ich gehe (so erzählst du es)\n- andare · nur ohne che",
+            "sl": "**il nonno vuole** … **io** grem: dve osebi → **che io vada**\n- vado · grem (tako pripoveduješ)\n- andare · le brez che",
+            "en": "**il nonno vuole** … **io** go: two people → **che io vada**\n- vado · I go (telling what happens)\n- andare · only without che"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-3",
+      "title": { "it": "Voglio che …", "de": "Ich will, dass …", "sl": "Hočem, da …", "en": "I want … to …" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "congiuntivo", "instruction": { "de": "Comincia con «Voglio che» · Fang mit «Voglio che» an", "sl": "Comincia con «Voglio che» · Začni z »Voglio che«", "en": "Comincia con «Voglio che» · Start with «Voglio che»" },
+          "cue": "(voglio che …)",
+          "whole": true,
+          "items": [
+            { "from": "Lorenzo mangia la mela.", "accept": ["Voglio che Lorenzo mangi la mela."] },
+            { "from": "Giulia legge la storia.", "accept": ["Voglio che Giulia legga la storia."] },
+            { "from": "Tommaso viene alla festa.", "accept": ["Voglio che Tommaso venga alla festa."], "hint": "io vengo → …" },
+            { "from": "Moro sta in giardino.", "accept": ["Voglio che Moro stia in giardino."] },
+            { "from": "Le pecore sono nella stalla.", "accept": ["Voglio che le pecore siano nella stalla."] },
+            { "from": "Tu fai i compiti.", "accept": ["Voglio che tu faccia i compiti.", "Voglio che faccia i compiti."] },
+            { "from": "Nonno Bepi è felice.", "accept": ["Voglio che Nonno Bepi sia felice."] }
+          ],
+          "explain": {
+            "de": "**voglio che** + eine andere Person → **congiuntivo**\n- mangia → mangi · legge → legga · viene → venga\n- sta → stia · sono → siano · fai → faccia · è → sia",
+            "sl": "**voglio che** + druga oseba → **congiuntivo**\n- mangia → mangi · legge → legga · viene → venga\n- sta → stia · sono → siano · fai → faccia · è → sia",
+            "en": "**voglio che** + someone else → **congiuntivo**\n- mangia → mangi · legge → legga · viene → venga\n- sta → stia · sono → siano · fai → faccia · è → sia"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "congiuntivo", "instruction": { "de": "Completa con il congiuntivo · Ergänze mit dem Konjunktiv", "sl": "Completa con il congiuntivo · Dopolni s konjunktivom", "en": "Completa con il congiuntivo · Fill in with the subjunctive" },
+        "text": "Oggi piove. La signora Marisa vuole che Tommaso ___ (restare) a casa. Tommaso vuole che la pioggia ___ (finire) subito. Giulia vuole che Lorenzo ___ (giocare) a carte con lei. Nonna Rosa vuole che i bambini ___ (avere) la pancia piena e prepara il frico. Lorenzo vuole che nonno Franco ___ (venire) a prenderlo con il trattore.",
+        "gaps": [
+          { "accept": ["resti"] },
+          { "accept": ["finisca"] },
+          { "accept": ["giochi"] },
+          { "accept": ["abbiano"], "explain": { "de": "**vuole che** + i bambini (loro) → **abbiano**", "sl": "**vuole che** + i bambini (loro) → **abbiano**", "en": "**vuole che** + i bambini (loro) → **abbiano**" } },
+          { "accept": ["venga"] }
+        ],
+        "translation": {
+          "de": "Heute regnet es. Frau Marisa will, dass Tommaso zu Hause bleibt. Tommaso will, dass der Regen sofort aufhört. Giulia will, dass Lorenzo mit ihr Karten spielt. Nonna Rosa will, dass die Kinder satt werden, und macht Frico. Lorenzo will, dass Opa Franco ihn mit dem Traktor abholt.",
+          "sl": "Danes dežuje. Gospa Marisa hoče, da Tommaso ostane doma. Tommaso hoče, da dež takoj neha. Giulia hoče, da se Lorenzo z njo igra karte. Babica Rosa hoče, da so otroci siti, in pripravi friko. Lorenzo hoče, da ga dedek Franco pride iskat s traktorjem.",
+          "en": "It's raining today. Signora Marisa wants Tommaso to stay at home. Tommaso wants the rain to stop at once. Giulia wants Lorenzo to play cards with her. Nonna Rosa wants the children to have full tummies and makes frico. Lorenzo wants Grandpa Franco to come and fetch him with the tractor."
+        }
+      },
+      {
+        "type": "transform", "grammar": "congiuntivo", "instruction": { "de": "Comincia con «Voglio che» · Fang mit «Voglio che» an", "sl": "Comincia con «Voglio che» · Začni z »Voglio che«", "en": "Comincia con «Voglio che» · Start with «Voglio che»" },
+        "cue": "(voglio che …)",
+        "whole": true,
+        "items": [
+          { "from": "Lorenzo dorme.", "accept": ["Voglio che Lorenzo dorma."] },
+          { "from": "Tu vai a scuola.", "accept": ["Voglio che tu vada a scuola.", "Voglio che vada a scuola."] },
+          { "from": "I bambini sono contenti.", "accept": ["Voglio che i bambini siano contenti."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "congiuntivo", "prompt": "«Hai visto Moro?» «Penso che ___ sotto il tavolo.»", "options": ["sia", "è", "siano"], "answer": 0, "almost": [1], "say_options": true,
+        "explain": {
+          "de": "**penso che** + Moro → **sia**\n- è · beim Reden oft so; in der Schule: sia\n- siano · loro, mehrere",
+          "sl": "**penso che** + Moro → **sia**\n- è · v govoru pogosto tako; v šoli: sia\n- siano · loro, več",
+          "en": "**penso che** + Moro → **sia**\n- è · often so in talk; at school: sia\n- siano · loro, several"
+        }
+      },
+      {
+        "type": "sort", "grammar": "congiuntivo", "instruction": { "de": "Chi lo fa? · Wer tut es?", "sl": "Chi lo fa? · Kdo to naredi?", "en": "Chi lo fa? · Who does it?" },
+        "columns": [
+          { "label": { "de": "io stesso · ich selbst", "sl": "io stesso · jaz sam", "en": "io stesso · I myself" }, "words": ["Voglio dormire.", "Spero di vincere."] },
+          { "label": { "de": "un altro · ein anderer", "sl": "un altro · nekdo drug", "en": "un altro · someone else" }, "words": ["Voglio che Moro dorma.", "Spero che tu vinca."] }
+        ],
+        "explain": {
+          "de": "**ich selbst** → die Grundform (Voglio dormire.) · **ein anderer** → **che** + congiuntivo (Voglio che Moro dorma.)",
+          "sl": "**jaz sam** → nedoločnik (Voglio dormire.) · **nekdo drug** → **che** + congiuntivo (Voglio che Moro dorma.)",
+          "en": "**I myself** → the infinitive (Voglio dormire.) · **someone else** → **che** + congiuntivo (Voglio che Moro dorma.)"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: penso che è as spoken (almost), volere che + indicative as wrong, Spero di vincere, the German for a child"
+}
