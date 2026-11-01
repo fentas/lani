@@ -1,0 +1,115 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "passivo",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🍰",
+  "title": {
+    "it": "La torta è stata mangiata: il passivo",
+    "sl": "Torta je bila pojedena: trpnik",
+    "en": "The cake has been eaten: the passive",
+    "de": "Der Kuchen ist gegessen worden: das Passiv"
+  },
+  "rule": {
+    "en": "The passive puts the thing first and says what is done to it: **essere** + the participle, which agrees like an adjective: **Il frico è fatto con il formaggio.** (is made) **La gubana è fatta da Nonna Rosa.** **I biscotti sono fatti, le pecore sono contate** (-o, -a, -i, -e).\n\nWho does it comes after **da** (by), its article melted in as always: **da Giulia, dal nonno, dalla nonna, dalle api**: **Il miele è fatto dalle api.**\n\nIn the past essere's own past comes in, **è stato, è stata, sono stati, sono state**, and both participles agree: **La torta è stata mangiata!** (has been eaten) **Il vaso è stato rotto. Le lettere sono state scritte.** (never *la torta è stato mangiata*)\n\nFrom an ordinary sentence to the passive, the thing done to goes first and the doer behind da; the tense stays: **Moro ha mangiato la torta. → La torta è stata mangiata da Moro.**\n\nFor the present **venire** + the participle is a passive too: **Il formaggio viene fatto in montagna.** (is made) It says the same as è fatto, as German *wird* does.",
+    "sl": "Trpnik postavi stvar naprej in pove, kaj se z njo dela: **essere** + deležnik, ki se ujema kot pridevnik: **Il frico è fatto con il formaggio.** (je narejen) **La gubana è fatta da Nonna Rosa.** **I biscotti sono fatti, le pecore sono contate** (-o, -a, -i, -e).\n\nKdo to dela, pride za **da** (od), s členom zlit kot vedno: **da Giulia, dal nonno, dalla nonna, dalle api**: **Il miele è fatto dalle api.** (Med delajo čebele.)\n\nV preteklosti pride zraven preteklik od essere, **è stato, è stata, sono stati, sono state**, in oba deležnika se ujemata: **La torta è stata mangiata!** (Torta je bila pojedena!) **Il vaso è stato rotto. Le lettere sono state scritte.** (nikoli *la torta è stato mangiata*)\n\nIz navadnega stavka v trpnik: stvar gre naprej, kdo je to naredil, pa za da; čas ostane: **Moro ha mangiato la torta. → La torta è stata mangiata da Moro.**\n\nZa sedanjost je trpnik tudi **venire** + deležnik: **Il formaggio viene fatto in montagna.** (Sir delajo v gorah.) Pomeni isto kot è fatto.",
+    "de": "Das Passiv stellt die Sache nach vorn und sagt, was mit ihr gemacht wird: **essere** + das Partizip, das sich wie ein Adjektiv anpasst: **Il frico è fatto con il formaggio.** (wird gemacht) **La gubana è fatta da Nonna Rosa.** **I biscotti sono fatti, le pecore sono contate** (-o, -a, -i, -e).\n\nWer es tut, kommt nach **da** (von), mit dem Artikel verschmolzen wie immer: **da Giulia, dal nonno, dalla nonna, dalle api**: **Il miele è fatto dalle api.**\n\nIn der Vergangenheit kommt die Vergangenheit von essere dazu, **è stato, è stata, sono stati, sono state**, und beide Partizipien passen sich an: **La torta è stata mangiata!** (Der Kuchen ist gegessen worden!) **Il vaso è stato rotto. Le lettere sono state scritte.** (nie *la torta è stato mangiata*)\n\nVom normalen Satz zum Passiv: Die Sache kommt nach vorn, wer es getan hat, hinter da; die Zeit bleibt: **Moro ha mangiato la torta. → La torta è stata mangiata da Moro.**\n\nFür die Gegenwart ist auch **venire** + Partizip ein Passiv: **Il formaggio viene fatto in montagna.** (wird gemacht) Es heißt dasselbe wie è fatto, wie das deutsche *wird*."
+  },
+  "table": {
+    "head": [
+      { "it": "forma", "sl": "oblika", "en": "form", "de": "Form" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" },
+      { "it": "significa", "sl": "pomeni", "en": "means", "de": "heißt" }
+    ],
+    "rows": [
+      ["è fatto, è fatta", "La gubana è fatta da Nonna Rosa.", { "it": "qualcuno la fa", "sl": "je narejen, narejena", "en": "is made", "de": "wird gemacht" }],
+      ["sono fatti, sono fatte", "I biscotti sono fatti con il burro.", { "it": "qualcuno li fa", "sl": "so narejeni, narejene", "en": "are made", "de": "werden gemacht" }],
+      ["da, dal, dalla, dalle", "Il miele è fatto dalle api.", { "it": "chi lo fa", "sl": "od (kdo)", "en": "by", "de": "von" }],
+      ["è stato rotto", "Il vaso è stato rotto.", { "it": "qualcuno l'ha rotto", "sl": "je bil razbit", "en": "has been broken", "de": "ist kaputt gemacht worden" }],
+      ["è stata mangiata", "La torta è stata mangiata!", { "it": "qualcuno l'ha mangiata", "sl": "je bila pojedena", "en": "has been eaten", "de": "ist gegessen worden" }],
+      ["sono stati portati", "I tavoli sono stati portati in piazza.", { "it": "qualcuno li ha portati", "sl": "so bili prineseni", "en": "have been brought", "de": "sind gebracht worden" }],
+      ["sono state scritte", "Le lettere sono state scritte da Giulia.", { "it": "qualcuno le ha scritte", "sl": "so bila napisana", "en": "have been written", "de": "sind geschrieben worden" }],
+      ["viene fatto", "Il formaggio viene fatto in montagna.", { "it": "è fatto, adesso", "sl": "delajo ga", "en": "is made", "de": "wird gemacht" }]
+    ]
+  },
+  "examples": [
+    {
+      "it": "La gubana è fatta da Nonna Rosa.",
+      "sl": "Gubano speče babica Rosa.",
+      "en": "The gubana is made by Nonna Rosa.",
+      "de": "Die Gubana wird von Nonna Rosa gemacht.",
+      "note": {
+        "sl": "fatta: la gubana je ženskega spola. Kdo jo naredi: da Nonna Rosa.",
+        "en": "fatta: la gubana is feminine. Who makes it: da Nonna Rosa.",
+        "de": "fatta: la gubana ist weiblich. Wer sie macht: da Nonna Rosa."
+      }
+    },
+    {
+      "it": "Il miele è fatto dalle api.",
+      "sl": "Med delajo čebele.",
+      "en": "Honey is made by the bees.",
+      "de": "Der Honig wird von den Bienen gemacht.",
+      "note": {
+        "sl": "da + le api → dalle api.",
+        "en": "da + le api → dalle api.",
+        "de": "da + le api → dalle api."
+      }
+    },
+    {
+      "it": "I biscotti sono fatti con il burro.",
+      "sl": "Piškoti so narejeni z maslom.",
+      "en": "The biscuits are made with butter.",
+      "de": "Die Kekse werden mit Butter gemacht."
+    },
+    {
+      "it": "La torta è stata mangiata!",
+      "sl": "Torta je bila pojedena!",
+      "en": "The cake has been eaten!",
+      "de": "Der Kuchen ist gegessen worden!",
+      "note": {
+        "sl": "Dva deležnika, oba se ujemata: stata, mangiata.",
+        "en": "Two participles, both agree: stata, mangiata.",
+        "de": "Zwei Partizipien, beide passen sich an: stata, mangiata."
+      }
+    },
+    {
+      "it": "Il vaso di Zia Nives è stato rotto.",
+      "sl": "Vaza tete Nives je bila razbita.",
+      "en": "Zia Nives's vase has been broken.",
+      "de": "Die Vase von Zia Nives ist kaputt gemacht worden."
+    },
+    {
+      "it": "La torta è stata mangiata da Moro.",
+      "sl": "Torto je pojedel Moro.",
+      "en": "The cake has been eaten by Moro.",
+      "de": "Der Kuchen ist von Moro gegessen worden.",
+      "note": {
+        "sl": "Moro ha mangiato la torta → La torta è stata mangiata da Moro.",
+        "en": "Moro ha mangiato la torta → La torta è stata mangiata da Moro.",
+        "de": "Moro ha mangiato la torta → La torta è stata mangiata da Moro."
+      }
+    },
+    {
+      "it": "Le pecore sono contate da Davide ogni sera.",
+      "sl": "Ovce vsak večer prešteje Davide.",
+      "en": "The sheep are counted by Davide every evening.",
+      "de": "Die Schafe werden jeden Abend von Davide gezählt."
+    },
+    {
+      "it": "Il formaggio viene fatto in montagna.",
+      "sl": "Sir delajo v gorah.",
+      "en": "The cheese is made in the mountains.",
+      "de": "Der Käse wird in den Bergen gemacht.",
+      "note": {
+        "sl": "viene fatto = è fatto, za sedanjost.",
+        "en": "viene fatto = è fatto, for the present.",
+        "de": "viene fatto = è fatto, für die Gegenwart."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["passivo", "passive", "participio", "participle", "essere", "da"],
+  "see": ["passato-prossimo", "participi-irregolari", "preposizioni-articolate", "aggettivi-accordo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

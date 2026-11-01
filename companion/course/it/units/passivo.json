@@ -1,0 +1,320 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "passivo",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🍰",
+  "title": { "it": "La torta è stata mangiata!", "de": "Das Passiv: è stata mangiata", "sl": "Trpnik: è stata mangiata", "en": "The passive: è stata mangiata" },
+  "goal": {
+    "de": "Du sagst, was mit einer Sache gemacht wird oder worden ist (la gubana è fatta da Nonna Rosa, la torta è stata mangiata!) und von wem: da, dal, dalla.",
+    "sl": "Poveš, kaj se s čim dela ali je bilo narejeno (la gubana è fatta da Nonna Rosa, la torta è stata mangiata!) in kdo: da, dal, dalla.",
+    "en": "You can say what is done or has been done to a thing (la gubana è fatta da Nonna Rosa, la torta è stata mangiata!) and by whom: da, dal, dalla."
+  },
+  "grammar": ["passivo", "passato-prossimo", "participi-irregolari", "preposizioni-articolate"],
+  "words": ["la torta", "la gubana", "il frico", "la polenta", "il miele", "l'ape", "il formaggio", "il biscotto", "il burro", "la farina", "la noce", "la ciliegia", "il vaso", "il piatto", "la finestra", "la porta", "la lettera", "le briciole", "la formica", "il ladro", "l'armadio", "la sedia", "il tavolo", "la bandiera", "il campanile", "il palloncino", "il vento", "il mugnaio", "fare", "rompere", "scrivere", "contare", "lavare", "portare", "comprare", "felice"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "forma", "de": "Form", "sl": "oblika", "en": "form" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Mit **essere** + Partizip sagst du, was mit einer Sache gemacht wird, die Sache vorn: **Il frico è fatto con il formaggio.** (Der Frico wird mit Käse gemacht.) Das Partizip passt sich an wie ein Adjektiv: **La gubana è fatta con le noci** (Die Gubana wird mit Nüssen gemacht), mit -a, weil **la gubana** weiblich ist.",
+          "sl": "Z **essere** + deležnikom poveš, kaj se s stvarjo dela, stvar spredaj: **Il frico è fatto con il formaggio.** (Frico je narejen s sirom.) Deležnik se ujema kot pridevnik: **La gubana è fatta con le noci** (Gubana je narejena z orehi), z -a, ker je **la gubana** ženskega spola.",
+          "en": "With **essere** + the participle you say what is done to a thing, the thing first: **Il frico è fatto con il formaggio.** (Frico is made with cheese.) The participle agrees like an adjective: **La gubana è fatta con le noci** (The gubana is made with walnuts), with -a, as **la gubana** is feminine."
+        },
+        "examples": [
+          { "it": "Il frico è fatto con il formaggio e le patate.", "de": "Der Frico wird mit Käse und Kartoffeln gemacht.", "sl": "Frico je narejen iz sira in krompirja.", "en": "Frico is made with cheese and potatoes." },
+          { "it": "La gubana è fatta con le noci.", "de": "Die Gubana wird mit Nüssen gemacht.", "sl": "Gubana je narejena z orehi.", "en": "The gubana is made with walnuts." }
+        ],
+        "rows": [
+          ["il frico è fatto", { "de": "der Frico wird gemacht", "sl": "frico je narejen", "en": "frico is made" }],
+          ["la gubana è fatta", { "de": "die Gubana wird gemacht", "sl": "gubana je narejena", "en": "the gubana is made" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "passivo", "text": "La polenta è ___ (fare) con la farina di Franco.", "accept": ["fatta"], "hint": "la polenta → -a",
+          "explain": {
+            "de": "**la polenta** ist weiblich → **è fatta**, wie ein Adjektiv.",
+            "sl": "**la polenta** je ženskega spola → **è fatta**, kot pridevnik.",
+            "en": "**la polenta** is feminine → **è fatta**, like an adjective."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere heißt es **sono** + Partizip mit **-i** oder **-e**: **I biscotti sono fatti con il burro.** (Die Kekse werden mit Butter gemacht.) **Le pecore sono contate ogni sera.** (Die Schafe werden jeden Abend gezählt.) Wie bei einem Adjektiv: -o, -a, -i, -e.",
+          "sl": "Za več je **sono** + deležnik z **-i** ali **-e**: **I biscotti sono fatti con il burro.** (Piškoti so narejeni z maslom.) **Le pecore sono contate ogni sera.** (Ovce vsak večer preštejejo.) Kot pri pridevniku: -o, -a, -i, -e.",
+          "en": "For more than one it's **sono** + the participle in **-i** or **-e**: **I biscotti sono fatti con il burro.** (The biscuits are made with butter.) **Le pecore sono contate ogni sera.** (The sheep are counted every evening.) As with an adjective: -o, -a, -i, -e."
+        },
+        "examples": [
+          { "it": "I biscotti sono fatti con il burro.", "de": "Die Kekse werden mit Butter gemacht.", "sl": "Piškoti so narejeni z maslom.", "en": "The biscuits are made with butter." },
+          { "it": "Le pecore sono contate ogni sera.", "de": "Die Schafe werden jeden Abend gezählt.", "sl": "Ovce vsak večer preštejejo.", "en": "The sheep are counted every evening." }
+        ],
+        "rows": [
+          ["i biscotti sono fatti", { "de": "die Kekse werden gemacht", "sl": "piškoti so narejeni", "en": "the biscuits are made" }],
+          ["le pecore sono contate", { "de": "die Schafe werden gezählt", "sl": "ovce so preštete", "en": "the sheep are counted" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passivo", "prompt": "«I piatti ___ dopo il pranzo.»", "options": ["sono lavati", "sono lavate", "è lavato"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**i piatti** (männlich, mehrere) → **sono lavati**\n- lavate · für weibliche: le tazze\n- è lavato · für einen",
+            "sl": "**i piatti** (moški spol, več) → **sono lavati**\n- lavate · za ženske: le tazze\n- è lavato · za enega",
+            "en": "**i piatti** (masculine, more than one) → **sono lavati**\n- lavate · for feminine: le tazze\n- è lavato · for one"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wer es tut, kommt nach **da** (von): **La gubana è fatta da Nonna Rosa.** (Die Gubana wird von Nonna Rosa gemacht.) Mit dem Artikel verschmilzt **da** wie immer: **dal** nonno, **dalla** nonna, **dalle** api: **Il miele è fatto dalle api.** (Der Honig wird von den Bienen gemacht.)",
+          "sl": "Kdo to dela, pride za **da** (od): **La gubana è fatta da Nonna Rosa.** (Gubano speče babica Rosa.) S členom se **da** zlije kot vedno: **dal** nonno, **dalla** nonna, **dalle** api: **Il miele è fatto dalle api.** (Med delajo čebele.)",
+          "en": "Who does it comes after **da** (by): **La gubana è fatta da Nonna Rosa.** (The gubana is made by Nonna Rosa.) With the article **da** melts as always: **dal** nonno, **dalla** nonna, **dalle** api: **Il miele è fatto dalle api.** (Honey is made by the bees.)"
+        },
+        "examples": [
+          { "it": "La gubana è fatta da Nonna Rosa.", "de": "Die Gubana wird von Nonna Rosa gemacht.", "sl": "Gubano speče babica Rosa.", "en": "The gubana is made by Nonna Rosa." },
+          { "it": "Il miele è fatto dalle api.", "de": "Der Honig wird von den Bienen gemacht.", "sl": "Med delajo čebele.", "en": "Honey is made by the bees." }
+        ],
+        "rows": [
+          ["da, dal, dalla, dalle", { "de": "von", "sl": "od (kdo)", "en": "by" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passivo", "prompt": "«La farina è fatta ___ mugnaio.»", "options": ["dal", "del", "al"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**wer es macht** → **da** + il → **dal** mugnaio\n- del · von dem, wie in la casa del nonno\n- al · zu dem",
+            "sl": "**kdo to dela** → **da** + il → **dal** mugnaio\n- del · od koga je, kot la casa del nonno\n- al · k njemu",
+            "en": "**who makes it** → **da** + il → **dal** mugnaio\n- del · of the, as in la casa del nonno\n- al · to the"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "In der Vergangenheit kommt **stato** dazu: **è stato, è stata, sono stati, sono state** + Partizip, und beide passen sich an: **La torta è stata mangiata!** (Der Kuchen ist gegessen worden!) **Il vaso è stato rotto.** (Die Vase ist kaputt gemacht worden.) Im Deutschen heißt das *ist … worden*.",
+          "sl": "V preteklosti pride zraven **stato**: **è stato, è stata, sono stati, sono state** + deležnik, in oba se ujemata: **La torta è stata mangiata!** (Torta je bila pojedena!) **Il vaso è stato rotto.** (Vaza je bila razbita.)",
+          "en": "In the past **stato** comes in: **è stato, è stata, sono stati, sono state** + the participle, and both agree: **La torta è stata mangiata!** (The cake has been eaten!) **Il vaso è stato rotto.** (The vase has been broken.)"
+        },
+        "examples": [
+          { "it": "La torta è stata mangiata!", "de": "Der Kuchen ist gegessen worden!", "sl": "Torta je bila pojedena!", "en": "The cake has been eaten!" },
+          { "it": "Il vaso di Zia Nives è stato rotto.", "de": "Die Vase von Zia Nives ist kaputt gemacht worden.", "sl": "Vaza tete Nives je bila razbita.", "en": "Zia Nives's vase has been broken." }
+        ],
+        "rows": [
+          ["il vaso è stato rotto", { "de": "die Vase ist kaputt gemacht worden", "sl": "vaza je bila razbita", "en": "the vase has been broken" }],
+          ["la torta è stata mangiata", { "de": "der Kuchen ist gegessen worden", "sl": "torta je bila pojedena", "en": "the cake has been eaten" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passivo", "prompt": "«Oh no! La finestra è ___ rotta!»", "options": ["stata", "stato", "stati"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**la finestra** (weiblich) → **è stata rotta**: beide mit -a\n- stato · für männliche: il vaso\n- stati · für mehrere",
+            "sl": "**la finestra** (ženski spol) → **è stata rotta**: oba z -a\n- stato · za moški spol: il vaso\n- stati · za več",
+            "en": "**la finestra** (feminine) → **è stata rotta**: both in -a\n- stato · for masculine: il vaso\n- stati · for more than one"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Aus einem normalen Satz wird ein Passiv: Die Sache rückt nach vorn, und wer es getan hat, kommt hinter **da**: **Moro ha mangiato la torta.** (Moro hat den Kuchen gegessen.) → **La torta è stata mangiata da Moro.** Die Zeit bleibt: **ha mangiato** wird zu **è stata mangiata**.",
+          "sl": "Iz navadnega stavka nastane trpnik: stvar gre naprej, kdo je to naredil, pa za **da**: **Moro ha mangiato la torta.** (Moro je pojedel torto.) → **La torta è stata mangiata da Moro.** Čas ostane: **ha mangiato** postane **è stata mangiata**.",
+          "en": "An ordinary sentence becomes a passive: the thing moves to the front, and who did it goes behind **da**: **Moro ha mangiato la torta.** (Moro ate the cake.) → **La torta è stata mangiata da Moro.** The tense stays: **ha mangiato** becomes **è stata mangiata**."
+        },
+        "examples": [
+          { "it": "Moro ha mangiato la torta.", "de": "Moro hat den Kuchen gegessen.", "sl": "Moro je pojedel torto.", "en": "Moro ate the cake." },
+          { "it": "La torta è stata mangiata da Moro.", "de": "Der Kuchen ist von Moro gegessen worden.", "sl": "Torto je pojedel Moro.", "en": "The cake has been eaten by Moro." }
+        ],
+        "rows": [
+          ["Moro ha mangiato la torta", { "de": "Moro hat den Kuchen gegessen", "sl": "Moro je pojedel torto", "en": "Moro ate the cake" }],
+          ["la torta è stata mangiata da Moro", { "de": "der Kuchen ist von Moro gegessen worden", "sl": "torto je pojedel Moro", "en": "the cake has been eaten by Moro" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "passivo", "text": "Giulia ha scritto la lettera. → La lettera è stata ___ da Giulia.", "accept": ["scritta"], "hint": "scrivere → scritto → ?",
+          "explain": {
+            "de": "**la lettera** (weiblich) → **scritta**: scrivere hat sein eigenes Partizip, scritto.",
+            "sl": "**la lettera** (ženski spol) → **scritta**: scrivere ima svoj deležnik, scritto.",
+            "en": "**la lettera** (feminine) → **scritta**: scrivere has a participle of its own, scritto."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für die Gegenwart geht auch **venire** + Partizip: **Il formaggio viene fatto in montagna.** (Der Käse wird in den Bergen gemacht.) **Viene** ist hier wie das deutsche *wird*, und **è fatto** heißt dasselbe. Für mehrere: **I biscotti vengono fatti dalla nonna.**",
+          "sl": "Za sedanjost gre tudi **venire** + deležnik: **Il formaggio viene fatto in montagna.** (Sir delajo v gorah.) **Viene fatto** pomeni isto kot **è fatto**. Za več: **I biscotti vengono fatti dalla nonna.** (Piškote peče babica.)",
+          "en": "For the present **venire** + the participle works too: **Il formaggio viene fatto in montagna.** (The cheese is made in the mountains.) **Viene fatto** says the same as **è fatto**. For more than one: **I biscotti vengono fatti dalla nonna.**"
+        },
+        "examples": [
+          { "it": "Il formaggio viene fatto in montagna.", "de": "Der Käse wird in den Bergen gemacht.", "sl": "Sir delajo v gorah.", "en": "The cheese is made in the mountains." },
+          { "it": "I biscotti vengono fatti dalla nonna.", "de": "Die Kekse werden von der Oma gemacht.", "sl": "Piškote peče babica.", "en": "The biscuits are made by Grandma." }
+        ],
+        "rows": [
+          ["viene fatto", { "de": "wird gemacht", "sl": "ga delajo", "en": "is made" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "passivo", "prompt": "«Il frico ___ con il formaggio di montagna.»", "options": ["viene fatto", "viene fatta", "vengono fatti"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**il frico** (männlich, einer) → **viene fatto**\n- viene fatta · für weibliche: la gubana\n- vengono fatti · für mehrere",
+            "sl": "**il frico** (moški spol, eden) → **viene fatto**\n- viene fatta · za ženski spol: la gubana\n- vengono fatti · za več",
+            "en": "**il frico** (masculine, one) → **viene fatto**\n- viene fatta · for feminine: la gubana\n- vengono fatti · for more than one"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "passivo-1",
+      "title": { "it": "Fatto, fatta, fatti, fatte", "de": "Fatto, fatta, fatti, fatte", "sl": "Fatto, fatta, fatti, fatte", "en": "Fatto, fatta, fatti, fatte" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "passivo", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "è … · sono …", "columns": ["il frico", "la torta", "i biscotti", "le mele"],
+          "rows": [
+            { "label": "fare", "cells": ["fatto", { "accept": ["fatta"] }, { "accept": ["fatti"] }, { "accept": ["fatte"] }] },
+            { "label": "mangiare", "cells": [{ "accept": ["mangiato"] }, "mangiata", { "accept": ["mangiati"] }, { "accept": ["mangiate"] }] },
+            { "label": "portare", "cells": [{ "accept": ["portato"] }, { "accept": ["portata"] }, "portati", { "accept": ["portate"] }] },
+            { "label": "prendere", "cells": [{ "accept": ["preso"], "hint": "-so" }, { "accept": ["presa"] }, { "accept": ["presi"] }, "prese"] }
+          ],
+          "explain": {
+            "de": "**wie ein Adjektiv**: -o (il frico), -a (la torta), -i (i biscotti), -e (le mele)\n- prendere → preso, presa, presi, prese",
+            "sl": "**kot pridevnik**: -o (il frico), -a (la torta), -i (i biscotti), -e (le mele)\n- prendere → preso, presa, presi, prese",
+            "en": "**like an adjective**: -o (il frico), -a (la torta), -i (i biscotti), -e (le mele)\n- prendere → preso, presa, presi, prese"
+          }
+        },
+        {
+          "type": "choice", "grammar": "passivo", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Le ciliegie ___ da Giulia e dalla nonna.»", "options": ["sono raccolte", "sono raccolti", "è raccolta"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**le ciliegie** (weiblich, mehrere) → **sono raccolte**\n- raccolti · für männliche\n- è raccolta · für eine",
+            "sl": "**le ciliegie** (ženski spol, več) → **sono raccolte**\n- raccolti · za moški spol\n- è raccolta · za eno",
+            "en": "**le ciliegie** (feminine, more than one) → **sono raccolte**\n- raccolti · for masculine\n- è raccolta · for one"
+          }
+        },
+        {
+          "type": "choice", "grammar": "passivo", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«La lettera è scritta ___ maestra.»", "options": ["dalla", "della", "alla"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**wer schreibt** → **da** + la → **dalla** maestra\n- della · von der, wie in il libro della maestra\n- alla · an die",
+            "sl": "**kdo piše** → **da** + la → **dalla** maestra\n- della · od koga je, kot il libro della maestra\n- alla · k njej",
+            "en": "**who writes it** → **da** + la → **dalla** maestra\n- della · of the, as in il libro della maestra\n- alla · to the"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passivo-2",
+      "title": { "it": "Il mistero della gubana", "de": "Das Rätsel der Gubana", "sl": "Skrivnost gubane", "en": "The mystery of the gubana" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "passivo", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "Il mistero della gubana",
+          "text": "Domenica Nonna Rosa mette la gubana sulla finestra. A mezzogiorno grida: «La gubana è ___ mangiata!» {learner} e Giulia cercano il ladro. Il piatto è stato ___ (rompere), e le briciole sono ___ portate fino al tiglio. «Sono state mangiate ___ formiche?» chiede Giulia. No! Sotto il tiglio c'è Moro, felice. «La gubana è stata mangiata ___ Moro!» dice Nonno Bepi, e ride. Da oggi la gubana è ___ (mettere) nell'armadio, non sulla finestra!",
+          "gaps": [
+            { "accept": ["stata"], "hint": "la gubana → ?" },
+            { "accept": ["rotto"], "hint": { "de": "rompere hat sein eigenes Partizip", "sl": "rompere ima svoj deležnik", "en": "rompere has a participle of its own" } },
+            { "accept": ["state"], "hint": "le briciole → ?" },
+            { "accept": ["dalle"], "hint": "da + le" },
+            { "accept": ["da"], "hint": { "de": "von wem?", "sl": "kdo?", "en": "by whom?" } },
+            { "accept": ["messa"], "hint": { "de": "mettere → messo, für la gubana", "sl": "mettere → messo, za la gubana", "en": "mettere → messo, for la gubana" } }
+          ],
+          "bank": true, "distractors": ["stato", "rompito", "delle"],
+          "translation": {
+            "de": "Am Sonntag stellt Nonna Rosa die Gubana aufs Fensterbrett. Am Mittag ruft sie: „Die Gubana ist gegessen worden!“ {learner} und Giulia suchen den Dieb. Der Teller ist kaputt gemacht worden, und die Krümel sind bis zur Linde getragen worden. „Sind sie von den Ameisen gegessen worden?“, fragt Giulia. Nein! Unter der Linde liegt Moro, glücklich. „Die Gubana ist von Moro gegessen worden!“, sagt Nonno Bepi und lacht. Ab heute wird die Gubana in den Schrank gestellt, nicht aufs Fensterbrett!",
+            "sl": "V nedeljo babica Rosa postavi gubano na okno. Opoldne zavpije: »Gubana je bila pojedena!« {learner} in Giulia iščeta tatu. Krožnik je bil razbit, drobtine pa so bile odnesene do lipe. »So jih pojedle mravlje?« vpraša Giulia. Ne! Pod lipo leži Moro, srečen. »Gubano je pojedel Moro!« reče dedek Bepi in se smeje. Od danes gubano dajejo v omaro, ne na okno!",
+            "en": "On Sunday Nonna Rosa puts the gubana on the windowsill. At noon she shouts: \"The gubana has been eaten!\" {learner} and Giulia look for the thief. The plate has been broken, and the crumbs have been carried all the way to the linden. \"Have they been eaten by the ants?\" asks Giulia. No! Under the linden lies Moro, happy. \"The gubana has been eaten by Moro!\" says Nonno Bepi, and laughs. From today the gubana is put in the cupboard, not on the windowsill!"
+          }
+        },
+        {
+          "type": "choice", "grammar": "passivo", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Chi ha rotto il vaso?» «Non lo so, ma il vaso ___ rotto ieri.»", "options": ["è stato", "è stata", "ha stato"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**il vaso** (männlich) → **è stato rotto**\n- è stata · für weibliche: la finestra\n- ha stato · gibt es nicht: stato geht mit essere",
+            "sl": "**il vaso** (moški spol) → **è stato rotto**\n- è stata · za ženski spol: la finestra\n- ha stato · ne obstaja: stato gre z essere",
+            "en": "**il vaso** (masculine) → **è stato rotto**\n- è stata · for feminine: la finestra\n- ha stato · doesn't exist: stato goes with essere"
+          }
+        }
+      ]
+    },
+    {
+      "id": "passivo-3",
+      "title": { "it": "Al passivo!", "de": "Ins Passiv!", "sl": "V trpnik!", "en": "Into the passive!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "passivo", "instruction": { "de": "Metti al passivo · Mach ein Passiv daraus", "sl": "Metti al passivo · Postavi v trpnik", "en": "Metti al passivo · Make it passive" }, "cue": "da",
+          "items": [
+            { "from": "Nonna Rosa fa la gubana.", "accept": ["La gubana è fatta da Nonna Rosa.", "La gubana viene fatta da Nonna Rosa."] },
+            { "from": "Le api fanno il miele.", "accept": ["Il miele è fatto dalle api.", "Il miele viene fatto dalle api."], "hint": "da + le → dalle" },
+            { "from": "Davide conta le pecore.", "accept": ["Le pecore sono contate da Davide.", "Le pecore vengono contate da Davide."] },
+            { "from": "Il nonno porta i cesti.", "accept": ["I cesti sono portati dal nonno.", "I cesti vengono portati dal nonno."], "hint": "da + il → dal" }
+          ],
+          "explain": {
+            "de": "**die Sache vorn** + è, sono + Partizip + **da** wer es tut\n- Le api fanno il miele. → Il miele è fatto dalle api.\n- auch: viene fatto, vengono contate",
+            "sl": "**stvar spredaj** + è, sono + deležnik + **da** kdo to dela\n- Le api fanno il miele. → Il miele è fatto dalle api.\n- tudi: viene fatto, vengono contate",
+            "en": "**the thing first** + è, sono + participle + **da** who does it\n- Le api fanno il miele. → Il miele è fatto dalle api.\n- also: viene fatto, vengono contate"
+          }
+        },
+        {
+          "type": "transform", "grammar": "passivo", "instruction": { "de": "Metti al passivo · Mach ein Passiv daraus", "sl": "Metti al passivo · Postavi v trpnik", "en": "Metti al passivo · Make it passive" }, "cue": "è stato …",
+          "items": [
+            { "from": "Moro ha mangiato la torta.", "accept": ["La torta è stata mangiata da Moro."] },
+            { "from": "Tommaso ha rotto la finestra.", "accept": ["La finestra è stata rotta da Tommaso."], "hint": "rompere → rotto" },
+            { "from": "Giulia ha scritto le lettere.", "accept": ["Le lettere sono state scritte da Giulia."], "hint": "scrivere → scritto" },
+            { "from": "Bruno ha portato i tavoli.", "accept": ["I tavoli sono stati portati da Bruno."] }
+          ],
+          "explain": {
+            "de": "**ha + Partizip** → **è stato, è stata, sono stati, sono state** + Partizip, beide passen sich an\n- Moro ha mangiato la torta. → La torta è stata mangiata da Moro.",
+            "sl": "**ha + deležnik** → **è stato, è stata, sono stati, sono state** + deležnik, oba se ujemata\n- Moro ha mangiato la torta. → La torta è stata mangiata da Moro.",
+            "en": "**ha + participle** → **è stato, è stata, sono stati, sono state** + participle, both agreeing\n- Moro ha mangiato la torta. → La torta è stata mangiata da Moro."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "passivo", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Sabato c'è la festa in piazza, e tutto è pronto. Le sedie sono state ___ (portare) in piazza da Bruno. La bandiera è ___ messa sul campanile. Il frico è stato ___ (fare) da Marisa, e le torte sono state fatte ___ nonne del paese. «E i palloncini?» chiede Lorenzo. «Sono stati ___ (comprare) da Tommaso!»",
+        "gaps": [
+          { "accept": ["portate"] },
+          { "accept": ["stata"] },
+          { "accept": ["fatto"] },
+          { "accept": ["dalle"] },
+          { "accept": ["comprati"] }
+        ],
+        "translation": {
+          "de": "Am Samstag ist das Fest auf dem Platz, und alles ist fertig. Die Stühle sind von Bruno auf den Platz getragen worden. Die Fahne ist auf den Kirchturm gehängt worden. Der Frico ist von Marisa gemacht worden, und die Kuchen sind von den Omas des Dorfes gebacken worden. „Und die Luftballons?“, fragt Lorenzo. „Die sind von Tommaso gekauft worden!“",
+          "sl": "V soboto je praznik na trgu in vse je pripravljeno. Stole je na trg prinesel Bruno. Zastava je bila izobešena na zvonik. Frico je naredila Marisa, torte pa so spekle vaške babice. »Pa baloni?« vpraša Lorenzo. »Kupil jih je Tommaso!«",
+          "en": "On Saturday there's the festa on the square, and everything is ready. The chairs have been carried to the square by Bruno. The flag has been put up on the bell tower. The frico has been made by Marisa, and the cakes have been baked by the village grannies. \"And the balloons?\" asks Lorenzo. \"They've been bought by Tommaso!\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "passivo", "instruction": { "de": "Metti al passivo · Mach ein Passiv daraus", "sl": "Metti al passivo · Postavi v trpnik", "en": "Metti al passivo · Make it passive" },
+        "items": [
+          { "from": "Franco fa la farina.", "accept": ["La farina è fatta da Franco.", "La farina viene fatta da Franco."] },
+          { "from": "Giulia ha mangiato le ciliegie.", "accept": ["Le ciliegie sono state mangiate da Giulia."] },
+          { "from": "Aldo ha preso il miele.", "accept": ["Il miele è stato preso da Aldo."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "passivo", "prompt": "«I biscotti ___ da Nonna Rosa.»", "options": ["sono fatti", "sono fatte", "è fatto"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**i biscotti** (männlich, mehrere) → **sono fatti**\n- fatte · für weibliche\n- è fatto · für einen",
+          "sl": "**i biscotti** (moški spol, več) → **sono fatti**\n- fatte · za ženski spol\n- è fatto · za enega",
+          "en": "**i biscotti** (masculine, more than one) → **sono fatti**\n- fatte · for feminine\n- è fatto · for one"
+        }
+      },
+      {
+        "type": "choice", "grammar": "passivo", "prompt": "«Chi ha aperto la porta?» «La porta è stata aperta ___ vento!»", "options": ["dal", "del", "al"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**wer es getan hat** → **da** + il → **dal** vento\n- del · von dem, wie in la porta del nonno\n- al · zu dem",
+          "sl": "**kdo je to naredil** → **da** + il → **dal** vento\n- del · od koga je, kot la porta del nonno\n- al · k njemu",
+          "en": "**who did it** → **da** + il → **dal** vento\n- del · of the, as in la porta del nonno\n- al · to the"
+        }
+      },
+      {
+        "type": "sort", "grammar": "passivo", "instruction": { "de": "Chi lo fa? · Wer tut es, und mit wem passiert es?", "sl": "Chi lo fa? · Kdo to dela in s čim se zgodi?", "en": "Chi lo fa? · Who does it, and what is it done to?" },
+        "columns": [
+          { "label": { "de": "ha … · jemand hat es getan", "sl": "ha … · nekdo je to naredil", "en": "ha … · someone did it" }, "words": ["Moro ha mangiato.", "Giulia ha scritto."] },
+          { "label": { "de": "è stato … · es ist getan worden", "sl": "è stato … · to je bilo narejeno", "en": "è stato … · it has been done" }, "words": ["È stato mangiato.", "È stata scritta."] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: è fatto and viene fatto, la gubana è messa nell'armadio, le briciole portate fino al tiglio, the German worden for a child"
+}
