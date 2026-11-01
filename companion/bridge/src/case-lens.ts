@@ -581,8 +581,6 @@ export class CaseLens {
     for (const r of this.s.dict.grammarReadings(form)) {
       const key = `${this.norm(r.lemma)}|${r.pos}`
       if (r.pos === 'verb') {
-        // a verb the forms book has a table of: the table's forms only (Wiktionary's merge homographs: biti, to beat)
-        if (this.tabled.has(key)) continue
         // a past participle (zaprt, rešen) declines as an adjective: its dictionary form the masculine nominative
         // singular, a thing's accusative too; a verbal noun (spanje, petje) is a neuter noun's nominative or accusative;
         // the converbs (hodeč, prišedši) say how, as an adverb does; the supine (žvižgat) is as the infinitive, after a
@@ -599,6 +597,9 @@ export class CaseLens {
           caseless.add('adv')
           continue
         }
+        // a verb the forms book has a table of: the table's forms only (Wiktionary's merge homographs: biti, to beat); its
+        // participles, verbal nouns and converbs, which no table has, as above (spanje, prišedši)
+        if (this.tabled.has(key)) continue
         if (r.grammar === 'supine') {
           verbs.push({ lemma: r.lemma, kind: 'inf' })
           continue
