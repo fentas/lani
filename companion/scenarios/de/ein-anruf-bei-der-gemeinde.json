@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "ein-anruf-bei-der-gemeinde",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Ein Anruf bei der Gemeinde", "sl": "Klic na občino", "en": "A call to the council", "it": "Una telefonata al comune" },
+  "emoji": "☎️",
+  "level": "A2",
+  "setting": {
+    "sl": "Pravkar si se {m:preselil|f:preselila} v vas. V Avstriji se moraš v treh dneh prijaviti na občini (Gemeindeamt) z obrazcem Meldezettel. Pokličeš občinski urad, da vprašaš, kdaj je odprt in kaj moraš prinesti.",
+    "en": "You have just moved to the village. In Austria you register at the council office (the Gemeindeamt) within three days, with a form called the Meldezettel. You phone the office to ask when it is open and what to bring.",
+    "it": "Ti sei appena {m:trasferito|f:trasferita} in paese. In Austria ci si deve registrare in comune (il Gemeindeamt) entro tre giorni, con un modulo che si chiama Meldezettel. Telefoni all'ufficio per chiedere quando è aperto e che cosa portare."
+  },
+  "role": "Frau Pirker, a clerk at the council office (Gemeindeamt), on the phone. Friendly, a little formal: register within three days with the Meldezettel and a passport or ID card; open Mon-Fri 8-12 (Parteienverkehr). Asks {learner} to spell their name (any will do). Says Sie.",
+  "who": { "de": "Die Frau vom Gemeindeamt", "sl": "Uradnica na občini", "en": "The council clerk", "it": "L'impiegata del comune" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "kitchen",
+  "goals": [
+    { "de": "Grüße und sag deinen Namen", "sl": "Pozdravi in povej svoje ime", "en": "Greet her and say your name", "it": "Saluta e di' come ti chiami" },
+    { "de": "Sag, dass du dich anmelden möchtest", "sl": "Povej, da bi se {m:rad|f:rada} {m:prijavil|f:prijavila}", "en": "Say you want to register", "it": "Di' che vuoi registrarti" },
+    { "de": "Frag, wann das Amt offen hat", "sl": "Vprašaj, kdaj je urad odprt", "en": "Ask when the office is open", "it": "Chiedi quando è aperto l'ufficio" },
+    { "de": "Buchstabiere deinen Namen", "sl": "Črkuj svoje ime", "en": "Spell your name", "it": "Fai lo spelling del tuo nome" },
+    { "de": "Bedanke dich und verabschiede dich", "sl": "Zahvali se in se poslovi", "en": "Say thank you and goodbye", "it": "Ringrazia e saluta" }
+  ],
+  "opener_sl": "Gemeindeamt, Pirker, grüß Gott! Was kann ich für Sie tun?",
+  "opener_en": {
+    "sl": "Občina, Pirker, dober dan! Kako vam lahko pomagam?",
+    "en": "Council office, Pirker speaking, hello! What can I do for you?",
+    "it": "Comune, sono Pirker, buongiorno! Che cosa posso fare per lei?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Grüß Gott, hier spricht {learner}.", "en": { "sl": "Dober dan, tukaj {learner}.", "en": "Hello, this is {learner} speaking.", "it": "Buongiorno, sono {learner}." } },
+    { "sl": "Ich wohne neu im Dorf.", "en": { "sl": "Na novo živim v vasi.", "en": "I've just moved to the village.", "it": "Abito da poco in paese." } },
+    { "sl": "Ich möchte mich anmelden.", "en": { "sl": "{m:Rad|f:Rada} bi se {m:prijavil|f:prijavila}.", "en": "I'd like to register.", "it": "Vorrei registrarmi." } },
+    { "sl": "Wann haben Sie offen?", "en": { "sl": "Kdaj imate odprto?", "en": "When are you open?", "it": "Quando siete aperti?" } },
+    { "sl": "Was muss ich mitbringen?", "en": { "sl": "Kaj moram prinesti?", "en": "What do I need to bring?", "it": "Che cosa devo portare?" } },
+    { "sl": "Ich buchstabiere: …", "en": { "sl": "Črkujem: …", "en": "I'll spell it: …", "it": "Faccio lo spelling: …" } },
+    { "sl": "Vielen Dank, auf Wiederhören!", "en": { "sl": "Najlepša hvala, na svidenje! (ob koncu klica)", "en": "Thank you very much, goodbye! (on the phone)", "it": "Grazie mille, arrivederci! (al telefono)" } }
+  ],
+  "packs": ["auf-der-gemeinde", "zahlen-und-uhrzeit", "gruesse"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

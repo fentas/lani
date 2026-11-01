@@ -2,7 +2,9 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { validateScenario } from '../../src/scenarios'
+import { talksOffered } from '../../src/scenes'
 import { postOffice, reference } from './fixtures'
+import { curatedTalksOf } from './village-talks'
 import { auth, base, channelEvents, check, client, dataDir, guideOf } from './harness'
 
 export default async function scenarios() {
@@ -11,8 +13,26 @@ export default async function scenarios() {
   const scenarioFiles = readdirSync(curatedScenarios).filter(f => f.endsWith('.json'))
   check('6 curated scenarios', scenarioFiles.length === 6, scenarioFiles)
   for (const f of scenarioFiles) {
-    const v = validateScenario(JSON.parse(readFileSync(join(curatedScenarios, f), 'utf8')))
+    const raw = JSON.parse(readFileSync(join(curatedScenarios, f), 'utf8'))
+    const v = validateScenario(raw)
     check(`curated scenario validates: ${f}`, v.ok && `${v.scenario.id}.json` === f && v.scenario.language === 'sl', v)
+    // Jan's six read in a German or Italian base too: every text per base (en, de, it), the title and who per language
+    const texts = [raw.setting, raw.opener_en, ...raw.goals, ...raw.vocabulary_hints.map((h: any) => h.en)]
+    check(`curated scenario has its texts in en, de and it, its title and who in sl too: ${f}`, texts.every(t => t?.en && t.de && t.it) && [raw.title, raw.who].every(t => t?.sl && t.en && t.de && t.it) && /machine-written/.test(raw.review), texts.filter(t => !(t?.en && t.de && t.it)))
+  }
+  // the German village's role-plays (companion/scenarios/de) and the English one's (companion/scenarios/en): for a grown-up,
+  // every text in each base the language has, the title, goals and who per language, machine-written
+  for (const [language, bases] of [['de', ['sl', 'en', 'it']], ['en', ['sl', 'de', 'it', 'en']]] as const) {
+    const talks = curatedTalksOf(language, [...bases])
+    check(`8 ${language} scenarios`, talks.length === 8, talks.map(t => t.f))
+    for (const { f, raw, missing } of talks) {
+      const v = validateScenario(raw)
+      check(
+        `${language} scenario validates, for a grown-up, its texts in ${[language, ...bases.filter(b => b !== language)].join(' · ')}: ${language}/${f}`,
+        v.ok && `${v.scenario.id}.json` === f && raw.language === language && raw.audience === 'adult' && /machine-written/.test(raw.review) && missing.length === 0 && raw.packs?.length > 0,
+        v.ok ? missing : v.errors,
+      )
+    }
   }
   // Teo's Italian ones (companion/scenarios/it): for a child, every text per language with its English, machine-written
   const italian = join(curatedScenarios, 'it')
@@ -31,7 +51,12 @@ export default async function scenarios() {
   const scList = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
   check('GET /scenarios lists the curated scenarios', scenarioFiles.every(f => scList.some((s: any) => `${s.id}.json` === f && s.source === 'curated')), scList.map((s: any) => s.id))
   check("GET /scenarios lists none of the Italian village's (Jan's village speaks Slovene)", !scList.some((s: any) => ['al-mercato', 'dal-fornaio', 'in-gelateria'].includes(s.id)) && scList.every((s: any) => s.language === 'sl'), scList.map((s: any) => [s.id, s.language]))
-  check("an adult is offered the grown-up's role-play (the inn), its texts as they were", scList.some((s: any) => s.id === 'v-gostilni' && s.audience === 'adult' && s.title === 'V gostilni · At the inn' && s.goals[0] === 'Order a drink'), scList.find((s: any) => s.id === 'v-gostilni'))
+  check("an adult is offered the grown-up's role-play (the inn), its texts as they were", scList.some((s: any) => s.id === 'v-gostilni' && s.audience === 'adult' && s.title === 'V gostilni · At the inn' && s.goals[0] === 'Order a drink' && s.setting.startsWith('Friday evening') && s.who === 'Natakar · The waiter'), scList.find((s: any) => s.id === 'v-gostilni'))
+  check("GET /scenarios lists none of the German or English villages' (Jan's village speaks Slovene)", !scList.some((s: any) => ['beim-baecker', 'im-gasthaus', 'at-the-farm-shop', 'in-the-pub'].includes(s.id)), scList.map((s: any) => s.id))
+  // a scene's "keep talking" leads only into a role-play the learner is offered: a child's scene never into the inn
+  const talking = { dialogs: [{ id: 'kosilo', talk: 'nedeljsko-kosilo', lines: [] }, { id: 'vino', talk: 'v-gostilni', lines: [] }] } as any
+  const forChild = talksOffered(talking, new Set(['nedeljsko-kosilo']))
+  check("a child's scene leads into no grown-up's role-play; a grown-up's into both", forChild.dialogs[0].talk === 'nedeljsko-kosilo' && !('talk' in forChild.dialogs[1]) && talksOffered(talking, new Set(['nedeljsko-kosilo', 'v-gostilni'])) === talking, forChild)
   const lunch = await (await fetch(`${base}/scenarios/nedeljsko-kosilo`, { headers: auth })).json()
   check('GET /scenarios/:id serves the scenario', lunch.goals?.length >= 3 && lunch.opener_sl && lunch.vocabulary_hints?.length > 0, lunch)
   check('GET /scenarios/:id 404s', (await fetch(`${base}/scenarios/nope`, { headers: auth })).status === 404)

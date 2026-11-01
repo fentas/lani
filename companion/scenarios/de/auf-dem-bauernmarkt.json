@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "auf-dem-bauernmarkt",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Auf dem Bauernmarkt", "sl": "Na kmečki tržnici", "en": "At the farmers' market", "it": "Al mercato contadino" },
+  "emoji": "🍎",
+  "level": "A1",
+  "setting": {
+    "sl": "Sobotno dopoldne na kmečki tržnici na vaškem trgu. Mostbauer Stefan ima na stojnici jabolka, hruške, jabolčni sok in steklenice mošta ter ziljsko slanino (Gailtaler Speck) in planinski sir.",
+    "en": "Saturday morning at the farmers' market on the village square. Stefan the cider maker has apples, pears, apple juice and bottles of Most (Austrian cider) on his stall, and Gailtal bacon (Gailtaler Speck) and mountain cheese.",
+    "it": "Sabato mattina al mercato contadino sulla piazza del paese. Stefan, che fa il sidro, ha sul banco mele, pere, succo di mela e bottiglie di Most (il sidro austriaco), e anche speck della Gailtal (Gailtaler Speck) e formaggio d'alpeggio."
+  },
+  "role": "Mostbauer Stefan, the village's cider maker at his market stall. Cheerful and chatty, proud of his apples and his Most; lets {learner} taste a slice of apple. A neighbour from the village: says du to {learner}, who says du too.",
+  "who": { "de": "Der Mostbauer", "sl": "Kmet, ki dela mošt", "en": "The cider maker", "it": "Il produttore di sidro" },
+  "voice": "male",
+  "place": "square",
+  "goals": [
+    { "de": "Grüße Stefan", "sl": "Pozdravi Stefana", "en": "Greet Stefan", "it": "Saluta Stefan" },
+    { "de": "Kauf ein Kilo Äpfel", "sl": "Kupi kilogram jabolk", "en": "Buy a kilo of apples", "it": "Compra un chilo di mele" },
+    { "de": "Frag nach Most oder Speck", "sl": "Vprašaj za mošt ali slanino", "en": "Ask for Most or bacon", "it": "Chiedi del Most o dello speck" },
+    { "de": "Frag, was es kostet", "sl": "Vprašaj, koliko stane", "en": "Ask how much it is", "it": "Chiedi quanto costa" },
+    { "de": "Bedanke dich und verabschiede dich", "sl": "Zahvali se in se poslovi", "en": "Say thank you and goodbye", "it": "Ringrazia e saluta" }
+  ],
+  "opener_sl": "Servus! Schau, die Äpfel sind ganz frisch. Willst du kosten?",
+  "opener_en": {
+    "sl": "Živjo! Poglej, jabolka so čisto sveža. Bi {m:pokusil|f:pokusila}?",
+    "en": "Hi! Look, the apples are really fresh. Do you want a taste?",
+    "it": "Ciao! Guarda, le mele sono freschissime. Vuoi assaggiare?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Servus, Stefan!", "en": { "sl": "Živjo, Stefan!", "en": "Hi, Stefan!", "it": "Ciao, Stefan!" } },
+    { "sl": "Ja, gern!", "en": { "sl": "Ja, z veseljem!", "en": "Yes, please!", "it": "Sì, volentieri!" } },
+    { "sl": "Ein Kilo Äpfel, bitte.", "en": { "sl": "Kilogram jabolk, prosim.", "en": "A kilo of apples, please.", "it": "Un chilo di mele, per favore." } },
+    { "sl": "Hast du auch Most?", "en": { "sl": "Imaš tudi mošt?", "en": "Have you got Most too?", "it": "Hai anche il Most?" } },
+    { "sl": "eine Flasche Most", "en": { "sl": "steklenica mošta", "en": "a bottle of Most", "it": "una bottiglia di Most" } },
+    { "sl": "Was kostet das?", "en": { "sl": "Koliko stane?", "en": "How much is it?", "it": "Quanto costa?" } },
+    { "sl": "Danke, schönes Wochenende!", "en": { "sl": "Hvala, lep vikend!", "en": "Thanks, have a nice weekend!", "it": "Grazie, buon fine settimana!" } }
+  ],
+  "packs": ["auf-dem-markt", "essen", "zahlen-und-uhrzeit", "gruesse"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

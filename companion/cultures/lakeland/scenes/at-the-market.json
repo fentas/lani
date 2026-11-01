@@ -67,6 +67,7 @@
   "dialogs": [
     {
       "id": "eggs",
+      "talk": "at-the-farm-shop",
       "lines": [
         { "who": "maggie", "face": "happy", "en": "Hear the bell? The market's open! Good morning, love.", "sl": "Slišiš zvonec? Tržnica je odprta! Dobro jutro.", "it": "Senti la campanella? Il mercato è aperto! Buongiorno.", "de": "Hörst du die Glocke? Der Markt ist offen! Guten Morgen, Schätzchen.", "fx": { "bell": 1 } },
         { "choices": [
@@ -131,6 +132,7 @@
     },
     {
       "id": "inn",
+      "talk": "in-the-pub",
       "lines": [
         { "who": "birkett", "face": "worried", "en": "Morning, love! Twelve walkers at the inn tonight, and no potatoes! Can you help me?", "sl": "Dobro jutro! Nocoj bo v gostilni dvanajst pohodnikov, krompirja pa nimam! Mi lahko pomagaš?", "it": "Buongiorno! Stasera alla locanda ho dodici escursionisti e niente patate! Mi aiuti?", "de": "Morgen, Schätzchen! Zwölf Wanderer heute Abend im Gasthaus, und keine Kartoffeln! Kannst du mir helfen?", "fx": { "bustle": 0.4 } },
         { "choices": [
@@ -236,6 +238,7 @@
   "variants": [
     {
       "id": "eggs-count",
+      "talk": "at-the-farm-shop",
       "count": { "from": "dice", "min": 3, "max": 12 },
       "memory": { "en": "the day my hens laid so many eggs", "sl": "dan, ko so moje kokoši znesle toliko jajc", "it": "il giorno in cui le mie galline hanno fatto tante uova", "de": "den Tag, an dem meine Hühner so viele Eier gelegt haben" },
       "lines": [
@@ -262,6 +265,7 @@
     },
     {
       "id": "eggs-cheese",
+      "talk": "at-the-farm-shop",
       "memory": { "en": "the piece of my cheese you tasted", "sl": "kos mojega sira, ki si ga {m:poskusil|f:poskusila}", "it": "il pezzo del mio formaggio che hai assaggiato", "de": "das Stück von meinem Käse, das du probiert hast" },
       "lines": [
         { "who": "maggie", "face": "happy", "en": "Now then, love! Try my cheese. I made it myself.", "sl": "Živjo! Poskusi moj sir. Sama sem ga naredila.", "it": "Ciao! Assaggia il mio formaggio. L'ho fatto io.", "de": "Hallo, Schätzchen! Probier meinen Käse. Den hab ich selbst gemacht." },
@@ -290,6 +294,7 @@
     },
     {
       "id": "eggs-rhubarb",
+      "talk": "at-the-farm-shop",
       "months": [3, 4, 5],
       "memory": { "en": "the first rhubarb of spring", "sl": "prvo spomladansko rabarbaro", "it": "il primo rabarbaro di primavera", "de": "den ersten Rhabarber im Frühling" },
       "lines": [
@@ -344,6 +349,7 @@
     },
     {
       "id": "inn-butter",
+      "talk": "in-the-pub",
       "memory": { "en": "the butter for my scones", "sl": "maslo za moje scone", "it": "il burro per i miei scone", "de": "die Butter für meine Scones" },
       "lines": [
         { "who": "birkett", "face": "worried", "en": "Love! The walkers want scones, and I've got no butter. Is there any butter at the stall?", "sl": "Pohodniki hočejo scone, jaz pa nimam masla. Je na stojnici kaj masla?", "it": "Gli escursionisti vogliono gli scone e io non ho burro. Alla bancarella c'è del burro?", "de": "Schätzchen! Die Wanderer wollen Scones, und ich hab keine Butter. Gibt es am Stand Butter?", "fx": { "bustle": 0.3 } },
@@ -372,6 +378,7 @@
     },
     {
       "id": "inn-damsons",
+      "talk": "in-the-pub",
       "months": [9],
       "memory": { "en": "the damsons we picked for the inn", "sl": "slive, ki sva jih {m:nabrala|f:nabrali} za gostilno", "it": "le susine che abbiamo raccolto per la locanda", "de": "die Pflaumen, die wir fürs Gasthaus gepflückt haben" },
       "lines": [
