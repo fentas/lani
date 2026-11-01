@@ -1,0 +1,147 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "brezosebno",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🌫️",
+  "title": {
+    "sl": "Treba je, govori se, mrači se: brez osebka",
+    "en": "Treba je, govori se, mrači se: no subject",
+    "de": "Treba je, govori se, mrači se: ohne Subjekt",
+    "it": "Treba je, govori se, mrači se: senza soggetto"
+  },
+  "rule": {
+    "en": "Some sentences have no subject (*brezosebni stavki*): no one does it, or it doesn't matter who. The verb is in the third person singular, and in the past and the future neuter: **je bilo**, **bo**.\n\n- **treba je** + the infinitive (it has to be done): **Streho je treba popraviti.** What is done is the object, who has to the dative: **Ni ti treba hiteti.** (You needn't hurry.) **Treba je bilo**, **treba bo**, **ni bilo treba**.\n- So too **mogoče**, **potrebno**, **dovoljeno**, **prepovedano je**, **škoda je** + the infinitive: **Tu je prepovedano kaditi.** **Škoda je spati ob tako lepem vremenu.**\n- **The impersonal se:** people in general: **Tu se govori slovensko.** **Kako se pride do mlina?** **Na poroki se je plesalo do jutra.** **Govori se, da …** (people say). **Ne da se popraviti.** (It can't be fixed.) With the dative it is your will: **Danes se mi ne da.** (I can't be bothered.)\n- **Weather and the day:** **dežuje, sneži, grmi; dani se, mrači se**; in the past neuter: **je grmelo**, **se je zdanilo**.",
+    "de": "Manche Sätze haben kein Subjekt (*brezosebni stavki*): niemand tut es, oder es ist egal, wer. Das Verb steht in der 3. Person Singular, in Vergangenheit und Futur im Neutrum: **je bilo**, **bo**.\n\n- **treba je** + Infinitiv (es muss getan werden): **Streho je treba popraviti.** Was getan wird, ist das Objekt, wer muss, steht im Dativ: **Ni ti treba hiteti.** (Du musst dich nicht beeilen.) **Treba je bilo**, **treba bo**, **ni bilo treba**.\n- Ebenso **mogoče**, **potrebno**, **dovoljeno**, **prepovedano je**, **škoda je** + Infinitiv: **Tu je prepovedano kaditi.** **Škoda je spati ob tako lepem vremenu.**\n- **Das unpersönliche se:** die Leute allgemein, wie *man*: **Tu se govori slovensko.** **Kako se pride do mlina?** **Na poroki se je plesalo do jutra.** **Govori se, da …** (man sagt). **Ne da se popraviti.** (Es lässt sich nicht reparieren.) Mit Dativ ist es dein Wille: **Danes se mi ne da.** (Heute habe ich keine Lust.)\n- **Wetter und Tag:** **dežuje, sneži, grmi; dani se, mrači se**; in der Vergangenheit Neutrum: **je grmelo**, **se je zdanilo**.",
+    "it": "Alcune frasi non hanno soggetto (*brezosebni stavki*): nessuno lo fa, o non importa chi. Il verbo è alla 3ª persona singolare, al passato e al futuro neutro: **je bilo**, **bo**.\n\n- **treba je** + infinito (bisogna farlo): **Streho je treba popraviti.** Ciò che si fa è il complemento oggetto, chi deve va al dativo: **Ni ti treba hiteti.** (Non devi affrettarti.) **Treba je bilo**, **treba bo**, **ni bilo treba**.\n- Così anche **mogoče**, **potrebno**, **dovoljeno**, **prepovedano je**, **škoda je** + infinito: **Tu je prepovedano kaditi.** **Škoda je spati ob tako lepem vremenu.**\n- **Il se impersonale:** la gente in generale, come *si*: **Tu se govori slovensko.** **Kako se pride do mlina?** **Na poroki se je plesalo do jutra.** **Govori se, da …** (si dice). **Ne da se popraviti.** (Non si può riparare.) Con il dativo è la tua voglia: **Danes se mi ne da.** (Oggi non ne ho voglia.)\n- **Il tempo e il giorno:** **dežuje, sneži, grmi; dani se, mrači se**; al passato neutro: **je grmelo**, **se je zdanilo**."
+  },
+  "table": {
+    "head": [
+      { "sl": "vrsta", "en": "kind", "de": "Art", "it": "tipo" },
+      { "sl": "sedanjik", "en": "present", "de": "Präsens", "it": "presente" },
+      { "sl": "preteklik", "en": "past", "de": "Vergangenheit", "it": "passato" },
+      { "sl": "prihodnjik", "en": "future", "de": "Futur", "it": "futuro" }
+    ],
+    "rows": [
+      [{"sl": "treba je", "en": "has to be done", "de": "muss getan werden", "it": "bisogna"}, "treba je iti", "treba je bilo iti", "treba bo iti"],
+      [{"sl": "ni treba", "en": "no need", "de": "nicht nötig", "it": "non serve"}, "ni treba iti", "ni bilo treba iti", "ne bo treba iti"],
+      [
+        { "sl": "je + povedek", "en": "je + a word", "de": "je + ein Wort", "it": "je + una parola" },
+        "prepovedano je kaditi",
+        "bilo je prepovedano",
+        "bo prepovedano"
+      ],
+      [{"sl": "se", "en": "people in general", "de": "man", "it": "si"}, "govori se", "se je govorilo", "se bo govorilo"],
+      [{"sl": "se", "en": "can't be done", "de": "lässt sich nicht", "it": "non si può"}, "ne da se", "ni se dalo", "ne bo se dalo"],
+      [{"sl": "vreme", "en": "weather", "de": "Wetter", "it": "tempo"}, "dežuje, grmi", "je deževalo, je grmelo", "bo deževalo"],
+      [{"sl": "dan", "en": "the day", "de": "der Tag", "it": "il giorno"}, "dani se, mrači se", "se je zdanilo", "se bo zmračilo"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Pred zimo je treba popraviti streho.",
+      "en": "The roof has to be fixed before winter.",
+      "de": "Vor dem Winter muss das Dach repariert werden.",
+      "it": "Prima dell'inverno bisogna riparare il tetto.",
+      "note": {
+        "en": "treba je + the infinitive, no subject; streho is the object.",
+        "de": "treba je + Infinitiv, ohne Subjekt; streho ist das Objekt.",
+        "it": "treba je + infinito, senza soggetto; streho è il complemento oggetto."
+      }
+    },
+    {
+      "sl": "Ni ti treba hiteti, kosilo še ni kuhano.",
+      "en": "You needn't hurry, lunch isn't cooked yet.",
+      "de": "Du musst dich nicht beeilen, das Mittagessen ist noch nicht gekocht.",
+      "it": "Non devi affrettarti, il pranzo non è ancora cotto."
+    },
+    {
+      "sl": "Škoda je spati ob tako lepem vremenu.",
+      "en": "It's a pity to sleep in such fine weather.",
+      "de": "Schade, bei so schönem Wetter zu schlafen.",
+      "it": "È un peccato dormire con un tempo così bello."
+    },
+    {
+      "sl": "Kako se pride do mlina?",
+      "en": "How do you get to the mill?",
+      "de": "Wie kommt man zur Mühle?",
+      "it": "Come si arriva al mulino?",
+      "note": {
+        "en": "se + the third person: anyone, as English you or one.",
+        "de": "se + 3. Person: irgendwer, wie man.",
+        "it": "se + 3ª persona: chiunque, come il si impersonale."
+      }
+    },
+    {
+      "sl": "Na Markovi poroki se je plesalo do jutra.",
+      "en": "At Marko's wedding there was dancing till morning.",
+      "de": "Auf Markos Hochzeit wurde bis zum Morgen getanzt.",
+      "it": "Al matrimonio di Marko si è ballato fino al mattino.",
+      "note": {
+        "en": "The past without a subject: neuter, se je plesalo.",
+        "de": "Die Vergangenheit ohne Subjekt: Neutrum, se je plesalo.",
+        "it": "Il passato senza soggetto: neutro, se je plesalo."
+      }
+    },
+    {
+      "sl": "Stare ure se ne da več popraviti.",
+      "en": "The old clock can't be fixed any more.",
+      "de": "Die alte Uhr lässt sich nicht mehr reparieren.",
+      "it": "Il vecchio orologio non si può più riparare."
+    },
+    {
+      "sl": "Ko se je zdanilo, je Luka že gnal ovce na pašo.",
+      "en": "When day broke, Luka was already driving the sheep to pasture.",
+      "de": "Als es Tag wurde, trieb Luka die Schafe schon auf die Weide.",
+      "it": "Quando si è fatto giorno, Luka portava già le pecore al pascolo."
+    },
+    {
+      "sl": "Sinoči je grmelo in deževalo.",
+      "en": "Last night it thundered and rained.",
+      "de": "Gestern Abend hat es gedonnert und geregnet.",
+      "it": "Ieri sera ha tuonato e piovuto."
+    }
+  ],
+  "modules": [],
+  "tags": ["impersonal", "brezosebno", "treba_je", "impersonal_se", "weather_verbs", "no_subject"],
+  "see": ["custva", "trpnik", "povratni-glagoli", "modalni-glagoli"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; checked against SP2001 and SSKJ2 (fran.si) 2026-11-01; not reviewed by a native speaker",
+  "card": {
+    "title": { "sl": "Brez osebka", "en": "No subject", "de": "Ohne Subjekt", "it": "Senza soggetto" },
+    "rule": {
+      "en": "No one as the subject: **treba je** + infinitive (**treba je bilo**, **ni treba**), **se** for people in general (**tu se govori slovensko**), the weather (**dežuje**); the past neuter: **se je plesalo**.",
+      "de": "Niemand als Subjekt: **treba je** + Infinitiv (**treba je bilo**, **ni treba**), **se** für man (**tu se govori slovensko**), das Wetter (**dežuje**); die Vergangenheit im Neutrum: **se je plesalo**.",
+      "it": "Nessuno come soggetto: **treba je** + infinito (**treba je bilo**, **ni treba**), **se** per la gente in generale (**tu se govori slovensko**), il tempo (**dežuje**); il passato neutro: **se je plesalo**."
+    },
+    "table": {
+      "head": [{"sl": "zdaj", "en": "now", "de": "jetzt", "it": "ora"}, {"sl": "prej", "en": "before", "de": "vorher", "it": "prima"}],
+      "rows": [
+        ["treba je", "treba je bilo"],
+        ["ni treba", "ni bilo treba"],
+        ["govori se", "se je govorilo"],
+        ["ne da se", "ni se dalo"],
+        ["dežuje", "je deževalo"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Pred zimo je treba popraviti streho.",
+        "en": "The roof has to be fixed before winter.",
+        "de": "Vor dem Winter muss das Dach repariert werden.",
+        "it": "Prima dell'inverno bisogna riparare il tetto."
+      },
+      {
+        "sl": "Na Markovi poroki se je plesalo do jutra.",
+        "en": "At Marko's wedding there was dancing till morning.",
+        "de": "Auf Markos Hochzeit wurde bis zum Morgen getanzt.",
+        "it": "Al matrimonio di Marko si è ballato fino al mattino."
+      }
+    ],
+    "tip": {
+      "en": "💡 Nobody does it, so nothing agrees: the past is always **-lo**: **treba je bilo**, **se je plesalo**, **je grmelo**.",
+      "de": "💡 Niemand tut es, also stimmt nichts überein: Die Vergangenheit ist immer **-lo**: **treba je bilo**, **se je plesalo**, **je grmelo**.",
+      "it": "💡 Nessuno lo fa, quindi niente si accorda: il passato è sempre **-lo**: **treba je bilo**, **se je plesalo**, **je grmelo**."
+    }
+  }
+}
