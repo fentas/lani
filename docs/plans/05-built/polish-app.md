@@ -249,14 +249,18 @@ before the helpers' commits were taken in. Screenshots are in
 | The mill at 22.5 (render helper) | the flume a bright blue over a black race and black buckets | all of it one night blue |
 | Teo's riflessivi intro, tablet (render helper) | "si lava" plain | underlined, with 🔈 |
 
+A last short run on the whole branch (the helpers' commits in: `final/`, `navigation,feedback-tablet`) passed end to
+end: the band folded on the phone, the same 237 dp, and Today took 3 swipes.
+
 The road step fails later in both runs, the same way on main: "nothing in 🚗 Za pot on the phone" (`road:mix` empty on
 this learner with `--no-town`). That is not this round's change: main's build fails it the same way. The channel check
 passes before that point.
 
 ## Tests and checks
 
-- **Android unit suite:** 3,660 tests in 471 classes, 0 failures, 2 skipped (the whole branch, the helpers' commits in). Gradle ran with `-Pkotlin.compiler.execution.strategy=in-process
-  -Dorg.gradle.jvmargs=-Xmx5g`: the shared Kotlin daemon ran out of memory on the busy machine. New or extended in this
+- **Android unit suite:** 3,660 tests in 471 classes, 0 failures, 2 skipped (the whole branch, the helpers' commits
+  in). Gradle ran with `-Pkotlin.compiler.execution.strategy=in-process -Dorg.gradle.jvmargs=-Xmx5g`: the shared Kotlin
+  daemon ran out of memory on the busy machine. New or extended in this
   round:
   - `FeedbackPlaceTest` (+2: the fold, the height kept, the reset, no stage)
   - `StageBandFoldTest` (1, Robolectric: tall, folded, opened by a tap, folded again)
