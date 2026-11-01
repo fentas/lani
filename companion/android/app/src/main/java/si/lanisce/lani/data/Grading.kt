@@ -95,6 +95,9 @@ object Grading {
         val w = answerWords[differing[0]]
         val d = distance(e, w)
         return when {
+            // one ending for another on the same stem (the language's [Spelling.endingSwaps]: "dormono" for dormano)
+            spelling.endingSwaps.any { (right, typed) -> e.endsWith(right) && w.endsWith(typed) && e.dropLast(right.length) == w.dropLast(typed.length) } ->
+                Result(Verdict.WRONG, Hint.ENDING, best, marks)
             // a known mistake (the language's [Spelling.wrong]: "anderò" for andrò) is grammar, never a slip in the stem
             d in 1..typosAllowed(e) && editInStem(e, w) && spelling.wrong.none { it.matches(w, e) } -> Result(Verdict.ALMOST, Hint.TYPO, best, marks)
             d <= 2 && !editInStem(e, w) -> Result(Verdict.WRONG, Hint.ENDING, best, marks)

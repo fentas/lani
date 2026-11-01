@@ -758,7 +758,7 @@ course's language's, not Slovene's:
 | Read aloud | the intro's Italian in her voice: `Spoken.looks` for Italian (à, è …, its frequent words) and the words the intro itself shows; the explanation in the learner's German as one clip (`de\|…`); voice-build's `course` source makes her lines ahead (`course-speech.ts`, the smoke's Friuli checks) |
 | The teacher's lines | "Benvenuti a scuola! Sedetevi …" and "Questo lo sai già" (tu: Elena says tu to the children); "only the Italian is read" when the phone lacks a German voice |
 | Texts in German | the exercises' instructions, hints, whys, labels and columns per base ([above](#texts-in-the-learners-language)) |
-| Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and the subjunctive's endings (`endings`: `dormono` for `dormano`) too |
+| Grading | the Italian table (`grading/it.json`): an accent forgotten is almost, an apostrophe (`un'amica`, `l'ape`) too; the person in brackets may be left out (`drop_subject`); A2's agreement: a participle that doesn't agree is wrong (`Giulia è andato`, `l'ho visto` for `l'ho vista`), `lo`/`la` not elided before avere almost only where the participle agrees (`la ho vista`), and the regular stem where a form has its own is wrong, never a slip (`wrong`: `anderò`, `ferò`, `mangierò`, `venito`); B1's other tense or mood one letter off (`sarai` for `sarei`, `sta` for `stia`, `fosti` for `fossi`) and one ending typed for another on the same stem (`ending_swaps`: `dormono` for `dormano`) too |
 | The blackboard | "Benvenuti!" and the day as Italy writes it (28/10/2026) before the first unit; the unit's title and forms in chalk (à, è, ' written) |
 | Prints | headed in Italian and the base ("Regola · Die Regel", "Unità"), the words from the Italian and the culture's packs with their article; Slovene as a base for an Italian course |
 | Not for Italian | forms cards, counting cards and the numbers module (Slovene's: `numeri` turns nothing on), case rows, the cases overview; the Italian units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms (a cell's named form, a bracketed word's forms) and of "What a unit turns on" stay Slovene's (`FORMS_LANGUAGES`: no Italian forms book yet) |
@@ -961,10 +961,10 @@ and the B1 units before them around a gap (docs/plans/05-built/it-b1-a.md):
   regular -assi, -essi, -issi); its table leaves voi out.
 - **The grading B1 needs** (`grading/it.json`): another tense or mood one letter off is wrong, never a slip
   (`wrong`: the future's sarai, avrai, farai, darai for the conditional's sarei … and back; sta for stia; fosti for fossi
-  and back; andò for andrò), and the subjunctive's endings are endings (`endings`, new: -ano, -ino, -ono, -iate and -este, a
-  letter before the last two, so dormono for dormano, vengono for vengano, parlate for parliate and sarete for sareste
-  are wrong;
-  `GradingLanguagesTest`).
+  and back; andò for andrò; siete for siate), and one ending typed for another on the same stem is wrong
+  (`ending_swaps`, new: pairs of the right ending and the typed one, -ano and -ono both ways, -ino and -ano both ways,
+  -iate and -ate, -este and -ete; so dormono for dormano, parlano for parlino, parlate for parliate and sarete for
+  sareste are wrong, while a slip elsewhere in such a word stays one: bambeno for bambino; `GradingLanguagesTest`).
 
 ### The Italian course: B1, units 7–12
 

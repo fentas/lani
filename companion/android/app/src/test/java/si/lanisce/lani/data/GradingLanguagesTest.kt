@@ -227,6 +227,24 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, it("Penso che sia vero", "Penso che sia vero."))
     }
 
+    @Test fun `one ending typed for another on the same stem is wrong - the subjunctive's and the conditional's`() {
+        // the table's ending_swaps: the right word's ending, the typed one's, the stem the same
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("dormono", "dormano"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("dormano", "dormono"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("che loro vengono", "che loro vengano"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("parlano", "parlino"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("parlate", "parliate"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("sarete", "sareste"))
+        assertEquals(Verdict.WRONG, it("siete", "siate").verdict)
+        // a noun's slip stays one: no swap, the plain ending as before
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("bambeno", "bambino"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("giardeno", "giardino"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("vicono", "vicino"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("venhano", "vengano"))
+        // as before B1: bambimo's n is in the plain two-letter ending of a word of seven letters
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("bambimo", "bambino"))
+    }
+
     // --- Slovene ----------------------------------------------------------------------------------------------------
 
     private fun sl(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.SL)

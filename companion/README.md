@@ -338,7 +338,8 @@ pair switches:
 - **Grading** (`resources/grading/<code>.json`): a missing č/š/ž, Italian accent or German umlaut (also ae/oe/ue/ss
   for ä/ö/ü/ß) is almost right, with its hint; English contractions are the same answer. Answers are lowercased in the
   target's locale; a word's stem forgives one slip from 4 letters, two from 9, but not a known mistake the table lists
-  (`wrong`: Italian's anderò for andrò, venito for venuto, glilo for glielo, leggando for leggendo; Slovene's prefixed
+  (`wrong`: Italian's anderò for andrò, venito for venuto, glilo for glielo, leggando for leggendo, sarai for sarei, sta
+  for stia; `ending_swaps`: one ending for another on the same stem, dormono for dormano, sarete for sareste; Slovene's prefixed
   verbs one letter off another prefix, prenesel for prinesel, prešel for prišel, zapisal for napisal, obšel for odšel:
   another verb, B2's `predpone`).
 - **Speech**: the phone's recognizer and text-to-speech take the target's locale (sl-SI, it-IT, de-DE, en-GB); the
@@ -3227,7 +3228,10 @@ typed perche, perchè or perche') and apostrophes (un amica for un'amica, la acq
 almost right with its hint (lo, la, glielo or gliela before avere only where the participle agrees: la ho vista for l'ho vista; lo ho
 vista, the pronoun's gender wrong, is wrong), and its known mistakes, never a slip in the stem (`wrong`: the regular
 stem where a form has its own, anderò for andrò, ferò for farò, mangierò for mangerò, venito for venuto; B1's glilo for glielo, dammilo for dammelo, leggando for leggendo; an articulated
-preposition for another, delle or alle for dalle); German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
+preposition for another, delle or alle for dalle; another tense or mood one letter off, sarai for sarei, sta for stia,
+fosti for fossi, andò for andrò), and one ending typed for another on the same stem (`ending_swaps`: the subjunctive's
+and the indicative's, dormono for dormano, parlate for parliate; the conditional's and the future's, sarete for
+sareste), a slip elsewhere in such a word (bambeno for bambino) still one; German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
 contractions (don't = do not). Choosing a dialog's answer by voice folds the same letters. Speech
 labels name the target language (`{targetLang, select, …}` in the string tables).
 

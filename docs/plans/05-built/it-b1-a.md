@@ -77,7 +77,7 @@ pages and no longer say planned.
   remote pasts that fit a gap without a verb in brackets, the subject named or left out; `whole: true` where a bracket
   is a frame (voglio che …), not the person.
 - **What the grading couldn't tell apart is never typed**: voi's subjunctive and conditional are shown, never asked
-  (until this branch's `endings`; the content stays so).
+  (until this branch's `ending_swaps`; the content stays so).
 
 ## The grading B1 needs
 
@@ -88,13 +88,17 @@ pages and no longer say planned.
   the old count put the a/e in the stem); the indicative's sta for the subjunctive's stia; the remote past's fosti for
   the subjunctive's fossi and the other way; andò for the future's andrò. An accent forgotten stays almost (ando for
   andò, parlo for parlò: Italian's rule since A1).
-- **The subjunctive's endings are endings** (`endings`, a new key of the table: regular expressions matched at the
-  right word's end, longer than the plain one or two letters): -ano, -ino and -ono (dormono for dormano, vengono for
-  vengano, siamo for siano: wrong; before, the vowel three from the end was in the stem and forgiven), -iate (parlate
-  for parliate, siete for siate) and -este (the future's sarete, dovrete for the conditional's sareste, dovreste). A
-  slip further in stays forgiven (venhano, capicano, magiate). siano for siamo stays a slip (m and n side by side, for
-  whoever hasn't met the subjunctive). The longer ending applies to every Italian word that ends so (a typo in the vowel
-  three from the end of bambino or piano is now wrong too), which the documentation says.
+- **One ending typed for another on the same stem is wrong** (`ending_swaps`, a new key of the table: pairs of the
+  right word's ending and the typed one's, checked as the right word ending in the one, the typed word in the other and
+  the rest of the two the same): -ano and -ono both ways, -ino and -ano both ways (dormono for dormano, dormano for
+  dormono, vengono for vengano, parlano for parlino: before, the vowel three from the end was in the stem and
+  forgiven), -iate and -ate (parlate for parliate), -este and -ete (the future's sarete for the conditional's sareste).
+  siete for siate is a paired known mistake (`{ "word": "siete", "for": "siate" }`), siamo for siano a plain one; siano
+  for siamo stays a slip (m and n side by side). A noun's slip stays one: bambeno, giardeno, vicono are almost, as
+  before B1 (bambano for bambino is a swap: a and i aren't neighbours). A first version made the last three letters of
+  every word in -ano, -ino, -ono the ending (`endings`); the lead's gate found it too strict for a child's nouns
+  (giardeno, vicono wrong) and it became these pairs. bambimo for bambino was and stays wrong: its n is in the plain
+  two-letter ending.
 - `GradingLanguagesTest` pins both (two new tests). Documented where grading is: the README's two passages, COURSE.md's
   Italian row and B1 section, module-spec.md's matching rules, the fix skill (the tutor's guide topic "fix",
   regenerated with `tutor-export`), and the notes of `it.json` and `sl.json`.
@@ -133,7 +137,7 @@ Slovene and English translations (otroci so že odšli, naredila čarovnijo, pre
   in the outline's order, and course-speech has Maestra Elena read the Italian of the German explanations, never the
   German.
 - **The app**: `GradingLanguagesTest` 24 (two new), `GradingTest` 18, `ItalianCourseContentTest` 5 (every unit parsed
-  and played at its level, every right answer graded right by the Italian grading with the new `endings` and `wrong`,
+  and played at its level, every right answer graded right by the Italian grading with the new `ending_swaps` and `wrong`,
   no distractor right or almost, every page in the bundled book, every text per base in de, sl and en),
   `SchoolBoardTest` 5 (the blackboard writes every letter of B1's titles and forms), `CourseContentTest` 4,
   `CourseTest` 8, `GrammarTest` 16, `SchoolRevealTest` 10, `IntroSpeechTest` 9, `IntroSpeechParityTest` 2,
@@ -202,13 +206,13 @@ Italian speaker's eye (and a German one's for the child's German, a Slovene one'
 ## What's left
 
 - **B1's units 7–18** are it-b1-b's and it-b1-c's; each part flips its own six outline entries. it-b1-b extends the
-  grading for the combined pronouns: both branches edit `grading/it.json` (`wrong`, `endings`, the note) and the
+  grading for the combined pronouns: both branches edit `grading/it.json` (`wrong`, `ending_swaps`, the note) and the
   grading passages of the docs; the rebase keeps both.
-- **QA's B1 fix** is it-b1-b's commit 24f7e83d, cherry-picked here (1aea5e9f) as the lead asked; the rebase keeps one.
-- **voi's subjunctive and conditional** can be asked typed now (`endings`), but these units don't; a homework could.
-- **The longer endings** make a typo in the vowel three from the end of any Italian word in -ano, -ino, -ono, -iate or
-  -este wrong (bambeno for bambino), a little stricter than before for nouns; a list per part of speech would need the
-  dictionary's word classes in the grading.
+- **QA's B1 fix** is it-b1-b's commit 24f7e83d: cherry-picked here for the QA run, dropped at the rebase onto it-b1-c,
+  which has it (bin/qa is it-b1-c's).
+- **voi's subjunctive and conditional** can be asked typed now (`ending_swaps`), but these units don't; a homework could.
+- **The swaps are pairs, not a word class**: a noun's vowel swapped for the listed one is wrong too (bambano for
+  bambino, buano for buono), while a letter that makes no listed pair (bambeno, giardeno) stays a slip.
 - **The voice ahead**: `voice-build`'s course source reads the B1 units as the app does; Elena's clips of B1 are made
   when it runs for Teo's node (ElevenLabs credits: ask Jan first).
 - **Words without a meaning on the prints** (9 to 22 a unit: volentieri, il cappotto, prestare …): as A1's and A2's,

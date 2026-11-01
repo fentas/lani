@@ -27,6 +27,10 @@ import java.util.concurrent.ConcurrentHashMap
  * "mangierò" for mangerò, "venito" for venuto): one letter off the right word, such a word is wrong, not forgiven as a
  * slip in the stem. A [Mistake] with `for` is one only where the right word matches that too (an articulated
  * preposition for another, "delle" for dalle, while "della" for bella stays a slip).
+ * [endingSwaps]: an ending typed for another on the same stem, each pair (the right word's ending, the typed one's), where
+ * the two differ a letter before the plain ending of one or two letters (Italian's subjunctive and indicative: "dormono"
+ * for dormano, "parlate" for parliate; the conditional and the future: "sarete" for sareste): wrong with the ending
+ * hint, never a slip in the stem, while a slip elsewhere in such a word (bambeno, bambimo for bambino) stays one.
  * A language without a table compares letters as they are.
  */
 class Spelling(
@@ -38,6 +42,7 @@ class Spelling(
     val looseHint: Grading.Hint = Grading.Hint.NONE,
     val dropSubject: Boolean = false,
     val wrong: List<Mistake> = emptyList(),
+    val endingSwaps: List<Pair<String, String>> = emptyList(),
 ) {
     class Rule(val pattern: Regex, val replacement: String) {
         fun apply(s: String): String = pattern.replace(s, replacement)
@@ -72,6 +77,10 @@ class Spelling(
                 wrong = (o["wrong"] as? JsonArray).orEmpty().map { m ->
                     (m as? JsonObject)?.let { Mistake(Regex(it.getValue("word").jsonPrimitive.content), it["for"]?.let { f -> Regex(f.jsonPrimitive.content) }) }
                         ?: Mistake(Regex(m.jsonPrimitive.content))
+                },
+                endingSwaps = (o["ending_swaps"] as? JsonArray).orEmpty().map { p ->
+                    val (right, typed) = p.jsonArray.map { it.jsonPrimitive.content }
+                    right to typed
                 },
             )
         }
