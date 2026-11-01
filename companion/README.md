@@ -2268,6 +2268,15 @@ its sheets print headed in Italian and the base. While the next units are planne
 card goes into "A scuola · In der Schule", the Friuli classroom ([SCENES.md](SCENES.md#culture-looks)). QA:
 `companion/bin/qa --steps friuli-school` with a synthetic Teo (its usage).
 
+**The English school** (the Lake District village's: [COURSE.md](COURSE.md#the-english-course),
+docs/plans/05-built/course-en-a1-a.md). A village of the Lakeland culture gets the English course (`companion/course/en`:
+A1's units as COURSE.md lists them, the rest planned) and Mrs Hartley teaches it, in the cast's teacher voice, to the
+grown-ups who learn English: its explanations, instructions, hints and whys in the learner's Slovene, German or Italian,
+British English with the American form accepted (grading/en.json), its sheets headed in English and the base with
+every word meant (lexicon/en.extra.json). While units are planned she is preparing the next lessons ("I'm preparing
+the next lessons. Come back soon!"). QA: `companion/bin/qa-slot --steps course-unit` with `LANI_CULTURE=lakeland
+LANI_QA_SETUP_PAIR=en-de LANI_QA_COURSE_UNIT=hello` and a synthetic learner (make-learner.ts --target en --base de).
+
 **Checked** (`ui/school/SheetExercises.kt`, `data/AnswerDiff.kt`, `ui/AnswerDiffText.kt`). "Preveri · Check" marks every
 item where it was answered: its field outlined in the verdict's colour with a small round ✓, ≈ or ✗ on its corner (it
 takes no room from what was typed), and under a field not right its correction: what was typed set against what is right
