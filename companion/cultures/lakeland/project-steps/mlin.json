@@ -1,0 +1,1652 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "mlin",
+  "language": "en",
+  "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker",
+  "pack": "project-mlin",
+  "steps": [
+    {
+      "scene": "by-the-beck",
+      "words": ["fast", "place"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "Our mill will grind with water, {m:lad|f:lass}. Where's the water? Show me.",
+              "sl": "Naš mlin bo mlel z vodo. Kje je voda? Pokaži mi.",
+              "it": "Il nostro mulino macinerà con l'acqua, {m:ragazzo|f:ragazza}. Dov'è l'acqua? Fammi vedere.",
+              "de": "Unsere Mühle wird mit Wasser mahlen, {m:Junge|f:Mädchen}. Wo ist das Wasser? Zeig's mir."
+            },
+            {
+              "choices": [
+                {
+                  "en": "In the beck, of course!",
+                  "sl": "V potoku, seveda!",
+                  "it": "Nel ruscello, naturalmente!",
+                  "de": "Im Bach, natürlich!",
+                  "ok": true,
+                  "tap": "stream",
+                  "grammar": "prepositions-place",
+                  "reply": {
+                    "face": "happy",
+                    "en": "Right. The beck will turn our wheel.",
+                    "sl": "Tako je. Potok bo vrtel naše kolo.",
+                    "it": "Giusto. Il ruscello farà girare la nostra ruota.",
+                    "de": "Richtig. Der Bach wird unser Rad drehen."
+                  }
+                },
+                {
+                  "en": "In the willow!",
+                  "sl": "V vrbi!",
+                  "it": "Nel salice!",
+                  "de": "In der Weide!",
+                  "tap": "willow",
+                  "why": {
+                    "en": "A willow drinks water, but you can't take any from it. The water runs in the beck.",
+                    "sl": "Vrba vodo pije, ne moreš pa je vzeti iz nje. Voda teče v potoku.",
+                    "it": "Il salice beve l'acqua, ma non se ne può prendere. L'acqua scorre nel ruscello.",
+                    "de": "Eine Weide trinkt Wasser, aber man kann keins herausholen. Das Wasser fließt im Bach."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "In the willow? It drinks water, {m:lad|f:lass}, it doesn't give it!",
+                    "sl": "V vrbi? Vodo pije, ne daje je!",
+                    "it": "Nel salice? L'acqua la beve, {m:ragazzo|f:ragazza}, non la dà!",
+                    "de": "In der Weide? Die trinkt Wasser, {m:Junge|f:Mädchen}, die gibt keins her!"
+                  }
+                },
+                {
+                  "en": "In the washing!",
+                  "sl": "V perilu!",
+                  "it": "Nel bucato!",
+                  "de": "In der Wäsche!",
+                  "tap": "laundry",
+                  "why": {
+                    "en": "The washing is only a bit wet. The water runs in the beck.",
+                    "sl": "Perilo je samo malo mokro. Voda teče v potoku.",
+                    "it": "Il bucato è solo un po' bagnato. L'acqua scorre nel ruscello.",
+                    "de": "Die Wäsche ist nur ein bisschen nass. Das Wasser fließt im Bach."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "In the washing? A bit wet, but not enough for a mill!",
+                    "sl": "V perilu? Malo mokro je, za mlin pa premalo!",
+                    "it": "Nel bucato? Un po' bagnato, ma non basta per un mulino!",
+                    "de": "In der Wäsche? Ein bisschen nass, aber für eine Mühle reicht's nicht!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "A mill needs strong water. What's the beck like over there?",
+              "sl": "Mlin potrebuje močno vodo. Kakšen je potok tam?",
+              "it": "Un mulino ha bisogno di acqua forte. Com'è il ruscello là?",
+              "de": "Eine Mühle braucht starkes Wasser. Wie ist der Bach dort?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Over there the beck is fast.",
+                  "sl": "Tam je potok hiter.",
+                  "it": "Là il ruscello è veloce.",
+                  "de": "Dort ist der Bach schnell.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Fast and loud. Good.",
+                    "sl": "Hiter in glasen. Dobro.",
+                    "it": "Veloce e rumoroso. Bene.",
+                    "de": "Schnell und laut. Gut."
+                  }
+                },
+                {
+                  "en": "Over there the beck is slow.",
+                  "sl": "Tam je potok počasen.",
+                  "it": "Là il ruscello è lento.",
+                  "de": "Dort ist der Bach langsam.",
+                  "why": {
+                    "en": "Slow is here. Where the water is loud, it's fast.",
+                    "sl": "Počasen je tukaj. Kjer je voda glasna, je hitra (fast).",
+                    "it": "Lento è qui. Dove l'acqua fa rumore, è veloce (fast).",
+                    "de": "Langsam ist er hier. Wo das Wasser laut ist, ist er schnell (fast)."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "en": "Slow? Listen to it roaring!",
+                    "sl": "Počasen? Poslušaj, kako šumi!",
+                    "it": "Lento? Senti come scroscia!",
+                    "de": "Langsam? Hör mal, wie er rauscht!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "alfie",
+              "face": "curious",
+              "en": "Here, by the big stone! Is this a good place, {learner}?",
+              "sl": "Tukaj, pri velikem kamnu! Je to dober kraj, {learner}?",
+              "it": "Qui, vicino al sasso grande! È un buon posto, {learner}?",
+              "de": "Hier, beim großen Stein! Ist das ein guter Platz, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, it's a good place for the mill.",
+                  "sl": "Ja, to je dober kraj za mlin.",
+                  "it": "Sì, è un buon posto per il mulino.",
+                  "de": "Ja, das ist ein guter Platz für die Mühle.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Then a peg here. Our mill will stand on this spot.",
+                    "sl": "Potem pa klin sem. Naš mlin bo stal tukaj.",
+                    "it": "Allora un picchetto qui. Il nostro mulino starà proprio qui.",
+                    "de": "Dann ein Pflock hierher. Unsere Mühle wird genau hier stehen."
+                  }
+                },
+                {
+                  "en": "Yes, it's a good plate for the mill.",
+                  "sl": "Ja, to je dober krožnik za mlin.",
+                  "it": "Sì, è un buon piatto per il mulino.",
+                  "de": "Ja, das ist ein guter Teller für die Mühle.",
+                  "why": {
+                    "en": "A place is a spot where something stands. A plate is for food.",
+                    "sl": "Kraj (place) je mesto, kjer nekaj stoji. Krožnik (plate) je za hrano.",
+                    "it": "Un posto (place) è dove sta qualcosa. Un piatto (plate) è per il cibo.",
+                    "de": "Ein Platz (place) ist eine Stelle, wo etwas steht. Ein Teller (plate) ist fürs Essen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A plate? We're building a mill, not laying the table!",
+                    "sl": "Krožnik? Gradimo mlin, ne pogrinjamo mize!",
+                    "it": "Un piatto? Costruiamo un mulino, non apparecchiamo la tavola!",
+                    "de": "Ein Teller? Wir bauen eine Mühle, wir decken nicht den Tisch!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "alfie",
+              "face": "proud",
+              "en": "Bang! The peg is in!",
+              "sl": "Bum! Klin je noter!",
+              "it": "Bum! Il picchetto è piantato!",
+              "de": "Bumm! Der Pflock ist drin!",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "Our mill is going to grind with water. Where will the water come from? Show me.",
+              "sl": "Naš mlin bo mlel z vodo. Od kod bo prišla voda? Pokaži mi.",
+              "it": "Il nostro mulino macinerà con l'acqua. Da dove arriverà l'acqua? Fammi vedere.",
+              "de": "Unsere Mühle wird mit Wasser mahlen. Woher kommt das Wasser? Zeig's mir."
+            },
+            {
+              "choices": [
+                {
+                  "en": "In the beck, of course!",
+                  "sl": "V potoku, seveda!",
+                  "it": "Nel ruscello, naturalmente!",
+                  "de": "Im Bach, natürlich!",
+                  "ok": true,
+                  "tap": "stream",
+                  "grammar": "prepositions-place",
+                  "reply": {
+                    "face": "happy",
+                    "en": "Right. The beck will turn our wheel.",
+                    "sl": "Tako je. Potok bo vrtel naše kolo.",
+                    "it": "Giusto. Il ruscello farà girare la nostra ruota.",
+                    "de": "Richtig. Der Bach wird unser Rad drehen."
+                  }
+                },
+                {
+                  "en": "In the willow!",
+                  "sl": "V vrbi!",
+                  "it": "Nel salice!",
+                  "de": "In der Weide!",
+                  "tap": "willow",
+                  "why": {
+                    "en": "A willow drinks water, but you can't take any from it. The water runs in the beck.",
+                    "sl": "Vrba vodo pije, ne moreš pa je vzeti iz nje. Voda teče v potoku.",
+                    "it": "Il salice beve l'acqua, ma non se ne può prendere. L'acqua scorre nel ruscello.",
+                    "de": "Eine Weide trinkt Wasser, aber man kann keins herausholen. Das Wasser fließt im Bach."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "In the willow? It drinks water, {m:lad|f:lass}, it doesn't give it!",
+                    "sl": "V vrbi? Vodo pije, ne daje je!",
+                    "it": "Nel salice? L'acqua la beve, {m:ragazzo|f:ragazza}, non la dà!",
+                    "de": "In der Weide? Die trinkt Wasser, {m:Junge|f:Mädchen}, die gibt keins her!"
+                  }
+                },
+                {
+                  "en": "In the washing!",
+                  "sl": "V perilu!",
+                  "it": "Nel bucato!",
+                  "de": "In der Wäsche!",
+                  "tap": "laundry",
+                  "why": {
+                    "en": "The washing is only a bit wet. The water runs in the beck.",
+                    "sl": "Perilo je samo malo mokro. Voda teče v potoku.",
+                    "it": "Il bucato è solo un po' bagnato. L'acqua scorre nel ruscello.",
+                    "de": "Die Wäsche ist nur ein bisschen nass. Das Wasser fließt im Bach."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "In the washing? A bit wet, but not enough for a mill!",
+                    "sl": "V perilu? Malo mokro je, za mlin pa premalo!",
+                    "it": "Nel bucato? Un po' bagnato, ma non basta per un mulino!",
+                    "de": "In der Wäsche? Ein bisschen nass, aber für eine Mühle reicht's nicht!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "tyson",
+              "face": "thinking",
+              "en": "Here the water is slow. Where is it faster?",
+              "sl": "Tukaj je voda počasna. Kje je hitrejša?",
+              "it": "Qui l'acqua è lenta. Dov'è più veloce?",
+              "de": "Hier ist das Wasser langsam. Wo ist es schneller?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Over there, by the big stone, it's very fast.",
+                  "sl": "Tam, pri velikem kamnu, je zelo hitra.",
+                  "it": "Là, vicino al sasso grande, è velocissima.",
+                  "de": "Dort, beim großen Stein, ist es sehr schnell.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Fastest in the beck. That's our spot.",
+                    "sl": "Najhitrejša v potoku. To je naše mesto.",
+                    "it": "La più veloce del ruscello. Quello è il nostro posto.",
+                    "de": "Die schnellste Stelle im Bach. Das ist unser Platz."
+                  }
+                },
+                {
+                  "en": "Over there, by the big stone, it's very cold.",
+                  "sl": "Tam, pri velikem kamnu, je zelo mrzla.",
+                  "it": "Là, vicino al sasso grande, è freddissima.",
+                  "de": "Dort, beim großen Stein, ist es sehr kalt.",
+                  "why": {
+                    "en": "Cold water doesn't turn a wheel. Mr Tyson asked where it's fast.",
+                    "sl": "Mrzla voda kolesa ne vrti. Gospod Tyson je vprašal, kje je hitra (fast).",
+                    "it": "L'acqua fredda non fa girare la ruota. Il signor Tyson ha chiesto dov'è veloce (fast).",
+                    "de": "Kaltes Wasser dreht kein Rad. Mr Tyson hat gefragt, wo es schnell (fast) ist."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Cold? It's all cold, {m:lad|f:lass}. It's the Lakes!",
+                    "sl": "Mrzla? Vsa je mrzla. Saj smo v Jezernem okrožju!",
+                    "it": "Fredda? È tutta fredda, {m:ragazzo|f:ragazza}. Siamo ai Laghi!",
+                    "de": "Kalt? Es ist alles kalt, {m:Junge|f:Mädchen}. Wir sind im Lake District!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "alfie",
+              "face": "curious",
+              "en": "Grandad says this is the best place. Is it, {learner}?",
+              "sl": "Dedek pravi, da je to najboljši kraj. Je res, {learner}?",
+              "it": "Il nonno dice che questo è il posto migliore. È vero, {learner}?",
+              "de": "Opa sagt, das ist der beste Platz. Stimmt's, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, it's the best place: the water's fastest here.",
+                  "sl": "Ja, to je najboljši kraj: tu je voda najhitrejša.",
+                  "it": "Sì, è il posto migliore: qui l'acqua è più veloce.",
+                  "de": "Ja, das ist der beste Platz: Hier ist das Wasser am schnellsten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Yay! Then I can hit the peg in!",
+                    "sl": "Juhu! Potem lahko zabijem klin!",
+                    "it": "Evviva! Allora pianto io il picchetto!",
+                    "de": "Juhu! Dann darf ich den Pflock reinschlagen!"
+                  }
+                },
+                {
+                  "en": "Yes, it's the best plate: the water's fastest here.",
+                  "sl": "Ja, to je najboljši krožnik: tu je voda najhitrejša.",
+                  "it": "Sì, è il piatto migliore: qui l'acqua è più veloce.",
+                  "de": "Ja, das ist der beste Teller: Hier ist das Wasser am schnellsten.",
+                  "why": {
+                    "en": "A place is a spot. A plate is for food.",
+                    "sl": "Kraj (place) je mesto. Krožnik (plate) je za hrano.",
+                    "it": "Un posto (place) è un luogo. Un piatto (plate) è per il cibo.",
+                    "de": "Ein Platz (place) ist eine Stelle. Ein Teller (plate) ist fürs Essen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A plate? Ha ha! For fish and chips?",
+                    "sl": "Krožnik? Ha ha! Za ribo in krompirček?",
+                    "it": "Un piatto? Ah ah! Per il fish and chips?",
+                    "de": "Ein Teller? Haha! Für Fish and Chips?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "The peg is in, the string is out. Here our mill will stand.",
+              "sl": "Klin je noter, vrvica napeta. Tukaj bo stal naš mlin.",
+              "it": "Il picchetto è piantato, lo spago è teso. Qui starà il nostro mulino.",
+              "de": "Der Pflock ist drin, die Schnur gespannt. Hier wird unsere Mühle stehen.",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "by-the-beck",
+      "words": ["footing", "level"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "First the footing, {m:lad|f:lass}: big stones in the ground. Where does it go?",
+              "sl": "Najprej temelj: veliki kamni v zemlji. Kam pride?",
+              "it": "Prima le fondamenta, {m:ragazzo|f:ragazza}: pietre grandi nella terra. Dove vanno?",
+              "de": "Zuerst das Fundament, {m:Junge|f:Mädchen}: große Steine in den Boden. Wo kommt es hin?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "The footing goes under the walls.",
+                  "sl": "Temelj gre pod zidove.",
+                  "it": "Le fondamenta vanno sotto i muri.",
+                  "de": "Das Fundament kommt unter die Mauern.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Right. Big stones, deep in the ground.",
+                    "sl": "Tako. Veliki kamni, globoko v zemlji.",
+                    "it": "Giusto. Pietre grandi, in fondo nella terra.",
+                    "de": "Richtig. Große Steine, tief in der Erde."
+                  }
+                },
+                {
+                  "en": "The ceiling goes under the walls.",
+                  "sl": "Strop gre pod zidove.",
+                  "it": "Il soffitto va sotto i muri.",
+                  "de": "Die Decke kommt unter die Mauern.",
+                  "why": {
+                    "en": "The ceiling is the top of a room. The footing is the stone at the bottom.",
+                    "sl": "Strop (ceiling) je vrh sobe. Temelj (footing) je kamen spodaj.",
+                    "it": "Il soffitto (ceiling) è la parte alta di una stanza. Le fondamenta (footing) sono la pietra in basso.",
+                    "de": "Die Decke (ceiling) ist oben im Raum. Das Fundament (footing) ist der Stein unten."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "The ceiling? Under the walls? An upside-down mill!",
+                    "sl": "Strop? Pod zidovi? Narobe obrnjen mlin!",
+                    "it": "Il soffitto? Sotto i muri? Un mulino a testa in giù!",
+                    "de": "Die Decke? Unter den Mauern? Eine Mühle auf dem Kopf!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "dixon",
+              "face": "curious",
+              "en": "This stone's in. Is it level, {m:lad|f:lass}?",
+              "sl": "Ta kamen je noter. Je raven?",
+              "it": "Questa pietra è a posto. È in piano, {m:ragazzo|f:ragazza}?",
+              "de": "Der Stein ist drin. Ist er eben, {m:Junge|f:Mädchen}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, it's level. Nice and flat.",
+                  "sl": "Ja, raven je. Lepo plosk.",
+                  "it": "Sì, è in piano. Bello piatto.",
+                  "de": "Ja, er ist eben. Schön flach.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. A mill on a slope falls over.",
+                    "sl": "Dobro. Mlin na bregu se prevrne.",
+                    "it": "Bene. Un mulino in pendenza si ribalta.",
+                    "de": "Gut. Eine Mühle am Hang kippt um."
+                  }
+                },
+                {
+                  "en": "Yes, it's leaning. Nice and flat.",
+                  "sl": "Ja, nagnjen je. Lepo plosk.",
+                  "it": "Sì, è storto. Bello piatto.",
+                  "de": "Ja, er ist schief. Schön flach.",
+                  "why": {
+                    "en": "Level means flat and straight, not leaning.",
+                    "sl": "Level (raven) pomeni plosk in raven, ne nagnjen.",
+                    "it": "Level (in piano) vuol dire piatto e dritto, non storto.",
+                    "de": "Level (eben) heißt flach und gerade, nicht schief."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "en": "Leaning? Then the mill leans too. Again.",
+                    "sl": "Nagnjen? Potem bo nagnjen tudi mlin. Še enkrat.",
+                    "it": "Storto? Allora anche il mulino sarà storto. Di nuovo.",
+                    "de": "Schief? Dann wird die Mühle auch schief. Noch mal."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "A good level footing. The mill can stand on it.",
+              "sl": "Dober raven temelj. Mlin lahko stoji na njem.",
+              "it": "Delle buone fondamenta in piano. Il mulino ci può stare sopra.",
+              "de": "Ein gutes ebenes Fundament. Die Mühle kann darauf stehen.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "Before the walls go up, we'll need a footing. Why, {m:lad|f:lass}?",
+              "sl": "Preden zrastejo zidovi, bomo potrebovali temelj. Zakaj?",
+              "it": "Prima che salgano i muri ci serviranno le fondamenta. Perché, {m:ragazzo|f:ragazza}?",
+              "de": "Bevor die Mauern hochgehen, brauchen wir ein Fundament. Warum, {m:Junge|f:Mädchen}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Because the walls will stand on the footing.",
+                  "sl": "Ker bodo zidovi stali na temelju.",
+                  "it": "Perché i muri staranno sulle fondamenta.",
+                  "de": "Weil die Mauern auf dem Fundament stehen werden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Right. A mill without a footing sinks in the mud.",
+                    "sl": "Tako. Mlin brez temelja se ugrezne v blato.",
+                    "it": "Giusto. Un mulino senza fondamenta affonda nel fango.",
+                    "de": "Richtig. Eine Mühle ohne Fundament versinkt im Schlamm."
+                  }
+                },
+                {
+                  "en": "Because the walls will stand on the ceiling.",
+                  "sl": "Ker bodo zidovi stali na stropu.",
+                  "it": "Perché i muri staranno sul soffitto.",
+                  "de": "Weil die Mauern auf der Decke stehen werden.",
+                  "why": {
+                    "en": "Walls stand on the footing at the bottom; the ceiling is at the top.",
+                    "sl": "Zidovi stojijo na temelju (footing) spodaj; strop je zgoraj.",
+                    "it": "I muri poggiano sulle fondamenta (footing) in basso; il soffitto è in alto.",
+                    "de": "Mauern stehen unten auf dem Fundament (footing); die Decke ist oben."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "On the ceiling? Like flies? Ha!",
+                    "sl": "Na stropu? Kot muhe? Ha!",
+                    "it": "Sul soffitto? Come le mosche? Ah!",
+                    "de": "Auf der Decke? Wie Fliegen? Ha!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "dixon",
+              "face": "curious",
+              "en": "Look at this stone. Is it level, do you think?",
+              "sl": "Poglej ta kamen. Je raven, kaj misliš?",
+              "it": "Guarda questa pietra. È in piano, secondo te?",
+              "de": "Schau dir den Stein an. Liegt er eben, was meinst du?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, it's perfectly level.",
+                  "sl": "Ja, popolnoma raven je.",
+                  "it": "Sì, è perfettamente in piano.",
+                  "de": "Ja, er liegt ganz eben.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Good. Next stone.",
+                    "sl": "Dobro. Naslednji kamen.",
+                    "it": "Bene. La prossima pietra.",
+                    "de": "Gut. Nächster Stein."
+                  }
+                },
+                {
+                  "en": "Yes, it's perfectly crooked.",
+                  "sl": "Ja, popolnoma kriv je.",
+                  "it": "Sì, è perfettamente storto.",
+                  "de": "Ja, er liegt ganz schief.",
+                  "why": {
+                    "en": "Crooked means not straight. A footing must be level: flat and straight.",
+                    "sl": "Crooked pomeni kriv. Temelj mora biti raven (level): plosk in raven.",
+                    "it": "Crooked vuol dire storto. Le fondamenta devono essere in piano (level): piatte e dritte.",
+                    "de": "Crooked heißt schief. Ein Fundament muss eben (level) sein: flach und gerade."
+                  },
+                  "reply": {
+                    "face": "cross",
+                    "en": "Perfectly crooked? Then it's perfectly wrong.",
+                    "sl": "Popolnoma kriv? Potem je popolnoma narobe.",
+                    "it": "Perfettamente storto? Allora è perfettamente sbagliato.",
+                    "de": "Ganz schief? Dann ist er ganz falsch."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "A strong, level footing of stone. The timber can wait on top.",
+              "sl": "Močan, raven kamnit temelj. Les lahko čaka na njem.",
+              "it": "Delle fondamenta di pietra forti e in piano. Il legno può aspettare sopra.",
+              "de": "Ein starkes, ebenes Fundament aus Stein. Das Holz kann oben warten.",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "by-the-beck",
+      "words": ["rafter", "tall"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "The walls are up, {m:lad|f:lass}. Now the big oak beams for the roof. Where do the rafters go?",
+              "sl": "Zidovi stojijo. Zdaj pa veliki hrastovi tramovi za streho. Kam gredo špirovci?",
+              "it": "I muri sono su, {m:ragazzo|f:ragazza}. Adesso le grandi travi di quercia per il tetto. Dove vanno?",
+              "de": "Die Mauern stehen, {m:Junge|f:Mädchen}. Jetzt die großen Eichenbalken fürs Dach. Wo kommen die Sparren hin?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "The rafters go on top of the walls.",
+                  "sl": "Špirovci gredo na vrh zidov.",
+                  "it": "Le travi del tetto vanno sopra i muri.",
+                  "de": "Die Dachsparren kommen oben auf die Mauern.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye. Long oak, from wall to wall.",
+                    "sl": "Ja. Dolg hrast, od zidu do zidu.",
+                    "it": "Sì. Lunga quercia, da muro a muro.",
+                    "de": "Ja. Lange Eiche, von Mauer zu Mauer."
+                  }
+                },
+                {
+                  "en": "The rabbits go on top of the walls.",
+                  "sl": "Zajci gredo na vrh zidov.",
+                  "it": "I conigli vanno sopra i muri.",
+                  "de": "Die Kaninchen kommen oben auf die Mauern.",
+                  "why": {
+                    "en": "Rafters are the long wooden beams of a roof. Rabbits hop in the field.",
+                    "sl": "Špirovci (rafters) so dolgi leseni tramovi strehe. Zajci skačejo po polju.",
+                    "it": "Le travi (rafters) sono i lunghi legni del tetto. I conigli saltano nel campo.",
+                    "de": "Sparren (rafters) sind die langen Holzbalken eines Dachs. Kaninchen hüpfen auf dem Feld."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Rabbits? On my mill? Ha!",
+                    "sl": "Zajci? Na mojem mlinu? Ha!",
+                    "it": "Conigli? Sul mio mulino? Ah!",
+                    "de": "Kaninchen? Auf meiner Mühle? Ha!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "alfie",
+              "face": "surprised",
+              "en": "Look! The mill is as high as a tree! Is it tall, {learner}?",
+              "sl": "Poglej! Mlin je visok kot drevo! Je visok, {learner}?",
+              "it": "Guarda! Il mulino è alto come un albero! È alto, {learner}?",
+              "de": "Schau! Die Mühle ist so hoch wie ein Baum! Ist sie groß, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, it's very tall now!",
+                  "sl": "Ja, zdaj je zelo visok!",
+                  "it": "Sì, adesso è altissimo!",
+                  "de": "Ja, jetzt ist sie sehr hoch!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Taller than Grandad! Taller than a tree!",
+                    "sl": "Višji od dedka! Višji od drevesa!",
+                    "it": "Più alto del nonno! Più alto di un albero!",
+                    "de": "Höher als Opa! Höher als ein Baum!"
+                  }
+                },
+                {
+                  "en": "Yes, it's very tired now!",
+                  "sl": "Ja, zdaj je zelo utrujen!",
+                  "it": "Sì, adesso è stanchissimo!",
+                  "de": "Ja, jetzt ist sie sehr müde!",
+                  "why": {
+                    "en": "Tall: high from the bottom to the top. Tired is how you feel after work.",
+                    "sl": "Tall (visok): od dna do vrha. Tired (utrujen) si po delu.",
+                    "it": "Tall (alto): dal basso in cima. Tired (stanco) si è dopo il lavoro.",
+                    "de": "Tall (hoch): von unten bis oben. Tired (müde) ist man nach der Arbeit."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Tired? Mills don't sleep! Ha ha!",
+                    "sl": "Utrujen? Mlini ne spijo! Ha ha!",
+                    "it": "Stanco? I mulini non dormono! Ah ah!",
+                    "de": "Müde? Mühlen schlafen nicht! Haha!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "Walls up, rafters on. Next, the roof.",
+              "sl": "Zidovi stojijo, špirovci so gor. Naslednja je streha.",
+              "it": "Muri su, travi messe. Poi il tetto.",
+              "de": "Mauern hoch, Sparren drauf. Als Nächstes das Dach.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "The whole village helped with the walls. What did we put on top of them?",
+              "sl": "Vsa vas je pomagala pri zidovih. Kaj smo dali nanje?",
+              "it": "Tutto il paese ha aiutato con i muri. Cosa ci abbiamo messo sopra?",
+              "de": "Das ganze Dorf hat bei den Mauern geholfen. Was haben wir oben draufgelegt?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "We put the oak rafters on top.",
+                  "sl": "Na vrh smo dali hrastove špirovce.",
+                  "it": "Sopra abbiamo messo le travi di quercia.",
+                  "de": "Wir haben die Eichensparren draufgelegt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Aye. Heavy, but now they'll hold the roof for a hundred years.",
+                    "sl": "Ja. Težki, ampak zdaj bodo držali streho sto let.",
+                    "it": "Sì. Pesanti, ma adesso reggeranno il tetto per cent'anni.",
+                    "de": "Ja. Schwer, aber jetzt halten sie das Dach hundert Jahre."
+                  }
+                },
+                {
+                  "en": "We put the oak rabbits on top.",
+                  "sl": "Na vrh smo dali hrastove zajce.",
+                  "it": "Sopra abbiamo messo i conigli di quercia.",
+                  "de": "Wir haben die Eichenkaninchen draufgelegt.",
+                  "why": {
+                    "en": "Rafters are the long beams of a roof. Rabbits hop in the field.",
+                    "sl": "Špirovci (rafters) so dolgi tramovi strehe. Zajci skačejo po polju.",
+                    "it": "Le travi (rafters) sono i lunghi legni del tetto. I conigli saltano nel campo.",
+                    "de": "Sparren (rafters) sind die langen Balken eines Dachs. Kaninchen hüpfen auf dem Feld."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Oak rabbits? Now there's a new animal!",
+                    "sl": "Hrastovi zajci? To je pa nova žival!",
+                    "it": "Conigli di quercia? Ecco un animale nuovo!",
+                    "de": "Eichenkaninchen? Das ist mal ein neues Tier!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "alfie",
+              "face": "curious",
+              "en": "The mill is taller than our house now! Is it taller than the willow?",
+              "sl": "Mlin je zdaj višji od naše hiše! Je višji od vrbe?",
+              "it": "Adesso il mulino è più alto di casa nostra! È più alto del salice?",
+              "de": "Die Mühle ist jetzt höher als unser Haus! Ist sie höher als die Weide?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, it's taller than the willow!",
+                  "sl": "Ja, višji je od vrbe!",
+                  "it": "Sì, è più alto del salice!",
+                  "de": "Ja, sie ist höher als die Weide!",
+                  "ok": true,
+                  "reply": {
+                    "face": "surprised",
+                    "en": "Wow! The tallest thing by the beck!",
+                    "sl": "Joj! Najvišja stvar ob potoku!",
+                    "it": "Wow! La cosa più alta lungo il ruscello!",
+                    "de": "Wow! Das Höchste am Bach!"
+                  }
+                },
+                {
+                  "en": "Yes, it's tireder than the willow!",
+                  "sl": "Ja, bolj utrujen je od vrbe!",
+                  "it": "Sì, è più stanco del salice!",
+                  "de": "Ja, sie ist müder als die Weide!",
+                  "why": {
+                    "en": "Taller: higher from the bottom to the top. Tired is for people after work.",
+                    "sl": "Taller (višji): od dna do vrha. Tired je za ljudi po delu.",
+                    "it": "Taller (più alto): dal basso in cima. Tired è per le persone dopo il lavoro.",
+                    "de": "Taller (höher): von unten bis oben. Tired ist für Leute nach der Arbeit."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Tireder? Ha ha! Mills don't get tired!",
+                    "sl": "Tireder? Ha ha! Mlini se ne utrudijo!",
+                    "it": "Tireder? Ah ah! I mulini non si stancano!",
+                    "de": "Tireder? Haha! Mühlen werden nicht müde!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "Walls and rafters. Next week, the roof.",
+              "sl": "Zidovi in špirovci. Prihodnji teden streha.",
+              "it": "Muri e travi. La settimana prossima, il tetto.",
+              "de": "Mauern und Sparren. Nächste Woche das Dach.",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "by-the-beck",
+      "words": ["cover"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "The rafters are on. Now the grey slates. What do we do with them, {m:lad|f:lass}?",
+              "sl": "Špirovci so gor. Zdaj pa sive skrle. Kaj naredimo z njimi?",
+              "it": "Le travi sono su. Adesso le lastre d'ardesia grigia. Cosa ci facciamo, {m:ragazzo|f:ragazza}?",
+              "de": "Die Sparren sind drauf. Jetzt die grauen Schieferplatten. Was machen wir damit, {m:Junge|f:Mädchen}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "We cover the roof with them.",
+                  "sl": "Z njimi pokrijemo streho.",
+                  "it": "Ci copriamo il tetto.",
+                  "de": "Wir decken das Dach damit.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Aye. One row, then the next row over it.",
+                    "sl": "Ja. Ena vrsta, potem naslednja čeznjo.",
+                    "it": "Sì. Una fila, poi la successiva sopra.",
+                    "de": "Ja. Eine Reihe, dann die nächste darüber."
+                  }
+                },
+                {
+                  "en": "We cook the roof with them.",
+                  "sl": "Z njimi skuhamo streho.",
+                  "it": "Ci cuciniamo il tetto.",
+                  "de": "Wir kochen das Dach damit.",
+                  "why": {
+                    "en": "Cover: put things over the top of something, so the rain stays out.",
+                    "sl": "Cover (pokriti): dati nekaj čez, da dež ostane zunaj.",
+                    "it": "Cover (coprire): mettere qualcosa sopra, perché la pioggia resti fuori.",
+                    "de": "Cover (decken): etwas darüberlegen, damit der Regen draußen bleibt."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Cook the roof? Not on my fire!",
+                    "sl": "Skuhamo streho? Ne na mojem ognju!",
+                    "it": "Cucinare il tetto? Non sul mio fuoco!",
+                    "de": "Das Dach kochen? Nicht auf meinem Feuer!"
+                  }
+                },
+                {
+                  "en": "We covers the roof with them.",
+                  "sl": "Z njimi pokrijemo streho.",
+                  "it": "Ci copriamo il tetto.",
+                  "de": "Wir decken das Dach damit.",
+                  "grammar": "present-simple",
+                  "why": {
+                    "en": "With we, the verb has no -s: we cover.",
+                    "sl": "Pri we glagol nima -s: we cover.",
+                    "it": "Con we il verbo non prende la -s: we cover.",
+                    "de": "Bei we hat das Verb kein -s: we cover."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Covers? We, {m:lad|f:lass}. All of us up the ladder.",
+                    "sl": "Covers? We: vsi mi gor na lestev.",
+                    "it": "Covers? We, {m:ragazzo|f:ragazza}. Tutti noi su per la scala.",
+                    "de": "Covers? We, {m:Junge|f:Mädchen}. Wir alle die Leiter hoch."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "dixon",
+              "en": "Last slate. Hand it up.",
+              "sl": "Zadnja skrla. Podaj jo gor.",
+              "it": "L'ultima lastra. Passamela.",
+              "de": "Letzte Platte. Reich sie hoch."
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "Covered. Dry inside, whatever the rain does.",
+              "sl": "Pokrito. Notri suho, naj dežuje, kolikor hoče.",
+              "it": "Coperto. Dentro asciutto, qualunque cosa faccia la pioggia.",
+              "de": "Gedeckt. Drinnen trocken, egal was der Regen macht.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "The lads have built the roof. Today we're going to cover it. What with, {m:lad|f:lass}?",
+              "sl": "Fantje so naredili streho. Danes jo bomo pokrili. S čim?",
+              "it": "I ragazzi hanno fatto il tetto. Oggi lo copriamo. Con cosa, {m:ragazzo|f:ragazza}?",
+              "de": "Die Jungs haben das Dach gebaut. Heute decken wir es. Womit, {m:Junge|f:Mädchen}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "We're going to cover it with grey slates.",
+                  "sl": "Pokrili jo bomo s sivimi skrlami.",
+                  "it": "Lo copriremo con lastre d'ardesia grigia.",
+                  "de": "Wir decken es mit grauen Schieferplatten.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Lakeland slate. The best roof in the world.",
+                    "sl": "Skrilavec iz Jezernega okrožja. Najboljša streha na svetu.",
+                    "it": "Ardesia dei Laghi. Il tetto migliore del mondo.",
+                    "de": "Schiefer aus dem Lake District. Das beste Dach der Welt."
+                  }
+                },
+                {
+                  "en": "We're going to colour it with grey slates.",
+                  "sl": "Pobarvali jo bomo s sivimi skrlami.",
+                  "it": "Lo coloreremo con lastre d'ardesia grigia.",
+                  "de": "Wir malen es mit grauen Schieferplatten an.",
+                  "why": {
+                    "en": "Slates cover a roof: they lie over it and keep the rain out.",
+                    "sl": "Skrle streho pokrijejo (cover): ležijo čeznjo in zadržijo dež.",
+                    "it": "Le lastre coprono (cover) il tetto: ci stanno sopra e tengono fuori la pioggia.",
+                    "de": "Schieferplatten decken (cover) ein Dach: Sie liegen darüber und halten den Regen ab."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Colour it? It's a roof, {m:lad|f:lass}, not a picture!",
+                    "sl": "Pobarvali? To je streha, ne slika!",
+                    "it": "Colorarlo? È un tetto, {m:ragazzo|f:ragazza}, non un disegno!",
+                    "de": "Anmalen? Das ist ein Dach, {m:Junge|f:Mädchen}, kein Bild!"
+                  }
+                },
+                {
+                  "en": "We're going to covered it with grey slates.",
+                  "sl": "Pokrili jo bomo s sivimi skrlami.",
+                  "it": "Lo copriremo con lastre d'ardesia grigia.",
+                  "de": "Wir decken es mit grauen Schieferplatten.",
+                  "grammar": "future",
+                  "why": {
+                    "en": "After going to, the verb stays as it is: going to cover.",
+                    "sl": "Za going to glagol ostane, kakršen je: going to cover.",
+                    "it": "Dopo going to il verbo resta com'è: going to cover.",
+                    "de": "Nach going to bleibt das Verb, wie es ist: going to cover."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Covered? Not yet! We haven't started.",
+                    "sl": "Covered? Še ne! Saj še nismo začeli.",
+                    "it": "Covered? Non ancora! Non abbiamo cominciato.",
+                    "de": "Covered? Noch nicht! Wir haben noch nicht angefangen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "dixon",
+              "en": "That's the last slate. Covered.",
+              "sl": "To je zadnja skrla. Pokrito.",
+              "it": "È l'ultima lastra. Coperto.",
+              "de": "Das ist die letzte Platte. Gedeckt."
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "A roof over our mill. Let it rain!",
+              "sl": "Streha nad našim mlinom. Naj kar dežuje!",
+              "it": "Un tetto sopra il nostro mulino. Che piova pure!",
+              "de": "Ein Dach über unserer Mühle. Soll's doch regnen!",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "by-the-beck",
+      "words": ["spoke", "channel"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "Here's the wheel, {m:lad|f:lass}. Big and round, all oak.",
+              "sl": "Tukaj je kolo. Veliko in okroglo, vse iz hrasta.",
+              "it": "Ecco la ruota, {m:ragazzo|f:ragazza}. Grande e tonda, tutta di quercia.",
+              "de": "Hier ist das Rad, {m:Junge|f:Mädchen}. Groß und rund, ganz aus Eiche."
+            },
+            {
+              "who": "alfie",
+              "face": "curious",
+              "en": "What are all these sticks in the wheel, {learner}?",
+              "sl": "Kaj so vse te palice v kolesu, {learner}?",
+              "it": "Cosa sono tutti questi bastoni nella ruota, {learner}?",
+              "de": "Was sind all die Stöcke im Rad, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "They're the spokes.",
+                  "sl": "To so napere.",
+                  "it": "Sono i raggi.",
+                  "de": "Das sind die Speichen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Spokes! Grandad made sixteen!",
+                    "sl": "Napere! Dedek jih je naredil šestnajst!",
+                    "it": "I raggi! Il nonno ne ha fatti sedici!",
+                    "de": "Speichen! Opa hat sechzehn gemacht!"
+                  }
+                },
+                {
+                  "en": "They're the spoons.",
+                  "sl": "To so žlice.",
+                  "it": "Sono i cucchiai.",
+                  "de": "Das sind die Löffel.",
+                  "why": {
+                    "en": "Spokes: the sticks from the middle of a wheel to its edge. Spoons are for soup.",
+                    "sl": "Napere (spokes): palice od sredine kolesa do roba. Žlice so za juho.",
+                    "it": "I raggi (spokes): i bastoni dal centro della ruota al bordo. I cucchiai sono per la minestra.",
+                    "de": "Speichen (spokes): die Stäbe von der Mitte des Rads zum Rand. Löffel sind für die Suppe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Spoons? For the porridge? Ha ha!",
+                    "sl": "Žlice? Za kašo? Ha ha!",
+                    "it": "Cucchiai? Per il porridge? Ah ah!",
+                    "de": "Löffel? Für den Porridge? Haha!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "And the water? How does it get to the top of the wheel?",
+              "sl": "Pa voda? Kako pride do vrha kolesa?",
+              "it": "E l'acqua? Come arriva in cima alla ruota?",
+              "de": "Und das Wasser? Wie kommt es oben aufs Rad?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "It runs along a channel.",
+                  "sl": "Teče po žlebu.",
+                  "it": "Scorre in un canale.",
+                  "de": "Es fließt durch eine Rinne.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "A wooden channel, from the beck to the top of the wheel.",
+                    "sl": "Lesen žleb, od potoka do vrha kolesa.",
+                    "it": "Un canale di legno, dal ruscello fino in cima alla ruota.",
+                    "de": "Eine Holzrinne, vom Bach bis oben aufs Rad."
+                  }
+                },
+                {
+                  "en": "It runs along a chain.",
+                  "sl": "Teče po verigi.",
+                  "it": "Scorre su una catena.",
+                  "de": "Es fließt über eine Kette.",
+                  "why": {
+                    "en": "A channel is a little wooden river for the water. A chain is iron rings.",
+                    "sl": "Žleb (channel) je majhna lesena reka za vodo. Veriga so železni obročki.",
+                    "it": "Un canale (channel) è un piccolo fiume di legno per l'acqua. Una catena sono anelli di ferro.",
+                    "de": "Eine Rinne (channel) ist ein kleiner Holzfluss fürs Wasser. Eine Kette sind Eisenringe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "A chain? Water doesn't run on a chain!",
+                    "sl": "Po verigi? Voda ne teče po verigi!",
+                    "it": "Su una catena? L'acqua non scorre su una catena!",
+                    "de": "Über eine Kette? Wasser fließt nicht über eine Kette!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "Wheel in place, channel ready. Dry, for now.",
+              "sl": "Kolo je na mestu, žleb pripravljen. Zaenkrat suho.",
+              "it": "Ruota al suo posto, canale pronto. Asciutto, per ora.",
+              "de": "Rad an seinem Platz, Rinne fertig. Noch trocken.",
+              "done": true
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "I made the wheel this winter, {m:lad|f:lass}. Sixteen buckets, all oak.",
+              "sl": "To zimo sem naredil kolo. Šestnajst lopatic, vse iz hrasta.",
+              "it": "Quest'inverno ho fatto la ruota, {m:ragazzo|f:ragazza}. Sedici secchi, tutti di quercia.",
+              "de": "Diesen Winter hab ich das Rad gebaut, {m:Junge|f:Mädchen}. Sechzehn Kübel, alles Eiche."
+            },
+            {
+              "who": "alfie",
+              "face": "curious",
+              "en": "Grandad, what holds the wheel together? Do you know, {learner}?",
+              "sl": "Dedi, kaj drži kolo skupaj? Ti veš, {learner}?",
+              "it": "Nonno, cosa tiene insieme la ruota? Tu lo sai, {learner}?",
+              "de": "Opa, was hält das Rad zusammen? Weißt du's, {learner}?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "The spokes hold it together.",
+                  "sl": "Napere ga držijo skupaj.",
+                  "it": "Lo tengono insieme i raggi.",
+                  "de": "Die Speichen halten es zusammen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Spokes! From the middle out, like the sun!",
+                    "sl": "Napere! Od sredine navzven, kot sonce!",
+                    "it": "I raggi! Dal centro in fuori, come il sole!",
+                    "de": "Speichen! Von der Mitte nach außen, wie die Sonne!"
+                  }
+                },
+                {
+                  "en": "The spoons hold it together.",
+                  "sl": "Žlice ga držijo skupaj.",
+                  "it": "Lo tengono insieme i cucchiai.",
+                  "de": "Die Löffel halten es zusammen.",
+                  "why": {
+                    "en": "Spokes go from the middle of a wheel to its edge. Spoons are for soup.",
+                    "sl": "Napere (spokes) gredo od sredine kolesa do roba. Žlice so za juho.",
+                    "it": "I raggi (spokes) vanno dal centro della ruota al bordo. I cucchiai sono per la minestra.",
+                    "de": "Speichen (spokes) gehen von der Mitte des Rads zum Rand. Löffel sind für die Suppe."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Spoons? Ha ha! A porridge wheel!",
+                    "sl": "Žlice? Ha ha! Kašno kolo!",
+                    "it": "Cucchiai? Ah ah! Una ruota da porridge!",
+                    "de": "Löffel? Haha! Ein Porridge-Rad!"
+                  }
+                },
+                {
+                  "en": "The spokes holds it together.",
+                  "sl": "Napere ga držijo skupaj.",
+                  "it": "Lo tengono insieme i raggi.",
+                  "de": "Die Speichen halten es zusammen.",
+                  "grammar": "present-simple",
+                  "why": {
+                    "en": "Spokes are more than one: they hold, without -s.",
+                    "sl": "Spokes je več kot ena: they hold, brez -s.",
+                    "it": "Spokes sono più di uno: they hold, senza la -s.",
+                    "de": "Spokes sind mehrere: they hold, ohne -s."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Holds? Grandad says that's wrong!",
+                    "sl": "Holds? Dedek pravi, da je narobe!",
+                    "it": "Holds? Il nonno dice che è sbagliato!",
+                    "de": "Holds? Opa sagt, das ist falsch!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "And the water will come along the channel. Have we finished it?",
+              "sl": "Voda bo pritekla po žlebu. Smo ga dokončali?",
+              "it": "E l'acqua arriverà dal canale. L'abbiamo finito?",
+              "de": "Und das Wasser kommt durch die Rinne. Ist sie fertig?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, the channel is finished. It's still dry.",
+                  "sl": "Ja, žleb je gotov. Še je suh.",
+                  "it": "Sì, il canale è finito. È ancora asciutto.",
+                  "de": "Ja, die Rinne ist fertig. Sie ist noch trocken.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Dry till tomorrow. Then we open the sluice.",
+                    "sl": "Suh do jutri. Potem odpremo zapornico.",
+                    "it": "Asciutto fino a domani. Poi apriamo la chiusa.",
+                    "de": "Trocken bis morgen. Dann machen wir die Schleuse auf."
+                  }
+                },
+                {
+                  "en": "Yes, the chain is finished. It's still dry.",
+                  "sl": "Ja, veriga je gotova. Še je suha.",
+                  "it": "Sì, la catena è finita. È ancora asciutta.",
+                  "de": "Ja, die Kette ist fertig. Sie ist noch trocken.",
+                  "why": {
+                    "en": "The water comes along a channel, a little wooden river. A chain is iron rings.",
+                    "sl": "Voda priteče po žlebu (channel), majhni leseni reki. Veriga so železni obročki.",
+                    "it": "L'acqua arriva da un canale (channel), un piccolo fiume di legno. Una catena sono anelli di ferro.",
+                    "de": "Das Wasser kommt durch eine Rinne (channel), einen kleinen Holzfluss. Eine Kette sind Eisenringe."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "The chain? That's the smith's work. I mean the channel.",
+                    "sl": "Veriga? To je kovačevo delo. Mislim žleb.",
+                    "it": "La catena? Quello è lavoro da fabbro. Intendo il canale.",
+                    "de": "Die Kette? Das ist Schmiedearbeit. Ich meine die Rinne."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "Wheel and channel, both ready. Tomorrow: water.",
+              "sl": "Kolo in žleb, oboje pripravljeno. Jutri: voda.",
+              "it": "Ruota e canale, tutti e due pronti. Domani: l'acqua.",
+              "de": "Rad und Rinne, beides fertig. Morgen: Wasser.",
+              "done": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "by-the-beck",
+      "words": ["grind", "everyone"],
+      "fx_stays": true,
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "Now, {learner}. I open the sluice. Let the water in!",
+              "sl": "Zdaj pa, {learner}. Odprem zapornico. Naj priteče voda!",
+              "it": "Adesso, {learner}. Apro la chiusa. Che entri l'acqua!",
+              "de": "Jetzt, {learner}. Ich öffne die Schleuse. Lass das Wasser rein!",
+              "fx": { "wheel": 0 }
+            },
+            {
+              "who": "alfie",
+              "face": "surprised",
+              "en": "Look! The water's on the wheel! It's turning!",
+              "sl": "Poglej! Voda je na kolesu! Vrti se!",
+              "it": "Guarda! L'acqua è sulla ruota! Gira!",
+              "de": "Schau! Das Wasser ist auf dem Rad! Es dreht sich!",
+              "fx": { "wheel": 1 },
+              "done": true
+            },
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "So, {m:lad|f:lass}: what does a mill do?",
+              "sl": "No: kaj dela mlin?",
+              "it": "Allora, {m:ragazzo|f:ragazza}: cosa fa un mulino?",
+              "de": "Also, {m:Junge|f:Mädchen}: Was macht eine Mühle?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "It grinds the oats!",
+                  "sl": "Melje oves!",
+                  "it": "Macina l'avena!",
+                  "de": "Sie mahlt den Hafer!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "Aye. Oats in, oatmeal out.",
+                    "sl": "Ja. Oves noter, moka ven.",
+                    "it": "Sì. Dentro l'avena, fuori la farina.",
+                    "de": "Ja. Hafer rein, Hafermehl raus."
+                  }
+                },
+                {
+                  "en": "It grows the oats!",
+                  "sl": "Goji oves!",
+                  "it": "Coltiva l'avena!",
+                  "de": "Sie baut den Hafer an!",
+                  "why": {
+                    "en": "Oats grow in the field. The mill grinds them into oatmeal.",
+                    "sl": "Oves raste na polju. Mlin ga zmelje (grind) v moko.",
+                    "it": "L'avena cresce nel campo. Il mulino la macina (grind) in farina.",
+                    "de": "Hafer wächst auf dem Feld. Die Mühle mahlt (grind) ihn zu Mehl."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Grows? That's my field's job, {m:lad|f:lass}!",
+                    "sl": "Goji? To je delo mojega polja!",
+                    "it": "Coltiva? Quello è il lavoro del mio campo, {m:ragazzo|f:ragazza}!",
+                    "de": "Anbauen? Das macht mein Feld, {m:Junge|f:Mädchen}!"
+                  }
+                },
+                {
+                  "en": "It grind the oats!",
+                  "sl": "Melje oves!",
+                  "it": "Macina l'avena!",
+                  "de": "Sie mahlt den Hafer!",
+                  "grammar": "present-simple",
+                  "why": {
+                    "en": "The mill is it: the verb takes -s. It grinds.",
+                    "sl": "The mill je it: glagol dobi -s. It grinds.",
+                    "it": "The mill è it: il verbo prende la -s. It grinds.",
+                    "de": "The mill ist it: Das Verb bekommt ein -s. It grinds."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Grind? Aye, it does. Say it right, though.",
+                    "sl": "Grind? Ja, melje. Ampak povej prav.",
+                    "it": "Grind? Sì, macina. Ma dillo bene.",
+                    "de": "Grind? Ja, tut sie. Aber sag's richtig."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "maggie",
+              "face": "happy",
+              "en": "The first oatmeal! Porridge! Who wants some?",
+              "sl": "Prva ovsena moka! Kaša! Kdo jo hoče?",
+              "it": "La prima farina d'avena! Porridge! Chi ne vuole?",
+              "de": "Das erste Hafermehl! Porridge! Wer will welchen?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Everyone wants porridge!",
+                  "sl": "Vsi hočejo kašo!",
+                  "it": "Tutti vogliono il porridge!",
+                  "de": "Alle wollen Porridge!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "en": "Then sit down, all of you. Bowls for everyone!",
+                    "sl": "Potem pa sedite, vsi. Sklede za vse!",
+                    "it": "Allora sedetevi tutti. Ciotole per tutti!",
+                    "de": "Dann setzt euch, alle. Schüsseln für alle!"
+                  }
+                },
+                {
+                  "en": "Nobody wants porridge!",
+                  "sl": "Nihče noče kaše!",
+                  "it": "Nessuno vuole il porridge!",
+                  "de": "Keiner will Porridge!",
+                  "why": {
+                    "en": "The whole village is hungry for the first porridge: everyone.",
+                    "sl": "Vsa vas je lačna prve kaše: everyone (vsi).",
+                    "it": "Tutto il paese ha fame del primo porridge: everyone (tutti).",
+                    "de": "Das ganze Dorf hat Hunger auf den ersten Porridge: everyone (alle)."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Nobody? Then more for me, love!",
+                    "sl": "Nihče? Potem več zame!",
+                    "it": "Nessuno? Allora di più per me, tesoro!",
+                    "de": "Keiner? Dann mehr für mich, Schatz!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "tyson",
+              "face": "proud",
+              "en": "The mill is finished, {learner}. I'm going to open the sluice. Ready?",
+              "sl": "Mlin je gotov, {learner}. Odprl bom zapornico. {m:Pripravljen|f:Pripravljena}?",
+              "it": "Il mulino è finito, {learner}. Apro la chiusa. {m:Pronto|f:Pronta}?",
+              "de": "Die Mühle ist fertig, {learner}. Ich mach jetzt die Schleuse auf. Bereit?",
+              "fx": { "wheel": 0 }
+            },
+            {
+              "who": "alfie",
+              "face": "surprised",
+              "en": "The water's come! The wheel is turning!",
+              "sl": "Voda je pritekla! Kolo se vrti!",
+              "it": "È arrivata l'acqua! La ruota gira!",
+              "de": "Das Wasser ist da! Das Rad dreht sich!",
+              "fx": { "wheel": 1 },
+              "done": true
+            },
+            {
+              "who": "tyson",
+              "face": "curious",
+              "en": "Listen to the stones. What are they doing?",
+              "sl": "Poslušaj kamna. Kaj delata?",
+              "it": "Senti le macine. Cosa fanno?",
+              "de": "Hör die Steine. Was machen sie?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "They're grinding the first oats!",
+                  "sl": "Meljeta prvi oves!",
+                  "it": "Stanno macinando la prima avena!",
+                  "de": "Sie mahlen den ersten Hafer!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "en": "The first oats from our own mill. I've waited forty years for this.",
+                    "sl": "Prvi oves iz našega lastnega mlina. Štirideset let sem čakal na to.",
+                    "it": "La prima avena dal nostro mulino. Ho aspettato quarant'anni.",
+                    "de": "Der erste Hafer aus unserer eigenen Mühle. Vierzig Jahre hab ich darauf gewartet."
+                  }
+                },
+                {
+                  "en": "They're growing the first oats!",
+                  "sl": "Gojita prvi oves!",
+                  "it": "Stanno coltivando la prima avena!",
+                  "de": "Sie bauen den ersten Hafer an!",
+                  "why": {
+                    "en": "Oats grow in the field; millstones grind them.",
+                    "sl": "Oves raste na polju; mlinska kamna ga meljeta (grind).",
+                    "it": "L'avena cresce nel campo; le macine la macinano (grind).",
+                    "de": "Hafer wächst auf dem Feld; Mühlsteine mahlen (grind) ihn."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Growing? In the mill? Oats need a field, {m:lad|f:lass}!",
+                    "sl": "Gojita? V mlinu? Oves potrebuje polje!",
+                    "it": "Coltivano? Nel mulino? L'avena vuole un campo, {m:ragazzo|f:ragazza}!",
+                    "de": "Anbauen? In der Mühle? Hafer braucht ein Feld, {m:Junge|f:Mädchen}!"
+                  }
+                },
+                {
+                  "en": "They grinding the first oats!",
+                  "sl": "Meljeta prvi oves!",
+                  "it": "Stanno macinando la prima avena!",
+                  "de": "Sie mahlen den ersten Hafer!",
+                  "grammar": "present-continuous",
+                  "why": {
+                    "en": "Now: are + -ing. They're grinding (they are grinding).",
+                    "sl": "Zdaj: are + -ing. They're grinding (they are grinding).",
+                    "it": "Adesso: are + -ing. They're grinding (they are grinding).",
+                    "de": "Jetzt: are + -ing. They're grinding (they are grinding)."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "They grinding? Aye, they are. All of it, now!",
+                    "sl": "They grinding? Ja, meljeta. Zdaj pa vse skupaj!",
+                    "it": "They grinding? Sì, macinano. Adesso tutta la frase!",
+                    "de": "They grinding? Ja, tun sie. Jetzt den ganzen Satz!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            },
+            {
+              "who": "maggie",
+              "face": "happy",
+              "en": "Porridge for the whole village! Has everyone got a bowl?",
+              "sl": "Kaša za vso vas! Ima vsak skledo?",
+              "it": "Porridge per tutto il paese! Hanno tutti una ciotola?",
+              "de": "Porridge fürs ganze Dorf! Hat jeder eine Schüssel?"
+            },
+            {
+              "choices": [
+                {
+                  "en": "Yes, everyone has got a bowl!",
+                  "sl": "Ja, vsak ima skledo!",
+                  "it": "Sì, tutti hanno una ciotola!",
+                  "de": "Ja, jeder hat eine Schüssel!",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "en": "Then eat up, everyone! Salt or honey?",
+                    "sl": "Potem pa jejte, vsi! S soljo ali z medom?",
+                    "it": "Allora mangiate, tutti! Sale o miele?",
+                    "de": "Dann esst, alle! Salz oder Honig?"
+                  }
+                },
+                {
+                  "en": "Yes, nobody has got a bowl!",
+                  "sl": "Ja, nihče nima sklede!",
+                  "it": "Sì, nessuno ha una ciotola!",
+                  "de": "Ja, keiner hat eine Schüssel!",
+                  "why": {
+                    "en": "Yes and nobody don't go together: everyone has got a bowl.",
+                    "sl": "Ja in nihče ne gresta skupaj: vsak (everyone) ima skledo.",
+                    "it": "Sì e nessuno non vanno d'accordo: tutti (everyone) hanno una ciotola.",
+                    "de": "Ja und keiner passen nicht zusammen: Jeder (everyone) hat eine Schüssel."
+                  },
+                  "reply": {
+                    "face": "surprised",
+                    "en": "Nobody? Then what are you all holding, love?",
+                    "sl": "Nihče? Kaj pa potem vsi držite v rokah?",
+                    "it": "Nessuno? E allora cosa tenete in mano, tesoro?",
+                    "de": "Keiner? Was haltet ihr dann alle in der Hand, Schatz?"
+                  }
+                },
+                {
+                  "en": "Yes, everyone have got a bowl!",
+                  "sl": "Ja, vsak ima skledo!",
+                  "it": "Sì, tutti hanno una ciotola!",
+                  "de": "Ja, jeder hat eine Schüssel!",
+                  "grammar": "to-have",
+                  "why": {
+                    "en": "Everyone takes the verb for one: everyone has got.",
+                    "sl": "Everyone ima glagol za enega: everyone has got.",
+                    "it": "Everyone vuole il verbo al singolare: everyone has got.",
+                    "de": "Everyone hat das Verb in der Einzahl: everyone has got."
+                  },
+                  "reply": {
+                    "face": "curious",
+                    "en": "Have got? Everyone is one big family, love: has!",
+                    "sl": "Have got? Everyone je ena velika družina: has!",
+                    "it": "Have got? Everyone è una grande famiglia, tesoro: has!",
+                    "de": "Have got? Everyone ist eine große Familie, Schatz: has!"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+                "sl": "Kaj? Počasi. Besedo za besedo.",
+                "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+                "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
