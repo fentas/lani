@@ -9069,6 +9069,9 @@ POLISH_CUES = {
         ("pedlar", "at-the-gate", "packman", "packman", 10.5),
         ("foxes-day", "at-the-gate", "bell", "bell-danger", 14.5),
         ("foxes-night", "at-the-gate", "bar", "bar-wolves", 21.5),
+        ("foxes-tower", "on-the-watchtower", "watch", "watch", 21.5),
+        # a form turn the slip of which was rewritten to one word (polish-content.md, section 7), asked to be typed
+        ("typed-can", "on-the-watchtower", "watch", "watch", 21.5),
     ],
 }
 
@@ -9093,8 +9096,10 @@ def polish_cues():
             shutil.copy(shots[-1], out / f"pc-{culture}-{name}.png")
 
     skipped = []
+    qa_hook("hearths:trg")  # every building at level 2: the gate, the tower
     try:
         for name, sid, hid, did, hour in cues:
+            qa_hook("turns:type" if name.startswith("typed-") else "turns:")
             qa_hook(f"hour:{hour}")
             qa_hook(f"happening:{sid}/{hid}/{did}", f"scene:{sid}@{sid}/{hid}")
             time.sleep(4 * slow())
@@ -9103,14 +9108,22 @@ def polish_cues():
                 plain_village()
                 continue
             time.sleep(2 * slow())
+            if name.startswith("typed-"):
+                # the first turn asked to be typed: its sentence with the gap, the field and the letter chips
+                if any("Izberi raje" in t or "Let me choose" in t for t, _ in nodes()):
+                    print(f"    {culture}: {sid}/{did}: its first turn asks to type the missing word")
+                else:
+                    skipped.append(f"{sid}/{did} (its turn wasn't asked to be typed)")
             snap(name)
             print(f"    {culture}: {sid}/{did} at {hour} h, its first line's cue in the picture")
             adb("shell", "input", "keyevent", "KEYCODE_BACK")
             time.sleep(1.5)
             plain_village()
     finally:
+        qa_hook("turns:")
         qa_hook("happening:")
         qa_hook("hour:")
+        qa_hook("hearths:")
     return f"skipped {', '.join(skipped)}" if skipped else None
 
 
