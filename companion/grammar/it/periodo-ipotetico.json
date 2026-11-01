@@ -1,0 +1,109 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "periodo-ipotetico",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🌈",
+  "title": {
+    "it": "Se piove, resto a casa: il periodo ipotetico",
+    "sl": "Če dežuje, ostanem doma: pogojni stavki",
+    "en": "If it rains, I stay at home: if-sentences",
+    "de": "Wenn es regnet, bleibe ich zu Hause: Wenn-Sätze"
+  },
+  "rule": {
+    "en": "A sentence with **se** (if) has two halves. When it can really happen, both are in the present: **Se piove, resto a casa.** (If it rains, I stay at home.) For later the second half may be the future, and the **se** half too: **Se domani fa bel tempo, andremo al mare.** **Se verrai, giocheremo.** An order fits as well: **Se hai fame, mangia!**\n\nWhen you only imagine it (it isn't so), the **se** half takes the **congiuntivo imperfetto** and the other half the conditional: **Se fossi un uccello, volerei.** (If I were a bird, I'd fly.) Its forms: **essere → fossi, fossi, fosse, fossimo, foste, fossero**; **avere → avessi**; **-are → -assi** (giocassi), **-ere → -essi** (potessi), **-ire → -issi** (dormissi); lui, lei **-asse, -esse, -isse**, noi **-ssimo**, loro **-ssero** (giocassimo, fossero).\n\nNever the conditional after **se**: **se fossi**, never *se sarei*. German says *wäre* in both halves; Italian **fossi** in one and **sarei** in the other. The **se** half can come first or second: **Volerei, se fossi un uccello.**",
+    "sl": "Stavek s **se** (če) ima dve polovici. Ko se res lahko zgodi, sta obe v sedanjiku: **Se piove, resto a casa.** (Če dežuje, ostanem doma.) Za pozneje je druga polovica lahko v prihodnjiku, tudi polovica s **se**: **Se domani fa bel tempo, andremo al mare.** **Se verrai, giocheremo.** Ustreza tudi ukaz: **Se hai fame, mangia!**\n\nKo si nekaj samo predstavljaš (ni tako), ima polovica s **se** **congiuntivo imperfetto**, druga pa pogojnik: **Se fossi un uccello, volerei.** (Če bi bil ptica, bi letel.) Oblike: **essere → fossi, fossi, fosse, fossimo, foste, fossero**; **avere → avessi**; **-are → -assi** (giocassi), **-ere → -essi** (potessi), **-ire → -issi** (dormissi); lui, lei **-asse, -esse, -isse**, noi **-ssimo**, loro **-ssero** (giocassimo, fossero).\n\nZa **se** nikoli pogojnik: **se fossi**, nikoli *se sarei*. Slovenščina ima *bi* v obeh polovicah, italijanščina **fossi** v eni in **sarei** v drugi. Polovica s **se** je lahko spredaj ali zadaj: **Volerei, se fossi un uccello.**",
+    "de": "Ein Satz mit **se** (wenn) hat zwei Hälften. Kann es wirklich passieren, stehen beide im Präsens: **Se piove, resto a casa.** (Wenn es regnet, bleibe ich zu Hause.) Für später kann die zweite Hälfte im Futur stehen, auch die mit **se**: **Se domani fa bel tempo, andremo al mare.** **Se verrai, giocheremo.** Auch eine Aufforderung passt: **Se hai fame, mangia!**\n\nStellst du es dir nur vor (es ist nicht so), steht die **se**-Hälfte im **congiuntivo imperfetto** und die andere im Konditional: **Se fossi un uccello, volerei.** (Wenn ich ein Vogel wäre, würde ich fliegen.) Die Formen: **essere → fossi, fossi, fosse, fossimo, foste, fossero**; **avere → avessi**; **-are → -assi** (giocassi), **-ere → -essi** (potessi), **-ire → -issi** (dormissi); lui, lei **-asse, -esse, -isse**, noi **-ssimo**, loro **-ssero** (giocassimo, fossero).\n\nNach **se** nie der Konditional: **se fossi**, nie *se sarei*. Deutsch sagt *wäre* in beiden Hälften, Italienisch **fossi** in der einen und **sarei** in der anderen. Die **se**-Hälfte darf vorn oder hinten stehen: **Volerei, se fossi un uccello.**"
+  },
+  "table": {
+    "head": [
+      { "it": "se …", "sl": "se … (če)", "en": "se … (if)", "de": "se … (wenn)" },
+      { "it": "poi …", "sl": "potem …", "en": "then …", "de": "dann …" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      ["presente", "presente", "Se piove, resto a casa."],
+      ["presente", "futuro", "Se domani fa bello, andremo al mare."],
+      ["futuro", "futuro", "Se verrai, giocheremo."],
+      ["presente", "imperativo", "Se hai fame, mangia!"],
+      [{ "it": "fossi, avessi", "sl": "fossi, avessi (če bi bil, imel)", "en": "fossi, avessi (if I were, had)", "de": "fossi, avessi (wenn ich wäre, hätte)" }, "condizionale", "Se fossi un uccello, volerei."],
+      [{ "it": "-assi, -essi, -issi", "sl": "-assi, -essi, -issi (če bi)", "en": "-assi, -essi, -issi (if I …)", "de": "-assi, -essi, -issi (wenn ich …)" }, "condizionale", "Se potessi, verrei."],
+      [{ "it": "lui: fosse, avesse", "sl": "lui: fosse, avesse (če bi on)", "en": "lui: fosse, avesse (if he …)", "de": "lui: fosse, avesse (wenn er …)" }, "condizionale", "Se Moro fosse giovane, correrebbe."]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Se piove, Nonno Bepi racconta le storie in casa.",
+      "sl": "Če dežuje, dedek Bepi pripoveduje zgodbe v hiši.",
+      "en": "If it rains, Nonno Bepi tells his stories indoors.",
+      "de": "Wenn es regnet, erzählt Opa Bepi die Geschichten im Haus.",
+      "note": {
+        "sl": "Res se lahko zgodi: obakrat sedanjik.",
+        "en": "It can really happen: the present in both halves.",
+        "de": "Es kann wirklich passieren: zweimal Präsens."
+      }
+    },
+    {
+      "it": "Se domani fa bel tempo, andremo al mare con Nonna Rosa.",
+      "sl": "Če bo jutri lepo vreme, bomo šli z babico Roso na morje.",
+      "en": "If the weather's fine tomorrow, we'll go to the sea with Nonna Rosa.",
+      "de": "Wenn morgen schönes Wetter ist, gehen wir mit Oma Rosa ans Meer."
+    },
+    {
+      "it": "Se hai freddo, mettiti il maglione!",
+      "sl": "Če te zebe, si obleci pulover!",
+      "en": "If you're cold, put your jumper on!",
+      "de": "Wenn dir kalt ist, zieh den Pullover an!"
+    },
+    {
+      "it": "Se fossi un uccello, volerei sul Monte Sabotino.",
+      "sl": "Če bi {m:bil|f:bila} ptica, bi {m:poletel|f:poletela} na Sabotin.",
+      "en": "If I were a bird, I'd fly up Monte Sabotino.",
+      "de": "Wenn ich ein Vogel wäre, würde ich auf den Monte Sabotino fliegen.",
+      "note": {
+        "sl": "Samo predstava: se fossi + pogojnik (volerei).",
+        "en": "Only imagined: se fossi + the conditional (volerei).",
+        "de": "Nur ausgedacht: se fossi + Konditional (volerei)."
+      }
+    },
+    {
+      "it": "Se Lorenzo avesse un cavallo, lo chiamerebbe Tuono.",
+      "sl": "Če bi Lorenzo imel konja, bi ga poimenoval Grom.",
+      "en": "If Lorenzo had a horse, he'd call it Tuono (Thunder).",
+      "de": "Wenn Lorenzo ein Pferd hätte, würde er es Tuono (Donner) nennen."
+    },
+    {
+      "it": "Se potessi, mangerei il gelato ogni giorno.",
+      "sl": "Če bi lahko, bi vsak dan {m:jedel|f:jedla} sladoled.",
+      "en": "If I could, I'd eat ice cream every day.",
+      "de": "Wenn ich könnte, würde ich jeden Tag Eis essen."
+    },
+    {
+      "it": "Se Moro fosse ancora giovane, correrebbe dietro alla palla.",
+      "sl": "Če bi bil Moro še mlad, bi tekel za žogo.",
+      "en": "If Moro were still young, he'd run after the ball.",
+      "de": "Wenn Moro noch jung wäre, würde er dem Ball nachlaufen.",
+      "note": {
+        "sl": "Nikoli se sarebbe: za se pride fosse.",
+        "en": "Never se sarebbe: after se comes fosse.",
+        "de": "Nie se sarebbe: nach se kommt fosse."
+      }
+    },
+    {
+      "it": "Giocheremmo fuori, se non piovesse.",
+      "sl": "Igrali bi se zunaj, če ne bi deževalo.",
+      "en": "We'd play outside if it weren't raining.",
+      "de": "Wir würden draußen spielen, wenn es nicht regnen würde.",
+      "note": {
+        "sl": "Polovica s se je lahko tudi zadaj.",
+        "en": "The se half can come second too.",
+        "de": "Die se-Hälfte kann auch hinten stehen."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["periodo_ipotetico", "if_clauses", "conditional_sentences", "se", "congiuntivo_imperfetto"],
+  "see": ["condizionale", "futuro", "imperativo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

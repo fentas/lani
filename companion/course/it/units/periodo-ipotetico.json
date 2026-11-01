@@ -1,0 +1,320 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "periodo-ipotetico",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🌈",
+  "title": { "it": "Se piove, resto a casa", "de": "Wenn … dann: se piove, resto", "sl": "Če … potem: se piove, resto", "en": "If … then: se piove, resto" },
+  "goal": {
+    "de": "Du sagst, was passiert, wenn etwas wirklich so kommt (Se piove, resto a casa. Se domani fa bello, andremo al mare.), und was wäre, wenn du es dir nur vorstellst: Se fossi un uccello, volerei.",
+    "sl": "Poveš, kaj se zgodi, če res pride tako (Se piove, resto a casa. Se domani fa bello, andremo al mare.), in kaj bi bilo, če si to samo predstavljaš: Se fossi un uccello, volerei.",
+    "en": "You can say what happens if something really comes about (Se piove, resto a casa. Se domani fa bello, andremo al mare.) and what would be if you only imagine it: Se fossi un uccello, volerei."
+  },
+  "grammar": ["periodo-ipotetico", "condizionale", "futuro"],
+  "words": ["se", "il tiglio", "l'uccello", "le ali", "il pesce", "il leone", "il re", "il castello", "la barca", "il maglione", "il pupazzo di neve", "la neve", "il prato", "la radio", "il cavallo", "il trattore", "il cane", "la pecora", "la torta", "nevicare", "piovere", "volare", "nuotare", "correre", "scappare", "sentire", "spegnere", "chiamare", "tornare", "essere", "avere", "potere", "giocare", "vedere", "dormire", "stanco", "giovane", "contento", "Grado", "Trieste"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "se …", "de": "se … (wenn)", "sl": "se … (če)", "en": "se … (if)" },
+        { "it": "poi …", "de": "dann …", "sl": "potem …", "en": "then …" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Kann etwas wirklich passieren, sagst du **se** (wenn) und zweimal das Präsens: **Se piove, resto a casa.** (Wenn es regnet, bleibe ich zu Hause.) Der Satz hat zwei Hälften, mit einem Komma dazwischen: **Se Moro ha fame, abbaia.** (Wenn Moro Hunger hat, bellt er.)",
+          "sl": "Če se nekaj res lahko zgodi, rečeš **se** (če) in dvakrat sedanjik: **Se piove, resto a casa.** (Če dežuje, ostanem doma.) Stavek ima dve polovici, z vejico vmes: **Se Moro ha fame, abbaia.** (Če je Moro lačen, laja.)",
+          "en": "When something can really happen, say **se** (if) and the present twice: **Se piove, resto a casa.** (If it rains, I stay at home.) The sentence has two halves, a comma between them: **Se Moro ha fame, abbaia.** (If Moro is hungry, he barks.)"
+        },
+        "examples": [
+          { "it": "Se piove, Nonno Bepi racconta le storie in casa.", "de": "Wenn es regnet, erzählt Opa Bepi die Geschichten im Haus.", "sl": "Če dežuje, dedek Bepi pripoveduje zgodbe v hiši.", "en": "If it rains, Nonno Bepi tells his stories indoors." },
+          { "it": "Se Moro ha fame, abbaia.", "de": "Wenn Moro Hunger hat, bellt er.", "sl": "Če je Moro lačen, laja.", "en": "If Moro is hungry, he barks." }
+        ],
+        "rows": [
+          ["presente", "presente", "Se piove, resto a casa."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Se Lorenzo ___ stanco, dorme sul divano.", "options": ["è", "sono", "sarebbe"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**dorme** (Präsens): es passiert wirklich → **se** + Präsens: **è**\n- sono · ich bin, sie sind\n- sarebbe: nach se nie",
+            "sl": "**dorme** (sedanjik): res se zgodi → **se** + sedanjik: **è**\n- sono · sem, so\n- sarebbe: za se nikoli",
+            "en": "**dorme** (present): it really happens → **se** + the present: **è**\n- sono · I am, they are\n- sarebbe: never after se"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Geht es um morgen oder später, steht die zweite Hälfte im **futuro**: **Se domani fa bel tempo, andremo al mare.** (Wenn morgen schönes Wetter ist, gehen wir ans Meer.) Auch beide Hälften im **futuro** sind richtig: **Se verrai, giocheremo insieme.** (Wenn du kommst, spielen wir zusammen.)",
+          "sl": "Ko gre za jutri ali pozneje, je druga polovica v **futuro**: **Se domani fa bel tempo, andremo al mare.** (Če bo jutri lepo vreme, bomo šli na morje.) Tudi obe polovici v **futuro** sta pravilni: **Se verrai, giocheremo insieme.** (Če prideš, se bomo igrali skupaj.)",
+          "en": "For tomorrow or later, the second half is in the **futuro**: **Se domani fa bel tempo, andremo al mare.** (If the weather's fine tomorrow, we'll go to the sea.) Both halves in the **futuro** are right too: **Se verrai, giocheremo insieme.** (If you come, we'll play together.)"
+        },
+        "examples": [
+          { "it": "Se domani fa bel tempo, andremo al mare con Nonna Rosa.", "de": "Wenn morgen schönes Wetter ist, gehen wir mit Oma Rosa ans Meer.", "sl": "Če bo jutri lepo vreme, bomo šli z babico Roso na morje.", "en": "If the weather's fine tomorrow, we'll go to the sea with Nonna Rosa." },
+          { "it": "Se verrai alla festa, balleremo insieme.", "de": "Wenn du zum Fest kommst, tanzen wir zusammen.", "sl": "Če prideš na praznik, bomo plesali skupaj.", "en": "If you come to the festa, we'll dance together." }
+        ],
+        "rows": [
+          ["presente", "futuro", "Se fa bello, andremo al mare."],
+          ["futuro", "futuro", "Se verrai, giocheremo."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "periodo-ipotetico", "text": "Se domani nevica, Tommaso ___ un pupazzo di neve. (fare · futuro)", "accept": ["farà"],
+          "hint": { "de": "er wird machen", "sl": "bo naredil", "en": "he'll make" },
+          "explain": {
+            "de": "**domani**, es kann passieren → **futuro**: **farà**",
+            "sl": "**domani**, lahko se zgodi → **futuro**: **farà**",
+            "en": "**domani**, it can happen → **futuro**: **farà**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach der **se**-Hälfte kann auch eine Aufforderung kommen, im **imperativo**: **Se hai fame, mangia!** (Wenn du Hunger hast, iss!) **Se vedi Moro, chiamalo!** (Wenn du Moro siehst, ruf ihn!)",
+          "sl": "Za polovico s **se** lahko pride tudi ukaz, v **imperativo**: **Se hai fame, mangia!** (Če si lačen, jej!) **Se vedi Moro, chiamalo!** (Če vidiš Mora, ga pokliči!)",
+          "en": "After the **se** half an order can come too, in the **imperativo**: **Se hai fame, mangia!** (If you're hungry, eat!) **Se vedi Moro, chiamalo!** (If you see Moro, call him!)"
+        },
+        "examples": [
+          { "it": "Se hai freddo, mettiti il maglione!", "de": "Wenn dir kalt ist, zieh den Pullover an!", "sl": "Če te zebe, si obleci pulover!", "en": "If you're cold, put your jumper on!" },
+          { "it": "Se vedi Moro, chiamalo!", "de": "Wenn du Moro siehst, ruf ihn!", "sl": "Če vidiš Mora, ga pokliči!", "en": "If you see Moro, call him!" }
+        ],
+        "rows": [
+          ["presente", "imperativo", "Se hai fame, mangia!"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Se hai sete, ___ un bicchiere d'acqua!", "options": ["bevi", "bere", "beve"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**du**, eine Aufforderung → **imperativo**: **bevi!** (trink!)\n- bere · trinken (Grundform)\n- beve · er, sie trinkt",
+            "sl": "**ti**, ukaz → **imperativo**: **bevi!** (pij!)\n- bere · piti (nedoločnik)\n- beve · on, ona pije",
+            "en": "**you**, an order → **imperativo**: **bevi!** (drink!)\n- bere · to drink\n- beve · he, she drinks"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Stellst du dir etwas nur vor, das nicht so ist, sagst du **se fossi** (wenn ich wäre) und dann das **condizionale**: **Se fossi un uccello, volerei sul Monte Sabotino.** (Wenn ich ein Vogel wäre, würde ich auf den Monte Sabotino fliegen.) Für er und sie: **se fosse** (wenn er, sie wäre). Deutsch sagt *wäre* und *würde*, Italienisch **fossi** und **volerei**.",
+          "sl": "Ko si nekaj samo predstavljaš in ni tako, rečeš **se fossi** (če bi bil) in nato **condizionale**: **Se fossi un uccello, volerei sul Monte Sabotino.** (Če bi bil ptica, bi poletel na Sabotin.) Za on in ona: **se fosse** (če bi bil, bila). Slovenščina ima *bi* v obeh polovicah, italijanščina **fossi** in **volerei**.",
+          "en": "When you only imagine something that isn't so, say **se fossi** (if I were) and then the **condizionale**: **Se fossi un uccello, volerei sul Monte Sabotino.** (If I were a bird, I'd fly up Monte Sabotino.) For he and she: **se fosse** (if he, she were). English says *were* and *would*; Italian **fossi** and **volerei**."
+        },
+        "examples": [
+          { "it": "Se fossi un uccello, volerei sul Monte Sabotino.", "de": "Wenn ich ein Vogel wäre, würde ich auf den Monte Sabotino fliegen.", "sl": "Če bi {m:bil|f:bila} ptica, bi {m:poletel|f:poletela} na Sabotin.", "en": "If I were a bird, I'd fly up Monte Sabotino." },
+          { "it": "Se Moro fosse ancora giovane, correrebbe dietro alla palla.", "de": "Wenn Moro noch jung wäre, würde er dem Ball nachlaufen.", "sl": "Če bi bil Moro še mlad, bi tekel za žogo.", "en": "If Moro were still young, he'd run after the ball." }
+        ],
+        "rows": [
+          [{ "it": "fossi (io, tu)", "de": "fossi (wenn ich wäre, du wärst)", "sl": "fossi (če bi bil, jaz, ti)", "en": "fossi (if I, you were)" }, "condizionale", "Se fossi un uccello, volerei."],
+          [{ "it": "fosse (lui, lei)", "de": "fosse (wenn er, sie wäre)", "sl": "fosse (če bi bil, on, ona)", "en": "fosse (if he, she were)" }, "condizionale", "Se Moro fosse giovane, correrebbe."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "periodo-ipotetico", "text": "Lorenzo: «Se ___ un cavallo, correrei sempre nei prati.» (essere)", "accept": ["fossi"],
+          "hint": { "de": "wenn ich wäre", "sl": "če bi bil", "en": "if I were" },
+          "explain": {
+            "de": "**nur vorgestellt**, io → **se fossi** … correrei\n- fosse · er, sie\n- fosti · du warst (passato remoto)",
+            "sl": "**samo predstava**, io → **se fossi** … correrei\n- fosse · on, ona\n- fosti · bil si (passato remoto)",
+            "en": "**only imagined**, io → **se fossi** … correrei\n- fosse · he, she\n- fosti · you were (passato remoto)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Genauso geht es mit **avessi** (wenn ich hätte) und **potessi** (wenn ich könnte); die anderen Verben haben **-assi**, **-essi** oder **-issi**: **giocassi** (wenn ich spielen würde), **vedessi** (wenn ich sähe), **dormissi** (wenn ich schlafen würde). Für er und sie **-asse, -esse, -isse**: **avesse**, **giocasse**. Für wir **-ssimo**, für sie **-ssero**: **fossimo**, **avessero**.",
+          "sl": "Enako gre z **avessi** (če bi imel) in **potessi** (če bi lahko); drugi glagoli imajo **-assi**, **-essi** ali **-issi**: **giocassi** (če bi se igral), **vedessi** (če bi videl), **dormissi** (če bi spal). Za on in ona **-asse, -esse, -isse**: **avesse**, **giocasse**. Za mi **-ssimo**, za oni **-ssero**: **fossimo**, **avessero**.",
+          "en": "**Avessi** (if I had) and **potessi** (if I could) go the same way; the other verbs have **-assi**, **-essi** or **-issi**: **giocassi** (if I played), **vedessi** (if I saw), **dormissi** (if I slept). For he and she **-asse, -esse, -isse**: **avesse**, **giocasse**. For we **-ssimo**, for they **-ssero**: **fossimo**, **avessero**."
+        },
+        "examples": [
+          { "it": "Se avessi un cane, giocherei con lui ogni giorno.", "de": "Wenn ich einen Hund hätte, würde ich jeden Tag mit ihm spielen.", "sl": "Če bi {m:imel|f:imela} psa, bi se vsak dan {m:igral|f:igrala} z njim.", "en": "If I had a dog, I'd play with it every day." },
+          { "it": "Se Lorenzo avesse un cavallo, lo chiamerebbe Tuono.", "de": "Wenn Lorenzo ein Pferd hätte, würde er es Tuono (Donner) nennen.", "sl": "Če bi Lorenzo imel konja, bi ga poimenoval Grom.", "en": "If Lorenzo had a horse, he'd call it Tuono (Thunder)." }
+        ],
+        "rows": [
+          [{ "it": "avessi, potessi", "de": "avessi, potessi (wenn ich hätte, könnte)", "sl": "avessi, potessi (če bi imel, mogel)", "en": "avessi, potessi (if I had, could)" }, "condizionale", "Se avessi un cane, giocherei."],
+          [{ "it": "-assi, -essi, -issi", "de": "-assi, -essi, -issi (wenn ich …)", "sl": "-assi, -essi, -issi (če bi …)", "en": "-assi, -essi, -issi (if I …)" }, "condizionale", "Se giocassi di più, vincerei."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Se Nonna Rosa ___ più tempo, farebbe una torta ogni giorno.", "options": ["avesse", "avessi", "avrebbe"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Nonna Rosa** (lei), nur vorgestellt → **se avesse** … farebbe\n- avessi · ich, du\n- avrebbe: nach se nie",
+            "sl": "**Nonna Rosa** (lei), samo predstava → **se avesse** … farebbe\n- avessi · jaz, ti\n- avrebbe: za se nikoli",
+            "en": "**Nonna Rosa** (lei), only imagined → **se avesse** … farebbe\n- avessi · I, you\n- avrebbe: never after se"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach **se** kommt nie das **condizionale**: Es heißt **se fossi**, nie *se sarei*; das **condizionale** steht in der anderen Hälfte. Die **se**-Hälfte darf vorn oder hinten stehen: **Giocheremmo fuori, se non piovesse.** (Wir würden draußen spielen, wenn es nicht regnen würde.)",
+          "sl": "Za **se** nikoli ne pride **condizionale**: reče se **se fossi**, nikoli *se sarei*; **condizionale** je v drugi polovici. Polovica s **se** je lahko spredaj ali zadaj: **Giocheremmo fuori, se non piovesse.** (Igrali bi se zunaj, če ne bi deževalo.)",
+          "en": "The **condizionale** never comes after **se**: it's **se fossi**, never *se sarei*; the **condizionale** goes in the other half. The **se** half can come first or second: **Giocheremmo fuori, se non piovesse.** (We'd play outside if it weren't raining.)"
+        },
+        "examples": [
+          { "it": "Giocheremmo fuori, se non piovesse.", "de": "Wir würden draußen spielen, wenn es nicht regnen würde.", "sl": "Igrali bi se zunaj, če ne bi deževalo.", "en": "We'd play outside if it weren't raining." },
+          { "it": "Zia Nives sentirebbe meglio, se spegnesse la radio.", "de": "Tante Nives würde besser hören, wenn sie das Radio ausmachen würde.", "sl": "Teta Nives bi bolje slišala, če bi ugasnila radio.", "en": "Zia Nives would hear better if she turned the radio off." }
+        ],
+        "ask": {
+          "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Lorenzo: «Se ___ grande, guiderei il trattore del nonno.»", "options": ["fossi", "sarei", "fosse"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**nach se** → **fossi**; das condizionale (guiderei) steht in der anderen Hälfte\n- sarei: nach se nie\n- fosse · er, sie",
+            "sl": "**za se** → **fossi**; condizionale (guiderei) je v drugi polovici\n- sarei: za se nikoli\n- fosse · on, ona",
+            "en": "**after se** → **fossi**; the condizionale (guiderei) is in the other half\n- sarei: never after se\n- fosse · he, she"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "periodo-ipotetico-1",
+      "title": { "it": "Davvero o per gioco?", "de": "Wirklich oder nur ausgedacht?", "sl": "Zares ali za šalo?", "en": "Real or only imagined?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "periodo-ipotetico", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": { "de": "se …: congiuntivo imperfetto · wenn ich wäre, hätte, spielen würde", "sl": "se …: congiuntivo imperfetto · če bi bil, imel, se igral", "en": "se …: congiuntivo imperfetto · if I were, had, played" },
+          "columns": [
+            { "de": "essere · sein", "sl": "essere · biti", "en": "essere · be" },
+            { "de": "avere · haben", "sl": "avere · imeti", "en": "avere · have" },
+            { "de": "giocare · spielen", "sl": "giocare · igrati se", "en": "giocare · play" }
+          ],
+          "rows": [
+            { "label": "se io", "cells": ["fossi", { "accept": ["avessi"] }, { "accept": ["giocassi"], "hint": "-are → -assi" }] },
+            { "label": "se tu", "cells": [{ "accept": ["fossi"], "hint": "io, tu: -ssi" }, "avessi", { "accept": ["giocassi"], "hint": "io, tu: -ssi" }] },
+            { "label": "se lui, lei", "cells": [{ "accept": ["fosse"] }, { "accept": ["avesse"] }, "giocasse"] },
+            { "label": "se noi", "cells": [{ "accept": ["fossimo"] }, "avessimo", { "accept": ["giocassimo"], "hint": "-ssimo" }] },
+            { "label": "se loro", "cells": ["fossero", { "accept": ["avessero"] }, { "accept": ["giocassero"], "hint": "-ssero" }] }
+          ]
+        },
+        {
+          "type": "sort", "grammar": "periodo-ipotetico", "instruction": { "de": "Davvero o per gioco? · Wirklich oder nur ausgedacht?", "sl": "Davvero o per gioco? · Zares ali samo predstava?", "en": "Davvero o per gioco? · Real or only imagined?" },
+          "columns": [
+            { "label": { "de": "può succedere · kann passieren", "sl": "può succedere · se lahko zgodi", "en": "può succedere · can happen" }, "words": ["Se piove, resto a casa.", "Se hai fame, mangia!", "Se domani fa bello, andremo al mare."] },
+            { "label": { "de": "lo immagino · nur ausgedacht", "sl": "lo immagino · samo predstava", "en": "lo immagino · only imagined" }, "words": ["Se fossi un uccello, volerei.", "Se Moro parlasse, racconterebbe storie.", "Se fossi un pesce, nuoterei tutto il giorno."] }
+          ],
+          "explain": {
+            "de": "**kann passieren**: se + Präsens, dann Präsens, futuro oder imperativo · **ausgedacht**: se fossi, se parlasse … + condizionale\n- Se piove, resto a casa.\n- Se fossi un uccello, volerei.",
+            "sl": "**se lahko zgodi**: se + sedanjik, nato sedanjik, futuro ali imperativo · **predstava**: se fossi, se parlasse … + condizionale\n- Se piove, resto a casa.\n- Se fossi un uccello, volerei.",
+            "en": "**can happen**: se + the present, then the present, futuro or imperativo · **imagined**: se fossi, se parlasse … + condizionale\n- Se piove, resto a casa.\n- Se fossi un uccello, volerei."
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se domani ___ il sole, andiamo in spiaggia.", "options": ["c'è", "ci sarebbe", "ci fossero"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**andiamo** (Präsens): es kann passieren → **se c'è**\n- ci sarebbe: nach se nie\n- ci fossero · nur ausgedacht, und für mehrere",
+            "sl": "**andiamo** (sedanjik): lahko se zgodi → **se c'è**\n- ci sarebbe: za se nikoli\n- ci fossero · samo predstava, in za več",
+            "en": "**andiamo** (present): it can happen → **se c'è**\n- ci sarebbe: never after se\n- ci fossero · only imagined, and for several"
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se Giulia ___ le ali, volerebbe sopra il mare.", "options": ["avesse", "avrebbe", "ha"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**volerebbe** (condizionale): nur ausgedacht → **se avesse**\n- avrebbe: nach se nie\n- ha · passt nur mit dem Präsens (vola)",
+            "sl": "**volerebbe** (condizionale): samo predstava → **se avesse**\n- avrebbe: za se nikoli\n- ha · gre samo s sedanjikom (vola)",
+            "en": "**volerebbe** (condizionale): only imagined → **se avesse**\n- avrebbe: never after se\n- ha · only with the present (vola)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "periodo-ipotetico-2",
+      "title": { "it": "Il gioco del «Se fossi…»", "de": "Das Spiel „Wenn ich … wäre“", "sl": "Igra »Če bi bil …«", "en": "The \"If I were…\" game" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "periodo-ipotetico", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "Il gioco del «Se fossi…»",
+          "text": "Sotto il tiglio i bambini giocano a «Se fossi…» con Nonno Bepi. «Tommaso, se ___ un animale, che cosa saresti?» «Io? Se fossi un animale, ___ un leone!» Giulia dice: «Se io fossi un uccello, ___ sopra il mare.» Lorenzo pensa: «Se ___ un cavallo, lo chiamerei Tuono.» Il nonno ride: «Se ___ correre come voi, giocherei con voi tutto il giorno!» «E Moro? Che cosa ___ Moro, se potesse parlare?» «Ho fame!» ridono tutti.",
+          "gaps": [
+            { "accept": ["fossi"], "hint": { "de": "wenn du wärst", "sl": "če bi bil (ti)", "en": "if you were" } },
+            { "accept": ["sarei"], "hint": { "de": "ich wäre", "sl": "bil bi", "en": "I'd be" } },
+            { "accept": ["volerei"], "hint": { "de": "ich würde fliegen", "sl": "letela bi", "en": "I'd fly" } },
+            { "accept": ["avessi"], "hint": { "de": "wenn ich hätte", "sl": "če bi imel", "en": "if I had" } },
+            { "accept": ["potessi"], "hint": { "de": "wenn ich könnte", "sl": "če bi lahko", "en": "if I could" } },
+            { "accept": ["direbbe"], "hint": "dire → dirò → ?" }
+          ],
+          "bank": true,
+          "distractors": ["fosti", "sarebbi"],
+          "translation": {
+            "de": "Unter der Linde spielen die Kinder mit Opa Bepi „Wenn ich … wäre“. „Tommaso, wenn du ein Tier wärst, was wärst du?“ „Ich? Wenn ich ein Tier wäre, wäre ich ein Löwe!“ Giulia sagt: „Wenn ich ein Vogel wäre, würde ich über das Meer fliegen.“ Lorenzo denkt: „Wenn ich ein Pferd hätte, würde ich es Tuono nennen.“ Der Opa lacht: „Wenn ich laufen könnte wie ihr, würde ich den ganzen Tag mit euch spielen!“ „Und Moro? Was würde Moro sagen, wenn er sprechen könnte?“ „Ich habe Hunger!“, lachen alle.",
+            "sl": "Pod lipo se otroci z dedkom Bepijem igrajo »Če bi bil …«. »Tommaso, če bi bil žival, kaj bi bil?« »Jaz? Če bi bil žival, bi bil lev!« Giulia reče: »Če bi bila ptica, bi letela nad morjem.« Lorenzo pomisli: »Če bi imel konja, bi ga poimenoval Grom.« Dedek se smeje: »Če bi lahko tekel kot vi, bi se ves dan igral z vami!« »Pa Moro? Kaj bi rekel Moro, če bi znal govoriti?« »Lačen sem!« se smejijo vsi.",
+            "en": "Under the linden the children play \"If I were…\" with Nonno Bepi. \"Tommaso, if you were an animal, what would you be?\" \"Me? If I were an animal, I'd be a lion!\" Giulia says: \"If I were a bird, I'd fly over the sea.\" Lorenzo thinks: \"If I had a horse, I'd call it Tuono.\" Grandpa laughs: \"If I could run like you, I'd play with you all day!\" \"And Moro? What would Moro say if he could talk?\" \"I'm hungry!\" everyone laughs."
+          }
+        },
+        {
+          "type": "choice", "grammar": "periodo-ipotetico", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Se Zia Nives ___ meglio, non ascolterebbe la radio così forte.", "options": ["sentisse", "sentirebbe", "sente"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**ascolterebbe** (condizionale): nur ausgedacht → **se sentisse** (wenn sie hören würde), -ire → -isse\n- sentirebbe: nach se nie\n- sente · passt nur mit dem Präsens",
+            "sl": "**ascolterebbe** (condizionale): samo predstava → **se sentisse** (če bi slišala), -ire → -isse\n- sentirebbe: za se nikoli\n- sente · gre samo s sedanjikom",
+            "en": "**ascolterebbe** (condizionale): only imagined → **se sentisse** (if she heard), -ire → -isse\n- sentirebbe: never after se\n- sente · only with the present"
+          }
+        }
+      ]
+    },
+    {
+      "id": "periodo-ipotetico-3",
+      "title": { "it": "Immagina", "de": "Stell es dir vor", "sl": "Predstavljaj si", "en": "Imagine" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "periodo-ipotetico", "instruction": { "de": "Immagina · Stell es dir nur vor", "sl": "Immagina · Samo si predstavljaj", "en": "Immagina · Only imagine it" },
+          "items": [
+            { "from": "Se ho tempo, gioco con Moro.", "accept": ["Se avessi tempo, giocherei con Moro.", "Giocherei con Moro, se avessi tempo."] },
+            { "from": "Se Lorenzo è stanco, dorme.", "accept": ["Se Lorenzo fosse stanco, dormirebbe.", "Lorenzo dormirebbe, se fosse stanco."] },
+            { "from": "Se piove, restiamo a casa.", "accept": ["Se piovesse, resteremmo a casa.", "Resteremmo a casa, se piovesse."], "hint": "-emmo: mm" },
+            { "from": "Se Giulia ha fame, mangia una mela.", "accept": ["Se Giulia avesse fame, mangerebbe una mela.", "Giulia mangerebbe una mela, se avesse fame."] },
+            { "from": "Se posso, vengo alla festa.", "accept": ["Se potessi, verrei alla festa.", "Verrei alla festa, se potessi."] },
+            { "from": "Se c'è il sole, andiamo al mare.", "accept": ["Se ci fosse il sole, andremmo al mare.", "Andremmo al mare, se ci fosse il sole."] }
+          ],
+          "explain": {
+            "de": "**ausgedacht**: se + congiuntivo imperfetto, dann condizionale\n- ho → avessi · gioco → giocherei\n- è → fosse · dorme → dormirebbe · c'è → ci fosse",
+            "sl": "**predstava**: se + congiuntivo imperfetto, nato condizionale\n- ho → avessi · gioco → giocherei\n- è → fosse · dorme → dormirebbe · c'è → ci fosse",
+            "en": "**imagined**: se + congiuntivo imperfetto, then the condizionale\n- ho → avessi · gioco → giocherei\n- è → fosse · dorme → dormirebbe · c'è → ci fosse"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "periodo-ipotetico", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Nonna Rosa dice: «Se domani ___ (fare) bel tempo, andiamo al mare.» Tommaso sogna: «Se io ___ (avere) una barca, andrei fino a Grado!» Giulia ride: «E se tu ___ (essere) un pesce, nuoteresti fino a Trieste!» Lorenzo dice: «Se ___ (potere), verrei anch'io!»",
+        "gaps": [
+          { "accept": ["fa", "farà"] },
+          { "accept": ["avessi"] },
+          { "accept": ["fossi"] },
+          { "accept": ["potessi"] }
+        ],
+        "translation": {
+          "de": "Oma Rosa sagt: „Wenn morgen schönes Wetter ist, gehen wir ans Meer.“ Tommaso träumt: „Wenn ich ein Boot hätte, würde ich bis nach Grado fahren!“ Giulia lacht: „Und wenn du ein Fisch wärst, würdest du bis nach Triest schwimmen!“ Lorenzo sagt: „Wenn ich könnte, würde ich auch mitkommen!“",
+          "sl": "Babica Rosa reče: »Če bo jutri lepo vreme, gremo na morje.« Tommaso sanja: »Če bi imel čoln, bi šel vse do Gradeža!« Giulia se smeje: »Pa če bi bil riba, bi plaval vse do Trsta!« Lorenzo reče: »Če bi lahko, bi prišel tudi jaz!«",
+          "en": "Nonna Rosa says: \"If the weather's fine tomorrow, we'll go to the sea.\" Tommaso dreams: \"If I had a boat, I'd go all the way to Grado!\" Giulia laughs: \"And if you were a fish, you'd swim all the way to Trieste!\" Lorenzo says: \"If I could, I'd come too!\""
+        }
+      },
+      {
+        "type": "transform", "grammar": "periodo-ipotetico", "instruction": { "de": "Immagina · Stell es dir nur vor", "sl": "Immagina · Samo si predstavljaj", "en": "Immagina · Only imagine it" },
+        "items": [
+          { "from": "Se ho fame, mangio.", "accept": ["Se avessi fame, mangerei.", "Mangerei, se avessi fame."] },
+          { "from": "Se Moro corre, è contento.", "accept": ["Se Moro corresse, sarebbe contento.", "Moro sarebbe contento, se corresse."] },
+          { "from": "Se nevica, giochiamo con la neve.", "accept": ["Se nevicasse, giocheremmo con la neve.", "Giocheremmo con la neve, se nevicasse."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "periodo-ipotetico", "prompt": "Se Davide ___ un cane, le pecore non scapperebbero.", "options": ["avesse", "avrebbe", "avessero"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**scapperebbero** (condizionale): nur ausgedacht → **se avesse**\n- avrebbe: nach se nie\n- avessero · sie (mehrere)",
+          "sl": "**scapperebbero** (condizionale): samo predstava → **se avesse**\n- avrebbe: za se nikoli\n- avessero · oni (več)",
+          "en": "**scapperebbero** (condizionale): only imagined → **se avesse**\n- avrebbe: never after se\n- avessero · they"
+        }
+      },
+      {
+        "type": "choice", "grammar": "periodo-ipotetico", "prompt": "«Lorenzo, se sei stanco, ___ a letto!»", "options": ["vai", "andare", "andresti"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**se sei** (Präsens) + eine Aufforderung → **vai!** (geh!)\n- andare · gehen (Grundform)\n- andresti · passt nur zu se fossi",
+          "sl": "**se sei** (sedanjik) + ukaz → **vai!** (pojdi!)\n- andare · iti (nedoločnik)\n- andresti · gre samo s se fossi",
+          "en": "**se sei** (present) + an order → **vai!** (go!)\n- andare · to go\n- andresti · only with se fossi"
+        }
+      },
+      {
+        "type": "sort", "grammar": "periodo-ipotetico", "instruction": { "de": "Davvero o per gioco? · Wirklich oder nur ausgedacht?", "sl": "Davvero o per gioco? · Zares ali samo predstava?", "en": "Davvero o per gioco? · Real or only imagined?" },
+        "columns": [
+          { "label": { "de": "può succedere · kann passieren", "sl": "può succedere · se lahko zgodi", "en": "può succedere · can happen" }, "words": ["Se piove, leggo un libro.", "Se vieni, giochiamo."] },
+          { "label": { "de": "lo immagino · nur ausgedacht", "sl": "lo immagino · samo predstava", "en": "lo immagino · only imagined" }, "words": ["Se fossi un re, avrei un castello.", "Se avessi le ali, volerei."] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the imperfect subjunctive for a child, Se domani farà … andiamo accepted, il gioco del Se fossi, Tuono, the German wenn … würde"
+}
