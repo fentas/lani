@@ -4,7 +4,7 @@
     "reviewed": false,
     "machine_written": true,
     "note": "machine-written (Claude), not reviewed by a native speaker",
-    "about": "Words the German course and the Carinthian village's content use that the word packs don't have, for a learner of German without a German dictionary (a download, LANI_LEXICON_URL) and for the printed sheets: the verbs and their present forms (sein, haben, heißen), the personal pronouns, the articles (der, die, das; ein, eine), the numbers, the greetings. Austrian standard first (Jänner, Paradeiser, Grüß Gott, Servus, Baba), the German-German word named in the gloss. Each has its meaning in Slovene and Italian (meanings), the English in gloss, flagged machine-written. Each part of the German course appends its units' words."
+    "about": "Words the German course and the Carinthian village's content use that the word packs don't have, for a learner of German without a German dictionary (a download, LANI_LEXICON_URL) and for the printed sheets: the verbs and their present forms (sein, haben, heißen), the personal pronouns, the articles (der, die, das; ein, eine), the numbers, the greetings. Austrian standard first (Jänner, Paradeiser, Grüß Gott, Servus, Baba), the German-German word named in the gloss. Each has its meaning in Slovene and Italian (meanings), the English in gloss, flagged machine-written. Each part of the German course appends its units' words. Opa Sepp's newer stories (the Prince's Stone, the Kufenstechen, the Nikolo and the Krampus, and the rest) and the corner's newer readings add every word their German lines use, so a tap on one means it: the everyday words (mit, man, nur, war, ging), the verbs' past forms, the places and names (Dobratsch, Karawanken, Myra) and the Slovene words they quote (štehvanje, prvi rej)."
   },
   "entries": [
     {
@@ -19,7 +19,13 @@
         "bist": "second-person singular present",
         "ist": "third-person singular present",
         "sind": "first/third-person plural present; polite (Sie) present",
-        "seid": "second-person plural present"
+        "seid": "second-person plural present",
+        "war": "past, ich/er/sie/es",
+        "waren": "past, wir/sie",
+        "Warst": "past, du",
+        "wären": "subjunctive (would be), wir/sie",
+        "Sei": "imperative, du",
+        "sei": "subjunctive (reported speech), er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -42,7 +48,10 @@
         "hab": "first-person singular present, spoken",
         "hast": "second-person singular present",
         "hat": "third-person singular present",
-        "habt": "second-person plural present"
+        "habt": "second-person plural present",
+        "hatte": "past, ich/er/sie/es",
+        "hatten": "past, wir/sie",
+        "hätte": "subjunctive (would have), ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -62,7 +71,8 @@
       "forms": {
         "heißen": "infinitive; first/third-person plural present; polite (Sie) present",
         "heiße": "first-person singular present",
-        "heißt": "second/third-person singular present; second-person plural present"
+        "heißt": "second/third-person singular present; second-person plural present",
+        "hieß": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -1277,7 +1287,10 @@
         "alte": "inflected",
         "alten": "inflected",
         "alter": "inflected",
-        "altes": "inflected"
+        "altes": "inflected",
+        "älter": "comparative",
+        "ältere": "comparative",
+        "älteste": "superlative"
       },
       "meanings": {
         "sl": [
@@ -1487,7 +1500,8 @@
       ],
       "forms": {
         "Jahr": "singular",
-        "Jahre": "plural"
+        "Jahre": "plural",
+        "Jahren": "dative plural"
       },
       "meanings": {
         "sl": [
@@ -2262,7 +2276,8 @@
         "wohnen": "infinitive; first/third-person plural present; polite (Sie) present",
         "wohne": "first-person singular present",
         "wohnst": "second-person singular present",
-        "wohnt": "third-person singular present; second-person plural present"
+        "wohnt": "third-person singular present; second-person plural present",
+        "wohnte": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -2283,7 +2298,9 @@
         "kommen": "infinitive; first/third-person plural present; polite (Sie) present",
         "komme": "first-person singular present",
         "kommst": "second-person singular present",
-        "kommt": "third-person singular present; second-person plural present"
+        "kommt": "third-person singular present; second-person plural present",
+        "kam": "past, ich/er/sie/es",
+        "kamen": "past, wir/sie"
       },
       "meanings": {
         "sl": [
@@ -2346,7 +2363,8 @@
         "warten": "infinitive; first/third-person plural present; polite (Sie) present",
         "warte": "first-person singular present",
         "wartest": "second-person singular present",
-        "wartet": "third-person singular present; second-person plural present"
+        "wartet": "third-person singular present; second-person plural present",
+        "wartete": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -2387,7 +2405,8 @@
         "erzählen": "infinitive; first/third-person plural present; polite (Sie) present",
         "erzähle": "first-person singular present",
         "erzählst": "second-person singular present",
-        "erzählt": "third-person singular present; second-person plural present"
+        "erzählt": "third-person singular present; second-person plural present",
+        "Erzähl": "imperative, du"
       },
       "meanings": {
         "sl": [
@@ -2573,7 +2592,9 @@
         "trage": "first-person singular present",
         "trägst": "second-person singular present",
         "trägt": "third-person singular present",
-        "tragt": "second-person plural present"
+        "tragt": "second-person plural present",
+        "getragen": "past participle",
+        "trugen": "past, wir/sie"
       },
       "meanings": {
         "sl": [
@@ -2617,7 +2638,8 @@
         "laufe": "first-person singular present",
         "läufst": "second-person singular present",
         "läuft": "third-person singular present",
-        "lauft": "second-person plural present"
+        "lauft": "second-person plural present",
+        "gelaufen": "past participle (with sein)"
       },
       "meanings": {
         "sl": [
@@ -2661,7 +2683,8 @@
         "helfe": "first-person singular present",
         "hilfst": "second-person singular present",
         "hilft": "third-person singular present",
-        "helft": "second-person plural present"
+        "helft": "second-person plural present",
+        "half": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -2683,7 +2706,9 @@
         "gebe": "first-person singular present",
         "gibst": "second-person singular present",
         "gibt": "third-person singular present",
-        "gebt": "second-person plural present"
+        "gebt": "second-person plural present",
+        "gab": "past, ich/er/sie/es",
+        "Gib": "imperative, du"
       },
       "meanings": {
         "sl": [
@@ -2726,7 +2751,8 @@
         "nehme": "first-person singular present",
         "nimmst": "second-person singular present",
         "nimmt": "third-person singular present",
-        "nehmt": "second-person plural present"
+        "nehmt": "second-person plural present",
+        "Nimm": "imperative, du"
       },
       "meanings": {
         "sl": [
@@ -2748,7 +2774,8 @@
         "sehe": "first-person singular present",
         "siehst": "second-person singular present",
         "sieht": "third-person singular present",
-        "seht": "second-person plural present"
+        "seht": "second-person plural present",
+        "sah": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -2973,7 +3000,8 @@
         "fragen": "infinitive; first/third-person plural present; polite (Sie) present",
         "frage": "first-person singular present",
         "fragst": "second-person singular present",
-        "fragt": "third-person singular present; second-person plural present"
+        "fragt": "third-person singular present; second-person plural present",
+        "fragte": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -3047,7 +3075,8 @@
       ],
       "forms": {
         "Gast": "singular",
-        "Gäste": "plural"
+        "Gäste": "plural",
+        "Gästen": "dative plural"
       },
       "meanings": {
         "sl": [
@@ -3293,7 +3322,8 @@
         "kennen": "infinitive; first/third-person plural present; polite (Sie) present",
         "kenne": "first-person singular present",
         "kennst": "second-person singular present",
-        "kennt": "third-person singular present; second-person plural present"
+        "kennt": "third-person singular present; second-person plural present",
+        "kannte": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -3314,7 +3344,9 @@
         "rufen": "infinitive; first/third-person plural present; polite (Sie) present",
         "rufe": "first-person singular present",
         "rufst": "second-person singular present",
-        "ruft": "third-person singular present; second-person plural present"
+        "ruft": "third-person singular present; second-person plural present",
+        "rief": "past, ich/er/sie/es",
+        "riefen": "past, wir/sie"
       },
       "meanings": {
         "sl": [
@@ -3377,7 +3409,8 @@
         "hören": "infinitive; first/third-person plural present; polite (Sie) present",
         "höre": "first-person singular present",
         "hörst": "second-person singular present",
-        "hört": "third-person singular present; second-person plural present"
+        "hört": "third-person singular present; second-person plural present",
+        "Hör": "imperative, du"
       },
       "meanings": {
         "sl": [
@@ -3615,7 +3648,8 @@
       "forms": {
         "mein": "before a der or das noun (and das in the accusative)",
         "meine": "before a die noun or a plural",
-        "meinen": "before a der noun in the accusative"
+        "meinen": "before a der noun in the accusative",
+        "meiner": "dative/genitive feminine"
       },
       "meanings": {
         "sl": [
@@ -3655,7 +3689,10 @@
       "forms": {
         "sein": "before a der or das noun (and das in the accusative)",
         "seine": "before a die noun or a plural",
-        "seinen": "before a der noun in the accusative"
+        "seinen": "before a der noun in the accusative",
+        "seiner": "dative/genitive feminine",
+        "seinem": "dative masculine/neuter",
+        "seines": "genitive masculine/neuter"
       },
       "meanings": {
         "sl": [
@@ -3675,7 +3712,8 @@
       "forms": {
         "ihr": "before a der or das noun (and das in the accusative)",
         "ihre": "before a die noun or a plural",
-        "ihren": "before a der noun in the accusative"
+        "ihren": "before a der noun in the accusative",
+        "ihrer": "dative/genitive feminine"
       },
       "meanings": {
         "sl": [
@@ -3738,7 +3776,8 @@
         "bringst": "second-person singular present",
         "bringt": "third-person singular present; second-person plural present; imperative plural",
         "bring": "imperative singular",
-        "gebracht": "past participle"
+        "gebracht": "past participle",
+        "brachte": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -4070,7 +4109,8 @@
         "kann": "first/third-person singular present",
         "kannst": "second-person singular present",
         "könnt": "second-person plural present",
-        "gekonnt": "past participle"
+        "gekonnt": "past participle",
+        "konnte": "past, ich/er/sie/es"
       },
       "meanings": {
         "sl": [
@@ -4109,7 +4149,8 @@
         "people"
       ],
       "forms": {
-        "Leute": "plural (no singular)"
+        "Leute": "plural (no singular)",
+        "Leuten": "dative plural"
       },
       "meanings": {
         "sl": [
@@ -4327,6 +4368,9448 @@
         ],
         "it": [
           "giorno di mercato"
+        ]
+      }
+    },
+    {
+      "lemma": "abbrechen",
+      "pos": "verb",
+      "gloss": [
+        "to break off"
+      ],
+      "forms": {
+        "abgebrochen": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "odlomiti se"
+        ],
+        "it": [
+          "spezzarsi"
+        ]
+      }
+    },
+    {
+      "lemma": "abnehmen",
+      "pos": "verb",
+      "gloss": [
+        "to take off, to take away"
+      ],
+      "forms": {
+        "abgenommen": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "sneti, vzeti"
+        ],
+        "it": [
+          "togliere"
+        ]
+      }
+    },
+    {
+      "lemma": "anstellen",
+      "pos": "verb",
+      "gloss": [
+        "to queue up (sich anstellen)"
+      ],
+      "forms": {
+        "angestellt": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "postaviti se v vrsto"
+        ],
+        "it": [
+          "mettersi in fila"
+        ]
+      }
+    },
+    {
+      "lemma": "antworten",
+      "pos": "verb",
+      "gloss": [
+        "to answer"
+      ],
+      "forms": {
+        "antwortete": "past, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "odgovoriti"
+        ],
+        "it": [
+          "rispondere"
+        ]
+      }
+    },
+    {
+      "lemma": "aufschreiben",
+      "pos": "verb",
+      "gloss": [
+        "to write down"
+      ],
+      "forms": {
+        "aufgeschrieben": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "zapisati"
+        ],
+        "it": [
+          "annotare, scrivere"
+        ]
+      }
+    },
+    {
+      "lemma": "aufwachsen",
+      "pos": "verb",
+      "gloss": [
+        "to grow up"
+      ],
+      "forms": {
+        "aufgewachsen": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "odraščati"
+        ],
+        "it": [
+          "crescere"
+        ]
+      }
+    },
+    {
+      "lemma": "auskühlen",
+      "pos": "verb",
+      "gloss": [
+        "to cool down"
+      ],
+      "forms": {
+        "auskühlen": "infinitive"
+      },
+      "meanings": {
+        "sl": [
+          "ohladiti se"
+        ],
+        "it": [
+          "raffreddarsi"
+        ]
+      }
+    },
+    {
+      "lemma": "aussehen",
+      "pos": "verb",
+      "gloss": [
+        "to look (like)"
+      ],
+      "forms": {
+        "aussieht": "present, er/sie/es (in a clause)"
+      },
+      "meanings": {
+        "sl": [
+          "izgledati"
+        ],
+        "it": [
+          "sembrare, avere l'aspetto"
+        ]
+      }
+    },
+    {
+      "lemma": "austeilen",
+      "pos": "verb",
+      "gloss": [
+        "to hand out"
+      ],
+      "forms": {
+        "austeilen": "infinitive"
+      },
+      "meanings": {
+        "sl": [
+          "deliti"
+        ],
+        "it": [
+          "distribuire"
+        ]
+      }
+    },
+    {
+      "lemma": "beben",
+      "pos": "verb",
+      "gloss": [
+        "to shake, to quake"
+      ],
+      "forms": {
+        "bebte": "past, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "tresti se"
+        ],
+        "it": [
+          "tremare"
+        ]
+      }
+    },
+    {
+      "lemma": "bedeuten",
+      "pos": "verb",
+      "gloss": [
+        "to mean"
+      ],
+      "forms": {
+        "bedeutet": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "pomeniti"
+        ],
+        "it": [
+          "significare"
+        ]
+      }
+    },
+    {
+      "lemma": "begraben",
+      "pos": "verb",
+      "gloss": [
+        "to bury"
+      ],
+      "forms": {
+        "begraben": "infinitive",
+        "past participle": null
+      },
+      "meanings": {
+        "sl": [
+          "pokopati"
+        ],
+        "it": [
+          "seppellire"
+        ]
+      }
+    },
+    {
+      "lemma": "bekommen",
+      "pos": "verb",
+      "gloss": [
+        "to get, to receive"
+      ],
+      "forms": {
+        "bekommen": "infinitive",
+        "past participle": null,
+        "bekommt": "present, er/sie/es",
+        "bekam": "past, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "dobiti"
+        ],
+        "it": [
+          "ricevere"
+        ]
+      }
+    },
+    {
+      "lemma": "beschreiben",
+      "pos": "verb",
+      "gloss": [
+        "to describe"
+      ],
+      "forms": {
+        "beschrieben": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "opisati"
+        ],
+        "it": [
+          "descrivere"
+        ]
+      }
+    },
+    {
+      "lemma": "bestreuen",
+      "pos": "verb",
+      "gloss": [
+        "to sprinkle (over)"
+      ],
+      "forms": {
+        "Bestreuen": "infinitive as a noun (zum Bestreuen: for sprinkling)"
+      },
+      "meanings": {
+        "sl": [
+          "potresti"
+        ],
+        "it": [
+          "cospargere"
+        ]
+      }
+    },
+    {
+      "lemma": "bleiben",
+      "pos": "verb",
+      "gloss": [
+        "to stay, to remain"
+      ],
+      "forms": {
+        "bleibt": "present, er/sie/es",
+        "blieb": "past, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "ostati"
+        ],
+        "it": [
+          "restare"
+        ]
+      }
+    },
+    {
+      "lemma": "denken",
+      "pos": "verb",
+      "gloss": [
+        "to think"
+      ],
+      "forms": {
+        "denke": "present, ich",
+        "denken": "infinitive",
+        "present, wir/sie": null
+      },
+      "meanings": {
+        "sl": [
+          "misliti"
+        ],
+        "it": [
+          "pensare"
+        ]
+      }
+    },
+    {
+      "lemma": "drehen",
+      "pos": "verb",
+      "gloss": [
+        "to turn"
+      ],
+      "forms": {
+        "drehte": "past, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "obrniti, vrteti"
+        ],
+        "it": [
+          "girare"
+        ]
+      }
+    },
+    {
+      "lemma": "dürfen",
+      "pos": "verb",
+      "gloss": [
+        "may, to be allowed to"
+      ],
+      "forms": {
+        "darf": "present, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "smeti"
+        ],
+        "it": [
+          "potere (avere il permesso)"
+        ]
+      }
+    },
+    {
+      "lemma": "einrühren",
+      "pos": "verb",
+      "gloss": [
+        "to stir in"
+      ],
+      "forms": {
+        "einrührt": "present, er/sie/es (in a clause)"
+      },
+      "meanings": {
+        "sl": [
+          "vmešati"
+        ],
+        "it": [
+          "incorporare mescolando"
+        ]
+      }
+    },
+    {
+      "lemma": "einstecken",
+      "pos": "verb",
+      "gloss": [
+        "to take (a blow); to pocket"
+      ],
+      "forms": {
+        "einstecken": "infinitive"
+      },
+      "meanings": {
+        "sl": [
+          "prenesti (udarec); pospraviti"
+        ],
+        "it": [
+          "incassare"
+        ]
+      }
+    },
+    {
+      "lemma": "erkennen",
+      "pos": "verb",
+      "gloss": [
+        "to recognise"
+      ],
+      "forms": {
+        "erkannt": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "prepoznati"
+        ],
+        "it": [
+          "riconoscere"
+        ]
+      }
+    },
+    {
+      "lemma": "erklären",
+      "pos": "verb",
+      "gloss": [
+        "to explain"
+      ],
+      "forms": {
+        "erklärt": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "razložiti"
+        ],
+        "it": [
+          "spiegare"
+        ]
+      }
+    },
+    {
+      "lemma": "erwischen",
+      "pos": "verb",
+      "gloss": [
+        "to catch (someone at something)"
+      ],
+      "forms": {
+        "erwischte": "past, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "zalotiti"
+        ],
+        "it": [
+          "sorprendere, beccare"
+        ]
+      }
+    },
+    {
+      "lemma": "fallen",
+      "pos": "verb",
+      "gloss": [
+        "to fall"
+      ],
+      "forms": {
+        "fiel": "past, ich/er/sie/es",
+        "fielen": "past, wir/sie",
+        "gefallen": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "pasti"
+        ],
+        "it": [
+          "cadere"
+        ]
+      }
+    },
+    {
+      "lemma": "fehlen",
+      "pos": "verb",
+      "gloss": [
+        "to be missing"
+      ],
+      "forms": {
+        "fehlt": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "manjkati"
+        ],
+        "it": [
+          "mancare"
+        ]
+      }
+    },
+    {
+      "lemma": "feiern",
+      "pos": "verb",
+      "gloss": [
+        "to celebrate"
+      ],
+      "forms": {
+        "feiert": "present, er/sie/es",
+        "feierte": "past, er/sie/es",
+        "gefeiert": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "praznovati"
+        ],
+        "it": [
+          "festeggiare"
+        ]
+      }
+    },
+    {
+      "lemma": "finden",
+      "pos": "verb",
+      "gloss": [
+        "to find"
+      ],
+      "forms": {
+        "findet": "present, er/sie/es",
+        "fand": "past, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "najti"
+        ],
+        "it": [
+          "trovare"
+        ]
+      }
+    },
+    {
+      "lemma": "fliegen",
+      "pos": "verb",
+      "gloss": [
+        "to fly"
+      ],
+      "forms": {
+        "fliegt": "present, er/sie/es",
+        "flog": "past, ich/er/sie/es",
+        "flogen": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "leteti"
+        ],
+        "it": [
+          "volare"
+        ]
+      }
+    },
+    {
+      "lemma": "ausflocken",
+      "pos": "verb",
+      "gloss": [
+        "to curdle (of a soup or sauce)"
+      ],
+      "forms": {
+        "flockt": "present, er/sie/es (flockt aus)"
+      },
+      "meanings": {
+        "sl": [
+          "zakrkniti se"
+        ],
+        "it": [
+          "impazzire, cagliare"
+        ]
+      }
+    },
+    {
+      "lemma": "führen",
+      "pos": "verb",
+      "gloss": [
+        "to lead"
+      ],
+      "forms": {
+        "führt": "present, er/sie/es",
+        "führte": "past, er/sie/es",
+        "führten": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "voditi"
+        ],
+        "it": [
+          "condurre, portare"
+        ]
+      }
+    },
+    {
+      "lemma": "färben",
+      "pos": "verb",
+      "gloss": [
+        "to colour, to dye"
+      ],
+      "forms": {
+        "färbt": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "obarvati"
+        ],
+        "it": [
+          "colorare"
+        ]
+      }
+    },
+    {
+      "lemma": "gehen",
+      "pos": "verb",
+      "gloss": [
+        "to go, to walk"
+      ],
+      "forms": {
+        "gehen": "infinitive",
+        "present, wir/sie": null,
+        "geht": "present, er/sie/es",
+        "ihr": null,
+        "ging": "past, ich/er/sie/es",
+        "gingen": "past, wir/sie",
+        "gegangen": "past participle (with sein)"
+      },
+      "meanings": {
+        "sl": [
+          "iti"
+        ],
+        "it": [
+          "andare"
+        ]
+      }
+    },
+    {
+      "lemma": "gehören",
+      "pos": "verb",
+      "gloss": [
+        "to belong"
+      ],
+      "forms": {
+        "gehört": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "pripadati, spadati"
+        ],
+        "it": [
+          "appartenere"
+        ]
+      }
+    },
+    {
+      "lemma": "geschehen",
+      "pos": "verb",
+      "gloss": [
+        "to happen"
+      ],
+      "forms": {
+        "geschah": "past, es"
+      },
+      "meanings": {
+        "sl": [
+          "zgoditi se"
+        ],
+        "it": [
+          "accadere"
+        ]
+      }
+    },
+    {
+      "lemma": "gewinnen",
+      "pos": "verb",
+      "gloss": [
+        "to win"
+      ],
+      "forms": {
+        "gewinnt": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "zmagati"
+        ],
+        "it": [
+          "vincere"
+        ]
+      }
+    },
+    {
+      "lemma": "gießen",
+      "pos": "verb",
+      "gloss": [
+        "to pour"
+      ],
+      "forms": {
+        "gieß": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "zliti"
+        ],
+        "it": [
+          "versare"
+        ]
+      }
+    },
+    {
+      "lemma": "halbieren",
+      "pos": "verb",
+      "gloss": [
+        "to halve"
+      ],
+      "forms": {
+        "Halbier": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "prepoloviti"
+        ],
+        "it": [
+          "dimezzare, tagliare a metà"
+        ]
+      }
+    },
+    {
+      "lemma": "herunterschlagen",
+      "pos": "verb",
+      "gloss": [
+        "to knock down"
+      ],
+      "forms": {
+        "herunterschlug": "past, er/sie/es",
+        "heruntergeschlagen": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "zbiti"
+        ],
+        "it": [
+          "buttare giù (con un colpo)"
+        ]
+      }
+    },
+    {
+      "lemma": "hinaufsteigen",
+      "pos": "verb",
+      "gloss": [
+        "to climb up"
+      ],
+      "forms": {
+        "hinaufsteigen": "infinitive"
+      },
+      "meanings": {
+        "sl": [
+          "povzpeti se"
+        ],
+        "it": [
+          "salire"
+        ]
+      }
+    },
+    {
+      "lemma": "hinaufwollen",
+      "pos": "verb",
+      "gloss": [
+        "to want to go up"
+      ],
+      "forms": {
+        "hinaufwill": "present, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "hoteti iti gor"
+        ],
+        "it": [
+          "voler salire"
+        ]
+      }
+    },
+    {
+      "lemma": "kochen",
+      "pos": "verb",
+      "gloss": [
+        "to cook, to boil"
+      ],
+      "forms": {
+        "kocht": "present, er/sie/es",
+        "Koch": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "kuhati"
+        ],
+        "it": [
+          "cucinare, bollire"
+        ]
+      }
+    },
+    {
+      "lemma": "lachen",
+      "pos": "verb",
+      "gloss": [
+        "to laugh"
+      ],
+      "forms": {
+        "gelacht": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "smejati se"
+        ],
+        "it": [
+          "ridere"
+        ]
+      }
+    },
+    {
+      "lemma": "lassen",
+      "pos": "verb",
+      "gloss": [
+        "to let, to leave"
+      ],
+      "forms": {
+        "Lass": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "pustiti"
+        ],
+        "it": [
+          "lasciare"
+        ]
+      }
+    },
+    {
+      "lemma": "leben",
+      "pos": "verb",
+      "gloss": [
+        "to live"
+      ],
+      "forms": {
+        "leben": "infinitive",
+        "present, wir/sie": null,
+        "lebt": "present, er/sie/es",
+        "lebte": "past, ich/er/sie/es",
+        "lebten": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "živeti"
+        ],
+        "it": [
+          "vivere"
+        ]
+      }
+    },
+    {
+      "lemma": "legen",
+      "pos": "verb",
+      "gloss": [
+        "to lay, to put (lying)"
+      ],
+      "forms": {
+        "Leg": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "položiti"
+        ],
+        "it": [
+          "mettere, posare"
+        ]
+      }
+    },
+    {
+      "lemma": "liegen",
+      "pos": "verb",
+      "gloss": [
+        "to lie; to be (somewhere)"
+      ],
+      "forms": {
+        "liegen": "infinitive",
+        "present, wir/sie": null,
+        "liegt": "present, er/sie/es",
+        "lagen": "past, wir/sie",
+        "gelegen": "past participle (in Austria with sein: ich bin gelegen)"
+      },
+      "meanings": {
+        "sl": [
+          "ležati"
+        ],
+        "it": [
+          "giacere, trovarsi"
+        ]
+      }
+    },
+    {
+      "lemma": "lösen",
+      "pos": "verb",
+      "gloss": [
+        "to come loose (sich lösen)"
+      ],
+      "forms": {
+        "lösten": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "utrgati se"
+        ],
+        "it": [
+          "staccarsi"
+        ]
+      }
+    },
+    {
+      "lemma": "müssen",
+      "pos": "verb",
+      "gloss": [
+        "must, to have to"
+      ],
+      "forms": {
+        "muss": "present, ich/er/sie/es",
+        "musste": "past, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "morati"
+        ],
+        "it": [
+          "dovere"
+        ]
+      }
+    },
+    {
+      "lemma": "nennen",
+      "pos": "verb",
+      "gloss": [
+        "to call, to name"
+      ],
+      "forms": {
+        "nennt": "present, er/sie/es",
+        "genannt": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "imenovati"
+        ],
+        "it": [
+          "chiamare"
+        ]
+      }
+    },
+    {
+      "lemma": "rollen",
+      "pos": "verb",
+      "gloss": [
+        "to roll"
+      ],
+      "forms": {
+        "rollt": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "kotaliti se"
+        ],
+        "it": [
+          "rotolare"
+        ]
+      }
+    },
+    {
+      "lemma": "rösten",
+      "pos": "verb",
+      "gloss": [
+        "to roast, to toast"
+      ],
+      "forms": {
+        "röste": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "popražiti, opeči"
+        ],
+        "it": [
+          "tostare"
+        ]
+      }
+    },
+    {
+      "lemma": "rühren",
+      "pos": "verb",
+      "gloss": [
+        "to stir"
+      ],
+      "forms": {
+        "rühr": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "mešati"
+        ],
+        "it": [
+          "mescolare"
+        ]
+      }
+    },
+    {
+      "lemma": "sagen",
+      "pos": "verb",
+      "gloss": [
+        "to say"
+      ],
+      "forms": {
+        "sagt": "present, er/sie/es",
+        "ihr": null,
+        "sagte": "past, ich/er/sie/es",
+        "sagten": "past, wir/sie",
+        "Sag": "imperative, du (sag mal: tell me)"
+      },
+      "meanings": {
+        "sl": [
+          "reči"
+        ],
+        "it": [
+          "dire"
+        ]
+      }
+    },
+    {
+      "lemma": "schauen",
+      "pos": "verb",
+      "gloss": [
+        "to look"
+      ],
+      "forms": {
+        "schaue": "present, ich"
+      },
+      "meanings": {
+        "sl": [
+          "gledati"
+        ],
+        "it": [
+          "guardare"
+        ]
+      }
+    },
+    {
+      "lemma": "schenken",
+      "pos": "verb",
+      "gloss": [
+        "to give (as a present)"
+      ],
+      "forms": {
+        "schenkt": "present, er/sie/es",
+        "man schenkt": null
+      },
+      "meanings": {
+        "sl": [
+          "podariti"
+        ],
+        "it": [
+          "regalare"
+        ]
+      }
+    },
+    {
+      "lemma": "schimpfen",
+      "pos": "verb",
+      "gloss": [
+        "to grumble, to scold"
+      ],
+      "forms": {
+        "geschimpft": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "godrnjati, zmerjati"
+        ],
+        "it": [
+          "brontolare, sgridare"
+        ]
+      }
+    },
+    {
+      "lemma": "schlagen",
+      "pos": "verb",
+      "gloss": [
+        "to strike, to hit"
+      ],
+      "forms": {
+        "schlägt": "present, er/sie/es",
+        "schlug": "past, ich/er/sie/es",
+        "schlugen": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "udariti"
+        ],
+        "it": [
+          "colpire"
+        ]
+      }
+    },
+    {
+      "lemma": "schleichen",
+      "pos": "verb",
+      "gloss": [
+        "to creep, to sneak"
+      ],
+      "forms": {
+        "schleicht": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "plaziti se"
+        ],
+        "it": [
+          "sgattaiolare"
+        ]
+      }
+    },
+    {
+      "lemma": "abschmecken",
+      "pos": "verb",
+      "gloss": [
+        "to season to taste"
+      ],
+      "forms": {
+        "schmeck": "imperative, du (schmeck ab)"
+      },
+      "meanings": {
+        "sl": [
+          "začiniti po okusu"
+        ],
+        "it": [
+          "aggiustare di sapore"
+        ]
+      }
+    },
+    {
+      "lemma": "schneiden",
+      "pos": "verb",
+      "gloss": [
+        "to cut"
+      ],
+      "forms": {
+        "schneid": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "rezati"
+        ],
+        "it": [
+          "tagliare"
+        ]
+      }
+    },
+    {
+      "lemma": "schnitzen",
+      "pos": "verb",
+      "gloss": [
+        "to carve (wood)"
+      ],
+      "forms": {
+        "schnitzt": "present, er/sie/es",
+        "man schnitzt": null
+      },
+      "meanings": {
+        "sl": [
+          "rezljati"
+        ],
+        "it": [
+          "intagliare"
+        ]
+      }
+    },
+    {
+      "lemma": "abschöpfen",
+      "pos": "verb",
+      "gloss": [
+        "to skim off"
+      ],
+      "forms": {
+        "Schöpf": "imperative, du (schöpf ab)"
+      },
+      "meanings": {
+        "sl": [
+          "posneti"
+        ],
+        "it": [
+          "schiumare, togliere"
+        ]
+      }
+    },
+    {
+      "lemma": "schreiben",
+      "pos": "verb",
+      "gloss": [
+        "to write"
+      ],
+      "forms": {
+        "schreibt": "present, er/sie/es",
+        "geschrieben": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "pisati"
+        ],
+        "it": [
+          "scrivere"
+        ]
+      }
+    },
+    {
+      "lemma": "abseihen",
+      "pos": "verb",
+      "gloss": [
+        "to strain (a soup)"
+      ],
+      "forms": {
+        "Seih": "imperative, du (seih ab)"
+      },
+      "meanings": {
+        "sl": [
+          "precediti"
+        ],
+        "it": [
+          "filtrare"
+        ]
+      }
+    },
+    {
+      "lemma": "singen",
+      "pos": "verb",
+      "gloss": [
+        "to sing"
+      ],
+      "forms": {
+        "sang": "past, ich/er/sie/es",
+        "sangen": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "peti"
+        ],
+        "it": [
+          "cantare"
+        ]
+      }
+    },
+    {
+      "lemma": "sitzen",
+      "pos": "verb",
+      "gloss": [
+        "to sit"
+      ],
+      "forms": {
+        "sitzen": "infinitive",
+        "present, wir/sie": null,
+        "sitzt": "present, er/sie/es",
+        "saß": "past, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "sedeti"
+        ],
+        "it": [
+          "sedere, stare seduto"
+        ]
+      }
+    },
+    {
+      "lemma": "sollen",
+      "pos": "verb",
+      "gloss": [
+        "should, to be supposed to"
+      ],
+      "forms": {
+        "soll": "present, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "naj, morati"
+        ],
+        "it": [
+          "dovere"
+        ]
+      }
+    },
+    {
+      "lemma": "spielen",
+      "pos": "verb",
+      "gloss": [
+        "to play"
+      ],
+      "forms": {
+        "spielt": "present, er/sie/es",
+        "spielte": "past, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "igrati"
+        ],
+        "it": [
+          "suonare, giocare"
+        ]
+      }
+    },
+    {
+      "lemma": "spüren",
+      "pos": "verb",
+      "gloss": [
+        "to feel, to sense"
+      ],
+      "forms": {
+        "spüren": "infinitive"
+      },
+      "meanings": {
+        "sl": [
+          "čutiti"
+        ],
+        "it": [
+          "sentire, avvertire"
+        ]
+      }
+    },
+    {
+      "lemma": "stehen",
+      "pos": "verb",
+      "gloss": [
+        "to stand; to be (written, placed)"
+      ],
+      "forms": {
+        "stehen": "infinitive",
+        "present, wir/sie": null,
+        "steht": "present, er/sie/es",
+        "stand": "past, ich/er/sie/es",
+        "standen": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "stati"
+        ],
+        "it": [
+          "stare (in piedi), trovarsi"
+        ]
+      }
+    },
+    {
+      "lemma": "steigen",
+      "pos": "verb",
+      "gloss": [
+        "to climb"
+      ],
+      "forms": {
+        "steigt": "present, er/sie/es",
+        "stieg": "past, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "plezati, vzpenjati se"
+        ],
+        "it": [
+          "salire"
+        ]
+      }
+    },
+    {
+      "lemma": "stellen",
+      "pos": "verb",
+      "gloss": [
+        "to put, to stand (something upright)"
+      ],
+      "forms": {
+        "stellen": "infinitive",
+        "present, wir/sie": null,
+        "gestellt": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "postaviti"
+        ],
+        "it": [
+          "mettere"
+        ]
+      }
+    },
+    {
+      "lemma": "stimmen",
+      "pos": "verb",
+      "gloss": [
+        "to be right, to be true"
+      ],
+      "forms": {
+        "Stimmt": "present, es (stimmt: that's right",
+        "stimmt nicht: that's wrong)": null
+      },
+      "meanings": {
+        "sl": [
+          "držati, biti res"
+        ],
+        "it": [
+          "essere giusto, essere vero"
+        ]
+      }
+    },
+    {
+      "lemma": "streuen",
+      "pos": "verb",
+      "gloss": [
+        "to sprinkle, to scatter"
+      ],
+      "forms": {
+        "streu": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "potresti"
+        ],
+        "it": [
+          "spolverare, cospargere"
+        ]
+      }
+    },
+    {
+      "lemma": "stürzen",
+      "pos": "verb",
+      "gloss": [
+        "to fall, to crash down"
+      ],
+      "forms": {
+        "stürzte": "past, er/sie/es",
+        "stürzten": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "zgrmeti, strmoglaviti se"
+        ],
+        "it": [
+          "precipitare"
+        ]
+      }
+    },
+    {
+      "lemma": "tanzen",
+      "pos": "verb",
+      "gloss": [
+        "to dance"
+      ],
+      "forms": {
+        "tanzte": "past, er/sie/es",
+        "tanzten": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "plesati"
+        ],
+        "it": [
+          "ballare"
+        ]
+      }
+    },
+    {
+      "lemma": "treffen",
+      "pos": "verb",
+      "gloss": [
+        "to hit (a target); to meet"
+      ],
+      "forms": {
+        "getroffen": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "zadeti; srečati"
+        ],
+        "it": [
+          "colpire; incontrare"
+        ]
+      }
+    },
+    {
+      "lemma": "tun",
+      "pos": "verb",
+      "gloss": [
+        "to do"
+      ],
+      "forms": {
+        "tut": "present, er/sie/es",
+        "man tut": null
+      },
+      "meanings": {
+        "sl": [
+          "delati"
+        ],
+        "it": [
+          "fare"
+        ]
+      }
+    },
+    {
+      "lemma": "verfehlen",
+      "pos": "verb",
+      "gloss": [
+        "to miss (a target)"
+      ],
+      "forms": {
+        "verfehlt": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "zgrešiti"
+        ],
+        "it": [
+          "mancare (il bersaglio)"
+        ]
+      }
+    },
+    {
+      "lemma": "verirren",
+      "pos": "verb",
+      "gloss": [
+        "to get lost (sich verirren)"
+      ],
+      "forms": {
+        "verirrt": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "zaiti, izgubiti se"
+        ],
+        "it": [
+          "perdersi"
+        ]
+      }
+    },
+    {
+      "lemma": "verlieren",
+      "pos": "verb",
+      "gloss": [
+        "to lose"
+      ],
+      "forms": {
+        "verloren": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "izgubiti"
+        ],
+        "it": [
+          "perdere"
+        ]
+      }
+    },
+    {
+      "lemma": "vermissen",
+      "pos": "verb",
+      "gloss": [
+        "to miss (someone, something)"
+      ],
+      "forms": {
+        "vermisst": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "pogrešati"
+        ],
+        "it": [
+          "sentire la mancanza di"
+        ]
+      }
+    },
+    {
+      "lemma": "verrühren",
+      "pos": "verb",
+      "gloss": [
+        "to stir together"
+      ],
+      "forms": {
+        "Verrühr": "imperative, du"
+      },
+      "meanings": {
+        "sl": [
+          "zmešati"
+        ],
+        "it": [
+          "mescolare"
+        ]
+      }
+    },
+    {
+      "lemma": "verschütten",
+      "pos": "verb",
+      "gloss": [
+        "to bury (under rubble)"
+      ],
+      "forms": {
+        "verschüttet": "past participle",
+        "verschüttetes": "past participle as an adjective, neuter"
+      },
+      "meanings": {
+        "sl": [
+          "zasuti"
+        ],
+        "it": [
+          "seppellire (sotto le macerie)"
+        ]
+      }
+    },
+    {
+      "lemma": "aufwärmen",
+      "pos": "verb",
+      "gloss": [
+        "to warm up"
+      ],
+      "forms": {
+        "Wärm": "imperative, du (wärm auf)"
+      },
+      "meanings": {
+        "sl": [
+          "pogreti"
+        ],
+        "it": [
+          "riscaldare"
+        ]
+      }
+    },
+    {
+      "lemma": "werden",
+      "pos": "verb",
+      "gloss": [
+        "to become; with a participle: is done (passive)"
+      ],
+      "forms": {
+        "wird": "present, er/sie/es",
+        "wurde": "past, ich/er/sie/es",
+        "wurden": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "postati; (trpnik)"
+        ],
+        "it": [
+          "diventare; (passivo)"
+        ]
+      }
+    },
+    {
+      "lemma": "werfen",
+      "pos": "verb",
+      "gloss": [
+        "to throw"
+      ],
+      "forms": {
+        "wirft": "present, er/sie/es",
+        "warf": "past, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "vreči"
+        ],
+        "it": [
+          "gettare, lanciare"
+        ]
+      }
+    },
+    {
+      "lemma": "wissen",
+      "pos": "verb",
+      "gloss": [
+        "to know (a fact)"
+      ],
+      "forms": {
+        "weißt": "present, du",
+        "weiß": "present, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "vedeti"
+        ],
+        "it": [
+          "sapere"
+        ]
+      }
+    },
+    {
+      "lemma": "wollen",
+      "pos": "verb",
+      "gloss": [
+        "to want"
+      ],
+      "forms": {
+        "will": "present, ich/er/sie/es",
+        "wollen": "infinitive",
+        "present, wir/sie": null,
+        "wollte": "past, ich/er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "hoteti"
+        ],
+        "it": [
+          "volere"
+        ]
+      }
+    },
+    {
+      "lemma": "zahlen",
+      "pos": "verb",
+      "gloss": [
+        "to pay"
+      ],
+      "forms": {
+        "zahlt": "present, er/sie/es",
+        "zahlte": "past, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "plačati"
+        ],
+        "it": [
+          "pagare"
+        ]
+      }
+    },
+    {
+      "lemma": "zählen",
+      "pos": "verb",
+      "gloss": [
+        "to count"
+      ],
+      "forms": {
+        "zählt": "present, er/sie/es",
+        "gezählt": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "šteti"
+        ],
+        "it": [
+          "contare"
+        ]
+      }
+    },
+    {
+      "lemma": "ziehen",
+      "pos": "verb",
+      "gloss": [
+        "to march, to move along; to pull"
+      ],
+      "forms": {
+        "ziehen": "infinitive",
+        "present, wir/sie": null
+      },
+      "meanings": {
+        "sl": [
+          "iti v sprevodu; vleči"
+        ],
+        "it": [
+          "sfilare; tirare"
+        ]
+      }
+    },
+    {
+      "lemma": "mitbringen",
+      "pos": "verb",
+      "gloss": [
+        "to bring along"
+      ],
+      "forms": {
+        "mitbringen": "infinitive"
+      },
+      "meanings": {
+        "sl": [
+          "prinesti s sabo"
+        ],
+        "it": [
+          "portare (con sé)"
+        ]
+      }
+    },
+    {
+      "lemma": "mitreiten",
+      "pos": "verb",
+      "gloss": [
+        "to ride along"
+      ],
+      "forms": {
+        "mitgeritten": "past participle (with sein)"
+      },
+      "meanings": {
+        "sl": [
+          "jahati zraven"
+        ],
+        "it": [
+          "cavalcare insieme"
+        ]
+      }
+    },
+    {
+      "lemma": "galoppieren",
+      "pos": "verb",
+      "gloss": [
+        "to gallop"
+      ],
+      "forms": {
+        "galoppiert": "present, er/sie/es",
+        "galoppierte": "past, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "galopirati, dirjati"
+        ],
+        "it": [
+          "galoppare"
+        ]
+      }
+    },
+    {
+      "lemma": "reiten",
+      "pos": "verb",
+      "gloss": [
+        "to ride (a horse)"
+      ],
+      "forms": {
+        "reitet": "present, er/sie/es",
+        "ritten": "past, wir/sie"
+      },
+      "meanings": {
+        "sl": [
+          "jahati"
+        ],
+        "it": [
+          "cavalcare"
+        ]
+      }
+    },
+    {
+      "lemma": "heiraten",
+      "pos": "verb",
+      "gloss": [
+        "to marry"
+      ],
+      "forms": {
+        "heiraten": "infinitive"
+      },
+      "meanings": {
+        "sl": [
+          "poročiti se"
+        ],
+        "it": [
+          "sposarsi"
+        ]
+      }
+    },
+    {
+      "lemma": "Abt",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "abbot"
+      ],
+      "forms": {
+        "Abt": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "opat"
+        ],
+        "it": [
+          "l'abate"
+        ]
+      }
+    },
+    {
+      "lemma": "Akkusativ",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "accusative (the case)"
+      ],
+      "forms": {
+        "Akkusativ": "singular",
+        "Akkusative": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "tožilnik"
+        ],
+        "it": [
+          "l'accusativo"
+        ]
+      }
+    },
+    {
+      "lemma": "Almabtrieb",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "bringing the cattle down from the alpine pasture"
+      ],
+      "forms": {
+        "Almabtrieb": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "vrnitev živine s planine"
+        ],
+        "it": [
+          "la transumanza (il ritorno dall'alpeggio)"
+        ]
+      }
+    },
+    {
+      "lemma": "Alpe",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "mountain pasture; a mountain (Villacher Alpe)"
+      ],
+      "forms": {
+        "Alpe": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "planina"
+        ],
+        "it": [
+          "l'alpe, il monte"
+        ]
+      }
+    },
+    {
+      "lemma": "Alpenstraße",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "alpine road"
+      ],
+      "forms": {
+        "Alpenstraße": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "planinska cesta"
+        ],
+        "it": [
+          "la strada alpina"
+        ]
+      }
+    },
+    {
+      "lemma": "Angst",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "fear"
+      ],
+      "forms": {
+        "Angst": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "strah"
+        ],
+        "it": [
+          "la paura"
+        ]
+      }
+    },
+    {
+      "lemma": "Antenne",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "antenna, aerial"
+      ],
+      "forms": {
+        "Antenne": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "antena"
+        ],
+        "it": [
+          "l'antenna"
+        ]
+      }
+    },
+    {
+      "lemma": "Backenstreich",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "a slap on the cheek"
+      ],
+      "forms": {
+        "Backenstreich": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "zaušnica"
+        ],
+        "it": [
+          "lo schiaffo sulla guancia"
+        ]
+      }
+    },
+    {
+      "lemma": "Bauernkleid",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "peasant clothes (Bauernkleider)"
+      ],
+      "forms": {
+        "Bauernkleider": "plural",
+        "Bauernkleidern": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "kmečka obleka"
+        ],
+        "it": [
+          "abiti da contadino"
+        ]
+      }
+    },
+    {
+      "lemma": "Beben",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "quake, earthquake"
+      ],
+      "forms": {
+        "Beben": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "potres"
+        ],
+        "it": [
+          "il terremoto"
+        ]
+      }
+    },
+    {
+      "lemma": "Bein",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "leg"
+      ],
+      "forms": {
+        "Beine": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "noga"
+        ],
+        "it": [
+          "la gamba"
+        ]
+      }
+    },
+    {
+      "lemma": "Bergkirche",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "mountain church"
+      ],
+      "forms": {
+        "Bergkirchen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "gorska cerkev"
+        ],
+        "it": [
+          "la chiesa di montagna"
+        ]
+      }
+    },
+    {
+      "lemma": "Bergsturz",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "rockfall, landslide"
+      ],
+      "forms": {
+        "Bergsturz": "singular",
+        "Bergstürze": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "podor"
+        ],
+        "it": [
+          "la frana"
+        ]
+      }
+    },
+    {
+      "lemma": "Bericht",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "report, account"
+      ],
+      "forms": {
+        "Berichte": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "poročilo, zapis"
+        ],
+        "it": [
+          "la cronaca, il resoconto"
+        ]
+      }
+    },
+    {
+      "lemma": "Besucher",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "visitor"
+      ],
+      "forms": {
+        "Besucher": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "obiskovalec"
+        ],
+        "it": [
+          "il visitatore"
+        ]
+      }
+    },
+    {
+      "lemma": "Beton",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "concrete"
+      ],
+      "forms": {
+        "Beton": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "beton"
+        ],
+        "it": [
+          "il cemento"
+        ]
+      }
+    },
+    {
+      "lemma": "Birkenrute",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "birch rod"
+      ],
+      "forms": {
+        "Birkenrute": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "brezova šiba"
+        ],
+        "it": [
+          "la verga di betulla"
+        ]
+      }
+    },
+    {
+      "lemma": "Bischofshut",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "bishop's hat (the mitre)"
+      ],
+      "forms": {
+        "Bischofshut": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "škofovska kapa, mitra"
+        ],
+        "it": [
+          "la mitra"
+        ]
+      }
+    },
+    {
+      "lemma": "Boden",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "ground, floor"
+      ],
+      "forms": {
+        "Boden": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "tla"
+        ],
+        "it": [
+          "il suolo, il pavimento"
+        ]
+      }
+    },
+    {
+      "lemma": "Brief",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "letter"
+      ],
+      "forms": {
+        "Brief": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "pismo"
+        ],
+        "it": [
+          "la lettera"
+        ]
+      }
+    },
+    {
+      "lemma": "Bringer",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "bringer (one who brings)"
+      ],
+      "forms": {
+        "Bringer": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "prinašalec"
+        ],
+        "it": [
+          "colui che porta"
+        ]
+      }
+    },
+    {
+      "lemma": "Bub",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "boy, lad (Austrian)"
+      ],
+      "forms": {
+        "Bub": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "fant"
+        ],
+        "it": [
+          "il ragazzo"
+        ]
+      }
+    },
+    {
+      "lemma": "Dame",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "lady"
+      ],
+      "forms": {
+        "Dame": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "dama, gospa"
+        ],
+        "it": [
+          "la signora"
+        ]
+      }
+    },
+    {
+      "lemma": "Dampfschiff",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "steamer, steamboat"
+      ],
+      "forms": {
+        "Dampfschiff": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "parnik"
+        ],
+        "it": [
+          "il battello a vapore"
+        ]
+      }
+    },
+    {
+      "lemma": "Dank",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "thanks"
+      ],
+      "forms": {
+        "Dank": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "zahvala"
+        ],
+        "it": [
+          "il ringraziamento"
+        ]
+      }
+    },
+    {
+      "lemma": "Deutsch",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "German (the language)"
+      ],
+      "forms": {
+        "Deutsch": "the language (auf Deutsch: in German)"
+      },
+      "meanings": {
+        "sl": [
+          "nemščina"
+        ],
+        "it": [
+          "il tedesco"
+        ]
+      }
+    },
+    {
+      "lemma": "Dezember",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "December"
+      ],
+      "forms": {
+        "Dezember": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "december"
+        ],
+        "it": [
+          "dicembre"
+        ]
+      }
+    },
+    {
+      "lemma": "Dirndl",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "dirndl (a woman's traditional dress); in Austria also a girl"
+      ],
+      "forms": {
+        "Dirndl": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "dirndl (ženska noša)"
+        ],
+        "it": [
+          "il dirndl (abito tradizionale)"
+        ]
+      }
+    },
+    {
+      "lemma": "Dotter",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "egg yolk (Austrian; Eigelb in Germany)"
+      ],
+      "forms": {
+        "Dotter": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "rumenjak"
+        ],
+        "it": [
+          "il tuorlo"
+        ]
+      }
+    },
+    {
+      "lemma": "Eigelb",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "egg yolk"
+      ],
+      "forms": {
+        "Eigelb": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "rumenjak"
+        ],
+        "it": [
+          "il tuorlo"
+        ]
+      }
+    },
+    {
+      "lemma": "Eisenkeule",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "iron club"
+      ],
+      "forms": {
+        "Eisenkeule": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "železen kij"
+        ],
+        "it": [
+          "la mazza di ferro"
+        ]
+      }
+    },
+    {
+      "lemma": "Ende",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "end"
+      ],
+      "forms": {
+        "Ende": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "konec"
+        ],
+        "it": [
+          "la fine"
+        ]
+      }
+    },
+    {
+      "lemma": "Erzherzog",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "archduke"
+      ],
+      "forms": {
+        "Erzherzog": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "nadvojvoda"
+        ],
+        "it": [
+          "l'arciduca"
+        ]
+      }
+    },
+    {
+      "lemma": "Essig",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "vinegar"
+      ],
+      "forms": {
+        "Essig": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kis"
+        ],
+        "it": [
+          "l'aceto"
+        ]
+      }
+    },
+    {
+      "lemma": "Fässchen",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "little barrel"
+      ],
+      "forms": {
+        "Fässchen": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "sodček"
+        ],
+        "it": [
+          "la botticella"
+        ]
+      }
+    },
+    {
+      "lemma": "Farbe",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "colour"
+      ],
+      "forms": {
+        "Farbe": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "barva"
+        ],
+        "it": [
+          "il colore"
+        ]
+      }
+    },
+    {
+      "lemma": "Februar",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "February (Austrian also Feber)"
+      ],
+      "forms": {
+        "Februar": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "februar"
+        ],
+        "it": [
+          "febbraio"
+        ]
+      }
+    },
+    {
+      "lemma": "Fertigmachen",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "finishing (zum Fertigmachen: to finish)"
+      ],
+      "forms": {
+        "Fertigmachen": "infinitive as a noun"
+      },
+      "meanings": {
+        "sl": [
+          "dokončanje"
+        ],
+        "it": [
+          "il completamento (per finire)"
+        ]
+      }
+    },
+    {
+      "lemma": "Fett",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "fat"
+      ],
+      "forms": {
+        "Fett": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "maščoba"
+        ],
+        "it": [
+          "il grasso"
+        ]
+      }
+    },
+    {
+      "lemma": "Fuß",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "foot (zu Fuß: on foot)"
+      ],
+      "forms": {
+        "Fuß": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "noga, stopalo (peš)"
+        ],
+        "it": [
+          "il piede (a piedi)"
+        ]
+      }
+    },
+    {
+      "lemma": "Fürstenstein",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "the Prince's Stone (Karnburg, now in Klagenfurt)"
+      ],
+      "forms": {
+        "Fürstenstein": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "knežji kamen"
+        ],
+        "it": [
+          "la Pietra del Principe"
+        ]
+      }
+    },
+    {
+      "lemma": "Fürstentum",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "principality"
+      ],
+      "forms": {
+        "Fürstentum": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kneževina"
+        ],
+        "it": [
+          "il principato"
+        ]
+      }
+    },
+    {
+      "lemma": "Gebiet",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "area, region"
+      ],
+      "forms": {
+        "Gebiet": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "območje"
+        ],
+        "it": [
+          "la zona, l'area"
+        ]
+      }
+    },
+    {
+      "lemma": "Generation",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "generation"
+      ],
+      "forms": {
+        "Generationen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "rod, generacija"
+        ],
+        "it": [
+          "la generazione"
+        ]
+      }
+    },
+    {
+      "lemma": "Gestein",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "rock (the material)"
+      ],
+      "forms": {
+        "Gestein": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kamnina"
+        ],
+        "it": [
+          "la roccia"
+        ]
+      }
+    },
+    {
+      "lemma": "Gewürz",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "spice"
+      ],
+      "forms": {
+        "Gewürze": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "začimba"
+        ],
+        "it": [
+          "la spezia"
+        ]
+      }
+    },
+    {
+      "lemma": "Gewürznelke",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "clove"
+      ],
+      "forms": {
+        "Gewürznelken": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "klinček"
+        ],
+        "it": [
+          "il chiodo di garofano"
+        ]
+      }
+    },
+    {
+      "lemma": "Glaube",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "faith, belief"
+      ],
+      "forms": {
+        "Glaubens": "genitive singular"
+      },
+      "meanings": {
+        "sl": [
+          "vera"
+        ],
+        "it": [
+          "la fede"
+        ]
+      }
+    },
+    {
+      "lemma": "Gold",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "gold"
+      ],
+      "forms": {
+        "Gold": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "zlato"
+        ],
+        "it": [
+          "l'oro"
+        ]
+      }
+    },
+    {
+      "lemma": "Goldmünze",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "gold coin"
+      ],
+      "forms": {
+        "Goldmünzen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "zlatnik"
+        ],
+        "it": [
+          "la moneta d'oro"
+        ]
+      }
+    },
+    {
+      "lemma": "Grad",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "degree"
+      ],
+      "forms": {
+        "Grad": "singular",
+        "plural (20 Grad)": null
+      },
+      "meanings": {
+        "sl": [
+          "stopinja"
+        ],
+        "it": [
+          "il grado"
+        ]
+      }
+    },
+    {
+      "lemma": "Hafer",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "oats"
+      ],
+      "forms": {
+        "Hafer": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "oves"
+        ],
+        "it": [
+          "l'avena"
+        ]
+      }
+    },
+    {
+      "lemma": "Halbinsel",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "peninsula"
+      ],
+      "forms": {
+        "Halbinsel": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "polotok"
+        ],
+        "it": [
+          "la penisola"
+        ]
+      }
+    },
+    {
+      "lemma": "Handel",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "deal, trade"
+      ],
+      "forms": {
+        "Handel": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kupčija"
+        ],
+        "it": [
+          "l'affare"
+        ]
+      }
+    },
+    {
+      "lemma": "Hektar",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "hectare"
+      ],
+      "forms": {
+        "Hektar": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "hektar"
+        ],
+        "it": [
+          "l'ettaro"
+        ]
+      }
+    },
+    {
+      "lemma": "Herzogstuhl",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "the Ducal Chair (on the Zollfeld)"
+      ],
+      "forms": {
+        "Herzogstuhl": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "vojvodski prestol"
+        ],
+        "it": [
+          "il Seggio ducale"
+        ]
+      }
+    },
+    {
+      "lemma": "Herzog",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "duke"
+      ],
+      "forms": {
+        "Herzogs": "genitive singular",
+        "Herzögen": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "vojvoda"
+        ],
+        "it": [
+          "il duca"
+        ]
+      }
+    },
+    {
+      "lemma": "Hof",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "farm; yard"
+      ],
+      "forms": {
+        "Hof": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kmetija; dvorišče"
+        ],
+        "it": [
+          "il podere; il cortile"
+        ]
+      }
+    },
+    {
+      "lemma": "Holzlöffel",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "wooden spoon"
+      ],
+      "forms": {
+        "Holzlöffel": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "lesena žlica"
+        ],
+        "it": [
+          "il cucchiaio di legno"
+        ]
+      }
+    },
+    {
+      "lemma": "Holzmaske",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "wooden mask"
+      ],
+      "forms": {
+        "Holzmaske": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "lesena maska"
+        ],
+        "it": [
+          "la maschera di legno"
+        ]
+      }
+    },
+    {
+      "lemma": "Holzstück",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "piece of wood"
+      ],
+      "forms": {
+        "Holzstücke": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "kos lesa"
+        ],
+        "it": [
+          "il pezzo di legno"
+        ]
+      }
+    },
+    {
+      "lemma": "Holzturm",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "wooden tower"
+      ],
+      "forms": {
+        "Holzturm": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "lesen stolp"
+        ],
+        "it": [
+          "la torre di legno"
+        ]
+      }
+    },
+    {
+      "lemma": "Hose",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "trousers"
+      ],
+      "forms": {
+        "Hose": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "hlače"
+        ],
+        "it": [
+          "i pantaloni"
+        ]
+      }
+    },
+    {
+      "lemma": "Höhe",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "height"
+      ],
+      "forms": {
+        "Höhe": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "višina"
+        ],
+        "it": [
+          "l'altezza"
+        ]
+      }
+    },
+    {
+      "lemma": "Horn",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "horn"
+      ],
+      "forms": {
+        "Hörnern": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "rog"
+        ],
+        "it": [
+          "il corno"
+        ]
+      }
+    },
+    {
+      "lemma": "Hühnerfleisch",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "chicken (the meat)"
+      ],
+      "forms": {
+        "Hühnerfleisch": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "piščančje meso"
+        ],
+        "it": [
+          "la carne di pollo"
+        ]
+      }
+    },
+    {
+      "lemma": "Insel",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "island"
+      ],
+      "forms": {
+        "Insel": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "otok"
+        ],
+        "it": [
+          "l'isola"
+        ]
+      }
+    },
+    {
+      "lemma": "Juli",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "July (Austrian also Juli, said Julei)"
+      ],
+      "forms": {
+        "Juli": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "julij"
+        ],
+        "it": [
+          "luglio"
+        ]
+      }
+    },
+    {
+      "lemma": "Juni",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "June"
+      ],
+      "forms": {
+        "Juni": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "junij"
+        ],
+        "it": [
+          "giugno"
+        ]
+      }
+    },
+    {
+      "lemma": "Kapelle",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "chapel"
+      ],
+      "forms": {
+        "Kapelle": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kapela"
+        ],
+        "it": [
+          "la cappella"
+        ]
+      }
+    },
+    {
+      "lemma": "Karotte",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "carrot (Austrian; Möhre in Germany)"
+      ],
+      "forms": {
+        "Karotten": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "korenje"
+        ],
+        "it": [
+          "la carota"
+        ]
+      }
+    },
+    {
+      "lemma": "Kilometer",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "kilometre"
+      ],
+      "forms": {
+        "Kilometer": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "kilometer"
+        ],
+        "it": [
+          "il chilometro"
+        ]
+      }
+    },
+    {
+      "lemma": "Kirchenpatron",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "patron saint of a church"
+      ],
+      "forms": {
+        "Kirchenpatrons": "genitive singular"
+      },
+      "meanings": {
+        "sl": [
+          "cerkveni zavetnik"
+        ],
+        "it": [
+          "il santo patrono (della chiesa)"
+        ]
+      }
+    },
+    {
+      "lemma": "Klaps",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "a light slap, a pat"
+      ],
+      "forms": {
+        "Klaps": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "klofutica"
+        ],
+        "it": [
+          "lo schiaffetto, il buffetto"
+        ]
+      }
+    },
+    {
+      "lemma": "Kleid",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "dress; Kleider: clothes"
+      ],
+      "forms": {
+        "Kleider": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "obleka"
+        ],
+        "it": [
+          "il vestito; i vestiti"
+        ]
+      }
+    },
+    {
+      "lemma": "Knie",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "knee"
+      ],
+      "forms": {
+        "Knie": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "koleno"
+        ],
+        "it": [
+          "il ginocchio"
+        ]
+      }
+    },
+    {
+      "lemma": "Knochen",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "bone"
+      ],
+      "forms": {
+        "Knochen": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "kost"
+        ],
+        "it": [
+          "l'osso"
+        ]
+      }
+    },
+    {
+      "lemma": "Kochlöffel",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "wooden cooking spoon"
+      ],
+      "forms": {
+        "Kochlöffel": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kuhalnica"
+        ],
+        "it": [
+          "il mestolo"
+        ]
+      }
+    },
+    {
+      "lemma": "Krampuslauf",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "Krampus parade"
+      ],
+      "forms": {
+        "Krampuslauf": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "parkljev pohod"
+        ],
+        "it": [
+          "la sfilata dei Krampus"
+        ]
+      }
+    },
+    {
+      "lemma": "Kubikmeter",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "cubic metre"
+      ],
+      "forms": {
+        "Kubikmeter": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "kubični meter"
+        ],
+        "it": [
+          "il metro cubo"
+        ]
+      }
+    },
+    {
+      "lemma": "Kufenstechen",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "the Kufenstechen, barrel tilting on horseback (Gail valley)"
+      ],
+      "forms": {
+        "Kufenstechen": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "štehvanje"
+        ],
+        "it": [
+          "il Kufenstechen (giostra della botte)"
+        ]
+      }
+    },
+    {
+      "lemma": "Kulturerbe",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "cultural heritage"
+      ],
+      "forms": {
+        "Kulturerbe": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kulturna dediščina"
+        ],
+        "it": [
+          "il patrimonio culturale"
+        ]
+      }
+    },
+    {
+      "lemma": "Lammfleisch",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "lamb (the meat)"
+      ],
+      "forms": {
+        "Lammfleisch": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "jagnjetina"
+        ],
+        "it": [
+          "la carne d'agnello"
+        ]
+      }
+    },
+    {
+      "lemma": "Land",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "country, land"
+      ],
+      "forms": {
+        "Landes": "genitive singular"
+      },
+      "meanings": {
+        "sl": [
+          "dežela"
+        ],
+        "it": [
+          "il paese, la terra"
+        ]
+      }
+    },
+    {
+      "lemma": "Landhaus",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "the Landhaus (Carinthia's parliament house in Klagenfurt)"
+      ],
+      "forms": {
+        "Landhaus": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "deželni dvorec"
+        ],
+        "it": [
+          "il Landhaus (palazzo della dieta)"
+        ]
+      }
+    },
+    {
+      "lemma": "Lärm",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "noise, racket"
+      ],
+      "forms": {
+        "Lärm": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "hrup"
+        ],
+        "it": [
+          "il baccano, il rumore"
+        ]
+      }
+    },
+    {
+      "lemma": "Larve",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "a carved wooden mask (Krampus, Perchten)"
+      ],
+      "forms": {
+        "Larve": "singular",
+        "Larven": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "larva (lesena maska)"
+        ],
+        "it": [
+          "la maschera di legno intagliata"
+        ]
+      }
+    },
+    {
+      "lemma": "Lauch",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "leek"
+      ],
+      "forms": {
+        "Lauch": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "por"
+        ],
+        "it": [
+          "il porro"
+        ]
+      }
+    },
+    {
+      "lemma": "Leder",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "leather"
+      ],
+      "forms": {
+        "Leder": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "usnje"
+        ],
+        "it": [
+          "la pelle, il cuoio"
+        ]
+      }
+    },
+    {
+      "lemma": "Lederhose",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "lederhosen, leather trousers"
+      ],
+      "forms": {
+        "Lederhose": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "irhovke, usnjene hlače"
+        ],
+        "it": [
+          "i calzoni di pelle"
+        ]
+      }
+    },
+    {
+      "lemma": "Legende",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "legend"
+      ],
+      "forms": {
+        "Legende": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "legenda"
+        ],
+        "it": [
+          "la leggenda"
+        ]
+      }
+    },
+    {
+      "lemma": "Lift",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "lift, elevator"
+      ],
+      "forms": {
+        "Lift": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "dvigalo"
+        ],
+        "it": [
+          "l'ascensore"
+        ]
+      }
+    },
+    {
+      "lemma": "Lindentanz",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "the linden dance (prvi rej) under the village linden"
+      ],
+      "forms": {
+        "Lindentanz": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "prvi rej, ples pod lipo"
+        ],
+        "it": [
+          "il ballo sotto il tiglio"
+        ]
+      }
+    },
+    {
+      "lemma": "Lorbeerblatt",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "bay leaf"
+      ],
+      "forms": {
+        "Lorbeerblätter": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "lovorov list"
+        ],
+        "it": [
+          "la foglia di alloro"
+        ]
+      }
+    },
+    {
+      "lemma": "Luft",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "air"
+      ],
+      "forms": {
+        "Luft": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "zrak"
+        ],
+        "it": [
+          "l'aria"
+        ]
+      }
+    },
+    {
+      "lemma": "Mädel",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "girl, lass (Austrian)"
+      ],
+      "forms": {
+        "Mädel": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "dekle"
+        ],
+        "it": [
+          "la ragazza"
+        ]
+      }
+    },
+    {
+      "lemma": "Mal",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "time (once, the last time)"
+      ],
+      "forms": {
+        "Mal": "singular (zum letzten Mal: for the last time)"
+      },
+      "meanings": {
+        "sl": [
+          "krat"
+        ],
+        "it": [
+          "la volta"
+        ]
+      }
+    },
+    {
+      "lemma": "Markknochen",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "marrow bone"
+      ],
+      "forms": {
+        "Markknochen": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kost z mozgom"
+        ],
+        "it": [
+          "l'osso con il midollo"
+        ]
+      }
+    },
+    {
+      "lemma": "Messe",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "Mass (church)"
+      ],
+      "forms": {
+        "Messe": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "maša"
+        ],
+        "it": [
+          "la messa"
+        ]
+      }
+    },
+    {
+      "lemma": "Meter",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "metre"
+      ],
+      "forms": {
+        "Metern": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "meter"
+        ],
+        "it": [
+          "il metro"
+        ]
+      }
+    },
+    {
+      "lemma": "Million",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "million"
+      ],
+      "forms": {
+        "Millionen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "milijon"
+        ],
+        "it": [
+          "il milione"
+        ]
+      }
+    },
+    {
+      "lemma": "Mitgift",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "dowry"
+      ],
+      "forms": {
+        "Mitgift": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "dota"
+        ],
+        "it": [
+          "la dote"
+        ]
+      }
+    },
+    {
+      "lemma": "Mut",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "courage"
+      ],
+      "forms": {
+        "Mut": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "pogum"
+        ],
+        "it": [
+          "il coraggio"
+        ]
+      }
+    },
+    {
+      "lemma": "Nachmittag",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "afternoon"
+      ],
+      "forms": {
+        "Nachmittag": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "popoldne"
+        ],
+        "it": [
+          "il pomeriggio"
+        ]
+      }
+    },
+    {
+      "lemma": "Nacht",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "night"
+      ],
+      "forms": {
+        "Nacht": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "noč"
+        ],
+        "it": [
+          "la notte"
+        ]
+      }
+    },
+    {
+      "lemma": "Naturpark",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "nature park"
+      ],
+      "forms": {
+        "Naturpark": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "naravni park"
+        ],
+        "it": [
+          "il parco naturale"
+        ]
+      }
+    },
+    {
+      "lemma": "Naturschutz",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "nature conservation"
+      ],
+      "forms": {
+        "Naturschutz": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "varstvo narave"
+        ],
+        "it": [
+          "la tutela della natura"
+        ]
+      }
+    },
+    {
+      "lemma": "Nebensatz",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "subordinate clause"
+      ],
+      "forms": {
+        "Nebensatz": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "odvisnik"
+        ],
+        "it": [
+          "la proposizione subordinata"
+        ]
+      }
+    },
+    {
+      "lemma": "Nikolotag",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "St Nicholas' Day (6 December)"
+      ],
+      "forms": {
+        "Nikolotag": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "Miklavževo"
+        ],
+        "it": [
+          "il giorno di San Nicolò"
+        ]
+      }
+    },
+    {
+      "lemma": "Norden",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "north"
+      ],
+      "forms": {
+        "Norden": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "sever"
+        ],
+        "it": [
+          "il nord"
+        ]
+      }
+    },
+    {
+      "lemma": "Noriker",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "Noriker, a big draught horse of the Alps"
+      ],
+      "forms": {
+        "Noriker": "singular",
+        "plural": null,
+        "Norikern": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "norik (konj)"
+        ],
+        "it": [
+          "il Noriker (cavallo da tiro)"
+        ]
+      }
+    },
+    {
+      "lemma": "Ohr",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "ear"
+      ],
+      "forms": {
+        "Ohr": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "uho"
+        ],
+        "it": [
+          "l'orecchio"
+        ]
+      }
+    },
+    {
+      "lemma": "Osten",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "east"
+      ],
+      "forms": {
+        "Osten": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "vzhod"
+        ],
+        "it": [
+          "l'est"
+        ]
+      }
+    },
+    {
+      "lemma": "Paket",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "parcel"
+      ],
+      "forms": {
+        "Paket": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "paket"
+        ],
+        "it": [
+          "il pacco"
+        ]
+      }
+    },
+    {
+      "lemma": "Pastinake",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "parsnip"
+      ],
+      "forms": {
+        "Pastinake": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "pastinak"
+        ],
+        "it": [
+          "la pastinaca"
+        ]
+      }
+    },
+    {
+      "lemma": "Petersilie",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "parsley"
+      ],
+      "forms": {
+        "Petersilie": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "peteršilj"
+        ],
+        "it": [
+          "il prezzemolo"
+        ]
+      }
+    },
+    {
+      "lemma": "Pfeffer",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "pepper"
+      ],
+      "forms": {
+        "Pfeffer": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "poper"
+        ],
+        "it": [
+          "il pepe"
+        ]
+      }
+    },
+    {
+      "lemma": "Pfefferkorn",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "peppercorn"
+      ],
+      "forms": {
+        "Pfefferkörner": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "zrno popra"
+        ],
+        "it": [
+          "il grano di pepe"
+        ]
+      }
+    },
+    {
+      "lemma": "Pfennig",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "penny (an old coin; a denarius)"
+      ],
+      "forms": {
+        "Pfennige": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "pfenig, denarič"
+        ],
+        "it": [
+          "il denaro (moneta)"
+        ]
+      }
+    },
+    {
+      "lemma": "Pferd",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "horse"
+      ],
+      "forms": {
+        "Pferden": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "konj"
+        ],
+        "it": [
+          "il cavallo"
+        ]
+      }
+    },
+    {
+      "lemma": "Pfingstmontag",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "Whit Monday"
+      ],
+      "forms": {
+        "Pfingstmontag": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "binkoštni ponedeljek"
+        ],
+        "it": [
+          "il lunedì di Pentecoste"
+        ]
+      }
+    },
+    {
+      "lemma": "Plattform",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "platform"
+      ],
+      "forms": {
+        "Plattform": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "ploščad"
+        ],
+        "it": [
+          "la piattaforma"
+        ]
+      }
+    },
+    {
+      "lemma": "Platz",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "square; place, seat"
+      ],
+      "forms": {
+        "Plätzen": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "trg; prostor, sedež"
+        ],
+        "it": [
+          "la piazza; il posto"
+        ]
+      }
+    },
+    {
+      "lemma": "Präposition",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "preposition"
+      ],
+      "forms": {
+        "Präposition": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "predlog"
+        ],
+        "it": [
+          "la preposizione"
+        ]
+      }
+    },
+    {
+      "lemma": "Prise",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "pinch (of salt)"
+      ],
+      "forms": {
+        "Prise": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "ščepec"
+        ],
+        "it": [
+          "il pizzico"
+        ]
+      }
+    },
+    {
+      "lemma": "Pünktchen",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "little dot (the umlaut's dots)"
+      ],
+      "forms": {
+        "Pünktchen": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "pikica"
+        ],
+        "it": [
+          "il puntino"
+        ]
+      }
+    },
+    {
+      "lemma": "Rahm",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "cream (Austrian)"
+      ],
+      "forms": {
+        "Rahm": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "smetana"
+        ],
+        "it": [
+          "la panna"
+        ]
+      }
+    },
+    {
+      "lemma": "Recht",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "right, law"
+      ],
+      "forms": {
+        "Recht": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "pravica"
+        ],
+        "it": [
+          "il diritto"
+        ]
+      }
+    },
+    {
+      "lemma": "Reiter",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "rider"
+      ],
+      "forms": {
+        "Reitern": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "jezdec"
+        ],
+        "it": [
+          "il cavaliere"
+        ]
+      }
+    },
+    {
+      "lemma": "Rest",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "rest, remainder"
+      ],
+      "forms": {
+        "Rest": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "ostanek"
+        ],
+        "it": [
+          "il resto"
+        ]
+      }
+    },
+    {
+      "lemma": "Rindfleisch",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "beef"
+      ],
+      "forms": {
+        "Rindfleisch": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "govedina"
+        ],
+        "it": [
+          "la carne di manzo"
+        ]
+      }
+    },
+    {
+      "lemma": "Rindsknochen",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "beef bone"
+      ],
+      "forms": {
+        "Rindsknochen": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "goveja kost"
+        ],
+        "it": [
+          "l'osso di manzo"
+        ]
+      }
+    },
+    {
+      "lemma": "Ring",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "ring"
+      ],
+      "forms": {
+        "Ringe": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "obroč"
+        ],
+        "it": [
+          "l'anello"
+        ]
+      }
+    },
+    {
+      "lemma": "Ritter",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "knight"
+      ],
+      "forms": {
+        "Ritter": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "vitez"
+        ],
+        "it": [
+          "il cavaliere (medievale)"
+        ]
+      }
+    },
+    {
+      "lemma": "Safranfaden",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "saffron thread"
+      ],
+      "forms": {
+        "Safranfäden": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "žafranova nitka"
+        ],
+        "it": [
+          "il pistillo di zafferano"
+        ]
+      }
+    },
+    {
+      "lemma": "Satz",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "sentence"
+      ],
+      "forms": {
+        "Satz": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "stavek"
+        ],
+        "it": [
+          "la frase"
+        ]
+      }
+    },
+    {
+      "lemma": "Sauerrahm",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "sour cream (Austrian)"
+      ],
+      "forms": {
+        "Sauerrahm": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kisla smetana"
+        ],
+        "it": [
+          "la panna acida"
+        ]
+      }
+    },
+    {
+      "lemma": "Schaf",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "sheep"
+      ],
+      "forms": {
+        "Schafen": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "ovca"
+        ],
+        "it": [
+          "la pecora"
+        ]
+      }
+    },
+    {
+      "lemma": "Schaum",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "foam, froth"
+      ],
+      "forms": {
+        "Schaum": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "pena"
+        ],
+        "it": [
+          "la schiuma"
+        ]
+      }
+    },
+    {
+      "lemma": "Schiff",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "ship"
+      ],
+      "forms": {
+        "Schiffe": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "ladja"
+        ],
+        "it": [
+          "la nave"
+        ]
+      }
+    },
+    {
+      "lemma": "Schlag",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "blow, strike"
+      ],
+      "forms": {
+        "Schlag": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "udarec"
+        ],
+        "it": [
+          "il colpo"
+        ]
+      }
+    },
+    {
+      "lemma": "Schlagobers",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "whipping cream (Austrian; Schlagsahne in Germany)"
+      ],
+      "forms": {
+        "Schlagobers": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "sladka smetana"
+        ],
+        "it": [
+          "la panna da montare"
+        ]
+      }
+    },
+    {
+      "lemma": "Schlittschuh",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "ice skate (Schlittschuh laufen: to skate)"
+      ],
+      "forms": {
+        "Schlittschuh": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "drsalka (drsati)"
+        ],
+        "it": [
+          "il pattino (pattinare)"
+        ]
+      }
+    },
+    {
+      "lemma": "Schluss",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "end"
+      ],
+      "forms": {
+        "Schluss": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "konec"
+        ],
+        "it": [
+          "la fine"
+        ]
+      }
+    },
+    {
+      "lemma": "Schnittfläche",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "cut side, cut surface"
+      ],
+      "forms": {
+        "Schnittflächen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "prerezana stran"
+        ],
+        "it": [
+          "la parte tagliata"
+        ]
+      }
+    },
+    {
+      "lemma": "Schreck",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "fright"
+      ],
+      "forms": {
+        "Schreck": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "strah"
+        ],
+        "it": [
+          "lo spavento"
+        ]
+      }
+    },
+    {
+      "lemma": "Schritt",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "step"
+      ],
+      "forms": {
+        "Schritt": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "korak"
+        ],
+        "it": [
+          "il passo"
+        ]
+      }
+    },
+    {
+      "lemma": "Schuh",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "shoe"
+      ],
+      "forms": {
+        "Schuh": "singular",
+        "Schuhe": "plural",
+        "Schuhen": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "čevelj"
+        ],
+        "it": [
+          "la scarpa"
+        ]
+      }
+    },
+    {
+      "lemma": "Schuss",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "dash (of vinegar); shot"
+      ],
+      "forms": {
+        "Schuss": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kanček; strel"
+        ],
+        "it": [
+          "il goccio; lo sparo"
+        ]
+      }
+    },
+    {
+      "lemma": "Schützer",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "protector"
+      ],
+      "forms": {
+        "Schützer": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "zaščitnik"
+        ],
+        "it": [
+          "il difensore"
+        ]
+      }
+    },
+    {
+      "lemma": "Schwert",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "sword"
+      ],
+      "forms": {
+        "Schwert": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "meč"
+        ],
+        "it": [
+          "la spada"
+        ]
+      }
+    },
+    {
+      "lemma": "Seide",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "silk"
+      ],
+      "forms": {
+        "Seide": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "svila"
+        ],
+        "it": [
+          "la seta"
+        ]
+      }
+    },
+    {
+      "lemma": "Seite",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "side; page"
+      ],
+      "forms": {
+        "Seiten": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "stran"
+        ],
+        "it": [
+          "il lato; la pagina"
+        ]
+      }
+    },
+    {
+      "lemma": "Sellerie",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "celeriac, celery"
+      ],
+      "forms": {
+        "Sellerie": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "zelena"
+        ],
+        "it": [
+          "il sedano (rapa)"
+        ]
+      }
+    },
+    {
+      "lemma": "Slawe",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "Slav"
+      ],
+      "forms": {
+        "Slawen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "Slovan"
+        ],
+        "it": [
+          "lo Slavo"
+        ]
+      }
+    },
+    {
+      "lemma": "Slowene",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "Slovene, Slovenian (a person)"
+      ],
+      "forms": {
+        "Slowenen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "Slovenec"
+        ],
+        "it": [
+          "lo Sloveno"
+        ]
+      }
+    },
+    {
+      "lemma": "Slowenisch",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "Slovene (the language)"
+      ],
+      "forms": {
+        "Slowenisch": "the language (auf Slowenisch: in Slovene)"
+      },
+      "meanings": {
+        "sl": [
+          "slovenščina"
+        ],
+        "it": [
+          "lo sloveno"
+        ]
+      }
+    },
+    {
+      "lemma": "Italienisch",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "Italian (the language)"
+      ],
+      "forms": {
+        "Italienisch": "the language"
+      },
+      "meanings": {
+        "sl": [
+          "italijanščina"
+        ],
+        "it": [
+          "l'italiano"
+        ]
+      }
+    },
+    {
+      "lemma": "Spiel",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "game"
+      ],
+      "forms": {
+        "Spiele": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "igra"
+        ],
+        "it": [
+          "il gioco"
+        ]
+      }
+    },
+    {
+      "lemma": "Sprache",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "language"
+      ],
+      "forms": {
+        "Sprache": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "jezik"
+        ],
+        "it": [
+          "la lingua"
+        ]
+      }
+    },
+    {
+      "lemma": "Stab",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "staff, crosier"
+      ],
+      "forms": {
+        "Stab": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "palica"
+        ],
+        "it": [
+          "il bastone, il pastorale"
+        ]
+      }
+    },
+    {
+      "lemma": "Stadt",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "town, city"
+      ],
+      "forms": {
+        "Stadt": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "mesto"
+        ],
+        "it": [
+          "la città"
+        ]
+      }
+    },
+    {
+      "lemma": "Stahl",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "steel"
+      ],
+      "forms": {
+        "Stahl": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "jeklo"
+        ],
+        "it": [
+          "l'acciaio"
+        ]
+      }
+    },
+    {
+      "lemma": "Stein",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "stone"
+      ],
+      "forms": {
+        "Steinen": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "kamen"
+        ],
+        "it": [
+          "la pietra"
+        ]
+      }
+    },
+    {
+      "lemma": "Stelle",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "place, spot"
+      ],
+      "forms": {
+        "Stelle": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "mesto"
+        ],
+        "it": [
+          "il punto, il posto"
+        ]
+      }
+    },
+    {
+      "lemma": "Steuer",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "tax"
+      ],
+      "forms": {
+        "Steuern": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "davek"
+        ],
+        "it": [
+          "la tassa"
+        ]
+      }
+    },
+    {
+      "lemma": "Stolperstein",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "stumbling block"
+      ],
+      "forms": {
+        "Stolperstein": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kamen spotike"
+        ],
+        "it": [
+          "l'inciampo, la pietra d'inciampo"
+        ]
+      }
+    },
+    {
+      "lemma": "Stups",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "nudge"
+      ],
+      "forms": {
+        "Stups": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "dregljaj"
+        ],
+        "it": [
+          "la spintarella"
+        ]
+      }
+    },
+    {
+      "lemma": "Stute",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "mare"
+      ],
+      "forms": {
+        "Stute": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kobila"
+        ],
+        "it": [
+          "la giumenta"
+        ]
+      }
+    },
+    {
+      "lemma": "Stütze",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "support, prop"
+      ],
+      "forms": {
+        "Stützen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "opora"
+        ],
+        "it": [
+          "il sostegno"
+        ]
+      }
+    },
+    {
+      "lemma": "Suppentopf",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "soup pot"
+      ],
+      "forms": {
+        "Suppentopf": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "lonec za juho"
+        ],
+        "it": [
+          "la pentola per la zuppa"
+        ]
+      }
+    },
+    {
+      "lemma": "Säule",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "column, pillar"
+      ],
+      "forms": {
+        "Säule": "singular",
+        "Säulen": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "steber"
+        ],
+        "it": [
+          "la colonna"
+        ]
+      }
+    },
+    {
+      "lemma": "Süden",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "south"
+      ],
+      "forms": {
+        "Süden": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "jug"
+        ],
+        "it": [
+          "il sud"
+        ]
+      }
+    },
+    {
+      "lemma": "Südseite",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "south side"
+      ],
+      "forms": {
+        "Südseite": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "južna stran"
+        ],
+        "it": [
+          "il versante sud"
+        ]
+      }
+    },
+    {
+      "lemma": "Südufer",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "south shore"
+      ],
+      "forms": {
+        "Südufer": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "južni breg"
+        ],
+        "it": [
+          "la riva sud"
+        ]
+      }
+    },
+    {
+      "lemma": "Teil",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "part"
+      ],
+      "forms": {
+        "Teil": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "del"
+        ],
+        "it": [
+          "la parte"
+        ]
+      }
+    },
+    {
+      "lemma": "Text",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "text"
+      ],
+      "forms": {
+        "Text": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "besedilo"
+        ],
+        "it": [
+          "il testo"
+        ]
+      }
+    },
+    {
+      "lemma": "Tochter",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "daughter"
+      ],
+      "forms": {
+        "Töchtern": "dative plural"
+      },
+      "meanings": {
+        "sl": [
+          "hči"
+        ],
+        "it": [
+          "la figlia"
+        ]
+      }
+    },
+    {
+      "lemma": "Verb",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "verb"
+      ],
+      "forms": {
+        "Verb": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "glagol"
+        ],
+        "it": [
+          "il verbo"
+        ]
+      }
+    },
+    {
+      "lemma": "Volk",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "people, nation"
+      ],
+      "forms": {
+        "Volk": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "ljudstvo"
+        ],
+        "it": [
+          "il popolo"
+        ]
+      }
+    },
+    {
+      "lemma": "Vorbeireiten",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "riding past (im Vorbeireiten: as one rides past)"
+      ],
+      "forms": {
+        "Vorbeireiten": "infinitive as a noun"
+      },
+      "meanings": {
+        "sl": [
+          "ježa mimo"
+        ],
+        "it": [
+          "il passare a cavallo"
+        ]
+      }
+    },
+    {
+      "lemma": "Vorfahr",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "ancestor"
+      ],
+      "forms": {
+        "Vorfahren": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "prednik"
+        ],
+        "it": [
+          "l'antenato"
+        ]
+      }
+    },
+    {
+      "lemma": "Wacholderbeere",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "juniper berry"
+      ],
+      "forms": {
+        "Wacholderbeeren": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "brinova jagoda"
+        ],
+        "it": [
+          "la bacca di ginepro"
+        ]
+      }
+    },
+    {
+      "lemma": "Wange",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "cheek"
+      ],
+      "forms": {
+        "Wange": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "lice"
+        ],
+        "it": [
+          "la guancia"
+        ]
+      }
+    },
+    {
+      "lemma": "Wein",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "wine"
+      ],
+      "forms": {
+        "Wein": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "vino"
+        ],
+        "it": [
+          "il vino"
+        ]
+      }
+    },
+    {
+      "lemma": "Weißwein",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "white wine"
+      ],
+      "forms": {
+        "Weißwein": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "belo vino"
+        ],
+        "it": [
+          "il vino bianco"
+        ]
+      }
+    },
+    {
+      "lemma": "Welt",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "world"
+      ],
+      "forms": {
+        "Welt": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "svet"
+        ],
+        "it": [
+          "il mondo"
+        ]
+      }
+    },
+    {
+      "lemma": "Westen",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "west"
+      ],
+      "forms": {
+        "Westen": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "zahod"
+        ],
+        "it": [
+          "l'ovest"
+        ]
+      }
+    },
+    {
+      "lemma": "Wort",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "word"
+      ],
+      "forms": {
+        "Wort": "singular",
+        "Wörter": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "beseda"
+        ],
+        "it": [
+          "la parola"
+        ]
+      }
+    },
+    {
+      "lemma": "Würfel",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "cube; dice"
+      ],
+      "forms": {
+        "Würfel": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "kocka"
+        ],
+        "it": [
+          "il dado, il cubetto"
+        ]
+      }
+    },
+    {
+      "lemma": "Zentimeter",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "centimetre"
+      ],
+      "forms": {
+        "Zentimeter": "singular",
+        "plural": null
+      },
+      "meanings": {
+        "sl": [
+          "centimeter"
+        ],
+        "it": [
+          "il centimetro"
+        ]
+      }
+    },
+    {
+      "lemma": "Zimt",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "cinnamon"
+      ],
+      "forms": {
+        "Zimt": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "cimet"
+        ],
+        "it": [
+          "la cannella"
+        ]
+      }
+    },
+    {
+      "lemma": "Zimtstange",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "cinnamon stick"
+      ],
+      "forms": {
+        "Zimtstange": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "cimetova palčka"
+        ],
+        "it": [
+          "la stecca di cannella"
+        ]
+      }
+    },
+    {
+      "lemma": "Zirbe",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "Swiss stone pine (its wood)"
+      ],
+      "forms": {
+        "Zirbe": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "cemprin"
+        ],
+        "it": [
+          "il cirmolo"
+        ]
+      }
+    },
+    {
+      "lemma": "Zwei-Cent-Münze",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "two-cent coin"
+      ],
+      "forms": {
+        "Zwei-Cent-Münze": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "kovanec za dva centa"
+        ],
+        "it": [
+          "la moneta da due centesimi"
+        ]
+      }
+    },
+    {
+      "lemma": "Zwiebel",
+      "pos": "noun",
+      "gender": "f",
+      "gloss": [
+        "onion"
+      ],
+      "forms": {
+        "Zwiebel": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "čebula"
+        ],
+        "it": [
+          "la cipolla"
+        ]
+      }
+    },
+    {
+      "lemma": "Bello",
+      "pos": "name",
+      "gloss": [
+        "Bello, Opa Sepp's old dog"
+      ],
+      "forms": {
+        "Bello": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Bello, pes Opa Seppa"
+        ],
+        "it": [
+          "Bello, il vecchio cane di Opa Sepp"
+        ]
+      }
+    },
+    {
+      "lemma": "Bartl",
+      "pos": "name",
+      "gloss": [
+        "Bartl, the Carinthian name for the Krampus"
+      ],
+      "forms": {
+        "Bartl": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Bartl, koroško ime za parklja"
+        ],
+        "it": [
+          "Bartl, nome carinziano del Krampus"
+        ]
+      }
+    },
+    {
+      "lemma": "Nikolaus",
+      "pos": "name",
+      "gloss": [
+        "Nicholas (St Nicholas, bishop of Myra)"
+      ],
+      "forms": {
+        "Nikolaus": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Nikolaj (sveti Miklavž)"
+        ],
+        "it": [
+          "Nicola (San Nicolò)"
+        ]
+      }
+    },
+    {
+      "lemma": "Myra",
+      "pos": "name",
+      "gloss": [
+        "Myra (an ancient town, today in Turkey)"
+      ],
+      "forms": {
+        "Myra": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Mira"
+        ],
+        "it": [
+          "Mira"
+        ]
+      }
+    },
+    {
+      "lemma": "Türkei",
+      "pos": "name",
+      "gloss": [
+        "Turkey"
+      ],
+      "forms": {
+        "Türkei": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Turčija"
+        ],
+        "it": [
+          "la Turchia"
+        ]
+      }
+    },
+    {
+      "lemma": "Dobratsch",
+      "pos": "name",
+      "gloss": [
+        "the Dobratsch (a mountain west of Villach)"
+      ],
+      "forms": {
+        "Dobratsch": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Dobrač"
+        ],
+        "it": [
+          "il Dobratsch"
+        ]
+      }
+    },
+    {
+      "lemma": "Dobrač",
+      "pos": "name",
+      "gloss": [
+        "Dobrač, the Slovene name of the Dobratsch"
+      ],
+      "forms": {
+        "Dobrač": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Dobrač"
+        ],
+        "it": [
+          "Dobrač (nome sloveno del Dobratsch)"
+        ]
+      }
+    },
+    {
+      "lemma": "Feistritz",
+      "pos": "name",
+      "gloss": [
+        "Feistritz an der Gail (a village of the Gail valley)"
+      ],
+      "forms": {
+        "Feistritz": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Bistrica na Zilji"
+        ],
+        "it": [
+          "Feistritz an der Gail"
+        ]
+      }
+    },
+    {
+      "lemma": "Gail",
+      "pos": "name",
+      "gloss": [
+        "the Gail (a river of Carinthia)"
+      ],
+      "forms": {
+        "Gail": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Zilja"
+        ],
+        "it": [
+          "il Gail"
+        ]
+      }
+    },
+    {
+      "lemma": "Gailtaler",
+      "pos": "adj",
+      "gloss": [
+        "of the Gail valley"
+      ],
+      "forms": {
+        "Gailtaler": "not declined"
+      },
+      "meanings": {
+        "sl": [
+          "ziljski"
+        ],
+        "it": [
+          "della valle del Gail"
+        ]
+      }
+    },
+    {
+      "lemma": "Friaul",
+      "pos": "name",
+      "gloss": [
+        "Friuli"
+      ],
+      "forms": {
+        "Friaul": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Furlanija"
+        ],
+        "it": [
+          "il Friuli"
+        ]
+      }
+    },
+    {
+      "lemma": "Johann",
+      "pos": "name",
+      "gloss": [
+        "John, Johann"
+      ],
+      "forms": {
+        "Johann": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Janez"
+        ],
+        "it": [
+          "Giovanni"
+        ]
+      }
+    },
+    {
+      "lemma": "Karantanien",
+      "pos": "name",
+      "gloss": [
+        "Carantania (the early medieval Slav principality)"
+      ],
+      "forms": {
+        "Karantanien": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Karantanija"
+        ],
+        "it": [
+          "la Carantania"
+        ]
+      }
+    },
+    {
+      "lemma": "Karawanken",
+      "pos": "name",
+      "gloss": [
+        "the Karawanks (the mountains between Carinthia and Slovenia)"
+      ],
+      "forms": {
+        "Karawanken": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Karavanke"
+        ],
+        "it": [
+          "le Caravanche"
+        ]
+      }
+    },
+    {
+      "lemma": "Karnburg",
+      "pos": "name",
+      "gloss": [
+        "Karnburg (near Klagenfurt)"
+      ],
+      "forms": {
+        "Karnburg": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Krnski grad"
+        ],
+        "it": [
+          "Karnburg"
+        ]
+      }
+    },
+    {
+      "lemma": "Keutschach",
+      "pos": "name",
+      "gloss": [
+        "Keutschach (a village with lakes south of the Wörthersee)"
+      ],
+      "forms": {
+        "Keutschach": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Hodiše"
+        ],
+        "it": [
+          "Keutschach"
+        ]
+      }
+    },
+    {
+      "lemma": "Maria",
+      "pos": "name",
+      "gloss": [
+        "Maria (in place names: Maria Saal, Maria Wörth)"
+      ],
+      "forms": {
+        "Maria": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Marija (Gospa Sveta, Otok)"
+        ],
+        "it": [
+          "Maria"
+        ]
+      }
+    },
+    {
+      "lemma": "Saal",
+      "pos": "name",
+      "gloss": [
+        "Maria Saal (a pilgrimage church north of Klagenfurt)"
+      ],
+      "forms": {
+        "Saal": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Gospa Sveta"
+        ],
+        "it": [
+          "Maria Saal"
+        ]
+      }
+    },
+    {
+      "lemma": "Wörth",
+      "pos": "name",
+      "gloss": [
+        "Maria Wörth (a village and church on the Wörthersee)"
+      ],
+      "forms": {
+        "Wörth": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Otok"
+        ],
+        "it": [
+          "Maria Wörth"
+        ]
+      }
+    },
+    {
+      "lemma": "Ostalpen",
+      "pos": "name",
+      "gloss": [
+        "the Eastern Alps"
+      ],
+      "forms": {
+        "Ostalpen": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Vzhodne Alpe"
+        ],
+        "it": [
+          "le Alpi Orientali"
+        ]
+      }
+    },
+    {
+      "lemma": "Pyramidenkogel",
+      "pos": "name",
+      "gloss": [
+        "the Pyramidenkogel (a hill south of the Wörthersee)"
+      ],
+      "forms": {
+        "Pyramidenkogel": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Jedvovca"
+        ],
+        "it": [
+          "il Pyramidenkogel"
+        ]
+      }
+    },
+    {
+      "lemma": "Jedvovca",
+      "pos": "name",
+      "gloss": [
+        "Jedvovca, the Slovene name of the Pyramidenkogel"
+      ],
+      "forms": {
+        "Jedvovca": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Jedvovca"
+        ],
+        "it": [
+          "Jedvovca (nome sloveno del Pyramidenkogel)"
+        ]
+      }
+    },
+    {
+      "lemma": "Schütt",
+      "pos": "name",
+      "gloss": [
+        "the Schütt (the rockfall's field below the Dobratsch)"
+      ],
+      "forms": {
+        "Schütt": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Schütt (podorno območje pod Dobračem)"
+        ],
+        "it": [
+          "lo Schütt (la zona della frana)"
+        ]
+      }
+    },
+    {
+      "lemma": "Slowenien",
+      "pos": "name",
+      "gloss": [
+        "Slovenia"
+      ],
+      "forms": {
+        "Slowenien": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Slovenija"
+        ],
+        "it": [
+          "la Slovenia"
+        ]
+      }
+    },
+    {
+      "lemma": "Thalia",
+      "pos": "name",
+      "gloss": [
+        "the Thalia (an old steamer on the Wörthersee)"
+      ],
+      "forms": {
+        "Thalia": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Thalia (parnik)"
+        ],
+        "it": [
+          "la Thalia (battello a vapore)"
+        ]
+      }
+    },
+    {
+      "lemma": "UNESCO",
+      "pos": "name",
+      "gloss": [
+        "UNESCO"
+      ],
+      "forms": {
+        "UNESCO": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Unesco"
+        ],
+        "it": [
+          "l'UNESCO"
+        ]
+      }
+    },
+    {
+      "lemma": "Velden",
+      "pos": "name",
+      "gloss": [
+        "Velden (a town at the west end of the Wörthersee)"
+      ],
+      "forms": {
+        "Velden": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Vrba"
+        ],
+        "it": [
+          "Velden"
+        ]
+      }
+    },
+    {
+      "lemma": "Viktring",
+      "pos": "name",
+      "gloss": [
+        "Viktring (an abbey near Klagenfurt)"
+      ],
+      "forms": {
+        "Viktring": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Vetrinj"
+        ],
+        "it": [
+          "Viktring"
+        ]
+      }
+    },
+    {
+      "lemma": "Villacher",
+      "pos": "adj",
+      "gloss": [
+        "of Villach"
+      ],
+      "forms": {
+        "Villacher": "not declined"
+      },
+      "meanings": {
+        "sl": [
+          "beljaški"
+        ],
+        "it": [
+          "di Villach"
+        ]
+      }
+    },
+    {
+      "lemma": "Kärntner",
+      "pos": "adj",
+      "gloss": [
+        "Carinthian"
+      ],
+      "forms": {
+        "Kärntner": "not declined"
+      },
+      "meanings": {
+        "sl": [
+          "koroški"
+        ],
+        "it": [
+          "carinziano"
+        ]
+      }
+    },
+    {
+      "lemma": "Wien",
+      "pos": "name",
+      "gloss": [
+        "Vienna"
+      ],
+      "forms": {
+        "Wien": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Dunaj"
+        ],
+        "it": [
+          "Vienna"
+        ]
+      }
+    },
+    {
+      "lemma": "Wörthersee",
+      "pos": "name",
+      "gloss": [
+        "the Wörthersee (Carinthia's biggest lake)"
+      ],
+      "forms": {
+        "Wörthersee": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Vrbsko jezero"
+        ],
+        "it": [
+          "il Wörthersee"
+        ]
+      }
+    },
+    {
+      "lemma": "Wörthersee-Mandl",
+      "pos": "name",
+      "gloss": [
+        "the Wörthersee-Mandl (the little man of the legend, a fountain in Klagenfurt)"
+      ],
+      "forms": {
+        "Wörthersee-Mandl": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Wörthersee-Mandl (možiček iz pripovedke)"
+        ],
+        "it": [
+          "il Wörthersee-Mandl (l'omino della leggenda)"
+        ]
+      }
+    },
+    {
+      "lemma": "Zollfeld",
+      "pos": "name",
+      "gloss": [
+        "the Zollfeld (a plain north of Klagenfurt)"
+      ],
+      "forms": {
+        "Zollfeld": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Gosposvetsko polje"
+        ],
+        "it": [
+          "lo Zollfeld"
+        ]
+      }
+    },
+    {
+      "lemma": "Österreich",
+      "pos": "name",
+      "gloss": [
+        "Austria"
+      ],
+      "forms": {
+        "Österreichs": "genitive"
+      },
+      "meanings": {
+        "sl": [
+          "Avstrija"
+        ],
+        "it": [
+          "l'Austria"
+        ]
+      }
+    },
+    {
+      "lemma": "Deutschland",
+      "pos": "name",
+      "gloss": [
+        "Germany"
+      ],
+      "forms": {
+        "Deutschland": "name"
+      },
+      "meanings": {
+        "sl": [
+          "Nemčija"
+        ],
+        "it": [
+          "la Germania"
+        ]
+      }
+    },
+    {
+      "lemma": "Florian",
+      "pos": "name",
+      "gloss": [
+        "Florian (the shepherd)"
+      ],
+      "forms": {
+        "Florians": "genitive (Florians Text: Florian's text)"
+      },
+      "meanings": {
+        "sl": [
+          "Florian"
+        ],
+        "it": [
+          "Florian"
+        ]
+      }
+    },
+    {
+      "lemma": "Vrbsko jezero",
+      "pos": "phrase",
+      "gloss": [
+        "Vrbsko jezero, the Slovene name of the Wörthersee"
+      ],
+      "forms": {
+        "Vrbsko": "Slovene",
+        "jezero": "Slovene: lake"
+      },
+      "meanings": {
+        "sl": [
+          "Vrbsko jezero"
+        ],
+        "it": [
+          "Vrbsko jezero (nome sloveno del Wörthersee)"
+        ]
+      }
+    },
+    {
+      "lemma": "štehvanje",
+      "pos": "noun",
+      "gender": "n",
+      "gloss": [
+        "štehvanje, the Slovene name of the Kufenstechen"
+      ],
+      "forms": {
+        "štehvanje": "Slovene"
+      },
+      "meanings": {
+        "sl": [
+          "štehvanje"
+        ],
+        "it": [
+          "štehvanje (nome sloveno del Kufenstechen)"
+        ]
+      }
+    },
+    {
+      "lemma": "prvi rej",
+      "pos": "phrase",
+      "gloss": [
+        "prvi rej, the Slovene name of the Lindentanz"
+      ],
+      "forms": {
+        "prvi": "Slovene: first",
+        "rej": "Slovene: dance"
+      },
+      "meanings": {
+        "sl": [
+          "prvi rej"
+        ],
+        "it": [
+          "prvi rej (nome sloveno del Lindentanz)"
+        ]
+      }
+    },
+    {
+      "lemma": "čisava župa",
+      "pos": "phrase",
+      "gloss": [
+        "čisava župa, the Gail valley Slovene name of the sour Kirchtag soup"
+      ],
+      "forms": {
+        "čisava": "Slovene dialect: sour",
+        "župa": "Slovene dialect: soup"
+      },
+      "meanings": {
+        "sl": [
+          "čisava župa (kisla juha)"
+        ],
+        "it": [
+          "čisava župa (la zuppa acida della sagra)"
+        ]
+      }
+    },
+    {
+      "lemma": "količ",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "količ, the Slovene word for the iron club of the Kufenstechen"
+      ],
+      "forms": {
+        "količ": "Slovene"
+      },
+      "meanings": {
+        "sl": [
+          "količ"
+        ],
+        "it": [
+          "količ (la mazza di ferro, in sloveno)"
+        ]
+      }
+    },
+    {
+      "lemma": "all",
+      "pos": "det",
+      "gloss": [
+        "all (all sein Geld: all his money)"
+      ],
+      "forms": {
+        "all": "not declined before a possessive"
+      },
+      "meanings": {
+        "sl": [
+          "ves"
+        ],
+        "it": [
+          "tutto"
+        ]
+      }
+    },
+    {
+      "lemma": "allein",
+      "pos": "adv",
+      "gloss": [
+        "alone"
+      ],
+      "forms": {
+        "allein": null
+      },
+      "meanings": {
+        "sl": [
+          "sam"
+        ],
+        "it": [
+          "da solo"
+        ]
+      }
+    },
+    {
+      "lemma": "ander",
+      "pos": "adj",
+      "gloss": [
+        "other"
+      ],
+      "forms": {
+        "anderen": "after the article, plural or other cases"
+      },
+      "meanings": {
+        "sl": [
+          "drug"
+        ],
+        "it": [
+          "altro"
+        ]
+      }
+    },
+    {
+      "lemma": "anderthalb",
+      "pos": "num",
+      "gloss": [
+        "one and a half"
+      ],
+      "forms": {
+        "anderthalb": null
+      },
+      "meanings": {
+        "sl": [
+          "poldrugi"
+        ],
+        "it": [
+          "uno e mezzo"
+        ]
+      }
+    },
+    {
+      "lemma": "arm",
+      "pos": "adj",
+      "gloss": [
+        "poor"
+      ],
+      "forms": {
+        "arme": null,
+        "armen": null,
+        "armer": null
+      },
+      "meanings": {
+        "sl": [
+          "reven"
+        ],
+        "it": [
+          "povero"
+        ]
+      }
+    },
+    {
+      "lemma": "besonder",
+      "pos": "adj",
+      "gloss": [
+        "special"
+      ],
+      "forms": {
+        "besonderen": "after ein/einen, masculine accusative"
+      },
+      "meanings": {
+        "sl": [
+          "poseben"
+        ],
+        "it": [
+          "speciale"
+        ]
+      }
+    },
+    {
+      "lemma": "best",
+      "pos": "adj",
+      "gloss": [
+        "best"
+      ],
+      "forms": {
+        "besten": "am besten: best"
+      },
+      "meanings": {
+        "sl": [
+          "najboljši"
+        ],
+        "it": [
+          "migliore"
+        ]
+      }
+    },
+    {
+      "lemma": "bestimmt",
+      "pos": "adv",
+      "gloss": [
+        "surely, certainly"
+      ],
+      "forms": {
+        "bestimmt": null
+      },
+      "meanings": {
+        "sl": [
+          "gotovo"
+        ],
+        "it": [
+          "sicuramente"
+        ]
+      }
+    },
+    {
+      "lemma": "christlich",
+      "pos": "adj",
+      "gloss": [
+        "Christian"
+      ],
+      "forms": {
+        "christlichen": null
+      },
+      "meanings": {
+        "sl": [
+          "krščanski"
+        ],
+        "it": [
+          "cristiano"
+        ]
+      }
+    },
+    {
+      "lemma": "dritt",
+      "pos": "num",
+      "gloss": [
+        "third"
+      ],
+      "forms": {
+        "dritten": null
+      },
+      "meanings": {
+        "sl": [
+          "tretji"
+        ],
+        "it": [
+          "terzo"
+        ]
+      }
+    },
+    {
+      "lemma": "dunkelbraun",
+      "pos": "adj",
+      "gloss": [
+        "dark brown"
+      ],
+      "forms": {
+        "dunkelbraun": null
+      },
+      "meanings": {
+        "sl": [
+          "temno rjav"
+        ],
+        "it": [
+          "marrone scuro"
+        ]
+      }
+    },
+    {
+      "lemma": "falsch",
+      "pos": "adj",
+      "gloss": [
+        "wrong"
+      ],
+      "forms": {
+        "falsche": null
+      },
+      "meanings": {
+        "sl": [
+          "napačen"
+        ],
+        "it": [
+          "sbagliato"
+        ]
+      }
+    },
+    {
+      "lemma": "fünft",
+      "pos": "num",
+      "gloss": [
+        "fifth"
+      ],
+      "forms": {
+        "fünften": null
+      },
+      "meanings": {
+        "sl": [
+          "peti"
+        ],
+        "it": [
+          "quinto"
+        ]
+      }
+    },
+    {
+      "lemma": "frei",
+      "pos": "adj",
+      "gloss": [
+        "free"
+      ],
+      "forms": {
+        "frei": null,
+        "freier": null
+      },
+      "meanings": {
+        "sl": [
+          "svoboden"
+        ],
+        "it": [
+          "libero"
+        ]
+      }
+    },
+    {
+      "lemma": "früher",
+      "pos": "adj",
+      "gloss": [
+        "earlier, former; (adv) in the old days"
+      ],
+      "forms": {
+        "früher": null,
+        "frühere": null
+      },
+      "meanings": {
+        "sl": [
+          "prejšnji; nekoč"
+        ],
+        "it": [
+          "precedente; una volta"
+        ]
+      }
+    },
+    {
+      "lemma": "ganz",
+      "pos": "adj",
+      "gloss": [
+        "whole, all; (adv) quite, completely"
+      ],
+      "forms": {
+        "ganz": null,
+        "ganze": null,
+        "ganzen": null
+      },
+      "meanings": {
+        "sl": [
+          "ves, cel; čisto"
+        ],
+        "it": [
+          "tutto, intero; del tutto"
+        ]
+      }
+    },
+    {
+      "lemma": "gefleckt",
+      "pos": "adj",
+      "gloss": [
+        "spotted"
+      ],
+      "forms": {
+        "gefleckte": null,
+        "gefleckten": null
+      },
+      "meanings": {
+        "sl": [
+          "lisast"
+        ],
+        "it": [
+          "pezzato"
+        ]
+      }
+    },
+    {
+      "lemma": "gelb",
+      "pos": "adj",
+      "gloss": [
+        "yellow"
+      ],
+      "forms": {
+        "gelb": null,
+        "gelbe": null
+      },
+      "meanings": {
+        "sl": [
+          "rumen"
+        ],
+        "it": [
+          "giallo"
+        ]
+      }
+    },
+    {
+      "lemma": "gemein",
+      "pos": "adj",
+      "gloss": [
+        "mean, nasty"
+      ],
+      "forms": {
+        "Gemein": null
+      },
+      "meanings": {
+        "sl": [
+          "grd, podel"
+        ],
+        "it": [
+          "cattivo"
+        ]
+      }
+    },
+    {
+      "lemma": "genau",
+      "pos": "adj",
+      "gloss": [
+        "exact; (adv) exactly"
+      ],
+      "forms": {
+        "genau": null
+      },
+      "meanings": {
+        "sl": [
+          "natančen; natanko"
+        ],
+        "it": [
+          "esatto; esattamente"
+        ]
+      }
+    },
+    {
+      "lemma": "gerecht",
+      "pos": "adj",
+      "gloss": [
+        "just, fair"
+      ],
+      "forms": {
+        "gerechter": null
+      },
+      "meanings": {
+        "sl": [
+          "pravičen"
+        ],
+        "it": [
+          "giusto"
+        ]
+      }
+    },
+    {
+      "lemma": "golden",
+      "pos": "adj",
+      "gloss": [
+        "golden"
+      ],
+      "forms": {
+        "goldene": null
+      },
+      "meanings": {
+        "sl": [
+          "zlat"
+        ],
+        "it": [
+          "d'oro"
+        ]
+      }
+    },
+    {
+      "lemma": "groß",
+      "pos": "adj",
+      "gloss": [
+        "big, tall, great"
+      ],
+      "forms": {
+        "groß": null,
+        "großen": null,
+        "größte": "superlative",
+        "größten": "superlative"
+      },
+      "meanings": {
+        "sl": [
+          "velik"
+        ],
+        "it": [
+          "grande"
+        ]
+      }
+    },
+    {
+      "lemma": "grün",
+      "pos": "adj",
+      "gloss": [
+        "green"
+      ],
+      "forms": {
+        "grün": null
+      },
+      "meanings": {
+        "sl": [
+          "zelen"
+        ],
+        "it": [
+          "verde"
+        ]
+      }
+    },
+    {
+      "lemma": "heimlich",
+      "pos": "adj",
+      "gloss": [
+        "secret; (adv) in secret"
+      ],
+      "forms": {
+        "heimlich": null
+      },
+      "meanings": {
+        "sl": [
+          "skriven; skrivaj"
+        ],
+        "it": [
+          "segreto; di nascosto"
+        ]
+      }
+    },
+    {
+      "lemma": "hoch",
+      "pos": "adj",
+      "gloss": [
+        "high, tall"
+      ],
+      "forms": {
+        "hohe": null,
+        "höchste": "superlative",
+        "höchsten": "superlative"
+      },
+      "meanings": {
+        "sl": [
+          "visok"
+        ],
+        "it": [
+          "alto"
+        ]
+      }
+    },
+    {
+      "lemma": "höchstens",
+      "pos": "adv",
+      "gloss": [
+        "at most"
+      ],
+      "forms": {
+        "höchstens": null
+      },
+      "meanings": {
+        "sl": [
+          "kvečjemu"
+        ],
+        "it": [
+          "al massimo"
+        ]
+      }
+    },
+    {
+      "lemma": "jung",
+      "pos": "adj",
+      "gloss": [
+        "young"
+      ],
+      "forms": {
+        "junger": null
+      },
+      "meanings": {
+        "sl": [
+          "mlad"
+        ],
+        "it": [
+          "giovane"
+        ]
+      }
+    },
+    {
+      "lemma": "klein",
+      "pos": "adj",
+      "gloss": [
+        "small, little"
+      ],
+      "forms": {
+        "klein": null,
+        "kleine": null,
+        "kleinen": null,
+        "kleiner": null,
+        "kleines": null,
+        "kleinere": "comparative"
+      },
+      "meanings": {
+        "sl": [
+          "majhen"
+        ],
+        "it": [
+          "piccolo"
+        ]
+      }
+    },
+    {
+      "lemma": "kurz",
+      "pos": "adj",
+      "gloss": [
+        "short; (adv) briefly"
+      ],
+      "forms": {
+        "kurz": null,
+        "kurzen": null
+      },
+      "meanings": {
+        "sl": [
+          "kratek; na kratko"
+        ],
+        "it": [
+          "breve; brevemente"
+        ]
+      }
+    },
+    {
+      "lemma": "lang",
+      "pos": "adj",
+      "gloss": [
+        "long"
+      ],
+      "forms": {
+        "langer": null
+      },
+      "meanings": {
+        "sl": [
+          "dolg"
+        ],
+        "it": [
+          "lungo"
+        ]
+      }
+    },
+    {
+      "lemma": "langweilig",
+      "pos": "adj",
+      "gloss": [
+        "boring"
+      ],
+      "forms": {
+        "langweilig": null
+      },
+      "meanings": {
+        "sl": [
+          "dolgočasen"
+        ],
+        "it": [
+          "noioso"
+        ]
+      }
+    },
+    {
+      "lemma": "laut",
+      "pos": "adj",
+      "gloss": [
+        "loud"
+      ],
+      "forms": {
+        "lauten": null
+      },
+      "meanings": {
+        "sl": [
+          "glasen"
+        ],
+        "it": [
+          "forte, rumoroso"
+        ]
+      }
+    },
+    {
+      "lemma": "ledig",
+      "pos": "adj",
+      "gloss": [
+        "unmarried, single"
+      ],
+      "forms": {
+        "ledigen": null
+      },
+      "meanings": {
+        "sl": [
+          "neporočen"
+        ],
+        "it": [
+          "celibe, nubile"
+        ]
+      }
+    },
+    {
+      "lemma": "leicht",
+      "pos": "adj",
+      "gloss": [
+        "light; easy"
+      ],
+      "forms": {
+        "leicht": null,
+        "leichten": null
+      },
+      "meanings": {
+        "sl": [
+          "lahek; rahel"
+        ],
+        "it": [
+          "leggero; facile"
+        ]
+      }
+    },
+    {
+      "lemma": "letzt",
+      "pos": "adj",
+      "gloss": [
+        "last"
+      ],
+      "forms": {
+        "letzte": null,
+        "letzten": null
+      },
+      "meanings": {
+        "sl": [
+          "zadnji"
+        ],
+        "it": [
+          "ultimo"
+        ]
+      }
+    },
+    {
+      "lemma": "mächtig",
+      "pos": "adj",
+      "gloss": [
+        "mighty"
+      ],
+      "forms": {
+        "mächtig": null
+      },
+      "meanings": {
+        "sl": [
+          "mogočen"
+        ],
+        "it": [
+          "potente"
+        ]
+      }
+    },
+    {
+      "lemma": "nächst",
+      "pos": "adj",
+      "gloss": [
+        "next"
+      ],
+      "forms": {
+        "nächsten": null
+      },
+      "meanings": {
+        "sl": [
+          "naslednji"
+        ],
+        "it": [
+          "prossimo"
+        ]
+      }
+    },
+    {
+      "lemma": "neu",
+      "pos": "adj",
+      "gloss": [
+        "new"
+      ],
+      "forms": {
+        "neue": null,
+        "neuen": null,
+        "neuer": null
+      },
+      "meanings": {
+        "sl": [
+          "nov"
+        ],
+        "it": [
+          "nuovo"
+        ]
+      }
+    },
+    {
+      "lemma": "ober",
+      "pos": "adj",
+      "gloss": [
+        "upper, top"
+      ],
+      "forms": {
+        "oberste": "superlative",
+        "obersten": "superlative"
+      },
+      "meanings": {
+        "sl": [
+          "zgornji"
+        ],
+        "it": [
+          "superiore"
+        ]
+      }
+    },
+    {
+      "lemma": "offen",
+      "pos": "adj",
+      "gloss": [
+        "open"
+      ],
+      "forms": {
+        "offen": null
+      },
+      "meanings": {
+        "sl": [
+          "odprt"
+        ],
+        "it": [
+          "aperto"
+        ]
+      }
+    },
+    {
+      "lemma": "rot",
+      "pos": "adj",
+      "gloss": [
+        "red"
+      ],
+      "forms": {
+        "Rote": "in a name: die Rote Wand (the Red Wall)"
+      },
+      "meanings": {
+        "sl": [
+          "rdeč"
+        ],
+        "it": [
+          "rosso"
+        ]
+      }
+    },
+    {
+      "lemma": "römisch",
+      "pos": "adj",
+      "gloss": [
+        "Roman"
+      ],
+      "forms": {
+        "römischen": null
+      },
+      "meanings": {
+        "sl": [
+          "rimski"
+        ],
+        "it": [
+          "romano"
+        ]
+      }
+    },
+    {
+      "lemma": "sauer",
+      "pos": "adj",
+      "gloss": [
+        "sour"
+      ],
+      "forms": {
+        "saure": null
+      },
+      "meanings": {
+        "sl": [
+          "kisel"
+        ],
+        "it": [
+          "acido"
+        ]
+      }
+    },
+    {
+      "lemma": "schlimm",
+      "pos": "adj",
+      "gloss": [
+        "bad, terrible"
+      ],
+      "forms": {
+        "schlimm": null
+      },
+      "meanings": {
+        "sl": [
+          "hud"
+        ],
+        "it": [
+          "grave, brutto"
+        ]
+      }
+    },
+    {
+      "lemma": "schön",
+      "pos": "adj",
+      "gloss": [
+        "beautiful, lovely"
+      ],
+      "forms": {
+        "schöne": null,
+        "schönste": "superlative",
+        "schönsten": "superlative"
+      },
+      "meanings": {
+        "sl": [
+          "lep"
+        ],
+        "it": [
+          "bello"
+        ]
+      }
+    },
+    {
+      "lemma": "schwer",
+      "pos": "adj",
+      "gloss": [
+        "heavy"
+      ],
+      "forms": {
+        "schwere": null,
+        "schweren": null
+      },
+      "meanings": {
+        "sl": [
+          "težek"
+        ],
+        "it": [
+          "pesante"
+        ]
+      }
+    },
+    {
+      "lemma": "sechst",
+      "pos": "num",
+      "gloss": [
+        "sixth"
+      ],
+      "forms": {
+        "sechsten": null
+      },
+      "meanings": {
+        "sl": [
+          "šesti"
+        ],
+        "it": [
+          "sesto"
+        ]
+      }
+    },
+    {
+      "lemma": "siebzehnhundert",
+      "pos": "num",
+      "gloss": [
+        "seventeen hundred"
+      ],
+      "forms": {
+        "siebzehnhundert": null
+      },
+      "meanings": {
+        "sl": [
+          "sedemnajststo"
+        ],
+        "it": [
+          "millesettecento"
+        ]
+      }
+    },
+    {
+      "lemma": "stark",
+      "pos": "adj",
+      "gloss": [
+        "strong"
+      ],
+      "forms": {
+        "starken": null
+      },
+      "meanings": {
+        "sl": [
+          "močan"
+        ],
+        "it": [
+          "forte"
+        ]
+      }
+    },
+    {
+      "lemma": "süß",
+      "pos": "adj",
+      "gloss": [
+        "sweet"
+      ],
+      "forms": {
+        "süßen": null
+      },
+      "meanings": {
+        "sl": [
+          "sladek"
+        ],
+        "it": [
+          "dolce"
+        ]
+      }
+    },
+    {
+      "lemma": "südlich",
+      "pos": "adj",
+      "gloss": [
+        "south (of)"
+      ],
+      "forms": {
+        "südlich": null
+      },
+      "meanings": {
+        "sl": [
+          "južno od"
+        ],
+        "it": [
+          "a sud di"
+        ]
+      }
+    },
+    {
+      "lemma": "traurig",
+      "pos": "adj",
+      "gloss": [
+        "sad"
+      ],
+      "forms": {
+        "traurig": null
+      },
+      "meanings": {
+        "sl": [
+          "žalosten"
+        ],
+        "it": [
+          "triste"
+        ]
+      }
+    },
+    {
+      "lemma": "unter",
+      "pos": "adj",
+      "gloss": [
+        "lower"
+      ],
+      "forms": {
+        "unteren": null
+      },
+      "meanings": {
+        "sl": [
+          "spodnji"
+        ],
+        "it": [
+          "inferiore, basso"
+        ]
+      }
+    },
+    {
+      "lemma": "verrückt",
+      "pos": "adj",
+      "gloss": [
+        "mad, crazy"
+      ],
+      "forms": {
+        "verrückt": null
+      },
+      "meanings": {
+        "sl": [
+          "nor"
+        ],
+        "it": [
+          "matto"
+        ]
+      }
+    },
+    {
+      "lemma": "viert",
+      "pos": "num",
+      "gloss": [
+        "fourth"
+      ],
+      "forms": {
+        "vierten": null
+      },
+      "meanings": {
+        "sl": [
+          "četrti"
+        ],
+        "it": [
+          "quarto"
+        ]
+      }
+    },
+    {
+      "lemma": "westlich",
+      "pos": "adj",
+      "gloss": [
+        "west (of)"
+      ],
+      "forms": {
+        "westlich": null
+      },
+      "meanings": {
+        "sl": [
+          "zahodno od"
+        ],
+        "it": [
+          "a ovest di"
+        ]
+      }
+    },
+    {
+      "lemma": "wirklich",
+      "pos": "adv",
+      "gloss": [
+        "really"
+      ],
+      "forms": {
+        "wirklich": null
+      },
+      "meanings": {
+        "sl": [
+          "res"
+        ],
+        "it": [
+          "davvero"
+        ]
+      }
+    },
+    {
+      "lemma": "zweit",
+      "pos": "num",
+      "gloss": [
+        "second"
+      ],
+      "forms": {
+        "zweite": null,
+        "zweiten": null
+      },
+      "meanings": {
+        "sl": [
+          "drugi"
+        ],
+        "it": [
+          "secondo"
+        ]
+      }
+    },
+    {
+      "lemma": "richtig",
+      "pos": "adj",
+      "gloss": [
+        "right, correct"
+      ],
+      "forms": {
+        "Richtig": null
+      },
+      "meanings": {
+        "sl": [
+          "pravilen, prav"
+        ],
+        "it": [
+          "giusto, corretto"
+        ]
+      }
+    },
+    {
+      "lemma": "umgekehrt",
+      "pos": "adv",
+      "gloss": [
+        "the other way round"
+      ],
+      "forms": {
+        "Umgekehrt": null
+      },
+      "meanings": {
+        "sl": [
+          "ravno obratno"
+        ],
+        "it": [
+          "al contrario"
+        ]
+      }
+    },
+    {
+      "lemma": "wenig",
+      "pos": "adj",
+      "gloss": [
+        "little, few"
+      ],
+      "forms": {
+        "wenig": null,
+        "weniger": "comparative"
+      },
+      "meanings": {
+        "sl": [
+          "malo"
+        ],
+        "it": [
+          "poco"
+        ]
+      }
+    },
+    {
+      "lemma": "dreimal",
+      "pos": "adv",
+      "gloss": [
+        "three times"
+      ],
+      "forms": {
+        "Dreimal": null
+      },
+      "meanings": {
+        "sl": [
+          "trikrat"
+        ],
+        "it": [
+          "tre volte"
+        ]
+      }
+    },
+    {
+      "lemma": "einmal",
+      "pos": "adv",
+      "gloss": [
+        "once; ever"
+      ],
+      "forms": {
+        "einmal": null
+      },
+      "meanings": {
+        "sl": [
+          "enkrat; nekoč"
+        ],
+        "it": [
+          "una volta"
+        ]
+      }
+    },
+    {
+      "lemma": "ab",
+      "pos": "particle",
+      "gloss": [
+        "off, away (of a separable verb: ab-)"
+      ],
+      "forms": {
+        "ab": null
+      },
+      "meanings": {
+        "sl": [
+          "stran (predpona)"
+        ],
+        "it": [
+          "via (particella)"
+        ]
+      }
+    },
+    {
+      "lemma": "als",
+      "pos": "conj",
+      "gloss": [
+        "as; when; than"
+      ],
+      "forms": {
+        "als": null
+      },
+      "meanings": {
+        "sl": [
+          "kot; ko"
+        ],
+        "it": [
+          "come; quando; che"
+        ]
+      }
+    },
+    {
+      "lemma": "bald",
+      "pos": "adv",
+      "gloss": [
+        "soon"
+      ],
+      "forms": {
+        "Bald": null
+      },
+      "meanings": {
+        "sl": [
+          "kmalu"
+        ],
+        "it": [
+          "presto"
+        ]
+      }
+    },
+    {
+      "lemma": "bei",
+      "pos": "prep",
+      "gloss": [
+        "at, by, near"
+      ],
+      "forms": {
+        "bei": null
+      },
+      "meanings": {
+        "sl": [
+          "pri"
+        ],
+        "it": [
+          "presso, da"
+        ]
+      }
+    },
+    {
+      "lemma": "beim",
+      "pos": "prep",
+      "gloss": [
+        "at the (bei + dem)"
+      ],
+      "forms": {
+        "beim": "bei + dem"
+      },
+      "meanings": {
+        "sl": [
+          "pri"
+        ],
+        "it": [
+          "al, presso il"
+        ]
+      }
+    },
+    {
+      "lemma": "beides",
+      "pos": "pron",
+      "gloss": [
+        "both (things)"
+      ],
+      "forms": {
+        "beides": null
+      },
+      "meanings": {
+        "sl": [
+          "oboje"
+        ],
+        "it": [
+          "entrambe le cose"
+        ]
+      }
+    },
+    {
+      "lemma": "dabei",
+      "pos": "adv",
+      "gloss": [
+        "in doing so, at that"
+      ],
+      "forms": {
+        "dabei": null
+      },
+      "meanings": {
+        "sl": [
+          "pri tem"
+        ],
+        "it": [
+          "in questo, nel farlo"
+        ]
+      }
+    },
+    {
+      "lemma": "dahinter",
+      "pos": "adv",
+      "gloss": [
+        "behind it"
+      ],
+      "forms": {
+        "dahinter": null
+      },
+      "meanings": {
+        "sl": [
+          "za tem"
+        ],
+        "it": [
+          "dietro"
+        ]
+      }
+    },
+    {
+      "lemma": "damals",
+      "pos": "adv",
+      "gloss": [
+        "back then"
+      ],
+      "forms": {
+        "damals": null
+      },
+      "meanings": {
+        "sl": [
+          "takrat"
+        ],
+        "it": [
+          "allora"
+        ]
+      }
+    },
+    {
+      "lemma": "damit",
+      "pos": "conj",
+      "gloss": [
+        "so that; (adv) with it"
+      ],
+      "forms": {
+        "damit": null
+      },
+      "meanings": {
+        "sl": [
+          "da bi; s tem"
+        ],
+        "it": [
+          "perché, affinché; con questo"
+        ]
+      }
+    },
+    {
+      "lemma": "daneben",
+      "pos": "adv",
+      "gloss": [
+        "beside it; off target"
+      ],
+      "forms": {
+        "daneben": null
+      },
+      "meanings": {
+        "sl": [
+          "zraven; mimo"
+        ],
+        "it": [
+          "accanto; a vuoto"
+        ]
+      }
+    },
+    {
+      "lemma": "daran",
+      "pos": "adv",
+      "gloss": [
+        "of it, about it"
+      ],
+      "forms": {
+        "daran": null
+      },
+      "meanings": {
+        "sl": [
+          "na to"
+        ],
+        "it": [
+          "a questo"
+        ]
+      }
+    },
+    {
+      "lemma": "darauf",
+      "pos": "adv",
+      "gloss": [
+        "on it"
+      ],
+      "forms": {
+        "darauf": null
+      },
+      "meanings": {
+        "sl": [
+          "na tem, na to"
+        ],
+        "it": [
+          "sopra"
+        ]
+      }
+    },
+    {
+      "lemma": "darin",
+      "pos": "adv",
+      "gloss": [
+        "in it"
+      ],
+      "forms": {
+        "darin": null
+      },
+      "meanings": {
+        "sl": [
+          "v njem"
+        ],
+        "it": [
+          "dentro"
+        ]
+      }
+    },
+    {
+      "lemma": "darum",
+      "pos": "adv",
+      "gloss": [
+        "that's why"
+      ],
+      "forms": {
+        "Darum": null
+      },
+      "meanings": {
+        "sl": [
+          "zato"
+        ],
+        "it": [
+          "per questo"
+        ]
+      }
+    },
+    {
+      "lemma": "darüber",
+      "pos": "adv",
+      "gloss": [
+        "over it"
+      ],
+      "forms": {
+        "darüber": null
+      },
+      "meanings": {
+        "sl": [
+          "čez to"
+        ],
+        "it": [
+          "sopra"
+        ]
+      }
+    },
+    {
+      "lemma": "dass",
+      "pos": "conj",
+      "gloss": [
+        "that"
+      ],
+      "forms": {
+        "dass": null
+      },
+      "meanings": {
+        "sl": [
+          "da"
+        ],
+        "it": [
+          "che"
+        ]
+      }
+    },
+    {
+      "lemma": "davon",
+      "pos": "adv",
+      "gloss": [
+        "away; of it"
+      ],
+      "forms": {
+        "davon": null
+      },
+      "meanings": {
+        "sl": [
+          "stran; od tega"
+        ],
+        "it": [
+          "via; di questo"
+        ]
+      }
+    },
+    {
+      "lemma": "denn",
+      "pos": "particle",
+      "gloss": [
+        "then (in a question); because"
+      ],
+      "forms": {
+        "denn": null
+      },
+      "meanings": {
+        "sl": [
+          "pa; ker"
+        ],
+        "it": [
+          "poi, dunque; perché"
+        ]
+      }
+    },
+    {
+      "lemma": "dieser",
+      "pos": "det",
+      "gloss": [
+        "this"
+      ],
+      "forms": {
+        "Dieses": "neuter"
+      },
+      "meanings": {
+        "sl": [
+          "ta"
+        ],
+        "it": [
+          "questo"
+        ]
+      }
+    },
+    {
+      "lemma": "durch",
+      "pos": "prep",
+      "gloss": [
+        "through"
+      ],
+      "forms": {
+        "durch": null
+      },
+      "meanings": {
+        "sl": [
+          "skozi"
+        ],
+        "it": [
+          "attraverso"
+        ]
+      }
+    },
+    {
+      "lemma": "durchs",
+      "pos": "prep",
+      "gloss": [
+        "through the (durch + das)"
+      ],
+      "forms": {
+        "durchs": "durch + das"
+      },
+      "meanings": {
+        "sl": [
+          "skozi"
+        ],
+        "it": [
+          "attraverso il"
+        ]
+      }
+    },
+    {
+      "lemma": "erst",
+      "pos": "adv",
+      "gloss": [
+        "only (then), not until"
+      ],
+      "forms": {
+        "Erst": null
+      },
+      "meanings": {
+        "sl": [
+          "šele"
+        ],
+        "it": [
+          "solo, soltanto"
+        ]
+      }
+    },
+    {
+      "lemma": "etwa",
+      "pos": "adv",
+      "gloss": [
+        "about, roughly"
+      ],
+      "forms": {
+        "etwa": null
+      },
+      "meanings": {
+        "sl": [
+          "približno"
+        ],
+        "it": [
+          "circa"
+        ]
+      }
+    },
+    {
+      "lemma": "etwas",
+      "pos": "pron",
+      "gloss": [
+        "something; (adv) a little"
+      ],
+      "forms": {
+        "etwas": null
+      },
+      "meanings": {
+        "sl": [
+          "nekaj; malo"
+        ],
+        "it": [
+          "qualcosa; un po'"
+        ]
+      }
+    },
+    {
+      "lemma": "fast",
+      "pos": "adv",
+      "gloss": [
+        "almost"
+      ],
+      "forms": {
+        "fast": null
+      },
+      "meanings": {
+        "sl": [
+          "skoraj"
+        ],
+        "it": [
+          "quasi"
+        ]
+      }
+    },
+    {
+      "lemma": "gar",
+      "pos": "particle",
+      "gloss": [
+        "at all (gar nicht: not at all)"
+      ],
+      "forms": {
+        "gar": null
+      },
+      "meanings": {
+        "sl": [
+          "sploh"
+        ],
+        "it": [
+          "affatto"
+        ]
+      }
+    },
+    {
+      "lemma": "heran",
+      "pos": "adv",
+      "gloss": [
+        "up, closer"
+      ],
+      "forms": {
+        "heran": null
+      },
+      "meanings": {
+        "sl": [
+          "bliže"
+        ],
+        "it": [
+          "vicino, verso"
+        ]
+      }
+    },
+    {
+      "lemma": "heraus",
+      "pos": "adv",
+      "gloss": [
+        "out"
+      ],
+      "forms": {
+        "heraus": null
+      },
+      "meanings": {
+        "sl": [
+          "ven"
+        ],
+        "it": [
+          "fuori"
+        ]
+      }
+    },
+    {
+      "lemma": "hinaus",
+      "pos": "adv",
+      "gloss": [
+        "out (away from here)"
+      ],
+      "forms": {
+        "hinaus": null
+      },
+      "meanings": {
+        "sl": [
+          "ven"
+        ],
+        "it": [
+          "fuori"
+        ]
+      }
+    },
+    {
+      "lemma": "hinten",
+      "pos": "adv",
+      "gloss": [
+        "at the back"
+      ],
+      "forms": {
+        "hinten": null
+      },
+      "meanings": {
+        "sl": [
+          "zadaj"
+        ],
+        "it": [
+          "dietro, in fondo"
+        ]
+      }
+    },
+    {
+      "lemma": "hinunter",
+      "pos": "adv",
+      "gloss": [
+        "down"
+      ],
+      "forms": {
+        "hinunter": null
+      },
+      "meanings": {
+        "sl": [
+          "navzdol"
+        ],
+        "it": [
+          "giù"
+        ]
+      }
+    },
+    {
+      "lemma": "immer",
+      "pos": "adv",
+      "gloss": [
+        "always"
+      ],
+      "forms": {
+        "immer": null
+      },
+      "meanings": {
+        "sl": [
+          "vedno"
+        ],
+        "it": [
+          "sempre"
+        ]
+      }
+    },
+    {
+      "lemma": "ins",
+      "pos": "prep",
+      "gloss": [
+        "into the (in + das)"
+      ],
+      "forms": {
+        "ins": "in + das"
+      },
+      "meanings": {
+        "sl": [
+          "v"
+        ],
+        "it": [
+          "nel, nella"
+        ]
+      }
+    },
+    {
+      "lemma": "inzwischen",
+      "pos": "adv",
+      "gloss": [
+        "meanwhile, since then"
+      ],
+      "forms": {
+        "inzwischen": null
+      },
+      "meanings": {
+        "sl": [
+          "medtem"
+        ],
+        "it": [
+          "nel frattempo"
+        ]
+      }
+    },
+    {
+      "lemma": "jeder",
+      "pos": "det",
+      "gloss": [
+        "every, each"
+      ],
+      "forms": {
+        "jeden": "masculine accusative",
+        "Jeder": "masculine nominative",
+        "jedes": "neuter"
+      },
+      "meanings": {
+        "sl": [
+          "vsak"
+        ],
+        "it": [
+          "ogni"
+        ]
+      }
+    },
+    {
+      "lemma": "jemand",
+      "pos": "pron",
+      "gloss": [
+        "someone, anyone"
+      ],
+      "forms": {
+        "jemand": null
+      },
+      "meanings": {
+        "sl": [
+          "nekdo"
+        ],
+        "it": [
+          "qualcuno"
+        ]
+      }
+    },
+    {
+      "lemma": "kaum",
+      "pos": "adv",
+      "gloss": [
+        "hardly"
+      ],
+      "forms": {
+        "kaum": null
+      },
+      "meanings": {
+        "sl": [
+          "komaj"
+        ],
+        "it": [
+          "appena, quasi non"
+        ]
+      }
+    },
+    {
+      "lemma": "los",
+      "pos": "adv",
+      "gloss": [
+        "off, away (es geht los: it starts)"
+      ],
+      "forms": {
+        "los": null
+      },
+      "meanings": {
+        "sl": [
+          "začne se"
+        ],
+        "it": [
+          "via (si comincia)"
+        ]
+      }
+    },
+    {
+      "lemma": "man",
+      "pos": "pron",
+      "gloss": [
+        "one, people, you (in general)"
+      ],
+      "forms": {
+        "man": null
+      },
+      "meanings": {
+        "sl": [
+          "človek (brezosebno)"
+        ],
+        "it": [
+          "si (impersonale)"
+        ]
+      }
+    },
+    {
+      "lemma": "manche",
+      "pos": "det",
+      "gloss": [
+        "some"
+      ],
+      "forms": {
+        "manche": null
+      },
+      "meanings": {
+        "sl": [
+          "nekateri"
+        ],
+        "it": [
+          "alcuni"
+        ]
+      }
+    },
+    {
+      "lemma": "manchmal",
+      "pos": "adv",
+      "gloss": [
+        "sometimes"
+      ],
+      "forms": {
+        "manchmal": null
+      },
+      "meanings": {
+        "sl": [
+          "včasih"
+        ],
+        "it": [
+          "a volte"
+        ]
+      }
+    },
+    {
+      "lemma": "meist",
+      "pos": "det",
+      "gloss": [
+        "most (die meisten)"
+      ],
+      "forms": {
+        "meisten": null
+      },
+      "meanings": {
+        "sl": [
+          "večina"
+        ],
+        "it": [
+          "la maggior parte"
+        ]
+      }
+    },
+    {
+      "lemma": "mindestens",
+      "pos": "adv",
+      "gloss": [
+        "at least"
+      ],
+      "forms": {
+        "mindestens": null
+      },
+      "meanings": {
+        "sl": [
+          "vsaj"
+        ],
+        "it": [
+          "almeno"
+        ]
+      }
+    },
+    {
+      "lemma": "mit",
+      "pos": "prep",
+      "gloss": [
+        "with"
+      ],
+      "forms": {
+        "mit": null
+      },
+      "meanings": {
+        "sl": [
+          "z, s"
+        ],
+        "it": [
+          "con"
+        ]
+      }
+    },
+    {
+      "lemma": "mitten",
+      "pos": "adv",
+      "gloss": [
+        "in the middle"
+      ],
+      "forms": {
+        "mitten": null
+      },
+      "meanings": {
+        "sl": [
+          "sredi"
+        ],
+        "it": [
+          "in mezzo"
+        ]
+      }
+    },
+    {
+      "lemma": "namens",
+      "pos": "prep",
+      "gloss": [
+        "called, by the name of"
+      ],
+      "forms": {
+        "namens": null
+      },
+      "meanings": {
+        "sl": [
+          "po imenu"
+        ],
+        "it": [
+          "di nome"
+        ]
+      }
+    },
+    {
+      "lemma": "nichts",
+      "pos": "pron",
+      "gloss": [
+        "nothing"
+      ],
+      "forms": {
+        "nichts": null
+      },
+      "meanings": {
+        "sl": [
+          "nič"
+        ],
+        "it": [
+          "niente"
+        ]
+      }
+    },
+    {
+      "lemma": "nie",
+      "pos": "adv",
+      "gloss": [
+        "never"
+      ],
+      "forms": {
+        "nie": null
+      },
+      "meanings": {
+        "sl": [
+          "nikoli"
+        ],
+        "it": [
+          "mai"
+        ]
+      }
+    },
+    {
+      "lemma": "niemand",
+      "pos": "pron",
+      "gloss": [
+        "nobody"
+      ],
+      "forms": {
+        "niemand": null,
+        "niemandem": "dative"
+      },
+      "meanings": {
+        "sl": [
+          "nihče"
+        ],
+        "it": [
+          "nessuno"
+        ]
+      }
+    },
+    {
+      "lemma": "nur",
+      "pos": "adv",
+      "gloss": [
+        "only"
+      ],
+      "forms": {
+        "nur": null
+      },
+      "meanings": {
+        "sl": [
+          "samo"
+        ],
+        "it": [
+          "solo"
+        ]
+      }
+    },
+    {
+      "lemma": "ob",
+      "pos": "conj",
+      "gloss": [
+        "whether"
+      ],
+      "forms": {
+        "ob": null
+      },
+      "meanings": {
+        "sl": [
+          "ali"
+        ],
+        "it": [
+          "se"
+        ]
+      }
+    },
+    {
+      "lemma": "oben",
+      "pos": "adv",
+      "gloss": [
+        "up there, on top"
+      ],
+      "forms": {
+        "oben": null
+      },
+      "meanings": {
+        "sl": [
+          "zgoraj"
+        ],
+        "it": [
+          "sopra, in cima"
+        ]
+      }
+    },
+    {
+      "lemma": "oft",
+      "pos": "adv",
+      "gloss": [
+        "often"
+      ],
+      "forms": {
+        "oft": null
+      },
+      "meanings": {
+        "sl": [
+          "pogosto"
+        ],
+        "it": [
+          "spesso"
+        ]
+      }
+    },
+    {
+      "lemma": "ohne",
+      "pos": "prep",
+      "gloss": [
+        "without"
+      ],
+      "forms": {
+        "ohne": null
+      },
+      "meanings": {
+        "sl": [
+          "brez"
+        ],
+        "it": [
+          "senza"
+        ]
+      }
+    },
+    {
+      "lemma": "seit",
+      "pos": "prep",
+      "gloss": [
+        "since, for"
+      ],
+      "forms": {
+        "seit": null
+      },
+      "meanings": {
+        "sl": [
+          "od"
+        ],
+        "it": [
+          "da"
+        ]
+      }
+    },
+    {
+      "lemma": "seitdem",
+      "pos": "adv",
+      "gloss": [
+        "ever since"
+      ],
+      "forms": {
+        "Seitdem": null
+      },
+      "meanings": {
+        "sl": [
+          "od takrat"
+        ],
+        "it": [
+          "da allora"
+        ]
+      }
+    },
+    {
+      "lemma": "selbst",
+      "pos": "adv",
+      "gloss": [
+        "oneself; even"
+      ],
+      "forms": {
+        "selbst": null
+      },
+      "meanings": {
+        "sl": [
+          "sam; celo"
+        ],
+        "it": [
+          "stesso; persino"
+        ]
+      }
+    },
+    {
+      "lemma": "selten",
+      "pos": "adv",
+      "gloss": [
+        "rarely"
+      ],
+      "forms": {
+        "selten": null
+      },
+      "meanings": {
+        "sl": [
+          "redko"
+        ],
+        "it": [
+          "di rado"
+        ]
+      }
+    },
+    {
+      "lemma": "sich",
+      "pos": "pron",
+      "gloss": [
+        "oneself, himself, herself, themselves"
+      ],
+      "forms": {
+        "sich": null
+      },
+      "meanings": {
+        "sl": [
+          "se"
+        ],
+        "it": [
+          "si"
+        ]
+      }
+    },
+    {
+      "lemma": "so",
+      "pos": "adv",
+      "gloss": [
+        "so, like this"
+      ],
+      "forms": {
+        "so": null
+      },
+      "meanings": {
+        "sl": [
+          "tako"
+        ],
+        "it": [
+          "così"
+        ]
+      }
+    },
+    {
+      "lemma": "sofort",
+      "pos": "adv",
+      "gloss": [
+        "at once"
+      ],
+      "forms": {
+        "sofort": null
+      },
+      "meanings": {
+        "sl": [
+          "takoj"
+        ],
+        "it": [
+          "subito"
+        ]
+      }
+    },
+    {
+      "lemma": "sogar",
+      "pos": "adv",
+      "gloss": [
+        "even"
+      ],
+      "forms": {
+        "sogar": null
+      },
+      "meanings": {
+        "sl": [
+          "celo"
+        ],
+        "it": [
+          "persino"
+        ]
+      }
+    },
+    {
+      "lemma": "sondern",
+      "pos": "conj",
+      "gloss": [
+        "but (rather)"
+      ],
+      "forms": {
+        "sondern": null
+      },
+      "meanings": {
+        "sl": [
+          "temveč"
+        ],
+        "it": [
+          "ma, bensì"
+        ]
+      }
+    },
+    {
+      "lemma": "sonst",
+      "pos": "adv",
+      "gloss": [
+        "otherwise"
+      ],
+      "forms": {
+        "sonst": null
+      },
+      "meanings": {
+        "sl": [
+          "sicer"
+        ],
+        "it": [
+          "altrimenti"
+        ]
+      }
+    },
+    {
+      "lemma": "später",
+      "pos": "adv",
+      "gloss": [
+        "later"
+      ],
+      "forms": {
+        "später": null
+      },
+      "meanings": {
+        "sl": [
+          "pozneje"
+        ],
+        "it": [
+          "più tardi"
+        ]
+      }
+    },
+    {
+      "lemma": "über",
+      "pos": "prep",
+      "gloss": [
+        "over, about"
+      ],
+      "forms": {
+        "über": null
+      },
+      "meanings": {
+        "sl": [
+          "čez, o"
+        ],
+        "it": [
+          "sopra, su"
+        ]
+      }
+    },
+    {
+      "lemma": "ungefähr",
+      "pos": "adv",
+      "gloss": [
+        "about, roughly"
+      ],
+      "forms": {
+        "ungefähr": null
+      },
+      "meanings": {
+        "sl": [
+          "približno"
+        ],
+        "it": [
+          "circa"
+        ]
+      }
+    },
+    {
+      "lemma": "unten",
+      "pos": "adv",
+      "gloss": [
+        "down, below"
+      ],
+      "forms": {
+        "unten": null
+      },
+      "meanings": {
+        "sl": [
+          "spodaj"
+        ],
+        "it": [
+          "sotto"
+        ]
+      }
+    },
+    {
+      "lemma": "unter",
+      "pos": "prep",
+      "gloss": [
+        "under, among"
+      ],
+      "forms": {
+        "unter": null
+      },
+      "meanings": {
+        "sl": [
+          "pod, med"
+        ],
+        "it": [
+          "sotto, tra"
+        ]
+      }
+    },
+    {
+      "lemma": "unterwegs",
+      "pos": "adv",
+      "gloss": [
+        "on the way"
+      ],
+      "forms": {
+        "unterwegs": null
+      },
+      "meanings": {
+        "sl": [
+          "med potjo"
+        ],
+        "it": [
+          "per strada"
+        ]
+      }
+    },
+    {
+      "lemma": "vorher",
+      "pos": "adv",
+      "gloss": [
+        "before, beforehand"
+      ],
+      "forms": {
+        "vorher": null
+      },
+      "meanings": {
+        "sl": [
+          "prej"
+        ],
+        "it": [
+          "prima"
+        ]
+      }
+    },
+    {
+      "lemma": "weil",
+      "pos": "conj",
+      "gloss": [
+        "because"
+      ],
+      "forms": {
+        "weil": null
+      },
+      "meanings": {
+        "sl": [
+          "ker"
+        ],
+        "it": [
+          "perché"
+        ]
+      }
+    },
+    {
+      "lemma": "weiter",
+      "pos": "adv",
+      "gloss": [
+        "on, further"
+      ],
+      "forms": {
+        "weiter": null
+      },
+      "meanings": {
+        "sl": [
+          "naprej"
+        ],
+        "it": [
+          "avanti, ancora"
+        ]
+      }
+    },
+    {
+      "lemma": "welcher",
+      "pos": "det",
+      "gloss": [
+        "which"
+      ],
+      "forms": {
+        "welcher": null,
+        "welchem": "dative masculine/neuter",
+        "Welches": "neuter"
+      },
+      "meanings": {
+        "sl": [
+          "kateri"
+        ],
+        "it": [
+          "quale"
+        ]
+      }
+    },
+    {
+      "lemma": "wenn",
+      "pos": "conj",
+      "gloss": [
+        "when, if"
+      ],
+      "forms": {
+        "Wenn": null
+      },
+      "meanings": {
+        "sl": [
+          "ko, če"
+        ],
+        "it": [
+          "quando, se"
+        ]
+      }
+    },
+    {
+      "lemma": "wieder",
+      "pos": "adv",
+      "gloss": [
+        "again"
+      ],
+      "forms": {
+        "wieder": null
+      },
+      "meanings": {
+        "sl": [
+          "spet"
+        ],
+        "it": [
+          "di nuovo"
+        ]
+      }
+    },
+    {
+      "lemma": "wohl",
+      "pos": "adv",
+      "gloss": [
+        "probably"
+      ],
+      "forms": {
+        "wohl": null
+      },
+      "meanings": {
+        "sl": [
+          "verjetno"
+        ],
+        "it": [
+          "probabilmente"
+        ]
+      }
+    },
+    {
+      "lemma": "womit",
+      "pos": "adv",
+      "gloss": [
+        "with what"
+      ],
+      "forms": {
+        "Womit": null
+      },
+      "meanings": {
+        "sl": [
+          "s čim"
+        ],
+        "it": [
+          "con che cosa"
+        ]
+      }
+    },
+    {
+      "lemma": "worum",
+      "pos": "adv",
+      "gloss": [
+        "about what (worum geht es: what is it about)"
+      ],
+      "forms": {
+        "Worum": null
+      },
+      "meanings": {
+        "sl": [
+          "za kaj, o čem"
+        ],
+        "it": [
+          "di che cosa"
+        ]
+      }
+    },
+    {
+      "lemma": "worüber",
+      "pos": "adv",
+      "gloss": [
+        "about what"
+      ],
+      "forms": {
+        "Worüber": null
+      },
+      "meanings": {
+        "sl": [
+          "o čem"
+        ],
+        "it": [
+          "di che cosa"
+        ]
+      }
+    },
+    {
+      "lemma": "zu",
+      "pos": "prep",
+      "gloss": [
+        "to; too"
+      ],
+      "forms": {
+        "zu": null
+      },
+      "meanings": {
+        "sl": [
+          "k; preveč"
+        ],
+        "it": [
+          "a, da; troppo"
+        ]
+      }
+    },
+    {
+      "lemma": "zuerst",
+      "pos": "adv",
+      "gloss": [
+        "first"
+      ],
+      "forms": {
+        "zuerst": null
+      },
+      "meanings": {
+        "sl": [
+          "najprej"
+        ],
+        "it": [
+          "prima"
+        ]
+      }
+    },
+    {
+      "lemma": "zuletzt",
+      "pos": "adv",
+      "gloss": [
+        "last"
+      ],
+      "forms": {
+        "zuletzt": null
+      },
+      "meanings": {
+        "sl": [
+          "zadnji, nazadnje"
+        ],
+        "it": [
+          "per ultimo"
+        ]
+      }
+    },
+    {
+      "lemma": "zum",
+      "pos": "prep",
+      "gloss": [
+        "to the (zu + dem)"
+      ],
+      "forms": {
+        "zum": "zu + dem"
+      },
+      "meanings": {
+        "sl": [
+          "k"
+        ],
+        "it": [
+          "al, allo"
+        ]
+      }
+    },
+    {
+      "lemma": "zur",
+      "pos": "prep",
+      "gloss": [
+        "to the (zu + der)"
+      ],
+      "forms": {
+        "zur": "zu + der"
+      },
+      "meanings": {
+        "sl": [
+          "k"
+        ],
+        "it": [
+          "alla"
+        ]
+      }
+    },
+    {
+      "lemma": "zurück",
+      "pos": "adv",
+      "gloss": [
+        "back"
+      ],
+      "forms": {
+        "zurück": null
+      },
+      "meanings": {
+        "sl": [
+          "nazaj"
+        ],
+        "it": [
+          "indietro"
+        ]
+      }
+    },
+    {
+      "lemma": "zusammen",
+      "pos": "adv",
+      "gloss": [
+        "together"
+      ],
+      "forms": {
+        "zusammen": null
+      },
+      "meanings": {
+        "sl": [
+          "skupaj"
+        ],
+        "it": [
+          "insieme"
+        ]
+      }
+    },
+    {
+      "lemma": "zwar",
+      "pos": "adv",
+      "gloss": [
+        "und zwar: and what's more, namely"
+      ],
+      "forms": {
+        "zwar": null
+      },
+      "meanings": {
+        "sl": [
+          "in sicer"
+        ],
+        "it": [
+          "e cioè, per di più"
+        ]
+      }
+    },
+    {
+      "lemma": "allem",
+      "pos": "pron",
+      "gloss": [
+        "vor allem: above all, mostly"
+      ],
+      "forms": {
+        "allem": null
+      },
+      "meanings": {
+        "sl": [
+          "predvsem"
+        ],
+        "it": [
+          "soprattutto"
+        ]
+      }
+    },
+    {
+      "lemma": "alle",
+      "pos": "det",
+      "gloss": [
+        "all, everyone"
+      ],
+      "forms": {
+        "allen": "dative plural",
+        "alles": "everything"
+      },
+      "meanings": {
+        "sl": [
+          "vsi"
+        ],
+        "it": [
+          "tutti"
+        ]
+      }
+    },
+    {
+      "lemma": "ans",
+      "pos": "prep",
+      "gloss": [
+        "to the (an + das)"
+      ],
+      "forms": {
+        "ans": "an + das"
+      },
+      "meanings": {
+        "sl": [
+          "k, na"
+        ],
+        "it": [
+          "al"
+        ]
+      }
+    },
+    {
+      "lemma": "g",
+      "pos": "abbr",
+      "gloss": [
+        "gram(s)"
+      ],
+      "forms": {
+        "g": "Gramm"
+      },
+      "meanings": {
+        "sl": [
+          "gram"
+        ],
+        "it": [
+          "grammo"
+        ]
+      }
+    },
+    {
+      "lemma": "l",
+      "pos": "abbr",
+      "gloss": [
+        "litre(s)"
+      ],
+      "forms": {
+        "l": "Liter"
+      },
+      "meanings": {
+        "sl": [
+          "liter"
+        ],
+        "it": [
+          "litro"
+        ]
+      }
+    },
+    {
+      "lemma": "ml",
+      "pos": "abbr",
+      "gloss": [
+        "millilitre(s)"
+      ],
+      "forms": {
+        "ml": "Milliliter"
+      },
+      "meanings": {
+        "sl": [
+          "mililiter"
+        ],
+        "it": [
+          "millilitro"
+        ]
+      }
+    },
+    {
+      "lemma": "zufrieren",
+      "pos": "verb",
+      "gloss": [
+        "to freeze over"
+      ],
+      "forms": {
+        "friert": "present, er/sie/es (friert zu)"
+      },
+      "meanings": {
+        "sl": [
+          "zamrzniti"
+        ],
+        "it": [
+          "gelare"
+        ]
+      }
+    },
+    {
+      "lemma": "dauern",
+      "pos": "verb",
+      "gloss": [
+        "to last"
+      ],
+      "forms": {
+        "dauert": "present, er/sie/es"
+      },
+      "meanings": {
+        "sl": [
+          "trajati"
+        ],
+        "it": [
+          "durare"
+        ]
+      }
+    },
+    {
+      "lemma": "bauen",
+      "pos": "verb",
+      "gloss": [
+        "to build"
+      ],
+      "forms": {
+        "gebaut": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "graditi"
+        ],
+        "it": [
+          "costruire"
+        ]
+      }
+    },
+    {
+      "lemma": "setzen",
+      "pos": "verb",
+      "gloss": [
+        "to sit down (sich setzen); to put"
+      ],
+      "forms": {
+        "Setz": "imperative, du (setz dich: sit down)"
+      },
+      "meanings": {
+        "sl": [
+          "sesti; posaditi"
+        ],
+        "it": [
+          "sedersi; mettere"
+        ]
+      }
+    },
+    {
+      "lemma": "gebären",
+      "pos": "verb",
+      "gloss": [
+        "to give birth (geboren: born)"
+      ],
+      "forms": {
+        "geboren": "past participle: born"
+      },
+      "meanings": {
+        "sl": [
+          "roditi"
+        ],
+        "it": [
+          "partorire (nato)"
+        ]
+      }
+    },
+    {
+      "lemma": "bisschen",
+      "pos": "pron",
+      "gloss": [
+        "a little (ein bisschen)"
+      ],
+      "forms": {
+        "bisschen": null
+      },
+      "meanings": {
+        "sl": [
+          "malo, malce"
+        ],
+        "it": [
+          "un po'"
+        ]
+      }
+    },
+    {
+      "lemma": "geschnitzt",
+      "pos": "adj",
+      "gloss": [
+        "carved"
+      ],
+      "forms": {
+        "geschnitzten": null
+      },
+      "meanings": {
+        "sl": [
+          "izrezljan"
+        ],
+        "it": [
+          "intagliato"
+        ]
+      }
+    },
+    {
+      "lemma": "lieb",
+      "pos": "adj",
+      "gloss": [
+        "dear (in a letter: Lieber, Liebe)"
+      ],
+      "forms": {
+        "Lieber": "masculine (a letter's greeting)",
+        "Liebe": "feminine (a letter's greeting)"
+      },
+      "meanings": {
+        "sl": [
+          "drag"
+        ],
+        "it": [
+          "caro"
+        ]
+      }
+    },
+    {
+      "lemma": "lieber",
+      "pos": "adv",
+      "gloss": [
+        "rather (lieber nehmen: to prefer)"
+      ],
+      "forms": {
+        "lieber": null
+      },
+      "meanings": {
+        "sl": [
+          "raje"
+        ],
+        "it": [
+          "piuttosto"
+        ]
+      }
+    },
+    {
+      "lemma": "Muskat",
+      "pos": "noun",
+      "gender": "m",
+      "gloss": [
+        "nutmeg"
+      ],
+      "forms": {
+        "Muskat": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "muškatni orešček"
+        ],
+        "it": [
+          "la noce moscata"
+        ]
+      }
+    },
+    {
+      "lemma": "wachsen",
+      "pos": "verb",
+      "gloss": [
+        "to grow"
+      ],
+      "forms": {
+        "gewachsen": "past participle"
+      },
+      "meanings": {
+        "sl": [
+          "rasti"
+        ],
+        "it": [
+          "crescere"
         ]
       }
     }
