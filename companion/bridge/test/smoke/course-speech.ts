@@ -167,6 +167,7 @@ export default async function courseSpeech() {
     const deUnits = renderDeep(new CourseStore(courseDir(join(repo, 'companion/course'), 'de'), 'de', tempDir('lani-cs-course-de-'), () => {}, () => 'en').served()!.units, ana)
     const read = corpus({ packs: [], modules: [], scenarios: [], villagers: kaerntenCast, course: { units: deUnits, bases: ['en'] }, learner: ana, language: 'de' }).filter(i => i.source.startsWith('course:'))
     check("corpus: the German course in Lehrerin Eva's voice, its English explanations last", read.length > 200 && read.every(i => i.voice === 'teacher') && read.filter(i => i.lang).every(i => i.lang === 'en'), read.length)
+  }
 
   // --- the Lakeland village's school: Mrs Hartley reads the English course, its explanations in the learner's language ---
   {

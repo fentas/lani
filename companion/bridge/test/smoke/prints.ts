@@ -204,6 +204,7 @@ export default async function prints() {
       de.get('futuro/quando') === 'wenn' && de.get('piacere/pizzicare') === 'zwicken' && de.get('futuro/il treno') === 'Zug' && de.get('piacere/il freddo') === 'Kälte' && de.get('aggettivi/freddo') === 'kalt' && de.get('piacere/i cavalli') === '(il cavallo) Pferd',
       ['futuro/quando', 'piacere/pizzicare', 'futuro/il treno', 'piacere/il freddo', 'aggettivi/freddo', 'piacere/i cavalli'].map(k => [k, de.get(k)]),
     )
+  }
 
   // the repository's English hello for a learner from Slovene: its words meant, none with a gender (English nouns have
   // none: teacher isn't Friuli's maestra, f), so no legend of genders
