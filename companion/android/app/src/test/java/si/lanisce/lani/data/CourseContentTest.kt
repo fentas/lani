@@ -23,11 +23,14 @@ import java.io.File
  * sheet, a test and an intro's question is graded right by the app's own grading of the language, and a word bank's
  * distractors are wrong for every gap; every page a unit names is in the bundled grammar book. The bridge's smoke checks
  * the format; this checks what the app makes of it, for every unit written (A1 to B2), so a unit the app would drop or
- * misgrade can't ship: the Slovene course ([CourseContentTest]) and the Italian one ([ItalianCourseContentTest]).
+ * misgrade can't ship: the Slovene course ([CourseContentTest]), the Italian one ([ItalianCourseContentTest]) and the
+ * English one ([EnglishCourseContentTest]).
  */
 abstract class CourseContentChecks(
     private val language: String,
     private val lang: Lang,
+    /** The bases its texts per base are written in, English always (COURSE.md "Texts in the learner's language"); none for a course whose texts are strings. */
+    private val bases: List<String> = emptyList(),
 ) {
     private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/$language/course.json").isFile }
     private val json = Json { ignoreUnknownKeys = true }
@@ -126,6 +129,41 @@ abstract class CourseContentChecks(
         assertEquals("distractors almost right for a gap", emptyList<String>(), almost.distinct().sorted())
     }
 
+    @Test fun `every text the learner reads in their own language is there in each base the course is written for`() {
+        if (bases.isEmpty()) return
+        val want = (bases + "en").distinct()
+        // a text per base (COURSE.md "Texts in the learner's language") under one of the keys the app reads so
+        fun walk(e: JsonElement, key: String?, at: String, out: MutableList<String>) {
+            when (e) {
+                is JsonObject -> {
+                    val based = key != null && key in Courses.BASED && e.isNotEmpty() && e.values.all { (it as? JsonPrimitive)?.isString == true }
+                    if (based) { if (!e.keys.containsAll(want)) out += "$at.$key: ${e.keys}"; return }
+                    e.forEach { (k, v) -> walk(v, k, "$at.$k", out) }
+                }
+                is JsonArray -> e.forEachIndexed { i, v ->
+                    if (key == "columns" && v is JsonObject && v.values.all { (it as? JsonPrimitive)?.isString == true }) {
+                        if (!v.keys.containsAll(want)) out += "$at.$i: ${v.keys}"
+                    } else walk(v, null, "$at.$i", out)
+                }
+                else -> Unit
+            }
+        }
+        val missing = ArrayList<String>()
+        for ((id, o) in raw) walk(o, null, id, missing)
+        assertEquals("texts per base without one of ${want.joinToString()}", emptyList<String>(), missing)
+        // the intro's explanations, the titles and the goals are per language as before: each base there too
+        val said = ArrayList<String>()
+        for ((id, o) in raw) {
+            fun has(x: JsonElement?, at: String) { if (x is JsonObject && !x.keys.containsAll(want)) said += "$at: ${x.keys}" }
+            has(o["title"], "$id.title")
+            has(o["goal"], "$id.goal")
+            (o["intro"] as? JsonObject)?.get("steps").objects().forEachIndexed { i, s -> has(s["say"], "$id step ${i + 1}") }
+            has((o["intro"] as? JsonObject)?.get("summary"), "$id.summary")
+            o["worksheets"].objects().forEach { w -> has(w["title"], "$id/${w["id"]?.jsonPrimitive?.content}.title") }
+        }
+        assertEquals("titles, goals and explanations without one of ${want.joinToString()}", emptyList<String>(), said)
+    }
+
     @Test fun `every page a unit names is a page of the bundled book`() {
         fun named(e: JsonElement): List<String> = when (e) {
             is JsonObject -> e.flatMap { (k, v) ->
@@ -151,31 +189,11 @@ abstract class CourseContentChecks(
  * checks with the Italian grading: its units' texts per base read in English here (the app reads them in the learner's
  * base, Courses.inBase), no distractor even almost right.
  */
-class ItalianCourseContentTest : CourseContentChecks("it", Lang.IT) {
+class ItalianCourseContentTest : CourseContentChecks("it", Lang.IT, listOf("de", "sl", "en")) {
     private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/it/course.json").isFile }
-    private val files = File(companion, "course/it/units").listFiles { f -> f.name.endsWith(".json") }!!.sortedBy { it.name }
 
-    @Test fun `every text the learner reads in their own language is there in German, Slovene and English, and read in the base`() {
-        // a text per base (COURSE.md "Texts in the learner's language") under one of the keys the app reads so
-        fun walk(e: kotlinx.serialization.json.JsonElement, key: String?, at: String, out: MutableList<String>) {
-            when (e) {
-                is JsonObject -> {
-                    val based = key != null && key in Courses.BASED && e.isNotEmpty() && e.values.all { (it as? JsonPrimitive)?.isString == true }
-                    if (based) { if (!e.keys.containsAll(listOf("de", "sl", "en"))) out += "$at.$key: ${e.keys}"; return }
-                    e.forEach { (k, v) -> walk(v, k, "$at.$k", out) }
-                }
-                is JsonArray -> e.forEachIndexed { i, v ->
-                    if (key == "columns" && v is JsonObject && v.values.all { (it as? JsonPrimitive)?.isString == true }) {
-                        if (!v.keys.containsAll(listOf("de", "sl", "en"))) out += "$at.$i: ${v.keys}"
-                    } else walk(v, null, "$at.$i", out)
-                }
-                else -> Unit
-            }
-        }
-        val missing = ArrayList<String>()
-        for (f in files) walk(Json.parseToJsonElement(f.readText()), null, f.nameWithoutExtension, missing)
-        assertEquals("texts per base without one of de, sl, en", emptyList<String>(), missing)
-        // read in the learner's base: the German for Teo, the Slovene for a learner from Slovene
+    @Test fun `a text per base is read in the learner's base`() {
+        // the German for Teo, the Slovene for a learner from Slovene
         val ciao = Json.parseToJsonElement(File(companion, "course/it/units/ciao.json").readText()).jsonObject
         val sort = ((ciao["worksheets"] as JsonArray)[0].jsonObject["exercises"] as JsonArray)[0].jsonObject
         assertEquals("Metti in ordine · Zu einem Kind oder zu einem Erwachsenen?", (Courses.exercise(sort, "de") as Exercise.Sort).instruction)
