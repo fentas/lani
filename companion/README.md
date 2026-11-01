@@ -2222,7 +2222,9 @@ slip, "Pazi na strešice · Mind the č / š / ž"; a wrong item's own `explain`
 under their sentence (the gap's number, the correction, the sentence said right 🔊); a table's under each cell, the row's
 whys under the row; a transform line's under its field; a word sorted into the wrong column says where it goes on its
 chip ("→ ženski"). A transform's person in brackets left out (right, COURSE.md "transform") shows quietly before the
-line's answer set against the rest ("Luka in Tine spi~~ve~~**ta** v šotoru."). Under the sheet only the count, "✏️ 3 od
+line's answer set against the rest ("Luka in Tine spi~~ve~~**ta** v šotoru."). A spoken form a gap, a cell or a line
+lists (`spoken`: bojo, gremo, a si; COURSE.md "Spoken forms") is right, its ✓ with a quiet line under it, "🗣️ Pogovorno,
+prav tako prav; knjižno: bodo · Spoken, and right too; the standard form: bodo": never a mistake, the standard shown. Under the sheet only the count, "✏️ 3 od
 8 narobe, 2 skoraj · 3 of 8 wrong, 2 almost": a tap brings the first item not right into view (the whole line, a gap's
 sentence above its correction), as checking the sheet does once the feedback slid in. TalkBack reads each field's
 verdict ("narobe · wrong") and then its correction in words ("Prav je · Right: Luka in Tine spita v šotoru. Tvoj odgovor
