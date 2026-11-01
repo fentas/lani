@@ -118,7 +118,27 @@ words' meanings against every German pack, a third listed the words a tap couldn
 
 ## Checks
 
-(filled in at the end: see the final section)
+All on the merged result (this branch merged with the queue's tip, `map-people` at 0794854a, without conflicts):
+
+- Bridge: `bunx tsc --noEmit -p .` clean; `bun test/check-culture.ts kaernten`: ok; the whole smoke, 3,445 checks, all
+  passed (`LANI_SMOKE_PORT=9950`, `LANI_SMOKE_DRAMA3_PORT=9968`), its stories section now counting Kärnten's 16 in their
+  order (as many as Janez's, the six newer in `erzaehlungen`), the four packs' 58 stories with 148 pictures and notes for
+  their 136 tellings, its kaernten section the fire's 16 stories and its cultures section Kärnten's nine readings;
+  `bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed placeholders, 0 turns the same for one gender;
+  `tutor-export --check`: 89 files match. The supplement validates (880 entries, 0 left out).
+- Android: the full unit suite through lani-slot.sh, 3,733 tests in 479 classes, 0 failures (2 skipped); before the
+  merge the story and reading tests alone (StoriesTest with its new Kärnten rotation test, DialogReactionsTest,
+  NotebookTest, CuratedPicturesTest, KaerntenCultureTest, ReadingsTest, CulturePackTest, ReadingPackTest, SketchTest:
+  65 tests) passed on the first run. CuratedPicturesTest counts 148 pictures, NotebookTest 136 tellings and notes.
+- Python: `python3 -m unittest discover -s tests` (251) and `-s companion/tests` (142, 11 skipped): OK.
+- QA through `qa-slot` (slot 1) on a synthetic learner of German from English in the Carinthian village (Ana, the ten
+  older stories heard, Sepp and Kathi met): `story-faces` played tonight's story, Der Fürstenstein, to its end at A1 (Opa
+  Sepp's portrait in the header, his faces curious, happy, thinking, surprised, proud, laugh; the end card "Ausgezeichnet!
+  Ohne Fehler", "Eine Geschichte auf Stufe A1", "📓 Heft öffnen", the words from the story with their English: der Fürst ·
+  prince, der Bauer · farmer, der Richter · judge, gerecht · just, fair, der Herzog · duke, der Stein · stone, der Stier ·
+  bull); `culture-reading` read Der Wörthersee, its five questions answered right, "✓ 5 von 5 richtig · 5 of 5 right";
+  the crash check ok. Shots in the scratchpad's `ux-stories-kaernten/` (story-open, story-line-1 to 3, story-end,
+  reading-corner, reading-text, reading-q1 to q5, reading-done).
 
 ## What's left
 
