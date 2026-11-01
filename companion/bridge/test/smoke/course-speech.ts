@@ -120,6 +120,15 @@ export default async function courseSpeech() {
     check("corpus: the Italian course in Maestra Elena's voice, its German explanations last", read.length > 100 && read.every(i => i.voice === 'teacher') && read.filter(i => i.lang).every(i => i.lang === 'de'), read.length)
   }
 
+  // --- the Carinthian village's school: Lehrerin Eva reads the German course, its explanations in the learner's base ----
+  {
+    const kaerntenCast = new VillagerStore(join(culturesDir, 'kaernten/villagers'), tempDir('lani-cs-kaernten-villagers-')).all()
+    check("the Carinthian school's person (Residents.brings(SCHOOL)): Lehrerin Eva, in her cast's voice, \"teacher\" (Lily); her own once it is ready (\"@eva\")",
+      S.schoolTeacher(kaerntenCast)?.id === 'eva' && S.teacherVoice(kaerntenCast, v => v.speaker ?? v.voice) === 'teacher' && S.teacherVoice(kaerntenCast, v => v.speaker ?? v.voice, id => id === 'eva') === '@eva')
+    const cast = JSON.parse(readFileSync(join(culturesDir, 'kaernten/voice-cast.json'), 'utf8'))
+    check("…the Carinthian cast gives the teacher's speaker a woman's voice", cast.speakers?.teacher?.gender === 'female' && typeof cast.speakers.teacher.elevenlabs === 'string', cast.speakers?.teacher)
+  }
+
   // --- companion/bin/voice-build --only, --explanations, --base on a store of its own ---------------------------------
   {
     const fe = fakeEleven()
