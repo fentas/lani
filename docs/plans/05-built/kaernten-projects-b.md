@@ -167,15 +167,38 @@ wrapper). Part a and the Lake District's branches take the same commits.
 - **The full checks**: the bridge `tsc` clean; the smoke on ports 9750–9768 (its Drama 3 worker on 9768): 3,327 checks, all
   passed; `tutor-export --check`: 89 files match; the Python tests (`bin/qa` changed): 251, and 142 (11 skipped); the full
   Android unit suite through lani-slot.sh: 3,692 tests in 475 classes, 0 failures (2 skipped).
-- **Rebase**: main (605d5f26) is an ancestor of this branch's base (`outlines-de-en`), so the rebase onto main is a no-op
-  today; part a is not on main yet. When it lands, this branch rebases second (the lead's plan): the shared commits
-  (a02aeaf0, 78895a8c, fea04484, ac44368f, 1e58bcda/d3ce5b8e, 1932dffb) drop out, KaerntenLooks' PLACES line, SCENES.md's
-  rows, CultureScenesTest's list, DialogReactionsTest's and SceneCoherenceTest's counts and QA's named-only list conflict
-  by lines and keep both sides (`qa-steps-union.py` for the QA list).
+- **The merges** (the lead's end step: merge, not rebase): first `kaernten-projects-a` (30df3d4c: main and the queued stack),
+  then `lakeland-projects-b` (d6accae5, and 12edc44b after it: a, stories-friuli and the Lake District's beck, tarn and six
+  projects). Conflicts kept both sides: SCENES.md's paragraphs and rows, KaerntenLooks' tables and PLACES (`PROJECTS_B` and
+  a's line), the painters' look checks and cases (Carinthia's beside a's maypole prize and larch bridge, and beside the Lake
+  District's rescue hut, slate school, fells, slate fountain, broadleaf woods, bank barn and viewing station; Friuli's by its
+  own values), CultureScenesTest's scenes and the stream's `SEEN` (the union: the mill's wheel and sacks, the bridge's cart,
+  the hose, Resi's sheet), the scene count (`+ 8 + 8`, Am Bach once), the done lines (46 + 30 + 20 + 16), QA's step list
+  (`qa-steps-union.py`). The first lakeland merge committed LookoutPainter.kt's conflicts unresolved; 1e6c46ae resolves
+  them (both views, both flags). A one-off comparison of this branch's new words' prompts against everything merged moved
+  two German starter words of the stack apart (der Schnupfen "runny nose, head cold" for kalt's "cold", einsteigen "salire a
+  bordo" for steigen's "salire"); the smoke found two English word ids of the Lake District's naming two words, which the
+  lead fixed on lakeland-projects-b (12edc44b). On the merged tip (bf402936 and its doc): `check-culture` kaernten and
+  lakeland ok, `check-steps kaernten` ok (13 files, 78 steps), the learner audit 0 / 0 / 0, `tsc` clean, the smoke 3,422
+  checks all passed, `tutor-export --check` 89 files, the Python tests 251 and 142 (11 skipped), the full Android suite
+  3,708 tests in 477 classes, 0 failures (2 skipped).
 
 ## On the emulator
 
-QA-SECTION
+QA's step `kaernten-projects-b` (only when named) on a synthetic learner of German of the Kärnten culture
+(`make-learner.ts --target de --base en`, `LANI_CULTURE=kaernten`, the phone in sl · en), on the merged tip
+(`companion/bin/qa-slot --no-build --steps kaernten-projects-b`): passed, and the crash check. The fire station finished
+("step:gasilski_dom/7"): its landmark on the map, its card "🚒 Gasilski dom · A fire station" with "🚪 Vstopi · Go in: 🚒
+Pri gasilskem domu · At the fire station ›" (a scene's title in the phone's pair), in at 11 o'clock: the hall in Carinthia's
+look (FF, Austria's banner); the lookout tower the same, in at 10 and at 19 o'clock: the Dobratsch with its mast, the
+Karawanken and the Mittagskogel, the Faaker See, the onion-domed church below, Austria's flag, "Na razglednem stolpu · On
+the lookout tower", 16 things; the stream bank tapped on the map: its card "Breg potoka · The stream bank" with "🚪 Vstopi ·
+Go in: 🏞️ Ob potoku · By the stream ›", in (Am Bach: the larches, the hamlet's onion church on the hill); Oma Resi's washing
+day played on (her first line, "Wäschst du mit Seife, Oma Resi?" answered, her reply, the second turn); the pond in the
+evening. Screenshots in the round's scratchpad, `ux-kaernten-projects-b/qa2/` (kp-*.png; `qa/` has the first run, where
+the step tapped the middle of the map, the palisade there, and stopped), and the looks' sheets in `ux-kaernten-projects-b/looks/`.
+The first run found that "show:riverbank" leaves the map on the whole village: the step now taps the spots where the
+village's picture draws them, closing any other card, and falls back to Am Bach's link.
 
 ## How to use
 
