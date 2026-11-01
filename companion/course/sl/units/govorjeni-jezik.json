@@ -1,0 +1,837 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "govorjeni-jezik",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🗣️",
+  "title": {
+    "sl": "Bom šu, a si: govorjeni jezik",
+    "en": "Spoken Slovene: bom šu, a si",
+    "de": "Gesprochenes Slowenisch: bom šu, a si",
+    "it": "Lo sloveno parlato: bom šu, a si"
+  },
+  "goal": {
+    "en": "You understand everyday spoken Slovene (a si, moram delat, bom šu, bojo, mam, kva, ta mali, fajn) and can write each in the standard; nothing people say is wrong.",
+    "de": "Du verstehst gesprochenes Alltagsslowenisch (a si, moram delat, bom šu, bojo, mam, kva, ta mali, fajn) und schreibst es in der Standardsprache; nichts, was die Leute sagen, ist falsch.",
+    "it": "Capisci lo sloveno parlato di tutti i giorni (a si, moram delat, bom šu, bojo, mam, kva, ta mali, fajn) e sai scriverlo nello standard; niente di ciò che la gente dice è sbagliato."
+  },
+  "grammar": [
+    "govorjeni-jezik"
+  ],
+  "words": [
+    "pogovorno",
+    "knjižno",
+    "fajn",
+    "ful",
+    "flaša",
+    "steklenica",
+    "luštno",
+    "kajne",
+    "gostilna",
+    "trgatev",
+    "sejem",
+    "košara",
+    "zdaj",
+    "tudi",
+    "imeti",
+    "iti",
+    "delati",
+    "spati",
+    "jesti",
+    "videti",
+    "reči",
+    "pismo",
+    "vreme",
+    "sosed",
+    "vstati"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "pogovorno",
+          "en": "spoken",
+          "de": "gesprochen",
+          "it": "parlato"
+        },
+        {
+          "sl": "knjižno",
+          "en": "standard",
+          "de": "Standard",
+          "it": "standard"
+        },
+        {
+          "sl": "pomen",
+          "en": "meaning",
+          "de": "Bedeutung",
+          "it": "significato"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "At the inn and at home you hear Slovene that isn't quite your book's. It is **pogovorni jezik** (spoken Slovene); the language of letters and the news is **knjižni jezik** (the standard). Neither is wrong: people speak one and write the other. The first thing you'll notice: a question starts with **a** instead of **ali**. **A si že jedel?** is **Ali si že jedel?** (Have you eaten yet?)",
+          "de": "Im Wirtshaus und zu Hause hörst du ein Slowenisch, das nicht ganz das deines Buches ist. Das ist **pogovorni jezik** (gesprochenes Slowenisch); die Sprache der Briefe und Nachrichten ist **knjižni jezik** (die Standardsprache). Keine ist falsch: Man spricht die eine und schreibt die andere. Zuerst fällt dir auf: Eine Frage beginnt mit **a** statt **ali**. **A si že jedel?** ist **Ali si že jedel?** (Hast du schon gegessen?)",
+          "it": "All'osteria e a casa senti uno sloveno che non è proprio quello del tuo libro. È il **pogovorni jezik** (lo sloveno parlato); la lingua delle lettere e del telegiornale è il **knjižni jezik** (lo standard). Nessuno dei due è sbagliato: si parla l'uno e si scrive l'altro. La prima cosa che noti: una domanda comincia con **a** invece di **ali**. **A si že jedel?** è **Ali si že jedel?** (Hai già mangiato?)"
+        },
+        "examples": [
+          {
+            "sl": "A si že jedel?",
+            "en": "Have you eaten yet?",
+            "de": "Hast du schon gegessen?",
+            "it": "Hai già mangiato?"
+          },
+          {
+            "sl": "A greš z nami v gostilno?",
+            "en": "Are you coming to the inn with us?",
+            "de": "Kommst du mit uns ins Wirtshaus?",
+            "it": "Vieni con noi all'osteria?"
+          }
+        ],
+        "rows": [
+          [
+            "a si …?",
+            "ali si …?",
+            {
+              "en": "are you …? have you …?",
+              "de": "bist du …? hast du …?",
+              "it": "sei …? hai …?"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "govorjeni-jezik",
+          "instruction": "Kaj pomeni a? · What is a here?",
+          "prompt": "»A greš z nami?«",
+          "options": [
+            "ali: it asks a question",
+            "and",
+            "but"
+          ],
+          "answer": 0,
+          "explain": "**a** at the start of a question is spoken **ali**: A greš z nami? = Ali greš z nami?"
+        }
+      },
+      {
+        "say": {
+          "en": "After a verb the infinitive often loses its **-i**: **Moram delat.** (Moram delati.) **Ne morem spat.** (Ne morem spati.) Careful: after **iti**, going somewhere to do it, the short form is the standard supine you know: **Grem spat.** **Gremo delat.** So it is spoken only after the other verbs.",
+          "de": "Nach einem Verb verliert der Infinitiv oft sein **-i**: **Moram delat.** (Moram delati.) **Ne morem spat.** (Ne morem spati.) Vorsicht: Nach **iti**, wenn man irgendwohin geht, um etwas zu tun, ist die kurze Form das Supinum der Standardsprache, das du kennst: **Grem spat.** **Gremo delat.** Gesprochen ist sie also nur nach den anderen Verben.",
+          "it": "Dopo un verbo l'infinito perde spesso la **-i**: **Moram delat.** (Moram delati.) **Ne morem spat.** (Ne morem spati.) Attenzione: dopo **iti**, andare da qualche parte a fare qualcosa, la forma corta è il supino standard che conosci: **Grem spat.** **Gremo delat.** È quindi parlata solo dopo gli altri verbi."
+        },
+        "examples": [
+          {
+            "sl": "Jutri moram delat.",
+            "en": "Tomorrow I have to work.",
+            "de": "Morgen muss ich arbeiten.",
+            "it": "Domani devo lavorare."
+          },
+          {
+            "sl": "Grem spat, lahko noč.",
+            "en": "I'm off to bed, good night.",
+            "de": "Ich gehe schlafen, gute Nacht.",
+            "it": "Vado a dormire, buonanotte."
+          }
+        ],
+        "rows": [
+          [
+            "moram delat",
+            "moram delati",
+            {
+              "en": "I have to work",
+              "de": "ich muss arbeiten",
+              "it": "devo lavorare"
+            }
+          ],
+          [
+            "grem spat",
+            "grem spat",
+            {
+              "en": "I'm going to bed: the supine, standard too",
+              "de": "ich gehe schlafen: das Supinum, auch Standard",
+              "it": "vado a dormire: il supino, anche standard"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "govorjeni-jezik",
+          "prompt": "Danes ne morem ___. (written, for »spat«)",
+          "options": [
+            "spati",
+            "spal",
+            "spim"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": "after **morem** the infinitive: **spati**; the short **spat** is spoken, and standard only after iti (grem spat)"
+        }
+      },
+      {
+        "say": {
+          "en": "Spoken Slovene swallows sounds. The past's **l** after a vowel sounds like **u**, and an unstressed **e** drops: **šel → šu**, **videl → vidu**, **rekel → reku**. So **Bom šu.** is **Bom šel.** (I'll go.) and **Sem vidu Luko.** is **Sem videl Luko.** People write it so in their messages too.",
+          "de": "Gesprochenes Slowenisch verschluckt Laute. Das **l** der Vergangenheit nach einem Vokal klingt wie **u**, und ein unbetontes **e** fällt weg: **šel → šu**, **videl → vidu**, **rekel → reku**. **Bom šu.** ist also **Bom šel.** (Ich gehe.) und **Sem vidu Luko.** ist **Sem videl Luko.** Viele schreiben es auch in Nachrichten so.",
+          "it": "Lo sloveno parlato inghiotte i suoni. La **l** del passato dopo una vocale suona come **u**, e una **e** atona cade: **šel → šu**, **videl → vidu**, **rekel → reku**. Quindi **Bom šu.** è **Bom šel.** (Vado.) e **Sem vidu Luko.** è **Sem videl Luko.** Molti lo scrivono così anche nei messaggi."
+        },
+        "examples": [
+          {
+            "sl": "Bom šu pogledat, kaj dela Luka.",
+            "en": "I'll go and see what Luka is doing.",
+            "de": "Ich geh mal schauen, was Luka macht.",
+            "it": "Vado a vedere cosa fa Luka."
+          },
+          {
+            "sl": "Včeraj sem vidu Marka na sejmu.",
+            "en": "Yesterday I saw Marko at the fair.",
+            "de": "Gestern habe ich Marko auf dem Markt gesehen.",
+            "it": "Ieri ho visto Marko alla fiera."
+          }
+        ],
+        "rows": [
+          [
+            "šu, vidu, reku",
+            "šel, videl, rekel",
+            {
+              "en": "went, saw, said",
+              "de": "ging, sah, sagte",
+              "it": "andò, vide, disse"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "govorjeni-jezik",
+          "instruction": "Kdo je to rekel? · Who said it?",
+          "prompt": "»Reku je, da pride.«",
+          "options": [
+            "a man",
+            "a woman",
+            "several people"
+          ],
+          "answer": 0,
+          "explain": "**reku** is **rekel**, a man's l-form; a woman's is **rekla**, the same spoken and written"
+        }
+      },
+      {
+        "say": {
+          "en": "Short words get shorter still: **tudi → tud**, **zdaj → zdej**, **kaj → kva**, **tako → tko**, and **imeti** loses its **i**: **mam, maš, ma** (imam, imaš, ima). **Kva maš?** is **Kaj imaš?** (What have you got?)",
+          "de": "Kurze Wörter werden noch kürzer: **tudi → tud**, **zdaj → zdej**, **kaj → kva**, **tako → tko**, und **imeti** verliert sein **i**: **mam, maš, ma** (imam, imaš, ima). **Kva maš?** ist **Kaj imaš?** (Was hast du?)",
+          "it": "Le parole brevi si accorciano ancora: **tudi → tud**, **zdaj → zdej**, **kaj → kva**, **tako → tko**, e **imeti** perde la **i**: **mam, maš, ma** (imam, imaš, ima). **Kva maš?** è **Kaj imaš?** (Che cosa hai?)"
+        },
+        "examples": [
+          {
+            "sl": "Kva pa ti delaš tukaj?",
+            "en": "And what are you doing here?",
+            "de": "Und was machst du hier?",
+            "it": "E tu che cosa fai qui?"
+          },
+          {
+            "sl": "Zdej mam tud jaz malo časa.",
+            "en": "Now I've got a bit of time too.",
+            "de": "Jetzt habe ich auch ein bisschen Zeit.",
+            "it": "Adesso ho un po' di tempo anch'io."
+          }
+        ],
+        "rows": [
+          [
+            "mam, maš, ma",
+            "imam, imaš, ima",
+            {
+              "en": "I have, you have, has",
+              "de": "ich habe, du hast, hat",
+              "it": "ho, hai, ha"
+            }
+          ],
+          [
+            "tud, zdej, kva",
+            "tudi, zdaj, kaj",
+            {
+              "en": "also, now, what",
+              "de": "auch, jetzt, was",
+              "it": "anche, adesso, che cosa"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "govorjeni-jezik",
+          "prompt": "___ v košari? (written, for »Kva maš«)",
+          "options": [
+            "Kaj imaš",
+            "Kaj imate",
+            "Kaj ima"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**kva** is **kaj**, **maš** is **imaš**, said to one person (ti): Kaj imaš v košari?"
+        }
+      },
+      {
+        "say": {
+          "en": "Some forms are spoken ones: **bojo** for **bodo** (they will), **grejo** for **gredo** (they go). And **ta** before an adjective works like an article: **ta mali** (the little one), **ta star** (the old one), **Daj mi ta veliko flašo.** In writing: **bodo, gredo**, and no **ta**.",
+          "de": "Manche Formen sind gesprochene: **bojo** für **bodo** (sie werden), **grejo** für **gredo** (sie gehen). Und **ta** vor einem Adjektiv wirkt wie ein Artikel: **ta mali** (der Kleine), **ta star** (der Alte), **Daj mi ta veliko flašo.** Geschrieben: **bodo, gredo**, und kein **ta**.",
+          "it": "Alcune forme sono parlate: **bojo** per **bodo** (saranno), **grejo** per **gredo** (vanno). E **ta** davanti a un aggettivo fa da articolo: **ta mali** (il piccolo), **ta star** (il vecchio), **Daj mi ta veliko flašo.** Per iscritto: **bodo, gredo**, e niente **ta**."
+        },
+        "examples": [
+          {
+            "sl": "Jutri bojo vsi na sejmu.",
+            "en": "Tomorrow everyone will be at the fair.",
+            "de": "Morgen sind alle auf dem Markt.",
+            "it": "Domani saranno tutti alla fiera."
+          },
+          {
+            "sl": "Ta mali že spi.",
+            "en": "The little one is asleep already.",
+            "de": "Der Kleine schläft schon.",
+            "it": "Il piccolo dorme già."
+          }
+        ],
+        "rows": [
+          [
+            "bojo, grejo",
+            "bodo, gredo",
+            {
+              "en": "they will be, they go",
+              "de": "sie werden sein, sie gehen",
+              "it": "saranno, vanno"
+            }
+          ],
+          [
+            "ta mali",
+            "mali",
+            {
+              "en": "the little one",
+              "de": "der Kleine",
+              "it": "il piccolo"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "govorjeni-jezik",
+          "prompt": "Kdaj ___ prišli? (written, for »bojo«)",
+          "options": [
+            "bodo",
+            "boda",
+            "bosta"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**bojo** is spoken **bodo** (oni): Kdaj bodo prišli?\n- bosta · two of them, with prišla"
+        }
+      },
+      {
+        "say": {
+          "en": "Some words are spoken through and through, and the dictionary marks them so (*pog.*): **fajn** (good, nice), **ful** (very, a lot), **flaša** (a bottle; written **steklenica**), **luštno** (lovely, fun). And a question at the end: **Lepo je, a ne?** (It's nice, isn't it?), written **kajne?**. Say them at home and at the inn; write the standard to the občina.",
+          "de": "Manche Wörter sind ganz und gar gesprochen, und das Wörterbuch kennzeichnet sie so (*pog.*): **fajn** (gut, schön), **ful** (sehr, viel), **flaša** (eine Flasche; geschrieben **steklenica**), **luštno** (nett, lustig). Und eine Frage am Ende: **Lepo je, a ne?** (Schön, nicht?), geschrieben **kajne?**. Sag sie zu Hause und im Wirtshaus; an die Gemeinde schreib die Standardsprache.",
+          "it": "Alcune parole sono parlate fino in fondo, e il dizionario le segna così (*pog.*): **fajn** (buono, bello), **ful** (molto, tanto), **flaša** (una bottiglia; per iscritto **steklenica**), **luštno** (carino, divertente). E una domanda in coda: **Lepo je, a ne?** (È bello, vero?), per iscritto **kajne?**. Dille a casa e all'osteria; al comune scrivi lo standard."
+        },
+        "examples": [
+          {
+            "sl": "Danes je fajn vreme, a ne?",
+            "en": "The weather's nice today, isn't it?",
+            "de": "Heute ist schönes Wetter, nicht?",
+            "it": "Oggi fa bel tempo, vero?"
+          },
+          {
+            "sl": "Na trgatvi je bilo ful luštno.",
+            "en": "The grape harvest was great fun.",
+            "de": "Bei der Weinlese war es echt lustig.",
+            "it": "Alla vendemmia è stato davvero divertente."
+          }
+        ],
+        "rows": [
+          [
+            "fajn, ful",
+            "dober, lep; zelo",
+            {
+              "en": "good, nice; very",
+              "de": "gut, schön; sehr",
+              "it": "buono, bello; molto"
+            }
+          ],
+          [
+            "…, a ne?",
+            "…, kajne?",
+            {
+              "en": "…, isn't it?",
+              "de": "…, nicht wahr?",
+              "it": "…, vero?"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "govorjeni-jezik",
+          "instruction": "Kako je bilo? · How was it?",
+          "prompt": "»Na trgatvi je bilo ful luštno.«",
+          "options": [
+            "great fun",
+            "very cold",
+            "a lot of hard work"
+          ],
+          "answer": 0,
+          "explain": "**ful** is zelo (very), **luštno** lovely, fun: it was great fun"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "govorjeni-jezik-1",
+      "title": {
+        "sl": "Pogovorno ali knjižno?",
+        "en": "Spoken or standard?",
+        "de": "Gesprochen oder Standard?",
+        "it": "Parlato o standard?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "govorjeni-jezik",
+          "instruction": "Razvrsti · Spoken or standard?",
+          "columns": [
+            {
+              "label": "pogovorno · spoken",
+              "words": [
+                "a si?",
+                "moram delat",
+                "sem šu",
+                "flaša"
+              ]
+            },
+            {
+              "label": "knjižno · standard",
+              "words": [
+                "ali si?",
+                "moram delati",
+                "sem šel",
+                "steklenica"
+              ]
+            }
+          ],
+          "explain": "**both are right**: the spoken where people talk, the standard where you write\n- a si? · ali si?\n- sem šu · sem šel"
+        },
+        {
+          "type": "table",
+          "grammar": "govorjeni-jezik",
+          "instruction": "Napiši knjižno · Write the standard",
+          "prompt": "pogovorno → knjižno · spoken → standard",
+          "columns": [
+            "knjižno · standard"
+          ],
+          "rows": [
+            {
+              "label": "bojo (oni)",
+              "cells": [
+                {
+                  "accept": [
+                    "bodo"
+                  ],
+                  "spoken": [
+                    "bojo"
+                  ],
+                  "hint": "biti, the future: oni …"
+                }
+              ]
+            },
+            {
+              "label": "grejo (oni)",
+              "cells": [
+                {
+                  "accept": [
+                    "gredo"
+                  ],
+                  "spoken": [
+                    "grejo"
+                  ],
+                  "hint": "iti: oni …"
+                }
+              ]
+            },
+            {
+              "label": "mam (jaz)",
+              "cells": [
+                {
+                  "accept": [
+                    "imam"
+                  ],
+                  "spoken": [
+                    "mam"
+                  ],
+                  "hint": "imeti: jaz …"
+                }
+              ]
+            },
+            {
+              "label": "vidu (on)",
+              "cells": [
+                {
+                  "accept": [
+                    "videl"
+                  ],
+                  "spoken": [
+                    "vidu"
+                  ],
+                  "hint": "the l-form of videti"
+                }
+              ]
+            },
+            {
+              "label": "tud",
+              "cells": [
+                {
+                  "accept": [
+                    "tudi"
+                  ],
+                  "spoken": [
+                    "tud"
+                  ],
+                  "hint": "also"
+                }
+              ]
+            },
+            {
+              "label": "kva",
+              "cells": [
+                {
+                  "accept": [
+                    "kaj"
+                  ],
+                  "spoken": [
+                    "kva"
+                  ],
+                  "hint": "what"
+                }
+              ]
+            }
+          ],
+          "explain": "**the standard** keeps every sound: bodo, gredo, imam, videl, tudi, kaj"
+        }
+      ]
+    },
+    {
+      "id": "govorjeni-jezik-2",
+      "title": {
+        "sl": "Ančkino pismo",
+        "en": "Ančka's letter",
+        "de": "Ančkas Brief",
+        "it": "La lettera di Ančka"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "govorjeni-jezik",
+          "instruction": "Napiši knjižno · Write it in the standard",
+          "title": "Draga Vida!",
+          "text": "Včeraj je bil pri nas Tone. Vprašal me je, ___ greva v soboto na sejem. Rekel je, da ___ tam tudi njegovi bratje. Prinesel je ___ vina. Rekel je, da je moj kruh ___ dober. Potem je ___ domov, ker je moral zgodaj vstati. Jaz pa ___ veliko dela na vrtu. ___ ti je pisal Marko? Pri nas je ___ zelo lepo vreme.",
+          "gaps": [
+            {
+              "accept": [
+                "ali",
+                "če"
+              ],
+              "spoken": [
+                "a"
+              ],
+              "hint": "Tone: »A greva …?«"
+            },
+            {
+              "accept": [
+                "bodo"
+              ],
+              "spoken": [
+                "bojo"
+              ],
+              "hint": "Tone: »… bojo tam …«"
+            },
+            {
+              "accept": [
+                "steklenico"
+              ],
+              "spoken": [
+                "flašo"
+              ],
+              "hint": "a flaša in the standard, whom? what?",
+              "explain": "**steklenica** is the standard for flaša, here the accusative: prinesel je **steklenico**"
+            },
+            {
+              "accept": [
+                "zelo"
+              ],
+              "spoken": [
+                "ful"
+              ],
+              "hint": "Tone: »ful dober«"
+            },
+            {
+              "accept": [
+                "šel"
+              ],
+              "spoken": [
+                "šu"
+              ],
+              "hint": "Tone: »Grem, bom šu.«"
+            },
+            {
+              "accept": [
+                "imam"
+              ],
+              "spoken": [
+                "mam"
+              ],
+              "hint": "I say: »mam«"
+            },
+            {
+              "accept": [
+                "Ali"
+              ],
+              "spoken": [
+                "A"
+              ],
+              "hint": "a question: a → ?"
+            },
+            {
+              "accept": [
+                "zdaj"
+              ],
+              "spoken": [
+                "zdej"
+              ],
+              "hint": "zdej → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "boda",
+            "šla",
+            "imaš"
+          ],
+          "translation": "Dear Vida! Yesterday Tone was at ours. He asked me whether we're going to the fair on Saturday. He said his brothers would be there too. He brought a bottle of wine. He said my bread is very good. Then he went home because he had to get up early. And I have a lot of work in the garden. Has Marko written to you? The weather here is very nice now."
+        }
+      ]
+    },
+    {
+      "id": "govorjeni-jezik-3",
+      "title": {
+        "sl": "Po knjižno",
+        "en": "In the standard",
+        "de": "In der Standardsprache",
+        "it": "Nello standard"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "govorjeni-jezik",
+          "instruction": "Napiši knjižno · Write it in the standard",
+          "items": [
+            {
+              "from": "A si že jedel?",
+              "accept": [
+                "Ali si že jedel?",
+                "Si že jedel?"
+              ],
+              "spoken": [
+                "A si že jedel?"
+              ],
+              "hint": "a → ali"
+            },
+            {
+              "from": "Jutri moram delat.",
+              "accept": [
+                "Jutri moram delati."
+              ],
+              "spoken": [
+                "Jutri moram delat."
+              ],
+              "hint": "after moram: the whole infinitive"
+            },
+            {
+              "from": "Bom šu domov.",
+              "accept": [
+                "Šel bom domov.",
+                "Bom šel domov."
+              ],
+              "spoken": [
+                "Bom šu domov.",
+                "Šu bom domov."
+              ],
+              "hint": "šu → šel"
+            },
+            {
+              "from": "Kva maš v košari?",
+              "accept": [
+                "Kaj imaš v košari?"
+              ],
+              "spoken": [
+                "Kva maš v košari?",
+                "Kaj maš v košari?",
+                "Kva imaš v košari?"
+              ],
+              "hint": "kva → kaj, maš → imaš"
+            },
+            {
+              "from": "Jutri bojo vsi na sejmu.",
+              "accept": [
+                "Jutri bodo vsi na sejmu."
+              ],
+              "spoken": [
+                "Jutri bojo vsi na sejmu."
+              ],
+              "hint": "bojo → bodo"
+            },
+            {
+              "from": "Zdej mam malo časa.",
+              "accept": [
+                "Zdaj imam malo časa."
+              ],
+              "spoken": [
+                "Zdej mam malo časa.",
+                "Zdaj mam malo časa.",
+                "Zdej imam malo časa."
+              ],
+              "hint": "zdej → zdaj, mam → imam"
+            }
+          ],
+          "explain": "**the standard** for a letter: ali, the whole infinitive, šel, kaj, imam, bodo, zdaj\n- A si že jedel? · Ali si že jedel?\n- Bom šu domov. · Šel bom domov."
+        },
+        {
+          "type": "choice",
+          "grammar": "govorjeni-jezik",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "»Danes je fajn vreme, a ne?« Ančka …",
+          "say": "Danes je fajn vreme, a ne?",
+          "options": [
+            "wants you to agree: the weather is nice",
+            "asks whether it will rain",
+            "says the weather is bad"
+          ],
+          "answer": 0,
+          "explain": "**fajn** is good, nice; **a ne?** at the end asks for a yes, as **kajne?**"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort",
+        "grammar": "govorjeni-jezik",
+        "instruction": "Razvrsti · Spoken or standard?",
+        "columns": [
+          {
+            "label": "pogovorno · spoken",
+            "words": [
+              "grejo",
+              "tud"
+            ]
+          },
+          {
+            "label": "knjižno · standard",
+            "words": [
+              "gredo",
+              "tudi"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "govorjeni-jezik",
+        "instruction": "Napiši knjižno · Write it in the standard",
+        "text": "Jože je vprašal, ___ bo jutri deževalo. Rekel je, da ___ na trgatev prišli vsi sosedje. Potem je ___ v gostilno.",
+        "gaps": [
+          {
+            "accept": [
+              "ali",
+              "če"
+            ],
+            "spoken": [
+              "a"
+            ],
+            "hint": "Jože: »A bo …?«"
+          },
+          {
+            "accept": [
+              "bodo"
+            ],
+            "spoken": [
+              "bojo"
+            ],
+            "hint": "Jože: »… bojo …«"
+          },
+          {
+            "accept": [
+              "šel"
+            ],
+            "spoken": [
+              "šu"
+            ],
+            "hint": "Jože: »Grem, bom šu.«"
+          }
+        ],
+        "translation": "Jože asked whether it would rain tomorrow. He said all the neighbours would come to the grape harvest. Then he went to the inn."
+      },
+      {
+        "type": "transform",
+        "grammar": "govorjeni-jezik",
+        "instruction": "Napiši knjižno · Write it in the standard",
+        "items": [
+          {
+            "from": "A mate še kaj kruha?",
+            "accept": [
+              "Ali imate še kaj kruha?",
+              "Imate še kaj kruha?"
+            ],
+            "spoken": [
+              "A mate še kaj kruha?",
+              "Ali mate še kaj kruha?",
+              "A imate še kaj kruha?"
+            ]
+          },
+          {
+            "from": "Ne morem spat.",
+            "accept": [
+              "Ne morem spati."
+            ],
+            "spoken": [
+              "Ne morem spat."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "govorjeni-jezik",
+        "instruction": "Kaj pomeni? · What does it mean?",
+        "prompt": "»Reku je, da bo šu z nami.« Who is coming with us?",
+        "say": "Reku je, da bo šu z nami.",
+        "options": [
+          "he, a man",
+          "she, a woman",
+          "nobody"
+        ],
+        "answer": 0,
+        "explain": "**reku** and **šu** are **rekel** and **šel**: a man's l-forms"
+      },
+      {
+        "type": "choice",
+        "grammar": "govorjeni-jezik",
+        "instruction": "Kaj pomeni? · What does it mean?",
+        "prompt": "»Mam ful dela.« Jože …",
+        "say": "Mam ful dela.",
+        "options": [
+          "has a lot of work",
+          "has no work",
+          "wants to work with you"
+        ],
+        "answer": 0,
+        "explain": "**mam** is imam, **ful** is zelo, very much: Imam zelo veliko dela."
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the spoken forms (šu, vidu, reku, zdej, kva, tud, mam), ta veliko flašo, Bom šu domov, Ančkino pismo"
+}
