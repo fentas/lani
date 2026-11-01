@@ -1,0 +1,136 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "predlogi-dva-sklona",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🔀",
+  "title": {
+    "sl": "Po kruh, po vasi: predlogi z dvema skloma",
+    "en": "Po kruh, po vasi: one preposition, two cases",
+    "de": "Po kruh, po vasi: eine Präposition, zwei Fälle",
+    "it": "Po kruh, po vasi: una preposizione, due casi"
+  },
+  "rule": {
+    "en": "Some prepositions take two cases, and the case changes the meaning. The accusative is mostly where to (**Kam?**), the other case where (**Kje?**).\n\n- **v, na**: **v gozd** (kam) · **v gozdu** (kje). For time the accusative: **v soboto**, **dvakrat na teden** (twice a week).\n- **pod, nad, pred, za, med**: **pod stol** (kam) · **pod stolom** (kje). For a feminine in -a the two look alike: **pod mizo** and **pod mizo**; the masculine shows it.\n- **po** + the accusative: to fetch: **grem po kruh**, **po zdravnika**. + the locative: around, along, after: **po vasi**, **po kosilu**.\n- **ob** + the locative: by, at a time: **ob potoku**, **ob petih**. + the accusative: against, and losing: **z glavo ob zid**, **krava je ob mleko** (the cow has lost her milk).\n- **za** + the accusative: for whom, for how long: **za babico**, **za en teden**. + the instrumental: behind, after: **za hišo**, **eden za drugim**.\n- **pred, med** + the instrumental for time: **pred tednom** (a week ago), **med kosilom** (during lunch).\n\nAsk the question first: **Kam? Kje? Kdaj? Po kaj?** It tells the case.",
+    "de": "Manche Präpositionen haben zwei Fälle, und der Fall ändert die Bedeutung. Der Akkusativ ist meist wohin (**Kam?**), der andere Fall wo (**Kje?**).\n\n- **v, na**: **v gozd** (kam) · **v gozdu** (kje). Für die Zeit der Akkusativ: **v soboto**, **dvakrat na teden** (zweimal pro Woche).\n- **pod, nad, pred, za, med**: **pod stol** (kam) · **pod stolom** (kje). Bei einem Femininum auf -a sehen beide gleich aus: **pod mizo** und **pod mizo**; das Maskulinum zeigt es.\n- **po** + Akkusativ: holen: **grem po kruh**, **po zdravnika**. + Lokativ: herum, entlang, nach: **po vasi**, **po kosilu**.\n- **ob** + Lokativ: an, bei, zu einer Zeit: **ob potoku**, **ob petih**. + Akkusativ: gegen, und verlieren: **z glavo ob zid**, **krava je ob mleko** (die Kuh gibt keine Milch mehr).\n- **za** + Akkusativ: für wen, für wie lange: **za babico**, **za en teden**. + Instrumental: hinter, nach: **za hišo**, **eden za drugim**.\n- **pred, med** + Instrumental für die Zeit: **pred tednom** (vor einer Woche), **med kosilom** (beim Mittagessen).\n\nFrag zuerst: **Kam? Kje? Kdaj? Po kaj?** Die Frage sagt den Fall.",
+    "it": "Alcune preposizioni hanno due casi, e il caso cambia il significato. L'accusativo è per lo più verso dove (**Kam?**), l'altro caso dove (**Kje?**).\n\n- **v, na**: **v gozd** (kam) · **v gozdu** (kje). Per il tempo l'accusativo: **v soboto**, **dvakrat na teden** (due volte alla settimana).\n- **pod, nad, pred, za, med**: **pod stol** (kam) · **pod stolom** (kje). Con un femminile in -a si somigliano: **pod mizo** e **pod mizo**; il maschile lo mostra.\n- **po** + accusativo: andare a prendere: **grem po kruh**, **po zdravnika**. + locativo: in giro, lungo, dopo: **po vasi**, **po kosilu**.\n- **ob** + locativo: presso, a un'ora: **ob potoku**, **ob petih**. + accusativo: contro, e perdere: **z glavo ob zid**, **krava je ob mleko** (la mucca ha perso il latte).\n- **za** + accusativo: per chi, per quanto: **za babico**, **za en teden**. + strumentale: dietro, dopo: **za hišo**, **eden za drugim**.\n- **pred, med** + strumentale per il tempo: **pred tednom** (una settimana fa), **med kosilom** (durante il pranzo).\n\nFai prima la domanda: **Kam? Kje? Kdaj? Po kaj?** Ti dice il caso."
+  },
+  "table": {
+    "head": [
+      { "sl": "predlog", "en": "preposition", "de": "Präposition", "it": "preposizione" },
+      { "sl": "+ tožilnik", "en": "+ accusative", "de": "+ Akkusativ", "it": "+ accusativo" },
+      { "sl": "+ mestnik ali orodnik", "en": "+ locative or instrumental", "de": "+ Lokativ oder Instrumental", "it": "+ locativo o strumentale" }
+    ],
+    "rows": [
+      ["v, na", "v gozd, na travnik (kam?)", "v gozdu, na travniku (kje?)"],
+      ["v, na: čas", "v soboto, dvakrat na teden", "—"],
+      ["pod, nad, pred, za, med", "pod stol, za hlev (kam?)", "pod stolom, za hlevom (kje?)"],
+      ["po", "po kruh, po zdravnika (po kaj?)", "po vasi, po kosilu (po čem?)"],
+      ["ob", "ob zid, ob mleko (ob kaj?)", "ob potoku, ob petih (kje? kdaj?)"],
+      ["za", "za babico, za en teden (za koga? za koliko?)", "za hišo, eden za drugim (za čim?)"],
+      ["pred, med: čas", "—", "pred tednom, med kosilom (kdaj?)"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Muri je skočil pod stol in zdaj spi pod stolom.",
+      "en": "Muri jumped under the chair and now sleeps under the chair.",
+      "de": "Muri ist unter den Stuhl gesprungen und schläft jetzt unter dem Stuhl.",
+      "it": "Muri è saltato sotto la sedia e ora dorme sotto la sedia.",
+      "note": {
+        "en": "Kam? pod stol, the accusative. Kje? pod stolom, the instrumental.",
+        "de": "Kam? pod stol, der Akkusativ. Kje? pod stolom, der Instrumental.",
+        "it": "Kam? pod stol, l'accusativo. Kje? pod stolom, lo strumentale."
+      }
+    },
+    {
+      "sl": "Babica je poslala Nejca v trgovino po kruh.",
+      "en": "Granny sent Nejc to the shop for bread.",
+      "de": "Oma hat Nejc in den Laden geschickt, um Brot zu holen.",
+      "it": "La nonna ha mandato Nejc al negozio a prendere il pane.",
+      "note": { "en": "po + the accusative: to fetch it.", "de": "po + Akkusativ: etwas holen.", "it": "po + accusativo: andare a prenderlo." }
+    },
+    {
+      "sl": "Po kosilu smo se sprehodili po vasi.",
+      "en": "After lunch we took a walk round the village.",
+      "de": "Nach dem Mittagessen sind wir durchs Dorf spaziert.",
+      "it": "Dopo pranzo abbiamo fatto una passeggiata per il paese.",
+      "note": {
+        "en": "po + the locative: after (po kosilu), around (po vasi).",
+        "de": "po + Lokativ: nach (po kosilu), herum (po vasi).",
+        "it": "po + locativo: dopo (po kosilu), in giro (po vasi)."
+      }
+    },
+    {
+      "sl": "Ob potoku stoji stara vrba.",
+      "en": "An old willow stands by the stream.",
+      "de": "Am Bach steht eine alte Weide.",
+      "it": "Presso il ruscello c'è un vecchio salice."
+    },
+    {
+      "sl": "Tone je s pestjo udaril ob mizo.",
+      "en": "Tone banged his fist on the table.",
+      "de": "Tone hat mit der Faust auf den Tisch geschlagen.",
+      "it": "Tone ha battuto il pugno sul tavolo.",
+      "note": { "en": "ob + the accusative: against something.", "de": "ob + Akkusativ: gegen etwas.", "it": "ob + accusativo: contro qualcosa." }
+    },
+    {
+      "sl": "Gostje so prihajali eden za drugim.",
+      "en": "The guests came one after another.",
+      "de": "Die Gäste kamen einer nach dem anderen.",
+      "it": "Gli ospiti arrivavano uno dopo l'altro."
+    },
+    {
+      "sl": "France gre v mesto za dva dni.",
+      "en": "France is going to town for two days.",
+      "de": "France fährt für zwei Tage in die Stadt.",
+      "it": "France va in città per due giorni."
+    },
+    {
+      "sl": "Marko se je vrnil iz Trsta pred tednom.",
+      "en": "Marko came back from Trieste a week ago.",
+      "de": "Marko ist vor einer Woche aus Triest zurückgekommen.",
+      "it": "Marko è tornato da Trieste una settimana fa."
+    }
+  ],
+  "modules": [],
+  "tags": ["two_case_prepositions", "prepositions_two_cases", "po_accusative", "ob_accusative", "za_instrumental", "kam_kje"],
+  "see": ["kam-tozilnik", "kje-mestnik-orodnik", "orodnik", "mestnik", "kdaj-cas", "cas-izrazi"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; uses checked against SSKJ2 (fran.si: po, ob, za) 2026-11-01; not reviewed by a native speaker",
+  "card": {
+    "title": { "sl": "Predlogi z dvema skloma", "en": "Prepositions with two cases", "de": "Präpositionen mit zwei Fällen", "it": "Preposizioni con due casi" },
+    "rule": {
+      "en": "The accusative for **Kam?** and what you go for (**pod stol**, **po kruh**, **ob zid**, **za babico**), the locative or instrumental for **Kje?** (**pod stolom**, **po vasi**, **ob potoku**, **za hišo**).",
+      "de": "Akkusativ für **Kam?** und das, was man holt (**pod stol**, **po kruh**, **ob zid**, **za babico**), Lokativ oder Instrumental für **Kje?** (**pod stolom**, **po vasi**, **ob potoku**, **za hišo**).",
+      "it": "L'accusativo per **Kam?** e per ciò che vai a prendere (**pod stol**, **po kruh**, **ob zid**, **za babico**), il locativo o lo strumentale per **Kje?** (**pod stolom**, **po vasi**, **ob potoku**, **za hišo**)."
+    },
+    "table": {
+      "head": [
+        { "sl": "predlog", "en": "preposition", "de": "Präposition", "it": "preposizione" },
+        { "sl": "+ tožilnik", "en": "+ accusative", "de": "+ Akkusativ", "it": "+ accusativo" },
+        { "sl": "+ mestnik, orodnik", "en": "+ locative, instrumental", "de": "+ Lokativ, Instrumental", "it": "+ locativo, strumentale" }
+      ],
+      "rows": [["pod, za …", "pod stol", "pod stolom"], ["po", "po kruh", "po vasi"], ["ob", "ob zid", "ob potoku"], ["za", "za babico", "za hišo"]]
+    },
+    "examples": [
+      {
+        "sl": "Muri je skočil pod stol in zdaj spi pod stolom.",
+        "en": "Muri jumped under the chair and now sleeps under the chair.",
+        "de": "Muri ist unter den Stuhl gesprungen und schläft jetzt unter dem Stuhl.",
+        "it": "Muri è saltato sotto la sedia e ora dorme sotto la sedia."
+      },
+      {
+        "sl": "Babica je poslala Nejca v trgovino po kruh.",
+        "en": "Granny sent Nejc to the shop for bread.",
+        "de": "Oma hat Nejc in den Laden geschickt, um Brot zu holen.",
+        "it": "La nonna ha mandato Nejc al negozio a prendere il pane."
+      }
+    ],
+    "tip": {
+      "en": "💡 **Pod mizo** can be both: ask **Kam?** or **Kje?**, and try it with **stol**: **pod stol**, **pod stolom**.",
+      "de": "💡 **Pod mizo** kann beides sein: frag **Kam?** oder **Kje?**, und probier es mit **stol**: **pod stol**, **pod stolom**.",
+      "it": "💡 **Pod mizo** può essere tutti e due: chiedi **Kam?** o **Kje?**, e prova con **stol**: **pod stol**, **pod stolom**."
+    }
+  }
+}
