@@ -11,7 +11,8 @@ import si.lanisce.lani.l10n.LangPair
 
 /**
  * Grading per target language (resources/grading/<code>.json): Italian's accents and apostrophes, German's umlauts,
- * English's contractions, with answers a learner really types.
+ * English's contractions, British and American spellings and the plural's and numbers' known mistakes, with answers a learner
+ * really types.
  */
 class GradingLanguagesTest {
     private fun it(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.IT)
@@ -420,9 +421,189 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, en("let's go", "Let us go."))
     }
 
+    @Test fun `an english long word's ending is its last letter, so a slip just before it is a slip`() {
+        // English's ending_letters 1: a slip in the last two letters of a word over five letters is forgiven
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("usualy", "usually"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("walkd", "walked"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("thirten", "thirteen"))
+        // the ending itself stays the ending: -s, -ed, -ing, a plural
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("dogs", "dog"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("dog", "dogs"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("walk", "walks"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("walks", "walked"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("walked", "walks"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("listen", "listens"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("horse", "horses"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("sittin", "sitting"))
+        // the paired known mistakes stay wrong, potatos and tomatos too (one letter before the s)
+        for ((typed, right) in listOf("potatos" to "potatoes", "tomatos" to "tomatoes", "siting" to "sitting", "makeing" to "making", "nineth" to "ninth", "where" to "were", "fourty" to "forty", "familys" to "families")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // the other languages keep two letters: Slovene's -ega, Italian's -ano
+        assertEquals(1, Spelling.of(Lang.EN).endingLetters)
+        assertEquals(2, Spelling.of(Lang.SL).endingLetters)
+        assertEquals(2, Spelling.of(Lang.IT).endingLetters)
+        assertEquals(2, Spelling.of(Lang.DE).endingLetters)
+    }
+
+    @Test fun `an english contraction without its apostrophe is almost, a word of its own stays wrong`() {
+        // a phone keyboard hides the apostrophe: almost, with the hint, never right
+        for ((typed, right) in listOf("cant" to "can't", "isnt" to "isn't", "I dont know" to "I don't know.", "Im here" to "I'm here.", "youre late" to "you're late",
+            "theyve got a dog" to "They've got a dog.", "wont" to "won't", "Jack wasnt there" to "Jack wasn't there.", "hes got a cat" to "He's got a cat.", "wheres Meg" to "Where's Meg?")) {
+            val r = en(typed, right)
+            assertEquals("$typed for $right", Verdict.ALMOST to Hint.APOSTROPHE, r.verdict to r.hint)
+        }
+        // a word of its own is another word: were and we're, its and it's, each wrong for the other
+        assertEquals(Verdict.WRONG, en("were", "we're").verdict)
+        assertEquals(Verdict.WRONG, en("We're at home.", "We were at home.").verdict)
+        assertEquals(Verdict.WRONG, en("Were at home", "We're at home.").verdict)
+        assertEquals(Verdict.WRONG, en("its", "it's").verdict)
+        assertEquals(Verdict.WRONG, en("Its raining", "It's raining.").verdict)
+        assertEquals(Verdict.WRONG, en("lets go", "Let's go.").verdict)
+        // with the apostrophe, or in full, it stays right
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("can't", "can't"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("cannot", "can't"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("can not", "can't"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("The dog wags its tail", "The dog wags its tail."))
+        assertEquals(Hint.APOSTROPHE, Spelling.of(Lang.EN).looseHint)
+    }
+
     @Test fun `english has no letters to fold`() {
         assertEquals(Verdict.WRONG, en("I do know", "I don't know.").verdict)
         assertEquals("café", Grading.fold("Café", Lang.EN))
+    }
+
+    @Test fun `english have got's 's is has, a name's 's before a place is is, and a possessive stays one`() {
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("He's got a dog", "He has got a dog."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("she has got two sheep", "She's got two sheep."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("Jack's got a dog called Meg", "Jack has got a dog called Meg."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("It's got four legs", "It has got four legs."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("I've got a cold", "I have got a cold."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("They haven't got a car", "They have not got a car."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("Mrs Birkett hasn't got time", "Mrs Birkett has not got time."))
+        // has and is apart: she's got is never she is got
+        assertEquals(Verdict.WRONG, en("She is got a cat", "She's got a cat.").verdict)
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("She's a teacher", "She is a teacher."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("Jack's at home", "Jack is at home."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("Mrs Hartley's not here", "Mrs Hartley is not here."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("Edna's my aunt", "Edna is my aunt."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("How's Granny Maggie", "How is Granny Maggie?"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("I'd like a cup of tea", "I would like a cup of tea."))
+        // a possessive before its noun stays a possessive: Jack's dog is never Jack is dog
+        assertEquals(Verdict.WRONG, en("Jack is dog", "Jack's dog.").verdict)
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("Jack's dog is Meg", "Jack's dog is Meg."))
+    }
+
+    @Test fun `english numbers with or without the hyphen, and the american hundred without its and`() {
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("twenty one", "twenty-one"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("Ninety-nine sheep", "ninety nine sheep"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("a hundred five", "a hundred and five"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("one hundred twenty-three", "one hundred and twenty-three"))
+        // the words themselves stay apart
+        assertEquals(Verdict.WRONG, en("thirteen", "thirty").verdict)
+        assertEquals(Verdict.WRONG, en("fifty", "fifteen").verdict)
+        assertEquals(Verdict.WRONG, en("twenty", "twenty-one").verdict)
+    }
+
+    @Test fun `the american spelling is right beside the british`() {
+        for ((us, uk) in listOf(
+            "color" to "colour", "colors" to "colours", "colorful" to "colourful", "favorite" to "favourite",
+            "my neighbor" to "my neighbour", "the neighborhood" to "the neighbourhood", "flavor" to "flavour",
+            "harbor" to "harbour", "behavior" to "behaviour", "the center" to "the centre", "a hundred meters" to "a hundred metres",
+            "a liter of milk" to "a litre of milk", "the theater" to "the theatre", "gray" to "grey", "my mom" to "my mum",
+            "traveling" to "travelling", "a traveler" to "a traveller", "pajamas" to "pyjamas", "jewelry" to "jewellery",
+            "cozy" to "cosy", "the plow" to "the plough", "math" to "maths", "a dialog" to "a dialogue",
+            "a TV program" to "a TV programme", "I realize" to "I realise", "organized" to "organised", "practicing" to "practising",
+        )) {
+            assertGraded(Verdict.CORRECT, Hint.NONE, en(us, uk))
+            assertGraded(Verdict.CORRECT, Hint.NONE, en(uk, uk))
+        }
+        // what only looks like one stays as it is: for, door, laboratory, humorous, error, major, mommy's own word
+        assertEquals("for the door", Grading.canonical("for the door", Lang.EN))
+        assertEquals("the laboratory is humorous", Grading.canonical("the laboratory is humorous", Lang.EN))
+        assertEquals("an error a major a litter", Grading.canonical("an error a major a litter", Lang.EN))
+        assertEquals("a moment", Grading.canonical("a moment", Lang.EN))
+    }
+
+    @Test fun `an english plural's known mistakes are wrong, only for a noun of their group`() {
+        // -es after x, z, ch, sh, ss; -ves; women; else forgiven as a slip in the stem
+        assertEquals(Verdict.WRONG, en("boxs", "boxes").verdict)
+        assertEquals(Verdict.WRONG, en("two churchs", "two churches").verdict)
+        assertEquals(Verdict.WRONG, en("the glasss", "the glasses").verdict)
+        assertEquals(Verdict.WRONG, en("buss", "buses").verdict)
+        assertEquals(Verdict.WRONG, en("knifes", "knives").verdict)
+        assertEquals(Verdict.WRONG, en("wifes", "wives").verdict)
+        assertEquals(Verdict.WRONG, en("two woman", "two women").verdict)
+        assertEquals(Verdict.WRONG, en("one women", "one woman").verdict)
+        // the irregular ones were wrong already: an ending, or too far
+        for ((typed, right) in listOf("sheeps" to "sheep", "mans" to "men", "childs" to "children", "childrens" to "children", "foots" to "feet", "mouses" to "mice", "tooths" to "teeth", "potatos" to "potatoes", "familys" to "families", "leafs" to "leaves", "calfs" to "calves", "dog" to "dogs")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // a slip in the stem stays a slip, on these nouns and on the others: boxes, horses, houses, gloves, the shepherd
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("bxoes", "boxes"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("hroses", "horses"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("hosues", "houses"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("glofes", "gloves"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("the shepehrd", "the shepherd"))
+    }
+
+    @Test fun `an english number's spelling mistakes are wrong, its slips forgiven`() {
+        assertEquals(Verdict.WRONG, en("fourty", "forty").verdict)
+        assertEquals(Verdict.WRONG, en("forteen", "fourteen").verdict)
+        assertEquals(Verdict.WRONG, en("ninty", "ninety").verdict)
+        assertEquals(Verdict.WRONG, en("ninteen", "nineteen").verdict)
+        assertEquals(Verdict.WRONG, en("for sheep", "four sheep").verdict)
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("sevan", "seven"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("thrity", "thirty"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("sevneteen", "seventeen"))
+        // for stays for where four isn't the answer
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("a present for you", "a present for you"))
+    }
+
+    @Test fun `this and that's plurals and the present simple's spelling mistakes are wrong, their slips forgiven`() {
+        // these and those one letter apart: near or far, never a slip
+        assertEquals(Verdict.WRONG, en("those sheep", "these sheep").verdict)
+        assertEquals(Verdict.WRONG, en("These are my boots", "Those are my boots.").verdict)
+        assertEquals(Verdict.WRONG, en("this", "these").verdict)
+        assertEquals(Verdict.WRONG, en("that", "this").verdict)
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("thsee", "these"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("tohse", "those"))
+        // -es after o, -ies after a consonant: the rule the present simple teaches (and a plural's babies)
+        for ((typed, right) in listOf("she gos" to "she goes", "Jack dos" to "Jack does", "it flyes" to "it flies", "he carryes" to "he carries", "Poppy studyes" to "Poppy studies", "two babyes" to "two babies", "she tryes" to "she tries")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // the third person's -s and -es were wrong already: an ending, or the -es rule after ch, sh, x
+        for ((typed, right) in listOf("Jack walk" to "Jack walks", "I walks" to "I walk", "she watchs" to "she watches", "he fixs" to "he fixes", "it flys" to "it flies", "she haves" to "she has", "he playes" to "he plays")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // a slip in the stem stays a slip
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("Jack wlaks", "Jack walks"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("she wtaches", "she watches"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("He doesn't know", "He does not know."))
+    }
+
+    @Test fun `an english -ing form's spelling mistakes, an ordinal's and were for where are wrong, their slips forgiven`() {
+        // the consonant not doubled, the silent e kept, a consonant doubled that isn't: the rule, never a slip
+        for ((typed, right) in listOf("siting" to "sitting", "runing" to "running", "swiming" to "swimming", "geting" to "getting", "shoping" to "shopping",
+            "makeing" to "making", "comeing" to "coming", "writeing" to "writing", "takeing" to "taking", "haveing" to "having", "writting" to "writing", "comming" to "coming")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en("Jack is $typed", "Jack is $right").verdict)
+        }
+        // the ordinals' and were, where: each only for its own word
+        for ((typed, right) in listOf("nineth" to "ninth", "eigth" to "eighth", "twelth" to "twelfth", "fith" to "fifth", "fivth" to "fifth", "twentyth" to "twentieth", "thirtyth" to "thirtieth", "fourtieth" to "fortieth", "where" to "were", "were" to "where")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // an ordinal from 21 to 99 with or without its hyphen, as a number
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("on the twenty first of May", "on the twenty-first of May"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("the thirty-first", "the thirty first"))
+        // a slip elsewhere in the word stays one, on these verbs and on the others
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("sittting", "sitting"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("siwmming", "swimming"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("wlaking", "walking"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("eihgth", "eighth"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("Wendesday", "Wednesday"))
+        // a right word with the same letters is right (seeing); hoping for hopping is the rule's mistake too
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("We are seeing Jack", "We are seeing Jack"))
+        assertGraded(Verdict.WRONG, Hint.NONE, en("hoping", "hopping"))
     }
 
     // --- the pair's target is the default -----------------------------------------------------------------------------

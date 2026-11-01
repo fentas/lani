@@ -1,0 +1,692 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "there-is",
+  "language": "en",
+  "level": "A1",
+  "emoji": "✨",
+  "title": {
+    "en": "There is, there are",
+    "de": "Es gibt: there is, there are",
+    "sl": "Je, so: there is, there are",
+    "it": "C'è, ci sono: there is, there are"
+  },
+  "goal": {
+    "sl": "Poveš, kaj nekje je in česa ni (there's a …, there are …, there isn't a …, there aren't any …), vprašaš Is there …? Are there any …? s kratkimi odgovori in ločiš there is od it is.",
+    "de": "Du sagst, was es irgendwo gibt und was nicht (there's a …, there are …, there isn't a …, there aren't any …), fragst Is there …? Are there any …? mit Kurzantworten und hältst there is und it is auseinander.",
+    "it": "Dici che cosa c'è da qualche parte e che cosa non c'è (there's a …, there are …, there isn't a …, there aren't any …), chiedi Is there …? Are there any …? con le risposte brevi e distingui there is da it is.",
+    "en": "You can say what there is somewhere and what there isn't (there's a …, there are …, there isn't a …, there aren't any …), ask Is there …? Are there any …? with short answers, and tell there is from it is."
+  },
+  "grammar": ["there-is-are", "plurals"],
+  "words": [
+    "there is",
+    "any",
+    "some",
+    "how many",
+    "tent",
+    "bridge",
+    "beck",
+    "tarn",
+    "shop",
+    "milk",
+    "tea",
+    "egg",
+    "cloud",
+    "star",
+    "fish",
+    "bus",
+    "horse",
+    "pony",
+    "hut",
+    "bed",
+    "fire",
+    "water",
+    "lamb",
+    "cow",
+    "boat",
+    "lake",
+    "bench",
+    "phone",
+    "square",
+    "table",
+    "jug",
+    "stone",
+    "wall",
+    "cat"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "oblika", "de": "Form", "it": "forma", "en": "form" },
+        { "sl": "ena stvar", "de": "eine Sache", "it": "una cosa", "en": "one" },
+        { "sl": "več stvari", "de": "mehrere", "it": "più cose", "en": "more than one" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Ko poveš, da nekaj nekje je, angleščina začne s **there**: **there is**, kratko **there's**, za eno stvar in za tisto, česar ne šteješ (čaj, mleko), **there are** za več: **There's a tent by the tarn.** (Ob jezercu je šotor.) **There are two tents by the tarn.** (Ob jezercu sta dva šotora.) **There are a lot of sheep on the fell.** (Na hribu je veliko ovc.)",
+          "de": "Um zu sagen, dass es etwas irgendwo gibt, beginnt das Englische mit **there**: **there is**, kurz **there's**, für eine Sache und für das, was man nicht zählt (Tee, Milch), **there are** für mehrere: **There's a tent by the tarn.** (Am Bergsee steht ein Zelt.) **There are two tents by the tarn.** (Am Bergsee stehen zwei Zelte.) **There are a lot of sheep on the fell.** (Am Berg gibt es viele Schafe.)",
+          "it": "Per dire che qualcosa c'è, l'inglese comincia con **there**: **there is**, breve **there's**, per una cosa e per ciò che non si conta (il tè, il latte), **there are** per più cose: **There's a tent by the tarn.** (C'è una tenda vicino al laghetto.) **There are two tents by the tarn.** (Ci sono due tende vicino al laghetto.) **There are a lot of sheep on the fell.** (Sul monte ci sono tante pecore.)",
+          "en": "To say that something is somewhere, English starts with **there**: **there is**, short **there's**, for one thing and for what you don't count (tea, milk), **there are** for more: **There's a tent by the tarn.** **There are two tents by the tarn.** **There are a lot of sheep on the fell.**"
+        },
+        "examples": [
+          {
+            "en": "There's an old bridge over the beck.",
+            "sl": "Čez potok je star most.",
+            "de": "Über den Bach führt eine alte Brücke.",
+            "it": "Sul ruscello c'è un vecchio ponte."
+          },
+          {
+            "en": "There's tea in the pot.",
+            "sl": "V čajniku je čaj.",
+            "de": "In der Kanne ist Tee.",
+            "it": "Nella teiera c'è il tè."
+          },
+          {
+            "en": "There are a lot of stars tonight.",
+            "sl": "Nocoj je veliko zvezd.",
+            "de": "Heute Nacht gibt es viele Sterne.",
+            "it": "Stanotte ci sono tante stelle."
+          }
+        ],
+        "rows": [[{ "sl": "da", "de": "ja", "it": "sì", "en": "yes" }, "There's a tent.", "There are two tents."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "there-is-are",
+          "prompt": "___ two horses in the field.",
+          "options": ["There are", "There is", "It is"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**two horses: več → there are**\n- There's a horse. · There are two horses.",
+            "de": "**two horses: mehrere → there are**\n- There's a horse. · There are two horses.",
+            "it": "**two horses: più cose → there are**\n- There's a horse. · There are two horses.",
+            "en": "**two horses: more than one → there are**\n- There's a horse. · There are two horses."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za zanikanje gre **not** za is ali are: **there isn't** + a ali an, pri več stvareh **there aren't** + **any** (nobenih): **There isn't a shop in the village.** (V vasi ni trgovine.) **There aren't any shops.** (Trgovin ni.) Tudi pri tem, česar ne šteješ: **There isn't any milk.** (Mleka ni.)",
+          "de": "Für nein kommt **not** nach is oder are: **there isn't** + a oder an, bei mehreren **there aren't** + **any** (keine): **There isn't a shop in the village.** (Im Dorf gibt es keinen Laden.) **There aren't any shops.** (Es gibt keine Läden.) Auch bei dem, was man nicht zählt: **There isn't any milk.** (Es gibt keine Milch.)",
+          "it": "Per dire di no, **not** va dopo is o are: **there isn't** + a o an, con più cose **there aren't** + **any** (nessuno): **There isn't a shop in the village.** (In paese non c'è un negozio.) **There aren't any shops.** (Non ci sono negozi.) Anche con ciò che non si conta: **There isn't any milk.** (Non c'è latte.)",
+          "en": "For no, **not** goes after is or are: **there isn't** + a or an, with more **there aren't** + **any**: **There isn't a shop in the village.** **There aren't any shops.** And with what you don't count: **There isn't any milk.**"
+        },
+        "examples": [
+          {
+            "en": "There isn't a shop in the village.",
+            "sl": "V vasi ni trgovine.",
+            "de": "Im Dorf gibt es keinen Laden.",
+            "it": "In paese non c'è un negozio."
+          },
+          {
+            "en": "There aren't any clouds today.",
+            "sl": "Danes ni oblakov.",
+            "de": "Heute gibt es keine Wolken.",
+            "it": "Oggi non ci sono nuvole."
+          },
+          {
+            "en": "There isn't any milk, but there's some honey.",
+            "sl": "Mleka ni, je pa nekaj medu.",
+            "de": "Es gibt keine Milch, aber etwas Honig.",
+            "it": "Non c'è latte, ma c'è un po' di miele."
+          }
+        ],
+        "rows": [["not", "There isn't a shop.", "There aren't any shops."]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "there-is-are",
+          "text": "There ___ any clouds over the fell today. (not)",
+          "accept": ["aren't"],
+          "hint": "are + not",
+          "explain": {
+            "sl": "**clouds: več → there aren't any**\n- There isn't a cloud. · There aren't any clouds.",
+            "de": "**clouds: mehrere → there aren't any**\n- There isn't a cloud. · There aren't any clouds.",
+            "it": "**clouds: più cose → there aren't any**\n- There isn't a cloud. · There aren't any clouds.",
+            "en": "**clouds: more than one → there aren't any**\n- There isn't a cloud. · There aren't any clouds."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za vprašanje zamenjaj **there** in is ali are: **Is there a shop?** (Je tu kaka trgovina?) **Are there any fish in the tarn?** (So v jezercu ribe?) V vprašanju je **any**. Kratki odgovori: **Yes, there is.** **No, there isn't.** **Yes, there are.** **No, there aren't.** Nikoli *Yes, there's*.",
+          "de": "Für die Frage tauschen **there** und is oder are den Platz: **Is there a shop?** (Gibt es hier einen Laden?) **Are there any fish in the tarn?** (Gibt es Fische im Bergsee?) In der Frage steht **any**. Die Kurzantworten: **Yes, there is.** **No, there isn't.** **Yes, there are.** **No, there aren't.** Nie *Yes, there's*.",
+          "it": "Per chiedere, **there** e is o are si scambiano di posto: **Is there a shop?** (C'è un negozio?) **Are there any fish in the tarn?** (Ci sono pesci nel laghetto?) Nella domanda c'è **any**. Le risposte brevi: **Yes, there is.** **No, there isn't.** **Yes, there are.** **No, there aren't.** Mai *Yes, there's*.",
+          "en": "To ask, **there** and is or are change places: **Is there a shop?** **Are there any fish in the tarn?** A question takes **any**. The short answers: **Yes, there is.** **No, there isn't.** **Yes, there are.** **No, there aren't.** Never *Yes, there's*."
+        },
+        "examples": [
+          {
+            "en": "Is there a bus to Keswick? — Yes, there is.",
+            "sl": "Je kak avtobus do Keswicka? — Ja.",
+            "de": "Gibt es einen Bus nach Keswick? — Ja.",
+            "it": "C'è un autobus per Keswick? — Sì."
+          },
+          {
+            "en": "Are there any fish in the tarn? — No, there aren't.",
+            "sl": "So v jezercu ribe? — Ne.",
+            "de": "Gibt es Fische im Bergsee? — Nein.",
+            "it": "Ci sono pesci nel laghetto? — No."
+          }
+        ],
+        "rows": [["?", "Is there a shop? — Yes, there is.", "Are there any fish? — No, there aren't."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "there-is-are",
+          "prompt": "Is there a phone at the inn? — Yes, ___",
+          "options": ["there is.", "it is.", "there's."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor: Yes, there is., brez okrajšave**\n- Yes, there is. · No, there isn't.",
+            "de": "**Die Kurzantwort: Yes, there is., nicht kurz**\n- Yes, there is. · No, there isn't.",
+            "it": "**La risposta breve: Yes, there is., senza abbreviare**\n- Yes, there is. · No, there isn't.",
+            "en": "**The short answer: Yes, there is., never short**\n- Yes, there is. · No, there isn't."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**How many** (koliko) vpraša po številu, s samostalnikom v množini: **How many sheep are there on the fell?** (Koliko ovc je na hribu?) **There are three hundred.** (Tristo.) Pri več stvareh v trdilnem stavku je pogosto **some** (nekaj): **There are some eggs in the kitchen.** (V kuhinji je nekaj jajc.)",
+          "de": "**How many** (wie viele) fragt nach der Zahl, mit dem Nomen im Plural: **How many sheep are there on the fell?** (Wie viele Schafe gibt es am Berg?) **There are three hundred.** (Dreihundert.) Bei mehreren steht im bejahten Satz oft **some** (ein paar): **There are some eggs in the kitchen.** (In der Küche sind ein paar Eier.)",
+          "it": "**How many** (quanti) chiede il numero, con il nome al plurale: **How many sheep are there on the fell?** (Quante pecore ci sono sul monte?) **There are three hundred.** (Trecento.) Con più cose, nella frase affermativa c'è spesso **some** (qualche, un po' di): **There are some eggs in the kitchen.** (In cucina ci sono delle uova.)",
+          "en": "**How many** asks for the number, with the noun in the plural: **How many sheep are there on the fell?** **There are three hundred.** With more than one, a yes sentence often has **some**: **There are some eggs in the kitchen.**"
+        },
+        "examples": [
+          {
+            "en": "How many sheep are there on the fell? — There are three hundred.",
+            "sl": "Koliko ovc je na hribu? — Tristo.",
+            "de": "Wie viele Schafe gibt es am Berg? — Dreihundert.",
+            "it": "Quante pecore ci sono sul monte? — Trecento."
+          },
+          {
+            "en": "There are some eggs in the kitchen.",
+            "sl": "V kuhinji je nekaj jajc.",
+            "de": "In der Küche sind ein paar Eier.",
+            "it": "In cucina ci sono delle uova."
+          },
+          {
+            "en": "How many tables are there at the inn?",
+            "sl": "Koliko miz je v gostilni?",
+            "de": "Wie viele Tische gibt es im Gasthaus?",
+            "it": "Quanti tavoli ci sono alla locanda?"
+          }
+        ],
+        "rows": [["How many …? some", "—", "How many eggs are there? There are some eggs."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "there-is-are",
+          "prompt": "How many lambs ___ in the field?",
+          "options": ["are there", "there are", "is there"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vprašanje: are there, za how many in samostalnikom**\n- How many lambs are there?\n- There are six lambs.",
+            "de": "**Die Frage: are there, nach how many und dem Nomen**\n- How many lambs are there?\n- There are six lambs.",
+            "it": "**La domanda: are there, dopo how many e il nome**\n- How many lambs are there?\n- There are six lambs.",
+            "en": "**A question: are there, after how many and the noun**\n- How many lambs are there?\n- There are six lambs."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**there is** pove, da nekaj je; **it is** pove, kakšno je: **There's a bridge over the beck. It's very old.** (Čez potok je most. Zelo star je.) **There's a dog at the door. It's Meg!** (Pred vrati je pes. Meg je!) Ne *It's a bridge over the beck*, ko misliš, da most tam je.",
+          "de": "**there is** sagt, dass es etwas gibt; **it is** sagt, wie es ist: **There's a bridge over the beck. It's very old.** (Über den Bach führt eine Brücke. Sie ist sehr alt.) **There's a dog at the door. It's Meg!** (Vor der Tür ist ein Hund. Es ist Meg!) Für es gibt nie *It is* oder *It gives*.",
+          "it": "**there is** dice che una cosa c'è; **it is** dice com'è: **There's a bridge over the beck. It's very old.** (Sul ruscello c'è un ponte. È molto vecchio.) **There's a dog at the door. It's Meg!** (C'è un cane alla porta. È Meg!) Per c'è non si dice *It's*.",
+          "en": "**there is** says that something is there; **it is** says what it is like: **There's a bridge over the beck. It's very old.** **There's a dog at the door. It's Meg!** Not *It's a bridge over the beck* when you mean that a bridge is there."
+        },
+        "examples": [
+          {
+            "en": "There's a bridge over the beck. It's very old.",
+            "sl": "Čez potok je most. Zelo star je.",
+            "de": "Über den Bach führt eine Brücke. Sie ist sehr alt.",
+            "it": "Sul ruscello c'è un ponte. È molto vecchio."
+          },
+          {
+            "en": "There's a dog at the door. It's Meg!",
+            "sl": "Pred vrati je pes. Meg je!",
+            "de": "Vor der Tür ist ein Hund. Es ist Meg!",
+            "it": "C'è un cane alla porta. È Meg!"
+          },
+          {
+            "en": "There are two horses in the field. They're Mr Tyson's.",
+            "sl": "Na polju sta dva konja. Gospoda Tysona sta.",
+            "de": "Auf dem Feld sind zwei Pferde. Sie gehören Mr Tyson.",
+            "it": "Nel campo ci sono due cavalli. Sono del signor Tyson."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "there ali it", "de": "there oder it", "it": "there o it", "en": "there or it" },
+            "There's a bridge. It's old.",
+            "There are two horses. They're Mr Tyson's."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "there-is-are",
+          "prompt": "There's an inn on the square. ___ very old.",
+          "options": ["It's", "There's", "They're"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kakšna je gostilna: it is**\n- There's an inn. It's very old.",
+            "de": "**Wie das Gasthaus ist: it is**\n- There's an inn. It's very old.",
+            "it": "**Com'è la locanda: it is**\n- There's an inn. It's very old.",
+            "en": "**What the inn is like: it is**\n- There's an inn. It's very old."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**There's a tent.** · **There are two tents.** · **There's tea.** (česar ne šteješ)\n\n**There isn't a shop.** · **There aren't any shops.**\n\n**Is there a shop?** — **Yes, there is.** · **Are there any fish?** — **No, there aren't.**\n\n**How many sheep are there?** · **There are some eggs.**\n\n**There's a bridge. It's very old.** (there: da je; it: kakšno je)",
+      "de": "**There's a tent.** · **There are two tents.** · **There's tea.** (was man nicht zählt)\n\n**There isn't a shop.** · **There aren't any shops.**\n\n**Is there a shop?** — **Yes, there is.** · **Are there any fish?** — **No, there aren't.**\n\n**How many sheep are there?** · **There are some eggs.**\n\n**There's a bridge. It's very old.** (there: dass es da ist; it: wie es ist)",
+      "it": "**There's a tent.** · **There are two tents.** · **There's tea.** (ciò che non si conta)\n\n**There isn't a shop.** · **There aren't any shops.**\n\n**Is there a shop?** — **Yes, there is.** · **Are there any fish?** — **No, there aren't.**\n\n**How many sheep are there?** · **There are some eggs.**\n\n**There's a bridge. It's very old.** (there: che c'è; it: com'è)",
+      "en": "**There's a tent.** · **There are two tents.** · **There's tea.** (what you don't count)\n\n**There isn't a shop.** · **There aren't any shops.**\n\n**Is there a shop?** — **Yes, there is.** · **Are there any fish?** — **No, there aren't.**\n\n**How many sheep are there?** · **There are some eggs.**\n\n**There's a bridge. It's very old.** (there: that it is there; it: what it is like)"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "there-is-1",
+      "title": {
+        "sl": "Ena ali več?",
+        "de": "Eins oder mehrere?",
+        "it": "Una o più?",
+        "en": "There is, there are"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "there-is-are",
+          "instruction": {
+            "sl": "Sort · There's ali there are?",
+            "de": "Sort · There's oder there are?",
+            "it": "Sort · There's o there are?",
+            "en": "Sort"
+          },
+          "columns": [
+            { "label": "There's …", "words": ["a tent", "an old bridge", "milk", "a lot of tea"] },
+            { "label": "There are …", "words": ["two tents", "a lot of sheep", "some eggs", "ponies"] }
+          ],
+          "explain": {
+            "sl": "**Ena stvar ali česar ne šteješ: there's; več: there are**\n- There's milk. · There's a lot of tea.\n- There are a lot of sheep.",
+            "de": "**Eine Sache oder was man nicht zählt: there's; mehrere: there are**\n- There's milk. · There's a lot of tea.\n- There are a lot of sheep.",
+            "it": "**Una cosa o ciò che non si conta: there's; più cose: there are**\n- There's milk. · There's a lot of tea.\n- There are a lot of sheep.",
+            "en": "**One thing or what you don't count: there's; more: there are**\n- There's milk. · There's a lot of tea.\n- There are a lot of sheep."
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "there-is-are",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "a horse, two horses · konj, dva konja: da, ne, vprašanje",
+            "de": "a horse, two horses · ein Pferd, zwei Pferde: ja, nein, Frage",
+            "it": "a horse, two horses · un cavallo, due cavalli: sì, no, domanda",
+            "en": "a horse, two horses: yes, no, a question"
+          },
+          "columns": [
+            { "sl": "one · ena", "de": "one · eins", "it": "one · uno", "en": "one" },
+            { "sl": "more · več", "de": "more · mehrere", "it": "more · più", "en": "more than one" }
+          ],
+          "rows": [
+            {
+              "label": { "sl": "da", "de": "ja", "it": "sì", "en": "yes" },
+              "cells": ["There's a horse.", { "accept": ["There are two horses."] }]
+            },
+            {
+              "label": "not",
+              "cells": [
+                { "accept": ["There isn't a horse.", "There's no horse."] },
+                { "accept": ["There aren't any horses.", "There are no horses."], "hint": "any" }
+              ]
+            },
+            {
+              "label": "?",
+              "cells": [{ "accept": ["Is there a horse?"] }, { "accept": ["Are there any horses?", "Are there horses?"] }]
+            }
+          ],
+          "explain": {
+            "sl": "**there's, there isn't, Is there …? za eno; there are, there aren't any, Are there any …? za več**\n- There isn't a horse. · There aren't any horses.\n- Is there a horse? · Are there any horses?",
+            "de": "**there's, there isn't, Is there …? für eins; there are, there aren't any, Are there any …? für mehrere**\n- There isn't a horse. · There aren't any horses.\n- Is there a horse? · Are there any horses?",
+            "it": "**there's, there isn't, Is there …? per una cosa; there are, there aren't any, Are there any …? per più cose**\n- There isn't a horse. · There aren't any horses.\n- Is there a horse? · Are there any horses?",
+            "en": "**there's, there isn't, Is there …? for one; there are, there aren't any, Are there any …? for more**\n- There isn't a horse. · There aren't any horses.\n- Is there a horse? · Are there any horses?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "there-is-2",
+      "title": {
+        "sl": "V vasi",
+        "de": "Im Dorf",
+        "it": "In paese",
+        "en": "In the village"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "there-is-are",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "In our village there ___ an old inn on the square. In the inn there ___ a lot of tables by the fire. There ___ a smithy by the beck, but there ___ any shops. — ___ there a bus to Keswick? — Yes, there ___. Twice a day.",
+          "gaps": [
+            {
+              "accept": ["is"],
+              "hint": { "sl": "ena stvar", "de": "eine Sache", "it": "una cosa", "en": "one thing" }
+            },
+            {
+              "accept": ["are"],
+              "hint": { "sl": "več stvari", "de": "mehrere", "it": "più cose", "en": "more than one" }
+            },
+            { "accept": ["is"] },
+            { "accept": ["aren't"], "hint": "not + any" },
+            {
+              "accept": ["Is"],
+              "hint": { "sl": "vprašanje", "de": "eine Frage", "it": "una domanda", "en": "a question" }
+            },
+            {
+              "accept": ["is"],
+              "hint": {
+                "sl": "kratek odgovor",
+                "de": "die Kurzantwort",
+                "it": "la risposta breve",
+                "en": "the short answer"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["it", "has"],
+          "translation": {
+            "sl": "V naši vasi je na trgu stara gostilna. V gostilni je ob ognju veliko miz. Ob potoku je kovačnica, trgovin pa ni. — Je kak avtobus do Keswicka? — Ja. Dvakrat na dan.",
+            "de": "In unserem Dorf gibt es am Platz ein altes Gasthaus. Im Gasthaus stehen viele Tische am Feuer. Am Bach gibt es eine Schmiede, aber keine Läden. — Gibt es einen Bus nach Keswick? — Ja. Zweimal am Tag.",
+            "it": "Nel nostro paese c'è una vecchia locanda sulla piazza. Nella locanda ci sono tanti tavoli vicino al fuoco. Vicino al ruscello c'è una fucina, ma non ci sono negozi. — C'è un autobus per Keswick? — Sì. Due volte al giorno.",
+            "en": "In our village there is an old inn on the square. In the inn there are a lot of tables by the fire. There is a smithy by the beck, but there aren't any shops. — Is there a bus to Keswick? — Yes, there is. Twice a day."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "there-is-are",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Are there any fish in the tarn? — Yes, ___",
+          "options": ["there are.", "they are.", "there is."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Are there …? — Yes, there are.**\n- Is there …? — Yes, there is.",
+            "de": "**Are there …? — Yes, there are.**\n- Is there …? — Yes, there is.",
+            "it": "**Are there …? — Yes, there are.**\n- Is there …? — Yes, there is.",
+            "en": "**Are there …? — Yes, there are.**\n- Is there …? — Yes, there is."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "there-is-are",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "There's a cat on the wall. ___ Granny Maggie's.",
+          "options": ["It's", "There's", "There are"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Čigava je: it is**\n- There's a cat. It's Granny Maggie's.",
+            "de": "**Wem sie gehört: it is**\n- There's a cat. It's Granny Maggie's.",
+            "it": "**Di chi è: it is**\n- There's a cat. It's Granny Maggie's.",
+            "en": "**Whose it is: it is**\n- There's a cat. It's Granny Maggie's."
+          }
+        }
+      ]
+    },
+    {
+      "id": "there-is-3",
+      "title": {
+        "sl": "Ne in vprašanja",
+        "de": "Nein und Fragen",
+        "it": "No e domande",
+        "en": "No, and questions"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "there-is-are",
+          "instruction": {
+            "sl": "Say it with not · Povej z not",
+            "de": "Say it with not · Sag es mit not",
+            "it": "Say it with not · Dillo con not",
+            "en": "Say it with not"
+          },
+          "cue": "not",
+          "items": [
+            {
+              "from": "There's a shop in the village.",
+              "accept": ["There isn't a shop in the village.", "There's no shop in the village."]
+            },
+            {
+              "from": "There are clouds over the fell.",
+              "accept": [
+                "There aren't any clouds over the fell.",
+                "There are no clouds over the fell.",
+                "There aren't clouds over the fell."
+              ],
+              "hint": "any"
+            },
+            {
+              "from": "There's milk in the jug.",
+              "accept": ["There isn't any milk in the jug.", "There's no milk in the jug.", "There isn't milk in the jug."]
+            },
+            {
+              "from": "There are ponies on the green.",
+              "accept": [
+                "There aren't any ponies on the green.",
+                "There are no ponies on the green.",
+                "There aren't ponies on the green."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**there isn't + a, an; there aren't + any**\n- There's a shop. → There isn't a shop.\n- There are shops. → There aren't any shops.\n- prav tudi: There's no shop. There are no shops.",
+            "de": "**there isn't + a, an; there aren't + any**\n- There's a shop. → There isn't a shop.\n- There are shops. → There aren't any shops.\n- auch richtig: There's no shop. There are no shops.",
+            "it": "**there isn't + a, an; there aren't + any**\n- There's a shop. → There isn't a shop.\n- There are shops. → There aren't any shops.\n- giusto anche: There's no shop. There are no shops.",
+            "en": "**there isn't + a, an; there aren't + any**\n- There's a shop. → There isn't a shop.\n- There are shops. → There aren't any shops.\n- right too: There's no shop. There are no shops."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "there-is-are",
+          "instruction": {
+            "sl": "Ask · Postavi vprašanje",
+            "de": "Ask · Mach eine Frage",
+            "it": "Ask · Fai la domanda",
+            "en": "Ask"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "There's a bus to Keswick.",
+              "accept": ["Is there a bus to Keswick?"],
+              "hint": { "sl": "is na začetek", "de": "is nach vorn", "it": "is all'inizio", "en": "is first" }
+            },
+            {
+              "from": "There are fish in the tarn.",
+              "accept": ["Are there any fish in the tarn?", "Are there fish in the tarn?"]
+            },
+            { "from": "There's a phone at the inn.", "accept": ["Is there a phone at the inn?"] },
+            {
+              "from": "There are lambs on the fell.",
+              "accept": ["Are there any lambs on the fell?", "Are there lambs on the fell?"]
+            }
+          ],
+          "explain": {
+            "sl": "**is, are pred there; any v vprašanju**\n- There's a bus. → Is there a bus?\n- There are fish. → Are there any fish?",
+            "de": "**is, are vor there; any in der Frage**\n- There's a bus. → Is there a bus?\n- There are fish. → Are there any fish?",
+            "it": "**is, are prima di there; any nella domanda**\n- There's a bus. → Is there a bus?\n- There are fish. → Are there any fish?",
+            "en": "**is, are before there; any in a question**\n- There's a bus. → Is there a bus?\n- There are fish. → Are there any fish?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "there-is-are",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "On the fell there ___ a little stone hut. There ___ two beds in it, but there ___ a fire. — ___ there any water? — Yes, there ___: a beck. It's very cold!",
+        "gaps": [
+          { "accept": ["is"] },
+          { "accept": ["are"] },
+          { "accept": ["isn't"] },
+          { "accept": ["Is"] },
+          { "accept": ["is"] }
+        ],
+        "translation": {
+          "sl": "Na hribu je majhna kamnita koča. V njej sta dve postelji, ognjišča pa ni. — Je kaj vode? — Ja: potok. Zelo mrzel je!",
+          "de": "Am Berg gibt es eine kleine Steinhütte. Darin stehen zwei Betten, aber es gibt keine Feuerstelle. — Gibt es Wasser? — Ja: einen Bach. Er ist sehr kalt!",
+          "it": "Sul monte c'è una piccola baita di pietra. Dentro ci sono due letti, ma non c'è un camino. — C'è acqua? — Sì: un ruscello. È freddissimo!",
+          "en": "On the fell there is a little stone hut. There are two beds in it, but there isn't a fire. — Is there any water? — Yes, there is: a beck. It's very cold!"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "there-is-are",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          {
+            "from": "There are cows in the field.",
+            "accept": [
+              "There aren't any cows in the field.",
+              "There are no cows in the field.",
+              "There aren't cows in the field."
+            ]
+          },
+          {
+            "from": "There's a bench by the oak.",
+            "accept": ["There isn't a bench by the oak.", "There's no bench by the oak."]
+          }
+        ],
+        "explain": {
+          "sl": "**there isn't + a, an; there aren't + any**\n- There's a shop. → There isn't a shop.\n- There are shops. → There aren't any shops.\n- prav tudi: There's no shop. There are no shops.",
+          "de": "**there isn't + a, an; there aren't + any**\n- There's a shop. → There isn't a shop.\n- There are shops. → There aren't any shops.\n- auch richtig: There's no shop. There are no shops.",
+          "it": "**there isn't + a, an; there aren't + any**\n- There's a shop. → There isn't a shop.\n- There are shops. → There aren't any shops.\n- giusto anche: There's no shop. There are no shops.",
+          "en": "**there isn't + a, an; there aren't + any**\n- There's a shop. → There isn't a shop.\n- There are shops. → There aren't any shops.\n- right too: There's no shop. There are no shops."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "there-is-are",
+        "instruction": {
+          "sl": "Ask · Postavi vprašanje",
+          "de": "Ask · Mach eine Frage",
+          "it": "Ask · Fai la domanda",
+          "en": "Ask"
+        },
+        "cue": "?",
+        "items": [
+          { "from": "There's a smithy in the village.", "accept": ["Is there a smithy in the village?"] },
+          {
+            "from": "There are boats on the lake.",
+            "accept": ["Are there any boats on the lake?", "Are there boats on the lake?"]
+          }
+        ],
+        "explain": {
+          "sl": "**is, are pred there; any v vprašanju**\n- There's a bus. → Is there a bus?\n- There are fish. → Are there any fish?",
+          "de": "**is, are vor there; any in der Frage**\n- There's a bus. → Is there a bus?\n- There are fish. → Are there any fish?",
+          "it": "**is, are prima di there; any nella domanda**\n- There's a bus. → Is there a bus?\n- There are fish. → Are there any fish?",
+          "en": "**is, are before there; any in a question**\n- There's a bus. → Is there a bus?\n- There are fish. → Are there any fish?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "there-is-are",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "How many sheep ___ on the fell?",
+        "options": ["are there", "there are", "is there"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vprašanje: are there, za how many in samostalnikom**\n- How many sheep are there?",
+          "de": "**Die Frage: are there, nach how many und dem Nomen**\n- How many sheep are there?",
+          "it": "**La domanda: are there, dopo how many e il nome**\n- How many sheep are there?",
+          "en": "**A question: are there, after how many and the noun**\n- How many sheep are there?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "there-is-are",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "There are two dogs at the smithy. ___ Mr Dixon's.",
+        "options": ["They're", "There are", "It's"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Čigavi so: they are**\n- There are two dogs. They're Mr Dixon's.",
+          "de": "**Wem sie gehören: they are**\n- There are two dogs. They're Mr Dixon's.",
+          "it": "**Di chi sono: they are**\n- There are two dogs. They're Mr Dixon's.",
+          "en": "**Whose they are: they are**\n- There are two dogs. They're Mr Dixon's."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "there-is-are",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Is there a shop in the village? — No, ___",
+        "options": ["there isn't.", "it isn't.", "there aren't."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Is there …? — No, there isn't.**\n- Are there …? — No, there aren't.",
+          "de": "**Is there …? — No, there isn't.**\n- Are there …? — No, there aren't.",
+          "it": "**Is there …? — No, there isn't.**\n- Are there …? — No, there aren't.",
+          "en": "**Is there …? — No, there isn't.**\n- Are there …? — No, there aren't."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: There isn't milk beside any and no; spoken there's + a plural not taught; a fire in a hut"
+}

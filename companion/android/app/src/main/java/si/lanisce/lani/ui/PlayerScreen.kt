@@ -108,6 +108,7 @@ import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.Exercise
 import si.lanisce.lani.data.Grading
 import si.lanisce.lani.data.Grading.Verdict
+import si.lanisce.lani.data.Spelling
 import si.lanisce.lani.data.Grammar
 import si.lanisce.lani.data.Hints
 import si.lanisce.lani.data.Module
@@ -1583,7 +1584,8 @@ internal fun hintText(h: Grading.Hint): String? = when (h) {
     Grading.Hint.DIACRITICS -> bi("playerScreen.mind")
     Grading.Hint.ACCENT -> bi("playerScreen.mindAccents")
     Grading.Hint.UMLAUT -> bi("playerScreen.mindUmlauts")
-    Grading.Hint.APOSTROPHE -> bi("playerScreen.mindApostrophe")
+    // the examples are the target language's own (its grading table's): l'acqua, un'amica for Italian, can't, I'm for English
+    Grading.Hint.APOSTROPHE -> bi("playerScreen.mindApostrophe") + Spelling.of(L10n.pair.target).looseExamples?.let { ": $it" }.orEmpty()
     Grading.Hint.TYPO -> bi("playerScreen.looksLikeTypoSo")
     Grading.Hint.ENDING -> bi("playerScreen.checkEndingSloveneCarries")
 }

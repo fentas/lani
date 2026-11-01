@@ -1,0 +1,616 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "plurals",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🐑",
+  "title": {
+    "en": "One sheep, two sheep",
+    "de": "Ein Schaf, zwei Schafe: der Plural",
+    "sl": "Ena ovca, dve ovci: množina",
+    "it": "Una pecora, due pecore: il plurale"
+  },
+  "goal": {
+    "sl": "Poveš množino: dogs, boxes, ponies, knives in množine, ki se jih naučiš na pamet (men, women, children, feet, sheep), z glagolom v množini.",
+    "de": "Du sagst den Plural: dogs, boxes, ponies, knives und die Pluralformen, die du auswendig lernst (men, women, children, feet, sheep), mit dem Verb im Plural.",
+    "it": "Dici il plurale: dogs, boxes, ponies, knives e i plurali da imparare a memoria (men, women, children, feet, sheep), con il verbo al plurale.",
+    "en": "You can say more than one: dogs, boxes, ponies, knives, and the plurals to learn by heart (men, women, children, feet, sheep), with the verb in the plural."
+  },
+  "grammar": ["plurals", "articles"],
+  "words": [
+    "lamb",
+    "horse",
+    "box",
+    "bench",
+    "bus",
+    "dish",
+    "glass",
+    "potato",
+    "pony",
+    "berry",
+    "family",
+    "day",
+    "key",
+    "knife",
+    "loaf",
+    "calf",
+    "roof",
+    "man",
+    "woman",
+    "child",
+    "foot",
+    "tooth",
+    "mouse",
+    "person",
+    "people",
+    "sheep",
+    "fish",
+    "deer",
+    "mile",
+    "tarn",
+    "oven",
+    "sink",
+    "jam",
+    "farm",
+    "barn",
+    "gate",
+    "ripe",
+    "clean",
+    "lost"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "ena", "de": "eins", "it": "uno", "en": "one" },
+        { "sl": "več", "de": "mehr", "it": "più", "en": "more" },
+        { "sl": "kako", "de": "wie", "it": "come", "en": "how" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Za več stvari večina samostalnikov doda **-s**: a dog → **dogs** (psi), a lamb → **lambs** (jagnjeta), a horse → **horses** (konji). **the** ostane enak: **the dogs**. **a** nima množine: a dog → **dogs**. Dvojine ni: tudi dva sta **dogs**. Glagol gre z njimi: **The lambs are in the field.** (Jagnjeta so na polju.)",
+          "de": "Für mehrere hängen die meisten Nomen **-s** an: a dog → **dogs** (Hunde), a lamb → **lambs** (Lämmer), a horse → **horses** (Pferde). **the** bleibt gleich: **the dogs**. **a** hat keinen Plural: a dog → **dogs**. Das Verb geht mit: **The lambs are in the field.** (Die Lämmer sind auf der Weide.)",
+          "it": "Per più cose, la maggior parte dei nomi aggiunge **-s**: a dog → **dogs** (cani), a lamb → **lambs** (agnelli), a horse → **horses** (cavalli). **the** resta uguale: **the dogs**. **a** non ha plurale: a dog → **dogs**. Il verbo va con loro: **The lambs are in the field.** (Gli agnelli sono nel campo.)",
+          "en": "For more than one, most nouns add **-s**: a dog → **dogs**, a lamb → **lambs**, a horse → **horses**. **the** stays the same: **the dogs**. **a** has no plural: a dog → **dogs**. The verb goes with them: **The lambs are in the field.**"
+        },
+        "examples": [
+          {
+            "en": "Two dogs and three lambs.",
+            "sl": "Dva psa in tri jagnjeta.",
+            "de": "Zwei Hunde und drei Lämmer.",
+            "it": "Due cani e tre agnelli."
+          },
+          {
+            "en": "The horses are in the field.",
+            "sl": "Konji so na polju.",
+            "de": "Die Pferde sind auf der Weide.",
+            "it": "I cavalli sono nel campo."
+          }
+        ],
+        "rows": [["dog, lamb, horse", "dogs, lambs, horses", "+ -s"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "plurals",
+          "prompt": "Two ___ are in the field.",
+          "options": ["dogs", "dog", "a dogs"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Več kot eden: + -s**\n- a dog → two dogs",
+            "de": "**Mehr als eins: + -s**\n- a dog → two dogs",
+            "it": "**Più di uno: + -s**\n- a dog → two dogs",
+            "en": "**More than one: + -s**\n- a dog → two dogs"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za **s**, **x**, **ch** in **sh** dodaš **-es**: a bus → **buses** (avtobusi), a box → **boxes** (škatle), a bench → **benches** (klopi), a dish → **dishes** (krožniki), a glass → **glasses** (kozarci). Slišiš zlog več: box, **boxes**. Nekatere besede na -o dobijo **-es**: **potatoes** (krompir), **tomatoes** (paradižniki).",
+          "de": "Nach **s**, **x**, **ch** und **sh** kommt **-es**: a bus → **buses** (Busse), a box → **boxes** (Kisten), a bench → **benches** (Bänke), a dish → **dishes** (Teller), a glass → **glasses** (Gläser). Man hört eine Silbe mehr: box, **boxes**. Manche Wörter auf -o bekommen auch **-es**: **potatoes** (Kartoffeln), **tomatoes** (Tomaten).",
+          "it": "Dopo **s**, **x**, **ch** e **sh** si aggiunge **-es**: a bus → **buses** (autobus), a box → **boxes** (scatole), a bench → **benches** (panchine), a dish → **dishes** (piatti), a glass → **glasses** (bicchieri). Si sente una sillaba in più: box, **boxes**. Alcune parole in -o prendono **-es**: **potatoes** (patate), **tomatoes** (pomodori).",
+          "en": "After **s**, **x**, **ch** and **sh**, add **-es**: a bus → **buses**, a box → **boxes**, a bench → **benches**, a dish → **dishes**, a glass → **glasses**. You hear one more syllable: box, **boxes**. Some words in -o take **-es** too: **potatoes**, **tomatoes**."
+        },
+        "examples": [
+          {
+            "en": "The glasses are on the table.",
+            "sl": "Kozarci so na mizi.",
+            "de": "Die Gläser sind auf dem Tisch.",
+            "it": "I bicchieri sono sul tavolo."
+          },
+          {
+            "en": "The potatoes are hot.",
+            "sl": "Krompir je vroč.",
+            "de": "Die Kartoffeln sind heiß.",
+            "it": "Le patate sono calde."
+          }
+        ],
+        "rows": [
+          ["bus, box, bench, dish, glass", "buses, boxes, benches, dishes, glasses", "s, x, ch, sh + -es"],
+          ["potato, tomato", "potatoes, tomatoes", "-o + -es"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "plurals",
+          "text": "Two ___ are on the table. (box)",
+          "accept": ["boxes"],
+          "hint": "x → ?",
+          "explain": {
+            "sl": "**Za x: + -es**\n- a box → boxes",
+            "de": "**Nach x: + -es**\n- a box → boxes",
+            "it": "**Dopo x: + -es**\n- a box → boxes",
+            "en": "**After x: + -es**\n- a box → boxes"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Soglasnik + **y** postane **-ies**: a pony → **ponies** (poniji), a berry → **berries** (jagode), a family → **families** (družine); samoglasnik + y doda samo -s: a day → **days** (dnevi), a key → **keys** (ključi). Nekatere besede na **-f** ali **-fe** se končajo na **-ves**: a knife → **knives** (noži), a loaf → **loaves** (hlebci), a calf → **calves** (teleta), toda a roof → **roofs** (strehe).",
+          "de": "Konsonant + **y** wird **-ies**: a pony → **ponies** (Ponys), a berry → **berries** (Beeren), a family → **families** (Familien); Vokal + y bekommt nur -s: a day → **days** (Tage), a key → **keys** (Schlüssel). Manche Wörter auf **-f** oder **-fe** enden auf **-ves**: a knife → **knives** (Messer), a loaf → **loaves** (Brotlaibe), a calf → **calves** (Kälber), aber a roof → **roofs** (Dächer).",
+          "it": "Consonante + **y** diventa **-ies**: a pony → **ponies** (pony), a berry → **berries** (bacche), a family → **families** (famiglie); vocale + y aggiunge solo -s: a day → **days** (giorni), a key → **keys** (chiavi). Alcune parole in **-f** o **-fe** finiscono in **-ves**: a knife → **knives** (coltelli), a loaf → **loaves** (pagnotte), a calf → **calves** (vitelli), ma a roof → **roofs** (tetti).",
+          "en": "A consonant + **y** becomes **-ies**: a pony → **ponies**, a berry → **berries**, a family → **families**; a vowel + y just adds -s: a day → **days**, a key → **keys**. Some words in **-f** or **-fe** end in **-ves**: a knife → **knives**, a loaf → **loaves**, a calf → **calves**, but a roof → **roofs**."
+        },
+        "examples": [
+          {
+            "en": "The ponies are on the fell.",
+            "sl": "Poniji so na hribu.",
+            "de": "Die Ponys sind am Berg.",
+            "it": "I pony sono sul monte."
+          },
+          {
+            "en": "Two loaves are in the oven.",
+            "sl": "V pečici sta dva hlebca.",
+            "de": "Zwei Brotlaibe sind im Ofen.",
+            "it": "Due pagnotte sono nel forno."
+          }
+        ],
+        "rows": [
+          ["pony, berry, family", "ponies, berries, families", "-y → -ies"],
+          ["day, key", "days, keys", "-ay, -ey + -s"],
+          ["knife, loaf, calf", "knives, loaves, calves", "-f, -fe → -ves"],
+          ["roof", "roofs", "+ -s"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plurals",
+          "prompt": "Three ___ are on the fell.",
+          "options": ["ponies", "ponys", "poneys"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Soglasnik + y: -ies**\n- a pony → ponies",
+            "de": "**Konsonant + y: -ies**\n- a pony → ponies",
+            "it": "**Consonante + y: -ies**\n- a pony → ponies",
+            "en": "**Consonant + y: -ies**\n- a pony → ponies"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Nekaj množin se naučiš na pamet: a man → **men** (moški), a woman → **women** (ženske), a child → **children** (otroci), a foot → **feet** (stopala), a tooth → **teeth** (zobje), a mouse → **mice** (miši), a person → **people** (ljudje). Ne dobijo -s: nikoli *childs* ali *mans*. **The children are at school.** (Otroci so v šoli.)",
+          "de": "Manche Pluralformen lernst du auswendig: a man → **men** (Männer), a woman → **women** (Frauen), a child → **children** (Kinder), a foot → **feet** (Füße), a tooth → **teeth** (Zähne), a mouse → **mice** (Mäuse), a person → **people** (Leute). Sie bekommen kein -s: nie *childs* oder *mans*. **The children are at school.** (Die Kinder sind in der Schule.)",
+          "it": "Alcuni plurali si imparano a memoria: a man → **men** (uomini), a woman → **women** (donne), a child → **children** (bambini), a foot → **feet** (piedi), a tooth → **teeth** (denti), a mouse → **mice** (topi), a person → **people** (persone). Non prendono la -s: mai *childs* o *mans*. **The children are at school.** (I bambini sono a scuola.)",
+          "en": "Some plurals you learn by heart: a man → **men**, a woman → **women**, a child → **children**, a foot → **feet**, a tooth → **teeth**, a mouse → **mice**, a person → **people**. They take no -s: never *childs* or *mans*. **The children are at school.**"
+        },
+        "examples": [
+          {
+            "en": "The women are at the inn.",
+            "sl": "Ženske so v gostilni.",
+            "de": "Die Frauen sind im Gasthaus.",
+            "it": "Le donne sono alla locanda."
+          },
+          {
+            "en": "Two mice are in the mill.",
+            "sl": "V mlinu sta dve miški.",
+            "de": "Zwei Mäuse sind in der Mühle.",
+            "it": "Due topi sono nel mulino."
+          },
+          {
+            "en": "The people here are friendly.",
+            "sl": "Ljudje tu so prijazni.",
+            "de": "Die Leute hier sind freundlich.",
+            "it": "Qui la gente è simpatica."
+          }
+        ],
+        "rows": [
+          [
+            "man, woman, child",
+            "men, women, children",
+            { "sl": "na pamet", "de": "auswendig", "it": "a memoria", "en": "learn by heart" }
+          ],
+          [
+            "foot, tooth, mouse",
+            "feet, teeth, mice",
+            { "sl": "na pamet", "de": "auswendig", "it": "a memoria", "en": "learn by heart" }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plurals",
+          "prompt": "Two ___ are at the inn.",
+          "options": ["women", "womans", "woman"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**woman → women, na pamet**\n- a man → men · a woman → women",
+            "de": "**woman → women, auswendig**\n- a man → men · a woman → women",
+            "it": "**woman → women, a memoria**\n- a man → men · a woman → women",
+            "en": "**woman → women, by heart**\n- a man → men · a woman → women"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Nekaj jih ostane enakih: **one sheep, two sheep** (ena ovca, dve ovci); **a fish, three fish** (riba, tri ribe); **a deer, two deer** (jelen, dva jelena). Koliko jih je, pokaže glagol: **The sheep is lost.** (Ovca se je izgubila.) **The sheep are on the fell.** (Ovce so na hribu.) Od dva naprej je samostalnik v množini, tudi pri merah: **two miles** (dve milji), **three hours** (tri ure).",
+          "de": "Ein paar bleiben gleich: **one sheep, two sheep** (ein Schaf, zwei Schafe); **a fish, three fish** (ein Fisch, drei Fische); **a deer, two deer** (ein Hirsch, zwei Hirsche). Wie viele, zeigt das Verb: **The sheep is lost.** (Das Schaf hat sich verlaufen.) **The sheep are on the fell.** (Die Schafe sind am Berg.) Ab zwei steht das Nomen im Plural, auch bei Maßen: **two miles** (zwei Meilen), **three hours** (drei Stunden).",
+          "it": "Alcuni restano uguali: **one sheep, two sheep** (una pecora, due pecore); **a fish, three fish** (un pesce, tre pesci); **a deer, two deer** (un cervo, due cervi). Quanti sono lo mostra il verbo: **The sheep is lost.** (La pecora si è persa.) **The sheep are on the fell.** (Le pecore sono sul monte.) Da due in su il nome è plurale, anche con le misure: **two miles** (due miglia), **three hours** (tre ore).",
+          "en": "A few stay the same: **one sheep, two sheep**; **a fish, three fish**; **a deer, two deer**. The verb shows how many: **The sheep is lost.** (one) **The sheep are on the fell.** (more) From two on, the noun is plural, also for measures: **two miles**, **three hours**."
+        },
+        "examples": [
+          {
+            "en": "One sheep, two sheep, three sheep …",
+            "sl": "Ena ovca, dve ovci, tri ovce …",
+            "de": "Ein Schaf, zwei Schafe, drei Schafe …",
+            "it": "Una pecora, due pecore, tre pecore …"
+          },
+          {
+            "en": "The sheep is lost!",
+            "sl": "Ovca se je izgubila!",
+            "de": "Das Schaf hat sich verlaufen!",
+            "it": "La pecora si è persa!"
+          },
+          {
+            "en": "The tarn is two miles from here.",
+            "sl": "Jezerce je dve milji od tod.",
+            "de": "Der Bergsee ist zwei Meilen von hier.",
+            "it": "Il laghetto è a due miglia da qui."
+          }
+        ],
+        "rows": [
+          ["sheep, fish, deer", "sheep, fish, deer", {"sl": "enako", "de": "gleich", "it": "uguale", "en": "the same"}],
+          [
+            "mile, hour",
+            "two miles, three hours",
+            { "sl": "od dva naprej", "de": "ab zwei", "it": "da due in su", "en": "from two on" }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plurals",
+          "prompt": "Look at the ___ on the fell!",
+          "options": ["sheep", "sheeps", "sheepes"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**sheep ostane sheep**\n- one sheep · two sheep",
+            "de": "**sheep bleibt sheep**\n- one sheep · two sheep",
+            "it": "**sheep resta sheep**\n- one sheep · two sheep",
+            "en": "**sheep stays sheep**\n- one sheep · two sheep"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "plurals-1",
+      "title": { "sl": "Ena, dve, tri", "de": "Eins, zwei, drei", "it": "Uno, due, tre", "en": "One, two, three" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "plurals",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "one → more · ednina → množina",
+            "de": "one → more · Singular → Plural",
+            "it": "one → more · singolare → plurale",
+            "en": "one → more than one"
+          },
+          "columns": [
+            {
+              "sl": "more than one · množina",
+              "de": "more than one · Plural",
+              "it": "more than one · plurale",
+              "en": "more than one"
+            }
+          ],
+          "rows": [
+            {
+              "label": "box",
+              "cells": [{"accept": ["boxes"], "hint": {"sl": "za x", "de": "nach x", "it": "dopo x", "en": "after x"}}]
+            },
+            {
+              "label": "pony",
+              "cells": [
+                {
+                  "accept": ["ponies"],
+                  "hint": { "sl": "soglasnik + y", "de": "Konsonant + y", "it": "consonante + y", "en": "consonant + y" }
+                }
+              ]
+            },
+            {
+              "label": "day",
+              "cells": [
+                {
+                  "accept": ["days"],
+                  "hint": { "sl": "samoglasnik + y", "de": "Vokal + y", "it": "vocale + y", "en": "vowel + y" }
+                }
+              ]
+            },
+            { "label": "knife", "cells": [{"accept": ["knives"], "hint": "-fe → ?"}] },
+            {
+              "label": "child",
+              "cells": [
+                {
+                  "accept": ["children"],
+                  "hint": { "sl": "na pamet", "de": "auswendig", "it": "a memoria", "en": "learn by heart" }
+                }
+              ]
+            },
+            {
+              "label": "woman",
+              "cells": [
+                {
+                  "accept": ["women"],
+                  "hint": { "sl": "na pamet", "de": "auswendig", "it": "a memoria", "en": "learn by heart" }
+                }
+              ]
+            },
+            {
+              "label": "sheep",
+              "cells": [{"accept": ["sheep"], "hint": {"sl": "ostane", "de": "bleibt", "it": "resta", "en": "it stays"}}]
+            },
+            {
+              "label": "foot",
+              "cells": [
+                {
+                  "accept": ["feet"],
+                  "hint": { "sl": "na pamet", "de": "auswendig", "it": "a memoria", "en": "learn by heart" }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-s, -es, -ies, -ves in tiste na pamet**\n- box → boxes · pony → ponies · day → days · knife → knives\n- child → children · woman → women · foot → feet · sheep → sheep",
+            "de": "**-s, -es, -ies, -ves und die auswendig gelernten**\n- box → boxes · pony → ponies · day → days · knife → knives\n- child → children · woman → women · foot → feet · sheep → sheep",
+            "it": "**-s, -es, -ies, -ves e quelli a memoria**\n- box → boxes · pony → ponies · day → days · knife → knives\n- child → children · woman → women · foot → feet · sheep → sheep",
+            "en": "**-s, -es, -ies, -ves, and the ones by heart**\n- box → boxes · pony → ponies · day → days · knife → knives\n- child → children · woman → women · foot → feet · sheep → sheep"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "plurals",
+          "instruction": {
+            "sl": "Sort · + -s, + -es ali -ies?",
+            "de": "Sort · + -s, + -es oder -ies?",
+            "it": "Sort · + -s, + -es o -ies?",
+            "en": "Sort · + -s, + -es or -ies?"
+          },
+          "columns": [
+            { "label": "+ -s", "words": ["lamb", "bridge", "scone"] },
+            { "label": "+ -es", "words": ["church", "glass", "fox"] },
+            { "label": "-ies", "words": ["berry", "lady", "city"] }
+          ],
+          "explain": {
+            "sl": "**-es za s, x, ch, sh; soglasnik + y → -ies**\n- lambs · bridges · scones\n- churches · glasses · foxes\n- berries · ladies · cities",
+            "de": "**-es nach s, x, ch, sh; Konsonant + y → -ies**\n- lambs · bridges · scones\n- churches · glasses · foxes\n- berries · ladies · cities",
+            "it": "**-es dopo s, x, ch, sh; consonante + y → -ies**\n- lambs · bridges · scones\n- churches · glasses · foxes\n- berries · ladies · cities",
+            "en": "**-es after s, x, ch, sh; consonant + y → -ies**\n- lambs · bridges · scones\n- churches · glasses · foxes\n- berries · ladies · cities"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plurals-2",
+      "title": { "sl": "V kuhinji", "de": "In der Küche", "it": "In cucina", "en": "In the kitchen" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "plurals",
+          "instruction": {
+            "sl": "Fill in the plural · Dopolni z množino",
+            "de": "Fill in the plural · Ergänze den Plural",
+            "it": "Fill in the plural · Completa con il plurale",
+            "en": "Fill in the plural"
+          },
+          "text": "Granny Maggie is in the kitchen. Two ___ (loaf) are in the oven. The ___ (scone) are hot. The ___ (knife) are on the table. The ___ (dish) are by the sink. Three ___ (child) are at the door. The ___ (berry) are for the jam.",
+          "gaps": [
+            { "accept": ["loaves"], "hint": "-f → ?" },
+            { "accept": ["scones"] },
+            { "accept": ["knives"], "hint": "-fe → ?" },
+            { "accept": ["dishes"], "hint": {"sl": "za sh", "de": "nach sh", "it": "dopo sh", "en": "after sh"} },
+            {
+              "accept": ["children"],
+              "hint": { "sl": "na pamet", "de": "auswendig", "it": "a memoria", "en": "learn by heart" }
+            },
+            {
+              "accept": ["berries"],
+              "hint": { "sl": "soglasnik + y", "de": "Konsonant + y", "it": "consonante + y", "en": "consonant + y" }
+            }
+          ],
+          "bank": true,
+          "distractors": ["knifes", "childs", "berrys"],
+          "translation": {
+            "sl": "Babica Maggie je v kuhinji. V pečici sta dva hlebca. Sconei so vroči. Noži so na mizi. Krožniki so ob koritu. Pri vratih so trije otroci. Jagode so za marmelado.",
+            "de": "Oma Maggie ist in der Küche. Zwei Brotlaibe sind im Ofen. Die Scones sind heiß. Die Messer liegen auf dem Tisch. Die Teller sind bei der Spüle. Drei Kinder sind an der Tür. Die Beeren sind für die Marmelade.",
+            "it": "Nonna Maggie è in cucina. Due pagnotte sono nel forno. Gli scones sono caldi. I coltelli sono sul tavolo. I piatti sono vicino al lavello. Tre bambini sono alla porta. Le bacche sono per la marmellata.",
+            "en": "Granny Maggie is in the kitchen. Two loaves are in the oven. The scones are hot. The knives are on the table. The dishes are by the sink. Three children are at the door. The berries are for the jam."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "plurals",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "The ___ are in the mill.",
+          "options": ["mice", "mouses", "mices"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**mouse → mice, na pamet**\n- a mouse → two mice",
+            "de": "**mouse → mice, auswendig**\n- a mouse → two mice",
+            "it": "**mouse → mice, a memoria**\n- a mouse → two mice",
+            "en": "**mouse → mice, by heart**\n- a mouse → two mice"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plurals-3",
+      "title": { "sl": "V množino", "de": "In den Plural", "it": "Al plurale", "en": "Into the plural" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "plurals",
+          "instruction": {
+            "sl": "Into the plural · V množino",
+            "de": "Into the plural · In den Plural",
+            "it": "Into the plural · Al plurale",
+            "en": "Into the plural"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "The lamb is in the field.",
+              "accept": ["The lambs are in the field."],
+              "hint": {
+                "sl": "tudi glagol: is → are",
+                "de": "auch das Verb: is → are",
+                "it": "anche il verbo: is → are",
+                "en": "the verb too: is → are"
+              }
+            },
+            { "from": "The child is at school.", "accept": ["The children are at school."] },
+            { "from": "The mouse is in the mill.", "accept": ["The mice are in the mill."] },
+            { "from": "The woman is at the inn.", "accept": ["The women are at the inn."] },
+            { "from": "The bus is late.", "accept": ["The buses are late."] },
+            {
+              "from": "The sheep is on the fell.",
+              "accept": ["The sheep are on the fell."],
+              "hint": { "sl": "sheep ostane", "de": "sheep bleibt", "it": "sheep resta", "en": "sheep stays" }
+            }
+          ],
+          "explain": {
+            "sl": "**Samostalnik in glagol v množino: is → are**\n- The lamb is in the field. → The lambs are in the field.\n- The child is at school. → The children are at school.",
+            "de": "**Nomen und Verb in den Plural: is → are**\n- The lamb is in the field. → The lambs are in the field.\n- The child is at school. → The children are at school.",
+            "it": "**Nome e verbo al plurale: is → are**\n- The lamb is in the field. → The lambs are in the field.\n- The child is at school. → The children are at school.",
+            "en": "**The noun and the verb in the plural: is → are**\n- The lamb is in the field. → The lambs are in the field.\n- The child is at school. → The children are at school."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "plurals",
+        "instruction": {
+          "sl": "Fill in the table · Dopolni tabelo",
+          "de": "Fill in the table · Ergänze die Tabelle",
+          "it": "Fill in the table · Completa la tabella",
+          "en": "Fill in the table"
+        },
+        "prompt": {
+          "sl": "one → more · ednina → množina",
+          "de": "one → more · Singular → Plural",
+          "it": "one → more · singolare → plurale",
+          "en": "one → more than one"
+        },
+        "columns": [
+          {
+            "sl": "more than one · množina",
+            "de": "more than one · Plural",
+            "it": "more than one · plurale",
+            "en": "more than one"
+          }
+        ],
+        "rows": [
+          { "label": "glass", "cells": [{"accept": ["glasses"]}] },
+          { "label": "family", "cells": [{"accept": ["families"]}] },
+          { "label": "man", "cells": [{"accept": ["men"]}] },
+          { "label": "tooth", "cells": [{"accept": ["teeth"]}] },
+          { "label": "calf", "cells": [{"accept": ["calves"]}] },
+          { "label": "key", "cells": [{"accept": ["keys"]}] }
+        ],
+        "explain": {
+          "sl": "**-es, -ies, -ves, + -s za samoglasnikom + y in na pamet**\n- glass → glasses · family → families · key → keys\n- calf → calves · man → men · tooth → teeth",
+          "de": "**-es, -ies, -ves, + -s nach Vokal + y und auswendig**\n- glass → glasses · family → families · key → keys\n- calf → calves · man → men · tooth → teeth",
+          "it": "**-es, -ies, -ves, + -s dopo vocale + y e a memoria**\n- glass → glasses · family → families · key → keys\n- calf → calves · man → men · tooth → teeth",
+          "en": "**-es, -ies, -ves, + -s after a vowel + y, and by heart**\n- glass → glasses · family → families · key → keys\n- calf → calves · man → men · tooth → teeth"
+        }
+      },
+      {
+        "type": "gaptext",
+        "grammar": "plurals",
+        "instruction": {
+          "sl": "Fill in the plural · Dopolni z množino",
+          "de": "Fill in the plural · Ergänze den Plural",
+          "it": "Fill in the plural · Completa con il plurale",
+          "en": "Fill in the plural"
+        },
+        "text": "The farm is busy today. The ___ (horse) are in the field with two ___ (pony). The ___ (sheep) are on the fell with Jack. The ___ (calf) are in the barn. Two ___ (person) are at the gate: Mrs Birkett and Auntie Edna.",
+        "gaps": [
+          { "accept": ["horses"] },
+          { "accept": ["ponies"] },
+          { "accept": ["sheep"] },
+          { "accept": ["calves"] },
+          {
+            "accept": ["people"],
+            "hint": { "sl": "na pamet", "de": "auswendig", "it": "a memoria", "en": "learn by heart" }
+          }
+        ],
+        "translation": {
+          "sl": "Na kmetiji je danes živahno. Konji so na polju z dvema ponijema. Ovce so z Jackom na hribu. Teleta so v skednju. Pri vratih sta dve osebi: gospa Birkett in teta Edna.",
+          "de": "Auf dem Hof ist heute viel los. Die Pferde sind mit zwei Ponys auf der Weide. Die Schafe sind mit Jack am Berg. Die Kälber sind in der Scheune. Zwei Leute sind am Tor: Mrs Birkett und Tante Edna.",
+          "it": "Oggi la fattoria è molto animata. I cavalli sono nel campo con due pony. Le pecore sono sul monte con Jack. I vitelli sono nella stalla. Due persone sono al cancello: Mrs Birkett e zia Edna.",
+          "en": "The farm is busy today. The horses are in the field with two ponies. The sheep are on the fell with Jack. The calves are in the barn. Two people are at the gate: Mrs Birkett and Auntie Edna."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "plurals",
+        "instruction": {
+          "sl": "Into the plural · V množino",
+          "de": "Into the plural · In den Plural",
+          "it": "Into the plural · Al plurale",
+          "en": "Into the plural"
+        },
+        "cue": "→",
+        "items": [
+          { "from": "The man is in the smithy.", "accept": ["The men are in the smithy."] },
+          { "from": "The berry is ripe.", "accept": ["The berries are ripe."] },
+          { "from": "The glass is clean.", "accept": ["The glasses are clean."] }
+        ],
+        "explain": {
+          "sl": "**Samostalnik in glagol v množino: is → are**\n- The lamb is in the field. → The lambs are in the field.\n- The child is at school. → The children are at school.",
+          "de": "**Nomen und Verb in den Plural: is → are**\n- The lamb is in the field. → The lambs are in the field.\n- The child is at school. → The children are at school.",
+          "it": "**Nome e verbo al plurale: is → are**\n- The lamb is in the field. → The lambs are in the field.\n- The child is at school. → The children are at school.",
+          "en": "**The noun and the verb in the plural: is → are**\n- The lamb is in the field. → The lambs are in the field.\n- The child is at school. → The children are at school."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "plurals",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "The ___ are white. (tooth)",
+        "options": ["teeth", "tooths", "teeths"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**tooth → teeth, na pamet**\n- a tooth → teeth · a foot → feet",
+          "de": "**tooth → teeth, auswendig**\n- a tooth → teeth · a foot → feet",
+          "it": "**tooth → teeth, a memoria**\n- a tooth → teeth · a foot → feet",
+          "en": "**tooth → teeth, by heart**\n- a tooth → teeth · a foot → feet"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: potatoes as Krompir je vroč (sl uncountable), the sheep is lost, the barn and the sink"
+}

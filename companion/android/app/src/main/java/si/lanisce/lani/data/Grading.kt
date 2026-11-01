@@ -38,8 +38,12 @@ object Grading {
     private val space = Regex("\\s+")
     /** Typographic apostrophes (and the accents typed for one: perche`) as '. */
     private val apostrophe = Regex("[’ʼ`´]")
-    /** Letters at the end of a word treated as its grammatical ending (-a/-o/-e; -ega/-em on longer words). */
-    private fun endingLength(word: String) = if (word.length <= 5) 1 else 2
+    /**
+     * Letters at the end of a word treated as its grammatical ending: one on a short word (-a/-o/-e), on a longer one the
+     * language's [Spelling.endingLetters] (two by default: Slovene's -ega/-em; one in English, whose -s, -ed, -ing end
+     * in a letter the slip must not touch, while "usualy" for usually is a slip).
+     */
+    private fun endingLength(word: String, spelling: Spelling) = if (word.length <= 5) 1 else spelling.endingLetters
 
     /**
      * Slips forgiven in a word's stem, by the word's length: none under 4 letters (one letter makes another word: sem,
@@ -99,17 +103,17 @@ object Grading {
             spelling.endingSwaps.any { (right, typed) -> e.endsWith(right) && w.endsWith(typed) && e.dropLast(right.length) == w.dropLast(typed.length) } ->
                 Result(Verdict.WRONG, Hint.ENDING, best, marks)
             // a known mistake (the language's [Spelling.wrong]: "anderò" for andrò) is grammar, never a slip in the stem
-            d in 1..typosAllowed(e) && editInStem(e, w) && spelling.wrong.none { it.matches(w, e) } -> Result(Verdict.ALMOST, Hint.TYPO, best, marks)
-            d <= 2 && !editInStem(e, w) -> Result(Verdict.WRONG, Hint.ENDING, best, marks)
+            d in 1..typosAllowed(e) && editInStem(e, w, spelling) && spelling.wrong.none { it.matches(w, e) } -> Result(Verdict.ALMOST, Hint.TYPO, best, marks)
+            d <= 2 && !editInStem(e, w, spelling) -> Result(Verdict.WRONG, Hint.ENDING, best, marks)
             else -> Result(Verdict.WRONG, Hint.NONE, best, marks)
         }
     }
 
     /** True when every changed position of [expected] lies before its ending. */
-    private fun editInStem(expected: String, answer: String): Boolean {
+    private fun editInStem(expected: String, answer: String, spelling: Spelling): Boolean {
         val (start, end) = changedRegion(expected, answer)
         val last = if (end > start) end - 1 else start // pure insertion: the insertion point
-        return last < expected.length - endingLength(expected)
+        return last < expected.length - endingLength(expected, spelling)
     }
 
     /** [start, end) of the part of [expected] that differs from [other], via common prefix and suffix. */

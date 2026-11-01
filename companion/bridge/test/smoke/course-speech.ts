@@ -169,6 +169,30 @@ export default async function courseSpeech() {
     check("corpus: the German course in Lehrerin Eva's voice, its English explanations last", read.length > 200 && read.every(i => i.voice === 'teacher') && read.filter(i => i.lang).every(i => i.lang === 'en'), read.length)
   }
 
+  // --- the Lakeland village's school: Mrs Hartley reads the English course, its explanations in the learner's language ---
+  {
+    const lakeCast = new VillagerStore(join(culturesDir, 'lakeland/villagers'), tempDir('lani-cs-lake-villagers-')).all()
+    check("the Lakeland school's person (Residents.brings(SCHOOL)): Mrs Hartley, in her cast's voice, \"teacher\" (Matilda); her own once it is ready (\"@hartley\")",
+      S.schoolTeacher(lakeCast)?.id === 'hartley' && S.teacherVoice(lakeCast, v => v.speaker ?? v.voice) === 'teacher' && S.teacherVoice(lakeCast, v => v.speaker ?? v.voice, id => id === 'hartley') === '@hartley')
+    const ana = addressee({ name: 'Ana', gender: 'female' })
+    for (const b of ['sl', 'de', 'it'] as const) {
+      const enUnits = renderDeep(new CourseStore(courseDir(join(repo, 'companion/course'), 'en'), 'en', tempDir(`lani-cs-course-en-${b}-`), () => {}, () => b).served()!.units, ana)
+      const ct = S.courseTexts({ units: enUnits, bases: [b] }, 'en')
+      const has = (x: string) => ct.lines.some(l => l.text === x)
+      // the base never in her English voice: its letters (Slovene's č, š, ž, German's umlauts, Italian's accents) or a word only the base has
+      const based = ct.lines.filter(l => /[čšžäöüßàèéìòù]/i.test(l.text) || BASE_WORDS[b].test(l.text))
+      const opens = { sl: 'Hello! Jaz sem Mrs Hartley', de: 'Hello! Ich bin Mrs Hartley', it: 'Hello! Sono Mrs Hartley' }[b]
+      check(`the English course as the app reads it in Mrs Hartley's voice for a learner from ${b}: the examples, the quick questions (a gap a pause), the answers, the English of the explanations; never the ${b}`,
+        enUnits.length >= 6 && has('Hello, Jack!') && has('Mrs Birkett … at the inn.') && has('Mrs Birkett is at the inn.') && has('I am') && has('Two … are on the table.') && has('Two boxes are on the table.') &&
+          based.length === 0 && ct.explanations.length > 0 && ct.explanations.every(e => e.lang === b) && ct.explanations.some(e => e.text.startsWith(opens)),
+        based.slice(0, 6).map(l => l.text))
+    }
+    const enUnits = renderDeep(new CourseStore(courseDir(join(repo, 'companion/course'), 'en'), 'en', tempDir('lani-cs-course-en-'), () => {}, () => 'sl').served()!.units, ana)
+    const items = corpus({ packs: [], modules: [], scenarios: [], villagers: lakeCast, course: { units: enUnits, bases: ['sl'] }, learner: ana, language: 'en' })
+    const read = items.filter(i => i.source.startsWith('course:'))
+    check("corpus: the English course in Mrs Hartley's voice, its Slovene explanations last", read.length > 100 && read.every(i => i.voice === 'teacher') && read.filter(i => i.lang).every(i => i.lang === 'sl'), read.length)
+  }
+
   // --- companion/bin/voice-build --only, --explanations, --base on a store of its own ---------------------------------
   {
     const fe = fakeEleven()
