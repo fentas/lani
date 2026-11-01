@@ -1880,13 +1880,18 @@ mimogrede, nehote; prišedši to recognise), `delezniki` (obrano grozdje, dozore
 studenec, tekoča voda, bivši), `pogojnik-pretekli` (bil bi prišel, Če bi bil vedel, …; skoraj bi bil padel),
 `predpreteklik` (Ko smo prišli, je bil avtobus že odpeljal), `oziralni-kateri` (fant, katerega sem videl; čigar, katere,
 katerih; kdor, kogar; kar, česar, o čemer) and `odvisniki-napredno` (kljub temu da, medtem ko, dokler ne, razen če, ne
-da bi, kot da bi). Its last six brought six more: `stopnjevanje` (tako star kot, veliko lepši, čedalje krajši, čim prej,
-bolj ko …, bolj …, najboljša izmed vseh, prevelik), `ukazi` (pojdiva, pojdimo, naj pride, ne zapiraj, nikar, kar naprej,
-Bi mi lahko pomagali?), `frazemi` (držati pesti za koga, iti komu na živce, kupiti mačka v žaklju, pasti v vodo),
-`uradno-pismo` (Spoštovani gospod …, Vi to one person, Pišem Vam v zvezi z …, S spoštovanjem), `govorjeni-jezik` (a si,
-moram delat, bom šu, bojo, mam, kva, ta mali, fajn: spoken against standard, the spoken never wrong) and `besedni-red`
-(the news last: Kruh je prinesel Luka; the short words second; a contrast with pa; tudi, samo). Their levels follow when
-each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
+da bi, kot da bi). Units 7–12 brought six more: `pomanjsevalnice` (hišica, stolček – na stolčku, okence; žlička,
+konjiček), `izpeljanke` (mlinar, učiteljica, pekarna, igrišče, hladilnik, mladost, lesen, vaščan), `predpone`
+(prepisati, podpisati; prinesti, odnesti; pridem, odšel, našel; prepisovati, prihajati), `brezosebno` (treba je bilo, ni
+treba, prepovedano je kaditi, se je plesalo, ne da se, se je zdanilo), `predlogi-dva-sklona` (pod stol – pod stolom, po
+kruh – po vasi, ob zid – ob potoku, za babico – za hišo, pred tednom) and `stevniki` (dvakrat, prvič, dvojen, dvoje
+vrat, petica, polovica, s tremi, pri štirih). The last six brought another six: `stopnjevanje` (tako star kot, veliko
+lepši, čedalje krajši, čim prej, bolj ko …, bolj …, najboljša izmed vseh, prevelik), `ukazi` (pojdiva, pojdimo, naj
+pride, ne zapiraj, nikar, kar naprej, Bi mi lahko pomagali?), `frazemi` (držati pesti za koga, iti komu na živce, kupiti
+mačka v žaklju, pasti v vodo), `uradno-pismo` (Spoštovani gospod …, Vi to one person, Pišem Vam v zvezi z …, S
+spoštovanjem), `govorjeni-jezik` (a si, moram delat, bom šu, bojo, mam, kva, ta mali, fajn: spoken against standard, the
+spoken never wrong) and `besedni-red` (the news last: Kruh je prinesel Luka; the short words second; a contrast with pa;
+tudi, samo). Their levels follow when each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
 them). A page about a case or what decides one (the six cases', skloni, the genitive's slices, Kam?, Kje?, the plural's
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
