@@ -8887,24 +8887,47 @@ def guidance_home():
     time.sleep(2)
 
 
-def friuli_talk():
-    """Teo's free talk in Italian (docs/plans/05-built/scenarios-it.md): a synthetic Teo (LANI_DEV_DATA: make-learner.ts
-    --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de, LANI_QA_LEARNER=Teo),
-    the app in it · de. Home's "🗣️ Conversazione · Gespräch" into the role-plays: the Italian ones the dev bridge serves, their
-    titles in Italian and German, none of Jan's Slovene ones; "Al mercato" (another with $LANI_QA_TALK): its intro (the
-    setting in German, the goals in it · de), "Inizia · Starten", the opener in Italian; a line typed and sent, the canned
-    tutor's answer in Italian (test/dev-bridge.ts), never Slovene; a hint, the scenario's own phrase; a second line (the
-    correction in German); the goals in it · de under 🎯; "Concludi · Abschließen" and the debrief in German; the end on
-    Teo's tablet, on its side and upright. The taps from Home to talking counted. Also as st-*.png in
-    $LANI_QA_TALK_SHOTS. With LANI_SCENARIOS_DIR at an empty directory (the "before": no Italian role-play), only the empty
-    list is shot."""
+# The free talks of the villages that speak another language than Jan's (docs/plans/05-built/scenarios-it.md,
+# scenarios-de-en.md): what a step of each checks and types. "titles" are other villages' role-plays that must not show,
+# "foreign" canned answers in another language, "debrief" the canned debrief's first words by the learner's base.
+VILLAGE_TALKS = {
+    "friuli": {
+        "language": "it", "pair": "it-de", "talk": "al-mercato", "tablet": True, "shot": "talk-it",
+        "lines": ("Buongiorno signora", "Vorrei un chilo di ciliegie"), "replies": ("Che bello! E poi?", "Davvero? Ti piace?"),
+        "foreign": ("Me veseli", "Prosim?"), "titles": ("Na tržnici", "V pekarni", "Nedeljsko kosilo"),
+    },
+    "kaernten": {
+        "language": "de", "pair": "de-sl", "talk": "beim-baecker", "tablet": False, "shot": "talk-de",
+        "lines": ("Guten Morgen", "Zwei Semmeln bitte"), "replies": ("Wie schön! Und sonst?", "Wirklich? Das freut mich!"),
+        "foreign": ("Me veseli", "Che bello", "Lovely!"), "titles": ("Na tržnici", "V pekarni", "Al mercato", "At the farm shop"),
+    },
+    "lakeland": {
+        "language": "en", "pair": "en-it", "talk": "at-the-farm-shop", "tablet": False, "shot": "talk-en",
+        "lines": ("Morning", "Half a dozen eggs please"), "replies": ("Lovely! Anything else?", "Really? That's nice!"),
+        "foreign": ("Me veseli", "Che bello", "Wie schön"), "titles": ("Na tržnici", "V pekarni", "Al mercato", "Beim Bäcker"),
+    },
+}
+TALK_DEBRIEF = {"de": "Du hast höflich gegrüßt", "en": "You greeted politely", "sl": "Tvoj pozdrav je bil vljuden", "it": "Hai salutato con gentilezza"}
+
+
+def village_talk(village: str):
+    """A free talk in the village's language, on a synthetic learner of it (LANI_DEV_DATA: make-learner.ts --target
+    <language> --base <base>; LANI_CULTURE=<village>, LANI_QA_SETUP_PAIR=<language>-<base>, LANI_QA_LEARNER), the app in
+    their pair. Home's "🗣️" talk card into the role-plays: the village's own the dev bridge serves, in its language, none
+    of another village's; one ($LANI_QA_TALK, else VILLAGE_TALKS' "talk"): its intro (the setting in the base, the goals in
+    the pair), Start, the opener in the village's language; a line typed and sent, the canned tutor's answer in that
+    language (test/dev-bridge.ts), never another; a hint, the scenario's own phrase; a second line (the correction in the
+    base); the goals in the pair under 🎯; the end and the debrief in the base; for Teo the end on the tablet, on its side
+    and upright. The taps from Home to talking counted. Also as st-*.png in $LANI_QA_TALK_SHOTS. With LANI_SCENARIOS_DIR at
+    an empty directory (the "before": no role-play), only the empty list is shot."""
+    spec = VILLAGE_TALKS[village]
     try:
         culture = api("/culture").get("id")
     except (OSError, RuntimeError, ValueError):
         culture = None
-    if culture != "friuli":
-        return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
-    pair = (os.environ.get("LANI_QA_SETUP_PAIR") or "it-de").split("-")
+    if culture != village:
+        return f"skipped: the dev bridge's village isn't the {village} culture's (LANI_CULTURE={village} and a learner of its language)"
+    pair = (os.environ.get("LANI_QA_SETUP_PAIR") or spec["pair"]).split("-")
     out = Path(os.environ["LANI_QA_TALK_SHOTS"]) if os.environ.get("LANI_QA_TALK_SHOTS") else None
     taps = 0
 
@@ -8915,13 +8938,15 @@ def friuli_talk():
         return " · ".join(msg(lang, key) for lang in pair)
 
     def snap(name: str):
-        shot(f"talk-it-{name}")
+        shot(f"{spec['shot']}-{name}")
         if out is not None:
             out.mkdir(parents=True, exist_ok=True)
             shutil.copy(shots[-1], out / f"st-{name}.png")
 
     def tablet(name: str):
         """[name] on Teo's tablet (2560 × 1600 at 320 dpi), on its side and upright, then the phone again."""
+        if not spec["tablet"]:
+            return
         try:
             adb("shell", "wm", "density", "320")
             for size, side in (("2560x1600", "side"), ("1600x2560", "upright")):
@@ -8969,14 +8994,15 @@ def friuli_talk():
         tablet("list-empty")
         go_home()
         return "before: no role-play offered (the list's empty state shot)"
-    slovene = {"na-trznici", "v-pekarni", "pri-zdravniku", "v-gostilni", "nedeljsko-kosilo", "soseda-cez-ograjo"}
-    assert not slovene & {s["id"] for s in offered}, f"Slovene role-plays offered in the Italian village: {slovene & {s['id'] for s in offered}}"
-    assert all(s.get("language") == "it" for s in offered), [s.get("language") for s in offered]
+    others = {"na-trznici", "v-pekarni", "pri-zdravniku", "v-gostilni", "nedeljsko-kosilo", "soseda-cez-ograjo", "al-mercato", "dal-fornaio", "beim-baecker", "im-gasthaus", "at-the-farm-shop", "in-the-pub"}
+    ours = {p.stem for p in (ROOT / "companion/scenarios" / spec["language"]).glob("*.json")}
+    assert not (others - ours) & {s["id"] for s in offered}, f"another village's role-plays offered: {(others - ours) & {s['id'] for s in offered}}"
+    assert all(s.get("language") == spec["language"] for s in offered), [s.get("language") for s in offered]
     labels = " ".join(t for t, _ in nodes())
     assert offered[0]["title"] in labels, f"the first role-play's title ({offered[0]['title']}) on the list"
-    assert not any(w in labels for w in ("Na tržnici", "V pekarni", "Nedeljsko kosilo")), "a Slovene title on the list"
+    assert not any(w in labels for w in spec["titles"]), "another village's title on the list"
     tablet("list")
-    want = os.environ.get("LANI_QA_TALK", "al-mercato")
+    want = os.environ.get("LANI_QA_TALK", spec["talk"])
     s = next(x for x in offered if x["id"] == want)
     c = scroll_to(s["title"], 8)
     assert c is not None, f"the role-play {s['title']} on the list"
@@ -8987,7 +9013,7 @@ def friuli_talk():
     time.sleep(1.5)
     labels = " ".join(t for t, _ in nodes())
     snap("intro")
-    assert s["setting"][:30] in labels or s["opener_en"][:20] in labels, f"the intro in German: {s['setting'][:30]}"
+    assert s["setting"][:30] in labels or s["opener_en"][:20] in labels, f"the intro in the base: {s['setting'][:30]}"
     adb("shell", "input", "swipe", "540", "1600", "540", "900", "400")
     time.sleep(1)
     snap("intro-phrases")
@@ -8997,12 +9023,12 @@ def friuli_talk():
     print(f"    the taps from Home to talking: {taps}")
     labels = " ".join(t for t, _ in nodes())
     snap("opener")
-    assert s["opener_sl"][:20] in labels, f"the opener in Italian ({s['opener_sl']})"
-    say("Buongiorno signora")
-    reply = "Che bello! E poi?"
-    assert wait_for(reply, 20), f"the canned tutor's answer in Italian ({reply})"
+    assert s["opener_sl"][:20] in labels, f"the opener in the village's language ({s['opener_sl']})"
+    say(spec["lines"][0])
+    reply = spec["replies"][0]
+    assert wait_for(reply, 20), f"the canned tutor's answer in the village's language ({reply})"
     labels = " ".join(t for t, _ in nodes())
-    assert "Me veseli" not in labels and "Prosim?" not in labels, "a Slovene answer in the Italian talk"
+    assert not any(w in labels for w in spec["foreign"]), "an answer in another language in the talk"
     time.sleep(1)
     snap("reply-1")
     # a hint: the scenario's own phrase (its first useful phrase, as the dev tutor gives them in turn)
@@ -9011,8 +9037,8 @@ def friuli_talk():
     assert wait_for(hint, 20), f"the hint: {hint}"
     time.sleep(1)
     snap("hint")
-    say("Vorrei un chilo di ciliegie")
-    assert wait_for("Davvero? Ti piace?", 20), "the second answer, in Italian"
+    say(spec["lines"][1])
+    assert wait_for(spec["replies"][1], 20), "the second answer, in the village's language"
     time.sleep(1)
     snap("reply-2")
     chip = next((c for t, c in nodes() if t.startswith(f"{lab('talkScreen.goals')}: ")), None)
@@ -9022,16 +9048,37 @@ def friuli_talk():
         labels = " ".join(t for t, _ in nodes())
         snap("goals")
         goal = s["goals"][0]
-        assert goal in labels, f"the goals in it · de ({goal})"
+        assert goal in labels, f"the goals in the pair ({goal})"
         tap_at(chip)
-    # the top bar's "Fine" (inTarget talkScreen.end), or "Concludi · Abschließen" once the scene is over
+    # the top bar's end (inTarget talkScreen.end), or the finish label once the scene is over
     assert tap(lab("talkScreen.finish"), 3) or tap(msg(pair[0], "talkScreen.end"), 5), "end the talk"
-    assert wait_for("Du hast höflich gegrüßt" if pair[1] == "de" else "Bravo!", 25), "the debrief, in the learner's base"
+    assert wait_for(TALK_DEBRIEF.get(pair[1], "Bravo!"), 25), "the debrief, in the learner's base"
     time.sleep(1.5)
     snap("debrief")
     tablet("debrief")
     go_home()
     return None if taps == 3 else f"{taps} taps from Home to talking (3 expected)"
+
+
+def friuli_talk():
+    """Teo's free talk in Italian (docs/plans/05-built/scenarios-it.md): a synthetic Teo (LANI_DEV_DATA: make-learner.ts
+    --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de, LANI_QA_LEARNER=Teo),
+    the app in it · de: village_talk's checks on "Al mercato", the end on Teo's tablet too."""
+    return village_talk("friuli")
+
+
+def kaernten_talk():
+    """A grown-up's free talk in German in the Carinthian village (docs/plans/05-built/scenarios-de-en.md): a synthetic Ana
+    (make-learner.ts --target de --base sl; LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-sl), the app in de · sl:
+    village_talk's checks on "Beim Bäcker" (another with $LANI_QA_TALK)."""
+    return village_talk("kaernten")
+
+
+def lakeland_talk():
+    """A grown-up's free talk in English in the Lake District village (docs/plans/05-built/scenarios-de-en.md): a synthetic
+    Giulia (make-learner.ts --target en --base it; LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-it), the app in en · it:
+    village_talk's checks on "At the farm shop" (another with $LANI_QA_TALK)."""
+    return village_talk("lakeland")
 
 
 def friuli_school_unit():
@@ -16068,6 +16115,9 @@ def plan():
         ("friuli-school-unit", friuli_school_unit, None, False, ""),
         # only with --steps friuli-talk: Teo's free talk in Italian, Al mercato end to end (the same learner)
         ("friuli-talk", friuli_talk, None, False, ""),
+        # only with --steps kaernten-talk / lakeland-talk: a grown-up's free talk in German, in English (a synthetic learner)
+        ("kaernten-talk", kaernten_talk, None, False, ""),
+        ("lakeland-talk", lakeland_talk, None, False, ""),
         # only with --steps friuli-watchtower: Teo's watchtower at level 2 and into Sulla torre (the village made a Trg)
         ("friuli-watchtower", friuli_watchtower, None, False, ""),
         # only with --steps lakeland-places: the Lake District's buildings and their scenes (places-lakeland)
@@ -16625,7 +16675,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "kaernten-talk", "lakeland-talk") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")

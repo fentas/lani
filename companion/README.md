@@ -318,7 +318,16 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   with `publish_module`, `publish_scenario`, `publish_scene`). Teo's Italian role-plays are in `companion/scenarios/it/`
   (nine, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday lunch at Nonna
   Rosa's, the playground, a phone call to the nonna, Tommaso's party); a scenario in another language than the
-  village's is never served (docs/plans/05-built/scenarios-it.md).
+  village's is never served (docs/plans/05-built/scenarios-it.md). The Carinthian village has eight for a grown-up in
+  German (`companion/scenarios/de/`: the baker, the farmers' market, the doctor, the Gasthaus, Villach station, the
+  Kirchtag, the neighbour at the fence, a call to the council), the Lake District eight in English
+  (`companion/scenarios/en/`: the farm shop, the pub, the GP, the bus stop in Keswick, the B&B, asking the way on the
+  fell, the village fête, the neighbour over the wall), with packs where none fitted (`beim-arzt`, `im-gasthaus`,
+  `am-bahnhof`, `auf-der-gemeinde`, `wetter-und-garten`; `at-the-doctors`, `in-the-pub`, `getting-about`,
+  `at-the-b-and-b`, `asking-the-way`, `at-the-fete`, `weather-and-garden`); a scene of theirs leads into them after a
+  dialog (Kathi's Gasthaus, Stefan's Most, the Kirchtag; Mrs Birkett's inn, the fête, Shepherd Jack on the fell), and a
+  child's scene never into a grown-up's role-play. Jan's six read in German and Italian too
+  (docs/plans/05-built/scenarios-de-en.md).
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
 - A learner of German plays the same way in `kaernten` (`--target de --culture kaernten`), with the German packs of
