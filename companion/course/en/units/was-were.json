@@ -16,7 +16,10 @@
     "it": "Dici dov'era qualcuno e com'era (I was, you were, wasn't, weren't), chiedi Were you …? con le risposte brevi, e dici there was, there were e quando è nato qualcuno.",
     "en": "You can say where people were and how things were (I was, you were, wasn't, weren't), ask Were you …? with short answers, and say there was, there were and when someone was born."
   },
-  "grammar": ["was-were", "to-be"],
+  "grammar": [
+    "was-were",
+    "to-be"
+  ],
   "words": [
     "was",
     "were",
@@ -52,9 +55,24 @@
   "intro": {
     "table": {
       "head": [
-        { "sl": "kdo", "de": "wer", "it": "chi", "en": "who" },
-        { "sl": "be v pretekliku", "de": "be, Vergangenheit", "it": "be al passato", "en": "be, past" },
-        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+        {
+          "sl": "kdo",
+          "de": "wer",
+          "it": "chi",
+          "en": "who"
+        },
+        {
+          "sl": "be v pretekliku",
+          "de": "be, Vergangenheit",
+          "it": "be al passato",
+          "en": "be, past"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
       ]
     },
     "steps": [
@@ -85,12 +103,22 @@
             "it": "Stamattina faceva freddo."
           }
         ],
-        "rows": [["I, he, she, it", "was", "Jack was on the fell."]],
+        "rows": [
+          [
+            "I, he, she, it",
+            "was",
+            "Jack was on the fell."
+          ]
+        ],
         "ask": {
           "type": "choice",
           "grammar": "was-were",
           "prompt": "Jack ___ on the fell yesterday.",
-          "options": ["was", "were", "is"],
+          "options": [
+            "was",
+            "were",
+            "is"
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -128,12 +156,20 @@
             "it": "Eri in ritardo, Sam!"
           }
         ],
-        "rows": [["you, we, they", "were", "We were tired."]],
+        "rows": [
+          [
+            "you, we, they",
+            "were",
+            "We were tired."
+          ]
+        ],
         "ask": {
           "type": "cloze",
           "grammar": "was-were",
           "text": "Sam, you ___ late yesterday! (be)",
-          "accept": ["were"],
+          "accept": [
+            "were"
+          ],
           "hint": "you → ?",
           "explain": {
             "sl": "**you: were, tudi za eno osebo**\n- you were · we were · they were",
@@ -172,7 +208,12 @@
         ],
         "rows": [
           [
-            { "sl": "not (ne)", "de": "not (nicht)", "it": "not (non)", "en": "not" },
+            {
+              "sl": "not (ne)",
+              "de": "not (nicht)",
+              "it": "not (non)",
+              "en": "not"
+            },
             "wasn't, weren't",
             "It wasn't cold."
           ]
@@ -181,7 +222,9 @@
           "type": "cloze",
           "grammar": "was-were",
           "text": "The children ___ at school on Saturday. (not)",
-          "accept": ["weren't"],
+          "accept": [
+            "weren't"
+          ],
           "hint": "were + not",
           "explain": {
             "sl": "**the children = they: weren't**\n- they weren't · it wasn't",
@@ -220,7 +263,12 @@
         ],
         "rows": [
           [
-            { "sl": "vprašanje", "de": "Frage", "it": "domanda", "en": "question" },
+            {
+              "sl": "vprašanje",
+              "de": "Frage",
+              "it": "domanda",
+              "en": "question"
+            },
             "Was it …? Were you …?",
             "Yes, I was. No, they weren't."
           ]
@@ -229,7 +277,11 @@
           "type": "choice",
           "grammar": "was-were",
           "prompt": "Were you at the show? — Yes, ___",
-          "options": ["I was.", "I were.", "I wasn't."],
+          "options": [
+            "I was.",
+            "I were.",
+            "I wasn't."
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -275,17 +327,30 @@
         ],
         "rows": [
           [
-            { "sl": "kdaj", "de": "wann", "it": "quando", "en": "when" },
+            {
+              "sl": "kdaj",
+              "de": "wann",
+              "it": "quando",
+              "en": "when"
+            },
             "yesterday, last night, two days ago",
             "I was in Keswick yesterday."
           ],
-          ["there", "there was, there were", "There were a lot of people."]
+          [
+            "there",
+            "there was, there were",
+            "There were a lot of people."
+          ]
         ],
         "ask": {
           "type": "choice",
           "grammar": "was-were",
           "prompt": "There ___ a lot of walkers at the inn last night.",
-          "options": ["were", "was", "are"],
+          "options": [
+            "were",
+            "was",
+            "are"
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -324,14 +389,26 @@
           }
         ],
         "rows": [
-          ["where?", "Where were you?", "Where were you on Monday?"],
-          ["born", "was born, were born", "Edna was born in 1952."]
+          [
+            "where?",
+            "Where were you?",
+            "Where were you on Monday?"
+          ],
+          [
+            "born",
+            "was born, were born",
+            "Edna was born in 1952."
+          ]
         ],
         "ask": {
           "type": "choice",
           "grammar": "was-were",
           "prompt": "Auntie Edna ___ born in 1952.",
-          "options": ["was", "is", "has"],
+          "options": [
+            "was",
+            "is",
+            "has"
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -348,9 +425,9 @@
     {
       "id": "was-were-1",
       "title": {
-        "sl": "Was, were · Bil sem, bili smo",
-        "de": "Was, were · War, waren",
-        "it": "Was, were · Ero, eravamo",
+        "sl": "Bil sem, bili smo",
+        "de": "War, waren",
+        "it": "Ero, eravamo",
         "en": "Was, were"
       },
       "exercises": [
@@ -370,25 +447,108 @@
             "en": "be in the past: yes and no"
           },
           "columns": [
-            { "sl": "yes · da", "de": "yes · ja", "it": "yes · sì", "en": "yes" },
-            { "sl": "no · ne", "de": "no · nein", "it": "no · no", "en": "no" }
+            {
+              "sl": "yes · da",
+              "de": "yes · ja",
+              "it": "yes · sì",
+              "en": "yes"
+            },
+            {
+              "sl": "no · ne",
+              "de": "no · nein",
+              "it": "no · no",
+              "en": "no"
+            }
           ],
           "rows": [
-            { "label": "I", "cells": ["was", "wasn't"] },
+            {
+              "label": "I",
+              "cells": [
+                "was",
+                "wasn't"
+              ]
+            },
             {
               "label": "you",
               "cells": [
                 {
-                  "accept": ["were"],
-                  "hint": { "sl": "tudi za eno osebo", "de": "auch für eine Person", "it": "anche per una persona", "en": "for one person too" }
+                  "accept": [
+                    "were"
+                  ],
+                  "hint": {
+                    "sl": "tudi za eno osebo",
+                    "de": "auch für eine Person",
+                    "it": "anche per una persona",
+                    "en": "for one person too"
+                  }
                 },
-                { "accept": ["weren't"] }
+                {
+                  "accept": [
+                    "weren't"
+                  ]
+                }
               ]
             },
-            { "label": "she", "cells": [{ "accept": ["was"] }, { "accept": ["wasn't"] }] },
-            { "label": "it", "cells": [{ "accept": ["was"] }, { "accept": ["wasn't"] }] },
-            { "label": "we", "cells": [{ "accept": ["were"] }, { "accept": ["weren't"] }] },
-            { "label": "they", "cells": [{ "accept": ["were"] }, { "accept": ["weren't"] }] }
+            {
+              "label": "she",
+              "cells": [
+                {
+                  "accept": [
+                    "was"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wasn't"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "it",
+              "cells": [
+                {
+                  "accept": [
+                    "was"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wasn't"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "we",
+              "cells": [
+                {
+                  "accept": [
+                    "were"
+                  ]
+                },
+                {
+                  "accept": [
+                    "weren't"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "they",
+              "cells": [
+                {
+                  "accept": [
+                    "were"
+                  ]
+                },
+                {
+                  "accept": [
+                    "weren't"
+                  ]
+                }
+              ]
+            }
           ],
           "explain": {
             "sl": "**was za I, he, she, it; were za you, we, they**\n- I was · I wasn't\n- you were · you weren't",
@@ -402,9 +562,9 @@
     {
       "id": "was-were-2",
       "title": {
-        "sl": "Market day yesterday · Včeraj je bil tržni dan",
-        "de": "Market day yesterday · Gestern war Markttag",
-        "it": "Market day yesterday · Ieri era giorno di mercato",
+        "sl": "Včeraj je bil tržni dan",
+        "de": "Gestern war Markttag",
+        "it": "Ieri era giorno di mercato",
         "en": "Market day yesterday"
       },
       "exercises": [
@@ -419,17 +579,52 @@
           },
           "text": "Yesterday was market day in Keswick. Mr Tyson ___ there with his oats, and Granny Maggie and Auntie Edna ___ there too. The bus ___ very full! — ___ you at the market, Jack? — No, I ___ (not). I ___ on the fell with Meg. The sheep ___ (not) happy in the rain.",
           "gaps": [
-            { "accept": ["was"], "hint": "he → ?" },
-            { "accept": ["were"], "hint": "they → ?" },
-            { "accept": ["was"], "hint": "it → ?" },
             {
-              "accept": ["Were", "Weren't"],
-              "hint": { "sl": "vprašanje z you", "de": "eine Frage mit you", "it": "una domanda con you", "en": "a question with you" }
+              "accept": [
+                "was"
+              ],
+              "hint": "he → ?"
             },
-            { "accept": ["wasn't"], "hint": "was + not" },
-            { "accept": ["was"], "hint": "I → ?" },
             {
-              "accept": ["weren't"],
+              "accept": [
+                "were"
+              ],
+              "hint": "they → ?"
+            },
+            {
+              "accept": [
+                "was"
+              ],
+              "hint": "it → ?"
+            },
+            {
+              "accept": [
+                "Were",
+                "Weren't"
+              ],
+              "hint": {
+                "sl": "vprašanje z you",
+                "de": "eine Frage mit you",
+                "it": "una domanda con you",
+                "en": "a question with you"
+              }
+            },
+            {
+              "accept": [
+                "wasn't"
+              ],
+              "hint": "was + not"
+            },
+            {
+              "accept": [
+                "was"
+              ],
+              "hint": "I → ?"
+            },
+            {
+              "accept": [
+                "weren't"
+              ],
               "hint": "were + not",
               "explain": {
                 "sl": "**the sheep = they: weren't**\n- the sheep weren't · Meg wasn't",
@@ -440,7 +635,10 @@
             }
           ],
           "bank": true,
-          "distractors": ["where", "been"],
+          "distractors": [
+            "where",
+            "been"
+          ],
           "translation": {
             "sl": "Včeraj je bil v Keswicku tržni dan. Gospod Tyson je bil tam s svojim ovsom, babica Maggie in teta Edna pa tudi. Avtobus je bil zelo poln! — Si bil na tržnici, Jack? — Ne, nisem bil. Bil sem na hribu z Meg. Ovce v dežju niso bile vesele.",
             "de": "Gestern war Markttag in Keswick. Mr Tyson war mit seinem Hafer dort, und Oma Maggie und Tante Edna waren auch da. Der Bus war sehr voll! — Warst du auf dem Markt, Jack? — Nein, war ich nicht. Ich war mit Meg am Berg. Die Schafe waren im Regen nicht glücklich.",
@@ -458,7 +656,11 @@
             "en": "Choose"
           },
           "prompt": "Where ___ you last night?",
-          "options": ["were", "was", "where"],
+          "options": [
+            "were",
+            "was",
+            "where"
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -473,9 +675,9 @@
     {
       "id": "was-were-3",
       "title": {
-        "sl": "Yesterday and questions · Včeraj in vprašanja",
-        "de": "Yesterday and questions · Gestern und Fragen",
-        "it": "Yesterday and questions · Ieri e domande",
+        "sl": "Včeraj in vprašanja",
+        "de": "Gestern und Fragen",
+        "it": "Ieri e domande",
         "en": "Yesterday and questions"
       },
       "exercises": [
@@ -490,16 +692,34 @@
           },
           "cue": "yesterday",
           "items": [
-            { "from": "I'm tired today.", "accept": ["I was tired yesterday.", "Yesterday I was tired."] },
-            { "from": "Jack is on the fell today.", "accept": ["Jack was on the fell yesterday.", "Yesterday Jack was on the fell."] },
+            {
+              "from": "I'm tired today.",
+              "accept": [
+                "I was tired yesterday.",
+                "Yesterday I was tired."
+              ]
+            },
+            {
+              "from": "Jack is on the fell today.",
+              "accept": [
+                "Jack was on the fell yesterday.",
+                "Yesterday Jack was on the fell."
+              ]
+            },
             {
               "from": "We're at the smithy today.",
-              "accept": ["We were at the smithy yesterday.", "Yesterday we were at the smithy."],
+              "accept": [
+                "We were at the smithy yesterday.",
+                "Yesterday we were at the smithy."
+              ],
               "hint": "we → ?"
             },
             {
               "from": "The shops are closed today.",
-              "accept": ["The shops were closed yesterday.", "Yesterday the shops were closed."],
+              "accept": [
+                "The shops were closed yesterday.",
+                "Yesterday the shops were closed."
+              ],
               "hint": "are → ?"
             }
           ],
@@ -523,12 +743,34 @@
           "items": [
             {
               "from": "It was cold.",
-              "accept": ["Was it cold?"],
-              "hint": { "sl": "was na začetek", "de": "was nach vorn", "it": "was all'inizio", "en": "was first" }
+              "accept": [
+                "Was it cold?"
+              ],
+              "hint": {
+                "sl": "was na začetek",
+                "de": "was nach vorn",
+                "it": "was all'inizio",
+                "en": "was first"
+              }
             },
-            { "from": "They were at the show.", "accept": ["Were they at the show?"] },
-            { "from": "Mrs Hartley was at school.", "accept": ["Was Mrs Hartley at school?"] },
-            { "from": "You were in Carlisle.", "accept": ["Were you in Carlisle?"] }
+            {
+              "from": "They were at the show.",
+              "accept": [
+                "Were they at the show?"
+              ]
+            },
+            {
+              "from": "Mrs Hartley was at school.",
+              "accept": [
+                "Was Mrs Hartley at school?"
+              ]
+            },
+            {
+              "from": "You were in Carlisle.",
+              "accept": [
+                "Were you in Carlisle?"
+              ]
+            }
           ],
           "explain": {
             "sl": "**was ali were na začetek, brez do**\n- It was cold. → Was it cold?\n- You were in Carlisle. → Were you in Carlisle?",
@@ -554,12 +796,37 @@
         },
         "text": "Old Wilf ___ born in 1942, on a farm by the tarn. Two days ago he ___ at the inn with Bess. There ___ a lot of people there, and there ___ music. — ___ it a good evening, Wilf? — Aye, it ___!",
         "gaps": [
-          { "accept": ["was"] },
-          { "accept": ["was"] },
-          { "accept": ["were"] },
-          { "accept": ["was"] },
-          { "accept": ["Was", "Wasn't"] },
-          { "accept": ["was"] }
+          {
+            "accept": [
+              "was"
+            ]
+          },
+          {
+            "accept": [
+              "was"
+            ]
+          },
+          {
+            "accept": [
+              "were"
+            ]
+          },
+          {
+            "accept": [
+              "was"
+            ]
+          },
+          {
+            "accept": [
+              "Was",
+              "Wasn't"
+            ]
+          },
+          {
+            "accept": [
+              "was"
+            ]
+          }
         ],
         "translation": {
           "sl": "Stari Wilf se je rodil leta 1942 na kmetiji ob gorskem jezercu. Pred dvema dnevoma je bil z Bess v gostilni. Tam je bilo veliko ljudi in igrala je glasba. — Je bil lep večer, Wilf? — Ja, bil je!",
@@ -579,8 +846,18 @@
         },
         "cue": "not",
         "items": [
-          { "from": "The inn was open.", "accept": ["The inn wasn't open."] },
-          { "from": "We were in Keswick on Monday.", "accept": ["We weren't in Keswick on Monday."] }
+          {
+            "from": "The inn was open.",
+            "accept": [
+              "The inn wasn't open."
+            ]
+          },
+          {
+            "from": "We were in Keswick on Monday.",
+            "accept": [
+              "We weren't in Keswick on Monday."
+            ]
+          }
         ],
         "explain": {
           "sl": "**wasn't (was not), weren't (were not)**\n- The inn wasn't open.\n- We weren't in Keswick.",
@@ -600,8 +877,18 @@
         },
         "cue": "?",
         "items": [
-          { "from": "Jack was tired.", "accept": ["Was Jack tired?"] },
-          { "from": "The children were at school.", "accept": ["Were the children at school?"] }
+          {
+            "from": "Jack was tired.",
+            "accept": [
+              "Was Jack tired?"
+            ]
+          },
+          {
+            "from": "The children were at school.",
+            "accept": [
+              "Were the children at school?"
+            ]
+          }
         ],
         "explain": {
           "sl": "**was ali were na začetek**\n- Jack was tired. → Was Jack tired?",
@@ -620,7 +907,11 @@
           "en": "Choose"
         },
         "prompt": "Mrs Hartley ___ born in Carlisle.",
-        "options": ["was", "is", "were"],
+        "options": [
+          "was",
+          "is",
+          "were"
+        ],
         "answer": 0,
         "say_options": true,
         "explain": {
@@ -640,7 +931,11 @@
           "en": "Choose"
         },
         "prompt": "Were the sheep on the fell? — No, ___",
-        "options": ["they weren't.", "they wasn't.", "they didn't."],
+        "options": [
+          "they weren't.",
+          "they wasn't.",
+          "they didn't."
+        ],
         "answer": 0,
         "say_options": true,
         "explain": {
