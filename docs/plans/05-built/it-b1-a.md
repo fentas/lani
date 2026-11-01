@@ -65,10 +65,11 @@ pages and no longer say planned.
   the sentence (un giorno, all'improvviso, altrimenti), and a narrative present is never offered as wrong (it is how a
   tale is told aloud).
 - **A spoken form is never wrong.** After penso che and credo che the indicative (penso che è) is how many people
-  talk: a choice offering it is `almost`, its why naming it as spoken and the subjunctive as the school's. The gap texts
-  take their subjunctive after volere che and sperare che, where the indicative isn't the spoken norm (two gaps after
-  pensa che were moved there), and a colloquial indicative that fits a gap (viene after è contenta che) is never a
-  word bank's distractor.
+  talk: a choice offering it is `almost`, its why naming it as spoken and the subjunctive as the school's. Where speech
+  commonly takes the indicative (after sperare che, the feelings, ho paura che, basta che), a gap or a transform line
+  lists it in `spoken` (main's new key, 2026-11-01: graded right and labelled "Parlato, ed è giusto anche così; la
+  forma standard: …"): 2 gaps of congiuntivo, 4 gaps and 5 lines of congiuntivo-espressioni. Two gaps after pensa che
+  moved to vuole che, and a colloquial indicative is never a word bank's distractor (viene after è contenta che was).
 - **passato-remoto is recognition first**: a sort by the verb a form comes from, choices of what a form means (vide: ha
   visto, not ha vinto, ha vissuto), a word bank, the tale retold in the passato prossimo; only the regular -ò, -ì and
   the five a child meets (fu, andò, disse, ebbe, venne) are written without a bank.

@@ -953,9 +953,10 @@ and the B1 units before them around a gap (docs/plans/05-built/it-b1-a.md):
   ways names the tense in its instruction ("Completa con il passato remoto", "… con il condizionale", "… con il
   congiuntivo") or in its cue ("(essere · condizionale)").
 - **The spoken indicative is labelled, not a trap**: after penso che and credo che the indicative (penso che è) is how
-  many people talk; a choice offering it is `almost` (the why: beim Reden …, in der Schule sia), a gap whose
-  instruction asks for the congiuntivo takes the subjunctive, its why naming the spoken form. After volere che, the
-  impersonal expressions and the feelings the subjunctive is the answer.
+  many people talk; a choice offering it is `almost` (the why: beim Reden …, in der Schule sia). Where speech commonly
+  takes the indicative (after sperare che, the feelings, ho paura che, basta che), a gap or a line lists it in `spoken`
+  ([Spoken forms](#spoken-forms): right, labelled "Parlato, ed è giusto anche così; la forma standard: …"), the
+  subjunctive its answer; after volere che and the impersonal expressions the subjunctive alone is right.
 - **The imperfect subjunctive** comes only with `periodo-ipotetico`, for its se-half (fossi, avessi, potessi, the
   regular -assi, -essi, -issi); its table leaves voi out.
 - **The grading B1 needs** (`grading/it.json`): another tense or mood one letter off is wrong, never a slip
