@@ -135,6 +135,9 @@ class CultureScenesTest {
             // Kärnten's third wave (kaernten-projects-a): the wood from the first day (Florian's lost Bella, Oma Resi's
             // Schwammerl, Opa Sepp on the Hochstand, Lena's Schwarzbeeren, a bear's old tracks, Stanko and the roe deer at dusk)
             listOf("kaernten", "im-wald", "forest", "forest"),
+            // the Maibaum while it stands (the night watch against the next village's lads, the ribbons counted, the
+            // Maibaumkraxeln for the sausages at the top, the ball under the Bankerl, the band and a polka, raised on 30 April)
+            listOf("kaernten", "unter-dem-maibaum", "square", "project:mlaj"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
             // the Lake District's buildings (places-lakeland): the house's rooms (Granny Maggie's kitchen, anyone's; Old Wilf's
             // room by the fire, Brewer Sam's cellar, Mrs Birkett and Harry's attic, Mr Tyson and Alfie's workshop), the tent,
