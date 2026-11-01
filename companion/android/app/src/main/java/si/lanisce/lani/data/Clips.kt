@@ -64,14 +64,15 @@ class VoiceRefused(voice: String) : IOException("voice $voice refused")
  * Where a voice store answers the app (companion/bridge/src/features/voice.ts): the node's own ([OWN]: /voice/…), or on a
  * visit the visited town's, through the node ([visit]: /towns/<id>/voice/…, companion/bridge/src/features/visit-voices.ts:
  * the host's own clips, else the node voices the line in the host's cast voice). A visit has no re-record nor a prepare
- * ([redo], [prepare] null).
+ * ([redo], [prepare] null: the node's prepare voices what it hasn't); [ahead]: a visit's first lines got ahead, the town's
+ * own clips only, never voiced for it (null at home).
  */
-data class ClipRoutes(val index: String, val say: String, val profiles: String, val redo: String?, val prepare: String?) {
+data class ClipRoutes(val index: String, val say: String, val profiles: String, val redo: String?, val prepare: String?, val ahead: String? = null) {
     companion object {
         val OWN = ClipRoutes("/voice/index", "/voice/say", "/voice/profiles", "/voice/redo", "/voice/prepare")
 
         /** The visited town [town]'s voices, through the node. */
-        fun visit(town: String) = ClipRoutes("/towns/$town/voice/index", "/towns/$town/voice/say", "/towns/$town/voice/profiles", null, null)
+        fun visit(town: String) = ClipRoutes("/towns/$town/voice/index", "/towns/$town/voice/say", "/towns/$town/voice/profiles", null, null, "/towns/$town/voice/prepare")
     }
 }
 
@@ -145,7 +146,36 @@ class ClipsApi(private val config: BridgeConfig, private val routes: ClipRoutes 
 
     suspend fun download(url: String, to: File) = http.downloadTo(config.request(url).build(), to)
 
+    /**
+     * A visit's first lines got ahead ([ClipRoutes.ahead]: POST /towns/<id>/voice/prepare, at most 20): each one's clip URL
+     * and the voice it is in, kept on the node or the host's own (never voiced for it), null where none is there; null for
+     * all from a bridge without the route (404) or at home.
+     */
+    suspend fun ahead(texts: List<ClipAsk>): List<Pair<String, String>?>? {
+        val path = routes.ahead ?: return null
+        val body = buildJsonObject {
+            put("texts", kotlinx.serialization.json.buildJsonArray {
+                for (t in texts) add(buildJsonObject { put("text", t.text); put("voice", t.voice) })
+            })
+        }.toString().toRequestBody(Http.jsonType)
+        val (code, raw) = http.exchange(config.request(path).post(body).build())
+        if (code == 404) return null
+        if (code !in 200..299) throw IOException("HTTP $code")
+        return parseAhead(raw, texts.size)
+    }
+
     companion object {
+        /** POST /towns/<id>/voice/prepare's answer for [n] lines: each clip's URL and voice, null where none came. */
+        fun parseAhead(raw: String, n: Int): List<Pair<String, String>?> {
+            val clips = json.parseToJsonElement(raw).jsonObject["clips"] as? kotlinx.serialization.json.JsonArray ?: return List(n) { null }
+            return (0 until n).map { i ->
+                val o = clips.getOrNull(i) as? JsonObject ?: return@map null
+                val url = runCatching { o["url"]?.jsonPrimitive?.contentOrNull }.getOrNull() ?: return@map null
+                val voice = runCatching { o["voice"]?.jsonPrimitive?.contentOrNull }.getOrNull() ?: return@map null
+                url to voice
+            }
+        }
+
         /** POST /voice/say's body: {text, voice}, with [lang] an explanation's ({text, voice, lang}: the bridge's sayIn). */
         fun sayBody(text: String, voice: String, lang: String? = null): JsonObject =
             buildJsonObject { put("text", text); put("voice", voice); lang?.let { put("lang", it) } }
@@ -509,6 +539,41 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     }
 
     /**
+     * A visit's first lines onto the phone ahead ([lines]: each text and the voices a [Speaker.say] of it asks for, best
+     * first; app/VisitAhead), while the visit begins: those not here yet asked of the node at the town's route
+     * ([ClipRoutes.ahead]: kept there, else the host's own; never voiced for it, so no credits go to a line maybe never
+     * heard), at most [AHEAD_MAX], 20 at a time; each downloaded into the clip cache, within the learner's cap ([trim]), and
+     * in the visit's index, so the line plays at once when it is said. Nothing is marked missed: a line not got is asked for
+     * when it is said (the node voices it then). Not with the cap off ("Off": nothing got ahead). How many came.
+     */
+    suspend fun ahead(lines: List<Pair<String, List<String>>>): Int {
+        if (!visit || !settings.cap.prefetch) return 0
+        val a = api ?: return 0
+        val todo = lines
+            .filter { (t, v) -> v.isNotEmpty() && v.first() != PLAYER && parts(t).size == 1 && Voice.normalize(t).isNotEmpty() && onDevice(t, v.take(1)) == null }
+            .distinctBy { (t, v) -> missKey(t, v.first()) }
+            .take(AHEAD_MAX)
+        var got = 0
+        for (batch in todo.chunked(AHEAD_AT_ONCE)) {
+            val answers = withContext(Dispatchers.IO) { runCatching { a.ahead(batch.map { (t, v) -> ClipAsk(t, v.first()) }) }.getOrNull() } ?: break
+            for ((i, r) in answers.withIndex()) {
+                val (url, voice) = r ?: continue
+                val key = Voice.normalize(batch[i].first)
+                val f = file(url)
+                val here = withContext(Dispatchers.IO) {
+                    runCatching { ClipFiles.get(f, emptyList()) { to -> a.download(url, to) } }.getOrDefault(false).also { if (it) f.setLastModified(System.currentTimeMillis()) }
+                }
+                if (!here) continue
+                withContext(Dispatchers.Main) { index = index + (key to (index[key].orEmpty() + (voice to url))) }
+                got++
+            }
+        }
+        if (got > 0) withContext(Dispatchers.IO) { trim() }
+        Log.i(TAG, "a visit's first lines got ahead: $got of ${todo.size}")
+        return got
+    }
+
+    /**
      * Gets [text]'s clips in the first of [voices] onto the phone ahead, without playing them (a timed run's sounds, before
      * its clock starts): true once they are here, false when the node can't make them now (the line is spoken otherwise).
      */
@@ -655,6 +720,12 @@ class Clips(context: Context, private val scope: CoroutineScope, private val vis
     companion object {
         const val FEMALE = "female"
         const val MALE = "male"
+
+        /** At most this many of a visit's first lines are got ahead ([ahead]); a greeting's clip is a few KB. */
+        const val AHEAD_MAX = 40
+
+        /** The lines one ask of [ahead] takes (the node's route takes at most 20). */
+        private const val AHEAD_AT_ONCE = 20
 
         /**
          * The learner's own lines in a dialog (companion/SCENES.md, "The learner's voice"): asked of the node in this voice,

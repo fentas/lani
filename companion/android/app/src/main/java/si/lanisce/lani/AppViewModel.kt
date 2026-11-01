@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import si.lanisce.lani.app.ChatController
 import si.lanisce.lani.app.ChatStore
@@ -2234,7 +2235,32 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         speaker.refresh()
         showWorld()
         visits.start(t.id, t.name, t.learner, t.culture, t.language)
+        visitAhead(t.id)
         nav.go(Screen.Visit(t.id))
+    }
+
+    /** The job getting a visit's first lines ahead ([visitAhead]); a visit's end or the next visit cancels it. */
+    private var aheadJob: Job? = null
+
+    /**
+     * Town [id]'s first lines onto the phone as the visit begins (app/VisitAhead: its people's greetings, the first lines of
+     * today's dialogs for guests; [Clips.ahead]: the town's own clips through the node, never voiced for it, within the clip
+     * cache's cap), once the town's people and places came and the node said how they are heard (or after a few seconds).
+     */
+    private fun visitAhead(id: String) {
+        aheadJob?.cancel()
+        val c = visitClips ?: return
+        aheadJob = viewModelScope.launch {
+            val v = kotlinx.coroutines.withTimeoutOrNull(AHEAD_WAIT_MS) {
+                snapshotFlow { visits.visit?.takeIf { it.id == id && !it.loading && it.state != null } }.first { it != null }
+            } ?: return@launch
+            kotlinx.coroutines.withTimeoutOrNull(AHEAD_PROFILES_MS) { snapshotFlow { c.profiles.isNotEmpty() }.first { it } }
+            if (visitClips !== c) return@launch
+            val lines = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                runCatching { si.lanisce.lani.app.VisitAhead.lines(v, profiles = c.profiles) }.getOrDefault(emptyList())
+            }
+            if (lines.isNotEmpty()) runCatching { c.ahead(lines) }
+        }
     }
 
     // --- friendship between towns (companion/README.md, "Friendship between towns") ----------------------------------
@@ -2408,6 +2434,8 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
 
     /** The visit is over: the learner's own pair, culture and voices again, and their village's days go on. */
     private fun endVisit() {
+        aheadJob?.cancel()
+        aheadJob = null
         visits.end()
         VisitWorld.leave()
         speaker.stop()
@@ -2705,6 +2733,12 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     private companion object {
         /** The back stack in the saved state ([NavStack.saved]). */
         const val NAV_KEY = "nav"
+
+        /** How long a visit's first lines wait for the town's people and places to come ([visitAhead]). */
+        const val AHEAD_WAIT_MS = 20_000L
+
+        /** How long they wait for the node to say how the town's people are heard (someone's own voice first). */
+        const val AHEAD_PROFILES_MS = 3_000L
     }
 
     override fun onCleared() {

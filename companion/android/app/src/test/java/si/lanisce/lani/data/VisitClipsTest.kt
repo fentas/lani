@@ -26,9 +26,27 @@ class VisitClipsTest {
         assertEquals("/towns/$town/voice/index", r.index)
         assertEquals("/towns/$town/voice/say", r.say)
         assertEquals("/towns/$town/voice/profiles", r.profiles)
+        assertEquals("/towns/$town/voice/prepare", r.ahead)
         assertNull(r.redo)
         assertNull(r.prepare)
         assertEquals("/voice/say", ClipRoutes.OWN.say)
+        assertNull(ClipRoutes.OWN.ahead)
+    }
+
+    @Test fun `a visit's first lines are asked at the town's prepare route, each answered with its clip and voice or none`() {
+        val url = "/towns/voice/file/${"d".repeat(40)}.mp3"
+        val node = OneAnswer(200, """{"clips":[{"url":"$url","voice":"@micka","from":"host"},null]}""")
+        val got = runBlocking { ClipsApi(BridgeConfig(node.url, "app-token"), ClipRoutes.visit(town)).ahead(listOf(ClipAsk("Dober dan!", "@micka"), ClipAsk("Kako ste?", "grandma"))) }
+        assertEquals(listOf(url to "@micka", null), got)
+        val req = node.request()
+        assertEquals("POST /towns/$town/voice/prepare HTTP/1.1", req.line)
+        assertTrue(req.body, req.body.contains("\"texts\"") && req.body.contains("\"voice\":\"@micka\"") && req.body.contains("Kako ste?"))
+        // an older bridge (404): none, and at home there is no such route: nothing sent
+        assertNull(runBlocking { ClipsApi(BridgeConfig(OneAnswer(404, "{}").url, "t"), ClipRoutes.visit(town)).ahead(listOf(ClipAsk("Dober dan!", "grandma"))) })
+        assertNull(runBlocking { ClipsApi(BridgeConfig("http://127.0.0.1:9", "t")).ahead(listOf(ClipAsk("Dober dan!", "grandma"))) })
+        // an answer short of lines, or not one: none for the rest
+        assertEquals(listOf(url to "female", null), ClipsApi.parseAhead("""{"clips":[{"url":"$url","voice":"female"}]}""", 2))
+        assertEquals(listOf(null), ClipsApi.parseAhead("""{"oops":1}""", 1))
     }
 
     @Test fun `a line is asked at the town's route, with the app token, and the voice it came in is taken`() {

@@ -10767,16 +10767,32 @@ def visit_voices():
     sl · de). (a) Someone of the town out on its map tapped and their greeting's 🔊 (nobody out, or a greeting the town has
     no clip of: a greeting it has, said as its 🔊 says it, QA's hook "audio:say:<text>|<voice>|<person>"): the town's own
     clip plays (tag Speaker "said «…»: node clip (<voice>)"; the dev bridge "visit voices: <town>: "…" (<voice>): the
-    town's own clip"). (b) A line of theirs the town has no clip of: voiced on the dev bridge in the town's cast voice and
-    language (the fake's take with language_code sl; "voiced here (elevenlabs)"), its clip played. The lines in
-    visit-voices.log. The visit stays for visit-voices-silent."""
+    town's own clip"), or already on the phone: (a0) as the visit began, its first lines were got ahead (tag Clips "a
+    visit's first lines got ahead: <n> of <m>"; the dev bridge "the town's own clip, got ahead", app/VisitAhead.kt). (b) A
+    line of theirs the town has no clip of: voiced on the dev bridge in the town's cast voice and language (the fake's take
+    with language_code sl; "voiced here (elevenlabs)"), its clip played. The lines in visit-voices.log. The visit stays for
+    visit-voices-silent."""
     if (why := no_town()) is not None:
         return why
     seeded = [g for g in town_voices() if g.get("status") == 200]
     if not seeded:
         return "the town has no clips of its own (town.log: no greeting voiced; LANI_DEV_TOWN_VOICES)"
     print(f"    the town's own clips: {len(seeded)} greetings of {len({g['person'] for g in seeded})} people")
+    ahead_mark = bridge_mark()
+    adb("logcat", "-c")
     visit_again(VOICES_PAIR)
+    # (a0) the visit's first lines got ahead as it began: the town's own clips onto the phone, none voiced for it
+    got, end = None, time.time() + 20 * slow()
+    while got is None and time.time() < end:
+        got = next((l for l in app_lines() if "first lines got ahead" in l), None)
+        if got is None:
+            time.sleep(1)
+    ahead = [l for l in bridge_lines(ahead_mark) if "got ahead" in l]
+    voices_log("(a0) the visit's first lines got ahead as it began", ["app:", got or "(none)", "dev bridge:"] + ahead)
+    print(f"    (a0) {got.split('): ', 1)[-1].strip() if got else 'nothing got ahead'}; the dev bridge kept {len(ahead)} of the town's clips for it")
+    assert got and re.search(r"got ahead: [1-9][0-9]* of", got), f"(a0) the visit's first lines weren't got ahead: {got}"
+    assert ahead, "(a0) the dev bridge got none of the town's own clips ahead"
+    assert not any("voiced here" in l for l in bridge_lines(ahead_mark)), "(a0) a line got ahead was voiced on the node"
     voices_hooks()
     labels = " ".join(t for t, _ in nodes())
     want = f"⌂ {host('common.home')} · {l10n(VOICES_PAIR.split('-')[1], 'common.home')}"
@@ -10817,9 +10833,10 @@ def visit_voices():
     print(f"    (a) {who}: «{text}» said by {' → '.join(how) or 'nothing'}")
     for l in a_bridge:
         print(f"        bridge: {l.strip()}")
-    assert how and how[-1].startswith("node clip ("), f"(a) the greeting «{text}» wasn't its clip: {how}"
-    assert any("the town's own clip" in l and norm(text)[:20] in norm(l) for l in a_bridge), \
-        f"(a) the dev bridge didn't get the town's own clip of «{text}»: {a_bridge}"
+    # its clip: asked of the node now, or on the phone already (got ahead as the visit began)
+    assert how and (how[-1].startswith("node clip (") or how[-1] == "clip on the phone"), f"(a) the greeting «{text}» wasn't its clip: {how}"
+    assert any("the town's own clip" in l and norm(text)[:20] in norm(l) for l in a_bridge + ahead), \
+        f"(a) the dev bridge didn't get the town's own clip of «{text}»: {a_bridge + ahead}"
     if find(f"💬 {host('visit.talk')} · "):
         adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the card closed
         time.sleep(1.2)
