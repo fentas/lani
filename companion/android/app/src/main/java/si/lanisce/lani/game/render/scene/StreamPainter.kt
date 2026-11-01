@@ -48,6 +48,9 @@ import kotlin.math.sqrt
  *
  * In Friuli's look (companion/SCENES.md "Culture looks") Lombardy poplars stand along the banks and in the woods' edge
  * where the spruces do, and the hill over the valley has its vine rows and a hamlet with its campanile ([hamlet]).
+ * In the Lake District's (By the beck) the woods are broadleaf, alders and oaks along the beck and no spruce
+ * ([broadleaf]), and the fells rise behind them, rounded, their intake fields walled with dry-stone walls, bracken and
+ * crags higher up, a whitewashed farm under slate with its stone barn on the lower slope ([fells], [fellFarm]).
  */
 internal class StreamPainter : WildPainter() {
     override val art = "stream"
@@ -103,13 +106,18 @@ internal class StreamPainter : WildPainter() {
     // woods' edge, the Collio's vines and a campanile on the hill
     private var pioppi = false
     private var collio = false
+    /** The Lake District's beck: broadleaf woods without a spruce ([broadleaf]), the fells behind ([fells]). */
+    private var broadleaf = false
+    private var fells = false
     /** Friuli's cart bridge: its pillars and its ramps' walls of river cobbles with bands of brick ([cobbleTone]). */
     private var cobblePiers = false
 
     override fun paint() {
         setup()
-        pioppi = variant("trees") != null
-        collio = variant("hills") != null
+        pioppi = variant("trees") == "pioppi"
+        collio = variant("hills") == "collio"
+        broadleaf = variant("trees") == "broadleaf"
+        fells = variant("hills") == "fells"
         cobblePiers = variant("cartbridge") != null
         millDone = stage(MILL) >= stages(MILL)
         wheelIn = stage(MILL) >= stages(MILL) - 1
@@ -130,7 +138,7 @@ internal class StreamPainter : WildPainter() {
             if (side > 0 && d < millBack + 3f && x < millR + 2f) continue
             if (abs(d - cartD) < 2.6f) continue // the cart road's way over the stream
             // (in Friuli more of them tall: Lombardy poplars, as along the plain's streams)
-            val spruce = Noise.rnd(k, 313) < (if (pioppi) 0.55f else 0.3f)
+            val spruce = !broadleaf && Noise.rnd(k, 313) < (if (pioppi) 0.55f else 0.3f)
             val hgt = if (spruce) 10f + Noise.rnd(k, 314) * 5f else 7f + Noise.rnd(k, 314) * 4f
             items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce && pioppi) poplar(x, d, hgt + 2f, k * 3 + 1) else if (spruce) spruce(x, d, hgt, k) else leafyTree(x, d, hgt, k * 5 + 3) } })
         }
@@ -200,6 +208,7 @@ internal class StreamPainter : WildPainter() {
 
     /** The plateau's peaks in the haze, then the wooded hills the stream comes down from. */
     private fun hills() {
+        if (fells) { fellsBehind(); return }
         val z = z
         val season = env.season
         val rock = if (season == Season.WINTER) Col.hex(0xB8C6DA) else Col.hex(0x7684A8)
@@ -208,6 +217,36 @@ internal class StreamPainter : WildPainter() {
         val mid = ridge(hz - 4f * z, 10f * z, 0.017f, 323, midCol, 0.22f, texture = if (collio) ({ x, y, b -> collioSlope(x, y, b, 333) }) else null)
         treeline(mid, (if (collio) 11 else 6) * z, 2.4f * z, if (season == Season.WINTER) Col.hex(0x6A7A8A) else Col.hex(0x2E5A36), 0.26f, 327)
         if (collio) hamlet(mid)
+    }
+
+    /**
+     * The Lake District's fells behind the beck's woods ([fells]): a far fell blue-grey in the haze, rounded, snow on its top
+     * in winter; the near fell the beck comes down from, its intake fields walled low down, bracken and crags above
+     * ([fellSlope]); a few oaks along its foot, and the farm on its lower slope ([fellFarm]).
+     */
+    private fun fellsBehind() {
+        val z = z
+        val season = env.season
+        ridge(hz - 30f * z, 20f * z, 0.010f, 321, if (season == Season.WINTER) Col.hex(0xB8C6DA) else Col.hex(0x6A7C8A), 0.34f, snowLine = 0.55f)
+        val mid = ridge(hz - 17f * z, 20f * z, 0.013f, 323, Col.hex(0x6E9A50), 0.2f, texture = { x, y, b -> fellSlope(x, y, b, 333) })
+        treeline(mid, 13 * z, 2.2f * z, if (season == Season.WINTER) Col.hex(0x6A665E) else Col.hex(0x2E5A36), 0.24f, 327, from = 0, to = (vx - 30 * z).toInt())
+        fellFarm(mid)
+    }
+
+    /**
+     * A fell farm far off on the near fell's lower slope ([fells]), right of the valley: the farmhouse whitewashed under slate,
+     * its stone barn beside it ([farSlateHouse]), the village's colours ([FireStyle]).
+     */
+    private fun fellFarm(crest: IntArray) {
+        val z = z
+        val st = FireStyle.of(frame.world.culture, frame.world.landscape)
+        val x = (vx + 30 * z).toInt().coerceIn(0, w - 12 * z)
+        val base = crest[x.coerceIn(0, w - 1)] + 6 * z
+        val lit = env.windows > 0.35f
+        c.penEmissive = true
+        farSlateHouse(x, base, 6 * z, 3 * z, st, 1, lit, 0.22f)
+        farSlateHouse(x + 7 * z, base, 5 * z, 2 * z, st, 0, false, 0.24f)
+        c.penEmissive = false
     }
 
     /**
@@ -258,7 +297,7 @@ internal class StreamPainter : WildPainter() {
             val xb = (px + 0.5f) / z
             val top = woodsTop(xb, valley, base)
             val cell = floor(xb / 7f).toInt()
-            val spruce = Noise.rnd(cell, 303) < 0.55f
+            val spruce = !broadleaf && Noise.rnd(cell, 303) < 0.55f
             val column = pioppi && spruce && poplarCell(cell) && abs(xb / 7f - cell - 0.5f) < poplarHalf(cell)
             // under its crown the poplar stands among the alders: only its column over their canopy shows as the poplar
             val canopy = if (column) canopyOf(xb, valley, base) else 0
@@ -291,7 +330,7 @@ internal class StreamPainter : WildPainter() {
     private fun woodsTop(xb: Float, valley: Float, base: Int): Int {
         val gap = (abs(xb - valley) / 70f).coerceIn(0.62f, 1f)
         val cell = floor(xb / 7f).toInt(); val u = xb / 7f - cell
-        val spruce = Noise.rnd(cell, 303) < 0.55f
+        val spruce = !broadleaf && Noise.rnd(cell, 303) < 0.55f
         val tall = 18f + 12f * Noise.v1(xb * 0.05f, 301) + 6f * Noise.rnd(cell, 302)
         val crown = if (spruce && pioppi) (if (poplarCell(cell)) poplarTop(u, cell) else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 6f)
         else if (spruce) (1f - abs(u - 0.5f) * 2f) * 9f else sqrt(max(0f, 1f - (u * 2f - 1f) * (u * 2f - 1f))) * 5f
