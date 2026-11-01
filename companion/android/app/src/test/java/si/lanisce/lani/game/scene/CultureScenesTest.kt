@@ -145,6 +145,12 @@ class CultureScenesTest {
             // the larch bridge over the stream (Franz's cart and Moritz, Florian's flock home over it, Bella last and the lamb,
             // the stream in flood, Herr Toni's railing, Stanko's dragonflies and the trout, the evening bell, the mill's sacks)
             listOf("kaernten", "an-der-bruecke", "stream", "project:most"),
+            // and the rest of the wave: Opa Sepp's Stockbahn under the linden, Tante Mitzi's
+            // Wegkapelle by the road, Mostbauer Stefan's Obstgarten, Imker Stanko's Bienenwiese
+            listOf("kaernten", "auf-der-stockbahn", "bocce", "project:balinisce"),
+            listOf("kaernten", "bei-der-wegkapelle", "chapel", "project:kapelica"),
+            listOf("kaernten", "im-obstgarten", "hills", "project:vinograd"),
+            listOf("kaernten", "auf-der-bienenwiese", "apiary", "project:cebelji_travnik"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
             // the Lake District's buildings (places-lakeland): the house's rooms (Granny Maggie's kitchen, anyone's; Old Wilf's
             // room by the fire, Brewer Sam's cellar, Mrs Birkett and Harry's attic, Mr Tyson and Alfie's workshop), the tent,
