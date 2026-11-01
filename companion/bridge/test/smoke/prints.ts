@@ -2,11 +2,11 @@
 // GET /course/sheet/<unit>, GET /course/booklet/<level> and GET /course/overview/<page> serve the generator's own HTML
 // (companion/prints/build.ts, overview.ts) of the fixture course and the grammar book, for the bridge's learner (Jan, a
 // man) or as the query says, kept until the content changes.
-import { readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { sheetsOf, unitDoc } from '../../../prints/build'
 import { buildOverview, markAdjective, markDeclension, OVERVIEWS, overviewDoc } from '../../../prints/overview'
-import { loadContent, plain } from '../../../prints/sheet'
+import { loadContent, plain, ruleLine } from '../../../prints/sheet'
 import { auth, base, check, courseRoot, curatedDir } from './harness'
 
 const repo = resolve(import.meta.dir, '../../../..')
@@ -108,6 +108,39 @@ export default async function prints() {
       adj.rows[1].slice(1).map(c => c.sl).join(' | ') === 'dobrega kruha | v nov⟦i⟧ hiši',
     [decl.rows, adj.rows],
   )
+
+  // --- the repository's units: each step's point on the sheet's rule ------------------------------------------------------
+  // A step prints as its first sentence and the ones after it with forms, about 200 characters (sheet.ts ruleLine,
+  // condense): a step whose forms all come after a first sentence without one, in sentences too long to keep, prints
+  // without its point ("Two more." for kjer and oziroma). Every unit of every course language, in every base its texts
+  // have (the sheets print in each but the course's own), for a learner of both genders as the sheets are by default.
+  {
+    const courses = join(repo, 'companion/course')
+    const bold = /\*\*[^*]+\*\*/
+    const lost: string[] = []
+    let steps = 0
+    for (const lang of readdirSync(courses).filter(d => existsSync(join(courses, d, 'units'))).sort()) {
+      for (const f of readdirSync(join(courses, lang, 'units')).filter(f => f.endsWith('.json')).sort()) {
+        const u = JSON.parse(readFileSync(join(courses, lang, 'units', f), 'utf8'))
+        ;(u.intro?.steps ?? []).forEach((st: { say?: string | Record<string, string> }, i: number) => {
+          const bases = typeof st.say === 'string' ? ['en'] : Object.keys(st.say ?? {}).filter(b => b !== lang)
+          for (const b of bases) {
+            const o = { base: b, learner: 'Jan', gender: 'both' as const }
+            const line = ruleLine(st.say, b, o)
+            const said = typeof st.say === 'string' ? st.say : (st.say?.[b] ?? '')
+            if (!line || !bold.test(said)) continue
+            steps++
+            if (!bold.test(line)) lost.push(`${lang}/${u.id} step ${i + 1} (${b}): «${plain(line)}»`)
+          }
+        })
+      }
+    }
+    check(
+      `the repository's units print each step's point: a step whose explanation shows forms keeps one in its line of the sheet's rule (${steps} steps, every base)`,
+      steps > 500 && lost.length === 0,
+      lost,
+    )
+  }
 
   // --- what there is none of, what is refused ------------------------------------------------------------------------------
   const none: [string, number][] = [

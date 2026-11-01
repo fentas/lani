@@ -867,7 +867,11 @@ the whole of A1 (the past with avere and essere among it) and use only A1 and th
   dresses me), the sentence leaves only the reflexive one.
 - **The grading** needed no change for them: an accent or an apostrophe forgotten stays almost (può, dell'acqua, un po').
 - **The print's rule line** of a step is its first sentence and the next ones with forms, about 200 characters at most
-  (`prints/sheet.ts`, `condense`): the point of a step goes in its first sentence, or the sheet loses it.
+  (`prints/sheet.ts`, `ruleLine`, `condense`): the point of a step goes in its first sentence, or the sheet loses it. The
+  smoke's prints section reads every unit of the repository in every base its texts have and fails on a step that shows
+  forms (bold) but prints none in its line ("Two more." for kjer and oziroma): put a form in the first sentence, or keep
+  the next one short enough to fit (end a bold run of example sentences before its last full stop, `**… ne spi**.`, so
+  the sentence after it is a sentence of its own).
 
 ### The Italian course: A2, units 7–12
 

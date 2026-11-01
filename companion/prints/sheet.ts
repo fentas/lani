@@ -189,6 +189,17 @@ export function condense(all: string[], budget = 200): string {
     .join(' ')
 }
 
+/**
+ * A step's line on the sheet's rule: its explanation ([say]) in [base], for the learner of [o], [condense]d to its first
+ * sentence and the ones after it that carry the forms. Undefined when it says nothing. A step whose point comes after a
+ * first sentence without a form, in sentences too long to keep ("Two more. **Kjer** (where) joins …"), prints without
+ * it: the smoke's prints section checks every unit of the repository for that (a step that shows forms keeps one).
+ */
+export function ruleLine(say: Text | undefined, base: string, o: Options): string | undefined {
+  const all = sentences(fillLearner(tr(say, base), o)).filter(x => x.trim())
+  return all.length ? condense(all) : undefined
+}
+
 /** {learner} and {m:…|f:…} as the options say; with both forms wanted, a sentence that needs one or the other goes. */
 export function fillLearner(s: string, o: Options): string {
   const filled = (s ?? '')
@@ -463,11 +474,7 @@ export function buildSheet(c: Content, raw: Json, n: number, of: number, o: Opti
   for (const sheet of [...(unit.worksheets ?? []), unit.test ?? {}]) addCorpus(JSON.stringify(sheet.exercises ?? []).replace(/[{}[\]":,]/g, ' '))
 
   // --- the rule: each step of the intro in a line or two ---
-  const rule: string[] = []
-  for (const s of steps) {
-    const all = sentences(fill(tr(s.say, base))).filter(x => x.trim())
-    if (all.length) rule.push(condense(all))
-  }
+  const rule = steps.map(s => ruleLine(s.say, base, o)).filter((l): l is string => l !== undefined)
 
   // --- the tables ---
   const tables = chooseTables(unit, pages, o, corpus, L)
