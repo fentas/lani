@@ -22,7 +22,7 @@
     "steps": [
       {
         "say": {
-          "de": "Wenn du gehst, sagst du **me ne vado** (ich gehe weg): **È tardi, me ne vado!** (Es ist spät, ich gehe!) Das Verb heißt **andarsene** (weggehen), und seine zwei kleinen Wörter gehen mit der Person: **te ne vai** (du gehst weg), **se ne va** (er, sie geht weg). Vor **ne** wird **mi** zu **me**, **ti** zu **te**, **si** zu **se**.",
+          "de": "Wenn du gehst, sagst du **me ne vado** (ich gehe weg): **È tardi, me ne vado!** (Es ist spät, ich gehe!) Das Verb heißt **andarsene** (weggehen), und seine zwei kleinen Wörter ändern sich mit der Person: **te ne vai** (du gehst weg), **se ne va** (er, sie geht weg). Vor **ne** wird **mi** zu **me**, **ti** zu **te**, **si** zu **se**.",
           "sl": "Ko greš, rečeš **me ne vado** (grem): **È tardi, me ne vado!** (Pozno je, grem!) Glagol je **andarsene** (oditi), njegovi dve kratki besedi pa se spreminjata z osebo: **te ne vai** (greš), **se ne va** (gre). Pred **ne** postane **mi** → **me**, **ti** → **te**, **si** → **se**.",
           "en": "When you leave, you say **me ne vado** (I'm off): **È tardi, me ne vado!** (It's late, I'm off!) The verb is **andarsene** (to go away), and its two short words follow the person: **te ne vai** (you're off), **se ne va** (he, she is off). Before **ne**, **mi** becomes **me**, **ti** becomes **te**, **si** becomes **se**."
         },
@@ -104,19 +104,19 @@
           ["ci vogliono", { "de": "man braucht (mehrere)", "sl": "potrebni so", "en": "it takes (more than one)" }]
         ],
         "ask": {
-          "type": "choice", "grammar": "verbi-pronominali", "prompt": "«Per il frico ___ le patate e il formaggio.»", "options": ["ci vuole", "ci vogliono", "ci vuoi"], "answer": 1, "say_options": true,
+          "type": "choice", "grammar": "verbi-pronominali", "prompt": "«Per il frico ___ le patate e il formaggio.»", "options": ["ci vuole", "ci vogliono", "ce la fa"], "answer": 1, "say_options": true,
           "explain": {
-            "de": "**le patate e il formaggio** (mehrere) → **ci vogliono**\n- ci vuole · für eins: ci vuole un'ora\n- ci vuoi · du willst dorthin",
-            "sl": "**le patate e il formaggio** (več) → **ci vogliono**\n- ci vuole · za eno: ci vuole un'ora\n- ci vuoi · hočeš tja",
-            "en": "**le patate e il formaggio** (more than one) → **ci vogliono**\n- ci vuole · for one: ci vuole un'ora\n- ci vuoi · you want to go there"
+            "de": "**le patate e il formaggio** (mehrere) → **ci vogliono**\n- ci vuole · für eins: ci vuole un'ora\n- ce la fa · er, sie schafft es",
+            "sl": "**le patate e il formaggio** (več) → **ci vogliono**\n- ci vuole · za eno: ci vuole un'ora\n- ce la fa · zmore",
+            "en": "**le patate e il formaggio** (more than one) → **ci vogliono**\n- ci vuole · for one: ci vuole un'ora\n- ce la fa · he, she can do it"
           }
         }
       },
       {
         "say": {
-          "de": "In der Vergangenheit hat **andarsene** essere und richtet sich nach der Person: **Moro se n'è andato** (Moro ist weggegangen), **Giulia se n'è andata**. **Farcela** hat avere und heißt immer **fatta**, wegen **la**: **Ce l'ho fatta!** (Ich hab's geschafft!) Vor **è** und **ho** werden **ne** und **la** zu **n'** und **l'**.",
-          "sl": "V preteklosti ima **andarsene** essere in se ujema z osebo: **Moro se n'è andato** (Moro je odšel), **Giulia se n'è andata** (Giulia je odšla). **Farcela** ima avere in je vedno **fatta**, zaradi **la**: **Ce l'ho fatta!** (Uspelo mi je!) Pred **è** in **ho** postaneta **ne** in **la** → **n'** in **l'**.",
-          "en": "In the past **andarsene** takes essere and agrees with the person: **Moro se n'è andato** (Moro has gone off), **Giulia se n'è andata**. **Farcela** takes avere and is always **fatta**, for **la**: **Ce l'ho fatta!** (I did it!) Before **è** and **ho**, **ne** and **la** become **n'** and **l'**."
+          "de": "In der Vergangenheit geht **andarsene** mit **essere** und richtet sich nach der Person: **Moro se n'è andato** (Moro ist weggegangen), **Giulia se n'è andata**. **Farcela** geht mit **avere** und heißt immer **fatta**, wegen **la**: **Ce l'ho fatta!** (Ich hab's geschafft!) Vor **è** und **ho** werden **ne** und **la** zu **n'** und **l'**.",
+          "sl": "V preteklosti gre **andarsene** z **essere** in se ujema z osebo: **Moro se n'è andato** (Moro je odšel), **Giulia se n'è andata** (Giulia je odšla). **Farcela** gre z **avere** in je vedno **fatta**, zaradi **la**: **Ce l'ho fatta!** (Uspelo mi je!) Pred **è** in **ho** postaneta **ne** in **la** → **n'** in **l'**.",
+          "en": "In the past **andarsene** takes **essere** and agrees with the person: **Moro se n'è andato** (Moro has gone off), **Giulia se n'è andata**. **Farcela** takes **avere** and is always **fatta**, for **la**: **Ce l'ho fatta!** (I did it!) Before **è** and **ho**, **ne** and **la** become **n'** and **l'**."
         },
         "examples": [
           { "it": "Moro se n'è andato a dormire.", "de": "Moro ist schlafen gegangen.", "sl": "Moro je šel spat.", "en": "Moro has gone off to sleep." },
@@ -229,7 +229,7 @@
         {
           "type": "transform", "grammar": "verbi-pronominali", "instruction": { "de": "Dillo con andarsene · Sag es mit andarsene", "sl": "Dillo con andarsene · Povej z andarsene", "en": "Dillo con andarsene · Say it with andarsene" }, "cue": "andarsene",
           "items": [
-            { "from": "Vado via.", "accept": ["Me ne vado."], "hint": "mi → me" },
+            { "from": "Vado via.", "accept": ["Me ne vado.", "Io me ne vado."], "hint": "mi → me" },
             { "from": "Giulia va via.", "accept": ["Giulia se ne va.", "Se ne va."] },
             { "from": "Andiamo via?", "accept": ["Ce ne andiamo?"], "hint": "ci → ce" },
             { "from": "I bambini vanno via.", "accept": ["I bambini se ne vanno.", "Se ne vanno."] }
@@ -245,7 +245,7 @@
           "items": [
             { "from": "Ce la faccio!", "accept": ["Ce l'ho fatta!"], "hint": "ce la + ho → ce l'ho" },
             { "from": "Ce la fai?", "accept": ["Ce l'hai fatta?"] },
-            { "from": "Giulia se ne va.", "accept": ["Giulia se n'è andata.", "Se n'è andata."], "hint": "ne + è → n'è" },
+            { "from": "Giulia se ne va.", "accept": ["Giulia se n'è andata.", "Se n'è andata.", "Giulia se ne è andata.", "Se ne è andata."], "hint": "ne + è → n'è" },
             { "from": "I bambini se ne vanno.", "accept": ["I bambini se ne sono andati.", "Se ne sono andati."] }
           ],
           "explain": {
@@ -272,14 +272,14 @@
         ],
         "translation": {
           "de": "Heute backen Giulia und Nonna Rosa die Gubana. „Oma, wie viele Eier braucht man?“ „Drei, und ein bisschen Zucker.“ Giulia nimmt den Mehlsack: Er ist schwer, aber sie schafft es. „Und im Ofen?“ „Eine Stunde.“ Moro riecht den Duft und kommt. „Weg, Moro!“, sagt die Oma, und er geht. Am Ende ist die Gubana fertig. „Wir haben es geschafft!“, sagt Giulia.",
-          "sl": "Danes Giulia in babica Rosa pečeta gubano. »Babica, koliko jajc je potrebnih?« »Tri, pa malo sladkorja.« Giulia vzame vrečo moke: težka je, a zmore. »Pa v pečici?« »Eno uro.« Moro zavoha vonj in pride. »Stran, Moro!« reče babica, in gre. Na koncu je gubana pečena. »Uspelo nama je!« reče Giulia.",
+          "sl": "Danes Giulia in babica Rosa pečeta gubano. »Babica, koliko jajc je potrebnih?« »Tri, pa malo sladkorja.« Giulia vzame vrečo moke: težka je, a zmore. »Pa v pečici?« »Eno uro.« Moro zavoha vonj in pride. »Stran, Moro!« reče babica, in Moro odide. Na koncu je gubana pečena. »Uspelo nama je!« reče Giulia.",
           "en": "Today Giulia and Nonna Rosa are making the gubana. \"Grandma, how many eggs do you need?\" \"Three, and a bit of sugar.\" Giulia takes the bag of flour: it's heavy, but she can do it. \"And in the oven?\" \"An hour.\" Moro smells it and comes over. \"Off you go, Moro!\" says Grandma, and off he goes. In the end the gubana is ready. \"We did it!\" says Giulia."
         }
       },
       {
         "type": "transform", "grammar": "verbi-pronominali", "instruction": { "de": "Metti al passato · Setz es in die Vergangenheit", "sl": "Metti al passato · Postavi v preteklik", "en": "Metti al passato · Put it in the past" },
         "items": [
-          { "from": "Lorenzo se ne va.", "accept": ["Lorenzo se n'è andato.", "Se n'è andato."] },
+          { "from": "Lorenzo se ne va.", "accept": ["Lorenzo se n'è andato.", "Se n'è andato.", "Lorenzo se ne è andato.", "Se ne è andato."] },
           { "from": "Ce la facciamo!", "accept": ["Ce l'abbiamo fatta!"] },
           { "from": "Le pecore se ne vanno.", "accept": ["Le pecore se ne sono andate.", "Se ne sono andate."] }
         ]

@@ -6,9 +6,9 @@
   "emoji": "🧩",
   "title": { "it": "Mentre, siccome, anche se", "de": "Bindewörter: mentre, siccome", "sl": "Vezniki: mentre, siccome", "en": "Linking words: mentre, siccome" },
   "goal": {
-    "de": "Du verbindest zwei Sätze und sagst, wie sie zusammengehören: den Grund (perché, siccome), die Folge (quindi), das Gegenteil (ma, invece, anche se) und die Zeit (mentre, appena).",
+    "de": "Du verbindest zwei Sätze und sagst, wie sie zusammengehören: den Grund (perché, siccome), die Folge (quindi), den Gegensatz (ma, invece, anche se) und die Zeit (mentre, appena).",
     "sl": "Povežeš dva stavka in poveš, kako sodita skupaj: razlog (perché, siccome), posledico (quindi), nasprotje (ma, invece, anche se) in čas (mentre, appena).",
-    "en": "You can join two sentences and say how they belong together: the reason (perché, siccome), what follows (quindi), the other way (ma, invece, anche se) and the time (mentre, appena)."
+    "en": "You can join two sentences and say how they belong together: the reason (perché, siccome), what follows (quindi), the contrast (ma, invece, anche se) and the time (mentre, appena)."
   },
   "grammar": ["congiunzioni", "imperfetto-passato", "domande"],
   "words": [
@@ -56,9 +56,9 @@
     "steps": [
       {
         "say": {
-          "de": "**Perché** (weil) und **siccome** (da) sagen beide den Grund, aber **perché** steht nach dem anderen Satz und **siccome** am Anfang: **Resto a casa perché piove.** (Ich bleibe zu Hause, weil es regnet.) **Siccome piove, resto a casa.** (Da es regnet, bleibe ich zu Hause.) Am Anfang steht also nicht **perché**, sondern **siccome**.",
-          "sl": "**Perché** (ker) in **siccome** (ker, ker pač) povesta razlog, toda **perché** stoji za drugim stavkom, **siccome** pa na začetku: **Resto a casa perché piove.** (Ostanem doma, ker dežuje.) **Siccome piove, resto a casa.** (Ker dežuje, ostanem doma.) Na začetku torej ne **perché**, temveč **siccome**.",
-          "en": "**Perché** (because) and **siccome** (since, as) both give the reason, but **perché** comes after the other sentence and **siccome** at the start: **Resto a casa perché piove.** (I'm staying home because it's raining.) **Siccome piove, resto a casa.** (As it's raining, I'm staying home.) So at the start it's not **perché** but **siccome**."
+          "de": "**Perché** (weil) und **siccome** (da) sagen beide den Grund, aber **perché** steht meist nach dem anderen Satz und **siccome** am Anfang: **Resto a casa perché piove.** (Ich bleibe zu Hause, weil es regnet.) **Siccome piove, resto a casa.** (Da es regnet, bleibe ich zu Hause.) Am Anfang sagt man also meist **siccome**.",
+          "sl": "**Perché** (ker) in **siccome** (ker, na začetku) povesta razlog, toda **perché** stoji navadno za drugim stavkom, **siccome** pa na začetku: **Resto a casa perché piove.** (Ostanem doma, ker dežuje.) **Siccome piove, resto a casa.** (Ker dežuje, ostanem doma.) Na začetku torej navadno **siccome**.",
+          "en": "**Perché** (because) and **siccome** (since, as) both give the reason, but **perché** usually comes after the other sentence and **siccome** at the start: **Resto a casa perché piove.** (I'm staying home because it's raining.) **Siccome piove, resto a casa.** (As it's raining, I'm staying home.) So at the start it's usually **siccome**."
         },
         "examples": [
           {
@@ -94,10 +94,11 @@
           "answer": 0,
           "say_options": true,
           "explain": {
-            "de": "**der Grund am Anfang** → **Siccome**\n- perché · nach dem anderen Satz: torna a casa perché Moro è stanco\n- anche se · obwohl: passt nicht",
-            "sl": "**razlog na začetku** → **Siccome**\n- perché · za drugim stavkom: torna a casa perché Moro è stanco\n- anche se · čeprav: ne gre",
-            "en": "**the reason at the start** → **Siccome**\n- perché · after the other sentence: torna a casa perché Moro è stanco\n- anche se · even though: doesn't fit"
-          }
+            "de": "**der Grund am Anfang** → **Siccome**\n- perché · geht auch, aber am Anfang sagt man meist siccome: fast richtig\n- anche se · obwohl: passt nicht",
+            "sl": "**razlog na začetku** → **Siccome**\n- perché · gre tudi, a na začetku se navadno reče siccome: skoraj prav\n- anche se · čeprav: ne gre",
+            "en": "**the reason at the start** → **Siccome**\n- perché · works too, but at the start Italians usually say siccome: almost\n- anche se · even though: doesn't fit"
+          },
+          "almost": [1]
         }
       },
       {
@@ -292,10 +293,10 @@
             },
             {
               "label": { "de": "la conseguenza · die Folge", "sl": "la conseguenza · posledica", "en": "la conseguenza · what follows" },
-              "words": ["quindi", "allora", "così"]
+              "words": ["quindi", "così"]
             },
             {
-              "label": { "de": "il contrario · das Gegenteil", "sl": "il contrario · nasprotje", "en": "il contrario · the other way" },
+              "label": { "de": "il contrario · der Gegensatz", "sl": "il contrario · nasprotje", "en": "il contrario · the contrast" },
               "words": ["ma", "però", "invece", "anche se"]
             },
             {
@@ -304,9 +305,9 @@
             }
           ],
           "explain": {
-            "de": "**der Grund**: perché, siccome · **die Folge**: quindi, allora, così · **das Gegenteil**: ma, però, invece, anche se · **die Zeit**: mentre, appena, quando",
+            "de": "**der Grund**: perché, siccome · **die Folge**: quindi, allora, così · **der Gegensatz**: ma, però, invece, anche se · **die Zeit**: mentre, appena, quando",
             "sl": "**razlog**: perché, siccome · **posledica**: quindi, allora, così · **nasprotje**: ma, però, invece, anche se · **čas**: mentre, appena, quando",
-            "en": "**the reason**: perché, siccome · **what follows**: quindi, allora, così · **the other way**: ma, però, invece, anche se · **the time**: mentre, appena, quando"
+            "en": "**the reason**: perché, siccome · **what follows**: quindi, allora, così · **the contrast**: ma, però, invece, anche se · **the time**: mentre, appena, quando"
           }
         },
         {
@@ -348,7 +349,7 @@
           "grammar": "congiunzioni",
           "instruction": { "de": "Completa con la parola giusta · Ergänze das richtige Wort", "sl": "Completa con la parola giusta · Dopolni s pravo besedo", "en": "Completa con la parola giusta · Fill in the right word" },
           "title": "Al mare con Nonno Bepi",
-          "text": "Ieri i bambini sono andati al mare con Nonno Bepi. ___ faceva molto caldo, il nonno ha portato l'ombrellone. Giulia e Tommaso hanno fatto il bagno; Lorenzo ___ ha costruito un castello di sabbia. Non voleva fare il bagno ___ aveva paura delle onde. ___ i bambini giocavano, il nonno dormiva sotto l'ombrellone. ___ l'acqua era freddissima, Tommaso è rimasto in acqua un'ora! ___ sono arrivati a casa, sono andati tutti a dormire.",
+          "text": "Ieri i bambini sono andati al mare con Nonno Bepi. ___ faceva molto caldo, il nonno ha portato l'ombrellone. Giulia e Tommaso hanno fatto il bagno; Lorenzo ___ ha costruito un castello di sabbia. Non voleva fare il bagno ___ aveva paura delle onde. ___ i bambini giocavano, il nonno leggeva il giornale sotto l'ombrellone. ___ l'acqua era fredda, Tommaso è rimasto in acqua un'ora! ___ sono arrivati a casa, sono andati tutti a dormire.",
           "gaps": [
             {
               "accept": ["Siccome", "Poiché", "Dato che", "Visto che"],
@@ -373,15 +374,15 @@
               }
             },
             {
-              "accept": ["Appena", "Non appena", "Quando"],
+              "accept": ["Appena", "Non appena", "Quando", "Dopo che"],
               "hint": { "de": "gleich danach", "sl": "takoj potem", "en": "right after" }
             }
           ],
           "bank": true,
           "translation": {
-            "de": "Gestern sind die Kinder mit Nonno Bepi ans Meer gefahren. Da es sehr heiß war, hat der Opa den Sonnenschirm mitgenommen. Giulia und Tommaso sind baden gegangen; Lorenzo dagegen hat eine Sandburg gebaut. Er wollte nicht baden, weil er Angst vor den Wellen hatte. Während die Kinder spielten, schlief der Opa unter dem Sonnenschirm. Obwohl das Wasser eiskalt war, ist Tommaso eine Stunde im Wasser geblieben! Sobald sie zu Hause angekommen waren, sind alle schlafen gegangen.",
-            "sl": "Včeraj so šli otroci z dedkom Bepijem na morje. Ker je bilo zelo vroče, je dedek prinesel senčnik. Giulia in Tommaso sta se kopala, Lorenzo pa je zgradil grad iz peska. Ni se hotel kopati, ker se je bal valov. Medtem ko so se otroci igrali, je dedek spal pod senčnikom. Čeprav je bila voda ledeno mrzla, je Tommaso ostal v vodi eno uro! Brž ko so prišli domov, so šli vsi spat.",
-            "en": "Yesterday the children went to the sea with Nonno Bepi. As it was very hot, Grandpa brought the sunshade. Giulia and Tommaso went swimming; Lorenzo, on the other hand, built a sandcastle. He didn't want to swim because he was afraid of the waves. While the children played, Grandpa slept under the sunshade. Even though the water was freezing, Tommaso stayed in for an hour! As soon as they got home, they all went to sleep."
+            "de": "Gestern sind die Kinder mit Nonno Bepi ans Meer gefahren. Da es sehr heiß war, hat der Opa den Sonnenschirm mitgenommen. Giulia und Tommaso sind baden gegangen; Lorenzo dagegen hat eine Sandburg gebaut. Er wollte nicht baden, weil er Angst vor den Wellen hatte. Während die Kinder spielten, las der Opa unter dem Sonnenschirm Zeitung. Obwohl das Wasser kalt war, ist Tommaso eine Stunde im Wasser geblieben! Sobald sie zu Hause angekommen waren, sind alle schlafen gegangen.",
+            "sl": "Včeraj so šli otroci z dedkom Bepijem na morje. Ker je bilo zelo vroče, je dedek prinesel senčnik. Giulia in Tommaso sta se kopala, Lorenzo pa je zgradil grad iz peska. Ni se hotel kopati, ker se je bal valov. Medtem ko so se otroci igrali, je dedek bral časopis pod senčnikom. Čeprav je bila voda mrzla, je Tommaso ostal v vodi eno uro! Brž ko so prišli domov, so šli vsi spat.",
+            "en": "Yesterday the children went to the sea with Nonno Bepi. As it was very hot, Grandpa brought the sunshade. Giulia and Tommaso went swimming; Lorenzo, on the other hand, built a sandcastle. He didn't want to swim because he was afraid of the waves. While the children played, Grandpa read the paper under the sunshade. Even though the water was cold, Tommaso stayed in for an hour! As soon as they got home, they all went to sleep."
           }
         },
         {
@@ -445,7 +446,8 @@
               "accept": [
                 "Lorenzo ha paura del buio, Giulia invece non ha paura.",
                 "Lorenzo ha paura del buio, invece Giulia non ha paura.",
-                "Lorenzo ha paura del buio, Giulia invece no."
+                "Lorenzo ha paura del buio, Giulia invece no.",
+                "Lorenzo ha paura del buio, invece Giulia no."
               ]
             }
           ],
@@ -473,7 +475,7 @@
           { "accept": ["quindi", "allora", "così", "perciò", "ed", "e"] }
         ],
         "translation": {
-          "de": "Da das Dorffest war, hat Tommaso das neue Trikot angezogen. Während die Kapelle spielte, tanzte Giulia mit Lorenzo. Obwohl sie fünfundsiebzig ist, hat Zia Nives den ganzen Abend getanzt. Um zehn war Lorenzo müde, also ist er vor den anderen ins Bett gegangen.",
+          "de": "Da das Dorffest war, hat Tommaso seinen neuen Pulli angezogen. Während die Kapelle spielte, tanzte Giulia mit Lorenzo. Obwohl sie fünfundsiebzig ist, hat Zia Nives den ganzen Abend getanzt. Um zehn war Lorenzo müde, also ist er vor den anderen ins Bett gegangen.",
           "sl": "Ker je bil vaški praznik, si je Tommaso oblekel novo majico. Medtem ko je godba igrala, je Giulia plesala z Lorenzom. Čeprav ima petinsedemdeset let, je teta Nives plesala ves večer. Ob desetih je bil Lorenzo zaspan, zato je šel spat pred drugimi.",
           "en": "As it was the village festa, Tommaso put on his new shirt. While the band played, Giulia danced with Lorenzo. Even though she's seventy-five, Zia Nives danced all evening. At ten Lorenzo was sleepy, so he went to bed before the others."
         }
@@ -519,13 +521,13 @@
         "type": "choice",
         "grammar": "congiunzioni",
         "prompt": "___ arriva la bora, chiudiamo le finestre.",
-        "options": ["Appena", "Anche se", "Perché"],
+        "options": ["Appena", "Anche se", "Invece"],
         "answer": 0,
         "say_options": true,
         "explain": {
-          "de": "**gleich danach** → **Appena**\n- anche se · obwohl: passt nicht\n- perché · nicht am Anfang",
-          "sl": "**takoj potem** → **Appena**\n- anche se · čeprav: ne gre\n- perché · ne na začetku",
-          "en": "**right after** → **Appena**\n- anche se · even though: doesn't fit\n- perché · not at the start"
+          "de": "**gleich danach** → **Appena**\n- anche se · obwohl: passt nicht\n- invece · stattdessen: passt nicht",
+          "sl": "**takoj potem** → **Appena**\n- anche se · čeprav: ne gre\n- invece · namesto tega: ne gre",
+          "en": "**right after** → **Appena**\n- anche se · even though: doesn't fit\n- invece · instead: doesn't fit"
         }
       },
       {
@@ -538,14 +540,14 @@
             "words": ["siccome", "perché"]
           },
           {
-            "label": { "de": "il contrario · das Gegenteil", "sl": "il contrario · nasprotje", "en": "il contrario · the other way" },
+            "label": { "de": "il contrario · der Gegensatz", "sl": "il contrario · nasprotje", "en": "il contrario · the contrast" },
             "words": ["anche se", "però"]
           }
         ],
         "explain": {
-          "de": "**der Grund**: siccome, perché · **das Gegenteil**: anche se, però",
+          "de": "**der Grund**: siccome, perché · **den Gegensatz**: anche se, però",
           "sl": "**razlog**: siccome, perché · **nasprotje**: anche se, però",
-          "en": "**the reason**: siccome, perché · **the other way**: anche se, però"
+          "en": "**the reason**: siccome, perché · **the contrast**: anche se, però"
         }
       }
     ]

@@ -8,15 +8,15 @@
   "goal": {
     "de": "Du erzählst weiter, was jemand sagt (dice che è stanco), fragt (mi chiede se vengo) und will (mi dice di aspettare), auch von gestern (ha detto che aveva fame).",
     "sl": "Poveš naprej, kaj kdo reče (dice che è stanco), vpraša (mi chiede se vengo) in hoče (mi dice di aspettare), tudi od včeraj (ha detto che aveva fame).",
-    "en": "You can tell on what someone says (dice che è stanco), asks (mi chiede se vengo) and wants (mi dice di aspettare), yesterday's too (ha detto che aveva fame)."
+    "en": "You can pass on what someone says (dice che è stanco), asks (mi chiede se vengo) and wants (mi dice di aspettare), yesterday's too (ha detto che aveva fame)."
   },
   "grammar": ["discorso-indiretto", "possessivi", "domande", "imperfetto"],
   "words": ["dire", "chiedere", "raccontare", "gridare", "se", "stanco", "la fame", "la sete", "il sonno", "il freddo", "il pallone", "il fiume", "il pranzo", "la cena", "la finestra", "il cancello", "il libro", "la storia", "la minestra", "il gelato", "la radio", "la bici", "il calcio", "gli occhiali", "il cane", "il gatto", "la pecora", "aspettare", "chiudere", "aprire", "prestare", "aiutare", "domani", "ieri", "vecchio"],
   "intro": {
     "table": {
       "head": [
-        { "it": "detto", "de": "gesagt", "sl": "rečeno", "en": "said" },
-        { "it": "raccontato", "de": "weitererzählt", "sl": "povedano naprej", "en": "told on" }
+        { "it": "lui dice", "de": "er, sie sagt", "sl": "reče", "en": "says" },
+        { "it": "tu racconti", "de": "du erzählst", "sl": "poveš naprej", "en": "you pass on" }
       ]
     },
     "steps": [
@@ -24,7 +24,7 @@
         "say": {
           "de": "Wenn du weitersagst, was jemand sagt, nimmst du **dice che** (sagt, dass) und änderst die Person: «**Sono stanco**», sagt Lorenzo → **Lorenzo dice che è stanco.** (Lorenzo sagt, dass er müde ist.) Das Verb bleibt in derselben Zeit, und es bleibt an seinem Platz: nicht am Ende wie im Deutschen.",
           "sl": "Ko poveš naprej, kaj kdo reče, uporabiš **dice che** (pravi, da) in spremeniš osebo: »**Sono stanco**«, reče Lorenzo → **Lorenzo dice che è stanco.** (Lorenzo pravi, da je utrujen.) Glagol ostane v istem času in na svojem mestu.",
-          "en": "To tell on what someone says, use **dice che** (says that) and change the person: «**Sono stanco**», says Lorenzo → **Lorenzo dice che è stanco.** (Lorenzo says he's tired.) The verb stays in the same tense, and in its place."
+          "en": "To pass on what someone says, use **dice che** (says that) and change the person: «**Sono stanco**», says Lorenzo → **Lorenzo dice che è stanco.** (Lorenzo says he's tired.) The verb stays in the same tense, and in its place."
         },
         "examples": [
           { "it": "Lorenzo dice che è stanco.", "de": "Lorenzo sagt, dass er müde ist.", "sl": "Lorenzo pravi, da je utrujen.", "en": "Lorenzo says he's tired." },
@@ -45,9 +45,9 @@
       },
       {
         "say": {
-          "de": "Auch die kleinen Wörter wandern mit: **mio** wird zu **suo** (sein, ihr): «**Il mio cane è vecchio**», sagt Nonno Bepi → **Nonno Bepi dice che il suo cane è vecchio.** Und sagt jemand **ti** (dir, dich) zu dir, erzählst du es mit **mi**: «**Ti aiuto!**» → **Tommaso dice che mi aiuta.** (Tommaso sagt, dass er mir hilft.)",
-          "sl": "Tudi kratke besede gredo zraven: **mio** postane **suo** (njegov, njen): »**Il mio cane è vecchio**«, reče dedek Bepi → **Nonno Bepi dice che il suo cane è vecchio.** In ko ti kdo reče **ti**, to poveš z **mi**: »**Ti aiuto!**« → **Tommaso dice che mi aiuta.** (Tommaso pravi, da mi pomaga.)",
-          "en": "The little words move along too: **mio** becomes **suo** (his, her): «**Il mio cane è vecchio**», says Nonno Bepi → **Nonno Bepi dice che il suo cane è vecchio.** And when someone says **ti** (you) to you, you tell it with **mi**: «**Ti aiuto!**» → **Tommaso dice che mi aiuta.** (Tommaso says he'll help me.)"
+          "de": "Auch die kleinen Wörter ändern sich: **mio** wird zu **suo** (sein, ihr): «**Il mio cane è vecchio**», sagt Nonno Bepi → **Nonno Bepi dice che il suo cane è vecchio.** Und sagt jemand **ti** (dir, dich) zu dir, erzählst du es mit **mi**: «**Ti aiuto!**» → **Tommaso dice che mi aiuta.** (Tommaso sagt, dass er mir hilft.)",
+          "sl": "Tudi kratke besede se spremenijo: **mio** postane **suo** (njegov, njen): »**Il mio cane è vecchio**«, reče dedek Bepi → **Nonno Bepi dice che il suo cane è vecchio.** In ko ti kdo reče **ti**, to poveš z **mi**: »**Ti aiuto!**« → **Tommaso dice che mi aiuta.** (Tommaso pravi, da mi pomaga.)",
+          "en": "The little words change too: **mio** becomes **suo** (his, her): «**Il mio cane è vecchio**», says Nonno Bepi → **Nonno Bepi dice che il suo cane è vecchio.** And when someone says **ti** (you) to you, you tell it with **mi**: «**Ti aiuto!**» → **Tommaso dice che mi aiuta.** (Tommaso says he'll help me.)"
         },
         "examples": [
           { "it": "Nonno Bepi dice che il suo cane è vecchio.", "de": "Nonno Bepi sagt, dass sein Hund alt ist.", "sl": "Dedek Bepi pravi, da je njegov pes star.", "en": "Nonno Bepi says his dog is old." },
@@ -68,7 +68,7 @@
       },
       {
         "say": {
-          "de": "Eine Frage mit Ja oder Nein erzählst du mit **se** (ob): «**Vieni al mare?**» → **Tommaso mi chiede se vengo al mare.** (Tommaso fragt mich, ob ich ans Meer komme.) Eine Frage mit Fragewort behält es: «**Dove vai?**» → **La nonna mi chiede dove vado.** (Die Oma fragt mich, wohin ich gehe.)",
+          "de": "Eine Frage mit Ja oder Nein erzählst du mit **se** (ob): «**Vieni al mare?**» → **Tommaso mi chiede se vengo al mare.** (Tommaso fragt mich, ob ich ans Meer komme.) Eine Frage mit Fragewort behält ihr Fragewort: «**Dove vai?**» → **La nonna mi chiede dove vado.** (Die Oma fragt mich, wohin ich gehe.)",
           "sl": "Vprašanje z da ali ne poveš s **se** (ali): »**Vieni al mare?**« → **Tommaso mi chiede se vengo al mare.** (Tommaso me vpraša, ali grem na morje.) Vprašanje z vprašalnico jo obdrži: »**Dove vai?**« → **La nonna mi chiede dove vado.** (Babica me vpraša, kam grem.)",
           "en": "A yes-or-no question is told with **se** (if, whether): «**Vieni al mare?**» → **Tommaso mi chiede se vengo al mare.** (Tommaso asks me if I'm coming to the sea.) A question with a question word keeps it: «**Dove vai?**» → **La nonna mi chiede dove vado.** (Grandma asks me where I'm going.)"
         },
@@ -81,7 +81,7 @@
           ["dove vai?", "mi chiede dove vado"]
         ],
         "ask": {
-          "type": "cloze", "grammar": "discorso-indiretto", "text": "«Vuoi un gelato?», chiede Marisa. → Marisa mi chiede ___ voglio un gelato.", "accept": ["se"], "hint": { "de": "ob", "sl": "ali", "en": "if" },
+          "type": "cloze", "grammar": "discorso-indiretto", "text": "«Vuoi un gelato?», chiede Marisa. → Marisa mi chiede ___ voglio un gelato.", "accept": ["se"], "hint": { "de": "eine Ja-Nein-Frage", "sl": "vprašanje z da ali ne", "en": "a yes-or-no question" },
           "explain": {
             "de": "**eine Ja-Nein-Frage** → **se** (ob): mi chiede se voglio un gelato.",
             "sl": "**vprašanje z da ali ne** → **se** (ali): mi chiede se voglio un gelato.",
@@ -114,9 +114,9 @@
       },
       {
         "say": {
-          "de": "Hat jemand es früher gesagt, heißt es **ha detto che** (hat gesagt, dass), und was damals so war, kommt ins imperfetto: «**Ho freddo**» → **Ieri Lorenzo ha detto che aveva freddo.** (Gestern hat Lorenzo gesagt, dass ihm kalt war.) Was erst noch kommt, darf im Präsens bleiben: «**Vengo domani**» → **Davide ha detto che viene domani.**",
-          "sl": "Če je kdo to rekel prej, je **ha detto che** (je rekel, da), in kar je tedaj veljalo, gre v imperfetto: »**Ho freddo**« → **Ieri Lorenzo ha detto che aveva freddo.** (Včeraj je Lorenzo rekel, da ga zebe.) Kar šele pride, lahko ostane v sedanjiku: »**Vengo domani**« → **Davide ha detto che viene domani.**",
-          "en": "When someone said it earlier, it's **ha detto che** (said that), and what was so then goes into the imperfetto: «**Ho freddo**» → **Ieri Lorenzo ha detto che aveva freddo.** (Yesterday Lorenzo said he was cold.) What is still to come may stay in the present: «**Vengo domani**» → **Davide ha detto che viene domani.**"
+          "de": "Hat jemand es früher gesagt, heißt es **ha detto che** (hat gesagt, dass), und was damals so war, kommt ins **imperfetto**: «**Ho freddo**» → **Ieri Lorenzo ha detto che aveva freddo.** (Gestern hat Lorenzo gesagt, dass ihm kalt war.) Was erst noch kommt, darf im Präsens bleiben: «**Vengo domani**» → **Davide ha detto che viene domani.**",
+          "sl": "Če je kdo to rekel prej, je **ha detto che** (je rekel, da), in kar je tedaj veljalo, gre v **imperfetto**: »**Ho freddo**« → **Ieri Lorenzo ha detto che aveva freddo.** (Včeraj je Lorenzo rekel, da ga zebe.) Kar šele pride, lahko ostane v sedanjiku: »**Vengo domani**« → **Davide ha detto che viene domani.**",
+          "en": "When someone said it earlier, it's **ha detto che** (said that), and what was so then goes into the **imperfetto**: «**Ho freddo**» → **Ieri Lorenzo ha detto che aveva freddo.** (Yesterday Lorenzo said he was cold.) What is still to come may stay in the present: «**Vengo domani**» → **Davide ha detto che viene domani.**"
         },
         "examples": [
           { "it": "Ieri Lorenzo ha detto che aveva freddo.", "de": "Gestern hat Lorenzo gesagt, dass ihm kalt war.", "sl": "Včeraj je Lorenzo rekel, da ga zebe.", "en": "Yesterday Lorenzo said he was cold." },
@@ -143,7 +143,7 @@
       "title": { "it": "Che cosa dice?", "de": "Was sagt er?", "sl": "Kaj pravi?", "en": "What does he say?" },
       "exercises": [
         {
-          "type": "sort", "grammar": "discorso-indiretto", "instruction": { "de": "Dice che, chiede se o dice di? · Wie erzählst du es weiter?", "sl": "Dice che, chiede se o dice di? · Kako poveš naprej?", "en": "Dice che, chiede se o dice di? · How do you tell it on?" },
+          "type": "sort", "grammar": "discorso-indiretto", "instruction": { "de": "Dice che, chiede se o dice di? · Wie erzählst du es weiter?", "sl": "Dice che, chiede se o dice di? · Kako poveš naprej?", "en": "Dice che, chiede se o dice di? · How do you pass it on?" },
           "columns": [
             { "label": { "de": "dice che … · etwas, das so ist", "sl": "dice che … · nekaj, kar je", "en": "dice che … · something that is so" }, "words": ["Ho fame.", "Il mare è freddo.", "Moro dorme."] },
             { "label": { "de": "chiede se … · eine Ja-Nein-Frage", "sl": "chiede se … · vprašanje z da ali ne", "en": "chiede se … · a yes-or-no question" }, "words": ["Vieni?", "Hai sete?", "Giochiamo?"] },
@@ -187,7 +187,7 @@
       "exercises": [
         {
           "type": "gaptext", "grammar": "discorso-indiretto", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "Zia Nives non sente bene",
-          "text": "{learner} è in piazza con Zia Nives. La sua radio è accesa, e lei non sente bene. Lorenzo dice: «Ho fame!» «Come?» «Dice che ___ fame, zia!» Tommaso grida: «Il mio pallone è nel fiume!» «Come?» «Dice che ___ pallone è nel fiume!» Nonna Rosa chiede: «Venite a pranzo?» «Come?» «Chiede ___ veniamo a pranzo!» Giulia chiede: «Dove va Moro?» «Come?» «Chiede ___ va Moro!» La maestra dice: «Chiudete la finestra!» «Come?» «Dice ___ chiudere la finestra!»",
+          "text": "{learner} è in piazza con Zia Nives. La sua radio è accesa, e lei non sente bene. Lorenzo dice: «Ho fame!» «Come?» «Dice che ___ fame, zia!» Tommaso grida: «Il mio pallone è nel fiume!» «Come?» «Dice che ___ pallone è nel fiume!» Nonna Rosa chiede: «Venite a pranzo?» «Come?» «Chiede ___ veniamo a pranzo!» Giulia chiede: «Dove va Moro?» «Come?» «Chiede ___ va Moro!» La maestra dice: «Aspettate qui!» «Come?» «Dice ___ aspettare qui!»",
           "gaps": [
             { "accept": ["ha"], "hint": "io ho → lui ?" },
             { "accept": ["il suo"], "hint": "il mio → ?" },
@@ -197,9 +197,9 @@
           ],
           "bank": true, "distractors": ["ho", "il mio", "a"],
           "translation": {
-            "de": "{learner} ist mit Zia Nives auf dem Platz. Ihr Radio ist an, und sie hört schlecht. Lorenzo sagt: „Ich hab Hunger!“ „Wie bitte?“ „Er sagt, dass er Hunger hat, Tante!“ Tommaso ruft: „Mein Ball ist im Fluss!“ „Wie bitte?“ „Er sagt, dass sein Ball im Fluss ist!“ Nonna Rosa fragt: „Kommt ihr zum Mittagessen?“ „Wie bitte?“ „Sie fragt, ob wir zum Mittagessen kommen!“ Giulia fragt: „Wohin geht Moro?“ „Wie bitte?“ „Sie fragt, wohin Moro geht!“ Die Lehrerin sagt: „Macht das Fenster zu!“ „Wie bitte?“ „Sie sagt, wir sollen das Fenster zumachen!“",
-            "sl": "{learner} je s teto Nives na trgu. Njen radio je prižgan in slabo sliši. Lorenzo reče: »Lačen sem!« »Kaj?« »Pravi, da je lačen, teta!« Tommaso zavpije: »Moja žoga je v reki!« »Kaj?« »Pravi, da je njegova žoga v reki!« Babica Rosa vpraša: »Pridete na kosilo?« »Kaj?« »Vpraša, ali pridemo na kosilo!« Giulia vpraša: »Kam gre Moro?« »Kaj?« »Vpraša, kam gre Moro!« Učiteljica reče: »Zaprite okno!« »Kaj?« »Reče, naj zapremo okno!«",
-            "en": "{learner} is on the square with Zia Nives. Her radio is on, and she can't hear well. Lorenzo says: \"I'm hungry!\" \"What?\" \"He says he's hungry, Auntie!\" Tommaso shouts: \"My ball is in the river!\" \"What?\" \"He says his ball is in the river!\" Nonna Rosa asks: \"Are you coming for lunch?\" \"What?\" \"She's asking if we're coming for lunch!\" Giulia asks: \"Where's Moro going?\" \"What?\" \"She's asking where Moro is going!\" The teacher says: \"Shut the window!\" \"What?\" \"She says to shut the window!\""
+            "de": "{learner} ist mit Zia Nives auf dem Platz. Ihr Radio ist an, und sie hört schlecht. Lorenzo sagt: „Ich hab Hunger!“ „Wie bitte?“ „Er sagt, dass er Hunger hat, Tante!“ Tommaso ruft: „Mein Ball ist im Fluss!“ „Wie bitte?“ „Er sagt, dass sein Ball im Fluss ist!“ Nonna Rosa fragt: „Kommt ihr zum Mittagessen?“ „Wie bitte?“ „Sie fragt, ob wir zum Mittagessen kommen!“ Giulia fragt: „Wohin geht Moro?“ „Wie bitte?“ „Sie fragt, wohin Moro geht!“ Die Lehrerin sagt: „Wartet hier!“ „Wie bitte?“ „Sie sagt, wir sollen hier warten!“",
+            "sl": "{learner} je s teto Nives na trgu. Njen radio je prižgan in slabo sliši. Lorenzo reče: »Lačen sem!« »Kaj?« »Pravi, da je lačen, teta!« Tommaso zavpije: »Moja žoga je v reki!« »Kaj?« »Pravi, da je njegova žoga v reki!« Babica Rosa vpraša: »Pridete na kosilo?« »Kaj?« »Vpraša, ali pridemo na kosilo!« Giulia vpraša: »Kam gre Moro?« »Kaj?« »Vpraša, kam gre Moro!« Učiteljica reče: »Počakajte tu!« »Kaj?« »Reče, naj počakamo tu!«",
+            "en": "{learner} is on the square with Zia Nives. Her radio is on, and she can't hear well. Lorenzo says: \"I'm hungry!\" \"What?\" \"He says he's hungry, Auntie!\" Tommaso shouts: \"My ball is in the river!\" \"What?\" \"He says his ball is in the river!\" Nonna Rosa asks: \"Are you coming for lunch?\" \"What?\" \"She's asking if we're coming for lunch!\" Giulia asks: \"Where's Moro going?\" \"What?\" \"She's asking where Moro is going!\" The teacher says: \"Wait here!\" \"What?\" \"She says to wait here!\""
           }
         },
         {
@@ -222,10 +222,10 @@
     },
     {
       "id": "discorso-indiretto-3",
-      "title": { "it": "Racconta!", "de": "Erzähl weiter!", "sl": "Povej naprej!", "en": "Tell it on!" },
+      "title": { "it": "Racconta!", "de": "Erzähl weiter!", "sl": "Povej naprej!", "en": "Pass it on!" },
       "exercises": [
         {
-          "type": "transform", "grammar": "discorso-indiretto", "instruction": { "de": "Racconta con dice che · Erzähl es mit dice che weiter", "sl": "Racconta con dice che · Povej naprej z dice che", "en": "Racconta con dice che · Tell it on with dice che" }, "cue": "dice che",
+          "type": "transform", "grammar": "discorso-indiretto", "instruction": { "de": "Racconta con dice che · Erzähl es mit dice che weiter", "sl": "Racconta con dice che · Povej naprej z dice che", "en": "Racconta con dice che · Pass it on with dice che" }, "cue": "dice che",
           "items": [
             { "from": "«Sono stanco.» (Lorenzo)", "accept": ["Lorenzo dice che è stanco.", "Dice che è stanco."], "hint": "sono → è" },
             { "from": "«Ho sete.» (Giulia)", "accept": ["Giulia dice che ha sete.", "Dice che ha sete."] },
@@ -239,7 +239,7 @@
           }
         },
         {
-          "type": "transform", "grammar": "discorso-indiretto", "instruction": { "de": "Racconta: chiede se, dice di · Erzähl es weiter", "sl": "Racconta: chiede se, dice di · Povej naprej", "en": "Racconta: chiede se, dice di · Tell it on" },
+          "type": "transform", "grammar": "discorso-indiretto", "instruction": { "de": "Racconta: chiede se, dice di · Erzähl es weiter", "sl": "Racconta: chiede se, dice di · Povej naprej", "en": "Racconta: chiede se, dice di · Pass it on" },
           "items": [
             { "from": "Tommaso: «Hai una palla?»", "accept": ["Tommaso mi chiede se ho una palla.", "Mi chiede se ho una palla.", "Tommaso chiede se ho una palla.", "Chiede se ho una palla."], "hint": "hai → ho" },
             { "from": "La nonna: «Mangia la minestra!»", "accept": ["La nonna mi dice di mangiare la minestra.", "Mi dice di mangiare la minestra.", "La nonna dice di mangiare la minestra.", "Dice di mangiare la minestra."] },
@@ -275,7 +275,7 @@
         }
       },
       {
-        "type": "transform", "grammar": "discorso-indiretto", "instruction": { "de": "Racconta · Erzähl es weiter", "sl": "Racconta · Povej naprej", "en": "Racconta · Tell it on" },
+        "type": "transform", "grammar": "discorso-indiretto", "instruction": { "de": "Racconta · Erzähl es weiter", "sl": "Racconta · Povej naprej", "en": "Racconta · Pass it on" },
         "items": [
           { "from": "«Ho sonno.» (Lorenzo)", "accept": ["Lorenzo dice che ha sonno.", "Dice che ha sonno."] },
           { "from": "Marisa: «Volete un gelato?»", "accept": ["Marisa ci chiede se vogliamo un gelato.", "Ci chiede se vogliamo un gelato.", "Marisa chiede se vogliamo un gelato.", "Chiede se vogliamo un gelato."] },
