@@ -308,6 +308,8 @@ const FORM_GLOSS = /\b(singular|plural|dual|person|imperative|genitive|dative|lo
 /** A word's meaning in the base: a pack's word (written for the learner), the unit's own gloss, the supplement, Wiktionary. */
 export class Dictionary {
   private packs = new Map<string, Json>()
+  /** The packs' nouns by their plural ("i cavalli", cavalli → il cavallo): a unit may list a noun in the plural. */
+  private plurals = new Map<string, Json>()
   private extra = new Map<string, Json[]>()
   private file: Json | null = null
   private loaded = false
@@ -324,6 +326,25 @@ export class Dictionary {
     return m ? m[1] : null
   }
 
+  /**
+   * A form as the dictionary's are compared (the bridge's normalizeForm, lexicon.ts): Slovene without its tonal accents;
+   * Italian with a typographic apostrophe as ' and the accent it writes on a last letter kept (è is not e, più not piu).
+   */
+  private key(s: string): string {
+    if (this.language === 'sl') return norm(s)
+    const lower = s.trim().toLocaleLowerCase(this.language).replace(/[’ʼ]/g, "'")
+    if (this.language === 'it') return lower.normalize('NFD').replace(/\p{M}(?=[\p{M}']*\p{L})/gu, '').normalize('NFC')
+    return lower.normalize('NFC')
+  }
+
+  /** An Italian noun with its article, by its gender ("biscotto", m → il biscotto; "zaino" → lo zaino; "ape", f → l'ape). */
+  private withArticle(lemma: string, gender: string | undefined): string {
+    if (this.language !== 'it' || (gender !== 'm' && gender !== 'f')) return lemma
+    if (/^[aeiouàèéìòù]/i.test(lemma)) return `l'${lemma}`
+    if (gender === 'f') return `la ${lemma}`
+    return /^(s[^aeiou]|z|gn|ps|pn|x|y)/i.test(lemma) ? `lo ${lemma}` : `il ${lemma}`
+  }
+
   private load() {
     if (this.loaded) return
     this.loaded = true
@@ -336,8 +357,13 @@ export class Dictionary {
             const word = w[this.language]
             if (typeof word !== 'string') continue
             for (const k of [word, this.bare(word)]) {
-              const key = k ? norm(k) : null
+              const key = k ? this.key(k) : null
               if (key && !this.packs.has(key)) this.packs.set(key, w)
+            }
+            if (typeof w.plural !== 'string') continue
+            for (const k of [w.plural, this.bare(w.plural)]) {
+              const key = k ? this.key(k) : null
+              if (key && !this.plurals.has(key)) this.plurals.set(key, w)
             }
           }
         } catch {
@@ -350,7 +376,7 @@ export class Dictionary {
       const x = JSON.parse(readFileSync(join(dir, `${this.language}.extra.json`), 'utf8'))
       for (const e of x.entries ?? []) {
         for (const form of new Set([e.lemma, ...Object.keys(e.forms ?? {})])) {
-          const k = norm(form)
+          const k = this.key(form)
           this.extra.set(k, [...(this.extra.get(k) ?? []), e])
         }
       }
@@ -367,8 +393,14 @@ export class Dictionary {
   meaning(word: string, base: string, ctx: WordContext, depth = 0): Meaning | null {
     this.load()
     const key = norm(word)
-    const pack = this.packs.get(key)
+    // the form as the packs and the dictionaries have it (Italian keeps its last accent: è, più)
+    const k = this.key(word)
+    const pack = this.packs.get(k)
     if (pack && (pack[base] || pack.en)) return { lemma: pack[this.language], pos: pack.gender ? 'noun' : 'word', gloss: pack[base] ?? pack.en, gender: pack.gender }
+    // a pack's noun in the plural with its article ("i cavalli"): the pack's word, its singular shown beside it; only
+    // with the article, which says it is that noun (Slovene's peči is to bake, not the stoves)
+    const plural = this.bare(word) ? this.plurals.get(k) : undefined
+    if (plural && (plural[base] || plural.en)) return { lemma: plural[this.language], pos: 'noun', gloss: plural[base] ?? plural.en, gender: plural.gender }
     // a form the unit makes from its lemma ("piti → **pil**"): the lemma's meaning
     const lemma = ctx.lemmaOf.get(key)
     if (lemma && norm(lemma) !== key && depth === 0) {
@@ -385,11 +417,18 @@ export class Dictionary {
     const glossIn = (l: Json) => (base === 'en' ? l.gloss?.[0] : (l.meanings?.[base]?.gloss?.[0] ?? l.gloss?.[0]))
     const f = this.file
     const wik: Json[] = []
-    if (f && Object.hasOwn(f.forms, key)) for (const [i] of f.forms[key]) if (f.lemmas[i]) wik.push(f.lemmas[i])
-    for (const e of this.extra.get(key) ?? []) {
+    if (f && Object.hasOwn(f.forms, k)) for (const [i] of f.forms[k]) if (f.lemmas[i]) wik.push(f.lemmas[i])
+    // the supplement's entries of the form, and an Italian noun's by the word without its article ("il treno": treno,
+    // "i biscotti": biscotto, shown with its article)
+    const bare = this.bare(word)
+    const nouns = bare ? (this.extra.get(this.key(bare)) ?? []).filter(e => e.pos === 'noun') : []
+    for (const e of [...(this.extra.get(k) ?? []), ...nouns]) {
       const same = wik.find(l => norm(l.lemma) === norm(e.lemma) && l.pos === e.pos)
-      const gloss = base === 'en' ? e.gloss?.[0] : (same?.meanings?.[base]?.gloss?.[0] ?? e.gloss?.[0])
-      if (gloss) cands.push({ lemma: e.lemma, pos: e.pos, gloss, gender: e.gender, score: 0.5, rank: 0 })
+      // its own meaning in the base (written with it), else the dictionary's of its lemma, else the English
+      const gloss = base === 'en' ? e.gloss?.[0] : (e.meanings?.[base]?.[0] ?? same?.meanings?.[base]?.gloss?.[0] ?? e.gloss?.[0])
+      const byBare = !this.extra.get(k)?.includes(e)
+      const lemma = !byBare ? e.lemma : this.key(e.lemma) === this.key(bare!) ? word : this.withArticle(e.lemma, e.gender)
+      if (gloss) cands.push({ lemma, pos: e.pos, gloss, gender: e.gender, score: byBare && lemma !== word ? 2 : 0.5, rank: 0 })
     }
     for (const l of wik) {
       if (l.pos === 'name') continue
