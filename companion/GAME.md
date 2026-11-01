@@ -2327,8 +2327,9 @@ the bocce court "die Stockschießbahn", the fire station "das Feuerwehrhaus", th
 Each has its word pack in `cultures/kaernten/packs/fest-<…>.json` (8 words). Its own place is Am See (`scenes/am-see.json`,
 the `alps` art: the Faaker See under the Mittagskogel, the Alm with its cows, chamois and ibex), its words in
 `packs/am-see.json`; its campfire is Am Feuer (`scenes/am-feuer.json`, words in `packs/am-feuer.json`), where Opa Sepp
-tells his five legends in the evening (`stories/`: the Lindwurm of Klagenfurt, the Dobratsch in 1348, how the Wörthersee
-came to be, King Matthias asleep under the Petzen, the giants of the Karawanken; words in `packs/geschichten.json`). Every
+tells his legends in the evening (`stories/`, 16 as Primorska has: the Lindwurm of Klagenfurt, the Dobratsch in 1348, how the
+Wörthersee came to be, King Matthias asleep under the Petzen, the giants of the Karawanken and eleven more, companion/SCENES.md
+"Stories"; words in `packs/geschichten.json`, `packs/sagen.json` and `packs/erzaehlungen.json`). Every
 building has its place since places-kaernten, and since the third wave the projects' places and the spots too: the stream
 bank (Am Bach), the pond (Am Teich), the fire station, the playground, the lookout tower, the fountain, the church clock
 and the Doppelharpfe (docs/plans/05-built/kaernten-projects-b.md; the other projects and the wood are part a's), each in
@@ -2341,7 +2342,13 @@ The thanks goods are the region's (Reindling, Kasnudeln, buckwheat flour for Hei
 Most, a linen cloth from the Gailtal …), the Kraxenträger sells saffron for the Kirchtagssuppe, spices, olive oil and
 coffee from Tarvis. Oma Resi's recipes are Kärntner Kasnudeln (A1) and Reindling (A2), Opa Sepp's old book a page about
 the Harpfe (A1) and his book of proverbs 11 proverbs, each with its meaning (and the Slovene one, where there is one),
-all in German with Slovene, English and Italian (`readings/`). The voice cast (`voice-cast.json`) has the same
+all in German with Slovene, English and Italian (`readings/`). The reading corner has five more, nine in all as Primorska
+has: Stefan's letter ("Ein Brief von Stefan", A1: the Villacher Kirchtag, a week at the end of July), Kathi on the lake
+("Der Wörthersee", A1: 16.5 km long, Maria Wörth on its peninsula, the steamer Thalia, the Wörthersee-Mandl), Müller Franz
+on the tower ("Der Turm auf dem Pyramidenkogel", A2: the world's highest wooden lookout tower, 440 steps, the 120 m slide),
+Oma Resi's Kirchtag soup ("Die Kärntner Kirchtagssuppe", A2: the yellow, sour soup with three meats) and Hirte Florian on
+his mountain ("Der Bergsturz am Dobratsch", B1: 25 January 1348, the Rote Wand and the Schütt); each with five questions,
+one of every type, and six or seven new words meant in Slovene, English and Italian (machine-written, `review`; docs/plans/05-built/stories-kaernten.md). The voice cast (`voice-cast.json`) has the same
 archetypes, in German: an Austrian narrator (Fiona) and old man (Helmut), the others voices of the account (README,
 "Voice").
 

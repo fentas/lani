@@ -77,7 +77,7 @@ class CuratedPicturesTest {
             }
             sheet("curated-$culture", list.flatMap { it.pictures })
         }
-        assertEquals(151, all)
+        assertEquals(166, all)
     }
 
     /** Pictures [list] three a row, twice their size, as build/book-pictures/[name].png. */

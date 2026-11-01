@@ -1,0 +1,82 @@
+{
+  "id": "kirchtagssuppe",
+  "kind": "recipe",
+  "level": "A2",
+  "title": { "de": "Die Kärntner Kirchtagssuppe", "sl": "Koroška žegnanjska juha", "en": "The Carinthian Kirchtag soup", "it": "La zuppa della sagra carinziana" },
+  "by": "resi",
+  "intro": { "de": "Ohne Kirchtagssuppe gibt es keinen Kirchtag, sagt Oma Resi. Man nennt sie auch die gelbe oder die saure Suppe, und dazu isst man Reindling.", "sl": "Brez žegnanjske juhe ni žegnanja, pravi Oma Resi. Pravijo ji tudi rumena ali kisla juha, zraven pa jemo reindling.", "en": "No Kirchtag without the Kirchtag soup, says Oma Resi. It's also called the yellow or the sour soup, and you eat Reindling with it.", "it": "Senza la zuppa della sagra non c'è sagra, dice Oma Resi. La chiamano anche la zuppa gialla o la zuppa acida, e la si mangia con il reindling." },
+  "servings": { "de": "Für einen großen Suppentopf (etwa 10 Teller)", "sl": "Za velik lonec juhe (približno 10 krožnikov)", "en": "For a large soup pot (about 10 bowls)", "it": "Per una grande pentola (circa 10 piatti)" },
+  "ingredients": [
+    { "part": { "de": "Die Suppe", "sl": "Juha", "en": "The soup", "it": "La zuppa" }, "amount": "550", "unit": { "de": "g", "sl": "g", "en": "g", "it": "g" }, "item": { "de": "Rindfleisch", "sl": "govedine", "en": "beef", "it": "di manzo" } },
+    { "amount": "350", "unit": { "de": "g", "sl": "g", "en": "g", "it": "g" }, "item": { "de": "Lammfleisch", "sl": "jagnjetine", "en": "lamb", "it": "di agnello" } },
+    { "amount": "300", "unit": { "de": "g", "sl": "g", "en": "g", "it": "g" }, "item": { "de": "Hühnerfleisch", "sl": "piščančjega mesa", "en": "chicken", "it": "di pollo" } },
+    { "amount": "2", "item": { "de": "Knochen (ein Rindsknochen und ein Markknochen)", "sl": "kosti (goveja kost in kost z mozgom)", "en": "bones (a beef bone and a marrow bone)", "it": "ossa (un osso di manzo e un osso con il midollo)" } },
+    { "amount": "3,5", "unit": { "de": "l", "sl": "l", "en": "l", "it": "l" }, "item": { "de": "Wasser", "sl": "vode", "en": "water", "it": "d'acqua" } },
+    { "item": { "de": "1 Zwiebel, 4 Karotten, 1 Pastinake, 1 Stück Sellerie, 1 kleiner Lauch, etwas Petersilie", "sl": "1 čebula, 4 korenje, 1 pastinak, 1 kos zelene, 1 majhen por, malo peteršilja", "en": "1 onion, 4 carrots, 1 parsnip, 1 piece of celeriac, 1 small leek, a little parsley", "it": "1 cipolla, 4 carote, 1 pastinaca, 1 pezzo di sedano rapa, 1 porro piccolo, un po' di prezzemolo" } },
+    { "part": { "de": "Die Gewürze", "sl": "Začimbe", "en": "The spices", "it": "Le spezie" }, "item": { "de": "3 Wacholderbeeren, 4 Pfefferkörner, 1 Zimtstange, 3 Lorbeerblätter, 3 Gewürznelken, eine Prise Muskat", "sl": "3 brinove jagode, 4 zrna popra, 1 cimetova palčka, 3 lovorovi listi, 3 klinčki, ščepec muškatnega oreščka", "en": "3 juniper berries, 4 peppercorns, 1 cinnamon stick, 3 bay leaves, 3 cloves, a pinch of nutmeg", "it": "3 bacche di ginepro, 4 grani di pepe, 1 stecca di cannella, 3 foglie di alloro, 3 chiodi di garofano, un pizzico di noce moscata" } },
+    { "item": { "de": "Salz und Pfeffer", "sl": "sol in poper", "en": "salt and pepper", "it": "sale e pepe" } },
+    { "part": { "de": "Zum Fertigmachen", "sl": "Za konec", "en": "To finish", "it": "Per finire" }, "amount": "⅛", "unit": { "de": "l", "sl": "l", "en": "l", "it": "l" }, "item": { "de": "Weißwein", "sl": "belega vina", "en": "white wine", "it": "di vino bianco" } },
+    { "unit": { "de": "ein Schuss", "sl": "kanček", "en": "a dash of", "it": "un goccio" }, "item": { "de": "Essig", "sl": "kisa", "en": "vinegar", "it": "d'aceto" } },
+    { "unit": { "de": "eine gute Prise", "sl": "dober ščepec", "en": "a good pinch of", "it": "un bel pizzico" }, "item": { "de": "Safranfäden", "sl": "žafranovih nitk", "en": "saffron threads", "it": "di pistilli di zafferano" } },
+    { "amount": "500", "unit": { "de": "g", "sl": "g", "en": "g", "it": "g" }, "item": { "de": "Sauerrahm", "sl": "kisle smetane", "en": "sour cream", "it": "di panna acida" } },
+    { "amount": "200", "unit": { "de": "ml", "sl": "ml", "en": "ml", "it": "ml" }, "item": { "de": "Schlagobers", "sl": "sladke smetane", "en": "whipping cream", "it": "di panna da montare" } },
+    { "amount": "3", "item": { "de": "Dotter", "sl": "rumenjaki", "en": "egg yolks", "it": "tuorli" } },
+    { "item": { "de": "Zimt zum Bestreuen", "sl": "cimet za posip", "en": "cinnamon to sprinkle", "it": "cannella da spolverare" } }
+  ],
+  "steps": [
+    { "de": "Halbier die Zwiebel und röste die Schnittflächen ohne Fett, bis sie dunkelbraun sind.", "sl": "Čebulo prereži na pol in prerezani strani brez maščobe opeci, da postaneta temno rjavi.", "en": "Halve the onion and toast the cut sides without fat until they are dark brown.", "it": "Taglia a metà la cipolla e tosta le parti tagliate senza grassi, finché sono marrone scuro." },
+    { "de": "Gib das Fleisch, die Knochen, das Gemüse, die Zwiebel und die Gewürze mit dem Wasser in einen großen Topf.", "sl": "Meso, kosti, zelenjavo, čebulo in začimbe z vodo daj v velik lonec.", "en": "Put the meat, the bones, the vegetables, the onion and the spices into a large pot with the water.", "it": "Metti la carne, le ossa, le verdure, la cipolla e le spezie con l'acqua in una pentola grande." },
+    { "de": "Lass alles etwa zwei Stunden leise kochen. Schöpf den Schaum immer wieder ab, und gib ein wenig Salz und Pfeffer dazu.", "sl": "Vse naj približno dve uri počasi vre. Peno sproti posnemaj in dodaj malo soli in popra.", "en": "Let everything simmer for about two hours. Skim off the foam again and again, and add a little salt and pepper.", "it": "Lascia sobbollire tutto per circa due ore. Togli spesso la schiuma e aggiungi un po' di sale e pepe." },
+    { "de": "Nimm das Fleisch heraus, lass es auskühlen und schneid es in kleine Würfel. Seih die Suppe ab.", "sl": "Meso vzemi ven, pusti, da se ohladi, in ga nareži na majhne kocke. Juho precedi.", "en": "Take the meat out, let it cool and cut it into small cubes. Strain the soup.", "it": "Togli la carne, lasciala raffreddare e tagliala a dadini. Filtra il brodo." },
+    { "de": "Koch einen kleinen Teil der Suppe mit dem Wein, dem Essig und dem Safran kurz auf und seih ihn wieder ab.", "sl": "Majhen del juhe na kratko prevri z vinom, kisom in žafranom in ga spet precedi.", "en": "Bring a small part of the soup to the boil briefly with the wine, the vinegar and the saffron, and strain it again.", "it": "Fai bollire brevemente una piccola parte del brodo con il vino, l'aceto e lo zafferano, e filtrala di nuovo." },
+    { "de": "Verrühr den Sauerrahm, das Schlagobers und die Dotter in einer Schüssel.", "sl": "V skledi zmešaj kislo smetano, sladko smetano in rumenjake.", "en": "Stir the sour cream, the whipping cream and the egg yolks together in a bowl.", "it": "In una ciotola mescola la panna acida, la panna da montare e i tuorli." },
+    { "de": "Gieß ihn zurück in den Topf und rühr den Rahm ein. Die Suppe darf jetzt nicht zu heiß sein, sonst flockt sie aus.", "sl": "Vlij ga nazaj v lonec in vmešaj smetano. Juha zdaj ne sme biti prevroča, sicer se zakrkne.", "en": "Pour it back into the pot and stir in the cream. The soup mustn't be too hot now, or it will curdle.", "it": "Rimettilo nella pentola e incorpora la panna. Ora la zuppa non deve essere troppo calda, altrimenti impazzisce." },
+    { "de": "Wärm die Suppe langsam wieder auf und schmeck sie mit Salz und Pfeffer ab.", "sl": "Juho počasi spet pogrej in jo začini s soljo in poprom po okusu.", "en": "Warm the soup up again slowly and season it to taste with salt and pepper.", "it": "Riscalda piano la zuppa e aggiusta di sale e pepe." },
+    { "de": "Leg das Fleisch in die Teller, gieß die heiße Suppe darüber und streu ein wenig Zimt darauf. Dazu gibt es Reindling.", "sl": "Meso daj v krožnike, prelij ga z vročo juho in potresi z malo cimeta. Zraven je reindling.", "en": "Put the meat in the bowls, pour the hot soup over it and sprinkle a little cinnamon on top. Serve it with Reindling.", "it": "Metti la carne nei piatti, versaci sopra la zuppa bollente e spolvera con un po' di cannella. Si serve con il reindling." }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "ask": { "de": "Was erklärt Oma Resi?", "sl": "Kaj razloži Oma Resi?", "en": "What does Oma Resi explain?", "it": "Che cosa spiega Oma Resi?" },
+      "options": ["Wie man die Kirchtagssuppe kocht", "Wie man einen Reindling bäckt", "Wie man zum Kirchtag fährt"],
+      "explain": { "de": "Oma Resi erklärt Schritt für Schritt, wie man die Kärntner Kirchtagssuppe kocht.", "sl": "Oma Resi korak za korakom razloži, kako se skuha koroška žegnanjska juha.", "en": "Oma Resi explains step by step how to cook the Carinthian Kirchtag soup.", "it": "Oma Resi spiega passo per passo come si cucina la zuppa della sagra carinziana." }
+    },
+    {
+      "type": "detail",
+      "ask": { "de": "Welches Fleisch kommt in die Suppe?", "sl": "Katero meso pride v juho?", "en": "Which meat goes into the soup?", "it": "Quale carne va nella zuppa?" },
+      "options": ["Rind, Lamm und Huhn", "Nur Schwein", "Fisch aus dem See"],
+      "explain": { "de": "In die Suppe kommen drei Sorten Fleisch: Rindfleisch, Lammfleisch und Hühnerfleisch.", "sl": "V juho pridejo tri vrste mesa: govedina, jagnjetina in piščanec.", "en": "Three kinds of meat go into the soup: beef, lamb and chicken.", "it": "Nella zuppa vanno tre tipi di carne: manzo, agnello e pollo." }
+    },
+    {
+      "type": "word",
+      "word": "Dotter",
+      "ask": { "de": "Was ist ein »Dotter«?", "sl": "Kaj je »Dotter«?", "en": "What is a »Dotter«?", "it": "Che cos'è un »Dotter«?" },
+      "options": ["Das Gelbe vom Ei", "Ein Stück Knochen", "Ein Gewürz"],
+      "explain": { "de": "Der Dotter ist das Gelbe vom Ei. In Deutschland sagt man auch Eigelb.", "sl": "Dotter je rumenjak, rumeni del jajca. V Nemčiji rečejo tudi Eigelb.", "en": "The Dotter is the yolk, the yellow part of the egg. In Germany people also say Eigelb.", "it": "Il Dotter è il tuorlo, la parte gialla dell'uovo. In Germania si dice anche Eigelb." }
+    },
+    {
+      "type": "true_false",
+      "ask": { "de": "Wenn man den Rahm einrührt, muss die Suppe sehr heiß sein.", "sl": "Ko vmešaš smetano, mora biti juha zelo vroča.", "en": "When you stir in the cream, the soup has to be very hot.", "it": "Quando si incorpora la panna, la zuppa deve essere molto calda." },
+      "answer": false,
+      "explain": { "de": "Stimmt nicht: Die Suppe darf dann nicht zu heiß sein, sonst flockt sie aus.", "sl": "Ne drži: juha takrat ne sme biti prevroča, sicer se zakrkne.", "en": "False: the soup mustn't be too hot then, or it will curdle.", "it": "Falso: allora la zuppa non deve essere troppo calda, altrimenti impazzisce." }
+    },
+    {
+      "type": "inference",
+      "ask": { "de": "Woher hat die gelbe Suppe ihre Farbe?", "sl": "Od kod ima rumena juha svojo barvo?", "en": "Where does the yellow soup get its colour?", "it": "Da dove prende il colore la zuppa gialla?" },
+      "options": ["Vom Safran", "Vom Zimt", "Vom Essig"],
+      "explain": { "de": "Der Safran färbt die Suppe gelb, darum heißt sie auch die gelbe Suppe.", "sl": "Žafran juho obarva rumeno, zato ji pravijo tudi rumena juha.", "en": "The saffron turns the soup yellow, which is why it's also called the yellow soup.", "it": "Lo zafferano colora la zuppa di giallo: per questo la chiamano anche la zuppa gialla." }
+    }
+  ],
+  "words": [
+    { "word": "Knochen", "pos": "noun", "means": { "sl": "kost", "en": "a bone", "it": "l'osso" } },
+    { "word": "Wacholderbeere", "form": "Wacholderbeeren", "pos": "noun", "means": { "sl": "brinova jagoda", "en": "a juniper berry", "it": "la bacca di ginepro" } },
+    { "word": "Sauerrahm", "pos": "noun", "means": { "sl": "kisla smetana", "en": "sour cream", "it": "la panna acida" } },
+    { "word": "Schlagobers", "pos": "noun", "means": { "sl": "sladka smetana (za stepanje)", "en": "whipping cream (Austrian; Schlagsahne in Germany)", "it": "la panna da montare (in Austria; in Germania Schlagsahne)" } },
+    { "word": "Dotter", "pos": "noun", "means": { "sl": "rumenjak", "en": "an egg yolk", "it": "il tuorlo" } },
+    { "word": "Schaum", "pos": "noun", "means": { "sl": "pena", "en": "foam, froth", "it": "la schiuma" } },
+    { "word": "Würfel", "pos": "noun", "means": { "sl": "kocka", "en": "a cube, a dice", "it": "il dado, il cubetto" } }
+  ],
+  "topics": ["Kirchtag", "recipe", "soup", "Carinthian food"],
+  "machine_written": true,
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker; the recipe after Florentina Klampferer's on kaernten.at (https://www.kaernten.at/kulinarik/rezepte/kaerntner-kirchtagssuppe/)"
+}
