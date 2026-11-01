@@ -2719,34 +2719,38 @@ def culture_reading():
     c = scroll_to(title, 8)
     assert c is not None, f"the reading «{title}» in the corner"
     tap_at(c)
-    start = f"▶️ {label('reading.start')}"
-    assert wait_for(start, 10) or scroll_to(start, 6), f"«{title}»: its {start}"
-    time.sleep(1.5)
+    # its "▶️ Začni · Start" at the text's end (the sheet has no tutor bar: low on the screen is fine)
+    start = label("reading.start")
+    time.sleep(2)
+    c = find(start) or scroll_to(start, 8, bottom=2350)
+    assert c is not None, f"«{title}»: its ▶️ {start}"
     snap("text")
-    assert tap(start, 4) or (scroll_to(start, 6) and tap(start, 4)), start
+    tap_at(find(start) or c)
     time.sleep(1.5)
     log = [f"{culture}/{rid}: «{title}» ({r['level']}, {r['kind']})"]
-    nxt = f"{label('common.next')} →"
+    nxt = label("common.next")
     for k, q in enumerate(r["questions"]):
         ask = (q["ask"].get(lang) or "").replace("{learner}", "")
         if q.get("type") == "true_false":
-            right = label("reading.true" if q["answer"] else "reading.false")
+            right = label("reading.true" if q["answer"] else "reading.false", half=True)  # the option in the target only: "Vero"
         else:
             right = q["options"][0]
-        c = next((c for t, c in nodes() if t == right or t.startswith(right)), None) or scroll_to(right, 4)
+        c = next((c for t, c in nodes() if t == right or t.startswith(right)), None) or scroll_to(right, 4, bottom=2350)
         assert c is not None, f"question {k + 1} «{ask}»: its answer «{right}»"
         tap_at(c)
         time.sleep(1.5)
         snap(f"q{k + 1}")
         log.append(f"  {k + 1}. {q.get('type', '')}: {ask} → {right}")
         if k < len(r["questions"]) - 1:
-            assert tap(nxt, 4) or (scroll_to(nxt, 4) and tap(nxt, 4)), f"{nxt} after question {k + 1}"
+            c = find(nxt) or scroll_to(nxt, 4, bottom=2350)
+            assert c is not None, f"{nxt} → after question {k + 1}"
+            tap_at(c)
             time.sleep(1.5)
     n = len(r["questions"])
     score = label("reading.score").replace("{right}", str(n)).replace("{total}", str(n))
     target = score.split(" · ")[0]
     seen = html.unescape(screen_xml())
-    if target not in seen and scroll_to(target, 4) is not None:
+    if target not in seen and scroll_to(target, 4, bottom=2350) is not None:
         seen += html.unescape(screen_xml())
     snap("done")
     log.append(f"  the score: {'✓ ' + score if target in seen else '(not seen)'}")

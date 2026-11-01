@@ -97,13 +97,16 @@ own `lookup` over Wiktionary's `it.json` and the supplement, base de and sl).
 
 - Teo: by the fire in the evening, as before: once the ten older stories are heard, Bepi tells the new ones in their
   order (Home's "Stasera al fuoco …" names tonight's). The notebook keeps them with their sketches. The corner ("📖
-  Lettura · Lesen") lists the five readings among the rest, by level.
+  Lettura · Lesen") lists the five readings among the rest, by level; as every reading, one read by or naming someone
+  of the cast waits until they live in the village and Teo has met them (`Readings.knows`: Tommaso's letter, Giulia's
+  Aquileia, Zia Nives's Lussari, Nonna Rosa's cjarsons, Mugnaio Franco's Tagliamento).
 - QA: `LANI_DEV_DATA=<a synthetic Teo who has heard the ten> LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de
   LANI_QA_LEARNER=Teo LANI_QA_STORY_SHOTS=<dir> LANI_QA_READING_SHOTS=<dir> companion/bin/qa-slot --no-town --steps
   story-faces,culture-reading`. The synthetic Teo: `bun test/fixtures/make-learner.ts <dir> --name Teo --target it
   --base de`, then the ten older stories marked heard in `<dir>/app/game.json`'s `state.stories` (`{"told": 1, "level":
-  "A1", "on": "<date>", "levels": {"A1": 1}}` each). `culture-reading` is new: a reading of the corner
-  (`LANI_QA_READING`, by default `i-pesci-di-aquileia`) read, each question answered right, the score checked.
+  "A1", "on": "<date>", "levels": {"A1": 1}}` each), and for the corner Giulia among the residents and the residents met
+  (`state.residents`, `state.bonds.<id>.met`). `culture-reading` is new: a reading of the corner (`LANI_QA_READING`, by
+  default `i-pesci-di-aquileia`) read, each question answered right, the score checked.
 
 ## Tap counts
 
@@ -119,8 +122,17 @@ own `lookup` over Wiktionary's `it.json` and the supplement, base de and sl).
   Janez's), the four packs' 52 stories with 133 pictures and notes for their 124 tellings, and its Friuli section the
   fire's 16 stories; `bun test/learner-content.ts`: 0 texts naming Jan, 0 malformed placeholders, 0 turns the same for
   one gender; `tutor-export --check`: 89 files match.
-- Android: the unit suite (CuratedPicturesTest's 133 pictures, NotebookTest's 124 tellings and notes; StoriesTest,
-  StoryBooksTest, DialogReactionsTest, SceneCoherenceTest, the parity tests over the new files).
+- Android: the full unit suite, 3,686 tests: two failed on the first run and were fixed (StoriesTest's count of Bepi's
+  stories, now 16 with the benandanti next once the ten are heard; NotebookTest: a quoted question in the happy man's
+  shirt's A2, «Contento? …», read as the teller's aside when the notebook writes the telling down, now said without a
+  question); NotebookTest, StoriesTest, StoryBooksTest and DialogReactionsTest again: 36 tests, all passed.
+  CuratedPicturesTest counts 133 pictures, NotebookTest 124 tellings and notes.
+- QA through `qa-slot` on a synthetic Teo (it · de, a child, the Friuli village): `story-faces` played tonight's story,
+  I benandanti, to its end at A1 (Bepi's portrait in the header, his faces curious, happy, worried, proud, surprised;
+  the end card with its words in German, "📓 Apri il quaderno"; the notebook then holds 11 stories and 26 sketches);
+  `culture-reading` read I pesci di Aquileia, its five questions answered right, "✓ 5 su 5 giuste · 5 von 5 richtig",
+  +40 📜. Shots in the scratchpad's `ux-stories-friuli/` (story-open, story-line-1 to 3, story-end, reading-corner,
+  reading-text, reading-q1 to q5, reading-done).
 - Python: `python3 -m unittest discover -s tests` (251) and `-s companion/tests` (142, 11 skipped): OK.
 
 ## What's left
