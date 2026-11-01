@@ -1,0 +1,314 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "verbi-pronominali",
+  "language": "it",
+  "level": "B1",
+  "emoji": "💪",
+  "title": { "it": "Me ne vado! Ce la faccio!", "de": "Ich gehe! Ich schaffe es!", "sl": "Grem! Zmorem!", "en": "I'm off! I can do it!" },
+  "goal": {
+    "de": "Du sagst, dass du gehst (me ne vado), dass du es schaffst (ce la faccio) und was etwas braucht (ci vuole un'ora, ci vogliono tre uova).",
+    "sl": "Poveš, da greš (me ne vado), da zmoreš (ce la faccio) in kaj je za kaj potrebno (ci vuole un'ora, ci vogliono tre uova).",
+    "en": "You can say you're off (me ne vado), you can do it (ce la faccio), and what something takes (ci vuole un'ora, ci vogliono tre uova)."
+  },
+  "grammar": ["verbi-pronominali", "ci-ne", "riflessivi"],
+  "words": ["andarsene", "farcela", "volerci", "andare via", "tardi", "il letto", "la stalla", "la pecora", "la nebbia", "il secchio", "il cesto", "pesante", "l'albero", "la cima", "la corsa", "lo stagno", "la salita", "l'erba", "il tramonto", "la gubana", "l'uovo", "la farina", "lo zucchero", "il forno", "il frico", "la patata", "il formaggio", "il minuto", "l'ora", "la pazienza", "il tiglio", "stanco", "forza", "evviva", "uff"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "forma", "de": "Form", "sl": "oblika", "en": "form" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Wenn du gehst, sagst du **me ne vado** (ich gehe weg): **È tardi, me ne vado!** (Es ist spät, ich gehe!) Das Verb heißt **andarsene** (weggehen), und seine zwei kleinen Wörter gehen mit der Person: **te ne vai** (du gehst weg), **se ne va** (er, sie geht weg). Vor **ne** wird **mi** zu **me**, **ti** zu **te**, **si** zu **se**.",
+          "sl": "Ko greš, rečeš **me ne vado** (grem): **È tardi, me ne vado!** (Pozno je, grem!) Glagol je **andarsene** (oditi), njegovi dve kratki besedi pa se spreminjata z osebo: **te ne vai** (greš), **se ne va** (gre). Pred **ne** postane **mi** → **me**, **ti** → **te**, **si** → **se**.",
+          "en": "When you leave, you say **me ne vado** (I'm off): **È tardi, me ne vado!** (It's late, I'm off!) The verb is **andarsene** (to go away), and its two short words follow the person: **te ne vai** (you're off), **se ne va** (he, she is off). Before **ne**, **mi** becomes **me**, **ti** becomes **te**, **si** becomes **se**."
+        },
+        "examples": [
+          { "it": "È tardi, me ne vado a casa.", "de": "Es ist spät, ich gehe nach Hause.", "sl": "Pozno je, grem domov.", "en": "It's late, I'm off home." },
+          { "it": "Moro è stanco e se ne va sotto il tiglio.", "de": "Moro ist müde und geht unter die Linde.", "sl": "Moro je utrujen in gre pod lipo.", "en": "Moro is tired and goes off under the linden." }
+        ],
+        "rows": [
+          ["me ne vado", { "de": "ich gehe (weg)", "sl": "grem (stran)", "en": "I'm off" }],
+          ["te ne vai, se ne va", { "de": "du gehst, er, sie geht (weg)", "sl": "greš, gre (stran)", "en": "you're off, he, she is off" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "verbi-pronominali", "prompt": "Lorenzo: «Ho sonno, ___ vado a letto.»", "options": ["me ne", "mi ne", "se ne"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**io** → **me ne vado**: vor ne wird mi zu me\n- mi ne · gibt es nicht\n- se ne · für er, sie: se ne va",
+            "sl": "**io** → **me ne vado**: pred ne postane mi → me\n- mi ne · ne obstaja\n- se ne · za on, ona: se ne va",
+            "en": "**io** → **me ne vado**: before ne, mi becomes me\n- mi ne · doesn't exist\n- se ne · for he, she: se ne va"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für mehrere sagst du **ce ne andiamo** (wir gehen), **ve ne andate** (ihr geht), **se ne vanno** (sie gehen): **Piove, ce ne andiamo a casa!** (Es regnet, wir gehen nach Hause!) **Se ne** steht für *er, sie* und für *sie alle*. **Non** kommt ganz nach vorn: **Non me ne vado!** (Ich gehe nicht weg!)",
+          "sl": "Za več oseb rečeš **ce ne andiamo** (gremo), **ve ne andate** (greste), **se ne vanno** (gredo): **Piove, ce ne andiamo a casa!** (Dežuje, gremo domov!) **Se ne** je za *on, ona* in za *oni*. **Non** pride čisto naprej: **Non me ne vado!** (Ne grem stran!)",
+          "en": "For more than one you say **ce ne andiamo** (we're off), **ve ne andate** (you're off), **se ne vanno** (they're off): **Piove, ce ne andiamo a casa!** (It's raining, we're off home!) **Se ne** is for *he, she* and for *they*. **Non** goes right at the front: **Non me ne vado!** (I'm not leaving!)"
+        },
+        "examples": [
+          { "it": "Piove, ce ne andiamo a casa!", "de": "Es regnet, wir gehen nach Hause!", "sl": "Dežuje, gremo domov!", "en": "It's raining, we're off home!" },
+          { "it": "Alle sei le pecore se ne vanno nella stalla.", "de": "Um sechs gehen die Schafe in den Stall.", "sl": "Ob šestih gredo ovce v hlev.", "en": "At six the sheep go off into the barn." }
+        ],
+        "rows": [
+          ["ce ne andiamo", { "de": "wir gehen (weg)", "sl": "gremo (stran)", "en": "we're off" }],
+          ["ve ne andate, se ne vanno", { "de": "ihr geht, sie gehen (weg)", "sl": "greste, gredo (stran)", "en": "you're off, they're off" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "verbi-pronominali", "prompt": "«Arriva la nebbia!» dice Davide. «Io e le pecore ___ andiamo a casa.»", "options": ["ce ne", "se ne", "ci ne"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**io e le pecore** = noi → **ce ne andiamo**\n- se ne · für sie: se ne vanno\n- ci ne · gibt es nicht: vor ne heißt es ce",
+            "sl": "**io e le pecore** = noi → **ce ne andiamo**\n- se ne · za oni: se ne vanno\n- ci ne · ne obstaja: pred ne je ce",
+            "en": "**io e le pecore** = noi → **ce ne andiamo**\n- se ne · for they: se ne vanno\n- ci ne · doesn't exist: before ne it's ce"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Ce la faccio!** heißt *Ich schaffe es!*: Das Verb ist **farcela** (es schaffen). Nur **fare** ändert sich: **ce la faccio, ce la fai, ce la fa** (ich schaffe, du schaffst, er, sie schafft es), **ce la facciamo, ce la fate, ce la fanno**. **Ce la** bleibt immer gleich. Und wenn du nicht mehr kannst: **Non ce la faccio più!** (Ich kann nicht mehr!)",
+          "sl": "**Ce la faccio!** pomeni *Zmorem!*: glagol je **farcela** (zmoči). Spreminja se le **fare**: **ce la faccio, ce la fai, ce la fa** (zmorem, zmoreš, zmore), **ce la facciamo, ce la fate, ce la fanno**. **Ce la** ostane vedno enak. In ko ne moreš več: **Non ce la faccio più!** (Ne morem več!)",
+          "en": "**Ce la faccio!** means *I can do it!*: the verb is **farcela** (to make it). Only **fare** changes: **ce la faccio, ce la fai, ce la fa** (I can, you can, he, she can do it), **ce la facciamo, ce la fate, ce la fanno**. **Ce la** always stays the same. And when you can't go on: **Non ce la faccio più!** (I can't any more!)"
+        },
+        "examples": [
+          { "it": "Forza, Tommaso, ce la fai!", "de": "Los, Tommaso, du schaffst das!", "sl": "Daj, Tommaso, zmoreš!", "en": "Come on, Tommaso, you can do it!" },
+          { "it": "Uff, non ce la faccio più!", "de": "Puh, ich kann nicht mehr!", "sl": "Uf, ne morem več!", "en": "Phew, I can't any more!" }
+        ],
+        "rows": [
+          ["ce la faccio", { "de": "ich schaffe es", "sl": "zmorem", "en": "I can do it" }],
+          ["non ce la faccio più", { "de": "ich kann nicht mehr", "sl": "ne morem več", "en": "I can't any more" }]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "verbi-pronominali", "text": "Giulia corre allo stagno. «Forza, Giulia, ce la ___!»", "accept": ["fai"], "hint": "tu → ?",
+          "explain": {
+            "de": "**tu** → **ce la fai**: nur fare ändert sich, ce la bleibt.",
+            "sl": "**tu** → **ce la fai**: spreminja se le fare, ce la ostane.",
+            "en": "**tu** → **ce la fai**: only fare changes, ce la stays."
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Ci vuole** sagt, was man für etwas braucht oder wie lange es dauert: **Ci vuole un'ora.** (Es dauert eine Stunde.) Braucht man mehrere Dinge, heißt es **ci vogliono**: **Per la gubana ci vogliono tre uova.** (Für die Gubana braucht man drei Eier.) Das Verb richtet sich nach dem, was gebraucht wird: eins → **vuole**, mehrere → **vogliono**.",
+          "sl": "**Ci vuole** pove, kaj je za kaj potrebno ali koliko časa traja: **Ci vuole un'ora.** (Traja eno uro.) Ko je potrebnih več stvari, je **ci vogliono**: **Per la gubana ci vogliono tre uova.** (Za gubano so potrebna tri jajca.) Glagol se ujema s tem, kar je potrebno: eno → **vuole**, več → **vogliono**.",
+          "en": "**Ci vuole** says what something takes, or how long: **Ci vuole un'ora.** (It takes an hour.) When it takes more than one thing, it's **ci vogliono**: **Per la gubana ci vogliono tre uova.** (For the gubana you need three eggs.) The verb agrees with what is needed: one → **vuole**, more → **vogliono**."
+        },
+        "examples": [
+          { "it": "Da qui a Grado ci vuole un'ora.", "de": "Von hier nach Grado dauert es eine Stunde.", "sl": "Od tod do Gradeža traja eno uro.", "en": "From here to Grado it takes an hour." },
+          { "it": "Per la gubana ci vogliono tre uova.", "de": "Für die Gubana braucht man drei Eier.", "sl": "Za gubano so potrebna tri jajca.", "en": "For the gubana you need three eggs." }
+        ],
+        "rows": [
+          ["ci vuole", { "de": "man braucht (eins), es dauert", "sl": "potreben je, traja", "en": "it takes (one thing, a time)" }],
+          ["ci vogliono", { "de": "man braucht (mehrere)", "sl": "potrebni so", "en": "it takes (more than one)" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "verbi-pronominali", "prompt": "«Per il frico ___ le patate e il formaggio.»", "options": ["ci vuole", "ci vogliono", "ci vuoi"], "answer": 1, "say_options": true,
+          "explain": {
+            "de": "**le patate e il formaggio** (mehrere) → **ci vogliono**\n- ci vuole · für eins: ci vuole un'ora\n- ci vuoi · du willst dorthin",
+            "sl": "**le patate e il formaggio** (več) → **ci vogliono**\n- ci vuole · za eno: ci vuole un'ora\n- ci vuoi · hočeš tja",
+            "en": "**le patate e il formaggio** (more than one) → **ci vogliono**\n- ci vuole · for one: ci vuole un'ora\n- ci vuoi · you want to go there"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "In der Vergangenheit hat **andarsene** essere und richtet sich nach der Person: **Moro se n'è andato** (Moro ist weggegangen), **Giulia se n'è andata**. **Farcela** hat avere und heißt immer **fatta**, wegen **la**: **Ce l'ho fatta!** (Ich hab's geschafft!) Vor **è** und **ho** werden **ne** und **la** zu **n'** und **l'**.",
+          "sl": "V preteklosti ima **andarsene** essere in se ujema z osebo: **Moro se n'è andato** (Moro je odšel), **Giulia se n'è andata** (Giulia je odšla). **Farcela** ima avere in je vedno **fatta**, zaradi **la**: **Ce l'ho fatta!** (Uspelo mi je!) Pred **è** in **ho** postaneta **ne** in **la** → **n'** in **l'**.",
+          "en": "In the past **andarsene** takes essere and agrees with the person: **Moro se n'è andato** (Moro has gone off), **Giulia se n'è andata**. **Farcela** takes avere and is always **fatta**, for **la**: **Ce l'ho fatta!** (I did it!) Before **è** and **ho**, **ne** and **la** become **n'** and **l'**."
+        },
+        "examples": [
+          { "it": "Moro se n'è andato a dormire.", "de": "Moro ist schlafen gegangen.", "sl": "Moro je šel spat.", "en": "Moro has gone off to sleep." },
+          { "it": "Tommaso è in cima all'albero: ce l'ha fatta!", "de": "Tommaso ist oben auf dem Baum: Er hat es geschafft!", "sl": "Tommaso je na vrhu drevesa: uspelo mu je!", "en": "Tommaso is at the top of the tree: he made it!" }
+        ],
+        "rows": [
+          ["se n'è andato", { "de": "er ist weggegangen", "sl": "je odšel", "en": "he has gone off" }],
+          ["ce l'ho fatta", { "de": "ich hab's geschafft", "sl": "uspelo mi je", "en": "I did it" }]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "verbi-pronominali", "prompt": "Lorenzo arriva primo allo stagno. «Evviva, ce l'ho ___!»", "options": ["fatta", "fatto", "fatti"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**ce l'ho** → immer **fatta**, wegen la: auch ein Junge sagt ce l'ho fatta\n- fatto, fatti · nicht bei farcela",
+            "sl": "**ce l'ho** → vedno **fatta**, zaradi la: tudi deček reče ce l'ho fatta\n- fatto, fatti · ne pri farcela",
+            "en": "**ce l'ho** → always **fatta**, for la: a boy too says ce l'ho fatta\n- fatto, fatti · not with farcela"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "verbi-pronominali-1",
+      "title": { "it": "Chi se ne va?", "de": "Wer geht weg?", "sl": "Kdo gre?", "en": "Who's off?" },
+      "exercises": [
+        {
+          "type": "table", "grammar": "verbi-pronominali", "instruction": { "de": "Completa la tabella · Füll die Tabelle aus", "sl": "Completa la tabella · Dopolni tabelo", "en": "Completa la tabella · Fill in the table" },
+          "prompt": "presente", "columns": ["andarsene", "farcela"],
+          "rows": [
+            { "label": "io", "cells": ["me ne vado", { "accept": ["ce la faccio"] }] },
+            { "label": "tu", "cells": [{ "accept": ["te ne vai"], "hint": "ti → te" }, "ce la fai"] },
+            { "label": "lui · lei", "cells": [{ "accept": ["se ne va"], "hint": "si → se" }, "ce la fa"] },
+            { "label": "noi", "cells": [{ "accept": ["ce ne andiamo"], "hint": "ci → ce" }, { "accept": ["ce la facciamo"] }] },
+            { "label": "voi", "cells": ["ve ne andate", { "accept": ["ce la fate"] }] },
+            { "label": "loro", "cells": [{ "accept": ["se ne vanno"] }, "ce la fanno"] }
+          ],
+          "explain": {
+            "de": "**andarsene**: me ne, te ne, se ne, ce ne, ve ne, se ne + andare\n- **farcela**: ce la + fare, ce la bleibt",
+            "sl": "**andarsene**: me ne, te ne, se ne, ce ne, ve ne, se ne + andare\n- **farcela**: ce la + fare, ce la ostane",
+            "en": "**andarsene**: me ne, te ne, se ne, ce ne, ve ne, se ne + andare\n- **farcela**: ce la + fare, ce la stays"
+          }
+        },
+        {
+          "type": "sort", "grammar": "verbi-pronominali", "instruction": { "de": "Ci vuole o ci vogliono? · Eins oder mehrere?", "sl": "Ci vuole o ci vogliono? · Eno ali več?", "en": "Ci vuole o ci vogliono? · One or more?" },
+          "columns": [
+            { "label": { "de": "ci vuole … · eins", "sl": "ci vuole … · eno", "en": "ci vuole … · one" }, "words": ["un'ora", "tanta pazienza", "il formaggio"] },
+            { "label": { "de": "ci vogliono … · mehrere", "sl": "ci vogliono … · več", "en": "ci vogliono … · more" }, "words": ["tre uova", "due ore", "dieci minuti"] }
+          ],
+          "explain": {
+            "de": "**eins** → ci vuole · **mehrere** → ci vogliono\n- Ci vuole un'ora.\n- Ci vogliono due ore.",
+            "sl": "**eno** → ci vuole · **več** → ci vogliono\n- Ci vuole un'ora.\n- Ci vogliono due ore.",
+            "en": "**one** → ci vuole · **more than one** → ci vogliono\n- Ci vuole un'ora.\n- Ci vogliono due ore."
+          }
+        },
+        {
+          "type": "choice", "grammar": "verbi-pronominali", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Lorenzo e Giulia sono stanchi e ___ a casa.»", "options": ["se ne vanno", "se ne va", "ce ne andiamo"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**Lorenzo e Giulia** = loro → **se ne vanno**\n- se ne va · für eine Person\n- ce ne andiamo · für wir",
+            "sl": "**Lorenzo e Giulia** = loro → **se ne vanno**\n- se ne va · za eno osebo\n- ce ne andiamo · za mi",
+            "en": "**Lorenzo e Giulia** = loro → **se ne vanno**\n- se ne va · for one person\n- ce ne andiamo · for we"
+          }
+        },
+        {
+          "type": "choice", "grammar": "verbi-pronominali", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Nonna Rosa porta un cesto pesante. «___, nonna?» «Sì, sì, ce la faccio!»", "options": ["Ce la fai", "Ce la faccio", "Te ne vai"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**du**, zur Nonna → **Ce la fai?** (Schaffst du das?)\n- ce la faccio · das sagt die Nonna\n- te ne vai · gehst du weg?",
+            "sl": "**ti**, babici → **Ce la fai?** (Zmoreš?)\n- ce la faccio · to reče babica\n- te ne vai · greš stran?",
+            "en": "**you**, to Nonna → **Ce la fai?** (Can you manage?)\n- ce la faccio · that's what Nonna says\n- te ne vai · are you leaving?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "verbi-pronominali-2",
+      "title": { "it": "La corsa allo stagno", "de": "Das Wettrennen zum Teich", "sl": "Tek do ribnika", "en": "The race to the pond" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "verbi-pronominali", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "La corsa allo stagno",
+          "text": "Oggi Tommaso, Giulia, Lorenzo e {learner} fanno una corsa fino allo stagno. La salita è lunga. «Uff, non ce la ___ più!» dice Lorenzo. «Forza, Lorenzo, ce la ___!» grida Giulia. Tommaso arriva primo: «Ce l'ho ___!» Allo stagno c'è Moro, ma quando arrivano i bambini, ___ va sotto il tiglio. «Quanto ci ___ fino a casa?» chiede Giulia. «Ci ___ dieci minuti.» Al tramonto i bambini ___ vanno a casa.",
+          "gaps": [
+            { "accept": ["faccio"], "hint": "io → ?" },
+            { "accept": ["fai"], "hint": "tu → ?" },
+            { "accept": ["fatta"], "hint": { "de": "wegen la", "sl": "zaradi la", "en": "for la" }, "explain": { "de": "**ce l'ho fatta**: fatta wegen la, auch für Tommaso.", "sl": "**ce l'ho fatta**: fatta zaradi la, tudi za Tommasa.", "en": "**ce l'ho fatta**: fatta for la, for Tommaso too." } },
+            { "accept": ["se ne"], "hint": { "de": "andarsene, er", "sl": "andarsene, on", "en": "andarsene, he" } },
+            { "accept": ["vuole"], "hint": { "de": "wie lange: eins", "sl": "koliko časa: eno", "en": "how long: one" } },
+            { "accept": ["vogliono"], "hint": { "de": "zehn Minuten: mehrere", "sl": "deset minut: več", "en": "ten minutes: more than one" } },
+            { "accept": ["se ne"], "hint": { "de": "andarsene, sie", "sl": "andarsene, oni", "en": "andarsene, they" } }
+          ],
+          "bank": true, "distractors": ["fatto", "vogliamo", "mi ne"],
+          "translation": {
+            "de": "Heute machen Tommaso, Giulia, Lorenzo und {learner} ein Wettrennen bis zum Teich. Der Anstieg ist lang. „Puh, ich kann nicht mehr!“, sagt Lorenzo. „Los, Lorenzo, du schaffst das!“, ruft Giulia. Tommaso kommt als Erster an: „Ich hab's geschafft!“ Am Teich ist Moro, aber als die Kinder kommen, geht er unter die Linde. „Wie lange braucht man bis nach Hause?“, fragt Giulia. „Zehn Minuten.“ Bei Sonnenuntergang gehen die Kinder nach Hause.",
+            "sl": "Danes Tommaso, Giulia, Lorenzo in {learner} tečejo do ribnika. Klanec je dolg. »Uf, ne morem več!« reče Lorenzo. »Daj, Lorenzo, zmoreš!« zavpije Giulia. Tommaso pride prvi: »Uspelo mi je!« Pri ribniku je Moro, a ko pridejo otroci, gre pod lipo. »Koliko časa je do doma?« vpraša Giulia. »Deset minut.« Ob sončnem zahodu gredo otroci domov.",
+            "en": "Today Tommaso, Giulia, Lorenzo and {learner} have a race to the pond. The hill is long. \"Phew, I can't any more!\" says Lorenzo. \"Come on, Lorenzo, you can do it!\" shouts Giulia. Tommaso gets there first: \"I did it!\" Moro is at the pond, but when the children arrive, he goes off under the linden. \"How long does it take to get home?\" asks Giulia. \"Ten minutes.\" At sunset the children go off home."
+          }
+        },
+        {
+          "type": "choice", "grammar": "verbi-pronominali", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Giulia: «Sono le otto, la scuola comincia! Ciao, nonna, ___!»", "options": ["me ne vado", "ce la faccio", "ci vuole"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**ich gehe jetzt** → **me ne vado**\n- ce la faccio · ich schaffe es\n- ci vuole · man braucht",
+            "sl": "**zdaj grem** → **me ne vado**\n- ce la faccio · zmorem\n- ci vuole · potrebno je",
+            "en": "**I'm going now** → **me ne vado**\n- ce la faccio · I can do it\n- ci vuole · it takes"
+          }
+        }
+      ]
+    },
+    {
+      "id": "verbi-pronominali-3",
+      "title": { "it": "Dillo così!", "de": "Sag es so!", "sl": "Povej tako!", "en": "Say it like this!" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "verbi-pronominali", "instruction": { "de": "Dillo con andarsene · Sag es mit andarsene", "sl": "Dillo con andarsene · Povej z andarsene", "en": "Dillo con andarsene · Say it with andarsene" }, "cue": "andarsene",
+          "items": [
+            { "from": "Vado via.", "accept": ["Me ne vado."], "hint": "mi → me" },
+            { "from": "Giulia va via.", "accept": ["Giulia se ne va.", "Se ne va."] },
+            { "from": "Andiamo via?", "accept": ["Ce ne andiamo?"], "hint": "ci → ce" },
+            { "from": "I bambini vanno via.", "accept": ["I bambini se ne vanno.", "Se ne vanno."] }
+          ],
+          "explain": {
+            "de": "**via** fällt weg, **me ne, te ne, se ne, ce ne, ve ne** kommt vor das Verb\n- Vado via. → Me ne vado.\n- Andiamo via? → Ce ne andiamo?",
+            "sl": "**via** odpade, **me ne, te ne, se ne, ce ne, ve ne** pride pred glagol\n- Vado via. → Me ne vado.\n- Andiamo via? → Ce ne andiamo?",
+            "en": "**via** goes, **me ne, te ne, se ne, ce ne, ve ne** goes before the verb\n- Vado via. → Me ne vado.\n- Andiamo via? → Ce ne andiamo?"
+          }
+        },
+        {
+          "type": "transform", "grammar": "verbi-pronominali", "instruction": { "de": "Metti al passato · Setz es in die Vergangenheit", "sl": "Metti al passato · Postavi v preteklik", "en": "Metti al passato · Put it in the past" }, "cue": "passato prossimo",
+          "items": [
+            { "from": "Ce la faccio!", "accept": ["Ce l'ho fatta!"], "hint": "ce la + ho → ce l'ho" },
+            { "from": "Ce la fai?", "accept": ["Ce l'hai fatta?"] },
+            { "from": "Giulia se ne va.", "accept": ["Giulia se n'è andata.", "Se n'è andata."], "hint": "ne + è → n'è" },
+            { "from": "I bambini se ne vanno.", "accept": ["I bambini se ne sono andati.", "Se ne sono andati."] }
+          ],
+          "explain": {
+            "de": "**farcela** → avere + fatta · **andarsene** → essere, passt sich an\n- Ce la faccio! → Ce l'ho fatta!\n- Giulia se ne va. → Giulia se n'è andata.",
+            "sl": "**farcela** → avere + fatta · **andarsene** → essere, se ujema\n- Ce la faccio! → Ce l'ho fatta!\n- Giulia se ne va. → Giulia se n'è andata.",
+            "en": "**farcela** → avere + fatta · **andarsene** → essere, agreeing\n- Ce la faccio! → Ce l'ho fatta!\n- Giulia se ne va. → Giulia se n'è andata."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "verbi-pronominali", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Oggi Giulia e Nonna Rosa fanno la gubana. «Nonna, quante uova ci ___?» «Tre, e un po' di zucchero.» Giulia prende il sacco di farina: è pesante, ma lei ce la ___. «E in forno?» «Ci ___ un'ora.» Moro sente il profumo e arriva. «Via, Moro!» dice la nonna, e lui ___ va. Alla fine la gubana è pronta. «Ce l'abbiamo ___!» dice Giulia.",
+        "gaps": [
+          { "accept": ["vogliono"] },
+          { "accept": ["fa"] },
+          { "accept": ["vuole"] },
+          { "accept": ["se ne"] },
+          { "accept": ["fatta"] }
+        ],
+        "translation": {
+          "de": "Heute backen Giulia und Nonna Rosa die Gubana. „Oma, wie viele Eier braucht man?“ „Drei, und ein bisschen Zucker.“ Giulia nimmt den Mehlsack: Er ist schwer, aber sie schafft es. „Und im Ofen?“ „Eine Stunde.“ Moro riecht den Duft und kommt. „Weg, Moro!“, sagt die Oma, und er geht. Am Ende ist die Gubana fertig. „Wir haben es geschafft!“, sagt Giulia.",
+          "sl": "Danes Giulia in babica Rosa pečeta gubano. »Babica, koliko jajc je potrebnih?« »Tri, pa malo sladkorja.« Giulia vzame vrečo moke: težka je, a zmore. »Pa v pečici?« »Eno uro.« Moro zavoha vonj in pride. »Stran, Moro!« reče babica, in gre. Na koncu je gubana pečena. »Uspelo nama je!« reče Giulia.",
+          "en": "Today Giulia and Nonna Rosa are making the gubana. \"Grandma, how many eggs do you need?\" \"Three, and a bit of sugar.\" Giulia takes the bag of flour: it's heavy, but she can do it. \"And in the oven?\" \"An hour.\" Moro smells it and comes over. \"Off you go, Moro!\" says Grandma, and off he goes. In the end the gubana is ready. \"We did it!\" says Giulia."
+        }
+      },
+      {
+        "type": "transform", "grammar": "verbi-pronominali", "instruction": { "de": "Metti al passato · Setz es in die Vergangenheit", "sl": "Metti al passato · Postavi v preteklik", "en": "Metti al passato · Put it in the past" },
+        "items": [
+          { "from": "Lorenzo se ne va.", "accept": ["Lorenzo se n'è andato.", "Se n'è andato."] },
+          { "from": "Ce la facciamo!", "accept": ["Ce l'abbiamo fatta!"] },
+          { "from": "Le pecore se ne vanno.", "accept": ["Le pecore se ne sono andate.", "Se ne sono andate."] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "verbi-pronominali", "prompt": "«Il secchio è pesante?» «Sì, ma ___!»", "options": ["ce la faccio", "me ne vado", "ci vogliono"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**schwer, aber …** → **ce la faccio** (ich schaffe es)\n- me ne vado · ich gehe weg\n- ci vogliono · man braucht",
+          "sl": "**težko, a …** → **ce la faccio** (zmorem)\n- me ne vado · grem stran\n- ci vogliono · potrebni so",
+          "en": "**heavy, but …** → **ce la faccio** (I can do it)\n- me ne vado · I'm off\n- ci vogliono · it takes"
+        }
+      },
+      {
+        "type": "choice", "grammar": "verbi-pronominali", "prompt": "«Da casa a scuola ___ dieci minuti.»", "options": ["ci vogliono", "ci vuole", "ce la fanno"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**dieci minuti** (mehrere) → **ci vogliono**\n- ci vuole · für eins: un minuto\n- ce la fanno · sie schaffen es",
+          "sl": "**dieci minuti** (več) → **ci vogliono**\n- ci vuole · za eno: un minuto\n- ce la fanno · zmorejo",
+          "en": "**dieci minuti** (more than one) → **ci vogliono**\n- ci vuole · for one: un minuto\n- ce la fanno · they can do it"
+        }
+      },
+      {
+        "type": "sort", "grammar": "verbi-pronominali", "instruction": { "de": "Ci vuole o ci vogliono? · Eins oder mehrere?", "sl": "Ci vuole o ci vogliono? · Eno ali več?", "en": "Ci vuole o ci vogliono? · One or more?" },
+        "columns": [
+          { "label": { "de": "ci vuole … · eins", "sl": "ci vuole … · eno", "en": "ci vuole … · one" }, "words": ["un minuto", "la farina"] },
+          { "label": { "de": "ci vogliono … · mehrere", "sl": "ci vogliono … · več", "en": "ci vogliono … · more" }, "words": ["tante uova", "tre ore"] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: se ne va for Moro, ce l'ho fatta from a boy, ci vogliono le patate, Ci vuole un'ora in forno, the German for a child"
+}

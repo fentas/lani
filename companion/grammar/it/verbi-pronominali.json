@@ -1,0 +1,112 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "verbi-pronominali",
+  "language": "it",
+  "level": "B1",
+  "emoji": "💪",
+  "title": {
+    "it": "Me ne vado, ce la faccio: i verbi pronominali",
+    "sl": "Grem, zmorem: glagoli s kratkimi besedami",
+    "en": "I'm off, I can do it: verbs with little words",
+    "de": "Ich gehe, ich schaffe es: Verben mit kleinen Wörtern"
+  },
+  "rule": {
+    "en": "Some verbs keep one or two short words for good, and mean something of their own: **andarsene** (to go away, to leave), **farcela** (to make it, to manage), **volerci** (to take, to be needed), **metterci** (to take a time). The short words go before the verb and follow the person, as a reflexive verb's do; before ne, mi, ti, si, ci, vi become me, te, se, ce, ve: **me ne vado, te ne vai, se ne va, ce ne andiamo, ve ne andate, se ne vanno** (never *mi ne vado*).\n\nIn **farcela** only fare changes, ce la stays: **ce la faccio, ce la fai, ce la fa** (I can do it). **Non ce la faccio più!** (I can't any more!)\n\n**Ci vuole** says what a thing takes, and the verb agrees with what is needed: **Ci vuole un'ora. Ci vogliono tre uova.** (never *ci vuole tre uova*) **Metterci** says how long someone takes: **Ci metto dieci minuti.**\n\nIn the past andarsene takes essere: **se n'è andato, se n'è andata**. Farcela takes avere, and fatta agrees with la, whoever speaks: **Ce l'ho fatta!** (I did it! never *ce l'ho fatto*)",
+    "sl": "Nekateri glagoli imajo eno ali dve kratki besedi stalno pri sebi in pomenijo nekaj svojega: **andarsene** (oditi, iti stran), **farcela** (zmoči, uspeti), **volerci** (biti potreben, trajati), **metterci** (potrebovati čas). Kratke besede stojijo pred glagolom in se spreminjajo z osebo kot pri povratnih glagolih; pred ne postanejo mi, ti, si, ci, vi → me, te, se, ce, ve: **me ne vado, te ne vai, se ne va, ce ne andiamo, ve ne andate, se ne vanno** (nikoli *mi ne vado*).\n\nPri **farcela** se spreminja le fare, ce la ostane: **ce la faccio, ce la fai, ce la fa** (zmorem). **Non ce la faccio più!** (Ne morem več!)\n\n**Ci vuole** pove, kaj je za kaj potrebno, glagol pa se ujema s tem, kar je potrebno: **Ci vuole un'ora. Ci vogliono tre uova.** (nikoli *ci vuole tre uova*) **Metterci** pove, koliko časa kdo potrebuje: **Ci metto dieci minuti.**\n\nV preteklosti ima andarsene essere: **se n'è andato, se n'è andata**. Farcela ima avere, fatta pa se ujema z la, kdorkoli govori: **Ce l'ho fatta!** (Uspelo mi je! nikoli *ce l'ho fatto*)",
+    "de": "Manche Verben haben ein oder zwei kleine Wörter fest bei sich und heißen dann etwas Eigenes: **andarsene** (weggehen), **farcela** (es schaffen), **volerci** (brauchen, dauern), **metterci** (Zeit brauchen). Die kleinen Wörter stehen vor dem Verb und gehen mit der Person wie bei den reflexiven Verben; vor ne werden mi, ti, si, ci, vi zu me, te, se, ce, ve: **me ne vado, te ne vai, se ne va, ce ne andiamo, ve ne andate, se ne vanno** (nie *mi ne vado*).\n\nBei **farcela** ändert sich nur fare, ce la bleibt: **ce la faccio, ce la fai, ce la fa** (ich schaffe es). **Non ce la faccio più!** (Ich kann nicht mehr!)\n\n**Ci vuole** sagt, was eine Sache braucht, und das Verb richtet sich nach dem, was gebraucht wird: **Ci vuole un'ora. Ci vogliono tre uova.** (nie *ci vuole tre uova*) **Metterci** sagt, wie lange jemand braucht: **Ci metto dieci minuti.**\n\nIn der Vergangenheit hat andarsene essere: **se n'è andato, se n'è andata**. Farcela hat avere, und fatta richtet sich nach la, egal wer spricht: **Ce l'ho fatta!** (Ich hab's geschafft! nie *ce l'ho fatto*)"
+  },
+  "table": {
+    "head": [
+      { "it": "forma", "sl": "oblika", "en": "form", "de": "Form" },
+      { "it": "significa", "sl": "pomeni", "en": "means", "de": "heißt" },
+      { "it": "esempio", "sl": "primer", "en": "example", "de": "Beispiel" }
+    ],
+    "rows": [
+      ["me ne vado, te ne vai, se ne va", { "it": "vado via, vai via, va via", "sl": "grem, greš, gre (stran)", "en": "I'm off, you're off, he, she is off", "de": "ich gehe, du gehst, er, sie geht (weg)" }, "È tardi, me ne vado."],
+      ["ce ne andiamo, ve ne andate, se ne vanno", { "it": "andiamo via, andate via, vanno via", "sl": "gremo, greste, gredo (stran)", "en": "we're off, you're off, they're off", "de": "wir gehen, ihr geht, sie gehen (weg)" }, "Piove, ce ne andiamo a casa."],
+      ["se n'è andato, se n'è andata", { "it": "è andato via, è andata via", "sl": "je odšel, je odšla", "en": "he has gone off, she has gone off", "de": "er ist, sie ist weggegangen" }, "Moro se n'è andato a dormire."],
+      ["ce la faccio, ce la fai, ce la fa", { "it": "ci riesco, ci riesci, ci riesce", "sl": "zmorem, zmoreš, zmore", "en": "I, you, he, she can do it", "de": "ich schaffe es, du, er, sie schafft es" }, "Forza, ce la fai!"],
+      ["non ce la faccio più", { "it": "non riesco più", "sl": "ne morem več", "en": "I can't any more", "de": "ich kann nicht mehr" }, "Uff, non ce la faccio più!"],
+      ["ce l'ho fatta", { "it": "ci sono riuscito, ci sono riuscita", "sl": "uspelo mi je", "en": "I did it, I made it", "de": "ich hab's geschafft" }, "Sono in cima: ce l'ho fatta!"],
+      ["ci vuole", { "it": "serve (una cosa, un tempo)", "sl": "potreben je, traja", "en": "it takes (one thing, a time)", "de": "man braucht (eins), es dauert" }, "Ci vuole un'ora."],
+      ["ci vogliono", { "it": "servono (più cose)", "sl": "potrebni so", "en": "it takes (more than one)", "de": "man braucht (mehrere)" }, "Ci vogliono tre uova."],
+      ["ci metto", { "it": "il tempo che uso", "sl": "potrebujem (čas)", "en": "I take (a time)", "de": "ich brauche (Zeit)" }, "Ci metto dieci minuti."],
+      ["non te la prendere", { "it": "non offenderti", "sl": "ne zameri, ne jezi se", "en": "don't be upset", "de": "sei nicht sauer" }, "Non te la prendere, è un gioco!"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "È tardi, me ne vado a casa.",
+      "sl": "Pozno je, grem domov.",
+      "en": "It's late, I'm off home.",
+      "de": "Es ist spät, ich gehe nach Hause.",
+      "note": {
+        "sl": "me ne vado = vado via. Pred ne postane mi → me.",
+        "en": "me ne vado = vado via. Before ne, mi becomes me.",
+        "de": "me ne vado = vado via. Vor ne wird mi zu me."
+      }
+    },
+    {
+      "it": "Alle sei le pecore se ne vanno nella stalla.",
+      "sl": "Ob šestih gredo ovce v hlev.",
+      "en": "At six the sheep go off into the barn.",
+      "de": "Um sechs gehen die Schafe in den Stall."
+    },
+    {
+      "it": "Moro se n'è andato a dormire sotto il tiglio.",
+      "sl": "Moro je šel spat pod lipo.",
+      "en": "Moro has gone off to sleep under the linden.",
+      "de": "Moro ist unter der Linde schlafen gegangen.",
+      "note": {
+        "sl": "V preteklosti essere, deležnik se ujema: Giulia se n'è andata.",
+        "en": "In the past: essere, and the participle agrees: Giulia se n'è andata.",
+        "de": "In der Vergangenheit: essere, und das Partizip passt sich an: Giulia se n'è andata."
+      }
+    },
+    {
+      "it": "Il secchio è pesante, ma ce la faccio!",
+      "sl": "Vedro je težko, a zmorem!",
+      "en": "The bucket is heavy, but I can do it!",
+      "de": "Der Eimer ist schwer, aber ich schaffe das!"
+    },
+    {
+      "it": "Tommaso è in cima all'albero: ce l'ha fatta!",
+      "sl": "Tommaso je na vrhu drevesa: uspelo mu je!",
+      "en": "Tommaso is at the top of the tree: he made it!",
+      "de": "Tommaso ist oben auf dem Baum: Er hat es geschafft!",
+      "note": {
+        "sl": "fatta zaradi la, tudi ko govori deček: ce l'ho fatta.",
+        "en": "fatta because of la, a boy too says ce l'ho fatta.",
+        "de": "fatta wegen la, auch ein Junge sagt ce l'ho fatta."
+      }
+    },
+    {
+      "it": "Per la gubana ci vogliono tre uova.",
+      "sl": "Za gubano so potrebna tri jajca.",
+      "en": "For the gubana you need three eggs.",
+      "de": "Für die Gubana braucht man drei Eier.",
+      "note": {
+        "sl": "ci vogliono: tre uova je več stvari. Ena stvar: ci vuole un uovo.",
+        "en": "ci vogliono: tre uova are more than one. One thing: ci vuole un uovo.",
+        "de": "ci vogliono: tre uova sind mehrere. Eins: ci vuole un uovo."
+      }
+    },
+    {
+      "it": "Quanto ci metti da casa a scuola? Ci metto dieci minuti.",
+      "sl": "Koliko časa potrebuješ od doma do šole? Deset minut.",
+      "en": "How long does it take you from home to school? Ten minutes.",
+      "de": "Wie lange brauchst du von zu Hause zur Schule? Zehn Minuten."
+    },
+    {
+      "it": "Non te la prendere, Tommaso: è solo un gioco!",
+      "sl": "Ne jezi se, Tommaso: samo igra je!",
+      "en": "Don't be upset, Tommaso: it's only a game!",
+      "de": "Sei nicht sauer, Tommaso: Es ist nur ein Spiel!"
+    }
+  ],
+  "modules": [],
+  "tags": ["pronominali", "andarsene", "farcela", "volerci", "metterci", "pronouns", "pronomi", "ci", "ne"],
+  "see": ["ci-ne", "riflessivi", "passato-prossimo", "pronomi-diretti"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

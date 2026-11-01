@@ -1,0 +1,110 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "discorso-indiretto",
+  "language": "it",
+  "level": "B1",
+  "emoji": "💬",
+  "title": {
+    "it": "Ha detto che viene: il discorso indiretto",
+    "sl": "Rekel je, da pride: odvisni govor",
+    "en": "He said he's coming: reported speech",
+    "de": "Er hat gesagt, dass er kommt: die indirekte Rede"
+  },
+  "rule": {
+    "en": "To tell what someone says, use **dice che** (says that) and their words, the verb in the same tense: «Sono stanco», dice Lorenzo → **Lorenzo dice che è stanco.** The person changes as in English: io → lui or lei, **mio → suo**, **ti → mi** when it was said to you: «Ti aiuto» → **Tommaso dice che mi aiuta.** (never *dice che sono stanco* for Lorenzo)\n\nA yes-or-no question is told with **se** (if, whether): «Vieni?» → **Mi chiede se vengo.** A question with a question word keeps it: «Dove vai?» → **Mi chiede dove vado.** An order is told with **di** and the infinitive: «Aspetta!» → **Mi dice di aspettare.** «Lavati le mani!» → **Mi dice di lavarmi le mani.**\n\nAfter a past, **ha detto che**, **ha chiesto se**, what was so then goes into the imperfetto: «Ho fame» → **Ha detto che aveva fame.** What is still to come may stay in the present, as people say it: **Ha detto che viene domani** (written Italian also che verrà).\n\nThe word order stays as in the sentence said, the verb not at the end as in German: **dice che è stanco**.",
+    "sl": "Ko poveš naprej, kaj kdo reče, uporabiš **dice che** (pravi, da) in njegove besede, glagol v istem času: »Sono stanco«, dice Lorenzo → **Lorenzo dice che è stanco.** Oseba se spremeni kot v slovenščini: io → lui ali lei, **mio → suo**, **ti → mi**, ko so rekli tebi: »Ti aiuto« → **Tommaso dice che mi aiuta.** (nikoli *dice che sono stanco* za Lorenza)\n\nVprašanje z da ali ne poveš s **se** (ali): »Vieni?« → **Mi chiede se vengo.** Vprašanje z vprašalnico jo obdrži: »Dove vai?« → **Mi chiede dove vado.** Ukaz poveš z **di** in nedoločnikom: »Aspetta!« → **Mi dice di aspettare.** (naj počakam) »Lavati le mani!« → **Mi dice di lavarmi le mani.**\n\nZa preteklikom, **ha detto che**, **ha chiesto se**, gre to, kar je tedaj veljalo, v imperfetto: »Ho fame« → **Ha detto che aveva fame.** Kar šele pride, lahko ostane v sedanjiku, kot se govori: **Ha detto che viene domani** (pisno tudi che verrà).\n\nBesedni red ostane kot v izrečenem stavku: **dice che è stanco**.",
+    "de": "Wenn du weitersagst, was jemand sagt, nimmst du **dice che** (sagt, dass) und seine Worte, das Verb in derselben Zeit: «Sono stanco», dice Lorenzo → **Lorenzo dice che è stanco.** Die Person ändert sich wie im Deutschen: io → lui oder lei, **mio → suo**, **ti → mi**, wenn es zu dir gesagt wurde: «Ti aiuto» → **Tommaso dice che mi aiuta.** (nie *dice che sono stanco* für Lorenzo)\n\nEine Ja-Nein-Frage erzählst du mit **se** (ob): «Vieni?» → **Mi chiede se vengo.** Eine Frage mit Fragewort behält es: «Dove vai?» → **Mi chiede dove vado.** Einen Befehl erzählst du mit **di** und der Grundform: «Aspetta!» → **Mi dice di aspettare.** (Er sagt, ich soll warten.) «Lavati le mani!» → **Mi dice di lavarmi le mani.**\n\nNach einer Vergangenheit, **ha detto che**, **ha chiesto se**, kommt, was damals so war, ins imperfetto: «Ho fame» → **Ha detto che aveva fame.** Was erst noch kommt, darf im Präsens bleiben, wie man es sagt: **Ha detto che viene domani** (geschrieben auch che verrà).\n\nDie Wortstellung bleibt wie im gesagten Satz, das Verb nicht am Ende wie im Deutschen: **dice che è stanco**."
+  },
+  "table": {
+    "head": [
+      { "it": "detto", "sl": "rečeno", "en": "said", "de": "gesagt" },
+      { "it": "raccontato", "sl": "povedano naprej", "en": "told on", "de": "weitererzählt" },
+      { "it": "che cosa cambia", "sl": "kaj se spremeni", "en": "what changes", "de": "was sich ändert" }
+    ],
+    "rows": [
+      ["Sono stanco.", "Lorenzo dice che è stanco.", { "it": "io → lui", "sl": "jaz → on", "en": "I → he", "de": "ich → er" }],
+      ["Il mio cane è vecchio.", "Bepi dice che il suo cane è vecchio.", { "it": "mio → suo", "sl": "moj → njegov", "en": "my → his", "de": "mein → sein" }],
+      ["Ti aiuto!", "Tommaso dice che mi aiuta.", { "it": "ti → mi", "sl": "ti → mi", "en": "you → me", "de": "dir → mir" }],
+      ["Vieni?", "Mi chiede se vengo.", { "it": "sì o no → se", "sl": "da ali ne → se (ali)", "en": "yes or no → se (if)", "de": "ja oder nein → se (ob)" }],
+      ["Dove vai?", "Mi chiede dove vado.", { "it": "dove resta", "sl": "dove ostane", "en": "dove stays", "de": "dove bleibt" }],
+      ["Aspetta!", "Mi dice di aspettare.", { "it": "ordine → di + infinito", "sl": "ukaz → di + nedoločnik", "en": "an order → di + infinitive", "de": "Befehl → di + Grundform" }],
+      ["Ho fame. (ieri)", "Ha detto che aveva fame.", { "it": "ha detto → imperfetto", "sl": "ha detto → imperfetto", "en": "ha detto → imperfetto", "de": "ha detto → imperfetto" }],
+      ["Vengo domani.", "Ha detto che viene domani.", { "it": "ancora da venire: presente", "sl": "šele pride: sedanjik", "en": "still to come: present", "de": "kommt noch: Präsens" }]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Lorenzo dice che è stanco.",
+      "sl": "Lorenzo pravi, da je utrujen.",
+      "en": "Lorenzo says he's tired.",
+      "de": "Lorenzo sagt, dass er müde ist.",
+      "note": {
+        "sl": "»Sono stanco« → è stanco: jaz → on.",
+        "en": "«Sono stanco» → è stanco: I → he.",
+        "de": "«Sono stanco» → è stanco: ich → er."
+      }
+    },
+    {
+      "it": "Nonno Bepi dice che il suo cane è vecchio.",
+      "sl": "Dedek Bepi pravi, da je njegov pes star.",
+      "en": "Nonno Bepi says his dog is old.",
+      "de": "Nonno Bepi sagt, dass sein Hund alt ist."
+    },
+    {
+      "it": "Tommaso mi chiede se gioco a calcio con lui.",
+      "sl": "Tommaso me vpraša, ali igram nogomet z njim.",
+      "en": "Tommaso asks me if I'll play football with him.",
+      "de": "Tommaso fragt mich, ob ich mit ihm Fußball spiele.",
+      "note": {
+        "sl": "Vprašanje z da ali ne → se.",
+        "en": "A yes-or-no question → se.",
+        "de": "Eine Ja-Nein-Frage → se."
+      }
+    },
+    {
+      "it": "Zia Nives chiede dove sono i suoi occhiali.",
+      "sl": "Teta Nives vpraša, kje so njena očala.",
+      "en": "Zia Nives asks where her glasses are.",
+      "de": "Zia Nives fragt, wo ihre Brille ist."
+    },
+    {
+      "it": "La maestra ci dice di aprire il libro.",
+      "sl": "Učiteljica nam reče, naj odpremo knjigo.",
+      "en": "The teacher tells us to open the book.",
+      "de": "Die Lehrerin sagt uns, wir sollen das Buch aufmachen.",
+      "note": {
+        "sl": "»Aprite il libro!« → di aprire.",
+        "en": "«Aprite il libro!» → di aprire.",
+        "de": "«Aprite il libro!» → di aprire."
+      }
+    },
+    {
+      "it": "La nonna mi dice di lavarmi le mani.",
+      "sl": "Babica mi reče, naj si umijem roke.",
+      "en": "Grandma tells me to wash my hands.",
+      "de": "Die Oma sagt mir, ich soll mir die Hände waschen."
+    },
+    {
+      "it": "Ieri Lorenzo ha detto che aveva freddo.",
+      "sl": "Včeraj je Lorenzo rekel, da ga zebe.",
+      "en": "Yesterday Lorenzo said he was cold.",
+      "de": "Gestern hat Lorenzo gesagt, dass ihm kalt war.",
+      "note": {
+        "sl": "Za ha detto: kar je tedaj veljalo → imperfetto. Slovenščina ostane v sedanjiku.",
+        "en": "After ha detto: what was so then → imperfetto.",
+        "de": "Nach ha detto: was damals so war → imperfetto."
+      }
+    },
+    {
+      "it": "Davide ha detto che viene domani con le pecore.",
+      "sl": "Davide je rekel, da pride jutri z ovcami.",
+      "en": "Davide said he's coming tomorrow with the sheep.",
+      "de": "Davide hat gesagt, dass er morgen mit den Schafen kommt."
+    }
+  ],
+  "modules": [],
+  "tags": ["discorso-indiretto", "reported-speech", "dire", "chiedere", "se"],
+  "see": ["possessivi", "domande", "imperfetto", "imperativo"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}
