@@ -3,22 +3,38 @@
   "id": "v-gostilni",
   "language": "sl",
   "audience": "adult",
-  "title": "V gostilni · At the inn",
+  "title": { "sl": "V gostilni", "en": "At the inn", "de": "Im Gasthaus", "it": "All'osteria" },
   "emoji": "🍷",
   "level": "A1",
-  "setting": "Friday evening at a traditional gostilna in the Vipava valley. You sit down with your partner, and the waiter comes to your table.",
+  "setting": {
+    "en": "Friday evening at a traditional gostilna in the Vipava valley. You sit down with your partner, and the waiter comes to your table.",
+    "de": "Freitagabend in einer traditionellen Gostilna, einem Gasthaus im Vipava-Tal. Du setzt dich mit deinem Partner oder deiner Partnerin an einen Tisch, und der Kellner kommt.",
+    "it": "Venerdì sera in una gostilna tradizionale, un'osteria della valle del Vipacco. Ti siedi a un tavolo con il tuo partner e arriva il cameriere."
+  },
   "role": "Natakar Marko, the waiter. Friendly, a bit fast, happy to recommend the house dishes. Says vi to guests.",
+  "who": { "sl": "Natakar", "en": "The waiter", "de": "Der Kellner", "it": "Il cameriere" },
   "place": "kitchen",
   "voice": "male",
-  "goals": ["Order a drink", "Ask what he recommends", "Order a meal", "Ask for the bill", "Say thank you and goodbye"],
+  "goals": [
+    { "en": "Order a drink", "de": "Bestelle etwas zu trinken", "it": "Ordina da bere" },
+    { "en": "Ask what he recommends", "de": "Frag, was er empfiehlt", "it": "Chiedi che cosa consiglia" },
+    { "en": "Order a meal", "de": "Bestelle ein Essen", "it": "Ordina da mangiare" },
+    { "en": "Ask for the bill", "de": "Bitte um die Rechnung", "it": "Chiedi il conto" },
+    { "en": "Say thank you and goodbye", "de": "Bedanke dich und verabschiede dich", "it": "Ringrazia e saluta" }
+  ],
   "opener_sl": "Dober večer! Izvolite jedilni list. Kaj boste pili?",
-  "opener_en": "Good evening! Here is the menu. What would you like to drink?",
+  "opener_en": {
+    "en": "Good evening! Here is the menu. What would you like to drink?",
+    "de": "Guten Abend! Hier ist die Speisekarte. Was möchten Sie trinken?",
+    "it": "Buonasera! Ecco il menù. Che cosa prendete da bere?"
+  },
   "vocabulary_hints": [
-    { "sl": "Kozarec vina, prosim.", "en": "A glass of wine, please." },
-    { "sl": "Eno pivo, prosim.", "en": "A beer, please." },
-    { "sl": "Kaj priporočate?", "en": "What do you recommend?" },
-    { "sl": "Zame golaž, prosim.", "en": "Goulash for me, please." },
-    { "sl": "Račun, prosim.", "en": "The bill, please." },
-    { "sl": "Bilo je zelo dobro.", "en": "It was very good." }
-  ]
+    { "sl": "Kozarec vina, prosim.", "en": { "en": "A glass of wine, please.", "de": "Ein Glas Wein, bitte.", "it": "Un bicchiere di vino, per favore." } },
+    { "sl": "Eno pivo, prosim.", "en": { "en": "A beer, please.", "de": "Ein Bier, bitte.", "it": "Una birra, per favore." } },
+    { "sl": "Kaj priporočate?", "en": { "en": "What do you recommend?", "de": "Was empfehlen Sie?", "it": "Che cosa consiglia?" } },
+    { "sl": "Zame golaž, prosim.", "en": { "en": "Goulash for me, please.", "de": "Für mich ein Gulasch, bitte.", "it": "Per me il gulasch, per favore." } },
+    { "sl": "Račun, prosim.", "en": { "en": "The bill, please.", "de": "Die Rechnung, bitte.", "it": "Il conto, per favore." } },
+    { "sl": "Bilo je zelo dobro.", "en": { "en": "It was very good.", "de": "Es war sehr gut.", "it": "Era molto buono." } }
+  ],
+  "review": "de, it: machine-written, not reviewed by a native speaker (sl, en as written for Jan)"
 }

@@ -2,22 +2,38 @@
   "schema": "lani.scenario/v0",
   "id": "pri-zdravniku",
   "language": "sl",
-  "title": "Pri zdravniku · At the doctor's",
+  "title": { "sl": "Pri zdravniku", "en": "At the doctor's", "de": "Beim Arzt", "it": "Dal medico" },
   "emoji": "🩺",
   "level": "A1",
-  "setting": "A visit to the family doctor in Šempeter. You have had a sore throat and a headache for three days.",
+  "setting": {
+    "en": "A visit to the family doctor in Šempeter. You have had a sore throat and a headache for three days.",
+    "de": "Ein Besuch beim Hausarzt in Šempeter. Seit drei Tagen hast du Halsschmerzen und Kopfweh.",
+    "it": "Una visita dal medico di famiglia a Šempeter. Da tre giorni hai mal di gola e mal di testa."
+  },
   "role": "Dr. Kovač, a calm family doctor. Speaks slowly and clearly, asks one simple question at a time. Says vi to patients.",
+  "who": { "sl": "Družinski zdravnik", "en": "The family doctor", "de": "Der Hausarzt", "it": "Il medico di famiglia" },
   "voice": "male",
-  "goals": ["Greet and say your name", "Say what hurts", "Say how long you have been ill", "Say whether you have a fever", "Thank the doctor"],
+  "goals": [
+    { "en": "Greet and say your name", "de": "Grüße und sag deinen Namen", "it": "Saluta e di' come ti chiami" },
+    { "en": "Say what hurts", "de": "Sag, was dir wehtut", "it": "Di' che cosa ti fa male" },
+    { "en": "Say how long you have been ill", "de": "Sag, wie lange du schon krank bist", "it": "Di' da quanto tempo stai male" },
+    { "en": "Say whether you have a fever", "de": "Sag, ob du Fieber hast", "it": "Di' se hai la febbre" },
+    { "en": "Thank the doctor", "de": "Bedanke dich beim Arzt", "it": "Ringrazia il medico" }
+  ],
   "opener_sl": "Dober dan. Izvolite, sedite. Kaj vas boli?",
-  "opener_en": "Hello. Please, have a seat. What hurts?",
+  "opener_en": {
+    "en": "Hello. Please, have a seat. What hurts?",
+    "de": "Guten Tag. Bitte, setzen Sie sich. Was tut Ihnen weh?",
+    "it": "Buongiorno. Prego, si sieda. Che cosa le fa male?"
+  },
   "vocabulary_hints": [
-    { "sl": "Jaz sem {learner}.", "en": "I'm {learner}." },
-    { "sl": "Boli me grlo.", "en": "My throat hurts." },
-    { "sl": "Boli me glava.", "en": "My head hurts." },
-    { "sl": "že tri dni", "en": "for three days now" },
-    { "sl": "Imam vročino.", "en": "I have a fever." },
-    { "sl": "Nimam vročine.", "en": "I don't have a fever." },
-    { "sl": "Hvala, gospod doktor.", "en": "Thank you, doctor." }
-  ]
+    { "sl": "Jaz sem {learner}.", "en": { "en": "I'm {learner}.", "de": "Ich bin {learner}.", "it": "Sono {learner}." } },
+    { "sl": "Boli me grlo.", "en": { "en": "My throat hurts.", "de": "Mir tut der Hals weh.", "it": "Mi fa male la gola." } },
+    { "sl": "Boli me glava.", "en": { "en": "My head hurts.", "de": "Mir tut der Kopf weh.", "it": "Mi fa male la testa." } },
+    { "sl": "že tri dni", "en": { "en": "for three days now", "de": "seit drei Tagen", "it": "da tre giorni" } },
+    { "sl": "Imam vročino.", "en": { "en": "I have a fever.", "de": "Ich habe Fieber.", "it": "Ho la febbre." } },
+    { "sl": "Nimam vročine.", "en": { "en": "I don't have a fever.", "de": "Ich habe kein Fieber.", "it": "Non ho la febbre." } },
+    { "sl": "Hvala, gospod doktor.", "en": { "en": "Thank you, doctor.", "de": "Danke, Herr Doktor.", "it": "Grazie, dottore." } }
+  ],
+  "review": "de, it: machine-written, not reviewed by a native speaker (sl, en as written for Jan)"
 }

@@ -2,20 +2,36 @@
   "schema": "lani.scenario/v0",
   "id": "soseda-cez-ograjo",
   "language": "sl",
-  "title": "Soseda čez ograjo · The neighbour over the fence",
+  "title": { "sl": "Soseda čez ograjo", "en": "The neighbour over the fence", "de": "Die Nachbarin am Gartenzaun", "it": "La vicina oltre la recinzione" },
   "emoji": "🌻",
   "level": "A1",
-  "setting": "A sunny afternoon. You are in the garden, and the neighbour leans over the fence for a chat about the weather, gardens and family.",
+  "setting": {
+    "en": "A sunny afternoon. You are in the garden, and the neighbour leans over the fence for a chat about the weather, gardens and family.",
+    "de": "Ein sonniger Nachmittag. Du bist im Garten, und die Nachbarin lehnt sich über den Zaun und plaudert über das Wetter, die Gärten und die Familie.",
+    "it": "Un pomeriggio di sole. Sei in giardino e la vicina si sporge oltre la recinzione per chiacchierare del tempo, dei giardini e della famiglia."
+  },
   "role": "Soseda Zdenka, the retired neighbour. Curious and kind, loves her garden and a little gossip. Keeps her Primorska dialect simple. Says ti to {learner}.",
+  "who": { "sl": "Soseda", "en": "The neighbour", "de": "Die Nachbarin", "it": "La vicina" },
   "voice": "female",
-  "goals": ["Greet her", "Say how you are", "Say something about the weather", "Say where you are from", "Say goodbye"],
+  "goals": [
+    { "en": "Greet her", "de": "Grüße sie", "it": "Salutala" },
+    { "en": "Say how you are", "de": "Sag, wie es dir geht", "it": "Di' come stai" },
+    { "en": "Say something about the weather", "de": "Sag etwas über das Wetter", "it": "Di' qualcosa sul tempo" },
+    { "en": "Say where you are from", "de": "Sag, woher du kommst", "it": "Di' da dove vieni" },
+    { "en": "Say goodbye", "de": "Verabschiede dich", "it": "Saluta" }
+  ],
   "opener_sl": "Oj, {learner}! Kako si kaj? Danes je pa res lepo vreme, ne?",
-  "opener_en": "Hi, {learner}! How are you doing? The weather is really nice today, isn't it?",
+  "opener_en": {
+    "en": "Hi, {learner}! How are you doing? The weather is really nice today, isn't it?",
+    "de": "Hallo, {learner}! Wie geht's dir? Heute ist wirklich schönes Wetter, oder?",
+    "it": "Ciao, {learner}! Come va? Oggi è proprio una bella giornata, vero?"
+  },
   "vocabulary_hints": [
-    { "sl": "Dobro, hvala. Pa ti?", "en": "Fine, thanks. And you?" },
-    { "sl": "Ja, zelo lepo je.", "en": "Yes, it's very nice." },
-    { "sl": "Sem iz Nemčije.", "en": "I'm from Germany." },
-    { "sl": "Lep vrt imaš!", "en": "You have a lovely garden!" },
-    { "sl": "Se vidiva!", "en": "See you! (to one person)" }
-  ]
+    { "sl": "Dobro, hvala. Pa ti?", "en": { "en": "Fine, thanks. And you?", "de": "Gut, danke. Und dir?", "it": "Bene, grazie. E tu?" } },
+    { "sl": "Ja, zelo lepo je.", "en": { "en": "Yes, it's very nice.", "de": "Ja, sehr schön.", "it": "Sì, è bellissimo." } },
+    { "sl": "Sem iz Nemčije.", "en": { "en": "I'm from Germany.", "de": "Ich komme aus Deutschland.", "it": "Vengo dalla Germania." } },
+    { "sl": "Lep vrt imaš!", "en": { "en": "You have a lovely garden!", "de": "Du hast einen schönen Garten!", "it": "Hai un bel giardino!" } },
+    { "sl": "Se vidiva!", "en": { "en": "See you! (to one person)", "de": "Bis bald! (zu einer Person: der Dual)", "it": "Ci vediamo! (a una persona: il duale)" } }
+  ],
+  "review": "de, it: machine-written, not reviewed by a native speaker (sl, en as written for Jan)"
 }

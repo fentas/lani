@@ -2,22 +2,38 @@
   "schema": "lani.scenario/v0",
   "id": "nedeljsko-kosilo",
   "language": "sl",
-  "title": "Nedeljsko kosilo · Sunday lunch",
+  "title": { "sl": "Nedeljsko kosilo", "en": "Sunday lunch", "de": "Das Sonntagsessen", "it": "Il pranzo della domenica" },
   "emoji": "🍲",
   "level": "A1",
-  "setting": "Sunday lunch at your partner's parents' house in a village near Nova Gorica. The table is full: beef soup, roast, potatoes and salad.",
+  "setting": {
+    "en": "Sunday lunch at your partner's parents' house in a village near Nova Gorica. The table is full: beef soup, roast, potatoes and salad.",
+    "de": "Sonntagsessen bei den Eltern deines Partners oder deiner Partnerin in einem Dorf bei Nova Gorica. Der Tisch ist voll: Rindsuppe, Braten, Kartoffeln und Salat.",
+    "it": "Pranzo della domenica dai genitori del tuo partner, in un paese vicino a Nova Gorica. La tavola è piena: brodo di manzo, arrosto, patate e insalata."
+  },
   "role": "Tašča Marija, the mother-in-law. Warm and talkative, from Primorska, always offers more food. Says ti to {learner}.",
+  "who": { "sl": "Tašča", "en": "The mother-in-law", "de": "Die Schwiegermutter", "it": "La suocera" },
   "place": "kitchen",
   "voice": "female",
-  "goals": ["Greet politely", "Say you like the food", "Ask for more bread", "Say you are full", "Thank her for lunch"],
+  "goals": [
+    { "en": "Greet politely", "de": "Grüße höflich", "it": "Saluta con gentilezza" },
+    { "en": "Say you like the food", "de": "Sag, dass dir das Essen schmeckt", "it": "Di' che il cibo ti piace" },
+    { "en": "Ask for more bread", "de": "Bitte um mehr Brot", "it": "Chiedi ancora del pane" },
+    { "en": "Say you are full", "de": "Sag, dass du satt bist", "it": "Di' che sei {m:sazio|f:sazia}" },
+    { "en": "Thank her for lunch", "de": "Bedanke dich für das Essen", "it": "Ringraziala per il pranzo" }
+  ],
   "opener_sl": "Dober dan, {learner}! Kar naprej, sedi. Si {m:lačen|f:lačna}?",
-  "opener_en": "Hello, {learner}! Come in, sit down. Are you hungry?",
+  "opener_en": {
+    "en": "Hello, {learner}! Come in, sit down. Are you hungry?",
+    "de": "Hallo, {learner}! Komm herein, setz dich. Hast du Hunger?",
+    "it": "Ciao, {learner}! Entra, siediti. Hai fame?"
+  },
   "vocabulary_hints": [
-    { "sl": "Ja, zelo sem {m:lačen|f:lačna}.", "en": "Yes, I'm very hungry." },
-    { "sl": "Juha je zelo dobra.", "en": "The soup is very good." },
-    { "sl": "Še malo kruha, prosim.", "en": "A bit more bread, please." },
-    { "sl": "{m:Sit|f:Sita} sem.", "en": "I'm full." },
-    { "sl": "Hvala za kosilo.", "en": "Thanks for lunch." },
-    { "sl": "Dober tek!", "en": "Enjoy your meal!" }
-  ]
+    { "sl": "Ja, zelo sem {m:lačen|f:lačna}.", "en": { "en": "Yes, I'm very hungry.", "de": "Ja, ich habe großen Hunger.", "it": "Sì, ho tanta fame." } },
+    { "sl": "Juha je zelo dobra.", "en": { "en": "The soup is very good.", "de": "Die Suppe ist sehr gut.", "it": "La minestra è molto buona." } },
+    { "sl": "Še malo kruha, prosim.", "en": { "en": "A bit more bread, please.", "de": "Noch ein bisschen Brot, bitte.", "it": "Ancora un po' di pane, per favore." } },
+    { "sl": "{m:Sit|f:Sita} sem.", "en": { "en": "I'm full.", "de": "Ich bin satt.", "it": "Sono {m:sazio|f:sazia}." } },
+    { "sl": "Hvala za kosilo.", "en": { "en": "Thanks for lunch.", "de": "Danke für das Mittagessen.", "it": "Grazie per il pranzo." } },
+    { "sl": "Dober tek!", "en": { "en": "Enjoy your meal!", "de": "Guten Appetit!", "it": "Buon appetito!" } }
+  ],
+  "review": "de, it: machine-written, not reviewed by a native speaker (sl, en as written for Jan)"
 }
