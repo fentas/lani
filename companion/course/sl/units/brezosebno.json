@@ -4,19 +4,53 @@
   "language": "sl",
   "level": "B2",
   "emoji": "🌫️",
-  "title": { "sl": "Treba je, ne ljubi se mi: brezosebno", "en": "No subject: treba je, ne ljubi se mi", "de": "Unpersönlich: treba je, ne ljubi se mi", "it": "Impersonale: treba je, ne ljubi se mi" },
+  "title": {
+    "sl": "Treba je, ne ljubi se mi: brezosebno",
+    "en": "No subject: treba je, ne ljubi se mi",
+    "de": "Unpersönlich: treba je, ne ljubi se mi",
+    "it": "Impersonale: treba je, ne ljubi se mi"
+  },
   "goal": {
     "en": "You can say what has to be done or may be done without saying who (treba je, ni treba, prepovedano je), speak of people in general with se (tu se govori, se je plesalo), and of the weather and the day (grmi, mrači se), in every tense.",
     "de": "Du sagst, was getan werden muss oder darf, ohne zu sagen, wer (treba je, ni treba, prepovedano je), sprichst mit se von den Leuten allgemein (tu se govori, se je plesalo) und vom Wetter und vom Tag (grmi, mrači se), in jeder Zeit.",
     "it": "Sai dire che cosa bisogna o si può fare senza dire chi (treba je, ni treba, prepovedano je), parlare della gente in generale con se (tu se govori, se je plesalo) e del tempo e del giorno (grmi, mrači se), in ogni tempo."
   },
   "grammar": ["brezosebno", "trpnik", "custva"],
-  "words": ["treba", "potrebno", "mogoče", "dovoljeno", "prepovedano", "škoda", "dati se", "ljubiti se", "govoriti", "plesati", "deževati", "snežiti", "grmeti", "daniti se", "zdaniti se", "mračiti se", "kaditi", "streha", "poroka", "lipa", "živina", "hlev", "studenec", "ura", "vreme", "parkirati", "okrasiti", "hiteti"],
+  "words": [
+    "treba",
+    "potrebno",
+    "mogoče",
+    "dovoljeno",
+    "prepovedano",
+    "škoda",
+    "dati se",
+    "ljubiti se",
+    "govoriti",
+    "plesati",
+    "deževati",
+    "snežiti",
+    "grmeti",
+    "daniti se",
+    "zdaniti se",
+    "mračiti se",
+    "kaditi",
+    "streha",
+    "poroka",
+    "lipa",
+    "živina",
+    "hlev",
+    "studenec",
+    "ura",
+    "vreme",
+    "parkirati",
+    "okrasiti",
+    "hiteti"
+  ],
   "intro": {
     "table": {
       "head": [
         { "sl": "brez osebka", "en": "no subject", "de": "ohne Subjekt", "it": "senza soggetto" },
-        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" },
+        { "sl": "še", "en": "and", "de": "und", "it": "e" },
         { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
       ]
     },
@@ -28,15 +62,27 @@
           "it": "Conosci **mrzlo mi je** e **ne ljubi se mi**: nessuno è il soggetto. Anche **treba je** (bisogna) funziona così, con un infinito: **Streho je treba popraviti.** (Bisogna riparare il tetto.) Ciò che si fa è il complemento oggetto, all'accusativo: **streho**. Chi deve va al dativo: **Treba mi je iti.** (Devo andare.)"
         },
         "examples": [
-          { "sl": "Pred zimo je treba popraviti streho.", "en": "The roof has to be fixed before winter.", "de": "Vor dem Winter muss das Dach repariert werden.", "it": "Prima dell'inverno bisogna riparare il tetto." },
-          { "sl": "Vodo je treba prinesti iz studenca.", "en": "The water has to be fetched from the spring.", "de": "Das Wasser muss von der Quelle geholt werden.", "it": "L'acqua va presa alla sorgente." }
+          {
+            "sl": "Pred zimo je treba popraviti streho.",
+            "en": "The roof has to be fixed before winter.",
+            "de": "Vor dem Winter muss das Dach repariert werden.",
+            "it": "Prima dell'inverno bisogna riparare il tetto."
+          },
+          {
+            "sl": "Vodo je treba prinesti iz studenca.",
+            "en": "The water has to be fetched from the spring.",
+            "de": "Das Wasser muss von der Quelle geholt werden.",
+            "it": "L'acqua va presa alla sorgente."
+          }
         ],
-        "rows": [
-          ["treba je + nedoločnik", "Streho je treba popraviti.", { "en": "the roof has to be fixed", "de": "das Dach muss repariert werden", "it": "bisogna riparare il tetto" }],
-          ["treba mi je", "Treba mi je iti.", { "en": "I have to go", "de": "ich muss gehen", "it": "devo andare" }]
-        ],
+        "rows": [["treba je", "treba mi je", {"en": "it is necessary, I have to", "de": "es ist nötig, ich muss", "it": "bisogna, devo"}]],
         "ask": {
-          "type": "choice", "grammar": "brezosebno", "prompt": "France's mill needs repairing:", "options": ["Mlin je treba popraviti.", "Mlin je treba popravi.", "Mlin treba popravil je."], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "brezosebno",
+          "prompt": "France's mill needs repairing:",
+          "options": ["Mlin je treba popraviti.", "Mlin je treba popravi.", "Mlin treba popravil je."],
+          "answer": 0,
+          "say_options": true,
           "explain": "**treba je** + the infinitive: Mlin je treba **popraviti**"
         }
       },
@@ -47,15 +93,29 @@
           "it": "Al passato e al futuro niente si accorda, quindi il verbo è neutro: **treba je bilo** (era necessario), **treba bo** (sarà necessario). Con il no: **ni treba** (non serve), **ni bilo treba**, **ne bo treba**. **Ni ti treba hiteti.** (Non devi affrettarti.)"
         },
         "examples": [
-          { "sl": "Lani je bilo treba popraviti most.", "en": "Last year the bridge had to be repaired.", "de": "Letztes Jahr musste die Brücke repariert werden.", "it": "L'anno scorso bisognava riparare il ponte." },
-          { "sl": "Ni ti treba hiteti, kosilo še ni kuhano.", "en": "You needn't hurry, lunch isn't cooked yet.", "de": "Du musst dich nicht beeilen, das Mittagessen ist noch nicht gekocht.", "it": "Non devi affrettarti, il pranzo non è ancora cotto." }
+          {
+            "sl": "Lani je bilo treba popraviti most.",
+            "en": "Last year the bridge had to be repaired.",
+            "de": "Letztes Jahr musste die Brücke repariert werden.",
+            "it": "L'anno scorso bisognava riparare il ponte."
+          },
+          {
+            "sl": "Ni ti treba hiteti, kosilo še ni kuhano.",
+            "en": "You needn't hurry, lunch isn't cooked yet.",
+            "de": "Du musst dich nicht beeilen, das Mittagessen ist noch nicht gekocht.",
+            "it": "Non devi affrettarti, il pranzo non è ancora cotto."
+          }
         ],
         "rows": [
-          ["treba je bilo, treba bo", "Lani je bilo treba popraviti most.", { "en": "it was, it will be necessary", "de": "es war, es wird nötig sein", "it": "era, sarà necessario" }],
-          ["ni treba, ni bilo treba", "Ni ti treba hiteti.", { "en": "no need", "de": "nicht nötig", "it": "non serve" }]
+          ["treba je bilo", "treba bo", {"en": "it was, it will be necessary", "de": "es war, es wird nötig sein", "it": "era, sarà necessario"}],
+          ["ni treba", "ni bilo treba", {"en": "no need, there was no need", "de": "nicht nötig, es war nicht nötig", "it": "non serve, non serviva"}]
         ],
         "ask": {
-          "type": "cloze", "grammar": "brezosebno", "text": "Jutri bo ___ vstati že ob petih.", "accept": ["treba"], "hint": "it will be necessary: no subject",
+          "type": "cloze",
+          "grammar": "brezosebno",
+          "text": "Jutri bo ___ vstati že ob petih.",
+          "accept": ["treba"],
+          "hint": "it will be necessary: no subject",
           "explain": "**treba bo** + the infinitive: jutri bo **treba** vstati"
         }
       },
@@ -66,16 +126,39 @@
           "it": "Altre parole vanno allo stesso modo, con **je** e un infinito: **mogoče je** (è possibile), **potrebno je** (è necessario), **dovoljeno je** (è permesso), **prepovedano je** (è vietato), **škoda je** (è un peccato). **Tu je prepovedano kaditi.** **Škoda je spati ob tako lepem vremenu.**"
         },
         "examples": [
-          { "sl": "V seniku je prepovedano kaditi.", "en": "Smoking is forbidden in the hayloft.", "de": "Im Heuschober ist Rauchen verboten.", "it": "Nel fienile è vietato fumare." },
-          { "sl": "Škoda je spati ob tako lepem vremenu.", "en": "It's a pity to sleep in such fine weather.", "de": "Schade, bei so schönem Wetter zu schlafen.", "it": "È un peccato dormire con un tempo così bello." }
+          {
+            "sl": "V seniku je prepovedano kaditi.",
+            "en": "Smoking is forbidden in the hayloft.",
+            "de": "Im Heuschober ist Rauchen verboten.",
+            "it": "Nel fienile è vietato fumare."
+          },
+          {
+            "sl": "Škoda je spati ob tako lepem vremenu.",
+            "en": "It's a pity to sleep in such fine weather.",
+            "de": "Schade, bei so schönem Wetter zu schlafen.",
+            "it": "È un peccato dormire con un tempo così bello."
+          }
         ],
         "rows": [
-          ["mogoče je, potrebno je", "Ali je mogoče priti z vozom?", { "en": "it is possible, needed", "de": "es ist möglich, nötig", "it": "è possibile, necessario" }],
-          ["dovoljeno, prepovedano je", "Tu je prepovedano kaditi.", { "en": "it is allowed, forbidden", "de": "es ist erlaubt, verboten", "it": "è permesso, vietato" }],
-          ["škoda je", "Škoda je spati.", { "en": "it's a pity", "de": "es ist schade", "it": "è un peccato" }]
+          [
+            "mogoče je",
+            "potrebno je",
+            { "en": "it is possible, it is needed", "de": "es ist möglich, es ist nötig", "it": "è possibile, è necessario" }
+          ],
+          [
+            "dovoljeno je",
+            "prepovedano je",
+            { "en": "it is allowed, it is forbidden", "de": "es ist erlaubt, es ist verboten", "it": "è permesso, è vietato" }
+          ],
+          ["škoda je", "škoda je spati", {"en": "it's a pity (to sleep)", "de": "es ist schade (zu schlafen)", "it": "è un peccato (dormire)"}]
         ],
         "ask": {
-          "type": "choice", "grammar": "brezosebno", "prompt": "V ribniku je ___ plavati, voda je pregloboka.", "options": ["prepovedano", "prepovedan", "prepovedana"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "brezosebno",
+          "prompt": "V ribniku je ___ plavati, voda je pregloboka.",
+          "options": ["prepovedano", "prepovedan", "prepovedana"],
+          "answer": 0,
+          "say_options": true,
           "explain": "no subject → the neuter: je **prepovedano** plavati"
         }
       },
@@ -86,16 +169,33 @@
           "it": "**Se** con la 3ª persona parla della gente in generale, come il *si*: **Tu se govori slovensko.** **Kako se pride do mlina?** (Come si arriva al mulino?) Al passato è neutro: **Na poroki se je plesalo do jutra.** **Govori se, da …** vuol dire si dice. **Ne da se** vuol dire non si può: **Ure se ne da popraviti.** E con **mi**, la tua voglia: **Danes se mi ne da.** (Oggi non ne ho voglia.)"
         },
         "examples": [
-          { "sl": "Na Markovi poroki se je plesalo do jutra.", "en": "At Marko's wedding there was dancing till morning.", "de": "Auf Markos Hochzeit wurde bis zum Morgen getanzt.", "it": "Al matrimonio di Marko si è ballato fino al mattino." },
-          { "sl": "Govori se, da bo zima huda.", "en": "People say the winter will be hard.", "de": "Man sagt, der Winter wird hart.", "it": "Si dice che l'inverno sarà duro." }
+          {
+            "sl": "Na Markovi poroki se je plesalo do jutra.",
+            "en": "At Marko's wedding there was dancing till morning.",
+            "de": "Auf Markos Hochzeit wurde bis zum Morgen getanzt.",
+            "it": "Al matrimonio di Marko si è ballato fino al mattino."
+          },
+          {
+            "sl": "Govori se, da bo zima huda.",
+            "en": "People say the winter will be hard.",
+            "de": "Man sagt, der Winter wird hart.",
+            "it": "Si dice che l'inverno sarà duro."
+          }
         ],
         "rows": [
-          ["se + 3. oseba", "Kako se pride do mlina?", { "en": "how do you get to the mill?", "de": "wie kommt man zur Mühle?", "it": "come si arriva al mulino?" }],
-          ["se je + -lo", "Na poroki se je plesalo.", { "en": "there was dancing", "de": "es wurde getanzt", "it": "si è ballato" }],
-          ["ne da se", "Ure se ne da popraviti.", { "en": "the clock can't be fixed", "de": "die Uhr lässt sich nicht reparieren", "it": "l'orologio non si può riparare" }]
+          ["govori se", "se je plesalo", {"en": "people say, there was dancing", "de": "man sagt, es wurde getanzt", "it": "si dice, si è ballato"}],
+          [
+            "kako se pride",
+            "ne da se",
+            { "en": "how do you get there, it can't be done", "de": "wie kommt man hin, es geht nicht", "it": "come si arriva, non si può" }
+          ]
         ],
         "ask": {
-          "type": "cloze", "grammar": "brezosebno", "text": "Lani se je na vaškem prazniku ___ do jutra. (plesati)", "accept": ["plesalo"], "hint": "no subject, the past: neuter",
+          "type": "cloze",
+          "grammar": "brezosebno",
+          "text": "Lani se je na vaškem prazniku ___ do jutra. (plesati)",
+          "accept": ["plesalo"],
+          "hint": "no subject, the past: neuter",
           "explain": "**se** for people in general; the past without a subject is neuter: se je **plesalo**"
         }
       },
@@ -106,15 +206,46 @@
           "it": "Il tempo e il giorno non vogliono alcun soggetto: **dežuje** (piove), **sneži**, **grmi** (tuona); **dani se** (fa giorno), **mrači se** (si fa buio). Al passato sono neutri: **je deževalo**, **je grmelo**, **se je zdanilo** (si è fatto giorno), **se je zmračilo**. Così il fumo dal camino: **Iz dimnika se kadi.**"
         },
         "examples": [
-          { "sl": "Ko se je zdanilo, je Luka že gnal ovce na pašo.", "en": "When day broke, Luka was already driving the sheep to pasture.", "de": "Als es Tag wurde, trieb Luka die Schafe schon auf die Weide.", "it": "Quando si è fatto giorno, Luka portava già le pecore al pascolo." },
-          { "sl": "Sinoči je grmelo in deževalo.", "en": "Last night it thundered and rained.", "de": "Gestern Abend hat es gedonnert und geregnet.", "it": "Ieri sera ha tuonato e piovuto." }
+          {
+            "sl": "Ko se je zdanilo, je Luka že gnal ovce na pašo.",
+            "en": "When day broke, Luka was already driving the sheep to pasture.",
+            "de": "Als es Tag wurde, trieb Luka die Schafe schon auf die Weide.",
+            "it": "Quando si è fatto giorno, Luka portava già le pecore al pascolo."
+          },
+          {
+            "sl": "Sinoči je grmelo in deževalo.",
+            "en": "Last night it thundered and rained.",
+            "de": "Gestern Abend hat es gedonnert und geregnet.",
+            "it": "Ieri sera ha tuonato e piovuto."
+          }
         ],
         "rows": [
-          ["dežuje, sneži, grmi", "Sinoči je grmelo.", { "en": "it rains, snows, thunders", "de": "es regnet, schneit, donnert", "it": "piove, nevica, tuona" }],
-          ["dani se, mrači se", "Zdanilo se je.", { "en": "day breaks, it gets dark", "de": "es wird Tag, es dämmert", "it": "fa giorno, si fa buio" }]
+          [
+            "dežuje, sneži, grmi",
+            "je grmelo",
+            {
+              "en": "it rains, snows, thunders; it thundered",
+              "de": "es regnet, schneit, donnert; es hat gedonnert",
+              "it": "piove, nevica, tuona; ha tuonato"
+            }
+          ],
+          [
+            "dani se, mrači se",
+            "se je zdanilo",
+            {
+              "en": "day breaks, it gets dark; day broke",
+              "de": "es wird Tag, es dämmert; es wurde Tag",
+              "it": "fa giorno, si fa buio; si è fatto giorno"
+            }
+          ]
         ],
         "ask": {
-          "type": "choice", "grammar": "brezosebno", "prompt": "Ko smo prišli domov, se je že ___.", "options": ["zmračilo", "zmračila", "zmračil"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "brezosebno",
+          "prompt": "Ko smo prišli domov, se je že ___.",
+          "options": ["zmračilo", "zmračila", "zmračil"],
+          "answer": 0,
+          "say_options": true,
           "explain": "**mračiti se** has no subject: the past is neuter, se je **zmračilo**"
         }
       }
@@ -126,7 +257,9 @@
       "title": { "sl": "Kdo? Nihče.", "en": "Who? Nobody.", "de": "Wer? Niemand.", "it": "Chi? Nessuno." },
       "exercises": [
         {
-          "type": "sort", "grammar": "brezosebno", "instruction": "Ima stavek osebek? · Does it have a subject?",
+          "type": "sort",
+          "grammar": "brezosebno",
+          "instruction": "Ima stavek osebek? · Does it have a subject?",
           "columns": [
             { "label": "brez osebka · no subject", "words": ["Treba je iti.", "Dežuje.", "Mrači se.", "Tu se ne kadi.", "Govori se, da …"] },
             { "label": "z osebkom · with a subject", "words": ["Mojca uči.", "Dež pada.", "Sonce zahaja.", "France kadi pipo.", "Ljudje govorijo."] }
@@ -134,13 +267,26 @@
           "explain": "**no subject**: nobody does it, the verb in the third person: treba je, dežuje, mrači se, tu se ne kadi\n**a subject**: someone or something does it: Mojca, dež, sonce, France, ljudje"
         },
         {
-          "type": "table", "grammar": "brezosebno", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "preteklik in prihodnjik · past and future",
+          "type": "table",
+          "grammar": "brezosebno",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "preteklik in prihodnjik · past and future",
           "columns": ["zdaj · now", "preteklik · past", "prihodnjik · future"],
           "rows": [
-            { "label": "treba", "cells": ["treba je", { "accept": ["treba je bilo", "je bilo treba", "bilo je treba"], "hint": "neuter: -lo" }, { "accept": ["treba bo", "bo treba"] }] },
-            { "label": "ni treba", "cells": ["ni treba", { "accept": ["ni bilo treba"], "hint": "ni + bilo" }, { "accept": ["ne bo treba"] }] },
-            { "label": "dežuje", "cells": ["dežuje", { "accept": ["je deževalo", "deževalo je"], "hint": "neuter: -lo" }, { "accept": ["bo deževalo", "deževalo bo"] }] },
-            { "label": "dani se", "cells": ["dani se", { "accept": ["se je danilo", "danilo se je"] }, { "accept": ["se bo danilo", "danilo se bo"] }] }
+            {
+              "label": "treba",
+              "cells": [
+                "treba je",
+                { "accept": ["treba je bilo", "je bilo treba", "bilo je treba"], "hint": "neuter: -lo" },
+                { "accept": ["treba bo", "bo treba"] }
+              ]
+            },
+            { "label": "ni treba", "cells": ["ni treba", {"accept": ["ni bilo treba"], "hint": "ni + bilo"}, {"accept": ["ne bo treba"]}] },
+            {
+              "label": "dežuje",
+              "cells": ["dežuje", {"accept": ["je deževalo", "deževalo je"], "hint": "neuter: -lo"}, {"accept": ["bo deževalo", "deževalo bo"]}]
+            },
+            { "label": "dani se", "cells": ["dani se", {"accept": ["se je danilo", "danilo se je"]}, {"accept": ["se bo danilo", "danilo se bo"]}] }
           ],
           "explain": "**no subject** → the past and the future neuter\n- treba je bilo, treba bo\n- ni bilo treba, ne bo treba\n- je deževalo, se je danilo"
         }
@@ -151,19 +297,27 @@
       "title": { "sl": "Pred poroko", "en": "Before the wedding", "de": "Vor der Hochzeit", "it": "Prima del matrimonio" },
       "exercises": [
         {
-          "type": "gaptext", "grammar": "brezosebno", "instruction": "Dopolni · Fill in", "title": "Pred poroko",
+          "type": "gaptext",
+          "grammar": "brezosebno",
+          "instruction": "Dopolni · Fill in",
+          "title": "Pred poroko",
           "text": "Jutri je Markova poroka. Zjutraj bo ___ postaviti mize pod lipo. Kruha ni treba peči, ker ga ___ (prinesti) pek. Pri Vidi se vedno dobro ___ (jesti), zato kuha ona. Lani se je na poroki ___ (plesati) do jutra. »Ali se ___ (dati) okrasiti še lipo?« vpraša Zala. »Seveda, a ___ (mračiti) se že,« reče Mojca. »Škoda je ___ (čakati) do jutri.« Na ___ (trg) je prepovedano parkirati.",
           "gaps": [
             { "accept": ["treba"], "hint": "it will be necessary" },
             { "accept": ["prinese"], "hint": "pek: he, the present" },
-            { "accept": ["je"], "hint": "se + the third person", "explain": "**se** + the third person singular: people eat well there, se dobro **je**" },
+            {
+              "accept": ["je"],
+              "hint": "se + the third person",
+              "explain": "**se** + the third person singular: people eat well there, se dobro **je**"
+            },
             { "accept": ["plesalo"], "hint": "no subject, the past: neuter" },
             { "accept": ["da"], "hint": "is it possible: dati se" },
             { "accept": ["mrači"], "hint": "it's getting dark" },
             { "accept": ["čakati"], "hint": "škoda je + the infinitive" },
             { "accept": ["trgu"], "hint": "na + kje? the locative" }
           ],
-          "bank": true, "distractors": ["plesali", "mračijo", "jedo"],
+          "bank": true,
+          "distractors": ["plesali", "mračijo", "jedo"],
           "translation": "Tomorrow is Marko's wedding. In the morning the tables will have to be set up under the linden. There's no need to bake bread, the baker brings it. At Vida's you always eat well, so she is cooking. Last year there was dancing at the wedding till morning. \"Can we decorate the linden too?\" asks Zala. \"Of course, but it's already getting dark,\" says Mojca. \"It's a pity to wait till tomorrow.\" Parking is forbidden on the square."
         }
       ]
@@ -173,20 +327,52 @@
       "title": { "sl": "Brez osebka", "en": "Without a subject", "de": "Ohne Subjekt", "it": "Senza soggetto" },
       "exercises": [
         {
-          "type": "transform", "grammar": "brezosebno", "instruction": "Povej brez osebka · Say it without a subject",
+          "type": "transform",
+          "grammar": "brezosebno",
+          "instruction": "Povej brez osebka · Say it without a subject",
           "items": [
-            { "from": "Moramo popraviti streho.", "accept": ["Treba je popraviti streho.", "Streho je treba popraviti.", "Popraviti je treba streho."], "hint": "treba je + the infinitive" },
-            { "from": "Ne moraš hiteti.", "accept": ["Ni ti treba hiteti.", "Ni treba hiteti.", "Hiteti ti ni treba."], "hint": "ni treba, who in the dative" },
-            { "from": "Ljudje tu govorijo slovensko.", "accept": ["Tu se govori slovensko.", "Tukaj se govori slovensko.", "Slovensko se govori tu.", "Tu se slovensko govori."], "hint": "se + the third person singular" },
-            { "from": "Na poroki smo plesali do jutra.", "accept": ["Na poroki se je plesalo do jutra.", "Do jutra se je plesalo na poroki."], "hint": "se je + neuter", "explain": "**se** for everyone there, the past neuter: se je **plesalo**" },
-            { "from": "Morali smo počakati.", "accept": ["Treba je bilo počakati.", "Bilo je treba počakati.", "Počakati je bilo treba."], "hint": "treba je bilo" },
-            { "from": "Ljudje pravijo, da bo zima huda.", "accept": ["Govori se, da bo zima huda.", "Govori se, da bo huda zima."], "hint": "people say: govori se" }
+            {
+              "from": "Moramo popraviti streho.",
+              "accept": ["Treba je popraviti streho.", "Streho je treba popraviti.", "Popraviti je treba streho."],
+              "hint": "treba je + the infinitive"
+            },
+            {
+              "from": "Ne moraš hiteti.",
+              "accept": ["Ni ti treba hiteti.", "Ni treba hiteti.", "Hiteti ti ni treba."],
+              "hint": "ni treba, who in the dative"
+            },
+            {
+              "from": "Ljudje tu govorijo slovensko.",
+              "accept": ["Tu se govori slovensko.", "Tukaj se govori slovensko.", "Slovensko se govori tu.", "Tu se slovensko govori."],
+              "hint": "se + the third person singular"
+            },
+            {
+              "from": "Na poroki smo plesali do jutra.",
+              "accept": ["Na poroki se je plesalo do jutra.", "Do jutra se je plesalo na poroki."],
+              "hint": "se je + neuter",
+              "explain": "**se** for everyone there, the past neuter: se je **plesalo**"
+            },
+            {
+              "from": "Morali smo počakati.",
+              "accept": ["Treba je bilo počakati.", "Bilo je treba počakati.", "Počakati je bilo treba."],
+              "hint": "treba je bilo"
+            },
+            {
+              "from": "Ljudje pravijo, da bo zima huda.",
+              "accept": ["Govori se, da bo zima huda.", "Govori se, da bo huda zima."],
+              "hint": "people say: govori se"
+            }
           ],
           "explain": "**no one as the subject**\n- moramo → treba je\n- ljudje govorijo → se govori\n- smo plesali → se je plesalo"
         },
         {
-          "type": "choice", "grammar": "brezosebno", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Nejc: »Danes se mi res ne da.«",
-          "options": ["I really can't be bothered today.", "Today it really can't be done.", "Today nobody gives me anything."], "answer": 0, "say": "Danes se mi res ne da.",
+          "type": "choice",
+          "grammar": "brezosebno",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "Nejc: »Danes se mi res ne da.«",
+          "options": ["I really can't be bothered today.", "Today it really can't be done.", "Today nobody gives me anything."],
+          "answer": 0,
+          "say": "Danes se mi res ne da.",
           "explain": "**ne da se mi**, with the dative: your will, as **ne ljubi se mi**: I can't be bothered"
         }
       ]
@@ -196,39 +382,54 @@
     "pass": 80,
     "exercises": [
       {
-        "type": "table", "grammar": "brezosebno", "instruction": "Dopolni · Fill in", "prompt": "preteklik in prihodnjik · past and future",
+        "type": "table",
+        "grammar": "brezosebno",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "preteklik in prihodnjik · past and future",
         "columns": ["preteklik · past", "prihodnjik · future"],
         "rows": [
-          { "label": "treba je", "cells": [{ "accept": ["treba je bilo", "je bilo treba", "bilo je treba"] }, { "accept": ["treba bo", "bo treba"] }] },
-          { "label": "sneži", "cells": [{ "accept": ["je snežilo", "snežilo je"] }, { "accept": ["bo snežilo", "snežilo bo"] }] }
+          { "label": "treba je", "cells": [{"accept": ["treba je bilo", "je bilo treba", "bilo je treba"]}, {"accept": ["treba bo", "bo treba"]}] },
+          { "label": "sneži", "cells": [{"accept": ["je snežilo", "snežilo je"]}, {"accept": ["bo snežilo", "snežilo bo"]}] }
         ]
       },
       {
-        "type": "gaptext", "grammar": "brezosebno", "instruction": "Dopolni · Fill in",
+        "type": "gaptext",
+        "grammar": "brezosebno",
+        "instruction": "Dopolni · Fill in",
         "text": "Ob šestih se je že ___ (zdaniti). Treba je ___ (biti) nakrmiti živino. V hlevu se ni ___ (dati) prižgati luči. Nejcu se ni ___ (ljubiti) vstati.",
-        "gaps": [
-          { "accept": ["zdanilo"] },
-          { "accept": ["bilo"] },
-          { "accept": ["dalo"] },
-          { "accept": ["ljubilo"] }
-        ],
+        "gaps": [{"accept": ["zdanilo"]}, {"accept": ["bilo"]}, {"accept": ["dalo"]}, {"accept": ["ljubilo"]}],
         "translation": "At six day had already broken. The animals had to be fed. In the shed the light couldn't be switched on. Nejc didn't feel like getting up."
       },
       {
-        "type": "transform", "grammar": "brezosebno", "instruction": "Povej brez osebka · Say it without a subject",
+        "type": "transform",
+        "grammar": "brezosebno",
+        "instruction": "Povej brez osebka · Say it without a subject",
         "items": [
           { "from": "Ljudje pravijo, da bo dež.", "accept": ["Govori se, da bo dež."] },
-          { "from": "Moraš priti ob osmih.", "accept": ["Treba je priti ob osmih.", "Treba ti je priti ob osmih.", "Ob osmih je treba priti.", "Priti je treba ob osmih."] }
+          {
+            "from": "Moraš priti ob osmih.",
+            "accept": ["Treba je priti ob osmih.", "Treba ti je priti ob osmih.", "Ob osmih je treba priti.", "Priti je treba ob osmih."]
+          }
         ]
       },
       {
-        "type": "choice", "grammar": "brezosebno", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Is swimming allowed in the pond?",
-        "options": ["Ali je v ribniku dovoljeno plavati?", "Ali je v ribniku dovoljen plavati?", "Ali so v ribniku dovoljeni plavati?"], "answer": 0, "say_options": true,
+        "type": "choice",
+        "grammar": "brezosebno",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Is swimming allowed in the pond?",
+        "options": ["Ali je v ribniku dovoljeno plavati?", "Ali je v ribniku dovoljen plavati?", "Ali so v ribniku dovoljeni plavati?"],
+        "answer": 0,
+        "say_options": true,
         "explain": "no subject → the neuter: je **dovoljeno** plavati"
       },
       {
-        "type": "choice", "grammar": "brezosebno", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Last night it thundered.",
-        "options": ["Sinoči je grmelo.", "Sinoči je grmel.", "Sinoči so grmeli."], "answer": 0, "say_options": true,
+        "type": "choice",
+        "grammar": "brezosebno",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Last night it thundered.",
+        "options": ["Sinoči je grmelo.", "Sinoči je grmel.", "Sinoči so grmeli."],
+        "answer": 0,
+        "say_options": true,
         "explain": "the weather has no subject: the past neuter, je **grmelo**"
       }
     ]
