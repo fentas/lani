@@ -64,6 +64,9 @@ class CultureScenesTest {
         "palisade" to emptySet(), "lookout" to emptySet(),
         // the Lake District's (places-lakeland): every effect of the kitchen, the tent, the smithy and the field cued too
         "kitchen" to emptySet(), "tent" to emptySet(), "smithy" to emptySet(), "field" to emptySet(),
+        // the stream bank and the pond (kaernten-projects-b): the mill's wheel and sacks, the bridge's cart and the fire
+        // brigade's hose are the village projects' (their steps and scenes play them)
+        "stream" to setOf("wheel", "sacks", "cart", "hose"), "pond" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -129,6 +132,9 @@ class CultureScenesTest {
             listOf("kaernten", "in-der-kirche", "church", "church"),
             listOf("kaernten", "am-tor", "palisade", "palisade"),
             listOf("kaernten", "auf-dem-wachturm", "watchtower", "watchtower"),
+            // Kärnten (kaernten-projects-b): the stream bank (Resi's washing, Florian's sheep, Franz's mill to be, Jakob's
+            // trout, Sepp's ice) and the pond
+            listOf("kaernten", "am-bach", "stream", "spot:riverbank"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
             // the Lake District's buildings (places-lakeland): the house's rooms (Granny Maggie's kitchen, anyone's; Old Wilf's
             // room by the fire, Brewer Sam's cellar, Mrs Birkett and Harry's attic, Mr Tyson and Alfie's workshop), the tent,
