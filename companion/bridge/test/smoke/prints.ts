@@ -142,6 +142,33 @@ export default async function prints() {
     )
   }
 
+  // --- the Italian course's words: each with a meaning in each base --------------------------------------------------------
+  // A word the packs don't mean is left off "Wörter / Besede / Words" (sheet.ts Dictionary): the Italian supplement
+  // (companion/lexicon/it.extra.json) means the course's everyday verbs, adverbs, nouns and expressions in German,
+  // Slovene and English, and a pack's noun the unit lists in the plural is found by it (i cavalli: il cavallo). Every unit
+  // of A1, A2 and B1, in each base, lists every word the unit names that its table doesn't show.
+  {
+    const it = loadContent(repo, 'it')
+    const left: string[] = []
+    let listed = 0
+    const de = new Map<string, string>()
+    for (const b of ['de', 'sl', 'en']) {
+      for (const level of ['A1', 'A2', 'B1']) {
+        for (const s of sheetsOf(it, level, { base: b, learner: 'Teo', gender: 'both' })) {
+          listed += s.words.length
+          for (const n of s.notes) left.push(`${level} ${s.id} (${b}): ${n}`)
+          if (b === 'de') for (const w of s.words) de.set(`${s.id}/${w.word}`, `${w.lemma ? `(${w.lemma}) ` : ''}${w.gloss}`)
+        }
+      }
+    }
+    check(`the Italian sheets (A1, A2, B1) mean every word they list, in German, Slovene and English (${listed} words)`, listed > 4000 && left.length === 0, left.slice(0, 20))
+    check(
+      "… in the base the sheet is in: the supplement's own German (c'è: es gibt, not there is), a verb (guardare: schauen), a plural noun with its singular (i cavalli: il cavallo, Pferd), the supplement's noun by the word without its article (il treno: Zug)",
+      de.get("ce-ci-sono/c'è") === '(esserci) es gibt' && de.get('presente-are/guardare') === 'schauen, anschauen' && de.get('piacere/i cavalli') === '(il cavallo) Pferd' && de.get('futuro/il treno') === 'Zug',
+      ["ce-ci-sono/c'è", 'presente-are/guardare', 'piacere/i cavalli', 'futuro/il treno'].map(k => [k, de.get(k)]),
+    )
+  }
+
   // --- what there is none of, what is refused ------------------------------------------------------------------------------
   const none: [string, number][] = [
     ['/course/sheet/osebni-zaimki', 404], // planned: not written yet
