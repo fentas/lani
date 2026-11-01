@@ -137,8 +137,8 @@ class MapPeopleTest {
         assertEquals(emptyList<String>(), failed)
     }
 
-    /** What Primorska's small figures, drawn for the map's sizes before the sprites, draw otherwise (kept pixel for pixel). */
-    private val primorskaOwn = setOf("beekeeper.trousers", "teacher.skirt", "burner.trousers")
+    /** What Primorska's small figures, drawn for the map's sizes before the sprites, may draw otherwise: nothing since 2026-11-01. */
+    private val primorskaOwn = emptySet<String>()
 
     @Test fun `Primorska's small figures agree with its sprites in every mark they have`() {
         val failed = ArrayList<String>()
@@ -162,7 +162,7 @@ class MapPeopleTest {
     }
 
     @Test fun `the village's own people are dressed alike at every detail and in their scenes`() {
-        for (culture in Wardrobes.ids) for (art in listOf("woman", "man")) {
+        for (culture in Wardrobes.ids + "primorska") for (art in listOf("woman", "man")) {
             val looks = (0 until 12).map { Looks.of(art, Looks.seedOf("resident-$it"), culture) }
             assertTrue("$culture: newcomers don't all look alike", looks.toSet().size >= 6)
             for (i in 0 until 12) {
@@ -202,6 +202,20 @@ class MapPeopleTest {
                 )
             }
             write("00-cast-$culture", rows)
+        }
+    }
+
+    @Test fun `render each culture's portraits`() {
+        // the portraits the screens show (a person's id hashed, as the screens give it): the cast, the strangers, the residents
+        for ((culture, _) in cultures) {
+            val people = lineup(culture)
+            val row = people.map { v ->
+                PixelCanvas(64, 64).also {
+                    si.lanisce.lani.game.render.scene.PortraitsPainter().also { p -> p.culture = culture }
+                        .render(it, v.art, si.lanisce.lani.game.scene.Pose.IDLE, 0.4, 11f, v.id.hashCode(), null, 9.0, si.lanisce.lani.game.scene.Framing.BUST)
+                }
+            }
+            write("02-portraits-$culture", row.chunked(8).map { r -> r.map { it to 3 } })
         }
     }
 

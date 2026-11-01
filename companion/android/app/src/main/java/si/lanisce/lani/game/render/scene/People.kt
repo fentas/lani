@@ -154,10 +154,13 @@ internal object Looks {
             hair = Pal.HAIR[0], hairStyle = HAIR_SHORT,
             top = Col.hex(0xF1E3BA), bottom = Col.hex(0xF1E3BA), hat = HAT_VEIL, hatCol = Pal.HAY_L, prop = PROP_SMOKER,
         ),
+        // Vida, the innkeeper (Gostilničarka): a white blouse under a teal bodice, a dark skirt, the white apron, a mug in her
+        // hand, her hair up (the innkeeper of every culture's cast is a woman; until 2026-11-01 the sprite was a bald man with a
+        // moustache)
         "innkeeper" to Look(
-            torsoW = 13, torsoH = 8, hair = Pal.HAIR[0], hairStyle = HAIR_BALD,
-            top = Col.hex(0xE9E2D0), vest = Col.hex(0x2C7F86), bottom = Col.hex(0x2E2A34), apron = Col.hex(0xF4EEDD), prop = PROP_MUG,
-            moustache = Pal.HAIR[0], cheeks = true,
+            torsoW = 13, torsoH = 8, legH = 5, hair = Pal.HAIR[0], hairStyle = HAIR_BUN,
+            top = Col.hex(0xE9E2D0), vest = Col.hex(0x2C7F86), bottom = Col.hex(0x2E2A34), skirt = true, stockings = Col.hex(0x3A3246),
+            apron = Col.hex(0xF4EEDD), prop = PROP_MUG, cheeks = true,
         ),
         "winemaker" to Look(
             hair = Pal.HAIR[1], hairStyle = HAIR_SHORT,

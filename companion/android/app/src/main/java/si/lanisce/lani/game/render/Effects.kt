@@ -171,8 +171,8 @@ internal class Effects(private val s: SceneCtx) {
      * fishing, chopping, at work (a hoe, the anvil, tending, washing), carrying [load], playing, chatting or waving to
      * the learner. [lantern]: a lit lantern in the hand (or set down beside them while their hands are busy), with its
      * warm light round them. [art] is their sprite (null: one by [seed]). [lookSeed]: the seed their clothes are chosen by
-     * (the village's own people, dressed as in their scenes: [Looks.seedOf]) in a culture with a wardrobe of its own; null:
-     * [seed]. Returns the figure's height in canvas px.
+     * at the finest detail (the village's own people, dressed as in their scenes: [Looks.seedOf]); null: [seed]. Returns the
+     * figure's height in canvas px.
      */
     fun person(
         bx: Int, by: Int, art: String?, look: Look, seed: Int, activity: Activity, flip: Boolean, bob: Int = 0,
@@ -185,7 +185,7 @@ internal class Effects(private val s: SceneCtx) {
             2 -> middle(bx, by, look, seed, activity, flip, bob, lantern, load)
             else -> {
                 val P = s.people
-                P.lookSeed = if (Wardrobes.of(s.look.id) != null) lookSeed else null
+                P.lookSeed = lookSeed
                 try { fine(bx, by, art, seed, activity, flip, bob, lantern, load) } finally { P.lookSeed = null }
             }
         }
@@ -2132,11 +2132,14 @@ internal class Effects(private val s: SceneCtx) {
 
         /**
          * How someone with sprite [art] looks in the small figures; an unknown or missing art gets colours by
-         * [seed] (the unnamed population: the same seed always gives the same person). In a culture with clothes of its own
-         * ([Wardrobes]) they are the sprite's ([fromScene]), the village's own people dressed by [sceneSeed] as in their scenes
-         * ([Looks.seedOf]) and the unnamed by [seed] ([anonArt]); Primorska's are the map's own, drawn for these sizes.
+         * [seed] (the unnamed population: the same seed always gives the same person). The village's own people ("woman",
+         * "man") are their sprite's ([fromScene]), dressed by [sceneSeed] as in their scenes ([Looks.seedOf]), in every culture.
+         * In a culture with clothes of its own ([Wardrobes]) everyone is the sprite's, the unnamed by [seed] ([anonArt]);
+         * Primorska's cast are the map's own figures, drawn for these sizes, in its sprites' colours.
          */
         fun lookOf(art: String?, seed: Int, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT, sceneSeed: Int = seed): Look {
+            // the village's own people as their scenes dress them, in every culture
+            if (art == "woman" || art == "man") return fromScene(Looks.of(art, sceneSeed, culture))
             if (Wardrobes.of(culture) != null) {
                 val a = art?.takeIf { it != "baby" } ?: return fromScene(Looks.of(anonArt(seed, culture), seed, culture))
                 return if (a == "woman" || a == "man") fromScene(Looks.of(a, sceneSeed, culture))
@@ -2153,10 +2156,12 @@ internal class Effects(private val s: SceneCtx) {
                 "child3" -> Look(Pal.SHIRTS[2], Col.hex(0x6F4527), Pal.HAIR[1], hat = Col.hex(0x2C7F86), small = true)
                 "shepherd" -> Look(Col.hex(0x8A6A48), Col.hex(0x4A3A2F), Pal.HAIR[0], hat = Col.hex(0x3E5A3A), prop = PROP_CROOK)
                 "smith" -> Look(Col.hex(0x4A5A6A), Col.hex(0x2E2A34), Pal.HAIR[1], kerchief = true, apron = Col.hex(0x8A5A32), prop = PROP_HAMMER, beard = Col.hex(0x3A2A24))
-                "teacher" -> Look(Col.hex(0x7A4E9A), dark, Col.hex(0x8A4A22), skirt = true, prop = PROP_BOOK)
+                "teacher" -> Look(Col.hex(0x7A4E9A), dark, Col.hex(0x8A4A22), skirt = true, prop = PROP_BOOK, skirtCol = dark)
                 "farmer" -> Look(Col.hex(0x2E63B0), Col.hex(0x6F4527), Pal.HAIR[3], hat = Pal.HAY_L, straw = true, skin = Col.hex(0xE0A878))
-                "beekeeper" -> Look(Pal.CANVAS_L, Pal.CANVAS_M, Pal.HAIR[0], hat = Pal.CANVAS_L, prop = PROP_SMOKER)
-                "innkeeper" -> Look(Col.hex(0xE9E2D0), Col.hex(0x2E2A34), Pal.HAIR[0], apron = Col.hex(0xF4EEDD), prop = PROP_MUG)
+                "beekeeper" -> Look(Pal.CANVAS_L, Pal.CANVAS_L, Pal.HAIR[0], hat = Pal.CANVAS_L, prop = PROP_SMOKER)
+                // Vida: her blouse under the teal bodice, the dark skirt, the white apron (as her sprite)
+                "innkeeper" -> Look(Col.hex(0xE9E2D0), Col.hex(0x2E2A34), Pal.HAIR[0], apron = Col.hex(0xF4EEDD), prop = PROP_MUG, skirt = true,
+                    skirtCol = Col.hex(0x2E2A34), vest = Col.hex(0x2C7F86))
                 "winemaker" -> Look(Col.hex(0x7A2E3A), dark, Pal.HAIR[1], hat = Col.hex(0x2E2A34), prop = PROP_BOTTLE)
                 "aunt" -> Look(Col.hex(0xE07A8A), Col.hex(0xE07A8A), Pal.HAIR[0], skirt = true, apron = Col.hex(0x3E8A3A), prop = PROP_BASKET)
                 // the strangers at the road: the pedlar under his krošnja, a pilgrim with his staff and bag
@@ -2172,7 +2177,7 @@ internal class Effects(private val s: SceneCtx) {
                 // the hunter, in loden green, his hat green too
                 "hunter" -> Look(Col.hex(0x4E6A3E), Col.hex(0x6A5238), Pal.HAIR[4], hat = Col.hex(0x3E5436), prop = PROP_STICK)
                 // the charcoal burner by his pile: a jacket gone grey with soot, a black hat, a dark beard, his poker
-                "burner" -> Look(Col.hex(0x5A524A), Col.hex(0x2E2A2A), Pal.HAIR[1], hat = Col.hex(0x2A2426), prop = PROP_STICK, beard = Col.hex(0x3A2E28))
+                "burner" -> Look(Col.hex(0x5A524A), Col.hex(0x3A3432), Pal.HAIR[1], hat = Col.hex(0x2A2426), prop = PROP_STICK, beard = Col.hex(0x3A2E28))
                 "woman" -> Look(shirt, shirt, hair, kerchief = (seed ushr 11) % 3 == 0, skirt = true, apron = if ((seed ushr 13) % 2 == 0) Col.hex(0xF4EEDD) else 0)
                 "man" -> Look(shirt, if ((seed ushr 13) % 2 == 0) dark else Col.hex(0x6F4527), hair, hat = if ((seed ushr 11) % 3 == 0) Col.hex(0x5A4232) else 0)
                 else -> Look(shirt, if ((seed ushr 13) % 2 == 0) dark else Col.scale(shirt, 0.7f), hair, kerchief = (seed ushr 11) % 4 == 0)

@@ -58,9 +58,8 @@ internal class PortraitsPainter : PortraitPainter {
         // framing: the waist at the bottom edge (a baby: its basket), but never the hat cut off; the head alone: the chin and
         // the shoulders' top at the bottom edge, the hat cut first when the canvas is too small for all of it
         people.culture = culture ?: si.lanisce.lani.game.culture.Cultures.current.id
-        // in a culture with clothes of its own, the village's people dressed as in their scenes and on the map (the screens
-        // pass a person's id hashed: Looks.seedOf's)
-        people.lookSeed = if (Wardrobes.of(people.culture) != null) Looks.seedOfHash(seed) else null
+        // the village's people dressed as in their scenes and on the map (the screens pass a person's id hashed: Looks.seedOf's)
+        people.lookSeed = Looks.seedOfHash(seed)
         val L = Looks.of(art, people.lookSeed ?: seed, people.culture)
         val bx = SPRITE_W / 2; val by = SPRITE_H - 2
         // a whole number of times bigger; a canvas nearly big enough for the next step takes it (the waist may go)
