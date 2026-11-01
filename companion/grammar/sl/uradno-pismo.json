@@ -1,0 +1,178 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "uradno-pismo",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "✉️",
+  "title": {
+    "sl": "Spoštovani: uradno pismo",
+    "en": "Spoštovani: the formal letter",
+    "de": "Spoštovani: der förmliche Brief",
+    "it": "Spoštovani: la lettera formale"
+  },
+  "rule": {
+    "en": "A formal letter or e-mail (to the *občina*, a school, a company, anyone you say **Vi** to) has its own words.\n\n**The greeting**: **Spoštovani gospod Kos,** · **Spoštovana gospa Novak,** · to someone unknown, **Spoštovani,**; friendly but polite, **Pozdravljeni,**. After its comma the letter goes on with a small letter: **pišem Vam …**. Above it a subject line, a noun: **Zadeva: Prijava na tečaj**.\n\n**Vi**: the verb plural, its l-form masculine plural, to a man and to a woman alike: **Ali ste prejeli …?** In a letter **Vi, Vas, Vam, Vaš** often have a capital. **Ste prejela, Pozdravljena, gospa Novak** is what people say: fine when you talk; in a letter write the plural.\n\n**The formulae**: **Pišem Vam v zvezi z** + instrumental · **Obveščam Vas, da …** · **Prosim Vas za** + accusative · **V prilogi Vam pošiljam …** · **Za vprašanja sem Vam na voljo.** · **Zahvaljujem se Vam za** + accusative · **Lep pozdrav,** or **S spoštovanjem,** and your name. Writing likes nouns: **prosim za popravilo mostu**, **glede** + genitive.",
+    "de": "Ein förmlicher Brief oder eine E-Mail (an die *občina*, eine Schule, eine Firma, alle, die man siezt) hat eigene Wörter.\n\n**Die Anrede**: **Spoštovani gospod Kos,** · **Spoštovana gospa Novak,** · an Unbekannte **Spoštovani,**; freundlich, aber höflich **Pozdravljeni,**. Nach dem Komma geht es klein weiter: **pišem Vam …**. Darüber der Betreff, ein Nomen: **Zadeva: Prijava na tečaj**.\n\n**Vi**: das Verb im Plural, seine l-Form männlich Plural, für Mann und Frau: **Ali ste prejeli …?** Im Brief oft groß: **Vi, Vas, Vam, Vaš**. **Ste prejela, Pozdravljena, gospa Novak** sagt man so: im Gespräch in Ordnung; im Brief schreib den Plural.\n\n**Die Formeln**: **Pišem Vam v zvezi z** + Instrumental · **Obveščam Vas, da …** · **Prosim Vas za** + Akkusativ · **V prilogi Vam pošiljam …** · **Za vprašanja sem Vam na voljo.** · **Zahvaljujem se Vam za** + Akkusativ · **Lep pozdrav,** oder **S spoštovanjem,** und der Name. Geschriebenes liebt Nomen: **prosim za popravilo mostu**, **glede** + Genitiv.",
+    "it": "Una lettera o un'e-mail formale (alla *občina*, a una scuola, a una ditta, a chiunque dai del Lei) ha parole sue.\n\n**Il saluto**: **Spoštovani gospod Kos,** · **Spoštovana gospa Novak,** · a chi non conosci **Spoštovani,**; cordiale ma cortese **Pozdravljeni,**. Dopo la virgola si continua con la minuscola: **pišem Vam …**. Sopra, l'oggetto, un nome: **Zadeva: Prijava na tečaj**.\n\n**Vi**: il verbo al plurale, la forma in -l maschile plurale, a un uomo e a una donna: **Ali ste prejeli …?** In una lettera spesso con la maiuscola: **Vi, Vas, Vam, Vaš**. **Ste prejela, Pozdravljena, gospa Novak** è come si parla: va bene a voce; per iscritto il plurale.\n\n**Le formule**: **Pišem Vam v zvezi z** + strumentale · **Obveščam Vas, da …** · **Prosim Vas za** + accusativo · **V prilogi Vam pošiljam …** · **Za vprašanja sem Vam na voljo.** · **Zahvaljujem se Vam za** + accusativo · **Lep pozdrav,** o **S spoštovanjem,** e il nome. Lo scritto ama i nomi: **prosim za popravilo mostu**, **glede** + genitivo."
+  },
+  "table": {
+    "head": [
+      {"sl": "del pisma", "en": "part of the letter", "de": "Teil des Briefs", "it": "parte della lettera"},
+      {"sl": "uradno", "en": "formal", "de": "förmlich", "it": "formale"},
+      {"sl": "prijatelju", "en": "to a friend", "de": "an Freunde", "it": "a un amico"}
+    ],
+    "rows": [
+      [{"sl": "nagovor", "en": "greeting", "de": "Anrede", "it": "saluto"}, "Spoštovani gospod Kos,", "Živjo, Nejc!"],
+      [{"sl": "nagovor", "en": "greeting", "de": "Anrede", "it": "saluto"}, "Spoštovana gospa Novak,", "Draga Zala,"],
+      [{"sl": "napol uradno", "en": "semi-formal", "de": "halbförmlich", "it": "semiformale"}, "Pozdravljeni, gospa Novak,", "Pozdravljena, Zala!"],
+      [{"sl": "Vi", "en": "polite you", "de": "Sie", "it": "Lei"}, "Vi, Vas, Vam, Vaš", "ti, te, ti, tvoj"],
+      [{"sl": "glagol", "en": "the verb", "de": "Verb", "it": "verbo"}, "ste prejeli", "si prejel, si prejela"],
+      [{"sl": "zadeva", "en": "subject", "de": "Betreff", "it": "oggetto"}, "Zadeva: Popravilo mostu", "—"],
+      [{"sl": "začetek", "en": "opening", "de": "Anfang", "it": "inizio"}, "Pišem Vam v zvezi z …", "Pišem ti, ker …"],
+      [{"sl": "prošnja", "en": "request", "de": "Bitte", "it": "richiesta"}, "Prosim Vas za …", "Bi mi lahko …"],
+      [{"sl": "slog", "en": "style", "de": "Stil", "it": "stile"}, "prijava, popravilo, odgovor", "prijavim se, popravite"],
+      [{"sl": "zahvala", "en": "thanks", "de": "Dank", "it": "ringraziamento"}, "Zahvaljujem se Vam za …", "Hvala, ker …"],
+      [{"sl": "konec", "en": "close", "de": "Schluss", "it": "chiusura"}, "Lep pozdrav, S spoštovanjem,", "Lp, Se vidimo!"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Spoštovani gospod župan, pišem Vam v zvezi z mostom čez potok.",
+      "en": "Dear Mr Mayor, I am writing to you about the bridge over the stream.",
+      "de": "Sehr geehrter Herr Bürgermeister, ich schreibe Ihnen wegen der Brücke über den Bach.",
+      "it": "Egregio signor sindaco, Le scrivo riguardo al ponte sul torrente.",
+      "note": {
+        "en": "After the greeting's comma: a small letter, pišem.",
+        "de": "Nach dem Komma der Anrede: klein, pišem.",
+        "it": "Dopo la virgola del saluto: minuscola, pišem."
+      }
+    },
+    {
+      "sl": "Spoštovana gospa ravnateljica, zahvaljujem se Vam za povabilo.",
+      "en": "Dear Headmistress, thank you for the invitation.",
+      "de": "Sehr geehrte Frau Direktorin, ich danke Ihnen für die Einladung.",
+      "it": "Gentile signora direttrice, La ringrazio per l'invito."
+    },
+    {
+      "sl": "Gospa Novak, ali ste že prejeli mojo prijavo?",
+      "en": "Mrs Novak, have you received my application yet?",
+      "de": "Frau Novak, haben Sie meine Anmeldung schon erhalten?",
+      "it": "Signora Novak, ha già ricevuto la mia iscrizione?",
+      "note": {
+        "en": "To a woman too: ste prejeli, the masculine plural. People say ste prejela.",
+        "de": "Auch zu einer Frau: ste prejeli, männlich Plural. Man sagt auch ste prejela.",
+        "it": "Anche a una donna: ste prejeli, maschile plurale. A voce si dice ste prejela."
+      }
+    },
+    {
+      "sl": "Obveščam Vas, da bo mlin v ponedeljek zaprt.",
+      "en": "I am letting you know that the mill will be closed on Monday.",
+      "de": "Ich teile Ihnen mit, dass die Mühle am Montag geschlossen ist.",
+      "it": "La informo che lunedì il mulino sarà chiuso."
+    },
+    {
+      "sl": "Prosim Vas za vozni red avtobusov.",
+      "en": "I would ask you for the bus timetable.",
+      "de": "Ich bitte Sie um den Busfahrplan.",
+      "it": "Le chiedo l'orario degli autobus."
+    },
+    {
+      "sl": "V prilogi Vam pošiljam fotografije mostu.",
+      "en": "Attached I am sending you photos of the bridge.",
+      "de": "Im Anhang sende ich Ihnen Fotos der Brücke.",
+      "it": "In allegato Le invio le foto del ponte."
+    },
+    {
+      "sl": "Za vprašanja sem Vam na voljo.",
+      "en": "I am at your disposal for any questions.",
+      "de": "Für Fragen stehe ich Ihnen zur Verfügung.",
+      "it": "Resto a Sua disposizione per domande."
+    },
+    {
+      "sl": "Zadeva: Popravilo mostu čez potok",
+      "en": "Subject: Repair of the bridge over the stream",
+      "de": "Betreff: Reparatur der Brücke über den Bach",
+      "it": "Oggetto: Riparazione del ponte sul torrente"
+    },
+    {
+      "sl": "Prosim za popravilo mostu.",
+      "en": "I ask for the bridge to be repaired.",
+      "de": "Ich bitte um die Reparatur der Brücke.",
+      "it": "Chiedo la riparazione del ponte.",
+      "note": {
+        "en": "The written style: a noun (popravilo) for a verb (popravite).",
+        "de": "Der Schriftstil: ein Nomen (popravilo) statt eines Verbs (popravite).",
+        "it": "Lo stile scritto: un nome (popravilo) al posto di un verbo (popravite)."
+      }
+    },
+    {
+      "sl": "Pozdravljeni, gospa Novak, hvala za vabilo na srečanje.",
+      "en": "Hello Mrs Novak, thank you for the invitation to the meeting.",
+      "de": "Guten Tag, Frau Novak, danke für die Einladung zum Treffen.",
+      "it": "Buongiorno signora Novak, grazie per l'invito all'incontro."
+    },
+    {
+      "sl": "Žal ne morem priti, ker imam ta dan sestanek.",
+      "en": "Unfortunately I can't come, because I have a meeting that day.",
+      "de": "Leider kann ich nicht kommen, weil ich an dem Tag eine Besprechung habe.",
+      "it": "Purtroppo non posso venire, perché quel giorno ho una riunione."
+    },
+    {
+      "sl": "Živjo, Nejc! Hvala, ker si mi posodil kolo. Lp, Zala",
+      "en": "Hi Nejc! Thanks for lending me your bike. Best, Zala",
+      "de": "Hallo Nejc! Danke, dass du mir dein Rad geliehen hast. LG, Zala",
+      "it": "Ciao Nejc! Grazie di avermi prestato la bici. Un saluto, Zala",
+      "note": {
+        "en": "To a friend: ti, Hvala, ker …, Lp (lep pozdrav).",
+        "de": "An Freunde: ti, Hvala, ker …, Lp (lep pozdrav).",
+        "it": "A un amico: ti, Hvala, ker …, Lp (lep pozdrav)."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["formal_letter", "uradno_pismo", "vikanje", "salutation"],
+  "see": ["ti-vi", "orodnik", "tozilnik", "glagolniki"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker; the greeting's comma and vikanje as the Jezikovna svetovalnica (ZRC SAZU) answers them",
+  "card": {
+    "title": {"sl": "Uradno pismo", "en": "Uradno pismo · the formal letter", "de": "Uradno pismo · förmlicher Brief", "it": "Uradno pismo · lettera formale"},
+    "rule": {
+      "en": "**Spoštovani gospod …, / Spoštovana gospa …,** then a small letter. **Vi**: plural, the l-form masculine plural (**ste prejeli**). **Pišem Vam v zvezi z …, Prosim Vas za …, V prilogi Vam pošiljam …, Zahvaljujem se Vam za …** Close: **S spoštovanjem,**",
+      "de": "**Spoštovani gospod …, / Spoštovana gospa …,** dann klein weiter. **Vi**: Plural, l-Form männlich Plural (**ste prejeli**). **Pišem Vam v zvezi z …, Prosim Vas za …, V prilogi Vam pošiljam …, Zahvaljujem se Vam za …** Schluss: **S spoštovanjem,**",
+      "it": "**Spoštovani gospod …, / Spoštovana gospa …,** poi minuscola. **Vi**: plurale, forma in -l maschile plurale (**ste prejeli**). **Pišem Vam v zvezi z …, Prosim Vas za …, V prilogi Vam pošiljam …, Zahvaljujem se Vam za …** Chiusura: **S spoštovanjem,**"
+    },
+    "table": {
+      "head": [
+        {"sl": "del pisma", "en": "part of the letter", "de": "Teil des Briefs", "it": "parte della lettera"},
+        {"sl": "uradno", "en": "formal", "de": "förmlich", "it": "formale"},
+        {"sl": "prijatelju", "en": "to a friend", "de": "an Freunde", "it": "a un amico"}
+      ],
+      "rows": [
+        [{"sl": "nagovor", "en": "greeting", "de": "Anrede", "it": "saluto"}, "Spoštovani gospod Kos,", "Živjo, Nejc!"],
+        [{"sl": "Vi", "en": "polite you", "de": "Sie", "it": "Lei"}, "Vi, Vas, Vam, Vaš", "ti, te, ti, tvoj"],
+        [{"sl": "glagol", "en": "the verb", "de": "Verb", "it": "verbo"}, "ste prejeli", "si prejel, si prejela"],
+        [{"sl": "zahvala", "en": "thanks", "de": "Dank", "it": "ringraziamento"}, "Zahvaljujem se Vam za …", "Hvala, ker …"],
+        [{"sl": "konec", "en": "close", "de": "Schluss", "it": "chiusura"}, "Lep pozdrav, S spoštovanjem,", "Lp, Se vidimo!"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Spoštovani gospod župan, pišem Vam v zvezi z mostom.",
+        "en": "Dear Mr Mayor, I am writing to you about the bridge.",
+        "de": "Sehr geehrter Herr Bürgermeister, ich schreibe Ihnen wegen der Brücke.",
+        "it": "Egregio signor sindaco, Le scrivo riguardo al ponte."
+      },
+      {
+        "sl": "Gospa Novak, ali ste prejeli mojo prijavo?",
+        "en": "Mrs Novak, have you received my application?",
+        "de": "Frau Novak, haben Sie meine Anmeldung erhalten?",
+        "it": "Signora Novak, ha ricevuto la mia iscrizione?"
+      }
+    ],
+    "tip": {
+      "en": "💡 Ste prejela is what people say; in a letter write ste prejeli.",
+      "de": "💡 Ste prejela sagt man so; im Brief schreib ste prejeli.",
+      "it": "💡 Ste prejela si dice a voce; in una lettera scrivi ste prejeli."
+    }
+  }
+}
