@@ -124,6 +124,8 @@ type Tok = {
   when?: Tok
   /** What the token is in the sentence: a word with a case, a verb, a preposition, or something else. */
   role: 'nominal' | 'verb' | 'prep' | 'other'
+  /** Whether the lens knows anything of the word (its readings aren't only guessed by its ending). */
+  known: boolean
 }
 
 /** A noun phrase: its words (modifiers first, the head last), and the readings they agree in. */
@@ -197,7 +199,7 @@ const CASE_NAMES: Record<string, CaseKey> = { nominative: 'nom', genitive: 'gen'
 const NUMBER_NAMES: Record<string, NumberKey> = { singular: 'sg', plural: 'pl', dual: 'du' }
 const GENDER_NAMES: Record<string, GenderKey> = { masculine: 'm', feminine: 'f', neuter: 'n' }
 /** Words of a grammar string that change nothing of a case reading. */
-const NEUTRAL_WORDS = new Set(['animate', 'inanimate', 'unstressed', 'stressed', 'indefinite', 'definite', 'short', 'long', 'form', 'clitic', 'comparative'])
+const NEUTRAL_WORDS = new Set(['animate', 'inanimate', 'unstressed', 'stressed', 'indefinite', 'definite', 'short', 'long', 'form', 'clitic', 'comparative', 'superlative'])
 
 /**
  * The case readings one of the dictionary's grammar strings says ("genitive feminine singular; nominative/accusative
@@ -321,6 +323,13 @@ const ADJECTIVE: [string, CaseKey, NumberKey, GenderKey[]][] = [
   ['a', 'nom', 'du', ['m']], ['i', 'nom', 'du', ['f', 'n']], ['ih', 'gen', 'du', ['m', 'f', 'n']], ['ima', 'dat', 'du', ['m', 'f', 'n']],
   ['a', 'acc', 'du', ['m']], ['i', 'acc', 'du', ['f', 'n']], ['ih', 'loc', 'du', ['m', 'f', 'n']], ['ima', 'ins', 'du', ['m', 'f', 'n']],
 ]
+/**
+ * The adjective's endings after [stem]: after a soft consonant (c, č, š, ž, j) the neuter's nominative and accusative
+ * singular end in -e (lepše, večje, domače), not -o; the feminine's -o stays (boljšo).
+ */
+const adjectiveEndings = (stem: string): typeof ADJECTIVE =>
+  /[cčšžj]$/.test(stem) ? ADJECTIVE.map(([end, c, n, g]) => (end === 'o' && n === 'sg' && g.length === 1 && g[0] === 'n' ? ['e', c, n, g] : [end, c, n, g])) : ADJECTIVE
+
 /** The endings of a feminine noun in a consonant (-ost, a vowel's fleeting e: misel, pesem, cerkev): not masculine. */
 const FEMININE_CONSONANT = /(ost|ezen|zen|sel|sem|kev|tev|ev|ad|ast|ež|oš|ič|ez|al|en)$/
 /** After a soft consonant the o of an ending is an e (z nožem, s čajem, s poljem), and -ov is -ev. */
@@ -516,6 +525,40 @@ export class CaseLens {
     return this.s.dict.lemmasOf(lemma).some(l => l.pos === pos && other(this.s.dict.paradigm(l.index, l.lemma, pos))) || other(this.s.dict.paradigm(null, lemma, pos))
   }
 
+  /**
+   * Whether [lemma] is an adjective's dictionary form the dictionary has only as something else: a comparative or a
+   * superlative (boljši; naj- before a comparative: najstarejši; -ejši of an adjective it has: pametnejši, toplejši), a
+   * past participle (zaprt, zaklenjen), or a possessive of a noun or a name it has (cesarjev, Krpanov, babičin).
+   */
+  private adjectiveOf(lemma: string, names: NameForms[] = []): boolean {
+    if (this.s.dict.grammarReadings(lemma).some(x => (x.pos === 'adj' && /^(comparative|superlative)$/.test(x.grammar ?? '')) || (x.pos === 'verb' && x.grammar === 'past participle' && /[nt]$/.test(lemma)))) return true
+    if (lemma.endsWith('ši') || lemma.endsWith('ji')) {
+      if (lemma.startsWith('naj') && [...lemma].length > 6 && this.adjectiveOf(lemma.slice(3))) return true
+      const m = /^(.+[^aeiou])ejši$/.exec(lemma)
+      if (m && [m[1], m[1].replace(/([^aeiou])([^aeiou])$/, '$1e$2')].some(p => this.s.dict.grammarReadings(p).some(x => x.pos === 'adj' && this.norm(x.lemma) === p))) return true
+    }
+    return this.ownerOf(lemma, names) !== null
+  }
+
+  /**
+   * The owner of a possessive adjective's dictionary form (cesarjev: cesar, the j after an r; medvedov; Tonetov: Tone;
+   * Nejčev: Nejc; Lukov: Luka; babičin: babica; Mickin: Micka): a noun the dictionary has, masculine for -ov and -ev,
+   * feminine for -in, or a name (the dictionary's or the village's, [names]).
+   */
+  private ownerOf(lemma: string, names: NameForms[] = []): string | null {
+    const m = /^(.+?[^aeiou])(ov|ev|in)$/.exec(lemma)
+    if (!m || [...m[1]].length < 2) return null
+    const [, base, suffix] = m
+    const feminine = suffix === 'in'
+    const owners = feminine ? [`${base}a`, `${base.replace(/č$/, 'c')}a`, ...(base === 'mater' ? ['mati'] : [])] : [base, base.replace(/rj$/, 'r'), base.replace(/et$/, 'e'), base.replace(/č$/, 'c'), `${base}a`, `${base}o`]
+    for (const o of new Set(owners)) {
+      const named = names.some(n => this.norm(n.name) === o) || this.s.dict.grammarReadings(o).some(x => x.pos === 'name' && this.norm(x.lemma) === o)
+      const gender = this.s.dict.genderOf(o, 'noun')
+      if (named || (feminine ? gender === 'f' || o === 'mati' : gender === 'm')) return o
+    }
+    return null
+  }
+
   /** Whether a masculine noun names a person or an animal, as the forms book's list says. */
   private animate = (lemma: string) => this.s.book.animate(lemma)
 
@@ -527,11 +570,36 @@ export class CaseLens {
     const verbs: VerbReading[] = [...(this.bookVerbs.get(form) ?? []), ...(this.tableVerbs.get(form) ?? [])]
     const other = new Set<string>()
     const pron = this.pronouns.get(form)
+    // what the dictionary says of the form that has no case (ki, dvajset, super: a pronoun, a number, an adjective that
+    // never changes), and the readings of a verb's form that is a word with a case (a past participle, zaprt; a verbal
+    // noun, spanje): kept for after the loop, when nothing else is found
+    const caseless = new Set<string>()
+    const participles: Nominal[] = []
     for (const r of this.s.dict.grammarReadings(form)) {
       const key = `${this.norm(r.lemma)}|${r.pos}`
       if (r.pos === 'verb') {
         // a verb the forms book has a table of: the table's forms only (Wiktionary's merge homographs: biti, to beat)
         if (this.tabled.has(key)) continue
+        // a past participle (zaprt, rešen) declines as an adjective: its dictionary form the masculine nominative
+        // singular, a thing's accusative too; a verbal noun (spanje, petje) is a neuter noun's nominative or accusative;
+        // the converbs (hodeč, prišedši) say how, as an adverb does; the supine (žvižgat) is as the infinitive, after a
+        // verb of motion
+        if (r.grammar === 'past participle' && /[nt]$/.test(form)) {
+          for (const c of ['nom', 'acc'] as const) participles.push({ lemma: form, pos: 'adj', case: c, number: 'sg', genders: ['m'], strong: false, derived: true })
+          continue
+        }
+        if (r.grammar === 'verbal noun' && /je$/.test(form)) {
+          for (const c of ['nom', 'acc'] as const) participles.push({ lemma: form, pos: 'noun', case: c, number: 'sg', genders: ['n'], strong: false, derived: true })
+          continue
+        }
+        if (r.grammar && /\b(present participle|converb)\b/.test(r.grammar)) {
+          caseless.add('adv')
+          continue
+        }
+        if (r.grammar === 'supine') {
+          verbs.push({ lemma: r.lemma, kind: 'inf' })
+          continue
+        }
         for (const k of slotsOf('verb', r.grammar).keys) {
           const v = verbReadingOfSlot(r.lemma, k)
           if (v) verbs.push(v)
@@ -543,6 +611,18 @@ export class CaseLens {
         other.add(r.pos)
         continue
       }
+      // an adjective's comparative or superlative that Wiktionary names without its case (boljši, najlepši): its case
+      // by its ending, as an adjective's (the -i of the dictionary form: the masculine nominative singular too)
+      if (r.pos === 'adj' && r.grammar && /^(comparative|superlative)$/.test(r.grammar)) {
+        nominal.push(...degreeForms(form, r.lemma))
+        continue
+      }
+      // an adjective's other spelling (mehak: mehek) as its dictionary form
+      if (r.pos === 'adj' && r.grammar === 'alternative form' && this.norm(r.lemma) !== form) {
+        nominal.push({ lemma: r.lemma, pos: 'adj', case: 'nom', number: 'sg', genders: ['m'], strong: false })
+        continue
+      }
+      const before = nominal.length
       // a noun the forms book has a table of: the table's forms only (Wiktionary's mož has no accusative moža)
       if (r.pos === 'noun' && this.tabled.has(key)) continue
       // the table's personal pronouns are hand-checked: Wiktionary's readings of them are left out
@@ -563,6 +643,9 @@ export class CaseLens {
       // (one whose ending is a plural's, a neuter's -a or a feminine's -e: a plural-only noun, očala, vrata)
       if (!r.grammar && r.pos === 'noun' && this.norm(r.lemma) === form && ((r.gender === 'n' && form.endsWith('a')) || (r.gender === 'f' && form.endsWith('e')))) {
         for (const c of ['nom', 'acc'] as const) nominal.push({ lemma: r.lemma, pos: r.pos, case: c, number: 'pl', genders, strong: false })
+      } else if (!r.grammar && r.pos === 'name' && this.norm(r.lemma) === form) {
+        // a name listed without its grammar (Kekec, Zlatorog): its nominative singular (a man's accusative is his genitive)
+        nominal.push({ lemma: r.lemma, pos: r.pos, case: 'nom', number: 'sg', genders, strong: false })
       } else if (!r.grammar && r.pos === 'noun' && this.norm(r.lemma) === form) {
         nominal.push({ lemma: r.lemma, pos: r.pos, case: 'nom', number: 'sg', genders, strong })
         if (r.gender === 'n' || (r.gender === 'm' && /[^aeiou]$/.test(form) && !this.animate(r.lemma))) nominal.push({ lemma: r.lemma, pos: r.pos, case: 'acc', number: 'sg', genders, strong: false, derived: true })
@@ -570,6 +653,7 @@ export class CaseLens {
       // an adjective's dictionary form listed without its grammar (mrzel, hiter): the masculine nominative singular, when
       // it declines (super and poceni never change: no case of their own)
       if (!r.grammar && (r.pos === 'adj' || r.pos === 'det') && this.norm(r.lemma) === form && this.declines(form, r.pos)) nominal.push({ lemma: r.lemma, pos: r.pos, case: 'nom', number: 'sg', genders: ['m'], strong })
+      if (nominal.length === before) caseless.add(pos)
     }
     nominal.push(...(this.bookNouns.get(form) ?? []))
     // a noun the dictionary (or the supplement) has in other forms only (tujec: the supplement's tujci): its dictionary
@@ -607,6 +691,19 @@ export class CaseLens {
     // a noun the dictionary has, in a form it doesn't list: its regular endings (marked); a pack's noun it lacks, the same
     if (!nominal.length && !verbs.length && !other.size && [...form].length >= 4) nominal.push(...this.byEndings(form))
     if (!nominal.length && !pron) nominal.push(...(this.packForms.get(form) ?? []))
+    if (!nominal.length && !other.size) nominal.push(...participles)
+    // nothing with a case, and no verb: what the dictionary says it is (ki: a pronoun, dvajset: a number), no case row
+    if (!nominal.length && !verbs.length) for (const p of caseless) other.add(p)
+    // a sound drawn out (jaaa, Antooon, brrrr): the word with the letter once or twice (ja, brr)
+    if (!nominal.length && !verbs.length && !other.size && !pron && /(\p{L})\1\1/u.test(form)) {
+      for (const short of [form.replace(/(\p{L})\1{2,}/gu, '$1$1'), form.replace(/(\p{L})\1{2,}/gu, '$1')]) {
+        const r = this.lexical(short)
+        if (r.nominal.length || r.verbs.length || r.other.size) {
+          this.cache.set(form, r)
+          return r
+        }
+      }
+    }
     const out = { nominal: dedupe(nominal), verbs: dedupeVerbs(verbs), other }
     this.cache.set(form, out)
     return out
@@ -634,14 +731,21 @@ export class CaseLens {
       return undefined
     }
     // an adjective the dictionary has (hiter: hitrih, hitri; its stem without the fleeting e)
-    for (const [end, c, n, genders] of ADJECTIVE) {
+    for (const [end, c, n, genders] of [...ADJECTIVE, ['e', 'nom', 'sg', ['n']], ['e', 'acc', 'sg', ['n']]] as typeof ADJECTIVE) {
       if (!form.endsWith(end) || [...form].length - end.length < 2) continue
       const stem = form.slice(0, -end.length)
+      // (the neuter's -e only after a soft consonant, its -o never: lepše, but lepo)
+      if (!adjectiveEndings(stem).some(([e, c2, n2, g]) => e === end && c2 === c && n2 === n && g.join('') === genders.join(''))) continue
       for (const lemma of new Set([stem, stem.replace(/([^aeiou])([^aeiou])$/, '$1e$2'), `${stem}i`])) {
         const r = this.s.dict.grammarReadings(lemma).find(x => (x.pos === 'adj' || x.pos === 'det' || (x.pos === 'pron' && !this.pronounLemmas.has(lemma))) && this.norm(x.lemma) === lemma)
         if (r) out.push({ lemma, pos: r.pos === 'pron' ? 'det' : r.pos, case: c, number: n, genders, strong: false, derived: true })
+        // a comparative's or a superlative's (lepša: lepši; najstarejša; pametnejša: pameten), a past participle's
+        // (zaklenjena: zaklenjen), a possessive's (cesarjevim: cesar; babičino: babica): an adjective's endings
+        else if (lemma !== form && (lemma === stem || lemma === `${stem}i`) && this.adjectiveOf(lemma)) out.push({ lemma, pos: 'adj', case: c, number: n, genders, strong: false, derived: true })
       }
     }
+    // the dictionary form of one (toplejši, Krpanov, Mickin): the masculine nominative singular, a thing's accusative
+    if (!out.length && this.adjectiveOf(form)) out.push(...degreeForms(form, form))
     // a feminine noun in a consonant (brv: brvi, brvjo)
     for (const [end, c, n] of I_STEM) {
       if (!form.endsWith(end)) continue
@@ -690,7 +794,9 @@ export class CaseLens {
       let nominal = /^\p{Lu}/u.test(raw) ? lex.nominal : small.length || lex.verbs.length || lex.other.size ? small : lex.nominal.map(r => ({ ...r, pos: 'noun' }))
       // a villager's or the learner's name: its forms by case, declined as the village says it (not Wiktionary's)
       if (/^\p{Lu}/u.test(raw)) {
-        const named = names.flatMap(n => CASE_KEYS.filter(c => n.forms[c] && this.norm(n.forms[c]!) === form).map(c => ({ lemma: n.name, pos: 'name', case: c, number: 'sg' as NumberKey, genders: ['m', 'f'] as GenderKey[], strong: true })))
+        // (called out, drawn: Antooon)
+        const called = form.replace(/(\p{L})\1{2,}/gu, '$1')
+        const named = names.flatMap(n => CASE_KEYS.filter(c => n.forms[c] && (this.norm(n.forms[c]!) === form || this.norm(n.forms[c]!) === called)).map(c => ({ lemma: n.name, pos: 'name', case: c, number: 'sg' as NumberKey, genders: ['m', 'f'] as GenderKey[], strong: true })))
         // (the name alone: Tone, never tona's plural)
         if (named.length) nominal = named
       }
@@ -709,6 +815,7 @@ export class CaseLens {
         dual: this.dualWords.has(form) || lex.verbs.some(v => v.number === 'du' && v.kind !== 'past'),
         fused: this.fused.get(form),
         role: 'other',
+        known: digits || nominal.length > 0 || lex.verbs.length > 0 || lex.other.size > 0 || this.preps.has(form) || this.fused.has(form),
       })
     }
     // the table's fixed phrases (na svidenje, lahko noč): their words in the phrase's case, whatever the dictionary has
@@ -719,6 +826,7 @@ export class CaseLens {
         for (const t of out.slice(a, a + words.length)) {
           if (t.form === entry.trigger) continue
           t.phrase = entry
+          t.known = true
           if (!t.nominal.some(r => r.case === entry.case && r.number === entry.number)) t.nominal = [...t.nominal, { lemma: t.form, pos: 'noun', case: entry.case, number: entry.number, genders: ['m', 'f', 'n'], strong: true }]
         }
       }
@@ -767,7 +875,16 @@ export class CaseLens {
       if (m) {
         t.nominal = m
         t.measure = true
+        t.known = true
       }
+    }
+    // a possessive of a village's name (Tonetovo, Markovega, Mickina, Nejčeve): an adjective, its case by its ending
+    for (const t of out) {
+      if (t.nominal.length || t.verbs.length || t.other.size || t.prep || !names.length) continue
+      const own = [t.form, ...ADJECTIVE.filter(([end]) => t.form.endsWith(end)).map(([end]) => t.form.slice(0, -end.length))].find(l => /(ov|ev|in)$/.test(l) && this.ownerOf(l, names))
+      if (!own) continue
+      t.nominal = degreeForms(t.form, own, own)
+      t.known = t.nominal.length > 0
     }
     // a word the dictionary doesn't know, ending as a verb does (počakam, zapojem), or right after ne (ne mara): a verb,
     // weakly, for the subject it says
@@ -808,6 +925,14 @@ export class CaseLens {
     const own = (index.get(t.form) ?? []).filter(h => !noImperative || h.reading.kind !== 'imp' || !t.verbs.some(v => v.kind !== 'imp'))
     const hits = [...own.filter(h => !lemmas.size || lemmas.has(h.lemma) || !t.verbs.length), ...[...lemmas].flatMap(l => index.get(l) ?? [])]
     return hits.some(h => !h.se || hasSe)
+  }
+
+  /**
+   * The words of [line] the lens knows nothing of: no reading from the dictionary, the supplement, the forms book, the
+   * trigger table, the word packs or [names] (a guess by the word's ending aside). docs/plans/05-built/lens-unknown-forms.md
+   */
+  unknownWords(line: string, names: NameForms[] = []): WordRef[] {
+    return this.tokens(line, names).filter(t => !t.known).map(t => ({ i: t.i, word: t.raw, start: t.start, end: t.end }))
   }
 
   /** The words of [line] that have a case, each with it and why, and the words that decide one. */
@@ -1565,6 +1690,20 @@ function verbReadingOfSlot(lemma: string, key: string): VerbReading | null {
  * accusative, -e a woman's genitive or a man's nominative (Tone), -i a woman's dative or locative or a man's nominative
  * (Muri), -o a woman's accusative or instrumental or a man's nominative (Marko), a consonant a man's nominative.
  */
+/**
+ * The readings of an adjective's form by its ending ([lemma] its dictionary form): a comparative's or a superlative's
+ * (boljša, najlepših), a past participle's (zaklenjena), a possessive's (cesarjevim); the dictionary form itself, in -i
+ * (a comparative's) or in a consonant (zaprt, Krpanov), is the masculine nominative singular, and a thing's accusative.
+ */
+function degreeForms(form: string, lemma: string, own = form): Nominal[] {
+  const out: Nominal[] = []
+  const r = (c: CaseKey, n: NumberKey, genders: GenderKey[]): Nominal => ({ lemma, pos: 'adj', case: c, number: n, genders, strong: false, derived: true })
+  if (form === own) out.push(r('nom', 'sg', ['m']), r('acc', 'sg', ['m']))
+  const stem = own.endsWith('i') ? own.slice(0, -1) : own
+  for (const [end, c, n, genders] of adjectiveEndings(stem)) if (form === stem + end) out.push(r(c, n, genders))
+  return out
+}
+
 function nameByEnding(raw: string): Nominal[] {
   const f = raw.toLowerCase()
   const r = (c: CaseKey, g: GenderKey[]): Nominal => ({ lemma: raw, pos: 'name', case: c, number: 'sg', genders: g, strong: false, derived: true })

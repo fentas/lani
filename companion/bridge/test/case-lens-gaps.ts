@@ -3,8 +3,10 @@
 // of the table. The measure case-lens-2 took (docs/plans/05-built/case-lens-2.md, "Accuracy": 1,269 → 1,021 forms), kept
 // here since its script lived in a scratchpad; lens-unknown-forms added the kinds.
 //
-//   bun test/case-lens-gaps.ts [--all] [--units] [--kind name|sound|foreign|word] [form,form …]
+//   bun test/case-lens-gaps.ts [--all] [--units] [--lexical] [--kind name|sound|foreign|word] [form,form …]
 //
+// --lexical counts as case-lens-2 did (the dictionary lookup alone: a village's name, Jan, counted as unknown); by
+// default the words the lens's unknownWords gives, with the village's names it is given at the bridge (VILLAGE_NAMES).
 // The lines are the smoke's (scenes, stories, readings, grammar pages, packs of the Primorska village; test/smoke/
 // case-lens.ts); --units adds the course units' lines. A capitalized form inside a line is counted as written (Krpan),
 // any other in small letters. Prints the lines, the words with a case, the unknown forms and their tokens, each kind's
@@ -59,7 +61,12 @@ export type GapKind = 'name' | 'sound' | 'foreign' | 'word'
 /** Words of Italian, German, Friulian … that Slovene lines say as they are (a guest's allora): no Slovene entry. */
 export const FOREIGN = new Set(['allora', 'bitte', 'grazie', 'prego', 'ciao', 'danke', 'servus', 'mandi', 'ja', 'nein', 'si', 'bene', 'basta', 'ecco', 'dai', 'buongiorno', 'buonasera'])
 
-export function gaps(units = false): { lines: number; words: number; decided: number; gaps: Gap[] } {
+/**
+ * The content's unknown forms. [measure] "lens" (the default): the words the lens's own unknownWords gives, the village's
+ * names known as the bridge gives them (VILLAGE_NAMES); "lexical": case-lens-2's, a form the dictionary lookup alone has
+ * nothing of (the names left out).
+ */
+export function gaps(units = false, measure: 'lens' | 'lexical' = 'lens'): { lines: number; words: number; decided: number; gaps: Gap[] } {
   const lens = repoLens()
   const lines = lensLines(units)
   const unknown = new Map<string, { tokens: number; line: string; from: string }>()
@@ -71,15 +78,20 @@ export function gaps(units = false): { lines: number; words: number; decided: nu
     const r = lens.analyze(l.text, VILLAGE_NAMES)
     words += r.words.length
     decided += r.words.filter(w => w.sure !== 'ambiguous').length
+    const unknownAt = measure === 'lens' ? new Set(lens.unknownWords(l.text, VILLAGE_NAMES).map(w => w.start)) : null
     for (const m of l.text.matchAll(/[\p{L}\p{M}]+/gu)) {
       const raw = m[0]
       const form = raw.toLowerCase()
       if (/^\p{Ll}/u.test(raw)) small.add(form)
       // (capitalized after a word, not where a sentence starts: »Ha!« after a question is no name)
       else if (/[\p{L}\p{M}\d,;]\s*$/u.test(l.text.slice(0, m.index))) inside.add(form)
-      const lex = (lens as any).lexical(form)
-      if (lex.nominal.length || lex.verbs.length || lex.other.size) continue
-      if ((lens as any).preps.has(form) || (lens as any).fused.has(form)) continue
+      if (unknownAt) {
+        if (!unknownAt.has(m.index!)) continue
+      } else {
+        const lex = (lens as any).lexical(form)
+        if (lex.nominal.length || lex.verbs.length || lex.other.size) continue
+        if ((lens as any).preps.has(form) || (lens as any).fused.has(form)) continue
+      }
       const key = /^\p{Lu}/u.test(raw) && m.index! > 0 ? raw : form
       const had = unknown.get(key)
       if (had) had.tokens++
@@ -102,7 +114,7 @@ if (import.meta.main) {
   const kindAt = args.indexOf('--kind')
   const kind = kindAt >= 0 ? args[kindAt + 1] : undefined
   const want = args.filter((a, k) => !a.startsWith('--') && k !== kindAt + 1).flatMap(a => a.split(',')).filter(Boolean)
-  const r = gaps(args.includes('--units'))
+  const r = gaps(args.includes('--units'), args.includes('--lexical') ? 'lexical' : 'lens')
   const tokens = (gs: Gap[]) => gs.reduce((a, g) => a + g.tokens, 0)
   console.log(`${r.lines} lines${args.includes('--units') ? ' (with the course units\')' : ''}, ${r.words} words with a case, ${((r.decided / r.words) * 100).toFixed(1)}% decided or likely`)
   console.log(`${r.gaps.length} unknown forms, ${tokens(r.gaps)} tokens`)
