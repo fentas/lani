@@ -153,7 +153,7 @@ class CultureLooksTest {
      * map draws it at 14 px, and at 7 px.
      */
     private val people: Map<String, String> = mapOf(
-        "primorska" to "f62ce244ac7968e1/c6866b757cb261d6/5e3e34807b7aa6af",
+        "primorska" to "f890cd4bada877d2/34863970621fd5e1/f240f67d42e797ad",
         "friuli" to "fc3cfaffb5cacf4d/7ce17b669d18f9ed/8c1156e45451f696",
         "kaernten" to "29158de4b39af093/97e7ecd2ec4df900/eeb3c401743598d9",
         "lakeland" to "b1502422fe5b92af/e43f190cfb35b173/2dff393a00440cc4",

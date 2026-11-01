@@ -78,9 +78,10 @@ class ClassicLandTest {
         // and palisade a little wider, the meadow's flowers and stones off the new plot; the road's bridge from bank to bank,
         // as wide as the road, a railing along each side (2026-10-18); the road fording the stream on stepping stones until
         // the village builds its bridge there (2026-10-19); the hearths (GAME.md "Hearths", 2026-10-20): the house's and the
-        // hut's smoke from their chimneys by day, their windows lit while their hearths burn
+        // hut's smoke from their chimneys by day, their windows lit while their hearths burn; Čebelar Anton's trousers in his
+        // sprite's canvas colour at 7 px (2026-11-01, map-people: by day only his few pixels differ)
         "jan-like" to mapOf(
-            "side-day" to "e88ba89b33b48100", "tall-day" to "6a6432b856047b02", "tall-dusk-k2" to "f5a0d648147029bb",
+            "side-day" to "a3953effb2450795", "tall-day" to "8ec003a5f73c4bf2", "tall-dusk-k2" to "f5a0d648147029bb",
             "tall-night-k3" to "964e1eac3deaa622", "compact" to "5bc52f6883de077b", "widget" to "a6b75b92251751e2",
         ),
         // the town's maypole by the plaza in the middle (2026-10-11; before, it stood by the linden at the side); its fields
@@ -91,9 +92,10 @@ class ClassicLandTest {
         // the unnamed by the fire, nobody else about (2026-10-20); the hearths (GAME.md "Hearths", 2026-10-20): the town's
         // fire basket on the square (burning for the wolves' gathering in the dark), its lanterns, smoke from the chimneys;
         // the mill's undershot wheel turning with its race, its paddles in the water going the way it runs, standing in the
-        // frozen race in winter (2026-10-31, mill-mechanics: only the wheel's few pixels differ)
+        // frozen race in winter (2026-10-31, mill-mechanics: only the wheel's few pixels differ); Čebelar Anton's trousers in
+        // his sprite's canvas colour at 7 px and 14 px (2026-11-01, map-people)
         "town" to mapOf(
-            "side-day" to "e621ed5e6cd53805", "tall-day" to "a6d6413741e36e2e", "tall-dusk-k2" to "89134b18bc100943",
+            "side-day" to "6792c561aa2a3b4d", "tall-day" to "6c93d396e6c7368e", "tall-dusk-k2" to "bdb03e3d0e66645d",
             "tall-night-k3" to "608999d437910e1", "compact" to "80bef03194f9dfe5", "widget" to "6dbed316403a0f42",
         ),
     )
