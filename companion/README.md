@@ -23,8 +23,8 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | Path | What |
 |---|---|
 | `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_worksheet`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
-| `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and of the nouns Wiktionary gets wrong, the verb pairs and the animate nouns (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
-| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 77 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`; `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
+| `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement (and `it.extra.json`, `de.extra.json` for Italian and German), and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and of the nouns Wiktionary gets wrong, the verb pairs and the animate nouns (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
+| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 77 in `grammar/sl/`, the Italian, German and English books in `grammar/it/`, `grammar/de/` and `grammar/en/` (each with the pages its course added); `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
 | `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
 | `course/` | The school's course (see [The school's course](#the-schools-course) and [COURSE.md](COURSE.md)): `course/<language>/course.json`, the outline of its levels and units (`lani.course/v0`), and `course/<language>/units/<id>.json`, a unit each (`lani.unit/v0`). |
 | `drills/` | The car's audio drills (`lani.drill/v0`, see [The drills](#the-drills)): `drills/<language>/`, four in `drills/sl/` (transformations, rapid fire, sentence building, riddles). |
@@ -3602,6 +3602,15 @@ Cormòns, Brda, Nova Gorica, Cividale, Carnia, Duino, Monte Lussari, Camporosso,
 heroes (Lopichis, Tergesteo), Miklavž, Rimska cesta, the sky's meteor showers, the elided c'è (c'era, ci sono), dov'è,
 cos'è, com'è, eh, and suo's meaning (an override: through English its German was "sein; n"). Unlike Slovene's it has
 places and the stories' names: the villagers' names come from the cast, the region's would not come at all.
+
+**German's supplement**, `lexicon/de.extra.json` (machine-written, `"reviewed": false`), stands in for the German
+dictionary a learner of German usually lacks (it is a download, `LANI_LEXICON_URL`; the phone has none): the German
+course's words the word packs don't have, each with its Slovene and Italian (the English in `gloss`): sein, haben and
+heißen with their present forms (hab spoken), the personal pronouns, the articles der and ein with their forms, das as
+this, the greetings (Grüß Gott, Servus, Baba, Tschüss and Tschüs), the jobs and places of the Carinthian village with
+their Slovene and Italian names (Villach: Beljak, Villaco; Klagenfurt: Celovec), the numbers. A noun's lemma is
+written without its article and with its capital, its gender given: the printed sheets show it as der, die or das
+with it (`prints/sheet.ts`). Each part of the German course appends its units' words (docs/plans/05-built/course-de-a1-a.md).
 
 An entry's form with `null` grammar takes Wiktionary's grammar of that form when Wiktionary has it. Names and pure
 interjections are left out. It is machine-written and not reviewed by a native speaker (`"reviewed": false`). Of the
