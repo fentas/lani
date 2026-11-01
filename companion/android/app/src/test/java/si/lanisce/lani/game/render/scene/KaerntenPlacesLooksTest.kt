@@ -117,6 +117,25 @@ class KaerntenPlacesLooksTest {
         assertNotEquals(toplar("primorska").pixels.toList(), toplar("kaernten").pixels.toList())
     }
 
+    @Test fun `the church clock strikes in its last step, twelve, as it does once it runs`() {
+        val sprites = listOf("teacher", "smith", "grandpa")
+        fun square(stage: Int, strike: Float?, count: Int? = null) = render(
+            "square",
+            frame("square", "mestna_ura", stage, "kaernten", 12f, sprites, people = false).let { f ->
+                f.copy(fx = if (strike != null) mapOf("strike" to strike) else emptyMap(), count = count)
+            },
+        ).pixels.toList()
+        val stages = SceneWorld.ALL.stages("mestna_ura")
+        // the first stroke ringing: the bell swung, its ring going out
+        val stroke = si.lanisce.lani.game.scene.Strike.at(0) + 0.02f
+        assertNotEquals("the last step's strike shows", square(stages - 1, null), square(stages - 1, stroke))
+        assertNotEquals("the finished clock's strike shows", square(stages, null), square(stages, stroke))
+        assertEquals("before the clock hangs in the tower, no strike", square(stages - 2, null), square(stages - 2, stroke))
+        // in its last step the twelfth stroke still rings (the hands at twelve); a finished clock at noon the same
+        val twelfth = si.lanisce.lani.game.scene.Strike.at(11) + 0.02f
+        assertNotEquals("the twelfth stroke in the last step", square(stages - 1, null), square(stages - 1, twelfth))
+    }
+
     @Test fun `in Carinthia each place draws what it has, once, and the people stand where they did`() {
         for ((art, project, sprites) in arts) for (st in stagesOf(project).let { listOf(it.first(), it.last()).distinct() }) for (k in 1..3) {
             val w = world(project, st, "kaernten")

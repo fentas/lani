@@ -1347,8 +1347,10 @@ internal class SquarePainter : VistaPainter() {
      */
     private fun strikeNow(): Pair<Int, Float>? {
         val level = fx("strike") ?: return null
-        if (stage(CLOCK) < stages(CLOCK)) return null
-        return Strike.now(level, frame.count ?: Strike.hour12(s.hour))
+        // the clock strikes once it hangs in the tower: its last step (its hands standing at twelve until it runs, so twelve
+        // strokes then) and every day after it
+        if (stage(CLOCK) < stages(CLOCK) - 1) return null
+        return Strike.now(level, frame.count ?: if (stage(CLOCK) < stages(CLOCK)) 12 else Strike.hour12(s.hour))
     }
 
     /** A stroke's ring going out from the bell at ([x], [y]), [ph] of the way through it: one ring, wide and fading. */
