@@ -263,14 +263,14 @@ Content only: no journey's taps changed.
 
 - Bridge: `bunx tsc --noEmit -p .` clean; the smoke (`LANI_SMOKE_PORT=9610 LANI_SMOKE_DRAMA3_PORT=9628 bun test/smoke.ts`)
   all 3,256 checks passed after the rebase onto main (3,253 before it), the new one among them ("the repository's units
-  print each step's point …: 1,539 steps, every base"); before the rewrites it named the 26 step-bases, after the rebase
+  print each step's point …: 1,629 steps, every base"); before the rewrites it named the 26 step-bases, after the rebase
   the 9 of the B2 units. `bun test/check-culture.ts` ok for all four cultures.
   `tutor-export --check`: 89 files match the bridge.
 - Android, the full unit suite (`:app:testDebugUnitTest` through lani-slot): 3,637 tests, 2 skipped, 1 failed on the
   first run: `FireAgesTest`'s crowd spot 6 at a Trg and a Mesto, where something in front covers a few pixels of the
   Carinthian Kraxe's posts and the packman's pack, counted as the head. The test now counts a pedlar's head from his
   hat's crown down and between his load's sides (the load may go behind what is in front, as the stump's edge goes over a
-  shoulder). After the rebase onto main, the whole suite again: 464 classes, 3,638 tests, 2 skipped, none failed. New:
+  shoulder). After the rebase onto main (twice), the whole suite again: 464 classes, 3,639 tests, 2 skipped, none failed. New:
   `PedlarsTest` (5), `LakelandWildTest` (4).
 - Python: `tests` 251 OK, `companion/tests` 138 OK (11 skipped), again after the rebase.
 - Prints: `school-prints` of every changed unit in every base, before and after: the page counts kept (section 6).
