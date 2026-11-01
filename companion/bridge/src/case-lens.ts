@@ -788,7 +788,8 @@ export class CaseLens {
     for (const m of line.matchAll(/[\p{L}\p{M}]+|\d+/gu)) {
       const raw = m[0]
       const start = m.index ?? 0
-      if (out.length && PUNCTUATION.test(line.slice(last, start))) clause++
+      const gap = line.slice(last, start)
+      if (out.length && PUNCTUATION.test(gap)) clause++
       const form = this.norm(raw)
       if (out.length && CLAUSE_WORDS.has(form)) clause++
       last = start + raw.length
@@ -798,6 +799,9 @@ export class CaseLens {
       // (one the dictionary has only as a name, written small, is the common noun it comes from: mlinar, Mlinar)
       const small = lex.nominal.filter(r => r.pos !== 'name')
       let nominal = /^\p{Lu}/u.test(raw) ? lex.nominal : small.length || lex.verbs.length || lex.other.size ? small : lex.nominal.map(r => ({ ...r, pos: 'noun' }))
+      // (capitalized inside a sentence, a word the dictionary has as a name is the name: Sivko pa počasi, not sivka's)
+      const inside = out.length > 0 && !/[.!?…:»«"„“”]/.test(gap)
+      if (/^\p{Lu}/u.test(raw) && inside && nominal.some(r => r.pos === 'name')) nominal = nominal.filter(r => r.pos === 'name')
       // a villager's or the learner's name: its forms by case, declined as the village says it (not Wiktionary's)
       if (/^\p{Lu}/u.test(raw)) {
         // (called out, drawn: Antooon)
