@@ -995,7 +995,7 @@ companion's own lines (`cheer`, `comfort`, `listen`, `greet`, `bye`) topped up w
 
 Lines open by friendship level and fit the time of day (a line's `when`: no "Lahko noč" after a morning
 review, "Pa lep dan" instead; the built-in goodbyes have a good day, a good evening and a good night too),
-warmer ones weigh more, the day's dice pick, never the same line twice in a row. The stage collapses to a small avatar while typing, on short screens and with large fonts; the
+warmer ones weigh more, the day's dice pick, never the same line twice in a row. The stage collapses to a small avatar while typing, on short screens, with large fonts and while an answer's long card under the question needs the room (the room it frees goes to the question; a tap opens it again); the
 bubble is a polite TalkBack live region; 🔈 mutes the companion (kept on the phone); with animations off the
 portrait holds still. A session with anything answered grows the friendship by `Bonds.TRAINING`.
 

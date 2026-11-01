@@ -190,7 +190,7 @@ On the branch rebased onto main (e5c5d810: map-culture and native-check-sl merge
   passing. Twice, at a
   load average of 53 (three agents' Gradle and four emulators), one check failed: "POST /words: the tutor hears the words
   added, gathered in one line" (it waits 1.3 s for a note gathered 1 s after the first word); at a quiet moment it
-  passes. Nothing of the bridge changed here; the stories' faces pass `faceErrors`. `tutor-export --check`: 88 files
+  passes. *(polish-app, 2026-11-01: the check awaits the note, and a check of its own times it by the bridge's clock.)* Nothing of the bridge changed here; the stories' faces pass `faceErrors`. `tutor-export --check`: 88 files
   match.
 - **Python**: `companion/tests` 132 (11 skipped), `test_export` 19 among them (+1: a child's profile by `--profile` and
   `--data`, verify, the dry run, the registry marked, a grown-up's export into a child's profile, unregistered data, the
@@ -229,7 +229,8 @@ Friuli, a child, with and without a village), the debug build of the base (24371
   no units yet as more to come. QA's step reads the outline and checks whichever holds.
 - **The phone's card under a long explanation** now leaves the question its first 140 dp; the stage band above it (the
   villager's portrait and line, about 200 dp) still takes its room. Folding the stage while a card is up would give the
-  question more on a small phone.
+  question more on a small phone. *Done (polish-app, 2026-11-01): a card that needs all it may have folds the stage to its
+  small band, and the question gets the room (`CardFold`).*
 - **The news sheet's lines** are said as the chronicle wrote them, in the pair of the day they were written (a line
   from a visit in another pair is cut the same way).
 - **A grown-up's export into a child's phone or profile** leaves it a child's on purpose; a parent changes it

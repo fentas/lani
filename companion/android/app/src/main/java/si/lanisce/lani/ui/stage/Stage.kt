@@ -249,16 +249,20 @@ fun poseLabel(pose: Pose): String = when (pose) {
 /**
  * The band at the top of an exercise screen: the companion's portrait on a softly lit backdrop of the
  * place, and a speech bubble. Tap it to collapse or expand; it collapses by itself on small screens,
- * with large fonts and while typing.
+ * with large fonts and while typing, and while [fold]: an answer's card under the question needs the
+ * room (ui/PlayerScreen, [si.lanisce.lani.ui.CardFold]). A tap on the folded band opens it again.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun StageBand(stage: StageState, modifier: Modifier = Modifier) {
+fun StageBand(stage: StageState, modifier: Modifier = Modifier, fold: Boolean = false) {
     val reduced = rememberReducedMotion()
     val keyboard = WindowInsets.isImeVisible
     val auto = !StageLayout.compact(LocalConfiguration.current.screenHeightDp, LocalDensity.current.fontScale, keyboard)
     var chosen by remember { mutableStateOf<Boolean?>(null) }
-    val tall = !keyboard && (chosen ?: auto)
+    // a tap on the band folded for a card opens it for that card (and from then on, as any tap that makes it larger)
+    var opened by remember(fold) { mutableStateOf(false) }
+    val folded = fold && !opened
+    val tall = !keyboard && !folded && (chosen ?: auto)
     val beat = stage.beat
     LaunchedEffect(beat) {
         stage.cue?.holdMs?.let { delay(it); stage.settle(beat) }
@@ -266,7 +270,12 @@ fun StageBand(stage: StageState, modifier: Modifier = Modifier) {
     val who = stage.who
     val line = stage.cue?.line
     val described = listOf(who.name, poseLabel(stage.pose)).filter { it.isNotEmpty() }.joinToString(", ")
-    val toggle = Modifier.clickable(onClickLabel = if (tall) bi("stage.makeSmaller") else bi("stage.makeLarger")) { chosen = !tall }
+    val toggle = Modifier.clickable(onClickLabel = if (tall) bi("stage.makeSmaller") else bi("stage.makeLarger")) {
+        if (folded) {
+            opened = true
+            chosen = true
+        } else chosen = !tall
+    }
     if (tall) {
         Box(modifier.fillMaxWidth().heightIn(min = StageLayout.TALL_DP.dp).clip(RoundedCornerShape(24.dp)).then(toggle)) {
             Backdrop(stage.place, Modifier.matchParentSize())

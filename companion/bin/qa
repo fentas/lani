@@ -2519,7 +2519,9 @@ def feedback_tablet():
     """An answer's feedback card on Teo's tablet (a Galaxy Tab S6: 2560 × 1600 at 320 dpi) on its side: beside the question,
     the question whole (ui/PlayerScreen, FeedbackPlace); held upright and on the phone, under it. The module imeti-in-iti's
     first choice ("Jaz ___ brata.") answered wrong; where the question and the card are on each screen goes to
-    feedback-tablet.txt. Also as feedback-*.png in $LANI_QA_FEEDBACK_SHOTS."""
+    feedback-tablet.txt. On the phone the card needs all it may have, so the stage above folds to its small band and the
+    question gets that room (CardFold): from the run's title to the card at least 200 dp. Also as feedback-*.png in
+    $LANI_QA_FEEDBACK_SHOTS."""
     def snap(name: str):
         shot(f"feedback-{name}")
         if d := os.environ.get("LANI_QA_FEEDBACK_SHOTS"):
@@ -2531,7 +2533,8 @@ def feedback_tablet():
         prompt = next((b for t, b in bs if "brata" in t and not t.startswith("Jaz imam")), None)
         card = next((b for t, b in bs if t.startswith(label("playerScreen.notQuite", half=True))), None)
         nxt = next((b for t, b in bs if t == label("common.next")), None)
-        return prompt, card, nxt
+        title = next((b for t, b in bs if t.startswith("Imeti in iti")), None)
+        return prompt, card, nxt, title
 
     go_home()
     rows = []
@@ -2556,10 +2559,13 @@ def feedback_tablet():
                 adb("shell", "wm", "size", size)
             time.sleep(5 * slow())
             snap(name)
-            prompt, card, nxt = where()
+            prompt, card, nxt, title = where()
             # the question's line as much as is on screen (a node's bounds are what shows of it)
             shown = (prompt[3] - prompt[1]) if prompt else 0
-            rows.append(f"{name}: the question {prompt} ({shown} px of it shown), the card's title {card}, Naprej {nxt}")
+            # the question's room: from the run's title (just under the stage band) to the card
+            dpi = int(adb("shell", "wm", "density").split()[-1])
+            room = round((card[1] - title[1]) * 160 / dpi) if card and title else 0
+            rows.append(f"{name}: the question {prompt} ({shown} px of it shown, {room} dp from the title to the card), the card's title {card}, Naprej {nxt}")
             if card is None or nxt is None:
                 problems.append(f"{name}: the card and its Naprej on screen")
             elif prompt is None or shown < 40:
@@ -2568,6 +2574,8 @@ def feedback_tablet():
                 problems.append(f"{name}: the card beside the question ({prompt} | {card})")
             elif name != "tablet-side" and prompt[3] > card[1]:
                 problems.append(f"{name}: the card under the question ({prompt} / {card})")
+            elif name == "phone" and room < 200:
+                problems.append(f"{name}: the stage folded for the long card, the question's room {room} dp (200 at least)")
         (OUT / "feedback-tablet.txt").write_text("\n".join(rows) + "\n")
         assert not problems, "; ".join(problems)
     finally:
@@ -13296,7 +13304,14 @@ def road():
         time.sleep(0.5)
     else:
         raise AssertionError(f"the sheet never said \"Končano\" (seen: {' | '.join(t for t, _ in nodes() if '/' in t or '%' in t)[:200]})")
-    done = re.search(r"Končano: vse za pot je na telefonu[^)\n]*\)", adb("shell", "dumpsys", "notification", "--noredact", check=False))
+    dump = adb("shell", "dumpsys", "notification", "--noredact", check=False)
+    done = re.search(r"Končano: vse za pot je na telefonu[^)\n]*\)", dump)
+    # its channel shows no dot (data/NotifyChannels.kt RoadChannel): "road-ready", the old "road-prep" (a dot) let go
+    ready = re.search(r"NotificationChannel\{mId='road-ready'[^}]*", dump)
+    old = re.search(r"NotificationChannel\{mId='road-prep'[^}]*", dump)
+    print(f"    the road's channel: {ready[0][:220] if ready else 'not found'}{'; the old one: ' + old[0][:120] if old else ''}")
+    assert ready and "mShowBadge=false" in ready[0], "the road's channel, without a dot"
+    assert not old or "mDeleted=true" in old[0], "the old road-prep channel let go"
     print(f"    got ready: {next((t for t, _ in nodes() if t.startswith('✅')), '?')}")
     print(f"    notification: {seen or 'the progress not caught (ready within seconds)'}; at the end: {done[0] if done else 'none (notifications not allowed?)'}")
     sessions = road_now().get("sessions", {})

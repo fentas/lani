@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -73,8 +74,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -83,6 +86,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import java.time.LocalDate
 import kotlinx.coroutines.coroutineScope
@@ -409,17 +413,21 @@ fun ExerciseRun(
             }
         }
         if (timeLimitSeconds != null) Countdown(remaining, timeLimitSeconds, waiting = waiting && clock == Clock.RUNNING)
-        stage?.let { StageBand(it, Modifier.padding(top = 8.dp)) }
-        if (clock != Clock.RUNNING) {
-            // before the clock: the sounds getting ready (said when it takes a moment), then 3, 2, 1
-            GetReady(if (clock == Clock.COUNTING) count else null, slowSounds, Modifier.weight(1f))
-            return@Column
-        }
         // Teo's tablet on its side (2560 × 1600: 1280 × 800 dp), a phone on its side: the feedback card beside the question,
         // which stays whole to read; upright, under it as before ([FeedbackPlace]). The question keeps its place in the
         // tree either way (what was typed survives a turn of the tablet)
         val config = LocalConfiguration.current
         val beside = FeedbackPlace.beside(config.screenWidthDp, config.screenHeightDp)
+        // a card under the question that needs more than it leaves the question folds the stage to its small band, and the
+        // room that frees goes to the question ([CardFold]); each answer's card decides anew
+        val fold = remember(index) { CardFold() }
+        LaunchedEffect(outcome == null) { if (outcome == null) fold.reset() }
+        stage?.let { StageBand(it, Modifier.padding(top = 8.dp), fold = !beside && outcome != null && fold.folded) }
+        if (clock != Clock.RUNNING) {
+            // before the clock: the sounds getting ready (said when it takes a moment), then 3, 2, 1
+            GetReady(if (clock == Clock.COUNTING) count else null, slowSounds, Modifier.weight(1f))
+            return@Column
+        }
         val feedback: @Composable (Boolean) -> Unit = { side ->
             outcome?.let { o ->
                 if (fast && o.verdict == Verdict.CORRECT) CorrectFlash()
@@ -473,12 +481,51 @@ fun ExerciseRun(
                         ) { feedback(true) }
                     }
                 }
-                if (!beside) AnimatedVisibility(outcome != null, enter = slideInVertically { it }) {
-                    Box(Modifier.heightIn(max = (room - FeedbackPlace.QUESTION_MIN_DP.dp).coerceAtLeast(FeedbackPlace.CARD_MIN_DP.dp))) { feedback(false) }
-                }
+                if (!beside) CardUnderQuestion(outcome != null, room, fold, staged = stage != null) { feedback(false) }
             }
         }
     }
+    }
+}
+
+/**
+ * An answer's card under the question (upright), sliding in while [shown]: at most what leaves the question its first lines
+ * in [room] ([FeedbackPlace.QUESTION_MIN_DP]), and measured for [fold] (when the run is [staged]: a stage above to fold).
+ */
+@Composable
+private fun ColumnScope.CardUnderQuestion(shown: Boolean, room: Dp, fold: CardFold, staged: Boolean, card: @Composable () -> Unit) {
+    AnimatedVisibility(shown, enter = slideInVertically { it }) {
+        val density = LocalDensity.current
+        val max = with(density) { fold.max(room.roundToPx(), FeedbackPlace.QUESTION_MIN_DP.dp.roundToPx(), FeedbackPlace.CARD_MIN_DP.dp.roundToPx()) }
+        Box(Modifier.heightIn(max = with(density) { max.toDp() }).onSizeChanged { fold.measured(it.height, max, staged = staged && shown) }) { card() }
+    }
+}
+
+/**
+ * Whether an answer's card under the question folds the stage above (ui/stage/StageBand: its small band, about 56 dp for
+ * the full band's 140 to 200): when the card, at most what leaves the question [FeedbackPlace.QUESTION_MIN_DP], needs all
+ * of it (a long explanation that scrolls in the card) on a run with a stage. Then the card keeps the height it had and
+ * the room the stage frees goes to the question, so the sentence just answered shows more than its first lines; it
+ * stays so until the next answer's card ([reset]), so the stage doesn't open and fold again as the card measures anew.
+ * In pixels.
+ */
+internal class CardFold {
+    /** The card's height kept while the stage is folded; null: not folded. */
+    var kept by mutableStateOf<Int?>(null)
+        private set
+
+    val folded: Boolean get() = kept != null
+
+    /** The card's greatest height in a [room] (the question's and the card's together). */
+    fun max(room: Int, questionMin: Int, cardMin: Int): Int = kept ?: (room - questionMin).coerceAtLeast(cardMin)
+
+    /** The card measured [card] high under a greatest height of [max]: at it, the stage folds (when there is one). */
+    fun measured(card: Int, max: Int, staged: Boolean) {
+        if (kept == null && staged && card >= max - 1) kept = max
+    }
+
+    fun reset() {
+        kept = null
     }
 }
 
