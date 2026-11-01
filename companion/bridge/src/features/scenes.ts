@@ -11,7 +11,7 @@ import { learnerLangs } from '../learners'
 import { localDate } from '../rhythm'
 import { knownIds, Names, residentsNamed, sceneMentions } from '../mentions'
 import { checkWoven, fittingWords, lemmaFinder, testedAt, WEAVES_A_DAY, wordsToWeave, wovenToday, type Card, type WeaveWord } from '../dialog-words'
-import { answererErrors, artsOf, dialogGrammar, FACES, FACES_SAID, forApp, forHost, inSeason, lookOnlyErrors, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
+import { answererErrors, artsOf, dialogGrammar, FACES, FACES_SAID, forApp, forHost, inSeason, talksOffered, lookOnlyErrors, monthsSaid, resolveScene, validateScene, variantsOf, type Dialog, type LoadedScene, type Scene } from '../scenes'
 import { attachStories } from '../stories'
 import { allHeard, variantNote, VariantAsks, weakSpots } from '../variants'
 import { learnerLevel } from '../villagers'
@@ -97,7 +97,7 @@ export function sceneInfo(s: LoadedScene, month: number) {
   }
 }
 
-export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, villagers, events, voice, cfg, culture, game, grammar, channel, learner, addressee, log, dictionary }) => {
+export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, villagers, events, voice, cfg, culture, game, grammar, channel, learner, addressee, log, dictionary, profile }) => {
   const asks = new VariantAsks(join(cfg.appDir, 'variant-asks.json'))
   /** Which lemmas a word may be a form of: the village's dictionary and forms book (a fresh cache per use). */
   const lemmas = () => lemmaFinder(dictionary.dict, dictionary.book, dictionary.language)
@@ -204,6 +204,8 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
       '. Name only people who are here and met, or keep it for later.'
     )
   }
+  /** The role-plays a scene's dialog may lead into for this learner: the offered ones (a child is never led into a grown-up's). */
+  const talkable = () => new Set(scenarios.offered(profile.child).map(x => x.id))
   /** A scene's title as the app shows it: "target · base" in the learner's pair. */
   const titleOf = (s: LoadedScene['title']) => {
     const { target, base } = learnerLangs(cfg.dataDir, culture.manifest?.language ?? 'sl')
@@ -222,7 +224,8 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
         addressed: true,
         handle: ({ url }) => {
           const told = stories.resolved()
-          return json(forApp(scenes.resolved(), artsOf(url)).map(s => attachStories(forHost(s), told)))
+          const offered = talkable()
+          return json(forApp(scenes.resolved(), artsOf(url)).map(s => attachStories(talksOffered(forHost(s), offered), told)))
         },
       },
       {
@@ -231,7 +234,7 @@ export const scenes: FeatureFactory = ({ scenes, stories, packs, scenarios, vill
         addressed: true,
         handle: ({ url, params: [id] }) => {
           const s = forApp([scenes.resolve(id)].filter(x => x !== undefined), artsOf(url))[0]
-          return s ? json(attachStories(forHost(s), stories.resolved())) : json({ error: 'not found' }, 404)
+          return s ? json(attachStories(talksOffered(forHost(s), talkable()), stories.resolved())) : json({ error: 'not found' }, 404)
         },
       },
     ],

@@ -1,0 +1,45 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "the-b-and-b-check-in",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "The B&B check-in", "sl": "Prihod v penzion", "de": "Ankunft im B&B", "it": "Arrivo al B&B" },
+  "emoji": "🛏️",
+  "level": "A1",
+  "setting": {
+    "sl": "Pozno popoldne pred penzionom B&B (prenočišče z zajtrkom) v hiši iz skrilavca v dolini. Za dve noči imaš rezervirano sobo. Lastnica odpre vrata.",
+    "de": "Später Nachmittag vor einem B&B (Bed and Breakfast, Zimmer mit Frühstück) in einem Schieferhaus im Tal. Du hast ein Zimmer für zwei Nächte gebucht. Die Wirtin öffnet die Tür.",
+    "it": "Tardo pomeriggio davanti a un B&B (bed and breakfast) in una casa di ardesia nella valle. Hai prenotato una camera per due notti. La padrona di casa apre la porta.",
+    "en": "Late afternoon at a B&B (bed and breakfast) in a slate house in the dale. You have booked a room for two nights. The landlady opens the door."
+  },
+  "role": "Mrs Hodgson, the landlady of a small B&B in a slate house in the dale. Welcoming, a little chatty: breakfast from half past seven to nine, a full English or porridge; gives the key and the Wi-Fi password. Any name will do for the booking. Simple, kind British English.",
+  "who": { "en": "The landlady of the B&B", "sl": "Lastnica penziona", "de": "Die Wirtin des B&B", "it": "La padrona del B&B" },
+  "voice": "female",
+  "speaker": "woman",
+  "place": "kitchen",
+  "goals": [
+    { "en": "Greet her and say you have a booking", "sl": "Pozdravi in povej, da imaš rezervacijo", "de": "Grüße sie und sag, dass du gebucht hast", "it": "Saluta e di' che hai una prenotazione" },
+    { "en": "Say how many nights", "sl": "Povej, za koliko noči", "de": "Sag, wie viele Nächte", "it": "Di' per quante notti" },
+    { "en": "Ask what time breakfast is", "sl": "Vprašaj, ob kateri uri je zajtrk", "de": "Frag, wann es Frühstück gibt", "it": "Chiedi a che ora è la colazione" },
+    { "en": "Ask for the Wi-Fi password", "sl": "Vprašaj za geslo za Wi-Fi", "de": "Frag nach dem WLAN-Passwort", "it": "Chiedi la password del Wi-Fi" },
+    { "en": "Thank her", "sl": "Zahvali se ji", "de": "Bedanke dich", "it": "Ringraziala" }
+  ],
+  "opener_sl": "Hello, come in! You must be tired after your journey. Have you got a booking?",
+  "opener_en": {
+    "sl": "Dober dan, kar vstopite! Gotovo ste utrujeni od poti. Imate rezervacijo?",
+    "de": "Hallo, kommen Sie herein! Sie sind sicher müde von der Reise. Haben Sie gebucht?",
+    "it": "Buongiorno, entri pure! Sarà {m:stanco|f:stanca} dal viaggio. Ha una prenotazione?",
+    "en": "Hello, come in! You must be tired after the trip. Do you have a booking?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Hello, I've got a booking.", "en": { "sl": "Dober dan, imam rezervacijo.", "de": "Hallo, ich habe gebucht.", "it": "Buongiorno, ho una prenotazione.", "en": "Hello, I have a booking." } },
+    { "sl": "My name is {learner}.", "en": { "sl": "Ime mi je {learner}.", "de": "Ich heiße {learner}.", "it": "Mi chiamo {learner}.", "en": "My name is {learner}." } },
+    { "sl": "for two nights", "en": { "sl": "za dve noči", "de": "für zwei Nächte", "it": "per due notti", "en": "for two nights" } },
+    { "sl": "What time is breakfast?", "en": { "sl": "Ob kateri uri je zajtrk?", "de": "Um wie viel Uhr gibt es Frühstück?", "it": "A che ora è la colazione?", "en": "When is breakfast?" } },
+    { "sl": "A full English, please!", "en": { "sl": "Angleški zajtrk, prosim! (jajca, slanina, klobasa, fižol)", "de": "Ein Full English, bitte! (Eier, Speck, Würstchen, Bohnen)", "it": "Una colazione all'inglese, per favore! (uova, bacon, salsiccia, fagioli)", "en": "A cooked breakfast, please!" } },
+    { "sl": "What's the Wi-Fi password?", "en": { "sl": "Kakšno je geslo za Wi-Fi?", "de": "Wie ist das WLAN-Passwort?", "it": "Qual è la password del Wi-Fi?", "en": "What is the Wi-Fi password?" } },
+    { "sl": "Thank you, that's lovely.", "en": { "sl": "Hvala, to je čudovito.", "de": "Danke, das ist wunderbar.", "it": "Grazie, è bellissimo.", "en": "Thank you, that's lovely." } }
+  ],
+  "packs": ["at-the-b-and-b", "food", "numbers-and-time", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

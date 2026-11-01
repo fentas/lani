@@ -120,7 +120,8 @@ export const CHILD_BRIEF =
  * uses, and for a child ([child], or a scenario written for one) how to talk to them.
  */
 export function scenarioBrief(s: Scenario, child = false) {
-  const title = typeof s.title === 'string' ? s.title : [s.language && s.title[s.language], s.title.en].filter(Boolean).join(' · ')
+  // "Al mercato · At the market"; an English one's title once ("At the farm shop", not twice)
+  const title = typeof s.title === 'string' ? s.title : [...new Set([s.language && s.title[s.language], s.title.en].filter(Boolean))].join(' · ')
   return {
     title,
     role: s.role,

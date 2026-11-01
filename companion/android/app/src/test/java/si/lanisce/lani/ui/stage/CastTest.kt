@@ -180,6 +180,26 @@ class CastTest {
         assertEquals(Clips.MALE, Cast.standIn("Andrea", null).voice) // an Italian man's name in -a
     }
 
+    @Test fun `a German or English scenario's people stand in by their titles, a doctor as their voice says`() {
+        assertEquals("woman", Cast.standIn("Frau Moser", null).art)
+        assertEquals(Clips.FEMALE, Cast.standIn("Frau Pirker", null).voice)
+        assertEquals("man", Cast.standIn("Herr Kofler", null).art)
+        assertEquals("🥨", Cast.standIn("Bäcker Peter", null).emoji)
+        assertEquals(Clips.MALE, Cast.standIn("Bäcker Peter", null).voice)
+        assertEquals("woman", Cast.standIn("Mrs Atkinson", null).art)
+        assertEquals("man", Cast.standIn("Mr Bowness", null).art)
+        // "Dr" and "Dr." are a woman's or a man's title: the voice says which
+        val gp = Cast.talker(scenario("at-the-gp", "Dr Fleming, a calm GP", voice = Clips.FEMALE).copy(who = "The GP · La dottoressa di base"), cast, null)
+        assertEquals("woman", gp.art)
+        assertEquals("🩺", gp.emoji)
+        assertEquals(Clips.FEMALE, gp.voice)
+        assertEquals("The GP · La dottoressa di base", gp.role)
+        val arzt = Cast.talker(scenario("beim-arzt", "Dr. Wieser, a calm family doctor", voice = Clips.MALE), cast, null)
+        assertEquals("man", arzt.art)
+        assertEquals("a calm family doctor", arzt.role)
+        assertEquals("man", Cast.standIn("Dr. Kovač", null).art) // Jan's doctor, as before
+    }
+
     @Test fun `a role-play stands where it says, else at its character's home`() {
         val gianna = Cast.talker(scenario("al-mercato", "Signora Gianna, the fruit seller"), cast, null)
         assertEquals(StagePlace.SQUARE, StagePlace.of(Run.Talk(scenario("al-mercato", "Signora Gianna, the fruit seller").copy(place = "square")), gianna))

@@ -86,6 +86,16 @@ internal class ChapelPainter : VistaPainter() {
     private var maize = false
     private var friuliVillage = false
     private var candlestick = false
+    /**
+     * Carinthia's look (Bei der Wegkapelle, kaernten-projects-a; [readLook2]): the Wegkapelle's little turret under an onion cap
+     * of dark shingles ([onion]), Heiden (buckwheat) in the field, white-pink in flower in July and August, rust-red as it
+     * ripens ([heiden]), larches along the road ([larches]), the far village white under dark shingles round its onion-domed
+     * church ([alpineVillage]).
+     */
+    private var onion = false
+    private var heiden = false
+    private var larches = false
+    private var alpineVillage = false
 
     private val z: Int get() = detail
 
@@ -94,7 +104,11 @@ internal class ChapelPainter : VistaPainter() {
     private fun readLook2() {
         ancona = variant("chapel") == "ancona"
         maize = variant("field") == "maize"
-        friuliVillage = variant("village") != null
+        friuliVillage = variant("village") == "friuli"
+        alpineVillage = variant("village") == "kaernten"
+        onion = variant("turret") == "onion"
+        heiden = variant("field") == "heiden"
+        larches = variant("trees") == "larch"
         candlestick = variant("altarcandle") == "candlestick"
     }
 
@@ -121,6 +135,7 @@ internal class ChapelPainter : VistaPainter() {
             village(mid)
         }
         if (friuliVillage) prop(0) { poplars() }
+        if (larches) prop(0) { larchRow() }
         // the ground: the field, the road, the meadow
         c.penId = 0
         for (py in max(hz, c.top) until min(h, c.bottom)) {
@@ -155,6 +170,7 @@ internal class ChapelPainter : VistaPainter() {
     private fun village(crest: IntArray) {
         val z = z
         val lit = env.windows > 0.35f
+        if (alpineVillage) { alpineVillage(crest); return }
         if (friuliVillage) {
             val st = FireStyle.of(frame.world.culture, frame.world.landscape)
             for (i in 0 until 5) {
@@ -195,6 +211,29 @@ internal class ChapelPainter : VistaPainter() {
             c.vline(tl + (1.5f * z).toInt(), base - 18 * z, base - 16 * z, Pal.GOLD)
         }
         c.penEmissive = false
+    }
+
+    /** Carinthia's village on the hill ([alpineVillage]): its white houses timbered under dark shingles, the church with its onion dome. */
+    private fun alpineVillage(crest: IntArray) {
+        val z = z
+        val lit = env.windows > 0.35f
+        val st = FireStyle.of(frame.world.culture, frame.world.landscape)
+        for (i in 0 until 5) {
+            val hx = ox + (166 + i * 9) * z
+            if (hx < 0 || hx + 6 * z >= w) continue
+            farAlpineHouse(hx, crest[hx + 2 * z] + 6 * z + (i % 2) * z, 6 * z, 4 * z, st, i, lit, 0.3f)
+        }
+        val cx = ox + 188 * z
+        if (cx in 0 until w) farOnionChurch(cx, crest[cx] + 5 * z, st, lit, 0.3f, tall = 13)
+    }
+
+    /** Larches along the road (Carinthia's look), beyond the chapel and away toward the hills; gold in October, bare in winter. */
+    private fun larchRow() {
+        // a row along the far edge of the meadow right of the road, beyond the chapel and the linden
+        for (k in 0 until 6) {
+            val d = 24f + k * 6f + Noise.rnd(k, 625) * 3f
+            larch(road(d) + 8f + k * 2.2f + Noise.rnd(k, 626) * 1.5f, d, 9f + Noise.rnd(k, 627) * 3f, 628 + k)
+        }
     }
 
     /** Lombardy poplars along a far ditch across the fields (Friuli's look). */
@@ -262,6 +301,14 @@ internal class ChapelPainter : VistaPainter() {
         val ph = rowPhase(x, d, if (maize) 0.75f else 0.25f)
         val row = ph >= 0f && ph < 0.4f
         val sway = sin(t * 1.4 + d * 0.3 + x).toFloat() * 0.5f * gust
+        if (heiden) return when (m) {
+            // young and green from spring, white and pink in flower in July and August, rust-red as it ripens in September
+            in 3..6 -> if (row) Col.hex(0x5E9A3E) else if (Dither.at(px, py) < 0.5f) Col.hex(0x78B44E) else Col.hex(0x6AA846)
+            7, 8 -> if (!row && Noise.rnd(px, py, 643) < 0.5f) (if (Noise.rnd(px, py, 644) < 0.55f) Col.hex(0xF2E6E8) else Col.hex(0xE0A8B8)) else if (row) Col.hex(0x5E8A42) else Col.hex(0x7EA458)
+            9 -> if (Noise.rnd(px, py, 645) < 0.2f) Col.hex(0xB0503A) else if (row) Col.hex(0x8A3E2E) else Col.hex(0xA25A3C)
+            10, 11 -> if (row) Col.hex(0x6E4E30) else Col.hex(0x86603C)
+            else -> if (env.snow) (if (row && Dither.at(px, py) < 0.3f) Pal.SNOW_M else Pal.SNOW_L) else Col.hex(0x7A5A3C)
+        }
         if (maize) return when (m) {
             in 6..8 -> if (row) Col.hex(0x3E7A30) else if (Dither.at(px, py) < 0.5f) Col.hex(0x5E9A3E) else Col.hex(0x4E8A34)
             9, 10 -> if (row) Col.hex(0xB8963E) else Col.hex(0xD8B460)
@@ -648,11 +695,36 @@ internal class ChapelPainter : VistaPainter() {
         val pw = max(1, (0.07f * p).toInt())
         for (o in floatArrayOf(-0.24f, 0.2f)) c.fillRect((cx + o * p).toInt(), top.toInt(), pw, max(1, (base - top).toInt()), env.lit(Pal.WOOD_M))
         val rt = hy(d, apexH + 1.05f)
-        for (r in 0 until max(1, (top - rt).toInt())) {
+        if (onion) onionCap(cx, top, rt, p)
+        else for (r in 0 until max(1, (top - rt).toInt())) {
             val half = (0.36f * p) * (r / max(1f, top - rt))
             c.hline((cx - half).toInt(), (cx + half).toInt(), (rt + r).toInt(), env.lit(if (env.snow) Pal.SNOW_L else shingleD))
         }
         bellShape(cx, top + 0.6f * z, 0.26f * p)
+    }
+
+    /**
+     * The turret's onion cap of dark shingles (Carinthia's [onion]) from the posts' top at [top] up to [rt], where the cross
+     * stands: a bulb swelling out over the posts and drawing in to a short neck, lit on its left; snow on it in winter.
+     */
+    private fun onionCap(cx: Float, top: Float, rt: Float, p: Float) {
+        val hgt = max(2f, top - rt)
+        val n = hgt.toInt().coerceAtLeast(2)
+        for (r in 0..n) {
+            val f = r / n.toFloat() // 0 at the neck, 1 at the eaves
+            val bulb = if (f < 0.25f) 0.08f + f * 0.4f else 0.18f + 0.26f * sin(((f - 0.25f) / 0.75f) * PI.toFloat() * 0.85f)
+            val half = max(0.5f, bulb * p)
+            val y = (rt + r).toInt()
+            for (xx in (cx - half).toInt()..(cx + half).toInt()) {
+                val u = (xx + 0.5f - cx) / half
+                c.set(xx, y, env.lit(when {
+                    env.snow && f < 0.6f && u < 0.5f -> Pal.SNOW_L
+                    u < -0.35f -> shingleL
+                    u > 0.45f -> shingleD
+                    else -> shingleM
+                }))
+            }
+        }
     }
 
     private fun bellShape(cx: Float, hang: Float, size: Float) {
