@@ -173,6 +173,10 @@ goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
      table and its head, its questions, the unit's title: "**Biti**", and the unit's `words`: an infinitive only its
      explanation names, "**cantare**");
    - each run marked in the explanation as it is read, a short pause between them.
+   The spans read in her voice are the ones underlined in the explanation for a tap to hear (🔈), in her bubble, on the
+   board, in a quick question's why and in the summary: the same check (`IntroSpeech.learned`), so "**si lava**" of the
+   unit riflessivi, which only the intro's own words make Italian, is underlined as "**mi lavo**" is; a word of the
+   base in bold is not (`IntroBoldTapTest`).
    The phone without a voice for the base language: only the Slovene is read, and a small note says why, once.
 2. **The examples**, one after the other in Mojca's voice (their translations not read), each card marked.
 3. **The quick question**, as far as it gives nothing away: a gap read as a pause ("Luka … na pašniku."), a choice's

@@ -283,6 +283,9 @@ typealias BlockText = @Composable (styled: AnnotatedString, style: TextStyle, mo
 /**
  * [text]'s Markdown. [marked]: what is being read aloud now, by the line of [text] it is on (its index in
  * `text.trim().lines()`): those segments of the line ([si.lanisce.lani.data.IntroSpeech.Run.segments]) drawn marked.
+ * [learned]: which spans are in the language learned, to hear or look up when tapped, where the text knows more than the
+ * speaker's check ([si.lanisce.lani.data.Speaker.isSlovene]) does: an intro's own words
+ * ([si.lanisce.lani.data.IntroSpeech.learned], the same she reads in her voice); null: the speaker's check.
  */
 @Composable
 fun Markdown(
@@ -293,11 +296,12 @@ fun Markdown(
     onWord: ((String, String) -> Unit)? = null,
     marked: ((line: Int) -> IntRange?)? = null,
     onMarked: ((androidx.compose.ui.geometry.Rect) -> Unit)? = null,
+    learned: ((String) -> Boolean)? = null,
 ) {
     val speaker = LocalSpeaker.current
     // a lookup ([onWord]: a cheat sheet's card) needs to know what's Slovene, not a voice to say it
-    val speak = if (onWord != null) speaker?.let { s -> SpeakSpans(s::isSlovene) { t -> if (s.canSay) s.say(t) } }
-    else speaker?.takeIf { it.canSay }?.let { s -> SpeakSpans(s::isSlovene) { t -> s.say(t) } }
+    val speak = if (onWord != null) speaker?.let { s -> SpeakSpans(learned ?: s::isSlovene) { t -> if (s.canSay) s.say(t) } }
+    else speaker?.takeIf { it.canSay }?.let { s -> SpeakSpans(learned ?: s::isSlovene) { t -> s.say(t) } }
     val look = onWord
     // a link in the theme's primary, underlined: told apart from a word to hear or look up (underlined in the text's colour)
     val links = SpanStyle(color = MaterialTheme.colorScheme.primary, textDecoration = TextDecoration.Underline)

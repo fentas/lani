@@ -168,6 +168,17 @@ object IntroSpeech {
         return texts.flatMapTo(HashSet()) { t -> WORD.findAll(t.lowercase()).map { it.value } }
     }
 
+    /**
+     * Whether a span of [intro]'s texts is in the language learned: what [isSlovene] (the app's check, [Speaker.isSlovene])
+     * says is, or a span of only the words the intro itself shows ([vocabulary], [within]: "**si lava**" of the unit
+     * riflessivi, which the app's check doesn't know). What she reads in her voice ([introStep], [summary]) and what the
+     * explanation underlines for a tap (ui/school/IntroScreen, [si.lanisce.lani.ui.Markdown]'s `learned`): the same.
+     */
+    fun learned(intro: Intro, language: String, title: String?, isSlovene: (String) -> Boolean, words: List<String> = emptyList()): (String) -> Boolean {
+        val known = vocabulary(intro, language, title, isSlovene, words)
+        return { t -> isSlovene(t) || within(t, known) }
+    }
+
     /** [text] has words, and all of them are [known] ones ([vocabulary]). */
     fun within(text: String, known: Set<String>): Boolean {
         val words = WORD.findAll(text.lowercase()).map { it.value }.toList()
@@ -231,8 +242,7 @@ object IntroSpeech {
      */
     fun introStep(id: String, intro: Intro, i: Int, language: String, base: String, title: String?, isSlovene: (String) -> Boolean, words: List<String> = emptyList()): Script {
         val s = intro.steps[i]
-        val known = vocabulary(intro, language, title, isSlovene, words)
-        return step(id, Grammar.text(s.say, base), base, s.examples.map { it.target(language) }, s.ask) { t -> isSlovene(t) || within(t, known) }
+        return step(id, Grammar.text(s.say, base), base, s.examples.map { it.target(language) }, s.ask, learned(intro, language, title, isSlovene, words))
     }
 
     /**
@@ -244,8 +254,7 @@ object IntroSpeech {
 
     /** The summary read as a step is ([summarySay]: its explanation, nothing else), the intro's words Slovene as in its steps. */
     fun summary(id: String, say: String, base: String, intro: Intro, language: String, title: String?, isSlovene: (String) -> Boolean, words: List<String> = emptyList()): Script {
-        val known = vocabulary(intro, language, title, isSlovene, words)
-        return step(id, say, base, emptyList(), null) { t -> isSlovene(t) || within(t, known) }
+        return step(id, say, base, emptyList(), null, learned(intro, language, title, isSlovene, words))
     }
 
     /** The sentence of a quick question's answer, read once it is answered: its prompt with the gap filled with the right answer. */

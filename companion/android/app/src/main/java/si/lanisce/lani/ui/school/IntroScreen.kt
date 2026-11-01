@@ -185,6 +185,8 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
     val say = Grammar.text(s.say, base)
     val examples = s.examples.map { it.target(unit.language) }
     val script = remember(unit.id, i, say) { introScript(vm, unit, intro, i) }
+    // what of the explanation is the language learned: what she reads in her voice, underlined for a tap ("**si lava**")
+    val learned = remember(unit.id) { introLearned(vm, unit, intro) }
     val answerId = "${script.id}/answer"
     val now = voice.now?.takeIf { it.id == script.id || it.id == answerId }?.mark
     val reading = voice.reading == script.id || voice.reading == answerId
@@ -306,7 +308,7 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
                             whole, Modifier.fillMaxWidth().tapToStop(reading) { voice.stop() }.onGloballyPositioned { bounds[IntroPointer.Target.Explanation] = it.boundsInRoot() },
                         ) {
                             Box(Modifier.heightIn(max = most).onGloballyPositioned { bubbleView = it.boundsInRoot() }.verticalScroll(bubbleScroll)) {
-                                Markdown(say, Modifier.padding(start = BUBBLE_TAIL_DP.dp + 10.dp, end = 10.dp, top = 8.dp, bottom = 8.dp), marked = marked, onMarked = { runAt = it })
+                                Markdown(say, Modifier.padding(start = BUBBLE_TAIL_DP.dp + 10.dp, end = 10.dp, top = 8.dp, bottom = 8.dp), marked = marked, onMarked = { runAt = it }, learned = learned)
                             }
                         }
                     }
@@ -321,7 +323,7 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
                         modifier = Modifier.fillMaxWidth().onGloballyPositioned { bounds[IntroPointer.Target.Explanation] = it.boundsInRoot() },
                         border = if (whole) androidx.compose.foundation.BorderStroke(2.dp, XpGold) else null,
                     ) {
-                        Markdown(say, Modifier.padding(12.dp), marked = marked, onMarked = { runAt = it })
+                        Markdown(say, Modifier.padding(12.dp), marked = marked, onMarked = { runAt = it }, learned = learned)
                     }
                     // the phone can't say the learner's own language: said once, in the step where it first happened
                     var note by remember { mutableStateOf(false) }
@@ -346,7 +348,7 @@ internal fun IntroStepView(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: 
                 }
                 s.ask?.let { ask ->
                     IntroAsk(
-                        vm, ask, reader, asked = now == IntroSpeech.Mark.Question, said = now == IntroSpeech.Mark.Answer,
+                        vm, ask, reader, asked = now == IntroSpeech.Mark.Question, said = now == IntroSpeech.Mark.Answer, learned = learned,
                         modifier = Modifier.onGloballyPositioned { bounds[IntroPointer.Target.Question] = it.boundsInRoot() },
                         onSaid = { bounds[IntroPointer.Target.Answer] = it },
                     ) { v, sentence ->
@@ -386,6 +388,10 @@ internal fun summaryScript(vm: AppViewModel, unit: CourseUnit, intro: Intro): In
     val say = IntroSpeech.summarySay(intro.summary ?: page?.rule, unit.goal, base) ?: return null
     return IntroSpeech.summary("${unit.id}/summary/${say.hashCode()}", say, base, intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene, unit.words)
 }
+
+/** What of [intro]'s texts is the language learned ([IntroSpeech.learned]): the app's check, and the intro's own words. */
+internal fun introLearned(vm: AppViewModel, unit: CourseUnit, intro: Intro): (String) -> Boolean =
+    IntroSpeech.learned(intro, unit.language, unit.title[unit.language], vm.speaker::isSlovene, unit.words)
 
 internal fun introScript(vm: AppViewModel, unit: CourseUnit, intro: Intro, i: Int): IntroSpeech.Script {
     val base = L10n.pair.base.code
@@ -610,7 +616,7 @@ internal fun GrowingTable(
 @Composable
 private fun IntroAsk(
     vm: AppViewModel, ask: Exercise, reader: IntroVoice.Reader, asked: Boolean, said: Boolean, modifier: Modifier = Modifier,
-    onSaid: (Rect) -> Unit = {}, onAnswered: (Grading.Verdict, String?) -> Unit,
+    learned: ((String) -> Boolean)? = null, onSaid: (Rect) -> Unit = {}, onAnswered: (Grading.Verdict, String?) -> Unit,
 ) {
     var verdict by remember { mutableStateOf<Grading.Verdict?>(null) }
     var picked by remember { mutableStateOf<Int?>(null) }
@@ -644,7 +650,7 @@ private fun IntroAsk(
                             colors = color, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp),
                         ) { Text(opt, Modifier.padding(14.dp), style = MaterialTheme.typography.titleMedium) }
                     }
-                    verdict?.let { v -> AskResult(vm, v, ask.options.getOrNull(ask.answer).orEmpty(), ask.explain, IntroSpeech.answer(ask), reader, said, onSaid) }
+                    verdict?.let { v -> AskResult(vm, v, ask.options.getOrNull(ask.answer).orEmpty(), ask.explain, IntroSpeech.answer(ask), reader, said, onSaid, learned = learned) }
                 }
                 is Exercise.Cloze -> {
                     var value by remember { mutableStateOf(TextFieldValue("")) }
@@ -667,7 +673,7 @@ private fun IntroAsk(
                     }
                     verdict?.let { v ->
                         val right = Grading.check(value.text, ask.accept).expected.ifBlank { ask.accept.firstOrNull().orEmpty() }
-                        AskResult(vm, v, right, ask.explain, IntroSpeech.answer(ask), reader, said, onSaid, typed = value.text)
+                        AskResult(vm, v, right, ask.explain, IntroSpeech.answer(ask), reader, said, onSaid, typed = value.text, learned = learned)
                     }
                 }
                 else -> Unit
@@ -683,7 +689,7 @@ private fun IntroAsk(
  */
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, explain: String?, sentence: String?, reader: IntroVoice.Reader, said: Boolean, onSaid: (Rect) -> Unit, typed: String? = null) {
+private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, explain: String?, sentence: String?, reader: IntroVoice.Reader, said: Boolean, onSaid: (Rect) -> Unit, typed: String? = null, learned: ((String) -> Boolean)? = null) {
     val (label, color) = when (v) {
         Grading.Verdict.CORRECT -> "${inTarget("playerScreen.correct")} ✅" to AlpineGreen
         Grading.Verdict.ALMOST -> "${inTarget("playerScreen.almost")} 🟡" to si.lanisce.lani.ui.theme.FlameOrange
@@ -706,7 +712,7 @@ private fun AskResult(vm: AppViewModel, v: Grading.Verdict, right: String, expla
                 SpeakButton(vm.speaker, s, voiceName = reader.voiceName, fallback = reader.fallback, person = reader.person)
             }
         }
-        explain?.let { Markdown(it) }
+        explain?.let { Markdown(it, learned = learned) }
     }
 }
 
@@ -725,6 +731,7 @@ private fun Summary(vm: AppViewModel, unit: CourseUnit, intro: Intro, modifier: 
     val voice = vm.introVoice
     val reader = introReader(vm)
     val script = remember(unit.id, page?.id, base) { summaryScript(vm, unit, intro) }
+    val learned = remember(unit.id) { introLearned(vm, unit, intro) }
     val reading = script != null && voice.reading == script.id
     LaunchedEffect(script?.id) {
         if (script != null && voice.auto && !voice.screenReader) {
@@ -744,12 +751,12 @@ private fun Summary(vm: AppViewModel, unit: CourseUnit, intro: Intro, modifier: 
             if (own != null) {
                 // the intro's own words, and the table its steps built: the page's whole rule waits in the book
                 if (page != null) Text("${page.emoji} ${page.titleShown(L10n.pair)}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                Markdown(own)
+                Markdown(own, learned = learned)
                 if (intro.head.isNotEmpty() && rows.isNotEmpty()) GrowingTable(vm, intro.head, rows, fresh = 0)
                 if (page != null) TextButton(onClick = { vm.grammar.show(page.id) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📖 ${bi("school.toTheBook")}") }
             } else if (page != null) {
                 Text("${page.emoji} ${page.titleShown(L10n.pair)}", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                Markdown(page.ruleIn(base))
+                Markdown(page.ruleIn(base), learned = learned)
                 page.table?.let { GrowingTable(vm, it.head, it.rows, fresh = 0) }
                 TextButton(onClick = { vm.grammar.show(page.id) }, modifier = Modifier.heightIn(min = 48.dp)) { Text("📖 ${bi("school.toTheBook")}") }
             } else {

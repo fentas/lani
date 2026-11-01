@@ -147,6 +147,10 @@ for the child's German):
 - superlativi prints on two pages (its table of 13 rows); the others on one.
 - The read-aloud's fallback (when the explanation's one clip can't be had) reads the endings -ando, -endo, -issimo and
   the letter h with the phone's German voice; every bold Italian form is Elena's.
-- In the explanation bubble, a bold form the intro's words make Italian (si lava) isn't underlined for a tap as the
-  forms the app's own check knows are (mi lavo): seen in QA, the app's, not this content's.
+- ~~In the explanation bubble, a bold form the intro's words make Italian (si lava) isn't underlined for a tap as the
+  forms the app's own check knows are (mi lavo): seen in QA, the app's, not this content's.~~ Done 2026-11-01
+  (polish-app, docs/plans/05-built/polish-app.md): the bubble asks what is Italian as the read-aloud does
+  (`IntroSpeech.learned`: the app's check, or a span of only the intro's own words), so every form she reads in her
+  voice is underlined for a tap and opens what the others open (her voice says it); the board, a quick question's why
+  and the summary too. `IntroBoldTapTest`.
 
