@@ -12817,7 +12817,6 @@ def it_words():
     go_home()
     found_village()
     go_home()
-    notes = []
     for word, line, lemma, meant in IT_WORDS:
         got = api(f"/lookup?w={urllib.parse.quote(word)}&line={urllib.parse.quote(line)}&base=de").get("entries") or []
         assert got and got[0].get("lemma") == lemma and meant in got[0]["gloss"][0], f"GET /lookup {word}: {got[:1]}"
@@ -12826,11 +12825,10 @@ def it_words():
         time.sleep(1)
         assert find(lemma) or find(lemma.capitalize()), f"«{word}»'s card shows {lemma}"
         shot(f"it-word-{word}")
-        notes.append(f"{word} → {lemma}: {got[0]['gloss'][0]}{' (' + got[0]['grammar'] + ')' if got[0].get('grammar') else ''}")
+        print(f"    {word} → {lemma}: {got[0]['gloss'][0]}{' (' + got[0]['grammar'] + ')' if got[0].get('grammar') else ''}")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(1)
     go_home()
-    return "; ".join(notes)
 
 
 def missing_shot(name: str):
