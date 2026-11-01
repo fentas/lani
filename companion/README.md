@@ -24,7 +24,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 |---|---|
 | `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_worksheet`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
 | `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and of the nouns Wiktionary gets wrong, the verb pairs and the animate nouns (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
-| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 59 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`; `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
+| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 65 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`; `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
 | `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
 | `course/` | The school's course (see [The school's course](#the-schools-course) and [COURSE.md](COURSE.md)): `course/<language>/course.json`, the outline of its levels and units (`lani.course/v0`), and `course/<language>/units/<id>.json`, a unit each (`lani.unit/v0`). |
 | `drills/` | The car's audio drills (`lani.drill/v0`, see [The drills](#the-drills)): `drills/<language>/`, four in `drills/sl/` (transformations, rapid fire, sentence building, riddles). |
@@ -1874,7 +1874,12 @@ dve uri, že dve leti, pred tremi dnevi), `custva` (mudi se mi, boli me glava, Z
 items `trpnik` (zaprta vrata, Hiša je bila sezidana, Seno se suši na kozolcu) and `glagolniki` (branje, kajenje,
 odkritje; košnja, trgatev). The school's A2 units added `mnozina-skloni` (the plural through the cases: pet krav, k sosedom, na
 travnikih, z ovcami; veliko ljudi, z otroki) and `cigav` (čigav, the possessives: njegov, njen, njun; Lukov, Mickina,
-babičin). Their levels follow when each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
+babičin). B2's last six units brought six B2 pages, each with its card: `stopnjevanje` (tako star kot, veliko lepši,
+čedalje krajši, čim prej, bolj ko …, bolj …, najboljša izmed vseh, prevelik), `ukazi` (pojdiva, pojdimo, naj pride, ne
+zapiraj, nikar, kar naprej, Bi mi lahko pomagali?), `frazemi` (držati pesti za koga, iti komu na živce, kupiti mačka v
+žaklju, pasti v vodo), `uradno-pismo` (Spoštovani gospod …, Vi to one person, Pišem Vam v zvezi z …, S spoštovanjem),
+`govorjeni-jezik` (a si, moram delat, bom šu, bojo, mam, kva, ta mali, fajn: spoken against standard, the spoken never
+wrong) and `besedni-red` (the news last: Kruh je prinesel Luka; the short words second; a contrast with pa; tudi, samo). Their levels follow when each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
 them). A page about a case or what decides one (the six cases', skloni, the genitive's slices, Kam?, Kje?, the plural's
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
