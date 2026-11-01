@@ -1,0 +1,224 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "on-the-packhorse-bridge",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the stream in its Lakeland look (the packhorse bridge of grey slate with one round arch for the cart bridge, the mill of grey slate stone with its oak wheel; the rest where the default stream draws it, as il-ponte's clues say); the wild animals are described, never placed; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "stream": {
+      "clues": [
+        { "kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "Its water is very cold.", "sl": "Voda v tem je zelo mrzla.", "grammar": ["to-be"] },
+        {
+          "kind": "does",
+          "en": "It runs over the stones.",
+          "sl": "Teče čez kamne.",
+          "grammar": ["present-simple", "prepositions-place"]
+        },
+        {
+          "kind": "use",
+          "en": "Fish swim in it.",
+          "sl": "V tem plavajo ribe.",
+          "grammar": ["present-simple", "prepositions-place"]
+        }
+      ]
+    },
+    "stones": {
+      "number": "pl",
+      "clues": [
+        { "kind": "colour", "en": "They're grey and flat.", "sl": "So sive barve in ploščati.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "They're wet.", "sl": "Mokri so.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "They're in the beck.",
+          "sl": "So v potoku.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "stream"
+        },
+        {
+          "kind": "use",
+          "en": "We step from one to the next.",
+          "sl": "Stopamo z enega na drugega.",
+          "grammar": ["present-simple"]
+        }
+      ]
+    },
+    "bridge": {
+      "clues": [
+        { "kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's narrow.", "sl": "To je nekaj ozkega.", "grammar": ["to-be"] },
+        {
+          "kind": "where",
+          "en": "It's over the beck.",
+          "sl": "Je čez potok.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "stream"
+        },
+        {
+          "kind": "use",
+          "en": "People walk over it, but ponies can't.",
+          "sl": "Čez to hodijo ljudje, poniji pa ne morejo.",
+          "grammar": ["present-simple", "can"]
+        }
+      ]
+    },
+    "willow": {
+      "clues": [
+        { "kind": "colour", "en": "In summer it's green.", "sl": "Poleti je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has long thin branches.", "sl": "Ima dolge tanke veje.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It grows by the beck.",
+          "sl": "Raste ob potoku.",
+          "grammar": ["present-simple", "prepositions-place"],
+          "ref": "stream"
+        }
+      ]
+    },
+    "trout": {
+      "clues": [
+        { "kind": "trait", "en": "It has spots.", "sl": "Ima pike.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It swims in the beck.",
+          "sl": "Plava v potoku.",
+          "grammar": ["present-simple", "prepositions-place"],
+          "ref": "stream"
+        },
+        { "kind": "does", "en": "It jumps out of the water.", "sl": "Skoči iz vode.", "grammar": ["present-simple"] },
+        { "kind": "use", "en": "It likes cold, clean water.", "sl": "Rado ima mrzlo, čisto vodo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "dragonfly": {
+      "clues": [
+        { "kind": "size", "en": "It has a long thin body.", "sl": "Ima dolgo tanko telo.", "grammar": ["to-have"] },
+        { "kind": "trait", "en": "It has four wings.", "sl": "Ima štiri krila.", "grammar": ["to-have"] },
+        {
+          "kind": "does",
+          "en": "It flies fast over the water.",
+          "sl": "Hitro leta nad vodo.",
+          "grammar": ["present-simple", "prepositions-place"]
+        },
+        { "kind": "use", "en": "In winter you can't see it.", "sl": "Pozimi tega ne vidiš.", "grammar": ["can"] }
+      ]
+    },
+    "cress": {
+      "clues": [
+        { "kind": "colour", "en": "It's green.", "sl": "Je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It tastes hot, like pepper.", "sl": "Ima pekoč okus, kot poper.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It grows in the beck.",
+          "sl": "Raste v potoku.",
+          "grammar": ["present-simple", "prepositions-place"],
+          "ref": "stream"
+        },
+        { "kind": "use", "en": "We put it in sandwiches.", "sl": "Dajemo to v sendviče.", "grammar": ["present-simple"] }
+      ]
+    },
+    "mill": {
+      "clues": [
+        { "kind": "material", "en": "It's made of grey stone.", "sl": "Je iz sivega kamna.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a big wheel.", "sl": "Ima veliko kolo.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It stands by the beck.",
+          "sl": "Stoji ob potoku.",
+          "grammar": ["present-simple", "prepositions-place"],
+          "ref": "stream"
+        },
+        {
+          "kind": "use",
+          "en": "Inside it, oats become oatmeal.",
+          "sl": "Notri se oves spremeni v moko.",
+          "grammar": ["present-simple"]
+        }
+      ]
+    },
+    "laundry": {
+      "clues": [
+        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It's wet.", "sl": "Mokro je.", "grammar": ["to-be"] },
+        { "kind": "where", "en": "It's in a basket.", "sl": "Je v košari.", "grammar": ["to-be", "prepositions-place"] },
+        { "kind": "use", "en": "We wash it in the beck.", "sl": "Peremo to v potoku.", "grammar": ["present-simple"] }
+      ]
+    },
+    "sheep": {
+      "clues": [
+        { "kind": "trait", "en": "It has thick wool.", "sl": "Ima gosto volno.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It's by the beck.",
+          "sl": "Je ob potoku.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "stream"
+        },
+        { "kind": "does", "en": "It's drinking water.", "sl": "Pije vodo.", "grammar": ["present-continuous"] },
+        { "kind": "use", "en": "It gives us wool.", "sl": "Daje nam volno.", "grammar": ["present-simple"] }
+      ]
+    },
+    "fox": {
+      "clues": [
+        { "kind": "colour", "en": "It's orange.", "sl": "Je oranžne barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's as big as a small dog.", "sl": "Veliko je kot majhen pes.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a bushy tail.", "sl": "Ima košat rep.", "grammar": ["to-have"] },
+        { "kind": "does", "en": "It hunts mice.", "sl": "Lovi miši.", "grammar": ["present-simple"] }
+      ]
+    },
+    "hedgehog": {
+      "clues": [
+        { "kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has prickles.", "sl": "Ima bodice.", "grammar": ["to-have"] },
+        { "kind": "does", "en": "It rolls up into a ball.", "sl": "Zvije se v kepo.", "grammar": ["present-simple"] }
+      ]
+    },
+    "butterfly": {
+      "clues": [
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has colourful wings.", "sl": "Ima pisana krila.", "grammar": ["to-have"] },
+        {
+          "kind": "does",
+          "en": "It flies from flower to flower.",
+          "sl": "Leta od cveta do cveta.",
+          "grammar": ["present-simple"]
+        },
+        { "kind": "use", "en": "In winter you can't see it.", "sl": "Pozimi tega ne vidiš.", "grammar": ["can"] }
+      ]
+    },
+    "bat": {
+      "clues": [
+        { "kind": "colour", "en": "It's black.", "sl": "Je črne barve.", "grammar": ["to-be"] },
+        { "kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"] },
+        {
+          "kind": "trait",
+          "en": "By day it sleeps upside down.",
+          "sl": "Podnevi spi z glavo navzdol.",
+          "grammar": ["present-simple"]
+        },
+        { "kind": "does", "en": "It flies at night.", "sl": "Leta ponoči.", "grammar": ["present-simple"] }
+      ]
+    },
+    "cartbridge": {
+      "clues": [
+        { "kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has one round arch.", "sl": "Ima en okrogel lok.", "grammar": ["to-have"] },
+        {
+          "kind": "where",
+          "en": "It's over the beck.",
+          "sl": "Je čez potok.",
+          "grammar": ["to-be", "prepositions-place"],
+          "ref": "stream"
+        },
+        {
+          "kind": "use",
+          "en": "Ponies with panniers walk over it.",
+          "sl": "Čez to hodijo poniji z bisagami.",
+          "grammar": ["present-simple"]
+        }
+      ]
+    }
+  }
+}
