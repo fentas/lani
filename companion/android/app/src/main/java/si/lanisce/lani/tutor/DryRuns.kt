@@ -18,7 +18,7 @@ import java.time.ZoneId
 
 /**
  * What a write gives the model in shadow mode: the live tool's success, made from the input alone, as the live tool
- * answers it: the bridge (publish_gloss, publish_sentence_note, set_rhythm), update-db.py (record_session), card.py
+ * answers it: the bridge (publish_gloss, publish_sentence_note, set_rhythm, set_target_level), update-db.py (record_session), card.py
  * (card's writes) and the app's report flow (report_problem, plan 5 "Reports"). The tutor must behave as it would live
  * (plan 5, phase 0), so nothing here says the write didn't happen: the call's record keeps `dryRun = true`, which the
  * panel and the export show. A live refusal that the result's shape depends on (a card write without its card, a report
@@ -57,6 +57,7 @@ object DryRuns {
             "publish_gloss" -> gloss(input)
             "publish_sentence_note" -> sentenceNote(input, learner)
             "set_rhythm" -> rhythm(input)
+            "set_target_level" -> target(input)
             "record_session" -> session(input)
             "report_problem" -> report(input)
             "card" -> card(input, now, zone)
@@ -80,6 +81,20 @@ object DryRuns {
     /** The bridge's set_rhythm: the settings after the change, as JSON (the defaults where the input says nothing). */
     private fun rhythm(input: JsonObject): Result =
         Result(pretty.encodeToString(JsonElement.serializer(), JsonObject(RHYTHM.associate { (k, v) -> k to (input[k] ?: v) })))
+
+    /**
+     * The bridge's set_target_level (features/level.ts, aim.ts `explainChange`): the rule it applies, without the village's
+     * words, which the shadow doesn't count. A raise waits for the village's next age; a lower target, or the current one
+     * again, applies at once.
+     */
+    private fun target(input: JsonObject): Result {
+        val level = input.s("level")?.trim()?.uppercase()
+        return Result(
+            "The target is $level by the rule of the village's ages: a raise starts with the next age (the step the village is " +
+                "on keeps its words), a lower target or the current one again applies at once. The app shows it on the age " +
+                "card, the progress screen and the settings' aim.",
+        )
+    }
 
     /** update-db.py's summary of a session, or of review items added without one. */
     private fun session(input: JsonObject): Result {

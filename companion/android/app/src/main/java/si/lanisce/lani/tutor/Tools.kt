@@ -41,9 +41,10 @@ enum class ToolKind(val label: String) {
 }
 
 /**
- * Phase A's tools (plan 5, "New tools the hosted tutor needs": the 10 ported and the 7 new), in the fixed order the
- * prefix sends them (a change of order is a new prefix: the cache starts again). `card` reads with find, show and
- * overlaps and writes with the rest.
+ * Phase A's tools (plan 5, "New tools the hosted tutor needs": the 10 ported and the 7 new; set_target_level since
+ * 2026-11-01, the aim as Claude Code's tutor changes it: docs/plans/05-built/target-next-age.md), in the fixed order the
+ * prefix sends them (a change of order, or a tool more, is a new prefix: the cache starts again, and a thread made with
+ * the old one starts anew, [Prefix.fingerprint]). `card` reads with find, show and overlaps and writes with the rest.
  */
 object PhaseA {
     val TOOLS: List<Pair<String, ToolKind>> = listOf(
@@ -62,6 +63,7 @@ object PhaseA {
         "publish_gloss" to ToolKind.WRITE,
         "publish_sentence_note" to ToolKind.WRITE,
         "set_rhythm" to ToolKind.WRITE,
+        "set_target_level" to ToolKind.WRITE,
         "record_session" to ToolKind.WRITE,
         "report_problem" to ToolKind.WRITE,
     )

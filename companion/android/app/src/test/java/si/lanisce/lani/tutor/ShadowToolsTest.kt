@@ -38,9 +38,12 @@ class ShadowToolsTest {
 
     private fun use(name: String, vararg kv: Pair<String, Any?>) = runBlocking { tools.run(ToolUse("toolu_$name", name, obj(*kv))) }
 
-    @Test fun `the bundle has phase A's seventeen tools, in their order`() {
+    @Test fun `the bundle has phase A's eighteen tools, in their order`() {
         assertEquals(PhaseA.TOOLS.map { it.first }, PhaseA.load().map { it.name })
-        assertEquals(17, PhaseA.definitions(PhaseA.load()).size)
+        assertEquals(18, PhaseA.definitions(PhaseA.load()).size)
+        // the aim, as Claude Code's tutor sets it: the bridge's own tool, a write
+        assertEquals(listOf("set_rhythm", "set_target_level", "record_session"), PhaseA.TOOLS.map { it.first }.let { it.subList(it.indexOf("set_rhythm"), it.indexOf("set_rhythm") + 3) })
+        assertTrue(specs.getValue("set_target_level").description.contains("next age"))
         // the bridge's own, exported; the app's, hand-written
         assertTrue(specs.getValue("publish_gloss").description.isNotBlank())
         assertTrue(specs.getValue("record_session").inputSchema.toString().contains("session_id"))
@@ -56,6 +59,17 @@ class ShadowToolsTest {
         assertEquals("kept: kurim → kuriti (to heat (a stove)); the next lookup shows it", o.content)
         assertTrue(reads.isEmpty() && replies.isEmpty())
         assertEquals("kurim", (o.record.input["form"] as JsonPrimitive).content)
+    }
+
+    @Test fun `set_target_level is a write - a level is a dry run with the bridge's rule, another word the schema's error`() {
+        val o = use("set_target_level", "level" to "B1")
+        assertFalse(o.content, o.isError)
+        assertTrue(o.record.dryRun)
+        assertEquals("write", o.record.kind)
+        assertTrue(o.content, o.content.startsWith("The target is B1") && o.content.contains("a raise starts with the next age") && o.content.contains("applies at once"))
+        assertTrue(reads.isEmpty() && replies.isEmpty())
+        val bad = use("set_target_level", "level" to "B3")
+        assertTrue(bad.isError && bad.record.errors.isNotEmpty())
     }
 
     @Test fun `an invalid write returns the schema's errors, and is recorded as such`() {

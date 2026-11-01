@@ -496,6 +496,31 @@ class LiveTutorTest {
         assertFalse(t.settings.on)
     }
 
+    @Test fun `a chat asking for another aim - set_target_level goes through the bridge, its rule's answer back to the model`() = runBlocking {
+        val t = ready()
+        var answer: String? = null
+        script = { body, n ->
+            val results = body["messages"]!!.jsonArray.last().jsonObject.blocks().filter { it.str("type") == "tool_result" }
+            when {
+                node.tools.none { it.first == "set_target_level" } -> message("tool_use", toolUse("aim$n", "set_target_level", obj("level" to "B1")))
+                node.tools.none { it.first == "reply" } -> {
+                    answer = results.joinToString { it.toString() }
+                    message("tool_use", toolUse("r$n", "reply", obj("conversation_id" to "main", "text" to "Cilj B1 velja od naslednje dobe.")))
+                }
+                else -> message("end_turn", text("Opravljeno."))
+            }
+        }
+        node.push("chat", "main", "Teo should aim at B1")
+        t.backgroundCheck()
+        val call = node.tools.first { it.first == "set_target_level" }.second
+        assertEquals("B1", call["args"]!!.jsonObject["level"]!!.jsonPrimitive.content)
+        assertTrue("the bridge's rule reached the model: $answer", answer.orEmpty().contains("becomes B1 with the next age"))
+        val rec = t.today.turns.single().toolCalls.first { it.name == "set_target_level" }
+        assertFalse(rec.isError)
+        assertEquals("write", rec.kind)
+        assertEquals(listOf("set_target_level", "reply"), node.tools.map { it.first })
+    }
+
     @Test fun `a tool the node lacks says so, nothing sent`() = runBlocking {
         val t = ready()
         node.lacking += "learner_state"
@@ -665,7 +690,7 @@ class LiveTutorTest {
             return id
         }
 
-        private val TOOLS = listOf("channel_guide", "reply", "get_village", "recent_answers", "list_packs", "list_grammar", "get_grammar", "publish_gloss", "publish_sentence_note", "set_rhythm")
+        private val TOOLS = listOf("channel_guide", "reply", "get_village", "recent_answers", "list_packs", "list_grammar", "get_grammar", "publish_gloss", "publish_sentence_note", "set_rhythm", "set_target_level")
         private val APP_TOOLS = listOf("learner_state", "record_session", "card", "notebook_note", "notebook_write", "report_problem")
 
         @Synchronized override fun intercept(chain: Interceptor.Chain): Response {
@@ -707,6 +732,7 @@ class LiveTutorTest {
                     val text = when (name) {
                         "reply" -> "delivered"
                         "learner_state" -> """{"computed":{"next_session_id":"session-042","today":"2026-10-19"},"learner":{"name":"Jan"}}"""
+                        "set_target_level" -> "The target stays A2 for the step the village is on and becomes B1 with the next age."
                         else -> "done"
                     }
                     ok(obj("content" to JsonArray(listOf(obj("type" to "text", "text" to text)))).toString())

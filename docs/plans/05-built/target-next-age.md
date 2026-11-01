@@ -199,9 +199,9 @@ AimSettingsTest check those labels.
 
 ## What's left
 
-- The app's own chat tutor (the in-app tutor's fixed tool list, phase A) has no `set_target_level`: on a hosted phone the
-  aim is chosen in setup and changed in the settings. Adding it to `PhaseA.TOOLS` changes the prompt's prefix and its
-  tests; a later round.
+- ~~The app's own chat tutor (the in-app tutor's fixed tool list, phase A) has no `set_target_level`~~ Done (polish-app,
+  2026-11-01): `PhaseA.TOOLS` has it after `set_rhythm`, a write through the node's `/tutor/tools` (the same rule and the
+  same lease guard); the shadow's dry run says the rule. The prefix changed: a thread made before starts anew.
 - `update-db.py`'s treasure-map level-up raises `current_level` but never the target: a learner who passes their target
   keeps it (the village's last age is reached with it). Whether the target should then rise by itself is Jan's call.
 - The strings above, for a native speaker's check.
