@@ -3610,7 +3610,14 @@ the Orcolat), Friulian words (fogolâr, pignarûl, cramaro), the region's places
 Cormòns, Brda, Nova Gorica, Cividale, Carnia, Duino, Monte Lussari, Camporosso, Monte Canin, Castelmonte), the stories'
 heroes (Lopichis, Tergesteo), Miklavž, Rimska cesta, the sky's meteor showers, the elided c'è (c'era, ci sono), dov'è,
 cos'è, com'è, eh, and suo's meaning (an override: through English its German was "sein; n"). Unlike Slovene's it has
-places and the stories' names: the villagers' names come from the cast, the region's would not come at all.
+places and the stories' names: the villagers' names come from the cast, the region's would not come at all. It also
+has the Italian course's words that no pack means (271 entries since 2026-11-01: guardare, mai, il treno, c'era una
+volta), written for a child (German first, Slovene, English), each with the forms the Italian content uses and their
+grammar (1,136): a reflexive verb's with their pronoun (si lava, mi sono lavata: the plain verb's gira is not
+girarsi), an expression with an apostrophe also as a line's words are joined (un po, ce l ho fatta), so a phone
+without Wiktionary finds them too: there the supplement, the packs and the names know 51.7 % of the Italian content's
+words met (28.8 % before). The course's printed sheets list every word they name
+([it-print-meanings.md](../docs/plans/05-built/it-print-meanings.md)).
 
 An entry's form with `null` grammar takes Wiktionary's grammar of that form when Wiktionary has it. Names and pure
 interjections are left out. It is machine-written and not reviewed by a native speaker (`"reviewed": false`). Of the
