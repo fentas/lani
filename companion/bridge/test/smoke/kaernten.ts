@@ -122,8 +122,8 @@ export default async function kaernten() {
     // the campfire: Opa Sepp tells his stories there in the evening, in German
     const feuer = scenes.find((s: any) => s.id === 'am-feuer')
     check(
-      "kaernten: Opa Sepp tells his stories by the fire (am-feuer comes with them, in German, none of Janez's or Bepi's)",
-      feuer?.culture === 'kaernten' && feuer.art === 'campfire' && feuer.stories?.length === 10 && feuer.stories.every((s: any) => s.teller === 'sepp' && s.language === 'de' && s.culture === 'kaernten') &&
+      "kaernten: Opa Sepp tells his sixteen stories by the fire (am-feuer comes with them, in German, none of Janez's or Bepi's)",
+      feuer?.culture === 'kaernten' && feuer.art === 'campfire' && feuer.stories?.length === 16 && feuer.stories.every((s: any) => s.teller === 'sepp' && s.language === 'de' && s.culture === 'kaernten') &&
         feuer.stories[0].id === 'der-lindwurm' && feuer.stories[0].words.every((w: any) => w.de && w.sl && w.en) && scenes.filter((s: any) => s.id !== 'am-feuer').every((s: any) => !s.stories),
       feuer && { stories: feuer.stories?.map((s: any) => [s.id, s.teller]), words: feuer.stories?.[0]?.words },
     )

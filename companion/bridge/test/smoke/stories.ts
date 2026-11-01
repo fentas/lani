@@ -81,9 +81,11 @@ export default async function stories() {
 
   const carinthia = read('kaernten').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [v.story] : []))
   check(
-    "kaernten: ten of Opa Sepp's legends in German, in their order, at A1 and A2, every text in German, Slovene, English and Italian, marked machine-written",
+    "kaernten: sixteen of Opa Sepp's legends and tales in German, as many as Janez's, in their order, at A1 and A2, every text in German, Slovene, English and Italian, marked machine-written",
     JSON.stringify(carinthia.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map(s => s.id)) ===
-      JSON.stringify(['der-lindwurm', 'der-dobratsch', 'der-woerthersee', 'koenig-matthias', 'die-riesen', 'die-maultasch-vor-hochosterwitz', 'das-kasermandl', 'die-perchtl', 'die-tausend-statuen', 'die-heilige-hemma']) &&
+      JSON.stringify(['der-lindwurm', 'der-dobratsch', 'der-woerthersee', 'koenig-matthias', 'die-riesen', 'die-maultasch-vor-hochosterwitz', 'das-kasermandl', 'die-perchtl', 'die-tausend-statuen', 'die-heilige-hemma',
+        'der-fuerstenstein', 'das-bergmandl', 'das-kufenstechen', 'brot-und-milch', 'nikolo-und-krampus', 'das-dorf-im-see']) &&
+      carinthia.length === jan.length && carinthia.filter(s => (s.order ?? 0) > 10).every(s => s.pack === 'erzaehlungen') &&
       carinthia.every(s => s.teller === 'sepp' && s.language === 'de' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.de === 'string' && typeof t.sl === 'string' && typeof t.en === 'string' && typeof t.it === 'string') && !!s.teaser.de && !!s.memory.de),
     carinthia.map(s => [s.id, levelsOf(s)]),
   )
@@ -92,8 +94,8 @@ export default async function stories() {
   const lake = read('lakeland').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [v.story] : []))
   const packs4 = [...jan, ...second, ...carinthia, ...lake]
   check(
-    "every curated story of the four packs has its book's pictures: 2-4, one or two an evening in chapters, 133 in all",
-    packs4.length === 52 && packs4.every(s => curatedPictureErrors(s).length === 0) && packs4.reduce((n, s) => n + (s.pictures?.length ?? 0), 0) === 133,
+    "every curated story of the four packs has its book's pictures: 2-4, one or two an evening in chapters, 148 in all",
+    packs4.length === 58 && packs4.every(s => curatedPictureErrors(s).length === 0) && packs4.reduce((n, s) => n + (s.pictures?.length ?? 0), 0) === 148,
     packs4.map(s => [s.id, s.pictures?.length, curatedPictureErrors(s)]),
   )
   check(
@@ -111,9 +113,9 @@ export default async function stories() {
   const tellings = (s: Story) => chaptersOf(s).flatMap((c, i) => LEVELS.filter(l => c.levels[l]).map(l => `${i + 1}/${l}`))
   const notedAs = (s: Story) => (s.notes ?? []).map(n => `${n.chapter ?? 1}/${n.level}`)
   check(
-    "every curated story is written down for the notebook: notes for each of its 124 tellings, a place for each picture, in the four languages, marked machine-written",
+    "every curated story is written down for the notebook: notes for each of its 136 tellings, a place for each picture, in the four languages, marked machine-written",
     packs4.every(s => JSON.stringify(notedAs(s).sort()) === JSON.stringify(tellings(s).sort()) && /machine-written/.test(s.review ?? '')) &&
-      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 124 &&
+      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 136 &&
       packs4.every(s => (s.notes ?? []).every(n => n.after?.length === (s.pictures ?? []).filter(p => (p.chapter ?? 1) === (n.chapter ?? 1)).length &&
         n.text.every(p => ['sl', 'en', 'de', 'it'].every(l => typeof (p as Record<string, unknown>)[l] === 'string')))),
     packs4.filter(s => JSON.stringify(notedAs(s).sort()) !== JSON.stringify(tellings(s).sort())).map(s => [s.id, notedAs(s), tellings(s)]),
