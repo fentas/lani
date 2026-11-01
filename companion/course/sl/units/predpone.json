@@ -1,0 +1,423 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "predpone",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🧷",
+  "title": {
+    "sl": "Pisati, napisati, prepisati: predpone",
+    "en": "Prefixes: napisati, prepisati",
+    "de": "Vorsilben: napisati, prepisati",
+    "it": "Prefissi: napisati, prepisati"
+  },
+  "goal": {
+    "en": "You can tell what a prefix adds to a verb (prepisati, podpisati; prinesti, odnesti; posedeti), use iti's forms under a prefix (pridem, odšel, našel), and pick the new imperfective for what goes on or recurs (prepisovati, prinašati, prihajati).",
+    "de": "Du erkennst, was eine Vorsilbe zum Verb hinzufügt (prepisati, podpisati; prinesti, odnesti; posedeti), verwendest die Formen von iti unter einer Vorsilbe (pridem, odšel, našel) und wählst das neue unvollendete Verb für das, was andauert oder sich wiederholt (prepisovati, prinašati, prihajati).",
+    "it": "Sai che cosa aggiunge un prefisso al verbo (prepisati, podpisati; prinesti, odnesti; posedeti), usi le forme di iti sotto un prefisso (pridem, odšel, našel) e scegli il nuovo imperfettivo per ciò che dura o si ripete (prepisovati, prinašati, prihajati)."
+  },
+  "grammar": ["predpone", "glagolski-vid", "vid-casi"],
+  "words": [
+    "napisati",
+    "prepisati",
+    "podpisati",
+    "opisati",
+    "vpisati",
+    "zapisati",
+    "prepisovati",
+    "podpisovati",
+    "prinesti",
+    "prinašati",
+    "odnesti",
+    "odnašati",
+    "prenesti",
+    "raznesti",
+    "raznašati",
+    "pripeljati",
+    "odpeljati",
+    "priti",
+    "prihajati",
+    "oditi",
+    "odhajati",
+    "uiti",
+    "obiti",
+    "preiti",
+    "najti",
+    "posedeti",
+    "poklepetati",
+    "najesti se",
+    "naspati se",
+    "zaplesati",
+    "razdeliti",
+    "pogodba",
+    "naloga",
+    "drva",
+    "moka",
+    "novica",
+    "poštar"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "glagol", "en": "the verb", "de": "das Verb", "it": "il verbo" },
+        { "sl": "s predpono", "en": "with a prefix", "de": "mit Vorsilbe", "it": "con prefisso" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know **pisati → napisati**: the prefix makes the verb perfective. A prefix (**predpona**) can also give it a new meaning: **prepisati** (to copy), **podpisati** (to sign), **opisati** (to describe), **vpisati** (to enter, to enrol), **zapisati** (to note down). All of them are perfective, done once with a result.",
+          "de": "Du kennst **pisati → napisati**: Die Vorsilbe macht das Verb vollendet. Eine Vorsilbe (**predpona**) kann ihm auch eine neue Bedeutung geben: **prepisati** (abschreiben), **podpisati** (unterschreiben), **opisati** (beschreiben), **vpisati** (eintragen, einschreiben), **zapisati** (aufschreiben). Alle sind vollendet, einmal getan, mit Ergebnis.",
+          "it": "Conosci **pisati → napisati**: il prefisso rende il verbo perfettivo. Un prefisso (**predpona**) può anche dargli un significato nuovo: **prepisati** (copiare), **podpisati** (firmare), **opisati** (descrivere), **vpisati** (iscrivere, registrare), **zapisati** (annotare). Sono tutti perfettivi, fatti una volta, con un risultato."
+        },
+        "examples": [
+          {
+            "sl": "Nejc je prepisal nalogo od Tineta.",
+            "en": "Nejc copied his homework from Tine.",
+            "de": "Nejc hat die Hausaufgabe von Tine abgeschrieben.",
+            "it": "Nejc ha copiato il compito da Tine."
+          },
+          {
+            "sl": "Mojca je vpisala novega učenca v dnevnik.",
+            "en": "Mojca entered the new pupil in the register.",
+            "de": "Mojca hat den neuen Schüler ins Klassenbuch eingetragen.",
+            "it": "Mojca ha iscritto il nuovo alunno nel registro."
+          }
+        ],
+        "rows": [
+          [
+            "pisati",
+            "napisati, prepisati",
+            { "en": "to write (done), to copy", "de": "fertig schreiben, abschreiben", "it": "scrivere (finito), copiare" }
+          ],
+          ["pisati", "podpisati, opisati", {"en": "to sign, to describe", "de": "unterschreiben, beschreiben", "it": "firmare, descrivere"}],
+          ["pisati", "vpisati, zapisati", {"en": "to enter, to note down", "de": "eintragen, aufschreiben", "it": "iscrivere, annotare"}]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "predpone",
+          "text": "France je ___ pogodbo za nov mlinski kamen. (podpisati)",
+          "accept": ["podpisal"],
+          "hint": "the l-form: France, one man",
+          "explain": "**podpisati** (to sign) in the past: France je **podpisal** pogodbo"
+        }
+      },
+      {
+        "say": {
+          "en": "Many prefixes say where something goes: **pri-** here, arriving; **od-** away; **pre-** across, to another place; **raz-** around, to many. With **nesti** and **peljati**: **prinesti** (to bring), **odnesti** (to take away), **prenesti** (to carry over), **raznesti** (to spread around), **pripeljati** (to bring by cart or car), **odpeljati** (to drive away).",
+          "de": "Viele Vorsilben sagen, wohin etwas geht: **pri-** her, ankommen; **od-** weg; **pre-** hinüber, an einen anderen Ort; **raz-** herum, an viele. Mit **nesti** und **peljati**: **prinesti** (bringen), **odnesti** (wegtragen), **prenesti** (hinübertragen), **raznesti** (verteilen), **pripeljati** (herfahren, mit Wagen oder Auto bringen), **odpeljati** (wegfahren).",
+          "it": "Molti prefissi dicono dove va qualcosa: **pri-** qui, l'arrivo; **od-** via; **pre-** attraverso, in un altro posto; **raz-** in giro, a molti. Con **nesti** e **peljati**: **prinesti** (portare qui), **odnesti** (portare via), **prenesti** (trasportare), **raznesti** (distribuire), **pripeljati** (portare con il carro o l'auto), **odpeljati** (portare via in auto)."
+        },
+        "examples": [
+          {
+            "sl": "Tine je prinesel drva iz gozda.",
+            "en": "Tine brought firewood from the forest.",
+            "de": "Tine hat Brennholz aus dem Wald gebracht.",
+            "it": "Tine ha portato la legna dal bosco."
+          },
+          {
+            "sl": "France je odpeljal moko v mesto.",
+            "en": "France took the flour to town.",
+            "de": "France hat das Mehl in die Stadt gefahren.",
+            "it": "France ha portato la farina in città."
+          }
+        ],
+        "rows": [
+          ["nesti", "prinesti, odnesti", {"en": "to bring, to take away", "de": "bringen, wegtragen", "it": "portare qui, portare via"}],
+          [
+            "nesti",
+            "prenesti, raznesti",
+            { "en": "to carry over, to spread around", "de": "hinübertragen, verteilen", "it": "trasportare, distribuire" }
+          ],
+          [
+            "peljati",
+            "pripeljati, odpeljati",
+            { "en": "to drive here, to drive away", "de": "herfahren, wegfahren", "it": "portare qui, portare via (in auto)" }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "predpone",
+          "prompt": "»Vida, ___ še en vrč vina, prosim!«",
+          "options": ["prinesi", "odnesi", "prenesi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**pri-**: here, to us: **prinesi**\n- odnesi · take it away\n- prenesi · carry it over somewhere else"
+        }
+      },
+      {
+        "say": {
+          "en": "**Iti** keeps its own forms under a prefix: **priti** (to come) → **pridem**, **prišel**; **oditi** (to leave) → **odidem**, **odšel**; **uiti** (to escape) → **uidem**, **ušel**; **obiti** (to go round) → **obidem**, **obšel**; **preiti** (to cross) → **preidem**, **prešel**. And **najti** (to find) is **na + iti**: **najdem**, **našel**.",
+          "de": "**Iti** behält unter einer Vorsilbe seine eigenen Formen: **priti** (kommen) → **pridem**, **prišel**; **oditi** (weggehen) → **odidem**, **odšel**; **uiti** (entwischen) → **uidem**, **ušel**; **obiti** (umgehen) → **obidem**, **obšel**; **preiti** (überqueren) → **preidem**, **prešel**. Und **najti** (finden) ist **na + iti**: **najdem**, **našel**.",
+          "it": "**Iti** tiene le sue forme sotto un prefisso: **priti** (venire) → **pridem**, **prišel**; **oditi** (partire) → **odidem**, **odšel**; **uiti** (scappare) → **uidem**, **ušel**; **obiti** (fare il giro) → **obidem**, **obšel**; **preiti** (attraversare) → **preidem**, **prešel**. E **najti** (trovare) è **na + iti**: **najdem**, **našel**."
+        },
+        "examples": [
+          {
+            "sl": "Luka je obšel ves pašnik, preden je našel ovco.",
+            "en": "Luka went all round the pasture before he found the sheep.",
+            "de": "Luka ist um die ganze Weide gegangen, bevor er das Schaf gefunden hat.",
+            "it": "Luka ha fatto il giro di tutto il pascolo prima di trovare la pecora."
+          },
+          {
+            "sl": "Koza je spet ušla iz hleva.",
+            "en": "The goat got out of the shed again.",
+            "de": "Die Ziege ist wieder aus dem Stall entwischt.",
+            "it": "La capra è scappata di nuovo dalla stalla."
+          }
+        ],
+        "rows": [
+          ["iti: grem, šel", "priti: pridem, prišel", {"en": "to come", "de": "kommen", "it": "venire"}],
+          ["iti: grem, šel", "oditi: odidem, odšel", {"en": "to leave", "de": "weggehen", "it": "partire"}],
+          ["iti: grem, šel", "uiti: uidem, ušel", {"en": "to escape", "de": "entwischen", "it": "scappare"}],
+          ["iti: grem, šel", "najti: najdem, našel", {"en": "to find", "de": "finden", "it": "trovare"}]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "predpone",
+          "text": "Ovca je ___ iz staje, ko so bila vrata odprta. (uiti)",
+          "accept": ["ušla"],
+          "hint": "as iti: šla",
+          "explain": "**uiti** keeps iti's forms: iti → šla, uiti → **ušla**"
+        }
+      },
+      {
+        "say": {
+          "en": "For what goes on, or happens again and again, a prefixed verb has a new imperfective: **prepisati → prepisovati**, **podpisati → podpisovati**, **prinesti → prinašati**, **raznesti → raznašati**, **priti → prihajati**, **oditi → odhajati**. **Ančka raznaša novice po vasi.** (again and again) **Pisma redno prihajajo.**",
+          "de": "Für das, was andauert oder sich immer wieder wiederholt, hat ein Verb mit Vorsilbe ein neues unvollendetes: **prepisati → prepisovati**, **podpisati → podpisovati**, **prinesti → prinašati**, **raznesti → raznašati**, **priti → prihajati**, **oditi → odhajati**. **Ančka raznaša novice po vasi.** (immer wieder) **Pisma redno prihajajo.**",
+          "it": "Per ciò che dura, o si ripete, un verbo con prefisso ha un nuovo imperfettivo: **prepisati → prepisovati**, **podpisati → podpisovati**, **prinesti → prinašati**, **raznesti → raznašati**, **priti → prihajati**, **oditi → odhajati**. **Ančka raznaša novice po vasi.** (più e più volte) **Pisma redno prihajajo.**"
+        },
+        "examples": [
+          {
+            "sl": "Ančka raznaša novice po vasi.",
+            "en": "Ančka spreads news around the village.",
+            "de": "Ančka trägt Neuigkeiten im Dorf herum.",
+            "it": "Ančka diffonde le notizie per il paese."
+          },
+          {
+            "sl": "Pisma redno prihajajo.",
+            "en": "Letters arrive regularly.",
+            "de": "Briefe kommen regelmäßig an.",
+            "it": "Le lettere arrivano regolarmente."
+          }
+        ],
+        "rows": [
+          [
+            "prepisati, podpisati",
+            "prepisovati, podpisovati",
+            { "en": "copying, signing: going on", "de": "abschreiben, unterschreiben: andauernd", "it": "copiare, firmare: in corso" }
+          ],
+          ["prinesti, raznesti", "prinašati, raznašati", {"en": "bringing, spreading", "de": "bringen, verteilen", "it": "portare, distribuire"}],
+          ["priti, oditi", "prihajati, odhajati", {"en": "coming, leaving", "de": "kommen, weggehen", "it": "venire, partire"}]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "predpone",
+          "prompt": "Poglej, Tine ravno ___ drva v hišo.",
+          "options": ["prinaša", "prinese", "prinašuje"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**ravno** (right now): going on → the imperfective **prinašati**: prinaša\n- prinese · once, done"
+        }
+      },
+      {
+        "say": {
+          "en": "Three prefixes add how much: **po-** a little while (**posedeti**, to sit a while; **poklepetati**, to have a chat); **na- … se** your fill (**najesti se**, to eat your fill; **naspati se**, to have a good sleep), what you had your fill of in the genitive; **za-** the start (**zaplesati**, to start dancing).",
+          "de": "Drei Vorsilben sagen, wie viel: **po-** eine kleine Weile (**posedeti**, eine Weile sitzen; **poklepetati**, ein wenig plaudern); **na- … se** sich satt (**najesti se**, sich satt essen; **naspati se**, sich ausschlafen), wovon im Genitiv; **za-** der Anfang (**zaplesati**, zu tanzen beginnen).",
+          "it": "Tre prefissi dicono quanto: **po-** un po' (**posedeti**, stare seduti un po'; **poklepetati**, fare due chiacchiere); **na- … se** a sazietà (**najesti se**, mangiare a sazietà; **naspati se**, farsi una bella dormita), di che cosa al genitivo; **za-** l'inizio (**zaplesati**, mettersi a ballare)."
+        },
+        "examples": [
+          {
+            "sl": "Po kosilu smo malo posedeli pod lipo.",
+            "en": "After lunch we sat a while under the linden.",
+            "de": "Nach dem Mittagessen sind wir eine Weile unter der Linde gesessen.",
+            "it": "Dopo pranzo siamo rimasti seduti un po' sotto il tiglio."
+          },
+          {
+            "sl": "Na trgatvi smo se najedli grozdja.",
+            "en": "At the grape harvest we ate our fill of grapes.",
+            "de": "Bei der Weinlese haben wir uns an Trauben satt gegessen.",
+            "it": "Alla vendemmia ci siamo saziati d'uva."
+          }
+        ],
+        "rows": [
+          ["sedeti, klepetati", "posedeti, poklepetati", {"en": "a little while", "de": "eine Weile", "it": "un po'"}],
+          ["jesti, spati", "najesti se, naspati se", {"en": "your fill", "de": "sich satt", "it": "a sazietà"}],
+          ["plesati", "zaplesati", {"en": "to start dancing", "de": "zu tanzen beginnen", "it": "mettersi a ballare"}]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "predpone",
+          "text": "Po dolgem dnevu na pašniku se je Luka dobro ___. (naspati se)",
+          "accept": ["naspal"],
+          "hint": "na- … se: the l-form",
+          "explain": "**naspati se**: to have a good sleep: Luka se je dobro **naspal**"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "predpone-1",
+      "title": { "sl": "Kam gre predpona?", "en": "Where does the prefix go?", "de": "Wohin geht die Vorsilbe?", "it": "Dove va il prefisso?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "predpone",
+          "instruction": "Kaj doda predpona? · What does the prefix add?",
+          "columns": [
+            { "label": "pri- · here, arriving", "words": ["prinesti", "pripeljati", "priti"] },
+            { "label": "od- · away", "words": ["odnesti", "odpeljati", "oditi"] },
+            { "label": "pre- · across, again", "words": ["prenesti", "prepisati", "preiti"] },
+            { "label": "raz- · around, apart", "words": ["raznesti", "razdeliti", "razrezati"] }
+          ],
+          "explain": "**pri-** here, **od-** away, **pre-** across or over again, **raz-** around or apart\n- prepisati · to write over again: to copy\n- razrezati · to cut apart"
+        },
+        {
+          "type": "table",
+          "grammar": "predpone",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "dovršni in nedovršni · done and going on",
+          "columns": ["dovršni · done", "nedovršni · going on"],
+          "rows": [
+            { "label": "to copy", "cells": ["prepisati", {"accept": ["prepisovati"], "hint": "-ovati"}] },
+            { "label": "to sign", "cells": ["podpisati", {"accept": ["podpisovati"], "hint": "-ovati"}] },
+            { "label": "to bring", "cells": ["prinesti", {"accept": ["prinašati"], "hint": "-ašati"}] },
+            { "label": "to take away", "cells": ["odnesti", {"accept": ["odnašati"], "hint": "-ašati"}] },
+            { "label": "to come", "cells": ["priti", {"accept": ["prihajati"], "hint": "-hajati"}] },
+            { "label": "to leave", "cells": ["oditi", {"accept": ["odhajati"], "hint": "-hajati"}] }
+          ],
+          "explain": "**the new imperfective** of a prefixed verb\n- -pisati → -pisovati\n- -nesti → -našati\n- -iti → -hajati"
+        }
+      ]
+    },
+    {
+      "id": "predpone-2",
+      "title": { "sl": "Pismo za mlinarja", "en": "A letter for the miller", "de": "Ein Brief für den Müller", "it": "Una lettera per il mugnaio" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "predpone",
+          "instruction": "Dopolni s predpono · Fill in with the prefix",
+          "title": "Pismo za mlinarja",
+          "text": "Zjutraj je France ___ (od + peljati) moko v mesto. Ko se je vrnil, je pred mlinom ___ (na + iti) pismo. ___ (pri + nesti) ga je poštar. France ga je ___ (pre + brati) dvakrat in ___ (pod + pisati) pogodbo za nov kamen. Zvečer je ___ (pri + iti) Tone: »Ančka že ___ (raz + nesti, again and again) novico po vasi!« France se je nasmejal in v zvezek ___ (za + pisati): »Kamen pride v petek.«",
+          "gaps": [
+            { "accept": ["odpeljal"], "hint": "away: the l-form" },
+            { "accept": ["našel"], "hint": "as iti: šel" },
+            { "accept": ["Prinesel"], "hint": "here: the l-form" },
+            { "accept": ["prebral"], "hint": "through, to the end" },
+            { "accept": ["podpisal"], "hint": "to sign" },
+            { "accept": ["prišel"], "hint": "as iti: šel" },
+            {
+              "accept": ["raznaša"],
+              "hint": "going on: the new imperfective",
+              "explain": "again and again, now → the imperfective **raznašati**: Ančka že **raznaša** novico"
+            },
+            { "accept": ["zapisal"], "hint": "to note down" }
+          ],
+          "bank": true,
+          "distractors": ["odnesel", "raznese", "opisal"],
+          "translation": "In the morning France took the flour to town. When he came back, he found a letter in front of the mill. The postman had brought it. France read it through twice and signed the contract for a new stone. In the evening Tone came: \"Ančka is already spreading the news round the village!\" France laughed and noted in his notebook: \"The stone comes on Friday.\""
+        }
+      ]
+    },
+    {
+      "id": "predpone-3",
+      "title": { "sl": "Enkrat ali vedno?", "en": "Once or again and again?", "de": "Einmal oder immer wieder?", "it": "Una volta o sempre?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "predpone",
+          "instruction": "V nedovršnik: dogaja se zdaj · Into the imperfective: it's going on now",
+          "items": [
+            {
+              "from": "Nejc prepiše nalogo.",
+              "accept": ["Nejc prepisuje nalogo."],
+              "hint": "prepisati → prepisovati",
+              "explain": "**prepisovati**: -ovati goes -ujem, -uje: Nejc **prepisuje**"
+            },
+            { "from": "Tine prinese drva.", "accept": ["Tine prinaša drva."], "hint": "prinesti → prinašati" },
+            { "from": "Luka pride domov.", "accept": ["Luka prihaja domov."], "hint": "priti → prihajati" },
+            { "from": "Gostje odidejo.", "accept": ["Gostje odhajajo."], "hint": "oditi → odhajati, the plural" }
+          ],
+          "explain": "**going on** → the new imperfective, only the verb changes\n- prinese → prinaša\n- pride → prihaja"
+        },
+        {
+          "type": "choice",
+          "grammar": "predpone",
+          "instruction": "Kateri glagol? · Which verb?",
+          "prompt": "Tone mora čez potok. Kako ___ na drugo stran?",
+          "options": ["bo prešel", "bo prišel", "bo odšel"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**preiti**: to cross, to the other side: **bo prešel**\n- bo prišel · will come here"
+        },
+        {
+          "type": "choice",
+          "grammar": "predpone",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "Po kosilu smo poklepetali s sosedi.",
+          "options": ["we had a chat with the neighbours", "we chatted on and on with the neighbours", "we started chatting with the neighbours"],
+          "answer": 0,
+          "say": "Po kosilu smo poklepetali s sosedi.",
+          "explain": "**po-**: a little while: **poklepetati**, to have a chat"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "predpone",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "nedovršni · going on",
+        "columns": ["nedovršni · going on"],
+        "rows": [
+          { "label": "podpisati", "cells": [{"accept": ["podpisovati"]}] },
+          { "label": "prinesti", "cells": [{"accept": ["prinašati"]}] },
+          { "label": "oditi", "cells": [{"accept": ["odhajati"]}] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "predpone",
+        "instruction": "Dopolni s predpono · Fill in with the prefix",
+        "text": "Mojca je novega učenca ___ (v + pisati) v dnevnik. Učenec ji je ___ (pri + nesti) pismo staršev. Mojca ga je prebrala in ___ (pod + pisati). Ko je zazvonilo, so otroci ___ (od + iti) domov.",
+        "gaps": [{"accept": ["vpisala"]}, {"accept": ["prinesel"]}, {"accept": ["podpisala"]}, {"accept": ["odšli"]}],
+        "translation": "Mojca entered the new pupil in the register. The pupil brought her a letter from his parents. Mojca read it and signed it. When the bell rang, the children went home."
+      },
+      {
+        "type": "transform",
+        "grammar": "predpone",
+        "instruction": "V nedovršnik: dogaja se zdaj · Into the imperfective: it's going on now",
+        "items": [
+          { "from": "Ančka raznese novico.", "accept": ["Ančka raznaša novico."] },
+          { "from": "Mojca podpiše spričevala.", "accept": ["Mojca podpisuje spričevala."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "predpone",
+        "instruction": "Kateri glagol? · Which verb?",
+        "prompt": "Luka je iskal ovco vse popoldne in jo je končno ___.",
+        "options": ["našel", "prišel", "odšel"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**najti** (na + iti): to find: **našel**"
+      },
+      {
+        "type": "choice",
+        "grammar": "predpone",
+        "instruction": "Kaj pomeni? · What does it mean?",
+        "prompt": "»Odnesi smeti, prosim.«",
+        "options": ["Take the rubbish out, please.", "Bring the rubbish, please.", "Spread the rubbish, please."],
+        "answer": 0,
+        "say": "Odnesi smeti, prosim.",
+        "explain": "**od-**: away: **odnesti**, to take away"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Verbs by SP2001 (fran.si) 2026-11-01. Native check: Pismo za mlinarja, vedno + pf (Pismo vedno pride) accepted, Kako bo prešel"
+}
