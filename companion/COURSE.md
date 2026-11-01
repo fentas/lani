@@ -25,6 +25,7 @@ how to write units.
 - [The learner's progress](#the-learners-progress)
 - [Writing a unit](#writing-a-unit)
 - [The Italian course](#the-italian-course)
+- [The English course](#the-english-course)
 - [Printed sheets](#printed-sheets)
 
 ## The files
@@ -1036,6 +1037,43 @@ order, B1's earlier ones only lightly:
 - **No trick**: congiunzioni's gap text has no distractors (almost every conjunction fits some gap), as vorrei's has
   none; a wrong option is wrong Italian or wrong by its own sentence (la mia where Davide is told about, sono where
   Giulia said it).
+
+## The English course
+
+For grown-ups learning English in the Lake District village (the culture `lakeland`), from Slovene, German or Italian:
+visitors and newcomers (2026-11-01, "make it complete"). The English course is `companion/course/en/`: the outline (A1,
+18 units, each naming the English grammar pages it teaches) and its units, written in the village's adult life: Mrs
+Hartley the teacher, Mrs Birkett at the Packhorse Inn, Shepherd Jack and his sheepdog Meg, Mr Dixon the blacksmith,
+Granny Maggie and Auntie Edna, Mr Tyson and his mill, Brewer Sam, Old Wilf, Arthur and his bees; the fells, the becks,
+the tarn, Keswick eight miles off. The school is the same school, and every part of it is the course's language's:
+
+| What | For English |
+|---|---|
+| Who teaches | the school's person of the cast (`Residents.brings(SCHOOL)`: Mrs Hartley, her home the school), in the cast's `teacher` voice (Matilda; `@hartley` once she has her own); she teaches the children by day and the grown-ups in the evening class, first names both ways but "Mrs Hartley" |
+| Read aloud | the intro's English in her voice: `Spoken.looks` for English (its frequent words; English has no letters of its own, so a bold form is read in her voice when its words are English's or the intro shows them: its examples, its table, its questions, the unit's `words`); the explanation in the learner's base as one clip (`sl\|…`, `de\|…`, `it\|…`) |
+| The teacher's lines | "Welcome to the school! Sit down, let's start." and "Excellent! You know this already: …" (the app's English strings) |
+| Texts per base | every explanation (`say`, `summary`), title, goal, instruction, hint, why, label, column and translation in Slovene, German and Italian, and in English: the format wants it always, so it is plain English, the fallback |
+| Grading | the English table (`grading/en.json`): a contraction is its long form (I'm = I am, isn't = is not, he's got = he has got, Jack's at home = Jack is at home); 21 to 99 with or without the hyphen; the American "a hundred five" and the American spelling (color, center, gray, mom, traveling) beside the British; -ize and -ise both; a known mistake wrong only for a word of its group: -s for -es after x, z, ch, sh, ss, -fes for -ves, woman for women, fourty, ninty, for for four |
+| British, American | British spelling and usage in every text (colour, Mum, the inn, have got, a hundred and five); the American form is right where a learner types it: by the grading (its spelling) or listed in `accept` (Do you have …? beside Have you got …?) |
+| The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
+| Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
+| Not for English | forms cards, counting cards, the numbers module and the case rows (Slovene's: `numbers` turns nothing on); no `lemma`/`form` on the cells (`FORMS_LANGUAGES` has no English) |
+| Checked | `EnglishCourseContentTest` (CourseContentChecks with the bases sl, de and it: every unit played, every right answer graded right, no distractor right or almost, every text in each base), `SchoolBoardTest`, the smoke's course, course-speech (the Lakeland school), prints (each step's point on the rule line) and meanings (the supplement) |
+
+Writing an English unit: as [Writing a unit](#writing-a-unit), with the explanations in each base (du, ti and tu, as the
+app speaks to the learner), every English form in **bold** with its meaning in brackets where the base needs one; the
+exercises' texts per base; a grown-up's sentences in the village's life (the inn, the farm and the fells, the smithy,
+the bus to Keswick), never the learner's own data (an age is Auntie Edna's, not the learner's); British first, the
+American form accepted; every file flagged machine-written in its `review`, for a native check (British English first,
+then each base).
+
+- **A contraction is one answer**: list `I'm at home.` or `I am at home.`, not both; the grading takes either. A name's
+  `'s` is `is` only before an article, not, a place word, here, there, a possessive, always, never or very: before an
+  adjective (`Jack's tired`) list `Jack is tired.` beside it.
+- **One answer a gap**, or all of them: "Good ___!" takes morning, afternoon and evening; "Mr Dixon is ___ blacksmith"
+  takes a and the (he is the village's), so a gap that tests a or the says which it means.
+- **A choice never offers "nothing"**: a gap with no article is a choice of whole sentences (`We're at home.`, `We're at
+  the home.`), so the sentence read after the answer is a real one.
 
 ## Printed sheets
 
