@@ -187,6 +187,9 @@ const COMPARISON = new Set(['kot', 'kakor'])
 const ASKING = new Set(['prosim', 'hvala'])
 const PUNCTUATION = /[,.!?;:—–…()"«»„“”]/
 /** The numbers as an hour says them (ob šestih: Wiktionary's šesti), and the ordinals. */
+/** A number of tens and ones written as one word (petindvajset, štiriinšestdeset): it counts as its tens do. */
+const COMPOUND_NUMBER = /^(ena|dva|tri|štiri|pet|šest|sedem|osem|devet)in(dvajset|trideset|štirideset|petdeset|šestdeset|sedemdeset|osemdeset|devetdeset)$/
+
 const HOURS = new Set(['en', 'eden', 'dva', 'trije', 'štirje', 'pet', 'šest', 'sedem', 'osem', 'devet', 'deset', 'enajst', 'dvanajst', 'prvi', 'drugi', 'tretji', 'četrti', 'peti', 'šesti', 'sedmi', 'osmi', 'deveti', 'deseti', 'enajsti', 'dvanajsti'])
 /** A word ending as an adjective does (delovno, Vipavske, Tonetovo, pastirski): one between a preposition and its noun is read so. */
 const ADJECTIVE_LIKE = /(?:ega|emu|em|im|ih|imi|ima)$|(?:n|sk|šk|ov|ev|in|ast|at|iv|ljiv|ičn)[aoei]$/
@@ -692,8 +695,10 @@ export class CaseLens {
     if (!nominal.length && !verbs.length && !other.size && [...form].length >= 4) nominal.push(...this.byEndings(form))
     if (!nominal.length && !pron) nominal.push(...(this.packForms.get(form) ?? []))
     if (!nominal.length && !other.size) nominal.push(...participles)
-    // nothing with a case, and no verb: what the dictionary says it is (ki: a pronoun, dvajset: a number), no case row
+    // nothing with a case, and no verb: what the dictionary says it is (ki: a pronoun, dvajset: a number), no case row;
+    // a number of tens and ones in one word (petindvajset) a number, as its tens are
     if (!nominal.length && !verbs.length) for (const p of caseless) other.add(p)
+    if (!nominal.length && !verbs.length && !other.size && COMPOUND_NUMBER.test(form)) other.add('num')
     // a sound drawn out (jaaa, Antooon, brrrr): the word with the letter once or twice (ja, brr)
     if (!nominal.length && !verbs.length && !other.size && !pron && /(\p{L})\1\1/u.test(form)) {
       for (const short of [form.replace(/(\p{L})\1{2,}/gu, '$1$1'), form.replace(/(\p{L})\1{2,}/gu, '$1')]) {
@@ -808,7 +813,7 @@ export class CaseLens {
         prep: this.preps.get(form),
         negation: this.negations.has(form),
         quantity: this.quantity.has(form),
-        count: n !== undefined ? !(n % 100 >= 1 && n % 100 <= 4) : this.numbers.has(form) || /^(ena|dva|tri|štiri|pet|šest|sedem|osem|devet)in(dvajset|trideset|štirideset|petdeset|šestdeset|sedemdeset|osemdeset|devetdeset)$/.test(form),
+        count: n !== undefined ? !(n % 100 >= 1 && n % 100 <= 4) : this.numbers.has(form) || COMPOUND_NUMBER.test(form),
         measure: nominal.some(r => r.pos === 'noun' && this.measures.has(this.norm(r.lemma))),
         biti,
         clitic: form === 'se' || form === 'si',
