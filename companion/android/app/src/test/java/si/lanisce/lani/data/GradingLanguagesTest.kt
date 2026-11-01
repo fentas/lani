@@ -206,6 +206,27 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, it("Il miele è fatto dalle api", "Il miele è fatto dalle api."))
     }
 
+    // --- Italian B1: the conditional, the subjunctive, the remote past --------------------------------------------
+
+    @Test fun `another tense or mood one letter off is wrong, never a slip`() {
+        for ((answer, right) in listOf(
+            // the future for the conditional and the other way (Al posto tuo sarei …, Domani sarai …)
+            "sarai" to "sarei", "avrai" to "avrei", "farai" to "farei", "darai" to "darei", "sarei" to "sarai",
+            // the indicative for the subjunctive (Penso che siano stanchi, Spero che stia bene)
+            "siamo" to "siano", "sta" to "stia",
+            // the remote past for the subjunctive and the other way (Se fossi un uccello …), andò for the future
+            "fosti" to "fossi", "fossi" to "fosti", "andò" to "andrò",
+            // already wrong by their ending: -i for -a, the future's -emo for the conditional's -emmo, -ai for -ei
+            "vadi" to "vada", "saremo" to "saremmo", "mangerai" to "mangerei", "capisce" to "capisca",
+        )) assertEquals("«$answer» for «$right»", Verdict.WRONG, it(answer, right).verdict)
+        // what stays as it was: an accent forgotten, siano for siamo (m and n side by side), a slip in another stem
+        assertGraded(Verdict.ALMOST, Hint.ACCENT, it("ando", "andò"))
+        assertGraded(Verdict.ALMOST, Hint.ACCENT, it("parlo", "parlò"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("siano", "siamo"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("sapia", "sappia"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, it("Penso che sia vero", "Penso che sia vero."))
+    }
+
     // --- Slovene ----------------------------------------------------------------------------------------------------
 
     private fun sl(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.SL)
