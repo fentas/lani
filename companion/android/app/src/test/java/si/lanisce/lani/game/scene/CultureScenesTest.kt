@@ -64,12 +64,13 @@ class CultureScenesTest {
         "palisade" to emptySet(), "lookout" to emptySet(),
         // the Lake District's (places-lakeland): every effect of the kitchen, the tent, the smithy and the field cued too
         "kitchen" to emptySet(), "tent" to emptySet(), "smithy" to emptySet(), "field" to emptySet(),
-        // Kärnten's wood and its places by the stream (kaernten-projects-a): the wood leaves the projects' felling (the
-        // maypole's spruce, the hayrack's oak) to their steps, the bridge the fire brigade's pump and Resi's sheet; the stream
-        // bank and the pond (kaernten-projects-b): the mill's wheel and sacks, the bridge's cart and the fire brigade's hose
-        // are the village projects' (their steps and scenes play them)
-        "forest" to setOf("fell", "fell-oak"),
+        // the stream's places by the beck or the Bach leave the village projects' things to their steps and scenes: the
+        // Lake District's beck (lakeland-projects-b) the mill wheel and its sacks, the cart over the new bridge and the fire
+        // brigade's hand pump; Kärnten's bridge (kaernten-projects-a) the pump and the washing's sheet, its stream bank
+        // (kaernten-projects-b) the mill's, the bridge's and the fire brigade's; every effect of the tarn and of Kärnten's pond
+        // is cued. Kärnten's wood leaves the projects' felling (the maypole's spruce, the hayrack's oak) to their steps
         "stream" to setOf("wheel", "sacks", "cart", "hose", "sheet"), "pond" to emptySet(),
+        "forest" to setOf("fell", "fell-oak"),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
@@ -185,6 +186,17 @@ class CultureScenesTest {
             listOf("lakeland", "at-the-bees", "apiary", "beehive"),
             listOf("lakeland", "on-the-watchtower", "watchtower", "watchtower"),
             listOf("lakeland", "at-the-gate", "palisade", "palisade"),
+            // the Lake District's landscape and its projects, the third wave (lakeland-projects-b): the beck and the tarn,
+            // the mountain rescue hut, the playground, the drinking fountain and the church clock on the green, the bank
+            // barn in the field and the viewing station above the lake
+            listOf("lakeland", "by-the-beck", "stream", "spot:riverbank"),
+            listOf("lakeland", "at-the-tarn", "pond", "spot:pond"),
+            listOf("lakeland", "at-the-rescue-hut", "firestation", "project:gasilski_dom"),
+            listOf("lakeland", "at-the-playground", "playground", "project:igrisce"),
+            listOf("lakeland", "at-the-fountain", "square", "project:vodnjak_na_trgu"),
+            listOf("lakeland", "under-the-clock", "square", "project:mestna_ura"),
+            listOf("lakeland", "at-the-bank-barn", "field", "project:toplar"),
+            listOf("lakeland", "at-the-viewing-station", "lookout", "project:razgledni_stolp"),
         )) {
             val s = scene(culture, id, when (culture) { "friuli" -> second; "kaernten" -> LangPair(Lang.DE, Lang.SL); "lakeland" -> LangPair(Lang.EN, Lang.SL); else -> jan })
             assertEquals(art, s.art)

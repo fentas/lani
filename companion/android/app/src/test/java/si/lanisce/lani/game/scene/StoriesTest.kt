@@ -290,8 +290,11 @@ class StoriesTest {
         val fuoco = campfire("friuli", second)
         val bepi = fuoco.people.first { it.villager == "bepi" }
         val his = Stories.of(fuoco, bepi)
-        assertEquals(10, his.size)
+        assertEquals(16, his.size)
         assertTrue(his.all { it.language == "it" && "A1" in it.levelsTold && "A2" in it.levelsTold })
+        // the ten older ones heard, the six newer ones come in their order: the benandanti first
+        val ten = his.take(10).associate { it.id to StoryHeard(told = 1, level = "A1") }
+        assertEquals("i-benandanti", Stories.tonight(his, ten, "A1")!!.story.id)
         val t = Stories.tonight(his, emptyMap(), "A1")!!
         val first = t.telling.lines.first()
         assertTrue(first.sl!!.isNotBlank() && first.en!!.isNotBlank() && first.sl != first.en)

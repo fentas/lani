@@ -48,6 +48,14 @@ import kotlin.math.sin
  * courses with bands of brick, its roof of coppi; the sign VVF (vigili del fuoco); the helmets of polished steel; the
  * picture of Santa Barbara, the patron of the Italian firemen, with her tower; the banner the tricolore.
  *
+ * The Lake District's mountain rescue hut (At the rescue hut; its look's [readStation]): the walls' outsides and the tower of
+ * the dale's slate stone ([Lakeland.slateStone]) under slate; MRT over the doors (the mountain rescue team, volunteers); red
+ * helmets and red jackets on the pegs; two ice axes crossed; the map of the fells for the picture ([fellMap]); a whistle on
+ * its cord for the horn, its blasts going out ([whistle]); red first-aid bags with a white cross on the shelf for the buckets;
+ * coils of red and blue rope on the reel for the hose, a rope's end across the floor; St George's cross on the banner; and
+ * where the pump stands the rescue stretcher on its one wheel ([stretcher]), which the team wheels to and fro to practise
+ * (`pump`: how hard). No fire, no water.
+ *
  * Carinthia's (kaernten-projects-b): the sign FF (Freiwillige Feuerwehr) over the doors and the banner Austria's red, white
  * and red; St Florian, the Austrian firemen's patron too, is the art's own picture.
  */
@@ -96,9 +104,9 @@ internal class FirestationPainter : RoomPainter() {
     private val cream = Col.hex(0xF2E8D2)
     private val oxL = Col.hex(0x9A4A3A); private val oxM = Col.hex(0x843C30); private val oxD = Col.hex(0x6A2E26)
     private val brickL = Col.hex(0xB8684A); private val brickM = Col.hex(0xA25A40); private val brickD = Col.hex(0x884A36); private val brickJ = Col.hex(0x6E5A4E)
-    private val blue = Col.hex(0x2E3E6A); private val blueL = Col.hex(0x46598E); private val blueD = Col.hex(0x1E2848)
+    private var blue = Col.hex(0x2E3E6A); private var blueL = Col.hex(0x46598E); private var blueD = Col.hex(0x1E2848)
     private val leather = Col.hex(0x6A4228); private val leatherL = Col.hex(0x8E5E38); private val leatherD = Col.hex(0x48291A)
-    private val hoseC = Col.hex(0xD8CCA8); private val hoseL = Col.hex(0xF0E6C8); private val hoseD = Col.hex(0xA89A74)
+    private var hoseC = Col.hex(0xD8CCA8); private var hoseL = Col.hex(0xF0E6C8); private var hoseD = Col.hex(0xA89A74)
     private val steel = Col.hex(0xC8CCD4); private val steelL = Col.hex(0xF0F2F6); private val steelD = Col.hex(0x8A909C)
     private val bellC = Col.hex(0xC8962E); private val bellL = Col.hex(0xF0CA62); private val bellD = Col.hex(0x8A6420)
     private val gravelL = Col.hex(0xB8AE9C); private val gravelM = Col.hex(0x9C927E); private val gravelD = Col.hex(0x7A7262)
@@ -113,6 +121,16 @@ internal class FirestationPainter : RoomPainter() {
     private var tricolore = false
     /** Carinthia's banner: Austria's red, white and red, in bands down the cloth. */
     private var austria = false
+    /** The Lake District's rescue hut ([readStation]): slate, MRT, red helmets and jackets, ice axes, the map, the whistle, first-aid bags, ropes, St George, the stretcher. */
+    private var slate = false
+    private var redKit = false
+    private var iceAxes = false
+    private var fellMapOn = false
+    private var whistleOn = false
+    private var firstAid = false
+    private var ropes = false
+    private var england = false
+    private var stretcherOn = false
 
     private var bellAngle = 0f
 
@@ -137,6 +155,19 @@ internal class FirestationPainter : RoomPainter() {
         barbara = variant("picture") == "barbara"
         tricolore = variant("flag") == "it"
         austria = variant("flag") == "at"
+        slate = material("walls", "plaster") == "slate"
+        if (variant("sign") == "mrt") sign = "MRT"
+        redKit = variant("helmet") == "red"
+        iceAxes = variant("axe") == "ice"
+        fellMapOn = variant("picture") == "map"
+        whistleOn = variant("horn") == "whistle"
+        firstAid = variant("bucket") == "firstaid"
+        ropes = variant("hose") == "rope"
+        england = variant("flag") == "england"
+        stretcherOn = variant("pump") == "stretcher"
+        // the jackets red (the rescue team's), the hose's reel wound with climbing rope, red and blue
+        if (redKit) { blue = Col.hex(0xC0302A); blueL = Col.hex(0xE0503E); blueD = Col.hex(0x86201C) } else { blue = Col.hex(0x2E3E6A); blueL = Col.hex(0x46598E); blueD = Col.hex(0x1E2848) }
+        if (ropes) { hoseC = Col.hex(0xC8382E); hoseL = Col.hex(0x3E6EC8); hoseD = Col.hex(0x2A4A8E) } else { hoseC = Col.hex(0xD8CCA8); hoseL = Col.hex(0xF0E6C8); hoseD = Col.hex(0xA89A74) }
     }
 
     /** The doors' angle, 0 shut … 1 wide open: as `doors` has it, else open by day and shut at night. */
@@ -269,6 +300,7 @@ internal class FirestationPainter : RoomPainter() {
     /** The walls' outsides: whitewash over a stone plinth; in Friuli river cobbles in courses with bands of brick. */
     private fun outside(a: Float, z: Float, px: Int, py: Int, dim: Float): Int {
         if (cobbles) return Col.scale(cobble(a, z, px, py), dim)
+        if (slate) return Col.scale(Lakeland.slateStone(a, z, px, py, fine), dim)
         return outer(z, px, py, dim)
     }
 
@@ -512,6 +544,8 @@ internal class FirestationPainter : RoomPainter() {
                 z < hem + 0.7f -> if (Dither.at(px, py) < 0.5f) Pal.GOLD else bellD
                 tricolore -> when { u < 0.33f -> Col.hex(0x2E8A44); u < 0.67f -> Pal.FLAG_WHITE; else -> Pal.FLAG_RED }.let { if (e < 0.6f) Col.scale(it, 0.85f) else it }
                 austria -> (if (abs((z - za) / (zb - za) - 0.5f) < 1f / 6f) Pal.FLAG_WHITE else Pal.FLAG_RED).let { if (e < 0.6f) Col.scale(it, 0.85f) else it }
+                // St George's cross: red on white
+                england -> if (abs(u - 0.5f) < 0.1f || abs(z - (za + zb) / 2f - 0.5f) < 0.9f) Pal.FLAG_RED else if (e < 0.6f) Col.hex(0xD8D4CC) else Pal.FLAG_WHITE
                 e < 0.6f -> Pal.GOLD
                 // a white cross in a ring on the red
                 abs(u - 0.5f) * 1.3f < 0.07f && abs(z - (za + zb) / 2f - 0.5f) < 3f -> Col.hex(0xF6EEDC)
@@ -532,9 +566,10 @@ internal class FirestationPainter : RoomPainter() {
                 val shoulder = top - abs(u - 0.5f) * 2.6f
                 if (z > shoulder) return@onX 0
                 when {
-                    z > shoulder - 0.9f && abs(u - 0.5f) < 0.18f -> fire
+                    z > shoulder - 0.9f && abs(u - 0.5f) < 0.18f -> if (redKit) blueD else fire
                     abs(u - 0.5f) < 0.03f -> blueD
-                    abs(u - 0.47f) < 0.04f && ((top - z) % 1.6f) < 0.5f && z < shoulder - 1.4f -> Pal.GOLD
+                    redKit && abs(z - (top - 5.2f)) < 0.35f -> Col.hex(0xE8ECEE) // a reflective band round it
+                    !redKit && abs(u - 0.47f) < 0.04f && ((top - z) % 1.6f) < 0.5f && z < shoulder - 1.4f -> Pal.GOLD
                     u < 0.14f || u > 0.86f -> blueD
                     u < 0.3f -> blueL
                     else -> blue
@@ -546,7 +581,7 @@ internal class FirestationPainter : RoomPainter() {
     /** The brass helmets on the pegs over the jackets, a comb along each; in Friuli polished steel. A tap sets a glint running over them. */
     private fun helmets() {
         val pk = poked("helmet"); val age = pk?.age(t) ?: 9f
-        val (l, m, d) = if (chrome) Triple(steelL, steel, steelD) else Triple(Col.hex(0x5A5660), Col.hex(0x2E2A32), Col.hex(0x1A171C))
+        val (l, m, d) = if (chrome) Triple(steelL, steel, steelD) else if (redKit) Triple(Col.hex(0xF0604A), Col.hex(0xC8302A), Col.hex(0x86201C)) else Triple(Col.hex(0x5A5660), Col.hex(0x2E2A32), Col.hex(0x1A171C))
         for ((k, py) in pegYs.withIndex()) {
             val hx = x0 + 0.35f
             // the peg
@@ -557,7 +592,7 @@ internal class FirestationPainter : RoomPainter() {
             sprite(cx, by) {
                 for ((r, row) in HELMET.withIndex()) for ((q, ch) in row.withIndex()) {
                     val col = when (ch) {
-                        'C' -> if (chrome) steelL else bellL; 'c' -> if (chrome) steelD else bellC; 'G' -> if (chrome) steelD else bellL
+                        'C' -> if (chrome) steelL else if (redKit) l else bellL; 'c' -> if (chrome) steelD else if (redKit) m else bellC; 'G' -> if (chrome) steelD else if (redKit) l else bellL
                         'L' -> l; 'M' -> m; 'D' -> d; 'B' -> m; 'b' -> d; else -> continue
                     }
                     c.set(cx - 5 + q, by - 6 + r, col)
@@ -580,12 +615,16 @@ internal class FirestationPainter : RoomPainter() {
         for ((k, dir) in intArrayOf(1, -1).withIndex()) {
             val y0a = axeY - 0.55f * dir; val y1a = axeY + 0.55f * dir
             val z0a = fl + 13.4f; val z1a = fl + 20.2f
-            rod(xa, y0a, z0a, xa, y1a, z1a, fireD, fire, fireD, fireK)
-            // the head at the top end: the blade, a pick behind it
+            if (iceAxes) rod(xa, y0a, z0a, xa, y1a, z1a, Col.hex(0x2A3A5A), Col.hex(0x4A6A9A), Col.hex(0x2A3A5A), Col.hex(0x1A2238))
+            else rod(xa, y0a, z0a, xa, y1a, z1a, fireD, fire, fireD, fireK)
+            // the head at the top end: the blade, a pick behind it (an ice axe's adze and its long pick)
             val hy = y1a; val hz = z1a
             onX(xa + 0.01f, hy - 0.42f, hy + 0.42f, hz - 1.8f, hz + 0.6f) { y, z, _, _ ->
                 val off = (y - hy) * dir
                 when {
+                    iceAxes && off > 0.05f && abs(z - hz) < 0.45f -> if (off > 0.3f) steelL else steel
+                    iceAxes && off < -0.05f && z < hz + 0.3f && z > hz - 0.3f + (off + 0.05f) * 2.2f -> steelD
+                    iceAxes -> if (abs(off) <= 0.05f && z > hz - 0.6f) steelD else 0
                     off > 0.05f && z > hz - 1.6f + (off - 0.05f) * 1.2f && z < hz + 0.5f -> if (off > 0.32f) steelL else steel
                     off < -0.05f && abs(z - hz + 0.5f) < 0.35f + (off + 0.42f) * 0.6f -> steelD
                     abs(off) <= 0.05f && z > hz - 1.4f -> steelD
@@ -608,8 +647,28 @@ internal class FirestationPainter : RoomPainter() {
             val e = min(min(u, 1f - u) * ww * 4f, min(v, 1f - v) * hh)
             if (e < 0.45f) return@onX Pal.GOLD.let { if (Dither.at(px, py) < 0.4f) bellD else it }
             if (e < 0.75f) return@onX bellD
-            if (barbara) barbaraAt(u, v, px, py) else florian(u, v, px, py)
+            if (fellMapOn) fellMap(u, v, px, py) else if (barbara) barbaraAt(u, v, px, py) else florian(u, v, px, py)
         }
+    }
+
+    /**
+     * The map of the fells in its frame ([fellMapOn]): the paper pale, the fells' contours brown in rings, a lake blue in the
+     * middle with a beck to it, the grid's faint blue lines, a walkers' path in red dashes up to a summit's triangle.
+     */
+    private fun fellMap(u: Float, v: Float, px: Int, py: Int): Int {
+        val lake = ((u - 0.38f) / 0.16f).let { it * it } + ((v - 0.42f) / 0.26f).let { it * it } < 1f
+        if (lake) return Col.hex(0x7EB4D8)
+        if (abs(u - (0.36f + 0.08f * v)) < 0.02f && v > 0.62f) return Col.hex(0x5E9AC8) // the beck
+        // a summit up on the right, the contours round it
+        val r = kotlin.math.sqrt(((u - 0.74f) * 1.4f).let { it * it } + (v - 0.66f).let { it * it })
+        val ring = (r / 0.075f) % 1f
+        if (abs(r) < 0.03f) return Col.hex(0x2A2420)
+        // the path in red dashes from the lake's shore up to the summit
+        val pathV = 0.42f + (u - 0.5f) * 1.0f
+        if (u in 0.52f..0.72f && abs(v - pathV) < 0.03f && ((u * 40f).toInt() % 2 == 0)) return Col.hex(0xC8302A)
+        if (r < 0.45f && ring < 0.12f) return Col.hex(0xA0724A)
+        if (((u * 4f) % 1f) < 0.03f || ((v * 4f) % 1f) < 0.03f) return Col.hex(0xA8C8E0)
+        return if (r < 0.25f) Col.hex(0xE8DEC0) else if (Dither.at(px, py) < 0.06f) Col.hex(0xC8DCA8) else Col.hex(0xDCE8C4)
     }
 
     private fun florian(u: Float, v: Float, px: Int, py: Int): Int {
@@ -667,6 +726,7 @@ internal class FirestationPainter : RoomPainter() {
         val shake = if (blown > 0.05f) (sin(t * 38.0).toFloat() * 0.25f * K) else 0f
         val hx = x0 + 0.12f
         val cx = iso.sx(hx, hornY) + shake; val cy = iso.sy(hx, hornY, hornZ)
+        if (whistleOn) { whistle(hx, cx, cy); return }
         // the cord from the nail
         c.line(floor(cx).toInt(), floor(cy - 3.5f * K).toInt(), floor(cx - 1.5f * K).toInt(), floor(cy - 1.2f * K).toInt(), fire)
         c.line(floor(cx).toInt(), floor(cy - 3.5f * K).toInt(), floor(cx + 2f * K).toInt(), floor(cy - 0.9f * K).toInt(), fire)
@@ -684,9 +744,24 @@ internal class FirestationPainter : RoomPainter() {
         c.set(floor(cx - r).toInt(), floor(cy).toInt(), bellL)
     }
 
-    /** The leather buckets on their shelf under the picture, a white number on each. */
+    /** The rescue team's whistle on its cord from the nail ([whistleOn]): orange, its mouthpiece toward us, its ring for the cord. */
+    private fun whistle(hx: Float, cx: Float, cy: Float) {
+        val orange = Col.hex(0xF08A28); val orangeL = Col.hex(0xF8B860); val orangeD = Col.hex(0xB05E14)
+        c.line(floor(cx).toInt(), floor(cy - 3.5f * K).toInt(), floor(cx - 1f * K).toInt(), floor(cy - 0.8f * K).toInt(), Pal.FLAG_RED)
+        c.line(floor(cx).toInt(), floor(cy - 3.5f * K).toInt(), floor(cx + 1f * K).toInt(), floor(cy - 0.8f * K).toInt(), Pal.FLAG_RED)
+        iso.px(hx - 0.06f, hornY, hornZ + 3.6f, iron)
+        val r = 1.1f * K
+        c.fillEllipse(cx, cy, r, r * 0.9f, orangeD)
+        c.fillEllipse(cx - 0.2f * K, cy - 0.2f * K, r - 0.6f, r * 0.9f - 0.6f, orange)
+        c.fillRect(floor(cx).toInt(), floor(cy - 0.6f * K).toInt(), max(2, (2.2f * K).toInt()), max(1, (1.1f * K).toInt()), orange)
+        c.hline(floor(cx).toInt(), floor(cx + 2.2f * K).toInt(), floor(cy - 0.6f * K).toInt(), orangeL)
+        if (fine) c.set(floor(cx - 0.3f * K).toInt(), floor(cy - 0.4f * K).toInt(), orangeL)
+    }
+
+    /** The leather buckets on their shelf under the picture, a white number on each; the rescue team's first-aid bags ([firstAid]). */
     private fun buckets() {
         iso.box(x0, shelfA, shelfZ - 0.6f, 0.75f, shelfB - shelfA, 0.6f, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        if (firstAid) { aidBags(); return }
         for (k in 0 until 4) {
             val by = shelfA + 0.3f + k * 0.45f
             val bx = x0 + 0.38f
@@ -705,6 +780,21 @@ internal class FirestationPainter : RoomPainter() {
             if (fine) c.fillEllipse(cx, base - hh, rTop - 1f, rTop * 0.4f - 1f, Col.hex(0x2E1A10))
             // the handle
             arc(cx, base - hh - 0.5f, rTop * 0.9f, 1.4f * K, leatherD, PI.toFloat(), 2f * PI.toFloat())
+        }
+    }
+
+    /** Three red first-aid bags on the shelf ([firstAid]), each with its white cross and a strap over its top. */
+    private fun aidBags() {
+        val red = Col.hex(0xC8302A); val redL = Col.hex(0xE85A48); val redD = Col.hex(0x86201C)
+        for (k in 0 until 3) {
+            val by = shelfA + 0.25f + k * 0.6f
+            iso.box(x0 + 0.08f, by, shelfZ, 0.55f, 0.48f, 3.2f, redL, red, redD)
+            // the white cross on its front (the face toward us, y = by + 0.48)
+            val cx = iso.sx(x0 + 0.36f, by + 0.48f); val cy = iso.sy(x0 + 0.36f, by + 0.48f, shelfZ + 1.7f)
+            val arm = max(1f, 0.9f * K); val th = max(1f, 0.35f * K)
+            c.fillRect(floor(cx - th).toInt(), floor(cy - arm).toInt(), max(1, (2 * th).toInt()), max(2, (2 * arm).toInt()), Col.hex(0xF6F2EC))
+            c.fillRect(floor(cx - arm).toInt(), floor(cy - th).toInt(), max(2, (2 * arm).toInt()), max(1, (2 * th).toInt()), Col.hex(0xF6F2EC))
+            if (fine) iso.line(x0 + 0.1f, by + 0.24f, shelfZ + 3.3f, x0 + 0.6f, by + 0.24f, shelfZ + 3.3f, Col.hex(0x2A2226))
         }
     }
 
@@ -761,7 +851,7 @@ internal class FirestationPainter : RoomPainter() {
         val z = fl + 0.6f
         val pts = listOf(floatArrayOf(reelX + 0.1f, reelY + 0.6f), floatArrayOf(3.4f, 8.2f), floatArrayOf(4.6f, 7.4f), floatArrayOf(px0 + 0.3f, py1 - 0.2f))
         for (i in 0 until pts.size - 1) hoseLine(pts[i][0], pts[i][1], pts[i + 1][0], pts[i + 1][1], z)
-        if (fxOn("pump") > 0.02f) {
+        if (fxOn("pump") > 0.02f && !stretcherOn) {
             // out to the nozzle on the front wall's stub, aimed into the yard
             hoseLine(px1, py1 - 0.3f, 7.4f, 7.6f, z)
             hoseLine(7.4f, 7.6f, NOZZLE_X, NOZZLE_Y, z)
@@ -785,6 +875,7 @@ internal class FirestationPainter : RoomPainter() {
      * doors.
      */
     private fun pump() {
+        if (stretcherOn) { stretcher(); return }
         val work = fxOn("pump")
         val rock = if (work > 0.02f) sin(t * (5.0 + 5.0 * work)).toFloat() * (1.4f + 2.2f * work) else 0f
         val wz = fl + 3.1f
@@ -812,6 +903,45 @@ internal class FirestationPainter : RoomPainter() {
         wheel(px0 + 0.15f, py1 - 0.35f, wz, 3.1f)
         wheel(px1, py1 - 0.35f, wz, 3.1f)
         beam(px1 + 0.3f, my, rock)
+    }
+
+    /**
+     * The mountain rescue stretcher ([stretcherOn]) where the pump stands: a long orange basket of tubes along the hall, its
+     * folded blue blanket and its straps, the handles out at both ends, on one big wheel under its middle with its two legs to
+     * rest it; while the team practises (`pump`: how hard) it is wheeled to and fro along the floor, its wheel turning.
+     */
+    private fun stretcher() {
+        val work = fxOn("pump")
+        val off = if (work > 0.02f) sin(t * (2.6 + 1.6 * work)).toFloat() * (0.25f + 0.35f * work) else 0f
+        val mx = (px0 + px1) / 2f; val my = (py0 + py1) / 2f + off
+        val ya = py0 - 0.4f + off; val yb = py1 + 0.4f + off
+        val xa = px0 + 0.35f; val xb = px1 - 0.35f
+        val bz = fl + 6.6f
+        val orange = Col.hex(0xF07A22); val orangeL = Col.hex(0xF8A858); val orangeD = Col.hex(0xB0561A)
+        // the legs at its far end, resting on the floor
+        rod(xa + 0.1f, ya + 0.3f, fl, xa + 0.1f, ya + 0.3f, bz, ironD, ironL, iron, ironD)
+        rod(xb - 0.1f, ya + 0.3f, fl, xb - 0.1f, ya + 0.3f, bz, ironD, ironL, iron, ironD)
+        // the wheel under its middle, its spokes turning as it moves
+        val wcx = iso.sx(mx, my); val wcy = iso.sy(mx, my, fl + 3.4f)
+        val r = 3.4f * K
+        c.fillEllipse(wcx, wcy, r * 0.45f, r, Col.hex(0x2A2A30))
+        c.fillEllipse(wcx, wcy, r * 0.32f, r - K, Col.hex(0x5A5A64))
+        val spin = (off * 9f)
+        for (k in 0 until 4) { val a = k * PI.toFloat() / 2f + spin; c.line(floor(wcx).toInt(), floor(wcy).toInt(), floor(wcx + cos(a) * r * 0.3f).toInt(), floor(wcy + sin(a) * (r - K)).toInt(), steelL) }
+        c.fillCircle(wcx, wcy, 0.6f * K, iron)
+        rod(mx, my, fl + 3.4f, mx, my, bz, ironD, ironL, iron, ironD)
+        // the basket: its floor, its rails round, the blanket folded on it, two straps across
+        iso.box(xa, ya, bz, xb - xa, yb - ya, 0.6f, orangeL, orange, orangeD)
+        for (x in floatArrayOf(xa, xb)) rod(x, ya, bz + 1.6f, x, yb, bz + 1.6f, orangeD, orangeL, orange, orangeD)
+        rod(xa, ya, bz + 1.6f, xb, ya, bz + 1.6f, orangeD, orangeL, orange, orangeD)
+        rod(xa, yb, bz + 1.6f, xb, yb, bz + 1.6f, orangeD, orangeL, orange, orangeD)
+        iso.box(xa + 0.1f, ya + 0.9f, bz + 0.6f, xb - xa - 0.2f, 1.2f, 0.8f, Col.hex(0x46598E), Col.hex(0x2E3E6A), Col.hex(0x1E2848))
+        for (y in floatArrayOf(ya + 0.7f, yb - 0.6f)) iso.line(xa, y, bz + 1.0f, xb, y, bz + 1.0f, Col.hex(0x2A2226))
+        // the handles out at both ends
+        for (x in floatArrayOf(xa + 0.15f, xb - 0.15f)) {
+            rod(x, ya, bz + 1.2f, x, ya - 0.7f, bz + 1.2f, ironD, ironL, iron, ironD)
+            rod(x, yb, bz + 1.2f, x, yb + 0.7f, bz + 1.2f, ironD, ironL, iron, ironD)
+        }
     }
 
     /**
@@ -844,7 +974,7 @@ internal class FirestationPainter : RoomPainter() {
     /** The jet while the pump is worked: from the nozzle over the front wall in an arc into the yard, spray and a splash. */
     private fun jet() {
         val work = fxOn("pump")
-        if (work < 0.02f) return
+        if (work < 0.02f || stretcherOn) return
         val nx = iso.sx(NOZZLE_X, NOZZLE_Y) + 2.2f * K; val ny = iso.sy(NOZZLE_X, NOZZLE_Y, NOZZLE_Z) + K
         val reach = (3f + 6f * work) * 4f * K
         val lift = (5f + 7f * work) * K
@@ -891,6 +1021,7 @@ internal class FirestationPainter : RoomPainter() {
         val (rl, rr) = when {
             winter -> Pal.SNOW_L to Pal.SNOW_M
             coppi -> Pal.ROOF_L to Pal.ROOF_D
+            slate -> Lakeland.ROOF_L to Lakeland.ROOF_D
             else -> Pal.SHINGLE_L to Pal.SHINGLE_D
         }
         iso.pyramid(tx0 - 0.3f, ty0 - 0.3f, twB + 0.9f, tx1 - tx0 + 0.6f, ty1 - ty0 + 0.6f, twR - twB - 0.9f, rl, rr)
@@ -916,6 +1047,7 @@ internal class FirestationPainter : RoomPainter() {
             if (z < archTop) return Col.scale(Col.hex(0x2A2026), dim)
         }
         if (cobbles) return Col.scale(cobble(a, z, px, py), dim)
+        if (slate) return Col.scale(Lakeland.slateStone(a, z, px, py, fine), dim)
         val col = when {
             z < 3f -> { val n = Noise.rnd(px / max(1, detail), py / max(1, detail), 113); if (n < 0.3f) Pal.STONE_D else if (n < 0.85f) Pal.STONE_M else Pal.STONE_L }
             z < 3.5f -> Pal.STONE_L
@@ -932,7 +1064,7 @@ internal class FirestationPainter : RoomPainter() {
         if (winter) return
         val ax = (tx0 + tx1) / 2f; val ay = (ty0 + ty1) / 2f
         val z0 = twB + 0.9f
-        val line = if (coppi) Pal.ROOF_D else Pal.SHINGLE_D
+        val line = if (coppi) Pal.ROOF_D else if (slate) Lakeland.ROOF_D else Pal.SHINGLE_D
         for (k in 1 until 6) {
             val f = k / 6f
             val zz = z0 + (twR - z0) * f
@@ -1056,6 +1188,9 @@ internal class FirestationPainter : RoomPainter() {
             'D' to listOf("XX.", "X.X", "X.X", "X.X", "XX."),
             'V' to listOf("X.X", "X.X", "X.X", "X.X", ".X."),
             'F' to listOf("XXX", "X..", "XX.", "X..", "X.."),
+            'M' to listOf("X.X", "XXX", "X.X", "X.X", "X.X"),
+            'R' to listOf("XX.", "X.X", "XX.", "X.X", "X.X"),
+            'T' to listOf("XXX", ".X.", ".X.", ".X.", ".X."),
         )
     }
 }

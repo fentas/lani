@@ -192,6 +192,13 @@ internal class SquarePainter : VistaPainter() {
     /** Carinthia's Dorfbrunnen: St Florian on its pillar's cap, as on many an Austrian village's Florianibrunnen ([florian]). */
     private var florianOnTop = false
     /**
+     * The Lake District's drinking fountain ([slateFount]): of green Honister slate (the [lime] it is cut from, on the cart and
+     * on its beams too), the lion's head on the pillar's front with the water from its mouth, the two iron cups on their chains
+     * once forged ([trough]); and the church clock's face of slate with gold numerals and hands ([slateClock], [clockFace]).
+     */
+    private var slateFount = false
+    private var slateClock = false
+    /**
      * Carinthia's look ([style]'s tower an onion): the houses white below with a timbered upper storey and a balcony of
      * geraniums under dark shingles ([house], [roof]), the church's tower under an onion dome of green copper ([church]),
      * Kathi's Gasthaus zur Linde with its wrought-iron sign ([gasthaus]), the village's wooden fountain for the well
@@ -241,6 +248,8 @@ internal class SquarePainter : VistaPainter() {
         trough = variant("well") == "trough"
         kraxel = variant("kraxel") == "wuerste"
         pigna = variant("fountain") == "pigna"
+        slateFount = variant("fountain") == "slate"; slateClock = variant("clock") == "slate"
+        lime = if (slateFount) SLATE_GREEN else LIME
         florianOnTop = variant("fountain") == "florian"
         lakes = style?.tower == Tower.BATTLEMENTS
         oak = variant("linden") == "oak"; pump = variant("well") == "pump"; green = variant("ground") == "green"
@@ -1378,6 +1387,7 @@ internal class SquarePainter : VistaPainter() {
 
     /** The tower's clock face at ([tm], [cy]), [cr] px round: [running], the hands at the hour and lit at night; else stopped at twelve. */
     private fun clockFace(tm: Float, cy: Float, cr: Float, p: Float, lit: Boolean, running: Boolean) {
+        if (slateClock) { slateClockFace(tm, cy, cr, p, lit, running); return }
         val k = detail
         if (k > 1) c.fillCircle(tm, cy, cr + max(1f, 0.15f * p), Pal.GOLD)
         c.fillCircle(tm, cy, cr, if (lit && running) Pal.WINDOW_LIT else Col.hex(0xF7F5EE))
@@ -1390,6 +1400,33 @@ internal class SquarePainter : VistaPainter() {
             else c.line(tm.toInt(), cy.toInt(), (tm + sin(hr) * cr * 0.5f).toInt(), (cy - cos(hr) * cr * 0.5f).toInt(), Pal.OUTLINE)
             c.line(tm.toInt(), cy.toInt(), (tm + sin(mn) * cr * 0.8f).toInt(), (cy - cos(mn) * cr * 0.8f).toInt(), Pal.OUTLINE)
         } else c.set(tm.toInt(), cy.toInt(), Pal.OUTLINE)
+    }
+
+    /**
+     * The Lake District's church clock ([slateClock]): a round face of dark slate in a gold ring, the twelve gold numerals as
+     * marks (closer up the quarters longer), the gold hands at the hour once it goes, stopped at twelve before; at night a lamp
+     * over it lights its gold.
+     */
+    private fun slateClockFace(tm: Float, cy: Float, cr: Float, p: Float, lit: Boolean, running: Boolean) {
+        val k = detail
+        val slate = Col.hex(0x3A4250); val slateL = Col.hex(0x4E5868)
+        c.fillCircle(tm, cy, cr + max(1f, 0.15f * p), Pal.GOLD)
+        c.fillCircle(tm, cy, cr, slate)
+        if (k > 1) c.fillCircle(tm - cr * 0.2f, cy - cr * 0.2f, cr * 0.55f, slateL)
+        if (lit && running) s.light(tm, cy, 8f, 0.3f)
+        if (cr >= 2.5f) {
+            val hour = if (running) s.hour else 0f
+            val hr = ((hour % 12f) / 12f) * 2 * PI; val mn = ((hour % 1f)) * 2 * PI
+            for (a in 0 until 12) {
+                val ang = a * PI / 6
+                if (k == 1 && a % 3 != 0) continue
+                c.set((tm + sin(ang) * cr * 0.8f).toInt(), (cy - cos(ang) * cr * 0.8f).toInt(), Pal.GOLD)
+                if (k > 2 && a % 3 == 0) c.set((tm + sin(ang) * cr * 0.68f).toInt(), (cy - cos(ang) * cr * 0.68f).toInt(), Pal.GOLD)
+            }
+            if (k > 1) thick(tm, cy, (tm + sin(hr) * cr * 0.5f).toFloat(), (cy - cos(hr) * cr * 0.5f).toFloat(), 2, Pal.GOLD)
+            else c.line(tm.toInt(), cy.toInt(), (tm + sin(hr) * cr * 0.5f).toInt(), (cy - cos(hr) * cr * 0.5f).toInt(), Pal.GOLD)
+            c.line(tm.toInt(), cy.toInt(), (tm + sin(mn) * cr * 0.8f).toInt(), (cy - cos(mn) * cr * 0.8f).toInt(), Pal.GOLD)
+        } else c.set(tm.toInt(), cy.toInt(), Pal.GOLD)
     }
 
     // ------------------------------------------------------------------ the maypole
@@ -1924,8 +1961,11 @@ internal class SquarePainter : VistaPainter() {
         }
     }
 
-    /** White limestone, lit, mid, in shade, and its joints. */
-    private val lime = intArrayOf(Col.hex(0xF6F3EA), Col.hex(0xE4DED0), Col.hex(0xC8C0AE), Col.hex(0xA49A86))
+    /** White limestone, lit, mid, in shade, and its joints; the Lake District's green Honister slate ([slateFount]). */
+    private val LIME = intArrayOf(Col.hex(0xF6F3EA), Col.hex(0xE4DED0), Col.hex(0xC8C0AE), Col.hex(0xA49A86))
+    private val SLATE_GREEN = intArrayOf(Col.hex(0x9AAE9C), Col.hex(0x7E9282), Col.hex(0x627668), Col.hex(0x46564C))
+    /** The fountain's stone this frame: the limestone, or the green slate ([slateFount]). */
+    private var lime = LIME
 
     /** The block of white stone the cart brought, on two beams where the fountain will stand; it shines in the sun. */
     private fun stoneBlock() {
@@ -1945,7 +1985,7 @@ internal class SquarePainter : VistaPainter() {
 
     /** The sun glinting on white stone: little stars coming and going over ±[rx], ±[ry] round ([x], [y]), by day. */
     private fun glints(x: Float, y: Float, rx: Float, ry: Float, seed: Int) {
-        if (env.dark > 0.45f || frame.sky.gloom > 0.5f) return
+        if (env.dark > 0.45f || frame.sky.gloom > 0.5f || slateFount) return
         val k = detail
         s.fx {
             c.penEmissive = true
@@ -2012,12 +2052,20 @@ internal class SquarePainter : VistaPainter() {
         c.vline((cx - pw).toInt(), pTop.toInt(), pBot.toInt(), lime[0]); c.vline((cx + pw).toInt() - 1, pTop.toInt(), pBot.toInt(), lime[2])
         c.fillRect((cx - pw * 1.4f).toInt(), (pTop - 0.08f * p).toInt(), max(3, (2.8f * pw).toInt()), max(1, (0.12f * p).toInt()), lime[0])
         if (pigna && st >= 3) pineCone(cx, pTop - 0.08f * p, p)
+        else if (slateFount) for (j in 0 until max(2, (0.28f * p).toInt())) c.hline((cx - pw * 1.4f + j * 0.8f).toInt(), (cx + pw * 1.4f - j * 0.8f).toInt(), (pTop - 0.08f * p).toInt() - 1 - j, if (env.snow) Pal.SNOW_L else if (j == 0) lime[2] else lime[1])
         else if (florianOnTop && st >= 3) florian(cx, pTop - 0.08f * p, p)
         else c.fillCircle(cx, pTop - 0.2f * p, max(1f, 0.16f * p), if (env.snow) Pal.SNOW_L else lime[0])
         // the pipes, fitted to the pillar
         val iron = Col.hex(0x3A3A44); val ironL = Col.hex(0x6A6A78)
         val pipeY = hy(d, 1.3f)
         val pl = 0.38f * p
+        if (slateFount) {
+            // the lion's head carved on the pillar's front, its mane round its face, the water from its mouth; the cups on chains
+            if (st >= 3) lionHead(cx, pipeY - 0.05f * p, p)
+            if (st >= stages(FOUNTAIN) - 1) for (side in intArrayOf(-1, 1)) cupOnChain(cx + side * pw, pipeY - 0.25f * p, side, p)
+            if (running > 0.03f && st >= stages(FOUNTAIN) - 1) s.fx { jets(cx, pw, pl, pipeY, rimY + inset, p, running, intArrayOf(0)) }
+            return
+        }
         if (st >= stages(FOUNTAIN) - 1) {
             for (side in intArrayOf(-1, 1)) {
                 val x0 = cx + side * pw; val x1 = x0 + side * pl
@@ -2029,6 +2077,36 @@ internal class SquarePainter : VistaPainter() {
         }
         // the water falling from the pipes in arcs, glinting as it goes, splashing where it lands
         if (running > 0.03f && st >= stages(FOUNTAIN) - 1) s.fx { jets(cx, pw, pl, pipeY, rimY + inset, p, running) }
+    }
+
+    /**
+     * The Lake District's lion's head on the fountain's pillar ([slateFount]) at ([cx], [y]): its mane a ring of darker slate,
+     * its face lighter, two eyes and the dark mouth the water comes from (closer up its brows and its nose).
+     */
+    private fun lionHead(cx: Float, y: Float, p: Float) {
+        val k = detail
+        val r = max(1.8f, 0.27f * p)
+        c.fillCircle(cx, y, r, lime[3])
+        for (a in 0 until 10) { val ang = a * PI.toFloat() / 5f; c.fillCircle(cx + cos(ang) * r * 0.85f, y + sin(ang) * r * 0.85f, max(0.6f, r * 0.32f), lime[2]) }
+        c.fillCircle(cx, y + 0.1f * r, r * 0.62f, lime[0])
+        if (k > 1) {
+            c.set((cx - r * 0.28f).toInt(), (y - r * 0.12f).toInt(), lime[3]); c.set((cx + r * 0.28f).toInt(), (y - r * 0.12f).toInt(), lime[3])
+            c.vline(cx.toInt(), (y - r * 0.05f).toInt(), (y + r * 0.2f).toInt(), lime[2])
+        }
+        c.fillCircle(cx, y + r * 0.4f, max(0.6f, r * 0.2f), Col.hex(0x1E2420))
+    }
+
+    /** One of the two iron cups hanging on its chain from the pillar's [side] at row [y]: the chain's links down from a ring, the cup at its end. */
+    private fun cupOnChain(x: Float, y: Float, side: Int, p: Float) {
+        val k = detail
+        val iron = Col.hex(0x3A3A44); val ironL = Col.hex(0x6A6A78)
+        val cx = x + side * max(1.5f, 0.16f * p); val cy = y + max(3f, 0.5f * p)
+        c.set(x.toInt(), y.toInt(), ironL)
+        var yy = y
+        while (yy < cy) { c.set((x + (cx - x) * (yy - y) / (cy - y)).toInt(), yy.toInt(), if (((yy - y) / max(1, k)).toInt() % 2 == 0) iron else ironL); yy += 1f }
+        val cw = max(1f, 0.16f * p); val ch = max(1.5f, 0.16f * p)
+        c.fillRect((cx - cw).toInt(), cy.toInt(), max(2, (2 * cw).toInt()), max(1, ch.toInt()) + 1, iron)
+        c.hline((cx - cw).toInt(), (cx + cw).toInt(), cy.toInt(), ironL)
     }
 
     /**
@@ -2093,14 +2171,14 @@ internal class SquarePainter : VistaPainter() {
     }
 
     /** The four jets ([much] 0..1) from the pipes at row [pipeY], [pl] px long out of a pillar [pw] px thick, down to [waterY]. */
-    private fun jets(cx: Float, pw: Float, pl: Float, pipeY: Float, waterY: Float, p: Float, much: Float) {
+    private fun jets(cx: Float, pw: Float, pl: Float, pipeY: Float, waterY: Float, p: Float, much: Float, sides: IntArray = intArrayOf(-1, 1, 0)) {
         val k = detail
         val fall = waterY - pipeY
         val reach = (0.25f + 0.55f * much) * p // how far out the water comes before it lands
         val th = if (much > 0.5f) max(1, k) else max(1, k - 1)
         val water = if (env.snow) Pal.ICE_L else Pal.WATER_L
         c.penEmissive = false
-        for (side in intArrayOf(-1, 1, 0)) {
+        for (side in sides) {
             val x0 = if (side == 0) cx else cx + side * (pw + pl)
             val y0 = if (side == 0) pipeY + 0.05f * p else pipeY
             val n = max(6, (fall + reach).toInt())

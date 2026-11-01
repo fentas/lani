@@ -841,8 +841,12 @@ function coverage() {
   report('+ the supplement', w => wikt.has(w) || extra.has(w))
   report('+ pack words and names', w => wikt.has(w) || extra.has(w) || packWords.has(w) || names.has(w))
   // what a tap on them shows first: the first reading's meaning in each base
+  // and with the supplement's own meanings (its entries are read first) and the packs' words (meant in every base)
+  const extraMeant = (w: string, b: string) => extraEntries.some(e => (b === 'en' || !!(e as { meanings?: Record<string, string[]> }).meanings?.[b]) && Object.keys(e.forms).some(f => normalizeForm(f, lang) === w))
   for (const b of LANI_LANGUAGES.filter(b => b !== lang)) {
-    report(`meant in ${b} (a reading)`, w => (dict?.forms[w] ?? []).some(([i]) => (b === 'en' ? !!dict!.lemmas[i]?.gloss.length : !!dict!.lemmas[i]?.meanings?.[b])))
+    const wiktMeant = (w: string) => (dict?.forms[w] ?? []).some(([i]) => (b === 'en' ? !!dict!.lemmas[i]?.gloss.length : !!dict!.lemmas[i]?.meanings?.[b]))
+    report(`meant in ${b} (a reading)`, wiktMeant)
+    report(`  + the supplement and the packs`, w => wiktMeant(w) || extraMeant(w, b) || packWords.has(w))
   }
   const collator = new Intl.Collator(lang)
   const byCount = (a: [string, number], b: [string, number]) => b[1] - a[1] || collator.compare(a[0], b[0])

@@ -364,6 +364,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        sl, LANI_CULTURE=lakeland, LANI_QA_SETUP_PAIR=en-sl) the Lake District's buildings (QA's hook
                        "hearths:trg"): the church's card and "🚪 Go in", each building's scene by its link, a few closer
                        up, «I spy» on the green, Granny Maggie's breakfast (ll-*.png in $LANI_QA_LAKELAND_SHOTS too);
+                       "lakeland-projects-b" (only when named; the same learner) the rescue hut and the bank barn
+                       finished, each from its landmark's card into its scene, Jack's stretcher, the beck from its card,
+                       the playground, the fountain, the clock, the viewing station and the tarn by their links (lb-*.png);
                        "guidance" (only when named) the tips (QA's hooks "tips:<moment>", "tips:tentmove"): wisdom full's
                        💡 bubble, its card read aloud, the trade with wisdom chosen; the school's tip into its next unit;
                        Home's tip; the tent's request failed, when it comes back (its end, the Scroll's Later, the giver's
@@ -2699,6 +2702,76 @@ def story_faces():
         tap(close, 3)
     finally:
         qa_hook("happening:")
+    return None
+
+
+def culture_reading():
+    """A reading of the village's corner read to its end (GAME.md "The reading corner", "Read first, then answer";
+    docs/plans/05-built/stories-friuli.md): $LANI_QA_READING (a reading of the village's culture pack, by default Friuli's
+    i-pesci-di-aquileia) opened from the corner ("📖 Branje", lani://readings), its text shot, "▶️ Začni · Start", each
+    question answered right (a choice's answer is its first option in the file; a true/false statement its "Drži" or "Ne
+    drži"), and the score: every answer right. Its title, questions and score to reading.txt; shots reading-*.png, also in
+    $LANI_QA_READING_SHOTS."""
+    def snap(name: str):
+        shot(f"reading-{name}")
+        if d := os.environ.get("LANI_QA_READING_SHOTS"):
+            Path(d).mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], Path(d) / f"reading-{name}.png")
+
+    rid = os.environ.get("LANI_QA_READING", "i-pesci-di-aquileia")
+    culture = os.environ.get("LANI_CULTURE", "friuli")
+    path = ROOT / "companion/cultures" / culture / "readings" / f"{rid}.json"
+    if not path.is_file():
+        return f"no reading {culture}/{rid}"
+    r = json.loads(path.read_text())
+    lang = pair_now()[0]
+    title = r["title"].get(lang) or next(iter(r["title"].values()))
+    adb("shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", "lani://readings")
+    assert wait_for(label("readings.title"), 15), "the reading corner"
+    time.sleep(1.5)
+    snap("corner")
+    c = scroll_to(title, 8)
+    assert c is not None, f"the reading «{title}» in the corner"
+    tap_at(c)
+    # its "▶️ Začni · Start" at the text's end (the sheet has no tutor bar: low on the screen is fine)
+    start = label("reading.start")
+    time.sleep(2)
+    c = find(start) or scroll_to(start, 8, bottom=2350)
+    assert c is not None, f"«{title}»: its ▶️ {start}"
+    snap("text")
+    tap_at(find(start) or c)
+    time.sleep(1.5)
+    log = [f"{culture}/{rid}: «{title}» ({r['level']}, {r['kind']})"]
+    nxt = label("common.next")
+    for k, q in enumerate(r["questions"]):
+        ask = (q["ask"].get(lang) or "").replace("{learner}", "")
+        if q.get("type") == "true_false":
+            right = label("reading.true" if q["answer"] else "reading.false", half=True)  # the option in the target only: "Vero"
+        else:
+            right = q["options"][0]
+        c = next((c for t, c in nodes() if t == right or t.startswith(right)), None) or scroll_to(right, 4, bottom=2350)
+        assert c is not None, f"question {k + 1} «{ask}»: its answer «{right}»"
+        tap_at(c)
+        time.sleep(1.5)
+        snap(f"q{k + 1}")
+        log.append(f"  {k + 1}. {q.get('type', '')}: {ask} → {right}")
+        if k < len(r["questions"]) - 1:
+            c = find(nxt) or scroll_to(nxt, 4, bottom=2350)
+            assert c is not None, f"{nxt} → after question {k + 1}"
+            tap_at(c)
+            time.sleep(1.5)
+    n = len(r["questions"])
+    score = label("reading.score").replace("{right}", str(n)).replace("{total}", str(n))
+    target = score.split(" · ")[0]
+    seen = html.unescape(screen_xml())
+    if target not in seen and scroll_to(target, 4, bottom=2350) is not None:
+        seen += html.unescape(screen_xml())
+    snap("done")
+    log.append(f"  the score: {'✓ ' + score if target in seen else '(not seen)'}")
+    (OUT / "reading.txt").write_text("\n".join(log) + "\n")
+    print("\n".join(f"    {l}" for l in log))
+    assert target in seen, f"the score {score}"
+    back_key()
     return None
 
 
@@ -9462,6 +9535,149 @@ def polish_cues():
     return f"skipped {', '.join(skipped)}" if skipped else None
 
 
+def lakeland_projects_b():
+    """The Lake District's third wave, part b (docs/plans/05-built/lakeland-projects-b.md): a learner of English from Slovene in
+    the Lake District village (LANI_DEV_DATA: make-learner.ts --target en --base sl; LANI_CULTURE=lakeland,
+    LANI_QA_SETUP_PAIR=en-sl), the app in en · sl, the village a Trg (QA's hook "hearths:trg"). Two projects opened from the
+    map: the mountain rescue hut finished ("step:gasilski_dom/7"), its landmark ("show:project:gasilski_dom"), its card's
+    "🚪 Go in · Vstopi", inside and closer up, Jack's practice with the stretcher (its first turn); the bank barn finished
+    ("step:toplar/7"), its landmark, its card's way in, the field with the barn. One spot: the beck ("show:riverbank"), its
+    card "The beck · Potok" and "🚪 Go in", By the beck. Then the other scenes by their links (the playground, the fountain,
+    the clock, the viewing station, the tarn), a shot each. Also as lb-*.png in $LANI_QA_LAKELAND_SHOTS."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "lakeland":
+        return "skipped: the dev bridge's village isn't the Lake District culture's (LANI_CULTURE=lakeland and a learner of English)"
+    pair = ["en", "sl"]
+    out = Path(os.environ["LANI_QA_LAKELAND_SHOTS"]) if os.environ.get("LANI_QA_LAKELAND_SHOTS") else None
+    lab = lambda key: " · ".join(l10n(lang).get(key, key) for lang in pair)
+    back = lab("common.village")  # "Village · Vas": the scene's way back in its top bar
+    culture_dir = ROOT / "companion/cultures/lakeland"
+    projects = {p["id"]: p for p in json.loads((culture_dir / "projects.json").read_text())["projects"]}
+    scene_of = lambda sid: json.loads((culture_dir / f"scenes/{sid}.json").read_text())
+    go = lambda sid: "🚪 " + lab("placeCard.go") + ": " + scene_of(sid)["emoji"]
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def to_village():
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        end = time.time() + 40 * slow()
+        while time.time() < end and find(lab("villageScreen.scroll")) is None:
+            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("challengeScreen.village"))
+            if c is not None:
+                tap_at(c)
+            time.sleep(1.5)
+        assert find(lab("villageScreen.scroll")) is not None, "the village"
+        time.sleep(2)
+
+    def node_starting(prefix: str, timeout=12.0):
+        end = time.time() + timeout * slow()
+        while time.time() < end:
+            c = next((c for t, c in nodes() if t.startswith(prefix)), None)
+            if c is not None:
+                return c
+            time.sleep(1.5)
+        return None
+
+    def open_from_map(target: str, sid: str, tag: str, spot: bool = False):
+        """The landmark [target] tapped on the map (a spot of the land: the map's middle, where QA's "show:<spot>" flew the
+        camera, and a little round it), its card's way in into scene [sid]: 2 taps from the village."""
+        if spot:
+            w, h = screen_size()
+            for dx, dy in ((0, 0.07), (0, 0.085), (-0.05, 0.09), (0.05, 0.05), (0, 0), (-0.1, 0.12)):
+                tap_at((int(w * (0.5 + dx)), int(h * (0.5 + dy))))
+                if wait_for(go(sid), 4) is not None:
+                    break
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+        else:
+            c = node_starting(target) or find(target)  # the landmark's target: its name first, or its name inside a label
+            assert c is not None, f"{target} on the village's map"
+            tap_at(c)
+        assert wait_for(go(sid), 10), f"{target}'s card: its way in ({go(sid)})"
+        time.sleep(1)
+        snap(f"lb-{tag}-card")
+        assert tap(go(sid), 4), f"into {sid} from its card"
+        assert wait_for(back, 12), f"{sid} opens"
+        time.sleep(3 * slow())
+        snap(f"lb-{tag}-inside")
+        qa_hook("zoom")
+        time.sleep(3 * slow())
+        snap(f"lb-{tag}-closer")
+        tap(back, 4)
+        time.sleep(2)
+
+    qa_hook("pair:en-sl")
+    try:
+        qa_hook("hearths:trg")
+        qa_hook("hour:11")
+        qa_hook("bubbles:0")
+        # the rescue hut finished: its landmark on the map, its card's way in, inside
+        hut = projects["gasilski_dom"]
+        qa_hook(f"step:gasilski_dom/{len(hut['steps']) + 1}")
+        to_village()
+        qa_hook("show:project:gasilski_dom")
+        time.sleep(3 * slow())
+        snap("lb-hut-map")
+        open_from_map(hut["name"]["en"], "at-the-rescue-hut", "hut")
+        # Jack's practice with the stretcher, its first lines (the stretcher wheeled to and fro)
+        qa_hook("hour:15")
+        qa_hook("happening:at-the-rescue-hut/stretcher", "scene:at-the-rescue-hut@at-the-rescue-hut/stretcher")
+        if wait_for(back, 12) or wait_for(lab("common.next"), 4):
+            time.sleep(3 * slow())
+            snap("lb-hut-stretcher")
+            for _ in range(3):
+                if not tap(lab("common.next"), 2):
+                    break
+                time.sleep(2)
+            snap("lb-hut-stretcher-turn")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(2)
+        if find(back) is not None:
+            tap(back, 4)
+        qa_hook("hour:11")
+        # the bank barn finished: its landmark, its card's way in, the field with the barn
+        barn = projects["toplar"]
+        qa_hook(f"step:toplar/{len(barn['steps']) + 1}")
+        to_village()
+        qa_hook("show:project:toplar")
+        time.sleep(3 * slow())
+        snap("lb-barn-map")
+        open_from_map(barn["name"]["en"], "at-the-bank-barn", "barn")
+        # one spot: the beck, its card named by the culture ("The beck · Potok"), By the beck
+        to_village()
+        time.sleep(3 * slow())
+        qa_hook("show:riverbank")
+        time.sleep(3 * slow())
+        qa_hook("show:riverbank")  # asked again, it flies there again (the camera's own move after the launch may have won)
+        time.sleep(3 * slow())
+        qa_hook("zoom")
+        time.sleep(3 * slow())
+        snap("lb-beck-map")
+        open_from_map("The beck", "by-the-beck", "beck", spot=True)
+        # the other scenes by their links
+        for sid in ("at-the-playground", "at-the-fountain", "under-the-clock", "at-the-viewing-station", "at-the-tarn"):
+            adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, f"scene:{sid}")
+            if not wait_for(back, 12):
+                print(f"    {sid}: not open (its place not in the village, or not served)")
+                continue
+            time.sleep(3 * slow())
+            snap(f"lb-{sid}")
+            tap(back, 4)
+            time.sleep(2)
+    finally:
+        qa_hook("step:")
+        qa_hook("hour:")
+        qa_hook("bubbles:")
+        qa_hook("hearths:")
+
+
 def kaernten_projects_a():
     """The Carinthian village's projects and its wood (docs/plans/05-built/kaernten-projects-a.md): a learner of German from
     Slovene in the Carinthian village (LANI_DEV_DATA: make-learner.ts --target de --base sl; LANI_CULTURE=kaernten,
@@ -9606,6 +9822,8 @@ def kaernten_projects_a():
         qa_hook("hour:")
         restore = os.environ.get("LANI_QA_PAIR")
         qa_hook(f"pair:{restore}" if restore else "pair:")
+
+
     return None
 
 
@@ -16382,6 +16600,8 @@ def plan():
         ("story-in-scene", story_in_scene, v, False, ""),
         # only when named: the evening story's teller and his faces (the stories' content faces)
         ("story-faces", story_faces, v, False, ""),
+        # only when named: a reading of the village's corner read to its end (LANI_QA_READING; Friuli's Aquileia by default)
+        ("culture-reading", culture_reading, go_home, False, ""),
         # only when named: the news sheet read aloud (QA's hook "news"); the founding is read where setup founds the village
         ("read-aloud", read_aloud, go_home, False, ""),
         # only when named: an answer's feedback card on the tablet on its side, upright, on the phone
@@ -16446,6 +16666,8 @@ def plan():
         ("friuli-watchtower", friuli_watchtower, None, False, ""),
         # only with --steps lakeland-places: the Lake District's buildings and their scenes (places-lakeland)
         ("lakeland-places", lakeland_places, None, False, ""),
+        # only with --steps lakeland-projects-b: the Lake District's third wave, part b (two projects from the map, the beck)
+        ("lakeland-projects-b", lakeland_projects_b, None, False, ""),
         # only with --steps kaernten-projects-a: the Carinthian village's projects and its wood (kaernten-projects-a)
         ("kaernten-projects-a", kaernten_projects_a, None, False, ""),
         # only when named: "💡 Namigi · Tips" (GAME.md "Guidance"): the map's, Home's, a failed request's way back (Teo's pair
@@ -17003,7 +17225,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "kaernten-projects-b", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "kaernten-projects-b", "kaernten-talk", "lakeland-talk", "it-words", "kaernten-projects-a", "lakeland-projects-b", "culture-reading") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
