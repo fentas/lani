@@ -37,7 +37,7 @@
     { "id": "traktor", "title": { "de": "Der Traktor kommt", "sl": "Traktor prihaja", "en": "The tractor is coming", "it": "Arriva il trattore" }, "who": "maxi", "when": ["morning"], "chance": 0.5, "dialog": "traktor", "dialogs": ["traktor-mitfahren", "traktor"], "reward": { "wood": 15 }, "marker": "🚜", "memory": { "de": "den Traktor mit den Steigen", "sl": "traktor z zaboji", "en": "the tractor with the crates", "it": "il trattore con le cassette" } },
     { "id": "stare", "title": { "de": "Die Stare im Obstgarten", "sl": "Škorci v sadovnjaku", "en": "The starlings in the orchard", "it": "Gli storni nel frutteto" }, "who": "lena", "when": ["afternoon"], "months": [8, 9, 10], "chance": 0.5, "dialog": "stare", "dialogs": ["stare-klatschen", "stare"], "reward": { "food": 15 }, "marker": "🐦", "memory": { "de": "die Stare, die wir verjagt haben", "sl": "škorce, ki sva jih pregnala", "en": "the starlings we chased away", "it": "gli storni che abbiamo scacciato" } },
     { "id": "birnen", "title": { "de": "Opa Sepp beim alten Birnbaum", "sl": "Opa Sepp pri stari hruški", "en": "Opa Sepp by the old pear tree", "it": "Nonno Sepp vicino al vecchio pero" }, "who": "sepp", "when": ["afternoon"], "months": [9, 10, 11], "chance": 0.45, "dialog": "birnen", "dialogs": ["birnen-kletzen", "birnen"], "reward": { "wisdom": 20 }, "marker": "🍐", "memory": { "de": "den alten Birnbaum", "sl": "staro hruško", "en": "the old pear tree", "it": "il vecchio pero" } },
-    { "id": "presse", "title": { "de": "Stefan presst die Äpfel", "sl": "Stefan stiska jabolka", "en": "Stefan presses the apples", "it": "Stefan torchia le mele" }, "who": "stefan", "when": ["evening"], "months": [9, 10, 11], "chance": 0.5, "dialog": "presse", "reward": { "food": 20 }, "marker": "🧃", "memory": { "de": "den frischen Saft aus der Presse", "sl": "svež sok iz stiskalnice", "en": "the fresh juice from the press", "it": "il succo fresco del torchio" } }
+    { "id": "presse", "title": { "de": "Stefan presst die Äpfel", "sl": "Stefan stiska jabolka", "en": "Stefan presses the apples", "it": "Stefan torchia le mele" }, "who": "stefan", "when": ["evening"], "months": [9, 10, 11], "chance": 0.5, "dialog": "presse", "dialogs": ["presse-drehen", "presse"], "reward": { "food": 20 }, "marker": "🧃", "memory": { "de": "den frischen Saft aus der Presse", "sl": "svež sok iz stiskalnice", "en": "the fresh juice from the press", "it": "il succo fresco del torchio" } }
   ],
   "dialogs": [
     {
@@ -118,6 +118,26 @@
           { "de": "Ja, ich höre der Glocke.", "sl": "Ja, slišim zvon.", "en": "Yes, I can hear the bell.", "it": "Sì, sento la campana.", "grammar": "akkusativ", "why": { "de": "Hören braucht den Akkusativ. Bei einem weiblichen Wort bleibt es gleich: die Glocke.", "sl": "Hören zahteva tožilnik. Pri ženskem spolu ostane enako: die Glocke.", "en": "Hören takes the accusative. A feminine word stays the same: die Glocke.", "it": "Hören vuole l'accusativo. Una parola femminile resta uguale: die Glocke." }, "reply": { "face": "curious", "de": "Der Glocke? Was ist mit ihr?", "sl": "Der Glocke? Kaj je z njim?", "en": "Der Glocke? What about it?", "it": "Der Glocke? Che cos'ha?" } }
         ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, ganz langsam.", "sl": "Prosim? Še enkrat, čisto počasi.", "en": "Sorry? Once more, nice and slowly.", "it": "Come? Ancora una volta, pianino." } },
         { "who": "sepp", "face": "proud", "de": "Aus den Birnen macht man Kletzen. Für das Kletzenbrot zu Weihnachten.", "sl": "Iz hrušk se naredijo krhlji. Za kruh s krhlji za božič.", "en": "From the pears people make Kletzen. For the Kletzenbrot at Christmas.", "it": "Con le pere si fanno le Kletzen. Per il Kletzenbrot di Natale." }
+      ]
+    },
+    {
+      "id": "presse-drehen",
+      "lines": [
+        { "who": "stefan", "face": "happy", "de": "Servus, {learner}! Hilfst du mir? Die Presse ist schwer zu drehen.", "sl": "Živijo, {learner}! Mi pomagaš? Stiskalnico je težko vrteti.", "en": "Hi, {learner}! Will you help me? The press is hard to turn.", "it": "Ciao, {learner}! Mi aiuti? Il torchio è duro da girare." },
+        { "choices": [
+            { "de": "Ja, ich helfe dir gern!", "sl": "Ja, {m:rad|f:rada} ti pomagam!", "en": "Yes, I'm glad to help you!", "it": "Sì, ti aiuto volentieri!", "ok": true, "reply": { "face": "happy", "de": "Danke! Zu zweit geht es leichter.", "sl": "Hvala! V dvoje gre lažje.", "en": "Thanks! It's easier with two.", "it": "Grazie! In due è più facile." } },
+            { "de": "Ja, ich helfe dich gern!", "sl": "Ja, {m:rad|f:rada} ti pomagam!", "en": "Yes, I'm glad to help you!", "it": "Sì, ti aiuto volentieri!", "grammar": "dativ", "why": { "de": "helfen nimmt den Dativ: ich helfe dir.", "sl": "helfen zahteva dajalnik: ich helfe dir.", "en": "helfen takes the dative: ich helfe dir.", "it": "helfen vuole il dativo: ich helfe dir." }, "reply": { "face": "curious", "de": "Dich? Hm. Sag es noch einmal.", "sl": "Dich? Hm. Povej še enkrat.", "en": "Dich? Hm. Say it again.", "it": "Dich? Mah. Ripetilo." } }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." }
+        },
+        { "who": "stefan", "de": "Schön langsam … Und jetzt? Was kommt da heraus?", "sl": "Lepo počasi … In zdaj? Kaj pride ven?", "en": "Nice and slowly … And now? What's coming out?", "it": "Piano piano … E adesso? Cosa esce?" },
+        { "choices": [
+            { "de": "Der Saft kommt heraus!", "sl": "Sok pride ven!", "en": "The juice is coming out!", "it": "Esce il succo!", "ok": true, "reply": { "face": "happy", "de": "Genau! Golden wie die Sonne.", "sl": "Tako je! Zlat kot sonce.", "en": "That's right! Golden as the sun.", "it": "Esatto! Dorato come il sole." } },
+            { "de": "Die Milch kommt heraus!", "sl": "Mleko pride ven!", "en": "The milk is coming out!", "it": "Esce il latte!", "why": { "de": "Aus Äpfeln kommt Saft, nicht Milch.", "sl": "Iz jabolk pride sok, ne mleko.", "en": "Apples give juice, not milk.", "it": "Dalle mele viene il succo, non il latte." }, "reply": { "face": "laugh", "de": "Ha ha! Meine Äpfel sind doch keine Kühe!", "sl": "Ha ha! Moja jabolka pa niso krave!", "en": "Ha ha! My apples aren't cows!", "it": "Ah ah! Le mie mele mica sono mucche!" } }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." }
+        },
+        { "who": "stefan", "face": "happy", "de": "Danke, {learner}! Das erste Glas ist für dich.", "sl": "Hvala, {learner}! Prvi kozarec je zate.", "en": "Thank you, {learner}! The first glass is for you.", "it": "Grazie, {learner}! Il primo bicchiere è per te." }
       ]
     },
     {
