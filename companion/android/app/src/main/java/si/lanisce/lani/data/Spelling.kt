@@ -4,6 +4,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -19,7 +20,8 @@ import java.util.concurrent.ConcurrentHashMap
  * - [fold]: the letters a keyboard may lack ("č" → "c", "è" → "e", "ä" → "ae"): an answer that differs only there is
  *   almost right, with [foldHint];
  * - [loose]: after [fold], what is almost right too, with [looseHint] (Italian: "un amica" for "un'amica", "la acqua"
- *   for "l'acqua").
+ *   for "l'acqua"; English: "cant" for "can't"), and [looseExamples], a few of the language's own shown after the
+ *   hint ("l'acqua, un'amica"; "can't, I'm").
  * [dropSubject]: the language leaves its subject out where the verb's ending says the person (Slovene "Spita v šotoru.",
  * Italian "Dormono in tenda."): a worksheet's person in brackets may be left out of the answer ([Sheets.withoutPerson]).
  * [wrong]: words that are a known mistake, never a slip of the keyboard, matched whole against a word of the answer as
@@ -40,6 +42,7 @@ class Spelling(
     val foldHint: Grading.Hint = Grading.Hint.NONE,
     val loose: List<Rule> = emptyList(),
     val looseHint: Grading.Hint = Grading.Hint.NONE,
+    val looseExamples: String? = null,
     val dropSubject: Boolean = false,
     val wrong: List<Mistake> = emptyList(),
     val endingSwaps: List<Pair<String, String>> = emptyList(),
@@ -73,6 +76,7 @@ class Spelling(
                 foldHint = hint(o, "fold_hint"),
                 loose = rules(o, "loose"),
                 looseHint = hint(o, "loose_hint"),
+                looseExamples = o["loose_examples"]?.jsonPrimitive?.contentOrNull?.takeIf { it.isNotBlank() },
                 dropSubject = o["drop_subject"]?.jsonPrimitive?.booleanOrNull ?: false,
                 wrong = (o["wrong"] as? JsonArray).orEmpty().map { m ->
                     (m as? JsonObject)?.let { Mistake(Regex(it.getValue("word").jsonPrimitive.content), it["for"]?.let { f -> Regex(f.jsonPrimitive.content) }) }

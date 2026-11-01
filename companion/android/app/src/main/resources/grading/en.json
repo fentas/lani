@@ -47,6 +47,7 @@
     ["(?<!\\p{L})(he|she|that|there|here|what|where|who|how)s(?!\\p{L})", "$1 is"]
   ],
   "loose_hint": "apostrophe",
+  "loose_examples": "can't, I'm",
   "drop_subject": false,
   "wrong": [
     { "word": ".*(x|z|ch|sh|ss)s", "for": ".*(x|z|ch|sh|ss)es" },
