@@ -1,0 +1,657 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "was-were",
+  "language": "en",
+  "level": "A1",
+  "emoji": "⏮️",
+  "title": {
+    "en": "I was, you were",
+    "de": "War, waren: I was, you were",
+    "sl": "Bil sem: I was, you were",
+    "it": "Ero, eri: I was, you were"
+  },
+  "goal": {
+    "sl": "Poveš, kje je kdo bil in kakšno je bilo (I was, you were, wasn't, weren't), vprašaš Were you …? s kratkimi odgovori ter rečeš there was, there were in kdaj se je kdo rodil.",
+    "de": "Du sagst, wo jemand war und wie es war (I was, you were, wasn't, weren't), fragst Were you …? mit kurzen Antworten und sagst there was, there were und wann jemand geboren ist.",
+    "it": "Dici dov'era qualcuno e com'era (I was, you were, wasn't, weren't), chiedi Were you …? con le risposte brevi, e dici there was, there were e quando è nato qualcuno.",
+    "en": "You can say where people were and how things were (I was, you were, wasn't, weren't), ask Were you …? with short answers, and say there was, there were and when someone was born."
+  },
+  "grammar": ["was-were", "to-be"],
+  "words": [
+    "was",
+    "were",
+    "wasn't",
+    "weren't",
+    "yesterday",
+    "last night",
+    "last week",
+    "ago",
+    "two days ago",
+    "this morning",
+    "there was",
+    "there were",
+    "Where were you?",
+    "born",
+    "late",
+    "tired",
+    "cold",
+    "full",
+    "happy",
+    "closed",
+    "open",
+    "rain",
+    "walk",
+    "dance",
+    "music",
+    "market",
+    "show",
+    "evening",
+    "a lot of",
+    "Aye"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo", "de": "wer", "it": "chi", "en": "who" },
+        { "sl": "be v pretekliku", "de": "be, Vergangenheit", "it": "be al passato", "en": "be, past" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Preteklik od **be** ima dve obliki. Za **I**, **he**, **she** in **it** je **was** (sem bil, je bil): **I was at the inn.** (Bil{m:|f:a} sem v gostilni.) **Jack was on the fell.** (Jack je bil na hribu.) **It was cold.** (Bilo je mrzlo.)",
+          "de": "Die Vergangenheit von **be** hat zwei Formen. Bei **I**, **he**, **she** und **it** heißt sie **was** (war): **I was at the inn.** (Ich war im Gasthaus.) **Jack was on the fell.** (Jack war am Berg.) **It was cold.** (Es war kalt.) Vorsicht: **was** ist hier nicht das deutsche *was*.",
+          "it": "Il passato di **be** ha due forme. Con **I**, **he**, **she** e **it** è **was** (ero, era; sono stato): **I was at the inn.** (Ero alla locanda.) **Jack was on the fell.** (Jack era sul monte.) **It was cold.** (Faceva freddo.)",
+          "en": "The past of **be** has two forms. With **I**, **he**, **she** and **it** it is **was**: **I was at the inn.** **Jack was on the fell.** **It was cold.**"
+        },
+        "examples": [
+          {
+            "en": "I was at the inn.",
+            "sl": "Bil{m:|f:a} sem v gostilni.",
+            "de": "Ich war im Gasthaus.",
+            "it": "Ero alla locanda."
+          },
+          {
+            "en": "Jack was on the fell all day.",
+            "sl": "Jack je bil ves dan na hribu.",
+            "de": "Jack war den ganzen Tag am Berg.",
+            "it": "Jack è stato sul monte tutto il giorno."
+          },
+          {
+            "en": "It was cold this morning.",
+            "sl": "Danes zjutraj je bilo mrzlo.",
+            "de": "Heute Morgen war es kalt.",
+            "it": "Stamattina faceva freddo."
+          }
+        ],
+        "rows": [["I, he, she, it", "was", "Jack was on the fell."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "was-were",
+          "prompt": "Jack ___ on the fell yesterday.",
+          "options": ["was", "were", "is"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jack je he: was**\n- I was · he was · she was · it was",
+            "de": "**Jack ist he: was**\n- I was · he was · she was · it was",
+            "it": "**Jack è he: was**\n- I was · he was · she was · it was",
+            "en": "**Jack is he: was**\n- I was · he was · she was · it was"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za **you**, **we** in **they** je **were** (si bil, smo bili, so bili): **We were tired.** (Bili smo utrujeni.) **They were at the market.** (Bili so na tržnici.) **you were** je tudi za eno osebo: **You were late, Sam!** (Zamudil si, Sam!) Nikoli *you was*.",
+          "de": "Bei **you**, **we** und **they** heißt es **were** (warst, waren, wart): **We were tired.** (Wir waren müde.) **They were at the market.** (Sie waren auf dem Markt.) **you were** auch für eine Person: **You were late, Sam!** (Du warst spät dran, Sam!) Nie *you was*.",
+          "it": "Con **you**, **we** e **they** è **were** (eri, eravamo, erano): **We were tired.** (Eravamo stanchi.) **They were at the market.** (Erano al mercato.) **you were** anche per una persona sola: **You were late, Sam!** (Eri in ritardo, Sam!) Mai *you was*.",
+          "en": "With **you**, **we** and **they** it is **were**: **We were tired.** **They were at the market.** **you were** for one person too: **You were late, Sam!** Never *you was*."
+        },
+        "examples": [
+          {
+            "en": "We were tired after the walk.",
+            "sl": "Po sprehodu smo bili utrujeni.",
+            "de": "Nach der Wanderung waren wir müde.",
+            "it": "Dopo la camminata eravamo stanchi."
+          },
+          {
+            "en": "Granny Maggie and Auntie Edna were at the market.",
+            "sl": "Babica Maggie in teta Edna sta bili na tržnici.",
+            "de": "Oma Maggie und Tante Edna waren auf dem Markt.",
+            "it": "Nonna Maggie e zia Edna erano al mercato."
+          },
+          {
+            "en": "You were late, Sam!",
+            "sl": "Zamudil si, Sam!",
+            "de": "Du warst spät dran, Sam!",
+            "it": "Eri in ritardo, Sam!"
+          }
+        ],
+        "rows": [["you, we, they", "were", "We were tired."]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "was-were",
+          "text": "Sam, you ___ late yesterday! (be)",
+          "accept": ["were"],
+          "hint": "you → ?",
+          "explain": {
+            "sl": "**you: were, tudi za eno osebo**\n- you were · we were · they were",
+            "de": "**you: were, auch für eine Person**\n- you were · we were · they were",
+            "it": "**you: were, anche per una persona**\n- you were · we were · they were",
+            "en": "**you: were, for one person too**\n- you were · we were · they were"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za zanikanje dodaš **not**: **wasn't** (was not) in **weren't** (were not): **It wasn't cold.** (Ni bilo mrzlo.) **The sheep weren't in the field.** (Ovc ni bilo na polju.) **I wasn't at home.** (Nisem bil{m:|f:a} doma.)",
+          "de": "Zum Verneinen kommt **not** dazu: **wasn't** (was not) und **weren't** (were not): **It wasn't cold.** (Es war nicht kalt.) **The sheep weren't in the field.** (Die Schafe waren nicht auf der Weide.) **I wasn't at home.** (Ich war nicht zu Hause.)",
+          "it": "Per dire di no aggiungi **not**: **wasn't** (was not) e **weren't** (were not): **It wasn't cold.** (Non faceva freddo.) **The sheep weren't in the field.** (Le pecore non erano nel campo.) **I wasn't at home.** (Non ero a casa.)",
+          "en": "For no, add **not**: **wasn't** (was not) and **weren't** (were not): **It wasn't cold.** **The sheep weren't in the field.** **I wasn't at home.**"
+        },
+        "examples": [
+          {
+            "en": "It wasn't cold yesterday.",
+            "sl": "Včeraj ni bilo mrzlo.",
+            "de": "Gestern war es nicht kalt.",
+            "it": "Ieri non faceva freddo."
+          },
+          {
+            "en": "The sheep weren't in the field this morning.",
+            "sl": "Ovc danes zjutraj ni bilo na polju.",
+            "de": "Die Schafe waren heute Morgen nicht auf der Weide.",
+            "it": "Stamattina le pecore non erano nel campo."
+          },
+          {
+            "en": "Mr Dixon wasn't at the smithy.",
+            "sl": "Gospoda Dixona ni bilo v kovačnici.",
+            "de": "Mr Dixon war nicht in der Schmiede.",
+            "it": "Il signor Dixon non era nella fucina."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "not (ne)", "de": "not (nicht)", "it": "not (non)", "en": "not" },
+            "wasn't, weren't",
+            "It wasn't cold."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "was-were",
+          "text": "The children ___ at school on Saturday. (not)",
+          "accept": ["weren't"],
+          "hint": "were + not",
+          "explain": {
+            "sl": "**the children = they: weren't**\n- they weren't · it wasn't",
+            "de": "**the children = they: weren't**\n- they weren't · it wasn't",
+            "it": "**the children = they: weren't**\n- they weren't · it wasn't",
+            "en": "**the children = they: weren't**\n- they weren't · it wasn't"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za vprašanje gre **was** ali **were** na začetek: **Was it cold?** (Je bilo mrzlo?) **Were you at the show?** (Si bil{m:|f:a} na sejmu?) Kratki odgovor ponovi was ali were: **Yes, I was.** (Ja, sem.) **No, they weren't.** (Ne, niso bili.) Nikoli *Yes, I were* ali *Yes, I wasn't*.",
+          "de": "In der Frage kommt **was** oder **were** nach vorn: **Was it cold?** (War es kalt?) **Were you at the show?** (Warst du bei der Schau?) Die Kurzantwort wiederholt was oder were: **Yes, I was.** (Ja.) **No, they weren't.** (Nein.) Nie *Yes, I were* oder *Yes, I wasn't*.",
+          "it": "Per chiedere, **was** o **were** va all'inizio: **Was it cold?** (Faceva freddo?) **Were you at the show?** (Eri alla fiera?) La risposta breve ripete was o were: **Yes, I was.** (Sì.) **No, they weren't.** (No.) Mai *Yes, I were* o *Yes, I wasn't*.",
+          "en": "To ask, **was** or **were** goes first: **Was it cold?** **Were you at the show?** The short answer says was or were again: **Yes, I was.** **No, they weren't.** Never *Yes, I were* or *Yes, I wasn't*."
+        },
+        "examples": [
+          {
+            "en": "Were you at the show? — Yes, I was.",
+            "sl": "Si bil{m:|f:a} na sejmu? — Ja, sem.",
+            "de": "Warst du bei der Schau? — Ja.",
+            "it": "Eri alla fiera? — Sì."
+          },
+          {
+            "en": "Was Mrs Birkett at the market? — No, she wasn't.",
+            "sl": "Je bila gospa Birkett na tržnici? — Ne, ni bila.",
+            "de": "War Mrs Birkett auf dem Markt? — Nein.",
+            "it": "Mrs Birkett era al mercato? — No."
+          },
+          {
+            "en": "Were the sheep on the fell? — Yes, they were.",
+            "sl": "So bile ovce na hribu? — Ja, so bile.",
+            "de": "Waren die Schafe am Berg? — Ja.",
+            "it": "Le pecore erano sul monte? — Sì."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "vprašanje", "de": "Frage", "it": "domanda", "en": "question" },
+            "Was it …? Were you …?",
+            "Yes, I was. No, they weren't."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "was-were",
+          "prompt": "Were you at the show? — Yes, ___",
+          "options": ["I was.", "I were.", "I wasn't."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor: Yes, I was.**\n- Yes, I was. · No, I wasn't.",
+            "de": "**Die Kurzantwort: Yes, I was.**\n- Yes, I was. · No, I wasn't.",
+            "it": "**La risposta breve: Yes, I was.**\n- Yes, I was. · No, I wasn't.",
+            "en": "**The short answer: Yes, I was.**\n- Yes, I was. · No, I wasn't."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Z **was** in **were** gre čas, ki je mimo: **yesterday** (včeraj), **two days ago** (pred dvema dnevoma). Tudi **last night** (sinoči), **last week** (prejšnji teden), **this morning** (danes zjutraj); **ago** stoji zadaj. Iz **there is** je **there was**, iz **there are** **there were**: **There were a lot of people.** (Bilo je veliko ljudi.) **There was a dance at the inn.** (V gostilni je bil ples.)",
+          "de": "Zu **was** und **were** passen vergangene Zeiten: **yesterday**, **two days ago** (vor zwei Tagen). Auch **last night** (gestern Abend), **last week** (letzte Woche), **this morning** (heute Morgen); **ago** steht hinten. Aus **there is** wird **there was**, aus **there are** **there were**: **There were a lot of people.** (Es waren viele Leute da.) **There was a dance at the inn.** (Im Gasthaus war Tanz.)",
+          "it": "Con **was** e **were** vanno i tempi passati: **yesterday**, **two days ago** (due giorni fa). Anche **last night** (ieri sera), **last week** (la settimana scorsa), **this morning** (stamattina). **there is** diventa **there was**, **there are** diventa **there were** (c'erano): **There were a lot of people.** (C'era tanta gente.) **There was a dance at the inn.** (C'era un ballo alla locanda.)",
+          "en": "With **was** and **were** go times that are over: **yesterday**, **two days ago**. Also **last night**, **last week**, **this morning**. **there is** becomes **there was**, **there are** becomes **there were**: **There were a lot of people.** **There was a dance at the inn.**"
+        },
+        "examples": [
+          {
+            "en": "I was in Keswick yesterday.",
+            "sl": "Včeraj sem bil{m:|f:a} v Keswicku.",
+            "de": "Gestern war ich in Keswick.",
+            "it": "Ieri sono stat{m:o|f:a} a Keswick."
+          },
+          {
+            "en": "There was a dance at the inn last night.",
+            "sl": "Sinoči je bil v gostilni ples.",
+            "de": "Gestern Abend war Tanz im Gasthaus.",
+            "it": "Ieri sera c'era un ballo alla locanda."
+          },
+          {
+            "en": "There were a lot of people.",
+            "sl": "Bilo je veliko ljudi.",
+            "de": "Es waren viele Leute da.",
+            "it": "C'era tanta gente."
+          },
+          {
+            "en": "Old Wilf and Bess were by the fire two days ago.",
+            "sl": "Stari Wilf in Bess sta bila pred dvema dnevoma pri ognju.",
+            "de": "Der alte Wilf und Bess waren vor zwei Tagen am Feuer.",
+            "it": "Il vecchio Wilf e Bess erano vicino al fuoco due giorni fa."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "kdaj", "de": "wann", "it": "quando", "en": "when" },
+            "yesterday, last night, two days ago",
+            "I was in Keswick yesterday."
+          ],
+          ["there", "there was, there were", "There were a lot of people."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "was-were",
+          "prompt": "There ___ a lot of walkers at the inn last night.",
+          "options": ["were", "was", "are"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Več kot eno: there were**\n- there was a dance · there were a lot of walkers",
+            "de": "**Mehr als eins: there were**\n- there was a dance · there were a lot of walkers",
+            "it": "**Più di uno: there were**\n- there was a dance · there were a lot of walkers",
+            "en": "**More than one: there were**\n- there was a dance · there were a lot of walkers"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pazi na **where** (kje) in **were** (be): **Where were you?** (Kje si bil{m:|f:a}?) Zvenita in se pišeta drugače. In **born** gre z **was** ali **were**: **Auntie Edna was born in 1952.** (Teta Edna se je rodila leta 1952.) **Jack was born on the farm.** (Jack se je rodil na kmetiji.) Nikoli *is born*.",
+          "de": "Achtung: **where** heißt wo, nicht wer, und **were** ist be: **Where were you?** (Wo warst du?) Und **born** geht mit **was**, nicht mit is: **Auntie Edna was born in 1952.** (Tante Edna ist 1952 geboren.) **Jack was born on the farm.** Nie *is born*, auch wenn man *ist geboren* sagt.",
+          "it": "Attenzione a **where** (dove) e **were** (be): **Where were you?** (Dov'eri?) Si scrivono e suonano in modo diverso. E **born** va con **was** o **were**, dove l'italiano dice *è nato*: **Auntie Edna was born in 1952.** (Zia Edna è nata nel 1952.) **Jack was born on the farm.** Mai *is born*.",
+          "en": "Watch **where** (a place) and **were** (be): **Where were you?** And **born** goes with **was**: **Auntie Edna was born in 1952.** (never *Auntie Edna is born in 1952.*) **Jack was born on the farm.**"
+        },
+        "examples": [
+          {
+            "en": "Where were you on Monday?",
+            "sl": "Kje si bil{m:|f:a} v ponedeljek?",
+            "de": "Wo warst du am Montag?",
+            "it": "Dov'eri lunedì?"
+          },
+          {
+            "en": "Auntie Edna was born in 1952.",
+            "sl": "Teta Edna se je rodila leta 1952.",
+            "de": "Tante Edna ist 1952 geboren.",
+            "it": "Zia Edna è nata nel 1952."
+          },
+          {
+            "en": "Jack was born on the farm.",
+            "sl": "Jack se je rodil na kmetiji.",
+            "de": "Jack ist auf dem Hof geboren.",
+            "it": "Jack è nato nella fattoria."
+          }
+        ],
+        "rows": [
+          ["where?", "Where were you?", "Where were you on Monday?"],
+          ["born", "was born, were born", "Edna was born in 1952."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "was-were",
+          "prompt": "Auntie Edna ___ born in 1952.",
+          "options": ["was", "is", "has"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**born gre z was**\n- I was born in … · she was born in 1952",
+            "de": "**born mit was, nicht is**\n- I was born in … · she was born in 1952",
+            "it": "**born va con was, non is**\n- I was born in … · she was born in 1952",
+            "en": "**born goes with was**\n- I was born in … · she was born in 1952"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "was-were-1",
+      "title": {
+        "sl": "Was, were · Bil sem, bili smo",
+        "de": "Was, were · War, waren",
+        "it": "Was, were · Ero, eravamo",
+        "en": "Was, were"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "was-were",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "be in the past · be v pretekliku: da in ne",
+            "de": "be in the past · be in der Vergangenheit: ja und nein",
+            "it": "be in the past · be al passato: sì e no",
+            "en": "be in the past: yes and no"
+          },
+          "columns": [
+            { "sl": "yes · da", "de": "yes · ja", "it": "yes · sì", "en": "yes" },
+            { "sl": "no · ne", "de": "no · nein", "it": "no · no", "en": "no" }
+          ],
+          "rows": [
+            { "label": "I", "cells": ["was", "wasn't"] },
+            {
+              "label": "you",
+              "cells": [
+                {
+                  "accept": ["were"],
+                  "hint": { "sl": "tudi za eno osebo", "de": "auch für eine Person", "it": "anche per una persona", "en": "for one person too" }
+                },
+                { "accept": ["weren't"] }
+              ]
+            },
+            { "label": "she", "cells": [{ "accept": ["was"] }, { "accept": ["wasn't"] }] },
+            { "label": "it", "cells": [{ "accept": ["was"] }, { "accept": ["wasn't"] }] },
+            { "label": "we", "cells": [{ "accept": ["were"] }, { "accept": ["weren't"] }] },
+            { "label": "they", "cells": [{ "accept": ["were"] }, { "accept": ["weren't"] }] }
+          ],
+          "explain": {
+            "sl": "**was za I, he, she, it; were za you, we, they**\n- I was · I wasn't\n- you were · you weren't",
+            "de": "**was für I, he, she, it; were für you, we, they**\n- I was · I wasn't\n- you were · you weren't",
+            "it": "**was per I, he, she, it; were per you, we, they**\n- I was · I wasn't\n- you were · you weren't",
+            "en": "**was for I, he, she, it; were for you, we, they**\n- I was · I wasn't\n- you were · you weren't"
+          }
+        }
+      ]
+    },
+    {
+      "id": "was-were-2",
+      "title": {
+        "sl": "Market day yesterday · Včeraj je bil tržni dan",
+        "de": "Market day yesterday · Gestern war Markttag",
+        "it": "Market day yesterday · Ieri era giorno di mercato",
+        "en": "Market day yesterday"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "was-were",
+          "instruction": {
+            "sl": "Fill in with be in the past · Dopolni z be v pretekliku",
+            "de": "Fill in with be in the past · Ergänze mit be in der Vergangenheit",
+            "it": "Fill in with be in the past · Completa con be al passato",
+            "en": "Fill in with be in the past"
+          },
+          "text": "Yesterday was market day in Keswick. Mr Tyson ___ there with his oats, and Granny Maggie and Auntie Edna ___ there too. The bus ___ very full! — ___ you at the market, Jack? — No, I ___ (not). I ___ on the fell with Meg. The sheep ___ (not) happy in the rain.",
+          "gaps": [
+            { "accept": ["was"], "hint": "he → ?" },
+            { "accept": ["were"], "hint": "they → ?" },
+            { "accept": ["was"], "hint": "it → ?" },
+            {
+              "accept": ["Were", "Weren't"],
+              "hint": { "sl": "vprašanje z you", "de": "eine Frage mit you", "it": "una domanda con you", "en": "a question with you" }
+            },
+            { "accept": ["wasn't"], "hint": "was + not" },
+            { "accept": ["was"], "hint": "I → ?" },
+            {
+              "accept": ["weren't"],
+              "hint": "were + not",
+              "explain": {
+                "sl": "**the sheep = they: weren't**\n- the sheep weren't · Meg wasn't",
+                "de": "**the sheep = they: weren't**\n- the sheep weren't · Meg wasn't",
+                "it": "**the sheep = they: weren't**\n- the sheep weren't · Meg wasn't",
+                "en": "**the sheep = they: weren't**\n- the sheep weren't · Meg wasn't"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["where", "been"],
+          "translation": {
+            "sl": "Včeraj je bil v Keswicku tržni dan. Gospod Tyson je bil tam s svojim ovsom, babica Maggie in teta Edna pa tudi. Avtobus je bil zelo poln! — Si bil na tržnici, Jack? — Ne, nisem bil. Bil sem na hribu z Meg. Ovce v dežju niso bile vesele.",
+            "de": "Gestern war Markttag in Keswick. Mr Tyson war mit seinem Hafer dort, und Oma Maggie und Tante Edna waren auch da. Der Bus war sehr voll! — Warst du auf dem Markt, Jack? — Nein, war ich nicht. Ich war mit Meg am Berg. Die Schafe waren im Regen nicht glücklich.",
+            "it": "Ieri era giorno di mercato a Keswick. Il signor Tyson era lì con la sua avena, e c'erano anche nonna Maggie e zia Edna. L'autobus era pienissimo! — Eri al mercato, Jack? — No. Ero sul monte con Meg. Le pecore non erano contente sotto la pioggia.",
+            "en": "Yesterday was market day in Keswick. Mr Tyson was there with his oats, and Granny Maggie and Auntie Edna were there too. The bus was very full! — Were you at the market, Jack? — No, I wasn't. I was on the fell with Meg. The sheep weren't happy in the rain."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "was-were",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Where ___ you last night?",
+          "options": ["were", "was", "where"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**you: were; where (kje) je druga beseda**\n- Where were you? · Where was Jack?",
+            "de": "**you: were; where (wo) ist ein anderes Wort**\n- Where were you? · Where was Jack?",
+            "it": "**you: were; where (dove) è un'altra parola**\n- Where were you? · Where was Jack?",
+            "en": "**you: were; where is another word**\n- Where were you? · Where was Jack?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "was-were-3",
+      "title": {
+        "sl": "Yesterday and questions · Včeraj in vprašanja",
+        "de": "Yesterday and questions · Gestern und Fragen",
+        "it": "Yesterday and questions · Ieri e domande",
+        "en": "Yesterday and questions"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "was-were",
+          "instruction": {
+            "sl": "Say it about yesterday · Povej za včeraj",
+            "de": "Say it about yesterday · Sag es für gestern",
+            "it": "Say it about yesterday · Dillo per ieri",
+            "en": "Say it about yesterday"
+          },
+          "cue": "yesterday",
+          "items": [
+            { "from": "I'm tired today.", "accept": ["I was tired yesterday.", "Yesterday I was tired."] },
+            { "from": "Jack is on the fell today.", "accept": ["Jack was on the fell yesterday.", "Yesterday Jack was on the fell."] },
+            {
+              "from": "We're at the smithy today.",
+              "accept": ["We were at the smithy yesterday.", "Yesterday we were at the smithy."],
+              "hint": "we → ?"
+            },
+            {
+              "from": "The shops are closed today.",
+              "accept": ["The shops were closed yesterday.", "Yesterday the shops were closed."],
+              "hint": "are → ?"
+            }
+          ],
+          "explain": {
+            "sl": "**am, is → was; are → were**\n- I'm tired today. → I was tired yesterday.\n- We're at the smithy. → We were at the smithy.",
+            "de": "**am, is → was; are → were**\n- I'm tired today. → I was tired yesterday.\n- We're at the smithy. → We were at the smithy.",
+            "it": "**am, is → was; are → were**\n- I'm tired today. → I was tired yesterday.\n- We're at the smithy. → We were at the smithy.",
+            "en": "**am, is → was; are → were**\n- I'm tired today. → I was tired yesterday.\n- We're at the smithy. → We were at the smithy."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "was-were",
+          "instruction": {
+            "sl": "Ask · Postavi vprašanje",
+            "de": "Ask · Mach eine Frage",
+            "it": "Ask · Fai la domanda",
+            "en": "Ask"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "It was cold.",
+              "accept": ["Was it cold?"],
+              "hint": { "sl": "was na začetek", "de": "was nach vorn", "it": "was all'inizio", "en": "was first" }
+            },
+            { "from": "They were at the show.", "accept": ["Were they at the show?"] },
+            { "from": "Mrs Hartley was at school.", "accept": ["Was Mrs Hartley at school?"] },
+            { "from": "You were in Carlisle.", "accept": ["Were you in Carlisle?"] }
+          ],
+          "explain": {
+            "sl": "**was ali were na začetek, brez do**\n- It was cold. → Was it cold?\n- You were in Carlisle. → Were you in Carlisle?",
+            "de": "**was oder were nach vorn, ohne do**\n- It was cold. → Was it cold?\n- You were in Carlisle. → Were you in Carlisle?",
+            "it": "**was o were all'inizio, senza do**\n- It was cold. → Was it cold?\n- You were in Carlisle. → Were you in Carlisle?",
+            "en": "**was or were first, with no do**\n- It was cold. → Was it cold?\n- You were in Carlisle. → Were you in Carlisle?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "was-were",
+        "instruction": {
+          "sl": "Fill in with be in the past · Dopolni z be v pretekliku",
+          "de": "Fill in with be in the past · Ergänze mit be in der Vergangenheit",
+          "it": "Fill in with be in the past · Completa con be al passato",
+          "en": "Fill in with be in the past"
+        },
+        "text": "Old Wilf ___ born in 1942, on a farm by the tarn. Two days ago he ___ at the inn with Bess. There ___ a lot of people there, and there ___ music. — ___ it a good evening, Wilf? — Aye, it ___!",
+        "gaps": [
+          { "accept": ["was"] },
+          { "accept": ["was"] },
+          { "accept": ["were"] },
+          { "accept": ["was"] },
+          { "accept": ["Was", "Wasn't"] },
+          { "accept": ["was"] }
+        ],
+        "translation": {
+          "sl": "Stari Wilf se je rodil leta 1942 na kmetiji ob gorskem jezercu. Pred dvema dnevoma je bil z Bess v gostilni. Tam je bilo veliko ljudi in igrala je glasba. — Je bil lep večer, Wilf? — Ja, bil je!",
+          "de": "Der alte Wilf ist 1942 auf einem Hof am Bergsee geboren. Vor zwei Tagen war er mit Bess im Gasthaus. Es waren viele Leute da, und es gab Musik. — War es ein schöner Abend, Wilf? — Ja, das war er!",
+          "it": "Il vecchio Wilf è nato nel 1942, in una fattoria vicino al laghetto di montagna. Due giorni fa era alla locanda con Bess. C'era tanta gente e c'era la musica. — È stata una bella serata, Wilf? — Eh sì, proprio!",
+          "en": "Old Wilf was born in 1942, on a farm by the tarn. Two days ago he was at the inn with Bess. There were a lot of people there, and there was music. — Was it a good evening, Wilf? — Aye, it was!"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "was-were",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          { "from": "The inn was open.", "accept": ["The inn wasn't open."] },
+          { "from": "We were in Keswick on Monday.", "accept": ["We weren't in Keswick on Monday."] }
+        ],
+        "explain": {
+          "sl": "**wasn't (was not), weren't (were not)**\n- The inn wasn't open.\n- We weren't in Keswick.",
+          "de": "**wasn't (was not), weren't (were not)**\n- The inn wasn't open.\n- We weren't in Keswick.",
+          "it": "**wasn't (was not), weren't (were not)**\n- The inn wasn't open.\n- We weren't in Keswick.",
+          "en": "**wasn't (was not), weren't (were not)**\n- The inn wasn't open.\n- We weren't in Keswick."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "was-were",
+        "instruction": {
+          "sl": "Ask · Postavi vprašanje",
+          "de": "Ask · Mach eine Frage",
+          "it": "Ask · Fai la domanda",
+          "en": "Ask"
+        },
+        "cue": "?",
+        "items": [
+          { "from": "Jack was tired.", "accept": ["Was Jack tired?"] },
+          { "from": "The children were at school.", "accept": ["Were the children at school?"] }
+        ],
+        "explain": {
+          "sl": "**was ali were na začetek**\n- Jack was tired. → Was Jack tired?",
+          "de": "**was oder were nach vorn**\n- Jack was tired. → Was Jack tired?",
+          "it": "**was o were all'inizio**\n- Jack was tired. → Was Jack tired?",
+          "en": "**was or were first**\n- Jack was tired. → Was Jack tired?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "was-were",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mrs Hartley ___ born in Carlisle.",
+        "options": ["was", "is", "were"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**born z was: she was born**\n- I was born in … · we were born in …",
+          "de": "**born mit was: she was born**\n- I was born in … · we were born in …",
+          "it": "**born con was: she was born**\n- I was born in … · we were born in …",
+          "en": "**born with was: she was born**\n- I was born in … · we were born in …"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "was-were",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Were the sheep on the fell? — No, ___",
+        "options": ["they weren't.", "they wasn't.", "they didn't."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kratki odgovor z were: No, they weren't.**\n- Yes, they were. · No, they weren't.",
+          "de": "**Die Kurzantwort mit were: No, they weren't.**\n- Yes, they were. · No, they weren't.",
+          "it": "**La risposta breve con were: No, they weren't.**\n- Yes, they were. · No, they weren't.",
+          "en": "**The short answer with were: No, they weren't.**\n- Yes, they were. · No, they weren't."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: you were for one person, the short answers, there were a lot of people, Aye, it was, born with was"
+}
