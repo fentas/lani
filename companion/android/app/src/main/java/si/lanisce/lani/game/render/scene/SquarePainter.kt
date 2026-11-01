@@ -1447,8 +1447,10 @@ internal class SquarePainter : VistaPainter() {
                 c.line((tpx + 0.35f * lp).toInt(), gy(d).toInt(), (tpx - 0.35f * lp).toInt(), ly.toInt(), Pal.WOOD_M)
             }
         }
-        // the ropes, taut, from under the wreath down to the lads hauling on both sides
-        if (r < 0.98f) {
+        // the ropes, taut, from under the wreath down to the lads hauling on both sides; Carinthia's Maibaum is pushed up
+        // with Schwaiberl instead, pairs of long poles tied crosswise at their tops, their feet on the cobbles under it
+        if (r < 0.98f && kraxel) schwaiberl(at(len - 4.5f), at(len - 7f), fd)
+        else if (r < 0.98f) {
             val rp = at(len - 4f)
             for (gxm in floatArrayOf(-6.6f, 4.4f)) c.line(rp[0].toInt(), rp[1].toInt(), gx(gxm, fd - 3.5f).toInt(), gy(fd - 3.5f).toInt(), Pal.CANVAS_D)
         }
@@ -1557,6 +1559,23 @@ internal class SquarePainter : VistaPainter() {
         if (cuccagna) prizeWheel(bx, hy(poleD, PRIZES_H), p, standing = true)
         // the Kraxler's prize under the Maibaum's wreath
         if (kraxel) kraxelPrize(bx, wy + max(1f, wr * 0.3f), half, p)
+    }
+
+    /**
+     * The Schwaiberl pushing Carinthia's Maibaum up ([kraxel]'s look; Unter dem Maibaum, the project's fourth step): two pairs
+     * of long poles, each pair tied crosswise where it holds the trunk ([hi] and [lo] on it), their feet on the cobbles in
+     * front of it at depth [fd]'s nearer side, spread either way.
+     */
+    private fun schwaiberl(hi: FloatArray, lo: FloatArray, fd: Float) {
+        val d = fd - 2.6f
+        val wood = Pal.WOOD_M; val woodD = Pal.WOOD_D
+        for ((at, spread) in listOf(hi to 2.2f, lo to 1.4f)) {
+            for ((j, sx) in floatArrayOf(-spread, spread).withIndex()) {
+                val fx = gx(poleX + sx, d); val fy = gy(d)
+                c.line(at[0].toInt(), at[1].toInt(), fx.toInt(), fy.toInt(), if (j == 0) wood else woodD)
+                if (detail > 1) c.line(at[0].toInt() + 1, at[1].toInt(), fx.toInt() + 1, fy.toInt(), woodD)
+            }
+        }
     }
 
     /**
