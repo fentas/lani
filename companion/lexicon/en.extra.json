@@ -7,143 +7,3017 @@
     "about": "Words the English course (companion/course/en) uses that no English or Lakeland pack means, so its printed sheets list every word with its meaning in the learner's language and the word lookup finds them on the phone, which has no English Wiktionary: the course's words of A1 (fine, innkeeper, have got, the number words), each with the forms the course uses and their meaning in Slovene, German and Italian (meanings), written for a grown-up learner, not copied from a dictionary. British English; an American spelling is a form of its British lemma. Each part of the course appends its own words (docs/plans/05-built/course-en-a1-a.md)."
   },
   "entries": [
-    { "lemma": "fine", "pos": "adjective", "gloss": ["well, all right (I'm fine, thanks)"], "forms": { "fine": null }, "meanings": { "sl": ["dobro (I'm fine: dobro sem)"], "de": ["gut (I'm fine: mir geht's gut)"], "it": ["bene (I'm fine: sto bene)"] } },
-    { "lemma": "very well", "pos": "phrase", "gloss": ["very well, very good"], "forms": { "very well": null }, "meanings": { "sl": ["zelo dobro"], "de": ["sehr gut"], "it": ["molto bene"] } },
-    { "lemma": "innkeeper", "pos": "noun", "gloss": ["who runs an inn"], "forms": { "innkeeper": "singular", "innkeepers": "plural" }, "meanings": { "sl": ["gostilničar, gostilničarka"], "de": ["Wirt, Wirtin"], "it": ["locandiere, locandiera"] } },
-    { "lemma": "brewer", "pos": "noun", "gloss": ["who makes beer"], "forms": { "brewer": "singular", "brewers": "plural" }, "meanings": { "sl": ["pivovar, pivovarka"], "de": ["Brauer, Brauerin"], "it": ["birraio, birraia"] } },
-    { "lemma": "storyteller", "pos": "noun", "gloss": ["who tells stories"], "forms": { "storyteller": "singular", "storytellers": "plural" }, "meanings": { "sl": ["pripovedovalec, pripovedovalka"], "de": ["Geschichtenerzähler, Geschichtenerzählerin"], "it": ["cantastorie"] } },
-    { "lemma": "be", "pos": "verb", "gloss": ["to be (I am, she is, we are)"], "forms": { "be": "infinitive", "am": "first-person singular present", "is": "third-person singular present", "are": "second-person singular present; plural present", "isn't": "third-person singular present, negative (is not)", "aren't": "second-person singular present, negative; plural present, negative (are not)" }, "meanings": { "sl": ["biti (am, is, are: sem, je, so)"], "de": ["sein (am, is, are: bin, ist, sind)"], "it": ["essere (am, is, are: sono, è, siamo)"] } },
-    { "lemma": "at home", "pos": "phrase", "gloss": ["at home"], "forms": { "at home": null }, "meanings": { "sl": ["doma"], "de": ["zu Hause"], "it": ["a casa"] } },
-    { "lemma": "busy", "pos": "adjective", "gloss": ["busy: with a lot to do"], "forms": { "busy": null }, "meanings": { "sl": ["zaposlen (ima veliko dela)"], "de": ["beschäftigt (viel zu tun)"], "it": ["impegnato, indaffarato"] } },
-    { "lemma": "hungry", "pos": "adjective", "gloss": ["hungry"], "forms": { "hungry": null }, "meanings": { "sl": ["lačen"], "de": ["hungrig (I'm hungry: ich habe Hunger)"], "it": ["affamato (I'm hungry: ho fame)"] } },
-    { "lemma": "late", "pos": "adjective", "gloss": ["late"], "forms": { "late": null }, "meanings": { "sl": ["pozen, pozno"], "de": ["spät (you're late: du bist spät dran)"], "it": ["in ritardo, tardi"] } },
-    { "lemma": "open", "pos": "adjective", "gloss": ["open"], "forms": { "open": null }, "meanings": { "sl": ["odprt"], "de": ["offen, geöffnet"], "it": ["aperto"] } },
-    { "lemma": "here", "pos": "adverb", "gloss": ["here, in this place"], "forms": { "here": null }, "meanings": { "sl": ["tukaj, tu"], "de": ["hier"], "it": ["qui, qua"] } },
-    { "lemma": "morning", "pos": "noun", "gloss": ["the morning, from waking to midday"], "forms": { "morning": "singular", "mornings": "plural" }, "meanings": { "sl": ["jutro, dopoldne"], "de": ["Morgen, Vormittag"], "it": ["mattina"] } },
-    { "lemma": "hour", "pos": "noun", "gloss": ["an hour, sixty minutes"], "forms": { "hour": "singular", "hours": "plural" }, "meanings": { "sl": ["ura (60 minut)"], "de": ["Stunde"], "it": ["ora"] } },
-    { "lemma": "cup of tea", "pos": "phrase", "gloss": ["a cup of tea"], "forms": { "cup of tea": null, "a cup of tea": null, "cups of tea": "plural" }, "meanings": { "sl": ["skodelica čaja"], "de": ["eine Tasse Tee"], "it": ["una tazza di tè"] } },
-    { "lemma": "nurse", "pos": "noun", "gloss": ["who looks after the ill"], "forms": { "nurse": "singular", "nurses": "plural" }, "meanings": { "sl": ["medicinska sestra, medicinski tehnik"], "de": ["Krankenpfleger, Krankenschwester"], "it": ["infermiere, infermiera"] } },
-    { "lemma": "room", "pos": "noun", "gloss": ["a room (in a house, an inn)"], "forms": { "room": "singular", "rooms": "plural" }, "meanings": { "sl": ["soba"], "de": ["Zimmer"], "it": ["camera, stanza"] } },
-    { "lemma": "upstairs", "pos": "adverb", "gloss": ["upstairs, on the floor above"], "forms": { "upstairs": null }, "meanings": { "sl": ["zgoraj (v nadstropju)"], "de": ["oben (im oberen Stock)"], "it": ["di sopra"] } },
-    { "lemma": "new", "pos": "adjective", "gloss": ["new"], "forms": { "new": null }, "meanings": { "sl": ["nov"], "de": ["neu"], "it": ["nuovo"] } },
-    { "lemma": "black", "pos": "adjective", "gloss": ["black"], "forms": { "black": null }, "meanings": { "sl": ["črn"], "de": ["schwarz"], "it": ["nero"] } },
-    { "lemma": "friendly", "pos": "adjective", "gloss": ["friendly, kind to people"], "forms": { "friendly": null }, "meanings": { "sl": ["prijazen"], "de": ["freundlich"], "it": ["simpatico, cordiale"] } },
-    { "lemma": "dish", "pos": "noun", "gloss": ["a plate or a bowl; a meal"], "forms": { "dish": "singular", "dishes": "plural" }, "meanings": { "sl": ["krožnik; jed"], "de": ["Teller, Schüssel; Gericht"], "it": ["piatto"] } },
-    { "lemma": "calf", "pos": "noun", "gloss": ["a young cow"], "forms": { "calf": "singular", "calves": "plural" }, "meanings": { "sl": ["tele"], "de": ["Kalb"], "it": ["vitello"] } },
-    { "lemma": "person", "pos": "noun", "gloss": ["a person (plural: people)"], "forms": { "person": "singular" }, "meanings": { "sl": ["oseba"], "de": ["Person, Mensch"], "it": ["persona"] } },
-    { "lemma": "people", "pos": "noun", "gloss": ["people, persons"], "forms": { "people": "plural of person" }, "meanings": { "sl": ["ljudje"], "de": ["Leute, Menschen"], "it": ["gente, persone"] } },
-    { "lemma": "mile", "pos": "noun", "gloss": ["a mile (about 1.6 km)"], "forms": { "mile": "singular", "miles": "plural" }, "meanings": { "sl": ["milja (1,6 km)"], "de": ["Meile (1,6 km)"], "it": ["miglio (1,6 km)"] } },
-    { "lemma": "sink", "pos": "noun", "gloss": ["the kitchen sink"], "forms": { "sink": "singular", "sinks": "plural" }, "meanings": { "sl": ["pomivalno korito"], "de": ["Spüle"], "it": ["lavello"] } },
-    { "lemma": "lost", "pos": "adjective", "gloss": ["lost, not found; not knowing the way"], "forms": { "lost": null }, "meanings": { "sl": ["izgubljen"], "de": ["verloren, verirrt"], "it": ["perso, smarrito"] } },
-    { "lemma": "car", "pos": "noun", "gloss": ["a car"], "forms": { "car": "singular", "cars": "plural" }, "meanings": { "sl": ["avto"], "de": ["Auto"], "it": ["macchina, auto"] } },
-    { "lemma": "bike", "pos": "noun", "gloss": ["a bicycle"], "forms": { "bike": "singular", "bikes": "plural" }, "meanings": { "sl": ["kolo (pogovorno)"], "de": ["Fahrrad, Rad"], "it": ["bici, bicicletta"] } },
-    { "lemma": "a cold", "pos": "phrase", "gloss": ["a cold (I've got a cold: I'm ill)"], "forms": { "a cold": null }, "meanings": { "sl": ["prehlad"], "de": ["Erkältung, Schnupfen"], "it": ["raffreddore"] } },
-    { "lemma": "pen", "pos": "noun", "gloss": ["a pen to write with"], "forms": { "pen": "singular", "pens": "plural" }, "meanings": { "sl": ["pisalo, kemični svinčnik"], "de": ["Stift, Kugelschreiber"], "it": ["penna"] } },
-    { "lemma": "time", "pos": "noun", "gloss": ["time"], "forms": { "time": null, "times": "plural" }, "meanings": { "sl": ["čas"], "de": ["Zeit"], "it": ["tempo"] } },
-    { "lemma": "shower", "pos": "noun", "gloss": ["a shower (to wash; light rain)"], "forms": { "shower": "singular", "showers": "plural" }, "meanings": { "sl": ["prha, tuš"], "de": ["Dusche"], "it": ["doccia"] } },
-    { "lemma": "tonight", "pos": "adverb", "gloss": ["this evening, this night"], "forms": { "tonight": null }, "meanings": { "sl": ["nocoj, danes zvečer"], "de": ["heute Abend, heute Nacht"], "it": ["stasera, stanotte"] } },
-    { "lemma": "lovely", "pos": "adjective", "gloss": ["lovely, very nice"], "forms": { "lovely": null }, "meanings": { "sl": ["ljubek, prelep"], "de": ["schön, reizend"], "it": ["bello, delizioso"] } },
-    { "lemma": "little", "pos": "adjective", "gloss": ["little, small"], "forms": { "little": null }, "meanings": { "sl": ["majhen"], "de": ["klein"], "it": ["piccolo"] } },
-    { "lemma": "a lot of", "pos": "phrase", "gloss": ["a lot of, many, much"], "forms": { "a lot of": null }, "meanings": { "sl": ["veliko, mnogo"], "de": ["viel, viele"], "it": ["molto, tanti"] } },
-    { "lemma": "zero", "pos": "number", "gloss": ["zero, nought (0)"], "forms": { "zero": null }, "meanings": { "sl": ["nič"], "de": ["null"], "it": ["zero"] } },
-    { "lemma": "how many", "pos": "phrase", "gloss": ["how many (How many sheep?)"], "forms": { "how many": null }, "meanings": { "sl": ["koliko (za štetje)"], "de": ["wie viele"], "it": ["quanti, quante"] } },
-    { "lemma": "how old", "pos": "phrase", "gloss": ["how old (How old are you?)"], "forms": { "how old": null }, "meanings": { "sl": ["koliko let (How old are you? Koliko si star?)"], "de": ["wie alt"], "it": ["quanti anni (How old are you? Quanti anni hai?)"] } },
-    { "lemma": "year", "pos": "noun", "gloss": ["a year"], "forms": { "year": "singular", "years": "plural" }, "meanings": { "sl": ["leto"], "de": ["Jahr"], "it": ["anno"] } },
-    { "lemma": "oats", "pos": "noun", "gloss": ["oats (a grain, for porridge and horses)"], "forms": { "oats": "plural" }, "meanings": { "sl": ["oves"], "de": ["Hafer"], "it": ["avena"] } },
-    { "lemma": "here you are", "pos": "phrase", "gloss": ["here you are (giving something)"], "forms": { "here you are": null }, "meanings": { "sl": ["izvolite, izvoli"], "de": ["bitte sehr, hier bitte"], "it": ["ecco a Lei, ecco"] } },
-    { "lemma": "where", "pos": "adverb", "gloss": ["where (Where's the key?)"], "forms": { "where": null }, "meanings": { "sl": ["kje, kam (Where's …?: Kje je …?)"], "de": ["wo, wohin (Where's …?: Wo ist …?)"], "it": ["dove (Where's …?: Dov'è …?)"] } },
-    { "lemma": "home", "pos": "noun", "gloss": ["home (at home; go home, with no to)"], "forms": { "home": "singular", "homes": "plural" }, "meanings": { "sl": ["dom; domov (go home)"], "de": ["Zuhause; nach Hause (go home)"], "it": ["casa, la propria casa (go home: andare a casa)"] } },
-    { "lemma": "work", "pos": "verb", "gloss": ["to work; work, a job (at work)"], "forms": { "work": "infinitive; noun", "works": "third-person singular present", "working": "present participle" }, "meanings": { "sl": ["delati; služba (at work: v službi)"], "de": ["arbeiten; Arbeit (at work: in der Arbeit)"], "it": ["lavorare; lavoro (at work: al lavoro)"] } },
-    { "lemma": "bus stop", "pos": "noun", "gloss": ["a bus stop"], "forms": { "bus stop": "singular", "bus stops": "plural" }, "meanings": { "sl": ["avtobusna postaja"], "de": ["Bushaltestelle"], "it": ["fermata dell'autobus"] } },
-    { "lemma": "can", "pos": "verb", "gloss": ["can, be able to; be allowed to (Can I help?)"], "forms": { "can": "present", "can't": "negative (cannot)", "cannot": "negative" }, "meanings": { "sl": ["znati, moči, smeti (I can: znam, lahko)"], "de": ["können, dürfen (I can: ich kann)"], "it": ["sapere, potere (I can: so, posso)"] } },
-    { "lemma": "could", "pos": "verb", "gloss": ["could: the polite can (Could you …, please?)"], "forms": { "could": "past; polite", "couldn't": "negative (could not)" }, "meanings": { "sl": ["bi lahko (vljudno: Could you …?)"], "de": ["könnte, könnten (höflich: Could you …?)"], "it": ["potrebbe, potresti (gentile: Could you …?)"] } },
-    { "lemma": "of course", "pos": "phrase", "gloss": ["of course, yes, certainly"], "forms": { "of course": null }, "meanings": { "sl": ["seveda"], "de": ["natürlich"], "it": ["certo, naturalmente"] } },
-    { "lemma": "at all", "pos": "phrase", "gloss": ["at all (not at all: in no way)"], "forms": { "at all": null }, "meanings": { "sl": ["sploh (not at all: sploh ne)"], "de": ["überhaupt (not at all: überhaupt nicht)"], "it": ["per niente (not at all)"] } },
-    { "lemma": "swim", "pos": "verb", "gloss": ["to swim"], "forms": { "swim": "infinitive", "swims": "third-person singular present", "swimming": "present participle" }, "meanings": { "sl": ["plavati"], "de": ["schwimmen"], "it": ["nuotare"] } },
-    { "lemma": "run", "pos": "verb", "gloss": ["to run"], "forms": { "run": "infinitive", "runs": "third-person singular present", "running": "present participle" }, "meanings": { "sl": ["teči"], "de": ["laufen, rennen"], "it": ["correre"] } },
-    { "lemma": "drive", "pos": "verb", "gloss": ["to drive (a car, a van)"], "forms": { "drive": "infinitive", "drives": "third-person singular present", "driving": "present participle" }, "meanings": { "sl": ["voziti (avto)"], "de": ["fahren (ein Auto lenken)"], "it": ["guidare"] } },
-    { "lemma": "ride", "pos": "verb", "gloss": ["to ride (a horse, a bike)"], "forms": { "ride": "infinitive", "rides": "third-person singular present", "riding": "present participle" }, "meanings": { "sl": ["jahati; voziti (kolo)"], "de": ["reiten; Rad fahren (ride a bike)"], "it": ["andare (a cavallo, in bici)"] } },
-    { "lemma": "cook", "pos": "verb", "gloss": ["to cook"], "forms": { "cook": "infinitive", "cooks": "third-person singular present", "cooking": "present participle" }, "meanings": { "sl": ["kuhati"], "de": ["kochen"], "it": ["cucinare"] } },
-    { "lemma": "sing", "pos": "verb", "gloss": ["to sing"], "forms": { "sing": "infinitive", "sings": "third-person singular present", "singing": "present participle" }, "meanings": { "sl": ["peti"], "de": ["singen"], "it": ["cantare"] } },
-    { "lemma": "climb", "pos": "verb", "gloss": ["to climb"], "forms": { "climb": "infinitive", "climbs": "third-person singular present", "climbing": "present participle" }, "meanings": { "sl": ["plezati, vzpenjati se"], "de": ["klettern, steigen"], "it": ["arrampicarsi, salire"] } },
-    { "lemma": "help", "pos": "verb", "gloss": ["to help"], "forms": { "help": "infinitive", "helps": "third-person singular present", "helping": "present participle" }, "meanings": { "sl": ["pomagati"], "de": ["helfen"], "it": ["aiutare"] } },
-    { "lemma": "carry", "pos": "verb", "gloss": ["to carry"], "forms": { "carry": "infinitive", "carries": "third-person singular present", "carrying": "present participle" }, "meanings": { "sl": ["nositi, nesti"], "de": ["tragen"], "it": ["portare (in mano, in braccio)"] } },
-    { "lemma": "take", "pos": "verb", "gloss": ["to take; to bring somewhere (take the cups to the kitchen)"], "forms": { "take": "infinitive", "takes": "third-person singular present", "taking": "present participle" }, "meanings": { "sl": ["vzeti; odnesti (take to)"], "de": ["nehmen; bringen (take to)"], "it": ["prendere; portare (take to)"] } },
-    { "lemma": "wash", "pos": "verb", "gloss": ["to wash"], "forms": { "wash": "infinitive", "washes": "third-person singular present", "washing": "present participle" }, "meanings": { "sl": ["prati, umiti, pomiti"], "de": ["waschen, abwaschen"], "it": ["lavare"] } },
-    { "lemma": "make", "pos": "verb", "gloss": ["to make"], "forms": { "make": "infinitive", "makes": "third-person singular present", "making": "present participle" }, "meanings": { "sl": ["narediti, delati"], "de": ["machen"], "it": ["fare"] } },
-    { "lemma": "find", "pos": "verb", "gloss": ["to find"], "forms": { "find": "infinitive", "finds": "third-person singular present", "finding": "present participle" }, "meanings": { "sl": ["najti"], "de": ["finden"], "it": ["trovare"] } },
-    { "lemma": "sit", "pos": "verb", "gloss": ["to sit"], "forms": { "sit": "infinitive", "sits": "third-person singular present", "sitting": "present participle" }, "meanings": { "sl": ["sedeti, sesti"], "de": ["sitzen, sich setzen"], "it": ["sedere, sedersi"] } },
-    { "lemma": "park", "pos": "verb", "gloss": ["to park (a car)"], "forms": { "park": "infinitive", "parks": "third-person singular present", "parking": "present participle" }, "meanings": { "sl": ["parkirati"], "de": ["parken"], "it": ["parcheggiare"] } },
-    { "lemma": "come", "pos": "verb", "gloss": ["to come"], "forms": { "come": "infinitive", "comes": "third-person singular present", "coming": "present participle" }, "meanings": { "sl": ["priti, prihajati"], "de": ["kommen"], "it": ["venire"] } },
-    { "lemma": "piano", "pos": "noun", "gloss": ["a piano"], "forms": { "piano": "singular", "pianos": "plural" }, "meanings": { "sl": ["klavir"], "de": ["Klavier"], "it": ["pianoforte"] } },
-    { "lemma": "bill", "pos": "noun", "gloss": ["the bill (at the inn, in a shop)"], "forms": { "bill": "singular", "bills": "plural" }, "meanings": { "sl": ["račun (v gostilni)"], "de": ["Rechnung"], "it": ["conto"] } },
-    { "lemma": "read", "pos": "verb", "gloss": ["to read"], "forms": { "read": "infinitive", "reads": "third-person singular present", "reading": "present participle" }, "meanings": { "sl": ["brati"], "de": ["lesen"], "it": ["leggere"] } },
-    { "lemma": "write", "pos": "verb", "gloss": ["to write"], "forms": { "write": "infinitive", "writes": "third-person singular present", "writing": "present participle" }, "meanings": { "sl": ["pisati"], "de": ["schreiben"], "it": ["scrivere"] } },
-    { "lemma": "sleep", "pos": "verb", "gloss": ["to sleep"], "forms": { "sleep": "infinitive", "sleeps": "third-person singular present", "sleeping": "present participle" }, "meanings": { "sl": ["spati"], "de": ["schlafen"], "it": ["dormire"] } },
-    { "lemma": "listen", "pos": "verb", "gloss": ["to listen (listen to the radio)"], "forms": { "listen": "infinitive", "listens": "third-person singular present", "listening": "present participle" }, "meanings": { "sl": ["poslušati"], "de": ["zuhören, hören (listen to)"], "it": ["ascoltare"] } },
-    { "lemma": "tell", "pos": "verb", "gloss": ["to tell (tell a story)"], "forms": { "tell": "infinitive", "tells": "third-person singular present", "telling": "present participle" }, "meanings": { "sl": ["povedati, pripovedovati"], "de": ["erzählen, sagen"], "it": ["raccontare, dire"] } },
-    { "lemma": "count", "pos": "verb", "gloss": ["to count"], "forms": { "count": "infinitive", "counts": "third-person singular present", "counting": "present participle" }, "meanings": { "sl": ["šteti"], "de": ["zählen"], "it": ["contare"] } },
-    { "lemma": "look", "pos": "verb", "gloss": ["to look (Look!)"], "forms": { "look": "infinitive", "looks": "third-person singular present", "looking": "present participle" }, "meanings": { "sl": ["gledati, pogledati (Look!: Poglej!)"], "de": ["schauen (Look!: Schau!)"], "it": ["guardare (Look!: Guarda!)"] } },
-    { "lemma": "walker", "pos": "noun", "gloss": ["a walker on the fells, a hiker"], "forms": { "walker": "singular", "walkers": "plural" }, "meanings": { "sl": ["pohodnik, pohodnica"], "de": ["Wanderer, Wanderin"], "it": ["escursionista"] } },
-    { "lemma": "past", "pos": "preposition", "gloss": ["past: after the hour (five past seven = 7:05)"], "forms": { "past": null }, "meanings": { "sl": ["čez (five past seven: pet čez sedem)"], "de": ["nach (five past seven: fünf nach sieben)"], "it": ["e (five past seven: le sette e cinque)"] } },
-    { "lemma": "to", "pos": "preposition", "gloss": ["to: before the hour (ten to eight = 7:50); towards a place"], "forms": { "to": null }, "meanings": { "sl": ["do (ten to eight: deset do osmih); k, v"], "de": ["vor (ten to eight: zehn vor acht); zu, nach"], "it": ["meno (ten to eight: le otto meno dieci); a, verso"] } },
-    { "lemma": "a quarter", "pos": "phrase", "gloss": ["a quarter: fifteen minutes (a quarter past seven = 7:15)"], "forms": { "a quarter": null, "quarter": "singular", "quarters": "plural" }, "meanings": { "sl": ["četrt (a quarter past seven: četrt na osem)"], "de": ["Viertel (a quarter past seven: Viertel nach sieben)"], "it": ["un quarto (a quarter past seven: le sette e un quarto)"] } },
-    { "lemma": "noon", "pos": "noun", "gloss": ["noon: twelve o'clock in the day"], "forms": { "noon": "singular" }, "meanings": { "sl": ["poldne (at noon: opoldne)"], "de": ["Mittag (at noon: um zwölf Uhr mittags)"], "it": ["mezzogiorno"] } },
-    { "lemma": "afternoon", "pos": "noun", "gloss": ["the afternoon, from midday to the evening"], "forms": { "afternoon": "singular", "afternoons": "plural" }, "meanings": { "sl": ["popoldne"], "de": ["Nachmittag"], "it": ["pomeriggio"] } },
-    { "lemma": "weekend", "pos": "noun", "gloss": ["the weekend, Saturday and Sunday (at the weekend; American on the weekend)"], "forms": { "weekend": "singular", "weekends": "plural" }, "meanings": { "sl": ["konec tedna, vikend"], "de": ["Wochenende"], "it": ["fine settimana, weekend"] } },
-    { "lemma": "every", "pos": "determiner", "gloss": ["every, each (every Sunday)"], "forms": { "every": null }, "meanings": { "sl": ["vsak (every Sunday: vsako nedeljo)"], "de": ["jeder (every Sunday: jeden Sonntag)"], "it": ["ogni (every Sunday: ogni domenica)"] } },
-    { "lemma": "Tuesday", "pos": "noun", "gloss": ["Tuesday"], "forms": { "Tuesday": "singular", "Tuesdays": "plural" }, "meanings": { "sl": ["torek"], "de": ["der Dienstag"], "it": ["il martedì"] } },
-    { "lemma": "Wednesday", "pos": "noun", "gloss": ["Wednesday"], "forms": { "Wednesday": "singular", "Wednesdays": "plural" }, "meanings": { "sl": ["sreda"], "de": ["der Mittwoch"], "it": ["il mercoledì"] } },
-    { "lemma": "Thursday", "pos": "noun", "gloss": ["Thursday"], "forms": { "Thursday": "singular", "Thursdays": "plural" }, "meanings": { "sl": ["četrtek"], "de": ["der Donnerstag"], "it": ["il giovedì"] } },
-    { "lemma": "month", "pos": "noun", "gloss": ["a month of the year (May, June …)"], "forms": { "month": "singular", "months": "plural" }, "meanings": { "sl": ["mesec (v letu)"], "de": ["Monat"], "it": ["mese"] } },
-    { "lemma": "August", "pos": "noun", "gloss": ["August"], "forms": { "August": "singular" }, "meanings": { "sl": ["avgust"], "de": ["der August"], "it": ["agosto"] } },
-    { "lemma": "date", "pos": "noun", "gloss": ["the date: the day of the month (What's the date today?)"], "forms": { "date": "singular", "dates": "plural" }, "meanings": { "sl": ["datum"], "de": ["Datum"], "it": ["data"] } },
-    { "lemma": "first", "pos": "number", "gloss": ["first (1st): the first of May"], "forms": { "first": null }, "meanings": { "sl": ["prvi (1.)"], "de": ["erste (1.)"], "it": ["primo (1°)"] } },
-    { "lemma": "third", "pos": "number", "gloss": ["third (3rd)"], "forms": { "third": null }, "meanings": { "sl": ["tretji (3.)"], "de": ["dritte (3.)"], "it": ["terzo (3°)"] } },
-    { "lemma": "fourth", "pos": "number", "gloss": ["fourth (4th)"], "forms": { "fourth": null }, "meanings": { "sl": ["četrti (4.)"], "de": ["vierte (4.)"], "it": ["quarto, quarta (4°)"] } },
-    { "lemma": "fifth", "pos": "number", "gloss": ["fifth (5th): five → fifth"], "forms": { "fifth": null }, "meanings": { "sl": ["peti, peta, peto (5.)"], "de": ["fünfte (5.)"], "it": ["quinto (5°)"] } },
-    { "lemma": "eighth", "pos": "number", "gloss": ["eighth (8th)"], "forms": { "eighth": null }, "meanings": { "sl": ["osmi (8.)"], "de": ["achte (8.)"], "it": ["ottavo (8°)"] } },
-    { "lemma": "ninth", "pos": "number", "gloss": ["ninth (9th): nine → ninth, no e"], "forms": { "ninth": null }, "meanings": { "sl": ["deveti (9.)"], "de": ["neunte (9.)"], "it": ["nono (9°)"] } },
-    { "lemma": "twelfth", "pos": "number", "gloss": ["twelfth (12th): twelve → twelfth"], "forms": { "twelfth": null }, "meanings": { "sl": ["dvanajsti (12.)"], "de": ["zwölfte (12.)"], "it": ["dodicesimo (12°)"] } },
-    { "lemma": "twentieth", "pos": "number", "gloss": ["twentieth (20th)"], "forms": { "twentieth": null }, "meanings": { "sl": ["dvajseti (20.)"], "de": ["zwanzigste (20.)"], "it": ["ventesimo (20°)"] } },
-    { "lemma": "twenty-first", "pos": "number", "gloss": ["twenty-first (21st)"], "forms": { "twenty-first": null, "twenty first": null }, "meanings": { "sl": ["enaindvajseti (21.)"], "de": ["einundzwanzigste (21.)"], "it": ["ventunesimo (21°)"] } },
-    { "lemma": "thirty-first", "pos": "number", "gloss": ["thirty-first (31st)"], "forms": { "thirty-first": null, "thirty first": null }, "meanings": { "sl": ["enaintrideseti (31.)"], "de": ["einunddreißigste (31.)"], "it": ["trentunesimo (31°)"] } },
-    { "lemma": "get up", "pos": "verb", "gloss": ["to get up: to get out of bed"], "forms": { "get up": "infinitive", "gets up": "third-person singular present", "getting up": "present participle" }, "meanings": { "sl": ["vstati, vstajati (zjutraj)"], "de": ["aufstehen"], "it": ["alzarsi"] } },
-    { "lemma": "me", "pos": "pronoun", "gloss": ["me: I as the object (Can you help me?)"], "forms": { "me": null }, "meanings": { "sl": ["mene, me, meni, mi (I → me)"], "de": ["mich, mir (I → me)"], "it": ["mi, me (I → me)"] } },
-    { "lemma": "him", "pos": "pronoun", "gloss": ["him: he as the object (I know him)"], "forms": { "him": null }, "meanings": { "sl": ["njega, ga, njemu, mu (he → him)"], "de": ["ihn, ihm (he → him)"], "it": ["lo, gli, lui (he → him)"] } },
-    { "lemma": "her", "pos": "pronoun", "gloss": ["her: she as the object (I know her); also the possessive (her dog)"], "forms": { "her": null }, "meanings": { "sl": ["njo, jo, njej, ji (she → her); njen"], "de": ["sie, ihr (she → her); ihr (her dog: ihr Hund)"], "it": ["la, le, lei (she → her); suo, sua"] } },
-    { "lemma": "it", "pos": "pronoun", "gloss": ["it: a thing or an animal, as the subject and the object"], "forms": { "it": null }, "meanings": { "sl": ["ono; ga, jo (za stvar ali žival)"], "de": ["es (für ein Ding oder Tier)"], "it": ["esso; lo, la (per una cosa o un animale)"] } },
-    { "lemma": "us", "pos": "pronoun", "gloss": ["us: we as the object (Can you help us?)"], "forms": { "us": null }, "meanings": { "sl": ["nas, nam (we → us)"], "de": ["uns (we → us)"], "it": ["ci, noi (we → us)"] } },
-    { "lemma": "them", "pos": "pronoun", "gloss": ["them: they as the object (I can see them)"], "forms": { "them": null }, "meanings": { "sl": ["njih, jih, njim, jim (they → them)"], "de": ["sie, ihnen (they → them)"], "it": ["li, le, loro (they → them)"] } },
-    { "lemma": "know", "pos": "verb", "gloss": ["to know a person or a thing"], "forms": { "know": "infinitive", "knows": "third-person singular present" }, "meanings": { "sl": ["poznati, vedeti (Jack knows her: Jack jo pozna)"], "de": ["kennen, wissen"], "it": ["conoscere, sapere"] } },
-    { "lemma": "like", "pos": "verb", "gloss": ["to like: to find someone or something nice"], "forms": { "like": "infinitive", "likes": "third-person singular present" }, "meanings": { "sl": ["imeti rad, biti všeč (I like it: všeč mi je)"], "de": ["mögen (I like it: ich mag es)"], "it": ["piacere a qualcuno (I like it: mi piace)"] } },
-    { "lemma": "see", "pos": "verb", "gloss": ["to see"], "forms": { "see": "infinitive", "sees": "third-person singular present" }, "meanings": { "sl": ["videti"], "de": ["sehen"], "it": ["vedere"] } },
-    { "lemma": "with", "pos": "preposition", "gloss": ["with (with me, with Meg)"], "forms": { "with": null }, "meanings": { "sl": ["z, s (with me: z mano)"], "de": ["mit (with me: mit mir)"], "it": ["con (with me: con me)"] } },
-    { "lemma": "for", "pos": "preposition", "gloss": ["for (This is for you.)"], "forms": { "for": null }, "meanings": { "sl": ["za koga, za kaj (for you: zate)"], "de": ["für (for you: für dich)"], "it": ["per (for you: per te)"] } },
-    { "lemma": "next to", "pos": "preposition", "gloss": ["next to, beside (next to her)"], "forms": { "next to": null }, "meanings": { "sl": ["zraven, poleg (next to her: zraven nje)"], "de": ["neben (next to her: neben ihr)"], "it": ["accanto a (next to her: accanto a lei)"] } },
-    { "lemma": "from", "pos": "preposition", "gloss": ["from (from them, from Keswick)"], "forms": { "from": null }, "meanings": { "sl": ["od, iz (from them: od njih)"], "de": ["von, aus (from them: von ihnen)"], "it": ["da (from them: da loro)"] } },
-    { "lemma": "give", "pos": "verb", "gloss": ["to give (Give it to me.)"], "forms": { "give": "infinitive", "gives": "third-person singular present", "giving": "present participle" }, "meanings": { "sl": ["dati, dajati (Give it to me: Daj mi ga)"], "de": ["geben (Give it to me: Gib es mir)"], "it": ["dare (Give it to me: Dammelo)"] } },
-    { "lemma": "bring", "pos": "verb", "gloss": ["to bring, to carry to someone"], "forms": { "bring": "infinitive", "brings": "third-person singular present" }, "meanings": { "sl": ["prinesti, prinašati"], "de": ["bringen, mitbringen"], "it": ["portare a qualcuno (brings him tea: gli porta il tè)"] } },
-    { "lemma": "tray", "pos": "noun", "gloss": ["a tray, to carry cups and plates on"], "forms": { "tray": "singular", "trays": "plural" }, "meanings": { "sl": ["pladenj"], "de": ["Tablett"], "it": ["vassoio"] } },
-    { "lemma": "wave to", "pos": "verb", "gloss": ["to wave to someone: to move your hand to say hello"], "forms": { "wave to": "infinitive", "waves to": "third-person singular present" }, "meanings": { "sl": ["pomahati komu"], "de": ["jemandem zuwinken"], "it": ["salutare con la mano"] } },
-    { "lemma": "smile at", "pos": "verb", "gloss": ["to smile at someone"], "forms": { "smile at": "infinitive", "smiles at": "third-person singular present" }, "meanings": { "sl": ["nasmehniti se komu"], "de": ["jemanden anlächeln"], "it": ["sorridere a qualcuno"] } },
-    { "lemma": "wait for", "pos": "verb", "gloss": ["to wait for someone or something (wait for me)"], "forms": { "wait for": "infinitive", "waits for": "third-person singular present" }, "meanings": { "sl": ["čakati na (wait for me: počakaj me)"], "de": ["warten auf (wait for me: warte auf mich)"], "it": ["aspettare (wait for me: aspettami)"] } },
-    { "lemma": "talk to", "pos": "verb", "gloss": ["to talk to someone"], "forms": { "talk to": "infinitive", "talks to": "third-person singular present" }, "meanings": { "sl": ["govoriti s kom"], "de": ["sprechen mit, reden mit"], "it": ["parlare con qualcuno"] } },
-    { "lemma": "It's me.", "pos": "phrase", "gloss": ["It's me. (Who is it? — It's me.)"], "forms": { "It's me.": null, "it's me": null }, "meanings": { "sl": ["Jaz sem."], "de": ["Ich bin's."], "it": ["Sono io."] } },
-    { "lemma": "Me too.", "pos": "phrase", "gloss": ["Me too: the same for me"], "forms": { "Me too.": null, "me too": null }, "meanings": { "sl": ["Jaz tudi."], "de": ["Ich auch."], "it": ["Anch'io."] } },
-    { "lemma": "last night", "pos": "phrase", "gloss": ["last night: yesterday evening or in the night"], "forms": { "last night": null }, "meanings": { "sl": ["sinoči"], "de": ["gestern Abend, letzte Nacht"], "it": ["ieri sera, ieri notte"] } },
-    { "lemma": "last week", "pos": "phrase", "gloss": ["last week: the week before this one"], "forms": { "last week": null }, "meanings": { "sl": ["prejšnji teden"], "de": ["letzte Woche"], "it": ["la settimana scorsa"] } },
-    { "lemma": "ago", "pos": "adverb", "gloss": ["ago: before now, after the time (two days ago)"], "forms": { "ago": null }, "meanings": { "sl": ["pred (two days ago: pred dvema dnevoma)"], "de": ["vor (two days ago: vor zwei Tagen)"], "it": ["fa (two days ago: due giorni fa)"] } },
-    { "lemma": "two days ago", "pos": "phrase", "gloss": ["two days ago: the day before yesterday"], "forms": { "two days ago": null }, "meanings": { "sl": ["pred dvema dnevoma, predvčerajšnjim"], "de": ["vor zwei Tagen"], "it": ["due giorni fa"] } },
-    { "lemma": "this morning", "pos": "phrase", "gloss": ["this morning: today, in the morning"], "forms": { "this morning": null }, "meanings": { "sl": ["danes zjutraj"], "de": ["heute Morgen"], "it": ["stamattina, stamani"] } },
-    { "lemma": "there was", "pos": "phrase", "gloss": ["there was: the past of there is (one thing)"], "forms": { "there was": null, "there wasn't": "negative" }, "meanings": { "sl": ["bil je, bila je, bilo je (there was a dance: bil je ples)"], "de": ["es gab, da war (there was a dance: es gab einen Tanz)"], "it": ["c'era"] } },
-    { "lemma": "there were", "pos": "phrase", "gloss": ["there were: the past of there are (more than one)"], "forms": { "there were": null, "there weren't": "negative" }, "meanings": { "sl": ["bili so, bilo je (there were a lot of people: bilo je veliko ljudi)"], "de": ["es gab, da waren (there were a lot of people: es waren viele Leute da)"], "it": ["c'erano"] } },
-    { "lemma": "Where were you?", "pos": "phrase", "gloss": ["Where were you? (where asks for a place)"], "forms": { "Where were you?": null, "where were you": null }, "meanings": { "sl": ["Kje si bil, kje si bila?"], "de": ["Wo warst du?"], "it": ["Dov'eri?"] } },
-    { "lemma": "born", "pos": "adjective", "gloss": ["born, with was or were (I was born in 1952)"], "forms": { "born": null }, "meanings": { "sl": ["rojen (Edna was born in 1952: Edna se je rodila leta 1952)"], "de": ["geboren (Edna was born in 1952: Edna ist 1952 geboren)"], "it": ["nato (Edna was born in 1952: Edna è nata nel 1952)"] } },
-    { "lemma": "happy", "pos": "adjective", "gloss": ["happy, glad"], "forms": { "happy": null }, "meanings": { "sl": ["vesel, srečen"], "de": ["froh, glücklich"], "it": ["contento, felice"] } },
-    { "lemma": "closed", "pos": "adjective", "gloss": ["closed, not open"], "forms": { "closed": null }, "meanings": { "sl": ["zaprt"], "de": ["geschlossen, zu"], "it": ["chiuso"] } },
-    { "lemma": "show", "pos": "noun", "gloss": ["a show: the valley show, with sheep, races and prizes"], "forms": { "show": "singular", "shows": "plural" }, "meanings": { "sl": ["sejem, razstava (the show: kmetijski sejem)"], "de": ["Schau, Ausstellung (the show: die Landwirtschaftsschau)"], "it": ["fiera, mostra (the show: la fiera agricola)"] } },
-    { "lemma": "aye", "pos": "interjection", "gloss": ["aye: yes (in the north of England and Scotland)"], "forms": { "aye": null, "Aye": null }, "meanings": { "sl": ["ja (na severu Anglije)"], "de": ["ja (in Nordengland)"], "it": ["sì (nel nord dell'Inghilterra)"] } },
-    { "lemma": "was", "pos": "verb", "gloss": ["was, were: the past of be (I was, you were)"], "forms": { "was": "past: I, he, she, it", "were": "past: you, we, they", "wasn't": "past, negative (was not)", "weren't": "past, negative (were not)" }, "meanings": { "sl": ["bil, bila, bili (was, were: preteklik od be)"], "de": ["war, waren (was, were: Vergangenheit von be)"], "it": ["ero, era, eravamo (was, were: il passato di be)"] } }
+    {
+      "lemma": "fine",
+      "pos": "adjective",
+      "gloss": [
+        "well, all right (I'm fine, thanks)"
+      ],
+      "forms": {
+        "fine": null
+      },
+      "meanings": {
+        "sl": [
+          "dobro (I'm fine: dobro sem)"
+        ],
+        "de": [
+          "gut (I'm fine: mir geht's gut)"
+        ],
+        "it": [
+          "bene (I'm fine: sto bene)"
+        ]
+      }
+    },
+    {
+      "lemma": "very well",
+      "pos": "phrase",
+      "gloss": [
+        "very well, very good"
+      ],
+      "forms": {
+        "very well": null
+      },
+      "meanings": {
+        "sl": [
+          "zelo dobro"
+        ],
+        "de": [
+          "sehr gut"
+        ],
+        "it": [
+          "molto bene"
+        ]
+      }
+    },
+    {
+      "lemma": "innkeeper",
+      "pos": "noun",
+      "gloss": [
+        "who runs an inn"
+      ],
+      "forms": {
+        "innkeeper": "singular",
+        "innkeepers": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "gostilničar, gostilničarka"
+        ],
+        "de": [
+          "Wirt, Wirtin"
+        ],
+        "it": [
+          "locandiere, locandiera"
+        ]
+      }
+    },
+    {
+      "lemma": "brewer",
+      "pos": "noun",
+      "gloss": [
+        "who makes beer"
+      ],
+      "forms": {
+        "brewer": "singular",
+        "brewers": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "pivovar, pivovarka"
+        ],
+        "de": [
+          "Brauer, Brauerin"
+        ],
+        "it": [
+          "birraio, birraia"
+        ]
+      }
+    },
+    {
+      "lemma": "storyteller",
+      "pos": "noun",
+      "gloss": [
+        "who tells stories"
+      ],
+      "forms": {
+        "storyteller": "singular",
+        "storytellers": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "pripovedovalec, pripovedovalka"
+        ],
+        "de": [
+          "Geschichtenerzähler, Geschichtenerzählerin"
+        ],
+        "it": [
+          "cantastorie"
+        ]
+      }
+    },
+    {
+      "lemma": "be",
+      "pos": "verb",
+      "gloss": [
+        "to be (I am, she is, we are)"
+      ],
+      "forms": {
+        "be": "infinitive",
+        "am": "first-person singular present",
+        "is": "third-person singular present",
+        "are": "second-person singular present; plural present",
+        "isn't": "third-person singular present, negative (is not)",
+        "aren't": "second-person singular present, negative; plural present, negative (are not)"
+      },
+      "meanings": {
+        "sl": [
+          "biti (am, is, are: sem, je, so)"
+        ],
+        "de": [
+          "sein (am, is, are: bin, ist, sind)"
+        ],
+        "it": [
+          "essere (am, is, are: sono, è, siamo)"
+        ]
+      }
+    },
+    {
+      "lemma": "at home",
+      "pos": "phrase",
+      "gloss": [
+        "at home"
+      ],
+      "forms": {
+        "at home": null
+      },
+      "meanings": {
+        "sl": [
+          "doma"
+        ],
+        "de": [
+          "zu Hause"
+        ],
+        "it": [
+          "a casa"
+        ]
+      }
+    },
+    {
+      "lemma": "busy",
+      "pos": "adjective",
+      "gloss": [
+        "busy: with a lot to do"
+      ],
+      "forms": {
+        "busy": null
+      },
+      "meanings": {
+        "sl": [
+          "zaposlen (ima veliko dela)"
+        ],
+        "de": [
+          "beschäftigt (viel zu tun)"
+        ],
+        "it": [
+          "impegnato, indaffarato"
+        ]
+      }
+    },
+    {
+      "lemma": "hungry",
+      "pos": "adjective",
+      "gloss": [
+        "hungry"
+      ],
+      "forms": {
+        "hungry": null
+      },
+      "meanings": {
+        "sl": [
+          "lačen"
+        ],
+        "de": [
+          "hungrig (I'm hungry: ich habe Hunger)"
+        ],
+        "it": [
+          "affamato (I'm hungry: ho fame)"
+        ]
+      }
+    },
+    {
+      "lemma": "late",
+      "pos": "adjective",
+      "gloss": [
+        "late"
+      ],
+      "forms": {
+        "late": null
+      },
+      "meanings": {
+        "sl": [
+          "pozen, pozno"
+        ],
+        "de": [
+          "spät (you're late: du bist spät dran)"
+        ],
+        "it": [
+          "in ritardo, tardi"
+        ]
+      }
+    },
+    {
+      "lemma": "open",
+      "pos": "adjective",
+      "gloss": [
+        "open"
+      ],
+      "forms": {
+        "open": null
+      },
+      "meanings": {
+        "sl": [
+          "odprt"
+        ],
+        "de": [
+          "offen, geöffnet"
+        ],
+        "it": [
+          "aperto"
+        ]
+      }
+    },
+    {
+      "lemma": "here",
+      "pos": "adverb",
+      "gloss": [
+        "here, in this place"
+      ],
+      "forms": {
+        "here": null
+      },
+      "meanings": {
+        "sl": [
+          "tukaj, tu"
+        ],
+        "de": [
+          "hier"
+        ],
+        "it": [
+          "qui, qua"
+        ]
+      }
+    },
+    {
+      "lemma": "morning",
+      "pos": "noun",
+      "gloss": [
+        "the morning, from waking to midday"
+      ],
+      "forms": {
+        "morning": "singular",
+        "mornings": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "jutro, dopoldne"
+        ],
+        "de": [
+          "Morgen, Vormittag"
+        ],
+        "it": [
+          "mattina"
+        ]
+      }
+    },
+    {
+      "lemma": "hour",
+      "pos": "noun",
+      "gloss": [
+        "an hour, sixty minutes"
+      ],
+      "forms": {
+        "hour": "singular",
+        "hours": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "ura (60 minut)"
+        ],
+        "de": [
+          "Stunde"
+        ],
+        "it": [
+          "ora"
+        ]
+      }
+    },
+    {
+      "lemma": "cup of tea",
+      "pos": "phrase",
+      "gloss": [
+        "a cup of tea"
+      ],
+      "forms": {
+        "cup of tea": null,
+        "a cup of tea": null,
+        "cups of tea": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "skodelica čaja"
+        ],
+        "de": [
+          "eine Tasse Tee"
+        ],
+        "it": [
+          "una tazza di tè"
+        ]
+      }
+    },
+    {
+      "lemma": "nurse",
+      "pos": "noun",
+      "gloss": [
+        "who looks after the ill"
+      ],
+      "forms": {
+        "nurse": "singular",
+        "nurses": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "medicinska sestra, medicinski tehnik"
+        ],
+        "de": [
+          "Krankenpfleger, Krankenschwester"
+        ],
+        "it": [
+          "infermiere, infermiera"
+        ]
+      }
+    },
+    {
+      "lemma": "room",
+      "pos": "noun",
+      "gloss": [
+        "a room (in a house, an inn)"
+      ],
+      "forms": {
+        "room": "singular",
+        "rooms": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "soba"
+        ],
+        "de": [
+          "Zimmer"
+        ],
+        "it": [
+          "camera, stanza"
+        ]
+      }
+    },
+    {
+      "lemma": "upstairs",
+      "pos": "adverb",
+      "gloss": [
+        "upstairs, on the floor above"
+      ],
+      "forms": {
+        "upstairs": null
+      },
+      "meanings": {
+        "sl": [
+          "zgoraj (v nadstropju)"
+        ],
+        "de": [
+          "oben (im oberen Stock)"
+        ],
+        "it": [
+          "di sopra"
+        ]
+      }
+    },
+    {
+      "lemma": "new",
+      "pos": "adjective",
+      "gloss": [
+        "new"
+      ],
+      "forms": {
+        "new": null
+      },
+      "meanings": {
+        "sl": [
+          "nov"
+        ],
+        "de": [
+          "neu"
+        ],
+        "it": [
+          "nuovo"
+        ]
+      }
+    },
+    {
+      "lemma": "black",
+      "pos": "adjective",
+      "gloss": [
+        "black"
+      ],
+      "forms": {
+        "black": null
+      },
+      "meanings": {
+        "sl": [
+          "črn"
+        ],
+        "de": [
+          "schwarz"
+        ],
+        "it": [
+          "nero"
+        ]
+      }
+    },
+    {
+      "lemma": "friendly",
+      "pos": "adjective",
+      "gloss": [
+        "friendly, kind to people"
+      ],
+      "forms": {
+        "friendly": null
+      },
+      "meanings": {
+        "sl": [
+          "prijazen"
+        ],
+        "de": [
+          "freundlich"
+        ],
+        "it": [
+          "simpatico, cordiale"
+        ]
+      }
+    },
+    {
+      "lemma": "dish",
+      "pos": "noun",
+      "gloss": [
+        "a plate or a bowl; a meal"
+      ],
+      "forms": {
+        "dish": "singular",
+        "dishes": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "krožnik; jed"
+        ],
+        "de": [
+          "Teller, Schüssel; Gericht"
+        ],
+        "it": [
+          "piatto"
+        ]
+      }
+    },
+    {
+      "lemma": "calf",
+      "pos": "noun",
+      "gloss": [
+        "a young cow"
+      ],
+      "forms": {
+        "calf": "singular",
+        "calves": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "tele"
+        ],
+        "de": [
+          "Kalb"
+        ],
+        "it": [
+          "vitello"
+        ]
+      }
+    },
+    {
+      "lemma": "person",
+      "pos": "noun",
+      "gloss": [
+        "a person (plural: people)"
+      ],
+      "forms": {
+        "person": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "oseba"
+        ],
+        "de": [
+          "Person, Mensch"
+        ],
+        "it": [
+          "persona"
+        ]
+      }
+    },
+    {
+      "lemma": "people",
+      "pos": "noun",
+      "gloss": [
+        "people, persons"
+      ],
+      "forms": {
+        "people": "plural of person"
+      },
+      "meanings": {
+        "sl": [
+          "ljudje"
+        ],
+        "de": [
+          "Leute, Menschen"
+        ],
+        "it": [
+          "gente, persone"
+        ]
+      }
+    },
+    {
+      "lemma": "mile",
+      "pos": "noun",
+      "gloss": [
+        "a mile (about 1.6 km)"
+      ],
+      "forms": {
+        "mile": "singular",
+        "miles": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "milja (1,6 km)"
+        ],
+        "de": [
+          "Meile (1,6 km)"
+        ],
+        "it": [
+          "miglio (1,6 km)"
+        ]
+      }
+    },
+    {
+      "lemma": "sink",
+      "pos": "noun",
+      "gloss": [
+        "the kitchen sink"
+      ],
+      "forms": {
+        "sink": "singular",
+        "sinks": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "pomivalno korito"
+        ],
+        "de": [
+          "Spüle"
+        ],
+        "it": [
+          "lavello"
+        ]
+      }
+    },
+    {
+      "lemma": "lost",
+      "pos": "adjective",
+      "gloss": [
+        "lost, not found; not knowing the way"
+      ],
+      "forms": {
+        "lost": null
+      },
+      "meanings": {
+        "sl": [
+          "izgubljen"
+        ],
+        "de": [
+          "verloren, verirrt"
+        ],
+        "it": [
+          "perso, smarrito"
+        ]
+      }
+    },
+    {
+      "lemma": "car",
+      "pos": "noun",
+      "gloss": [
+        "a car"
+      ],
+      "forms": {
+        "car": "singular",
+        "cars": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "avto"
+        ],
+        "de": [
+          "Auto"
+        ],
+        "it": [
+          "macchina, auto"
+        ]
+      }
+    },
+    {
+      "lemma": "bike",
+      "pos": "noun",
+      "gloss": [
+        "a bicycle"
+      ],
+      "forms": {
+        "bike": "singular",
+        "bikes": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "kolo (pogovorno)"
+        ],
+        "de": [
+          "Fahrrad, Rad"
+        ],
+        "it": [
+          "bici, bicicletta"
+        ]
+      }
+    },
+    {
+      "lemma": "a cold",
+      "pos": "phrase",
+      "gloss": [
+        "a cold (I've got a cold: I'm ill)"
+      ],
+      "forms": {
+        "a cold": null
+      },
+      "meanings": {
+        "sl": [
+          "prehlad"
+        ],
+        "de": [
+          "Erkältung, Schnupfen"
+        ],
+        "it": [
+          "raffreddore"
+        ]
+      }
+    },
+    {
+      "lemma": "pen",
+      "pos": "noun",
+      "gloss": [
+        "a pen to write with"
+      ],
+      "forms": {
+        "pen": "singular",
+        "pens": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "pisalo, kemični svinčnik"
+        ],
+        "de": [
+          "Stift, Kugelschreiber"
+        ],
+        "it": [
+          "penna"
+        ]
+      }
+    },
+    {
+      "lemma": "time",
+      "pos": "noun",
+      "gloss": [
+        "time"
+      ],
+      "forms": {
+        "time": null,
+        "times": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "čas"
+        ],
+        "de": [
+          "Zeit"
+        ],
+        "it": [
+          "tempo"
+        ]
+      }
+    },
+    {
+      "lemma": "shower",
+      "pos": "noun",
+      "gloss": [
+        "a shower (to wash; light rain)"
+      ],
+      "forms": {
+        "shower": "singular",
+        "showers": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "prha, tuš"
+        ],
+        "de": [
+          "Dusche"
+        ],
+        "it": [
+          "doccia"
+        ]
+      }
+    },
+    {
+      "lemma": "tonight",
+      "pos": "adverb",
+      "gloss": [
+        "this evening, this night"
+      ],
+      "forms": {
+        "tonight": null
+      },
+      "meanings": {
+        "sl": [
+          "nocoj, danes zvečer"
+        ],
+        "de": [
+          "heute Abend, heute Nacht"
+        ],
+        "it": [
+          "stasera, stanotte"
+        ]
+      }
+    },
+    {
+      "lemma": "lovely",
+      "pos": "adjective",
+      "gloss": [
+        "lovely, very nice"
+      ],
+      "forms": {
+        "lovely": null
+      },
+      "meanings": {
+        "sl": [
+          "ljubek, prelep"
+        ],
+        "de": [
+          "schön, reizend"
+        ],
+        "it": [
+          "bello, delizioso"
+        ]
+      }
+    },
+    {
+      "lemma": "little",
+      "pos": "adjective",
+      "gloss": [
+        "little, small"
+      ],
+      "forms": {
+        "little": null
+      },
+      "meanings": {
+        "sl": [
+          "majhen"
+        ],
+        "de": [
+          "klein"
+        ],
+        "it": [
+          "piccolo"
+        ]
+      }
+    },
+    {
+      "lemma": "a lot of",
+      "pos": "phrase",
+      "gloss": [
+        "a lot of, many, much"
+      ],
+      "forms": {
+        "a lot of": null
+      },
+      "meanings": {
+        "sl": [
+          "veliko, mnogo"
+        ],
+        "de": [
+          "viel, viele"
+        ],
+        "it": [
+          "molto, tanti"
+        ]
+      }
+    },
+    {
+      "lemma": "zero",
+      "pos": "number",
+      "gloss": [
+        "zero, nought (0)"
+      ],
+      "forms": {
+        "zero": null
+      },
+      "meanings": {
+        "sl": [
+          "nič"
+        ],
+        "de": [
+          "null"
+        ],
+        "it": [
+          "zero"
+        ]
+      }
+    },
+    {
+      "lemma": "how many",
+      "pos": "phrase",
+      "gloss": [
+        "how many (How many sheep?)"
+      ],
+      "forms": {
+        "how many": null
+      },
+      "meanings": {
+        "sl": [
+          "koliko (za štetje)"
+        ],
+        "de": [
+          "wie viele"
+        ],
+        "it": [
+          "quanti, quante"
+        ]
+      }
+    },
+    {
+      "lemma": "how old",
+      "pos": "phrase",
+      "gloss": [
+        "how old (How old are you?)"
+      ],
+      "forms": {
+        "how old": null
+      },
+      "meanings": {
+        "sl": [
+          "koliko let (How old are you? Koliko si star?)"
+        ],
+        "de": [
+          "wie alt"
+        ],
+        "it": [
+          "quanti anni (How old are you? Quanti anni hai?)"
+        ]
+      }
+    },
+    {
+      "lemma": "year",
+      "pos": "noun",
+      "gloss": [
+        "a year"
+      ],
+      "forms": {
+        "year": "singular",
+        "years": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "leto"
+        ],
+        "de": [
+          "Jahr"
+        ],
+        "it": [
+          "anno"
+        ]
+      }
+    },
+    {
+      "lemma": "oats",
+      "pos": "noun",
+      "gloss": [
+        "oats (a grain, for porridge and horses)"
+      ],
+      "forms": {
+        "oats": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "oves"
+        ],
+        "de": [
+          "Hafer"
+        ],
+        "it": [
+          "avena"
+        ]
+      }
+    },
+    {
+      "lemma": "here you are",
+      "pos": "phrase",
+      "gloss": [
+        "here you are (giving something)"
+      ],
+      "forms": {
+        "here you are": null
+      },
+      "meanings": {
+        "sl": [
+          "izvolite, izvoli"
+        ],
+        "de": [
+          "bitte sehr, hier bitte"
+        ],
+        "it": [
+          "ecco a Lei, ecco"
+        ]
+      }
+    },
+    {
+      "lemma": "where",
+      "pos": "adverb",
+      "gloss": [
+        "where (Where's the key?)"
+      ],
+      "forms": {
+        "where": null
+      },
+      "meanings": {
+        "sl": [
+          "kje, kam (Where's …?: Kje je …?)"
+        ],
+        "de": [
+          "wo, wohin (Where's …?: Wo ist …?)"
+        ],
+        "it": [
+          "dove (Where's …?: Dov'è …?)"
+        ]
+      }
+    },
+    {
+      "lemma": "home",
+      "pos": "noun",
+      "gloss": [
+        "home (at home; go home, with no to)"
+      ],
+      "forms": {
+        "home": "singular",
+        "homes": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "dom; domov (go home)"
+        ],
+        "de": [
+          "Zuhause; nach Hause (go home)"
+        ],
+        "it": [
+          "casa, la propria casa (go home: andare a casa)"
+        ]
+      }
+    },
+    {
+      "lemma": "work",
+      "pos": "verb",
+      "gloss": [
+        "to work; work, a job (at work)"
+      ],
+      "forms": {
+        "work": "infinitive; noun",
+        "works": "third-person singular present",
+        "working": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "delati; služba (at work: v službi)"
+        ],
+        "de": [
+          "arbeiten; Arbeit (at work: in der Arbeit)"
+        ],
+        "it": [
+          "lavorare; lavoro (at work: al lavoro)"
+        ]
+      }
+    },
+    {
+      "lemma": "bus stop",
+      "pos": "noun",
+      "gloss": [
+        "a bus stop"
+      ],
+      "forms": {
+        "bus stop": "singular",
+        "bus stops": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "avtobusna postaja"
+        ],
+        "de": [
+          "Bushaltestelle"
+        ],
+        "it": [
+          "fermata dell'autobus"
+        ]
+      }
+    },
+    {
+      "lemma": "can",
+      "pos": "verb",
+      "gloss": [
+        "can, be able to; be allowed to (Can I help?)"
+      ],
+      "forms": {
+        "can": "present",
+        "can't": "negative (cannot)",
+        "cannot": "negative"
+      },
+      "meanings": {
+        "sl": [
+          "znati, moči, smeti (I can: znam, lahko)"
+        ],
+        "de": [
+          "können, dürfen (I can: ich kann)"
+        ],
+        "it": [
+          "sapere, potere (I can: so, posso)"
+        ]
+      }
+    },
+    {
+      "lemma": "could",
+      "pos": "verb",
+      "gloss": [
+        "could: the polite can (Could you …, please?)"
+      ],
+      "forms": {
+        "could": "past; polite",
+        "couldn't": "negative (could not)"
+      },
+      "meanings": {
+        "sl": [
+          "bi lahko (vljudno: Could you …?)"
+        ],
+        "de": [
+          "könnte, könnten (höflich: Could you …?)"
+        ],
+        "it": [
+          "potrebbe, potresti (gentile: Could you …?)"
+        ]
+      }
+    },
+    {
+      "lemma": "of course",
+      "pos": "phrase",
+      "gloss": [
+        "of course, yes, certainly"
+      ],
+      "forms": {
+        "of course": null
+      },
+      "meanings": {
+        "sl": [
+          "seveda"
+        ],
+        "de": [
+          "natürlich"
+        ],
+        "it": [
+          "certo, naturalmente"
+        ]
+      }
+    },
+    {
+      "lemma": "at all",
+      "pos": "phrase",
+      "gloss": [
+        "at all (not at all: in no way)"
+      ],
+      "forms": {
+        "at all": null
+      },
+      "meanings": {
+        "sl": [
+          "sploh (not at all: sploh ne)"
+        ],
+        "de": [
+          "überhaupt (not at all: überhaupt nicht)"
+        ],
+        "it": [
+          "per niente (not at all)"
+        ]
+      }
+    },
+    {
+      "lemma": "swim",
+      "pos": "verb",
+      "gloss": [
+        "to swim"
+      ],
+      "forms": {
+        "swim": "infinitive",
+        "swims": "third-person singular present",
+        "swimming": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "plavati"
+        ],
+        "de": [
+          "schwimmen"
+        ],
+        "it": [
+          "nuotare"
+        ]
+      }
+    },
+    {
+      "lemma": "run",
+      "pos": "verb",
+      "gloss": [
+        "to run"
+      ],
+      "forms": {
+        "run": "infinitive",
+        "runs": "third-person singular present",
+        "running": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "teči"
+        ],
+        "de": [
+          "laufen, rennen"
+        ],
+        "it": [
+          "correre"
+        ]
+      }
+    },
+    {
+      "lemma": "drive",
+      "pos": "verb",
+      "gloss": [
+        "to drive (a car, a van)"
+      ],
+      "forms": {
+        "drive": "infinitive",
+        "drives": "third-person singular present",
+        "driving": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "voziti (avto)"
+        ],
+        "de": [
+          "fahren (ein Auto lenken)"
+        ],
+        "it": [
+          "guidare"
+        ]
+      }
+    },
+    {
+      "lemma": "ride",
+      "pos": "verb",
+      "gloss": [
+        "to ride (a horse, a bike)"
+      ],
+      "forms": {
+        "ride": "infinitive",
+        "rides": "third-person singular present",
+        "riding": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "jahati; voziti (kolo)"
+        ],
+        "de": [
+          "reiten; Rad fahren (ride a bike)"
+        ],
+        "it": [
+          "andare (a cavallo, in bici)"
+        ]
+      }
+    },
+    {
+      "lemma": "cook",
+      "pos": "verb",
+      "gloss": [
+        "to cook"
+      ],
+      "forms": {
+        "cook": "infinitive",
+        "cooks": "third-person singular present",
+        "cooking": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "kuhati"
+        ],
+        "de": [
+          "kochen"
+        ],
+        "it": [
+          "cucinare"
+        ]
+      }
+    },
+    {
+      "lemma": "sing",
+      "pos": "verb",
+      "gloss": [
+        "to sing"
+      ],
+      "forms": {
+        "sing": "infinitive",
+        "sings": "third-person singular present",
+        "singing": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "peti"
+        ],
+        "de": [
+          "singen"
+        ],
+        "it": [
+          "cantare"
+        ]
+      }
+    },
+    {
+      "lemma": "climb",
+      "pos": "verb",
+      "gloss": [
+        "to climb"
+      ],
+      "forms": {
+        "climb": "infinitive",
+        "climbs": "third-person singular present",
+        "climbing": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "plezati, vzpenjati se"
+        ],
+        "de": [
+          "klettern, steigen"
+        ],
+        "it": [
+          "arrampicarsi, salire"
+        ]
+      }
+    },
+    {
+      "lemma": "help",
+      "pos": "verb",
+      "gloss": [
+        "to help"
+      ],
+      "forms": {
+        "help": "infinitive",
+        "helps": "third-person singular present",
+        "helping": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "pomagati"
+        ],
+        "de": [
+          "helfen"
+        ],
+        "it": [
+          "aiutare"
+        ]
+      }
+    },
+    {
+      "lemma": "carry",
+      "pos": "verb",
+      "gloss": [
+        "to carry"
+      ],
+      "forms": {
+        "carry": "infinitive",
+        "carries": "third-person singular present",
+        "carrying": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "nositi, nesti"
+        ],
+        "de": [
+          "tragen"
+        ],
+        "it": [
+          "portare (in mano, in braccio)"
+        ]
+      }
+    },
+    {
+      "lemma": "take",
+      "pos": "verb",
+      "gloss": [
+        "to take; to bring somewhere (take the cups to the kitchen)"
+      ],
+      "forms": {
+        "take": "infinitive",
+        "takes": "third-person singular present",
+        "taking": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "vzeti; odnesti (take to)"
+        ],
+        "de": [
+          "nehmen; bringen (take to)"
+        ],
+        "it": [
+          "prendere; portare (take to)"
+        ]
+      }
+    },
+    {
+      "lemma": "wash",
+      "pos": "verb",
+      "gloss": [
+        "to wash"
+      ],
+      "forms": {
+        "wash": "infinitive",
+        "washes": "third-person singular present",
+        "washing": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "prati, umiti, pomiti"
+        ],
+        "de": [
+          "waschen, abwaschen"
+        ],
+        "it": [
+          "lavare"
+        ]
+      }
+    },
+    {
+      "lemma": "make",
+      "pos": "verb",
+      "gloss": [
+        "to make"
+      ],
+      "forms": {
+        "make": "infinitive",
+        "makes": "third-person singular present",
+        "making": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "narediti, delati"
+        ],
+        "de": [
+          "machen"
+        ],
+        "it": [
+          "fare"
+        ]
+      }
+    },
+    {
+      "lemma": "find",
+      "pos": "verb",
+      "gloss": [
+        "to find"
+      ],
+      "forms": {
+        "find": "infinitive",
+        "finds": "third-person singular present",
+        "finding": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "najti"
+        ],
+        "de": [
+          "finden"
+        ],
+        "it": [
+          "trovare"
+        ]
+      }
+    },
+    {
+      "lemma": "sit",
+      "pos": "verb",
+      "gloss": [
+        "to sit"
+      ],
+      "forms": {
+        "sit": "infinitive",
+        "sits": "third-person singular present",
+        "sitting": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "sedeti, sesti"
+        ],
+        "de": [
+          "sitzen, sich setzen"
+        ],
+        "it": [
+          "sedere, sedersi"
+        ]
+      }
+    },
+    {
+      "lemma": "park",
+      "pos": "verb",
+      "gloss": [
+        "to park (a car)"
+      ],
+      "forms": {
+        "park": "infinitive",
+        "parks": "third-person singular present",
+        "parking": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "parkirati"
+        ],
+        "de": [
+          "parken"
+        ],
+        "it": [
+          "parcheggiare"
+        ]
+      }
+    },
+    {
+      "lemma": "come",
+      "pos": "verb",
+      "gloss": [
+        "to come"
+      ],
+      "forms": {
+        "come": "infinitive",
+        "comes": "third-person singular present",
+        "coming": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "priti, prihajati"
+        ],
+        "de": [
+          "kommen"
+        ],
+        "it": [
+          "venire"
+        ]
+      }
+    },
+    {
+      "lemma": "piano",
+      "pos": "noun",
+      "gloss": [
+        "a piano"
+      ],
+      "forms": {
+        "piano": "singular",
+        "pianos": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "klavir"
+        ],
+        "de": [
+          "Klavier"
+        ],
+        "it": [
+          "pianoforte"
+        ]
+      }
+    },
+    {
+      "lemma": "bill",
+      "pos": "noun",
+      "gloss": [
+        "the bill (at the inn, in a shop)"
+      ],
+      "forms": {
+        "bill": "singular",
+        "bills": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "račun (v gostilni)"
+        ],
+        "de": [
+          "Rechnung"
+        ],
+        "it": [
+          "conto"
+        ]
+      }
+    },
+    {
+      "lemma": "read",
+      "pos": "verb",
+      "gloss": [
+        "to read"
+      ],
+      "forms": {
+        "read": "infinitive",
+        "reads": "third-person singular present",
+        "reading": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "brati"
+        ],
+        "de": [
+          "lesen"
+        ],
+        "it": [
+          "leggere"
+        ]
+      }
+    },
+    {
+      "lemma": "write",
+      "pos": "verb",
+      "gloss": [
+        "to write"
+      ],
+      "forms": {
+        "write": "infinitive",
+        "writes": "third-person singular present",
+        "writing": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "pisati"
+        ],
+        "de": [
+          "schreiben"
+        ],
+        "it": [
+          "scrivere"
+        ]
+      }
+    },
+    {
+      "lemma": "sleep",
+      "pos": "verb",
+      "gloss": [
+        "to sleep"
+      ],
+      "forms": {
+        "sleep": "infinitive",
+        "sleeps": "third-person singular present",
+        "sleeping": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "spati"
+        ],
+        "de": [
+          "schlafen"
+        ],
+        "it": [
+          "dormire"
+        ]
+      }
+    },
+    {
+      "lemma": "listen",
+      "pos": "verb",
+      "gloss": [
+        "to listen (listen to the radio)"
+      ],
+      "forms": {
+        "listen": "infinitive",
+        "listens": "third-person singular present",
+        "listening": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "poslušati"
+        ],
+        "de": [
+          "zuhören, hören (listen to)"
+        ],
+        "it": [
+          "ascoltare"
+        ]
+      }
+    },
+    {
+      "lemma": "tell",
+      "pos": "verb",
+      "gloss": [
+        "to tell (tell a story)"
+      ],
+      "forms": {
+        "tell": "infinitive",
+        "tells": "third-person singular present",
+        "telling": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "povedati, pripovedovati"
+        ],
+        "de": [
+          "erzählen, sagen"
+        ],
+        "it": [
+          "raccontare, dire"
+        ]
+      }
+    },
+    {
+      "lemma": "count",
+      "pos": "verb",
+      "gloss": [
+        "to count"
+      ],
+      "forms": {
+        "count": "infinitive",
+        "counts": "third-person singular present",
+        "counting": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "šteti"
+        ],
+        "de": [
+          "zählen"
+        ],
+        "it": [
+          "contare"
+        ]
+      }
+    },
+    {
+      "lemma": "look",
+      "pos": "verb",
+      "gloss": [
+        "to look (Look!)"
+      ],
+      "forms": {
+        "look": "infinitive",
+        "looks": "third-person singular present",
+        "looking": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "gledati, pogledati (Look!: Poglej!)"
+        ],
+        "de": [
+          "schauen (Look!: Schau!)"
+        ],
+        "it": [
+          "guardare (Look!: Guarda!)"
+        ]
+      }
+    },
+    {
+      "lemma": "walker",
+      "pos": "noun",
+      "gloss": [
+        "a walker on the fells, a hiker"
+      ],
+      "forms": {
+        "walker": "singular",
+        "walkers": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "pohodnik, pohodnica"
+        ],
+        "de": [
+          "Wanderer, Wanderin"
+        ],
+        "it": [
+          "escursionista"
+        ]
+      }
+    },
+    {
+      "lemma": "past",
+      "pos": "preposition",
+      "gloss": [
+        "past: after the hour (five past seven = 7:05)"
+      ],
+      "forms": {
+        "past": null
+      },
+      "meanings": {
+        "sl": [
+          "čez (five past seven: pet čez sedem)"
+        ],
+        "de": [
+          "nach (five past seven: fünf nach sieben)"
+        ],
+        "it": [
+          "e (five past seven: le sette e cinque)"
+        ]
+      }
+    },
+    {
+      "lemma": "to",
+      "pos": "preposition",
+      "gloss": [
+        "to: before the hour (ten to eight = 7:50); towards a place"
+      ],
+      "forms": {
+        "to": null
+      },
+      "meanings": {
+        "sl": [
+          "do (ten to eight: deset do osmih); k, v"
+        ],
+        "de": [
+          "vor (ten to eight: zehn vor acht); zu, nach"
+        ],
+        "it": [
+          "meno (ten to eight: le otto meno dieci); a, verso"
+        ]
+      }
+    },
+    {
+      "lemma": "a quarter",
+      "pos": "phrase",
+      "gloss": [
+        "a quarter: fifteen minutes (a quarter past seven = 7:15)"
+      ],
+      "forms": {
+        "a quarter": null,
+        "quarter": "singular",
+        "quarters": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "četrt (a quarter past seven: četrt na osem)"
+        ],
+        "de": [
+          "Viertel (a quarter past seven: Viertel nach sieben)"
+        ],
+        "it": [
+          "un quarto (a quarter past seven: le sette e un quarto)"
+        ]
+      }
+    },
+    {
+      "lemma": "noon",
+      "pos": "noun",
+      "gloss": [
+        "noon: twelve o'clock in the day"
+      ],
+      "forms": {
+        "noon": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "poldne (at noon: opoldne)"
+        ],
+        "de": [
+          "Mittag (at noon: um zwölf Uhr mittags)"
+        ],
+        "it": [
+          "mezzogiorno"
+        ]
+      }
+    },
+    {
+      "lemma": "afternoon",
+      "pos": "noun",
+      "gloss": [
+        "the afternoon, from midday to the evening"
+      ],
+      "forms": {
+        "afternoon": "singular",
+        "afternoons": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "popoldne"
+        ],
+        "de": [
+          "Nachmittag"
+        ],
+        "it": [
+          "pomeriggio"
+        ]
+      }
+    },
+    {
+      "lemma": "weekend",
+      "pos": "noun",
+      "gloss": [
+        "the weekend, Saturday and Sunday (at the weekend; American on the weekend)"
+      ],
+      "forms": {
+        "weekend": "singular",
+        "weekends": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "konec tedna, vikend"
+        ],
+        "de": [
+          "Wochenende"
+        ],
+        "it": [
+          "fine settimana, weekend"
+        ]
+      }
+    },
+    {
+      "lemma": "every",
+      "pos": "determiner",
+      "gloss": [
+        "every, each (every Sunday)"
+      ],
+      "forms": {
+        "every": null
+      },
+      "meanings": {
+        "sl": [
+          "vsak (every Sunday: vsako nedeljo)"
+        ],
+        "de": [
+          "jeder (every Sunday: jeden Sonntag)"
+        ],
+        "it": [
+          "ogni (every Sunday: ogni domenica)"
+        ]
+      }
+    },
+    {
+      "lemma": "Tuesday",
+      "pos": "noun",
+      "gloss": [
+        "Tuesday"
+      ],
+      "forms": {
+        "Tuesday": "singular",
+        "Tuesdays": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "torek"
+        ],
+        "de": [
+          "der Dienstag"
+        ],
+        "it": [
+          "il martedì"
+        ]
+      }
+    },
+    {
+      "lemma": "Wednesday",
+      "pos": "noun",
+      "gloss": [
+        "Wednesday"
+      ],
+      "forms": {
+        "Wednesday": "singular",
+        "Wednesdays": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "sreda"
+        ],
+        "de": [
+          "der Mittwoch"
+        ],
+        "it": [
+          "il mercoledì"
+        ]
+      }
+    },
+    {
+      "lemma": "Thursday",
+      "pos": "noun",
+      "gloss": [
+        "Thursday"
+      ],
+      "forms": {
+        "Thursday": "singular",
+        "Thursdays": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "četrtek"
+        ],
+        "de": [
+          "der Donnerstag"
+        ],
+        "it": [
+          "il giovedì"
+        ]
+      }
+    },
+    {
+      "lemma": "month",
+      "pos": "noun",
+      "gloss": [
+        "a month of the year (May, June …)"
+      ],
+      "forms": {
+        "month": "singular",
+        "months": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "mesec (v letu)"
+        ],
+        "de": [
+          "Monat"
+        ],
+        "it": [
+          "mese"
+        ]
+      }
+    },
+    {
+      "lemma": "August",
+      "pos": "noun",
+      "gloss": [
+        "August"
+      ],
+      "forms": {
+        "August": "singular"
+      },
+      "meanings": {
+        "sl": [
+          "avgust"
+        ],
+        "de": [
+          "der August"
+        ],
+        "it": [
+          "agosto"
+        ]
+      }
+    },
+    {
+      "lemma": "date",
+      "pos": "noun",
+      "gloss": [
+        "the date: the day of the month (What's the date today?)"
+      ],
+      "forms": {
+        "date": "singular",
+        "dates": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "datum"
+        ],
+        "de": [
+          "Datum"
+        ],
+        "it": [
+          "data"
+        ]
+      }
+    },
+    {
+      "lemma": "first",
+      "pos": "number",
+      "gloss": [
+        "first (1st): the first of May"
+      ],
+      "forms": {
+        "first": null
+      },
+      "meanings": {
+        "sl": [
+          "prvi (1.)"
+        ],
+        "de": [
+          "erste (1.)"
+        ],
+        "it": [
+          "primo (1°)"
+        ]
+      }
+    },
+    {
+      "lemma": "third",
+      "pos": "number",
+      "gloss": [
+        "third (3rd)"
+      ],
+      "forms": {
+        "third": null
+      },
+      "meanings": {
+        "sl": [
+          "tretji (3.)"
+        ],
+        "de": [
+          "dritte (3.)"
+        ],
+        "it": [
+          "terzo (3°)"
+        ]
+      }
+    },
+    {
+      "lemma": "fourth",
+      "pos": "number",
+      "gloss": [
+        "fourth (4th)"
+      ],
+      "forms": {
+        "fourth": null
+      },
+      "meanings": {
+        "sl": [
+          "četrti (4.)"
+        ],
+        "de": [
+          "vierte (4.)"
+        ],
+        "it": [
+          "quarto, quarta (4°)"
+        ]
+      }
+    },
+    {
+      "lemma": "fifth",
+      "pos": "number",
+      "gloss": [
+        "fifth (5th): five → fifth"
+      ],
+      "forms": {
+        "fifth": null
+      },
+      "meanings": {
+        "sl": [
+          "peti, peta, peto (5.)"
+        ],
+        "de": [
+          "fünfte (5.)"
+        ],
+        "it": [
+          "quinto (5°)"
+        ]
+      }
+    },
+    {
+      "lemma": "eighth",
+      "pos": "number",
+      "gloss": [
+        "eighth (8th)"
+      ],
+      "forms": {
+        "eighth": null
+      },
+      "meanings": {
+        "sl": [
+          "osmi (8.)"
+        ],
+        "de": [
+          "achte (8.)"
+        ],
+        "it": [
+          "ottavo (8°)"
+        ]
+      }
+    },
+    {
+      "lemma": "ninth",
+      "pos": "number",
+      "gloss": [
+        "ninth (9th): nine → ninth, no e"
+      ],
+      "forms": {
+        "ninth": null
+      },
+      "meanings": {
+        "sl": [
+          "deveti (9.)"
+        ],
+        "de": [
+          "neunte (9.)"
+        ],
+        "it": [
+          "nono (9°)"
+        ]
+      }
+    },
+    {
+      "lemma": "twelfth",
+      "pos": "number",
+      "gloss": [
+        "twelfth (12th): twelve → twelfth"
+      ],
+      "forms": {
+        "twelfth": null
+      },
+      "meanings": {
+        "sl": [
+          "dvanajsti (12.)"
+        ],
+        "de": [
+          "zwölfte (12.)"
+        ],
+        "it": [
+          "dodicesimo (12°)"
+        ]
+      }
+    },
+    {
+      "lemma": "twentieth",
+      "pos": "number",
+      "gloss": [
+        "twentieth (20th)"
+      ],
+      "forms": {
+        "twentieth": null
+      },
+      "meanings": {
+        "sl": [
+          "dvajseti (20.)"
+        ],
+        "de": [
+          "zwanzigste (20.)"
+        ],
+        "it": [
+          "ventesimo (20°)"
+        ]
+      }
+    },
+    {
+      "lemma": "twenty-first",
+      "pos": "number",
+      "gloss": [
+        "twenty-first (21st)"
+      ],
+      "forms": {
+        "twenty-first": null,
+        "twenty first": null
+      },
+      "meanings": {
+        "sl": [
+          "enaindvajseti (21.)"
+        ],
+        "de": [
+          "einundzwanzigste (21.)"
+        ],
+        "it": [
+          "ventunesimo (21°)"
+        ]
+      }
+    },
+    {
+      "lemma": "thirty-first",
+      "pos": "number",
+      "gloss": [
+        "thirty-first (31st)"
+      ],
+      "forms": {
+        "thirty-first": null,
+        "thirty first": null
+      },
+      "meanings": {
+        "sl": [
+          "enaintrideseti (31.)"
+        ],
+        "de": [
+          "einunddreißigste (31.)"
+        ],
+        "it": [
+          "trentunesimo (31°)"
+        ]
+      }
+    },
+    {
+      "lemma": "get up",
+      "pos": "verb",
+      "gloss": [
+        "to get up: to get out of bed"
+      ],
+      "forms": {
+        "get up": "infinitive",
+        "gets up": "third-person singular present",
+        "getting up": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "vstati, vstajati (zjutraj)"
+        ],
+        "de": [
+          "aufstehen"
+        ],
+        "it": [
+          "alzarsi"
+        ]
+      }
+    },
+    {
+      "lemma": "me",
+      "pos": "pronoun",
+      "gloss": [
+        "me: I as the object (Can you help me?)"
+      ],
+      "forms": {
+        "me": null
+      },
+      "meanings": {
+        "sl": [
+          "mene, me, meni, mi (I → me)"
+        ],
+        "de": [
+          "mich, mir (I → me)"
+        ],
+        "it": [
+          "mi, me (I → me)"
+        ]
+      }
+    },
+    {
+      "lemma": "him",
+      "pos": "pronoun",
+      "gloss": [
+        "him: he as the object (I know him)"
+      ],
+      "forms": {
+        "him": null
+      },
+      "meanings": {
+        "sl": [
+          "njega, ga, njemu, mu (he → him)"
+        ],
+        "de": [
+          "ihn, ihm (he → him)"
+        ],
+        "it": [
+          "lo, gli, lui (he → him)"
+        ]
+      }
+    },
+    {
+      "lemma": "her",
+      "pos": "pronoun",
+      "gloss": [
+        "her: she as the object (I know her); also the possessive (her dog)"
+      ],
+      "forms": {
+        "her": null
+      },
+      "meanings": {
+        "sl": [
+          "njo, jo, njej, ji (she → her); njen"
+        ],
+        "de": [
+          "sie, ihr (she → her); ihr (her dog: ihr Hund)"
+        ],
+        "it": [
+          "la, le, lei (she → her); suo, sua"
+        ]
+      }
+    },
+    {
+      "lemma": "it",
+      "pos": "pronoun",
+      "gloss": [
+        "it: a thing or an animal, as the subject and the object"
+      ],
+      "forms": {
+        "it": null
+      },
+      "meanings": {
+        "sl": [
+          "ono; ga, jo (za stvar ali žival)"
+        ],
+        "de": [
+          "es (für ein Ding oder Tier)"
+        ],
+        "it": [
+          "esso; lo, la (per una cosa o un animale)"
+        ]
+      }
+    },
+    {
+      "lemma": "us",
+      "pos": "pronoun",
+      "gloss": [
+        "us: we as the object (Can you help us?)"
+      ],
+      "forms": {
+        "us": null
+      },
+      "meanings": {
+        "sl": [
+          "nas, nam (we → us)"
+        ],
+        "de": [
+          "uns (we → us)"
+        ],
+        "it": [
+          "ci, noi (we → us)"
+        ]
+      }
+    },
+    {
+      "lemma": "them",
+      "pos": "pronoun",
+      "gloss": [
+        "them: they as the object (I can see them)"
+      ],
+      "forms": {
+        "them": null
+      },
+      "meanings": {
+        "sl": [
+          "njih, jih, njim, jim (they → them)"
+        ],
+        "de": [
+          "sie, ihnen (they → them)"
+        ],
+        "it": [
+          "li, le, loro (they → them)"
+        ]
+      }
+    },
+    {
+      "lemma": "know",
+      "pos": "verb",
+      "gloss": [
+        "to know a person or a thing"
+      ],
+      "forms": {
+        "know": "infinitive",
+        "knows": "third-person singular present"
+      },
+      "meanings": {
+        "sl": [
+          "poznati, vedeti (Jack knows her: Jack jo pozna)"
+        ],
+        "de": [
+          "kennen, wissen"
+        ],
+        "it": [
+          "conoscere, sapere"
+        ]
+      }
+    },
+    {
+      "lemma": "like",
+      "pos": "verb",
+      "gloss": [
+        "to like: to find someone or something nice"
+      ],
+      "forms": {
+        "like": "infinitive",
+        "likes": "third-person singular present"
+      },
+      "meanings": {
+        "sl": [
+          "imeti rad, biti všeč (I like it: všeč mi je)"
+        ],
+        "de": [
+          "mögen (I like it: ich mag es)"
+        ],
+        "it": [
+          "piacere a qualcuno (I like it: mi piace)"
+        ]
+      }
+    },
+    {
+      "lemma": "see",
+      "pos": "verb",
+      "gloss": [
+        "to see"
+      ],
+      "forms": {
+        "see": "infinitive",
+        "sees": "third-person singular present"
+      },
+      "meanings": {
+        "sl": [
+          "videti"
+        ],
+        "de": [
+          "sehen"
+        ],
+        "it": [
+          "vedere"
+        ]
+      }
+    },
+    {
+      "lemma": "with",
+      "pos": "preposition",
+      "gloss": [
+        "with (with me, with Meg)"
+      ],
+      "forms": {
+        "with": null
+      },
+      "meanings": {
+        "sl": [
+          "z, s (with me: z mano)"
+        ],
+        "de": [
+          "mit (with me: mit mir)"
+        ],
+        "it": [
+          "con (with me: con me)"
+        ]
+      }
+    },
+    {
+      "lemma": "for",
+      "pos": "preposition",
+      "gloss": [
+        "for (This is for you.)"
+      ],
+      "forms": {
+        "for": null
+      },
+      "meanings": {
+        "sl": [
+          "za koga, za kaj (for you: zate)"
+        ],
+        "de": [
+          "für (for you: für dich)"
+        ],
+        "it": [
+          "per (for you: per te)"
+        ]
+      }
+    },
+    {
+      "lemma": "next to",
+      "pos": "preposition",
+      "gloss": [
+        "next to, beside (next to her)"
+      ],
+      "forms": {
+        "next to": null
+      },
+      "meanings": {
+        "sl": [
+          "zraven, poleg (next to her: zraven nje)"
+        ],
+        "de": [
+          "neben (next to her: neben ihr)"
+        ],
+        "it": [
+          "accanto a (next to her: accanto a lei)"
+        ]
+      }
+    },
+    {
+      "lemma": "from",
+      "pos": "preposition",
+      "gloss": [
+        "from (from them, from Keswick)"
+      ],
+      "forms": {
+        "from": null
+      },
+      "meanings": {
+        "sl": [
+          "od, iz (from them: od njih)"
+        ],
+        "de": [
+          "von, aus (from them: von ihnen)"
+        ],
+        "it": [
+          "da (from them: da loro)"
+        ]
+      }
+    },
+    {
+      "lemma": "give",
+      "pos": "verb",
+      "gloss": [
+        "to give (Give it to me.)"
+      ],
+      "forms": {
+        "give": "infinitive",
+        "gives": "third-person singular present",
+        "giving": "present participle"
+      },
+      "meanings": {
+        "sl": [
+          "dati, dajati (Give it to me: Daj mi ga)"
+        ],
+        "de": [
+          "geben (Give it to me: Gib es mir)"
+        ],
+        "it": [
+          "dare (Give it to me: Dammelo)"
+        ]
+      }
+    },
+    {
+      "lemma": "bring",
+      "pos": "verb",
+      "gloss": [
+        "to bring, to carry to someone"
+      ],
+      "forms": {
+        "bring": "infinitive",
+        "brings": "third-person singular present"
+      },
+      "meanings": {
+        "sl": [
+          "prinesti, prinašati"
+        ],
+        "de": [
+          "bringen, mitbringen"
+        ],
+        "it": [
+          "portare a qualcuno (brings him tea: gli porta il tè)"
+        ]
+      }
+    },
+    {
+      "lemma": "tray",
+      "pos": "noun",
+      "gloss": [
+        "a tray, to carry cups and plates on"
+      ],
+      "forms": {
+        "tray": "singular",
+        "trays": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "pladenj"
+        ],
+        "de": [
+          "Tablett"
+        ],
+        "it": [
+          "vassoio"
+        ]
+      }
+    },
+    {
+      "lemma": "wave to",
+      "pos": "verb",
+      "gloss": [
+        "to wave to someone: to move your hand to say hello"
+      ],
+      "forms": {
+        "wave to": "infinitive",
+        "waves to": "third-person singular present"
+      },
+      "meanings": {
+        "sl": [
+          "pomahati komu"
+        ],
+        "de": [
+          "jemandem zuwinken"
+        ],
+        "it": [
+          "salutare con la mano"
+        ]
+      }
+    },
+    {
+      "lemma": "smile at",
+      "pos": "verb",
+      "gloss": [
+        "to smile at someone"
+      ],
+      "forms": {
+        "smile at": "infinitive",
+        "smiles at": "third-person singular present"
+      },
+      "meanings": {
+        "sl": [
+          "nasmehniti se komu"
+        ],
+        "de": [
+          "jemanden anlächeln"
+        ],
+        "it": [
+          "sorridere a qualcuno"
+        ]
+      }
+    },
+    {
+      "lemma": "wait for",
+      "pos": "verb",
+      "gloss": [
+        "to wait for someone or something (wait for me)"
+      ],
+      "forms": {
+        "wait for": "infinitive",
+        "waits for": "third-person singular present"
+      },
+      "meanings": {
+        "sl": [
+          "čakati na (wait for me: počakaj me)"
+        ],
+        "de": [
+          "warten auf (wait for me: warte auf mich)"
+        ],
+        "it": [
+          "aspettare (wait for me: aspettami)"
+        ]
+      }
+    },
+    {
+      "lemma": "talk to",
+      "pos": "verb",
+      "gloss": [
+        "to talk to someone"
+      ],
+      "forms": {
+        "talk to": "infinitive",
+        "talks to": "third-person singular present"
+      },
+      "meanings": {
+        "sl": [
+          "govoriti s kom"
+        ],
+        "de": [
+          "sprechen mit, reden mit"
+        ],
+        "it": [
+          "parlare con qualcuno"
+        ]
+      }
+    },
+    {
+      "lemma": "It's me.",
+      "pos": "phrase",
+      "gloss": [
+        "It's me. (Who is it? — It's me.)"
+      ],
+      "forms": {
+        "It's me.": null,
+        "it's me": null
+      },
+      "meanings": {
+        "sl": [
+          "Jaz sem."
+        ],
+        "de": [
+          "Ich bin's."
+        ],
+        "it": [
+          "Sono io."
+        ]
+      }
+    },
+    {
+      "lemma": "Me too.",
+      "pos": "phrase",
+      "gloss": [
+        "Me too: the same for me"
+      ],
+      "forms": {
+        "Me too.": null,
+        "me too": null
+      },
+      "meanings": {
+        "sl": [
+          "Jaz tudi."
+        ],
+        "de": [
+          "Ich auch."
+        ],
+        "it": [
+          "Anch'io."
+        ]
+      }
+    },
+    {
+      "lemma": "last night",
+      "pos": "phrase",
+      "gloss": [
+        "last night: yesterday evening or in the night"
+      ],
+      "forms": {
+        "last night": null
+      },
+      "meanings": {
+        "sl": [
+          "sinoči"
+        ],
+        "de": [
+          "gestern Abend, letzte Nacht"
+        ],
+        "it": [
+          "ieri sera, ieri notte"
+        ]
+      }
+    },
+    {
+      "lemma": "last week",
+      "pos": "phrase",
+      "gloss": [
+        "last week: the week before this one"
+      ],
+      "forms": {
+        "last week": null
+      },
+      "meanings": {
+        "sl": [
+          "prejšnji teden"
+        ],
+        "de": [
+          "letzte Woche"
+        ],
+        "it": [
+          "la settimana scorsa"
+        ]
+      }
+    },
+    {
+      "lemma": "ago",
+      "pos": "adverb",
+      "gloss": [
+        "ago: before now, after the time (two days ago)"
+      ],
+      "forms": {
+        "ago": null
+      },
+      "meanings": {
+        "sl": [
+          "pred (two days ago: pred dvema dnevoma)"
+        ],
+        "de": [
+          "vor (two days ago: vor zwei Tagen)"
+        ],
+        "it": [
+          "fa (two days ago: due giorni fa)"
+        ]
+      }
+    },
+    {
+      "lemma": "two days ago",
+      "pos": "phrase",
+      "gloss": [
+        "two days ago: the day before yesterday"
+      ],
+      "forms": {
+        "two days ago": null
+      },
+      "meanings": {
+        "sl": [
+          "pred dvema dnevoma, predvčerajšnjim"
+        ],
+        "de": [
+          "vor zwei Tagen"
+        ],
+        "it": [
+          "due giorni fa"
+        ]
+      }
+    },
+    {
+      "lemma": "this morning",
+      "pos": "phrase",
+      "gloss": [
+        "this morning: today, in the morning"
+      ],
+      "forms": {
+        "this morning": null
+      },
+      "meanings": {
+        "sl": [
+          "danes zjutraj"
+        ],
+        "de": [
+          "heute Morgen"
+        ],
+        "it": [
+          "stamattina, stamani"
+        ]
+      }
+    },
+    {
+      "lemma": "there was",
+      "pos": "phrase",
+      "gloss": [
+        "there was: the past of there is (one thing)"
+      ],
+      "forms": {
+        "there was": null,
+        "there wasn't": "negative"
+      },
+      "meanings": {
+        "sl": [
+          "bil je, bila je, bilo je (there was a dance: bil je ples)"
+        ],
+        "de": [
+          "es gab, da war (there was a dance: es gab einen Tanz)"
+        ],
+        "it": [
+          "c'era"
+        ]
+      }
+    },
+    {
+      "lemma": "there were",
+      "pos": "phrase",
+      "gloss": [
+        "there were: the past of there are (more than one)"
+      ],
+      "forms": {
+        "there were": null,
+        "there weren't": "negative"
+      },
+      "meanings": {
+        "sl": [
+          "bili so, bilo je (there were a lot of people: bilo je veliko ljudi)"
+        ],
+        "de": [
+          "es gab, da waren (there were a lot of people: es waren viele Leute da)"
+        ],
+        "it": [
+          "c'erano"
+        ]
+      }
+    },
+    {
+      "lemma": "Where were you?",
+      "pos": "phrase",
+      "gloss": [
+        "Where were you? (where asks for a place)"
+      ],
+      "forms": {
+        "Where were you?": null,
+        "where were you": null
+      },
+      "meanings": {
+        "sl": [
+          "Kje si bil, kje si bila?"
+        ],
+        "de": [
+          "Wo warst du?"
+        ],
+        "it": [
+          "Dov'eri?"
+        ]
+      }
+    },
+    {
+      "lemma": "born",
+      "pos": "adjective",
+      "gloss": [
+        "born, with was or were (I was born in 1952)"
+      ],
+      "forms": {
+        "born": null
+      },
+      "meanings": {
+        "sl": [
+          "rojen (Edna was born in 1952: Edna se je rodila leta 1952)"
+        ],
+        "de": [
+          "geboren (Edna was born in 1952: Edna ist 1952 geboren)"
+        ],
+        "it": [
+          "nato (Edna was born in 1952: Edna è nata nel 1952)"
+        ]
+      }
+    },
+    {
+      "lemma": "happy",
+      "pos": "adjective",
+      "gloss": [
+        "happy, glad"
+      ],
+      "forms": {
+        "happy": null
+      },
+      "meanings": {
+        "sl": [
+          "vesel, srečen"
+        ],
+        "de": [
+          "froh, glücklich"
+        ],
+        "it": [
+          "contento, felice"
+        ]
+      }
+    },
+    {
+      "lemma": "closed",
+      "pos": "adjective",
+      "gloss": [
+        "closed, not open"
+      ],
+      "forms": {
+        "closed": null
+      },
+      "meanings": {
+        "sl": [
+          "zaprt"
+        ],
+        "de": [
+          "geschlossen, zu"
+        ],
+        "it": [
+          "chiuso"
+        ]
+      }
+    },
+    {
+      "lemma": "show",
+      "pos": "noun",
+      "gloss": [
+        "a show: the valley show, with sheep, races and prizes"
+      ],
+      "forms": {
+        "show": "singular",
+        "shows": "plural"
+      },
+      "meanings": {
+        "sl": [
+          "sejem, razstava (the show: kmetijski sejem)"
+        ],
+        "de": [
+          "Schau, Ausstellung (the show: die Landwirtschaftsschau)"
+        ],
+        "it": [
+          "fiera, mostra (the show: la fiera agricola)"
+        ]
+      }
+    },
+    {
+      "lemma": "aye",
+      "pos": "interjection",
+      "gloss": [
+        "aye: yes (in the north of England and Scotland)"
+      ],
+      "forms": {
+        "aye": null,
+        "Aye": null
+      },
+      "meanings": {
+        "sl": [
+          "ja (na severu Anglije)"
+        ],
+        "de": [
+          "ja (in Nordengland)"
+        ],
+        "it": [
+          "sì (nel nord dell'Inghilterra)"
+        ]
+      }
+    },
+    {
+      "lemma": "was",
+      "pos": "verb",
+      "gloss": [
+        "was, were: the past of be (I was, you were)"
+      ],
+      "forms": {
+        "was": "past: I, he, she, it",
+        "were": "past: you, we, they",
+        "wasn't": "past, negative (was not)",
+        "weren't": "past, negative (were not)"
+      },
+      "meanings": {
+        "sl": [
+          "bil, bila, bili (was, were: preteklik od be)"
+        ],
+        "de": [
+          "war, waren (was, were: Vergangenheit von be)"
+        ],
+        "it": [
+          "ero, era, eravamo (was, were: il passato di be)"
+        ]
+      }
+    }
   ]
 }

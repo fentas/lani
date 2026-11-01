@@ -1096,6 +1096,12 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
 - **The spelled forms in the intro's table** (buses, dishes, families, calves, roofs): a bold form of the explanation is
   read in Mrs Hartley's voice when English's frequent words or the intro's own words make it English; a plural the
   table doesn't show would be read by the phone's voice of the base. Only the endings -teen and -ty are left to it.
+- **A worksheet's title per base is the base's own words** (`{"en": "Count", "de": "Zähl"}`): the app shows the
+  course's language's and the base's side by side ("Count · Zähl"); "Count · Zähl" as the German showed "Count · Count ·
+  Zähl".
+- **A wrong form in a step's English as "**right** (never *wrong*)"**: the sheet's "Watch out" pairs a "never *X*"
+  with the most alike bold form of its paragraph, so "Never *I amn't*: only **I'm not**" printed I amn't against we
+  aren't; "**I'm not** (never *I amn't*)" pairs them.
 
 ### The English course: units 13–18
 
