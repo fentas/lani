@@ -1,0 +1,577 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "to-be",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🟰",
+  "title": {
+    "en": "I am, you are, she is",
+    "de": "Sein: I am, you are",
+    "sl": "Biti: I am, you are",
+    "it": "Essere: I am, you are"
+  },
+  "goal": {
+    "sl": "Poveš, kdo je kdo, kje je kdo in kako se počuti (I'm, you're, she's, we're, they're), poveš, česa ni (isn't, aren't), in vprašaš (Are you …? Is she …?) s kratkimi odgovori.",
+    "de": "Du sagst, wer jemand ist, wo jemand ist und wie es jemandem geht (I'm, you're, she's, we're, they're), was nicht so ist (isn't, aren't), und fragst (Are you …? Is she …?) mit kurzen Antworten.",
+    "it": "Dici chi è qualcuno, dov'è e come sta (I'm, you're, she's, we're, they're), dici cosa non è così (isn't, aren't) e chiedi (Are you …? Is she …?) con le risposte brevi.",
+    "en": "You can say who and where people are and how they feel (I'm, you're, she's, we're, they're), say what isn't so (isn't, aren't) and ask (Are you …? Is she …?) with short answers."
+  },
+  "grammar": ["to-be", "pronouns"],
+  "words": [
+    "be",
+    "not",
+    "at home",
+    "inn",
+    "school",
+    "kitchen",
+    "fell",
+    "field",
+    "busy",
+    "tired",
+    "hungry",
+    "cold",
+    "late",
+    "ready",
+    "far",
+    "open",
+    "here",
+    "today",
+    "friend",
+    "morning",
+    "dale",
+    "mill",
+    "bee",
+    "Sunday",
+    "yes",
+    "no"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo", "de": "wer", "it": "chi", "en": "who" },
+        { "sl": "biti", "de": "sein", "it": "essere", "en": "to be" },
+        { "sl": "kratko", "de": "kurz", "it": "breve", "en": "short" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**to be** (biti) ima tri oblike: **I am** (jaz sem), **you are** (ti si, vi ste) ter **he is**, **she is**, **it is** (on, ona, ono je) za eno drugo osebo ali stvar. **Mrs Birkett is at the inn.** (Gospa Birkett je v gostilni.) **Meg is on the fell.** (Meg je na hribu.) Osebek je vedno zraven, tudi it: **It is cold.** (Mrzlo je.)",
+          "de": "**to be** (sein) hat drei Formen: **I am** (ich bin), **you are** (du bist, Sie sind) und **he is**, **she is**, **it is** (er, sie, es ist) für eine andere Person oder Sache. **Mrs Birkett is at the inn.** (Mrs Birkett ist im Gasthaus.) **Meg is on the fell.** (Meg ist am Berg.) Das Subjekt steht immer, auch it: **It is cold.** (Es ist kalt.)",
+          "it": "**to be** (essere) ha tre forme: **I am** (io sono), **you are** (tu sei, Lei è) e **he is**, **she is**, **it is** (lui, lei è) per un'altra persona o cosa. **Mrs Birkett is at the inn.** (Mrs Birkett è alla locanda.) **Meg is on the fell.** (Meg è sul monte.) Il soggetto c'è sempre, anche it: **It is cold.** (Fa freddo.)",
+          "en": "**to be** has three forms: **I am**, **you are**, and **he is**, **she is**, **it is** for one other person or thing. **Mrs Birkett is at the inn.** **Meg is on the fell.** The subject is always there, even it: **It is cold.**"
+        },
+        "examples": [
+          { "en": "I am at home.", "sl": "Doma sem.", "de": "Ich bin zu Hause.", "it": "Sono a casa." },
+          {
+            "en": "You are late, Jack!",
+            "sl": "Pozen si, Jack!",
+            "de": "Du bist spät dran, Jack!",
+            "it": "Sei in ritardo, Jack!"
+          },
+          {
+            "en": "Mrs Birkett is at the inn.",
+            "sl": "Gospa Birkett je v gostilni.",
+            "de": "Mrs Birkett ist im Gasthaus.",
+            "it": "Mrs Birkett è alla locanda."
+          }
+        ],
+        "rows": [
+          ["I", "I am", "I'm"],
+          ["you", "you are", "you're"],
+          ["he, she, it", "he is, she is, it is", "he's, she's, it's"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "to-be",
+          "prompt": "Mrs Birkett ___ at the inn.",
+          "options": ["am", "is", "are"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mrs Birkett je she (ona): is**\n- I am · you are · she is",
+            "de": "**Mrs Birkett ist she (sie): is**\n- I am · you are · she is",
+            "it": "**Mrs Birkett è she (lei): is**\n- I am · you are · she is",
+            "en": "**Mrs Birkett is she: is**\n- I am · you are · she is"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za več oseb: **we are** (mi smo), **you are** (vi ste: ista beseda kot za enega), **they are** (oni so). Dva z **and** (in) sta they, dvojine ni: **Jack and Sam are at the inn.** (Jack in Sam sta v gostilni.) Tudi stvari: **The sheep are on the fell.** (Ovce so na hribu.)",
+          "de": "Für mehrere: **we are** (wir sind), **you are** (ihr seid: dasselbe Wort wie für einen), **they are** (sie sind). Zwei mit **and** (und) sind they: **Jack and Sam are at the inn.** (Jack und Sam sind im Gasthaus.) Auch Dinge: **The sheep are on the fell.** (Die Schafe sind am Berg.)",
+          "it": "Per più persone: **we are** (noi siamo), **you are** (voi siete: la stessa parola che per uno), **they are** (loro sono). Due persone con **and** (e) sono they: **Jack and Sam are at the inn.** (Jack e Sam sono alla locanda.) Anche le cose: **The sheep are on the fell.** (Le pecore sono sul monte.)",
+          "en": "For more than one: **we are**, **you are** (the same word for many), **they are**. Two people with **and** are they: **Jack and Sam are at the inn.** Things too: **The sheep are on the fell.**"
+        },
+        "examples": [
+          { "en": "We are at school.", "sl": "V šoli smo.", "de": "Wir sind in der Schule.", "it": "Siamo a scuola." },
+          {
+            "en": "Jack and Sam are friends.",
+            "sl": "Jack in Sam sta prijatelja.",
+            "de": "Jack und Sam sind Freunde.",
+            "it": "Jack e Sam sono amici."
+          },
+          {
+            "en": "The sheep are on the fell.",
+            "sl": "Ovce so na hribu.",
+            "de": "Die Schafe sind am Berg.",
+            "it": "Le pecore sono sul monte."
+          }
+        ],
+        "rows": [
+          ["we", "we are", "we're"],
+          [{"sl": "you (vi)", "de": "you (ihr)", "it": "you (voi)", "en": "you (more than one)"}, "you are", "you're"],
+          ["they", "they are", "they're"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "to-be",
+          "text": "Jack and Sam ___ at the inn.",
+          "accept": ["are"],
+          "hint": "they → ?",
+          "explain": {
+            "sl": "**Jack and Sam sta they (onadva): are**\n- we are · you are · they are",
+            "de": "**Jack and Sam sind they (sie): are**\n- we are · you are · they are",
+            "it": "**Jack and Sam sono they (loro): are**\n- we are · you are · they are",
+            "en": "**Jack and Sam are they: are**\n- we are · you are · they are"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V govoru so oblike kratke: **I'm**, **you're**, **he's**, **she's**, **it's**, **we're**, **they're**. Opuščaj (') stoji namesto izpuščene črke: I am → **I'm**. Tudi ime dobi **'s**: **Jack's on the fell.** (Jack je na hribu.) Prav je oboje; ljudje govorijo kratko obliko.",
+          "de": "Beim Sprechen sind die Formen kurz: **I'm**, **you're**, **he's**, **she's**, **it's**, **we're**, **they're**. Der Apostroph steht für den weggelassenen Buchstaben: I am → **I'm**. Auch ein Name bekommt **'s**: **Jack's on the fell.** (Jack ist am Berg.) Beides ist richtig; man sagt die kurze Form.",
+          "it": "Quando si parla, le forme sono brevi: **I'm**, **you're**, **he's**, **she's**, **it's**, **we're**, **they're**. L'apostrofo sta per la lettera tolta: I am → **I'm**. Anche un nome prende **'s**: **Jack's on the fell.** (Jack è sul monte.) Sono giuste tutte e due; si dice la forma breve.",
+          "en": "When we speak, the forms are short: **I'm**, **you're**, **he's**, **she's**, **it's**, **we're**, **they're**. The apostrophe stands for the letter left out: I am → **I'm**. A name takes **'s** too: **Jack's on the fell.** Both are right; people say the short form."
+        },
+        "examples": [
+          {
+            "en": "I'm tired.",
+            "sl": "{m:Utrujen|f:Utrujena} sem.",
+            "de": "Ich bin müde.",
+            "it": "Sono {m:stanco|f:stanca}."
+          },
+          { "en": "It's cold today.", "sl": "Danes je mrzlo.", "de": "Heute ist es kalt.", "it": "Oggi fa freddo." },
+          {
+            "en": "We're at the inn.",
+            "sl": "V gostilni smo.",
+            "de": "Wir sind im Gasthaus.",
+            "it": "Siamo alla locanda."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "to-be",
+          "prompt": "___ cold today.",
+          "options": ["It's", "Its", "It"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**It's = It is (je)**\n- It's cold today. · Danes je mrzlo.\n- its brez ' ni glagol",
+            "de": "**It's = It is (es ist)**\n- It's cold today. · Heute ist es kalt.\n- its ohne ' ist kein Verb",
+            "it": "**It's = It is (è)**\n- It's cold today. · Oggi fa freddo.\n- its senza ' non è un verbo",
+            "en": "**It's = It is**\n- It's cold today.\n- its without ' is no verb"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za zanikanje daš **not** (ne) za glagol: **I'm not** (nisem), **he isn't** (ni), **we aren't** (nismo). **Jack isn't at home.** (Jacka ni doma.) **The sheep aren't in the field.** (Ovc ni na polju.) **He's not** in **we're not** pomenita isto. Nikoli *I amn't*: samo **I'm not**.",
+          "de": "Zum Verneinen kommt **not** (nicht) nach dem Verb: **I'm not** (ich bin nicht), **he isn't** (er ist nicht), **we aren't** (wir sind nicht). **Jack isn't at home.** (Jack ist nicht zu Hause.) **The sheep aren't in the field.** (Die Schafe sind nicht auf der Weide.) **He's not** und **we're not** heißen dasselbe. Nie *I amn't*: nur **I'm not**.",
+          "it": "Per dire di no metti **not** (non) dopo il verbo: **I'm not** (non sono), **he isn't** (non è), **we aren't** (non siamo). **Jack isn't at home.** (Jack non è a casa.) **The sheep aren't in the field.** (Le pecore non sono nel campo.) **He's not** e **we're not** vogliono dire lo stesso. Mai *I amn't*: solo **I'm not**.",
+          "en": "To say no, put **not** after the verb: **I'm not** (I am not), **he isn't** (he is not), **we aren't** (we are not). **Jack isn't at home.** **The sheep aren't in the field.** **He's not** and **we're not** mean the same. Never *I amn't*: only **I'm not**."
+        },
+        "examples": [
+          {
+            "en": "Jack isn't at home. He's on the fell.",
+            "sl": "Jacka ni doma. Na hribu je.",
+            "de": "Jack ist nicht zu Hause. Er ist am Berg.",
+            "it": "Jack non è a casa. È sul monte."
+          },
+          { "en": "I'm not cold.", "sl": "Ni me zebe.", "de": "Mir ist nicht kalt.", "it": "Non ho freddo." }
+        ],
+        "rows": [
+          [
+            { "sl": "not (ne)", "de": "not (nicht)", "it": "not (non)", "en": "not" },
+            "I am not, he is not, we are not",
+            "I'm not, he isn't, we aren't"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "to-be",
+          "prompt": "Jack ___ at home. He's on the fell.",
+          "options": ["isn't", "aren't", "not is"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jack je he (on): isn't (is not)**\n- he isn't · we aren't · I'm not",
+            "de": "**Jack ist he (er): isn't (is not)**\n- he isn't · we aren't · I'm not",
+            "it": "**Jack è he (lui): isn't (is not)**\n- he isn't · we aren't · I'm not",
+            "en": "**Jack is he: isn't (is not)**\n- he isn't · we aren't · I'm not"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za vprašanje gre glagol na začetek: **Are you ready?** (Ste pripravljeni?) **Is Mrs Birkett busy?** (Je gospa Birkett zaposlena?) Kratki odgovor ponovi glagol: **Yes, I am.** (Ja.) **No, she isn't.** (Ne.) Nikoli *Yes, I'm*. Počutje gre z be: **I'm hungry** (lačen, lačna sem), **I'm cold** (zebe me), **I'm tired** (utrujen, utrujena sem).",
+          "de": "Für die Frage kommt das Verb nach vorn: **Are you ready?** (Bist du bereit?) **Is Mrs Birkett busy?** (Hat Mrs Birkett viel zu tun?) Die Kurzantwort nimmt das Verb wieder: **Yes, I am.** (Ja.) **No, she isn't.** (Nein.) Nie *Yes, I'm*. Wie es dir geht, sagst du mit be: **I'm hungry** (ich habe Hunger), **I'm cold** (mir ist kalt), **I'm tired** (ich bin müde).",
+          "it": "Per chiedere, il verbo va all'inizio: **Are you ready?** (Siete pronti?) **Is Mrs Birkett busy?** (Mrs Birkett è impegnata?) La risposta breve ripete il verbo: **Yes, I am.** (Sì.) **No, she isn't.** (No.) Mai *Yes, I'm*. Come stai si dice con be, dove l'italiano usa avere: **I'm hungry** (ho fame), **I'm cold** (ho freddo), **I'm tired** (sono stanco, stanca).",
+          "en": "To ask, put the verb first: **Are you ready?** **Is Mrs Birkett busy?** The short answer takes the verb again: **Yes, I am.** **No, she isn't.** (never *Yes, I'm*). How you feel takes be: **I'm hungry**, **I'm cold**, **I'm tired**."
+        },
+        "examples": [
+          {
+            "en": "Are you hungry? — Yes, I am!",
+            "sl": "Si {m:lačen|f:lačna}? — Ja!",
+            "de": "Hast du Hunger? — Ja!",
+            "it": "Hai fame? — Sì!"
+          },
+          {
+            "en": "Is it far to Keswick? — No, it isn't.",
+            "sl": "Je daleč do Keswicka? — Ne, ni.",
+            "de": "Ist es weit nach Keswick? — Nein.",
+            "it": "È lontano Keswick? — No."
+          },
+          {
+            "en": "Are Jack and Sam at the inn? — Yes, they are.",
+            "sl": "Sta Jack in Sam v gostilni? — Ja, sta.",
+            "de": "Sind Jack und Sam im Gasthaus? — Ja.",
+            "it": "Jack e Sam sono alla locanda? — Sì."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "vprašanje", "de": "Frage", "it": "domanda", "en": "question" },
+            "Are you …? Is she …?",
+            "Yes, I am. No, she isn't."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "to-be",
+          "prompt": "Are you cold? — Yes, ___",
+          "options": ["I am.", "I'm.", "I have."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor: Yes, I am.**\n- nikoli Yes, I'm.\n- cold gre z be, ne s have",
+            "de": "**Die Kurzantwort: Yes, I am.**\n- nie Yes, I'm.\n- cold mit be, nicht mit have",
+            "it": "**La risposta breve: Yes, I am.**\n- mai Yes, I'm.\n- cold vuole be, non have",
+            "en": "**The short answer: Yes, I am.**\n- never Yes, I'm.\n- cold takes be, not have"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "to-be-1",
+      "title": {
+        "sl": "I am, you are · Sem, si, je",
+        "de": "I am, you are · Ich bin, du bist",
+        "it": "I am, you are · Sono, sei, è",
+        "en": "I am, you are, she is"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "to-be",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "to be (sedanjik) · biti",
+            "de": "to be (Präsens) · sein",
+            "it": "to be (presente) · essere",
+            "en": "to be (present)"
+          },
+          "columns": [{"sl": "to be · biti", "de": "to be · sein", "it": "to be · essere", "en": "to be"}],
+          "rows": [
+            { "label": "I", "cells": ["am"] },
+            { "label": "you", "cells": [{"accept": ["are"]}] },
+            { "label": "he", "cells": [{"accept": ["is"]}] },
+            { "label": "she", "cells": [{"accept": ["is"]}] },
+            {
+              "label": "it",
+              "cells": [
+                {
+                  "accept": ["is"],
+                  "hint": { "sl": "kot he in she", "de": "wie he und she", "it": "come he e she", "en": "as he and she" }
+                }
+              ]
+            },
+            { "label": "we", "cells": [{"accept": ["are"]}] },
+            {
+              "label": "they",
+              "cells": [
+                {
+                  "accept": ["are"],
+                  "hint": { "sl": "kot we in you", "de": "wie we und you", "it": "come we e you", "en": "as we and you" }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**am za I, is za enega drugega, are za ostale**\n- I am · you are · he, she, it is\n- we are · you are · they are",
+            "de": "**am für I, is für eine andere Person, are für die übrigen**\n- I am · you are · he, she, it is\n- we are · you are · they are",
+            "it": "**am per I, is per un altro, are per gli altri**\n- I am · you are · he, she, it is\n- we are · you are · they are",
+            "en": "**am for I, is for one other, are for the rest**\n- I am · you are · he, she, it is\n- we are · you are · they are"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "to-be",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "We ___ at school.",
+          "options": ["are", "is", "am"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**we: are**\n- We are at school.",
+            "de": "**we: are**\n- We are at school.",
+            "it": "**we: are**\n- We are at school.",
+            "en": "**we: are**\n- We are at school."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "to-be",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "___ you hungry, {learner}?",
+          "options": ["Are", "Is", "Am"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**you: are; vprašanje se začne z njim**\n- Are you hungry?",
+            "de": "**you: are; die Frage beginnt damit**\n- Are you hungry?",
+            "it": "**you: are; la domanda comincia così**\n- Are you hungry?",
+            "en": "**you: are; the question starts with it**\n- Are you hungry?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "to-be-2",
+      "title": {
+        "sl": "A cold morning · Mrzlo jutro",
+        "de": "A cold morning · Ein kalter Morgen",
+        "it": "A cold morning · Una mattina fredda",
+        "en": "A cold morning"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "to-be",
+          "instruction": {
+            "sl": "Fill in with to be · Dopolni z to be",
+            "de": "Fill in with to be · Ergänze mit to be",
+            "it": "Fill in with to be · Completa con to be",
+            "en": "Fill in with to be"
+          },
+          "text": "It ___ a cold morning in the dale. Granny Maggie ___ in the kitchen. Jack and Meg ___ on the fell with the sheep. I ___ at the inn with Sam. — You ___ late, {learner}! Mrs Birkett ___ busy today.",
+          "gaps": [
+            { "accept": ["is"], "hint": "it → ?" },
+            { "accept": ["is"], "hint": "she → ?" },
+            { "accept": ["are"], "hint": "they → ?" },
+            { "accept": ["am"], "hint": "I → ?" },
+            { "accept": ["are"], "hint": "you → ?" },
+            { "accept": ["is"], "hint": "she → ?" }
+          ],
+          "bank": true,
+          "distractors": ["be", "being"],
+          "translation": {
+            "sl": "V dolini je mrzlo jutro. Babica Maggie je v kuhinji. Jack in Meg sta z ovcami na hribu. Jaz sem s Samom v gostilni. — Pozen si, {learner}! Gospa Birkett ima danes veliko dela.",
+            "de": "Es ist ein kalter Morgen im Tal. Oma Maggie ist in der Küche. Jack und Meg sind mit den Schafen am Berg. Ich bin mit Sam im Gasthaus. — Du bist spät dran, {learner}! Mrs Birkett hat heute viel zu tun.",
+            "it": "È una mattina fredda nella valle. Nonna Maggie è in cucina. Jack e Meg sono sul monte con le pecore. Io sono alla locanda con Sam. — Sei in ritardo, {learner}! Oggi Mrs Birkett è molto impegnata.",
+            "en": "It is a cold morning in the dale. Granny Maggie is in the kitchen. Jack and Meg are on the fell with the sheep. I am at the inn with Sam. — You are late, {learner}! Mrs Birkett is busy today."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "to-be",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "___ Jack and Sam at the inn?",
+          "options": ["Are", "Is", "Am"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jack and Sam sta they: Are …?**\n- Are Jack and Sam at the inn? — Yes, they are.",
+            "de": "**Jack and Sam sind they: Are …?**\n- Are Jack and Sam at the inn? — Yes, they are.",
+            "it": "**Jack and Sam sono they: Are …?**\n- Are Jack and Sam at the inn? — Yes, they are.",
+            "en": "**Jack and Sam are they: Are …?**\n- Are Jack and Sam at the inn? — Yes, they are."
+          }
+        }
+      ]
+    },
+    {
+      "id": "to-be-3",
+      "title": {
+        "sl": "No, and questions · Ne in vprašanja",
+        "de": "No, and questions · Nein und Fragen",
+        "it": "No, and questions · No e domande",
+        "en": "No, and questions"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "to-be",
+          "instruction": {
+            "sl": "Say it with not · Povej z not",
+            "de": "Say it with not · Sag es mit not",
+            "it": "Say it with not · Dillo con not",
+            "en": "Say it with not"
+          },
+          "cue": "not",
+          "items": [
+            { "from": "Jack is at home.", "accept": ["Jack isn't at home."], "hint": "is → isn't" },
+            {
+              "from": "I'm hungry.",
+              "accept": ["I'm not hungry."],
+              "hint": { "sl": "nikoli amn't", "de": "nie amn't", "it": "mai amn't", "en": "never amn't" }
+            },
+            { "from": "We're ready.", "accept": ["We aren't ready."] },
+            { "from": "The sheep are in the field.", "accept": ["The sheep aren't in the field."] },
+            { "from": "It's cold today.", "accept": ["It isn't cold today."] }
+          ],
+          "explain": {
+            "sl": "**not za glagolom: isn't, aren't, I'm not**\n- Jack is at home. → Jack isn't at home.\n- I'm hungry. → I'm not hungry.",
+            "de": "**not nach dem Verb: isn't, aren't, I'm not**\n- Jack is at home. → Jack isn't at home.\n- I'm hungry. → I'm not hungry.",
+            "it": "**not dopo il verbo: isn't, aren't, I'm not**\n- Jack is at home. → Jack isn't at home.\n- I'm hungry. → I'm not hungry.",
+            "en": "**not after the verb: isn't, aren't, I'm not**\n- Jack is at home. → Jack isn't at home.\n- I'm hungry. → I'm not hungry."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "to-be",
+          "instruction": { "sl": "Ask · Postavi vprašanje", "de": "Ask · Mach eine Frage", "it": "Ask · Fai la domanda", "en": "Ask" },
+          "cue": "?",
+          "items": [
+            {
+              "from": "You are tired.",
+              "accept": ["Are you tired?"],
+              "hint": {
+                "sl": "glagol na začetek",
+                "de": "das Verb nach vorn",
+                "it": "il verbo all'inizio",
+                "en": "the verb first"
+              }
+            },
+            { "from": "Mrs Birkett is busy.", "accept": ["Is Mrs Birkett busy?"] },
+            { "from": "They are at school.", "accept": ["Are they at school?"] },
+            { "from": "It is far.", "accept": ["Is it far?"] },
+            { "from": "Jack and Meg are on the fell.", "accept": ["Are Jack and Meg on the fell?"] }
+          ],
+          "explain": {
+            "sl": "**Glagol na začetek**\n- You are tired. → Are you tired?\n- Mrs Birkett is busy. → Is Mrs Birkett busy?",
+            "de": "**Das Verb nach vorn**\n- You are tired. → Are you tired?\n- Mrs Birkett is busy. → Is Mrs Birkett busy?",
+            "it": "**Il verbo all'inizio**\n- You are tired. → Are you tired?\n- Mrs Birkett is busy. → Is Mrs Birkett busy?",
+            "en": "**The verb first**\n- You are tired. → Are you tired?\n- Mrs Birkett is busy. → Is Mrs Birkett busy?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "to-be",
+        "instruction": {
+          "sl": "Fill in with to be · Dopolni z to be",
+          "de": "Fill in with to be · Ergänze mit to be",
+          "it": "Fill in with to be · Completa con to be",
+          "en": "Fill in with to be"
+        },
+        "text": "Good morning, Mr Tyson! How ___ you? — I ___ fine, thanks, but Arthur ___ tired. The bees ___ busy today. — ___ the mill open? — No, it ___. It's Sunday.",
+        "gaps": [
+          { "accept": ["are"] },
+          { "accept": ["am"] },
+          { "accept": ["is"] },
+          { "accept": ["are"] },
+          { "accept": ["Is"], "hint": {"sl": "vprašanje", "de": "eine Frage", "it": "una domanda", "en": "a question"} },
+          { "accept": ["isn't"], "hint": "no → ?" }
+        ],
+        "translation": {
+          "sl": "Dobro jutro, gospod Tyson! Kako ste? — Dobro, hvala, Arthur pa je utrujen. Čebele imajo danes veliko dela. — Je mlin odprt? — Ne, ni. Nedelja je.",
+          "de": "Guten Morgen, Mr Tyson! Wie geht es Ihnen? — Gut, danke, aber Arthur ist müde. Die Bienen sind heute fleißig. — Ist die Mühle offen? — Nein. Es ist Sonntag.",
+          "it": "Buongiorno, signor Tyson! Come sta? — Bene, grazie, ma Arthur è stanco. Oggi le api sono molto indaffarate. — Il mulino è aperto? — No. È domenica.",
+          "en": "Good morning, Mr Tyson! How are you? — I am fine, thanks, but Arthur is tired. The bees are busy today. — Is the mill open? — No, it isn't. It's Sunday."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "to-be",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          { "from": "Sam is at the inn.", "accept": ["Sam isn't at the inn."] },
+          { "from": "You're late.", "accept": ["You aren't late."] },
+          { "from": "I'm cold.", "accept": ["I'm not cold."] }
+        ],
+        "explain": {
+          "sl": "**not za glagolom: isn't, aren't, I'm not**\n- Jack is at home. → Jack isn't at home.\n- I'm hungry. → I'm not hungry.",
+          "de": "**not nach dem Verb: isn't, aren't, I'm not**\n- Jack is at home. → Jack isn't at home.\n- I'm hungry. → I'm not hungry.",
+          "it": "**not dopo il verbo: isn't, aren't, I'm not**\n- Jack is at home. → Jack isn't at home.\n- I'm hungry. → I'm not hungry.",
+          "en": "**not after the verb: isn't, aren't, I'm not**\n- Jack is at home. → Jack isn't at home.\n- I'm hungry. → I'm not hungry."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "to-be",
+        "instruction": { "sl": "Ask · Postavi vprašanje", "de": "Ask · Mach eine Frage", "it": "Ask · Fai la domanda", "en": "Ask" },
+        "cue": "?",
+        "items": [
+          { "from": "Old Wilf is here.", "accept": ["Is Old Wilf here?"] },
+          { "from": "You are from Keswick.", "accept": ["Are you from Keswick?"] }
+        ],
+        "explain": {
+          "sl": "**Glagol na začetek**\n- You are tired. → Are you tired?\n- Mrs Birkett is busy. → Is Mrs Birkett busy?",
+          "de": "**Das Verb nach vorn**\n- You are tired. → Are you tired?\n- Mrs Birkett is busy. → Is Mrs Birkett busy?",
+          "it": "**Il verbo all'inizio**\n- You are tired. → Are you tired?\n- Mrs Birkett is busy. → Is Mrs Birkett busy?",
+          "en": "**The verb first**\n- You are tired. → Are you tired?\n- Mrs Birkett is busy. → Is Mrs Birkett busy?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "to-be",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Are you Mrs Hartley? — Yes, ___",
+        "options": ["I am.", "I'm.", "I is."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kratki odgovor: Yes, I am.**\n- Yes, I am. · No, I'm not.",
+          "de": "**Die Kurzantwort: Yes, I am.**\n- Yes, I am. · No, I'm not.",
+          "it": "**La risposta breve: Yes, I am.**\n- Yes, I am. · No, I'm not.",
+          "en": "**The short answer: Yes, I am.**\n- Yes, I am. · No, I'm not."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "to-be",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Is Jack on the fell? — No, he ___.",
+        "options": ["isn't", "aren't", "not"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**he: isn't**\n- Is Jack on the fell? — No, he isn't.",
+          "de": "**he: isn't**\n- Is Jack on the fell? — No, he isn't.",
+          "it": "**he: isn't**\n- Is Jack on the fell? — No, he isn't.",
+          "en": "**he: isn't**\n- Is Jack on the fell? — No, he isn't."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: the short answers, Jack's on the fell as is, Ovc ni na polju"
+}
