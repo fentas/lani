@@ -226,7 +226,11 @@ offers declined forgotten, the note to come again), "audio:voice:remove:<lang>" 
   archetype's line; a line voiced on Mia's node replaced by Jan's town's own take once its time came; a re-voiced line's
   new take; `same` for the clip kept; the first lines got ahead, none voiced); the relay's 45; the phone's bundle
   1,154.9 KB. The app's unit tests 3,639, all passing (2 skipped): new `ExerciseSpeechTest` (6), `HintVoiceOfflineTest`
-  (2), `VisitAheadTest` (2), `VisitClipsTest` (+1). QA's `visit-voices` step checks the first lines got ahead (a0).
+  (2), `VisitAheadTest` (2), `VisitClipsTest` (+1). QA's `visit-voices` step checks the first lines got ahead (a0): one
+  run (`qa-slot --steps visit-voices`: setup, the second town, visit-voices, visit-voices-silent, the crash check) all
+  passing; as the visit began "a visit's first lines got ahead: 7 of 13" (the dev bridge: seven of the town's own clips,
+  "got ahead", none voiced for it), then Stari Janez's «Dober dan, mladi mož.» on his card played as "clip on the phone"
+  (before: "node clip (grandma)", asked of the node at the tap).
 
 ## What's left
 
