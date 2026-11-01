@@ -318,7 +318,16 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   with `publish_module`, `publish_scenario`, `publish_scene`). Teo's Italian role-plays are in `companion/scenarios/it/`
   (nine, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday lunch at Nonna
   Rosa's, the playground, a phone call to the nonna, Tommaso's party); a scenario in another language than the
-  village's is never served (docs/plans/05-built/scenarios-it.md).
+  village's is never served (docs/plans/05-built/scenarios-it.md). The Carinthian village has eight for a grown-up in
+  German (`companion/scenarios/de/`: the baker, the farmers' market, the doctor, the Gasthaus, Villach station, the
+  Kirchtag, the neighbour at the fence, a call to the council), the Lake District eight in English
+  (`companion/scenarios/en/`: the farm shop, the pub, the GP, the bus stop in Keswick, the B&B, asking the way on the
+  fell, the village fête, the neighbour over the wall), with packs where none fitted (`beim-arzt`, `im-gasthaus`,
+  `am-bahnhof`, `auf-der-gemeinde`, `wetter-und-garten`; `at-the-doctors`, `in-the-pub`, `getting-about`,
+  `at-the-b-and-b`, `asking-the-way`, `at-the-fete`, `weather-and-garden`); a scene of theirs leads into them after a
+  dialog (Kathi's Gasthaus, Stefan's Most, the Kirchtag; Mrs Birkett's inn, the fête, Shepherd Jack on the fell), and a
+  child's scene never into a grown-up's role-play. Jan's six read in German and Italian too
+  (docs/plans/05-built/scenarios-de-en.md).
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
 - A learner of German plays the same way in `kaernten` (`--target de --culture kaernten`), with the German packs of
@@ -3601,7 +3610,14 @@ the Orcolat), Friulian words (fogolâr, pignarûl, cramaro), the region's places
 Cormòns, Brda, Nova Gorica, Cividale, Carnia, Duino, Monte Lussari, Camporosso, Monte Canin, Castelmonte), the stories'
 heroes (Lopichis, Tergesteo), Miklavž, Rimska cesta, the sky's meteor showers, the elided c'è (c'era, ci sono), dov'è,
 cos'è, com'è, eh, and suo's meaning (an override: through English its German was "sein; n"). Unlike Slovene's it has
-places and the stories' names: the villagers' names come from the cast, the region's would not come at all.
+places and the stories' names: the villagers' names come from the cast, the region's would not come at all. It also
+has the Italian course's words that no pack means (271 entries since 2026-11-01: guardare, mai, il treno, c'era una
+volta), written for a child (German first, Slovene, English), each with the forms the Italian content uses and their
+grammar (1,136): a reflexive verb's with their pronoun (si lava, mi sono lavata: the plain verb's gira is not
+girarsi), an expression with an apostrophe also as a line's words are joined (un po, ce l ho fatta), so a phone
+without Wiktionary finds them too: there the supplement, the packs and the names know 51.7 % of the Italian content's
+words met (28.8 % before). The course's printed sheets list every word they name
+([it-print-meanings.md](../docs/plans/05-built/it-print-meanings.md)).
 
 **German's supplement**, `lexicon/de.extra.json` (machine-written, `"reviewed": false`), stands in for the German
 dictionary a learner of German usually lacks (it is a download, `LANI_LEXICON_URL`; the phone has none): the German
@@ -4995,6 +5011,7 @@ companion/bin/qa --steps storm                   # the storm: the map in the rai
 LANI_DEV_DATA=<a synthetic learner> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en LANI_QA_ZOOM_SHOTS=<dir> companion/bin/qa --minified --steps zoom-frames   # the map's frames on Teo's tablet's screen (2560 × 1600): at home, at 1.5, 2.5 and 3 × the fitted zoom, at rest and panned, and pinched; every frame's time and the main thread's (gfxinfo framestats), the map's render time; a table, frames.tsv and screenshots (docs/plans/05-built/zoom-frames.md)
 LANI_DEV_DATA=<a synthetic learner> LANI_QA_HOME_SHOTS=<dir> LANI_QA_HOME_TRIES=2 companion/bin/qa --steps home-return   # going back to Home: from the village and from Settings, and the village opened, for 3 s from the key or the tap the main thread's messages besides the frames (QA's hook main:watch: their sum, the longest), the frames (gfxinfo framestats), the garbage collections; LANI_QA_TRACE=<dir> traces the first Back by method; a table, home-return.tsv (docs/plans/05-built/home-return.md)
 LANI_DEV_DATA=<a synthetic learner> companion/bin/qa-slot --no-town --steps read-aloud,feedback-tablet,story-faces   # the news sheet's 🔊 (QA's hook "news"; the founding is read where setup founds a village), an answer's card beside the question on the tablet on its side and under it upright and on the phone (feedback-tablet.txt), the evening story's teller and the faces he tells it with (story-faces.txt)
+LANI_DEV_DATA=<a synthetic Teo> LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo companion/bin/qa-slot --no-town --steps story-faces,culture-reading   # tonight's story by Bepi's fire played to its end (a Teo who has heard the ten older ones hears I benandanti), then a reading of the corner read to its end, every question answered right and the score (LANI_QA_READING, by default i-pesci-di-aquileia; reading.txt, reading-*.png also in $LANI_QA_READING_SHOTS; docs/plans/05-built/stories-friuli.md)
 companion/bin/qa --steps coast                   # Teo's coast: the founding's preview, the sea and the beach after founding, dragged to the beach, an animal's Italian word, a villager talk's goals in it · de, a village and a town (a synthetic Friuli learner: LANI_DEV_DATA, LANI_CULTURE=friuli, LANI_LANDSCAPE=coast, LANI_QA_PAIR=sl-en, LANI_QA_FOUND_SEED=551323397)
 LANI_DEV_DATA=<an Italian synthetic learner> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en LANI_QA_FRIULI_SHOTS=<dir> companion/bin/qa --no-town --steps friuli-looks   # Friuli's outdoor scenes in its look (SCENES.md "Culture looks"): the village as a Vas, Nel campo's fienile, Nel bosco's ancona, the stream's and the pond's poplars, the sea's halyard, by day, closer and at night (make-learner.ts <dir> --target it)
 LANI_DEV_DATA=<a synthetic Slovene learner> LANI_CULTURE=friuli LANI_QA_PAIR=sl-en LANI_QA_CULTURE_SHOTS=<dir> companion/bin/qa-slot --no-town --steps culture-source   # the map and the scenes in one culture (docs/plans/05-built/culture-source.md): a Slovene course in Friuli's village (make-learner.ts <dir>), the map, the bocce court's card and inside (NOI | VOI, the osteria), the osteria, the fontanella and the altar candle tapped, the cramâr under his crassigne at the gate

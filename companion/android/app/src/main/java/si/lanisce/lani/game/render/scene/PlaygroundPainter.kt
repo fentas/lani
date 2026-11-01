@@ -42,6 +42,10 @@ import kotlin.math.sin
  * Friuli's playground ([look]; companion/SCENES.md "Culture looks"): the school's wall pale yellow over a green dado, as the
  * Friuli school's classroom; a fontanella by the fence, the green cast-iron drinking fountain of the Italian towns, a thing
  * of its own (`fontanella`): only Friuli's look draws it ([si.lanisce.lani.game.scene.SceneFixtures]).
+ *
+ * The Lake District's look (At the playground, Mrs Hartley's by the school): the school's side of the dale's slate stone under
+ * slate, its tall sash window in a white frame ([slateSchool]); a low dry-stone wall along the back edges for the picket
+ * fences, its cope stones on edge along its top ([drystone]), the white wooden gate in it.
  */
 internal class PlaygroundPainter : RoomPainter() {
     override val art = "playground"
@@ -87,6 +91,9 @@ internal class PlaygroundPainter : RoomPainter() {
     /** Friuli's look ([readLook2]): the school's wall pale yellow over a green dado, and the fontanella by the fence. */
     private var friuliSchool = false
     private var fontanella = false
+    /** The Lake District's look ([readLook2]): the school of slate stone under slate, a dry-stone wall for the fences. */
+    private var slateSchool = false
+    private var drystone = false
 
     private val fine: Boolean get() = detail > 1
 
@@ -95,6 +102,8 @@ internal class PlaygroundPainter : RoomPainter() {
     private fun readLook2() {
         friuliSchool = variant("school") == "friuli"
         fontanella = variant("fontanella") != null
+        slateSchool = variant("school") == "lakeland"
+        drystone = variant("fence") == "drystone"
     }
 
     override fun paint() {
@@ -177,10 +186,11 @@ internal class PlaygroundPainter : RoomPainter() {
             when {
                 x in swA..swB && z in swZa..swZb -> {
                     val e = min(min(x - swA, swB - x) * 4f, min(z - swZa, swZb - z))
-                    if (e < 0.45f) Pal.STONE_L else if (abs(x - (swA + swB) / 2f) < 0.06f || abs(z - (swZa + swZb) * 0.55f) < 0.3f || abs(z - swZa - 2.5f) < 0.25f) Pal.WOOD_L
+                    if (e < 0.45f) (if (slateSchool) Col.hex(0xF2F2EE) else Pal.STONE_L) else if (abs(x - (swA + swB) / 2f) < 0.06f || abs(z - (swZa + swZb) * 0.55f) < 0.3f || abs(z - swZa - 2.5f) < 0.25f) (if (slateSchool) Col.hex(0xE8E8E2) else Pal.WOOD_L)
                     else if (env.windows > 0.3f) Col.hex(0x34465A) else Col.mix(Pal.GLASS_HI, skyAt(0.3f), 0.4f)
                 }
                 friuliSchool && z < 4.2f -> if (n < 0.1f) Col.hex(0x6F8F7A) else Col.hex(0xA9C9B2)
+                slateSchool -> Lakeland.slateStone(x, z, px, py, detail > 1)
                 z < 2.2f -> if (n < 0.3f) Pal.STONE_D else if (n < 0.85f) Pal.STONE_M else Pal.STONE_L
                 z < 2.6f -> Pal.STONE_L
                 n < 0.04f -> wl
@@ -189,10 +199,10 @@ internal class PlaygroundPainter : RoomPainter() {
             }
         }
         // its corner and the eave of its roof
-        onX(sx1, sy0 - 0.5f, sy0, 0f, sh) { _, z, _, _ -> Col.scale(if (z < 2.2f) Pal.STONE_M else wm, 0.8f) }
-        val roof = if (winter) Pal.SNOW_L else Pal.ROOF_M
+        onX(sx1, sy0 - 0.5f, sy0, 0f, sh) { y, z, px, py -> Col.scale(if (slateSchool) Lakeland.slateStone(y, z, px, py, detail > 1) else if (z < 2.2f) Pal.STONE_M else wm, 0.8f) }
+        val roof = if (winter) Pal.SNOW_L else if (slateSchool) Lakeland.ROOF_M else Pal.ROOF_M
         iso.quad(sx0 - 0.2f, sy0 - 0.6f, sh + 3.4f, sx1 + 0.3f, sy0 - 0.6f, sh + 3.4f, sx1 + 0.3f, sy0 + 0.5f, sh - 0.4f, sx0 - 0.2f, sy0 + 0.5f, sh - 0.4f, roof)
-        if (!winter) for (k in 0 until 4) { val f = k / 3f; iso.line(sx0 - 0.2f, sy0 - 0.6f + 1.1f * f, sh + 3.4f - 3.8f * f, sx1 + 0.3f, sy0 - 0.6f + 1.1f * f, sh + 3.4f - 3.8f * f, if (k == 3) Pal.ROOF_D else Pal.ROOF_L) }
+        if (!winter) for (k in 0 until 4) { val f = k / 3f; iso.line(sx0 - 0.2f, sy0 - 0.6f + 1.1f * f, sh + 3.4f - 3.8f * f, sx1 + 0.3f, sy0 - 0.6f + 1.1f * f, sh + 3.4f - 3.8f * f, if (slateSchool) (if (k == 3) Lakeland.ROOF_D else Lakeland.ROOF_L) else if (k == 3) Pal.ROOF_D else Pal.ROOF_L) }
         // the lamp on its bracket at the corner, lit from dusk
         val lx = sx1 - 0.4f
         rod(lx, sy0, sh - 5f, lx, sy0 + 0.6f, sh - 5f, iron)
@@ -214,10 +224,43 @@ internal class PlaygroundPainter : RoomPainter() {
         return Col.scale(col, dim)
     }
 
-    /** The picket fences along the back edges, white; the gap for the gate in the right one. */
+    /** The picket fences along the back edges, white; the gap for the gate in the right one; in the Lake District a dry-stone wall ([drystone]). */
     private fun fences() {
+        if (drystone) {
+            onY(sy0, sx1, fx1, 0f, fh) { x, z, px, py -> if (x in gA..gB) 0 else dryWall(x, z, px, py, 1f) }
+            onX(fenceX, sy0 + 0.6f, plotD - 0.3f, 0f, fh) { y, z, px, py -> dryWall(y, z, px, py, 0.86f) }
+            return
+        }
         onY(sy0, sx1, fx1, 0f, fh) { x, z, _, _ -> if (x in gA..gB) 0 else picket(x, z, 1f) }
         onX(fenceX, sy0 + 0.6f, plotD - 0.3f, 0f, fh) { y, z, _, _ -> picket(y, z, 0.86f) }
+    }
+
+    /**
+     * A dry-stone wall at [a] along it and [z] up ([drystone]): grey stones laid without mortar in rough courses, the gaps between
+     * them dark, a row of cope stones standing on edge along its top a little higher, moss on some; snow on its top in winter.
+     */
+    private fun dryWall(a: Float, z: Float, px: Int, py: Int, dim: Float): Int {
+        val wallH = fh - 1.4f
+        val cope = (a / 0.32f) % 1f
+        if (z > wallH) {
+            if (z > wallH + 1.3f - 0.4f * abs(cope - 0.5f) || cope < 0.12f) return 0
+            if (winter) return Pal.SNOW_L
+            return Col.scale(if (cope < 0.3f) Col.hex(0x9AA0A4) else if (cope > 0.85f) Col.hex(0x6E747A) else Col.hex(0x868C90), dim)
+        }
+        val ch = 1.1f
+        val row = floor(z / ch).toInt(); val fz = z / ch - row
+        val u = a / (0.45f + 0.25f * Noise.rnd(row, 221)) + Noise.rnd(row, 223) * 2f
+        val fu = u - floor(u)
+        if (fz < 0.16f || fu < 0.1f) return Col.scale(Col.hex(0x3E4448), dim)
+        val tone = Noise.rnd(floor(u).toInt(), row, 225)
+        val col = when {
+            tone < 0.12f && !winter -> Col.hex(0x6E8A5A) // moss
+            fz > 0.78f -> Col.hex(0xA8AEB0)
+            tone < 0.45f -> Col.hex(0x8C9296)
+            tone < 0.8f -> Col.hex(0x7A8086)
+            else -> Col.hex(0x968E84)
+        }
+        return Col.scale(col, dim)
     }
 
     /** The gate in the right fence, standing a little open on its posts. */

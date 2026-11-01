@@ -43,21 +43,26 @@ const reply = (conversation_id: string, text: string, data?: object) =>
 
 /**
  * The canned role-play in each course's language: the lines are `sl` and `en` in a reply's data whatever the language
- * (scenarios.ts: "the key is sl in every language"), `en` in the learner's base. Machine-written Italian and German, for
- * QA only (no learner sees them).
+ * (scenarios.ts: "the key is sl in every language"), `en` in the learner's base (a Slovene base reads `sl_base`). One set
+ * per language the village may speak (Slovene, Italian, German, English), each fitting any of its role-plays.
+ * Machine-written, for QA only (no learner sees them).
  */
 type Said = Record<string, string>
 const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; correction: Said; practise: string }> = {
   sl: {
-    hint: { sl: 'Hvala, zelo dobro je.', en: 'Thanks, it is very good.', de: 'Danke, es ist sehr gut.' },
-    puzzled: { sl: 'Kako, prosim? Še enkrat?', en: 'Pardon? Once more?', de: 'Wie bitte? Noch einmal?' },
+    hint: { sl: 'Hvala, zelo dobro je.', en: 'Thanks, it is very good.', de: 'Danke, es ist sehr gut.', it: 'Grazie, è molto buono.' },
+    puzzled: { sl: 'Kako, prosim? Še enkrat?', en: 'Pardon? Once more?', de: 'Wie bitte? Noch einmal?', it: 'Come, scusa? Ancora una volta?' },
     turns: [
-      { sl: 'Me veseli! Še malo juhe?', en: "I'm glad! A bit more soup?", de: 'Das freut mich! Noch ein bisschen Suppe?' },
-      { sl: 'Res? Ti je juha všeč?', en: 'Really? Do you like the soup?', de: 'Wirklich? Schmeckt dir die Suppe?' },
-      { sl: 'Ha ha, prav imaš!', en: "Ha ha, you're right!", de: 'Haha, du hast recht!' },
-      { sl: 'Hvala! To je moj recept.', en: "Thank you! It's my recipe.", de: 'Danke! Das ist mein Rezept.' },
+      { sl: 'Me veseli! Še malo juhe?', en: "I'm glad! A bit more soup?", de: 'Das freut mich! Noch ein bisschen Suppe?', it: 'Che piacere! Ancora un po\' di minestra?' },
+      { sl: 'Res? Ti je juha všeč?', en: 'Really? Do you like the soup?', de: 'Wirklich? Schmeckt dir die Suppe?', it: 'Davvero? Ti piace la minestra?' },
+      { sl: 'Ha ha, prav imaš!', en: "Ha ha, you're right!", de: 'Haha, du hast recht!', it: 'Ah ah, hai ragione!' },
+      { sl: 'Hvala! To je moj recept.', en: "Thank you! It's my recipe.", de: 'Danke! Das ist mein Rezept.', it: 'Grazie! È la mia ricetta.' },
     ],
-    correction: { en: 'Rekli bi: **Zelo je dobro.** · "dobro" agrees with the neuter "it".', de: 'Man sagt: **Zelo je dobro.** · „dobro" richtet sich nach dem sächlichen „es".' },
+    correction: {
+      en: 'Rekli bi: **Zelo je dobro.** · "dobro" agrees with the neuter "it".',
+      de: 'Man sagt: **Zelo je dobro.** · „dobro" richtet sich nach dem sächlichen „es".',
+      it: 'Si dice: **Zelo je dobro.** · «dobro» concorda con il neutro «esso».',
+    },
     practise: '*sit sem*, *še malo*',
   },
   it: {
@@ -73,8 +78,48 @@ const ROLEPLAY: Record<string, { hint: Said; puzzled: Said; turns: Said[]; corre
     correction: { en: 'Si dice: **Mi piace molto.** · "piace" agrees with the thing liked.', de: 'Man sagt: **Mi piace molto.** · „piace“ richtet sich nach dem, was gefällt.', sl: 'Rečemo: **Mi piace molto.** · »piace« se ujema s tem, kar je všeč.' },
     practise: '*vorrei*, *quanto costa?*',
   },
+  de: {
+    // any of the German role-plays (companion/scenarios/de: the baker, the market, the station, the neighbour …)
+    hint: { sl: 'Danke, das ist sehr nett!', en: "Thanks, that's very kind!", it: 'Grazie, molto gentile!', sl_base: 'Hvala, zelo prijazno!' },
+    puzzled: { sl: 'Wie bitte? Noch einmal, bitte?', en: 'Pardon? Once more, please?', it: 'Come, scusi? Può ripetere?', sl_base: 'Kako, prosim? Še enkrat, prosim?' },
+    turns: [
+      { sl: 'Wie schön! Und sonst?', en: 'How lovely! Anything else?', it: 'Che bello! E poi?', sl_base: 'Kako lepo! Pa še kaj?' },
+      { sl: 'Wirklich? Das freut mich!', en: "Really? I'm glad!", it: 'Davvero? Mi fa piacere!', sl_base: 'Res? To me veseli!' },
+      { sl: 'Haha, sehr gut!', en: 'Ha ha, very good!', it: 'Ah ah, benissimo!', sl_base: 'Ha ha, zelo dobro!' },
+      { sl: 'Danke! Also dann, auf Wiedersehen!', en: 'Thank you! Goodbye, then!', it: 'Grazie! Allora arrivederci!', sl_base: 'Hvala! Pa na svidenje!' },
+    ],
+    correction: {
+      en: 'Better: **Ich hätte gern ein Brot, bitte.** · "Ich hätte gern" is the polite "I\'d like".',
+      sl: 'Bolje: **Ich hätte gern ein Brot, bitte.** · »Ich hätte gern« je vljudni »rad bi«.',
+      it: 'Meglio: **Ich hätte gern ein Brot, bitte.** · «Ich hätte gern» è il cortese «vorrei».',
+    },
+    practise: '*ich hätte gern*, *was kostet das?*',
+  },
+  en: {
+    // any of the English role-plays (companion/scenarios/en: the farm shop, the pub, the bus stop, the fell …)
+    hint: { sl: "Thanks, that's very kind!", en: "Thanks, that's very kind!", de: 'Danke, das ist sehr nett!', it: 'Grazie, molto gentile!', sl_base: 'Hvala, zelo prijazno!' },
+    puzzled: { sl: 'Sorry? Could you say that again?', en: 'Sorry? Could you say that again?', de: 'Wie bitte? Kannst du das noch einmal sagen?', it: 'Come, scusa? Puoi ripetere?', sl_base: 'Prosim? Lahko ponoviš?' },
+    turns: [
+      { sl: 'Lovely! Anything else?', en: 'Lovely! Anything else?', de: 'Schön! Sonst noch etwas?', it: "Bene! Qualcos'altro?", sl_base: 'Lepo! Še kaj?' },
+      { sl: "Really? That's nice!", en: "Really? That's nice!", de: 'Wirklich? Das ist schön!', it: 'Davvero? Che bello!', sl_base: 'Res? To je lepo!' },
+      { sl: 'Ha ha, very good!', en: 'Ha ha, very good!', de: 'Haha, sehr gut!', it: 'Ah ah, benissimo!', sl_base: 'Ha ha, zelo dobro!' },
+      { sl: 'Thanks! Bye for now, then!', en: 'Thanks! Bye for now, then!', de: 'Danke! Also dann, tschüss!', it: 'Grazie! Allora ciao, a presto!', sl_base: 'Hvala! Pa adijo!' },
+    ],
+    correction: {
+      en: 'Better: **I\'d like a loaf, please.** · "I\'d like" is the polite way to ask.',
+      de: 'Besser: **I\'d like a loaf, please.** · „I\'d like“ ist das höfliche „ich hätte gern“.',
+      sl: 'Bolje: **I\'d like a loaf, please.** · »I\'d like« je vljudni »rad bi«.',
+      it: 'Meglio: **I\'d like a loaf, please.** · «I\'d like» è il cortese «vorrei».',
+    },
+    practise: "*I'd like*, *how much is it?*",
+  },
 }
-const DEBRIEF: Said = { en: '✅ You greeted politely.\n\n📌 Practise', de: '✅ Du hast höflich gegrüßt.\n\n📌 Übe' }
+const DEBRIEF: Said = {
+  en: '✅ You greeted politely.\n\n📌 Practise',
+  de: '✅ Du hast höflich gegrüßt.\n\n📌 Übe',
+  sl: '✅ Tvoj pozdrav je bil vljuden.\n\n📌 Za vajo',
+  it: '✅ Hai salutato con gentilezza.\n\n📌 Da esercitare',
+}
 
 /** The hints given so far in each conversation: the next hint is the scenario's next useful phrase. */
 const hinted = new Map<string, number>()

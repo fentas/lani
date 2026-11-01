@@ -74,8 +74,8 @@ export default async function stories() {
   check('… the wishing bell rings: the campfire\'s distant bell', JSON.stringify(jan.find(s => s.id === 'zvon-zelja')).includes('"bell":1'))
   const second = read('friuli').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [renderDeep(v.story, JAN)] : []))
   check(
-    "friuli: ten of Nonno Bepi's legends in Italian, at A1 and A2, every text in Italian, Slovene and English, marked machine-written",
-    second.length === 10 && second.every(s => s.teller === 'bepi' && s.language === 'it' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.it === 'string' && typeof t.sl === 'string' && typeof t.en === 'string') && !!s.teaser.it && !!s.memory.it),
+    "friuli: sixteen of Nonno Bepi's legends and tales in Italian, as many as Janez's, at A1 and A2, every text in Italian, Slovene and English, marked machine-written",
+    second.length === 16 && second.length === jan.length && second.every(s => s.teller === 'bepi' && s.language === 'it' && levelsOf(s).includes('A1') && levelsOf(s).includes('A2') && /not reviewed by a native speaker/.test(s.about?.en ?? '') && said(s).every(t => typeof t.it === 'string' && typeof t.sl === 'string' && typeof t.en === 'string') && !!s.teaser.it && !!s.memory.it),
     second.map(s => [s.id, levelsOf(s)]),
   )
 
@@ -92,8 +92,8 @@ export default async function stories() {
   const lake = read('lakeland').map(raw => validateStory(raw)).flatMap(v => (v.ok ? [v.story] : []))
   const packs4 = [...jan, ...second, ...carinthia, ...lake]
   check(
-    "every curated story of the four packs has its book's pictures: 2-4, one or two an evening in chapters, 116 in all",
-    packs4.length === 46 && packs4.every(s => curatedPictureErrors(s).length === 0) && packs4.reduce((n, s) => n + (s.pictures?.length ?? 0), 0) === 116,
+    "every curated story of the four packs has its book's pictures: 2-4, one or two an evening in chapters, 133 in all",
+    packs4.length === 52 && packs4.every(s => curatedPictureErrors(s).length === 0) && packs4.reduce((n, s) => n + (s.pictures?.length ?? 0), 0) === 133,
     packs4.map(s => [s.id, s.pictures?.length, curatedPictureErrors(s)]),
   )
   check(
@@ -111,9 +111,9 @@ export default async function stories() {
   const tellings = (s: Story) => chaptersOf(s).flatMap((c, i) => LEVELS.filter(l => c.levels[l]).map(l => `${i + 1}/${l}`))
   const notedAs = (s: Story) => (s.notes ?? []).map(n => `${n.chapter ?? 1}/${n.level}`)
   check(
-    "every curated story is written down for the notebook: notes for each of its 112 tellings, a place for each picture, in the four languages, marked machine-written",
+    "every curated story is written down for the notebook: notes for each of its 124 tellings, a place for each picture, in the four languages, marked machine-written",
     packs4.every(s => JSON.stringify(notedAs(s).sort()) === JSON.stringify(tellings(s).sort()) && /machine-written/.test(s.review ?? '')) &&
-      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 112 &&
+      packs4.reduce((n, s) => n + (s.notes?.length ?? 0), 0) === 124 &&
       packs4.every(s => (s.notes ?? []).every(n => n.after?.length === (s.pictures ?? []).filter(p => (p.chapter ?? 1) === (n.chapter ?? 1)).length &&
         n.text.every(p => ['sl', 'en', 'de', 'it'].every(l => typeof (p as Record<string, unknown>)[l] === 'string')))),
     packs4.filter(s => JSON.stringify(notedAs(s).sort()) !== JSON.stringify(tellings(s).sort())).map(s => [s.id, notedAs(s), tellings(s)]),

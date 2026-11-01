@@ -126,6 +126,7 @@
     },
     {
       "id": "gasthaus",
+      "talk": "im-gasthaus",
       "lines": [
         { "who": "kathi", "face": "happy", "de": "Grüß dich, {learner}! Setz dich, ich komme gleich. Sofort, sofort!", "sl": "Živjo, {learner}! Sedi, takoj pridem. Takoj, takoj!", "en": "Hello, {learner}! Sit down, I'll be right with you. Coming, coming!", "it": "Ciao, {learner}! Siediti, arrivo subito. Subito, subito!" },
         { "who": "kathi", "face": "curious", "de": "So. Was darf's sein?", "sl": "Tako. Kaj bo?", "en": "There. What'll it be?", "it": "Ecco. Cosa ti porto?" },
@@ -145,6 +146,7 @@
     },
     {
       "id": "musik",
+      "talk": "beim-kirchtag",
       "lines": [
         { "who": "sepp", "face": "happy", "de": "Grüß dich, {learner}! Hörst du? Die Musik spielt unter der Linde.", "sl": "Živjo, {learner}! Slišiš? Godba igra pod lipo.", "en": "Hello, {learner}! Do you hear? The band is playing under the linden.", "it": "Ciao, {learner}! Senti? La banda suona sotto il tiglio.", "fx": { "band": 0.8 } },
         { "choices": [
@@ -278,6 +280,7 @@
     },
     {
       "id": "gasthaus-kracherl",
+      "talk": "im-gasthaus",
       "months": [5, 6, 7, 8, 9],
       "memory": { "de": "das kalte Kracherl an einem heißen Tag", "sl": "hladno sodavico na vroč dan", "en": "the cold Kracherl on a hot day", "it": "il Kracherl fresco in una giornata calda" },
       "lines": [
@@ -296,6 +299,7 @@
     },
     {
       "id": "musik-kirchtag",
+      "talk": "beim-kirchtag",
       "months": [8],
       "memory": { "de": "den Kirchtag mit Musik und Tanz", "sl": "žegnanje z godbo in plesom", "en": "the Kirchtag with music and dancing", "it": "il Kirchtag con musica e balli" },
       "lines": [

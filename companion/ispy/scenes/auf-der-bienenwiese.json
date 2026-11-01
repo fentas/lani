@@ -1,0 +1,115 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "auf-der-bienenwiese",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl, en and it; the bee house's clues (Beim Bienenhaus) and the meadow's own (clover, cornflowers, sunflowers); not reviewed by a native speaker",
+  "things": {
+    "beehouse": {
+      "clues": [
+        { "kind": "material", "de": "Es ist aus Holz.", "sl": "Je lesen.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "trait", "de": "Es hat bunte Bilder an der Front.", "sl": "Spredaj ima pisane slike.", "en": "It has colourful pictures on its front.", "it": "Ha delle immagini colorate sul davanti.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "trait", "de": "Es steht hinten im Garten.", "sl": "Stoji zadaj na vrtu.", "en": "It stands at the back of the garden.", "it": "Sta in fondo al giardino.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "use", "de": "Darin wohnen die Bienen.", "sl": "V njem živijo čebele.", "en": "The bees live in it.", "it": "Ci abitano le api.", "grammar": ["wortstellung"] }
+      ]
+    },
+    "hive": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist gelb.", "sl": "Je rumen.", "en": "It's yellow.", "it": "È gialla.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Er ist aus Stroh.", "sl": "Je iz slame.", "en": "It's made of straw.", "it": "È di paglia.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Er steht neben dem Bienenhaus.", "sl": "Stoji zraven čebelnjaka.", "en": "It stands next to the bee house.", "it": "Sta accanto all'apiario.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "beehouse" },
+        { "kind": "use", "de": "Früher wohnten Bienen darin.", "sl": "Včasih so v njem živele čebele.", "en": "Bees used to live in it.", "it": "Una volta ci vivevano le api.", "grammar": ["wortstellung"] }
+      ]
+    },
+    "panel": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist bunt.", "sl": "Je pisana.", "en": "It's colourful.", "it": "È colorata.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Es ist aus Holz.", "sl": "Je lesena.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "trait", "de": "Darauf ist ein Bild.", "sl": "Na njej je slika.", "en": "There's a picture on it.", "it": "Sopra c'è un'immagine.", "grammar": ["wortstellung"] },
+        { "kind": "where", "de": "Es ist vorne am Bienenhaus.", "sl": "Je spredaj na čebelnjaku.", "en": "It's on the front of the bee house.", "it": "È sul davanti dell'apiario.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "beehouse" },
+        { "kind": "use", "de": "So findet die Biene ihr Haus.", "sl": "Po njej čebela najde svoj dom.", "en": "That's how a bee finds its home.", "it": "Così l'ape trova la sua casa.", "grammar": ["wortstellung", "akkusativ"] }
+      ]
+    },
+    "bee": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist gelb und schwarz.", "sl": "Je rumena in črna.", "en": "It's yellow and black.", "it": "È gialla e nera.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Sie ist klein.", "sl": "Je majhna.", "en": "It's small.", "it": "È piccola.", "grammar": ["sein-haben"] },
+        { "kind": "does", "de": "Sie summt.", "sl": "Brenči.", "en": "It buzzes.", "it": "Ronza.", "grammar": ["praesens"] },
+        { "kind": "does", "de": "Sie macht Honig.", "sl": "Dela med.", "en": "It makes honey.", "it": "Fa il miele.", "grammar": ["praesens"] }
+      ]
+    },
+    "honey": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist golden.", "sl": "Je zlat.", "en": "It's golden.", "it": "È dorato.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er ist süß.", "sl": "Je sladek.", "en": "It's sweet.", "it": "È dolce.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Er ist in Gläsern auf dem Tisch.", "sl": "Je v kozarcih na mizi.", "en": "It's in jars on the table.", "it": "È nei vasetti sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "does", "de": "Die Bienen machen ihn.", "sl": "Delajo ga čebele.", "en": "The bees make it.", "it": "Lo fanno le api.", "grammar": ["praesens", "akkusativ"] }
+      ]
+    },
+    "comb": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist gelb.", "sl": "Je rumeno.", "en": "It's yellow.", "it": "È giallo.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie hat viele kleine Löcher.", "sl": "Ima veliko majhnih luknjic.", "en": "It has lots of little holes.", "it": "Ha tanti buchini.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "where", "de": "Sie steht auf dem Tisch.", "sl": "Stoji na mizi.", "en": "It stands on the table.", "it": "Sta sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "trait", "de": "Darin ist Honig.", "sl": "V njem je med.", "en": "There's honey in it.", "it": "Dentro c'è il miele.", "grammar": ["wortstellung"] }
+      ]
+    },
+    "flowers": {
+      "clues": [
+        { "kind": "colour", "de": "Im Sommer ist sie bunt.", "sl": "Poleti so pisane.", "en": "In summer it's colourful.", "it": "D'estate è colorato.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "trait", "de": "Sie duftet.", "sl": "Dišijo.", "en": "It smells sweet.", "it": "Profuma.", "grammar": ["praesens"] },
+        { "kind": "trait", "de": "Die Bienen mögen sie.", "sl": "Čebele jih imajo rade.", "en": "The bees like it.", "it": "Alle api piace.", "grammar": ["praesens", "akkusativ"] },
+        { "kind": "use", "de": "Die Bienen holen daraus Nektar.", "sl": "Čebele z njih nabirajo nektar.", "en": "The bees gather nectar from it.", "it": "Le api ne prendono il nettare.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "tree": {
+      "clues": [
+        { "kind": "colour", "de": "Im Sommer ist sie grün.", "sl": "Poleti je zelena.", "en": "In summer it's green.", "it": "D'estate è verde.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "trait", "de": "Im Juni hat sie gelbe Blüten.", "sl": "Junija ima rumene cvetove.", "en": "In June it has yellow blossoms.", "it": "A giugno ha fiori gialli.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "where", "de": "Neben ihr steht ein Bankerl.", "sl": "Zraven nje stoji klopca.", "en": "There's a bench next to it.", "it": "Accanto c'è una panchina.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "bench" },
+        { "kind": "use", "de": "Aus ihren Blüten macht man Tee.", "sl": "Iz njenih cvetov se kuha čaj.", "en": "Tea is made from its blossoms.", "it": "Con i suoi fiori si fa la tisana.", "grammar": ["praesens", "dativ"] }
+      ]
+    },
+    "smoker": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist grau.", "sl": "Je siv.", "en": "It's grey.", "it": "È grigio.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Er ist aus Metall.", "sl": "Je iz kovine.", "en": "It's made of metal.", "it": "È di metallo.", "grammar": ["sein-haben"] },
+        { "kind": "does", "de": "Aus ihm kommt Rauch.", "sl": "Iz njega prihaja dim.", "en": "Smoke comes out of it.", "it": "Ne esce il fumo.", "grammar": ["praesens", "dativ"] },
+        { "kind": "use", "de": "Damit macht der Imker die Bienen ruhig.", "sl": "S tem čebelar umiri čebele.", "en": "The beekeeper calms the bees with it.", "it": "Con questo l'apicoltore calma le api.", "grammar": ["praesens", "wortstellung"] }
+      ]
+    },
+    "extractor": {
+      "clues": [
+        { "kind": "colour", "de": "Sie ist grau.", "sl": "Je sivo.", "en": "It's grey.", "it": "È grigio.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Sie ist aus Metall.", "sl": "Je iz kovine.", "en": "It's made of metal.", "it": "È di metallo.", "grammar": ["sein-haben"] },
+        { "kind": "trait", "de": "Sie hat drei Beine.", "sl": "Ima tri noge.", "en": "It has three legs.", "it": "Ha tre gambe.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "does", "de": "Aus ihr läuft Honig.", "sl": "Iz njega teče med.", "en": "Honey runs out of it.", "it": "Ne esce il miele.", "grammar": ["praesens", "dativ"] }
+      ]
+    },
+    "wax": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist gelb.", "sl": "Je rumen.", "en": "It's yellow.", "it": "È gialla.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Es riecht gut.", "sl": "Lepo diši.", "en": "It smells nice.", "it": "Ha un buon profumo.", "grammar": ["praesens"] },
+        { "kind": "where", "de": "Es liegt auf dem Tisch.", "sl": "Leži na mizi.", "en": "It's lying on the table.", "it": "È sul tavolo.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "use", "de": "Man macht daraus Kerzen.", "sl": "Iz njega se delajo sveče.", "en": "Candles are made from it.", "it": "Se ne fanno le candele.", "grammar": ["praesens", "plural"] }
+      ]
+    },
+    "bench": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist braun.", "sl": "Je rjava.", "en": "It's brown.", "it": "È marrone.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Es ist aus Holz.", "sl": "Je lesena.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "where", "de": "Es steht bei der Linde.", "sl": "Stoji pri lipi.", "en": "It stands by the linden.", "it": "Sta vicino al tiglio.", "grammar": ["dativ"], "ref": "tree" },
+        { "kind": "use", "de": "Darauf sitzt man gern.", "sl": "Na njej se rado sedi.", "en": "People like to sit on it.", "it": "Ci si siede volentieri.", "grammar": ["wortstellung"] }
+      ]
+    },
+    "meadow": {
+      "clues": [
+        { "kind": "colour", "de": "Im Sommer ist sie weiß, blau und gelb.", "sl": "Poleti je bel, moder in rumen.", "en": "In summer it's white, blue and yellow.", "it": "D'estate è bianco, blu e giallo.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "trait", "de": "Darauf wachsen Klee, Kornblumen und Sonnenblumen.", "sl": "Na njem rastejo detelja, plavice in sončnice.", "en": "Clover, cornflowers and sunflowers grow on it.", "it": "Ci crescono trifoglio, fiordalisi e girasoli.", "grammar": ["wortstellung", "plural"] },
+        { "kind": "trait", "de": "Sie duftet herrlich.", "sl": "Čudovito diši.", "en": "It smells wonderful.", "it": "Ha un profumo meraviglioso.", "grammar": ["praesens"] },
+        { "kind": "where", "de": "Sie ist vorne, vor dem Bienenhaus.", "sl": "Je spredaj, pred čebelnjakom.", "en": "It's at the front, in front of the bee house.", "it": "È davanti, davanti all'apiario.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "beehouse" },
+        { "kind": "use", "de": "Die Bienen holen dort ihren Nektar.", "sl": "Čebele tam nabirajo nektar.", "en": "The bees fetch their nectar there.", "it": "Le api ci prendono il nettare.", "grammar": ["praesens", "akkusativ"] }
+      ]
+    }
+  }
+}

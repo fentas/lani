@@ -134,8 +134,66 @@ internal object KaerntenLooks {
      */
     val MARKET = Table.of("market", variants = mapOf("village" to "kaernten", "goods" to "kaernten"))
 
+    // ------------------------------------------------------------------ the projects' places and the wood (kaernten-projects-a)
+
+    /**
+     * Unter dem Maibaum (SquarePainter): the Kraxler's prize hung under the Maibaum's wreath for the Maibaumkraxeln, two strings
+     * of Hauswürstel and a slab of Speck (`kraxel`). Its green top, its wreath and its red and white ribbons are the square's.
+     */
+    val SQUARE_MAIBAUM = Table.of("square", variants = mapOf("kraxel" to "wuerste"))
+
+    /**
+     * An der Brücke (StreamPainter): the cart bridge's logs, its deck's planks and its railings of reddish-brown larch on the
+     * art's stone piers, as the map's bridge (`cartbridge`, the map's `bridge` "larch").
+     */
+    val STREAM_BRIDGE = Table.of("stream", variants = mapOf("cartbridge" to "larch"))
+
+    /**
+     * In der Mühle (MillPainter): Müller Franz's mill of larch logs with pale chinking over its stone footing (`walls`); it
+     * grinds Heiden, buckwheat, its kernels brown-grey in the hopper and the Metzen (`grain`), its meal the grey Heidenmehl;
+     * the Karawanken through the window.
+     */
+    val MILL = Table.of(
+        "mill",
+        colours = mapOf(
+            "grain.l" to 0xFF8E7A62.toInt(), "grain.m" to 0xFF6A5644.toInt(), "grain.d" to 0xFF44362A.toInt(),
+            "meal" to 0xFFD8D0C2.toInt(), "meal.d" to 0xFFB8AE9E.toInt(),
+        ),
+        variants = mapOf("grain" to "heiden", "walls" to "logs", "view" to "karawanken"),
+    )
+
+    /**
+     * Auf der Stockbahn (BoccePainter), as the map's court (`court` "curling"): the lane of grey asphalt, ice from December to
+     * February; Eisstöcke for the balls (red and green), the Daube for the jack, a broom for the rake, slid along the lane;
+     * WIR | IHR on the slate (`scoreboard`); the Gasthaus under dark shingles with a golden linden leaf on its sign (`inn`, still
+     * scenery); hops on the Laube (`pergola`); Most or apple juice in the jug and the glass (`jug`).
+     */
+    val BOCCE = Table.of("bocce", variants = mapOf("court" to "curling", "scoreboard" to "wir", "inn" to "gasthaus", "pergola" to "hops", "jug" to "most"))
+
+    /**
+     * Bei der Wegkapelle (ChapelPainter): the white Wegkapelle under its shingles, its little turret under an onion cap
+     * (`turret`); Heiden in the field, white and pink in flower in July and August, rust-red in September (`field`); larches
+     * along the road (`trees`); the far village white under dark shingles round its onion-domed church (`village`).
+     */
+    val CHAPEL = Table.of("chapel", variants = mapOf("turret" to "onion", "field" to "heiden", "village" to "kaernten", "trees" to "larch"))
+
+    /**
+     * Im Obstgarten (HillsPainter), as the map's (`vineyard` "orchard"): Mostbauer Stefan's old apple and pear trees standing
+     * apart in the grass, the near one a young apple tree at its stake, a pear tree for the kaki, larches for the cypresses, a
+     * Schragenzaun for the stone wall, Steigen of apples, the farmstead timbered under dark shingles (`farm`) with the Most
+     * press by the track, the church's onion dome (`church`), a lake for the sea (`sea`).
+     */
+    val HILLS = Table.of("hills", variants = mapOf("vineyard" to "orchard", "farm" to "kaernten", "church" to "onion", "sea" to "lake"))
+
+    /**
+     * Im Wald (ForestPainter): larches among the spruces at the clearing's edges (`trees`), and by the path a Marterl, a post
+     * of larch with a painted plaque under its little shingle roof and flowers tied to it (`shrine`).
+     */
+    val FOREST = Table.of("forest", variants = mapOf("shrine" to "marterl", "trees" to "larch"))
+
     /** Carinthia's looks of its buildings and rooms, added up (each art's table above). */
     val PLACES: Table get() = PEOPLE + KITCHEN + LIVINGROOM + FIELD + SQUARE + WATCHTOWER +
         PALISADE + TENT + ATTIC + WORKSHOP + CELLAR + SCHOOL + CHURCH +
-        APIARY + SMITHY + MARKET
+        APIARY + SMITHY + MARKET +
+        SQUARE_MAIBAUM + STREAM_BRIDGE + MILL + BOCCE + CHAPEL + HILLS + FOREST
 }
