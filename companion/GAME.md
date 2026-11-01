@@ -2467,6 +2467,18 @@ everyone sleeps, its hearth's smoke and the forge's glow, at every detail; only 
 The Friends card flies the town's flag as its watchtower does (`Towns.flag(culture, language)`: 🇦🇹 for a Carinthian
 village where it showed 🇩🇪, England's for the Lake District's; a culture this app has no pack of shows its language's).
 
+**The people on the map** wear their culture's clothes, as its scenes dress them (`people.wardrobe`;
+[SCENES.md](SCENES.md#arts), "Each culture's clothes" under the people sprites; docs/plans/05-built/map-people.md): the map's
+14 px and 7 px figures are taken from the sprite's look (`Effects.lookOf` → `fromScene`), so Nonna Rosa's white kerchief,
+her blue apron and her scarpets, Opa Sepp's brown Anzug and green hat with its Gamsbart, Mr Tyson's flat cap and green
+wellies show at every detail. The small figures know a waistcoat or a dirndl's bodice at the body's sides, a collar, a
+check, a skirt of its own colour, a flat cap's peak, the Gamsbart, a kerchief's colour, dots and knot, wellies up the shins
+and the scarpets' flowers. The village's own people are dressed by the same seed at every detail and in their scenes and
+portraits, in every culture (`Looks.seedOf`), and in a culture with a wardrobe the unnamed too; the visitors at the road
+(the pedlar, the pilgrim) are the culture's. Primorska's cast on the map are its own small figures, drawn for those sizes, in
+its sprites' colours (`MapPeopleTest` checks every mark they have against the sprites: since 2026-11-01 Vida in her dress
+and bodice, the teacher's dark skirt, the beekeeper's and the charcoal burner's trousers).
+
 To give a culture's map its look: its `map` table in `CultureLooks` (the variants above by name), its `FireStyle` for the
 village's build; a new kind of thing a variant of `MapLook` and its sprite in `CultureBuildings` (or the landmark's
 painter), the default culture's sprite untouched. `MapLooksTest` renders every culture's map at every age by day, at

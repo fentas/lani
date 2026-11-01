@@ -415,9 +415,11 @@ object CultureLooks {
 
     /**
      * The people sprites (`people`, People.kt): the day's pedlar the cramâr from Carnia in his brown jacket under his
-     * crassigne (`pedlar`), on the map, in the scenes and in his portrait, as the gate's and the watchtower's road has him.
+     * crassigne (`pedlar`), on the map, in the scenes and in his portrait, as the gate's and the watchtower's road has him;
+     * everyone in Friuli's clothes (`wardrobe`, render/scene/Wardrobes.kt: Nonna Rosa's black kerchief and scarpets, Tommaso's
+     * school smock with its bow, the men's black waistcoats and felt hats), on the map too.
      */
-    private val FRIULI_PEOPLE = Table.of("people", variants = mapOf("pedlar" to "cramar"))
+    private val FRIULI_PEOPLE = Table.of("people", variants = mapOf("pedlar" to "cramar", "wardrobe" to "friuli"))
 
     /**
      * Friuli's lookout tower (LookoutPainter): the view of Friuli, the Collio's hills striped with vines, the plain with its rows

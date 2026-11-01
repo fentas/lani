@@ -153,7 +153,8 @@ class KaerntenProjectsLooksTest {
         for ((art, month, sprites) in chosen) for (k in 1..3) for (hour in listOf(10.5f, 21.5f)) {
             val w = world("kaernten")
             val hits = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, w, hour, month, sprites), Lens(k, 0, 0, 240, 160))
-            val home = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, world("primorska"), hour, month, sprites), Lens(k, 0, 0, 240, 160))
+            // Primorska's picture with Carinthia's people in it: each culture dresses its people its own way (Wardrobes)
+            val home = (ScenePainters.create(art) as ArtPainter).also { it.dressedAs = "kaernten" }.render(PixelCanvas(240 * k, 160 * k), frame(art, world("primorska"), hour, month, sprites), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.objects.getValue(art)) {
                 val n = hits.count { it.target == SceneTarget.Thing(slot) }
                 val want = home.count { it.target == SceneTarget.Thing(slot) }

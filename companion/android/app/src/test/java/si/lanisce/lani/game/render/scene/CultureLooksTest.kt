@@ -46,10 +46,11 @@ class CultureLooksTest {
         return java.lang.Long.toHexString(h)
     }
 
-    private fun digests(art: String, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): Map<String, String> =
+    /** [art]'s frames in [culture]'s look, the people in [dressedAs]'s clothes (null: the culture's own). */
+    private fun digests(art: String, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT, dressedAs: String? = null): Map<String, String> =
         frames(art, culture).associate { (name, f, lens) ->
             val c = PixelCanvas(lens.baseW, lens.baseH)
-            ScenePainters.create(art).render(c, f, lens)
+            (ScenePainters.create(art) as ArtPainter).also { it.dressedAs = dressedAs }.render(c, f, lens)
             name to fnv(c.pixels)
         }
 
@@ -105,17 +106,71 @@ class CultureLooksTest {
     /** The arts that drew a culture's village their own way before the looks: the campfire's village round it (FireStyle). */
     private val ownStyle = setOf("campfire")
 
+    /**
+     * The people wear their culture's clothes in every art ([Wardrobes]; the test below), so an art's own look is compared with
+     * Primorska's picture of it with the culture's people in it.
+     */
     @Test fun `an art a culture's look doesn't touch draws as the default culture's`() {
         val failed = ArrayList<String>()
         for (art in SceneArt.arts.sorted()) {
             if (art in ownStyle) continue
-            val default = digests(art)
             for (c in cultures) {
                 if (CultureLooks.of(c).touches(art)) continue
-                if (digests(art, c) != default) failed += "$art in $c"
+                if (digests(art, c) != digests(art, dressedAs = c)) failed += "$art in $c"
             }
         }
         assertEquals(emptyList<String>(), failed)
+    }
+
+    /** Who stands in a culture's lineup: the cast, the strangers, two women and two men of the village's own. */
+    private val lineupArts = SceneArt.people - "baby" + listOf("woman", "woman", "man", "man")
+
+    /** [culture]'s people standing in a row as the scenes draw them. */
+    private fun lineup(culture: String): IntArray {
+        val c = PixelCanvas(lineupArts.size * 24 + 8, 48)
+        val p = PeoplePainter().also { it.culture = culture }
+        for ((i, art) in lineupArts.withIndex()) p.draw(c, art, 12 + i * 24, c.height - 2, 0.4, Looks.seedOf("lineup-$i"), talking = false, flip = i % 2 == 1, walking = false, seated = false)
+        return c.pixels
+    }
+
+    /** [culture]'s people standing in a row as the village map draws them at detail [k]: the 7 px figures (1), the 14 px ones (2). */
+    private fun mapLineup(culture: String, k: Int): IntArray {
+        val w = lineupArts.size * 10 * k + 8; val h = 20 * k
+        val c = PixelCanvas(w, h)
+        val s = si.lanisce.lani.game.render.SceneCtx(c).apply { lens = Lens(k, 0, 0, w, h); look = si.lanisce.lani.game.render.MapLook.of(culture); time = 0.4 }
+        for ((i, art) in lineupArts.withIndex()) {
+            val id = "lineup-$i"
+            val look = si.lanisce.lani.game.render.Effects.lookOf(art, si.lanisce.lani.game.render.Noise.hash(id.hashCode(), 13), culture, Looks.seedOf(id))
+            s.effects.person(6 + i * 10 * k, h - 2, art, look, si.lanisce.lani.game.render.TownPeople.drawSeed(id), si.lanisce.lani.game.render.Activity.STAND, flip = i % 2 == 1, lookSeed = Looks.seedOf(id))
+        }
+        return c.pixels
+    }
+
+    /**
+     * Each culture's people in its own clothes ([Wardrobes], `people.wardrobe`; docs/plans/05-built/map-people.md), drawn as
+     * they were made (2026-11-01, map-people): Primorska's as they always were, Friuli's, Carinthia's and the Lake District's
+     * their own, and a culture without a wardrobe as Primorska's. Each digest is the lineup as the scenes draw it, as the
+     * map draws it at 14 px, and at 7 px.
+     */
+    private val people: Map<String, String> = mapOf(
+        "primorska" to "f890cd4bada877d2/34863970621fd5e1/f240f67d42e797ad",
+        "friuli" to "fc3cfaffb5cacf4d/7ce17b669d18f9ed/8c1156e45451f696",
+        "kaernten" to "29158de4b39af093/97e7ecd2ec4df900/eeb3c401743598d9",
+        "lakeland" to "b1502422fe5b92af/e43f190cfb35b173/2dff393a00440cc4",
+    )
+
+    @Test fun `each culture's people wear its own clothes`() {
+        // each size apart: the sprites, the 14 px figures and the 7 px ones differ from Primorska's in every culture with a wardrobe
+        for (c in cultures - "nowhere") for (k in 0..2) {
+            val a = listOf(lineup(c), mapLineup(c, 2), mapLineup(c, 1))[k]; val b = listOf(lineup("primorska"), mapLineup("primorska", 2), mapLineup("primorska", 1))[k]
+            assertTrue("$c, size $k: dressed otherwise than Primorska", !a.contentEquals(b))
+        }
+        val got = (listOf("primorska") + cultures).associateWith { "${fnv(lineup(it))}/${fnv(mapLineup(it, 2))}/${fnv(mapLineup(it, 1))}" }
+        assertEquals("a culture without a wardrobe dresses its people as Primorska's", got["primorska"], got["nowhere"])
+        assertEquals("four cultures, four wardrobes", 4, got.values.toSet().size)
+        val changed = people.filter { (c, d) -> got[c] != d }
+        if (changed.isNotEmpty()) println(got.filterKeys { it in people }.entries.joinToString(",\n") { "\"${it.key}\" to \"${it.value}\"" })
+        assertEquals("people drawn otherwise than when they were made", emptySet<String>(), changed.keys)
     }
 
     @Test fun `a look gives what it sets of an art and the painter's own default for the rest`() {
