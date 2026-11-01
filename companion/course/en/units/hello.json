@@ -1,0 +1,675 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "hello",
+  "language": "en",
+  "level": "A1",
+  "emoji": "👋",
+  "title": { "en": "Hello! I'm …", "de": "Hallo! Ich bin …", "sl": "Živjo! Jaz sem …", "it": "Ciao! Sono …" },
+  "goal": {
+    "sl": "Pozdraviš ob vsakem času dneva, poveš, kdo si, vprašaš za ime, nekoga predstaviš in se posloviš.",
+    "de": "Du grüßt zu jeder Tageszeit, sagst, wer du bist, fragst nach dem Namen, stellst jemanden vor und verabschiedest dich.",
+    "it": "Saluti a ogni ora del giorno, dici chi sei, chiedi il nome, presenti qualcuno e ti congedi.",
+    "en": "You can greet people at any time of day, say who you are, ask someone's name, introduce someone and say goodbye."
+  },
+  "grammar": ["pronouns"],
+  "words": [
+    "hello",
+    "hi",
+    "good morning",
+    "good afternoon",
+    "good evening",
+    "good night",
+    "goodbye",
+    "bye",
+    "see you",
+    "welcome",
+    "name",
+    "Mr",
+    "Mrs",
+    "Ms",
+    "Miss",
+    "nice to meet you",
+    "how are you",
+    "fine",
+    "very well",
+    "thanks",
+    "thank you",
+    "and you",
+    "this is",
+    "teacher",
+    "shepherd",
+    "innkeeper",
+    "blacksmith",
+    "brewer",
+    "miller",
+    "beekeeper",
+    "storyteller",
+    "inn",
+    "I",
+    "you",
+    "he",
+    "she"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdaj", "de": "wann", "it": "quando", "en": "when" },
+        { "sl": "rečeš", "de": "du sagst", "it": "dici", "en": "you say" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**Hello!** Jaz sem Mrs Hartley, tvoja učiteljica. **Hello** (zdravo) in **Hi** (živjo) rečeš kadarkoli; **Hi** je za prijatelje. Nekomu, ki ga ne poznaš, rečeš **Good morning** (dobro jutro) do poldneva, **Good afternoon** (dober dan) do šestih, nato **Good evening** (dober večer).",
+          "de": "**Hello!** Ich bin Mrs Hartley, deine Lehrerin. **Hello** und **Hi** (hallo) gehen zu jeder Tageszeit; **Hi** ist für Freunde. Zu jemandem, den du nicht kennst, sagst du **Good morning** (guten Morgen) bis etwa Mittag, **Good afternoon** (guten Tag) bis etwa sechs, dann **Good evening** (guten Abend).",
+          "it": "**Hello!** Sono Mrs Hartley, la tua insegnante. **Hello** e **Hi** (ciao) vanno bene a ogni ora; **Hi** è per gli amici. A chi non conosci dici **Good morning** (buongiorno) fino a mezzogiorno circa, **Good afternoon** (buon pomeriggio) fino alle sei, poi **Good evening** (buonasera).",
+          "en": "**Hello!** I'm Mrs Hartley, your teacher. **Hello** and **Hi** are for any time of day; **Hi** is for friends. To someone you don't know you say **Good morning** until about midday, **Good afternoon** until about six, then **Good evening**."
+        },
+        "examples": [
+          { "en": "Hello, Jack!", "sl": "Živjo, Jack!", "de": "Hallo, Jack!", "it": "Ciao, Jack!" },
+          {
+            "en": "Good morning, Mrs Birkett!",
+            "sl": "Dobro jutro, gospa Birkett!",
+            "de": "Guten Morgen, Mrs Birkett!",
+            "it": "Buongiorno, signora Birkett!"
+          },
+          {
+            "en": "Good evening! Welcome to the Packhorse Inn.",
+            "sl": "Dober večer! Dobrodošli v gostilni Packhorse.",
+            "de": "Guten Abend! Willkommen im Packhorse Inn.",
+            "it": "Buonasera! Benvenuti al Packhorse Inn."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "ob srečanju", "de": "beim Treffen", "it": "quando incontri qualcuno", "en": "meeting someone" },
+            "Hello! Hi!"
+          ],
+          [
+            {
+              "sl": "zjutraj, popoldne, zvečer",
+              "de": "morgens, nachmittags, abends",
+              "it": "di mattina, di pomeriggio, di sera",
+              "en": "in the morning, afternoon, evening"
+            },
+            "Good morning! Good afternoon! Good evening!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "prompt": {
+            "sl": "Ob desetih dopoldne v gostilni, gospe Birkett:",
+            "de": "Um zehn Uhr vormittags im Gasthaus, zu Mrs Birkett:",
+            "it": "Alle dieci di mattina, alla locanda, a Mrs Birkett:",
+            "en": "Ten in the morning, at the inn, to Mrs Birkett:"
+          },
+          "options": ["Good morning, Mrs Birkett!", "Good evening, Mrs Birkett!", "Good night, Mrs Birkett!"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Zjutraj: Good morning**\n- Good morning, Mrs Birkett! · Dobro jutro, gospa Birkett!\n- Good evening šele od šestih",
+            "de": "**Am Vormittag: Good morning**\n- Good morning, Mrs Birkett! · Guten Morgen, Mrs Birkett!\n- Good evening erst ab etwa sechs",
+            "it": "**Di mattina: Good morning**\n- Good morning, Mrs Birkett! · Buongiorno, signora Birkett!\n- Good evening solo dalle sei circa",
+            "en": "**In the morning: Good morning**\n- Good morning, Mrs Birkett!\n- Good evening only from about six"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kdo si, poveš z **I'm** (jaz sem) in svojim imenom: **I'm Jack.** (Jaz sem Jack.) Ali rečeš **My name's Jack.** (Ime mi je Jack.) Nekoga vprašaš: **What's your name?** (Kako ti je ime?) Vprašanje vrneš z **And you?** (Pa ti?)",
+          "de": "Wer du bist, sagst du mit **I'm** (ich bin) und deinem Namen: **I'm Jack.** (Ich bin Jack.) Oder du sagst **My name's Jack.** (Mein Name ist Jack.) Jemanden fragst du: **What's your name?** (Wie heißt du?) Die Frage gibst du zurück mit **And you?** (Und du?)",
+          "it": "Chi sei lo dici con **I'm** (io sono) e il tuo nome: **I'm Jack.** (Sono Jack.) Oppure dici **My name's Jack.** (Mi chiamo Jack.) Per chiedere: **What's your name?** (Come ti chiami?) E per restituire la domanda: **And you?** (E tu?)",
+          "en": "Say who you are with **I'm** (I am) and your name: **I'm Jack.** Or say **My name's Jack.** (my name is). To ask someone: **What's your name?** And to give the question back: **And you?**"
+        },
+        "examples": [
+          {
+            "en": "What's your name? — I'm Sam.",
+            "sl": "Kako ti je ime? — Jaz sem Sam.",
+            "de": "Wie heißt du? — Ich bin Sam.",
+            "it": "Come ti chiami? — Sono Sam."
+          },
+          {
+            "en": "My name's {learner}. And you?",
+            "sl": "Ime mi je {learner}. Pa ti?",
+            "de": "Ich heiße {learner}. Und du?",
+            "it": "Mi chiamo {learner}. E tu?"
+          }
+        ],
+        "rows": [
+          [{"sl": "tvoje ime", "de": "dein Name", "it": "il tuo nome", "en": "your name"}, "I'm Sam. My name's Sam."],
+          [{"sl": "vprašanje", "de": "fragen", "it": "chiedere", "en": "asking"}, "What's your name? And you?"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "text": "Hello! ___ Sam, the brewer.",
+          "accept": ["I'm"],
+          "hint": { "sl": "poveš, kdo si", "de": "du sagst, wer du bist", "it": "dici chi sei", "en": "you say who you are" },
+          "explain": {
+            "sl": "**I'm + tvoje ime**\n- Hello! I'm Sam. · Živjo! Jaz sem Sam.",
+            "de": "**I'm + dein Name**\n- Hello! I'm Sam. · Hallo! Ich bin Sam.",
+            "it": "**I'm + il tuo nome**\n- Hello! I'm Sam. · Ciao! Sono Sam.",
+            "en": "**I'm + your name**\n- Hello! I'm Sam."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**you** (ti, vi) je za vsakogar: prijatelja, otroka, učiteljico, eno osebo ali deset; angleščina ne vika. Vljudno rečeš **Mr** (gospod), **Mrs** (gospa, poročena), **Ms** (gospa, za vsako žensko) ali **Miss** (gospodična) in priimek: **Mr Dixon**, **Mrs Birkett**, nikoli Mr Jack. Prijatelji se kličejo z imeni: **Sam**.",
+          "de": "**you** (du, ihr, Sie) ist für alle: einen Freund, ein Kind, die Lehrerin, eine Person oder zehn; Englisch hat kein Sie. Höflich sagst du **Mr** (Herr), **Mrs** (Frau, verheiratet), **Ms** (Frau, für jede Frau) oder **Miss** (eine junge Frau) mit dem Nachnamen: **Mr Dixon**, **Mrs Birkett**, nie Mr Jack. Freunde nennen sich beim Vornamen: **Sam**.",
+          "it": "**you** (tu, voi, Lei) è per tutti: un amico, un bambino, l'insegnante, una persona o dieci; l'inglese non ha il Lei. Per essere gentile dici **Mr** (signor), **Mrs** (signora, sposata), **Ms** (signora, per ogni donna) o **Miss** (signorina) con il cognome: **Mr Dixon**, **Mrs Birkett**, mai Mr Jack. Gli amici usano il nome: **Sam**.",
+          "en": "**you** is for everyone: a friend, a child, the teacher, one person or ten. To be polite, say **Mr** (a man), **Mrs** (a married woman), **Ms** (any woman) or **Miss** (a young woman) with the surname: **Mr Dixon**, **Mrs Birkett**, never Mr Jack. Friends use first names: **Sam**."
+        },
+        "examples": [
+          {
+            "en": "Good afternoon, Mr Tyson.",
+            "sl": "Dober dan, gospod Tyson.",
+            "de": "Guten Tag, Mr Tyson.",
+            "it": "Buon pomeriggio, signor Tyson."
+          },
+          {
+            "en": "Thank you, Mrs Hartley!",
+            "sl": "Hvala, gospa Hartley!",
+            "de": "Danke, Mrs Hartley!",
+            "it": "Grazie, signora Hartley!"
+          },
+          {
+            "en": "Hi, Sam! See you!",
+            "sl": "Živjo, Sam! Se vidimo!",
+            "de": "Hallo, Sam! Bis bald!",
+            "it": "Ciao, Sam! Ci vediamo!"
+          }
+        ],
+        "rows": [
+          [{"sl": "vljudno", "de": "höflich", "it": "gentile", "en": "polite"}, "Mr Dixon, Mrs Birkett, Ms Hartley"],
+          [{"sl": "prijateljem", "de": "zu Freunden", "it": "agli amici", "en": "to friends"}, "Sam, Jack"]
+        ],
+        "ask": {
+          "type": "choice",
+          "prompt": {
+            "sl": "Ko prvič srečaš mlinarja, gospoda Tysona:",
+            "de": "Beim ersten Treffen mit dem Müller, Mr Tyson:",
+            "it": "La prima volta che incontri il mugnaio, il signor Tyson:",
+            "en": "The first time you meet the miller, Mr Tyson:"
+          },
+          "options": ["Good afternoon, Mr Tyson.", "Hi, Tyson!", "Good afternoon, Mrs Tyson."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mr + priimek, za moškega**\n- Good afternoon, Mr Tyson. · Dober dan, gospod Tyson.\n- Mrs je za žensko",
+            "de": "**Mr + Nachname, für einen Mann**\n- Good afternoon, Mr Tyson. · Guten Tag, Mr Tyson.\n- Mrs ist für eine Frau",
+            "it": "**Mr + cognome, per un uomo**\n- Good afternoon, Mr Tyson. · Buon pomeriggio, signor Tyson.\n- Mrs è per una donna",
+            "en": "**Mr + the surname, for a man**\n- Good afternoon, Mr Tyson.\n- Mrs is for a woman"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Nekoga predstaviš s **This is** (to je) in imenom, nato **he's** (on je) za moškega ali **she's** (ona je) za žensko: **This is Jack. He's a shepherd.** (To je Jack. Pastir je.) Odgovor je **Nice to meet you.** (Me veseli.) In nazaj: **Nice to meet you too.** (Tudi mene.)",
+          "de": "Jemanden stellst du mit **This is** (das ist) und dem Namen vor, dann **he's** (er ist) für einen Mann oder **she's** (sie ist) für eine Frau: **This is Jack. He's a shepherd.** (Das ist Jack. Er ist Schäfer.) Die Antwort ist **Nice to meet you.** (Freut mich.) Und zurück: **Nice to meet you too.** (Mich auch.)",
+          "it": "Presenti qualcuno con **This is** (questo è, questa è) e il nome, poi **he's** (lui è) per un uomo o **she's** (lei è) per una donna: **This is Jack. He's a shepherd.** (Questo è Jack. Fa il pastore.) La risposta è **Nice to meet you.** (Piacere.) E di ritorno: **Nice to meet you too.** (Piacere mio.)",
+          "en": "To introduce someone, say **This is** and the name, then **he's** (he is) for a man or **she's** (she is) for a woman: **This is Jack. He's a shepherd.** The answer is **Nice to meet you.** And back: **Nice to meet you too.**"
+        },
+        "examples": [
+          {
+            "en": "This is Mrs Birkett. She's the innkeeper.",
+            "sl": "To je gospa Birkett. Ona je gostilničarka.",
+            "de": "Das ist Mrs Birkett. Sie ist die Wirtin.",
+            "it": "Questa è la signora Birkett. È la locandiera."
+          },
+          {
+            "en": "Nice to meet you, Mrs Birkett. — Nice to meet you too!",
+            "sl": "Me veseli, gospa Birkett. — Tudi mene!",
+            "de": "Freut mich, Mrs Birkett. — Mich auch!",
+            "it": "Piacere, signora Birkett. — Piacere mio!"
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "nekdo drug", "de": "jemand anderer", "it": "un'altra persona", "en": "someone else" },
+            "This is Jack. He's a shepherd. She's the teacher."
+          ],
+          [
+            {
+              "sl": "ob spoznanju",
+              "de": "beim Kennenlernen",
+              "it": "quando conosci qualcuno",
+              "en": "meeting someone new"
+            },
+            "Nice to meet you. Nice to meet you too."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronouns",
+          "prompt": "This is Mrs Hartley. ___ the teacher.",
+          "options": ["She's", "He's", "It's"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ženska: she's (ona je)**\n- This is Mrs Hartley. She's the teacher. · To je gospa Hartley. Ona je učiteljica.",
+            "de": "**Eine Frau: she's (sie ist)**\n- This is Mrs Hartley. She's the teacher. · Das ist Mrs Hartley. Sie ist die Lehrerin.",
+            "it": "**Una donna: she's (lei è)**\n- This is Mrs Hartley. She's the teacher. · Questa è Mrs Hartley. È l'insegnante.",
+            "en": "**A woman: she's (she is)**\n- This is Mrs Hartley. She's the teacher."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**How are you?** (Kako si?) Odgovor: **Fine, thanks.** (Dobro, hvala.) ali **Very well, thank you.** (Zelo dobro, hvala.), nato **And you?** (Pa ti?) Ko greš: **Goodbye!** (Na svidenje!), **Bye!** ali **See you!** (Se vidimo!) **Good night** (lahko noč) ni nikoli pozdrav ob prihodu: rečeš ga, ko zvečer odideš ali greš spat.",
+          "de": "**How are you?** (Wie geht's?) Die Antwort: **Fine, thanks.** (Gut, danke.) oder **Very well, thank you.** (Sehr gut, danke.), dann **And you?** (Und dir?) Wenn du gehst: **Goodbye!** (Auf Wiedersehen!), **Bye!** oder **See you!** (Bis bald!) **Good night** (gute Nacht) ist nie ein Gruß beim Kommen: du sagst es, wenn du abends gehst oder schlafen gehst.",
+          "it": "**How are you?** (Come stai?) La risposta: **Fine, thanks.** (Bene, grazie.) o **Very well, thank you.** (Molto bene, grazie.), poi **And you?** (E tu?) Quando vai via: **Goodbye!** (Arrivederci!), **Bye!** o **See you!** (Ci vediamo!) **Good night** (buonanotte) non è mai un saluto quando arrivi: lo dici quando vai via la sera o vai a dormire.",
+          "en": "**How are you?** The answer: **Fine, thanks.** or **Very well, thank you.**, then **And you?** When you go: **Goodbye!**, **Bye!** or **See you!** **Good night** is never a hello: you say it when you leave in the evening or go to bed."
+        },
+        "examples": [
+          {
+            "en": "How are you, Mr Dixon? — Fine, thanks. And you?",
+            "sl": "Kako ste, gospod Dixon? — Dobro, hvala. Pa vi?",
+            "de": "Wie geht es Ihnen, Mr Dixon? — Gut, danke. Und Ihnen?",
+            "it": "Come sta, signor Dixon? — Bene, grazie. E Lei?"
+          },
+          {
+            "en": "Good night, Mrs Birkett! See you tomorrow!",
+            "sl": "Lahko noč, gospa Birkett! Se vidiva jutri!",
+            "de": "Gute Nacht, Mrs Birkett! Bis morgen!",
+            "it": "Buonanotte, signora Birkett! A domani!"
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "kako si", "de": "wie geht's", "it": "come stai", "en": "how are you" },
+            "How are you? — Fine, thanks."
+          ],
+          [{"sl": "ob odhodu", "de": "beim Gehen", "it": "quando vai via", "en": "leaving"}, "Goodbye! Bye! See you!"],
+          [
+            {
+              "sl": "ob odhodu ponoči",
+              "de": "nachts beim Gehen",
+              "it": "quando vai via di notte",
+              "en": "leaving at night"
+            },
+            "Good night!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "prompt": {
+            "sl": "Ob enajstih zvečer odhajaš iz gostilne:",
+            "de": "Um elf Uhr nachts gehst du aus dem Gasthaus:",
+            "it": "Alle undici di sera esci dalla locanda:",
+            "en": "Eleven at night, you leave the inn:"
+          },
+          "options": ["Good night, Mrs Birkett!", "Good evening, Mrs Birkett!", "Good morning, Mrs Birkett!"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Odhod ponoči: Good night**\n- Good night, Mrs Birkett! · Lahko noč, gospa Birkett!\n- Good evening, ko prideš",
+            "de": "**Nachts beim Gehen: Good night**\n- Good night, Mrs Birkett! · Gute Nacht, Mrs Birkett!\n- Good evening, wenn du kommst",
+            "it": "**Andando via di notte: Good night**\n- Good night, Mrs Birkett! · Buonanotte, signora Birkett!\n- Good evening quando arrivi",
+            "en": "**Leaving at night: Good night**\n- Good night, Mrs Birkett!\n- Good evening when you come in"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**Hello!** · **Hi!** (prijateljem) · **Good morning** · **Good afternoon** · **Good evening**\n\n**I'm Jack.** · **My name's Jack.** · **What's your name?** · **And you?**\n\n**you** za vsakogar; vljudno: **Mr**, **Mrs**, **Ms** + priimek. **This is Jack. He's a shepherd.** · **She's the teacher.** · **Nice to meet you.**\n\n**How are you?** — **Fine, thanks.** · **Goodbye!** · **See you!** · **Good night!** (samo ob odhodu)",
+      "de": "**Hello!** · **Hi!** (zu Freunden) · **Good morning** · **Good afternoon** · **Good evening**\n\n**I'm Jack.** · **My name's Jack.** · **What's your name?** · **And you?**\n\n**you** für alle; höflich: **Mr**, **Mrs**, **Ms** + Nachname. **This is Jack. He's a shepherd.** · **She's the teacher.** · **Nice to meet you.**\n\n**How are you?** — **Fine, thanks.** · **Goodbye!** · **See you!** · **Good night!** (nur beim Gehen)",
+      "it": "**Hello!** · **Hi!** (agli amici) · **Good morning** · **Good afternoon** · **Good evening**\n\n**I'm Jack.** · **My name's Jack.** · **What's your name?** · **And you?**\n\n**you** per tutti; gentile: **Mr**, **Mrs**, **Ms** + cognome. **This is Jack. He's a shepherd.** · **She's the teacher.** · **Nice to meet you.**\n\n**How are you?** — **Fine, thanks.** · **Goodbye!** · **See you!** · **Good night!** (solo quando vai via)",
+      "en": "**Hello!** · **Hi!** (friends) · **Good morning** · **Good afternoon** · **Good evening**\n\n**I'm Jack.** · **My name's Jack.** · **What's your name?** · **And you?**\n\n**you** for everyone; polite: **Mr**, **Mrs**, **Ms** + the surname. **This is Jack. He's a shepherd.** · **She's the teacher.** · **Nice to meet you.**\n\n**How are you?** — **Fine, thanks.** · **Goodbye!** · **See you!** · **Good night!** (only when you leave)"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "hello-1",
+      "title": {
+        "sl": "Hello or goodbye? Pozdrav ali slovo",
+        "de": "Hello or goodbye? Gruß oder Abschied",
+        "it": "Hello or goodbye? Saluto o congedo",
+        "en": "Hello or goodbye?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "pronouns",
+          "instruction": {
+            "sl": "Sort · Pozdrav ali slovo?",
+            "de": "Sort · Gruß oder Abschied?",
+            "it": "Sort · Saluto o congedo?",
+            "en": "Sort · Hello or goodbye?"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "hello · ob prihodu",
+                "de": "hello · beim Kommen",
+                "it": "hello · quando arrivi",
+                "en": "hello · when you come"
+              },
+              "words": ["Hi!", "Good morning!", "Good evening!", "Hello!", "Good afternoon!"]
+            },
+            {
+              "label": {
+                "sl": "goodbye · ob odhodu",
+                "de": "goodbye · beim Gehen",
+                "it": "goodbye · quando vai via",
+                "en": "goodbye · when you go"
+              },
+              "words": ["Bye!", "Goodbye!", "See you!", "Good night!", "See you tomorrow!"]
+            }
+          ],
+          "explain": {
+            "sl": "**Good night samo ob odhodu**\n- Good evening! · ko prideš\n- Good night! · ko greš",
+            "de": "**Good night nur beim Gehen**\n- Good evening! · wenn du kommst\n- Good night! · wenn du gehst",
+            "it": "**Good night solo quando vai via**\n- Good evening! · quando arrivi\n- Good night! · quando vai via",
+            "en": "**Good night only when you leave**\n- Good evening! · when you come\n- Good night! · when you go"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronouns",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "What's your name? — ___",
+          "options": ["I'm Jack.", "I Jack.", "Am Jack."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**I'm + ime: I je vedno zraven**\n- I'm Jack. · My name's Jack.",
+            "de": "**I'm + Name: das I steht immer**\n- I'm Jack. · My name's Jack.",
+            "it": "**I'm + nome: I c'è sempre**\n- I'm Jack. · My name's Jack.",
+            "en": "**I'm + the name: the I always there**\n- I'm Jack. · My name's Jack."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronouns",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Nice to meet you! — ___",
+          "options": ["Nice to meet you too.", "Good night.", "I'm fine."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Odgovor: Nice to meet you too.**\n- Nice to meet you too. · Tudi mene veseli.",
+            "de": "**Die Antwort: Nice to meet you too.**\n- Nice to meet you too. · Freut mich auch.",
+            "it": "**La risposta: Nice to meet you too.**\n- Nice to meet you too. · Piacere mio.",
+            "en": "**The answer: Nice to meet you too.**\n- Nice to meet you too. · Me too"
+          }
+        },
+        {
+          "type": "choice",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": {
+            "sl": "Kovaču, gospodu Dixonu, popoldne:",
+            "de": "Zum Schmied, Mr Dixon, am Nachmittag:",
+            "it": "Al fabbro, il signor Dixon, di pomeriggio:",
+            "en": "To the blacksmith, Mr Dixon, in the afternoon:"
+          },
+          "options": ["Good afternoon, Mr Dixon.", "Good afternoon, Dixon.", "Good afternoon, Mrs Dixon."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vljudno: Mr + priimek**\n- Good afternoon, Mr Dixon.",
+            "de": "**Höflich: Mr + Nachname**\n- Good afternoon, Mr Dixon.",
+            "it": "**Gentile: Mr + cognome**\n- Good afternoon, Mr Dixon.",
+            "en": "**Polite: Mr + the surname**\n- Good afternoon, Mr Dixon."
+          }
+        }
+      ]
+    },
+    {
+      "id": "hello-2",
+      "title": {
+        "sl": "At the Packhorse Inn · V gostilni Packhorse",
+        "de": "At the Packhorse Inn · Im Packhorse Inn",
+        "it": "At the Packhorse Inn · Al Packhorse Inn",
+        "en": "At the Packhorse Inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "pronouns",
+          "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+          "text": "Good ___, {learner}! Welcome to the Packhorse Inn. I'm Mrs Birkett. — Hello, Mrs Birkett. Nice to ___ you. — And this ___ Jack. He's a shepherd. — Hi, Jack! How ___ you? — Fine, ___. And you?",
+          "gaps": [
+            {
+              "accept": ["evening", "morning", "afternoon"],
+              "hint": { "sl": "čas dneva", "de": "die Tageszeit", "it": "il momento del giorno", "en": "the time of day" }
+            },
+            {
+              "accept": ["meet"],
+              "hint": {
+                "sl": "vljudni odgovor, ko koga spoznaš",
+                "de": "die höfliche Antwort beim Kennenlernen",
+                "it": "la risposta gentile quando conosci qualcuno",
+                "en": "the polite answer to a new face"
+              }
+            },
+            { "accept": ["is"], "hint": "this … Jack" },
+            { "accept": ["are"], "hint": "you → ?" },
+            {
+              "accept": ["thanks", "thank you"],
+              "hint": { "sl": "hvaležen si", "de": "du bist dankbar", "it": "sei grato", "en": "you are grateful" }
+            }
+          ],
+          "bank": true,
+          "distractors": ["night", "am"],
+          "translation": {
+            "sl": "Dober večer, {learner}! Dobrodošli v gostilni Packhorse. Jaz sem gospa Birkett. — Pozdravljeni, gospa Birkett. Me veseli. — To pa je Jack. Pastir je. — Živjo, Jack! Kako si? — Dobro, hvala. Pa ti?",
+            "de": "Guten Abend, {learner}! Willkommen im Packhorse Inn. Ich bin Mrs Birkett. — Hallo, Mrs Birkett. Freut mich. — Und das ist Jack. Er ist Schäfer. — Hallo, Jack! Wie geht's? — Gut, danke. Und dir?",
+            "it": "Buonasera, {learner}! {m:Benvenuto|f:Benvenuta} al Packhorse Inn. Sono la signora Birkett. — Salve, signora Birkett. Piacere. — E questo è Jack. Fa il pastore. — Ciao, Jack! Come stai? — Bene, grazie. E tu?",
+            "en": "Good evening, {learner}! Welcome to the Packhorse Inn. I'm Mrs Birkett. — Hello, Mrs Birkett. Nice to meet you. — And this is Jack. He's a shepherd. — Hi, Jack! How are you? — Fine, thanks. And you?"
+          }
+        },
+        {
+          "type": "reorder",
+          "instruction": {
+            "sl": "Put in order · Postavi v pravi vrstni red",
+            "de": "Put in order · Bring in die richtige Reihenfolge",
+            "it": "Put in order · Metti in ordine",
+            "en": "Put in order"
+          },
+          "prompt": { "sl": "Kako ti je ime?", "de": "Wie heißt du?", "it": "Come ti chiami?", "en": "What's your name?" },
+          "tokens": ["your", "What's", "name?"],
+          "solutions": [["What's", "your", "name?"]],
+          "explain": {
+            "sl": "**What's + your name? (Kako ti je ime?)**",
+            "de": "**What's + your name? (Wie heißt du?)**",
+            "it": "**What's + your name? (Come ti chiami?)**",
+            "en": "**What's + your name?**"
+          }
+        },
+        {
+          "type": "reorder",
+          "instruction": {
+            "sl": "Put in order · Postavi v pravi vrstni red",
+            "de": "Put in order · Bring in die richtige Reihenfolge",
+            "it": "Put in order · Metti in ordine",
+            "en": "Put in order"
+          },
+          "prompt": { "sl": "Tudi mene veseli.", "de": "Freut mich auch.", "it": "Piacere mio.", "en": "Nice to meet you too." },
+          "tokens": ["meet", "Nice", "too.", "you", "to"],
+          "solutions": [["Nice", "to", "meet", "you", "too."]],
+          "explain": { "sl": "**too na koncu**", "de": "**too am Ende**", "it": "**too alla fine**", "en": "**too at the end**" }
+        }
+      ]
+    },
+    {
+      "id": "hello-3",
+      "title": {
+        "sl": "This is Jack · To je Jack",
+        "de": "This is Jack · Das ist Jack",
+        "it": "This is Jack · Questo è Jack",
+        "en": "This is Jack"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "pronouns",
+          "instruction": {
+            "sl": "Introduce · Predstavi",
+            "de": "Introduce · Stell vor",
+            "it": "Introduce · Presenta",
+            "en": "Introduce"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Jack · a shepherd",
+              "accept": ["This is Jack. He's a shepherd."],
+              "hint": { "sl": "moški: he", "de": "ein Mann: he", "it": "un uomo: he", "en": "a man: he" }
+            },
+            {
+              "from": "Mrs Birkett · the innkeeper",
+              "accept": ["This is Mrs Birkett. She's the innkeeper."],
+              "hint": { "sl": "ženska: she", "de": "eine Frau: she", "it": "una donna: she", "en": "a woman: she" }
+            },
+            { "from": "Mr Dixon · the blacksmith", "accept": ["This is Mr Dixon. He's the blacksmith."] },
+            { "from": "Mrs Hartley · the teacher", "accept": ["This is Mrs Hartley. She's the teacher."] },
+            { "from": "Sam · the brewer", "accept": ["This is Sam. He's the brewer."] }
+          ],
+          "explain": {
+            "sl": "**This is + ime. He's / She's …**\n- This is Jack. He's a shepherd. · To je Jack. Pastir je.\n- This is Mrs Birkett. She's the innkeeper. · To je gospa Birkett. Ona je gostilničarka.",
+            "de": "**This is + Name. He's / She's …**\n- This is Jack. He's a shepherd. · Das ist Jack. Er ist Schäfer.\n- This is Mrs Birkett. She's the innkeeper. · Das ist Mrs Birkett. Sie ist die Wirtin.",
+            "it": "**This is + nome. He's / She's …**\n- This is Jack. He's a shepherd. · Questo è Jack. Fa il pastore.\n- This is Mrs Birkett. She's the innkeeper. · Questa è la signora Birkett. È la locandiera.",
+            "en": "**This is + the name. He's / She's …**\n- This is Jack. He's a shepherd.\n- This is Mrs Birkett. She's the innkeeper."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "pronouns",
+          "instruction": {
+            "sl": "Say it another way · Povej drugače",
+            "de": "Say it another way · Sag es anders",
+            "it": "Say it another way · Dillo in un altro modo",
+            "en": "Say it another way"
+          },
+          "cue": "=",
+          "items": [
+            { "from": "I'm Sam.", "accept": ["My name's Sam.", "My name is Sam."] },
+            { "from": "My name's Edna.", "accept": ["I'm Edna."] },
+            { "from": "I'm Arthur.", "accept": ["My name's Arthur.", "My name is Arthur."] },
+            { "from": "My name's Wilf.", "accept": ["I'm Wilf."] }
+          ],
+          "explain": {
+            "sl": "**I'm Sam. = My name's Sam. (Sem Sam. = Ime mi je Sam.)**",
+            "de": "**I'm Sam. = My name's Sam. (Ich bin Sam. = Ich heiße Sam.)**",
+            "it": "**I'm Sam. = My name's Sam. (Sono Sam. = Mi chiamo Sam.)**",
+            "en": "**I'm Sam. = My name's Sam.**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "pronouns",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "Good ___, Mrs Hartley! — Good morning! What's your ___? — My name's {learner}. — Nice to meet you, {learner}. And this is Old Wilf. ___ the storyteller. — Hello, Wilf! How are you? — Very well, thank ___.",
+        "gaps": [
+          {
+            "accept": ["morning"],
+            "hint": {
+              "sl": "njen odgovor to pove",
+              "de": "ihre Antwort sagt es",
+              "it": "la sua risposta lo dice",
+              "en": "her answer says it"
+            }
+          },
+          { "accept": ["name"] },
+          {
+            "accept": ["He's"],
+            "hint": { "sl": "moški: he", "de": "ein Mann: he", "it": "un uomo: he", "en": "a man: he" }
+          },
+          { "accept": ["you"] }
+        ],
+        "translation": {
+          "sl": "Dobro jutro, gospa Hartley! — Dobro jutro! Kako ti je ime? — Ime mi je {learner}. — Me veseli, {learner}. To pa je stari Wilf. On je pripovedovalec. — Pozdravljeni, Wilf! Kako ste? — Zelo dobro, hvala.",
+          "de": "Guten Morgen, Mrs Hartley! — Guten Morgen! Wie heißt du? — Ich heiße {learner}. — Freut mich, {learner}. Und das ist der alte Wilf. Er ist der Geschichtenerzähler. — Hallo, Wilf! Wie geht es Ihnen? — Sehr gut, danke.",
+          "it": "Buongiorno, Mrs Hartley! — Buongiorno! Come ti chiami? — Mi chiamo {learner}. — Piacere, {learner}. E questo è il vecchio Wilf. È il cantastorie. — Salve, Wilf! Come sta? — Molto bene, grazie.",
+          "en": "Good morning, Mrs Hartley! — Good morning! What's your name? — My name's {learner}. — Nice to meet you, {learner}. And this is Old Wilf. He's the storyteller. — Hello, Wilf! How are you? — Very well, thank you."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "pronouns",
+        "instruction": {
+          "sl": "Introduce · Predstavi",
+          "de": "Introduce · Stell vor",
+          "it": "Introduce · Presenta",
+          "en": "Introduce"
+        },
+        "cue": "→",
+        "items": [
+          { "from": "Arthur · the beekeeper", "accept": ["This is Arthur. He's the beekeeper."] },
+          { "from": "Granny Maggie · a good cook", "accept": ["This is Granny Maggie. She's a good cook."] },
+          { "from": "Mr Tyson · the miller", "accept": ["This is Mr Tyson. He's the miller."] }
+        ],
+        "explain": {
+          "sl": "**This is + ime. He's / She's …**\n- This is Jack. He's a shepherd. · To je Jack. Pastir je.\n- This is Mrs Birkett. She's the innkeeper. · To je gospa Birkett. Ona je gostilničarka.",
+          "de": "**This is + Name. He's / She's …**\n- This is Jack. He's a shepherd. · Das ist Jack. Er ist Schäfer.\n- This is Mrs Birkett. She's the innkeeper. · Das ist Mrs Birkett. Sie ist die Wirtin.",
+          "it": "**This is + nome. He's / She's …**\n- This is Jack. He's a shepherd. · Questo è Jack. Fa il pastore.\n- This is Mrs Birkett. She's the innkeeper. · Questa è la signora Birkett. È la locandiera.",
+          "en": "**This is + the name. He's / She's …**\n- This is Jack. He's a shepherd.\n- This is Mrs Birkett. She's the innkeeper."
+        }
+      },
+      {
+        "type": "choice",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": {
+          "sl": "Pozno zvečer gre Sam domov:",
+          "de": "Spät am Abend geht Sam nach Hause:",
+          "it": "Tardi la sera, Sam va a casa:",
+          "en": "Late in the evening, Sam goes home:"
+        },
+        "options": ["Good night!", "Good evening!", "Good afternoon!"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Odhod ponoči: Good night**\n- Good night, Sam!",
+          "de": "**Nachts beim Gehen: Good night**\n- Good night, Sam!",
+          "it": "**Andando via di notte: Good night**\n- Good night, Sam!",
+          "en": "**Leaving at night: Good night**\n- Good night, Sam!"
+        }
+      },
+      {
+        "type": "choice",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": {
+          "sl": "Gospe Hartley, vljudno:",
+          "de": "Zu Mrs Hartley, höflich:",
+          "it": "A Mrs Hartley, con gentilezza:",
+          "en": "To Mrs Hartley, politely:"
+        },
+        "options": ["Good morning, Mrs Hartley.", "Hi, Hartley!", "Good morning, Mr Hartley."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Vljudno: Mrs + priimek, za žensko**\n- Good morning, Mrs Hartley.",
+          "de": "**Höflich: Mrs + Nachname, für eine Frau**\n- Good morning, Mrs Hartley.",
+          "it": "**Gentile: Mrs + cognome, per una donna**\n- Good morning, Mrs Hartley.",
+          "en": "**Polite: Mrs + the surname, for a woman**\n- Good morning, Mrs Hartley."
+        }
+      },
+      {
+        "type": "reorder",
+        "instruction": {
+          "sl": "Put in order · Postavi v pravi vrstni red",
+          "de": "Put in order · Bring in die richtige Reihenfolge",
+          "it": "Put in order · Metti in ordine",
+          "en": "Put in order"
+        },
+        "prompt": { "sl": "Kako si?", "de": "Wie geht's?", "it": "Come stai?", "en": "How are you?" },
+        "tokens": ["you?", "are", "How"],
+        "solutions": [["How", "are", "you?"]],
+        "explain": {
+          "sl": "**How are you? (Kako si?) — Fine, thanks.**",
+          "de": "**How are you? (Wie geht's?) — Fine, thanks.**",
+          "it": "**How are you? (Come stai?) — Fine, thanks.**",
+          "en": "**How are you? — Fine, thanks.**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: Good afternoon until about six, Ms and Miss, the inn's welcome in sl and it"
+}
