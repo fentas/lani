@@ -121,6 +121,14 @@ fun EmojiLabel(emoji: String, description: String, style: TextStyle = LocalTextS
 /** The TTS engine for exercise screens, so every prompt can offer read-aloud. */
 val LocalSpeaker = staticCompositionLocalOf<Speaker?> { null }
 
+/**
+ * The language the exercises on screen are in when it isn't the labels' (another language's review at home, ui/ReviewScreen;
+ * null: the labels' language): their 🔊, their listening prompts and what they play by themselves say it in it
+ * ([Speaker.sayIn]: a linked town of that language's clips through the node, its offline voice, Android's voice for it,
+ * else the note), with no re-record (the node records the learner's own language).
+ */
+val LocalSpeechLang = staticCompositionLocalOf<String?> { null }
+
 /** The letters a keyboard may lack, per language: Slovene's č š ž, Italian's accents, German's umlauts; none in English. */
 fun keyboardLetters(lang: Lang): List<String> = when (lang) {
     Lang.SL -> listOf("č", "š", "ž", "Č", "Š", "Ž")
@@ -149,13 +157,15 @@ fun DiacriticChips(value: TextFieldValue, onChange: (TextFieldValue) -> Unit, mo
  */
 class ReRecording internal constructor(
     private val speaker: Speaker, private val text: String, private val voiceName: String, private val fallback: String?, private val person: String?,
+    /** A line of another language than the labels' ([LocalSpeechLang]): it only plays, nothing is recorded again. */
+    private val foreign: Boolean = false,
 ) {
     var busy by mutableStateOf(false)
         private set
     var note by mutableStateOf<String?>(null)
 
     /** The node can record again (a 🔊 without that just plays). */
-    val can: Boolean get() = speaker.canReRecord
+    val can: Boolean get() = !foreign && speaker.canReRecord
 
     fun start() {
         if (busy) return
@@ -169,13 +179,13 @@ class ReRecording internal constructor(
 
     /** A tap played the line: the long press's tip, once. */
     fun tapped() {
-        if (!busy && speaker.reRecordTipOnce()) note = ReRecord.tip()
+        if (!busy && !foreign && speaker.reRecordTipOnce()) note = ReRecord.tip()
     }
 }
 
 @Composable
-fun rememberReRecording(speaker: Speaker, text: String, voiceName: String = Clips.FEMALE, fallback: String? = null, person: String? = null): ReRecording =
-    remember(speaker, text, voiceName, fallback, person) { ReRecording(speaker, text, voiceName, fallback, person) }
+fun rememberReRecording(speaker: Speaker, text: String, voiceName: String = Clips.FEMALE, fallback: String? = null, person: String? = null, foreign: Boolean = false): ReRecording =
+    remember(speaker, text, voiceName, fallback, person, foreign) { ReRecording(speaker, text, voiceName, fallback, person, foreign) }
 
 /** A tap does [onClick] and a long press records again ([r]); TalkBack gets the re-record as the action "Posnemi znova · Re-record". */
 fun Modifier.reRecordable(r: ReRecording, action: String, onClick: () -> Unit): Modifier = this
@@ -230,6 +240,8 @@ fun WordSpeakButton(speaker: Speaker, text: String, lang: String?, modifier: Mod
  */
 @Composable
 fun SpeakButton(speaker: Speaker, text: String, modifier: Modifier = Modifier, voiceName: String = Clips.FEMALE, fallback: String? = null, person: String? = null) {
+    // an exercise of another language (a review of its deck at home): said in it, as a word's card of it says it
+    LocalSpeechLang.current?.takeIf(speaker::foreign)?.let { return WordSpeakButton(speaker, text, it, modifier) }
     if (!speaker.canSay) return
     val r = rememberReRecording(speaker, text, voiceName, fallback, person)
     val action = bi("reRecord.action")
@@ -262,7 +274,9 @@ fun SayButton(
     speaker: Speaker, text: String, modifier: Modifier = Modifier, slow: Boolean = false, voiceName: String = Clips.FEMALE,
     tonal: Boolean = true, shape: Shape = ButtonDefaults.shape, content: @Composable () -> Unit,
 ) {
-    val r = rememberReRecording(speaker, text, voiceName)
+    // an exercise of another language (a review of its deck at home): said in it ([Speaker.sayIn]), never recorded again
+    val lang = LocalSpeechLang.current?.takeIf(speaker::foreign)
+    val r = rememberReRecording(speaker, text, voiceName, foreign = lang != null)
     val action = bi("reRecord.action")
     // the button fills what [modifier] gives it (a weight, a height), as a Button would
     Box(modifier, propagateMinConstraints = true) {
@@ -271,7 +285,7 @@ fun SayButton(
             color = if (tonal) MaterialTheme.colorScheme.secondaryContainer else Color.Transparent,
             contentColor = if (tonal) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.primary,
             border = if (tonal) null else BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-            modifier = Modifier.clip(shape).reRecordable(r, action) { speaker.say(text, slow = slow, voiceName = voiceName) },
+            modifier = Modifier.clip(shape).reRecordable(r, action) { if (lang != null) speaker.sayIn(text, lang, slow) else speaker.say(text, slow = slow, voiceName = voiceName) },
         ) {
             Box(Modifier.heightIn(min = ButtonDefaults.MinHeight).padding(ButtonDefaults.ContentPadding), contentAlignment = Alignment.Center) {
                 if (r.busy) CircularProgressIndicator(Modifier.size(24.dp).semantics { contentDescription = ReRecord.working() }, strokeWidth = 2.dp)

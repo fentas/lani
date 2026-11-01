@@ -476,14 +476,16 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
     val townProgress = si.lanisce.lani.app.TownProgressController(viewModelScope, node, notices)
 
     /**
-     * At home, a word of a town visited on its card is said in its language ([Speaker.sayIn]): the clips of a linked town of
-     * that language through the node, kept by town while the app runs; the towns' list loaded once when it isn't yet.
+     * At home, a word of a town visited on its card, and another language's review, are said in their language
+     * ([Speaker.sayIn]): the clips of a linked town of that language through the node, kept by town while the app runs; the
+     * towns' list loaded once when it isn't yet.
      */
     private val foreignClips = mutableMapOf<String, Clips>()
 
     private fun foreignClipsFor(lang: String): Clips? {
         val c = connected ?: return null
-        val list = towns.list ?: run { towns.load(); return null }
+        // asked while a screen is drawn too (another language's review): the list loaded once, not again while it loads
+        val list = towns.list ?: run { if (!towns.loading) towns.load(); return null }
         val town = list.towns.firstOrNull { it.language == lang } ?: return null
         return foreignClips.getOrPut(town.id) {
             Clips(getApplication(), viewModelScope, visit = true).also { v ->

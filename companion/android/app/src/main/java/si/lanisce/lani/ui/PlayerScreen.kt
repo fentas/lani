@@ -126,6 +126,7 @@ import si.lanisce.lani.ui.game.progressText
 import androidx.compose.ui.text.style.TextAlign
 import si.lanisce.lani.game.TurnMode
 import si.lanisce.lani.l10n.L10n
+import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.bi
 import si.lanisce.lani.l10n.inBase
 import si.lanisce.lani.l10n.inTarget
@@ -388,7 +389,9 @@ fun ExerciseRun(
     val look = rememberLook(vm, exercises.getOrNull(index), index, answered = outcome != null, known, language)
     if (index >= exercises.size || stopped) return
 
-    CompositionLocalProvider(LocalSpeaker provides vm.speaker, LocalVocabulary provides rememberVocabulary(vm), LocalStage provides stage, LocalLook provides look) {
+    // another language's exercises (its deck reviewed at home) are said in it, not in the village's voices
+    val speech = language?.takeIf(vm.speaker::foreign)
+    CompositionLocalProvider(LocalSpeaker provides vm.speaker, LocalVocabulary provides rememberVocabulary(vm), LocalStage provides stage, LocalLook provides look, LocalSpeechLang provides speech) {
     Column(Modifier.fillMaxSize().safeDrawingPadding().padding(horizontal = 20.dp, vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             TextButton(onClick = stop) { if (outcomes.isEmpty()) EmojiLabel("✕", Labels.CLOSE) else Text(bi("playerScreen.done")) }
@@ -784,8 +787,9 @@ internal fun Prompt(main: String, instruction: String? = null, say: String? = nu
                 tag = "prompt",
             )
             val speaker = LocalSpeaker.current
+            val lang = LocalSpeechLang.current
             // Not a sentence with a gap ("Midva ______ iz Trnovega."): the feedback plays it whole.
-            val spoken = say ?: main.takeIf { "__" !in it && speaker?.isSlovene(it) == true }
+            val spoken = say ?: main.takeIf { "__" !in it && speaker?.looksIn(it, lang) == true }
             if (spoken != null && speaker != null) SpeakButton(speaker, spoken, Modifier.padding(start = 8.dp))
         }
     }
@@ -797,14 +801,18 @@ internal fun Prompt(main: String, instruction: String? = null, say: String? = nu
 internal fun heardVoice(stage: StageState?, speaker: si.lanisce.lani.data.Speaker, text: String): String =
     stage?.voice?.takeIf { speaker.isSlovene(text) } ?: Clips.FEMALE
 
-/** Audio-only prompt: the Slovene is heard, never shown (unless no voice is installed). */
+/**
+ * Audio-only prompt: the Slovene is heard, never shown (unless no voice is installed). Another language's ([LocalSpeechLang])
+ * in its own ([Speaker.sayIn]), with the narrator's voice: the companion's is the village's language's.
+ */
 @Composable
 internal fun AudioPrompt(text: String) {
     val speaker = LocalSpeaker.current
-    if (speaker?.canSay == true) {
+    val lang = LocalSpeechLang.current
+    if (speaker?.canSayIn(lang) == true) {
         // On the stage, the companion reads it (their voice's clip, else text-to-speech).
-        val voice = heardVoice(LocalStage.current, speaker, text)
-        LaunchedEffect(text) { speaker.say(text, voiceName = voice) }
+        val voice = if (lang != null) Clips.FEMALE else heardVoice(LocalStage.current, speaker, text)
+        LaunchedEffect(text) { speaker.sayIn(text, lang, voiceName = voice) }
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             // a long press on either records the line again (a word heard wrong)
             SayButton(speaker, text, Modifier.weight(1f).heightIn(min = 88.dp), voiceName = voice, shape = MaterialTheme.shapes.large) {
@@ -833,8 +841,9 @@ internal fun AudioPrompt(text: String) {
 @Composable
 private fun FlashcardEx(vm: AppViewModel, ex: Exercise.Flashcard, locked: Boolean, done: (Outcome) -> Unit) {
     var shown by remember { mutableStateOf(false) }
-    val voice = LocalStage.current?.voice ?: Clips.FEMALE
-    LaunchedEffect(Unit) { if (ex.speak) vm.speaker.say(ex.front, voiceName = voice) }
+    val lang = LocalSpeechLang.current
+    val voice = LocalStage.current?.voice?.takeIf { lang == null } ?: Clips.FEMALE
+    LaunchedEffect(Unit) { if (ex.speak) vm.speaker.sayIn(ex.front, lang, voiceName = voice) }
     val look = LocalLook.current
     ElevatedCard(onClick = { shown = true }, modifier = Modifier.fillMaxWidth().heightIn(min = 200.dp)) {
         Column(Modifier.padding(24.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -940,11 +949,14 @@ private fun ChoiceEx(
  */
 @Composable
 private fun speakableOptions(options: List<String>, sayOptions: Boolean): List<Boolean>? {
-    val speaker = LocalSpeaker.current?.takeIf { it.canSay } ?: return null
-    return remember(options, sayOptions) {
-        val each = options.map { sayOptions || speaker.isSlovene(unpictured(it)) }
+    // another language's exercise ([LocalSpeechLang]): its options in it, said in it
+    val lang = LocalSpeechLang.current
+    val speaker = LocalSpeaker.current?.takeIf { lang != null || it.canSay } ?: return null
+    return remember(options, sayOptions, lang) {
+        val each = options.map { sayOptions || speaker.looksIn(unpictured(it), lang) }
         val pair = L10n.pair
-        if (true in each && options.none { Spoken.looks(unpictured(it), pair.base, pair.target) }) each.map { true } else each
+        val said = lang?.let { Lang.of(it) } ?: pair.target
+        if (true in each && options.none { Spoken.looks(unpictured(it), pair.base, said) }) each.map { true } else each
     }.takeIf { true in it }
 }
 
@@ -1035,7 +1047,8 @@ internal fun multiCheckLabel(n: Int): String = if (n <= 0) bi("playerScreen.none
 
 @Composable
 private fun ScenarioEx(vm: AppViewModel, ex: Exercise.Scenario, locked: Boolean, done: (Outcome) -> Unit) {
-    LaunchedEffect(Unit) { ex.line?.let(vm.speaker::say) }
+    val lang = LocalSpeechLang.current
+    LaunchedEffect(Unit) { ex.line?.let { vm.speaker.sayIn(it, lang) } }
     val look = LocalLook.current
     Surface(color = MaterialTheme.colorScheme.tertiaryContainer, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(18.dp)) {

@@ -399,12 +399,14 @@ fun SpeakEx(vm: AppViewModel, ex: Exercise.Speak, locked: Boolean, done: (Outcom
 @Composable
 private fun Model(vm: AppViewModel, say: String, autoplay: Boolean, below: @Composable () -> Unit = {}) {
     val speaker = vm.speaker
-    if (autoplay) LaunchedEffect(say) { speaker.say(say) }
+    // another language's exercise ([LocalSpeechLang]): said in it
+    val lang = LocalSpeechLang.current
+    if (autoplay) LaunchedEffect(say) { speaker.sayIn(say, lang) }
     val look = LocalLook.current
     Surface(color = MaterialTheme.colorScheme.surfaceVariant, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp)) {
             ExText(AnnotatedString(say), remember(say, look) { look?.taps?.model(say).orEmpty() }, style = MaterialTheme.typography.headlineSmall, tag = "model")
-            if (speaker.available) Row(Modifier.padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            if (if (lang != null) speaker.canSayIn(lang) else speaker.available) Row(Modifier.padding(top = 10.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 SayButton(speaker, say, Modifier.weight(1f)) { Text("🔊 ${bi("common.listen")}") }
                 SayButton(speaker, say, slow = true, tonal = false) { EmojiLabel("🐢", Labels.SLOW) }
             }

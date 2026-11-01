@@ -57,12 +57,14 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
     val started = remember { ScreenClock.app.now() }
     val home = language == null
     val tasks = remember(cards) {
-        // Another language's cards and distractors are its own; the voices and the recognizer are the village's
-        // language's, so its cards are read and answered in writing. A familiar word of the home language now and then
-        // asks one of its forms instead (companion/GAME.md, "A word's forms"); with QA's "forms" hook, every one does.
+        // Another language's cards and distractors are its own, and they are said in it (ExerciseRun's language: a linked
+        // town of it through the node, its offline voice, Android's voice for it); a listening question of it only when the
+        // phone itself can say it (the sound is the whole question), and the recognizer is the village's language's, so
+        // they are answered in writing. A familiar word of the home language now and then asks one of its forms instead
+        // (companion/GAME.md, "A word's forms"); with QA's "forms" hook, every one does.
         // a counting card's steps are typed once it is secure (QA's "counting:type": all of them)
         val planned = ReviewPlanner.plan(
-            cards, vm.content.deck(language)?.pool.orEmpty(), home && vm.speaker.canSay, canRecognize = home && vm.recognizer.ready,
+            cards, vm.content.deck(language)?.pool.orEmpty(), ReviewSpeech.of(vm.speaker, language).listen, canRecognize = home && vm.recognizer.ready,
             forms = if (home) vm.forms.questions() else null,
             formCap = if (si.lanisce.lani.app.QaHooks.forms) cards.size else maxOf(1, cards.size / si.lanisce.lani.game.WordForms.EVERY),
             typed = { c -> si.lanisce.lani.app.QaHooks.countingTyped || si.lanisce.lani.data.Counting.secure(c) },
@@ -70,7 +72,7 @@ fun ReviewScreen(vm: AppViewModel, cards: List<ReviewCard>, polish: Boolean = fa
             // "formscard:type": all of them); the home language's only
             formsCard = if (home) vm.formsCards.exercises() else null,
         )
-        if (home) planned else planned.map { it.copy(exercise = silent(it.exercise)) }
+        if (ReviewSpeech.of(vm.speaker, language).said) planned else planned.map { it.copy(exercise = silent(it.exercise)) }
     }
     var qualities by remember { mutableStateOf<List<Int>?>(null) }
     val stage = rememberStage(vm, Run.Review, greet = true)
@@ -149,7 +151,22 @@ internal fun baseQuality(t: ReviewPlanner.Task, o: Outcome): Int = when (val ex 
     else -> ReviewPlanner.quality(t.variant, o.verdict)
 }
 
-/** Another language's card without the village language's voice: nothing read aloud. */
+/**
+ * How a review's cards are heard: [listen], its listening questions may be planned (the sound is the whole question); [said],
+ * its cards are read aloud (else [silent]). The home language's as the speaker can say it; another language's ([of]'s
+ * language: its deck reviewed at home) said in it once anything can ([Speaker.canSayIn]: a linked town of it through the node,
+ * its offline voice, Android's voice for it), its listening questions only when the phone itself can say it
+ * ([Speaker.speaksOnPhone]: they must not hang on another town's node).
+ */
+internal data class ReviewSpeech(val listen: Boolean, val said: Boolean) {
+    companion object {
+        fun of(speaker: si.lanisce.lani.data.Speaker, language: String?): ReviewSpeech =
+            if (!speaker.foreign(language)) ReviewSpeech(speaker.canSay, true)
+            else ReviewSpeech(speaker.speaksOnPhone(language), speaker.canSayIn(language))
+    }
+}
+
+/** Another language's card when nothing can say that language (no town of it, no voice of it on the phone): nothing read aloud. */
 private fun silent(e: Exercise): Exercise = when (e) {
     is Exercise.Flashcard -> e.copy(speak = false)
     is Exercise.Choice -> e.copy(say = null, sayOptions = false)

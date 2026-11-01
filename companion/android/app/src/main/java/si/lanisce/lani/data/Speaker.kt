@@ -96,6 +96,45 @@ class Speaker(private val context: Context) {
     fun isSlovene(text: String): Boolean =
         clips?.has(text) == true || voice?.has(text) == true || L10n.pair.let { Spoken.looks(text, it.target, it.base) }
 
+    /**
+     * [lang] is another language than the labels' (another language's review at home): what is said in it goes through
+     * [sayIn]. False for null and for the labels' language.
+     */
+    fun foreign(lang: String?): Boolean = lang != null && lang != L10n.pair.target.code
+
+    /**
+     * Something can say [lang] ([sayIn]'s chain): a linked town of that language through the node ([foreignClips]), the
+     * offline voice of it, or Android's voice for it. In the labels' language (or null): [canSay].
+     */
+    fun canSayIn(lang: String?): Boolean =
+        if (!foreign(lang)) canSay else foreignClips?.invoke(lang!!)?.enabled == true || speaksOnPhone(lang)
+
+    /**
+     * The phone itself can say [lang], whatever the node can: its offline voice of it, or Android's voice for it. What a
+     * listening exercise of another language waits for (the sound is the whole question: it must not hang on another
+     * town's node). In the labels' language (or null): Android's voice or the offline voice of it.
+     */
+    fun speaksOnPhone(lang: String?): Boolean {
+        if (!foreign(lang)) return available || offline?.speaks(L10n.pair.target.code) == true
+        return offline?.speaksIn(lang!!) == true || ttsHas(lang!!)
+    }
+
+    /** Android's text-to-speech has a voice for [lang] (QA's "audio:tts:off": none). */
+    private fun ttsHas(lang: String): Boolean {
+        val loc = Lang.of(lang)?.let { locale(it) } ?: return false
+        return ready && !qaNoTts && runCatching { tts.isLanguageAvailable(loc) >= TextToSpeech.LANG_AVAILABLE }.getOrDefault(false)
+    }
+
+    /**
+     * Worth a 🔊 in [lang] ([isSlovene] for the labels' language): another language's text that its town's clips have, or
+     * that reads as [lang] rather than the learner's base.
+     */
+    fun looksIn(text: String, lang: String?): Boolean {
+        if (!foreign(lang)) return isSlovene(text)
+        val l = Lang.of(lang!!) ?: return false
+        return foreignClips?.invoke(lang)?.has(text) == true || Spoken.looks(text, l, L10n.pair.base)
+    }
+
     /** Bumped by every say/stop, so a clip that arrives late doesn't talk over what came next. */
     private var turn = 0
 
@@ -341,9 +380,10 @@ class Speaker(private val context: Context) {
 
     /**
      * [text] in [lang], its own language: as [say] when it is the language the labels show (at home the learner's, on a
-     * visit the town's), else (a word of a visited town on its card at home) through [foreignClips] (a linked town of that
-     * language: its clip, else its cast's voice on the node), then the offline voice of [lang], then Android's voice for
-     * it; else [onSilentIn]. Never in the clips or the voice of another language. No pitch and pace: a word, not a person.
+     * visit the town's), else (a word of a visited town on its card at home, the exercises of another language's review at
+     * home: ui/Components.kt [si.lanisce.lani.ui.LocalSpeechLang]) through [foreignClips] (a linked town of that language:
+     * its clip, else its cast's voice on the node), then the offline voice of [lang], then Android's voice for it; else
+     * [onSilentIn]. Never in the clips or the voice of another language. No pitch and pace: a word, not a person.
      */
     fun sayIn(text: String, lang: String?, slow: Boolean = false, voiceName: String = Clips.FEMALE) {
         if (lang == null || lang == L10n.pair.target.code) return say(text, slow, voiceName)
@@ -354,6 +394,7 @@ class Speaker(private val context: Context) {
         if (ready) tts.stop()
         val v = voice
         v?.stop()
+        if (BuildConfig.QA) Log.i(TAG, "sayIn $lang «${Voice.normalize(text)}»")
         val c = foreignClips?.invoke(lang)
         val voices = Clips.chain(voiceName)
         val local = c?.onDevice(text, voices.take(1))
