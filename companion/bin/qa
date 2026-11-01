@@ -8890,7 +8890,7 @@ def guidance_home():
 def friuli_talk():
     """Teo's free talk in Italian (docs/plans/05-built/scenarios-it.md): a synthetic Teo (LANI_DEV_DATA: make-learner.ts
     --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de, LANI_QA_LEARNER=Teo),
-    the app in it · de. Home's "🗣️ Parla · Sprechen" into the role-plays: the Italian ones the dev bridge serves, their
+    the app in it · de. Home's "🗣️ Conversazione · Gespräch" into the role-plays: the Italian ones the dev bridge serves, their
     titles in Italian and German, none of Jan's Slovene ones; "Al mercato" (another with $LANI_QA_TALK): its intro (the
     setting in German, the goals in it · de), "Inizia · Starten", the opener in Italian; a line typed and sent, the canned
     tutor's answer in Italian (test/dev-bridge.ts), never Slovene; a hint, the scenario's own phrase; a second line (the

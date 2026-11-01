@@ -220,9 +220,9 @@ export default async function friuli() {
     check('friuli: GET /scenarios serves the 9 Italian role-plays, and nothing else', itFiles.length === 9 && scenarios.length === 9 && itFiles.every(f => scenarios.some((s: any) => `${s.id}.json` === f && s.language === 'it' && s.audience === 'child' && s.source === 'curated')), scenarios.map((s: any) => s.id))
     const mercato = scenarios.find((s: any) => s.id === 'al-mercato')
     check(
-      "friuli: a role-play's title and goals in the child's pair, its setting and meanings in Slovene, its lines Italian",
+      "friuli: a role-play's title and goals in the child's pair, its setting and meanings in Slovene, its lines Italian, its place the square",
       mercato?.title === 'Al mercato · Na tržnici' && mercato.goals[0] === 'Saluta la signora · Pozdravi prodajalko' && mercato.who === 'La fruttivendola · Prodajalka sadja' && mercato.setting.startsWith('Sobotno jutro na tržnici v Krminu') &&
-        mercato.opener_sl.startsWith('Buongiorno!') && mercato.opener_en.startsWith('Dobro jutro!') && mercato.vocabulary_hints.some((h: any) => h.sl === 'Quanto costa?' && h.en === 'Koliko stane?') && /machine-written/.test(mercato.review),
+        mercato.opener_sl.startsWith('Buongiorno!') && mercato.opener_en.startsWith('Dobro jutro!') && mercato.vocabulary_hints.some((h: any) => h.sl === 'Quanto costa?' && h.en === 'Koliko stane?') && /machine-written/.test(mercato.review) && mercato.place === 'square',
       mercato,
     )
     const one = await (await fetch(`${base}/scenarios/dal-pediatra`, { headers: auth })).json()
