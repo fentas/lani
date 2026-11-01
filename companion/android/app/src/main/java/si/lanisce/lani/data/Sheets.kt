@@ -26,6 +26,8 @@ data class SheetItem(
     val person: String? = null,
     val left: Map<String, String> = emptyMap(),
     val wrong: List<String> = emptyList(),
+    /** What a native speaker says beside [accept] (bojo for bodo): right, labelled with the standard one, never shown as the answer. */
+    val spoken: List<String> = emptyList(),
 ) {
     /** [frame] with [answer] in its gap. */
     fun said(answer: String): String = frame.replaceFirst(Sheets.BLANK, answer.trim())
@@ -44,6 +46,8 @@ data class ItemMark(
     val marks: List<IntRange> = emptyList(),
     val hinted: Boolean = false,
     val lookedUp: Boolean = false,
+    /** The standard form, when the answer was a spoken one ([SheetItem.spoken]): right, and labelled so ("🗣️ … knjižno: bodo"). */
+    val standard: String? = null,
 ) {
     /** What it pays as: a right one after its hint as an almost. */
     val paid: Verdict get() = Hints.paid(verdict, if (hinted) 1 else 0)
@@ -103,7 +107,7 @@ object Sheets {
                 val before = buildString { for (k in 0..i) { append(p.getOrElse(k) { "" }); if (k < i) append(others[k] ?: BLANK) } }
                 val whole = filled(ex, others.mapIndexed { j, a -> if (j == i) MARK else a })
                 val frame = sentenceAt(whole, before.length).replace(MARK, BLANK)
-                SheetItem(g.accept, g.grammar ?: ex.grammar, g.hint, g.explain, frame, wrong = ex.distractors)
+                SheetItem(g.accept, g.grammar ?: ex.grammar, g.hint, g.explain, frame, wrong = ex.distractors, spoken = g.spoken)
             }
         }
         is Exercise.Table -> ex.rows.flatMap { row ->
@@ -111,7 +115,7 @@ object Sheets {
                 if (!cell.toFill) return@mapIndexedNotNull null
                 val column = ex.columns.getOrNull(c)?.takeIf { ex.columns.size > 1 }
                 val frame = "${row.label}: $BLANK" + (column?.let { " ($it)" } ?: "")
-                SheetItem(cell.accept, cell.grammar ?: ex.grammar, cell.hint, cell.explain, frame, ex.lemma, cell.form)
+                SheetItem(cell.accept, cell.grammar ?: ex.grammar, cell.hint, cell.explain, frame, ex.lemma, cell.form, spoken = cell.spoken)
             }
         }
         is Exercise.Transform -> ex.items.map { line ->
@@ -120,6 +124,7 @@ object Sheets {
                 line.accept + without.map { it.answer }, line.grammar ?: ex.grammar, line.hint, line.explain, BLANK, line.lemma, line.form,
                 person = without.firstOrNull()?.let { person(line.from) },
                 left = without.filter { it.dropped }.associate { Grading.normalize(it.answer, lang) to it.whole },
+                spoken = line.spoken,
             )
         }
         is Exercise.Sort -> ex.columns.flatMap { col -> col.words.map { w -> SheetItem(listOf(col.label), ex.grammar, frame = "$w → $BLANK") } }
@@ -240,6 +245,17 @@ object Sheets {
 
     /** A typed item checked as the app checks a cloze ([Grading.check]). */
     fun check(item: SheetItem, answer: String, lang: Lang = L10n.pair.target): ItemMark {
+        // a spoken form (bojo for bodo) is right, never a mistake: labelled with the standard one, which stays the answer
+        if (item.spoken.isNotEmpty() && item.accept.isNotEmpty()) {
+            val a = Grading.canonical(answer, lang)
+            if (item.accept.none { Grading.canonical(it, lang) == a }) {
+                val s = Grading.check(answer, item.spoken, lang)
+                val offered = item.wrong.any { Grading.canonical(it, lang) == a }
+                if (s.verdict == Verdict.CORRECT || (s.verdict == Verdict.ALMOST && !offered)) {
+                    return ItemMark(s.verdict, answer.trim(), s.expected, s.hint, s.marks, standard = item.accept.first())
+                }
+            }
+        }
         val r = Grading.check(answer, item.accept, lang)
         // a distractor is a wrong form the sheet offers on purpose (pesom for psom: the e that drops; sedli, sesti's, for
         // sedeli: the other aspect), so picked or typed it is wrong, never a slip in the stem forgiven as almost

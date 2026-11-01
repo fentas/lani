@@ -20,6 +20,7 @@ how to write units.
 - [Worksheets and the test](#worksheets-and-the-test)
 - [Texts in the learner's language](#texts-in-the-learners-language)
 - [The school's exercise types](#the-schools-exercise-types)
+- [Spoken forms](#spoken-forms)
 - [Homework (lani.worksheet/v0)](#homework-laniworksheetv0)
 - [The learner's progress](#the-learners-progress)
 - [Writing a unit](#writing-a-unit)
@@ -318,8 +319,8 @@ them once every phone has an app that plays them.
 ```
 
 - `text`: a few sentences (at most 600 characters), each gap `___` (three underscores or more); 2–12 gaps.
-- `gaps`: one per `___`, in order: `accept` (the right answers, the first shown as the correction), `hint`, `explain`,
-  `grammar`.
+- `gaps`: one per `___`, in order: `accept` (the right answers, the first shown as the correction), `spoken` (what a
+  native speaker says too: right and labelled, [Spoken forms](#spoken-forms)), `hint`, `explain`, `grammar`.
 - `bank` (default false): a word bank under the text, each gap's first answer, shuffled, plus `distractors` (0–6, only
   with a bank). A word of the bank is tapped into the gap being filled; typing works too. A distractor is a wrong form on
   purpose (`pesom` for `psom`, the e that drops; `sedli`, sesti's, for `sedeli`, the other aspect), so tapped or typed it
@@ -348,8 +349,8 @@ them once every phone has an app that plays them.
 
 - `columns`: 1–4 headings; `rows`: 1–12, each a `label` (jaz, ti …; or a case with its question, "1. kdo? kaj?") and one
   cell per column.
-- A cell is given (a string, shown as it is; "—" for none) or to fill (`{"accept": [...], "hint", "explain", "grammar",
-  "form"}`); at least one to fill.
+- A cell is given (a string, shown as it is; "—" for none) or to fill (`{"accept": [...], "spoken", "hint", "explain",
+  "grammar", "form"}`); at least one to fill.
 - `lemma` and a cell's `form` (the forms book's key: `pres.1sg`, `neg.3pl`, `past.f.sg`, `loc.sg` …): the form practised
   is the learner's word's too, and a wrong one comes back first in its review (GAME.md, "A word's forms").
 - Graded cell by cell; the grammar page's table is one tap away (📖).
@@ -371,8 +372,8 @@ them once every phone has an app that plays them.
 
 - `instruction`: the one instruction for the whole list ("Postavi v preteklik · Put it in the past", "V množino · Into the
   plural"); `cue` (optional): shown between each line and its answer ("(preteklik)").
-- `items`: 2–12, each `from` (what is given), `accept` (the whole answer: a sentence or a word), `hint`, `explain`,
-  `grammar`, and `lemma`/`form` as in a table.
+- `items`: 2–12, each `from` (what is given), `accept` (the whole answer: a sentence or a word), `spoken`, `hint`,
+  `explain`, `grammar`, and `lemma`/`form` as in a table.
 - Each line typed whole, graded on its own.
 - **The person in brackets may be left out** (Slovene and Italian drop the subject; the language's grading table,
   `drop_subject`): when a line has no subject of its own and its answer begins with the person in brackets
@@ -402,6 +403,30 @@ them once every phone has an app that plays them.
 
 - `columns`: 2–4, each a `label` and the `words` that belong there (1–12); 4–16 words in all, none twice.
 - Played by tap: a word, then its column (a word placed can be taken back); "Preveri · Check" marks each word.
+
+### Spoken forms
+
+Jan's household: the learner's wife is a native speaker and says what people say (*bojo* for *bodo*, *gremo* for
+*pojdimo*, *a si* for *ali si*). A spoken form is never a mistake. A gap, a table's cell to fill and a transform's line
+take `spoken`: the forms a native speaker says beside the standard answer, 1–8 of them, in the language learned.
+
+```json
+{ "accept": ["bodo"], "spoken": ["bojo"], "hint": "oni → ?" }
+```
+
+- Typed or tapped, a spoken form is right (✓, it pays as right) and labelled under it: "🗣️ Pogovorno, prav tako prav;
+  knjižno: bodo · Spoken, and right too; the standard form: bodo" (`Sheets.check`, `ItemMark.standard`; the case
+  trainer's label). A spoken form a č short is almost, labelled the same.
+- The standard form (`accept`'s first) stays the answer: the correction of a wrong answer, the sentence said right, the
+  printed sheets. A spoken form is never in `accept`, never a distractor (the bridge refuses one), never a choice's wrong
+  or `almost` option.
+- Write the spoken forms of a line whole: a transform line that changes two spoken words (*A si že jedu?* → *Ali si že
+  jedel?*) lists each mix a learner may write (*A si že jedel?*, *Ali si že jedu?*), so a half-standard answer is right
+  too.
+- Name them in the intro or the page as well, standard against spoken (*bodo*, spoken *bojo*), so the learner knows
+  both. The unit `govorjeni-jezik` (B2) teaches recognising spoken Slovene and marks no spoken form wrong.
+- An older bridge refuses the key (the sheets are strict objects): a unit with `spoken` goes out after the bridge.
+  `CourseContentTest` grades every spoken form right with the standard one as its label.
 
 ## Homework (lani.worksheet/v0)
 

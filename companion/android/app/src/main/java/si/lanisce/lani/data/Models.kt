@@ -422,9 +422,18 @@ data class CountStep(
     val forms: List<String> = emptyList(),
 )
 
-/** A gap of a [Exercise.GapText]: what's right (the first shown as the correction), its hint, why, and its own rule. */
+/**
+ * A gap of a [Exercise.GapText]: what's right (the first shown as the correction), what a native speaker says beside it
+ * ([spoken]: right too and labelled, never shown as the answer; COURSE.md "Spoken forms"), its hint, why, and its own rule.
+ */
 @Serializable
-data class Gap(val accept: List<String>, val hint: String? = null, val explain: String? = null, val grammar: String? = null)
+data class Gap(
+    val accept: List<String>,
+    val hint: String? = null,
+    val explain: String? = null,
+    val grammar: String? = null,
+    val spoken: List<String> = emptyList(),
+)
 
 /** A row of a [Exercise.Table]: its [label] (jaz, ti …; "1. kdo? kaj?") and a cell per column. */
 @Serializable
@@ -443,6 +452,7 @@ data class TableCell(
     val explain: String? = null,
     val grammar: String? = null,
     val form: String? = null,
+    val spoken: List<String> = emptyList(),
 ) {
     val toFill: Boolean get() = given == null
 }
@@ -459,6 +469,7 @@ object TableCellSerializer : kotlinx.serialization.KSerializer<TableCell> {
         return TableCell(
             accept = (o["accept"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull },
             hint = s("hint"), explain = s("explain"), grammar = s("grammar"), form = s("form"),
+            spoken = (o["spoken"] as? JsonArray).orEmpty().mapNotNull { (it as? JsonPrimitive)?.contentOrNull },
         )
     }
 
@@ -471,6 +482,7 @@ object TableCellSerializer : kotlinx.serialization.KSerializer<TableCell> {
             value.explain?.let { put("explain", JsonPrimitive(it)) }
             value.grammar?.let { put("grammar", JsonPrimitive(it)) }
             value.form?.let { put("form", JsonPrimitive(it)) }
+            if (value.spoken.isNotEmpty()) put("spoken", JsonArray(value.spoken.map(::JsonPrimitive)))
         })
     }
 }
@@ -485,6 +497,7 @@ data class TransformLine(
     val grammar: String? = null,
     val lemma: String? = null,
     val form: String? = null,
+    val spoken: List<String> = emptyList(),
 )
 
 /** A column of a [Exercise.Sort]: its [label] and the [words] that belong there. */

@@ -305,12 +305,26 @@ private fun ItemCorrection(
     item: SheetItem?, mark: ItemMark, modifier: Modifier = Modifier, withWhy: Boolean = true,
     style: TextStyle = MaterialTheme.typography.bodyLarge,
 ) {
-    if (mark.verdict == Verdict.CORRECT) return
+    if (mark.verdict == Verdict.CORRECT) return SpokenNote(mark, modifier)
     val (expected, optional) = remember(item, mark) { item?.let { Sheets.shown(it, mark) } ?: (mark.expected to 0) }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
         AnswerDiffText(mark.answer, expected, mark.verdict, optional = optional, style = style)
         if (withWhy) ItemSlip(item, mark)
+        SpokenNote(mark)
     }
+}
+
+/**
+ * A spoken form answered ([ItemMark.standard]: bojo for bodo): right, never a mistake, labelled with the standard form
+ * ("🗣️ Pogovorno, prav tako prav; knjižno: bodo"; COURSE.md "Spoken forms"). Nothing for any other answer.
+ */
+@Composable
+private fun SpokenNote(mark: ItemMark, modifier: Modifier = Modifier) {
+    val standard = mark.standard ?: return
+    Text(
+        "🗣️ ${bi("cases.spoken", "standard" to standard)}", style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = modifier,
+    )
 }
 
 /** Why item [item] ([mark]) isn't right: an almost's slip ("Pazi na strešice · Mind the č / š / ž"), a wrong one's own why. */
@@ -351,7 +365,7 @@ private fun GapCorrection(vm: AppViewModel, n: Int, item: SheetItem?, mark: Item
 @Composable
 private fun GapCorrections(vm: AppViewModel, gaps: List<Int>, items: List<SheetItem>, marks: List<ItemMark>?, first: FirstWrong) {
     marks ?: return
-    for (g in gaps) marks.getOrNull(g)?.takeIf { it.verdict != Verdict.CORRECT }?.let { mk ->
+    for (g in gaps) marks.getOrNull(g)?.takeIf { it.verdict != Verdict.CORRECT || it.standard != null }?.let { mk ->
         GapCorrection(vm, g + 1, items.getOrNull(g), mk, first.on(g, lead = 96.dp))
     }
 }
@@ -594,7 +608,7 @@ internal fun TransformEx(vm: AppViewModel, ex: Exercise.Transform, locked: Boole
                     )
                 }
                 // once checked, its correction right under its field (the arrow's room kept, unseen)
-                marks?.getOrNull(i)?.takeIf { mk -> mk.verdict != Verdict.CORRECT }?.let { mk ->
+                marks?.getOrNull(i)?.takeIf { mk -> mk.verdict != Verdict.CORRECT || mk.standard != null }?.let { mk ->
                     Row {
                         Text(
                             arrow, style = MaterialTheme.typography.bodyMedium,

@@ -52,8 +52,14 @@ export const gapsIn = (s: string) => s.match(GAP)?.length ?? 0
 
 // --- the school's exercise types ---------------------------------------------------------------------------------
 
-/** A gap of a gap text: the right answers (the first shown as the correction), its hint, why, and its own rule. */
-const gap = z.strictObject({ accept: z.array(text).min(1), hint: opt, explain: opt, grammar })
+/**
+ * What a native speaker says beside the standard answer (bojo for bodo, gremo for pojdimo): right, never a mistake, and
+ * labelled as spoken with the standard one (COURSE.md, "Spoken forms"); never shown as the answer, never a distractor.
+ */
+const spoken = z.array(z.string().trim().min(1).max(200)).min(1).max(8).optional()
+
+/** A gap of a gap text: the right answers (the first shown as the correction), the spoken ones, its hint, why, and its own rule. */
+const gap = z.strictObject({ accept: z.array(text).min(1), spoken, hint: opt, explain: opt, grammar })
 
 const gaptext = z
   .strictObject({
@@ -76,14 +82,14 @@ const gaptext = z
     if (n < 2 || n > 12) ctx.addIssue({ code: 'custom', path: ['text'], message: `${n} gap(s) (___); a gap text has 2 to 12` })
     if (n !== e.gaps.length) ctx.addIssue({ code: 'custom', path: ['gaps'], message: `${e.gaps.length} gaps for the ${n} ___ of the text: one per ___, in order` })
     if (e.distractors.length && !e.bank) ctx.addIssue({ code: 'custom', path: ['distractors'], message: 'distractors only with a word bank ("bank": true)' })
-    const right = new Set(e.gaps.flatMap(g => g.accept.map(same)))
+    const right = new Set(e.gaps.flatMap(g => [...g.accept, ...(g.spoken ?? [])].map(same)))
     e.distractors.forEach((d, i) => {
       if (right.has(same(d))) ctx.addIssue({ code: 'custom', path: ['distractors', i], message: `"${d}" is a right answer of a gap` })
     })
   })
 
-/** A cell to fill: the right answers, hint, why, its rule, and the forms book's key of its form. */
-const fill = z.strictObject({ accept: z.array(text).min(1), hint: opt, explain: opt, grammar, form: form.optional() })
+/** A cell to fill: the right answers, the spoken ones, hint, why, its rule, and the forms book's key of its form. */
+const fill = z.strictObject({ accept: z.array(text).min(1), spoken, hint: opt, explain: opt, grammar, form: form.optional() })
 
 const table = z
   .strictObject({
@@ -119,7 +125,7 @@ const transform = z.strictObject({
    */
   whole: z.boolean().optional(),
   items: z
-    .array(z.strictObject({ from: text, accept: z.array(text).min(1), hint: opt, explain: opt, grammar, lemma: opt, form: form.optional() }))
+    .array(z.strictObject({ from: text, accept: z.array(text).min(1), spoken, hint: opt, explain: opt, grammar, lemma: opt, form: form.optional() }))
     .min(2)
     .max(12),
   explain: opt,

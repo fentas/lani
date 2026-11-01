@@ -66,7 +66,17 @@ export default async function course() {
   // a list that asks for the whole sentence: its person in brackets written too (the app's grading, COURSE.md "transform")
   const whole = validateUnit(withSheet({ ...transform, whole: true }))
   check('a transform that asks for every word ("whole": true) validates', whole.ok, errors(whole))
+  // a native speaker's spoken forms beside the standard answer (COURSE.md "Spoken forms"): on a gap, a cell, a line
+  const spokenUnit = withSheet(
+    { ...gaptext, gaps: [{ ...gaptext.gaps[0], spoken: ['sm'] }, ...gaptext.gaps.slice(1)] },
+    { ...table, rows: [{ label: '1. oseba', cells: ['sem', { accept: ['smo'], spoken: ['smo mi'] }] }] },
+    { ...transform, items: [{ ...transform.items[0], spoken: ['Nisem doma, ne.'] }, ...transform.items.slice(1)] },
+  )
+  const spokenOk = validateUnit(spokenUnit)
+  check('spoken forms validate on a gap, a cell to fill and a transform line', spokenOk.ok, errors(spokenOk))
   const refused: [string, unknown, string?][] = [
+    ["a distractor that is a gap's spoken form", withSheet({ ...gaptext, gaps: [{ ...gaptext.gaps[0], spoken: ['bojo'] }, ...gaptext.gaps.slice(1)], distractors: ['Bojo'] }), 'is a right answer of a gap'],
+    ['a spoken form that is no text', withSheet({ ...gaptext, gaps: [{ ...gaptext.gaps[0], spoken: [''] }, ...gaptext.gaps.slice(1)] })],
     ['a gap text whose gaps are fewer than its ___', withSheet({ ...gaptext, gaps: gaptext.gaps.slice(0, 2) }), '2 gaps for the 3 ___'],
     ['distractors without a word bank', withSheet({ ...gaptext, bank: false }), 'only with a word bank'],
     ["a distractor that is a gap's answer", withSheet({ ...gaptext, distractors: ['Je'] }), 'is a right answer of a gap'],

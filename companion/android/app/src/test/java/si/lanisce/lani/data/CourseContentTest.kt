@@ -77,8 +77,16 @@ abstract class CourseContentChecks(
     }
 
     @Test fun `every right answer is graded right, and a word bank's distractors wrong for every gap`() {
-        fun right(where: String, item: SheetItem) = item.accept.forEach { a ->
-            assertEquals("$where: «$a» in «${item.frame}»", Verdict.CORRECT, Grading.check(a, item.accept, lang).verdict)
+        fun right(where: String, item: SheetItem) {
+            item.accept.forEach { a ->
+                assertEquals("$where: «$a» in «${item.frame}»", Verdict.CORRECT, Grading.check(a, item.accept, lang).verdict)
+            }
+            // a spoken form is right too, labelled with the standard answer (COURSE.md "Spoken forms"), never one of the distractors
+            item.spoken.forEach { s ->
+                val m = Sheets.check(item, s, lang)
+                assertEquals("$where: the spoken «$s» in «${item.frame}»", Verdict.CORRECT to item.accept.first(), m.verdict to (m.standard ?: m.expected))
+                assertTrue("$where: the spoken «$s» is a distractor", item.wrong.none { Grading.canonical(it, lang) == Grading.canonical(s, lang) })
+            }
         }
         // a distractor is a wrong form on purpose: as the sheet grades it (Sheets.check), never right and never almost,
         // though Grading alone forgives a slip in the stem (mestnik's ogenju for ognju, sklanjatev-posebnosti's pesom for

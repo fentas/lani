@@ -154,6 +154,13 @@ reads in their own language — `explain`, `hint`, `instruction`, `translation`,
 their base (companion/COURSE.md "Texts in the learner's language"; the Italian units write them so, for a learner from
 German). Modules keep plain strings.
 
+**Spoken forms are never wrong** (Jan's household: a native speaker says *bojo*, *gremo*, *a si*). A gap, a table's
+cell to fill and a transform's line take `spoken`: what a native speaker says beside the standard answer (1-8, in the
+language learned). Answered, it is right and labelled "🗣️ Pogovorno, prav tako prav; knjižno: <the standard>"; the
+standard (`accept`'s first) stays the correction and the sentence said right. Never put a spoken form in `accept`, among
+the `distractors` (refused) or as a choice's wrong option; list a line's mixes whole (*A si že jedel?* and *Ali si že
+jedu?* for *Ali si že jedel?*). companion/COURSE.md "Spoken forms".
+
 ### `gaptext` — a text with gaps
 ```json
 {

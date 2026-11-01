@@ -54,6 +54,31 @@ class SheetsTest {
         assertEquals(listOf(gap.distractors), Sheets.items(gap).map { it.wrong }.distinct())
     }
 
+    @Test fun `a spoken form is right and labelled with the standard one, which stays the answer`() {
+        val sl = si.lanisce.lani.l10n.Lang.SL
+        // bojo for bodo, gremo for pojdimo: what a native speaker says (COURSE.md "Spoken forms")
+        val item = SheetItem(listOf("bodo"), "prihodnjik", spoken = listOf("bojo"), wrong = listOf("bote"))
+        val said = Sheets.check(item, "Bojo", sl)
+        assertEquals(CORRECT, said.verdict)
+        assertEquals("bodo", said.standard)
+        // the standard answer as ever, nothing to label
+        assertEquals(CORRECT, Sheets.check(item, "bodo", sl).verdict)
+        assertEquals(null, Sheets.check(item, "bodo", sl).standard)
+        // a wrong ending stays wrong, and the standard is the correction
+        val wrong = Sheets.check(item, "boda", sl)
+        assertEquals(WRONG, wrong.verdict)
+        assertEquals("bodo", wrong.expected)
+        assertEquals(null, wrong.standard)
+        // a missing č of a spoken form is almost, labelled; a distractor is wrong
+        val line = SheetItem(listOf("Pojdimo domov."), "ukazi", spoken = listOf("Gremo domov."))
+        assertEquals(CORRECT, Sheets.check(line, "gremo domov", sl).verdict)
+        assertEquals("Pojdimo domov.", Sheets.check(line, "gremo domov", sl).standard)
+        assertEquals(WRONG, Sheets.check(item, "bote", sl).verdict)
+        // a gap's, a cell's and a line's spoken forms reach their items
+        val g = Exercise.GapText(text = "Jutri ___ prišli.", gaps = listOf(Gap(listOf("bodo"), spoken = listOf("bojo"))))
+        assertEquals(listOf("bojo"), Sheets.items(g).single().spoken)
+    }
+
     @Test fun `a table's items are its cells to fill, with the word's forms`() {
         val items = Sheets.items(table)
         assertEquals(3, items.size)
