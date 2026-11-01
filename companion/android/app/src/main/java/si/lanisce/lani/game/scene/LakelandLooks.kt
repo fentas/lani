@@ -140,9 +140,10 @@ internal object LakelandLooks {
      * The people sprites (`people`, People.kt): the day's pedlar the packman from Kendal in a tweed coat and a flat cap
      * under his big pack ("a big pack on his back"), brown canvas strapped round, a bolt of Kendal green cloth along its top
      * (`pedlar`), on the map, in the scenes and in his portrait; the road's pedlar at the gate and below the watchtower the
-     * same (their `pedlar`).
+     * same (their `pedlar`); everyone in the Lake District's clothes (`wardrobe`, render/scene/Wardrobes.kt: the men's flat
+     * caps, waxed jackets and wellies, Auntie Edna's headscarf, Harry's school jumper), on the map too.
      */
-    val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "packman"))
+    val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "packman", "wardrobe" to "lakeland"))
 
     // ---- the projects' places, part a (docs/plans/05-built/lakeland-projects-a.md): each its own table, its own line in PLACES
 

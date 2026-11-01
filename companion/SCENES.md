@@ -2734,13 +2734,41 @@ stand, sit, lie or hide (see [Stage directions](#stage-directions-people-move-on
 
 People sprites: `grandma` (headscarf, apron), `grandpa` (hat, walking stick), `child1`, `child2`,
 `child3`, `shepherd` (crook), `smith` (leather apron, hammer), `teacher`, `farmer` (straw hat),
-`beekeeper` (veil), `innkeeper`, `winemaker`, `aunt`; the strangers of the day's surprise, `pedlar` (the krošnjar
+`beekeeper` (veil), `innkeeper` (Vida: a white blouse under a teal bodice, a dark skirt, the white apron, a mug), `winemaker`, `aunt`; the strangers of the day's surprise, `pedlar` (the krošnjar
 from Ribnica under his krošnja of suha roba; in Friuli, Carinthia and the Lake District the culture's own pedlar under its
 load, the crassigne, the Kraxe, the packman's pack: `PeoplePainter.culture`, the look's `people.pedlar`) and `pilgrim` (staff with a gourd, scallop shell, shoulder bag); the
 village's own `woman`, `man` and `baby`; `hunter` (Lovec Jože: a loden-green jacket, a green hat with a jay's
 feather, breeches and boots, binoculars on his chest; up on the high seat he holds them to his eyes); and `burner` (the
 charcoal burner by his pile in the woods: a work jacket gone grey with soot over a dark waistcoat, a black felt hat, a
 dark beard, heavy boots, the stick he pokes the vents with).
+
+**Each culture's clothes** (`people.wardrobe` in its look; `render/scene/Wardrobes.kt`; docs/plans/05-built/map-people.md).
+The sprites above are Primorska's people. In Friuli, Carinthia and the Lake District the same sprites wear their own
+culture's clothes, in the scenes, in the portraits and on the village map alike (`Looks.of(art, seed, culture)`; the map's
+14 px and 7 px figures are taken from the sprite's look, `Effects.lookOf`):
+
+| | Friuli (`friuli`) | Carinthia (`kaernten`) | The Lake District (`lakeland`) |
+|---|---|---|---|
+| `grandma` | Nonna Rosa: a white kerchief tied at the nape (il fazzoletto, fazzùl), a dark dress, a blue apron, the scarpets (black velvet, a red flower on the toe) | Oma Resi: the dirndl, a white blouse under a dark green bodice, a dark blue skirt, a plum apron | Granny Maggie: a lavender cardigan, a tweed skirt, a floral pinny, a grey perm, glasses |
+| `grandpa` | Nonno Bepi: a white shirt, a black waistcoat (il gilet), a black felt hat, a white moustache | Opa Sepp: the Kärntner Anzug, chestnut brown with green lapels, a green felt hat with a Gamsbart | Old Wilf: a brown tweed jacket, a tweed flat cap, a white moustache |
+| `aunt` | Zia Nives: a navy dress with white dots, a red apron | Tante Mitzi: a dirndl, red over green, a blue apron | Auntie Edna: a headscarf tied under the chin, a quilted green jacket, a tweed skirt, green wellies |
+| `innkeeper` | Marisa of the osteria: a white blouse, a black bodice and skirt, the white apron, a tajut of red wine | Wirtin Kathi: a dirndl in dark blue, a cream apron, blonde plaits, a beer mug | Mrs Birkett of the pub: a red blouse, a white pinny, a blonde perm, a pint |
+| `teacher` | Maestra Elena: a light blue blouse with a white collar, a navy skirt | Lehrerin Eva: a loden-green Janker over a white blouse | Mrs Hartley: a blue cardigan over a white blouse, a grey skirt |
+| `child1` | Tommaso: the school smock (il grembiule), blue with a white collar | Maxi: short Lederhosen with braces, a red checked shirt, knee socks | Harry: a maroon school jumper over a white collar, grey shorts and socks |
+| `child2` | Giulia: a red dress with white dots, scarpets with a yellow flower | Lena: a child's dirndl, red with a blue apron | Poppy: a blue gingham dress, red wellies |
+| `child3` | Lorenzo: a white shirt with blue stripes, a red cap | Jakob: Lederhosen, a blue checked shirt, a green cap | Alfie: a yellow raincoat, green wellies |
+| `shepherd` | Davide: a brown wool jacket under a cloak, a brown felt hat | Florian: a white shirt, a leather waistcoat, the Gailtal's knee breeches of leather and high boots, a green hat | Jack: a waxed jacket with a cord collar, a flat cap, green wellies |
+| `smith` | Bruno: grey shirt, leather apron, a dark cap | Toni: bare-headed and bearded, leather apron | Mr Dixon: a dark flat cap, leather apron |
+| `farmer` | Franco the miller: a white shirt and braces, a straw hat | Franz the miller: all in white, the miller's white cap | Mr Tyson: a checked shirt and braces, a tweed cap, green wellies |
+| `winemaker` | Matteo: a blue work shirt, a brown waistcoat and cap | Stefan the Mostbauer: a checked shirt, the farmer's blue apron (der blaue Schurz), a grey hat | Brewer Sam: a white shirt, a dark waistcoat, the brewer's apron, ginger and bearded |
+| `pilgrim` | to Castelmonte: a dark cloak, a black hat | to the Luschariberg: a loden cape, a green hat | to St Herbert's Island: a blue-grey cape |
+| `woman`, `man` | dark skirts and aprons, a kerchief (white or coloured), the scarpets; a white shirt and a dark waistcoat, a felt hat or a cap | dirndls, or a blouse and skirt; checked shirts or a loden Janker, Lederhosen, a green or grey hat with a Gamsbart | cardigans, tweed skirts, a headscarf, wellies; waxed jackets, Aran jumpers, checked shirts, flat caps, wellies |
+
+The pedlar is each culture's own (`people.pedlar`, above); the beekeeper, the hunter, the charcoal burner and the baby are
+dressed alike everywhere. The village's own people are dressed by their id (`Looks.seedOf`), the same in their scenes, on
+the map at every detail and in their portraits, in every culture. Primorska's people are its sprites as drawn, Vida a woman
+since 2026-11-01 (she was a bald man with a moustache); its map's small figures are drawn for those sizes in the sprites'
+colours.
 
 Time of day and season show: the campfire glows at night under stars and the moon, the kitchen lamp
 is lit in the evening, the forest is green in summer and golden in autumn, snow lies in winter. On the hills the vines
