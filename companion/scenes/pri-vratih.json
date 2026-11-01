@@ -4,7 +4,7 @@
   "title": { "sl": "Pri vratih", "en": "At the gate", "de": "Am Tor", "it": "Al portone" },
   "emoji": "🚪",
   "level": "A1",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: kol, zapah, tečaj, škripati, krošnjar, pojdiva vprašat; scene-replier.md: to check; polish-content.md: the happening zapah-nejc's title (\"Nejc bi rad šel ponoči v gozd\"), to check",
+  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: kol, zapah, tečaj, škripati, krošnjar, pojdiva vprašat; scene-replier.md, polish-content.md",
   "art": "palisade",
   "from": ["palisade"],
   "pack": "pri-vratih",
@@ -113,6 +113,7 @@
       "when": ["evening"],
       "chance": 0.5,
       "dialog": "zapah-nejc",
+      "dialogs": ["zapah-nejc-straza", "zapah-nejc"],
       "reward": { "wisdom": 20 },
       "marker": "🌙",
       "memory": {
@@ -1472,6 +1473,147 @@
           "de": "Schau, sie gehen. Zurück in den Wald.",
           "it": "Guarda, se ne vanno. Di nuovo nel bosco.",
           "fx": { "wolves": 0 }
+        }
+      ]
+    },
+    {
+      "id": "zapah-nejc-straza",
+      "memory": {
+        "sl": "večer, ko je Nejc hotel stražiti",
+        "en": "the evening Nejc wanted to keep watch",
+        "de": "der Abend, an dem Nejc Wache halten wollte",
+        "it": "la sera in cui Nejc voleva fare la guardia"
+      },
+      "lines": [
+        {
+          "who": "nejc",
+          "face": "happy",
+          "sl": "{learner}! Jože! Nocoj bom jaz stražil pri vratih!",
+          "en": "{learner}! Jože! Tonight I'm going to keep watch at the gate!",
+          "de": "{learner}! Jože! Heute Nacht halte ich am Tor Wache!",
+          "it": "{learner}! Jože! Stanotte faccio io la guardia al portone!"
+        },
+        {
+          "who": "joze",
+          "face": "thinking",
+          "sl": "Ti, Nejc? Straža je dolga. Do jutra.",
+          "en": "You, Nejc? The watch is long. Until morning.",
+          "de": "Du, Nejc? Die Wache ist lang. Bis zum Morgen.",
+          "it": "Tu, Nejc? La guardia è lunga. Fino al mattino."
+        },
+        {
+          "to": "joze",
+          "choices": [
+            {
+              "sl": "Lahko ostane do prve zvezde.",
+              "en": "He can stay until the first star.",
+              "de": "Er kann bis zum ersten Stern bleiben.",
+              "it": "Può restare fino alla prima stella.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Prav. Do prve zvezde, potem pa v posteljo.",
+                "en": "All right. Until the first star, then off to bed.",
+                "de": "Gut. Bis zum ersten Stern, dann ab ins Bett.",
+                "it": "Va bene. Fino alla prima stella, poi a letto."
+              }
+            },
+            {
+              "sl": "Lahko ostane do prva zvezda.",
+              "en": "He can stay until the first star (the base form).",
+              "de": "Er kann bis zum ersten Stern bleiben (die Grundform).",
+              "it": "Può restare fino alla prima stella (la forma base).",
+              "grammar": "rodilnik-predlogi",
+              "why": {
+                "en": "Do (until) takes the genitive: do prve zvezde.",
+                "de": "Do (bis) verlangt den Genitiv: do prve zvezde.",
+                "it": "Do (fino a) vuole il genitivo: do prve zvezde."
+              },
+              "reply": {
+                "face": "confused",
+                "sl": "Do prva zvezda? Hm, tako pa ne.",
+                "en": "Until first star? Hm, not like that.",
+                "de": "Bis erster Stern? Hm, so nicht.",
+                "it": "Fino a prima stella? Mm, così no."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … kako, prosim?",
+            "en": "Shh … sorry, what?",
+            "de": "Pst … wie bitte?",
+            "it": "Sst … come, scusa?"
+          }
+        },
+        {
+          "who": "nejc",
+          "face": "proud",
+          "sl": "Juhu! Zdaj sem na straži!",
+          "en": "Yippee! Now I'm on watch!",
+          "de": "Juhu! Jetzt halte ich Wache!",
+          "it": "Evviva! Adesso sono di guardia!"
+        },
+        {
+          "who": "nejc",
+          "face": "shy",
+          "sl": "Aaah … Tam je že prva zvezda … Malo sem zaspan …",
+          "en": "Aaah … There's the first star already … I'm a bit sleepy …",
+          "de": "Aaah … Da ist schon der erste Stern … Ich bin ein bisschen müde …",
+          "it": "Aaah … C'è già la prima stella … Ho un po' di sonno …"
+        },
+        {
+          "to": "joze",
+          "choices": [
+            {
+              "sl": "Nejc je zaspan. Pospremim ga domov.",
+              "en": "Nejc is sleepy. I'll walk him home.",
+              "de": "Nejc ist müde. Ich bringe ihn nach Hause.",
+              "it": "Nejc ha sonno. Lo accompagno a casa.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "sl": "Hvala, {learner}. Jaz ostanem tu, pri vratih.",
+                "en": "Thanks, {learner}. I'll stay here, by the gate.",
+                "de": "Danke, {learner}. Ich bleibe hier, am Tor.",
+                "it": "Grazie, {learner}. Io resto qui, al portone."
+              }
+            },
+            {
+              "sl": "Nejc je zaspana. Pospremim ga domov.",
+              "en": "Nejc is sleepy (a girl's form). I'll walk him home.",
+              "de": "Nejc ist müde (weibliche Form). Ich bringe ihn nach Hause.",
+              "it": "Nejc ha sonno (forma femminile). Lo accompagno a casa.",
+              "grammar": "pridevniki-ujemanje",
+              "why": {
+                "en": "Nejc is a boy: zaspan, the masculine.",
+                "de": "Nejc ist ein Junge: zaspan, die männliche Form.",
+                "it": "Nejc è un maschio: zaspan, il maschile."
+              },
+              "reply": {
+                "face": "laugh",
+                "sl": "Zaspana? Nejc je fant, ne deklica!",
+                "en": "Zaspana? Nejc's a boy, not a girl!",
+                "de": "Zaspana? Nejc ist ein Junge, kein Mädchen!",
+                "it": "Zaspana? Nejc è un maschietto, non una femminuccia!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "sl": "Pst … kako, prosim?",
+            "en": "Shh … sorry, what?",
+            "de": "Pst … wie bitte?",
+            "it": "Sst … come, scusa?"
+          }
+        },
+        {
+          "who": "joze",
+          "face": "happy",
+          "sl": "Lahko noč, mali stražar.",
+          "en": "Good night, little watchman.",
+          "de": "Gute Nacht, kleiner Wächter.",
+          "it": "Buonanotte, piccola sentinella."
         }
       ]
     },
