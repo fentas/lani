@@ -1,0 +1,639 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "relativi-cui",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🏡",
+  "title": { "it": "La casa in cui abito", "de": "Relativsätze mit cui: in cui abito", "sl": "Oziralni cui: in cui abito", "en": "Relative cui: in cui abito" },
+  "goal": {
+    "de": "Du verbindest Sätze mit einer Präposition und cui (la casa in cui abito, il bambino con cui gioco), weißt, wann che und wann cui steht, und sagst dove für einen Ort.",
+    "sl": "Stavke povežeš s predlogom in cui (la casa in cui abito, il bambino con cui gioco), veš, kdaj stoji che in kdaj cui, in za kraj rečeš dove.",
+    "en": "You can join sentences with a preposition and cui (la casa in cui abito, il bambino con cui gioco), know when it's che and when cui, and say dove for a place."
+  },
+  "grammar": ["relativi-cui", "relative-che", "preposizioni-articolate"],
+  "words": [
+    "la casa",
+    "la piazza",
+    "il paese",
+    "il mare",
+    "la spiaggia",
+    "il bosco",
+    "il campo",
+    "il mulino",
+    "la fattoria",
+    "la panchina",
+    "il tiglio",
+    "la fucina",
+    "il fabbro",
+    "il trattore",
+    "lo stagno",
+    "il prato",
+    "il quaderno",
+    "la palla",
+    "il libro",
+    "la storia",
+    "il lupo",
+    "l'amica",
+    "la ciotola",
+    "il cuscino",
+    "il secchiello",
+    "il gabbiano",
+    "la conchiglia",
+    "il giorno",
+    "la festa",
+    "abitare",
+    "giocare",
+    "parlare",
+    "scrivere",
+    "venire",
+    "sedersi",
+    "raccontare",
+    "nuotare",
+    "lavorare",
+    "ricordare"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "nome", "de": "Nomen", "sl": "samostalnik", "en": "noun" },
+        { "it": "… cui …", "de": "… dem, der …", "sl": "… katerem …", "en": "… which, whom …" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Nach einer Präposition wie **in** oder **con** sagst du **cui** statt **che**: **la casa in cui abito** (das Haus, in dem ich wohne), **il bambino con cui gioco** (der Junge, mit dem ich spiele). So wird aus zwei Sätzen einer: **Questa è la casa. Nonna Rosa abita in questa casa.** wird **Questa è la casa in cui abita Nonna Rosa.**",
+          "sl": "Za predlogom, kot sta **in** ali **con**, rečeš **cui** namesto **che**: **la casa in cui abito** (hiša, v kateri živim), **il bambino con cui gioco** (deček, s katerim se igram). Tako iz dveh stavkov narediš enega: **Questa è la casa. Nonna Rosa abita in questa casa.** postane **Questa è la casa in cui abita Nonna Rosa.**",
+          "en": "After a preposition such as **in** or **con** you say **cui** instead of **che**: **la casa in cui abito** (the house I live in), **il bambino con cui gioco** (the boy I play with). That's how two sentences become one: **Questa è la casa. Nonna Rosa abita in questa casa.** becomes **Questa è la casa in cui abita Nonna Rosa.**"
+        },
+        "examples": [
+          {
+            "it": "Questa è la casa in cui abita Nonna Rosa.",
+            "de": "Das ist das Haus, in dem Nonna Rosa wohnt.",
+            "sl": "To je hiša, v kateri živi babica Rosa.",
+            "en": "This is the house Nonna Rosa lives in."
+          },
+          {
+            "it": "Tommaso è il bambino con cui gioca Lorenzo.",
+            "de": "Tommaso ist der Junge, mit dem Lorenzo spielt.",
+            "sl": "Tommaso je deček, s katerim se igra Lorenzo.",
+            "en": "Tommaso is the boy Lorenzo plays with."
+          }
+        ],
+        "rows": [
+          ["la casa", "in cui abito", { "de": "das Haus, in dem ich wohne", "sl": "hiša, v kateri živim", "en": "the house I live in" }],
+          ["il bambino", "con cui gioco", { "de": "der Junge, mit dem ich spiele", "sl": "deček, s katerim se igram", "en": "the boy I play with" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "prompt": "Ecco la piazza in ___ giochiamo a calcio.",
+          "options": ["cui", "che", "chi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**nach in** → **cui**: la piazza in cui giochiamo\n- che · nur ohne Präposition\n- chi · die Frage wer?",
+            "sl": "**za in** → **cui**: la piazza in cui giochiamo\n- che · samo brez predloga\n- chi · vprašanje kdo?",
+            "en": "**after in** → **cui**: la piazza in cui giochiamo\n- che · only with no preposition\n- chi · the question who?"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Cui** ändert sich nie, die Präposition davor sagt, was es heißt: **a cui** (*dem, der*), **di cui** (*von dem*), **da cui** (*woher*), **su cui** (*auf dem*). Es ist die Präposition, die das Verb braucht: **scrivere a** → **l'amica a cui scrivo** (die Freundin, der ich schreibe), **parlare di** → **il lupo di cui parla il nonno** (der Wolf, von dem Opa erzählt). Aus **nel** und **del** wird **in cui** und **di cui**: Der Artikel fällt weg.",
+          "sl": "**Cui** se nikoli ne spremeni, pomen pove predlog pred njim: **a cui** (kateri), **di cui** (o katerem), **da cui** (od koder), **su cui** (na katerem). To je predlog, ki ga potrebuje glagol: **scrivere a** → **l'amica a cui scrivo** (prijateljica, ki ji pišem), **parlare di** → **il lupo di cui parla il nonno** (volk, o katerem govori dedek). Iz **nel** in **del** postane **in cui** in **di cui**: člen odpade.",
+          "en": "**Cui** never changes; the preposition before it says what it means: **a cui** (to whom), **di cui** (about which), **da cui** (from where), **su cui** (on which). It's the preposition the verb takes: **scrivere a** → **l'amica a cui scrivo** (the friend I write to), **parlare di** → **il lupo di cui parla il nonno** (the wolf Grandpa talks about). **Nel** and **del** become **in cui** and **di cui**: the article goes."
+        },
+        "examples": [
+          {
+            "it": "Il lupo di cui parla Nonno Bepi vive nel bosco.",
+            "de": "Der Wolf, von dem Nonno Bepi erzählt, lebt im Wald.",
+            "sl": "Volk, o katerem govori Nonno Bepi, živi v gozdu.",
+            "en": "The wolf Nonno Bepi talks about lives in the wood."
+          },
+          {
+            "it": "La fattoria da cui viene Davide è sotto il Monte Sabotino.",
+            "de": "Der Hof, von dem Davide kommt, liegt unter dem Monte Sabotino.",
+            "sl": "Kmetija, s katere prihaja Davide, je pod Sabotinom.",
+            "en": "The farm Davide comes from is below Monte Sabotino."
+          }
+        ],
+        "rows": [
+          ["l'amica", "a cui scrivo", { "de": "die Freundin, der ich schreibe", "sl": "prijateljica, ki ji pišem", "en": "the friend I write to" }],
+          ["il lupo", "di cui parla il nonno", { "de": "der Wolf, von dem Opa erzählt", "sl": "volk, o katerem govori dedek", "en": "the wolf Grandpa talks about" }],
+          [
+            "la fattoria",
+            "da cui viene Davide",
+            { "de": "der Hof, von dem Davide kommt", "sl": "kmetija, s katere prihaja Davide", "en": "the farm Davide comes from" }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relativi-cui",
+          "text": "Ecco il cuscino ___ cui dorme Moro.",
+          "accept": ["su"],
+          "hint": { "de": "auf dem", "sl": "na kateri", "en": "on which" },
+          "explain": {
+            "de": "**dormire su** un cuscino → **su cui**: il cuscino su cui dorme Moro",
+            "sl": "**dormire su** un cuscino → **su cui**: il cuscino su cui dorme Moro",
+            "en": "**dormire su** un cuscino → **su cui**: il cuscino su cui dorme Moro"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Ohne Präposition bleibt es **che**, mit Präposition wird es **cui**: **il libro che leggo** (das Buch, das ich lese), aber **il libro di cui parlo** (das Buch, von dem ich spreche). Sag nie *con che* oder *con chi*: **chi** ist nur die Frage **Chi è?** (Wer ist das?). **Moro è il cane con cui gioca Lorenzo.** (Moro ist der Hund, mit dem Lorenzo spielt.)",
+          "sl": "Brez predloga ostane **che**, s predlogom postane **cui**: **il libro che leggo** (knjiga, ki jo berem), toda **il libro di cui parlo** (knjiga, o kateri govorim). Nikoli ne reci *con che* ali *con chi*: **chi** je samo vprašanje **Chi è?** (Kdo je to?). **Moro è il cane con cui gioca Lorenzo.** (Moro je pes, s katerim se igra Lorenzo.)",
+          "en": "With no preposition it stays **che**; with one it becomes **cui**: **il libro che leggo** (the book I'm reading), but **il libro di cui parlo** (the book I'm talking about). Never say *con che* or *con chi*: **chi** is only the question **Chi è?** (Who is it?). **Moro è il cane con cui gioca Lorenzo.** (Moro is the dog Lorenzo plays with.)"
+        },
+        "examples": [
+          {
+            "it": "La palla che ha Tommaso è nuova.",
+            "de": "Der Ball, den Tommaso hat, ist neu.",
+            "sl": "Žoga, ki jo ima Tommaso, je nova.",
+            "en": "The ball Tommaso has is new."
+          },
+          {
+            "it": "La palla con cui gioca Tommaso è nuova.",
+            "de": "Der Ball, mit dem Tommaso spielt, ist neu.",
+            "sl": "Žoga, s katero se igra Tommaso, je nova.",
+            "en": "The ball Tommaso plays with is new."
+          }
+        ],
+        "rows": [
+          ["il libro", "che leggo", { "de": "das Buch, das ich lese", "sl": "knjiga, ki jo berem", "en": "the book I read" }],
+          ["il libro", "di cui parlo", { "de": "das Buch, von dem ich spreche", "sl": "knjiga, o kateri govorim", "en": "the book I talk about" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "prompt": "Questo è il quaderno ___ uso a scuola.",
+          "options": ["che", "cui", "chi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**usare il quaderno** (ohne Präposition) → **che**\n- cui · nur nach einer Präposition\n- chi · die Frage wer?",
+            "sl": "**usare il quaderno** (brez predloga) → **che**\n- cui · samo za predlogom\n- chi · vprašanje kdo?",
+            "en": "**usare il quaderno** (no preposition) → **che**\n- cui · only after a preposition\n- chi · the question who?"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für einen Ort kannst du statt **in cui** auch **dove** sagen: **la casa in cui abito** = **la casa dove abito** (das Haus, wo ich wohne). Für eine Zeit sagst du **in cui**: **il giorno in cui è arrivato Moro** (der Tag, an dem Moro kam). **Il mare dove nuotiamo è caldo.** (Das Meer, wo wir schwimmen, ist warm.)",
+          "sl": "Za kraj lahko namesto **in cui** rečeš tudi **dove**: **la casa in cui abito** = **la casa dove abito** (hiša, kjer živim). Za čas rečeš **in cui**: **il giorno in cui è arrivato Moro** (dan, ko je prišel Moro). **Il mare dove nuotiamo è caldo.** (Morje, kjer plavamo, je toplo.)",
+          "en": "For a place you can say **dove** instead of **in cui**: **la casa in cui abito** = **la casa dove abito** (the house where I live). For a time you say **in cui**: **il giorno in cui è arrivato Moro** (the day Moro came). **Il mare dove nuotiamo è caldo.** (The sea where we swim is warm.)"
+        },
+        "examples": [
+          {
+            "it": "Il bosco dove cerchiamo i funghi è vicino al mulino.",
+            "de": "Der Wald, wo wir Pilze suchen, ist nahe bei der Mühle.",
+            "sl": "Gozd, kjer nabiramo gobe, je blizu mlina.",
+            "en": "The wood where we look for mushrooms is near the mill."
+          },
+          {
+            "it": "Nonno Bepi ricorda il giorno in cui è arrivato Moro.",
+            "de": "Nonno Bepi erinnert sich an den Tag, an dem Moro kam.",
+            "sl": "Nonno Bepi se spominja dneva, ko je prišel Moro.",
+            "en": "Nonno Bepi remembers the day Moro came."
+          }
+        ],
+        "rows": [
+          ["la casa", "dove abito", { "de": "das Haus, wo ich wohne", "sl": "hiša, kjer živim", "en": "the house where I live" }],
+          ["il giorno", "in cui è arrivato Moro", { "de": "der Tag, an dem Moro kam", "sl": "dan, ko je prišel Moro", "en": "the day Moro came" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "relativi-cui",
+          "text": "Il mare ___ nuotiamo d'estate è caldo.",
+          "accept": ["dove", "in cui", "nel quale"],
+          "hint": { "de": "wo", "sl": "kjer", "en": "where" },
+          "explain": {
+            "de": "**ein Ort** → **dove** oder **in cui**: il mare dove nuotiamo",
+            "sl": "**kraj** → **dove** ali **in cui**: il mare dove nuotiamo",
+            "en": "**a place** → **dove** or **in cui**: il mare dove nuotiamo"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das Verb rutscht nicht ans Ende wie im Deutschen, und die Präposition steht immer vorn: *der Junge, mit dem ich jeden Tag spiele* ist **il bambino con cui gioco ogni giorno**. Nach **cui** darf die Person vor oder nach dem Verb stehen: **la panchina su cui si siede Nonno Bepi** oder **la panchina su cui Nonno Bepi si siede** (die Bank, auf die sich Nonno Bepi setzt). Beides ist richtig.",
+          "sl": "Za **cui** sme oseba stati pred glagolom ali za njim: **la panchina su cui si siede Nonno Bepi** ali **la panchina su cui Nonno Bepi si siede** (klop, na katero se usede Nonno Bepi). Oboje je prav. Predlog pa stoji vedno spredaj, s **cui**: **il bambino con cui gioco ogni giorno** (deček, s katerim se igram vsak dan).",
+          "en": "After **cui** the person may come before or after the verb: **la panchina su cui si siede Nonno Bepi** or **la panchina su cui Nonno Bepi si siede** (the bench Nonno Bepi sits down on). Both are right. But the preposition always comes first, with **cui**: *the boy I play with every day* is **il bambino con cui gioco ogni giorno**, never with the preposition at the end."
+        },
+        "examples": [
+          {
+            "it": "La panchina su cui si siede Nonno Bepi è sotto il tiglio.",
+            "de": "Die Bank, auf die sich Nonno Bepi setzt, steht unter der Linde.",
+            "sl": "Klop, na katero se usede Nonno Bepi, je pod lipo.",
+            "en": "The bench Nonno Bepi sits on is under the linden."
+          },
+          {
+            "it": "Il trattore con cui Franco va nel campo è vecchio e rosso.",
+            "de": "Der Traktor, mit dem Franco aufs Feld fährt, ist alt und rot.",
+            "sl": "Traktor, s katerim gre Franco na polje, je star in rdeč.",
+            "en": "The tractor Franco drives to the field is old and red."
+          }
+        ],
+        "rows": [
+          [
+            "la panchina",
+            "su cui si siede il nonno",
+            { "de": "die Bank, auf die sich Opa setzt", "sl": "klop, na katero se usede dedek", "en": "the bench Grandpa sits on" }
+          ],
+          [
+            "il trattore",
+            "con cui Franco va nel campo",
+            { "de": "der Traktor, mit dem Franco aufs Feld fährt", "sl": "traktor, s katerim gre Franco na polje", "en": "the tractor Franco drives to the field" }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Come si dice? · Wie sagt man das?", "sl": "Come si dice? · Kako se reče?", "en": "Come si dice? · How do you say it?" },
+          "prompt": { "de": "der Junge, mit dem ich spiele", "sl": "deček, s katerim se igram", "en": "the boy I play with" },
+          "options": ["il bambino con cui gioco", "il bambino cui gioco con", "il bambino con che gioco"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**con cui** vorn, das Verb danach: **il bambino con cui gioco**\n- cui … con · die Präposition nie ans Ende\n- con che · nie: nach con kommt cui",
+            "sl": "**con cui** spredaj, glagol za njim: **il bambino con cui gioco**\n- cui … con · predlog nikoli na konec\n- con che · nikoli: za con pride cui",
+            "en": "**con cui** first, the verb after it: **il bambino con cui gioco**\n- cui … con · the preposition never at the end\n- con che · never: after con comes cui"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "relativi-cui-1",
+      "title": { "it": "Che o cui?", "de": "Che oder cui?", "sl": "Che ali cui?", "en": "Che or cui?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Che o cui? · Che oder cui?", "sl": "Che o cui? · Che ali cui?", "en": "Che o cui? · Che or cui?" },
+          "columns": [
+            {
+              "label": { "de": "che · ohne Präposition", "sl": "che · brez predloga", "en": "che · no preposition" },
+              "words": ["il libro … leggo", "il gelato … mangio", "la barca … vedo", "il pane … compro"]
+            },
+            {
+              "label": { "de": "cui · nach einer Präposition", "sl": "cui · za predlogom", "en": "cui · after a preposition" },
+              "words": ["la casa in … abito", "il bambino con … gioco", "l'amica a … scrivo", "la storia di … parlo"]
+            }
+          ],
+          "explain": {
+            "de": "**eine Präposition davor** → **cui**, sonst **che**\n- il libro che leggo\n- la casa in cui abito",
+            "sl": "**predlog pred njim** → **cui**, sicer **che**\n- il libro che leggo\n- la casa in cui abito",
+            "en": "**a preposition before it** → **cui**, else **che**\n- il libro che leggo\n- la casa in cui abito"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Giulia: «Questo è il quaderno ___ scrivo le storie.»",
+          "options": ["in cui", "che", "chi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**scrivere in** un quaderno → **in cui**\n- che · ohne Präposition: il quaderno che uso\n- chi · die Frage wer?",
+            "sl": "**scrivere in** un quaderno → **in cui**\n- che · brez predloga: il quaderno che uso\n- chi · vprašanje kdo?",
+            "en": "**scrivere in** un quaderno → **in cui**\n- che · no preposition: il quaderno che uso\n- chi · the question who?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Ecco il nonno ___ cui Lorenzo va nel campo: Franco!",
+          "options": ["con", "di", "su"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**andare con** qualcuno → **con cui**\n- di cui · von dem: parlare di\n- su cui · auf dem",
+            "sl": "**andare con** qualcuno → **con cui**\n- di cui · o katerem: parlare di\n- su cui · na katerem",
+            "en": "**andare con** someone → **con cui**\n- di cui · about whom: parlare di\n- su cui · on which"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "La storia ___ racconta Nonno Bepi è bellissima.",
+          "options": ["che", "cui", "chi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**raccontare la storia** (ohne Präposition) → **che**\n- cui · nur nach einer Präposition\n- chi · die Frage wer?",
+            "sl": "**raccontare la storia** (brez predloga) → **che**\n- cui · samo za predlogom\n- chi · vprašanje kdo?",
+            "en": "**raccontare la storia** (no preposition) → **che**\n- cui · only after a preposition\n- chi · the question who?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "La fattoria ___ viene Davide è sotto il Monte Sabotino.",
+          "options": ["da cui", "in cui", "che"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**venire da** → **da cui**\n- in cui · in dem\n- che · ohne Präposition: la fattoria che vedo",
+            "sl": "**venire da** → **da cui**\n- in cui · v katerem\n- che · brez predloga: la fattoria che vedo",
+            "en": "**venire da** → **da cui**\n- in cui · in which\n- che · no preposition: la fattoria che vedo"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Pallina è la pecora ___ Davide parla sempre.",
+          "options": ["con cui", "con che", "con chi"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**nach con** → **cui**: con cui\n- con che · nie\n- con chi · chi ist nur die Frage wer?",
+            "sl": "**za con** → **cui**: con cui\n- con che · nikoli\n- con chi · chi je samo vprašanje kdo?",
+            "en": "**after con** → **cui**: con cui\n- con che · never\n- con chi · chi is only the question who?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relativi-cui-2",
+      "title": { "it": "Il paese di Giulia", "de": "Giulias Dorf", "sl": "Giulijina vas", "en": "Giulia's village" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+          "title": "Il paese di Giulia",
+          "text": "Giulia mostra il paese a una bambina nuova. «Questa è la piazza ___ giochiamo a calcio. Quello è il tiglio sotto ___ Nonno Bepi racconta le storie. Lui è Bruno, il fabbro ___ lavora nella fucina. Lorenzo è il bambino con ___ gioco al mulino. La signora ___ porto le ciliegie è Zia Nives. E questa è la casa ___ abito con la nonna. Ti piace il paese ___ ti parlo sempre?»",
+          "gaps": [
+            { "accept": ["in cui", "dove", "nella quale"], "hint": { "de": "wo?", "sl": "kje?", "en": "where?" } },
+            { "accept": ["cui", "il quale"], "hint": { "de": "unter der", "sl": "pod katero", "en": "under which" } },
+            { "accept": ["che", "il quale"], "hint": { "de": "der (ohne Präposition)", "sl": "ki", "en": "who" } },
+            { "accept": ["cui", "il quale"], "hint": { "de": "mit dem", "sl": "s katerim", "en": "with whom" } },
+            {
+              "accept": ["a cui", "alla quale", "cui"],
+              "hint": { "de": "der (portare a)", "sl": "kateri (portare a)", "en": "to whom (portare a)" },
+              "explain": {
+                "de": "**portare** qualcosa **a** qualcuno → **a cui**",
+                "sl": "**portare** qualcosa **a** qualcuno → **a cui**",
+                "en": "**portare** something **a** someone → **a cui**"
+              }
+            },
+            { "accept": ["in cui", "dove", "nella quale"], "hint": { "de": "in dem · wo", "sl": "v kateri · kjer", "en": "in which · where" } },
+            {
+              "accept": ["di cui", "del quale"],
+              "hint": { "de": "von dem (parlare di)", "sl": "o kateri (parlare di)", "en": "about which (parlare di)" },
+              "explain": {
+                "de": "**parlare di** → **di cui**: il paese di cui ti parlo",
+                "sl": "**parlare di** → **di cui**: il paese di cui ti parlo",
+                "en": "**parlare di** → **di cui**: il paese di cui ti parlo"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["chi", "di che"],
+          "translation": {
+            "de": "Giulia zeigt einem neuen Mädchen das Dorf. «Das ist der Platz, auf dem wir Fußball spielen. Das ist die Linde, unter der Nonno Bepi die Geschichten erzählt. Er ist Bruno, der Schmied, der in der Schmiede arbeitet. Lorenzo ist der Junge, mit dem ich an der Mühle spiele. Die Frau, der ich die Kirschen bringe, ist Zia Nives. Und das ist das Haus, in dem ich mit Oma wohne. Gefällt dir das Dorf, von dem ich dir immer erzähle?»",
+            "sl": "Giulia pokaže vas novi deklici. »To je trg, na katerem igramo nogomet. Tisto je lipa, pod katero Nonno Bepi pripoveduje zgodbe. To je Bruno, kovač, ki dela v kovačnici. Lorenzo je deček, s katerim se igram pri mlinu. Gospa, ki ji nesem češnje, je Zia Nives. In to je hiša, v kateri živim z babico. Ti je všeč vas, o kateri ti vedno govorim?«",
+            "en": "Giulia shows the village to a new girl. \"This is the square where we play football. That's the linden Nonno Bepi tells his stories under. He's Bruno, the blacksmith who works in the forge. Lorenzo is the boy I play with at the mill. The lady I take the cherries to is Zia Nives. And this is the house I live in with Grandma. Do you like the village I always tell you about?\""
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Il mulino ___ lavora Franco è vicino allo stagno.",
+          "options": ["in cui", "di cui", "che"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**lavorare in** un posto → **in cui** (oder **dove**)\n- di cui · von dem\n- che · ohne Präposition",
+            "sl": "**lavorare in** kraju → **in cui** (ali **dove**)\n- di cui · o katerem\n- che · brez predloga",
+            "en": "**lavorare in** a place → **in cui** (or **dove**)\n- di cui · about which\n- che · no preposition"
+          }
+        }
+      ]
+    },
+    {
+      "id": "relativi-cui-3",
+      "title": { "it": "Unisci con cui", "de": "Verbinde mit cui", "sl": "Poveži s cui", "en": "Join with cui" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "relativi-cui",
+          "instruction": { "de": "Unisci con cui · Verbinde mit cui", "sl": "Unisci con cui · Poveži s cui", "en": "Unisci con cui · Join with cui" },
+          "items": [
+            {
+              "from": "Questa è la casa. Nonna Rosa abita in questa casa.",
+              "accept": [
+                "Questa è la casa in cui abita Nonna Rosa.",
+                "Questa è la casa in cui Nonna Rosa abita.",
+                "Questa è la casa dove abita Nonna Rosa.",
+                "Questa è la casa dove Nonna Rosa abita.",
+                "Questa è la casa nella quale abita Nonna Rosa.",
+                "Questa è la casa nella quale Nonna Rosa abita."
+              ],
+              "hint": "in questa casa → in cui"
+            },
+            {
+              "from": "Ecco la palla. Tommaso gioca con la palla.",
+              "accept": [
+                "Ecco la palla con cui gioca Tommaso.",
+                "Ecco la palla con cui Tommaso gioca.",
+                "Ecco la palla con la quale gioca Tommaso.",
+                "Ecco la palla con la quale Tommaso gioca."
+              ]
+            },
+            {
+              "from": "Questo è il libro. Giulia parla del libro.",
+              "accept": [
+                "Questo è il libro di cui parla Giulia.",
+                "Questo è il libro di cui Giulia parla.",
+                "Questo è il libro del quale parla Giulia.",
+                "Questo è il libro del quale Giulia parla."
+              ],
+              "hint": "del → di cui"
+            },
+            {
+              "from": "Ecco l'amica. Giulia scrive all'amica.",
+              "accept": [
+                "Ecco l'amica a cui scrive Giulia.",
+                "Ecco l'amica a cui Giulia scrive.",
+                "Ecco l'amica alla quale scrive Giulia.",
+                "Ecco l'amica alla quale Giulia scrive.",
+                "Ecco l'amica cui scrive Giulia.",
+                "Ecco l'amica cui Giulia scrive."
+              ],
+              "hint": "all' → a cui"
+            },
+            {
+              "from": "Questa è la panchina. Nonno Bepi si siede sulla panchina.",
+              "accept": [
+                "Questa è la panchina su cui si siede Nonno Bepi.",
+                "Questa è la panchina su cui Nonno Bepi si siede.",
+                "Questa è la panchina sulla quale si siede Nonno Bepi.",
+                "Questa è la panchina sulla quale Nonno Bepi si siede."
+              ],
+              "hint": "sulla → su cui"
+            },
+            {
+              "from": "Ecco la fattoria. Davide viene dalla fattoria.",
+              "accept": [
+                "Ecco la fattoria da cui viene Davide.",
+                "Ecco la fattoria da cui Davide viene.",
+                "Ecco la fattoria dalla quale viene Davide.",
+                "Ecco la fattoria dalla quale Davide viene.",
+                "Ecco la fattoria da dove viene Davide.",
+                "Ecco la fattoria da dove Davide viene."
+              ],
+              "hint": "dalla → da cui"
+            },
+            {
+              "from": "Questo è il campo. Franco lavora nel campo.",
+              "accept": [
+                "Questo è il campo in cui lavora Franco.",
+                "Questo è il campo in cui Franco lavora.",
+                "Questo è il campo dove lavora Franco.",
+                "Questo è il campo dove Franco lavora.",
+                "Questo è il campo nel quale lavora Franco.",
+                "Questo è il campo nel quale Franco lavora."
+              ],
+              "hint": "nel → in cui"
+            },
+            {
+              "from": "Ecco la ciotola. Moro beve dalla ciotola.",
+              "accept": [
+                "Ecco la ciotola da cui beve Moro.",
+                "Ecco la ciotola da cui Moro beve.",
+                "Ecco la ciotola dalla quale beve Moro.",
+                "Ecco la ciotola dalla quale Moro beve."
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**Präposition + cui** statt der Präposition mit dem Nomen, das Nomen nur einmal\n- … abita in questa casa → la casa in cui abita\n- … parla del libro → il libro di cui parla",
+            "sl": "**predlog + cui** namesto predloga s samostalnikom, samostalnik samo enkrat\n- … abita in questa casa → la casa in cui abita\n- … parla del libro → il libro di cui parla",
+            "en": "**the preposition + cui** instead of the preposition with the noun, the noun only once\n- … abita in questa casa → la casa in cui abita\n- … parla del libro → il libro di cui parla"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "relativi-cui",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "title": "Al mare",
+        "text": "Oggi Nonna Rosa porta i bambini al mare. La barca ___ vedono i bambini è del pescatore. La spiaggia ___ giocano è piena di conchiglie. Il gabbiano ___ Lorenzo dà il pane è grande e bianco. Il secchiello con ___ Giulia porta l'acqua è rosso.",
+        "gaps": [
+          { "accept": ["che"] },
+          { "accept": ["su cui", "in cui", "dove", "sulla quale", "nella quale"] },
+          { "accept": ["a cui", "al quale", "cui"] },
+          { "accept": ["cui", "il quale"] }
+        ],
+        "translation": {
+          "de": "Heute bringt Nonna Rosa die Kinder ans Meer. Das Boot, das die Kinder sehen, gehört dem Fischer. Der Strand, auf dem sie spielen, ist voller Muscheln. Die Möwe, der Lorenzo das Brot gibt, ist groß und weiß. Der Eimer, mit dem Giulia das Wasser trägt, ist rot.",
+          "sl": "Danes babica Rosa pelje otroke na morje. Čoln, ki ga vidijo otroci, je ribičev. Plaža, na kateri se igrajo, je polna školjk. Galeb, ki mu Lorenzo da kruh, je velik in bel. Vedrce, s katerim Giulia nosi vodo, je rdeče.",
+          "en": "Today Nonna Rosa takes the children to the sea. The boat the children can see is the fisherman's. The beach they play on is full of shells. The seagull Lorenzo gives the bread to is big and white. The bucket Giulia carries the water in is red."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "relativi-cui",
+        "instruction": { "de": "Unisci con cui · Verbinde mit cui", "sl": "Unisci con cui · Poveži s cui", "en": "Unisci con cui · Join with cui" },
+        "items": [
+          {
+            "from": "Ecco lo stagno. Le anatre nuotano nello stagno.",
+            "accept": [
+              "Ecco lo stagno in cui nuotano le anatre.",
+              "Ecco lo stagno in cui le anatre nuotano.",
+              "Ecco lo stagno dove nuotano le anatre.",
+              "Ecco lo stagno dove le anatre nuotano.",
+              "Ecco lo stagno nel quale nuotano le anatre.",
+              "Ecco lo stagno nel quale le anatre nuotano."
+            ]
+          },
+          {
+            "from": "Questa è la maestra. Giulia porta i fiori alla maestra.",
+            "accept": [
+              "Questa è la maestra a cui porta i fiori Giulia.",
+              "Questa è la maestra a cui Giulia porta i fiori.",
+              "Questa è la maestra alla quale porta i fiori Giulia.",
+              "Questa è la maestra alla quale Giulia porta i fiori.",
+              "Questa è la maestra cui porta i fiori Giulia.",
+              "Questa è la maestra cui Giulia porta i fiori."
+            ]
+          },
+          {
+            "from": "Ecco il cane. Nonno Bepi parla sempre del cane.",
+            "accept": [
+              "Ecco il cane di cui parla sempre Nonno Bepi.",
+              "Ecco il cane di cui Nonno Bepi parla sempre.",
+              "Ecco il cane del quale parla sempre Nonno Bepi.",
+              "Ecco il cane del quale Nonno Bepi parla sempre."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "relativi-cui",
+        "prompt": "Nonno Bepi ricorda il giorno ___ è arrivato Moro.",
+        "options": ["in cui", "dove", "di cui"],
+        "answer": 0,
+        "almost": [1],
+        "say_options": true,
+        "explain": {
+          "de": "**eine Zeit** → **in cui**\n- dove · für eine Zeit nur gesprochen, richtig ist es für einen Ort\n- di cui · von dem",
+          "sl": "**čas** → **in cui**\n- dove · za čas le v govoru, prav je za kraj\n- di cui · o katerem",
+          "en": "**a time** → **in cui**\n- dove · only spoken for a time; it is right for a place\n- di cui · about which"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "relativi-cui",
+        "prompt": "Ecco il ragazzo ___ cui Giulia va al prato: Davide!",
+        "options": ["con", "a", "di"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**andare con** qualcuno → **con cui**\n- a cui · dem\n- di cui · von dem",
+          "sl": "**andare con** nekom → **con cui**\n- a cui · kateremu\n- di cui · o katerem",
+          "en": "**andare con** someone → **con cui**\n- a cui · to whom\n- di cui · about whom"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "relativi-cui",
+        "instruction": { "de": "Che o cui? · Che oder cui?", "sl": "Che o cui? · Che ali cui?", "en": "Che o cui? · Che or cui?" },
+        "columns": [
+          {
+            "label": { "de": "che · ohne Präposition", "sl": "che · brez predloga", "en": "che · no preposition" },
+            "words": ["la conchiglia … trovo", "la storia … racconta il nonno"]
+          },
+          {
+            "label": { "de": "cui · nach einer Präposition", "sl": "cui · za predlogom", "en": "cui · after a preposition" },
+            "words": ["il secchiello in … porto l'acqua", "l'amica a … telefono"]
+          }
+        ],
+        "explain": {
+          "de": "**eine Präposition davor** → **cui**, sonst **che**\n- il libro che leggo\n- la casa in cui abito",
+          "sl": "**predlog pred njim** → **cui**, sicer **che**\n- il libro che leggo\n- la casa in cui abito",
+          "en": "**a preposition before it** → **cui**, else **che**\n- il libro che leggo\n- la casa in cui abito"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: su cui si siede and su cui il nonno si siede, la spiaggia su/in cui, da dove, il quale accepted, the German for a child"
+}

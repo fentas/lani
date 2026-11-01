@@ -1,0 +1,535 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "indefiniti",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🎈",
+  "title": {
+    "it": "Qualcuno, ognuno, qualche",
+    "de": "Jemand, jeder: qualcuno, ognuno",
+    "sl": "Nekdo, vsak: qualcuno, ognuno",
+    "en": "Someone, everyone: qualcuno, ognuno"
+  },
+  "goal": {
+    "de": "Du sagst jemand, etwas, jeder und alle (C'è qualcuno? Ognuno porta qualcosa. Tutti i bambini giocano.) und weißt: ogni und qualche mit der Einzahl, alcuni mit der Mehrzahl.",
+    "sl": "Poveš nekdo, nekaj, vsak in vsi (C'è qualcuno? Ognuno porta qualcosa. Tutti i bambini giocano.) in veš: ogni in qualche z ednino, alcuni z množino.",
+    "en": "You can say someone, something, everyone and all (C'è qualcuno? Ognuno porta qualcosa. Tutti i bambini giocano.) and know that ogni and qualche take the singular, alcuni the plural."
+  },
+  "grammar": ["indefiniti", "negazioni", "partitivo"],
+  "words": [
+    "qualcuno",
+    "qualcosa",
+    "nessuno",
+    "niente",
+    "ogni",
+    "ognuno",
+    "tutto",
+    "tutti",
+    "qualche",
+    "alcuni",
+    "la festa",
+    "la gubana",
+    "il miele",
+    "la caramella",
+    "la ciliegia",
+    "la mela",
+    "la pera",
+    "il fungo",
+    "la pecora",
+    "il prato",
+    "la piazza",
+    "la fucina",
+    "la radio",
+    "il bosco",
+    "il tiglio",
+    "il quaderno",
+    "lo zaino",
+    "la tasca",
+    "il pezzo",
+    "il sacco",
+    "l'ape",
+    "la scatola",
+    "il tetto",
+    "bussare",
+    "portare",
+    "trovare",
+    "contare",
+    "ridere",
+    "giocare"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "parola", "de": "Wort", "sl": "beseda", "en": "word" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "**Qualcuno** heißt *jemand*, **qualcosa** heißt *etwas*: **C'è qualcuno?** (Ist da jemand?) **Vuoi qualcosa?** (Willst du etwas?) Die Antwort mit Nein kennst du schon: **No, non c'è nessuno.** (Nein, da ist niemand.) **No, non voglio niente.** (Nein, ich will nichts.)",
+          "sl": "**Qualcuno** pomeni *nekdo*, **qualcosa** pomeni *nekaj*: **C'è qualcuno?** (Je kdo tu?) **Vuoi qualcosa?** (Bi kaj?) Odgovor z ne že poznaš: **No, non c'è nessuno.** (Ne, nikogar ni.) **No, non voglio niente.** (Ne, nič nočem.)",
+          "en": "**Qualcuno** means *someone*, **qualcosa** means *something*: **C'è qualcuno?** (Is anyone there?) **Vuoi qualcosa?** (Do you want anything?) You know the answer with no already: **No, non c'è nessuno.** (No, there's nobody.) **No, non voglio niente.** (No, I don't want anything.)"
+        },
+        "examples": [
+          {
+            "it": "C'è qualcuno nella fucina? Sì, c'è Bruno.",
+            "de": "Ist jemand in der Schmiede? Ja, Bruno ist da.",
+            "sl": "Je kdo v kovačnici? Ja, Bruno je tam.",
+            "en": "Is anyone in the forge? Yes, Bruno is."
+          },
+          {
+            "it": "Tommaso ha qualcosa in tasca: una caramella!",
+            "de": "Tommaso hat etwas in der Tasche: ein Bonbon!",
+            "sl": "Tommaso ima nekaj v žepu: bonbon!",
+            "en": "Tommaso has something in his pocket: a sweet!"
+          }
+        ],
+        "rows": [
+          ["qualcuno", "C'è qualcuno?", { "de": "jemand", "sl": "nekdo", "en": "someone" }],
+          ["qualcosa", "Vuoi qualcosa?", { "de": "etwas", "sl": "nekaj", "en": "something" }],
+          ["nessuno · niente", "Non c'è nessuno.", { "de": "niemand · nichts", "sl": "nihče · nič", "en": "nobody · nothing" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefiniti",
+          "prompt": "«Hai visto qualcuno nel bosco?» «No, non ho visto ___.»",
+          "options": ["nessuno", "qualcuno", "qualcosa"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**non …** und eine Person → **nessuno**\n- qualcuno · jemand: für die Frage oder ein Ja\n- qualcosa · etwas",
+            "sl": "**non …** in oseba → **nessuno**\n- qualcuno · nekdo: za vprašanje ali ja\n- qualcosa · nekaj",
+            "en": "**non …** and a person → **nessuno**\n- qualcuno · someone: for the question or a yes\n- qualcosa · something"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Ogni** (jeder, jede, jedes) steht immer mit einem Nomen in der Einzahl und ändert sich nie: **ogni giorno** (jeden Tag), **ogni bambino**, **ogni pecora**, nie *ogni bambini*. Ohne Nomen sagst du **ognuno** (jeder), für Mädchen **ognuna**, mit dem Verb in der Einzahl: **Ognuno porta qualcosa.** (Jeder bringt etwas mit.)",
+          "sl": "**Ogni** (vsak, vsaka, vsako) stoji vedno s samostalnikom v ednini in se nikoli ne spremeni: **ogni giorno** (vsak dan), **ogni bambino**, **ogni pecora**, nikoli *ogni bambini*. Brez samostalnika rečeš **ognuno** (vsak), za dekleta **ognuna**, z glagolom v ednini: **Ognuno porta qualcosa.** (Vsak prinese nekaj.)",
+          "en": "**Ogni** (every, each) always goes with a noun in the singular and never changes: **ogni giorno** (every day), **ogni bambino**, **ogni pecora**, never *ogni bambini*. Without a noun you say **ognuno** (everyone, each one), **ognuna** for girls, with the verb in the singular: **Ognuno porta qualcosa.** (Everyone brings something.)"
+        },
+        "examples": [
+          {
+            "it": "Ogni mattina Davide porta le pecore al prato.",
+            "de": "Jeden Morgen bringt Davide die Schafe auf die Wiese.",
+            "sl": "Vsako jutro Davide pelje ovce na travnik.",
+            "en": "Every morning Davide takes the sheep to the meadow."
+          },
+          {
+            "it": "In classe ognuno ha il suo quaderno.",
+            "de": "In der Klasse hat jeder sein Heft.",
+            "sl": "V razredu ima vsak svoj zvezek.",
+            "en": "In class everyone has their own exercise book."
+          }
+        ],
+        "rows": [
+          ["ogni", "ogni giorno, ogni bambino", { "de": "jeder, jede, jedes", "sl": "vsak, vsaka, vsako", "en": "every, each" }],
+          ["ognuno, ognuna", "Ognuno porta qualcosa.", { "de": "jeder (allein)", "sl": "vsak (sam)", "en": "everyone, each one" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "indefiniti",
+          "text": "Alla festa ognuno ___ qualcosa da mangiare. (portare)",
+          "accept": ["porta", "porterà", "ha portato"],
+          "hint": { "de": "ognuno: einer", "sl": "ognuno: eden", "en": "ognuno: one" },
+          "explain": {
+            "de": "**ognuno** → das Verb in der Einzahl: **porta**",
+            "sl": "**ognuno** → glagol v ednini: **porta**",
+            "en": "**ognuno** → the verb in the singular: **porta**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Tutto** (ganz, alle) richtet sich nach dem Nomen und hat den Artikel danach: **tutto il giorno** (den ganzen Tag), **tutta la notte** (die ganze Nacht), **tutti i bambini** (alle Kinder), **tutte le pecore** (alle Schafe). **Tutti** allein heißt *alle*, mit dem Verb in der Mehrzahl: **Tutti ridono.** (Alle lachen.)",
+          "sl": "**Tutto** (ves, vsi) se ravna po samostalniku in ima za sabo člen: **tutto il giorno** (ves dan), **tutta la notte** (vso noč), **tutti i bambini** (vsi otroci), **tutte le pecore** (vse ovce). **Tutti** sam pomeni *vsi*, z glagolom v množini: **Tutti ridono.** (Vsi se smejijo.)",
+          "en": "**Tutto** (all, the whole) goes with its noun and has the article after it: **tutto il giorno** (all day), **tutta la notte** (all night), **tutti i bambini** (all the children), **tutte le pecore** (all the sheep). **Tutti** alone means *everyone*, with the verb in the plural: **Tutti ridono.** (Everyone laughs.)"
+        },
+        "examples": [
+          {
+            "it": "Moro dorme tutto il giorno sotto il tiglio.",
+            "de": "Moro schläft den ganzen Tag unter der Linde.",
+            "sl": "Moro ves dan spi pod lipo.",
+            "en": "Moro sleeps all day under the linden."
+          },
+          {
+            "it": "Nonno Bepi racconta una storia e tutti ridono.",
+            "de": "Nonno Bepi erzählt eine Geschichte, und alle lachen.",
+            "sl": "Nonno Bepi pripoveduje zgodbo in vsi se smejijo.",
+            "en": "Nonno Bepi tells a story and everyone laughs."
+          }
+        ],
+        "rows": [
+          ["tutto il, tutta la", "tutto il giorno, tutta la notte", { "de": "den ganzen, die ganze", "sl": "ves, vso", "en": "the whole" }],
+          ["tutti i, tutte le", "tutti i bambini, tutte le pecore", { "de": "alle", "sl": "vsi, vse", "en": "all the" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefiniti",
+          "prompt": "Le pecore di Davide mangiano l'erba ___ il giorno.",
+          "options": ["tutto", "tutta", "tutti"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**il giorno** (einer, männlich) → **tutto il giorno**\n- tutta · für la: tutta la notte\n- tutti · für i: tutti i bambini",
+            "sl": "**il giorno** (eden, moški spol) → **tutto il giorno**\n- tutta · za la: tutta la notte\n- tutti · za i: tutti i bambini",
+            "en": "**il giorno** (one, masculine) → **tutto il giorno**\n- tutta · for la: tutta la notte\n- tutti · for i: tutti i bambini"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Qualche** (ein paar) steht mit der Einzahl, auch wenn es mehrere sind: **qualche caramella** (ein paar Bonbons). **Alcuni** und **alcune** stehen mit der Mehrzahl: **alcune caramelle**. Beides heißt dasselbe. **Alcuni** für männliche Wörter (**alcuni fichi**), **alcune** für weibliche (**alcune mele**).",
+          "sl": "**Qualche** (nekaj) stoji z ednino, čeprav jih je več: **qualche caramella** (nekaj bonbonov). **Alcuni** in **alcune** stojita z množino: **alcune caramelle**. Oboje pomeni isto. **Alcuni** za moške besede (**alcuni fichi**), **alcune** za ženske (**alcune mele**).",
+          "en": "**Qualche** (a few, some) takes the singular, though there's more than one: **qualche caramella** (a few sweets). **Alcuni** and **alcune** take the plural: **alcune caramelle**. Both mean the same. **Alcuni** for masculine words (**alcuni fichi**), **alcune** for feminine ones (**alcune mele**)."
+        },
+        "examples": [
+          {
+            "it": "Lorenzo ha trovato qualche fungo nel bosco.",
+            "de": "Lorenzo hat im Wald ein paar Pilze gefunden.",
+            "sl": "Lorenzo je v gozdu našel nekaj gob.",
+            "en": "Lorenzo found a few mushrooms in the wood."
+          },
+          {
+            "it": "Al mercato Nonna Rosa compra alcune mele e alcuni fichi.",
+            "de": "Auf dem Markt kauft Nonna Rosa einige Äpfel und Feigen.",
+            "sl": "Na tržnici babica Rosa kupi nekaj jabolk in fig.",
+            "en": "At the market Nonna Rosa buys a few apples and figs."
+          }
+        ],
+        "rows": [
+          ["qualche", "qualche caramella", { "de": "ein paar (Einzahl)", "sl": "nekaj (z ednino)", "en": "a few (singular)" }],
+          ["alcuni, alcune", "alcune caramelle", { "de": "einige (Mehrzahl)", "sl": "nekaj (z množino)", "en": "a few (plural)" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "indefiniti",
+          "text": "Giulia ha raccolto qualche ___ per la nonna. (ciliegie)",
+          "accept": ["ciliegia"],
+          "hint": { "de": "nach qualche: die Einzahl", "sl": "za qualche: ednina", "en": "after qualche: the singular" },
+          "explain": {
+            "de": "**qualche** + Einzahl: **qualche ciliegia**, nie *qualche ciliegie*",
+            "sl": "**qualche** + ednina: **qualche ciliegia**, nikoli *qualche ciliegie*",
+            "en": "**qualche** + the singular: **qualche ciliegia**, never *qualche ciliegie*"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach **qualcosa** und **niente** steht vor einem Adjektiv **di**: **qualcosa di buono** (etwas Gutes), **niente di nuovo** (nichts Neues). Das Adjektiv bleibt männlich und in der Einzahl: **qualcosa di dolce** (etwas Süßes), nie *qualcosa dolce* oder *qualcosa buona*.",
+          "sl": "Za **qualcosa** in **niente** stoji pred pridevnikom **di**: **qualcosa di buono** (nekaj dobrega), **niente di nuovo** (nič novega). Pridevnik ostane v moškem spolu ednine: **qualcosa di dolce** (nekaj sladkega), nikoli *qualcosa dolce* ali *qualcosa buona*.",
+          "en": "After **qualcosa** and **niente** an adjective takes **di**: **qualcosa di buono** (something good), **niente di nuovo** (nothing new). The adjective stays masculine singular: **qualcosa di dolce** (something sweet), never *qualcosa dolce* or *qualcosa buona*."
+        },
+        "examples": [
+          {
+            "it": "Nonna Rosa ha fatto qualcosa di buono: il frico!",
+            "de": "Nonna Rosa hat etwas Gutes gemacht: Frico!",
+            "sl": "Babica Rosa je naredila nekaj dobrega: friko!",
+            "en": "Nonna Rosa has made something good: frico!"
+          },
+          {
+            "it": "«Zia Nives, che cosa dice la radio?» «Niente di nuovo!»",
+            "de": "«Zia Nives, was sagt das Radio?» «Nichts Neues!»",
+            "sl": "»Teta Nives, kaj pravi radio?« »Nič novega!«",
+            "en": "\"Zia Nives, what does the radio say?\" \"Nothing new!\""
+          }
+        ],
+        "rows": [
+          ["qualcosa di …", "qualcosa di buono", { "de": "etwas Gutes", "sl": "nekaj dobrega", "en": "something good" }],
+          ["niente di …", "niente di nuovo", { "de": "nichts Neues", "sl": "nič novega", "en": "nothing new" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "indefiniti",
+          "prompt": "Tommaso: «Ho fame! C'è qualcosa ___ buono?»",
+          "options": ["di", "da", "che"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**qualcosa** + Adjektiv → **qualcosa di buono**\n- da · qualcosa da mangiare: mit einem Verb\n- che · verbindet zwei Sätze",
+            "sl": "**qualcosa** + pridevnik → **qualcosa di buono**\n- da · qualcosa da mangiare: z glagolom\n- che · poveže dva stavka",
+            "en": "**qualcosa** + an adjective → **qualcosa di buono**\n- da · qualcosa da mangiare: with a verb\n- che · joins two sentences"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "indefiniti-1",
+      "title": { "it": "Tutti e ognuno", "de": "Alle und jeder", "sl": "Vsi in vsak", "en": "All and every" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "indefiniti",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": { "de": "tutto … e ogni … · ganz, alle und jeder", "sl": "tutto … in ogni … · ves, vsi in vsak", "en": "tutto … and ogni … · all and every" },
+          "columns": [
+            { "de": "tutto … · ganz, alle", "sl": "tutto … · ves, vsi", "en": "tutto … · all, the whole" },
+            { "de": "ogni … · jeder", "sl": "ogni … · vsak", "en": "ogni … · every" }
+          ],
+          "rows": [
+            { "label": "il giorno", "cells": ["tutto il giorno", "ogni giorno"] },
+            { "label": "la notte", "cells": [{ "accept": ["tutta la notte", "tutta"] }, { "accept": ["ogni notte"] }] },
+            { "label": "la settimana", "cells": [{ "accept": ["tutta la settimana", "tutta"] }, { "accept": ["ogni settimana"] }] },
+            {
+              "label": "i bambini",
+              "cells": [
+                { "accept": ["tutti i bambini", "tutti"] },
+                { "accept": ["ogni bambino"], "hint": { "de": "ogni + Einzahl", "sl": "ogni + ednina", "en": "ogni + the singular" } }
+              ]
+            },
+            {
+              "label": "le pecore",
+              "cells": [
+                { "accept": ["tutte le pecore", "tutte"] },
+                { "accept": ["ogni pecora"], "hint": { "de": "ogni + Einzahl", "sl": "ogni + ednina", "en": "ogni + the singular" } }
+              ]
+            },
+            {
+              "label": "gli amici",
+              "cells": [
+                { "accept": ["tutti gli amici", "tutti"] },
+                { "accept": ["ogni amico"], "hint": { "de": "ogni + Einzahl", "sl": "ogni + ednina", "en": "ogni + the singular" } }
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**tutto** wie das Nomen, mit dem Artikel: tutta la notte, tutti i bambini\n- **ogni** + Einzahl: ogni bambino, ogni pecora",
+            "sl": "**tutto** kot samostalnik, s členom: tutta la notte, tutti i bambini\n- **ogni** + ednina: ogni bambino, ogni pecora",
+            "en": "**tutto** like its noun, with the article: tutta la notte, tutti i bambini\n- **ogni** + the singular: ogni bambino, ogni pecora"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefiniti",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "«Chi vuole un gelato?» «___!» gridano i bambini.",
+          "options": ["Tutti", "Tutto", "Qualche"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**alle Leute** → **Tutti!**\n- Tutto · alles: für Sachen\n- Qualche · nur mit einem Nomen: qualche gelato",
+            "sl": "**vsi ljudje** → **Tutti!**\n- Tutto · vse: za stvari\n- Qualche · samo s samostalnikom: qualche gelato",
+            "en": "**all the people** → **Tutti!**\n- Tutto · everything: for things\n- Qualche · only with a noun: qualche gelato"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefiniti",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Ogni ___ Davide conta le pecore.",
+          "options": ["sera", "sere", "le sere"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ogni** + Einzahl, ohne Artikel → **ogni sera**\n- sere · Mehrzahl: tutte le sere\n- le sere · mit Artikel nach tutte",
+            "sl": "**ogni** + ednina, brez člena → **ogni sera**\n- sere · množina: tutte le sere\n- le sere · s členom za tutte",
+            "en": "**ogni** + the singular, no article → **ogni sera**\n- sere · plural: tutte le sere\n- le sere · with the article after tutte"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefiniti",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "In classe ___ ha il suo zaino.",
+          "options": ["ognuno", "tutti", "ogni"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ha** (Einzahl), ohne Nomen → **ognuno**\n- tutti · mit hanno: tutti hanno\n- ogni · nur mit einem Nomen: ogni bambino",
+            "sl": "**ha** (ednina), brez samostalnika → **ognuno**\n- tutti · s hanno: tutti hanno\n- ogni · samo s samostalnikom: ogni bambino",
+            "en": "**ha** (singular), no noun → **ognuno**\n- tutti · with hanno: tutti hanno\n- ogni · only with a noun: ogni bambino"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefiniti",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Lorenzo ha ___ caramelle in tasca.",
+          "options": ["alcune", "qualche", "ogni"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**caramelle** (Mehrzahl) → **alcune**\n- qualche · mit Einzahl: qualche caramella\n- ogni · mit Einzahl: ogni caramella",
+            "sl": "**caramelle** (množina) → **alcune**\n- qualche · z ednino: qualche caramella\n- ogni · z ednino: ogni caramella",
+            "en": "**caramelle** (plural) → **alcune**\n- qualche · with the singular: qualche caramella\n- ogni · with the singular: ogni caramella"
+          }
+        }
+      ]
+    },
+    {
+      "id": "indefiniti-2",
+      "title": { "it": "La festa del paese", "de": "Das Dorffest", "sl": "Vaški praznik", "en": "The village festa" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "indefiniti",
+          "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+          "title": "La festa del paese",
+          "text": "Domani c'è la festa del paese. ___ i bambini aiutano in piazza. Giulia lavora ___ il giorno con la nonna. Lorenzo trova ___ fungo nel bosco: tre o quattro. «Nonna Rosa, c'è qualcosa ___ buono?» chiede Tommaso. «La gubana! ___ prende un pezzo, uno solo!» Nonno Bepi racconta una storia ___ sera, come sempre. Zia Nives ascolta la radio, ma non c'è ___ di nuovo.",
+          "gaps": [
+            { "accept": ["Tutti"], "hint": { "de": "alle", "sl": "vsi", "en": "all" } },
+            { "accept": ["tutto"], "hint": { "de": "il giorno: ganz", "sl": "il giorno: ves", "en": "il giorno: the whole" } },
+            { "accept": ["qualche"], "hint": { "de": "ein paar (+ Einzahl)", "sl": "nekaj (+ ednina)", "en": "a few (+ the singular)" } },
+            { "accept": ["di"], "hint": { "de": "vor einem Adjektiv", "sl": "pred pridevnikom", "en": "before an adjective" } },
+            { "accept": ["Ognuno", "Ciascuno"], "hint": { "de": "jeder (allein, Einzahl)", "sl": "vsak (sam, ednina)", "en": "everyone (alone, singular)" } },
+            { "accept": ["ogni", "la"], "hint": { "de": "jeden", "sl": "vsak", "en": "every" } },
+            { "accept": ["niente", "nulla"], "hint": { "de": "non … nichts", "sl": "non … nič", "en": "non … nothing" } }
+          ],
+          "bank": true,
+          "distractors": ["tutta", "alcuni"],
+          "translation": {
+            "de": "Morgen ist das Dorffest. Alle Kinder helfen auf dem Platz. Giulia arbeitet den ganzen Tag mit Oma. Lorenzo findet ein paar Pilze im Wald: drei oder vier. «Nonna Rosa, gibt es etwas Gutes?» fragt Tommaso. «Die Gubana! Jeder nimmt ein Stück, nur eins!» Nonno Bepi erzählt jeden Abend eine Geschichte, wie immer. Zia Nives hört Radio, aber es gibt nichts Neues.",
+            "sl": "Jutri je vaški praznik. Vsi otroci pomagajo na trgu. Giulia ves dan dela z babico. Lorenzo najde v gozdu nekaj gob: tri ali štiri. »Babica Rosa, je kaj dobrega?« vpraša Tommaso. »Gubana! Vsak vzame en kos, samo enega!« Nonno Bepi vsak večer pripoveduje zgodbo, kot vedno. Teta Nives posluša radio, a ni nič novega.",
+            "en": "Tomorrow is the village festa. All the children are helping in the square. Giulia works all day with her grandma. Lorenzo finds a few mushrooms in the wood: three or four. \"Nonna Rosa, is there anything good?\" Tommaso asks. \"The gubana! Everyone takes one piece, just one!\" Nonno Bepi tells a story every evening, as always. Zia Nives listens to the radio, but there's nothing new."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "indefiniti",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "«Hai qualcosa per me?» chiede Lorenzo. «No, non ho ___.»",
+          "options": ["niente", "qualcosa", "nessuno"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**non …** und eine Sache → **niente**\n- qualcosa · etwas: für die Frage oder ein Ja\n- nessuno · niemand: für Personen",
+            "sl": "**non …** in stvar → **niente**\n- qualcosa · nekaj: za vprašanje ali ja\n- nessuno · nihče: za osebe",
+            "en": "**non …** and a thing → **niente**\n- qualcosa · something: for the question or a yes\n- nessuno · nobody: for people"
+          }
+        }
+      ]
+    },
+    {
+      "id": "indefiniti-3",
+      "title": { "it": "Ogni e qualche", "de": "Jeder und ein paar", "sl": "Vsak in nekaj", "en": "Every and a few" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "indefiniti",
+          "instruction": { "de": "Usa ogni · Sag es mit ogni", "sl": "Usa ogni · Povej z ogni", "en": "Usa ogni · Say it with ogni" },
+          "items": [
+            { "from": "Tutti i bambini giocano.", "accept": ["Ogni bambino gioca."] },
+            { "from": "Tutte le pecore mangiano l'erba.", "accept": ["Ogni pecora mangia l'erba."] },
+            { "from": "Tutti i giorni Davide va al prato.", "accept": ["Ogni giorno Davide va al prato.", "Davide va al prato ogni giorno."] },
+            {
+              "from": "Tutte le sere Nonno Bepi racconta una storia.",
+              "accept": ["Ogni sera Nonno Bepi racconta una storia.", "Nonno Bepi racconta una storia ogni sera."]
+            }
+          ],
+          "explain": {
+            "de": "**tutti i … + Mehrzahl** → **ogni … + Einzahl**, das Verb auch\n- Tutti i bambini giocano. → Ogni bambino gioca.",
+            "sl": "**tutti i … + množina** → **ogni … + ednina**, tudi glagol\n- Tutti i bambini giocano. → Ogni bambino gioca.",
+            "en": "**tutti i … + the plural** → **ogni … + the singular**, the verb too\n- Tutti i bambini giocano. → Ogni bambino gioca."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "indefiniti",
+          "instruction": { "de": "Usa qualche · Sag es mit qualche", "sl": "Usa qualche · Povej s qualche", "en": "Usa qualche · Say it with qualche" },
+          "items": [
+            { "from": "Tommaso ha alcune caramelle.", "accept": ["Tommaso ha qualche caramella."] },
+            { "from": "Giulia legge alcuni libri.", "accept": ["Giulia legge qualche libro."] },
+            { "from": "Nel bosco ci sono alcuni funghi.", "accept": ["Nel bosco c'è qualche fungo.", "C'è qualche fungo nel bosco."], "hint": "ci sono → c'è" },
+            { "from": "Aldo ha alcune api nuove.", "accept": ["Aldo ha qualche ape nuova."], "hint": "nuove → nuova" }
+          ],
+          "explain": {
+            "de": "**alcuni, alcune + Mehrzahl** → **qualche + Einzahl**\n- alcune caramelle → qualche caramella\n- ci sono alcuni funghi → c'è qualche fungo",
+            "sl": "**alcuni, alcune + množina** → **qualche + ednina**\n- alcune caramelle → qualche caramella\n- ci sono alcuni funghi → c'è qualche fungo",
+            "en": "**alcuni, alcune + the plural** → **qualche + the singular**\n- alcune caramelle → qualche caramella\n- ci sono alcuni funghi → c'è qualche fungo"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "indefiniti",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "title": "Un pomeriggio in paese",
+        "text": "In paese ___ i bambini conoscono Moro. Il gatto della fucina dorme ___ la notte sul tetto. Zia Nives sente ___ che bussa alla porta: è Giulia! Giulia porta qualcosa ___ dolce: le ciliegie.",
+        "gaps": [{ "accept": ["tutti"] }, { "accept": ["tutta"] }, { "accept": ["qualcuno"] }, { "accept": ["di"] }],
+        "translation": {
+          "de": "Im Dorf kennen alle Kinder Moro. Die Katze der Schmiede schläft die ganze Nacht auf dem Dach. Zia Nives hört jemanden an die Tür klopfen: Es ist Giulia! Giulia bringt etwas Süßes: die Kirschen.",
+          "sl": "V vasi vsi otroci poznajo Mora. Mačka iz kovačnice vso noč spi na strehi. Teta Nives sliši, da nekdo trka na vrata: Giulia je! Giulia prinese nekaj sladkega: češnje.",
+          "en": "In the village all the children know Moro. The forge's cat sleeps all night on the roof. Zia Nives hears someone knocking at the door: it's Giulia! Giulia brings something sweet: the cherries."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "indefiniti",
+        "instruction": { "de": "Usa ogni · Sag es mit ogni", "sl": "Usa ogni · Povej z ogni", "en": "Usa ogni · Say it with ogni" },
+        "items": [
+          { "from": "Tutti i bambini hanno un quaderno.", "accept": ["Ogni bambino ha un quaderno."] },
+          { "from": "Tutte le mattine Franco conta i sacchi.", "accept": ["Ogni mattina Franco conta i sacchi.", "Franco conta i sacchi ogni mattina."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "indefiniti",
+        "prompt": "«C'è qualcosa nella scatola?» «No, non c'è ___.»",
+        "options": ["niente", "qualcosa", "nessuno"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**non …** und eine Sache → **niente**\n- qualcosa · für die Frage\n- nessuno · niemand: für Personen",
+          "sl": "**non …** in stvar → **niente**\n- qualcosa · za vprašanje\n- nessuno · nihče: za osebe",
+          "en": "**non …** and a thing → **niente**\n- qualcosa · for the question\n- nessuno · nobody: for people"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "indefiniti",
+        "prompt": "Ogni ___ porta il suo zaino.",
+        "options": ["bambino", "bambini", "i bambini"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**ogni** + Einzahl, ohne Artikel → **ogni bambino**",
+          "sl": "**ogni** + ednina, brez člena → **ogni bambino**",
+          "en": "**ogni** + the singular, no article → **ogni bambino**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "indefiniti",
+        "prompt": "Davide ha ___ pecore nere.",
+        "options": ["alcune", "qualche", "ogni"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**pecore** (Mehrzahl) → **alcune**\n- qualche, ogni · mit Einzahl",
+          "sl": "**pecore** (množina) → **alcune**\n- qualche, ogni · z ednino",
+          "en": "**pecore** (plural) → **alcune**\n- qualche, ogni · with the singular"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "indefiniti",
+        "instruction": { "de": "Persona o cosa? · Person oder Sache?", "sl": "Persona o cosa? · Oseba ali stvar?", "en": "Persona o cosa? · Person or thing?" },
+        "columns": [
+          { "label": { "de": "una persona · eine Person", "sl": "una persona · oseba", "en": "una persona · a person" }, "words": ["qualcuno", "nessuno"] },
+          { "label": { "de": "una cosa · eine Sache", "sl": "una cosa · stvar", "en": "una cosa · a thing" }, "words": ["qualcosa", "niente"] }
+        ],
+        "explain": {
+          "de": "**qualcuno, nessuno** für Personen, **qualcosa, niente** für Sachen",
+          "sl": "**qualcuno, nessuno** za osebe, **qualcosa, niente** za stvari",
+          "en": "**qualcuno, nessuno** for people, **qualcosa, niente** for things"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: la sera beside ogni sera, qualche fungo, Ognuno prende un pezzo, Tutti! as an answer, the German for a child"
+}

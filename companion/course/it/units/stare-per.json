@@ -1,0 +1,495 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "stare-per",
+  "language": "it",
+  "level": "B1",
+  "emoji": "⏱️",
+  "title": {
+    "it": "Sto per partire, ho appena finito",
+    "de": "Gleich und gerade: sto per, ho appena",
+    "sl": "Ravno in kmalu: sto per, ho appena",
+    "en": "About to, just: sto per, ho appena"
+  },
+  "goal": {
+    "de": "Du sagst, was gleich passiert (Il treno sta per partire.) und was gerade eben passiert ist (Giulia è appena arrivata.), erzählst mit stavo per … quando und sagst mit appena vorne sobald (Appena arrivo, ti chiamo.).",
+    "sl": "Poveš, kaj se bo zgodilo vsak hip (Il treno sta per partire.) in kaj se je ravnokar zgodilo (Giulia è appena arrivata.), pripoveduješ s stavo per … quando in z appena na začetku rečeš takoj ko (Appena arrivo, ti chiamo.).",
+    "en": "You can say what's about to happen (Il treno sta per partire.) and what has just happened (Giulia è appena arrivata.), tell a story with stavo per … quando, and say as soon as with appena in front (Appena arrivo, ti chiamo.)."
+  },
+  "grammar": ["stare-per", "stare-gerundio", "passato-prossimo"],
+  "words": [
+    "stare",
+    "il treno",
+    "la stazione",
+    "la valigia",
+    "lo zaino",
+    "la porta",
+    "la radio",
+    "la bora",
+    "il vento",
+    "il cappello",
+    "la nuvola",
+    "la pioggia",
+    "la pozzanghera",
+    "il mare",
+    "la spiaggia",
+    "la festa",
+    "la banda",
+    "il bicchiere",
+    "partire",
+    "arrivare",
+    "salire",
+    "piovere",
+    "nevicare",
+    "cominciare",
+    "finire",
+    "uscire",
+    "tornare",
+    "svegliarsi",
+    "addormentarsi",
+    "telefonare",
+    "cadere",
+    "appena",
+    "tra un attimo",
+    "un attimo fa",
+    "subito"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "quando?", "de": "wann?", "sl": "kdaj?", "en": "when?" },
+        { "it": "si dice", "de": "man sagt", "sl": "rečeš", "en": "you say" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Was gleich passiert, sagst du mit **stare per** und der Grundform: **Sto per partire!** (Ich fahre gleich los!) **Il treno sta per arrivare.** (Der Zug kommt gleich.) **Stare** ändert sich mit der Person (**sto per**, **sta per**, **stiamo per** …), **per** und die Grundform bleiben immer gleich.",
+          "sl": "Kar se bo zgodilo vsak hip, poveš s **stare per** in nedoločnikom: **Sto per partire!** (Ravno odhajam!) **Il treno sta per arrivare.** (Vlak bo vsak hip tu.) **Stare** se spreminja z osebo (**sto per**, **sta per**, **stiamo per** …), **per** in nedoločnik ostaneta vedno enaka.",
+          "en": "What's about to happen you say with **stare per** and the infinitive: **Sto per partire!** (I'm about to leave!) **Il treno sta per arrivare.** (The train is about to arrive.) **Stare** changes with the person (**sto per**, **sta per**, **stiamo per** …); **per** and the infinitive always stay the same."
+        },
+        "examples": [
+          {
+            "it": "Presto, il treno sta per partire!",
+            "de": "Schnell, der Zug fährt gleich ab!",
+            "sl": "Hitro, vlak bo vsak hip odpeljal!",
+            "en": "Quick, the train's about to leave!"
+          },
+          {
+            "it": "Attenzione! Moro sta per mangiare il panino di Lorenzo.",
+            "de": "Achtung! Moro frisst gleich Lorenzos Brötchen.",
+            "sl": "Pozor! Moro bo vsak hip pojedel Lorenzov sendvič.",
+            "en": "Look out! Moro is about to eat Lorenzo's sandwich."
+          }
+        ],
+        "rows": [
+          ["tra un attimo", "sto per partire", { "de": "ich fahre gleich los", "sl": "ravno odhajam", "en": "I'm about to leave" }],
+          ["tra un attimo", "sta per arrivare", { "de": "er kommt gleich", "sl": "vsak hip bo tu", "en": "it's about to arrive" }],
+          ["tra un attimo", "stiamo per mangiare", { "de": "wir essen gleich", "sl": "vsak hip bomo jedli", "en": "we're about to eat" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "stare-per",
+          "text": "Shh! Lorenzo sta ___ addormentarsi.",
+          "accept": ["per"],
+          "hint": { "de": "gleich: sta … + Grundform", "sl": "vsak hip: sta … + nedoločnik", "en": "about to: sta … + the infinitive" },
+          "explain": {
+            "de": "**gleich** → sta **per** addormentarsi\n- immer per, dann die Grundform",
+            "sl": "**vsak hip** → sta **per** addormentarsi\n- vedno per, nato nedoločnik",
+            "en": "**about to** → sta **per** addormentarsi\n- always per, then the infinitive"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Was gerade eben passiert ist, sagst du mit **appena** im passato prossimo: **Lorenzo ha appena mangiato.** (Lorenzo hat gerade gegessen.) **Appena** steht zwischen **ha** oder **è** und dem Partizip: **Giulia è appena arrivata.** (Giulia ist gerade angekommen.) **Nonna Rosa ha appena fatto la gubana.** (Nonna Rosa hat gerade Gubana gebacken.)",
+          "sl": "Kar se je zgodilo ravnokar, poveš z **appena** v passato prossimo: **Lorenzo ha appena mangiato.** (Lorenzo je ravnokar jedel.) **Appena** stoji med **ha** ali **è** in deležnikom: **Giulia è appena arrivata.** (Giulia je ravnokar prišla.) **Nonna Rosa ha appena fatto la gubana.** (Babica Rosa je ravnokar spekla gubano.)",
+          "en": "What has just happened you say with **appena** in the passato prossimo: **Lorenzo ha appena mangiato.** (Lorenzo has just eaten.) **Appena** goes between **ha** or **è** and the participle: **Giulia è appena arrivata.** (Giulia has just arrived.) **Nonna Rosa ha appena fatto la gubana.** (Nonna Rosa has just made a gubana.)"
+        },
+        "examples": [
+          {
+            "it": "Nonna Rosa ha appena fatto la gubana.",
+            "de": "Nonna Rosa hat gerade Gubana gebacken.",
+            "sl": "Babica Rosa je ravnokar spekla gubano.",
+            "en": "Nonna Rosa has just made a gubana."
+          },
+          {
+            "it": "Giulia è appena arrivata dal mare.",
+            "de": "Giulia ist gerade vom Meer gekommen.",
+            "sl": "Giulia je ravnokar prišla z morja.",
+            "en": "Giulia has just got back from the sea."
+          }
+        ],
+        "rows": [
+          ["un attimo fa", "ha appena mangiato", { "de": "er hat gerade gegessen", "sl": "ravnokar je jedel", "en": "he's just eaten" }],
+          ["un attimo fa", "è appena arrivata", { "de": "sie ist gerade angekommen", "sl": "ravnokar je prišla", "en": "she's just arrived" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "stare-per",
+          "prompt": "Lorenzo non ha fame: ha ___ mangiato un panino.",
+          "options": ["appena", "per", "sta"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**gerade eben** → ha **appena** mangiato\n- per · nur in stare per + Grundform\n- sta · stare steht nicht nach ha",
+            "sl": "**ravnokar** → ha **appena** mangiato\n- per · samo v stare per + nedoločnik\n- sta · stare ne stoji za ha",
+            "en": "**just** → ha **appena** mangiato\n- per · only in stare per + the infinitive\n- sta · stare doesn't come after ha"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Dieselbe Sache in drei Momenten: **sta per piovere** (gleich regnet es), **sta piovendo** (es regnet gerade) und **è appena piovuto** (es hat gerade geregnet). Bei **piovere** gehen **è** und **ha**: **ha appena piovuto** ist auch richtig.",
+          "sl": "Ista stvar v treh trenutkih: **sta per piovere** (vsak hip bo deževalo), **sta piovendo** (ravno dežuje) in **è appena piovuto** (ravnokar je deževalo). Pri **piovere** gresta **è** in **ha**: tudi **ha appena piovuto** je prav.",
+          "en": "The same thing at three moments: **sta per piovere** (it's about to rain), **sta piovendo** (it's raining right now) and **è appena piovuto** (it has just rained). With **piovere** both **è** and **ha** are right: **ha appena piovuto** too."
+        },
+        "examples": [
+          {
+            "it": "Guarda le nuvole: sta per piovere!",
+            "de": "Schau die Wolken an: Gleich regnet es!",
+            "sl": "Poglej oblake: vsak hip bo deževalo!",
+            "en": "Look at the clouds: it's about to rain!"
+          },
+          {
+            "it": "È appena piovuto: attenzione alle pozzanghere!",
+            "de": "Es hat gerade geregnet: Pass auf die Pfützen auf!",
+            "sl": "Ravnokar je deževalo: pazi na luže!",
+            "en": "It's just rained: mind the puddles!"
+          }
+        ],
+        "rows": [
+          ["tra un attimo", "sta per piovere", { "de": "gleich regnet es", "sl": "vsak hip bo deževalo", "en": "it's about to rain" }],
+          ["adesso", "sta piovendo", { "de": "es regnet gerade", "sl": "ravno dežuje", "en": "it's raining now" }],
+          ["un attimo fa", "è appena piovuto", { "de": "es hat gerade geregnet", "sl": "ravnokar je deževalo", "en": "it's just rained" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "stare-per",
+          "text": "Moro è tutto bagnato: è appena ___. (piovere)",
+          "accept": ["piovuto"],
+          "hint": { "de": "das Partizip", "sl": "deležnik", "en": "the participle" },
+          "explain": {
+            "de": "**gerade eben** → è appena **piovuto**\n- piovere → piovuto, das Partizip",
+            "sl": "**ravnokar** → è appena **piovuto**\n- piovere → piovuto, deležnik",
+            "en": "**just** → è appena **piovuto**\n- piovere → piovuto, the participle"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Wenn du erzählst, was jemand gerade tun wollte, sagst du **stava per** und die Grundform, dann mit **quando**, was passiert ist: **Giulia stava per uscire quando è arrivata la nonna.** (Giulia wollte gerade hinaus, als Oma gekommen ist.) Das ist **stare** im imperfetto: **stavo per**, **stava per** …",
+          "sl": "Ko pripoveduješ, kaj je kdo ravno hotel narediti, rečeš **stava per** in nedoločnik, nato s **quando**, kaj se je zgodilo: **Giulia stava per uscire quando è arrivata la nonna.** (Giulia je ravno hotela iti ven, ko je prišla babica.) To je **stare** v imperfettu: **stavo per**, **stava per** …",
+          "en": "When you tell what someone was about to do, you say **stava per** and the infinitive, then with **quando** what happened: **Giulia stava per uscire quando è arrivata la nonna.** (Giulia was about to go out when Grandma arrived.) It's **stare** in the imperfetto: **stavo per**, **stava per** …"
+        },
+        "examples": [
+          {
+            "it": "Stavo per uscire quando ha cominciato a piovere.",
+            "de": "Ich wollte gerade hinaus, als es zu regnen angefangen hat.",
+            "sl": "Ravno sem {m:hotel|f:hotela} iti ven, ko je začelo deževati.",
+            "en": "I was about to go out when it started to rain."
+          },
+          {
+            "it": "Lorenzo stava per addormentarsi quando Moro ha abbaiato.",
+            "de": "Lorenzo war gerade am Einschlafen, als Moro gebellt hat.",
+            "sl": "Lorenzo je ravno tonil v spanec, ko je Moro zalajal.",
+            "en": "Lorenzo was about to fall asleep when Moro barked."
+          }
+        ],
+        "rows": [
+          [
+            "in una storia",
+            "stava per uscire quando …",
+            { "de": "sie wollte gerade hinaus, als …", "sl": "ravno je hotela ven, ko …", "en": "she was about to go out when …" }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "stare-per",
+          "prompt": "Tommaso ___ per tirare la palla quando è arrivata la maestra.",
+          "options": ["stava", "sta", "stato"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**in der Geschichte, mit quando** → **stava** per\n- sta · jetzt, passt nicht zu è arrivata\n- stato · das Partizip",
+            "sl": "**v pripovedi, s quando** → **stava** per\n- sta · zdaj, ne gre z è arrivata\n- stato · deležnik",
+            "en": "**in a story, with quando** → **stava** per\n- sta · now, doesn't go with è arrivata\n- stato · the participle"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Vorne im Satz heißt **appena** *sobald*: **Appena arriva il treno, saliamo.** (Sobald der Zug kommt, steigen wir ein.) Vergleiche: **Il treno è appena arrivato.** (Der Zug ist gerade angekommen.) Steht **appena** vorne, heißt es *sobald*, steht es nach **è** oder **ha**, heißt es *gerade eben*.",
+          "sl": "Na začetku stavka **appena** pomeni *takoj ko*: **Appena arriva il treno, saliamo.** (Takoj ko pride vlak, vstopimo.) Primerjaj: **Il treno è appena arrivato.** (Vlak je ravnokar prišel.) Če **appena** stoji spredaj, pomeni *takoj ko*, za **è** ali **ha** pa *ravnokar*.",
+          "en": "At the front of a sentence **appena** means *as soon as*: **Appena arriva il treno, saliamo.** (As soon as the train comes, we'll get on.) Compare: **Il treno è appena arrivato.** (The train has just come in.) In front, **appena** is *as soon as*; after **è** or **ha** it is *just*."
+        },
+        "examples": [
+          {
+            "it": "Appena arrivo al mare, ti telefono.",
+            "de": "Sobald ich am Meer bin, rufe ich dich an.",
+            "sl": "Takoj ko pridem na morje, te pokličem.",
+            "en": "As soon as I get to the sea, I'll phone you."
+          },
+          {
+            "it": "Il treno è appena arrivato: saliamo!",
+            "de": "Der Zug ist gerade angekommen: Steigen wir ein!",
+            "sl": "Vlak je ravnokar prišel: vstopimo!",
+            "en": "The train's just come in: let's get on!"
+          }
+        ],
+        "rows": [
+          [
+            "appena …",
+            "appena arriva, saliamo",
+            { "de": "sobald er kommt, steigen wir ein", "sl": "takoj ko pride, vstopimo", "en": "as soon as it comes, we'll get on" }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "stare-per",
+          "instruction": { "de": "Come si dice? · Wie sagt man das?", "sl": "Come si dice? · Kako se reče?", "en": "Come si dice? · How do you say it?" },
+          "prompt": {
+            "de": "Sobald die Sonne herauskommt, gehen wir an den Strand.",
+            "sl": "Takoj ko posije sonce, gremo na plažo.",
+            "en": "As soon as the sun comes out, we'll go to the beach."
+          },
+          "options": ["Appena esce il sole, andiamo in spiaggia.", "Il sole è appena uscito, andiamo in spiaggia.", "Il sole sta per uscire, andiamo in spiaggia."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**sobald** → **Appena** vorne\n- è appena uscito · gerade eben\n- sta per uscire · gleich",
+            "sl": "**takoj ko** → **Appena** spredaj\n- è appena uscito · ravnokar\n- sta per uscire · vsak hip",
+            "en": "**as soon as** → **Appena** in front\n- è appena uscito · just\n- sta per uscire · about to"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "stare-per-1",
+      "title": { "it": "Prima o dopo?", "de": "Gleich oder gerade?", "sl": "Kmalu ali ravnokar?", "en": "About to or just?" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "stare-per",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": "stare per + partire",
+          "columns": [{ "de": "stare per · gleich", "sl": "stare per · vsak hip", "en": "stare per · about to" }],
+          "rows": [
+            { "label": "io", "cells": ["sto per partire"] },
+            {
+              "label": "tu",
+              "cells": [{ "accept": ["stai per partire"], "hint": { "de": "wie stai giocando", "sl": "kot stai giocando", "en": "as in stai giocando" } }]
+            },
+            { "label": "lui, lei", "cells": [{ "accept": ["sta per partire"] }] },
+            { "label": "noi", "cells": [{ "accept": ["stiamo per partire"], "hint": "-iamo" }] },
+            { "label": "voi", "cells": [{ "accept": ["state per partire"] }] },
+            { "label": "loro", "cells": [{ "accept": ["stanno per partire"] }] }
+          ],
+          "explain": {
+            "de": "**stare** ändert sich, **per partire** bleibt\n- sto, stai, sta, stiamo, state, stanno",
+            "sl": "**stare** se spreminja, **per partire** ostane\n- sto, stai, sta, stiamo, state, stanno",
+            "en": "**stare** changes, **per partire** stays\n- sto, stai, sta, stiamo, state, stanno"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "stare-per",
+          "instruction": {
+            "de": "Prima o dopo? · Gleich oder gerade eben?",
+            "sl": "Prima o dopo? · Vsak hip ali ravnokar?",
+            "en": "Prima o dopo? · About to or just?"
+          },
+          "columns": [
+            {
+              "label": { "de": "tra un attimo · gleich", "sl": "tra un attimo · vsak hip", "en": "tra un attimo · about to" },
+              "words": ["sta per piovere", "sto per partire", "stiamo per mangiare", "sta per cadere", "stanno per arrivare"]
+            },
+            {
+              "label": { "de": "un attimo fa · gerade eben", "sl": "un attimo fa · ravnokar", "en": "un attimo fa · just" },
+              "words": ["è appena piovuto", "sono appena arrivati", "ho appena finito", "ha appena chiamato", "abbiamo appena mangiato"]
+            }
+          ],
+          "explain": {
+            "de": "**stare per** + Grundform → gleich · **appena** + Partizip → gerade eben",
+            "sl": "**stare per** + nedoločnik → vsak hip · **appena** + deležnik → ravnokar",
+            "en": "**stare per** + the infinitive → about to · **appena** + the participle → just"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stare-per-2",
+      "title": { "it": "Si parte per Trieste!", "de": "Ab nach Triest!", "sl": "Gremo v Trst!", "en": "Off to Trieste!" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "stare-per",
+          "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+          "title": "Si parte per Trieste!",
+          "text": "Oggi Giulia e Nonna Rosa vanno a Trieste in treno. Alla radio di Zia Nives hanno detto: «La bora sta ___ arrivare.» Lorenzo resta a casa: sta ___ (dormire) da un'ora. «Presto, il treno sta per ___ (partire)!» dice la nonna. Giulia è appena ___ (salire) e le porte si chiudono. «Abbiamo appena ___ (vedere) il mare!» grida Giulia dal finestrino. Appena ___ (arrivare) a Trieste, corrono sul molo. Ma il vento ___ (stare) per portare via il cappello della nonna!",
+          "gaps": [
+            { "accept": ["per"], "hint": { "de": "gleich", "sl": "vsak hip", "en": "about to" } },
+            { "accept": ["dormendo"], "hint": { "de": "sta + Gerundium", "sl": "sta + gerundij", "en": "sta + the gerund" } },
+            {
+              "accept": ["partire"],
+              "hint": { "de": "nach per: die Grundform", "sl": "za per: nedoločnik", "en": "after per: the infinitive" },
+              "explain": {
+                "de": "**stare per** + Grundform: **partire**, nie partendo.",
+                "sl": "**stare per** + nedoločnik: **partire**, nikoli partendo.",
+                "en": "**stare per** + the infinitive: **partire**, never partendo."
+              }
+            },
+            { "accept": ["salita"], "hint": { "de": "Giulia: -a", "sl": "Giulia: -a", "en": "Giulia: -a" } },
+            { "accept": ["visto"], "hint": { "de": "das Partizip von vedere", "sl": "deležnik od vedere", "en": "vedere's participle" } },
+            { "accept": ["arrivano", "arrivate"], "hint": { "de": "Giulia e la nonna: sie", "sl": "Giulia e la nonna: oni dve", "en": "Giulia e la nonna: they" } },
+            { "accept": ["sta"], "hint": { "de": "il vento: er", "sl": "il vento: on", "en": "il vento: it" } }
+          ],
+          "bank": true,
+          "distractors": ["partendo", "arrivato", "stando"],
+          "translation": {
+            "de": "Heute fahren Giulia und Nonna Rosa mit dem Zug nach Triest. Im Radio bei Zia Nives haben sie gesagt: „Gleich kommt die Bora.“ Lorenzo bleibt zu Hause: Er schläft schon seit einer Stunde. „Schnell, der Zug fährt gleich ab!“, sagt Oma. Giulia ist gerade eingestiegen, und die Türen gehen zu. „Wir haben gerade das Meer gesehen!“, ruft Giulia aus dem Fenster. Sobald sie in Triest ankommen, laufen sie auf die Mole. Aber der Wind reißt Oma gleich den Hut weg!",
+            "sl": "Danes gresta Giulia in babica Rosa z vlakom v Trst. Na radiu tete Nives so rekli: »Vsak hip bo zapihala burja.« Lorenzo ostane doma: spi že eno uro. »Hitro, vlak bo vsak hip odpeljal!« reče babica. Giulia je ravnokar vstopila in vrata se zaprejo. »Ravnokar sva videli morje!« zavpije Giulia skozi okno. Takoj ko prispeta v Trst, stečeta na pomol. Toda veter bo babici vsak hip odnesel klobuk!",
+            "en": "Today Giulia and Nonna Rosa are going to Trieste by train. On Zia Nives's radio they said: \"The bora is about to come.\" Lorenzo stays at home: he's been asleep for an hour. \"Quick, the train's about to leave!\" says Grandma. Giulia has just got on, and the doors close. \"We've just seen the sea!\" Giulia shouts from the window. As soon as they get to Trieste, they run onto the pier. But the wind is about to blow Grandma's hat away!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "stare-per",
+          "instruction": { "de": "Come si dice? · Wie sagt man das?", "sl": "Come si dice? · Kako se reče?", "en": "Come si dice? · How do you say it?" },
+          "prompt": { "de": "Wir haben gerade das Meer gesehen.", "sl": "Ravnokar smo videli morje.", "en": "We've just seen the sea." },
+          "options": ["Abbiamo appena visto il mare.", "Appena abbiamo visto il mare.", "Stiamo per vedere il mare."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**gerade eben** → appena **zwischen** abbiamo und visto\n- Appena abbiamo visto … · sobald wir … gesehen haben\n- Stiamo per vedere · gleich",
+            "sl": "**ravnokar** → appena **med** abbiamo in visto\n- Appena abbiamo visto … · takoj ko smo videli …\n- Stiamo per vedere · vsak hip",
+            "en": "**just** → appena **between** abbiamo and visto\n- Appena abbiamo visto … · as soon as we saw …\n- Stiamo per vedere · about to"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stare-per-3",
+      "title": { "it": "Tra un attimo, un attimo fa", "de": "Gleich und gerade eben", "sl": "Vsak hip in ravnokar", "en": "In a moment, a moment ago" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "stare-per",
+          "instruction": { "de": "Usa stare per · Sag es mit stare per", "sl": "Usa stare per · Povej s stare per", "en": "Usa stare per · Say it with stare per" },
+          "items": [
+            { "from": "Il treno parte tra un attimo.", "accept": ["Il treno sta per partire.", "Il treno sta per partire tra un attimo."] },
+            { "from": "Tra un attimo piove.", "accept": ["Sta per piovere."] },
+            { "from": "Le pecore escono tra un attimo.", "accept": ["Le pecore stanno per uscire."] },
+            { "from": "Tra un attimo mangiamo.", "accept": ["Stiamo per mangiare.", "Noi stiamo per mangiare."], "hint": "noi → stiamo" }
+          ],
+          "explain": {
+            "de": "**tra un attimo** → **stare per** + Grundform\n- Il treno parte tra un attimo. → Il treno sta per partire.",
+            "sl": "**tra un attimo** → **stare per** + nedoločnik\n- Il treno parte tra un attimo. → Il treno sta per partire.",
+            "en": "**tra un attimo** → **stare per** + the infinitive\n- Il treno parte tra un attimo. → Il treno sta per partire."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "stare-per",
+          "instruction": { "de": "Usa appena · Sag es mit appena", "sl": "Usa appena · Povej z appena", "en": "Usa appena · Say it with appena" },
+          "items": [
+            { "from": "Giulia è arrivata un attimo fa.", "accept": ["Giulia è appena arrivata."] },
+            { "from": "Nonna Rosa ha fatto la gubana un attimo fa.", "accept": ["Nonna Rosa ha appena fatto la gubana."] },
+            { "from": "Le pecore sono tornate un attimo fa.", "accept": ["Le pecore sono appena tornate."] },
+            { "from": "Abbiamo finito i compiti un attimo fa.", "accept": ["Abbiamo appena finito i compiti.", "Noi abbiamo appena finito i compiti."] }
+          ],
+          "explain": {
+            "de": "**un attimo fa** → **appena** zwischen ha, è und dem Partizip\n- Giulia è arrivata un attimo fa. → Giulia è appena arrivata.",
+            "sl": "**un attimo fa** → **appena** med ha, è in deležnikom\n- Giulia è arrivata un attimo fa. → Giulia è appena arrivata.",
+            "en": "**un attimo fa** → **appena** between ha, è and the participle\n- Giulia è arrivata un attimo fa. → Giulia è appena arrivata."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "stare-per",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "title": "La festa del paese",
+        "text": "È sera e la festa sta per ___ (cominciare). Tommaso è appena ___ (tornare) dalla partita. La banda sta ___ suonare. Stavamo per ___ (ballare) quando è arrivato Moro con un salame in bocca!",
+        "gaps": [{ "accept": ["cominciare"] }, { "accept": ["tornato"] }, { "accept": ["per"] }, { "accept": ["ballare"] }],
+        "translation": {
+          "de": "Es ist Abend, und das Dorffest fängt gleich an. Tommaso ist gerade vom Fußballspiel zurückgekommen. Die Musikkapelle spielt gleich. Wir wollten gerade tanzen, als Moro mit einer Salami im Maul gekommen ist!",
+          "sl": "Večer je in vaški praznik se bo vsak hip začel. Tommaso se je ravnokar vrnil s tekme. Godba bo vsak hip zaigrala. Ravno smo hoteli plesati, ko je prišel Moro s salamo v gobcu!",
+          "en": "It's evening and the village festa is about to begin. Tommaso has just got back from the match. The band is about to play. We were about to dance when Moro turned up with a salami in his mouth!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "stare-per",
+        "prompt": "Attenzione, il bicchiere sta per ___!",
+        "options": ["cadere", "cadendo", "caduto"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**stare per** + Grundform → **cadere**\n- cadendo · das Gerundium: sta cadendo\n- caduto · das Partizip",
+          "sl": "**stare per** + nedoločnik → **cadere**\n- cadendo · gerundij: sta cadendo\n- caduto · deležnik",
+          "en": "**stare per** + the infinitive → **cadere**\n- cadendo · the gerund: sta cadendo\n- caduto · the participle"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "stare-per",
+        "prompt": "Lorenzo ___ appena svegliato.",
+        "options": ["si è", "ha", "sta"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**svegliarsi** → **si è** appena svegliato\n- ha · die Verben mit si nehmen essere\n- sta · stare steht nicht vor appena",
+          "sl": "**svegliarsi** → **si è** appena svegliato\n- ha · glagoli s si imajo essere\n- sta · stare ne stoji pred appena",
+          "en": "**svegliarsi** → **si è** appena svegliato\n- ha · verbs with si take essere\n- sta · stare doesn't go before appena"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "stare-per",
+        "instruction": {
+          "de": "Stare per o appena? · Gleich oder gerade eben?",
+          "sl": "Stare per o appena? · Vsak hip ali ravnokar?",
+          "en": "Stare per o appena? · About to or just?"
+        },
+        "items": [
+          { "from": "Il film comincia tra un attimo.", "accept": ["Il film sta per cominciare.", "Il film sta per cominciare tra un attimo."] },
+          { "from": "Davide è partito un attimo fa.", "accept": ["Davide è appena partito."] },
+          { "from": "Tra un attimo nevica.", "accept": ["Sta per nevicare."] }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "stare-per",
+        "instruction": {
+          "de": "Prima o dopo? · Gleich oder gerade eben?",
+          "sl": "Prima o dopo? · Vsak hip ali ravnokar?",
+          "en": "Prima o dopo? · About to or just?"
+        },
+        "columns": [
+          {
+            "label": { "de": "tra un attimo · gleich", "sl": "tra un attimo · vsak hip", "en": "tra un attimo · about to" },
+            "words": ["sta per arrivare", "stiamo per uscire"]
+          },
+          {
+            "label": { "de": "un attimo fa · gerade eben", "sl": "un attimo fa · ravnokar", "en": "un attimo fa · just" },
+            "words": ["è appena uscito", "ho appena chiamato"]
+          }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: è and ha appena piovuto, ha mangiato appena for hardly (page), appena for as soon as, Alla radio hanno detto, stavamo per ballare"
+}

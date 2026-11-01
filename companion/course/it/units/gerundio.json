@@ -1,0 +1,522 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "gerundio",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🦔",
+  "title": { "it": "Camminando, ho visto un riccio", "de": "Das Gerundium: camminando", "sl": "Gerundij: camminando", "en": "The gerund: camminando" },
+  "goal": {
+    "de": "Du sagst mit dem Gerundium allein, was jemand dabei tut oder wie (Camminando, ho visto un riccio. Giocando si impara.), auch mit den kleinen Wörtern am Ende (guardandolo, lavandosi), und weißt, wann mentre besser passt.",
+    "sl": "Z gerundijem samim poveš, kaj kdo dela medtem ali kako (Camminando, ho visto un riccio. Giocando si impara.), tudi z besedicami na koncu (guardandolo, lavandosi), in veš, kdaj je boljši mentre.",
+    "en": "You can use the gerund on its own to say what someone does meanwhile, or how (Camminando, ho visto un riccio. Giocando si impara.), with the short words on its end too (guardandolo, lavandosi), and know when mentre fits better."
+  },
+  "grammar": ["gerundio", "stare-gerundio"],
+  "words": [
+    "il riccio",
+    "il bosco",
+    "il sentiero",
+    "la foglia",
+    "la castagna",
+    "il rumore",
+    "l'osso",
+    "la sabbia",
+    "l'onda",
+    "il castello",
+    "i fumetti",
+    "la canzone",
+    "camminare",
+    "tornare",
+    "giocare",
+    "imparare",
+    "sbagliare",
+    "spingere",
+    "incontrare",
+    "scendere",
+    "sentire",
+    "girarsi",
+    "avvicinarsi",
+    "scoprire",
+    "ridere",
+    "fischiare",
+    "tenere",
+    "scappare",
+    "nuotare",
+    "correre",
+    "lavorare",
+    "alzarsi",
+    "vestirsi",
+    "pettinarsi",
+    "mentre",
+    "piano piano"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "verbo", "de": "Verb", "sl": "glagol", "en": "verb" },
+        { "it": "gerundio", "de": "Gerundium", "sl": "gerundij", "en": "gerund" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Das Gerundium kann auch allein vorne im Satz stehen, dann heißt es *während* oder *als*. Lorenzo erzählt: **Camminando, ho visto un riccio!** (Beim Gehen habe ich einen Igel gesehen!) **Tornando a casa, Giulia ha incontrato Bruno.** (Auf dem Heimweg hat Giulia Bruno getroffen.) Die Formen kennst du von **sto camminando**: **-are → -ando**, **-ere, -ire → -endo**.",
+          "sl": "Gerundij lahko stoji tudi sam na začetku stavka, takrat pomeni *med* ali *ko*. Lorenzo pripoveduje: **Camminando, ho visto un riccio!** (Med hojo sem videl ježa!) **Tornando a casa, Giulia ha incontrato Bruno.** (Na poti domov je Giulia srečala Bruna.) Oblike poznaš od **sto camminando**: **-are → -ando**, **-ere, -ire → -endo**.",
+          "en": "The gerund can also stand alone at the front of a sentence, and then it means *while* or *when*. Lorenzo says: **Camminando, ho visto un riccio!** (While I was walking, I saw a hedgehog!) **Tornando a casa, Giulia ha incontrato Bruno.** (On her way home, Giulia met Bruno.) You know the forms from **sto camminando**: **-are → -ando**, **-ere, -ire → -endo**."
+        },
+        "examples": [
+          {
+            "it": "Camminando nel bosco, Lorenzo ha visto un riccio.",
+            "de": "Beim Gehen im Wald hat Lorenzo einen Igel gesehen.",
+            "sl": "Med hojo po gozdu je Lorenzo zagledal ježa.",
+            "en": "While walking in the wood, Lorenzo saw a hedgehog."
+          },
+          {
+            "it": "Tornando a casa, Giulia ha incontrato Bruno.",
+            "de": "Auf dem Heimweg hat Giulia Bruno getroffen.",
+            "sl": "Na poti domov je Giulia srečala Bruna.",
+            "en": "On her way home, Giulia met Bruno."
+          }
+        ],
+        "rows": [
+          ["camminare", "camminando", { "de": "beim Gehen", "sl": "med hojo", "en": "while walking" }],
+          ["tornare", "tornando", { "de": "auf dem Rückweg", "sl": "na poti nazaj", "en": "on the way back" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "gerundio",
+          "prompt": "___ verso il mare, Giulia ha trovato una conchiglia.",
+          "options": ["Camminando", "Camminato", "Cammina"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**vorne, für während** → **Camminando**\n- camminato · das Partizip (ho camminato)\n- cammina · er geht: zwei Verben ohne Bindewort",
+            "sl": "**na začetku, za med** → **Camminando**\n- camminato · deležnik (ho camminato)\n- cammina · hodi: dva glagola brez veznika",
+            "en": "**at the front, for while** → **Camminando**\n- camminato · the participle (ho camminato)\n- cammina · he walks: two verbs with nothing to join them"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das Gerundium sagt auch, *wie* etwas geht, wie *indem* oder *beim*: **Giocando si impara.** (Beim Spielen lernt man.) Nonno Bepi sagt immer: **Sbagliando s'impara.** (Aus Fehlern lernt man.) **Lorenzo ha aperto la porta spingendo forte.** (Lorenzo hat die Tür aufgemacht, indem er fest gedrückt hat.)",
+          "sl": "Gerundij pove tudi, *kako* se kaj zgodi, *s čim*: **Giocando si impara.** (Z igro se učimo.) Nonno Bepi vedno reče: **Sbagliando s'impara.** (Na napakah se učimo.) **Lorenzo ha aperto la porta spingendo forte.** (Lorenzo je odprl vrata tako, da je močno potisnil.)",
+          "en": "The gerund also says *how*, *by doing* what: **Giocando si impara.** (You learn by playing.) Nonno Bepi always says: **Sbagliando s'impara.** (You learn from your mistakes.) **Lorenzo ha aperto la porta spingendo forte.** (Lorenzo opened the door by pushing hard.)"
+        },
+        "examples": [
+          { "it": "Giocando si impara.", "de": "Beim Spielen lernt man.", "sl": "Z igro se učimo.", "en": "You learn by playing." },
+          { "it": "Sbagliando s'impara.", "de": "Aus Fehlern lernt man.", "sl": "Na napakah se učimo.", "en": "You learn from your mistakes." }
+        ],
+        "rows": [
+          ["giocare", "giocando", { "de": "beim Spielen", "sl": "z igro", "en": "by playing" }],
+          ["sbagliare", "sbagliando", { "de": "indem man Fehler macht", "sl": "z napakami", "en": "by making mistakes" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "gerundio",
+          "text": "Tommaso impara a leggere ___ i fumetti. (leggere)",
+          "accept": ["leggendo"],
+          "hint": "-ere → ?",
+          "explain": {
+            "de": "**wie? indem er liest** → **leggendo**\n- -ere → -endo, nie leggando",
+            "sl": "**kako? z branjem** → **leggendo**\n- -ere → -endo, nikoli leggando",
+            "en": "**how? by reading** → **leggendo**\n- -ere → -endo, never leggando"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Fare**, **dire** und **bere** machen es wie bei **stare**: **facendo**, **dicendo**, **bevendo**. Und das Gerundium ändert sich nie, für einen Jungen, ein Mädchen oder viele: **Facendo il frico, Nonna Rosa canta.** (Beim Frico-Machen singt Nonna Rosa.) **Bevendo il latte, Giulia e Lorenzo ridono.** (Beim Milchtrinken lachen Giulia und Lorenzo.)",
+          "sl": "**Fare**, **dire** in **bere** gredo kot pri **stare**: **facendo**, **dicendo**, **bevendo**. Gerundij se nikoli ne spremeni, ne za fanta ne za deklico ne za več oseb: **Facendo il frico, Nonna Rosa canta.** (Ko dela friko, babica Rosa poje.) **Bevendo il latte, Giulia e Lorenzo ridono.** (Ko pijeta mleko, se Giulia in Lorenzo smejita.)",
+          "en": "**Fare**, **dire** and **bere** go as they do with **stare**: **facendo**, **dicendo**, **bevendo**. And the gerund never changes, for a boy, a girl or many: **Facendo il frico, Nonna Rosa canta.** (Nonna Rosa sings while she makes frico.) **Bevendo il latte, Giulia e Lorenzo ridono.** (Giulia and Lorenzo laugh as they drink their milk.)"
+        },
+        "examples": [
+          {
+            "it": "Facendo il frico, Nonna Rosa canta.",
+            "de": "Beim Frico-Machen singt Nonna Rosa.",
+            "sl": "Ko dela friko, babica Rosa poje.",
+            "en": "Nonna Rosa sings while she makes frico."
+          },
+          {
+            "it": "Bevendo il latte, Giulia e Lorenzo ridono.",
+            "de": "Beim Milchtrinken lachen Giulia und Lorenzo.",
+            "sl": "Ko pijeta mleko, se Giulia in Lorenzo smejita.",
+            "en": "Giulia and Lorenzo laugh as they drink their milk."
+          }
+        ],
+        "rows": [
+          ["fare", "facendo", { "de": "beim Machen", "sl": "med delom", "en": "while doing" }],
+          ["dire", "dicendo", { "de": "beim Sagen", "sl": "ko reče", "en": "saying" }],
+          ["bere", "bevendo", { "de": "beim Trinken", "sl": "med pitjem", "en": "while drinking" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "gerundio",
+          "prompt": "Nonno Bepi racconta una storia ___ il caffè.",
+          "options": ["bevendo", "bevendi", "berendo"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**bere → bevendo**, für alle gleich\n- bevendi · das Gerundium ändert sich nie\n- berendo · bere geht wie bevevo: bev-",
+            "sl": "**bere → bevendo**, za vse enako\n- bevendi · gerundij se nikoli ne spremeni\n- berendo · bere gre kot bevevo: bev-",
+            "en": "**bere → bevendo**, the same for everyone\n- bevendi · the gerund never changes\n- berendo · bere goes like bevevo: bev-"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Kleine Wörter wie **lo**, **si** und **gli** kommen ans Ende des Gerundiums, in einem Wort: **guardandolo** (indem er ihn anschaut), **lavandosi** (beim Waschen), **dicendogli** (indem er ihm sagt). **Lavandosi i denti, Tommaso canta.** (Beim Zähneputzen singt Tommaso.) Bei **alzarsi** sagt das kleine Wort die Person: **alzandomi** (ich), **alzandoti** (du), **alzandosi** (er, sie).",
+          "sl": "Besedice, kot so **lo**, **si** in **gli**, gredo na konec gerundija, v eno besedo: **guardandolo** (ko ga gleda), **lavandosi** (ko se umiva), **dicendogli** (ko mu reče). **Lavandosi i denti, Tommaso canta.** (Med umivanjem zob Tommaso poje.) Pri **alzarsi** besedica pove osebo: **alzandomi** (jaz), **alzandoti** (ti), **alzandosi** (on, ona).",
+          "en": "Short words like **lo**, **si** and **gli** go on the end of the gerund, as one word: **guardandolo** (looking at him), **lavandosi** (washing himself), **dicendogli** (telling him). **Lavandosi i denti, Tommaso canta.** (Tommaso sings while he brushes his teeth.) With **alzarsi** the short word says the person: **alzandomi** (I), **alzandoti** (you), **alzandosi** (he, she)."
+        },
+        "examples": [
+          {
+            "it": "Lavandosi i denti, Tommaso canta.",
+            "de": "Beim Zähneputzen singt Tommaso.",
+            "sl": "Med umivanjem zob Tommaso poje.",
+            "en": "Tommaso sings while he brushes his teeth."
+          },
+          {
+            "it": "Moro trova un osso e scappa tenendolo in bocca.",
+            "de": "Moro findet einen Knochen und läuft mit ihm im Maul davon.",
+            "sl": "Moro najde kost in zbeži s kostjo v gobcu.",
+            "en": "Moro finds a bone and runs off holding it in his mouth."
+          }
+        ],
+        "rows": [
+          ["guardare + lo", "guardandolo", { "de": "indem man ihn anschaut", "sl": "ko ga gleda", "en": "looking at him" }],
+          ["lavarsi", "lavandosi", { "de": "beim Waschen", "sl": "ko se umiva", "en": "washing himself" }],
+          [
+            "alzarsi",
+            "alzandomi · alzandoti · alzandosi",
+            { "de": "beim Aufstehen: ich, du, er", "sl": "ko vstanem, vstaneš, vstane", "en": "getting up: I, you, he" }
+          ],
+          ["dire + gli", "dicendogli", { "de": "indem man ihm sagt", "sl": "ko mu reče", "en": "telling him" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "gerundio",
+          "text": "Giulia trova una castagna e la porta a casa ___ in mano. (tenere + la)",
+          "accept": ["tenendola"],
+          "hint": { "de": "das kleine Wort ans Ende", "sl": "besedica na konec", "en": "the short word on the end" },
+          "explain": {
+            "de": "**das kleine Wort am Ende** → **tenendola**\n- la castagna → la, in einem Wort",
+            "sl": "**besedica na koncu** → **tenendola**\n- la castagna → la, v eni besedi",
+            "en": "**the short word on the end** → **tenendola**\n- la castagna → la, written as one word"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Das Gerundium gehört zu der Person, um die es im Satz geht: **Camminando, Giulia canta.** (Giulia geht und singt dabei.) Tut es jemand anderes, sagst du **mentre** oder **quando** mit einem Verb: **Mentre Moro dormiva, il gatto ha bevuto il suo latte.** (Während Moro schlief, hat die Katze seine Milch getrunken.) Und **sto camminando** heißt *ich gehe gerade*, **camminando, …** heißt *beim Gehen*.",
+          "sl": "Gerundij velja za osebo, o kateri govori stavek: **Camminando, Giulia canta.** (Giulia hodi in poje.) Če to dela nekdo drug, rečeš **mentre** ali **quando** z glagolom: **Mentre Moro dormiva, il gatto ha bevuto il suo latte.** (Medtem ko je Moro spal, je mačka popila njegovo mleko.) **Sto camminando** pomeni *ravno hodim*, **camminando, …** pa *med hojo*.",
+          "en": "The gerund is about the person the sentence is about: **Camminando, Giulia canta.** (Giulia walks along singing.) When someone else does it, say **mentre** or **quando** with a verb: **Mentre Moro dormiva, il gatto ha bevuto il suo latte.** (While Moro was asleep, the cat drank his milk.) And **sto camminando** means *I'm walking right now*, **camminando, …** *while walking*."
+        },
+        "examples": [
+          {
+            "it": "Camminando, Giulia canta una canzone.",
+            "de": "Beim Gehen singt Giulia ein Lied.",
+            "sl": "Med hojo Giulia poje pesem.",
+            "en": "Giulia sings a song as she walks."
+          },
+          {
+            "it": "Mentre Moro dormiva, il gatto ha bevuto il suo latte.",
+            "de": "Während Moro schlief, hat die Katze seine Milch getrunken.",
+            "sl": "Medtem ko je Moro spal, je mačka popila njegovo mleko.",
+            "en": "While Moro was asleep, the cat drank his milk."
+          }
+        ],
+        "rows": [["stare + gerundio", "sto camminando", { "de": "ich gehe gerade", "sl": "ravno hodim", "en": "I'm walking right now" }]],
+        "ask": {
+          "type": "choice",
+          "grammar": "gerundio",
+          "prompt": "___ il nonno raccontava una storia, Lorenzo si è addormentato.",
+          "options": ["Mentre", "Raccontando", "Stando"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**jemand anderes (der Nonno)** → **Mentre** + ein Verb\n- raccontando · nur für dieselbe Person, ohne eigenes Verb\n- stando · stare nur mit dem Gerundium: sta raccontando",
+            "sl": "**nekdo drug (nonno)** → **Mentre** + glagol\n- raccontando · samo za isto osebo, brez svojega glagola\n- stando · stare samo z gerundijem: sta raccontando",
+            "en": "**someone else (the nonno)** → **Mentre** + a verb\n- raccontando · only for the same person, with no verb of its own\n- stando · stare only with the gerund: sta raccontando"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "gerundio-1",
+      "title": { "it": "Le forme", "de": "Die Formen", "sl": "Oblike", "en": "The forms" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "gerundio",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": "infinito → gerundio",
+          "columns": [{ "de": "gerundio · Gerundium", "sl": "gerundio · gerundij", "en": "gerundio · gerund" }],
+          "rows": [
+            { "label": "camminare", "cells": ["camminando"] },
+            { "label": "tornare", "cells": [{ "accept": ["tornando"], "hint": "-are → -ando" }] },
+            { "label": "scendere", "cells": [{ "accept": ["scendendo"], "hint": "-ere → -endo" }] },
+            { "label": "sentire", "cells": [{ "accept": ["sentendo"], "hint": "-ire → -endo" }] },
+            { "label": "fare", "cells": [{ "accept": ["facendo"], "hint": { "de": "wie facevo", "sl": "kot facevo", "en": "like facevo" } }] },
+            { "label": "dire", "cells": [{ "accept": ["dicendo"], "hint": { "de": "wie dicevo", "sl": "kot dicevo", "en": "like dicevo" } }] },
+            { "label": "bere", "cells": [{ "accept": ["bevendo"], "hint": { "de": "wie bevevo", "sl": "kot bevevo", "en": "like bevevo" } }] },
+            {
+              "label": "guardare + lo",
+              "cells": [
+                { "accept": ["guardandolo"], "hint": { "de": "lo ans Ende, in einem Wort", "sl": "lo na konec, v eni besedi", "en": "lo on the end, one word" } }
+              ]
+            },
+            { "label": "alzarsi · io", "cells": [{ "accept": ["alzandomi"], "hint": "io → mi" }] },
+            { "label": "vestirsi · lui", "cells": [{ "accept": ["vestendosi"], "hint": "lui → si" }] },
+            { "label": "dire + gli", "cells": [{ "accept": ["dicendogli"] }] }
+          ],
+          "explain": {
+            "de": "**-are → -ando · -ere, -ire → -endo**\n- facendo, dicendo, bevendo\n- das kleine Wort am Ende: guardandolo, alzandomi",
+            "sl": "**-are → -ando · -ere, -ire → -endo**\n- facendo, dicendo, bevendo\n- besedica na koncu: guardandolo, alzandomi",
+            "en": "**-are → -ando · -ere, -ire → -endo**\n- facendo, dicendo, bevendo\n- the short word on the end: guardandolo, alzandomi"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "gerundio",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Giulia ascolta la radio ___ i compiti.",
+          "options": ["facendo", "fando", "fatto"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**fare → facendo**\n- fando · gibt es nicht\n- fatto · das Partizip (ho fatto)",
+            "sl": "**fare → facendo**\n- fando · ne obstaja\n- fatto · deležnik (ho fatto)",
+            "en": "**fare → facendo**\n- fando · isn't a word\n- fatto · the participle (ho fatto)"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "gerundio",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Lorenzo impara a contare ___ con il nonno.",
+          "options": ["giocando", "giocato", "gioca"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**wie? beim Spielen** → **giocando**\n- giocato · das Partizip\n- gioca · zwei Verben ohne Bindewort",
+            "sl": "**kako? z igro** → **giocando**\n- giocato · deležnik\n- gioca · dva glagola brez veznika",
+            "en": "**how? by playing** → **giocando**\n- giocato · the participle\n- gioca · two verbs with nothing to join them"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "gerundio",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "___ Davide chiamava le pecore, Moro abbaiava.",
+          "options": ["Mentre", "Chiamando"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**Davide ruft, Moro bellt: zwei verschiedene** → **Mentre** + ein Verb\n- chiamando · nur für dieselbe Person",
+            "sl": "**Davide kliče, Moro laja: dva različna** → **Mentre** + glagol\n- chiamando · samo za isto osebo",
+            "en": "**Davide calls, Moro barks: two different ones** → **Mentre** + a verb\n- chiamando · only for the same person"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gerundio-2",
+      "title": { "it": "Una passeggiata nel bosco", "de": "Ein Spaziergang im Wald", "sl": "Sprehod po gozdu", "en": "A walk in the wood" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "gerundio",
+          "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+          "title": "Una passeggiata nel bosco",
+          "text": "Sabato Lorenzo va nel bosco con il nonno, il signor Franco. ___ (camminare) sul sentiero, cantano una canzone. ___ (guardare) per terra, Lorenzo trova una castagna. Poi sente un rumore e, ___ (girarsi), vede qualcosa sotto le foglie. ___ (avvicinarsi) piano piano, scopre un riccio! Il riccio mangia una mela ___ (fare) tanto rumore. Lorenzo lo guarda ___ (ridere). ___ (tornare) a casa, racconta tutto a Giulia.",
+          "gaps": [
+            { "accept": ["Camminando"], "hint": "-are → ?" },
+            { "accept": ["Guardando"], "hint": "-are → ?" },
+            {
+              "accept": ["girandosi"],
+              "hint": { "de": "si ans Ende", "sl": "si na konec", "en": "si on the end" },
+              "explain": {
+                "de": "**girarsi** → **girandosi**: das si ans Ende, in einem Wort.",
+                "sl": "**girarsi** → **girandosi**: si na konec, v eni besedi.",
+                "en": "**girarsi** → **girandosi**: si on the end, as one word."
+              }
+            },
+            { "accept": ["Avvicinandosi"], "hint": { "de": "si ans Ende", "sl": "si na konec", "en": "si on the end" } },
+            { "accept": ["facendo"], "hint": { "de": "wie facevo", "sl": "kot facevo", "en": "like facevo" } },
+            { "accept": ["ridendo"], "hint": "-ere → ?" },
+            { "accept": ["Tornando"], "hint": "-are → ?" }
+          ],
+          "bank": true,
+          "distractors": ["facando", "tornendo", "camminato"],
+          "translation": {
+            "de": "Am Samstag geht Lorenzo mit seinem Opa, Herrn Franco, in den Wald. Beim Gehen auf dem Weg singen sie ein Lied. Als er auf den Boden schaut, findet Lorenzo eine Kastanie. Dann hört er ein Geräusch, dreht sich um und sieht etwas unter den Blättern. Als er ganz langsam näher kommt, entdeckt er einen Igel! Der Igel frisst einen Apfel und macht dabei viel Lärm. Lorenzo schaut ihm lachend zu. Auf dem Heimweg erzählt er Giulia alles.",
+            "sl": "V soboto gre Lorenzo z dedkom, gospodom Francom, v gozd. Med hojo po poti pojeta pesem. Ko gleda v tla, Lorenzo najde kostanj. Potem zasliši šum, se obrne in vidi nekaj pod listjem. Ko se počasi približa, odkrije ježa! Jež je jabolko in pri tem zelo glasno cmoka. Lorenzo ga gleda in se smeje. Na poti domov vse pove Giulii.",
+            "en": "On Saturday Lorenzo goes to the wood with his grandpa, signor Franco. Walking along the path, they sing a song. Looking at the ground, Lorenzo finds a chestnut. Then he hears a noise and, turning round, sees something under the leaves. Creeping closer, he discovers a hedgehog! The hedgehog eats an apple, making lots of noise. Lorenzo watches it, laughing. On the way home, he tells Giulia everything."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "gerundio",
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
+          "prompt": "Mentre il riccio ___, Lorenzo stava zitto.",
+          "options": ["mangiava", "mangiando"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**mentre + jemand anderes** → ein Verb: **mangiava**\n- mangiando · ohne mentre, nur für dieselbe Person",
+            "sl": "**mentre + nekdo drug** → glagol: **mangiava**\n- mangiando · brez mentre, samo za isto osebo",
+            "en": "**mentre + someone else** → a verb: **mangiava**\n- mangiando · without mentre, only for the same person"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gerundio-3",
+      "title": { "it": "Dillo con il gerundio", "de": "Sag es mit dem Gerundium", "sl": "Povej z gerundijem", "en": "Say it with the gerund" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "gerundio",
+          "instruction": {
+            "de": "Usa il gerundio · Sag es mit dem Gerundium",
+            "sl": "Usa il gerundio · Povej z gerundijem",
+            "en": "Usa il gerundio · Say it with the gerund"
+          },
+          "items": [
+            { "from": "Mentre cammina, Davide fischia.", "accept": ["Camminando, Davide fischia.", "Davide fischia camminando.", "Davide, camminando, fischia."] },
+            {
+              "from": "Quando torna a casa, Giulia incontra Bruno.",
+              "accept": ["Tornando a casa, Giulia incontra Bruno.", "Giulia incontra Bruno tornando a casa.", "Giulia, tornando a casa, incontra Bruno."]
+            },
+            {
+              "from": "Mentre fa il frico, Nonna Rosa canta.",
+              "accept": ["Facendo il frico, Nonna Rosa canta.", "Nonna Rosa canta facendo il frico.", "Nonna Rosa, facendo il frico, canta."],
+              "hint": { "de": "fare → fac…", "sl": "fare → fac…", "en": "fare → fac…" }
+            },
+            {
+              "from": "Mentre legge, Giulia mangia le ciliegie.",
+              "accept": ["Leggendo, Giulia mangia le ciliegie.", "Giulia mangia le ciliegie leggendo.", "Giulia, leggendo, mangia le ciliegie."]
+            },
+            {
+              "from": "Mentre beve il latte, Lorenzo ride.",
+              "accept": ["Bevendo il latte, Lorenzo ride.", "Lorenzo ride bevendo il latte.", "Lorenzo, bevendo il latte, ride."]
+            },
+            {
+              "from": "Mentre si lava i denti, Tommaso canta.",
+              "accept": ["Lavandosi i denti, Tommaso canta.", "Tommaso canta lavandosi i denti.", "Tommaso, lavandosi i denti, canta."],
+              "hint": { "de": "si ans Ende", "sl": "si na konec", "en": "si on the end" }
+            },
+            {
+              "from": "Quando lo guarda bene, Lorenzo capisce: è un riccio!",
+              "accept": ["Guardandolo bene, Lorenzo capisce: è un riccio!", "Lorenzo, guardandolo bene, capisce: è un riccio!"],
+              "hint": { "de": "lo ans Ende", "sl": "lo na konec", "en": "lo on the end" }
+            },
+            {
+              "from": "Mentre dice ciao, Tommaso scappa.",
+              "accept": ["Dicendo ciao, Tommaso scappa.", "Tommaso scappa dicendo ciao.", "Tommaso, dicendo ciao, scappa."]
+            }
+          ],
+          "explain": {
+            "de": "**mentre, quando + Verb** → das Gerundium, dieselbe Person\n- Mentre cammina, Davide fischia. → Camminando, Davide fischia.\n- Quando lo guarda … → Guardandolo …",
+            "sl": "**mentre, quando + glagol** → gerundij, ista oseba\n- Mentre cammina, Davide fischia. → Camminando, Davide fischia.\n- Quando lo guarda … → Guardandolo …",
+            "en": "**mentre, quando + a verb** → the gerund, the same person\n- Mentre cammina, Davide fischia. → Camminando, Davide fischia.\n- Quando lo guarda … → Guardandolo …"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "gerundio",
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "title": "Al mare",
+        "text": "Giulia impara a nuotare ___ (giocare) con le onde. ___ (correre) sulla sabbia, Tommaso cade e ride. Lorenzo costruisce un castello di sabbia ___ (cantare). ___ (bere) l'acqua fresca, Nonna Rosa guarda le barche.",
+        "gaps": [{ "accept": ["giocando"] }, { "accept": ["Correndo"] }, { "accept": ["cantando"] }, { "accept": ["Bevendo"] }],
+        "translation": {
+          "de": "Giulia lernt schwimmen, indem sie mit den Wellen spielt. Beim Rennen über den Sand fällt Tommaso hin und lacht. Lorenzo baut singend eine Sandburg. Beim Trinken von frischem Wasser schaut Nonna Rosa den Booten zu.",
+          "sl": "Giulia se uči plavati tako, da se igra z valovi. Med tekom po pesku Tommaso pade in se smeje. Lorenzo poje in gradi grad iz peska. Ko pije svežo vodo, babica Rosa gleda čolne.",
+          "en": "Giulia learns to swim by playing with the waves. Running on the sand, Tommaso falls over and laughs. Lorenzo builds a sandcastle, singing. Drinking cool water, Nonna Rosa watches the boats."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "gerundio",
+        "instruction": {
+          "de": "Usa il gerundio · Sag es mit dem Gerundium",
+          "sl": "Usa il gerundio · Povej z gerundijem",
+          "en": "Usa il gerundio · Say it with the gerund"
+        },
+        "items": [
+          { "from": "Mentre scrive, Giulia canta.", "accept": ["Scrivendo, Giulia canta.", "Giulia canta scrivendo.", "Giulia, scrivendo, canta."] },
+          { "from": "Mentre lavora, Bruno fischia.", "accept": ["Lavorando, Bruno fischia.", "Bruno fischia lavorando.", "Bruno, lavorando, fischia."] },
+          {
+            "from": "Quando si alza, Lorenzo guarda fuori.",
+            "accept": ["Alzandosi, Lorenzo guarda fuori.", "Lorenzo, alzandosi, guarda fuori.", "Lorenzo guarda fuori alzandosi."]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "gerundio",
+        "prompt": "Davide chiama le pecore ___ forte.",
+        "options": ["fischiando", "fischiato", "fischia"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**wie? indem er pfeift** → **fischiando**",
+          "sl": "**kako? z žvižganjem** → **fischiando**",
+          "en": "**how? by whistling** → **fischiando**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "gerundio",
+        "prompt": "Mentre Giulia ___, Moro dorme ai suoi piedi.",
+        "options": ["legge", "leggendo"],
+        "answer": 0,
+        "say_options": true,
+        "explain": { "de": "**mentre** → ein Verb: **legge**", "sl": "**mentre** → glagol: **legge**", "en": "**mentre** → a verb: **legge**" }
+      },
+      {
+        "type": "choice",
+        "grammar": "gerundio",
+        "prompt": "«Che cosa fai, Tommaso?» «___ un panino!»",
+        "options": ["Sto mangiando", "Mangiando"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**gerade jetzt** → **Sto mangiando**\n- mangiando allein · nur neben einem anderen Verb",
+          "sl": "**ravno zdaj** → **Sto mangiando**\n- mangiando sam · samo ob drugem glagolu",
+          "en": "**right now** → **Sto mangiando**\n- mangiando alone · only beside another verb"
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "gerundio",
+        "instruction": {
+          "de": "Completa la tabella · Füll die Tabelle aus",
+          "sl": "Completa la tabella · Dopolni tabelo",
+          "en": "Completa la tabella · Fill in the table"
+        },
+        "prompt": "infinito → gerundio",
+        "columns": [{ "de": "gerundio · Gerundium", "sl": "gerundio · gerundij", "en": "gerundio · gerund" }],
+        "rows": [
+          { "label": "aprire", "cells": [{ "accept": ["aprendo"] }] },
+          { "label": "fare + lo", "cells": [{ "accept": ["facendolo"] }] },
+          { "label": "pettinarsi · lei", "cells": [{ "accept": ["pettinandosi"] }] }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Sbagliando s'impara, girandosi and avvicinandosi, Lorenzo lo guarda ridendo, Mangiando as the wrong reply, the German"
+}

@@ -1,0 +1,109 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "gerundio",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🦔",
+  "title": {
+    "it": "Camminando, ho visto un riccio: il gerundio",
+    "sl": "Med hojo sem videl ježa: gerundij",
+    "en": "While walking, I saw a hedgehog: the gerund",
+    "de": "Beim Gehen sah ich einen Igel: das Gerundium"
+  },
+  "rule": {
+    "en": "**The gerund** (*gerundio*: **-ando**, **-endo**, as in **sto giocando**) can stand on its own, mostly at the front of a sentence. Then it says *while* or *when*: **Camminando, Lorenzo ha visto un riccio.** (While walking, Lorenzo saw a hedgehog.) **Tornando a casa, Giulia ha incontrato Bruno.**\n\nIt also says *how*, *by doing* what: **Giocando si impara.** (You learn by playing.) **Sbagliando s'impara.** (You learn from your mistakes: a proverb.)\n\nIts forms are the ones you know: **-are → -ando**, **-ere** and **-ire → -endo**, and **facendo**, **dicendo**, **bevendo** (never *farendo*, *leggando*). It never changes: **Giulia**, **i bambini**, everyone: **camminando**.\n\nThe short words go on its end, written as one word: **guardandolo** (looking at him), **lavandosi** (washing himself), **alzandomi** (as I get up), **dicendogli** (telling him).\n\nIt is about the person the sentence is about: **Camminando, Giulia canta.** (Giulia walks and sings.) When someone else does it, say **mentre** or **quando** with a verb: **Mentre Moro dormiva, il gatto ha bevuto il suo latte.** And **sto camminando** is *right now*, **camminando, …** is *while walking*.",
+    "sl": "**Gerundij** (*gerundio*: **-ando**, **-endo**, kot v **sto giocando**) lahko stoji tudi sam, navadno na začetku stavka. Takrat pomeni *med* ali *ko*: **Camminando, Lorenzo ha visto un riccio.** (Med hojo je Lorenzo zagledal ježa.) **Tornando a casa, Giulia ha incontrato Bruno.** (Na poti domov je Giulia srečala Bruna.)\n\nPove tudi, *kako* ali *s čim*: **Giocando si impara.** (Z igro se učimo.) **Sbagliando s'impara.** (Na napakah se učimo, pregovor.)\n\nOblike že poznaš: **-are → -ando**, **-ere** in **-ire → -endo**, ter **facendo**, **dicendo**, **bevendo** (nikoli *farendo*, *leggando*). Nikoli se ne spremeni: **Giulia**, **i bambini**, vsi: **camminando**.\n\nKratke besedice gredo na konec in se pišejo skupaj: **guardandolo** (ko ga gleda), **lavandosi** (ko se umiva), **alzandomi** (ko vstanem), **dicendogli** (ko mu reče).\n\nVelja za osebo, o kateri govori stavek: **Camminando, Giulia canta.** (Giulia hodi in poje.) Če to dela nekdo drug, rečeš **mentre** ali **quando** z glagolom: **Mentre Moro dormiva, il gatto ha bevuto il suo latte.** (Medtem ko je Moro spal, je mačka popila njegovo mleko.) **Sto camminando** pa je *ravno zdaj*.",
+    "de": "**Das Gerundium** (*gerundio*: **-ando**, **-endo**, wie in **sto giocando**) kann auch allein stehen, meist vorne im Satz. Dann heißt es *während* oder *als*: **Camminando, Lorenzo ha visto un riccio.** (Beim Gehen hat Lorenzo einen Igel gesehen.) **Tornando a casa, Giulia ha incontrato Bruno.**\n\nEs sagt auch *wie*, wie *indem*: **Giocando si impara.** (Beim Spielen lernt man.) **Sbagliando s'impara.** (Aus Fehlern lernt man, ein Sprichwort.)\n\nDie Formen kennst du: **-are → -ando**, **-ere** und **-ire → -endo**, dazu **facendo**, **dicendo**, **bevendo** (nie *farendo*, *leggando*). Es ändert sich nie: **Giulia**, **i bambini**, alle: **camminando**.\n\nDie kleinen Wörter kommen ans Ende, in einem Wort: **guardandolo** (indem er ihn anschaut), **lavandosi** (beim Waschen), **alzandomi** (als ich aufstehe), **dicendogli** (indem er ihm sagt).\n\nEs gehört zur Person, um die es geht: **Camminando, Giulia canta.** (Giulia geht und singt.) Tut es jemand anderes, sagst du **mentre** oder **quando** mit einem Verb: **Mentre Moro dormiva, il gatto ha bevuto il suo latte.** (Während Moro schlief, hat die Katze seine Milch getrunken.) Und **sto camminando** heißt *gerade jetzt*."
+  },
+  "table": {
+    "head": [
+      { "it": "verbo", "sl": "glagol", "en": "verb", "de": "Verb" },
+      { "it": "gerundio", "sl": "gerundij", "en": "gerund", "de": "Gerundium" },
+      { "it": "significato", "sl": "pomen", "en": "meaning", "de": "Bedeutung" }
+    ],
+    "rows": [
+      ["camminare", "camminando", { "it": "mentre cammino", "sl": "med hojo", "en": "while walking", "de": "beim Gehen" }],
+      ["tornare", "tornando", { "it": "quando torno", "sl": "na poti nazaj", "en": "on the way back", "de": "auf dem Rückweg" }],
+      ["giocare", "giocando", { "it": "con il gioco", "sl": "z igro", "en": "by playing", "de": "beim Spielen" }],
+      ["leggere", "leggendo", { "it": "mentre leggo", "sl": "med branjem", "en": "while reading", "de": "beim Lesen" }],
+      ["dormire", "dormendo", { "it": "mentre dormo", "sl": "med spanjem", "en": "while sleeping", "de": "im Schlaf" }],
+      ["fare", "facendo", { "it": "mentre faccio", "sl": "med delom", "en": "while doing", "de": "beim Machen" }],
+      ["dire", "dicendo", { "it": "mentre dico", "sl": "ko reče", "en": "saying", "de": "beim Sagen" }],
+      ["bere", "bevendo", { "it": "mentre bevo", "sl": "med pitjem", "en": "while drinking", "de": "beim Trinken" }],
+      ["guardare + lo", "guardandolo", { "it": "mentre lo guardo", "sl": "ko ga gleda", "en": "looking at him", "de": "indem man ihn anschaut" }],
+      ["lavarsi", "lavandosi", { "it": "mentre si lava", "sl": "ko se umiva", "en": "washing himself", "de": "beim Waschen" }]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Camminando nel bosco, Lorenzo ha visto un riccio.",
+      "sl": "Med hojo po gozdu je Lorenzo zagledal ježa.",
+      "en": "While walking in the wood, Lorenzo saw a hedgehog.",
+      "de": "Beim Gehen im Wald hat Lorenzo einen Igel gesehen.",
+      "note": {
+        "sl": "Ista oseba: Lorenzo hodi in Lorenzo vidi.",
+        "en": "The same person: Lorenzo walks and Lorenzo sees.",
+        "de": "Dieselbe Person: Lorenzo geht, und Lorenzo sieht."
+      }
+    },
+    {
+      "it": "Tornando a casa, Giulia ha incontrato Bruno.",
+      "sl": "Na poti domov je Giulia srečala Bruna.",
+      "en": "On her way home, Giulia met Bruno.",
+      "de": "Auf dem Heimweg hat Giulia Bruno getroffen."
+    },
+    {
+      "it": "Giocando si impara.",
+      "sl": "Z igro se učimo.",
+      "en": "You learn by playing.",
+      "de": "Beim Spielen lernt man.",
+      "note": { "sl": "Kako? Z igro: gerundij pove način.", "en": "How? By playing: the gerund says how.", "de": "Wie? Beim Spielen: Das Gerundium sagt, wie." }
+    },
+    {
+      "it": "Sbagliando s'impara.",
+      "sl": "Na napakah se učimo.",
+      "en": "You learn from your mistakes.",
+      "de": "Aus Fehlern lernt man.",
+      "note": { "sl": "Pregovor, ki ga rad pove Nonno Bepi.", "en": "A proverb Nonno Bepi likes to say.", "de": "Ein Sprichwort, das Nonno Bepi gern sagt." }
+    },
+    {
+      "it": "Nonna Rosa canta facendo il frico.",
+      "sl": "Babica Rosa poje, ko dela friko.",
+      "en": "Nonna Rosa sings while she makes frico.",
+      "de": "Nonna Rosa singt beim Frico-Machen."
+    },
+    {
+      "it": "Lavandosi i denti, Tommaso canta.",
+      "sl": "Med umivanjem zob Tommaso poje.",
+      "en": "Tommaso sings while he brushes his teeth.",
+      "de": "Beim Zähneputzen singt Tommaso.",
+      "note": {
+        "sl": "lavando + si → lavandosi: besedica na koncu, v eni besedi.",
+        "en": "lavando + si → lavandosi: the short word on the end, one word.",
+        "de": "lavando + si → lavandosi: das kleine Wort am Ende, in einem Wort."
+      }
+    },
+    {
+      "it": "Moro trova un osso e scappa tenendolo in bocca.",
+      "sl": "Moro najde kost in zbeži s kostjo v gobcu.",
+      "en": "Moro finds a bone and runs off holding it in his mouth.",
+      "de": "Moro findet einen Knochen und läuft mit ihm im Maul davon."
+    },
+    {
+      "it": "Mentre Moro dormiva, il gatto ha bevuto il suo latte.",
+      "sl": "Medtem ko je Moro spal, je mačka popila njegovo mleko.",
+      "en": "While Moro was asleep, the cat drank his milk.",
+      "de": "Während Moro schlief, hat die Katze seine Milch getrunken.",
+      "note": {
+        "sl": "Moro spi, mačka pije: dve osebi, zato mentre z glagolom.",
+        "en": "Moro sleeps, the cat drinks: two different ones, so mentre with a verb.",
+        "de": "Moro schläft, die Katze trinkt: zwei verschiedene, also mentre mit einem Verb."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["gerundio", "gerund", "while", "by-doing", "gerundio-semplice"],
+  "see": ["stare-gerundio", "riflessivi", "pronomi-diretti", "pronomi-indiretti", "imperfetto-passato"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}
