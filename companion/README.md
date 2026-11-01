@@ -314,8 +314,11 @@ of the port (see [The bridge as a service](#the-bridge-as-a-service)).
   (`companion/cultures/friuli/packs/`, its festivals' words), not Jan's Slovene ones. A learned word becomes an
   Italian card with its meaning in the learner's base language.
 - Jan's curated Slovene modules, role-plays and scenes aren't served either: another language's go in
-  `companion/modules/it/`, `companion/scenarios/it/` and `companion/scenes/it/` (none yet; the tutor writes them for
-  the learner with `publish_module`, `publish_scenario`, `publish_scene`).
+  `companion/modules/it/`, `companion/scenarios/it/` and `companion/scenes/it/` (the tutor writes more for the learner
+  with `publish_module`, `publish_scenario`, `publish_scene`). Teo's Italian role-plays are in `companion/scenarios/it/`
+  (nine, for a child: the market, the baker, the paediatrician, the ice-cream shop, break time, Sunday lunch at Nonna
+  Rosa's, the playground, a phone call to the nonna, Tommaso's party); a scenario in another language than the
+  village's is never served (docs/plans/05-built/scenarios-it.md).
 - The villager talks open with the villager's Italian line, translated into the learner's base. The setting,
   the style newcomers are written in and a designed voice's accent come from the pack (`culture.json` `tutor`).
 - A learner of German plays the same way in `kaernten` (`--target de --culture kaernten`), with the German packs of
@@ -1114,8 +1117,8 @@ event stream, a clip, an APK or an error). `PUT /game` keeps the village's `land
 | `POST` | `/forms-cards` | `{words: [{word, item_id?}], introduced: [page ids], asked?, client_id?}` (0–40 words) → `{added, skipped, resurfaced, made_today, per_day, resurface_per_day}`: forms cards of the learner's learned words from the dictionary's forms, at most `LANI_FORMS_PER_DAY` (2) a day, one at once with `asked`; the cards the `introduced` pages ask more of come back within days, at most `LANI_FORMS_RESURFACE_PER_DAY` (3) a day (see [Forms cards](#forms-cards)); `400` in a village that isn't Slovene |
 | `GET` | `/forms-cards?w=…&w=…` | each word's tables as its forms card would have them, to read (1–10 words): `{language, words: [{word, tables: [{lemma, pos, gender?, gloss, emoji?, table, slots, tested: []}]}], attribution}`; nothing is written, no card made: the app's overview, "📋 Vse oblike" (see [Forms cards](#forms-cards)); an older bridge answers 404 |
 | `GET` | `/words` | `{from: [scene, roleplay, villager, chat, reading, search]}`: the origins `POST /words` takes (an older bridge: 404) |
-| `GET` | `/scenarios` | role-play scenarios (curated `companion/scenarios/` + tutor `<data>/app/scenarios/`) with `source` |
-| `GET` | `/scenarios/:id` | one scenario |
+| `GET` | `/scenarios` | role-play scenarios of the village's language (curated `companion/scenarios/`, another language's `companion/scenarios/<language>/`, + tutor `<data>/app/scenarios/`) with `source`, `language` and `audience`; their title, goals and `who` in the learner's pair ("Al mercato · Auf dem Markt"), the setting and the meanings in the base; never one marked `audience: "adult"` to a child |
+| `GET` | `/scenarios/:id` | one scenario, served so (404 for one the learner isn't offered) |
 | `GET` | `/scenes` | village scenes (curated `companion/scenes/` + tutor `<data>/app/scenes/`, a tutor scene replacing a curated one with its id) with `source`, every object resolved from its pack word (`sl`, `en`, `emoji`, `gender`, `plural`, `example_sl`, `example_en`) |
 | `GET` | `/scenes/:id` | one scene, resolved |
 | `GET` | `/villagers` | the people of the village (curated: the cast of the learner's culture pack, `companion/cultures/<culture>/villagers/`, or `LANI_VILLAGERS_DIR`; + tutor `<data>/app/villagers/`, a tutor villager replacing a curated one with its id) with `source`, in arrival `order` (see [VILLAGERS.md](VILLAGERS.md)) |
@@ -1131,7 +1134,8 @@ scenario; every line of Jan's is a `/message` with `kind: roleplay`, `conversati
 `data: {scenario_id, turn, heard, alternatives?, unclear?, takes?, typed?}` (`heard` is the recognizer's text or what the
 learner typed, `alternatives` its other readings, `unclear` the words it was unsure of, `takes` how many times the line
 was said when more than once; `{scenario_id, turn, hint: true}` asks for a suggestion). The bridge adds the scenario
-brief (role, setting, goals) so the tutor stays in character, and tells it that `heard` is a recognizer's reading of a
+brief (role, setting and goals in English, the opener, the scenario's `language` and `packs`, and `child` when a child
+talks: kind, short turns, never personal data) so the tutor stays in character, and tells it that `heard` is a recognizer's reading of a
 learner, maybe a child: a word it may have misheard is recast, never corrected (`features/scenarios.ts`, in the course's
 language). The tutor's `reply` carries
 `data: {sl, en, correction?, goals_done: [goal indices], end?, face?}` (`sl`: the line in the course's language, whatever

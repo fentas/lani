@@ -968,8 +968,11 @@ register, the friendship level and their memories, open goals (greet, ask how th
 something they like, say goodbye). The scenario format has the goals in English, for the tutor, who ticks them by their
 place; the app shows these four in the learner's languages ("Saluta (dai del Lei) · Begrüßen (per Lei)" for a learner of
 Italian from German; `VillagerLogic.localized`), and a node's scenario with another number of goals as it came. Its
-setting is English too (its opener's translation and the hints are in the learner's base); a curated scenario's goals,
-setting and translations (`opener_en`, the hints' `en`) are English only. At `roleplay_end`, the tutor's debrief may carry
+setting is English too (its opener's translation and the hints are in the learner's base); a curated Slovene scenario's
+goals, setting and translations (`opener_en`, the hints' `en`) are English only, an Italian one's per language and base
+(served in the learner's pair: "Saluta la signora · Begrüße die Verkäuferin"). A curated scenario that names a villager
+of the cast ("Nonna Rosa" at Sunday lunch, "Giulia" at break time) is played by them, and its end grows the friendship
+like a villager talk's (+♥, no memory) once they are met; before, they lend their look as a stranger. At `roleplay_end`, the tutor's debrief may carry
 `data.memory: {sl, en}` (something from this conversation worth remembering, in the villager's words; in an
 Italian village `{it, sl, en}`); the app stores it and adds the points. The role-play's setting, the way the
 villager is introduced and the hints come from the culture pack (its `tutor` texts, the village's language and
