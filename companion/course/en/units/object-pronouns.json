@@ -16,7 +16,10 @@
     "it": "Usi me, him, her, us e them dopo il verbo e la preposizione (Jack knows her, with me), distingui him da his e dici It's me.",
     "en": "You can say me, him, her, us and them after a verb and a preposition (Jack knows her, with me), tell him from his, and say It's me."
   },
-  "grammar": ["object-pronouns", "pronouns"],
+  "grammar": [
+    "object-pronouns",
+    "pronouns"
+  ],
   "words": [
     "me",
     "him",
@@ -45,14 +48,30 @@
     "It's me.",
     "Me too.",
     "of course",
-    "gate"
+    "gate",
+    "dog"
   ],
   "intro": {
     "table": {
       "head": [
-        { "sl": "osebek", "de": "Subjekt", "it": "soggetto", "en": "subject" },
-        { "sl": "predmet", "de": "Objekt", "it": "complemento", "en": "object" },
-        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+        {
+          "sl": "osebek",
+          "de": "Subjekt",
+          "it": "soggetto",
+          "en": "subject"
+        },
+        {
+          "sl": "predmet",
+          "de": "Objekt",
+          "it": "complemento",
+          "en": "object"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
       ]
     },
     "steps": [
@@ -84,14 +103,26 @@
           }
         ],
         "rows": [
-          ["I", "me", "Can you help me?"],
-          ["you", "you", "I can see you."]
+          [
+            "I",
+            "me",
+            "Can you help me?"
+          ],
+          [
+            "you",
+            "you",
+            "I can see you."
+          ]
         ],
         "ask": {
           "type": "choice",
           "grammar": "object-pronouns",
           "prompt": "Mr Dixon, can you help ___?",
-          "options": ["me", "I", "my"],
+          "options": [
+            "me",
+            "I",
+            "my"
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -130,14 +161,24 @@
           }
         ],
         "rows": [
-          ["he", "him", "I know him."],
-          ["she", "her", "Jack knows her."]
+          [
+            "he",
+            "him",
+            "I know him."
+          ],
+          [
+            "she",
+            "her",
+            "Jack knows her."
+          ]
         ],
         "ask": {
           "type": "cloze",
           "grammar": "object-pronouns",
           "text": "Mr Dixon is in the smithy. Can you see ___? (he)",
-          "accept": ["him"],
+          "accept": [
+            "him"
+          ],
           "hint": "he → ?",
           "explain": {
             "sl": "**he → him**\n- I can see him. · his je za his dog",
@@ -181,15 +222,29 @@
           }
         ],
         "rows": [
-          ["it", "it", "I like it."],
-          ["we", "us", "Can you help us?"],
-          ["they", "them", "I can see them."]
+          [
+            "it",
+            "it",
+            "I like it."
+          ],
+          [
+            "we",
+            "us",
+            "Can you help us?"
+          ],
+          [
+            "they",
+            "them",
+            "I can see them."
+          ]
         ],
         "ask": {
           "type": "cloze",
           "grammar": "object-pronouns",
           "text": "The sheep are on the fell. Jack can see ___. (they)",
-          "accept": ["them"],
+          "accept": [
+            "them"
+          ],
           "hint": "they → ?",
           "explain": {
             "sl": "**they → them**\n- I can see them. · we → us",
@@ -234,7 +289,12 @@
         ],
         "rows": [
           [
-            { "sl": "za predlogom", "de": "nach Präposition", "it": "dopo preposizione", "en": "after a preposition" },
+            {
+              "sl": "za predlogom",
+              "de": "nach Präposition",
+              "it": "dopo preposizione",
+              "en": "after a preposition"
+            },
             "with me, for him, next to her, to us, from them",
             "Give it to me."
           ]
@@ -243,7 +303,11 @@
           "type": "choice",
           "grammar": "object-pronouns",
           "prompt": "Jack is by the fire, and Meg sits next to ___.",
-          "options": ["him", "he", "his"],
+          "options": [
+            "him",
+            "he",
+            "his"
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -281,12 +345,22 @@
             "it": "Il vecchio ponte? Lo vedo dalla locanda."
           }
         ],
-        "rows": [["she, he", "him, her", "She likes him. He likes her."]],
+        "rows": [
+          [
+            "she, he",
+            "him, her",
+            "She likes him. He likes her."
+          ]
+        ],
         "ask": {
           "type": "choice",
           "grammar": "object-pronouns",
           "prompt": "Granny Maggie loves Poppy, and Poppy loves ___ too.",
-          "options": ["her", "she", "hers"],
+          "options": [
+            "her",
+            "she",
+            "hers"
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -326,7 +400,12 @@
         ],
         "rows": [
           [
-            { "sl": "za be, samostojno", "de": "nach be, allein", "it": "dopo be, da solo", "en": "after be, alone" },
+            {
+              "sl": "za be, samostojno",
+              "de": "nach be, allein",
+              "it": "dopo be, da solo",
+              "en": "after be, alone"
+            },
             "me",
             "It's me. Me too."
           ]
@@ -335,7 +414,11 @@
           "type": "choice",
           "grammar": "object-pronouns",
           "prompt": "Who's there? — It's ___!",
-          "options": ["me", "I", "my"],
+          "options": [
+            "me",
+            "I",
+            "my"
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -373,18 +456,87 @@
             "it": "subject → object · soggetto → complemento",
             "en": "subject → object"
           },
-          "columns": [{ "sl": "object · predmet", "de": "object · Objekt", "it": "object · complemento", "en": "object" }],
+          "columns": [
+            {
+              "sl": "object · predmet",
+              "de": "object · Objekt",
+              "it": "object · complemento",
+              "en": "object"
+            }
+          ],
           "rows": [
-            { "label": "I", "cells": ["me"] },
-            { "label": "you", "cells": [{ "accept": ["you"] }] },
+            {
+              "label": "I",
+              "cells": [
+                "me"
+              ]
+            },
+            {
+              "label": "you",
+              "cells": [
+                {
+                  "accept": [
+                    "you"
+                  ]
+                }
+              ]
+            },
             {
               "label": "he",
-              "cells": [{ "accept": ["him"], "hint": { "sl": "ne his", "de": "nicht his", "it": "non his", "en": "not his" } }]
+              "cells": [
+                {
+                  "accept": [
+                    "him"
+                  ],
+                  "hint": {
+                    "sl": "ne his",
+                    "de": "nicht his",
+                    "it": "non his",
+                    "en": "not his"
+                  }
+                }
+              ]
             },
-            { "label": "she", "cells": [{ "accept": ["her"] }] },
-            { "label": "it", "cells": [{ "accept": ["it"] }] },
-            { "label": "we", "cells": [{ "accept": ["us"] }] },
-            { "label": "they", "cells": [{ "accept": ["them"] }] }
+            {
+              "label": "she",
+              "cells": [
+                {
+                  "accept": [
+                    "her"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "it",
+              "cells": [
+                {
+                  "accept": [
+                    "it"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "we",
+              "cells": [
+                {
+                  "accept": [
+                    "us"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "they",
+              "cells": [
+                {
+                  "accept": [
+                    "them"
+                  ]
+                }
+              ]
+            }
           ],
           "explain": {
             "sl": "**Predmet: me, you, him, her, it, us, them**\n- I → me · he → him · she → her\n- we → us · they → them",
@@ -410,12 +562,32 @@
           },
           "columns": [
             {
-              "label": { "sl": "him (njega, ga)", "de": "him (ihn, ihm)", "it": "him (lo, lui)", "en": "him" },
-              "words": ["I know …", "with …", "next to …", "Give it to …"]
+              "label": {
+                "sl": "him (njega, ga)",
+                "de": "him (ihn, ihm)",
+                "it": "him (lo, lui)",
+                "en": "him"
+              },
+              "words": [
+                "I know …",
+                "with …",
+                "next to …",
+                "Give it to …"
+              ]
             },
             {
-              "label": { "sl": "his (njegov)", "de": "his (sein)", "it": "his (suo)", "en": "his" },
-              "words": ["… dog", "… farm", "… name", "… keys"]
+              "label": {
+                "sl": "his (njegov)",
+                "de": "his (sein)",
+                "it": "his (suo)",
+                "en": "his"
+              },
+              "words": [
+                "… dog",
+                "… farm",
+                "… name",
+                "… keys"
+              ]
             }
           ],
           "explain": {
@@ -447,10 +619,22 @@
           },
           "text": "It's Friday night at the Packhorse Inn. Mr Dixon is at the bar, and Mrs Birkett brings ___ (he) a cup of tea. Granny Maggie and Auntie Edna are by the fire, and Old Wilf sits with ___ (they). Jack comes in with Meg, and the children run to ___ (she). — Can you help ___ (I), Jack? The tray is heavy. — Of course! Give ___ (it) to me. — Thank you, love. This scone is for ___ (you). Come and sit with ___ (we)!",
           "gaps": [
-            { "accept": ["him"], "hint": "he → ?" },
-            { "accept": ["them"], "hint": "they → ?" },
             {
-              "accept": ["her"],
+              "accept": [
+                "him"
+              ],
+              "hint": "he → ?"
+            },
+            {
+              "accept": [
+                "them"
+              ],
+              "hint": "they → ?"
+            },
+            {
+              "accept": [
+                "her"
+              ],
               "hint": "she → ?",
               "explain": {
                 "sl": "**Meg je she: her**\n- run to her · Jack loves her",
@@ -459,13 +643,37 @@
                 "en": "**Meg is she: her**\n- run to her · Jack loves her"
               }
             },
-            { "accept": ["me"], "hint": "I → ?" },
-            { "accept": ["it"], "hint": "it → ?" },
-            { "accept": ["you"], "hint": "you → ?" },
-            { "accept": ["us"], "hint": "we → ?" }
+            {
+              "accept": [
+                "me"
+              ],
+              "hint": "I → ?"
+            },
+            {
+              "accept": [
+                "it"
+              ],
+              "hint": "it → ?"
+            },
+            {
+              "accept": [
+                "you"
+              ],
+              "hint": "you → ?"
+            },
+            {
+              "accept": [
+                "us"
+              ],
+              "hint": "we → ?"
+            }
           ],
           "bank": true,
-          "distractors": ["his", "they", "she"],
+          "distractors": [
+            "his",
+            "they",
+            "she"
+          ],
           "translation": {
             "sl": "V gostilni Packhorse je petek zvečer. Gospod Dixon je pri točilnem pultu in gospa Birkett mu prinese skodelico čaja. Babica Maggie in teta Edna sta pri ognju, stari Wilf pa sedi z njima. Jack pride z Meg in otroci stečejo k njej. — Mi lahko pomagaš, Jack? Pladenj je težak. — Seveda! Daj mi ga. — Hvala, srček. Ta scone je zate. Pridi, sedi k nam!",
             "de": "Es ist Freitagabend im Gasthaus Packhorse. Mr Dixon ist an der Theke, und Mrs Birkett bringt ihm eine Tasse Tee. Oma Maggie und Tante Edna sitzen am Feuer, und der alte Wilf sitzt bei ihnen. Jack kommt mit Meg herein, und die Kinder laufen zu ihr. — Kannst du mir helfen, Jack? Das Tablett ist schwer. — Klar! Gib es mir. — Danke, Schatz. Dieser Scone ist für dich. Komm, setz dich zu uns!",
@@ -483,7 +691,11 @@
             "en": "Choose"
           },
           "prompt": "Jack? ___",
-          "options": ["I know him.", "I know him Jack.", "I know he."],
+          "options": [
+            "I know him.",
+            "I know him Jack.",
+            "I know he."
+          ],
           "answer": 0,
           "say_options": true,
           "explain": {
@@ -515,23 +727,58 @@
           },
           "cue": "→ me, him, her, it, us, them",
           "items": [
-            { "from": "I know Jack.", "accept": ["I know him."] },
-            { "from": "Can you help Granny Maggie?", "accept": ["Can you help her?"] },
+            {
+              "from": "I know Jack.",
+              "accept": [
+                "I know him."
+              ]
+            },
+            {
+              "from": "Can you help Granny Maggie?",
+              "accept": [
+                "Can you help her?"
+              ]
+            },
             {
               "from": "Mr Tyson sells the oats at the market.",
-              "accept": ["Mr Tyson sells them at the market.", "He sells them at the market."],
-              "hint": { "sl": "več stvari", "de": "mehrere Dinge", "it": "più cose", "en": "more than one thing" }
+              "accept": [
+                "Mr Tyson sells them at the market.",
+                "He sells them at the market."
+              ],
+              "hint": {
+                "sl": "več stvari",
+                "de": "mehrere Dinge",
+                "it": "più cose",
+                "en": "more than one thing"
+              }
             },
             {
               "from": "Arthur sits next to Sam and me.",
-              "accept": ["Arthur sits next to us.", "He sits next to us."],
+              "accept": [
+                "Arthur sits next to us.",
+                "He sits next to us."
+              ],
               "hint": "Sam and me = ?"
             },
-            { "from": "Give the key to me.", "accept": ["Give it to me.", "Give me it."] },
+            {
+              "from": "Give the key to me.",
+              "accept": [
+                "Give it to me.",
+                "Give me it."
+              ]
+            },
             {
               "from": "The children love Meg.",
-              "accept": ["The children love her.", "They love her."],
-              "hint": { "sl": "žival z imenom", "de": "ein Haustier mit Namen", "it": "un animale con un nome", "en": "a pet with a name" }
+              "accept": [
+                "The children love her.",
+                "They love her."
+              ],
+              "hint": {
+                "sl": "žival z imenom",
+                "de": "ein Haustier mit Namen",
+                "it": "un animale con un nome",
+                "en": "a pet with a name"
+              }
             }
           ],
           "explain": {
@@ -558,12 +805,36 @@
         },
         "text": "Mrs Hartley is at the school gate. The children wave to ___ (she), and she smiles at ___ (they). Mr Tyson comes with Alfie. — Good morning, Mr Tyson! Can I talk to ___ (you)? — Of course. Alfie, wait for ___ (I) here. — Alfie is a good boy; I like ___ (he). — Thank you! Come and see ___ (we) at the mill.",
         "gaps": [
-          { "accept": ["her"] },
-          { "accept": ["them"] },
-          { "accept": ["you"] },
-          { "accept": ["me"] },
-          { "accept": ["him"] },
-          { "accept": ["us"] }
+          {
+            "accept": [
+              "her"
+            ]
+          },
+          {
+            "accept": [
+              "them"
+            ]
+          },
+          {
+            "accept": [
+              "you"
+            ]
+          },
+          {
+            "accept": [
+              "me"
+            ]
+          },
+          {
+            "accept": [
+              "him"
+            ]
+          },
+          {
+            "accept": [
+              "us"
+            ]
+          }
         ],
         "translation": {
           "sl": "Gospa Hartley je pri šolskih vratih. Otroci ji mahajo, ona pa se jim nasmehne. Gospod Tyson pride z Alfiejem. — Dobro jutro, gospod Tyson! Lahko govorim z vami? — Seveda. Alfie, počakaj me tukaj. — Alfie je priden fant, rada ga imam. — Hvala! Pridite k nam v mlin.",
@@ -583,9 +854,26 @@
         },
         "cue": "→ me, him, her, it, us, them",
         "items": [
-          { "from": "Jack can see the sheep.", "accept": ["Jack can see them.", "He can see them."] },
-          { "from": "Mrs Birkett knows Mr Dixon.", "accept": ["Mrs Birkett knows him.", "She knows him."] },
-          { "from": "Sit next to Auntie Edna.", "accept": ["Sit next to her."] }
+          {
+            "from": "Jack can see the sheep.",
+            "accept": [
+              "Jack can see them.",
+              "He can see them."
+            ]
+          },
+          {
+            "from": "Mrs Birkett knows Mr Dixon.",
+            "accept": [
+              "Mrs Birkett knows him.",
+              "She knows him."
+            ]
+          },
+          {
+            "from": "Sit next to Auntie Edna.",
+            "accept": [
+              "Sit next to her."
+            ]
+          }
         ],
         "explain": {
           "sl": "**Predmet za glagolom ali predlogom: him, her, it, us, them**\n- Jack can see the sheep. → Jack can see them.\n- next to Auntie Edna → next to her",
@@ -604,7 +892,11 @@
           "en": "Choose"
         },
         "prompt": "Mr Dixon's hammer? Give it to ___.",
-        "options": ["him", "his", "he"],
+        "options": [
+          "him",
+          "his",
+          "he"
+        ],
         "answer": 0,
         "say_options": true,
         "explain": {
@@ -624,7 +916,11 @@
           "en": "Choose"
         },
         "prompt": "Meg is under the table. Can you see ___?",
-        "options": ["her", "she", "hers"],
+        "options": [
+          "her",
+          "she",
+          "hers"
+        ],
         "answer": 0,
         "say_options": true,
         "explain": {
