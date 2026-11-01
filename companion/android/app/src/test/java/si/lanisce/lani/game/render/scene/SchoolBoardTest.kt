@@ -99,6 +99,29 @@ class SchoolBoardTest {
         assertEquals(listOf("io sono", "tu sei"), essere.forms.take(2).map { f -> f.joinToString(" ") })
     }
 
+    @Test fun `the English course's board - every letter written, every lesson laid out, an English welcome and day`() {
+        val en = assertNotNullAnd(Courses.bundled("en"))
+        val missing = HashSet<Char>()
+        for (u in en.units.values) {
+            val b = Blackboard.of(u, "en")
+            for (ch in (b.title.orEmpty() + b.forms.flatten().joinToString(""))) if (!BoardFont.knows(ch)) missing.add(ch)
+            val lines = BoardFont.lines(b, width)
+            assertTrue("${u.id}: the title first", lines.first().title)
+            assertTrue("${u.id}: $lines in ${BoardFont.LINES} lines", lines.size in 2..BoardFont.LINES)
+            assertTrue("${u.id}: every line fits: $lines", lines.all { BoardFont.width(it.text) <= width })
+        }
+        assertTrue("letters the board can't write: $missing", missing.isEmpty())
+        for (ch in "'…") assertTrue("$ch", BoardFont.knows(ch))
+        // before the first unit of the English course: "Welcome!" and the day as Britain writes it
+        val welcome = Blackboard.of(GameState(), en)!!
+        assertEquals("en", welcome.language)
+        assertEquals(listOf(BoardFont.Line("Welcome!", true), BoardFont.Line("14/10/2026", false)), BoardFont.lines(welcome, width, date = welcome.day(today)))
+        // a unit begun: its title and forms in English (to-be: I am · you are)
+        val toBe = Blackboard.of(GameState(course = CourseProgress(classroom = "2026-10-13", units = mapOf("en/to-be" to UnitProgress(started = "2026-10-13")))), en)!!
+        assertEquals("I am, you are, she is", toBe.title)
+        assertEquals(listOf("I am", "you are"), toBe.forms.take(2).map { f -> f.joinToString(" ") })
+    }
+
     @Test fun `every letter of the course is written, and what fits is laid out`() {
         val missing = HashSet<Char>()
         for (u in course.units.values) {
