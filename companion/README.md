@@ -1838,7 +1838,7 @@ categories and ids, a tag's words in a row: `accusative` matches `accusative_fem
 `vocab_iz_genitive_fem`), related pages (`see`), `machine_written` and `review`. English is always there: it is every
 base's fallback. The tutor's `more` is a clearer or longer explanation, shown as the tutor's.
 
-**Curated pages** are `companion/grammar/<language>/<id>.json`. Slovene has 59, each explained in English, German and
+**Curated pages** are `companion/grammar/<language>/<id>.json`. Slovene has 65, each explained in English, German and
 Italian (machine-written, not reviewed by a native speaker): `kje-mestnik-orodnik` (Kje? v, na, ob, pri + locative, v or
 na; pod, za … and blizu point on to their A2 pages), `kam-tozilnik` (Kam? the accusative, k + dative, domov),
 `rodilnik-predlogi` (iz, z/s, od, do, blizu, brez), `rodilnik-nikalnica` (nimam časa; ne berem knjigo, ampak revijo),
@@ -1874,12 +1874,18 @@ dve uri, že dve leti, pred tremi dnevi), `custva` (mudi se mi, boli me glava, Z
 items `trpnik` (zaprta vrata, Hiša je bila sezidana, Seno se suši na kozolcu) and `glagolniki` (branje, kajenje,
 odkritje; košnja, trgatev). The school's A2 units added `mnozina-skloni` (the plural through the cases: pet krav, k sosedom, na
 travnikih, z ovcami; veliko ljudi, z otroki) and `cigav` (čigav, the possessives: njegov, njen, njun; Lukov, Mickina,
-babičin). B2's last six units brought six B2 pages, each with its card: `stopnjevanje` (tako star kot, veliko lepši,
-čedalje krajši, čim prej, bolj ko …, bolj …, najboljša izmed vseh, prevelik), `ukazi` (pojdiva, pojdimo, naj pride, ne
-zapiraj, nikar, kar naprej, Bi mi lahko pomagali?), `frazemi` (držati pesti za koga, iti komu na živce, kupiti mačka v
-žaklju, pasti v vodo), `uradno-pismo` (Spoštovani gospod …, Vi to one person, Pišem Vam v zvezi z …, S spoštovanjem),
-`govorjeni-jezik` (a si, moram delat, bom šu, bojo, mam, kva, ta mali, fajn: spoken against standard, the spoken never
-wrong) and `besedni-red` (the news last: Kruh je prinesel Luka; the short words second; a contrast with pa; tudi, samo). Their levels follow when each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
+babičin). B2's first six units brought six B2 pages, each with its card: `delezja` (molče, stoje, jokaje; hodeč, vedoč;
+mimogrede, nehote; prišedši to recognise), `delezniki` (obrano grozdje, dozorelo grozdje, odpadlo listje, usahel
+studenec, tekoča voda, bivši), `pogojnik-pretekli` (bil bi prišel, Če bi bil vedel, …; skoraj bi bil padel),
+`predpreteklik` (Ko smo prišli, je bil avtobus že odpeljal), `oziralni-kateri` (fant, katerega sem videl; čigar, katere,
+katerih; kdor, kogar; kar, česar, o čemer) and `odvisniki-napredno` (kljub temu da, medtem ko, dokler ne, razen če, ne
+da bi, kot da bi). Its last six brought six more: `stopnjevanje` (tako star kot, veliko lepši, čedalje krajši, čim prej,
+bolj ko …, bolj …, najboljša izmed vseh, prevelik), `ukazi` (pojdiva, pojdimo, naj pride, ne zapiraj, nikar, kar naprej,
+Bi mi lahko pomagali?), `frazemi` (držati pesti za koga, iti komu na živce, kupiti mačka v žaklju, pasti v vodo),
+`uradno-pismo` (Spoštovani gospod …, Vi to one person, Pišem Vam v zvezi z …, S spoštovanjem), `govorjeni-jezik` (a si,
+moram delat, bom šu, bojo, mam, kva, ta mali, fajn: spoken against standard, the spoken never wrong) and `besedni-red`
+(the news last: Kruh je prinesel Luka; the short words second; a contrast with pa; tudi, samo). Their levels follow when
+each is learnt (the cases' in `skloni`; the rest as docs/grammar-syllabus.md has
 them). A page about a case or what decides one (the six cases', skloni, the genitive's slices, Kam?, Kje?, the plural's
 and the dual's cases, agreement) has "🧩 Vadi sklone · Case trainer" under its buttons: a session of the case trainer on
 it ([Case trainer](#case-trainer)).
