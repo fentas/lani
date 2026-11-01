@@ -567,6 +567,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      * and the game's tips speak to a child (game/Guidance).
      */
     val child: Boolean get() = paired?.child == true || (hosted.active && hosted.child) || (!hosted.active && towns.list?.self?.child == true)
+
+    /** Whether [child] is known yet: paired by a code, hosted, or the town's own row read (a typed token's phone at its start: not yet). */
+    private val childKnown: Boolean get() = paired != null || hosted.active || towns.list != null
     var permission by mutableStateOf<BridgeEvent.PermissionRequest?>(null)
         private set
     /**
@@ -613,7 +616,9 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
         }
         // the channels' names follow the learner's pair; the background check knows a child's profile
         viewModelScope.launch { snapshotFlow { langPair }.distinctUntilChanged().drop(1).collect { notify.renamed() } }
-        viewModelScope.launch { snapshotFlow { child }.distinctUntilChanged().collect { notify.child(it) } }
+        // (kept once it is known: the pairing's flag, the hosted profile, or the town's own row read; not the false of a
+        // start before the towns came, which would tell the background check a child's phone is an adult's: PhoneChild)
+        viewModelScope.launch { snapshotFlow { child.takeIf { childKnown } }.distinctUntilChanged().collect { c -> c?.let { notify.child(it) } } }
         // the learner opening the chat runs the shadow tutor's digest (plan 5, "Events to turns")
         viewModelScope.launch {
             snapshotFlow { chat.isOpen }.distinctUntilChanged().collect { if (it) { if (live.settings.on) live.onChatOpened() else shadow.onChatOpened() } }

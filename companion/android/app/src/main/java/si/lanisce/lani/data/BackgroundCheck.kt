@@ -44,7 +44,7 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
             flushOutbox(bridge)
             val since = prefs.notifiedEventId()
             val events = bridge.backlog(since)
-            val child = child(prefs)
+            val child = child(prefs, bridge)
             // One event that can't be shown must not block the rest: the id below is only saved after the loop,
             // so a throwing notify would retry (and fail) the same events every period.
             if (since > 0) events.forEach { (_, ev) -> runCatching { notify(ev, child) } }
@@ -117,11 +117,16 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
     }
 
     /**
-     * The learner of this phone is a child: as the app last said ([Prefs.learnerChild]: a town's own row tells it too), or
-     * the pairing's, or the hosted onboarding's (an app not opened since this version).
+     * The learner of this phone is a child ([PhoneChild]): as the app last said, the pairing's, the hosted onboarding's, or,
+     * when none has said (a phone paired by a typed token, the app not opened since), the node's own town row, kept.
      */
-    private suspend fun child(prefs: Prefs): Boolean = prefs.learnerChild() == true || prefs.pairing()?.child == true ||
-        java.io.File(si.lanisce.lani.phone.AppBridge.home(applicationContext), si.lanisce.lani.hosted.HostedRuntime.CHILD_FILE).isFile
+    private suspend fun child(prefs: Prefs, bridge: Bridge): Boolean = PhoneChild.of(
+        said = prefs.learnerChild(),
+        paired = prefs.pairing()?.child == true,
+        hosted = java.io.File(si.lanisce.lani.phone.AppBridge.home(applicationContext), si.lanisce.lani.hosted.HostedRuntime.CHILD_FILE).isFile,
+        town = { bridge.towns() },
+        keep = { prefs.saveLearnerChild(it) },
+    )
 
     private fun post(n: Notice) = Notifier.post(applicationContext, n)
 
@@ -132,5 +137,31 @@ class BackgroundCheck(context: Context, params: WorkerParameters) : CoroutineWor
                 .build()
             WorkManager.getInstance(ctx).enqueueUniquePeriodicWork("lani-check", ExistingPeriodicWorkPolicy.KEEP, req)
         }
+    }
+}
+
+/**
+ * Whether the learner of this phone is a child, for the background check, which has no view model to ask: the app's
+ * own rule (AppViewModel.child: the pairing's flag, the hosted profile's, else the node's own town row, GET /towns `self`).
+ * The app keeps its answer whenever it changes ([Prefs.learnerChild], app/NotifyController). A phone paired by a typed
+ * token has no pairing flag, and until its app has been opened on this version nothing has said: then the town row is
+ * asked here once and kept, so a child's phone isn't notified as an adult's meanwhile (the watchman's kind words, no
+ * evening reminder unless a parent turned it on). An older node without towns has none (null): an adult's, as the app
+ * says too, kept. A failed request says nothing and keeps nothing: the next check asks again.
+ */
+object PhoneChild {
+    suspend fun of(said: Boolean?, paired: Boolean, hosted: Boolean, town: suspend () -> TownsList?, keep: suspend (Boolean) -> Unit): Boolean {
+        if (said == true || paired || hosted) return true
+        if (said != null) return false
+        val list = try {
+            town()
+        } catch (e: kotlinx.coroutines.CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return false
+        }
+        val child = list?.self?.child == true
+        keep(child)
+        return child
     }
 }

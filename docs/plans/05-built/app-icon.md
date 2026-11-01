@@ -596,7 +596,8 @@ Before: the icon couldn't be changed. Now "Automatic" needs no tap. A fixed choi
   the next icon", Home, and look for a second Lani icon or a lost one. If one keeps the icon in place, add its
   package to `AppIcons.KEEPS_IN_PLACE`, so it defaults to "What's happening".
 - **A native check** of the strings above (sl, de, it, and the English).
-- **The road's channel** (the car's "getting ready", RoadPrepService) still has the default badge, so its ongoing
-  notification may show a dot. Changing that needs a new channel id.
-- **A phone paired with a typed token** counts as an adult's in the background until the app has been opened once on
-  this version. A QR-paired or hosted phone is right from the start.
+- ~~**The road's channel** still has the default badge~~ Done (polish-app, 2026-11-01): `road-ready` without a dot, the
+  old `road-prep` migrated and deleted (`RoadChannel`, `Notifier.ensureRoadChannel`).
+- ~~**A phone paired with a typed token** counts as an adult's in the background~~ Done (polish-app, 2026-11-01): the
+  background check asks the node's town row once when nothing has said (`PhoneChild`), and the app keeps its answer only
+  once it knows.
