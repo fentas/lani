@@ -9095,6 +9095,13 @@ def polish_cues():
             out.mkdir(parents=True, exist_ok=True)
             shutil.copy(shots[-1], out / f"pc-{culture}-{name}.png")
 
+    def to_village():
+        # back to the village by the app's link (the plain village's labels are Slovene first, a visited pair's aren't)
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        time.sleep(3 * slow())
+
     skipped = []
     qa_hook("hearths:trg")  # every building at level 2: the gate, the tower
     try:
@@ -9105,7 +9112,7 @@ def polish_cues():
             time.sleep(4 * slow())
             if not any("Zapri" in t or "Close" in t for t, _ in nodes()):
                 skipped.append(f"{sid}/{did} (its dialog didn't open)")
-                plain_village()
+                to_village()
                 continue
             time.sleep(2 * slow())
             if name.startswith("typed-"):
@@ -9116,9 +9123,11 @@ def polish_cues():
                     skipped.append(f"{sid}/{did} (its turn wasn't asked to be typed)")
             snap(name)
             print(f"    {culture}: {sid}/{did} at {hour} h, its first line's cue in the picture")
-            adb("shell", "input", "keyevent", "KEYCODE_BACK")
-            time.sleep(1.5)
-            plain_village()
+            if not name.startswith("typed-"):
+                qa_hook("zoom")  # closer up: the pedlar on the road, the foxes by the wood are small at the home view
+                time.sleep(3 * slow())
+                snap(f"{name}-closer")
+            to_village()
     finally:
         qa_hook("turns:")
         qa_hook("happening:")
