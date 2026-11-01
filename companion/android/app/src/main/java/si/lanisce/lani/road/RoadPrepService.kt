@@ -2,8 +2,6 @@ package si.lanisce.lani.road
 
 import android.Manifest
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
@@ -38,6 +36,8 @@ import si.lanisce.lani.audio.PreviousClips
 import si.lanisce.lani.audio.Room
 import si.lanisce.lani.data.Clips
 import si.lanisce.lani.data.ClipsApi
+import si.lanisce.lani.data.Notifier
+import si.lanisce.lani.data.RoadChannel
 import si.lanisce.lani.data.Prefs
 import si.lanisce.lani.l10n.Lang
 import si.lanisce.lani.l10n.LangSetting
@@ -314,16 +314,12 @@ class RoadPrepService : Service() {
     private fun canNotify() = Build.VERSION.SDK_INT < 33 ||
         ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
 
-    private fun channel() {
-        val nm = getSystemService(NotificationManager::class.java)
-        if (nm.getNotificationChannel(CHANNEL) == null) {
-            nm.createNotificationChannel(NotificationChannel(CHANNEL, "🚗 ${bi("road.title")}", NotificationManager.IMPORTANCE_LOW))
-        }
-    }
+    /** Its channel, without a dot (data/NotifyChannels.kt [RoadChannel]; the old "road-prep" one let go). */
+    private fun channel() = Notifier.ensureRoadChannel(this)
 
     companion object {
         private const val TAG = "RoadPrep"
-        private const val CHANNEL = "road-prep"
+        private const val CHANNEL = RoadChannel.ID
         private const val ID = 4201
 
         /** The wake lock's limit: longer than getting ready takes on a slow phone. */

@@ -135,6 +135,25 @@ class NotifyChannelsTest {
         assertFalse(NotifyChannels.deleteOld(false, all))
     }
 
+    @Test fun `the car's getting ready has a new channel without a dot, the old one's settings carried over`() {
+        // a new id: the old one was made with Android's default badge, which can't be changed once made
+        assertTrue(RoadChannel.ID != RoadChannel.OLD && RoadChannel.ID !in NotifyChannel.entries.map { it.id })
+        assertFalse(RoadChannel.BADGE)
+        // a new phone: LOW (a progress bar, silent); the old one as it was made: the same; blocked stays blocked
+        assertEquals(2, RoadChannel.importance(null))
+        assertEquals(2, RoadChannel.importance(NotifyChannels.Old(2, badge = true)))
+        assertEquals(0, RoadChannel.importance(NotifyChannels.Old(0, badge = true)))
+        // turned up by the learner: never louder than LOW; turned down to minimised: kept
+        assertEquals(2, RoadChannel.importance(NotifyChannels.Old(4, badge = true)))
+        assertEquals(1, RoadChannel.importance(NotifyChannels.Old(1, badge = false)))
+        // the old one goes once the new one is there
+        assertTrue(RoadChannel.deleteOld(oldThere = true, made = true))
+        assertFalse(RoadChannel.deleteOld(oldThere = true, made = false))
+        assertFalse(RoadChannel.deleteOld(oldThere = false, made = true))
+        assertEquals("🚗 Za pot · For the road", RoadChannel.name(LangPair(Lang.SL, Lang.EN)))
+        assertEquals("🚗 Per la strada · Für unterwegs", RoadChannel.name(LangPair(Lang.IT, Lang.DE)))
+    }
+
     @Test fun `the channels are named in the learner's own pair`() {
         assertEquals("💬 Sporočila · Messages", NotifyChannels.name(NotifyChannel.MESSAGES, LangPair(Lang.SL, Lang.EN)))
         assertEquals("✨ Novo · New in Lani", NotifyChannels.name(NotifyChannel.NEW, LangPair(Lang.SL, Lang.EN)))

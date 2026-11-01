@@ -17,7 +17,7 @@ private const val DEFAULT = 3
  * The app's notification channels (companion/README.md, "Notifications"). A channel's badge (the launcher's dot, One UI's
  * count) is fixed when Android creates it, so what is waiting for the learner ([badge]: a message, the village, school)
  * has its own channels apart from news and reminders. Each is named "[emoji] target · base" ([key]) in the learner's pair.
- * The road's getting ready keeps its own channel (road/RoadPrepService).
+ * The road's getting ready keeps its own channel, without a dot ([RoadChannel]).
  */
 enum class NotifyChannel(val id: String, val emoji: String, val key: String, val badge: Boolean, val importance: Int) {
     /** The tutor's answer, the family's challenge, a guest from a linked town, a town's question, a link between towns. */
@@ -32,6 +32,35 @@ enum class NotifyChannel(val id: String, val emoji: String, val key: String, val
     REMINDERS("reminders", "🔔", "notify.reminders", false, DEFAULT),
     /** An update, a write the node didn't keep, a tool's approval the tutor waits for (minutes: it rings). */
     SYSTEM("system", "⚙️", "notify.system", false, DEFAULT),
+}
+
+/**
+ * The car's "getting ready" channel (road/RoadPrepService: an ongoing notification while the road's files come). It was
+ * made with Android's default badge as "road-prep" (until 2026-11), so its progress could put a dot on the icon: a
+ * channel's badge is fixed once made, hence a new id, made without one, and the old channel's settings carried over as
+ * the "tutor" channel's are ([NotifyChannels.specs]): blocked stays blocked, never louder than LOW (it is a progress bar).
+ */
+object RoadChannel {
+    const val ID = "road-ready"
+    const val OLD = "road-prep"
+    const val KEY = "road.title"
+    const val EMOJI = "🚗"
+
+    /** The channel's importance to make it with, given the old one ([old]; null: not there): LOW, or the old one's when quieter. */
+    fun importance(old: NotifyChannels.Old?): Int = when {
+        old == null -> LOW
+        old.importance <= NONE -> NONE
+        else -> minOf(LOW, old.importance)
+    }
+
+    /** The road's channel shows no dot, whatever the old one did. */
+    const val BADGE = false
+
+    /** The old channel goes once the new one exists ([made]); its notification, if any, goes with it. */
+    fun deleteOld(oldThere: Boolean, made: Boolean): Boolean = oldThere && made
+
+    /** "🚗 Na pot · On the road": the name in the learner's own [pair], as the phone's settings show it. */
+    fun name(pair: LangPair = L10n.ownPair): String = "$EMOJI ${L10n.label(pair, KEY)}"
 }
 
 /** The notifications' tags this one matches: [tag] itself, or ([prefix]) every tag starting with it. */

@@ -47,6 +47,28 @@ object Notifier {
             }
             if (NotifyChannels.deleteOld(old != null, nm.notificationChannels.map { it.id }.toSet())) nm.deleteNotificationChannel(NotifyChannels.OLD)
         }
+        ensureRoadChannel(ctx)
+    }
+
+    /**
+     * The car's "getting ready" channel ([RoadChannel]): made without a dot, named in the learner's own pair, the old
+     * "road-prep" channel's importance and lock screen carried over and the old one let go. Idempotent: with the others,
+     * and before the road's service posts.
+     */
+    fun ensureRoadChannel(ctx: Context) {
+        val nm = ctx.getSystemService(NotificationManager::class.java) ?: return
+        runCatching {
+            val old = nm.getNotificationChannel(RoadChannel.OLD)
+            val made = nm.getNotificationChannel(RoadChannel.ID) != null
+            val ch = NotificationChannel(RoadChannel.ID, RoadChannel.name(), RoadChannel.importance(old?.let { NotifyChannels.Old(it.importance, it.canShowBadge()) })).apply {
+                setShowBadge(RoadChannel.BADGE)
+                setSound(null, null)
+                enableVibration(false)
+                if (old != null && !made) lockscreenVisibility = old.lockscreenVisibility
+            }
+            nm.createNotificationChannel(ch)
+            if (RoadChannel.deleteOld(old != null, nm.getNotificationChannel(RoadChannel.ID) != null)) nm.deleteNotificationChannel(RoadChannel.OLD)
+        }
     }
 
     /** Posts [n] (allowed to: Android 13's permission given); a tap opens what it is about ([Notice.link]) and takes it away. */
