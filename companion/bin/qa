@@ -9412,12 +9412,16 @@ def school_print():
     go_home()
     for _ in range(3):  # the hook again while the village isn't there yet (the school says it has no course then)
         qa_hook("school" if PRINT_UNIT == "biti" else f"school:{PRINT_UNIT}")
-        if wait_for(f"Raven {level}", 10):
+        if wait_for("Raven A1", 10):
             break
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(3)
-    assert find(f"Raven {level}"), "the school's levels"
-    assert (scroll_to(title, 12) and tap(title, 5)), f"the unit {PRINT_UNIT}"
+    assert find("Raven A1"), "the school's levels"
+    if level != "A1":  # a later level below A1's (school-unit's way)
+        assert scroll_to(f"Raven {level}", 30) is not None, f"the level {level}"
+    c = scroll_to(title, 30)
+    assert c is not None, f"the unit {PRINT_UNIT}"
+    tap_at(c)
     assert wait_for("Delovni listi", 8), "the unit"
     adb("logcat", "-c")
     c = scroll_to("Natisni list", 8) or find("Natisni list")  # the last thing on the unit: below the band scroll_to keeps to
@@ -9446,7 +9450,7 @@ def school_print():
     assert wait_for("Delovni listi", 10) or in_front(), "back on the unit"
     # the level's booklet: every unit fitted alike, its dialog
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
-    assert wait_for(f"Raven {level}", 8), "the school's levels"
+    assert wait_for(f"Raven {level}", 8) or scroll_to(f"Raven {level}", 30) is not None, "the school's levels"
     adb("logcat", "-c")
     c = scroll_to("Vsi listi", 12) or find("Vsi listi")
     assert c is not None, f"🖨️ Vsi listi · All sheets on {level}"
