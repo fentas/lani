@@ -143,6 +143,9 @@ Slovene and English translations (otroci so že odšli, naredila čarovnijo, pre
   `CourseTest` 8, `GrammarTest` 16, `SchoolRevealTest` 10, `IntroSpeechTest` 9, `IntroSpeechParityTest` 2,
   `GameIntroSpeechTest` 7. The full suite (`testDebugUnitTest` through lani-slot.sh): 3,630 tests in 462
   classes, none failed (2 skipped); after the rebase 3,631, none failed (2 skipped), `SheetsTest` 15 among them.
+- **After the rebase onto it-b1-c** (B1's other two parts on Slovene B2), with the ending swaps and the paired
+  combined-pronoun mistakes: `tsc` clean, `tutor-export --check` 89 files match, the smoke all 3,255 checks passed,
+  the app's full suite 3,637 tests in 462 classes, none failed (2 skipped), Python 251 OK and 138 OK (11 skipped).
 - **Python**: `python3 -m unittest discover -s tests` 251 OK; `-s companion/tests` 138 OK (11 skipped).
 
 ## QA (emulator, `companion/bin/qa-slot`)
