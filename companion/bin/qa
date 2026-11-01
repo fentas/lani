@@ -343,7 +343,10 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        roll call on (no «Vedo, vedo» offered during it); "friuli-school-unit" (the same learner, a run of its
                        own: each is about 8 minutes) a unit end to end, $LANI_QA_IT_UNIT (ciao by default; an A2 unit
                        after the school with A1 done), kept done, then its sheet printed (fit.js as in Chromium, the PDF);
-                       both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "friuli-watchtower" (only when named; the same learner)
+                       both also as fs-*.png in $LANI_QA_FRIULI_SHOTS; "course-unit" (only when named, with
+                       LANI_QA_COURSE_UNIT=<unit>: a synthetic learner of the village's language in its culture, e.g. German in
+                       Kärnten: LANI_CULTURE=kaernten, LANI_QA_SETUP_PAIR=de-en) that unit of the course end to end and its
+                       sheet printed, cu-*.png in $LANI_QA_COURSE_SHOTS; "friuli-watchtower" (only when named; the same learner)
                        Teo's watchtower at level 2 (QA's hook "hearths:trg"): its card on the map and "🚪 Entra" into
                        Sulla torre, closer up, on the tablet, «Vedo, vedo» (the horn), Davide's lookout in the evening
                        (fw-*.png there too); "visit-places" (only when named; on a visit to the Carinthian town,
@@ -9042,6 +9045,234 @@ def friuli_school_unit():
     return friuli_school("unit")
 
 
+COURSE_UNIT = os.environ.get("LANI_QA_COURSE_UNIT")  # the unit "course-unit" plays, of the village's language's course
+# what adb types of a course's language: its letters a keyboard may lack as the grading folds them (almost: half an item)
+TYPED_FOLD = {
+    "sl": ASCII,
+    "it": IT_ASCII,
+    "de": str.maketrans({"ä": "ae", "ö": "oe", "ü": "ue", "ß": "ss", "Ä": "Ae", "Ö": "Oe", "Ü": "Ue"}),
+}
+
+
+def course_unit():
+    """A unit of the village's language's course end to end, for a synthetic learner of that language in its culture's
+    village (LANI_DEV_DATA: make-learner.ts --target <language> --base <base>; LANI_CULTURE=<culture>,
+    LANI_QA_SETUP_PAIR=<language>-<base>, LANI_QA_LEARNER=<name>): $LANI_QA_COURSE_UNIT (only when named, and only with
+    it set), "school:<unit>" (the unit as never begun, its level open), its intro's quick questions (a gap typed into the
+    step's field), the summary, its first worksheet, its test straight away, passed; the dev bridge's village keeping it
+    done; its sheet printed from the unit (fit.js in the WebView as in Chromium, the dialog's preview, the PDF, A4). The
+    German course in the Carinthian village (docs/plans/05-built/course-de-a1-a.md), the English one in the Lake
+    District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS."""
+    if not COURSE_UNIT:
+        return "skipped: no unit named (LANI_QA_COURSE_UNIT)"
+    try:
+        lang = (api("/culture").get("language") or "sl")
+    except (OSError, RuntimeError, ValueError):
+        lang = "sl"
+    unit = COURSE_UNIT
+    path = ROOT / f"companion/course/{lang}/units/{unit}.json"
+    if not path.exists():
+        return f"skipped: no unit {unit} in the {lang} course ({path})"
+    pair = (os.environ.get("LANI_QA_SETUP_PAIR") or f"{lang}-en").split("-")
+    if pair[0] != lang:
+        return f"skipped: the pair {'-'.join(pair)} doesn't learn the village's language ({lang})"
+    u = based(json.loads(path.read_text()), pair[1])
+    out = Path(os.environ["LANI_QA_COURSE_SHOTS"]) if os.environ.get("LANI_QA_COURSE_SHOTS") else None
+    fold = TYPED_FOLD.get(lang)
+
+    def msg(lg: str, key: str, **a) -> str:
+        t = l10n(lg).get(key, key)
+        for k, v in a.items():
+            t = t.replace("{" + k + "}", str(v))
+        return t
+
+    def lab(key: str, **a) -> str:
+        return " · ".join(msg(lg, key, **a) for lg in pair)
+
+    def half(key: str, **a) -> str:
+        return msg(pair[0], key, **a)
+
+    def snap(name: str):
+        shot(name)
+        if out is not None:
+            out.mkdir(parents=True, exist_ok=True)
+            shutil.copy(shots[-1], out / f"{name}.png")
+
+    def text_field(swipes: int):
+        """The centre of the first text field, scrolled into view (up to [swipes] swipes), or None."""
+        for _ in range(swipes + 1):
+            for n in re.findall(r"<node [^>]*?>", screen_xml()):
+                if 'class="android.widget.EditText"' in n and (m := re.search(r'bounds="([^"]*)"', n)):
+                    b = list(map(int, re.findall(r"\d+", m.group(1))))
+                    if len(b) == 4 and 300 < (b[1] + b[3]) // 2 < 1850:
+                        return (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
+            adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
+            time.sleep(1)
+        return None
+
+    def typed(s: str) -> str:
+        """What adb types of an answer: the learner's name in, the punctuation at its end left out (graded without it),
+        the letters adb can't type folded as the grading folds them (almost right), an apostrophe escaped."""
+        t = re.sub(r"[!?.,]+$", "", unit_text(s))
+        return (t.translate(fold) if fold else t).replace("'", "\\'")
+
+    check, nxt = lab("playerScreen.check"), lab("common.next")
+
+    def pick(option: str, after: str | None = None):
+        c = option_at(option, swipes=1, after=after)
+        if c is None and find(half("adaptive.letMeChoose")) is not None:
+            assert tap(half("adaptive.letMeChoose"), 4), "✋ let me choose"
+            time.sleep(1)
+            c = option_at(option, after=after)
+        return c if c is not None else option_at(option, after=after)
+
+    def exercise(e: dict, where: str):
+        kind = e["type"]
+        if kind in ("gaptext", "transform"):
+            items = e["gaps"] if kind == "gaptext" else e["items"]
+            for i, it in enumerate(items, 1):
+                label = lab("school.gapN" if kind == "gaptext" else "school.lineN", n=i)
+                assert fill(label, typed(it["accept"][0])), f"{where}: {label}"
+        elif kind == "choice":
+            c = pick(unit_text(e["options"][e["answer"]]), after=prompt_piece(e.get("prompt")))
+            assert c is not None, f"{where}: the option «{e['options'][e['answer']]}»"
+            tap_at(c)
+            return  # a tap answers it
+        elif kind == "cloze":
+            c = text_field(3)
+            assert c is not None, f"{where}: the gap"
+            tap_at(c)
+            type_text(typed(e["accept"][0]))
+        elif kind == "sort":
+            for col in e["columns"]:
+                for w in col["words"]:
+                    assert tap(unit_text(w), 4), f"{where}: the word «{w}»"
+                    assert tap(col["label"], 4), f"{where}: the column «{col['label']}»"
+        elif kind == "table":
+            for r in e["rows"]:
+                for c, cell in enumerate(r["cells"]):
+                    if isinstance(cell, dict):  # TalkBack's name of a cell: "<row>, <column>" (its column in the base)
+                        label = f'{r["label"]}, {e["columns"][c]}'
+                        assert fill(label, typed(cell["accept"][0])), f"{where}: the cell {label}"
+        else:
+            raise AssertionError(f"{where}: QA doesn't play a {kind} here")
+        assert tap_above(check, 2400), f"{where}: check"
+
+    qa_hook(f"pair:{'-'.join(pair)}")  # the learner's own pair: the village's course, its labels in it
+    try:
+        qa_hook(f"school:{unit}")  # the unit as never begun, its level open, the units before it in its level done
+        time.sleep(2)
+        level_row = half("school.level", level=u["level"])
+        assert wait_for(level_row, 15) or scroll_to(level_row, 12) is not None, "the school's levels"
+        snap("cu-school")
+        title = unit_text(u["title"][lang])
+        c = scroll_to(title, 10)
+        assert c is not None, f"the unit «{title}», next"
+        snap("cu-school-next")
+        tap_at(c)
+        assert wait_for(half("school.worksheets"), 12), "the unit's page"
+        snap("cu-unit")
+        c = find(half("school.continueStep", step=half("school.intro"))) or find(lab("school.intro"))
+        assert c is not None, "the intro"
+        tap_at(c)
+        steps = u["intro"]["steps"]
+        for i, st in enumerate(steps, 1):
+            assert wait_for(half("school.stepOf", n=i, of=len(steps)), 12), f"step {i}"
+            a = st.get("ask")
+            if a is None:
+                assert tap(nxt, 4), f"step {i}'s next"
+                continue
+            if a["type"] == "choice":
+                option = unit_text(a["options"][a["answer"]])
+                c = pick(option, after=prompt_piece(a.get("prompt")))
+                assert c is not None, f"step {i}'s option «{option}»"
+                tap_at(c)
+            else:
+                c = text_field(3)
+                assert c is not None, f"step {i}'s gap"
+                tap_at(c)
+                type_text(typed(a["accept"][0]))
+                assert tap_above(check, 2150), f"step {i}'s check"
+            assert wait_for(half("playerScreen.correct"), 6) or wait_for(half("playerScreen.almost"), 2), f"step {i} answered right"
+            snap(f"cu-intro-{i}")
+            assert tap(nxt, 4), f"step {i}'s next"
+        assert wait_for(half("school.summary"), 10), "the intro's summary card"
+        snap("cu-intro-summary")
+        assert tap(half("school.toWorksheets"), 6), "on to the worksheets"
+        sheet = u["worksheets"][0]
+        assert tap(half("school.continueStep", step=sheet["title"][lang]), 8), f"the first worksheet «{sheet['title'][lang]}»"
+        for n, e in enumerate(sheet["exercises"], 1):
+            time.sleep(1.5)
+            if n == 1:
+                snap("cu-sheet")
+            exercise(e, f"{sheet['id']} #{n}")
+            snap(f"cu-sheet-{n}-checked")
+            assert tap(nxt, 6), f"{sheet['id']} #{n}: on"
+        assert wait_for(lab("common.continue"), 10), "the worksheet's end"
+        snap("cu-sheet-done")
+        assert tap(lab("common.continue"), 4), "back to the unit"
+        assert tap(half("school.testOut"), 8), "⏩ the test"
+        tests = u["test"]["exercises"]
+        for n, e in enumerate(tests, 1):
+            time.sleep(1.5)
+            exercise(e, f"test #{n}")
+            if n == 1:
+                snap("cu-test")
+            if n < len(tests):
+                assert tap(nxt, 6), f"test #{n}: on"
+        assert wait_for(nxt, 6), "the test's last: on"
+        tap(nxt, 4)
+        assert wait_for(half("school.unitDoneTitle"), 12), "the test passed: the unit done"
+        time.sleep(2)
+        snap("cu-test-passed")
+        assert tap(lab("common.continue"), 4), "back to the unit"
+        assert wait_for(half("school.unitIsDone"), 8), "the unit done"
+        end, done = time.time() + 20 * slow(), None
+        while time.time() < end:  # the app pushes the village to the node
+            try:
+                done = (((api("/game").get("state") or {}).get("course") or {}).get("units") or {}).get(f"{lang}/{unit}")
+            except (OSError, RuntimeError, ValueError):
+                done = None
+            if done and done.get("done"):
+                break
+            time.sleep(2)
+        assert done and done.get("done"), f"the dev bridge's village keeps {lang}/{unit} done ({done})"
+        # --- its sheet printed from the unit: fit.js in the WebView as in Chromium, the dialog, the PDF -------------------
+        adb("logcat", "-c")
+        c = scroll_to(half("school.printSheet"), 8) or find(half("school.printSheet"))
+        assert c is not None, "🖨️ the sheet's print on the unit"
+        snap("cu-print-button")
+        course = json.loads((ROOT / f"companion/course/{lang}/course.json").read_text())
+        level = next(lv for lv in course["levels"] if lv["level"] == u["level"])
+        written = [x["id"] for x in level["units"] if not x.get("planned") and (ROOT / f"companion/course/{lang}/units/{x['id']}.json").exists()]
+        job = f"Lani – {u['level']} – {written.index(unit) + 1:02d} {unit}"
+        tap_at(c)
+        assert print_dialog(), "the print dialog"
+        time.sleep(4 * slow())
+        snap("cu-print-preview")
+        app, chrome = webview_fit(job), chromium_fit(f"/course/sheet/{unit}?base={pair[1]}", f"cu-print-{unit}")
+        (OUT / "cu-print-fit.txt").write_text(f"{job}\n  WebView:  {json.dumps(app)}\n  Chromium: {json.dumps(chrome)}\n")
+        assert app is not None, f"fit.js's choice in the log (LaniPrint, {job})"
+        assert chrome is None or same_fit(app, chrome), f"fit.js chose otherwise in the WebView ({app}) than in Chromium ({chrome})"
+        pdf = save_pdf(job, f"cu-print-{unit}.pdf")
+        assert pdf is not None, "the PDF saved through the print dialog"
+        info = sh("pdfinfo", str(pdf), check=False) if shutil.which("pdfinfo") else ""
+        pages = int(m.group(1)) if (m := re.search(r"^Pages:\s+(\d+)", info, re.M)) else None
+        assert pages is None or pages == app[0]["pages"], f"the PDF has {pages} pages, fit.js chose {app[0]['pages']}"
+        assert not info or "A4" in info, "the PDF is A4"
+        if shutil.which("pdftoppm"):
+            first = OUT / f"{len(shots) + 1:02d}-cu-print-pdf.png"
+            sh("pdftoppm", "-png", "-r", "60", "-f", "1", "-l", "1", "-singlefile", str(pdf), str(first.with_suffix("")), check=False)
+            if first.exists():
+                shots.append(first)
+                if out is not None:
+                    shutil.copy(first, out / "cu-print-pdf.png")
+    finally:
+        restore = os.environ.get("LANI_QA_PAIR")
+        qa_hook(f"pair:{restore}" if restore else "pair:")
+    return None
+
+
 def friuli_watchtower():
     """Teo's watchtower (docs/plans/05-built/places-it-buildings.md): a child learning Italian from German in the Friuli
     village (LANI_DEV_DATA: make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1,
@@ -16066,6 +16297,8 @@ def plan():
         # the Friuli village's school for Teo (LANI_CULTURE=friuli, a synthetic learner of Italian from German)
         ("friuli-school", friuli_school, None, False, ""),
         ("friuli-school-unit", friuli_school_unit, None, False, ""),
+        # only with --steps course-unit: a unit of the village's language's course end to end and its print (LANI_QA_COURSE_UNIT)
+        ("course-unit", course_unit, None, False, ""),
         # only with --steps friuli-talk: Teo's free talk in Italian, Al mercato end to end (the same learner)
         ("friuli-talk", friuli_talk, None, False, ""),
         # only with --steps friuli-watchtower: Teo's watchtower at level 2 and into Sulla torre (the village made a Trg)
@@ -16625,7 +16858,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "course-unit") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
