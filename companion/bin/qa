@@ -9336,13 +9336,21 @@ def lakeland_projects_b():
             time.sleep(1.5)
         return None
 
-    def open_from_map(target: str, sid: str, tag: str):
-        """The landmark (or spot) [target] tapped on the map, its card's way in into scene [sid]: 2 taps from the village."""
-        c = node_starting(target)
-        if c is None:
-            c = find(target)
-        assert c is not None, f"{target} on the village's map"
-        tap_at(c)
+    def open_from_map(target: str, sid: str, tag: str, spot: bool = False):
+        """The landmark [target] tapped on the map (a spot of the land: the map's middle, where QA's "show:<spot>" flew the
+        camera, and a little round it), its card's way in into scene [sid]: 2 taps from the village."""
+        if spot:
+            w, h = screen_size()
+            for dx, dy in ((0, 0.07), (0, 0.085), (-0.05, 0.09), (0.05, 0.05), (0, 0), (-0.1, 0.12)):
+                tap_at((int(w * (0.5 + dx)), int(h * (0.5 + dy))))
+                if wait_for(go(sid), 4) is not None:
+                    break
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1.5)
+        else:
+            c = node_starting(target) or find(target)  # the landmark's target: its name first, or its name inside a label
+            assert c is not None, f"{target} on the village's map"
+            tap_at(c)
         assert wait_for(go(sid), 10), f"{target}'s card: its way in ({go(sid)})"
         time.sleep(1)
         snap(f"lb-{tag}-card")
@@ -9395,10 +9403,15 @@ def lakeland_projects_b():
         open_from_map(barn["name"]["en"], "at-the-bank-barn", "barn")
         # one spot: the beck, its card named by the culture ("The beck · Potok"), By the beck
         to_village()
+        time.sleep(3 * slow())
         qa_hook("show:riverbank")
         time.sleep(3 * slow())
+        qa_hook("show:riverbank")  # asked again, it flies there again (the camera's own move after the launch may have won)
+        time.sleep(3 * slow())
+        qa_hook("zoom")
+        time.sleep(3 * slow())
         snap("lb-beck-map")
-        open_from_map("The beck", "by-the-beck", "beck")
+        open_from_map("The beck", "by-the-beck", "beck", spot=True)
         # the other scenes by their links
         for sid in ("at-the-playground", "at-the-fountain", "under-the-clock", "at-the-viewing-station", "at-the-tarn"):
             adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, f"scene:{sid}")
