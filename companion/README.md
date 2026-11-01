@@ -3226,7 +3226,8 @@ another language is a new table, not new code: Slovene's č/š/ž; Italian's acc
 typed perche, perchè or perche') and apostrophes (un amica for un'amica, la acqua for l'acqua), each
 almost right with its hint (lo, la, glielo or gliela before avere only where the participle agrees: la ho vista for l'ho vista; lo ho
 vista, the pronoun's gender wrong, is wrong), and its known mistakes, never a slip in the stem (`wrong`: the regular
-stem where a form has its own, anderò for andrò, ferò for farò, mangierò for mangerò, venito for venuto; B1's glilo for glielo, dammilo for dammelo, leggando for leggendo); German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
+stem where a form has its own, anderò for andrò, ferò for farò, mangierò for mangerò, venito for venuto; B1's glilo for glielo, dammilo for dammelo, leggando for leggendo; an articulated
+preposition for another, delle or alle for dalle); German's ae/oe/ue/ss for ä/ö/ü/ß (almost, the umlaut hint); English's
 contractions (don't = do not). Choosing a dialog's answer by voice folds the same letters. Speech
 labels name the target language (`{targetLang, select, …}` in the string tables).
 

@@ -190,6 +190,19 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, it("camminando", "Camminando"))
     }
 
+    @Test fun `one preposition with the article for another is wrong, never a slip - the B1 passive's da`() {
+        for ((answer, right) in listOf(
+            "Il miele è fatto delle api." to "Il miele è fatto dalle api.", "è scritta della maestra" to "è scritta dalla maestra",
+            "dagli amici" to "degli amici", "la casa dalla nonna" to "la casa della nonna", "dello zio" to "dallo zio",
+            "è fatta alla nonna" to "è fatta dalla nonna", "nella nonna" to "della nonna", "agli alberi" to "dagli alberi",
+        )) assertEquals("«$answer» for «$right»", Verdict.WRONG, it(answer, right).verdict)
+        // a slip in the word itself, or in another word beside it, stays forgiven
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("dlla maestra", "dalla maestra"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("Gioca con la plla", "Gioca con la palla."))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("è scritta dalla mestra", "è scritta dalla maestra"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, it("Il miele è fatto dalle api", "Il miele è fatto dalle api."))
+    }
+
     // --- Slovene ----------------------------------------------------------------------------------------------------
 
     private fun sl(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.SL)
