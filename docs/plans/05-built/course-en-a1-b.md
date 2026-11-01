@@ -215,3 +215,7 @@ Then each base:
   the end (7e2acd5c, the German and English talks): companion/bin/qa's named-only steps kept both sides
   (course-unit beside main's), and main's new English pack (weather-and-garden) gives no prompt one of the
   supplement's meanings.
+- **Main moved again** after that (d442981e, the Italian prints' meanings: prints/sheet.ts's Dictionary and the
+  prints smoke). Rebasing onto it stops in part a's commit "feat(prints): a German or an English course's sheet"
+  (c4a6173e here), part a's own code against main's new order of meanings; this branch stays on 7e2acd5c so that
+  part a resolves it once. After part a's rebase, this branch's own commits go on top of part a's tip.
