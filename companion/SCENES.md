@@ -2680,7 +2680,7 @@ stand, sit, lie or hide (see [Stage directions](#stage-directions-people-move-on
 
 People sprites: `grandma` (headscarf, apron), `grandpa` (hat, walking stick), `child1`, `child2`,
 `child3`, `shepherd` (crook), `smith` (leather apron, hammer), `teacher`, `farmer` (straw hat),
-`beekeeper` (veil), `innkeeper`, `winemaker`, `aunt`; the strangers of the day's surprise, `pedlar` (the krošnjar
+`beekeeper` (veil), `innkeeper` (Vida: a white blouse under a teal bodice, a dark skirt, the white apron, a mug), `winemaker`, `aunt`; the strangers of the day's surprise, `pedlar` (the krošnjar
 from Ribnica under his krošnja of suha roba; in Friuli, Carinthia and the Lake District the culture's own pedlar under its
 load, the crassigne, the Kraxe, the packman's pack: `PeoplePainter.culture`, the look's `people.pedlar`) and `pilgrim` (staff with a gourd, scallop shell, shoulder bag); the
 village's own `woman`, `man` and `baby`; `hunter` (Lovec Jože: a loden-green jacket, a green hat with a jay's
@@ -2712,8 +2712,9 @@ culture's clothes, in the scenes, in the portraits and on the village map alike 
 
 The pedlar is each culture's own (`people.pedlar`, above); the beekeeper, the hunter, the charcoal burner and the baby are
 dressed alike everywhere. The village's own people are dressed by their id (`Looks.seedOf`), the same in their scenes, on
-the map at every detail and in their portraits. Primorska's people are as they always were (`CultureLooksTest`), and so are
-its map's small figures, drawn for those sizes.
+the map at every detail and in their portraits, in every culture. Primorska's people are its sprites as drawn, Vida a woman
+since 2026-11-01 (she was a bald man with a moustache); its map's small figures are drawn for those sizes in the sprites'
+colours.
 
 Time of day and season show: the campfire glows at night under stars and the moon, the kitchen lamp
 is lit in the evening, the forest is green in summer and golden in autumn, snow lies in winter. On the hills the vines
