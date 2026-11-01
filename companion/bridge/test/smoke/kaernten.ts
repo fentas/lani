@@ -146,7 +146,7 @@ export default async function kaernten() {
     const page = await printed.text()
     check(
       "kaernten: the unit's printed sheet: headed in German and in the learner's Slovene, its examples German",
-      printed.ok && printed.headers.get('x-lani-print-name') === '02-sein' && page.includes('Regel') && page.includes('Pravilo') && page.includes('Lektion') && page.includes('Ich bin Eva.'),
+      printed.ok && printed.headers.get('x-lani-print-name') === '02-sein' && page.includes('Regel') && page.includes('Pravilo') && page.includes('Lektion') && page.includes('Ich <b>bin</b> Eva.'),
       [printed.status, printed.headers.get('x-lani-print-name')],
     )
     const school = instructions.slice(instructions.indexOf('The school ('), instructions.indexOf('The school (') + 1400)
