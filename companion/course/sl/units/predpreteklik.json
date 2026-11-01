@@ -1,0 +1,267 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "predpreteklik",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "⏪",
+  "title": { "sl": "Bil sem že odšel: predpreteklik", "en": "Before the past: bil sem že odšel", "de": "Die Vorvergangenheit: bil sem že odšel", "it": "Il trapassato: bil sem že odšel" },
+  "goal": {
+    "en": "You can say what had happened before something else in the past, as stories and old letters do (Ko smo prišli, je bil avtobus že odpeljal), keep its short words second, and say it as speech does, with the past and že.",
+    "de": "Du sagst, was vor etwas anderem in der Vergangenheit geschehen war, wie Geschichten und alte Briefe (Ko smo prišli, je bil avtobus že odpeljal), hältst ihre kurzen Wörter an zweiter Stelle und sagst es wie gesprochen, mit der Vergangenheit und že.",
+    "it": "Sai dire che cosa era successo prima di qualcos'altro nel passato, come i racconti e le vecchie lettere (Ko smo prišli, je bil avtobus že odpeljal), tenere le sue parole brevi al secondo posto, e dirlo come nel parlato, con il passato e že."
+  },
+  "grammar": ["predpreteklik", "pretekli-cas"],
+  "words": ["predpreteklik", "že", "prej", "še", "postaja", "avtobus", "odpeljati", "oditi", "zaspati", "vstati", "petelin", "pomočnik", "zmleti", "žito", "jama", "zmaj", "odleteti", "pismo", "ladja", "tovarna", "obljubiti", "prihraniti", "pospraviti", "pojesti"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "predpreteklik", "en": "pluperfect", "de": "Vorvergangenheit", "it": "trapassato" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "The pluperfect (*predpreteklik*) says what had happened before something else in the past: **sem bil** + the l-form. **Ko je Nejc pritekel na postajo, je bil avtobus že odpeljal.** (When Nejc ran to the stop, the bus had already left.) First the bus left, then Nejc came.",
+          "de": "Die Vorvergangenheit (*predpreteklik*) sagt, was vor etwas anderem in der Vergangenheit geschehen war: **sem bil** + die l-Form. **Ko je Nejc pritekel na postajo, je bil avtobus že odpeljal.** (Als Nejc zur Haltestelle lief, war der Bus schon abgefahren.) Zuerst fuhr der Bus ab, dann kam Nejc.",
+          "it": "Il trapassato (*predpreteklik*) dice che cosa era successo prima di qualcos'altro nel passato: **sem bil** + la forma in -l. **Ko je Nejc pritekel na postajo, je bil avtobus že odpeljal.** (Quando Nejc è corso alla fermata, l'autobus era già partito.) Prima è partito l'autobus, poi è arrivato Nejc."
+        },
+        "examples": [
+          { "sl": "Ko je Nejc pritekel na postajo, je bil avtobus že odpeljal.", "en": "When Nejc ran to the stop, the bus had already left.", "de": "Als Nejc zur Haltestelle lief, war der Bus schon abgefahren.", "it": "Quando Nejc è corso alla fermata, l'autobus era già partito." },
+          { "sl": "Ko je France prišel v mlin, je bil pomočnik že zmlel žito.", "en": "When France came to the mill, his helper had already ground the grain.", "de": "Als France in die Mühle kam, hatte sein Gehilfe das Korn schon gemahlen.", "it": "Quando France è arrivato al mulino, il garzone aveva già macinato il grano." }
+        ],
+        "rows": [["on", "je bil odpeljal", { "sl": "prej", "en": "it had left", "de": "er war abgefahren", "it": "era partito" }]],
+        "ask": { "type": "cloze", "grammar": "predpreteklik", "text": "Ko je Luka prišel na planino, je ___ megla že padla.", "accept": ["bila"], "hint": "megla: feminine", "explain": "**it had already come down** → je **bila** … padla: bil agrees with megla" }
+      },
+      {
+        "say": {
+          "en": "Both **bil** and the l-form agree with the subject: **Babica je bila že skuhala kosilo. Jagnje je bilo zbežalo. Otroci so bili že zaspali. Ovce so bile že odšle.** Only **sem, je, so** change with the person, as in the past.",
+          "de": "Sowohl **bil** als auch die l-Form richten sich nach dem Subjekt: **Babica je bila že skuhala kosilo. Jagnje je bilo zbežalo. Otroci so bili že zaspali. Ovce so bile že odšle.** Nur **sem, je, so** ändern sich mit der Person, wie in der Vergangenheit.",
+          "it": "Sia **bil** sia la forma in -l si accordano con il soggetto: **Babica je bila že skuhala kosilo. Jagnje je bilo zbežalo. Otroci so bili že zaspali. Ovce so bile že odšle.** Solo **sem, je, so** cambiano con la persona, come nel passato."
+        },
+        "examples": [
+          { "sl": "Ko sem {m:prišel|f:prišla} domov, je bila babica že skuhala kosilo.", "en": "When I got home, Granny had already cooked lunch.", "de": "Als ich nach Hause kam, hatte Oma schon das Mittagessen gekocht.", "it": "Quando sono arrivato a casa, la nonna aveva già cucinato il pranzo." },
+          { "sl": "Ko smo prišli k Vidi, so bili gostje že odšli.", "en": "When we came to Vida's, the guests had already left.", "de": "Als wir zu Vida kamen, waren die Gäste schon gegangen.", "it": "Quando siamo arrivati da Vida, gli ospiti se n'erano già andati." }
+        ],
+        "rows": [["ona", "je bila skuhala", { "sl": "prej", "en": "she had cooked", "de": "sie hatte gekocht", "it": "aveva cucinato" }], ["ono", "je bilo zbežalo", { "sl": "prej", "en": "it had run away", "de": "es war weggelaufen", "it": "era scappato" }], ["oni, one", "so bili odšli, so bile odšle", { "sl": "prej", "en": "they had left", "de": "sie waren gegangen", "it": "se n'erano andati" }]],
+        "ask": { "type": "cloze", "grammar": "predpreteklik", "text": "Ko je Luka prišel, so ___ ovce že odšle v stajo.", "accept": ["bile"], "hint": "ovce: feminine plural", "explain": "**ovce** (they, feminine) → so **bile** … odšle" }
+      },
+      {
+        "say": {
+          "en": "**Sem, si, je, smo** are short words and go second, as in the past. With nothing in front, **bil** comes first: **{m:Bil sem že odšel|f:Bila sem že odšla}.** (I had already left.) With a no: **{m:Nisem bil še vstal|f:Nisem bila še vstala}, ko je zapel petelin.**",
+          "de": "**Sem, si, je, smo** sind kurze Wörter und stehen an zweiter Stelle, wie in der Vergangenheit. Steht nichts davor, kommt **bil** zuerst: **{m:Bil sem že odšel|f:Bila sem že odšla}.** (Ich war schon gegangen.) Verneint: **{m:Nisem bil še vstal|f:Nisem bila še vstala}, ko je zapel petelin.**",
+          "it": "**Sem, si, je, smo** sono parole brevi e vanno al secondo posto, come nel passato. Se davanti non c'è niente, **bil** viene per primo: **{m:Bil sem že odšel|f:Bila sem že odšla}.** (Ero già andato via.) Con la negazione: **{m:Nisem bil še vstal|f:Nisem bila še vstala}, ko je zapel petelin.**"
+        },
+        "examples": [
+          { "sl": "{m:Bil sem že odšel|f:Bila sem že odšla}, ko je prišla Zala.", "en": "I had already left when Zala came.", "de": "Ich war schon gegangen, als Zala kam.", "it": "Ero già andato via quando è arrivata Zala." },
+          { "sl": "{m:Nisem bil še vstal|f:Nisem bila še vstala}, ko je zapel petelin.", "en": "I hadn't got up yet when the rooster crowed.", "de": "Ich war noch nicht aufgestanden, als der Hahn krähte.", "it": "Non mi ero ancora alzato quando ha cantato il gallo." }
+        ],
+        "rows": [["jaz", "sem bil odšel", { "sl": "prej", "en": "I had left", "de": "ich war gegangen", "it": "ero andato via" }], [{ "sl": "ne", "en": "with a no", "de": "verneint", "it": "negativa" }, "nisem bil vstal", { "sl": "še ne", "en": "I hadn't got up", "de": "ich war nicht aufgestanden", "it": "non mi ero alzato" }]],
+        "ask": { "type": "choice", "grammar": "predpreteklik", "prompt": "___ že {m:odšel|f:odšla}, ko je prišla Zala. (I had already left.)", "options": ["{m:Bil|f:Bila} sem", "{m:Bil|f:Bila} je sem", "{m:Bil|f:Bila} bi"], "answer": 0, "say_options": true, "explain": "**I had already left** → **{m:Bil|f:Bila} sem že {m:odšel|f:odšla}**: bil first, sem second\n- bi · would have" }
+      },
+      {
+        "say": {
+          "en": "The pluperfect is rare and mostly written: stories, chronicles, old letters. Speech says the same with the past and **že** (already) or **prej** (before): **Ko je Nejc pritekel, je avtobus že odpeljal.** Both are right.",
+          "de": "Die Vorvergangenheit ist selten und vor allem geschrieben: Geschichten, Chroniken, alte Briefe. Gesprochen sagt man dasselbe mit der Vergangenheit und **že** (schon) oder **prej** (vorher): **Ko je Nejc pritekel, je avtobus že odpeljal.** Beides ist richtig.",
+          "it": "Il trapassato è raro e soprattutto scritto: racconti, cronache, vecchie lettere. Nel parlato si dice lo stesso con il passato e **že** (già) o **prej** (prima): **Ko je Nejc pritekel, je avtobus že odpeljal.** Sono giusti entrambi."
+        },
+        "examples": [
+          { "sl": "Ko je Nejc pritekel na postajo, je avtobus že odpeljal.", "en": "When Nejc ran to the stop, the bus had already left.", "de": "Als Nejc zur Haltestelle lief, war der Bus schon abgefahren.", "it": "Quando Nejc è corso alla fermata, l'autobus era già partito." },
+          { "sl": "Vida je prej pospravila mize, potem je prišla Ančka.", "en": "Vida had cleared the tables before Ančka came.", "de": "Vida hatte die Tische schon abgeräumt, dann kam Ančka.", "it": "Vida aveva già sparecchiato i tavoli, poi è arrivata Ančka." }
+        ],
+        "ask": { "type": "choice", "grammar": "predpreteklik", "instruction": "Kaj pomeni isto? · Which means the same?", "prompt": "Ko smo prišli, je bil avtobus že odpeljal.", "say": "Ko smo prišli, je bil avtobus že odpeljal.", "options": ["Ko smo prišli, je avtobus že odpeljal.", "Ko smo prišli, je avtobus odpeljal.", "Ko bomo prišli, bo avtobus že odpeljal."], "answer": 0, "say_options": true, "explain": "**že** says it was over before we came\n- without že · it left just as we came\n- bomo, bo · the future" }
+      },
+      {
+        "say": {
+          "en": "Mind the aspect. **Ko je Tone prišel, smo jedli.** (We were eating: the imperfective, going on.) **Ko je Tone prišel, smo že pojedli** or **smo bili že pojedli.** (We had finished eating: the perfective, over.)",
+          "de": "Achte auf den Aspekt. **Ko je Tone prišel, smo jedli.** (Wir aßen gerade: der unvollendete, es dauert an.) **Ko je Tone prišel, smo že pojedli** oder **smo bili že pojedli.** (Wir hatten aufgegessen: der vollendete, es ist vorbei.)",
+          "it": "Attento all'aspetto. **Ko je Tone prišel, smo jedli.** (Stavamo mangiando: l'imperfettivo, in corso.) **Ko je Tone prišel, smo že pojedli** o **smo bili že pojedli.** (Avevamo finito di mangiare: il perfettivo, concluso.)"
+        },
+        "examples": [
+          { "sl": "Ko je Tone prišel, smo jedli.", "en": "When Tone came, we were eating.", "de": "Als Tone kam, aßen wir gerade.", "it": "Quando è arrivato Tone, stavamo mangiando." },
+          { "sl": "Ko je Tone prišel, smo bili že pojedli.", "en": "When Tone came, we had already eaten.", "de": "Als Tone kam, hatten wir schon gegessen.", "it": "Quando è arrivato Tone, avevamo già mangiato." }
+        ],
+        "rows": [["mi", "smo bili pojedli", { "sl": "prej", "en": "we had eaten", "de": "wir hatten gegessen", "it": "avevamo mangiato" }]],
+        "ask": { "type": "choice", "grammar": "predpreteklik", "prompt": "Ko je Tone prišel na kosilo, smo bili že ___ juho.", "options": ["pojedli", "jedli", "jesti"], "answer": 0, "say_options": true, "explain": "**had finished it** → the perfective, **pojedli**\n- jedli · were eating: going on" }
+      },
+      {
+        "say": {
+          "en": "Stories like it. Stari Janez: **Ko je pastir prišel do jame, je bil zmaj že odletel.** (When the shepherd reached the cave, the dragon had already flown away.) The pluperfect is what happened first.",
+          "de": "Geschichten mögen sie. Stari Janez: **Ko je pastir prišel do jame, je bil zmaj že odletel.** (Als der Hirte zur Höhle kam, war der Drache schon davongeflogen.) Die Vorvergangenheit ist, was zuerst geschah.",
+          "it": "I racconti lo amano. Stari Janez: **Ko je pastir prišel do jame, je bil zmaj že odletel.** (Quando il pastore arrivò alla grotta, il drago era già volato via.) Il trapassato è ciò che è successo prima."
+        },
+        "examples": [
+          { "sl": "Ko je pastir prišel do jame, je bil zmaj že odletel.", "en": "When the shepherd reached the cave, the dragon had already flown away.", "de": "Als der Hirte zur Höhle kam, war der Drache schon davongeflogen.", "it": "Quando il pastore arrivò alla grotta, il drago era già volato via." },
+          { "sl": "Kralj je bil že umrl, ko se je vrnil sin.", "en": "The king had already died when his son came back.", "de": "Der König war schon gestorben, als der Sohn zurückkam.", "it": "Il re era già morto quando il figlio tornò." }
+        ],
+        "ask": { "type": "choice", "grammar": "predpreteklik", "instruction": "Kaj se je zgodilo prej? · What happened first?", "prompt": "Ko je pastir prišel do jame, je bil zmaj že odletel.", "say": "Ko je pastir prišel do jame, je bil zmaj že odletel.", "options": ["Zmaj je odletel.", "Pastir je prišel do jame."], "answer": 0, "say_options": true, "explain": "**je bil odletel**, the pluperfect: the dragon flew away first, then the shepherd came" }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "predpreteklik-1",
+      "title": { "sl": "Sem bil, je bila, so bili", "en": "Sem bil, je bila, so bili", "de": "Sem bil, je bila, so bili", "it": "Sem bil, je bila, so bili" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "predpreteklik",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "predpreteklik · the pluperfect",
+          "columns": ["predpreteklik · had done"],
+          "rows": [
+            { "label": "jaz (on) · oditi", "cells": [{ "accept": ["sem bil odšel", "bil sem odšel"], "hint": "sem, bil, the l-form" }] },
+            { "label": "jaz (ona) · oditi", "cells": [{ "accept": ["sem bila odšla", "bila sem odšla"], "hint": "both agree" }] },
+            { "label": "Vida · pospraviti", "cells": [{ "accept": ["je bila pospravila", "bila je pospravila"] }] },
+            { "label": "otroci · zaspati", "cells": [{ "accept": ["so bili zaspali", "bili so zaspali"] }] },
+            { "label": "ovce · oditi", "cells": [{ "accept": ["so bile odšle", "bile so odšle"] }] },
+            { "label": "jagnje · zbežati", "cells": [{ "accept": ["je bilo zbežalo", "bilo je zbežalo"], "hint": "neuter" }] },
+            { "label": "midva · pojesti", "cells": [{ "accept": ["sva bila pojedla", "bila sva pojedla"], "hint": "two: the dual" }] },
+            { "label": "jaz (on) · ne vstati", "cells": [{ "accept": ["nisem bil vstal"], "hint": "nisem, then bil" }] }
+          ],
+          "explain": "**sem, si, je …** + **bil, bila, bilo, bili, bile** + the l-form, which agrees too · with a no: **nisem bil vstal**"
+        },
+        {
+          "type": "sort",
+          "grammar": "predpreteklik",
+          "instruction": "Razvrsti · Sort them",
+          "columns": [
+            { "label": "predpreteklik · had done", "words": ["sem bil odšel", "je bila skuhala", "so bili zaspali"] },
+            { "label": "preteklik · did", "words": ["sem odšel", "je skuhala", "so zaspali"] },
+            { "label": "pretekli pogojnik · would have", "words": ["bi bil odšel", "bi bila skuhala", "ne bi bili zaspali"] }
+          ],
+          "explain": "**sem bil** + l-form: it had happened before · **sem** + l-form: it happened · **bi bil** + l-form: it would have happened, and didn't"
+        }
+      ]
+    },
+    {
+      "id": "predpreteklik-2",
+      "title": { "sl": "Pismo iz Amerike", "en": "A letter from America", "de": "Ein Brief aus Amerika", "it": "Una lettera dall'America" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "predpreteklik",
+          "instruction": "Dopolni · Fill in",
+          "title": "Pismo iz Amerike (1910)",
+          "text": "Dragi moji! Ko sem prišel v Cleveland, je ___ brat že odšel v tovarno. Njegova žena je bila že ___ (skuhati) večerjo, otroci pa so bili že ___ (zaspati). Delo, ki mi ga je bil ___ (obljubiti) stric, je dobil drug. Denar, ki sem ga bil ___ (prihraniti) doma, mi je kmalu pošel. Ko je prišla zima, sem ___ že našel delo v pekarni. Pozdravite mamo, ki mi je ___ spekla potico za na pot. Vaš Janez",
+          "gaps": [
+            { "accept": ["bil"], "hint": "brat: masculine" },
+            { "accept": ["skuhala"], "hint": "žena: feminine" },
+            { "accept": ["zaspali"], "hint": "otroci: they" },
+            { "accept": ["obljubil"], "hint": "stric: masculine" },
+            { "accept": ["prihranil"], "hint": "jaz, Janez: masculine" },
+            { "accept": ["bil"], "hint": "sem … že našel: before the winter" },
+            { "accept": ["bila"], "hint": "mama: feminine" }
+          ],
+          "bank": true,
+          "distractors": ["sem", "zaspala", "prihranili"],
+          "translation": "My dear ones! When I came to Cleveland, my brother had already gone to the factory. His wife had already cooked supper, and the children had already fallen asleep. The work my uncle had promised me went to someone else. The money I had saved at home soon ran out. When winter came, I had already found work at a bakery. Greet Mother, who had baked me a potica for the journey. Your Janez"
+        },
+        {
+          "type": "choice",
+          "grammar": "predpreteklik",
+          "instruction": "Kaj se je zgodilo prej? · What happened first?",
+          "prompt": "Ko je prišla zima, je bil Janez že našel delo.",
+          "say": "Ko je prišla zima, je bil Janez že našel delo.",
+          "options": ["Janez je našel delo.", "Prišla je zima."],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**je bil našel**, the pluperfect: he found work first, then winter came"
+        }
+      ]
+    },
+    {
+      "id": "predpreteklik-3",
+      "title": { "sl": "Prej in potem", "en": "Before and after", "de": "Vorher und nachher", "it": "Prima e dopo" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "predpreteklik",
+          "instruction": "Povej s predpreteklikom · Say it with the pluperfect",
+          "items": [
+            { "from": "Ko smo prišli, je avtobus že odpeljal.", "accept": ["Ko smo prišli, je bil avtobus že odpeljal.", "Ko smo prišli, je avtobus že bil odpeljal.", "Ko smo prišli, je avtobus bil že odpeljal."], "hint": "add bil after je" },
+            { "from": "Ko je Tone prišel, smo že pojedli.", "accept": ["Ko je Tone prišel, smo bili že pojedli.", "Ko je Tone prišel, smo že bili pojedli."] },
+            { "from": "Ko je Luka prišel, so ovce že odšle.", "accept": ["Ko je Luka prišel, so bile ovce že odšle.", "Ko je Luka prišel, so ovce že bile odšle.", "Ko je Luka prišel, so ovce bile že odšle."], "hint": "ovce: bile" },
+            { "from": "Ko je zapel petelin, sem že {m:vstal|f:vstala}.", "accept": ["Ko je zapel petelin, sem {m:bil|f:bila} že {m:vstal|f:vstala}.", "Ko je zapel petelin, sem že {m:bil|f:bila} {m:vstal|f:vstala}."] },
+            { "from": "Ko smo prišli k Vidi, je že pospravila mize.", "accept": ["Ko smo prišli k Vidi, je bila že pospravila mize.", "Ko smo prišli k Vidi, je že bila pospravila mize."], "hint": "Vida: bila" },
+            { "from": "Ko je France prišel v mlin, je pomočnik že zmlel žito.", "accept": ["Ko je France prišel v mlin, je bil pomočnik že zmlel žito.", "Ko je France prišel v mlin, je pomočnik že bil zmlel žito.", "Ko je France prišel v mlin, je pomočnik bil že zmlel žito."] }
+          ],
+          "explain": "**add bil** after sem, je, so, agreeing: bil, bila, bilo, bili, bile · the rest stays"
+        },
+        {
+          "type": "transform",
+          "grammar": "predpreteklik",
+          "instruction": "Povej, kot se govori: z že · Say it as people speak: with že",
+          "items": [
+            { "from": "{m:Bil sem že odšel|f:Bila sem že odšla}.", "accept": ["Že sem {m:odšel|f:odšla}.", "Sem že {m:odšel|f:odšla}.", "{m:Odšel|f:Odšla} sem že."], "hint": "leave out bil" },
+            { "from": "Babica je bila že skuhala kosilo.", "accept": ["Babica je že skuhala kosilo."] }
+          ],
+          "explain": "**leave out bil**: the past with že says the same"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "predpreteklik",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "predpreteklik · the pluperfect",
+        "columns": ["predpreteklik · had done"],
+        "rows": [
+          { "label": "on · oditi", "cells": [{ "accept": ["je bil odšel", "bil je odšel"] }] },
+          { "label": "mi · zaspati", "cells": [{ "accept": ["smo bili zaspali", "bili smo zaspali"] }] },
+          { "label": "Zala · pozabiti", "cells": [{ "accept": ["je bila pozabila", "bila je pozabila"] }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "predpreteklik",
+        "instruction": "Dopolni · Fill in",
+        "text": "Ko je Mojca prišla v šolo, so ___ otroci že sedli. Ko smo prišli na sejem, je bil Marko že ___ (prodati) vse vino. Ko je zazvonilo, je ___ Zala že rešila nalogo. Kralj je bil že ___ (umreti), ko se je vrnil sin.",
+        "gaps": [
+          { "accept": ["bili"] },
+          { "accept": ["prodal"] },
+          { "accept": ["bila"] },
+          { "accept": ["umrl"] }
+        ],
+        "translation": "When Mojca came to school, the children had already sat down. When we came to the fair, Marko had already sold all the wine. When the bell rang, Zala had already solved the task. The king had already died when his son came back."
+      },
+      {
+        "type": "transform",
+        "grammar": "predpreteklik",
+        "instruction": "Povej s predpreteklikom · Say it with the pluperfect",
+        "items": [
+          { "from": "Ko je Ančka prišla, je Vida že odšla.", "accept": ["Ko je Ančka prišla, je bila Vida že odšla.", "Ko je Ančka prišla, je Vida že bila odšla.", "Ko je Ančka prišla, je Vida bila že odšla."] },
+          { "from": "Ko je začelo deževati, so že pospravili seno.", "accept": ["Ko je začelo deževati, so bili že pospravili seno.", "Ko je začelo deževati, so že bili pospravili seno."] },
+          { "from": "Ko je prišel zdravnik, je bolečina že minila.", "accept": ["Ko je prišel zdravnik, je bila bolečina že minila.", "Ko je prišel zdravnik, je bolečina že bila minila.", "Ko je prišel zdravnik, je bolečina bila že minila."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "predpreteklik",
+        "prompt": "Ko je Tone prišel, ___ ravno jedli. (we were just eating)",
+        "options": ["smo", "smo bili", "bomo"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**going on** when he came → the plain past, **smo jedli**\n- smo bili · the pluperfect: over before he came (smo bili že pojedli)\n- bomo · the future"
+      },
+      {
+        "type": "choice",
+        "grammar": "predpreteklik",
+        "instruction": "Kaj se je zgodilo prej? · What happened first?",
+        "prompt": "Ko smo prišli k Vidi, so bili gostje že odšli.",
+        "say": "Ko smo prišli k Vidi, so bili gostje že odšli.",
+        "options": ["Gostje so odšli.", "Prišli smo k Vidi."],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**so bili odšli**, the pluperfect: the guests left first"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: where bil goes (je bil avtobus že, je avtobus že bil: all accepted), Pismo iz Amerike (mi je bil obljubil, mi je pošel)"
+}

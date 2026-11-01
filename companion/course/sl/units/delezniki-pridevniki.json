@@ -1,0 +1,244 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "delezniki-pridevniki",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🍇",
+  "title": { "sl": "Odprta vrata, zrel sad: deležniki", "en": "Participles as adjectives: odprt, zrel", "de": "Partizipien als Adjektive: odprt, zrel", "it": "Participi come aggettivi: odprt, zrel" },
+  "goal": {
+    "en": "You can describe things with participles and tell how they came to be so: what someone did (obrano grozdje), what it became by itself (dozorelo grozdje, odpadlo listje, usahel studenec), what is going on (tekoča voda), and use bodoči, bivši and odrasli.",
+    "de": "Du beschreibst Dinge mit Partizipien und sagst, wie sie so wurden: was jemand getan hat (obrano grozdje), was von selbst geworden ist (dozorelo grozdje, odpadlo listje, usahel studenec), was gerade geschieht (tekoča voda), und brauchst bodoči, bivši und odrasli.",
+    "it": "Sai descrivere le cose con i participi e dire come sono diventate così: ciò che qualcuno ha fatto (obrano grozdje), ciò che è diventato da sé (dozorelo grozdje, odpadlo listje, usahel studenec), ciò che sta succedendo (tekoča voda), e usare bodoči, bivši e odrasli."
+  },
+  "grammar": ["delezniki", "trpnik", "pridevniki-ujemanje"],
+  "words": ["deležnik", "pokošen", "obran", "popravljen", "zaklenjen", "dozorel", "ovenel", "odpadel", "odrasel", "odrasli", "zarjavel", "usahel", "tekoč", "goreč", "boleč", "cvetoč", "bodoč", "bivši", "mimoidoči", "zrel", "grozdje", "trta", "listje", "grabiti", "žebelj", "studenec", "jablana", "sveča", "kompost", "vstop"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "glagol", "en": "verb", "de": "Verb", "it": "verbo" },
+        { "sl": "deležnik", "en": "participle", "de": "Partizip", "it": "participio" },
+        { "sl": "kako je postalo", "en": "how it came to be", "de": "wie es dazu kam", "it": "come è diventato" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A participle (*deležnik*) is a verb made into an adjective. You know **-n, -t** from the passive: what someone did to it. Before a noun it agrees like any adjective: **pokošena trava** (mown grass), **obrano grozdje** (picked grapes), **odprta vrata** (vrata is plural: odprta).",
+          "de": "Ein Partizip (*deležnik*) ist ein Verb, aus dem ein Adjektiv wurde. **-n, -t** kennst du vom Passiv: was jemand damit getan hat. Vor einem Nomen richtet es sich wie jedes Adjektiv: **pokošena trava** (gemähtes Gras), **obrano grozdje** (gelesene Trauben), **odprta vrata** (vrata ist Plural: odprta).",
+          "it": "Il participio (*deležnik*) è un verbo diventato aggettivo. **-n, -t** lo conosci dal passivo: ciò che qualcuno gli ha fatto. Davanti a un nome si accorda come ogni aggettivo: **pokošena trava** (erba falciata), **obrano grozdje** (uva vendemmiata), **odprta vrata** (vrata è plurale: odprta)."
+        },
+        "examples": [
+          { "sl": "Skozi odprta vrata je pritekel Muri.", "en": "Muri came running in through the open door.", "de": "Durch die offene Tür kam Muri gelaufen.", "it": "Muri è entrato di corsa dalla porta aperta." },
+          { "sl": "Marko nosi obrano grozdje v klet.", "en": "Marko carries the picked grapes to the cellar.", "de": "Marko trägt die gelesenen Trauben in den Keller.", "it": "Marko porta in cantina l'uva vendemmiata." }
+        ],
+        "rows": [["pokositi", "pokošen", { "sl": "kdo je naredil", "en": "someone did it", "de": "jemand hat es getan", "it": "qualcuno l'ha fatto" }], ["obrati", "obran", { "sl": "kdo je naredil", "en": "someone did it", "de": "jemand hat es getan", "it": "qualcuno l'ha fatto" }]],
+        "ask": { "type": "cloze", "grammar": "delezniki", "text": "Skozi ___ okno se sliši Mojčin glas. (odpreti)", "accept": ["odprto"], "hint": "okno: neuter", "explain": "**someone opened it** → -t: odpreti → odprt, **odprto okno**" }
+      },
+      {
+        "say": {
+          "en": "**-l** says what something became by itself, from a verb without an object. It is the past's l-form: **grozdje je dozorelo → dozorelo grozdje** (ripe grapes), **listje je odpadlo → odpadlo listje** (fallen leaves), **rože so ovenele → ovenele rože**.",
+          "de": "**-l** sagt, was etwas von selbst geworden ist, von einem Verb ohne Objekt. Es ist die l-Form der Vergangenheit: **grozdje je dozorelo → dozorelo grozdje** (reife Trauben), **listje je odpadlo → odpadlo listje** (abgefallenes Laub), **rože so ovenele → ovenele rože**.",
+          "it": "**-l** dice che cosa è diventato qualcosa da sé, da un verbo senza oggetto. È la forma in -l del passato: **grozdje je dozorelo → dozorelo grozdje** (uva matura), **listje je odpadlo → odpadlo listje** (foglie cadute), **rože so ovenele → ovenele rože**."
+        },
+        "examples": [
+          { "sl": "Na trti visi dozorelo grozdje.", "en": "Ripe grapes hang on the vine.", "de": "An der Rebe hängen reife Trauben.", "it": "Sulla vite pende l'uva matura." },
+          { "sl": "France grabi odpadlo listje.", "en": "France is raking the fallen leaves.", "de": "France recht das abgefallene Laub.", "it": "France rastrella le foglie cadute." }
+        ],
+        "rows": [["dozoreti", "dozorel", { "sl": "postalo samo", "en": "it became so", "de": "es ist so geworden", "it": "è diventato così" }], ["odpasti", "odpadel", { "sl": "postalo samo", "en": "it became so", "de": "es ist so geworden", "it": "è diventato così" }]],
+        "ask": { "type": "choice", "grammar": "delezniki", "prompt": "Micka je ___ rože vrgla na kompost.", "options": ["ovenele", "ovenjene", "ovenela"], "answer": 0, "say_options": true, "explain": "**they wilted by themselves** → -l: rože so ovenele → **ovenele rože**\n- ovenjene · no -n form: nobody wilted them\n- ovenela · one, feminine" }
+      },
+      {
+        "say": {
+          "en": "The -l participle drops its e as the past does: **odrasel sin, odrasla hči** (grown-up). One is odd: **usahniti** (to dry up) gives **usahel studenec**, though its past is *usahnil*. And the pair to keep apart: **odpadlo listje** (it fell) and **pograbljeno listje** (France raked it).",
+          "de": "Das l-Partizip verliert sein e wie die Vergangenheit: **odrasel sin, odrasla hči** (erwachsen). Eines ist anders: **usahniti** (versiegen) gibt **usahel studenec**, obwohl die Vergangenheit *usahnil* ist. Und das Paar zum Unterscheiden: **odpadlo listje** (es ist gefallen) und **pograbljeno listje** (France hat es gerecht).",
+          "it": "Il participio in -l perde la e come il passato: **odrasel sin, odrasla hči** (adulto). Uno è strano: **usahniti** (prosciugarsi) dà **usahel studenec**, anche se il passato è *usahnil*. E la coppia da distinguere: **odpadlo listje** (è caduto) e **pograbljeno listje** (l'ha rastrellato France)."
+        },
+        "examples": [
+          { "sl": "Odrasel sin pomaga očetu na njivi.", "en": "The grown-up son helps his father in the field.", "de": "Der erwachsene Sohn hilft dem Vater auf dem Feld.", "it": "Il figlio adulto aiuta il padre nel campo." },
+          { "sl": "Pastir je pripeljal ovce k usahlemu studencu.", "en": "The shepherd brought the sheep to the dried-up spring.", "de": "Der Hirte führte die Schafe zur versiegten Quelle.", "it": "Il pastore ha portato le pecore alla sorgente prosciugata." }
+        ],
+        "rows": [["odrasti", "odrasel, odrasla", { "sl": "postalo samo", "en": "grown up", "de": "erwachsen", "it": "adulto" }], ["usahniti", "usahel, usahla", { "sl": "postalo samo", "en": "dried up", "de": "versiegt", "it": "prosciugato" }]],
+        "ask": { "type": "choice", "grammar": "delezniki", "prompt": "France je pograbil listje. Na kupu leži ___ listje.", "options": ["pograbljeno", "odpadlo", "pograbilo"], "answer": 0, "say_options": true, "explain": "**France did it** → -n: **pograbljeno listje**\n- odpadlo · it fell by itself\n- pograbilo · the l-form: the leaves didn't rake" }
+      },
+      {
+        "say": {
+          "en": "**-eč, -oč** say what is going on, made from the *they* form as the gerunds are, but agreeing: **teči → tekoča voda** (running water), **goreti → goreča sveča** (a burning candle), **boleti → boleča noga** (a sore leg), **cvesti → cvetoča jablana** (a blossoming apple tree).",
+          "de": "**-eč, -oč** sagen, was gerade geschieht, von der *sie*-Form gebildet wie die Adverbialpartizipien, aber angepasst: **teči → tekoča voda** (fließendes Wasser), **goreti → goreča sveča** (eine brennende Kerze), **boleti → boleča noga** (ein schmerzendes Bein), **cvesti → cvetoča jablana** (ein blühender Apfelbaum).",
+          "it": "**-eč, -oč** dicono che cosa sta succedendo, formati dalla forma *loro* come i gerundi, ma accordati: **teči → tekoča voda** (acqua corrente), **goreti → goreča sveča** (una candela accesa), **boleti → boleča noga** (una gamba dolorante), **cvesti → cvetoča jablana** (un melo in fiore)."
+        },
+        "examples": [
+          { "sl": "V hiši imamo tekočo vodo.", "en": "We have running water in the house.", "de": "Wir haben fließendes Wasser im Haus.", "it": "In casa abbiamo l'acqua corrente." },
+          { "sl": "Pod cvetočo jablano sedi babica Micka.", "en": "Granny Micka is sitting under the blossoming apple tree.", "de": "Unter dem blühenden Apfelbaum sitzt Oma Micka.", "it": "Sotto il melo in fiore siede nonna Micka." }
+        ],
+        "rows": [["teči", "tekoč", { "sl": "poteka", "en": "going on", "de": "geschieht gerade", "it": "sta succedendo" }], ["goreti", "goreč", { "sl": "poteka", "en": "going on", "de": "geschieht gerade", "it": "sta succedendo" }]],
+        "ask": { "type": "cloze", "grammar": "delezniki", "text": "Luka ima ___ nogo, zato danes ne gre na planino. (boleti)", "accept": ["bolečo"], "hint": "nogo: feminine, koga? kaj?", "explain": "**a leg that hurts** → boleti → boleč, feminine accusative → **bolečo nogo**" }
+      },
+      {
+        "say": {
+          "en": "Two of biti: **bodoči** (future: **bodoči ženin**, the groom-to-be) and **bivši** (former: **bivši župan**). And a participle can stand for people: **odrasli** (adults), **mimoidoči** (passers-by): **Za odrasle je vstop pet evrov.**",
+          "de": "Zwei von biti: **bodoči** (künftig: **bodoči ženin**, der Bräutigam) und **bivši** (ehemalig: **bivši župan**). Und ein Partizip kann für Menschen stehen: **odrasli** (Erwachsene), **mimoidoči** (Passanten): **Za odrasle je vstop pet evrov.**",
+          "it": "Due da biti: **bodoči** (futuro: **bodoči ženin**, il futuro sposo) e **bivši** (ex: **bivši župan**). E un participio può stare per delle persone: **odrasli** (gli adulti), **mimoidoči** (i passanti): **Za odrasle je vstop pet evrov.**"
+        },
+        "examples": [
+          { "sl": "Za odrasle je vstop pet evrov, za otroke dva.", "en": "Entry is five euros for adults, two for children.", "de": "Der Eintritt kostet fünf Euro für Erwachsene, zwei für Kinder.", "it": "L'ingresso costa cinque euro per gli adulti, due per i bambini." },
+          { "sl": "Mimoidoči so se ustavljali pred kovačnico.", "en": "Passers-by kept stopping in front of the smithy.", "de": "Passanten blieben immer wieder vor der Schmiede stehen.", "it": "I passanti si fermavano davanti alla fucina." }
+        ],
+        "rows": [["biti", "bodoč, bivši", { "sl": "prej, potem", "en": "future, former", "de": "künftig, ehemalig", "it": "futuro, ex" }]],
+        "ask": { "type": "choice", "grammar": "delezniki", "prompt": "Vstopnina: otroci dva evra, ___ pet evrov.", "options": ["odrasli", "odrasel", "odraslo"], "answer": 0, "say_options": true, "explain": "**people**, many → **odrasli** (adults), the participle as a noun\n- odrasel · one man\n- odraslo · neuter" }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "delezniki-pridevniki-1",
+      "title": { "sl": "Narejeno ali postalo?", "en": "Done or become?", "de": "Getan oder geworden?", "it": "Fatto o diventato?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "delezniki",
+          "instruction": "Razvrsti · Sort them",
+          "columns": [
+            { "label": "kdo je naredil · someone did it", "words": ["pokošena trava", "obrano grozdje", "popravljen plug", "zaklenjena klet"] },
+            { "label": "postalo samo · it became so", "words": ["dozorelo grozdje", "ovenele rože", "odpadlo listje", "zarjavel žebelj"] },
+            { "label": "poteka · going on", "words": ["tekoča voda", "goreča sveča", "cvetoča jablana"] }
+          ],
+          "explain": "**-n, -t**: someone did it (pokositi, obrati, popraviti, zakleniti) · **-l**: it became so by itself (dozoreti, oveneti, odpasti, zarjaveti) · **-eč, -oč**: it is going on"
+        },
+        {
+          "type": "table",
+          "grammar": "delezniki",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "deležnik v treh spolih · the participle in three genders",
+          "columns": ["moški · masculine", "ženski · feminine", "srednji · neuter"],
+          "rows": [
+            { "label": "dozoreti", "cells": ["dozorel", { "accept": ["dozorela"] }, { "accept": ["dozorelo"] }] },
+            { "label": "odrasti", "cells": [{ "accept": ["odrasel"], "hint": "the e of the past: odrasel" }, { "accept": ["odrasla"], "hint": "the e drops" }, "odraslo"] },
+            { "label": "usahniti", "cells": ["usahel", { "accept": ["usahla"], "hint": "the e drops" }, { "accept": ["usahlo"] }] },
+            { "label": "teči", "cells": [{ "accept": ["tekoč"], "hint": "tečejo → -oč, č → k" }, "tekoča", { "accept": ["tekoče"] }] },
+            { "label": "obrati", "cells": [{ "accept": ["obran"] }, "obrana", { "accept": ["obrano"] }] }
+          ],
+          "explain": "**agreeing** as an adjective: -, -a, -o (-e after č) · **the e drops** as in the past: odrasel, odrasla; usahel, usahla"
+        }
+      ]
+    },
+    {
+      "id": "delezniki-pridevniki-2",
+      "title": { "sl": "Jesen na vasi", "en": "Autumn in the village", "de": "Herbst im Dorf", "it": "Autunno in paese" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "delezniki",
+          "instruction": "Dopolni z deležnikom · Fill in with a participle",
+          "title": "Jesen na vasi",
+          "text": "Na Markovih trtah visi ___ (dozoreti) grozdje. Marko nosi ___ (obrati) grozdje v klet. Po dvorišču leži ___ (odpasti) listje. Micka vrže ___ (oveneti) rože na kompost. Tone je v kovačnici našel ___ (zarjaveti) žebelj. Luka ima ___ (boleti) nogo, zato ostane doma. Na oknu gostilne stoji ___ (goreti) sveča. Za ___ (odrasti) je trgatev delo, za otroke praznik.",
+          "gaps": [
+            { "accept": ["dozorelo"], "hint": "it ripened: -l" },
+            { "accept": ["obrano"], "hint": "Marko picked it: -n" },
+            { "accept": ["odpadlo"], "hint": "it fell: -l" },
+            { "accept": ["ovenele"], "hint": "they wilted: -l, plural" },
+            { "accept": ["zarjavel", "zarjaveli"], "hint": "it rusted: -l, koga? kaj?" },
+            { "accept": ["bolečo"], "hint": "it hurts: -eč, koga? kaj?" },
+            { "accept": ["goreča"], "hint": "it burns: -eč" },
+            { "accept": ["odrasle"], "hint": "za + koga? the people" }
+          ],
+          "bank": true,
+          "distractors": ["obrali", "odpadel", "gorela"],
+          "translation": "Ripe grapes hang on Marko's vines. Marko carries the picked grapes to the cellar. Fallen leaves lie all over the yard. Micka throws the wilted roses on the compost. In the smithy Tone found a rusty nail. Luka has a sore leg, so he stays at home. A burning candle stands in the inn's window. For the adults the grape harvest is work, for the children a feast."
+        },
+        {
+          "type": "choice",
+          "grammar": "delezniki",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "Bodoči ženin je nevesti prinesel rože.",
+          "say": "Bodoči ženin je nevesti prinesel rože.",
+          "options": ["The groom-to-be brought his bride flowers.", "Her former husband brought her flowers.", "The groom's father brought the bride flowers."],
+          "answer": 0,
+          "explain": "**bodoči** (future) ← biti: the one who will be"
+        }
+      ]
+    },
+    {
+      "id": "delezniki-pridevniki-3",
+      "title": { "sl": "Iz stavka beseda", "en": "From a sentence, a word", "de": "Aus dem Satz ein Wort", "it": "Dalla frase una parola" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "delezniki",
+          "instruction": "Naredi besedno zvezo · Make it a phrase",
+          "items": [
+            { "from": "Grozdje je dozorelo.", "accept": ["dozorelo grozdje"], "hint": "it became so: -l" },
+            { "from": "Rože so ovenele.", "accept": ["ovenele rože"] },
+            { "from": "Studenec je usahnil.", "accept": ["usahel studenec", "usahli studenec"], "hint": "the adjective isn't usahnil" },
+            { "from": "Sin je odrasel.", "accept": ["odrasel sin", "odrasli sin"] },
+            { "from": "France je pokosil travo.", "accept": ["pokošena trava"], "hint": "someone did it: -n, s → š" },
+            { "from": "Tone je popravil plug.", "accept": ["popravljen plug", "popravljeni plug"], "hint": "-iti → -ljen" },
+            { "from": "Voda teče.", "accept": ["tekoča voda"], "hint": "going on: -oč" },
+            { "from": "Sveča gori.", "accept": ["goreča sveča"], "hint": "going on: -eč" }
+          ],
+          "explain": "**-l**: it became so (dozorelo, ovenele, usahel, odrasel) · **-n, -t**: someone did it (pokošena, popravljen) · **-eč, -oč**: it is going on (tekoča, goreča)"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "delezniki",
+        "instruction": "Dopolni z deležnikom · Fill in with a participle",
+        "text": "Skozi ___ (odpreti) vrata je pritekel Muri. Po ___ (pokositi) travniku tečejo otroci. V ___ (teči) vodi se kopajo race. Pastir je pripeljal ovce k ___ (usahniti) studencu. Marko je prodal vse ___ (dozoreti) grozdje.",
+        "gaps": [
+          { "accept": ["odprta"] },
+          { "accept": ["pokošenem"] },
+          { "accept": ["tekoči"] },
+          { "accept": ["usahlemu"] },
+          { "accept": ["dozorelo"] }
+        ],
+        "translation": "Muri came running in through the open door. The children run across the mown meadow. Ducks bathe in the running water. The shepherd brought the sheep to the dried-up spring. Marko sold all the ripe grapes."
+      },
+      {
+        "type": "table",
+        "grammar": "delezniki",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "odpasti · to fall off",
+        "columns": ["deležnik · participle"],
+        "rows": [
+          { "label": "listje · srednji", "cells": [{ "accept": ["odpadlo"] }] },
+          { "label": "jabolka · množina", "cells": [{ "accept": ["odpadla"] }] }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "delezniki",
+        "instruction": "Naredi besedno zvezo · Make it a phrase",
+        "items": [
+          { "from": "Žebelj je zarjavel.", "accept": ["zarjavel žebelj", "zarjaveli žebelj"] },
+          { "from": "Marko je obral grozdje.", "accept": ["obrano grozdje"] },
+          { "from": "Noga boli.", "accept": ["boleča noga"] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "delezniki",
+        "prompt": "Na tleh so ___ jabolka: padla so z drevesa.",
+        "options": ["odpadla", "obrana", "odpadena"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**they fell by themselves** → -l: **odpadla jabolka**\n- obrana · someone picked them\n- odpadena · no such form"
+      },
+      {
+        "type": "choice",
+        "grammar": "delezniki",
+        "instruction": "Kaj pomeni? · What does it mean?",
+        "prompt": "Bivši župan zdaj pase ovce.",
+        "say": "Bivši župan zdaj pase ovce.",
+        "options": ["The former mayor now grazes sheep.", "The future mayor now grazes sheep.", "The mayor's son now grazes sheep."],
+        "answer": 0,
+        "explain": "**bivši** (former) ← biti: the one who was"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: usahel studenec and k usahlemu studencu, zarjavel or zarjaveli žebelj (both accepted), bodoči ženin, ovenjene and odpadena as wrong"
+}

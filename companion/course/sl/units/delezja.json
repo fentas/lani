@@ -1,0 +1,267 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "delezja",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🚶",
+  "title": { "sl": "Hodeč, molče: deležja", "en": "Gerunds: hodeč, molče", "de": "Adverbialpartizipien: hodeč, molče", "it": "Gerundi: hodeč, molče" },
+  "goal": {
+    "en": "You can say how something is done with a gerund (molče, stoje, jokaje), what goes on at the same time in writing (hodeč po vasi, vedoč, da …), use the everyday ones (mimogrede, nehote, nevede, tako rekoč), and recognise the old prišedši in stories.",
+    "de": "Du sagst mit einem Adverbialpartizip, wie etwas getan wird (molče, stoje, jokaje), schriftlich, was gleichzeitig geschieht (hodeč po vasi, vedoč, da …), brauchst die alltäglichen (mimogrede, nehote, nevede, tako rekoč) und erkennst das alte prišedši in Geschichten.",
+    "it": "Sai dire come si fa qualcosa con un gerundio (molče, stoje, jokaje), per iscritto che cosa succede nello stesso momento (hodeč po vasi, vedoč, da …), usare quelli di tutti i giorni (mimogrede, nehote, nevede, tako rekoč) e riconoscere l'antico prišedši nei racconti."
+  },
+  "grammar": ["delezja", "prislovi"],
+  "words": ["molče", "stoje", "sede", "kleče", "jokaje", "igraje", "hodeč", "sedeč", "vedoč", "pojoč", "rekoč", "tako rekoč", "mimogrede", "nehote", "nevede", "prišedši", "molčati", "klečati", "ploskati", "žvižgati", "pohiteti", "priteči", "popotnik", "vreča", "dežnik", "ogenj", "pripovedovati"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "glagol", "en": "verb", "de": "Verb", "it": "verbo" },
+        { "sl": "deležje", "en": "gerund", "de": "Adverbialpartizip", "it": "gerundio" },
+        { "sl": "kako ali kdaj", "en": "how or when", "de": "wie oder wann", "it": "come o quando" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A gerund (*deležje*) is a verb used as an adverb: it says how something is done. From verbs in -im it ends in -e: **molčati → molče** (in silence), **stati → stoje** (standing). It never changes, whoever does it: **Luka je molče gledal ovce. Stoje so ploskali.**",
+          "de": "Ein Adverbialpartizip (*deležje*) ist ein Verb als Adverb: Es sagt, wie etwas getan wird. Von Verben auf -im endet es auf -e: **molčati → molče** (schweigend), **stati → stoje** (stehend). Es ändert sich nie, wer es auch tut: **Luka je molče gledal ovce. Stoje so ploskali.**",
+          "it": "Il gerundio (*deležje*) è un verbo usato come avverbio: dice come si fa qualcosa. Dai verbi in -im finisce in -e: **molčati → molče** (in silenzio), **stati → stoje** (in piedi). Non cambia mai, chiunque lo faccia: **Luka je molče gledal ovce. Stoje so ploskali.**"
+        },
+        "examples": [
+          { "sl": "Luka je molče gledal ovce.", "en": "Luka watched the sheep in silence.", "de": "Luka sah den Schafen schweigend zu.", "it": "Luka guardava le pecore in silenzio." },
+          { "sl": "Po zgodbi so vsi stoje ploskali.", "en": "After the story everyone applauded standing.", "de": "Nach der Geschichte klatschten alle im Stehen.", "it": "Dopo la storia tutti hanno applaudito in piedi." }
+        ],
+        "rows": [["molčati", "molče", { "sl": "kako?", "en": "how: in silence", "de": "wie: schweigend", "it": "come: in silenzio" }], ["stati", "stoje", { "sl": "kako?", "en": "how: standing", "de": "wie: stehend", "it": "come: in piedi" }]],
+        "ask": { "type": "choice", "grammar": "delezja", "prompt": "Otroci so ___ poslušali Janezovo zgodbo.", "options": ["molče", "molčijo", "molčali"], "answer": 0, "say_options": true, "explain": "**how did they listen?** in silence → **molče**, it never changes\n- molčijo · they are silent (a verb)\n- molčali · were silent (the l-form)" }
+      },
+      {
+        "say": {
+          "en": "The same from **sedeti** and **klečati**: **sede** (sitting), **kleče** (kneeling). A few verbs in -am take -aje: **jokati → jokaje** (in tears), **igrati → igraje** (playing, so with ease): **Zala je jokaje pritekla domov. Tone je igraje dvignil vrečo.**",
+          "de": "Genauso von **sedeti** und **klečati**: **sede** (sitzend), **kleče** (kniend). Einige Verben auf -am nehmen -aje: **jokati → jokaje** (weinend), **igrati → igraje** (spielend, also mühelos): **Zala je jokaje pritekla domov. Tone je igraje dvignil vrečo.**",
+          "it": "Allo stesso modo da **sedeti** e **klečati**: **sede** (seduto), **kleče** (in ginocchio). Alcuni verbi in -am prendono -aje: **jokati → jokaje** (piangendo), **igrati → igraje** (giocando, cioè con facilità): **Zala je jokaje pritekla domov. Tone je igraje dvignil vrečo.**"
+        },
+        "examples": [
+          { "sl": "Stari Janez je sede zaspal pri ognju.", "en": "Old Janez fell asleep sitting by the fire.", "de": "Der alte Janez ist im Sitzen am Feuer eingeschlafen.", "it": "Il vecchio Janez si è addormentato seduto vicino al fuoco." },
+          { "sl": "Zala je jokaje pritekla domov.", "en": "Zala came running home in tears.", "de": "Zala kam weinend nach Hause gelaufen.", "it": "Zala è corsa a casa piangendo." }
+        ],
+        "rows": [["sedeti", "sede", { "sl": "kako?", "en": "how: sitting", "de": "wie: sitzend", "it": "come: seduto" }], ["jokati", "jokaje", { "sl": "kako?", "en": "how: in tears", "de": "wie: weinend", "it": "come: piangendo" }], ["igrati", "igraje", { "sl": "kako?", "en": "how: with ease", "de": "wie: mühelos", "it": "come: con facilità" }]],
+        "ask": { "type": "cloze", "grammar": "delezja", "text": "Nejc je ___ pritekel k mami. (jokati)", "accept": ["jokaje"], "hint": "jokati → -aje", "explain": "**how did he come?** crying → **jokaje**\n- the same for Nejc, Zala or the children" }
+      },
+      {
+        "say": {
+          "en": "**-eč, -oč** say what goes on at the same time. Take the *they* form: **hodijo → hodeč** (walking), **vedo → vedoč** (knowing), **pojejo → pojoč** (singing). **Hodeč po vasi, je Nejc žvižgal.** The phrase takes the first place, so the short words come right after it.",
+          "de": "**-eč, -oč** sagen, was gleichzeitig geschieht. Nimm die *sie*-Form: **hodijo → hodeč** (gehend), **vedo → vedoč** (wissend), **pojejo → pojoč** (singend). **Hodeč po vasi, je Nejc žvižgal.** Die Wortgruppe steht an erster Stelle, also kommen die kurzen Wörter gleich danach.",
+          "it": "**-eč, -oč** dicono che cosa succede nello stesso momento. Prendi la forma *loro*: **hodijo → hodeč** (camminando), **vedo → vedoč** (sapendo), **pojejo → pojoč** (cantando). **Hodeč po vasi, je Nejc žvižgal.** Il gruppo occupa il primo posto, quindi le parole brevi vengono subito dopo."
+        },
+        "examples": [
+          { "sl": "Hodeč po vasi, je Nejc žvižgal.", "en": "Walking through the village, Nejc whistled.", "de": "Durchs Dorf gehend, pfiff Nejc.", "it": "Camminando per il paese, Nejc fischiettava." },
+          { "sl": "Vedoč, da bo deževalo, je France pokosil travnik že zjutraj.", "en": "Knowing it would rain, France mowed the meadow in the morning.", "de": "Da er wusste, dass es regnen würde, mähte France die Wiese schon am Morgen.", "it": "Sapendo che avrebbe piovuto, France ha falciato il prato già al mattino." }
+        ],
+        "rows": [["hoditi", "hodeč", { "sl": "hkrati", "en": "at the same time: walking", "de": "gleichzeitig: gehend", "it": "intanto: camminando" }], ["vedeti", "vedoč", { "sl": "hkrati", "en": "at the same time: knowing", "de": "gleichzeitig: wissend", "it": "intanto: sapendo" }], ["peti", "pojoč", { "sl": "hkrati", "en": "at the same time: singing", "de": "gleichzeitig: singend", "it": "intanto: cantando" }]],
+        "ask": { "type": "choice", "grammar": "delezja", "prompt": "___, da pridejo gostje, je Vida vstala ob petih.", "options": ["Vedoč", "Vedela", "Vedeti"], "answer": 0, "say_options": true, "explain": "**at the same time**: she knew, so she got up → **vedoč**, from vedo\n- vedela · the l-form needs je: Vedela je, da …\n- vedeti · the infinitive" }
+      },
+      {
+        "say": {
+          "en": "The subject of a gerund is always the main verb's: in **Hodeč po vasi, je Nejc žvižgal** Nejc walks and whistles. **-eč, -oč** are bookish; in speech a clause or **in** does it: **Ko je hodil po vasi, je žvižgal. Hodil je po vasi in žvižgal.** All three are right.",
+          "de": "Das Subjekt des Adverbialpartizips ist immer das des Hauptverbs: In **Hodeč po vasi, je Nejc žvižgal** geht und pfeift Nejc. **-eč, -oč** sind gehoben; gesprochen tut es ein Nebensatz oder **in**: **Ko je hodil po vasi, je žvižgal. Hodil je po vasi in žvižgal.** Alle drei sind richtig.",
+          "it": "Il soggetto del gerundio è sempre quello del verbo principale: in **Hodeč po vasi, je Nejc žvižgal** è Nejc che cammina e fischietta. **-eč, -oč** sono letterari; nel parlato basta una frase o **in**: **Ko je hodil po vasi, je žvižgal. Hodil je po vasi in žvižgal.** Sono giuste tutte e tre."
+        },
+        "examples": [
+          { "sl": "Ko je hodil po vasi, je Nejc žvižgal.", "en": "As he walked through the village, Nejc whistled.", "de": "Als er durchs Dorf ging, pfiff Nejc.", "it": "Mentre camminava per il paese, Nejc fischiettava." },
+          { "sl": "Micka je sedela pri oknu in pletla.", "en": "Micka sat by the window knitting.", "de": "Micka saß am Fenster und strickte.", "it": "Micka era seduta alla finestra e lavorava a maglia." }
+        ],
+        "ask": { "type": "choice", "grammar": "delezja", "instruction": "Kaj pomeni isto? · Which means the same?", "prompt": "Pojoč so šli skozi vas.", "say": "Pojoč so šli skozi vas.", "options": ["Peli so in šli skozi vas.", "Šli so skozi vas, ki poje.", "Ko so šli skozi vas, so nehali peti."], "answer": 0, "say_options": true, "explain": "**pojoč** (singing): they sang as they went → **peli so in šli**\n- ki poje · a village that sings\n- nehali peti · stopped singing" }
+      },
+      {
+        "say": {
+          "en": "A few gerunds are everyday words: **mimogrede** (on the way, by the way), **nehote** (without meaning to), **nevede** (unknowingly), **tako rekoč** (so to speak). **Mimogrede je Vida kupila kruh. Nehote je stopil Muriju na rep.**",
+          "de": "Einige Adverbialpartizipien sind Alltagswörter: **mimogrede** (im Vorbeigehen, übrigens), **nehote** (ohne Absicht), **nevede** (unwissentlich), **tako rekoč** (sozusagen). **Mimogrede je Vida kupila kruh. Nehote je stopil Muriju na rep.**",
+          "it": "Alcuni gerundi sono parole di tutti i giorni: **mimogrede** (di passaggio, a proposito), **nehote** (senza volerlo), **nevede** (senza saperlo), **tako rekoč** (per così dire). **Mimogrede je Vida kupila kruh. Nehote je stopil Muriju na rep.**"
+        },
+        "examples": [
+          { "sl": "Mimogrede je Vida kupila kruh.", "en": "Vida bought bread on her way.", "de": "Vida hat im Vorbeigehen Brot gekauft.", "it": "Vida ha comprato il pane di passaggio." },
+          { "sl": "Tine je nehote stopil Muriju na rep.", "en": "Tine stepped on Muri's tail without meaning to.", "de": "Tine ist Muri aus Versehen auf den Schwanz getreten.", "it": "Tine ha pestato la coda a Muri senza volerlo." }
+        ],
+        "rows": [["iti mimo", "mimogrede", { "sl": "kdaj?", "en": "on the way", "de": "im Vorbeigehen", "it": "di passaggio" }], ["hoteti", "nehote", { "sl": "kako?", "en": "without meaning to", "de": "ohne Absicht", "it": "senza volerlo" }]],
+        "ask": { "type": "choice", "grammar": "delezja", "prompt": "Tone je ___ razbil kozarec. Ni hotel.", "options": ["nehote", "molče", "mimogrede"], "answer": 0, "say_options": true, "explain": "**he didn't mean to** → **nehote**\n- molče · in silence\n- mimogrede · on the way" }
+      },
+      {
+        "say": {
+          "en": "Stories have an old gerund in **-ši, -vši** for what was done first: **priti → prišedši** (having come), **videti → videvši**. Only to recognise: **Prišedši domov, je popotnik legel.** = **Ko je prišel domov, je legel.**",
+          "de": "Geschichten haben ein altes Adverbialpartizip auf **-ši, -vši** für das, was zuerst getan wurde: **priti → prišedši** (gekommen), **videti → videvši**. Nur zum Erkennen: **Prišedši domov, je popotnik legel.** = **Ko je prišel domov, je legel.**",
+          "it": "I racconti hanno un gerundio antico in **-ši, -vši** per ciò che si è fatto prima: **priti → prišedši** (giunto), **videti → videvši**. Solo da riconoscere: **Prišedši domov, je popotnik legel.** = **Ko je prišel domov, je legel.**"
+        },
+        "examples": [
+          { "sl": "Prišedši domov, je popotnik legel.", "en": "Having come home, the traveller lay down.", "de": "Nach Hause gekommen, legte sich der Wanderer hin.", "it": "Giunto a casa, il viandante si coricò." },
+          { "sl": "Ko je prišel domov, je popotnik legel.", "en": "When he had come home, the traveller lay down.", "de": "Als er nach Hause gekommen war, legte sich der Wanderer hin.", "it": "Quando arrivò a casa, il viandante si coricò." }
+        ],
+        "rows": [["priti", "prišedši", { "sl": "prej", "en": "before: having come", "de": "vorher: gekommen", "it": "prima: giunto" }]],
+        "ask": { "type": "choice", "grammar": "delezja", "instruction": "Kaj pomeni isto? · Which means the same?", "prompt": "Prišedši v vas, je popotnik poiskal gostilno.", "say": "Prišedši v vas, je popotnik poiskal gostilno.", "options": ["Ko je prišel v vas, je popotnik poiskal gostilno.", "Preden je prišel v vas, je popotnik poiskal gostilno.", "Popotnik je poiskal gostilno, da bi prišel v vas."], "answer": 0, "say_options": true, "explain": "**prišedši**: he came first, then looked → **ko je prišel**\n- preden · before he came\n- da bi · so that he would come" }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "delezja-1",
+      "title": { "sl": "Molče, hodeč, prišedši", "en": "Molče, hodeč, prišedši", "de": "Molče, hodeč, prišedši", "it": "Molče, hodeč, prišedši" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "delezja",
+          "instruction": "Razvrsti · Sort them",
+          "columns": [
+            { "label": "-e, -aje · how", "words": ["molče", "stoje", "jokaje", "nehote"] },
+            { "label": "-eč, -oč · at the same time", "words": ["hodeč", "vedoč", "pojoč"] },
+            { "label": "-ši, -vši · before (old)", "words": ["prišedši", "videvši"] }
+          ],
+          "explain": "**-e, -aje**: how it is done · **-eč, -oč**: what goes on at the same time · **-ši, -vši**: what was done first, only in old stories\n- nehote is hoteti's: without meaning to"
+        },
+        {
+          "type": "table",
+          "grammar": "delezja",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "deležje iz oblike oni · the gerund from the they form",
+          "columns": ["oni · they", "deležje · gerund"],
+          "rows": [
+            { "label": "klečati", "cells": ["klečijo", { "accept": ["kleče"], "hint": "-im verbs: -e" }] },
+            { "label": "jokati", "cells": ["jokajo", { "accept": ["jokaje"], "hint": "-aje" }] },
+            { "label": "hoditi", "cells": ["hodijo", { "accept": ["hodeč"], "hint": "-ijo → -eč" }] },
+            { "label": "vedeti", "cells": ["vedo", { "accept": ["vedoč"], "hint": "-o → -oč" }] },
+            { "label": "peti", "cells": [{ "accept": ["pojejo", "pojo"], "hint": "oni pojejo" }, { "accept": ["pojoč"] }] },
+            { "label": "reči", "cells": ["rečejo", { "accept": ["rekoč"], "hint": "č → k, as in rekel" }] }
+          ],
+          "explain": "**-im verbs**: -e (molče, stoje, kleče) · **jokati, igrati**: -aje · **-eč, -oč** from the they form: hodijo → hodeč, vedo → vedoč, pojejo → pojoč, rečejo → rekoč"
+        }
+      ]
+    },
+    {
+      "id": "delezja-2",
+      "title": { "sl": "Zgodba pri ognju", "en": "A story by the fire", "de": "Eine Geschichte am Feuer", "it": "Una storia accanto al fuoco" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "delezja",
+          "instruction": "Dopolni z deležjem · Fill in with a gerund",
+          "title": "Zgodba pri ognju",
+          "text": "Stari Janez je ___ (sedeti) zaspal pri ognju. Ko se je zbudil, so otroci ___ (molčati) čakali na zgodbo. Nekoč je pastir, ___ (hoditi) po gozdu, iskal izgubljeno ovco. ___ (vedeti), da se bliža noč, je pohitel. Pod skalo je našel jagnje in ga ___ (igrati) odnesel domov. Gospodinja ga je ___ (jokati) objela. Domov so šli ___ (peti). Ko je Janez končal, so otroci ___ (stati) ploskali.",
+          "gaps": [
+            { "accept": ["sede", "sedeč"], "hint": "how? sitting" },
+            { "accept": ["molče"], "hint": "how? in silence" },
+            { "accept": ["hodeč"], "hint": "hodijo → ?" },
+            { "accept": ["Vedoč"], "hint": "vedo → ?" },
+            { "accept": ["igraje"], "hint": "how? with ease" },
+            { "accept": ["jokaje"], "hint": "how? in tears" },
+            { "accept": ["pojoč"], "hint": "pojejo → ?" },
+            { "accept": ["stoje"], "hint": "how? standing" }
+          ],
+          "bank": true,
+          "distractors": ["hodil", "stojijo", "molčali"],
+          "translation": "Old Janez fell asleep sitting by the fire. When he woke up, the children were waiting in silence for a story. Once a shepherd, walking through the forest, was looking for a lost sheep. Knowing that night was coming, he hurried. Under a rock he found a lamb and carried it home with ease. The farmer's wife hugged him in tears. They went home singing. When Janez finished, the children applauded standing."
+        },
+        {
+          "type": "choice",
+          "grammar": "delezja",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "Nevede je vzel Markov dežnik.",
+          "say": "Nevede je vzel Markov dežnik.",
+          "options": ["He took Marko's umbrella without knowing it.", "He took Marko's umbrella on purpose.", "He didn't take Marko's umbrella."],
+          "answer": 0,
+          "explain": "**nevede** (not knowing) ← vedeti: unknowingly"
+        }
+      ]
+    },
+    {
+      "id": "delezja-3",
+      "title": { "sl": "Krajše in daljše", "en": "Shorter and longer", "de": "Kürzer und länger", "it": "Più corto e più lungo" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "delezja",
+          "instruction": "Povej z deležjem · Say it with a gerund",
+          "items": [
+            { "from": "Poslušal je in ni nič rekel.", "accept": ["Molče je poslušal.", "Poslušal je molče."], "hint": "how? in silence" },
+            { "from": "Jokala je in pritekla domov.", "accept": ["Jokaje je pritekla domov.", "Pritekla je domov jokaje.", "Domov je pritekla jokaje."], "hint": "jokati → -aje" },
+            { "from": "Stali so in ploskali.", "accept": ["Stoje so ploskali.", "Ploskali so stoje."] },
+            { "from": "Ko je hodil po vasi, je žvižgal.", "accept": ["Hodeč po vasi, je žvižgal.", "Po vasi hodeč, je žvižgal."], "hint": "the phrase first, then je" },
+            { "from": "Ker je vedel, da bo deževalo, je vzel dežnik.", "accept": ["Vedoč, da bo deževalo, je vzel dežnik."] },
+            { "from": "Ni hotel, pa je razbil kozarec.", "accept": ["Nehote je razbil kozarec.", "Razbil je kozarec nehote.", "Kozarec je razbil nehote."], "hint": "he didn't mean to" }
+          ],
+          "explain": "**how?** -e, -aje: molče, stoje, jokaje · **at the same time**: -eč, -oč: hodeč, vedoč · the subject stays the main verb's"
+        },
+        {
+          "type": "transform",
+          "grammar": "delezja",
+          "instruction": "Povej, kot se govori: s ko · Say it as people speak: with ko",
+          "items": [
+            { "from": "Prišedši domov, je legel.", "accept": ["Ko je prišel domov, je legel."], "hint": "he came first" },
+            { "from": "Hodeč po travniku, je nabiral rože.", "accept": ["Ko je hodil po travniku, je nabiral rože."], "hint": "at the same time: the imperfective, hodil" },
+            { "from": "Sedeč na klopi, je bral časopis.", "accept": ["Ko je sedel na klopi, je bral časopis."] }
+          ],
+          "explain": "**prišedši** → ko je prišel (it was over first) · **hodeč, sedeč** → ko je hodil, ko je sedel (going on)"
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "delezja",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "deležje · the gerund",
+        "columns": ["deležje · gerund"],
+        "rows": [
+          { "label": "stati · stojijo", "cells": [{ "accept": ["stoje"] }] },
+          { "label": "hoditi · hodijo", "cells": [{ "accept": ["hodeč"] }] },
+          { "label": "igrati · igrajo", "cells": [{ "accept": ["igraje"] }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "delezja",
+        "instruction": "Dopolni z deležjem · Fill in with a gerund",
+        "text": "Babica Micka je ___ (molčati) pletla nogavice. ___ (vedeti), da gostje pridejo zgodaj, je Vida spekla kruh že ponoči. Zala je ___ (klečati) iskala žogo pod klopjo. Luka je ___ (peti) gnal ovce na planino.",
+        "gaps": [
+          { "accept": ["molče"] },
+          { "accept": ["Vedoč"] },
+          { "accept": ["kleče"] },
+          { "accept": ["pojoč"] }
+        ],
+        "translation": "Granny Micka was knitting socks in silence. Knowing the guests would come early, Vida baked the bread at night. Zala, kneeling, looked for the ball under the bench. Luka drove the sheep up to the pasture singing."
+      },
+      {
+        "type": "transform",
+        "grammar": "delezja",
+        "instruction": "Povej z deležjem · Say it with a gerund",
+        "items": [
+          { "from": "Jedla je in ni nič rekla.", "accept": ["Molče je jedla.", "Jedla je molče."] },
+          { "from": "Ko je sedel pri ognju, je pripovedoval.", "accept": ["Sedeč pri ognju, je pripovedoval.", "Pri ognju sedeč, je pripovedoval."] },
+          { "from": "Ni vedel, pa je vzel Markov dežnik.", "accept": ["Nevede je vzel Markov dežnik.", "Vzel je Markov dežnik nevede.", "Markov dežnik je vzel nevede."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "delezja",
+        "prompt": "Tone je ___ dvignil težko nakovalo.",
+        "options": ["igraje", "igrano", "igral"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**with ease** → **igraje**, from igrati\n- igral · the l-form needs a verb of its own"
+      },
+      {
+        "type": "choice",
+        "grammar": "delezja",
+        "instruction": "Kaj pomeni isto? · Which means the same?",
+        "prompt": "Prišedši na planino, je Luka preštel ovce.",
+        "say": "Prišedši na planino, je Luka preštel ovce.",
+        "options": ["Ko je prišel na planino, je Luka preštel ovce.", "Luka je preštel ovce, preden je prišel na planino.", "Luka je prišel na planino, ker je preštel ovce."],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**prišedši**: first he came, then he counted → **ko je prišel**"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: -eč, -oč as bookish (Hodeč po vasi, je …) and its comma, sede or sedeč, igraje for with ease, ga je jokaje objela"
+}

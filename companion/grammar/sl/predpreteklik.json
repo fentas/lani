@@ -1,0 +1,140 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "predpreteklik",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "⏪",
+  "title": {
+    "sl": "Bil sem že odšel: predpreteklik",
+    "en": "Before the past: bil sem že odšel",
+    "de": "Die Vorvergangenheit: bil sem že odšel",
+    "it": "Il trapassato: bil sem že odšel"
+  },
+  "rule": {
+    "en": "The pluperfect (*predpreteklik*) says what had happened before something else in the past: **sem bil** + the l-form, both agreeing with the subject. **Ko je Nejc pritekel na postajo, je bil avtobus že odpeljal.** (When Nejc ran to the stop, the bus had already left.)\n\nThe short words go second, as in the past: **Bil sem že odšel.** (I had already left.) **Babica je bila že skuhala kosilo. Ko smo prišli, so bili otroci že zaspali.** With a no: **Nisem bil še vstal.**\n\nIt is rare and mostly written: stories, chronicles, old letters. Speech says it with the past and **že** (already) or **prej** (before): **Ko je Nejc pritekel, je avtobus že odpeljal.** Both are right.\n\nMind the aspect: **Ko je Tone prišel, smo jedli** (we were eating), but **smo že pojedli** or **smo bili že pojedli** (we had finished).",
+    "de": "Die Vorvergangenheit (*predpreteklik*) sagt, was vor etwas anderem in der Vergangenheit geschehen war: **sem bil** + die l-Form, beide nach dem Subjekt gerichtet. **Ko je Nejc pritekel na postajo, je bil avtobus že odpeljal.** (Als Nejc zur Haltestelle lief, war der Bus schon abgefahren.)\n\nDie kurzen Wörter stehen an zweiter Stelle, wie in der Vergangenheit: **Bil sem že odšel.** (Ich war schon gegangen.) **Babica je bila že skuhala kosilo. Ko smo prišli, so bili otroci že zaspali.** Verneint: **Nisem bil še vstal.**\n\nSie ist selten und vor allem geschrieben: Geschichten, Chroniken, alte Briefe. Gesprochen sagt man es mit der Vergangenheit und **že** (schon) oder **prej** (vorher): **Ko je Nejc pritekel, je avtobus že odpeljal.** Beides ist richtig.\n\nAchte auf den Aspekt: **Ko je Tone prišel, smo jedli** (wir aßen gerade), aber **smo že pojedli** oder **smo bili že pojedli** (wir hatten aufgegessen).",
+    "it": "Il trapassato (*predpreteklik*) dice che cosa era successo prima di qualcos'altro nel passato: **sem bil** + la forma in -l, entrambi accordati con il soggetto. **Ko je Nejc pritekel na postajo, je bil avtobus že odpeljal.** (Quando Nejc è corso alla fermata, l'autobus era già partito.)\n\nLe parole brevi vanno al secondo posto, come nel passato: **Bil sem že odšel.** (Ero già andato via.) **Babica je bila že skuhala kosilo. Ko smo prišli, so bili otroci že zaspali.** Con la negazione: **Nisem bil še vstal.**\n\nÈ raro e soprattutto scritto: racconti, cronache, vecchie lettere. Nel parlato si dice con il passato e **že** (già) o **prej** (prima): **Ko je Nejc pritekel, je avtobus že odpeljal.** Sono giusti entrambi.\n\nAttento all'aspetto: **Ko je Tone prišel, smo jedli** (stavamo mangiando), ma **smo že pojedli** o **smo bili že pojedli** (avevamo finito di mangiare)."
+  },
+  "table": {
+    "head": [
+      { "sl": "kdo", "en": "who", "de": "wer", "it": "chi" },
+      { "sl": "predpreteklik", "en": "pluperfect", "de": "Vorvergangenheit", "it": "trapassato" },
+      { "sl": "kot se govori", "en": "as people say it", "de": "wie man spricht", "it": "come si parla" }
+    ],
+    "rows": [
+      ["jaz (on)", "sem bil odšel", "sem že odšel"],
+      ["jaz (ona)", "sem bila odšla", "sem že odšla"],
+      ["on", "je bil odpeljal", "je že odpeljal"],
+      ["ona", "je bila skuhala", "je že skuhala"],
+      ["ono", "je bilo zmrznilo", "je že zmrznilo"],
+      ["mi", "smo bili pojedli", "smo že pojedli"],
+      ["one", "so bile odšle", "so že odšle"],
+      [{ "sl": "ne", "en": "with a no", "de": "verneint", "it": "negativa" }, "nisem bil vstal", "še nisem vstal"],
+      [{ "sl": "na začetku", "en": "at the start", "de": "am Anfang", "it": "all'inizio" }, "Bil sem že odšel.", "Že sem odšel."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Ko je Nejc pritekel na postajo, je bil avtobus že odpeljal.",
+      "en": "When Nejc ran to the stop, the bus had already left.",
+      "de": "Als Nejc zur Haltestelle lief, war der Bus schon abgefahren.",
+      "it": "Quando Nejc è corso alla fermata, l'autobus era già partito."
+    },
+    {
+      "sl": "Ko sem {m:prišel|f:prišla} domov, je bila babica že skuhala kosilo.",
+      "en": "When I got home, Granny had already cooked lunch.",
+      "de": "Als ich nach Hause kam, hatte Oma schon das Mittagessen gekocht.",
+      "it": "Quando sono arrivato a casa, la nonna aveva già cucinato il pranzo."
+    },
+    {
+      "sl": "Ko je France prišel v mlin, je bil pomočnik že zmlel žito.",
+      "en": "When France came to the mill, his helper had already ground the grain.",
+      "de": "Als France in die Mühle kam, hatte sein Gehilfe das Korn schon gemahlen.",
+      "it": "Quando France è arrivato al mulino, il garzone aveva già macinato il grano."
+    },
+    {
+      "sl": "Ko smo prišli k Vidi, so bili gostje že odšli.",
+      "en": "When we came to Vida's, the guests had already left.",
+      "de": "Als wir zu Vida kamen, waren die Gäste schon gegangen.",
+      "it": "Quando siamo arrivati da Vida, gli ospiti se n'erano già andati."
+    },
+    {
+      "sl": "{m:Nisem bil še vstal|f:Nisem bila še vstala}, ko je zapel petelin.",
+      "en": "I hadn't got up yet when the rooster crowed.",
+      "de": "Ich war noch nicht aufgestanden, als der Hahn krähte.",
+      "it": "Non mi ero ancora alzato quando ha cantato il gallo."
+    },
+    {
+      "sl": "Ko je pastir prišel do jame, je bil zmaj že odletel.",
+      "en": "When the shepherd reached the cave, the dragon had already flown away.",
+      "de": "Als der Hirte zur Höhle kam, war der Drache schon davongeflogen.",
+      "it": "Quando il pastore arrivò alla grotta, il drago era già volato via.",
+      "note": {
+        "en": "A story's tense: Stari Janez likes it.",
+        "de": "Eine Zeit der Geschichten: Stari Janez mag sie.",
+        "it": "Un tempo dei racconti: Stari Janez lo ama."
+      }
+    },
+    {
+      "sl": "Ko je Nejc pritekel na postajo, je avtobus že odpeljal.",
+      "en": "When Nejc ran to the stop, the bus had already left.",
+      "de": "Als Nejc zur Haltestelle lief, war der Bus schon abgefahren.",
+      "it": "Quando Nejc è corso alla fermata, l'autobus era già partito.",
+      "note": {
+        "en": "As people say it: the past with že. Also right.",
+        "de": "Wie man spricht: die Vergangenheit mit že. Auch richtig.",
+        "it": "Come si parla: il passato con že. Anche giusto."
+      }
+    },
+    {
+      "sl": "Ko je Tone prišel, smo jedli.",
+      "en": "When Tone came, we were eating.",
+      "de": "Als Tone kam, aßen wir gerade.",
+      "it": "Quando è arrivato Tone, stavamo mangiando."
+    }
+  ],
+  "modules": [],
+  "tags": ["pluperfect", "predpreteklik", "past_perfect", "sem_bil"],
+  "see": ["pretekli-cas", "glagolski-vid", "vid-casi", "pogojnik-pretekli", "naslonke"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker. The term checked on Fran (SSKJ², SP2001; docs/plans/05-built/sl-b2-a.md)",
+  "card": {
+    "title": { "sl": "Predpreteklik", "en": "Predpreteklik · pluperfect", "de": "Predpreteklik · Vorvergangenheit", "it": "Predpreteklik · trapassato" },
+    "rule": {
+      "en": "**sem bil** + the l-form, both agreeing: what had happened before: **Ko smo prišli, je bil avtobus že odpeljal.** Speech: the past with **že**: **je avtobus že odpeljal**.",
+      "de": "**sem bil** + die l-Form, beide angepasst: was vorher geschehen war: **Ko smo prišli, je bil avtobus že odpeljal.** Gesprochen: die Vergangenheit mit **že**: **je avtobus že odpeljal**.",
+      "it": "**sem bil** + la forma in -l, entrambi accordati: ciò che era successo prima: **Ko smo prišli, je bil avtobus že odpeljal.** Nel parlato: il passato con **že**: **je avtobus že odpeljal**."
+    },
+    "table": {
+      "head": [
+        { "sl": "kdo", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "predpreteklik", "en": "pluperfect", "de": "Vorvergangenheit", "it": "trapassato" }
+      ],
+      "rows": [
+        ["jaz (on, ona)", "sem bil odšel, sem bila odšla"],
+        ["on, ona, ono", "je bil, je bila, je bilo …"],
+        ["mi, oni, one", "smo bili, so bili, so bile …"],
+        ["ne", "nisem bil vstal"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Ko sem {m:prišel|f:prišla} domov, je bila babica že skuhala kosilo.",
+        "en": "When I got home, Granny had already cooked lunch.",
+        "de": "Als ich nach Hause kam, hatte Oma schon das Mittagessen gekocht.",
+        "it": "Quando sono arrivato a casa, la nonna aveva già cucinato il pranzo."
+      },
+      {
+        "sl": "Ko je pastir prišel do jame, je bil zmaj že odletel.",
+        "en": "When the shepherd reached the cave, the dragon had already flown away.",
+        "de": "Als der Hirte zur Höhle kam, war der Drache schon davongeflogen.",
+        "it": "Quando il pastore arrivò alla grotta, il drago era già volato via."
+      }
+    ],
+    "tip": {
+      "en": "💡 **Bil sem že odšel**: nothing in front, so bil first and sem second.",
+      "de": "💡 **Bil sem že odšel**: nichts davor, also bil zuerst und sem an zweiter Stelle.",
+      "it": "💡 **Bil sem že odšel**: niente davanti, quindi prima bil e sem al secondo posto."
+    }
+  }
+}

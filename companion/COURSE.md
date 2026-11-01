@@ -610,6 +610,19 @@ units turn on comes from the earlier pages they list:
 little): their sheets ask mostly what a form means, which verb it comes from and which ending it has (a choice, a
 multi, a sort, a word bank), and only the easy ones are made (Okno je odprto, plavanje, pečenje kruha).
 
+B2's first six units (`delezja` to `odvisniki-napredno`, docs/plans/05-built/sl-b2-a.md) teach pages of their own too,
+each a B2 page with its cheat-sheet card: `delezja`, `delezniki`, `pogojnik-pretekli`, `predpreteklik`,
+`oziralni-kateri`, `odvisniki-napredno`. A gerund, a participle, a clause's bi or kateri isn't a row of a word's table;
+the B1 or A2 page a unit lists beside its own turns on what it did before:
+
+| unit | its pages | what the forms cards ask from then on |
+|---|---|---|
+| `delezniki-pridevniki` (B2) | delezniki, trpnik, pridevniki-ujemanje | an adjective's agreement (as `spol`); a participle (dozorel, tekoč) isn't a form of a verb's table |
+| `predpreteklik` (B2) | predpreteklik, pretekli-cas | the past's l-forms (as `pretekli-cas`) |
+
+`delezja` (delezja, prislovi), `pogojnik-pretekli` (pogojnik-pretekli, pogojnik-ce-bi), `oziralni-kateri`
+(oziralni-kateri, oziralni-ki) and `odvisniki-napredno` (odvisniki-napredno, odvisniki) turn on no form of a table.
+
 B2's units from `stopnjevanje-napredno` to `besedni-red` teach pages of their own as well, each a B2 page with its
 cheat-sheet card: `stopnjevanje`, `ukazi`, `frazemi`, `uradno-pismo`, `govorjeni-jezik`, `besedni-red`. None is a row of
 a word's table; two units name an earlier page a form counts on:

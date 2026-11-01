@@ -1,0 +1,136 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "pogojnik-pretekli",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🕰️",
+  "title": {
+    "sl": "Bil bi prišel: pretekli pogojnik",
+    "en": "The past conditional: bil bi prišel",
+    "de": "Der Konditional der Vergangenheit: bil bi prišel",
+    "it": "Il condizionale passato: bil bi prišel"
+  },
+  "rule": {
+    "en": "The past conditional (*pretekli pogojnik*) says what would have happened, and didn't: **bil** + **bi** + the l-form, both agreeing with the subject. **Bil bi prišel, pa je deževalo.** (I would have come, but it rained.) **Vida bi bila pomagala. Otroci bi bili šli.**\n\n**Bi** is a short word and goes second: **Bil bi prišel**, but **Jaz bi bil prišel** and **Če bi bil vedel, bi bil prišel.** The no comes before bi: **Luka ne bi bil prišel.**\n\nToday it is mostly written, and in stories. Speech does the same with the plain conditional and a word of the past: **Če bi včeraj vedel, bi prišel.** Both are right.\n\nIt is at home in near misses and regrets: **Skoraj bi bil padel.** (I nearly fell.) **Raje bi bila ostala doma.** (I'd rather have stayed at home.) **Moral bi bil priti.** (He should have come.)",
+    "de": "Der Konditional der Vergangenheit (*pretekli pogojnik*) sagt, was geschehen wäre, aber nicht geschah: **bil** + **bi** + die l-Form, beide nach dem Subjekt gerichtet. **Bil bi prišel, pa je deževalo.** (Ich wäre gekommen, aber es hat geregnet.) **Vida bi bila pomagala. Otroci bi bili šli.**\n\n**Bi** ist ein kurzes Wort und steht an zweiter Stelle: **Bil bi prišel**, aber **Jaz bi bil prišel** und **Če bi bil vedel, bi bil prišel.** Die Verneinung steht vor bi: **Luka ne bi bil prišel.**\n\nHeute ist er vor allem geschrieben, und in Geschichten. Gesprochen sagt man dasselbe mit dem einfachen Konditional und einem Wort der Vergangenheit: **Če bi včeraj vedel, bi prišel.** Beides ist richtig.\n\nZu Hause ist er bei knappen Fällen und beim Bedauern: **Skoraj bi bil padel.** (Fast wäre ich gefallen.) **Raje bi bila ostala doma.** (Ich wäre lieber zu Hause geblieben.) **Moral bi bil priti.** (Er hätte kommen sollen.)",
+    "it": "Il condizionale passato (*pretekli pogojnik*) dice che cosa sarebbe successo, e non è successo: **bil** + **bi** + la forma in -l, entrambi accordati con il soggetto. **Bil bi prišel, pa je deževalo.** (Sarei venuto, ma pioveva.) **Vida bi bila pomagala. Otroci bi bili šli.**\n\n**Bi** è una parola breve e va al secondo posto: **Bil bi prišel**, ma **Jaz bi bil prišel** e **Če bi bil vedel, bi bil prišel.** La negazione va prima di bi: **Luka ne bi bil prišel.**\n\nOggi è soprattutto scritto, e nei racconti. Nel parlato si dice lo stesso con il condizionale semplice e una parola del passato: **Če bi včeraj vedel, bi prišel.** Sono giusti entrambi.\n\nÈ di casa nelle cose mancate per poco e nei rimpianti: **Skoraj bi bil padel.** (Per poco non cadevo.) **Raje bi bila ostala doma.** (Avrei preferito restare a casa.) **Moral bi bil priti.** (Sarebbe dovuto venire.)"
+  },
+  "table": {
+    "head": [
+      { "sl": "kdo", "en": "who", "de": "wer", "it": "chi" },
+      { "sl": "pretekli pogojnik", "en": "past conditional", "de": "Konditional der Vergangenheit", "it": "condizionale passato" },
+      { "sl": "s čim spredaj", "en": "with a word in front", "de": "mit einem Wort davor", "it": "con una parola davanti" }
+    ],
+    "rows": [
+      ["on", "bil bi prišel", "Jaz bi bil prišel."],
+      ["ona", "bila bi prišla", "Vida bi bila prišla."],
+      ["ono", "bilo bi zmrznilo", "Jagnje bi bilo zmrznilo."],
+      ["oni", "bili bi šli", "Otroci bi bili šli."],
+      ["one", "bile bi ostale", "Ovce bi bile ostale."],
+      ["onadva", "bila bi pomagala", "Tone in Marko bi bila pomagala."],
+      [{ "sl": "ne", "en": "with a no", "de": "verneint", "it": "negativa" }, "ne bi bil prišel", "Luka ne bi bil prišel."],
+      [{ "sl": "če", "en": "if", "de": "wenn", "it": "se" }, "če bi bil vedel", "Če bi bil vedel, bi bil prišel."],
+      [{ "sl": "skoraj", "en": "nearly", "de": "fast", "it": "per poco" }, "skoraj bi bil padel", "Nejc bi bil skoraj padel."],
+      [{ "sl": "moral", "en": "should have", "de": "hätte sollen", "it": "sarebbe dovuto" }, "moral bi bil priti", "Moral bi bil priti."]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "{m:Bil bi prišel|f:Bila bi prišla}, pa je deževalo.",
+      "en": "I would have come, but it rained.",
+      "de": "Ich wäre gekommen, aber es hat geregnet.",
+      "it": "Sarei venuto, ma pioveva."
+    },
+    {
+      "sl": "Če bi bil France vedel za neurje, bi bil pospravil seno.",
+      "en": "If France had known about the storm, he would have brought in the hay.",
+      "de": "Hätte France vom Unwetter gewusst, hätte er das Heu eingebracht.",
+      "it": "Se France avesse saputo del temporale, avrebbe messo al riparo il fieno."
+    },
+    {
+      "sl": "Vida bi bila spekla potico, pa ni imela orehov.",
+      "en": "Vida would have baked a potica, but she had no walnuts.",
+      "de": "Vida hätte eine Potica gebacken, aber sie hatte keine Walnüsse.",
+      "it": "Vida avrebbe fatto la potica, ma non aveva noci."
+    },
+    {
+      "sl": "Brez Luke bi bilo jagnje zmrznilo.",
+      "en": "Without Luka the lamb would have frozen.",
+      "de": "Ohne Luka wäre das Lamm erfroren.",
+      "it": "Senza Luka l'agnello sarebbe morto di freddo."
+    },
+    {
+      "sl": "Če Tone ne bi bil popravil mostu, bi ga bila voda odnesla.",
+      "en": "If Tone hadn't repaired the bridge, the water would have carried it away.",
+      "de": "Hätte Tone die Brücke nicht repariert, hätte das Wasser sie weggerissen.",
+      "it": "Se Tone non avesse riparato il ponte, l'acqua l'avrebbe portato via."
+    },
+    {
+      "sl": "Skoraj bi bil padel v potok.",
+      "en": "He nearly fell into the stream.",
+      "de": "Fast wäre er in den Bach gefallen.",
+      "it": "Per poco non cadeva nel ruscello."
+    },
+    {
+      "sl": "Moral bi bil priti že včeraj.",
+      "en": "He should have come yesterday.",
+      "de": "Er hätte schon gestern kommen sollen.",
+      "it": "Sarebbe dovuto venire già ieri."
+    },
+    {
+      "sl": "Če bi včeraj {m:prišel|f:prišla}, bi {m:videl|f:videla} trgatev.",
+      "en": "If you had come yesterday, you would have seen the grape harvest.",
+      "de": "Wärst du gestern gekommen, hättest du die Weinlese gesehen.",
+      "it": "Se fossi venuto ieri, avresti visto la vendemmia.",
+      "note": {
+        "en": "As people say it: the plain conditional with včeraj. Also right.",
+        "de": "Wie man spricht: der einfache Konditional mit včeraj. Auch richtig.",
+        "it": "Come si parla: il condizionale semplice con včeraj. Anche giusto."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["past_conditional", "pretekli_pogojnik", "conditional_past", "bil_bi"],
+  "see": ["pogojnik-ce-bi", "pogojnik", "pretekli-cas", "predpreteklik", "naslonke-red"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker. Terms checked on Fran (SSKJ², SP2001: sedanji, pretekli pogojnik; docs/plans/05-built/sl-b2-a.md)",
+  "card": {
+    "title": { "sl": "Pretekli pogojnik", "en": "Pretekli pogojnik · past conditional", "de": "Pretekli pogojnik · Konditional der Vergangenheit", "it": "Pretekli pogojnik · condizionale passato" },
+    "rule": {
+      "en": "**bil bi** + the l-form, both agreeing: **Bil bi prišel. Vida bi bila pomagala.** What would have been, and wasn't. Speech often says **bi prišel** with a word of the past.",
+      "de": "**bil bi** + die l-Form, beide angepasst: **Bil bi prišel. Vida bi bila pomagala.** Was gewesen wäre, aber nicht war. Gesprochen oft **bi prišel** mit einem Wort der Vergangenheit.",
+      "it": "**bil bi** + la forma in -l, entrambi accordati: **Bil bi prišel. Vida bi bila pomagala.** Ciò che sarebbe stato, e non è stato. Nel parlato spesso **bi prišel** con una parola del passato."
+    },
+    "table": {
+      "head": [
+        { "sl": "kdo", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "pretekli pogojnik", "en": "past conditional", "de": "Konditional der Vergangenheit", "it": "condizionale passato" }
+      ],
+      "rows": [
+        ["on, ona", "bil bi prišel, bila bi prišla"],
+        ["oni, one", "bili bi šli, bile bi ostale"],
+        ["Vida, Luka …", "Vida bi bila pomagala."],
+        ["če, ne", "Če bi bil vedel, ne bi bil šel."]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "Če bi bil France vedel za neurje, bi bil pospravil seno.",
+        "en": "If France had known about the storm, he would have brought in the hay.",
+        "de": "Hätte France vom Unwetter gewusst, hätte er das Heu eingebracht.",
+        "it": "Se France avesse saputo del temporale, avrebbe messo al riparo il fieno."
+      },
+      {
+        "sl": "Skoraj bi bil padel v potok.",
+        "en": "He nearly fell into the stream.",
+        "de": "Fast wäre er in den Bach gefallen.",
+        "it": "Per poco non cadeva nel ruscello."
+      }
+    ],
+    "tip": {
+      "en": "💡 **Bi** goes second: **Bil bi prišel**, **Luka bi bil prišel**, never *Luka bil bi prišel*.",
+      "de": "💡 **Bi** steht an zweiter Stelle: **Bil bi prišel**, **Luka bi bil prišel**, nie *Luka bil bi prišel*.",
+      "it": "💡 **Bi** va al secondo posto: **Bil bi prišel**, **Luka bi bil prišel**, mai *Luka bil bi prišel*."
+    }
+  }
+}

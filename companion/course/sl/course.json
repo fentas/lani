@@ -68,10 +68,10 @@
     {
       "level": "B2",
       "units": [
-        { "id": "delezja", "title": { "sl": "Hodeč, molče: deležja", "en": "Present gerunds: hodeč, molče", "de": "Partizipien: hodeč, molče", "it": "Gerundi: hodeč, molče" }, "grammar": [], "planned": true },
-        { "id": "delezniki-pridevniki", "title": { "sl": "Odprta vrata, zrel sad: deležniki", "en": "Participles as adjectives: odprt, zrel", "de": "Partizipien als Adjektive: odprt, zrel", "it": "Participi come aggettivi: odprt, zrel" }, "grammar": [], "planned": true },
-        { "id": "pogojnik-pretekli", "title": { "sl": "Bil bi prišel: pretekli pogojnik", "en": "The past conditional: bil bi prišel", "de": "Der Konditional der Vergangenheit: bil bi prišel", "it": "Il condizionale passato: bil bi prišel" }, "grammar": ["pogojnik-ce-bi"], "planned": true },
-        { "id": "predpreteklik", "title": { "sl": "Bil sem že odšel: predpreteklik", "en": "Before the past: bil sem že odšel", "de": "Die Vorvergangenheit: bil sem že odšel", "it": "Il trapassato: bil sem že odšel" }, "grammar": [], "planned": true },
+        { "id": "delezja", "title": { "sl": "Hodeč, molče: deležja", "en": "Gerunds: hodeč, molče", "de": "Adverbialpartizipien: hodeč, molče", "it": "Gerundi: hodeč, molče" }, "grammar": ["delezja", "prislovi"] },
+        { "id": "delezniki-pridevniki", "title": { "sl": "Odprta vrata, zrel sad: deležniki", "en": "Participles as adjectives: odprt, zrel", "de": "Partizipien als Adjektive: odprt, zrel", "it": "Participi come aggettivi: odprt, zrel" }, "grammar": ["delezniki", "trpnik", "pridevniki-ujemanje"] },
+        { "id": "pogojnik-pretekli", "title": { "sl": "Bil bi prišel: pretekli pogojnik", "en": "The past conditional: bil bi prišel", "de": "Der Konditional der Vergangenheit: bil bi prišel", "it": "Il condizionale passato: bil bi prišel" }, "grammar": ["pogojnik-pretekli", "pogojnik-ce-bi"] },
+        { "id": "predpreteklik", "title": { "sl": "Bil sem že odšel: predpreteklik", "en": "Before the past: bil sem že odšel", "de": "Die Vorvergangenheit: bil sem že odšel", "it": "Il trapassato: bil sem že odšel" }, "grammar": ["predpreteklik", "pretekli-cas"] },
         { "id": "oziralni-kateri", "title": { "sl": "Hiša, v kateri živim", "en": "The house in which I live: kateri", "de": "Das Haus, in dem ich wohne: kateri", "it": "La casa in cui vivo: kateri" }, "grammar": ["oziralni-ki"], "planned": true },
         { "id": "odvisniki-napredno", "title": { "sl": "Čeprav, da bi, tako da: odvisniki", "en": "Although, so that: more clauses", "de": "Obwohl, damit, sodass: Nebensätze", "it": "Benché, affinché, così che: subordinate" }, "grammar": ["odvisniki"], "planned": true },
         { "id": "pomanjsevalnice", "title": { "sl": "Hišica, mizica, okence", "en": "Little words: hišica, okence", "de": "Verkleinerungen: hišica, okence", "it": "Diminutivi: hišica, okence" }, "grammar": [], "planned": true },

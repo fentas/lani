@@ -1,0 +1,150 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "delezniki",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🍇",
+  "title": {
+    "sl": "Odprta vrata, zrel sad: deležniki",
+    "en": "Participles as adjectives: odprt, zrel",
+    "de": "Partizipien als Adjektive: odprt, zrel",
+    "it": "Participi come aggettivi: odprt, zrel"
+  },
+  "rule": {
+    "en": "A participle (*deležnik*) is a verb made into an adjective. It agrees with its noun like any adjective and can stand for a person: **odprta vrata** (vrata is plural), **ovenele rože**, **odrasli** (adults). Which kind tells how it came to be so.\n\n**-n, -t**: what someone did to it (B1's passive): **pokošena trava, obrano grozdje, popravljen plug, zaklenjena klet**.\n\n**-l**: what it became by itself, from a verb without an object: **dozoreti → dozorelo grozdje, oveneti → ovenele rože, zarjaveti → zarjavel žebelj, odpasti → odpadlo listje, odrasti → odrasel sin**. It is the past's l-form, its e dropping the same way (**odrasel, odrasla**); **usahniti** gives **usahel studenec**, though its past is *usahnil*. **Zrel** (ripe) is an old one.\n\n**-eč, -oč**: what is going on: **tekoča voda, goreča sveča, boleča noga, cvetoča jablana**; from biti **bodoči** (future: **bodoči ženin**). Of **-ši** only **bivši** (former) is everyday: **bivši župan**.\n\nTwo pairs: **odpadlo listje** (it fell) and **pograbljeno listje** (someone raked it); **dozorelo grozdje** (ripe) and **obrano grozdje** (picked).",
+    "de": "Ein Partizip (*deležnik*) ist ein Verb, aus dem ein Adjektiv wurde. Es richtet sich wie jedes Adjektiv nach seinem Nomen und kann für eine Person stehen: **odprta vrata** (vrata ist Plural), **ovenele rože**, **odrasli** (Erwachsene). Die Art sagt, wie es dazu kam.\n\n**-n, -t**: was jemand damit getan hat (das Passiv von B1): **pokošena trava, obrano grozdje, popravljen plug, zaklenjena klet**.\n\n**-l**: was es von selbst geworden ist, von einem Verb ohne Objekt: **dozoreti → dozorelo grozdje, oveneti → ovenele rože, zarjaveti → zarjavel žebelj, odpasti → odpadlo listje, odrasti → odrasel sin**. Es ist die l-Form der Vergangenheit, sein e fällt genauso weg (**odrasel, odrasla**); **usahniti** gibt **usahel studenec**, obwohl die Vergangenheit *usahnil* ist. **Zrel** (reif) ist ein altes.\n\n**-eč, -oč**: was gerade geschieht: **tekoča voda, goreča sveča, boleča noga, cvetoča jablana**; von biti **bodoči** (künftig: **bodoči ženin**). Von **-ši** ist nur **bivši** (ehemalig) alltäglich: **bivši župan**.\n\nZwei Paare: **odpadlo listje** (es ist gefallen) und **pograbljeno listje** (jemand hat es gerecht); **dozorelo grozdje** (reif) und **obrano grozdje** (gelesen).",
+    "it": "Il participio (*deležnik*) è un verbo diventato aggettivo. Si accorda con il suo nome come ogni aggettivo e può stare per una persona: **odprta vrata** (vrata è plurale), **ovenele rože**, **odrasli** (gli adulti). Il tipo dice come è diventato così.\n\n**-n, -t**: ciò che qualcuno gli ha fatto (il passivo di B1): **pokošena trava, obrano grozdje, popravljen plug, zaklenjena klet**.\n\n**-l**: ciò che è diventato da sé, da un verbo senza oggetto: **dozoreti → dozorelo grozdje, oveneti → ovenele rože, zarjaveti → zarjavel žebelj, odpasti → odpadlo listje, odrasti → odrasel sin**. È la forma in -l del passato, e la sua e cade allo stesso modo (**odrasel, odrasla**); **usahniti** dà **usahel studenec**, anche se il passato è *usahnil*. **Zrel** (maturo) è uno antico.\n\n**-eč, -oč**: ciò che sta succedendo: **tekoča voda, goreča sveča, boleča noga, cvetoča jablana**; da biti **bodoči** (futuro: **bodoči ženin**). Di **-ši** solo **bivši** (ex) è quotidiano: **bivši župan**.\n\nDue coppie: **odpadlo listje** (è caduto) e **pograbljeno listje** (qualcuno l'ha rastrellato); **dozorelo grozdje** (maturo) e **obrano grozdje** (vendemmiato)."
+  },
+  "table": {
+    "head": [
+      { "sl": "glagol", "en": "verb", "de": "Verb", "it": "verbo" },
+      { "sl": "deležnik", "en": "participle", "de": "Partizip", "it": "participio" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+    ],
+    "rows": [
+      ["pokositi", "pokošen, pokošena, pokošeno", "pokošena trava"],
+      ["obrati", "obran, obrana, obrano", "obrano grozdje"],
+      ["popraviti", "popravljen, popravljena, popravljeno", "popravljen plug"],
+      ["dozoreti", "dozorel, dozorela, dozorelo", "dozorelo grozdje"],
+      ["oveneti", "ovenel, ovenela, ovenelo", "ovenele rože"],
+      ["odpasti", "odpadel, odpadla, odpadlo", "odpadlo listje"],
+      ["odrasti", "odrasel, odrasla, odraslo", "odrasel sin, odrasli"],
+      ["usahniti", "usahel, usahla, usahlo", "usahel studenec"],
+      ["teči", "tekoč, tekoča, tekoče", "tekoča voda"],
+      ["goreti", "goreč, goreča, goreče", "goreča sveča"],
+      ["boleti", "boleč, boleča, boleče", "boleča noga"],
+      ["biti", "bodoč, bivši", "bodoči ženin, bivši župan"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Skozi odprta vrata je pritekel Muri.",
+      "en": "Muri came running in through the open door.",
+      "de": "Durch die offene Tür kam Muri gelaufen.",
+      "it": "Muri è entrato di corsa dalla porta aperta.",
+      "note": {
+        "en": "Vrata is plural (neuter): odprta.",
+        "de": "Vrata ist Plural (sächlich): odprta.",
+        "it": "Vrata è plurale (neutro): odprta."
+      }
+    },
+    {
+      "sl": "Marko nosi obrano grozdje v klet.",
+      "en": "Marko carries the picked grapes to the cellar.",
+      "de": "Marko trägt die gelesenen Trauben in den Keller.",
+      "it": "Marko porta in cantina l'uva vendemmiata."
+    },
+    {
+      "sl": "Na trti visi dozorelo grozdje.",
+      "en": "Ripe grapes hang on the vine.",
+      "de": "An der Rebe hängen reife Trauben.",
+      "it": "Sulla vite pende l'uva matura."
+    },
+    {
+      "sl": "France grabi odpadlo listje.",
+      "en": "France is raking the fallen leaves.",
+      "de": "France recht das abgefallene Laub.",
+      "it": "France rastrella le foglie cadute."
+    },
+    {
+      "sl": "Micka je ovenele rože vrgla na kompost.",
+      "en": "Micka threw the wilted roses on the compost.",
+      "de": "Micka hat die verwelkten Rosen auf den Kompost geworfen.",
+      "it": "Micka ha buttato le rose appassite nel compost."
+    },
+    {
+      "sl": "Pastir je pripeljal ovce k usahlemu studencu.",
+      "en": "The shepherd brought the sheep to the dried-up spring.",
+      "de": "Der Hirte führte die Schafe zur versiegten Quelle.",
+      "it": "Il pastore ha portato le pecore alla sorgente prosciugata."
+    },
+    {
+      "sl": "V hiši imamo tekočo vodo.",
+      "en": "We have running water in the house.",
+      "de": "Wir haben fließendes Wasser im Haus.",
+      "it": "In casa abbiamo l'acqua corrente."
+    },
+    {
+      "sl": "Pod cvetočo jablano sedi babica Micka.",
+      "en": "Granny Micka is sitting under the blossoming apple tree.",
+      "de": "Unter dem blühenden Apfelbaum sitzt Oma Micka.",
+      "it": "Sotto il melo in fiore siede nonna Micka."
+    },
+    {
+      "sl": "Za odrasle je vstop pet evrov, za otroke dva.",
+      "en": "Entry is five euros for adults, two for children.",
+      "de": "Der Eintritt kostet fünf Euro für Erwachsene, zwei für Kinder.",
+      "it": "L'ingresso costa cinque euro per gli adulti, due per i bambini."
+    },
+    {
+      "sl": "Mimoidoči so se ustavljali pred kovačnico.",
+      "en": "Passers-by kept stopping in front of the smithy.",
+      "de": "Passanten blieben immer wieder vor der Schmiede stehen.",
+      "it": "I passanti si fermavano davanti alla fucina."
+    }
+  ],
+  "modules": [],
+  "tags": ["participle", "delezniki", "participle_adjective", "l_participle", "present_participle"],
+  "see": ["trpnik", "delezja", "pridevniki-ujemanje", "dolocna-oblika", "pretekli-cas"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker. Forms checked on Fran (SP2001, SSKJ²) and Sloleks 2.0 (docs/plans/05-built/sl-b2-a.md)",
+  "card": {
+    "title": { "sl": "Deležniki", "en": "Deležniki · participles", "de": "Deležniki · Partizipien", "it": "Deležniki · participi" },
+    "rule": {
+      "en": "**-n, -t**: done to it (**obrano grozdje**). **-l**: it became so (**dozorelo grozdje, odpadlo listje**). **-eč, -oč**: going on (**tekoča voda**). Each agrees like an adjective.",
+      "de": "**-n, -t**: damit getan (**obrano grozdje**). **-l**: es ist so geworden (**dozorelo grozdje, odpadlo listje**). **-eč, -oč**: es geschieht gerade (**tekoča voda**). Jedes richtet sich wie ein Adjektiv.",
+      "it": "**-n, -t**: fatto a qualcosa (**obrano grozdje**). **-l**: è diventato così (**dozorelo grozdje, odpadlo listje**). **-eč, -oč**: sta succedendo (**tekoča voda**). Ognuno si accorda come un aggettivo."
+    },
+    "table": {
+      "head": [
+        { "sl": "deležnik", "en": "participle", "de": "Partizip", "it": "participio" },
+        { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }
+      ],
+      "rows": [
+        ["-n, -t", "pokošena trava, obrano grozdje"],
+        ["-l", "dozorelo grozdje, ovenele rože, usahel studenec"],
+        ["-eč, -oč", "tekoča voda, goreča sveča"],
+        ["bodoč, bivši", "bodoči ženin, bivši župan"]
+      ]
+    },
+    "examples": [
+      {
+        "sl": "France grabi odpadlo listje.",
+        "en": "France is raking the fallen leaves.",
+        "de": "France recht das abgefallene Laub.",
+        "it": "France rastrella le foglie cadute."
+      },
+      {
+        "sl": "V hiši imamo tekočo vodo.",
+        "en": "We have running water in the house.",
+        "de": "Wir haben fließendes Wasser im Haus.",
+        "it": "In casa abbiamo l'acqua corrente."
+      }
+    ],
+    "tip": {
+      "en": "💡 **Usahniti** gives **usahel studenec**, not *usahnil*: the adjective drops the -ni-.",
+      "de": "💡 **Usahniti** gibt **usahel studenec**, nicht *usahnil*: das Adjektiv lässt -ni- weg.",
+      "it": "💡 **Usahniti** dà **usahel studenec**, non *usahnil*: l'aggettivo perde -ni-."
+    }
+  }
+}
