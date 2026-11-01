@@ -7,8 +7,8 @@
       "units": [
         { "id": "hallo", "title": { "de": "Hallo! Ich heiße …", "en": "Hello! My name is …", "sl": "Živjo! Ime mi je …", "it": "Ciao! Mi chiamo …" }, "grammar": ["du-sie"] },
         { "id": "sein", "title": { "de": "Sein: ich bin, du bist", "en": "To be: ich bin, du bist", "sl": "Biti: ich bin, du bist", "it": "Essere: ich bin, du bist" }, "grammar": ["sein-haben", "du-sie"] },
-        { "id": "artikel", "title": { "de": "Der, die, das", "en": "The articles: der, die, das", "sl": "Členi: der, die, das", "it": "Gli articoli: der, die, das" }, "grammar": [], "planned": true },
-        { "id": "plural", "title": { "de": "Ein Schaf, zwei Schafe", "en": "One sheep, two sheep: the plural", "sl": "Ena ovca, dve ovci: množina", "it": "Una pecora, due pecore: il plurale" }, "grammar": [], "planned": true },
+        { "id": "artikel", "title": { "de": "Der, die, das", "en": "The articles: der, die, das", "sl": "Členi: der, die, das", "it": "Gli articoli: der, die, das" }, "grammar": ["artikel-genus"] },
+        { "id": "plural", "title": { "de": "Ein Schaf, zwei Schafe", "en": "One sheep, two sheep: the plural", "sl": "Ena ovca, dve ovci: množina", "it": "Una pecora, due pecore: il plurale" }, "grammar": ["plural", "artikel-genus"] },
         { "id": "haben", "title": { "de": "Haben: ich habe, du hast", "en": "To have: ich habe, du hast", "sl": "Imeti: ich habe, du hast", "it": "Avere: ich habe, du hast" }, "grammar": [], "planned": true },
         { "id": "zahlen", "title": { "de": "Eins, zwei, drei: die Zahlen", "en": "Numbers: eins, zwei, drei", "sl": "Števila: eins, zwei, drei", "it": "I numeri: eins, zwei, drei" }, "grammar": [], "planned": true },
         { "id": "praesens", "title": { "de": "Ich spiele, du spielst", "en": "The present: ich spiele, du spielst", "sl": "Sedanjik: ich spiele, du spielst", "it": "Il presente: ich spiele, du spielst" }, "grammar": [], "planned": true },
