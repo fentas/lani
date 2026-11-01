@@ -7,6 +7,7 @@ import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
 import kotlin.math.PI
 import kotlin.math.abs
+import kotlin.math.atan2
 import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.floor
@@ -105,12 +106,23 @@ internal class StreamPainter : WildPainter() {
     private var collio = false
     /** Friuli's cart bridge: its pillars and its ramps' walls of river cobbles with bands of brick ([cobbleTone]). */
     private var cobblePiers = false
+    /**
+     * The Lake District's look of what its projects build here (docs/plans/05-built/lakeland-projects-a.md): the packhorse
+     * bridge of slate with one round arch for the cart bridge ([packhorse]: [packhorseBridge]), a fell pony with its panniers
+     * over it for the cart ([packPony]), the mill's walls of slate stone under slate ([slateMill]).
+     */
+    private var packhorse = false
+    private var packPony = false
+    private var slateMill = false
 
     override fun paint() {
         setup()
         pioppi = variant("trees") != null
         collio = variant("hills") != null
-        cobblePiers = variant("cartbridge") != null
+        cobblePiers = variant("cartbridge") == "cobbles"
+        packhorse = variant("cartbridge") == "packhorse"
+        packPony = variant("cart") == "packhorse"
+        slateMill = variant("mill") == "slate"
         millDone = stage(MILL) >= stages(MILL)
         wheelIn = stage(MILL) >= stages(MILL) - 1
         roadDone = stage(BRIDGE) >= DECKED
@@ -675,6 +687,7 @@ internal class StreamPainter : WildPainter() {
 
     /** The mill's walls: a stone footing, planks above it, darker on the side away from the sun. */
     private fun wallTone(y: Int, base: Float, p: Float, shade: Float, x: Int): Int {
+        if (slateMill) return slateTone(x, y, base, shade)
         val hgt = (base - y - 0.5f) / p
         val col = if (hgt < 0.6f) {
             val row = floor(hgt / 0.2f).toInt()
@@ -694,6 +707,11 @@ internal class StreamPainter : WildPainter() {
         val row = y / (2 * detail)
         val stagger = (x / (3 * detail) + row) % 2 == 0
         if (snow) return if (y % (2 * detail) == 0 && !lightSide) Pal.SNOW_M else Pal.SNOW_L
+        if (slateMill) {
+            // grey slates in courses, the lower edge of each a dark line
+            val sl = if (lightSide) (if (stagger) Lakeland.ROOF_L else Lakeland.ROOF_M) else (if (stagger) Lakeland.ROOF_M else Lakeland.ROOF_D)
+            return if (y % (2 * detail) == 0) Col.scale(sl, 0.8f) else sl
+        }
         val base = if (lightSide) (if (stagger) Pal.SHINGLE_L else Pal.SHINGLE_M) else (if (stagger) Pal.SHINGLE_M else Pal.SHINGLE_D)
         return if (y % (2 * detail) == 0) Col.scale(base, 0.82f) else base
     }
@@ -877,6 +895,7 @@ internal class StreamPainter : WildPainter() {
     }
 
     private fun cartBridge(st: Int) {
+        if (packhorse) { packhorseBridge(st); return }
         val z = z
         val snow = env.snow
         val pierLi = -0.95f; val pierRi = 1.75f
@@ -1001,7 +1020,7 @@ internal class StreamPainter : WildPainter() {
 
     /** The bridge's stone at ([x], [y]): the art's dressed blocks ([pierTone]), Friuli's river cobbles ([cobbleTone]). */
     private fun wallTone(x: Int, y: Int, base: Float, p: Float, shade: Float): Int =
-        if (cobblePiers) cobbleTone(x, y, base, p, shade) else pierTone(x, y, base, p, shade)
+        if (packhorse) slateTone(x, y, base, shade) else if (cobblePiers) cobbleTone(x, y, base, p, shade) else pierTone(x, y, base, p, shade)
 
     /**
      * Friuli's pillars and walls: river cobbles, rounded, whitish, grey and ochre, laid in courses in lime mortar, and every
@@ -1077,6 +1096,232 @@ internal class StreamPainter : WildPainter() {
             c.fillEllipse(sx, sy, r, r * 0.75f, if (Noise.rnd(k, seed + 2) < 0.5f) Pal.STONE_M else Pal.STONE_D)
             c.fillEllipse(sx - r * 0.25f, sy - r * 0.25f, r * 0.5f, r * 0.35f, if (env.snow) Pal.SNOW_L else Pal.STONE_L)
         }
+    }
+
+    // ------------------------------------------------------------------ the Lake District's packhorse bridge
+
+    /** The dale's slate stone at ([x], [y]) of a wall standing on row [base], in thin courses ([Lakeland.slateStone]); wet and dark at its foot. */
+    private fun slateTone(x: Int, y: Int, base: Float, shade: Float): Int {
+        val h = (base - y - 0.5f) / z
+        var col = Lakeland.slateStone(x / z.toFloat(), h, x, y, detail > 1)
+        if (h < 1.2f) col = Col.mix(col, Pal.STONE_X, 0.45f)
+        return if (shade < 1f) Col.scale(col, shade) else col
+    }
+
+    /** The arch's span over the water: from the near abutment's inner face to the far one's, its middle, its rise (m). */
+    private val archL = -0.95f; private val archR = 1.75f
+    private val archMid = (archL + archR) / 2f; private val archHalf = (archR - archL) / 2f
+    private val archRise = 1.45f; private val archRing = 0.36f
+
+    /** How high the packhorse bridge carries something at side [x]: humped over the arch, down the approaches off its ends. */
+    private fun packLift(x: Float): Float {
+        val ends = pierH + 0.3f
+        val off = max(cartL - x, x - cartR)
+        if (off > 0f) return ends * (1f - off / StreamPlan.RAMP).coerceIn(0f, 1f)
+        val u = ((x - archMid) / ((cartR - cartL) / 2f)).coerceIn(-1f, 1f)
+        return ends + 0.7f * (1f - u * u)
+    }
+
+    /** The arch's underside (the intrados) at side [x], 0 off the span; and its back (the extrados), the ring's outer edge. */
+    private fun intrados(x: Float): Float {
+        val u = (x - archMid) / archHalf
+        return if (abs(u) >= 1f) 0f else archRise * sqrt(1f - u * u)
+    }
+    private fun extrados(x: Float): Float {
+        val u = (x - archMid) / (archHalf + archRing)
+        return if (abs(u) >= 1f) 0f else (archRise + archRing) * sqrt(1f - u * u)
+    }
+
+    /**
+     * The Lake District's packhorse bridge as far as the village has built it ([packhorse]; the project "most"): pegs and a
+     * line over the beck (measured), heaps of flat slate stones on both banks (gathered), the stone walls on both banks for
+     * its ends (the abutments), the logs on the bank and the wooden frame (the centring) set over the water between them
+     * (brought; the frame the logs made), the arch of slate stones on edge round its opening, the frame gone, its back humped
+     * over it and the track over its top (built); finished, low parapets along both sides with their cope stones on edge (the
+     * first pony over). Narrow and humped, as the dales' packhorse bridges are (Ashness, Slater's Bridge, Wasdale Head).
+     */
+    private fun packhorseBridge(st: Int) {
+        val z = z
+        val snow = env.snow
+        if (st <= 2) {
+            val line = if (snow) Pal.WOOD_X else Col.hex(0xE8E0CC)
+            val a = cartL + 0.6f; val b = cartR - 0.6f
+            c.line(gx(a, cartD).toInt(), (gy(cartD) - 0.45f * pm(cartD)).toInt(), gx(b, cartD).toInt(), (gy(cartD) - 0.45f * pm(cartD)).toInt(), line)
+            for (x in floatArrayOf(a, b)) for (d in floatArrayOf(cartD0, cartD, cartD1)) {
+                val p = pm(d)
+                for (j in 0 until max(1, z)) c.vline(gx(x, d).toInt() + j, (gy(d) - 0.6f * p).toInt(), gy(d).toInt(), if (j == 0) Pal.WOOD_L else Pal.WOOD_D)
+            }
+            if (st == 2) { slateHeap(cartL + 0.9f, cartD - 0.5f, 17); slateHeap(cartR - 0.9f, cartD - 0.6f, 23) }
+            return
+        }
+        val ends = pierH + 0.3f
+        if (st < DECKED) {
+            // the abutments: a wall of slate stone on each bank, as high as the arch will spring from them and the track's
+            // ends, the approaches heaped up to them
+            ramp(cartL - StreamPlan.RAMP, cartL, 0f, ends)
+            ramp(cartR, cartR + StreamPlan.RAMP, ends, 0f)
+            pier(cartL, archL, archL); pier(archR, cartR, archR)
+            if (st == 3) return
+            // the logs brought on the bank, and the frame they made over the water: two curved ribs on posts, boards across
+            logStack(cartR + StreamPlan.RAMP + 1.6f, cartD - 1.7f)
+            centring()
+            return
+        }
+        // the far parapet over the deck, once it is finished
+        if (st >= stages(BRIDGE)) parapet(cartD1 - 0.12f, far = true)
+        // the deck: the track over the bridge's humped back, cobbles and grass, between its near and far edges
+        val pxL = max(gx(cartL, cartD0).toInt(), c.left); val pxR = min(gx(cartR, cartD0).toInt(), c.right - 1)
+        for (px in pxL..pxR) {
+            val x = sideAt(px, cartD0)
+            val l = packLift(x)
+            val yNear = hy(cartD0, l); val yFar = hy(cartD1, l)
+            for (py in max(yFar.toInt(), c.top)..min(yNear.toInt(), c.bottom - 1)) c.set(px, py, when {
+                snow -> if (Noise.rnd(px, py, 363) < 0.1f) Pal.SNOW_M else Pal.SNOW_L
+                Noise.rnd(px / z, py / z, 381) < 0.22f -> Col.hex(0x6E8A44)
+                Noise.rnd(px / z + 3, py / z, 382) < 0.4f -> Col.hex(0x8A847A)
+                else -> Col.hex(0x9E978A)
+            })
+        }
+        // the face toward us: the abutments, the arch's ring of slate stones on edge round its opening, the spandrels up to
+        // the deck; through the arch the beck in its shadow
+        val p0 = pm(cartD0); val base = gy(cartD0)
+        for (px in pxL..pxR) {
+            val x = sideAt(px, cartD0)
+            val top = hy(cartD0, packLift(x))
+            for (py in max(top.toInt(), c.top)..min(base.toInt(), c.bottom - 1)) {
+                val h = (base - py - 0.5f) / p0
+                val inA = intrados(x); val exA = extrados(x)
+                c.set(px, py, when {
+                    h < inA -> if (h > inA - 0.35f) Col.hex(0x262E34) else Col.scale(Col.mix(Col.hex(0x34505C), Col.hex(0x223038), 0.5f), if (Noise.rnd(px, py / z, 383) < 0.06f) 1.5f else 1f)
+                    h < exA -> {
+                        // the ring: slates on edge, their joints pointing to the arch's middle
+                        val ang = atan2(h, (x - archMid) * archRise / archHalf)
+                        val u = ang / (PI.toFloat() / 17f)
+                        val fu = u - floor(u)
+                        if (fu < 0.16f || h > exA - 0.06f) Col.hex(0x3E464C)
+                        else if (Noise.hash(floor(u).toInt(), 0, 384) % 3 == 0) Col.hex(0x9AA2A6) else Col.hex(0x848C92)
+                    }
+                    else -> slateTone(px, py, base, 1f)
+                })
+            }
+        }
+        // the approaches off both ends
+        ramp(cartL - StreamPlan.RAMP, cartL, 0f, ends)
+        ramp(cartR, cartR + StreamPlan.RAMP, ends, 0f)
+        if (st >= stages(BRIDGE)) parapet(cartD0 + 0.12f, far = false)
+    }
+
+    /** A low parapet along the bridge's edge at depth [d]: slate stone, its cope stones on edge, following the hump. */
+    private fun parapet(d: Float, far: Boolean) {
+        val z = z
+        val p = pm(d)
+        val ph = if (far) 0.45f else 0.35f
+        for (px in max(gx(cartL + 0.1f, d).toInt(), c.left)..min(gx(cartR - 0.1f, d).toInt(), c.right - 1)) {
+            val x = sideAt(px, d)
+            val b = hy(d, packLift(x)); val tp = hy(d, packLift(x) + ph)
+            for (py in max(tp.toInt(), c.top)..min(b.toInt(), c.bottom - 1)) {
+                val h = (b - py) / p
+                c.set(px, py, when {
+                    env.snow && py <= tp.toInt() + z -> Pal.SNOW_L
+                    h > ph - 0.12f -> if ((px / max(1, z)) % 3 == 0) Col.hex(0x3E464C) else Col.hex(0x9AA2A6)
+                    else -> Col.scale(slateTone(px, py, b, 1f), if (far) 0.8f else 1f)
+                })
+            }
+        }
+    }
+
+    /** A heap of flat slate stones brought down from the fell, on the bank around ([x], [d]): thin slabs stacked crosswise. */
+    private fun slateHeap(x: Float, d: Float, seed: Int) {
+        val p = pm(d)
+        for (k in 0 until 8) {
+            val row = k / 2
+            val sx = gx(x + (Noise.rnd(k, seed) - 0.5f) * 0.5f + (if (k % 2 == 0) -0.25f else 0.25f), d)
+            val sy = gy(d) - (0.05f + row * 0.1f) * p
+            val rw = max(2f, (0.32f + Noise.rnd(k, seed + 1) * 0.12f) * p); val rh = max(1f, 0.05f * p)
+            c.fillRect((sx - rw).toInt(), (sy - rh).toInt(), (2 * rw).toInt(), max(1, (2 * rh).toInt()), if (Noise.rnd(k, seed + 2) < 0.5f) Lakeland.ROOF_M else Lakeland.ROOF_D)
+            c.hline((sx - rw).toInt(), (sx + rw).toInt() - 1, (sy - rh).toInt(), if (env.snow && row == 3) Pal.SNOW_L else Lakeland.ROOF_L)
+        }
+    }
+
+    /** The logs brought by cart, on the bank at ([x], [d]): a stack of round logs, their cut ends toward us. */
+    private fun logStack(x: Float, d: Float) {
+        val p = pm(d)
+        val r = max(1f, 0.14f * p)
+        for (row in 0 until 3) for (k in 0 until 3 - row) {
+            val y = gy(d) - r - row * 1.7f * r
+            val x0 = gx(x - 1.3f, d); val x1 = gx(x + 1.3f, d) + (k + row) * 0.4f * r
+            val cx = x0 + (k + row * 0.5f) * 2f * r
+            c.fillRect(cx.toInt(), (y - r).toInt(), max(2, (x1 - x0).toInt() / 3), max(1, (2 * r).toInt()), if (k % 2 == 0) Pal.LOG_M else Pal.LOG_D)
+            c.fillEllipse(cx, y, r, r, Col.hex(0xC8A070))
+            if (detail > 1) c.set(cx.toInt(), y.toInt(), Col.hex(0x8A6A40))
+        }
+        if (env.snow) c.hline(gx(x - 1.3f, d).toInt(), gx(x + 1.3f, d).toInt(), (gy(d) - 5.8f * r).toInt(), Pal.SNOW_L)
+    }
+
+    /** The wooden frame for the arch (the centring) over the water between the abutments: two curved ribs on posts, boards across them. */
+    private fun centring() {
+        val z = z
+        for (d in floatArrayOf(cartD1 - 0.15f, cartD0 + 0.15f)) {
+            val p = pm(d); val base = gy(d)
+            // the posts from the beck's bed up to the rib
+            for (x in floatArrayOf(archL + 0.35f, archMid, archR - 0.35f)) {
+                val px = gx(x, d).toInt()
+                for (j in 0 until max(1, z)) c.vline(px + j, (base - intrados(x) * p).toInt(), base.toInt(), if (j == 0) Pal.WOOD_M else Pal.WOOD_D)
+            }
+            // the rib along the arch's curve
+            var prev: Pair<Int, Int>? = null
+            for (i in 0..24) {
+                val x = archL + (archR - archL) * i / 24f
+                val pt = gx(x, d).toInt() to (base - intrados(x) * p).toInt()
+                prev?.let { q -> for (j in 0 until max(1, z)) c.line(q.first, q.second + j, pt.first, pt.second + j, if (j == 0) Pal.WOOD_L else Pal.WOOD_M) }
+                prev = pt
+            }
+        }
+        // the boards across from rib to rib, the stones will be laid on them
+        for (i in 1..7) {
+            val x = archL + (archR - archL) * i / 8f
+            c.line(gx(x, cartD0 + 0.15f).toInt(), (gy(cartD0 + 0.15f) - intrados(x) * pm(cartD0 + 0.15f)).toInt(),
+                gx(x, cartD1 - 0.15f).toInt(), (gy(cartD1 - 0.15f) - intrados(x) * pm(cartD1 - 0.15f)).toInt(), if (i % 2 == 0) Pal.WOOD_L else Pal.WOOD_M)
+        }
+    }
+
+    /**
+     * A fell pony with its panniers, side on, heading left, at side [x], depth [d], the way a packhorse crossed the bridge:
+     * black and sturdy, a long mane and tail, a pack saddle with a wooden pannier on each side; walking ([moving]: the legs
+     * swing with the ground covered), or at rest, grazing.
+     */
+    private fun fellPony(x: Float, d: Float, moving: Boolean) {
+        val p = pm(d)
+        val coat = Col.hex(0x2E2622); val coatL = Col.hex(0x4A3E36); val coatD = Col.hex(0x1C1614); val mane = Col.hex(0x141010)
+        val box = Col.hex(0x8A5E34); val boxL = Col.hex(0xAA7A48); val boxD = Col.hex(0x5E3E22)
+        val sz = p / 10f / detail
+        val stride = ((x / 1.4f) % 1f + 1f) % 1f
+        val hy = gy(d) - deckLift(x) * p
+        anchor(gx(x, d), hy, sz)
+        for ((i, lx) in floatArrayOf(-6f, -4.2f, 4.2f, 6f).withIndex()) {
+            val sw = if (moving) sin((stride + (if (i == 0 || i == 3) 0f else 0.5f)) * 2f * PI.toFloat()) * 2f else 0f
+            seg(lx, -8f, lx + sw, 0f, 1.4f, if (i % 2 == 0) coatD else coat)
+            dot(lx + sw, -0.4f, Col.hex(0xD8D0C0), 0.9f) // the feather of white hair at its foot
+        }
+        ell(0f, -10.5f, 8.5f, 4f, coat); ell(-0.5f, -12.2f, 6f, 1.5f, coatL)
+        seg(8f, -11.5f, 10f, -4.5f, 1.6f, mane) // the long tail
+        val headDown = !moving && sin(t * 0.5) > -0.3
+        if (headDown) {
+            poly(coat, -6f, -13f, -8f, -14f, -12f, -4.5f, -10f, -3.5f)
+            ell(-12f, -3f, 2.6f, 1.6f, coat)
+            seg(-6.5f, -14.5f, -10.5f, -5.5f, 1.3f, mane)
+        } else {
+            poly(coat, -4.5f, -14f, -9f, -19.5f, -11.5f, -18f, -7.5f, -9f)
+            ell(-12f, -18f, 2.8f, 1.8f, coat)
+            seg(-6f, -14f, -10f, -19.5f, 1.4f, mane)
+            seg(-10.5f, -19.5f, -10f, -21.5f, 0.8f, coatD)
+            dot(-11.6f, -18.5f, Pal.OUTLINE)
+        }
+        // the pack saddle and its two panniers, the near one toward us
+        poly(boxD, -5f, -15.5f, 5f, -15.5f, 5f, -14f, -5f, -14f)
+        poly(box, -4.5f, -14.5f, 4.5f, -14.5f, 4f, -7.5f, -4f, -7.5f)
+        poly(boxL, -4.5f, -14.5f, 4.5f, -14.5f, 4.5f, -13.5f, -4.5f, -13.5f)
+        seg(-4f, -11f, 4f, -11f, 0.5f, boxD)
     }
 
     /** Five flat stones across the stream, wet at the waterline, lit on top; snow on them in winter. */
@@ -1444,11 +1689,12 @@ internal class StreamPainter : WildPainter() {
         for (i in 0 until 3) if (s0 >= at[i]) x = pts[i] + (pts[i + 1] - pts[i]) * ((s0 - at[i]) / (at[i + 1] - at[i])).coerceIn(0f, 1f)
         val d = roadMid(x)
         val moving = s0 > 0.002f // waiting at the near end, the horse grazes
-        items.add(d - 0.02f to { prop { horseAndCart(x, d, moving) } })
+        items.add(d - 0.02f to { prop { if (packPony) fellPony(x, d, moving) else horseAndCart(x, d, moving) } })
     }
 
     /** How high the bridge carries something at side [x] (m): the deck's height over it, ramping down to the ground off its ends. */
     private fun deckLift(x: Float): Float {
+        if (packhorse) return packLift(x)
         val lift = pierH + 0.3f
         val off = max(cartL - x, x - cartR)
         return if (off <= 0f) lift else lift * (1f - off / StreamPlan.RAMP).coerceIn(0f, 1f)

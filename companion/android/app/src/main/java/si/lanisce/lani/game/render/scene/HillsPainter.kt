@@ -69,6 +69,11 @@ internal class HillsPainter : VistaPainter() {
 
     private val items = ArrayList<Pair<Float, () -> Unit>>()
 
+    /** The damsons: small dark purple plums, and the pale bloom on them. */
+    private val DAMSON = Col.hex(0x3A2450); private val DAMSON_BLOOM = Col.hex(0x6E5A8E)
+    /** The terraces' walls across the hill (m from us). */
+    private val TERRACES = floatArrayOf(17.5f, 26f, 36f, 47f)
+
     /** Where the near hills come down to the flat (m): the ground is drawn nearer than this. */
     private val HILLS_D = 88f
 
@@ -87,12 +92,31 @@ internal class HillsPainter : VistaPainter() {
     private var collio: FireStyle? = null
     private var campanile = false
 
+    /**
+     * The Lake District's damson orchard (docs/plans/05-built/lakeland-projects-a.md): rows of damson trees on terraces held by
+     * dry-stone walls for the vine rows ([damsons]: white blossom in April, green from May, the small dark damsons ripe in
+     * August and September, yellow in October, bare from November); the farmhouse whitewashed under slate with a slate porch
+     * and no shutters ([lakeFarm]); the church's square battlemented tower ([battlements]); the fells behind, green and
+     * bracken-brown, snow on them only in winter ([fells]); yews for the cypresses ([yews]); an apple tree for the kaki
+     * ([apple]); foxgloves for the lavender ([foxgloves]).
+     */
+    private var damsons = false
+    private var lakeFarm = false
+    private var battlements = false
+    private var fells = false
+    private var yews = false
+    private var apple = false
+    private var foxgloves = false
+
     override fun paint() {
         setup()
         val z = z
         lift = 1f + 0.45f * (oy / z / 55f).coerceIn(0f, 1f)
         collio = if (variant("farm") == "friuli") FireStyle.of("friuli", look.landscape) else null
         campanile = variant("church") == "campanile"
+        damsons = variant("vineyard") == "damsons"; lakeFarm = variant("farm") == "lakeland"; battlements = variant("church") == "tower"
+        fells = variant("mountains") == "fells"; yews = variant("cypress") == "yew"; apple = variant("persimmon") == "apple"
+        foxgloves = variant("flowers") == "foxgloves"
         vistaSky(4, 21, moonX = ox + 60 * z, moonY = oy + 10 * z)
         thing("mountains", outline = 0) { alps() }
         thing("sea", outline = 0) { seaGlint() }
@@ -110,7 +134,8 @@ internal class HillsPainter : VistaPainter() {
         thing("road") { roadPixels() }
 
         items.clear()
-        for ((k, g) in grove.withIndex()) items.add(g[1] to { prop(Pal.OUTLINE_TREE) { if (g[3] > 0f) cypress(g[0], g[1], g[2], k + 3) else leafyTree(g[0], g[1], g[2], k * 7 + 5) } })
+        for ((k, g) in grove.withIndex()) items.add(g[1] to { prop(Pal.OUTLINE_TREE) { if (g[3] > 0f && !yews) cypress(g[0], g[1], g[2], k + 3) else leafyTree(g[0], g[1], g[2], k * 7 + 5) } })
+        if (damsons) for (td in TERRACES) items.add(td to { prop { terraceWall(td) } })
         items.add(houseD to { thing("farmhouse") { farmhouse() } })
         items.add(cypressD to { thing("cypress", outline = Pal.OUTLINE_TREE) { cypress(cypressX, cypressD, 13f, 1) } })
         items.add(rowFar + 1f to { prop(Col.hex(0x1E3A1E)) { vineyard(outer = true) } })
@@ -125,7 +150,7 @@ internal class HillsPainter : VistaPainter() {
         for (p in peopleAt("vines")) items.add(12.9f to { groundShadow(-1.05f, 12.9f, 0.5f); person(p, gx(-1.05f, 12.9f).toInt(), gy(12.9f).toInt(), flip = false) })
         items.add(vineD to {
             thing("vine", outline = Col.hex(0x1E3A1E)) { nearVine() }
-            thing("grapes", slop = 2) { bunch(gx(vineX + 0.3f, vineD), hy(vineD, 0.95f), pm(vineD), 0, big = true) }
+            thing("grapes", slop = 2) { if (damsons) damsonCluster(gx(vineX + 0.3f, vineD), hy(vineD, 0.95f), pm(vineD)) else bunch(gx(vineX + 0.3f, vineD), hy(vineD, 0.95f), pm(vineD), 0, big = true) }
         })
         items.add(crateD to { groundShadow(crateX, crateD, 0.4f); thing("crate", slop = 1) { crate() } })
         for ((k, lv) in lavenders.withIndex()) if (gy(lv.second) < h + 8 * z) items.add(lv.second to { prop(Col.hex(0x3A4A36)) { lavender(lv.first, lv.second, k) } })
@@ -146,10 +171,12 @@ internal class HillsPainter : VistaPainter() {
      */
     private fun alps() {
         val z = z
-        val rock = if (env.season == Season.WINTER) Col.hex(0xB6C4D8) else Col.hex(0x6E80B4)
+        val rock = if (fells) when (env.season) {
+            Season.WINTER -> Col.hex(0xA8B4C0); Season.AUTUMN -> Col.hex(0x8A6E4A); else -> Col.hex(0x6E8A5E)
+        } else if (env.season == Season.WINTER) Col.hex(0xB6C4D8) else Col.hex(0x6E80B4)
         val body = env.lit(Col.mix(rock, env.skyHorizon, 0.46f)); val shade = env.lit(Col.mix(Col.scale(rock, 0.84f), env.skyHorizon, 0.46f))
         val snow = env.lit(Col.mix(Pal.SNOW_L, env.skyHorizon, 0.34f)); val snowD = env.lit(Col.mix(Pal.SNOW_D, env.skyHorizon, 0.36f))
-        val snowLine = when (env.season) { Season.SUMMER -> 0.8f; Season.AUTUMN -> 0.62f; else -> 0.4f }
+        val snowLine = if (fells) (if (env.season == Season.WINTER) 0.55f else 9f) else when (env.season) { Season.SUMMER -> 0.8f; Season.AUTUMN -> 0.62f; else -> 0.4f }
         val sunLeft = (sunAt()?.first ?: vx) < vx
         val crest = FloatArray(w)
         for (x in 0 until w) {
@@ -158,7 +185,9 @@ internal class HillsPainter : VistaPainter() {
             val tall = 0.35f + 0.65f * ((0.9f - u) / 0.7f).coerceIn(0f, 1f)
             val a = 1f - abs(Noise.v1(u * 8f, 211) * 2f - 1f)
             val b = 1f - abs(Noise.v1(u * 21f, 212) * 2f - 1f)
-            crest[x] = hz - (12f + 30f * tall * (a * a * 0.7f + b * 0.3f)) * lift * z
+            // the fells rounder and lower than the Alps
+            crest[x] = if (fells) hz - (10f + 20f * tall * (Noise.v1(u * 5f, 211) * 0.8f + b * 0.2f)) * lift * z
+            else hz - (12f + 30f * tall * (a * a * 0.7f + b * 0.3f)) * lift * z
         }
         c.penEmissive = true
         for (x in max(0, c.left) until min(w, c.right)) {
@@ -229,7 +258,7 @@ internal class HillsPainter : VistaPainter() {
             if (fx !in 0 until w || fx in (ox + 150 * z)..(ox + 220 * z)) continue
             val crest = if (i % 2 == 0) near else mid
             val base = crest[fx] + (2 + (Noise.rnd(i, 235) * 3).toInt()) * z
-            if (i % 3 == 0) farCypress(fx, base, if (crest === near) 0.1f else 0.24f) else farHouse(fx, base, i)
+            if (i % 3 == 0 && !yews) farCypress(fx, base, if (crest === near) 0.1f else 0.24f) else farHouse(fx, base, i)
         }
     }
 
@@ -302,6 +331,14 @@ internal class HillsPainter : VistaPainter() {
     private fun farVines(x: Int, y: Int, below: Int, col: Int): Int {
         val z = z
         val sx = (x - ox) / z.toFloat(); val sy = y / z.toFloat()
+        if (damsons) {
+            // the Lake District's walled fields: green parcels, grey walls between them, a wood here and there
+            val parcel = Noise.v2(sx * 0.05f, sy * 0.2f, 236)
+            if (parcel < 0.25f) return if (env.season == Season.WINTER) Col.hex(0x6E6A5E) else Col.scale(col, 0.72f)
+            val fx = sx * 0.07f + Noise.v1(sy * 0.1f, 237) * 0.5f
+            if (fx - floor(fx) < 0.06f || (below / z) % 7 == 0) return Col.hex(0x8A8E8C)
+            return if (Noise.rnd(floor(fx).toInt(), below / (7 * z), 239) < 0.5f) col else Col.scale(col, 0.9f)
+        }
         val parcel = Noise.v2(sx * 0.05f, sy * 0.2f, 236)
         if (parcel < 0.3f) return if (env.season == Season.WINTER) Col.hex(0x6E6A5E) else Col.scale(col, 0.72f) // a wood
         val stripe = ((below / z) + (Noise.v1(sx * 0.06f, 237) * 3f).toInt()) % 2 == 0
@@ -312,7 +349,8 @@ internal class HillsPainter : VistaPainter() {
     private fun farHouse(x: Int, base: Int, seed: Int) {
         val z = z
         val fs = collio
-        val wall = env.lit(Col.mix(fs?.walls?.get(seed % fs.walls.size)?.get(0) ?: Pal.WALL_L, env.skyHorizon, 0.2f)); val roof = env.lit(Col.mix(fs?.roof?.get(1) ?: Pal.ROOF_M, env.skyHorizon, 0.18f))
+        val wall = env.lit(Col.mix(fs?.walls?.get(seed % fs.walls.size)?.get(0) ?: Pal.WALL_L, env.skyHorizon, 0.2f))
+        val roof = env.lit(Col.mix(fs?.roof?.get(1) ?: if (lakeFarm) Lakeland.ROOF_M else Pal.ROOF_M, env.skyHorizon, 0.18f))
         c.penEmissive = true
         c.fillRect(x, base - 3 * z, (3 + seed % 2) * z, 3 * z, wall)
         for (r in 0 until 2 * z) c.hline(x - z + r / 2, x + (4 + seed % 2) * z - 1 - r / 2, base - 3 * z - 1 - r, roof)
@@ -388,8 +426,11 @@ internal class HillsPainter : VistaPainter() {
         val cx = (ox + 184 * z)
         val base = hillTop(cx).toInt() + 2 * z
         val fs = if (campanile) FireStyle.of("friuli", look.landscape) else null
-        val wall = env.lit(Col.mix(fs?.churchWall?.get(0) ?: Pal.WALL_L, env.skyHorizon, 0.12f)); val wallD = env.lit(Col.mix(fs?.churchWall?.get(2) ?: Pal.WALL_D, env.skyHorizon, 0.12f))
-        val roof = env.lit(Col.mix(fs?.roof?.get(1) ?: Pal.ROOF_M, env.skyHorizon, 0.1f)); val roofD = env.lit(Col.mix(fs?.roof?.get(2) ?: Pal.ROOF_D, env.skyHorizon, 0.1f))
+        // the Lake District's: grey stone under slate, a square battlemented tower
+        val wall = env.lit(Col.mix(fs?.churchWall?.get(0) ?: if (battlements) Col.hex(0x9AA0A2) else Pal.WALL_L, env.skyHorizon, 0.12f))
+        val wallD = env.lit(Col.mix(fs?.churchWall?.get(2) ?: if (battlements) Col.hex(0x767C80) else Pal.WALL_D, env.skyHorizon, 0.12f))
+        val roof = env.lit(Col.mix(fs?.roof?.get(1) ?: if (battlements) Lakeland.ROOF_M else Pal.ROOF_M, env.skyHorizon, 0.1f))
+        val roofD = env.lit(Col.mix(fs?.roof?.get(2) ?: if (battlements) Lakeland.ROOF_D else Pal.ROOF_D, env.skyHorizon, 0.1f))
         val stone = env.lit(Col.mix(Pal.STONE_L, env.skyHorizon, 0.12f))
         // the campanile's brick and its cap of coppi, Friuli's
         val tower = if (fs != null) env.lit(Col.mix(fs.towerWall[0], env.skyHorizon, 0.12f)) else wall
@@ -426,6 +467,14 @@ internal class HillsPainter : VistaPainter() {
             val bx = tl + tw / 2 + (swing * z * 0.8f).toInt()
             c.fillRect(bx - z / 2, base - 13 * z, max(1, z), max(1, z + z / 2), Pal.GOLD)
             if (z > 1) c.set(bx - z / 2, base - 13 * z, Pal.GOLD_L)
+            if (battlements) {
+                // the tower's flat top: its battlements, three merlons across
+                for (k in 0 until 2) c.fillRect(tl + k * 2 * z, base - 16 * z, z, z, tower)
+                c.fillRect(tl + tw - z, base - 16 * z, z, z, towerD)
+                if (lit) c.set(tl + tw / 2, base - 6 * z, Pal.WINDOW_LIT)
+                if (ring > 0.02f) bellRings(tl + tw / 2, base - 12 * z, ring)
+                return@thing
+            }
             // the pyramid roof and a little cross (Friuli's campanile: a low cap of coppi over a cornice)
             val capH = if (fs != null) 2 * z else 4 * z
             if (fs != null) c.hline(tl - z / 2, tl + tw + z / 2 - 1, base - 15 * z, env.lit(Col.mix(fs.churchWall[0], env.skyHorizon, 0.12f)))
@@ -500,7 +549,7 @@ internal class HillsPainter : VistaPainter() {
         if (d < HILLS_D && d > rowNear - 1f) {
             // under the rows the soil is worked (the marl of Brda, the opoka); between them, grass
             val rows = if (x < 0f) leftRows else rightRows
-            for (rx in rows) if (abs(x - rx) < 0.36f && d > rowStart(rx) - 0.6f && d < rowEnd(rx) + 0.6f) {
+            if (!damsons) for (rx in rows) if (abs(x - rx) < 0.36f && d > rowStart(rx) - 0.6f && d < rowEnd(rx) + 0.6f) {
                 col = if (Noise.rnd(px, py, 253) < 0.2f) Col.scale(soil(), 1.15f) else soil()
                 break
             }
@@ -559,6 +608,7 @@ internal class HillsPainter : VistaPainter() {
 
     /** One row at side [rx] from [dNear] to [dFar] m, its hedge's face toward the track on the side [side] (+1: right). */
     private fun vineRow(rx: Float, dNear: Float, dFar: Float, idx: Int, side: Float) {
+        if (damsons) { damsonRow(rx, dNear, dFar, idx); return }
         val z = z
         val lo = 0.55f; val hi = 1.55f
         val face = rx + 0.22f * side
@@ -692,6 +742,7 @@ internal class HillsPainter : VistaPainter() {
 
     /** The nearest vine: a gnarled trunk, the cordon along the wire, its leaves (five-lobed closer up) or its bare spurs. */
     private fun nearVine() {
+        if (damsons) { damsonTree(vineX, vineD, 1.15f, 0); return }
         val z = z
         val p = pm(vineD); val bx = gx(vineX, vineD); val by = gy(vineD)
         val bark = Col.hex(0x5A4030); val barkL = Col.hex(0x7A5A40)
@@ -756,8 +807,9 @@ internal class HillsPainter : VistaPainter() {
 
     /** Grapes heaped over the crate's rim. */
     private fun bunchTop(x: Float, y: Float, p: Float, k: Int) {
-        val red = k % 3 == 0
-        val col = if (red) Col.hex(0x4A2A52) else Col.hex(0xC0B044); val lt = if (red) Col.hex(0x7A5A8A) else Col.hex(0xE8DC86)
+        val red = k % 3 == 0 || damsons
+        val col = if (damsons) DAMSON else if (red) Col.hex(0x4A2A52) else Col.hex(0xC0B044)
+        val lt = if (damsons) DAMSON_BLOOM else if (red) Col.hex(0x7A5A8A) else Col.hex(0xE8DC86)
         val r = max(1f, 0.07f * p)
         c.fillCircle(x, y - r * 0.4f, r, col)
         c.set((x - r * 0.3f).toInt(), (y - r).toInt(), lt)
@@ -770,6 +822,7 @@ internal class HillsPainter : VistaPainter() {
      * them), grey and dry in winter.
      */
     private fun lavender(x: Float, d: Float, seed: Int) {
+        if (foxgloves) { foxglove(x, d, seed); return }
         val z = z
         val p = pm(d); val bx = gx(x, d); val by = gy(d)
         val wid = 0.55f * p; val tall = 0.5f * p
@@ -792,6 +845,117 @@ internal class HillsPainter : VistaPainter() {
         }
     }
 
+    // ------------------------------------------------------------------ the Lake District's damson orchard
+
+    /** How the damson trees are now: bare (0), in blossom (1), in leaf (2), in fruit (3), yellow (4). */
+    private val damsonPhase: Int get() = when (env.month) { 4 -> 1; 5, 6, 7 -> 2; 8, 9 -> 3; 10 -> 4; else -> 0 }
+
+    /**
+     * One damson tree at side [x], depth [d], its crown [r] m round: a short trunk, a round crown of small leaves, white
+     * with blossom in April, its small dark damsons among the leaves in August and September, yellow in October, bare
+     * branches from November to March; [seed] varies it.
+     */
+    private fun damsonTree(x: Float, d: Float, r: Float, seed: Int) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val trunk = 0.9f * p
+        val tw = max(1f, 0.09f * p)
+        c.fillRect((bx - tw).toInt(), (by - trunk).toInt(), max(1, (2 * tw).toInt()), max(1, trunk.toInt()) + 1, hazy(Col.hex(0x4A3428), d))
+        val cy = by - trunk - r * 0.8f * p
+        val rr = max(1f, r * p)
+        val ph = damsonPhase
+        if (ph == 0) {
+            for (b in 0 until 6) {
+                val a = -kotlin.math.PI.toFloat() / 2f + (b - 2.5f) * 0.45f
+                c.line(bx.toInt(), (by - trunk).toInt(), (bx + cos(a) * rr).toInt(), (cy + sin(a) * rr * 0.6f).toInt(), hazy(Col.hex(0x5A4232), d))
+            }
+            if (env.snow) c.hline((bx - rr * 0.6f).toInt(), (bx + rr * 0.6f).toInt(), (cy - rr * 0.4f).toInt(), Pal.SNOW_L)
+            return
+        }
+        val (dk, md, lt) = when (ph) {
+            1 -> Triple(Col.hex(0xC8C0B8), Col.hex(0xEEE8E2), Col.hex(0xFFFCF8))
+            4 -> Triple(Col.hex(0x9A7A2A), Col.hex(0xC8A23A), Col.hex(0xE6C85A))
+            else -> Triple(Col.hex(0x2E5226), Col.hex(0x46722F), Col.hex(0x6A9A42))
+        }
+        val sunLeft = (sunAt()?.first ?: vx) < bx
+        for (yy in (cy - rr).toInt()..(cy + rr * 0.8f).toInt()) for (xx in (bx - rr).toInt()..(bx + rr).toInt()) {
+            val dx = (xx + 0.5f - bx) / rr; val dy = (yy + 0.5f - cy) / rr
+            val q = dx * dx + dy * dy
+            if (q > 1f || (q > 0.78f && Dither.at(xx, yy) < 0.45f)) continue
+            val lit = (if (sunLeft) -dx else dx) * 0.4f - dy * 0.6f + (Noise.rnd(xx, yy, 296 + seed) - 0.5f) * 0.5f
+            var col = if (lit > 0.35f) lt else if (lit > -0.25f) md else dk
+            if (ph == 3 && Noise.rnd(xx / z, yy / z, 297 + seed) < 0.12f && dy > -0.4f) col = if (Noise.rnd(xx, yy, 298) < 0.5f) DAMSON else DAMSON_BLOOM
+            if (ph == 1 && Noise.rnd(xx / z, yy / z, 299) < 0.08f) col = Col.hex(0x8AAE5A)
+            c.set(xx, yy, hazy(col, d))
+        }
+        // ripe damsons fallen in the grass under the near trees
+        if (ph == 3 && p > 6f) for (k in 0 until 5) c.set((bx + (Noise.rnd(k, seed + 300) - 0.5f) * 2f * rr).toInt(), (by - Noise.rnd(k, seed + 301) * 0.2f * p).toInt(), DAMSON)
+    }
+
+    /** A row of damson trees at side [rx] from [dNear] to [dFar] m, one every 3.4 m. */
+    private fun damsonRow(rx: Float, dNear: Float, dFar: Float, idx: Int) {
+        var d = dFar - ((dFar - dNear) % 3.4f)
+        var k = 0
+        while (d >= dNear) {
+            if (pm(d) * 1.1f >= 1f) damsonTree(rx + (Noise.rnd(k, idx, 302) - 0.5f) * 0.3f, d, 1.0f + Noise.rnd(k, idx, 303) * 0.25f, idx * 31 + k)
+            d -= 3.4f; k++
+        }
+    }
+
+    /** The damsons on the near tree (`grapes`): small dark plums with their pale bloom, green and small before August, blossom in April. */
+    private fun damsonCluster(x: Float, y: Float, p: Float) {
+        val ph = damsonPhase
+        val r = max(1f, 0.05f * p)
+        for (k in 0 until 6) {
+            val fx = x + (k % 3 - 1) * 1.7f * r; val fy = y + (k / 3) * 1.6f * r + (k % 2) * 0.5f * r
+            when (ph) {
+                1 -> c.fillCircle(fx, fy, r, Col.hex(0xFFFCF8))
+                2 -> c.fillEllipse(fx, fy, r * 0.7f, r * 0.85f, Col.hex(0x7AA048))
+                0 -> if (k < 2) c.fillEllipse(fx, fy, r * 0.7f, r * 0.8f, Col.hex(0x3A2430))
+                else -> {
+                    c.fillEllipse(fx, fy, r * 0.85f, r, DAMSON)
+                    c.set((fx - r * 0.3f).toInt(), (fy - r * 0.4f).toInt(), DAMSON_BLOOM)
+                }
+            }
+        }
+        if (ph != 0) c.line(x.toInt(), (y - 2f * r).toInt(), x.toInt(), y.toInt(), Col.hex(0x4A3428))
+    }
+
+    /** A terrace's dry-stone wall across the hillside at depth [d], the track going up through it. */
+    private fun terraceWall(d: Float) {
+        val p = pm(d); val base = gy(d); val top = hy(d, 0.75f)
+        val gap = roadHalf + 0.3f
+        for (px in max(gx(-26f, d).toInt(), c.left)..min(gx(26f, d).toInt(), c.right - 1)) {
+            val x = sideAt(px, d)
+            if (abs(x - road(d)) < gap) continue
+            for (py in max(top.toInt(), c.top)..min(base.toInt(), c.bottom - 1)) {
+                val h = (base - py) / max(1f, base - top) * 10f
+                val col = if (env.snow && py <= top.toInt() + z) Pal.SNOW_L else Lakeland.drystone(px / max(1f, p * 0.45f), h, 10f, 1f, px, py)
+                c.set(px, py, hazy(col, d))
+            }
+        }
+    }
+
+    /** A foxglove: tall spikes of pink-purple bells in June and July, dry stalks in August, a rosette of leaves the rest of the year. */
+    private fun foxglove(x: Float, d: Float, seed: Int) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val leaf = if (env.snow) Col.hex(0x8A9088) else Col.hex(0x5E8A4A)
+        for (k in 0 until 5) c.line(bx.toInt(), by.toInt(), (bx + (k - 2) * 0.12f * p).toInt(), (by - 0.18f * p).toInt(), leaf)
+        if (env.month !in 6..8) return
+        val dry = env.month == 8
+        for (j in 0 until 2) {
+            val sx = bx + (j - 0.5f) * 0.18f * p
+            val hh = (1.0f + 0.25f * Noise.rnd(j, seed, 304)) * p
+            c.line(sx.toInt(), by.toInt(), sx.toInt(), (by - hh).toInt(), if (dry) Col.hex(0x8A7A50) else Col.hex(0x4E7A3E))
+            if (dry) continue
+            var yy = by - hh * 0.35f
+            var k = 0
+            while (yy > by - hh) {
+                c.set((sx + (if (k % 2 == 0) 1 else -1) * max(1, z)).toInt(), yy.toInt(), if (k % 3 == 0) Col.hex(0xE8A0D0) else Col.hex(0xC0509A))
+                yy -= max(1f, 0.07f * p); k++
+            }
+        }
+    }
+
     /**
      * The farmstead (domačija) at the far end of the rows, its long side toward us: whitewashed walls on a stone plinth,
      * stone quoins at the corners, a low roof of red clay tiles (korci) with a chimney, small windows with green shutters
@@ -807,7 +971,9 @@ internal class HillsPainter : VistaPainter() {
         val fs = collio
         val wall = hazy(fs?.walls?.get(0)?.get(0) ?: Col.hex(0xF2ECDC), d); val wallD = hazy(fs?.walls?.get(0)?.get(1) ?: Col.hex(0xD6CCB6), d)
         val stone = hazy(Col.hex(0xB4AA96), d); val stoneD = hazy(Col.hex(0x8A826E), d)
-        val tile = hazy(fs?.roof?.get(0) ?: Col.hex(0xB8583A), d); val tileD = hazy(fs?.roof?.get(2) ?: Col.hex(0x8A3A24), d); val tileL = hazy(fs?.roof?.get(1)?.let { Col.mix(it, Col.hex(0xFFE0B0), 0.25f) } ?: Col.hex(0xD4744A), d)
+        val tile = hazy(fs?.roof?.get(0) ?: if (lakeFarm) Lakeland.ROOF_M else Col.hex(0xB8583A), d)
+        val tileD = hazy(fs?.roof?.get(2) ?: if (lakeFarm) Lakeland.ROOF_D else Col.hex(0x8A3A24), d)
+        val tileL = hazy(fs?.roof?.get(1)?.let { Col.mix(it, Col.hex(0xFFE0B0), 0.25f) } ?: if (lakeFarm) Lakeland.ROOF_L else Col.hex(0xD4744A), d)
         val shutter = hazy(fs?.shutter ?: Col.hex(0x3E6E3A), d)
         val sunLeft = (sunAt()?.first ?: vx) < bx
         // the walls, shaded toward the side away from the sun; the plinth and the quoins of stone
@@ -838,12 +1004,23 @@ internal class HillsPainter : VistaPainter() {
             val wx = gx(houseX + wxm, d); val ww = 0.8f * p; val wh = 1.1f * p
             val top = hy(d, wy + 1.1f)
             glow { c.fillRect((wx - ww / 2).toInt(), top.toInt(), max(1, ww.toInt()), max(1, wh.toInt()), if (night) Pal.WINDOW_LIT else hazy(Pal.GLASS, d)) }
-            c.fillRect((wx - ww / 2 - 0.35f * p).toInt(), top.toInt(), max(1, (0.3f * p).toInt()), max(1, wh.toInt()), shutter)
-            c.fillRect((wx + ww / 2 + 0.05f * p).toInt(), top.toInt(), max(1, (0.3f * p).toInt()), max(1, wh.toInt()), shutter)
+            if (!lakeFarm) {
+                c.fillRect((wx - ww / 2 - 0.35f * p).toInt(), top.toInt(), max(1, (0.3f * p).toInt()), max(1, wh.toInt()), shutter)
+                c.fillRect((wx + ww / 2 + 0.05f * p).toInt(), top.toInt(), max(1, (0.3f * p).toInt()), max(1, wh.toInt()), shutter)
+            } else c.hline((wx - ww / 2).toInt() - z, (wx + ww / 2).toInt() + z, (top + wh).toInt(), hazy(Col.hex(0xF8F6F0), d)) // the white sill
             if (night) s.light(wx, top + wh / 2f, 14f, 0.35f)
         }
         val dx = gx(houseX + 0.6f, d)
         c.fillRect((dx - 0.5f * p).toInt(), hy(d, 2.1f).toInt(), max(1, p.toInt()), (by - hy(d, 2.1f)).toInt(), hazy(Pal.DOOR, d))
+        if (lakeFarm) {
+            // the slate porch over the door, on its two stone cheeks
+            val pt = hy(d, 2.8f); val pb = hy(d, 2.2f)
+            for (r in 0 until max(1, (pb - pt).toInt())) {
+                val half = 0.9f * p * (r / max(1f, pb - pt)) + 0.2f * p
+                c.hline((dx - half).toInt(), (dx + half).toInt(), (pt + r).toInt(), if (env.snow) Pal.SNOW_L else if (r % 2 == 0) tile else tileD)
+            }
+            for (o in floatArrayOf(-0.75f, 0.6f)) c.fillRect((dx + o * p).toInt(), pb.toInt(), max(1, (0.15f * p).toInt()), (by - pb).toInt(), stone)
+        }
         // the roof: low, of clay tiles in courses, its eaves over the wall, a chimney
         val ey = hy(d, wallH); val ry = hy(d, wallH + roofH)
         for (py in max(ry.toInt(), c.top)..min(ey.toInt() + z, c.bottom - 1)) {
@@ -866,7 +1043,7 @@ internal class HillsPainter : VistaPainter() {
         val hr = s.hour
         if (env.season != Season.SUMMER && (hr in 6f..9f || hr in 17.5f..21f)) s.smoke(cx + z, ry - 0.8f * p, 0.45f, 13)
         // Friuli's frasca by the door, in the months the farm sells its own wine (from the new wine to the spring)
-        if (fs != null && env.month !in 6..10) {
+        if (fs != null && !lakeFarm && env.month !in 6..10) {
             val fx = gx(houseX + 1.5f, d); val fy = hy(d, 2.6f)
             c.line(dx.toInt(), fy.toInt(), fx.toInt(), fy.toInt(), hazy(Pal.WOOD_D, d))
             for (k in 0 until 9) {
@@ -887,8 +1064,10 @@ internal class HillsPainter : VistaPainter() {
         c.fillRect((bx - 0.1f * p).toInt(), (by - 0.5f * p).toInt(), max(z, (0.2f * p).toInt()), (0.5f * p).toInt() + 1, Col.hex(0x4A3428))
         for (j in 0 until hh.toInt()) {
             val f = j / hh
-            // widest a third of the way up, a pointed tip
-            val wid = half * (if (f < 0.3f) 0.75f + f else (1.05f - (f - 0.3f) * 1.3f)).coerceAtLeast(0.08f)
+            // widest a third of the way up, a pointed tip (the Lake District's yew: broad and round, half as tall)
+            if (yews && f > 0.62f) break
+            val wid = if (yews) half * 2.1f * kotlin.math.sqrt(max(0f, 1f - ((f / 0.62f) * 2f - 1f).let { it * it })).coerceAtLeast(0.15f)
+            else half * (if (f < 0.3f) 0.75f + f else (1.05f - (f - 0.3f) * 1.3f)).coerceAtLeast(0.08f)
             val y = (by - 0.35f * p - j).toInt()
             if (y < c.top - 1 || y >= c.bottom) continue
             // only the upper half sways: the tree's outline (its widest part) stays where it is
@@ -908,6 +1087,7 @@ internal class HillsPainter : VistaPainter() {
      * October, and its fruit green, then orange, hanging on into November on bare branches; bare in winter.
      */
     private fun kaki(x: Float, d: Float) {
+        if (apple) { leafyTree(x, d, 6.5f, 913, blossom = true, fruit = if (env.month in 8..10) Col.hex(0xC8302A) else 0); return }
         val z = z
         val p = pm(d); val bx = gx(x, d); val by = gy(d)
         val m = env.month

@@ -144,7 +144,91 @@ internal object LakelandLooks {
      */
     val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "packman"))
 
+    // ---- the projects' places, part a (docs/plans/05-built/lakeland-projects-a.md): each its own table, its own line in PLACES
+
+    /**
+     * The green's maypole (SquarePainter, `mlaj`): the larch from the wood peeled and painted in a red and white spiral up to a
+     * gilt knob, a crown of flowers at its top and eight long ribbons, red, blue, yellow and green; before it stands the larch
+     * on its trestles in its bark, then painted, then the crown and the ribbons beside it; "dance" the children's ribbon dance.
+     */
+    val SQUARE_MAYPOLE = Table.of("square", variants = mapOf("maypole" to "ribbons"))
+
+    /**
+     * The beck's projects (StreamPainter, `most` and `mlin`): the packhorse bridge of grey slate with one round arch, its
+     * stones on edge round it, humped, low parapets with their cope stones on edge, built step by step (pegs and a line, heaps
+     * of flat slate, the abutments, the logs and the wooden centring, the arch, the parapets); a fell pony with its panniers
+     * over it for the cart (`cart`); the mill's walls of slate stone under slate.
+     */
+    val STREAM_BRIDGE = Table.of("stream", variants = mapOf("cartbridge" to "packhorse", "cart" to "packhorse", "mill" to "slate"))
+
+    /** Mr Tyson's mill inside (MillPainter): it grinds oats for porridge, pale gold in the hopper, creamy oatmeal in the sack; walls of slate stone; the fells through the window. */
+    val MILL = Table.of(
+        "mill",
+        colours = mapOf(
+            "grain.l" to hex(0xEADCA6), "grain.m" to hex(0xCDB878), "grain.d" to hex(0x9C8650),
+            "meal" to hex(0xF0E8D2), "meal.d" to hex(0xD6C9A8),
+        ),
+        variants = mapOf("grain" to "oats", "walls" to "slate", "view" to "fells"),
+    )
+
+    /**
+     * The bowling green (BoccePainter, `balinisce`): a flat green of short grass in light and dark stripes, a ditch inside the
+     * low boards, the bowler's mat; the woods dark brown with a red or a yellow disc, the jack white, rolled in a curve; the
+     * oak; a rose arbour over the table; a glass jug of lemonade; the inn whitewashed under slate, no shutters, a sheep on its
+     * sign; a chalk disc of each side's colour over its marks; a stone garden roller.
+     */
+    val BOCCE = Table.of(
+        "bocce",
+        variants = mapOf(
+            "court" to "green", "ball" to "woods", "linden" to "oak", "pergola" to "roses", "jug" to "lemonade", "inn" to "lakeland",
+            "scoreboard" to "discs", "rake" to "roller",
+        ),
+    )
+
+    /**
+     * The little chapel by the lane (ChapelPainter, `kapelica`): grey slate stone under slate, a stone bellcote on its gable,
+     * the Good Shepherd over the altar, candles in glass jars on the step, a yew by the bench, a hay meadow behind a dry-stone
+     * wall, the fells and the village round its battlemented tower, a fell walker with a rucksack up the lane.
+     */
+    val CHAPEL = Table.of(
+        "chapel",
+        variants = mapOf(
+            "chapel" to "slate", "picture" to "shepherd", "candle" to "jars", "linden" to "yew", "field" to "meadow", "village" to "lakeland",
+            "traveller" to "walker",
+        ),
+    )
+
+    /**
+     * The damson orchard (HillsPainter, `vinograd`): damson trees in rows on terraces of dry-stone walls (blossom in April,
+     * damsons in August and September), the farmhouse whitewashed under slate with its slate porch, the church's battlemented
+     * tower, the fells behind and the walled fields, yews, an apple tree, foxgloves.
+     */
+    val HILLS = Table.of(
+        "hills",
+        variants = mapOf(
+            "vineyard" to "damsons", "farm" to "lakeland", "church" to "tower", "mountains" to "fells", "cypress" to "yew",
+            "persimmon" to "apple", "flowers" to "foxgloves",
+        ),
+    )
+
+    /** The wildflower meadow by the bee garden (ApiaryPainter, `cebelji_travnik`): cowslips, clover, ox-eye daisies, cornflowers, cranesbill, knapweed and harebells by the month. */
+    val APIARY_MEADOW = Table.of("apiary", variants = mapOf("meadow" to "wildflowers"))
+
+    /** The wood (ForestPainter): larches for the spruces, oak and birch, the oak's bark, no boar nor bear, a Herdwick ewe, bluebells in spring. */
+    val FOREST = Table.of(
+        "forest",
+        variants = mapOf("spruce" to "larch", "tree" to "oak", "wild" to "britain", "sheep" to "herdwick", "flowers" to "bluebells"),
+    )
+
     /** The Lake District's places, added up. */
     val PLACES: Table get() = PEOPLE + KITCHEN + LIVINGROOM + CELLAR + ATTIC + WORKSHOP + TENT + SMITHY + CHURCH + SCHOOL + FIELD + SQUARE + MARKET +
-        APIARY + WATCHTOWER + PALISADE
+        APIARY + WATCHTOWER + PALISADE +
+        SQUARE_MAYPOLE +
+        STREAM_BRIDGE +
+        MILL +
+        BOCCE +
+        CHAPEL +
+        HILLS +
+        APIARY_MEADOW +
+        FOREST
 }

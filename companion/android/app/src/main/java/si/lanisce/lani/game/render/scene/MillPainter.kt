@@ -105,6 +105,8 @@ internal class MillPainter : RoomPainter() {
     private var mealC = flourC; private var mealD = flourD
     /** Friuli's mill grinds maize ([look]: "grain" "maize"): golden kernels, yellow meal, cobs hanging to dry. */
     private var maize = false
+    /** The Lake District's mill (`walls` "slate"; its oats and oatmeal are its grain's colours): walls of slate stone inside. */
+    private var slateWalls = false
     private val jute = Col.hex(0xC8A872); private val juteL = Col.hex(0xDCC08A); private val juteD = Col.hex(0x9A7E4E)
     private val ironC = Col.hex(0x3E3A40); private val ironHi = Col.hex(0x8A8690)
     /**
@@ -391,6 +393,12 @@ internal class MillPainter : RoomPainter() {
      */
     private fun plankWall(a: Float, z: Float, px: Int, py: Int, dim: Float): Int {
         val h = z - fl
+        if (slateWalls) {
+            // the dale's slate stone in thin courses, pointed with lime, flour settled low down
+            var col = Lakeland.slateStone(a, h, px, py, fine, mortar = true)
+            if (h < 9f && Noise.rnd(px, py, 47) < 0.4f - h / 25f) col = Col.mix(col, flourC, 0.5f)
+            return Col.scale(col, dim)
+        }
         if (h < FOOTING) return Col.scale(footingStone(a, h, px, py), dim)
         val ph = 1.6f
         val k = floor((h - FOOTING) / ph).toInt(); val fz = (h - FOOTING) - k * ph
@@ -435,6 +443,7 @@ internal class MillPainter : RoomPainter() {
 
     /** A wall's cut end at [z] px up: the planks' ends over the footing's stones in section. */
     private fun wallEnd(z: Float, px: Int, py: Int, dim: Float): Int {
+        if (slateWalls) return Col.scale(if (Noise.rnd(px / max(1, detail), py / max(1, detail), 55) < 0.5f) stoneM else stoneD, dim)
         val col = if (z < fl + FOOTING) (if (Noise.rnd(px / max(1, detail), py / max(1, detail), 55) < 0.5f) stoneM else stoneD)
         else if (((z - fl - FOOTING) / 1.6f) % 1f < 0.18f) boardX else Col.mix(boardL, Col.hex(0xD8A870), 0.3f)
         return Col.scale(col, dim)
@@ -1575,6 +1584,7 @@ internal class MillPainter : RoomPainter() {
     /** Reads the culture's grain and its meal once a frame: the default culture's golden wheat and white flour, Friuli's maize. */
     private fun readGrain() {
         maize = variant("grain") == "maize"
+        slateWalls = variant("walls") == "slate"
         grainL = colour("grain.l", GRAIN_L); grainM = colour("grain.m", GRAIN_M); grainD = colour("grain.d", GRAIN_D)
         mealC = colour("meal", flourC); mealD = colour("meal.d", flourD)
     }
