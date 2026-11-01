@@ -8451,9 +8451,10 @@ def friuli_school(part: str = "scene"):
                 time.sleep(1)
                 snap(f"fs-school-{u['level'].lower()}")
             qa_hook(f"school:{unit}")  # the unit as never begun, its level open, the units before it in its level done
-            # the school keeps where it was scrolled to: a B1 level lies below the fold, A1's header above it
+            # the school stays where it was scrolled: a B1 unit's level, under A2's units, leaves A1's row out of sight
             time.sleep(2)
-            assert wait_for(half("school.level", level=u["level"]), 15) or wait_for(half("school.level", level="A1"), 3), "the school's levels"
+            level_row = half("school.level", level=u["level"])
+            assert wait_for(level_row, 15) or scroll_to(level_row, 12) is not None, "the school's levels"
             if u["level"] != "A1":
                 assert scroll_to(half("school.level", level=u["level"]), 12) is not None, f"the level {u['level']}"
             title = unit_text(u["title"]["it"])
@@ -8873,7 +8874,7 @@ def guidance_home():
 
 def friuli_school_unit():
     """The Friuli village's school for Teo, a unit end to end (friuli_school's [part] "unit"; the same synthetic learner
-    and env, a run of its own): $LANI_QA_IT_UNIT (ciao by default; an A2 unit after the school with A1 done),
+    and env, a run of its own): $LANI_QA_IT_UNIT (ciao by default; an A2 or B1 unit after the school with A1 done),
     "school:<unit>", the intro's quick questions, the summary, the first worksheet, the test straight away, passed; the
     dev bridge's village keeping it done; its sheet printed."""
     return friuli_school("unit")
