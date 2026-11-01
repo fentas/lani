@@ -67,10 +67,33 @@ jagnje (https://fran.si/iskanje?View=1&Query=jagenjček).
 
 ### The print's dictionary (companion/prints/sheet.ts)
 
-- **The supplement's own meaning in the base comes first**, then the dictionary's meaning of its lemma, then the
-  English. c'è is now "es gibt" on a German sheet. On Slovene sheets in German and Italian, 87 and 86 places now show
-  the supplement's German or Italian instead of English (vstati: aufstehen, oba: beide, borovnice: Heidelbeere, not
-  "see Thesaurus:Heidelbeere"). Slovene sheets in English are unchanged.
+- **The order (the lead's decision at the gate): the unit's own gloss first**, then the supplement's entry of the
+  word in the sheet's base, then a pack's word, then a form the unit makes from its lemma, then the supplement's and
+  Wiktionary's other readings. The unit's own gloss is the "**quando** (wenn)" of its intro: the meaning its sentences
+  use. Before, it came last, only when nothing else knew the word, so the futuro unit printed the supplement's
+  general "wann; wenn, als" for its quando; now it prints "wenn". The word found below still gives the lemma and the
+  gender beside the unit's gloss. Two guards:
+  - A bracket that is a note is no gloss. A word whose English bracket is a note ("**rad** (a man)", "**oba**
+    (masculine)", "**a** (in speech)") has none in any base: its German "ein Mann" and Italian "maschile" are notes
+    too.
+  - The supplement comes before the packs only with its own meaning in the base (`meanings`, or its English gloss),
+    and only for its entry of the word itself. A form of another word comes after the packs (presto is the pack's
+    "früh", not prestare's "I lend"). The dictionary's meaning of the lemma comes after the packs too (babica's
+    German there is "Hebamme", the sense the supplement's override puts second). An Italian word listed without its
+    article is not the supplement's noun when a pack has the word (aggettivi's freddo is the pack's "kalt"; il freddo
+    is the supplement's "Kälte").
+- **The supplement's own meaning in the base**, then the dictionary's meaning of its lemma, then the English. c'è had
+  printed "there is, there are" on a German sheet. On Slovene sheets in German and Italian, 87 and 86 places showed
+  the supplement's German or Italian instead of English with this alone (vstati: aufstehen, oba: beide, borovnice:
+  Heidelbeere, not "see Thesaurus:Heidelbeere").
+- **What the order changed** (against packs first, the unit's gloss last), on top of the above: on the Italian sheets
+  22 places in German, 26 in Slovene and 30 in English now print the unit's own gloss, or the supplement's entry of
+  the word itself (quando: wenn; il biscotto: Keks, not the pack's der Keks; portare: bringen; c'è: da ist, as its
+  unit says; tutti: alle, not tutto's ganz, alle; alles). On the Slovene sheets 69 places in English
+  (47 words), 28 in German and 30 in Italian: the unit's own gloss (iti: go; otroci: children; konjiček: little
+  horse; mlinček: a coffee grinder) or the supplement's own meaning before the pack's or Wiktionary's (sejem: fair,
+  market, not Wiktionary's "I sow"; torba: bag, not "bag, school bag"; babica: grandmother, grandma). No sheet's page
+  count changed, Italian or Slovene, in any base.
 - **A pack's noun in the plural with its article** (i cavalli) is found by the pack's `plural`, with the singular
   shown beside it: "i cavalli (il cavallo) Pferd". This works only with the article, because the article says it is
   that noun. Slovene's peči is "to bake", not the plural of peč, and četrti is "fourth", not quarters. Both printed
@@ -126,8 +149,11 @@ reviewed (`"machine_written": true`, `"reviewed": false`, as the file was).
 ### Generated, then edited by hand
 
 The entries were generated once from a hand-written table (lemma, part of speech, gender, paradigm, the three meanings)
-by a script in the round's scratchpad. That script built the forms and scanned the content. After that, the file is
-the source. Change an entry by hand, as for the rest of the supplement. When content is added, its new forms of a verb
+by the scripts in `companion/lexicon/tools/`, kept there as a one-off: `it_words.py` (the table), `paradigm.py` (the
+conjugations, the irregular verbs, the plurals and the adjectives' endings), `it_extra_build.py` (the forms the
+content uses, the check against Wiktionary's build and its report) and `it_extra_merge.py` (the entries added in the
+file's layout, the ones it has left alone). Run on this branch, they make the committed file byte for byte. After
+that, the file is the source. Change an entry by hand, as for the rest of the supplement. When content is added, its new forms of a verb
 are found anyway: the lookup's "did you mean" tries the endings (ENDINGS in lexicon.ts), and Wiktionary has them on a
 node.
 
@@ -180,7 +206,10 @@ On the branch rebased onto main (main was already under it: 605d5f26, the wave A
 - **Bridge**: `bunx tsc --noEmit -p .` clean. The smoke (`LANI_SMOKE_PORT=9710`, `LANI_SMOKE_DRAMA3_PORT=9728`):
   3,317 checks, none failed. New checks:
   - prints: every Italian unit of A1, A2 and B1 in German, Slovene and English means every word it lists (4,293);
-    c'è is "es gibt", guardare "schauen, anschauen", i cavalli "(il cavallo) Pferd", il treno "Zug" on the German sheets;
+    on the German sheets the unit's own gloss first (quando in futuro: wenn, not the supplement's wann; wenn, als),
+    then the supplement's own German (pizzicare: zwicken), its noun by the word without its article (il treno: Zug;
+    il freddo: Kälte, while aggettivi's freddo stays the pack's kalt), a plural with its singular (i cavalli: il
+    cavallo, Pferd);
   - meanings: the repository's it.extra.json validates, each entry with German and Slovene, machine-written. Without
     Wiktionary, guardami is guardare with its imperative; c'era una volta, un po' and ce l'ho fatta are found around
     the tapped word; si lava is lavarsi; gira il frico isn't girarsi;

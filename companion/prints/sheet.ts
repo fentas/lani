@@ -304,8 +304,10 @@ export type WordContext = { sl: Set<string>; en: Set<string>; glosses: Map<strin
 const POS_RANK = ['pron', 'noun', 'verb', 'adj', 'adv', 'num', 'prep', 'conj', 'particle', 'phrase', 'intj']
 /** A Wiktionary gloss that describes a form ("second-person plural imperative of oprostiti"), not a meaning. */
 const FORM_GLOSS = /\b(singular|plural|dual|person|imperative|genitive|dative|locative|accusative|instrumental|nominative|participle|inflection|form)\b.*\bof\b/i
+/** A unit's own bracket that is a note, not a meaning ("**rad** (a man)", "**sem** (polite)"). */
+const NOTE = /\b(feminine|masculine|neuter|singular|plural|dual|genitive|accusative|locative|a man|a woman|men|women|several|polite|speech|standard|going|being)\b/i
 
-/** A word's meaning in the base: a pack's word (written for the learner), the unit's own gloss, the supplement, Wiktionary. */
+/** A word's meaning in the base: the unit's own gloss, the supplement's entry of the word, a pack's word (written for the learner), Wiktionary. */
 export class Dictionary {
   private packs = new Map<string, Json>()
   /** The packs' nouns by their plural ("i cavalli", cavalli → il cavallo): a unit may list a noun in the plural. */
@@ -390,11 +392,61 @@ export class Dictionary {
     }
   }
 
+  /**
+   * The word's meaning on the sheet, in this order: the unit's own gloss ("**quando** (wenn)" in its intro: the meaning
+   * its sentences use), with the lemma and gender of the word found below; the supplement's entry of the word itself in
+   * the sheet's base; a pack's word; a form the unit makes from its lemma; the supplement's and Wiktionary's readings.
+   */
   meaning(word: string, base: string, ctx: WordContext, depth = 0): Meaning | null {
     this.load()
+    // the unit's own "**dopoldne** (…)": the meaning its sentences use, unless its brackets are a note (rad: a man)
+    const own = depth === 0 ? ctx.glosses.get(norm(word)) : undefined
+    const found = this.found(word, base, ctx, depth)
+    if (!own || NOTE.test(own)) return found
+    if (!found) return { lemma: word, pos: 'word', gloss: own }
+    return { lemma: found.lemma, pos: found.pos, gloss: own, ...(found.gender ? { gender: found.gender } : {}) }
+  }
+
+  /** The supplement's readings of [word] ([k] its form), each with its gloss in [base] and whether that is its own. */
+  private supplement(word: string, k: string, base: string, wik: Json[]): (Meaning & { inBase: boolean; self: boolean; byBare: boolean })[] {
+    // the supplement's entries of the form, and an Italian noun's by the word without its article ("il treno": treno,
+    // "i biscotti": biscotto, shown with its article)
+    const bare = this.bare(word)
+    const direct = this.extra.get(k) ?? []
+    const nouns = bare ? (this.extra.get(this.key(bare)) ?? []).filter(e => e.pos === 'noun') : []
+    const out: (Meaning & { inBase: boolean; self: boolean; byBare: boolean })[] = []
+    for (const e of [...direct, ...nouns]) {
+      const same = wik.find(l => norm(l.lemma) === norm(e.lemma) && l.pos === e.pos)
+      // its own meaning in the base (written with it), else the dictionary's of its lemma, else the English; [inBase]:
+      // its own (not the dictionary's: babica's German there is Hebamme, the sense its override puts second)
+      const mine = base === 'en' ? e.gloss?.[0] : e.meanings?.[base]?.[0]
+      const gloss = mine ?? same?.meanings?.[base]?.gloss?.[0] ?? e.gloss?.[0]
+      if (!gloss) continue
+      const byBare = !direct.includes(e)
+      const lemma = !byBare ? e.lemma : this.key(e.lemma) === this.key(bare!) ? word : this.withArticle(e.lemma, e.gender)
+      out.push({ lemma, pos: e.pos, gloss, gender: e.gender, inBase: !!mine, self: this.key(e.lemma) === k || lemma === word, byBare })
+    }
+    return out
+  }
+
+  private found(word: string, base: string, ctx: WordContext, depth: number): Meaning | null {
     const key = norm(word)
     // the form as the packs and the dictionaries have it (Italian keeps its last accent: è, più)
     const k = this.key(word)
+    const f = this.file
+    const wik: Json[] = []
+    if (f && Object.hasOwn(f.forms, k)) for (const [i] of f.forms[k]) if (f.lemmas[i]) wik.push(f.lemmas[i])
+    const sup = this.supplement(word, k, base, wik)
+    // the supplement's entry of the word itself, meant in the sheet's base (not a form of another word: presto is the
+    // pack's early, not prestare's I lend); an Italian word listed without its article is not the noun (freddo, the
+    // adjective, is the pack's kalt; il freddo the supplement's Kälte)
+    const mine = sup.filter(x => x.inBase && x.self && !(this.language === 'it' && x.pos === 'noun' && !this.bare(word) && this.packs.has(k)))
+    if (mine.length) {
+      const rank = (p: string) => (POS_RANK.indexOf(p) < 0 ? 50 : POS_RANK.indexOf(p))
+      const fits = (x: Meaning) => (wordsOf(x.gloss).some(w => w.length > 2 && ctx.en.has(stem(w))) ? 1 : 0)
+      const best = [...mine].sort((a, b) => fits(b) - fits(a) || rank(a.pos) - rank(b.pos))[0]
+      return { lemma: best.lemma, pos: best.pos, gloss: best.gloss, ...(best.gender ? { gender: best.gender } : {}) }
+    }
     const pack = this.packs.get(k)
     if (pack && (pack[base] || pack.en)) return { lemma: pack[this.language], pos: pack.gender ? 'noun' : 'word', gloss: pack[base] ?? pack.en, gender: pack.gender }
     // a pack's noun in the plural with its article ("i cavalli"): the pack's word, its singular shown beside it; only
@@ -407,29 +459,11 @@ export class Dictionary {
       const m = this.meaning(lemma, base, ctx, 1)
       if (m) return { ...m, lemma }
     }
-    // the unit's own "**dopoldne** (…)" only when nothing else knows the word: its brackets are often a note (rad: a man)
-    const own = ctx.glosses.get(key)
-    const note = /\b(feminine|masculine|neuter|singular|plural|dual|genitive|accusative|locative|a man|a woman|men|women|several|polite|speech|standard|going|being)\b/i
-    const fallback = own && depth === 0 && !note.test(own) ? { lemma: word, pos: 'word', gloss: own } : null
     // every reading: the supplement's, Wiktionary's (the lemma itself, or a form of another)
     type Cand = Meaning & { score: number; rank: number }
     const cands: Cand[] = []
     const glossIn = (l: Json) => (base === 'en' ? l.gloss?.[0] : (l.meanings?.[base]?.gloss?.[0] ?? l.gloss?.[0]))
-    const f = this.file
-    const wik: Json[] = []
-    if (f && Object.hasOwn(f.forms, k)) for (const [i] of f.forms[k]) if (f.lemmas[i]) wik.push(f.lemmas[i])
-    // the supplement's entries of the form, and an Italian noun's by the word without its article ("il treno": treno,
-    // "i biscotti": biscotto, shown with its article)
-    const bare = this.bare(word)
-    const nouns = bare ? (this.extra.get(this.key(bare)) ?? []).filter(e => e.pos === 'noun') : []
-    for (const e of [...(this.extra.get(k) ?? []), ...nouns]) {
-      const same = wik.find(l => norm(l.lemma) === norm(e.lemma) && l.pos === e.pos)
-      // its own meaning in the base (written with it), else the dictionary's of its lemma, else the English
-      const gloss = base === 'en' ? e.gloss?.[0] : (e.meanings?.[base]?.[0] ?? same?.meanings?.[base]?.gloss?.[0] ?? e.gloss?.[0])
-      const byBare = !this.extra.get(k)?.includes(e)
-      const lemma = !byBare ? e.lemma : this.key(e.lemma) === this.key(bare!) ? word : this.withArticle(e.lemma, e.gender)
-      if (gloss) cands.push({ lemma, pos: e.pos, gloss, gender: e.gender, score: byBare && lemma !== word ? 2 : 0.5, rank: 0 })
-    }
+    for (const x of sup) cands.push({ lemma: x.lemma, pos: x.pos, gloss: x.gloss, gender: x.gender, score: x.byBare && x.lemma !== word ? 2 : 0.5, rank: 0 })
     for (const l of wik) {
       if (l.pos === 'name') continue
       const gloss = glossIn(l)
@@ -439,8 +473,8 @@ export class Dictionary {
     if (!cands.length) {
       // a verb with se (igrati se): the verb's meaning
       const verb = word.match(/^(\S+)\s+(?:se|si)$/)
-      if (verb && depth === 0) return this.meaning(verb[1], base, ctx, 1) ?? fallback
-      return fallback
+      if (verb && depth === 0) return this.meaning(verb[1], base, ctx, 1)
+      return null
     }
     for (const x of cands) {
       // the word itself first; a form of a lemma the unit uses (roke → roka) before one it doesn't (pil → pila);
@@ -460,9 +494,9 @@ export class Dictionary {
         const m = this.meaning(of, base, ctx, 1)
         if (m) return { ...m, lemma: of }
       }
-      return fallback
+      return null
     }
-    if (best.score < -0.5) return fallback
+    if (best.score < -0.5) return null
     return best
   }
 }
@@ -562,14 +596,20 @@ export function buildSheet(c: Content, raw: Json, n: number, of: number, o: Opti
   const watch = chooseWatch(unit, pages, steps, base, corpus, used, o, L, based)
 
   // --- the words ---
-  // the unit's own glosses: "**miza** (table)" in its intro
-  const glosses = new Map<string, string>()
-  for (const s of steps) {
-    for (const m of tr(s.say, base).matchAll(/\*\*([^*]+)\*\*\s*\(([^)]{2,40})\)/g)) {
-      const k = norm(m[1])
-      if (!glosses.has(k) && !/[,.;]/.test(m[1]) && !/\*\*/.test(m[2])) glosses.set(k, m[2].trim())
+  // the unit's own glosses: "**miza** (table)" in its intro; a word whose English bracket is a note ("**rad** (a man)",
+  // "**oba** (masculine)") has none in any base (ein Mann, maschile)
+  const ownGlosses = (b: string) => {
+    const out = new Map<string, string>()
+    for (const s of steps) {
+      for (const m of tr(s.say, b).matchAll(/\*\*([^*]+)\*\*\s*\(([^)]{2,40})\)/g)) {
+        const k = norm(m[1])
+        if (!out.has(k) && !/[,.;]/.test(m[1]) && !/\*\*/.test(m[2])) out.set(k, m[2].trim())
+      }
     }
+    return out
   }
+  const glosses = ownGlosses(base)
+  for (const [k, en] of ownGlosses('en')) if (NOTE.test(en)) glosses.delete(k)
   const cellItems = new Set<string>()
   const tableWords = new Set<string>()
   for (const t of tables) {
