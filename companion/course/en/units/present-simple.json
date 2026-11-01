@@ -1,0 +1,408 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "present-simple",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🔁",
+  "title": {
+    "en": "I walk, she walks",
+    "de": "Das Präsens: I walk, she walks",
+    "sl": "Sedanjik: I walk, she walks",
+    "it": "Il presente: I walk, she walks"
+  },
+  "goal": {
+    "sl": "Poveš, kaj kdo dela vedno znova in kaj vedno drži (I walk, she walks), z -es in -ies, kjer je treba, s has in s tem, kako pogosto, na koncu.",
+    "de": "Du sagst, was jemand immer wieder tut und was immer so ist (I walk, she walks), mit -es und -ies, wo es nötig ist, mit has und dem Wie-oft am Ende.",
+    "it": "Dici che cosa fa qualcuno di solito e che cosa è sempre vero (I walk, she walks), con -es e -ies dove serve, con has e il quanto spesso alla fine.",
+    "en": "You can say what people do again and again and what is always so (I walk, she walks), with -es and -ies where they belong, has, and how often at the end."
+  },
+  "grammar": ["present-simple"],
+  "words": ["walk", "make", "go", "do", "watch", "wash", "fix", "miss", "fly", "carry", "study", "play", "buy", "have", "come", "work", "eat", "grow", "tell", "listen", "drink", "rain", "stop", "run", "every day", "every morning", "twice a day", "bus", "gate", "honey", "hive", "glass", "darts", "grass", "story"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo, kaj", "de": "wer, was", "it": "chi, che cosa", "en": "who, what" },
+        { "sl": "glagol", "de": "das Verb", "it": "il verbo", "en": "the verb" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**present simple** (sedanjik) pove, kaj delaš vedno znova in kaj vedno drži: **I walk to the inn every evening.** (Vsak večer grem peš v gostilno.) **We drink tea in the morning.** (Zjutraj pijemo čaj.) Pri **I**, **you**, **we** in **they** je glagol tak kot v slovarju: **I walk**, **you walk**, **they walk**. Ena oblika za štiri osebe.",
+          "de": "Das **present simple** sagt, was du immer wieder tust und was immer so ist: **I walk to the inn every evening.** (Ich gehe jeden Abend zu Fuß ins Gasthaus.) **We drink tea in the morning.** (Morgens trinken wir Tee.) Bei **I**, **you**, **we** und **they** steht das Verb wie im Wörterbuch: **I walk**, **you walk**, **they walk**. Eine Form für vier Personen.",
+          "it": "Il **present simple** dice che cosa fai di solito e che cosa è sempre vero: **I walk to the inn every evening.** (Ogni sera vado a piedi alla locanda.) **We drink tea in the morning.** (La mattina beviamo il tè.) Con **I**, **you**, **we** e **they** il verbo è come nel dizionario: **I walk**, **you walk**, **they walk**. Una forma sola per quattro persone.",
+          "en": "The **present simple** says what you do again and again, and what is always so: **I walk to the inn every evening.** **We drink tea in the morning.** With **I**, **you**, **we** and **they**, the verb is just as in the dictionary: **I walk**, **you walk**, **they walk**. One form for four people."
+        },
+        "examples": [
+          { "en": "I walk to the inn every evening.", "sl": "Vsak večer grem peš v gostilno.", "de": "Ich gehe jeden Abend zu Fuß ins Gasthaus.", "it": "Ogni sera vado a piedi alla locanda." },
+          { "en": "We drink tea in the morning.", "sl": "Zjutraj pijemo čaj.", "de": "Morgens trinken wir Tee.", "it": "La mattina beviamo il tè." },
+          { "en": "Jack and Sam play darts on Saturdays.", "sl": "Jack in Sam ob sobotah igrata pikado.", "de": "Jack und Sam spielen samstags Darts.", "it": "Jack e Sam giocano a freccette il sabato." }
+        ],
+        "rows": [
+          ["I, you, we, they", "walk", "We walk to the inn."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-simple",
+          "prompt": "Jack and Sam ___ darts at the inn on Saturdays.",
+          "options": ["play", "plays", "playing"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Jack and Sam = they: play**\n- I, you, we, they play · tak kot v slovarju",
+            "de": "**Jack and Sam = they: play**\n- I, you, we, they play · wie im Wörterbuch",
+            "it": "**Jack and Sam = they: play**\n- I, you, we, they play · come nel dizionario",
+            "en": "**Jack and Sam = they: play**\n- I, you, we, they play · as in the dictionary"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri **he**, **she**, **it** in enem imenu dodaš **-s**: **Jack walks Meg every morning.** (Jack vsako jutro sprehaja Meg.) **Mrs Birkett makes tea.** (Gospa Birkett skuha čaj.) **It rains a lot here.** (Tu veliko dežuje.) To **-s** je edina končnica sedanjika in rado se pozabi: **she works**, nikoli *she work*. Pred njim ni **is**: **she makes**, ne *she is make*.",
+          "de": "Bei **he**, **she**, **it** und einem Namen kommt **-s** dazu: **Jack walks Meg every morning.** (Jack geht jeden Morgen mit Meg spazieren.) **Mrs Birkett makes tea.** (Mrs Birkett kocht Tee.) **It rains a lot here.** (Hier regnet es viel.) Dieses **-s** ist die einzige Endung des present simple und schnell vergessen: **she works**, nie *she work*. Kein **is** davor: **she makes**, nicht *she is make*.",
+          "it": "Con **he**, **she**, **it** e un nome si aggiunge **-s**: **Jack walks Meg every morning.** (Jack porta a spasso Meg ogni mattina.) **Mrs Birkett makes tea.** (Mrs Birkett fa il tè.) **It rains a lot here.** (Qui piove molto.) Questa **-s** è l'unica desinenza del present simple, e si dimentica facilmente: **she works**, mai *she work*. Niente **is** davanti: **she makes**, non *she is make*.",
+          "en": "With **he**, **she**, **it** and one name, add **-s**: **Jack walks Meg every morning.** **Mrs Birkett makes tea.** **It rains a lot here.** This **-s** is the only ending of the present simple, and it is easy to forget: **she works**, never *she work*. No **is** before it: **she makes**, not *she is make*."
+        },
+        "examples": [
+          { "en": "Jack walks Meg every morning.", "sl": "Jack vsako jutro sprehaja Meg.", "de": "Jack geht jeden Morgen mit Meg spazieren.", "it": "Jack porta a spasso Meg ogni mattina." },
+          { "en": "Mrs Birkett makes tea for the walkers.", "sl": "Gospa Birkett skuha čaj za pohodnike.", "de": "Mrs Birkett kocht Tee für die Wanderer.", "it": "Mrs Birkett fa il tè per gli escursionisti." },
+          { "en": "Auntie Edna listens to the radio every evening.", "sl": "Teta Edna vsak večer posluša radio.", "de": "Tante Edna hört jeden Abend Radio.", "it": "Zia Edna ascolta la radio ogni sera." }
+        ],
+        "rows": [
+          ["he, she, it", "walk + -s", "Jack walks Meg."]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-simple",
+          "prompt": "Granny Maggie ___ scones every Saturday.",
+          "options": ["makes", "make", "is make"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Granny Maggie = she: makes**\n- she makes · brez is",
+            "de": "**Granny Maggie = she: makes**\n- she makes · ohne is",
+            "it": "**Granny Maggie = she: makes**\n- she makes · senza is",
+            "en": "**Granny Maggie = she: makes**\n- she makes · no is"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kot v množini je za **s**, **sh**, **ch** in **x** končnica **-es**: **watches** (gleda), **washes** (umiva), **fixes** (popravlja), **misses** (zamudi), zlog več. Tudi **go** in **do** dobita **-es**: **goes** (gre), **does** (dela). **Mr Dixon fixes the gate.** (Gospod Dixon popravlja vrata.) **The bus goes to Keswick twice a day.** (Avtobus vozi v Keswick dvakrat na dan.)",
+          "de": "Wie beim Plural heißt das **-s** nach **s**, **sh**, **ch** und **x** **-es**: **watches** (schaut), **washes** (wäscht), **fixes** (repariert), **misses** (verpasst), eine Silbe mehr. Auch **go** und **do** bekommen **-es**: **goes** (geht), **does** (macht). **Mr Dixon fixes the gate.** (Mr Dixon repariert das Tor.) **The bus goes to Keswick twice a day.** (Der Bus fährt zweimal am Tag nach Keswick.)",
+          "it": "Come nel plurale, dopo **s**, **sh**, **ch** e **x** la **-s** diventa **-es**: **watches** (guarda), **washes** (lava), **fixes** (ripara), **misses** (perde), una sillaba in più. Anche **go** e **do** prendono **-es**: **goes** (va), **does** (fa). **Mr Dixon fixes the gate.** (Mr Dixon ripara il cancello.) **The bus goes to Keswick twice a day.** (L'autobus va a Keswick due volte al giorno.)",
+          "en": "As in the plural, after **s**, **sh**, **ch** and **x** the **-s** is **-es**: **watches**, **washes**, **fixes**, **misses**, one syllable more. **go** and **do** take **-es** too: **goes**, **does**. **Mr Dixon fixes the gate.** **The bus goes to Keswick twice a day.**"
+        },
+        "examples": [
+          { "en": "Mr Dixon fixes the gate.", "sl": "Gospod Dixon popravlja vrata.", "de": "Mr Dixon repariert das Tor.", "it": "Mr Dixon ripara il cancello." },
+          { "en": "The bus goes to Keswick twice a day.", "sl": "Avtobus vozi v Keswick dvakrat na dan.", "de": "Der Bus fährt zweimal am Tag nach Keswick.", "it": "L'autobus va a Keswick due volte al giorno." },
+          { "en": "Meg watches the sheep on the fell.", "sl": "Meg pazi na ovce na hribu.", "de": "Meg passt auf die Schafe am Berg auf.", "it": "Meg sorveglia le pecore sul monte." }
+        ],
+        "rows": [
+          [{ "sl": "za s, sh, ch, x", "de": "nach s, sh, ch, x", "it": "dopo s, sh, ch, x", "en": "after s, sh, ch, x" }, "+ -es", "watches, washes, fixes"],
+          ["go, do", "+ -es", "goes, does"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-simple",
+          "text": "Mrs Birkett ___ the glasses every night. (wash)",
+          "accept": ["washes"],
+          "explain": {
+            "sl": "**wash: za sh -es → washes**\n- watch → watches · fix → fixes · go → goes",
+            "de": "**wash: nach sh -es → washes**\n- watch → watches · fix → fixes · go → goes",
+            "it": "**wash: dopo sh -es → washes**\n- watch → watches · fix → fixes · go → goes",
+            "en": "**wash: -es after sh → washes**\n- watch → watches · fix → fixes · go → goes"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Soglasnik + **y** postane **-ies**: **fly** → **flies** (leti), **carry** → **carries** (nese), **study** → **studies** (študira). Samoglasnik + y doda samo -s: **play** → **plays** (igra), **buy** → **buys** (kupi). **have** pa je **has**: **Auntie Edna has a little radio.** (Teta Edna ima majhen radio.) **Arthur carries his hives up the fell.** (Arthur nese svoje panje na hrib.)",
+          "de": "Ein Konsonant + **y** wird zu **-ies**: **fly** → **flies** (fliegt), **carry** → **carries** (trägt), **study** → **studies** (studiert). Ein Vokal + y bekommt nur -s: **play** → **plays** (spielt), **buy** → **buys** (kauft). Und **have** heißt **has**: **Auntie Edna has a little radio.** (Tante Edna hat ein kleines Radio.) **Arthur carries his hives up the fell.** (Arthur trägt seine Bienenstöcke auf den Berg.)",
+          "it": "Consonante + **y** diventa **-ies**: **fly** → **flies** (vola), **carry** → **carries** (porta), **study** → **studies** (studia). Vocale + y prende solo -s: **play** → **plays** (gioca), **buy** → **buys** (compra). E **have** diventa **has**: **Auntie Edna has a little radio.** (Zia Edna ha una radiolina.) **Arthur carries his hives up the fell.** (Arthur porta le sue arnie sul monte.)",
+          "en": "A consonant + **y** becomes **-ies**: **fly** → **flies**, **carry** → **carries**, **study** → **studies**. A vowel + y just adds -s: **play** → **plays**, **buy** → **buys**. And **have** is **has**: **Auntie Edna has a little radio.** **Arthur carries his hives up the fell.**"
+        },
+        "examples": [
+          { "en": "Arthur carries his hives up the fell in August.", "sl": "Arthur avgusta nese svoje panje na hrib.", "de": "Arthur trägt seine Bienenstöcke im August auf den Berg.", "it": "Ad agosto Arthur porta le sue arnie sul monte." },
+          { "en": "Harry plays football on the square.", "sl": "Harry igra nogomet na trgu.", "de": "Harry spielt auf dem Platz Fußball.", "it": "Harry gioca a calcio in piazza." },
+          { "en": "Auntie Edna has a little radio.", "sl": "Teta Edna ima majhen radio.", "de": "Tante Edna hat ein kleines Radio.", "it": "Zia Edna ha una radiolina." }
+        ],
+        "rows": [
+          [{ "sl": "soglasnik + y", "de": "Konsonant + y", "it": "consonante + y", "en": "consonant + y" }, "y → -ies", "flies, carries, studies"],
+          [{ "sl": "samoglasnik + y", "de": "Vokal + y", "it": "vocale + y", "en": "vowel + y" }, "+ -s", "plays, buys"],
+          ["have", "has", "Edna has a radio."]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-simple",
+          "text": "A bee ___ from flower to flower. (fly)",
+          "accept": ["flies"],
+          "explain": {
+            "sl": "**fly: soglasnik + y → flies**\n- carry → carries · toda play → plays",
+            "de": "**fly: Konsonant + y → flies**\n- carry → carries · aber play → plays",
+            "it": "**fly: consonante + y → flies**\n- carry → carries · ma play → plays",
+            "en": "**fly: a consonant + y → flies**\n- carry → carries · but play → plays"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**present simple** je za navade in dejstva: **Bees make honey.** (Čebele delajo med.) **It rains a lot in the Lakes.** (V Jezerskem okrožju veliko dežuje.) Kako pogosto, poveš na koncu: **every day** (vsak dan), **every morning** (vsako jutro), **on Saturdays** (ob sobotah), **in the evening** (zvečer), **twice a day** (dvakrat na dan). Angleščina vedno pove, kdo: **It rains.**, nikoli *Rains.*; **She works at the inn.** (Dela v gostilni.)",
+          "de": "Das **present simple** ist für Gewohnheiten und Tatsachen: **Bees make honey.** (Bienen machen Honig.) **It rains a lot in the Lakes.** (Im Lake District regnet es viel.) Wie oft, steht am Ende: **every day** (jeden Tag), **every morning** (jeden Morgen), **on Saturdays** (samstags), **in the evening** (abends), **twice a day** (zweimal am Tag). Englisch sagt immer, wer: **It rains.** (Es regnet.), nie *Rains.*; **She works at the inn.** (Sie arbeitet im Gasthaus.)",
+          "it": "Il **present simple** è per le abitudini e i fatti: **Bees make honey.** (Le api fanno il miele.) **It rains a lot in the Lakes.** (Nel Lake District piove molto.) Quanto spesso, lo dici alla fine: **every day** (ogni giorno), **every morning** (ogni mattina), **on Saturdays** (il sabato), **in the evening** (la sera), **twice a day** (due volte al giorno). L'inglese dice sempre chi: **It rains.** (Piove.), mai *Rains.*; **She works at the inn.** (Lavora alla locanda.)",
+          "en": "The present simple is for habits and facts: **Bees make honey.** **It rains a lot in the Lakes.** Say how often at the end: **every day**, **every morning**, **on Saturdays**, **in the evening**, **twice a day**. And English always says who: **It rains.**, never *Rains.*; **She works at the inn.**, never *Works at the inn.*"
+        },
+        "examples": [
+          { "en": "Bees make honey.", "sl": "Čebele delajo med.", "de": "Bienen machen Honig.", "it": "Le api fanno il miele." },
+          { "en": "It rains a lot in the Lake District.", "sl": "V Jezerskem okrožju veliko dežuje.", "de": "Im Lake District regnet es viel.", "it": "Nel Lake District piove molto." },
+          { "en": "Mrs Birkett works at the inn every day.", "sl": "Gospa Birkett vsak dan dela v gostilni.", "de": "Mrs Birkett arbeitet jeden Tag im Gasthaus.", "it": "Mrs Birkett lavora alla locanda ogni giorno." }
+        ],
+        "rows": [
+          [{ "sl": "kako pogosto", "de": "wie oft", "it": "quanto spesso", "en": "how often" }, { "sl": "na koncu", "de": "am Ende", "it": "alla fine", "en": "at the end" }, "every day, on Saturdays"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-simple",
+          "prompt": "In the Lake District ___ a lot.",
+          "options": ["it rains", "rains", "it rain"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vedno kdo: it rains**\n- It rains. · It's cold.\n- it = he, she, it: -s",
+            "de": "**Immer ein Subjekt: it rains**\n- It rains. · It's cold.\n- it wie he, she: -s",
+            "it": "**Sempre il soggetto: it rains**\n- It rains. · It's cold.\n- it come he, she: -s",
+            "en": "**Always a subject: it rains**\n- It rains. · It's cold.\n- it as he, she: -s"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**I, you, we, they walk** · **he, she, it walks**: edina končnica je **-s**.\n\n**-es** za s, sh, ch, x in o: **watches**, **fixes**, **goes**, **does** · soglasnik + y → **-ies**: **flies**, **carries** · a **plays**, **buys** · **have** → **has**\n\nNavade in dejstva, kako pogosto na koncu: **Jack walks Meg every morning.** · **Bees make honey.** · **It rains a lot.**",
+      "de": "**I, you, we, they walk** · **he, she, it walks**: die einzige Endung ist **-s**.\n\n**-es** nach s, sh, ch, x und o: **watches**, **fixes**, **goes**, **does** · Konsonant + y → **-ies**: **flies**, **carries** · aber **plays**, **buys** · **have** → **has**\n\nGewohnheiten und Tatsachen, wie oft am Ende: **Jack walks Meg every morning.** · **Bees make honey.** · **It rains a lot.**",
+      "it": "**I, you, we, they walk** · **he, she, it walks**: l'unica desinenza è **-s**.\n\n**-es** dopo s, sh, ch, x e o: **watches**, **fixes**, **goes**, **does** · consonante + y → **-ies**: **flies**, **carries** · ma **plays**, **buys** · **have** → **has**\n\nAbitudini e fatti, quanto spesso alla fine: **Jack walks Meg every morning.** · **Bees make honey.** · **It rains a lot.**",
+      "en": "**I, you, we, they walk** · **he, she, it walks**: the only ending is **-s**.\n\n**-es** after s, sh, ch, x and o: **watches**, **fixes**, **goes**, **does** · a consonant + y → **-ies**: **flies**, **carries** · but **plays**, **buys** · **have** → **has**\n\nHabits and facts, how often at the end: **Jack walks Meg every morning.** · **Bees make honey.** · **It rains a lot.**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "present-simple-1",
+      "title": { "sl": "He, she, it: -s, -es, -ies · On, ona: -s, -es, -ies", "de": "He, she, it: -s, -es, -ies · Er, sie: -s, -es, -ies", "it": "He, she, it: -s, -es, -ies · Lui, lei: -s, -es, -ies", "en": "He, she, it: -s, -es, -ies" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "present-simple",
+          "instruction": { "sl": "Fill in the table · Dopolni tabelo", "de": "Fill in the table · Ergänze die Tabelle", "it": "Fill in the table · Completa la tabella", "en": "Fill in the table" },
+          "prompt": { "sl": "he, she, it · on, ona, ono", "de": "he, she, it · er, sie, es", "it": "he, she, it · lui, lei, esso", "en": "he, she, it" },
+          "columns": [
+            { "sl": "I, they · jaz, oni", "de": "I, they · ich, sie", "it": "I, they · io, loro", "en": "I, they" },
+            { "sl": "he, she · on, ona", "de": "he, she · er, sie", "it": "he, she · lui, lei", "en": "he, she" }
+          ],
+          "rows": [
+            { "label": "walk", "cells": ["walk", "walks"] },
+            { "label": "go", "cells": ["go", { "accept": ["goes"], "hint": "o + ?" }] },
+            { "label": "watch", "cells": ["watch", { "accept": ["watches"], "hint": "ch + ?" }] },
+            { "label": "fix", "cells": ["fix", { "accept": ["fixes"] }] },
+            { "label": "fly", "cells": ["fly", { "accept": ["flies"], "hint": { "sl": "soglasnik + y", "de": "Konsonant + y", "it": "consonante + y", "en": "a consonant + y" } }] },
+            { "label": "play", "cells": ["play", { "accept": ["plays"], "hint": { "sl": "samoglasnik + y", "de": "Vokal + y", "it": "vocale + y", "en": "a vowel + y" } }] },
+            { "label": "have", "cells": ["have", { "accept": ["has"] }] }
+          ],
+          "explain": {
+            "sl": "**he, she: + -s; -es za s, sh, ch, x, o; -ies za soglasnikom + y**\n- walks · goes · watches · flies · plays · has",
+            "de": "**he, she: + -s; -es nach s, sh, ch, x, o; -ies nach Konsonant + y**\n- walks · goes · watches · flies · plays · has",
+            "it": "**he, she: + -s; -es dopo s, sh, ch, x, o; -ies dopo consonante + y**\n- walks · goes · watches · flies · plays · has",
+            "en": "**he, she: + -s; -es after s, sh, ch, x, o; -ies after a consonant + y**\n- walks · goes · watches · flies · plays · has"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "present-simple",
+          "instruction": { "sl": "Sort · -s, -es ali -ies?", "de": "Sort · -s, -es oder -ies?", "it": "Sort · -s, -es o -ies?", "en": "Sort · -s, -es or -ies?" },
+          "columns": [
+            { "label": "+ -s", "words": ["make", "buy"] },
+            { "label": "+ -es", "words": ["wash", "do"] },
+            { "label": "y → -ies", "words": ["carry", "study"] }
+          ],
+          "explain": {
+            "sl": "**makes, buys · washes, does · carries, studies**\n- buy: samoglasnik + y, samo -s",
+            "de": "**makes, buys · washes, does · carries, studies**\n- buy: Vokal + y, nur -s",
+            "it": "**makes, buys · washes, does · carries, studies**\n- buy: vocale + y, solo -s",
+            "en": "**makes, buys · washes, does · carries, studies**\n- buy: a vowel + y, just -s"
+          }
+        }
+      ]
+    },
+    {
+      "id": "present-simple-2",
+      "title": { "sl": "A day in the village · Dan v vasi", "de": "A day in the village · Ein Tag im Dorf", "it": "A day in the village · Una giornata in paese", "en": "A day in the village" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "present-simple",
+          "instruction": { "sl": "Fill in the present simple · Dopolni s sedanjikom", "de": "Fill in the present simple · Ergänze im present simple", "it": "Fill in the present simple · Completa con il present simple", "en": "Fill in the present simple" },
+          "text": "Every morning Shepherd Jack ___ (walk) up the fell with Meg. Granny Maggie ___ (make) scones, and Poppy ___ (carry) them to the inn. Mr Dixon ___ (fix) the gates, and the bus ___ (go) to Keswick twice a day. In the evening the walkers ___ (come) to the inn.",
+          "gaps": [
+            { "accept": ["walks"], "hint": "he → ?" },
+            { "accept": ["makes"] },
+            { "accept": ["carries"], "hint": { "sl": "soglasnik + y", "de": "Konsonant + y", "it": "consonante + y", "en": "a consonant + y" } },
+            { "accept": ["fixes"] },
+            { "accept": ["goes"] },
+            { "accept": ["come"], "hint": { "sl": "the walkers = they", "de": "the walkers = they", "it": "the walkers = they", "en": "the walkers = they" } }
+          ],
+          "bank": true,
+          "distractors": ["carrys", "gos"],
+          "translation": {
+            "sl": "Vsako jutro gre pastir Jack z Meg na hrib. Babica Maggie peče scone, Poppy pa jih nese v gostilno. Gospod Dixon popravlja vrata, avtobus pa vozi v Keswick dvakrat na dan. Zvečer pohodniki pridejo v gostilno.",
+            "de": "Jeden Morgen geht Schäfer Jack mit Meg auf den Berg. Oma Maggie backt Scones, und Poppy trägt sie ins Gasthaus. Mr Dixon repariert die Tore, und der Bus fährt zweimal am Tag nach Keswick. Am Abend kommen die Wanderer ins Gasthaus.",
+            "it": "Ogni mattina il pastore Jack sale sul monte con Meg. Nonna Maggie fa gli scones, e Poppy li porta alla locanda. Mr Dixon ripara i cancelli, e l'autobus va a Keswick due volte al giorno. La sera gli escursionisti vengono alla locanda.",
+            "en": "Every morning Shepherd Jack walks up the fell with Meg. Granny Maggie makes scones, and Poppy carries them to the inn. Mr Dixon fixes the gates, and the bus goes to Keswick twice a day. In the evening the walkers come to the inn."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "present-simple",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Jack's two hundred sheep ___ grass on the fell.",
+          "options": ["eat", "eats", "is eat"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**two hundred sheep: they → eat**\n- the sheep eat · the dog eats",
+            "de": "**two hundred sheep: they → eat**\n- the sheep eat · the dog eats",
+            "it": "**two hundred sheep: they → eat**\n- the sheep eat · the dog eats",
+            "en": "**two hundred sheep: they → eat**\n- the sheep eat · the dog eats"
+          }
+        }
+      ]
+    },
+    {
+      "id": "present-simple-3",
+      "title": { "sl": "Who does it? · Kdo to dela?", "de": "Who does it? · Wer macht es?", "it": "Who does it? · Chi lo fa?", "en": "Who does it?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "present-simple",
+          "instruction": { "sl": "Start with the name in brackets · Začni z imenom v oklepaju", "de": "Start with the name in brackets · Fang mit dem Namen in Klammern an", "it": "Start with the name in brackets · Comincia con il nome tra parentesi", "en": "Start with the name in brackets" },
+          "items": [
+            { "from": "I walk Meg every morning. (Jack)", "accept": ["Jack walks Meg every morning."] },
+            { "from": "We make scones on Saturdays. (Granny Maggie)", "accept": ["Granny Maggie makes scones on Saturdays."] },
+            { "from": "They watch the sheep. (Meg)", "accept": ["Meg watches the sheep."] },
+            { "from": "I go to Keswick on Fridays. (Auntie Edna)", "accept": ["Auntie Edna goes to Keswick on Fridays."] },
+            { "from": "We carry the milk to the inn. (Poppy)", "accept": ["Poppy carries the milk to the inn."] },
+            { "from": "They have a lot of bees. (Arthur)", "accept": ["Arthur has a lot of bees."] }
+          ],
+          "explain": {
+            "sl": "**Ena oseba, he ali she: -s, -es, -ies, has**\n- I walk → Jack walks\n- They have → Arthur has",
+            "de": "**Eine Person, he oder she: -s, -es, -ies, has**\n- I walk → Jack walks\n- They have → Arthur has",
+            "it": "**Una persona, he o she: -s, -es, -ies, has**\n- I walk → Jack walks\n- They have → Arthur has",
+            "en": "**One person, he or she: -s, -es, -ies, has**\n- I walk → Jack walks\n- They have → Arthur has"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-simple",
+          "instruction": { "sl": "Start with the words in brackets · Začni z besedami v oklepaju", "de": "Start with the words in brackets · Fang mit den Wörtern in Klammern an", "it": "Start with the words in brackets · Comincia con le parole tra parentesi", "en": "Start with the words in brackets" },
+          "items": [
+            { "from": "Jack walks to the inn. (Jack and Sam)", "accept": ["Jack and Sam walk to the inn."] },
+            { "from": "Mrs Birkett works every day. (we)", "accept": ["We work every day."] },
+            { "from": "Meg runs to Jack. (the dogs)", "accept": ["The dogs run to Jack."] },
+            { "from": "Arthur buys bread on Saturdays. (I)", "accept": ["I buy bread on Saturdays."] }
+          ],
+          "explain": {
+            "sl": "**I, you, we, they: brez -s**\n- Jack walks → Jack and Sam walk\n- Meg runs → the dogs run",
+            "de": "**I, you, we, they: ohne -s**\n- Jack walks → Jack and Sam walk\n- Meg runs → the dogs run",
+            "it": "**I, you, we, they: senza -s**\n- Jack walks → Jack and Sam walk\n- Meg runs → the dogs run",
+            "en": "**I, you, we, they: no -s**\n- Jack walks → Jack and Sam walk\n- Meg runs → the dogs run"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "present-simple",
+        "instruction": { "sl": "Fill in the present simple · Dopolni s sedanjikom", "de": "Fill in the present simple · Ergänze im present simple", "it": "Fill in the present simple · Completa con il present simple", "en": "Fill in the present simple" },
+        "text": "Mr Tyson ___ (grow) oats by the lake. Every morning Alfie ___ (go) to the field with him. Old Wilf ___ (tell) stories under the oak, and Beekeeper Arthur ___ (watch) his bees. The bees ___ (make) honey.",
+        "gaps": [
+          { "accept": ["grows"] },
+          { "accept": ["goes"] },
+          { "accept": ["tells"] },
+          { "accept": ["watches"] },
+          { "accept": ["make"] }
+        ],
+        "translation": {
+          "sl": "Gospod Tyson ob jezeru goji oves. Alfie gre vsako jutro z njim na njivo. Stari Wilf pod hrastom pripoveduje zgodbe, čebelar Arthur pa pazi na svoje čebele. Čebele delajo med.",
+          "de": "Mr Tyson baut am See Hafer an. Jeden Morgen geht Alfie mit ihm aufs Feld. Der alte Wilf erzählt unter der Eiche Geschichten, und Imker Arthur schaut nach seinen Bienen. Die Bienen machen Honig.",
+          "it": "Mr Tyson coltiva l'avena vicino al lago. Ogni mattina Alfie va al campo con lui. Il vecchio Wilf racconta storie sotto la quercia, e l'apicoltore Arthur sorveglia le sue api. Le api fanno il miele.",
+          "en": "Mr Tyson grows oats by the lake. Every morning Alfie goes to the field with him. Old Wilf tells stories under the oak, and Beekeeper Arthur watches his bees. The bees make honey."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "present-simple",
+        "instruction": { "sl": "Start with the name in brackets · Začni z imenom v oklepaju", "de": "Start with the name in brackets · Fang mit dem Namen in Klammern an", "it": "Start with the name in brackets · Comincia con il nome tra parentesi", "en": "Start with the name in brackets" },
+        "items": [
+          { "from": "I study English in the evening. (Sam)", "accept": ["Sam studies English in the evening."] },
+          { "from": "We wash the cups. (Mrs Birkett)", "accept": ["Mrs Birkett washes the cups."] },
+          { "from": "They have a farm. (Jack)", "accept": ["Jack has a farm."] }
+        ],
+        "explain": {
+          "sl": "**Ena oseba: -s, -es, -ies, has**\n- I study → Sam studies\n- We wash → Mrs Birkett washes",
+          "de": "**Eine Person: -s, -es, -ies, has**\n- I study → Sam studies\n- We wash → Mrs Birkett washes",
+          "it": "**Una persona: -s, -es, -ies, has**\n- I study → Sam studies\n- We wash → Mrs Birkett washes",
+          "en": "**One person: -s, -es, -ies, has**\n- I study → Sam studies\n- We wash → Mrs Birkett washes"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-simple",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Auntie Edna ___ to the radio every evening.",
+        "options": ["listens", "listen", "is listen"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Auntie Edna = she: listens**\n- she listens · brez is",
+          "de": "**Auntie Edna = she: listens**\n- she listens · ohne is",
+          "it": "**Auntie Edna = she: listens**\n- she listens · senza is",
+          "en": "**Auntie Edna = she: listens**\n- she listens · no is"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-simple",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Harry ___ football on the square after school.",
+        "options": ["plays", "plaies", "play"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**play: samoglasnik + y, samo -s → plays**\n- plays · buys · toda carries",
+          "de": "**play: Vokal + y, nur -s → plays**\n- plays · buys · aber carries",
+          "it": "**play: vocale + y, solo -s → plays**\n- plays · buys · ma carries",
+          "en": "**play: a vowel + y, just -s → plays**\n- plays · buys · but carries"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-simple",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "The bus ___ at the inn twice a day.",
+        "options": ["stops", "stop", "stopes"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**The bus = it: stops**\n- it stops · -es samo za s, sh, ch, x, o",
+          "de": "**The bus = it: stops**\n- it stops · -es nur nach s, sh, ch, x, o",
+          "it": "**The bus = it: stops**\n- it stops · -es solo dopo s, sh, ch, x, o",
+          "en": "**The bus = it: stops**\n- it stops · -es only after s, sh, ch, x, o"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: darts at the inn, the walkers come to the inn, misses as an -es verb, sl sprehaja Meg and Jezersko okrožje"
+}
