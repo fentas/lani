@@ -1083,6 +1083,20 @@ course's other writers'):
 | `haben` 🎒 | ich habe (spoken hab), du hast, er hat, wir haben, ihr habt; Hunger and Durst haben, age with sein | sein-haben |
 | `zahlen` 🔢 | null to zwanzig, sechzehn and siebzehn, the tens (dreißig with ß), einundzwanzig (the one first), hundert; eins counting, ein before a noun; Wie viel? Wie viele? | zahlen |
 
+- **A base's prompt has no gap and no umlaut**: a quick question's prompt with a gap and no Markdown is read in Eva's
+  voice as German (`questionLines`), and so is one with ä, ö, ü or ß (the app's check). A prompt per base is a situation
+  ending in a colon ("Stefan meets his friend Florian on the path. Stefan:"), its options whole German phrases; a
+  prompt with a gap is German only ("Wie heißen ___?"); a German word inside a base's prompt goes in „…".
+- **A cue at the end of an intro's quick question**: the answer's sentence is read with the gap filled, and only
+  brackets at its end are left out: "Die ___ sind rot. (Apfel)", "Franz hat ___ Säcke Mehl. (17)". In the sheets the
+  cue stays right after the gap.
+- **Only what came before around a gap**: no verb but sein, haben and heißen conjugated in units 1–6, the subject first
+  (no inversion before `wortstellung`), no masculine article after haben (the accusative is unit 11: eine Katze, ein
+  Pferd, viele Bienen, Hunger, Zeit), places as fixed chunks (im Gasthaus, auf der Alm, zu Hause), never a gap.
+- **du or Sie by a tap**: the grading doesn't see capitals, so sie typed for Sie is right; a choice tells them apart.
+- **A spoken form the grading already takes** (hab, which `same` makes habe) isn't listed in `spoken`: it would be right
+  without its label, and `CourseContentChecks` wants each spoken form labelled. Name it in the intro instead.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
