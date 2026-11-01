@@ -152,5 +152,6 @@ for the child's German):
   (polish-app, docs/plans/05-built/polish-app.md): the bubble asks what is Italian as the read-aloud does
   (`IntroSpeech.learned`: the app's check, or a span of only the intro's own words), so every form she reads in her
   voice is underlined for a tap and opens what the others open (her voice says it); the board, a quick question's why
-  and the summary too. `IntroBoldTapTest`.
+  and the summary too. `IntroBoldTapTest`. QA (`friuli-school-unit` with `LANI_QA_IT_UNIT=riflessivi`, Teo's tablet on
+  its side, slot 1): main's APK underlines mi lavo, ti lavi and Mi chiamo Giulia. but not si lava; this branch's all four.
 
