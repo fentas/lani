@@ -350,6 +350,18 @@ class GradingLanguagesTest {
         assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("dreissig", "dreißig"))
     }
 
+    @Test fun `german present - the e after -t or -d left out, ist for isst and wenn for wann are wrong, gern and gerne one answer`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du arbeitst viel.", "Du arbeitest viel."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du findst das gut.", "Du findest das gut."))
+        assertGraded(Verdict.WRONG, Hint.ENDING, de("Ihr arbeitt.", "Ihr arbeitet."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Opa Sepp ist Speck.", "Opa Sepp isst Speck."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Wenn kommt Opa?", "Wann kommt Opa?"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Ich spiele gerne Karten.", "Ich spiele gern Karten."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Du tanzt gern.", "Du tanzt gerne."))
+        // a slip elsewhere stays one: a letter lost inside a longer stem
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Er nimt ein Glas.", "Er nimmt ein Glas."))
+    }
+
     @Test fun `a german possessive for another is whose, never a slip - mein, dein, sein, ein, kein with any ending`() {
         assertGraded(Verdict.WRONG, Hint.NONE, de("Das ist dein Hund.", "Das ist mein Hund."))
         assertGraded(Verdict.WRONG, Hint.NONE, de("Toni sucht meinen Hammer.", "Toni sucht seinen Hammer."))

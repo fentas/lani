@@ -1,0 +1,948 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "praesens",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🏃",
+  "title": {
+    "de": "Ich spiele, du spielst",
+    "en": "The present: ich spiele, du spielst",
+    "sl": "Sedanjik: ich spiele, du spielst",
+    "it": "Il presente: ich spiele, du spielst"
+  },
+  "goal": {
+    "en": "You can say what people do (ich wohne, du kommst, er arbeitet, wir spielen, ihr kocht, sie lernen) in German's one present, the pronoun always there, and what they like doing: gern.",
+    "sl": "Poveš, kaj kdo dela (ich wohne, du kommst, er arbeitet, wir spielen, ihr kocht, sie lernen), z enim samim nemškim sedanjikom in vedno z zaimkom, in kaj kdo rad počne: gern.",
+    "it": "Sai dire che cosa fa la gente (ich wohne, du kommst, er arbeitet, wir spielen, ihr kocht, sie lernen) con l'unico presente tedesco, sempre con il pronome, e che cosa le piace fare: gern."
+  },
+  "grammar": [
+    "praesens",
+    "du-sie"
+  ],
+  "words": [
+    "wohnen",
+    "kommen",
+    "kochen",
+    "machen",
+    "spielen",
+    "singen",
+    "trinken",
+    "lernen",
+    "arbeiten",
+    "finden",
+    "warten",
+    "tanzen",
+    "reisen",
+    "kaufen",
+    "verkaufen",
+    "erzählen",
+    "reden",
+    "gern",
+    "heute",
+    "viel",
+    "gut",
+    "Deutsch",
+    "die Karte",
+    "die Harmonika",
+    "der Kaffee",
+    "der Most",
+    "der Honig",
+    "die Geschichte",
+    "die Kasnudeln",
+    "der Samstag",
+    "das Glas"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "wer",
+          "en": "who",
+          "sl": "kdo",
+          "it": "chi"
+        },
+        {
+          "de": "Endung",
+          "en": "ending",
+          "sl": "končnica",
+          "it": "desinenza"
+        },
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Most German verbs end in **-en**: **wohnen** (to live), **kommen** (to come), **kochen** (to cook). Take off -en and add the person's ending: **ich wohne** (I live), **du wohnst** (you live), **er wohnt**, **sie wohnt** (he lives, she lives).",
+          "sl": "Večina nemških glagolov se konča na **-en**: **wohnen** (stanovati), **kommen** (priti), **kochen** (kuhati). Odvzemi -en in dodaj končnico osebe: **ich wohne** (stanujem), **du wohnst** (stanuješ), **er wohnt**, **sie wohnt** (on stanuje, ona stanuje).",
+          "it": "Quasi tutti i verbi tedeschi finiscono in **-en**: **wohnen** (abitare), **kommen** (venire), **kochen** (cucinare). Togli -en e aggiungi la desinenza della persona: **ich wohne** (abito), **du wohnst** (abiti), **er wohnt**, **sie wohnt** (lui abita, lei abita)."
+        },
+        "examples": [
+          {
+            "de": "Ich wohne in Villach.",
+            "en": "I live in Villach.",
+            "sl": "Stanujem v Beljaku.",
+            "it": "Abito a Villach."
+          },
+          {
+            "de": "Kathi kocht im Gasthaus.",
+            "en": "Kathi cooks at the Gasthaus.",
+            "sl": "Kathi kuha v gostilni.",
+            "it": "Kathi cucina all'osteria."
+          },
+          {
+            "de": "Stanko, du wohnst im Rosental.",
+            "en": "Stanko, you live in the Rosental.",
+            "sl": "Stanko, ti živiš v Rožu.",
+            "it": "Stanko, tu abiti nel Rosental."
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "-e",
+            "wohne"
+          ],
+          [
+            "du",
+            "-st",
+            "wohnst"
+          ],
+          [
+            "er · sie · es",
+            "-t",
+            "wohnt"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praesens",
+          "prompt": "Stefan ___ Most. (machen)",
+          "options": [
+            "mache",
+            "machst",
+            "macht"
+          ],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "en": "**Stefan is er (he): -t**\n- ich mache · du machst · er macht",
+            "sl": "**Stefan je er (on): -t**\n- ich mache · du machst · er macht",
+            "it": "**Stefan è er (lui): -t**\n- ich mache · du machst · er macht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Two or more: **wir wohnen** (we live), **ihr wohnt** (you live: several people you say du to), **sie wohnen** (they live). The polite **Sie wohnen** (you live) is the same form, with its capital. So **ihr** takes **-t**, as er does: **er spielt** (he plays), **ihr spielt** (you play).",
+          "sl": "Dva ali več: **wir wohnen** (stanujemo), **ihr wohnt** (stanujete: več oseb, ki jih tikaš), **sie wohnen** (stanujejo). Vljudni **Sie wohnen** (stanujete) je ista oblika, z veliko začetnico. **ihr** torej dobi **-t** kot er: **er spielt** (on igra), **ihr spielt** (vi igrate). Dvojine ni.",
+          "it": "Due o più: **wir wohnen** (abitiamo), **ihr wohnt** (abitate), **sie wohnen** (abitano). Il **Sie wohnen** di cortesia (Lei abita) ha la stessa forma, con la maiuscola. Quindi **ihr** prende **-t**, come er: **er spielt** (lui gioca), **ihr spielt** (voi giocate)."
+        },
+        "examples": [
+          {
+            "de": "Wir spielen Karten im Gasthaus.",
+            "en": "We're playing cards at the Gasthaus.",
+            "sl": "V gostilni igramo karte.",
+            "it": "Giochiamo a carte all'osteria."
+          },
+          {
+            "de": "Florian und Toni, ihr singt gut!",
+            "en": "Florian and Toni, you sing well!",
+            "sl": "Florian in Toni, lepo pojeta!",
+            "it": "Florian e Toni, cantate bene!"
+          },
+          {
+            "de": "Wohnen Sie in Graz, Frau Huber?",
+            "en": "Do you live in Graz, Mrs Huber?",
+            "sl": "Ali stanujete v Gradcu, gospa Huber?",
+            "it": "Abita a Graz, signora Huber?"
+          }
+        ],
+        "rows": [
+          [
+            "wir",
+            "-en",
+            "wohnen"
+          ],
+          [
+            "ihr",
+            "-t",
+            "wohnt"
+          ],
+          [
+            "sie · Sie",
+            "-en",
+            "wohnen"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praesens",
+          "text": "Toni und Florian ___ Karten. (spielen)",
+          "accept": [
+            "spielen"
+          ],
+          "hint": "sie → ?",
+          "explain": {
+            "en": "**Toni und Florian are sie (they): -en**\n- wir spielen · ihr spielt · sie spielen",
+            "sl": "**Toni und Florian sta sie (onadva): -en**\n- wir spielen · ihr spielt · sie spielen",
+            "it": "**Toni und Florian sono sie (loro): -en**\n- wir spielen · ihr spielt · sie spielen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The pronoun always stays, as in English: **Ich koche.** (I cook.) And German has one present for now and for every day: **ich koche** is I cook and I'm cooking, never ich bin koche. A question starts with the verb: **Kochst du?** (Are you cooking? Do you cook?)",
+          "sl": "Osebni zaimek vedno ostane, tudi kjer ga slovenščina izpusti: **Ich koche.** (Kuham.), nikoli samo Koche. En sedanjik je za zdaj in za vsak dan: **ich koche** (kuham, zdaj ali vedno). Vprašanje se začne z glagolom: **Kochst du?** (Ali kuhaš?)",
+          "it": "Il pronome resta sempre, anche dove l'italiano lo lascia fuori: **Ich koche.** (Cucino.), mai solo Koche. Un solo presente per adesso e per ogni giorno: **ich koche** (cucino, sto cucinando). La domanda comincia con il verbo: **Kochst du?** (Cucini?)"
+        },
+        "examples": [
+          {
+            "de": "Ich lerne Deutsch.",
+            "en": "I'm learning German.",
+            "sl": "Učim se nemško.",
+            "it": "Imparo il tedesco."
+          },
+          {
+            "de": "Kochst du heute, Oma Resi?",
+            "en": "Are you cooking today, Grandma Resi?",
+            "sl": "Ali danes kuhaš, babica Resi?",
+            "it": "Cucini oggi, nonna Resi?"
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praesens",
+          "prompt": {
+            "en": "I'm cooking. In German:",
+            "sl": "Kuham. Po nemško:",
+            "it": "Sto cucinando. In tedesco:"
+          },
+          "options": [
+            "Ich koche.",
+            "Koche.",
+            "Ich bin koche."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The pronoun stays, with no bin**\n- Ich koche. · I'm cooking. I cook.",
+            "sl": "**Zaimek ostane, brez bin**\n- Ich koche. · Kuham.",
+            "it": "**Il pronome resta, senza bin**\n- Ich koche. · Cucino. Sto cucinando."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A stem in **-t** or **-d** takes an **e** before -st and -t, so the ending is heard: **arbeiten** (to work) → **du arbeitest**, **er arbeitet**, **ihr arbeitet**; **finden** (to find) → **du findest**, **er findet**. **warten** (to wait) too: **du wartest**.",
+          "sl": "Osnova na **-t** ali **-d** dobi pred -st in -t še **e**, da se končnica sliši: **arbeiten** (delati) → **du arbeitest**, **er arbeitet**, **ihr arbeitet**; **finden** (najti) → **du findest**, **er findet**. Tudi **warten** (čakati): **du wartest**.",
+          "it": "Una radice in **-t** o **-d** prende una **e** prima di -st e -t, perché la desinenza si senta: **arbeiten** (lavorare) → **du arbeitest**, **er arbeitet**, **ihr arbeitet**; **finden** (trovare) → **du findest**, **er findet**. Anche **warten** (aspettare): **du wartest**."
+        },
+        "examples": [
+          {
+            "de": "Müller Franz arbeitet in der Mühle.",
+            "en": "Franz the miller works at the mill.",
+            "sl": "Mlinar Franz dela v mlinu.",
+            "it": "Il mugnaio Franz lavora al mulino."
+          },
+          {
+            "de": "Du arbeitest viel, Toni!",
+            "en": "You work a lot, Toni!",
+            "sl": "Veliko delaš, Toni!",
+            "it": "Lavori tanto, Toni!"
+          },
+          {
+            "de": "Wartet ihr? Ich komme!",
+            "en": "Are you waiting? I'm coming!",
+            "sl": "Čakate? Prihajam!",
+            "it": "Aspettate? Arrivo!"
+          }
+        ],
+        "rows": [
+          [
+            "du · -t, -d",
+            "-est",
+            "arbeitest"
+          ],
+          [
+            "er · ihr · -t, -d",
+            "-et",
+            "arbeitet"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praesens",
+          "text": "Du ___ heute viel. (arbeiten)",
+          "accept": [
+            "arbeitest"
+          ],
+          "hint": "arbeit- + e + st",
+          "explain": {
+            "en": "**A stem in -t: du arbeitest, with an e**\n- du arbeitest · er arbeitet · ihr arbeitet",
+            "sl": "**Osnova na -t: du arbeitest, z e**\n- du arbeitest · er arbeitet · ihr arbeitet",
+            "it": "**Radice in -t: du arbeitest, con la e**\n- du arbeitest · er arbeitet · ihr arbeitet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A stem in **-s**, **-ß** or **-z** takes only **-t** with du. You know **du heißt** (you're called) already. So **tanzen** (to dance) → **du tanzt**, **reisen** (to travel) → **du reist**: the same form as er's, **er tanzt**.",
+          "sl": "Osnova na **-s**, **-ß** ali **-z** dobi pri du samo **-t**. **du heißt** (ti je ime) že poznaš. Tako **tanzen** (plesati) → **du tanzt**, **reisen** (potovati) → **du reist**: ista oblika kot pri er, **er tanzt**.",
+          "it": "Una radice in **-s**, **-ß** o **-z** con du prende solo **-t**. **du heißt** (ti chiami) lo conosci già. Così **tanzen** (ballare) → **du tanzt**, **reisen** (viaggiare) → **du reist**: la stessa forma di er, **er tanzt**."
+        },
+        "examples": [
+          {
+            "de": "Tante Mitzi, du tanzt gut!",
+            "en": "Aunt Mitzi, you dance well!",
+            "sl": "Teta Mitzi, lepo plešeš!",
+            "it": "Zia Mitzi, balli bene!"
+          },
+          {
+            "de": "Stefan und Kathi tanzen am Kirchtag.",
+            "en": "Stefan and Kathi dance at the Kirchtag.",
+            "sl": "Stefan in Kathi plešeta na žegnanju.",
+            "it": "Stefan e Kathi ballano alla sagra."
+          }
+        ],
+        "rows": [
+          [
+            "du · -s, -ß, -z",
+            "-t",
+            "tanzt"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praesens",
+          "prompt": "Stefan, du ___ gut! (tanzen)",
+          "options": [
+            "tanzt",
+            "tanzst",
+            "tanze"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A stem in -z: du tanzt, only -t**\n- du heißt · du tanzt · du reist",
+            "sl": "**Osnova na -z: du tanzt, samo -t**\n- du heißt · du tanzt · du reist",
+            "it": "**Radice in -z: du tanzt, solo -t**\n- du heißt · du tanzt · du reist"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**gern** (gladly) after the verb says you like doing it: **Ich spiele gern Karten.** (I like playing cards.) **nicht gern** is the opposite: **Ich koche nicht gern.** (I don't like cooking.) In Germany you also hear **gerne**: both are right.",
+          "sl": "**gern** (rad) za glagolom pove, da nekaj rad počneš: **Ich spiele gern Karten.** ({m:Rad|f:Rada} igram karte.) **nicht gern** je nasprotno: **Ich koche nicht gern.** ({m:Ne kuham rad|f:Ne kuham rada}.) V Nemčiji slišiš tudi **gerne**: oboje je prav.",
+          "it": "**gern** (volentieri) dopo il verbo dice che ti piace farlo: **Ich spiele gern Karten.** (Mi piace giocare a carte.) **nicht gern** è il contrario: **Ich koche nicht gern.** (Non mi piace cucinare.) In Germania si sente anche **gerne**: vanno bene tutti e due."
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp erzählt gern Geschichten.",
+            "en": "Grandpa Sepp likes telling stories.",
+            "sl": "Dedek Sepp rad pripoveduje zgodbe.",
+            "it": "A nonno Sepp piace raccontare storie."
+          },
+          {
+            "de": "Schmied Toni redet nicht gern.",
+            "en": "Toni the smith doesn't like talking.",
+            "sl": "Kovač Toni ne govori rad.",
+            "it": "Al fabbro Toni non piace parlare."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praesens",
+          "prompt": {
+            "en": "Grandpa Sepp likes telling stories:",
+            "sl": "Dedek Sepp rad pripoveduje zgodbe:",
+            "it": "A nonno Sepp piace raccontare storie:"
+          },
+          "options": [
+            "Opa Sepp erzählt gern Geschichten.",
+            "Opa Sepp gern erzählt Geschichten.",
+            "Opa Sepp ist gern erzählt."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**gern comes after the verb**\n- Ich spiele gern Karten. · I like playing cards.",
+            "sl": "**gern stoji za glagolom**\n- Ich spiele gern Karten. · Rad igram karte.",
+            "it": "**gern va dopo il verbo**\n- Ich spiele gern Karten. · Mi piace giocare a carte."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**ich wohne** · **du wohnst** · **er, sie, es wohnt** · **wir wohnen** · **ihr wohnt** · **sie, Sie wohnen**: -e, -st, -t, -en, -t, -en\n\nThe pronoun always stays; one present: **ich koche** is I cook and I'm cooking.\n\n-t, -d: **du arbeitest, er arbeitet** · -s, -ß, -z: **du tanzt** · **Ich spiele gern Karten.**",
+      "sl": "**ich wohne** · **du wohnst** · **er, sie, es wohnt** · **wir wohnen** · **ihr wohnt** · **sie, Sie wohnen**: -e, -st, -t, -en, -t, -en\n\nZaimek vedno ostane; en sedanjik: **ich koche** je kuham, zdaj ali vedno.\n\n-t, -d: **du arbeitest, er arbeitet** · -s, -ß, -z: **du tanzt** · **Ich spiele gern Karten.**",
+      "it": "**ich wohne** · **du wohnst** · **er, sie, es wohnt** · **wir wohnen** · **ihr wohnt** · **sie, Sie wohnen**: -e, -st, -t, -en, -t, -en\n\nIl pronome resta sempre; un solo presente: **ich koche** è cucino e sto cucinando.\n\n-t, -d: **du arbeitest, er arbeitet** · -s, -ß, -z: **du tanzt** · **Ich spiele gern Karten.**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "praesens-1",
+      "title": {
+        "de": "Ich wohne, du wohnst",
+        "en": "I live, you live",
+        "sl": "Jaz stanujem, ti stanuješ",
+        "it": "Io abito, tu abiti"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "praesens",
+          "instruction": {
+            "en": "Ergänze · Fill in the verbs",
+            "sl": "Ergänze · Dopolni glagole",
+            "it": "Ergänze · Completa i verbi"
+          },
+          "prompt": {
+            "en": "kommen, arbeiten (Präsens) · to come, to work",
+            "sl": "kommen, arbeiten (Präsens) · priti, delati",
+            "it": "kommen, arbeiten (Präsens) · venire, lavorare"
+          },
+          "columns": [
+            {
+              "en": "kommen · to come",
+              "sl": "kommen · priti",
+              "it": "kommen · venire"
+            },
+            {
+              "en": "arbeiten · to work",
+              "sl": "arbeiten · delati",
+              "it": "arbeiten · lavorare"
+            }
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "komme",
+                "arbeite"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "kommst"
+                  ],
+                  "hint": "du → -st"
+                },
+                {
+                  "accept": [
+                    "arbeitest"
+                  ],
+                  "hint": "-t + e + st"
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                {
+                  "accept": [
+                    "kommt"
+                  ],
+                  "hint": "er → -t"
+                },
+                {
+                  "accept": [
+                    "arbeitet"
+                  ],
+                  "hint": "-t + e + t"
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "kommen"
+                  ],
+                  "hint": "wir → -en"
+                },
+                "arbeiten"
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "kommt"
+                  ],
+                  "hint": "ihr → -t"
+                },
+                {
+                  "accept": [
+                    "arbeitet"
+                  ],
+                  "hint": "-t + e + t"
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                "kommen",
+                {
+                  "accept": [
+                    "arbeiten"
+                  ],
+                  "hint": "sie → -en"
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-e, -st, -t, -en, -t, -en; after -t an e: du arbeitest**",
+            "sl": "**-e, -st, -t, -en, -t, -en; za -t še e: du arbeitest**",
+            "it": "**-e, -st, -t, -en, -t, -en; dopo -t una e: du arbeitest**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "praesens",
+          "instruction": {
+            "en": "Ordne zu · Who? Sort the verbs",
+            "sl": "Ordne zu · Kdo? Razvrsti glagole",
+            "it": "Ordne zu · Chi? Ordina i verbi"
+          },
+          "columns": [
+            {
+              "label": "ich",
+              "words": [
+                "lerne",
+                "trinke"
+              ]
+            },
+            {
+              "label": "du",
+              "words": [
+                "spielst",
+                "findest"
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "words": [
+                "macht",
+                "wartet"
+              ]
+            },
+            {
+              "label": "wir · sie · Sie",
+              "words": [
+                "kaufen",
+                "singen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ich -e · du -st · er -t · wir, sie -en**",
+            "sl": "**ich -e · du -st · er -t · wir, sie -en**",
+            "it": "**ich -e · du -st · er -t · wir, sie -en**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "praesens-2",
+      "title": {
+        "de": "Samstag im Dorf",
+        "en": "Saturday in the village",
+        "sl": "Sobota v vasi",
+        "it": "Sabato in paese"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "praesens",
+          "instruction": {
+            "en": "Ergänze das Verb · Fill in the verb",
+            "sl": "Ergänze das Verb · Dopolni glagol",
+            "it": "Ergänze das Verb · Completa il verbo"
+          },
+          "title": "Samstag im Dorf",
+          "text": "Es ist Samstag. Kathi ___ (kochen) Kasnudeln. Florian ___ (spielen) Harmonika. Tante Mitzi und Oma Resi ___ (trinken) Kaffee. Opa Sepp ___ (erzählen) eine Geschichte. Ich ___ (lernen) Deutsch. Und du, {learner}? Du ___ (arbeiten) heute nicht!",
+          "gaps": [
+            {
+              "accept": [
+                "kocht"
+              ],
+              "hint": "Kathi = sie → ?"
+            },
+            {
+              "accept": [
+                "spielt"
+              ],
+              "hint": "er → ?"
+            },
+            {
+              "accept": [
+                "trinken"
+              ],
+              "hint": "sie (2) → ?"
+            },
+            {
+              "accept": [
+                "erzählt"
+              ],
+              "hint": "er → ?"
+            },
+            {
+              "accept": [
+                "lerne"
+              ],
+              "hint": "ich → ?"
+            },
+            {
+              "accept": [
+                "arbeitest"
+              ],
+              "hint": "du + -t → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "kochst",
+            "lernt",
+            "arbeitet"
+          ],
+          "translation": {
+            "en": "It's Saturday. Kathi is cooking Kasnudeln. Florian is playing the accordion. Aunt Mitzi and Grandma Resi are drinking coffee. Grandpa Sepp is telling a story. I'm learning German. And you, {learner}? You're not working today!",
+            "sl": "Sobota je. Kathi kuha Kasnudeln. Florian igra harmoniko. Teta Mitzi in babica Resi pijeta kavo. Dedek Sepp pripoveduje zgodbo. Učim se nemško. Pa ti, {learner}? Danes ne delaš!",
+            "it": "È sabato. Kathi cucina i Kasnudeln. Florian suona la fisarmonica. Zia Mitzi e nonna Resi bevono il caffè. Nonno Sepp racconta una storia. Io imparo il tedesco. E tu, {learner}? Oggi non lavori!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praesens",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi und Stefan, ihr ___ gut! (tanzen)",
+          "options": [
+            "tanzt",
+            "tanzen",
+            "tanzst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ihr → -t: ihr tanzt**",
+            "sl": "**ihr → -t: ihr tanzt**",
+            "it": "**ihr → -t: ihr tanzt**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praesens",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Herr Franz, ___ Sie in Villach? (wohnen)",
+          "options": [
+            "wohnen",
+            "wohnst",
+            "wohnt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Sie (polite) takes -en, as sie (they)**\n- Wohnen Sie in Villach? · Do you live in Villach?",
+            "sl": "**Sie (vljudno) dobi -en, kot sie (oni)**\n- Wohnen Sie in Villach? · Ali stanujete v Beljaku?",
+            "it": "**Sie (di cortesia) prende -en, come sie (loro)**\n- Wohnen Sie in Villach? · Abita a Villach?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "praesens-3",
+      "title": {
+        "de": "Wer macht was?",
+        "en": "Who does what?",
+        "sl": "Kdo kaj dela?",
+        "it": "Chi fa che cosa?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "praesens",
+          "instruction": {
+            "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+            "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+            "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich wohne in Villach. (wir)",
+              "accept": [
+                "Wir wohnen in Villach."
+              ],
+              "hint": "wir → -en"
+            },
+            {
+              "from": "Du kochst gut. (Kathi)",
+              "accept": [
+                "Kathi kocht gut."
+              ],
+              "hint": "Kathi = sie → -t"
+            },
+            {
+              "from": "Er arbeitet viel. (du)",
+              "accept": [
+                "Du arbeitest viel."
+              ],
+              "hint": "du → -est"
+            },
+            {
+              "from": "Wir spielen Karten. (ihr)",
+              "accept": [
+                "Ihr spielt Karten."
+              ],
+              "hint": "ihr → -t"
+            },
+            {
+              "from": "Ich lerne Deutsch. (Florian und Toni)",
+              "accept": [
+                "Florian und Toni lernen Deutsch."
+              ],
+              "hint": "sie (2) → -en"
+            },
+            {
+              "from": "Sie tanzt gern. (du)",
+              "accept": [
+                "Du tanzt gern."
+              ],
+              "hint": "du + -z → -t"
+            },
+            {
+              "from": "Ich finde das gut. (er)",
+              "accept": [
+                "Er findet das gut."
+              ],
+              "hint": "er + -d → -et"
+            },
+            {
+              "from": "Kommst du aus Graz? (Sie)",
+              "accept": [
+                "Kommen Sie aus Graz?"
+              ],
+              "hint": "Sie → -en"
+            }
+          ]
+        },
+        {
+          "type": "cloze",
+          "grammar": "praesens",
+          "instruction": {
+            "en": "Ergänze das Verb · Fill in the verb",
+            "sl": "Ergänze das Verb · Dopolni glagol",
+            "it": "Ergänze das Verb · Completa il verbo"
+          },
+          "text": "Florian und Stefan, ihr ___ heute? (arbeiten)",
+          "accept": [
+            "arbeitet"
+          ],
+          "hint": "ihr + -t → ?",
+          "explain": {
+            "en": "**ihr with a stem in -t: ihr arbeitet**\n- er arbeitet · ihr arbeitet",
+            "sl": "**ihr pri osnovi na -t: ihr arbeitet**\n- er arbeitet · ihr arbeitet",
+            "it": "**ihr con una radice in -t: ihr arbeitet**\n- er arbeitet · ihr arbeitet"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "praesens",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "prompt": {
+          "en": "warten (Präsens) · to wait",
+          "sl": "warten (Präsens) · čakati",
+          "it": "warten (Präsens) · aspettare"
+        },
+        "columns": [
+          {
+            "en": "warten · to wait",
+            "sl": "warten · čakati",
+            "it": "warten · aspettare"
+          }
+        ],
+        "rows": [
+          {
+            "label": "ich",
+            "cells": [
+              "warte"
+            ]
+          },
+          {
+            "label": "du",
+            "cells": [
+              {
+                "accept": [
+                  "wartest"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "er · sie · es",
+            "cells": [
+              {
+                "accept": [
+                  "wartet"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "wir",
+            "cells": [
+              {
+                "accept": [
+                  "warten"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "ihr",
+            "cells": [
+              {
+                "accept": [
+                  "wartet"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "sie · Sie",
+            "cells": [
+              "warten"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "praesens",
+        "instruction": {
+          "en": "Ergänze das Verb · Fill in the verb",
+          "sl": "Ergänze das Verb · Dopolni glagol",
+          "it": "Ergänze das Verb · Completa il verbo"
+        },
+        "title": "Beim Bienenhaus",
+        "text": "Imker Stanko ___ (wohnen) im Rosental. Er ___ (verkaufen) Honig. Kathi und Toni ___ (kaufen) zwei Gläser. Und du? ___ (tanzen) du am Kirchtag?",
+        "gaps": [
+          {
+            "accept": [
+              "wohnt"
+            ]
+          },
+          {
+            "accept": [
+              "verkauft"
+            ]
+          },
+          {
+            "accept": [
+              "kaufen"
+            ]
+          },
+          {
+            "accept": [
+              "Tanzt"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Stanko the beekeeper lives in the Rosental. He sells honey. Kathi and Toni buy two jars. And you? Are you dancing at the Kirchtag?",
+          "sl": "Čebelar Stanko živi v Rožu. Prodaja med. Kathi in Toni kupita dva kozarca. Pa ti? Ali plešeš na žegnanju?",
+          "it": "L'apicoltore Stanko abita nel Rosental. Vende il miele. Kathi e Toni comprano due vasetti. E tu? Balli alla sagra?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "praesens",
+        "instruction": {
+          "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+          "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+          "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich koche heute. (du)",
+            "accept": [
+              "Du kochst heute."
+            ]
+          },
+          {
+            "from": "Wir warten hier. (er)",
+            "accept": [
+              "Er wartet hier."
+            ]
+          },
+          {
+            "from": "Du spielst Harmonika. (ihr)",
+            "accept": [
+              "Ihr spielt Harmonika."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "praesens",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "I'm learning German. In German:",
+          "sl": "Učim se nemško. Po nemško:",
+          "it": "Imparo il tedesco. In tedesco:"
+        },
+        "options": [
+          "Ich lerne Deutsch.",
+          "Lerne Deutsch.",
+          "Ich bin lerne Deutsch."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The pronoun stays; one present**\n- Ich lerne Deutsch. · I'm learning German.",
+          "sl": "**Zaimek ostane; en sedanjik**\n- Ich lerne Deutsch. · Učim se nemško.",
+          "it": "**Il pronome resta; un solo presente**\n- Ich lerne Deutsch. · Imparo il tedesco."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Kasnudeln, Harmonika, gern/gerne, «Wohnen Sie in Graz?», «Ich finde das gut», «Es ist Samstag»"
+}
