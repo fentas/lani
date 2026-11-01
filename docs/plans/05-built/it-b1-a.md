@@ -127,7 +127,8 @@ Slovene and English translations (otroci so že odšli, naredila čarovnijo, pre
 - **The bridge**: `bunx tsc --noEmit -p .` clean; `tutor-export` rewrote the fix topic and the index, and `--check`:
   89 files match the bridge (54 tools, 32 guide topics); the smoke (`LANI_SMOKE_PORT=9530 LANI_SMOKE_DRAMA3_PORT=9548`): 3,251 checks passed,
   1 failed, "POST /words: the tutor hears the words added, gathered in one line", the check that fails under load
-  (polish-app's item in this wave), nothing of the course. Its course section validates every Italian unit, page and
+  (polish-app's item in this wave), nothing of the course; after the rebase onto main (with sl-b2-c and the new
+  `spoken` key) all 3,255 checks passed. Its course section validates every Italian unit, page and
   the outline (written units with their files, the pages they name in the book), its friuli section serves the course
   in the outline's order, and course-speech has Maestra Elena read the Italian of the German explanations, never the
   German.
@@ -137,7 +138,7 @@ Slovene and English translations (otroci so že odšli, naredila čarovnijo, pre
   `SchoolBoardTest` 5 (the blackboard writes every letter of B1's titles and forms), `CourseContentTest` 4,
   `CourseTest` 8, `GrammarTest` 16, `SchoolRevealTest` 10, `IntroSpeechTest` 9, `IntroSpeechParityTest` 2,
   `GameIntroSpeechTest` 7. The full suite (`testDebugUnitTest` through lani-slot.sh): 3,630 tests in 462
-  classes, none failed (2 skipped).
+  classes, none failed (2 skipped); after the rebase 3,631, none failed (2 skipped), `SheetsTest` 15 among them.
 - **Python**: `python3 -m unittest discover -s tests` 251 OK; `-s companion/tests` 138 OK (11 skipped).
 
 ## QA (emulator, `companion/bin/qa-slot`)
