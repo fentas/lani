@@ -72,7 +72,7 @@
       {
         "say": {
           "de": "Verben mit **essere** im passato prossimo nehmen auch hier **essere**: **ero**, **eri**, **era**, **eravamo**, **eravate**, **erano**. Das Partizip passt sich an, wie du es kennst: **Giulia era già partita.** (Giulia war schon abgefahren.) **I bambini erano usciti.** (Die Kinder waren hinausgegangen.)",
-          "sl": "Glagoli, ki imajo v passato prossimo **essere**, ga imajo tudi tu: **ero**, **eri**, **era**, **eravamo**, **eravate**, **erano**. Deležnik se ujema, kot že poznaš: **Giulia era già partita.** (Giulia je že odšla.) **I bambini erano usciti.** (Otroci so bili že šli ven.)",
+          "sl": "Glagoli, ki imajo v passato prossimo **essere**, ga imajo tudi tu: **ero**, **eri**, **era**, **eravamo**, **eravate**, **erano**. Deležnik se ujema, kot že poznaš: **Giulia era già partita.** (Giulia je že odšla.) **I bambini erano usciti.** (Otroci so že odšli ven.)",
           "en": "Verbs that take **essere** in the passato prossimo take it here too: **ero**, **eri**, **era**, **eravamo**, **eravate**, **erano**. The participle agrees, as you know: **Giulia era già partita.** (Giulia had already left.) **I bambini erano usciti.** (The children had gone out.)"
         },
         "examples": [
@@ -103,7 +103,7 @@
           { "it": "Tommaso era stanco perché aveva giocato a calcio tutto il pomeriggio.", "de": "Tommaso war müde, weil er den ganzen Nachmittag Fußball gespielt hatte.", "sl": "Tommaso je bil utrujen, ker je ves popoldan igral nogomet.", "en": "Tommaso was tired because he had played football all afternoon." }
         ],
         "ask": {
-          "type": "cloze", "grammar": "trapassato", "text": "Prima di quel giorno, Giulia non ___ mai visto un riccio.", "accept": ["aveva"], "hint": { "de": "sie hatte", "sl": "ona (avere, imperfetto)", "en": "she had" },
+          "type": "cloze", "grammar": "trapassato", "text": "Prima di quel giorno, Giulia non ___ mai visto un riccio.", "accept": ["aveva"], "hint": "lei → ?",
           "explain": {
             "de": "**prima di quel giorno** → was davor war: **non aveva mai visto**",
             "sl": "**prima di quel giorno** → kar je bilo pred tem: **non aveva mai visto**",
@@ -159,7 +159,7 @@
         {
           "type": "sort", "grammar": "trapassato", "instruction": { "de": "Aveva o era? · Aveva oder era?", "sl": "Aveva o era? · Aveva ali era?", "en": "Aveva o era? · Aveva or era?" },
           "columns": [
-            { "label": { "de": "aveva … · hatte …", "sl": "aveva … · avere", "en": "aveva … · had …" }, "words": ["mangiato", "finito", "dimenticato", "trovato"] },
+            { "label": { "de": "aveva … · hatte …", "sl": "aveva … · avere", "en": "aveva … · had …" }, "words": ["mangiato", "visto", "dimenticato", "trovato"] },
             { "label": { "de": "era … · war …", "sl": "era … · essere", "en": "era … · had … (essere)" }, "words": ["partito", "arrivato", "uscito", "scappato"] }
           ],
           "explain": {
@@ -195,11 +195,11 @@
           }
         },
         {
-          "type": "choice", "grammar": "trapassato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Quando siamo arrivati alla stazione, il treno ___ già partito.", "options": ["era", "aveva", "è"], "answer": 0, "say_options": true,
+          "type": "choice", "grammar": "trapassato", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Quando Tommaso è arrivato alla fermata, l'autobus ___ già partito.", "options": ["era", "aveva", "è"], "answer": 0, "say_options": true,
           "explain": {
             "de": "**partire** → essere: **era partito**, vor dem Ankommen\n- aveva · partire nimmt essere\n- è · passato prossimo: nicht vorher",
             "sl": "**partire** → essere: **era partito**, pred prihodom\n- aveva · partire ima essere\n- è · passato prossimo: ni prej",
-            "en": "**partire** → essere: **era partito**, before we arrived\n- aveva · partire takes essere\n- è · passato prossimo: not before"
+            "en": "**partire** → essere: **era partito**, before Tommaso arrived\n- aveva · partire takes essere\n- è · passato prossimo: not before"
           }
         }
       ]
@@ -212,7 +212,7 @@
           "type": "transform", "grammar": "trapassato", "instruction": { "de": "Metti al trapassato · Setz ins trapassato", "sl": "Metti al trapassato · Postavi v trapassato", "en": "Metti al trapassato · Put it in the trapassato" },
           "items": [
             { "from": "Moro ha mangiato.", "accept": ["Moro aveva mangiato."] },
-            { "from": "Hai dimenticato la chiave.", "accept": ["Avevi dimenticato la chiave."], "hint": "hai → avevi" },
+            { "from": "Hai dimenticato la chiave.", "accept": ["Avevi dimenticato la chiave."], "hint": { "de": "avere im imperfetto", "sl": "avere v imperfettu", "en": "avere in the imperfetto" } },
             { "from": "Davide ha chiuso il cancello.", "accept": ["Davide aveva chiuso il cancello."] },
             { "from": "Giulia è partita.", "accept": ["Giulia era partita."] },
             { "from": "Le pecore sono scappate.", "accept": ["Le pecore erano scappate."] },
@@ -235,7 +235,7 @@
         "type": "gaptext", "grammar": "trapassato", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
         "text": "Domenica Giulia è andata dalla nonna. Quando è arrivata, Tommaso ___ già mangiato tutta la torta! Allora è andata al mulino, ma Lorenzo ___ già uscito con il nonno. Quando sono arrivati gli zii, Nonna Rosa ___ già cucinato il pranzo. E quando Nonno Bepi è tornato, Moro si ___ già addormentato sotto il tavolo.",
         "gaps": [
-          { "accept": ["aveva"], "hint": { "de": "er hatte", "sl": "on (avere)", "en": "he had" } },
+          { "accept": ["aveva"] },
           { "accept": ["era"] },
           { "accept": ["aveva"] },
           { "accept": ["era"] }

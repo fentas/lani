@@ -191,7 +191,7 @@
             { "label": "andare", "cells": ["andò", { "accept": ["andarono"] }] },
             { "label": "arrivare", "cells": [{ "accept": ["arrivò"] }, "arrivarono"] },
             { "label": "cantare", "cells": [{ "accept": ["cantò"] }, { "accept": ["cantarono"] }] },
-            { "label": "partire", "cells": ["partì", { "accept": ["partirono"], "hint": "-irono" }] },
+            { "label": "partire", "cells": ["partì", { "accept": ["partirono"], "hint": "andarono · partire → ?" }] },
             { "label": "dormire", "cells": [{ "accept": ["dormì"] }, "dormirono"] }
           ]
         },
@@ -221,20 +221,20 @@
           "type": "gaptext", "grammar": "passato-remoto", "instruction": { "de": "Completa con il passato remoto · Ergänze mit dem passato remoto", "sl": "Completa con il passato remoto · Dopolni s passato remoto", "en": "Completa con il passato remoto · Fill in with the passato remoto" }, "title": "Le Agane del torrente",
           "text": "C'era una volta una bambina che si chiamava Mina. Un giorno Mina ___ al torrente a prendere l'acqua. All'improvviso dall'acqua ___ tre Agane con i capelli lunghi. «Chi sei?» ___ la più vecchia. Mina ___ subito paura, ma rispose: «Sono Mina.» Allora le Agane ___ una canzone. La più piccola ___ una magia: un pettine d'oro! Poi Mina ___ a casa felice, e il pettine ___ sempre nei suoi capelli.",
           "gaps": [
-            { "accept": ["andò"], "hint": { "de": "andare, sie", "sl": "andare, ona", "en": "andare, she" } },
-            { "accept": ["uscirono"], "hint": { "de": "uscire, loro", "sl": "uscire, loro", "en": "uscire, loro" } },
-            { "accept": ["disse"], "hint": { "de": "dire, sie", "sl": "dire, ona", "en": "dire, she" } },
+            { "accept": ["andò", "tornò"], "hint": { "de": "andare, sie", "sl": "andare, ona", "en": "andare, she" } },
+            { "accept": ["uscirono", "vennero", "arrivarono"], "hint": { "de": "uscire, loro", "sl": "uscire, loro", "en": "uscire, loro" } },
+            { "accept": ["disse", "chiese"], "hint": { "de": "dire, sie", "sl": "dire, ona", "en": "dire, she" } },
             { "accept": ["ebbe"], "hint": { "de": "avere, sie", "sl": "avere, ona", "en": "avere, she" } },
             { "accept": ["cantarono"], "hint": { "de": "cantare, loro", "sl": "cantare, loro", "en": "cantare, loro" } },
             { "accept": ["fece"], "hint": { "de": "fare, sie", "sl": "fare, ona", "en": "fare, she" } },
-            { "accept": ["tornò"], "hint": { "de": "tornare, sie", "sl": "tornare, ona", "en": "tornare, she" } },
+            { "accept": ["tornò", "andò"], "hint": { "de": "tornare, sie", "sl": "tornare, ona", "en": "tornare, she" } },
             { "accept": ["restò", "rimase"], "hint": { "de": "restare, er", "sl": "restare, on", "en": "restare, it" } }
           ],
           "bank": true,
           "distractors": ["parlo", "andrò"],
           "translation": {
             "de": "Es war einmal ein Mädchen, das hieß Mina. Eines Tages ging Mina zum Bach, um Wasser zu holen. Plötzlich kamen drei Aganen mit langen Haaren aus dem Wasser. „Wer bist du?“, sagte die älteste. Mina bekam gleich Angst, aber sie antwortete: „Ich bin Mina.“ Da sangen die Aganen ein Lied. Die kleinste zauberte: einen goldenen Kamm! Dann ging Mina glücklich nach Hause, und der Kamm blieb für immer in ihren Haaren.",
-            "sl": "Nekoč je živela deklica, ki ji je bilo ime Mina. Nekega dne je šla Mina k potoku po vodo. Nenadoma so iz vode prišle tri Agane z dolgimi lasmi. »Kdo si?« je rekla najstarejša. Mina se je takoj ustrašila, a je odgovorila: »Mina sem.« Tedaj so Agane zapele pesem. Najmlajša je začarala zlat glavnik! Potem se je Mina srečna vrnila domov, glavnik pa je za vedno ostal v njenih laseh.",
+            "sl": "Nekoč je živela deklica, ki ji je bilo ime Mina. Nekega dne je šla Mina k potoku po vodo. Nenadoma so iz vode prišle tri Agane z dolgimi lasmi. »Kdo si?« je rekla najstarejša. Mina se je takoj ustrašila, a je odgovorila: »Mina sem.« Tedaj so Agane zapele pesem. Najmlajša je naredila čarovnijo: zlat glavnik! Potem se je Mina srečna vrnila domov, glavnik pa je za vedno ostal v njenih laseh.",
             "en": "Once upon a time there was a girl called Mina. One day Mina went to the stream to fetch water. Suddenly three Agane with long hair came out of the water. \"Who are you?\" said the eldest. Mina was frightened at once, but she answered: \"I'm Mina.\" Then the Agane sang a song. The youngest cast a spell: a golden comb! Then Mina went home happy, and the comb stayed in her hair for ever."
           }
         },
