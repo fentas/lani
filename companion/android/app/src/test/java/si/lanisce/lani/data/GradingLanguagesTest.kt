@@ -180,8 +180,12 @@ class GradingLanguagesTest {
         for ((answer, right) in listOf(
             "leggando" to "leggendo", "dormando" to "dormendo", "bevando" to "bevendo", "parlendo" to "parlando",
             "camminendo" to "camminando", "guardendolo" to "guardandolo", "farendo" to "facendo", "direndo" to "dicendo",
-            "berendo" to "bevendo",
+            "berendo" to "bevendo", "avvicinendosi" to "avvicinandosi", "giochendo" to "giocando", "spingando" to "spingendo",
+            // li for gli on its end: another pronoun, never a slip
+            "dicendoli" to "dicendogli",
         )) assertEquals("«$answer» for «$right»", Verdict.WRONG, it(answer, right).verdict)
+        assertGraded(Verdict.CORRECT, Hint.NONE, it("dicendoli", "dicendoli"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("gaurdandoli", "guardandoli"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, it("legendo", "leggendo"))
         assertGraded(Verdict.CORRECT, Hint.NONE, it("camminando", "Camminando"))
     }
