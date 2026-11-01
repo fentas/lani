@@ -133,6 +133,18 @@ class ReadingsTest {
         assertEquals(listOf("burja"), lib.filter { it.level == "A2" && it.id !in Cultures.load("primorska").readings }.map { it.id })
     }
 
+    @Test fun `the Lake District's corner has four newer readings, every question type and new words in each, its first B1`() {
+        val lib = Cultures.library("lakeland")
+        val newer = listOf("a-letter-from-keswick", "mrs-heelis-farms", "rushbearing-day", "the-shepherds-meet")
+        // the chest's five, and the corner's own (stories-lakeland)
+        assertEquals(newer, lib.filter { it.id !in Cultures.load("lakeland").readings }.map { it.id }.sorted())
+        for (r in lib.filter { it.id in newer }) {
+            assertEquals(r.id, Readings.QUESTION_TYPES.toSet(), r.questions.mapNotNull { it.type }.toSet())
+            assertTrue(r.id, r.words.size in 4..Readings.MAX_WORDS && r.machineWritten == true)
+        }
+        assertEquals(listOf("mrs-heelis-farms"), lib.filter { it.level == "B1" }.map { it.id })
+    }
+
     @Test fun `a reading's length is its words to read, and about how long they take at its level`() {
         val frtalja = Cultures.load("primorska").readings.getValue("frtalja")
         val words = Readings.length(frtalja, si.lanisce.lani.l10n.Lang.SL)

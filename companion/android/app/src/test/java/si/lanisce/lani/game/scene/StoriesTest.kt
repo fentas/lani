@@ -313,10 +313,16 @@ class StoriesTest {
             listOf(
                 "the-borrowdale-cuckoo", "the-bowder-stone", "the-lady-of-the-lake", "the-giants-grave", "the-hob",
                 "the-crier-of-claife", "long-meg-and-her-daughters", "the-luck-of-edenhall", "king-dunmails-crown", "tom-fool-of-muncaster",
+                // stories-lakeland: six more, as many as Janez tells
+                "the-lambton-worm", "the-kings-of-mardale", "the-black-lead-of-borrowdale", "the-herdwicks", "mrs-heelis-of-hill-top", "the-rushbearing",
             ),
             his.map { it.id },
         )
         assertTrue(his.all { it.language == "en" && "A1" in it.levelsTold && "A2" in it.levelsTold })
+        // the ten older ones heard, the six newer ones come in their order: the Lambton Worm first
+        val ten = his.take(10).associate { it.id to StoryHeard(told = 1, level = "A1") }
+        assertEquals("the-lambton-worm", Stories.tonight(his, ten, "A1")!!.story.id)
+        assertEquals("A2", Stories.tonight(his, ten, "A2")!!.level)
         val file = obj(File(companion, "cultures/lakeland/stories/the-borrowdale-cuckoo.json"))
         val line = file["levels"]!!.jsonObject["A1"]!!.jsonObject["lines"]!!.jsonArray.first().jsonObject
         val t = Stories.tonight(his, emptyMap(), "A1")!!

@@ -134,10 +134,17 @@ export default async function lakeland() {
     // the campfire: Old Wilf tells his stories there in the evening, in English
     const fire = scenes.find((s: any) => s.id === 'by-the-fire')
     check(
-      'lakeland: Old Wilf tells his ten stories by the fire, in English, with their words',
-      fire?.culture === 'lakeland' && fire.art === 'campfire' && fire.stories?.length === 10 && fire.stories.every((s: any) => s.teller === 'wilf' && s.language === 'en' && s.culture === 'lakeland') &&
+      'lakeland: Old Wilf tells his sixteen stories by the fire, as many as Janez, in English, with their words',
+      fire?.culture === 'lakeland' && fire.art === 'campfire' && fire.stories?.length === 16 && fire.stories.every((s: any) => s.teller === 'wilf' && s.language === 'en' && s.culture === 'lakeland') &&
         fire.stories[0].words.every((w: any) => LANGS.every(k => w[k])) && scenes.filter((s: any) => s.id !== 'by-the-fire').every((s: any) => !s.stories),
       fire && { stories: fire.stories?.map((s: any) => [s.id, s.teller]) },
+    )
+    check(
+      "lakeland: the six new tales come after Tom Fool, their words the yarns pack's, meant in every base",
+      JSON.stringify(fire?.stories?.slice(10).map((s: any) => s.id)) ===
+        JSON.stringify(['the-lambton-worm', 'the-kings-of-mardale', 'the-black-lead-of-borrowdale', 'the-herdwicks', 'mrs-heelis-of-hill-top', 'the-rushbearing']) &&
+        fire.stories.slice(10).every((s: any) => s.pack === 'yarns' && s.words.length >= 4 && s.words.every((w: any) => LANGS.every(k => w[k]))),
+      fire?.stories?.slice(10).map((s: any) => [s.id, s.pack, s.words?.length]),
     )
 
     // --- the tutor is told about the village ----------------------------------------------------------
