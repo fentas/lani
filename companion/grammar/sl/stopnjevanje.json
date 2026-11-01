@@ -1,0 +1,127 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "stopnjevanje",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "📈",
+  "title": {
+    "sl": "Tako … kot, čim prej, bolj ko …: stopnjevanje",
+    "en": "As … as, as soon as possible, the more …: comparing in full",
+    "de": "So … wie, so bald wie möglich, je mehr …: vergleichen",
+    "it": "Tanto … quanto, al più presto, più … più: il confronto"
+  },
+  "rule": {
+    "en": "Beyond **lepši** and **najlepši** (the page *primernik*):\n\n**The same:** **tako … kot** (**kakor**), **enako … kot**: **Luka je tako visok kot Marko.** Not as … as: **ni tako … kot**.\n\n**How much more:** **veliko**, **dosti**, **precej**, **še** (even), **malo** + the comparative: **veliko lepši**, **še boljši**. Than: **kot**, or **od** + the genitive: **višji od Luke**. Less: **manj drag**.\n\n**More and more:** **čedalje**, **vedno**, **vse** + the comparative: **čedalje krajši**. **As … as possible:** **čim prej**, **čim več**; **kar se da hitro**.\n\n**The more …, the more:** **bolj ko …, bolj …**; in writing **čim …, tem …**: **Čim višje greš, tem lepši je razgled.**\n\n**The most of:** **naj-** + **izmed** or **od** + the genitive: **najlepša izmed vseh**. **Too:** **pre-** (**prevelik**) or **preveč**; **zelo** is only very.\n\nHeard too: **bolši** (standard **boljši**), **bolj in bolj** (standard **čedalje bolj**): spoken, right too.",
+    "de": "Über **lepši** und **najlepši** hinaus (die Seite *primernik*):\n\n**Gleich:** **tako … kot** (**kakor**), **enako … kot**: **Luka je tako visok kot Marko.** Nicht so … wie: **ni tako … kot**.\n\n**Wie viel mehr:** **veliko**, **dosti**, **precej**, **še** (noch), **malo** + Komparativ: **veliko lepši**, **še boljši**. Als: **kot**, oder **od** + Genitiv: **višji od Luke**. Weniger: **manj drag**.\n\n**Immer mehr:** **čedalje**, **vedno**, **vse** + Komparativ: **čedalje krajši**. **So … wie möglich:** **čim prej**, **čim več**; **kar se da hitro**.\n\n**Je mehr …, desto mehr:** **bolj ko …, bolj …**; schriftlich **čim …, tem …**: **Čim višje greš, tem lepši je razgled.**\n\n**Der Meiste von:** **naj-** + **izmed** oder **od** + Genitiv: **najlepša izmed vseh**. **Zu:** **pre-** (**prevelik**) oder **preveč**; **zelo** ist nur sehr.\n\nAuch gehört: **bolši** (Standard **boljši**), **bolj in bolj** (Standard **čedalje bolj**): gesprochen, ebenso richtig.",
+    "it": "Oltre a **lepši** e **najlepši** (la pagina *primernik*):\n\n**Uguale:** **tako … kot** (**kakor**), **enako … kot**: **Luka je tako visok kot Marko.** Non così … come: **ni tako … kot**.\n\n**Quanto di più:** **veliko**, **dosti**, **precej**, **še** (ancora), **malo** + comparativo: **veliko lepši**, **še boljši**. Di/che: **kot**, oppure **od** + genitivo: **višji od Luke**. Meno: **manj drag**.\n\n**Sempre più:** **čedalje**, **vedno**, **vse** + comparativo: **čedalje krajši**. **Il più possibile:** **čim prej**, **čim več**; **kar se da hitro**.\n\n**Più …, più:** **bolj ko …, bolj …**; per iscritto **čim …, tem …**: **Čim višje greš, tem lepši je razgled.**\n\n**Il più di:** **naj-** + **izmed** o **od** + genitivo: **najlepša izmed vseh**. **Troppo:** **pre-** (**prevelik**) o **preveč**; **zelo** è solo molto.\n\nSi sente anche: **bolši** (standard **boljši**), **bolj in bolj** (standard **čedalje bolj**): parlato, giusto anche così."
+  },
+  "table": {
+    "head": [
+      { "sl": "kako", "en": "how", "de": "wie", "it": "come" },
+      { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" },
+      { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
+    ],
+    "rows": [
+      ["tako … kot", "tako visok kot Marko", { "en": "as tall as Marko", "de": "so groß wie Marko", "it": "alto quanto Marko" }],
+      ["ni tako … kot", "ni tako dobro kot lani", { "en": "not as good as last year", "de": "nicht so gut wie letztes Jahr", "it": "non buono come l'anno scorso" }],
+      ["veliko, še + primernik", "veliko lepši, še boljši", { "en": "much nicer, even better", "de": "viel schöner, noch besser", "it": "molto più bello, ancora meglio" }],
+      ["manj + pridevnik", "manj drag", { "en": "less expensive", "de": "weniger teuer", "it": "meno caro" }],
+      ["čedalje, vedno, vse", "čedalje krajši", { "en": "shorter and shorter", "de": "immer kürzer", "it": "sempre più corto" }],
+      ["čim + primernik", "čim prej, čim več", { "en": "as soon as possible, as much as possible", "de": "so bald wie möglich, so viel wie möglich", "it": "il prima possibile, il più possibile" }],
+      ["kar se da", "kar se da hitro", { "en": "as fast as possible", "de": "so schnell wie möglich", "it": "il più in fretta possibile" }],
+      ["bolj ko …, bolj …", "bolj ko se uči, bolje mu gre", { "en": "the more he studies, the better he does", "de": "je mehr er lernt, desto besser geht es ihm", "it": "più studia, meglio gli va" }],
+      ["čim …, tem …", "čim višje, tem lepše", { "en": "the higher, the more beautiful", "de": "je höher, desto schöner", "it": "più in alto, più bello" }],
+      ["naj- + izmed", "najlepša izmed vseh", { "en": "the most beautiful of all", "de": "die schönste von allen", "it": "la più bella di tutte" }],
+      ["pre-, preveč", "prevelik, preveč hitro", { "en": "too big, too fast", "de": "zu groß, zu schnell", "it": "troppo grande, troppo veloce" }]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Lukov voz je tako star kot Francetov.",
+      "en": "Luka's cart is as old as France's.",
+      "de": "Lukas Wagen ist so alt wie der von France.",
+      "it": "Il carro di Luka è vecchio quanto quello di France."
+    },
+    {
+      "sl": "Letos vino ni tako dobro kot lani.",
+      "en": "This year the wine isn't as good as last year.",
+      "de": "Dieses Jahr ist der Wein nicht so gut wie letztes Jahr.",
+      "it": "Quest'anno il vino non è buono come l'anno scorso."
+    },
+    {
+      "sl": "Mlinarjev kruh je veliko boljši od kupljenega.",
+      "en": "The miller's bread is much better than bought bread.",
+      "de": "Das Brot des Müllers ist viel besser als gekauftes.",
+      "it": "Il pane del mugnaio è molto più buono di quello comprato.",
+      "note": { "en": "Than: kot, or od + the genitive.", "de": "Als: kot, oder od + Genitiv.", "it": "Di/che: kot, oppure od + genitivo." }
+    },
+    {
+      "sl": "Jeseni so dnevi čedalje krajši.",
+      "en": "In autumn the days get shorter and shorter.",
+      "de": "Im Herbst werden die Tage immer kürzer.",
+      "it": "In autunno le giornate sono sempre più corte."
+    },
+    { "sl": "Pridi čim prej, mudi se!", "en": "Come as soon as you can, it's urgent!", "de": "Komm so bald wie möglich, es eilt!", "it": "Vieni il prima possibile, è urgente!" },
+    {
+      "sl": "France hoče zmleti čim več žita pred zimo.",
+      "en": "France wants to grind as much grain as possible before winter.",
+      "de": "France will vor dem Winter so viel Getreide wie möglich mahlen.",
+      "it": "France vuole macinare quanto più grano possibile prima dell'inverno."
+    },
+    { "sl": "Bolj ko se Nejc uči, bolje mu gre.", "en": "The more Nejc studies, the better he does.", "de": "Je mehr Nejc lernt, desto besser geht es ihm.", "it": "Più Nejc studia, meglio gli va." },
+    {
+      "sl": "Čim višje greš, tem lepši je razgled.",
+      "en": "The higher you go, the finer the view.",
+      "de": "Je höher du gehst, desto schöner ist die Aussicht.",
+      "it": "Più in alto vai, più bello è il panorama.",
+      "note": {
+        "en": "čim … tem is the written pair; in speech bolj ko …, bolj ….",
+        "de": "čim … tem ist das schriftliche Paar; gesprochen bolj ko …, bolj ….",
+        "it": "čim … tem è la coppia scritta; nel parlato bolj ko …, bolj …."
+      }
+    },
+    { "sl": "Mickina potica je najboljša izmed vseh.", "en": "Micka's potica is the best of all.", "de": "Mickas Potica ist die beste von allen.", "it": "La potica di Micka è la migliore di tutte." },
+    {
+      "sl": "Ta plašč je prevelik zame.",
+      "en": "This coat is too big for me.",
+      "de": "Dieser Mantel ist mir zu groß.",
+      "it": "Questo cappotto è troppo grande per me.",
+      "note": { "en": "pre- is too; zelo velik is only very big.", "de": "pre- ist zu; zelo velik ist nur sehr groß.", "it": "pre- è troppo; zelo velik è solo molto grande." }
+    },
+    { "sl": "Raje pijem čaj kot kavo.", "en": "I'd rather drink tea than coffee.", "de": "Ich trinke lieber Tee als Kaffee.", "it": "Preferisco bere il tè anziché il caffè." }
+  ],
+  "modules": [],
+  "tags": ["comparison", "equal_comparison", "as_as", "cim_prej", "bolj_ko", "superlative_izmed", "pre_too"],
+  "see": ["primernik", "prislovi", "rodilnik-predlogi"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; not reviewed by a native speaker",
+  "card": {
+    "title": { "sl": "Tako … kot, čim prej", "en": "Tako … kot, čim prej · comparing", "de": "Tako … kot, čim prej · vergleichen", "it": "Tako … kot, čim prej · confronto" },
+    "rule": {
+      "en": "Same: **tako … kot**. Much more: **veliko lepši**. More and more: **čedalje krajši**. As … as possible: **čim prej**. The more …: **bolj ko …, bolj …** (**čim …, tem …**). Of all: **najlepša izmed vseh**. Too: **prevelik**.",
+      "de": "Gleich: **tako … kot**. Viel mehr: **veliko lepši**. Immer mehr: **čedalje krajši**. So … wie möglich: **čim prej**. Je mehr …: **bolj ko …, bolj …** (**čim …, tem …**). Von allen: **najlepša izmed vseh**. Zu: **prevelik**.",
+      "it": "Uguale: **tako … kot**. Molto di più: **veliko lepši**. Sempre più: **čedalje krajši**. Il più possibile: **čim prej**. Più …, più: **bolj ko …, bolj …** (**čim …, tem …**). Di tutti: **najlepša izmed vseh**. Troppo: **prevelik**."
+    },
+    "table": {
+      "head": [{ "sl": "kako", "en": "how", "de": "wie", "it": "come" }, { "sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio" }],
+      "rows": [
+        ["tako … kot", "tako star kot jaz"],
+        ["veliko, še", "veliko lepši, še boljši"],
+        ["čedalje, vse", "čedalje hladneje"],
+        ["čim", "čim prej, čim več"],
+        ["bolj ko …, bolj …", "bolj ko čakaš, težje je"],
+        ["naj- izmed", "najboljša izmed vseh"],
+        ["pre-", "prevelik, predrag"]
+      ]
+    },
+    "examples": [
+      { "sl": "Pridi čim prej, mudi se!", "en": "Come as soon as you can, it's urgent!", "de": "Komm so bald wie möglich, es eilt!", "it": "Vieni il prima possibile, è urgente!" },
+      { "sl": "Bolj ko se Nejc uči, bolje mu gre.", "en": "The more Nejc studies, the better he does.", "de": "Je mehr Nejc lernt, desto besser geht es ihm.", "it": "Più Nejc studia, meglio gli va." }
+    ],
+    "tip": {
+      "en": "💡 pre- is too, zelo is very: prevelik is too big, zelo velik just very big.",
+      "de": "💡 pre- heißt zu, zelo heißt sehr: prevelik ist zu groß, zelo velik nur sehr groß.",
+      "it": "💡 pre- è troppo, zelo è molto: prevelik è troppo grande, zelo velik solo molto grande."
+    }
+  }
+}

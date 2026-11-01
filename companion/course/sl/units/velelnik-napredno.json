@@ -1,0 +1,403 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "velelnik-napredno",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "📣",
+  "title": { "sl": "Pojdiva, pojdimo, ne zapiraj", "en": "Let's go, don't close: commands", "de": "Gehen wir, schließ nicht: Befehle", "it": "Andiamo, non chiudere: imperativo" },
+  "goal": {
+    "en": "You can say let's (pojdiva, pojdimo, recimo), what someone else is to do (naj pride), don't in the right aspect (ne zapiraj, nikar ne skrbi), invite (kar naprej, le povej) and ask politely (Bi mi lahko pomagali?).",
+    "de": "Du sagst lass uns (pojdiva, pojdimo, recimo), was jemand anderes tun soll (naj pride), verbietest im richtigen Aspekt (ne zapiraj, nikar ne skrbi), lädst ein (kar naprej, le povej) und bittest höflich (Bi mi lahko pomagali?).",
+    "it": "Sai dire facciamo (pojdiva, pojdimo, recimo), che cosa deve fare un altro (naj pride), vietare con l'aspetto giusto (ne zapiraj, nikar ne skrbi), invitare (kar naprej, le povej) e chiedere con cortesia (Bi mi lahko pomagali?)."
+  },
+  "grammar": ["ukazi", "velelnik", "glagolski-vid"],
+  "words": [
+    "iti",
+    "priti",
+    "dati",
+    "reči",
+    "povedati",
+    "vzeti",
+    "jesti",
+    "vedeti",
+    "počakati",
+    "sesti",
+    "zapirati",
+    "zapreti",
+    "odpirati",
+    "pozabiti",
+    "zamuditi",
+    "skrbeti",
+    "naj",
+    "nikar",
+    "kar",
+    "le",
+    "prosim",
+    "vrata",
+    "okno",
+    "ključ",
+    "drva",
+    "klop",
+    "miza",
+    "lipa",
+    "svetilka",
+    "sol"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo", "en": "who", "de": "wer", "it": "chi" },
+        { "sl": "oblika", "en": "the form", "de": "Form", "it": "forma" },
+        { "sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Let's is the imperative for us: **-va** for you and me, **-mo** for all of us. **Pojdiva domov.** **Pojdimo na trg!** **Počakajmo**, **recimo**, **dajmo**, with **se**: **usedimo se**. People often say **gremo** and **greva** for let's go: spoken, right too; the standard is **pojdimo** and **pojdiva**.",
+          "de": "Lass uns ist der Imperativ für uns: **-va** für dich und mich, **-mo** für uns alle. **Pojdiva domov.** **Pojdimo na trg!** **Počakajmo**, **recimo**, **dajmo**, mit **se**: **usedimo se**. Oft sagt man **gremo** und **greva** für gehen wir: gesprochen, ebenso richtig; standardsprachlich **pojdimo** und **pojdiva**.",
+          "it": "Facciamo è l'imperativo per noi: **-va** per te e me, **-mo** per tutti noi. **Pojdiva domov.** **Pojdimo na trg!** **Počakajmo**, **recimo**, **dajmo**, con **se**: **usedimo se**. Spesso si dice **gremo** e **greva** per andiamo: parlato, giusto anche così; lo standard è **pojdimo** e **pojdiva**."
+        },
+        "examples": [
+          {
+            "sl": "Pojdimo na trg, sejem se je že začel.",
+            "en": "Let's go to the square, the fair has already begun.",
+            "de": "Gehen wir auf den Platz, der Markt hat schon begonnen.",
+            "it": "Andiamo in piazza, la fiera è già cominciata."
+          },
+          { "sl": "Počakajva Luko pri mostu.", "en": "Let's wait for Luka by the bridge.", "de": "Warten wir bei der Brücke auf Luka.", "it": "Aspettiamo Luka al ponte." }
+        ],
+        "rows": [
+          ["midva", "pojdiva, počakajva", { "en": "let's go, let's wait (two of us)", "de": "gehen wir, warten wir (zu zweit)", "it": "andiamo, aspettiamo (noi due)" }],
+          ["mi", "pojdimo, recimo, dajmo", { "en": "let's go, let's say, let's give", "de": "gehen wir, sagen wir, geben wir", "it": "andiamo, diciamo, diamo" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "ukazi",
+          "text": "Dež bo kmalu nehal. ___ pod lipo! (počakati, mi)",
+          "accept": ["Počakajmo"],
+          "hint": "for all of us: -mo",
+          "explain": "**let's, all of us** → the imperative + **-mo**: počakaj → **počakajmo**"
+        }
+      },
+      {
+        "say": {
+          "en": "For someone else the imperative has no form: say **naj** with the present. **Naj Nejc prinese drva.** **Naj gredo.** (People also say **naj grejo**: spoken, right too.) **Naj** also passes a wish on, as in reported speech: **Reci Luki, naj pride.** **Mama pravi, naj pridemo domov.**",
+          "de": "Für jemand anderen hat der Imperativ keine Form: Man sagt **naj** mit dem Präsens. **Naj Nejc prinese drva.** **Naj gredo.** (Man sagt auch **naj grejo**: gesprochen, ebenso richtig.) **Naj** gibt auch einen Wunsch weiter, wie in der indirekten Rede: **Reci Luki, naj pride.** **Mama pravi, naj pridemo domov.**",
+          "it": "Per qualcun altro l'imperativo non ha una forma: si dice **naj** con il presente. **Naj Nejc prinese drva.** **Naj gredo.** (Si dice anche **naj grejo**: parlato, giusto anche così.) **Naj** riferisce anche un desiderio, come nel discorso indiretto: **Reci Luki, naj pride.** **Mama pravi, naj pridemo domov.**"
+        },
+        "examples": [
+          {
+            "sl": "Naj Nejc prinese drva, jaz bom zakuril.",
+            "en": "Let Nejc bring the wood, I'll light the fire.",
+            "de": "Nejc soll das Holz bringen, ich mache Feuer.",
+            "it": "Che Nejc porti la legna, io accendo il fuoco."
+          },
+          {
+            "sl": "Mama pravi, naj pridemo domov pred temo.",
+            "en": "Mum says we should come home before dark.",
+            "de": "Mama sagt, wir sollen vor der Dunkelheit heimkommen.",
+            "it": "La mamma dice di tornare a casa prima che faccia buio."
+          }
+        ],
+        "rows": [
+          ["on, ona, oni", "naj pride, naj gredo", { "en": "he should come, they should go", "de": "er soll kommen, sie sollen gehen", "it": "che venga, che vadano" }],
+          [{ "sl": "naprej", "en": "passed on", "de": "weitergegeben", "it": "riferito" }, "reci mu, naj pride", { "en": "tell him to come", "de": "sag ihm, er soll kommen", "it": "digli di venire" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "ukazi",
+          "prompt": "Gostje so že tu. ___ vstopijo!",
+          "options": ["Naj", "Bi", "Da"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**they are to do it** → **naj** + the present: naj vstopijo"
+        }
+      },
+      {
+        "say": {
+          "en": "Don't is **ne** with the imperfective, its object in the genitive: **Ne zapiraj vrat!** **Ne odpiraj okna!** A mishap to avoid keeps the perfective: **Ne pozabi ključev!** **Ne zamudi vlaka!** **Nikar** makes it stronger, a worried or a kind don't: **Nikar ne skrbi!** **Nikar ne hodi sam v gozd!**",
+          "de": "Ein Verbot ist **ne** mit dem Imperfektiv, das Objekt im Genitiv: **Ne zapiraj vrat!** **Ne odpiraj okna!** Ein Missgeschick, das man vermeiden soll, bleibt perfektiv: **Ne pozabi ključev!** **Ne zamudi vlaka!** **Nikar** verstärkt es, besorgt oder freundlich: **Nikar ne skrbi!** **Nikar ne hodi sam v gozd!**",
+          "it": "Il divieto è **ne** con l'imperfettivo, l'oggetto al genitivo: **Ne zapiraj vrat!** **Ne odpiraj okna!** Un incidente da evitare resta perfettivo: **Ne pozabi ključev!** **Ne zamudi vlaka!** **Nikar** lo rafforza, con preoccupazione o con affetto: **Nikar ne skrbi!** **Nikar ne hodi sam v gozd!**"
+        },
+        "examples": [
+          {
+            "sl": "Ne zapiraj vrat, v kuhinji je vroče.",
+            "en": "Don't shut the door, it's hot in the kitchen.",
+            "de": "Mach die Tür nicht zu, in der Küche ist es heiß.",
+            "it": "Non chiudere la porta, in cucina fa caldo."
+          },
+          {
+            "sl": "Nikar ne skrbi, vse bo v redu.",
+            "en": "Don't you worry, everything will be fine.",
+            "de": "Mach dir bloß keine Sorgen, alles wird gut.",
+            "it": "Non preoccuparti, andrà tutto bene."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "ne + nedovršnik", "en": "don't: imperfective", "de": "Verbot: imperfektiv", "it": "divieto: imperfettivo" },
+            "ne zapiraj vrat",
+            { "en": "don't close the door", "de": "mach die Tür nicht zu", "it": "non chiudere la porta" }
+          ],
+          [
+            { "sl": "ne + dovršnik", "en": "mind you don't", "de": "pass auf, dass nicht", "it": "attento a non" },
+            "ne pozabi ključev",
+            { "en": "don't forget the keys", "de": "vergiss die Schlüssel nicht", "it": "non dimenticare le chiavi" }
+          ],
+          ["nikar ne …", "nikar ne skrbi", { "en": "do not worry", "de": "mach dir bloß keine Sorgen", "it": "non preoccuparti affatto" }]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "ukazi",
+          "text": "Ne ___ okna, zunaj je mraz! (odpreti · odpirati)",
+          "accept": ["odpiraj"],
+          "hint": "don't: the imperfective",
+          "explain": "**don't** → **ne** + the imperfective: ne **odpiraj** okna (okno → okna, the genitive)"
+        }
+      },
+      {
+        "say": {
+          "en": "Some imperatives are to learn: iti → **pojdi**, priti → **pridi**, jesti → **jej**, dati → **daj**, vedeti → **vedi**, reči → **reci**, povedati → **povej**, vzeti → **vzemi**. They take **-te**, **-va** and **-mo** as any: **pojdite**, **jejmo**, **povejva**, **vzemite**.",
+          "de": "Manche Imperative lernt man: iti → **pojdi**, priti → **pridi**, jesti → **jej**, dati → **daj**, vedeti → **vedi**, reči → **reci**, povedati → **povej**, vzeti → **vzemi**. Sie nehmen **-te**, **-va** und **-mo** wie alle: **pojdite**, **jejmo**, **povejva**, **vzemite**.",
+          "it": "Alcuni imperativi si imparano: iti → **pojdi**, priti → **pridi**, jesti → **jej**, dati → **daj**, vedeti → **vedi**, reči → **reci**, povedati → **povej**, vzeti → **vzemi**. Prendono **-te**, **-va** e **-mo** come tutti: **pojdite**, **jejmo**, **povejva**, **vzemite**."
+        },
+        "examples": [
+          { "sl": "Povej mi po pravici, kdo je to naredil.", "en": "Tell me honestly who did this.", "de": "Sag mir ehrlich, wer das getan hat.", "it": "Dimmi sinceramente chi è stato." },
+          { "sl": "Vzemi še en kos potice!", "en": "Have another piece of potica!", "de": "Nimm noch ein Stück Potica!", "it": "Prendi un'altra fetta di potica!" }
+        ],
+        "rows": [
+          [
+            { "sl": "naučiti se", "en": "to learn", "de": "zu lernen", "it": "da imparare" },
+            "pojdi, pridi, jej, daj, vedi",
+            { "en": "go, come, eat, give, know", "de": "geh, komm, iss, gib, wisse", "it": "va', vieni, mangia, da', sappi" }
+          ],
+          [
+            { "sl": "naučiti se", "en": "to learn", "de": "zu lernen", "it": "da imparare" },
+            "reci, povej, vzemi",
+            { "en": "say, tell, take", "de": "sag, erzähl, nimm", "it": "di', racconta, prendi" }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "velelnik",
+          "prompt": "Micka ponuja potico: »___ še en kos!«",
+          "options": ["Vzemi", "Vzami", "Vzemaj"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**vzeti** has its own imperative: vzamem → **vzemi**"
+        }
+      },
+      {
+        "say": {
+          "en": "Softer: **kar** and **le** invite and encourage: **Kar naprej!** (come right in), **Kar sedite.** **Le povej, saj te poslušam.** **Dajmo** with an infinitive is a spoken let's: **dajmo si ogledati** for **oglejmo si**. And **dajmo** alone cheers on: **Dajmo, pohitimo!**",
+          "de": "Weicher: **kar** und **le** laden ein und ermuntern: **Kar naprej!** (nur herein), **Kar sedite.** **Le povej, saj te poslušam.** **Dajmo** mit Infinitiv ist ein gesprochenes lass uns: **dajmo si ogledati** für **oglejmo si**. Und **dajmo** allein feuert an: **Dajmo, pohitimo!**",
+          "it": "Più gentile: **kar** e **le** invitano e incoraggiano: **Kar naprej!** (avanti pure), **Kar sedite.** **Le povej, saj te poslušam.** **Dajmo** con un infinito è un facciamo parlato: **dajmo si ogledati** per **oglejmo si**. E **dajmo** da solo incita: **Dajmo, pohitimo!**"
+        },
+        "examples": [
+          { "sl": "Kar naprej, vrata so odprta!", "en": "Come right in, the door is open!", "de": "Nur herein, die Tür ist offen!", "it": "Avanti pure, la porta è aperta!" },
+          { "sl": "Le povej, saj te poslušam.", "en": "Go on, tell me, I'm listening.", "de": "Erzähl nur, ich höre dir ja zu.", "it": "Dimmi pure, ti sto ascoltando." }
+        ],
+        "rows": [
+          ["kar, le", "kar naprej, le povej", { "en": "come right in, go on and tell", "de": "nur herein, erzähl nur", "it": "avanti pure, dillo pure" }],
+          [{ "sl": "govorjeno", "en": "spoken", "de": "gesprochen", "it": "parlato" }, "dajmo si ogledati", { "en": "let's have a look", "de": "schauen wir es uns an", "it": "diamo un'occhiata" }]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "ukazi",
+          "prompt": "Soseda potrka na vrata. Rečeš: »___ naprej!«",
+          "options": ["Kar", "Naj", "Nikar"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**come right in** → **kar** naprej\n- nikar · don't"
+        }
+      },
+      {
+        "say": {
+          "en": "To ask politely, the conditional is gentler than the imperative: **Bi mi lahko pomagali?** **Ali bi lahko zaprli okno, prosim?** With **vi** and **prosim** the imperative is polite too: **Sedite, prosim.** **Izvolite.** In speech **a** for **ali** is just as right: **A bi lahko …?**",
+          "de": "Höflich bittet man mit dem Konditional, sanfter als mit dem Imperativ: **Bi mi lahko pomagali?** **Ali bi lahko zaprli okno, prosim?** Mit **vi** und **prosim** ist auch der Imperativ höflich: **Sedite, prosim.** **Izvolite.** Gesprochen ist **a** für **ali** genauso richtig: **A bi lahko …?**",
+          "it": "Per chiedere con cortesia il condizionale è più garbato dell'imperativo: **Bi mi lahko pomagali?** **Ali bi lahko zaprli okno, prosim?** Con **vi** e **prosim** anche l'imperativo è cortese: **Sedite, prosim.** **Izvolite.** Nel parlato **a** per **ali** è altrettanto giusto: **A bi lahko …?**"
+        },
+        "examples": [
+          { "sl": "Bi mi lahko podali sol, prosim?", "en": "Could you pass me the salt, please?", "de": "Könnten Sie mir bitte das Salz reichen?", "it": "Potrebbe passarmi il sale, per favore?" },
+          {
+            "sl": "Ali bi lahko zaprli okno? Malo me zebe.",
+            "en": "Could you close the window? I'm a bit cold.",
+            "de": "Könnten Sie das Fenster schließen? Mich friert ein bisschen.",
+            "it": "Potrebbe chiudere la finestra? Ho un po' freddo."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "vljudno", "en": "politely", "de": "höflich", "it": "con cortesia" },
+            "Bi mi lahko pomagali?",
+            { "en": "could you help me?", "de": "könnten Sie mir helfen?", "it": "potrebbe aiutarmi?" }
+          ],
+          [
+            { "sl": "vi + prosim", "en": "vi + please", "de": "vi + bitte", "it": "vi + per favore" },
+            "Sedite, prosim.",
+            { "en": "sit down, please", "de": "setzen Sie sich bitte", "it": "si sieda, prego" }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "ukazi",
+          "prompt": "V gostilni, vljudno, natakarju:",
+          "options": ["Bi mi lahko prinesli vodo?", "Prinesi mi vodo!", "Naj mi prinese vodo."],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": "**to a waiter, politely** → the conditional with vi: Bi mi lahko prinesli vodo?\n- Prinesi mi vodo! · right, but curt and with ti: almost"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "velelnik-napredno-1",
+      "title": { "sl": "Pojdimo! Ne hodi!", "en": "Let's go! Don't go!", "de": "Gehen wir! Geh nicht!", "it": "Andiamo! Non andare!" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "ukazi",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "midva, mi, on · let's (two), let's (all), he is to",
+          "columns": ["midva · let's (two)", "mi · let's (all)", "on · naj"],
+          "rows": [
+            { "label": "iti", "cells": [{ "accept": ["pojdiva"], "spoken": ["greva"], "hint": "pojdi + -va" }, { "accept": ["pojdimo"], "spoken": ["gremo"] }, "naj gre"] },
+            { "label": "dati", "cells": ["dajva", { "accept": ["dajmo"], "hint": "daj + -mo" }, { "accept": ["naj da"], "hint": "naj + the present" }] },
+            { "label": "reči", "cells": [{ "accept": ["reciva"], "hint": "reci + -va" }, "recimo", { "accept": ["naj reče"] }] },
+            { "label": "jesti", "cells": ["jejva", { "accept": ["jejmo"], "hint": "jej + -mo" }, "naj je"] }
+          ],
+          "explain": "**let's** the imperative + **-va** (two) or **-mo** (all) · **he is to** naj + the present\n- pojdiva, pojdimo · naj gre\n- dajmo, recimo, jejmo"
+        },
+        {
+          "type": "sort",
+          "grammar": "ukazi",
+          "instruction": "Razvrsti · Sort: a plain don't, or a mishap to avoid?",
+          "columns": [
+            { "label": "ne + nedovršnik · don't", "words": ["ne zapiraj", "ne hodi", "ne kriči", "ne jemlji"] },
+            { "label": "ne + dovršnik · mind you don't", "words": ["ne pozabi", "ne zamudi", "ne izgubi", "ne razbij"] }
+          ],
+          "explain": "**don't** → the imperfective · **a mishap to avoid** → the perfective\n- ne zapiraj, ne hodi\n- ne pozabi, ne razbij"
+        }
+      ]
+    },
+    {
+      "id": "velelnik-napredno-2",
+      "title": { "sl": "Pred praznikom pod lipo", "en": "Before the feast under the linden", "de": "Vor dem Fest unter der Linde", "it": "Prima della festa sotto il tiglio" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "ukazi",
+          "instruction": "Dopolni · Fill in",
+          "title": "Pred praznikom pod lipo",
+          "text": "»Dajmo, ___ (pospraviti, mi) trg pred praznikom!« je rekla Mojca. »Nejc, ___ (prinesti) klopi iz šole. Fantje naj ___ (postaviti) mize pod lipo.« Babica Micka se je ozirala okoli. »Nikar ___ (skrbeti), Micka, vse bo pripravljeno,« ji je rekel Janez. »Kar ___ (sedeti) in počivaj.« Zala je hotela zapreti okno šole. »Ne ___ (zapreti · zapirati) ga, še bomo nosili stole!« je zaklicala Mojca. Ko je bilo vse nared, je France rekel: »___ (iti, midva) še po vino, Tone!« Mojca pa Francetu: »In ne ___ (pozabiti) kozarcev!«",
+          "gaps": [
+            { "accept": ["pospravimo"], "hint": "let's, all of us: -mo" },
+            { "accept": ["prinesi"], "hint": "to Nejc: ti" },
+            { "accept": ["postavijo"], "hint": "naj + the present, they", "explain": "**they are to do it** → **naj** + the present: fantje naj **postavijo**" },
+            { "accept": ["ne skrbi"], "hint": "nikar + don't", "explain": "**nikar** strengthens a don't: nikar **ne skrbi**" },
+            { "accept": ["sedi"], "hint": "stay sitting: ti" },
+            { "accept": ["zapiraj"], "hint": "don't: the imperfective", "explain": "**don't** → **ne** + the imperfective: ne **zapiraj**" },
+            { "accept": ["Pojdiva"], "spoken": ["Greva"], "hint": "let's, two of us: -va" },
+            { "accept": ["pozabi"], "hint": "a mishap to avoid: the perfective", "explain": "**a mishap to avoid** keeps the perfective: ne **pozabi**, its object in the genitive (kozarcev)" }
+          ],
+          "bank": true,
+          "distractors": ["zapri", "pospraviva", "postavi"],
+          "translation": "\"Come on, let's tidy the square before the feast!\" said Mojca. \"Nejc, bring the benches from the school. The boys are to set the tables under the linden.\" Granny Micka was looking around. \"Don't you worry, Micka, everything will be ready,\" Janez told her. \"Just stay sitting and rest.\" Zala wanted to close the school's window. \"Don't close it, we'll still be carrying chairs!\" Mojca called. When everything was ready, France said: \"Let's go and get the wine too, Tone!\" And Mojca to France: \"And don't forget the glasses!\""
+        }
+      ]
+    },
+    {
+      "id": "velelnik-napredno-3",
+      "title": { "sl": "Recimo ji! Naj pride!", "en": "Let's tell her! He's to come!", "de": "Sagen wir es ihr! Er soll kommen!", "it": "Diciamoglielo! Che venga!" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "ukazi",
+          "instruction": "Povej kot predlog · Say it as let's",
+          "items": [
+            { "from": "Sedemo k ognju. (mi)", "accept": ["Sedimo k ognju."], "lemma": "sesti", "form": "imp.1pl", "hint": "sedi + -mo" },
+            { "from": "Rečemo ji resnico. (mi)", "accept": ["Recimo ji resnico."], "lemma": "reči", "form": "imp.1pl", "hint": "reci + -mo" },
+            { "from": "Jeva zunaj. (midva)", "accept": ["Jejva zunaj."], "lemma": "jesti", "form": "imp.1du", "hint": "jej + -va" },
+            { "from": "Damo mu priložnost. (mi)", "accept": ["Dajmo mu priložnost."], "lemma": "dati", "form": "imp.1pl", "hint": "daj + -mo" }
+          ],
+          "explain": "**let's** → the imperative + **-mo** (all of us) or **-va** (two)\n- sedimo, recimo, dajmo\n- jejva"
+        },
+        {
+          "type": "transform",
+          "grammar": "ukazi",
+          "instruction": "Napiši cel stavek z naj · Write the whole sentence with naj, for the person in brackets",
+          "whole": true,
+          "items": [
+            { "from": "Počakaj pri vratih! (Nejc)", "accept": ["Naj Nejc počaka pri vratih.", "Nejc naj počaka pri vratih.", "Naj počaka Nejc pri vratih."], "hint": "naj + the present, he" },
+            { "from": "Pridite pred temo! (otroci)", "accept": ["Naj otroci pridejo pred temo.", "Otroci naj pridejo pred temo.", "Naj pridejo otroci pred temo."], "hint": "naj + the present, they" },
+            { "from": "Pojdi spat! (Zala)", "accept": ["Naj gre Zala spat.", "Zala naj gre spat.", "Naj Zala gre spat."], "hint": "iti: gre" }
+          ],
+          "explain": "**for someone else** → **naj** + the present\n- Naj Nejc počaka.\n- Otroci naj pridejo."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "velelnik",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "reči (velelnik) · to say (imperative)",
+        "lemma": "reči",
+        "columns": ["velelnik · imperative"],
+        "rows": [
+          { "label": "ti", "cells": [{ "accept": ["reci"], "form": "imp.2sg" }] },
+          { "label": "midva", "cells": [{ "accept": ["reciva"], "form": "imp.1du" }] },
+          { "label": "vi", "cells": [{ "accept": ["recite"], "form": "imp.2pl" }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "ukazi",
+        "instruction": "Dopolni · Fill in",
+        "text": "»___ (iti, mi) domov, ura je že pozna,« je rekel Tone. »Naj Zala ___ (zakleniti) vrata.« Zala: »Nikar ne ___ (hiteti), saj ni treba.« Tone: »Kar ___ (vzeti) svetilko, zunaj je tema.«",
+        "gaps": [{ "accept": ["Pojdimo"], "spoken": ["Gremo"] }, { "accept": ["zaklene"] }, { "accept": ["hiti"] }, { "accept": ["vzemi"] }],
+        "translation": "\"Let's go home, it's late,\" said Tone. \"Zala is to lock the door.\" Zala: \"Don't you hurry, there's no need.\" Tone: \"Just take the lamp, it's dark outside.\""
+      },
+      {
+        "type": "transform",
+        "grammar": "ukazi",
+        "instruction": "Spremeni · Change it",
+        "whole": true,
+        "items": [
+          { "from": "Pijemo na zdravje. (let's)", "accept": ["Pijmo na zdravje!"], "lemma": "piti", "form": "imp.1pl" },
+          { "from": "Odpiraš okno. (ne!)", "accept": ["Ne odpiraj okna!"], "lemma": "odpirati", "form": "imp.2sg" },
+          { "from": "Prinesi kruh! (Luka: naj)", "accept": ["Naj Luka prinese kruh.", "Luka naj prinese kruh.", "Naj prinese Luka kruh."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "ukazi",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Politely, to the innkeeper: Could you bring us some water?",
+        "options": ["Bi nam lahko prinesli vodo?", "Prinesi nam vodo!", "Naj nam prinese vodo."],
+        "answer": 0,
+        "almost": [1],
+        "say_options": true,
+        "explain": "**politely** → the conditional with vi: Bi nam lahko prinesli vodo?\n- Prinesi nam vodo! · right, but curt and with ti: almost"
+      },
+      {
+        "type": "choice",
+        "grammar": "ukazi",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Don't you worry, Granny!",
+        "options": ["Nikar ne skrbi, babica!", "Nikar skrbi, babica!", "Nikar ne poskrbi, babica!"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**nikar** + a don't: nikar **ne skrbi** (the imperfective)"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Pred praznikom (Dajmo, pospravimo; Kar sedi in počivaj), Jeva zunaj/Jejva, Pijeva čaj, Naj počaka Nejc, gremo/greva as spoken"
+}

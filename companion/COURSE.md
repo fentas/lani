@@ -610,6 +610,18 @@ units turn on comes from the earlier pages they list:
 little): their sheets ask mostly what a form means, which verb it comes from and which ending it has (a choice, a
 multi, a sort, a word bank), and only the easy ones are made (Okno je odprto, plavanje, pečenje kruha).
 
+B2's units from `stopnjevanje-napredno` to `besedni-red` teach pages of their own as well, each a B2 page with its
+cheat-sheet card: `stopnjevanje`, `ukazi`, `frazemi`, `uradno-pismo`, `govorjeni-jezik`, `besedni-red`. None is a row of
+a word's table; two units name an earlier page a form counts on:
+
+| unit | its pages | what the forms cards ask from then on |
+|---|---|---|
+| `stopnjevanje-napredno` (B2) | stopnjevanje, primernik | an adjective's comparative (lepši, boljši, višji: `cmp.m.sg`), as `primernik` |
+| `velelnik-napredno` (B2) | ukazi, velelnik, glagolski-vid | the imperative, as `velelnik` (pojdiva, pojdimo with the dual and the first person) |
+
+`frazeologija` (frazemi), `pisni-jezik` (uradno-pismo, ti-vi), `govorjeni-jezik` and `besedni-red` (besedni-red,
+naslonke-red) turn on no form of a table.
+
 **The case trainer** ("🧩 Skloni · Cases"; README.md "Case trainer") asks what the units have introduced: an item or a
 frame once its rule's page is introduced (met in the book, or listed in the `grammar` of a unit whose intro is done) or
 at or below the learner's level, one level above it when its rule is introduced. It opens once the cases have begun: for
