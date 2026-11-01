@@ -224,17 +224,41 @@ offers declined forgotten, the note to come again), "audio:voice:remove:<lang>" 
 
 ## What's left
 
-- **A node-made clip stays** when the host later makes its own of the line: the visitor keeps the first it got. A
-  re-check of the host now and then (a node-made clip older than a week) would bring the host's take.
-- **A host's re-voiced line** (a new take) isn't fetched again: the visitor plays the take it kept.
-- **The day's audio and the car** don't plan a visit's lines (no prefetch on a visit); a visit's first lines wait for the
-  host (up to 4 s) or the node.
-- **Someone's own voice** (designed in the host's ElevenLabs account) can't be made on the visitor's node: their
-  archetype's voice says what the host has no clip of.
-- **A review of another language at home** (a town's words reviewed in their language) says its exercises' lines
-  through the home village's speaker: only the word card's 🔊 follows the word's language so far.
-- **The hint's 🔊** (a dialog's TL;DR) speaks its town-language pieces from the town's clips, but its base-language
-  pieces with Android's voice only (no offline voice for them), as at home.
+The polish round of 2026-11-01 (docs/plans/05-built/polish-app.md) took the first six; companion/README.md "Voices on a
+visit" and companion/SCENES.md "The hint" describe them.
+
+- ~~**A node-made clip stays** when the host later makes its own of the line.~~ Done: a kept clip has a time it is
+  checked against the host again (`VisitClip.due`, `recheckDue`): a line voiced on the visitor's node, or a clip in a voice
+  it stands in for, after a day (`LANI_VISIT_VOICE_RECHECK_HOURS`); then the host's own take replaces it, in the
+  background as the clip is given out (`recheck` in `src/features/visit-voices.ts`). The smoke: "a line voiced on Mia's
+  node is checked against the town again after a while".
+- ~~**A host's re-voiced line** (a new take) isn't fetched again.~~ Done: the host's own clip is checked after a week
+  (`LANI_VISIT_VOICE_HOST_RECHECK_HOURS`) with its SHA-256 (`GET /town/voice?…&have=`: `same` costs no audio); a new take
+  replaces it. The replaced file is still handed out for two minutes (the app may be fetching it; `VisitClips.retired`),
+  and a file of no clip goes when the bridge starts.
+- ~~**The day's audio and the car** don't plan a visit's lines (no prefetch on a visit).~~ Partly: a visit's first lines
+  are got ahead as it begins (`app/VisitAhead.kt`, `Clips.ahead`, `POST /towns/:id/voice/prepare`): the greeting of the
+  hour and each one's hello on their card, the first lines of today's dialogs for guests, at most 40, the host's own clips
+  only (never voiced for it: no credits for a line maybe never heard), within the clip cache's cap. Still not: the day's
+  audio and the car plan no visit (a visit isn't planned ahead in the app), and a line the host has no clip of still waits
+  for the node to voice it when it is said.
+- ~~**Someone's own voice** (designed in the host's ElevenLabs account) can't be made on the visitor's node.~~ Done, off by
+  default: the host makes a guest's line in someone's own voice when its node allows it (`LANI_TOWN_VOICE_OWN_CHARS`
+  characters a day for all linked towns' visits; never the reserve for its own live lines; kept in its own store, for its
+  own learner too); `making: true` when the take isn't there in 2.5 s, and the visitor checks again in a minute. Without
+  the setting a guest never spends the host's credits, and the archetype's voice says it as before. For Jan's node (which
+  pays for both towns), e.g. `LANI_TOWN_VOICE_OWN_CHARS=3000`; that is Jan's call, not set here.
+- ~~**A review of another language at home** says its exercises' lines through the home village's speaker.~~ Done: the
+  exercise player has the deck's language (`LocalSpeechLang`) and says every line of it through `Speaker.sayIn`; its
+  listening questions only when the phone itself can say the language (`Speaker.speaksOnPhone`), its cards silent only
+  when nothing can (`ReviewSpeech`). `ExerciseSpeechTest`.
+- ~~**The hint's 🔊** speaks its base-language pieces with Android's voice only.~~ Done: by the offline voice of the base
+  when it is on the phone, else Android's; a piece in the language learned without a clip by its offline voice before
+  Android's, at home and on a visit (`HintVoice.sourced`, `HintVoiceOfflineTest`).
+- **A line the host is making** in someone's own voice is heard in the archetype's voice the first time (the take isn't
+  waited for longer than 2.5 s); the next time, after the re-check, in theirs.
+- **The app's copy of a re-checked clip**: the phone keeps the take it downloaded for the rest of the visit; the new one
+  comes with the town's index at the next visit (or when the line is asked for again, a line not on the phone).
 - **Machine-written labels**: the Slovene of the new labels beyond the two the brief gave ("Prenesi slovenski glas za
   obiske", "Ta naprava nima glasu za slovenščino"), and all of the German and Italian, are machine-written: for a native
-  check (sl.json's `_note_visit_voices`).
+  check (sl.json's `_note_visit_voices`). The 2026-11-01 round added no labels.

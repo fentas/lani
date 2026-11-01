@@ -657,6 +657,7 @@ The app talks only to its own bridge, which asks the other towns:
 | `POST` | `/towns/:id/trade` | `{id, give: {goods, res}, get: {culture, goods}, score}`: a trade agreed in a haggle → `{ok, key, kind, duplicate?}` |
 | `POST` | `/towns/:id/talk` | `{villager}` or `{market: {give, get}}` → a role-play (`lani.scenario/v0`, id `town:<town>:<villager>` or `market:<town>:<n>`, `source: "visit"`) |
 | `POST` | `/towns/:id/voice/say` | a visit's line `{text, voice}` (a speaker of the town's cast, someone's own `@id`, or `player`) → `{url, voice, engine, from: "host" \| "node"}`, or `204` when no voice can have it now ([Voices on a visit](#voices-on-a-visit)); `400` for a text with another `lang` than the town's |
+| `POST` | `/towns/:id/voice/prepare` | a visit's first lines got ahead `{texts: [{text, voice}]}` (1 to 20) → `{clips: [{url, voice, from} \| null]}` in their order: each kept on this node, else the host's own clip; never voiced here ([Voices on a visit](#voices-on-a-visit)) |
 | `GET` | `/towns/:id/voice/index` | the town's clips kept on this node: `{<normalized text>: {<voice>: <url>}}` |
 | `GET` | `/towns/:id/voice/profiles` | how the town's people are heard and the learner's own voice there: `{people: {<id>: {speaker, archetype, pitch, rate, status}}, player, language}` |
 | `GET` | `/towns/voice/file/<file>` | a visit's clip kept on this node (`audio/mpeg`) |
@@ -742,9 +743,18 @@ line) is heard in the first of these that can say it:
    only). The host answers with the clip of that text in the first of those voices its store has, as its own app would
    get it (a Slovene narrator's in Nina's or Luka's voice, else its local one; `player` is the voice its cast offers a
    learner of that `gender` and `age` at place `pick` of its list, "🗣️ Moj glas · My voice"): `{v, town, language, voice, engine, bytes, audio}`, the MP3 in base64. Only a clip there: nothing is
-   made, asked for or counted on the host, and a file is only ever one of its store's own MP3s, at most 768 KB
-   (`no_clip`, `404`, otherwise). At most 900 asks an hour from a town (`LANI_TOWN_VOICE_PER_HOUR`; `429` beyond). The
-   visitor's bridge checks the answer (that town, a voice asked, an MP3 within the size) and keeps it.
+   made, asked for or counted on the host (but for someone's own voice, below), and a file is only ever one of its
+   store's own MP3s, at most 768 KB (`no_clip`, `404`, otherwise). At most 900 asks an hour from a town
+   (`LANI_TOWN_VOICE_PER_HOUR`; `429` beyond). The visitor's bridge checks the answer (that town, a voice asked, an MP3
+   within the size) and keeps it. Asked with `&have=<sha256>` (a re-check of the clip the visitor keeps), the host answers
+   `{…, same: true}` without the audio when its clip is that one.
+   **Someone's own voice** (`@micka`: designed in the host's ElevenLabs account, so no other node can speak with it): when
+   the host has no clip of the line in it, it makes it in it, but only when its node allows that: `LANI_TOWN_VOICE_OWN_CHARS`
+   characters a day for all linked towns' visits together (unset or 0, the default: never; a guest never spends the host's
+   credits without the host's say), never from the reserve kept for its own live lines, the visits' own-voice clips of
+   today counted from its store (source `visit`). The clip is kept in its own store, so its own learner hears it too. A
+   take that isn't there within 2.5 s (`LANI_TOWN_VOICE_OWN_WAIT_MS`) isn't waited for: the answer (the archetype's clip,
+   or `no_clip`) says `making: true`, and the visitor checks the line again in a minute.
 2. **The visitor's node voices it** in the host's cast voice, when the host has no clip: `GET /town/voice/cast` gives the
    host's speakers (the ElevenLabs voice each speaks the town's language with: in a Slovene town the narrators' Nina and
    Luka, Babica's Zlata; the local Gepard voices for a Slovene town; the filter and pace each voice has), the voice its
@@ -754,8 +764,8 @@ line) is heard in the first of these that can say it:
    (the live lines' rate window, the reserve), in the town's language (`language_code`), a lone word of a carrier voice
    in that language's carrier sentence; then the local Gepard worker, for a Slovene town only (it speaks nothing else).
    Drama 3 makes batch clips only, never a live line. Someone with a voice of their own (designed in the host's
-   ElevenLabs account) is voiced in their archetype's. Each take goes through the voice's filter, pace, edges and level,
-   as the store keeps a clip.
+   ElevenLabs account) is voiced in their archetype's when the host doesn't make it in theirs (above). Each take goes
+   through the voice's filter, pace, edges and level, as the store keeps a clip.
 3. **A clip in a voice it falls back to** (their gender's narrator, the other narrator), kept or the host's; never for the
    learner's own line.
 4. **Else `204`**: the phone speaks it: its offline voice of the town's language (Piper, [Offline on the
@@ -777,16 +787,39 @@ word of a town visited, on its card at home (a review of that language's words),
 clips or voice. It is the clip of a linked town of that language through the node (its routes above: the host's clip,
 else its cast's voice on the node), else the offline voice of that language, else Android's voice for it, else the note
 for that language, once while the app runs. No re-record for it.
+**Another language's review at home** (its deck, a chip of the review's deck switch) says its exercises the same
+way: the exercise player has the deck's language (`ExerciseRun`'s `language`, `LocalSpeechLang`), and every 🔊 in it, a
+listening question's ▶ and 🐢, a flashcard's front and a scene's line said by themselves go through `Speaker.sayIn` in the
+narrator's voice (the companion's is the village's language's), with no re-record; the stage's companion still greets in
+the village's language. Its listening questions (a sound to pick the meaning of, a dictation) are planned only when the
+phone itself can say the language (its offline voice or Android's: `Speaker.speaksOnPhone`), so they never hang on
+another town's node; its cards are read aloud once anything can say it (`Speaker.canSayIn`), silent as before when nothing
+can (`ReviewSpeech`).
 
 **What the visitor keeps.** `<voice dir>/visits/` (`index.json`, `files/<sha1>.mp3`), apart from the village's own clips:
 per town, voice and line, with the town's language, where it came from (`host`, `node`), the engine and its voice. At
 most 100 MB (`LANI_VISIT_VOICE_MB`), the least recently played going first; a town no longer linked, all its clips. No
 pass of the village's store (re-voice, level, stale clips, `voice-build`) ever sees them. A line the host had no clip of
 isn't asked again for ten minutes (`LANI_VISIT_VOICE_MISS_MS`), nor a town whose bridge is older than this.
+**Kept clips are checked against the host again**, in the background as one is given out once its time came (`due`): a
+line voiced on the visitor's node, or a clip in a voice it stands in for (the archetype's for someone with a voice of
+their own, a narrator's), after a day (`LANI_VISIT_VOICE_RECHECK_HOURS`); the host's own clip in the voice asked after a
+week (`LANI_VISIT_VOICE_HOST_RECHECK_HOURS`), asked with its SHA-256 (`have`: `same` costs no audio); a line the host was
+making in someone's own voice after a minute. What the host has then takes the kept clip's place: its own take of a line
+voiced here, its clip in a better voice (someone's own, made since), its new take of a line it re-voiced. The app gets the
+new URL with the town's index at the next visit, or with the line asked for again; the replaced file is still handed out
+for two minutes (the app may be fetching it), then it goes, and a file of no clip goes when the bridge starts.
 
 **The app.** On a visit the speaker's clips are the town's (`data/Clips.kt` with the visit's routes, `ClipRoutes.visit`):
 the index of what the node keeps of the town, in memory for the visit only; its files in the clip cache, within the
-learner's cap; the town's people's pitch and pace. No re-record (a long press says it can't), no prefetch. The phone's
+learner's cap; the town's people's pitch and pace. No re-record (a long press says it can't). **A visit's first lines are
+got ahead** as it begins (`app/VisitAhead.kt`, `Clips.ahead`): once the town's people and places came (and the node said
+how they are heard, at most 3 s later), the greeting of the hour of everyone out ("Dober dan!" over someone tapped in a
+place) and each one's hello on their card, then the first lines of today's dialogs for guests, at most 40, each in the
+voice it will be asked in, through `POST /towns/:id/voice/prepare` (kept on the node, else the host's own clip; never
+voiced for it, so no credits go to a line maybe never heard); each downloaded into the clip cache within the learner's cap
+(none with the cap "Off"), so the line plays at once instead of waiting for the host. A line not got this way is asked for
+when it is said, as before. The phone's
 offline voice speaks the town's language when it is on the phone; the settings' "🔊 Zvok brez povezave · Offline audio"
 lists the voices for visits, each with "🗑️ Odstrani · Remove".
 
