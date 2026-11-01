@@ -1,0 +1,114 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "trapassato",
+  "language": "it",
+  "level": "B1",
+  "emoji": "⏪",
+  "title": {
+    "it": "Il trapassato prossimo: avevo già mangiato",
+    "sl": "Predpreteklik: avevo già mangiato",
+    "en": "Before the past: avevo già mangiato",
+    "de": "Die Vorvergangenheit: avevo già mangiato"
+  },
+  "rule": {
+    "en": "When two things happened in the past, the **trapassato prossimo** tells the one that came first: **Quando Lorenzo è arrivato, Moro aveva già mangiato.** (When Lorenzo came, Moro had already eaten.)\n\nIt is made like the passato prossimo, with avere or essere in the imperfetto: **avevo, avevi, aveva, avevamo, avevate, avevano** + the participle (**avevo mangiato**: I had eaten), and **ero, eri, era, eravamo, eravate, erano** + the participle (**ero partito**: I had left). The verbs that take essere in the passato prossimo take it here too, and the participle agrees: **Giulia era già partita.** **I bambini erano usciti.** **La nonna si era addormentata.**\n\nWords that help: **già** (already), **prima** (before), **non … mai** (never: **Lorenzo non aveva mai visto un cavallo così grande.**), **perché** (because: **Tommaso era stanco perché aveva giocato.**). It may come second: **Giulia era felice: aveva trovato un gattino.** English says it the same way: *had eaten, had left*.",
+    "sl": "Ko sta se v preteklosti zgodili dve stvari, **trapassato prossimo** pove tisto, ki je bila prej: **Quando Lorenzo è arrivato, Moro aveva già mangiato.** (Ko je Lorenzo prišel, je Moro že pojedel.)\n\nTvori se kot passato prossimo, z avere ali essere v imperfettu: **avevo, avevi, aveva, avevamo, avevate, avevano** + deležnik (**aveva mangiato**: je že pojedel) in **ero, eri, era, eravamo, eravate, erano** + deležnik (**era partito**: je že odšel). Glagoli, ki imajo v passato prossimo essere, ga imajo tudi tu, deležnik pa se ujema: **Giulia era già partita.** **I bambini erano usciti.** **La nonna si era addormentata.**\n\nBesede, ki pomagajo: **già** (že), **prima** (prej), **non … mai** (nikoli: **Lorenzo non aveva mai visto un cavallo così grande.**), **perché** (ker: **Tommaso era stanco perché aveva giocato.**). Lahko pride tudi drugi: **Giulia era felice: aveva trovato un gattino.** Slovenščina tu navadno reče kar preteklik z *že*.",
+    "de": "Wenn zwei Dinge in der Vergangenheit passiert sind, sagt das **trapassato prossimo**, was zuerst war: **Quando Lorenzo è arrivato, Moro aveva già mangiato.** (Als Lorenzo kam, hatte Moro schon gefressen.)\n\nEs geht wie das passato prossimo, mit avere oder essere im imperfetto: **avevo, avevi, aveva, avevamo, avevate, avevano** + Partizip (**avevo mangiato**: ich hatte gegessen) und **ero, eri, era, eravamo, eravate, erano** + Partizip (**ero partito**: ich war abgefahren). Die Verben mit essere im passato prossimo nehmen es auch hier, und das Partizip passt sich an: **Giulia era già partita.** **I bambini erano usciti.** **La nonna si era addormentata.**\n\nWörter, die helfen: **già** (schon), **prima** (vorher), **non … mai** (nie: **Lorenzo non aveva mai visto un cavallo così grande.**), **perché** (weil: **Tommaso era stanco perché aveva giocato.**). Es kann auch als Zweites kommen: **Giulia era felice: aveva trovato un gattino.** Im Deutschen ist es genauso: *hatte gegessen, war gegangen*."
+  },
+  "table": {
+    "head": [
+      { "it": "chi", "sl": "kdo", "en": "who", "de": "wer" },
+      { "it": "avere + participio", "sl": "avere + deležnik (bil pojedel)", "en": "avere + participle (had eaten)", "de": "avere + Partizip (hatte gegessen)" },
+      { "it": "essere + participio", "sl": "essere + deležnik (bil odšel)", "en": "essere + participle (had left)", "de": "essere + Partizip (war abgefahren)" }
+    ],
+    "rows": [
+      ["io", "avevo mangiato", "ero partito, ero partita"],
+      ["tu", "avevi mangiato", "eri partito, eri partita"],
+      ["lui, lei", "aveva mangiato", "era partito, era partita"],
+      ["noi", "avevamo mangiato", "eravamo partiti, partite"],
+      ["voi", "avevate mangiato", "eravate partiti, partite"],
+      ["loro", "avevano mangiato", "erano partiti, partite"],
+      [{ "it": "riflessivi", "sl": "povratni glagoli", "en": "reflexive verbs", "de": "reflexive Verben" }, "—", "mi ero addormentato, si era addormentata"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Quando Lorenzo è arrivato, Moro aveva già mangiato.",
+      "sl": "Ko je Lorenzo prišel, je Moro že pojedel.",
+      "en": "When Lorenzo came, Moro had already eaten.",
+      "de": "Als Lorenzo kam, hatte Moro schon gefressen.",
+      "note": {
+        "sl": "Najprej je Moro pojedel (aveva mangiato), potem je prišel Lorenzo (è arrivato).",
+        "en": "First Moro ate (aveva mangiato), then Lorenzo came (è arrivato).",
+        "de": "Zuerst hat Moro gefressen (aveva mangiato), dann kam Lorenzo (è arrivato)."
+      }
+    },
+    {
+      "it": "Quando siamo arrivati alla stazione, il treno era già partito.",
+      "sl": "Ko smo prišli na postajo, je vlak že odpeljal.",
+      "en": "When we got to the station, the train had already left.",
+      "de": "Als wir am Bahnhof ankamen, war der Zug schon abgefahren.",
+      "note": {
+        "sl": "partire ima essere: era partito.",
+        "en": "partire takes essere: era partito.",
+        "de": "partire geht mit essere: era partito, wie im Deutschen: war abgefahren."
+      }
+    },
+    {
+      "it": "Giulia era triste: la sua amica era già andata via.",
+      "sl": "Giulia je bila žalostna: njena prijateljica je že odšla.",
+      "en": "Giulia was sad: her friend had already gone.",
+      "de": "Giulia war traurig: Ihre Freundin war schon weggegangen.",
+      "note": {
+        "sl": "z essere se deležnik ujema: l'amica → andata.",
+        "en": "with essere the participle agrees: l'amica → andata.",
+        "de": "mit essere passt sich das Partizip an: l'amica → andata."
+      }
+    },
+    {
+      "it": "Tommaso era stanco perché aveva giocato a calcio tutto il pomeriggio.",
+      "sl": "Tommaso je bil utrujen, ker je ves popoldan igral nogomet.",
+      "en": "Tommaso was tired because he had played football all afternoon.",
+      "de": "Tommaso war müde, weil er den ganzen Nachmittag Fußball gespielt hatte."
+    },
+    {
+      "it": "Lorenzo non aveva mai visto un cavallo così grande.",
+      "sl": "Lorenzo še nikoli ni videl tako velikega konja.",
+      "en": "Lorenzo had never seen such a big horse.",
+      "de": "Lorenzo hatte noch nie so ein großes Pferd gesehen."
+    },
+    {
+      "it": "Quando la mamma è entrata, Lorenzo si era già addormentato.",
+      "sl": "Ko je mama vstopila, je Lorenzo že zaspal.",
+      "en": "When Mum came in, Lorenzo had already fallen asleep.",
+      "de": "Als Mama hereinkam, war Lorenzo schon eingeschlafen.",
+      "note": {
+        "sl": "povratni glagoli imajo essere: si era addormentato.",
+        "en": "reflexive verbs take essere: si era addormentato.",
+        "de": "reflexive Verben gehen mit essere: si era addormentato."
+      }
+    },
+    {
+      "it": "Giulia era felice: aveva trovato un gattino nel fienile.",
+      "sl": "Giulia je bila vesela: na seniku je našla mucka.",
+      "en": "Giulia was happy: she had found a kitten in the hayloft.",
+      "de": "Giulia war froh: Sie hatte auf dem Heuboden ein Kätzchen gefunden.",
+      "note": {
+        "sl": "Kar je bilo prej, lahko pride tudi drugo.",
+        "en": "What came first can be told second.",
+        "de": "Was zuerst war, kann auch als Zweites kommen."
+      }
+    },
+    {
+      "it": "Le pecore di Davide erano scappate, ma Moro le ha trovate.",
+      "sl": "Davidove ovce so pobegnile, a Moro jih je našel.",
+      "en": "Davide's sheep had run away, but Moro found them.",
+      "de": "Davides Schafe waren weggelaufen, aber Moro hat sie gefunden."
+    }
+  ],
+  "modules": [],
+  "tags": ["trapassato", "trapassato_prossimo", "pluperfect", "past_perfect", "past", "tense_choice"],
+  "see": ["imperfetto-passato", "passato-prossimo", "imperfetto", "participi-irregolari"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}
