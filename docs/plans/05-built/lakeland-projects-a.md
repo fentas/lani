@@ -114,14 +114,14 @@ the chapel's `village`, the apiary's `meadow`); they now name Friuli's value, an
   pixel.
 - **The tests that count**: DialogReactionsTest's scene files (+8, and the copy of b's beck), SceneCoherenceTest's done
   lines (46 + 30), AlpsLooksTest's places (the wood, a spot, beside every building).
-- **The bridge**, on the branch as it is now (merged with the queue's tip, map-people): `bunx tsc --noEmit -p .` clean;
+- **The bridge**, on the branch as it is now (merged with the queue's tip, course-en-a1-c): `bunx tsc --noEmit -p .` clean;
   `check-culture` ok for the Lake District, Kärnten, Friuli and Primorska; `check-steps lakeland` 13 files (both halves of
   the wave), 78 steps, 156 dialogs, 878 lines; the smoke with this round's ports (`LANI_SMOKE_PORT=9770
-  LANI_SMOKE_FRIULI_PORT=9773 LANI_SMOKE_TOWN_PORT=9776 LANI_SMOKE_DRAMA3_PORT=9788`): 3456 checks, all passed (3327 before
-  the merges); `tutor-export --check`: 89 files match (54 tools, 32 guide topics); the learner audit 0, 0, 0.
+  LANI_SMOKE_FRIULI_PORT=9773 LANI_SMOKE_TOWN_PORT=9776 LANI_SMOKE_DRAMA3_PORT=9788`): 3464 checks, all passed (3327 before
+  the merges); `check-steps lakeland` still ok with the English supplement (lexicon/en.extra.json, partial); `tutor-export --check`: 89 files match (54 tools, 32 guide topics); the learner audit 0, 0, 0.
 - **Python** (`bin/qa` changed): 251 tests, and 142 with 11 skipped, all passing (after the merges too).
-- **The Android unit suite** (lani-slot.sh) on the branch as it is now, merged with the queue's tip (map-people): 480
-  classes, 3737 tests, 0 failures, 2 skipped. Before the merges: 475 classes, 3691 tests, the one failure a look line in the
+- **The Android unit suite** (lani-slot.sh) on the branch as it is now, merged with the queue's tip (course-en-a1-c): 482
+  classes, 3756 tests, 0 failures, 2 skipped (480 classes, 3737 tests after the map-people merge). Before the merges: 475 classes, 3691 tests, the one failure a look line in the
   copy of part b's beck (fixed on b's branch, the copy refreshed: ba0a0478). After the merges two turns of the maypole's new
   variants gave both right answers one reply (each its own now: f16ba683, a96e445d). On the way the
   content tests found 33 reactions that said the right choice's words and 12 looks at what the picture doesn't draw, all
@@ -133,7 +133,9 @@ the chapel's `village`, the apiary's `meadow`); they now name Friuli's value, an
   is up at the far end." and its three answers); the packhorse bridge finished, its card, in and closer up (the slate arch
   over the beck); the wood (the larches gold on 1 November, the Herdwick by the path); the maypole, the mill, the chapel, the
   damson orchard and the wildflower meadow by their links. Screenshots: the round's scratch folder
-  `ux-lakeland-projects-a/` (lp-*.png).
+  `ux-lakeland-projects-a/` (lp-*.png). Run again on the branch merged with the queue (8145b6e2: map-people and
+  stories-kaernten, the people in the Lake District's wardrobe): green on slot 1, the same journey, shots in
+  `ux-lakeland-projects-a/final/`; the English course merged after it changes no screen of this round.
 
 ## How to use
 
@@ -206,8 +208,9 @@ English) would take about 79,100 characters: 45,000 for the eight scenes, 34,200
 ## What is left
 
 - **The native check** above.
-- **Merged with the queue.** As the lead asked, this branch has lakeland-projects-b (e0b91f66, 5868b1bc) and then the queue's
-  tip kaernten-projects-b (6960268f) merged in, both sides kept: the painters' Carinthian and Lakeland looks side by side
+- **Merged with the queue.** As the lead asked, this branch has lakeland-projects-b (e0b91f66, 5868b1bc), then the queue's
+  tips as they moved, kaernten-projects-b (6960268f), map-people (00c6b286), stories-kaernten (8145b6e2) and
+  course-en-a1-c (f031359e), merged in, both sides kept: the painters' Carinthian and Lakeland looks side by side
   (one `drink` for the bowling green's jug: f822f04e), the counts of both waves in the tests, the reviewed digests of the
   green and the beck taken after the merge (65362023), CultureScenesTest holding this round's eight scenes to their arts
   (the Lakeland wood's boar never there: `LakelandLooks.FOREST` fixtures; the forest exempt from sheepbells and tracks;
