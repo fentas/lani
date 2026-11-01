@@ -124,6 +124,34 @@ export default async function kaernten() {
     check('kaernten: packs are written in German for this village', instructions.includes('"language": "de"'))
     await languageBook('kaernten', base, auth, 'de', 'German', 'Grammatik', 'sl', instructions)
 
+    // --- the school's course: German (companion/course/de), its texts in the learner's base (Slovene) -------------
+    const course = await (await fetch(`${base}/course`, { headers: auth })).json()
+    const first = ['hallo', 'sein', 'artikel', 'plural', 'haben', 'zahlen']
+    const outlined = (course.levels ?? []).flatMap((l: any) => l.units ?? [])
+    const written = outlined.filter((u: any) => !u.planned).map((u: any) => u.id)
+    check(
+      "kaernten: GET /course serves the German course: its written units in the outline's order (A1 from hallo on), each served, a planned one not",
+      course.language === 'de' && course.levels?.[0]?.units?.length === 18 && first.every((id, i) => written[i] === id) && course.units.map((u: any) => u.id).join() === written.join(),
+      { language: course.language, units: course.units?.map((u: any) => u.id), planned: outlined.filter((u: any) => u.planned).length },
+    )
+    const hallo = course.units?.find((u: any) => u.id === 'hallo')
+    const sort = hallo?.worksheets[0].exercises[0]
+    check(
+      "kaernten: a unit's exercises read in the learner's base (Slovene: the instruction, the sort's columns, a why), its intro per language as written, the learner's name in it",
+      sort?.instruction === 'Ordne zu · Prijatelju ali neznancu?' && sort.columns[0].label === 'du · prijatelju' && sort.explain.startsWith('**du s prijatelji') &&
+        !!hallo.intro.steps[0].say.en && !!hallo.intro.steps[0].say.sl && !!hallo.intro.steps[0].say.it && hallo.intro.steps[3].examples[1].de === 'Ich heiße Ana. Freut mich!',
+      sort,
+    )
+    const printed = await fetch(`${base}/course/sheet/sein`, { headers: auth })
+    const page = await printed.text()
+    check(
+      "kaernten: the unit's printed sheet: headed in German and in the learner's Slovene, its examples German",
+      printed.ok && printed.headers.get('x-lani-print-name') === '02-sein' && page.includes('Regel') && page.includes('Pravilo') && page.includes('Lektion') && page.includes('Ich bin Eva.'),
+      [printed.status, printed.headers.get('x-lani-print-name')],
+    )
+    const school = instructions.slice(instructions.indexOf('The school ('), instructions.indexOf('The school (') + 1400)
+    check("kaernten: the guide's school is the village's: Lehrerin Eva teaches, the course is German", school.includes('Lehrerin Eva comes over from the next village') && school.includes('companion/course/de') && !school.includes('Mojca'), school.slice(0, 400))
+
     // --- the voices: the pack's cast speaks German (without voices yet, the phone does) ------------------------
     await checkCultureVoices({ culture: 'kaernten', base, headers: auth, line: 'Servus! Hast du Hunger?', word: 'Holz', role: /Oma Resi/, since: ttsBefore })
 
