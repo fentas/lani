@@ -149,7 +149,8 @@ Schluss.". No check said so.
 
 **Now** the smoke's prints section reads every unit of the repository in every base its texts have (the sheets print in
 each but the course's own) and fails on a step that shows forms (bold) but prints none in its line. It uses the sheet's
-own `ruleLine` (`prints/sheet.ts`), which `buildSheet` calls. It found 11 steps in 26 step-bases, each rewritten so its
+own `ruleLine` (`prints/sheet.ts`), which `buildSheet` calls. It found 11 steps in 26 step-bases, and after the rebase
+onto main 3 more in the new B2 units (9 step-bases), each rewritten so its
 first sentence carries a form or the sentence with the forms fits; nothing a step said was dropped, the Slovene examples
 are as they were:
 
@@ -166,6 +167,9 @@ are as they were:
 | sl/vid-vsi-casi 1 | it | Conosci le coppie dal presente: … | Al passato come al presente: **Janez je jedel kosilo** (stava pranzando), **Janez je pojedel kosilo** (l'ha mangiato tutto). |
 | it/aggettivi 6 | de, sl, en | Zwei Tipps zum Schluss. | Ein Junge und ein Mädchen zusammen sind männlich (**stanchi**), und **bianco**, **stanco** bekommen bei mehreren ein h. |
 | it/ciao 3 | de | Zu Erwachsenen, die nicht deine Familie sind, sagst du nicht ciao. | … nicht ciao. Morgens und nachmittags sagst du **buongiorno** (guten Tag), abends **buonasera** … |
+| sl/frazeologija 3 (B2) | en, de, it | What changes in an idiom is the verb and the person. | … the verb and the person: **iti komu na živce** wants the dative, **vleči koga za nos** the accusative. |
+| sl/pogojnik-pretekli 5 (B2) | en, de, it | Today the past conditional is mostly written, and in stories. | … and in stories; speech often says the same with the plain conditional and a word of the past: **Če bi včeraj prišel/prišla, bi videl/videla trgatev**. |
+| sl/predpreteklik 4 (B2) | en, de, it | The pluperfect is rare and mostly written: stories, chronicles, old letters. | … (stories, chronicles, old letters); speech says the same with the past and **že** (already) or **prej** (before): **Ko je Nejc pritekel, je avtobus že odpeljal**. |
 
 Every sheet keeps its page count (`school-prints` in every base, before and after: the two-page ones stay two,
 the one-page ones one); aggettivi's English and vid-vsi-casi's Italian were shortened until they did. COURSE.md says how
