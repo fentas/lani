@@ -183,6 +183,8 @@ const DETERMINER_PRONOUNS = new Set(['tisti', 'tale', 'vsak', 'kateri', 'kakšen
 const FIRST_LAST = new Set(['prvi', 'drugi', 'zadnji'])
 /** The words of a comparison (kot sonce, kakor medved): what follows takes the case of what it is compared with. */
 const COMPARISON = new Set(['kot', 'kakor'])
+/** The verbs a name is given with (Zato mu rečemo Triglav: the name in the nominative). */
+const NAMING = new Set(['reči', 'praviti', 'klicati'])
 /** Words that ask for something, after which a verbless line names what is wanted (Kavo, prosim: the accusative). */
 const ASKING = new Set(['prosim', 'hvala'])
 const PUNCTUATION = /[,.!?;:—–…()"«»„“”]/
@@ -1039,9 +1041,13 @@ export class CaseLens {
       // one that is a noun's form too (potem: pot's, doma: dom's): a noun only after a preposition, a number or its adjective
       // the same for a conjunction, a particle or an interjection (kot: as, and a noun's angle; hvala)
       const functional = ['adv', 'conj', 'particle', 'intj'].some(x => t.other.has(x))
-      if (t.role === 'nominal' && functional && !t.phrase && !t.nominal.some(r => (r.strong && r.pos !== 'name') || r.pos === 'pron')) {
+      // (an adjective's form is an adverb's too whatever says it is an adjective: the supplement's adjectives are as sure as
+      // Wiktionary's are not, but Star človek malo spi has malo, little, not mali's neuter)
+      if (t.role === 'nominal' && functional && !t.phrase && !t.nominal.some(r => (r.strong && r.pos !== 'name' && !MODIFIER_POS.has(r.pos)) || r.pos === 'pron')) {
         if (t.nominal.every(r => MODIFIER_POS.has(r.pos))) {
-          const n = next(t)
+          // (a noun the dictionary gives no gender agrees with nothing here: Deska je točno meter in pol)
+          const n0 = next(t)
+          const n = n0 && { ...n0, nominal: n0.nominal.filter(r => r.pos !== 'noun' || r.genders.length < 3) }
           if (!(n && n.nominal.some(r => !MODIFIER_POS.has(r.pos) && r.pos !== 'pron') && agreeing([t, n]).length > 0)) t.role = 'other'
         } else {
           const p = prev(t)
@@ -1161,6 +1167,40 @@ export class CaseLens {
         if (!fits.length || (one(open) && !['form', 'object', 'subject'].includes(open.options[0].as ?? ''))) continue
         for (const o of open.options) if (o.case !== c0.case) open.out.push({ case: o.case, number: o.number, why: 'agreement' })
         open.options = fits.map(o => ({ ...o, as: c0.as, by: c0.by, rule: c0.rule, ...(c0.sense ? { sense: c0.sense } : {}) }))
+      }
+    }
+    // a name right after a noun (or a name) is its apposition: the noun's case where the name's form has it (pod goro
+    // Peco, janičarja Jurija Kozjaka), else the name left in its nominative, as it often is (na grad Ojstrica, del gore
+    // Prisojnik)
+    for (let k = 0; k + 1 < states.length; k++) {
+      const [a, b] = [states[k], states[k + 1]]
+      const name = b.phrase.head
+      if (b.phrase.toks[0].i !== a.phrase.head.i + 1 || b.phrase.toks.length !== 1 || !/^\p{Lu}/u.test(name.raw) || !name.nominal.some(r => r.pos === 'name')) continue
+      if (!a.phrase.head.nominal.some(r => r.pos === 'noun' || r.pos === 'name') || a.unresolved || b.unresolved) continue
+      const sure = new Set(a.options.map(o => `${o.case}.${o.number}`)).size === 1
+      const c0 = a.options[0]
+      // (the noun's readings the name's form has, as sure as the noun's: Pod goro Peco, likely where it is)
+      const fits = a.options.flatMap(o => {
+        const f = b.phrase.options.find(x => x.case === o.case && x.number === o.number)
+        return f ? [{ ...f, as: o.as, by: o.by, rule: o.rule, ...(o.sense ? { sense: o.sense } : {}), ...(o.likely ? { likely: o.likely } : {}) }] : []
+      })
+      if (fits.length && (sure || fits.length === a.options.length)) {
+        for (const o of b.options) if (!fits.some(f => f.case === o.case && f.number === o.number)) b.out.push({ case: o.case, number: o.number, why: 'agreement' })
+        b.options = fits
+      } else if (sure && c0.case !== 'nom' && b.phrase.options.some(o => o.case === 'nom') && b.options.some(o => o.case !== 'nom')) {
+        for (const o of b.options) if (o.case !== 'nom') b.out.push({ case: o.case, number: o.number, why: 'agreement' })
+        b.options = b.phrase.options.filter(o => o.case === 'nom').map(o => ({ ...o, as: 'form' as const, rule: this.s.table.roles.subject.rule }))
+      }
+    }
+    // a name given (Zato mu rečemo Triglav; Pravijo ji Pehta): with reči, praviti or klicati and a dative, the
+    // nominative, never an object
+    if (c.verbs.some(v => v.verbs.some(r => NAMING.has(this.norm(r.lemma)))) && c.toks.some(t => t.nominal.length > 0 && t.nominal.every(r => r.case === 'dat'))) {
+      for (const st of states) {
+        const h = st.phrase.head
+        // (a name's readings alone: a capitalized word at a sentence's start keeps its others, Kaj jima rečem?)
+        if (!/^\p{Lu}/u.test(h.raw) || !h.nominal.length || !h.nominal.every(r => r.pos === 'name') || !st.phrase.options.some(o => o.case === 'nom') || st.options.every(o => o.case === 'nom')) continue
+        for (const o of st.options) if (o.case !== 'nom') st.out.push({ case: o.case, number: o.number, why: 'agreement' })
+        st.options = st.phrase.options.filter(o => o.case === 'nom').map(o => ({ ...o, as: 'copula' as const, rule: this.s.table.roles.predicate.rule }))
       }
     }
     return states.flatMap(s => this.wordsOf(s))
@@ -1388,7 +1428,12 @@ export class CaseLens {
       } else if (o.case === 'gen') {
         if (owner) Object.assign(o, { as: 'attribute', by: owner, rule: this.s.table.roles.attribute.rule })
         else dropRole(o, 'needs-trigger')
-      } else if (o.case === 'dat') Object.assign(o, { as: 'form', rule: this.s.table.roles.dative.rule })
+      } else if (o.case === 'dat') {
+        // (a dative of whom it is for is a noun's or a pronoun's: an adjective alone, no verb governing it, is none:
+        // Zdaj ste starejši, not a feminine dative)
+        if (!p.head.nominal.some(r => !MODIFIER_POS.has(r.pos))) dropRole(o, 'needs-trigger')
+        else Object.assign(o, { as: 'form', rule: this.s.table.roles.dative.rule })
+      }
     }
     // a nominative no role fits, and nothing else: the line fits none of its readings (no row rather than a wrong one)
     if (unsupported.length && unsupported.length === s.options.length && unsupported.every(u => u.o.case === 'nom' && u.why === 'agreement')) return unresolved()
