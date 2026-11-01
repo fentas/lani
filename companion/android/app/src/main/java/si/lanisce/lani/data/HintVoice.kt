@@ -34,11 +34,12 @@ import java.io.File
 
 /**
  * The 🔊 of "📖 Namig · Hint" (companion/SCENES.md, "The hint"): its spoken TL;DR ([si.lanisce.lani.game.HintSpeech])
- * played as one. The base-language pieces by the phone's own text-to-speech, rendered to files as the car's prompts are
- * ([RoadPrompts]; kept in the cache, so a hint heard again starts at once); the Slovene ones by the app's voice: the voice
- * store's clip on the phone, else the node voices it now (as a line's 🔊 does, [Clips]), else the phone's voice for the
- * language learned, else that piece is left out. Once every piece is here they play one after the other in one player,
- * without gaps.
+ * played as one. The base-language pieces by the phone's offline voice of the base when it is on the phone (Piper speaks
+ * any of its voices: [si.lanisce.lani.audio.OfflineVoice.speaksIn]), else by the phone's own text-to-speech, rendered to
+ * files as the car's prompts are ([RoadPrompts]; kept in the cache, so a hint heard again starts at once); the Slovene ones
+ * by the app's voice: the voice store's clip on the phone (on a visit the town's), else the node voices it now (as a
+ * line's 🔊 does, [Clips]), else the offline voice of the language learned, else the phone's voice for it, else that piece
+ * is left out. Once every piece is here they play one after the other in one player, without gaps.
  *
  * One voice at a time: a tap stops what [Speaker] says, and [Speaker] stops this whenever it says or stops anything (a
  * line, the 🎤 opening). The background sounds duck under it as under any voice ([sounding], read by [Speaker.talking]).
@@ -103,7 +104,7 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
      */
     fun warm(script: List<HintPiece>) {
         scope.launch {
-            runCatching { for (p in script) if (!p.target) render(p.lang ?: L10n.pair.base, p.text, BASE_RATE) }
+            runCatching { for (p in script) if (!p.target) base(p.lang ?: L10n.pair.base, p.text) }
         }
     }
 
@@ -137,25 +138,58 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
      * Each piece's files, in order ([playable]): a base piece rendered by the phone's voice, a Slovene one from the voice
      * store or the phone's voice (else left out). Each piece's source is logged (tag HintVoice: QA's evidence).
      */
-    private suspend fun files(script: List<HintPiece>, needsBase: Boolean): List<File> = coroutineScope {
+    private suspend fun files(script: List<HintPiece>, needsBase: Boolean): List<File> {
+        val got = sourced(script)
+        return playable(script, got.map { it?.files }, needsBase)
+    }
+
+    /**
+     * Each piece of [script] got ready, in order (null: nothing could say it): a base piece by the offline voice of its
+     * language or the phone's voice ([base]), a Slovene one from the voice store or the phone ([target]). Each piece's source
+     * is logged (tag HintVoice: QA's evidence).
+     */
+    internal suspend fun sourced(script: List<HintPiece>): List<Sourced?> = coroutineScope {
         val pair = L10n.pair
         // each piece's language: its own (the first launch's), else the pair's
         val langs = script.map { p -> p.lang ?: if (p.target) pair.target else pair.base }
         val got = script.mapIndexed { i, p ->
             val lang = langs[i]
-            async { if (p.target) target(p.text, lang, own = p.lang != null) else render(lang, p.text, BASE_RATE)?.let { Sourced(listOf(it), "tts:${lang.code}") } }
+            async { if (p.target) target(p.text, lang, own = p.lang != null) else base(lang, p.text) }
         }.awaitAll()
         script.forEachIndexed { i, p -> Log.i(TAG, "${i + 1}/${script.size} ${langs[i].code} ${got[i]?.source ?: "none"} \"${p.text.take(60)}\"") }
-        playable(script, got.map { it?.files }, needsBase)
+        got
     }
 
-    /** A piece's files and where they came from: "clip" (on the phone), "node" (voiced now), "clip:other", "tts:<lang>". */
-    private class Sourced(val files: List<File>, val source: String)
+    /**
+     * A piece's files and where they came from: "clip" (on the phone), "node" (voiced now), "clip:other", "offline:<lang>"
+     * (the offline voice of that language), "tts:<lang>".
+     */
+    internal class Sourced(val files: List<File>, val source: String)
+
+    /** A base-language piece: the offline voice of [lang] when it is on the phone, else the phone's voice ([render]). */
+    private suspend fun base(lang: Lang, text: String): Sourced? =
+        offline(lang, text) ?: render(lang, text, BASE_RATE)?.let { Sourced(listOf(it), "tts:${lang.code}") }
+
+    /**
+     * [text] by the phone's offline voice of [lang] ([si.lanisce.lani.audio.OfflineVoice.renderIn], at its own pace, as a
+     * line's is), when that voice is on the phone; null otherwise or when it can't.
+     */
+    private suspend fun offline(lang: Lang, text: String): Sourced? {
+        val o = speaker.offline?.takeIf { it.speaksIn(lang.code) } ?: return null
+        val f = try {
+            o.renderIn(lang.code, text, 1f)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (_: Exception) {
+            null
+        }
+        return f?.let { Sourced(listOf(it), "offline:${lang.code}") }
+    }
 
     /**
      * A Slovene piece's clips: the narrator's on the phone, else the node gets or voices it now (waiting as long as a
-     * line's 🔊 does), else another narrator's on the phone, else the phone's own voice for the language learned; null when
-     * none can say it. [lang]: the piece's language; [own]: it is the piece's own (game/SetupSpeech), not the pair's.
+     * line's 🔊 does), else another narrator's on the phone, else the offline voice of the language learned, else the
+     * phone's own voice for it; null when none can say it. [lang]: the piece's language; [own]: it is the piece's own (game/SetupSpeech), not the pair's.
      */
     private suspend fun target(text: String, lang: Lang, own: Boolean = false): Sourced? {
         val c = speaker.clips
@@ -167,6 +201,8 @@ class HintVoice(context: Context, private val scope: CoroutineScope, private val
             }
             c.onDevice(text, NARRATOR.drop(1))?.let { return Sourced(it, "clip:other") }
         }
+        // no clip: the offline voice of its language when it is on the phone, as a line's (a visit's town language too)
+        offline(lang, text)?.let { return it }
         // [Speaker.available] is about the pair's language; a piece in a language of its own asks the phone's voice for it
         if (!own && !speaker.available) return null
         return render(lang, text, TARGET_RATE)?.let { Sourced(listOf(it), "tts:${lang.code}") }

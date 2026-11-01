@@ -502,10 +502,13 @@ their form).
 built from the same data (`game/HintSpeech.kt`, the `hintSay.*` keys): what applies here, the rule in one sentence, the
 question to ask and a model, e.g. "After «dvanajst», five and up: the noun goes into the genitive plural. Ask: «Koga?
 Česa?» Like: «pet hiš», «pet stolov», «pet jabolk»." A turn of a rule not yet says only "You'll learn this later: …".
-The learner's base is said by the phone's own voice (rendered to files as the car's prompts, `RoadPrompts`, and kept in
-the cache); the Slovene (the trigger, the questions, the models, the words of a rule: marked «…») by the app's voice, the
-voice store's clip or the node's live voicing as a line's 🔊, else the phone's Slovene voice, else left out; then all of
-it plays in one player, without gaps (`data/HintVoice.kt`). A tap again stops it, and so does a line said, the 🎤
+The learner's base is said by the phone's offline voice of the base when it is on the phone (Piper speaks any of its
+voices: `OfflineVoice.speaksIn`, `renderIn`; English on Jan's phone, German on Teo's tablet), else by the phone's own
+voice (rendered to files as the car's prompts, `RoadPrompts`, and kept in the cache); the Slovene (the trigger, the
+questions, the models, the words of a rule: marked «…») by the app's voice, the voice store's clip (on a visit the
+town's) or the node's live voicing as a line's 🔊, else the offline voice of the language learned, else the phone's
+voice for it, else left out; then all of it plays in one player, without gaps (`data/HintVoice.kt`; `HintVoiceOfflineTest`).
+The same at home and on a visit. A tap again stops it, and so does a line said, the 🎤
 opening, the card closing or the turn going on; the background sounds duck under it. Each sentence is `fair` and its
 Slovene shows no form of the turn (`HintSpeechTest`, over the curated turns: 661 of the 668 hints say something).
 
