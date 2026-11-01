@@ -1053,7 +1053,7 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | Read aloud | the intro's English in her voice: `Spoken.looks` for English (its frequent words; English has no letters of its own, so a bold form is read in her voice when its words are English's or the intro shows them: its examples, its table, its questions, the unit's `words`); the explanation in the learner's base as one clip (`sl\|…`, `de\|…`, `it\|…`) |
 | The teacher's lines | "Welcome to the school! Sit down, let's start." and "Excellent! You know this already: …" (the app's English strings) |
 | Texts per base | every explanation (`say`, `summary`), title, goal, instruction, hint, why, label, column and translation in Slovene, German and Italian, and in English: the format wants it always, so it is plain English, the fallback |
-| Grading | the English table (`grading/en.json`): a contraction is its long form (I'm = I am, isn't = is not, he's got = he has got, Jack's at home = Jack is at home); 21 to 99 with or without the hyphen; the American "a hundred five" and the American spelling (color, center, gray, mom, traveling) beside the British; -ize and -ise both; a known mistake wrong only for a word of its group: -s for -es after x, z, ch, sh, ss, -fes for -ves, woman for women, fourty, ninty, for for four |
+| Grading | the English table (`grading/en.json`): a contraction is its long form (I'm = I am, isn't = is not, he's got = he has got, Jack's at home = Jack is at home); 21 to 99 with or without the hyphen; the American "a hundred five" and the American spelling (color, center, gray, mom, traveling) beside the British; -ize and -ise both; a known mistake wrong only for a word of its group: -s for -es after x, z, ch, sh, ss, -fes for -ves, woman for women, fourty, ninty, for for four, the -ing form's spelling (siting, makeing, writting), the ordinals' (nineth, twelth, fith), were and where for each other; an ordinal with or without its hyphen (twenty-first); a contraction without its apostrophe almost, never right (cant, isnt, Im: the apostrophe's hint with English's examples, can't, I'm), its, were, lets staying words of their own |
 | British, American | British spelling and usage in every text (colour, Mum, the inn, have got, a hundred and five); the American form is right where a learner types it: by the grading (its spelling) or listed in `accept` (Do you have …? beside Have you got …?) |
 | The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
 | Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
@@ -1096,6 +1096,36 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
 - **The spelled forms in the intro's table** (buses, dishes, families, calves, roofs): a bold form of the explanation is
   read in Mrs Hartley's voice when English's frequent words or the intro's own words make it English; a plural the
   table doesn't show would be read by the phone's voice of the base. Only the endings -teen and -ty are left to it.
+
+### The English course: units 13–18
+
+A1's last six units, from where things are to the past of be, after the present simple, do, the word order and there
+is (units 7–12), in the village's grown-up life (the Packhorse Inn full at night, Mr Dixon's gates, Mr Tyson's sacks,
+Old Wilf by the fire, the bus to Keswick, the market):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `prepositions` 📍 | in (inside, a town: in Keswick), on (a surface: on the fell), at (a point, where you do something: at the inn; at home, at work with no the); under, behind, in front of (never without of), next to, by, between … and …, near; the noun never changes; Where's …? Where are …? It's …, They're …; to for where to (go to the inn), but go home; into | prepositions-place (its own summary card), there-is-are |
+| `can` 💪 | can for everyone, no -s, no to (never she cans, He can to drive.); can't, cannot; Can you …? with no do, Yes, I can; Can I …? You can … for asking and allowing (znati, moči, smeti; können, dürfen; sapere, potere); Could you …, please? Of course. | can (its own summary card) |
+| `present-continuous` 🏃 | am, is, are + -ing for now (I'm walking: the others' present, gerade, stare); isn't, aren't; Are you …? Yes, I am; What are you doing?; making, sitting, swimming, lying; every day and usually with the present simple, now, Look!, Listen! with -ing; know, like, want, need, understand never with -ing | present-continuous, present-simple |
+| `time` 🕖 | What time is it? It's seven o'clock; past up to half past, to the next hour after it (five past seven, a quarter to eight); British half seven for 7:30 (halb acht, pol osmih: never halb sieben), the digital seven thirty and the American ten after eight accepted; at a clock time and at night; on a day and a date (on Monday, on the first of May), at the weekend (on the weekend accepted), every Sunday with none; in a month, a season, a year, a part of the day; the capitals; the ordinals (first, second, third, fifth, ninth, twelfth, twentieth, twenty-first): written 1 May, said the first of May | time-dates (new), numbers |
+| `object-pronouns` 👉 | me, you, him, her, it, us, them after a verb and after a preposition; the subject before the verb, the object after it (She likes him. He likes her.); her the object and the possessive, him never his; a pet with a name him or her, a thing it; It's me. Me too.; one pronoun only (never I know him Jack.); Give me the key, Give it to me | object-pronouns (new), pronouns |
+| `was-were` ⏮️ | was for I, he, she, it; were for you, we, they, and you were for one person (never you was); wasn't, weren't; Was it …? Were you …? Yes, I was (never Yes, I were); yesterday, last night, two days ago; there was, there were; where and were; born with was (Auntie Edna was born in 1952, never is born) | was-were (new), to-be |
+
+- **Pages written for them**: `time-dates`, `object-pronouns` and `was-were`, each A1 with its cheat-sheet card (the
+  book had the place prepositions, can and the present continuous; past-simple is A2, so was and were have a page of
+  their own that sees it).
+- **Gaps a preposition alone decides**: a picture would say under or behind, a sheet can't, so a gap is kept to what
+  fixes its preposition: the word after it (`in ___ of`, `next ___ the inn`), between … and …, at home, at work, a town,
+  or a cue in brackets (`___ (below) the table`); where in and at both fit (`He's ___ the inn`), both are listed.
+- **A name's 's before -ing** isn't is for the grading (it is only before an article, not, a place word …): a line
+  that may be typed `Meg's running up the fell.` lists `Meg is running up the fell.` beside it.
+- **The -ing spelling and the ordinals are the rule, not a slip** (grading/en.json's `wrong`, each only for a verb or
+  a number of its rule): siting, runing, hoping, makeing, comeing, writting, comming; nineth, eigth, twentyth,
+  fourtieth; and were and where for each other. A distractor may offer them (`siting`).
+- **A contraction without its apostrophe** (cant, isnt, Im, theyre, wasnt) is almost, with the apostrophe hint and
+  English's examples (`loose`, `loose_examples`: "can't, I'm"), never right; its, were, well, lets stay words of their
+  own, so were for we're is wrong.
 
 ## Printed sheets
 
