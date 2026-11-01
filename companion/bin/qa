@@ -3923,7 +3923,7 @@ def faces():
 # the culture → a dialog whose first turn comes after someone else's line: (scene, happening, dialog)
 # (docs/plans/05-built/scene-replier.md)
 REPLIER_DIALOGS = {
-    "primorska": ("pri-vratih", "zapah", "zapah-nejc"),  # Nejc wants to go into the forest; Jože bars the gate
+    "primorska": ("pri-vratih", "zapah-nejc", "zapah-nejc"),  # Nejc wants to go into the forest; Jože bars the gate
     "friuli": ("in-cantina", "brocca", "brocca"),  # Matteo asks for the jug under the tap; Marisa fetches wine
 }
 
@@ -4027,7 +4027,7 @@ def scene_replier_run(culture: str, sid: str, hid: str, did: str):
 # the culture → a happening's dialog with someone else's lines in it, the wrong choice the step picks at its first turn, and
 # the text said after its right one (docs/plans/05-built/scene-speakers.md)
 SPEAKER_DIALOGS = {
-    "primorska": ("pri-vratih", "zapah", "zapah-nejc", "Ja, Nejc! Gremo takoj!", "Zakaj ne? Saj nisem majhen!"),
+    "primorska": ("pri-vratih", "zapah-nejc", "zapah-nejc", "Ja, Nejc! Gremo takoj!", "Zakaj ne? Saj nisem majhen!"),
     "friuli": ("in-cantina", "brocca", "brocca", "Ecco, il brocca è sotto il rubinetto.", "Bravo! Matteo, apri il rubinetto!"),
 }
 

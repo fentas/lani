@@ -26,7 +26,7 @@ class DialogCastTest {
     private val zapah = gate.dialogs.first { it.id == "zapah-nejc" }
     private val joze = gate.people.first { it.id == "joze" }
     private fun talk(d: Dialog = zapah, run: DialogRun = DialogRun.start(d, joze.id), person: ScenePerson = joze) =
-        SceneTalk(gate.id, "${gate.id}/zapah", person, gate.happenings.first { it.id == "zapah" }, d, run)
+        SceneTalk(gate.id, "${gate.id}/zapah-nejc", person, gate.happenings.first { it.id == "zapah-nejc" }, d, run)
 
     /** Each voice by who they are: a villager's speaker, else the sprite's. */
     private fun voiceOf(p: ScenePerson) = SceneWords.voiceOf(p.art, p.villager?.let { Villager(it, p.name, art = p.art, voice = "male", speaker = "v-$it") })

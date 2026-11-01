@@ -4,7 +4,7 @@
   "title": { "sl": "Pri vratih", "en": "At the gate", "de": "Am Tor", "it": "Al portone" },
   "emoji": "🚪",
   "level": "A1",
-  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: kol, zapah, tečaj, škripati, krošnjar, pojdiva vprašat; scene-replier.md: to check",
+  "review": "sl, de, it, reactions, variants: machine-written (Claude), not reviewed by a native speaker; to check: kol, zapah, tečaj, škripati, krošnjar, pojdiva vprašat; scene-replier.md: to check; polish-content.md: the happening zapah-nejc's title (\"Nejc bi rad šel ponoči v gozd\"), to check",
   "art": "palisade",
   "from": ["palisade"],
   "pack": "pri-vratih",
@@ -90,7 +90,7 @@
       "when": ["evening", "night"],
       "chance": 0.5,
       "dialog": "zapah",
-      "dialogs": ["zapah-volkovi", "zapah-nejc", "zapah"],
+      "dialogs": ["zapah-volkovi", "zapah"],
       "reward": { "wisdom": 20 },
       "marker": "🌙",
       "memory": {
@@ -98,6 +98,28 @@
         "en": "the night we shut the gate",
         "de": "die Nacht, in der wir das Tor zugemacht haben",
         "it": "la notte in cui abbiamo chiuso il portone"
+      }
+    },
+    {
+      "id": "zapah-nejc",
+      "title": {
+        "sl": "Nejc bi rad šel ponoči v gozd",
+        "en": "Nejc wants to go into the forest at night",
+        "de": "Nejc will nachts in den Wald",
+        "it": "Nejc vuole andare nel bosco di notte"
+      },
+      "who": "joze",
+      "with": ["nejc"],
+      "when": ["evening"],
+      "chance": 0.5,
+      "dialog": "zapah-nejc",
+      "reward": { "wisdom": 20 },
+      "marker": "🌙",
+      "memory": {
+        "sl": "noč, ko je Nejc hotel v gozd",
+        "en": "the night Nejc wanted to go into the forest",
+        "de": "die Nacht, in der Nejc in den Wald wollte",
+        "it": "la notte in cui Nejc voleva andare nel bosco"
       }
     },
     {
