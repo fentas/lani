@@ -52,6 +52,9 @@ of the 16 pages, each with its cheat-sheet card (a bold rule line per base, two 
 | `eb806399` | **lexicon/en.extra.json** created (the bridge's, the prints' and the APK's loaders read it already) |
 | `2ff4b70f` | **prints**: the course language's packs first, another language's pack only as a meaning, without its gender and plural (shared with German) |
 | `39e9ab19`, `96c17b85` | cherry-picks of course-de-a1-a's smoke and Android counts of the English and German books (16 or more pages) |
+| `137c4af2` | **the English tests**: EnglishCourseContentTest, SchoolBoardTest's English board, the smoke's Lakeland course-speech and English sheet |
+| `f1cc9395`, `1a633f32` … `82fd9d9c`, `b25e0436` | cherry-picks: the course-speech base words (79099d49), part c's grading (-ing, ordinals, were/where, a contraction without its apostrophe almost, the apostrophe hint's examples), the QA field fix (ddb65f29) |
+| `66c1ad9c` | **QA**: course-unit plays a reorder and a multi |
 
 **The grading** (grading/en.json, `same` and `wrong`):
 - a contraction is its long form: I'm = I am, isn't = is not, he's got = he has got (before it the pronouns' 's = is),
@@ -101,15 +104,29 @@ about 9,100 characters in Slovene, 10,000 in German and 9,600 in Italian (`--exp
   passed; course/en validates, the prints' rule line keeps each step's point (every base), the Lakeland school
   reads the English course in Mrs Hartley's voice for sl, de and it learners, no base word in her voice, the supplement
   validates, an English sheet has no gender.
-- Android: `EnglishCourseContentTest` (every unit played at its level, every right answer graded right by the English
-  grading, no distractor right or almost, every text in sl, de, it and en), `SchoolBoardTest` (the English board: every
-  letter, "Welcome!" and 14/10/2026, to-be's forms), `GradingLanguagesTest` (35), the full suite (numbers below).
+- Android, the full unit suite through lani-slot.sh: 3704 tests, 0 failures, 2 skipped; among them
+  `EnglishCourseContentTest` 6 (every unit played at its level, every right answer graded right by the English grading,
+  no distractor right or almost, every text in sl, de, it and en), `SchoolBoardTest` 6 (the English board: every letter,
+  "Welcome!" and 14/10/2026, to-be's forms), `GradingLanguagesTest` 37, `ItalianCourseContentTest` 6 and the Slovene
+  `CourseContentTest` 5 on the refactored checks.
 - `tutor-export --check`: 89 files match. Python: `tests` 251 OK, `companion/tests` 142 OK (11 skipped).
 - Prints: `school-prints --language en --level A1 --base de|sl|it --png`: every sheet fits (hello and plurals two
   pages, the others one), the booklet 10 pages; every word meant, no gender; each step's point on the rule line; the
   "Watch out" boxes pair each wrong form with its own right one (I amn't · I'm not, Yes, I'm · Yes, I am, This is dog ·
   This is a dog, childs · children, threeteen · thirteen).
-- Emulator QA (`course-unit`, a synthetic learner of English from German in the Lake District): below.
+- Emulator QA (`course-unit` through qa-slot, slot 2; a synthetic learner of English from German in the Lake District,
+  make-learner.ts --target en --base de): **hello**, **to-be** and **numbers** each end to end and passed: the school,
+  the unit, the five intro steps with their quick questions (a situation's choice, a typed gap), the summary card, the
+  first worksheet (sort and choices; to-be's table; numbers' table and multi), the test straight away (hello's reorder
+  "How are you?"), Mrs Hartley's cheer, the sheet printed in the app (fit.js, the preview, the PDF). Screenshots in the
+  scratchpad, ux-course-en-a1-a/ (hello-run2, to-be-run, numbers-run2, prints). Two QA gaps found on the way and fixed
+  in the shared step: the quick question's field under a tall table (ddb65f29, part c's) and reorder and multi
+  (66c1ad9c). One content bug the screen showed: worksheet titles per base repeated the English ("Count · Count ·
+  Zähl"), fixed in 8fc10bf2.
+
+**Tap counts.** Before: a learner of English found no lesson (the school's A1 all planned, "I'm preparing the next
+lessons"). After: Home's "Hello! I'm … · School · A1 · Next" row (1 tap) → the unit's "Next: Introduction" (2 taps) →
+Mrs Hartley's first step; from the school: the level's unit (1) → the introduction (2).
 
 ## How to use
 
