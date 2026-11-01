@@ -1,0 +1,459 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "frazeologija",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🐘",
+  "title": {"sl": "Imeti srečo, držati pesti: frazemi", "en": "Idioms: držati pesti", "de": "Redewendungen: držati pesti", "it": "Modi di dire: držati pesti"},
+  "goal": {
+    "en": "You understand and use twenty everyday idioms (držati pesti, iti komu na živce, pasti v vodo …), with their verb in its person and tense and the person in its case.",
+    "de": "Du verstehst und gebrauchst zwanzig Alltagswendungen (držati pesti, iti komu na živce, pasti v vodo …), ihr Verb in Person und Zeit und die Person in ihrem Fall.",
+    "it": "Capisci e usi venti modi di dire di tutti i giorni (držati pesti, iti komu na živce, pasti v vodo …), con il verbo nella sua persona e nel suo tempo e la persona nel suo caso."
+  },
+  "grammar": ["frazemi"],
+  "words": [
+    "sreča",
+    "smola",
+    "pest",
+    "živec",
+    "mula",
+    "trn",
+    "vrat",
+    "maslo",
+    "rokav",
+    "nos",
+    "maček",
+    "žakelj",
+    "nebesa",
+    "voda",
+    "puška",
+    "koruza",
+    "rak",
+    "žvižgati",
+    "muha",
+    "slon",
+    "zvon",
+    "jezik",
+    "zob",
+    "polh",
+    "migniti"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {"sl": "frazem", "en": "idiom", "de": "Redewendung", "it": "modo di dire"},
+        {"sl": "pomen", "en": "meaning", "de": "Bedeutung", "it": "significato"}
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "An idiom (**frazem**) is a group of words with a meaning of its own: **držati pesti za koga** isn't holding your fists but wishing someone luck, as English keeps its fingers crossed. Take an idiom as a whole, never word by word, and keep its words as they are.",
+          "de": "Eine Redewendung (**frazem**) ist eine Wortgruppe mit eigener Bedeutung: **držati pesti za koga** heißt nicht, die Fäuste zu halten, sondern jemandem Glück zu wünschen, wie das Daumendrücken. Nimm eine Wendung als Ganzes, nie Wort für Wort, und lass ihre Wörter, wie sie sind.",
+          "it": "Un modo di dire (**frazem**) è un gruppo di parole con un significato proprio: **držati pesti za koga** non vuol dire tenere i pugni, ma augurare fortuna, come incrociare le dita. Prendi un modo di dire intero, mai parola per parola, e lascia le sue parole come sono."
+        },
+        "examples": [
+          {
+            "sl": "Jutri imaš izpit? Držim pesti zate!",
+            "en": "You've got an exam tomorrow? I'm keeping my fingers crossed for you!",
+            "de": "Du hast morgen eine Prüfung? Ich drücke dir die Daumen!",
+            "it": "Domani hai un esame? Incrocio le dita per te!"
+          },
+          {
+            "sl": "Vsa vas drži pesti za Luko.",
+            "en": "The whole village is keeping its fingers crossed for Luka.",
+            "de": "Das ganze Dorf drückt Luka die Daumen.",
+            "it": "Tutto il villaggio fa il tifo per Luka."
+          }
+        ],
+        "rows": [
+          [
+            "držati pesti za koga",
+            {"en": "to keep one's fingers crossed for someone", "de": "jemandem die Daumen drücken", "it": "incrociare le dita per qualcuno"}
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "frazemi",
+          "prompt": "»Jutri grem na izpit.« – »___«",
+          "options": ["Držim pesti zate!", "Greš mi na živce!", "Kuham mulo!"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**držati pesti za koga**: to wish someone luck\n- greš mi na živce · you get on my nerves\n- kuham mulo · I'm sulking"
+        }
+      },
+      {
+        "say": {
+          "en": "Luck: **imeti srečo** (to be lucky) and **imeti smolo** (to be unlucky); after a no, the genitive as always: **ni imel sreče**. Joy: whoever is very happy is **v devetih nebesih** (people say **v sedmih nebesih** too), on cloud nine.",
+          "de": "Glück: **imeti srečo** (Glück haben) und **imeti smolo** (Pech haben); nach einem Nein wie immer der Genitiv: **ni imel sreče**. Freude: Wer sehr glücklich ist, ist **v devetih nebesih** (man sagt auch **v sedmih nebesih**), im siebten Himmel.",
+          "it": "Fortuna: **imeti srečo** (avere fortuna) e **imeti smolo** (avere sfortuna); dopo un no, come sempre il genitivo: **ni imel sreče**. Gioia: chi è felicissimo è **v devetih nebesih** (si dice anche **v sedmih nebesih**), al settimo cielo."
+        },
+        "examples": [
+          {
+            "sl": "Luka je imel srečo: ovca se je vrnila sama.",
+            "en": "Luka was lucky: the sheep came back by itself.",
+            "de": "Luka hatte Glück: Das Schaf ist von selbst zurückgekommen.",
+            "it": "Luka ha avuto fortuna: la pecora è tornata da sola."
+          },
+          {
+            "sl": "Ko se mu je rodila hčerka, je bil Marko v devetih nebesih.",
+            "en": "When his daughter was born, Marko was on cloud nine.",
+            "de": "Als seine Tochter geboren wurde, war Marko im siebten Himmel.",
+            "it": "Quando gli è nata la figlia, Marko era al settimo cielo."
+          }
+        ],
+        "rows": [
+          ["imeti srečo, imeti smolo", {"en": "to be lucky, to be unlucky", "de": "Glück haben, Pech haben", "it": "avere fortuna, avere sfortuna"}],
+          ["biti v devetih nebesih", {"en": "to be on cloud nine", "de": "im siebten Himmel sein", "it": "essere al settimo cielo"}]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "frazemi",
+          "text": "Včeraj je Tone izgubil denarnico, danes še ključe: res ima ___.",
+          "accept": ["smolo"],
+          "hint": "bad luck",
+          "explain": "**imeti smolo**: to be unlucky, smola in the accusative"
+        }
+      },
+      {
+        "say": {
+          "en": "What changes in an idiom is the verb and the person. The verb takes its person and tense: **Nejc mi gre na živce. Sosedje so me vlekli za nos.** The person is in the case the idiom asks for: **iti komu na živce** wants the dative (**Mojci gre na živce**), **vleči koga za nos** the accusative (**Toneta vlečejo za nos**).",
+          "de": "Was sich in einer Wendung ändert, sind das Verb und die Person. Das Verb nimmt Person und Zeit an: **Nejc mi gre na živce. Sosedje so me vlekli za nos.** Die Person steht im Fall, den die Wendung will: **iti komu na živce** den Dativ (**Mojci gre na živce**), **vleči koga za nos** den Akkusativ (**Toneta vlečejo za nos**).",
+          "it": "In un modo di dire cambiano il verbo e la persona. Il verbo prende persona e tempo: **Nejc mi gre na živce. Sosedje so me vlekli za nos.** La persona va nel caso che il modo di dire vuole: **iti komu na živce** il dativo (**Mojci gre na živce**), **vleči koga za nos** l'accusativo (**Toneta vlečejo za nos**)."
+        },
+        "examples": [
+          {
+            "sl": "Ta muha mi gre na živce.",
+            "en": "This fly is getting on my nerves.",
+            "de": "Diese Fliege geht mir auf die Nerven.",
+            "it": "Questa mosca mi dà sui nervi."
+          },
+          {"sl": "Ne vleci me za nos!", "en": "Don't pull my leg!", "de": "Nimm mich nicht auf den Arm!", "it": "Non prendermi in giro!"}
+        ],
+        "rows": [
+          ["iti komu na živce", {"en": "to get on someone's nerves", "de": "jemandem auf die Nerven gehen", "it": "dare sui nervi a qualcuno"}],
+          [
+            "vleči koga za nos",
+            {"en": "to pull someone's leg, to fool someone", "de": "jemanden an der Nase herumführen", "it": "prendere in giro qualcuno"}
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "frazemi",
+          "text": "Sosedov pes ___ (jaz) gre na živce.",
+          "accept": ["mi", "meni"],
+          "hint": "komu? the dative",
+          "explain": "**iti komu na živce**: who is annoyed is in the dative, jaz → **mi**"
+        }
+      },
+      {
+        "say": {
+          "en": "Fast and easy: **na vrat na nos** (in a mad rush), **iti kot po maslu** (to go smoothly), **kot bi mignil** (in the blink of an eye), **stresati kaj iz rokava** (to come up with something effortlessly). Many compare with **kot**: **spati kot polh** (to sleep like a log).",
+          "de": "Schnell und leicht: **na vrat na nos** (Hals über Kopf), **iti kot po maslu** (wie geschmiert laufen), **kot bi mignil** (im Handumdrehen), **stresati kaj iz rokava** (etwas aus dem Ärmel schütteln). Viele vergleichen mit **kot**: **spati kot polh** (wie ein Murmeltier schlafen).",
+          "it": "Veloce e facile: **na vrat na nos** (in fretta e furia), **iti kot po maslu** (andare liscio come l'olio), **kot bi mignil** (in un batter d'occhio), **stresati kaj iz rokava** (tirare fuori qualcosa senza fatica). Molti confrontano con **kot**: **spati kot polh** (dormire come un ghiro)."
+        },
+        "examples": [
+          {
+            "sl": "France je odšel na vrat na nos in pozabil ključe.",
+            "en": "France left in a mad rush and forgot his keys.",
+            "de": "France ist Hals über Kopf weggegangen und hat die Schlüssel vergessen.",
+            "it": "France è uscito in fretta e furia e ha dimenticato le chiavi."
+          },
+          {
+            "sl": "Janez stresa zgodbe iz rokava.",
+            "en": "Janez comes up with stories effortlessly.",
+            "de": "Janez schüttelt Geschichten aus dem Ärmel.",
+            "it": "Janez tira fuori storie senza fatica."
+          }
+        ],
+        "rows": [
+          ["na vrat na nos", {"en": "in a mad rush, headlong", "de": "Hals über Kopf", "it": "in fretta e furia"}],
+          [
+            "iti kot po maslu, kot bi mignil",
+            {
+              "en": "to go smoothly; in the blink of an eye",
+              "de": "wie geschmiert laufen; im Handumdrehen",
+              "it": "andare liscio come l'olio; in un batter d'occhio"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "frazemi",
+          "prompt": "Delo je šlo ___ in opoldne je bilo vse lepo narejeno.",
+          "options": ["kot po maslu", "na vrat na nos", "rakom žvižgat"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**iti kot po maslu**: to go smoothly\n- na vrat na nos · in a mad rush, done badly\n- iti rakom žvižgat · to be lost"
+        }
+      },
+      {
+        "say": {
+          "en": "Fooled and guilty: **kupiti mačka v žaklju** (to buy a pig in a poke), **imeti maslo na glavi** (to have a guilty conscience). When plans fail they **padejo v vodo**, work that is lost **gre rakom žvižgat**, and whoever gives up **vrže puško v koruzo**.",
+          "de": "Hereingelegt und schuldig: **kupiti mačka v žaklju** (die Katze im Sack kaufen), **imeti maslo na glavi** (Dreck am Stecken haben). Pläne, die scheitern, **padejo v vodo**, verlorene Arbeit **gre rakom žvižgat**, und wer aufgibt, **vrže puško v koruzo**.",
+          "it": "Ingannati e colpevoli: **kupiti mačka v žaklju** (comprare a scatola chiusa), **imeti maslo na glavi** (avere la coda di paglia). I piani che falliscono **padejo v vodo**, il lavoro perso **gre rakom žvižgat**, e chi si arrende **vrže puško v koruzo**."
+        },
+        "examples": [
+          {
+            "sl": "Zaradi dežja je izlet padel v vodo.",
+            "en": "Because of the rain the trip fell through.",
+            "de": "Wegen des Regens ist der Ausflug ins Wasser gefallen.",
+            "it": "Per la pioggia la gita è andata a monte."
+          },
+          {
+            "sl": "Ne vrzi puške v koruzo, saj je skoraj končano!",
+            "en": "Don't throw in the towel, it's nearly done!",
+            "de": "Wirf die Flinte nicht ins Korn, es ist ja fast fertig!",
+            "it": "Non gettare la spugna, è quasi finito!"
+          }
+        ],
+        "rows": [
+          ["imeti maslo na glavi", {"en": "to have a guilty conscience", "de": "Dreck am Stecken haben", "it": "avere la coda di paglia"}],
+          [
+            "pasti v vodo, vreči puško v koruzo",
+            {
+              "en": "to fall through; to throw in the towel",
+              "de": "ins Wasser fallen; die Flinte ins Korn werfen",
+              "it": "andare a monte; gettare la spugna"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "frazemi",
+          "prompt": "Izlet je ___, ker je ves dan deževalo.",
+          "options": ["padel v vodo", "šel kot po maslu", "kuhal mulo"],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**pasti v vodo**: plans that fall through\n- iti kot po maslu · to go smoothly\n- kuhati mulo · to sulk"
+        }
+      },
+      {
+        "say": {
+          "en": "About talking: **delati iz muhe slona** (to make a mountain out of a molehill), **obesiti kaj na veliki zvon** (to tell the whole world), **držati jezik za zobmi** (to hold your tongue). Many come in both aspects: **delati, narediti iz muhe slona**; **obešati, obesiti na veliki zvon**. And after a no the object is in the genitive, as ever: **Ne obešaj tega na veliki zvon!**",
+          "de": "Übers Reden: **delati iz muhe slona** (aus einer Mücke einen Elefanten machen), **obesiti kaj na veliki zvon** (etwas an die große Glocke hängen), **držati jezik za zobmi** (den Mund halten). Viele gibt es in beiden Aspekten: **delati, narediti iz muhe slona**; **obešati, obesiti na veliki zvon**. Und nach einem Nein steht das Objekt wie immer im Genitiv: **Ne obešaj tega na veliki zvon!**",
+          "it": "Sul parlare: **delati iz muhe slona** (fare di una mosca un elefante), **obesiti kaj na veliki zvon** (spiattellare ai quattro venti), **držati jezik za zobmi** (tenere la bocca chiusa). Molti esistono nei due aspetti: **delati, narediti iz muhe slona**; **obešati, obesiti na veliki zvon**. E dopo un no l'oggetto va al genitivo, come sempre: **Ne obešaj tega na veliki zvon!**"
+        },
+        "examples": [
+          {
+            "sl": "Ančka je novico takoj obesila na veliki zvon.",
+            "en": "Ančka told the whole village the news at once.",
+            "de": "Ančka hat die Neuigkeit sofort an die große Glocke gehängt.",
+            "it": "Ančka ha subito spiattellato la notizia ai quattro venti."
+          },
+          {
+            "sl": "Ne delaj iz muhe slona, saj ni nič hudega.",
+            "en": "Don't make a mountain out of a molehill, it's nothing bad.",
+            "de": "Mach aus einer Mücke keinen Elefanten, es ist ja nichts Schlimmes.",
+            "it": "Non fare di una mosca un elefante, non è niente di grave."
+          }
+        ],
+        "rows": [
+          [
+            "delati iz muhe slona",
+            {"en": "to make a mountain out of a molehill", "de": "aus einer Mücke einen Elefanten machen", "it": "fare di una mosca un elefante"}
+          ],
+          [
+            "obesiti kaj na veliki zvon",
+            {"en": "to tell the whole world", "de": "etwas an die große Glocke hängen", "it": "spiattellare ai quattro venti"}
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "frazemi",
+          "text": "Ne obešaj ___ (novica) na veliki zvon!",
+          "accept": ["novice"],
+          "hint": "after a no: the genitive",
+          "explain": "**ne** + the object in the genitive: novica → **novice**"
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "frazeologija-1",
+      "title": {"sl": "Kaj pomeni?", "en": "What does it mean?", "de": "Was bedeutet es?", "it": "Che cosa vuol dire?"},
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "frazemi",
+          "instruction": "Razvrsti po pomenu · Sort by meaning",
+          "columns": [
+            {"label": "sreča in veselje · luck and joy", "words": ["imeti srečo", "biti v devetih nebesih", "držati pesti"]},
+            {"label": "jeza in skrbi · annoyance and worry", "words": ["iti na živce", "kuhati mulo", "biti na trnih"]},
+            {"label": "hitro in lahko · fast and easy", "words": ["na vrat na nos", "kot po maslu", "kot bi mignil"]},
+            {"label": "neuspeh · failure", "words": ["pasti v vodo", "vreči puško v koruzo", "iti rakom žvižgat"]}
+          ],
+          "explain": "**an idiom's meaning**, never word by word\n- držati pesti · to wish luck\n- biti na trnih · to be on tenterhooks\n- iti rakom žvižgat · to be lost"
+        },
+        {
+          "type": "multi",
+          "grammar": "frazemi",
+          "instruction": "Izberi vse · Choose all",
+          "prompt": "Which idioms are about talking or keeping quiet?",
+          "options": ["delati iz muhe slona", "obesiti na veliki zvon", "držati jezik za zobmi", "spati kot polh", "imeti srečo", "iti kot po maslu"],
+          "answers": [0, 1, 2],
+          "say_options": true,
+          "explain": "**delati iz muhe slona** (to exaggerate), **obesiti na veliki zvon** (to tell everyone), **držati jezik za zobmi** (to keep quiet)\n- spati kot polh · to sleep like a log"
+        },
+        {
+          "type": "choice",
+          "grammar": "frazemi",
+          "instruction": "Kateri stavek to pove? · Which sentence says it?",
+          "prompt": "Micka's picnic didn't happen because of the rain.",
+          "options": ["Piknik je padel v vodo.", "Piknik je šel kot po maslu.", "Piknik je šel na vrat na nos."],
+          "answer": 0,
+          "say_options": true,
+          "explain": "**pasti v vodo**: plans that fall through\n- kot po maslu · smoothly\n- na vrat na nos · in a mad rush"
+        }
+      ]
+    },
+    {
+      "id": "frazeologija-2",
+      "title": {"sl": "Konj s sejma", "en": "A horse from the fair", "de": "Ein Pferd vom Markt", "it": "Un cavallo dalla fiera"},
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "frazemi",
+          "instruction": "Dopolni · Fill in",
+          "title": "Konj s sejma",
+          "text": "Teta Ančka je spet obesila novico na veliki ___: Tone je na sejmu kupil konja. »Kupil je mačka v ___,« je rekla. »Konj je star in ___ (spati) kot polh.« Tone ji je odgovoril: »Ančka, ne delaj iz muhe ___! Konj je mlad, ti pa me ___ (vleči) za nos.« Ančka ima maslo na ___: konja mu je prodal njen nečak. Zdaj Tone že ves dan kuha ___, Ančka pa raje drži jezik za ___.",
+          "gaps": [
+            {"accept": ["zvon"], "hint": "obesiti na veliki …"},
+            {"accept": ["žaklju"], "hint": "kupiti mačka v …", "explain": "**kupiti mačka v žaklju**: v + the locative, žakelj → **žaklju**"},
+            {"accept": ["spi"], "hint": "on, the present"},
+            {"accept": ["slona"], "hint": "delati iz muhe …", "explain": "**delati iz muhe slona**: iz muhe, and slona as the object"},
+            {"accept": ["vlečeš"], "hint": "ti, the present", "explain": "**vleči koga za nos**: ti → **vlečeš**"},
+            {"accept": ["glavi"], "hint": "imeti maslo na …"},
+            {"accept": ["mulo"], "hint": "to sulk: kuhati …"},
+            {
+              "accept": ["zobmi"],
+              "hint": "to keep quiet: držati jezik za …",
+              "explain": "**držati jezik za zobmi**: za + the instrumental plural, zobje → **zobmi**"
+            }
+          ],
+          "bank": true,
+          "distractors": ["zvonu", "žakelj", "slon", "glava"],
+          "translation": "Aunt Ančka has told the whole village the news again: Tone bought a horse at the fair. \"He bought a pig in a poke,\" she said. \"The horse is old and sleeps like a log.\" Tone answered her: \"Ančka, don't make a mountain out of a molehill! The horse is young, and you're pulling my leg.\" Ančka has a guilty conscience: it was her nephew who sold him the horse. Now Tone has been sulking all day, and Ančka prefers to hold her tongue."
+        }
+      ]
+    },
+    {
+      "id": "frazeologija-3",
+      "title": {"sl": "Glagol in oseba", "en": "The verb and the person", "de": "Das Verb und die Person", "it": "Il verbo e la persona"},
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "frazemi",
+          "instruction": "V preteklik · Into the past",
+          "items": [
+            {"from": "Načrt pade v vodo.", "accept": ["Načrt je padel v vodo."], "hint": "pasti: on je …", "lemma": "pasti", "form": "past.m.sg"},
+            {
+              "from": "Marko vrže puško v koruzo.",
+              "accept": ["Marko je vrgel puško v koruzo."],
+              "hint": "vreči: on je …",
+              "lemma": "vreči",
+              "form": "past.m.sg"
+            },
+            {"from": "Delo gre kot po maslu.", "accept": ["Delo je šlo kot po maslu."], "hint": "delo: neuter"},
+            {"from": "Vida je v devetih nebesih.", "accept": ["Vida je bila v devetih nebesih."], "hint": "biti: ona je …"}
+          ],
+          "explain": "**the idiom's verb** in the past, the rest as it is\n- Načrt je padel v vodo.\n- Delo je šlo kot po maslu."
+        },
+        {
+          "type": "transform",
+          "grammar": "frazemi",
+          "instruction": "Povej za osebo v oklepaju · Say it for the person in brackets",
+          "items": [
+            {"from": "Gre mi na živce. (Mojca)", "accept": ["Mojci gre na živce.", "Gre Mojci na živce."], "hint": "komu? the dative"},
+            {"from": "Vlečejo me za nos. (Tone)", "accept": ["Toneta vlečejo za nos.", "Vlečejo Toneta za nos."], "hint": "koga? Tone → Toneta"},
+            {
+              "from": "Držim pesti zate. (vi)",
+              "accept": ["Držim pesti za vas.", "Za vas držim pesti."],
+              "spoken": ["Držim vam pesti.", "Vam držim pesti."],
+              "hint": "za koga? za + the accusative"
+            },
+            {"from": "Nisem imel sreče. (Jože)", "accept": ["Jože ni imel sreče."], "hint": "on ni …; after a no: sreče"}
+          ],
+          "explain": "**the person in its case**: the dative for iti na živce, the accusative for vleči za nos, za + the accusative for držati pesti\n- Mojci gre na živce.\n- Toneta vlečejo za nos."
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "choice",
+        "grammar": "frazemi",
+        "instruction": "Kateri stavek to pove? · Which sentence says it?",
+        "prompt": "Nejc has been sulking all day.",
+        "options": ["Nejc že ves dan kuha mulo.", "Nejc je že ves dan v devetih nebesih.", "Nejc že ves dan drži pesti."],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**kuhati mulo**: to sulk"
+      },
+      {
+        "type": "choice",
+        "grammar": "frazemi",
+        "instruction": "Kaj pomeni? · What does it mean?",
+        "prompt": "»Imeti maslo na glavi«",
+        "options": ["to have a guilty conscience", "to be very lucky", "to be in a hurry"],
+        "answer": 0,
+        "explain": "**imeti maslo na glavi**: to have a guilty conscience, never word by word"
+      },
+      {
+        "type": "choice",
+        "grammar": "frazemi",
+        "instruction": "Kateri je prav? · Which is right?",
+        "prompt": "»Konja nisi niti pogledal, kupil si ___!« (a pig in a poke)",
+        "options": ["mačka v žaklju", "mačka v žakelj", "maček v žaklju"],
+        "answer": 0,
+        "say_options": true,
+        "explain": "**kupiti mačka v žaklju**: the words as they are, mačka (whom?) and v žaklju (where?)"
+      },
+      {
+        "type": "gaptext",
+        "grammar": "frazemi",
+        "instruction": "Dopolni · Fill in",
+        "text": "Mojca je bila ves teden na ___, ker je čakala na rezultate izpita. Ko je izvedela, da ga je opravila, je bila v devetih ___. Vsi smo ___ (držati) pesti zanjo. Zdaj ji nič več ne ___ (iti) na živce.",
+        "gaps": [{"accept": ["trnih"]}, {"accept": ["nebesih"]}, {"accept": ["držali"]}, {"accept": ["gre"]}],
+        "translation": "Mojca was on tenterhooks all week because she was waiting for her exam results. When she found out she had passed, she was on cloud nine. We had all kept our fingers crossed for her. Now nothing gets on her nerves any more."
+      },
+      {
+        "type": "transform",
+        "grammar": "frazemi",
+        "instruction": "Spremeni · Change it",
+        "items": [
+          {
+            "from": "Izlet pade v vodo. (včeraj)",
+            "accept": ["Včeraj je izlet padel v vodo.", "Izlet je včeraj padel v vodo.", "Izlet je padel v vodo včeraj."]
+          },
+          {"from": "Gre mi na živce. (Nejc)", "accept": ["Nejcu gre na živce.", "Gre Nejcu na živce."]},
+          {
+            "from": "Ves trud gre rakom žvižgat. (včeraj)",
+            "accept": [
+              "Včeraj je ves trud šel rakom žvižgat.",
+              "Ves trud je včeraj šel rakom žvižgat.",
+              "Včeraj je šel ves trud rakom žvižgat.",
+              "Ves trud je šel včeraj rakom žvižgat.",
+              "Ves trud je šel rakom žvižgat včeraj."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "multi",
+        "grammar": "frazemi",
+        "instruction": "Izberi vse · Choose all",
+        "prompt": "Which say that something failed or that someone gave up?",
+        "options": ["pasti v vodo", "iti rakom žvižgat", "vreči puško v koruzo", "iti kot po maslu", "biti v devetih nebesih"],
+        "answers": [0, 1, 2],
+        "say_options": true,
+        "explain": "**pasti v vodo**, **iti rakom žvižgat**, **vreči puško v koruzo**\n- iti kot po maslu · to go smoothly"
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Konj s sejma; držim pesti zate (tiščim ti pesti, držim ti pesti); v devetih or v sedmih nebesih; Ves trud je šel rakom žvižgat"
+}
