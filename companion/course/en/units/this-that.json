@@ -1,0 +1,411 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "this-that",
+  "language": "en",
+  "level": "A1",
+  "emoji": "👉",
+  "title": {
+    "en": "This, that, these, those",
+    "de": "Dieser und jener: this, that, these, those",
+    "sl": "Kazalni zaimki: this, that, these, those",
+    "it": "Questo e quello: this, that, these, those"
+  },
+  "goal": {
+    "sl": "Pokažeš, kaj je blizu (this, these) in kaj dlje stran (that, those), vprašaš What's this? in odgovoriš z it in they, rečeš this one in po telefonu Hello, this is …",
+    "de": "Du zeigst, was nah ist (this, these) und was weiter weg (that, those), fragst What's this? und antwortest mit it und they, sagst this one und am Telefon Hello, this is …",
+    "it": "Indichi che cosa è vicino (this, these) e che cosa è lontano (that, those), chiedi What's this? e rispondi con it e they, dici this one e al telefono Hello, this is …",
+    "en": "You can point at what is near (this, these) and further away (that, those), ask What's this? and answer with it and they, say this one, and on the phone Hello, this is …"
+  },
+  "grammar": ["this-that"],
+  "words": ["this", "that", "these", "those", "this one", "that one", "cup", "tea", "scone", "plate", "table", "fire", "boot", "bike", "boat", "lake", "fell", "window", "bee", "bird", "blackberry", "lamb", "walker", "mill", "key", "book", "picture", "star", "bag", "phone", "this morning", "hot", "cold", "fresh", "new", "lovely"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "koliko", "de": "wie viele", "it": "quanti", "en": "how many" },
+        { "sl": "blizu: here", "de": "nah: here", "it": "vicino: here", "en": "near: here" },
+        { "sl": "daleč: there", "de": "fern: there", "it": "lontano: there", "en": "far: there" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**this** (ta, to) je za eno stvar blizu tebe, tukaj: **this cup** (ta skodelica v moji roki). **that** (tisti) je za eno stvar dlje stran, tam: **that fell** (tisti hrib tam). Spol ju nikoli ne spremeni: **this man** (ta moški), **this woman** (ta ženska), **that bike** (tisto kolo).",
+          "de": "**this** (dieser, diese, dieses) steht für ein Ding in deiner Nähe, hier: **this cup** (diese Tasse in meiner Hand). **that** (der, die, das dort) steht für ein Ding weiter weg, dort: **that fell** (der Berg dort). Das Geschlecht ändert sie nie: **this man** (dieser Mann), **this woman** (diese Frau), **that bike** (das Fahrrad dort).",
+          "it": "**this** (questo, questa) è per una cosa vicina a te, qui: **this cup** (questa tazza che ho in mano). **that** (quello, quella) è per una cosa più lontana, lì: **that fell** (quel monte laggiù). Non cambiano mai per maschile o femminile: **this man** (quest'uomo), **this woman** (questa donna), **that bike** (quella bici).",
+          "en": "**this** is for one thing near you, here: **this cup** (in my hand). **that** is for one thing further away, there: **that fell** (over there). They never change for a man or a woman: **this man**, **this woman**, **that bike**."
+        },
+        "examples": [
+          { "en": "This tea is hot.", "sl": "Ta čaj je vroč.", "de": "Dieser Tee ist heiß.", "it": "Questo tè è caldo." },
+          { "en": "That fell is Cat Bells.", "sl": "Tisti hrib je Cat Bells.", "de": "Der Berg dort ist Cat Bells.", "it": "Quel monte è Cat Bells." },
+          { "en": "That bike is new.", "sl": "Tisto kolo je novo.", "de": "Das Fahrrad dort ist neu.", "it": "Quella bici è nuova." }
+        ],
+        "rows": [
+          [{ "sl": "ena", "de": "eins", "it": "uno", "en": "one" }, "this cup", "that fell"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "this-that",
+          "prompt": "Mrs Birkett has a cup in her hand: «___ cup is for you.»",
+          "options": ["This", "That", "These"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**V njeni roki, blizu: this**\n- this cup · tukaj\n- that fell · tam",
+            "de": "**In ihrer Hand, nah: this**\n- this cup · hier\n- that fell · dort",
+            "it": "**In mano sua, vicino: this**\n- this cup · qui\n- that fell · lì",
+            "en": "**In her hand, near: this**\n- this cup · here\n- that fell · there"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za več stvari **this** postane **these**, **that** pa **those**: **these scones** (ti sconi tukaj na krožniku), **those boats** (tisti čolni tam na jezeru). Samostalnik je v množini in glagol tudi: **These scones are lovely.** (Ti sconi so odlični.) **Those boats are from Keswick.** (Tisti čolni so iz Keswicka.)",
+          "de": "Für mehrere wird **this** zu **these** und **that** zu **those**: **these scones** (diese Scones hier auf dem Teller), **those boats** (die Boote dort auf dem See). Das Nomen steht im Plural und das Verb auch: **These scones are lovely.** (Diese Scones sind köstlich.) **Those boats are from Keswick.** (Die Boote dort sind aus Keswick.)",
+          "it": "Per più cose **this** diventa **these** e **that** diventa **those**: **these scones** (questi scones qui sul piatto), **those boats** (quelle barche laggiù sul lago). Il nome va al plurale, e anche il verbo: **These scones are lovely.** (Questi scones sono buonissimi.) **Those boats are from Keswick.** (Quelle barche sono di Keswick.)",
+          "en": "For more than one, **this** becomes **these** and **that** becomes **those**: **these scones** (here on the plate), **those boats** (over there on the lake). The noun takes its plural, and so does the verb: **These scones are lovely.** **Those boats are from Keswick.**"
+        },
+        "examples": [
+          { "en": "These scones are lovely, Granny Maggie!", "sl": "Ti sconi so odlični, babica Maggie!", "de": "Diese Scones sind köstlich, Oma Maggie!", "it": "Questi scones sono buonissimi, nonna Maggie!" },
+          { "en": "Those boats are from Keswick.", "sl": "Tisti čolni so iz Keswicka.", "de": "Die Boote dort sind aus Keswick.", "it": "Quelle barche sono di Keswick." },
+          { "en": "These boots are new.", "sl": "Ti čevlji so novi.", "de": "Diese Stiefel sind neu.", "it": "Questi stivali sono nuovi." }
+        ],
+        "rows": [
+          [{ "sl": "več", "de": "mehrere", "it": "più di uno", "en": "more than one" }, "these scones", "those boats"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "this-that",
+          "prompt": "Look at ___ birds over there on the tarn!",
+          "options": ["those", "that", "these"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Več in tam: those**\n- those birds · tam\n- these scones · tukaj",
+            "de": "**Mehrere und dort: those**\n- those birds · dort\n- these scones · hier",
+            "it": "**Più cose e laggiù: those**\n- those birds · laggiù\n- these scones · qui",
+            "en": "**More than one, over there: those**\n- those birds · there\n- these scones · here"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Brez samostalnika pokažejo nekaj: **What's this?** (Kaj je to?) **This is Jack.** (To je Jack.) **That's** je kratko za **that is**: **That's lovely!** (Lepo!) V odgovoru prevzameta **it** in **they**: **What's this? — It's a pen.** (Kaj je to? — Pisalo.) **What are those? — They're bees.** (Kaj je tisto? — Čebele.)",
+          "de": "Ohne Nomen zeigen sie auf etwas: **What's this?** (Was ist das?) **This is Jack.** (Das ist Jack.) **That's** ist kurz für **that is**: **That's lovely!** (Wie schön!) In der Antwort übernehmen **it** und **they**: **What's this? — It's a pen.** (Was ist das? — Ein Stift.) **What are those? — They're bees.** (Was ist das dort? — Bienen.)",
+          "it": "Senza nome indicano qualcosa: **What's this?** (Che cos'è questo?) **This is Jack.** (Questo è Jack.) **That's** è breve per **that is**: **That's lovely!** (Che bello!) Nella risposta subentrano **it** e **they**: **What's this? — It's a pen.** (Che cos'è? — È una penna.) **What are those? — They're bees.** (Che cosa sono quelle? — Sono api.)",
+          "en": "Alone, without a noun, they point at something: **What's this?** **This is Jack.** **That's** is short for **that is**: **That's lovely!** In the answer, **it** and **they** take over: **What's this? — It's a pen.** **What are those? — They're bees.**"
+        },
+        "examples": [
+          { "en": "What's this? — It's a pen.", "sl": "Kaj je to? — Pisalo.", "de": "Was ist das? — Ein Stift.", "it": "Che cos'è? — È una penna." },
+          { "en": "What are those? — They're bees.", "sl": "Kaj je tisto? — Čebele.", "de": "Was ist das dort? — Bienen.", "it": "Che cosa sono quelle? — Sono api." },
+          { "en": "That's lovely, Mrs Birkett!", "sl": "Lepo, gospa Birkett!", "de": "Wie schön, Mrs Birkett!", "it": "Che bello, Mrs Birkett!" }
+        ],
+        "rows": [
+          [{ "sl": "sam", "de": "allein", "it": "da solo", "en": "alone" }, "This is Jack.", "That's lovely!"],
+          [{ "sl": "odgovor", "de": "die Antwort", "it": "la risposta", "en": "the answer" }, "What's this? — It's a pen.", "What are those? — They're bees."]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "this-that",
+          "text": "What are those? — ___ blackberries.",
+          "accept": ["They're"],
+          "hint": { "sl": "it ali they?", "de": "it oder they?", "it": "it o they?", "en": "it or they?" },
+          "explain": {
+            "sl": "**Več stvari v odgovoru: they're**\n- What are those? — They're blackberries.\n- What's this? — It's a pen.",
+            "de": "**Mehrere in der Antwort: they're**\n- What are those? — They're blackberries.\n- What's this? — It's a pen.",
+            "it": "**Più cose nella risposta: they're**\n- What are those? — They're blackberries.\n- What's this? — It's a pen.",
+            "en": "**More than one in the answer: they're**\n- What are those? — They're blackberries.\n- What's this? — It's a pen."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Da ne ponoviš samostalnika, reci **this one** (ta) ali **that one** (tisti): **Which cup is hot? — This one.** (Katera skodelica je vroča? — Ta.) **This one is hot, and that one is cold.** (Ta je vroča, tista pa mrzla.) Za več stvari samo **these** in **those**: **These are lovely.** (Ti so odlični.)",
+          "de": "Damit du das Nomen nicht wiederholst, sag **this one** (diese hier) oder **that one** (die dort): **Which cup is hot? — This one.** (Welche Tasse ist heiß? — Diese.) **This one is hot, and that one is cold.** (Diese ist heiß und die dort kalt.) Für mehrere **these** und **those** allein: **These are lovely.** (Die sind köstlich.)",
+          "it": "Per non ripetere il nome, di' **this one** (questo) o **that one** (quello): **Which cup is hot? — This one.** (Quale tazza è calda? — Questa.) **This one is hot, and that one is cold.** (Questa è calda e quella è fredda.) Per più cose solo **these** e **those**: **These are lovely.** (Questi sono buonissimi.)",
+          "en": "To leave out a noun said already, say **this one** or **that one**: **Which cup is hot? — This one.** **This one is hot, and that one is cold.** For more than one, **these** and **those** alone: **These are lovely.**"
+        },
+        "examples": [
+          { "en": "Which cup is hot? — This one.", "sl": "Katera skodelica je vroča? — Ta.", "de": "Welche Tasse ist heiß? — Diese.", "it": "Quale tazza è calda? — Questa." },
+          { "en": "This one is hot, and that one is cold.", "sl": "Ta je vroča, tista pa mrzla.", "de": "Diese ist heiß und die dort kalt.", "it": "Questa è calda e quella è fredda." }
+        ],
+        "rows": [
+          [{ "sl": "namesto samostalnika", "de": "statt des Nomens", "it": "al posto del nome", "en": "for a noun" }, "this one", "that one"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "this-that",
+          "text": "This bag is heavy, and that ___ is light.",
+          "accept": ["one"],
+          "explain": {
+            "sl": "**that one = that bag**\n- This one is hot, and that one is cold.",
+            "de": "**that one = that bag**\n- This one is hot, and that one is cold.",
+            "it": "**that one = that bag**\n- This one is hot, and that one is cold.",
+            "en": "**that one = that bag**\n- This one is hot, and that one is cold."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Po telefonu poveš, kdo si, s **this is**: **Hello, this is Sam.** (Halo, Sam tukaj.), nikoli *here is Sam*. Za **this is** ni kratke oblike, za **that's** pa je. Pri času je **this** zdaj ali današnji: **this morning** (danes zjutraj), **this evening** (danes zvečer), **this week** (ta teden); **that** je drugič: **that day** (tisti dan).",
+          "de": "Am Telefon sagst du mit **this is**, wer du bist: **Hello, this is Sam.** (Hallo, hier ist Sam.), nie *here is Sam*. **this is** hat keine Kurzform, **that's** schon. Bei der Zeit ist **this** jetzt oder heute: **this morning** (heute Morgen), **this evening** (heute Abend), **this week** (diese Woche); **that** ist ein anderes Mal: **that day** (an dem Tag).",
+          "it": "Al telefono dici chi sei con **this is**: **Hello, this is Sam.** (Pronto, sono Sam.), mai *here is Sam*. **this is** non ha la forma breve, **that's** sì. Per il tempo **this** è adesso o di oggi: **this morning** (stamattina), **this evening** (stasera), **this week** (questa settimana); **that** è un'altra volta: **that day** (quel giorno).",
+          "en": "On the phone, say who you are with **this is**: **Hello, this is Sam.** (never *here is Sam*). **this is** has no short form, but **that's** has. For time, **this** is now or today's: **this morning**, **this evening**, **this week**; **that** is another time: **that day**."
+        },
+        "examples": [
+          { "en": "Hello, Mrs Birkett, this is Sam.", "sl": "Halo, gospa Birkett, Sam tukaj.", "de": "Hallo, Mrs Birkett, hier ist Sam.", "it": "Pronto, Mrs Birkett, sono Sam." },
+          { "en": "It's very cold this morning.", "sl": "Danes zjutraj je zelo mrzlo.", "de": "Heute Morgen ist es sehr kalt.", "it": "Stamattina fa molto freddo." }
+        ],
+        "rows": [
+          [{ "sl": "čas", "de": "Zeit", "it": "tempo", "en": "time" }, "this morning, this week", "that day"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "this-that",
+          "prompt": "On the phone: «Hello, Mrs Birkett, ___ Jack.»",
+          "options": ["this is", "here is", "these are"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Po telefonu: this is**\n- Hello, this is Jack. · Halo, Jack tukaj.",
+            "de": "**Am Telefon: this is**\n- Hello, this is Jack. · Hallo, hier ist Jack.",
+            "it": "**Al telefono: this is**\n- Hello, this is Jack. · Pronto, sono Jack.",
+            "en": "**On the phone: this is**\n- Hello, this is Jack. · not: here is Jack"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "this-that-1",
+      "title": { "sl": "Here or there? · Tukaj ali tam?", "de": "Here or there? · Hier oder dort?", "it": "Here or there? · Qui o lì?", "en": "Here or there?" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "this-that",
+          "instruction": { "sl": "Fill in the table · Dopolni tabelo", "de": "Fill in the table · Ergänze die Tabelle", "it": "Fill in the table · Completa la tabella", "en": "Fill in the table" },
+          "prompt": { "sl": "this, that · ena in več", "de": "this, that · eins und mehrere", "it": "this, that · uno e più", "en": "this, that: one and more than one" },
+          "columns": [
+            { "sl": "one · ena", "de": "one · eins", "it": "one · uno", "en": "one" },
+            { "sl": "more · več", "de": "more · mehrere", "it": "more · più", "en": "more than one" }
+          ],
+          "rows": [
+            { "label": { "sl": "here · tukaj", "de": "here · hier", "it": "here · qui", "en": "here" }, "cells": ["this cup", { "accept": ["these cups"], "hint": "this → ?" }] },
+            { "label": { "sl": "there · tam", "de": "there · dort", "it": "there · lì", "en": "there" }, "cells": [{ "accept": ["that fell"], "hint": "those → ?" }, "those fells"] },
+            { "label": { "sl": "here · tukaj", "de": "here · hier", "it": "here · qui", "en": "here" }, "cells": [{ "accept": ["this scone"] }, "these scones"] },
+            { "label": { "sl": "there · tam", "de": "there · dort", "it": "there · lì", "en": "there" }, "cells": ["that bike", { "accept": ["those bikes"] }] },
+            { "label": { "sl": "here · tukaj", "de": "here · hier", "it": "here · qui", "en": "here" }, "cells": ["this child", { "accept": ["these children"], "hint": { "sl": "child: nepravilna množina", "de": "child: ein unregelmäßiger Plural", "it": "child: un plurale irregolare", "en": "child: an irregular plural" } }] }
+          ],
+          "explain": {
+            "sl": "**Tukaj: this, these · tam: that, those**\n- this cup → these cups\n- that bike → those bikes",
+            "de": "**Hier: this, these · dort: that, those**\n- this cup → these cups\n- that bike → those bikes",
+            "it": "**Qui: this, these · lì: that, those**\n- this cup → these cups\n- that bike → those bikes",
+            "en": "**Here: this, these · there: that, those**\n- this cup → these cups\n- that bike → those bikes"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "this-that",
+          "instruction": { "sl": "Sort · this ali these?", "de": "Sort · this oder these?", "it": "Sort · this o these?", "en": "Sort · this or these?" },
+          "columns": [
+            { "label": "this", "words": ["cup", "bike", "lamb", "woman"] },
+            { "label": "these", "words": ["boots", "bees", "men", "children"] }
+          ],
+          "explain": {
+            "sl": "**Ena stvar: this · več stvari: these**\n- this woman · these men · these children",
+            "de": "**Ein Ding: this · mehrere: these**\n- this woman · these men · these children",
+            "it": "**Una cosa: this · più cose: these**\n- this woman · these men · these children",
+            "en": "**One thing: this · more than one: these**\n- this woman · these men · these children"
+          }
+        }
+      ]
+    },
+    {
+      "id": "this-that-2",
+      "title": { "sl": "At the Packhorse Inn · V gostilni Packhorse", "de": "At the Packhorse Inn · Im Packhorse Inn", "it": "At the Packhorse Inn · Al Packhorse Inn", "en": "At the Packhorse Inn" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "this-that",
+          "instruction": { "sl": "Fill in with this, that, these, those · Dopolni", "de": "Fill in with this, that, these, those · Ergänze", "it": "Fill in with this, that, these, those · Completa", "en": "Fill in with this, that, these, those" },
+          "title": "Mrs Birkett",
+          "text": "Come in, {learner}! ___ is the Packhorse Inn. ___ table here by the fire is for you, and ___ scones here on the plate are fresh. Look out of the window: ___ fell over there is Cat Bells, and ___ boats on the lake are from Keswick.",
+          "gaps": [
+            { "accept": ["This"], "hint": { "sl": "tukaj, sam", "de": "hier, allein", "it": "qui, da solo", "en": "here, alone" } },
+            { "accept": ["This"], "hint": { "sl": "ena, tukaj", "de": "eins, hier", "it": "uno, qui", "en": "one, here" } },
+            { "accept": ["these"], "hint": { "sl": "več, tukaj", "de": "mehrere, hier", "it": "più, qui", "en": "more, here" } },
+            { "accept": ["that"], "hint": { "sl": "ena, tam", "de": "eins, dort", "it": "uno, lì", "en": "one, there" } },
+            { "accept": ["those"], "hint": { "sl": "več, tam", "de": "mehrere, dort", "it": "più, lì", "en": "more, there" } }
+          ],
+          "bank": true,
+          "translation": {
+            "sl": "Pridi naprej, {learner}! To je gostilna Packhorse. Ta miza tukaj ob ognju je zate, in ti sconi tukaj na krožniku so sveži. Poglej skozi okno: tisti hrib tam je Cat Bells, tisti čolni na jezeru pa so iz Keswicka.",
+            "de": "Komm herein, {learner}! Das ist das Packhorse Inn. Dieser Tisch hier am Feuer ist für dich, und diese Scones hier auf dem Teller sind frisch. Schau aus dem Fenster: Der Berg dort ist Cat Bells, und die Boote auf dem See sind aus Keswick.",
+            "it": "Entra, {learner}! Questo è il Packhorse Inn. Questo tavolo qui vicino al fuoco è per te, e questi scones qui sul piatto sono freschi. Guarda dalla finestra: quel monte laggiù è Cat Bells, e quelle barche sul lago sono di Keswick.",
+            "en": "Come in, {learner}! This is the Packhorse Inn. This table here by the fire is for you, and these scones here on the plate are fresh. Look out of the window: that fell over there is Cat Bells, and those boats on the lake are from Keswick."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "this-that",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "What are those up on the fell? — ___",
+          "options": ["They're Herdwick sheep.", "It's Herdwick sheep.", "These are Herdwick sheep."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**What are …? → they're**\n- What are those? — They're Herdwick sheep.\n- these: tukaj, ne tam na hribu",
+            "de": "**What are …? → they're**\n- What are those? — They're Herdwick sheep.\n- these: hier, nicht dort am Berg",
+            "it": "**What are …? → they're**\n- What are those? — They're Herdwick sheep.\n- these: qui, non lassù sul monte",
+            "en": "**What are …? → they're**\n- What are those? — They're Herdwick sheep.\n- these: here, not up on the fell"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "this-that",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "A bag in your hand: «Mrs Birkett, ___ is for you, from Granny Maggie.»",
+          "options": ["this", "these", "those"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Ena stvar v tvoji roki: this**\n- this is for you · these are for you",
+            "de": "**Ein Ding in deiner Hand: this**\n- this is for you · these are for you",
+            "it": "**Una cosa in mano tua: this**\n- this is for you · these are for you",
+            "en": "**One thing in your hand: this**\n- this is for you · these are for you"
+          }
+        }
+      ]
+    },
+    {
+      "id": "this-that-3",
+      "title": { "sl": "More than one, and the answer · Več in odgovor", "de": "More than one, and the answer · Mehrere und die Antwort", "it": "More than one, and the answer · Più cose e la risposta", "en": "More than one, and the answer" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "this-that",
+          "instruction": { "sl": "Into the plural · V množino", "de": "Into the plural · In den Plural", "it": "Into the plural · Al plurale", "en": "Into the plural" },
+          "cue": { "sl": "več", "de": "mehrere", "it": "più", "en": "more" },
+          "items": [
+            { "from": "This cup is hot.", "accept": ["These cups are hot."], "hint": "this → these, is → are" },
+            { "from": "That bike is new.", "accept": ["Those bikes are new."] },
+            { "from": "This is a bee.", "accept": ["These are bees."], "hint": { "sl": "brez a", "de": "ohne a", "it": "senza a", "en": "no a" } },
+            { "from": "That's a lamb.", "accept": ["Those are lambs."] },
+            { "from": "Is this scone for me?", "accept": ["Are these scones for me?"] },
+            { "from": "That man is a walker.", "accept": ["Those men are walkers."] }
+          ],
+          "explain": {
+            "sl": "**this → these, that → those; is → are; samostalnik v množini**\n- This cup is hot. → These cups are hot.\n- That man is a walker. → Those men are walkers.",
+            "de": "**this → these, that → those; is → are; das Nomen im Plural**\n- This cup is hot. → These cups are hot.\n- That man is a walker. → Those men are walkers.",
+            "it": "**this → these, that → those; is → are; il nome al plurale**\n- This cup is hot. → These cups are hot.\n- That man is a walker. → Those men are walkers.",
+            "en": "**this → these, that → those; is → are; the noun in the plural**\n- This cup is hot. → These cups are hot.\n- That man is a walker. → Those men are walkers."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "this-that",
+          "instruction": { "sl": "Answer with it or they · Odgovori z it ali they", "de": "Answer with it or they · Antworte mit it oder they", "it": "Answer with it or they · Rispondi con it o they", "en": "Answer with it or they" },
+          "items": [
+            { "from": "What's this? (a scone)", "accept": ["It's a scone."] },
+            { "from": "What are these? (blackberries)", "accept": ["They're blackberries."] },
+            { "from": "What's that? (the old mill)", "accept": ["It's the old mill."] },
+            { "from": "What are those? (Herdwick sheep)", "accept": ["They're Herdwick sheep."], "hint": "What are …? → ?" }
+          ],
+          "explain": {
+            "sl": "**Ena stvar: it's · več stvari: they're**\n- What's this? — It's a scone.\n- What are these? — They're blackberries.",
+            "de": "**Ein Ding: it's · mehrere: they're**\n- What's this? — It's a scone.\n- What are these? — They're blackberries.",
+            "it": "**Una cosa: it's · più cose: they're**\n- What's this? — It's a scone.\n- What are these? — They're blackberries.",
+            "en": "**One thing: it's · more than one: they're**\n- What's this? — It's a scone.\n- What are these? — They're blackberries."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "this-that",
+        "instruction": { "sl": "Fill in with this, that, these, those · Dopolni", "de": "Fill in with this, that, these, those · Ergänze", "it": "Fill in with this, that, these, those · Completa", "en": "Fill in with this, that, these, those" },
+        "text": "On the phone: «Hello, Mrs Hartley, ___ is {learner}.» At the school: «Look, ___ book here is new, and ___ pens here on the desk are for the class. ___ pictures on the wall over there are by the children.»",
+        "gaps": [
+          { "accept": ["this", "it"] },
+          { "accept": ["this"] },
+          { "accept": ["these"] },
+          { "accept": ["Those"] }
+        ],
+        "translation": {
+          "sl": "Po telefonu: »Halo, gospa Hartley, {learner} tukaj.« V šoli: »Poglej, ta knjiga tukaj je nova in ta pisala tukaj na mizi so za razred. Tiste slike tam na steni so od otrok.«",
+          "de": "Am Telefon: „Hallo, Mrs Hartley, hier ist {learner}.“ In der Schule: „Schau, dieses Buch hier ist neu, und diese Stifte hier auf dem Pult sind für die Klasse. Die Bilder dort an der Wand sind von den Kindern.“",
+          "it": "Al telefono: «Pronto, Mrs Hartley, sono {learner}.» A scuola: «Guarda, questo libro qui è nuovo, e queste penne qui sulla cattedra sono per la classe. Quei disegni sul muro laggiù sono dei bambini.»",
+          "en": "On the phone: «Hello, Mrs Hartley, this is {learner}.» At the school: «Look, this book here is new, and these pens here on the desk are for the class. Those pictures on the wall over there are by the children.»"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "this-that",
+        "instruction": { "sl": "Into the plural · V množino", "de": "Into the plural · In den Plural", "it": "Into the plural · Al plurale", "en": "Into the plural" },
+        "cue": { "sl": "več", "de": "mehrere", "it": "più", "en": "more" },
+        "items": [
+          { "from": "This plate is clean.", "accept": ["These plates are clean."] },
+          { "from": "That's a fox.", "accept": ["Those are foxes."] },
+          { "from": "That woman is a nurse.", "accept": ["Those women are nurses."] }
+        ],
+        "explain": {
+          "sl": "**this → these, that → those; is → are; samostalnik v množini**\n- That's a fox. → Those are foxes.",
+          "de": "**this → these, that → those; is → are; das Nomen im Plural**\n- That's a fox. → Those are foxes.",
+          "it": "**this → these, that → those; is → are; il nome al plurale**\n- That's a fox. → Those are foxes.",
+          "en": "**this → these, that → those; is → are; the noun in the plural**\n- That's a fox. → Those are foxes."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "this-that",
+        "instruction": { "sl": "Answer with it or they · Odgovori z it ali they", "de": "Answer with it or they · Antworte mit it oder they", "it": "Answer with it or they · Rispondi con it o they", "en": "Answer with it or they" },
+        "items": [
+          { "from": "What's this? (a key)", "accept": ["It's a key."] },
+          { "from": "What are those? (bees)", "accept": ["They're bees."] }
+        ],
+        "explain": {
+          "sl": "**Ena stvar: it's · več stvari: they're**\n- What's this? — It's a key.\n- What are those? — They're bees.",
+          "de": "**Ein Ding: it's · mehrere: they're**\n- What's this? — It's a key.\n- What are those? — They're bees.",
+          "it": "**Una cosa: it's · più cose: they're**\n- What's this? — It's a key.\n- What are those? — They're bees.",
+          "en": "**One thing: it's · more than one: they're**\n- What's this? — It's a key.\n- What are those? — They're bees."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "this-that",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "It's very cold ___ morning.",
+        "options": ["this", "that", "these"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Danes zjutraj: this morning**\n- this morning · this week · that day",
+          "de": "**Heute Morgen: this morning**\n- this morning · this week · that day",
+          "it": "**Stamattina: this morning**\n- this morning · this week · that day",
+          "en": "**Today's morning: this morning**\n- this morning · this week · that day"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "this-that",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Look at ___ stars up in the sky tonight!",
+        "options": ["those", "these", "that"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Več in daleč: those**\n- those stars · those boats · these scones",
+          "de": "**Mehrere und weit weg: those**\n- those stars · those boats · these scones",
+          "it": "**Più cose e lontane: those**\n- those stars · those boats · these scones",
+          "en": "**More than one, far away: those**\n- those stars · those boats · these scones"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: Hello, this is Sam on the phone (and sl Sam tukaj), Cat Bells, the scones in sl (sconi), that one in the de and it answers"
+}
