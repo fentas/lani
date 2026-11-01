@@ -120,6 +120,13 @@ export default async function courseSpeech() {
     check("corpus: the Italian course in Maestra Elena's voice, its German explanations last", read.length > 100 && read.every(i => i.voice === 'teacher') && read.filter(i => i.lang).every(i => i.lang === 'de'), read.length)
   }
 
+  // --- the Lakeland village's school: Mrs Hartley reads the English course, its explanations in the learner's language ---
+  {
+    const lakeCast = new VillagerStore(join(culturesDir, 'lakeland/villagers'), tempDir('lani-cs-lake-villagers-')).all()
+    check("the Lakeland school's person (Residents.brings(SCHOOL)): Mrs Hartley, in her cast's voice, \"teacher\" (Matilda); her own once it is ready (\"@hartley\")",
+      S.schoolTeacher(lakeCast)?.id === 'hartley' && S.teacherVoice(lakeCast, v => v.speaker ?? v.voice) === 'teacher' && S.teacherVoice(lakeCast, v => v.speaker ?? v.voice, id => id === 'hartley') === '@hartley')
+  }
+
   // --- companion/bin/voice-build --only, --explanations, --base on a store of its own ---------------------------------
   {
     const fe = fakeEleven()
