@@ -167,8 +167,10 @@ class LakelandPlacesLooksTest {
             val n = SceneWorld().stages(p.id)
             var before = render(p.art.art, frame(p.art, "lakeland", 10.5f, people = false, projects = mapOf(p.id to 0))).pixels
             // the clock's first, third, fourth and fifth steps are made away from the tower (its size worked out at school, the
-            // gears in the smithy, the hands and the face in the workshop and at school): the tower shows them once lifted in
-            val unseen = if (p.id == "mestna_ura") setOf(1, 3, 4, 5) else emptySet()
+            // gears in the smithy, the hands and the face in the workshop and at school): the tower shows them once lifted in;
+            // its last, the clock going, moves only its hands, a few pixels at the scene's own size (StepScenesRenderTest's
+            // "mestna_ura/6" says the same)
+            val unseen = if (p.id == "mestna_ura") setOf(1, 3, 4, 5, 7) else emptySet()
             for (st in 1..n) {
                 val now = render(p.art.art, frame(p.art, "lakeland", 10.5f, people = false, projects = mapOf(p.id to st))).pixels
                 val d = now.indices.count { now[it] != before[it] }
@@ -223,7 +225,37 @@ class LakelandPlacesLooksTest {
 
     companion object {
         /** The digests of the pictures reviewed (the test of that name). */
-        private val REVIEWED: Map<String, String> = mapOf()
+        private val REVIEWED: Map<String, String> = mapOf(
+            "stream" to "e5cba229eee8",
+            "pond" to "da847f28e613",
+            "firestation" to "4a676c2b601e",
+            "playground" to "347cdb5b7440",
+            "lookout" to "38939aeae74e",
+            "square" to "d97bf1fb8a7c",
+            "field" to "6fe7900e36ac",
+            "vodnjak_na_trgu/0" to "3afef2b11191",
+            "vodnjak_na_trgu/1" to "9da07e18f55f",
+            "vodnjak_na_trgu/2" to "d19539d8b7a7",
+            "vodnjak_na_trgu/3" to "8a1cdd375fc7",
+            "vodnjak_na_trgu/4" to "cb38d9e117ba",
+            "vodnjak_na_trgu/5" to "15bd350bddcb",
+            "vodnjak_na_trgu/6" to "784208f27afe",
+            "mestna_ura/0" to "3afef2b11191",
+            "mestna_ura/1" to "3afef2b11191",
+            "mestna_ura/2" to "3d6f0b8fc47d",
+            "mestna_ura/3" to "3d6f0b8fc47d",
+            "mestna_ura/4" to "3d6f0b8fc47d",
+            "mestna_ura/5" to "3d6f0b8fc47d",
+            "mestna_ura/6" to "cbaf3e334d07",
+            "mestna_ura/7" to "c0eec305f482",
+            "toplar/0" to "dcc050158e44",
+            "toplar/1" to "3be50dd20d6a",
+            "toplar/2" to "23641f8162d4",
+            "toplar/3" to "94b899412b42",
+            "toplar/4" to "7b0f1e9c67b2",
+            "toplar/5" to "51f0c57fce29",
+            "toplar/6" to "6fe7900e36ac",
+        )
 
         /** The wild animals: out by the day and the hour, not every frame. */
         private val WILD = setOf("hare", "butterfly", "fox", "stag", "hedgehog", "boar", "badger", "dormouse", "bat", "deer")

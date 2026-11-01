@@ -686,7 +686,7 @@ internal class LookoutPainter : VistaPainter() {
             if (edge < 0.03f || edge > 0.97f || py < y0 + z || py >= y1 - z) { c.set(px, py, bar); continue }
             // a thin bar across each pane's middle, closer up
             if (z > 1 && abs(py - (y0 + y1) / 2) < max(1, z / 2)) { c.set(px, py, bar); continue }
-            c.blend(px, py, tints[i], 0.62f)
+            c.blend(px, py, tints[i], 0.75f)
         }
     }
 
