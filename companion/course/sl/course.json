@@ -65,7 +65,29 @@
         { "id": "glagolniki", "title": { "sl": "Branje, pisanje, odkritje", "en": "Reading, writing, a discovery: verbal nouns", "de": "Lesen, Schreiben, eine Entdeckung: Verbalnomen", "it": "La lettura, la scrittura, una scoperta: i nomi verbali" } }
       ]
     },
-    { "level": "B2", "units": [] }
+    {
+      "level": "B2",
+      "units": [
+        { "id": "delezja", "title": { "sl": "Hodeč, molče: deležja", "en": "Present gerunds: hodeč, molče", "de": "Partizipien: hodeč, molče", "it": "Gerundi: hodeč, molče" }, "grammar": [], "planned": true },
+        { "id": "delezniki-pridevniki", "title": { "sl": "Odprta vrata, zrel sad: deležniki", "en": "Participles as adjectives: odprt, zrel", "de": "Partizipien als Adjektive: odprt, zrel", "it": "Participi come aggettivi: odprt, zrel" }, "grammar": [], "planned": true },
+        { "id": "pogojnik-pretekli", "title": { "sl": "Bil bi prišel: pretekli pogojnik", "en": "The past conditional: bil bi prišel", "de": "Der Konditional der Vergangenheit: bil bi prišel", "it": "Il condizionale passato: bil bi prišel" }, "grammar": ["pogojnik-ce-bi"], "planned": true },
+        { "id": "predpreteklik", "title": { "sl": "Bil sem že odšel: predpreteklik", "en": "Before the past: bil sem že odšel", "de": "Die Vorvergangenheit: bil sem že odšel", "it": "Il trapassato: bil sem že odšel" }, "grammar": [], "planned": true },
+        { "id": "oziralni-kateri", "title": { "sl": "Hiša, v kateri živim", "en": "The house in which I live: kateri", "de": "Das Haus, in dem ich wohne: kateri", "it": "La casa in cui vivo: kateri" }, "grammar": ["oziralni-ki"], "planned": true },
+        { "id": "odvisniki-napredno", "title": { "sl": "Čeprav, da bi, tako da: odvisniki", "en": "Although, so that: more clauses", "de": "Obwohl, damit, sodass: Nebensätze", "it": "Benché, affinché, così che: subordinate" }, "grammar": ["odvisniki"], "planned": true },
+        { "id": "pomanjsevalnice", "title": { "sl": "Hišica, mizica, okence", "en": "Little words: hišica, okence", "de": "Verkleinerungen: hišica, okence", "it": "Diminutivi: hišica, okence" }, "grammar": [], "planned": true },
+        { "id": "izpeljanke", "title": { "sl": "Pek, pekarna, pekarica: izpeljanke", "en": "Word families: pek, pekarna", "de": "Wortbildung: pek, pekarna", "it": "Formazione delle parole: pek, pekarna" }, "grammar": [], "planned": true },
+        { "id": "predpone", "title": { "sl": "Pisati, napisati, prepisati: predpone", "en": "Prefixes: napisati, prepisati", "de": "Vorsilben: napisati, prepisati", "it": "Prefissi: napisati, prepisati" }, "grammar": ["glagolski-vid"], "planned": true },
+        { "id": "brezosebno", "title": { "sl": "Treba je, ne ljubi se mi: brezosebno", "en": "No subject: treba je, ne ljubi se mi", "de": "Unpersönlich: treba je, ne ljubi se mi", "it": "Impersonale: treba je, ne ljubi se mi" }, "grammar": ["trpnik"], "planned": true },
+        { "id": "predlogi-dva-sklona", "title": { "sl": "Pod mizo, pod mizo: dva sklona", "en": "One preposition, two cases", "de": "Eine Präposition, zwei Fälle", "it": "Una preposizione, due casi" }, "grammar": ["kam-tozilnik", "kje-mestnik-orodnik"], "planned": true },
+        { "id": "stevniki-napredno", "title": { "sl": "Dvoje, dvojni, dvakrat: števniki", "en": "Numbers: dvoje, dvojni, dvakrat", "de": "Zahlwörter: dvoje, dvojni, dvakrat", "it": "Numerali: dvoje, dvojni, dvakrat" }, "grammar": ["stevila-glagol"], "planned": true },
+        { "id": "stopnjevanje-napredno", "title": { "sl": "Tako lep kot, prelep: stopnjevanje", "en": "As … as, very: comparison", "de": "So … wie, sehr: Steigerung", "it": "Tanto … quanto, bellissimo: comparazione" }, "grammar": ["primernik"], "planned": true },
+        { "id": "velelnik-napredno", "title": { "sl": "Pojdiva, pojdimo, ne zapiraj", "en": "Let's go, don't close: commands", "de": "Gehen wir, schließ nicht: Befehle", "it": "Andiamo, non chiudere: imperativo" }, "grammar": ["velelnik", "glagolski-vid"], "planned": true },
+        { "id": "frazeologija", "title": { "sl": "Imeti srečo, držati pesti: frazemi", "en": "Idioms: držati pesti", "de": "Redewendungen: držati pesti", "it": "Modi di dire: držati pesti" }, "grammar": [], "planned": true },
+        { "id": "pisni-jezik", "title": { "sl": "Spoštovani: uradno pismo", "en": "Spoštovani: a formal letter", "de": "Spoštovani: ein förmlicher Brief", "it": "Spoštovani: una lettera formale" }, "grammar": ["ti-vi"], "planned": true },
+        { "id": "govorjeni-jezik", "title": { "sl": "Bom šu, a si: govorjeni jezik", "en": "Spoken Slovene: bom šu, a si", "de": "Gesprochenes Slowenisch: bom šu, a si", "it": "Lo sloveno parlato: bom šu, a si" }, "grammar": [], "planned": true },
+        { "id": "besedni-red", "title": { "sl": "Kaj stoji spredaj: besedni red", "en": "Word order and emphasis", "de": "Wortstellung und Betonung", "it": "Ordine delle parole ed enfasi" }, "grammar": ["naslonke-red"], "planned": true }
+      ]
+    }
   ],
   "machine_written": true,
   "review": "machine-written, not reviewed by a native speaker"
