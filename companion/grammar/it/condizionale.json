@@ -1,0 +1,114 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "condizionale",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🤔",
+  "title": {
+    "it": "Il condizionale: mangerei, andrei, potresti",
+    "sl": "Pogojnik: mangerei, andrei, potresti",
+    "en": "The conditional: mangerei, andrei, potresti",
+    "de": "Der Konditional: mangerei, andrei, potresti"
+  },
+  "rule": {
+    "en": "The conditional (**condizionale**) says what *would* happen: **Mangerei una mela.** (I'd eat an apple.) You know **vorrei** and **potrei**: every verb has it. Take the future's stem and put **-ei, -esti, -ebbe, -emmo, -este, -ebbero** on it: **prendere → prenderei**, **dormire → dormirei**; in **-are** the **a** becomes **e**, as in the future: **parlare → parlerei**, **giocare → giocherei**, **mangiare → mangerei**.\n\nThe short ones are the future's too: **sarei**, **avrei**, **andrei**, **farei**, **starei**, **potrei**, **dovrei**, **vedrei**, **saprei**, and with rr **verrei**, **vorrei**, **berrei**.\n\nWhat it's for: a wish (**Vorrei un cavallo.**), advice (**Dovresti dormire.** You should sleep. **Al posto tuo, porterei l'ombrello.** If I were you, I'd take the umbrella.), imagining (**Sarebbe bello!** That would be lovely!) and asking kindly (**Mi presteresti la matita?**).\n\nWatch noi: the conditional has two m, **mangeremmo** (we'd eat); the future one, **mangeremo** (we'll eat).",
+    "sl": "Pogojnik (**condizionale**) pove, kaj *bi* bilo: **Mangerei una mela.** (Pojedel bi jabolko.) **Vorrei** in **potrei** že poznaš: ima ga vsak glagol. Vzameš osnovo prihodnjika in dodaš **-ei, -esti, -ebbe, -emmo, -este, -ebbero**: **prendere → prenderei**, **dormire → dormirei**; pri **-are** se **a** spremeni v **e**, kot v prihodnjiku: **parlare → parlerei**, **giocare → giocherei**, **mangiare → mangerei**.\n\nTudi kratke oblike so od prihodnjika: **sarei**, **avrei**, **andrei**, **farei**, **starei**, **potrei**, **dovrei**, **vedrei**, **saprei**, z rr pa **verrei**, **vorrei**, **berrei**.\n\nZa kaj: želja (**Vorrei un cavallo.**), nasvet (**Dovresti dormire.** Moral bi spati. **Al posto tuo, porterei l'ombrello.** Na tvojem mestu bi vzel dežnik.), domišljija (**Sarebbe bello!** To bi bilo lepo!) in prijazna prošnja (**Mi presteresti la matita?**).\n\nPazi pri noi: pogojnik ima dva m, **mangeremmo** (jedli bi), prihodnjik enega, **mangeremo** (jedli bomo).",
+    "de": "Der Konditional (**condizionale**) sagt, was *wäre* oder was jemand tun *würde*: **Mangerei una mela.** (Ich würde einen Apfel essen.) **Vorrei** und **potrei** kennst du schon: jedes Verb hat ihn. Nimm den Stamm des Futurs und häng **-ei, -esti, -ebbe, -emmo, -este, -ebbero** an: **prendere → prenderei**, **dormire → dormirei**; bei **-are** wird das **a** zu **e**, wie im Futur: **parlare → parlerei**, **giocare → giocherei**, **mangiare → mangerei**.\n\nAuch die kurzen sind die des Futurs: **sarei**, **avrei**, **andrei**, **farei**, **starei**, **potrei**, **dovrei**, **vedrei**, **saprei**, mit rr **verrei**, **vorrei**, **berrei**.\n\nWofür: ein Wunsch (**Vorrei un cavallo.**), ein Rat (**Dovresti dormire.** Du solltest schlafen. **Al posto tuo, porterei l'ombrello.** An deiner Stelle würde ich den Schirm mitnehmen.), etwas Ausgedachtes (**Sarebbe bello!** Das wäre schön!) und freundlich bitten (**Mi presteresti la matita?**).\n\nPass bei noi auf: der Konditional hat zwei m, **mangeremmo** (wir würden essen), das Futur eins, **mangeremo** (wir werden essen)."
+  },
+  "table": {
+    "head": [
+      { "it": "persona", "sl": "oseba", "en": "person", "de": "Person" },
+      { "it": "parlare", "sl": "parlare (govoriti)", "en": "parlare (speak)", "de": "parlare (sprechen)" },
+      { "it": "prendere", "sl": "prendere (vzeti)", "en": "prendere (take)", "de": "prendere (nehmen)" },
+      { "it": "essere", "sl": "essere (biti)", "en": "essere (be)", "de": "essere (sein)" }
+    ],
+    "rows": [
+      ["io", "parlerei", "prenderei", "sarei"],
+      ["tu", "parleresti", "prenderesti", "saresti"],
+      [{ "it": "lui, lei, Lei", "sl": "lui, lei, Lei (on, ona, vi)", "en": "lui, lei, Lei (he, she, you)", "de": "lui, lei, Lei (er, sie, Sie)" }, "parlerebbe", "prenderebbe", "sarebbe"],
+      ["noi", "parleremmo", "prenderemmo", "saremmo"],
+      ["voi", "parlereste", "prendereste", "sareste"],
+      ["loro", "parlerebbero", "prenderebbero", "sarebbero"]
+    ]
+  },
+  "examples": [
+    {
+      "it": "Mangerei volentieri un'altra fetta di gubana.",
+      "sl": "Z veseljem bi {m:pojedel|f:pojedla} še en kos gubane.",
+      "en": "I'd gladly eat another slice of gubana.",
+      "de": "Ich würde gern noch ein Stück Gubana essen.",
+      "note": {
+        "sl": "mangiare → mangerei: i izpade, kot v mangerò.",
+        "en": "mangiare → mangerei: the i goes, as in mangerò.",
+        "de": "mangiare → mangerei: das i fällt weg, wie in mangerò."
+      }
+    },
+    {
+      "it": "Tommaso giocherebbe a calcio tutto il giorno.",
+      "sl": "Tommaso bi ves dan igral nogomet.",
+      "en": "Tommaso would play football all day.",
+      "de": "Tommaso würde den ganzen Tag Fußball spielen.",
+      "note": {
+        "sl": "giocare → giocherebbe: h ohrani trdi c.",
+        "en": "giocare → giocherebbe: the h keeps the c hard.",
+        "de": "giocare → giocherebbe: das h hält das c hart."
+      }
+    },
+    {
+      "it": "Lorenzo dormirebbe ancora un po'.",
+      "sl": "Lorenzo bi še malo spal.",
+      "en": "Lorenzo would sleep a bit longer.",
+      "de": "Lorenzo würde noch ein bisschen schlafen."
+    },
+    {
+      "it": "Con un cavallo, Lorenzo sarebbe felicissimo.",
+      "sl": "S konjem bi bil Lorenzo presrečen.",
+      "en": "With a horse, Lorenzo would be ever so happy.",
+      "de": "Mit einem Pferd wäre Lorenzo überglücklich.",
+      "note": {
+        "sl": "essere → sarò → sarei: kratke oblike so od prihodnjika.",
+        "en": "essere → sarò → sarei: the short ones come from the future.",
+        "de": "essere → sarò → sarei: die kurzen kommen vom Futur."
+      }
+    },
+    {
+      "it": "Giulia, dovresti mettere il cappotto: fa freddo!",
+      "sl": "Giulia, morala bi obleči plašč: mrzlo je!",
+      "en": "Giulia, you should put your coat on: it's cold!",
+      "de": "Giulia, du solltest den Mantel anziehen: Es ist kalt!",
+      "note": {
+        "sl": "Nasvet: dovresti + nedoločnik.",
+        "en": "Advice: dovresti + a verb as the dictionary has it.",
+        "de": "Ein Rat: dovresti + ein Verb in der Grundform."
+      }
+    },
+    {
+      "it": "Sarebbe bello andare al mare oggi!",
+      "sl": "Lepo bi bilo danes iti na morje!",
+      "en": "It would be lovely to go to the sea today!",
+      "de": "Es wäre schön, heute ans Meer zu gehen!"
+    },
+    {
+      "it": "Mi presteresti la tua matita?",
+      "sl": "Bi mi posodil svoj svinčnik?",
+      "en": "Would you lend me your pencil?",
+      "de": "Würdest du mir deinen Bleistift leihen?"
+    },
+    {
+      "it": "Verremmo volentieri alla festa, ma piove.",
+      "sl": "Radi bi prišli na praznik, ampak dežuje.",
+      "en": "We'd gladly come to the festa, but it's raining.",
+      "de": "Wir würden gern zum Fest kommen, aber es regnet.",
+      "note": {
+        "sl": "noi: verremmo z dvema m; verremo z enim je prihodnjik (prišli bomo).",
+        "en": "noi: verremmo with two m; verremo with one is the future (we'll come).",
+        "de": "noi: verremmo mit zwei m; verremo mit einem ist das Futur (wir werden kommen)."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["conditional", "condizionale", "condizionale_presente", "advice", "wishes", "would"],
+  "see": ["vorrei", "futuro", "periodo-ipotetico", "verbi-irregolari"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}

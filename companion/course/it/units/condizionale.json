@@ -1,0 +1,972 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "condizionale",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🤔",
+  "title": {
+    "it": "Mangerei, andrei, potresti",
+    "de": "Der Konditional: mangerei, andrei",
+    "sl": "Pogojnik: mangerei, andrei",
+    "en": "The conditional: mangerei, andrei"
+  },
+  "goal": {
+    "de": "Du sagst, was du tun würdest, was schön wäre und was jemand tun sollte (Mangerei volentieri … Sarebbe bello! Dovresti …), in jeder Person und mit den kurzen Verben (sarei, andrei, farei).",
+    "sl": "Poveš, kaj bi naredil, kaj bi bilo lepo in kaj bi kdo moral narediti (Mangerei volentieri … Sarebbe bello! Dovresti …), v vsaki osebi in s kratkimi glagoli (sarei, andrei, farei).",
+    "en": "You can say what you would do, what would be lovely and what someone should do (Mangerei volentieri … Sarebbe bello! Dovresti …), in every person and with the short verbs (sarei, andrei, farei)."
+  },
+  "grammar": [
+    "condizionale",
+    "vorrei",
+    "futuro"
+  ],
+  "words": [
+    "volentieri",
+    "al posto tuo",
+    "altrimenti",
+    "il consiglio",
+    "l'ombrello",
+    "la matita",
+    "il cappotto",
+    "la tosse",
+    "il tè",
+    "il panino",
+    "la storia",
+    "il gelato",
+    "il frico",
+    "la gubana",
+    "il cavallo",
+    "il trattore",
+    "la pecora",
+    "la festa",
+    "l'albero della cuccagna",
+    "il giro",
+    "prestare",
+    "raccontare",
+    "mangiare",
+    "giocare",
+    "prendere",
+    "dormire",
+    "leggere",
+    "mettere",
+    "salire",
+    "arrivare",
+    "essere",
+    "avere",
+    "andare",
+    "fare",
+    "stare",
+    "potere",
+    "dovere",
+    "venire",
+    "bere"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "it": "chi",
+          "de": "wer",
+          "sl": "kdo",
+          "en": "who"
+        },
+        {
+          "it": "condizionale",
+          "de": "condizionale (würde)",
+          "sl": "condizionale (bi)",
+          "en": "condizionale (would)"
+        },
+        {
+          "it": "esempio",
+          "de": "Beispiel",
+          "sl": "primer",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Jedes Verb hat eine *würde*-Form wie **vorrei** (ich möchte), das **condizionale**: **mangiare → mangerei** (ich würde essen). Bei **-are** wird das **a** zu **e** wie im Futur, dann kommt **-ei**: **parlare → parlerei** (ich würde sprechen). **giocare → giocherei** (ich würde spielen) hat ein **h** wie **giocherò**.",
+          "sl": "Vsak glagol ima obliko z *bi*, kot **vorrei** (rad bi), **condizionale** (pogojnik): **mangiare → mangerei** (jedel bi). Pri **-are** se **a** spremeni v **e** kot v prihodnjiku, nato pride **-ei**: **parlare → parlerei** (govoril bi). **giocare → giocherei** (igral bi se) ima **h** kot **giocherò**.",
+          "en": "Every verb has a *would* form, as **vorrei** (I'd like) is, the **condizionale**: **mangiare → mangerei** (I'd eat). In **-are** the **a** becomes **e** as in the future, then comes **-ei**: **parlare → parlerei** (I'd speak). **giocare → giocherei** (I'd play) has an **h**, as **giocherò** does."
+        },
+        "examples": [
+          {
+            "it": "Mangerei volentieri un'altra fetta di gubana.",
+            "de": "Ich würde gern noch ein Stück Gubana essen.",
+            "sl": "Z veseljem bi {m:pojedel|f:pojedla} še en kos gubane.",
+            "en": "I'd gladly eat another slice of gubana."
+          },
+          {
+            "it": "Con questo sole giocherei tutto il giorno in piazza.",
+            "de": "Bei dieser Sonne würde ich den ganzen Tag auf dem Platz spielen.",
+            "sl": "Ob tem soncu bi se ves dan {m:igral|f:igrala} na trgu.",
+            "en": "In this sunshine I'd play in the square all day."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "io · mangiare, giocare",
+              "de": "io · mangiare, giocare (essen, spielen)",
+              "sl": "io · mangiare, giocare (jesti, igrati se)",
+              "en": "io · mangiare, giocare (eat, play)"
+            },
+            "mangerei, giocherei",
+            "Giocherei a palla."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "condizionale",
+          "prompt": "Tommaso: «Ho fame! ___ volentieri un panino.»",
+          "options": [
+            "Mangerei",
+            "Mangierei",
+            "Mangiarei"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**mangiare** → **mangerei**: das i fällt weg, wie in mangerò\n- mangierei, mangiarei: gibt es nicht",
+            "sl": "**mangiare** → **mangerei**: i izpade, kot v mangerò\n- mangierei, mangiarei: ne obstajata",
+            "en": "**mangiare** → **mangerei**: the i goes, as in mangerò\n- mangierei, mangiarei: no such forms"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Jede Person hat ihre Endung: **-ei, -esti, -ebbe, -emmo, -este, -ebbero**. **Giocheresti con me?** (Würdest du mit mir spielen?) **Tommaso giocherebbe sempre.** (Tommaso würde immer spielen.) **Giocheremmo** (wir würden spielen), **giochereste** (ihr würdet spielen), **giocherebbero** (sie würden spielen).",
+          "sl": "Vsaka oseba ima svojo končnico: **-ei, -esti, -ebbe, -emmo, -este, -ebbero**. **Giocheresti con me?** (Bi se igral z mano?) **Tommaso giocherebbe sempre.** (Tommaso bi se vedno igral.) **Giocheremmo** (igrali bi se), **giochereste** (igrali bi se, vi), **giocherebbero** (igrali bi se, oni).",
+          "en": "Each person has its ending: **-ei, -esti, -ebbe, -emmo, -este, -ebbero**. **Giocheresti con me?** (Would you play with me?) **Tommaso giocherebbe sempre.** (Tommaso would always play.) **Giocheremmo** (we'd play), **giochereste** (you'd play, to several), **giocherebbero** (they'd play)."
+        },
+        "examples": [
+          {
+            "it": "Giulia, giocheresti con me a palla?",
+            "de": "Giulia, würdest du mit mir Ball spielen?",
+            "sl": "Giulia, bi se igrala z mano z žogo?",
+            "en": "Giulia, would you play ball with me?"
+          },
+          {
+            "it": "Tommaso giocherebbe a calcio tutto il giorno.",
+            "de": "Tommaso würde den ganzen Tag Fußball spielen.",
+            "sl": "Tommaso bi ves dan igral nogomet.",
+            "en": "Tommaso would play football all day."
+          }
+        ],
+        "rows": [
+          [
+            "tu",
+            "giocheresti",
+            "Giocheresti con me?"
+          ],
+          [
+            {
+              "it": "lui, lei, Lei",
+              "de": "lui, lei, Lei (er, sie, Sie)",
+              "sl": "lui, lei, Lei (on, ona, vi)",
+              "en": "lui, lei, Lei (he, she, you)"
+            },
+            "giocherebbe",
+            "Tommaso giocherebbe sempre."
+          ],
+          [
+            "noi",
+            "giocheremmo",
+            "Giocheremmo in piazza."
+          ],
+          [
+            "voi",
+            "giochereste",
+            "Giochereste a carte?"
+          ],
+          [
+            "loro",
+            "giocherebbero",
+            "Giocherebbero fino a sera."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "condizionale",
+          "text": "«Nonno Bepi, mi ___ una storia?» (raccontare · condizionale)",
+          "accept": [
+            "racconteresti"
+          ],
+          "hint": {
+            "de": "du würdest erzählen",
+            "sl": "bi povedal (ti)",
+            "en": "would you tell (tu)"
+          },
+          "explain": {
+            "de": "**zum Nonno** (tu) → **-esti**: **racconteresti**",
+            "sl": "**dedku** (tu) → **-esti**: **racconteresti**",
+            "en": "**to Nonno** (tu) → **-esti**: **racconteresti**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Bei **-ere** und **-ire** bleibt der Vokal, und die Endungen sind dieselben: **prendere → prenderei** (ich würde nehmen), **dormire → dormirei** (ich würde schlafen). **Prenderei il gelato al cioccolato.** **Lorenzo dormirebbe ancora un po'.** (Lorenzo würde noch ein bisschen schlafen.)",
+          "sl": "Pri **-ere** in **-ire** samoglasnik ostane, končnice pa so iste: **prendere → prenderei** (vzel bi), **dormire → dormirei** (spal bi). **Prenderei il gelato al cioccolato.** **Lorenzo dormirebbe ancora un po'.** (Lorenzo bi še malo spal.)",
+          "en": "In **-ere** and **-ire** the vowel stays, and the endings are the same: **prendere → prenderei** (I'd take), **dormire → dormirei** (I'd sleep). **Prenderei il gelato al cioccolato.** **Lorenzo dormirebbe ancora un po'.** (Lorenzo would sleep a bit longer.)"
+        },
+        "examples": [
+          {
+            "it": "Prenderei il gelato al cioccolato.",
+            "de": "Ich würde das Schokoladeneis nehmen.",
+            "sl": "{m:Vzel|f:Vzela} bi čokoladni sladoled.",
+            "en": "I'd take the chocolate ice cream."
+          },
+          {
+            "it": "Lorenzo dormirebbe ancora un po'.",
+            "de": "Lorenzo würde noch ein bisschen schlafen.",
+            "sl": "Lorenzo bi še malo spal.",
+            "en": "Lorenzo would sleep a bit longer."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "io · prendere, dormire",
+              "de": "io · prendere, dormire (nehmen, schlafen)",
+              "sl": "io · prendere, dormire (vzeti, spati)",
+              "en": "io · prendere, dormire (take, sleep)"
+            },
+            "prenderei, dormirei",
+            "Dormirei ancora."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "condizionale",
+          "prompt": "Giulia ama i libri: ___ tutto il giorno!",
+          "options": [
+            "leggerebbe",
+            "leggirebbe",
+            "leggerebbero"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**leggere**: das e bleibt → **leggerebbe** (sie würde lesen)\n- leggirebbe: gibt es nicht\n- leggerebbero · sie (mehrere)",
+            "sl": "**leggere**: e ostane → **leggerebbe** (brala bi)\n- leggirebbe: ne obstaja\n- leggerebbero · oni (več)",
+            "en": "**leggere**: the e stays → **leggerebbe** (she'd read)\n- leggirebbe: no such form\n- leggerebbero · they"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Die kurzen Verben sind dieselben wie im Futur, nur mit **-ei**: **sarò → sarei** (ich wäre), **avrò → avrei** (ich hätte), **andrò → andrei** (ich würde gehen), **farò → farei** (ich würde machen). Ebenso **starei**, **potrei**, **dovrei**, **vedrei**, **saprei**, und mit **rr**: **verrei** (ich würde kommen), **vorrei**, **berrei** (ich würde trinken).",
+          "sl": "Kratki glagoli so isti kot v prihodnjiku, le z **-ei**: **sarò → sarei** (bil bi), **avrò → avrei** (imel bi), **andrò → andrei** (šel bi), **farò → farei** (naredil bi). Prav tako **starei**, **potrei**, **dovrei**, **vedrei**, **saprei**, z **rr** pa **verrei** (prišel bi), **vorrei**, **berrei** (pil bi).",
+          "en": "The short verbs are the same as in the future, only with **-ei**: **sarò → sarei** (I'd be), **avrò → avrei** (I'd have), **andrò → andrei** (I'd go), **farò → farei** (I'd do). So are **starei**, **potrei**, **dovrei**, **vedrei**, **saprei**, and with **rr**: **verrei** (I'd come), **vorrei**, **berrei** (I'd drink)."
+        },
+        "examples": [
+          {
+            "it": "Con un cavallo, Lorenzo sarebbe felicissimo.",
+            "de": "Mit einem Pferd wäre Lorenzo überglücklich.",
+            "sl": "S konjem bi bil Lorenzo presrečen.",
+            "en": "With a horse, Lorenzo would be ever so happy."
+          },
+          {
+            "it": "Nonna, verrei volentieri con te al mercato.",
+            "de": "Oma, ich würde gern mit dir auf den Markt kommen.",
+            "sl": "Babica, z veseljem bi {m:šel|f:šla} s tabo na tržnico.",
+            "en": "Grandma, I'd love to come to the market with you."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "essere, avere, andare, fare",
+              "de": "essere, avere, andare, fare (sein, haben, gehen, machen)",
+              "sl": "essere, avere, andare, fare (biti, imeti, iti, narediti)",
+              "en": "essere, avere, andare, fare (be, have, go, do)"
+            },
+            "sarei, avrei, andrei, farei",
+            "Sarebbe bello!"
+          ],
+          [
+            {
+              "it": "potere, dovere, venire, bere",
+              "de": "potere, dovere, venire, bere (können, sollen, kommen, trinken)",
+              "sl": "potere, dovere, venire, bere (moči, morati, priti, piti)",
+              "en": "potere, dovere, venire, bere (can, should, come, drink)"
+            },
+            "potrei, dovrei, verrei, berrei",
+            "Verrei con te."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "condizionale",
+          "text": "Lorenzo: «Con un cavallo ___ felicissimo!» (essere · condizionale)",
+          "accept": [
+            "sarei"
+          ],
+          "hint": "sarò → ?",
+          "explain": {
+            "de": "**essere**: **sarò → sarei** (ich wäre), kurz wie im Futur\n- sarai · du wirst sein (Futur)",
+            "sl": "**essere**: **sarò → sarei** (bil bi), kratko kot v prihodnjiku\n- sarai · boš (prihodnjik)",
+            "en": "**essere**: **sarò → sarei** (I'd be), short as in the future\n- sarai · you will be (future)"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Mit dem **condizionale** gibst du einen Rat, sagst, was schön wäre, und bittest freundlich. Ein Rat: **Dovresti dormire.** (Du solltest schlafen.) **Al posto tuo, porterei l'ombrello.** (An deiner Stelle würde ich den Schirm mitnehmen.) **Sarebbe bello!** (Das wäre schön!) **Mi presteresti la matita?** (Würdest du mir den Bleistift leihen?)",
+          "sl": "S **condizionale** daš nasvet, poveš, kaj bi bilo lepo, in prijazno prosiš. Nasvet: **Dovresti dormire.** (Moral bi spati.) **Al posto tuo, porterei l'ombrello.** (Na tvojem mestu bi vzel dežnik.) **Sarebbe bello!** (To bi bilo lepo!) **Mi presteresti la matita?** (Bi mi posodil svinčnik?)",
+          "en": "With the **condizionale** you give advice, say what would be lovely and ask kindly. Advice: **Dovresti dormire.** (You should sleep.) **Al posto tuo, porterei l'ombrello.** (If I were you, I'd take the umbrella.) **Sarebbe bello!** (That would be lovely!) **Mi presteresti la matita?** (Would you lend me your pencil?)"
+        },
+        "examples": [
+          {
+            "it": "Giulia, al posto tuo porterei l'ombrello.",
+            "de": "Giulia, an deiner Stelle würde ich den Schirm mitnehmen.",
+            "sl": "Giulia, na tvojem mestu bi {m:vzel|f:vzela} dežnik.",
+            "en": "Giulia, if I were you, I'd take the umbrella."
+          },
+          {
+            "it": "Sarebbe bello andare al mare oggi!",
+            "de": "Es wäre schön, heute ans Meer zu gehen!",
+            "sl": "Lepo bi bilo danes iti na morje!",
+            "en": "It would be lovely to go to the sea today!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "un consiglio",
+              "de": "un consiglio (ein Rat)",
+              "sl": "un consiglio (nasvet)",
+              "en": "un consiglio (advice)"
+            },
+            "dovresti …",
+            "Dovresti dormire."
+          ],
+          [
+            {
+              "it": "gentilmente",
+              "de": "gentilmente (freundlich)",
+              "sl": "gentilmente (prijazno)",
+              "en": "gentilmente (kindly)"
+            },
+            "mi presteresti …?",
+            "Mi presteresti la matita?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "condizionale",
+          "prompt": "Giulia ha la tosse. Nonna Rosa: «Tesoro, ___ bere un tè caldo.»",
+          "options": [
+            "dovresti",
+            "doveresti",
+            "dovrebbero"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ein Rat für Giulia** (tu) → **dovresti** + Verb\n- doveresti: gibt es nicht, kurz wie dovrò\n- dovrebbero · sie (mehrere)",
+            "sl": "**nasvet Giuliji** (tu) → **dovresti** + glagol\n- doveresti: ne obstaja, kratko kot dovrò\n- dovrebbero · oni (več)",
+            "en": "**advice to Giulia** (tu) → **dovresti** + a verb\n- doveresti: no such form, short as in dovrò\n- dovrebbero · they"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Pass bei **noi** auf: Das **condizionale** hat zwei **m**, das Futur nur eins. **Mangeremmo** (wir würden essen), **mangeremo** (wir werden essen). Du hörst es: Das **mm** ist lang. **Domani mangeremo il frico.** (Morgen essen wir Frico.) **Mangeremmo volentieri un gelato.** (Wir würden gern ein Eis essen.)",
+          "sl": "Pazi pri **noi**: **condizionale** ima dva **m**, prihodnjik samo enega. **Mangeremmo** (jedli bi), **mangeremo** (jedli bomo). Slišiš ga: **mm** je dolg. **Domani mangeremo il frico.** (Jutri bomo jedli friko.) **Mangeremmo volentieri un gelato.** (Z veseljem bi jedli sladoled.)",
+          "en": "Watch **noi**: the **condizionale** has two **m**, the future only one. **Mangeremmo** (we'd eat), **mangeremo** (we'll eat). You can hear it: the **mm** is long. **Domani mangeremo il frico.** (Tomorrow we'll eat frico.) **Mangeremmo volentieri un gelato.** (We'd love an ice cream.)"
+        },
+        "examples": [
+          {
+            "it": "Domani mangeremo il frico da Nonna Rosa.",
+            "de": "Morgen essen wir bei Oma Rosa Frico.",
+            "sl": "Jutri bomo pri babici Rosi jedli friko.",
+            "en": "Tomorrow we'll eat frico at Nonna Rosa's."
+          },
+          {
+            "it": "Mangeremmo volentieri un gelato, ma il bar è chiuso.",
+            "de": "Wir würden gern ein Eis essen, aber die Bar ist zu.",
+            "sl": "Z veseljem bi jedli sladoled, ampak bar je zaprt.",
+            "en": "We'd love an ice cream, but the bar is closed."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "it": "noi · futuro",
+              "de": "noi · futuro (wir werden)",
+              "sl": "noi · futuro (bomo)",
+              "en": "noi · futuro (we will)"
+            },
+            "mangeremo",
+            "Domani mangeremo."
+          ],
+          [
+            {
+              "it": "noi · condizionale",
+              "de": "noi · condizionale (wir würden)",
+              "sl": "noi · condizionale (bi)",
+              "en": "noi · condizionale (we would)"
+            },
+            "mangeremmo",
+            "Mangeremmo volentieri."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "condizionale",
+          "text": "Io e Tommaso ___ volentieri al mare, ma oggi piove. (andare · condizionale)",
+          "accept": [
+            "andremmo"
+          ],
+          "hint": "io e Tommaso = noi",
+          "explain": {
+            "de": "**noi** im condizionale → **andremmo**, mit zwei m\n- andremo · wir werden gehen (Futur)",
+            "sl": "**noi** v pogojniku → **andremmo**, z dvema m\n- andremo · šli bomo (prihodnjik)",
+            "en": "**noi** in the condizionale → **andremmo**, with two m\n- andremo · we'll go (future)"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "condizionale-1",
+      "title": {
+        "it": "Le forme del condizionale",
+        "de": "Die Formen des Konditionals",
+        "sl": "Oblike pogojnika",
+        "en": "The conditional's forms"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "condizionale",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": {
+            "de": "giocare, essere: condizionale · würde spielen, wäre",
+            "sl": "giocare, essere: condizionale · igral bi se, bil bi",
+            "en": "giocare, essere: condizionale · would play, would be"
+          },
+          "columns": [
+            {
+              "de": "giocare · spielen",
+              "sl": "giocare · igrati se",
+              "en": "giocare · play"
+            },
+            {
+              "de": "essere · sein",
+              "sl": "essere · biti",
+              "en": "essere · be"
+            }
+          ],
+          "rows": [
+            {
+              "label": "io",
+              "cells": [
+                "giocherei",
+                {
+                  "accept": [
+                    "sarei"
+                  ],
+                  "hint": "sarò → ?"
+                }
+              ]
+            },
+            {
+              "label": "tu",
+              "cells": [
+                {
+                  "accept": [
+                    "giocheresti"
+                  ],
+                  "hint": "c + e → ch + e"
+                },
+                {
+                  "accept": [
+                    "saresti"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "lui, lei",
+              "cells": [
+                {
+                  "accept": [
+                    "giocherebbe"
+                  ]
+                },
+                {
+                  "accept": [
+                    "sarebbe"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "noi",
+              "cells": [
+                {
+                  "accept": [
+                    "giocheremmo"
+                  ],
+                  "hint": "-emmo: mm"
+                },
+                "saremmo"
+              ]
+            },
+            {
+              "label": "voi",
+              "cells": [
+                "giochereste",
+                "sareste"
+              ]
+            },
+            {
+              "label": "loro",
+              "cells": [
+                {
+                  "accept": [
+                    "giocherebbero"
+                  ]
+                },
+                {
+                  "accept": [
+                    "sarebbero"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "sort",
+          "grammar": "condizionale",
+          "instruction": {
+            "de": "Futuro o condizionale? · Futur oder Konditional?",
+            "sl": "Futuro o condizionale? · Prihodnjik ali pogojnik?",
+            "en": "Futuro o condizionale? · Future or conditional?"
+          },
+          "columns": [
+            {
+              "label": {
+                "de": "futuro · wird",
+                "sl": "futuro · bo",
+                "en": "futuro · will"
+              },
+              "words": [
+                "andrò",
+                "faremo",
+                "sarai",
+                "verranno"
+              ]
+            },
+            {
+              "label": {
+                "de": "condizionale · würde",
+                "sl": "condizionale · bi",
+                "en": "condizionale · would"
+              },
+              "words": [
+                "andrei",
+                "faremmo",
+                "saresti",
+                "verrebbero"
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**futuro**: -ò, -ai, -à, -emo, -ete, -anno · **condizionale**: -ei, -esti, -ebbe, -emmo, -este, -ebbero\n- faremo · wir werden machen\n- faremmo · wir würden machen",
+            "sl": "**futuro**: -ò, -ai, -à, -emo, -ete, -anno · **condizionale**: -ei, -esti, -ebbe, -emmo, -este, -ebbero\n- faremo · bomo naredili\n- faremmo · bi naredili",
+            "en": "**futuro**: -ò, -ai, -à, -emo, -ete, -anno · **condizionale**: -ei, -esti, -ebbe, -emmo, -este, -ebbero\n- faremo · we'll do\n- faremmo · we'd do"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "condizionale",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "«Signor Bruno, mi ___ aiutare, per favore?»",
+          "options": [
+            "potrebbe",
+            "potresti",
+            "potrebbero"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "de": "**zu Signor Bruno** (Lei) → **potrebbe**, wie lui, lei\n- potresti · zu einem Kind (tu)\n- potrebbero · sie (mehrere)",
+            "sl": "**gospodu Brunu** (Lei) → **potrebbe**, kot lui, lei\n- potresti · otroku (tu)\n- potrebbero · oni (več)",
+            "en": "**to Signor Bruno** (Lei) → **potrebbe**, as lui, lei\n- potresti · to a child (tu)\n- potrebbero · they"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "condizionale",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Giulia a Lorenzo: «Fa freddo! Al posto tuo, io ___ il cappotto.»",
+          "options": [
+            "metterei",
+            "metterai",
+            "mettrei"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**io**, ein Rat → **metterei** (ich würde anziehen)\n- metterai · du wirst anziehen (Futur)\n- mettrei: gibt es nicht",
+            "sl": "**io**, nasvet → **metterei** (oblekla bi)\n- metterai · boš oblekel (prihodnjik)\n- mettrei: ne obstaja",
+            "en": "**io**, advice → **metterei** (I'd put on)\n- metterai · you'll put on (future)\n- mettrei: no such form"
+          }
+        }
+      ]
+    },
+    {
+      "id": "condizionale-2",
+      "title": {
+        "it": "Alla festa del paese",
+        "de": "Beim Dorffest",
+        "sl": "Na vaškem prazniku",
+        "en": "At the village festa"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "condizionale",
+          "instruction": {
+            "de": "Completa con il condizionale · Ergänze mit dem Konditional",
+            "sl": "Completa con il condizionale · Dopolni s pogojnikom",
+            "en": "Completa con il condizionale · Fill in with the conditional"
+          },
+          "title": "Alla festa del paese",
+          "text": "Alla festa c'è l'albero della cuccagna. «Io ci ___ subito!» dice Tommaso. «È troppo alto: tu ___ a metà e poi giù!» ride Giulia. Lorenzo guarda i cavalli: «Mi ___ tanto fare un giro.» Nonna Rosa chiama: «Lorenzo, prima ___ mangiare qualcosa!» «Sì, nonna! Io e Giulia ___ volentieri un po' di frico.» «Signora Marisa, ci ___ dare tre bicchieri d'acqua?»",
+          "gaps": [
+            {
+              "accept": [
+                "salirei"
+              ],
+              "hint": {
+                "de": "ich würde hinaufklettern",
+                "sl": "splezal bi",
+                "en": "I'd climb up"
+              }
+            },
+            {
+              "accept": [
+                "arriveresti"
+              ],
+              "hint": {
+                "de": "du würdest ankommen",
+                "sl": "prišel bi (ti)",
+                "en": "you'd get (tu)"
+              }
+            },
+            {
+              "accept": [
+                "piacerebbe"
+              ],
+              "hint": "mi piace → mi …"
+            },
+            {
+              "accept": [
+                "dovresti"
+              ],
+              "hint": {
+                "de": "du solltest",
+                "sl": "moral bi (ti)",
+                "en": "you should (tu)"
+              }
+            },
+            {
+              "accept": [
+                "mangeremmo"
+              ],
+              "hint": {
+                "de": "Giulia und ich: wir würden essen",
+                "sl": "Giulia in jaz: jedla bi",
+                "en": "Giulia and I: we'd eat"
+              }
+            },
+            {
+              "accept": [
+                "potrebbe"
+              ],
+              "hint": {
+                "de": "könnten Sie",
+                "sl": "bi lahko (vi, Lei)",
+                "en": "could you (Lei)"
+              },
+              "explain": {
+                "de": "**Signora** → Lei → **potrebbe**, wie lui, lei.",
+                "sl": "**Signora** → Lei → **potrebbe**, kot lui, lei.",
+                "en": "**Signora** → Lei → **potrebbe**, as lui, lei."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "anderesti",
+            "mangieremmo"
+          ],
+          "translation": {
+            "de": "Beim Fest gibt es den Kletterbaum. „Ich würde sofort hinaufklettern!“, sagt Tommaso. „Er ist zu hoch: Du würdest bis zur Hälfte kommen und dann runter!“, lacht Giulia. Lorenzo schaut die Pferde an: „Ich würde so gern eine Runde reiten.“ Oma Rosa ruft: „Lorenzo, du solltest zuerst etwas essen!“ „Ja, Oma! Giulia und ich würden gern ein bisschen Frico essen.“ „Frau Marisa, könnten Sie uns drei Gläser Wasser geben?“",
+            "sl": "Na prazniku je mlaj za plezanje. »Jaz bi takoj splezal gor!« reče Tommaso. »Previsok je: prišel bi do polovice in potem dol!« se smeje Giulia. Lorenzo gleda konje: »Tako rad bi se malo popeljal.« Babica Rosa pokliče: »Lorenzo, najprej bi moral nekaj pojesti!« »Ja, babica! Z Giulio bi z veseljem pojedla malo frike.« »Gospa Marisa, bi nam lahko dali tri kozarce vode?«",
+            "en": "At the festa there's the greasy pole. \"I'd climb up it right away!\" says Tommaso. \"It's too high: you'd get halfway and then down!\" laughs Giulia. Lorenzo looks at the horses: \"I'd so love to have a ride.\" Nonna Rosa calls: \"Lorenzo, you should eat something first!\" \"Yes, Nonna! Giulia and I would love some frico.\" \"Signora Marisa, could you give us three glasses of water?\""
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "condizionale",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "Lorenzo a Nonno Franco: «Nonno, mi ___ guidare il trattore?»",
+          "options": [
+            "faresti",
+            "farebbero",
+            "farei"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**zum Nonno** (tu), freundlich → **mi faresti …?** (würdest du mich … lassen?)\n- farebbero · sie (mehrere)\n- farei · ich",
+            "sl": "**dedku** (tu), prijazno → **mi faresti …?** (bi mi pustil …?)\n- farebbero · oni (več)\n- farei · jaz",
+            "en": "**to Nonno** (tu), kindly → **mi faresti …?** (would you let me …?)\n- farebbero · they\n- farei · I"
+          }
+        }
+      ]
+    },
+    {
+      "id": "condizionale-3",
+      "title": {
+        "it": "Dillo con il condizionale",
+        "de": "Sag es mit dem Konditional",
+        "sl": "Povej s pogojnikom",
+        "en": "Say it with the conditional"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "condizionale",
+          "instruction": {
+            "de": "Metti al condizionale · Setz ins Konditional",
+            "sl": "Metti al condizionale · Postavi v pogojnik",
+            "en": "Metti al condizionale · Put it in the conditional"
+          },
+          "items": [
+            {
+              "from": "Gioco a palla.",
+              "accept": [
+                "Giocherei a palla."
+              ],
+              "hint": "c + e → ch + e"
+            },
+            {
+              "from": "Tommaso mangia un panino.",
+              "accept": [
+                "Tommaso mangerebbe un panino."
+              ]
+            },
+            {
+              "from": "Andiamo al mare.",
+              "accept": [
+                "Andremmo al mare."
+              ],
+              "hint": "-emmo: mm"
+            },
+            {
+              "from": "Giulia, sei contenta?",
+              "accept": [
+                "Giulia, saresti contenta?"
+              ]
+            },
+            {
+              "from": "Mi presti la matita?",
+              "accept": [
+                "Mi presteresti la matita?"
+              ]
+            },
+            {
+              "from": "I bambini vengono alla festa.",
+              "accept": [
+                "I bambini verrebbero alla festa."
+              ],
+              "hint": "verrò → ?"
+            },
+            {
+              "from": "Puoi aiutarmi?",
+              "accept": [
+                "Potresti aiutarmi?",
+                "Mi potresti aiutare?"
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**dieselbe Person, condizionale**: -ei, -esti, -ebbe, -emmo, -este, -ebbero\n- gioco → giocherei · mangia → mangerebbe\n- andiamo → andremmo · vengono → verrebbero",
+            "sl": "**ista oseba, condizionale**: -ei, -esti, -ebbe, -emmo, -este, -ebbero\n- gioco → giocherei · mangia → mangerebbe\n- andiamo → andremmo · vengono → verrebbero",
+            "en": "**the same person, condizionale**: -ei, -esti, -ebbe, -emmo, -este, -ebbero\n- gioco → giocherei · mangia → mangerebbe\n- andiamo → andremmo · vengono → verrebbero"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "condizionale",
+        "instruction": {
+          "de": "Completa con il condizionale · Ergänze mit dem Konditional",
+          "sl": "Completa con il condizionale · Dopolni s pogojnikom",
+          "en": "Completa con il condizionale · Fill in with the conditional"
+        },
+        "text": "Pastore Davide guarda le sue pecore. «Pallina, ___ (dovere) stare vicino a me!» Bianca e Nerina ___ (mangiare) l'erba tutto il giorno. «E io?» pensa Davide. «Io ___ (dormire) volentieri sotto l'albero.» Con un cane tutto ___ (essere) più facile.",
+        "gaps": [
+          {
+            "accept": [
+              "dovresti"
+            ]
+          },
+          {
+            "accept": [
+              "mangerebbero"
+            ]
+          },
+          {
+            "accept": [
+              "dormirei"
+            ]
+          },
+          {
+            "accept": [
+              "sarebbe"
+            ]
+          }
+        ],
+        "translation": {
+          "de": "Hirte Davide schaut seine Schafe an. „Pallina, du solltest nah bei mir bleiben!“ Bianca und Nerina würden den ganzen Tag Gras fressen. „Und ich?“, denkt Davide. „Ich würde gern unter dem Baum schlafen.“ Mit einem Hund wäre alles leichter.",
+          "sl": "Pastir Davide gleda svoje ovce. »Pallina, morala bi ostati blizu mene!« Bianca in Nerina bi ves dan jedli travo. »Pa jaz?« pomisli Davide. »Jaz bi z veseljem spal pod drevesom.« S psom bi bilo vse lažje.",
+          "en": "Shepherd Davide watches his sheep. \"Pallina, you should stay close to me!\" Bianca and Nerina would eat grass all day. \"And me?\" thinks Davide. \"I'd gladly sleep under the tree.\" With a dog everything would be easier."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "condizionale",
+        "instruction": {
+          "de": "Metti al condizionale · Setz ins Konditional",
+          "sl": "Metti al condizionale · Postavi v pogojnik",
+          "en": "Metti al condizionale · Put it in the conditional"
+        },
+        "items": [
+          {
+            "from": "Vado da Nonna Rosa.",
+            "accept": [
+              "Andrei da Nonna Rosa."
+            ]
+          },
+          {
+            "from": "Abbiamo fame.",
+            "accept": [
+              "Avremmo fame."
+            ]
+          },
+          {
+            "from": "Fai una torta?",
+            "accept": [
+              "Faresti una torta?"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "condizionale",
+        "prompt": "Oggi piove, peccato! Altrimenti io e Tommaso ___ al mare.",
+        "options": [
+          "andremmo",
+          "andremo",
+          "anderemmo"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**altrimenti** (sonst): es passiert nicht → **andremmo** (wir würden gehen)\n- andremo · wir werden gehen\n- anderemmo: gibt es nicht, kurz wie andrò",
+          "sl": "**altrimenti** (sicer): se ne zgodi → **andremmo** (šli bi)\n- andremo · šli bomo\n- anderemmo: ne obstaja, kratko kot andrò",
+          "en": "**altrimenti** (otherwise): it isn't happening → **andremmo** (we'd go)\n- andremo · we'll go\n- anderemmo: no such form, short as in andrò"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "condizionale",
+        "prompt": "Tommaso ha mal di pancia. La mamma: «___ mangiare meno gelato!»",
+        "options": [
+          "Dovresti",
+          "Doveresti",
+          "Dovrebbero"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**ein Rat für Tommaso** (tu) → **Dovresti** + Verb\n- doveresti: gibt es nicht\n- dovrebbero · sie (mehrere)",
+          "sl": "**nasvet Tommasu** (tu) → **Dovresti** + glagol\n- doveresti: ne obstaja\n- dovrebbero · oni (več)",
+          "en": "**advice to Tommaso** (tu) → **Dovresti** + a verb\n- doveresti: no such form\n- dovrebbero · they"
+        }
+      },
+      {
+        "type": "sort",
+        "grammar": "condizionale",
+        "instruction": {
+          "de": "Futuro o condizionale? · Futur oder Konditional?",
+          "sl": "Futuro o condizionale? · Prihodnjik ali pogojnik?",
+          "en": "Futuro o condizionale? · Future or conditional?"
+        },
+        "columns": [
+          {
+            "label": {
+              "de": "futuro · wird",
+              "sl": "futuro · bo",
+              "en": "futuro · will"
+            },
+            "words": [
+              "sarò",
+              "verremo"
+            ]
+          },
+          {
+            "label": {
+              "de": "condizionale · würde",
+              "sl": "condizionale · bi",
+              "en": "condizionale · would"
+            },
+            "words": [
+              "sarei",
+              "verremmo"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Al posto tuo metterei, mi faresti guidare il trattore, Ci salirei (cuccagna), Altrimenti andremmo, the German würde-forms"
+}
