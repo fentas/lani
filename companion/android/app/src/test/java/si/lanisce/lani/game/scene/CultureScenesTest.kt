@@ -138,6 +138,9 @@ class CultureScenesTest {
             // the Maibaum while it stands (the night watch against the next village's lads, the ribbons counted, the
             // Maibaumkraxeln for the sausages at the top, the ball under the Bankerl, the band and a polka, raised on 30 April)
             listOf("kaernten", "unter-dem-maibaum", "square", "project:mlaj"),
+            // Müller Franz's mill once it grinds (Heiden for Heidensterz, the wheel iced in winter, the sacks counted, Jakob's
+            // heavy sack and the cat and the mouse, Oma Resi's flour sieved and weighed, Stefan's wheat and the Metzen, the lantern)
+            listOf("kaernten", "in-der-muehle", "mill", "project:mlin"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
             // the Lake District's buildings (places-lakeland): the house's rooms (Granny Maggie's kitchen, anyone's; Old Wilf's
             // room by the fire, Brewer Sam's cellar, Mrs Birkett and Harry's attic, Mr Tyson and Alfie's workshop), the tent,
