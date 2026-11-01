@@ -1,0 +1,557 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "numbers",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🔢",
+  "title": {
+    "en": "One, two, three",
+    "de": "Die Zahlen: one, two, three",
+    "sl": "Števila: one, two, three",
+    "it": "I numeri: one, two, three"
+  },
+  "goal": {
+    "sl": "Šteješ in poveš števila do tisoč (thirteen in thirty narazen, twenty-one, a hundred and five), vprašaš How many …? ter poveš starost, razdalje in cene.",
+    "de": "Du zählst und sagst Zahlen bis tausend (thirteen und thirty auseinander, twenty-one, a hundred and five), fragst How many …? und sagst Alter, Entfernungen und Preise.",
+    "it": "Conti e dici i numeri fino a mille (thirteen e thirty distinti, twenty-one, a hundred and five), chiedi How many …? e dici età, distanze e prezzi.",
+    "en": "You can count and say numbers up to a thousand (thirteen and thirty apart, twenty-one, a hundred and five), ask How many …?, and say ages, distances and prices."
+  },
+  "grammar": ["numbers", "plurals"],
+  "words": [
+    "zero",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fifteen",
+    "eighteen",
+    "twenty",
+    "thirty",
+    "forty",
+    "fifty",
+    "ninety",
+    "a hundred",
+    "a thousand",
+    "how many",
+    "how old",
+    "year",
+    "mile",
+    "pound",
+    "sack",
+    "oats",
+    "hen",
+    "egg",
+    "hive",
+    "loaf",
+    "cake",
+    "shop",
+    "price",
+    "here you are"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "število", "de": "Zahl", "it": "numero", "en": "number" },
+        { "sl": "beseda", "de": "Wort", "it": "parola", "en": "word" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Štej z mano: **one, two, three, four, five, six, seven, eight, nine, ten** (ena do deset). Nič je **zero**, v telefonski številki pa **oh**: **oh one seven …** Pazi na **four** in **eight**: zvenita kot *for* in *ate*, pišeta pa se **four** in **eight**.",
+          "de": "Zähl mit mir: **one, two, three, four, five, six, seven, eight, nine, ten** (eins bis zehn). Null ist **zero**, in einer Telefonnummer **oh**: **oh one seven …** Achte auf **four** und **eight**: sie klingen wie *for* und *ate*, geschrieben werden sie **four** und **eight**.",
+          "it": "Conta con me: **one, two, three, four, five, six, seven, eight, nine, ten** (da uno a dieci). Lo zero è **zero**, in un numero di telefono **oh**: **oh one seven …** Attenzione a **four** e **eight**: suonano come *for* e *ate*, ma si scrivono **four** e **eight**.",
+          "en": "Count with me: **one, two, three, four, five, six, seven, eight, nine, ten**. Nought is **zero**, and in a phone number **oh**: **oh one seven …** Watch **four** and **eight**: they sound like *for* and *ate*, but are spelt **four** and **eight**."
+        },
+        "examples": [
+          {
+            "en": "One, two, three, four, five!",
+            "sl": "Ena, dve, tri, štiri, pet!",
+            "de": "Eins, zwei, drei, vier, fünf!",
+            "it": "Uno, due, tre, quattro, cinque!"
+          },
+          {
+            "en": "Mr Tyson's got ten sacks of oats.",
+            "sl": "Gospod Tyson ima deset vreč ovsa.",
+            "de": "Mr Tyson hat zehn Säcke Hafer.",
+            "it": "Il signor Tyson ha dieci sacchi d'avena."
+          }
+        ],
+        "rows": [["1, 2, 3, 4, 5", "one, two, three, four, five"], ["6, 7, 8, 9, 10", "six, seven, eight, nine, ten"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "numbers",
+          "prompt": "One, two, three, ___, five.",
+          "options": ["four", "for", "fourteen"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**4 je four, z u**\n- for je druga beseda",
+            "de": "**4 ist four, mit u**\n- for ist ein anderes Wort",
+            "it": "**4 è four, con la u**\n- for è un'altra parola",
+            "en": "**4 is four, with u**\n- for is another word"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Nato **eleven** in **twelve** (enajst, dvanajst), ki imata svoje besede. Od 13 do 19 se končajo na **-teen**: **thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen**, nato **twenty** (dvajset). Pazi na **thirteen** in **fifteen**: thir-, fif-, nikoli *threeteen* ali *fiveteen*; **eighteen** ima en t.",
+          "de": "Dann **eleven** und **twelve** (elf, zwölf), eigene Wörter. Von 13 bis 19 enden sie auf **-teen**: **thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen**, dann **twenty** (zwanzig). Achte auf **thirteen** und **fifteen**: thir-, fif-, nie *threeteen* oder *fiveteen*; **eighteen** hat ein t.",
+          "it": "Poi **eleven** e **twelve** (undici, dodici), parole a sé. Da 13 a 19 finiscono in **-teen**: **thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen**, poi **twenty** (venti). Attenzione a **thirteen** e **fifteen**: thir-, fif-, mai *threeteen* o *fiveteen*; **eighteen** ha una t sola.",
+          "en": "Then **eleven** and **twelve**, words of their own. From 13 to 19 they end in **-teen**: **thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen**, then **twenty**. Watch **thirteen** and **fifteen**: thir-, fif-, never *threeteen* or *fiveteen*; **eighteen** has one t."
+        },
+        "examples": [
+          {
+            "en": "Twelve eggs, please.",
+            "sl": "Dvanajst jajc, prosim.",
+            "de": "Zwölf Eier, bitte.",
+            "it": "Dodici uova, per favore."
+          },
+          {
+            "en": "Fifteen lambs are on the fell.",
+            "sl": "Na hribu je petnajst jagnjet.",
+            "de": "Fünfzehn Lämmer sind am Berg.",
+            "it": "Quindici agnelli sono sul monte."
+          }
+        ],
+        "rows": [
+          ["11, 12", "eleven, twelve"],
+          ["13, 14, 15", "thirteen, fourteen, fifteen"],
+          ["16, 17, 18, 19, 20", "sixteen, seventeen, eighteen, nineteen, twenty"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "numbers",
+          "text": "Mrs Birkett has got ___ hens. (13)",
+          "accept": ["thirteen"],
+          "hint": "thir- …",
+          "explain": {
+            "sl": "**13: thir- + -teen**\n- thirteen · fifteen · eighteen",
+            "de": "**13: thir- + -teen**\n- thirteen · fifteen · eighteen",
+            "it": "**13: thir- + -teen**\n- thirteen · fifteen · eighteen",
+            "en": "**13: thir- + -teen**\n- thirteen · fifteen · eighteen"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Desetice se končajo na **-ty**: **twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety**. **forty** (štirideset) je brez u (a **four**, **fourteen**). **thirty** (trideset) naglasiš spredaj, **thirteen** (trinajst) zadaj, da te slišijo prav.",
+          "de": "Die Zehner enden auf **-ty**: **twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety**. **forty** (vierzig) hat kein u (aber **four**, **fourteen**). **thirty** (dreißig) betonst du vorn, **thirteen** (dreizehn) hinten, damit man hört, welche du meinst.",
+          "it": "Le decine finiscono in **-ty**: **twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety**. **forty** (quaranta) non ha la u (ma **four**, **fourteen**). **thirty** (trenta) ha l'accento davanti, **thirteen** (tredici) in fondo, così si capisce quale dici.",
+          "en": "The tens end in **-ty**: **twenty, thirty, forty, fifty, sixty, seventy, eighty, ninety**. **forty** has no u (but **four**, **fourteen**). Say **thirty** with the stress at the front and **thirteen** with it at the end, so people hear which one you mean."
+        },
+        "examples": [
+          {
+            "en": "Sam is thirty.",
+            "sl": "Sam ima trideset let.",
+            "de": "Sam ist dreißig.",
+            "it": "Sam ha trent'anni."
+          },
+          {
+            "en": "Thirteen or thirty? — Thirty: three, oh.",
+            "sl": "Trinajst ali trideset? — Trideset: tri, nič.",
+            "de": "Dreizehn oder dreißig? — Dreißig: drei, null.",
+            "it": "Tredici o trenta? — Trenta: tre, zero."
+          }
+        ],
+        "rows": [["20, 30, 40, 50", "twenty, thirty, forty, fifty"], ["60, 70, 80, 90", "sixty, seventy, eighty, ninety"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "numbers",
+          "prompt": "40 = ___",
+          "options": ["forty", "fourty", "fourteen"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**forty je brez u**\n- four · fourteen · forty",
+            "de": "**forty ohne u**\n- four · fourteen · forty",
+            "it": "**forty senza u**\n- four · fourteen · forty",
+            "en": "**forty has no u**\n- four · fourteen · forty"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Od 21 do 99 je drugače kot v slovenščini najprej desetica, nato enica, z vezajem: **twenty-one** (enaindvajset), **thirty-five**, **seventy-four**, **ninety-nine**. Vprašaš **How many …?** (koliko), samostalnik za njim je v množini: **How many lambs? — Twenty-two.** (Koliko jagnjet? — Dvaindvajset.) Starost gre z be: **Auntie Edna is seventy-four.** (Teta Edna ima štiriinsedemdeset let.)",
+          "de": "Von 21 bis 99 kommt anders als im Deutschen der Zehner zuerst, dann der Einer, mit Bindestrich: **twenty-one** (einundzwanzig), **thirty-five**, **seventy-four**, **ninety-nine**. Du fragst **How many …?** (wie viele), das Nomen danach steht im Plural: **How many lambs? — Twenty-two.** (Wie viele Lämmer? — Zweiundzwanzig.) Das Alter mit be: **Auntie Edna is seventy-four.** (Tante Edna ist vierundsiebzig.)",
+          "it": "Da 21 a 99 prima la decina e poi l'unità, come in italiano, ma con il trattino: **twenty-one** (ventuno), **thirty-five**, **seventy-four**, **ninety-nine**. Chiedi **How many …?** (quanti), e il nome dopo è al plurale: **How many lambs? — Twenty-two.** (Quanti agnelli? — Ventidue.) L'età va con be: **Auntie Edna is seventy-four.** (Zia Edna ha settantaquattro anni.)",
+          "en": "From 21 to 99 the ten comes first and the one after it, with a hyphen: **twenty-one**, **thirty-five**, **seventy-four**, **ninety-nine**. Ask **How many …?**, and the noun after it is plural: **How many lambs? — Twenty-two.** Age takes be: **Auntie Edna is seventy-four.**"
+        },
+        "examples": [
+          {
+            "en": "How many lambs? — Twenty-two.",
+            "sl": "Koliko jagnjet? — Dvaindvajset.",
+            "de": "Wie viele Lämmer? — Zweiundzwanzig.",
+            "it": "Quanti agnelli? — Ventidue."
+          },
+          {
+            "en": "Auntie Edna is seventy-four.",
+            "sl": "Teta Edna ima štiriinsedemdeset let.",
+            "de": "Tante Edna ist vierundsiebzig.",
+            "it": "Zia Edna ha settantaquattro anni."
+          },
+          {
+            "en": "Old Wilf is eighty-four.",
+            "sl": "Stari Wilf ima štiriinosemdeset let.",
+            "de": "Der alte Wilf ist vierundachtzig.",
+            "it": "Il vecchio Wilf ha ottantaquattro anni."
+          }
+        ],
+        "rows": [["21, 35, 74, 99", "twenty-one, thirty-five, seventy-four, ninety-nine"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "numbers",
+          "text": "How many sheep? — ___ (25)",
+          "accept": ["twenty-five"],
+          "hint": "20 + 5",
+          "explain": {
+            "sl": "**Najprej desetica, vezaj, enica**\n- 25 = twenty-five",
+            "de": "**Der Zehner zuerst, Bindestrich, der Einer**\n- 25 = twenty-five",
+            "it": "**Prima la decina, il trattino, l'unità**\n- 25 = twenty-five",
+            "en": "**The ten first, a hyphen, the one**\n- 25 = twenty-five"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**a hundred** ali **one hundred** (sto), **a thousand** (tisoč, pisano 1,000). Britanska angleščina reče za stoticami **and**: **a hundred and five** (sto pet), **two hundred and forty** (dvesto štirideset). Za številom **hundred** ne dobi -s: **three hundred sheep** (tristo ovc). Cene: £3.50 je **three pounds fifty** (tri funte petdeset).",
+          "de": "**a hundred** oder **one hundred** (hundert), **a thousand** (tausend, geschrieben 1,000). Britisches Englisch sagt nach den Hundertern **and**: **a hundred and five** (hundertfünf), **two hundred and forty** (zweihundertvierzig). Nach einer Zahl bekommt **hundred** kein -s: **three hundred sheep** (dreihundert Schafe). Preise: £3.50 ist **three pounds fifty** (drei Pfund fünfzig).",
+          "it": "**a hundred** o **one hundred** (cento), **a thousand** (mille, scritto 1,000). L'inglese britannico dice **and** dopo le centinaia: **a hundred and five** (centocinque), **two hundred and forty** (duecentoquaranta). Dopo un numero **hundred** non prende la -s: **three hundred sheep** (trecento pecore). I prezzi: £3.50 è **three pounds fifty** (tre sterline e cinquanta).",
+          "en": "**a hundred** or **one hundred** (100), **a thousand** (1,000). British English says **and** after the hundreds: **a hundred and five**, **two hundred and forty**. After a number, **hundred** takes no -s: **three hundred sheep**. Prices: £3.50 is **three pounds fifty**."
+        },
+        "examples": [
+          {
+            "en": "Shepherd Jack has got two hundred and forty sheep.",
+            "sl": "Pastir Jack ima dvesto štirideset ovc.",
+            "de": "Schäfer Jack hat zweihundertvierzig Schafe.",
+            "it": "Il pastore Jack ha duecentoquaranta pecore."
+          },
+          {
+            "en": "The Packhorse Inn is three hundred years old.",
+            "sl": "Gostilna Packhorse je stara tristo let.",
+            "de": "Das Packhorse Inn ist dreihundert Jahre alt.",
+            "it": "Il Packhorse Inn ha trecento anni."
+          },
+          {
+            "en": "Two scones, please. — That's three pounds fifty.",
+            "sl": "Dva sconea, prosim. — Tri funte petdeset.",
+            "de": "Zwei Scones, bitte. — Das macht drei Pfund fünfzig.",
+            "it": "Due scones, per favore. — Sono tre sterline e cinquanta."
+          }
+        ],
+        "rows": [
+          ["100, 105, 240", "a hundred, a hundred and five, two hundred and forty"],
+          ["1,000 · £3.50", "a thousand · three pounds fifty"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "numbers",
+          "prompt": "The inn is ___ years old. (300)",
+          "options": ["three hundred", "three hundreds", "three hundred of"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**hundred za številom brez -s**\n- three hundred sheep · three hundred years",
+            "de": "**hundred nach einer Zahl ohne -s**\n- three hundred sheep · three hundred years",
+            "it": "**hundred dopo un numero senza -s**\n- three hundred sheep · three hundred years",
+            "en": "**hundred takes no -s after a number**\n- three hundred sheep · three hundred years"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "numbers-1",
+      "title": { "sl": "Count · Štej", "de": "Count · Zähl", "it": "Count · Conta", "en": "Count" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "numbers",
+          "instruction": {
+            "sl": "Write it as a word · Napiši z besedo",
+            "de": "Write it as a word · Schreib es als Wort",
+            "it": "Write it as a word · Scrivilo in lettere",
+            "en": "Write it as a word"
+          },
+          "prompt": {
+            "sl": "number → word · število → beseda",
+            "de": "number → word · Zahl → Wort",
+            "it": "number → word · numero → parola",
+            "en": "number → word"
+          },
+          "columns": [{"sl": "word · beseda", "de": "word · Wort", "it": "word · parola", "en": "word"}],
+          "rows": [
+            { "label": "3", "cells": [{"accept": ["three"]}] },
+            {
+              "label": "8",
+              "cells": [{"accept": ["eight"], "hint": {"sl": "ne ate", "de": "nicht ate", "it": "non ate", "en": "not ate"}}]
+            },
+            { "label": "11", "cells": [{"accept": ["eleven"]}] },
+            { "label": "12", "cells": [{"accept": ["twelve"]}] },
+            { "label": "15", "cells": [{"accept": ["fifteen"], "hint": "fif- …"}] },
+            {
+              "label": "18",
+              "cells": [{"accept": ["eighteen"], "hint": {"sl": "en t", "de": "ein t", "it": "una t", "en": "one t"}}]
+            },
+            { "label": "20", "cells": [{"accept": ["twenty"]}] },
+            { "label": "30", "cells": [{"accept": ["thirty"]}] },
+            {
+              "label": "40",
+              "cells": [{"accept": ["forty"], "hint": {"sl": "brez u", "de": "ohne u", "it": "senza u", "en": "no u"}}]
+            },
+            { "label": "50", "cells": [{"accept": ["fifty"]}] }
+          ],
+          "explain": {
+            "sl": "**-teen za 13 do 19, -ty za desetice**\n- fifteen · eighteen · twenty\n- thirty · forty · fifty",
+            "de": "**-teen für 13 bis 19, -ty für die Zehner**\n- fifteen · eighteen · twenty\n- thirty · forty · fifty",
+            "it": "**-teen da 13 a 19, -ty per le decine**\n- fifteen · eighteen · twenty\n- thirty · forty · fifty",
+            "en": "**-teen for 13 to 19, -ty for the tens**\n- fifteen · eighteen · twenty\n- thirty · forty · fifty"
+          }
+        },
+        {
+          "type": "multi",
+          "grammar": "numbers",
+          "instruction": {
+            "sl": "Choose · Izberi vse prave",
+            "de": "Choose · Wähle alle richtigen",
+            "it": "Choose · Scegli tutte le giuste",
+            "en": "Choose all the right ones"
+          },
+          "prompt": {
+            "sl": "Katere so prav zapisane?",
+            "de": "Welche sind richtig geschrieben?",
+            "it": "Quali sono scritti bene?",
+            "en": "Which are spelt right?"
+          },
+          "options": ["forty", "fourty", "fourteen", "ninety", "ninty", "twelve"],
+          "answers": [0, 2, 3, 5],
+          "say_options": true,
+          "explain": {
+            "sl": "**forty brez u, ninety z e**\n- forty · fourteen · ninety · twelve",
+            "de": "**forty ohne u, ninety mit e**\n- forty · fourteen · ninety · twelve",
+            "it": "**forty senza u, ninety con la e**\n- forty · fourteen · ninety · twelve",
+            "en": "**forty without u, ninety with e**\n- forty · fourteen · ninety · twelve"
+          }
+        }
+      ]
+    },
+    {
+      "id": "numbers-2",
+      "title": {
+        "sl": "Mr Tyson's numbers · Števila gospoda Tysona",
+        "de": "Mr Tyson's numbers · Mr Tysons Zahlen",
+        "it": "Mr Tyson's numbers · I numeri del signor Tyson",
+        "en": "Mr Tyson's numbers"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "numbers",
+          "instruction": {
+            "sl": "Write the numbers in words · Napiši števila z besedami",
+            "de": "Write the numbers in words · Schreib die Zahlen in Worten",
+            "it": "Write the numbers in words · Scrivi i numeri in lettere",
+            "en": "Write the numbers in words"
+          },
+          "text": "Mr Tyson is busy with numbers today. He's got ___ (12) sacks of oats in the mill. Jack's got ___ (40) lambs on the fell. Granny Maggie's got ___ (24) eggs for the cakes. The church is ___ (500) years old. And Mr Tyson is ___ (68)!",
+          "gaps": [
+            { "accept": ["twelve"] },
+            { "accept": ["forty"], "hint": {"sl": "brez u", "de": "ohne u", "it": "senza u", "en": "no u"} },
+            { "accept": ["twenty-four"], "hint": "20 + 4" },
+            { "accept": ["five hundred"], "hint": {"sl": "brez -s", "de": "ohne -s", "it": "senza -s", "en": "no -s"} },
+            { "accept": ["sixty-eight"] }
+          ],
+          "bank": true,
+          "distractors": ["fourty", "twelf", "five hundreds"],
+          "translation": {
+            "sl": "Gospod Tyson je danes ves v številih. V mlinu ima dvanajst vreč ovsa. Jack ima na hribu štirideset jagnjet. Babica Maggie ima štiriindvajset jajc za kolače. Cerkev je stara petsto let. Gospod Tyson pa ima oseminšestdeset let!",
+            "de": "Mr Tyson ist heute mit Zahlen beschäftigt. Er hat zwölf Säcke Hafer in der Mühle. Jack hat vierzig Lämmer am Berg. Oma Maggie hat vierundzwanzig Eier für die Kuchen. Die Kirche ist fünfhundert Jahre alt. Und Mr Tyson ist achtundsechzig!",
+            "it": "Oggi il signor Tyson è alle prese con i numeri. Ha dodici sacchi d'avena nel mulino. Jack ha quaranta agnelli sul monte. Nonna Maggie ha ventiquattro uova per le torte. La chiesa ha cinquecento anni. E il signor Tyson ha sessantotto anni!",
+            "en": "Mr Tyson is busy with numbers today. He's got twelve sacks of oats in the mill. Jack's got forty lambs on the fell. Granny Maggie's got twenty-four eggs for the cakes. The church is five hundred years old. And Mr Tyson is sixty-eight!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "numbers",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "How old is Old Wilf? — ___",
+          "options": ["He's eighty-four.", "He has eighty-four years.", "He's eighty-four years."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Starost gre z be: He's eighty-four (years old).**\n- He's eighty-four. · He's eighty-four years old.",
+            "de": "**Das Alter mit be: He's eighty-four (years old).**\n- He's eighty-four. · He's eighty-four years old.",
+            "it": "**L'età va con be: He's eighty-four (years old).**\n- He's eighty-four. · He's eighty-four years old.",
+            "en": "**Age takes be: He's eighty-four (years old).**\n- He's eighty-four. · He's eighty-four years old."
+          }
+        }
+      ]
+    },
+    {
+      "id": "numbers-3",
+      "title": { "sl": "In words · Z besedami", "de": "In words · In Worten", "it": "In words · In lettere", "en": "In words" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "numbers",
+          "instruction": {
+            "sl": "Write the number in words · Napiši število z besedami",
+            "de": "Write the number in words · Schreib die Zahl in Worten",
+            "it": "Write the number in words · Scrivi il numero in lettere",
+            "en": "Write the number in words"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Auntie Edna is 74.",
+              "accept": ["Auntie Edna is seventy-four."],
+              "hint": { "sl": "z vezajem", "de": "mit Bindestrich", "it": "con il trattino", "en": "with a hyphen" }
+            },
+            { "from": "Keswick is 8 miles from here.", "accept": ["Keswick is eight miles from here."] },
+            { "from": "The inn is 300 years old.", "accept": ["The inn is three hundred years old."] },
+            {
+              "from": "Jack has got 240 sheep.",
+              "accept": ["Jack has got two hundred and forty sheep."],
+              "hint": {
+                "sl": "and za stoticami",
+                "de": "and nach den Hundertern",
+                "it": "and dopo le centinaia",
+                "en": "and after the hundreds"
+              }
+            },
+            { "from": "Arthur has got 15 hives.", "accept": ["Arthur has got fifteen hives."] },
+            { "from": "That's £3.50, please.", "accept": ["That's three pounds fifty, please."] }
+          ],
+          "explain": {
+            "sl": "**21 do 99 z vezajem; and za stoticami**\n- 74 → seventy-four\n- 240 → two hundred and forty",
+            "de": "**21 bis 99 mit Bindestrich; and nach den Hundertern**\n- 74 → seventy-four\n- 240 → two hundred and forty",
+            "it": "**21-99 con il trattino; and dopo le centinaia**\n- 74 → seventy-four\n- 240 → two hundred and forty",
+            "en": "**21 to 99 with a hyphen; and after the hundreds**\n- 74 → seventy-four\n- 240 → two hundred and forty"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "numbers",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "105 = ___",
+          "options": ["a hundred and five", "a hundred and fifty", "five and a hundred"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Najprej sto, nato and**\n- 105 = a hundred and five · 150 = a hundred and fifty",
+            "de": "**Erst hundert, dann and**\n- 105 = a hundred and five · 150 = a hundred and fifty",
+            "it": "**Prima cento, poi and**\n- 105 = a hundred and five · 150 = a hundred and fifty",
+            "en": "**The hundred first, then and**\n- 105 = a hundred and five · 150 = a hundred and fifty"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "numbers",
+        "instruction": {
+          "sl": "Write it as a word · Napiši z besedo",
+          "de": "Write it as a word · Schreib es als Wort",
+          "it": "Write it as a word · Scrivilo in lettere",
+          "en": "Write it as a word"
+        },
+        "prompt": {
+          "sl": "number → word · število → beseda",
+          "de": "number → word · Zahl → Wort",
+          "it": "number → word · numero → parola",
+          "en": "number → word"
+        },
+        "columns": [{"sl": "word · beseda", "de": "word · Wort", "it": "word · parola", "en": "word"}],
+        "rows": [
+          { "label": "7", "cells": [{"accept": ["seven"]}] },
+          { "label": "13", "cells": [{"accept": ["thirteen"]}] },
+          { "label": "19", "cells": [{"accept": ["nineteen"]}] },
+          { "label": "60", "cells": [{"accept": ["sixty"]}] },
+          { "label": "90", "cells": [{"accept": ["ninety"]}] },
+          { "label": "100", "cells": [{"accept": ["a hundred", "one hundred"]}] }
+        ],
+        "explain": {
+          "sl": "**-teen za 13 do 19, -ty za desetice**\n- thirteen · nineteen · sixty · ninety · a hundred",
+          "de": "**-teen für 13 bis 19, -ty für die Zehner**\n- thirteen · nineteen · sixty · ninety · a hundred",
+          "it": "**-teen da 13 a 19, -ty per le decine**\n- thirteen · nineteen · sixty · ninety · a hundred",
+          "en": "**-teen for 13 to 19, -ty for the tens**\n- thirteen · nineteen · sixty · ninety · a hundred"
+        }
+      },
+      {
+        "type": "gaptext",
+        "grammar": "numbers",
+        "instruction": {
+          "sl": "Write the numbers in words · Napiši števila z besedami",
+          "de": "Write the numbers in words · Schreib die Zahlen in Worten",
+          "it": "Write the numbers in words · Scrivi i numeri in lettere",
+          "en": "Write the numbers in words"
+        },
+        "text": "At the village shop. — Good morning! How many eggs, Granny Maggie? — ___ (12), please, and ___ (2) loaves. — That's ___ (6) pounds ___ (20). — Here you are.",
+        "gaps": [{"accept": ["Twelve"]}, {"accept": ["two"]}, {"accept": ["six"]}, {"accept": ["twenty"]}],
+        "translation": {
+          "sl": "V vaški trgovini. — Dobro jutro! Koliko jajc, babica Maggie? — Dvanajst, prosim, in dva hlebca. — Šest funtov dvajset. — Izvolite.",
+          "de": "Im Dorfladen. — Guten Morgen! Wie viele Eier, Oma Maggie? — Zwölf, bitte, und zwei Brotlaibe. — Das macht sechs Pfund zwanzig. — Bitte sehr.",
+          "it": "Al negozio del paese. — Buongiorno! Quante uova, nonna Maggie? — Dodici, per favore, e due pagnotte. — Sono sei sterline e venti. — Ecco a Lei.",
+          "en": "At the village shop. — Good morning! How many eggs, Granny Maggie? — Twelve, please, and two loaves. — That's six pounds twenty. — Here you are."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "numbers",
+        "instruction": {
+          "sl": "Write the number in words · Napiši število z besedami",
+          "de": "Write the number in words · Schreib die Zahl in Worten",
+          "it": "Write the number in words · Scrivi il numero in lettere",
+          "en": "Write the number in words"
+        },
+        "cue": "→",
+        "items": [
+          { "from": "Mrs Birkett is 45.", "accept": ["Mrs Birkett is forty-five."] },
+          { "from": "The tarn is 3 miles from here.", "accept": ["The tarn is three miles from here."] }
+        ],
+        "explain": {
+          "sl": "**Število z besedo**\n- 45 → forty-five",
+          "de": "**Die Zahl als Wort**\n- 45 → forty-five",
+          "it": "**Il numero in lettere**\n- 45 → forty-five",
+          "en": "**The number as a word**\n- 45 → forty-five"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "numbers",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "How many sheep has Jack got? — ___ (240)",
+        "options": ["Two hundred and forty.", "Two hundreds and forty.", "Two hundred and fourty."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**hundred brez -s, forty brez u**\n- two hundred and forty",
+          "de": "**hundred ohne -s, forty ohne u**\n- two hundred and forty",
+          "it": "**hundred senza -s, forty senza u**\n- two hundred and forty",
+          "en": "**hundred without -s, forty without u**\n- two hundred and forty"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "numbers",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "90 = ___",
+        "options": ["ninety", "ninty", "nineteen"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**ninety obdrži e iz nine**\n- nine · nineteen · ninety",
+          "de": "**ninety behält das e von nine**\n- nine · nineteen · ninety",
+          "it": "**ninety tiene la e di nine**\n- nine · nineteen · ninety",
+          "en": "**ninety keeps the e of nine**\n- nine · nineteen · ninety"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: oh in a phone number, three pounds fifty, the village shop's dialogue"
+}
