@@ -1,0 +1,582 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "have-got",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🐕",
+  "title": {
+    "en": "I've got a dog",
+    "de": "Haben: I've got, I have",
+    "sl": "Imeti: I've got, I have",
+    "it": "Avere: I've got, I have"
+  },
+  "goal": {
+    "sl": "Poveš, kaj kdo ima (I've got, she's got) in česa nima, vprašaš Have you got …? s kratkimi odgovori, sam have pa rabiš za obroke in kot ameriška angleščina.",
+    "de": "Du sagst, was jemand hat (I've got, she's got) und nicht hat, fragst Have you got …? mit kurzen Antworten und sagst have allein für Mahlzeiten und wie das amerikanische Englisch.",
+    "it": "Dici che cosa ha qualcuno (I've got, she's got) e che cosa non ha, chiedi Have you got …? con le risposte brevi e usi have da solo per i pasti e come l'inglese americano.",
+    "en": "You can say what people have got (I've got, she's got) and haven't got, ask Have you got …? with short answers, and use have alone for meals and as American English does."
+  },
+  "grammar": ["to-have"],
+  "words": [
+    "have",
+    "have got",
+    "has got",
+    "dog",
+    "sheepdog",
+    "cat",
+    "car",
+    "bike",
+    "tractor",
+    "garden",
+    "farm",
+    "cottage",
+    "roof",
+    "coat",
+    "a cold",
+    "pen",
+    "map",
+    "key",
+    "umbrella",
+    "radio",
+    "bee",
+    "time",
+    "friend",
+    "breakfast",
+    "cup of tea",
+    "shower",
+    "room",
+    "tonight",
+    "lovely",
+    "little",
+    "old",
+    "a lot of"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo", "de": "wer", "it": "chi", "en": "who" },
+        "have got",
+        { "sl": "kratko", "de": "kurz", "it": "breve", "en": "short" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**have got** pove, kaj imaš: **I've got a dog.** (Imam psa.) Pri **I**, **you**, **we** in **they** je **have got**, kratko **'ve got**: **We've got a cottage.** (Imamo hišico.) **They've got two horses.** (Imajo dva konja.) Britanska angleščina to reče vsak dan.",
+          "de": "**have got** sagt, was dir gehört: **I've got a dog.** (Ich habe einen Hund.) Bei **I**, **you**, **we** und **they** heißt es **have got**, kurz **'ve got**: **We've got a cottage.** (Wir haben ein Häuschen.) **They've got two horses.** (Sie haben zwei Pferde.) Im britischen Englisch sagt man das jeden Tag.",
+          "it": "**have got** dice che cosa è tuo: **I've got a dog.** (Ho un cane.) Con **I**, **you**, **we** e **they** è **have got**, breve **'ve got**: **We've got a cottage.** (Abbiamo una casetta.) **They've got two horses.** (Hanno due cavalli.) L'inglese britannico lo dice ogni giorno.",
+          "en": "**have got** says what is yours: **I've got a dog.** (I have got). With **I**, **you**, **we** and **they** it is **have got**, short **'ve got**: **We've got a cottage.** **They've got two horses.** British English says it every day."
+        },
+        "examples": [
+          { "en": "I've got a dog.", "sl": "Imam psa.", "de": "Ich habe einen Hund.", "it": "Ho un cane." },
+          {
+            "en": "We've got a cottage by the beck.",
+            "sl": "Imamo hišico ob potoku.",
+            "de": "Wir haben ein Häuschen am Bach.",
+            "it": "Abbiamo una casetta vicino al ruscello."
+          },
+          {
+            "en": "They've got two horses.",
+            "sl": "Imajo dva konja.",
+            "de": "Sie haben zwei Pferde.",
+            "it": "Hanno due cavalli."
+          },
+          {
+            "en": "You've got a lovely garden!",
+            "sl": "Kako lep vrt imate!",
+            "de": "Du hast einen schönen Garten!",
+            "it": "Che bel giardino hai!"
+          }
+        ],
+        "rows": [["I, you, we, they", "have got", "I've got, we've got"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "to-have",
+          "prompt": "We ___ got a cat.",
+          "options": ["have", "has", "are"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**we: have got**\n- I, you, we, they have got",
+            "de": "**we: have got**\n- I, you, we, they have got",
+            "it": "**we: have got**\n- I, you, we, they have got",
+            "en": "**we: have got**\n- I, you, we, they have got"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri **he**, **she**, **it** in enem imenu je **has got**, kratko **'s got**: **Jack's got a sheepdog.** (Jack ima ovčarskega psa.) **She's got a garden.** (Ona ima vrt.) Tu je **'s** **has**, ne **is**: **he's got** = he has got. **It's got a red roof.** (Ima rdečo streho.)",
+          "de": "Bei **he**, **she**, **it** und einem Namen heißt es **has got**, kurz **'s got**: **Jack's got a sheepdog.** (Jack hat einen Hütehund.) **She's got a garden.** (Sie hat einen Garten.) Hier ist **'s** **has**, nicht **is**: **he's got** = he has got. **It's got a red roof.** (Es hat ein rotes Dach.)",
+          "it": "Con **he**, **she**, **it** e un nome è **has got**, breve **'s got**: **Jack's got a sheepdog.** (Jack ha un cane pastore.) **She's got a garden.** (Lei ha un giardino.) Qui **'s** è **has**, non **is**: **he's got** = he has got. **It's got a red roof.** (Ha il tetto rosso.)",
+          "en": "With **he**, **she**, **it** and one name it is **has got**, short **'s got**: **Jack's got a sheepdog.** **She's got a garden.** Here **'s** is **has**, not **is**: **he's got** = he has got. **It's got a red roof.**"
+        },
+        "examples": [
+          {
+            "en": "Jack's got a sheepdog called Meg.",
+            "sl": "Jack ima ovčarskega psa, ki mu je ime Meg.",
+            "de": "Jack hat einen Hütehund, der Meg heißt.",
+            "it": "Jack ha un cane pastore che si chiama Meg."
+          },
+          {
+            "en": "Mrs Birkett has got an inn.",
+            "sl": "Gospa Birkett ima gostilno.",
+            "de": "Mrs Birkett hat ein Gasthaus.",
+            "it": "Mrs Birkett ha una locanda."
+          },
+          {
+            "en": "Arthur's got a lot of bees.",
+            "sl": "Arthur ima veliko čebel.",
+            "de": "Arthur hat viele Bienen.",
+            "it": "Arthur ha tante api."
+          }
+        ],
+        "rows": [["he, she, it", "has got", "he's got, she's got"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "to-have",
+          "prompt": "Mrs Birkett ___ got an inn.",
+          "options": ["has", "have", "is"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mrs Birkett je she: has got**\n- he, she, it has got · she's got = she has got",
+            "de": "**Mrs Birkett ist she: has got**\n- he, she, it has got · she's got = she has got",
+            "it": "**Mrs Birkett è she: has got**\n- he, she, it has got · she's got = she has got",
+            "en": "**Mrs Birkett is she: has got**\n- he, she, it has got · she's got = she has got"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za zanikanje gre **not** za have: **I haven't got** (nimam), **he hasn't got** (nima): **I haven't got a car.** (Nimam avta.) **Sam hasn't got a dog.** (Sam nima psa.) **We haven't got time.** (Nimamo časa.)",
+          "de": "Zum Verneinen kommt **not** nach have: **I haven't got** (ich habe kein), **he hasn't got** (er hat kein): **I haven't got a car.** (Ich habe kein Auto.) **Sam hasn't got a dog.** (Sam hat keinen Hund.) **We haven't got time.** (Wir haben keine Zeit.)",
+          "it": "Per dire di no, **not** va dopo have: **I haven't got** (non ho), **he hasn't got** (non ha): **I haven't got a car.** (Non ho la macchina.) **Sam hasn't got a dog.** (Sam non ha un cane.) **We haven't got time.** (Non abbiamo tempo.)",
+          "en": "For no, **not** goes after have: **I haven't got** (have not got), **he hasn't got** (has not got): **I haven't got a car.** **Sam hasn't got a dog.** **We haven't got time.**"
+        },
+        "examples": [
+          {
+            "en": "I haven't got a car, but I've got a bike.",
+            "sl": "Nimam avta, imam pa kolo.",
+            "de": "Ich habe kein Auto, aber ich habe ein Fahrrad.",
+            "it": "Non ho la macchina, ma ho una bici."
+          },
+          {
+            "en": "Sam hasn't got a dog.",
+            "sl": "Sam nima psa.",
+            "de": "Sam hat keinen Hund.",
+            "it": "Sam non ha un cane."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "not (ne)", "de": "not (nicht)", "it": "not (non)", "en": "not" },
+            "haven't got, hasn't got",
+            "I haven't got, she hasn't got"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "to-have",
+          "text": "Sam ___ got a dog. (not)",
+          "accept": ["hasn't"],
+          "hint": "has + not",
+          "explain": {
+            "sl": "**Sam je he: hasn't got**\n- he hasn't got · I haven't got",
+            "de": "**Sam ist he: hasn't got**\n- he hasn't got · I haven't got",
+            "it": "**Sam è he: hasn't got**\n- he hasn't got · I haven't got",
+            "en": "**Sam is he: hasn't got**\n- he hasn't got · I haven't got"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za vprašanje gre **have** ali **has** na začetek: **Have you got a pen?** (Imaš pisalo?) **Has she got a car?** (Ima avto?) Kratki odgovor: **Yes, I have.** (Ja, imam.) **No, she hasn't.** (Ne, nima.) Nikoli *Yes, I've got*.",
+          "de": "Für die Frage kommt **have** oder **has** nach vorn: **Have you got a pen?** (Hast du einen Stift?) **Has she got a car?** (Hat sie ein Auto?) Die Kurzantwort: **Yes, I have.** (Ja.) **No, she hasn't.** (Nein.) Nie *Yes, I've got*.",
+          "it": "Per chiedere, **have** o **has** va all'inizio: **Have you got a pen?** (Hai una penna?) **Has she got a car?** (Ha la macchina?) La risposta breve: **Yes, I have.** (Sì.) **No, she hasn't.** (No.) Mai *Yes, I've got*.",
+          "en": "To ask, **have** or **has** goes first: **Have you got a pen?** **Has she got a car?** The short answer: **Yes, I have.** **No, she hasn't.** Never *Yes, I've got*."
+        },
+        "examples": [
+          {
+            "en": "Have you got a map? — Yes, I have.",
+            "sl": "Imaš zemljevid? — Ja, imam.",
+            "de": "Hast du eine Karte? — Ja.",
+            "it": "Hai una cartina? — Sì."
+          },
+          {
+            "en": "Has Jack got a car? — No, he hasn't.",
+            "sl": "Ima Jack avto? — Ne, nima.",
+            "de": "Hat Jack ein Auto? — Nein.",
+            "it": "Jack ha la macchina? — No."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "vprašanje", "de": "Frage", "it": "domanda", "en": "question" },
+            "Have you got …? Has she got …?",
+            "Yes, I have. No, she hasn't."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "to-have",
+          "prompt": "Have you got an umbrella? — Yes, ___",
+          "options": ["I have.", "I've.", "I've got."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kratki odgovor: Yes, I have.**\n- Yes, I have. · No, I haven't.",
+            "de": "**Die Kurzantwort: Yes, I have.**\n- Yes, I have. · No, I haven't.",
+            "it": "**La risposta breve: Yes, I have.**\n- Yes, I have. · No, I haven't.",
+            "en": "**The short answer: Yes, I have.**\n- Yes, I have. · No, I haven't."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Sam **have** pomeni isto: **I have a dog**, **she has a car**. Ameriška angleščina reče tako in vpraša **Do you have …?** Prav je oboje. Za obroke in dejanja samo **have**: **have breakfast** (zajtrkovati), **have a cup of tea** (spiti skodelico čaja), **have a shower** (stuširati se), nikoli have got.",
+          "de": "**have** allein heißt dasselbe: **I have a dog**, **she has a car**. Das amerikanische Englisch sagt es so und fragt **Do you have …?** Beides ist richtig. Für Mahlzeiten und Handlungen nur **have**: **have breakfast** (frühstücken), **have a cup of tea** (eine Tasse Tee trinken), **have a shower** (duschen), nie have got.",
+          "it": "**have** da solo vuol dire lo stesso: **I have a dog**, **she has a car**. L'inglese americano dice così e chiede **Do you have …?** Sono giusti tutti e due. Per i pasti e le azioni solo **have**: **have breakfast** (fare colazione), **have a cup of tea** (prendere una tazza di tè), **have a shower** (fare la doccia), mai have got.",
+          "en": "**have** alone means the same: **I have a dog**, **she has a car**. American English says it so, and asks **Do you have …?** Both are right. For meals and actions only **have**: **have breakfast**, **have a cup of tea**, **have a shower**, never have got."
+        },
+        "examples": [
+          {
+            "en": "We have breakfast at the inn.",
+            "sl": "Zajtrkujemo v gostilni.",
+            "de": "Wir frühstücken im Gasthaus.",
+            "it": "Facciamo colazione alla locanda."
+          },
+          {
+            "en": "Do you have a room for tonight?",
+            "sl": "Imate sobo za nocoj?",
+            "de": "Haben Sie ein Zimmer für heute Nacht?",
+            "it": "Avete una camera per stanotte?"
+          },
+          {
+            "en": "Let's have a cup of tea!",
+            "sl": "Spijmo skodelico čaja!",
+            "de": "Trinken wir eine Tasse Tee!",
+            "it": "Prendiamo una tazza di tè!"
+          }
+        ],
+        "rows": [["have", "I have, she has", "have breakfast, have a shower"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "to-have",
+          "prompt": "We ___ breakfast at the inn.",
+          "options": ["have", "have got", "has got"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Obrok: have, nikoli have got**\n- have breakfast · have lunch · have a cup of tea",
+            "de": "**Eine Mahlzeit: have, nie have got**\n- have breakfast · have lunch · have a cup of tea",
+            "it": "**Un pasto: have, mai have got**\n- have breakfast · have lunch · have a cup of tea",
+            "en": "**A meal: have, never have got**\n- have breakfast · have lunch · have a cup of tea"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "have-got-1",
+      "title": {
+        "sl": "Have got, has got · Imam, ima",
+        "de": "Have got, has got · Ich habe, er hat",
+        "it": "Have got, has got · Ho, ha",
+        "en": "Have got, has got"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "to-have",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "have got · imeti: da in ne",
+            "de": "have got · haben: ja und nein",
+            "it": "have got · avere: sì e no",
+            "en": "have got: yes and no"
+          },
+          "columns": [
+            { "sl": "yes · da", "de": "yes · ja", "it": "yes · sì", "en": "yes" },
+            { "sl": "no · ne", "de": "no · nein", "it": "no · no", "en": "no" }
+          ],
+          "rows": [
+            { "label": "I", "cells": ["have got", "haven't got"] },
+            { "label": "you", "cells": [{"accept": ["have got"]}, {"accept": ["haven't got"]}] },
+            {
+              "label": "he",
+              "cells": [
+                {
+                  "accept": ["has got"],
+                  "hint": { "sl": "ne have", "de": "nicht have", "it": "non have", "en": "not have" }
+                },
+                { "accept": ["hasn't got"] }
+              ]
+            },
+            { "label": "we", "cells": [{"accept": ["have got"]}, {"accept": ["haven't got"]}] },
+            { "label": "they", "cells": [{"accept": ["have got"]}, {"accept": ["haven't got"]}] }
+          ],
+          "explain": {
+            "sl": "**has got za he, she, it; have got za ostale**\n- I have got · I haven't got\n- he has got · he hasn't got",
+            "de": "**has got für he, she, it; have got für die übrigen**\n- I have got · I haven't got\n- he has got · he hasn't got",
+            "it": "**has got per he, she, it; have got per gli altri**\n- I have got · I haven't got\n- he has got · he hasn't got",
+            "en": "**has got for he, she, it; have got for the rest**\n- I have got · I haven't got\n- he has got · he hasn't got"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "to-have",
+          "instruction": {
+            "sl": "Sort · have got ali has got?",
+            "de": "Sort · have got oder has got?",
+            "it": "Sort · have got o has got?",
+            "en": "Sort · have got or has got?"
+          },
+          "columns": [
+            { "label": "have got", "words": ["I", "you", "they", "Jack and Sam"] },
+            { "label": "has got", "words": ["she", "it", "Mrs Birkett", "the inn"] }
+          ],
+          "explain": {
+            "sl": "**Ena druga oseba ali stvar: has got**\n- Mrs Birkett has got · Jack and Sam have got",
+            "de": "**Eine andere Person oder Sache: has got**\n- Mrs Birkett has got · Jack and Sam have got",
+            "it": "**Un'altra persona o cosa: has got**\n- Mrs Birkett has got · Jack and Sam have got",
+            "en": "**One other person or thing: has got**\n- Mrs Birkett has got · Jack and Sam have got"
+          }
+        }
+      ]
+    },
+    {
+      "id": "have-got-2",
+      "title": {
+        "sl": "On the fell · Na hribu",
+        "de": "On the fell · Am Berg",
+        "it": "On the fell · Sul monte",
+        "en": "On the fell"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "to-have",
+          "instruction": {
+            "sl": "Fill in with have got · Dopolni s have got",
+            "de": "Fill in with have got · Ergänze mit have got",
+            "it": "Fill in with have got · Completa con have got",
+            "en": "Fill in with have got"
+          },
+          "text": "Shepherd Jack ___ got a farm on the fell. He's ___ a sheepdog called Meg. Meg ___ got a black and white coat. Jack ___ got a car, but he's got an old bike. — ___ you got a bike, {learner}?",
+          "gaps": [
+            { "accept": ["has"], "hint": "he → ?" },
+            {
+              "accept": ["got"],
+              "hint": {
+                "sl": "have got: dve besedi",
+                "de": "have got: zwei Wörter",
+                "it": "have got: due parole",
+                "en": "have got: two words"
+              }
+            },
+            { "accept": ["has"], "hint": "she → ?" },
+            { "accept": ["hasn't"], "hint": "not" },
+            {
+              "accept": ["Have"],
+              "hint": { "sl": "vprašanje", "de": "eine Frage", "it": "una domanda", "en": "a question" }
+            }
+          ],
+          "bank": true,
+          "distractors": ["is", "haven't"],
+          "translation": {
+            "sl": "Pastir Jack ima kmetijo na hribu. Ima ovčarskega psa, ki mu je ime Meg. Meg ima črno-belo dlako. Jack nima avta, ima pa staro kolo. — Imaš kolo, {learner}?",
+            "de": "Schäfer Jack hat einen Hof am Berg. Er hat einen Hütehund, der Meg heißt. Meg hat ein schwarz-weißes Fell. Jack hat kein Auto, aber ein altes Fahrrad. — Hast du ein Fahrrad, {learner}?",
+            "it": "Il pastore Jack ha una fattoria sul monte. Ha un cane pastore che si chiama Meg. Meg ha il pelo bianco e nero. Jack non ha la macchina, ma ha una vecchia bici. — Hai una bici, {learner}?",
+            "en": "Shepherd Jack has got a farm on the fell. He's got a sheepdog called Meg. Meg has got a black and white coat. Jack hasn't got a car, but he's got an old bike. — Have you got a bike, {learner}?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "to-have",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Has Jack got a car? — No, he ___.",
+          "options": ["hasn't", "haven't", "isn't"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**he: hasn't**\n- Has Jack got a car? — No, he hasn't.",
+            "de": "**he: hasn't**\n- Has Jack got a car? — No, he hasn't.",
+            "it": "**he: hasn't**\n- Has Jack got a car? — No, he hasn't.",
+            "en": "**he: hasn't**\n- Has Jack got a car? — No, he hasn't."
+          }
+        }
+      ]
+    },
+    {
+      "id": "have-got-3",
+      "title": {
+        "sl": "No, and questions · Ne in vprašanja",
+        "de": "No, and questions · Nein und Fragen",
+        "it": "No, and questions · No e domande",
+        "en": "No, and questions"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "to-have",
+          "instruction": {
+            "sl": "Say it with not · Povej z not",
+            "de": "Say it with not · Sag es mit not",
+            "it": "Say it with not · Dillo con not",
+            "en": "Say it with not"
+          },
+          "cue": "not",
+          "items": [
+            { "from": "I've got a cold.", "accept": ["I haven't got a cold.", "I don't have a cold."] },
+            {
+              "from": "Mrs Birkett has got a garden.",
+              "accept": ["Mrs Birkett hasn't got a garden.", "Mrs Birkett doesn't have a garden."],
+              "hint": "has → hasn't"
+            },
+            { "from": "They've got a dog.", "accept": ["They haven't got a dog.", "They don't have a dog."] },
+            { "from": "We've got time.", "accept": ["We haven't got time.", "We don't have time."] }
+          ],
+          "explain": {
+            "sl": "**not za have: haven't got, hasn't got**\n- I've got a cold. → I haven't got a cold.\n- ameriško: I don't have a cold.",
+            "de": "**not nach have: haven't got, hasn't got**\n- I've got a cold. → I haven't got a cold.\n- amerikanisch: I don't have a cold.",
+            "it": "**not dopo have: haven't got, hasn't got**\n- I've got a cold. → I haven't got a cold.\n- americano: I don't have a cold.",
+            "en": "**not after have: haven't got, hasn't got**\n- I've got a cold. → I haven't got a cold.\n- American: I don't have a cold."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "to-have",
+          "instruction": { "sl": "Ask · Postavi vprašanje", "de": "Ask · Mach eine Frage", "it": "Ask · Fai la domanda", "en": "Ask" },
+          "cue": "?",
+          "items": [
+            {
+              "from": "You've got a pen.",
+              "accept": ["Have you got a pen?", "Do you have a pen?"],
+              "hint": { "sl": "have na začetek", "de": "have nach vorn", "it": "have all'inizio", "en": "have first" }
+            },
+            { "from": "Sam has got a car.", "accept": ["Has Sam got a car?", "Does Sam have a car?"] },
+            { "from": "They've got a horse.", "accept": ["Have they got a horse?", "Do they have a horse?"] },
+            { "from": "Arthur has got bees.", "accept": ["Has Arthur got bees?", "Does Arthur have bees?"] }
+          ],
+          "explain": {
+            "sl": "**have ali has na začetek**\n- You've got a pen. → Have you got a pen?\n- ameriško: Do you have a pen?",
+            "de": "**have oder has nach vorn**\n- You've got a pen. → Have you got a pen?\n- amerikanisch: Do you have a pen?",
+            "it": "**have o has all'inizio**\n- You've got a pen. → Have you got a pen?\n- americano: Do you have a pen?",
+            "en": "**have or has first**\n- You've got a pen. → Have you got a pen?\n- American: Do you have a pen?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "to-have",
+        "instruction": {
+          "sl": "Fill in with have got · Dopolni s have got",
+          "de": "Fill in with have got · Ergänze mit have got",
+          "it": "Fill in with have got · Completa con have got",
+          "en": "Fill in with have got"
+        },
+        "text": "Auntie Edna ___ got a little radio. She's ___ a lot of friends in the village. Edna and Granny Maggie ___ got a cottage by the beck. — ___ you got a radio, Mr Dixon? — No, I ___. I've got a smithy!",
+        "gaps": [
+          { "accept": ["has"] },
+          { "accept": ["got"] },
+          { "accept": ["have"], "hint": "they → ?" },
+          { "accept": ["Have"] },
+          { "accept": ["haven't"] }
+        ],
+        "translation": {
+          "sl": "Teta Edna ima majhen radio. V vasi ima veliko prijateljev. Edna in babica Maggie imata hišico ob potoku. — Imate radio, gospod Dixon? — Ne, nimam. Imam kovačnico!",
+          "de": "Tante Edna hat ein kleines Radio. Sie hat viele Freunde im Dorf. Edna und Oma Maggie haben ein Häuschen am Bach. — Haben Sie ein Radio, Mr Dixon? — Nein. Ich habe eine Schmiede!",
+          "it": "Zia Edna ha una radiolina. Ha tanti amici in paese. Edna e nonna Maggie hanno una casetta vicino al ruscello. — Ha una radio, signor Dixon? — No. Ho una fucina!",
+          "en": "Auntie Edna has got a little radio. She's got a lot of friends in the village. Edna and Granny Maggie have got a cottage by the beck. — Have you got a radio, Mr Dixon? — No, I haven't. I've got a smithy!"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "to-have",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          {
+            "from": "Jack has got a tractor.",
+            "accept": ["Jack hasn't got a tractor.", "Jack doesn't have a tractor."]
+          },
+          { "from": "I've got a map.", "accept": ["I haven't got a map.", "I don't have a map."] }
+        ],
+        "explain": {
+          "sl": "**not za have: haven't got, hasn't got**\n- I've got a cold. → I haven't got a cold.\n- ameriško: I don't have a cold.",
+          "de": "**not nach have: haven't got, hasn't got**\n- I've got a cold. → I haven't got a cold.\n- amerikanisch: I don't have a cold.",
+          "it": "**not dopo have: haven't got, hasn't got**\n- I've got a cold. → I haven't got a cold.\n- americano: I don't have a cold.",
+          "en": "**not after have: haven't got, hasn't got**\n- I've got a cold. → I haven't got a cold.\n- American: I don't have a cold."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "to-have",
+        "instruction": { "sl": "Ask · Postavi vprašanje", "de": "Ask · Mach eine Frage", "it": "Ask · Fai la domanda", "en": "Ask" },
+        "cue": "?",
+        "items": [
+          { "from": "You've got a key.", "accept": ["Have you got a key?", "Do you have a key?"] },
+          {
+            "from": "Mrs Hartley has got a bike.",
+            "accept": ["Has Mrs Hartley got a bike?", "Does Mrs Hartley have a bike?"]
+          }
+        ],
+        "explain": {
+          "sl": "**have ali has na začetek**\n- You've got a pen. → Have you got a pen?\n- ameriško: Do you have a pen?",
+          "de": "**have oder has nach vorn**\n- You've got a pen. → Have you got a pen?\n- amerikanisch: Do you have a pen?",
+          "it": "**have o has all'inizio**\n- You've got a pen. → Have you got a pen?\n- americano: Do you have a pen?",
+          "en": "**have or has first**\n- You've got a pen. → Have you got a pen?\n- American: Do you have a pen?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "to-have",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Have you got a pen? — No, ___",
+        "options": ["I haven't.", "I haven't got.", "I'm not."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kratki odgovor: No, I haven't.**\n- Yes, I have. · No, I haven't.",
+          "de": "**Die Kurzantwort: No, I haven't.**\n- Yes, I have. · No, I haven't.",
+          "it": "**La risposta breve: No, I haven't.**\n- Yes, I have. · No, I haven't.",
+          "en": "**The short answer: No, I haven't.**\n- Yes, I have. · No, I haven't."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "to-have",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Let's ___ a cup of tea!",
+        "options": ["have", "have got", "has"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Čaj, ki ga piješ zdaj: have**\n- have a cup of tea · have breakfast",
+          "de": "**Tee, den man jetzt trinkt: have**\n- have a cup of tea · have breakfast",
+          "it": "**Il tè da bere adesso: have**\n- have a cup of tea · have breakfast",
+          "en": "**Tea to drink now: have**\n- have a cup of tea · have breakfast"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: have got with time and a cold, Do you have a room for tonight as British too, the American forms accepted"
+}
