@@ -1,0 +1,977 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "akkusativ",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🎯",
+  "title": {
+    "de": "Ich sehe den Hund",
+    "en": "The accusative: den Hund, einen Hund",
+    "sl": "Tožilnik: den Hund, einen Hund",
+    "it": "L'accusativo: den Hund, einen Hund"
+  },
+  "goal": {
+    "en": "You can say what someone sees, has, needs or buys (Ich sehe den Hund. Toni braucht einen Hammer.), knowing that only der and ein change, use ihn, sie, es, mich and dich for the object, and für with the accusative.",
+    "sl": "Poveš, kaj kdo vidi, ima, potrebuje ali kupi (Ich sehe den Hund. Toni braucht einen Hammer.), saj veš, da se spremenita samo der in ein, za predmet uporabiš ihn, sie, es, mich in dich, za für pa tožilnik.",
+    "it": "Sai dire che cosa qualcuno vede, ha, gli serve o compra (Ich sehe den Hund. Toni braucht einen Hammer.), sapendo che cambiano solo der ed ein, usi ihn, sie, es, mich e dich per l'oggetto e für con l'accusativo."
+  },
+  "grammar": [
+    "akkusativ",
+    "artikel-genus"
+  ],
+  "words": [
+    "den",
+    "einen",
+    "ihn",
+    "mich",
+    "dich",
+    "für",
+    "wen",
+    "sehen",
+    "brauchen",
+    "kaufen",
+    "suchen",
+    "kennen",
+    "rufen",
+    "zählen",
+    "lieben",
+    "füttern",
+    "hören",
+    "der Hund",
+    "der Fuchs",
+    "der Hammer",
+    "der Topf",
+    "der Apfel",
+    "der Apfelstrudel",
+    "der Sack",
+    "die Kiste",
+    "der Markt",
+    "das Kilo",
+    "die Paradeiser",
+    "der Kuchen",
+    "die Glocke",
+    "die Katze",
+    "das Messer"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Nominativ",
+          "en": "nominative (who? what?)",
+          "sl": "imenovalnik (kdo? kaj?)",
+          "it": "nominativo (chi? che cosa?)"
+        },
+        {
+          "de": "Akkusativ",
+          "en": "accusative (whom? what?)",
+          "sl": "tožilnik (koga? kaj?)",
+          "it": "accusativo (chi? che cosa?)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "What a verb acts on, its object, takes the accusative (*Akkusativ*), and **der** becomes **den**. **Der Hund** (the dog) is here, but **Ich sehe den Hund.** (I see the dog.) Ask **wen?** (whom?) for a person, **was?** (what?) for a thing: Was sieht Florian? Den Hund.",
+          "sl": "Kar glagol zadeva, predmet, je v tožilniku (*Akkusativ*), in **der** postane **den**. **Der Hund** (pes) je tu, ampak **Ich sehe den Hund.** (Vidim psa.) Vprašaš **wen?** (koga?) za osebo, **was?** (kaj?) za stvar: Was sieht Florian? Den Hund.",
+          "it": "Ciò su cui agisce il verbo, il complemento oggetto, va all'accusativo (*Akkusativ*), e **der** diventa **den**. **Der Hund** (il cane) è qui, ma **Ich sehe den Hund.** (Vedo il cane.) Chiedi **wen?** (chi?) per una persona, **was?** (che cosa?) per una cosa: Was sieht Florian? Den Hund."
+        },
+        "examples": [
+          {
+            "de": "Florian sieht den Hund.",
+            "en": "Florian sees the dog.",
+            "sl": "Florian vidi psa.",
+            "it": "Florian vede il cane."
+          },
+          {
+            "de": "Toni braucht den Hammer.",
+            "en": "Toni needs the hammer.",
+            "sl": "Toni potrebuje kladivo.",
+            "it": "Toni ha bisogno del martello."
+          },
+          {
+            "de": "Stanko verkauft den Honig.",
+            "en": "Stanko sells the honey.",
+            "sl": "Stanko prodaja med.",
+            "it": "Stanko vende il miele."
+          }
+        ],
+        "rows": [
+          [
+            "der Hund",
+            "den Hund"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "akkusativ",
+          "prompt": "Florian sieht ___ Hund.",
+          "options": [
+            "der",
+            "den",
+            "die"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**The object of a der noun: den**\n- Florian sieht den Hund.",
+            "sl": "**Predmet pri samostalniku z der: den**\n- Florian sieht den Hund.",
+            "it": "**L'oggetto di un nome con der: den**\n- Florian sieht den Hund."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**ein** changes the same way: **ein Hund** (a dog) → **Ich habe einen Hund.** (I have a dog.) What you have, need or buy is an object, and so is what **es gibt** (there is): **Heute gibt es einen Apfelstrudel.** (Today there's apple strudel.)",
+          "sl": "**ein** se spremeni enako: **ein Hund** (pes) → **Ich habe einen Hund.** (Imam psa.) Kar imaš, potrebuješ ali kupiš, je predmet, in tudi kar **es gibt** (je, imamo): **Heute gibt es einen Apfelstrudel.** (Danes je jabolčni zavitek.)",
+          "it": "**ein** cambia allo stesso modo: **ein Hund** (un cane) → **Ich habe einen Hund.** (Ho un cane.) Ciò che hai, che ti serve o che compri è un oggetto, e così ciò che **es gibt** (c'è): **Heute gibt es einen Apfelstrudel.** (Oggi c'è lo strudel di mele.)"
+        },
+        "examples": [
+          {
+            "de": "Hirte Florian hat einen Hund.",
+            "en": "Florian the shepherd has a dog.",
+            "sl": "Pastir Florian ima psa.",
+            "it": "Il pastore Florian ha un cane."
+          },
+          {
+            "de": "Toni braucht einen Hammer.",
+            "en": "Toni needs a hammer.",
+            "sl": "Toni potrebuje kladivo.",
+            "it": "A Toni serve un martello."
+          },
+          {
+            "de": "Heute gibt es einen Apfelstrudel.",
+            "en": "Today there's apple strudel.",
+            "sl": "Danes je jabolčni zavitek.",
+            "it": "Oggi c'è lo strudel di mele."
+          }
+        ],
+        "rows": [
+          [
+            "ein Hund",
+            "einen Hund"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "akkusativ",
+          "text": "Toni braucht ___ Hammer.",
+          "accept": [
+            "einen"
+          ],
+          "hint": "ein → ?",
+          "explain": {
+            "en": "**ein as an object, der noun: einen**\n- Toni braucht einen Hammer.",
+            "sl": "**ein kot predmet, samostalnik z der: einen**\n- Toni braucht einen Hammer.",
+            "it": "**ein come oggetto, nome con der: einen**\n- Toni braucht einen Hammer."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**die** and **das** stay as they are, and so do **eine** and every plural: **Ich sehe die Kirche.** (I see the church.) **Ich sehe das Haus.** (I see the house.) **Ich sehe die Schafe.** (I see the sheep.) Only a der noun changes.",
+          "sl": "**die** in **das** ostaneta, kot sta, in tudi **eine** in vsaka množina: **Ich sehe die Kirche.** (Vidim cerkev.) **Ich sehe das Haus.** (Vidim hišo.) **Ich sehe die Schafe.** (Vidim ovce.) Spremeni se samo samostalnik z der.",
+          "it": "**die** e **das** restano come sono, e così **eine** e ogni plurale: **Ich sehe die Kirche.** (Vedo la chiesa.) **Ich sehe das Haus.** (Vedo la casa.) **Ich sehe die Schafe.** (Vedo le pecore.) Cambia solo un nome con der."
+        },
+        "examples": [
+          {
+            "de": "Stefan sieht die Kirche.",
+            "en": "Stefan can see the church.",
+            "sl": "Stefan vidi cerkev.",
+            "it": "Stefan vede la chiesa."
+          },
+          {
+            "de": "Florian zählt die Schafe.",
+            "en": "Florian is counting the sheep.",
+            "sl": "Florian šteje ovce.",
+            "it": "Florian conta le pecore."
+          },
+          {
+            "de": "Oma Resi backt das Brot.",
+            "en": "Grandma Resi is baking the bread.",
+            "sl": "Babica Resi peče kruh.",
+            "it": "Nonna Resi fa il pane."
+          }
+        ],
+        "rows": [
+          [
+            "die Kirche",
+            "die Kirche"
+          ],
+          [
+            "eine Katze",
+            "eine Katze"
+          ],
+          [
+            "das Haus",
+            "das Haus"
+          ],
+          [
+            "die Schafe",
+            "die Schafe"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "akkusativ",
+          "prompt": "Kathi trägt ___ Suppe.",
+          "options": [
+            "die",
+            "den",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**die stays die**\n- Kathi trägt die Suppe.",
+            "sl": "**die ostane die**\n- Kathi trägt die Suppe.",
+            "it": "**die resta die**\n- Kathi trägt die Suppe."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Who does it keeps **der**, even next to **den**: **Der Hund sieht den Fuchs.** (The dog sees the fox.) So the article says who does what, also when the object comes first: **Den Fuchs sieht der Hund.** (It's the fox the dog sees.)",
+          "sl": "Kdor dejanje opravlja, obdrži **der**, tudi poleg **den**: **Der Hund sieht den Fuchs.** (Pes vidi lisico.) Člen torej pove, kdo kaj dela, tudi ko je predmet spredaj: **Den Fuchs sieht der Hund.** (Lisico vidi pes.)",
+          "it": "Chi fa l'azione tiene **der**, anche accanto a **den**: **Der Hund sieht den Fuchs.** (Il cane vede la volpe.) Così l'articolo dice chi fa che cosa, anche quando l'oggetto viene prima: **Den Fuchs sieht der Hund.** (La volpe, la vede il cane.)"
+        },
+        "examples": [
+          {
+            "de": "Der Hund sieht den Fuchs.",
+            "en": "The dog sees the fox.",
+            "sl": "Pes vidi lisico.",
+            "it": "Il cane vede la volpe."
+          },
+          {
+            "de": "Der Müller hat einen Sack Mehl.",
+            "en": "The miller has a sack of flour.",
+            "sl": "Mlinar ima vrečo moke.",
+            "it": "Il mugnaio ha un sacco di farina."
+          }
+        ],
+        "rows": [
+          [
+            "der Hund sieht",
+            "den Fuchs"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "akkusativ",
+          "prompt": "___ Hund sieht den Fuchs.",
+          "options": [
+            "Der",
+            "Den"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Who does it: der**\n- Der Hund sieht den Fuchs.",
+            "sl": "**Kdor dela: der**\n- Der Hund sieht den Fuchs.",
+            "it": "**Chi fa l'azione: der**\n- Der Hund sieht den Fuchs."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The pronouns change too, as he becomes him: **er** → **ihn** (him, it), **sie** → **sie** (her, them), **es** → **es** (it), **ich** → **mich** (me), **du** → **dich** (you). A der thing is **ihn** as well: **Siehst du den Dobratsch? Ja, ich sehe ihn!** (Can you see the Dobratsch? Yes, I can see it!)",
+          "sl": "Tudi zaimki se spremenijo: **er** → **ihn** (njega, ga), **sie** → **sie** (njo, jih), **es** → **es** (ga), **ich** → **mich** (mene, me), **du** → **dich** (tebe, te). Tudi stvar z der je **ihn**: **Siehst du den Dobratsch? Ja, ich sehe ihn!** (Ali vidiš Dobrač? Da, vidim ga!)",
+          "it": "Anche i pronomi cambiano: **er** → **ihn** (lui, lo), **sie** → **sie** (lei, la, li), **es** → **es** (lo), **ich** → **mich** (me, mi), **du** → **dich** (te, ti). Anche una cosa con der è **ihn**: **Siehst du den Dobratsch? Ja, ich sehe ihn!** (Vedi il Dobratsch? Sì, lo vedo!)"
+        },
+        "examples": [
+          {
+            "de": "Siehst du den Dobratsch? – Ja, ich sehe ihn!",
+            "en": "Can you see the Dobratsch? – Yes, I can see it!",
+            "sl": "Ali vidiš Dobrač? – Da, vidim ga!",
+            "it": "Vedi il Dobratsch? – Sì, lo vedo!"
+          },
+          {
+            "de": "Kennst du die Lehrerin? – Ja, ich kenne sie.",
+            "en": "Do you know the teacher? – Yes, I know her.",
+            "sl": "Ali poznaš učiteljico? – Da, poznam jo.",
+            "it": "Conosci la maestra? – Sì, la conosco."
+          },
+          {
+            "de": "Oma Resi ruft dich, {learner}!",
+            "en": "Grandma Resi is calling you, {learner}!",
+            "sl": "Babica Resi te kliče, {learner}!",
+            "it": "Nonna Resi ti chiama, {learner}!"
+          }
+        ],
+        "rows": [
+          [
+            "er · sie · es",
+            "ihn · sie · es"
+          ],
+          [
+            "ich · du",
+            "mich · dich"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "akkusativ",
+          "text": "Siehst du den Dobratsch? – Ja, ich sehe ___.",
+          "accept": [
+            "ihn"
+          ],
+          "hint": "der → ihn?",
+          "explain": {
+            "en": "**den Dobratsch → ihn**\n- Ich sehe ihn.",
+            "sl": "**den Dobratsch → ihn**\n- Ich sehe ihn.",
+            "it": "**den Dobratsch → ihn**\n- Ich sehe ihn."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "After **für** (for) comes the accusative too: **für den Opa** (for Grandpa), **für einen Freund** (for a friend), **für dich** (for you). **Der Honig ist für dich.** (The honey is for you.)",
+          "sl": "Za **für** (za) pride prav tako tožilnik: **für den Opa** (za dedka), **für einen Freund** (za prijatelja), **für dich** (zate). **Der Honig ist für dich.** (Med je zate.)",
+          "it": "Dopo **für** (per) viene anche l'accusativo: **für den Opa** (per il nonno), **für einen Freund** (per un amico), **für dich** (per te). **Der Honig ist für dich.** (Il miele è per te.)"
+        },
+        "examples": [
+          {
+            "de": "Der Honig ist für dich, {learner}.",
+            "en": "The honey is for you, {learner}.",
+            "sl": "Med je zate, {learner}.",
+            "it": "Il miele è per te, {learner}."
+          },
+          {
+            "de": "Kathi kocht für den Opa.",
+            "en": "Kathi is cooking for Grandpa.",
+            "sl": "Kathi kuha za dedka.",
+            "it": "Kathi cucina per il nonno."
+          }
+        ],
+        "rows": [
+          [
+            "für +",
+            "für den Opa · für dich"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "akkusativ",
+          "prompt": "Der Honig ist für ___. (du)",
+          "options": [
+            "dich",
+            "du",
+            "dir"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**für + accusative: dich**\n- Der Honig ist für dich.",
+            "sl": "**für + tožilnik: dich**\n- Der Honig ist für dich.",
+            "it": "**für + accusativo: dich**\n- Der Honig ist für dich."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Only **der** changes: **der → den**, **ein → einen**: **Ich sehe den Hund. Ich habe einen Hund.** · **die, das, eine** and every plural stay.\n\n**ihn** (him, it), **sie**, **es**, **mich**, **dich**: **Ich sehe ihn.**\n\n**für** + accusative: **für dich, für den Opa**. Ask **wen? was?**",
+      "sl": "Spremeni se samo **der**: **der → den**, **ein → einen**: **Ich sehe den Hund. Ich habe einen Hund.** · **die, das, eine** in vsaka množina ostanejo.\n\n**ihn** (njega, ga), **sie**, **es**, **mich**, **dich**: **Ich sehe ihn.**\n\n**für** + tožilnik: **für dich, für den Opa**. Vprašaš **wen? was?**",
+      "it": "Cambia solo **der**: **der → den**, **ein → einen**: **Ich sehe den Hund. Ich habe einen Hund.** · **die, das, eine** e ogni plurale restano.\n\n**ihn** (lui, lo), **sie**, **es**, **mich**, **dich**: **Ich sehe ihn.**\n\n**für** + accusativo: **für dich, für den Opa**. Chiedi **wen? was?**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "akkusativ-1",
+      "title": {
+        "de": "Der oder den?",
+        "en": "Der or den?",
+        "sl": "Der ali den?",
+        "it": "Der o den?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "akkusativ",
+          "instruction": {
+            "en": "Ergänze den Akkusativ · Fill in the accusative",
+            "sl": "Ergänze den Akkusativ · Dopolni tožilnik",
+            "it": "Ergänze den Akkusativ · Completa l'accusativo"
+          },
+          "prompt": {
+            "en": "Ich sehe … · Ich habe … · the object",
+            "sl": "Ich sehe … · Ich habe … · predmet",
+            "it": "Ich sehe … · Ich habe … · l'oggetto"
+          },
+          "columns": [
+            {
+              "en": "Akkusativ · the object",
+              "sl": "Akkusativ · predmet",
+              "it": "Akkusativ · l'oggetto"
+            }
+          ],
+          "rows": [
+            {
+              "label": "der Hund",
+              "cells": [
+                {
+                  "accept": [
+                    "den Hund"
+                  ],
+                  "hint": "der → den"
+                }
+              ]
+            },
+            {
+              "label": "ein Apfel",
+              "cells": [
+                {
+                  "accept": [
+                    "einen Apfel"
+                  ],
+                  "hint": "ein → einen"
+                }
+              ]
+            },
+            {
+              "label": "die Katze",
+              "cells": [
+                {
+                  "accept": [
+                    "die Katze"
+                  ],
+                  "hint": {
+                    "en": "die stays",
+                    "sl": "die ostane",
+                    "it": "die resta"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "eine Flasche",
+              "cells": [
+                {
+                  "accept": [
+                    "eine Flasche"
+                  ],
+                  "hint": {
+                    "en": "eine stays",
+                    "sl": "eine ostane",
+                    "it": "eine resta"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "das Brot",
+              "cells": [
+                {
+                  "accept": [
+                    "das Brot"
+                  ],
+                  "hint": {
+                    "en": "das stays",
+                    "sl": "das ostane",
+                    "it": "das resta"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "ein Glas",
+              "cells": [
+                {
+                  "accept": [
+                    "ein Glas"
+                  ],
+                  "hint": {
+                    "en": "ein with das: it stays",
+                    "sl": "ein pri das: ostane",
+                    "it": "ein con das: resta"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "die Schafe",
+              "cells": [
+                {
+                  "accept": [
+                    "die Schafe"
+                  ],
+                  "hint": {
+                    "en": "a plural stays",
+                    "sl": "množina ostane",
+                    "it": "il plurale resta"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "der Hammer",
+              "cells": [
+                {
+                  "accept": [
+                    "den Hammer"
+                  ],
+                  "hint": "der → den"
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Only der and ein change: den, einen**",
+            "sl": "**Spremenita se samo der in ein: den, einen**",
+            "it": "**Cambiano solo der ed ein: den, einen**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "akkusativ",
+          "instruction": {
+            "en": "Ordne zu · Ich sehe … den, die or das?",
+            "sl": "Ordne zu · Ich sehe … den, die ali das?",
+            "it": "Ordne zu · Ich sehe … den, die o das?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "den · a der noun",
+                "sl": "den · samostalnik z der",
+                "it": "den · un nome con der"
+              },
+              "words": [
+                "Hund",
+                "Hammer",
+                "Apfel"
+              ]
+            },
+            {
+              "label": {
+                "en": "die · die and the plural",
+                "sl": "die · die in množina",
+                "it": "die · die e il plurale"
+              },
+              "words": [
+                "Kirche",
+                "Katze",
+                "Schafe"
+              ]
+            },
+            {
+              "label": {
+                "en": "das · a das noun",
+                "sl": "das · samostalnik z das",
+                "it": "das · un nome con das"
+              },
+              "words": [
+                "Haus",
+                "Brot",
+                "Glas"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Ich sehe den Hund, die Kirche, das Haus**",
+            "sl": "**Ich sehe den Hund, die Kirche, das Haus**",
+            "it": "**Ich sehe den Hund, die Kirche, das Haus**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "akkusativ-2",
+      "title": {
+        "de": "Auf dem Markt",
+        "en": "At the market",
+        "sl": "Na trgu",
+        "it": "Al mercato"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "akkusativ",
+          "instruction": {
+            "en": "Ergänze den Artikel · Fill in the article",
+            "sl": "Ergänze den Artikel · Dopolni člen",
+            "it": "Ergänze den Artikel · Completa con l'articolo"
+          },
+          "title": "Auf dem Markt",
+          "text": "Am Samstag ist Markt in Villach. Imker Stanko verkauft ___ (der) Honig. Tante Mitzi kauft ___ (ein) Glas. Wirtin Kathi braucht ___ (ein) Topf und ___ (eine) Kiste Äpfel. Schmied Toni sucht ___ (der) Hammer. ___ (der) Hammer ist im Gasthaus! Und du, {learner}? Du kaufst ___ (ein) Kilo Paradeiser.",
+          "gaps": [
+            {
+              "accept": [
+                "den"
+              ],
+              "hint": "der → ?"
+            },
+            {
+              "accept": [
+                "ein"
+              ],
+              "hint": {
+                "en": "ein with das",
+                "sl": "ein pri das",
+                "it": "ein con das"
+              }
+            },
+            {
+              "accept": [
+                "einen"
+              ],
+              "hint": "ein → ?"
+            },
+            {
+              "accept": [
+                "eine"
+              ],
+              "hint": {
+                "en": "eine stays",
+                "sl": "eine ostane",
+                "it": "eine resta"
+              }
+            },
+            {
+              "accept": [
+                "den"
+              ],
+              "hint": "der → ?"
+            },
+            {
+              "accept": [
+                "Der"
+              ],
+              "hint": {
+                "en": "who? the hammer does it",
+                "sl": "kdo? kladivo",
+                "it": "chi? il martello"
+              },
+              "explain": {
+                "en": "**The subject keeps der**",
+                "sl": "**Osebek obdrži der**",
+                "it": "**Il soggetto tiene der**"
+              }
+            },
+            {
+              "accept": [
+                "ein"
+              ],
+              "hint": {
+                "en": "ein with das",
+                "sl": "ein pri das",
+                "it": "ein con das"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "dem",
+            "einem"
+          ],
+          "translation": {
+            "en": "On Saturday there's a market in Villach. Stanko the beekeeper sells the honey. Aunt Mitzi buys a jar. Kathi the innkeeper needs a pot and a box of apples. Toni the smith is looking for the hammer. The hammer is at the Gasthaus! And you, {learner}? You buy a kilo of tomatoes.",
+            "sl": "V soboto je v Beljaku tržni dan. Čebelar Stanko prodaja med. Teta Mitzi kupi kozarec. Gostilničarka Kathi potrebuje lonec in zaboj jabolk. Kovač Toni išče kladivo. Kladivo je v gostilni! Pa ti, {learner}? Kupiš kilogram paradižnika.",
+            "it": "Il sabato c'è il mercato a Villach. L'apicoltore Stanko vende il miele. La zia Mitzi compra un vasetto. L'ostessa Kathi ha bisogno di una pentola e di una cassetta di mele. Il fabbro Toni cerca il martello. Il martello è all'osteria! E tu, {learner}? Compri un chilo di pomodori."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "akkusativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wo ist der Hammer? – Kathi hat ___.",
+          "options": [
+            "ihn",
+            "er",
+            "ihm"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Hammer as an object: ihn**",
+            "sl": "**der Hammer kot predmet: ihn**",
+            "it": "**der Hammer come oggetto: ihn**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "akkusativ-3",
+      "title": {
+        "de": "Ihn, sie, es",
+        "en": "Him, her, it",
+        "sl": "Njega, njo, ga",
+        "it": "Lo, la, li"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "akkusativ",
+          "instruction": {
+            "en": "Sag es mit einem Pronomen · Say it with a pronoun for the object",
+            "sl": "Sag es mit einem Pronomen · Povej s zaimkom namesto predmeta",
+            "it": "Sag es mit einem Pronomen · Dillo con un pronome al posto dell'oggetto"
+          },
+          "items": [
+            {
+              "from": "Ich sehe den Dobratsch.",
+              "accept": [
+                "Ich sehe ihn."
+              ],
+              "hint": "den → ihn"
+            },
+            {
+              "from": "Toni braucht den Hammer.",
+              "accept": [
+                "Toni braucht ihn.",
+                "Er braucht ihn."
+              ],
+              "hint": "den → ihn"
+            },
+            {
+              "from": "Kathi trägt die Suppe.",
+              "accept": [
+                "Kathi trägt sie.",
+                "Sie trägt sie."
+              ],
+              "hint": "die → sie"
+            },
+            {
+              "from": "Florian zählt die Schafe.",
+              "accept": [
+                "Florian zählt sie.",
+                "Er zählt sie."
+              ],
+              "hint": {
+                "en": "a plural → sie",
+                "sl": "množina → sie",
+                "it": "un plurale → sie"
+              }
+            },
+            {
+              "from": "Oma Resi backt das Brot.",
+              "accept": [
+                "Oma Resi backt es.",
+                "Sie backt es.",
+                "Oma Resi bäckt es.",
+                "Sie bäckt es."
+              ],
+              "hint": "das → es"
+            }
+          ]
+        },
+        {
+          "type": "transform",
+          "grammar": "akkusativ",
+          "instruction": {
+            "en": "Antworte mit dem Wort in Klammern · Answer with the words in brackets",
+            "sl": "Antworte mit dem Wort in Klammern · Odgovori z besedami v oklepaju",
+            "it": "Antworte mit dem Wort in Klammern · Rispondi con le parole tra parentesi"
+          },
+          "items": [
+            {
+              "from": "Was braucht Toni? (der Hammer)",
+              "accept": [
+                "Toni braucht den Hammer.",
+                "Er braucht den Hammer."
+              ],
+              "hint": "der → den"
+            },
+            {
+              "from": "Was kauft Kathi? (ein Topf)",
+              "accept": [
+                "Kathi kauft einen Topf.",
+                "Sie kauft einen Topf."
+              ],
+              "hint": "ein → einen"
+            },
+            {
+              "from": "Wen ruft Oma Resi? (der Opa)",
+              "accept": [
+                "Oma Resi ruft den Opa.",
+                "Sie ruft den Opa."
+              ],
+              "hint": "der → den"
+            },
+            {
+              "from": "Was hat Florian? (ein Hund)",
+              "accept": [
+                "Florian hat einen Hund.",
+                "Er hat einen Hund."
+              ],
+              "hint": "ein → einen"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "akkusativ",
+        "instruction": {
+          "en": "Ergänze den Artikel · Fill in the article",
+          "sl": "Ergänze den Artikel · Dopolni člen",
+          "it": "Ergänze den Artikel · Completa con l'articolo"
+        },
+        "title": "Bello und die Katze",
+        "text": "Florian hat ___ (ein) Hund. ___ (der) Hund heißt Bello. Florian liebt ___ (der) Hund. Lena hat ___ (eine) Katze. Sie füttert ___ (die) Katze jeden Tag.",
+        "gaps": [
+          {
+            "accept": [
+              "einen"
+            ]
+          },
+          {
+            "accept": [
+              "Der"
+            ]
+          },
+          {
+            "accept": [
+              "den"
+            ]
+          },
+          {
+            "accept": [
+              "eine"
+            ]
+          },
+          {
+            "accept": [
+              "die"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Florian has a dog. The dog is called Bello. Florian loves the dog. Lena has a cat. She feeds the cat every day.",
+          "sl": "Florian ima psa. Psu je ime Bello. Florian ima psa rad. Lena ima mačko. Vsak dan nahrani mačko.",
+          "it": "Florian ha un cane. Il cane si chiama Bello. Florian vuole bene al cane. Lena ha un gatto. Dà da mangiare al gatto tutti i giorni."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "akkusativ",
+        "instruction": {
+          "en": "Ergänze den Akkusativ · Fill in the accusative",
+          "sl": "Ergänze den Akkusativ · Dopolni tožilnik",
+          "it": "Ergänze den Akkusativ · Completa l'accusativo"
+        },
+        "prompt": {
+          "en": "Ich brauche … · the object",
+          "sl": "Ich brauche … · predmet",
+          "it": "Ich brauche … · l'oggetto"
+        },
+        "columns": [
+          {
+            "en": "Akkusativ · the object",
+            "sl": "Akkusativ · predmet",
+            "it": "Akkusativ · l'oggetto"
+          }
+        ],
+        "rows": [
+          {
+            "label": "der Topf",
+            "cells": [
+              {
+                "accept": [
+                  "den Topf"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "ein Apfel",
+            "cells": [
+              {
+                "accept": [
+                  "einen Apfel"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "das Messer",
+            "cells": [
+              {
+                "accept": [
+                  "das Messer"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "akkusativ",
+        "instruction": {
+          "en": "Sag es mit einem Pronomen · Say it with a pronoun for the object",
+          "sl": "Sag es mit einem Pronomen · Povej s zaimkom namesto predmeta",
+          "it": "Sag es mit einem Pronomen · Dillo con un pronome al posto dell'oggetto"
+        },
+        "items": [
+          {
+            "from": "Ich sehe den Wirt.",
+            "accept": [
+              "Ich sehe ihn."
+            ]
+          },
+          {
+            "from": "Wir hören die Glocken.",
+            "accept": [
+              "Wir hören sie."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "akkusativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der Kuchen ist für ___. (du)",
+        "options": [
+          "dich",
+          "du",
+          "dir"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**für + accusative: dich**",
+          "sl": "**für + tožilnik: dich**",
+          "it": "**für + accusativo: dich**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "akkusativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ Fuchs sieht den Hund.",
+        "options": [
+          "Der",
+          "Den"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Who does it: der**",
+          "sl": "**Kdor dela: der**",
+          "it": "**Chi fa l'azione: der**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: «Den Fuchs sieht der Hund», «Auf dem Markt», Paradeiser, Apfelstrudel, Dobratsch as Dobrač, «Florian liebt den Hund»"
+}
