@@ -88,6 +88,27 @@ culture without a wardrobe dresses its people as Primorska's.
   `FriuliOutdoorLooksTest`'s digests of the pictures with people in them are new (its pictures without people are as they
   were).
 - `PedlarsTest`, `MapLooksTest` (Primorska's map as it always was; a frame's cost), `FacesGoldenTest` unchanged.
+- `FireAgesTest` (nobody's head hidden round the fire) passes in every culture: Nonno Bepi is bald under his hat, as Stari
+  Janez is (short hair under a felt hat shows a pixel above the brim at the side, which touched a neighbour's head).
+- The whole Android unit suite on 242404c2: 3692 tests, none failed (2 skipped). The Python tests (251; 142, 11
+  skipped), the bridge's typecheck, its smoke (ports 9670, 9673, 9676, DRAMA3 9688) and `tutor-export --check` (89 files)
+  pass; nothing of the bridge changed.
+
+## On the emulator
+
+`companion/bin/qa-slot --steps map-people` on a synthetic learner of each culture (`make-learner.ts --target it|de|en|sl`,
+`LANI_CULTURE`, the phone in sl · en), slot 1, the debug build, 2026-11-01 under a load average near 40: setup, map-people
+and the crash check passed in all four. Screenshots in the round's scratchpad, `ux-map-people/emulator/`
+(`people-<culture>-<day|evening>[-closer|-closest].png`): Friuli's cramâr on the road under his crassigne, Maestra Elena
+in her glasses and Lorenzo in his red cap at the closest detail; Carinthia's Florian in his green hat and Franz in the
+miller's white cap, the Luschariberg pilgrim; the Lake District's Alfie in his yellow raincoat, Jack in his flat cap;
+Primorska's people as before. The map's frame on the emulator's software rendering: 78 to 227 ms at details 1 to 3,
+the same range as map-culture.md's runs (82 to 122 ms) given the machine's load; the JVM's frame budget
+(`MapLooksTest`) holds.
+
+## Credits
+
+No voice: nothing to build, 0 characters.
 
 ## Tap counts
 
