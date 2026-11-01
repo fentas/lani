@@ -1508,8 +1508,12 @@ class AppViewModel(app: Application, private val savedState: SavedStateHandle) :
      */
     fun qaSchoolUnit(id: String) {
         val u = school.unit(id) ?: return
-        val before = school.course?.playable(u.level)?.map { it.id }?.takeWhile { it != u.id }.orEmpty()
-        game.apply { si.lanisce.lani.app.QaHooks.readyUnit(it, u.language, u.id, u.level, java.time.LocalDate.now(), System.currentTimeMillis(), before) }
+        val course = school.course
+        // the levels before the unit's done, as a learner who got there did them (a B2 unit: A1 to B1 done)
+        val below = course?.levels?.map { it.level }?.takeWhile { it != u.level }.orEmpty()
+        val before = below.flatMap { l -> course?.playable(l)?.map { it.id }.orEmpty() } +
+            course?.playable(u.level)?.map { it.id }?.takeWhile { it != u.id }.orEmpty()
+        game.apply { si.lanisce.lani.app.QaHooks.readyUnit(it, u.language, u.id, u.level, java.time.LocalDate.now(), System.currentTimeMillis(), before, below) }
         openSchool()
     }
 

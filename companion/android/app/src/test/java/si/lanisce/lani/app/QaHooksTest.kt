@@ -262,6 +262,11 @@ class QaHooksTest {
         // asked again later: the level keeps the day it opened; a village without a course yet gets one
         assertEquals("2026-10-27", QaHooks.readyUnit(r, "sl", "oziralni-ki", "B1", today.plusDays(1), 0L).course?.opened?.get(key("sl", "B1")))
         assertEquals("2026-10-27", QaHooks.readyUnit(si.lanisce.lani.game.GameState(), "sl", "svoj", "B1", today, 0L).course?.opened?.get(key("sl", "B1")))
+        // a B2 unit with the levels below it done (Jan's school at B2): each level open, A1 keeping its day, their units done
+        val b2 = QaHooks.readyUnit(r, "sl", "besedni-red", "B2", today, 0L, before = listOf("biti", "dajalnik", "oziralni-ki"), below = listOf("A1", "A2", "B1"))
+        assertEquals(mapOf(key("sl", "A1") to "2026-10-13", key("sl", "B1") to "2026-10-27", key("sl", "A2") to "2026-10-26", key("sl", "B2") to "2026-10-27"), b2.course?.opened)
+        assertEquals("2026-10-26", si.lanisce.lani.game.School.progress(b2, "sl", "dajalnik")?.done)
+        assertNull(si.lanisce.lani.game.School.progress(b2, "sl", "besedni-red"))
         // "school:<unit>" names the unit, "school" alone the classic school
         val asked = mutableListOf<String>()
         QaHooks.handle("school:oziralni-ki", school = { asked += "school" }, schoolUnit = { asked += it })

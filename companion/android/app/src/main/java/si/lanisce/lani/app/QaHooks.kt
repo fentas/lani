@@ -604,19 +604,23 @@ object QaHooks {
      * before it, the school's upgrade): QA plays a later level's unit from its first step. The written units [before] it
      * in its level are done (a day before, as a learner who got there; one done already as it was), so the school, which
      * shows a level's current unit and the next two and folds the rest (COURSE.md, "What the school shows"), has it as
-     * the current one. A debug build's, on the dev bridge's copy.
+     * the current one; the levels [below] it open too (a day before), their units among [before]: Jan's school at B2
+     * with A1 to B1 done. A debug build's, on the dev bridge's copy.
      */
     fun readyUnit(
         s: si.lanisce.lani.game.GameState, language: String, unit: String, level: String, today: java.time.LocalDate, now: Long,
         before: List<String> = emptyList(),
+        below: List<String> = emptyList(),
     ): si.lanisce.lani.game.GameState {
         val r = readySchool(s, now)
         val c = r.course ?: si.lanisce.lani.game.CourseProgress()
-        val opened = si.lanisce.lani.game.School.key(language, level)
         val day = today.minusDays(1).toString()
         val done = before.map { si.lanisce.lani.game.School.key(language, it) }
             .associateWith { k -> c.units[k]?.takeIf { it.done != null } ?: si.lanisce.lani.game.UnitProgress(started = day, introDone = true, done = day) }
-        return r.copy(course = c.copy(units = c.units - si.lanisce.lani.game.School.key(language, unit) + done, opened = c.opened + (opened to (c.opened[opened] ?: today.toString()))))
+        // the unit's level and the levels [below] it open, each keeping the day it opened
+        val opened = (below + level).map { si.lanisce.lani.game.School.key(language, it) }
+            .associateWith { k -> c.opened[k] ?: (if (k.endsWith("/$level")) today else today.minusDays(1)).toString() }
+        return r.copy(course = c.copy(units = c.units - si.lanisce.lani.game.School.key(language, unit) + done, opened = c.opened + opened))
     }
 
     /**

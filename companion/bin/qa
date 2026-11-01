@@ -300,6 +300,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        intro steps and their quick questions, the summary, the sort, the table, the gap text, the
                        transform list, its test passed, the dev bridge's village keeping the unit done;
                        "school-unit" a unit end to end from its file ($LANI_QA_UNIT, pogojnik-polno of B1 by default;
+                       LANI_QA_SPOKEN=1: a spoken form typed where an item lists one, its label checked;
+                       LANI_QA_UNIT_PRINT=1: its sheet in the print dialog at the end;
                        QA's hook "school:<unit>": its level open, the unit as never begun): its intro's questions, its
                        first worksheet and its test answered as the file says, passed, kept done by the dev bridge;
                        "school-print" the unit biti's sheet printed ("🖨️ Natisni list"): fit.js in the app's
@@ -7942,6 +7944,8 @@ def school_b1():
 
 
 QA_UNIT = os.environ.get("LANI_QA_UNIT", "pogojnik-polno")  # the unit "school-unit" plays (a B1 unit by default)
+SPOKEN = os.environ.get("LANI_QA_SPOKEN") == "1"  # "school-unit" answers a spoken form where an item lists one
+UNIT_PRINT = os.environ.get("LANI_QA_UNIT_PRINT") == "1"  # "school-unit" ends with the unit's sheet in the print dialog
 IT_UNIT = os.environ.get("LANI_QA_IT_UNIT", "ciao")  # the Italian unit "friuli-school-unit" plays (A1's first by default)
 ASCII = str.maketrans("čšžćđČŠŽĆĐ", "cszcdCSZCD")  # what adb can type: č, š, ž forgotten is almost right (half an item)
 IT_ASCII = str.maketrans("àèéìòùÀÈÉÌÒÙ", "aeeiouAEEIOU")  # the same for Italian's accents
@@ -7993,16 +7997,26 @@ def sheet_exercise(e: dict, where: str):
     ("Vrstica n · Line n"), a choice's answer and a multi's answers tapped, a reorder's first solution and a sort's words
     tapped in."""
     kind = e["type"]
+    said_spoken = False
+
+    def answer_of(item: dict) -> str:
+        # $LANI_QA_SPOKEN: a spoken form where the item lists one (COURSE.md "Spoken forms"), right and labelled
+        nonlocal said_spoken
+        if SPOKEN and item.get("spoken"):
+            said_spoken = True
+            return item["spoken"][0]
+        return item["accept"][0]
+
     if kind == "table":
         for r in e["rows"]:
             for c, cell in enumerate(r["cells"]):
                 if isinstance(cell, dict):
                     label = f'{r["label"]}, {e["columns"][c]}'
-                    assert fill(label, unit_text(cell["accept"][0]).translate(ASCII)), f"{where}: the cell {label}"
+                    assert fill(label, unit_text(answer_of(cell)).translate(ASCII)), f"{where}: the cell {label}"
     elif kind in ("gaptext", "transform"):
         n = len(e["gaps"] if kind == "gaptext" else e["items"])
         for i in range(1, n + 1):
-            answer = (e["gaps"] if kind == "gaptext" else e["items"])[i - 1]["accept"][0]
+            answer = answer_of((e["gaps"] if kind == "gaptext" else e["items"])[i - 1])
             label = f"Vrzel {i} · Gap {i}" if kind == "gaptext" else f"Vrstica {i} · Line {i}"
             assert fill(label, unit_text(answer).translate(ASCII)), f"{where}: {label}"
     elif kind in ("choice", "multi"):
@@ -8026,6 +8040,10 @@ def sheet_exercise(e: dict, where: str):
     else:
         raise AssertionError(f"{where}: QA doesn't play a {kind} yet")
     assert check_sheet(), f"{where}: check"
+    if said_spoken:
+        # right, never a mistake: the label under the spoken answer names the standard form
+        assert scroll_to("Pogovorno, prav tako prav", 6) is not None, f"{where}: a spoken answer's label"
+        shot(f"school-unit-spoken-{where.replace(' ', '').replace('#', '-')}")
 
 
 def school_unit():
@@ -8120,6 +8138,17 @@ def school_unit():
             break
         time.sleep(2)
     assert done and done.get("done"), f"the dev bridge's village keeps the unit done ({done})"
+    if UNIT_PRINT:
+        # its sheet printed from the unit's page: "🖨️ Natisni list", Android's print dialog with its preview, closed
+        c = scroll_to("Natisni list", 8) or find("Natisni list")
+        assert c is not None, "🖨️ Natisni list · Print sheet on the unit"
+        shot(f"school-unit-print-{QA_UNIT}")
+        tap_at(c)
+        assert print_dialog(60), "the unit's print dialog"
+        time.sleep(4 * slow())  # its preview drawn
+        shot(f"school-unit-print-preview-{QA_UNIT}")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the dialog closed, nothing printed
+        time.sleep(2)
 
 
 def based(v, base: str):
