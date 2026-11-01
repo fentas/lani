@@ -716,6 +716,33 @@ the six cases, singular and plural). Writing one:
 - **Names decline**: Muri → Muriju, z Murijem; Luka → Luki, z Luko; France → Francetu, s Francetom; Nejc → Nejcu,
   z Nejcem (-em after c).
 
+### B2, units 7–12: how words are made, no subject, two cases, more numbers
+
+B2 is B1's grammar used accurately plus the grammar of a text (docs/grammar-syllabus.md, "B2"). Its units 7–12 teach
+what makes and changes words, each with a B2 page of its own (its cheat-sheet card the unit's summary) and the earlier
+pages it builds on:
+
+| unit | its pages | what it teaches |
+|---|---|---|
+| `pomanjsevalnice` | pomanjsevalnice, spol-samostalnikov, sklanjatev-posebnosti | -ica, -ka; -ek, -ček, -iček; -ce, -ece, -esce; their cases (na stolčku); small, a little of, dear, or a word of its own (žlička, konjiček) |
+| `izpeljanke` | izpeljanke, spol-samostalnikov, glagolniki | who (-ar, -ec, -telj), a woman (-ka, -ica), where (-arna, -nica, -išče), a tool and a quality (-lnik; -ost, -ota, -ina), of it and who lives there (-ski, -en, -it; -čan) |
+| `predpone` | predpone, glagolski-vid, vid-casi | a prefix's meaning (prepisati, podpisati), its direction (pri-, od-, pre-, raz-), iti under a prefix (pridem, odšel, našel), the new imperfective (prepisovati, prinašati, prihajati), po-, na- … se, za- |
+| `brezosebno` | brezosebno, trpnik, custva | treba je (and its tenses), mogoče, prepovedano, škoda je + infinitive, the impersonal se (se je plesalo, ne da se), the weather and the day |
+| `predlogi-dva-sklona` | predlogi-dva-sklona, kam-tozilnik, kje-mestnik-orodnik | the case by the meaning: kam/kje, po kruh/po vasi, ob zid/ob potoku, za babico/za hišo, pred tednom |
+| `stevniki-napredno` | stevniki, stevila-glagol, stevila-samostalniki | dvakrat, prvič; dvojen; dvoje vrat; petica, polovica, pol; s tremi, pri štirih, s petimi; po for each |
+
+None of their pages is a row of a word's table, so they turn on no forms cards (and need no row in "What a unit
+turns on"). Writing one:
+
+- **A word in brackets after a gap is a form of it** (the smoke's check): a little word or a derived one is not a form
+  of its base, so its cue is two words or a hint (`___ (majhna miza)`, `___ (kjer peče pek)`), a prefixed verb is cued
+  by itself or by its parts (`___ (podpisati)`, `___ (pri + nesti)`), a number by its figure (`___ (3)`).
+- **A prefix one letter off another is another verb**: the Slovene grading lists those forms as known mistakes
+  (`grading/sl.json` `wrong`: prenesel for prinesel, prešel for prišel, zapisal for napisal, obšel for odšel), never a
+  slip in the stem; a slip inside the root (prinsel) stays almost.
+- **A spoken or less right form is almost, never wrong**: *tri vrata* (SP2001 marks it °; the standard *troje vrat*)
+  is an `almost` option; a figure SP2001 allows is accepted beside the word (*3-krat*).
+
 ## The Italian course
 
 Teo, a child learning Italian from German in the Friuli village, built the school (2026-10-28). The Italian course is
