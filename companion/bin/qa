@@ -292,6 +292,9 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        it, the word in the dev bridge's copy and in "📚 Moje besede"; offline (airplane mode) one waiting
                        in the outbox and listed so, sent once online, the quiet notice; an Italian village's words for Teo
                        ($LANI_QA_MISSING_PAIR=it-de: the cards in it · de); also as missing-*.png in $LANI_QA_MISSING_SHOTS;
+                       "it-words" (only when named) the Italian course's words in the tapped word's card for a synthetic
+                       Teo (LANI_CULTURE=friuli, LANI_QA_SETUP_PAIR=it-de): guardami, mai, c'era una volta, si lava, ce
+                       l'ho fatta, il treno, each the supplement's German meaning (docs/plans/05-built/it-print-meanings.md);
                        "school" the school (QA's hook "school"): the class begun with the hamlet, the levels, Home's
                        tile opening it, the unit biti's intro step by step, its tables with the cheat sheet over them, its gap text with one
                        mistake and a word looked up, its test passed, the dev bridge's village keeping the unit done;
@@ -12785,6 +12788,51 @@ def label(key: str, pair=None, half=False) -> str:
     return f"{target} · {app_texts(b).get(key, key)}"
 
 
+# The Italian course's words the supplement means (docs/plans/05-built/it-print-meanings.md): the word, the line it is
+# tapped in, the lemma its card shows first and a piece of that lemma's German meaning.
+IT_WORDS = [
+    ("guardami", "Nonna, guardami: so nuotare!", "guardare", "schauen"),
+    ("mai", "Moro non morde mai.", "mai", "nie"),
+    ("volta", "C'era una volta un gigante.", "c'era una volta", "es war einmal"),
+    ("lava", "Giulia si lava le mani.", "lavarsi", "sich waschen"),
+    ("fatta", "Evviva, ce l'ho fatta!", "farcela", "es schaffen"),
+    ("treno", "Il treno parte alle otto.", "treno", "Zug"),
+]
+
+
+def it_words():
+    """The Italian course's words in the tapped word's card (it-print-meanings): a synthetic Teo (LANI_DEV_DATA:
+    make-learner.ts --target it --base de --name Teo; LANI_CULTURE=friuli, LANI_CHILD=1, LANI_QA_SETUP_PAIR=it-de), the
+    dev bridge without Wiktionary's dictionary, as a phone has it: only the supplement (lexicon/it.extra.json) knows
+    them. QA's hook "word:<word>|<line>" opens each card as a tap in the line does (IT_WORDS): guardami is guardare
+    (schauen, its imperative with mi), mai nie, volta in "C'era una volta" the expression (es war einmal), lava in "si
+    lava" lavarsi (sich waschen), fatta in "ce l'ho fatta" farcela, treno Zug; each meaning German, flagged
+    machine-written. Before: no card knew guardami, the expression or farcela; a tap showed "not in the dictionary"."""
+    try:
+        culture = api("/culture").get("id")
+    except (OSError, RuntimeError, ValueError):
+        culture = None
+    if culture != "friuli":
+        return "skipped: the dev bridge's village isn't the Friuli culture's (LANI_CULTURE=friuli and a learner of Italian)"
+    go_home()
+    found_village()
+    go_home()
+    notes = []
+    for word, line, lemma, meant in IT_WORDS:
+        got = api(f"/lookup?w={urllib.parse.quote(word)}&line={urllib.parse.quote(line)}&base=de").get("entries") or []
+        assert got and got[0].get("lemma") == lemma and meant in got[0]["gloss"][0], f"GET /lookup {word}: {got[:1]}"
+        qa_hook(shlex.quote(f"word:{word}|{line}"))
+        assert wait_for(meant, 15), f"«{word}»'s card: {lemma}, {meant}"
+        time.sleep(1)
+        assert find(lemma) or find(lemma.capitalize()), f"«{word}»'s card shows {lemma}"
+        shot(f"it-word-{word}")
+        notes.append(f"{word} → {lemma}: {got[0]['gloss'][0]}{' (' + got[0]['grammar'] + ')' if got[0].get('grammar') else ''}")
+        adb("shell", "input", "keyevent", "KEYCODE_BACK")
+        time.sleep(1)
+    go_home()
+    return "; ".join(notes)
+
+
 def missing_shot(name: str):
     """A screenshot of the missing-word step, also as missing-<name>.png in $LANI_QA_MISSING_SHOTS when it's set."""
     shot(f"missing-{name}")
@@ -16173,6 +16221,8 @@ def plan():
         ("forms-card", forms_cards, go_home, False, ""),
         ("forms-view", forms_view_step, go_home, False, ""),
         ("missing-word", missing_word, go_home, False, ""),
+        # only when named: the Italian course's words in the tapped word's card, for Teo (the supplement, it-print-meanings)
+        ("it-words", it_words, go_home, False, ""),
         ("exercise-words", exercise_words, go_home, False, ""),
         ("exercise-explain", exercise_explain, go_home, False, ""),
         ("progress", progress, go_home, False, ""),
@@ -16675,7 +16725,7 @@ def selected(steps):
     want = arg("--steps")
     if not want:
         # the hosted step, the child's side and the visit's voices only when named (no node; their own second town)
-        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "kaernten-talk", "lakeland-talk") and s[4] != VOICES_GROUP]
+        return [s for s in steps if s[0] not in ("hosted", "setup-tour", "town-progress-child", "zoom-frames", "home-return", "app-icon", "friuli-looks", "culture-source", "friuli-watchtower", "visit-places", "lakeland-places", "guidance", "guidance-tips", "guidance-retry", "target-next-age", "map-looks", "talk-mic", "story-faces", "read-aloud", "feedback-tablet", "scene-replier", "scene-speakers", "polish-cues", "friuli-talk", "kaernten-talk", "lakeland-talk", "it-words") and s[4] != VOICES_GROUP]
     names = {w.strip() for w in want.split(",") if w.strip()}
     if unknown := names - {s[0] for s in steps} - {s[4] for s in steps if s[4]}:
         sys.exit(f"unknown steps: {', '.join(sorted(unknown))} (companion/bin/qa --dry lists them)")
