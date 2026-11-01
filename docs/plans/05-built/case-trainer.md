@@ -47,7 +47,7 @@ The case lens (docs/plans/05-built/case-lens.md, merged first) and the trainer s
 trainer owns the app's case look; the lens owns the trigger table and the sentence analysis. The trainer rebased second
 and did the merge.
 
-- **The cases are the app's own `game.Case`** (game/Triggers.kt, in main before either branch: NOM … INS, the school's
+- **The cases are the app's own `game.Case`** (game/Triggers.kt, now game/CaseTriggers.kt, in main before either branch: NOM … INS, the school's
   number `n`, its question, its English name `lexicon`, its name in the string tables `key`: "rodilnik · genitive"). No
   second enum.
 - **`data/CaseLook.kt`** (pure) adds the contract's look to it as extensions: `id` (the case's grammar page:

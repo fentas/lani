@@ -99,6 +99,7 @@ lens row (1). A word's card: unchanged (1 tap), but 287 more words of the conten
 - **The lens, not the bundled table, for the sheet**: the app could read case-triggers.json itself (it ships), but its
   rules would still be a second analysis that can disagree. The lookups the sheet made already carry the lens's answer:
   one analysis, the card's and the sheet's. The hint chip keeps `Triggers`: it answers at a turn, before any lookup.
+  (Since 2026-11-01 the chip reads the bundled table instead: the same data as the lens, still before any lookup.)
 - **Optional schema keys, code first**: the table's validation is strict, so a running bridge with the old code refuses
   a table with `time_genitive` or a predicate's `after` (the lens off until it restarts). The code commit comes first;
   deploy it (and restart) before the content, as for every split of code and content.
@@ -196,8 +197,18 @@ shots of this round (main's APK wasn't built: the machine was full).
 
 ## What's left
 
-- **The hint chip** still decides with the app's `Triggers` (it answers before any lookup, and offline): it could read
-  the bundled case-triggers.json, or ask the lens for the turn's sentence once it is said.
+- ~~**The hint chip** still decides with the app's `Triggers` (it answers before any lookup, and offline): it could read
+  the bundled case-triggers.json, or ask the lens for the turn's sentence once it is said.~~ Done 2026-11-01
+  (polish-app, docs/plans/05-built/polish-app.md): the app bundles case-triggers.json with the grammar book and the chip
+  reads it at the turn, offline (`game/CaseTriggers.kt`: the prepositions with their senses, the negations, quantities,
+  measures and numbers, the verbs and words of feeling, a verb's forms made as the lens makes them, the pronouns only ever
+  the subject); `Triggers` and its own tables are gone (no other user: the sheet already read the lens). On the 23 turns
+  of bridge/test/fixtures/hint-lens.json the chip names the trigger, the case and the question the lens names
+  (`TurnHintLensTest`; the smoke checks the lens still answers them so). What the table decides otherwise is in
+  `TurnHintTest` ("what the trigger table decides that the app's old rules didn't"). Over the curated scenes' case turns
+  where the lens decides by a trigger (323) the chip names the same word in 319 and the same case first in 315; the rest:
+  where to against where, which only the sentence's meaning tells (the chip gives both, the page's first), and a turn
+  whose page a wrong choice names (*Tudi mene zebe!* on the dative's page; zebe takes the accusative).
 - **Coverage**: 1,021 forms of the content the lens knows nothing of; most are names, interjections and verb forms, some
   nouns of stories (Zlatoroga's name reads by its ending). The supplement is where a word is added.
 - **What it still can't decide**: a name given after *praviti* (*pravijo mu Friderikov stolp*: the nominative, read as

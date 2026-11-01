@@ -1,7 +1,8 @@
 // Smoke checks: the case lens (case-lens.ts, docs/plans/05-built/case-lens.md). Its trigger table (companion/grammar/sl/data/
 // case-triggers.json: the schema, the shared case ids and colours, every rule a page, the personal pronouns as the
 // osebni-zaimki page has them, every example analysed as it says), the analysis on the hand-labelled sentences (the set
-// it was built on and the held-out lines: test/case-lens-eval.ts), on every line of the content (none throws, in time),
+// it was built on and the held-out lines: test/case-lens-eval.ts; the hint chip's shared turns: test/hint-lens.ts), on
+// every line of the content (none throws, in time),
 // and through the bridge: GET /lookup's case, POST /case-lens for the colours, the lookup's seen flag.
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
@@ -9,6 +10,7 @@ import { addressee, renderDeep } from '../../src/addressee'
 import { CASE_IDS, CASE_KEYS, validateCaseTriggers, type CaseExample } from '../../src/case-triggers'
 import { contentLines } from '../../src/forms'
 import { evaluate, goldItems, repoLens, summary, trainerItems, VILLAGE_NAMES } from '../case-lens-eval'
+import { hintLensDrift, hintTurns } from '../hint-lens'
 import { auth, base, check, dataDir } from './harness'
 
 const companion = resolve(import.meta.dir, '../../..')
@@ -152,6 +154,11 @@ export default async function cases() {
   // wrong and decided, then fixed)
   const held3 = evaluate(lens, goldItems('heldout3'))
   check(`case lens: the third held-out lines (${held3.items}, drawn at random by case-lens-2): ${summary(held3)}`, held3.items >= 80 && held3.right / held3.labelled >= 0.9 && held3.wrongDecided === 0, held3.misses)
+
+  // the hint chip's shared turns: the app's chip reads the same table alone and names what the lens names on them
+  // (TurnHintLensTest reads test/fixtures/hint-lens.json; bun test/hint-lens.ts --write makes it again)
+  const drift = hintLensDrift()
+  check(`case lens: the hint chip's shared turns (test/fixtures/hint-lens.json, ${hintTurns().length}) answered as recorded, the app's test reading the same`, drift.length === 0 && hintTurns().length >= 20, drift.slice(0, 3))
 
   // --- every line of the content ------------------------------------------------------------------------------------
   const js = (d: string) => (existsSync(d) ? readdirSync(d).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(d, f), 'utf8'))) : [])

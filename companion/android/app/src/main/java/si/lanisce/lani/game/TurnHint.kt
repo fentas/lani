@@ -171,7 +171,7 @@ object TurnHints {
         } else {
             // no one word: the words its right choices say and not every choice does (a tap turn's place, "vrati")
             val common = texts.map { Forms.words(it).toSet() }.reduce { a, b -> a intersect b }
-            fun own(t: String) = Forms.words(t).filter { it !in common && it.length >= 3 && it !in Triggers.PREPOSITIONS }.toSet()
+            fun own(t: String) = Forms.words(t).filter { it !in common && it.length >= 3 && !CaseTriggers.isPreposition(it) }.toSet()
             val r = c.filter { it.ok }.flatMap { own(it.sl) }.toSet()
             TurnHint(pages, right = r, forms = r + texts.flatMap { own(it) })
         }
@@ -182,10 +182,10 @@ object TurnHints {
         val slot = form?.gap?.slot
         val made = when {
             id == NUMBERS -> numbers(base, sentence, slot)
-            rule.cases.isNotEmpty() -> cases(base, id, rule, if (sentence != null && slot != null) Triggers.of(sentence, slot) else emptyList())
+            rule.cases.isNotEmpty() -> cases(base, id, rule, if (sentence != null && slot != null) CaseTriggers.of(sentence, slot) else emptyList())
             else -> base.copy(
                 question = rule.question, rule = rule.text,
-                trigger = rule.cue?.let { k -> if (sentence != null && slot != null) Triggers.cues(sentence, slot).firstOrNull { it.kind == k } else null },
+                trigger = rule.cue?.let { k -> if (sentence != null && slot != null) cues(sentence, slot).firstOrNull { it.kind == k } else null },
             )
         }
         // a model with the trigger's own word first (after «pod»: pod mizo; after «do»: do Ljubljane)
@@ -199,11 +199,11 @@ object TurnHints {
     private fun numbers(base: TurnHint, sentence: String?, slot: Int?): TurnHint {
         if (sentence == null || slot == null) return base.copy(rule = "hint.ruleNumbers", models = LADDERS)
         val spans = Forms.spans(sentence)
-        if (Triggers.number(spans[slot].value) != null) {
+        if (CaseTriggers.isNumber(spans[slot].value)) {
             val noun = spans.getOrNull(slot + 1)?.let { Trigger.Noun(it.value, slot + 1) }
             return base.copy(rule = "hint.ruleNumberAgrees", trigger = noun, models = AGREEING)
         }
-        val count = Triggers.of(sentence, slot).firstOrNull { it is Trigger.Count } as? Trigger.Count
+        val count = CaseTriggers.of(sentence, slot).firstOrNull { it is Trigger.Count } as? Trigger.Count
             ?: return base.copy(rule = "hint.ruleNumbers", models = LADDERS)
         val lines = if (count.category == Numbers.MANY) listOf(CaseLine(Case.GEN.question, null, Case.GEN)) else emptyList()
         return base.copy(cases = lines, trigger = count, models = COUNTED.getValue(count.category))
@@ -211,7 +211,7 @@ object TurnHints {
 
     /** A case page's turn: the question and case its trigger asks for (the page's first), else the page's own. */
     private fun cases(base: TurnHint, id: String, rule: Rule, triggers: List<Trigger>): TurnHint {
-        val t = triggers.firstOrNull { t -> Triggers.cases(t).any { it in rule.cases } }
+        val t = triggers.firstOrNull { t -> CaseTriggers.cases(t).any { it in rule.cases } }
         val lines = when (t) {
             is Trigger.Preposition -> prepositions(t, id, rule)
             is Trigger.Amount -> listOf(CaseLine("Koliko?", "hint.qHowMany", Case.GEN))
@@ -219,12 +219,14 @@ object TurnHints {
                 listOf(CaseLine(rule.question ?: it.question, rule.gloss, it))
             }.orEmpty()
             // a number, a no, a verb: the case it asks for, the page's
-            else -> Triggers.cases(t).first { it in rule.cases }.let { listOf(CaseLine(it.question, null, it)) }
+            else -> CaseTriggers.cases(t).first { it in rule.cases }.let { listOf(CaseLine(it.question, null, it)) }
         }
-        // a preposition says it all; without one, the page's rule in words where it has one (Kje? v, na … mestnik)
+        // a preposition says which case; without one, the page's rule in words where it has one (Kje? v, na … mestnik); a
+        // page of the forms in every case (the dual's, the stems that grow, the pronouns') says its rule with it too: the
+        // case is the preposition's, the form the page's (z dvema prijateljema)
         return base.copy(
             cases = lines, trigger = t, question = rule.question.takeIf { lines.isEmpty() },
-            rule = rule.text.takeIf { t !is Trigger.Preposition },
+            rule = rule.text.takeIf { t !is Trigger.Preposition || rule.cases == ALL },
         )
     }
 
@@ -232,25 +234,50 @@ object TurnHints {
     private fun prepositions(t: Trigger.Preposition, id: String, rule: Rule): List<CaseLine> {
         val time = id == "kdaj-cas"
         // where to against where is the sentence's meaning: both, the page's first; z/s (with, or off), the page's alone
-        val cases = if (!time && t.word.lowercase() in Triggers.PLACES) t.cases.sortedBy { c -> rule.cases.indexOf(c).takeIf { it >= 0 } ?: 9 }
+        val cases = if (!time && CaseTriggers.place(t.word)) t.cases.sortedBy { c -> rule.cases.indexOf(c).takeIf { it >= 0 } ?: 9 }
         else t.cases.filter { it in rule.cases }.take(1)
         return cases.map { preposition(t.word, it, time) }
     }
 
     /**
-     * The question [prep] asks with [case]: Kam? (v + the accusative), Kje? (v + the locative, pod + the instrumental),
-     * Od kod? (iz), O kom? O čem? (o), Kdaj? ([time]: ob petih, v sredo); else the case's own.
+     * The question [prep] asks with [case], by its sense there ([sense]: the case lens's, else the trigger table's,
+     * [CaseTriggers.sense]): Kam? (motion, of a preposition of place: v + the accusative), Kje? (rest: v + the locative, pod
+     * + the instrumental, pri, blizu), Od kod? (from: iz, od, s + the genitive), O kom? O čem? (about: o), Kdaj? ([time]: ob
+     * petih, v sredo); else the case's own (k, do, brez, po, z + the instrumental, mimo, skozi).
      */
-    fun preposition(prep: String, case: Case, time: Boolean = false): CaseLine {
-        val w = prep.lowercase()
-        return when {
-            time -> CaseLine("Kdaj?", "hint.qWhen", case)
-            w in Triggers.PLACES && case == Case.ACC -> CaseLine("Kam?", "hint.qWhereTo", case)
-            w in Triggers.PLACES && (case == Case.LOC || case == Case.INS) -> CaseLine("Kje?", "hint.qWhere", case)
-            w == "ob" || w == "pri" -> CaseLine("Kje?", "hint.qWhere", case)
-            case == Case.GEN && w in setOf("iz", "od", "z", "s") -> CaseLine("Od kod?", "hint.qWhereFrom", case)
-            case == Case.LOC && w == "o" -> CaseLine("O kom? O čem?", null, case)
+    fun preposition(prep: String, case: Case, time: Boolean = false, sense: String? = null): CaseLine {
+        if (time) return CaseLine("Kdaj?", "hint.qWhen", case)
+        return when (sense ?: CaseTriggers.sense(prep, case)) {
+            "motion" -> if (CaseTriggers.place(prep)) CaseLine("Kam?", "hint.qWhereTo", case) else CaseLine(case.question, null, case)
+            "rest" -> CaseLine("Kje?", "hint.qWhere", case)
+            "from" -> if (case == Case.GEN) CaseLine("Od kod?", "hint.qWhereFrom", case) else CaseLine(case.question, null, case)
+            "about" -> CaseLine("O kom? O čem?", null, case)
             else -> CaseLine(case.question, null, case)
+        }
+    }
+
+    /** When it happens: the cue words of tense, the chip's own (the trigger table is about cases). */
+    private val PAST = "včeraj lani sinoči predvčerajšnjim prej".split(" ").toSet()
+    private val FUTURE = "jutri pojutrišnjem kmalu drugič".split(" ").toSet()
+
+    /**
+     * The words of the clause of the word at [i] of [text] that say who does it (a personal pronoun only ever the subject,
+     * as the trigger table has them: jaz, oni; not mi, ti, me) or when (včeraj: the past, jutri: the future), the nearest
+     * first ([Trigger.Cue]).
+     */
+    fun cues(text: String, i: Int): List<Trigger.Cue> {
+        val spans = Forms.spans(text)
+        if (i !in spans.indices) return emptyList()
+        val clause = CaseTriggers.clauses(text)
+        return spans.indices.filter { it != i && clause[it] == clause[i] }.sortedBy { kotlin.math.abs(it - i) }.mapNotNull { k ->
+            val w = spans[k].value.lowercase()
+            val kind = when {
+                CaseTriggers.isSubject(w) -> Trigger.Cue.Kind.WHO
+                w in PAST -> Trigger.Cue.Kind.PAST
+                w in FUTURE -> Trigger.Cue.Kind.FUTURE
+                else -> null
+            }
+            kind?.let { Trigger.Cue(spans[k].value, k, it) }
         }
     }
 

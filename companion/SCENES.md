@@ -471,11 +471,16 @@ hint chip": the bare case question doesn't help a learner, its trigger and a mod
   base and, where German works the same, the German: "Koga? Česa? → 2. rodilnik (genitive)", "Kam? (where to? German:
   wohin?) → 4. tožilnik (accusative)". A preposition that takes two cases gives both, the page's first: "Kam? … 4.
   tožilnik" and "Kje? … 5. mestnik" after v, which the sentence's meaning decides;
-- **what decides the form in this sentence** (`game/Triggers.kt`): the preposition before the gap ("after «v»"; the
-  cases each takes, as the lookup narrows by them), the number and its category ("after «Deset»: five and up, the
-  genitive plural"), an amount ("after «Koliko»"), a no in its clause ("after the no «nimam»"), a verb whose partner takes
-  a case ("with «pomagam» (like German helfen + dative)"), a number's noun ("with the noun «brata»: by its gender"), and
-  for a rule that isn't a case, who does it or when ("who: «Midva»", "when: «jutri», the future");
+- **what decides the form in this sentence**, as the trigger table has it (companion/grammar/sl/data/case-triggers.json,
+  the case lens's own, bundled with the grammar book and read at the turn, offline: `game/CaseTriggers.kt`): the
+  preposition before the gap ("after «v»"; the cases it takes and their sense: where to, where, from, about, after), the
+  number from five and its category ("after «Deset»: five and up, the genitive plural"; one to four agrees with its noun
+  as an adjective does, so after "z dvema" the preposition decides), an amount or a measure ("after «Koliko»", "after
+  «Rezino»"), a no in its clause ("after the no «nimam»", "ne" before a word of it), a verb or a word of feeling whose
+  partner takes a case ("with «pomagam» (like German helfen + dative)", "with «zahvali»", "with «vseeno»"), a number's
+  noun ("with the noun «brata»: by its gender"), and for a rule that isn't a case, who does it (a pronoun the table has as
+  only ever the subject) or when ("who: «Midva»", "when: «jutri», the future"). On the same turn it names what the word
+  card and the sentence's grammar name (`TurnHintLensTest`, the turns of bridge/test/fixtures/hint-lens.json);
 - **the rule in words**, for a page that isn't about one case ("Ti ali vi? Who are you talking to? Someone older, a
   stranger, in a shop: vi …", "Kaj delam? Kaj naredim? Going on … the imperfective"), or whose rule needs saying (Kje?:
   v, na, ob, pri + mestnik, pod, nad, pred, za, med + orodnik);
@@ -495,8 +500,11 @@ kasneje · You'll learn this later: …" ([Rules not yet](#rules-not-yet-what-th
 stem: no "pet ovc" at "dvanajst ____"); a line, a row of the table or a page's title that shows the right form is left out,
 unless it sets every form of the turn side by side (a rule that is the choice itself: "dva, dve by the noun's gender"). A
 title left out leaves the link without it ("📖 V knjigo" at "Nimam ____.", whose page is "Nimam časa: …"). `TurnHintTest`
-checks it over every curated Slovene turn (668 with a hint; 296 of the 313 form turns of a case page find what decides
-their form).
+checks it over every curated Slovene turn (1,064 with a hint on 2026-11-01; 459 of the 479 form turns of a case page find
+what decides their form). On the curated case turns where the case lens decides by a trigger (323), the chip names the
+same word in 319 and the same case first in 315; the others are where to against where, which only the sentence's
+meaning tells (*V panju, seveda* on the Kam? page: the chip gives both, the page's first), and a turn whose page a wrong
+choice names (*Tudi mene zebe!*, the dative's page: zebe takes the accusative).
 
 **The 🔊 in the card's top-right corner** ("Preberi namig · Read the hint") says the hint in short, about 8 to 15 seconds,
 built from the same data (`game/HintSpeech.kt`, the `hintSay.*` keys): what applies here, the rule in one sentence, the

@@ -1,0 +1,1736 @@
+{
+  "about": "The hint chip's shared turns: each a learner's turn (the right sentence, a wrong one, the grammar page it names, the word at the gap) and what the case lens says of that word in the right sentence (GET /lookup's case). Made by test/hint-lens.ts --write; checked there and in the smoke (the lens), and by the app's TurnHintLensTest (the chip names the same trigger, case and question). Machine-written sentences (Claude, 2026-11-01).",
+  "turns": [
+    {
+      "sl": "Deset jajc, prosim.",
+      "wrong": "Deset jajce, prosim.",
+      "page": "stevila-samostalniki",
+      "word": "jajc",
+      "lens": {
+        "i": 1,
+        "word": "jajc",
+        "start": 6,
+        "end": 10,
+        "readings": [
+          {
+            "lemma": "jajce",
+            "pos": "noun",
+            "case": "gen",
+            "number": "du",
+            "genders": [
+              "n"
+            ]
+          },
+          {
+            "lemma": "jajce",
+            "pos": "noun",
+            "case": "gen",
+            "number": "pl",
+            "genders": [
+              "n"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "pl",
+          "gender": "n",
+          "as": "number"
+        },
+        "sure": "decided",
+        "kind": "number",
+        "trigger": {
+          "i": 0,
+          "word": "Deset",
+          "start": 0,
+          "end": 5
+        },
+        "rule": "rodilnik-kolicina",
+        "options": [
+          {
+            "case": "gen",
+            "number": "pl",
+            "gender": "n",
+            "as": "number"
+          }
+        ],
+        "out": [
+          {
+            "case": "gen",
+            "number": "du",
+            "why": "dual"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Pet ovc je na travniku.",
+      "wrong": "Pet ovce je na travniku.",
+      "page": "stevila-samostalniki",
+      "word": "ovc",
+      "lens": {
+        "i": 1,
+        "word": "ovc",
+        "start": 4,
+        "end": 7,
+        "readings": [
+          {
+            "lemma": "ovca",
+            "pos": "noun",
+            "case": "gen",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "ovca",
+            "pos": "noun",
+            "case": "gen",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "pl",
+          "gender": "f",
+          "as": "number"
+        },
+        "sure": "decided",
+        "kind": "number",
+        "trigger": {
+          "i": 0,
+          "word": "Pet",
+          "start": 0,
+          "end": 3
+        },
+        "rule": "rodilnik-kolicina",
+        "options": [
+          {
+            "case": "gen",
+            "number": "pl",
+            "gender": "f",
+            "as": "number"
+          }
+        ],
+        "out": [
+          {
+            "case": "gen",
+            "number": "du",
+            "why": "dual"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Seveda, pridi v šotor! Sedi k svetilki.",
+      "wrong": "Seveda, pridi v šotoru! Sedi k svetilki.",
+      "page": "kam-tozilnik",
+      "word": "šotor",
+      "lens": {
+        "i": 3,
+        "word": "šotor",
+        "start": 16,
+        "end": 21,
+        "readings": [
+          {
+            "lemma": "šotor",
+            "pos": "noun",
+            "case": "nom",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "šotor",
+            "pos": "noun",
+            "case": "acc",
+            "number": "sg",
+            "genders": [
+              "m"
+            ],
+            "derived": true
+          }
+        ],
+        "pick": {
+          "case": "acc",
+          "number": "sg",
+          "gender": "m",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 2,
+          "word": "v",
+          "start": 14,
+          "end": 15
+        },
+        "sense": "motion",
+        "rule": "kam-tozilnik",
+        "options": [
+          {
+            "case": "acc",
+            "number": "sg",
+            "gender": "m",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "sg",
+            "why": "preposition"
+          }
+        ],
+        "derived": true
+      }
+    },
+    {
+      "sl": "Grem v šolo.",
+      "wrong": "Grem v šoli.",
+      "page": "kam-tozilnik",
+      "word": "šolo",
+      "lens": {
+        "i": 2,
+        "word": "šolo",
+        "start": 7,
+        "end": 11,
+        "readings": [
+          {
+            "lemma": "šola",
+            "pos": "noun",
+            "case": "acc",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "šola",
+            "pos": "noun",
+            "case": "ins",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "acc",
+          "number": "sg",
+          "gender": "f",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 1,
+          "word": "v",
+          "start": 5,
+          "end": 6
+        },
+        "sense": "motion",
+        "rule": "kam-tozilnik",
+        "options": [
+          {
+            "case": "acc",
+            "number": "sg",
+            "gender": "f",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "ins",
+            "number": "sg",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Knjiga je na mizi.",
+      "wrong": "Knjiga je na mizo.",
+      "page": "kje-mestnik-orodnik",
+      "word": "mizi",
+      "lens": {
+        "i": 3,
+        "word": "mizi",
+        "start": 13,
+        "end": 17,
+        "readings": [
+          {
+            "lemma": "miza",
+            "pos": "noun",
+            "case": "nom",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "miza",
+            "pos": "noun",
+            "case": "dat",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "miza",
+            "pos": "noun",
+            "case": "acc",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "miza",
+            "pos": "noun",
+            "case": "loc",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "loc",
+          "number": "sg",
+          "gender": "f",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 2,
+          "word": "na",
+          "start": 10,
+          "end": 12
+        },
+        "sense": "rest",
+        "rule": "kje-mestnik-orodnik",
+        "options": [
+          {
+            "case": "loc",
+            "number": "sg",
+            "gender": "f",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "acc",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "dat",
+            "number": "sg",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Jurček je pod smreko!",
+      "wrong": "Jurček je pod smreka!",
+      "page": "orodnik",
+      "word": "smreko",
+      "lens": {
+        "i": 3,
+        "word": "smreko",
+        "start": 14,
+        "end": 20,
+        "readings": [
+          {
+            "lemma": "smreka",
+            "pos": "noun",
+            "case": "acc",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "smreka",
+            "pos": "noun",
+            "case": "ins",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "ins",
+          "number": "sg",
+          "gender": "f",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 2,
+          "word": "pod",
+          "start": 10,
+          "end": 13
+        },
+        "sense": "rest",
+        "rule": "kje-mestnik-orodnik",
+        "options": [
+          {
+            "case": "ins",
+            "number": "sg",
+            "gender": "f",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "acc",
+            "number": "sg",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Z mlekom, prosim.",
+      "wrong": "Z mleko, prosim.",
+      "page": "orodnik",
+      "word": "mlekom",
+      "lens": {
+        "i": 1,
+        "word": "mlekom",
+        "start": 2,
+        "end": 8,
+        "readings": [
+          {
+            "lemma": "mleko",
+            "pos": "noun",
+            "case": "ins",
+            "number": "sg",
+            "genders": [
+              "n"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "ins",
+          "number": "sg",
+          "gender": "n",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 0,
+          "word": "Z",
+          "start": 0,
+          "end": 1
+        },
+        "sense": "with",
+        "rule": "orodnik",
+        "options": [
+          {
+            "case": "ins",
+            "number": "sg",
+            "gender": "n",
+            "as": "preposition"
+          }
+        ],
+        "out": []
+      }
+    },
+    {
+      "sl": "Iz Gorice sem.",
+      "wrong": "Iz Gorica sem.",
+      "page": "rodilnik-predlogi",
+      "word": "Gorice",
+      "lens": {
+        "i": 1,
+        "word": "Gorice",
+        "start": 3,
+        "end": 9,
+        "readings": [
+          {
+            "lemma": "gorica",
+            "pos": "noun",
+            "case": "nom",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "gorica",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "Gorica",
+            "pos": "name",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "gorica",
+            "pos": "noun",
+            "case": "acc",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "f",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 0,
+          "word": "Iz",
+          "start": 0,
+          "end": 2
+        },
+        "sense": "from",
+        "rule": "rodilnik-predlogi",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "f",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "pl",
+            "why": "preposition"
+          },
+          {
+            "case": "acc",
+            "number": "pl",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Hiša je blizu cerkve.",
+      "wrong": "Hiša je blizu cerkev.",
+      "page": "rodilnik-predlogi",
+      "word": "cerkve",
+      "lens": {
+        "i": 3,
+        "word": "cerkve",
+        "start": 14,
+        "end": 20,
+        "readings": [
+          {
+            "lemma": "cerkev",
+            "pos": "noun",
+            "case": "nom",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "cerkev",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "cerkev",
+            "pos": "noun",
+            "case": "acc",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "f",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 2,
+          "word": "blizu",
+          "start": 8,
+          "end": 13
+        },
+        "sense": "rest",
+        "rule": "rodilnik-predlogi",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "f",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "pl",
+            "why": "preposition"
+          },
+          {
+            "case": "acc",
+            "number": "pl",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Po kosilu grem spat.",
+      "wrong": "Po kosilo grem spat.",
+      "page": "mestnik",
+      "word": "kosilu",
+      "lens": {
+        "i": 1,
+        "word": "kosilu",
+        "start": 3,
+        "end": 9,
+        "readings": [
+          {
+            "lemma": "kosilo",
+            "pos": "noun",
+            "case": "dat",
+            "number": "sg",
+            "genders": [
+              "n"
+            ]
+          },
+          {
+            "lemma": "kosilo",
+            "pos": "noun",
+            "case": "loc",
+            "number": "sg",
+            "genders": [
+              "n"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "loc",
+          "number": "sg",
+          "gender": "n",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 0,
+          "word": "Po",
+          "start": 0,
+          "end": 2
+        },
+        "sense": "after",
+        "rule": "mestnik",
+        "options": [
+          {
+            "case": "loc",
+            "number": "sg",
+            "gender": "n",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "dat",
+            "number": "sg",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Ob sedmih vstanem.",
+      "wrong": "Ob sedem vstanem.",
+      "page": "kdaj-cas",
+      "word": "sedmih",
+      "lens": {
+        "i": 1,
+        "word": "sedmih",
+        "start": 3,
+        "end": 9,
+        "readings": [
+          {
+            "lemma": "sedmi",
+            "pos": "num",
+            "case": "gen",
+            "number": "du",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "sedem",
+            "pos": "num",
+            "case": "gen",
+            "number": "pl",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "sedmi",
+            "pos": "num",
+            "case": "gen",
+            "number": "pl",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "sedmi",
+            "pos": "num",
+            "case": "loc",
+            "number": "du",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "sedem",
+            "pos": "num",
+            "case": "loc",
+            "number": "pl",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "sedmi",
+            "pos": "num",
+            "case": "loc",
+            "number": "pl",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "loc",
+          "number": "pl",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 0,
+          "word": "Ob",
+          "start": 0,
+          "end": 2
+        },
+        "sense": "time",
+        "rule": "kdaj-cas",
+        "options": [
+          {
+            "case": "loc",
+            "number": "pl",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "gen",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "loc",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "gen",
+            "number": "pl",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Grem k babici.",
+      "wrong": "Grem k babica.",
+      "page": "dajalnik",
+      "word": "babici",
+      "lens": {
+        "i": 2,
+        "word": "babici",
+        "start": 7,
+        "end": 13,
+        "readings": [
+          {
+            "lemma": "babica",
+            "pos": "noun",
+            "case": "nom",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "babica",
+            "pos": "noun",
+            "case": "dat",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "babica",
+            "pos": "noun",
+            "case": "acc",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "babica",
+            "pos": "noun",
+            "case": "loc",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "dat",
+          "number": "sg",
+          "gender": "f",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 1,
+          "word": "k",
+          "start": 5,
+          "end": 6
+        },
+        "sense": "towards",
+        "rule": "dajalnik",
+        "options": [
+          {
+            "case": "dat",
+            "number": "sg",
+            "gender": "f",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "acc",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "loc",
+            "number": "sg",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Grem z dvema prijateljema.",
+      "wrong": "Grem z dvema prijatelji.",
+      "page": "dvojina-skloni",
+      "word": "prijateljema",
+      "lens": {
+        "i": 3,
+        "word": "prijateljema",
+        "start": 13,
+        "end": 25,
+        "readings": [
+          {
+            "lemma": "prijatelj",
+            "pos": "noun",
+            "case": "dat",
+            "number": "du",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "prijatelj",
+            "pos": "noun",
+            "case": "ins",
+            "number": "du",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "ins",
+          "number": "du",
+          "gender": "m",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 1,
+          "word": "z",
+          "start": 5,
+          "end": 6
+        },
+        "sense": "with",
+        "rule": "orodnik",
+        "options": [
+          {
+            "case": "ins",
+            "number": "du",
+            "gender": "m",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "dat",
+            "number": "du",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Ne, nimam kruha.",
+      "wrong": "Ne, nimam kruh.",
+      "page": "rodilnik-nikalnica",
+      "word": "kruha",
+      "lens": {
+        "i": 2,
+        "word": "kruha",
+        "start": 10,
+        "end": 15,
+        "readings": [
+          {
+            "lemma": "kruh",
+            "pos": "noun",
+            "case": "nom",
+            "number": "du",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "kruh",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "kruh",
+            "pos": "noun",
+            "case": "acc",
+            "number": "du",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "m",
+          "as": "negation"
+        },
+        "sure": "decided",
+        "kind": "negation",
+        "trigger": {
+          "i": 1,
+          "word": "nimam",
+          "start": 4,
+          "end": 9,
+          "lemma": "imeti"
+        },
+        "rule": "rodilnik-nikalnica",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "m",
+            "as": "negation"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "acc",
+            "number": "du",
+            "why": "dual"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Luka ne pije kave.",
+      "wrong": "Luka ne pije kavo.",
+      "page": "rodilnik-nikalnica",
+      "word": "kave",
+      "lens": {
+        "i": 3,
+        "word": "kave",
+        "start": 13,
+        "end": 17,
+        "readings": [
+          {
+            "lemma": "kava",
+            "pos": "noun",
+            "case": "nom",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "kava",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "kava",
+            "pos": "noun",
+            "case": "acc",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "f",
+          "as": "negation"
+        },
+        "sure": "decided",
+        "kind": "negation",
+        "trigger": {
+          "i": 1,
+          "word": "ne",
+          "start": 5,
+          "end": 7
+        },
+        "rule": "rodilnik-nikalnica",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "f",
+            "as": "negation"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "pl",
+            "why": "agreement"
+          },
+          {
+            "case": "acc",
+            "number": "pl",
+            "why": "negation"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Danes ni vetra.",
+      "wrong": "Danes ni veter.",
+      "page": "rodilnik-nikalnica",
+      "word": "vetra",
+      "lens": {
+        "i": 2,
+        "word": "vetra",
+        "start": 9,
+        "end": 14,
+        "readings": [
+          {
+            "lemma": "veter",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "m",
+          "as": "negation"
+        },
+        "sure": "decided",
+        "kind": "negation",
+        "trigger": {
+          "i": 1,
+          "word": "ni",
+          "start": 6,
+          "end": 8,
+          "lemma": "biti"
+        },
+        "rule": "rodilnik-nikalnica",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "m",
+            "as": "negation"
+          }
+        ],
+        "out": []
+      }
+    },
+    {
+      "sl": "Kozarec vode, prosim.",
+      "wrong": "Kozarec voda, prosim.",
+      "page": "rodilnik-kolicina",
+      "word": "vode",
+      "lens": {
+        "i": 1,
+        "word": "vode",
+        "start": 8,
+        "end": 12,
+        "readings": [
+          {
+            "lemma": "voda",
+            "pos": "noun",
+            "case": "nom",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "voda",
+            "pos": "noun",
+            "case": "nom",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "voda",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "voda",
+            "pos": "noun",
+            "case": "acc",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "voda",
+            "pos": "noun",
+            "case": "acc",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "f",
+          "as": "quantity"
+        },
+        "sure": "decided",
+        "kind": "quantity",
+        "trigger": {
+          "i": 0,
+          "word": "Kozarec",
+          "start": 0,
+          "end": 7
+        },
+        "rule": "rodilnik-kolicina",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "f",
+            "as": "quantity"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "acc",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "nom",
+            "number": "pl",
+            "why": "governed"
+          },
+          {
+            "case": "acc",
+            "number": "pl",
+            "why": "governed"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Rezino kruha, prosim.",
+      "wrong": "Rezino kruh, prosim.",
+      "page": "rodilnik-kolicina",
+      "word": "kruha",
+      "lens": {
+        "i": 1,
+        "word": "kruha",
+        "start": 7,
+        "end": 12,
+        "readings": [
+          {
+            "lemma": "kruh",
+            "pos": "noun",
+            "case": "nom",
+            "number": "du",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "kruh",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "kruh",
+            "pos": "noun",
+            "case": "acc",
+            "number": "du",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "m",
+          "as": "quantity"
+        },
+        "sure": "decided",
+        "kind": "quantity",
+        "trigger": {
+          "i": 0,
+          "word": "Rezino",
+          "start": 0,
+          "end": 6
+        },
+        "rule": "rodilnik-kolicina",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "m",
+            "as": "quantity"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "acc",
+            "number": "du",
+            "why": "dual"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Seveda vam pomagam.",
+      "wrong": "Seveda vas pomagam.",
+      "page": "dajalnik",
+      "word": "vam",
+      "lens": {
+        "i": 1,
+        "word": "vam",
+        "start": 7,
+        "end": 10,
+        "readings": [
+          {
+            "lemma": "vi",
+            "pos": "pron",
+            "case": "dat",
+            "number": "pl",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "ve",
+            "pos": "pron",
+            "case": "dat",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "dat",
+          "number": "pl",
+          "as": "verb"
+        },
+        "sure": "decided",
+        "kind": "verb",
+        "trigger": {
+          "i": 2,
+          "word": "pomagam",
+          "start": 11,
+          "end": 18,
+          "lemma": "pomagati"
+        },
+        "rule": "dajalnik",
+        "options": [
+          {
+            "case": "dat",
+            "number": "pl",
+            "as": "verb"
+          }
+        ],
+        "out": []
+      }
+    },
+    {
+      "sl": "Pomagam očetu.",
+      "wrong": "Pomagam oču.",
+      "page": "sklanjatev-posebnosti",
+      "word": "očetu",
+      "lens": {
+        "i": 1,
+        "word": "očetu",
+        "start": 8,
+        "end": 13,
+        "readings": [
+          {
+            "lemma": "oče",
+            "pos": "noun",
+            "case": "dat",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "oče",
+            "pos": "noun",
+            "case": "loc",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "dat",
+          "number": "sg",
+          "gender": "m",
+          "as": "verb"
+        },
+        "sure": "decided",
+        "kind": "verb",
+        "trigger": {
+          "i": 0,
+          "word": "Pomagam",
+          "start": 0,
+          "end": 7,
+          "lemma": "pomagati"
+        },
+        "rule": "dajalnik",
+        "options": [
+          {
+            "case": "dat",
+            "number": "sg",
+            "gender": "m",
+            "as": "verb"
+          }
+        ],
+        "out": [
+          {
+            "case": "loc",
+            "number": "sg",
+            "why": "needs-preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Dam bratu kruh.",
+      "wrong": "Dam brat kruh.",
+      "page": "dajalnik",
+      "word": "bratu",
+      "lens": {
+        "i": 1,
+        "word": "bratu",
+        "start": 4,
+        "end": 9,
+        "readings": [
+          {
+            "lemma": "brat",
+            "pos": "noun",
+            "case": "dat",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "brat",
+            "pos": "noun",
+            "case": "loc",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "dat",
+          "number": "sg",
+          "gender": "m",
+          "as": "verb"
+        },
+        "sure": "decided",
+        "kind": "verb",
+        "trigger": {
+          "i": 0,
+          "word": "Dam",
+          "start": 0,
+          "end": 3,
+          "lemma": "dati"
+        },
+        "rule": "dajalnik",
+        "options": [
+          {
+            "case": "dat",
+            "number": "sg",
+            "gender": "m",
+            "as": "verb"
+          }
+        ],
+        "out": [
+          {
+            "case": "loc",
+            "number": "sg",
+            "why": "needs-preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Mojca se zahvali babici.",
+      "wrong": "Mojca se zahvali babico.",
+      "page": "dajalnik",
+      "word": "babici",
+      "lens": {
+        "i": 3,
+        "word": "babici",
+        "start": 17,
+        "end": 23,
+        "readings": [
+          {
+            "lemma": "babica",
+            "pos": "noun",
+            "case": "nom",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "babica",
+            "pos": "noun",
+            "case": "dat",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "babica",
+            "pos": "noun",
+            "case": "acc",
+            "number": "du",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "babica",
+            "pos": "noun",
+            "case": "loc",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "dat",
+          "number": "sg",
+          "gender": "f",
+          "as": "verb"
+        },
+        "sure": "decided",
+        "kind": "verb",
+        "trigger": {
+          "i": 2,
+          "word": "zahvali",
+          "start": 9,
+          "end": 16,
+          "lemma": "zahvaliti"
+        },
+        "rule": "dajalnik",
+        "options": [
+          {
+            "case": "dat",
+            "number": "sg",
+            "gender": "f",
+            "as": "verb"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "acc",
+            "number": "du",
+            "why": "dual"
+          },
+          {
+            "case": "loc",
+            "number": "sg",
+            "why": "needs-preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Bojim se teme.",
+      "wrong": "Bojim se tema.",
+      "page": "rodilnik",
+      "word": "teme",
+      "lens": {
+        "i": 2,
+        "word": "teme",
+        "start": 9,
+        "end": 13,
+        "readings": [
+          {
+            "lemma": "tema",
+            "pos": "noun",
+            "case": "nom",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "tema",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "tema",
+            "pos": "noun",
+            "case": "acc",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "f",
+          "as": "verb"
+        },
+        "sure": "decided",
+        "kind": "verb",
+        "trigger": {
+          "i": 0,
+          "word": "Bojim",
+          "start": 0,
+          "end": 5,
+          "lemma": "bati"
+        },
+        "rule": "rodilnik",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "f",
+            "as": "verb"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "pl",
+            "why": "agreement"
+          },
+          {
+            "case": "acc",
+            "number": "pl",
+            "why": "governed"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Mačka ne more dol. Pomagajva ji!",
+      "wrong": "Mačka ne more dol. Pomagajva jo!",
+      "page": "dajalnik",
+      "word": "ji",
+      "lens": {
+        "i": 5,
+        "word": "ji",
+        "start": 29,
+        "end": 31,
+        "readings": [
+          {
+            "lemma": "ona",
+            "pos": "pron",
+            "case": "dat",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "dat",
+          "number": "sg",
+          "gender": "f",
+          "as": "verb"
+        },
+        "sure": "decided",
+        "kind": "verb",
+        "trigger": {
+          "i": 4,
+          "word": "Pomagajva",
+          "start": 19,
+          "end": 28,
+          "lemma": "pomagati"
+        },
+        "rule": "dajalnik",
+        "options": [
+          {
+            "case": "dat",
+            "number": "sg",
+            "gender": "f",
+            "as": "verb"
+          }
+        ],
+        "out": []
+      }
+    }
+  ]
+}

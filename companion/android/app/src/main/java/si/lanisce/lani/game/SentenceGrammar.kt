@@ -93,7 +93,7 @@ object SentenceGrammar {
         val case = row.case ?: return null
         if (row.state == CaseRow.State.AMBIGUOUS || row.state == CaseRow.State.GOVERNS) return null
         return when {
-            row.kind == "preposition" && row.trigger != null -> TurnHints.preposition(row.trigger.word, case, time = row.sense == "time")
+            row.kind == "preposition" && row.trigger != null -> TurnHints.preposition(row.trigger.word, case, time = row.sense == "time", sense = row.sense)
             row.kind == "time" || row.kind == "when" -> CaseLine("Kdaj?", "hint.qWhen", case)
             row.kind == "quantity" -> CaseLine("Koliko?", "hint.qHowMany", case)
             else -> CaseLine(case.question, null, case)

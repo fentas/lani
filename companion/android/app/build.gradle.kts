@@ -88,7 +88,9 @@ val culturePacks = tasks.register<CulturePacks>("culturePacks") {
 /**
  * The grammar book's curated pages (companion/grammar/<language>/<id>.json, lani.grammar/v0), bundled as Java resources
  * under grammar/<language>/, with grammar/index.json listing each language's page ids in the book's order: the chapter
- * has them without the bridge (data/Grammar.kt), which serves them with the tutor's.
+ * has them without the bridge (data/Grammar.kt), which serves them with the tutor's. A language's trigger table
+ * (<language>/data/case-triggers.json, lani.case-triggers/v0: what decides a word's case) comes along under
+ * grammar/<language>/data/, not a page: the hint chip reads it at a turn, offline (game/CaseTriggers.kt).
  */
 abstract class GrammarPages : DefaultTask() {
     @get:InputDirectory @get:PathSensitive(PathSensitivity.RELATIVE)
@@ -108,6 +110,7 @@ abstract class GrammarPages : DefaultTask() {
             val pages = root.resolve(lang).listFiles { f -> f.isFile && f.name.endsWith(".json") }.orEmpty().sortedBy { it.name }
             val to = dir.resolve(lang).apply { mkdirs() }
             pages.forEach { it.copyTo(to.resolve(it.name)) }
+            root.resolve("$lang/data/case-triggers.json").takeIf { it.isFile }?.copyTo(to.resolve("data/case-triggers.json"))
             "\"$lang\": " + pages.joinToString(", ", "[", "]") { "\"${it.nameWithoutExtension}\"" }
         }
         dir.resolve("index.json").writeText(index.joinToString(",\n  ", "{\n  ", "\n}\n"))

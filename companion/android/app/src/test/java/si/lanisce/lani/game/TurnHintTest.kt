@@ -15,8 +15,10 @@ import java.io.File
 
 /**
  * "📖 Namig · Hint" at a learner's turn (companion/SCENES.md, "The hint"): which pages and trigger it shows (the question,
- * what decides the form in the sentence, a model with other words), and that it never gives the answer away, over the
- * curated scenes.
+ * what decides the form in the sentence, as the trigger table has it: game/CaseTriggers.kt; a model with other words),
+ * and that it never gives the answer away, over the curated scenes. What the table decides otherwise than the app's own
+ * rules did before it: `what the trigger table decides that the app's old rules didn't`; that the chip and the case lens
+ * agree on the same turn: TurnHintLensTest.
  */
 class TurnHintTest {
     private val pages = Grammar.bundled("sl")
@@ -62,7 +64,8 @@ class TurnHintTest {
     @Test fun `a preposition that takes two cases, where to and where, the page's first, and the rows of the page about it`() {
         val h = TurnHints.of(tent, "sl", page)!!
         assertEquals(listOf("kam-tozilnik"), h.pages)
-        assertEquals(Trigger.Preposition("v", 2, listOf(Case.LOC, Case.ACC)), h.trigger)
+        // the cases v takes in the table's order: where to (the accusative), then where (the locative)
+        assertEquals(Trigger.Preposition("v", 2, listOf(Case.ACC, Case.LOC)), h.trigger)
         assertEquals(listOf(Case.ACC, Case.LOC), h.cases.map { it.case })
         val t = TurnHints.text(h, page)
         assertEquals(
@@ -118,6 +121,40 @@ class TurnHintTest {
             // nothing shown is the turn's own form
             assertTrue(id, (t.lines + listOfNotNull(t.models)).all { TurnHints.fair(it, h) })
         }
+    }
+
+    @Test fun `what the trigger table decides that the app's old rules didn't`() {
+        // a number of one to four agrees with its noun as an adjective does: after z the instrumental (before: the number
+        // dvema decided, the nominative)
+        val two = DialogLine(choices = listOf(DialogChoice("Grem z dvema prijateljema.", ok = true), wrong("Grem z dvema prijatelji.", "dvojina-skloni")))
+        val h2 = TurnHints.of(two, "sl", page)!!
+        assertEquals(Trigger.Preposition("z", 1, listOf(Case.INS, Case.GEN)), h2.trigger)
+        assertEquals(listOf(CaseLine("S kom? S čim?", null, Case.INS)), h2.cases)
+        // the case is the preposition's, the form the page's: its rule is said too
+        assertEquals("hint.ruleDualCases", h2.rule)
+        // po is after (po kosilu) or to fetch (po kruh), never where or where to (before: Kje? and Kam?, both)
+        val after = DialogLine(choices = listOf(DialogChoice("Po kosilu grem spat.", ok = true), wrong("Po kosilo grem spat.", "mestnik")))
+        assertEquals(listOf(CaseLine("Pri kom? Pri čem?", null, Case.LOC)), TurnHints.of(after, "sl", page)!!.cases)
+        // blizu, okoli, sredi … are where (rest): Kje? (before: the genitive's own question)
+        val near = DialogLine(choices = listOf(DialogChoice("Hiša je blizu cerkve.", ok = true), wrong("Hiša je blizu cerkev.", "rodilnik-predlogi")))
+        assertEquals(listOf(CaseLine("Kje?", "hint.qWhere", Case.GEN)), TurnHints.of(near, "sl", page)!!.cases)
+        // the table's verbs and words of feeling (zahvaliti se, vseeno: komu?) and its measures (a slice of bread)
+        val thanks = DialogLine(choices = listOf(DialogChoice("Mojca se zahvali babici.", ok = true), wrong("Mojca se zahvali babico.", "dajalnik")))
+        assertEquals(Trigger.Partner("zahvali", 2, listOf(Case.DAT), "zahvaliti"), TurnHints.of(thanks, "sl", page)!!.trigger)
+        val same = DialogLine(choices = listOf(DialogChoice("Teti je vseeno.", ok = true), wrong("Teta je vseeno.", "dajalnik")))
+        assertEquals(Trigger.Partner("vseeno", 2, listOf(Case.DAT), "vseeno"), TurnHints.of(same, "sl", page)!!.trigger)
+        val slice = DialogLine(choices = listOf(DialogChoice("Rezino kruha, prosim.", ok = true), wrong("Rezino kruh, prosim.", "rodilnik-kolicina")))
+        assertEquals(Trigger.Amount("Rezino", 0), TurnHints.of(slice, "sl", page)!!.trigger)
+        assertEquals(listOf(CaseLine("Koliko?", "hint.qHowMany", Case.GEN)), TurnHints.of(slice, "sl", page)!!.cases)
+        // a verb that takes the dative and the accusative (dati, kupiti: komu? kaj?) names its object too; kupi is buy!,
+        // not a heap (kup) of what follows
+        val buy = DialogLine(choices = listOf(DialogChoice("Kupi kruh!", ok = true), wrong("Kupi kruha!", "tozilnik")))
+        val hb = TurnHints.of(buy, "sl", page)!!
+        assertEquals(Trigger.Partner("Kupi", 0, listOf(Case.DAT, Case.ACC), "kupiti"), hb.trigger)
+        assertEquals(listOf(CaseLine("Koga? Kaj?", null, Case.ACC)), hb.cases)
+        // the dual's imperative (pomagajva: let's help, the two of us)
+        val cat = DialogLine(choices = listOf(DialogChoice("Mačka ne more dol. Pomagajva ji!", ok = true), wrong("Mačka ne more dol. Pomagajva jo!", "dajalnik")))
+        assertEquals(Trigger.Partner("Pomagajva", 4, listOf(Case.DAT), "pomagati"), TurnHints.of(cat, "sl", page)!!.trigger)
     }
 
     @Test fun `a page the syllabus added, aspect, its questions and the rule`() {
@@ -180,7 +217,7 @@ class TurnHintTest {
         val h = TurnHints.of(hide, "sl", page)!!
         assertEquals(listOf("kje-mestnik-orodnik"), h.pages)
         // za vrati against za pečjo: the place's word is the gap, za decides its case (where: the instrumental)
-        assertEquals(Trigger.Preposition("za", 1, listOf(Case.INS, Case.ACC)), h.trigger)
+        assertEquals(Trigger.Preposition("za", 1, listOf(Case.ACC, Case.INS)), h.trigger)
         assertEquals("Kje? (where? German: wo?) → 6. orodnik (instrumental)", TurnHints.text(h, page).lines.first())
         // places that differ in more than a word: the rule in words, and models of none of them
         val far = hide.copy(choices = hide.choices.take(2) + DialogChoice("Aha, v omari si!", tap = "cupboard", why = "Look again."))

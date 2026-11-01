@@ -547,6 +547,13 @@ What the chip says, by what the turn tests:
 | aspect | *Kaj delam?* (going on) or *Kaj naredim?* (done) | *pisal sem / napisal sem* |
 | the short words | second place: *sem, si* – *se* – *mi* – *ga* – *je, bom* | *Dal sem ti ga.* *Videl ga bom.* |
 
+What decides the form is read from the trigger table (companion/grammar/sl/data/case-triggers.json), the one the case
+lens, the word card's row and the sentence's grammar read: its prepositions with their cases and senses (*Kam?* for
+motion with a preposition of place, *Kje?* for rest, *Od kod?* for from, *O kom? O čem?* for about), its negations, its
+words of quantity, measures and numbers from five, its verbs and words of feeling with the case they govern, its
+pronouns only ever the subject. The app bundles it and reads it at the turn, offline (game/CaseTriggers.kt); on the same
+turn the chip names the trigger, the case and the question the lens names (TurnHintLensTest).
+
 Give each page a short `hint` in the bases (e.g. "Kje? → 5 mestnik · Where? → locative"), so the chip reads the
 page, and let a turn override it. For Jan, add the German question where the logic is German's: *Kje?* is *Wo?*,
 *Kam?* is *Wohin?* (the same idea as the German two-way prepositions, other cases), *pomagati* takes the dative like

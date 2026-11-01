@@ -4,7 +4,7 @@ import si.lanisce.lani.game.Case
 
 /**
  * The six Slovene cases as the app shows them everywhere (the case trainer, the case lens, the grammar links): the shared
- * definition both keep to (docs/plans/05-built/case-trainer.md, "The contract"), on the app's own [Case] (game/Triggers.kt:
+ * definition both keep to (docs/plans/05-built/case-trainer.md, "The contract"), on the app's own [Case] (game/CaseTriggers.kt:
  * the school's number, its question, its English name as [Case.lexicon], its name in the string tables as [Case.key]).
  * Here each case's id (its grammar page, the bank's and the wire's), its forms book slot ("gen"), the question words as
  * the contract writes them and its colour (the light theme's; [darkArgb] the same hue lighter, for the dark theme). Pure.

@@ -123,15 +123,7 @@ object CaseLens {
     val LANGUAGES = setOf("sl")
 
     /** [CaseRead]'s case key (nom, gen …) as the app's [Case]. */
-    fun caseOf(key: String?): Case? = when (key) {
-        "nom" -> Case.NOM
-        "gen" -> Case.GEN
-        "dat" -> Case.DAT
-        "acc" -> Case.ACC
-        "loc" -> Case.LOC
-        "ins" -> Case.INS
-        else -> null
-    }
+    fun caseOf(key: String?): Case? = Case.ofKey(key)
 
     /**
      * The word card's row of [read]; null when the lens has nothing to say (an older bridge, a word without a case that

@@ -3987,7 +3987,14 @@ remembered: `data/CasePrefs.kt`), a switch under "👁 Prevod" in a reading and 
 header (every dialog, story, talk), underlines each word in its case's colour, dotted where the line can't tell, with a
 legend; the lines are asked of the bridge a few dozen at a time (`app/CaseColoursController.kt`) and drawn with the text.
 Slovene only, at home. The sentence's grammar (a long press on a line, [SCENES.md](SCENES.md#the-sentences-grammar-a-long-press-on-a-line))
-shows each word's row from the same lookups, so the sheet and the card never disagree.
+shows each word's row from the same lookups, so the sheet and the card never disagree. The hint chip at a turn (📖 Namig,
+[SCENES.md](SCENES.md#the-hint-the-rule-never-the-answer)) reads the same table without the bridge: the app bundles it
+with the grammar book (resources `grammar/sl/data/case-triggers.json`, app/build.gradle.kts `GrammarPages`) and
+`game/CaseTriggers.kt` reads its prepositions and senses, negations, quantities, measures and numbers, verbs and words of
+feeling (a verb's forms made as the lens makes them) and the pronouns only ever the subject, at once and offline; the
+app's older rules of its own (`Triggers`) are gone. On the turns of `bridge/test/fixtures/hint-lens.json` the chip names
+the trigger, the case and the question the lens names (`TurnHintLensTest`; the smoke checks the lens still answers them
+so, `bun test/hint-lens.ts --write` records them again).
 
 ### Forms cards
 
