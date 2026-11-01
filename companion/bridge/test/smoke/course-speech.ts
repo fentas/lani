@@ -26,6 +26,19 @@ const scriptOut = (s: S.Script) => ({
   explanation: s.explanation ? { plain: s.explanation.plain, lang: s.explanation.lang, key: S.key(s.explanation.lang, s.explanation.plain), runs: s.explanation.runs } : null,
   lines: s.lines.map(l => ({ text: l.text, slovene: l.slovene, mark: mark(l.mark) })),
 })
+/**
+ * A word of each base the teacher's voice must never read: words that are that language's and none of the other course
+ * languages' (sl, it, de, en), so a line of the course's own language never matches its learner's base. Not so or je
+ * (German), si, so, ti, sta, ali, zelo (Italian), danes (English Danes), per, la, non (German, English), die, hallo
+ * (English): each is a word of another course language.
+ */
+const BASE_WORDS: Record<string, RegExp> = {
+  en: /(?<!\p{L})(the|you|your|are|hello|goodbye|evening|morning|polite)(?!\p{L})/iu,
+  sl: /(?<!\p{L})(kje|kaj|kako|ki|pri|sem|smo|jaz|ni|tudi|zvečer|zjutraj|prosim|hvala)(?!\p{L})/iu,
+  it: /(?<!\p{L})(il|che|di|una|sono|è|della|alla|anche|perché|molto)(?!\p{L})/iu,
+  de: /(?<!\p{L})(und|ist|bist|ich|nicht|heißt|auch|sehr|tschüss)(?!\p{L})/iu,
+}
+
 const until = async (f: () => boolean | Promise<boolean>, ms = 4_000) => {
   const end = Date.now() + ms
   while (!(await f()) && Date.now() < end) await Bun.sleep(25)
@@ -60,6 +73,12 @@ export default async function courseSpeech() {
         S.familyHas({ 'kako ste': [{}], 'kako si': [{}] }, 'Kako ste? / Kako si?') && !S.familyHas({ 'kako ste': [] }, 'Kako ste?'))
   }
 
+  // --- the words of a base the teacher never reads: each list a base's own, none another course language's -------------
+  check("each base's words catch its own text and never a course language's (so and je are German, si and so Italian, la and per German too, hallo English)",
+    BASE_WORDS.sl.test('Kje je babica? Tudi jaz sem tu.') && BASE_WORDS.it.test('Il cane è di Lorenzo.') && BASE_WORDS.de.test('Ich bin nicht müde.') && BASE_WORDS.en.test('Hello, you are here.') &&
+      !BASE_WORDS.sl.test('Stefan, fahr nicht so schnell! Je mehr, desto besser.') && !BASE_WORDS.sl.test('Lui si chiama Lorenzo. Ali, zelo, sta, ti.') && !BASE_WORDS.sl.test('The Danes are here.') &&
+      !BASE_WORDS.it.test('Per Bus nach Villach, la la la.') && !BASE_WORDS.it.test('Jaz sem doma.') && !BASE_WORDS.de.test('Hallo, die Katze!') && !BASE_WORDS.en.test('Babica nikoli ne gre brez košare.'))
+
   // --- who teaches, and what the corpus voices of the course in her voice ----------------------------------------------
   const villagers = new VillagerStore(join(culturesDir, 'primorska/villagers'), tempDir('lani-cs-villagers-')).all()
   const jan = addressee({ name: 'Jan', gender: 'male' })
@@ -77,7 +96,7 @@ export default async function courseSpeech() {
     const steps = units.reduce((n, u) => n + u.intro.steps.length, 0)
     check('the course as the app reads it in her voice: every unit\'s examples, the quick questions (a gap a pause; a sentence with a gap, a word named in »quotes« and a label\'s first half in her voice), the answers, the Slovene of the explanations; never their English',
       units.length >= 10 && has('Jaz sem Jan.') && has('Luka … na pašniku.') && has('Luka je na pašniku.') && has('Micka in France … na njivi.') && has('Kakšnega spola?') && has('»smreka«') && has('jaz sem') &&
-        !has('Which gender?') && !ct.lines.some(l => l.text.includes('{') || /\bthe\b/.test(l.text)) && ct.lines.every(l => l.source.startsWith('course:') && !l.lang),
+        !has('Which gender?') && !ct.lines.some(l => l.text.includes('{') || BASE_WORDS.en.test(l.text)) && ct.lines.every(l => l.source.startsWith('course:') && !l.lang),
       ct.lines.slice(0, 12))
     check('…and the explanations apart: one a step and one a summary, in each base asked (en; en and de twice as many), keyed as the app keys them',
       ct.explanations.length > steps && ct.explanations.every(e => e.lang === 'en') && S.courseTexts({ units, bases: ['en', 'de'] }, 'sl').explanations.length === 2 * ct.explanations.length &&
@@ -110,11 +129,17 @@ export default async function courseSpeech() {
       S.schoolTeacher(friuliCast)?.id === 'elena' && S.teacherVoice(friuliCast, v => v.speaker ?? v.voice) === 'teacher' && S.teacherVoice(friuliCast, v => v.speaker ?? v.voice, id => id === 'elena') === '@elena')
     const ct = S.courseTexts({ units: itUnits, bases: ['de'] }, 'it')
     const has = (x: string) => ct.lines.some(l => l.text === x)
-    const german = ct.lines.filter(l => /\b(und|ist|bist|heißt|ich|du|nicht|Hallo|Tschüss)\b/.test(l.text))
+    const german = ct.lines.filter(l => BASE_WORDS.de.test(l.text))
     check("the Italian course as the app reads it in her voice for a learner of German: the examples, the quick questions (a gap a pause), the answers, the Italian of the German explanations; never the German",
       itUnits.length >= 6 && has('Ciao, Giulia!') && has('Mi … Tommaso.') && has('Mi chiamo Tommaso.') && has('Giulia … a scuola.') && has('Giulia è a scuola.') && has('io sono') &&
         german.length === 0 && ct.explanations.length > 0 && ct.explanations.every(e => e.lang === 'de') && ct.explanations.some(e => e.text.startsWith('Hallo! Ich bin Maestra Elena')),
       german.slice(0, 6))
+    // the Italian course for a learner from Slovene or English too (its texts are per base): never their words in her voice
+    const others = ['sl', 'en'].map(b => {
+      const us = renderDeep(new CourseStore(courseDir(join(repo, 'companion/course'), 'it'), 'it', tempDir(`lani-cs-course-it-${b}-`), () => {}, () => b).served()!.units, teo)
+      return S.courseTexts({ units: us, bases: [b] }, 'it').lines.filter(l => BASE_WORDS[b].test(l.text)).map(l => `${b}: ${l.text}`)
+    }).flat()
+    check('…and for a learner from Slovene or English: never a word only the base has (si chiama is Italian, not the Slovene si)', others.length === 0, others.slice(0, 6))
     const items = corpus({ packs: [], modules: [], scenarios: [], villagers: friuliCast, course: { units: itUnits, bases: ['de'] }, learner: teo, language: 'it' })
     const read = items.filter(i => i.source.startsWith('course:'))
     check("corpus: the Italian course in Maestra Elena's voice, its German explanations last", read.length > 100 && read.every(i => i.voice === 'teacher') && read.filter(i => i.lang).every(i => i.lang === 'de'), read.length)
@@ -133,8 +158,7 @@ export default async function courseSpeech() {
       const ct = S.courseTexts({ units: deUnits, bases: [b] }, 'de')
       const has = (x: string) => ct.lines.some(l => l.text === x)
       // the base never in her voice: a word only the base has (the English, Slovene or Italian of the explanations and prompts)
-      const BASE: Record<string, RegExp> = { en: /\b(the|you|your|are|hello|goodbye|evening|morning|polite)\b/i, sl: /(?<!\p{L})(je|ki|kako|pri|sem|si|so|pa|tudi|zvečer|zjutraj)(?!\p{L})/iu, it: /(?<!\p{L})(il|la|che|di|una|per|non|sono|è|della|alla)(?!\p{L})/iu }
-      const base = ct.lines.filter(l => BASE[b].test(l.text))
+      const base = ct.lines.filter(l => BASE_WORDS[b].test(l.text))
       check(`the German course as the app reads it in Eva's voice for a learner from ${b}: the examples, the quick questions (a gap a pause), the answers, the German of the explanations; never the base`,
         deUnits.length >= 2 && has('Grüß Gott, Frau Kathi!') && has('Gute …, Opa Sepp! Bis morgen!') && has('Gute Nacht, Opa Sepp! Bis morgen!') && has('Toni … in der Schmiede.') && has('Toni ist in der Schmiede.') &&
           has('ich bin') && has('Ich heiße Ana. Freut mich!') && base.length === 0 && ct.explanations.length > 0 && ct.explanations.every(e => e.lang === b),
