@@ -350,6 +350,34 @@ class GradingLanguagesTest {
         assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("dreissig", "dreißig"))
     }
 
+    @Test fun `a german possessive for another is whose, never a slip - mein, dein, sein, ein, kein with any ending`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Das ist dein Hund.", "Das ist mein Hund."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Toni sucht meinen Hammer.", "Toni sucht seinen Hammer."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich habe meine Zeit.", "Ich habe keine Zeit."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Das ist sein Gasthaus.", "Das ist ein Gasthaus."))
+        assertGraded(Verdict.WRONG, Hint.ENDING, de("Ich suche meine Hund.", "Ich suche meinen Hund."))
+        // Ihr (polite) and ihr are one answer, as Sie and sie: the course asks for it by a tap
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Ist das ihr Hund, Frau Huber?", "Ist das Ihr Hund, Frau Huber?"))
+        // a slip in a longer word of the group stays one
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("unsre Kuh", "unsere Kuh"))
+    }
+
+    @Test fun `german mochte for möchte, fähr for fahr and a strong participle with the infinitive's vowel are wrong`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich mochte einen Kaffee.", "Ich möchte einen Kaffee."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Mochtest du Most?", "Möchtest du Most?"))
+        assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("Ich moechte einen Kaffee.", "Ich möchte einen Kaffee."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Fähr langsam!", "Fahr langsam!"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Läuf!", "Lauf!"))
+        assertEquals(Verdict.WRONG, de("Schläf gut!", "Schlaf gut!").verdict)
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Wir haben Most getrinken.", "Wir haben Most getrunken."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Sie hat einen Brief geschreiben.", "Sie hat einen Brief geschrieben."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Er ist zu Hause gebleiben.", "Er ist zu Hause geblieben."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Hast du Slowenisch gesprechen?", "Hast du Slowenisch gesprochen?"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich habe den Schlüssel mitgenehmen.", "Ich habe den Schlüssel mitgenommen."))
+        // the vowel right, a letter slipped elsewhere in the stem: a slip
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Wir haben Most getrunen.", "Wir haben Most getrunken."))
+    }
+
     @Test fun `a long word forgives two slips in its stem, a shorter one only one`() {
         assertEquals(2, Grading.typosAllowed("bürgermeister"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("der Burgermaister", "der Bürgermeister"))
