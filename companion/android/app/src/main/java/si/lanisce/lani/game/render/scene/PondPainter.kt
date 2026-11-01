@@ -44,6 +44,9 @@ import kotlin.math.sqrt
  * In Friuli's look (companion/SCENES.md "Culture looks") the wood round the pond is the coast's lowland wood, Lombardy
  * poplars and oaks where the spruces and the beeches stand, mirrored in the water; and Nonno Bepi's tin of worms lies on
  * the grass by Moro while he is there or someone fishes ([baitTin]).
+ *
+ * In Carinthia's (kaernten-projects-b) larches stand among the spruces on the near shores, light green in May, gold in
+ * October and November, bare from December to April; the dog by the jetty is Opa Sepp's Bello.
  */
 internal class PondPainter : WildPainter() {
     override val art = "pond"
@@ -90,6 +93,8 @@ internal class PondPainter : WildPainter() {
      * water ([fellTop], [fellTone]).
      */
     private var pioppi = false
+    /** Carinthia's: larches among the spruces and beeches on the near shores, gold in October, bare in winter ([larch]). */
+    private var larchen = false
     private var fells = false
     /** The fells' crest over each picture column ([fells]), for their picture in the water. */
     private var fellTop = IntArray(0)
@@ -99,6 +104,7 @@ internal class PondPainter : WildPainter() {
     override fun paint() {
         setup()
         pioppi = variant("trees") == "pioppi"
+        larchen = variant("trees") == "larch"
         fells = variant("hills") == "fells"
         val z = z
         for (i in 0..SKY_STEPS) skyLut[i] = skyAt(i / SKY_STEPS.toFloat())
@@ -116,7 +122,11 @@ internal class PondPainter : WildPainter() {
             val x = side * (15.5f + Noise.rnd(k, 512) * 4f + (d - 16f) * 0.25f)
             val spruce = Noise.rnd(k, 513) < 0.6f
             val hgt = if (spruce) 13f + Noise.rnd(k, 514) * 5f else 10f + Noise.rnd(k, 514) * 4f
-            items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce && pioppi) poplar(x, d, hgt + 1f, k + 20) else if (spruce) spruce(x, d, hgt, k + 20) else leafyTree(x, d, hgt, k * 3 + 11) } })
+            items.add(d to { prop(Pal.OUTLINE_TREE) {
+                if (spruce && pioppi) poplar(x, d, hgt + 1f, k + 20)
+                else if (larchen && spruce && k % 3 != 0) larch(x, d, hgt + 1f, k * 7 + 21)
+                else if (spruce) spruce(x, d, hgt, k + 20) else leafyTree(x, d, hgt, k * 3 + 11)
+            } })
         }
         items.add(heronD to { thing("heron", slop = 2) { heron(heronX, heronD, fx("heron")) } })
         items.add(20.8f to { thing("ducks", slop = 2) { ducks() } })

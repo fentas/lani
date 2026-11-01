@@ -137,9 +137,17 @@
       ]
     },
     {
-      "words": ["zaradi", "namesto", "razen"],
+      "words": ["zaradi", "namesto", "razen", "izmed", "glede"],
       "takes": [{"case": "gen", "sense": "other", "rule": "rodilnik-predlogi"}],
       "examples": [
+        {
+          "sl": "Mickina potica je najboljša izmed vseh.",
+          "en": "Micka's potica is the best of all.",
+          "word": "vseh",
+          "case": "gen",
+          "number": "pl",
+          "trigger": "izmed"
+        },
         {
           "sl": "Zaradi dežja ostanemo doma.",
           "en": "Because of the rain we stay at home.",
@@ -644,9 +652,9 @@
     "trem", "tremi", "štirje", "štiri", "štirih", "štirim", "štirimi", "oba", "obe", "obeh", "obema"
   ],
   "dual_words": [
-    "dva", "dve", "dveh", "dvema", "oba", "obe", "obeh", "obema", "midva", "medve", "vidva", "vedve", "onadva",
-    "onidve", "sva", "sta", "bova", "bosta", "nisva", "nista", "naju", "vaju", "nama", "vama", "njiju", "njima", "ju",
-    "jima"
+    "dva", "dve", "dveh", "dvema", "oba", "obe", "obeh", "obema", "midva", "medve", "midve", "vidva", "vedve", "vidve",
+    "onadva", "onidve", "sva", "sta", "bova", "bosta", "nisva", "nista", "naju", "vaju", "nama", "vama", "njiju",
+    "njima", "ju", "jima"
   ],
   "verbs": [
     {
@@ -1536,7 +1544,7 @@
       "person": 1,
       "number": "du",
       "genders": ["f", "n"],
-      "forms": {"nom": ["medve"], "gen": ["naju"], "dat": ["nama"], "acc": ["naju"], "loc": ["naju"], "ins": ["nama"]}
+      "forms": {"nom": ["medve", "midve"], "gen": ["naju"], "dat": ["nama"], "acc": ["naju"], "loc": ["naju"], "ins": ["nama"]}
     },
     {
       "lemma": "vidva",
@@ -1550,7 +1558,7 @@
       "person": 2,
       "number": "du",
       "genders": ["f", "n"],
-      "forms": {"nom": ["vedve"], "gen": ["vaju"], "dat": ["vama"], "acc": ["vaju"], "loc": ["vaju"], "ins": ["vama"]}
+      "forms": {"nom": ["vedve", "vidve"], "gen": ["vaju"], "dat": ["vama"], "acc": ["vaju"], "loc": ["vaju"], "ins": ["vama"]}
     },
     {
       "lemma": "onadva",

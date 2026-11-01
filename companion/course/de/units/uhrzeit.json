@@ -1,0 +1,909 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "uhrzeit",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🕖",
+  "title": {
+    "de": "Um sieben, am Montag",
+    "en": "Times and days: um sieben, am Montag",
+    "sl": "Ura in dnevi: um sieben, am Montag",
+    "it": "L'ora e i giorni: um sieben, am Montag"
+  },
+  "goal": {
+    "en": "You can say and ask the time (Wie spät ist es? Es ist halb acht, Viertel nach sieben, in Austria viertel acht) and when something is: um sieben, am Montag, im Jänner, in der Früh.",
+    "sl": "Poveš in vprašaš, koliko je ura (Wie spät ist es? Es ist halb acht, Viertel nach sieben, v Avstriji viertel acht), in kdaj je kaj: um sieben, am Montag, im Jänner, in der Früh.",
+    "it": "Sai dire e chiedere l'ora (Wie spät ist es? Es ist halb acht, Viertel nach sieben, in Austria viertel acht) e quando succede qualcosa: um sieben, am Montag, im Jänner, in der Früh."
+  },
+  "grammar": [
+    "uhrzeit",
+    "zahlen"
+  ],
+  "words": [
+    "die Uhr",
+    "Wie spät ist es?",
+    "Wie viel Uhr ist es?",
+    "halb",
+    "das Viertel",
+    "dreiviertel",
+    "nach",
+    "vor",
+    "um",
+    "am",
+    "im",
+    "der Montag",
+    "der Dienstag",
+    "der Mittwoch",
+    "der Donnerstag",
+    "der Freitag",
+    "der Samstag",
+    "der Sonntag",
+    "der Abend",
+    "in der Früh",
+    "der Morgen",
+    "der Jänner",
+    "der Mai",
+    "der Sommer",
+    "der August",
+    "heuer",
+    "die Mitternacht",
+    "der Ruhetag",
+    "der Bus",
+    "der Zug",
+    "der Markt",
+    "der Kirchtag",
+    "fertig",
+    "also",
+    "beginnen",
+    "kochen",
+    "die Kasnudel",
+    "der Speck"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Uhr",
+          "en": "time",
+          "sl": "ura",
+          "it": "ora"
+        },
+        {
+          "de": "man sagt",
+          "en": "you say",
+          "sl": "rečeš",
+          "it": "si dice"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Wie spät ist es?** (What time is it?) **Es ist sieben Uhr.** (It's seven o'clock.) The hour is a number and **Uhr**: **acht Uhr, zwölf Uhr**. One o'clock is **ein Uhr**, never eins Uhr; without Uhr it is **eins**: Es ist eins. You also hear **Wie viel Uhr ist es?**",
+          "sl": "**Wie spät ist es?** (Koliko je ura?) **Es ist sieben Uhr.** (Ura je sedem.) Ura je število in **Uhr**: **acht Uhr, zwölf Uhr**. Ena je **ein Uhr**, nikoli eins Uhr; brez Uhr je **eins**: Es ist eins. Slišiš tudi **Wie viel Uhr ist es?**",
+          "it": "**Wie spät ist es?** (Che ore sono?) **Es ist sieben Uhr.** (Sono le sette.) L'ora è un numero e **Uhr**: **acht Uhr, zwölf Uhr**. L'una è **ein Uhr**, mai eins Uhr; senza Uhr è **eins**: Es ist eins. Si sente anche **Wie viel Uhr ist es?**"
+        },
+        "examples": [
+          {
+            "de": "Wie spät ist es? – Es ist acht Uhr.",
+            "en": "What time is it? – It's eight o'clock.",
+            "sl": "Koliko je ura? – Ura je osem.",
+            "it": "Che ore sono? – Sono le otto."
+          },
+          {
+            "de": "Es ist zwölf Uhr. Kathi kocht die Suppe.",
+            "en": "It's twelve o'clock. Kathi is making the soup.",
+            "sl": "Ura je dvanajst. Kathi kuha juho.",
+            "it": "Sono le dodici. Kathi prepara la minestra."
+          }
+        ],
+        "rows": [
+          [
+            "7:00",
+            "sieben Uhr"
+          ],
+          [
+            "1:00",
+            "ein Uhr · eins"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "uhrzeit",
+          "prompt": "1:00 – Es ist ___.",
+          "options": [
+            "ein Uhr",
+            "eins Uhr",
+            "eine Uhr"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**1:00 = ein Uhr** (or eins, without Uhr)\n- eine Uhr is a clock",
+            "sl": "**1.00 = ein Uhr** (ali eins, brez Uhr)\n- eine Uhr je ura, stenska ali ročna",
+            "it": "**1.00 = ein Uhr** (o eins, senza Uhr)\n- eine Uhr è un orologio"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**halb** (half) counts towards the next hour: **halb acht** is 7:30, half way to eight. Careful: in British English half eight is 8:30, but **halb acht** is 7:30. So **halb zwölf** is 11:30 and **halb eins** 12:30.",
+          "sl": "**halb** (pol) šteje k naslednji uri, natanko kot slovenski pol: **halb acht** je pol osmih (7.30). Tako je **halb zwölf** pol dvanajstih (11.30) in **halb eins** pol enih (12.30).",
+          "it": "**halb** (mezza) conta verso l'ora dopo: **halb acht** sono le sette e mezza, a metà strada verso le otto. Attenzione: non le otto e mezza! Così **halb zwölf** sono le undici e mezza e **halb eins** mezzogiorno e mezza."
+        },
+        "examples": [
+          {
+            "de": "Es ist halb acht. Stefan ist schon im Keller.",
+            "en": "It's half past seven. Stefan is in the cellar already.",
+            "sl": "Pol osmih je. Stefan je že v kleti.",
+            "it": "Sono le sette e mezza. Stefan è già in cantina."
+          },
+          {
+            "de": "Es ist halb zwölf. Die Suppe ist fertig.",
+            "en": "It's half past eleven. The soup is ready.",
+            "sl": "Pol dvanajstih je. Juha je kuhana.",
+            "it": "Sono le undici e mezza. La minestra è pronta."
+          }
+        ],
+        "rows": [
+          [
+            "7:30",
+            "halb acht"
+          ],
+          [
+            "11:30",
+            "halb zwölf"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "uhrzeit",
+          "prompt": "6:30 – Es ist ___.",
+          "options": [
+            "halb sieben",
+            "halb sechs",
+            "sechs halb"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**6:30 = halb sieben**: half way to seven\n- 7:30 · halb acht",
+            "sl": "**6.30 = halb sieben**: pol sedmih\n- 7.30 · halb acht",
+            "it": "**6.30 = halb sieben**: a metà strada verso le sette\n- 7.30 · halb acht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Viertel nach** (a quarter past) and **Viertel vor** (a quarter to): **Viertel nach sieben** (7:15), **Viertel vor acht** (7:45). Minutes the same way: **zehn nach sieben** (7:10), **zehn vor acht** (7:50). In Austria, and in the village, you also hear **viertel acht** (7:15) and **dreiviertel acht** (7:45): a quarter, three quarters of the way to eight.",
+          "sl": "**Viertel nach** (četrt čez) in **Viertel vor** (četrt do): **Viertel nach sieben** (7.15), **Viertel vor acht** (7.45). Minute enako: **zehn nach sieben** (7.10), **zehn vor acht** (7.50). V Avstriji in v vasi slišiš tudi **viertel acht** (7.15) in **dreiviertel acht** (7.45), kot slovensko četrt na osem in tri četrt na osem.",
+          "it": "**Viertel nach** (e un quarto) e **Viertel vor** (meno un quarto): **Viertel nach sieben** (7.15), **Viertel vor acht** (7.45). I minuti allo stesso modo: **zehn nach sieben** (7.10), **zehn vor acht** (7.50). In Austria, e in paese, si sente anche **viertel acht** (7.15) e **dreiviertel acht** (7.45): un quarto, tre quarti verso le otto."
+        },
+        "examples": [
+          {
+            "de": "Es ist Viertel nach sieben. Der Bus kommt.",
+            "en": "It's a quarter past seven. The bus is coming.",
+            "sl": "Četrt čez sedem je. Avtobus prihaja.",
+            "it": "Sono le sette e un quarto. Arriva l'autobus."
+          },
+          {
+            "de": "Es ist dreiviertel acht. Wo ist Florian?",
+            "en": "It's a quarter to eight. Where is Florian?",
+            "sl": "Tri četrt na osem je. Kje je Florian?",
+            "it": "Sono le otto meno un quarto. Dov'è Florian?"
+          }
+        ],
+        "rows": [
+          [
+            "7:15",
+            "Viertel nach sieben · viertel acht"
+          ],
+          [
+            "7:45",
+            "Viertel vor acht · dreiviertel acht"
+          ],
+          [
+            "7:10 · 7:50",
+            "zehn nach sieben · zehn vor acht"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "uhrzeit",
+          "text": "8:15 – Es ist Viertel ___ acht.",
+          "accept": [
+            "nach"
+          ],
+          "hint": "nach · vor",
+          "explain": {
+            "en": "**8:15 = Viertel nach acht**\n- in Austria also viertel neun",
+            "sl": "**8.15 = Viertel nach acht**\n- v Avstriji tudi viertel neun (četrt na devet)",
+            "it": "**8.15 = Viertel nach acht**\n- in Austria anche viertel neun"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "When? **um** (at) with a time: **um sieben** (at seven), **um halb acht**. **am** (on) with a day: **am Montag** (on Monday), and with a part of the day: **am Abend** (in the evening). The days are all der: **Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag**.",
+          "sl": "Kdaj? **um** z uro: **um sieben** (ob sedmih), **um halb acht** (ob pol osmih). **am** z dnevom: **am Montag** (v ponedeljek), in z delom dneva: **am Abend** (zvečer). Vsi dnevi so der: **Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag**.",
+          "it": "Quando? **um** con l'ora: **um sieben** (alle sette), **um halb acht** (alle sette e mezza). **am** con il giorno: **am Montag** (lunedì), e con una parte del giorno: **am Abend** (la sera). I giorni sono tutti der: **Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag**."
+        },
+        "examples": [
+          {
+            "de": "Der Kirchtag ist am Sonntag.",
+            "en": "The Kirchtag, the parish fair, is on Sunday.",
+            "sl": "Žegnanje je v nedeljo.",
+            "it": "Il Kirchtag, la sagra, è domenica."
+          },
+          {
+            "de": "Kathi kocht um zwölf Uhr.",
+            "en": "Kathi cooks at twelve o'clock.",
+            "sl": "Kathi kuha ob dvanajstih.",
+            "it": "Kathi cucina alle dodici."
+          }
+        ],
+        "rows": [
+          [
+            "um …",
+            "um sieben · um halb acht"
+          ],
+          [
+            "am …",
+            "am Montag · am Abend"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "uhrzeit",
+          "prompt": "Der Kirchtag ist ___ Sonntag.",
+          "options": [
+            "am",
+            "um",
+            "im"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**a day: am**\n- am Sonntag · um sieben (a time)",
+            "sl": "**dan: am**\n- am Sonntag · um sieben (ura)",
+            "it": "**un giorno: am**\n- am Sonntag · um sieben (un'ora)"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Austria says **in der Früh** (in the morning; in Germany am Morgen), **im Jänner** (in January; in Germany Januar) and **heuer** (this year). A month or a season takes **im**: **im Mai, im Sommer**. And a time first keeps the verb second: **Am Montag fährt Stefan nach Villach.** (On Monday Stefan drives to Villach.)",
+          "sl": "Avstrija reče **in der Früh** (zjutraj; v Nemčiji am Morgen), **im Jänner** (januarja; v Nemčiji Januar) in **heuer** (letos). Mesec ali letni čas dobi **im**: **im Mai, im Sommer**. Čas na začetku, glagol pa ostane na drugem mestu: **Am Montag fährt Stefan nach Villach.** (V ponedeljek se Stefan pelje v Beljak.)",
+          "it": "L'Austria dice **in der Früh** (la mattina; in Germania am Morgen), **im Jänner** (a gennaio; in Germania Januar) e **heuer** (quest'anno). Un mese o una stagione vogliono **im**: **im Mai, im Sommer**. E il tempo all'inizio lascia il verbo al secondo posto: **Am Montag fährt Stefan nach Villach.** (Lunedì Stefan va a Villach.)"
+        },
+        "examples": [
+          {
+            "de": "In der Früh ist es auf der Alm kalt.",
+            "en": "In the morning it's cold up on the alpine pasture.",
+            "sl": "Zjutraj je na planini mraz.",
+            "it": "La mattina all'alpeggio fa freddo."
+          },
+          {
+            "de": "Heuer ist der Kirchtag im August.",
+            "en": "This year the Kirchtag is in August.",
+            "sl": "Letos je žegnanje avgusta.",
+            "it": "Quest'anno il Kirchtag è ad agosto."
+          }
+        ],
+        "rows": [
+          [
+            "im …",
+            "im Jänner · im Sommer"
+          ],
+          [
+            "in der Früh",
+            {
+              "de": "am Morgen (in Deutschland)",
+              "en": "am Morgen (in Germany)",
+              "sl": "am Morgen (v Nemčiji)",
+              "it": "am Morgen (in Germania)"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "uhrzeit",
+          "prompt": {
+            "en": "Which sentence is right?",
+            "sl": "Kateri stavek je pravilen?",
+            "it": "Quale frase è giusta?"
+          },
+          "options": [
+            "Am Montag fährt Stefan nach Villach.",
+            "Am Montag Stefan fährt nach Villach."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**the time first, the verb second**\n- Am Montag fährt Stefan …",
+            "sl": "**čas na začetku, glagol na drugem mestu**\n- Am Montag fährt Stefan …",
+            "it": "**il tempo all'inizio, il verbo al secondo posto**\n- Am Montag fährt Stefan …"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "uhrzeit-1",
+      "title": {
+        "de": "Wie spät ist es?",
+        "en": "What time is it?",
+        "sl": "Koliko je ura?",
+        "it": "Che ore sono?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "uhrzeit",
+          "instruction": {
+            "en": "Schreib die Uhrzeit · Write the time",
+            "sl": "Schreib die Uhrzeit · Napiši uro",
+            "it": "Schreib die Uhrzeit · Scrivi l'ora"
+          },
+          "prompt": {
+            "en": "Es ist … · It is …",
+            "sl": "Es ist … · Ura je …",
+            "it": "Es ist … · Sono le …"
+          },
+          "columns": [
+            {
+              "en": "Es ist … · It is …",
+              "sl": "Es ist … · Ura je …",
+              "it": "Es ist … · Sono le …"
+            }
+          ],
+          "rows": [
+            {
+              "label": "8:00",
+              "cells": [
+                "acht Uhr"
+              ]
+            },
+            {
+              "label": "9:30",
+              "cells": [
+                {
+                  "accept": [
+                    "halb zehn",
+                    "neun Uhr dreißig"
+                  ],
+                  "hint": "halb …"
+                }
+              ]
+            },
+            {
+              "label": "3:15",
+              "cells": [
+                {
+                  "accept": [
+                    "Viertel nach drei",
+                    "viertel vier",
+                    "drei Uhr fünfzehn"
+                  ],
+                  "hint": "Viertel …"
+                }
+              ]
+            },
+            {
+              "label": "5:45",
+              "cells": [
+                {
+                  "accept": [
+                    "Viertel vor sechs",
+                    "dreiviertel sechs",
+                    "drei viertel sechs",
+                    "fünf Uhr fünfundvierzig"
+                  ],
+                  "hint": "Viertel …"
+                }
+              ]
+            },
+            {
+              "label": "10:10",
+              "cells": [
+                {
+                  "accept": [
+                    "zehn nach zehn",
+                    "zehn Uhr zehn"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "6:50",
+              "cells": [
+                {
+                  "accept": [
+                    "zehn vor sieben",
+                    "sechs Uhr fünfzig"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "12:30",
+              "cells": [
+                {
+                  "accept": [
+                    "halb eins",
+                    "zwölf Uhr dreißig"
+                  ],
+                  "hint": "halb …"
+                }
+              ]
+            },
+            {
+              "label": "1:00",
+              "cells": [
+                {
+                  "accept": [
+                    "ein Uhr",
+                    "eins"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**halb: towards the next hour; Viertel nach, Viertel vor**\n- 7:30 halb acht · 7:15 Viertel nach sieben (viertel acht)",
+            "sl": "**halb: k naslednji uri; Viertel nach, Viertel vor**\n- 7.30 halb acht · 7.15 Viertel nach sieben (viertel acht)",
+            "it": "**halb: verso l'ora dopo; Viertel nach, Viertel vor**\n- 7.30 halb acht · 7.15 Viertel nach sieben (viertel acht)"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "uhrzeit",
+          "instruction": {
+            "en": "Sortiere · Sort: um, am or im?",
+            "sl": "Sortiere · Razvrsti: um, am ali im?",
+            "it": "Sortiere · Ordina: um, am o im?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "um … (a time)",
+                "sl": "um … (ura)",
+                "it": "um … (l'ora)"
+              },
+              "words": [
+                "sieben",
+                "halb acht",
+                "Mitternacht"
+              ]
+            },
+            {
+              "label": {
+                "en": "am … (a day)",
+                "sl": "am … (dan)",
+                "it": "am … (il giorno)"
+              },
+              "words": [
+                "Montag",
+                "Abend",
+                "Freitag"
+              ]
+            },
+            {
+              "label": {
+                "en": "im … (a month, a season)",
+                "sl": "im … (mesec, letni čas)",
+                "it": "im … (mese, stagione)"
+              },
+              "words": [
+                "Jänner",
+                "Sommer"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**um + a time, am + a day, im + a month**\n- um sieben · am Montag · im Jänner",
+            "sl": "**um + ura, am + dan, im + mesec**\n- um sieben · am Montag · im Jänner",
+            "it": "**um + l'ora, am + il giorno, im + il mese**\n- um sieben · am Montag · im Jänner"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uhrzeit-2",
+      "title": {
+        "de": "Kathis Woche",
+        "en": "Kathi's week",
+        "sl": "Kathijin teden",
+        "it": "La settimana di Kathi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "uhrzeit",
+          "instruction": {
+            "en": "Ergänze: um, am, im, in oder halb · Fill in: um, am, im, in or halb",
+            "sl": "Ergänze: um, am, im, in oder halb · Dopolni: um, am, im, in ali halb",
+            "it": "Ergänze: um, am, im, in oder halb · Completa: um, am, im, in o halb"
+          },
+          "title": "Kathis Woche",
+          "text": "Das Gasthaus hat ___ Montag Ruhetag. Stanko bringt am Dienstag Honig, ___ neun Uhr. Kathi kocht am Mittwoch Kasnudeln, und ___ zwölf sind sie fertig. Am Donnerstag fährt Kathi nach Villach: Der Bus fährt um 7:30, also um ___ acht. Sie trinkt ___ der Früh einen Kaffee. Und ___ Sonntag ist Kirchtag!",
+          "gaps": [
+            {
+              "accept": [
+                "am"
+              ],
+              "hint": "Montag"
+            },
+            {
+              "accept": [
+                "um"
+              ],
+              "hint": "neun Uhr"
+            },
+            {
+              "accept": [
+                "um"
+              ],
+              "hint": "zwölf"
+            },
+            {
+              "accept": [
+                "halb"
+              ],
+              "hint": "7:30"
+            },
+            {
+              "accept": [
+                "in"
+              ],
+              "hint": "… der Früh"
+            },
+            {
+              "accept": [
+                "am"
+              ],
+              "hint": "Sonntag"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "im",
+            "Viertel"
+          ],
+          "translation": {
+            "en": "The inn is closed on Mondays. Stanko brings honey on Tuesday, at nine o'clock. On Wednesday Kathi makes Kasnudeln, and at twelve they are ready. On Thursday Kathi goes to Villach: the bus leaves at 7:30, so at half past seven. In the morning she has a coffee. And on Sunday it's the Kirchtag!",
+            "sl": "Gostilna ima v ponedeljek zaprto. Stanko prinese v torek med, ob devetih. Kathi v sredo kuha Kasnudeln, ob dvanajstih so kuhani. V četrtek se Kathi pelje v Beljak: avtobus odpelje ob 7.30, torej ob pol osmih. Zjutraj spije kavo. In v nedeljo je žegnanje!",
+            "it": "Il lunedì l'osteria è chiusa per riposo. Martedì Stanko porta il miele, alle nove. Mercoledì Kathi fa i Kasnudeln, e alle dodici sono pronti. Giovedì Kathi va a Villach: l'autobus parte alle 7.30, cioè alle sette e mezza. La mattina beve un caffè. E domenica c'è il Kirchtag!"
+          },
+          "explain": {
+            "en": "**um + a time, am + a day, im + a month**\n- um sieben · am Montag · im Jänner",
+            "sl": "**um + ura, am + dan, im + mesec**\n- um sieben · am Montag · im Jänner",
+            "it": "**um + l'ora, am + il giorno, im + il mese**\n- um sieben · am Montag · im Jänner"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "uhrzeit",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Es ist 8:30. Es ist ___.",
+          "options": [
+            "halb neun",
+            "halb acht",
+            "acht halb"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**8:30 = halb neun**: half way to nine",
+            "sl": "**8.30 = halb neun**: pol devetih",
+            "it": "**8.30 = halb neun**: a metà strada verso le nove"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uhrzeit-3",
+      "title": {
+        "de": "Wann?",
+        "en": "When?",
+        "sl": "Kdaj?",
+        "it": "Quando?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "uhrzeit",
+          "instruction": {
+            "en": "Schreib die Uhrzeit in Wörtern · Write the time in words",
+            "sl": "Schreib die Uhrzeit in Wörtern · Napiši uro z besedami",
+            "it": "Schreib die Uhrzeit in Wörtern · Scrivi l'ora in lettere"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Der Bus kommt um 7:30.",
+              "accept": [
+                "Der Bus kommt um halb acht.",
+                "Der Bus kommt um sieben Uhr dreißig."
+              ],
+              "hint": "halb …"
+            },
+            {
+              "from": "Florian ist um 5:00 auf der Alm.",
+              "accept": [
+                "Florian ist um fünf Uhr auf der Alm.",
+                "Florian ist um fünf auf der Alm."
+              ]
+            },
+            {
+              "from": "Die Schule beginnt um 8:15.",
+              "accept": [
+                "Die Schule beginnt um Viertel nach acht.",
+                "Die Schule beginnt um viertel neun.",
+                "Die Schule beginnt um acht Uhr fünfzehn."
+              ]
+            },
+            {
+              "from": "Kathi kocht um 11:45.",
+              "accept": [
+                "Kathi kocht um Viertel vor zwölf.",
+                "Kathi kocht um dreiviertel zwölf.",
+                "Kathi kocht um drei viertel zwölf.",
+                "Kathi kocht um elf Uhr fünfundvierzig."
+              ]
+            },
+            {
+              "from": "Opa Sepp erzählt um 9:10 eine Geschichte.",
+              "accept": [
+                "Opa Sepp erzählt um zehn nach neun eine Geschichte.",
+                "Opa Sepp erzählt um neun Uhr zehn eine Geschichte."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**halb: towards the next hour; Viertel nach, Viertel vor**\n- 7:30 halb acht · 7:15 Viertel nach sieben (viertel acht)",
+            "sl": "**halb: k naslednji uri; Viertel nach, Viertel vor**\n- 7.30 halb acht · 7.15 Viertel nach sieben (viertel acht)",
+            "it": "**halb: verso l'ora dopo; Viertel nach, Viertel vor**\n- 7.30 halb acht · 7.15 Viertel nach sieben (viertel acht)"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "uhrzeit",
+          "instruction": {
+            "en": "Stell die Zeit an den Anfang · Put the time first",
+            "sl": "Stell die Zeit an den Anfang · Postavi čas na začetek",
+            "it": "Stell die Zeit an den Anfang · Metti il tempo all'inizio"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Oma Resi backt am Samstag.",
+              "accept": [
+                "Am Samstag backt Oma Resi."
+              ],
+              "hint": "Am Samstag …"
+            },
+            {
+              "from": "Wir trinken um fünf Most.",
+              "accept": [
+                "Um fünf trinken wir Most."
+              ],
+              "hint": "Um fünf …"
+            },
+            {
+              "from": "Toni arbeitet in der Früh.",
+              "accept": [
+                "In der Früh arbeitet Toni."
+              ],
+              "hint": "In der Früh …"
+            }
+          ],
+          "explain": {
+            "en": "**the time first, the verb second, then the person**\n- Am Samstag backt Oma Resi.",
+            "sl": "**čas na začetku, glagol na drugem mestu, nato oseba**\n- Am Samstag backt Oma Resi.",
+            "it": "**il tempo all'inizio, il verbo al secondo posto, poi la persona**\n- Am Samstag backt Oma Resi."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "uhrzeit",
+        "instruction": {
+          "en": "Ergänze: um, am, in oder halb · Fill in: um, am, in or halb",
+          "sl": "Ergänze: um, am, in oder halb · Dopolni: um, am, in ali halb",
+          "it": "Ergänze: um, am, in oder halb · Completa: um, am, in o halb"
+        },
+        "title": "Florians Tag",
+        "text": "Florian ist ___ fünf Uhr auf der Alm. Es ist kalt ___ der Früh. Um 11:30, also um ___ zwölf, isst er Brot und Speck. ___ Abend zählt er die Schafe. Und ___ Samstag? Da ist Florian im Gasthaus.",
+        "gaps": [
+          {
+            "accept": [
+              "um"
+            ]
+          },
+          {
+            "accept": [
+              "in"
+            ]
+          },
+          {
+            "accept": [
+              "halb"
+            ]
+          },
+          {
+            "accept": [
+              "Am"
+            ]
+          },
+          {
+            "accept": [
+              "am"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Florian is up on the pasture at five o'clock. It's cold in the morning. At 11:30, so at half past eleven, he eats bread and bacon. In the evening he counts the sheep. And on Saturday? Then Florian is at the inn.",
+          "sl": "Florian je ob petih na planini. Zjutraj je mraz. Ob 11.30, torej ob pol dvanajstih, je kruh in speh. Zvečer prešteje ovce. Pa v soboto? Takrat je Florian v gostilni.",
+          "it": "Florian è all'alpeggio alle cinque. La mattina fa freddo. Alle 11.30, cioè alle undici e mezza, mangia pane e speck. La sera conta le pecore. E il sabato? Allora Florian è all'osteria."
+        },
+        "explain": {
+          "en": "**um + a time, am + a day, im + a month**\n- um sieben · am Montag · im Jänner",
+          "sl": "**um + ura, am + dan, im + mesec**\n- um sieben · am Montag · im Jänner",
+          "it": "**um + l'ora, am + il giorno, im + il mese**\n- um sieben · am Montag · im Jänner"
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "uhrzeit",
+        "instruction": {
+          "en": "Schreib die Uhrzeit · Write the time",
+          "sl": "Schreib die Uhrzeit · Napiši uro",
+          "it": "Schreib die Uhrzeit · Scrivi l'ora"
+        },
+        "prompt": {
+          "en": "Es ist … · It is …",
+          "sl": "Es ist … · Ura je …",
+          "it": "Es ist … · Sono le …"
+        },
+        "columns": [
+          {
+            "en": "Es ist … · It is …",
+            "sl": "Es ist … · Ura je …",
+            "it": "Es ist … · Sono le …"
+          }
+        ],
+        "rows": [
+          {
+            "label": "4:30",
+            "cells": [
+              {
+                "accept": [
+                  "halb fünf",
+                  "vier Uhr dreißig"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "2:15",
+            "cells": [
+              {
+                "accept": [
+                  "Viertel nach zwei",
+                  "viertel drei",
+                  "zwei Uhr fünfzehn"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "10:45",
+            "cells": [
+              {
+                "accept": [
+                  "Viertel vor elf",
+                  "dreiviertel elf",
+                  "drei viertel elf",
+                  "zehn Uhr fünfundvierzig"
+                ]
+              }
+            ]
+          }
+        ],
+        "explain": {
+          "en": "**halb: towards the next hour; Viertel nach, Viertel vor**\n- 7:30 halb acht · 7:15 Viertel nach sieben (viertel acht)",
+          "sl": "**halb: k naslednji uri; Viertel nach, Viertel vor**\n- 7.30 halb acht · 7.15 Viertel nach sieben (viertel acht)",
+          "it": "**halb: verso l'ora dopo; Viertel nach, Viertel vor**\n- 7.30 halb acht · 7.15 Viertel nach sieben (viertel acht)"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "uhrzeit",
+        "instruction": {
+          "en": "Schreib die Uhrzeit in Wörtern · Write the time in words",
+          "sl": "Schreib die Uhrzeit in Wörtern · Napiši uro z besedami",
+          "it": "Schreib die Uhrzeit in Wörtern · Scrivi l'ora in lettere"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Mitzi kommt um 6:30.",
+            "accept": [
+              "Mitzi kommt um halb sieben.",
+              "Mitzi kommt um sechs Uhr dreißig."
+            ]
+          },
+          {
+            "from": "Der Zug fährt um 8:45.",
+            "accept": [
+              "Der Zug fährt um Viertel vor neun.",
+              "Der Zug fährt um dreiviertel neun.",
+              "Der Zug fährt um drei viertel neun.",
+              "Der Zug fährt um acht Uhr fünfundvierzig."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "uhrzeit",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der Markt ist ___ Freitag.",
+        "options": [
+          "am",
+          "um",
+          "im"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**a day: am**",
+          "sl": "**dan: am**",
+          "it": "**un giorno: am**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "uhrzeit",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "Which sentence is right?",
+          "sl": "Kateri stavek je pravilen?",
+          "it": "Quale frase è giusta?"
+        },
+        "options": [
+          "Um acht kommt der Bus.",
+          "Um acht der Bus kommt."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**the time first, the verb second**",
+          "sl": "**čas na začetku, glagol na drugem mestu**",
+          "it": "**il tempo all'inizio, il verbo al secondo posto**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: viertel acht and dreiviertel acht in Carinthia, in der Früh, Ruhetag, halb drei for 14:30, Kasnudeln fertig at twelve"
+}

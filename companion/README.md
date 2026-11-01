@@ -23,8 +23,8 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 | Path | What |
 |---|---|
 | `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_worksheet`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
-| `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and of the nouns Wiktionary gets wrong, the verb pairs and the animate nouns (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
-| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 77 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`; `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
+| `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement (and `it.extra.json`, `de.extra.json` for Italian and German), and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and of the nouns Wiktionary gets wrong, the verb pairs and the animate nouns (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
+| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 77 in `grammar/sl/`, the Italian, German and English books in `grammar/it/`, `grammar/de/` and `grammar/en/` (each with the pages its course added); `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
 | `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
 | `course/` | The school's course (see [The school's course](#the-schools-course) and [COURSE.md](COURSE.md)): `course/<language>/course.json`, the outline of its levels and units (`lani.course/v0`), and `course/<language>/units/<id>.json`, a unit each (`lani.unit/v0`). |
 | `drills/` | The car's audio drills (`lani.drill/v0`, see [The drills](#the-drills)): `drills/<language>/`, four in `drills/sl/` (transformations, rapid fire, sentence building, riddles). |
@@ -3619,6 +3619,15 @@ without Wiktionary finds them too: there the supplement, the packs and the names
 words met (28.8 % before). The course's printed sheets list every word they name
 ([it-print-meanings.md](../docs/plans/05-built/it-print-meanings.md)).
 
+**German's supplement**, `lexicon/de.extra.json` (machine-written, `"reviewed": false`), stands in for the German
+dictionary a learner of German usually lacks (it is a download, `LANI_LEXICON_URL`; the phone has none): the German
+course's words the word packs don't have, each with its Slovene and Italian (the English in `gloss`): sein, haben and
+heißen with their present forms (hab spoken), the personal pronouns, the articles der and ein with their forms, das as
+this, the greetings (Grüß Gott, Servus, Baba, Tschüss and Tschüs), the jobs and places of the Carinthian village with
+their Slovene and Italian names (Villach: Beljak, Villaco; Klagenfurt: Celovec), the numbers. A noun's lemma is
+written without its article and with its capital, its gender given: the printed sheets show it as der, die or das
+with it (`prints/sheet.ts`). Each part of the German course appends its units' words (docs/plans/05-built/course-de-a1-a.md).
+
 An entry's form with `null` grammar takes Wiktionary's grammar of that form when Wiktionary has it. Names and pure
 interjections are left out. It is machine-written and not reviewed by a native speaker (`"reviewed": false`). Of the
 11,977 words in the content's texts, Wiktionary knows 81.9 %, with the supplement 93.7 %, with the pack words and the
@@ -3964,7 +3973,15 @@ match, and `companion/tests/test_case_triggers.py` runs it, so a table edited by
 read back into case, number and gender; the hand-checked tables, a noun's replacing Wiktionary's, and the animate list:
 a person's accusative is its genitive; the table's pronouns; the villagers' and the learner's declined names; a noun's
 or an adjective's regular endings for a form the dictionary lacks, and the word packs' nouns by their lemma, gender and
-plural, both marked `derived`). The clause then decides,
+plural, both marked `derived`; what the dictionary has only as something else: a comparative or a superlative by its
+ending (boljša, najstarejši; -ejši of an adjective it has), a past participle as an adjective (zaklenjena), a verbal
+noun as a neuter noun (pečenje), a possessive of a noun or a name (cesarjevim, Krpanova, Tonetovo); a word with no
+case, ki, dvajset, super, an interjection, is what the dictionary says it is, with no row; a sound drawn out, Jaaa, is
+its word). The supplement has the content's story names declined (Krpan, Krpana; Zlatorog; Triglav), its interjections
+and particles (no case row: the card says *medmet*, *členek*), and its verbs' and nouns' Sloleks paradigms
+(docs/plans/05-built/lens-unknown-forms.md). `CaseLens.unknownWords(line, names)` gives the words of a line the lens
+knows nothing of; `bun test/case-lens-gaps.ts` lists the content's (by kind, with a line each; `--units` the course's
+too) and the smoke keeps them under 150. The clause then decides,
 each step a rule: a phrase, the preposition before the phrase (the verb's motion or rest where the form doesn't tell),
 a number or quantity, a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
 number, an l-form's gender), the object of a verb that takes one; the dual only with dva, dve, oba or a dual verb, the

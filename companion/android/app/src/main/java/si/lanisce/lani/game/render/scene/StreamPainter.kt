@@ -52,6 +52,9 @@ import kotlin.math.sqrt
  * In the Lake District's (By the beck) the woods are broadleaf, alders and oaks along the beck and no spruce
  * ([broadleaf]), and the fells rise behind them, rounded, their intake fields walled with dry-stone walls, bracken and
  * crags higher up, a whitewashed farm under slate with its stone barn on the lower slope ([fells], [fellFarm]).
+ * In Carinthia's (kaernten-projects-b) larches stand among the alders and spruces along the banks, the Karawanken rise
+ * higher and sharper over the valley, and a hamlet of white timbered houses round an onion-domed church sits on the hill
+ * ([alpineHamlet]).
  */
 internal class StreamPainter : WildPainter() {
     override val art = "stream"
@@ -107,6 +110,10 @@ internal class StreamPainter : WildPainter() {
     // woods' edge, the Collio's vines and a campanile on the hill
     private var pioppi = false
     private var collio = false
+    /** Carinthia's: larches among the alders and spruces along the banks, gold in October, bare in winter ([larch]). */
+    private var larchen = false
+    /** Carinthia's: the Karawanken higher and sharper over the valley, and a Carinthian hamlet on the hill ([alpineHamlet]). */
+    private var alpine = false
     /** The Lake District's beck: broadleaf woods without a spruce ([broadleaf]), the fells behind ([fells]). */
     private var broadleaf = false
     private var fells = false
@@ -136,6 +143,8 @@ internal class StreamPainter : WildPainter() {
         setup()
         pioppi = variant("trees") == "pioppi"
         collio = variant("hills") == "collio"
+        larchen = variant("trees") == "larch"
+        alpine = variant("hills") == "kaernten"
         broadleaf = variant("trees") == "broadleaf"
         fells = variant("hills") == "fells"
         cobblePiers = variant("cartbridge") == "cobbles"
@@ -162,9 +171,13 @@ internal class StreamPainter : WildPainter() {
             if (side > 0 && d < millBack + 3f && x < millR + 2f) continue
             if (abs(d - cartD) < 2.6f) continue // the cart road's way over the stream
             // (in Friuli more of them tall: Lombardy poplars, as along the plain's streams)
-            val spruce = !broadleaf && Noise.rnd(k, 313) < (if (pioppi) 0.55f else 0.3f)
+            val spruce = !broadleaf && Noise.rnd(k, 313) < (if (pioppi || larchen) 0.55f else 0.3f)
             val hgt = if (spruce) 10f + Noise.rnd(k, 314) * 5f else 7f + Noise.rnd(k, 314) * 4f
-            items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce && pioppi) poplar(x, d, hgt + 2f, k * 3 + 1) else if (spruce) spruce(x, d, hgt, k) else leafyTree(x, d, hgt, k * 5 + 3) } })
+            items.add(d to { prop(Pal.OUTLINE_TREE) {
+                if (spruce && pioppi) poplar(x, d, hgt + 2f, k * 3 + 1)
+                else if (spruce && larchen && k % 3 != 1) larch(x, d, hgt + 1f, k * 7 + 2)
+                else if (spruce) spruce(x, d, hgt, k) else leafyTree(x, d, hgt, k * 5 + 3)
+            } })
         }
         millSite()
         cartBridge()
@@ -236,11 +249,34 @@ internal class StreamPainter : WildPainter() {
         val z = z
         val season = env.season
         val rock = if (season == Season.WINTER) Col.hex(0xB8C6DA) else Col.hex(0x7684A8)
-        ridge(hz - 13f * z, 24f * z, 0.012f, 321, rock, 0.36f, snowLine = if (season == Season.SUMMER) 0.8f else 0.45f, sharp = true)
+        ridge(hz - 13f * z, (if (alpine) 31f else 24f) * z, 0.012f, 321, rock, 0.36f, snowLine = if (season == Season.SUMMER) 0.8f else 0.45f, sharp = true)
         val midCol = when (season) { Season.WINTER -> Col.hex(0xC6D2E2); Season.AUTUMN -> Col.hex(0x7E7A42); else -> Col.hex(0x4E7A48) }
         val mid = ridge(hz - 4f * z, 10f * z, 0.017f, 323, midCol, 0.22f, texture = if (collio) ({ x, y, b -> collioSlope(x, y, b, 333) }) else null)
         treeline(mid, (if (collio) 11 else 6) * z, 2.4f * z, if (season == Season.WINTER) Col.hex(0x6A7A8A) else Col.hex(0x2E5A36), 0.26f, 327)
         if (collio) hamlet(mid)
+        if (alpine) alpineHamlet(mid)
+    }
+
+    /**
+     * Carinthia's hamlet on the hill over the stream's valley ([alpine]): a few white houses with their timbered upper storeys
+     * under dark shingles ([farAlpineHouse]) and the church with its onion dome among them ([farOnionChurch]), where the hill
+     * shows over the woods; its colours the village's ([FireStyle]).
+     */
+    private fun alpineHamlet(crest: IntArray) {
+        val z = z
+        val st = FireStyle.of(frame.world.culture, frame.world.landscape)
+        val from = (vx + 8 * z).toInt().coerceIn(0, w - 1); val to = (vx + 46 * z).toInt().coerceIn(0, w - 1)
+        var top = from
+        for (x in from..to) if (crest[x] < crest[top]) top = x
+        val lit = env.windows > 0.35f
+        c.penEmissive = true
+        val base = crest[top] + 2 * z
+        for ((i, off) in intArrayOf(-13, -7, 6, 12).withIndex()) {
+            val hx = top + off * z; if (hx !in 0 until w - 5 * z) continue
+            farAlpineHouse(hx, min(base + z, crest[hx.coerceIn(0, w - 1)] + 3 * z), 5 * z, 3 * z, st, i + 2, lit, 0.24f)
+        }
+        farOnionChurch(top - 2 * z, base, st, lit, 0.24f, tall = 15)
+        c.penEmissive = false
     }
 
     /**

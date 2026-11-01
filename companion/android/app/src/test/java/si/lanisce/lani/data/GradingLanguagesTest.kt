@@ -295,6 +295,113 @@ class GradingLanguagesTest {
 
     @Test fun `a german ending stays grammar`() = assertEquals(Hint.ENDING, de("den Hund", "dem Hund").hint)
 
+    @Test fun `german geht's, gehts and geht es are one answer, tschüs is tschüss, and the spoken hab is habe`() {
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Wie gehts?", "Wie geht's?"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("wie geht es dir", "Wie geht's dir?"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Wie geht’s dir?", "Wie geht es dir?"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Gibt's hier Brot?", "Gibt es hier Brot?"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Tschüs, Kathi!", "Tschüss, Kathi!"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Ich hab Hunger.", "Ich habe Hunger."))
+        assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("Tschuess", "Tschüss"))
+    }
+
+    @Test fun `a german plural's umlaut is grammar - the singular typed for it is wrong, and the other way`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("die Apfel", "die Äpfel"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("zwei Mutter", "zwei Mütter"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("die Grossvater", "die Großväter"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("der Äpfel", "der Apfel"))
+        assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("die Aepfel", "die Äpfel"))
+        // a missing umlaut that makes no other word stays a slip in the stem, on a noun as on any word
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("die Hauser", "die Häuser"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("drei Stuhle", "drei Stühle"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("der Gat", "der Gast"))
+    }
+
+    @Test fun `a german verb's vowel change is grammar - fahrst for fährst, lest for liest, and fährt for ihr fahrt are wrong`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du fahrst nach Villach.", "Du fährst nach Villach."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Er lauft.", "Er läuft."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Oma lest.", "Oma liest."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Er sprecht Slowenisch.", "Er spricht Slowenisch."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Sie esst.", "Sie isst."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Das gefallt mir.", "Das gefällt mir."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ihr fährt.", "Ihr fahrt."))
+    }
+
+    @Test fun `german forms of the same verb or word for each other are wrong, never a slip`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du ist müde.", "Du bist müde."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du hat Zeit.", "Du hast Zeit."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ihr hast Zeit.", "Ihr habt Zeit."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ihr hat Zeit.", "Ihr habt Zeit."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du habt Zeit.", "Du hast Zeit."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du sagt es.", "Du sagst es."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du geht.", "Du gehst."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Das ist ein Hund.", "Das ist kein Hund."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich habe keine Katze.", "Ich habe eine Katze."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Siehst du ich?", "Siehst du mich?"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich sehe mich.", "Ich sehe dich."))
+    }
+
+    @Test fun `a german number word for another is wrong, a misspelt one by its letters`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("einundzwanzig", "neunundzwanzig"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("zweiundzwanzig", "dreiundzwanzig"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("einunddreißig", "zweiunddreißig"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("sechszehn", "sechzehn"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("dreisig", "dreißig"))
+        assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("dreissig", "dreißig"))
+    }
+
+    @Test fun `german present - the e after -t or -d left out, ist for isst and wenn for wann are wrong, gern and gerne one answer`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du arbeitst viel.", "Du arbeitest viel."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Du findst das gut.", "Du findest das gut."))
+        assertGraded(Verdict.WRONG, Hint.ENDING, de("Ihr arbeitt.", "Ihr arbeitet."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Opa Sepp ist Speck.", "Opa Sepp isst Speck."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Wenn kommt Opa?", "Wann kommt Opa?"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Ich spiele gerne Karten.", "Ich spiele gern Karten."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Du tanzt gern.", "Du tanzt gerne."))
+        // a slip elsewhere stays one: a letter lost inside a longer stem
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Er nimt ein Glas.", "Er nimmt ein Glas."))
+    }
+
+    @Test fun `a german possessive for another is whose, never a slip - mein, dein, sein, ein, kein with any ending`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Das ist dein Hund.", "Das ist mein Hund."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Toni sucht meinen Hammer.", "Toni sucht seinen Hammer."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich habe meine Zeit.", "Ich habe keine Zeit."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Das ist sein Gasthaus.", "Das ist ein Gasthaus."))
+        assertGraded(Verdict.WRONG, Hint.ENDING, de("Ich suche meine Hund.", "Ich suche meinen Hund."))
+        // Ihr (polite) and ihr are one answer, as Sie and sie: the course asks for it by a tap
+        assertGraded(Verdict.CORRECT, Hint.NONE, de("Ist das ihr Hund, Frau Huber?", "Ist das Ihr Hund, Frau Huber?"))
+        // a slip in a longer word of the group stays one
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("unsre Kuh", "unsere Kuh"))
+    }
+
+    @Test fun `german mochte for möchte, fähr for fahr and a strong participle with the infinitive's vowel are wrong`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich mochte einen Kaffee.", "Ich möchte einen Kaffee."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Mochtest du Most?", "Möchtest du Most?"))
+        assertGraded(Verdict.ALMOST, Hint.UMLAUT, de("Ich moechte einen Kaffee.", "Ich möchte einen Kaffee."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Fähr langsam!", "Fahr langsam!"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Läuf!", "Lauf!"))
+        assertEquals(Verdict.WRONG, de("Schläf gut!", "Schlaf gut!").verdict)
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Wir haben Most getrinken.", "Wir haben Most getrunken."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Sie hat einen Brief geschreiben.", "Sie hat einen Brief geschrieben."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Er ist zu Hause gebleiben.", "Er ist zu Hause geblieben."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Hast du Slowenisch gesprechen?", "Hast du Slowenisch gesprochen?"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich habe den Schlüssel mitgenehmen.", "Ich habe den Schlüssel mitgenommen."))
+        // the vowel right, a letter slipped elsewhere in the stem: a slip
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Wir haben Most getrunen.", "Wir haben Most getrunken."))
+    }
+
+    @Test fun `a german participle's ge where it takes none, or missing where a separable verb puts it inside, is wrong`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Kathi hat getelefoniert.", "Kathi hat telefoniert."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Wir haben Oma gebesucht.", "Wir haben Oma besucht."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Hast du das geverstanden?", "Hast du das verstanden?"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Stefan hat anrufen.", "Stefan hat angerufen."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich habe einkauft.", "Ich habe eingekauft."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich bin um sechs aufstanden.", "Ich bin um sechs aufgestanden."))
+        // a slip that keeps the ge where it belongs stays one
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Kathi hat telefonirt.", "Kathi hat telefoniert."))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Wir haben Oma besuht.", "Wir haben Oma besucht."))
+    }
+
     @Test fun `a long word forgives two slips in its stem, a shorter one only one`() {
         assertEquals(2, Grading.typosAllowed("bürgermeister"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("der Burgermaister", "der Bürgermeister"))
@@ -342,6 +449,7 @@ class GradingLanguagesTest {
         assertTrue("Italian's known wrong forms", Spelling.of(Lang.IT).wrong.isNotEmpty())
         assertTrue("Slovene's: a prefix one letter off another", Spelling.of(Lang.SL).wrong.isNotEmpty())
         assertEquals(Hint.UMLAUT, Spelling.of(Lang.DE).foldHint)
+        assertTrue("German's known wrong forms: the plural's and the present's umlaut, kein, the numbers", Spelling.of(Lang.DE).wrong.isNotEmpty())
         assertEquals(Hint.NONE, Spelling.of(Lang.EN).foldHint)
     }
 }

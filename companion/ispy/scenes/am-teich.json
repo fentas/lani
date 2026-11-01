@@ -1,0 +1,555 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "am-teich",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl, en and it, from the pond's picture in Carinthia's look (spruces, beeches and larches round it, the Karawanken over the trees) and the painter's colours and places; not reviewed by a native speaker",
+  "things": {
+    "pond": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist dunkelgrün.",
+          "sl": "Je temno zelen.",
+          "en": "It's dark green.",
+          "it": "È verde scuro.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "size",
+          "de": "Er ist kleiner als ein See.",
+          "sl": "Je manjši od jezera.",
+          "en": "It's smaller than a lake.",
+          "it": "È più piccolo di un lago.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er ist still und tief.",
+          "sl": "Je miren in globok.",
+          "en": "It's still and deep.",
+          "it": "È calmo e profondo.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "does",
+          "de": "Im Winter friert er zu.",
+          "sl": "Pozimi zamrzne.",
+          "en": "In winter it freezes over.",
+          "it": "D'inverno gela.",
+          "grammar": ["praesens", "wortstellung"]
+        },
+        {
+          "kind": "use",
+          "de": "In ihm schwimmen Fische und Enten.",
+          "sl": "V njem plavajo ribe in race.",
+          "en": "Fish and ducks swim in it.",
+          "it": "Ci nuotano pesci e anatre.",
+          "grammar": ["praesens", "dativ"]
+        }
+      ]
+    },
+    "lilies": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist weiß und gelb.",
+          "sl": "Je bel in rumen.",
+          "en": "It's white and yellow.",
+          "it": "È bianca e gialla.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hat große, runde Blätter.",
+          "sl": "Ima velike, okrogle liste.",
+          "en": "It has big round leaves.",
+          "it": "Ha foglie grandi e rotonde.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "does",
+          "de": "Sie schwimmt auf dem Wasser.",
+          "sl": "Plava na vodi.",
+          "en": "It floats on the water.",
+          "it": "Galleggia sull'acqua.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        },
+        {
+          "kind": "where",
+          "de": "Auf ihr sitzt ein Frosch.",
+          "sl": "Na njem sedi žaba.",
+          "en": "A frog sits on it.",
+          "it": "Sopra c'è una rana.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "frog"
+        }
+      ]
+    },
+    "reeds": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Es ist grün, im Winter braun.",
+          "sl": "Je zeleno, pozimi rjavo.",
+          "en": "It's green, brown in winter.",
+          "it": "È verde, d'inverno marrone.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        { "kind": "size", "de": "Es ist hoch.", "sl": "Je visoko.", "en": "It's tall.", "it": "È alto.", "grammar": ["sein-haben", "artikel-genus"] },
+        {
+          "kind": "trait",
+          "de": "Es hat lange, dünne Halme.",
+          "sl": "Ima dolge, tanke bilke.",
+          "en": "It has long, thin stalks.",
+          "it": "Ha steli lunghi e sottili.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "does",
+          "de": "Im Wind rauscht es.",
+          "sl": "V vetru šumi.",
+          "en": "It rustles in the wind.",
+          "it": "Fruscia nel vento.",
+          "grammar": ["praesens", "wortstellung"]
+        },
+        {
+          "kind": "use",
+          "de": "In ihm verstecken sich die Enten.",
+          "sl": "V njem se skrivajo race.",
+          "en": "The ducks hide in it.",
+          "it": "Ci si nascondono le anatre.",
+          "grammar": ["praesens", "dativ"]
+        }
+      ]
+    },
+    "frog": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist grün.",
+          "sl": "Je zelena.",
+          "en": "It's green.",
+          "it": "È verde.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "size",
+          "de": "Er ist klein.",
+          "sl": "Je majhna.",
+          "en": "It's small.",
+          "it": "È piccola.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat lange Beine.",
+          "sl": "Ima dolge noge.",
+          "en": "It has long legs.",
+          "it": "Ha le zampe lunghe.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "does",
+          "de": "Er springt und quakt.",
+          "sl": "Skače in rega.",
+          "en": "It jumps and croaks.",
+          "it": "Salta e gracida.",
+          "grammar": ["praesens"]
+        },
+        {
+          "kind": "where",
+          "de": "Er sitzt auf der Seerose.",
+          "sl": "Sedi na lokvanju.",
+          "en": "It's sitting on the water lily.",
+          "it": "È seduta sulla ninfea.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "lilies"
+        }
+      ]
+    },
+    "ducks": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist braun.",
+          "sl": "Je rjava.",
+          "en": "It's brown.",
+          "it": "È marrone.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hat kleine Junge.",
+          "sl": "Ima majhne mladiče.",
+          "en": "It has little ones.",
+          "it": "Ha dei piccoli.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "does",
+          "de": "Sie schwimmt und macht quak.",
+          "sl": "Plava in dela ga ga.",
+          "en": "It swims and goes quack.",
+          "it": "Nuota e fa qua qua.",
+          "grammar": ["praesens"]
+        },
+        {
+          "kind": "where",
+          "de": "Sie schwimmt auf dem Teich.",
+          "sl": "Plava na ribniku.",
+          "en": "It swims on the pond.",
+          "it": "Nuota sullo stagno.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "pond"
+        }
+      ]
+    },
+    "jetty": {
+      "clues": [
+        {
+          "kind": "material",
+          "de": "Er ist aus Holz.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "it": "È di legno.",
+          "grammar": ["sein-haben", "dativ"]
+        },
+        {
+          "kind": "size",
+          "de": "Er ist lang und schmal.",
+          "sl": "Je dolg in ozek.",
+          "en": "It's long and narrow.",
+          "it": "È lungo e stretto.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat Pfähle im Wasser.",
+          "sl": "Ima kole v vodi.",
+          "en": "It has posts in the water.",
+          "it": "Ha dei pali nell'acqua.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "An ihm liegt das Boot.",
+          "sl": "Ob njem je privezan čoln.",
+          "en": "The boat lies at it.",
+          "it": "Accanto c'è la barca.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "boat"
+        },
+        {
+          "kind": "use",
+          "de": "Auf ihm sitzt man und angelt.",
+          "sl": "Na njem sediš in loviš ribe.",
+          "en": "You sit on it and fish.",
+          "it": "Ci si siede sopra a pescare.",
+          "grammar": ["praesens", "dativ"]
+        }
+      ]
+    },
+    "boat": {
+      "clues": [
+        {
+          "kind": "material",
+          "de": "Es ist aus Holz.",
+          "sl": "Je iz lesa.",
+          "en": "It's made of wood.",
+          "it": "È di legno.",
+          "grammar": ["sein-haben", "dativ"]
+        },
+        {
+          "kind": "size",
+          "de": "Es ist klein.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "it": "È piccola.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Es hat zwei Ruder.",
+          "sl": "Ima dve vesli.",
+          "en": "It has two oars.",
+          "it": "Ha due remi.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Es liegt am Bootssteg.",
+          "sl": "Je privezan ob pomolu.",
+          "en": "It lies at the jetty.",
+          "it": "È al pontile.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "jetty"
+        },
+        {
+          "kind": "use",
+          "de": "Mit ihm fährt man über den Teich.",
+          "sl": "Z njim se pelješ čez ribnik.",
+          "en": "You go across the pond in it.",
+          "it": "Ci si attraversa lo stagno.",
+          "grammar": ["praesens", "dativ"]
+        }
+      ]
+    },
+    "fish": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist golden und braun.",
+          "sl": "Je zlata in rjava.",
+          "en": "It's golden and brown.",
+          "it": "È dorato e marrone.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat Schuppen.",
+          "sl": "Ima luske.",
+          "en": "It has scales.",
+          "it": "Ha le squame.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "does",
+          "de": "Er schwimmt unter dem Wasser.",
+          "sl": "Plava pod vodo.",
+          "en": "It swims under the water.",
+          "it": "Nuota sott'acqua.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        },
+        {
+          "kind": "does",
+          "de": "Manchmal springt er hoch.",
+          "sl": "Včasih visoko skoči.",
+          "en": "Sometimes it jumps up high.",
+          "it": "A volte salta in alto.",
+          "grammar": ["praesens", "wortstellung"]
+        }
+      ]
+    },
+    "heron": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist grau.",
+          "sl": "Je siva.",
+          "en": "It's grey.",
+          "it": "È grigio.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        { "kind": "size", "de": "Er ist groß.", "sl": "Je velika.", "en": "It's big.", "it": "È grande.", "grammar": ["sein-haben", "artikel-genus"] },
+        {
+          "kind": "trait",
+          "de": "Er hat lange Beine und einen langen Hals.",
+          "sl": "Ima dolge noge in dolg vrat.",
+          "en": "It has long legs and a long neck.",
+          "it": "Ha le zampe lunghe e il collo lungo.",
+          "grammar": ["sein-haben", "akkusativ"]
+        },
+        {
+          "kind": "does",
+          "de": "Er steht still und fängt Fische.",
+          "sl": "Mirno stoji in lovi ribe.",
+          "en": "It stands still and catches fish.",
+          "it": "Sta fermo e prende i pesci.",
+          "grammar": ["praesens", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Er steht im seichten Wasser.",
+          "sl": "Stoji v plitvi vodi.",
+          "en": "It stands in the shallow water.",
+          "it": "Sta nell'acqua bassa.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "pond"
+        }
+      ]
+    },
+    "deer": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Es ist braun.",
+          "sl": "Je rjava.",
+          "en": "It's brown.",
+          "it": "È marrone.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Es ist scheu.",
+          "sl": "Je plaha.",
+          "en": "It's shy.",
+          "it": "È timido.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "does",
+          "de": "Es trinkt am anderen Ufer.",
+          "sl": "Pije na drugem bregu.",
+          "en": "It's drinking on the far shore.",
+          "it": "Beve sull'altra riva.",
+          "grammar": ["praesens", "dativ"]
+        },
+        {
+          "kind": "does",
+          "de": "Es kommt am Morgen und am Abend.",
+          "sl": "Pride zjutraj in zvečer.",
+          "en": "It comes in the morning and in the evening.",
+          "it": "Viene la mattina e la sera.",
+          "grammar": ["praesens", "wortstellung"]
+        }
+      ]
+    },
+    "fox": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist rotbraun.",
+          "sl": "Je rjavordeča.",
+          "en": "It's reddish brown.",
+          "it": "È rossiccia.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat einen buschigen Schwanz.",
+          "sl": "Ima košat rep.",
+          "en": "It has a bushy tail.",
+          "it": "Ha la coda folta.",
+          "grammar": ["sein-haben", "akkusativ"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er ist schlau.",
+          "sl": "Je zvita.",
+          "en": "It's sly.",
+          "it": "È furba.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "does",
+          "de": "Er kommt am frühen Morgen.",
+          "sl": "Pride zgodaj zjutraj.",
+          "en": "It comes early in the morning.",
+          "it": "Viene di mattina presto.",
+          "grammar": ["praesens", "dativ"]
+        }
+      ]
+    },
+    "butterfly": {
+      "clues": [
+        {
+          "kind": "size",
+          "de": "Er ist klein.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "it": "È piccola.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat bunte Flügel.",
+          "sl": "Ima pisana krila.",
+          "en": "It has colourful wings.",
+          "it": "Ha le ali colorate.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "does",
+          "de": "Er fliegt über dem Schilf.",
+          "sl": "Leta nad trstičjem.",
+          "en": "It flies over the reeds.",
+          "it": "Vola sopra il canneto.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "reeds"
+        },
+        {
+          "kind": "does",
+          "de": "Er mag die Sonne.",
+          "sl": "Rad ima sonce.",
+          "en": "It likes the sun.",
+          "it": "Le piace il sole.",
+          "grammar": ["praesens", "akkusativ"]
+        }
+      ]
+    },
+    "bat": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist schwarz.",
+          "sl": "Je črn.",
+          "en": "It's black.",
+          "it": "È nero.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "size",
+          "de": "Sie ist klein.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "it": "È piccolo.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "does",
+          "de": "Sie jagt am Abend Mücken.",
+          "sl": "Zvečer lovi komarje.",
+          "en": "It hunts midges in the evening.",
+          "it": "La sera caccia le zanzare.",
+          "grammar": ["praesens", "wortstellung"]
+        },
+        {
+          "kind": "does",
+          "de": "Sie fliegt tief über dem Wasser.",
+          "sl": "Leta nizko nad vodo.",
+          "en": "It flies low over the water.",
+          "it": "Vola basso sopra l'acqua.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        }
+      ]
+    },
+    "dragonfly": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist blau und glänzt.",
+          "sl": "Je moder in se sveti.",
+          "en": "It's blue and shiny.",
+          "it": "È blu e brilla.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hat vier Flügel.",
+          "sl": "Ima štiri krila.",
+          "en": "It has four wings.",
+          "it": "Ha quattro ali.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Sie fliegt über den Seerosen.",
+          "sl": "Leta nad lokvanji.",
+          "en": "It flies over the water lilies.",
+          "it": "Vola sopra le ninfee.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "lilies"
+        },
+        {
+          "kind": "does",
+          "de": "Sie fliegt sehr schnell.",
+          "sl": "Leti zelo hitro.",
+          "en": "It flies very fast.",
+          "it": "Vola velocissima.",
+          "grammar": ["praesens"]
+        }
+      ]
+    }
+  }
+}

@@ -55,6 +55,9 @@ import kotlin.math.sin
  * coils of red and blue rope on the reel for the hose, a rope's end across the floor; St George's cross on the banner; and
  * where the pump stands the rescue stretcher on its one wheel ([stretcher]), which the team wheels to and fro to practise
  * (`pump`: how hard). No fire, no water.
+ *
+ * Carinthia's (kaernten-projects-b): the sign FF (Freiwillige Feuerwehr) over the doors and the banner Austria's red, white
+ * and red; St Florian, the Austrian firemen's patron too, is the art's own picture.
  */
 internal class FirestationPainter : RoomPainter() {
     override val art = "firestation"
@@ -116,6 +119,8 @@ internal class FirestationPainter : RoomPainter() {
     private var chrome = false
     private var barbara = false
     private var tricolore = false
+    /** Carinthia's banner: Austria's red, white and red, in bands down the cloth. */
+    private var austria = false
     /** The Lake District's rescue hut ([readStation]): slate, MRT, red helmets and jackets, ice axes, the map, the whistle, first-aid bags, ropes, St George, the stretcher. */
     private var slate = false
     private var redKit = false
@@ -145,10 +150,11 @@ internal class FirestationPainter : RoomPainter() {
     private fun readStation() {
         cobbles = material("walls", "plaster") == "cobbles"
         coppi = material("roof", "shingles") == "coppi"
-        sign = if (variant("sign") == "vvf") "VVF" else "PGD"
+        sign = when (variant("sign")) { "vvf" -> "VVF"; "ff" -> "FF"; else -> "PGD" }
         chrome = variant("helmet") == "chrome"
         barbara = variant("picture") == "barbara"
         tricolore = variant("flag") == "it"
+        austria = variant("flag") == "at"
         slate = material("walls", "plaster") == "slate"
         if (variant("sign") == "mrt") sign = "MRT"
         redKit = variant("helmet") == "red"
@@ -450,7 +456,7 @@ internal class FirestationPainter : RoomPainter() {
         return Col.scale(col, dim)
     }
 
-    /** The brigade's sign over the doors: a cream board, a red border, the letters PGD (in Friuli VVF). */
+    /** The brigade's sign over the doors: a cream board, a red border, the letters PGD (in Friuli VVF, in Carinthia FF). */
     private fun signBoard() {
         val ya = y0 + 0.04f
         val a0 = (da + db) / 2f - 1.45f; val a1 = (da + db) / 2f + 1.45f
@@ -537,6 +543,7 @@ internal class FirestationPainter : RoomPainter() {
             when {
                 z < hem + 0.7f -> if (Dither.at(px, py) < 0.5f) Pal.GOLD else bellD
                 tricolore -> when { u < 0.33f -> Col.hex(0x2E8A44); u < 0.67f -> Pal.FLAG_WHITE; else -> Pal.FLAG_RED }.let { if (e < 0.6f) Col.scale(it, 0.85f) else it }
+                austria -> (if (abs((z - za) / (zb - za) - 0.5f) < 1f / 6f) Pal.FLAG_WHITE else Pal.FLAG_RED).let { if (e < 0.6f) Col.scale(it, 0.85f) else it }
                 // St George's cross: red on white
                 england -> if (abs(u - 0.5f) < 0.1f || abs(z - (za + zb) / 2f - 0.5f) < 0.9f) Pal.FLAG_RED else if (e < 0.6f) Col.hex(0xD8D4CC) else Pal.FLAG_WHITE
                 e < 0.6f -> Pal.GOLD
