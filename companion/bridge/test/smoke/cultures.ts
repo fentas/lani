@@ -578,7 +578,7 @@ export default async function cultures() {
   check("friuli's readings are in Italian with Slovene and English on every line", fr.errors.length === 0 && [...fr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.it && t.sl && t.en)), fr.errors)
 
   const kr = cultureReadings(culturesDir, 'kaernten', 'de')
-  check("kaernten's readings are in German with Slovene, English and Italian on every line", kr.errors.length === 0 && kr.readings.size === 4 && [...kr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.de && t.sl && t.en && t.it)), kr.errors)
+  check("kaernten's nine readings (the chest's four, the corner's five newer) are in German with Slovene, English and Italian on every line", kr.errors.length === 0 && kr.readings.size === 9 && [...kr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.de && t.sl && t.en && t.it)), kr.errors)
 
   const badReads = tempDir('lani-smoke-readings-')
   cpSync(join(culturesDir, 'primorska'), join(badReads, 'primorska'), { recursive: true })
