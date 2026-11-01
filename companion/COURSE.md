@@ -928,6 +928,38 @@ the partitive, the comparatives, the past with essere, lo and la), in the outlin
 - **No trick**: no distractor of a word bank fits its gap in grammar (no voglio where Io vorrei is asked, no sempre in
   a sentence with non); vorrei's gap text has none.
 
+### The Italian course: B1, units 7–12
+
+B1 is outlined in `course.json` (18 units, 2026-11-01) and written in three parts side by side. Its middle six come after
+A1, A2 and B1's first six (trapassato to periodo-ipotetico). Around a gap they use A1, A2 and the B1 units before them;
+the trapassato, the passato remoto and the subjunctive, written beside them, stay out of their gaps. Each has a new B1
+page of its own, its summary card (docs/plans/05-built/it-b1-b.md):
+
+| # | unit | what it teaches | its pages |
+|---|---|---|---|
+| 7 | `pronomi-combinati` 📦 | the person first, mi, ti, ci, vi → me, te, ce, ve before lo, la, li, le, ne (Me lo dai?); glielo, gliela, glieli, gliele in one word for him, her and Lei (Glielo porto, Maestra); me l'ha detto, gliel'ho data, the participle agreeing; Puoi darmelo? and Me lo puoi dare?, dammelo, portagliela; me ne, gliene | pronomi-combinati, pronomi-diretti, pronomi-indiretti, imperativo-pronomi |
+| 8 | `si-impersonale` 👥 | si + the lui form for German *man* (Come si dice «ciao» in friulano? Si dice «mandi».); the verb plural with a plural thing (si vendono le ciliegie); si può, non si tocca; how it's done, step by step (Come si fa il frico?); ci si alza | si-impersonale, riflessivi, modali |
+| 9 | `gerundio` 🦔 | the gerund alone for while and when, the same person (Camminando, ho visto un riccio); by doing (Sbagliando s'impara); facendo, dicendo, bevendo; the short words on its end (guardandolo, alzandosi); quando or mentre for another person | gerundio, stare-gerundio |
+| 10 | `stare-per` ⏱️ | stare per + the infinitive, about to (Il treno sta per partire!); appena between avere or essere and the participle, just (Ho appena mangiato, è appena arrivata); sta per piovere, sta piovendo, è appena piovuto; stavo per … quando; appena in front for as soon as | stare-per, stare-gerundio, passato-prossimo |
+| 11 | `relativi-cui` 🏡 | cui after a preposition (la casa in cui abito, il bambino con cui gioco); a, di, da, per, su cui; che without a preposition, cui with one, chi only the question; in cui and dove for a place, in cui for a time; the verb not sent to the end | relativi-cui, relative-che, preposizioni-articolate |
+| 12 | `indefiniti` 🎈 | qualcuno, qualcosa and their no-answers nessuno, niente; ogni + the singular, ognuno with the singular verb; tutti i, tutto il, tutti alone; qualche + the singular against alcuni, alcune; qualcosa di buono, niente di nuovo | indefiniti, negazioni, partitivo |
+
+- **The grading B1 needs** (`grading/it.json`, `GradingLanguagesTest`): the combined pronoun's mistakes are wrong, never
+  a slip in the stem: glilo and portaglilo (glie-'s e left out), dammilo, portamilo, darmilo (the i kept), as mi lo and
+  ti la already were by their ending; glielo or gliela before avere not elided is almost only where the participle
+  agrees (glielo ho dato for gliel'ho dato; glielo ho data stays wrong). The gerund with the other verbs' ending
+  (leggando, parlendo, avvicinendosi), fare's, dire's and bere's regular stem (farendo, direndo, berendo) and li for gli
+  on its end (dicendoli for dicendogli) are wrong too, so the distractors that make them on purpose are.
+- **Every right answer listed**: both places of a pronoun with a modal (Me la puoi prestare? Puoi prestarmela?); the
+  orders Italian allows (Il frico si mangia, Si mangia il frico; su cui Nonno Bepi si siede, su cui si siede Nonno Bepi);
+  è appena piovuto and ha appena piovuto; dove and in cui for a place; the subject named or left out.
+- **No trick**: no option is right Italian in its own sentence (ci si sta bene and ci si fanno i compiti are, so neither
+  is offered against si sta, si fanno); a choice's `almost` is a right form in the wrong register only (Te lo porto to
+  Maestra Elena or signor Franco, to whom the child says Lei).
+- **Read aloud**: every bold form of an explanation is one the intro shows (its examples, its table, its questions or
+  the unit's `words`: glieli, gliele, gliene are among pronomi-combinati's), so Elena reads it and never the phone's
+  German voice; only gerundio's endings -ando, -endo are, as in A2.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
