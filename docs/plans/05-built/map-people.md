@@ -3,7 +3,8 @@
 *Built 2026-11-01, branch `map-people` (the completing round, wave B, part 2). Jan: "can you make app complete - all what
 is missing?"; "for choices - make it the best - prod ready". The last line of map-culture.md's "What's left": "The people's
 clothes (the kerchiefs, the hats) are the map's own in every culture." For Teo (a child learning Italian from German,
-Friuli, a tablet), Carinthia's and the Lake District's villages, and Jan (Primorska, unchanged).*
+Friuli, a tablet), Carinthia's and the Lake District's villages, and Jan (Primorska: its own pictures' mistakes
+corrected, below).*
 
 ## What
 
@@ -31,9 +32,10 @@ The beekeeper in his veil, the hunter, the charcoal burner and the baby are dres
 companion/SCENES.md ("Arts", "Each culture's clothes"); the rules for the map in companion/GAME.md ("The map in a
 culture's look", "The people on the map").
 
-**Primorska** is pixel for pixel as it was: its sprites (`CultureLooksTest`'s golden scenes, `FacesGoldenTest`), its
-map's small figures (drawn for those sizes before the sprites, `ClassicLandTest`, `MapLooksTest`) and its portraits. A
-culture without a wardrobe dresses its people as Primorska's.
+**Primorska** keeps its clothes. What its pictures had wrong is corrected, at the lead's word (2026-11-01: "Changing
+Primorska's golden pictures is fine when it corrects a mistake"), in the section "Primorska's corrections" below: Vida a
+woman, the teacher's skirt, the beekeeper's and the charcoal burner's trousers, the residents dressed by one seed. A culture
+without a wardrobe dresses its people as Primorska's.
 
 ## How
 
@@ -56,8 +58,9 @@ culture without a wardrobe dresses its people as Primorska's.
 - **One seed per person.** The scenes dress the village's own people by their id (`Looks.seedOf`, the hash ArtPainter
   always used); the map now dresses them by the same seed at 7 px and 14 px (`lookOf(…, sceneSeed)`) and at the closest
   detail (`Effects.person(…, lookSeed)` sets `PeoplePainter.lookSeed` for the sprite's clothes, its moves keep the map's own
-  seed), and the portraits by the screens' id hash (`Looks.seedOfHash`), in a culture with a wardrobe. The unnamed people
-  at the edges of the map are a woman or a man of the village by their seed (`Effects.anonArt`), the same at every detail.
+  seed), and the portraits by the screens' id hash (`Looks.seedOfHash`), in every culture. In a culture with a wardrobe the
+  unnamed people at the edges of the map are a woman or a man of the village by their seed (`Effects.anonArt`), the same at
+  every detail.
 
 ## How to see it
 
@@ -79,20 +82,33 @@ culture without a wardrobe dresses its people as Primorska's.
   wardrobes apart at every size, a culture without one as Primorska's.
 - `MapPeopleTest`: the 14 px figures wear the clothes of the scenes' sprites (shirt, skirt or trousers, apron, waistcoat,
   check, hat or kerchief, shoes, toes) for every sprite of every wardrobe, and the closest detail is the scene's; Primorska's
-  small figures agree with its sprites in every mark they have (but two kept as drawn: the beekeeper's darker trousers, the
-  teacher's purple skirt); the village's own people and the unnamed are dressed alike at every detail and in their scenes;
-  the contact sheets.
+  small figures agree with its sprites in every mark they have, with no exception left; the village's own people are
+  dressed alike at every detail and in their scenes in all four cultures, the unnamed in the three with a wardrobe; the
+  contact sheets (the portraits too, `02-portraits-<culture>.png`).
 - The culture looks' tests that the people stand where they did (`FriuliIndoorLooksTest`, `FriuliApiaryChurchLooksTest`,
-  `FriuliMarketSquareLooksTest`, `FriuliPlacesLooksTest`, `KaerntenLooksTest`, `LakelandLooksTest`) compare with Primorska's
+  `FriuliMarketSquareLooksTest`, `FriuliPlacesLooksTest`, `KaerntenLooksTest`, `LakelandLooksTest`, and from the branches
+  merged in, `KaerntenProjectsLooksTest`, `KaerntenPlacesLooksTest`, `LakelandPlacesLooksTest`) compare with Primorska's
   picture with the culture's people in it, as their head's top is where a bubble points and a hat moves it.
   `FriuliOutdoorLooksTest`'s digests of the pictures with people in them are new (its pictures without people are as they
   were).
-- `PedlarsTest`, `MapLooksTest` (Primorska's map as it always was; a frame's cost), `FacesGoldenTest` unchanged.
+- `PedlarsTest` and `MapLooksTest` (Primorska's map; a frame's cost) unchanged; `FacesGoldenTest` and `ClassicLandTest` with
+  Primorska's corrections (below).
 - `FireAgesTest` (nobody's head hidden round the fire) passes in every culture: Nonno Bepi is bald under his hat, as Stari
   Janez is (short hair under a felt hat shows a pixel above the brim at the side, which touched a neighbour's head).
 - The whole Android unit suite on 242404c2: 3692 tests, none failed (2 skipped). The Python tests (251; 142, 11
   skipped), the bridge's typecheck, its smoke (ports 9670, 9673, 9676, DRAMA3 9688) and `tutor-export --check` (89 files)
   pass; nothing of the bridge changed.
+- **Merged with the queue ahead** (the lead, 2026-11-01): `kaernten-projects-a`, then `lakeland-projects-b` at d6accae5,
+  then `kaernten-projects-b` at d09659ea (each containing the ones before, with stories-friuli, the German course and the
+  lens round), merges, not rebases; bin/qa's step list by `qa-steps-union.py` (one conflict each time, no step function
+  inserted at the same spot). Their scenes' people wear the Carinthian and the Lake District's wardrobes: the eight
+  Carinthian project places and the wood, the six places of its second half with the stream bank and the pond, and the
+  Lake District's beck, tarn and six project places (contact sheets in the scratchpad, `ux-map-people/kaernten-scenes-people.png`
+  and `lakeland-scenes-people.png`). Their look tests' digests are of pictures without people, so none changed; their tests
+  that the people stand where they did compare with Primorska's picture with the culture's people in it, as above. On the
+  merged tip: the whole Android unit suite 3732 tests, none failed (2 skipped); the Python tests 251 and 142 (11 skipped);
+  the bridge's typecheck, its smoke (3444 checks, ports 9670, 9673, 9676, DRAMA3 9688) and `tutor-export --check` (89
+  files) pass.
 
 ## On the emulator
 
@@ -105,6 +121,32 @@ miller's white cap, the Luschariberg pilgrim; the Lake District's Alfie in his y
 Primorska's people as before. The map's frame on the emulator's software rendering: 78 to 227 ms at details 1 to 3,
 the same range as map-culture.md's runs (82 to 122 ms) given the machine's load; the JVM's frame budget
 (`MapLooksTest`) holds.
+
+## Primorska's corrections
+
+The lead, 2026-11-01: "Fix the Primorska mismatches you listed. Changing Primorska's golden pictures is fine when it
+corrects a mistake." Each of Primorska's pictures that changed, and why:
+
+| What | Before | Now |
+|---|---|---|
+| Vida the innkeeper (Gostilničarka), `innkeeper` | a bald man with a moustache in her sprite, her portrait and at the map's closest detail; at 7 px and 14 px a man in trousers | a woman: a white blouse under a teal bodice, a dark skirt, the white apron, her hair up, her mug, at every size |
+| The teacher at 7 px and 14 px | her skirt her blouse's purple | the sprite's dark skirt |
+| The beekeeper at 7 px and 14 px | trousers a shade darker than his suit | his suit's canvas colour, as the sprite |
+| The charcoal burner at 7 px and 14 px | trousers near black | the sprite's dark grey |
+| The village's own people (`woman`, `man`) | dressed by one seed in their scenes, another on the map at 7 px and 14 px, a third at its closest detail, a fourth in their portraits (nearly all alike there) | by their scenes' seed everywhere (`Looks.seedOf`; the portraits by `Looks.seedOfHash` of the screens' id hash) |
+
+The digests that changed, taken after a look at the sheets:
+
+- `FacesGoldenTest`: `innkeeper` in all nine poses; `woman` and `man` in all nine (each digest is the portraits at three
+  sizes and four moments, and the scene's sprite still and talking).
+- `ClassicLandTest`: jan-like `side-day` and `tall-day`; town `side-day`, `tall-day` and `tall-dusk-k2` (Čebelar Anton's
+  trousers; the other frames hold).
+- `CultureLooksTest`: Primorska's people lineup (its golden scenes hold: neither Vida nor the residents stand at their
+  spots).
+
+The before and after sheets: the round's scratchpad, `ux-map-people/primorska-before/` and `primorska-after/`
+(`00-cast-primorska.png`: the cast and six residents at 7 px, 14 px and the closest detail, by day and at night;
+`01-village-primorska.png`; `02-portraits-primorska.png`).
 
 ## Credits
 
@@ -160,8 +202,8 @@ Friuli wears the blue smock to school. Every choice above is from the sources; t
 
 ## What's left
 
-- Primorska's own differences between its small figures and its sprites stay as they were drawn (the beekeeper's darker
-  trousers and the teacher's purple skirt at 7 px and 14 px; its residents dressed by another seed on the map than in
-  their scenes; the innkeeper Vida a bald man with a moustache in her sprite). Changing them changes Primorska's pictures
-  and needs new golden digests (`ClassicLandTest`, `CultureLooksTest`, `FacesGoldenTest`): Jan's call.
+- Primorska's unnamed people (the population beyond the named, at the edges of the map) are still colours by their seed
+  at 7 px and 14 px and one of the cast's sprites at the closest detail, as before; in the other cultures they are a
+  woman or a man of the village, the same at every detail. Primorska's grandpa and shepherd wear their waistcoats only in
+  their sprites (its small figures have none, as drawn).
 - The clothes are the same all year: no coats, scarves or woolly hats in winter.
