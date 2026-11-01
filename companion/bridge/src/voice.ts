@@ -2865,6 +2865,18 @@ export class VoiceStore {
       .sort((a, b) => (b.hits ?? 0) - (a.hits ?? 0) || a.created_at.localeCompare(b.created_at))
   }
 
+  /**
+   * The characters the clips of [source] made since [since] (an ISO time) cost: what a day's cap counts (a guest's lines in
+   * someone's own voice, visit-voices.ts). 0 in a store from before, only read.
+   */
+  charsSince(source: string, since: string): number {
+    try {
+      return (this.db.query('SELECT COALESCE(SUM(chars), 0) AS n FROM clips WHERE source = ? AND created_at >= ?').get(source, since) as { n: number }).n
+    } catch {
+      return 0
+    }
+  }
+
   /** Carrier re-voices today (the node's local date), the bridge's and voice-build's. */
   revoicedToday(): number {
     try {

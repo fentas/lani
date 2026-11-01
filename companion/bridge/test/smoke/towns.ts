@@ -64,8 +64,10 @@ export default async function towns() {
   const luka = await startBridge({ profile: 'luka', data: lukaData, port: townPort, token: 'luka-town-token', child: true, culture: 'friuli', env: { LANI_TOWN_VOICE_PER_HOUR: '2' } })
   // Mia's town takes three gifts a day from a town (./guests.ts checks the limit), and one help against an event (./friendship.ts)
   // and checks for its weekly notes of other towns' progress every few hundred ms, today being their day (./progress.ts);
-  // her node's ElevenLabs and local worker voice a Slovene town's line on a visit (./visit-voices.ts)
-  const mia = await startBridge({ profile: 'mia', data: miaData, port: townPort + 1, token: 'mia-town-token', culture: 'friuli', env: { LANI_TOWN_GIFTS_PER_DAY: '3', LANI_TOWN_AID_PER_DAY: '1', LANI_TOWN_WEEKLY_DAY: String(new Date().getDay()), LANI_TOWN_WEEKLY_HOUR: '0', LANI_TOWN_WEEKLY_CHECK_MS: '300', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: visitEleven.url, LANI_GEPARD_URL: visitGepard.url } })
+  // her node's ElevenLabs and local worker voice a Slovene town's line on a visit, what it keeps of a visit is checked
+  // against the town again after about a second, not a day or a week, and her town makes a guest's line in someone's own
+  // voice within 120 characters a day (./visit-voices.ts)
+  const mia = await startBridge({ profile: 'mia', data: miaData, port: townPort + 1, token: 'mia-town-token', culture: 'friuli', env: { LANI_TOWN_GIFTS_PER_DAY: '3', LANI_TOWN_AID_PER_DAY: '1', LANI_TOWN_WEEKLY_DAY: String(new Date().getDay()), LANI_TOWN_WEEKLY_HOUR: '0', LANI_TOWN_WEEKLY_CHECK_MS: '300', ELEVENLABS_API_KEY: 'test-key', ELEVENLABS_BASE_URL: visitEleven.url, LANI_GEPARD_URL: visitGepard.url, LANI_VISIT_VOICE_RECHECK_HOURS: '0.0003', LANI_VISIT_VOICE_HOST_RECHECK_HOURS: '0.0003', LANI_TOWN_VOICE_OWN_CHARS: '120' } })
   const janKey = loadBridgeKey(join(dataDir, 'app'))
   const lukaKey = loadBridgeKey(join(lukaData, 'app'))
   const miaKey = loadBridgeKey(join(miaData, 'app'))

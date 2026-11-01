@@ -8,14 +8,21 @@
 // - the visitor's side: its app's /towns/:id/voice/say gets the host's clip (kept, byte for byte), else voices it on
 //   the node in the host's cast voice (Mia's ElevenLabs in Babica's Zlata, in Slovene; then her local worker, a Slovene
 //   town's), else 204; the learner's own lines in the town's voice for their gender; an Italian town's line (in-process)
-//   in its cast's Italian voice, never with the local worker.
+//   in its cast's Italian voice, never with the local worker;
+// - a kept clip checked against the host again once its time came (Mia's node: LANI_VISIT_VOICE_RECHECK_HOURS and
+//   LANI_VISIT_VOICE_HOST_RECHECK_HOURS about a second): the host's own take of a line voiced on her node, the host's new
+//   take of a line it re-voiced (asked with `have`: `same` costs no audio); a visit's first lines got ahead
+//   (POST /towns/:id/voice/prepare: kept or the host's, never voiced on her node);
+// - someone's own voice for a guest: Mia's town makes the line in it (its own ElevenLabs voice) within its day's characters
+//   for visits (LANI_TOWN_VOICE_OWN_CHARS=120 on her bridge; off by default), `making` while it is on its way.
 import { Database } from 'bun:sqlite'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadBridgeKey, type BridgeKey } from '../../src/pairing'
 import { normalizeText } from '../../src/family'
 import { H, responseMessage, signRequest, verifySigned } from '../../src/towns'
-import { castFromPack, cleanHostClip, cleanVisitCast, VisitClips, visitVoices as voicesFor, voiceInTown } from '../../src/visit-voices'
+import { castFromPack, cleanHostAnswer, cleanHostClip, cleanVisitCast, clipSha, recheckDue, VisitClips, visitVoices as voicesFor, voiceInTown } from '../../src/visit-voices'
+import { ownVoiceChars } from '../../src/features/visit-voices'
 import { ElevenLabs, Gepard } from '../../src/voice'
 import { bridgeEleven, bridgeGepard, check, culturesDir, fakeEleven, fakeGepard, fam, mp3, tempDir } from './harness'
 
@@ -28,6 +35,26 @@ export const visitGepard = fakeGepard()
 const speakersOf = (path: string) => JSON.parse(readFileSync(path, 'utf8')).speakers
 const PRIMORSKA = speakersOf(join(culturesDir, '../voice-cast.json'))
 const FRIULI = speakersOf(join(culturesDir, 'friuli/voice-cast.json'))
+
+/** Someone of [town] with a voice of their own (status own, its ElevenLabs id), as its voice profiles have one once designed. */
+function plantOwnVoice(town: Town, o: { person: string; name: string; archetype: string; elevenlabs: string }) {
+  const db = new Database(join(town.data, 'app/voice/voice.db'))
+  db.exec('PRAGMA busy_timeout = 5000')
+  db.query(`INSERT OR REPLACE INTO profiles (person, name, gender, archetype, stage, "cast", "order", present, description, sample, seed, elevenlabs, pitch, rate, status, error, updated_at)
+    VALUES (?, ?, 'female', ?, 'old', 0, 90, 1, 'smoke', 'smoke', 1, ?, 1, 1, 'own', NULL, ?)`).run(o.person, o.name, o.archetype, o.elevenlabs, new Date().toISOString())
+  db.close()
+}
+
+/** Asks [ask] again (every 150 ms, at most [ms]) until [ok] holds of its answer: a check of something done in the background. */
+async function until<T>(ask: () => Promise<T>, ok: (t: T) => boolean, ms = 4_000): Promise<T> {
+  let last = await ask()
+  const end = Date.now() + ms
+  while (!ok(last) && Date.now() < end) {
+    await Bun.sleep(150)
+    last = await ask()
+  }
+  return last
+}
 
 /** A clip put into [town]'s voice store by hand (its row and its file), as a store tampered with or from before might hold. */
 function plant(town: Town, o: { text: string; voice: string; file: string; bytes?: Uint8Array }) {
@@ -56,6 +83,48 @@ export async function visitVoiceChecks(jan: Town, mia: Town, luka: Town) {
   }
   const say = (from: Town, to: Town, body: unknown, headers = from.auth) => fetch(`${from.base}/towns/${to.key.fingerprint}/voice/say`, { method: 'POST', headers, body: JSON.stringify(body) })
   const fileOf = async (town: Town, url: string) => new Uint8Array(await (await fetch(`${town.base}${url}`, { headers: town.auth })).arrayBuffer())
+
+  // --- someone's own voice for a guest: the host makes it, within its day's characters for visits ------------------
+  // Mia's Italian town (her node's ElevenLabs works yet) has Rosa with a voice of her own (designed in its ElevenLabs
+  // account: no other node can speak with it); Jan's town visits it
+  plantOwnVoice(mia, { person: 'rosa', name: 'Rosa', archetype: 'grandma', elevenlabs: 'RosaOwnVoice00001' })
+  try {
+    const rosa = 'Sono Rosa, benvenuta!'
+    const z0 = visitEleven.st.tts.length
+    const madeOwn = await ask(mia, jan.key, { v: '1', text: rosa, voice: ['@rosa', 'grandma'] })
+    const sentOwn = visitEleven.st.tts.slice(z0)
+    const miaIdx = await (await fetch(`${mia.base}/voice/index`, { headers: mia.auth })).json()
+    check("visit voices: someone's own voice for a guest: the host (Mia's town) makes the line in it (her own ElevenLabs voice, Italian, not a live line), hands it over, and keeps it in its own store",
+      madeOwn.res.status === 200 && madeOwn.body.voice === '@rosa' && madeOwn.body.engine === 'elevenlabs' && sentOwn.length === 1 && sentOwn[0].voice === 'RosaOwnVoice00001' && sentOwn[0].body.text === rosa && !!miaIdx[normalizeText(rosa)]?.['@rosa'],
+      { status: madeOwn.res.status, body: { ...madeOwn.body, audio: madeOwn.body?.audio?.length }, sent: sentOwn.map(t => ({ voice: t.voice, text: t.body.text })) })
+    // Jan's app asks for Rosa's line in her own voice on a visit: the town's clip in it, kept on Jan's node
+    const viaJan = await (await say(jan, mia, { text: rosa, voice: '@rosa' })).json()
+    check("visit voices: … Jan's app asks for Rosa's line in her own voice on a visit: the town's clip in it, kept on his node", viaJan.from === 'host' && viaJan.voice === '@rosa', viaJan)
+    // over the day's characters for visits (120): not made, nothing sent
+    const z1 = visitEleven.st.tts.length
+    const long = 'Rosa racconta una lunga storia del paese, della fontana, del tiglio e di tutta la gente che ha vissuto qui.'
+    const over = await ask(mia, jan.key, { v: '1', text: long, voice: ['@rosa', 'grandma'] })
+    check("visit voices: … over the town's characters a day for visits (LANI_TOWN_VOICE_OWN_CHARS): nothing made, nothing sent, no_clip", over.res.status === 404 && over.body?.code === 'no_clip' && !over.body.making && visitEleven.st.tts.length === z1, { status: over.res.status, body: over.body, sent: visitEleven.st.tts.length - z1 })
+    // a slow take: the answer comes without it (making), and the clip once it is made
+    visitEleven.st.delayMs = 3_500
+    const slow = 'Rosa arriva subito.'
+    const t0 = Date.now()
+    const waiting = await ask(mia, jan.key, { v: '1', text: slow, voice: ['@rosa', 'grandma'] })
+    const took = Date.now() - t0
+    visitEleven.st.delayMs = 0
+    const later = await until(() => ask(mia, jan.key, { v: '1', text: slow, voice: ['@rosa', 'grandma'] }), r => r.res.status === 200, 8_000)
+    check("visit voices: … a take on its way: the answer doesn't wait for it (no_clip with `making`, in under 3.5 s), and the line is in her voice once it is made",
+      waiting.res.status === 404 && waiting.body?.making === true && took < 3_400 && later.res.status === 200 && later.body.voice === '@rosa' && cleanHostAnswer(waiting.body, mia.key.fingerprint, ['@rosa'])?.making === true,
+      { waiting: { status: waiting.res.status, body: waiting.body, took }, later: { status: later.res.status, voice: later.body?.voice } })
+    // a voice that is nobody's own (an archetype's): never made for a guest; and off unless the host's node says
+    const z2 = visitEleven.st.tts.length
+    const archetype = await ask(mia, jan.key, { v: '1', text: 'Buona sera a tutti voi.', voice: ['grandma'] })
+    check("visit voices: … an archetype's voice is never made for a guest (no_clip, nothing sent); off unless the host's node says (LANI_TOWN_VOICE_OWN_CHARS unset: 0)",
+      archetype.res.status === 404 && visitEleven.st.tts.length === z2 && ownVoiceChars({}) === 0 && ownVoiceChars({ LANI_TOWN_VOICE_OWN_CHARS: '3000' }) === 3000 && ownVoiceChars({ LANI_TOWN_VOICE_OWN_CHARS: '-5' }) === 0,
+      { status: archetype.res.status, sent: visitEleven.st.tts.length - z2 })
+  } finally {
+    visitEleven.st.delayMs = 0
+  }
 
   // --- Jan's town has a line of Babica's, and one of the female narrator's (as his node made them) ---------------------
   const line = 'Dober dan, kako ste kaj danes?'
@@ -149,6 +218,73 @@ export async function visitVoiceChecks(jan: Town, mia: Town, luka: Town) {
   // a word no section voiced before (the host has none of it)
   const word = await (await say(mia, jan, { text: 'brumbrumček', voice: 'female' })).json()
   check("visit voices: … a lone word of the female narrator in her local voice for words (ana)", word.from === 'node' && visitGepard.st.calls.some((c: any) => c.text === 'brumbrumček' && c.speaker === 'ana'), { word, calls: visitGepard.st.calls.slice(-2) })
+
+  // --- kept clips checked against the host again (Mia's node: about a second instead of a day and a week) --------------
+  // the line voiced on her node: Jan's town makes its own take of it later; once its time came, the next time it is
+  // given out the host is asked again in the background, and its take is the one after
+  const janLater = mp3(`el:babica-later:${made}`)
+  plant(jan, { text: made, voice: 'grandma', file: `${'3'.repeat(40)}.mp3`, bytes: janLater })
+  await Bun.sleep(1_300)
+  const sayMade = async () => {
+    const b = await (await say(mia, jan, { text: made, voice: 'grandma' })).json()
+    return { b, bytes: b.url ? await fileOf(mia, b.url) : new Uint8Array() }
+  }
+  const stillNode = await sayMade()
+  const hostNow = await until(sayMade, r => r.b.from === 'host')
+  const idxNow = await (await fetch(`${mia.base}/towns/${jan.key.fingerprint}/voice/index`, { headers: mia.auth })).json()
+  check("visit voices: a line voiced on Mia's node is checked against the town again after a while: given out once more as it was, then the town's own take of it (byte for byte), in the town's index",
+    stillNode.b.from === 'node' && hostNow.b.from === 'host' && hostNow.b.voice === 'grandma' && Buffer.from(hostNow.bytes).equals(Buffer.from(janLater)) && idxNow[normalizeText(made)]?.grandma === hostNow.b.url && hostNow.b.url !== mBody.url,
+    { stillNode: stillNode.b, hostNow: hostNow.b, idx: idxNow[normalizeText(made)] })
+  // the host's clip asked about with its SHA-256 (`have`): `same`, no audio; another SHA: the clip; a bad one: 400
+  const sameAsk = await ask(jan, mia.key, { v: '1', text: line, voice: 'grandma', have: clipSha(janClip) })
+  const otherAsk = await ask(jan, mia.key, { v: '1', text: line, voice: 'grandma', have: 'f'.repeat(64) })
+  const badHave = await ask(jan, mia.key, { v: '1', text: line, voice: 'grandma', have: 'abc' })
+  check("visit voices: a re-check asks with the SHA-256 of the clip kept: the same clip at the host is `same`, signed, without its audio; another is handed over; a bad SHA is a 400",
+    sameAsk.res.status === 200 && sameAsk.body?.same === true && sameAsk.body.voice === 'grandma' && sameAsk.body.audio === undefined && verifySigned(jan.key.spki.toString('base64'), responseMessage(sameAsk.nonce, sameAsk.text), sameAsk.res.headers.get(H.signature) ?? '') &&
+      otherAsk.res.status === 200 && !!otherAsk.body?.audio && badHave.res.status === 400 && cleanHostAnswer(sameAsk.body, jan.key.fingerprint, ['grandma'])?.same === 'grandma',
+    { same: sameAsk.body, other: otherAsk.res.status, bad: badHave.res.status })
+  // Babica's line, re-voiced in Jan's town (a new take): fetched again once its time came
+  const retake = mp3(`el:babica-retake:${line}`)
+  plant(jan, { text: line, voice: 'grandma', file: `${'4'.repeat(40)}.mp3`, bytes: retake })
+  await Bun.sleep(1_300)
+  const sayLine = async () => {
+    const b = await (await say(mia, jan, { text: line, voice: 'grandma' })).json()
+    return { b, bytes: b.url ? await fileOf(mia, b.url) : new Uint8Array() }
+  }
+  const before = await sayLine()
+  const fetched = await until(sayLine, r => Buffer.from(r.bytes).equals(Buffer.from(retake)))
+  check("visit voices: … a line the town re-voiced (a new take): given out once more as it was kept, then the new take, under a new URL",
+    Buffer.from(before.bytes).equals(Buffer.from(janClip)) && Buffer.from(fetched.bytes).equals(Buffer.from(retake)) && fetched.b.url !== before.b.url && fetched.b.from === 'host',
+    { before: before.b, beforeTag: new TextDecoder().decode(before.bytes.slice(6, 40)), fetched: fetched.b, fetchedTag: new TextDecoder().decode(fetched.bytes.slice(6, 40)) })
+  check('visit voices: … when a clip is checked again: one voiced here or a stand-in in a day, the host\'s own in a week, one being made in a minute (by default)',
+    Math.abs(Date.parse(recheckDue({ from: 'node' }, 0, {})) - 86_400_000) < 5 && Math.abs(Date.parse(recheckDue({ from: 'host', standIn: true }, 0, {})) - 86_400_000) < 5 &&
+      Math.abs(Date.parse(recheckDue({ from: 'host' }, 0, {})) - 7 * 86_400_000) < 5 && Math.abs(Date.parse(recheckDue({ from: 'host', making: true }, 0, {})) - 60_000) < 5)
+
+  // --- a visit's first lines got ahead: kept or the host's, never voiced on the node -----------------------------------
+  const early = 'Pozdravljena pri vodnjaku, draga.'
+  const earlyBytes = mp3(`el:babica:${early}`)
+  plant(jan, { text: early, voice: 'grandma', file: `${'5'.repeat(40)}.mp3`, bytes: earlyBytes })
+  const tts1 = visitEleven.st.tts.length
+  const gep1 = visitGepard.st.calls.length
+  const prepare = (body: unknown) => fetch(`${mia.base}/towns/${jan.key.fingerprint}/voice/prepare`, { method: 'POST', headers: mia.auth, body: JSON.stringify(body) })
+  const prep = await prepare({ texts: [{ text: early, voice: 'grandma' }, { text: 'Tega v vasi še nihče ni rekel, nikoli.', voice: 'grandma' }, { text: made, voice: 'grandma' }] })
+  const prepBody = await prep.json()
+  const earlyGot = prepBody.clips?.[0]?.url ? await fileOf(mia, prepBody.clips[0].url) : new Uint8Array()
+  check("visit voices: POST /towns/:id/voice/prepare gets a visit's first lines ahead: the host's clip (kept on Mia's node), one kept already, and none for a line nobody has: never voiced on her node",
+    prep.status === 200 && prepBody.clips?.length === 3 && prepBody.clips[0]?.from === 'host' && prepBody.clips[0].voice === 'grandma' && Buffer.from(earlyGot).equals(Buffer.from(earlyBytes)) && prepBody.clips[1] === null && prepBody.clips[2]?.url === hostNow.b.url &&
+      visitEleven.st.tts.length === tts1 && visitGepard.st.calls.length === gep1,
+    { prepBody, tts: visitEleven.st.tts.length - tts1, gepard: visitGepard.st.calls.length - gep1 })
+  const afterPrep = await (await say(mia, jan, { text: early, voice: 'grandma' })).json()
+  const prepRefused = {
+    many: (await prepare({ texts: Array.from({ length: 21 }, (_, i) => ({ text: `Vrstica ${i}`, voice: 'grandma' })) })).status,
+    none: (await prepare({ texts: [] })).status,
+    badVoice: (await prepare({ texts: [{ text: early, voice: '../x' }] })).status,
+    unknown: (await fetch(`${mia.base}/towns/${'0'.repeat(32)}/voice/prepare`, { method: 'POST', headers: mia.auth, body: JSON.stringify({ texts: [{ text: early, voice: 'grandma' }] }) })).status,
+    family: (await fetch(`${jan.base}/towns/${mia.key.fingerprint}/voice/prepare`, { method: 'POST', headers: { ...fam, 'content-type': 'application/json' }, body: JSON.stringify({ texts: [{ text: early, voice: 'grandma' }] }) })).status,
+  }
+  check('visit voices: … the line said then is the one got ahead, at once; 21 lines, none, a bad voice: 400, an unknown town 404, the family token 403',
+    afterPrep.url === prepBody.clips[0].url && prepRefused.many === 400 && prepRefused.none === 400 && prepRefused.badVoice === 400 && prepRefused.unknown === 404 && prepRefused.family === 403,
+    { afterPrep, prepRefused })
 
   // the learner's own line: in the town's voice for her (Mia's profile says no gender: the female one), the host's clip
   const prof = await (await fetch(`${mia.base}/towns/${jan.key.fingerprint}/voice/profiles`, { headers: mia.auth })).json()

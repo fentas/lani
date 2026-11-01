@@ -11,7 +11,7 @@
 // town and voice. Only node:crypto, node:fs and fetch: the phone's bridge (QuickJS) runs this too (it passes the host's
 // clips on; it has no engines of its own).
 import { createHash } from 'node:crypto'
-import { existsSync, mkdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { AGES, CAST_FILE, DENOISE_PRESETS, GENDERS, MAX_OPTIONS, PERSON_VOICE, PLAYER, SPEAKER_ID, carrierVoice, cast, denoiseOf, elevenlabsOf, isVoice, languageVoice, playerOptions, playerVoice, tempoOf, type Age, type DenoisePreset, type Gender } from './cast'
 import { CULTURE_ID, cultureDir } from './cultures'
@@ -297,7 +297,7 @@ export function visitVoices(asked: string, cast: Pick<VisitCast, 'speakers' | 'p
  * What a town asks for (GET /town/voice?text=…&voice=…[&voice=…][&gender=…][&age=…][&pick=…]: the learner's own line by
  * their voice's gender, age and place on their list): checked; why not when it isn't valid.
  */
-export function parseVoiceAsk(url: URL): { text: string; voices: string[]; gender?: Gender; age?: Age; pick?: number } | { error: string } {
+export function parseVoiceAsk(url: URL): VoiceAsk | { error: string } {
   const text = (url.searchParams.get('text') ?? '').trim()
   if (!text || text.length > LINE_CHARS || /[\u0000-\u001f\u007f]/.test(text)) return { error: `expected text: a line of 1 to ${LINE_CHARS} characters` }
   const voices = url.searchParams.getAll('voice')
@@ -308,8 +308,22 @@ export function parseVoiceAsk(url: URL): { text: string; voices: string[]; gende
   if (age !== null && age !== 'adult' && age !== 'child') return { error: 'age: adult or child' }
   const pick = url.searchParams.get('pick')
   if (pick !== null && !/^[0-9]$/.test(pick)) return { error: 'pick: a place on the list, 0 to 9' }
-  return { text, voices, ...(g ? { gender: g } : {}), ...(age ? { age } : {}), ...(pick !== null ? { pick: Number(pick) } : {}) }
+  const have = url.searchParams.get('have')
+  if (have !== null && !SHA256.test(have)) return { error: 'have: the SHA-256 of the clip the town has, 64 hex digits' }
+  return { text, voices, ...(g ? { gender: g } : {}), ...(age ? { age } : {}), ...(pick !== null ? { pick: Number(pick) } : {}), ...(have ? { have } : {}) }
 }
+
+/**
+ * What a town asks for (GET /town/voice): the line, the voices to try (best first), the learner's voice's kind for their own
+ * lines; [have]: the SHA-256 of the clip it keeps of the line (a re-check): when the host's is that one, it answers `same`
+ * without the audio.
+ */
+export type VoiceAsk = { text: string; voices: string[]; gender?: Gender; age?: Age; pick?: number; have?: string }
+
+const SHA256 = /^[0-9a-f]{64}$/
+
+/** The SHA-256 of a clip's bytes, as [VoiceAsk.have] and [VisitClip.sha] name it. */
+export const clipSha = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex')
 
 /**
  * The clip this town has of [text] in the first of [voices] that has one (the host's side of GET /town/voice): the one
@@ -339,12 +353,26 @@ export function hostClip(store: Pick<VoiceStore, 'best' | 'path'>, o: { text: st
 
 /** A clip's answer from another town (GET /town/voice), checked: for [voices], an MP3 within MAX_CLIP_BYTES; else undefined. */
 export function cleanHostClip(b: any, id: string, voices: string[]): { voice: string; engine: string; bytes: Uint8Array } | undefined {
-  if (!b || typeof b !== 'object' || b.town !== id || typeof b.voice !== 'string' || !voices.includes(b.voice) || typeof b.audio !== 'string') return undefined
-  if (b.audio.length > MAX_CLIP_ANSWER || !/^[A-Za-z0-9+/]+={0,2}$/.test(b.audio)) return undefined
+  const a = cleanHostAnswer(b, id, voices)
+  return a?.clip
+}
+
+/**
+ * Another town's answer to GET /town/voice, checked: its [clip] (for [voices], an MP3 within MAX_CLIP_BYTES), or [same] (the
+ * voice of the clip it has, which is the one asked about with `have`: no audio); [making]: it is making the line in someone's
+ * own voice now (theirs, designed in its ElevenLabs account), so a re-check soon brings it. Undefined when it is neither.
+ */
+export function cleanHostAnswer(b: any, id: string, voices: string[]): { clip?: { voice: string; engine: string; bytes: Uint8Array }; same?: string; making: boolean } | undefined {
+  if (!b || typeof b !== 'object' || b.town !== id) return undefined
+  const making = b.making === true
+  if (b.code === 'no_clip') return making ? { making } : undefined
+  if (typeof b.voice !== 'string' || !voices.includes(b.voice)) return undefined
+  if (b.same === true) return { same: b.voice, making }
+  if (typeof b.audio !== 'string' || b.audio.length > MAX_CLIP_ANSWER || !/^[A-Za-z0-9+/]+={0,2}$/.test(b.audio)) return undefined
   const bytes = new Uint8Array(Buffer.from(b.audio, 'base64'))
   if (!bytes.length || bytes.length > MAX_CLIP_BYTES || !isMp3(bytes)) return undefined
   const engine = typeof b.engine === 'string' && /^[a-z0-9]{1,16}$/.test(b.engine) ? b.engine : 'unknown'
-  return { voice: b.voice, engine, bytes }
+  return { clip: { voice: b.voice, engine, bytes }, making }
 }
 
 // --- the visitor's node voices it: in the host's cast voice -----------------------------------------------------------
@@ -422,7 +450,30 @@ export type VisitClip = {
   bytes: number
   at: string
   used: string
+  /** The SHA-256 of its bytes (a re-check asks the host with it: `have`); absent in a store from before. */
+  sha?: string
+  /** When the host may be asked about it again ([recheckDue]); absent: at once (a store from before). */
+  due?: string
 }
+
+/**
+ * When a kept clip is checked against the host again ([VisitClip.due]), from [now]: one the host is making in someone's own
+ * voice ([making]) in a minute; one voiced here ([from] node) or one in a voice it stands in for ([standIn]: their
+ * archetype's for someone with a voice of their own, a narrator's) in a day, the host may have made its own since; the
+ * host's own clip in the voice asked in a week (a re-voice there, a new take, is rare). LANI_VISIT_VOICE_RECHECK_HOURS and
+ * LANI_VISIT_VOICE_HOST_RECHECK_HOURS say otherwise.
+ */
+export function recheckDue(o: { from: 'host' | 'node'; standIn?: boolean; making?: boolean }, now = Date.now(), env: Record<string, string | undefined> = process.env): string {
+  const hours = (k: string, d: number) => {
+    const n = Number(env[k])
+    return (Number.isFinite(n) && n > 0 ? n : d) * 3_600_000
+  }
+  const ms = o.making ? MAKING_RECHECK_MS : o.from === 'node' || o.standIn ? hours('LANI_VISIT_VOICE_RECHECK_HOURS', 24) : hours('LANI_VISIT_VOICE_HOST_RECHECK_HOURS', 24 * 7)
+  return new Date(now + ms).toISOString()
+}
+
+/** How soon a line the host is making in someone's own voice is asked again. */
+export const MAKING_RECHECK_MS = 60_000
 
 /** The URL of a visit's clip for the app (GET /towns/voice/file/<file>). */
 export const visitFileUrl = (file: string) => `/towns/voice/file/${file}`
@@ -441,6 +492,11 @@ export class VisitClips {
   private readonly indexFile: string
   private clips = new Map<string, VisitClip>()
   private dirty = false
+  /**
+   * The files of clips another take of the line replaced (a re-check), still handed out for [RETIRED_MS] (file → until):
+   * the app may be fetching the one it was just given.
+   */
+  private retired = new Map<string, number>()
 
   constructor(
     dir: string,
@@ -457,7 +513,15 @@ export class VisitClips {
     } catch (e) {
       o.log?.(`visit voices: ${this.indexFile} unreadable (${(e as Error).message}); starting empty`)
     }
+    // the files of no clip (replaced just before the bridge stopped, or left by a store cut short) go
+    try {
+      const kept = new Set([...this.clips.values()].map(c => c.file))
+      for (const f of existsSync(this.filesDir) ? readdirSync(this.filesDir) : []) if (FILE.test(f) && !kept.has(f)) this.unlink(f)
+    } catch {}
   }
+
+  /** How long the file of a replaced clip is still handed out (the app may be fetching it). */
+  static readonly RETIRED_MS = 120_000
 
   static key = (town: string, voice: string, norm: string) => `${town}|${voice}|${norm}`
 
@@ -475,21 +539,35 @@ export class VisitClips {
     this.dirty = true
   }
 
-  /** Keeps [bytes] as town [town]'s line in [voice]: a new file (the old one of the line goes), the index written, the store kept within its size. */
-  put(c: Omit<VisitClip, 'key' | 'file' | 'bytes' | 'at' | 'used'> & { bytes: Uint8Array }): VisitClip {
+  /** [c] may be checked against the host again (its [VisitClip.due] passed). */
+  due(c: VisitClip, now = Date.now()): boolean {
+    return !c.due || Date.parse(c.due) <= now
+  }
+
+  /** [c] was checked against the host now: not again before [due]. */
+  checked(c: VisitClip, due: string) {
+    c.due = due
+    this.dirty = true
+  }
+
+  /**
+   * Keeps [bytes] as town [town]'s line in [voice]: a new file (the old one of the line goes), the index written, the store
+   * kept within its size; checked against the host again from [due] on ([recheckDue]).
+   */
+  put(c: Omit<VisitClip, 'key' | 'file' | 'bytes' | 'at' | 'used' | 'sha'> & { bytes: Uint8Array }): VisitClip {
     mkdirSync(this.filesDir, { recursive: true })
     const key = VisitClips.key(c.town, c.voice, c.norm)
-    const sha = createHash('sha256').update(c.bytes).digest('hex')
+    const sha = clipSha(c.bytes)
     const file = `${createHash('sha1').update(`visit|${key}|${c.from}|${c.engine}|${c.engine_voice ?? ''}|${sha}`).digest('hex')}.mp3`
     const p = join(this.filesDir, file)
     writeFileSync(`${p}.tmp`, c.bytes)
     renameSync(`${p}.tmp`, p)
     const now = new Date().toISOString()
     const { bytes, ...rest } = c
-    const clip: VisitClip = { ...rest, key, file, bytes: bytes.length, at: now, used: now }
+    const clip: VisitClip = { ...rest, key, file, bytes: bytes.length, at: now, used: now, sha }
     const old = this.clips.get(key)
     this.clips.set(key, clip)
-    if (old && old.file !== file && ![...this.clips.values()].some(x => x.file === old.file)) this.unlink(old.file)
+    if (old && old.file !== file && !this.referenced(old.file)) this.retire(old.file)
     this.trim()
     this.save()
     return clip
@@ -502,11 +580,34 @@ export class VisitClips {
     return out
   }
 
-  /** The path of a visit's clip [file] (a name of the store's own: <sha1>.mp3, in its index); undefined otherwise. */
-  path(file: string): string | undefined {
-    if (!FILE.test(file) || ![...this.clips.values()].some(c => c.file === file)) return undefined
+  /**
+   * The path of a visit's clip [file] (a name of the store's own: <sha1>.mp3, in its index, or one just replaced: [retired]);
+   * undefined otherwise.
+   */
+  path(file: string, now = Date.now()): string | undefined {
+    if (!FILE.test(file) || (!this.referenced(file) && !((this.retired.get(file) ?? 0) > now))) return undefined
     const p = join(this.filesDir, file)
     return existsSync(p) ? p : undefined
+  }
+
+  /** A clip of the index has [file]. */
+  private referenced(file: string): boolean {
+    for (const c of this.clips.values()) if (c.file === file) return true
+    return false
+  }
+
+  /** [file]'s clip was replaced: still handed out for a while, then it goes (unless a clip has it again). */
+  private retire(file: string) {
+    this.retired.set(file, Date.now() + VisitClips.RETIRED_MS)
+    const t = setTimeout(() => {
+      const now = Date.now()
+      for (const [f, until] of this.retired) {
+        if (until > now) continue
+        this.retired.delete(f)
+        if (!this.referenced(f)) this.unlink(f)
+      }
+    }, VisitClips.RETIRED_MS + 1_000)
+    ;(t as { unref?: () => void }).unref?.()
   }
 
   /** The clip whose file is [file], if any. */
