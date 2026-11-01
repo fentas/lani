@@ -129,6 +129,12 @@ class CultureScenesTest {
             listOf("kaernten", "in-der-kirche", "church", "church"),
             listOf("kaernten", "am-tor", "palisade", "palisade"),
             listOf("kaernten", "auf-dem-wachturm", "watchtower", "watchtower"),
+            // Kärnten's projects, the third wave (kaernten-projects-a): Opa Sepp's Stockbahn under the linden, Tante Mitzi's
+            // Wegkapelle by the road, Mostbauer Stefan's Obstgarten, Imker Stanko's Bienenwiese
+            listOf("kaernten", "auf-der-stockbahn", "bocce", "project:balinisce"),
+            listOf("kaernten", "bei-der-wegkapelle", "chapel", "project:kapelica"),
+            listOf("kaernten", "im-obstgarten", "hills", "project:vinograd"),
+            listOf("kaernten", "auf-der-bienenwiese", "apiary", "project:cebelji_travnik"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
             // the Lake District's buildings (places-lakeland): the house's rooms (Granny Maggie's kitchen, anyone's; Old Wilf's
             // room by the fire, Brewer Sam's cellar, Mrs Birkett and Harry's attic, Mr Tyson and Alfie's workshop), the tent,
