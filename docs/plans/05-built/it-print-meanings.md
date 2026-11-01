@@ -175,8 +175,10 @@ machine-written (`gloss_via: claude`).
 
 ## Tests
 
-- **Bridge**: `bunx tsc --noEmit -p .` clean. The smoke (`LANI_SMOKE_PORT=9710`, `LANI_SMOKE_DRAMA3_PORT=9728`) ran
-  3,317 checks before the rebase, none failed. New checks:
+On the branch rebased onto main (main was already under it: 605d5f26, the wave A queue partly landed):
+
+- **Bridge**: `bunx tsc --noEmit -p .` clean. The smoke (`LANI_SMOKE_PORT=9710`, `LANI_SMOKE_DRAMA3_PORT=9728`):
+  3,317 checks, none failed. New checks:
   - prints: every Italian unit of A1, A2 and B1 in German, Slovene and English means every word it lists (4,293);
     c'è is "es gibt", guardare "schauen, anschauen", i cavalli "(il cavallo) Pferd", il treno "Zug" on the German sheets;
   - meanings: the repository's it.extra.json validates, each entry with German and Slovene, machine-written. Without
@@ -185,14 +187,32 @@ machine-written (`gloss_via: claude`).
   - friuli: sono now has the supplement's Slovene (biti), so the gap the tutor hears of and fills (gloss_gaps,
     publish_gloss) is now banco's: the school pack's word, then the fixture dictionary's banco without a Slovene
     meaning.
-- After the rebase: see "Checks after the rebase" below.
+- `tutor-export --check`: 89 files match the bridge (54 tools, 32 guide topics).
+- **Android**: the full unit suite (`testDebugUnitTest` through lani-slot.sh): 3,686 tests in 474 classes, none
+  failed (2 skipped).
+- **Python**: `python3 -m unittest discover -s tests` 251 tests OK; `-s companion/tests` 142 OK (11 skipped).
+- **Prints**: `school-prints --language it --level all` in de, sl and en: every sheet fits (above). Also
+  `--language sl --level all` in de and it: the same 70 sheets' page counts as before, 87 and 86 words in the base
+  now instead of English.
 
 ## Emulator QA
 
-A new step, `it-words` (only when named): a synthetic Teo (make-learner.ts `--target it --base de --name Teo`,
-`LANI_CULTURE=friuli`, `LANI_CHILD=1`, `LANI_QA_SETUP_PAIR=it-de`). The dev bridge has no Wiktionary download, as on a
-phone. QA's hook "word:" opens each of IT_WORDS' cards as a tap in its line does. The step checks the lemma and the
-German meaning on the card and in GET /lookup. Results are in "Checks after the rebase".
+Through `qa-slot` (slot 1) on a synthetic Teo (`make-learner.ts --target it --base de --name Teo`,
+`LANI_CULTURE=friuli LANI_CHILD=1 LANI_QA_SETUP_PAIR=it-de LANI_QA_LEARNER=Teo`). The dev bridge had no Wiktionary
+(its log: "lexicon it: no dictionary"), as a phone has it. Screenshots: scratchpad `ux-it-print-meanings/qa/`.
+
+- **`it-words`** (new, only when named; `LANI_DEV_DATA=<Teo's dir> LANI_CULTURE=friuli LANI_CHILD=1
+  LANI_QA_SETUP_PAIR=it-de companion/bin/qa-slot --no-town --steps it-words`): QA's hook "word:" opens each card as a tap in its line does, and the step
+  checks the lemma and the German meaning on the card and in GET /lookup. All six passed: guardami → guardare
+  "schauen, anschauen" (second-person singular imperative, with mi (me)); mai "nie"; volta → c'era una volta "es war
+  einmal", with una volta below; lava → lavarsi "sich waschen"; fatta → farcela "es schaffen"; treno "Zug". Each is
+  flagged "maschinell geschrieben, nicht geprüft". Before (the same lookups with the old supplement): none of the six
+  was in the dictionary. A tap is still one tap; what it shows changed.
+- **`friuli-school-unit`** with `LANI_QA_IT_UNIT=piacere`: the unit end to end, then its sheet printed from the app
+  ("🖨️ Stampa la scheda"). fit.js in the WebView chose as headless Chromium did (one page, density 3). The PDF saved
+  through the print dialog lists all 28 words in German, the plurals with their singular (i gatti (il gatto) Katze)
+  and the supplement's (il freddo Kälte, pizzicare zwicken, tanto so viel, so viele, l'inverno Winter). The bridge's
+  sheet has one word fewer than the generator's (correre), so it still fits on one page in the app.
 
 ## For the native check
 
