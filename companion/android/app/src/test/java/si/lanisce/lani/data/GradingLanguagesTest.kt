@@ -453,6 +453,28 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, en("a present for you", "a present for you"))
     }
 
+    @Test fun `this and that's plurals and the present simple's spelling mistakes are wrong, their slips forgiven`() {
+        // these and those one letter apart: near or far, never a slip
+        assertEquals(Verdict.WRONG, en("those sheep", "these sheep").verdict)
+        assertEquals(Verdict.WRONG, en("These are my boots", "Those are my boots.").verdict)
+        assertEquals(Verdict.WRONG, en("this", "these").verdict)
+        assertEquals(Verdict.WRONG, en("that", "this").verdict)
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("thsee", "these"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("tohse", "those"))
+        // -es after o, -ies after a consonant: the rule the present simple teaches (and a plural's babies)
+        for ((typed, right) in listOf("she gos" to "she goes", "Jack dos" to "Jack does", "it flyes" to "it flies", "he carryes" to "he carries", "Poppy studyes" to "Poppy studies", "two babyes" to "two babies", "she tryes" to "she tries")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // the third person's -s and -es were wrong already: an ending, or the -es rule after ch, sh, x
+        for ((typed, right) in listOf("Jack walk" to "Jack walks", "I walks" to "I walk", "she watchs" to "she watches", "he fixs" to "he fixes", "it flys" to "it flies", "she haves" to "she has", "he playes" to "he plays")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // a slip in the stem stays a slip
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("Jack wlaks", "Jack walks"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("she wtaches", "she watches"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("He doesn't know", "He does not know."))
+    }
+
     @Test fun `an english -ing form's spelling mistakes, an ordinal's and were for where are wrong, their slips forgiven`() {
         // the consonant not doubled, the silent e kept, a consonant doubled that isn't: the rule, never a slip
         for ((typed, right) in listOf("siting" to "sitting", "runing" to "running", "swiming" to "swimming", "geting" to "getting", "shoping" to "shopping",

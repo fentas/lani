@@ -1053,7 +1053,7 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | Read aloud | the intro's English in her voice: `Spoken.looks` for English (its frequent words; English has no letters of its own, so a bold form is read in her voice when its words are English's or the intro shows them: its examples, its table, its questions, the unit's `words`); the explanation in the learner's base as one clip (`sl\|…`, `de\|…`, `it\|…`) |
 | The teacher's lines | "Welcome to the school! Sit down, let's start." and "Excellent! You know this already: …" (the app's English strings) |
 | Texts per base | every explanation (`say`, `summary`), title, goal, instruction, hint, why, label, column and translation in Slovene, German and Italian, and in English: the format wants it always, so it is plain English, the fallback |
-| Grading | the English table (`grading/en.json`): a contraction is its long form (I'm = I am, isn't = is not, he's got = he has got, Jack's at home = Jack is at home); 21 to 99 with or without the hyphen; the American "a hundred five" and the American spelling (color, center, gray, mom, traveling) beside the British; -ize and -ise both; a known mistake wrong only for a word of its group: -s for -es after x, z, ch, sh, ss, -fes for -ves, woman for women, fourty, ninty, for for four, the -ing form's spelling (siting, makeing, writting), the ordinals' (nineth, twelth, fith), were and where for each other; an ordinal with or without its hyphen (twenty-first); a slip just before a long word's last letter forgiven (usualy: English's `ending_letters` is 1); a contraction without its apostrophe almost, never right (cant, isnt, Im: the apostrophe's hint with English's examples, can't, I'm), its, were, lets staying words of their own |
+| Grading | the English table (`grading/en.json`): a contraction is its long form (I'm = I am, isn't = is not, he's got = he has got, Jack's at home = Jack is at home); 21 to 99 with or without the hyphen; the American "a hundred five" and the American spelling (color, center, gray, mom, traveling) beside the British; -ize and -ise both; a known mistake wrong only for a word of its group: -s for -es after x, z, ch, sh, ss, -fes for -ves, woman for women, fourty, ninty, for for four, the -ing form's spelling (siting, makeing, writting), the ordinals' (nineth, twelth, fith), were and where for each other; an ordinal with or without its hyphen (twenty-first); a slip just before a long word's last letter forgiven (usualy: English's `ending_letters` is 1); a contraction without its apostrophe almost, never right (cant, isnt, Im: the apostrophe's hint with English's examples, can't, I'm), its, were, lets staying words of their own; those and these for each other, gos and dos for goes and does, flyes and babyes for flies and babies (units 7–12) |
 | British, American | British spelling and usage in every text (colour, Mum, the inn, have got, a hundred and five); the American form is right where a learner types it: by the grading (its spelling) or listed in `accept` (Do you have …? beside Have you got …?) |
 | The blackboard | "Welcome!" and the day as Britain writes it (1/11/2026); the unit's title and forms in chalk |
 | Prints | headed in English and the base ("Rule · Pravilo"), the unit's words with their meaning in the base: from the English packs, the Lakeland packs and the supplement (`lexicon/en.extra.json`, meanings in sl, de and it) |
@@ -1102,6 +1102,42 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
 - **A wrong form in a step's English as "**right** (never *wrong*)"**: the sheet's "Watch out" pairs a "never *X*"
   with the most alike bold form of its paragraph, so "Never *I amn't*: only **I'm not**" printed I amn't against we
   aren't; "**I'm not** (never *I amn't*)" pairs them.
+
+
+### The English course: units 7–12
+
+A1's middle six units, after the greetings, be, the articles, the plural, have got and the numbers (units 1–6):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `this-that` 👉 | this, these for what is near, that, those for what is further away, only for how many (this man, this woman); before a noun or alone (What's this? This is Jack.); this one, that one; Hello, this is Sam on the phone, never here is Sam; that's, and no short this is; it and they in the answer; this morning, that day | this-that (new; its card is the summary) |
+| `possessive` 🐾 | my, your, his, her, its, our, their before the thing, never changing and never with the (my dog, not the my dog); his and her by the owner (Mrs Birkett and her son); Jack's dog, Mrs Birkett's inn; the boys' bikes, the children's books; its against it's, their against there | possessive-s (a summary of its own: no mine, yours) |
+| `present-simple` 🔁 | habits and facts; I, you, we, they walk; he, she, it walks, with no is before it; -es after s, sh, ch, x and in goes, does; a consonant + y → -ies, but plays, buys; has; how often at the end; always a subject (It rains) | present-simple (a summary of its own: no don't, no questions) |
+| `questions-do` ❓ | Do you …? Does she …? with the base form (never Does Meg barks?); don't, doesn't + the base form; Yes, I do. No, she doesn't.; where, what, when first; no do with be or have got, and Do you have …? right too | questions-do, present-simple |
+| `word-order` 🧩 | subject – verb – object; the place, then the time at the end; a time in front keeps subject and verb together (never In the morning feeds Jack); always, usually, often, sometimes, never before the verb and after be; the adjective before its noun, never with -s | word-order, present-simple |
+| `there-is` ✨ | there's for one thing and what isn't counted, there are for more; there isn't a …, there aren't any …; Is there …? Are there any …? and the short answers (never Yes, there's); How many … are there?; there is against it is | there-is-are, plurals |
+
+- **The grammar of the units before only, around a gap**: this-that and possessive say only be and have got around
+  their gaps (no -s verb: "Mr Dixon is in ___ (he) smithy"); present-simple has no frequency word (word-order) and no
+  don't or does (questions-do); there-is has some only in a yes sentence and any as the page has it, and no there was.
+- **A gap that near or far decides says where**: "___ scones here on the plate", "___ fell over there"; without here
+  or there, these and those both fit. "Hello, Mrs Hartley, ___ is {learner}" takes this and it (Hello, it's Sam is
+  British too).
+- **The owner in brackets**: a possessive gap's cue is the owner (`___ (she) kitchen`, `___ (Mr Dixon) hammer`), and a
+  transform line gives the thing and its owner (`a dog (Jack)` → `Jack's dog`), never the un-English "the dog of Jack".
+- **A decoy is a learner's real mistake that grading/en.json grades wrong, and right in no gap**: he's and they're for
+  his and their (two words, never almost); carrys and gos; it and has for there is (Slovene's je, German's es gibt,
+  Italian's c'è). Not isn't in a text of there is and there are: "there ___ an old inn" takes it too. The known
+  mistakes these units added to `wrong`, each only for a word of its group: those for these and these for those, gos
+  and dos, a consonant + -yes for -ies (flyes, carryes, studyes, babyes); plays and buys keep their slips.
+- **A verb the packs have as a noun** (walk: sprehod, play: igra, watch, rain: dež) is named "to walk" in `words`, as
+  the packs name their verbs (to fly, to carry), and its supplement entry has "to walk" among its forms; else the sheet
+  gives the noun's meaning.
+- **Place before time is the usual order, not a rule**: "every week in Keswick" is a choice's `almost`. Sometimes and
+  usually may start a sentence (accepted), often may not.
+- **The apostrophe**: Jacks for Jack's and Poppys for Poppy's are wrong (an ending), so are its for it's and their for
+  they're (one word for two). A contraction typed without its apostrophe (dont, doesnt, isnt, Im) is almost, with the
+  apostrophe hint (grading/en.json's `loose`): a phone keyboard hides the apostrophe.
 
 ### The English course: units 13–18
 
