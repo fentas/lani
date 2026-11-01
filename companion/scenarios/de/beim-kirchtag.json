@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "beim-kirchtag",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Beim Kirchtag", "sl": "Na žegnanju", "en": "At the Kirchtag", "it": "Alla sagra del paese" },
+  "emoji": "🎺",
+  "level": "A2",
+  "setting": {
+    "sl": "Kirchtag, vaški praznik farnega zavetnika (v Ziljski dolini: žegen). Po maši je na trgu glasba, vsi jedo Kirchtagssuppe, rumeno žafranovo juho s tremi vrstami mesa in reindlingom. Fantje na konjih s kijem razbijajo sod (Kufenstechen), potem se pleše pod lipo.",
+    "en": "The Kirchtag, the village's church festival (in the Gailtal also žegen, its Slovene name). After Mass there is music on the square and everyone eats Kirchtagssuppe, a yellow saffron soup with three kinds of meat, with Reindling. The young men on horseback break a barrel with a club (the Kufenstechen), then there is dancing under the linden tree.",
+    "it": "Il Kirchtag, la sagra del santo patrono del paese (nella Gailtal anche žegen, il nome sloveno). Dopo la messa c'è musica in piazza e tutti mangiano la Kirchtagssuppe, una zuppa gialla allo zafferano con tre tipi di carne, con il Reindling. I ragazzi a cavallo rompono una botte con una mazza (il Kufenstechen), poi si balla sotto il tiglio."
+  },
+  "role": "Tante Mitzi, an aunt of the village, in her best dirndl at the Kirchtag. Merry and talkative, knows everyone, loves the Kirchtagssuppe and dancing; explains the Kufenstechen and the linden dance simply. Says du to {learner}, who says du too.",
+  "who": { "de": "Eine Tante aus dem Dorf", "sl": "Teta iz vasi", "en": "An aunt of the village", "it": "Una zia del paese" },
+  "voice": "female",
+  "place": "square",
+  "goals": [
+    { "de": "Grüße Mitzi", "sl": "Pozdravi Mitzi", "en": "Greet Mitzi", "it": "Saluta Mitzi" },
+    { "de": "Sag, ob du Suppe möchtest", "sl": "Povej, ali bi juho", "en": "Say whether you'd like some soup", "it": "Di' se vuoi la zuppa" },
+    { "de": "Sag, wie sie dir schmeckt", "sl": "Povej, kako ti tekne", "en": "Say how it tastes", "it": "Di' com'è" },
+    { "de": "Frag nach dem Kufenstechen oder dem Tanz", "sl": "Vprašaj o razbijanju soda ali o plesu", "en": "Ask about the Kufenstechen or the dance", "it": "Chiedi del Kufenstechen o del ballo" },
+    { "de": "Verabschiede dich", "sl": "Poslovi se", "en": "Say goodbye", "it": "Saluta" }
+  ],
+  "opener_sl": "Servus! Schön, dass du da bist! Hast du schon die Kirchtagssuppe gekostet?",
+  "opener_en": {
+    "sl": "Živjo! Lepo, da si {m:prišel|f:prišla}! Si že {m:pokusil|f:pokusila} Kirchtagssuppe?",
+    "en": "Hi! How nice that you came! Have you tried the Kirchtag soup yet?",
+    "it": "Ciao! Che bello che sei {m:venuto|f:venuta}! Hai già assaggiato la zuppa della sagra?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Nein, noch nicht.", "en": { "sl": "Ne, še ne.", "en": "No, not yet.", "it": "No, non ancora." } },
+    { "sl": "Ja, gern einen Teller!", "en": { "sl": "Ja, z veseljem en krožnik!", "en": "Yes, a bowl, please!", "it": "Sì, volentieri un piatto!" } },
+    { "sl": "Die Suppe schmeckt super!", "en": { "sl": "Juha je odlična!", "en": "The soup tastes great!", "it": "La zuppa è buonissima!" } },
+    { "sl": "Was ist das Kufenstechen?", "en": { "sl": "Kaj je Kufenstechen?", "en": "What is the Kufenstechen?", "it": "Che cos'è il Kufenstechen?" } },
+    { "sl": "Wann beginnt der Tanz?", "en": { "sl": "Kdaj se začne ples?", "en": "When does the dance begin?", "it": "Quando comincia il ballo?" } },
+    { "sl": "Tanzen wir?", "en": { "sl": "Greva plesat?", "en": "Shall we dance?", "it": "Balliamo?" } },
+    { "sl": "Bis später!", "en": { "sl": "Se vidiva pozneje!", "en": "See you later!", "it": "A dopo!" } }
+  ],
+  "packs": ["fest-kirchtag", "fest-kufenstechen", "essen", "gruesse"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

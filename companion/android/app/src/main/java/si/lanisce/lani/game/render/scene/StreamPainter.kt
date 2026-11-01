@@ -112,6 +112,17 @@ internal class StreamPainter : WildPainter() {
     private var alpine = false
     /** Friuli's cart bridge: its pillars and its ramps' walls of river cobbles with bands of brick ([cobbleTone]). */
     private var cobblePiers = false
+    /**
+     * Carinthia's cart bridge (An der Brücke, kaernten-projects-a): its logs, its deck's planks and its railings of larch,
+     * reddish brown as the map's bridge ([woodL], [woodM], [woodD], [logM], [logD]); the piers the art's stone.
+     */
+    private var larch = false
+    private val woodL: Int get() = if (larch) LARCH_L else Pal.WOOD_L
+    private val woodM: Int get() = if (larch) LARCH_M else Pal.WOOD_M
+    private val woodD: Int get() = if (larch) LARCH_D else Pal.WOOD_D
+    private val logM: Int get() = if (larch) LARCH_M else Pal.LOG_M
+    private val logD: Int get() = if (larch) LARCH_D else Pal.LOG_D
+    private val logEnd: Int get() = if (larch) Col.hex(0xDCA47C) else Col.hex(0xC8A070)
 
     override fun paint() {
         setup()
@@ -119,7 +130,8 @@ internal class StreamPainter : WildPainter() {
         collio = variant("hills") == "collio"
         larchen = variant("trees") == "larch"
         alpine = variant("hills") == "kaernten"
-        cobblePiers = variant("cartbridge") != null
+        cobblePiers = variant("cartbridge") == "cobbles"
+        larch = variant("cartbridge") == "larch"
         millDone = stage(MILL) >= stages(MILL)
         wheelIn = stage(MILL) >= stages(MILL) - 1
         roadDone = stage(BRIDGE) >= DECKED
@@ -923,7 +935,7 @@ internal class StreamPainter : WildPainter() {
             c.line(gx(a, cartD).toInt(), (gy(cartD) - 0.45f * pm(cartD)).toInt(), gx(b, cartD).toInt(), (gy(cartD) - 0.45f * pm(cartD)).toInt(), line)
             for (x in floatArrayOf(a, b)) for (d in floatArrayOf(cartD0, cartD, cartD1)) {
                 val p = pm(d)
-                for (j in 0 until max(1, z)) c.vline(gx(x, d).toInt() + j, (gy(d) - 0.6f * p).toInt(), gy(d).toInt(), if (j == 0) Pal.WOOD_L else Pal.WOOD_D)
+                for (j in 0 until max(1, z)) c.vline(gx(x, d).toInt() + j, (gy(d) - 0.6f * p).toInt(), gy(d).toInt(), if (j == 0) woodL else woodD)
             }
             if (st == 2) { stoneHeap(cartL + 0.9f, cartD - 0.5f, 17); stoneHeap(cartR - 0.9f, cartD - 0.6f, 23) }
             return
@@ -940,8 +952,8 @@ internal class StreamPainter : WildPainter() {
             val p = pm(d); val th = max(z.toFloat(), 0.24f * p)
             val y = gy(d) - (pierH + 0.12f) * p
             val x0 = gx(cartL + 0.15f, d); val x1 = gx(cartR - 0.15f, d)
-            for (j in 0 until th.toInt().coerceAtLeast(1)) c.hline(x0.toInt(), x1.toInt(), (y - th / 2f).toInt() + j, if (j == 0) Pal.LOG_M else Pal.LOG_D)
-            c.fillEllipse(x0, y, max(1f, th * 0.5f), max(1f, th * 0.5f), Col.hex(0xC8A070))
+            for (j in 0 until th.toInt().coerceAtLeast(1)) c.hline(x0.toInt(), x1.toInt(), (y - th / 2f).toInt() + j, if (j == 0) logM else logD)
+            c.fillEllipse(x0, y, max(1f, th * 0.5f), max(1f, th * 0.5f), logEnd)
             if (snow) c.hline(x0.toInt(), x1.toInt(), (y - th / 2f).toInt() - 1, Pal.SNOW_L)
         }
         if (st == 4) {
@@ -964,15 +976,15 @@ internal class StreamPainter : WildPainter() {
                 val seam = plank - floor(plank) < gap
                 c.set(px, py, when {
                     snow -> if (Noise.rnd(px, py, 363) < 0.1f) Pal.SNOW_M else Pal.SNOW_L
-                    seam -> Pal.WOOD_D
-                    Noise.rnd(floor(plank).toInt(), 0, 364) < 0.35f -> Pal.WOOD_M
-                    else -> Pal.WOOD_L
+                    seam -> woodD
+                    Noise.rnd(floor(plank).toInt(), 0, 364) < 0.35f -> woodM
+                    else -> woodL
                 })
             }
         }
         // the deck's front edge, a beam under it
         val beam = max(z, (0.16f * pm(cartD0)).toInt())
-        for (j in 1..beam) c.hline(gx(cartL, cartD0).toInt(), gx(cartR, cartD0).toInt(), yBot + j, if (j == 1) Pal.WOOD_M else Pal.WOOD_D)
+        for (j in 1..beam) c.hline(gx(cartL, cartD0).toInt(), gx(cartR, cartD0).toInt(), yBot + j, if (j == 1) woodM else woodD)
         ramp(cartR, cartR + StreamPlan.RAMP, rampTop, 0f)
         if (st < 6) return
         // finished: a railing on posts along both sides, the near one low (a wheel guard), so the deck and the ramps off its
@@ -983,11 +995,11 @@ internal class StreamPainter : WildPainter() {
             var x = cartL + 0.15f
             while (x < cartR) {
                 val px = gx(x, d).toInt()
-                for (j in 0 until max(1, z)) c.vline(px + j, top.toInt(), base.toInt(), if (j == 0) Pal.WOOD_M else Pal.WOOD_D)
+                for (j in 0 until max(1, z)) c.vline(px + j, top.toInt(), base.toInt(), if (j == 0) woodM else woodD)
                 x += 1.18f
             }
             val ax = gx(cartL + 0.15f, d).toInt(); val bx = gx(cartR - 0.15f, d).toInt() + z
-            for (j in 0 until max(1, z)) c.hline(ax, bx, top.toInt() + j, if (j == 0) (if (snow) Pal.SNOW_L else Pal.WOOD_L) else Pal.WOOD_D)
+            for (j in 0 until max(1, z)) c.hline(ax, bx, top.toInt() + j, if (j == 0) (if (snow) Pal.SNOW_L else woodL) else woodD)
         }
     }
 
@@ -1098,8 +1110,8 @@ internal class StreamPainter : WildPainter() {
         for (k in 0 until 5) {
             val top = (gy(d) - 0.08f * p).toInt() - z - (k + 1) * th
             val shift = ((Noise.rnd(k, 451) - 0.5f) * 0.12f * p).toInt()
-            for (j in 0 until th) c.hline(x0 + shift, x1 + shift, top + j, when { j == th - 1 -> Pal.WOOD_D; env.snow && k == 4 && j == 0 -> Pal.SNOW_L; j == 0 -> Pal.WOOD_L; else -> Pal.WOOD_M })
-            c.vline(x1 + shift, top, top + th - 1, Col.hex(0xC8A070)) // the cut end
+            for (j in 0 until th) c.hline(x0 + shift, x1 + shift, top + j, when { j == th - 1 -> woodD; env.snow && k == 4 && j == 0 -> Pal.SNOW_L; j == 0 -> woodL; else -> woodM })
+            c.vline(x1 + shift, top, top + th - 1, logEnd) // the cut end
         }
     }
 
@@ -1844,6 +1856,8 @@ internal class StreamPainter : WildPainter() {
         private const val MILL = "mlin"
         private const val BRIDGE = "most"
 
+        /** Carinthia's larch, light, mid and dark: reddish brown, as the map's bridge (Landmarks.LARCH). */
+        private val LARCH_L = Col.hex(0xC47E4C); private val LARCH_M = Col.hex(0x9E5C36); private val LARCH_D = Col.hex(0x6E3C22)
         /** Friuli's river cobbles: whitish, grey, buff and ochre ([cobbleTone]). */
         private val COBBLES = intArrayOf(Col.hex(0xBCB2A0), Col.hex(0xA89E8C), Col.hex(0xC8C0AE), Col.hex(0x968C7A), Col.hex(0xC2B49C))
         /** Steps of the bridge done when its deck is laid: a cart ("cart") can go over it. */

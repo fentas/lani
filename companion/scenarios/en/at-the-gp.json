@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "at-the-gp",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "At the GP", "sl": "Pri osebni zdravnici", "de": "Bei der Hausärztin", "it": "Dal medico di base" },
+  "emoji": "🩺",
+  "level": "A1",
+  "setting": {
+    "sl": "Obisk pri osebni zdravnici (GP) v ambulanti (surgery) v Keswicku. Že tri dni te bolita grlo in glava.",
+    "de": "Ein Besuch bei der Hausärztin (GP) in ihrer Praxis (surgery) in Keswick. Seit drei Tagen hast du Halsschmerzen und Kopfweh.",
+    "it": "Una visita dalla dottoressa di base (GP) nel suo ambulatorio (surgery) a Keswick. Da tre giorni hai mal di gola e mal di testa.",
+    "en": "A visit to the GP, the family doctor, at the surgery in Keswick. You have had a sore throat and a headache for three days."
+  },
+  "role": "Dr Fleming, a calm GP (family doctor) at the surgery in Keswick. Speaks slowly and clearly, one simple question at a time; says it is a cold, nothing serious, and to get some rest. British English: surgery, temperature (a fever), chemist.",
+  "who": { "en": "The GP", "sl": "Osebna zdravnica", "de": "Die Hausärztin", "it": "La dottoressa di base" },
+  "voice": "female",
+  "goals": [
+    { "en": "Greet her and say your name", "sl": "Pozdravi in povej svoje ime", "de": "Grüße und sag deinen Namen", "it": "Saluta e di' come ti chiami" },
+    { "en": "Say what hurts", "sl": "Povej, kaj te boli", "de": "Sag, was dir wehtut", "it": "Di' che cosa ti fa male" },
+    { "en": "Say how long you've been ill", "sl": "Povej, kako dolgo si že {m:bolan|f:bolna}", "de": "Sag, wie lange du schon krank bist", "it": "Di' da quanto tempo stai male" },
+    { "en": "Say whether you have a temperature", "sl": "Povej, ali imaš vročino", "de": "Sag, ob du Fieber hast", "it": "Di' se hai la febbre" },
+    { "en": "Thank the doctor", "sl": "Zahvali se zdravnici", "de": "Bedanke dich bei der Ärztin", "it": "Ringrazia la dottoressa" }
+  ],
+  "opener_sl": "Hello, come in and have a seat. What seems to be the problem?",
+  "opener_en": {
+    "sl": "Dober dan, vstopite in sedite. Kaj vas pa muči?",
+    "de": "Hallo, kommen Sie herein und setzen Sie sich. Was fehlt Ihnen denn?",
+    "it": "Buongiorno, entri e si sieda. Qual è il problema?",
+    "en": "Hello, come in and sit down. What's wrong?"
+  },
+  "vocabulary_hints": [
+    { "sl": "My name is {learner}.", "en": { "sl": "Ime mi je {learner}.", "de": "Ich heiße {learner}.", "it": "Mi chiamo {learner}.", "en": "My name is {learner}." } },
+    { "sl": "I've got a sore throat.", "en": { "sl": "Grlo me boli.", "de": "Ich habe Halsschmerzen.", "it": "Ho mal di gola.", "en": "My throat hurts." } },
+    { "sl": "I've got a headache.", "en": { "sl": "Glava me boli.", "de": "Ich habe Kopfschmerzen.", "it": "Ho mal di testa.", "en": "My head hurts." } },
+    { "sl": "for three days", "en": { "sl": "že tri dni", "de": "seit drei Tagen", "it": "da tre giorni", "en": "for three days" } },
+    { "sl": "I haven't got a temperature.", "en": { "sl": "Nimam vročine.", "de": "Ich habe kein Fieber.", "it": "Non ho la febbre.", "en": "I don't have a fever." } },
+    { "sl": "Thank you, doctor.", "en": { "sl": "Hvala, gospa doktor.", "de": "Danke, Frau Doktor.", "it": "Grazie, dottoressa.", "en": "Thank you, doctor." } }
+  ],
+  "packs": ["at-the-doctors", "greetings", "numbers-and-time"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "at-the-bus-stop-in-keswick",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "At the bus stop in Keswick", "sl": "Na avtobusni postaji v Keswicku", "de": "An der Bushaltestelle in Keswick", "it": "Alla fermata dell'autobus a Keswick" },
+  "emoji": "🚌",
+  "level": "A1",
+  "setting": {
+    "sl": "Dopoldne na avtobusni postaji v Keswicku. V Grasmere bi se {m:peljal|f:peljala} z avtobusom 555, ki vozi skozi Grasmere do Amblesida in Windermera. Ob tebi čaka domačinka z nakupovalno torbo.",
+    "de": "Vormittags an der Bushaltestelle in Keswick. Du willst mit dem Bus 555 nach Grasmere; er fährt über Grasmere nach Ambleside und Windermere. Neben dir wartet eine Frau aus der Gegend mit einer Einkaufstasche.",
+    "it": "In mattinata alla fermata dell'autobus a Keswick. Vuoi andare a Grasmere con l'autobus 555, che passa per Grasmere e va ad Ambleside e Windermere. Accanto a te aspetta una signora del posto con la borsa della spesa.",
+    "en": "Late morning at the bus stop in Keswick. You want to take the 555 bus to Grasmere; it goes on through Grasmere to Ambleside and Windermere. A local woman with a shopping bag is waiting next to you."
+  },
+  "role": "Mrs Relph, a retired local waiting for the 555 with her shopping. Friendly and talkative, knows every bus: the 555 comes about every hour, takes about half an hour to Grasmere, and you buy a single or a return from the driver. Simple, kind British English with a light northern touch (\"love\").",
+  "who": { "en": "A woman at the bus stop", "sl": "Gospa na postaji", "de": "Eine Frau an der Haltestelle", "it": "Una signora alla fermata" },
+  "voice": "female",
+  "speaker": "grandma",
+  "place": "square",
+  "goals": [
+    { "en": "Greet her", "sl": "Pozdravi jo", "de": "Grüße sie", "it": "Salutala" },
+    { "en": "Ask if the bus to Grasmere stops here", "sl": "Vprašaj, ali tu ustavi avtobus za Grasmere", "de": "Frag, ob der Bus nach Grasmere hier hält", "it": "Chiedi se l'autobus per Grasmere ferma qui" },
+    { "en": "Ask when the next bus comes", "sl": "Vprašaj, kdaj pride naslednji avtobus", "de": "Frag, wann der nächste Bus kommt", "it": "Chiedi quando arriva il prossimo autobus" },
+    { "en": "Ask how long it takes", "sl": "Vprašaj, koliko časa traja vožnja", "de": "Frag, wie lange die Fahrt dauert", "it": "Chiedi quanto dura il viaggio" },
+    { "en": "Thank her and say goodbye", "sl": "Zahvali se in se poslovi", "de": "Bedanke dich und verabschiede dich", "it": "Ringrazia e saluta" }
+  ],
+  "opener_sl": "Morning! Are you waiting for the 555 as well?",
+  "opener_en": {
+    "sl": "Dobro jutro! Tudi vi čakate na 555?",
+    "de": "Guten Morgen! Warten Sie auch auf den 555er?",
+    "it": "Buongiorno! Anche lei aspetta il 555?",
+    "en": "Good morning! Are you also waiting for the number 555?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Excuse me, does the bus to Grasmere stop here?", "en": { "sl": "Oprostite, ali tu ustavi avtobus za Grasmere?", "de": "Entschuldigung, hält hier der Bus nach Grasmere?", "it": "Scusi, l'autobus per Grasmere ferma qui?", "en": "Excuse me, is this the stop for the Grasmere bus?" } },
+    { "sl": "When's the next bus?", "en": { "sl": "Kdaj pride naslednji avtobus?", "de": "Wann kommt der nächste Bus?", "it": "Quando passa il prossimo autobus?", "en": "When is the next bus?" } },
+    { "sl": "How long does it take?", "en": { "sl": "Koliko časa traja?", "de": "Wie lange dauert es?", "it": "Quanto ci vuole?", "en": "How long is the journey?" } },
+    { "sl": "a return to Grasmere", "en": { "sl": "povratna vozovnica do Grasmera", "de": "eine Rückfahrkarte nach Grasmere", "it": "un biglietto di andata e ritorno per Grasmere", "en": "a return ticket to Grasmere" } },
+    { "sl": "Do I pay the driver?", "en": { "sl": "Ali plačam vozniku?", "de": "Zahle ich beim Fahrer?", "it": "Pago all'autista?", "en": "Do I pay the driver?" } },
+    { "sl": "Thanks very much!", "en": { "sl": "Najlepša hvala!", "de": "Vielen Dank!", "it": "Grazie mille!", "en": "Thank you very much!" } }
+  ],
+  "packs": ["getting-about", "numbers-and-time", "in-the-village", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

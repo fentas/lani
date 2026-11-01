@@ -2341,6 +2341,14 @@ and the market (Auf dem Markt), each its pack and its I spy clues (SCENES.md "Sc
 (SCENES.md "Culture looks": the Kachelofen, the Herrgottswinkel, the Harpfe, the onion dome, timbered houses with geranium
 balconies under shingles, the Karawanken through the windows). Its projects' places are the next wave.
 
+Since kaernten-projects-a (docs/plans/05-built/kaernten-projects-a.md) seven of its projects open a place of their own once
+they are finished, and its wood opens from the first day: Unter dem Maibaum (the Maibaum on the square, the Maibaumwache and
+the Maibaumkraxeln), An der Brücke (Franz's larch bridge over the stream), In der Mühle (the log mill grinding Heiden for the
+Heidensterz), Auf der Stockbahn (Opa Sepp's Stockschießen, on ice in winter), Bei der Wegkapelle (Tante Mitzi's wayside
+chapel among the Heiden), Im Obstgarten (Mostbauer Stefan's old apple and pear trees and his Most press), Auf der Bienenwiese
+(Imker Stanko's meadow) and Im Wald (Florian's lost sheep, the Schwammerl, the Hochstand and the Marterl), each in Carinthia's
+look, and their steps are short scenes with the project's people (`project-steps/`), not practices.
+
 ### The lakeland pack
 
 The village of a learner of English: a dale among the fells of the Lake District in Cumbria, between Keswick and

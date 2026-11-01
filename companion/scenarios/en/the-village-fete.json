@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "the-village-fete",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "The village fête", "sl": "Vaška veselica", "de": "Das Dorffest", "it": "La festa del paese" },
+  "emoji": "🎪",
+  "level": "A2",
+  "setting": {
+    "sl": "Sobota poleti, vaška veselica (fête) na zelenici sredi vasi. Povsod so zastavice, igra pihalna godba, prodajajo srečke za tombolo, popoldne pa bo vlečenje vrvi in tek s psi po sledi (hound trail). Teta Edna ima stojnico s pecivom.",
+    "de": "Ein Samstag im Sommer: das Dorffest (die fête) auf der Dorfwiese. Überall hängen Wimpel, eine Blaskapelle spielt, es gibt Lose für die Tombola, und am Nachmittag Tauziehen und den Hound Trail, ein Rennen von Hunden auf einer Duftspur. Tante Edna hat einen Kuchenstand.",
+    "it": "Un sabato d'estate: la festa del paese (la fête) sul prato in mezzo al paese. Ovunque ci sono bandierine, suona una banda, si vendono i biglietti della lotteria, e nel pomeriggio c'è il tiro alla fune e l'hound trail, una corsa di cani su una pista d'odore. La zia Edna ha un banco di dolci.",
+    "en": "A summer Saturday: the village fête on the green. Bunting everywhere, a brass band playing, raffle tickets on sale, and in the afternoon the tug of war and the hound trail, a race of hounds following a scent over the fell. Auntie Edna has a cake stall."
+  },
+  "role": "Auntie Edna, an aunt of the village, at her cake stall at the fête. Merry and talkative, proud of her Victoria sponge and scones (for the church roof); sells raffle tickets, and says what's on next: the tug of war at three, the hound trail after. Calls {learner} \"love\".",
+  "who": { "en": "An aunt at the cake stall", "sl": "Teta pri stojnici s pecivom", "de": "Eine Tante am Kuchenstand", "it": "Una zia al banco dei dolci" },
+  "voice": "female",
+  "place": "square",
+  "goals": [
+    { "en": "Greet Edna", "sl": "Pozdravi Edno", "de": "Grüße Edna", "it": "Saluta Edna" },
+    { "en": "Buy a piece of cake", "sl": "Kupi kos torte", "de": "Kauf ein Stück Kuchen", "it": "Compra una fetta di torta" },
+    { "en": "Ask how much it is", "sl": "Vprašaj, koliko stane", "de": "Frag, was es kostet", "it": "Chiedi quanto costa" },
+    { "en": "Buy raffle tickets", "sl": "Kupi srečke", "de": "Kauf Lose", "it": "Compra i biglietti della lotteria" },
+    { "en": "Ask what's on next", "sl": "Vprašaj, kaj bo na vrsti", "de": "Frag, was als Nächstes kommt", "it": "Chiedi che cosa c'è dopo" }
+  ],
+  "opener_sl": "Hello, love! Come and look at my cakes. The Victoria sponge is lovely today.",
+  "opener_en": {
+    "sl": "Zdravo! Pridi pogledat moje pecivo. Biskvitna torta z marmelado je danes odlična.",
+    "de": "Hallo, Schatz! Komm, schau dir meine Kuchen an. Die Victoria-Biskuittorte ist heute besonders gut.",
+    "it": "Ciao, cara! Vieni a vedere le mie torte. La Victoria sponge oggi è buonissima.",
+    "en": "Hello, dear! Come and see my cakes. The Victoria sponge is very good today."
+  },
+  "vocabulary_hints": [
+    { "sl": "A piece of Victoria sponge, please.", "en": { "sl": "Kos biskvitne torte, prosim.", "de": "Ein Stück Victoria-Biskuit, bitte.", "it": "Una fetta di Victoria sponge, per favore.", "en": "A slice of Victoria sponge, please." } },
+    { "sl": "How much is a scone?", "en": { "sl": "Koliko stane scone (pogačica)?", "de": "Was kostet ein Scone?", "it": "Quanto costa uno scone?", "en": "What does a scone cost?" } },
+    { "sl": "Two raffle tickets, please.", "en": { "sl": "Dve srečki, prosim.", "de": "Zwei Lose, bitte.", "it": "Due biglietti della lotteria, per favore.", "en": "Two raffle tickets, please." } },
+    { "sl": "What's on next?", "en": { "sl": "Kaj bo zdaj na vrsti?", "de": "Was kommt als Nächstes?", "it": "Che cosa c'è adesso?", "en": "What happens next?" } },
+    { "sl": "When's the tug of war?", "en": { "sl": "Kdaj je vlečenje vrvi?", "de": "Wann ist das Tauziehen?", "it": "Quando c'è il tiro alla fune?", "en": "When is the tug of war?" } },
+    { "sl": "It looks delicious!", "en": { "sl": "Videti je slastno!", "de": "Das sieht lecker aus!", "it": "Sembra buonissimo!", "en": "It looks very tasty!" } },
+    { "sl": "See you later, Edna!", "en": { "sl": "Se vidiva pozneje, Edna!", "de": "Bis später, Edna!", "it": "A dopo, Edna!", "en": "See you later, Edna!" } }
+  ],
+  "packs": ["at-the-fete", "food", "on-the-green", "feast-show", "numbers-and-time"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}
