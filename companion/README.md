@@ -3674,7 +3674,8 @@ adjective; `lep` is an adjective, nice, and a noun, glue):
   "checked"`): biti (Wiktionary's merges biti, to beat: bijem, bije), imeti, iti, priti, jesti, vedeti, dati, hoteti
   (its Wiktionary table has odd rows), reči, moči, spati, vzeti and piti, with their negative present where they have
   one (nisem, nimam, nočem) and biti's future. Standard Slovene in `forms`, the spoken forms a native speaker says too
-  in `also` (bojo, grejo, jejo, vejo, reko, mam; gremo and greva for let's go): accepted, never marked wrong, never
+  in `also` (bojo, grejo, jejo, vejo, reko, mam; gremo and greva for let's go; šu and reku, the spoken šel and rekel
+  the course's `govorjeni-jezik` teaches): accepted, never marked wrong, never
   shown as the answer.
 - `partners`: verbs that pair, `pf` the one done once, `impf` the one going on; `kind` `position` for a movement and
   the state after it (sesti, sit down: sedeti, be sitting; leči: ležati; vstati: stati), `aspect` for the same act
