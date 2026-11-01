@@ -83,7 +83,7 @@
           { "sl": "Ko je Tone prišel, smo bili že pojedli.", "en": "When Tone came, we had already eaten.", "de": "Als Tone kam, hatten wir schon gegessen.", "it": "Quando è arrivato Tone, avevamo già mangiato." }
         ],
         "rows": [["mi", "smo bili pojedli", { "sl": "prej", "en": "we had eaten", "de": "wir hatten gegessen", "it": "avevamo mangiato" }]],
-        "ask": { "type": "choice", "grammar": "predpreteklik", "prompt": "Ko je Tone prišel na kosilo, smo bili že ___ juho.", "options": ["pojedli", "jedli", "jesti"], "answer": 0, "say_options": true, "explain": "**had finished it** → the perfective, **pojedli**\n- jedli · were eating: going on" }
+        "ask": { "type": "choice", "grammar": "predpreteklik", "prompt": "Ko je Tone prišel na kosilo, smo bili že ___ vso juho.", "options": ["pojedli", "jedli", "jesti"], "answer": 0, "say_options": true, "explain": "**had finished it** → the perfective, **pojedli**\n- jedli · were eating: going on" }
       },
       {
         "say": {

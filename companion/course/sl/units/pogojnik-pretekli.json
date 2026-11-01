@@ -32,7 +32,7 @@
           { "sl": "France bi bil pokosil travnik, pa se mu je zlomila kosa.", "en": "France would have mown the meadow, but his scythe broke.", "de": "France hätte die Wiese gemäht, aber seine Sense ist gebrochen.", "it": "France avrebbe falciato il prato, ma gli si è rotta la falce." }
         ],
         "rows": [["on", "bil bi prišel", { "sl": "ni prišel", "en": "he would have come", "de": "er wäre gekommen", "it": "sarebbe venuto" }]],
-        "ask": { "type": "choice", "grammar": "pogojnik-pretekli", "prompt": "Marko ___ obral grozdje, pa je začelo deževati.", "options": ["bi bil", "bil bi", "je bil"], "answer": 0, "say_options": true, "explain": "**Marko** is first, so **bi** second → **Marko bi bil obral**\n- bil bi · only at the start: Bil bi obral …\n- je bil · he had picked" }
+        "ask": { "type": "choice", "grammar": "pogojnik-pretekli", "prompt": "Marko ___ obral grozdje, pa je začelo deževati. (would have picked)", "options": ["bi bil", "bil bi", "je bil"], "answer": 0, "say_options": true, "explain": "**Marko** is first, so **bi** second → **Marko bi bil obral**\n- bil bi · only at the start: Bil bi obral …\n- je bil · he had picked" }
       },
       {
         "say": {
@@ -45,7 +45,7 @@
           { "sl": "Brez Luke bi bilo jagnje zmrznilo.", "en": "Without Luka the lamb would have frozen.", "de": "Ohne Luka wäre das Lamm erfroren.", "it": "Senza Luka l'agnello sarebbe morto di freddo." }
         ],
         "rows": [["ona", "bila bi prišla", { "sl": "ni prišla", "en": "she would have come", "de": "sie wäre gekommen", "it": "sarebbe venuta" }], ["ono", "bilo bi zmrznilo", { "sl": "ni zmrznilo", "en": "it would have frozen", "de": "es wäre erfroren", "it": "sarebbe morto di freddo" }], ["oni, one", "bili bi šli, bile bi ostale", { "sl": "niso šli", "en": "they would have gone, stayed", "de": "sie wären gegangen, geblieben", "it": "sarebbero andati, rimaste" }]],
-        "ask": { "type": "cloze", "grammar": "pogojnik-pretekli", "text": "Ovce bi ___ ostale na planini, pa jih je Luka pripeljal domov.", "accept": ["bile"], "hint": "ovce: feminine plural", "explain": "**ovce** (they, feminine) → **bile** … **ostale**: both agree" }
+        "ask": { "type": "cloze", "grammar": "pogojnik-pretekli", "text": "Ovce bi ___ ostale na planini, pa jih je Luka prignal domov.", "accept": ["bile"], "hint": "ovce: feminine plural", "explain": "**ovce** (they, feminine) → **bile** … **ostale**: both agree" }
       },
       {
         "say": {
@@ -62,9 +62,9 @@
       },
       {
         "say": {
-          "en": "The no comes before **bi**: **Ne bi bil prišel.** With a subject: **Če Tone ne bi bil popravil mostu, bi ga bila voda odnesla.** After the no, what isn't there is in the genitive, as always: **mostu**.",
-          "de": "Die Verneinung steht vor **bi**: **Ne bi bil prišel.** Mit einem Subjekt: **Če Tone ne bi bil popravil mostu, bi ga bila voda odnesla.** Nach der Verneinung steht, wie immer, der Genitiv: **mostu**.",
-          "it": "La negazione va prima di **bi**: **Ne bi bil prišel.** Con un soggetto: **Če Tone ne bi bil popravil mostu, bi ga bila voda odnesla.** Dopo la negazione, come sempre, il genitivo: **mostu**."
+          "en": "The no comes before **bi**: **Ne bi bil prišel.** With a subject: **Če Tone ne bi bil popravil mostu, bi ga bila voda odnesla.** After a no, the object is in the genitive, as always: **mostu**.",
+          "de": "Die Verneinung steht vor **bi**: **Ne bi bil prišel.** Mit einem Subjekt: **Če Tone ne bi bil popravil mostu, bi ga bila voda odnesla.** Nach der Verneinung steht das Objekt, wie immer, im Genitiv: **mostu**.",
+          "it": "La negazione va prima di **bi**: **Ne bi bil prišel.** Con un soggetto: **Če Tone ne bi bil popravil mostu, bi ga bila voda odnesla.** Dopo la negazione, come sempre, l'oggetto va al genitivo: **mostu**."
         },
         "examples": [
           { "sl": "Če Tone ne bi bil popravil mostu, bi ga bila voda odnesla.", "en": "If Tone hadn't repaired the bridge, the water would have carried it away.", "de": "Hätte Tone die Brücke nicht repariert, hätte das Wasser sie weggerissen.", "it": "Se Tone non avesse riparato il ponte, l'acqua l'avrebbe portato via." },
@@ -159,7 +159,7 @@
           "grammar": "pogojnik-pretekli",
           "instruction": "Dopolni · Fill in",
           "title": "Po neurju",
-          "text": "Lani je neurje podrlo Francetov kozolec. »Če bi bil ___ (vedeti), da pride neurje, bi bil pospravil seno,« pravi France. »Sosedje bi mi bili ___ (pomagati), pa so bili vsi na sejmu.« Vida pravi: »Če bi bil kozolec nov, ga veter ne bi ___ podrl.« Luka: »Ovce bi ___ ostale na planini, pa sem jih pripeljal domov.« Nejc: »Skoraj ___ bil izgubil kapo.« Teta Ančka: »Raje bi ___ ostala doma.« Tone: »Moral bi bil ___ (popraviti) streho že poleti.« Marko: »Če ne bi bil ___ (zapreti) kleti, bi bila voda zalila sode.«",
+          "text": "Lani je neurje podrlo Francetov kozolec. »Če bi bil ___ (vedeti), da pride neurje, bi bil pospravil seno,« pravi France. »Sosedje bi mi bili ___ (pomagati), pa so bili vsi na sejmu.« Vida pravi: »Če bi bil kozolec nov, ga veter ne bi ___ podrl.« Luka: »Ovce bi ___ ostale na planini, pa sem jih prignal domov.« Nejc: »Skoraj ___ bil izgubil kapo.« Teta Ančka: »Raje bi ___ ostala doma.« Tone: »Moral bi bil ___ (popraviti) streho že poleti.« Marko: »Če ne bi bil ___ (zapreti) kleti, bi bila voda zalila sode.«",
           "gaps": [
             { "accept": ["vedel"], "hint": "France: masculine" },
             { "accept": ["pomagali"], "hint": "sosedje: they" },

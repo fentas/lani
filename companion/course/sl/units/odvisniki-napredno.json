@@ -23,9 +23,9 @@
     "steps": [
       {
         "say": {
-          "en": "**Kljub temu da** (although, despite the fact that) is a longer **čeprav**: **Kljub temu da je deževalo, so kosili.** **Četudi** is *even if*: **Četudi bo deževalo, pridemo.** The comma goes before the whole joining word, never inside it.",
-          "de": "**Kljub temu da** (obwohl, trotzdem dass) ist ein längeres **čeprav**: **Kljub temu da je deževalo, so kosili.** **Četudi** heißt *selbst wenn*: **Četudi bo deževalo, pridemo.** Das Komma steht vor dem ganzen Bindewort, nie darin.",
-          "it": "**Kljub temu da** (nonostante, benché) è un **čeprav** più lungo: **Kljub temu da je deževalo, so kosili.** **Četudi** vuol dire *anche se*: **Četudi bo deževalo, pridemo.** La virgola va prima di tutta la congiunzione, mai dentro."
+          "en": "**Kljub temu da** (although, despite the fact that) is a longer **čeprav**: **Kljub temu da je deževalo, so kosili.** **Četudi** is čeprav too, or *even if*: **Četudi bo deževalo, pridemo.** The comma goes before the whole joining word, mostly not inside it.",
+          "de": "**Kljub temu da** (obwohl, trotzdem dass) ist ein längeres **čeprav**: **Kljub temu da je deževalo, so kosili.** **Četudi** ist auch čeprav, oder *selbst wenn*: **Četudi bo deževalo, pridemo.** Das Komma steht vor dem ganzen Bindewort, meist nicht darin.",
+          "it": "**Kljub temu da** (nonostante, benché) è un **čeprav** più lungo: **Kljub temu da je deževalo, so kosili.** **Četudi** è anche čeprav, o *anche se*: **Četudi bo deževalo, pridemo.** La virgola va prima di tutta la congiunzione, di solito non dentro."
         },
         "examples": [
           { "sl": "Kljub temu da je deževalo, so kosili.", "en": "Although it was raining, they mowed.", "de": "Obwohl es regnete, mähten sie.", "it": "Nonostante piovesse, hanno falciato." },
@@ -97,7 +97,7 @@
           { "sl": "Bil je tako utrujen, da je zaspal za mizo.", "en": "He was so tired that he fell asleep at the table.", "de": "Er war so müde, dass er am Tisch einschlief.", "it": "Era così stanco che si è addormentato a tavola." }
         ],
         "rows": [["kot da", { "sl": "kakor da", "en": "as if", "de": "als ob", "it": "come se" }, "Gleda, kot da bi videl duha."], ["tako … da", { "sl": "zato", "en": "so … that", "de": "so … dass", "it": "così … che" }, "Bil je tako utrujen, da je zaspal."]],
-        "ask": { "type": "cloze", "grammar": "odvisniki-napredno", "text": "Nejc je bledel, kot da bi ___ duha. (videti)", "accept": ["videl"], "hint": "Nejc: masculine, the l-form", "explain": "**kot da bi** + the l-form: he didn't see one → **videl**" }
+        "ask": { "type": "cloze", "grammar": "odvisniki-napredno", "text": "Nejc je prebledel, kot da bi ___ duha. (videti)", "accept": ["videl"], "hint": "Nejc: masculine, the l-form", "explain": "**kot da bi** + the l-form: he didn't see one → **videl**" }
       }
     ]
   },
@@ -157,17 +157,17 @@
           "title": "Nov most",
           "text": "___ je voda lani odnesla stari most, hodimo čez potok po deskah. ___ je deževalo ves teden, so možje vsak dan delali. ___ je Tone koval železo, je France žagal deske. Nejc je prinesel orodje, ___ bi ga kdo prosil. Luka je spal pod lipo, ___ bi pomagal. Delali bodo, ___ most ne bo gotov. ___ bo most gotov, bomo praznovali pod lipo. Vsi pridemo, ___ bo spet deževalo.",
           "gaps": [
-            { "accept": ["Odkar"], "hint": "since then" },
+            { "accept": ["Odkar", "Potem ko"], "hint": "since then" },
             { "accept": ["Kljub temu da", "Čeprav"], "hint": "it rained, and all the same" },
             { "accept": ["Medtem ko"], "hint": "at the same time" },
             { "accept": ["ne da"], "hint": "nobody asked him" },
             { "accept": ["namesto da"], "hint": "he slept, he should have helped" },
             { "accept": ["dokler"], "hint": "until … ne" },
-            { "accept": ["Takoj ko", "Brž ko", "Čim", "Ko"], "hint": "as soon as" },
+            { "accept": ["Takoj ko", "Brž ko", "Čim", "Ko", "Potem ko"], "hint": "as soon as" },
             { "accept": ["razen če"], "hint": "unless" }
           ],
           "bank": true,
-          "distractors": ["potem ko", "kot da", "zato"],
+          "distractors": ["zaradi", "kot da", "zato"],
           "translation": "Since the water carried the old bridge away last year, we've crossed the stream on planks. Although it rained all week, the men worked every day. While Tone was forging iron, France was sawing planks. Nejc brought the tools without anyone asking him. Luka slept under the linden instead of helping. They will work until the bridge is finished. As soon as the bridge is finished, we'll celebrate under the linden. We'll all come, unless it rains again."
         },
         {
@@ -196,10 +196,10 @@
             { "from": "Vida je kuhala. Nejc je pospravljal. (medtem ko)", "accept": ["Medtem ko je Vida kuhala, je Nejc pospravljal.", "Nejc je pospravljal, medtem ko je Vida kuhala."] },
             { "from": "Odšel je. Ni se poslovil. (ne da bi)", "accept": ["Odšel je, ne da bi se poslovil."], "hint": "bi, se, then the l-form" },
             { "from": "Luka je spal. Moral bi pasti ovce. (namesto da)", "accept": ["Luka je spal, namesto da bi pasel ovce.", "Namesto da bi pasel ovce, je Luka spal."], "hint": "namesto da bi + the l-form: pasel" },
-            { "from": "Tukaj živim. Lani sem {m:prišel|f:prišla}. (odkar)", "accept": ["Tukaj živim, odkar sem lani {m:prišel|f:prišla}.", "Tukaj živim, odkar sem {m:prišel|f:prišla} lani.", "Odkar sem lani {m:prišel|f:prišla}, živim tukaj."] },
-            { "from": "Gremo na izlet. Lahko bo deževalo. (razen če)", "accept": ["Gremo na izlet, razen če bo deževalo."] },
+            { "from": "Tukaj živim. Lani sem {m:prišel|f:prišla}. (odkar)", "accept": ["Tukaj živim, odkar sem lani {m:prišel|f:prišla}.", "Tukaj živim, odkar sem {m:prišel|f:prišla} lani.", "Živim tukaj, odkar sem lani {m:prišel|f:prišla}.", "Odkar sem lani {m:prišel|f:prišla}, živim tukaj."] },
+            { "from": "Gremo na izlet. Lahko bo deževalo. (razen če)", "accept": ["Gremo na izlet, razen če bo deževalo.", "Razen če bo deževalo, gremo na izlet."] },
             { "from": "Bil je zelo utrujen. Zaspal je za mizo. (tako … da)", "accept": ["Bil je tako utrujen, da je zaspal za mizo."], "hint": "tako instead of zelo" },
-            { "from": "Gleda nas. Zdi se, da je videl duha. (kot da)", "accept": ["Gleda nas, kot da bi videl duha.", "Gleda nas, kakor da bi videl duha."], "hint": "he didn't: kot da bi" }
+            { "from": "Gleda nas. Zdi se, da je videl duha. (kot da)", "accept": ["Gleda nas, kot da bi videl duha.", "Gleda nas, kakor da bi videl duha.", "Gleda nas, kot da je videl duha.", "Gleda nas, kakor da je videl duha."], "hint": "he didn't: kot da bi" }
           ],
           "explain": "**a comma before the joining word**, the short words right after it · **ne da bi, namesto da bi, kot da bi** + the l-form for what isn't so"
         }
@@ -215,10 +215,10 @@
         "instruction": "Dopolni z veznikom · Fill in with a joining word",
         "text": "___ je bil utrujen, je France pomagal pri mostu. Počakaj, ___ ne pridem. Ančka je odšla, ___ bi kaj rekla. ___ je Marko obiral grozdje, je Ančka pripovedovala novice. Pridem na trgatev, ___ bom bolan.",
         "gaps": [
-          { "accept": ["Kljub temu da", "Čeprav"] },
+          { "accept": ["Kljub temu da", "Čeprav", "Četudi"] },
           { "accept": ["dokler"] },
           { "accept": ["ne da"] },
-          { "accept": ["Medtem ko"] },
+          { "accept": ["Medtem ko", "Ko", "Dokler"] },
           { "accept": ["razen če"] }
         ],
         "translation": "Although he was tired, France helped with the bridge. Wait until I come. Ančka left without saying anything. While Marko was picking grapes, Ančka was telling the news. I'll come to the grape harvest unless I'm ill."
@@ -230,7 +230,7 @@
         "prompt": "veznik · the joining word",
         "columns": ["veznik · joining word"],
         "rows": [
-          { "label": "although (= čeprav)", "cells": [{ "accept": ["kljub temu da"] }] },
+          { "label": "although (= čeprav)", "cells": [{ "accept": ["kljub temu da", "četudi"] }] },
           { "label": "as soon as", "cells": [{ "accept": ["takoj ko", "brž ko", "čim"] }] }
         ]
       },
@@ -266,5 +266,5 @@
     ]
   },
   "machine_written": true,
-  "review": "machine-written, not reviewed by a native speaker. Native check: Nov most, Nejc je bledel, kot da bi videl duha, voda premrzla da bi se kopali, preveč mrzla (accepted), the comma of kljub temu da"
+  "review": "machine-written, not reviewed by a native speaker. Native check: Nov most, Nejc je prebledel, kot da bi videl duha, voda premrzla da bi se kopali, preveč mrzla (accepted), the comma of kljub temu da"
 }

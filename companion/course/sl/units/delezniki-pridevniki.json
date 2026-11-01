@@ -55,10 +55,10 @@
         },
         "examples": [
           { "sl": "Odrasel sin pomaga očetu na njivi.", "en": "The grown-up son helps his father in the field.", "de": "Der erwachsene Sohn hilft dem Vater auf dem Feld.", "it": "Il figlio adulto aiuta il padre nel campo." },
-          { "sl": "Pastir je pripeljal ovce k usahlemu studencu.", "en": "The shepherd brought the sheep to the dried-up spring.", "de": "Der Hirte führte die Schafe zur versiegten Quelle.", "it": "Il pastore ha portato le pecore alla sorgente prosciugata." }
+          { "sl": "Pastir je prignal ovce k usahlemu studencu.", "en": "The shepherd brought the sheep to the dried-up spring.", "de": "Der Hirte führte die Schafe zur versiegten Quelle.", "it": "Il pastore ha portato le pecore alla sorgente prosciugata." }
         ],
         "rows": [["odrasti", "odrasel, odrasla", { "sl": "postalo samo", "en": "grown up", "de": "erwachsen", "it": "adulto" }], ["usahniti", "usahel, usahla", { "sl": "postalo samo", "en": "dried up", "de": "versiegt", "it": "prosciugato" }]],
-        "ask": { "type": "choice", "grammar": "delezniki", "prompt": "France je pograbil listje. Na kupu leži ___ listje.", "options": ["pograbljeno", "odpadlo", "pograbilo"], "answer": 0, "say_options": true, "explain": "**France did it** → -n: **pograbljeno listje**\n- odpadlo · it fell by itself\n- pograbilo · the l-form: the leaves didn't rake" }
+        "ask": { "type": "choice", "grammar": "delezniki", "prompt": "France je pograbil listje. Na kupu leži ___ listje.", "options": ["pograbljeno", "pograbljen", "pograbilo"], "answer": 0, "say_options": true, "explain": "**France did it** → -n, neuter like listje: **pograbljeno listje** (odpadlo listje: it fell by itself)\n- pograbljen · masculine\n- pograbilo · the l-form: the leaves didn't rake" }
       },
       {
         "say": {
@@ -143,7 +143,7 @@
           ],
           "bank": true,
           "distractors": ["obrali", "odpadel", "gorela"],
-          "translation": "Ripe grapes hang on Marko's vines. Marko carries the picked grapes to the cellar. Fallen leaves lie all over the yard. Micka throws the wilted roses on the compost. In the smithy Tone found a rusty nail. Luka has a sore leg, so he stays at home. A burning candle stands in the inn's window. For the adults the grape harvest is work, for the children a feast."
+          "translation": "Ripe grapes hang on Marko's vines. Marko carries the picked grapes to the cellar. Fallen leaves lie all over the yard. Micka throws the wilted flowers on the compost. In the smithy Tone found a rusty nail. Luka has a sore leg, so he stays at home. A burning candle stands in the inn's window. For the adults the grape harvest is work, for the children a feast."
         },
         {
           "type": "choice",
@@ -187,7 +187,7 @@
         "type": "gaptext",
         "grammar": "delezniki",
         "instruction": "Dopolni z deležnikom · Fill in with a participle",
-        "text": "Skozi ___ (odpreti) vrata je pritekel Muri. Po ___ (pokositi) travniku tečejo otroci. V ___ (teči) vodi se kopajo race. Pastir je pripeljal ovce k ___ (usahniti) studencu. Marko je prodal vse ___ (dozoreti) grozdje.",
+        "text": "Skozi ___ (odpreti) vrata je pritekel Muri. Po ___ (pokositi) travniku tečejo otroci. V ___ (teči) vodi se kopajo race. Pastir je prignal ovce k ___ (usahniti) studencu. Marko je prodal vse ___ (dozoreti) grozdje.",
         "gaps": [
           { "accept": ["odprta"] },
           { "accept": ["pokošenem"] },
