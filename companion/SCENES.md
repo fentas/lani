@@ -2101,9 +2101,9 @@ singular and a plural word with `{word}`, `end`, `end_all`, `letter` with `{lett
 `memory`; each text in the language and its translations), and each scene's clues, `scenes/<scene>.json`
 (`lani.ispy/v0`). The app bundles them (the Gradle task `ispyFiles`, read in the learner's pair as a scene is), and the
 bridge serves none of them: the scenes' format, which an older bridge checks strictly, doesn't change. voice-build reads
-them for the voices (below). The 100 scenes' 1573 things have 6795 clues: the 33 Slovene scenes' 522 things 2310 (the
+them for the voices (below). The 108 scenes' 1702 things have 7342 clues: the 33 Slovene scenes' 522 things 2310 (the
 kitchen's 27 things 115, the forest's 24 things 99), the 33 Friuli ones' 521 things 2257 in Italian, Kärnten's 17 scenes' 265
-things 1093 in German, the Lake District's 17 scenes' 265 things 1135 in English (its kitchen's 27 things 118); all
+things 1093 in German, the Lake District's 25 scenes' 394 things 1682 in English (its kitchen's 27 things 118, its wood's 23 things 93; part a of its projects' places, lakeland-projects-a); all
 machine-written, for a native speaker to read (the colours a child
 might name otherwise, a few "where"s the picture shows only roughly, the sounds' verbs: Rega, Gaga, Žubori).
 
