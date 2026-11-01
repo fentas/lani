@@ -232,7 +232,7 @@ internal class SquarePainter : VistaPainter() {
         alpine = style?.tower == Tower.ONION
         gasthaus = variant("osteria") == "gasthaus"
         trough = variant("well") == "trough"
-        pigna = variant("fountain") != null
+        pigna = variant("fountain") == "pigna"
         lakes = style?.tower == Tower.BATTLEMENTS
         oak = variant("linden") == "oak"; pump = variant("well") == "pump"; green = variant("ground") == "green"
         drywall = variant("fence") == "drystone"; daffodils = variant("flowers") == "daffodils"; fells = variant("hills") == "fells"

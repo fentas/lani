@@ -108,8 +108,8 @@ internal class StreamPainter : WildPainter() {
 
     override fun paint() {
         setup()
-        pioppi = variant("trees") != null
-        collio = variant("hills") != null
+        pioppi = variant("trees") == "pioppi"
+        collio = variant("hills") == "collio"
         cobblePiers = variant("cartbridge") != null
         millDone = stage(MILL) >= stages(MILL)
         wheelIn = stage(MILL) >= stages(MILL) - 1
