@@ -45,13 +45,6 @@ import kotlin.math.sqrt
  * plain with its rows of poplars, the village on the hill as Friuli builds it with its campanile, the lagoon and the sea at
  * Grado on the right; the flag on the roof the golden eagle of Friuli.
  *
-<<<<<<< HEAD
- * Carinthia's look (`view` "kaernten"; kaernten-projects-b): the view east down the lower Gailtal, the Dobratsch on the left
- * with its long back, its steep south face and the transmitter mast on top, the Karawanken's jagged ridge along the sky on
- * the right and the Mittagskogel's pyramid with its summit cross among them (the `peak`); the Faaker See turquoise in the
- * valley under it (the art's `sea`, its glints); the village below white with timbered upper storeys under dark shingles
- * round its onion-domed church, Villach far off where the valley opens; Austria's red, white and red on the roof.
-=======
  * The Lake District's viewing station ([lakes]; At the viewing station, Mrs Birkett's, as the Claife Station above Windermere
  * was): we stand inside the little stone station on its rock above the lake, at its big window. The corner posts are the
  * window's jambs of slate stone, the ceiling whitewashed over the slate eave, and across the window's top a row of panes of
@@ -61,7 +54,12 @@ import kotlin.math.sqrt
  * [pikeTop]); far below the lake winding along the dale with its wooded island (the `sea`, [lake]); the village of grey stone
  * and whitewash under slate round its battlemented church tower; the dale's fields walled with grey dry-stone walls, green
  * pasture most of them; the oak woods.
->>>>>>> lakeland-projects-b
+ *
+ * Carinthia's look (`view` "kaernten"; kaernten-projects-b): the view east down the lower Gailtal, the Dobratsch on the left
+ * with its long back, its steep south face and the transmitter mast on top, the Karawanken's jagged ridge along the sky on
+ * the right and the Mittagskogel's pyramid with its summit cross among them (the `peak`); the Faaker See turquoise in the
+ * valley under it (the art's `sea`, its glints); the village below white with timbered upper storeys under dark shingles
+ * round its onion-domed church, Villach far off where the valley opens; Austria's red, white and red on the roof.
  */
 internal class LookoutPainter : VistaPainter() {
     override val art = "lookout"
@@ -102,17 +100,14 @@ internal class LookoutPainter : VistaPainter() {
     private var haze = 0.5f
     private val winter: Boolean get() = env.season == Season.WINTER
 
-<<<<<<< HEAD
     private fun readLook2() {
         friuli = variant("view") == "friuli"
         kaernten = variant("view") == "kaernten"
+        lakes = variant("view") == "lakeland"
     }
-=======
-    private fun readLook2() { friuli = variant("view") == "friuli"; lakes = variant("view") == "lakeland" }
 
     /** The Lake District's viewing station and its view ([readLook2]). */
     private var lakes = false
->>>>>>> lakeland-projects-b
 
     /** How clear the air is: `clear`, else by the season and the weather (hazy summer, clear autumn and winter). */
     private fun clarity(): Float {
@@ -134,11 +129,7 @@ internal class LookoutPainter : VistaPainter() {
         thing("peak", outline = 0) { if (kaernten) mittagskogel() else triglav() }
         if (kaernten) prop(0) { summits() }
         farHills(near = false)
-<<<<<<< HEAD
-        if (!kaernten) thing("sea", outline = 0) { sea() }
-=======
-        if (!lakes) thing("sea", outline = 0) { sea() }
->>>>>>> lakeland-projects-b
+        if (!kaernten && !lakes) thing("sea", outline = 0) { sea() }
         farHills(near = true)
         thing("valley", outline = 0) { valley() }
         // the lake winding along the dale below, its island: over the valley's fields
@@ -778,13 +769,9 @@ internal class LookoutPainter : VistaPainter() {
             val wave = sin(t * 4.0 * gust + f * 5f).toFloat() * f * 0.08f * p
             for (j in 0 until fh.toInt()) {
                 val v = j / fh
-<<<<<<< HEAD
-                val col = if (friuli) (if (abs(f - 0.45f) < 0.15f && abs(v - 0.5f) < 0.22f) Pal.GOLD else Col.hex(0x2A5AA8))
-                else if (kaernten) (if (v < 0.33f || v >= 0.66f) Pal.FLAG_RED else Pal.FLAG_WHITE)
-=======
                 val col = if (lakes) (if (abs(f - 0.5f) < 0.09f || abs(v - 0.5f) < 0.14f) Pal.FLAG_RED else Pal.FLAG_WHITE)
                 else if (friuli) (if (abs(f - 0.45f) < 0.15f && abs(v - 0.5f) < 0.22f) Pal.GOLD else Col.hex(0x2A5AA8))
->>>>>>> lakeland-projects-b
+                else if (kaernten) (if (v < 0.33f || v >= 0.66f) Pal.FLAG_RED else Pal.FLAG_WHITE)
                 else when { v < 0.33f -> Pal.FLAG_WHITE; v < 0.66f -> Pal.FLAG_BLUE; else -> Pal.FLAG_RED }.let { if (f < 0.32f && v in 0.15f..0.55f && (abs(v - 0.35f) < 0.12f)) Col.hex(0x1E4A9A) else it }
                 c.set((tx - z - i).toInt(), (top0 + j + wave).toInt(), env.lit(col))
             }
