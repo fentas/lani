@@ -1097,6 +1097,38 @@ course's other writers'):
 - **A spoken form the grading already takes** (hab, which `same` makes habe) isn't listed in `spoken`: it would be right
   without its label, and `CourseContentChecks` wants each spoken form labelled. Name it in the intro instead.
 
+### The German course: units 13–18
+
+A1's last six units, whose it is to the past (docs/plans/05-built/course-de-a1-c.md). They come after the present, the
+questions, the verb second, the accusative and kein/nicht (units 7–12) and use only those and the units before around
+their gaps (places as the fixed chunks of units 1–6):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `possessiv` 👪 | mein, dein like ein (mein Hund, meine Katze); sein and ihr by the owner, the ending by the noun; unser, euer/eure, ihr, Ihr; seinen in the accusative; a name's -s (Kathis Gasthaus, Franz' Mühle) | possessiv, akkusativ |
+| `uhrzeit` 🕖 | Wie spät ist es?; sieben Uhr, ein Uhr or eins; halb acht (7:30, towards eight); Viertel nach/vor, the Austrian viertel acht and dreiviertel acht; zehn nach sieben; um, am, im; the days; in der Früh, Jänner, heuer; the verb second after a time | uhrzeit, zahlen |
+| `moechten` 🙋 | Ich möchte einen Kaffee, Was möchten Sie?; möchten and können in every person (ich = er, no -t); the other verb at the end; Kann ich zahlen?, nicht; Ich hätte gern | modalverben, wortstellung |
+| `trennbare` ✂️ | the prefix at the end (Ich stehe um sieben auf); einkaufen, anrufen, mitkommen; questions and nicht; the Austrian aufsperren, zusperren; whole after möchten and können; be-, ver-, er- never come off | trennbare-verben, wortstellung |
+| `imperativ` 📣 | komm!, kommt!, kommen Sie!; the -e (komme!) and warte!; gib!, nimm!, lies! but fahr!, schlaf!; sei!, seid!, seien Sie!; bitte, mal, doch; steh auf!, nicht | imperativ, du-sie |
+| `perfekt` ⏪ | haben + ge-…-t, ge-…-en learned with the verb; sein for going and coming, the Austrian ist gesessen; the participle at the end; eingekauft, aufgestanden; besucht, verstanden, telefoniert without ge- | perfekt, sein-haben |
+
+- **Pages written for them**: `possessiv`, `uhrzeit` and `imperativ` (A1, each with its cheat-sheet card), where the
+  book had none; `modalverben`, `trennbare-verben` and `perfekt` are the book's A2 pages, named as they are.
+- **Austrian first, the German-German accepted and named**: viertel acht and dreiviertel acht (also drei viertel acht)
+  beside Viertel nach sieben and Viertel vor acht, and sieben Uhr fünfzehn as a timetable says it; in der Früh (am
+  Morgen), Jänner (Januar), heuer; aufsperren and zusperren (aufschließen, abschließen; zumachen accepted where it
+  fits); ist gesessen, gestanden, gelegen (hat gesessen in Germany) taught and only tapped, never typed.
+- **Every right form listed**: the imperative's -e where Duden has it (Mach!/Mache!, Steh auf!/Stehe auf!), never on an
+  e→i verb (gib!, lies!); unseren beside unsren and unsern; Stankos with no apostrophe.
+- **Ihr and ihr by a tap**, as Sie and sie: the grading doesn't see the capital, so the polite Ihr is asked in a choice.
+- **The grading's pairs for these units** (`grading/de.json`, each only for a word of its group, a slip elsewhere
+  forgiven): mein, dein, sein, ein, kein for each other with any ending (whose, not a slip); mochte for möchte;
+  fähr!, läuf! for fahr!, lauf! (and ich fähre); a strong participle with the infinitive's vowel (getrinken,
+  geschreiben, gebleiben); ge- where none goes (getelefoniert, gebesucht) and a separable participle without it
+  (anrufen for angerufen, einkauft).
+- **Their words in the supplement** (`lexicon/de.extra.json`): the possessives' forms, möchten and können, the time's
+  little words and the days; the verbs part b added (kommen, machen, fahren, geben, sprechen …) are part b's entries.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
