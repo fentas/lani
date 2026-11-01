@@ -246,16 +246,19 @@ On the branch as handed over: main (1a45c5ce) is already under it (wave A's queu
 so the rebase had nothing to replay; the checks below ran on this tree. No line anyone hears was added or changed: a
 voice build needs 0 characters.
 
-- Bridge: `bunx tsc --noEmit -p .` clean; the smoke 3,314 checks, all passed (LANI_SMOKE_PORT 9690,
+- Bridge: `bunx tsc --noEmit -p .` clean; the smoke 3,314 checks, all passed on the final tree (LANI_SMOKE_PORT 9690,
   LANI_SMOKE_DRAMA3_PORT 9708): its case lens part with 14 lines of this round's rules, the fourth held-out set, the
   content's unknown forms under 150, GET /lookup of *Juhu* (an interjection, no case) and *Krpana* (a name, the object);
   every noun "Sklanjaj!" could pick with every slot checked (the four that have forms now, jaslice, mlinci, gostosevci,
-  florjanovo, have forms book tables: below). `tutor-export --check`: 89 files match.
-  `bun test/hint-lens.ts`: 24 turns as recorded (recorded again once: *Iz Gorice sem.* reads Gorice as the town's name
-  alone, the same case and trigger).
+  florjanovo, have forms book tables: below). `tutor-export --check`: 89 files match. `bun test/hint-lens.ts`: 24 turns
+  as recorded (recorded again once: *Iz Gorice sem.* reads Gorice as the town's name alone, the same case and trigger).
 - Python: `case-triggers.py --check` matches; `python3 -m unittest discover -s tests` 251 tests OK, `-s companion/tests` 142
   OK (11 skipped).
-- App: @@APP@@
+- App (no app code changed; it reads the trigger table and, on the phone's bridge, the dictionary): the full unit suite
+  through lani-slot.sh on the final tree, 3,686 tests, 2 skipped, 1 failure
+  (PhoneBridgeTest.everyNounSklanjajCanPickIsSure: the four nouns with slots not checked; fixed by their forms book
+  tables), then the classes that read the forms book and the table again: PhoneBridgeTest, CaseTrainerTest,
+  CaseTriggersTest, TurnHintLensTest, 71 tests, none failing.
 - Emulator QA: `companion/bin/qa-slot --no-town --steps lens-unknown` (slot 2; the second run with `--apk` of the
   first's build: this branch changes no app code, the cards ask the dev bridge), shots in the session's scratchpad
   (ux-lens-unknown-forms/):
