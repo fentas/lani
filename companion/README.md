@@ -3626,7 +3626,9 @@ heißen with their present forms (hab spoken), the personal pronouns, the articl
 this, the greetings (Grüß Gott, Servus, Baba, Tschüss and Tschüs), the jobs and places of the Carinthian village with
 their Slovene and Italian names (Villach: Beljak, Villaco; Klagenfurt: Celovec), the numbers. A noun's lemma is
 written without its article and with its capital, its gender given: the printed sheets show it as der, die or das
-with it (`prints/sheet.ts`). Each part of the German course appends its units' words (docs/plans/05-built/course-de-a1-a.md).
+with it (`prints/sheet.ts`). Each part of the German course appends its units' words (docs/plans/05-built/course-de-a1-a.md),
+and Opa Sepp's six newer stories and the reading corner's five newer readings every word their German lines use (880
+entries since; docs/plans/05-built/stories-kaernten.md): a tap on any of them means it in the learner's base.
 
 An entry's form with `null` grammar takes Wiktionary's grammar of that form when Wiktionary has it. Names and pure
 interjections are left out. It is machine-written and not reviewed by a native speaker (`"reviewed": false`). Of the
