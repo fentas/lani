@@ -216,10 +216,18 @@ class FireAgesTest {
                 val hh = hit.bottom - hit.top; val ww = hit.right - hit.left
                 if (hh !in 12..46 || ww !in 8..30) failed += "$what: not person-sized $hit"
                 val d = p.drawnPeople.firstOrNull { it.id == "p" } ?: run { failed += "$what: not drawn"; null } ?: continue
-                val top = d.at.minOf { it / c.width }; val bottom = d.at.maxOf { it / c.width }
+                val top0 = d.at.minOf { it / c.width }; val bottom = d.at.maxOf { it / c.width }
+                // a pedlar's load stands over his hat (his culture's: the Kraxe's posts, the packman's bolt of cloth) and may go
+                // behind what is in front of it: his head is from his hat's crown down
+                val body = PeoplePainter().body(sprite)
+                val top = if (sprite == "pedlar") maxOf(top0, bottom + body.hTop - 3) else top0
+                // and between the posts or the sides of his load: the head's own columns, round the middle of his feet
+                val feet = d.at.filter { it / c.width == bottom }.map { it % c.width }.sorted()
+                val mid = feet[feet.size / 2] // the shoes' middle, his stick aside
+                val cols = if (sprite == "pedlar") (mid - body.hw - 1)..(mid + body.hw + 1) else 0 until c.width
                 val line = top + ((bottom - top + 1) * 0.4f).toInt()
                 // behind the stump they crouch behind it, its edge over their shoulder (as at the camp, by design)
-                val over = if (spot == "behind-stump") 0 else d.covered.count { it / c.width < line }
+                val over = if (spot == "behind-stump") 0 else d.covered.count { it / c.width in top until line && it % c.width in cols }
                 if (over > 0) failed += "$what: $over px of the head drawn over"
             }
         }
