@@ -338,7 +338,8 @@ pair switches:
 - **Grading** (`resources/grading/<code>.json`): a missing č/š/ž, Italian accent or German umlaut (also ae/oe/ue/ss
   for ä/ö/ü/ß) is almost right, with its hint; English contractions are the same answer. Answers are lowercased in the
   target's locale; a word's stem forgives one slip from 4 letters, two from 9, but not a known mistake the table lists
-  (`wrong`: Italian's anderò for andrò, venito for venuto).
+  (`wrong`: Italian's anderò for andrò, venito for venuto; Slovene's prefixed verbs one letter off another prefix,
+  prenesel for prinesel, prešel for prišel, zapisal for napisal, obšel for odšel: another verb, B2's `predpone`).
 - **Speech**: the phone's recognizer and text-to-speech take the target's locale (sl-SI, it-IT, de-DE, en-GB); the
   node's Whisper has Slovene's model and serves Italian, German and English with the general one
   ([stt-local](stt-local/README.md#languages)). ElevenLabs gets the village's `language_code`, and a narrator says a

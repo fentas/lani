@@ -142,6 +142,26 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, it("Venite qui", "Venite qui!"))
     }
 
+    // --- Slovene ----------------------------------------------------------------------------------------------------
+
+    private fun sl(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.SL)
+
+    @Test fun `a prefixed verb one letter off another prefix is another verb, never a slip`() {
+        // B2's predpone: pri- here, pre- across; na- done, za- noted down; od- away, ob- round (grading/sl.json wrong)
+        for ((answer, right) in listOf(
+            "prenesel" to "prinesel", "Tine je prenesel drva." to "Tine je prinesel drva.", "prešel" to "prišel",
+            "prešla" to "prišla", "prinaša" to "prenaša", "prepisal" to "pripisal", "zapisal" to "napisal",
+            "napisala" to "zapisala", "obšel" to "odšel", "odide" to "obide", "pride" to "prede",
+        )) assertEquals("«$answer» for «$right»", Verdict.WRONG, sl(answer, right).verdict)
+        // a slip inside the root stays forgiven, č, š, ž forgotten stay almost, and the right form is right
+        assertGraded(Verdict.ALMOST, Hint.TYPO, sl("prinsel", "prinesel"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, sl("prepisval", "prepisoval"))
+        assertGraded(Verdict.ALMOST, Hint.DIACRITICS, sl("prisel", "prišel"))
+        assertGraded(Verdict.ALMOST, Hint.DIACRITICS, sl("odsel", "odšel"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, sl("Prinesel ga je poštar.", "Prinesel ga je poštar."))
+        assertGraded(Verdict.CORRECT, Hint.NONE, sl("prenesel", "prenesel"))
+    }
+
     // --- German ---------------------------------------------------------------------------------------------------
 
     @Test fun `german ae oe ue ss for ä ö ü ß are almost, with the umlaut hint`() {
@@ -203,7 +223,7 @@ class GradingLanguagesTest {
         assertEquals(Hint.ACCENT, Spelling.of(Lang.IT).foldHint)
         assertEquals(Hint.APOSTROPHE, Spelling.of(Lang.IT).looseHint)
         assertTrue("Italian's known wrong forms", Spelling.of(Lang.IT).wrong.isNotEmpty())
-        assertTrue("none for Slovene", Spelling.of(Lang.SL).wrong.isEmpty())
+        assertTrue("Slovene's: a prefix one letter off another", Spelling.of(Lang.SL).wrong.isNotEmpty())
         assertEquals(Hint.UMLAUT, Spelling.of(Lang.DE).foldHint)
         assertEquals(Hint.NONE, Spelling.of(Lang.EN).foldHint)
     }

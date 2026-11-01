@@ -1,9 +1,14 @@
 {
-  "_note": "How an answer in Slovene is compared with the accepted ones (data/Grading.kt, Spelling). Each rule is [a regular expression, its replacement], applied in order to the lowercased answer without punctuation. same: spellings that are the same answer (correct). fold: letters a keyboard may lack; an answer that differs only in them is almost right, with fold_hint. loose: after fold; an answer that differs only there is almost right, with loose_hint. Hints: diacritics, accent, umlaut, apostrophe, none. drop_subject: the language leaves its subject out where the verb's ending says the person (Spita v šotoru.): a worksheet's person in brackets may be left out of the answer (data/Sheets.kt, withoutPerson). wrong (optional): regular expressions of words that are a known mistake (Italian's anderò for andrò), each matched whole against a word of the answer as fold writes it: such a word one letter off the right one is wrong, never forgiven as a slip in the stem.",
+  "_note": "How an answer in Slovene is compared with the accepted ones (data/Grading.kt, Spelling). Each rule is [a regular expression, its replacement], applied in order to the lowercased answer without punctuation. same: spellings that are the same answer (correct). fold: letters a keyboard may lack; an answer that differs only in them is almost right, with fold_hint. loose: after fold; an answer that differs only there is almost right, with loose_hint. Hints: diacritics, accent, umlaut, apostrophe, none. drop_subject: the language leaves its subject out where the verb's ending says the person (Spita v šotoru.): a worksheet's person in brackets may be left out of the answer (data/Sheets.kt, withoutPerson). wrong (optional): regular expressions of words that are a known mistake (Italian's anderò for andrò), each matched whole against a word of the answer as fold writes it: such a word one letter off the right one is wrong, never forgiven as a slip in the stem. wrong: a prefixed verb's form one letter off another prefix's (B2's predpone: prenesel for prinesel, prešel for prišel, prepisal for pripisal, zapisal for napisal, obšel for odšel): another verb, never a slip in the stem; only whole forms are listed, so a slip inside the root (prinsel) stays almost.",
   "same": [],
   "fold": [["[čć]", "c"], ["š", "s"], ["ž", "z"], ["đ", "d"]],
   "fold_hint": "diacritics",
   "loose": [],
   "loose_hint": "none",
-  "drop_subject": true
+  "drop_subject": true,
+  "wrong": [
+    "pr[ei](?:nes(?:ti|el|la|li|le|lo|em|es|e|eva|eta|emo|ete|ejo|i|ite)|nas(?:ati|am|as|a|ava|ata|amo|ate|ajo|al|ala|ali|ale|alo|aj|ajte)|s(?:el|la|li|le|lo)|d(?:em|es|e|eva|eta|emo|ete|ejo|i|ite)|pis(?:ati|al|ala|ali|ale|alo|em|es|e|emo|ete|ejo|i|ite)|pisov(?:ati|al|ala|ali|ale|alo)|pisuj(?:em|es|e|emo|ete|ejo)|pelj(?:ati|al|ala|ali|ale|alo|em|es|e|emo|ete|ejo|i|ite)|haj(?:ati|am|as|a|amo|ate|ajo|al|ala|ali|ale|alo))",
+    "[nz]apis(?:ati|al|ala|ali|ale|alo|em|es|e|emo|ete|ejo|i|ite)",
+    "o[db](?:s(?:el|la|li|le|lo)|id(?:em|es|e|eva|eta|emo|ete|ejo|i|ite))"
+  ]
 }
