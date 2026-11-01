@@ -13,6 +13,7 @@ import { cultureArrivals } from '../arrivals'
 import { familyHas, indexHas } from '../course-speech'
 import { cultureKeepers, keeperTellings } from '../cultures'
 import { learnerLangs } from '../learners'
+import { KnownTexts, labelTexts, notVoiced, sceneTexts, villagerTexts } from '../voice-lang'
 import { cultureStepFiles, stepTellings } from '../project-steps'
 import { cultureCelebrationFiles, partyTellings } from '../celebrations'
 import { readISpy } from '../ispy'
@@ -129,6 +130,22 @@ export const voice: FeatureFactory = ctx => {
   // the voice a line asked for in [v] is said in: the learner's own ("player") in their voice (undefined when the cast has
   // none that may say it: the phone speaks), anyone else's as asked
   const voiceOf = (v: string): string | undefined => (v === PLAYER ? mine().option?.voice : v)
+  // what this node knows of a text's language (voice-lang.ts): a text known only in another language than the village's
+  // isn't voiced as the village's (an explanation, asked with its lang, is voiced plainly as before)
+  const known = new KnownTexts(function* () {
+    yield* villagerTexts(ctx.villagers.all())
+    yield* sceneTexts(ctx.scenes.resolved())
+    yield* labelTexts(ctx.cfg.projectDir)
+  })
+  const refused = new Set<string>()
+  const refusal = (text: string, lang: string | undefined): string | undefined => {
+    const why = notVoiced(text, lang, language, known)
+    if (why && !refused.has(text)) {
+      refused.add(text)
+      ctx.log(`voice: not voiced: "${text.slice(0, 60)}": ${why}`)
+    }
+    return why
+  }
   const handleRedo = async (req: Request) => {
     const r = redoIn.safeParse(await readJson(req))
     if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
@@ -152,6 +169,11 @@ export const voice: FeatureFactory = ctx => {
     if (long) return json({ error: long }, 400)
     const clips: Prepared[] = []
     for (const { text, voice: asked, lang } of r.data.texts) {
+      // another language's text: no clip of it in this village's voice (the app says it otherwise)
+      if (refusal(text, lang)) {
+        clips.push({ text, voice: asked, url: null })
+        continue
+      }
       const v = voiceOf(asked)
       // a voice not in the cast (or none for the learner's lines): none for this text only (the app asks in the voice it
       // wants, no other voice's clip)
@@ -220,6 +242,8 @@ export const voice: FeatureFactory = ctx => {
           if (!r.success) return json({ error: z.prettifyError(r.error) }, 400)
           const long = tooLong(voice, r.data)
           if (long) return json({ error: long }, 400)
+          // another language's text: nothing voiced, the app speaks it (204, as a line no voice of the cast may say)
+          if (refusal(r.data.text, r.data.lang)) return new Response(null, { status: 204 })
           const v = voiceOf(r.data.voice)
           // the learner's own line when the cast has no voice that may say it: the phone speaks it
           if (!v && r.data.voice === PLAYER) return new Response(null, { status: 204 })

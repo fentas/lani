@@ -12,6 +12,7 @@ import { labelShown, meant, said } from '../../src/langs'
 import { meaningOf, titleFor, validatePack } from '../../src/packs'
 import { JAN_PLACE, allLines, bondOf, validateVillager, villagerScenario } from '../../src/villagers'
 import { corpus } from '../../src/voice'
+import { KnownTexts, notVoiced, villagerTexts } from '../../src/voice-lang'
 import { bridgeEleven, bridgeWhisper, check, checkCultureVoices, culturesDir, tempDir, guideOf, languageBook, port as smokePort } from './harness'
 import { lexiconFixture } from './lexicon-fixture'
 import { JAN } from '../learner-content'
@@ -304,6 +305,29 @@ export default async function friuli() {
         mine.age === 'child' && mine.options.length >= 2 && mine.options.every((o: any) => o.gender === 'male' && o.age === 'child') && mine.sample === 'Ciao! Sono Tim.' && own.voice === boy.voice && asked.length === 1 &&
           asked[0].voice === speakers[boy.voice].elevenlabs && asked[0].body.language_code === 'it' && ![speakers.male.elevenlabs, speakers['young-man'].elevenlabs, speakers.boy.elevenlabs].includes(asked[0].voice),
         { mine, own, asked })
+    }
+
+    // --- another language's text is never voiced as Italian (voice-lang.ts) ------------------------------------------
+    // The app's day plan during a visit to a Slovene town asked for Nonna Rosa's lines in their Slovene translation, and
+    // the setup's "Še o tebi" read in a pair not yet the learner's: the node voiced them with language_code it.
+    {
+      const t0 = bridgeEleven.st.tts.length
+      const prep = await (await fetch(`${base}/voice/prepare`, {
+        method: 'POST', headers: auth,
+        body: JSON.stringify({ texts: [
+          { text: 'Pridi, pridi. Sedi.', voice: 'grandma' }, // Rosa's greeting in Slovene
+          { text: 'Živjo! Si lačen?', voice: 'grandma' }, // her "Ciao! Hai fame?" in Slovene, said to a boy
+        ] }),
+      })).json()
+      const label = await fetch(`${base}/voice/say`, { method: 'POST', headers: auth, body: JSON.stringify({ text: 'Še o tebi', voice: 'female' }) })
+      check("friuli: a text the node knows only in Slovene (Rosa's translations, the app's Slovene label) isn't voiced as Italian: no clip, nothing asked of ElevenLabs",
+        prep.clips?.length === 2 && prep.clips.every((c: any) => c.url === null) && label.status === 204 && bridgeEleven.st.tts.length === t0,
+        { prep, label: label.status, asked: bridgeEleven.st.tts.slice(t0) })
+      const rosa = JSON.parse(readFileSync(join(culturesDir, 'friuli/villagers/rosa.json'), 'utf8'))
+      const known = new KnownTexts(() => villagerTexts([rosa]))
+      check("friuli: her own Italian lines, a text the node doesn't know and an explanation in the learner's Slovene stay voiced",
+        notVoiced('Vieni, vieni. Siediti.', undefined, 'it', known) === undefined && notVoiced('Che bella giornata, oggi!', undefined, 'it', known) === undefined &&
+          notVoiced('Pridi, pridi. Sedi.', 'sl', 'it', known) === undefined && notVoiced('Pridi, pridi. Sedi.', undefined, 'it', known)?.includes('known in sl') === true)
     }
 
     // --- speech recognition: in the village's language when the app doesn't say --------------------------
