@@ -197,7 +197,8 @@ class AlpsLooksTest {
                 assertTrue("$culture ${b.type} has a way in", Homes.scenesOf(b, own, state).isNotEmpty())
             }
             assertTrue(culture, look.touches("alps"))
-            assertEquals(culture, all, own.flatMap { it.from }.filter { !it.contains(':') && it != "fire" }.toSet())
+            // the buildings' scenes; the wood (`forest`, a spot of the landscape) opens Kärnten's Im Wald since kaernten-projects-a
+            assertEquals(culture, all, own.flatMap { it.from }.filter { !it.contains(':') && it != "fire" && it != "forest" }.toSet())
         }
     }
 

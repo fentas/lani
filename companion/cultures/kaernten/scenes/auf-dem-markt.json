@@ -80,6 +80,7 @@
     },
     {
       "id": "gasthaus",
+      "talk": "im-gasthaus",
       "lines": [
         { "who": "kathi", "face": "happy", "de": "Grüß dich, {learner}! Ich kaufe für das Gasthaus ein. Hilfst du mir tragen?", "sl": "Živjo, {learner}! Nakupujem za gostilno. Mi pomagaš nesti?", "en": "Hello, {learner}! I'm shopping for the Gasthaus. Will you help me carry?", "it": "Ciao, {learner}! Faccio la spesa per la locanda. Mi aiuti a portare?" },
         { "choices": [
@@ -100,6 +101,7 @@
     },
     {
       "id": "most",
+      "talk": "auf-dem-bauernmarkt",
       "lines": [
         { "who": "stefan", "face": "happy", "de": "Servus, {learner}! Magst du was trinken? Ich habe Most und Apfelsaft.", "sl": "Živjo, {learner}! Bi kaj {m:spil|f:spila}? Imam mošt in jabolčni sok.", "en": "Hi, {learner}! Fancy a drink? I've got Most and apple juice.", "it": "Ciao, {learner}! Vuoi bere qualcosa? Ho il Most e il succo di mela." },
         { "choices": [
@@ -117,6 +119,7 @@
     },
     {
       "id": "fest",
+      "talk": "auf-dem-bauernmarkt",
       "lines": [
         { "who": "stefan", "face": "happy", "de": "Servus, {learner}! Heute ist großer Markt. Schau, wie viele Leute!", "sl": "Živjo, {learner}! Danes je velik sejem. Poglej, koliko ljudi!", "en": "Hi, {learner}! It's a big market day today. Look how many people!", "it": "Ciao, {learner}! Oggi c'è il grande mercato. Guarda quanta gente!", "fx": { "bustle": 1 } },
         { "who": "stefan", "face": "laugh", "de": "Hörst du das Glöckerl? Jetzt geht es richtig los!", "sl": "Slišiš zvonček? Zdaj se šele začne!", "en": "Hear the little bell? Now it really gets going!", "it": "Senti la campanella? Adesso si comincia sul serio!", "fx": { "bell": 1 } },
@@ -189,6 +192,7 @@
     },
     {
       "id": "gasthaus-waage",
+      "talk": "im-gasthaus",
       "memory": { "de": "die Äpfel für meinen Strudel", "sl": "jabolka za moj štrudelj", "en": "the apples for my strudel", "it": "le mele per il mio strudel" },
       "lines": [
         { "who": "kathi", "face": "curious", "de": "{learner}, ich brauche zwei Kilo Äpfel für den Strudel. Wo ist denn die Waage?", "sl": "{learner}, za štrudelj potrebujem dva kilograma jabolk. Kje pa je tehtnica?", "en": "{learner}, I need two kilos of apples for the strudel. Where's the scale?", "it": "{learner}, mi servono due chili di mele per lo strudel. Dov'è la bilancia?" },
@@ -211,6 +215,7 @@
     },
     {
       "id": "gasthaus-kirchtag",
+      "talk": "beim-kirchtag",
       "months": [8],
       "memory": { "de": "den vollen Markt vor dem Kirchtag", "sl": "poln sejem pred žegnanjem", "en": "the packed market before the Kirchtag", "it": "il mercato pieno prima del Kirchtag" },
       "lines": [
@@ -229,6 +234,7 @@
     },
     {
       "id": "most-flaschen",
+      "talk": "auf-dem-bauernmarkt",
       "count": { "from": "dice", "min": 4, "max": 12, "gender": "f", "case": "acc" },
       "memory": { "de": "die Flaschen, die du für das Gasthaus eingepackt hast", "sl": "steklenice, ki si jih {m:pripravil|f:pripravila} za gostilno", "en": "the bottles you packed for the Gasthaus", "it": "le bottiglie che hai preparato per la locanda" },
       "lines": [
@@ -247,6 +253,7 @@
     },
     {
       "id": "most-ernte",
+      "talk": "auf-dem-bauernmarkt",
       "months": [9, 10],
       "memory": { "de": "die Apfelernte, zu der du mitgekommen bist", "sl": "obiranje jabolk, na katero si {m:šel|f:šla} z mano", "en": "the apple picking you came along to", "it": "la raccolta delle mele a cui sei {m:venuto|f:venuta} con me" },
       "lines": [
@@ -265,6 +272,7 @@
     },
     {
       "id": "fest-martini",
+      "talk": "auf-dem-bauernmarkt",
       "months": [11],
       "memory": { "de": "die Maroni am Martinimarkt", "sl": "kostanj na martinovem sejmu", "en": "the roast chestnuts at the St Martin's market", "it": "le caldarroste al mercato di San Martino" },
       "lines": [
@@ -283,6 +291,7 @@
     },
     {
       "id": "fest-christkindl",
+      "talk": "auf-dem-bauernmarkt",
       "months": [12],
       "memory": { "de": "den Apfelpunsch am Christkindlmarkt", "sl": "jabolčni punč na božičnem sejmu", "en": "the apple punch at the Christmas market", "it": "il punch di mele al mercatino di Natale" },
       "lines": [

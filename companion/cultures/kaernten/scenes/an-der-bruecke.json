@@ -1,0 +1,285 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "an-der-bruecke",
+  "language": "de",
+  "title": { "de": "An der Brücke", "sl": "Pri mostu", "en": "At the bridge", "it": "Al ponte" },
+  "emoji": "🌉",
+  "level": "A1",
+  "review": "lines, reactions, variants, whys: machine-written (Claude), not reviewed by a native speaker; to check: Grüß Gott, Hü, Gelsen, Pfiat di, Schafe gehütet",
+  "art": "stream",
+  "from": ["project:most"],
+  "pack": "an-der-bruecke",
+  "objects": [
+    { "slot": "stream", "word": "bach", "pack": "am-see" },
+    { "slot": "stones", "word": "stein", "pack": "am-feuer" },
+    { "slot": "bridge", "word": "steg", "pack": "am-bach" },
+    { "slot": "willow", "word": "weide", "pack": "am-bach" },
+    { "slot": "trout", "word": "forelle", "pack": "am-bach" },
+    { "slot": "dragonfly", "word": "libelle", "pack": "am-bach" },
+    { "slot": "cress", "word": "brunnenkresse", "pack": "am-bach" },
+    { "slot": "mill", "word": "muehle", "pack": "in-der-muehle", "needs": { "project": "mlin" } },
+    { "slot": "laundry", "word": "waesche", "pack": "am-bach" },
+    { "slot": "sheep", "word": "schaf", "pack": "am-tor" },
+    { "slot": "fox", "word": "fuchs", "pack": "auf-dem-feld" },
+    { "slot": "hedgehog", "word": "igel", "pack": "im-wald" },
+    { "slot": "butterfly", "word": "schmetterling", "pack": "auf-dem-feld" },
+    { "slot": "bat", "word": "fledermaus", "pack": "auf-dem-feld" },
+    { "slot": "cartbridge", "word": "bruecke", "pack": "am-see", "needs": { "project": "most" } }
+  ],
+  "people": [
+    { "id": "franz", "name": "Müller Franz", "emoji": "🧑‍🌾", "art": "farmer", "slot": "mill", "villager": "franz" },
+    { "id": "toni", "name": "Schmied Toni", "emoji": "⚒️", "art": "smith", "slot": "bank", "villager": "toni" },
+    { "id": "florian", "name": "Hirte Florian", "emoji": "🐑", "art": "shepherd", "slot": "ford", "villager": "florian" },
+    { "id": "stanko", "name": "Imker Stanko", "emoji": "🐝", "art": "beekeeper", "slot": "ford", "villager": "stanko" }
+  ],
+  "happenings": [
+    { "id": "wagen", "title": { "de": "Der Wagen über die Brücke", "sl": "Voz čez most", "en": "The cart over the bridge", "it": "Il carro sul ponte" }, "who": "franz", "when": ["morning"], "chance": 0.5, "dialog": "wagen", "dialogs": ["wagen-staemme", "wagen"], "reward": { "wood": 20 }, "marker": "🐴", "memory": { "de": "den Wagen, der über die Brücke gefahren ist", "sl": "voz, ki je zapeljal čez most", "en": "the cart that crossed the bridge", "it": "il carro che ha passato il ponte" } },
+    { "id": "schafe", "title": { "de": "Florians Schafe über die Brücke", "sl": "Florianove ovce čez most", "en": "Florian's sheep over the bridge", "it": "Le pecore di Florian sul ponte" }, "who": "florian", "when": ["evening"], "months": [3, 4, 5, 6, 7, 8, 9, 10, 11], "chance": 0.5, "dialog": "schafe", "dialogs": ["schafe-zaehlen", "schafe-lamm", "schafe"], "reward": { "food": 15 }, "marker": "🐑", "memory": { "de": "die Schafe, die über die Brücke heimgegangen sind", "sl": "ovce, ki so šle čez most domov", "en": "the sheep going home over the bridge", "it": "le pecore tornate a casa sul ponte" } },
+    { "id": "hochwasser", "title": { "de": "Der Bach ist hoch", "sl": "Potok je narasel", "en": "The stream is high", "it": "Il ruscello è in piena" }, "who": "toni", "when": ["morning"], "chance": 0.4, "dialog": "hochwasser", "dialogs": ["hochwasser-pfeiler", "hochwasser"], "reward": { "stone": 15 }, "marker": "🌊", "memory": { "de": "den Morgen nach dem Regen, als der Bach so hoch war", "sl": "jutro po dežju, ko je bil potok tako visok", "en": "the morning after the rain, when the stream was so high", "it": "la mattina dopo la pioggia, col ruscello così alto" } },
+    { "id": "gelaender", "title": { "de": "Schmied Toni und das Geländer", "sl": "Kovač Toni in ograja", "en": "Schmied Toni and the railing", "it": "Il fabbro Toni e la ringhiera" }, "who": "toni", "when": ["afternoon"], "chance": 0.45, "dialog": "gelaender", "dialogs": ["gelaender-wagen", "gelaender"], "reward": { "wood": 15 }, "marker": "🔨", "memory": { "de": "das Geländer, das wir mit Herrn Toni festgenagelt haben", "sl": "ograja, ki sva jo z gospodom Tonijem pribila", "en": "the railing we nailed fast with Herr Toni", "it": "la ringhiera che abbiamo inchiodato col signor Toni" } },
+    { "id": "libellen", "title": { "de": "Libellen am Bach", "sl": "Kačji pastirji ob potoku", "en": "Dragonflies by the stream", "it": "Libellule sul ruscello" }, "who": "stanko", "when": ["afternoon"], "months": [5, 6, 7, 8, 9], "chance": 0.5, "dialog": "libellen", "dialogs": ["libellen-forelle", "libellen"], "reward": { "wisdom": 15 }, "marker": "🪰", "memory": { "de": "die blauen Libellen unter der Brücke", "sl": "modri kačji pastirji pod mostom", "en": "the blue dragonflies under the bridge", "it": "le libellule blu sotto il ponte" } },
+    { "id": "abend", "title": { "de": "Abend an der Brücke", "sl": "Večer pri mostu", "en": "Evening at the bridge", "it": "Sera al ponte" }, "who": "florian", "when": ["evening"], "chance": 0.45, "dialog": "abend", "dialogs": ["abend-fledermaeuse", "abend"], "reward": { "wisdom": 15 }, "marker": "🌆", "memory": { "de": "den Abend an der Brücke, als die Glocke geläutet hat", "sl": "večer pri mostu, ko je zvonilo", "en": "the evening at the bridge when the bell rang", "it": "la sera al ponte quando suonava la campana" } },
+    { "id": "muehle", "title": { "de": "Die Mühle mahlt", "sl": "Mlin melje", "en": "The mill is grinding", "it": "Il mulino macina" }, "who": "franz", "when": ["afternoon"], "needs": { "project": "mlin" }, "chance": 0.45, "dialog": "muehle", "dialogs": ["muehle-saecke", "muehle"], "reward": { "food": 20 }, "marker": "⚙️", "memory": { "de": "die Mehlsäcke vor der Mühle", "sl": "vreče moke pred mlinom", "en": "the flour sacks in front of the mill", "it": "i sacchi di farina davanti al mulino" } }
+  ],
+  "dialogs": [
+    {
+      "id": "wagen",
+      "fx_stays": true,
+      "lines": [
+        { "who": "franz", "face": "happy", "de": "Guten Morgen, {learner}! Heute fahre ich mit Moritz über die neue Brücke.", "sl": "Dobro jutro, {learner}! Danes se z Moritzem peljem čez novi most.", "en": "Good morning, {learner}! Today I'm driving over the new bridge with Moritz.", "it": "Buongiorno, {learner}! Oggi passo il ponte nuovo con Moritz.", "fx": { "cart": 0 } },
+        { "choices": [
+          { "de": "Ist die Brücke stark genug, Herr Franz?", "sl": "Je most dovolj močan, gospod Franz?", "en": "Is the bridge strong enough, Herr Franz?", "it": "Il ponte è abbastanza forte, signor Franz?", "ok": true, "reply": { "face": "proud", "de": "Sicher! Sie ist aus Lärchenholz, und die Pfeiler sind aus Stein.", "sl": "Seveda! Iz macesnovega lesa je, stebri pa so kamniti.", "en": "Sure! It's made of larch, and the pillars are stone.", "it": "Certo! È di larice, e i pilastri sono di pietra." } },
+          { "de": "Ist die Brücke stark genug, Franz?", "sl": "Je most dovolj močan, Franz?", "en": "Is the bridge strong enough, Franz?", "it": "Il ponte è abbastanza forte, Franz?", "grammar": "du-sie", "why": { "de": "Mit Sie sagt man Herr: Herr Franz.", "sl": "S Sie rečemo Herr: Herr Franz.", "en": "With Sie you say Herr: Herr Franz.", "it": "Con Sie si dice Herr: Herr Franz." }, "reply": { "face": "laugh", "de": "Nur Franz? Na gut, für dich bin ich heute der Fuhrmann.", "sl": "Samo Franz? No prav, zate sem danes voznik.", "en": "Just Franz? All right, today I'm your carter.", "it": "Solo Franz? Va bene, oggi per te sono il carrettiere." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "franz", "face": "thinking", "de": "Hü, Moritz! Langsam, langsam … Er hat ein bisschen Angst vor dem Wasser.", "sl": "Hi, Moritz! Počasi, počasi … Malo se boji vode.", "en": "Gee up, Moritz! Slowly, slowly … He's a bit afraid of the water.", "it": "Arri, Moritz! Piano, piano … Ha un po' paura dell'acqua.", "fx": { "cart": 0.4 } },
+        { "choices": [
+          { "de": "Keine Angst, Moritz! Die Brücke hält.", "sl": "Brez strahu, Moritz! Most zdrži.", "en": "Don't be scared, Moritz! The bridge will hold.", "it": "Niente paura, Moritz! Il ponte tiene.", "ok": true, "reply": { "face": "happy", "de": "Hörst du? Er geht weiter. Brav, Moritz!", "sl": "Slišiš? Gre naprej. Priden, Moritz!", "en": "Hear that? He's going on. Good boy, Moritz!", "it": "Senti? Va avanti. Bravo, Moritz!", "fx": { "cart": 0.7 } } },
+          { "de": "Keine Angst, Moritz! Die Brücke haltet.", "sl": "Brez strahu, Moritz! Most zdrži.", "en": "Don't be scared, Moritz! The bridge will hold.", "it": "Niente paura, Moritz! Il ponte tiene.", "grammar": "praesens", "why": { "de": "Halten ist unregelmäßig: sie hält, mit ä.", "sl": "Halten je nepravilen: sie hält, z ä.", "en": "Halten is irregular: sie hält, with ä.", "it": "Halten è irregolare: sie hält, con ä." }, "reply": { "face": "laugh", "de": "Haltet? Moritz versteht dich trotzdem, schau.", "sl": "Haltet? Moritz te vseeno razume, poglej.", "en": "Haltet? Moritz understands you anyway, look.", "it": "Haltet? Moritz ti capisce lo stesso, guarda.", "fx": { "cart": 0.7 } } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "franz", "face": "proud", "de": "Drüben! Jetzt kommen die Wagen bis zum Wald. Früher mussten wir durch das Wasser.", "sl": "Na drugi strani! Zdaj vozovi pridejo do gozda. Prej smo morali čez vodo.", "en": "Across! Now the carts can get to the wood. We used to have to go through the water.", "it": "Dall'altra parte! Adesso i carri arrivano fino al bosco. Prima dovevamo passare nell'acqua.", "fx": { "cart": 1 } },
+        { "choices": [
+          { "de": "Die Brücke ist wirklich gut.", "sl": "Most je res dober.", "en": "The bridge really is good.", "it": "Il ponte è davvero buono.", "ok": true, "reply": { "face": "proud", "de": "Danke! Das ganze Dorf hat gebaut. Darauf bin ich stolz.", "sl": "Hvala! Vsa vas je gradila. Na to sem ponosen.", "en": "Thanks! The whole village built it. I'm proud of that.", "it": "Grazie! L'ha costruito tutto il paese. Ne sono orgoglioso." } },
+          { "de": "Die Brücke ist wirklich schlecht.", "sl": "Most je res slab.", "en": "The bridge really is bad.", "it": "Il ponte è davvero brutto.", "why": { "de": "Der Wagen ist sicher drüben: Die Brücke ist gut.", "sl": "Voz je varno na drugi strani: most je dober.", "en": "The cart's safely across: the bridge is good.", "it": "Il carro è passato sano e salvo: il ponte è buono." }, "reply": { "face": "surprised", "de": "Schlecht? Na, Moritz sieht das aber anders!", "sl": "Slab? No, Moritz pa misli drugače!", "en": "Bad? Well, Moritz sees it differently!", "it": "Brutto? Beh, Moritz la pensa diversamente!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "schafe",
+      "fx_stays": true,
+      "lines": [
+        { "who": "florian", "face": "happy", "de": "Juhuu, {learner}! Die Schafe kommen heim, über die Brücke.", "sl": "Juhuu, {learner}! Ovce se vračajo domov, čez most.", "en": "Yoo-hoo, {learner}! The sheep are coming home, over the bridge.", "it": "Iuhuu, {learner}! Le pecore tornano a casa, sul ponte.", "fx": { "flock": 0.3 } },
+        { "choices": [
+          { "de": "Sie gehen schön hintereinander!", "sl": "Lepo gredo ena za drugo!", "en": "They're walking nicely one behind the other!", "it": "Camminano in fila, che belle!", "ok": true, "reply": { "face": "proud", "de": "Ja, so habe ich es ihnen beigebracht.", "sl": "Ja, tako sem jih naučil.", "en": "Yes, that's how I taught them.", "it": "Sì, gliel'ho insegnato io.", "fx": { "flock": 0.5 } } },
+          { "de": "Sie geht schön hintereinander!", "sl": "Lepo gredo ena za drugo!", "en": "They're walking nicely one behind the other!", "it": "Camminano in fila, che belle!", "grammar": "praesens", "why": { "de": "Sie meint hier viele Schafe: Plural, sie gehen.", "sl": "Sie tu pomeni veliko ovc: množina, sie gehen.", "en": "Sie here means many sheep: plural, sie gehen.", "it": "Sie qui sono tante pecore: plurale, sie gehen." }, "reply": { "face": "laugh", "de": "Geht? Es sind doch so viele!", "sl": "Geht? Saj jih je toliko!", "en": "Geht? There are so many of them!", "it": "Geht? Ma sono tantissime!", "fx": { "flock": 0.5 } } }
+        ], "puzzled": { "face": "confused", "de": "He? Was hast du gesagt? Noch einmal!", "sl": "He? Kaj si {m:rekel|f:rekla}? Še enkrat!", "en": "Eh? What did you say? Once more!", "it": "Eh? Cos'hai detto? Ancora!" } },
+        { "who": "florian", "face": "laugh", "de": "Und wer kommt zuletzt? Wie immer!", "sl": "In kdo pride zadnji? Kot vedno!", "en": "And who comes last? As always!", "it": "E chi arriva per ultima? Come sempre!", "fx": { "straggler": 0.8 } },
+        { "choices": [
+          { "de": "Bella! Sie ist immer die Letzte.", "sl": "Bella! Vedno je zadnja.", "en": "Bella! She's always last.", "it": "Bella! È sempre l'ultima.", "ok": true, "reply": { "face": "happy", "de": "Genau. Sie trinkt noch, dann kommt sie.", "sl": "Tako je. Še pije, potem pride.", "en": "Exactly. She's still drinking, then she'll come.", "it": "Esatto. Beve ancora, poi arriva.", "fx": { "straggler": 1 } } },
+          { "de": "Bella! Sie ist immer die Erste.", "sl": "Bella! Vedno je prva.", "en": "Bella! She's always first.", "it": "Bella! È sempre la prima.", "why": { "de": "Bella kommt hinter allen anderen: Sie ist die Letzte.", "sl": "Bella pride za vsemi drugimi: zadnja je.", "en": "Bella comes behind all the others: she's last.", "it": "Bella arriva dopo tutte le altre: è l'ultima." }, "reply": { "face": "laugh", "de": "Die Erste? Bella? Ha! Nie im Leben!", "sl": "Prva? Bella? Ha! Nikoli!", "en": "First? Bella? Ha! Never!", "it": "La prima? Bella? Ah! Mai!", "fx": { "straggler": 1 } } }
+        ] },
+        { "who": "florian", "face": "happy", "de": "Gute Nacht, Bach! Komm, Bella, heim!", "sl": "Lahko noč, potok! Pridi, Bella, domov!", "en": "Good night, stream! Come on, Bella, home!", "it": "Buonanotte, ruscello! Vieni, Bella, a casa!", "fx": { "flock": 1 } }
+      ]
+    },
+    {
+      "id": "hochwasser",
+      "fx_stays": true,
+      "lines": [
+        { "who": "toni", "face": "worried", "de": "Grüß Gott, {learner}. Schau dir den Bach an! Der Regen in der Nacht.", "sl": "{m:Pozdravljen|f:Pozdravljena}, {learner}. Poglej potok! Ponočni dež.", "en": "Grüß Gott, {learner}. Look at the stream! The rain in the night.", "it": "Buongiorno, {learner}. Guarda il ruscello! La pioggia di stanotte.", "fx": { "full": 0.8 } },
+        { "choices": [
+          { "de": "Grüß Gott, Herr Toni! Das Wasser ist so hoch!", "sl": "Pozdravljeni, gospod Toni! Voda je tako visoka!", "en": "Grüß Gott, Herr Toni! The water's so high!", "it": "Buongiorno, signor Toni! L'acqua è altissima!", "ok": true, "reply": { "face": "thinking", "de": "Und braun. Es bringt Äste und Steine mit.", "sl": "In rjava. S sabo nosi veje in kamenje.", "en": "And brown. It's bringing branches and stones with it.", "it": "E marrone. Porta rami e sassi." } },
+          { "de": "Grüß dich, Toni! Das Wasser ist so hoch!", "sl": "Živjo, Toni! Voda je tako visoka!", "en": "Hi, Toni! The water's so high!", "it": "Ciao, Toni! L'acqua è altissima!", "grammar": "du-sie", "why": { "de": "Toni ist der Schmied, älter als du: Grüß Gott, Herr Toni.", "sl": "Toni je kovač, starejši od tebe: Grüß Gott, Herr Toni.", "en": "Toni is the smith, older than you: Grüß Gott, Herr Toni.", "it": "Toni è il fabbro, più grande di te: Grüß Gott, Herr Toni." }, "reply": { "face": "cross", "de": "Grüß dich? Na, wir zwei haben nicht zusammen Schafe gehütet.", "sl": "Grüß dich? No, midva nisva skupaj pasla ovc.", "en": "Grüß dich? Well, we two haven't herded sheep together.", "it": "Grüß dich? Beh, noi due non abbiamo pascolato le pecore insieme." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "toni", "face": "cross", "de": "Bei so viel Wasser geht man nicht zum Ufer, verstanden?", "sl": "Ob toliko vode se ne hodi na breg, razumeš?", "en": "With this much water you don't go down to the bank, understood?", "it": "Con tanta acqua non si va sulla riva, capito?" },
+        { "choices": [
+          { "de": "Verstanden. Ich bleibe auf der Brücke.", "sl": "Razumem. Ostanem na mostu.", "en": "Understood. I'll stay on the bridge.", "it": "Capito. Resto sul ponte.", "ok": true, "reply": { "face": "happy", "de": "Gut. Von hier oben sieht man alles.", "sl": "Dobro. Od tu zgoraj se vidi vse.", "en": "Good. From up here you can see everything.", "it": "Bene. Da quassù si vede tutto." } },
+          { "de": "Verstanden. Ich bleibe auf die Brücke.", "sl": "Razumem. Ostanem na mostu.", "en": "Understood. I'll stay on the bridge.", "it": "Capito. Resto sul ponte.", "grammar": "wechselpraepositionen", "why": { "de": "Bleiben: wo? Mit dem Dativ: auf der Brücke.", "sl": "Bleiben: kje? Z dajalnikom: auf der Brücke.", "en": "Bleiben: where? With the dative: auf der Brücke.", "it": "Bleiben: dove? Col dativo: auf der Brücke." }, "reply": { "face": "thinking", "de": "Auf die? Hauptsache, du bleibst oben.", "sl": "Auf die? Glavno, da ostaneš zgoraj.", "en": "Auf die? As long as you stay up here.", "it": "Auf die? L'importante è che resti su." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "toni", "face": "laugh", "de": "Morgen ist das Wasser wieder klein. Der Bach ist wie ein Kind: laut, und dann wieder brav.", "sl": "Jutri bo voda spet nizka. Potok je kot otrok: glasen, potem pa spet priden.", "en": "Tomorrow the water will be low again. The stream's like a child: noisy, then good again.", "it": "Domani l'acqua sarà di nuovo bassa. Il ruscello è come un bambino: chiassoso, e poi di nuovo buono.", "fx": { "full": 0.5 } }
+      ]
+    },
+    {
+      "id": "gelaender",
+      "lines": [
+        { "who": "toni", "face": "thinking", "de": "Das Geländer wackelt hier. Gib mir bitte einen Nagel.", "sl": "Ograja se tu maje. Daj mi, prosim, žebelj.", "en": "The railing wobbles here. Give me a nail, please.", "it": "Qui la ringhiera traballa. Dammi un chiodo, per favore." },
+        { "choices": [
+          { "de": "Hier ist ein Nagel, Herr Toni.", "sl": "Tukaj je žebelj, gospod Toni.", "en": "Here's a nail, Herr Toni.", "it": "Ecco un chiodo, signor Toni.", "ok": true, "reply": { "face": "happy", "de": "Danke. Und jetzt halt das Brett fest.", "sl": "Hvala. Zdaj pa trdno drži desko.", "en": "Thanks. And now hold the board steady.", "it": "Grazie. E adesso tieni ferma l'asse." } },
+          { "de": "Hier ist eine Nagel, Herr Toni.", "sl": "Tukaj je žebelj, gospod Toni.", "en": "Here's a nail, Herr Toni.", "it": "Ecco un chiodo, signor Toni.", "grammar": "artikel-genus", "why": { "de": "Der Nagel ist maskulin: ein Nagel.", "sl": "Der Nagel je moškega spola: ein Nagel.", "en": "Der Nagel is masculine: ein Nagel.", "it": "Der Nagel è maschile: ein Nagel." }, "reply": { "face": "laugh", "de": "Eine? Na, Hauptsache, er ist spitz.", "sl": "Eine? No, glavno, da je oster.", "en": "Eine? Well, as long as it's sharp.", "it": "Eine? Beh, basta che sia appuntito." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "toni", "face": "proud", "de": "Bumm, bumm, bumm! So. Jetzt wackelt nichts mehr.", "sl": "Bum, bum, bum! Tako. Zdaj se nič več ne maje.", "en": "Bang, bang, bang! There. Now nothing wobbles any more.", "it": "Bum, bum, bum! Ecco. Adesso non traballa più niente." },
+        { "choices": [
+          { "de": "Sie arbeiten schnell, Herr Toni!", "sl": "Hitro delate, gospod Toni!", "en": "You work fast, Herr Toni!", "it": "Lavora veloce, signor Toni!", "ok": true, "reply": { "face": "proud", "de": "Ein Schmied muss schnell sein. Sonst wird das Eisen kalt.", "sl": "Kovač mora biti hiter. Sicer se železo ohladi.", "en": "A smith has to be quick. Otherwise the iron goes cold.", "it": "Un fabbro dev'essere veloce. Se no il ferro si raffredda." } },
+          { "de": "Du arbeitest schnell, Herr Toni!", "sl": "Hitro delaš, gospod Toni!", "en": "You (du) work fast, Herr Toni!", "it": "Lavori veloce, signor Toni!", "grammar": "du-sie", "why": { "de": "Zu Herrn Toni sagt man Sie: Sie arbeiten.", "sl": "Gospoda Tonija vikamo: Sie arbeiten.", "en": "You say Sie to Herr Toni: Sie arbeiten.", "it": "Al signor Toni si dà del Lei: Sie arbeiten." }, "reply": { "face": "cross", "de": "Du? Na, so gut kennen wir uns noch nicht.", "sl": "Ti? No, tako dobro se pa še ne poznava.", "en": "Du? Well, we don't know each other that well yet.", "it": "Tu? Beh, non ci conosciamo ancora così bene." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "toni", "face": "happy", "de": "Jetzt können sich die Kinder anlehnen. Sicher ist sicher.", "sl": "Zdaj se otroci lahko naslonijo. Varnost je na prvem mestu.", "en": "Now the children can lean on it. Better safe than sorry.", "it": "Adesso i bambini possono appoggiarsi. Meglio prudenti." }
+      ]
+    },
+    {
+      "id": "libellen",
+      "lines": [
+        { "who": "stanko", "face": "curious", "de": "Dober dan, {learner}! Schau, unter der Brücke fliegt etwas Blaues.", "sl": "Dober dan, {learner}! Poglej, pod mostom leti nekaj modrega.", "en": "Dober dan, {learner}! Look, something blue is flying under the bridge.", "it": "Dober dan, {learner}! Guarda, sotto il ponte vola qualcosa di blu." },
+        { "choices": [
+          { "de": "Was ist das, Stanko?", "sl": "Kaj je to, Stanko?", "en": "What's that, Stanko?", "it": "Cos'è, Stanko?", "ok": true, "reply": { "face": "happy", "de": "Eine Libelle! Auf Slowenisch sagt man kačji pastir.", "sl": "Kačji pastir! Po nemško rečemo die Libelle.", "en": "A dragonfly! In Slovene they say kačji pastir.", "it": "Una libellula! In sloveno si dice kačji pastir." } },
+          { "de": "Wer ist das, Stanko?", "sl": "Kdo je to, Stanko?", "en": "Who's that, Stanko?", "it": "Chi è, Stanko?", "grammar": "fragen", "why": { "de": "Das ist ein Tier, keine Person: Man fragt mit was.", "sl": "To je žival, ne oseba: vprašamo z was.", "en": "It's an animal, not a person: you ask with was.", "it": "È un animale, non una persona: si chiede con was." }, "reply": { "face": "laugh", "de": "Wer? Hm, die hat keinen Namen. Noch nicht!", "sl": "Wer? Hm, nima imena. Še ne!", "en": "Wer? Hm, she hasn't got a name. Not yet!", "it": "Wer? Mm, non ha un nome. Non ancora!" } }
+        ], "puzzled": { "face": "confused", "de": "He? Was hast du gesagt? Noch einmal!", "sl": "He? Kaj si {m:rekel|f:rekla}? Še enkrat!", "en": "Eh? What did you say? Once more!", "it": "Eh? Cos'hai detto? Ancora!" } },
+        { "who": "stanko", "face": "curious", "de": "Wo ist sie jetzt? Zeig sie mir!", "sl": "Kje je zdaj? Pokaži mi jo!", "en": "Where is she now? Show me!", "it": "Dov'è adesso? Fammela vedere!" },
+        { "choices": [
+          { "de": "Dort, über dem Wasser!", "sl": "Tam, nad vodo!", "en": "There, over the water!", "it": "Lì, sopra l'acqua!", "ok": true, "tap": "dragonfly", "grammar": "wechselpraepositionen", "reply": { "face": "happy", "de": "Ja! Schau, wie sie in der Luft steht. Wie ein kleiner Hubschrauber.", "sl": "Ja! Poglej, kako stoji v zraku. Kot majhen helikopter.", "en": "Yes! Look how she hovers in the air. Like a little helicopter.", "it": "Sì! Guarda come sta ferma in aria. Come un piccolo elicottero." } },
+          { "de": "Dort, bei der Weide!", "sl": "Tam, pri vrbi!", "en": "There, by the willow!", "it": "Lì, vicino al salice!", "tap": "willow", "why": { "de": "Bei der Weide hängen nur Blätter. Schau über das Wasser.", "sl": "Pri vrbi visijo samo listi. Poglej nad vodo.", "en": "Only leaves hang by the willow. Look over the water.", "it": "Vicino al salice ci sono solo foglie. Guarda sopra l'acqua." }, "reply": { "face": "confused", "de": "Bei der Weide? Da sind nur Blätter.", "sl": "Pri vrbi? Tam so samo listi.", "en": "By the willow? There are only leaves there.", "it": "Vicino al salice? Lì ci sono solo foglie." } },
+          { "de": "Dort, auf den Steinen!", "sl": "Tam, na kamnih!", "en": "There, on the stones!", "it": "Lì, sui sassi!", "tap": "stones", "why": { "de": "Auf den Steinen sitzt sie nicht. Sie fliegt über dem Wasser.", "sl": "Na kamnih ne sedi. Leti nad vodo.", "en": "She's not sitting on the stones. She's flying over the water.", "it": "Non è sui sassi. Vola sopra l'acqua." }, "reply": { "face": "laugh", "de": "Auf den Steinen? Die sind nur nass und grau.", "sl": "Na kamnih? Ti so samo mokri in sivi.", "en": "On the stones? They're just wet and grey.", "it": "Sui sassi? Sono solo bagnati e grigi." } }
+        ] },
+        { "who": "stanko", "face": "happy", "de": "Libellen mögen sauberes Wasser. Unser Bach ist gesund, das ist schön.", "sl": "Kačji pastirji imajo radi čisto vodo. Naš potok je zdrav, to je lepo.", "en": "Dragonflies like clean water. Our stream is healthy, that's lovely.", "it": "Le libellule amano l'acqua pulita. Il nostro ruscello è sano, che bello." }
+      ]
+    },
+    {
+      "id": "abend",
+      "lines": [
+        { "who": "florian", "face": "happy", "de": "Hörst du? Die Glocke vom Dorf. Es ist Abend.", "sl": "Slišiš? Zvon iz vasi. Večer je.", "en": "Hear that? The village bell. It's evening.", "it": "Senti? La campana del paese. È sera.", "fx": { "bell": 1 } },
+        { "choices": [
+          { "de": "Der Tag ist schön gewesen.", "sl": "Dan je bil lep.", "en": "It's been a lovely day.", "it": "È stata una bella giornata.", "ok": true, "reply": { "face": "happy", "de": "Ja. Und jetzt ist es ganz ruhig, nur der Bach redet noch.", "sl": "Ja. Zdaj je čisto tiho, samo potok še govori.", "en": "Yes. And now it's quite still, only the stream's still talking.", "it": "Sì. E adesso è tutto tranquillo, parla solo il ruscello." } },
+          { "de": "Der Tag hat schön gewesen.", "sl": "Dan je bil lep.", "en": "It's been a lovely day.", "it": "È stata una bella giornata.", "grammar": "sein-haben", "why": { "de": "Sein bildet das Perfekt mit sein: Der Tag ist schön gewesen.", "sl": "Sein tvori perfekt s sein: Der Tag ist schön gewesen.", "en": "Sein forms its Perfekt with sein: Der Tag ist schön gewesen.", "it": "Sein forma il Perfekt con sein: Der Tag ist schön gewesen." }, "reply": { "face": "laugh", "de": "Hat gewesen? Hm, der Abend macht dich wohl müde.", "sl": "Hat gewesen? Hm, večer te je pač utrudil.", "en": "Hat gewesen? Hm, the evening's making you tired.", "it": "Hat gewesen? Mm, la sera ti stanca." } }
+        ], "puzzled": { "face": "confused", "de": "He? Was hast du gesagt? Noch einmal!", "sl": "He? Kaj si {m:rekel|f:rekla}? Še enkrat!", "en": "Eh? What did you say? Once more!", "it": "Eh? Cos'hai detto? Ancora!" } },
+        { "who": "florian", "face": "curious", "de": "Schau, die Sonne geht hinter den Bergen unter. Gleich wird es dunkel.", "sl": "Poglej, sonce zahaja za gorami. Kmalu bo temno.", "en": "Look, the sun's going down behind the mountains. It'll be dark soon.", "it": "Guarda, il sole tramonta dietro i monti. Tra poco è buio." },
+        { "choices": [
+          { "de": "Dann gehen wir heim.", "sl": "Potem greva domov.", "en": "Then let's go home.", "it": "Allora andiamo a casa.", "ok": true, "reply": { "face": "happy", "de": "Ja. Über die Brücke, das geht schnell.", "sl": "Ja. Čez most, to gre hitro.", "en": "Yes. Over the bridge, that's quick.", "it": "Sì. Sul ponte, si fa presto." } },
+          { "de": "Dann gehen wir schwimmen.", "sl": "Potem greva plavat.", "en": "Then let's go swimming.", "it": "Allora andiamo a nuotare.", "why": { "de": "Es wird dunkel, und der Bach ist kalt: Zeit, heimzugehen.", "sl": "Temni se in potok je mrzel: čas je za domov.", "en": "It's getting dark and the stream's cold: time to go home.", "it": "Si fa buio e il ruscello è freddo: è ora di tornare." }, "reply": { "face": "surprised", "de": "Schwimmen? Jetzt? Brr, das Wasser ist eiskalt!", "sl": "Plavat? Zdaj? Brr, voda je ledena!", "en": "Swimming? Now? Brr, the water's ice-cold!", "it": "Nuotare? Adesso? Brr, l'acqua è gelida!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "muehle",
+      "fx_stays": true,
+      "lines": [
+        { "who": "franz", "face": "proud", "de": "Hörst du das Rad? Die Mühle mahlt den ganzen Tag.", "sl": "Slišiš kolo? Mlin melje ves dan.", "en": "Hear the wheel? The mill's grinding all day.", "it": "Senti la ruota? Il mulino macina tutto il giorno.", "fx": { "wheel": 1 } },
+        { "choices": [
+          { "de": "Das Rad dreht sich schnell!", "sl": "Kolo se hitro vrti!", "en": "The wheel's turning fast!", "it": "La ruota gira veloce!", "ok": true, "reply": { "face": "happy", "de": "Weil der Bach heute viel Wasser hat.", "sl": "Ker ima potok danes veliko vode.", "en": "Because the stream has lots of water today.", "it": "Perché oggi il ruscello ha tanta acqua." } },
+          { "de": "Das Rad dreht schnell!", "sl": "Kolo se hitro vrti!", "en": "The wheel's turning fast!", "it": "La ruota gira veloce!", "grammar": "akkusativ", "why": { "de": "Das Rad dreht sich selbst: sich drehen, mit sich.", "sl": "Kolo se vrti samo: sich drehen, s sich.", "en": "The wheel turns by itself: sich drehen, with sich.", "it": "La ruota gira da sola: sich drehen, con sich." }, "reply": { "face": "thinking", "de": "Dreht? Was dreht es denn? Fast richtig!", "sl": "Dreht? Kaj pa vrti? Skoraj prav!", "en": "Dreht? What's it turning, then? Nearly right!", "it": "Dreht? E cosa gira? Quasi giusto!" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "franz", "face": "happy", "de": "Schau, vor der Tür stehen schon die Säcke. Morgen fahre ich sie ins Dorf.", "sl": "Poglej, pred vrati že stojijo vreče. Jutri jih odpeljem v vas.", "en": "Look, the sacks are already standing by the door. Tomorrow I'll take them to the village.", "it": "Guarda, davanti alla porta ci sono già i sacchi. Domani li porto in paese.", "fx": { "sacks": 0.6 } },
+        { "choices": [
+          { "de": "Mit dem Wagen, über die Brücke!", "sl": "Z vozom, čez most!", "en": "With the cart, over the bridge!", "it": "Col carro, sul ponte!", "ok": true, "reply": { "face": "proud", "de": "Genau. Mühle und Brücke, die zwei gehören zusammen.", "sl": "Tako je. Mlin in most, to dvoje spada skupaj.", "en": "Exactly. Mill and bridge, those two belong together.", "it": "Esatto. Mulino e ponte, i due vanno insieme." } },
+          { "de": "Mit der Wagen, über die Brücke!", "sl": "Z vozom, čez most!", "en": "With the cart, over the bridge!", "it": "Col carro, sul ponte!", "grammar": "dativ", "why": { "de": "Mit nimmt den Dativ, und der Wagen ist maskulin: mit dem Wagen.", "sl": "Mit zahteva dajalnik, der Wagen pa je moškega spola: mit dem Wagen.", "en": "Mit takes the dative, and der Wagen is masculine: mit dem Wagen.", "it": "Mit vuole il dativo, e der Wagen è maschile: mit dem Wagen." }, "reply": { "face": "laugh", "de": "Mit der? Na, Moritz zieht ihn trotzdem.", "sl": "Mit der? No, Moritz ga vseeno vleče.", "en": "Mit der? Well, Moritz pulls it anyway.", "it": "Mit der? Beh, Moritz lo tira lo stesso." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "wagen-staemme",
+      "fx_stays": true,
+      "memory": { "de": "die Stämme aus dem Wald, über die Brücke gefahren", "sl": "hlodi iz gozda, pripeljani čez most", "en": "the logs from the wood, brought over the bridge", "it": "i tronchi del bosco, portati sul ponte" },
+      "lines": [
+        { "who": "franz", "face": "thinking", "de": "Heute bringe ich Stämme aus dem Wald. Der Wagen ist schwer!", "sl": "Danes vozim hlode iz gozda. Voz je težak!", "en": "Today I'm bringing logs from the wood. The cart's heavy!", "it": "Oggi porto i tronchi dal bosco. Il carro è pesante!", "fx": { "cart": 0 } },
+        { "choices": [
+          { "de": "Wie viele Stämme haben Sie?", "sl": "Koliko hlodov imate?", "en": "How many logs have you got?", "it": "Quanti tronchi ha?", "ok": true, "reply": { "face": "proud", "de": "Sechs dicke Lärchen. Für ein neues Dach.", "sl": "Šest debelih macesnov. Za novo streho.", "en": "Six thick larches. For a new roof.", "it": "Sei larici grossi. Per un tetto nuovo.", "fx": { "cart": 0.4 } } },
+          { "de": "Wie viel Stämme haben Sie?", "sl": "Koliko hlodov imate?", "en": "How many logs have you got?", "it": "Quanti tronchi ha?", "grammar": "fragen", "why": { "de": "Stämme kann man zählen: wie viele.", "sl": "Hlode lahko preštejemo: wie viele.", "en": "You can count logs: wie viele.", "it": "I tronchi si contano: wie viele." }, "reply": { "face": "laugh", "de": "Wie viel? Na, du kannst sie ja zählen!", "sl": "Wie viel? No, saj jih lahko prešteješ!", "en": "Wie viel? Well, you can count them!", "it": "Wie viel? Beh, puoi contarli!", "fx": { "cart": 0.4 } } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "franz", "face": "happy", "de": "Die Brücke hält das aus. Die Pfeiler sind stark. Hü, Moritz!", "sl": "Most to zdrži. Stebri so močni. Hi, Moritz!", "en": "The bridge can take it. The pillars are strong. Gee up, Moritz!", "it": "Il ponte regge. I pilastri sono forti. Arri, Moritz!", "fx": { "cart": 0.8 } },
+        { "choices": [
+          { "de": "Gute Fahrt, Herr Franz!", "sl": "Srečno pot, gospod Franz!", "en": "Safe journey, Herr Franz!", "it": "Buon viaggio, signor Franz!", "ok": true, "reply": { "face": "happy", "de": "Danke! Am Abend bin ich wieder da.", "sl": "Hvala! Zvečer sem spet tu.", "en": "Thanks! I'll be back in the evening.", "it": "Grazie! Stasera sono di nuovo qui.", "fx": { "cart": 1 } } },
+          { "de": "Gute Nacht, Herr Franz!", "sl": "Lahko noč, gospod Franz!", "en": "Good night, Herr Franz!", "it": "Buonanotte, signor Franz!", "why": { "de": "Herr Franz fährt am Morgen los: Gute Fahrt sagt man dann.", "sl": "Gospod Franz odhaja zjutraj: takrat rečemo Gute Fahrt.", "en": "Herr Franz is setting off in the morning: then you say Gute Fahrt.", "it": "Il signor Franz parte di mattina: si dice Gute Fahrt." }, "reply": { "face": "laugh", "de": "Nacht? Ich fange doch erst an!", "sl": "Noč? Saj šele začenjam!", "en": "Night? I'm only just starting!", "it": "Notte? Ho appena cominciato!", "fx": { "cart": 1 } } }
+        ] }
+      ]
+    },
+    {
+      "id": "schafe-zaehlen",
+      "count": { "from": "dice", "min": 10, "max": 24, "gender": "n" },
+      "fx_stays": true,
+      "memory": { "de": "die Schafe, die wir an der Brücke gezählt haben", "sl": "ovce, ki sva jih preštela pri mostu", "en": "the sheep we counted at the bridge", "it": "le pecore che abbiamo contato al ponte" },
+      "lines": [
+        { "who": "florian", "face": "curious", "de": "{learner}, zählen wir sie, wenn sie über die Brücke gehen?", "sl": "{learner}, jih preštejeva, ko gredo čez most?", "en": "{learner}, shall we count them as they cross the bridge?", "it": "{learner}, le contiamo mentre passano il ponte?", "fx": { "flock": 0.6 } },
+        { "choices": [
+          { "de": "Heute sind es {n} {Schaf|Schafe}.", "sl": "Danes {je|sta|so|je} {n} {ovca|ovci|ovce|ovc}.", "en": "Today there {is|are} {n} {sheep|sheep}.", "it": "Oggi {c'è|ci sono} {n} {pecora|pecore}.", "ok": true, "reply": { "face": "happy", "de": "Stimmt! Alle da. Bella auch, ganz hinten.", "sl": "Drži! Vse so tu. Tudi Bella, čisto zadaj.", "en": "Right! All here. Bella too, right at the back.", "it": "Giusto! Ci sono tutte. Anche Bella, in fondo.", "fx": { "flock": 1 } } },
+          { "de": "Heute sind es {n} {!Schaf|Schafe}.", "sl": "Danes {je|sta|so|je} {n} {!ovca|ovci|ovce|ovc}.", "en": "Today there {is|are} {n} {!sheep|sheep}.", "it": "Oggi {c'è|ci sono} {n} {!pecora|pecore}.", "wrong_form": 1, "grammar": "plural", "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Schaf|Schafe}.", "sl": "{Ena je v ednini|Od dveh naprej je množina}: {n} {Schaf|Schafe}.", "en": "{One takes the singular|From two on, the plural}: {n} {Schaf|Schafe}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Schaf|Schafe}." }, "reply": { "face": "surprised", "de": "He, zähl noch einmal! Langsam.", "sl": "Hej, preštej še enkrat! Počasi.", "en": "Hey, count again! Slowly.", "it": "Ehi, conta di nuovo! Piano." } }
+        ], "puzzled": { "face": "confused", "de": "He? Was hast du gesagt? Noch einmal!", "sl": "He? Kaj si {m:rekel|f:rekla}? Še enkrat!", "en": "Eh? What did you say? Once more!", "it": "Eh? Cos'hai detto? Ancora!" } },
+        { "who": "florian", "face": "happy", "de": "Super! Mit dir zählen macht Spaß. Gute Nacht, Schafe!", "sl": "Super! S tabo je štetje zabavno. Lahko noč, ovce!", "en": "Great! Counting with you is fun. Good night, sheep!", "it": "Bene! Contare con te è divertente. Buonanotte, pecore!", "fx": { "flock": 1 } }
+      ]
+    },
+    {
+      "id": "schafe-lamm",
+      "fx_stays": true,
+      "memory": { "de": "das kleine Lamm, das nicht trinken wollte", "sl": "jagnje, ki ni hotelo piti", "en": "the little lamb that wouldn't drink", "it": "l'agnellino che non voleva bere" },
+      "lines": [
+        { "who": "florian", "face": "worried", "de": "Schau, das kleine Lamm! Es will nicht trinken.", "sl": "Poglej jagnje! Noče piti.", "en": "Look at the little lamb! It won't drink.", "it": "Guarda l'agnellino! Non vuole bere.", "fx": { "flock": 0.4, "lamb": 0.2 } },
+        { "choices": [
+          { "de": "Vielleicht hat es Angst vor dem Wasser.", "sl": "Mogoče se boji vode.", "en": "Maybe it's afraid of the water.", "it": "Forse ha paura dell'acqua.", "ok": true, "reply": { "face": "thinking", "de": "Ja, das Wasser ist laut. Aber die Mama ist da.", "sl": "Ja, voda je glasna. Ampak mama je tu.", "en": "Yes, the water's loud. But its mum's there.", "it": "Sì, l'acqua fa rumore. Ma c'è la mamma.", "fx": { "lamb": 0.6 } } },
+          { "de": "Vielleicht hat es Angst vor das Wasser.", "sl": "Mogoče se boji vode.", "en": "Maybe it's afraid of the water.", "it": "Forse ha paura dell'acqua.", "grammar": "dativ", "why": { "de": "Angst vor nimmt den Dativ: vor dem Wasser.", "sl": "Angst vor zahteva dajalnik: vor dem Wasser.", "en": "Angst vor takes the dative: vor dem Wasser.", "it": "Angst vor vuole il dativo: vor dem Wasser." }, "reply": { "face": "thinking", "de": "Vor das? Hm, das Lamm versteht das sicher.", "sl": "Vor das? Hm, jagnje to gotovo razume.", "en": "Vor das? Hm, the lamb will understand anyway.", "it": "Vor das? Mm, l'agnello capirà di sicuro.", "fx": { "lamb": 0.6 } } }
+        ], "puzzled": { "face": "confused", "de": "He? Was hast du gesagt? Noch einmal!", "sl": "He? Kaj si {m:rekel|f:rekla}? Še enkrat!", "en": "Eh? What did you say? Once more!", "it": "Eh? Cos'hai detto? Ancora!" } },
+        { "who": "florian", "face": "happy", "de": "Da! Jetzt trinkt es! Brav, kleines Lamm.", "sl": "Glej! Zdaj pije! Pridno, jagenjček.", "en": "There! Now it's drinking! Good, little lamb.", "it": "Ecco! Adesso beve! Bravo, agnellino.", "fx": { "lamb": 1 } },
+        { "choices": [
+          { "de": "Wie süß!", "sl": "Kako srčkano!", "en": "How sweet!", "it": "Che tenero!", "ok": true, "reply": { "face": "happy", "de": "Ja. Es ist erst drei Wochen alt.", "sl": "Ja. Staro je šele tri tedne.", "en": "Yes. It's only three weeks old.", "it": "Sì. Ha solo tre settimane." } },
+          { "de": "Jetzt hat es keinen Durst mehr.", "sl": "Zdaj ni več žejno.", "en": "Now it's not thirsty any more.", "it": "Adesso non ha più sete.", "ok": true, "reply": { "face": "laugh", "de": "Nein. Und jetzt läuft es zur Mama.", "sl": "Ne. Zdaj pa teče k mami.", "en": "No. And now it's running to its mum.", "it": "No. E adesso corre dalla mamma." } },
+          { "de": "Schade, es trinkt nicht.", "sl": "Škoda, ne pije.", "en": "Too bad, it isn't drinking.", "it": "Peccato, non beve.", "why": { "de": "Das Lamm trinkt jetzt: Sein Kopf ist unten, am Wasser.", "sl": "Jagnje zdaj pije: glavo ima spodaj, pri vodi.", "en": "The lamb's drinking now: its head's down at the water.", "it": "L'agnello adesso beve: ha la testa giù, nell'acqua." }, "reply": { "face": "laugh", "de": "Nicht? Schau doch, sein Kopf ist im Wasser!", "sl": "Ne? Poglej no, glavo ima v vodi!", "en": "Not? Look, its head's in the water!", "it": "No? Guarda, ha la testa nell'acqua!" } }
+        ] }
+      ]
+    },
+    {
+      "id": "hochwasser-pfeiler",
+      "fx_stays": true,
+      "memory": { "de": "die Pfeiler der Brücke im Hochwasser", "sl": "stebri mostu v visoki vodi", "en": "the bridge's pillars in the flood", "it": "i pilastri del ponte nella piena" },
+      "lines": [
+        { "who": "toni", "face": "worried", "de": "So viel Wasser! Ich schaue mir die Pfeiler an. Halten sie?", "sl": "Toliko vode! Pogledal bom stebre. Zdržijo?", "en": "So much water! I'll take a look at the pillars. Are they holding?", "it": "Quanta acqua! Do un'occhiata ai pilastri. Reggono?", "fx": { "full": 1 } },
+        { "choices": [
+          { "de": "Ich glaube, sie halten. Sie sind aus Stein.", "sl": "Mislim, da zdržijo. Kamniti so.", "en": "I think they're holding. They're made of stone.", "it": "Credo che reggano. Sono di pietra.", "ok": true, "reply": { "face": "proud", "de": "Richtig. Stein und Lärche, das hält hundert Jahre.", "sl": "Prav. Kamen in macesen, to zdrži sto let.", "en": "Right. Stone and larch, that lasts a hundred years.", "it": "Giusto. Pietra e larice, durano cent'anni." } },
+          { "de": "Ich glaube, sie haltet. Sie sind aus Stein.", "sl": "Mislim, da zdržijo. Kamniti so.", "en": "I think they're holding. They're made of stone.", "it": "Credo che reggano. Sono di pietra.", "grammar": "praesens", "why": { "de": "Sie, die Pfeiler, ist Plural: sie halten.", "sl": "Sie, stebri, je množina: sie halten.", "en": "Sie, the pillars, is plural: sie halten.", "it": "Sie, i pilastri, è plurale: sie halten." }, "reply": { "face": "thinking", "de": "Haltet? Na, ich verstehe schon, was du meinst.", "sl": "Haltet? No, že razumem, kaj misliš.", "en": "Haltet? Well, I see what you mean.", "it": "Haltet? Beh, capisco cosa intendi." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "toni", "face": "happy", "de": "Gut. Das Wasser geht schon zurück. Heute Abend ist der Bach wieder brav.", "sl": "Dobro. Voda že upada. Zvečer bo potok spet priden.", "en": "Good. The water's going down already. By this evening the stream will be good again.", "it": "Bene. L'acqua cala già. Stasera il ruscello sarà di nuovo buono.", "fx": { "full": 0.6 } }
+      ]
+    },
+    {
+      "id": "gelaender-wagen",
+      "fx_stays": true,
+      "memory": { "de": "den Wagen über die Brücke, als das Geländer fertig war", "sl": "voz čez most, ko je bila ograja gotova", "en": "the cart over the bridge when the railing was done", "it": "il carro sul ponte quando la ringhiera era finita" },
+      "lines": [
+        { "who": "toni", "face": "proud", "de": "Fertig! Das Geländer ist fest. Und schau, da kommt schon ein Wagen.", "sl": "Gotovo! Ograja je trdna. In poglej, že prihaja voz.", "en": "Done! The railing's firm. And look, here comes a cart already.", "it": "Fatto! La ringhiera è salda. E guarda, arriva già un carro.", "fx": { "cart": 0.3 } },
+        { "choices": [
+          { "de": "Der Wagen fährt über die Brücke!", "sl": "Voz pelje čez most!", "en": "The cart's driving over the bridge!", "it": "Il carro passa sul ponte!", "ok": true, "reply": { "face": "happy", "de": "Ja, und nichts wackelt. Gute Arbeit!", "sl": "Ja, in nič se ne maje. Dobro delo!", "en": "Yes, and nothing wobbles. Good work!", "it": "Sì, e non traballa niente. Bel lavoro!", "fx": { "cart": 0.8 } } },
+          { "de": "Der Wagen fährt über der Brücke!", "sl": "Voz pelje čez most!", "en": "The cart's driving over the bridge!", "it": "Il carro passa sul ponte!", "grammar": "wechselpraepositionen", "why": { "de": "Wohin fährt er? Akkusativ: über die Brücke.", "sl": "Kam pelje? Tožilnik: über die Brücke.", "en": "Where's it going? Accusative: über die Brücke.", "it": "Dove va? Accusativo: über die Brücke." }, "reply": { "face": "thinking", "de": "Über der? Er fährt trotzdem, schau.", "sl": "Über der? Vseeno pelje, poglej.", "en": "Über der? It's going anyway, look.", "it": "Über der? Passa lo stesso, guarda.", "fx": { "cart": 0.8 } } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "toni", "face": "happy", "de": "Weg ist er, hinter der Weide. So soll eine Brücke sein.", "sl": "Ni ga več, za vrbo je. Tak mora biti most.", "en": "Gone, behind the willow. That's how a bridge should be.", "it": "Se n'è andato, dietro il salice. Così dev'essere un ponte.", "fx": { "cart": 1 } }
+      ]
+    },
+    {
+      "id": "libellen-forelle",
+      "memory": { "de": "die Forelle, die aus dem Bach gesprungen ist", "sl": "postrv, ki je skočila iz potoka", "en": "the trout that leapt out of the stream", "it": "la trota saltata fuori dal ruscello" },
+      "lines": [
+        { "who": "stanko", "face": "curious", "de": "Psst! Schau ins Wasser, neben dem Pfeiler.", "sl": "Pst! Poglej v vodo, poleg stebra.", "en": "Shh! Look in the water, next to the pillar.", "it": "Ssst! Guarda nell'acqua, accanto al pilastro." },
+        { "choices": [
+          { "de": "Da ist ein Fisch!", "sl": "Tam je riba!", "en": "There's a fish!", "it": "C'è un pesce!", "ok": true, "reply": { "face": "happy", "de": "Eine Forelle! Schau, jetzt springt sie!", "sl": "Postrv! Poglej, zdaj skoči!", "en": "A trout! Look, now it's jumping!", "it": "Una trota! Guarda, adesso salta!", "fx": { "trout": 1 } } },
+          { "de": "Da ist eine Fisch!", "sl": "Tam je riba!", "en": "There's a fish!", "it": "C'è un pesce!", "grammar": "artikel-genus", "why": { "de": "Der Fisch ist maskulin: ein Fisch.", "sl": "Der Fisch je moškega spola: ein Fisch.", "en": "Der Fisch is masculine: ein Fisch.", "it": "Der Fisch è maschile: ein Fisch." }, "reply": { "face": "laugh", "de": "Eine? Na, die Forelle hört das nicht.", "sl": "Eine? No, postrv tega ne sliši.", "en": "Eine? Well, the trout can't hear that.", "it": "Eine? Beh, la trota non sente.", "fx": { "trout": 1 } } }
+        ], "puzzled": { "face": "confused", "de": "He? Was hast du gesagt? Noch einmal!", "sl": "He? Kaj si {m:rekel|f:rekla}? Še enkrat!", "en": "Eh? What did you say? Once more!", "it": "Eh? Cos'hai detto? Ancora!" } },
+        { "who": "stanko", "face": "happy", "de": "Sie springt nach den Fliegen. Forellen sind schnell.", "sl": "Skače za mušicami. Postrvi so hitre.", "en": "It's jumping after the flies. Trout are fast.", "it": "Salta per prendere le mosche. Le trote sono veloci." },
+        { "choices": [
+          { "de": "Sie ist schneller als die Fliegen!", "sl": "Hitrejša je od mušic!", "en": "It's faster than the flies!", "it": "È più veloce delle mosche!", "ok": true, "reply": { "face": "laugh", "de": "Manchmal! Und manchmal sind die Fliegen schneller.", "sl": "Včasih! Včasih pa so hitrejše mušice.", "en": "Sometimes! And sometimes the flies are faster.", "it": "A volte! E a volte sono più veloci le mosche." } },
+          { "de": "Sie ist schnell als die Fliegen!", "sl": "Hitrejša je od mušic!", "en": "It's faster than the flies!", "it": "È più veloce delle mosche!", "why": { "de": "Beim Vergleich mit als braucht das Adjektiv -er: schneller als.", "sl": "Pri primerjavi z als potrebuje pridevnik -er: schneller als.", "en": "Comparing with als, the adjective needs -er: schneller als.", "it": "Nel confronto con als, l'aggettivo vuole -er: schneller als." }, "reply": { "face": "thinking", "de": "Schnell als? Fast! Da fehlt noch ein Stückchen.", "sl": "Schnell als? Skoraj! Še košček manjka.", "en": "Schnell als? Nearly! A little bit's missing.", "it": "Schnell als? Quasi! Manca un pezzetto." } }
+        ], "puzzled": { "face": "confused", "de": "He? Was hast du gesagt? Noch einmal!", "sl": "He? Kaj si {m:rekel|f:rekla}? Še enkrat!", "en": "Eh? What did you say? Once more!", "it": "Eh? Cos'hai detto? Ancora!" } }
+      ]
+    },
+    {
+      "id": "abend-fledermaeuse",
+      "months": [4, 5, 6, 7, 8, 9, 10],
+      "memory": { "de": "die Fledermäuse über der Brücke am Abend", "sl": "netopirji nad mostom zvečer", "en": "the bats over the bridge in the evening", "it": "i pipistrelli sopra il ponte la sera" },
+      "lines": [
+        { "who": "florian", "face": "curious", "de": "Die Glocke läutet … und schau, die Fledermäuse kommen heraus!", "sl": "Zvon zvoni … in poglej, netopirji prihajajo ven!", "en": "The bell's ringing … and look, the bats are coming out!", "it": "La campana suona … e guarda, escono i pipistrelli!", "fx": { "bell": 1, "bats": 0.6 } },
+        { "choices": [
+          { "de": "Sie wohnen unter der Brücke!", "sl": "Živijo pod mostom!", "en": "They live under the bridge!", "it": "Abitano sotto il ponte!", "ok": true, "reply": { "face": "happy", "de": "Ja! Seit es die Brücke gibt, sind sie da.", "sl": "Ja! Odkar je most, so tu.", "en": "Yes! They've been here since the bridge was built.", "it": "Sì! Ci sono da quando c'è il ponte.", "fx": { "bats": 1 } } },
+          { "de": "Sie wohnt unter der Brücke!", "sl": "Živijo pod mostom!", "en": "They live under the bridge!", "it": "Abitano sotto il ponte!", "grammar": "praesens", "why": { "de": "Es sind viele Fledermäuse: sie wohnen, Plural.", "sl": "Netopirjev je veliko: sie wohnen, množina.", "en": "There are lots of bats: sie wohnen, plural.", "it": "Sono tanti pipistrelli: sie wohnen, plurale." }, "reply": { "face": "curious", "de": "Wohnt? Schau, da fliegen viele herum!", "sl": "Wohnt? Poglej, veliko jih leta naokrog!", "en": "Wohnt? Look, there are lots flying about!", "it": "Wohnt? Guarda, ne volano tanti!", "fx": { "bats": 1 } } }
+        ], "puzzled": { "face": "confused", "de": "He? Was hast du gesagt? Noch einmal!", "sl": "He? Kaj si {m:rekel|f:rekla}? Še enkrat!", "en": "Eh? What did you say? Once more!", "it": "Eh? Cos'hai detto? Ancora!" } },
+        { "who": "florian", "face": "laugh", "de": "Sie fressen die Gelsen. Gut für mich, ich hasse Gelsen!", "sl": "Jedo komarje. Dobro zame, sovražim komarje!", "en": "They eat the mosquitoes. Good for me, I hate mosquitoes!", "it": "Mangiano le zanzare. Bene per me, odio le zanzare!" }
+      ]
+    },
+    {
+      "id": "muehle-saecke",
+      "count": { "from": "dice", "min": 2, "max": 9, "gender": "m" },
+      "fx_stays": true,
+      "memory": { "de": "die Säcke, die wir vor der Mühle gezählt haben", "sl": "vreče, ki sva jih preštela pred mlinom", "en": "the sacks we counted in front of the mill", "it": "i sacchi che abbiamo contato davanti al mulino" },
+      "lines": [
+        { "who": "franz", "face": "curious", "de": "Zähl mir bitte die Säcke vor der Tür.", "sl": "Preštej mi, prosim, vreče pred vrati.", "en": "Count the sacks by the door for me, please.", "it": "Contami i sacchi davanti alla porta, per favore.", "fx": { "sacks": 1, "wheel": 0.6 } },
+        { "choices": [
+          { "de": "Es sind {n} {Sack|Säcke}.", "sl": "{Je|Sta|So|Je} {n} {vreča|vreči|vreče|vreč}.", "en": "There {is|are} {n} {sack|sacks}.", "it": "{C'è|Ci sono} {n} {sacco|sacchi}.", "ok": true, "reply": { "face": "proud", "de": "Gut. Das ist Mehl für die ganze Woche.", "sl": "Dobro. To je moka za ves teden.", "en": "Good. That's flour for the whole week.", "it": "Bene. È farina per tutta la settimana." } },
+          { "de": "Es sind {n} {!Sack|Säcke}.", "sl": "{Je|Sta|So|Je} {n} {!vreča|vreči|vreče|vreč}.", "en": "There {is|are} {n} {!sack|sacks}.", "it": "{C'è|Ci sono} {n} {!sacco|sacchi}.", "wrong_form": 1, "grammar": "plural", "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Sack|Säcke}.", "sl": "{Ena je v ednini|Od dveh naprej je množina}: {n} {Sack|Säcke}.", "en": "{One takes the singular|From two on, the plural}: {n} {Sack|Säcke}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Sack|Säcke}." }, "reply": { "face": "curious", "de": "Hm? Zähl noch einmal, langsam.", "sl": "Hm? Preštej še enkrat, počasi.", "en": "Hm? Count again, slowly.", "it": "Mm? Conta di nuovo, piano." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Langsam, noch einmal.", "sl": "Prosim? Počasi, še enkrat.", "en": "Sorry? Slowly, once more.", "it": "Come? Piano, ancora una volta." } },
+        { "who": "franz", "face": "happy", "de": "Danke! Und das Rad dreht sich weiter. Die Mühle ist fleißig.", "sl": "Hvala! Kolo pa se vrti naprej. Mlin je priden.", "en": "Thanks! And the wheel keeps turning. The mill's hard-working.", "it": "Grazie! E la ruota continua a girare. Il mulino lavora sodo.", "fx": { "wheel": 1 } }
+      ]
+    }
+  ]
+}

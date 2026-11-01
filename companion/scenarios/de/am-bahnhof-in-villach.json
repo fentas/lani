@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "am-bahnhof-in-villach",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Am Bahnhof in Villach", "sl": "Na železniški postaji v Beljaku", "en": "At Villach station", "it": "Alla stazione di Villaco" },
+  "emoji": "🚆",
+  "level": "A1",
+  "setting": {
+    "sl": "Dopoldne na glavni železniški postaji v Beljaku (Villach Hauptbahnhof). Za Celovec (Klagenfurt) bi {m:rad kupil|f:rada kupila} vozovnico. Pri okencu ÖBB (avstrijskih železnic) sedi uslužbenec.",
+    "en": "Late morning at Villach's main station (Villach Hauptbahnhof). You want a ticket to Klagenfurt. A clerk sits at the ÖBB (Austrian railways) ticket counter.",
+    "it": "In tarda mattinata alla stazione centrale di Villaco (Villach Hauptbahnhof). Vuoi un biglietto per Klagenfurt. Allo sportello delle ÖBB (le ferrovie austriache) c'è un impiegato."
+  },
+  "role": "Herr Kofler, the clerk at the ÖBB ticket counter at Villach Hauptbahnhof. Polite, patient, speaks clearly. Trains to Klagenfurt go often and direct (about half an hour); he names a time and a platform (Bahnsteig). Austrian: hin und retour (a return). Says Sie to {learner}.",
+  "who": { "de": "Der Mann am Schalter", "sl": "Uslužbenec pri okencu", "en": "The ticket clerk", "it": "L'impiegato allo sportello" },
+  "voice": "male",
+  "place": "square",
+  "goals": [
+    { "de": "Grüße und sag, wohin du fährst", "sl": "Pozdravi in povej, kam greš", "en": "Greet him and say where you are going", "it": "Saluta e di' dove vai" },
+    { "de": "Kauf eine Fahrkarte hin und retour", "sl": "Kupi povratno vozovnico", "en": "Buy a return ticket", "it": "Compra un biglietto di andata e ritorno" },
+    { "de": "Frag, wann der Zug fährt", "sl": "Vprašaj, kdaj odpelje vlak", "en": "Ask when the train leaves", "it": "Chiedi quando parte il treno" },
+    { "de": "Frag nach dem Bahnsteig", "sl": "Vprašaj za peron", "en": "Ask which platform", "it": "Chiedi il binario" },
+    { "de": "Bedanke dich und verabschiede dich", "sl": "Zahvali se in se poslovi", "en": "Say thank you and goodbye", "it": "Ringrazia e saluta" }
+  ],
+  "opener_sl": "Grüß Gott! Wohin möchten Sie fahren?",
+  "opener_en": {
+    "sl": "Dober dan! Kam bi radi potovali?",
+    "en": "Hello! Where would you like to go?",
+    "it": "Buongiorno! Dove vuole andare?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Nach Klagenfurt, bitte.", "en": { "sl": "V Celovec, prosim.", "en": "To Klagenfurt, please.", "it": "A Klagenfurt, per favore." } },
+    { "sl": "Eine Fahrkarte, hin und retour.", "en": { "sl": "Eno povratno vozovnico.", "en": "A return ticket.", "it": "Un biglietto di andata e ritorno." } },
+    { "sl": "Was kostet die Fahrkarte?", "en": { "sl": "Koliko stane vozovnica?", "en": "How much is the ticket?", "it": "Quanto costa il biglietto?" } },
+    { "sl": "Wann fährt der nächste Zug?", "en": { "sl": "Kdaj odpelje naslednji vlak?", "en": "When does the next train leave?", "it": "Quando parte il prossimo treno?" } },
+    { "sl": "Von welchem Bahnsteig?", "en": { "sl": "S katerega perona?", "en": "From which platform?", "it": "Da quale binario?" } },
+    { "sl": "Muss ich umsteigen?", "en": { "sl": "Moram prestopiti?", "en": "Do I have to change?", "it": "Devo cambiare?" } },
+    { "sl": "Danke, auf Wiedersehen!", "en": { "sl": "Hvala, na svidenje!", "en": "Thanks, goodbye!", "it": "Grazie, arrivederci!" } }
+  ],
+  "packs": ["am-bahnhof", "zahlen-und-uhrzeit", "gruesse"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

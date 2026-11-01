@@ -153,4 +153,37 @@ export default async function meanings() {
   check("lookup: a pack word without the learner's base (Italian and English only) takes the dictionary's meaning in it: la casa → hiša", pack?.source === 'pack' && pack.emoji === '🏠' && pack.gloss[0] === 'hiša' && pack.gloss_lang === 'sl' && pack.gloss_en?.[0] === 'house' && !pack.fallback, pack)
   const [english] = lookup('case', {}, { lexicon: new Lexicon({ dir: tempDir('lani-smoke-no-dict-'), language: 'it', base: 'sl', tutorFile }), base: 'sl', packs: [noSlovene], people: [], items: {} }).entries
   check('lookup: without a dictionary meaning either, the pack\'s English, marked fallback', english?.gloss[0] === 'house' && english.gloss_lang === 'en' && english.fallback === true, english)
+
+  // --- the repository's Italian supplement, as a phone has it (no Wiktionary) ---------------------------------------
+  // The course's words its printed sheets left off (it-print-meanings): the everyday verbs with the forms the content
+  // uses, the expressions, written for a child in German first.
+  const itExtra = JSON.parse(readFileSync(join(import.meta.dir, '../../../lexicon/it.extra.json'), 'utf8'))
+  const itChecked = validateExtra(itExtra)
+  check('the Italian supplement (it.extra.json) validates, every entry, each with German and Slovene, and says a machine wrote it', itChecked.errors.length === 0 && itChecked.entries.length > 300 && itChecked.entries.every(e => !!e.meanings?.de && !!e.meanings.sl) && itExtra.meta.reviewed === false && itExtra.meta.machine_written === true, itChecked.errors)
+  const phoneDir = tempDir('lani-smoke-it-phone-')
+  writeFileSync(join(phoneDir, 'it.extra.json'), JSON.stringify(itExtra))
+  const phone = new Lexicon({ dir: phoneDir, language: 'it', base: 'de', tutorFile: join(dataDir, 'fixture-glosses-it-phone.json') })
+  const tap = (w: string, line: string) => lookup(w, { line }, { lexicon: phone, base: 'de', packs: [], people: [], items: {} }).entries
+  const [guardami] = tap('guardami', 'Nonna, guardami: so nuotare!')
+  const [mai] = tap('mai', 'Moro non morde mai.')
+  check(
+    'lookup without Wiktionary: "guardami" is guardare, schauen, its imperative with mi (machine-written: claude); mai is nie',
+    guardami?.lemma === 'guardare' && guardami.gloss[0] === 'schauen, anschauen' && guardami.gloss_lang === 'de' && guardami.gloss_via === 'claude' && /imperative, with mi/.test(guardami.grammar ?? '') && mai?.lemma === 'mai' && mai.gloss[0].startsWith('nie'),
+    { guardami, mai },
+  )
+  const [once] = tap('volta', "C'era una volta un gigante.")
+  const [bit] = tap('po', "Ne vuoi un po'?")
+  const [made] = tap('fatta', "Evviva, ce l'ho fatta!")
+  check(
+    "lookup without Wiktionary: an expression with an apostrophe around the tapped word, as the line's words are joined: c'era una volta, un po', ce l'ho fatta (farcela)",
+    once?.lemma === "c'era una volta" && once.gloss[0] === 'es war einmal' && bit?.lemma === "un po'" && made?.lemma === 'farcela' && made.grammar === 'first-person singular present perfect',
+    { once, bit, made },
+  )
+  const [washes] = tap('lava', 'Giulia si lava le mani.')
+  const turns = tap('gira', 'Gira il frico con un piatto.')
+  check(
+    "lookup without Wiktionary: a reflexive verb by its pronoun (si lava: lavarsi, sich waschen); the plain verb's form is not taken for it (gira il frico)",
+    washes?.lemma === 'lavarsi' && washes.gloss[0] === 'sich waschen' && !turns.some(e => e.lemma === 'girarsi'),
+    { washes, turns },
+  )
 }

@@ -1703,7 +1703,9 @@ from Marko", A1: an invitation to the grape harvest on Saturday) and Stari Janez
 the stones on the roofs, the clear sky after it, the pršut it dries); each with five questions, one of every type, and
 five or six new words. The chest's readings have their questions' types, a true/false statement (the potica: a word in
 context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
-readings say so in their `review`).
+readings say so in their `review`). Friuli's corner has as many, nine: besides Nonna Rosa's recipes and Nonno Bepi's
+books, Tommaso's letter and Giulia's trip to Aquileia (A1), the Tagliamento and the cjarsons (A2), the pilgrims of
+Monte Lussari (B1), each with five questions of every type (see "The friuli pack").
 
 A reading opens in the chest's reading view: its lines to read first, then, once started, its questions one at a time with the text hidden ("Read first, then answer"), each with its type ("Glavna misel · The main idea", "Podrobnost · A detail", "Beseda v besedilu · A word in context", "Drži ali ne drži? · True or false?", "Med vrsticami · Between the lines"): a true/false statement offers "Drži" and "Ne drži". Once they're all answered, the score and its new words, each with what it means and "➕ Dodaj" (a review item, `POST /words`, the line it stands in as the example); every other word opens its word card, with its own ➕.
 
@@ -2266,15 +2268,23 @@ cuccagna, Il ponte, Il prato delle api, La fontana, Il grande fienile and L'orol
 `nel-mulino`, `nella-vigna`, `la-cuccagna`, `il-ponte`, `il-prato-delle-api`, `la-fontana`, `il-grande-fienile`,
 `l-orologio`). Its landscape is Il mare (`scenes/il-mare.json`,
 in Italian with Slovene and English, machine-written like the rest), its words in `packs/il-mare.json`; its campfire is Al fuoco
-(`scenes/al-fuoco.json`, words in `packs/al-fuoco.json`), where Nonno Bepi tells his five legends in the evening (`stories/`:
-the agane, the Devil's Bridge of Cividale, the castle hill of Udine, the sbilfs, the Orcolat; words in `packs/storie.json`). The starter packs of Italian are in
+(`scenes/al-fuoco.json`, words in `packs/al-fuoco.json`), where Nonno Bepi tells his legends in the evening (`stories/`, 16 as Primorska has: the agane, the Devil's Bridge of
+Cividale, the castle hill of Udine, the sbilfs, the Orcolat and ten more, companion/SCENES.md "Stories"; words in
+`packs/storie.json`, `packs/leggende.json` and `packs/racconti.json`). The starter packs of Italian are in
 `companion/packs/it/`: `saluti`, `famiglia`, `casa-e-cucina`, `cibo`, `numeri-e-ore`, `in-paese` (A1, 21–24 words
 each, with articles, plurals, examples in all three languages, and notes in English and Slovene). The thanks goods are
 the region's (gubana, cornmeal for polenta, acacia honey, Montasio, ribolla gialla, Gorizia lace, frico …), the
 cramaro sells prosciutto di San Daniele, spices, olive oil and coffee from Trieste. Nonna Rosa's recipes are frico with
 potatoes (A1) and the gubana of the Natisone valleys (A2), Nonno Bepi's old book a page about the fogolâr (A1) and his
 book of proverbs 11 proverbs said in Friuli, each with its meaning (and the Slovene one, where there is one: "Rana ura,
-zlata ura"), all in Italian with Slovene and English (`readings/`).
+zlata ura"), all in Italian with Slovene and English (`readings/`). The reading corner has five more, as many as
+Primorska's nine in all: Tommaso's letter ("Una lettera di Tommaso", A1: chestnuts roasted in the square on St Martin's
+Day), Giulia's school trip ("I pesci di Aquileia", A1: the basilica's floor mosaic, its fish, Jonah, the rooster and the
+tortoise), Mugnaio Franco on the river ("Il Tagliamento, re dei fiumi", A2: from the Mauria pass to the sea, its gravel
+bed two kilometres wide, the 1966 flood, never to the river alone), Nonna Rosa's cjarsons ("I cjarsons della Carnia", A2:
+the sweet ravioli with the cramârs' spices, the boiling a grown-up's) and Zia Nives on the pilgrims ("I pellegrini del
+Monte Lussari", B1: three peoples praying in three languages since 1360); each with five questions, one of every type,
+and six or seven new words meant in Slovene, English and German (machine-written, `review`).
 
 ### The kaernten pack
 
@@ -2335,6 +2345,14 @@ Tor), the watchtower (Auf dem Wachturm), the smithy (In der Schmiede), the churc
 and the market (Auf dem Markt), each its pack and its I spy clues (SCENES.md "Scenes of a culture pack"), in Carinthia's look
 (SCENES.md "Culture looks": the Kachelofen, the Herrgottswinkel, the Harpfe, the onion dome, timbered houses with geranium
 balconies under shingles, the Karawanken through the windows). Its projects' places are the next wave.
+
+Since kaernten-projects-a (docs/plans/05-built/kaernten-projects-a.md) seven of its projects open a place of their own once
+they are finished, and its wood opens from the first day: Unter dem Maibaum (the Maibaum on the square, the Maibaumwache and
+the Maibaumkraxeln), An der Brücke (Franz's larch bridge over the stream), In der Mühle (the log mill grinding Heiden for the
+Heidensterz), Auf der Stockbahn (Opa Sepp's Stockschießen, on ice in winter), Bei der Wegkapelle (Tante Mitzi's wayside
+chapel among the Heiden), Im Obstgarten (Mostbauer Stefan's old apple and pear trees and his Most press), Auf der Bienenwiese
+(Imker Stanko's meadow) and Im Wald (Florian's lost sheep, the Schwammerl, the Hochstand and the Marterl), each in Carinthia's
+look, and their steps are short scenes with the project's people (`project-steps/`), not practices.
 
 ### The lakeland pack
 

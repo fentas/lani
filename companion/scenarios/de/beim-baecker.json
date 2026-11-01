@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "beim-baecker",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Beim Bäcker", "sl": "Pri peku", "en": "At the baker's", "it": "Dal fornaio" },
+  "emoji": "🥨",
+  "level": "A1",
+  "setting": {
+    "sl": "Zgodaj zjutraj v vaški pekarni v spodnji Ziljski dolini. Na pultu so še topel kruh, žemlje (Semmeln), rogljički (Kipferl) in reindling, koroški kolač z rozinami.",
+    "en": "Early morning at the village bakery in the lower Gailtal. Warm bread, Semmeln (rolls), Kipferl (crescent rolls) and a Reindling, the Carinthian raisin cake, lie on the counter.",
+    "it": "Mattina presto nel panificio del paese, nella bassa valle del Gail. Sul banco ci sono pane ancora caldo, Semmeln (panini), Kipferl (cornetti salati) e un Reindling, il dolce carinziano con l'uvetta."
+  },
+  "role": "Bäcker Peter, the village baker behind the counter, flour on his apron. Jolly and quick, proud of his Reindling. Austrian German: Semmel, Kipferl, Sackerl (a bag). Says Sie to {learner}.",
+  "who": { "de": "Der Bäcker", "sl": "Pek", "en": "The baker", "it": "Il fornaio" },
+  "voice": "male",
+  "place": "square",
+  "goals": [
+    { "de": "Grüße den Bäcker", "sl": "Pozdravi peka", "en": "Greet the baker", "it": "Saluta il fornaio" },
+    { "de": "Bestelle ein Brot", "sl": "Prosi za hlebec kruha", "en": "Ask for a loaf of bread", "it": "Chiedi un pane" },
+    { "de": "Bestelle zwei Semmeln", "sl": "Prosi za dve žemlji", "en": "Ask for two rolls", "it": "Chiedi due panini" },
+    { "de": "Frag, was es kostet", "sl": "Vprašaj, koliko stane", "en": "Ask how much it is", "it": "Chiedi quanto costa" },
+    { "de": "Bezahle und verabschiede dich", "sl": "Plačaj in se poslovi", "en": "Pay and say goodbye", "it": "Paga e saluta" }
+  ],
+  "opener_sl": "Grüß Gott! Das Brot ist noch warm. Was darf's sein?",
+  "opener_en": {
+    "sl": "Dober dan! Kruh je še topel. Kaj bo?",
+    "en": "Hello! The bread is still warm. What can I get you?",
+    "it": "Buongiorno! Il pane è ancora caldo. Che cosa le do?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Grüß Gott!", "en": { "sl": "Dober dan! (avstrijski pozdrav)", "en": "Hello! (the Austrian greeting)", "it": "Buongiorno! (il saluto austriaco)" } },
+    { "sl": "Ich hätte gern ein Brot, bitte.", "en": { "sl": "{m:Rad|f:Rada} bi hlebec kruha, prosim.", "en": "I'd like a loaf of bread, please.", "it": "Vorrei un pane, per favore." } },
+    { "sl": "Und zwei Semmeln.", "en": { "sl": "In dve žemlji.", "en": "And two rolls.", "it": "E due panini." } },
+    { "sl": "Was kostet das?", "en": { "sl": "Koliko stane?", "en": "How much is it?", "it": "Quanto costa?" } },
+    { "sl": "Das ist alles.", "en": { "sl": "To je vse.", "en": "That's all.", "it": "È tutto." } },
+    { "sl": "Ein Sackerl, bitte.", "en": { "sl": "Vrečko, prosim. (avstrijsko)", "en": "A bag, please. (Austrian)", "it": "Un sacchetto, per favore. (austriaco)" } },
+    { "sl": "Danke, auf Wiedersehen!", "en": { "sl": "Hvala, na svidenje!", "en": "Thanks, goodbye!", "it": "Grazie, arrivederci!" } }
+  ],
+  "packs": ["essen", "gruesse", "im-dorf", "zahlen-und-uhrzeit"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}
