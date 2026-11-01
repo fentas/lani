@@ -1129,8 +1129,8 @@ A1's middle six units, after the greetings, be, the articles, the plural, have g
 - **Place before time is the usual order, not a rule**: "every week in Keswick" is a choice's `almost`. Sometimes and
   usually may start a sentence (accepted), often may not.
 - **The apostrophe**: Jacks for Jack's and Poppys for Poppy's are wrong (an ending), so are its for it's and their for
-  they're (one word for two). A contraction typed without its apostrophe (dont, doesnt) is wrong too, with no hint
-  (docs/plans/05-built/course-en-a1-b.md, "What's left").
+  they're (one word for two). A contraction typed without its apostrophe (dont, doesnt, isnt, Im) is almost, with the
+  apostrophe hint (grading/en.json's `loose`): a phone keyboard hides the apostrophe.
 
 ## Printed sheets
 
