@@ -70,7 +70,7 @@
           { "en": "These boots are new.", "sl": "Ti čevlji so novi.", "de": "Diese Stiefel sind neu.", "it": "Questi stivali sono nuovi." }
         ],
         "rows": [
-          [{ "sl": "več", "de": "mehrere", "it": "più di uno", "en": "more than one" }, "these scones", "those boats"]
+          [{ "sl": "več", "de": "mehrere", "it": "più di uno", "en": "more than one" }, "these cups", "those boats"]
         ],
         "ask": {
           "type": "choice",
@@ -190,11 +190,11 @@
             { "sl": "more · več", "de": "more · mehrere", "it": "more · più", "en": "more than one" }
           ],
           "rows": [
-            { "label": { "sl": "here · tukaj", "de": "here · hier", "it": "here · qui", "en": "here" }, "cells": ["this cup", { "accept": ["these cups"], "hint": "this → ?" }] },
-            { "label": { "sl": "there · tam", "de": "there · dort", "it": "there · lì", "en": "there" }, "cells": [{ "accept": ["that fell"], "hint": "those → ?" }, "those fells"] },
-            { "label": { "sl": "here · tukaj", "de": "here · hier", "it": "here · qui", "en": "here" }, "cells": [{ "accept": ["this scone"] }, "these scones"] },
-            { "label": { "sl": "there · tam", "de": "there · dort", "it": "there · lì", "en": "there" }, "cells": ["that bike", { "accept": ["those bikes"] }] },
-            { "label": { "sl": "here · tukaj", "de": "here · hier", "it": "here · qui", "en": "here" }, "cells": ["this child", { "accept": ["these children"], "hint": { "sl": "child: nepravilna množina", "de": "child: ein unregelmäßiger Plural", "it": "child: un plurale irregolare", "en": "child: an irregular plural" } }] }
+            { "label": { "sl": "cup · skodelica", "de": "cup · Tasse", "it": "cup · tazza", "en": "cup" }, "cells": ["this cup", { "accept": ["these cups"], "hint": "this → ?" }] },
+            { "label": { "sl": "fell · hrib", "de": "fell · Berg", "it": "fell · monte", "en": "fell" }, "cells": [{ "accept": ["that fell"], "hint": "those → ?" }, "those fells"] },
+            { "label": "scone", "cells": [{ "accept": ["this scone"] }, "these scones"] },
+            { "label": { "sl": "bike · kolo", "de": "bike · Fahrrad", "it": "bike · bici", "en": "bike" }, "cells": ["that bike", { "accept": ["those bikes"] }] },
+            { "label": { "sl": "child · otrok", "de": "child · Kind", "it": "child · bambino", "en": "child" }, "cells": ["this child", { "accept": ["these children"], "hint": { "sl": "child: nepravilna množina", "de": "child: ein unregelmäßiger Plural", "it": "child: un plurale irregolare", "en": "child: an irregular plural" } }] }
           ],
           "explain": {
             "sl": "**Tukaj: this, these · tam: that, those**\n- this cup → these cups\n- that bike → those bikes",
