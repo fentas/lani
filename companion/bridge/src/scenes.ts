@@ -335,6 +335,36 @@ export const LOOK_ONLY: Record<string, Record<string, string[]>> = {
   playground: { fontanella: ['friuli'] },
   chapel: { altarcandle: ['friuli'] },
 }
+
+/**
+ * Where scene [s] names a slot of its art that [culture]'s look doesn't draw as a thing ([LOOK_ONLY]): an object in it (the
+ * app leaves it out, so its word would wait for a level no place reaches) or a tap turn's choice on it (the learner could
+ * never tap it). The bridge refuses a tutor's scene or variant with one, by the village's culture; a curated scene of a
+ * culture pack is of that culture (the smoke checks them all). It reads a spec as written too (lines without choices).
+ */
+type TapsOf = { id: string; lines?: { choices?: { tap?: string }[] }[] }
+export function lookOnlyErrors(s: { art: string; objects?: { slot: string }[]; dialogs?: TapsOf[]; variants?: TapsOf[] }, culture: string): string[] {
+  const only = LOOK_ONLY[s.art]
+  if (!only) return []
+  const notHere = (slot: string) => (only[slot] && !only[slot].includes(culture) ? only[slot] : undefined)
+  const why = (slot: string, looks: string[]) =>
+    `the ${s.art}'s "${slot}" is drawn as a thing only in ${looks.join(' and ')}'s look, and this village is ${culture}'s: leave it out (the app doesn't draw it here)`
+  const errs: string[] = []
+  for (const [i, o] of (s.objects ?? []).entries()) {
+    const looks = notHere(o.slot)
+    if (looks) errs.push(`objects[${i}] (${o.slot}): ${why(o.slot, looks)}`)
+  }
+  for (const [list, ds] of [['dialogs', s.dialogs ?? []], ['variants', s.variants ?? []]] as const)
+    ds.forEach((d, di) =>
+      (d.lines ?? []).forEach((l, li) =>
+        (l.choices ?? []).forEach((c, ci) => {
+          const looks = c.tap ? notHere(c.tap) : undefined
+          if (looks) errs.push(`${list}[${di}] (${d.id}).lines[${li}].choices[${ci}].tap: ${why(c.tap!, looks)}`)
+        }),
+      ),
+    )
+  return errs
+}
 /**
  * What each version after the first added: its new arts, new slots of an art the version before had, new person spots of
  * one (for an older app each stands at the spot it had for them instead), and new sources of a count (an older app plays no

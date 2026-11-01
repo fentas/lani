@@ -174,7 +174,8 @@ Primorska's journeys are as they were (no new thing there).
   the stream's mill is drawn with shingles in every culture, so it agrees with its picture today.
 - **A tutor's scene** that names the osteria, the fontanella or the altar candle in a culture other than Friuli gets a
   thing that is never drawn: the app leaves it out of the scene (`inWorld`); the words panel would list it as waiting
-  for a level no place reaches. The bridge doesn't refuse it yet (its `LOOK_ONLY` could, by the village's culture).
+  for a level no place reaches. ~~The bridge doesn't refuse it yet~~ Done (polish-app, 2026-11-01): the bridge refuses it
+  by the village's culture (`lookOnlyErrors` over `LOOK_ONLY`, in `publish_scene` and `publish_dialog_variant`).
 - **The Slovene scenes** could name their gostilna and the candle on the altar too (`v-vasi`'s gostilna is a word
   already): Primorska's look would fix `inn` and `altarcandle`, its painter drawing them as things there, and
   `na-baliniscu` and `pri-kapelici` would word them with Slovene I spy clues (a word apart from the lumini's `sveča`).

@@ -5,13 +5,13 @@ import { join, resolve } from 'node:path'
 import { cultureProjects } from '../../src/cultures'
 import { PackStore } from '../../src/packs'
 import { ScenarioStore } from '../../src/scenarios'
-import { ALL_FACES, arrive, emptyMonths, FACES, FACES_SAID, firstPose, forApp, inSeason, LOOK_ONLY, monthsSaid, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
+import { ALL_FACES, arrive, emptyMonths, FACES, FACES_SAID, firstPose, forApp, inSeason, LOOK_ONLY, lookOnlyErrors, monthsSaid, offStage, POSES, resolveScene, SCENE_ART, SCENE_ARTS_VERSION, SCENE_STAGE, validateScene, variantsOf, type LoadedScene } from '../../src/scenes'
 import { allHeard } from '../../src/variants'
 import { cleanScenes } from '../../src/visits'
 import { VillagerStore } from '../../src/villagers'
 import { corpus, PRIORITY_LABELS } from '../../src/voice'
 import { reference } from './fixtures'
-import { auth, base, check, client, dataDir, fam, scenesDir, guideOf } from './harness'
+import { auth, base, check, client, culturesDir, dataDir, fam, scenesDir, guideOf } from './harness'
 import { JAN } from '../learner-content'
 
 const android = resolve(import.meta.dir, '../../../android/app/src/main/java/si/lanisce/lani/game')
@@ -413,6 +413,37 @@ export default async function scenes() {
       ],
     }],
   }
+  // a thing only Friuli's look draws (LOOK_ONLY) isn't in this village (Primorska's): a tutor's scene naming it is refused
+  const igrisce = {
+    ...camp, id: 'smoke-igrisce', title: 'Na igrišču · At the playground', emoji: '🎠', art: 'playground', from: ['fire'],
+    objects: [{ slot: 'swing', word: 'juha' }, { slot: 'fontanella', word: 'kruh' }],
+    people: [{ ...camp.people[0], slot: 'bench' }],
+    // the playground has its own effects (no fire's flare or steam)
+    dialogs: JSON.parse(JSON.stringify(camp.dialogs, (k, v) => (k === 'fx' ? undefined : v))),
+  }
+  const elsewhere = await client.callTool({ name: 'publish_scene', arguments: { scene: igrisce } })
+  const elsewhereText = JSON.stringify(elsewhere)
+  check("publish_scene refuses a thing only another culture's look draws (the fontanella in Primorska), saying whose it is",
+    elsewhere.isError && elsewhereText.includes('objects[1] (fontanella)') && elsewhereText.includes("only in friuli's look") && elsewhereText.includes("primorska's") && !existsSync(join(dataDir, 'app/scenes/smoke-igrisce.json')), elsewhere)
+  const without = { ...igrisce, objects: igrisce.objects.filter(o => o.slot !== 'fontanella') }
+  // the bridge validated the scene before the rule: its one error is the fontanella's, the rest of the scene holds
+  check('the same scene is otherwise valid (the refusal names the fontanella alone), and without it the rule finds nothing',
+    (elsewhereText.match(/✖/g) ?? []).length === 1 && lookOnlyErrors(without, 'primorska').length === 0, elsewhereText)
+  // every culture pack's own scenes name only what their look draws (Friuli's the osteria, the fontanella, the altar candle)
+  const packScenes = readdirSync(culturesDir).flatMap(c => {
+    const dir = join(culturesDir, c, 'scenes')
+    return existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith('.json')).map(f => ({ culture: c, file: f, s: JSON.parse(readFileSync(join(dir, f), 'utf8')) })) : []
+  }).concat(readdirSync(resolve(import.meta.dir, '../../../scenes')).filter(f => f.endsWith('.json')).map(f => ({ culture: 'primorska', file: `scenes/${f}`, s: JSON.parse(readFileSync(resolve(import.meta.dir, '../../../scenes', f), 'utf8')) })))
+  const misplaced = packScenes.flatMap(({ culture, file, s }) => lookOnlyErrors(s, culture).map(e => `${culture}/${file}: ${e}`))
+  check("every culture pack's scenes name only the things its look draws (Friuli's own: the osteria, the fontanella, the altar candle, there)",
+    misplaced.length === 0 && packScenes.some(p => p.culture === 'friuli' && p.s.objects.some((o: any) => o.slot === 'fontanella')) && packScenes.length > 50, misplaced)
+  const tapBocce = (slot: string) => ({ id: 'tap', lines: [{ who: 'janez', sl: 'Kje?', en: 'Where?', choices: [] }, { choices: [{ sl: 'Tam.', en: 'There.', ok: true, tap: slot }, { sl: 'Tu.', en: 'Here.', ok: false, tap: 'court' }] }] }) as any
+  const bocceInn = { art: 'bocce', objects: [{ slot: 'court' }, { slot: 'inn' }], variants: [tapBocce('inn')] }
+  check("the rule: an object or a tap turn's choice on the osteria is refused outside Friuli, not in it, and an art without such slots has none",
+    JSON.stringify(lookOnlyErrors(bocceInn, 'kaernten').map(e => e.split(':')[0])) === JSON.stringify(['objects[1] (inn)', 'variants[0] (tap).lines[1].choices[0].tap']) &&
+      lookOnlyErrors(bocceInn, 'friuli').length === 0 && lookOnlyErrors({ art: 'chapel', objects: [{ slot: 'altarcandle' }] }, 'lakeland').length === 1 &&
+      lookOnlyErrors({ art: 'campfire', objects: [{ slot: 'inn' }] }, 'primorska').length === 0,
+    lookOnlyErrors(bocceInn, 'kaernten'))
   const badNote = await client.callTool({ name: 'publish_scene', arguments: { scene: camp, note: 'x'.repeat(501) } })
   check('publish_scene refuses a long note', badNote.isError)
   const pub = await client.callTool({ name: 'publish_scene', arguments: { scene: camp, note: 'Janez tells stories by the fire' } })
