@@ -5,6 +5,7 @@ import si.lanisce.lani.game.render.Dither
 import si.lanisce.lani.game.render.Noise
 import si.lanisce.lani.game.render.Pal
 import si.lanisce.lani.game.render.Season
+import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.exp
@@ -98,15 +99,38 @@ internal class HillsPainter : VistaPainter() {
      * August and September, yellow in October, bare from November); the farmhouse whitewashed under slate with a slate porch
      * and no shutters ([lakeFarm]); the church's square battlemented tower ([battlements]); the fells behind, green and
      * bracken-brown, snow on them only in winter ([fells]); yews for the cypresses ([yews]); an apple tree for the kaki
-     * ([apple]); foxgloves for the lavender ([foxgloves]).
+     * ([appleTree]); foxgloves for the lavender ([foxgloves]).
      */
     private var damsons = false
     private var lakeFarm = false
     private var battlements = false
     private var fells = false
     private var yews = false
-    private var apple = false
+    private var appleTree = false
     private var foxgloves = false
+    /**
+     * Carinthia's look (Im Obstgarten, kaernten-projects-a; companion/SCENES.md "Culture looks"): Mostbauer Stefan's orchard
+     * on the meadow above the village, as the map's (`vineyard` "orchard"). Old apple and pear trees stand apart in the grass
+     * for the vine rows, white and pink in blossom in April and May, their apples red from August ([orchard]); the near
+     * vine a young apple tree tied to its stake with an apple on its low branch; a pear tree for the kaki; a larch for the
+     * cypress, and larches for the grove's; a Schragenzaun of slanted grey poles for the dry-stone wall; the crate a Steige of
+     * apples; the farmstead white below and timbered above under dark shingles ([alpineFarm]), and by the track the wooden
+     * Most press (scenery); the church's tower under an onion dome ([onionTower]); a lake in the valley for the sea ([lake]);
+     * no lavender, and meadows and woods on the far hills, not vines.
+     */
+    private var orchard = false
+    private var alpineFarm: FireStyle? = null
+    private var onionTower = false
+    private var lake = false
+
+    /** The orchard's old trees (Carinthia's [orchard]): side, depth, height; the inner ones (|side| < 4) the `vineyard` to tap. */
+    private val orchardTrees = listOf(
+        floatArrayOf(-2.7f, 18f, 6f), floatArrayOf(-2.9f, 30f, 6.4f), floatArrayOf(-2.6f, 43f, 6.2f),
+        floatArrayOf(3.4f, 24f, 6.2f), floatArrayOf(3.3f, 37f, 6.6f),
+        floatArrayOf(-7.8f, 15f, 6.4f), floatArrayOf(-8.0f, 27f, 6.8f), floatArrayOf(-7.6f, 40f, 6.2f),
+        floatArrayOf(9.8f, 28f, 6.4f), floatArrayOf(10.0f, 42f, 6.2f), floatArrayOf(-13f, 22f, 6.6f), floatArrayOf(14f, 24f, 6.4f),
+    )
+    private val pressX = -5.0f; private val pressD = 19.5f
 
     override fun paint() {
         setup()
@@ -115,8 +139,12 @@ internal class HillsPainter : VistaPainter() {
         collio = if (variant("farm") == "friuli") FireStyle.of("friuli", look.landscape) else null
         campanile = variant("church") == "campanile"
         damsons = variant("vineyard") == "damsons"; lakeFarm = variant("farm") == "lakeland"; battlements = variant("church") == "tower"
-        fells = variant("mountains") == "fells"; yews = variant("cypress") == "yew"; apple = variant("persimmon") == "apple"
+        fells = variant("mountains") == "fells"; yews = variant("cypress") == "yew"; appleTree = variant("persimmon") == "apple"
         foxgloves = variant("flowers") == "foxgloves"
+        orchard = variant("vineyard") == "orchard"
+        alpineFarm = if (variant("farm") == "kaernten") FireStyle.of("kaernten", look.landscape) else null
+        onionTower = variant("church") == "onion"
+        lake = variant("sea") == "lake"
         vistaSky(4, 21, moonX = ox + 60 * z, moonY = oy + 10 * z)
         thing("mountains", outline = 0) { alps() }
         thing("sea", outline = 0) { seaGlint() }
@@ -134,26 +162,41 @@ internal class HillsPainter : VistaPainter() {
         thing("road") { roadPixels() }
 
         items.clear()
-        for ((k, g) in grove.withIndex()) items.add(g[1] to { prop(Pal.OUTLINE_TREE) { if (g[3] > 0f && !yews) cypress(g[0], g[1], g[2], k + 3) else leafyTree(g[0], g[1], g[2], k * 7 + 5) } })
+        for ((k, g) in grove.withIndex()) items.add(g[1] to { prop(Pal.OUTLINE_TREE) { if (g[3] > 0f && !yews) { if (orchard) larch(g[0], g[1], g[2] * 1.2f, k + 3) else cypress(g[0], g[1], g[2], k + 3) } else leafyTree(g[0], g[1], g[2], k * 7 + 5) } })
         if (damsons) for (td in TERRACES) items.add(td to { prop { terraceWall(td) } })
-        items.add(houseD to { thing("farmhouse") { farmhouse() } })
-        items.add(cypressD to { thing("cypress", outline = Pal.OUTLINE_TREE) { cypress(cypressX, cypressD, 13f, 1) } })
-        items.add(rowFar + 1f to { prop(Col.hex(0x1E3A1E)) { vineyard(outer = true) } })
-        items.add(rowFar to { thing("vineyard", outline = Col.hex(0x1E3A1E)) { vineyard(outer = false) } })
-        items.add(kakiD to { groundShadow(kakiX, kakiD, 2.2f); thing("persimmon", outline = Pal.OUTLINE_TREE) { kaki(kakiX, kakiD) } })
+        items.add(houseD to { thing("farmhouse") { if (alpineFarm != null) alpineFarmhouse() else farmhouse() } })
+        items.add(cypressD to { thing("cypress", outline = Pal.OUTLINE_TREE) { if (orchard) larch(cypressX, cypressD, 16f, 1) else cypress(cypressX, cypressD, 13f, 1) } })
+        if (orchard) {
+            // the orchard's old trees standing apart in the grass, the far ones first; the inner ones the orchard to tap
+            for ((k, tr) in orchardTrees.withIndex()) items.add(tr[1] to {
+                groundShadow(tr[0], tr[1], 1.6f)
+                if (abs(tr[0]) < 4f) thing("vineyard", outline = Pal.OUTLINE_TREE) { fruitTree(tr[0], tr[1], tr[2], 700 + k, pear = false) }
+                else prop(Pal.OUTLINE_TREE) { fruitTree(tr[0], tr[1], tr[2], 700 + k, pear = k % 4 == 1) }
+            })
+            items.add(pressD to { groundShadow(pressX, pressD, 0.8f); prop { mostPress(pressX, pressD) } })
+        } else {
+            items.add(rowFar + 1f to { prop(Col.hex(0x1E3A1E)) { vineyard(outer = true) } })
+            items.add(rowFar to { thing("vineyard", outline = Col.hex(0x1E3A1E)) { vineyard(outer = false) } })
+        }
+        items.add(kakiD to { groundShadow(kakiX, kakiD, 2.2f); thing("persimmon", outline = Pal.OUTLINE_TREE) { if (orchard) fruitTree(kakiX, kakiD, 7.2f, 731, pear = true, near = true) else kaki(kakiX, kakiD) } })
         // a dialog's tractor down the track ("tractor"); from 0.97 it has gone past us, out of the picture
         val tractor = fxOn("tractor")
         if (tractor > 0.01f && tractor < 0.97f) { val d = 58f - 50f * tractor; items.add(d to { prop { tractor(d) } }) }
-        items.add(wallD to { thing("wall") { dryWall(wallA, wallB, wallD, 0.85f, 91) } })
+        items.add(wallD to { thing("wall") { if (orchard) schragenzaun(wallA, wallB, wallD) else dryWall(wallA, wallB, wallD, 0.85f, 91) } })
         for (p in peopleAt("wall")) items.add(10.6f to { groundShadow(3.3f, 10.6f, 0.5f); person(p, gx(3.3f, 10.6f).toInt(), gy(10.6f).toInt(), flip = true) })
         for (p in peopleAt("road")) items.add(15.6f to { val x = road(15.6f) + 0.5f; groundShadow(x, 15.6f, 0.5f); person(p, gx(x, 15.6f).toInt(), gy(15.6f).toInt(), flip = false) })
         for (p in peopleAt("vines")) items.add(12.9f to { groundShadow(-1.05f, 12.9f, 0.5f); person(p, gx(-1.05f, 12.9f).toInt(), gy(12.9f).toInt(), flip = false) })
         items.add(vineD to {
-            thing("vine", outline = Col.hex(0x1E3A1E)) { nearVine() }
-            thing("grapes", slop = 2) { if (damsons) damsonCluster(gx(vineX + 0.3f, vineD), hy(vineD, 0.95f), pm(vineD)) else bunch(gx(vineX + 0.3f, vineD), hy(vineD, 0.95f), pm(vineD), 0, big = true) }
+            if (orchard) {
+                thing("vine", outline = Pal.OUTLINE_TREE) { youngApple() }
+                thing("grapes", slop = 2) { apple(gx(vineX + 0.3f, vineD), hy(vineD, 0.95f), pm(vineD)) }
+            } else {
+                thing("vine", outline = Col.hex(0x1E3A1E)) { nearVine() }
+                thing("grapes", slop = 2) { if (damsons) damsonCluster(gx(vineX + 0.3f, vineD), hy(vineD, 0.95f), pm(vineD)) else bunch(gx(vineX + 0.3f, vineD), hy(vineD, 0.95f), pm(vineD), 0, big = true) }
+            }
         })
         items.add(crateD to { groundShadow(crateX, crateD, 0.4f); thing("crate", slop = 1) { crate() } })
-        for ((k, lv) in lavenders.withIndex()) if (gy(lv.second) < h + 8 * z) items.add(lv.second to { prop(Col.hex(0x3A4A36)) { lavender(lv.first, lv.second, k) } })
+        if (!orchard) for ((k, lv) in lavenders.withIndex()) if (gy(lv.second) < h + 8 * z) items.add(lv.second to { prop(Col.hex(0x3A4A36)) { lavender(lv.first, lv.second, k) } })
         items.sortByDescending { it.first }
         for ((_, draw) in items) draw()
 
@@ -217,7 +260,7 @@ internal class HillsPainter : VistaPainter() {
     private fun seaGlint() {
         val z = z
         val x0 = ox + 168 * z
-        val body = env.lit(Col.mix(Col.hex(0x3F84C4), env.skyHorizon, 0.45f))
+        val body = env.lit(Col.mix(if (lake) Col.hex(0x2E9AA8) else Col.hex(0x3F84C4), env.skyHorizon, if (lake) 0.3f else 0.45f))
         val line = Col.mix(env.skyHorizon, Col.hex(0xFFFFFF), 0.3f)
         c.penEmissive = true
         for (x in max(x0, c.left) until min(w, c.right)) {
@@ -258,7 +301,7 @@ internal class HillsPainter : VistaPainter() {
             if (fx !in 0 until w || fx in (ox + 150 * z)..(ox + 220 * z)) continue
             val crest = if (i % 2 == 0) near else mid
             val base = crest[fx] + (2 + (Noise.rnd(i, 235) * 3).toInt()) * z
-            if (i % 3 == 0 && !yews) farCypress(fx, base, if (crest === near) 0.1f else 0.24f) else farHouse(fx, base, i)
+            if (i % 3 == 0) { if (!orchard && !yews) farCypress(fx, base, if (crest === near) 0.1f else 0.24f) } else farHouse(fx, base, i)
         }
     }
 
@@ -341,6 +384,8 @@ internal class HillsPainter : VistaPainter() {
         }
         val parcel = Noise.v2(sx * 0.05f, sy * 0.2f, 236)
         if (parcel < 0.3f) return if (env.season == Season.WINTER) Col.hex(0x6E6A5E) else Col.scale(col, 0.72f) // a wood
+        // Carinthia's far hills: meadows and woods, no vines
+        if (orchard) return if (parcel < 0.42f) (if (env.season == Season.WINTER) Col.hex(0x5E6252) else Col.scale(col, 0.62f)) else if (parcel > 0.75f) Col.scale(col, 1.08f) else col
         val stripe = ((below / z) + (Noise.v1(sx * 0.06f, 237) * 3f).toInt()) % 2 == 0
         return if (stripe) canopy(0.8f) else Col.mix(col, soil(), 0.35f)
     }
@@ -407,6 +452,8 @@ internal class HillsPainter : VistaPainter() {
                 var col = when {
                     below < 1.2f -> grass[1]
                     Noise.v2((x - ox) * 0.04f / z, below * 0.08f, 244) > 0.72f -> Col.scale(grass[2], 0.8f) // a wood in a fold
+                    // Carinthia's church hill: meadows, a hedge here and there, no terraces of vines
+                    orchard -> if (ri % 4 == 3 && fr > 0.75f) Col.scale(grass[2], 0.85f) else grass[if (fr > 0.7f) 0 else 1]
                     ri % 5 == 4 && fr > 0.6f -> wallCol
                     fr < 0.45f -> canopy(0.7f + Noise.rnd(x / z, ri, 242) * 0.3f)
                     else -> Col.mix(grass[if (fr > 0.8f) 0 else 1], soil(), 0.25f)
@@ -417,7 +464,7 @@ internal class HillsPainter : VistaPainter() {
                 c.set(x, y, hazy(col, 90f))
             }
         }
-        for ((cx, cy) in listOf(166f to 2f, 200f to -4f, 176f to -12f)) farCypress((ox + cx * z).toInt(), (hz + cy * z).toInt(), 0.1f)
+        if (!orchard) for ((cx, cy) in listOf(166f to 2f, 200f to -4f, 176f to -12f)) farCypress((ox + cx * z).toInt(), (hz + cy * z).toInt(), 0.1f)
     }
 
     /** The church on the hilltop, its apse toward us, a red-tiled roof; the bell tower beside it with the bell in its belfry. */
@@ -478,7 +525,16 @@ internal class HillsPainter : VistaPainter() {
             // the pyramid roof and a little cross (Friuli's campanile: a low cap of coppi over a cornice)
             val capH = if (fs != null) 2 * z else 4 * z
             if (fs != null) c.hline(tl - z / 2, tl + tw + z / 2 - 1, base - 15 * z, env.lit(Col.mix(fs.churchWall[0], env.skyHorizon, 0.12f)))
-            for (r in 0 until capH) {
+            if (onionTower) {
+                // Carinthia's onion dome of green copper: a bulb swelling out over the tower and drawing in to its neck
+                val ks = FireStyle.of("kaernten", look.landscape)
+                val cop = env.lit(Col.mix(if (env.snow) Pal.SNOW_L else ks.towerTop[0], env.skyHorizon, 0.12f)); val copD = env.lit(Col.mix(ks.towerTop[2], env.skyHorizon, 0.12f))
+                for (r in 0 until capH) {
+                    val f = r / capH.toFloat()
+                    val half = (tw / 2f + z * 0.6f) * (if (f < 0.6f) 0.8f + 0.35f * sin(f / 0.6f * PI.toFloat()) else 0.75f * (1f - (f - 0.6f) / 0.4f) + 0.15f)
+                    c.hline((tl + tw / 2f - half).toInt(), (tl + tw / 2f + half).toInt() - 1, base - 15 * z - 1 - r, if (r < z) copD else cop)
+                }
+            } else for (r in 0 until capH) {
                 val half = (tw / 2f + z * 0.5f) * (1f - r / (if (fs != null) 3f * z else 4f * z))
                 c.hline((tl + tw / 2f - half).toInt(), (tl + tw / 2f + half).toInt() - 1, base - 15 * z - 1 - r, if (r < z && fs == null) roofD else roof)
             }
@@ -546,7 +602,7 @@ internal class HillsPainter : VistaPainter() {
         val n = Noise.v2(x * 0.6f, d * 0.6f, 251) + (Dither.at(px, py) - 0.5f) * 0.25f
         var col = if (n > 0.62f) g[0] else if (n > 0.32f) g[1] else g[2]
         if (!env.snow && env.season != Season.SUMMER && d < 20f && Noise.rnd(px, py, 252) < 0.012f) col = Pal.PAINTED[(px * 3 + py) % 6]
-        if (d < HILLS_D && d > rowNear - 1f) {
+        if (!orchard && d < HILLS_D && d > rowNear - 1f) {
             // under the rows the soil is worked (the marl of Brda, the opoka); between them, grass
             val rows = if (x < 0f) leftRows else rightRows
             if (!damsons) for (rx in rows) if (abs(x - rx) < 0.36f && d > rowStart(rx) - 0.6f && d < rowEnd(rx) + 0.6f) {
@@ -798,7 +854,7 @@ internal class HillsPainter : VistaPainter() {
         val ww = 0.55f * p; val hh = 0.3f * p
         val x0 = (bx - ww / 2).toInt(); val y0 = (by - hh).toInt()
         val full = env.month in 8..10
-        if (full) for (k in 0 until 7) bunchTop(x0 + (k + 0.5f) * ww / 7f, y0.toFloat(), p, k)
+        if (full) for (k in 0 until 7) if (orchard) apple(x0 + (k + 0.5f) * ww / 7f, y0 - 0.06f * p, p * 0.8f, k) else bunchTop(x0 + (k + 0.5f) * ww / 7f, y0.toFloat(), p, k)
         box(x0, y0, ww.toInt().coerceAtLeast(3), hh.toInt().coerceAtLeast(2), Col.hex(0xD8A868), Pal.WOOD_L, Pal.WOOD_D)
         val slats = if (z > 1) 3 else 2
         for (j in 1 until slats) c.hline(x0 + 1, x0 + ww.toInt() - 2, y0 + (hh * j / slats).toInt(), Pal.WOOD_M)
@@ -1087,7 +1143,7 @@ internal class HillsPainter : VistaPainter() {
      * October, and its fruit green, then orange, hanging on into November on bare branches; bare in winter.
      */
     private fun kaki(x: Float, d: Float) {
-        if (apple) { leafyTree(x, d, 6.5f, 913, blossom = true, fruit = if (env.month in 8..10) Col.hex(0xC8302A) else 0); return }
+        if (appleTree) { leafyTree(x, d, 6.5f, 913, blossom = true, fruit = if (env.month in 8..10) Col.hex(0xC8302A) else 0); return }
         val z = z
         val p = pm(d); val bx = gx(x, d); val by = gy(d)
         val m = env.month
@@ -1145,6 +1201,223 @@ internal class HillsPainter : VistaPainter() {
     }
 
     private fun sqrt01(v: Float) = kotlin.math.sqrt(v)
+
+    // ------------------------------------------------------------------ Carinthia's orchard
+
+    /** An apple's colour this month: green until July, red from August. */
+    private fun appleCol(): IntArray = if (env.month in 8..12 || env.month <= 2) intArrayOf(Col.hex(0xC8302A), Col.hex(0xF07A5A), Col.hex(0x8A1E1E)) else intArrayOf(Col.hex(0x9AB43E), Col.hex(0xC8DC72), Col.hex(0x6E8A2A))
+
+    /** An apple hanging with its top at ([x], [y]) at [p] px a metre: round, lit on its upper left, its stalk; [k] varies it. */
+    private fun apple(x: Float, y: Float, p: Float, k: Int = 0) {
+        val (col, lt, dk) = appleCol().let { Triple(it[0], it[1], it[2]) }
+        val r = max(1f, 0.075f * p)
+        c.fillCircle(x, y + r, r, col)
+        if (r >= 1.5f) { c.set((x - r * 0.4f).toInt(), (y + r * 0.6f).toInt(), lt); c.set((x + r * 0.5f).toInt(), (y + r * 1.5f).toInt(), dk) }
+        if (z > 1 && k % 2 == 0) c.set(x.toInt(), (y - 0.5f).toInt(), Col.hex(0x5A4030))
+    }
+
+    /**
+     * One of the orchard's old trees [d] m away at side [x], [height] m tall: a leafy crown on a short trunk, white blossom
+     * (pink-tinged for the apples) in April and May, apples red from August to October, or pears yellow-green ([pear]); [near]
+     * the pear by the fence, its pears drawn one by one.
+     */
+    private fun fruitTree(x: Float, d: Float, height: Float, seed: Int, pear: Boolean, near: Boolean = false) {
+        val z = z
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val m = env.month
+        val bark = hazy(Col.hex(0x4E3A2C), d); val barkL = hazy(Col.hex(0x6E5440), d)
+        // a short stout trunk, a little crooked with age, and the old tree's crown above it, wider than tall
+        val trunkH = height * 0.36f * p; val tw = max(1f, 0.3f * p)
+        val trunkTop = by - trunkH
+        var yy = by
+        while (yy > trunkTop) {
+            val f = (by - yy) / max(1f, trunkH)
+            val xx = bx + sin(f * 2.4f + seed) * 0.08f * p
+            c.hline((xx - tw / 2).toInt(), (xx + tw / 2).toInt(), yy.toInt(), bark)
+            if (tw >= 2f) c.set((xx - tw / 2).toInt(), yy.toInt(), barkL)
+            yy -= 1f
+        }
+        val cr = height * 0.36f * p; val cy = trunkTop - cr * 0.55f
+        val leaves = when (m) { 12, 1, 2, 3 -> 0f; 4 -> 0.55f; 11 -> 0.3f; else -> 1f }
+        fun branch(x0: Float, y0: Float, a: Float, len: Float, depth: Int) {
+            val x1 = x0 + sin(a) * len; val y1 = y0 - cos(a) * len * 0.8f
+            c.line(x0.toInt(), y0.toInt(), x1.toInt(), y1.toInt(), bark)
+            if (env.snow && depth == 0) c.set(x1.toInt(), y1.toInt() - 1, Pal.SNOW_L)
+            if (depth > 0) { branch(x1, y1, a - 0.55f, len * 0.62f, depth - 1); branch(x1, y1, a + 0.5f, len * 0.6f, depth - 1) }
+        }
+        for (a in floatArrayOf(-1.0f, -0.4f, 0.15f, 0.7f, 1.15f)) branch(bx, trunkTop, a, cr * 0.55f, if (p > 3f) 2 else 1)
+        if (leaves > 0f) {
+            val (dk, md, lt) = when (m) {
+                10 -> if (pear) Triple(Col.hex(0x8A4A1A), Col.hex(0xC07028), Col.hex(0xE0A040)) else Triple(Col.hex(0x6A6A22), Col.hex(0x9A9030), Col.hex(0xC8B848))
+                11 -> Triple(Col.hex(0x7A4E1E), Col.hex(0xA8702A), Col.hex(0xC89440))
+                4, 5 -> Triple(Col.hex(0x3E7A2E), Col.hex(0x62A240), Col.hex(0x9ACC62))
+                else -> Triple(Col.hex(0x2A5A26), Col.hex(0x3E7A32), Col.hex(0x62A048))
+            }.let { Triple(hazy(it.first, d), hazy(it.second, d), hazy(it.third, d)) }
+            val sunLeft = (sunAt()?.first ?: vx) < bx
+            val lx = if (sunLeft) -1f else 1f
+            for (k in 0 until 11) {
+                val a = k * 2.4f + seed * 0.7f
+                val ring = if (k == 0) 0f else if (k < 7) 0.6f else 0.3f
+                val rr = cr * (if (k == 0) 0.62f else 0.38f + Noise.rnd(k, seed) * 0.12f)
+                val px = bx + sin(a) * cr * ring * 1.15f; val py = cy + cos(a) * cr * ring * 0.6f - (if (k >= 7) cr * 0.28f else 0f)
+                for (y in max((py - rr).toInt(), c.top)..min((py + rr).toInt(), c.bottom - 1)) for (xx in max((px - rr).toInt(), c.left)..min((px + rr).toInt(), c.right - 1)) {
+                    val dx = (xx + 0.5f - px) / rr; val dy = (y + 0.5f - py) / (rr * 0.85f)
+                    val q = dx * dx + dy * dy
+                    if (q > 1f || (q > 0.75f && Dither.at(xx, y) < 0.4f)) continue
+                    if (Noise.rnd(xx / max(1, z), y / max(1, z), seed + 11) > leaves + 0.05f) continue
+                    val lit = -dx * lx * 0.5f - dy * 0.8f + (Noise.rnd(xx, y, seed + 13) - 0.5f) * 0.4f
+                    // the blossom in April and May: white, the apples' tinged pink
+                    val bloom = m in 4..5 && Noise.rnd(xx / max(1, z), y / max(1, z), seed + 17) < (if (m == 4) 0.45f else 0.2f)
+                    c.set(xx, y, if (bloom) hazy(if (!pear && Noise.rnd(xx, y, seed + 19) < 0.35f) Col.hex(0xF4C4D4) else Col.hex(0xFFF6F8), d)
+                        else if (lit > 0.45f) lt else if (lit > -0.2f) md else dk)
+                }
+            }
+        }
+        // the fruit: apples green in July, red from August to October; pears yellow-green from August
+        if (m in 7..10 && !(pear && m == 7)) {
+            val (col, hi) = when {
+                pear -> Col.hex(0xC8C24A) to Col.hex(0xF0EA9A)
+                m == 7 -> Col.hex(0x9AB43E) to Col.hex(0xC8DC72)
+                else -> Col.hex(0xC8302A) to Col.hex(0xF07A5A)
+            }
+            val n = if (near) 14 else 10
+            val r = max(0.8f, 0.09f * p)
+            for (k in 0 until n) {
+                val a = Noise.rnd(k, seed + 23) * 6.28f; val rad = sqrt01(Noise.rnd(k, seed + 29)) * cr * 0.85f
+                val fx = bx + cos(a) * rad * 1.15f; val fy = cy + sin(a) * rad * 0.6f
+                c.fillCircle(fx, fy, r, hazy(col, d))
+                if (pear && r >= 1.5f) c.fillCircle(fx, fy - r * 0.9f, r * 0.6f, hazy(col, d))
+                if (r >= 1.5f) c.set((fx - r * 0.35f).toInt(), (fy - r * 0.35f).toInt(), hazy(hi, d))
+            }
+            // windfalls in the grass under it in September and October
+            if (m in 9..10 && p > 2f) for (k in 0 until 4) {
+                val fx = bx + (Noise.rnd(k, seed + 31) - 0.5f) * cr * 1.4f; val fy = by - Noise.rnd(k, seed + 37) * 0.3f * p
+                c.fillCircle(fx, fy, r * 0.9f, hazy(col, d))
+            }
+        }
+    }
+
+    /**
+     * The near tree of the orchard (Carinthia's `vine`): a young apple tree newly planted, tied to its stake against the wind,
+     * a small crown of leaves over its low branch (white-pink blossom in April and May, bare from November to March).
+     */
+    private fun youngApple() {
+        val z = z
+        val p = pm(vineD); val bx = gx(vineX, vineD); val by = gy(vineD)
+        val bark = Col.hex(0x5A4030); val barkL = Col.hex(0x7A5A40)
+        // the stake beside it, grey larch, and the tie
+        val stake = Col.hex(0x8E877C); val stakeD = Col.hex(0x625C54)
+        val sx = bx + 0.18f * p
+        c.fillRect(sx.toInt(), hy(vineD, 1.5f).toInt(), max(1, (0.06f * p).toInt()), (by - hy(vineD, 1.5f)).toInt() + 1, stake)
+        if (z > 1) c.vline(sx.toInt() + max(1, (0.06f * p).toInt()) - 1, hy(vineD, 1.5f).toInt(), by.toInt(), stakeD)
+        // the trunk up to the crown, the low branch out to the right, the tie round both
+        val top = hy(vineD, 1.15f)
+        val tw = max(2f, 0.07f * p)
+        c.fillRect((bx - tw / 2).toInt(), top.toInt(), max(1, tw.toInt()), (by - top).toInt() + 1, bark)
+        c.vline((bx - tw / 2).toInt(), top.toInt(), by.toInt(), barkL)
+        c.line(bx.toInt(), hy(vineD, 0.98f).toInt(), (bx + 0.45f * p).toInt(), hy(vineD, 1.0f).toInt(), bark)
+        c.hline((bx - tw / 2).toInt(), sx.toInt() + 1, hy(vineD, 0.7f).toInt(), Col.hex(0xC8B898))
+        val m = env.month
+        val leaves = when (m) { 12, 1, 2, 3 -> 0f; 4 -> 0.5f; 11 -> 0.3f; else -> 1f }
+        // bare twigs always show where the leaves are thin
+        for (a in floatArrayOf(-0.8f, -0.3f, 0.25f, 0.75f)) c.line(bx.toInt(), top.toInt(), (bx + sin(a) * 0.5f * p).toInt(), (top - cos(a) * 0.5f * p).toInt(), bark)
+        if (leaves <= 0f) return
+        val cy = hy(vineD, 1.55f); val cr = 0.55f * p
+        val sunLeft = (sunAt()?.first ?: vx) < bx
+        val lx = if (sunLeft) -1f else 1f
+        val (dk, md, lt) = when (m) {
+            10 -> Triple(Col.hex(0x7A6A22), Col.hex(0xA8962E), Col.hex(0xD0BC4A))
+            11 -> Triple(Col.hex(0x7A4E1E), Col.hex(0xA8702A), Col.hex(0xC89440))
+            4, 5 -> Triple(Col.hex(0x3E7A2E), Col.hex(0x62A240), Col.hex(0x9ACC62))
+            else -> Triple(Col.hex(0x2A5A26), Col.hex(0x3E7A32), Col.hex(0x62A048))
+        }
+        for (yy in max((cy - cr).toInt(), c.top)..min((cy + cr).toInt(), c.bottom - 1)) for (xx in max((bx - cr * 1.2f).toInt(), c.left)..min((bx + cr * 1.2f).toInt(), c.right - 1)) {
+            val dx = (xx + 0.5f - bx) / (cr * 1.2f); val dy = (yy + 0.5f - cy) / cr
+            val q = dx * dx + dy * dy
+            if (q > 1f || (q > 0.7f && Dither.at(xx, yy) < 0.45f)) continue
+            if (Noise.rnd(xx / max(1, z), yy / max(1, z), 751) > leaves + 0.05f) continue
+            val lit = -dx * lx * 0.5f - dy * 0.8f + (Noise.rnd(xx, yy, 752) - 0.5f) * 0.4f
+            val col = if (m in 4..5 && Noise.rnd(xx / max(1, z), yy / max(1, z), 753) < 0.35f) (if (Noise.rnd(xx, yy, 754) < 0.3f) Col.hex(0xF6C8D8) else Col.hex(0xFFF4F8))
+                else if (lit > 0.45f) lt else if (lit > -0.2f) md else dk
+            c.set(xx, yy, col)
+        }
+    }
+
+    /**
+     * The Schragenzaun across the right in front (Carinthia's `wall`): pairs of grey larch stakes driven in crosswise every
+     * 1.9 m, and between them the slanted poles laid in, all leaning the same way; snow along them in winter.
+     */
+    private fun schragenzaun(x0: Float, x1: Float, d: Float) {
+        val z = z
+        val p = pm(d); val by = gy(d)
+        val wood = Col.hex(0x8E877C); val woodL = Col.hex(0xB4ADA2); val woodD = Col.hex(0x625C54)
+        val hgt = 1.15f * p
+        val pw = max(1, (0.06f * p).toInt())
+        // the slanted poles, behind and between the stakes
+        var x = x0 - 0.4f
+        while (x < x1) {
+            val a = gx(x, d); val b = gx(x + 1.25f, d)
+            for (j in 0 until pw) c.line(a.toInt() + j, (by - 0.05f * p).toInt(), b.toInt() + j, (by - hgt * 0.92f).toInt(), if (j == 0) woodL else wood)
+            if (env.snow) c.line(a.toInt(), (by - 0.05f * p).toInt() - 1, b.toInt(), (by - hgt * 0.92f).toInt() - 1, Pal.SNOW_L)
+            x += 0.42f
+        }
+        // the stakes in pairs, crossed at the top, tied with withies
+        x = x0
+        while (x <= x1 + 0.01f) {
+            val px = gx(x, d)
+            c.line((px - 0.12f * p).toInt(), by.toInt(), (px + 0.1f * p).toInt(), (by - hgt).toInt(), woodD)
+            c.line((px + 0.12f * p).toInt(), by.toInt(), (px - 0.1f * p).toInt(), (by - hgt).toInt(), woodD)
+            if (z > 1) c.set(px.toInt(), (by - hgt * 0.8f).toInt(), Col.hex(0xA8946E))
+            x += 1.9f
+        }
+    }
+
+    /**
+     * Stefan's Most press by the track (Carinthia's orchard, scenery): a wooden tub of slats bound with iron hoops on its
+     * stand, the thick screw through the beam over it between two posts, the bar to turn it, the trough's spout and a
+     * bucket under it.
+     */
+    private fun mostPress(x: Float, d: Float) {
+        val z = z
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val wood = hazy(Col.hex(0x8A5A30), d); val woodL = hazy(Col.hex(0xB07C4A), d); val woodD = hazy(Col.hex(0x5E3A1E), d)
+        val iron = hazy(Col.hex(0x3E3A40), d)
+        // the stand and its trough
+        val sw = 0.75f * p; val st = by - 0.45f * p
+        c.fillRect((bx - sw).toInt(), st.toInt(), max(2, (2 * sw).toInt()), max(1, (0.1f * p).toInt()), woodD)
+        for (lx in floatArrayOf(-0.65f, 0.6f)) c.fillRect((bx + lx * p).toInt(), st.toInt(), max(1, (0.08f * p).toInt()), (by - st).toInt() + 1, woodD)
+        // the tub, slats lit on the left, two hoops
+        val tw = 0.42f * p; val tt = st - 0.6f * p
+        for (xx in (bx - tw).toInt()..(bx + tw).toInt()) {
+            val u = (xx + 0.5f - bx) / tw
+            val slat = Math.floorMod(((xx - bx) / max(1f, 0.1f * p)).toInt(), 2) == 0
+            c.vline(xx, tt.toInt(), st.toInt() - 1, if (u < -0.5f) woodL else if (slat) wood else Col.mix(wood, woodD, 0.4f))
+        }
+        for (hy0 in floatArrayOf(0.15f, 0.45f)) c.hline((bx - tw).toInt(), (bx + tw).toInt(), (st - hy0 * p).toInt(), iron)
+        // the two posts, the beam across, the screw down through it into the tub, the bar
+        val top = tt - 0.55f * p
+        val pw = max(1, (0.09f * p).toInt())
+        for (o in floatArrayOf(-0.6f, 0.55f)) c.fillRect((bx + o * p).toInt(), top.toInt(), pw, (st - top).toInt(), woodD)
+        c.fillRect((bx - 0.66f * p).toInt(), top.toInt(), max(2, (1.3f * p).toInt()), max(1, (0.12f * p).toInt()), wood)
+        c.fillRect((bx - max(1f, 0.05f * p)).toInt(), (top - 0.25f * p).toInt(), max(1, (0.1f * p).toInt()), (tt - top + 0.25f * p).toInt(), iron)
+        c.hline((bx - 0.4f * p).toInt(), (bx + 0.4f * p).toInt(), (top - 0.2f * p).toInt(), woodL)
+        // the spout and the bucket; in autumn the Most running golden
+        c.fillRect((bx + sw - 0.1f * p).toInt(), (st + 0.05f * p).toInt(), max(1, (0.18f * p).toInt()), max(1, (0.05f * p).toInt()), woodD)
+        c.fillRect((bx + sw + 0.02f * p).toInt(), (by - 0.3f * p).toInt(), max(2, (0.28f * p).toInt()), max(1, (0.3f * p).toInt()), wood)
+        if (env.month in 9..10 && z > 1) c.vline((bx + sw + 0.1f * p).toInt(), (st + 0.1f * p).toInt(), (by - 0.3f * p).toInt(), Col.hex(0xE0A82E))
+    }
+
+    /**
+     * The farmstead at the orchard's far end in Carinthia's look ([alpineFarm]): white below, its upper storey of dark timber
+     * with a geranium balcony under a steep roof of dark shingles, as the far villages' houses ([farAlpineHouse]).
+     */
+    private fun alpineFarmhouse() {
+        val d = houseD; val p = pm(d)
+        val by = gy(d); val bx = gx(houseX, d)
+        val fs = alpineFarm ?: return
+        val ww = (2 * 5.6f * p).toInt(); val hh = (5.2f * p).toInt()
+        farAlpineHouse((bx - ww / 2f).toInt(), by.toInt(), max(6, ww), max(4, hh), fs, 0, env.windows > 0.35f, haze(d))
+    }
 
     // ------------------------------------------------------------------ what a dialog brings
 

@@ -1,0 +1,259 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "im-obstgarten",
+  "language": "de",
+  "title": { "de": "Im Obstgarten", "sl": "V sadovnjaku", "en": "In the orchard", "it": "Nel frutteto" },
+  "emoji": "🍎",
+  "level": "A1",
+  "review": "lines, reactions, variants, whys: machine-written (Claude), not reviewed by a native speaker; to check: der Maschanzker, die Steige, die Kletzen, der Star / die Stare, mošancelj, krhlji",
+  "art": "hills",
+  "from": ["project:vinograd"],
+  "pack": "im-obstgarten",
+  "objects": [
+    { "slot": "vineyard", "word": "obstgarten" },
+    { "slot": "vine", "word": "apfelbaum" },
+    { "slot": "grapes", "word": "apfel", "pack": "essen" },
+    { "slot": "hill", "word": "huegel", "pack": "sagen" },
+    { "slot": "church", "word": "kirche", "pack": "im-dorf" },
+    { "slot": "belltower", "word": "kirchturm", "pack": "im-dorf" },
+    { "slot": "farmhouse", "word": "bauernhof" },
+    { "slot": "cypress", "word": "laerche", "pack": "am-see" },
+    { "slot": "persimmon", "word": "birnbaum" },
+    { "slot": "wall", "word": "zaun", "pack": "auf-dem-feld" },
+    { "slot": "mountains", "word": "berg", "pack": "am-see" },
+    { "slot": "sea", "word": "see", "pack": "am-see" },
+    { "slot": "road", "word": "strasse", "pack": "im-dorf" },
+    { "slot": "crate", "word": "steige", "pack": "auf-dem-markt" }
+  ],
+  "people": [
+    { "id": "stefan", "name": "Mostbauer Stefan", "emoji": "🍎", "art": "winemaker", "slot": "vines", "villager": "stefan" },
+    { "id": "sepp", "name": "Opa Sepp", "emoji": "👴", "art": "grandpa", "slot": "wall", "villager": "sepp" },
+    { "id": "maxi", "name": "Maxi", "emoji": "🧒", "art": "child1", "slot": "road", "villager": "maxi" },
+    { "id": "lena", "name": "Lena", "emoji": "👧", "art": "child2", "slot": "road", "villager": "lena" }
+  ],
+  "happenings": [
+    { "id": "baeume", "title": { "de": "Stefan zeigt seine Bäume", "sl": "Stefan pokaže svoja drevesa", "en": "Stefan shows his trees", "it": "Stefan mostra i suoi alberi" }, "who": "stefan", "when": ["morning"], "chance": 0.5, "dialog": "baeume", "dialogs": ["baeume-bluete", "baeume-schnitt", "baeume"], "reward": { "wisdom": 15 }, "marker": "🌳", "memory": { "de": "den Morgen im Obstgarten", "sl": "jutro v sadovnjaku", "en": "the morning in the orchard", "it": "la mattina nel frutteto" } },
+    { "id": "ernte", "title": { "de": "Die Apfelernte", "sl": "Obiranje jabolk", "en": "The apple harvest", "it": "La raccolta delle mele" }, "who": "stefan", "when": ["afternoon"], "months": [9, 10], "chance": 0.6, "dialog": "ernte", "dialogs": ["ernte-steigen", "ernte"], "reward": { "food": 25 }, "marker": "🍎", "memory": { "de": "die Apfelernte mit dir", "sl": "obiranje jabolk s tabo", "en": "the apple harvest with you", "it": "la raccolta delle mele con te" } },
+    { "id": "traktor", "title": { "de": "Der Traktor kommt", "sl": "Traktor prihaja", "en": "The tractor is coming", "it": "Arriva il trattore" }, "who": "maxi", "when": ["morning"], "chance": 0.5, "dialog": "traktor", "dialogs": ["traktor-mitfahren", "traktor"], "reward": { "wood": 15 }, "marker": "🚜", "memory": { "de": "den Traktor mit den Steigen", "sl": "traktor z zaboji", "en": "the tractor with the crates", "it": "il trattore con le cassette" } },
+    { "id": "stare", "title": { "de": "Die Stare im Obstgarten", "sl": "Škorci v sadovnjaku", "en": "The starlings in the orchard", "it": "Gli storni nel frutteto" }, "who": "lena", "when": ["afternoon"], "months": [8, 9, 10], "chance": 0.5, "dialog": "stare", "dialogs": ["stare-klatschen", "stare"], "reward": { "food": 15 }, "marker": "🐦", "memory": { "de": "die Stare, die wir verjagt haben", "sl": "škorce, ki sva jih pregnala", "en": "the starlings we chased away", "it": "gli storni che abbiamo scacciato" } },
+    { "id": "birnen", "title": { "de": "Opa Sepp beim alten Birnbaum", "sl": "Opa Sepp pri stari hruški", "en": "Opa Sepp by the old pear tree", "it": "Nonno Sepp vicino al vecchio pero" }, "who": "sepp", "when": ["afternoon"], "months": [9, 10, 11], "chance": 0.45, "dialog": "birnen", "dialogs": ["birnen-kletzen", "birnen"], "reward": { "wisdom": 20 }, "marker": "🍐", "memory": { "de": "den alten Birnbaum", "sl": "staro hruško", "en": "the old pear tree", "it": "il vecchio pero" } },
+    { "id": "presse", "title": { "de": "Stefan presst die Äpfel", "sl": "Stefan stiska jabolka", "en": "Stefan presses the apples", "it": "Stefan torchia le mele" }, "who": "stefan", "when": ["evening"], "months": [9, 10, 11], "chance": 0.5, "dialog": "presse", "dialogs": ["presse-drehen", "presse"], "reward": { "food": 20 }, "marker": "🧃", "memory": { "de": "den frischen Saft aus der Presse", "sl": "svež sok iz stiskalnice", "en": "the fresh juice from the press", "it": "il succo fresco del torchio" } }
+  ],
+  "dialogs": [
+    {
+      "id": "baeume",
+      "lines": [
+        { "who": "stefan", "face": "happy", "de": "Servus, {learner}! Das ist mein Obstgarten. Die Bäume sind alt, manche hundert Jahre.", "sl": "Servus, {learner}! To je moj sadovnjak. Drevesa so stara, nekatera sto let.", "en": "Servus, {learner}! This is my orchard. The trees are old, some of them a hundred years.", "it": "Servus, {learner}! Questo è il mio frutteto. Gli alberi sono vecchi, alcuni hanno cent'anni." },
+        { "choices": [
+          { "de": "Servus, Stefan! Sind das Apfelbäume?", "sl": "Servus, Stefan! So to jablane?", "en": "Servus, Stefan! Are those apple trees?", "it": "Servus, Stefan! Sono meli?", "ok": true, "reply": { "face": "proud", "de": "Die meisten. Und dort drüben steht ein Birnbaum.", "sl": "Večina. Tam čez pa stoji hruška.", "en": "Most of them. And over there stands a pear tree.", "it": "Quasi tutti. E laggiù c'è un pero." } },
+          { "de": "Servus, Stefan! Sind das Apfelbaum?", "sl": "Servus, Stefan! So to jablane?", "en": "Servus, Stefan! Are those apple trees?", "it": "Servus, Stefan! Sono meli?", "grammar": "plural", "why": { "de": "Es sind viele Bäume: der Apfelbaum, die Apfelbäume, mit Umlaut.", "sl": "Dreves je veliko: der Apfelbaum, die Apfelbäume, s preglasom.", "en": "There are many trees: der Apfelbaum, die Apfelbäume, with an umlaut.", "it": "Gli alberi sono tanti: der Apfelbaum, die Apfelbäume, con l'Umlaut." }, "reply": { "face": "curious", "de": "Apfelbaum? Nur einer? Schau, wie viele hier stehen!", "sl": "Jablana? Samo ena? Poglej, koliko jih stoji tu!", "en": "Apfelbaum? Just one? Look how many stand here!", "it": "Apfelbaum? Uno solo? Guarda quanti ce ne sono!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "de": "Das hier ist ein Maschanzker. Eine alte Sorte, süß und ein bisschen sauer.", "sl": "Tole je mošancelj. Stara sorta, sladka in malo kisla.", "en": "This one is a Maschanzker. An old variety, sweet and a bit sour.", "it": "Questo è un Maschanzker. Una varietà antica, dolce e un po' aspra." },
+        { "choices": [
+          { "de": "Ich probiere gern einen Apfel!", "sl": "{m:Rad bi poskusil|f:Rada bi poskusila} jabolko!", "en": "I'd love to try an apple!", "it": "Assaggerei volentieri una mela!", "ok": true, "reply": { "face": "laugh", "de": "Im Herbst! Dann sind sie rot und reif.", "sl": "Jeseni! Takrat so rdeča in zrela.", "en": "In autumn! Then they're red and ripe.", "it": "In autunno! Allora sono rosse e mature." } },
+          { "de": "Ich probiere gern ein Apfel!", "sl": "{m:Rad bi poskusil|f:Rada bi poskusila} jabolko!", "en": "I'd love to try an apple!", "it": "Assaggerei volentieri una mela!", "grammar": "akkusativ", "why": { "de": "Apfel ist männlich: im Akkusativ einen Apfel.", "sl": "Apfel je moškega spola: v tožilniku einen Apfel.", "en": "Apfel is masculine: in the accusative einen Apfel.", "it": "Apfel è maschile: all'accusativo einen Apfel." }, "reply": { "face": "curious", "de": "Ein …? Welchen denn? Es gibt so viele.", "sl": "Ein …? Katerega pa? Toliko jih je.", "en": "Ein …? Which one? There are so many.", "it": "Ein …? Quale? Ce ne sono così tante." } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "face": "proud", "de": "Aus den Äpfeln mache ich Most und Apfelsaft. Mit der alten Presse beim Haus.", "sl": "Iz jabolk naredim mošt in jabolčni sok. S staro stiskalnico pri hiši.", "en": "I make Most and apple juice from the apples. With the old press by the house.", "it": "Con le mele faccio il sidro e il succo. Con il vecchio torchio vicino alla casa." }
+      ]
+    },
+    {
+      "id": "ernte",
+      "lines": [
+        { "who": "stefan", "face": "happy", "de": "Die Äpfel sind reif! Hilfst du mir beim Pflücken?", "sl": "Jabolka so zrela! Mi pomagaš obirati?", "en": "The apples are ripe! Will you help me pick them?", "it": "Le mele sono mature! Mi aiuti a raccoglierle?" },
+        { "choices": [
+          { "de": "Gern! Ich lege die Äpfel in die Steige.", "sl": "Z veseljem! Jabolka dam v zaboj.", "en": "Gladly! I'll put the apples in the crate.", "it": "Volentieri! Metto le mele nella cassetta.", "ok": true, "reply": { "face": "proud", "de": "Genau so. Aber vorsichtig, nicht werfen!", "sl": "Točno tako. Ampak previdno, ne meči!", "en": "Just like that. But carefully, don't throw them!", "it": "Proprio così. Ma con attenzione, non lanciarle!" } },
+          { "de": "Gern! Ich lege die Äpfel in der Steige.", "sl": "Z veseljem! Jabolka dam v zaboj.", "en": "Gladly! I'll put the apples in the crate.", "it": "Volentieri! Metto le mele nella cassetta.", "grammar": "wechselpraepositionen", "why": { "de": "Wohin legst du sie? In mit dem Akkusativ: in die Steige.", "sl": "Kam jih daš? In s tožilnikom: in die Steige.", "en": "Where to? In with the accusative: in die Steige.", "it": "Dove le metti? In con l'accusativo: in die Steige." }, "reply": { "face": "curious", "de": "In der Steige liegen sie dann. Aber wohin legst du sie?", "sl": "V zaboju bodo potem. Ampak kam jih daš?", "en": "They'll be lying in the crate then. But where are you putting them?", "it": "Staranno nella cassetta, poi. Ma dove le metti?" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "de": "Die roten sind Maschanzker. Die gelben sind für den Most.", "sl": "Rdeča so mošancelj. Rumena so za mošt.", "en": "The red ones are Maschanzker. The yellow ones are for the Most.", "it": "Quelle rosse sono Maschanzker. Quelle gialle sono per il sidro." },
+        { "choices": [
+          { "de": "Die Steige ist schon voll!", "sl": "Zaboj je že poln!", "en": "The crate is full already!", "it": "La cassetta è già piena!", "ok": true, "reply": { "face": "happy", "de": "Dann holen wir eine neue. Es gibt viel Arbeit!", "sl": "Potem prinesemo novega. Dela je veliko!", "en": "Then we'll fetch a new one. There's lots of work!", "it": "Allora ne prendiamo una nuova. C'è tanto lavoro!" } },
+          { "de": "Die Steige ist schon leer!", "sl": "Zaboj je že prazen!", "en": "The crate is empty already!", "it": "La cassetta è già vuota!", "why": { "de": "Voll heißt: es geht nichts mehr hinein. Leer ist das Gegenteil.", "sl": "Voll pomeni: nič več ne gre noter. Leer je nasprotje.", "en": "Voll means nothing more fits in. Leer is the opposite.", "it": "Voll vuol dire che non ci sta più niente. Leer è il contrario." }, "reply": { "face": "laugh", "de": "Leer? Da liegen doch lauter Äpfel drin!", "sl": "Prazen? Saj so notri sama jabolka!", "en": "Empty? It's full of apples!", "it": "Vuota? Ma è piena di mele!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "face": "happy", "de": "Am Abend presse ich. Komm vorbei, dann bekommst du ein Glas Saft.", "sl": "Zvečer bom stiskal. Pridi mimo, pa dobiš kozarec soka.", "en": "In the evening I'll press. Come by, and you'll get a glass of juice.", "it": "Stasera torchio. Passa, e avrai un bicchiere di succo." }
+      ]
+    },
+    {
+      "id": "traktor",
+      "lines": [
+        { "who": "maxi", "face": "happy", "de": "{learner}! Hörst du das? Der Traktor kommt!", "sl": "{learner}! Slišiš? Traktor prihaja!", "en": "{learner}! Can you hear that? The tractor's coming!", "it": "{learner}! Lo senti? Arriva il trattore!", "fx": { "tractor": 0.3 } },
+        { "choices": [
+          { "de": "Ja, ich höre ihn!", "sl": "Ja, slišim ga!", "en": "Yes, I can hear it!", "it": "Sì, lo sento!", "ok": true, "reply": { "face": "happy", "de": "Er ist alt und rot, aber sehr stark!", "sl": "Star je in rdeč, ampak zelo močan!", "en": "It's old and red, but very strong!", "it": "È vecchio e rosso, ma fortissimo!" } },
+          { "de": "Ja, ich höre er!", "sl": "Ja, slišim ga!", "en": "Yes, I can hear it!", "it": "Sì, lo sento!", "grammar": "akkusativ", "why": { "de": "Hören braucht den Akkusativ: er wird zu ihn.", "sl": "Hören zahteva tožilnik: er postane ihn.", "en": "Hören takes the accusative: er becomes ihn.", "it": "Hören vuole l'accusativo: er diventa ihn." }, "reply": { "face": "curious", "de": "Er? Wer er? Ich meine den Traktor!", "sl": "Er? Kdo on? Mislim traktor!", "en": "Er? Who's he? I mean the tractor!", "it": "Er? Chi, lui? Parlo del trattore!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was hast du gesagt?", "sl": "A? Kaj si rekel?", "en": "Huh? What did you say?", "it": "Eh? Cos'hai detto?" } },
+        { "who": "maxi", "de": "Auf dem Anhänger sind sechs Steigen mit Äpfeln.", "sl": "Na prikolici je šest zabojev jabolk.", "en": "On the trailer there are six crates of apples.", "it": "Sul rimorchio ci sono sei cassette di mele.", "fx": { "tractor": 0.6 } },
+        { "choices": [
+          { "de": "Sechs Steigen! Das sind viele Äpfel.", "sl": "Šest zabojev! To je veliko jabolk.", "en": "Six crates! That's a lot of apples.", "it": "Sei cassette! Sono tante mele.", "ok": true, "reply": { "face": "proud", "de": "Und alle für den Most!", "sl": "In vsa za mošt!", "en": "And all for the Most!", "it": "E tutte per il sidro!" } },
+          { "de": "Sechs Steige! Das sind viele Äpfel.", "sl": "Šest zabojev! To je veliko jabolk.", "en": "Six crates! That's a lot of apples.", "it": "Sei cassette! Sono tante mele.", "grammar": "plural", "why": { "de": "Sechs ist mehr als eins: die Steige, die Steigen.", "sl": "Šest je več kot ena: die Steige, die Steigen.", "en": "Six is more than one: die Steige, die Steigen.", "it": "Sei è più di uno: die Steige, die Steigen." }, "reply": { "face": "confused", "de": "Steige? Nur eine? Zähl doch!", "sl": "Steige? Samo enega? Saj preštej!", "en": "Steige? Just one? Count them!", "it": "Steige? Una sola? Contale!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was hast du gesagt?", "sl": "A? Kaj si rekel?", "en": "Huh? What did you say?", "it": "Eh? Cos'hai detto?" } },
+        { "who": "maxi", "face": "laugh", "de": "Wenn ich groß bin, fahre ich auch Traktor!", "sl": "Ko bom velik, bom tudi jaz vozil traktor!", "en": "When I'm big, I'll drive a tractor too!", "it": "Da grande guiderò anch'io il trattore!", "fx": { "tractor": 1 } }
+      ]
+    },
+    {
+      "id": "stare",
+      "lines": [
+        { "who": "lena", "face": "worried", "de": "{learner}, hörst du? Die Vögel fressen unsere Birnen!", "sl": "{learner}, slišiš? Ptiči jedo naše hruške!", "en": "{learner}, do you hear that? The birds are eating our pears!", "it": "{learner}, senti? Gli uccelli mangiano le nostre pere!" },
+        { "choices": [
+          { "de": "Das sind Stare. Sie fressen gern Obst.", "sl": "To so škorci. Radi jedo sadje.", "en": "Those are starlings. They love eating fruit.", "it": "Sono storni. Mangiano volentieri la frutta.", "ok": true, "reply": { "face": "curious", "de": "Stare? So viele! Was machen wir?", "sl": "Škorci? Toliko jih je! Kaj naredimo?", "en": "Starlings? So many! What do we do?", "it": "Storni? Così tanti! Cosa facciamo?" } },
+          { "de": "Das sind Star. Sie fressen gern Obst.", "sl": "To so škorci. Radi jedo sadje.", "en": "Those are starlings. They love eating fruit.", "it": "Sono storni. Mangiano volentieri la frutta.", "grammar": "plural", "why": { "de": "Es sind viele Vögel: der Star, die Stare.", "sl": "Ptičev je veliko: der Star, die Stare.", "en": "There are many birds: der Star, die Stare.", "it": "Gli uccelli sono tanti: der Star, die Stare." }, "reply": { "face": "curious", "de": "Star? Einer? Da oben sind hundert!", "sl": "Star? Eden? Tam zgoraj jih je sto!", "en": "Star? One? There are a hundred up there!", "it": "Star? Uno? Lassù ce ne sono cento!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Das versteh ich nicht. Noch mal!", "sl": "A? Tega ne razumem. Še enkrat!", "en": "Huh? I don't get it. Again!", "it": "Eh? Non capisco. Ancora!" } },
+        { "who": "lena", "de": "Ich klatsche in die Hände. Klatsch, klatsch!", "sl": "Zaploskam. Plosk, plosk!", "en": "I clap my hands. Clap, clap!", "it": "Batto le mani. Clap, clap!", "fx": { "starlings": 1 } },
+        { "choices": [
+          { "de": "Schau, jetzt fliegen sie weg!", "sl": "Poglej, zdaj odletijo!", "en": "Look, now they're flying away!", "it": "Guarda, adesso volano via!", "ok": true, "reply": { "face": "happy", "de": "Juhu! Die Birnen sind gerettet!", "sl": "Juhu! Hruške so rešene!", "en": "Yay! The pears are saved!", "it": "Evviva! Le pere sono salve!" } },
+          { "de": "Schau, jetzt fliegt sie weg!", "sl": "Poglej, zdaj odletijo!", "en": "Look, now they're flying away!", "it": "Guarda, adesso volano via!", "grammar": "praesens", "why": { "de": "Die Stare sind viele: sie fliegen, mit -en.", "sl": "Škorcev je veliko: sie fliegen, z -en.", "en": "There are many starlings: sie fliegen, with -en.", "it": "Gli storni sono tanti: sie fliegen, con -en." }, "reply": { "face": "confused", "de": "Sie? Nur einer? Nein, alle zusammen!", "sl": "Sie? Samo eden? Ne, vsi skupaj!", "en": "Sie? Just one? No, all of them!", "it": "Sie? Solo uno? No, tutti insieme!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Das versteh ich nicht. Noch mal!", "sl": "A? Tega ne razumem. Še enkrat!", "en": "Huh? I don't get it. Again!", "it": "Eh? Non capisco. Ancora!" } },
+        { "who": "lena", "face": "proud", "de": "Ich bin die Vogelscheuche vom Obstgarten!", "sl": "Jaz sem strašilo sadovnjaka!", "en": "I'm the orchard's scarecrow!", "it": "Sono lo spaventapasseri del frutteto!" }
+      ]
+    },
+    {
+      "id": "birnen",
+      "lines": [
+        { "who": "sepp", "face": "happy", "de": "Servus, {learner}. Setz dich zu mir an den Zaun. Der Birnbaum dort ist so alt wie ich.", "sl": "Servus, {learner}. Prisedi k meni ob ograjo. Tista hruška je stara kot jaz.", "en": "Servus, {learner}. Sit with me by the fence. That pear tree is as old as me.", "it": "Servus, {learner}. Siediti con me vicino allo steccato. Quel pero è vecchio come me." },
+        { "choices": [
+          { "de": "Wie alt bist du, Opa Sepp?", "sl": "Koliko si star, opa Sepp?", "en": "How old are you, Opa Sepp?", "it": "Quanti anni hai, nonno Sepp?", "ok": true, "reply": { "face": "laugh", "de": "Einundachtzig! Und der Baum trägt noch jedes Jahr.", "sl": "Enainosemdeset! Drevo pa še vsako leto rodi.", "en": "Eighty-one! And the tree still bears fruit every year.", "it": "Ottantuno! E l'albero fa ancora frutti ogni anno." } },
+          { "de": "Wie alt hast du, Opa Sepp?", "sl": "Koliko si star, opa Sepp?", "en": "How old are you, Opa Sepp?", "it": "Quanti anni hai, nonno Sepp?", "grammar": "sein-haben", "why": { "de": "Das Alter sagt man mit sein: Wie alt bist du? Ich bin achtzig.", "sl": "Starost poveš s sein: Wie alt bist du? Ich bin achtzig.", "en": "Age goes with sein: Wie alt bist du? Ich bin achtzig.", "it": "L'età si dice con sein: Wie alt bist du? Ich bin achtzig." }, "reply": { "face": "curious", "de": "Wie alt ich hab? … So fragt man bei uns nicht.", "sl": "Koliko star imam? … Tako se pri nas ne vpraša.", "en": "How old I have? … That's not how we ask here.", "it": "Quanti anni ho … avuto? … Da noi non si chiede così." } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, ganz langsam.", "sl": "Prosim? Še enkrat, čisto počasi.", "en": "Sorry? Once more, nice and slowly.", "it": "Come? Ancora una volta, pianino." } },
+        { "who": "sepp", "de": "Hörst du? Die Glocke vom Kirchturm. Es ist drei Uhr.", "sl": "Slišiš? Zvon z zvonika. Ura je tri.", "en": "Do you hear that? The bell from the church tower. It's three o'clock.", "it": "Senti? La campana del campanile. Sono le tre.", "fx": { "bell": 1 } },
+        { "choices": [
+          { "de": "Ja, ich höre die Glocke.", "sl": "Ja, slišim zvon.", "en": "Yes, I can hear the bell.", "it": "Sì, sento la campana.", "ok": true, "reply": { "face": "happy", "de": "Die läutet schon seit zweihundert Jahren.", "sl": "Ta zvoni že dvesto let.", "en": "It's been ringing for two hundred years.", "it": "Suona da duecento anni." } },
+          { "de": "Ja, ich höre der Glocke.", "sl": "Ja, slišim zvon.", "en": "Yes, I can hear the bell.", "it": "Sì, sento la campana.", "grammar": "akkusativ", "why": { "de": "Hören braucht den Akkusativ. Bei einem weiblichen Wort bleibt es gleich: die Glocke.", "sl": "Hören zahteva tožilnik. Pri ženskem spolu ostane enako: die Glocke.", "en": "Hören takes the accusative. A feminine word stays the same: die Glocke.", "it": "Hören vuole l'accusativo. Una parola femminile resta uguale: die Glocke." }, "reply": { "face": "curious", "de": "Der Glocke? Was ist mit ihr?", "sl": "Der Glocke? Kaj je z njim?", "en": "Der Glocke? What about it?", "it": "Der Glocke? Che cos'ha?" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, ganz langsam.", "sl": "Prosim? Še enkrat, čisto počasi.", "en": "Sorry? Once more, nice and slowly.", "it": "Come? Ancora una volta, pianino." } },
+        { "who": "sepp", "face": "proud", "de": "Aus den Birnen macht man Kletzen. Für das Kletzenbrot zu Weihnachten.", "sl": "Iz hrušk se naredijo krhlji. Za kruh s krhlji za božič.", "en": "From the pears people make Kletzen. For the Kletzenbrot at Christmas.", "it": "Con le pere si fanno le Kletzen. Per il Kletzenbrot di Natale." }
+      ]
+    },
+    {
+      "id": "presse-drehen",
+      "lines": [
+        { "who": "stefan", "face": "happy", "de": "Servus, {learner}! Hilfst du mir? Die Presse ist schwer zu drehen.", "sl": "Živijo, {learner}! Mi pomagaš? Stiskalnico je težko vrteti.", "en": "Hi, {learner}! Will you help me? The press is hard to turn.", "it": "Ciao, {learner}! Mi aiuti? Il torchio è duro da girare." },
+        { "choices": [
+            { "de": "Ja, ich helfe dir gern!", "sl": "Ja, {m:rad|f:rada} ti pomagam!", "en": "Yes, I'm glad to help you!", "it": "Sì, ti aiuto volentieri!", "ok": true, "reply": { "face": "happy", "de": "Danke! Zu zweit geht es leichter.", "sl": "Hvala! V dvoje gre lažje.", "en": "Thanks! It's easier with two.", "it": "Grazie! In due è più facile." } },
+            { "de": "Ja, ich helfe dich gern!", "sl": "Ja, {m:rad|f:rada} ti pomagam!", "en": "Yes, I'm glad to help you!", "it": "Sì, ti aiuto volentieri!", "grammar": "dativ", "why": { "de": "helfen nimmt den Dativ: ich helfe dir.", "sl": "helfen zahteva dajalnik: ich helfe dir.", "en": "helfen takes the dative: ich helfe dir.", "it": "helfen vuole il dativo: ich helfe dir." }, "reply": { "face": "curious", "de": "Dich? Hm. Sag es noch einmal.", "sl": "Dich? Hm. Povej še enkrat.", "en": "Dich? Hm. Say it again.", "it": "Dich? Mah. Ripetilo." } }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." }
+        },
+        { "who": "stefan", "de": "Schön langsam … Und jetzt? Was kommt da heraus?", "sl": "Lepo počasi … In zdaj? Kaj pride ven?", "en": "Nice and slowly … And now? What's coming out?", "it": "Piano piano … E adesso? Cosa esce?" },
+        { "choices": [
+            { "de": "Der Saft kommt heraus!", "sl": "Sok pride ven!", "en": "The juice is coming out!", "it": "Esce il succo!", "ok": true, "reply": { "face": "happy", "de": "Genau! Golden wie die Sonne.", "sl": "Tako je! Zlat kot sonce.", "en": "That's right! Golden as the sun.", "it": "Esatto! Dorato come il sole." } },
+            { "de": "Die Milch kommt heraus!", "sl": "Mleko pride ven!", "en": "The milk is coming out!", "it": "Esce il latte!", "why": { "de": "Aus Äpfeln kommt Saft, nicht Milch.", "sl": "Iz jabolk pride sok, ne mleko.", "en": "Apples give juice, not milk.", "it": "Dalle mele viene il succo, non il latte." }, "reply": { "face": "laugh", "de": "Ha ha! Meine Äpfel sind doch keine Kühe!", "sl": "Ha ha! Moja jabolka pa niso krave!", "en": "Ha ha! My apples aren't cows!", "it": "Ah ah! Le mie mele mica sono mucche!" } }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." }
+        },
+        { "who": "stefan", "face": "happy", "de": "Danke, {learner}! Das erste Glas ist für dich.", "sl": "Hvala, {learner}! Prvi kozarec je zate.", "en": "Thank you, {learner}! The first glass is for you.", "it": "Grazie, {learner}! Il primo bicchiere è per te." }
+      ]
+    },
+    {
+      "id": "presse",
+      "lines": [
+        { "who": "stefan", "face": "happy", "de": "Guten Abend, {learner}! Heute presse ich die Äpfel, bei der alten Presse beim Haus.", "sl": "Dober večer, {learner}! Danes stiskam jabolka, pri stari stiskalnici pri hiši.", "en": "Good evening, {learner}! Today I'm pressing the apples, at the old press by the house.", "it": "Buonasera, {learner}! Oggi torchio le mele, al vecchio torchio vicino alla casa." },
+        { "choices": [
+          { "de": "Guten Abend, Stefan! Wird das Most?", "sl": "Dober večer, Stefan! Bo to mošt?", "en": "Good evening, Stefan! Is that going to be Most?", "it": "Buonasera, Stefan! Diventa sidro?", "ok": true, "reply": { "face": "laugh", "de": "Most und Saft! Für die Großen und für die Kinder.", "sl": "Mošt in sok! Za odrasle in za otroke.", "en": "Most and juice! For the grown-ups and for the children.", "it": "Sidro e succo! Per i grandi e per i bambini." } },
+          { "de": "Guten Morgen, Stefan! Wird das Most?", "sl": "Dobro jutro, Stefan! Bo to mošt?", "en": "Good morning, Stefan! Is that going to be Most?", "it": "Buongiorno, Stefan! Diventa sidro?", "why": { "de": "Es ist Abend: Guten Abend.", "sl": "Večer je: Guten Abend.", "en": "It's evening: Guten Abend.", "it": "È sera: Guten Abend." }, "reply": { "face": "confused", "de": "Morgen? Die Sonne ist doch schon weg!", "sl": "Jutro? Saj je sonce že zašlo!", "en": "Morning? The sun's already gone!", "it": "Mattina? Ma il sole è già tramontato!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "de": "Der Most braucht noch ein paar Wochen. Aber der Saft ist schon fertig. Was möchtest du?", "sl": "Mošt potrebuje še nekaj tednov. Sok pa je že gotov. Kaj želiš?", "en": "The Most needs a few more weeks. But the juice is ready already. What would you like?", "it": "Il sidro ha bisogno ancora di qualche settimana. Ma il succo è già pronto. Cosa vuoi?" },
+        { "choices": [
+          { "de": "Einen Saft, bitte!", "sl": "Sok, prosim!", "en": "A juice, please!", "it": "Un succo, per favore!", "ok": true, "reply": { "face": "happy", "de": "Bitte schön! Frisch gepresst.", "sl": "Izvoli! Sveže stisnjen.", "en": "Here you are! Freshly pressed.", "it": "Ecco! Spremuto adesso." } },
+          { "de": "Ein Glas Wasser, bitte!", "sl": "Kozarec vode, prosim!", "en": "A glass of water, please!", "it": "Un bicchiere d'acqua, per favore!", "ok": true, "reply": { "face": "laugh", "de": "Wasser? Bei mir? Na gut, aus dem Brunnen.", "sl": "Vodo? Pri meni? No dobro, iz vodnjaka.", "en": "Water? At my place? All right, from the well.", "it": "Acqua? Da me? Va be', dalla fontana." } },
+          { "de": "Ein Saft, bitte!", "sl": "Sok, prosim!", "en": "A juice, please!", "it": "Un succo, per favore!", "grammar": "akkusativ", "why": { "de": "Saft ist männlich, und du willst ihn: im Akkusativ einen Saft.", "sl": "Saft je moškega spola, in ga želiš: v tožilniku einen Saft.", "en": "Saft is masculine, and you want it: in the accusative einen Saft.", "it": "Saft è maschile, e lo vuoi: all'accusativo einen Saft." }, "reply": { "face": "curious", "de": "Ein …? Was willst du? Sag es noch einmal.", "sl": "Ein …? Kaj želiš? Povej še enkrat.", "en": "Ein …? What do you want? Say it again.", "it": "Ein …? Cosa vuoi? Ripetilo." } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "face": "happy", "de": "Prost! Auf die Äpfel und auf den Herbst!", "sl": "Na zdravje! Na jabolka in na jesen!", "en": "Cheers! To the apples and to the autumn!", "it": "Salute! Alle mele e all'autunno!" }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "baeume-bluete", "months": [4, 5],
+      "lines": [
+        { "who": "stefan", "face": "happy", "de": "Schau, der Obstgarten blüht! Weiß und rosa, wie Schnee im Frühling.", "sl": "Poglej, sadovnjak cveti! Belo in rožnato, kot sneg spomladi.", "en": "Look, the orchard is in blossom! White and pink, like snow in spring.", "it": "Guarda, il frutteto è in fiore! Bianco e rosa, come neve in primavera." },
+        { "choices": [
+          { "de": "Die Blüten sind wunderschön!", "sl": "Cvetovi so čudoviti!", "en": "The blossoms are beautiful!", "it": "I fiori sono bellissimi!", "ok": true, "reply": { "face": "proud", "de": "Und die Bienen sind schon da. Ohne Bienen keine Äpfel!", "sl": "In čebele so že tu. Brez čebel ni jabolk!", "en": "And the bees are here already. No bees, no apples!", "it": "E le api sono già qui. Senza api niente mele!" } },
+          { "de": "Die Blüte sind wunderschön!", "sl": "Cvetovi so čudoviti!", "en": "The blossoms are beautiful!", "it": "I fiori sono bellissimi!", "grammar": "plural", "why": { "de": "Es sind viele: die Blüte, die Blüten.", "sl": "Veliko jih je: die Blüte, die Blüten.", "en": "There are many: die Blüte, die Blüten.", "it": "Sono tanti: die Blüte, die Blüten." }, "reply": { "face": "curious", "de": "Die Blüte? Eine nur? Es gibt tausend!", "sl": "Cvet? Samo eden? Tisoč jih je!", "en": "Die Blüte? Only one? There are a thousand!", "it": "Die Blüte? Uno solo? Ce ne sono mille!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "face": "worried", "de": "Hoffentlich kommt heute Nacht kein Frost. Frost ist schlecht für die Blüten.", "sl": "Upam, da nocoj ne bo pozebe. Mraz škodi cvetovom.", "en": "Let's hope there's no frost tonight. Frost is bad for the blossoms.", "it": "Speriamo che stanotte non geli. Il gelo fa male ai fiori." },
+        { "choices": [
+          { "de": "Heute Nacht kommt kein Frost. Es ist warm.", "sl": "Nocoj ne bo pozebe. Toplo je.", "en": "There'll be no frost tonight. It's warm.", "it": "Stanotte non gela. Fa caldo.", "ok": true, "reply": { "face": "happy", "de": "Hoffentlich! Du klingst wie der Wetterbericht.", "sl": "Upajmo! Zveniš kot vremenska napoved.", "en": "Let's hope so! You sound like the weather forecast.", "it": "Speriamo! Sembri le previsioni del tempo." } },
+          { "de": "Heute Nacht kommt nicht Frost. Es ist warm.", "sl": "Nocoj ne bo pozebe. Toplo je.", "en": "There'll be no frost tonight. It's warm.", "it": "Stanotte non gela. Fa caldo.", "grammar": "kein-nicht", "why": { "de": "Vor einem Nomen ohne Artikel verneint man mit kein: kein Frost.", "sl": "Samostalnik brez člena zanikaš s kein: kein Frost.", "en": "A noun without an article is negated with kein: kein Frost.", "it": "Un nome senza articolo si nega con kein: kein Frost." }, "reply": { "face": "laugh", "de": "Nicht Frost? Hihi … das sagt man anders.", "sl": "Nicht Frost? Hihi … to se reče drugače.", "en": "Nicht Frost? Hee hee … you say that differently.", "it": "Nicht Frost? Ih ih … si dice in un altro modo." } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "face": "happy", "de": "Im Mai gibt es dann kleine grüne Äpfel. Und im September rote!", "sl": "Maja bodo potem majhna zelena jabolka. Septembra pa rdeča!", "en": "In May there'll be little green apples. And in September red ones!", "it": "A maggio ci saranno delle piccole mele verdi. E a settembre rosse!" }
+      ]
+    },
+    {
+      "id": "baeume-schnitt", "months": [12, 1, 2, 3],
+      "lines": [
+        { "who": "stefan", "de": "Im Winter schneide ich die Bäume. Die alten Äste müssen weg.", "sl": "Pozimi obrezujem drevesa. Stare veje morajo proč.", "en": "In winter I prune the trees. The old branches have to go.", "it": "D'inverno poto gli alberi. I rami vecchi devono andare via." },
+        { "choices": [
+          { "de": "Brauchst du eine Säge?", "sl": "Potrebuješ žago?", "en": "Do you need a saw?", "it": "Ti serve una sega?", "ok": true, "reply": { "face": "happy", "de": "Ja, danke! Und jemand für die Leiter.", "sl": "Ja, hvala! In nekoga za lestev.", "en": "Yes, thanks! And someone for the ladder.", "it": "Sì, grazie! E qualcuno per la scala." } },
+          { "de": "Brauchst du einen Säge?", "sl": "Potrebuješ žago?", "en": "Do you need a saw?", "it": "Ti serve una sega?", "grammar": "artikel-genus", "why": { "de": "Säge ist weiblich, die Säge: im Akkusativ eine Säge.", "sl": "Säge je ženskega spola, die Säge: v tožilniku eine Säge.", "en": "Säge is feminine, die Säge: in the accusative eine Säge.", "it": "Säge è femminile, die Säge: all'accusativo eine Säge." }, "reply": { "face": "curious", "de": "Einen? Hm. Bei uns ist die Säge weiblich!", "sl": "Einen? Hm. Pri nas je žaga ženskega spola!", "en": "Einen? Hm. With us the saw is feminine!", "it": "Einen? Mh. Da noi la sega è femminile!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "de": "Hier, halt die Leiter fest. Ich steige hinauf.", "sl": "Tukaj, drži lestev. Splezam gor.", "en": "Here, hold the ladder steady. I'm climbing up.", "it": "Ecco, tieni ferma la scala. Salgo io." },
+        { "choices": [
+          { "de": "Ich halte die Leiter fest!", "sl": "Držim lestev!", "en": "I'm holding the ladder steady!", "it": "Tengo ferma la scala!", "ok": true, "reply": { "face": "proud", "de": "Gut! Dann falle ich nicht hinunter.", "sl": "Dobro! Potem ne padem dol.", "en": "Good! Then I won't fall down.", "it": "Bene! Così non cado giù." } },
+          { "de": "Ich festhalte die Leiter!", "sl": "Držim lestev!", "en": "I'm holding the ladder steady!", "it": "Tengo ferma la scala!", "grammar": "trennbare-verben", "why": { "de": "Festhalten ist trennbar: fest kommt ans Ende.", "sl": "Festhalten je ločljiv glagol: fest gre na konec.", "en": "Festhalten is separable: fest goes to the end.", "it": "Festhalten è separabile: fest va alla fine." }, "reply": { "face": "laugh", "de": "Festhalte? Hauptsache, du hältst sie, ha!", "sl": "Festhalte? Glavno, da jo držiš, ha!", "en": "Festhalte? As long as you're holding it, ha!", "it": "Festhalte? L'importante è che la tieni, ah!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "face": "happy", "de": "So. Jetzt hat der Baum Luft. Im Frühling blüht er schöner.", "sl": "Tako. Zdaj ima drevo zrak. Spomladi bo lepše cvetelo.", "en": "There. Now the tree has room to breathe. In spring it will blossom better.", "it": "Ecco. Adesso l'albero respira. In primavera fiorirà più bello." }
+      ]
+    },
+    {
+      "id": "ernte-steigen", "count": { "from": "dice", "min": 3, "max": 12, "gender": "f" }, "months": [9, 10], "memory": { "de": "die vollen Steigen im Obstgarten", "sl": "polne zaboje v sadovnjaku", "en": "the full crates in the orchard", "it": "le cassette piene nel frutteto" },
+      "lines": [
+        { "who": "stefan", "face": "curious", "de": "Uff, viel Arbeit! Wie viele Steigen haben wir heute gefüllt?", "sl": "Uf, veliko dela! Koliko zabojev smo danes napolnili?", "en": "Phew, lots of work! How many crates have we filled today?", "it": "Uff, quanto lavoro! Quante cassette abbiamo riempito oggi?" },
+        { "choices": [
+          { "de": "Wir haben {n} {Steige|Steigen} gefüllt!", "sl": "Napolnili smo {n} {zaboj|zaboja|zaboje|zabojev}!", "en": "We've filled {n} {crate|crates}!", "it": "Abbiamo riempito {n} {cassetta|cassette}!", "ok": true, "reply": { "face": "proud", "de": "Richtig! So viele Äpfel, das gibt viel Most.", "sl": "Tako je! Toliko jabolk, to bo veliko mošta.", "en": "Right! So many apples, that'll make lots of Most.", "it": "Giusto! Tante mele, verrà tanto sidro." } },
+          { "de": "Wir haben {n} {!Steige|Steigen} gefüllt!", "sl": "Napolnili smo {n} {!zaboj|zaboja|zaboje|zabojev}!", "en": "We've filled {n} {!crate|crates}!", "it": "Abbiamo riempito {n} {!cassetta|cassette}!", "wrong_form": 1, "grammar": "plural", "why": { "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Steige|Steigen}.", "sl": "{Ena je v ednini|Od dveh naprej je množina}: {n} {Steige|Steigen}.", "en": "{One takes the singular|From two on, the plural}: {n} {Steige|Steigen}.", "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Steige|Steigen}." }, "reply": { "face": "confused", "de": "Hm? Zähl noch einmal, langsam.", "sl": "Hm? Preštej še enkrat, počasi.", "en": "Hm? Count again, slowly.", "it": "Mh? Conta ancora, piano." } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "de": "Morgen bringen wir sie mit dem Traktor zum Haus.", "sl": "Jutri jih s traktorjem pripeljemo k hiši.", "en": "Tomorrow we take them to the house by tractor.", "it": "Domani le portiamo a casa col trattore." },
+        { "choices": [
+          { "de": "Wer fährt den Traktor?", "sl": "Kdo vozi traktor?", "en": "Who's driving the tractor?", "it": "Chi guida il trattore?", "ok": true, "reply": { "face": "laugh", "de": "Ich! Aber die Kinder fahren gern mit.", "sl": "Jaz! Ampak otroci se radi peljejo zraven.", "en": "Me! But the children love to ride along.", "it": "Io! Ma ai bambini piace venire." } },
+          { "de": "Wer fährt der Traktor?", "sl": "Kdo vozi traktor?", "en": "Who's driving the tractor?", "it": "Chi guida il trattore?", "grammar": "akkusativ", "why": { "de": "Fahren braucht hier den Akkusativ: der Traktor wird zu den Traktor.", "sl": "Fahren tu zahteva tožilnik: der Traktor postane den Traktor.", "en": "Fahren takes the accusative here: der Traktor becomes den Traktor.", "it": "Qui fahren vuole l'accusativo: der Traktor diventa den Traktor." }, "reply": { "face": "confused", "de": "Der Traktor fährt nicht allein, ha!", "sl": "Traktor ne vozi sam, ha!", "en": "The tractor doesn't drive itself, ha!", "it": "Il trattore non va da solo, ah!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Sag das noch einmal.", "sl": "A? Povej še enkrat.", "en": "Huh? Say that again.", "it": "Eh? Ripetilo." } },
+        { "who": "stefan", "face": "happy", "de": "Ein guter Tag. Danke für deine Hilfe, {learner}!", "sl": "Dober dan je bil. Hvala za pomoč, {learner}!", "en": "A good day. Thanks for your help, {learner}!", "it": "Una bella giornata. Grazie dell'aiuto, {learner}!" }
+      ]
+    },
+    {
+      "id": "traktor-mitfahren",
+      "lines": [
+        { "who": "maxi", "face": "curious", "de": "Der Traktor bleibt stehen. Ich will mitfahren! Was meinst du?", "sl": "Traktor se ustavi. Rad bi se peljal zraven! Kaj misliš?", "en": "The tractor's stopping. I want to ride along! What do you think?", "it": "Il trattore si ferma. Voglio salire! Che ne dici?", "fx": { "tractor": 0.5 } },
+        { "choices": [
+          { "de": "Zuerst fragen wir den Fahrer.", "sl": "Najprej vprašamo voznika.", "en": "First we ask the driver.", "it": "Prima chiediamo all'autista.", "ok": true, "reply": { "face": "happy", "de": "Gute Idee! Der sagt sicher ja.", "sl": "Dobra ideja! Gotovo reče ja.", "en": "Good idea! He'll say yes for sure.", "it": "Buona idea! Dirà di sì di sicuro." } },
+          { "de": "Zuerst fragen wir der Fahrer.", "sl": "Najprej vprašamo voznika.", "en": "First we ask the driver.", "it": "Prima chiediamo all'autista.", "grammar": "akkusativ", "why": { "de": "Fragen braucht den Akkusativ: der Fahrer wird zu den Fahrer.", "sl": "Fragen zahteva tožilnik: der Fahrer postane den Fahrer.", "en": "Fragen takes the accusative: der Fahrer becomes den Fahrer.", "it": "Fragen vuole l'accusativo: der Fahrer diventa den Fahrer." }, "reply": { "face": "curious", "de": "Der Fahrer? Ja, der sitzt da oben.", "sl": "Voznik? Ja, tam zgoraj sedi.", "en": "The driver? Yes, he's sitting up there.", "it": "L'autista? Sì, è seduto lassù." } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was hast du gesagt?", "sl": "A? Kaj si rekel?", "en": "Huh? What did you say?", "it": "Eh? Cos'hai detto?" } },
+        { "who": "maxi", "face": "happy", "de": "Er sagt ja! Juhu, ich sitze hinten bei den Steigen!", "sl": "Reče ja! Juhu, sedim zadaj pri zabojih!", "en": "He says yes! Yay, I'm sitting at the back with the crates!", "it": "Dice di sì! Evviva, mi siedo dietro con le cassette!", "fx": { "tractor": 0.8 } },
+        { "choices": [
+          { "de": "Halt dich gut fest, Maxi!", "sl": "Dobro se drži, Maxi!", "en": "Hold on tight, Maxi!", "it": "Tieniti forte, Maxi!", "ok": true, "reply": { "face": "laugh", "de": "Mach ich! Tschüss!", "sl": "Bom! Adijo!", "en": "Will do! Bye!", "it": "Lo faccio! Ciao!" } },
+          { "de": "Festhalt dich gut, Maxi!", "sl": "Dobro se drži, Maxi!", "en": "Hold on tight, Maxi!", "it": "Tieniti forte, Maxi!", "grammar": "trennbare-verben", "why": { "de": "Festhalten ist trennbar: Halt dich gut fest!", "sl": "Festhalten je ločljiv glagol: Halt dich gut fest!", "en": "Festhalten is separable: Halt dich gut fest!", "it": "Festhalten è separabile: Halt dich gut fest!" }, "reply": { "face": "laugh", "de": "Festhalt? Du redest komisch, ha!", "sl": "Festhalt? Čudno govoriš, ha!", "en": "Festhalt? You talk funny, ha!", "it": "Festhalt? Parli strano, ah!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Was hast du gesagt?", "sl": "A? Kaj si rekel?", "en": "Huh? What did you say?", "it": "Eh? Cos'hai detto?" } },
+        { "who": "maxi", "face": "happy", "de": "Tschüss, {learner}! Bis später!", "sl": "Adijo, {learner}! Se vidimo!", "en": "Bye, {learner}! See you later!", "it": "Ciao, {learner}! A dopo!", "fx": { "tractor": 1 } }
+      ]
+    },
+    {
+      "id": "stare-klatschen", "months": [8, 9, 10],
+      "lines": [
+        { "who": "lena", "face": "worried", "de": "Die Stare sind wieder da! Was machen wir?", "sl": "Škorci so spet tu! Kaj naredimo?", "en": "The starlings are back! What do we do?", "it": "Gli storni sono tornati! Cosa facciamo?" },
+        { "choices": [
+          { "de": "Wir klatschen alle zusammen!", "sl": "Vsi skupaj zaploskamo!", "en": "We all clap together!", "it": "Battiamo le mani tutti insieme!", "ok": true, "reply": { "face": "happy", "de": "Ja! Eins, zwei, drei!", "sl": "Ja! Ena, dve, tri!", "en": "Yes! One, two, three!", "it": "Sì! Uno, due, tre!" } },
+          { "de": "Wir klatscht alle zusammen!", "sl": "Vsi skupaj zaploskamo!", "en": "We all clap together!", "it": "Battiamo le mani tutti insieme!", "grammar": "praesens", "why": { "de": "Mit wir endet das Verb auf -en: wir klatschen.", "sl": "Pri wir se glagol konča na -en: wir klatschen.", "en": "With wir the verb ends in -en: wir klatschen.", "it": "Con wir il verbo finisce in -en: wir klatschen." }, "reply": { "face": "curious", "de": "Klatscht? Wer, ihr? Ich bin doch hier!", "sl": "Klatscht? Kdo, vi? Saj sem tu!", "en": "Klatscht? Who, you lot? I'm right here!", "it": "Klatscht? Chi, voi? Ma io sono qui!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Das versteh ich nicht. Noch mal!", "sl": "A? Tega ne razumem. Še enkrat!", "en": "Huh? I don't get it. Again!", "it": "Eh? Non capisco. Ancora!" } },
+        { "who": "lena", "de": "Eins, zwei, drei … klatsch!", "sl": "Ena, dve, tri … plosk!", "en": "One, two, three … clap!", "it": "Uno, due, tre … clap!", "fx": { "starlings": 1 } },
+        { "choices": [
+          { "de": "Super! Alle Vögel sind weg.", "sl": "Super! Vsi ptiči so odleteli.", "en": "Great! All the birds are gone.", "it": "Fantastico! Tutti gli uccelli sono andati via.", "ok": true, "reply": { "face": "proud", "de": "Und sie kommen erst morgen wieder. Hoffentlich!", "sl": "In vrnejo se šele jutri. Upam!", "en": "And they won't be back till tomorrow. I hope!", "it": "E tornano solo domani. Speriamo!" } },
+          { "de": "Super! Alle Vögel ist weg.", "sl": "Super! Vsi ptiči so odleteli.", "en": "Great! All the birds are gone.", "it": "Fantastico! Tutti gli uccelli sono andati via.", "grammar": "plural", "why": { "de": "Alle Vögel: das ist Plural, mit -en am Verb.", "sl": "Alle Vögel: to je množina, glagol se konča na -en.", "en": "Alle Vögel is plural: the verb ends in -en.", "it": "Alle Vögel è plurale: il verbo finisce in -en." }, "reply": { "face": "curious", "de": "Ist? Alle zusammen, das ist doch Plural!", "sl": "Ist? Vsi skupaj, to je vendar množina!", "en": "Ist? All of them together, that's plural!", "it": "Ist? Tutti insieme, è plurale!" } }
+        ], "puzzled": { "face": "confused", "de": "Hä? Das versteh ich nicht. Noch mal!", "sl": "A? Tega ne razumem. Še enkrat!", "en": "Huh? I don't get it. Again!", "it": "Eh? Non capisco. Ancora!" } },
+        { "who": "lena", "face": "happy", "de": "Der Stefan sagt, ich bekomme dafür einen Apfel.", "sl": "Stefan pravi, da za to dobim jabolko.", "en": "Stefan says I'll get an apple for it.", "it": "Stefan dice che per questo mi dà una mela." }
+      ]
+    },
+    {
+      "id": "birnen-kletzen", "months": [9, 10, 11],
+      "lines": [
+        { "who": "sepp", "face": "thinking", "de": "Weißt du, was Kletzen sind? Getrocknete Birnen.", "sl": "Veš, kaj so Kletzen? Posušene hruške, krhlji.", "en": "Do you know what Kletzen are? Dried pears.", "it": "Sai cosa sono le Kletzen? Pere secche." },
+        { "choices": [
+          { "de": "Nein, das weiß ich nicht. Wie macht man sie?", "sl": "Ne, tega ne vem. Kako se naredijo?", "en": "No, I don't know. How do you make them?", "it": "No, non lo so. Come si fanno?", "ok": true, "reply": { "face": "proud", "de": "Man schneidet die Birnen und trocknet sie am Dachboden.", "sl": "Hruške se narežejo in posušijo na podstrešju.", "en": "You cut the pears and dry them in the attic.", "it": "Si tagliano le pere e si seccano in soffitta." } },
+          { "de": "Nein, das weiß ich kein. Wie macht man sie?", "sl": "Ne, tega ne vem. Kako se naredijo?", "en": "No, I don't know. How do you make them?", "it": "No, non lo so. Come si fanno?", "grammar": "kein-nicht", "why": { "de": "Ein Verb verneint man mit nicht: Das weiß ich nicht.", "sl": "Glagol zanikaš z nicht: Das weiß ich nicht.", "en": "A verb is negated with nicht: Das weiß ich nicht.", "it": "Un verbo si nega con nicht: Das weiß ich nicht." }, "reply": { "face": "laugh", "de": "Kein? Kein was? Ha!", "sl": "Kein? Kein kaj? Ha!", "en": "Kein? No what? Ha!", "it": "Kein? Nessun cosa? Ah!" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, ganz langsam.", "sl": "Prosim? Še enkrat, čisto počasi.", "en": "Sorry? Once more, nice and slowly.", "it": "Come? Ancora una volta, pianino." } },
+        { "who": "sepp", "de": "Pflück mir eine Birne, {learner}. Die gelben sind reif.", "sl": "Utrgaj mi hruško, {learner}. Rumene so zrele.", "en": "Pick me a pear, {learner}. The yellow ones are ripe.", "it": "Coglimi una pera, {learner}. Quelle gialle sono mature." },
+        { "choices": [
+          { "de": "Hier ist eine gelbe Birne für dich!", "sl": "Izvoli, rumena hruška zate!", "en": "Here's a yellow pear for you!", "it": "Ecco una pera gialla per te!", "ok": true, "reply": { "face": "happy", "de": "Danke! Süß wie Honig.", "sl": "Hvala! Sladka kot med.", "en": "Thanks! Sweet as honey.", "it": "Grazie! Dolce come il miele." } },
+          { "de": "Hier ist eine grüne Birne für dich!", "sl": "Izvoli, zelena hruška zate!", "en": "Here's a green pear for you!", "it": "Ecco una pera verde per te!", "why": { "de": "Opa Sepp will eine reife Birne: die gelben sind reif.", "sl": "Opa Sepp hoče zrelo hruško: rumene so zrele.", "en": "Opa Sepp wants a ripe pear: the yellow ones are ripe.", "it": "Nonno Sepp vuole una pera matura: quelle gialle sono mature." }, "reply": { "face": "curious", "de": "Grün? Die ist noch hart wie ein Stein!", "sl": "Zelena? Ta je še trda kot kamen!", "en": "Green? That one's still hard as a stone!", "it": "Verde? È ancora dura come un sasso!" } }
+        ], "puzzled": { "face": "confused", "de": "Wie bitte? Noch einmal, ganz langsam.", "sl": "Prosim? Še enkrat, čisto počasi.", "en": "Sorry? Once more, nice and slowly.", "it": "Come? Ancora una volta, pianino." } },
+        { "who": "sepp", "face": "laugh", "de": "Wie man so sagt: Der Apfel fällt nicht weit vom Stamm. Die Birne auch nicht!", "sl": "Kot pravijo: Jabolko ne pade daleč od drevesa. Hruška tudi ne!", "en": "As they say: the apple doesn't fall far from the tree. Nor does the pear!", "it": "Come si dice: la mela non cade lontano dall'albero. E neanche la pera!" }
+      ]
+    }
+  ]
+}

@@ -160,16 +160,21 @@ export default async function friuli() {
     const acqua = await lookup(`w=${encodeURIComponent('l’acqua')}`)
     check("friuli: l’acqua (a typographic apostrophe) is the pack's l'acqua, meant in Slovene", acqua.entries[0]?.source === 'pack' && acqua.entries[0].lemma === "l'acqua" && acqua.entries[0].gloss_lang === 'sl', acqua)
 
-    // no Slovene meaning: the English, marked; the tutor hears of it and writes one (flagged machine-written)
+    // the supplement means the course's everyday words in the child's Slovene too (it.extra.json, it-print-meanings)
     const sono = await lookup(`w=sono&line=${encodeURIComponent('Sono di Gorizia.')}`)
     const s0 = sono.entries[0]
-    check("friuli: sono is essere; without a Slovene meaning, Wiktionary's English, marked fallback, with the grammar and attribution", s0?.lemma === 'essere' && s0.gloss[0] === 'to be' && s0.gloss_lang === 'en' && s0.fallback === true && s0.grammar === 'first-person singular present; third-person plural present' && sono.attribution !== null, sono)
+    check("friuli: sono is essere, the supplement's Slovene biti (machine-written: claude) with its grammar, before Wiktionary's English", s0?.lemma === 'essere' && s0.source === 'extra' && s0.gloss[0] === 'biti' && s0.gloss_lang === 'sl' && s0.gloss_via === 'claude' && s0.grammar === 'first-person singular present; third-person plural present' && !s0.fallback, sono)
+    // no Slovene meaning: the English, marked; the tutor hears of it and writes one (flagged machine-written)
+    const bancoQ = `w=banco&line=${encodeURIComponent('Il banco è vecchio.')}`
+    const banco = await lookup(bancoQ)
+    const b0 = banco.entries.find((e: any) => e.source === 'wiktionary')
+    check("friuli: banco after the school pack's word: the dictionary's banco, without a Slovene meaning, Wiktionary's English, marked fallback, with the attribution", banco.entries[0]?.source === 'pack' && b0?.lemma === 'banco' && b0.gloss[0] === 'bank' && b0.gloss_lang === 'en' && b0.fallback === true && banco.attribution !== null, banco)
     await Bun.sleep(500)
     const gap = notes.filter(n => n.params?.meta?.kind === 'gloss_gaps')
-    check('friuli: the tutor hears of the gap: essere, in Slovene (gloss_gaps)', gap.length === 1 && gap[0].params.content.includes('sono → essere (verb; English: to be)') && gap[0].params.content.includes('gloss_lang: "sl"') && gap[0].params.content.includes('Slovene'), gap.map(n => n.params.content))
-    const pub = await client.callTool({ name: 'publish_gloss', arguments: { form: 'sono', lemma: 'essere', pos: 'verb', gloss: ['biti'] } })
-    const again = (await lookup(`w=sono&line=${encodeURIComponent('Sono di Gorizia.')}`)).entries[0]
-    check("friuli: publish_gloss (in the child's Slovene by default) fills it: sono is essere, biti, Claude's (flagged), with the English and grammar", !pub.isError && again?.lemma === 'essere' && again.gloss[0] === 'biti' && again.gloss_lang === 'sl' && again.gloss_via === 'claude' && again.gloss_en?.[0] === 'to be' && again.grammar === s0.grammar && !again.fallback, again)
+    check('friuli: the tutor hears of the gap: banco, in Slovene (gloss_gaps)', gap.length === 1 && gap[0].params.content.includes('banco → banco (noun; English: bank)') && gap[0].params.content.includes('gloss_lang: "sl"') && gap[0].params.content.includes('Slovene'), gap.map(n => n.params.content))
+    const pub = await client.callTool({ name: 'publish_gloss', arguments: { form: 'banco', lemma: 'banco', pos: 'noun', gloss: ['klop'] } })
+    const again = (await lookup(bancoQ)).entries.find((e: any) => e.source === 'wiktionary')
+    check("friuli: publish_gloss (in the child's Slovene by default) fills it: banco is klop, Claude's (flagged), with the English", !pub.isError && again?.lemma === 'banco' && again.gloss[0] === 'klop' && again.gloss_lang === 'sl' && again.gloss_via === 'claude' && again.gloss_en?.[0] === 'bank' && again.grammar === b0.grammar && !again.fallback, again)
 
     // on a visit to a Slovene town, the child reads Slovene explained in Italian (their base is the town's language)
     const hisa = await lookup('w=hi%C5%A1o&language=sl')
@@ -267,7 +272,7 @@ export default async function friuli() {
     const fuoco = scenes.find((s: any) => s.id === 'al-fuoco')
     check(
       "friuli: Nonno Bepi tells his stories by the fire (al-fuoco comes with them, in Italian, none of Janez's)",
-      fuoco?.culture === 'friuli' && fuoco.art === 'campfire' && fuoco.stories?.length === 10 && fuoco.stories.every((s: any) => s.teller === 'bepi' && s.language === 'it' && s.culture === 'friuli') &&
+      fuoco?.culture === 'friuli' && fuoco.art === 'campfire' && fuoco.stories?.length === 16 && fuoco.stories.every((s: any) => s.teller === 'bepi' && s.language === 'it' && s.culture === 'friuli') &&
         fuoco.stories[0].words.every((w: any) => w.it && w.sl && w.en) && scenes.filter((s: any) => s.id !== 'al-fuoco').every((s: any) => !s.stories),
       fuoco && { stories: fuoco.stories?.map((s: any) => [s.id, s.teller]), words: fuoco.stories?.[0]?.words },
     )

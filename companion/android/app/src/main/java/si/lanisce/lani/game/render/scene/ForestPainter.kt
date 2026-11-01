@@ -105,10 +105,14 @@ internal class ForestPainter : WildPainter() {
     /** Picture pixels per scene canvas pixel: every size and offset in pixels is multiplied by it. */
     private val z: Int get() = detail
 
+    /** Carinthia's look (Im Wald, kaernten-projects-a): larches among the spruces at the clearing's edges ([variant] "trees" "larch"). */
+    private var larches = false
+
     override fun paint() {
         setup()
         larch = variant("spruce") == "larch"; oak = variant("tree") == "oak"; britain = variant("wild") == "britain"
         herdwick = variant("sheep") == "herdwick"; bluebells = variant("flowers") == "bluebells"
+        larches = variant("trees") == "larch"
         val z = z
         vistaSky(3, 5, moonX = ox + 46 * z, moonY = oy + 12 * z)
         mountains()
@@ -142,7 +146,9 @@ internal class ForestPainter : WildPainter() {
             val x = side * (7f + Noise.rnd(k, 92) * 16f + (d - 26f) * 0.15f)
             val spruce = Noise.rnd(k, 93) < (if (larch) 0.2f else 0.55f)
             val hgt = if (spruce) 11f + Noise.rnd(k, 94) * 6f else 9f + Noise.rnd(k, 94) * 5f
-            items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce) spruce(x, d, hgt, k) else leafyTree(x, d, hgt, k * 7) } })
+            // Carinthia's look: larches among the spruces for some of the leafy ones (gold in October, bare in winter)
+            val larchHere = larches && (!spruce || k % 4 == 1)
+            items.add(d to { prop(Pal.OUTLINE_TREE) { if (spruce) spruce(x, d, hgt, k) else if (larchHere) larch(x, d, hgt * 1.25f, k + 60) else leafyTree(x, d, hgt, k * 7) } })
         }
         items.add(bridgeD() to { thing("path") { bridge() } })
         items.add(22f to { thing("deer") { deer(gx(4.4f, 22f).toInt(), gy(22f).toInt()) } })
@@ -181,10 +187,10 @@ internal class ForestPainter : WildPainter() {
             }
             thing("highseat", slop = 1) { highSeat(seatX, seatD, back = false) }
         })
-        // the culture's look (companion/SCENES.md "Culture looks"): Friuli's ancona by the path
-        if (variant("shrine") != null) {
-            items.add(SHRINE_D to { prop { ancona(SHRINE_X, SHRINE_D) } })
-            anconaLight(SHRINE_X, SHRINE_D)
+        // the culture's look (companion/SCENES.md "Culture looks"): Friuli's ancona by the path, Carinthia's Marterl
+        when (variant("shrine")) {
+            "ancona" -> { items.add(SHRINE_D to { prop { ancona(SHRINE_X, SHRINE_D) } }); anconaLight(SHRINE_X, SHRINE_D) }
+            "marterl" -> items.add(SHRINE_D to { prop { marterl(SHRINE_X, SHRINE_D) } })
         }
         // the basket of mushrooms at the clearing, while a dialog has it there ("basket"): as many in it as it counts
         if (fxOn("basket") > 0f) {
@@ -313,6 +319,55 @@ internal class ForestPainter : WildPainter() {
                 c.set(lx.toInt() + max(0, (0.04f * p).toInt()), (ly - 0.11f * p).toInt() - 1, Col.hex(0xFFE08A))
             }
         }
+    }
+
+    /**
+     * Carinthia's Marterl by the path ([variant] "shrine" "marterl"; Im Wald, kaernten-projects-a): a post of larch with a
+     * little gabled roof of shingles over a painted plaque (the Taferl: the Madonna in blue on white, a gold halo closer up),
+     * a small wooden cross on the ridge, a bunch of the season's flowers tied to the post (a fir sprig in winter). Scenery.
+     */
+    private fun marterl(x: Float, d: Float) {
+        val p = pm(d); val bx = gx(x, d); val by = gy(d)
+        val k = detail
+        val snow = env.snow
+        val wood = Col.hex(0x8A6A4A); val woodL = Col.hex(0xB08A62); val woodD = Col.hex(0x5E4430)
+        val shingle = Col.hex(0x5E4E40); val shingleL = Col.hex(0x7E6A58)
+        // the post, lit on its left
+        val pw = max(2f, 0.16f * p); val ph = 1.55f * p
+        val top = by - ph
+        c.fillRect((bx - pw / 2f).toInt(), top.toInt(), max(1, pw.toInt()), ph.toInt() + 1, wood)
+        c.vline((bx - pw / 2f).toInt(), top.toInt(), by.toInt(), woodL)
+        if (k > 1) c.vline((bx + pw / 2f).toInt() - 1, top.toInt(), by.toInt(), woodD)
+        // the plaque's box on top, white, the picture on it
+        val bw = 0.6f * p; val bh = 0.55f * p
+        val x0 = (bx - bw / 2f).toInt(); val y0 = (top - bh).toInt()
+        c.fillRect(x0, y0, max(2, bw.toInt()), max(2, bh.toInt()), woodD)
+        val inset = max(1, (0.07f * p).toInt())
+        c.fillRect(x0 + inset, y0 + inset, max(1, bw.toInt() - 2 * inset), max(1, bh.toInt() - 2 * inset), Col.hex(0xF2ECDC))
+        val icx = bx; val iy0 = y0 + inset + 1f; val iy1 = y0 + bh - inset - 1f
+        if (k == 1) c.vline(icx.toInt(), iy0.toInt(), iy1.toInt(), Col.hex(0x2E4A9A))
+        else {
+            val head = max(1f, (iy1 - iy0) * 0.14f)
+            c.fillCircle(icx, iy0 + head * 1.2f, head * 1.8f, Pal.GOLD_L)
+            c.fillCircle(icx, iy0 + head * 1.3f, head * 0.75f, Pal.SKIN)
+            c.polyBegin(); c.polyAdd(icx - head, iy0 + head * 2.1f); c.polyAdd(icx + head, iy0 + head * 2.1f)
+            c.polyAdd(icx + head * 1.9f, iy1); c.polyAdd(icx - head * 1.9f, iy1)
+            c.polyFill { _, _ -> Col.hex(0x2E4A9A) }
+        }
+        // the little gabled roof of shingles over it, snow on it in winter, the cross on the ridge
+        val rh = 0.32f * p; val over = 0.16f * p
+        val ry = y0.toFloat()
+        for (r in 0 until max(1, rh.toInt())) {
+            val half = (bw / 2f + over) * (1f - r / max(1f, rh))
+            c.hline((bx - half).toInt(), (bx + half).toInt(), (ry - 1 - r).toInt(), if (snow) Pal.SNOW_L else if (r % 2 == 0) shingle else shingleL)
+        }
+        val ch = 0.3f * p
+        c.vline(bx.toInt(), (ry - rh - ch).toInt(), (ry - rh).toInt(), woodD)
+        c.hline((bx - 0.09f * p).toInt(), (bx + 0.09f * p).toInt(), (ry - rh - ch * 0.7f).toInt(), woodD)
+        // the flowers tied to the post
+        val fy = by - 0.75f * p
+        if (snow || env.month in 11..12 || env.month <= 2) c.fillRect((bx - pw).toInt(), fy.toInt(), max(1, pw.toInt()), max(1, (0.2f * p).toInt()), Col.hex(0x2E5A2E))
+        else for (j in 0 until 4) c.set((bx - pw * 0.8f + j * pw * 0.5f).toInt(), (fy + (j % 2)).toInt(), Pal.PAINTED[(j + env.month) % 6])
     }
 
     /** Whether the ancona's lumino burns: from dusk to dawn. */

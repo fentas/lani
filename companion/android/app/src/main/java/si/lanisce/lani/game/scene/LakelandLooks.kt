@@ -214,11 +214,70 @@ internal object LakelandLooks {
     /** The wildflower meadow by the bee garden (ApiaryPainter, `cebelji_travnik`): cowslips, clover, ox-eye daisies, cornflowers, cranesbill, knapweed and harebells by the month. */
     val APIARY_MEADOW = Table.of("apiary", variants = mapOf("meadow" to "wildflowers"))
 
-    /** The wood (ForestPainter): larches for the spruces, oak and birch, the oak's bark, no boar nor bear, a Herdwick ewe, bluebells in spring. */
+    /**
+     * The wood (ForestPainter): larches for the spruces, oak and birch, the oak's bark, a Herdwick ewe, bluebells in spring;
+     * no boar nor bear: the boar's slot is never there in the Lakes (`fixtures`, as a thing only another look draws), so
+     * the wood's scene names no boar.
+     */
     val FOREST = Table.of(
         "forest",
         variants = mapOf("spruce" to "larch", "tree" to "oak", "wild" to "britain", "sheep" to "herdwick", "flowers" to "bluebells"),
+        fixtures = mapOf("boar" to SceneFixtures.A_LOOK_ONLY),
     )
+
+    // ------------------------------------------------------------------ the landscape and the projects, third wave (b)
+
+    /**
+     * The beck below the village (StreamPainter, By the beck): broadleaf woods along it, alders and oaks without a spruce
+     * (`trees`), and the fells behind, rounded, their intake fields walled with dry-stone walls, bracken and crags, a
+     * whitewashed farm under slate with its stone barn on the lower slope (`hills`).
+     */
+    val STREAM_LAND = Table.of("stream", variants = mapOf("trees" to "broadleaf", "hills" to "fells"))
+
+    /** The tarn (PondPainter, At the tarn): the fells behind its woods of larch, spruce and beech, mirrored in the still water. */
+    val POND = Table.of("pond", variants = mapOf("hills" to "fells"))
+
+    /**
+     * Mr Tyson's bank barn (FieldPainter, the project `toplar`, At the bank barn): a two-storey barn of slate stone under slate
+     * built into the slope beyond the wheat, the bank's grass behind it, the byre's doors below, the ramp of earth held by a
+     * dry-stone wall up to the cart door of the upper floor, the hay in it once finished (the map's bank barn).
+     */
+    val FIELD_BANK_BARN = Table.of("field", variants = mapOf("toplar" to "bank"))
+
+    /**
+     * The drinking fountain on the green (SquarePainter, the project `vodnjak_na_trgu`, At the fountain): of green Honister
+     * slate, the block on its beams and on the cart too, the lion's head on its pillar with the water from its mouth, two iron
+     * cups on chains.
+     */
+    val SQUARE_FOUNTAIN = Table.of("square", variants = mapOf("fountain" to "slate"))
+
+    /** The church clock (SquarePainter, the project `mestna_ura`, Under the clock): its round face of slate, gold numerals and hands. */
+    val SQUARE_CLOCK = Table.of("square", variants = mapOf("clock" to "slate"))
+
+    /**
+     * The mountain rescue hut (FirestationPainter, the project `gasilski_dom`, At the rescue hut): of slate stone under slate,
+     * MRT over the doors, red helmets and red jackets on the pegs, two ice axes, the map of the fells, a whistle for the horn,
+     * red first-aid bags for the buckets, coils of red and blue rope on the reel, St George's cross on the banner, and the
+     * rescue stretcher on its wheel where the pump stands.
+     */
+    val FIRESTATION = Table.of(
+        "firestation",
+        materials = mapOf("walls" to "slate", "roof" to "slate"),
+        variants = mapOf(
+            "sign" to "mrt", "helmet" to "red", "axe" to "ice", "picture" to "map", "horn" to "whistle", "bucket" to "firstaid",
+            "hose" to "rope", "flag" to "england", "pump" to "stretcher",
+        ),
+    )
+
+    /** Mrs Hartley's playground (PlaygroundPainter, the project `igrisce`, At the playground): the school's side of slate stone under slate, a dry-stone wall for the fences. */
+    val PLAYGROUND = Table.of("playground", variants = mapOf("school" to "lakeland", "fence" to "drystone"))
+
+    /**
+     * Mrs Birkett's viewing station (LookoutPainter, the project `razgledni_stolp`, At the viewing station): inside the stone
+     * station at its window, the panes of coloured glass across its top, St George's cross; the fells round the dale with a pike,
+     * the lake below with its island, the slate village round its battlemented tower, the walled fields.
+     */
+    val LOOKOUT = Table.of("lookout", variants = mapOf("view" to "lakeland"))
 
     /** The Lake District's places, added up. */
     val PLACES: Table get() = PEOPLE + KITCHEN + LIVINGROOM + CELLAR + ATTIC + WORKSHOP + TENT + SMITHY + CHURCH + SCHOOL + FIELD + SQUARE + MARKET +
@@ -230,5 +289,8 @@ internal object LakelandLooks {
         CHAPEL +
         HILLS +
         APIARY_MEADOW +
-        FOREST
+        FOREST +
+        STREAM_LAND + POND +
+        FIELD_BANK_BARN + SQUARE_FOUNTAIN + SQUARE_CLOCK +
+        FIRESTATION + PLAYGROUND + LOOKOUT
 }

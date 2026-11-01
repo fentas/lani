@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "in-the-pub",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "In the pub", "sl": "V pubu", "de": "Im Pub", "it": "Al pub" },
+  "emoji": "🍺",
+  "level": "A1",
+  "setting": {
+    "sl": "Petek zvečer v vaški gostilni Packhorse Inn. Ogenj gori v kaminu. V britanskem pubu naročiš in plačaš pri šanku, hrano pa prinesejo k mizi.",
+    "de": "Freitagabend im Packhorse Inn, dem Pub des Dorfes. Im Kamin brennt ein Feuer. Im britischen Pub bestellt und bezahlt man an der Bar; das Essen wird an den Tisch gebracht.",
+    "it": "Venerdì sera al Packhorse Inn, il pub del paese. Nel camino arde il fuoco. In un pub britannico si ordina e si paga al bancone; il cibo lo portano al tavolo.",
+    "en": "Friday evening at the Packhorse Inn, the village pub. A fire burns in the hearth. In a British pub you order and pay at the bar; the food is brought to your table."
+  },
+  "role": "Mrs Birkett, the landlady of the Packhorse Inn, behind the bar. Warm and brisk, knows every regular; recommends the Cumberland sausage and mash and the sticky toffee pudding. Asks for the table number and takes payment at the bar. Simple, kind British English.",
+  "who": { "en": "The landlady", "sl": "Gostilničarka", "de": "Die Wirtin", "it": "L'ostessa" },
+  "voice": "female",
+  "place": "kitchen",
+  "goals": [
+    { "en": "Order a drink", "sl": "Naroči pijačo", "de": "Bestelle etwas zu trinken", "it": "Ordina da bere" },
+    { "en": "Ask what she recommends", "sl": "Vprašaj, kaj priporoča", "de": "Frag, was sie empfiehlt", "it": "Chiedi che cosa consiglia" },
+    { "en": "Order something to eat", "sl": "Naroči nekaj za jesti", "de": "Bestelle etwas zu essen", "it": "Ordina qualcosa da mangiare" },
+    { "en": "Say your table number", "sl": "Povej številko mize", "de": "Sag deine Tischnummer", "it": "Di' il numero del tavolo" },
+    { "en": "Pay and thank her", "sl": "Plačaj in se zahvali", "de": "Bezahle und bedanke dich", "it": "Paga e ringrazia" }
+  ],
+  "opener_sl": "Evening! What can I get you?",
+  "opener_en": {
+    "sl": "Dober večer! Kaj vam lahko postrežem?",
+    "de": "Guten Abend! Was darf ich Ihnen bringen?",
+    "it": "Buonasera! Che cosa le porto?",
+    "en": "Good evening! What would you like?"
+  },
+  "vocabulary_hints": [
+    { "sl": "A pint of bitter, please.", "en": { "sl": "Pinto (pol litra) piva bitter, prosim.", "de": "Ein Pint Bitter (dunkles Bier), bitte.", "it": "Una pinta di bitter (birra ambrata), per favore.", "en": "A pint of bitter, please." } },
+    { "sl": "A lemonade, please.", "en": { "sl": "Limonado (gazirano), prosim.", "de": "Eine Limonade, bitte.", "it": "Una gazzosa, per favore.", "en": "A lemonade, please." } },
+    { "sl": "What would you recommend?", "en": { "sl": "Kaj bi priporočili?", "de": "Was würden Sie empfehlen?", "it": "Che cosa mi consiglia?", "en": "What do you recommend?" } },
+    { "sl": "I'll have the sausage and mash.", "en": { "sl": "Vzamem klobaso s pire krompirjem.", "de": "Ich nehme die Wurst mit Kartoffelbrei.", "it": "Prendo la salsiccia con il purè.", "en": "I'll have the sausage and mash." } },
+    { "sl": "We're at table four.", "en": { "sl": "Sedimo za mizo številka štiri.", "de": "Wir sitzen an Tisch vier.", "it": "Siamo al tavolo quattro.", "en": "We're at table four." } },
+    { "sl": "Can I pay by card?", "en": { "sl": "Lahko plačam s kartico?", "de": "Kann ich mit Karte zahlen?", "it": "Posso pagare con la carta?", "en": "Can I pay by card?" } },
+    { "sl": "Cheers!", "en": { "sl": "Hvala! (ali: Na zdravje!)", "de": "Danke! (oder: Prost!)", "it": "Grazie! (oppure: Salute!)", "en": "Thanks! (or: to your health!)" } }
+  ],
+  "packs": ["in-the-pub", "food", "numbers-and-time", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

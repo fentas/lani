@@ -186,6 +186,8 @@ internal class FieldPainter : WildPainter() {
     private var villageStyle: FireStyle? = null
     /** Friuli's big hay barn (the `toplar`): bunches of maize cobs drying from its tie beams, August to March. */
     private var pannocchie = false
+    /** The Lake District's `toplar`, the bank barn ([bankBarn]): a two-storey barn of slate stone built into the slope, its ramp up to the upper floor. */
+    private var bank = false
 
     /**
      * The Lake District's look (docs/plans/05-built/places-lakeland.md): the stone field barn for the kozolec ([barn]: the
@@ -213,9 +215,10 @@ internal class FieldPainter : WildPainter() {
         val k = detail
         fienile = variant("kozolec").let { it == "fienile" || it == "barn" } // the Lake District's stone barn is built as Friuli's fienile
         harpfe = variant("kozolec") == "harpfe"
-        collio = variant("hills") != null
-        piantata = variant("trees") != null
+        collio = variant("hills") == "collio"
+        piantata = variant("trees") == "piantata"
         pannocchie = variant("toplar") == "pannocchie"
+        bank = variant("toplar") == "bank"
         barn = variant("kozolec") == "barn"; drywall = variant("fence") == "drystone"; fells = variant("hills") == "fells"
         badger = variant("boar") == "badger"
         if (fells) collio = false
@@ -1909,6 +1912,7 @@ internal class FieldPainter : WildPainter() {
     }
 
     private fun toplar(st: Int) {
+        if (bank) { bankBarn(st); return }
         val k = detail
         val xsF = (0..3).map { topA + (topB - topA) * it / 3f }
         val dB = topD + topGap
@@ -1978,6 +1982,191 @@ internal class FieldPainter : WildPainter() {
         c.hline(gx(topA - over, dR).toInt(), gx(topB + over, dR).toInt(), yR.toInt() - 1, if (snow) Pal.SNOW_L else Pal.WOOD_X)
         c.hline(gx(topA - over, dF).toInt(), gx(topB + over, dF).toInt(), yE.toInt() + 1, Pal.WOOD_X)
         if (pannocchie && st >= stages(TOPLAR) && (frame.month >= 8 || frame.month <= 3)) maizeCobs(xsF, eave)
+    }
+
+    // the bank barn ([bank]): its front wall along the toplar's place, two storeys, the slope it is dug into behind it
+    private val bbEave = 4.9f; private val bbRidge = 6.7f; private val bbDepth = 4.6f; private val bbOver = 0.45f
+    private val bbFloor = 2.5f // the upper floor's height over the field: the ramp's top, the cart door's sill
+
+    /**
+     * The Lake District's bank barn (the project "toplar", [bank]), as far as the village has built it ([stage]), on the toplar's
+     * place beyond the wheat: oak logs felled and heaped at its place (1); the bank dug into the slope behind, grass over its
+     * top, and the thick walls of slate stone up, open at the top, the byre's doors and windows below and the cart door of the
+     * upper floor at its left end (2); the big oak beams across the walls' tops for the upper floor (3); the floor laid and the
+     * slate roof over it (4); the ramp of earth up to the cart door, held by a dry-stone wall (5); the hay in the cart door,
+     * finished (6). Laid out in metres, so closer up its stones and slates are finer.
+     */
+    private fun bankBarn(st: Int) {
+        val k = detail
+        val d = topD; val p = pm(d); val by = gy(d)
+        val xa = topA; val xb = topB; val dBack = d + bbDepth
+        val snow = env.snow
+        val grass = env.grass
+        // the bank behind and either side: the slope the barn is dug into, rising to the upper floor's height behind it
+        if (st >= 2) {
+            val bx0 = xa - 3.2f; val bx1 = xb + 3.4f
+            for (px in max(gx(bx0, dBack).toInt(), c.left)..min(gx(bx1, dBack).toInt(), c.right - 1)) {
+                val x = sideAt(px, dBack)
+                val u = ((x - bx0) / (bx1 - bx0)).coerceIn(0f, 1f)
+                val hgt = (bbFloor + 1.2f) * sqrt(sin(u * PI.toFloat()).coerceAtLeast(0f)) * (0.85f + 0.15f * Noise.v1(x * 0.4f, 71))
+                val top = hy(dBack, hgt); val foot = gy(d - 0.6f)
+                for (py in max(top.toInt(), c.top)..min(foot.toInt(), c.bottom - 1)) {
+                    val fromTop = (py - top) / max(1f, foot - top)
+                    c.set(px, py, when {
+                        snow -> if (fromTop < 0.5f || Noise.rnd(px, py, 72) < 0.6f) Pal.SNOW_L else Pal.SNOW_M
+                        py - top < max(1f, 0.25f * p) -> grass[0]
+                        Noise.rnd(px / max(1, k), py / max(1, k), 73) < 0.18f -> grass[2]
+                        fromTop > 0.7f -> grass[2]
+                        else -> grass[1]
+                    })
+                }
+            }
+        }
+        // the oak logs, felled and heaped in front, fewer as they go into the beams and the floor
+        if (st in 1..3) {
+            val n = if (st <= 2) 3 else 1
+            for (row in 0 until n) for (j in 0 until n - row) {
+                val dd = d - 1.6f; val lp = pm(dd)
+                val x0 = gx(xb - 4.4f + row * 0.3f + j * 0.05f, dd); val x1 = gx(xb - 0.2f - row * 0.3f, dd)
+                val y = gy(dd) - (row + 0.5f) * 0.4f * lp
+                val th = max(1, (0.38f * lp).toInt())
+                for (q in 0 until th) c.hline(x0.toInt(), x1.toInt(), y.toInt() - q, if (q == th - 1) Pal.LOG_M else Pal.LOG_D)
+                c.fillRect(x0.toInt() - k, y.toInt() - th + 1, k, th, Col.hex(0xC8A070))
+                if (snow) c.hline(x0.toInt(), x1.toInt(), y.toInt() - th, Pal.SNOW_L)
+            }
+        }
+        if (st < 2) return
+        // the left gable end, in its shade (we see along it: the barn stands right of us)
+        val gx0 = gx(xa, dBack); val gx1 = gx(xa, d)
+        for (px in max(gx0.toInt(), c.left)..min(gx1.toInt(), c.right - 1)) {
+            val dd = F * xa / (px + 0.5f - vx)
+            if (dd < d || dd > dBack) continue
+            val pp = pm(dd); val fy = gy(dd)
+            val mid = d + bbDepth / 2f
+            val topH = if (st >= 4) bbEave + (bbRidge - bbEave) * (1f - abs(dd - mid) / (bbDepth / 2f)) else bbEave
+            for (py in max(hy(dd, topH).toInt(), c.top)..min(fy.toInt(), c.bottom - 1)) {
+                val hm = (fy - (py + 0.5f)) / pp
+                c.set(px, py, Col.scale(Lakeland.slateStone((dd - d) * 2.4f, hm * 4.2f, px, py, k > 1, mortar = true), 0.78f))
+            }
+        }
+        // the front: two storeys of slate stone with light quoins; the byre's two doors and its windows below, the cart door of
+        // the upper floor at the left end above them, a row of through-stones along the floor's height
+        val x0 = gx(xa, d); val x1 = gx(xb, d)
+        val wallTop = hy(d, bbEave); val width = xb - xa
+        for (py in max(wallTop.toInt(), c.top)..min(by.toInt(), c.bottom - 1)) {
+            val hm = (by - (py + 0.5f)) / p
+            if (hm < 0f) continue
+            for (px in max(x0.toInt(), c.left)..min(x1.toInt(), c.right - 1)) {
+                val u = sideAt(px, d) - xa
+                c.set(px, py, bankFront(u, hm, width, px, py, st))
+            }
+        }
+        // the oak beams across the walls' tops for the upper floor, their ends out of the front wall
+        if (st == 3) {
+            var bx = xa + 0.5f
+            while (bx < xb) {
+                val ex = gx(bx, d - 0.15f)
+                c.fillRect(ex.toInt(), hy(d - 0.15f, bbEave + 0.05f).toInt(), max(2, (0.3f * p).toInt()), max(2, (0.3f * p).toInt()), Pal.WOOD_D)
+                if (k > 1) c.set(ex.toInt(), hy(d - 0.15f, bbEave + 0.05f).toInt(), Pal.WOOD_L)
+                bx += 1.2f
+            }
+            // and the beams seen lying over the open top, back to the bank, and the long one along the front
+            var bx2 = xa + 0.5f
+            while (bx2 < xb) { thickLine(gx(bx2, d), hy(d, bbEave), gx(bx2, dBack), hy(dBack, bbEave), max(2, (0.3f * p).toInt()), Pal.WOOD_L); bx2 += 1.2f }
+            thickLine(gx(xa, d - 0.1f), hy(d - 0.1f, bbEave + 0.2f), gx(xb, d - 0.1f), hy(d - 0.1f, bbEave + 0.2f), max(2, (0.3f * p).toInt()), Pal.WOOD_M)
+        }
+        if (st >= 4) bankRoof(xa, xb, d, p)
+        // the ramp of earth up to the cart door, its face a dry-stone wall toward us, grass on its top
+        if (st >= 5) bankRamp(xa, d)
+    }
+
+    /** The bank barn's front at [u] m from its left corner and [hm] m up ([width] m wide), at stage [st]: its doors, windows, through-stones, quoins and stone. */
+    private fun bankFront(u: Float, hm: Float, width: Float, px: Int, py: Int, st: Int): Int {
+        // the upper floor's cart door at the left end, the ramp's top: its oak frame, dark inside, the hay in it once finished
+        val cd0 = 0.55f; val cd1 = 2.35f
+        if (u in cd0..cd1 && hm in bbFloor..bbFloor + 1.95f) {
+            val inside = u in cd0 + 0.12f..cd1 - 0.12f && hm < bbFloor + 1.83f
+            if (!inside) return Pal.WOOD_D
+            if (st >= 6) {
+                val heap = (bbFloor + 0.2f + 1.3f * sin(((u - cd0) / (cd1 - cd0)) * PI.toFloat()))
+                if (hm < heap) return if (Noise.rnd(px, py, 74) < 0.3f) Pal.HAY_L else if (Noise.rnd(px, py, 75) < 0.4f) Pal.HAY_D else Pal.HAY_M
+            }
+            return Col.hex(0x241E1C)
+        }
+        // the byre's two doors at ground level, under their stone lintels, and a small window between them
+        for (cxu in floatArrayOf(width * 0.48f, width * 0.82f)) {
+            if (abs(u - cxu) < 0.52f && hm < 1.85f) return if (abs(u - cxu) > 0.44f || st < 4) Col.hex(0x1E1A18) else if (((u - cxu + 0.52f) / 0.17f).toInt() % 2 == 0) Col.hex(0x5E7A5A) else Col.hex(0x4E6A4C)
+            if (abs(u - cxu) < 0.68f && hm in 1.85f..2.1f) return if (hm > 2.02f) Col.hex(0xC8CCCC) else Col.hex(0xA4AAAC)
+        }
+        if (abs(u - width * 0.65f) < 0.18f && hm in 0.9f..1.5f) return Col.hex(0x1E1A18)
+        // the ventilation slits of the upper floor
+        for (cxu in floatArrayOf(width * 0.5f, width * 0.67f, width * 0.84f)) if (abs(u - cxu) < 0.06f && hm in bbFloor + 0.4f..bbFloor + 1.6f) return Col.hex(0x1E1A18)
+        // a row of through-stones a little proud along the upper floor's height
+        if (hm in bbFloor - 0.12f..bbFloor && u > cd1) {
+            val b = u / 0.9f; val fb = b - floor(b)
+            if (fb < 0.32f) return if (hm > bbFloor - 0.04f) Col.hex(0xD0D4D4) else Col.hex(0x9CA2A4)
+        }
+        // the quoins up both corners: big light dressed stones
+        val row = floor(hm / 0.3f).toInt()
+        val quoin = if (row % 2 == 0) 0.5f else 0.3f
+        if (u < quoin || u > width - quoin) {
+            val fr = hm / 0.3f - row
+            return if (fr < 0.12f) Col.hex(0x40464C) else if (fr > 0.82f) Col.hex(0xC4C8C8) else Col.hex(0xA8ACAA)
+        }
+        return Lakeland.slateStone(u * 2.4f, hm * 4.2f, px, py, detail > 1, mortar = true)
+    }
+
+    /** The bank barn's slate roof, its long side to us: the front slope from the eaves over the front up to the ridge over the middle, the slates in courses, snow on it in winter. */
+    private fun bankRoof(xa: Float, xb: Float, d: Float, p: Float) {
+        val snow = env.snow
+        val dE = d - bbOver; val dR = d + bbDepth / 2f
+        val slope = (bbRidge - bbEave) / (bbDepth / 2f)
+        val hE = bbEave - slope * bbOver
+        val xl = xa - bbOver; val xr = xb + bbOver
+        val yE = hy(dE, hE); val yR = hy(dR, bbRidge)
+        val tones = intArrayOf(Lakeland.ROOF_L, Lakeland.ROOF_M, Lakeland.ROOF_D)
+        for (py in max(yR.toInt(), c.top)..min(yE.toInt(), c.bottom - 1)) {
+            val dd = (F * (EYE - hE + slope * dE) / ((py + 0.5f - hz) + F * slope)).coerceIn(dE, dR)
+            val down = (dR - dd) / (dR - dE)
+            for (px in max(gx(xl, dd).toInt(), c.left)..min(gx(xr, dd).toInt(), c.right - 1)) {
+                val x = sideAt(px, dd)
+                val course = down * (dR - dE) / 0.4f
+                val fc = course - floor(course)
+                val sl = (x - xl + (floor(course).toInt() % 2) * 0.17f) / 0.34f
+                var col = if (fc > 0.8f) tones[2] else if (sl - floor(sl) < 0.08f) tones[2] else if (Noise.rnd(floor(sl).toInt(), floor(course).toInt(), 76) < 0.3f) tones[0] else tones[1]
+                if (down < 0.05f) col = tones[2]
+                if (snow && down < 0.85f) col = if (fc > 0.8f) Pal.SNOW_M else Pal.SNOW_L
+                c.set(px, py, col)
+            }
+        }
+        val th = max(1, (0.14f * p).toInt())
+        for (j in 0 until th) c.hline(gx(xl, dE).toInt(), gx(xr, dE).toInt(), yE.toInt() + j, if (j == 0) tones[2] else Col.hex(0x2E3238))
+        // the verge down the left gable
+        for (j in 0 until th) c.line(gx(xl, dE).toInt() - j, yE.toInt(), gx(xl, dR).toInt() - j, yR.toInt(), if (snow) Pal.SNOW_L else tones[1])
+    }
+
+    /** The ramp up to the bank barn's cart door from the field on its left: earth held by a dry-stone wall facing us, grass over its top, snow in winter. */
+    private fun bankRamp(xa: Float, d: Float) {
+        val k = detail
+        val dd = d - 0.35f; val p = pm(dd)
+        val r0 = xa - 4.2f; val r1 = xa + 0.55f
+        for (px in max(gx(r0, dd).toInt(), c.left)..min(gx(r1, dd).toInt(), c.right - 1)) {
+            val x = sideAt(px, dd)
+            val hgt = bbFloor * ((x - r0) / (xa + 0.1f - r0)).coerceIn(0f, 1f)
+            val top = hy(dd, hgt); val foot = gy(dd)
+            for (py in max(top.toInt(), c.top)..min(foot.toInt(), c.bottom - 1)) {
+                val hm = (foot - (py + 0.5f)) / p
+                val col = when {
+                    py - top < max(1f, 0.22f * p) -> if (env.snow) Pal.SNOW_L else env.grass[0]
+                    else -> Lakeland.slateStone((x - r0) * 2.4f, hm * 4.2f, px, py, k > 1)
+                }
+                c.set(px, py, col)
+            }
+        }
+    }
+
+    private fun thickLine(x0: Float, y0: Float, x1: Float, y1: Float, th: Int, col: Int) {
+        for (j in 0 until th) c.line(x0.toInt(), y0.toInt() - j, x1.toInt(), y1.toInt() - j, col)
     }
 
     /**

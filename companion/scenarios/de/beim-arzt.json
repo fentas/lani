@@ -1,0 +1,41 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "beim-arzt",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Beim Arzt", "sl": "Pri zdravniku", "en": "At the doctor's", "it": "Dal medico" },
+  "emoji": "🩺",
+  "level": "A1",
+  "setting": {
+    "sl": "V ambulanti (Ordination) splošnega zdravnika v sosednji vasi. Že tri dni te bolita grlo in glava. Zdravnik te prosi za kartico zdravstvenega zavarovanja (e-card).",
+    "en": "At the family doctor's practice (an Ordination, as Austrians say) in the next village. You have had a sore throat and a headache for three days. The doctor asks for your health insurance card, the e-card.",
+    "it": "Nell'ambulatorio (Ordination, come dicono in Austria) del medico di famiglia, nel paese vicino. Da tre giorni hai mal di gola e mal di testa. Il medico ti chiede la tessera sanitaria, la e-card."
+  },
+  "role": "Dr. Wieser, a calm family doctor (Allgemeinmediziner) in the next village. Speaks slowly and clearly, one simple question at a time; says it is a cold, nothing serious. Austrian German: Ordination, e-card, Halsweh. Says Sie to {learner}.",
+  "who": { "de": "Der Hausarzt", "sl": "Družinski zdravnik", "en": "The family doctor", "it": "Il medico di famiglia" },
+  "voice": "male",
+  "goals": [
+    { "de": "Grüße und sag deinen Namen", "sl": "Pozdravi in povej svoje ime", "en": "Greet and say your name", "it": "Saluta e di' come ti chiami" },
+    { "de": "Sag, was dir wehtut", "sl": "Povej, kaj te boli", "en": "Say what hurts", "it": "Di' che cosa ti fa male" },
+    { "de": "Sag, seit wann", "sl": "Povej, od kdaj", "en": "Say since when", "it": "Di' da quando" },
+    { "de": "Sag, ob du Fieber hast", "sl": "Povej, ali imaš vročino", "en": "Say whether you have a fever", "it": "Di' se hai la febbre" },
+    { "de": "Bedanke dich beim Arzt", "sl": "Zahvali se zdravniku", "en": "Thank the doctor", "it": "Ringrazia il medico" }
+  ],
+  "opener_sl": "Grüß Gott! Bitte, setzen Sie sich. Was fehlt Ihnen denn?",
+  "opener_en": {
+    "sl": "Dober dan! Izvolite, sedite. Kaj vam pa je?",
+    "en": "Hello! Please, have a seat. What's the matter?",
+    "it": "Buongiorno! Prego, si accomodi. Che cosa si sente?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ich heiße {learner}.", "en": { "sl": "Ime mi je {learner}.", "en": "My name is {learner}.", "it": "Mi chiamo {learner}." } },
+    { "sl": "Hier ist meine e-card.", "en": { "sl": "Tukaj je moja kartica (e-card).", "en": "Here is my e-card.", "it": "Ecco la mia e-card." } },
+    { "sl": "Ich habe Halsweh.", "en": { "sl": "Grlo me boli.", "en": "I have a sore throat.", "it": "Ho mal di gola." } },
+    { "sl": "Mir tut der Kopf weh.", "en": { "sl": "Glava me boli.", "en": "My head hurts.", "it": "Mi fa male la testa." } },
+    { "sl": "seit drei Tagen", "en": { "sl": "že tri dni", "en": "for three days", "it": "da tre giorni" } },
+    { "sl": "Ich habe kein Fieber.", "en": { "sl": "Nimam vročine.", "en": "I don't have a fever.", "it": "Non ho la febbre." } },
+    { "sl": "Danke, Herr Doktor!", "en": { "sl": "Hvala, gospod doktor!", "en": "Thank you, doctor!", "it": "Grazie, dottore!" } }
+  ],
+  "packs": ["beim-arzt", "gruesse", "zahlen-und-uhrzeit"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

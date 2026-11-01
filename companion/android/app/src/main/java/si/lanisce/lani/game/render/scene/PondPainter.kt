@@ -85,18 +85,25 @@ internal class PondPainter : WildPainter() {
     /**
      * The culture's look (companion/SCENES.md "Culture looks"), read once a frame: Friuli's lowland wood round the pond, its
      * Lombardy poplars and oaks where the spruces and the beeches stand ([pioppi]); and the poplars' shade and middle colour this
-     * season, for their picture in the water.
+     * season, for their picture in the water. The Lake District's tarn ([fells]): the fells rise behind its woods, rounded, their
+     * intake fields walled with dry-stone walls, bracken and crags higher up ([fellSlope]), and look at themselves in the still
+     * water ([fellTop], [fellTone]).
      */
     private var pioppi = false
+    private var fells = false
+    /** The fells' crest over each picture column ([fells]), for their picture in the water. */
+    private var fellTop = IntArray(0)
     private var poplarD = 0
     private var poplarM = 0
 
     override fun paint() {
         setup()
         pioppi = variant("trees") == "pioppi"
+        fells = variant("hills") == "fells"
         val z = z
         for (i in 0..SKY_STEPS) skyLut[i] = skyAt(i / SKY_STEPS.toFloat())
         vistaSky(3, 41, moonX = ox + MOON_X * z, moonY = oy + 10 * z)
+        if (fells) fellsBehind()
         ground { x, d, px, py -> shore(x, d, px, py) }
         woods()
         thing("pond", outline = 0) { waterId = c.penId; water() }
@@ -699,6 +706,27 @@ internal class PondPainter : WildPainter() {
         }
     }
 
+    /**
+     * The fells behind the tarn's woods ([fells]): a far one blue-grey in the haze, snow on its top in winter, and the near one,
+     * its walls and bracken ([fellSlope]); their crest kept for their picture in the water.
+     */
+    private fun fellsBehind() {
+        val z = z
+        val season = env.season
+        val far = ridge(hz - 26f * z, 22f * z, 0.010f, 541, if (season == Season.WINTER) Col.hex(0xB8C6DA) else Col.hex(0x6A7C8A), 0.34f, snowLine = 0.5f)
+        val near = ridge(hz - 14f * z, 20f * z, 0.016f, 543, Col.hex(0x6E9A50), 0.22f, texture = { x, y, b -> fellSlope(x, y, b, 547) })
+        fellTop = IntArray(w) { min(far[it], near[it]) }
+    }
+
+    /** The fells' picture in the tarn at picture column [x], row [sr] above the water's mirror line: muted, darker toward their foot. */
+    private fun fellTone(x: Int, sr: Int): Int {
+        val winter = env.season == Season.WINTER
+        val top = if (winter) Col.hex(0xC0CAD6) else Col.hex(0x6A7C8A)
+        val foot = if (winter) Col.hex(0x8A9098) else Col.hex(0x4E6E44)
+        val u = ((sr - fellTop[x]).toFloat() / max(1f, (wallTop[x] - fellTop[x]).toFloat())).coerceIn(0f, 1f)
+        return env.lit(Col.mix(Col.mix(top, foot, u), env.skyHorizon, 0.3f))
+    }
+
     // ------------------------------------------------------------------ the water
 
     /** The pond: the woods and the sky upside down in it, dark and clear near us, breezes ruffling it; ice in winter. */
@@ -726,7 +754,8 @@ internal class PondPainter : WildPainter() {
         val wobble = (sin(py * 0.8f / z + t.toFloat() * 1.6f) * (0.6f + breeze) * z).toInt()
         val sx = (px + wobble).coerceIn(0, w - 1)
         val sr = mirror - py
-        val refl = if (sr < wallTop[sx]) {
+        val refl = if (fells && sr < wallTop[sx] && sx < fellTop.size && sr >= fellTop[sx]) fellTone(sx, sr)
+        else if (sr < wallTop[sx]) {
             val tt = (sr / (hz + 2f * z)).coerceIn(0f, 1f)
             skyTone(tt, px, py)
         } else {

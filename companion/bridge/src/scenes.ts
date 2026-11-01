@@ -1145,6 +1145,15 @@ export function forHost<T extends Pick<Scene, 'happenings' | 'dialogs'>>(s: T): 
   return { ...s, happenings, dialogs: s.dialogs.filter(d => used.has(d.id) || (!d.guests && !guests.has(d.id))) }
 }
 
+/**
+ * A scene's dialogs without their "keep talking" (`talk`) into a role-play the learner isn't offered ([offered]: the ids
+ * they are; a child is never offered a grown-up's, ScenarioStore.offered): the dialog ends as any other.
+ */
+export function talksOffered<T extends Pick<Scene, 'dialogs'>>(s: T, offered: ReadonlySet<string>): T {
+  if (!s.dialogs.some(d => d.talk && !offered.has(d.talk))) return s
+  return { ...s, dialogs: s.dialogs.map(d => (d.talk && !offered.has(d.talk) ? (({ talk: _talk, ...rest }) => rest)(d) : d)) }
+}
+
 export function validateScene(input: unknown, refs?: SceneRefs): { ok: true; scene: Scene } | { ok: false; errors: string } {
   const r = sceneSpec.safeParse(input)
   if (!r.success) return { ok: false, errors: z.prettifyError(r.error) }

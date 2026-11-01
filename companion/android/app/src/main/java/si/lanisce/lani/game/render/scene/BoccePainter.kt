@@ -111,6 +111,23 @@ internal class BoccePainter : RoomPainter() {
     private var noi = false
     /** The slate's sides along x (wider for NOI | VOI, three letters each). */
     private var slateX0 = sbX0; private var slateX1 = sbX1
+    /**
+     * Carinthia's Stockbahn (Auf der Stockbahn, kaernten-projects-a; [readInn]), as the map's court ("curling"): the lane of
+     * grey asphalt, ice from December to February ([curling]); Eisstöcke for the balls, a round flat body with a long wooden
+     * handle, one team's red and the other's green ([stock]), slid along the lane, never thrown in an arc; the Daube, a small
+     * black rubber disc, for the jack; a broom for the rake; WIR | IHR on the slate ([wir]); the Gasthaus's roof of dark
+     * shingles and a golden linden leaf on its sign ([gasthaus]); hops on the Laube for the vine ([hops]); the drink in the
+     * jug and the glass golden, Most or apple juice ([most]).
+     */
+    private var curling = false
+    private var wir = false
+    private var gasthaus = false
+    private var hops = false
+    private var most = false
+    /** The lane is ice: Carinthia's Stockbahn from December to February. */
+    private val ice: Boolean get() = curling && (env.month == 12 || env.month <= 2)
+    private val drink: Int get() = if (most) Col.hex(0xC88A1E) else wine
+    private val drinkL: Int get() = if (most) Col.hex(0xF0C450) else wineL
 
     /**
      * The Lake District's bowling green ([readInn]; docs/plans/05-built/lakeland-projects-a.md): a flat green of short grass
@@ -142,6 +159,11 @@ internal class BoccePainter : RoomPainter() {
         frasca = variant("frasca") != null
         shutC = colour("shutter", shutter); shutCL = colour("shutter.l", shutterL)
         noi = variant("scoreboard") == "noi"
+        wir = variant("scoreboard") == "wir"
+        curling = variant("court") == "curling"
+        gasthaus = variant("inn") == "gasthaus"
+        hops = variant("pergola") == "hops"
+        most = variant("jug") == "most"
         slateX0 = if (noi) sbX0 - SLATE_WIDER else sbX0; slateX1 = if (noi) sbX1 + SLATE_WIDER else sbX1
         green = variant("court") == "green"; woods = variant("ball") == "woods"; oak = variant("linden") == "oak"
         roses = variant("pergola") == "roses"; lemonade = variant("jug") == "lemonade"; lakeInn = variant("inn") == "lakeland"
@@ -168,7 +190,7 @@ internal class BoccePainter : RoomPainter() {
             if (frasca) frascaBranch() else grapesSign()
         } else {
             prop { inn() }
-            if (frasca) prop { frascaBranch() } else if (lakeInn) prop { sheepSign() } else prop { grapesSign() }
+            if (frasca) prop { frascaBranch() } else if (lakeInn) prop { sheepSign() } else if (gasthaus) prop { lindenSign() } else prop { grapesSign() }
         }
         prop { barrel() }
         thing("table") { innTable() }
@@ -190,7 +212,7 @@ internal class BoccePainter : RoomPainter() {
         thing("meter", slop = 1) { meter() }
         for (p in peopleAt("throw")) { footShadow(throwPX, throwPY); personAt(p, throwPX, throwPY, 0f, flip = true) }
         thing("board") { boards(back = false) }
-        thing("rake", slop = 1) { rake() }
+        thing("rake", slop = 1) { if (curling) broom() else rake() }
         // in front: the spectators' bench
         thing("bench") { spectators() }
         fireflies(iso.ix(0f, 11f), iso.iy(11f, 11f, 18f), iso.ix(12f, 0f), iso.iy(12f, 11f, 0f), 9, 17)
@@ -260,6 +282,7 @@ internal class BoccePainter : RoomPainter() {
         val (back, front, edge) = when {
             winter -> Triple(Pal.SNOW_M, Pal.SNOW_L, Pal.SNOW_D)
             lakeInn -> Triple(Lakeland.ROOF_D, Lakeland.ROOF_M, Col.hex(0x2E3038))
+            gasthaus -> Triple(Col.hex(0x3E342C), Col.hex(0x5E4E40), Col.hex(0x2A221C))
             else -> Triple(Pal.ROOF_D, Pal.ROOF_M, Col.hex(0x55200F))
         }
         val ry0 = iy0 - 0.3f; val ry1 = iy1 + 0.35f
@@ -270,11 +293,11 @@ internal class BoccePainter : RoomPainter() {
             for (k in 1 until (if (lakeInn) 9 else 6)) {
                 val f = k / (if (lakeInn) 9f else 6f)
                 val y = ym + (ry1 - ym) * f; val z = rz - (rz - ih + 0.4f) * f
-                iso.line(ix0 - 0.25f, y, z, ix1 + 0.25f, y, z, rd)
+                iso.line(ix0 - 0.25f, y, z, ix1 + 0.25f, y, z, if (gasthaus) Col.hex(0x3E342C) else rd)
             }
             var x = ix0
-            if (!lakeInn) while (x < ix1) { iso.line(x, ym, rz, x, ry1, ih - 0.4f, if (ochre) Pal.ROOF_D else Col.mix(Pal.ROOF_M, Pal.ROOF_D, 0.5f)); x += if (ochre) 0.3f else 0.55f }
-            if (fine) iso.line(ix0 - 0.25f, ym, rz, ix1 + 0.25f, ym, rz, if (lakeInn) Lakeland.ROOF_L else Pal.ROOF_L)
+            if (!lakeInn && !gasthaus) while (x < ix1) { iso.line(x, ym, rz, x, ry1, ih - 0.4f, if (ochre) Pal.ROOF_D else Col.mix(Pal.ROOF_M, Pal.ROOF_D, 0.5f)); x += if (ochre) 0.3f else 0.55f }
+            if (fine) iso.line(ix0 - 0.25f, ym, rz, ix1 + 0.25f, ym, rz, if (lakeInn) Lakeland.ROOF_L else if (gasthaus) Col.hex(0x7E6A58) else Pal.ROOF_L)
         }
         // the chimney, smoke from it morning and evening
         iso.box(ix1 - 1.6f, 1.0f, rz - 2f, 0.5f, 0.5f, 4f, Col.scale(wall, 0.95f), wall, wallD)
@@ -294,6 +317,25 @@ internal class BoccePainter : RoomPainter() {
             c.fillCircle(gx, gy, 0.35f * K, Col.hex(0x5A2E6A))
         }
         c.set(floor(cx).toInt(), floor(top + 0.8f * K).toInt(), Col.hex(0x3E7A3A))
+    }
+
+    /** Carinthia's Gasthaus sign over the door ([gasthaus]): a wrought-iron bracket with a golden linden leaf hanging from it. */
+    private fun lindenSign() {
+        val bx = innB + 0.25f; val bz = doorH + 1.2f
+        rod(bx, iy1, bz + 1.6f, bx + 0.9f, iy1 + 0.02f, bz + 1.6f, iron)
+        val cx = iso.sx(bx + 0.6f, iy1 + 0.1f); val top = iso.sy(bx + 0.6f, iy1 + 0.1f, bz + 1.5f)
+        val r = 1.1f * K
+        // the leaf: a heart, its point down, gold, lit on its left
+        for (yy in 0 until (2.2f * r).toInt().coerceAtLeast(2)) {
+            val v = yy / (2.2f * r)
+            val half = r * (if (v < 0.35f) 0.75f + v * 0.7f else (1f - v) * 1.55f)
+            for (xx in floor(cx - half).toInt()..floor(cx + half).toInt()) {
+                val u = (xx + 0.5f - cx) / max(0.5f, half)
+                if (v < 0.2f && abs(u) < 0.15f) continue // the notch at its stalk
+                c.set(xx, floor(top + r * 0.4f + yy).toInt(), if (u < -0.3f) Pal.GOLD_L else Pal.GOLD)
+            }
+        }
+        c.vline(floor(cx).toInt(), floor(top).toInt(), floor(top + r * 0.5f).toInt(), iron)
     }
 
     /** The frasca over the osteria's door (Friuli): a leafy branch hung from a nail, green, gold in autumn, dry in winter. */
@@ -366,6 +408,16 @@ internal class BoccePainter : RoomPainter() {
             val cx = iso.sx(x, y); val cy = iso.sy(x, y, z)
             val r = (0.9f + Noise.rnd(k, 137) * 0.6f) * K * 0.6f
             c.fillEllipse(cx, cy, r * 1.3f, r, if (Noise.rnd(k, 138) < 0.3f) d else if (Noise.rnd(k, 139) < 0.6f) m else l)
+        }
+        // Carinthia's Laube has hops: their pale green cones hanging under the leaves in August and September
+        if (hops) {
+            if (env.month in 8..9) for (k in 0 until 9) {
+                val x = pgx0 + 0.3f + k * 0.38f; val y = pgy - 0.2f - (k % 3) * 0.6f
+                val cx = iso.sx(x, y); val cy = iso.sy(x, y, pgz - 0.2f)
+                c.fillEllipse(cx, cy, 0.35f * K, 0.55f * K, Col.hex(0xB8CC6A))
+                if (fine) c.set(floor(cx - 0.15f * K).toInt(), floor(cy - 0.2f * K).toInt(), Col.hex(0xD8E49A))
+            }
+            return
         }
         // the bunches hanging under the leaves from August to October
         if (env.month in 8..10) for (k in 0 until 6) {
@@ -454,6 +506,7 @@ internal class BoccePainter : RoomPainter() {
     /** The sand: fine and pale, raked in lines across the court, worn down its middle where the balls roll; the ends trodden. */
     private fun sandBed() {
         if (green) { greenBed(); return }
+        if (curling) { laneBed(); return }
         onFlat(0.4f, cx0, cy0, cx1, cy1) { x, y, px, py ->
             val n = Noise.rnd(px / max(1, detail), py / max(1, detail), 161)
             var col = if (n < 0.18f) sandD else if (n < 0.8f) sandM else sandL
@@ -464,6 +517,28 @@ internal class BoccePainter : RoomPainter() {
             if ((x > cx1 - 1.1f || x < cx0 + 0.5f) && Noise.v2(x * 3f, y * 3f, 163) > 0.6f) col = Col.scale(col, 0.92f)
             if (winter && (min(y - cy0, cy1 - y) < 0.25f + Noise.v1(x * 2f, 165) * 0.2f)) col = Pal.SNOW_L
             col
+        }
+    }
+
+    /**
+     * Carinthia's lane ([curling]): grey asphalt, its grit speckled, darker down its middle where the stocks slide; from
+     * December to February ice, pale blue-white with the stocks' scratches along it and a light down its middle.
+     */
+    private fun laneBed() {
+        onFlat(0.4f, cx0, cy0, cx1, cy1) { x, y, px, py ->
+            val n = Noise.rnd(px / max(1, detail), py / max(1, detail), 181)
+            val mid = abs(y - (cy0 + cy1) / 2f) < 0.5f
+            if (ice) {
+                var col = if (n < 0.12f) Col.hex(0xBCD4E8) else if (n > 0.9f) Col.hex(0xEAF4FC) else Col.hex(0xD0E4F2)
+                if (mid && Noise.v2(x * 1.5f, y * 8f, 183) > 0.62f) col = Col.hex(0xE4F0FA)
+                if (fine && Noise.v2(x * 0.6f, y * 14f, 185) > 0.8f) col = Col.hex(0xA8C2DA)
+                col
+            } else {
+                var col = if (n < 0.15f) Col.hex(0x4E4E50) else if (n > 0.88f) Col.hex(0x8A8A8C) else Col.hex(0x666668)
+                if (mid && x < cx1 - 1.2f) col = Col.scale(col, 0.92f)
+                if (winter && (min(y - cy0, cy1 - y) < 0.25f + Noise.v1(x * 2f, 165) * 0.2f)) col = Pal.SNOW_L
+                col
+            }
         }
     }
 
@@ -480,6 +555,13 @@ internal class BoccePainter : RoomPainter() {
     /** The jack: a small wooden ball, pale, its glint. */
     private fun jack() {
         val cx = iso.sx(jackX, jackY); val cy = iso.sy(jackX, jackY, 0.4f)
+        if (curling) {
+            // the Daube: a small black rubber disc lying flat, its rim catching the light
+            val r = 0.75f * K + 0.3f
+            c.fillEllipse(cx, cy - r * 0.3f, r, max(1f, r * 0.45f), Col.hex(0x26262A))
+            c.hline(floor(cx - r * 0.7f).toInt(), floor(cx + r * 0.5f).toInt(), floor(cy - r * 0.6f).toInt(), Col.hex(0x5A5A62))
+            return
+        }
         val r = 0.6f * K + 0.3f
         c.fillCircle(cx, cy - r, r, if (woods) Col.hex(0xD8D8D0) else Col.hex(0xC8A060))
         c.fillCircle(cx - r * 0.3f, cy - r * 1.3f, r * 0.45f, if (woods) Col.hex(0xFFFFFF) else Col.hex(0xF0D8A0))
@@ -488,6 +570,7 @@ internal class BoccePainter : RoomPainter() {
     /** A metal ball at ([x], [y]) (its foot at [z]), side [side] (0 smooth, 1 grooved), its glint. */
     private fun ball(x: Float, y: Float, z: Float, side: Int) {
         if (woods) { wood(x, y, z, side); return }
+        if (curling) { stock(x, y, z, side); return }
         val cx = iso.sx(x, y); val cy = iso.sy(x, y, z)
         val r = 1.05f * K + 0.3f
         c.fillCircle(cx, cy - r, r, steelD)
@@ -498,6 +581,26 @@ internal class BoccePainter : RoomPainter() {
             c.hline(floor(cx - r * 0.8f).toInt(), floor(cx + r * 0.8f).toInt(), floor(cy - r).toInt(), steelD)
             if (fine) c.hline(floor(cx - r * 0.7f).toInt(), floor(cx + r * 0.7f).toInt(), floor(cy - r * 0.5f).toInt(), steelD)
         }
+    }
+
+    /**
+     * An Eisstock at ([x], [y]) (its foot at [z]), side [side] (0 red, 1 green, Carinthia's [curling]): its round flat body
+     * lit on top, the dark rubber sole under it, the long wooden handle up from its middle with its knob.
+     */
+    private fun stock(x: Float, y: Float, z: Float, side: Int) {
+        val cx = iso.sx(x, y); val cy = iso.sy(x, y, z)
+        val r = 1.15f * K + 0.3f; val hgt = max(1f, 0.55f * K)
+        val (lt, md, dk) = if (side == 0) Triple(Col.hex(0xE0584A), Col.hex(0xB83A2E), Col.hex(0x7A2218)) else Triple(Col.hex(0x6AAE5A), Col.hex(0x3E7A3A), Col.hex(0x245024))
+        // the sole, then the body's side, then its top
+        c.fillEllipse(cx, cy - r * 0.3f, r, max(1f, r * 0.42f), Col.hex(0x2A2A2E))
+        for (j in 0 until hgt.toInt().coerceAtLeast(1)) c.fillEllipse(cx, cy - r * 0.35f - j - 1, r * 0.98f, max(1f, r * 0.4f), if (j == 0) dk else md)
+        c.fillEllipse(cx, cy - r * 0.35f - hgt - 1, r * 0.95f, max(1f, r * 0.38f), md)
+        c.fillEllipse(cx - r * 0.25f, cy - r * 0.42f - hgt - 1, r * 0.45f, max(0.6f, r * 0.18f), lt)
+        // the handle, leaning a little toward the far end, its knob
+        val top = cy - r * 0.35f - hgt - 1.5f * K
+        c.line(floor(cx).toInt(), floor(cy - r * 0.35f - hgt - 1).toInt(), floor(cx - 0.35f * K).toInt(), floor(top).toInt(), Pal.WOOD_M)
+        if (fine) c.line(floor(cx).toInt() - 1, floor(cy - r * 0.35f - hgt - 1).toInt(), floor(cx - 0.35f * K).toInt() - 1, floor(top).toInt(), Pal.WOOD_L)
+        c.fillCircle(cx - 0.4f * K, top, max(0.8f, 0.3f * K), Pal.WOOD_D)
     }
 
     /** Where the poked ball is: rolling a little away and back, the second time into the next one. */
@@ -540,6 +643,7 @@ internal class BoccePainter : RoomPainter() {
     /** A ball in the air: thrown low to land and roll (`throw`, up to 0.4), or high at the ball by the jack (`hit`, up to 0.5). */
     private fun throwing() {
         if (green) return
+        if (curling) { sliding(); return }
         val th = fx("throw")
         if (th != null && th > 0f && th <= 0.4f) {
             val u = th / 0.4f
@@ -563,6 +667,43 @@ internal class BoccePainter : RoomPainter() {
                 PokeArt.rings(c, cx, cy - 2f * K, u, 7f * K, Col.hex(0xFFFFFF), max(1, detail), 0.6f, 2)
             }
         }
+    }
+
+    /**
+     * Carinthia's stocks slide ([curling]): `throw` up to 0.4 the stock leaving the thrower's hand along the lane, low, to
+     * where it slides on to the Daube; `hit` up to 0.5 the stock slid hard at the one nearest the Daube, then the clack.
+     */
+    private fun sliding() {
+        val th = fx("throw")
+        if (th != null && th > 0f && th <= 0.4f) {
+            val u = th / 0.4f
+            val sx = throwPX - 0.5f; val sy = throwPY - 0.1f; val ex = LAND_X; val ey = 7.1f
+            prop { stock(sx + (ex - sx) * u, sy + (ey - sy) * u, 0.4f + 1.2f * (1f - u) * (1f - u), 0) }
+        }
+        val hit = fx("hit")
+        if (hit != null && hit > 0f && hit < 0.5f) {
+            val u = hit / 0.5f
+            val sx = waiting[1][0]; val sy = waiting[1][1]; val ex = balls[0][0]; val ey = balls[0][1]
+            prop { stock(sx + (ex - sx) * u, sy + (ey - sy) * u, 0.4f, 1) }
+        }
+        if (hit != null && hit in 0.5f..0.75f) {
+            val u = (hit - 0.5f) / 0.25f
+            s.fx {
+                val cx = iso.sx(balls[0][0], balls[0][1]); val cy = iso.sy(balls[0][0], balls[0][1], 0.6f)
+                PokeArt.rings(c, cx, cy - 2f * K, u, 7f * K, Col.hex(0xFFFFFF), max(1, detail), 0.6f, 2)
+                if (ice) PokeArt.puff(c, cx, cy, u, 2.5f * K, 5, Col.hex(0xF0F8FC), 187, 0.6f)
+            }
+        }
+    }
+
+    /** Carinthia's broom for the rake ([curling]): leaning on the near end's board, its head of straw on the ground. */
+    private fun broom() {
+        val by = cx1 + 0.3f
+        rod(by, rakeY + 0.5f, 0.6f, cx1 + 0.12f, rakeY, 9f, Pal.WOOD_L, Pal.WOOD_L, Pal.WOOD_M, Pal.WOOD_D)
+        val straw = Col.hex(0xC8A860); val strawD = Col.hex(0x9A7E3E)
+        var y = rakeY + 0.25f
+        while (y <= rakeY + 0.8f) { iso.line(by + 0.02f, y + 0.05f, 0.7f, by + 0.1f, y + 0.08f, 0f, if (Noise.rnd((y * 40).toInt(), 189) < 0.3f) strawD else straw); y += 0.06f }
+        iso.line(by + 0.02f, rakeY + 0.25f, 0.75f, by + 0.02f, rakeY + 0.85f, 0.75f, Col.hex(0x8A2E22))
     }
 
     /** The rake leaning on the near end's board, outside it. */
@@ -652,6 +793,19 @@ internal class BoccePainter : RoomPainter() {
         if (noi) {
             // NOI | VOI, each word centred on its side
             for ((word, mid) in listOf("NOI" to 0.267f, "VOI" to 0.733f)) chalkWord(word, x0 + (x1 - x0) * mid, z1 - 0.65f)
+            return
+        }
+        if (wir) {
+            // Carinthia's WIR | IHR on the slate as it is (a wider one would hide whoever stands behind it): the I one stroke
+            // wide, a nominal px a stroke as MI | VI
+            for ((word, ax) in listOf("WIR" to sbX0 + (sbX1 - sbX0) * 0.05f, "IHR" to sbX0 + (sbX1 - sbX0) * 0.55f)) {
+                var col = 0
+                for (ch in word) {
+                    val rows = if (ch == 'I') NARROW_I else LETTERS[ch] ?: continue
+                    for ((r, line) in rows.withIndex()) for ((q, cc) in line.withIndex()) if (cc == 'X') iso.px(ax + (col + q) * 0.06f, sbY + 0.11f, z1 - 1.0f - r * 0.42f, chalk)
+                    col += rows.first().length + 1
+                }
+            }
             return
         }
         // MI | VI over the marks, a nominal px a stroke
@@ -924,6 +1078,10 @@ internal class BoccePainter : RoomPainter() {
             'V' to listOf("X.X", "X.X", "X.X", "X.X", ".X."),
             'N' to listOf("X..X", "XX.X", "X.XX", "X..X", "X..X"),
             'O' to listOf(".X.", "X.X", "X.X", "X.X", ".X."),
+            // WIR | IHR, Carinthia's
+            'W' to listOf("X.X", "X.X", "X.X", "XXX", "X.X"),
+            'R' to listOf("XX.", "X.X", "XX.", "X.X", "X.X"),
+            'H' to listOf("X.X", "X.X", "XXX", "X.X", "X.X"),
         )
 
         /** The I of Friuli's headings: one stroke wide. */

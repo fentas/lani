@@ -107,6 +107,14 @@ internal class MillPainter : RoomPainter() {
     private var maize = false
     /** The Lake District's mill (`walls` "slate"; its oats and oatmeal are its grain's colours): walls of slate stone inside. */
     private var slateWalls = false
+    /**
+     * Carinthia's mill (In der Mühle, kaernten-projects-a; [look]: "walls" "logs"): its walls of brown larch logs, each round
+     * in its course, with the pale chinking of lime between them, over the footing's stones ([logWall]); it grinds Heiden
+     * (buckwheat) to the grey Heidenmehl (the look's grain and meal colours).
+     */
+    private var logs = false
+    private val logL = Col.hex(0xB8865A); private val logM = Col.hex(0x96683E); private val logD = Col.hex(0x684224)
+    private val chink = Col.hex(0xB8AC92)
     private val jute = Col.hex(0xC8A872); private val juteL = Col.hex(0xDCC08A); private val juteD = Col.hex(0x9A7E4E)
     private val ironC = Col.hex(0x3E3A40); private val ironHi = Col.hex(0x8A8690)
     /**
@@ -400,6 +408,7 @@ internal class MillPainter : RoomPainter() {
             return Col.scale(col, dim)
         }
         if (h < FOOTING) return Col.scale(footingStone(a, h, px, py), dim)
+        if (logs) return Col.scale(logWall(a, h - FOOTING, h, px, py), dim)
         val ph = 1.6f
         val k = floor((h - FOOTING) / ph).toInt(); val fz = (h - FOOTING) - k * ph
         val tone = Noise.rnd(k, floor(a / 3.3f + Noise.rnd(k, 3) * 4f).toInt(), 11)
@@ -424,6 +433,28 @@ internal class MillPainter : RoomPainter() {
         return Col.scale(col, dim)
     }
 
+    /**
+     * Carinthia's log wall ([logs]) at [a] cells along, [u] px above the footing ([h] above the floor): courses of larch logs
+     * [LOG] px high, lit on their round tops and dark underneath, the grain running along them, a seam of pale chinking
+     * between each; flour on the low logs as on the planks.
+     */
+    private fun logWall(a: Float, u: Float, h: Float, px: Int, py: Int): Int {
+        val k = floor(u / LOG).toInt(); val fz = u - k * LOG
+        if (fz < 0.26f) return if (Noise.rnd(px, py, 61) < 0.15f) Col.mix(chink, mortar, 0.4f) else chink
+        val r = (fz - 0.26f) / (LOG - 0.26f)
+        val grain = Noise.v2(a * 0.4f, k * 5.1f + r * 1.5f, 63)
+        var col = when {
+            r > 0.82f -> logL
+            r < 0.22f -> logD
+            grain < 0.3f -> Col.mix(logM, logD, 0.35f)
+            else -> logM
+        }
+        if (fine && abs(grain - 0.5f) < 0.03f) col = Col.scale(col, 0.88f)
+        if (r > 0.82f && h < 9f && Noise.rnd(px, py, 65) < 0.45f - h / 22f) col = Col.mix(col, flourC, 0.5f)
+        if (h > hw - fl - 5f && a < 1.1f && Noise.rnd(px, py, 49) < 0.08f) col = Col.mix(col, Col.hex(0xD8D4CC), 0.6f)
+        return col
+    }
+
     /** The footing's stones at [a] cells along and [h] px up from the floor: rounded river stones in mortar. */
     private fun footingStone(a: Float, h: Float, px: Int, py: Int): Int {
         val ch = 1.5f
@@ -445,6 +476,7 @@ internal class MillPainter : RoomPainter() {
     private fun wallEnd(z: Float, px: Int, py: Int, dim: Float): Int {
         if (slateWalls) return Col.scale(if (Noise.rnd(px / max(1, detail), py / max(1, detail), 55) < 0.5f) stoneM else stoneD, dim)
         val col = if (z < fl + FOOTING) (if (Noise.rnd(px / max(1, detail), py / max(1, detail), 55) < 0.5f) stoneM else stoneD)
+        else if (logs) (if (((z - fl - FOOTING) / LOG) % 1f < 0.14f) chink else Col.mix(logL, Col.hex(0xE0B088), 0.45f))
         else if (((z - fl - FOOTING) / 1.6f) % 1f < 0.18f) boardX else Col.mix(boardL, Col.hex(0xD8A870), 0.3f)
         return Col.scale(col, dim)
     }
@@ -452,6 +484,7 @@ internal class MillPainter : RoomPainter() {
     /** A wall's top where it is cut: the planks' top edges, flour on them; snow in winter. */
     private fun wallTop(across: Float, px: Int, py: Int): Int {
         if (winter && Dither.at(px, py) < 0.85f) return Pal.SNOW_L
+        if (logs) return if (across < 0.12f || across > tk - 0.12f) logD else if (Noise.rnd(px, py, 57) < 0.3f) flourD else logL
         return if (across < 0.08f || across > tk - 0.08f) boardL else if (Noise.rnd(px, py, 57) < 0.3f) flourD else boardM
     }
 
@@ -474,7 +507,8 @@ internal class MillPainter : RoomPainter() {
 
     /** A front wall's stub outside at [a] cells along and [z] px up: the stone footing from the ground, the bottom plank on it. */
     private fun stub(a: Float, z: Float, px: Int, py: Int): Int =
-        if (z < fl + FOOTING) footingStone(a, z + 1.1f, px, py) else if (z > fl + FOOTING + 0.55f) Col.mix(boardL, Col.hex(0xE8C090), 0.2f) else boardM
+        if (z < fl + FOOTING) footingStone(a, z + 1.1f, px, py) else if (logs) logWall(a, z - fl - FOOTING, z - fl, px, py)
+        else if (z > fl + FOOTING + 0.55f) Col.mix(boardL, Col.hex(0xE8C090), 0.2f) else boardM
 
     // ------------------------------------------------------------------ the right wall
 
@@ -1585,6 +1619,7 @@ internal class MillPainter : RoomPainter() {
     private fun readGrain() {
         maize = variant("grain") == "maize"
         slateWalls = variant("walls") == "slate"
+        logs = variant("walls") == "logs"
         grainL = colour("grain.l", GRAIN_L); grainM = colour("grain.m", GRAIN_M); grainD = colour("grain.d", GRAIN_D)
         mealC = colour("meal", flourC); mealD = colour("meal.d", flourD)
     }
@@ -1626,6 +1661,8 @@ internal class MillPainter : RoomPainter() {
 
     private companion object {
         /** The default culture's grain: golden wheat. */
+        /** A log's height in Carinthia's wall ([logWall]), px at detail 1. */
+        const val LOG = 2.3f
         val GRAIN_L = Col.hex(0xF2CC6A); val GRAIN_M = Col.hex(0xD8A846); val GRAIN_D = Col.hex(0xA87A2A)
 
         /** The shaft's turn by itself (rad/s), and grinding hard; the pinion and the runner turn this many times as fast. */

@@ -92,6 +92,7 @@
     },
     {
       "id": "daisy",
+      "talk": "asking-the-way-on-the-fell",
       "lines": [
         { "who": "jack", "face": "curious", "en": "Now then! Can you hear that bell? That's Daisy, my cow.", "sl": "Živjo! Slišiš tisti zvonec? To je Daisy, moja krava.", "it": "Ciao! Senti quel campanaccio? È Daisy, la mia mucca.", "de": "Hallo! Hörst du die Glocke? Das ist Daisy, meine Kuh.", "fx": { "cowbells": 1 } },
         { "choices": [
@@ -124,6 +125,7 @@
     },
     {
       "id": "sunset",
+      "talk": "asking-the-way-on-the-fell",
       "sky_stays": false,
       "lines": [
         { "who": "jack", "face": "surprised", "en": "Now then! Look at the fells. They're going pink!", "sl": "Živjo! Poglej hribe. Rožnati postajajo!", "it": "Ciao! Guarda i monti. Stanno diventando rosa!", "de": "Hallo! Schau dir die Berge an. Sie werden rosa!", "fx": { "glow": 1 } },
@@ -223,6 +225,7 @@
     },
     {
       "id": "daisy-count",
+      "talk": "asking-the-way-on-the-fell",
       "count": { "from": "dice", "min": 3, "max": 12 },
       "memory": { "en": "the day we counted the cows on the fell", "sl": "dan, ko sva štela krave na hribu", "it": "il giorno in cui abbiamo contato le mucche sul monte", "de": "den Tag, an dem wir die Kühe auf dem Berg gezählt haben" },
       "lines": [
@@ -250,6 +253,7 @@
     },
     {
       "id": "sunset-yesterday",
+      "talk": "asking-the-way-on-the-fell",
       "lines": [
         { "who": "jack", "face": "curious", "en": "Now then! The fells are going pink. Yesterday it was even prettier! Were you here?", "sl": "Živjo! Hribi postajajo rožnati. Včeraj je bilo še lepše! Si {m:bil|f:bila} tukaj?", "it": "Ciao! I monti diventano rosa. Ieri era ancora più bello! Eri qui?", "de": "Hallo! Die Berge werden rosa. Gestern war es noch schöner! Warst du da?", "fx": { "glow": 0.8 } },
         { "choices": [

@@ -1,0 +1,125 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "im-obstgarten",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl, en and it, from the Obstgarten's picture (old apple trees and a pear tree in the grass, the Schragenzaun, the farmhouse, the lake); not reviewed by a native speaker",
+  "things": {
+    "vineyard": {
+      "clues": [
+        { "kind": "size", "de": "Er ist groß.", "sl": "Je velik.", "en": "It's big.", "it": "È grande.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Er hat viele alte Bäume im Gras.", "sl": "Ima veliko starih dreves v travi.", "en": "It has lots of old trees in the grass.", "it": "Ha tanti vecchi alberi nell'erba.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "where", "de": "Er ist auf beiden Seiten der Straße.", "sl": "Je na obeh straneh ceste.", "en": "It's on both sides of the road.", "it": "È ai due lati della strada.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "road" },
+        { "kind": "use", "de": "Darin wachsen Äpfel und Birnen.", "sl": "V njem rastejo jabolka in hruške.", "en": "Apples and pears grow in it.", "it": "Ci crescono mele e pere.", "grammar": ["wortstellung", "plural"] }
+      ]
+    },
+    "vine": {
+      "clues": [
+        { "kind": "size", "de": "Er ist nicht sehr hoch.", "sl": "Ni zelo visoka.", "en": "It isn't very tall.", "it": "Non è molto alto.", "grammar": ["sein-haben", "kein-nicht"] },
+        { "kind": "trait", "de": "Im Frühling hat er weiße und rosa Blüten.", "sl": "Spomladi ima bele in rožnate cvetove.", "en": "In spring it has white and pink blossoms.", "it": "In primavera ha fiori bianchi e rosa.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "trait", "de": "Im Winter hat er keine Blätter.", "sl": "Pozimi nima listov.", "en": "In winter it has no leaves.", "it": "D'inverno non ha foglie.", "grammar": ["kein-nicht", "wortstellung"] },
+        { "kind": "where", "de": "Er steht neben der Steige.", "sl": "Stoji zraven zaboja.", "en": "It stands next to the crate.", "it": "Sta accanto alla cassetta.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "crate" },
+        { "kind": "use", "de": "Daran wachsen die Äpfel.", "sl": "Na njej rastejo jabolka.", "en": "The apples grow on it.", "it": "Ci crescono le mele.", "grammar": ["wortstellung", "plural"] }
+      ]
+    },
+    "grapes": {
+      "clues": [
+        { "kind": "colour", "de": "Im Herbst ist er rot.", "sl": "Jeseni je rdeče.", "en": "In autumn it's red.", "it": "In autunno è rossa.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "trait", "de": "Er ist rund und süß.", "sl": "Je okroglo in sladko.", "en": "It's round and sweet.", "it": "È rotonda e dolce.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Er hängt am Apfelbaum.", "sl": "Visi na jablani.", "en": "It hangs on the apple tree.", "it": "Pende dal melo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "vine" },
+        { "kind": "use", "de": "Wir essen ihn oder machen Saft daraus.", "sl": "Pojemo ga ali iz njega naredimo sok.", "en": "We eat it or make juice from it.", "it": "La mangiamo o ne facciamo succo.", "grammar": ["akkusativ", "praesens"] }
+      ]
+    },
+    "hill": {
+      "clues": [
+        { "kind": "size", "de": "Er ist groß.", "sl": "Je velik.", "en": "It's big.", "it": "È grande.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "colour", "de": "Im Sommer ist er grün.", "sl": "Poleti je zelen.", "en": "In summer it's green.", "it": "D'estate è verde.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "trait", "de": "Oben hat er eine Kirche.", "sl": "Na vrhu ima cerkev.", "en": "It has a church on top.", "it": "In cima ha una chiesa.", "grammar": ["sein-haben", "akkusativ"] },
+        { "kind": "where", "de": "Er ist weit weg, rechts.", "sl": "Je daleč, na desni.", "en": "It's far away, on the right.", "it": "È lontana, a destra.", "grammar": ["sein-haben"] }
+      ]
+    },
+    "church": {
+      "clues": [
+        { "kind": "size", "de": "Von hier sieht sie klein aus.", "sl": "Od tu se zdi majhna.", "en": "From here it looks small.", "it": "Da qui sembra piccola.", "grammar": ["trennbare-verben"] },
+        { "kind": "colour", "de": "Sie ist weiß.", "sl": "Je bela.", "en": "It's white.", "it": "È bianca.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie hat einen Turm mit einer Zwiebel.", "sl": "Ima zvonik s čebulasto streho.", "en": "It has a tower with an onion dome.", "it": "Ha un campanile a cipolla.", "grammar": ["sein-haben", "akkusativ"] },
+        { "kind": "where", "de": "Sie ist oben auf dem Hügel.", "sl": "Je zgoraj na griču.", "en": "It's up on the hill.", "it": "È in cima alla collina.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "hill" },
+        { "kind": "use", "de": "Am Sonntag gehen viele Leute hin.", "sl": "Ob nedeljah gre tja veliko ljudi.", "en": "On Sundays lots of people go there.", "it": "La domenica ci va tanta gente.", "grammar": ["wortstellung", "praesens"] }
+      ]
+    },
+    "belltower": {
+      "clues": [
+        { "kind": "trait", "de": "Er ist hoch und schmal.", "sl": "Je visok in ozek.", "en": "It's tall and narrow.", "it": "È alto e stretto.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Oben hat er eine grüne Zwiebel.", "sl": "Na vrhu ima zeleno čebulo.", "en": "It has a green onion dome on top.", "it": "In cima ha una cipolla verde.", "grammar": ["sein-haben", "akkusativ"] },
+        { "kind": "where", "de": "Er ist bei der Kirche.", "sl": "Je pri cerkvi.", "en": "It's by the church.", "it": "È vicino alla chiesa.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "church" },
+        { "kind": "does", "de": "Er läutet: bim, bam!", "sl": "Zvoni: bim, bam!", "en": "It rings: ding, dong!", "it": "Suona: din, don!", "grammar": ["praesens"] }
+      ]
+    },
+    "farmhouse": {
+      "clues": [
+        { "kind": "size", "de": "Er ist groß.", "sl": "Je velika.", "en": "It's big.", "it": "È grande.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Unten ist er weiß, oben aus Holz.", "sl": "Spodaj je bela, zgoraj lesena.", "en": "It's white below and wooden above.", "it": "Sotto è bianca, sopra di legno.", "grammar": ["sein-haben", "wortstellung"] },
+        { "kind": "trait", "de": "Er hat einen Balkon mit roten Blumen.", "sl": "Ima balkon z rdečimi rožami.", "en": "It has a balcony with red flowers.", "it": "Ha un balcone con fiori rossi.", "grammar": ["sein-haben", "dativ"] },
+        { "kind": "where", "de": "Er ist am Ende der Straße.", "sl": "Je na koncu ceste.", "en": "It's at the end of the road.", "it": "È in fondo alla strada.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "road" },
+        { "kind": "use", "de": "Darin wohnt eine Bauernfamilie.", "sl": "V njej živi kmečka družina.", "en": "A farming family lives in it.", "it": "Ci abita una famiglia di contadini.", "grammar": ["wortstellung"] }
+      ]
+    },
+    "cypress": {
+      "clues": [
+        { "kind": "trait", "de": "Sie ist hoch und spitz.", "sl": "Je visok in koničast.", "en": "It's tall and pointed.", "it": "È alto e appuntito.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "colour", "de": "Im Herbst wird sie gelb.", "sl": "Jeseni porumeni.", "en": "In autumn it turns yellow.", "it": "In autunno diventa gialla.", "grammar": ["praesens", "wortstellung"] },
+        { "kind": "where", "de": "Sie steht beim Bauernhof.", "sl": "Stoji pri kmetiji.", "en": "It stands by the farmhouse.", "it": "Sta vicino alla fattoria.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "farmhouse" },
+        { "kind": "trait", "de": "Sie hat Nadeln, keine Blätter.", "sl": "Ima iglice, ne listov.", "en": "It has needles, not leaves.", "it": "Ha gli aghi, non le foglie.", "grammar": ["kein-nicht", "plural"] }
+      ]
+    },
+    "persimmon": {
+      "clues": [
+        { "kind": "trait", "de": "Er ist ein alter Baum.", "sl": "Je staro drevo.", "en": "It's an old tree.", "it": "È un vecchio albero.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "colour", "de": "Im Herbst hat er gelbgrüne Früchte.", "sl": "Jeseni ima rumenozelene sadeže.", "en": "In autumn it has yellow-green fruit.", "it": "In autunno ha frutti verde-giallo.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "where", "de": "Er steht hinter dem Zaun.", "sl": "Stoji za ograjo.", "en": "It stands behind the fence.", "it": "Sta dietro lo steccato.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "wall" },
+        { "kind": "use", "de": "Aus seinen Früchten macht man Kletzen.", "sl": "Iz njegovih sadežev se naredijo krhlji.", "en": "Kletzen are made from its fruit.", "it": "Con i suoi frutti si fanno le Kletzen.", "grammar": ["dativ", "plural"] }
+      ]
+    },
+    "wall": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist grau.", "sl": "Je siva.", "en": "It's grey.", "it": "È grigio.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "material", "de": "Er ist aus alten Holzstangen.", "sl": "Je iz starih lesenih drogov.", "en": "It's made of old wooden poles.", "it": "È di vecchi pali di legno.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "trait", "de": "Seine Stangen stehen schräg.", "sl": "Njeni drogovi stojijo poševno.", "en": "Its poles stand at a slant.", "it": "I suoi pali sono storti.", "grammar": ["praesens", "plural"] },
+        { "kind": "where", "de": "Er ist vor dem Birnbaum.", "sl": "Je pred hruško.", "en": "It's in front of the pear tree.", "it": "È davanti al pero.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "persimmon" }
+      ]
+    },
+    "mountains": {
+      "clues": [
+        { "kind": "size", "de": "Er ist sehr, sehr hoch.", "sl": "Je zelo, zelo visoka.", "en": "It's very, very high.", "it": "È altissima.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "colour", "de": "Er ist blau und grau.", "sl": "Je modra in siva.", "en": "It's blue and grey.", "it": "È blu e grigia.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Oben hat er Schnee.", "sl": "Na vrhu ima sneg.", "en": "It has snow on top.", "it": "In cima ha la neve.", "grammar": ["sein-haben", "akkusativ"] },
+        { "kind": "where", "de": "Er ist weit weg, ganz hinten.", "sl": "Je daleč, čisto zadaj.", "en": "It's far away, right at the back.", "it": "È lontana, proprio in fondo.", "grammar": ["sein-haben"] }
+      ]
+    },
+    "sea": {
+      "clues": [
+        { "kind": "colour", "de": "Er ist blau.", "sl": "Je modro.", "en": "It's blue.", "it": "È blu.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "size", "de": "Von hier sieht er klein aus.", "sl": "Od tu se zdi majhno.", "en": "From here it looks small.", "it": "Da qui sembra piccolo.", "grammar": ["trennbare-verben"] },
+        { "kind": "where", "de": "Er ist unten im Tal.", "sl": "Je spodaj v dolini.", "en": "It's down in the valley.", "it": "È giù nella valle.", "grammar": ["wechselpraepositionen", "dativ"] },
+        { "kind": "use", "de": "Im Sommer baden wir darin.", "sl": "Poleti se v njem kopamo.", "en": "In summer we swim in it.", "it": "D'estate ci facciamo il bagno.", "grammar": ["wortstellung", "praesens"] }
+      ]
+    },
+    "road": {
+      "clues": [
+        { "kind": "size", "de": "Sie ist lang.", "sl": "Je dolga.", "en": "It's long.", "it": "È lunga.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "trait", "de": "Sie ist schmal und grau.", "sl": "Je ozka in siva.", "en": "It's narrow and grey.", "it": "È stretta e grigia.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Sie ist mitten im Obstgarten.", "sl": "Je sredi sadovnjaka.", "en": "It's in the middle of the orchard.", "it": "È in mezzo al frutteto.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "vineyard" },
+        { "kind": "does", "de": "Sie führt zum Bauernhof.", "sl": "Vodi do kmetije.", "en": "It leads to the farmhouse.", "it": "Porta alla fattoria.", "grammar": ["dativ", "praesens"], "ref": "farmhouse" },
+        { "kind": "use", "de": "Hier fährt der Traktor.", "sl": "Tu vozi traktor.", "en": "The tractor drives here.", "it": "Qui passa il trattore.", "grammar": ["wortstellung"] }
+      ]
+    },
+    "crate": {
+      "clues": [
+        { "kind": "material", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "size", "de": "Sie ist klein.", "sl": "Je majhen.", "en": "It's small.", "it": "È piccola.", "grammar": ["sein-haben", "artikel-genus"] },
+        { "kind": "where", "de": "Sie steht neben dem Apfelbaum.", "sl": "Stoji zraven jablane.", "en": "It stands next to the apple tree.", "it": "Sta accanto al melo.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "vine" },
+        { "kind": "use", "de": "Da legen wir die Äpfel hinein.", "sl": "Vanj damo jabolka.", "en": "We put the apples in it.", "it": "Ci mettiamo dentro le mele.", "grammar": ["trennbare-verben", "akkusativ"] }
+      ]
+    }
+  }
+}

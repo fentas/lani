@@ -3,7 +3,7 @@
   "scene": "on-the-green",
   "language": "en",
   "machine_written": true,
-  "review": "clues: machine-written (Claude) in en, with sl translations, from the village green in its Lakeland look (the oak for the linden, growing with its level, so no clue says how big it is or what stands under it; the village pump by WELL's level, so no clue says it is iron or green; the church's grey battlemented tower, the grey stone and whitewashed cottages under slate, the low dry-stone wall on the left; the rest as the default square and na-vasi's clues say: the brown bench, the red and white ball, the blue bicycle, Bess brown with her red collar, the orange cat); the sun, the dog and the cat are never placed; the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the village green in its Lakeland look (the oak for the linden, growing with its level, so no clue says how big it is or what stands under it; the village pump by WELL's level, so no clue says it is iron or green; the church's grey battlemented tower, the grey stone and whitewashed cottages under slate, the low dry-stone wall on the left; the rest as the default square and na-vasi's clues say: the brown bench, the red and white ball, the blue bicycle, Bess brown with her red collar, the orange cat); the sun, the dog and the cat are never placed; the sl translations keep to forms that don't give the word's gender away where they can; the drinking fountain and the church clock as they are drawn since lakeland-projects-b (green Honister slate with a lion's head and two iron cups on chains; a round face of dark slate with gold numbers and hands); not reviewed by a native speaker",
   "things": {
     "linden": {
       "clues": [
@@ -115,17 +115,18 @@
     },
     "fountain": {
       "clues": [
-        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
-        { "kind": "material", "en": "It's made of stone.", "sl": "Je iz kamna.", "grammar": ["to-be"] },
-        { "kind": "trait", "en": "It has four iron pipes.", "sl": "Ima štiri železne cevi.", "grammar": ["to-have"] },
+        { "kind": "colour", "en": "It's green.", "sl": "Je zelene barve.", "grammar": ["to-be"] },
+        { "kind": "material", "en": "It's made of slate.", "sl": "Je iz skrilavca.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has a lion's head.", "sl": "Ima levjo glavo.", "grammar": ["to-have"] },
+        { "kind": "trait", "en": "There are two iron cups on it.", "sl": "Na tem sta dve železni skodelici.", "grammar": ["there-is-are", "prepositions-place"] },
         { "kind": "where", "en": "It's in the middle of the green.", "sl": "Je sredi zelenice.", "grammar": ["to-be", "prepositions-place"] },
-        { "kind": "does", "en": "Water runs out of it.", "sl": "Iz tega teče voda.", "grammar": ["present-simple"] }
+        { "kind": "does", "en": "Water comes out of the lion's mouth.", "sl": "Voda priteče iz levjega gobca.", "grammar": ["present-simple"] }
       ]
     },
     "clock": {
       "clues": [
-        { "kind": "colour", "en": "It's white.", "sl": "Je bele barve.", "grammar": ["to-be"] },
-        { "kind": "trait", "en": "It has two black hands.", "sl": "Ima dva črna kazalca.", "grammar": ["to-have"] },
+        { "kind": "colour", "en": "It's dark grey, with gold numbers.", "sl": "Je temno sive barve, z zlatimi številkami.", "grammar": ["to-be"] },
+        { "kind": "trait", "en": "It has two gold hands.", "sl": "Ima dva zlata kazalca.", "grammar": ["to-have"] },
         { "kind": "where", "en": "It's on the church tower.", "sl": "Je na cerkvenem stolpu.", "grammar": ["to-be", "prepositions-place"], "ref": "tower" },
         { "kind": "use", "en": "It tells us the time.", "sl": "Kaže čas.", "grammar": ["present-simple"] }
       ]

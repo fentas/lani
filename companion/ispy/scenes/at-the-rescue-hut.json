@@ -1,0 +1,103 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "at-the-rescue-hut",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from the mountain rescue hut in its Lakeland look (the orange stretcher on its one wheel where the pump stands, the red and blue coils of rope, the red helmets and jackets on their pegs, the two ice axes crossed, the red first-aid bags with their white cross, the map of the fells, the whistle on its cord on the nail, St George's cross, MRT over the big doors, the little bell tower of grey stone under slate); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "pump": {"clues": [
+      {"kind": "colour", "en": "It's orange.", "sl": "Je oranžne barve.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has one wheel, under its middle.", "sl": "Ima eno kolo, pod sredino.", "grammar": ["to-have", "prepositions-place"]},
+      {"kind": "trait", "en": "It has handles at both ends.", "sl": "Na obeh koncih ima ročaje.", "grammar": ["to-have"]},
+      {"kind": "where", "en": "It's in the middle of the hall.", "sl": "Je sredi dvorane.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "use", "en": "We carry a hurt walker on it.", "sl": "Na tem nosimo poškodovanega pohodnika.", "grammar": ["present-simple"]}
+    ]},
+    "hose": {"clues": [
+      {"kind": "colour", "en": "It's red and blue.", "sl": "Je rdeče in modre barve.", "grammar": ["to-be"]},
+      {"kind": "size", "en": "It's very long.", "sl": "To je nekaj zelo dolgega.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It lies in big coils.", "sl": "Leži v velikih kolutih.", "grammar": ["present-simple"]},
+      {"kind": "where", "en": "One end lies across the floor.", "sl": "En konec leži čez tla.", "grammar": ["present-simple", "prepositions-place"]},
+      {"kind": "use", "en": "It holds a person on a steep rock.", "sl": "Na strmi skali to drži človeka.", "grammar": ["present-simple"]}
+    ]},
+    "helmet": {"clues": [
+      {"kind": "colour", "en": "They're red.", "sl": "So rdeče barve.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "They hang on pegs on the wall.", "sl": "Visijo na klinih na steni.", "grammar": ["present-simple", "prepositions-place"]},
+      {"kind": "use", "en": "We wear them on our heads.", "sl": "To nosimo na glavi.", "grammar": ["present-simple"]},
+      {"kind": "use", "en": "They keep our heads safe from falling stones.", "sl": "To nam varuje glavo pred kamni, ki padajo.", "grammar": ["present-simple"]}
+    ]},
+    "axe": {"clues": [
+      {"kind": "trait", "en": "There are two of them, crossed.", "sl": "Dva kosa sta, prekrižana.", "grammar": ["there-is-are"]},
+      {"kind": "material", "en": "They're made of metal and wood.", "sl": "Iz kovine in lesa so.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "Each one has a sharp point.", "sl": "Vsak kos ima ostro konico.", "grammar": ["to-have"]},
+      {"kind": "use", "en": "We take them up the fells in winter, for the ice.", "sl": "Pozimi jih nesemo v hribe, za led.", "grammar": ["present-simple"]}
+    ]},
+    "ladder": {"clues": [
+      {"kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"]},
+      {"kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has a lot of rungs.", "sl": "Ima veliko prečk.", "grammar": ["to-have"]},
+      {"kind": "use", "en": "We climb up it.", "sl": "Po tem plezamo gor.", "grammar": ["present-simple"]}
+    ]},
+    "bucket": {"clues": [
+      {"kind": "colour", "en": "They're red, with a white cross.", "sl": "Rdeče barve so, z belim križem.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "They're on a shelf.", "sl": "So na polici.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "trait", "en": "There are plasters and bandages inside.", "sl": "Notri so obliži in povoji.", "grammar": ["there-is-are"]},
+      {"kind": "use", "en": "We open them when someone is hurt.", "sl": "To odpremo, ko se kdo poškoduje.", "grammar": ["present-simple"]}
+    ]},
+    "bell": {"clues": [
+      {"kind": "where", "en": "It's at the top of the little tower.", "sl": "Je na vrhu majhnega stolpa.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "trait", "en": "A rope hangs down from it.", "sl": "Od tega visi vrv.", "grammar": ["present-simple"]},
+      {"kind": "does", "en": "It goes ding, dong!", "sl": "Dela bim, bam!", "grammar": ["present-simple"]},
+      {"kind": "use", "en": "It calls the team when a walker is lost.", "sl": "To pokliče ekipo, ko se pohodnik izgubi.", "grammar": ["present-simple"]}
+    ]},
+    "door": {"clues": [
+      {"kind": "size", "en": "They're very big.", "sl": "To je nekaj zelo velikega.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "There are three letters over them: MRT.", "sl": "Nad tem so tri črke: MRT.", "grammar": ["there-is-are", "prepositions-place"]},
+      {"kind": "does", "en": "They open in the morning and shut at night.", "sl": "Zjutraj se odprejo, ponoči se zaprejo.", "grammar": ["present-simple"]},
+      {"kind": "use", "en": "The team goes out through them.", "sl": "Ekipa gre skozi to ven.", "grammar": ["present-simple"]}
+    ]},
+    "tower": {"clues": [
+      {"kind": "material", "en": "It's made of grey stone.", "sl": "Je iz sivega kamna.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has a roof of slate.", "sl": "Ima streho iz skrilavca.", "grammar": ["to-have"]},
+      {"kind": "trait", "en": "The bell is at the top.", "sl": "Na vrhu je zvon.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "where", "en": "It's outside, next to the hall.", "sl": "Je zunaj, zraven dvorane.", "grammar": ["to-be", "prepositions-place"]}
+    ]},
+    "uniform": {"clues": [
+      {"kind": "colour", "en": "They're red.", "sl": "So rdeče barve.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "They hang on pegs.", "sl": "Visijo na klinih.", "grammar": ["present-simple", "prepositions-place"]},
+      {"kind": "use", "en": "We put them on before a rescue.", "sl": "Pred reševanjem si jih oblečemo.", "grammar": ["present-simple"]},
+      {"kind": "trait", "en": "You can see them from far away on the fell.", "sl": "V hribih jih vidiš od daleč.", "grammar": ["can"]}
+    ]},
+    "flag": {"clues": [
+      {"kind": "colour", "en": "It's white, with a red cross.", "sl": "Je bele barve, z rdečim križem.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It's St George's.", "sl": "Je od svetega Jurija.", "grammar": ["possessive-s"]},
+      {"kind": "trait", "en": "It's England's.", "sl": "Je od Anglije.", "grammar": ["possessive-s"]}
+    ]},
+    "picture": {"clues": [
+      {"kind": "trait", "en": "The fells are drawn on it.", "sl": "Na tem so narisani hribi.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has paths and lakes on it.", "sl": "Na tem so poti in jezera.", "grammar": ["to-have"]},
+      {"kind": "where", "en": "It hangs on the wall.", "sl": "Visi na steni.", "grammar": ["present-simple", "prepositions-place"]},
+      {"kind": "use", "en": "We read it before we go up a fell.", "sl": "To preberemo, preden gremo na hrib.", "grammar": ["present-simple"]}
+    ]},
+    "bench": {"clues": [
+      {"kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"]},
+      {"kind": "size", "en": "It's long.", "sl": "To je nekaj dolgega.", "grammar": ["to-be"]},
+      {"kind": "use", "en": "We sit on it and put our boots on.", "sl": "Na tem sedimo in si obuvamo čevlje.", "grammar": ["present-simple", "prepositions-place"]}
+    ]},
+    "horn": {"clues": [
+      {"kind": "size", "en": "It's very small.", "sl": "To je nekaj zelo majhnega.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "It hangs on a nail, on its cord.", "sl": "Visi na žeblju, na vrvici.", "grammar": ["present-simple", "prepositions-place"]},
+      {"kind": "does", "en": "It's very loud.", "sl": "To je nekaj zelo glasnega.", "grammar": ["to-be"]},
+      {"kind": "use", "en": "Six blasts on it mean: help!", "sl": "Šest piskov s tem pomeni: na pomoč!", "grammar": ["present-simple"]}
+    ]},
+    "lantern": {"clues": [
+      {"kind": "material", "en": "It's made of metal and glass.", "sl": "Je iz kovine in stekla.", "grammar": ["to-be"]},
+      {"kind": "does", "en": "It gives light in the dark.", "sl": "V temi to sveti.", "grammar": ["present-simple"]},
+      {"kind": "use", "en": "We light it at night, till the team comes home.", "sl": "Ponoči to prižgemo, dokler se ekipa ne vrne.", "grammar": ["present-simple"]}
+    ]},
+    "window": {"clues": [
+      {"kind": "material", "en": "It's made of glass.", "sl": "Je iz stekla.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "We can see outside through it.", "sl": "Skozi to vidimo ven.", "grammar": ["can"]},
+      {"kind": "use", "en": "It lets the light in.", "sl": "To spusti svetlobo noter.", "grammar": ["present-simple"]}
+    ]}
+  }
+}
