@@ -77,7 +77,7 @@ class TentMoveTest {
         assertEquals((Quests.BASE_REWARD * Quests.ageMultiplier(Age.ZASELEK)).toInt(), q.reward.getValue(Res.WOOD))
         assertEquals(2, q.reward.size)
         assertEquals(0L, q.expiresAt)
-        assertTrue(s.log.any { it.emoji == "🐑" && it.text == "Pastir Luka te prosi za pomoč · asks for your help" })
+        assertTrue(s.log.any { it.emoji == "🐑" && it.text == "Pastir Luka te prosi za pomoč · Pastir Luka asks for your help" })
         // and only once: the next days bring no second one
         val later = tick(tick(s, day.plusDays(1)), day.plusDays(2))
         assertEquals(1, later.quests.count { it.id == TentMove.ID })
