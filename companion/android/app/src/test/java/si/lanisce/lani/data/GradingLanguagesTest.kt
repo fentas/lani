@@ -406,6 +406,27 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, en("a present for you", "a present for you"))
     }
 
+    @Test fun `an english -ing form's spelling mistakes, an ordinal's and were for where are wrong, their slips forgiven`() {
+        // the consonant not doubled, the silent e kept, a consonant doubled that isn't: the rule, never a slip
+        for ((typed, right) in listOf("siting" to "sitting", "runing" to "running", "swiming" to "swimming", "geting" to "getting", "shoping" to "shopping",
+            "makeing" to "making", "comeing" to "coming", "writeing" to "writing", "takeing" to "taking", "haveing" to "having", "writting" to "writing", "comming" to "coming")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en("Jack is $typed", "Jack is $right").verdict)
+        }
+        // the ordinals' and were, where: each only for its own word
+        for ((typed, right) in listOf("nineth" to "ninth", "eigth" to "eighth", "twentyth" to "twentieth", "thirtyth" to "thirtieth", "fourtieth" to "fortieth", "where" to "were", "were" to "where")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // a slip elsewhere in the word stays one, on these verbs and on the others
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("sittting", "sitting"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("siwmming", "swimming"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("wlaking", "walking"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("eihgth", "eighth"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("Wendesday", "Wednesday"))
+        // a right word with the same letters is right (seeing); hoping for hopping is the rule's mistake too
+        assertGraded(Verdict.CORRECT, Hint.NONE, en("We are seeing Jack", "We are seeing Jack"))
+        assertGraded(Verdict.WRONG, Hint.NONE, en("hoping", "hopping"))
+    }
+
     // --- the pair's target is the default -----------------------------------------------------------------------------
 
     @Test fun `without a language, the pair's target decides`() {
