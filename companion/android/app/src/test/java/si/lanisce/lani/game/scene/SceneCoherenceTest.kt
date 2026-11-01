@@ -170,7 +170,8 @@ class SceneCoherenceTest {
             }
         }
         assertTrue(bad.joinToString("\n", prefix = "\n"), bad.isEmpty())
-        assertEquals("the steps' done lines (both levels)", 46, marked)
+        // Primorska's 46, and the Lake District's maypole, packhorse bridge and mill (lakeland-projects-a) 30
+        assertEquals("the steps' done lines (both levels)", 46 + 30, marked)
     }
 
     @Test fun `the step's scene shows its work from the line that says it's done`() {

@@ -197,7 +197,8 @@ class AlpsLooksTest {
                 assertTrue("$culture ${b.type} has a way in", Homes.scenesOf(b, own, state).isNotEmpty())
             }
             assertTrue(culture, look.touches("alps"))
-            assertEquals(culture, all, own.flatMap { it.from }.filter { !it.contains(':') && it != "fire" }.toSet())
+            // every building; and since the projects' rounds the wood too, a spot of the land ("forest"), which is no building
+            assertEquals(culture, all, own.flatMap { it.from }.filter { !it.contains(':') && it != "fire" }.toSet() - "forest")
         }
     }
 
