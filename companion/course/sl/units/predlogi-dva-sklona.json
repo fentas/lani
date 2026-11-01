@@ -4,14 +4,49 @@
   "language": "sl",
   "level": "B2",
   "emoji": "🔀",
-  "title": { "sl": "Pod stol, pod stolom: dva sklona", "en": "One preposition, two cases", "de": "Eine Präposition, zwei Fälle", "it": "Una preposizione, due casi" },
+  "title": {
+    "sl": "Pod stol, pod stolom: dva sklona",
+    "en": "One preposition, two cases",
+    "de": "Eine Präposition, zwei Fälle",
+    "it": "Una preposizione, due casi"
+  },
   "goal": {
     "en": "You can pick the case after a preposition that takes two, by what it means: where to or where (pod stol, pod stolom), to fetch or around (po kruh, po vasi), against or by (ob zid, ob potoku), for or behind (za babico, za hišo), and the time (pred tednom, med kosilom).",
     "de": "Du wählst den Fall nach einer Präposition mit zwei Fällen nach ihrer Bedeutung: wohin oder wo (pod stol, pod stolom), holen oder herum (po kruh, po vasi), gegen oder an (ob zid, ob potoku), für oder hinter (za babico, za hišo), und die Zeit (pred tednom, med kosilom).",
     "it": "Sai scegliere il caso dopo una preposizione che ne ha due, secondo il significato: verso dove o dove (pod stol, pod stolom), andare a prendere o in giro (po kruh, po vasi), contro o presso (ob zid, ob potoku), per o dietro (za babico, za hišo), e il tempo (pred tednom, med kosilom)."
   },
   "grammar": ["predlogi-dva-sklona", "kam-tozilnik", "kje-mestnik-orodnik"],
-  "words": ["stol", "miza", "hlev", "grm", "zajec", "ograja", "potok", "vrba", "zid", "pest", "kruh", "moka", "zdravnik", "kosilo", "teden", "most", "šotor", "vodnjak", "trgovina", "mleko", "denar", "skočiti", "skriti se", "udariti", "zaleteti se", "spotakniti se", "poslati", "sprehoditi se", "vrniti se"],
+  "words": [
+    "stol",
+    "miza",
+    "hlev",
+    "grm",
+    "zajec",
+    "ograja",
+    "potok",
+    "vrba",
+    "zid",
+    "pest",
+    "kruh",
+    "moka",
+    "zdravnik",
+    "kosilo",
+    "teden",
+    "most",
+    "šotor",
+    "vodnjak",
+    "trgovina",
+    "mleko",
+    "denar",
+    "skočiti",
+    "skriti se",
+    "udariti",
+    "zaleteti se",
+    "spotakniti se",
+    "poslati",
+    "sprehoditi se",
+    "vrniti se"
+  ],
   "intro": {
     "table": {
       "head": [
@@ -28,8 +63,18 @@
           "it": "Conosci **v šolo** (verso dove) e **v šoli** (dove), e **pod**, **nad**, **pred**, **za**, **med** con l'accusativo e lo strumentale. Decide la domanda: **Kam?** l'accusativo, **Kje?** l'altro caso. **Muri je skočil pod stol** (kam?) **in zdaj spi pod stolom** (kje?). Con un femminile in -a si somigliano, **pod mizo** e **pod mizo**: fai comunque la domanda."
         },
         "examples": [
-          { "sl": "Muri je skočil pod stol in zdaj spi pod stolom.", "en": "Muri jumped under the chair and now sleeps under the chair.", "de": "Muri ist unter den Stuhl gesprungen und schläft jetzt unter dem Stuhl.", "it": "Muri è saltato sotto la sedia e ora dorme sotto la sedia." },
-          { "sl": "France je postavil voz za hlev, zdaj stoji za hlevom.", "en": "France put the cart behind the shed, now it stands behind the shed.", "de": "France hat den Wagen hinter den Stall gestellt, jetzt steht er hinter dem Stall.", "it": "France ha messo il carro dietro la stalla, ora sta dietro la stalla." }
+          {
+            "sl": "Muri je skočil pod stol in zdaj spi pod stolom.",
+            "en": "Muri jumped under the chair and now sleeps under the chair.",
+            "de": "Muri ist unter den Stuhl gesprungen und schläft jetzt unter dem Stuhl.",
+            "it": "Muri è saltato sotto la sedia e ora dorme sotto la sedia."
+          },
+          {
+            "sl": "France je postavil voz za hlev, zdaj stoji za hlevom.",
+            "en": "France put the cart behind the shed, now it stands behind the shed.",
+            "de": "France hat den Wagen hinter den Stall gestellt, jetzt steht er hinter dem Stall.",
+            "it": "France ha messo il carro dietro la stalla, ora sta dietro la stalla."
+          }
         ],
         "rows": [
           ["v, na", "v šolo (kam?)", "v šoli (kje?)"],
@@ -37,7 +82,11 @@
           ["pod: miza", "pod mizo (kam?)", "pod mizo (kje?)"]
         ],
         "ask": {
-          "type": "cloze", "grammar": "predlogi-dva-sklona", "text": "Muri ves dan spi pod ___. (stol)", "accept": ["stolom"], "hint": "kje? pod + the instrumental",
+          "type": "cloze",
+          "grammar": "predlogi-dva-sklona",
+          "text": "Muri ves dan spi pod ___. (stol)",
+          "accept": ["stolom"],
+          "hint": "kje? pod + the instrumental",
           "explain": "**Kje?** pod + the instrumental: pod **stolom**"
         }
       },
@@ -48,14 +97,27 @@
           "it": "**Po** ha due significati. Con l'accusativo è andare a prendere: **Grem po kruh.** (Vado a prendere il pane.) **Pojdi po zdravnika!** Con il locativo è in giro, lungo, o dopo: **po vasi** (per il paese), **po kosilu** (dopo pranzo). Chiedi **Po kaj?** (a prendere che cosa?) o **Po čem?**"
         },
         "examples": [
-          { "sl": "Babica je poslala Nejca v trgovino po kruh.", "en": "Granny sent Nejc to the shop for bread.", "de": "Oma hat Nejc in den Laden geschickt, um Brot zu holen.", "it": "La nonna ha mandato Nejc al negozio a prendere il pane." },
-          { "sl": "Po kosilu smo se sprehodili po vasi.", "en": "After lunch we took a walk round the village.", "de": "Nach dem Mittagessen sind wir durchs Dorf spaziert.", "it": "Dopo pranzo abbiamo fatto una passeggiata per il paese." }
+          {
+            "sl": "Babica je poslala Nejca v trgovino po kruh.",
+            "en": "Granny sent Nejc to the shop for bread.",
+            "de": "Oma hat Nejc in den Laden geschickt, um Brot zu holen.",
+            "it": "La nonna ha mandato Nejc al negozio a prendere il pane."
+          },
+          {
+            "sl": "Po kosilu smo se sprehodili po vasi.",
+            "en": "After lunch we took a walk round the village.",
+            "de": "Nach dem Mittagessen sind wir durchs Dorf spaziert.",
+            "it": "Dopo pranzo abbiamo fatto una passeggiata per il paese."
+          }
         ],
-        "rows": [
-          ["po", "po kruh, po zdravnika (po kaj?)", "po vasi, po kosilu (po čem?)"]
-        ],
+        "rows": [["po", "po kruh, po zdravnika (po kaj?)", "po vasi, po kosilu (po čem?)"]],
         "ask": {
-          "type": "choice", "grammar": "predlogi-dva-sklona", "prompt": "»Nejc, skoči v trgovino po ___!«", "options": ["kruh", "kruhu", "kruha"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "predlogi-dva-sklona",
+          "prompt": "»Nejc, skoči v trgovino po ___!«",
+          "options": ["kruh", "kruhu", "kruha"],
+          "answer": 0,
+          "say_options": true,
           "explain": "to fetch it → **po** + the accusative: po **kruh**\n- po kruhu · after the bread, or all over it"
         }
       },
@@ -66,15 +128,26 @@
           "it": "**Ob** con il locativo è presso, lungo, o a un'ora: **ob potoku** (presso il ruscello), **ob petih** (alle cinque). Con l'accusativo è contro: **Udaril je s pestjo ob mizo.** E perdere qualcosa: **Krava je ob mleko.** (La mucca ha perso il latte.) **Prišel je ob denar.** (Ha perso i soldi.)"
         },
         "examples": [
-          { "sl": "Ob potoku stoji stara vrba.", "en": "An old willow stands by the stream.", "de": "Am Bach steht eine alte Weide.", "it": "Presso il ruscello c'è un vecchio salice." },
-          { "sl": "Tone je s pestjo udaril ob mizo.", "en": "Tone banged his fist on the table.", "de": "Tone hat mit der Faust auf den Tisch geschlagen.", "it": "Tone ha battuto il pugno sul tavolo." }
+          {
+            "sl": "Ob potoku stoji stara vrba.",
+            "en": "An old willow stands by the stream.",
+            "de": "Am Bach steht eine alte Weide.",
+            "it": "Presso il ruscello c'è un vecchio salice."
+          },
+          {
+            "sl": "Tone je s pestjo udaril ob mizo.",
+            "en": "Tone banged his fist on the table.",
+            "de": "Tone hat mit der Faust auf den Tisch geschlagen.",
+            "it": "Tone ha battuto il pugno sul tavolo."
+          }
         ],
-        "rows": [
-          ["ob", "ob mizo, ob zid (ob kaj?)", "ob potoku, ob petih (kje? kdaj?)"],
-          ["ob: izguba", "ob mleko, ob denar", "—"]
-        ],
+        "rows": [["ob", "ob mizo, ob zid (ob kaj?)", "ob potoku, ob petih (kje? kdaj?)"], ["ob: izguba", "ob mleko, ob denar", "—"]],
         "ask": {
-          "type": "cloze", "grammar": "predlogi-dva-sklona", "text": "Ovca se je z glavo zaletela ob ___. (ograja)", "accept": ["ograjo"], "hint": "ob kaj? against",
+          "type": "cloze",
+          "grammar": "predlogi-dva-sklona",
+          "text": "Ovca se je z glavo zaletela ob ___. (ograja)",
+          "accept": ["ograjo"],
+          "hint": "ob kaj? against",
           "explain": "**against** something → **ob** + the accusative: ob **ograjo**"
         }
       },
@@ -85,14 +158,26 @@
           "it": "**Za** con l'accusativo è per chi o per quanto: **za babico** (per la nonna), **za dva dni** (per due giorni); e verso dove dietro: **sesti za mizo**. Con lo strumentale è dietro o dopo: **za hišo**, **eden za drugim** (uno dopo l'altro). **Pes teče za zajcem.** (Il cane corre dietro alla lepre.)"
         },
         "examples": [
-          { "sl": "France gre v mesto za dva dni.", "en": "France is going to town for two days.", "de": "France fährt für zwei Tage in die Stadt.", "it": "France va in città per due giorni." },
-          { "sl": "Gostje so prihajali eden za drugim.", "en": "The guests came one after another.", "de": "Die Gäste kamen einer nach dem anderen.", "it": "Gli ospiti arrivavano uno dopo l'altro." }
+          {
+            "sl": "France gre v mesto za dva dni.",
+            "en": "France is going to town for two days.",
+            "de": "France fährt für zwei Tage in die Stadt.",
+            "it": "France va in città per due giorni."
+          },
+          {
+            "sl": "Gostje so prihajali eden za drugim.",
+            "en": "The guests came one after another.",
+            "de": "Die Gäste kamen einer nach dem anderen.",
+            "it": "Gli ospiti arrivavano uno dopo l'altro."
+          }
         ],
-        "rows": [
-          ["za", "za babico, za dva dni (za koga? za koliko?)", "za hišo, za zajcem (za kom? za čim?)"]
-        ],
+        "rows": [["za", "za babico, za dva dni (za koga? za koliko?)", "za hišo, za zajcem (za kom? za čim?)"]],
         "ask": {
-          "type": "cloze", "grammar": "predlogi-dva-sklona", "text": "Pes teče za ___ čez travnik. (zajec)", "accept": ["zajcem"], "hint": "za kom? behind, after",
+          "type": "cloze",
+          "grammar": "predlogi-dva-sklona",
+          "text": "Pes teče za ___ čez travnik. (zajec)",
+          "accept": ["zajcem"],
+          "hint": "za kom? behind, after",
           "explain": "**after** someone → **za** + the instrumental: za **zajcem**, the e drops as in pes → psa"
         }
       },
@@ -103,15 +188,26 @@
           "it": "Per il tempo **pred** e **med** vogliono lo strumentale: **pred tednom** (una settimana fa), **pred kosilom** (prima di pranzo), **med kosilom** (durante il pranzo). I giorni e quante volte vogliono l'accusativo: **v soboto**, **dvakrat na teden** (due volte alla settimana). Chiedi **Kdaj?** e ascolta il significato."
         },
         "examples": [
-          { "sl": "Marko se je vrnil iz Trsta pred tednom.", "en": "Marko came back from Trieste a week ago.", "de": "Marko ist vor einer Woche aus Triest zurückgekommen.", "it": "Marko è tornato da Trieste una settimana fa." },
-          { "sl": "Vida peče kruh dvakrat na teden.", "en": "Vida bakes bread twice a week.", "de": "Vida bäckt zweimal pro Woche Brot.", "it": "Vida fa il pane due volte alla settimana." }
+          {
+            "sl": "Marko se je vrnil iz Trsta pred tednom.",
+            "en": "Marko came back from Trieste a week ago.",
+            "de": "Marko ist vor einer Woche aus Triest zurückgekommen.",
+            "it": "Marko è tornato da Trieste una settimana fa."
+          },
+          {
+            "sl": "Vida peče kruh dvakrat na teden.",
+            "en": "Vida bakes bread twice a week.",
+            "de": "Vida bäckt zweimal pro Woche Brot.",
+            "it": "Vida fa il pane due volte alla settimana."
+          }
         ],
-        "rows": [
-          ["pred, med: kdaj?", "—", "pred tednom, med kosilom"],
-          ["v, na: kdaj?", "v soboto, dvakrat na teden", "—"]
-        ],
+        "rows": [["pred, med: kdaj?", "—", "pred tednom, med kosilom"], ["v, na: kdaj?", "v soboto, dvakrat na teden", "—"]],
         "ask": {
-          "type": "cloze", "grammar": "predlogi-dva-sklona", "text": "Nejc mora biti doma pred ___. (kosilo)", "accept": ["kosilom"], "hint": "kdaj? pred + the instrumental",
+          "type": "cloze",
+          "grammar": "predlogi-dva-sklona",
+          "text": "Nejc mora biti doma pred ___. (kosilo)",
+          "accept": ["kosilom"],
+          "hint": "kdaj? pred + the instrumental",
           "explain": "**before** a time → **pred** + the instrumental: pred **kosilom**"
         }
       }
@@ -123,7 +219,9 @@
       "title": { "sl": "Kje ali kam?", "en": "Where or where to?", "de": "Wo oder wohin?", "it": "Dove o verso dove?" },
       "exercises": [
         {
-          "type": "sort", "grammar": "predlogi-dva-sklona", "instruction": "Kateri sklon? · Which case?",
+          "type": "sort",
+          "grammar": "predlogi-dva-sklona",
+          "instruction": "Kateri sklon? · Which case?",
           "columns": [
             { "label": "tožilnik · accusative", "words": ["po kruh", "ob zid", "za babico", "v soboto"] },
             { "label": "mestnik · locative", "words": ["po vasi", "po kosilu", "ob potoku"] },
@@ -132,12 +230,28 @@
           "explain": "**the accusative**: to fetch, against, for, a day\n**the locative**: po and ob for around, after, by\n**the instrumental**: za for behind, pred and med for time"
         },
         {
-          "type": "table", "grammar": "predlogi-dva-sklona", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "kam? kje? · where to? where?",
+          "type": "table",
+          "grammar": "predlogi-dva-sklona",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "kam? kje? · where to? where?",
           "columns": ["kam? · where to", "kje? · where"],
           "rows": [
-            { "label": "pod + stol", "cells": [{ "accept": ["pod stol"], "hint": "the accusative: as the word" }, { "accept": ["pod stolom"], "hint": "the instrumental: -om" }] },
-            { "label": "za + hlev", "cells": [{ "accept": ["za hlev"] }, { "accept": ["za hlevom"] }] },
-            { "label": "pred + šola", "cells": [{ "accept": ["pred šolo"], "hint": "feminine: -o" }, { "accept": ["pred šolo"], "hint": "feminine: -o too", "explain": "**šola**: the accusative and the instrumental are both šolo; only the question tells them apart" }] }
+            {
+              "label": "pod + stol",
+              "cells": [{"accept": ["pod stol"], "hint": "the accusative: as the word"}, {"accept": ["pod stolom"], "hint": "the instrumental: -om"}]
+            },
+            { "label": "za + hlev", "cells": [{"accept": ["za hlev"]}, {"accept": ["za hlevom"]}] },
+            {
+              "label": "pred + šola",
+              "cells": [
+                { "accept": ["pred šolo"], "hint": "feminine: -o" },
+                {
+                  "accept": ["pred šolo"],
+                  "hint": "feminine: -o too",
+                  "explain": "**šola**: the accusative and the instrumental are both šolo; only the question tells them apart"
+                }
+              ]
+            }
           ],
           "explain": "**Kam?** the accusative, **Kje?** the instrumental\n- pod stol, pod stolom\n- pred šolo, pred šolo: a feminine in -a looks the same"
         }
@@ -148,7 +262,10 @@
       "title": { "sl": "Nejc gre po moko", "en": "Nejc goes for flour", "de": "Nejc holt Mehl", "it": "Nejc va a prendere la farina" },
       "exercises": [
         {
-          "type": "gaptext", "grammar": "predlogi-dva-sklona", "instruction": "Dopolni · Fill in", "title": "Nejc gre po moko",
+          "type": "gaptext",
+          "grammar": "predlogi-dva-sklona",
+          "instruction": "Dopolni · Fill in",
+          "title": "Nejc gre po moko",
           "text": "Babica pošlje Nejca v trgovino po ___ (moka). Nejc gre po ___ (vas) in vsem pove, da bo jutri sejem. Ob ___ (potok) sreča Luko z ovcami. Ena ovca se zaleti ob ___ (ograja). Pes teče za ___ (zajec). Zajec se skrije pod ___ (grm). Pod ___ (grm) je varen. Nejc pride domov šele pred ___ (večerja).",
           "gaps": [
             { "accept": ["moko"], "hint": "po kaj? to fetch" },
@@ -160,7 +277,8 @@
             { "accept": ["grmom"], "hint": "kje?" },
             { "accept": ["večerjo"], "hint": "kdaj? before" }
           ],
-          "bank": true, "distractors": ["moki", "grmu", "zajca"],
+          "bank": true,
+          "distractors": ["moki", "grmu", "zajca"],
           "translation": "Granny sends Nejc to the shop for flour. Nejc walks around the village and tells everyone there will be a fair tomorrow. By the stream he meets Luka with the sheep. One sheep runs into the fence. The dog runs after a hare. The hare hides under a bush. Under the bush it is safe. Nejc gets home only just before dinner."
         }
       ]
@@ -170,24 +288,37 @@
       "title": { "sl": "Dva sklona, dva pomena", "en": "Two cases, two meanings", "de": "Zwei Fälle, zwei Bedeutungen", "it": "Due casi, due significati" },
       "exercises": [
         {
-          "type": "transform", "grammar": "predlogi-dva-sklona", "instruction": "Iz Kje? v Kam? · From where to where to", "cue": "kam?",
+          "type": "transform",
+          "grammar": "predlogi-dva-sklona",
+          "instruction": "Iz Kje? v Kam? · From where to where to",
+          "cue": "kam?",
           "items": [
-            { "from": "pod stolom", "accept": ["pod stol"], "hint": "the accusative" },
-            { "from": "za hlevom", "accept": ["za hlev"] },
-            { "from": "pred oknom", "accept": ["pred okno"], "hint": "neuter: as the word" },
-            { "from": "med drevesi", "accept": ["med drevesa"], "hint": "the plural accusative" },
-            { "from": "nad vasjo", "accept": ["nad vas"], "hint": "vas: as the word" }
+            { "from": "pod stolom", "accept": ["pod stol"], "hint": "the accusative", "lemma": "stol", "form": "acc.sg" },
+            { "from": "za hlevom", "accept": ["za hlev"], "lemma": "hlev", "form": "acc.sg" },
+            { "from": "pred oknom", "accept": ["pred okno"], "hint": "neuter: as the word", "lemma": "okno", "form": "acc.sg" },
+            { "from": "med drevesi", "accept": ["med drevesa"], "hint": "the plural accusative", "lemma": "drevo", "form": "acc.pl" },
+            { "from": "nad vasjo", "accept": ["nad vas"], "hint": "vas: as the word", "lemma": "vas", "form": "acc.sg" }
           ],
           "explain": "**Kje?** → **Kam?**: the instrumental → the accusative\n- pod stolom → pod stol\n- med drevesi → med drevesa"
         },
         {
-          "type": "choice", "grammar": "predlogi-dva-sklona", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "»Naša krava je ob mleko,« pravi France.",
-          "options": ["Our cow has lost her milk.", "Our cow is by the milk.", "Our cow is standing on the milk."], "answer": 0, "say": "Naša krava je ob mleko, pravi France.",
+          "type": "choice",
+          "grammar": "predlogi-dva-sklona",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "»Naša krava je ob mleko,« pravi France.",
+          "options": ["Our cow has lost her milk.", "Our cow is by the milk.", "Our cow is standing on the milk."],
+          "answer": 0,
+          "say": "Naša krava je ob mleko, pravi France.",
           "explain": "**ob** + the accusative: losing something, krava je **ob mleko**"
         },
         {
-          "type": "choice", "grammar": "predlogi-dva-sklona", "instruction": "Kateri predlog? · Which preposition?", "prompt": "Vida peče kruh dvakrat ___ teden.",
-          "options": ["na", "v", "po"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "predlogi-dva-sklona",
+          "instruction": "Kateri predlog? · Which preposition?",
+          "prompt": "Vida peče kruh dvakrat ___ teden.",
+          "options": ["na", "v", "po"],
+          "answer": 0,
+          "say_options": true,
           "explain": "how often → **na** + the accusative: dvakrat **na** teden"
         }
       ]
@@ -197,39 +328,52 @@
     "pass": 80,
     "exercises": [
       {
-        "type": "table", "grammar": "predlogi-dva-sklona", "instruction": "Dopolni · Fill in", "prompt": "kam? kje? · where to? where?",
+        "type": "table",
+        "grammar": "predlogi-dva-sklona",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "kam? kje? · where to? where?",
         "columns": ["kam? · where to", "kje? · where"],
         "rows": [
-          { "label": "pod + most", "cells": [{ "accept": ["pod most"] }, { "accept": ["pod mostom"] }] },
-          { "label": "za + gozd", "cells": [{ "accept": ["za gozd"] }, { "accept": ["za gozdom"] }] }
+          { "label": "pod + most", "cells": [{"accept": ["pod most"]}, {"accept": ["pod mostom"]}] },
+          { "label": "za + gozd", "cells": [{"accept": ["za gozd"]}, {"accept": ["za gozdom"]}] }
         ]
       },
       {
-        "type": "gaptext", "grammar": "predlogi-dva-sklona", "instruction": "Dopolni · Fill in",
+        "type": "gaptext",
+        "grammar": "predlogi-dva-sklona",
+        "instruction": "Dopolni · Fill in",
         "text": "Zala gre v knjigarno po ___ (zvezek). Hodi po ___ (trg). Ob ___ (vodnjak) sreča Ančko. Domov pride po ___ (kosilo).",
-        "gaps": [
-          { "accept": ["zvezek"] },
-          { "accept": ["trgu"] },
-          { "accept": ["vodnjaku"] },
-          { "accept": ["kosilu"] }
-        ],
+        "gaps": [{"accept": ["zvezek"]}, {"accept": ["trgu"]}, {"accept": ["vodnjaku"]}, {"accept": ["kosilu"]}],
         "translation": "Zala goes to the bookshop for an exercise book. She walks across the square. By the fountain she meets Ančka. She gets home after lunch."
       },
       {
-        "type": "transform", "grammar": "predlogi-dva-sklona", "instruction": "Iz Kje? v Kam? · From where to where to", "cue": "kam?",
+        "type": "transform",
+        "grammar": "predlogi-dva-sklona",
+        "instruction": "Iz Kje? v Kam? · From where to where to",
+        "cue": "kam?",
         "items": [
-          { "from": "za šotorom", "accept": ["za šotor"] },
-          { "from": "med ovcami", "accept": ["med ovce"] }
+          { "from": "za šotorom", "accept": ["za šotor"], "lemma": "šotor", "form": "acc.sg" },
+          { "from": "med ovcami", "accept": ["med ovce"], "lemma": "ovca", "form": "acc.pl" }
         ]
       },
       {
-        "type": "choice", "grammar": "predlogi-dva-sklona", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Marko came back a week ago.",
-        "options": ["Marko se je vrnil pred tednom.", "Marko se je vrnil pred teden.", "Marko se je vrnil po tednu."], "answer": 0, "say_options": true,
+        "type": "choice",
+        "grammar": "predlogi-dva-sklona",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Marko came back a week ago.",
+        "options": ["Marko se je vrnil pred tednom.", "Marko se je vrnil pred teden.", "Marko se je vrnil po tednu."],
+        "answer": 0,
+        "say_options": true,
         "explain": "**ago** → **pred** + the instrumental: pred **tednom**\n- po tednu · after a week"
       },
       {
-        "type": "choice", "grammar": "predlogi-dva-sklona", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Nejc ran to the shop for bread.",
-        "options": ["Nejc je stekel v trgovino po kruh.", "Nejc je stekel v trgovino po kruhu.", "Nejc je stekel v trgovino za kruhom."], "answer": 0, "say_options": true,
+        "type": "choice",
+        "grammar": "predlogi-dva-sklona",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Nejc ran to the shop for bread.",
+        "options": ["Nejc je stekel v trgovino po kruh.", "Nejc je stekel v trgovino po kruhu.", "Nejc je stekel v trgovino za kruhom."],
+        "answer": 0,
+        "say_options": true,
         "explain": "to fetch it → **po** + the accusative: po **kruh**"
       }
     ]

@@ -4,14 +4,56 @@
   "language": "sl",
   "level": "B2",
   "emoji": "🎲",
-  "title": { "sl": "Dvoje, dvojni, dvakrat: števniki", "en": "Numbers: dvoje, dvojni, dvakrat", "de": "Zahlwörter: dvoje, dvojni, dvakrat", "it": "Numerali: dvoje, dvojni, dvakrat" },
+  "title": {
+    "sl": "Dvoje, dvojni, dvakrat: števniki",
+    "en": "Numbers: dvoje, dvojni, dvakrat",
+    "de": "Zahlwörter: dvoje, dvojni, dvakrat",
+    "it": "Numerali: dvoje, dvojni, dvakrat"
+  },
   "goal": {
     "en": "You can say how many times (dvakrat, prvič), what kind (dvojen), count plural-only nouns (dvoje vrat), use numbers as nouns (petica, polovica) and decline the numbers after a preposition (s tremi, pri štirih, s petimi).",
     "de": "Du sagst, wie oft (dvakrat, prvič) und welcher Art (dvojen), zählst Pluralwörter (dvoje vrat), verwendest Zahlen als Nomen (petica, polovica) und deklinierst die Zahlen nach einer Präposition (s tremi, pri štirih, s petimi).",
     "it": "Sai dire quante volte (dvakrat, prvič) e di che tipo (dvojen), contare i nomi solo plurali (dvoje vrat), usare i numeri come nomi (petica, polovica) e declinare i numeri dopo una preposizione (s tremi, pri štirih, s petimi)."
   },
   "grammar": ["stevniki", "stevila-glagol", "stevila-samostalniki"],
-  "words": ["trije", "štirje", "enkrat", "dvakrat", "trikrat", "večkrat", "prvič", "drugič", "zadnjič", "enojen", "dvojen", "trojen", "dvoje", "troje", "vrata", "hlače", "vilice", "čevelj", "enka", "dvojka", "trojka", "štirica", "petica", "ocena", "dvojček", "dvojčica", "dvojica", "polovica", "tretjina", "četrtina", "pol", "plačilo", "skedenj", "pravljica", "razred", "izlet"],
+  "words": [
+    "trije",
+    "štirje",
+    "enkrat",
+    "dvakrat",
+    "trikrat",
+    "večkrat",
+    "prvič",
+    "drugič",
+    "zadnjič",
+    "enojen",
+    "dvojen",
+    "trojen",
+    "dvoje",
+    "troje",
+    "vrata",
+    "hlače",
+    "vilice",
+    "čevelj",
+    "enka",
+    "dvojka",
+    "trojka",
+    "štirica",
+    "petica",
+    "ocena",
+    "dvojček",
+    "dvojčica",
+    "dvojica",
+    "polovica",
+    "tretjina",
+    "četrtina",
+    "pol",
+    "plačilo",
+    "skedenj",
+    "pravljica",
+    "razred",
+    "izlet"
+  ],
   "intro": {
     "table": {
       "head": [
@@ -28,15 +70,41 @@
           "it": "Quante volte: il numero con **-krat**: **enkrat** (una volta), **dvakrat** (due volte), **trikrat**, **petkrat**, **večkrat** (più volte). In cifre **2-krat**. Conosci **prvi** e **prvič** (la prima volta); così anche **drugič** (la seconda volta), **tretjič**, **zadnjič** (l'ultima volta)."
         },
         "examples": [
-          { "sl": "Mojca jim trikrat na teden bere pravljice.", "en": "Mojca reads them fairy tales three times a week.", "de": "Mojca liest ihnen dreimal pro Woche Märchen vor.", "it": "Mojca legge loro le fiabe tre volte alla settimana." },
-          { "sl": "Tine je letos prvič sam hodil v šolo.", "en": "This year Tine walked to school on his own for the first time.", "de": "Dieses Jahr ist Tine zum ersten Mal allein zur Schule gegangen.", "it": "Quest'anno Tine è andato a scuola da solo per la prima volta." }
+          {
+            "sl": "Mojca jim trikrat na teden bere pravljice.",
+            "en": "Mojca reads them fairy tales three times a week.",
+            "de": "Mojca liest ihnen dreimal pro Woche Märchen vor.",
+            "it": "Mojca legge loro le fiabe tre volte alla settimana."
+          },
+          {
+            "sl": "Tine je letos prvič sam hodil v šolo.",
+            "en": "This year Tine walked to school on his own for the first time.",
+            "de": "Dieses Jahr ist Tine zum ersten Mal allein zur Schule gegangen.",
+            "it": "Quest'anno Tine è andato a scuola da solo per la prima volta."
+          }
         ],
         "rows": [
-          [{ "sl": "kolikokrat", "en": "how many times", "de": "wie oft", "it": "quante volte" }, "enkrat, dvakrat, trikrat, večkrat", { "en": "once, twice, three times, several times", "de": "einmal, zweimal, dreimal, mehrmals", "it": "una, due, tre, più volte" }],
-          [{ "sl": "katerič", "en": "which time", "de": "das wievielte Mal", "it": "la volta" }, "prvič, drugič, tretjič, zadnjič", { "en": "the first, second, third, last time", "de": "das erste, zweite, dritte, letzte Mal", "it": "la prima, seconda, terza, ultima volta" }]
+          [
+            { "sl": "kolikokrat", "en": "how many times", "de": "wie oft", "it": "quante volte" },
+            "enkrat, dvakrat, trikrat, večkrat",
+            { "en": "once, twice, three times, several times", "de": "einmal, zweimal, dreimal, mehrmals", "it": "una, due, tre, più volte" }
+          ],
+          [
+            { "sl": "katerič", "en": "which time", "de": "das wievielte Mal", "it": "la volta" },
+            "prvič, drugič, tretjič, zadnjič",
+            {
+              "en": "the first, second, third, last time",
+              "de": "das erste, zweite, dritte, letzte Mal",
+              "it": "la prima, seconda, terza, ultima volta"
+            }
+          ]
         ],
         "ask": {
-          "type": "cloze", "grammar": "stevniki", "text": "Luka je ovce preštel ___, da je bil res gotov. (3)", "accept": ["trikrat", "3-krat"], "hint": "how many times: -krat",
+          "type": "cloze",
+          "grammar": "stevniki",
+          "text": "Luka je ovce preštel ___, da je bil res gotov. (3)",
+          "accept": ["trikrat", "3-krat"],
+          "hint": "how many times: -krat",
           "explain": "**how many times** → the number + -krat: **trikrat** (in figures 3-krat)"
         }
       },
@@ -47,15 +115,38 @@
           "it": "Di che tipo, quanti strati o parti: **enojen** (singolo), **dvojen** (doppio), **trojen** (triplo). Si accordano come aggettivi: **dvojno okno** (una doppia finestra), **dvojno plačilo** (la paga doppia), **trojna zmaga**. La forma determinata è **dvojni** (come zeleni al B1). Non confonderlo con **dvakrat**, quante volte."
         },
         "examples": [
-          { "sl": "Za delo na praznik je Tone dobil dvojno plačilo.", "en": "For working on the holiday Tone got double pay.", "de": "Für die Arbeit am Feiertag hat Tone den doppelten Lohn bekommen.", "it": "Per il lavoro nel giorno di festa Tone ha preso la paga doppia." },
-          { "sl": "Stara hiša ima še enojna okna.", "en": "The old house still has single windows.", "de": "Das alte Haus hat noch einfache Fenster.", "it": "La vecchia casa ha ancora le finestre singole." }
+          {
+            "sl": "Za delo na praznik je Tone dobil dvojno plačilo.",
+            "en": "For working on the holiday Tone got double pay.",
+            "de": "Für die Arbeit am Feiertag hat Tone den doppelten Lohn bekommen.",
+            "it": "Per il lavoro nel giorno di festa Tone ha preso la paga doppia."
+          },
+          {
+            "sl": "Stara hiša ima še enojna okna.",
+            "en": "The old house still has single windows.",
+            "de": "Das alte Haus hat noch einfache Fenster.",
+            "it": "La vecchia casa ha ancora le finestre singole."
+          }
         ],
         "rows": [
-          [{ "sl": "kakšen", "en": "what kind", "de": "welcher Art", "it": "di che tipo" }, "enojen, dvojen, trojen", { "en": "single, double, triple", "de": "einfach, doppelt, dreifach", "it": "singolo, doppio, triplo" }],
-          [{ "sl": "kakšen", "en": "what kind", "de": "welcher Art", "it": "di che tipo" }, "dvojno okno, dvojno plačilo", { "en": "a double window, double pay", "de": "Doppelfenster, doppelter Lohn", "it": "doppia finestra, paga doppia" }]
+          [
+            { "sl": "kakšen", "en": "what kind", "de": "welcher Art", "it": "di che tipo" },
+            "enojen, dvojen, trojen",
+            { "en": "single, double, triple", "de": "einfach, doppelt, dreifach", "it": "singolo, doppio, triplo" }
+          ],
+          [
+            { "sl": "kakšen", "en": "what kind", "de": "welcher Art", "it": "di che tipo" },
+            "dvojno okno, dvojno plačilo",
+            { "en": "a double window, double pay", "de": "Doppelfenster, doppelter Lohn", "it": "doppia finestra, paga doppia" }
+          ]
         ],
         "ask": {
-          "type": "choice", "grammar": "stevniki", "prompt": "Pozimi je v Mickini kuhinji toplo, ker ima ___ okna.", "options": ["dvojna", "dvojne", "dvoje"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "stevniki",
+          "prompt": "Pozimi je v Mickini kuhinji toplo, ker ima ___ okna.",
+          "options": ["dvojna", "dvojne", "dvoje"],
+          "answer": 0,
+          "say_options": true,
           "explain": "**what kind** of window → **dvojen**, agreeing with okna (neuter plural): **dvojna** okna\n- dvoje · two pieces of something"
         }
       },
@@ -67,14 +158,31 @@
         },
         "examples": [
           { "sl": "Skedenj ima dvoje vrat.", "en": "The barn has two doors.", "de": "Die Scheune hat zwei Tore.", "it": "Il fienile ha due porte." },
-          { "sl": "Za na pot je Tine vzel troje hlač.", "en": "For the journey Tine took three pairs of trousers.", "de": "Für die Reise hat Tine drei Hosen mitgenommen.", "it": "Per il viaggio Tine ha preso tre paia di pantaloni." }
+          {
+            "sl": "Za na pot je Tine vzel troje hlač.",
+            "en": "For the journey Tine took three pairs of trousers.",
+            "de": "Für die Reise hat Tine drei Hosen mitgenommen.",
+            "it": "Per il viaggio Tine ha preso tre paia di pantaloni."
+          }
         ],
         "rows": [
-          [{ "sl": "samo množina", "en": "plural only", "de": "nur Plural", "it": "solo plurale" }, "dvoje vrat, troje hlač", { "en": "two doors, three pairs of trousers", "de": "zwei Türen, drei Hosen", "it": "due porte, tre paia di pantaloni" }],
-          [{ "sl": "pari", "en": "pairs", "de": "Paare", "it": "paia" }, "dvoje čevljev", { "en": "two pairs of shoes", "de": "zwei Paar Schuhe", "it": "due paia di scarpe" }]
+          [
+            { "sl": "samo množina", "en": "plural only", "de": "nur Plural", "it": "solo plurale" },
+            "dvoje vrat, troje hlač",
+            { "en": "two doors, three pairs of trousers", "de": "zwei Türen, drei Hosen", "it": "due porte, tre paia di pantaloni" }
+          ],
+          [
+            { "sl": "pari", "en": "pairs", "de": "Paare", "it": "paia" },
+            "dvoje čevljev",
+            { "en": "two pairs of shoes", "de": "zwei Paar Schuhe", "it": "due paia di scarpe" }
+          ]
         ],
         "ask": {
-          "type": "cloze", "grammar": "stevniki", "text": "Naša kuhinja ima ___ vrat: na vrt in na hodnik. (2)", "accept": ["dvoje"], "hint": "vrata: plural only",
+          "type": "cloze",
+          "grammar": "stevniki",
+          "text": "Naša kuhinja ima ___ vrat: na vrt in na hodnik. (2)",
+          "accept": ["dvoje"],
+          "hint": "vrata: plural only",
           "explain": "**vrata** has only a plural: **dvoje** vrat, + the genitive plural"
         }
       },
@@ -85,16 +193,43 @@
           "it": "I numeri possono essere nomi: **enka**, **dvojka**, **trojka**, **štirica**, **petica** sono i voti di scuola (**petica** il migliore, **enka** insufficiente) e gli autobus (**z dvojko**, con il 2). **Dvojčka** sono i gemelli, **dvojica** una coppia. Una parte: **polovica** (una metà), **tretjina**, **četrtina** + genitivo: **polovica vasi**. **Pol** non cambia mai: **pol ure**, **en in pol**."
         },
         "examples": [
-          { "sl": "Zala je pri testu dobila petico.", "en": "Zala got top marks in the test.", "de": "Zala hat im Test eine Fünf bekommen, die beste Note.", "it": "Zala ha preso il voto massimo nella verifica." },
-          { "sl": "Polovica vasi je prišla na trgatev.", "en": "Half the village came to the grape harvest.", "de": "Das halbe Dorf ist zur Weinlese gekommen.", "it": "Metà del paese è venuta alla vendemmia." }
+          {
+            "sl": "Zala je pri testu dobila petico.",
+            "en": "Zala got top marks in the test.",
+            "de": "Zala hat im Test eine Fünf bekommen, die beste Note.",
+            "it": "Zala ha preso il voto massimo nella verifica."
+          },
+          {
+            "sl": "Polovica vasi je prišla na trgatev.",
+            "en": "Half the village came to the grape harvest.",
+            "de": "Das halbe Dorf ist zur Weinlese gekommen.",
+            "it": "Metà del paese è venuta alla vendemmia."
+          }
         ],
         "rows": [
-          [{ "sl": "ocene", "en": "grades", "de": "Noten", "it": "voti" }, "enka, dvojka, trojka, štirica, petica", { "en": "1 (fail) to 5 (the best)", "de": "1 (ungenügend) bis 5 (die beste)", "it": "da 1 (insufficiente) a 5 (il migliore)" }],
-          [{ "sl": "ljudje", "en": "people", "de": "Leute", "it": "persone" }, "dvojčka, dvojica", { "en": "twins, a pair", "de": "Zwillinge, ein Paar", "it": "gemelli, una coppia" }],
-          [{ "sl": "deli", "en": "parts", "de": "Teile", "it": "parti" }, "polovica, tretjina, četrtina, pol", { "en": "a half, a third, a quarter, half", "de": "Hälfte, Drittel, Viertel, halb", "it": "metà, un terzo, un quarto, mezzo" }]
+          [
+            { "sl": "ocene", "en": "grades", "de": "Noten", "it": "voti" },
+            "enka, dvojka, trojka, štirica, petica",
+            { "en": "1 (fail) to 5 (the best)", "de": "1 (ungenügend) bis 5 (die beste)", "it": "da 1 (insufficiente) a 5 (il migliore)" }
+          ],
+          [
+            { "sl": "ljudje", "en": "people", "de": "Leute", "it": "persone" },
+            "dvojčka, dvojica",
+            { "en": "twins, a pair", "de": "Zwillinge, ein Paar", "it": "gemelli, una coppia" }
+          ],
+          [
+            { "sl": "deli", "en": "parts", "de": "Teile", "it": "parti" },
+            "polovica, tretjina, četrtina, pol",
+            { "en": "a half, a third, a quarter, half", "de": "Hälfte, Drittel, Viertel, halb", "it": "metà, un terzo, un quarto, mezzo" }
+          ]
         ],
         "ask": {
-          "type": "choice", "grammar": "stevniki", "prompt": "Nejc je pri testu dobil ___, najboljšo oceno!", "options": ["petico", "peto", "petkrat"], "answer": 0, "say_options": true,
+          "type": "choice",
+          "grammar": "stevniki",
+          "prompt": "Nejc je pri testu dobil ___, najboljšo oceno!",
+          "options": ["petico", "peto", "petkrat"],
+          "answer": 0,
+          "say_options": true,
           "explain": "**the grade** five is a noun: **petica**, dobil je **petico**\n- peto · the fifth (one)"
         }
       },
@@ -105,16 +240,46 @@
           "it": "Dopo una preposizione il numero si declina con il suo nome, come **z dvema** al B1: **trije → treh, trem, tremi**; **štirje → štirih, štirim, štirimi**; **pet** e oltre **→ petih, petim, petimi**. **France je prišel s tremi sinovi.** **Pri štirih sosedih so že pobrali grozdje.** E **po** davanti a un numero vuol dire ciascuno: **Vsak otrok je dobil po dve jabolki.**"
         },
         "examples": [
-          { "sl": "France je prišel na sejem s tremi sinovi.", "en": "France came to the fair with his three sons.", "de": "France ist mit seinen drei Söhnen zum Jahrmarkt gekommen.", "it": "France è venuto alla fiera con i suoi tre figli." },
-          { "sl": "Vsak otrok je dobil po dve jabolki.", "en": "Each child got two apples.", "de": "Jedes Kind hat je zwei Äpfel bekommen.", "it": "Ogni bambino ha ricevuto due mele." }
+          {
+            "sl": "France je prišel na sejem s tremi sinovi.",
+            "en": "France came to the fair with his three sons.",
+            "de": "France ist mit seinen drei Söhnen zum Jahrmarkt gekommen.",
+            "it": "France è venuto alla fiera con i suoi tre figli."
+          },
+          {
+            "sl": "Vsak otrok je dobil po dve jabolki.",
+            "en": "Each child got two apples.",
+            "de": "Jedes Kind hat je zwei Äpfel bekommen.",
+            "it": "Ogni bambino ha ricevuto due mele."
+          }
         ],
         "rows": [
-          [{ "sl": "3: trije, tri", "en": "3", "de": "3", "it": "3" }, "treh, trem, tremi", { "en": "s tremi sinovi: with three sons", "de": "s tremi sinovi: mit drei Söhnen", "it": "s tremi sinovi: con tre figli" }],
-          [{ "sl": "4: štirje, štiri", "en": "4", "de": "4", "it": "4" }, "štirih, štirim, štirimi", { "en": "pri štirih sosedih: at four neighbours'", "de": "pri štirih sosedih: bei vier Nachbarn", "it": "pri štirih sosedih: da quattro vicini" }],
-          [{ "sl": "5: pet", "en": "5", "de": "5", "it": "5" }, "petih, petim, petimi", { "en": "s petimi otroki: with five children", "de": "s petimi otroki: mit fünf Kindern", "it": "s petimi otroki: con cinque bambini" }]
+          [
+            { "sl": "3: trije, tri", "en": "3", "de": "3", "it": "3" },
+            "treh, trem, tremi",
+            { "en": "s tremi sinovi: with three sons", "de": "s tremi sinovi: mit drei Söhnen", "it": "s tremi sinovi: con tre figli" }
+          ],
+          [
+            { "sl": "4: štirje, štiri", "en": "4", "de": "4", "it": "4" },
+            "štirih, štirim, štirimi",
+            {
+              "en": "pri štirih sosedih: at four neighbours'",
+              "de": "pri štirih sosedih: bei vier Nachbarn",
+              "it": "pri štirih sosedih: da quattro vicini"
+            }
+          ],
+          [
+            { "sl": "5: pet", "en": "5", "de": "5", "it": "5" },
+            "petih, petim, petimi",
+            { "en": "s petimi otroki: with five children", "de": "s petimi otroki: mit fünf Kindern", "it": "s petimi otroki: con cinque bambini" }
+          ]
         ],
         "ask": {
-          "type": "cloze", "grammar": "stevniki", "text": "Mojca je šla na izlet s ___ učenci. (pet)", "accept": ["petimi"], "hint": "s + the instrumental",
+          "type": "cloze",
+          "grammar": "stevniki",
+          "text": "Mojca je šla na izlet s ___ učenci. (pet)",
+          "accept": ["petimi"],
+          "hint": "s + the instrumental",
           "explain": "**s** + the instrumental: the number declines too, s **petimi** učenci"
         }
       }
@@ -126,7 +291,9 @@
       "title": { "sl": "Kolikokrat? Kakšen?", "en": "How many times? What kind?", "de": "Wie oft? Welcher Art?", "it": "Quante volte? Di che tipo?" },
       "exercises": [
         {
-          "type": "sort", "grammar": "stevniki", "instruction": "Kakšen števnik? · What kind of number?",
+          "type": "sort",
+          "grammar": "stevniki",
+          "instruction": "Kakšen števnik? · What kind of number?",
           "columns": [
             { "label": "kolikokrat · how many times", "words": ["dvakrat", "petkrat", "večkrat", "prvič"] },
             { "label": "kakšen · what kind", "words": ["enojen", "dvojen", "trojen"] },
@@ -136,12 +303,15 @@
           "explain": "**-krat, -ič** how many times · **-en** what kind · **dvoje, troje** pieces and pairs · **-ka, -ica, -ina** a noun\n- prvič · the first time"
         },
         {
-          "type": "table", "grammar": "stevniki", "instruction": "Dopolni tabelo · Fill in the table", "prompt": "kolikokrat in kakšen · how many times, what kind",
+          "type": "table",
+          "grammar": "stevniki",
+          "instruction": "Dopolni tabelo · Fill in the table",
+          "prompt": "kolikokrat in kakšen · how many times, what kind",
           "columns": ["kolikokrat? · how many times", "kakšen? · what kind"],
           "rows": [
-            { "label": "1", "cells": [{ "accept": ["enkrat"] }, { "accept": ["enojen"], "hint": "single" }] },
-            { "label": "2", "cells": [{ "accept": ["dvakrat", "2-krat"] }, { "accept": ["dvojen"], "hint": "double" }] },
-            { "label": "3", "cells": [{ "accept": ["trikrat", "3-krat"] }, { "accept": ["trojen"], "hint": "triple" }] }
+            { "label": "1", "cells": [{"accept": ["enkrat"]}, {"accept": ["enojen"], "hint": "single"}] },
+            { "label": "2", "cells": [{"accept": ["dvakrat", "2-krat"]}, {"accept": ["dvojen"], "hint": "double"}] },
+            { "label": "3", "cells": [{"accept": ["trikrat", "3-krat"]}, {"accept": ["trojen"], "hint": "triple"}] }
           ],
           "explain": "**-krat**: how many times · **-ojen**: what kind\n- enkrat, enojen\n- dvakrat, dvojen\n- trikrat, trojen"
         }
@@ -152,10 +322,17 @@
       "title": { "sl": "V Mojčini šoli", "en": "At Mojca's school", "de": "In Mojcas Schule", "it": "Nella scuola di Mojca" },
       "exercises": [
         {
-          "type": "gaptext", "grammar": "stevniki", "instruction": "Dopolni · Fill in", "title": "V Mojčini šoli",
+          "type": "gaptext",
+          "grammar": "stevniki",
+          "instruction": "Dopolni · Fill in",
+          "title": "V Mojčini šoli",
           "text": "V Mojčini šoli je letos dvanajst otrok, med njimi ___ (2) Ana in Eva. Mojca jim ___ (3) na teden bere pravljice. Tine je letos ___ (1.) sam hodil v šolo. Pri testu je dobil ___ (5). Zala je dobila ___ (4). ___ (½) razreda je šla na izlet. Mojca je šla zraven s ___ (3) mamami. Učilnica ima ___ (2) vrat: na hodnik in na igrišče.",
           "gaps": [
-            { "accept": ["dvojčici"], "hint": "two sisters born together: the dual", "explain": "**dvojček** → a girl **dvojčica**; two of them, the dual: **dvojčici** Ana in Eva" },
+            {
+              "accept": ["dvojčici"],
+              "hint": "two sisters born together: the dual",
+              "explain": "**dvojček** → a girl **dvojčica**; two of them, the dual: **dvojčici** Ana in Eva"
+            },
             { "accept": ["trikrat", "3-krat"], "hint": "how many times" },
             { "accept": ["prvič"], "hint": "the first time" },
             { "accept": ["petico"], "hint": "the best grade, dobil je kaj?" },
@@ -164,7 +341,8 @@
             { "accept": ["tremi"], "hint": "s + the instrumental" },
             { "accept": ["dvoje"], "hint": "vrata: plural only" }
           ],
-          "bank": true, "distractors": ["petko", "trije", "dvojne"],
+          "bank": true,
+          "distractors": ["petko", "trije", "dvojne"],
           "translation": "This year there are twelve children at Mojca's school, among them the twins Ana and Eva. Mojca reads them fairy tales three times a week. This year Tine walked to school on his own for the first time. In the test he got a five, the best grade. Zala got a four. Half the class went on a trip. Mojca went along with three mums. The classroom has two doors: to the corridor and to the playground."
         }
       ]
@@ -174,24 +352,50 @@
       "title": { "sl": "S tremi, pri štirih", "en": "With three, at four", "de": "Mit drei, bei vier", "it": "Con tre, da quattro" },
       "exercises": [
         {
-          "type": "transform", "grammar": "stevniki", "instruction": "S predlogom v oklepaju · With the preposition in brackets",
+          "type": "transform",
+          "grammar": "stevniki",
+          "instruction": "S predlogom v oklepaju · With the preposition in brackets",
           "items": [
-            { "from": "trije prijatelji (s)", "accept": ["s tremi prijatelji"], "hint": "s + the instrumental" },
-            { "from": "štiri sosede (pri)", "accept": ["pri štirih sosedah"], "hint": "pri + the locative" },
-            { "from": "pet otrok (z)", "accept": ["s petimi otroki"], "hint": "z or s? before p: s", "explain": "**s** before p; the instrumental: s **petimi** otroki" },
-            { "from": "trije bratje (o)", "accept": ["o treh bratih"], "hint": "o + the locative" },
-            { "from": "štirje konji (s)", "accept": ["s štirimi konji"], "hint": "s + the instrumental" }
+            {
+              "from": "trije prijatelji (s)",
+              "accept": ["s tremi prijatelji"],
+              "hint": "s + the instrumental",
+              "lemma": "prijatelj",
+              "form": "ins.pl"
+            },
+            { "from": "štiri sosede (pri)", "accept": ["pri štirih sosedah"], "hint": "pri + the locative", "lemma": "soseda", "form": "loc.pl" },
+            {
+              "from": "pet otrok (z)",
+              "accept": ["s petimi otroki"],
+              "hint": "z or s? before p: s",
+              "explain": "**s** before p; the instrumental: s **petimi** otroki",
+              "lemma": "otrok",
+              "form": "ins.pl"
+            },
+            { "from": "trije bratje (o)", "accept": ["o treh bratih"], "hint": "o + the locative", "lemma": "brat", "form": "loc.pl" },
+            { "from": "štirje konji (s)", "accept": ["s štirimi konji"], "hint": "s + the instrumental", "lemma": "konj", "form": "ins.pl" }
           ],
           "explain": "**the number declines** with its noun after a preposition\n- s tremi, pri štirih, s petimi\n- o treh bratih"
         },
         {
-          "type": "choice", "grammar": "stevniki", "instruction": "Kaj pomeni? · What does it mean?", "prompt": "Fanta imata po dvoje hlač.",
-          "options": ["Each boy has two pairs of trousers.", "The boys have two pairs of trousers between them.", "Each boy has worn his trousers twice."], "answer": 0, "say": "Fanta imata po dvoje hlač.",
+          "type": "choice",
+          "grammar": "stevniki",
+          "instruction": "Kaj pomeni? · What does it mean?",
+          "prompt": "Fanta imata po dvoje hlač.",
+          "options": ["Each boy has two pairs of trousers.", "The boys have two pairs of trousers between them.", "Each boy has worn his trousers twice."],
+          "answer": 0,
+          "say": "Fanta imata po dvoje hlač.",
           "explain": "**po** before a number: each; **dvoje hlač**: two pairs of trousers"
         },
         {
-          "type": "choice", "grammar": "stevniki", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "The barn has three doors.",
-          "options": ["Skedenj ima troje vrat.", "Skedenj ima tri vrata.", "Skedenj ima trije vrata."], "answer": 0, "almost": [1], "say_options": true,
+          "type": "choice",
+          "grammar": "stevniki",
+          "instruction": "Kateri stavek je prav? · Which sentence is right?",
+          "prompt": "The barn has three doors.",
+          "options": ["Skedenj ima troje vrat.", "Skedenj ima tri vrata.", "Skedenj ima trije vrata."],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
           "explain": "**vrata** is plural only: the standard is **troje vrat**\n- tri vrata · heard in speech, less right in the standard (SP2001)"
         }
       ]
@@ -201,41 +405,53 @@
     "pass": 80,
     "exercises": [
       {
-        "type": "table", "grammar": "stevniki", "instruction": "Dopolni · Fill in", "prompt": "kolikokrat? · how many times?",
+        "type": "table",
+        "grammar": "stevniki",
+        "instruction": "Dopolni · Fill in",
+        "prompt": "kolikokrat? · how many times?",
         "columns": ["kolikokrat? · how many times"],
         "rows": [
-          { "label": "4", "cells": [{ "accept": ["štirikrat", "4-krat"] }] },
-          { "label": "5", "cells": [{ "accept": ["petkrat", "5-krat"] }] },
-          { "label": "10", "cells": [{ "accept": ["desetkrat", "10-krat"] }] },
-          { "label": "1. (the first time)", "cells": [{ "accept": ["prvič"] }] }
+          { "label": "4", "cells": [{"accept": ["štirikrat", "4-krat"]}] },
+          { "label": "5", "cells": [{"accept": ["petkrat", "5-krat"]}] },
+          { "label": "10", "cells": [{"accept": ["desetkrat", "10-krat"]}] },
+          { "label": "1. (the first time)", "cells": [{"accept": ["prvič"]}] }
         ]
       },
       {
-        "type": "gaptext", "grammar": "stevniki", "instruction": "Dopolni · Fill in",
+        "type": "gaptext",
+        "grammar": "stevniki",
+        "instruction": "Dopolni · Fill in",
         "text": "Marko je trgatev ___ (2) preložil zaradi dežja. Nazadnje je prišel s ___ (4) prijatelji. Do večera so pobrali ___ (½) grozdja. Marko je bil ___ (1.) tako zadovoljen.",
-        "gaps": [
-          { "accept": ["dvakrat", "2-krat"] },
-          { "accept": ["štirimi"] },
-          { "accept": ["polovico"] },
-          { "accept": ["prvič"] }
-        ],
+        "gaps": [{"accept": ["dvakrat", "2-krat"]}, {"accept": ["štirimi"]}, {"accept": ["polovico"]}, {"accept": ["prvič"]}],
         "translation": "Marko put off the grape harvest twice because of the rain. In the end he came with four friends. By evening they had picked half the grapes. For the first time Marko was so pleased."
       },
       {
-        "type": "transform", "grammar": "stevniki", "instruction": "S predlogom v oklepaju · With the preposition in brackets",
+        "type": "transform",
+        "grammar": "stevniki",
+        "instruction": "S predlogom v oklepaju · With the preposition in brackets",
         "items": [
-          { "from": "trije sinovi (s)", "accept": ["s tremi sinovi"] },
-          { "from": "pet hiš (pri)", "accept": ["pri petih hišah"] }
+          { "from": "trije sinovi (s)", "accept": ["s tremi sinovi"], "lemma": "sin", "form": "ins.pl" },
+          { "from": "pet hiš (pri)", "accept": ["pri petih hišah"], "lemma": "hiša", "form": "loc.pl" }
         ]
       },
       {
-        "type": "choice", "grammar": "stevniki", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Tone got double pay.",
-        "options": ["Tone je dobil dvojno plačilo.", "Tone je dobil dvojna plačilo.", "Tone je dobil dvoje plačilo."], "answer": 0, "say_options": true,
+        "type": "choice",
+        "grammar": "stevniki",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Tone got double pay.",
+        "options": ["Tone je dobil dvojno plačilo.", "Tone je dobil dvojna plačilo.", "Tone je dobil dvoje plačilo."],
+        "answer": 0,
+        "say_options": true,
         "explain": "**what kind** → **dvojen**, agreeing with plačilo (neuter): **dvojno** plačilo"
       },
       {
-        "type": "choice", "grammar": "stevniki", "instruction": "Kateri stavek je prav? · Which sentence is right?", "prompt": "Zala got top marks.",
-        "options": ["Zala je dobila petico.", "Zala je dobila peto.", "Zala je dobila petkrat."], "answer": 0, "say_options": true,
+        "type": "choice",
+        "grammar": "stevniki",
+        "instruction": "Kateri stavek je prav? · Which sentence is right?",
+        "prompt": "Zala got top marks.",
+        "options": ["Zala je dobila petico.", "Zala je dobila peto.", "Zala je dobila petkrat."],
+        "answer": 0,
+        "say_options": true,
         "explain": "**the grade** is a noun: **petica**"
       }
     ]
