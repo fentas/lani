@@ -3948,7 +3948,15 @@ match, and `companion/tests/test_case_triggers.py` runs it, so a table edited by
 read back into case, number and gender; the hand-checked tables, a noun's replacing Wiktionary's, and the animate list:
 a person's accusative is its genitive; the table's pronouns; the villagers' and the learner's declined names; a noun's
 or an adjective's regular endings for a form the dictionary lacks, and the word packs' nouns by their lemma, gender and
-plural, both marked `derived`). The clause then decides,
+plural, both marked `derived`; what the dictionary has only as something else: a comparative or a superlative by its
+ending (boljša, najstarejši; -ejši of an adjective it has), a past participle as an adjective (zaklenjena), a verbal
+noun as a neuter noun (pečenje), a possessive of a noun or a name (cesarjevim, Krpanova, Tonetovo); a word with no
+case, ki, dvajset, super, an interjection, is what the dictionary says it is, with no row; a sound drawn out, Jaaa, is
+its word). The supplement has the content's story names declined (Krpan, Krpana; Zlatorog; Triglav), its interjections
+and particles (no case row: the card says *medmet*, *členek*), and its verbs' and nouns' Sloleks paradigms
+(docs/plans/05-built/lens-unknown-forms.md). `CaseLens.unknownWords(line, names)` gives the words of a line the lens
+knows nothing of; `bun test/case-lens-gaps.ts` lists the content's (by kind, with a line each; `--units` the course's
+too) and the smoke keeps them under 150. The clause then decides,
 each step a rule: a phrase, the preposition before the phrase (the verb's motion or rest where the form doesn't tell),
 a number or quantity, a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
 number, an l-form's gender), the object of a verb that takes one; the dual only with dva, dve, oba or a dual verb, the
