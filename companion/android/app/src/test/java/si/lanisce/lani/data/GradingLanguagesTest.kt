@@ -314,6 +314,31 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, en("let's go", "Let us go."))
     }
 
+    @Test fun `an english long word's ending is its last letter, so a slip just before it is a slip`() {
+        // English's ending_letters 1: a slip in the last two letters of a word over five letters is forgiven
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("usualy", "usually"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("walkd", "walked"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, en("thirten", "thirteen"))
+        // the ending itself stays the ending: -s, -ed, -ing, a plural
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("dogs", "dog"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("dog", "dogs"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("walk", "walks"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("walks", "walked"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("walked", "walks"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("listen", "listens"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("horse", "horses"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, en("sittin", "sitting"))
+        // the paired known mistakes stay wrong, potatos and tomatos too (one letter before the s)
+        for ((typed, right) in listOf("potatos" to "potatoes", "tomatos" to "tomatoes", "siting" to "sitting", "makeing" to "making", "nineth" to "ninth", "where" to "were", "fourty" to "forty", "familys" to "families")) {
+            assertEquals("$typed for $right", Verdict.WRONG, en(typed, right).verdict)
+        }
+        // the other languages keep two letters: Slovene's -ega, Italian's -ano
+        assertEquals(1, Spelling.of(Lang.EN).endingLetters)
+        assertEquals(2, Spelling.of(Lang.SL).endingLetters)
+        assertEquals(2, Spelling.of(Lang.IT).endingLetters)
+        assertEquals(2, Spelling.of(Lang.DE).endingLetters)
+    }
+
     @Test fun `an english contraction without its apostrophe is almost, a word of its own stays wrong`() {
         // a phone keyboard hides the apostrophe: almost, with the hint, never right
         for ((typed, right) in listOf("cant" to "can't", "isnt" to "isn't", "I dont know" to "I don't know.", "Im here" to "I'm here.", "youre late" to "you're late",
