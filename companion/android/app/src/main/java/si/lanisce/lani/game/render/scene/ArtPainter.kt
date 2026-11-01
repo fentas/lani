@@ -107,7 +107,7 @@ internal abstract class ArtPainter : ScenePainter {
         val s = ctx?.takeIf { it.canvas === canvas } ?: SceneCtx(canvas).also { ctx = it }
         this.s = s
         this.frame = frame
-        people.culture = frame.world.look.id // the day's pedlar under his culture's load
+        people.culture = dressedAs ?: frame.world.look.id // the culture's clothes (Wardrobes), the day's pedlar under his load
         val n = canvas.width * canvas.height
         if (lightBuf.size != n) { lightBuf = FloatArray(n); outlineTmp = IntArray(n) }
         s.reset()
@@ -405,7 +405,7 @@ internal abstract class ArtPainter : ScenePainter {
     ) {
         if (p.pose == Pose.SLEEP) { lyingHere(p, bx, by, flip, awake = false); return }
         val id0 = begin(Pal.OUTLINE)
-        sprite(bx, by) { people.draw(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, walking, seated, p.pose, crouch = crouch, reach = reach, rest = rest, face = p.face) }
+        sprite(bx, by) { people.draw(c, p.art, bx, by, t, Looks.seedOf(p.id), p.talking, flip, walking, seated, p.pose, crouch = crouch, reach = reach, rest = rest, face = p.face) }
         val id1 = c.penId
         end(SceneTarget.Person(p.id), id0, true, 1)
         if (keepPeople) keep(p.id, id0, id1)
@@ -441,6 +441,12 @@ internal abstract class ArtPainter : ScenePainter {
     /** Keep where each person standing in the frame was drawn ([drawnPeople]): for the test that nothing is drawn over them. */
     internal var keepPeople = false
 
+    /**
+     * Tests: the culture whose clothes the people wear ([PeoplePainter.culture]) when it isn't the frame's: a culture's people
+     * in Primorska's picture, to see that the culture's look of an art keeps them where they stood.
+     */
+    internal var dressedAs: String? = null
+
     /** The people drawn in the last frame and what was drawn over them, while [keepPeople]. */
     internal val drawnPeople = ArrayList<Drawn>()
 
@@ -462,7 +468,7 @@ internal abstract class ArtPainter : ScenePainter {
     protected fun restingArms(p: PersonInScene, bx: Int, by: Int, flip: Boolean, rest: IntArray) {
         if (p.pose == Pose.SLEEP) return
         val id0 = begin(Pal.OUTLINE)
-        sprite(bx, by) { people.restingArms(c, p.art, bx, by, t, Noise.hash(p.id.hashCode(), 7) ushr 1, p.talking, flip, p.pose, rest) }
+        sprite(bx, by) { people.restingArms(c, p.art, bx, by, t, Looks.seedOf(p.id), p.talking, flip, p.pose, rest) }
         end(SceneTarget.Person(p.id), id0, true, 1)
     }
 
@@ -486,7 +492,7 @@ internal abstract class ArtPainter : ScenePainter {
      * stage's `lie`: Nejc in his bed before he gets up), the eyes open, their mood and their talking on the face, no Zzz.
      */
     protected fun sleeper(p: PersonInScene, hx: Int, hy: Int, fx: Int, fy: Int, cover: IntArray? = null, pillow: Boolean = false, awake: Boolean = false) {
-        val seed = Noise.hash(p.id.hashCode(), 7) ushr 1
+        val seed = Looks.seedOf(p.id)
         if (awake) {
             val id0 = begin(Pal.OUTLINE)
             val mood = if (p.pose == Pose.SLEEP) Pose.IDLE else p.pose

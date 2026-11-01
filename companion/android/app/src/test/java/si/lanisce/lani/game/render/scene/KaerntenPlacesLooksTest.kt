@@ -147,7 +147,8 @@ class KaerntenPlacesLooksTest {
                 if (slot in WILD) assertTrue("$art/$slot at stage $st, detail $k: $n", n <= 1)
                 else assertEquals("$art/$slot at stage $st, detail $k", expected, n)
             }
-            val home = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, project, st, "primorska", 10.5f, sprites), Lens(k, 0, 0, 240, 160))
+            // Primorska's picture with Carinthia's people in it: each culture dresses its people its own way (Wardrobes)
+            val home = (ScenePainters.create(art) as ArtPainter).also { it.dressedAs = "kaernten" }.render(PixelCanvas(240 * k, 160 * k), frame(art, project, st, "primorska", 10.5f, sprites), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.personSlots.getValue(art)) {
                 val a = home.single { it.target == SceneTarget.Person("p-$slot") }
                 val b = hits.single { it.target == SceneTarget.Person("p-$slot") }

@@ -104,7 +104,8 @@ class FriuliIndoorLooksTest {
                 assertEquals("$art/$slot at level $level, detail $k", if (SceneFixtures.there(art, slot, w)) 1 else 0, n)
             }
             // the people where the Slovene picture has them: the stage's slots stay
-            val home = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, type, level, "primorska", 10.5f, sprites), Lens(k, 0, 0, 240, 160))
+            // Primorska's picture with the culture's people in it: each culture dresses its people its own way (Wardrobes)
+            val home = (ScenePainters.create(art) as ArtPainter).also { it.dressedAs = "friuli" }.render(PixelCanvas(240 * k, 160 * k), frame(art, type, level, "primorska", 10.5f, sprites), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.personSlots.getValue(art)) {
                 val a = home.single { it.target == SceneTarget.Person("p-$slot") }
                 val b = hits.single { it.target == SceneTarget.Person("p-$slot") }

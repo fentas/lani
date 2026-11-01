@@ -127,7 +127,8 @@ class FriuliApiaryChurchLooksTest {
                 assertEquals("$art/$slot at level $level of ${type.name}, detail $k, month $month", if (SceneFixtures.there(art, slot, w)) 1 else 0, n)
             }
             // the people where the Slovene picture has them: the spots stay
-            val home = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, type, level, "primorska", 10.5f, sprites, month = month), Lens(k, 0, 0, 240, 160))
+            // Primorska's picture with the culture's people in it: each culture dresses its people its own way (Wardrobes)
+            val home = (ScenePainters.create(art) as ArtPainter).also { it.dressedAs = "friuli" }.render(PixelCanvas(240 * k, 160 * k), frame(art, type, level, "primorska", 10.5f, sprites, month = month), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.personSlots.getValue(art)) {
                 val a = home.single { it.target == SceneTarget.Person("p-$slot") }
                 val b = hits.single { it.target == SceneTarget.Person("p-$slot") }
@@ -170,7 +171,7 @@ class FriuliApiaryChurchLooksTest {
     @Test fun `in Friuli nothing is drawn over the head of someone at a person spot, at every level`() {
         val failed = ArrayList<String>()
         val sprites = SceneArt.people - setOf("baby", "pedlar", "pilgrim")
-        for ((art, type, _) in levelArts) for (slot in SceneArt.personSlots.getValue(art)) {
+        for ((art, type, sprites) in levelArts) for (slot in SceneArt.personSlots.getValue(art)) {
             if ("$art/$slot" in behind) continue
             for (level in levels) for (sprite in sprites) for (hour in listOf(15f, 22.5f)) {
                 val p = ScenePainters.create(art) as ArtPainter

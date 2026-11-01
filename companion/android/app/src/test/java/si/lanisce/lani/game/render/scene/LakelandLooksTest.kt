@@ -144,7 +144,8 @@ class LakelandLooksTest {
                 val want = if (SceneFixtures.there(a.art, slot, w)) 1 else 0
                 if (n != want) failed += "${a.art}/$slot ($type) at level $level, detail $k: tappable $n times, not $want"
             }
-            val home = ScenePainters.create(a.art).render(PixelCanvas(240 * k, 160 * k), frame(a, level, "primorska", 10.5f, type = type), Lens(k, 0, 0, 240, 160))
+            // Primorska's picture with the culture's people in it: each culture dresses its people its own way (Wardrobes)
+            val home = (ScenePainters.create(a.art) as ArtPainter).also { it.dressedAs = "lakeland" }.render(PixelCanvas(240 * k, 160 * k), frame(a, level, "primorska", 10.5f, type = type), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.personSlots.getValue(a.art)) {
                 val x = home.single { it.target == SceneTarget.Person("p-$slot") }
                 val y = hits.single { it.target == SceneTarget.Person("p-$slot") }

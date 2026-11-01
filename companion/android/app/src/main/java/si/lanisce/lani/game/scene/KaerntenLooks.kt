@@ -74,9 +74,11 @@ internal object KaerntenLooks {
     /**
      * The people sprites (`people`, People.kt): the day's pedlar the Kraxenträger from the Kanaltal under his Kraxe, larch
      * posts round a green box of little drawers ("So viele kleine Laden!"), a blue bundle tied on its lid (`pedlar`), on the
-     * map, in the scenes and in his portrait; the road's pedlar at the gate and below the watchtower the same (their `pedlar`).
+     * map, in the scenes and in his portrait; the road's pedlar at the gate and below the watchtower the same (their `pedlar`);
+     * everyone in Carinthia's clothes (`wardrobe`, render/scene/Wardrobes.kt: the women's dirndls, Opa Sepp's Kärntner Anzug
+     * and his hat with the Gamsbart, the boys' Lederhosen), on the map too.
      */
-    val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "kraxe"))
+    val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "kraxe", "wardrobe" to "kaernten"))
 
     /**
      * The tent at Carinthia's camp (Im Zelt, TentPainter): Austria's pennant, red, white and red, on its front post (`pennant`,
