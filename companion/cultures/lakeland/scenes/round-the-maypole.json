@@ -42,7 +42,7 @@
       "when": ["morning"],
       "chance": 0.6,
       "dialog": "queen",
-      "dialogs": ["queen-speech", "queen"],
+      "dialogs": ["queen-bell", "queen-speech", "queen"],
       "reward": { "wisdom": 15 },
       "marker": "👑",
       "memory": {
@@ -59,7 +59,7 @@
       "when": ["afternoon"],
       "chance": 0.5,
       "dialog": "ribbons",
-      "dialogs": ["ribbons-tallest", "ribbons"],
+      "dialogs": ["ribbons-cat", "ribbons-tallest", "ribbons"],
       "reward": { "wisdom": 10 },
       "marker": "🎀",
       "memory": {
@@ -76,7 +76,7 @@
       "when": ["afternoon"],
       "chance": 0.55,
       "dialog": "dance",
-      "dialogs": ["dance-tangle", "dance"],
+      "dialogs": ["dance-ball", "dance-tangle", "dance"],
       "reward": { "food": 20 },
       "marker": "💃",
       "memory": {
@@ -98,7 +98,7 @@
       "when": ["morning", "afternoon"],
       "chance": 0.5,
       "dialog": "bench",
-      "dialogs": ["bench-clout", "bench"],
+      "dialogs": ["bench-bess", "bench-clout", "bench"],
       "reward": { "wisdom": 20 },
       "marker": "🌸",
       "memory": {
@@ -1805,6 +1805,493 @@
           "sl": "Odlično. Čaj za vse, sok pa za plesalce!",
           "it": "Ottimo. Tè per tutti, e succo per i ballerini!",
           "de": "Prima. Tee für alle und Saft für die Tänzer!"
+        }
+      ]
+    },
+    {
+      "id": "queen-bell",
+      "memory": {
+        "en": "the bell before my crowning",
+        "sl": "zvon pred mojim kronanjem",
+        "it": "la campana prima della mia incoronazione",
+        "de": "die Glocke vor meiner Krönung"
+      },
+      "lines": [
+        {
+          "who": "poppy",
+          "face": "surprised",
+          "en": "Listen! The church bell! It's time for my crowning!",
+          "sl": "Poslušaj! Cerkveni zvon! Čas je za moje kronanje!",
+          "it": "Ascolta! La campana della chiesa! È ora della mia incoronazione!",
+          "de": "Hör mal! Die Kirchenglocke! Jetzt werde ich gekrönt!",
+          "fx": { "bell": 1 }
+        },
+        {
+          "who": "poppy",
+          "face": "worried",
+          "en": "Oh! Is my crown straight? Everyone's watching!",
+          "sl": "Oh! Je moja krona ravna? Vsi gledajo!",
+          "it": "Oh! La mia corona è dritta? Mi guardano tutti!",
+          "de": "Oh! Sitzt meine Krone gerade? Alle schauen zu!"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, it's perfect!",
+              "sl": "Ja, popolna je!",
+              "it": "Sì, è perfetta!",
+              "de": "Ja, sie ist perfekt!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Phew! Then I'm ready.",
+                "sl": "Uf! Potem sem pripravljena.",
+                "it": "Uff! Allora sono pronta.",
+                "de": "Puh! Dann bin ich bereit."
+              }
+            },
+            {
+              "en": "Yes, it's crooked!",
+              "sl": "Ja, postrani je!",
+              "it": "Sì, è storta!",
+              "de": "Ja, sie ist schief!",
+              "why": {
+                "en": "Crooked means not straight. Poppy is worried: tell her it looks lovely.",
+                "sl": "Crooked pomeni postrani, ne ravno. Poppy jo skrbi: povej ji, da je lepa.",
+                "it": "Crooked vuol dire storta. Poppy è preoccupata: dille che sta benissimo.",
+                "de": "Crooked heißt schief. Poppy macht sich Sorgen: Sag ihr, dass sie schön aussieht."
+              },
+              "reply": {
+                "face": "worried",
+                "en": "Crooked? Oh no! Fix it, quick!",
+                "sl": "Postrani? Joj, ne! Hitro jo popravi!",
+                "it": "Storta? Oh no! Sistemala, presto!",
+                "de": "Schief? Oh nein! Schnell, richte sie!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "poppy",
+          "face": "proud",
+          "en": "Here I go. Wave to me, {learner}!",
+          "sl": "Grem. Pomahaj mi, {learner}!",
+          "it": "Vado. Salutami con la mano, {learner}!",
+          "de": "Los geht's. Wink mir zu, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "ribbons-cat",
+      "fx_stays": true,
+      "memory": {
+        "en": "the cat that ran from the band",
+        "sl": "mačko, ki je zbežala pred godbo",
+        "it": "la gatta scappata dalla banda",
+        "de": "die Katze, die vor der Kapelle geflohen ist"
+      },
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "worried",
+          "en": "{learner}! The cat ran up the oak! The band was too loud for her.",
+          "sl": "{learner}! Mačka je zbežala na hrast! Godba je bila zanjo preglasna.",
+          "it": "{learner}! La gatta è scappata sulla quercia! La banda era troppo forte per lei.",
+          "de": "{learner}! Die Katze ist auf die Eiche gerannt! Die Kapelle war ihr zu laut.",
+          "fx": { "cat": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Poor cat! She's scared.",
+              "sl": "Uboga mačka! Prestrašena je.",
+              "it": "Povera gatta! Ha paura.",
+              "de": "Arme Katze! Sie hat Angst.",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "en": "She's crying! Miaow, miaow!",
+                "sl": "Joka! Mijav, mijav!",
+                "it": "Piange! Miao, miao!",
+                "de": "Sie weint! Miau, miau!"
+              }
+            },
+            {
+              "en": "Poor cat! She's hungry.",
+              "sl": "Uboga mačka! Lačna je.",
+              "it": "Povera gatta! Ha fame.",
+              "de": "Arme Katze! Sie hat Hunger.",
+              "why": {
+                "en": "Alfie says the noise frightened her: she's scared, not hungry.",
+                "sl": "Alfie pravi, da jo je prestrašil hrup: scared, ne hungry.",
+                "it": "Alfie dice che il rumore l'ha spaventata: scared, non hungry.",
+                "de": "Alfie sagt, der Lärm hat sie erschreckt: scared, nicht hungry."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Hungry? No, she ran from the drums!",
+                "sl": "Lačna? Ne, pred bobni je zbežala!",
+                "it": "Fame? No, è scappata dai tamburi!",
+                "de": "Hunger? Nein, sie ist vor den Trommeln geflohen!"
+              }
+            },
+            {
+              "en": "Poor cat! She scared.",
+              "sl": "Uboga mačka! Prestrašena je.",
+              "it": "Povera gatta! Ha paura.",
+              "de": "Arme Katze! Sie hat Angst.",
+              "grammar": "to-be",
+              "why": {
+                "en": "Scared goes with be: she's scared (she is scared).",
+                "sl": "Scared gre z be: she's scared (she is scared).",
+                "it": "Scared va con be: she's scared (she is scared).",
+                "de": "Scared geht mit be: she's scared (she is scared)."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "She what? Say it again, {learner}!",
+                "sl": "Ona kaj? Še enkrat povej, {learner}!",
+                "it": "Lei cosa? Ridillo, {learner}!",
+                "de": "Sie was? Sag's noch mal, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say it again, slowly?",
+            "sl": "A? Še enkrat, počasi?",
+            "it": "Eh? Ripeti, piano piano?",
+            "de": "Hä? Noch mal, langsam?"
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "surprised",
+          "en": "She's coming down! Tail first, slowly, slowly…",
+          "sl": "Spušča se! Z repom naprej, počasi, počasi …",
+          "it": "Sta scendendo! Prima la coda, piano, piano…",
+          "de": "Sie kommt runter! Schwanz zuerst, langsam, langsam …",
+          "fx": { "cat": 0.5 }
+        },
+        {
+          "who": "alfie",
+          "face": "laugh",
+          "en": "She's on the bench! And asleep already. Cats!",
+          "sl": "Na klopi je! In že spi. Mačke!",
+          "it": "È sulla panchina! E dorme già. I gatti!",
+          "de": "Sie ist auf der Bank! Und schläft schon. Katzen!",
+          "fx": { "cat": 1 }
+        }
+      ]
+    },
+    {
+      "id": "dance-ball",
+      "fx_stays": true,
+      "memory": {
+        "en": "my goal before the ribbon dance",
+        "sl": "moj gol pred plesom s trakovi",
+        "it": "il mio gol prima del ballo dei nastri",
+        "de": "mein Tor vor dem Bändertanz"
+      },
+      "lines": [
+        {
+          "who": "harry",
+          "face": "worried",
+          "en": "{learner}! One quick game before the dance. But where's the ball?",
+          "sl": "{learner}! Še ena hitra igra pred plesom. Kje pa je žoga?",
+          "it": "{learner}! Una partitina prima del ballo. Ma dov'è il pallone?",
+          "de": "{learner}! Schnell noch ein Spiel vor dem Tanz. Aber wo ist der Ball?",
+          "fx": { "ball": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "It's under the bench!",
+              "sl": "Pod klopjo je!",
+              "it": "È sotto la panchina!",
+              "de": "Er ist unter der Bank!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Got it! You've got sharp eyes, {learner}!",
+                "sl": "Imam jo! Ostre oči imaš, {learner}!",
+                "it": "Preso! Hai la vista acuta, {learner}!",
+                "de": "Hab ihn! Du hast scharfe Augen, {learner}!",
+                "fx": { "ball": 1 }
+              }
+            },
+            {
+              "en": "It's on the bench!",
+              "sl": "Na klopi je!",
+              "it": "È sulla panchina!",
+              "de": "Er ist auf der Bank!",
+              "grammar": "prepositions-place",
+              "why": {
+                "en": "Nothing is lying on the bench. The ball is in the shade below it.",
+                "sl": "Na klopi ni ničesar. Žoga je v senci spodaj.",
+                "it": "Sulla panchina non c'è niente. Il pallone è all'ombra lì sotto.",
+                "de": "Auf der Bank liegt nichts. Der Ball ist im Schatten darunter."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "On it? There's nothing on it, {learner}!",
+                "sl": "Na njej? Na njej ni ničesar, {learner}!",
+                "it": "Sopra? Lì sopra non c'è niente, {learner}!",
+                "de": "Drauf? Da liegt nichts drauf, {learner}!"
+              }
+            },
+            {
+              "en": "It's up the oak!",
+              "sl": "Gor na hrastu je!",
+              "it": "È su sulla quercia!",
+              "de": "Er ist oben in der Eiche!",
+              "why": {
+                "en": "Balls don't climb trees! Look low down, by the bench.",
+                "sl": "Žoge ne plezajo po drevesih! Poišči nizko, pri klopi.",
+                "it": "I palloni non si arrampicano sugli alberi! Cerca in basso, vicino alla panchina.",
+                "de": "Bälle klettern nicht auf Bäume! Such weiter unten, bei der Bank."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Up the oak? That's the cat's job!",
+                "sl": "Na hrastu? To je mačkina naloga!",
+                "it": "Sulla quercia? Quello è il lavoro della gatta!",
+                "de": "In der Eiche? Das ist Sache der Katze!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? The band's too loud! Again!",
+            "sl": "Kaj? Godba je preglasna! Še enkrat!",
+            "it": "Cosa? La banda è troppo forte! Ancora!",
+            "de": "Was? Die Kapelle ist zu laut! Noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "face": "happy",
+          "en": "Right! The goal is between the two satchels. You're in goal!",
+          "sl": "Tako! Gol je med torbama. Ti si v golu!",
+          "it": "Bene! La porta è tra le due cartelle. Tu stai in porta!",
+          "de": "So! Das Tor ist zwischen den zwei Schulranzen. Du bist im Tor!"
+        },
+        {
+          "choices": [
+            {
+              "en": "OK! Kick it!",
+              "sl": "Prav! Brcni!",
+              "it": "Va bene! Tira!",
+              "de": "Okay! Schieß!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Too slow! GOAL! One–nil to me!",
+                "sl": "Prepočasi! GOL! Ena proti nič zame!",
+                "it": "Troppo {m:lento|f:lenta}! GOL! Uno a zero per me!",
+                "de": "Zu langsam! TOR! Eins zu null für mich!",
+                "fx": { "goal": 1 }
+              }
+            },
+            {
+              "en": "Ready! Kick it to me!",
+              "sl": "{m:Pripravljen|f:Pripravljena}! Brcni k meni!",
+              "it": "{m:Pronto|f:Pronta}! Passala a me!",
+              "de": "Bereit! Schieß zu mir!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Too slow! GOAL! One–nil to me!",
+                "sl": "Prepočasi! GOL! Ena proti nič zame!",
+                "it": "Troppo {m:lento|f:lenta}! GOL! Uno a zero per me!",
+                "de": "Zu langsam! TOR! Eins zu null für mich!",
+                "fx": { "goal": 1 }
+              }
+            },
+            {
+              "en": "OK! Kick the satchel!",
+              "sl": "Prav! Brcni torbo!",
+              "it": "Va bene! Tira un calcio alla cartella!",
+              "de": "Okay! Tritt gegen den Ranzen!",
+              "why": {
+                "en": "The satchels are the goalposts: you kick the ball between them.",
+                "sl": "Torbi sta vratnici: žogo brcneš mednju.",
+                "it": "Le cartelle sono i pali: il pallone si tira in mezzo.",
+                "de": "Die Ranzen sind die Torpfosten: Der Ball muss dazwischen."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The satchel? My books are in there!",
+                "sl": "Torbo? Notri so moje knjige!",
+                "it": "La cartella? Dentro ci sono i miei libri!",
+                "de": "Den Ranzen? Da sind meine Bücher drin!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "harry",
+          "face": "happy",
+          "en": "Now the dance! Come on, the ribbons are waiting!",
+          "sl": "Zdaj pa ples! Pridi, trakovi čakajo!",
+          "it": "Adesso il ballo! Dai, i nastri ci aspettano!",
+          "de": "Jetzt der Tanz! Komm, die Bänder warten!"
+        }
+      ]
+    },
+    {
+      "id": "bench-bess",
+      "fx_stays": true,
+      "memory": {
+        "en": "the day Bess came back to you from the dancers",
+        "sl": "dan, ko se je Bess od plesalcev vrnila k tebi",
+        "it": "il giorno in cui Bess è tornata da te dai ballerini",
+        "de": "den Tag, an dem Bess von den Tänzern zu dir zurückkam"
+      },
+      "lines": [
+        {
+          "who": "wilf",
+          "face": "worried",
+          "en": "{m:Son|f:Lass}, have you seen Bess? She ran off after the dancers!",
+          "sl": "Si {m:videl|f:videla} Bess? Stekla je za plesalci!",
+          "it": "{m:Figliolo|f:Figliola}, hai visto Bess? È corsa dietro ai ballerini!",
+          "de": "{m:Mein Junge|f:Mein Mädchen}, hast du Bess gesehen? Sie ist den Tänzern nachgelaufen!",
+          "fx": { "dog": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "No. Can I call her?",
+              "sl": "Ne. Jo lahko pokličem?",
+              "it": "No. Posso chiamarla?",
+              "de": "Nein. Soll ich sie rufen?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Yes, do. She likes young voices.",
+                "sl": "Ja, kar. Rada ima mlade glasove.",
+                "it": "Sì, chiamala. Le piacciono le voci giovani.",
+                "de": "Ja, ruf sie. Sie mag junge Stimmen."
+              }
+            },
+            {
+              "en": "No. Can I calls her?",
+              "sl": "Ne. Jo lahko pokličem?",
+              "it": "No. Posso chiamarla?",
+              "de": "Nein. Soll ich sie rufen?",
+              "grammar": "can",
+              "why": {
+                "en": "After can, the verb has no -s: can I call?",
+                "sl": "Za can glagol nima -s: can I call?",
+                "it": "Dopo can il verbo non prende la -s: can I call?",
+                "de": "Nach can hat das Verb kein -s: can I call?"
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Calls? Eh? These old ears!",
+                "sl": "Calls? Kaj? Ta stara ušesa!",
+                "it": "Calls? Eh? Queste vecchie orecchie!",
+                "de": "Calls? Hä? Diese alten Ohren!"
+              }
+            },
+            {
+              "en": "No. Can I call the band?",
+              "sl": "Ne. Lahko pokličem godbo?",
+              "it": "No. Posso chiamare la banda?",
+              "de": "Nein. Soll ich die Kapelle rufen?",
+              "why": {
+                "en": "Bess is Wilf's dog: you call her, not the band.",
+                "sl": "Bess je Wilfova psička: pokličeš njo, ne godbe.",
+                "it": "Bess è la cagnolina di Wilf: chiami lei, non la banda.",
+                "de": "Bess ist Wilfs Hündin: Du rufst sie, nicht die Kapelle."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The band? They'd only play louder!",
+                "sl": "Godbo? Samo še glasneje bi igrali!",
+                "it": "La banda? Suonerebbero solo più forte!",
+                "de": "Die Kapelle? Die würde nur lauter spielen!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Once more, a bit louder, {m:son|f:lass}?",
+            "sl": "Kaj? Še enkrat, malo glasneje?",
+            "it": "Eh? Ancora una volta, un po' più forte?",
+            "de": "Hm? Noch einmal, ein bisschen lauter?"
+          }
+        },
+        {
+          "who": "wilf",
+          "en": "There, by the flowers! Her nose is in the daisies.",
+          "sl": "Tam, pri rožah! Z nosom je v marjeticah.",
+          "it": "Là, vicino ai fiori! Ha il naso tra le margheritine.",
+          "de": "Da, bei den Blumen! Sie hat die Nase in den Gänseblümchen.",
+          "fx": { "dog": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Bess! Come here, Bess!",
+              "sl": "Bess! Pridi sem, Bess!",
+              "it": "Bess! Vieni qui, Bess!",
+              "de": "Bess! Komm her, Bess!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Here she comes! Look at that tail go!",
+                "sl": "Že prihaja! Poglej, kako maha z repom!",
+                "it": "Eccola che arriva! Guarda come scodinzola!",
+                "de": "Da kommt sie! Schau, wie der Schwanz wedelt!",
+                "fx": { "dog": 1, "wag": 1 }
+              }
+            },
+            {
+              "en": "Here, Bess! Good girl!",
+              "sl": "Sem, Bess! Pridna!",
+              "it": "Qui, Bess! Brava!",
+              "de": "Hierher, Bess! Braves Mädchen!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Here she comes! Look at that tail go!",
+                "sl": "Že prihaja! Poglej, kako maha z repom!",
+                "it": "Eccola che arriva! Guarda come scodinzola!",
+                "de": "Da kommt sie! Schau, wie der Schwanz wedelt!",
+                "fx": { "dog": 1, "wag": 1 }
+              }
+            },
+            {
+              "en": "Bess! Go away, Bess!",
+              "sl": "Bess! Pojdi stran, Bess!",
+              "it": "Bess! Vattene, Bess!",
+              "de": "Bess! Geh weg, Bess!",
+              "why": {
+                "en": "Go away sends her off. To call a dog to you: come here.",
+                "sl": "Go away jo odžene. Ko psa kličeš k sebi: come here.",
+                "it": "Go away la manda via. Per chiamare un cane: come here.",
+                "de": "Go away schickt sie weg. Um einen Hund zu rufen: come here."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Away? She's off again! No, no, Bess!",
+                "sl": "Stran? Spet je odšla! Ne, ne, Bess!",
+                "it": "Via? È scappata di nuovo! No, no, Bess!",
+                "de": "Weg? Sie ist schon wieder fort! Nein, nein, Bess!",
+                "fx": { "dog": 0.3 }
+              }
+            }
+          ]
+        },
+        {
+          "who": "wilf",
+          "face": "happy",
+          "en": "Good girl. She's fourteen, but she still loves May Day.",
+          "sl": "Pridna. Štirinajst let ima, pa ima prvi maj še vedno rada.",
+          "it": "Brava. Ha quattordici anni, ma il primo maggio le piace ancora.",
+          "de": "Braves Mädchen. Sie ist vierzehn, aber den ersten Mai liebt sie immer noch.",
+          "fx": { "wag": 1 }
         }
       ]
     }
