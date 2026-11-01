@@ -250,7 +250,7 @@ before the helpers' commits were taken in. Screenshots are in
 | Teo's riflessivi intro, tablet (render helper) | "si lava" plain | underlined, with 🔈 |
 
 A last short run on the whole branch (the helpers' commits in: `final/`, `navigation,feedback-tablet`) passed end to
-end: the band folded on the phone, the same 237 dp, and Today took 3 swipes.
+end: the band folded on the phone (240 dp from the title to the card), and Today took 3 swipes.
 
 The road step fails later in both runs, the same way on main: "nothing in 🚗 Za pot on the phone" (`road:mix` empty on
 this learner with `--no-town`). That is not this round's change: main's build fails it the same way. The channel check
