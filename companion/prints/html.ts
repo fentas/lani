@@ -43,8 +43,47 @@ const IT_HEADS: Heads = {
   school: 'Scuola',
   units: (n: number) => `${n} unità`,
 }
+/** A German course's headings ("Regel · The rule"): the German base's words, without their article. */
+const DE_HEADS: Heads = {
+  rule: 'Regel',
+  table: 'Tabelle',
+  tables: 'Tabellen',
+  examples: 'Beispiele',
+  watch: 'Achtung',
+  words: 'Wörter',
+  check: 'Teste dich',
+  answers: 'Lösungen',
+  notes: 'Notizen',
+  unit: 'Lektion',
+  contents: 'Inhalt',
+  continued: 'Fortsetzung',
+  machine: 'Maschinell geschrieben, von Muttersprachlern zu prüfen',
+  sheets: 'Lernblätter',
+  school: 'Schule',
+  units: (n: number) => `${n} Lektion${n === 1 ? '' : 'en'}`,
+}
+/** An English course's headings ("Rule · Pravilo"): the English base's words, without their article. */
+const EN_HEADS: Heads = {
+  rule: 'Rule',
+  table: 'Table',
+  tables: 'Tables',
+  examples: 'Examples',
+  watch: 'Watch out',
+  words: 'Words',
+  check: 'Check yourself',
+  answers: 'Answers',
+  notes: 'Notes',
+  unit: 'Unit',
+  contents: 'Contents',
+  continued: 'continued',
+  machine: 'Machine-written, to be checked by a native speaker',
+  sheets: 'Reference sheets',
+  school: 'School',
+  units: (n: number) => `${n} unit${n === 1 ? '' : 's'}`,
+}
+const HEADS: Record<string, Heads> = { sl: SL, it: IT_HEADS, de: DE_HEADS, en: EN_HEADS }
 /** The headings in the course's [language] (the language learned); Slovene for a language without its own. */
-export const headsOf = (language: string): Heads => (language === 'it' ? IT_HEADS : SL)
+export const headsOf = (language: string): Heads => HEADS[language] ?? SL
 
 export type Base = typeof EN
 const EN = {
