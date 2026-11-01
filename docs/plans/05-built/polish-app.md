@@ -210,3 +210,92 @@ read-aloud and what is underlined, in the bubble, on the board, in a quick quest
 tap on "si lava" does what the others do: her voice says it. German in bold stays plain. `IntroBoldTapTest` (2)
 covers riflessivi's step 1, and checks over every step that the underlined spans are exactly the ones she reads.
 
+## How to use it
+
+- **Jan, the stage band.** Nothing to do. After a long explanation the companion's band shrinks to its small form and
+  the question shows more. Tap the band to open it again.
+- **Jan, the tutor in the app.** Ask it, for example "aim at C1". It answers with what the village's step now needs and
+  what the next one will need, as the settings' "🎯 Cilj · Aim" does.
+- **Someone's own voice for visitors.** It is off. To let linked towns hear your villagers in their own voices, set
+  `LANI_TOWN_VOICE_OWN_CHARS` (characters a day, for example 3000) in the node's lani.env and restart the bridge.
+- **Teo's school.** In an Italian intro, each underlined bold form says itself with Maestra Elena's voice on a tap, "si
+  lava" too.
+
+## Tap counts
+
+| Journey | Before | After |
+|---|---|---|
+| A long card on the phone: see the question just answered | 0 taps, 95 px of its line shown, 140 dp of room from the run's title to the card | 0 taps, the band folded: 237 dp of room (the sentence, the instruction and the tip whole) |
+| The folded band back to full size | (it never folded) | 1 tap on the band |
+| The aim through the app's tutor | not possible in the chat (in the settings: ⚙️, 🎯 Cilj · Aim, a level: 3 taps) | 1 message to the tutor (the settings' 3 taps as before) |
+| "si lava" in Elena's voice | not tappable | 1 tap |
+| Into the mill, the hint chip | 2, 1 | 2, 1 (unchanged) |
+
+## On the emulator
+
+`companion/bin/qa-slot`, slot 2, the synthetic learner Ana (make-learner.ts, Slovene from English; a copy for each run).
+The "before" is the debug build of main at ba5bada7 with main's own QA script, and the "after" is this branch's build
+before the helpers' commits were taken in. Screenshots are in
+`/tmp/claude-1000/-mnt-scratch-github-fentas-ai-slo/721724ea-4389-48ad-b641-b6d1d5157803/scratchpad/ux-polish-app/`:
+`before/` and `after/` (mine), `voices/after/` and `render/` (the helpers').
+
+| What | Before | After |
+|---|---|---|
+| The phone's card under a long explanation (`15-feedback-phone.png`, `25-feedback-phone.png`) | the tall band (Babica Micka's portrait and a two-line bubble), the question's line at y 862 px, the tip cut off | the small band with her line, the question's line at y 641 px, the tip whole: 237 dp from the title to the card (feedback-tablet.txt) |
+| The tablet on its side and upright | the card beside it, under it | the same (nothing folds beside it; upright the card fits) |
+| QA's navigation on Ana | failed at the first check: "the learning tiles' first row within three of QA's swipes of Today" | passes end to end: "Today took 3 of QA's swipes, the tiles' first row in view after 4"; the settings, Friends, the grammar book, My words, a run's result, the village's 🤝, a scene's link and the process's death |
+| The road's channel (dumpsys notification) | `road-prep`, a dot allowed (not checked by main's QA) | `road-ready`, "🚗 Za pot · For the road", importance 2, `mShowBadge=false` |
+| A visit's first lines (voices helper) | Stari Janez's greeting fetched from the node at the tap | "a visit's first lines got ahead: 7 of 13", his greeting played from the phone |
+| The mill at 22.5 (render helper) | the flume a bright blue over a black race and black buckets | all of it one night blue |
+| Teo's riflessivi intro, tablet (render helper) | "si lava" plain | underlined, with 🔈 |
+
+The road step fails later in both runs, the same way on main: "nothing in 🚗 Za pot on the phone" (`road:mix` empty on
+this learner with `--no-town`). That is not this round's change: main's build fails it the same way. The channel check
+passes before that point.
+
+## Tests and checks
+
+- **Android unit suite:** 3,660 tests in 471 classes, 0 failures, 2 skipped (the whole branch, the helpers' commits in). Gradle ran with `-Pkotlin.compiler.execution.strategy=in-process
+  -Dorg.gradle.jvmargs=-Xmx5g`: the shared Kotlin daemon ran out of memory on the busy machine. New or extended in this
+  round:
+  - `FeedbackPlaceTest` (+2: the fold, the height kept, the reset, no stage)
+  - `StageBandFoldTest` (1, Robolectric: tall, folded, opened by a tap, folded again)
+  - `ShadowToolsTest` (the eighteen tools; set_target_level's dry run and a level the schema refuses)
+  - `LiveTutorTest` (+1: set_target_level through the node)
+  - `NotifyChannelsTest` (+1: the road's channel)
+  - `PhoneChildTest` (5)
+  - `ExerciseSpeechTest` (6), `VisitAheadTest` (2), `VisitClipsTest` (+1), `HintVoiceOfflineTest` (2)
+  - `MillLightTest` (3), `CultureLooksTest` "mill" (two digests retaken)
+  - `TurnHintTest` (14), `CaseTriggersTest` (3), `TurnHintLensTest` (1), `IntroBoldTapTest` (2)
+- **Bridge:** `bunx tsc --noEmit -p .` clean. The smoke passed with 3,269 checks (`LANI_SMOKE_PORT=9630`, `…FRIULI…=9633`,
+  `…TOWN…=9636`, `LANI_SMOKE_DRAMA3_PORT=9648`). New checks: the words-added note's timing, the look-only refusal and
+  rule, every culture pack's scenes, the visit voices' re-checks, prepare and own voice (43, from 31), and the hint
+  fixture against the lens. `tutor-export --check`: 89 files match (54 tools, 32 guide topics). The voices helper ran the
+  relay smoke too: 45 checks, all passing.
+- **Python:** `companion/tests` 142 (11 skipped), `test_qa_nav` 4 of them; `tests` 251.
+
+## What's left
+
+- **The road step on Ana fails after the channel check**, on main too: "nothing in 🚗 Za pot on the phone" (`road:mix`
+  empty, with `--no-town`). It is not this round's change, but it is worth a look.
+- **A visit's lines the host is still making** are heard in the archetype's voice the first time, and in the person's
+  own voice after the re-check. The phone keeps the take it downloaded for the rest of the visit.
+- **The day's audio and the car don't plan for a visit:** the app has no planned visits. A line the host has no clip of
+  still waits for the node to voice it when it is said.
+- **Someone's own voice for guests** stays off until a node sets `LANI_TOWN_VOICE_OWN_CHARS` (Jan's call).
+- **The hint chip reads the table bundled in the APK:** an edit to case-triggers.json reaches the lens at once, and the
+  chip only with a new APK. Run `bun test/hint-lens.ts --write` after a change to the lens or the table (the smoke
+  flags the drift). Without a dictionary the chip can take an adjective that is also a table verb form ("pravi") for a
+  verb, and it can't tell where-to from where by meaning.
+- **The intro's check** is used by the intro only: other Markdown (worksheets, the cheat sheet) underlines with the
+  speaker's check alone.
+- **Seen in the voices helper's QA, not this round's:** the dev bridge of an Italian learner (Friuli) voiced about 200
+  Slovene texts of its own villagers with `language_code it` before and during a visit ("Mandi. Jutri bo nova
+  zgodba."). It looks like a fault in the dev bridge's prebuild or prefetch. If it happens on Teo's node, it wastes his
+  credits. The evidence is in the helper's `companion/qa-shots/20261101-130941/bridge.log`.
+
+## For the native check
+
+This round adds no labels: the road's channel uses `road.title` as it is. The only machine-written language is the 24
+Slovene sentences of the hint fixture (`companion/bridge/test/fixtures/hint-lens.json`, test data, shown nowhere in the
+app).
