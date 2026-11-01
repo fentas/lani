@@ -135,6 +135,15 @@ class CultureScenesTest {
             // Kärnten (kaernten-projects-b): the stream bank (Resi's washing, Florian's sheep, Franz's mill to be, Jakob's
             // trout, Sepp's ice) and the pond
             listOf("kaernten", "am-bach", "stream", "spot:riverbank"),
+            listOf("kaernten", "am-teich", "pond", "spot:pond"),
+            // Kärnten's village projects (kaernten-projects-b): Florian's Feuerwehrhaus, Eva's Spielplatz, Kathi's Aussichtsturm,
+            // Toni's Dorfbrunnen and the church clock on the square, Franz's Doppelharpfe in the field
+            listOf("kaernten", "beim-feuerwehrhaus", "firestation", "project:gasilski_dom"),
+            listOf("kaernten", "am-spielplatz", "playground", "project:igrisce"),
+            listOf("kaernten", "auf-dem-aussichtsturm", "lookout", "project:razgledni_stolp"),
+            listOf("kaernten", "am-dorfbrunnen", "square", "project:vodnjak_na_trgu"),
+            listOf("kaernten", "unter-der-kirchturmuhr", "square", "project:mestna_ura"),
+            listOf("kaernten", "bei-der-doppelharpfe", "field", "project:toplar"),
             listOf("lakeland", "on-the-fell", "alps", "spot:${TownSpots.HORIZON}"),
             // the Lake District's buildings (places-lakeland): the house's rooms (Granny Maggie's kitchen, anyone's; Old Wilf's
             // room by the fire, Brewer Sam's cellar, Mrs Birkett and Harry's attic, Mr Tyson and Alfie's workshop), the tent,

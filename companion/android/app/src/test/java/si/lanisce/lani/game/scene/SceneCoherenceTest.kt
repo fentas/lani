@@ -170,7 +170,8 @@ class SceneCoherenceTest {
             }
         }
         assertTrue(bad.joinToString("\n", prefix = "\n"), bad.isEmpty())
-        assertEquals("the steps' done lines (both levels)", 46, marked)
+        // Primorska's 46; Kärnten's fountain, clock and Doppelharpfe on the square and the field 16 (kaernten-projects-b)
+        assertEquals("the steps' done lines (both levels)", 46 + 16, marked)
     }
 
     @Test fun `the step's scene shows its work from the line that says it's done`() {
