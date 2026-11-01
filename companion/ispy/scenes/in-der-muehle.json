@@ -9,13 +9,13 @@
       "clues": [
         { "kind": "colour", "de": "Er ist grau.", "sl": "Je siv.", "en": "It's grey.", "it": "È grigia.", "grammar": ["sein-haben"] },
         { "kind": "trait", "de": "Er ist rund und sehr schwer.", "sl": "Je okrogel in zelo težak.", "en": "It's round and very heavy.", "it": "È rotonda e pesantissima.", "grammar": ["sein-haben"] },
-        { "kind": "trait", "de": "Er ist aus Stein.", "sl": "Je iz kamna.", "en": "It's made of stone.", "it": "È di pietra.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Er ist aus Stein.", "sl": "Je iz kamna.", "en": "It's made of stone.", "it": "È di pietra.", "grammar": ["sein-haben"] },
         { "kind": "does", "de": "Er dreht sich und macht Mehl.", "sl": "Vrti se in dela moko.", "en": "It turns and makes flour.", "it": "Gira e fa la farina.", "grammar": ["praesens", "akkusativ"] }
       ]
     },
     "hopper": {
       "clues": [
-        { "kind": "trait", "de": "Er ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Er ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
         { "kind": "trait", "de": "Oben ist er breit, unten schmal.", "sl": "Zgoraj je širok, spodaj ozek.", "en": "It's wide at the top and narrow at the bottom.", "it": "È larga in alto e stretta in basso.", "grammar": ["sein-haben", "wortstellung"] },
         { "kind": "where", "de": "Er ist über dem Mühlstein.", "sl": "Je nad mlinskim kamnom.", "en": "It's above the millstone.", "it": "È sopra la macina.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "millstone" },
         { "kind": "use", "de": "In ihn schütten wir den Heiden.", "sl": "Vanj stresemo ajdo.", "en": "We pour the buckwheat into it.", "it": "Ci versiamo il grano saraceno.", "grammar": ["wechselpraepositionen", "akkusativ"] }
@@ -40,14 +40,14 @@
     "sack": {
       "clues": [
         { "kind": "colour", "de": "Er ist hellbraun.", "sl": "Je svetlo rjava.", "en": "It's light brown.", "it": "È marrone chiaro.", "grammar": ["sein-haben"] },
-        { "kind": "trait", "de": "Er ist aus Stoff.", "sl": "Je iz blaga.", "en": "It's made of cloth.", "it": "È di stoffa.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Er ist aus Stoff.", "sl": "Je iz blaga.", "en": "It's made of cloth.", "it": "È di stoffa.", "grammar": ["sein-haben"] },
         { "kind": "trait", "de": "Er ist voll und schwer.", "sl": "Je polna in težka.", "en": "It's full and heavy.", "it": "È pieno e pesante.", "grammar": ["sein-haben"] },
         { "kind": "use", "de": "In ihm ist Mehl oder Korn.", "sl": "V njej je moka ali zrnje.", "en": "There's flour or grain in it.", "it": "Dentro c'è farina o grano.", "grammar": ["wechselpraepositionen", "dativ"] }
       ]
     },
     "shaft": {
       "clues": [
-        { "kind": "trait", "de": "Sie ist aus Holz, mit Ringen aus Eisen.", "sl": "Je iz lesa, z železnimi obroči.", "en": "It's wooden, with iron rings.", "it": "È di legno, con anelli di ferro.", "grammar": ["sein-haben", "plural"] },
+        { "kind": "material", "de": "Sie ist aus Holz, mit Ringen aus Eisen.", "sl": "Je iz lesa, z železnimi obroči.", "en": "It's wooden, with iron rings.", "it": "È di legno, con anelli di ferro.", "grammar": ["sein-haben", "plural"] },
         { "kind": "size", "de": "Sie ist lang und dick.", "sl": "Je dolga in debela.", "en": "It's long and thick.", "it": "È lungo e grosso.", "grammar": ["sein-haben"] },
         { "kind": "where", "de": "Sie liegt nah am Boden.", "sl": "Leži blizu tal.", "en": "It lies close to the floor.", "it": "È vicino al pavimento.", "grammar": ["dativ"] },
         { "kind": "does", "de": "Sie dreht sich mit dem großen Rad draußen.", "sl": "Vrti se skupaj z velikim kolesom zunaj.", "en": "It turns with the big wheel outside.", "it": "Gira con la grande ruota fuori.", "grammar": ["praesens", "dativ"] }
@@ -64,14 +64,14 @@
     "wheel": {
       "clues": [
         { "kind": "size", "de": "Es ist groß, sehr groß.", "sl": "Je veliko, zelo veliko.", "en": "It's big, very big.", "it": "È grande, grandissima.", "grammar": ["sein-haben"] },
-        { "kind": "trait", "de": "Es ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Es ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
         { "kind": "where", "de": "Es ist draußen, im Wasser.", "sl": "Je zunaj, v vodi.", "en": "It's outside, in the water.", "it": "È fuori, nell'acqua.", "grammar": ["wechselpraepositionen", "dativ"] },
         { "kind": "does", "de": "Das Wasser dreht es.", "sl": "Voda ga vrti.", "en": "The water turns it.", "it": "L'acqua la fa girare.", "grammar": ["praesens", "akkusativ"] }
       ]
     },
     "flume": {
       "clues": [
-        { "kind": "trait", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
         { "kind": "trait", "de": "Sie ist lang und schmal.", "sl": "Je dolg in ozek.", "en": "It's long and narrow.", "it": "È lungo e stretto.", "grammar": ["sein-haben"] },
         { "kind": "where", "de": "Sie ist über dem großen Rad, draußen.", "sl": "Je nad velikim kolesom, zunaj.", "en": "It's above the big wheel, outside.", "it": "È sopra la grande ruota, fuori.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "wheel" },
         { "kind": "does", "de": "Sie bringt das Wasser.", "sl": "Prinaša vodo.", "en": "It brings the water.", "it": "Porta l'acqua.", "grammar": ["praesens", "akkusativ"] }
@@ -88,14 +88,14 @@
     "measure": {
       "clues": [
         { "kind": "size", "de": "Er ist klein und eckig.", "sl": "Je majhen in oglat.", "en": "It's small and square.", "it": "È piccolo e quadrato.", "grammar": ["sein-haben"] },
-        { "kind": "trait", "de": "Er ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Er ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
         { "kind": "where", "de": "Er steht auf der Bank.", "sl": "Stoji na klopi.", "en": "It stands on the bench.", "it": "È sulla panca.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "bench" },
         { "kind": "use", "de": "Der Müller füllt ihn mit Korn.", "sl": "Mlinar ga napolni z zrnjem.", "en": "The miller fills it with grain.", "it": "Il mugnaio lo riempie di grano.", "grammar": ["praesens", "akkusativ"] }
       ]
     },
     "bench": {
       "clues": [
-        { "kind": "trait", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
         { "kind": "trait", "de": "Sie ist lang und niedrig.", "sl": "Je dolga in nizka.", "en": "It's long and low.", "it": "È lunga e bassa.", "grammar": ["sein-haben"] },
         { "kind": "where", "de": "Sie steht unter dem Fenster.", "sl": "Stoji pod oknom.", "en": "It stands under the window.", "it": "È sotto la finestra.", "grammar": ["wechselpraepositionen", "dativ"], "ref": "window" },
         { "kind": "use", "de": "Darauf sitzen wir.", "sl": "Na njej sedimo.", "en": "We sit on it.", "it": "Ci sediamo sopra.", "grammar": ["praesens"] }
@@ -104,14 +104,14 @@
     "window": {
       "clues": [
         { "kind": "size", "de": "Es ist klein.", "sl": "Je majhno.", "en": "It's small.", "it": "È piccola.", "grammar": ["sein-haben"] },
-        { "kind": "trait", "de": "Es ist aus Glas.", "sl": "Je iz stekla.", "en": "It's made of glass.", "it": "È di vetro.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Es ist aus Glas.", "sl": "Je iz stekla.", "en": "It's made of glass.", "it": "È di vetro.", "grammar": ["sein-haben"] },
         { "kind": "trait", "de": "Dadurch sieht man die Berge, die Karawanken.", "sl": "Skozi njega se vidijo gore, Karavanke.", "en": "Through it you can see the mountains, the Karawanks.", "it": "Da lì si vedono le montagne, le Caravanche.", "grammar": ["praesens", "akkusativ"] },
         { "kind": "does", "de": "Am Tag lässt es das Licht herein.", "sl": "Podnevi spušča svetlobo noter.", "en": "By day it lets the light in.", "it": "Di giorno fa entrare la luce.", "grammar": ["praesens", "trennbare-verben"] }
       ]
     },
     "door": {
       "clues": [
-        { "kind": "trait", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
         { "kind": "size", "de": "Sie ist hoch.", "sl": "Je visoka.", "en": "It's tall.", "it": "È alta.", "grammar": ["sein-haben"] },
         { "kind": "where", "de": "Sie ist in der linken Wand.", "sl": "Je v levi steni.", "en": "It's in the left-hand wall.", "it": "È nella parete di sinistra.", "grammar": ["wechselpraepositionen", "dativ"] },
         { "kind": "use", "de": "Hier kommen wir in die Mühle.", "sl": "Tu pridemo v mlin.", "en": "This is where we come into the mill.", "it": "Da qui entriamo nel mulino.", "grammar": ["praesens", "wechselpraepositionen"] }
@@ -119,7 +119,7 @@
     },
     "ladder": {
       "clues": [
-        { "kind": "trait", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Sie ist aus Holz.", "sl": "Je iz lesa.", "en": "It's made of wood.", "it": "È di legno.", "grammar": ["sein-haben"] },
         { "kind": "trait", "de": "Sie ist hoch und schmal.", "sl": "Je visoka in ozka.", "en": "It's tall and narrow.", "it": "È alta e stretta.", "grammar": ["sein-haben"] },
         { "kind": "where", "de": "Sie steht bei den Säcken.", "sl": "Stoji pri vrečah.", "en": "It stands by the sacks.", "it": "È vicino ai sacchi.", "grammar": ["dativ", "plural"], "ref": "sack" },
         { "kind": "use", "de": "Auf ihr steigen wir hinauf.", "sl": "Po njej se povzpnemo gor.", "en": "We climb up it.", "it": "Ci saliamo su.", "grammar": ["wechselpraepositionen", "dativ"] }
@@ -144,7 +144,7 @@
     "lantern": {
       "clues": [
         { "kind": "colour", "de": "Sie ist schwarz.", "sl": "Je črna.", "en": "It's black.", "it": "È nera.", "grammar": ["sein-haben"] },
-        { "kind": "trait", "de": "Sie ist aus Eisen und Glas.", "sl": "Je iz železa in stekla.", "en": "It's made of iron and glass.", "it": "È di ferro e vetro.", "grammar": ["sein-haben"] },
+        { "kind": "material", "de": "Sie ist aus Eisen und Glas.", "sl": "Je iz železa in stekla.", "en": "It's made of iron and glass.", "it": "È di ferro e vetro.", "grammar": ["sein-haben"] },
         { "kind": "where", "de": "Sie hängt bei der Tür.", "sl": "Visi pri vratih.", "en": "It hangs by the door.", "it": "È appesa vicino alla porta.", "grammar": ["dativ"], "ref": "door" },
         { "kind": "does", "de": "Am Abend gibt sie Licht.", "sl": "Zvečer daje svetlobo.", "en": "In the evening it gives light.", "it": "La sera fa luce.", "grammar": ["praesens", "wortstellung"] }
       ]
