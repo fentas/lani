@@ -1,0 +1,354 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "plural",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🐑",
+  "title": { "de": "Ein Schaf, zwei Schafe", "en": "One sheep, two sheep: the plural", "sl": "Ena ovca, dve ovci: množina", "it": "Una pecora, due pecore: il plurale" },
+  "goal": {
+    "en": "You can talk about two or more: every plural takes die, and you know the plural's main endings, from Schafe and Katzen to Kinder, Äpfel and Autos.",
+    "sl": "Govoriš o dveh ali več: vsaka množina dobi die, in poznaš glavne končnice množine, od Schafe in Katzen do Kinder, Äpfel in Autos.",
+    "it": "Sai parlare di due o più cose: ogni plurale prende die, e conosci le desinenze principali del plurale, da Schafe e Katzen a Kinder, Äpfel e Autos."
+  },
+  "grammar": ["plural", "artikel-genus"],
+  "words": [
+    "die", "zwei", "drei", "viele",
+    "das Schaf", "der Hund", "der Berg", "der Tisch",
+    "die Katze", "die Frau", "die Wirtin", "die Semmel", "die Suppe", "die Kirche", "die Tür", "die Schule",
+    "das Kind", "das Ei", "das Buch", "das Haus", "das Glas", "das Feld", "das Bild",
+    "der Apfel", "der Vater", "die Mutter", "der Bruder", "der Garten", "der Hammer", "der Nagel", "der Stuhl", "die Kuh",
+    "der Lehrer", "das Messer", "der Teller", "der Löffel", "das Mädchen", "das Zimmer",
+    "das Auto", "die Oma"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "de": "Endung", "en": "ending", "sl": "končnica", "it": "desinenza" },
+        { "de": "Singular", "en": "one", "sl": "ednina", "it": "singolare" },
+        { "de": "Plural", "en": "two or more", "sl": "množina", "it": "plurale" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "In the plural every noun takes **die** (the), whatever its gender: **der Hund** (the dog) → **die Hunde** (the dogs), **das Schaf** (the sheep) → **die Schafe**. Many nouns just add **-e**. And **ein** (a) has no plural: **ein Schaf** (a sheep), **zwei Schafe** (two sheep), **viele Schafe** (many sheep). For more than one, **ist** (is) becomes **sind** (are): **Die Schafe sind auf der Alm.** (The sheep are on the alpine pasture.)",
+          "sl": "V množini dobi vsak samostalnik **die**, ne glede na spol: **der Hund** (pes) → **die Hunde** (psi), **das Schaf** (ovca) → **die Schafe** (ovce). Veliko samostalnikov samo doda **-e**. **Ein** (en, ena) množine nima: **ein Schaf** (ena ovca), **zwei Schafe** (dve ovci), **viele Schafe** (veliko ovc). Dvojine nemščina nima. Za več kot enega **ist** (je) postane **sind** (so): **Die Schafe sind auf der Alm.** (Ovce so na planini.)",
+          "it": "Al plurale ogni nome prende **die**, di qualunque genere: **der Hund** (il cane) → **die Hunde** (i cani), **das Schaf** (la pecora) → **die Schafe** (le pecore). Molti nomi aggiungono solo **-e**. E **ein** (un, una) non ha plurale: **ein Schaf** (una pecora), **zwei Schafe** (due pecore), **viele Schafe** (tante pecore). Per più di uno, **ist** (è) diventa **sind** (sono): **Die Schafe sind auf der Alm.** (Le pecore sono all'alpeggio.)"
+        },
+        "examples": [
+          { "de": "Die Schafe sind auf der Alm.", "en": "The sheep are on the alpine pasture.", "sl": "Ovce so na planini.", "it": "Le pecore sono all'alpeggio." },
+          { "de": "Das ist ein Hund. Das sind zwei Hunde.", "en": "This is a dog. These are two dogs.", "sl": "To je pes. To sta dva psa.", "it": "Questo è un cane. Questi sono due cani." }
+        ],
+        "rows": [
+          ["-e", "der Hund", "die Hunde"],
+          ["-e", "das Schaf", "die Schafe"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plural",
+          "prompt": "___ Schafe sind auf der Alm.",
+          "options": ["Der", "Die", "Das"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**Every plural takes die**\n- das Schaf → die Schafe\n- der Hund → die Hunde",
+            "sl": "**Vsaka množina dobi die**\n- das Schaf → die Schafe\n- der Hund → die Hunde",
+            "it": "**Ogni plurale prende die**\n- das Schaf → die Schafe\n- der Hund → die Hunde"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Most feminine nouns take **-n** or **-en**: **die Katze** (the cat) → **die Katzen** (the cats), **die Frau** (the woman) → **die Frauen** (the women). After -e and -el just **-n**: **die Semmel** (the roll) → **die Semmeln**. A woman's word in -in doubles its n: **die Wirtin** (the innkeeper) → **die Wirtinnen**.",
+          "sl": "Večina samostalnikov ženskega spola dobi **-n** ali **-en**: **die Katze** (mačka) → **die Katzen** (mačke), **die Frau** (ženska) → **die Frauen** (ženske). Po -e in -el samo **-n**: **die Semmel** (žemlja) → **die Semmeln** (žemlje). Ženska beseda na -in podvoji n: **die Wirtin** (gostilničarka) → **die Wirtinnen** (gostilničarke).",
+          "it": "Quasi tutti i nomi femminili prendono **-n** o **-en**: **die Katze** (il gatto) → **die Katzen** (i gatti), **die Frau** (la donna) → **die Frauen** (le donne). Dopo -e ed -el solo **-n**: **die Semmel** (il panino) → **die Semmeln** (i panini). Una parola femminile in -in raddoppia la n: **die Wirtin** (l'ostessa) → **die Wirtinnen** (le ostesse)."
+        },
+        "examples": [
+          { "de": "Die Katzen sind in der Küche.", "en": "The cats are in the kitchen.", "sl": "Mačke so v kuhinji.", "it": "I gatti sono in cucina." },
+          { "de": "Die Semmeln sind frisch.", "en": "The rolls are fresh.", "sl": "Žemlje so sveže.", "it": "I panini sono freschi." }
+        ],
+        "rows": [
+          ["-n", "die Katze", "die Katzen"],
+          ["-en", "die Frau", "die Frauen"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "plural",
+          "text": "Die ___ in Villach sind alt. (Kirche)",
+          "accept": ["Kirchen"],
+          "hint": "-e → ?",
+          "explain": {
+            "en": "**-e takes -n**\n- die Kirche → die Kirchen\n- die Katze → die Katzen",
+            "sl": "**-e dobi -n**\n- die Kirche → die Kirchen\n- die Katze → die Katzen",
+            "it": "**-e prende -n**\n- die Kirche → die Kirchen\n- die Katze → die Katzen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Many neuter nouns take **-er**, with an umlaut where the vowel can take one: **das Kind** (the child) → **die Kinder** (the children), **das Buch** (the book) → **die Bücher**, **das Haus** (the house) → **die Häuser**. The umlaut changes the sound: u becomes ü, a becomes ä, au becomes äu. So write it: **Häuser**, not **Hauser**.",
+          "sl": "Veliko samostalnikov srednjega spola dobi **-er**, s preglasom, kjer ga samoglasnik lahko dobi: **das Kind** (otrok) → **die Kinder** (otroci), **das Buch** (knjiga) → **die Bücher** (knjige), **das Haus** (hiša) → **die Häuser** (hiše). Preglas spremeni glas: u postane ü, a postane ä, au postane äu. Zato ga zapiši: **Häuser**, ne **Hauser**.",
+          "it": "Molti nomi neutri prendono **-er**, con l'Umlaut dove la vocale lo può avere: **das Kind** (il bambino) → **die Kinder** (i bambini), **das Buch** (il libro) → **die Bücher** (i libri), **das Haus** (la casa) → **die Häuser** (le case). L'Umlaut cambia il suono: u diventa ü, a diventa ä, au diventa äu. Quindi scrivilo: **Häuser**, non **Hauser**."
+        },
+        "examples": [
+          { "de": "Die Häuser in Villach sind alt.", "en": "The houses in Villach are old.", "sl": "Hiše v Beljaku so stare.", "it": "Le case di Villaco sono vecchie." },
+          { "de": "Die Eier sind frisch.", "en": "The eggs are fresh.", "sl": "Jajca so sveža.", "it": "Le uova sono fresche." }
+        ],
+        "rows": [
+          ["-er", "das Kind", "die Kinder"],
+          [{ "de": "Umlaut + -er", "en": "umlaut + -er", "sl": "preglas + -er", "it": "Umlaut + -er" }, "das Haus", "die Häuser"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "plural",
+          "text": "Die ___ sind in der Stube. (Buch)",
+          "accept": ["Bücher"],
+          "hint": { "en": "-er with an umlaut", "sl": "-er s preglasom", "it": "-er con l'Umlaut" },
+          "explain": {
+            "en": "**-er with an umlaut: u → ü**\n- das Buch → die Bücher\n- das Haus → die Häuser",
+            "sl": "**-er s preglasom: u → ü**\n- das Buch → die Bücher\n- das Haus → die Häuser",
+            "it": "**-er con l'Umlaut: u → ü**\n- das Buch → die Bücher\n- das Haus → die Häuser"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Some plurals are made by the umlaut alone: **der Apfel** (the apple) → **die Äpfel** (the apples), **der Vater** (the father) → **die Väter**, **die Mutter** (the mother) → **die Mütter**. Here the umlaut is the plural, so **Apfel** for **Äpfel** is a mistake, not a slip. Others take the umlaut and **-e**: **der Stuhl** (the chair) → **die Stühle**, **die Kuh** (the cow) → **die Kühe**.",
+          "sl": "Nekatere množine naredi samo preglas: **der Apfel** (jabolko) → **die Äpfel** (jabolka), **der Vater** (oče) → **die Väter** (očetje), **die Mutter** (mati) → **die Mütter** (matere). Tu je preglas sama množina, zato je **Apfel** namesto **Äpfel** napaka, ne zatipkanje. Drugi dobijo preglas in **-e**: **der Stuhl** (stol) → **die Stühle** (stoli), **die Kuh** (krava) → **die Kühe** (krave).",
+          "it": "Alcuni plurali si fanno solo con l'Umlaut: **der Apfel** (la mela) → **die Äpfel** (le mele), **der Vater** (il padre) → **die Väter** (i padri), **die Mutter** (la madre) → **die Mütter** (le madri). Qui l'Umlaut è il plurale, quindi **Apfel** al posto di **Äpfel** è un errore, non una svista. Altri prendono l'Umlaut e **-e**: **der Stuhl** (la sedia) → **die Stühle** (le sedie), **die Kuh** (la mucca) → **die Kühe** (le mucche)."
+        },
+        "examples": [
+          { "de": "Die Äpfel sind von Stefan.", "en": "The apples are from Stefan.", "sl": "Jabolka so od Stefana.", "it": "Le mele sono di Stefan." },
+          { "de": "Die Kühe sind auf der Alm.", "en": "The cows are on the alpine pasture.", "sl": "Krave so na planini.", "it": "Le mucche sono all'alpeggio." }
+        ],
+        "rows": [
+          [{ "de": "nur Umlaut", "en": "umlaut only", "sl": "samo preglas", "it": "solo Umlaut" }, "der Apfel", "die Äpfel"],
+          [{ "de": "Umlaut + -e", "en": "umlaut + -e", "sl": "preglas + -e", "it": "Umlaut + -e" }, "die Kuh", "die Kühe"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "plural",
+          "text": "Die ___ sind rot. (Apfel)",
+          "accept": ["Äpfel"],
+          "hint": { "en": "only the umlaut", "sl": "samo preglas", "it": "solo l'Umlaut" },
+          "explain": {
+            "en": "**The umlaut alone makes the plural**\n- der Apfel → die Äpfel\n- der Vater → die Väter",
+            "sl": "**Množino naredi samo preglas**\n- der Apfel → die Äpfel\n- der Vater → die Väter",
+            "it": "**Solo l'Umlaut fa il plurale**\n- der Apfel → die Äpfel\n- der Vater → die Väter"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Many masculine and neuter nouns in -er and -el, and all in -chen, stay as they are, only the article changes: **der Lehrer** (the teacher) → **die Lehrer**, **das Messer** (the knife) → **die Messer**, **das Mädchen** (the girl) → **die Mädchen**. Words ending in -a, -o or -i, and many foreign words, take **-s**: **das Auto** (the car) → **die Autos**, **die Oma** (the grandma) → **die Omas**. So learn every noun with its plural: **das Schaf, die Schafe**.",
+          "sl": "Mnogi samostalniki moškega in srednjega spola na -er in -el ter vsi na -chen ostanejo enaki, spremeni se samo člen: **der Lehrer** (učitelj) → **die Lehrer** (učitelji), **das Messer** (nož) → **die Messer** (noži), **das Mädchen** (dekle) → **die Mädchen** (dekleta). Besede na -a, -o ali -i in mnoge tujke dobijo **-s**: **das Auto** (avto) → **die Autos**, **die Oma** (babica) → **die Omas**. Zato se vsak samostalnik uči z množino: **das Schaf, die Schafe**.",
+          "it": "Molti nomi maschili e neutri in -er e -el e tutti quelli in -chen restano uguali, cambia solo l'articolo: **der Lehrer** (il maestro) → **die Lehrer** (i maestri), **das Messer** (il coltello) → **die Messer**, **das Mädchen** (la ragazza) → **die Mädchen**. Le parole in -a, -o o -i e molte parole straniere prendono **-s**: **das Auto** (l'auto) → **die Autos**, **die Oma** (la nonna) → **die Omas**. Perciò ogni nome si impara con il plurale: **das Schaf, die Schafe**."
+        },
+        "examples": [
+          { "de": "Die Messer sind in der Küche.", "en": "The knives are in the kitchen.", "sl": "Noži so v kuhinji.", "it": "I coltelli sono in cucina." },
+          { "de": "Die Autos sind am Faaker See.", "en": "The cars are at Lake Faak.", "sl": "Avtomobili so ob Baškem jezeru.", "it": "Le auto sono al lago di Faak." }
+        ],
+        "rows": [
+          [{ "de": "keine Endung", "en": "no ending", "sl": "brez končnice", "it": "nessuna desinenza" }, "der Lehrer", "die Lehrer"],
+          ["-s", "das Auto", "die Autos"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "plural",
+          "prompt": "Zwei ___ sind im Gasthaus. (Lehrer)",
+          "options": ["Lehrer", "Lehrers", "Lehrere"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**-er: no ending in the plural**\n- der Lehrer → die Lehrer\n- das Messer → die Messer",
+            "sl": "**-er: v množini brez končnice**\n- der Lehrer → die Lehrer\n- das Messer → die Messer",
+            "it": "**-er: al plurale nessuna desinenza**\n- der Lehrer → die Lehrer\n- das Messer → die Messer"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "plural-1",
+      "title": { "de": "Eins oder viele?", "en": "One or many?", "sl": "Eden ali veliko?", "it": "Uno o tanti?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "plural",
+          "instruction": { "en": "Ordne zu · Which plural ending?", "sl": "Ordne zu · Katera končnica množine?", "it": "Ordne zu · Quale desinenza del plurale?" },
+          "columns": [
+            { "label": "-e", "words": ["Hund", "Berg"] },
+            { "label": "-n, -en", "words": ["Suppe", "Tür"] },
+            { "label": "-er", "words": ["Kind", "Ei"] },
+            { "label": "-s", "words": ["Oma", "Foto"] }
+          ],
+          "explain": {
+            "en": "**Learn the plural with the noun**\n- der Hund → die Hunde · die Tür → die Türen\n- das Ei → die Eier · die Oma → die Omas",
+            "sl": "**Množino se nauči skupaj s samostalnikom**\n- der Hund → die Hunde · die Tür → die Türen\n- das Ei → die Eier · die Oma → die Omas",
+            "it": "**Il plurale si impara con il nome**\n- der Hund → die Hunde · die Tür → die Türen\n- das Ei → die Eier · die Oma → die Omas"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "plural",
+          "instruction": { "en": "Ergänze · Fill in the plural", "sl": "Ergänze · Dopolni množino", "it": "Ergänze · Completa con il plurale" },
+          "columns": [
+            { "en": "Singular · one", "sl": "Singular · ednina", "it": "Singular · singolare" },
+            { "en": "Plural · two or more", "sl": "Plural · množina", "it": "Plural · plurale" }
+          ],
+          "rows": [
+            { "label": { "en": "umlaut only", "sl": "samo preglas", "it": "solo Umlaut" }, "cells": ["der Apfel", { "accept": ["die Äpfel", "Äpfel"], "hint": "a → ä" }] },
+            { "label": { "en": "umlaut only", "sl": "samo preglas", "it": "solo Umlaut" }, "cells": ["der Garten", { "accept": ["die Gärten", "Gärten"], "hint": "a → ä" }] },
+            { "label": { "en": "umlaut + -e", "sl": "preglas + -e", "it": "Umlaut + -e" }, "cells": ["der Stuhl", { "accept": ["die Stühle", "Stühle"], "hint": "u → ü" }] },
+            { "label": { "en": "umlaut + -er", "sl": "preglas + -er", "it": "Umlaut + -er" }, "cells": ["das Buch", { "accept": ["die Bücher", "Bücher"] }] },
+            { "label": "-n", "cells": ["die Semmel", { "accept": ["die Semmeln", "Semmeln"] }] },
+            { "label": { "en": "no ending", "sl": "brez končnice", "it": "nessuna desinenza" }, "cells": ["das Messer", { "accept": ["die Messer", "Messer"], "hint": "das → ?" }] }
+          ],
+          "explain": {
+            "en": "**die in every plural; the noun's own ending**\n- der Apfel → die Äpfel · der Stuhl → die Stühle\n- das Buch → die Bücher · das Messer → die Messer",
+            "sl": "**die v vsaki množini; samostalnik ima svojo končnico**\n- der Apfel → die Äpfel · der Stuhl → die Stühle\n- das Buch → die Bücher · das Messer → die Messer",
+            "it": "**die in ogni plurale; il nome ha la sua desinenza**\n- der Apfel → die Äpfel · der Stuhl → die Stühle\n- das Buch → die Bücher · das Messer → die Messer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plural-2",
+      "title": { "de": "In der Küche von Oma Resi", "en": "In Oma Resi's kitchen", "sl": "V kuhinji babice Resi", "it": "Nella cucina di nonna Resi" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "plural",
+          "instruction": { "en": "Ergänze den Plural · Fill in the plural", "sl": "Ergänze den Plural · Dopolni množino", "it": "Ergänze den Plural · Completa con il plurale" },
+          "title": "In der Küche von Oma Resi",
+          "text": "Oma Resi ist in der Küche. Die ___ (Semmel) sind frisch. Die ___ (Apfel) sind von Stefan. Die ___ (Ei) sind im Korb. Die ___ (Teller) sind auf dem Tisch. Die ___ (Glas) sind im Kasten. Zwei ___ (Katze) sind auch da. ___ Löffel sind sauber.",
+          "gaps": [
+            { "accept": ["Semmeln"], "hint": "-el → ?" },
+            {
+              "accept": ["Äpfel"],
+              "hint": { "en": "only the umlaut", "sl": "samo preglas", "it": "solo l'Umlaut" },
+              "explain": {
+                "en": "**der Apfel → die Äpfel: the umlaut is the plural**",
+                "sl": "**der Apfel → die Äpfel: preglas je množina**",
+                "it": "**der Apfel → die Äpfel: l'Umlaut è il plurale**"
+              }
+            },
+            { "accept": ["Eier"], "hint": "-er" },
+            { "accept": ["Teller"], "hint": { "en": "no ending", "sl": "brez končnice", "it": "nessuna desinenza" } },
+            { "accept": ["Gläser"], "hint": { "en": "umlaut + -er", "sl": "preglas + -er", "it": "Umlaut + -er" } },
+            { "accept": ["Katzen"], "hint": "-e → ?" },
+            {
+              "accept": ["Die"],
+              "hint": { "en": "sind: two or more", "sl": "sind: dva ali več", "it": "sind: due o più" },
+              "explain": {
+                "en": "**der Löffel → die Löffel: here only the article shows the plural**",
+                "sl": "**der Löffel → die Löffel: tu množino pokaže samo člen**",
+                "it": "**der Löffel → die Löffel: qui solo l'articolo mostra il plurale**"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["Apfel", "Katze", "Der"],
+          "translation": {
+            "en": "Oma Resi is in the kitchen. The rolls are fresh. The apples are from Stefan. The eggs are in the basket. The plates are on the table. The glasses are in the cupboard. Two cats are there too. The spoons are clean.",
+            "sl": "Babica Resi je v kuhinji. Žemlje so sveže. Jabolka so od Stefana. Jajca so v košari. Krožniki so na mizi. Kozarci so v omari. Tudi dve mački sta tu. Žlice so čiste.",
+            "it": "Nonna Resi è in cucina. I panini sono freschi. Le mele sono di Stefan. Le uova sono nel cesto. I piatti sono sul tavolo. I bicchieri sono nella credenza. Ci sono anche due gatti. I cucchiai sono puliti."
+          }
+        }
+      ]
+    },
+    {
+      "id": "plural-3",
+      "title": { "de": "In den Plural", "en": "Into the plural", "sl": "V množino", "it": "Al plurale" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "plural",
+          "instruction": { "en": "In den Plural · Into the plural", "sl": "In den Plural · V množino", "it": "In den Plural · Al plurale" },
+          "cue": { "en": "→ Plural · two or more", "sl": "→ Plural · množina", "it": "→ Plural · plurale" },
+          "items": [
+            { "from": "Das Schaf ist auf der Alm.", "accept": ["Die Schafe sind auf der Alm."], "hint": "das → die, ist → sind" },
+            { "from": "Die Kuh ist auf der Wiese.", "accept": ["Die Kühe sind auf der Wiese."], "hint": { "en": "umlaut + -e", "sl": "preglas + -e", "it": "Umlaut + -e" } },
+            { "from": "Der Apfel ist rot.", "accept": ["Die Äpfel sind rot."], "hint": { "en": "only the umlaut", "sl": "samo preglas", "it": "solo l'Umlaut" } },
+            { "from": "Das Haus ist alt.", "accept": ["Die Häuser sind alt."] },
+            { "from": "Die Frau ist im Gasthaus.", "accept": ["Die Frauen sind im Gasthaus."] },
+            { "from": "Der Lehrer ist in der Schule.", "accept": ["Die Lehrer sind in der Schule."], "hint": { "en": "no ending", "sl": "brez končnice", "it": "nessuna desinenza" } },
+            { "from": "Das Auto ist in Villach.", "accept": ["Die Autos sind in Villach."] },
+            { "from": "Der Hammer ist in der Schmiede.", "accept": ["Die Hämmer sind in der Schmiede."], "hint": { "en": "only the umlaut", "sl": "samo preglas", "it": "solo l'Umlaut" } }
+          ],
+          "explain": {
+            "en": "**The plural: die, the noun's plural and sind**\n- das Schaf ist → die Schafe sind\n- der Apfel ist → die Äpfel sind\n- das Auto ist → die Autos sind",
+            "sl": "**Množina: die, množina samostalnika in sind**\n- das Schaf ist → die Schafe sind\n- der Apfel ist → die Äpfel sind\n- das Auto ist → die Autos sind",
+            "it": "**Il plurale: die, il plurale del nome e sind**\n- das Schaf ist → die Schafe sind\n- der Apfel ist → die Äpfel sind\n- das Auto ist → die Autos sind"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort",
+        "grammar": "plural",
+        "instruction": { "en": "Ordne zu · Which plural ending?", "sl": "Ordne zu · Katera končnica množine?", "it": "Ordne zu · Quale desinenza del plurale?" },
+        "columns": [
+          { "label": "-e", "words": ["Tisch", "Stein"] },
+          { "label": "-n, -en", "words": ["Schule", "Uhr"] },
+          { "label": "-er", "words": ["Feld", "Bild"] }
+        ]
+      },
+      {
+        "type": "table",
+        "grammar": "plural",
+        "instruction": { "en": "Ergänze · Fill in the plural", "sl": "Ergänze · Dopolni množino", "it": "Ergänze · Completa con il plurale" },
+        "columns": [
+          { "en": "Singular · one", "sl": "Singular · ednina", "it": "Singular · singolare" },
+          { "en": "Plural · two or more", "sl": "Plural · množina", "it": "Plural · plurale" }
+        ],
+        "rows": [
+          { "label": { "en": "umlaut only", "sl": "samo preglas", "it": "solo Umlaut" }, "cells": ["der Bruder", { "accept": ["die Brüder", "Brüder"] }] },
+          { "label": { "en": "no ending", "sl": "brez končnice", "it": "nessuna desinenza" }, "cells": ["das Zimmer", { "accept": ["die Zimmer", "Zimmer"] }] }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "plural",
+        "instruction": { "en": "Ergänze den Plural · Fill in the plural", "sl": "Ergänze den Plural · Dopolni množino", "it": "Ergänze den Plural · Completa con il plurale" },
+        "text": "Hirte Florian ist auf der Alm. Die ___ (Schaf) sind auf der Wiese. Drei ___ (Hund) sind auch da. Die ___ (Kuh) sind am Bach.",
+        "gaps": [{ "accept": ["Schafe"] }, { "accept": ["Hunde"] }, { "accept": ["Kühe"] }],
+        "translation": {
+          "en": "Florian the shepherd is on the alpine pasture. The sheep are in the meadow. Three dogs are there too. The cows are by the stream.",
+          "sl": "Pastir Florian je na planini. Ovce so na travniku. Tudi trije psi so tam. Krave so ob potoku.",
+          "it": "Il pastore Florian è all'alpeggio. Le pecore sono sul prato. Ci sono anche tre cani. Le mucche sono vicino al ruscello."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "plural",
+        "instruction": { "en": "In den Plural · Into the plural", "sl": "In den Plural · V množino", "it": "In den Plural · Al plurale" },
+        "items": [
+          { "from": "Das ist ein Schaf. (zwei)", "accept": ["Das sind zwei Schafe."] },
+          { "from": "Der Nagel ist in der Schmiede.", "accept": ["Die Nägel sind in der Schmiede."] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "plural",
+        "instruction": { "en": "Wähle · Pick", "sl": "Wähle · Izberi", "it": "Wähle · Scegli" },
+        "prompt": "___ Löffel sind im Kasten.",
+        "options": ["Der", "Die", "Das"],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "en": "**sind: the plural, and every plural takes die**\n- der Löffel → die Löffel",
+          "sl": "**sind: množina, in vsaka množina dobi die**\n- der Löffel → die Löffel",
+          "it": "**sind: il plurale, e ogni plurale prende die**\n- der Löffel → die Löffel"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: der Kasten for a kitchen cupboard, the made-up Lehrere, Die Kirchen in Villach, Häferl kept out of gaps"
+}

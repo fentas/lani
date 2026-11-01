@@ -1,0 +1,1627 @@
+{
+ "schema": "lani.project-steps/v0",
+ "project": "vodnjak_na_trgu",
+ "language": "en",
+ "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker",
+ "pack": "project-vodnjak-na-trgu",
+ "steps": [
+  {
+   "scene": "in-the-smithy",
+   "words": [
+    "plan",
+    "pillar"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "{learner}, the village wants a drinking fountain on the green. First we need something on paper.",
+       "sl": "{learner}, vas hoče pitnik na zelenici. Najprej potrebujemo nekaj na papirju.",
+       "it": "{learner}, il paese vuole una fontanella sul prato. Prima ci serve qualcosa sulla carta.",
+       "de": "{learner}, das Dorf will einen Trinkbrunnen auf der Wiese. Zuerst brauchen wir etwas auf Papier."
+      },
+      {
+       "choices": [
+        {
+         "en": "We need a plan!",
+         "sl": "Potrebujemo načrt!",
+         "it": "Ci serve un progetto!",
+         "de": "Wir brauchen einen Plan!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. A plan. Pencil, please.",
+          "sl": "Ja. Načrt. Svinčnik, prosim.",
+          "it": "Sì. Un progetto. La matita, per favore.",
+          "de": "Ja. Einen Plan. Bleistift, bitte."
+         }
+        },
+        {
+         "en": "We need a spoon!",
+         "sl": "Potrebujemo žlico!",
+         "it": "Ci serve un cucchiaio!",
+         "de": "Wir brauchen einen Löffel!",
+         "why": {
+          "en": "A spoon is for soup. A drawing of the fountain on paper: a plan.",
+          "sl": "Spoon je žlica, za juho. Risba vodnjaka na papirju: plan.",
+          "it": "Spoon è il cucchiaio, per la minestra. Il disegno della fontana sulla carta: plan.",
+          "de": "Spoon ist ein Löffel, für die Suppe. Die Zeichnung des Brunnens auf Papier: plan."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A spoon? For soup, maybe. Not for a fountain.",
+          "sl": "Žlico? Za juho mogoče. Za vodnjak pa ne.",
+          "it": "Un cucchiaio? Per la minestra, forse. Non per una fontana.",
+          "de": "Einen Löffel? Für Suppe vielleicht. Nicht für einen Brunnen."
+         }
+        }
+       ]
+      },
+      {
+       "who": "hartley",
+       "face": "curious",
+       "en": "What will it look like?",
+       "sl": "Kakšen bo?",
+       "it": "Come sarà?",
+       "de": "Wie wird er aussehen?"
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "A tall square post of stone, with a lion's head on the front.",
+       "sl": "Visok štirioglat kamnit steber, spredaj z levjo glavo.",
+       "it": "Un palo alto e quadrato di pietra, con una testa di leone davanti.",
+       "de": "Ein hoher, viereckiger Pfosten aus Stein, vorne mit einem Löwenkopf."
+      },
+      {
+       "choices": [
+        {
+         "en": "A lion's head on a pillar. Beautiful!",
+         "sl": "Levja glava na stebru. Čudovito!",
+         "it": "Una testa di leone su un pilastro. Bellissimo!",
+         "de": "Ein Löwenkopf an einer Säule. Wunderschön!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "And the water comes out of its mouth.",
+          "sl": "In voda priteče iz njegovega gobca.",
+          "it": "E l'acqua esce dalla sua bocca.",
+          "de": "Und das Wasser kommt aus seinem Maul."
+         }
+        },
+        {
+         "en": "A lion's head on a bicycle. Beautiful!",
+         "sl": "Levja glava na kolesu. Čudovito!",
+         "it": "Una testa di leone su una bicicletta. Bellissimo!",
+         "de": "Ein Löwenkopf auf einem Fahrrad. Wunderschön!",
+         "why": {
+          "en": "A bicycle has wheels. The tall square post of stone is a pillar.",
+          "sl": "Bicycle je kolo. Visok štirioglat kamnit steber je pillar.",
+          "it": "Bicycle è la bicicletta. Il palo alto e quadrato di pietra è un pillar.",
+          "de": "Bicycle ist das Fahrrad. Der hohe, viereckige Steinpfosten ist ein pillar."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "On a bicycle? A fountain that rides off!",
+          "sl": "Na kolesu? Vodnjak, ki se odpelje!",
+          "it": "Su una bicicletta? Una fontana che se ne va pedalando!",
+          "de": "Auf einem Fahrrad? Ein Brunnen, der davonfährt!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "en": "Good. The plan's done. Next: the stone.",
+       "sl": "Dobro. Načrt je narejen. Naslednje: kamen.",
+       "it": "Bene. Il progetto è fatto. Adesso: la pietra.",
+       "de": "Gut. Der Plan ist fertig. Als Nächstes: der Stein."
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "Sit down, {learner}. All week I've been thinking about the fountain.",
+       "sl": "Sedi, {learner}. Ves teden razmišljam o pitniku.",
+       "it": "Siediti, {learner}. È tutta la settimana che penso alla fontanella.",
+       "de": "Setz dich, {learner}. Die ganze Woche denke ich an den Brunnen."
+      },
+      {
+       "who": "hartley",
+       "face": "curious",
+       "en": "Before we build it, we should draw it on paper.",
+       "sl": "Preden ga zgradimo, bi ga morali narisati na papir.",
+       "it": "Prima di costruirla, dovremmo disegnarla su carta.",
+       "de": "Bevor wir ihn bauen, sollten wir ihn auf Papier zeichnen."
+      },
+      {
+       "choices": [
+        {
+         "en": "Good idea. We'll draw a plan first.",
+         "sl": "Dobra ideja. Najprej bomo narisali načrt.",
+         "it": "Buona idea. Prima faremo un progetto.",
+         "de": "Gute Idee. Zuerst zeichnen wir einen Plan.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "And nobody in the dale draws a better plan.",
+          "sl": "Pa nihče v dolini ne nariše boljšega načrta.",
+          "it": "E nessuno nella valle fa un progetto migliore.",
+          "de": "Und niemand im Tal zeichnet einen besseren Plan."
+         }
+        },
+        {
+         "en": "Good idea. We'll draw a plant first.",
+         "sl": "Dobra ideja. Najprej bomo narisali rastlino.",
+         "it": "Buona idea. Prima disegneremo una pianta.",
+         "de": "Gute Idee. Zuerst zeichnen wir eine Pflanze.",
+         "why": {
+          "en": "A plant grows in the garden. A drawing of how to build it: a plan.",
+          "sl": "Plant je rastlina na vrtu. Risba, kako nekaj zgraditi: plan.",
+          "it": "Plant è una pianta dell'orto. Il disegno di come costruire qualcosa: plan.",
+          "de": "Plant ist eine Pflanze im Garten. Die Zeichnung, wie man etwas baut: plan."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A plant? A daffodil, perhaps?",
+          "sl": "Rastlino? Mogoče narciso?",
+          "it": "Una pianta? Un narciso, forse?",
+          "de": "Eine Pflanze? Eine Osterglocke vielleicht?"
+         }
+        },
+        {
+         "en": "Good idea. We'll drawing a plan first.",
+         "sl": "Dobra ideja. Najprej bomo narisali načrt.",
+         "it": "Buona idea. Prima faremo un progetto.",
+         "de": "Gute Idee. Zuerst zeichnen wir einen Plan.",
+         "grammar": "future",
+         "why": {
+          "en": "After will ('ll), the verb as it is: we'll draw.",
+          "sl": "Za will ('ll) stoji glagol v osnovni obliki: we'll draw.",
+          "it": "Dopo will ('ll) il verbo resta com'è: we'll draw.",
+          "de": "Nach will ('ll) steht das Verb in der Grundform: we'll draw."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "Drawing? Hm. Once more, slowly.",
+          "sl": "Drawing? Hm. Še enkrat, počasi.",
+          "it": "Drawing? Mm. Ancora una volta, piano.",
+          "de": "Drawing? Hm. Noch einmal, langsam."
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "Here. A square pillar of stone, and a lion's head on the front.",
+       "sl": "Tukaj. Štirioglat kamnit steber in spredaj levja glava.",
+       "it": "Ecco. Un pilastro quadrato di pietra, e davanti una testa di leone.",
+       "de": "Hier. Eine viereckige Säule aus Stein, und vorne ein Löwenkopf."
+      },
+      {
+       "choices": [
+        {
+         "en": "So the lion's head goes on the pillar, and the basin at its foot?",
+         "sl": "Levja glava gre torej na steber, korito pa ob vznožje?",
+         "it": "Quindi la testa di leone va sul pilastro, e la vasca ai suoi piedi?",
+         "de": "Der Löwenkopf kommt also an die Säule, und das Becken an den Fuß?",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Exactly. You read a plan well.",
+          "sl": "Točno. Dobro bereš načrte.",
+          "it": "Esatto. Sai leggere bene un progetto.",
+          "de": "Genau. Du kannst Pläne gut lesen."
+         }
+        },
+        {
+         "en": "So the lion's head goes on the pillow, and the basin at its foot?",
+         "sl": "Levja glava gre torej na blazino, korito pa ob vznožje?",
+         "it": "Quindi la testa di leone va sul cuscino, e la vasca ai suoi piedi?",
+         "de": "Der Löwenkopf kommt also aufs Kissen, und das Becken an den Fuß?",
+         "why": {
+          "en": "A pillow is for your head in bed. The tall stone post is a pillar.",
+          "sl": "Pillow je blazina za glavo v postelji. Visok kamnit steber je pillar.",
+          "it": "Pillow è il cuscino del letto. Il palo alto di pietra è un pillar.",
+          "de": "Pillow ist das Kopfkissen im Bett. Der hohe Steinpfosten ist ein pillar."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "On the pillow? A lion in bed, eh?",
+          "sl": "Na blazino? Lev v postelji, kaj?",
+          "it": "Sul cuscino? Un leone a letto, eh?",
+          "de": "Aufs Kissen? Ein Löwe im Bett, was?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "en": "Right. The plan's finished. Now we need the stone.",
+       "sl": "Prav. Načrt je dokončan. Zdaj potrebujemo kamen.",
+       "it": "Bene. Il progetto è finito. Adesso ci serve la pietra.",
+       "de": "Gut. Der Plan ist fertig. Jetzt brauchen wir den Stein."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "on-the-green",
+   "words": [
+    "slate",
+    "mine",
+    "block"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "Here comes the cart from Honister, with our stone.",
+       "sl": "Tukaj prihaja voz iz Honistra, z našim kamnom.",
+       "it": "Ecco il carro da Honister, con la nostra pietra.",
+       "de": "Da kommt der Wagen aus Honister, mit unserem Stein.",
+       "fx": {
+        "cart-stone": 0.5
+       }
+      },
+      {
+       "who": "sam",
+       "face": "surprised",
+       "en": "Whoa! Look at the size of it!",
+       "sl": "Uau! Poglejte, kako je velik!",
+       "it": "Accidenti! Guardate quant'è grande!",
+       "de": "Wow! Schaut euch an, wie groß der ist!",
+       "fx": {
+        "cart-stone": 1
+       }
+      },
+      {
+       "choices": [
+        {
+         "en": "It's a big block of slate!",
+         "sl": "To je velik blok skrilavca!",
+         "it": "È un grosso blocco di ardesia!",
+         "de": "Das ist ein großer Schieferblock!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Green slate. Lovely!",
+          "sl": "Zeleni skrilavec. Krasno!",
+          "it": "Ardesia verde. Che bella!",
+          "de": "Grüner Schiefer. Herrlich!"
+         }
+        },
+        {
+         "en": "It's a big box of slate!",
+         "sl": "To je velika škatla skrilavca!",
+         "it": "È una grossa scatola di ardesia!",
+         "de": "Das ist eine große Kiste Schiefer!",
+         "why": {
+          "en": "A box holds things. One big square piece of stone is a block.",
+          "sl": "Box je škatla, v njej so stvari. En velik oglat kos kamna je block.",
+          "it": "Box è una scatola, ci si mettono cose. Un grosso pezzo squadrato di pietra è un block.",
+          "de": "Box ist eine Kiste, man tut Dinge hinein. Ein großes, eckiges Stück Stein ist ein block."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A box? Where's the lid, then?",
+          "sl": "Škatla? Kje pa je pokrov?",
+          "it": "Una scatola? E il coperchio dov'è?",
+          "de": "Eine Kiste? Wo ist denn der Deckel?"
+         }
+        },
+        {
+         "en": "It's a big block of glass!",
+         "sl": "To je velik blok stekla!",
+         "it": "È un grosso blocco di vetro!",
+         "de": "Das ist ein großer Glasblock!",
+         "why": {
+          "en": "Glass is for windows. This green stone from Honister is slate.",
+          "sl": "Glass je steklo za okna. Ta zeleni kamen iz Honistra je slate.",
+          "it": "Glass è il vetro delle finestre. Questa pietra verde di Honister è slate.",
+          "de": "Glass ist Glas für Fenster. Dieser grüne Stein aus Honister ist slate."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Glass? Then we could see through it!",
+          "sl": "Steklo? Potem bi videli skozi!",
+          "it": "Vetro? Allora ci vedremmo attraverso!",
+          "de": "Glas? Dann könnten wir durchschauen!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "curious",
+       "en": "And do you know where slate comes from?",
+       "sl": "Pa veš, od kod prihaja skrilavec?",
+       "it": "E sai da dove viene l'ardesia?",
+       "de": "Und weißt du, woher Schiefer kommt?"
+      },
+      {
+       "choices": [
+        {
+         "en": "From the mine at Honister.",
+         "sl": "Iz rudnika v Honistru.",
+         "it": "Dalla miniera di Honister.",
+         "de": "Aus dem Bergwerk in Honister.",
+         "ok": true,
+         "reply": {
+          "face": "proud",
+          "en": "Right. Deep in the fell, at the top of the pass.",
+          "sl": "Tako je. Globoko v hribu, na vrhu prelaza.",
+          "it": "Giusto. Dentro il monte, in cima al passo.",
+          "de": "Richtig. Tief im Berg, oben am Pass."
+         }
+        },
+        {
+         "en": "From the shop at Honister.",
+         "sl": "Iz trgovine v Honistru.",
+         "it": "Dal negozio di Honister.",
+         "de": "Aus dem Laden in Honister.",
+         "why": {
+          "en": "A shop sells things. Slate is cut out of the fell in a mine.",
+          "sl": "Shop je trgovina. Skrilavec izrežejo iz hriba v rudniku: mine.",
+          "it": "Shop è il negozio. L'ardesia si taglia dal monte in una miniera: mine.",
+          "de": "Shop ist ein Laden. Schiefer wird im Bergwerk aus dem Berg geschnitten: mine."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A shop? They don't sell fells, {m:lad|f:lass}.",
+          "sl": "Trgovina? Hribov ne prodajajo, {m:fant|f:dekle}.",
+          "it": "Un negozio? Non vendono montagne, {m:ragazzo|f:ragazza}.",
+          "de": "Ein Laden? Berge verkauft man nicht, {m:Junge|f:Mädchen}."
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "Down it goes, on the two beams. Our stone is here!",
+       "sl": "Pa je dol, na dveh tramovih. Naš kamen je tu!",
+       "it": "Eccola giù, sulle due travi. La nostra pietra è qui!",
+       "de": "Runter damit, auf die zwei Balken. Unser Stein ist da!",
+       "done": true
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "hartley",
+       "en": "The cart left Honister at dawn. Here it comes up the road now.",
+       "sl": "Voz je ob zori odpeljal iz Honistra. Zdaj prihaja po cesti.",
+       "it": "Il carro è partito da Honister all'alba. Adesso sale per la strada.",
+       "de": "Der Wagen ist im Morgengrauen in Honister losgefahren. Jetzt kommt er die Straße herauf.",
+       "fx": {
+        "cart-stone": 0.4
+       }
+      },
+      {
+       "who": "dixon",
+       "face": "curious",
+       "en": "Whoa! Stop there. Now, {learner}, tell me what we've got.",
+       "sl": "Stoj! Tukaj ustavi. No, {learner}, povej mi, kaj imamo.",
+       "it": "Ferma! Lì. Allora, {learner}, dimmi che cosa abbiamo.",
+       "de": "Brr! Halt da. So, {learner}, sag mir, was wir haben.",
+       "fx": {
+        "cart-stone": 1
+       }
+      },
+      {
+       "choices": [
+        {
+         "en": "We've got a big block of green slate.",
+         "sl": "Imamo velik blok zelenega skrilavca.",
+         "it": "Abbiamo un grosso blocco di ardesia verde.",
+         "de": "Wir haben einen großen Block grünen Schiefer.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. One block, one fountain.",
+          "sl": "Ja. En blok, en vodnjak.",
+          "it": "Sì. Un blocco, una fontana.",
+          "de": "Ja. Ein Block, ein Brunnen."
+         }
+        },
+        {
+         "en": "We've got a big box of green slate.",
+         "sl": "Imamo veliko škatlo zelenega skrilavca.",
+         "it": "Abbiamo una grossa scatola di ardesia verde.",
+         "de": "Wir haben eine große Kiste grünen Schiefer.",
+         "why": {
+          "en": "A box holds things. One big square piece of stone is a block.",
+          "sl": "Box je škatla, v njej so stvari. En velik oglat kos kamna je block.",
+          "it": "Box è una scatola, ci si mettono cose. Un grosso pezzo squadrato di pietra è un block.",
+          "de": "Box ist eine Kiste, man tut Dinge hinein. Ein großes, eckiges Stück Stein ist ein block."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "A box? It's one piece, {m:lad|f:lass}. Solid.",
+          "sl": "Škatla? En kos je, {m:fant|f:dekle}. Poln.",
+          "it": "Una scatola? È un pezzo solo, {m:ragazzo|f:ragazza}. Pieno.",
+          "de": "Eine Kiste? Das ist ein Stück, {m:Junge|f:Mädchen}. Massiv."
+         }
+        },
+        {
+         "en": "We've got a big block of green glass.",
+         "sl": "Imamo velik blok zelenega stekla.",
+         "it": "Abbiamo un grosso blocco di vetro verde.",
+         "de": "Wir haben einen großen Block grünes Glas.",
+         "why": {
+          "en": "Glass is for windows. This green stone from Honister is slate.",
+          "sl": "Glass je steklo za okna. Ta zeleni kamen iz Honistra je slate.",
+          "it": "Glass è il vetro delle finestre. Questa pietra verde di Honister è slate.",
+          "de": "Glass ist Glas für Fenster. Dieser grüne Stein aus Honister ist slate."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Glass? Knock on it. Does that sound like glass?",
+          "sl": "Steklo? Potrkaj nanj. Ali to zveni kot steklo?",
+          "it": "Vetro? Bussaci sopra. Ti sembra vetro?",
+          "de": "Glas? Klopf mal drauf. Klingt das nach Glas?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "curious",
+       "en": "How did they get it out of the fell?",
+       "sl": "Kako so ga spravili iz hriba?",
+       "it": "Come l'hanno tirata fuori dal monte?",
+       "de": "Wie haben sie ihn aus dem Berg geholt?"
+      },
+      {
+       "choices": [
+        {
+         "en": "They cut it in the mine, deep inside the fell.",
+         "sl": "Izrezali so ga v rudniku, globoko v hribu.",
+         "it": "L'hanno tagliata nella miniera, dentro il monte.",
+         "de": "Sie haben ihn im Bergwerk geschnitten, tief im Berg.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Hard work. Hats off to them!",
+          "sl": "Težko delo. Kapo dol!",
+          "it": "Un lavoro duro. Tanto di cappello!",
+          "de": "Harte Arbeit. Hut ab!"
+         }
+        },
+        {
+         "en": "They cut it in the market, deep inside the fell.",
+         "sl": "Izrezali so ga na tržnici, globoko v hribu.",
+         "it": "L'hanno tagliata al mercato, dentro il monte.",
+         "de": "Sie haben ihn auf dem Markt geschnitten, tief im Berg.",
+         "why": {
+          "en": "The market sells food. Stone is cut out of the fell in a mine.",
+          "sl": "Na tržnici prodajajo hrano. Kamen izrežejo iz hriba v rudniku: mine.",
+          "it": "Al mercato si vende il cibo. La pietra si taglia dal monte in una miniera: mine.",
+          "de": "Auf dem Markt gibt es Essen. Stein wird im Bergwerk aus dem Berg geschnitten: mine."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "In the market? Next to the cheese?",
+          "sl": "Na tržnici? Poleg sira?",
+          "it": "Al mercato? Accanto al formaggio?",
+          "de": "Auf dem Markt? Neben dem Käse?"
+         }
+        },
+        {
+         "en": "They cutted it in the mine, deep inside the fell.",
+         "sl": "Izrezali so ga v rudniku, globoko v hribu.",
+         "it": "L'hanno tagliata nella miniera, dentro il monte.",
+         "de": "Sie haben ihn im Bergwerk geschnitten, tief im Berg.",
+         "grammar": "past-simple",
+         "why": {
+          "en": "Cut is irregular: cut, cut, cut. They cut it.",
+          "sl": "Cut je nepravilni glagol: cut, cut, cut. They cut it.",
+          "it": "Cut è irregolare: cut, cut, cut. They cut it.",
+          "de": "Cut ist unregelmäßig: cut, cut, cut. They cut it."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "Cutted? Eh? Say that again.",
+          "sl": "Cutted? Kaj? Še enkrat povej.",
+          "it": "Cutted? Eh? Ripeti.",
+          "de": "Cutted? Hä? Sag das noch mal."
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "Easy now… down on the beams. There. Green slate from Honister.",
+       "sl": "Počasi … dol na trame. Tako. Zeleni skrilavec iz Honistra.",
+       "it": "Piano… giù sulle travi. Ecco. Ardesia verde di Honister.",
+       "de": "Langsam … runter auf die Balken. So. Grüner Schiefer aus Honister.",
+       "done": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "on-the-green",
+   "words": [
+    "chisel",
+    "carve",
+    "basin"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "Today we make the basin. {learner}, pass me a tool, please.",
+       "sl": "Danes naredimo korito. {learner}, podaj mi orodje, prosim.",
+       "it": "Oggi facciamo la vasca. {learner}, passami un attrezzo, per favore.",
+       "de": "Heute machen wir das Becken. {learner}, gib mir bitte ein Werkzeug."
+      },
+      {
+       "choices": [
+        {
+         "en": "Here's the chisel.",
+         "sl": "Tukaj je dleto.",
+         "it": "Ecco lo scalpello.",
+         "de": "Hier ist der Meißel.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Good. Chisel and hammer: tap, tap.",
+          "sl": "Dobro. Dleto in kladivo: tap, tap.",
+          "it": "Bene. Scalpello e martello: tac, tac.",
+          "de": "Gut. Meißel und Hammer: tock, tock."
+         }
+        },
+        {
+         "en": "Here's the brush.",
+         "sl": "Tukaj je čopič.",
+         "it": "Ecco il pennello.",
+         "de": "Hier ist der Pinsel.",
+         "why": {
+          "en": "A brush is for painting. To cut stone: a chisel.",
+          "sl": "Brush je čopič, za barvanje. Za klesanje kamna: chisel.",
+          "it": "Brush è il pennello, per dipingere. Per tagliare la pietra: chisel.",
+          "de": "Brush ist ein Pinsel, zum Malen. Um Stein zu bearbeiten: chisel."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A brush? I'm not painting it, {m:lad|f:lass}.",
+          "sl": "Čopič? Saj ga ne barvam, {m:fant|f:dekle}.",
+          "it": "Un pennello? Mica la dipingo, {m:ragazzo|f:ragazza}.",
+          "de": "Einen Pinsel? Ich streiche ihn doch nicht, {m:Junge|f:Mädchen}."
+         }
+        }
+       ]
+      },
+      {
+       "who": "hartley",
+       "face": "curious",
+       "en": "And what will you do with it?",
+       "sl": "Kaj pa boste naredili z njim?",
+       "it": "E cosa ci farà?",
+       "de": "Und was machen Sie damit?"
+      },
+      {
+       "who": "dixon",
+       "en": "Slowly, slowly, out of this block comes a round bowl for the water.",
+       "sl": "Počasi, počasi iz tega bloka nastane okrogla skleda za vodo.",
+       "it": "Piano piano, da questo blocco esce una conca rotonda per l'acqua.",
+       "de": "Langsam, langsam kommt aus diesem Block eine runde Schale für das Wasser."
+      },
+      {
+       "choices": [
+        {
+         "en": "You carve a round basin.",
+         "sl": "Izklešete okroglo korito.",
+         "it": "Scolpisce una vasca rotonda.",
+         "de": "Sie meißeln ein rundes Becken.",
+         "ok": true,
+         "reply": {
+          "face": "proud",
+          "en": "Aye. For the water, at the foot of the pillar.",
+          "sl": "Ja. Za vodo, ob vznožju stebra.",
+          "it": "Sì. Per l'acqua, ai piedi del pilastro.",
+          "de": "Ja. Für das Wasser, am Fuß der Säule."
+         }
+        },
+        {
+         "en": "You cook a round basin.",
+         "sl": "Skuhate okroglo korito.",
+         "it": "Cucina una vasca rotonda.",
+         "de": "Sie kochen ein rundes Becken.",
+         "why": {
+          "en": "You cook food. Stone you carve.",
+          "sl": "Cook pomeni kuhati hrano. Kamen pa kleseš: carve.",
+          "it": "Cook vuol dire cucinare. La pietra si scolpisce: carve.",
+          "de": "Cook heißt kochen. Stein meißelt man: carve."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Cook it? Slate soup, eh?",
+          "sl": "Skuham? Juha iz skrilavca, kaj?",
+          "it": "Cucinarla? Minestra di ardesia, eh?",
+          "de": "Kochen? Schiefersuppe, was?"
+         }
+        },
+        {
+         "en": "You carve a round bucket.",
+         "sl": "Izklešete okroglo vedro.",
+         "it": "Scolpisce un secchio rotondo.",
+         "de": "Sie meißeln einen runden Eimer.",
+         "why": {
+          "en": "A bucket you carry. The big stone bowl at the fountain's foot is the basin.",
+          "sl": "Bucket je vedro, ki ga neseš. Velika kamnita skleda ob vznožju vodnjaka je basin.",
+          "it": "Bucket è il secchio, si porta in mano. La grande conca di pietra ai piedi della fontana è il basin.",
+          "de": "Bucket ist ein Eimer, den man trägt. Die große Steinschale am Fuß des Brunnens ist das basin."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A bucket? Too small for the horses!",
+          "sl": "Vedro? Premajhno za konje!",
+          "it": "Un secchio? Troppo piccolo per i cavalli!",
+          "de": "Einen Eimer? Zu klein für die Pferde!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "surprised",
+       "en": "Look at that! The basin's there, and the lion too!",
+       "sl": "Poglejte! Korito je tu, pa tudi lev!",
+       "it": "Guardate! La vasca c'è, e anche il leone!",
+       "de": "Schaut mal! Das Becken ist da, und der Löwe auch!",
+       "done": true
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "A week of work starts today, {learner}. One block, one basin.",
+       "sl": "Danes se začne teden dela, {learner}. En blok, eno korito.",
+       "it": "Oggi comincia una settimana di lavoro, {learner}. Un blocco, una vasca.",
+       "de": "Heute fängt eine Woche Arbeit an, {learner}. Ein Block, ein Becken."
+      },
+      {
+       "who": "tyson",
+       "face": "curious",
+       "en": "What tools does the work need?",
+       "sl": "Kakšno orodje potrebuje to delo?",
+       "it": "Che attrezzi servono per questo lavoro?",
+       "de": "Welches Werkzeug braucht die Arbeit?"
+      },
+      {
+       "choices": [
+        {
+         "en": "It needs a hammer and a chisel.",
+         "sl": "Potrebuje kladivo in dleto.",
+         "it": "Servono un martello e uno scalpello.",
+         "de": "Sie braucht einen Hammer und einen Meißel.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Right. Here they are, both of them.",
+          "sl": "Prav. Tukaj sta, oba.",
+          "it": "Giusto. Eccoli, tutti e due.",
+          "de": "Richtig. Hier sind sie, alle beide."
+         }
+        },
+        {
+         "en": "It needs a hammer and a chisels.",
+         "sl": "Potrebuje kladivo in dleto.",
+         "it": "Servono un martello e uno scalpello.",
+         "de": "Sie braucht einen Hammer und einen Meißel.",
+         "grammar": "articles",
+         "why": {
+          "en": "One chisel: a chisel, with no -s.",
+          "sl": "En dleto: a chisel, brez -s.",
+          "it": "Uno scalpello: a chisel, senza -s.",
+          "de": "Ein Meißel: a chisel, ohne -s."
+         },
+         "reply": {
+          "face": "curious",
+          "en": "A chisels? One, or lots?",
+          "sl": "A chisels? Eno ali veliko?",
+          "it": "A chisels? Uno o tanti?",
+          "de": "A chisels? Einer oder viele?"
+         }
+        },
+        {
+         "en": "It needs a hammer and a spoon.",
+         "sl": "Potrebuje kladivo in žlico.",
+         "it": "Servono un martello e un cucchiaio.",
+         "de": "Sie braucht einen Hammer und einen Löffel.",
+         "why": {
+          "en": "A spoon is for soup. To cut stone: a chisel.",
+          "sl": "Spoon je žlica, za juho. Za klesanje kamna: chisel.",
+          "it": "Spoon è il cucchiaio, per la minestra. Per tagliare la pietra: chisel.",
+          "de": "Spoon ist ein Löffel, für die Suppe. Um Stein zu bearbeiten: chisel."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A spoon? It'd take a hundred years!",
+          "sl": "Žlico? Trajalo bi sto let!",
+          "it": "Un cucchiaio? Ci vorrebbero cent'anni!",
+          "de": "Einen Löffel? Das dauert hundert Jahre!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "en": "Tap, tap, tap. Slowly does it.",
+       "sl": "Tap, tap, tap. Počasi se daleč pride.",
+       "it": "Tac, tac, tac. Piano piano.",
+       "de": "Tock, tock, tock. Immer schön langsam."
+      },
+      {
+       "choices": [
+        {
+         "en": "You're carving the basin out of one block!",
+         "sl": "Korito klešete iz enega samega bloka!",
+         "it": "Sta scolpendo la vasca da un solo blocco!",
+         "de": "Sie meißeln das Becken aus einem einzigen Block!",
+         "ok": true,
+         "reply": {
+          "face": "proud",
+          "en": "Aye. One piece, so it never leaks.",
+          "sl": "Ja. Iz enega kosa, da nikoli ne pušča.",
+          "it": "Sì. Un pezzo solo, così non perde mai.",
+          "de": "Ja. Aus einem Stück, damit es nie leckt."
+         }
+        },
+        {
+         "en": "You're cooking the basin out of one block!",
+         "sl": "Korito kuhate iz enega samega bloka!",
+         "it": "Sta cucinando la vasca da un solo blocco!",
+         "de": "Sie kochen das Becken aus einem einzigen Block!",
+         "why": {
+          "en": "You cook food. Stone you carve.",
+          "sl": "Cook pomeni kuhati hrano. Kamen pa kleseš: carve.",
+          "it": "Cook vuol dire cucinare. La pietra si scolpisce: carve.",
+          "de": "Cook heißt kochen. Stein meißelt man: carve."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Cooking? Slate soup for supper, then.",
+          "sl": "Kuham? Potem bo za večerjo juha iz skrilavca.",
+          "it": "Cucinando? Allora minestra di ardesia per cena.",
+          "de": "Kochen? Dann gibt's Schiefersuppe zum Abendessen."
+         }
+        },
+        {
+         "en": "You're carving the bucket out of one block!",
+         "sl": "Vedro klešete iz enega samega bloka!",
+         "it": "Sta scolpendo il secchio da un solo blocco!",
+         "de": "Sie meißeln den Eimer aus einem einzigen Block!",
+         "why": {
+          "en": "A bucket you carry. The big stone bowl at the fountain's foot is the basin.",
+          "sl": "Bucket je vedro, ki ga neseš. Velika kamnita skleda ob vznožju vodnjaka je basin.",
+          "it": "Bucket è il secchio, si porta in mano. La grande conca di pietra ai piedi della fontana è il basin.",
+          "de": "Bucket ist ein Eimer, den man trägt. Die große Steinschale am Fuß des Brunnens ist das basin."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A bucket? Far too small for the horses.",
+          "sl": "Vedro? Veliko premajhno za konje.",
+          "it": "Un secchio? Troppo piccolo per i cavalli.",
+          "de": "Ein Eimer? Viel zu klein für die Pferde."
+         }
+        }
+       ]
+      },
+      {
+       "who": "hartley",
+       "face": "surprised",
+       "en": "A week later… look! The basin, the pillar and the lion!",
+       "sl": "Teden pozneje … poglejte! Korito, steber in lev!",
+       "it": "Una settimana dopo… guardate! La vasca, il pilastro e il leone!",
+       "de": "Eine Woche später … schaut! Das Becken, die Säule und der Löwe!",
+       "done": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "on-the-green",
+   "words": [
+    "trench",
+    "dig",
+    "pipe"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "The water's up on the fell, at a spring. We must bring it down here.",
+       "sl": "Voda je gori na hribu, v studencu. Pripeljati jo moramo sem dol.",
+       "it": "L'acqua è su in montagna, a una sorgente. Dobbiamo portarla quaggiù.",
+       "de": "Das Wasser ist oben am Berg, an einer Quelle. Wir müssen es hier herunterbringen."
+      },
+      {
+       "choices": [
+        {
+         "en": "Can it come in a pipe, under the ground?",
+         "sl": "Lahko pride po cevi, pod zemljo?",
+         "it": "Può arrivare in un tubo, sotto terra?",
+         "de": "Kann es in einem Rohr kommen, unter der Erde?",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. A pipe, in a trench.",
+          "sl": "Ja. Po cevi, v jarku.",
+          "it": "Sì. Un tubo, in un fosso.",
+          "de": "Ja. Ein Rohr, in einem Graben."
+         }
+        },
+        {
+         "en": "Can it come in a pie, under the ground?",
+         "sl": "Lahko pride v piti, pod zemljo?",
+         "it": "Può arrivare in un tortino, sotto terra?",
+         "de": "Kann es in einer Pastete kommen, unter der Erde?",
+         "why": {
+          "en": "A pie is to eat. Water runs in a pipe.",
+          "sl": "Pie je pita, za jesti. Voda teče po cevi: pipe.",
+          "it": "Pie è un tortino, si mangia. L'acqua scorre in un tubo: pipe.",
+          "de": "Pie ist eine Pastete, zum Essen. Wasser fließt in einem Rohr: pipe."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A pie? A very wet pie, then!",
+          "sl": "V piti? Potem bo pita zelo mokra!",
+          "it": "In un tortino? Un tortino molto bagnato, allora!",
+          "de": "In einer Pastete? Eine sehr nasse Pastete!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "tyson",
+       "en": "So first we dig. Spades, everybody!",
+       "sl": "Torej najprej kopljemo. Vsi po lopate!",
+       "it": "Allora prima si scava. Tutti con la vanga!",
+       "de": "Also zuerst graben wir. Alle Spaten raus!"
+      },
+      {
+       "choices": [
+        {
+         "en": "Let's dig a trench across the green!",
+         "sl": "Izkopljimo jarek čez zelenico!",
+         "it": "Scaviamo un fosso attraverso il prato!",
+         "de": "Graben wir einen Graben quer über die Wiese!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "One spade each. Go!",
+          "sl": "Vsak eno lopato. Zdaj!",
+          "it": "Una vanga a testa. Via!",
+          "de": "Jeder einen Spaten. Los!"
+         }
+        },
+        {
+         "en": "Let's eat a trench across the green!",
+         "sl": "Pojejmo jarek čez zelenico!",
+         "it": "Mangiamo un fosso attraverso il prato!",
+         "de": "Essen wir einen Graben quer über die Wiese!",
+         "why": {
+          "en": "You eat food. A hole in the ground you dig.",
+          "sl": "Eat pomeni jesti. Jamo v zemlji izkoplješ: dig.",
+          "it": "Eat vuol dire mangiare. Una buca nel terreno si scava: dig.",
+          "de": "Eat heißt essen. Ein Loch im Boden gräbt man: dig."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Eat it? Earth for dinner, eh?",
+          "sl": "Pojejmo? Zemlja za večerjo, kaj?",
+          "it": "Mangiarlo? Terra per cena, eh?",
+          "de": "Essen? Erde zum Abendessen, was?"
+         }
+        },
+        {
+         "en": "Let's dig a train across the green!",
+         "sl": "Izkopljimo vlak čez zelenico!",
+         "it": "Scaviamo un treno attraverso il prato!",
+         "de": "Graben wir einen Zug quer über die Wiese!",
+         "why": {
+          "en": "A long, narrow hole in the ground for a pipe is a trench.",
+          "sl": "Dolga, ozka jama v zemlji za cev je trench.",
+          "it": "Uno scavo lungo e stretto nel terreno per un tubo è un trench.",
+          "de": "Ein langes, schmales Loch im Boden für ein Rohr ist ein trench."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A train? Choo choo, right across the green!",
+          "sl": "Vlak? Tu-tu, čez vso zelenico!",
+          "it": "Un treno? Ciuf ciuf, attraverso il prato!",
+          "de": "Einen Zug? Tschu-tschu, quer über die Wiese!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "surprised",
+       "en": "It's open right across the green! And look, here comes the water!",
+       "sl": "Odprt je čez vso zelenico! In poglejte, voda že prihaja!",
+       "it": "È aperto attraverso tutto il prato! E guardate, arriva l'acqua!",
+       "de": "Er geht quer über die ganze Wiese! Und schaut, da kommt das Wasser!",
+       "fx": {
+        "fountain": 0.5
+       },
+       "done": true
+      },
+      {
+       "who": "dixon",
+       "face": "happy",
+       "en": "Good. Tomorrow we lay the pipe and cover it.",
+       "sl": "Dobro. Jutri položimo cev in jo zasujemo.",
+       "it": "Bene. Domani posiamo il tubo e lo copriamo.",
+       "de": "Gut. Morgen legen wir das Rohr und decken es zu."
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "The spring is half a mile up the fell. The water has to come down to the green.",
+       "sl": "Studenec je pol milje gor na hribu. Voda mora priti dol na zelenico.",
+       "it": "La sorgente è a mezzo miglio su per il monte. L'acqua deve scendere fino al prato.",
+       "de": "Die Quelle ist eine halbe Meile den Berg hinauf. Das Wasser muss zur Wiese herunter."
+      },
+      {
+       "who": "hartley",
+       "face": "curious",
+       "en": "How will it get here?",
+       "sl": "Kako bo prišla sem?",
+       "it": "Come arriverà qui?",
+       "de": "Wie kommt es hierher?"
+      },
+      {
+       "choices": [
+        {
+         "en": "It'll run down in a pipe under the ground.",
+         "sl": "Pritekla bo po cevi pod zemljo.",
+         "it": "Scenderà in un tubo sotto terra.",
+         "de": "Es wird in einem Rohr unter der Erde herunterfließen.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Of course. And a pipe needs a trench.",
+          "sl": "Seveda. Cev pa potrebuje jarek.",
+          "it": "Certo. E un tubo ha bisogno di un fosso.",
+          "de": "Natürlich. Und ein Rohr braucht einen Graben."
+         }
+        },
+        {
+         "en": "It'll run down in a pie under the ground.",
+         "sl": "Pritekla bo v piti pod zemljo.",
+         "it": "Scenderà in un tortino sotto terra.",
+         "de": "Es wird in einer Pastete unter der Erde herunterfließen.",
+         "why": {
+          "en": "A pie is to eat. Water runs in a pipe.",
+          "sl": "Pie je pita, za jesti. Voda teče po cevi: pipe.",
+          "it": "Pie è un tortino, si mangia. L'acqua scorre in un tubo: pipe.",
+          "de": "Pie ist eine Pastete, zum Essen. Wasser fließt in einem Rohr: pipe."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "In a pie? That would be a soggy pie!",
+          "sl": "V piti? To bi bila razmočena pita!",
+          "it": "In un tortino? Sarebbe un tortino zuppo!",
+          "de": "In einer Pastete? Das wäre eine matschige Pastete!"
+         }
+        },
+        {
+         "en": "It'll running down in a pipe under the ground.",
+         "sl": "Pritekla bo po cevi pod zemljo.",
+         "it": "Scenderà in un tubo sotto terra.",
+         "de": "Es wird in einem Rohr unter der Erde herunterfließen.",
+         "grammar": "future",
+         "why": {
+          "en": "After will ('ll), the verb as it is: it'll run.",
+          "sl": "Za will ('ll) stoji glagol v osnovni obliki: it'll run.",
+          "it": "Dopo will ('ll) il verbo resta com'è: it'll run.",
+          "de": "Nach will ('ll) steht das Verb in der Grundform: it'll run."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "Running? Hm, nearly. Once more?",
+          "sl": "Running? Hm, skoraj. Še enkrat?",
+          "it": "Running? Mm, quasi. Ancora una volta?",
+          "de": "Running? Hm, fast. Noch einmal?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "tyson",
+       "en": "We've got ten spades and twenty strong arms.",
+       "sl": "Imamo deset lopat in dvajset močnih rok.",
+       "it": "Abbiamo dieci vanghe e venti braccia forti.",
+       "de": "Wir haben zehn Spaten und zwanzig starke Arme."
+      },
+      {
+       "choices": [
+        {
+         "en": "Then let's dig the trench today!",
+         "sl": "Potem pa danes izkopljimo jarek!",
+         "it": "Allora scaviamo il fosso oggi!",
+         "de": "Dann graben wir den Graben heute!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Today it is. Everyone, spades!",
+          "sl": "Danes, prav. Vsi po lopate!",
+          "it": "Oggi, d'accordo. Tutti con la vanga!",
+          "de": "Heute also. Alle die Spaten!"
+         }
+        },
+        {
+         "en": "Then let's dug the trench today!",
+         "sl": "Potem pa danes izkopljimo jarek!",
+         "it": "Allora scaviamo il fosso oggi!",
+         "de": "Dann graben wir den Graben heute!",
+         "grammar": "past-simple",
+         "why": {
+          "en": "After let's, the verb as it is: let's dig. Dug is the past.",
+          "sl": "Za let's stoji glagol v osnovni obliki: let's dig. Dug je pretekli čas.",
+          "it": "Dopo let's il verbo resta com'è: let's dig. Dug è il passato.",
+          "de": "Nach let's steht das Verb in der Grundform: let's dig. Dug ist die Vergangenheit."
+         },
+         "reply": {
+          "face": "surprised",
+          "en": "Dug? Already? We haven't even started!",
+          "sl": "Dug? Že? Saj se še nismo niti lotili!",
+          "it": "Dug? Di già? Non abbiamo neanche cominciato!",
+          "de": "Dug? Schon? Wir haben noch nicht mal angefangen!"
+         }
+        },
+        {
+         "en": "Then let's dig the tent today!",
+         "sl": "Potem pa danes izkopljimo šotor!",
+         "it": "Allora scaviamo la tenda oggi!",
+         "de": "Dann graben wir heute das Zelt!",
+         "why": {
+          "en": "A long, narrow hole in the ground for a pipe is a trench.",
+          "sl": "Dolga, ozka jama v zemlji za cev je trench.",
+          "it": "Uno scavo lungo e stretto nel terreno per un tubo è un trench.",
+          "de": "Ein langes, schmales Loch im Boden für ein Rohr ist ein trench."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "The tent? Where would we sleep, then?",
+          "sl": "Šotor? Kje pa bomo potem spali?",
+          "it": "La tenda? E dove dormiamo, poi?",
+          "de": "Das Zelt? Wo sollen wir dann schlafen?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "surprised",
+       "en": "By evening it's open across the green, and look: the water's coming down it!",
+       "sl": "Do večera je odprt čez zelenico, in poglejte: voda že teče po njem!",
+       "it": "Entro sera è aperto attraverso il prato, e guardate: l'acqua ci scende già!",
+       "de": "Bis zum Abend ist er quer über die Wiese offen, und schaut: das Wasser kommt schon herunter!",
+       "fx": {
+        "fountain": 0.5
+       },
+       "done": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "in-the-smithy",
+   "words": [
+    "to-forge",
+    "handle"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "Now the cups. Iron, hot from the forge.",
+       "sl": "Zdaj pa skodelici. Železo, vroče iz ognja.",
+       "it": "Adesso le tazze. Ferro, caldo dalla forgia.",
+       "de": "Jetzt die Becher. Eisen, heiß aus der Esse.",
+       "fx": {
+        "forge": 1
+       }
+      },
+      {
+       "choices": [
+        {
+         "en": "Can you forge two cups?",
+         "sl": "Lahko skujete dve skodelici?",
+         "it": "Può forgiare due tazze?",
+         "de": "Können Sie zwei Becher schmieden?",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. Stand back from the sparks.",
+          "sl": "Ja. Umakni se od isker.",
+          "it": "Sì. Stai lontano dalle scintille.",
+          "de": "Ja. Bleib weg von den Funken.",
+          "fx": {
+           "sparks": 1
+          }
+         }
+        },
+        {
+         "en": "Can you forget two cups?",
+         "sl": "Lahko pozabite dve skodelici?",
+         "it": "Può dimenticare due tazze?",
+         "de": "Können Sie zwei Becher vergessen?",
+         "why": {
+          "en": "Forget is when you don't remember. To make iron things in the fire: forge.",
+          "sl": "Forget pomeni pozabiti. Železne stvari v ognju narediš: forge.",
+          "it": "Forget vuol dire dimenticare. Le cose di ferro nel fuoco si fanno: forge.",
+          "de": "Forget heißt vergessen. Eisensachen im Feuer macht man: forge."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Forget them? I never forget, {m:lad|f:lass}.",
+          "sl": "Pozabim? Jaz nikoli ne pozabim, {m:fant|f:dekle}.",
+          "it": "Dimenticarle? Io non dimentico mai, {m:ragazzo|f:ragazza}.",
+          "de": "Vergessen? Ich vergesse nie, {m:Junge|f:Mädchen}."
+         }
+        },
+        {
+         "en": "Can you forges two cups?",
+         "sl": "Lahko skujete dve skodelici?",
+         "it": "Può forgiare due tazze?",
+         "de": "Können Sie zwei Becher schmieden?",
+         "grammar": "can",
+         "why": {
+          "en": "After can, the verb as it is, with no -s: can forge.",
+          "sl": "Za can stoji glagol v osnovni obliki, brez -s: can forge.",
+          "it": "Dopo can il verbo resta com'è, senza -s: can forge.",
+          "de": "Nach can steht das Verb in der Grundform, ohne -s: can forge."
+         },
+         "reply": {
+          "face": "cross",
+          "en": "Forges? It's right, or it isn't.",
+          "sl": "Forges? Ali je prav ali pa ni.",
+          "it": "Forges? O è giusto o non lo è.",
+          "de": "Forges? Entweder es ist richtig oder nicht."
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "curious",
+       "en": "And what does a cup need, so you can hold it?",
+       "sl": "Kaj pa skodelica potrebuje, da jo lahko držiš?",
+       "it": "E di cosa ha bisogno una tazza, per poterla tenere?",
+       "de": "Und was braucht ein Becher, damit man ihn halten kann?"
+      },
+      {
+       "choices": [
+        {
+         "en": "Each cup needs a handle.",
+         "sl": "Vsaka skodelica potrebuje ročaj.",
+         "it": "Ogni tazza ha bisogno di un manico.",
+         "de": "Jeder Becher braucht einen Henkel.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "A handle, and a chain through the handle.",
+          "sl": "Ročaj, skozi ročaj pa verižico.",
+          "it": "Un manico, e una catenella nel manico.",
+          "de": "Einen Henkel, und eine Kette durch den Henkel."
+         }
+        },
+        {
+         "en": "Each cup needs a candle.",
+         "sl": "Vsaka skodelica potrebuje svečo.",
+         "it": "Ogni tazza ha bisogno di una candela.",
+         "de": "Jeder Becher braucht eine Kerze.",
+         "why": {
+          "en": "A candle gives light. The part of a cup you hold is the handle.",
+          "sl": "Candle je sveča, daje svetlobo. Del skodelice, za katerega jo držiš, je handle.",
+          "it": "Candle è la candela, fa luce. La parte della tazza che si tiene è il handle.",
+          "de": "Candle ist eine Kerze, sie gibt Licht. Der Teil des Bechers, an dem man ihn hält, ist der handle."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A candle? For a birthday cup?",
+          "sl": "Svečo? Za rojstnodnevno skodelico?",
+          "it": "Una candela? Per una tazza di compleanno?",
+          "de": "Eine Kerze? Für einen Geburtstagsbecher?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "There. Two iron cups, two handles, two chains. Everyone can drink.",
+       "sl": "Tako. Dve železni skodelici, dva ročaja, dve verižici. Vsak lahko pije.",
+       "it": "Ecco. Due tazze di ferro, due manici, due catenelle. Tutti possono bere.",
+       "de": "So. Zwei eiserne Becher, zwei Henkel, zwei Ketten. Alle können trinken."
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "Work the bellows, {learner}. We're forging the cups today.",
+       "sl": "Poganjaj meh, {learner}. Danes kujemo skodelici.",
+       "it": "Muovi il mantice, {learner}. Oggi forgiamo le tazze.",
+       "de": "Zieh am Blasebalg, {learner}. Heute schmieden wir die Becher.",
+       "fx": {
+        "forge": 1
+       }
+      },
+      {
+       "who": "hartley",
+       "face": "curious",
+       "en": "Why iron, and not clay?",
+       "sl": "Zakaj železo in ne glina?",
+       "it": "Perché il ferro e non l'argilla?",
+       "de": "Warum Eisen und nicht Ton?"
+      },
+      {
+       "choices": [
+        {
+         "en": "Iron is strong. You can forge it, and it doesn't break.",
+         "sl": "Železo je močno. Lahko ga kuješ in se ne zlomi.",
+         "it": "Il ferro è forte. Si può forgiare e non si rompe.",
+         "de": "Eisen ist stark. Man kann es schmieden, und es bricht nicht.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Clever. A clay cup breaks in the first frost.",
+          "sl": "Pametno. Glinasta skodelica poči ob prvi zmrzali.",
+          "it": "Bravo. Una tazza d'argilla si rompe alla prima gelata.",
+          "de": "Schlau. Ein Tonbecher springt beim ersten Frost."
+         }
+        },
+        {
+         "en": "Iron is strong. You can forget it, and it doesn't break.",
+         "sl": "Železo je močno. Lahko ga pozabiš in se ne zlomi.",
+         "it": "Il ferro è forte. Si può dimenticare e non si rompe.",
+         "de": "Eisen ist stark. Man kann es vergessen, und es bricht nicht.",
+         "why": {
+          "en": "Forget is when you don't remember. To make iron things in the fire: forge.",
+          "sl": "Forget pomeni pozabiti. Železne stvari v ognju narediš: forge.",
+          "it": "Forget vuol dire dimenticare. Le cose di ferro nel fuoco si fanno: forge.",
+          "de": "Forget heißt vergessen. Eisensachen im Feuer macht man: forge."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "Forget it? Then why make it?",
+          "sl": "Pozabiš? Zakaj ga pa potem delamo?",
+          "it": "Dimenticarlo? E allora perché farlo?",
+          "de": "Vergessen? Wozu macht man es dann?"
+         }
+        },
+        {
+         "en": "Iron are strong. You can forge it, and it doesn't break.",
+         "sl": "Železo je močno. Lahko ga kuješ in se ne zlomi.",
+         "it": "Il ferro è forte. Si può forgiare e non si rompe.",
+         "de": "Eisen ist stark. Man kann es schmieden, und es bricht nicht.",
+         "grammar": "to-be",
+         "why": {
+          "en": "Iron is one thing, a metal: iron is.",
+          "sl": "Iron je ena stvar, kovina: iron is.",
+          "it": "Iron è una cosa sola, un metallo: iron is.",
+          "de": "Iron ist eine Sache, ein Metall: iron is."
+         },
+         "reply": {
+          "face": "curious",
+          "en": "Iron are? More than one iron, then?",
+          "sl": "Iron are? Več kot eno železo, torej?",
+          "it": "Iron are? Più di un ferro, allora?",
+          "de": "Iron are? Mehr als ein Eisen, oder was?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "en": "Now the handles. Bend it round, like this.",
+       "sl": "Zdaj pa ročaja. Upogni ga okrog, takole.",
+       "it": "Adesso i manici. Piegalo tutto intorno, così.",
+       "de": "Jetzt die Henkel. Bieg ihn rund, so.",
+       "fx": {
+        "sparks": 1
+       }
+      },
+      {
+       "choices": [
+        {
+         "en": "I've bent the handle. Is it right?",
+         "sl": "Ročaj sem {m:upognil|f:upognila}. Je prav?",
+         "it": "Ho piegato il manico. Va bene?",
+         "de": "Ich hab den Henkel gebogen. Ist er richtig?",
+         "ok": true,
+         "reply": {
+          "face": "proud",
+          "en": "Aye. Good and round. The chain goes through it.",
+          "sl": "Ja. Lepo okrogel. Skozenj gre verižica.",
+          "it": "Sì. Bello rotondo. La catenella ci passa dentro.",
+          "de": "Ja. Schön rund. Die Kette geht durch."
+         }
+        },
+        {
+         "en": "I've bent the candle. Is it right?",
+         "sl": "Svečo sem {m:upognil|f:upognila}. Je prav?",
+         "it": "Ho piegato la candela. Va bene?",
+         "de": "Ich hab die Kerze gebogen. Ist sie richtig?",
+         "why": {
+          "en": "A candle gives light. The part of a cup you hold is the handle.",
+          "sl": "Candle je sveča, daje svetlobo. Del skodelice, za katerega jo držiš, je handle.",
+          "it": "Candle è la candela, fa luce. La parte della tazza che si tiene è il handle.",
+          "de": "Candle ist eine Kerze, sie gibt Licht. Der Teil des Bechers, an dem man ihn hält, ist der handle."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "The candle? A bent candle burns crooked!",
+          "sl": "Svečo? Upognjena sveča gori postrani!",
+          "it": "La candela? Una candela piegata brucia storta!",
+          "de": "Die Kerze? Eine krumme Kerze brennt schief!"
+         }
+        },
+        {
+         "en": "I've bended the handle. Is it right?",
+         "sl": "Ročaj sem {m:upognil|f:upognila}. Je prav?",
+         "it": "Ho piegato il manico. Va bene?",
+         "de": "Ich hab den Henkel gebogen. Ist er richtig?",
+         "grammar": "present-perfect",
+         "why": {
+          "en": "Bend is irregular: bend, bent, bent. I've bent it.",
+          "sl": "Bend je nepravilni glagol: bend, bent, bent. I've bent it.",
+          "it": "Bend è irregolare: bend, bent, bent. I've bent it.",
+          "de": "Bend ist unregelmäßig: bend, bent, bent. I've bent it."
+         },
+         "reply": {
+          "face": "cross",
+          "en": "Bended? It's right, or it isn't.",
+          "sl": "Bended? Ali je prav ali pa ni.",
+          "it": "Bended? O è giusto o non lo è.",
+          "de": "Bended? Entweder es ist richtig oder nicht."
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "Two cups, two handles, two chains. Nobody takes them home now.",
+       "sl": "Dve skodelici, dva ročaja, dve verižici. Zdaj ju nihče ne odnese domov.",
+       "it": "Due tazze, due manici, due catenelle. Adesso nessuno se le porta a casa.",
+       "de": "Zwei Becher, zwei Henkel, zwei Ketten. Jetzt nimmt sie keiner mehr mit nach Hause."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "on-the-green",
+   "words": [
+    "flow"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "Everybody ready? I'm opening the pipe now.",
+       "sl": "Ste vsi pripravljeni? Zdaj odpiram cev.",
+       "it": "Tutti pronti? Adesso apro il tubo.",
+       "de": "Alle bereit? Jetzt mache ich das Rohr auf."
+      },
+      {
+       "who": "hartley",
+       "face": "surprised",
+       "en": "Listen! Something's coming…",
+       "sl": "Poslušajte! Nekaj prihaja …",
+       "it": "Sentite! Sta arrivando qualcosa…",
+       "de": "Hört mal! Da kommt was …",
+       "fx": {
+        "fountain": 0.6
+       }
+      },
+      {
+       "choices": [
+        {
+         "en": "The water flows from the lion's mouth!",
+         "sl": "Voda teče iz levjega gobca!",
+         "it": "L'acqua scorre dalla bocca del leone!",
+         "de": "Das Wasser fließt aus dem Maul des Löwen!",
+         "ok": true,
+         "reply": {
+          "face": "laugh",
+          "en": "It does! Clean, cold water for everyone!",
+          "sl": "Res je! Čista, mrzla voda za vse!",
+          "it": "È vero! Acqua pulita e fredda per tutti!",
+          "de": "Wirklich! Sauberes, kaltes Wasser für alle!",
+          "fx": {
+           "fountain": 1
+          }
+         }
+        },
+        {
+         "en": "The water flies from the lion's mouth!",
+         "sl": "Voda leti iz levjega gobca!",
+         "it": "L'acqua vola dalla bocca del leone!",
+         "de": "Das Wasser fliegt aus dem Maul des Löwen!",
+         "why": {
+          "en": "Birds fly. Water flows, or runs.",
+          "sl": "Ptice letijo: fly. Voda teče: flows ali runs.",
+          "it": "Gli uccelli volano: fly. L'acqua scorre: flows o runs.",
+          "de": "Vögel fliegen: fly. Wasser fließt: flows oder runs."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Flies? Like a bird? Not quite!",
+          "sl": "Leti? Kot ptica? Ne čisto!",
+          "it": "Vola? Come un uccello? Non proprio!",
+          "de": "Fliegt? Wie ein Vogel? Nicht ganz!"
+         }
+        },
+        {
+         "en": "The water flow from the lion's mouth!",
+         "sl": "Voda teče iz levjega gobca!",
+         "it": "L'acqua scorre dalla bocca del leone!",
+         "de": "Das Wasser fließt aus dem Maul des Löwen!",
+         "grammar": "present-simple",
+         "why": {
+          "en": "The water is one thing, it: the verb takes -s. It flows.",
+          "sl": "Voda je ena stvar, it: glagol dobi -s. It flows.",
+          "it": "L'acqua è una cosa sola, it: il verbo prende la -s. It flows.",
+          "de": "Das Wasser ist eine Sache, it: das Verb bekommt ein -s. It flows."
+         },
+         "reply": {
+          "face": "curious",
+          "en": "Flow? Hm, nearly. Once more?",
+          "sl": "Flow? Hm, skoraj. Še enkrat?",
+          "it": "Flow? Mm, quasi. Ancora?",
+          "de": "Flow? Hm, fast. Noch mal?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "laugh",
+       "en": "Ha! Listen to the children laughing!",
+       "sl": "Ha! Poslušajte otroke, kako se smejijo!",
+       "it": "Ah! Sentite i bambini che ridono!",
+       "de": "Ha! Hört mal, wie die Kinder lachen!"
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "A fountain for the green. Free water, for ever.",
+       "sl": "Pitnik za zelenico. Brezplačna voda, za vedno.",
+       "it": "Una fontanella per il prato. Acqua gratis, per sempre.",
+       "de": "Ein Brunnen für die Wiese. Kostenloses Wasser, für immer."
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "dixon",
+       "en": "The pipe's in, the trench is covered, the cups are on their chains. Now, the water.",
+       "sl": "Cev je položena, jarek zasut, skodelici sta na verižicah. Zdaj pa voda.",
+       "it": "Il tubo è messo, il fosso è coperto, le tazze sono alle catenelle. Adesso l'acqua.",
+       "de": "Das Rohr liegt, der Graben ist zu, die Becher hängen an ihren Ketten. Jetzt das Wasser."
+      },
+      {
+       "who": "tyson",
+       "face": "curious",
+       "en": "Will it really come all the way from the fell?",
+       "sl": "Bo res prišla vse od hriba?",
+       "it": "Arriverà davvero fin dal monte?",
+       "de": "Kommt es wirklich den ganzen Weg vom Berg?"
+      },
+      {
+       "choices": [
+        {
+         "en": "Yes! Water always flows downhill.",
+         "sl": "Ja! Voda vedno teče navzdol.",
+         "it": "Sì! L'acqua scorre sempre in discesa.",
+         "de": "Ja! Wasser fließt immer bergab.",
+         "ok": true,
+         "reply": {
+          "face": "surprised",
+          "en": "Downhill… and here it is!",
+          "sl": "Navzdol … in tukaj je!",
+          "it": "In discesa… ed eccola!",
+          "de": "Bergab … und da ist es!",
+          "fx": {
+           "fountain": 0.6
+          }
+         }
+        },
+        {
+         "en": "Yes! Water always flies downhill.",
+         "sl": "Ja! Voda vedno leti navzdol.",
+         "it": "Sì! L'acqua vola sempre in discesa.",
+         "de": "Ja! Wasser fliegt immer bergab.",
+         "why": {
+          "en": "Birds fly. Water flows, or runs.",
+          "sl": "Ptice letijo: fly. Voda teče: flows ali runs.",
+          "it": "Gli uccelli volano: fly. L'acqua scorre: flows o runs.",
+          "de": "Vögel fliegen: fly. Wasser fließt: flows oder runs."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Flies? Water with wings, eh?",
+          "sl": "Leti? Voda s krili, kaj?",
+          "it": "Vola? Acqua con le ali, eh?",
+          "de": "Fliegt? Wasser mit Flügeln, was?"
+         }
+        },
+        {
+         "en": "Yes! Water always flow downhill.",
+         "sl": "Ja! Voda vedno teče navzdol.",
+         "it": "Sì! L'acqua scorre sempre in discesa.",
+         "de": "Ja! Wasser fließt immer bergab.",
+         "grammar": "present-simple",
+         "why": {
+          "en": "The water is one thing, it: the verb takes -s. It flows.",
+          "sl": "Voda je ena stvar, it: glagol dobi -s. It flows.",
+          "it": "L'acqua è una cosa sola, it: il verbo prende la -s. It flows.",
+          "de": "Das Wasser ist eine Sache, it: das Verb bekommt ein -s. It flows."
+         },
+         "reply": {
+          "face": "curious",
+          "en": "Flow? Hm, nearly, {m:lad|f:lass}.",
+          "sl": "Flow? Hm, skoraj, {m:fant|f:dekle}.",
+          "it": "Flow? Mm, quasi, {m:ragazzo|f:ragazza}.",
+          "de": "Flow? Hm, fast, {m:Junge|f:Mädchen}."
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "There! From the lion's mouth into the basin.",
+       "sl": "Tako! Iz levjega gobca v korito.",
+       "it": "Ecco! Dalla bocca del leone nella vasca.",
+       "de": "Da! Aus dem Maul des Löwen ins Becken.",
+       "fx": {
+        "fountain": 1
+       }
+      },
+      {
+       "who": "hartley",
+       "face": "laugh",
+       "en": "Listen to the children laughing! Well done, everyone.",
+       "sl": "Poslušajte otroke, kako se smejijo! Bravo, vsi.",
+       "it": "Sentite i bambini che ridono! Bravi tutti.",
+       "de": "Hört, wie die Kinder lachen! Gut gemacht, alle."
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

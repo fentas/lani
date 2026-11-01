@@ -12,6 +12,7 @@ import { initLearnerData } from '../../src/learners'
 import { validatePack } from '../../src/packs'
 import { allLines } from '../../src/villagers'
 import { bridgeEleven, bridgeWhisper, check, checkCultureVoices, culturesDir, guideOf, languageBook, port as smokePort, tempDir } from './harness'
+import { villageTalks } from './village-talks'
 
 const repo = resolve(import.meta.dir, '../../../..')
 // its own port, next to the smoke's (8797 is the QA's dev town, 8792 and up are learners' ports)
@@ -27,6 +28,8 @@ export default async function lakeland() {
   initLearnerData(repo, dataDir, { name: 'Ana', target: 'en', base: 'sl', culture: 'lakeland' })
   const ttsBefore = bridgeEleven.st.tts.length
   const client = new Client({ name: 'smoke-lakeland', version: '0' })
+  const notes: any[] = []
+  client.fallbackNotificationHandler = async n => void notes.push(n)
   await client.connect(
     new StdioClientTransport({
       command: 'bun',
@@ -105,6 +108,19 @@ export default async function lakeland() {
     const scenarios = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
     const scenes = await (await fetch(`${base}/scenes`, { headers: auth })).json()
     check('lakeland: no Slovene modules, role-plays or scenes for the English village', Array.isArray(modules) && !modules.some((m: any) => m.id === 'dvojina-osnove') && Array.isArray(scenarios) && !scenarios.some((s: any) => s.id === 'v-pekarni') && !scenes.some((s: any) => ['ob-ognju', 'na-gricih', 'al-fuoco', 'il-mare'].includes(s.id)), { scenes: scenes.map((s: any) => s.id) })
+    // the English role-plays (companion/scenarios/en), for Ana, a grown-up learning English from Slovene
+    await villageTalks({
+      village: 'lakeland', language: 'en', base: 'sl', base_url: base, auth, client, notes: () => notes,
+      packs: ['at-the-doctors', 'in-the-pub', 'getting-about', 'at-the-b-and-b', 'asking-the-way', 'at-the-fete', 'weather-and-garden'],
+      sample: {
+        id: 'at-the-farm-shop', title: 'At the farm shop · V trgovini na kmetiji', goal: 'Greet Mrs Atkinson · Pozdravi gospo Atkinson', who: 'The farmer at the shop · Kmetica v trgovini', setting: 'Sobotno jutro v trgovini na kmetiji', hint: ['How much is that?', 'Koliko stane to?'],
+        brief: { title: 'At the farm shop', goal: 'Greet Mrs Atkinson', setting: 'Saturday morning at the farm shop' },
+      },
+      played: { 'in-the-pub': 'Mrs Birkett', 'asking-the-way-on-the-fell': 'Shepherd Jack', 'the-village-fete': 'Auntie Edna' },
+      tutorTalk: { schema: 'lani.scenario/v0', id: 'at-the-library', title: { en: 'At the library', sl: 'V knjižnici' }, level: 'A1', setting: { sl: 'Knjižnica v Keswicku.', en: 'The library in Keswick.' }, role: 'Mrs Graham, the librarian. Kind.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Hello! Which book are you looking for?', opener_en: { sl: 'Dober dan! Katero knjigo iščete?', en: 'Hello! Which book are you looking for?' }, packs: ['greetings'] },
+      tutorTitle: 'At the library · V knjižnici',
+      hello: 'Morning!',
+    })
     // the pack's own place: the fell above the lake, in English with its translations, its words from on-the-fell
     const fell = scenes.find((s: any) => s.id === 'on-the-fell')
     check(
@@ -155,10 +171,15 @@ export default async function lakeland() {
   }
 
   // --- the repository's English packs validate ----------------------------------------------------------
+  // (and a word id is one word wherever it is: the same id in two packs is the same English word, one card)
+  const english = new Map<string, Set<string>>()
   for (const dir of [join(repo, 'companion/packs/en'), join(culturesDir, 'lakeland/packs')]) {
     for (const f of new Bun.Glob('*.json').scanSync(dir)) {
       const v = validatePack(JSON.parse(readFileSync(join(dir, f), 'utf8')))
       check(`lakeland: pack validates: ${f}`, v.ok && v.pack.language === 'en' && v.pack.words.every(x => LANGS.every(k => !!(x as any)[k])), !v.ok && v.errors)
+      if (v.ok) for (const w of v.pack.words) english.set(w.id, (english.get(w.id) ?? new Set()).add((w as any).en.toLowerCase()))
     }
   }
+  const twoWords = [...english].filter(([, ens]) => ens.size > 1).map(([id, ens]) => `${id}: ${[...ens].join(' / ')}`)
+  check("lakeland: no word id names two different English words across the English packs", twoWords.length === 0, twoWords)
 }

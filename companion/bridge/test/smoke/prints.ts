@@ -2,12 +2,13 @@
 // GET /course/sheet/<unit>, GET /course/booklet/<level> and GET /course/overview/<page> serve the generator's own HTML
 // (companion/prints/build.ts, overview.ts) of the fixture course and the grammar book, for the bridge's learner (Jan, a
 // man) or as the query says, kept until the content changes.
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { sheetsOf, unitDoc } from '../../../prints/build'
+import { headsOf } from '../../../prints/html'
 import { buildOverview, markAdjective, markDeclension, OVERVIEWS, overviewDoc } from '../../../prints/overview'
-import { loadContent, plain, ruleLine } from '../../../prints/sheet'
-import { auth, base, check, courseRoot, curatedDir } from './harness'
+import { Dictionary, loadContent, plain, ruleLine } from '../../../prints/sheet'
+import { auth, base, check, courseRoot, curatedDir, tempDir } from './harness'
 
 const repo = resolve(import.meta.dir, '../../../..')
 const get = (path: string, headers: Record<string, string> = auth) => fetch(`${base}${path}`, { headers })
@@ -139,6 +140,69 @@ export default async function prints() {
       `the repository's units print each step's point: a step whose explanation shows forms keeps one in its line of the sheet's rule (${steps} steps, every base)`,
       steps > 500 && lost.length === 0,
       lost,
+    )
+  }
+
+  // --- a German or an English course's sheet: its headings, its words without their article --------------------------------
+  check("a course's headings in its language: Regel, Lektion (German), Rule, Unit (English), Regola (Italian), Pravilo otherwise",
+    headsOf('de').rule === 'Regel' && headsOf('de').unit === 'Lektion' && headsOf('de').units(2) === '2 Lektionen' && headsOf('en').rule === 'Rule' && headsOf('en').unit === 'Unit' &&
+      headsOf('en').units(1) === '1 unit' && headsOf('it').rule === 'Regola' && headsOf('sl').rule === 'Pravilo' && headsOf('fr').rule === 'Pravilo')
+  {
+    const root = tempDir('lani-smoke-print-words-')
+    for (const d of ['de', 'en', 'lexicon']) mkdirSync(join(root, d), { recursive: true })
+    writeFileSync(join(root, 'de/tiere.json'), JSON.stringify({ words: [{ id: 'hund', de: 'der Hund', en: 'dog', sl: 'pes', gender: 'm', plural: 'die Hunde' }] }))
+    writeFileSync(join(root, 'en/animals.json'), JSON.stringify({ words: [{ id: 'cat', en: 'the cat', de: 'die Katze', sl: 'mačka' }] }))
+    writeFileSync(join(root, 'lexicon/de.extra.json'), JSON.stringify({ entries: [{ lemma: 'Katze', pos: 'noun', gender: 'f', gloss: ['cat'], meanings: { sl: ['mačka'] }, forms: { Katze: 'nominative singular' } }] }))
+    const ctx = { sl: new Set<string>(), en: new Set<string>(), glosses: new Map<string, string>(), lemmaOf: new Map<string, string>() }
+    const de = new Dictionary({ packs: join(root, 'de'), lexicon: join(root, 'lexicon') }, 'de')
+    const en = new Dictionary({ packs: join(root, 'en'), lexicon: join(root, 'lexicon') }, 'en')
+    const hund = de.meaning('Hund', 'sl', ctx)
+    const hunde = de.meaning('die Hunde', 'en', ctx)
+    const katze = de.meaning('die Katze', 'sl', ctx)
+    const bare = de.meaning('Katze', 'en', ctx)
+    const cat = en.meaning('cat', 'de', ctx)
+    check("a German unit's word finds the pack's noun without its article (Hund: der Hund), its plural with it (die Hunde), the supplement's noun with its article by its gender (die Katze, also for Katze); an English one (cat: the cat)",
+      hund?.lemma === 'der Hund' && hund.gloss === 'pes' && hund.gender === 'm' && hunde?.lemma === 'der Hund' && hunde.gloss === 'dog' && katze?.lemma === 'die Katze' && katze.gloss === 'mačka' && bare?.lemma === 'die Katze' && bare.gloss === 'cat' && cat?.lemma === 'the cat' && cat.gloss === 'die Katze',
+      [hund, hunde, katze, bare, cat])
+    // another language's pack means this one's words too (an Italian pack's "de"), but its gender and plural are its own:
+    // the course's language's packs come first, another's only as a meaning, without either
+    mkdirSync(join(root, 'cultures/friuli'), { recursive: true })
+    mkdirSync(join(root, 'cultures/kaernten'), { recursive: true })
+    writeFileSync(join(root, 'cultures/friuli/cielo.json'), JSON.stringify({ language: 'it', words: [{ id: 'sole', it: 'il sole', de: 'die Sonne', en: 'sun', gender: 'm', plural: 'i soli' }, { id: 'luna', it: 'la luna', de: 'der Mond', en: 'moon', gender: 'f', plural: 'die Lune' }] }))
+    writeFileSync(join(root, 'cultures/kaernten/himmel.json'), JSON.stringify({ language: 'de', words: [{ id: 'sonne', de: 'die Sonne', en: 'sun', sl: 'sonce', gender: 'f', plural: 'die Sonnen' }] }))
+    const sky = new Dictionary({ packs: join(root, 'de'), morePacks: [join(root, 'cultures/friuli'), join(root, 'cultures/kaernten')], lexicon: join(root, 'lexicon') }, 'de')
+    const sonne = sky.meaning('Sonne', 'en', ctx)
+    const mond = sky.meaning('Mond', 'en', ctx)
+    const lune = sky.meaning('die Lune', 'en', ctx)
+    check("a German noun's article and gender are a German pack's (die Sonne, f: Kärnten's, not Friuli's il sole, m); a word only another language's pack means keeps its meaning without its gender or plural (der Mond)",
+      sonne?.lemma === 'die Sonne' && sonne.gender === 'f' && sonne.gloss === 'sun' && mond?.lemma === 'der Mond' && mond.gloss === 'moon' && mond.gender === undefined && lune === null,
+      [sonne, mond, lune])
+  }
+
+  // --- the Italian course's words: each with a meaning in each base --------------------------------------------------------
+  // A word nothing means is left off "Wörter / Besede / Words" (sheet.ts Dictionary): the Italian supplement
+  // (companion/lexicon/it.extra.json) means the course's everyday verbs, adverbs, nouns and expressions in German,
+  // Slovene and English, and a pack's noun the unit lists in the plural is found by it (i cavalli: il cavallo). Every unit
+  // of A1, A2 and B1, in each base, lists every word the unit names that its table doesn't show.
+  {
+    const it = loadContent(repo, 'it')
+    const left: string[] = []
+    let listed = 0
+    const de = new Map<string, string>()
+    for (const b of ['de', 'sl', 'en']) {
+      for (const level of ['A1', 'A2', 'B1']) {
+        for (const s of sheetsOf(it, level, { base: b, learner: 'Teo', gender: 'both' })) {
+          listed += s.words.length
+          for (const n of s.notes) left.push(`${level} ${s.id} (${b}): ${n}`)
+          if (b === 'de') for (const w of s.words) de.set(`${s.id}/${w.word}`, `${w.lemma ? `(${w.lemma}) ` : ''}${w.gloss}`)
+        }
+      }
+    }
+    check(`the Italian sheets (A1, A2, B1) mean every word they list, in German, Slovene and English (${listed} words)`, listed > 4000 && left.length === 0, left.slice(0, 20))
+    check(
+      "… in the base the sheet is in: the unit's own gloss first (quando in futuro: wenn, the meaning its sentences use, not the supplement's wann; wenn, als), then the supplement's own German (pizzicare: zwicken), its noun by the word without its article (il treno: Zug; il freddo: Kälte, while aggettivi's freddo stays the pack's kalt), a plural noun with its singular (i cavalli: il cavallo, Pferd)",
+      de.get('futuro/quando') === 'wenn' && de.get('piacere/pizzicare') === 'zwicken' && de.get('futuro/il treno') === 'Zug' && de.get('piacere/il freddo') === 'Kälte' && de.get('aggettivi/freddo') === 'kalt' && de.get('piacere/i cavalli') === '(il cavallo) Pferd',
+      ['futuro/quando', 'piacere/pizzicare', 'futuro/il treno', 'piacere/il freddo', 'aggettivi/freddo', 'piacere/i cavalli'].map(k => [k, de.get(k)]),
     )
   }
 

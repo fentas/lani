@@ -25,6 +25,7 @@ how to write units.
 - [The learner's progress](#the-learners-progress)
 - [Writing a unit](#writing-a-unit)
 - [The Italian course](#the-italian-course)
+- [The German course](#the-german-course)
 - [Printed sheets](#printed-sheets)
 
 ## The files
@@ -1037,6 +1038,135 @@ order, B1's earlier ones only lightly:
   none; a wrong option is wrong Italian or wrong by its own sentence (la mia where Davide is told about, sono where
   Giulia said it).
 
+## The German course
+
+The German course is `companion/course/de/`: the outline (A1, 18 units, the grammar book's German pages to teach) and
+its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
+Gasthaus, Mostbauer Stefan's cider, Tante Mitzi, Müller Franz and his mill, Schmied Toni, Imker Stanko, Hirte Florian
+and his sheep, Opa Sepp's stories, Oma Resi's kitchen, the Kirchtag). It serves a learner of German from Slovene, English
+or Italian (a visitor, a neighbour across the border), and is the same school as the others: the bridge serves the course
+of the village's language (`GET /course` of a Carinthian village is German), the app bundles it, and every part of the
+school is the course's language's:
+
+| What | For German |
+|---|---|
+| Who teaches | the school's person of the culture's cast (`Residents.brings(SCHOOL)`: Lehrerin Eva in Kärnten), in her cast's voice (`teacher`, Lily; `@eva` once she has her own); the guide names her (features/course.ts) |
+| Read aloud | the intro's German in her voice: `Spoken.looks` for German (ä, ö, ü, ß, its frequent words) and the words the intro itself shows; the explanation in the learner's base as one clip (`en\|…`, `sl\|…`, `it\|…`); voice-build's `course` source makes her lines ahead (`course-speech.ts`, the smoke's Carinthian checks) |
+| The teacher's lines | "Willkommen in der Schule! Setzt euch, fangen wir an." and "Das kannst du schon": Eva says du, as the village does |
+| Texts in the base | the exercises' instructions, hints, whys, labels and columns per base `{en, sl, it}` ([above](#texts-in-the-learners-language)); the intro's `say`, the titles, the goals and the examples in every base too |
+| Grading | the German table (`grading/de.json`): ae, oe, ue, ss for ä, ö, ü, ß almost (hint umlaut), an umlaut left out a slip in the stem; capitals don't count (a noun typed small is right, as is sie for Sie: du or Sie is asked by a tap, never typed); geht's, gehts and geht es one answer, tschüs and tschüss, the spoken hab for habe; known mistakes, each only for a word of its group: the plural's umlaut (Apfel for Äpfel, Vater for Väter), the present's vowel change (fahrst for fährst, lest for liest), er's form for du's on a short stem (sagt for sagst, hat for hast, ist for bist), ein for kein, ich, mich, dich for each other, a number word for another (einundzwanzig for neunundzwanzig); the subject is never left out (`drop_subject` false) |
+| Austrian standard | the village's German: Grüß Gott, Servus, Baba, Jänner, heuer, Paradeiser, Erdapfel, Topfen, Sackerl; where Germany says otherwise (Januar, Tomate, Kartoffel, Tschüss), that form is accepted too and named in the explanation |
+| The blackboard | "Willkommen!" and the day as Austria writes it (1.11.2026) before the first unit; the unit's title and forms in chalk (ä, ö, ü, ß written) |
+| Prints | headed in German and the base ("Regel · The rule", "Lektion"), the words from the German and the culture's packs with their article (der Hund), the supplement's words (`lexicon/de.extra.json`) with their meanings in Slovene and Italian; Slovene, English and Italian as bases |
+| Not for German | forms cards, counting cards and the numbers module, case rows, the cases overview (Slovene's); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`) |
+| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
+
+Writing a German unit: as [Writing a unit](#writing-a-unit), for adults: the village's grown-ups and their work, never
+the learner's own data (an age is Stefan's, not the learner's). The explanations in English, Slovene and Italian, every
+German form in **bold** with its meaning in brackets right after it; the exercises' texts per base; du to the learner and
+among the villagers, Sie where the unit teaches it (to a stranger, Grüß Gott, Wie heißen Sie?); nouns always with their
+capital and, where a word list gives them, their article; Austrian words where the village says them, the German-German
+one accepted; every file flagged machine-written in its `review`, with what a native speaker should look at (Austrian
+German first, then each base).
+
+### The German course: units 1–6
+
+A1's first six units, the greetings to the numbers (docs/plans/05-built/course-de-a1-a.md; the next twelve are the
+course's other writers'):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `hallo` 👋 | Grüß Gott, Servus, Guten Morgen, Guten Abend; Auf Wiedersehen, Tschüss, Baba; ich heiße, wie heißt du, wie heißen Sie; du with the village, Sie with a stranger; Wie geht's? | du-sie |
+| `sein` 🟰 | ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind; Sie with the capital; who and where, what someone is (Kathi ist Wirtin) | sein-haben |
+| `artikel` 🏷️ | der, die, das and ein, eine; the noun's capital; the gender learned with the word; -e mostly die, -chen das, people by sex; Austrian der Paradeiser, der Erdapfel | artikel-genus |
+| `plural` 🐑 | -e, -(e)n, -er, -s and none; the umlaut (Äpfel, Väter, Bücher); die for every plural | plural, artikel-genus |
+| `haben` 🎒 | ich habe (spoken hab), du hast, er hat, wir haben, ihr habt; Hunger and Durst haben, age with sein | sein-haben |
+| `zahlen` 🔢 | null to zwanzig, sechzehn and siebzehn, the tens (dreißig with ß), einundzwanzig (the one first), hundert; eins counting, ein before a noun; Wie viel? Wie viele? | zahlen |
+
+- **A base's prompt has no gap and no umlaut**: a quick question's prompt with a gap and no Markdown is read in Eva's
+  voice as German (`questionLines`), and so is one with ä, ö, ü or ß (the app's check). A prompt per base is a situation
+  ending in a colon ("Stefan meets his friend Florian on the path. Stefan:"), its options whole German phrases; a
+  prompt with a gap is German only ("Wie heißen ___?"); a German word inside a base's prompt goes in „…".
+- **A cue at the end of an intro's quick question**: the answer's sentence is read with the gap filled, and only
+  brackets at its end are left out: "Die ___ sind rot. (Apfel)", "Franz hat ___ Säcke Mehl. (17)". In the sheets the
+  cue stays right after the gap.
+- **Only what came before around a gap**: no verb but sein, haben and heißen conjugated in units 1–6, the subject first
+  (no inversion before `wortstellung`), no masculine article after haben (the accusative is unit 11: eine Katze, ein
+  Pferd, viele Bienen, Hunger, Zeit), places as fixed chunks (im Gasthaus, auf der Alm, zu Hause), never a gap.
+- **du or Sie by a tap**: the grading doesn't see capitals, so sie typed for Sie is right; a choice tells them apart.
+- **A spoken form the grading already takes** (hab, which `same` makes habe) isn't listed in `spoken`: it would be right
+  without its label, and `CourseContentChecks` wants each spoken form labelled. Name it in the intro instead.
+
+### The German course: units 7–12
+
+A1's middle six units, from the numbers to saying no (docs/plans/05-built/course-de-a1-b.md): the present, its vowel
+change, questions, the verb in second place, the accusative and the negation, in the village's adult life (Kathi's
+Kasnudeln and her Ruhetag, Stefan's cider and his drive to Villach, Florian on the Alm with Bello, Stanko's honey at the
+market, Opa Sepp's Lindwurm, Herr Rossi from Udine as a guest):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `praesens` 🏃 | -e, -st, -t, -en, -t, -en (wohnen, kommen, kochen); ihr -t as er; Sie -en; the pronoun always there, one present for I cook and I'm cooking; du arbeitest, er findet (the e after -t, -d); du tanzt (-s, -ß, -z: only -t); gern after the verb | praesens, du-sie |
+| `vokalwechsel` 🔄 | a → ä (fährst, schläft, trägt), au → äu (läuft), e → i (sprichst, gibt, es gibt), e → ie (siehst, liest) for du and er only; ihr fahrt; isst, nimmt; er isst against er ist | vokalwechsel (a new page), praesens |
+| `fragen` ❓ | the question word, the verb, the person (Wo wohnst du?); wer is who; wann (not wenn), wie, warum; wo, wohin, woher; the verb first for yes or no; doch; questions to Sie | fragen |
+| `wortstellung` 🧱 | the verb second whatever comes first (Heute backt Oma Resi Kuchen); a first part of several words (am Abend); und, aber, oder take no place, dann does; the question's verb; when before where (morgen nach Villach) | wortstellung, fragen |
+| `akkusativ` 🎯 | der → den, ein → einen, nothing else changes; es gibt + accusative; the subject keeps der (Den Fuchs sieht der Hund); ihn, sie, es, mich, dich; für + accusative | akkusativ, artikel-genus |
+| `kein-nicht` 🚫 | kein for ein and for no article (keine Zeit, keinen Hunger), nicht for the rest; nicht at the end, before a place or an adjective; kein … mehr, nicht mehr | kein-nicht, akkusativ |
+
+- **Only what came before around a gap**: units 7–9 keep the subject first (an intro's example may ask a yes or no
+  question, known from haben) and no masculine article after a verb; `wortstellung` brings the inversion, `akkusativ`
+  den and einen, and from there on both may stand around a gap. The verb's bracket (a modal, the Perfekt, a separable
+  verb) is units 13–18's: `wortstellung` teaches the second place only.
+- **Two words in one gap** where the order is the point: `wortstellung`'s gap text asks for the verb and the person
+  (`Am Sonntag ___ (wir · gehen) in die Kirche.` → `gehen wir`), its bank of such pairs and the pairs the other way
+  round as distractors (`wir gehen`: wrong, two words differ); its choices offer the two orders (`kocht Kathi`, `Kathi
+  kocht`).
+- **A reorder only in the second or third sheet**: QA's `course-unit` plays the first sheet and the test, and doesn't
+  play a reorder. Every order of the tokens that is right is a solution (`Im Gasthaus kocht Kathi Kasnudeln.` and
+  `Kathi kocht im Gasthaus Kasnudeln.`).
+- **The article in brackets** when a gap could take two (`Toni sucht ___ (der) Hammer.` → `den`, not einen), and the
+  verb in brackets for a form (`Kathi ___ (kochen) Kasnudeln.`).
+- **No example column beside a column of forms** in an intro's table: the print marks a cell against the one to its
+  left, and the words in front of the form (`Ich sehe` in `Ich sehe den Hund.`) came out marked as forms. A table of
+  forms has forms only (der Hund · den Hund); the sentences are the examples.
+- **The grading** (`grading/de.json`) knows three more of A1's mistakes, never slips: the e after -t or -d left out
+  (`arbeitst`, `findst` for arbeitest, findest), `ist` (is) for `isst` (eats), `wenn` for the question word `wann`;
+  and `gerne` is `gern` (one answer, as Germany says it too). `bäckt` is listed beside `backt`, both standard.
+- **Slovene says da**, not the spoken ja, in a translation (`Ali vidiš Dobrač? – Da, vidim ga!`); a German `Ja!` in an
+  example stays German.
+
+### The German course: units 13–18
+
+A1's last six units, whose it is to the past (docs/plans/05-built/course-de-a1-c.md). They come after the present, the
+questions, the verb second, the accusative and kein/nicht (units 7–12) and use only those and the units before around
+their gaps (places as the fixed chunks of units 1–6):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `possessiv` 👪 | mein, dein like ein (mein Hund, meine Katze); sein and ihr by the owner, the ending by the noun; unser, euer/eure, ihr, Ihr; seinen in the accusative; a name's -s (Kathis Gasthaus, Franz' Mühle) | possessiv, akkusativ |
+| `uhrzeit` 🕖 | Wie spät ist es?; sieben Uhr, ein Uhr or eins; halb acht (7:30, towards eight); Viertel nach/vor, the Austrian viertel acht and dreiviertel acht; zehn nach sieben; um, am, im; the days; in der Früh, Jänner, heuer; the verb second after a time | uhrzeit, zahlen |
+| `moechten` 🙋 | Ich möchte einen Kaffee, Was möchten Sie?; möchten and können in every person (ich = er, no -t); the other verb at the end; Kann ich zahlen?, nicht; Ich hätte gern | modalverben, wortstellung |
+| `trennbare` ✂️ | the prefix at the end (Ich stehe um sieben auf); einkaufen, anrufen, mitkommen; questions and nicht; the Austrian aufsperren, zusperren; whole after möchten and können; be-, ver-, er- never come off | trennbare-verben, wortstellung |
+| `imperativ` 📣 | komm!, kommt!, kommen Sie!; the -e (komme!) and warte!; gib!, nimm!, lies! but fahr!, schlaf!; sei!, seid!, seien Sie!; bitte, mal, doch; steh auf!, nicht | imperativ, du-sie |
+| `perfekt` ⏪ | haben + ge-…-t, ge-…-en learned with the verb; sein for going and coming, the Austrian ist gesessen; the participle at the end; eingekauft, aufgestanden; besucht, verstanden, telefoniert without ge- | perfekt, sein-haben |
+
+- **Pages written for them**: `possessiv`, `uhrzeit` and `imperativ` (A1, each with its cheat-sheet card), where the
+  book had none; `modalverben`, `trennbare-verben` and `perfekt` are the book's A2 pages, named as they are.
+- **Austrian first, the German-German accepted and named**: viertel acht and dreiviertel acht (also drei viertel acht)
+  beside Viertel nach sieben and Viertel vor acht, and sieben Uhr fünfzehn as a timetable says it; in der Früh (am
+  Morgen), Jänner (Januar), heuer; aufsperren and zusperren (aufschließen, abschließen; zumachen accepted where it
+  fits); ist gesessen, gestanden, gelegen (hat gesessen in Germany) taught and only tapped, never typed.
+- **Every right form listed**: the imperative's -e where Duden has it (Mach!/Mache!, Steh auf!/Stehe auf!), never on an
+  e→i verb (gib!, lies!); unseren beside unsren and unsern; Stankos with no apostrophe.
+- **Ihr and ihr by a tap**, as Sie and sie: the grading doesn't see the capital, so the polite Ihr is asked in a choice.
+- **The grading's pairs for these units** (`grading/de.json`, each only for a word of its group, a slip elsewhere
+  forgiven): mein, dein, sein, ein, kein for each other with any ending (whose, not a slip); mochte for möchte;
+  fähr!, läuf! for fahr!, lauf! (and ich fähre); a strong participle with the infinitive's vowel (getrinken,
+  geschreiben, gebleiben); ge- where none goes (getelefoniert, gebesucht) and a separable participle without it
+  (anrufen for angerufen, einkauft).
+- **Their words in the supplement** (`lexicon/de.extra.json`): the possessives' forms, möchten and können, the time's
+  little words and the days; the verbs part b added (kommen, machen, fahren, geben, sprechen …) are part b's entries.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
@@ -1074,7 +1204,7 @@ What a sheet has, and where it comes from (`companion/prints/sheet.ts`):
 | **Tabela · The table** | the intro's table as its steps build it, or the first grammar page's when that shows the same forms in fewer rows (biti); one more of the unit's pages when it adds forms the unit uses (spol: the adjectives), the first thing left out to fit. Endings marked: by a column of endings, down a column of one word's forms, or against the form the cell is made from (kava → kav**o**, sem → **ni**sem); rows of a later level left out |
 | **Primeri · Examples** | the intro's examples, the first of each step first, at most six; the table's forms in them bold |
 | **Pazi · Watch out** | three wrong ✗ / right ✓ pairs: what a text says is wrong ("**Kje je Luka?** (never *Kje Luka je?*)", "Never *ne sem*", "*Vidim nič* is wrong"), a quick question's or a worksheet choice's wrong option in its sentence (never one marked `almost`: a spoken or near form), a gap whose word in brackets left unchanged is the mistake ("To je ___ (moj) hiša.") |
-| **Besede · Words** | the unit's `words`, with gender and meaning: a pack's word, the dictionary's supplement, Wiktionary (the meaning the unit's own text points to: peti is "fifth" in the numbers); not the ones the table shows, nor names. A word nothing knows is left out (the run lists them) |
+| **Besede · Words** | the unit's `words`, with gender and meaning in the sheet's base, in this order: the unit's own gloss ("**quando** (wenn)" in its intro, unless its English bracket is a note: "**rad** (a man)"), the dictionary's supplement's entry of the word with its own meaning in the base (an Italian noun by the word without its article, il treno), a pack's word (an Italian noun in the plural with its article, i cavalli, by the pack's plural, its singular beside it), then the supplement's and Wiktionary's other readings (the meaning the unit's own text points to: peti is "fifth" in the numbers); not the ones the table shows, nor names. A word nothing knows is left out (the run lists them); the Italian course's A1, A2 and B1 leave none out (the supplement has the rest, it-print-meanings) |
 | **Preveri se · Check yourself** | five items of the worksheets (the test stays the app's): gaps in their sentence, transforms, choices, grouped by instruction; ten on a sheet of two pages. The answers upside down at the page's foot |
 | The footer | "Strojno napisano, preveri z naravnim govorcem · machine-written, to be checked by a native speaker" while the unit's `review` says it's unreviewed; the Wiktionary attribution when a meaning comes from it |
 

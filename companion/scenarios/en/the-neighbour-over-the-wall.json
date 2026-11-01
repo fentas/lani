@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "the-neighbour-over-the-wall",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "The neighbour over the wall", "sl": "Sosed čez zid", "de": "Der Nachbar über der Mauer", "it": "Il vicino oltre il muro" },
+  "emoji": "🧱",
+  "level": "A2",
+  "setting": {
+    "sl": "Sončno jutro po tednu dežja. Na vrtu si, sosed pa se nasloni na kamniti zid in poklepeta o vremenu, svoji zelenjavi in psici Meg.",
+    "de": "Ein sonniger Morgen nach einer Woche Regen. Du bist im Garten, und der Nachbar lehnt sich auf die Trockenmauer und plaudert über das Wetter, sein Gemüsebeet und seine Hündin Meg.",
+    "it": "Una mattina di sole dopo una settimana di pioggia. Sei in giardino e il vicino si appoggia al muretto a secco per chiacchierare del tempo, del suo orto e della sua cagnolina Meg.",
+    "en": "A sunny morning after a week of rain. You are in the garden, and the neighbour leans on the drystone wall for a chat about the weather, his vegetable patch and his dog Meg."
+  },
+  "role": "Mr Bowness, the retired farmer next door. Kind, a bit gruff, loves his vegetable patch and his sheepdog Meg; talks about the weather as everyone in the Lakes does. Simple British English with a light Cumbrian touch (\"Now then!\", \"a grand day\").",
+  "who": { "en": "The neighbour", "sl": "Sosed", "de": "Der Nachbar", "it": "Il vicino" },
+  "voice": "male",
+  "speaker": "grandpa",
+  "place": "field",
+  "goals": [
+    { "en": "Greet him", "sl": "Pozdravi ga", "de": "Grüße ihn", "it": "Salutalo" },
+    { "en": "Say how you are", "sl": "Povej, kako si", "de": "Sag, wie es dir geht", "it": "Di' come stai" },
+    { "en": "Say something about the weather", "sl": "Povej kaj o vremenu", "de": "Sag etwas über das Wetter", "it": "Di' qualcosa sul tempo" },
+    { "en": "Ask about his garden or his dog", "sl": "Vprašaj o njegovem vrtu ali psu", "de": "Frag nach seinem Garten oder seinem Hund", "it": "Chiedi del suo orto o del suo cane" },
+    { "en": "Say goodbye", "sl": "Poslovi se", "de": "Verabschiede dich", "it": "Saluta" }
+  ],
+  "opener_sl": "Now then! Grand day, isn't it? Makes a change from all that rain.",
+  "opener_en": {
+    "sl": "Zdravo! Krasen dan, kaj? Končno, po vsem tem dežju.",
+    "de": "Na, grüß dich! Herrlicher Tag, nicht? Endlich mal kein Regen.",
+    "it": "Salve! Che bella giornata, eh? Finalmente, dopo tutta quella pioggia.",
+    "en": "Hello there! A lovely day, isn't it? Nice after all that rain."
+  },
+  "vocabulary_hints": [
+    { "sl": "Morning! I'm fine, thanks. And you?", "en": { "sl": "Dobro jutro! Dobro, hvala. Pa vi?", "de": "Guten Morgen! Gut, danke. Und Ihnen?", "it": "Buongiorno! Bene, grazie. E lei?", "en": "Good morning! Fine, thanks. And you?" } },
+    { "sl": "Yes, it's lovely and sunny!", "en": { "sl": "Ja, lepo sončno je!", "de": "Ja, schön sonnig!", "it": "Sì, c'è un bel sole!", "en": "Yes, it's nice and sunny!" } },
+    { "sl": "It rained all week.", "en": { "sl": "Ves teden je deževalo.", "de": "Es hat die ganze Woche geregnet.", "it": "Ha piovuto tutta la settimana.", "en": "It was raining all week." } },
+    { "sl": "Your garden looks lovely!", "en": { "sl": "Vaš vrt je čudovit!", "de": "Ihr Garten sieht schön aus!", "it": "Il suo orto è bellissimo!", "en": "Your garden is beautiful!" } },
+    { "sl": "Is that your dog?", "en": { "sl": "Je to vaš pes?", "de": "Ist das Ihr Hund?", "it": "È il suo cane?", "en": "Is the dog yours?" } },
+    { "sl": "See you later!", "en": { "sl": "Se vidiva!", "de": "Bis später!", "it": "A dopo!", "en": "See you!" } }
+  ],
+  "packs": ["weather-and-garden", "in-the-village", "home-and-kitchen", "family", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

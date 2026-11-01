@@ -1,0 +1,44 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "asking-the-way-on-the-fell",
+  "language": "en",
+  "audience": "adult",
+  "title": { "en": "Asking the way on the fell", "sl": "Vprašaj za pot v hribih", "de": "Nach dem Weg fragen am Fell", "it": "Chiedere la strada sul monte" },
+  "emoji": "🧭",
+  "level": "A2",
+  "setting": {
+    "sl": "Na pobočju nad vasjo (fell: tako v Lake Districtu rečejo goram). Megla se spušča in ne najdeš več poti do jezerca (tarn). Ob kamnitem zidu brez malte (suhi zid) pase ovce pastir Jack.",
+    "de": "Am Hang über dem Dorf, auf dem Fell (so heißen die Berge im Lake District). Der Nebel kommt herunter, und du findest den Weg zum Bergsee (dem Tarn) nicht mehr. An der Trockenmauer hütet Schäfer Jack seine Schafe.",
+    "it": "Sul pendio sopra il paese, sul fell (così si chiamano i monti nel Lake District). Scende la nebbia e non trovi più il sentiero per il laghetto (il tarn). Vicino al muretto a secco il pastore Jack bada alle sue pecore.",
+    "en": "On the fellside above the village (in the Lake District the hills are fells). The mist is coming down and you can't find the path to the tarn, the little mountain lake. By the drystone wall, Shepherd Jack is with his sheep."
+  },
+  "role": "Shepherd Jack, out on the fell with his Herdwick sheep and his dog. Calm, kind, a man of few words; gives the way in short steps: follow the wall, over the stile, cross the beck, left at the cairn; the tarn is twenty minutes. Cumbrian words (fell, beck, tarn) and \"Now then!\".",
+  "who": { "en": "The shepherd on the fell", "sl": "Pastir v hribih", "de": "Der Schäfer am Fell", "it": "Il pastore sul monte" },
+  "voice": "male",
+  "place": "field",
+  "goals": [
+    { "en": "Greet him", "sl": "Pozdravi ga", "de": "Grüße ihn", "it": "Salutalo" },
+    { "en": "Say you are lost", "sl": "Povej, da si se {m:izgubil|f:izgubila}", "de": "Sag, dass du dich verlaufen hast", "it": "Di' che ti sei {m:perso|f:persa}" },
+    { "en": "Ask the way to the tarn", "sl": "Vprašaj za pot do jezerca", "de": "Frag nach dem Weg zum Tarn", "it": "Chiedi la strada per il tarn" },
+    { "en": "Ask how far it is", "sl": "Vprašaj, kako daleč je", "de": "Frag, wie weit es ist", "it": "Chiedi quanto è lontano" },
+    { "en": "Thank him", "sl": "Zahvali se mu", "de": "Bedanke dich", "it": "Ringrazialo" }
+  ],
+  "opener_sl": "Now then! You look a bit lost. Where are you heading?",
+  "opener_en": {
+    "sl": "Zdravo! Videti ste malo izgubljeni. Kam pa greste?",
+    "de": "Na, grüß dich! Du siehst ein bisschen verloren aus. Wo willst du hin?",
+    "it": "Salve! Sembra un po' {m:perso|f:persa}. Dove sta andando?",
+    "en": "Hello there! You look a bit lost. Where are you going?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Hello! I'm a bit lost.", "en": { "sl": "Zdravo! Malo sem se {m:izgubil|f:izgubila}.", "de": "Hallo! Ich habe mich ein bisschen verlaufen.", "it": "Salve! Mi sono un po' {m:perso|f:persa}.", "en": "Hello! I've lost my way a bit." } },
+    { "sl": "Which way is the tarn?", "en": { "sl": "Kod se pride do jezerca?", "de": "Wo geht es zum Tarn?", "it": "Da che parte è il tarn?", "en": "Where is the way to the tarn?" } },
+    { "sl": "Is it far?", "en": { "sl": "Je daleč?", "de": "Ist es weit?", "it": "È lontano?", "en": "Is it a long way?" } },
+    { "sl": "Follow the wall.", "en": { "sl": "Pojdi ob zidu.", "de": "Geh die Mauer entlang.", "it": "Segui il muro.", "en": "Walk along the wall." } },
+    { "sl": "over the stile", "en": { "sl": "čez prehod v zidu (stopnice čez ograjo)", "de": "über den Zauntritt (die Stufen über die Mauer)", "it": "oltre la scaletta (i gradini sopra il muro)", "en": "over the steps in the wall" } },
+    { "sl": "Turn left at the cairn.", "en": { "sl": "Pri možicu zavij levo.", "de": "Beim Steinmann links abbiegen.", "it": "All'ometto di pietre gira a sinistra.", "en": "Turn left at the pile of stones." } },
+    { "sl": "Thanks a lot!", "en": { "sl": "Najlepša hvala!", "de": "Vielen Dank!", "it": "Grazie mille!", "en": "Thank you very much!" } }
+  ],
+  "packs": ["asking-the-way", "on-the-fell", "in-the-village", "greetings"],
+  "review": "en, sl, de, it: machine-written, not reviewed by a native speaker"
+}

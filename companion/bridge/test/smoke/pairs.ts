@@ -91,6 +91,13 @@ export default async function pairs() {
     check('pairs sl ← de: a villager is found by name', w.entries?.[0]?.source === 'village', w)
     const talk = await get('/villagers/micka/scenario')
     check('pairs sl ← de: a talk opens in Slovene', typeof talk.opener_sl === 'string' && talk.opener_sl.length > 0 && talk.setting?.includes('Lena'), talk)
+    // Jan's role-plays read in German: the setting, the goals and the meanings, the title and who in sl · de
+    const bakery = await get('/scenarios/v-pekarni')
+    check(
+      "pairs sl ← de: Jan's role-plays in German (V pekarni · In der Bäckerei)",
+      bakery.title === 'V pekarni · In der Bäckerei' && bakery.who === 'Prodajalka v pekarni · Die Verkäuferin' && bakery.goals[0] === 'Grüße die Verkäuferin' && bakery.setting.startsWith('Früh am Morgen') && bakery.opener_en === 'Guten Morgen! Was darf es sein?' && bakery.vocabulary_hints.some((h: any) => h.sl === 'Koliko stane?' && h.en === 'Was kostet das?'),
+      bakery,
+    )
   })
 
   // --- it ← en: an English speaker in Friuli -----------------------------------------------------------------
@@ -117,6 +124,13 @@ export default async function pairs() {
     // the opener is one of her first greetings that fits the hour (a "Good day" by day, not in the evening)
     const hellos = (micka?.lines?.greet ?? []).filter((l: any) => (l.level ?? 0) === 0)
     check("pairs en ← it: Micka greets in English (the village's language)", hellos.some((l: any) => talk.opener_sl === l.en), { talk: talk.opener_sl, hellos })
+    // the English role-plays (companion/scenarios/en), their texts in Italian
+    const shop = await get('/scenarios/at-the-farm-shop')
+    check(
+      'pairs en ← it: an English role-play in en · it (At the farm shop · Allo spaccio della fattoria)',
+      shop.title === 'At the farm shop · Allo spaccio della fattoria' && shop.goals[0] === 'Greet Mrs Atkinson · Saluta la signora Atkinson' && shop.setting.startsWith('Sabato mattina') && shop.opener_sl.startsWith('Morning, love!') && shop.vocabulary_hints.some((h: any) => h.sl === 'How much is that?' && h.en === 'Quanto costa?'),
+      shop,
+    )
   })
 
   check('a profile may name the app\'s languages in any of the four', languageCode('Slowenisch') === 'sl' && languageCode('tedesco') === 'de' && languageCode('Englisch') === 'en' && languageCode('italijanščina') === 'it' && languageCode('Klingon') === undefined)

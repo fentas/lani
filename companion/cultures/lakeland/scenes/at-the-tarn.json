@@ -1,0 +1,2297 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "at-the-tarn",
+  "language": "en",
+  "title": {
+    "en": "At the tarn",
+    "sl": "Pri gorskem jezercu",
+    "it": "Al laghetto",
+    "de": "Am Bergsee"
+  },
+  "emoji": "🪷",
+  "level": "A1",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants, the whys): machine-written (Claude), not reviewed by a native speaker",
+  "art": "pond",
+  "from": [
+    "spot:pond"
+  ],
+  "pack": "at-the-tarn",
+  "objects": [
+    {
+      "slot": "pond",
+      "word": "tarn",
+      "pack": "legends"
+    },
+    {
+      "slot": "lilies",
+      "word": "water-lily"
+    },
+    {
+      "slot": "reeds",
+      "word": "reed"
+    },
+    {
+      "slot": "frog",
+      "word": "frog"
+    },
+    {
+      "slot": "ducks",
+      "word": "duck"
+    },
+    {
+      "slot": "jetty",
+      "word": "jetty"
+    },
+    {
+      "slot": "boat",
+      "word": "boat",
+      "pack": "legends"
+    },
+    {
+      "slot": "fish",
+      "word": "fish",
+      "pack": "food"
+    },
+    {
+      "slot": "heron",
+      "word": "heron"
+    },
+    {
+      "slot": "dragonfly",
+      "word": "dragonfly",
+      "pack": "by-the-beck"
+    },
+    {
+      "slot": "deer",
+      "word": "deer",
+      "pack": "in-the-field"
+    },
+    {
+      "slot": "fox",
+      "word": "fox",
+      "pack": "in-the-field"
+    },
+    {
+      "slot": "butterfly",
+      "word": "butterfly",
+      "pack": "in-the-field"
+    },
+    {
+      "slot": "bat",
+      "word": "bat",
+      "pack": "in-the-field"
+    }
+  ],
+  "people": [
+    {
+      "id": "wilf",
+      "name": "Old Wilf",
+      "emoji": "👴",
+      "art": "grandpa",
+      "slot": "jetty",
+      "villager": "wilf"
+    },
+    {
+      "id": "arthur",
+      "name": "Beekeeper Arthur",
+      "emoji": "🐝",
+      "art": "beekeeper",
+      "slot": "shore",
+      "villager": "arthur"
+    },
+    {
+      "id": "poppy",
+      "name": "Poppy",
+      "emoji": "👧",
+      "art": "child2",
+      "slot": "reeds",
+      "villager": "poppy"
+    },
+    {
+      "id": "harry",
+      "name": "Harry",
+      "emoji": "🧒",
+      "art": "child1",
+      "slot": "jetty",
+      "villager": "harry"
+    }
+  ],
+  "happenings": [
+    {
+      "id": "heron",
+      "title": {
+        "en": "Arthur watches the heron",
+        "sl": "Arthur opazuje čapljo",
+        "it": "Arthur guarda l'airone",
+        "de": "Arthur beobachtet den Reiher"
+      },
+      "who": "arthur",
+      "when": [
+        "dawn",
+        "morning"
+      ],
+      "chance": 0.5,
+      "dialog": "heron",
+      "dialogs": [
+        "heron-mist",
+        "heron"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🪶",
+      "memory": {
+        "en": "the heron's breakfast at the tarn",
+        "sl": "čapljin zajtrk pri jezercu",
+        "it": "la colazione dell'airone al laghetto",
+        "de": "das Frühstück des Reihers am See"
+      }
+    },
+    {
+      "id": "fishing",
+      "title": {
+        "en": "Old Wilf goes fishing",
+        "sl": "Stari Wilf lovi ribe",
+        "it": "Il vecchio Wilf va a pesca",
+        "de": "Der alte Wilf geht angeln"
+      },
+      "who": "wilf",
+      "when": [
+        "afternoon"
+      ],
+      "months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "chance": 0.5,
+      "dialog": "fishing",
+      "dialogs": [
+        "fishing-count",
+        "fishing"
+      ],
+      "reward": {
+        "food": 20
+      },
+      "marker": "🎣",
+      "memory": {
+        "en": "the afternoon we fished with Wilf and Bess",
+        "sl": "popoldne, ko sva z Bess lovila ribe",
+        "it": "il pomeriggio in cui abbiamo pescato con Wilf e Bess",
+        "de": "den Nachmittag, an dem wir mit Wilf und Bess geangelt haben"
+      }
+    },
+    {
+      "id": "frogs",
+      "title": {
+        "en": "Poppy looks for frogs",
+        "sl": "Poppy išče žabe",
+        "it": "Poppy cerca le rane",
+        "de": "Poppy sucht Frösche"
+      },
+      "who": "poppy",
+      "when": [
+        "afternoon"
+      ],
+      "months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "chance": 0.5,
+      "dialog": "frogs",
+      "dialogs": [
+        "frogs-tadpoles",
+        "frogs"
+      ],
+      "reward": {
+        "wisdom": 10
+      },
+      "marker": "🐸",
+      "memory": {
+        "en": "the frog on the water lily",
+        "sl": "žaba na lokvanju",
+        "it": "la rana sulla ninfea",
+        "de": "den Frosch auf der Seerose"
+      }
+    },
+    {
+      "id": "race",
+      "title": {
+        "en": "Harry races to the tarn",
+        "sl": "Harry teče do jezerca",
+        "it": "Harry fa a gara fino al laghetto",
+        "de": "Harry rennt um die Wette zum See"
+      },
+      "who": "harry",
+      "when": [
+        "morning"
+      ],
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "weekdays": [
+        6,
+        7
+      ],
+      "chance": 0.5,
+      "dialog": "race",
+      "dialogs": [
+        "race-stones",
+        "race"
+      ],
+      "reward": {
+        "wood": 10
+      },
+      "marker": "🏃",
+      "memory": {
+        "en": "the race to the tarn with Harry",
+        "sl": "tek do jezerca s Harryjem",
+        "it": "la gara fino al laghetto con Harry",
+        "de": "das Wettrennen zum See mit Harry"
+      }
+    },
+    {
+      "id": "ice",
+      "title": {
+        "en": "Harry and the ice",
+        "sl": "Harry in led",
+        "it": "Harry e il ghiaccio",
+        "de": "Harry und das Eis"
+      },
+      "who": "harry",
+      "when": [
+        "afternoon"
+      ],
+      "months": [
+        12,
+        1,
+        2
+      ],
+      "chance": 0.5,
+      "dialog": "ice",
+      "dialogs": [
+        "ice-snowman",
+        "ice"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🧊",
+      "memory": {
+        "en": "the day we stayed off the ice",
+        "sl": "dan, ko nisva stopila na led",
+        "it": "il giorno in cui siamo stati lontani dal ghiaccio",
+        "de": "den Tag, an dem wir nicht aufs Eis gegangen sind"
+      }
+    },
+    {
+      "id": "dusk",
+      "title": {
+        "en": "Evening at the tarn",
+        "sl": "Večer pri jezercu",
+        "it": "Sera al laghetto",
+        "de": "Abend am Bergsee"
+      },
+      "who": "arthur",
+      "when": [
+        "evening"
+      ],
+      "months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "chance": 0.45,
+      "dialog": "dusk",
+      "dialogs": [
+        "dusk-curlew",
+        "dusk"
+      ],
+      "reward": {
+        "wisdom": 15
+      },
+      "marker": "🦇",
+      "memory": {
+        "en": "the quiet evening at the tarn",
+        "sl": "tihi večer pri jezercu",
+        "it": "la sera tranquilla al laghetto",
+        "de": "den stillen Abend am See"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "heron",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "arthur",
+          "en": "Good morning, friend. Gently now. Look, the heron, in the shallow water.",
+          "sl": "Dobro jutro, prijatelj. Počasi. Poglej, čaplja, v plitvi vodi.",
+          "it": "Buongiorno, amico. Piano. Guarda, l'airone, nell'acqua bassa.",
+          "de": "Guten Morgen, mein Freund. Ganz ruhig. Schau, der Reiher, im seichten Wasser."
+        },
+        {
+          "choices": [
+            {
+              "en": "What is it doing?",
+              "sl": "Kaj dela?",
+              "it": "Che cosa fa?",
+              "de": "Was macht er?",
+              "ok": true,
+              "reply": {
+                "en": "Waiting. Herons are very patient. Watch…",
+                "sl": "Čaka. Čaplje so zelo potrpežljive. Glej …",
+                "it": "Aspetta. Gli aironi sono molto pazienti. Guarda…",
+                "de": "Er wartet. Reiher sind sehr geduldig. Schau …"
+              }
+            },
+            {
+              "en": "What it is doing?",
+              "sl": "Kaj dela?",
+              "it": "Che cosa fa?",
+              "de": "Was macht er?",
+              "grammar": "word-order",
+              "why": {
+                "en": "In a question, is comes before it: What is it doing?",
+                "sl": "V vprašanju pride is pred it: What is it doing?",
+                "it": "Nella domanda is va prima di it: What is it doing?",
+                "de": "In der Frage kommt is vor it: What is it doing?"
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Hm? Once more, quietly.",
+                "sl": "Hm? Še enkrat, tiho.",
+                "it": "Mm? Di nuovo, piano.",
+                "de": "Hm? Noch mal, leise."
+              }
+            },
+            {
+              "en": "What is it do?",
+              "sl": "Kaj dela?",
+              "it": "Che cosa fa?",
+              "de": "Was macht er?",
+              "grammar": "present-continuous",
+              "why": {
+                "en": "Now, happening: is + -ing. What is it doing?",
+                "sl": "Dogaja se zdaj: is + -ing. What is it doing?",
+                "it": "Succede adesso: is + -ing. What is it doing?",
+                "de": "Es passiert jetzt: is + -ing. What is it doing?"
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Do? Shh, softly, friend.",
+                "sl": "Kaj? Pst, tiho, prijatelj.",
+                "it": "Fa? Sst, piano, amico.",
+                "de": "Machen? Pst, leise, mein Freund."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Say it again, softly.",
+            "sl": "Hm? Povej še enkrat, tiho.",
+            "it": "Mm? Ridillo, piano.",
+            "de": "Hm? Sag's noch mal, leise."
+          }
+        },
+        {
+          "who": "arthur",
+          "face": "surprised",
+          "en": "Now! There, it's got a fish!",
+          "sl": "Zdaj! Glej, ribo ima!",
+          "it": "Adesso! Ecco, ha preso un pesce!",
+          "de": "Jetzt! Da, er hat einen Fisch!",
+          "fx": {
+            "heron": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "Wow! It's very fast!",
+              "sl": "Vau! Zelo je hitra!",
+              "it": "Wow! È velocissimo!",
+              "de": "Wow! Er ist sehr schnell!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Slow, slow, slow, then fast. That's a heron.",
+                "sl": "Počasi, počasi, počasi, potem pa hitro. Taka je čaplja.",
+                "it": "Piano, piano, piano, poi veloce. Ecco l'airone.",
+                "de": "Langsam, langsam, langsam, dann schnell. So ist der Reiher."
+              }
+            },
+            {
+              "en": "Wow! It's very slow!",
+              "sl": "Vau! Zelo je počasna!",
+              "it": "Wow! È lentissimo!",
+              "de": "Wow! Er ist sehr langsam!",
+              "why": {
+                "en": "The heron waited slowly, but it caught the fish fast.",
+                "sl": "Čaplja je čakala počasi, ribo pa je ujela hitro (fast).",
+                "it": "L'airone ha aspettato piano, ma ha preso il pesce veloce (fast).",
+                "de": "Der Reiher hat langsam gewartet, aber den Fisch schnell gefangen (fast)."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Slow? Ask the fish!",
+                "sl": "Počasna? Vprašaj ribo!",
+                "it": "Lento? Chiedilo al pesce!",
+                "de": "Langsam? Frag mal den Fisch!"
+              }
+            },
+            {
+              "en": "Wow! It very fast!",
+              "sl": "Vau! Zelo je hitra!",
+              "it": "Wow! È velocissimo!",
+              "de": "Wow! Er ist sehr schnell!",
+              "grammar": "to-be",
+              "why": {
+                "en": "Fast needs to be: it's very fast (it is).",
+                "sl": "Fast potrebuje to be: it's very fast (it is).",
+                "it": "Fast vuole to be: it's very fast (it is).",
+                "de": "Fast braucht to be: it's very fast (it is)."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "It very what, friend?",
+                "sl": "Zelo kaj, prijatelj?",
+                "it": "Molto cosa, amico?",
+                "de": "Sehr was, mein Freund?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Say it again, softly.",
+            "sl": "Hm? Povej še enkrat, tiho.",
+            "it": "Mm? Ridillo, piano.",
+            "de": "Hm? Sag's noch mal, leise."
+          }
+        },
+        {
+          "who": "arthur",
+          "face": "laugh",
+          "en": "Oh dear, we've woken the ducks. Up they go!",
+          "sl": "Ojoj, race sva zbudila. Že letijo!",
+          "it": "Oh cielo, abbiamo svegliato le anatre. Eccole che volano!",
+          "de": "Oje, wir haben die Enten geweckt. Da fliegen sie!",
+          "fx": {
+            "ducks": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "fishing",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "wilf",
+          "en": "Hello, {m:son|f:lass}. Sit down. Bess and I are fishing.",
+          "sl": "Živijo. Sedi. Bess in jaz loviva ribe.",
+          "it": "Ciao, {m:figliolo|f:figliola}. Siediti. Io e Bess peschiamo.",
+          "de": "Hallo, {m:mein Junge|f:mein Mädchen}. Setz dich. Bess und ich angeln.",
+          "fx": {
+            "bite": 0.1,
+            "dog": 0.1
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "Have you caught anything?",
+              "sl": "Si kaj ujel?",
+              "it": "Hai preso qualcosa?",
+              "de": "Hast du etwas gefangen?",
+              "ok": true,
+              "reply": {
+                "en": "Not yet. Slow and steady, {m:son|f:lass}. The fish come to those who wait.",
+                "sl": "Še ne. Počasi in vztrajno. Ribe pridejo k tistim, ki čakajo.",
+                "it": "Non ancora. Piano e con pazienza. I pesci vengono da chi aspetta.",
+                "de": "Noch nicht. Langsam und geduldig. Die Fische kommen zu dem, der wartet."
+              }
+            },
+            {
+              "en": "Have you catched anything?",
+              "sl": "Si kaj ujel?",
+              "it": "Hai preso qualcosa?",
+              "de": "Hast du etwas gefangen?",
+              "grammar": "present-perfect",
+              "why": {
+                "en": "Catch has its own form: catch, caught, caught. Have you caught?",
+                "sl": "Catch ima svojo obliko: catch, caught, caught. Have you caught?",
+                "it": "Catch ha una forma sua: catch, caught, caught. Have you caught?",
+                "de": "Catch hat eine eigene Form: catch, caught, caught. Have you caught?"
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Catched? Like a cold? Not yet, {m:son|f:lass}!",
+                "sl": "Catched? Kot prehlad? Še ne!",
+                "it": "Catched? Come un raffreddore? Non ancora!",
+                "de": "Catched? Wie eine Erkältung? Noch nicht!"
+              }
+            },
+            {
+              "en": "Have you cooked anything?",
+              "sl": "Si kaj skuhal?",
+              "it": "Hai cucinato qualcosa?",
+              "de": "Hast du etwas gekocht?",
+              "why": {
+                "en": "Cook is for the kitchen. At the tarn you catch fish.",
+                "sl": "Cook je za kuhinjo. Pri jezercu ribe loviš (catch).",
+                "it": "Cook è per la cucina. Al laghetto i pesci si prendono (catch).",
+                "de": "Cook ist für die Küche. Am See fängt man Fische (catch)."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Cooked? On a jetty? Ha! Not yet.",
+                "sl": "Skuhal? Na pomolu? Ha! Še ne.",
+                "it": "Cucinato? Su un pontile? Ah! Non ancora.",
+                "de": "Gekocht? Auf einem Steg? Ha! Noch nicht."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say it slowly, {m:son|f:lass}.",
+            "sl": "Kaj? Povej počasi.",
+            "it": "Eh? Dillo piano.",
+            "de": "Hm? Sag's langsam."
+          }
+        },
+        {
+          "who": "wilf",
+          "face": "surprised",
+          "en": "Look at the float! It's moving!",
+          "sl": "Poglej plovec! Premika se!",
+          "it": "Guarda il galleggiante! Si muove!",
+          "de": "Schau auf den Schwimmer! Er bewegt sich!",
+          "fx": {
+            "bite": 0.5,
+            "dog": 0.6
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "Quick, Wilf! Pull!",
+              "sl": "Hitro, Wilf! Potegni!",
+              "it": "Presto, Wilf! Tira!",
+              "de": "Schnell, Wilf! Zieh!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Got it! A perch, a fine one! Bess, quiet!",
+                "sl": "Imam jo! Ostriž, lep! Bess, tiho!",
+                "it": "Preso! Un pesce persico, bello! Bess, zitta!",
+                "de": "Hab ihn! Ein Barsch, ein schöner! Bess, ruhig!",
+                "fx": {
+                  "bite": 1,
+                  "dog": 0.9
+                }
+              }
+            },
+            {
+              "en": "Quick, Wilf! Push!",
+              "sl": "Hitro, Wilf! Potisni!",
+              "it": "Presto, Wilf! Spingi!",
+              "de": "Schnell, Wilf! Drück!",
+              "why": {
+                "en": "A fish on the line: you pull, toward you. Push is away.",
+                "sl": "Riba na vrvici: potegneš (pull), k sebi. Push je od sebe.",
+                "it": "Un pesce alla lenza: si tira (pull), verso di sé. Push è spingere via.",
+                "de": "Ein Fisch an der Schnur: Man zieht (pull), zu sich hin. Push ist weg von sich."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Push? Then the fish goes back to its mum!",
+                "sl": "Potisnem? Potem gre riba nazaj k mami!",
+                "it": "Spingere? Allora il pesce torna dalla sua mamma!",
+                "de": "Drücken? Dann schwimmt der Fisch zurück zu seiner Mama!"
+              }
+            },
+            {
+              "en": "Quick, Wilf! Sleep!",
+              "sl": "Hitro, Wilf! Spi!",
+              "it": "Presto, Wilf! Dormi!",
+              "de": "Schnell, Wilf! Schlaf!",
+              "why": {
+                "en": "The float is moving: a fish! Pull, don't sleep.",
+                "sl": "Plovec se premika: riba! Potegni, ne spi.",
+                "it": "Il galleggiante si muove: un pesce! Tira, non dormire.",
+                "de": "Der Schwimmer bewegt sich: ein Fisch! Zieh, nicht schlafen."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Sleep? I'm eighty-four, not dead!",
+                "sl": "Spat? Štiriinosemdeset jih imam, mrtev pa nisem!",
+                "it": "Dormire? Ho ottantaquattro anni, non sono morto!",
+                "de": "Schlafen? Ich bin vierundachtzig, nicht tot!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say it slowly, {m:son|f:lass}.",
+            "sl": "Kaj? Povej počasi.",
+            "it": "Eh? Dillo piano.",
+            "de": "Hm? Sag's langsam."
+          }
+        },
+        {
+          "who": "wilf",
+          "en": "Into the bucket with you. One step at a time, {m:son|f:lass}. That's fishing.",
+          "sl": "V vedro z njim. Korak za korakom. Tak je ribolov.",
+          "it": "Nel secchio. Un passo alla volta, {m:figliolo|f:figliola}. Così è la pesca.",
+          "de": "Ab in den Eimer. Ein Schritt nach dem anderen. So ist das Angeln.",
+          "fx": {
+            "bite": 0,
+            "dog": 0.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "frogs",
+      "lines": [
+        {
+          "who": "poppy",
+          "face": "curious",
+          "en": "Shh! There's a frog here. Where is it? Can you see it?",
+          "sl": "Pst! Tu je žaba. Kje je? Jo vidiš?",
+          "it": "Sst! Qui c'è una rana. Dov'è? La vedi?",
+          "de": "Pst! Hier ist ein Frosch. Wo ist er? Siehst du ihn?"
+        },
+        {
+          "choices": [
+            {
+              "en": "There! On the water lily!",
+              "sl": "Tam! Na lokvanju!",
+              "it": "Eccola! Sulla ninfea!",
+              "de": "Da! Auf der Seerose!",
+              "ok": true,
+              "tap": "frog",
+              "reply": {
+                "face": "laugh",
+                "en": "Yes! Hello, froggy! Ribbit!",
+                "sl": "Ja! Živjo, žabica! Rega, rega!",
+                "it": "Sì! Ciao, ranocchio! Cra cra!",
+                "de": "Ja! Hallo, Fröschlein! Quak!"
+              }
+            },
+            {
+              "en": "There! In the reeds!",
+              "sl": "Tam! V trstičju!",
+              "it": "Eccola! Tra le canne!",
+              "de": "Da! Im Schilf!",
+              "tap": "reeds",
+              "why": {
+                "en": "Those are the reeds. The frog is on a big round leaf: the water lily.",
+                "sl": "To je trstičje. Žaba je na velikem okroglem listu: na lokvanju.",
+                "it": "Quelle sono le canne. La rana è su una grande foglia rotonda: la ninfea.",
+                "de": "Das ist das Schilf. Der Frosch sitzt auf einem großen runden Blatt: der Seerose."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "In the reeds? I can only see a duck!",
+                "sl": "V trstičju? Vidim samo raco!",
+                "it": "Tra le canne? Vedo solo un'anatra!",
+                "de": "Im Schilf? Ich seh nur eine Ente!"
+              }
+            },
+            {
+              "en": "There! In the boat!",
+              "sl": "Tam! V čolnu!",
+              "it": "Eccola! Nella barca!",
+              "de": "Da! Im Boot!",
+              "tap": "boat",
+              "why": {
+                "en": "That's the boat. Look on the water, on the lily's leaf.",
+                "sl": "To je čoln. Poglej na vodo, na list lokvanja.",
+                "it": "Quella è la barca. Guarda sull'acqua, sulla foglia della ninfea.",
+                "de": "Das ist das Boot. Schau aufs Wasser, auf das Blatt der Seerose."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "In the boat? Frogs don't row!",
+                "sl": "V čolnu? Žabe ne veslajo!",
+                "it": "Nella barca? Le rane non remano!",
+                "de": "Im Boot? Frösche rudern nicht!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "poppy",
+          "face": "surprised",
+          "en": "Oh! It jumped into the water! Splash!",
+          "sl": "Oh! Skočila je v vodo! Čof!",
+          "it": "Oh! È saltata nell'acqua! Splash!",
+          "de": "Oh! Er ist ins Wasser gesprungen! Platsch!",
+          "fx": {
+            "frog": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "Frogs can swim very well.",
+              "sl": "Žabe zelo dobro plavajo.",
+              "it": "Le rane nuotano molto bene.",
+              "de": "Frösche können sehr gut schwimmen.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "I know! Look, just its eyes. It's watching us!",
+                "sl": "Vem! Glej, samo oči. Naju gleda!",
+                "it": "Lo so! Guarda, solo gli occhi. Ci sta guardando!",
+                "de": "Weiß ich! Schau, nur seine Augen. Er beobachtet uns!"
+              }
+            },
+            {
+              "en": "Frogs can swims very well.",
+              "sl": "Žabe zelo dobro plavajo.",
+              "it": "Le rane nuotano molto bene.",
+              "de": "Frösche können sehr gut schwimmen.",
+              "grammar": "can",
+              "why": {
+                "en": "After can, no -s: frogs can swim.",
+                "sl": "Za can ni -s: frogs can swim.",
+                "it": "Dopo can niente -s: frogs can swim.",
+                "de": "Nach can kein -s: frogs can swim."
+              },
+              "reply": {
+                "face": "proud",
+                "en": "Can swims? That sounds funny! I'm good at English, aren't I?",
+                "sl": "Can swims? To se sliši smešno! Dobra sem v angleščini, ne?",
+                "it": "Can swims? Suona strano! Sono brava in inglese, vero?",
+                "de": "Can swims? Das klingt komisch! Ich bin gut in Englisch, oder?"
+              }
+            },
+            {
+              "en": "Frog can swim very well.",
+              "sl": "Žabe zelo dobro plavajo.",
+              "it": "Le rane nuotano molto bene.",
+              "de": "Frösche können sehr gut schwimmen.",
+              "grammar": "plurals",
+              "why": {
+                "en": "All frogs, more than one: frogs, with -s.",
+                "sl": "Vse žabe, več kot ena: frogs, z -s.",
+                "it": "Tutte le rane, più di una: frogs, con la -s.",
+                "de": "Alle Frösche, mehr als einer: frogs, mit -s."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Just this one? What about all the others?",
+                "sl": "Samo ta ena? Kaj pa vse ostale?",
+                "it": "Solo questa? E tutte le altre?",
+                "de": "Nur der eine? Und was ist mit den anderen?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Say it properly!",
+            "sl": "Kaj? Povej pravilno!",
+            "it": "Cosa? Dillo bene!",
+            "de": "Was? Sag's richtig!"
+          }
+        },
+        {
+          "who": "poppy",
+          "en": "Granny says frogs mean the tarn is healthy. Clean water!",
+          "sl": "Babica pravi, da žabe pomenijo, da je jezerce zdravo. Čista voda!",
+          "it": "La nonna dice che le rane vogliono dire che il laghetto è sano. Acqua pulita!",
+          "de": "Oma sagt, Frösche heißen, dass der See gesund ist. Sauberes Wasser!"
+        }
+      ]
+    },
+    {
+      "id": "race",
+      "lines": [
+        {
+          "who": "harry",
+          "face": "proud",
+          "en": "I won! I'm first at the tarn! Race you to the jetty!",
+          "sl": "Zmagal sem! Prvi sem pri jezercu! Kdo bo prej na pomolu?",
+          "it": "Ho vinto! Sono il primo al laghetto! Facciamo a gara fino al pontile!",
+          "de": "Gewonnen! Ich bin Erster am See! Wer zuerst am Steg ist!"
+        },
+        {
+          "choices": [
+            {
+              "en": "You're faster than me!",
+              "sl": "Hitrejši si od mene!",
+              "it": "Sei più veloce di me!",
+              "de": "Du bist schneller als ich!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "I know! I'm the fastest in the village!",
+                "sl": "Vem! Najhitrejši sem v vasi!",
+                "it": "Lo so! Sono il più veloce del paese!",
+                "de": "Weiß ich! Ich bin der Schnellste im Dorf!"
+              }
+            },
+            {
+              "en": "You're more fast than me!",
+              "sl": "Hitrejši si od mene!",
+              "it": "Sei più veloce di me!",
+              "de": "Du bist schneller als ich!",
+              "why": {
+                "en": "A short word takes -er: fast, faster.",
+                "sl": "Kratka beseda dobi -er: fast, faster.",
+                "it": "Una parola corta prende -er: fast, faster.",
+                "de": "Ein kurzes Wort bekommt -er: fast, faster."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "More fast? Funny English! But yes, like me!",
+                "sl": "More fast? Smešna angleščina! Ampak ja, kot jaz!",
+                "it": "More fast? Che inglese buffo! Ma sì, come me!",
+                "de": "More fast? Komisches Englisch! Aber ja, wie ich!"
+              }
+            },
+            {
+              "en": "You're slower than me!",
+              "sl": "Počasnejši si od mene!",
+              "it": "Sei più lento di me!",
+              "de": "Du bist langsamer als ich!",
+              "why": {
+                "en": "Harry won the race: he is faster, not slower.",
+                "sl": "Harry je zmagal: je hitrejši (faster), ne počasnejši.",
+                "it": "Harry ha vinto la gara: è più veloce (faster), non più lento.",
+                "de": "Harry hat gewonnen: Er ist schneller (faster), nicht langsamer."
+              },
+              "reply": {
+                "face": "cross",
+                "en": "Slower? I won! I'm here first!",
+                "sl": "Počasnejši? Zmagal sem! Prvi sem tu!",
+                "it": "Più lento? Ho vinto! Sono qui per primo!",
+                "de": "Langsamer? Ich hab gewonnen! Ich bin zuerst hier!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Come on, say it again!",
+            "sl": "Kaj? Daj, še enkrat!",
+            "it": "Cosa? Dai, ridillo!",
+            "de": "Was? Komm, sag's noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "en": "Look at the boat! Can we go out in it?",
+          "sl": "Poglej čoln! Lahko greva z njim na vodo?",
+          "it": "Guarda la barca! Possiamo uscire con quella?",
+          "de": "Schau, das Boot! Können wir damit rausfahren?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Not without a grown-up.",
+              "sl": "Ne brez odraslega.",
+              "it": "Non senza un grande.",
+              "de": "Nicht ohne einen Erwachsenen.",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "en": "Aww. OK. Mum says that too.",
+                "sl": "Ooo. Prav. Mami tudi tako pravi.",
+                "it": "Uffa. Va bene. Lo dice anche la mamma.",
+                "de": "Och. Na gut. Mama sagt das auch."
+              }
+            },
+            {
+              "en": "Yes, and let's not tell anyone!",
+              "sl": "Ja, in nikomur ne poveva!",
+              "it": "Sì, e non diciamolo a nessuno!",
+              "de": "Ja, und wir sagen es niemandem!",
+              "why": {
+                "en": "A child alone in a boat on deep water is dangerous: only with a grown-up.",
+                "sl": "Otrok sam v čolnu na globoki vodi je nevarno: samo z odraslim.",
+                "it": "Un bambino da solo in barca sull'acqua profonda è pericoloso: solo con un grande.",
+                "de": "Ein Kind allein im Boot auf tiefem Wasser ist gefährlich: nur mit einem Erwachsenen."
+              },
+              "reply": {
+                "face": "worried",
+                "en": "Really? Mum would go mad. Maybe not.",
+                "sl": "Res? Mami bi ponorela. Raje ne.",
+                "it": "Davvero? La mamma impazzirebbe. Meglio di no.",
+                "de": "Echt? Mama würde durchdrehen. Lieber nicht."
+              }
+            },
+            {
+              "en": "Not without a grown-ups.",
+              "sl": "Ne brez odraslega.",
+              "it": "Non senza un grande.",
+              "de": "Nicht ohne einen Erwachsenen.",
+              "grammar": "articles",
+              "why": {
+                "en": "A is for one: a grown-up. Grown-ups is more than one, without a.",
+                "sl": "A je za eno: a grown-up. Grown-ups je več, brez a.",
+                "it": "A è per uno: a grown-up. Grown-ups sono più di uno, senza a.",
+                "de": "A steht für einen: a grown-up. Grown-ups sind mehrere, ohne a."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "A grown-ups? One or lots?",
+                "sl": "Enega odraslega ali veliko?",
+                "it": "Un grande o tanti?",
+                "de": "Einen Erwachsenen oder viele?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Come on, say it again!",
+            "sl": "Kaj? Daj, še enkrat!",
+            "it": "Cosa? Dai, ridillo!",
+            "de": "Was? Komm, sag's noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "face": "happy",
+          "en": "Then let's skim stones from the jetty. Come on!",
+          "sl": "Potem pa delajva žabice s pomola. Daj!",
+          "it": "Allora facciamo rimbalzare i sassi dal pontile. Dai!",
+          "de": "Dann lassen wir vom Steg aus Steine hüpfen. Komm!"
+        }
+      ]
+    },
+    {
+      "id": "ice",
+      "lines": [
+        {
+          "who": "harry",
+          "face": "happy",
+          "en": "The tarn's frozen! Let's slide on the ice!",
+          "sl": "Jezerce je zamrznilo! Pojdiva drsat po ledu!",
+          "it": "Il laghetto è gelato! Andiamo a scivolare sul ghiaccio!",
+          "de": "Der See ist zugefroren! Lass uns übers Eis schlittern!"
+        },
+        {
+          "choices": [
+            {
+              "en": "No, Harry! The ice is thin!",
+              "sl": "Ne, Harry! Led je tanek!",
+              "it": "No, Harry! Il ghiaccio è sottile!",
+              "de": "Nein, Harry! Das Eis ist dünn!",
+              "ok": true,
+              "reply": {
+                "face": "worried",
+                "en": "Thin? But it looks hard…",
+                "sl": "Tanek? Ampak videti je trd …",
+                "it": "Sottile? Ma sembra duro…",
+                "de": "Dünn? Aber es sieht hart aus …"
+              }
+            },
+            {
+              "en": "Yes, Harry! The ice is thin!",
+              "sl": "Ja, Harry! Led je tanek!",
+              "it": "Sì, Harry! Il ghiaccio è sottile!",
+              "de": "Ja, Harry! Das Eis ist dünn!",
+              "why": {
+                "en": "Thin ice can break: say no.",
+                "sl": "Tanek led se lahko prelomi: reci ne (no).",
+                "it": "Il ghiaccio sottile si può rompere: di' di no (no).",
+                "de": "Dünnes Eis kann brechen: Sag nein (no)."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Yes, but thin? Is that good or bad?",
+                "sl": "Ja, ampak tanek? Je to dobro ali slabo?",
+                "it": "Sì, ma sottile? È bene o male?",
+                "de": "Ja, aber dünn? Ist das gut oder schlecht?"
+              }
+            },
+            {
+              "en": "No, Harry! The ice are thin!",
+              "sl": "Ne, Harry! Led je tanek!",
+              "it": "No, Harry! Il ghiaccio è sottile!",
+              "de": "Nein, Harry! Das Eis ist dünn!",
+              "grammar": "to-be",
+              "why": {
+                "en": "Ice is one thing, uncountable: the ice is.",
+                "sl": "Ice je ena stvar, neštevna: the ice is.",
+                "it": "Ice è una cosa sola, non numerabile: the ice is.",
+                "de": "Ice ist eine Sache, nicht zählbar: the ice is."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "The ice are? How many ices?",
+                "sl": "Koliko ledov?",
+                "it": "Quanti ghiacci?",
+                "de": "Wie viele Eise?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Say it again!",
+            "sl": "Kaj? Še enkrat!",
+            "it": "Cosa? Ridillo!",
+            "de": "Was? Sag's noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "en": "But it's so shiny… Just one step?",
+          "sl": "Ampak tako se sveti … Samo en korak?",
+          "it": "Ma è così lucido… Solo un passo?",
+          "de": "Aber es glänzt so … Nur ein Schritt?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Never walk on the ice. Stay on the bank.",
+              "sl": "Nikoli ne hodi po ledu. Ostani na bregu.",
+              "it": "Non camminare mai sul ghiaccio. Resta sulla riva.",
+              "de": "Geh nie aufs Eis. Bleib am Ufer.",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "en": "OK, OK. Snowballs, then?",
+                "sl": "Prav, prav. Pa kepe?",
+                "it": "Va bene, va bene. Palle di neve, allora?",
+                "de": "Na gut, na gut. Dann Schneebälle?"
+              }
+            },
+            {
+              "en": "Never walks on the ice. Stay on the bank.",
+              "sl": "Nikoli ne hodi po ledu. Ostani na bregu.",
+              "it": "Non camminare mai sul ghiaccio. Resta sulla riva.",
+              "de": "Geh nie aufs Eis. Bleib am Ufer.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "To tell someone what to do, the verb is plain: Never walk.",
+                "sl": "Ko komu rečeš, kaj naj naredi, je glagol v osnovni obliki: Never walk.",
+                "it": "Per dire a qualcuno cosa fare, il verbo è alla forma base: Never walk.",
+                "de": "Wenn du jemandem sagst, was er tun soll, steht das Verb in der Grundform: Never walk."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Never walks? Who never walks?",
+                "sl": "Kdo nikoli ne hodi?",
+                "it": "Chi non cammina mai?",
+                "de": "Wer geht nie?"
+              }
+            },
+            {
+              "en": "Always walk on the ice. Stay on the bank.",
+              "sl": "Vedno hodi po ledu. Ostani na bregu.",
+              "it": "Cammina sempre sul ghiaccio. Resta sulla riva.",
+              "de": "Geh immer aufs Eis. Bleib am Ufer.",
+              "why": {
+                "en": "Always is every time. Thin ice: never.",
+                "sl": "Always pomeni vsakič. Tanek led: never, nikoli.",
+                "it": "Always vuol dire ogni volta. Ghiaccio sottile: never, mai.",
+                "de": "Always heißt jedes Mal. Dünnes Eis: never, nie."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Always on the ice AND on the bank? That's a trick!",
+                "sl": "Vedno po ledu IN na bregu? To je zvijača!",
+                "it": "Sempre sul ghiaccio E sulla riva? È un trucco!",
+                "de": "Immer aufs Eis UND am Ufer? Das ist ein Trick!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Say it again!",
+            "sl": "Kaj? Še enkrat!",
+            "it": "Cosa? Ridillo!",
+            "de": "Was? Sag's noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "face": "laugh",
+          "en": "Race you back to the village! Last one's a frozen frog!",
+          "sl": "Kdo bo prej v vasi! Zadnji je zamrznjena žaba!",
+          "it": "A chi arriva prima in paese! L'ultimo è una rana surgelata!",
+          "de": "Wer zuerst im Dorf ist! Der Letzte ist ein gefrorener Frosch!"
+        }
+      ]
+    },
+    {
+      "id": "dusk",
+      "lines": [
+        {
+          "who": "arthur",
+          "en": "Quiet, friend. The best time at the tarn. Look, the fish are jumping.",
+          "sl": "Tiho, prijatelj. Najlepši čas pri jezercu. Poglej, ribe skačejo.",
+          "it": "Piano, amico. Il momento più bello al laghetto. Guarda, i pesci saltano.",
+          "de": "Leise, mein Freund. Die schönste Zeit am See. Schau, die Fische springen.",
+          "fx": {
+            "fish": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "Why are they jumping?",
+              "sl": "Zakaj skačejo?",
+              "it": "Perché saltano?",
+              "de": "Warum springen sie?",
+              "ok": true,
+              "reply": {
+                "en": "For the flies over the water. Supper time for fish, too.",
+                "sl": "Za mušice nad vodo. Tudi za ribe je čas večerje.",
+                "it": "Per i moscerini sopra l'acqua. Anche per i pesci è ora di cena.",
+                "de": "Nach den Fliegen über dem Wasser. Auch für die Fische ist Abendbrotzeit."
+              }
+            },
+            {
+              "en": "Why they are jumping?",
+              "sl": "Zakaj skačejo?",
+              "it": "Perché saltano?",
+              "de": "Warum springen sie?",
+              "grammar": "word-order",
+              "why": {
+                "en": "In a question, are comes before they: Why are they jumping?",
+                "sl": "V vprašanju pride are pred they: Why are they jumping?",
+                "it": "Nella domanda are va prima di they: Why are they jumping?",
+                "de": "In der Frage kommt are vor they: Why are they jumping?"
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Hm? Ask me again, softly.",
+                "sl": "Hm? Vprašaj še enkrat, tiho.",
+                "it": "Mm? Chiedimelo di nuovo, piano.",
+                "de": "Hm? Frag noch mal, leise."
+              }
+            },
+            {
+              "en": "Why are they sleeping?",
+              "sl": "Zakaj spijo?",
+              "it": "Perché dormono?",
+              "de": "Warum schlafen sie?",
+              "why": {
+                "en": "The fish are jumping out of the water, not sleeping.",
+                "sl": "Ribe skačejo iz vode (jumping), ne spijo.",
+                "it": "I pesci saltano fuori dall'acqua (jumping), non dormono.",
+                "de": "Die Fische springen aus dem Wasser (jumping), sie schlafen nicht."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Sleeping? Not with all that splashing!",
+                "sl": "Spijo? Ob vsem tem čofotanju že ne!",
+                "it": "Dormono? Con tutti quegli spruzzi, no di certo!",
+                "de": "Schlafen? Bei dem ganzen Geplätscher bestimmt nicht!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Say it again, softly.",
+            "sl": "Hm? Povej še enkrat, tiho.",
+            "it": "Mm? Ridillo, piano.",
+            "de": "Hm? Sag's noch mal, leise."
+          }
+        },
+        {
+          "who": "arthur",
+          "face": "happy",
+          "en": "And now the bats. They hunt the same flies.",
+          "sl": "Zdaj pa še netopirji. Lovijo iste mušice.",
+          "it": "E adesso i pipistrelli. Cacciano gli stessi moscerini.",
+          "de": "Und jetzt die Fledermäuse. Sie jagen dieselben Fliegen.",
+          "fx": {
+            "bats": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "I love evenings here.",
+              "sl": "{m:Rad|f:Rada} imam večere tukaj.",
+              "it": "Adoro le sere qui.",
+              "de": "Ich liebe die Abende hier.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Me too, friend. No bees, no work, just the tarn.",
+                "sl": "Jaz tudi, prijatelj. Nič čebel, nič dela, samo jezerce.",
+                "it": "Anch'io, amico. Niente api, niente lavoro, solo il laghetto.",
+                "de": "Ich auch, mein Freund. Keine Bienen, keine Arbeit, nur der See."
+              }
+            },
+            {
+              "en": "I loves evenings here.",
+              "sl": "{m:Rad|f:Rada} imam večere tukaj.",
+              "it": "Adoro le sere qui.",
+              "de": "Ich liebe die Abende hier.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "With I, no -s: I love. The -s is for he, she, it.",
+                "sl": "Z I ni -s: I love. -s je za he, she, it.",
+                "it": "Con I niente -s: I love. La -s è per he, she, it.",
+                "de": "Mit I kein -s: I love. Das -s ist für he, she, it."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "I loves? Say it again, slowly.",
+                "sl": "I loves? Povej še enkrat, počasi.",
+                "it": "I loves? Ridillo, piano.",
+                "de": "I loves? Sag's noch mal, langsam."
+              }
+            },
+            {
+              "en": "I love evening here.",
+              "sl": "{m:Rad|f:Rada} imam večere tukaj.",
+              "it": "Adoro le sere qui.",
+              "de": "Ich liebe die Abende hier.",
+              "grammar": "plurals",
+              "why": {
+                "en": "Every evening, more than one: evenings, with -s.",
+                "sl": "Vsak večer, več kot eden: evenings, z -s.",
+                "it": "Ogni sera, più di una: evenings, con la -s.",
+                "de": "Jeden Abend, mehr als einer: evenings, mit -s."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Just this one evening? Come back tomorrow, then!",
+                "sl": "Samo ta en večer? Pa pridi spet jutri!",
+                "it": "Solo questa sera? Allora torna domani!",
+                "de": "Nur diesen einen Abend? Dann komm morgen wieder!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Say it again, softly.",
+            "sl": "Hm? Povej še enkrat, tiho.",
+            "it": "Mm? Ridillo, piano.",
+            "de": "Hm? Sag's noch mal, leise."
+          }
+        },
+        {
+          "who": "arthur",
+          "en": "Good night, friend. Mind the path in the dark.",
+          "sl": "Lahko noč, prijatelj. Pazi na pot v temi.",
+          "it": "Buonanotte, amico. Attento al sentiero al buio.",
+          "de": "Gute Nacht, mein Freund. Pass im Dunkeln auf den Weg auf."
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "heron-mist",
+      "months": [
+        3,
+        4,
+        9,
+        10,
+        11
+      ],
+      "sky_stays": true,
+      "fx_stays": true,
+      "memory": {
+        "en": "the misty morning of the heron",
+        "sl": "megleno jutro s čapljo",
+        "it": "la mattina di nebbia con l'airone",
+        "de": "den nebligen Morgen mit dem Reiher"
+      },
+      "lines": [
+        {
+          "who": "arthur",
+          "en": "Mist on the tarn this morning. Listen… Can you hear the ducks?",
+          "sl": "Danes zjutraj je megla na jezercu. Poslušaj … Slišiš race?",
+          "it": "Nebbia sul laghetto stamattina. Ascolta… Senti le anatre?",
+          "de": "Nebel auf dem See heute Morgen. Hör mal … Hörst du die Enten?",
+          "sky": {
+            "fog": 0.5
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I can hear them in the reeds.",
+              "sl": "Ja, slišim jih v trstičju.",
+              "it": "Sì, le sento tra le canne.",
+              "de": "Ja, ich höre sie im Schilf.",
+              "ok": true,
+              "reply": {
+                "en": "Good ears. And there's someone else too. Wait for the mist to go.",
+                "sl": "Dobra ušesa. Pa še nekdo je tam. Počakaj, da se megla dvigne.",
+                "it": "Buon orecchio. E c'è anche qualcun altro. Aspetta che la nebbia se ne vada.",
+                "de": "Gute Ohren. Und da ist noch jemand. Warte, bis der Nebel weg ist."
+              }
+            },
+            {
+              "en": "Yes, I can hear it in the reeds.",
+              "sl": "Ja, slišim jih v trstičju.",
+              "it": "Sì, le sento tra le canne.",
+              "de": "Ja, ich höre sie im Schilf.",
+              "why": {
+                "en": "The ducks, more than one: them, not it.",
+                "sl": "Race, več kot ena: them, ne it.",
+                "it": "Le anatre, più di una: them, non it.",
+                "de": "Die Enten, mehr als eine: them, nicht it."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Just one duck? I think there are more.",
+                "sl": "Samo ena raca? Mislim, da jih je več.",
+                "it": "Una sola anatra? Credo che siano di più.",
+                "de": "Nur eine Ente? Ich glaube, es sind mehr."
+              }
+            },
+            {
+              "en": "Yes, I can to hear them in the reeds.",
+              "sl": "Ja, slišim jih v trstičju.",
+              "it": "Sì, le sento tra le canne.",
+              "de": "Ja, ich höre sie im Schilf.",
+              "grammar": "can",
+              "why": {
+                "en": "After can, no to: I can hear.",
+                "sl": "Za can ni to: I can hear.",
+                "it": "Dopo can niente to: I can hear.",
+                "de": "Nach can kein to: I can hear."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Can to? Say it again, softly.",
+                "sl": "Can to? Povej še enkrat, tiho.",
+                "it": "Can to? Ridillo, piano.",
+                "de": "Can to? Sag's noch mal, leise."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Say it again, softly.",
+            "sl": "Hm? Povej še enkrat, tiho.",
+            "it": "Mm? Ridillo, piano.",
+            "de": "Hm? Sag's noch mal, leise."
+          }
+        },
+        {
+          "who": "arthur",
+          "face": "surprised",
+          "en": "The mist is going… Look, the heron! It's caught a fish!",
+          "sl": "Megla se dviga … Poglej, čaplja! Ribo je ujela!",
+          "it": "La nebbia se ne va… Guarda, l'airone! Ha preso un pesce!",
+          "de": "Der Nebel geht … Schau, der Reiher! Er hat einen Fisch gefangen!",
+          "sky": {
+            "fog": 0.15
+          },
+          "fx": {
+            "heron": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "Poor fish! Lucky heron!",
+              "sl": "Uboga riba! Srečna čaplja!",
+              "it": "Povero pesce! Fortunato airone!",
+              "de": "Armer Fisch! Glücklicher Reiher!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Ha! That's the tarn, friend. Everyone wants breakfast.",
+                "sl": "Ha! Tako je pri jezercu, prijatelj. Vsak hoče zajtrk.",
+                "it": "Ah! Così va al laghetto, amico. Tutti vogliono la colazione.",
+                "de": "Ha! So ist das am See, mein Freund. Jeder will Frühstück."
+              }
+            },
+            {
+              "en": "Lucky fish! Poor heron!",
+              "sl": "Srečna riba! Uboga čaplja!",
+              "it": "Fortunato pesce! Povero airone!",
+              "de": "Glücklicher Fisch! Armer Reiher!",
+              "why": {
+                "en": "The heron caught the fish: the fish isn't lucky, the heron is.",
+                "sl": "Čaplja je ujela ribo: riba nima sreče, čaplja jo ima.",
+                "it": "L'airone ha preso il pesce: il pesce non è fortunato, l'airone sì.",
+                "de": "Der Reiher hat den Fisch gefangen: Der Fisch hat kein Glück, der Reiher schon."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Lucky fish? Not this morning!",
+                "sl": "Srečna riba? Danes zjutraj pa ne!",
+                "it": "Pesce fortunato? Non stamattina!",
+                "de": "Glücklicher Fisch? Heute Morgen nicht!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "arthur",
+          "face": "laugh",
+          "en": "And off go the ducks. Good morning to you too!",
+          "sl": "Pa so race odletele. Dobro jutro tudi vam!",
+          "it": "E via le anatre. Buongiorno anche a voi!",
+          "de": "Und weg sind die Enten. Guten Morgen auch euch!",
+          "fx": {
+            "ducks": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "fishing-count",
+      "count": {
+        "from": "dice",
+        "min": 2,
+        "max": 7
+      },
+      "fx_stays": true,
+      "memory": {
+        "en": "the day we counted Wilf's fish",
+        "sl": "dan, ko sva štela Wilfove ribe",
+        "it": "il giorno in cui abbiamo contato i pesci di Wilf",
+        "de": "den Tag, an dem wir Wilfs Fische gezählt haben"
+      },
+      "lines": [
+        {
+          "who": "wilf",
+          "face": "proud",
+          "en": "A good day, {m:son|f:lass}! Look in the bucket and count them.",
+          "sl": "Dober dan je bil! Poglej v vedro in jih preštej.",
+          "it": "Una bella giornata, {m:figliolo|f:figliola}! Guarda nel secchio e contali.",
+          "de": "Ein guter Tag, {m:mein Junge|f:mein Mädchen}! Schau in den Eimer und zähl sie.",
+          "fx": {
+            "bucket": 1,
+            "dog": 0.5
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "There are {n} fish in the bucket.",
+              "sl": "V vedru {je|sta|so|je} {n} {riba|ribi|ribe|rib}.",
+              "it": "Nel secchio {c'è|ci sono} {n} {pesce|pesci}.",
+              "de": "Im Eimer {ist|sind} {n} {Fisch|Fische}.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Right you are. Supper for me, and one for Bess!",
+                "sl": "Tako je. Večerja zame in ena za Bess!",
+                "it": "Proprio così. Cena per me, e uno per Bess!",
+                "de": "Ganz recht. Abendessen für mich, und einer für Bess!"
+              }
+            },
+            {
+              "en": "There are {n} fishes in the bucket.",
+              "sl": "V vedru {je|sta|so|je} {n} {riba|ribi|ribe|rib}.",
+              "it": "Nel secchio {c'è|ci sono} {n} {pesce|pesci}.",
+              "de": "Im Eimer {ist|sind} {n} {Fisch|Fische}.",
+              "grammar": "plurals",
+              "why": {
+                "en": "Fish, like sheep: one fish, {n} fish, no -es.",
+                "sl": "Fish je kot sheep: one fish, {n} fish, brez -es.",
+                "it": "Fish, come sheep: one fish, {n} fish, senza -es.",
+                "de": "Fish wie sheep: one fish, {n} fish, kein -es."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Fishes? In the Bible, maybe. Not in my bucket!",
+                "sl": "Fishes? V Svetem pismu mogoče. V mojem vedru pa ne!",
+                "it": "Fishes? Nella Bibbia, forse. Non nel mio secchio!",
+                "de": "Fishes? In der Bibel vielleicht. Nicht in meinem Eimer!"
+              }
+            },
+            {
+              "en": "There {!is|are} {n} fish in the bucket.",
+              "sl": "V vedru {!je|sta|so|je} {n} {riba|ribi|ribe|rib}.",
+              "it": "Nel secchio {!c'è|ci sono} {n} {pesce|pesci}.",
+              "de": "Im Eimer {!ist|sind} {n} {Fisch|Fische}.",
+              "wrong_form": 1,
+              "grammar": "there-is-are",
+              "why": {
+                "en": "{One takes is|More than one takes are}: there {is|are} {n} fish.",
+                "sl": "{Za eno je is|Za več je are}: there {is|are} {n} fish.",
+                "it": "{Per uno si dice is|Per più di uno si dice are}: there {is|are} {n} fish.",
+                "de": "{Bei einem heißt es is|Bei mehreren heißt es are}: there {is|are} {n} fish."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Only one? Look again. Bess didn't eat them!",
+                "sl": "Samo ena? Poglej še enkrat. Bess jih ni pojedla!",
+                "it": "Solo uno? Guarda di nuovo. Bess non li ha mangiati!",
+                "de": "Nur einer? Schau noch mal. Bess hat sie nicht gefressen!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Count again, slowly.",
+            "sl": "Kaj? Preštej še enkrat, počasi.",
+            "it": "Eh? Riconta, piano.",
+            "de": "Hm? Zähl noch mal, langsam."
+          }
+        },
+        {
+          "who": "wilf",
+          "en": "One more, and then home. Bess is getting cold.",
+          "sl": "Še eno, potem pa domov. Bess je že mrzlo.",
+          "it": "Ancora uno, e poi a casa. Bess ha freddo.",
+          "de": "Noch einer, und dann nach Hause. Bess wird kalt.",
+          "fx": {
+            "bite": 0.4,
+            "dog": 0.3
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "Shall I carry the bucket?",
+              "sl": "Naj nesem vedro?",
+              "it": "Porto io il secchio?",
+              "de": "Soll ich den Eimer tragen?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Thank you, {m:son|f:lass}. My old back says thank you too.",
+                "sl": "Hvala. Tudi moj stari hrbet se ti zahvaljuje.",
+                "it": "Grazie, {m:figliolo|f:figliola}. Anche la mia vecchia schiena ringrazia.",
+                "de": "Danke, {m:mein Junge|f:mein Mädchen}. Mein alter Rücken sagt auch danke."
+              }
+            },
+            {
+              "en": "Shall I eat the bucket?",
+              "sl": "Naj pojem vedro?",
+              "it": "Mangio il secchio?",
+              "de": "Soll ich den Eimer essen?",
+              "why": {
+                "en": "You carry a bucket. Eat is for food.",
+                "sl": "Vedro neseš (carry). Eat je za hrano.",
+                "it": "Il secchio si porta (carry). Eat è per il cibo.",
+                "de": "Einen Eimer trägt man (carry). Eat ist fürs Essen."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Eat it? The fish, maybe, but cooked first!",
+                "sl": "Pojesti? Ribe mogoče, ampak najprej pečene!",
+                "it": "Mangiarlo? I pesci forse, ma prima cotti!",
+                "de": "Essen? Die Fische vielleicht, aber erst gebraten!"
+              }
+            },
+            {
+              "en": "Shall I carries the bucket?",
+              "sl": "Naj nesem vedro?",
+              "it": "Porto io il secchio?",
+              "de": "Soll ich den Eimer tragen?",
+              "grammar": "present-simple",
+              "why": {
+                "en": "After shall, the verb is plain: shall I carry.",
+                "sl": "Za shall je glagol v osnovni obliki: shall I carry.",
+                "it": "Dopo shall il verbo è alla forma base: shall I carry.",
+                "de": "Nach shall steht das Verb in der Grundform: shall I carry."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Carries? Say it slowly, {m:son|f:lass}.",
+                "sl": "Carries? Povej počasi.",
+                "it": "Carries? Dillo piano.",
+                "de": "Carries? Sag's langsam."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Say it slowly, {m:son|f:lass}.",
+            "sl": "Kaj? Povej počasi.",
+            "it": "Eh? Dillo piano.",
+            "de": "Hm? Sag's langsam."
+          }
+        },
+        {
+          "who": "wilf",
+          "face": "happy",
+          "en": "Come on, Bess. Home, old girl.",
+          "sl": "Pridi, Bess. Domov, stara.",
+          "it": "Vieni, Bess. A casa, vecchia mia.",
+          "de": "Komm, Bess. Nach Hause, alte Dame.",
+          "fx": {
+            "bite": 0,
+            "dog": 0.9
+          }
+        }
+      ]
+    },
+    {
+      "id": "frogs-tadpoles",
+      "months": [
+        3,
+        4,
+        5
+      ],
+      "memory": {
+        "en": "the tadpoles in the shallow water",
+        "sl": "paglavci v plitvi vodi",
+        "it": "i girini nell'acqua bassa",
+        "de": "die Kaulquappen im seichten Wasser"
+      },
+      "lines": [
+        {
+          "who": "poppy",
+          "face": "surprised",
+          "en": "Look in the water by the reeds! Hundreds of tadpoles!",
+          "sl": "Poglej v vodo ob trstičju! Na stotine paglavcev!",
+          "it": "Guarda nell'acqua vicino alle canne! Centinaia di girini!",
+          "de": "Schau ins Wasser beim Schilf! Hunderte Kaulquappen!",
+          "fx": {
+            "tadpoles": 0.8
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "They're baby frogs!",
+              "sl": "To so žabji mladiči!",
+              "it": "Sono rane piccole!",
+              "de": "Das sind Froschbabys!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Yes! First a tail, then legs, then hop!",
+                "sl": "Ja! Najprej rep, potem noge, potem hop!",
+                "it": "Sì! Prima la coda, poi le zampe, poi salto!",
+                "de": "Ja! Erst ein Schwanz, dann Beine, dann hüpf!"
+              }
+            },
+            {
+              "en": "They're baby ducks!",
+              "sl": "To so račji mladiči!",
+              "it": "Sono anatroccoli!",
+              "de": "Das sind Entenküken!",
+              "why": {
+                "en": "Tadpoles grow into frogs. Baby ducks are ducklings.",
+                "sl": "Iz paglavcev zrastejo žabe. Račji mladiči so ducklings.",
+                "it": "Dai girini nascono le rane. Gli anatroccoli sono ducklings.",
+                "de": "Aus Kaulquappen werden Frösche. Entenküken sind ducklings."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Ducks? Ducks have feathers, silly!",
+                "sl": "Race? Race imajo perje, {m:smešnko|f:smešnica}!",
+                "it": "Anatre? Le anatre hanno le piume, {m:sciocchino|f:sciocchina}!",
+                "de": "Enten? Enten haben Federn, du Dummerchen!"
+              }
+            },
+            {
+              "en": "They're a baby frogs!",
+              "sl": "To so žabji mladiči!",
+              "it": "Sono rane piccole!",
+              "de": "Das sind Froschbabys!",
+              "grammar": "articles",
+              "why": {
+                "en": "A is for one. Lots of frogs: no a. They're baby frogs.",
+                "sl": "A je za eno. Veliko žab: brez a. They're baby frogs.",
+                "it": "A è per uno. Tante rane: niente a. They're baby frogs.",
+                "de": "A steht für eins. Viele Frösche: kein a. They're baby frogs."
+              },
+              "reply": {
+                "face": "proud",
+                "en": "A baby frogs? No a, silly! I know my English.",
+                "sl": "A baby frogs? Brez a! Jaz znam angleško.",
+                "it": "A baby frogs? Senza a! Io l'inglese lo so.",
+                "de": "A baby frogs? Ohne a! Ich kann Englisch."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Say it properly!",
+            "sl": "Kaj? Povej pravilno!",
+            "it": "Cosa? Dillo bene!",
+            "de": "Was? Sag's richtig!"
+          }
+        },
+        {
+          "who": "poppy",
+          "face": "curious",
+          "en": "Can I take some home in a jar?",
+          "sl": "Lahko jih nesem nekaj domov v kozarcu?",
+          "it": "Posso portarne qualcuno a casa in un barattolo?",
+          "de": "Darf ich ein paar im Glas mit heimnehmen?"
+        },
+        {
+          "choices": [
+            {
+              "en": "No, let's leave them in the tarn.",
+              "sl": "Ne, pustiva jih v jezercu.",
+              "it": "No, lasciamoli nel laghetto.",
+              "de": "Nein, lassen wir sie im See.",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "en": "OK. Bye bye, tadpoles! Grow up big!",
+                "sl": "Prav. Adijo, paglavci! Zrastite veliki!",
+                "it": "Va bene. Ciao ciao, girini! Diventate grandi!",
+                "de": "Na gut. Tschüss, Kaulquappen! Werdet groß!"
+              }
+            },
+            {
+              "en": "No, let's leaves them in the tarn.",
+              "sl": "Ne, pustiva jih v jezercu.",
+              "it": "No, lasciamoli nel laghetto.",
+              "de": "Nein, lassen wir sie im See.",
+              "why": {
+                "en": "After let's, the verb is plain: let's leave.",
+                "sl": "Za let's je glagol v osnovni obliki: let's leave.",
+                "it": "Dopo let's il verbo è alla forma base: let's leave.",
+                "de": "Nach let's steht das Verb in der Grundform: let's leave."
+              },
+              "reply": {
+                "face": "proud",
+                "en": "Let's leaves? That's not right! See, I'm a teacher too.",
+                "sl": "Let's leaves? To ni prav! Vidiš, tudi jaz sem učiteljica.",
+                "it": "Let's leaves? Non è giusto! Vedi, sono anche maestra.",
+                "de": "Let's leaves? Das stimmt nicht! Siehst du, ich bin auch Lehrerin."
+              }
+            },
+            {
+              "en": "No, let's leave them in the kitchen.",
+              "sl": "Ne, pustiva jih v kuhinji.",
+              "it": "No, lasciamoli in cucina.",
+              "de": "Nein, lassen wir sie in der Küche.",
+              "why": {
+                "en": "Tadpoles need the water of the tarn, not the kitchen.",
+                "sl": "Paglavci potrebujejo vodo jezerca, ne kuhinje.",
+                "it": "I girini hanno bisogno dell'acqua del laghetto, non della cucina.",
+                "de": "Kaulquappen brauchen das Wasser des Sees, nicht die Küche."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "In Granny's kitchen? She'd scream!",
+                "sl": "V babičini kuhinji? Kričala bi!",
+                "it": "Nella cucina della nonna? Urlerebbe!",
+                "de": "In Omas Küche? Die würde schreien!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Say it properly!",
+            "sl": "Kaj? Povej pravilno!",
+            "it": "Cosa? Dillo bene!",
+            "de": "Was? Sag's richtig!"
+          }
+        },
+        {
+          "who": "poppy",
+          "en": "In summer they'll be frogs. Then we'll come back and say hello!",
+          "sl": "Poleti bodo že žabe. Potem se vrneva in jih pozdraviva!",
+          "it": "In estate saranno rane. Poi torniamo a salutarle!",
+          "de": "Im Sommer sind sie Frösche. Dann kommen wir wieder und sagen hallo!"
+        }
+      ]
+    },
+    {
+      "id": "race-stones",
+      "memory": {
+        "en": "the stones we skimmed from the jetty",
+        "sl": "žabice, ki sva jih delala s pomola",
+        "it": "i sassi che abbiamo fatto rimbalzare dal pontile",
+        "de": "die Steine, die wir vom Steg hüpfen ließen"
+      },
+      "lines": [
+        {
+          "who": "harry",
+          "face": "proud",
+          "en": "Race you to the jetty! … I won again! Now, who can skim a stone the furthest?",
+          "sl": "Kdo bo prej na pomolu! … Spet sem zmagal! Kdo pa zna kamen najdlje spustiti po vodi?",
+          "it": "Chi arriva prima al pontile! … Ho vinto di nuovo! Adesso, chi fa rimbalzare un sasso più lontano?",
+          "de": "Wer zuerst am Steg ist! … Wieder gewonnen! Und wer lässt einen Stein am weitesten hüpfen?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Let's try! You go first.",
+              "sl": "Poskusiva! Ti prvi.",
+              "it": "Proviamo! Prima tu.",
+              "de": "Probieren wir's! Du zuerst.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Watch this! One, two, three, four… five!",
+                "sl": "Glej! Ena, dve, tri, štiri … pet!",
+                "it": "Guarda! Uno, due, tre, quattro… cinque!",
+                "de": "Pass auf! Eins, zwei, drei, vier … fünf!"
+              }
+            },
+            {
+              "en": "Let's tries! You go first.",
+              "sl": "Poskusiva! Ti prvi.",
+              "it": "Proviamo! Prima tu.",
+              "de": "Probieren wir's! Du zuerst.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "After let's, the verb is plain, no -s.",
+                "sl": "Za let's je glagol v osnovni obliki, brez -s.",
+                "it": "Dopo let's il verbo è alla forma base, senza -s.",
+                "de": "Nach let's steht das Verb in der Grundform, ohne -s."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Let's tries? That's funny English!",
+                "sl": "Let's tries? To je pa smešna angleščina!",
+                "it": "Let's tries? Che inglese buffo!",
+                "de": "Let's tries? Das ist lustiges Englisch!"
+              }
+            },
+            {
+              "en": "Let's try! You go last.",
+              "sl": "Poskusiva! Ti zadnji.",
+              "it": "Proviamo! Tu per ultimo.",
+              "de": "Probieren wir's! Du zuletzt.",
+              "why": {
+                "en": "Harry wants to show you: he goes first.",
+                "sl": "Harry ti hoče pokazati: on gre prvi (first).",
+                "it": "Harry vuole farti vedere: va lui per primo (first).",
+                "de": "Harry will es dir zeigen: Er fängt an (first)."
+              },
+              "reply": {
+                "face": "cross",
+                "en": "Last? I'm never last!",
+                "sl": "Zadnji? Jaz nisem nikoli zadnji!",
+                "it": "Ultimo? Io non sono mai ultimo!",
+                "de": "Zuletzt? Ich bin nie der Letzte!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Come on, say it again!",
+            "sl": "Kaj? Daj, še enkrat!",
+            "it": "Cosa? Dai, ridillo!",
+            "de": "Was? Komm, sag's noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "en": "Your turn. Find a flat one!",
+          "sl": "Ti si na vrsti. Poišči ploščatega!",
+          "it": "Tocca a te. Trovane uno piatto!",
+          "de": "Du bist dran. Such einen flachen!"
+        },
+        {
+          "choices": [
+            {
+              "en": "Here's a flat one. Three skips!",
+              "sl": "Tu je ploščat. Tri žabice!",
+              "it": "Eccone uno piatto. Tre rimbalzi!",
+              "de": "Hier ist ein flacher. Drei Hüpfer!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Not bad! Tomorrow you'll beat me. Maybe.",
+                "sl": "Ni slabo! Jutri me boš {m:premagal|f:premagala}. Mogoče.",
+                "it": "Niente male! Domani mi batti. Forse.",
+                "de": "Nicht schlecht! Morgen schlägst du mich. Vielleicht."
+              }
+            },
+            {
+              "en": "Here are a flat one. Three skips!",
+              "sl": "Tu je ploščat. Tri žabice!",
+              "it": "Eccone uno piatto. Tre rimbalzi!",
+              "de": "Hier ist ein flacher. Drei Hüpfer!",
+              "grammar": "there-is-are",
+              "why": {
+                "en": "One stone takes is: here's a flat one (here is).",
+                "sl": "En kamen je is: here's a flat one (here is).",
+                "it": "Un sasso vuole is: here's a flat one (here is).",
+                "de": "Ein Stein nimmt is: here's a flat one (here is)."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Here are? I can only see one stone!",
+                "sl": "Here are? Vidim samo en kamen!",
+                "it": "Here are? Vedo un sasso solo!",
+                "de": "Here are? Ich sehe nur einen Stein!"
+              }
+            },
+            {
+              "en": "Here's a round one. Three skips!",
+              "sl": "Tu je okrogel. Tri žabice!",
+              "it": "Eccone uno rotondo. Tre rimbalzi!",
+              "de": "Hier ist ein runder. Drei Hüpfer!",
+              "why": {
+                "en": "A round stone just sinks. Harry asked for a flat one.",
+                "sl": "Okrogel kamen samo potone. Harry je rekel ploščatega (flat).",
+                "it": "Un sasso rotondo affonda e basta. Harry ne ha chiesto uno piatto (flat).",
+                "de": "Ein runder Stein geht einfach unter. Harry wollte einen flachen (flat)."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Round? Plop! Straight to the bottom!",
+                "sl": "Okrogel? Čof! Naravnost na dno!",
+                "it": "Rotondo? Plof! Dritto sul fondo!",
+                "de": "Rund? Plumps! Gleich auf den Grund!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Come on, say it again!",
+            "sl": "Kaj? Daj, še enkrat!",
+            "it": "Cosa? Dai, ridillo!",
+            "de": "Was? Komm, sag's noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "face": "laugh",
+          "en": "Last one home's a soggy biscuit!",
+          "sl": "Kdor bo zadnji doma, je razmočen piškot!",
+          "it": "L'ultimo a casa è un biscotto molliccio!",
+          "de": "Wer zuletzt daheim ist, ist ein matschiger Keks!"
+        }
+      ]
+    },
+    {
+      "id": "ice-snowman",
+      "memory": {
+        "en": "the snowman by the frozen tarn",
+        "sl": "snežak ob zamrznjenem jezercu",
+        "it": "il pupazzo di neve vicino al laghetto gelato",
+        "de": "den Schneemann am zugefrorenen See"
+      },
+      "lines": [
+        {
+          "who": "harry",
+          "face": "happy",
+          "en": "Snow by the tarn! The ice is too thin, I know. So let's make a snowman!",
+          "sl": "Sneg ob jezercu! Led je pretanek, vem. Pa naredimo snežaka!",
+          "it": "Neve vicino al laghetto! Il ghiaccio è troppo sottile, lo so. Allora facciamo un pupazzo di neve!",
+          "de": "Schnee am See! Das Eis ist zu dünn, ich weiß. Also bauen wir einen Schneemann!"
+        },
+        {
+          "choices": [
+            {
+              "en": "Great idea! I'll make the head.",
+              "sl": "Super ideja! Jaz bom {m:naredil|f:naredila} glavo.",
+              "it": "Bella idea! Io faccio la testa.",
+              "de": "Tolle Idee! Ich mache den Kopf.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "And I'll do the body. A big one!",
+                "sl": "Jaz pa telo. Veliko!",
+                "it": "E io faccio il corpo. Grande!",
+                "de": "Und ich den Bauch. Einen großen!"
+              }
+            },
+            {
+              "en": "Yes! You roll the body.",
+              "sl": "Ja! Ti zvaljaj telo.",
+              "it": "Sì! Tu fai rotolare il corpo.",
+              "de": "Ja! Du rollst den Bauch.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Then I'll roll the body. Race you!",
+                "sl": "Potem bom jaz zvaljal telo. Kdo bo prej!",
+                "it": "Allora io faccio rotolare il corpo. A chi fa prima!",
+                "de": "Dann roll ich den Bauch. Wer schneller ist!"
+              }
+            },
+            {
+              "en": "Great idea! I'll making the head.",
+              "sl": "Super ideja! Jaz bom {m:naredil|f:naredila} glavo.",
+              "it": "Bella idea! Io faccio la testa.",
+              "de": "Tolle Idee! Ich mache den Kopf.",
+              "grammar": "future",
+              "why": {
+                "en": "After will ('ll), the plain verb: I'll make.",
+                "sl": "Za will ('ll) osnovni glagol: I'll make.",
+                "it": "Dopo will ('ll) il verbo base: I'll make.",
+                "de": "Nach will ('ll) das Verb in der Grundform: I'll make."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Making? Come on, quick, before it melts!",
+                "sl": "Making? Daj, hitro, preden se stopi!",
+                "it": "Making? Dai, svelto, prima che si sciolga!",
+                "de": "Making? Los, schnell, bevor er schmilzt!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Come on, say it again!",
+            "sl": "Kaj? Daj, še enkrat!",
+            "it": "Cosa? Dai, ridillo!",
+            "de": "Was? Komm, sag's noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "face": "curious",
+          "en": "He needs eyes. And a nose! Have you got a carrot?",
+          "sl": "Potrebuje oči. Pa nos! Imaš korenček?",
+          "it": "Gli servono gli occhi. E il naso! Hai una carota?",
+          "de": "Er braucht Augen. Und eine Nase! Hast du eine Karotte?"
+        },
+        {
+          "choices": [
+            {
+              "en": "No, but here are two stones for his eyes.",
+              "sl": "Ne, imam pa dva kamna za oči.",
+              "it": "No, ma ecco due sassi per gli occhi.",
+              "de": "Nein, aber hier sind zwei Steine für die Augen.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Brilliant! He's looking at the ice. Good lad, stay off it!",
+                "sl": "Odlično! Gleda led. Priden, ne hodi nanj!",
+                "it": "Fantastico! Guarda il ghiaccio. Bravo, stanne lontano!",
+                "de": "Super! Er schaut aufs Eis. Brav, bleib runter!"
+              }
+            },
+            {
+              "en": "No, but here is two stones for his eyes.",
+              "sl": "Ne, imam pa dva kamna za oči.",
+              "it": "No, ma ecco due sassi per gli occhi.",
+              "de": "Nein, aber hier sind zwei Steine für die Augen.",
+              "grammar": "there-is-are",
+              "why": {
+                "en": "Two stones take are: here are two stones.",
+                "sl": "Dva kamna sta are: here are two stones.",
+                "it": "Due sassi vogliono are: here are two stones.",
+                "de": "Zwei Steine nehmen are: here are two stones."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Here is? One stone or two?",
+                "sl": "Here is? En kamen ali dva?",
+                "it": "Here is? Un sasso o due?",
+                "de": "Here is? Ein Stein oder zwei?"
+              }
+            },
+            {
+              "en": "No, but here are two carrots for his eyes.",
+              "sl": "Ne, imam pa dva korenčka za oči.",
+              "it": "No, ma ecco due carote per gli occhi.",
+              "de": "Nein, aber hier sind zwei Karotten für die Augen.",
+              "why": {
+                "en": "You just said you have no carrot. Stones, then.",
+                "sl": "Ravno si {m:rekel|f:rekla}, da korenčka nimaš. Torej kamni (stones).",
+                "it": "Hai appena detto che non hai carote. Allora sassi (stones).",
+                "de": "Du hast gerade gesagt, du hast keine Karotte. Also Steine (stones)."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Carrots? You just said no carrots!",
+                "sl": "Korenčka? Saj si {m:rekel|f:rekla}, da jih nimaš!",
+                "it": "Carote? Hai appena detto di no!",
+                "de": "Karotten? Du hast doch gerade nein gesagt!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "What? Come on, say it again!",
+            "sl": "Kaj? Daj, še enkrat!",
+            "it": "Cosa? Dai, ridillo!",
+            "de": "Was? Komm, sag's noch mal!"
+          }
+        },
+        {
+          "who": "harry",
+          "face": "proud",
+          "en": "There. Mr Frost, the guard of the tarn!",
+          "sl": "Tako. Gospod Mraz, čuvaj jezerca!",
+          "it": "Ecco. Il signor Gelo, il guardiano del laghetto!",
+          "de": "So. Herr Frost, der Wächter vom See!"
+        }
+      ]
+    },
+    {
+      "id": "dusk-curlew",
+      "months": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "memory": {
+        "en": "the curlew calling over the tarn",
+        "sl": "škurh, ki je klical nad jezercem",
+        "it": "il chiurlo che chiamava sul laghetto",
+        "de": "den Brachvogel, der über dem See rief"
+      },
+      "lines": [
+        {
+          "who": "arthur",
+          "en": "Listen, friend. Hear that? Coor-lee, coor-lee. A curlew, up on the fell.",
+          "sl": "Poslušaj, prijatelj. Slišiš? Kur-li, kur-li. Škurh, gori na hribu.",
+          "it": "Ascolta, amico. Senti? Cur-lì, cur-lì. Un chiurlo, su sul monte.",
+          "de": "Hör mal, mein Freund. Hörst du? Kur-li, kur-li. Ein Brachvogel, oben am Berg."
+        },
+        {
+          "choices": [
+            {
+              "en": "What a beautiful sound!",
+              "sl": "Kako lep zvok!",
+              "it": "Che bel suono!",
+              "de": "Was für ein schöner Ruf!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "The sound of spring on the fells. My favourite.",
+                "sl": "Zvok pomladi v hribih. Moj najljubši.",
+                "it": "Il suono della primavera sui monti. Il mio preferito.",
+                "de": "Der Klang des Frühlings in den Bergen. Mein liebster."
+              }
+            },
+            {
+              "en": "It's lovely!",
+              "sl": "Čudovito je!",
+              "it": "È bellissimo!",
+              "de": "Wunderschön!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "It is. Every spring it comes back to the fell.",
+                "sl": "Res je. Vsako pomlad se vrne na hrib.",
+                "it": "È vero. Ogni primavera torna sul monte.",
+                "de": "Ja. Jeden Frühling kommt er zurück auf den Berg."
+              }
+            },
+            {
+              "en": "What a beautiful sounds!",
+              "sl": "Kako lep zvok!",
+              "it": "Che bel suono!",
+              "de": "Was für ein schöner Ruf!",
+              "grammar": "articles",
+              "why": {
+                "en": "A is for one: what a beautiful sound.",
+                "sl": "A je za eno: what a beautiful sound.",
+                "it": "A è per uno: what a beautiful sound.",
+                "de": "A steht für eins: what a beautiful sound."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Sounds? Just the one bird, friend.",
+                "sl": "Sounds? Samo ena ptica je, prijatelj.",
+                "it": "Sounds? È un uccello solo, amico.",
+                "de": "Sounds? Nur ein Vogel, mein Freund."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Say it again, softly.",
+            "sl": "Hm? Povej še enkrat, tiho.",
+            "it": "Mm? Ridillo, piano.",
+            "de": "Hm? Sag's noch mal, leise."
+          }
+        },
+        {
+          "who": "arthur",
+          "face": "happy",
+          "en": "And now the bats are out over the water.",
+          "sl": "Zdaj so pa nad vodo že netopirji.",
+          "it": "E adesso sull'acqua ci sono i pipistrelli.",
+          "de": "Und jetzt sind die Fledermäuse über dem Wasser unterwegs.",
+          "fx": {
+            "bats": 1
+          }
+        },
+        {
+          "choices": [
+            {
+              "en": "They fly so fast!",
+              "sl": "Tako hitro letijo!",
+              "it": "Volano così veloci!",
+              "de": "Die fliegen so schnell!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Fast and quiet. Supper on the wing.",
+                "sl": "Hitro in tiho. Večerja kar v letu.",
+                "it": "Veloci e silenziosi. La cena al volo.",
+                "de": "Schnell und leise. Abendbrot im Flug."
+              }
+            },
+            {
+              "en": "They flies so fast!",
+              "sl": "Tako hitro letijo!",
+              "it": "Volano così veloci!",
+              "de": "Die fliegen so schnell!",
+              "grammar": "present-simple",
+              "why": {
+                "en": "With they, no -s: they fly.",
+                "sl": "S they ni -s: they fly.",
+                "it": "Con they niente -s: they fly.",
+                "de": "Mit they kein -s: they fly."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "They flies? Say it again, softly.",
+                "sl": "They flies? Povej še enkrat, tiho.",
+                "it": "They flies? Ridillo, piano.",
+                "de": "They flies? Sag's noch mal, leise."
+              }
+            },
+            {
+              "en": "They swim so fast!",
+              "sl": "Tako hitro plavajo!",
+              "it": "Nuotano così veloci!",
+              "de": "Die schwimmen so schnell!",
+              "why": {
+                "en": "Bats are in the air: they fly. Swim is for the fish.",
+                "sl": "Netopirji so v zraku: letijo (fly). Swim je za ribe.",
+                "it": "I pipistrelli sono in aria: volano (fly). Swim è per i pesci.",
+                "de": "Fledermäuse sind in der Luft: Sie fliegen (fly). Swim ist für die Fische."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Swim? Bats? Not this evening!",
+                "sl": "Plavajo? Netopirji? Nocoj pa ne!",
+                "it": "Nuotano? I pipistrelli? Non stasera!",
+                "de": "Schwimmen? Fledermäuse? Heute Abend nicht!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Say it again, softly.",
+            "sl": "Hm? Povej še enkrat, tiho.",
+            "it": "Mm? Ridillo, piano.",
+            "de": "Hm? Sag's noch mal, leise."
+          }
+        },
+        {
+          "who": "arthur",
+          "en": "Good night, friend. The bees will be up early.",
+          "sl": "Lahko noč, prijatelj. Čebele bodo zgodaj pokonci.",
+          "it": "Buonanotte, amico. Le api si alzano presto.",
+          "de": "Gute Nacht, mein Freund. Die Bienen sind früh auf."
+        }
+      ]
+    }
+  ]
+}

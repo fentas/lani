@@ -1,0 +1,98 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "at-the-playground",
+  "language": "en",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in en, with sl translations, from Mrs Hartley's playground in its Lakeland look (the school's side wall of grey slate stone with its white sash window, the low dry-stone wall along the back with the wooden gate, the horse chestnut with its conkers in autumn) and the default playground's things and places (the blue bucket and the red spade in the sandpit, the red and white ball, the white chalk squares, the Wendy house by the slide, the bench under the tree); the sl translations keep to forms that don't give the word's gender away where they can; not reviewed by a native speaker",
+  "things": {
+    "swing": {"clues": [
+      {"kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has two seats.", "sl": "Ima dva sedeža.", "grammar": ["to-have"]},
+      {"kind": "does", "en": "It goes back and forth.", "sl": "Gre naprej in nazaj.", "grammar": ["present-simple"]},
+      {"kind": "use", "en": "Push me on it: higher!", "sl": "Porini me na tem: višje!", "grammar": ["prepositions-place"]}
+    ]},
+    "slide": {"clues": [
+      {"kind": "size", "en": "It's tall.", "sl": "To je nekaj visokega.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has a ladder at the back.", "sl": "Zadaj ima lestev.", "grammar": ["to-have", "prepositions-place"]},
+      {"kind": "use", "en": "We go up the steps and down it, fast.", "sl": "Gremo gor po stopnicah in hitro dol po tem.", "grammar": ["present-simple"]}
+    ]},
+    "sandpit": {"clues": [
+      {"kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"]},
+      {"kind": "size", "en": "It's low.", "sl": "To je nekaj nizkega.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "There's sand in it.", "sl": "V tem je pesek.", "grammar": ["there-is-are", "prepositions-place"]},
+      {"kind": "use", "en": "We play in it with a bucket.", "sl": "V tem se igramo z vedrom.", "grammar": ["present-simple"]}
+    ]},
+    "sand": {"clues": [
+      {"kind": "colour", "en": "It's pale yellow.", "sl": "Je svetlo rumene barve.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It's soft.", "sl": "To je nekaj mehkega.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "It's in the sandpit.", "sl": "Je v peskovniku.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "use", "en": "We build castles with it.", "sl": "Iz tega gradimo gradove.", "grammar": ["present-simple"]}
+    ]},
+    "bucket": {"clues": [
+      {"kind": "colour", "en": "It's blue.", "sl": "Je modre barve.", "grammar": ["to-be"]},
+      {"kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "It's in the sandpit.", "sl": "Je v peskovniku.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "use", "en": "We fill it with sand.", "sl": "To napolnimo s peskom.", "grammar": ["present-simple"]}
+    ]},
+    "spade": {"clues": [
+      {"kind": "colour", "en": "It's red.", "sl": "Je rdeče barve.", "grammar": ["to-be"]},
+      {"kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "It's in the sandpit.", "sl": "Je v peskovniku.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "use", "en": "We dig with it.", "sl": "S tem kopljemo.", "grammar": ["present-simple"]}
+    ]},
+    "climber": {"clues": [
+      {"kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"]},
+      {"kind": "size", "en": "It's tall.", "sl": "To je nekaj visokega.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has lots of poles.", "sl": "Ima veliko drogov.", "grammar": ["to-have"]},
+      {"kind": "use", "en": "We climb up it.", "sl": "Na to plezamo.", "grammar": ["present-simple"]}
+    ]},
+    "house": {"clues": [
+      {"kind": "size", "en": "It's small.", "sl": "To je nekaj majhnega.", "grammar": ["to-be"]},
+      {"kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has a red roof.", "sl": "Ima rdečo streho.", "grammar": ["to-have"]},
+      {"kind": "use", "en": "We play in it and have pretend tea.", "sl": "V tem se igramo in pijemo čaj za igro.", "grammar": ["present-simple"]}
+    ]},
+    "ball": {"clues": [
+      {"kind": "colour", "en": "It's red and white.", "sl": "Je rdeče in bele barve.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It's round.", "sl": "To je nekaj okroglega.", "grammar": ["to-be"]},
+      {"kind": "does", "en": "It rolls and bounces.", "sl": "Kotali se in odbija.", "grammar": ["present-simple"]},
+      {"kind": "use", "en": "We kick it.", "sl": "To brcamo.", "grammar": ["present-simple"]}
+    ]},
+    "hopscotch": {"clues": [
+      {"kind": "colour", "en": "It's white chalk.", "sl": "Je iz bele krede.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "It has squares with numbers.", "sl": "Ima kvadrate s številkami.", "grammar": ["to-have", "plurals"]},
+      {"kind": "where", "en": "It's on the ground.", "sl": "Je na tleh.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "use", "en": "We hop on it, on one foot.", "sl": "Po tem skačemo, po eni nogi.", "grammar": ["present-simple"]}
+    ]},
+    "bench": {"clues": [
+      {"kind": "colour", "en": "It's brown.", "sl": "Je rjave barve.", "grammar": ["to-be"]},
+      {"kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "It's under the tree.", "sl": "Je pod drevesom.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "use", "en": "Mrs Hartley sits on it.", "sl": "Na tem sedi gospa Hartley.", "grammar": ["present-simple", "prepositions-place"]}
+    ]},
+    "tree": {"clues": [
+      {"kind": "size", "en": "It's big and tall.", "sl": "To je nekaj velikega in visokega.", "grammar": ["to-be"]},
+      {"kind": "colour", "en": "In summer it's green.", "sl": "Poleti je zelene barve.", "grammar": ["to-be"]},
+      {"kind": "trait", "en": "In autumn conkers fall from it.", "sl": "Jeseni s tega padajo kostanji.", "grammar": ["present-simple"]},
+      {"kind": "trait", "en": "There's a bench under it.", "sl": "Pod tem je klop.", "grammar": ["there-is-are", "prepositions-place"]}
+    ]},
+    "fence": {"clues": [
+      {"kind": "colour", "en": "It's grey.", "sl": "Je sive barve.", "grammar": ["to-be"]},
+      {"kind": "material", "en": "It's made of stones, with no mortar.", "sl": "Je iz kamnov, brez malte.", "grammar": ["to-be"]},
+      {"kind": "size", "en": "It's low and long.", "sl": "To je nekaj nizkega in dolgega.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "It goes along the back of the playground.", "sl": "Teče ob zadnjem robu igrišča.", "grammar": ["present-simple", "prepositions-place"]}
+    ]},
+    "gate": {"clues": [
+      {"kind": "material", "en": "It's made of wood.", "sl": "Je iz lesa.", "grammar": ["to-be"]},
+      {"kind": "where", "en": "It's in the wall.", "sl": "Je v zidu.", "grammar": ["to-be", "prepositions-place"]},
+      {"kind": "trait", "en": "It opens and shuts.", "sl": "Odpre in zapre se.", "grammar": ["present-simple"]},
+      {"kind": "use", "en": "We come into the playground through it.", "sl": "Skozi to pridemo na igrišče.", "grammar": ["present-simple"]}
+    ]},
+    "school": {"clues": [
+      {"kind": "material", "en": "Its wall is grey stone.", "sl": "Njen zid je iz sivega kamna.", "grammar": ["possessive-s", "to-be"]},
+      {"kind": "trait", "en": "It has a white window.", "sl": "Ima belo okno.", "grammar": ["to-have"]},
+      {"kind": "size", "en": "It's big.", "sl": "To je nekaj velikega.", "grammar": ["to-be"]},
+      {"kind": "use", "en": "Mrs Hartley teaches in it.", "sl": "Gospa Hartley v tem poučuje.", "grammar": ["present-simple", "prepositions-place"]}
+    ]}
+  }
+}

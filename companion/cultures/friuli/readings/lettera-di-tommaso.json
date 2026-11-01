@@ -1,0 +1,87 @@
+{
+  "id": "lettera-di-tommaso",
+  "kind": "letter",
+  "level": "A1",
+  "title": { "it": "Una lettera di Tommaso", "sl": "Pismo od Tommasa", "en": "A letter from Tommaso", "de": "Ein Brief von Tommaso" },
+  "by": "tommaso",
+  "intro": { "it": "Tommaso ha scritto a {learner} una breve lettera.", "sl": "Tommaso je {learner:dat} napisal kratko pismo.", "en": "Tommaso wrote {learner} a short letter.", "de": "Tommaso hat {learner} einen kurzen Brief geschrieben." },
+  "lines": [
+    { "text": { "it": "{m:Caro|f:Cara} {learner},", "sl": "{m:Dragi|f:Draga} {learner}!", "en": "Dear {learner},", "de": "{m:Lieber|f:Liebe} {learner}," } },
+    { "text": { "it": "l'11 novembre è San Martino.", "sl": "11. novembra je martinovo.", "en": "the 11th of November is St Martin's Day.", "de": "am 11. November ist Martinstag." } },
+    { "text": { "it": "Nel pomeriggio facciamo le castagne sul fuoco, in piazza.", "sl": "Popoldne bomo na trgu pekli kostanj na ognju.", "en": "In the afternoon we're roasting chestnuts on the fire, in the square.", "de": "Am Nachmittag rösten wir Kastanien über dem Feuer, auf dem Platz." } },
+    { "text": { "it": "Il mio papà fa un taglio sulle castagne, così non scoppiano.", "sl": "Moj oči zareže kostanj, da ne poči.", "en": "My dad cuts a slit in the chestnuts, so they don't burst.", "de": "Mein Papa ritzt die Kastanien ein, damit sie nicht platzen." } },
+    { "text": { "it": "I grandi bevono il vino nuovo. Noi bambini beviamo il succo di mela.", "sl": "Odrasli pijejo mlado vino. Mi otroci pijemo jabolčni sok.", "en": "The grown-ups drink the new wine. We children drink apple juice.", "de": "Die Großen trinken den neuen Wein. Wir Kinder trinken Apfelsaft." } },
+    { "text": { "it": "Nonno Bepi dice che a San Martino torna un po' di sole: è l'estate di San Martino.", "sl": "Dedek Bepi pravi, da se za martinovo vrne malo sonca: to je martinovo poletje.", "en": "Nonno Bepi says a little sunshine comes back on St Martin's Day: it's St Martin's summer.", "de": "Nonno Bepi sagt, dass zu Martini ein bisschen Sonne zurückkommt: Das ist der Martinssommer." } },
+    { "text": { "it": "Ma la sera fa freddo. Porta un cappello caldo e i guanti!", "sl": "Ampak zvečer je mrzlo. Prinesi toplo kapo in rokavice!", "en": "But in the evening it's cold. Bring a warm hat and gloves!", "de": "Aber am Abend ist es kalt. Bring eine warme Mütze und Handschuhe mit!" } },
+    { "text": { "it": "Ciao, Tommaso", "sl": "Lep pozdrav, Tommaso", "en": "Bye, Tommaso", "de": "Tschüss, Tommaso" } }
+  ],
+  "questions": [
+    {
+      "type": "main_idea",
+      "ask": { "it": "Perché Tommaso scrive a {learner}?", "sl": "Zakaj Tommaso piše {learner:dat}?", "en": "Why is Tommaso writing to {learner}?", "de": "Warum schreibt Tommaso {learner}?" },
+      "options": ["Per una festa con le castagne", "Per chiedere un libro", "Perché è malato"],
+      "explain": {
+        "it": "Tommaso invita {learner} a fare le castagne in piazza, a San Martino.",
+        "sl": "Tommaso povabi {learner:acc}, naj za martinovo pride na trg peč kostanj.",
+        "en": "Tommaso invites {learner} to roast chestnuts in the square on St Martin's Day.",
+        "de": "Tommaso lädt {learner} ein, zu Martini auf dem Platz Kastanien zu rösten."
+      }
+    },
+    {
+      "type": "detail",
+      "ask": { "it": "Dove fanno le castagne?", "sl": "Kje bodo pekli kostanj?", "en": "Where are they roasting the chestnuts?", "de": "Wo rösten sie die Kastanien?" },
+      "options": ["In piazza", "A scuola", "Nel bosco"],
+      "explain": {
+        "it": "«Nel pomeriggio facciamo le castagne sul fuoco, in piazza.»",
+        "sl": "»Popoldne bomo na trgu pekli kostanj na ognju.«",
+        "en": "»In the afternoon we're roasting chestnuts on the fire, in the square.«",
+        "de": "»Am Nachmittag rösten wir Kastanien über dem Feuer, auf dem Platz.«"
+      }
+    },
+    {
+      "type": "word",
+      "word": "castagne",
+      "ask": { "it": "Che cosa sono le «castagne»?", "sl": "Kaj so »castagne«?", "en": "What are »castagne«?", "de": "Was sind »castagne«?" },
+      "options": ["Frutti d'autunno, buoni arrosto", "Piccoli animali del bosco", "Dolci al cioccolato"],
+      "explain": {
+        "it": "Le castagne sono i frutti del castagno: in autunno si cuociono sul fuoco.",
+        "sl": "Castagne so kostanji, plodovi kostanjevega drevesa: jeseni jih pečemo na ognju.",
+        "en": "Castagne are chestnuts, the fruit of the chestnut tree: in autumn they're roasted on the fire.",
+        "de": "Castagne sind Kastanien, die Früchte des Kastanienbaums: Im Herbst röstet man sie über dem Feuer."
+      }
+    },
+    {
+      "type": "true_false",
+      "ask": { "it": "I bambini bevono il vino nuovo.", "sl": "Otroci pijejo mlado vino.", "en": "The children drink the new wine.", "de": "Die Kinder trinken den neuen Wein." },
+      "answer": false,
+      "explain": {
+        "it": "Falso: il vino nuovo è per i grandi. I bambini bevono il succo di mela.",
+        "sl": "Ne drži: mlado vino je za odrasle. Otroci pijejo jabolčni sok.",
+        "en": "False: the new wine is for the grown-ups. The children drink apple juice.",
+        "de": "Stimmt nicht: Der neue Wein ist für die Großen. Die Kinder trinken Apfelsaft."
+      }
+    },
+    {
+      "type": "inference",
+      "ask": { "it": "In che stagione è San Martino?", "sl": "V katerem letnem času je martinovo?", "en": "Which season is St Martin's Day in?", "de": "In welcher Jahreszeit ist Martinstag?" },
+      "options": ["In autunno", "In primavera", "In estate"],
+      "explain": {
+        "it": "L'11 novembre è autunno. L'estate di San Martino sono solo pochi giorni di sole.",
+        "sl": "11. novembra je jesen. Martinovo poletje je samo nekaj sončnih dni.",
+        "en": "The 11th of November is in autumn. St Martin's summer is just a few sunny days.",
+        "de": "Der 11. November ist im Herbst. Der Martinssommer sind nur ein paar sonnige Tage."
+      }
+    }
+  ],
+  "words": [
+    { "word": "castagna", "form": "castagne", "pos": "noun", "means": { "sl": "kostanj", "en": "a chestnut", "de": "eine Kastanie" } },
+    { "word": "novembre", "pos": "noun", "means": { "sl": "november", "en": "November", "de": "November" } },
+    { "word": "taglio", "pos": "noun", "means": { "sl": "zareza", "en": "a cut, a slit", "de": "ein Schnitt" } },
+    { "word": "scoppiare", "form": "scoppiano", "pos": "verb", "means": { "sl": "počiti", "en": "to burst", "de": "platzen" } },
+    { "word": "succo", "pos": "noun", "means": { "sl": "sok", "en": "juice", "de": "der Saft" } },
+    { "word": "guanto", "form": "guanti", "pos": "noun", "means": { "sl": "rokavica", "en": "a glove", "de": "ein Handschuh" } }
+  ],
+  "topics": ["autumn", "St Martin's Day", "invitation"],
+  "machine_written": true,
+  "review": "it, sl, en, de: machine-written, not reviewed by a native speaker"
+}

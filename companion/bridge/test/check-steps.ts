@@ -4,7 +4,7 @@
 // LANI_EXTRA_FORMS: more supplement files (a lexicon extra's format), comma-separated, read as if in the supplement.
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
-import { cultureProjectSteps, lexiconLemmas, stepScenes, stepTellings } from '../src/project-steps'
+import { cultureProjectSteps, lexiconLemmas, stepScenes, stepTellings, type Lemmas } from '../src/project-steps'
 import { readManifest } from '../src/cultures'
 import { PackStore, packsDirs, validatePack } from '../src/packs'
 
@@ -42,7 +42,8 @@ for (const file of (process.env.LANI_EXTRA_FORMS ?? '').split(',').filter(Boolea
     extra.set(f.toLowerCase(), set)
   }
 }
-const lemmas = (w: string) => [...base(w), ...(extra.get(w.toLowerCase()) ?? [])]
+// the dictionary's flag kept (a language without one has its forms guessed: testsWord), the extra forms beside it
+const lemmas: Lemmas = Object.assign((w: string) => [...base(w), ...(extra.get(w.toLowerCase()) ?? [])], { dictionary: base.dictionary !== false || extra.size > 0, partial: base.partial !== false })
 const r = cultureProjectSteps(culturesDir, id, lang, projects, { packs, pages, scenes: stepScenes(culturesDir, id, lang), lemmas })
 problems.push(...(only ? r.errors.filter(e => e.includes(`/${only}.json`)) : r.errors))
 const files = only ? r.files.filter(f => f.project === only) : r.files

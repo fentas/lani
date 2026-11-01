@@ -43,6 +43,16 @@ import kotlin.math.sin
  * Friuli's look ([look]; companion/SCENES.md "Culture looks"): the view of Friuli: the Collio's hills striped with vines, the
  * plain with its rows of poplars, the village on the hill as Friuli builds it with its campanile, the lagoon and the sea at
  * Grado on the right; the flag on the roof the golden eagle of Friuli.
+ *
+ * The Lake District's viewing station ([lakes]; At the viewing station, Mrs Birkett's, as the Claife Station above Windermere
+ * was): we stand inside the little stone station on its rock above the lake, at its big window. The corner posts are the
+ * window's jambs of slate stone, the ceiling whitewashed over the slate eave, and across the window's top a row of panes of
+ * coloured glass, green for spring, yellow for summer, orange for autumn and blue for winter ([panes], the `tower`'s); the
+ * flag St George's cross. The view: the fells round the dale, rounded, green and brown with crags, bracken russet in autumn,
+ * snow on their tops in winter ([fellTop]); among them a pike, a peaked fell with its two knobbly tops (the `peak`,
+ * [pikeTop]); far below the lake winding along the dale with its wooded island (the `sea`, [lake]); the village of grey stone
+ * and whitewash under slate round its battlemented church tower; the dale's fields walled with grey dry-stone walls, green
+ * pasture most of them; the oak woods.
  */
 internal class LookoutPainter : VistaPainter() {
     override val art = "lookout"
@@ -80,7 +90,10 @@ internal class LookoutPainter : VistaPainter() {
     private var haze = 0.5f
     private val winter: Boolean get() = env.season == Season.WINTER
 
-    private fun readLook2() { friuli = variant("view") == "friuli" }
+    private fun readLook2() { friuli = variant("view") == "friuli"; lakes = variant("view") == "lakeland" }
+
+    /** The Lake District's viewing station and its view ([readLook2]). */
+    private var lakes = false
 
     /** How clear the air is: `clear`, else by the season and the weather (hazy summer, clear autumn and winter). */
     private fun clarity(): Float {
@@ -101,9 +114,11 @@ internal class LookoutPainter : VistaPainter() {
         thing("mountains", outline = 0) { alps() }
         thing("peak", outline = 0) { triglav() }
         farHills(near = false)
-        thing("sea", outline = 0) { sea() }
+        if (!lakes) thing("sea", outline = 0) { sea() }
         farHills(near = true)
         thing("valley", outline = 0) { valley() }
+        // the lake winding along the dale below, its island: over the valley's fields
+        if (lakes) thing("sea", outline = 0) { lake() }
         prop(0) { river() }
         thing("forest", outline = Pal.OUTLINE_TREE) { woods() }
         thing("village") { village() }
@@ -124,7 +139,7 @@ internal class LookoutPainter : VistaPainter() {
         thing("stairs") { stairs() }
         // the corner posts: the left one scenery, the right one (the flag's) the tower to tap, its box no wider than a post
         prop { post(-1) }
-        thing("tower") { post(1) }
+        thing("tower") { post(1); if (lakes) panes() }
         thing("roof") { roof() }
         thing("flag", slop = 1) { flag() }
     }
@@ -154,6 +169,41 @@ internal class LookoutPainter : VistaPainter() {
         c.penEmissive = false
     }
 
+    /**
+     * The lake far below ([lakes]): winding along the dale from the right toward the far end, its water the sky's colour darker,
+     * glints drifting on it, its shores a little lighter; a wooded island in it; gone grey in a haze.
+     */
+    private fun lake() {
+        val z = z
+        val railTop = hy(railD, 0f).toInt()
+        val top = (hz + 12 * z).toInt()
+        val water = Col.mix(Col.hex(0x3E6A8E), env.skyHorizon, 0.25f)
+        val shine = Col.mix(env.skyHorizon, Col.hex(0xFFFFFF), 0.4f)
+        c.penEmissive = true
+        for (py in max(top, c.top) until min(railTop + 2 * z, c.bottom)) {
+            val d = ldepth(py)
+            if (d < 420f || d > 2600f) continue
+            val far = ((d - 300f) / 3000f).coerceIn(0f, 1f)
+            val mid = 260f + 120f * sin(d / 600f); val half = 140f + d * 0.05f
+            for (px in max(0, c.left) until min(w, c.right)) {
+                val x = lside(px, d)
+                val e = half - abs(x - mid)
+                if (e < 0f) continue
+                // the island: a round of oaks in the water
+                val isle = (x - 300f) * (x - 300f) / (70f * 70f) + (d - 1150f) * (d - 1150f) / (120f * 120f)
+                val col = when {
+                    isle < 1f -> if (isle < 0.5f && Noise.rnd(px / max(1, z), py / max(1, z), 881) < 0.5f) Col.hex(0x3E6E3E) else Col.hex(0x2A5230)
+                    env.season == Season.WINTER && e < 18f -> Pal.SNOW_L
+                    e < 12f -> Col.mix(water, Col.hex(0xB8C8B0), 0.4f)
+                    Noise.rnd(floor((px - ox) / (3f * z) + t * 0.25).toInt(), (py - top) / z, 883) > 0.93f && haze < 0.7f -> shine
+                    else -> water
+                }
+                c.set(px, py, env.lit(distant(col, 0.15f + far * 0.6f)))
+            }
+        }
+        c.penEmissive = false
+    }
+
     /** How high the Alps stand at scene column [u] (0 … 240), in scene px over the horizon: tall on the left, sinking to the south. */
     private fun alpsTop(u: Float): Float {
         val tall = (1f - (u - 20f) / 150f).coerceIn(0.15f, 1f)
@@ -166,10 +216,24 @@ internal class LookoutPainter : VistaPainter() {
     private fun glow(): Float = fx("glow") ?: if (env.dark < 0.6f && frame.sky.gloom < 0.5f) (1f - abs(env.sun - 0.06f) / 0.18f).coerceIn(0f, 1f) else 0f
 
     /** The Julian Alps along the sky on the left: grey rock lit on the sun's side, snow on the tops (down the slopes in winter). */
-    private fun alps() = range(0f, 175f) { u -> alpsTop(u) }
+    private fun alps() = if (lakes) range(0f, 240f) { u -> fellTop(u) } else range(0f, 175f) { u -> alpsTop(u) }
+
+    /** How high the fells stand at scene column [u] ([lakes]): rounded tops along the whole dale, higher on the left. */
+    private fun fellTop(u: Float): Float {
+        val tall = (1f - (u - 30f) / 260f).coerceIn(0.45f, 1f)
+        return 5f + 17f * tall * (Noise.v1(u * 0.028f, 825) * 0.75f + Noise.v1(u * 0.09f, 826) * 0.25f)
+    }
+
+    /** The pike among the fells ([lakes]): a steep fell with two knobbly tops, the higher on the right. */
+    private fun pikeTop(u: Float): Float {
+        val dx = (u - PIKE_U) / 16f
+        val body = max(0f, 1f - dx * dx) * 24f
+        val knobs = 4f * max(0f, 1f - abs(dx - 0.18f) * 6f) + 3f * max(0f, 1f - abs(dx + 0.3f) * 7f)
+        return max(fellTop(u), body + knobs)
+    }
 
     /** Triglav among them: its broad shoulders and the three heads, the highest in the middle, whiter than the rest. */
-    private fun triglav() = range(TRIGLAV_U - 18f, TRIGLAV_U + 18f) { u ->
+    private fun triglav() = if (lakes) range(PIKE_U - 16f, PIKE_U + 16f) { u -> pikeTop(u) } else range(TRIGLAV_U - 18f, TRIGLAV_U + 18f) { u ->
         val dx = (u - TRIGLAV_U) / 18f
         val body = (1f - dx * dx) * 30f
         val heads = 3.2f * (max(0f, 1f - abs(dx) * 7f) + 0.6f * max(0f, 1f - abs(dx + 0.38f) * 8f) + 0.5f * max(0f, 1f - abs(dx - 0.42f) * 8f))
@@ -191,9 +255,9 @@ internal class LookoutPainter : VistaPainter() {
             for (y in max(crest.toInt(), c.top) until min(hz + z, c.bottom)) {
                 val up = (hz + z - y - 0.5f) / z
                 val rel = up / max(1f, tt)
-                val snowy = rel > snowLine + (Noise.v2(u * 0.2f, up * 0.4f, 823) - 0.5f) * 0.3f
+                val snowy = rel > (if (lakes) (if (env.season == Season.WINTER) 0.45f else 2f) else snowLine) + (Noise.v2(u * 0.2f, up * 0.4f, 823) - 0.5f) * 0.3f
                 val gully = Noise.v2(u * 0.4f + up * 0.2f, up * 0.3f, 824) > 0.7f
-                var col = when {
+                var col = if (lakes) fellColour(u, up, rel, snowy, gully, facing) else when {
                     snowy -> if (facing) Col.hex(0xF4F7FF) else Col.hex(0xC0CCE4)
                     gully -> Col.hex(0x6E7088)
                     facing -> Col.hex(0xA8A8BC)
@@ -204,6 +268,21 @@ internal class LookoutPainter : VistaPainter() {
             }
         }
         c.penEmissive = false
+    }
+
+    /** A fell's colour ([lakes]) at scene column [u], [up] scene px over the horizon ([rel] of its height): grass, bracken, crags, snow. */
+    private fun fellColour(u: Float, up: Float, rel: Float, snowy: Boolean, gully: Boolean, facing: Boolean): Int {
+        val autumn = env.season == Season.AUTUMN
+        val bracken = Noise.v2(u * 0.15f, up * 0.35f, 827) > 0.55f
+        val crag = rel > 0.6f && Noise.v2(u * 0.3f, up * 0.5f, 828) > 0.62f
+        return when {
+            snowy -> if (facing) Col.hex(0xF4F7FF) else Col.hex(0xC8D2E6)
+            crag || gully -> if (facing) Col.hex(0x8A9098) else Col.hex(0x6A7078)
+            bracken && autumn -> if (facing) Col.hex(0xB8683A) else Col.hex(0x96522E)
+            bracken -> if (facing) Col.hex(0x6E9A4A) else Col.hex(0x56803E)
+            autumn -> if (facing) Col.hex(0xA8A060) else Col.hex(0x8A8450)
+            else -> if (facing) Col.hex(0x88A862) else Col.hex(0x6A8A4E)
+        }
     }
 
     /** The hills between the Alps and the valley: blue far ones, green near ones with woods (vines in Friuli's Collio). */
@@ -241,8 +320,10 @@ internal class LookoutPainter : VistaPainter() {
                     Season.SUMMER -> when (kind) { 0 -> Col.hex(0xD8C060); 1 -> Col.hex(0x5E9A42); 2 -> Col.hex(0x8AB450); 3 -> Col.hex(0xC8A858); else -> Col.hex(0x6CA44C) }
                     Season.AUTUMN -> when (kind) { 0 -> Col.hex(0x9A7A4E); 1 -> Col.hex(0x7E8E48); 2 -> Col.hex(0xB08A4A); 3 -> Col.hex(0x8A6A44); else -> Col.hex(0x6E8A46) }
                 }
+                if (lakes && env.season != Season.WINTER) col = when (kind) { 0 -> if (env.season == Season.SUMMER) Col.hex(0xC8C068) else Col.hex(0x7AA858); 3 -> Col.hex(0x5E8A46); else -> if (env.season == Season.AUTUMN) Col.hex(0x7E9A50) else Col.hex(0x6E9E52) }
                 val fxv = x / 140f + Noise.v1(d / 500f, 841) * 0.6f
-                if (fxv - floor(fxv) < 0.06f && env.season != Season.WINTER) col = Col.scale(col, 0.72f)
+                if (lakes && (fxv - floor(fxv) < 0.05f || (d / 220f) - floor(d / 220f) < 0.06f) && env.season != Season.WINTER) col = Col.hex(0x9AA0A4)
+                else if (fxv - floor(fxv) < 0.06f && env.season != Season.WINTER) col = Col.scale(col, 0.72f)
                 if (Dither.at(px, py) < 0.15f) col = Col.scale(col, 0.94f)
                 c.set(px, py, env.lit(distant(col, 0.2f + far * 0.6f)))
             }
@@ -305,6 +386,14 @@ internal class LookoutPainter : VistaPainter() {
         val lit = env.windows > 0.35f
         val p = F / villageD
         val cx = lx(villageX, villageD); val base = ly(villageD)
+        if (lakes) {
+            val st = FireStyle.of(frame.world.culture, frame.world.landscape)
+            c.penEmissive = true
+            for (i in 0 until 7) farSlateHouse((cx - 18f * z + i * 5f * z).toInt(), (base + (i % 3) * z).toInt(), 4 * z, 2 * z, st, i, lit, 0.2f)
+            farTowerChurch((cx + 3f * z).toInt(), base.toInt() - z, st, lit, 0.2f, tall = 9)
+            c.penEmissive = false
+            return
+        }
         if (friuli) {
             val st = FireStyle.of(frame.world.culture, frame.world.landscape)
             for (i in 0 until 7) farCoppiHouse((cx - 18f * z + i * 5f * z).toInt(), (base + (i % 3) * z).toInt(), 4 * z, 3 * z, st, i, lit, 0.2f)
@@ -510,6 +599,16 @@ internal class LookoutPainter : VistaPainter() {
             val p = pm(d)
             val px = gx(x, d)
             val pw = max(3, (0.26f * p).toInt())
+            if (lakes) {
+                // the window's jamb of slate stone, a whitewashed reveal on its inner side
+                val jw = pw * 3
+                val x0 = if (side < 0) (px - jw + pw / 2f).toInt() else (px - pw / 2f).toInt()
+                for (yy in max(top, c.top)..min(gy(d).toInt(), c.bottom - 1)) for (xx in max(x0, c.left)..min(x0 + jw - 1, c.right - 1)) {
+                    val inner = if (side < 0) xx > x0 + jw - 1 - pw / 2 else xx < x0 + pw / 2
+                    c.set(xx, yy, env.lit(if (inner) Col.hex(0xE8E4DA) else Lakeland.slateStone((xx - ox) / (6f * z), (yy - oy) / z.toFloat(), xx, yy, z > 1, mortar = true)))
+                }
+                return
+            }
             c.fillRect((px - pw / 2f).toInt(), top, pw, (gy(d) - top).toInt() + 1, env.lit(logM))
             c.vline((px - pw / 2f).toInt(), top, gy(d).toInt(), env.lit(if (side < 0) logD else logL))
             c.vline((px + pw / 2f).toInt() - 1, top, gy(d).toInt(), env.lit(logD))
@@ -522,6 +621,17 @@ internal class LookoutPainter : VistaPainter() {
     /** The roof overhead: its underside of boards on rafters at the top of the view, the eave's shingles and the beam under them; snow on its edge in winter. */
     private fun roof() {
         val eave = eaveRow
+        if (lakes) {
+            // the ceiling whitewashed on its beams, the slate eave's edge over the window
+            for (py in max(0, c.top) until min(eave, c.bottom)) for (px in max(0, c.left) until min(w, c.right)) {
+                val beam = ((px - ox) / max(1f, 24f * z) + 0.5f) % 1f < 0.08f
+                c.set(px, py, env.lit(if (beam) Lakeland.OAK_D else if (Noise.rnd(px, py, 885) < 0.05f) Col.hex(0xDAD6CC) else Col.hex(0xEEEAE0)))
+            }
+            for (o in 0 until 2 * z) c.hline(0, w - 1, eave - 1 - o, if (winter && o >= z) Pal.SNOW_L else env.lit(if (o == 0) Lakeland.ROOF_D else Lakeland.ROOF_M))
+            c.fillRect(0, eave, w, max(2, 2 * z), env.lit(Lakeland.OAK_D))
+            c.hline(0, w - 1, eave, env.lit(Lakeland.OAK_M))
+            return
+        }
         for (py in max(0, c.top) until min(eave, c.bottom)) for (px in max(0, c.left) until min(w, c.right)) {
             val raft = ((px - ox) / max(1f, 18f * z) + 0.5f) % 1f < 0.1f
             val board = (((py - oy) / max(1, 3 * z)) % 2 == 0)
@@ -550,14 +660,40 @@ internal class LookoutPainter : VistaPainter() {
             val wave = sin(t * 4.0 * gust + f * 5f).toFloat() * f * 0.08f * p
             for (j in 0 until fh.toInt()) {
                 val v = j / fh
-                val col = if (friuli) (if (abs(f - 0.45f) < 0.15f && abs(v - 0.5f) < 0.22f) Pal.GOLD else Col.hex(0x2A5AA8))
+                val col = if (lakes) (if (abs(f - 0.5f) < 0.09f || abs(v - 0.5f) < 0.14f) Pal.FLAG_RED else Pal.FLAG_WHITE)
+                else if (friuli) (if (abs(f - 0.45f) < 0.15f && abs(v - 0.5f) < 0.22f) Pal.GOLD else Col.hex(0x2A5AA8))
                 else when { v < 0.33f -> Pal.FLAG_WHITE; v < 0.66f -> Pal.FLAG_BLUE; else -> Pal.FLAG_RED }.let { if (f < 0.32f && v in 0.15f..0.55f && (abs(v - 0.35f) < 0.12f)) Col.hex(0x1E4A9A) else it }
                 c.set((tx - z - i).toInt(), (top0 + j + wave).toInt(), env.lit(col))
             }
         }
     }
 
+    /**
+     * The viewing station's coloured panes ([lakes]) across the window's top between its jambs, under the eave: four of them in
+     * their oak glazing bars, green for spring, yellow for summer, orange for autumn and blue for winter, the view tinted
+     * through them; lit from behind by the sky.
+     */
+    private fun panes() {
+        val z = z
+        val a = gx(-5.6f, railD).toInt(); val b = gx(5.6f, railD).toInt()
+        val y0 = eaveRow + 2 * z; val y1 = eaveRow + 15 * z
+        val tints = intArrayOf(Col.hex(0x5CC840), Col.hex(0xF8D820), Col.hex(0xFF7A10), Col.hex(0x3A80E8))
+        val bar = env.lit(Lakeland.OAK_M)
+        for (py in max(y0, c.top) until min(y1, c.bottom)) for (px in max(a, c.left) until min(b, c.right)) {
+            val f = (px - a).toFloat() / max(1, b - a)
+            val i = (f * 4f).toInt().coerceIn(0, 3)
+            val edge = (f * 4f) - i
+            if (edge < 0.03f || edge > 0.97f || py < y0 + z || py >= y1 - z) { c.set(px, py, bar); continue }
+            // a thin bar across each pane's middle, closer up
+            if (z > 1 && abs(py - (y0 + y1) / 2) < max(1, z / 2)) { c.set(px, py, bar); continue }
+            c.blend(px, py, tints[i], 0.75f)
+        }
+    }
+
     companion object {
+        /** The scene column of the pike's middle ([lakes]). */
+        private const val PIKE_U = 66f
+
         /** The eye's height over the land far below (m), the tower on its hill. */
         private const val LAND_EYE = 130f
 

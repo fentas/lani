@@ -1,0 +1,1591 @@
+{
+ "schema": "lani.project-steps/v0",
+ "project": "toplar",
+ "language": "en",
+ "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker",
+ "pack": "project-toplar",
+ "steps": [
+  {
+   "words": [
+    "trunk"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "{learner}, a bank barn needs strong wood. Oak.",
+       "sl": "{learner}, skedenj v bregu potrebuje močan les. Hrast.",
+       "it": "{learner}, un fienile nel pendio ha bisogno di legno forte. Quercia.",
+       "de": "{learner}, eine Hangscheune braucht starkes Holz. Eiche."
+      },
+      {
+       "who": "jack",
+       "en": "There are old oaks in the wood, by the beck.",
+       "sl": "V gozdu ob potoku so stari hrasti.",
+       "it": "Nel bosco, vicino al ruscello, ci sono delle vecchie querce.",
+       "de": "Im Wald am Bach stehen alte Eichen."
+      },
+      {
+       "choices": [
+        {
+         "en": "Let's cut down two big oaks.",
+         "sl": "Posekajmo dva velika hrasta.",
+         "it": "Abbattiamo due grandi querce.",
+         "de": "Fällen wir zwei große Eichen.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. Axes and a saw, then!",
+          "sl": "Ja. Potem pa sekire in žago!",
+          "it": "Sì. Allora asce e una sega!",
+          "de": "Ja. Dann Äxte und eine Säge!"
+         }
+        },
+        {
+         "en": "Let's sit down two big oaks.",
+         "sl": "Posedimo dva velika hrasta.",
+         "it": "Mettiamo a sedere due grandi querce.",
+         "de": "Setzen wir zwei große Eichen hin.",
+         "why": {
+          "en": "Sit down is for chairs. To make a tree fall: cut it down.",
+          "sl": "Sit down je za stole. Da drevo pade: cut it down.",
+          "it": "Sit down è per le sedie. Per far cadere un albero: cut it down.",
+          "de": "Sit down ist für Stühle. Damit ein Baum fällt: cut it down."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Sit them down? On a bench? Ha!",
+          "sl": "Posedimo? Na klop? Ha!",
+          "it": "Farle sedere? Su una panchina? Ah!",
+          "de": "Hinsetzen? Auf eine Bank? Ha!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "tyson",
+       "face": "curious",
+       "en": "Now, the long round part of the tree. What's it called?",
+       "sl": "Kako pa se reče dolgemu okroglemu delu drevesa?",
+       "it": "E la parte lunga e rotonda dell'albero, come si chiama?",
+       "de": "Und der lange, runde Teil vom Baum, wie heißt der?"
+      },
+      {
+       "choices": [
+        {
+         "en": "The trunk!",
+         "sl": "Deblo!",
+         "it": "Il tronco!",
+         "de": "Der Stamm!",
+         "ok": true,
+         "reply": {
+          "face": "proud",
+          "en": "Right. Two trunks. Ten men to carry them.",
+          "sl": "Tako je. Dve debli. Deset mož, da ju nesejo.",
+          "it": "Giusto. Due tronchi. Dieci uomini per portarli.",
+          "de": "Richtig. Zwei Stämme. Zehn Männer zum Tragen."
+         }
+        },
+        {
+         "en": "The truck!",
+         "sl": "Tovornjak!",
+         "it": "Il camion!",
+         "de": "Der Lastwagen!",
+         "why": {
+          "en": "A truck is a lorry, with wheels. The long round body of a tree is its trunk.",
+          "sl": "Truck je tovornjak, s kolesi. Dolg okrogel del drevesa je trunk.",
+          "it": "Truck è un camion, con le ruote. La parte lunga e rotonda dell'albero è il trunk.",
+          "de": "Truck ist ein Lastwagen, mit Rädern. Der lange, runde Teil vom Baum ist der trunk."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A truck? I wish! We carry them by hand.",
+          "sl": "Tovornjak? Ko bi le! Nosimo jih na roke.",
+          "it": "Un camion? Magari! Li portiamo a mano.",
+          "de": "Ein Lastwagen? Schön wär's! Wir tragen sie mit der Hand."
+         }
+        }
+       ]
+      },
+      {
+       "who": "tyson",
+       "en": "Hear the bell? Off to the wood, everyone!",
+       "sl": "Slišite zvon? Vsi v gozd!",
+       "it": "Sentite la campana? Tutti nel bosco!",
+       "de": "Hört ihr die Glocke? Alle in den Wald!",
+       "fx": {
+        "bell": 1
+       }
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "For the beams we need oak. Old oak, strong and straight.",
+       "sl": "Za trame potrebujemo hrast. Star hrast, močan in raven.",
+       "it": "Per le travi ci vuole la quercia. Quercia vecchia, forte e dritta.",
+       "de": "Für die Balken brauchen wir Eiche. Alte Eiche, stark und gerade."
+      },
+      {
+       "who": "dixon",
+       "en": "The axes are sharp and ready.",
+       "sl": "Sekire so nabrušene in pripravljene.",
+       "it": "Le asce sono affilate e pronte.",
+       "de": "Die Äxte sind scharf und bereit."
+      },
+      {
+       "choices": [
+        {
+         "en": "Then we'll cut down the oaks by the beck.",
+         "sl": "Potem bomo posekali hraste ob potoku.",
+         "it": "Allora abbatteremo le querce vicino al ruscello.",
+         "de": "Dann fällen wir die Eichen am Bach.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. Mind where they fall.",
+          "sl": "Ja. Pazi, kam padejo.",
+          "it": "Sì. Attenzione a dove cadono.",
+          "de": "Ja. Pass auf, wohin sie fallen."
+         }
+        },
+        {
+         "en": "Then we'll sit down the oaks by the beck.",
+         "sl": "Potem bomo posedli hraste ob potoku.",
+         "it": "Allora faremo sedere le querce vicino al ruscello.",
+         "de": "Dann setzen wir die Eichen am Bach hin.",
+         "why": {
+          "en": "Sit down is for chairs. To make a tree fall: cut it down.",
+          "sl": "Sit down je za stole. Da drevo pade: cut it down.",
+          "it": "Sit down è per le sedie. Per far cadere un albero: cut it down.",
+          "de": "Sit down ist für Stühle. Damit ein Baum fällt: cut it down."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Sit them down? Like children at school?",
+          "sl": "Posedemo? Kot otroke v šoli?",
+          "it": "Farle sedere? Come i bambini a scuola?",
+          "de": "Hinsetzen? Wie Kinder in der Schule?"
+         }
+        },
+        {
+         "en": "Then we'll cutting down the oaks by the beck.",
+         "sl": "Potem bomo posekali hraste ob potoku.",
+         "it": "Allora abbatteremo le querce vicino al ruscello.",
+         "de": "Dann fällen wir die Eichen am Bach.",
+         "grammar": "future",
+         "why": {
+          "en": "After will ('ll), the verb as it is: we'll cut.",
+          "sl": "Za will ('ll) stoji glagol v osnovni obliki: we'll cut.",
+          "it": "Dopo will ('ll) il verbo resta com'è: we'll cut.",
+          "de": "Nach will ('ll) steht das Verb in der Grundform: we'll cut."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "Cutting? Eh? Once more.",
+          "sl": "Cutting? Kaj? Še enkrat.",
+          "it": "Cutting? Eh? Di nuovo.",
+          "de": "Cutting? Hä? Noch mal."
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "curious",
+       "en": "How do we get the big trunks to the field?",
+       "sl": "Kako bomo spravili velika debla na polje?",
+       "it": "Come portiamo i tronchi grandi fino al campo?",
+       "de": "Wie bringen wir die großen Stämme aufs Feld?"
+      },
+      {
+       "choices": [
+        {
+         "en": "We'll take the trunks on the cart.",
+         "sl": "Debla bomo peljali z vozom.",
+         "it": "Porteremo i tronchi con il carro.",
+         "de": "Wir bringen die Stämme mit dem Wagen.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "With Bonny pulling. Good.",
+          "sl": "Bonny bo vlekla. Dobro.",
+          "it": "Con Bonny che tira. Bene.",
+          "de": "Bonny zieht. Gut."
+         }
+        },
+        {
+         "en": "We'll take the trucks on the cart.",
+         "sl": "Tovornjake bomo peljali z vozom.",
+         "it": "Porteremo i camion con il carro.",
+         "de": "Wir bringen die Lastwagen mit dem Wagen.",
+         "why": {
+          "en": "A truck is a lorry, with wheels. The long round body of a tree is its trunk.",
+          "sl": "Truck je tovornjak, s kolesi. Dolg okrogel del drevesa je trunk.",
+          "it": "Truck è un camion, con le ruote. La parte lunga e rotonda dell'albero è il trunk.",
+          "de": "Truck ist ein Lastwagen, mit Rädern. Der lange, runde Teil vom Baum ist der trunk."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Trucks on a cart? That's a big cart!",
+          "sl": "Tovornjake na vozu? To je pa velik voz!",
+          "it": "Camion su un carro? È un carro bello grosso!",
+          "de": "Lastwagen auf einem Wagen? Das ist ein großer Wagen!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "tyson",
+       "en": "There's the bell. Two oaks by dinner. Right, let's go.",
+       "sl": "Zvon. Do kosila dva hrasta. Prav, gremo.",
+       "it": "Ecco la campana. Due querce entro pranzo. Bene, andiamo.",
+       "de": "Da ist die Glocke. Zwei Eichen bis zum Mittagessen. Gut, los.",
+       "fx": {
+        "bell": 1
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "in-the-field",
+   "words": [
+    "slope",
+    "thick"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "The barn goes here, into the hill.",
+       "sl": "Skedenj pride sem, v hrib.",
+       "it": "Il fienile va qui, dentro la collina.",
+       "de": "Die Scheune kommt hierher, in den Hügel."
+      },
+      {
+       "choices": [
+        {
+         "en": "We dig into the slope!",
+         "sl": "Kopljemo v pobočje!",
+         "it": "Scaviamo nel pendio!",
+         "de": "Wir graben in den Hang!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Right. The back of the barn is in the slope.",
+          "sl": "Tako je. Zadnji del skednja je v pobočju.",
+          "it": "Giusto. Il retro del fienile sta nel pendio.",
+          "de": "Richtig. Die Rückseite der Scheune ist im Hang."
+         }
+        },
+        {
+         "en": "We dig into the soap!",
+         "sl": "Kopljemo v milo!",
+         "it": "Scaviamo nel sapone!",
+         "de": "Wir graben in die Seife!",
+         "why": {
+          "en": "Soap is for washing. The side of a hill is a slope.",
+          "sl": "Soap je milo, za umivanje. Pobočje hriba je slope.",
+          "it": "Soap è il sapone, per lavarsi. Il fianco di una collina è uno slope.",
+          "de": "Soap ist Seife, zum Waschen. Die Seite eines Hügels ist ein slope."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Soap? We'd all be very clean!",
+          "sl": "V milo? Potem bi bili vsi zelo čisti!",
+          "it": "Nel sapone? Saremmo tutti pulitissimi!",
+          "de": "In die Seife? Dann wären wir alle sehr sauber!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "en": "And now the stone walls. Big stones, lots of them.",
+       "sl": "Zdaj pa kamniti zidovi. Veliki kamni, veliko jih je.",
+       "it": "E adesso i muri di pietra. Pietre grandi, tantissime.",
+       "de": "Und jetzt die Steinmauern. Große Steine, viele davon."
+      },
+      {
+       "choices": [
+        {
+         "en": "The walls are very thick!",
+         "sl": "Zidovi so zelo debeli!",
+         "it": "I muri sono molto spessi!",
+         "de": "Die Mauern sind sehr dick!",
+         "ok": true,
+         "reply": {
+          "face": "proud",
+          "en": "Thick and strong. They'll stand for ever.",
+          "sl": "Debeli in močni. Stali bodo za vedno.",
+          "it": "Spessi e forti. Resteranno in piedi per sempre.",
+          "de": "Dick und stark. Die stehen für immer."
+         }
+        },
+        {
+         "en": "The walls are very thin!",
+         "sl": "Zidovi so zelo tanki!",
+         "it": "I muri sono molto sottili!",
+         "de": "Die Mauern sind sehr dünn!",
+         "why": {
+          "en": "Thin is narrow. Big, wide stone walls are thick.",
+          "sl": "Thin pomeni tanek. Veliki, široki kamniti zidovi so thick.",
+          "it": "Thin vuol dire sottile. I muri di pietra grandi e larghi sono thick.",
+          "de": "Thin heißt dünn. Große, breite Steinmauern sind thick."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Thin? Push one and see, ha!",
+          "sl": "Tanki? Kar porini enega, ha!",
+          "it": "Sottili? Prova a spingerne uno, ah!",
+          "de": "Dünn? Drück mal gegen eine, ha!"
+         }
+        },
+        {
+         "en": "The walls is very thick!",
+         "sl": "Zidovi so zelo debeli!",
+         "it": "I muri sono molto spessi!",
+         "de": "Die Mauern sind sehr dick!",
+         "grammar": "to-be",
+         "why": {
+          "en": "Walls: more than one, so are.",
+          "sl": "Walls: več kot eden, zato are.",
+          "it": "Walls: più di uno, quindi are.",
+          "de": "Walls: mehr als eine, also are."
+         },
+         "reply": {
+          "face": "curious",
+          "en": "Is? Count them: four walls!",
+          "sl": "Is? Preštej jih: štirje zidovi!",
+          "it": "Is? Contali: quattro muri!",
+          "de": "Is? Zähl sie: vier Mauern!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "There. Four walls, dug into the hill. No roof yet.",
+       "sl": "Tako. Štirje zidovi, vkopani v hrib. Strehe še ni.",
+       "it": "Ecco. Quattro muri, scavati nella collina. Il tetto ancora no.",
+       "de": "So. Vier Mauern, in den Hügel gegraben. Noch kein Dach.",
+       "done": true
+      },
+      {
+       "who": "tyson",
+       "en": "Good work. Four walls. Right.",
+       "sl": "Dobro delo. Štirje zidovi. Tako.",
+       "it": "Bel lavoro. Quattro muri. Bene.",
+       "de": "Gute Arbeit. Vier Mauern. Gut."
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "Every bank barn is built into a hill. This side of the field is perfect.",
+       "sl": "Vsak skedenj v bregu je vkopan v hrib. Ta stran polja je popolna.",
+       "it": "Ogni fienile nel pendio è costruito dentro una collina. Questo lato del campo è perfetto.",
+       "de": "Jede Hangscheune ist in einen Hügel gebaut. Diese Seite des Feldes ist perfekt."
+      },
+      {
+       "who": "sam",
+       "face": "curious",
+       "en": "Why does it have to be on a hill?",
+       "sl": "Zakaj mora biti na hribu?",
+       "it": "Perché deve stare su una collina?",
+       "de": "Warum muss sie an einem Hügel stehen?"
+      },
+      {
+       "choices": [
+        {
+         "en": "Because the carts can drive in at the top of the slope.",
+         "sl": "Ker lahko vozovi zapeljejo noter na vrhu pobočja.",
+         "it": "Perché i carri possono entrare in cima al pendio.",
+         "de": "Weil die Wagen oben am Hang hineinfahren können.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Clever! Upstairs from the top, downstairs from the bottom.",
+          "sl": "Pametno! Gor od zgoraj, dol od spodaj.",
+          "it": "Furbo! Di sopra dall'alto, di sotto dal basso.",
+          "de": "Schlau! Oben von oben, unten von unten."
+         }
+        },
+        {
+         "en": "Because the carts can drive in at the top of the soap.",
+         "sl": "Ker lahko vozovi zapeljejo noter na vrhu mila.",
+         "it": "Perché i carri possono entrare in cima al sapone.",
+         "de": "Weil die Wagen oben auf der Seife hineinfahren können.",
+         "why": {
+          "en": "Soap is for washing. The side of a hill is a slope.",
+          "sl": "Soap je milo, za umivanje. Pobočje hriba je slope.",
+          "it": "Soap è il sapone, per lavarsi. Il fianco di una collina è uno slope.",
+          "de": "Soap ist Seife, zum Waschen. Die Seite eines Hügels ist ein slope."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "The soap? Slippery carts, then!",
+          "sl": "Milo? Potem pa spolzki vozovi!",
+          "it": "Il sapone? Carri scivolosi, allora!",
+          "de": "Die Seife? Dann rutschige Wagen!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "en": "The earth is out. Now the walls go up, stone by stone.",
+       "sl": "Zemlja je izkopana. Zdaj gredo zidovi gor, kamen za kamnom.",
+       "it": "La terra è fuori. Adesso si alzano i muri, pietra su pietra.",
+       "de": "Die Erde ist raus. Jetzt gehen die Mauern hoch, Stein für Stein."
+      },
+      {
+       "choices": [
+        {
+         "en": "They have to be thick, for the weight of the roof.",
+         "sl": "Debeli morajo biti, zaradi teže strehe.",
+         "it": "Devono essere spessi, per il peso del tetto.",
+         "de": "Sie müssen dick sein, wegen des Gewichts vom Dach.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. And warm for the sheep in winter.",
+          "sl": "Ja. Pa pozimi topli za ovce.",
+          "it": "Sì. E caldi per le pecore d'inverno.",
+          "de": "Ja. Und warm für die Schafe im Winter."
+         }
+        },
+        {
+         "en": "They have to be thin, for the weight of the roof.",
+         "sl": "Tanki morajo biti, zaradi teže strehe.",
+         "it": "Devono essere sottili, per il peso del tetto.",
+         "de": "Sie müssen dünn sein, wegen des Gewichts vom Dach.",
+         "why": {
+          "en": "Thin is narrow. Big, wide stone walls are thick.",
+          "sl": "Thin pomeni tanek. Veliki, široki kamniti zidovi so thick.",
+          "it": "Thin vuol dire sottile. I muri di pietra grandi e larghi sono thick.",
+          "de": "Thin heißt dünn. Große, breite Steinmauern sind thick."
+         },
+         "reply": {
+          "face": "worried",
+          "en": "Thin? The roof would fall in!",
+          "sl": "Tanki? Streha bi se udrla!",
+          "it": "Sottili? Il tetto crollerebbe!",
+          "de": "Dünn? Das Dach würde einstürzen!"
+         }
+        },
+        {
+         "en": "They has to be thick, for the weight of the roof.",
+         "sl": "Debeli morajo biti, zaradi teže strehe.",
+         "it": "Devono essere spessi, per il peso del tetto.",
+         "de": "Sie müssen dick sein, wegen des Gewichts vom Dach.",
+         "grammar": "to-have",
+         "why": {
+          "en": "With they: have to. They have to be thick.",
+          "sl": "Pri they: have to. They have to be thick.",
+          "it": "Con they: have to. They have to be thick.",
+          "de": "Bei they: have to. They have to be thick."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "They has? Eh, say that again?",
+          "sl": "They has? Kaj, še enkrat?",
+          "it": "They has? Eh, puoi ripetere?",
+          "de": "They has? Hä, noch mal?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "That's it. Four thick walls, dug into the slope.",
+       "sl": "To je to. Štirje debeli zidovi, vkopani v pobočje.",
+       "it": "Ecco fatto. Quattro muri spessi, scavati nel pendio.",
+       "de": "Das wär's. Vier dicke Mauern, in den Hang gegraben.",
+       "done": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "in-the-field",
+   "words": [
+    "beam",
+    "heavy"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "Now the oak goes across the walls, for the upper floor.",
+       "sl": "Zdaj gre hrast počez čez zidove, za zgornje nadstropje.",
+       "it": "Adesso la quercia va di traverso sui muri, per il piano di sopra.",
+       "de": "Jetzt kommt die Eiche quer über die Mauern, für den oberen Stock."
+      },
+      {
+       "choices": [
+        {
+         "en": "We need big oak beams!",
+         "sl": "Potrebujemo velike hrastove trame!",
+         "it": "Ci servono grandi travi di quercia!",
+         "de": "Wir brauchen große Eichenbalken!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Six of them. Yan, tyan, tethera… six!",
+          "sl": "Šest jih. Yan, tyan, tethera … šest!",
+          "it": "Sei. Yan, tyan, tethera… sei!",
+          "de": "Sechs Stück. Yan, tyan, tethera … sechs!"
+         }
+        },
+        {
+         "en": "We need big oak beans!",
+         "sl": "Potrebujemo velik hrastov fižol!",
+         "it": "Ci servono grandi fagioli di quercia!",
+         "de": "Wir brauchen große Eichenbohnen!",
+         "why": {
+          "en": "Beans are to eat. Long, heavy pieces of wood under a floor are beams.",
+          "sl": "Beans je fižol, za jesti. Dolgi, težki kosi lesa pod podom so beams.",
+          "it": "Beans sono i fagioli, si mangiano. I pezzi di legno lunghi e pesanti sotto un pavimento sono beams.",
+          "de": "Beans sind Bohnen, zum Essen. Lange, schwere Holzstücke unter einem Boden sind beams."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Beans? For dinner after, {m:lad|f:lass}!",
+          "sl": "Fižol? Za večerjo potem, {m:fant|f:dekle}!",
+          "it": "Fagioli? Per cena dopo, {m:ragazzo|f:ragazza}!",
+          "de": "Bohnen? Zum Abendessen danach, {m:Junge|f:Mädchen}!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "en": "Six people for each one. Lift on three!",
+       "sl": "Šest ljudi za vsakega. Dvignemo na tri!",
+       "it": "Sei persone per ognuna. Si alza al tre!",
+       "de": "Sechs Leute für jeden. Auf drei heben!"
+      },
+      {
+       "choices": [
+        {
+         "en": "It's very heavy!",
+         "sl": "Zelo težak je!",
+         "it": "È pesantissima!",
+         "de": "Er ist sehr schwer!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. Oak is heavy. Keep going!",
+          "sl": "Ja. Hrast je težak. Kar naprej!",
+          "it": "Sì. La quercia è pesante. Avanti!",
+          "de": "Ja. Eiche ist schwer. Weiter!"
+         }
+        },
+        {
+         "en": "It's very happy!",
+         "sl": "Zelo vesel je!",
+         "it": "È felicissima!",
+         "de": "Er ist sehr fröhlich!",
+         "why": {
+          "en": "Happy is a feeling. Hard to lift: heavy.",
+          "sl": "Happy pomeni vesel. Težko za dvigniti: heavy.",
+          "it": "Happy vuol dire felice. Difficile da sollevare: heavy.",
+          "de": "Happy heißt fröhlich. Schwer zu heben: heavy."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Happy? The beam? Well, my back isn't!",
+          "sl": "Vesel? Tram? Moj hrbet pa ni!",
+          "it": "Felice? La trave? La mia schiena no di certo!",
+          "de": "Fröhlich? Der Balken? Mein Rücken jedenfalls nicht!"
+         }
+        },
+        {
+         "en": "It very heavy!",
+         "sl": "Zelo težak je!",
+         "it": "È pesantissima!",
+         "de": "Er ist sehr schwer!",
+         "grammar": "to-be",
+         "why": {
+          "en": "The sentence needs is: it is (it's) very heavy.",
+          "sl": "Stavek potrebuje is: it is (it's) very heavy.",
+          "it": "Alla frase serve is: it is (it's) very heavy.",
+          "de": "Der Satz braucht is: it is (it's) very heavy."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "It very what? Lift, don't talk!",
+          "sl": "Zelo kaj? Dviguj, ne govori!",
+          "it": "Molto cosa? Solleva, non parlare!",
+          "de": "Sehr was? Heben, nicht reden!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "face": "surprised",
+       "en": "Up! All six beams are across the walls!",
+       "sl": "Gor! Vseh šest tramov je čez zidove!",
+       "it": "Su! Tutte e sei le travi sono sopra i muri!",
+       "de": "Oben! Alle sechs Balken liegen über den Mauern!",
+       "done": true
+      },
+      {
+       "who": "tyson",
+       "face": "proud",
+       "en": "Good oak, good beams. Right.",
+       "sl": "Dober hrast, dobri trami. Tako.",
+       "it": "Buona quercia, buone travi. Bene.",
+       "de": "Gute Eiche, gute Balken. Gut."
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "The walls are ready. Today the beams go across for the upper floor.",
+       "sl": "Zidovi so pripravljeni. Danes gredo trami počez za zgornje nadstropje.",
+       "it": "I muri sono pronti. Oggi si mettono le travi per il piano di sopra.",
+       "de": "Die Mauern sind fertig. Heute kommen die Balken für den oberen Stock drauf."
+      },
+      {
+       "who": "sam",
+       "face": "curious",
+       "en": "How many will we need?",
+       "sl": "Koliko jih bomo potrebovali?",
+       "it": "Quante ce ne serviranno?",
+       "de": "Wie viele brauchen wir?"
+      },
+      {
+       "choices": [
+        {
+         "en": "We'll need six oak beams.",
+         "sl": "Potrebovali bomo šest hrastovih tramov.",
+         "it": "Ci serviranno sei travi di quercia.",
+         "de": "Wir brauchen sechs Eichenbalken.",
+         "ok": true,
+         "reply": {
+          "face": "surprised",
+          "en": "Six! That's a lot of oak.",
+          "sl": "Šest! To je pa veliko hrasta.",
+          "it": "Sei! È un sacco di quercia.",
+          "de": "Sechs! Das ist viel Eiche."
+         }
+        },
+        {
+         "en": "We'll need six oak beans.",
+         "sl": "Potrebovali bomo šest hrastovih fižolov.",
+         "it": "Ci serviranno sei fagioli di quercia.",
+         "de": "Wir brauchen sechs Eichenbohnen.",
+         "why": {
+          "en": "Beans are to eat. Long, heavy pieces of wood under a floor are beams.",
+          "sl": "Beans je fižol, za jesti. Dolgi, težki kosi lesa pod podom so beams.",
+          "it": "Beans sono i fagioli, si mangiano. I pezzi di legno lunghi e pesanti sotto un pavimento sono beams.",
+          "de": "Beans sind Bohnen, zum Essen. Lange, schwere Holzstücke unter einem Boden sind beams."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Six beans? That's not much of a dinner!",
+          "sl": "Šest fižolov? To ni ravno večerja!",
+          "it": "Sei fagioli? Non è proprio una cena!",
+          "de": "Sechs Bohnen? Das ist kein großes Abendessen!"
+         }
+        },
+        {
+         "en": "We'll need six oak beam.",
+         "sl": "Potrebovali bomo šest hrastovih tramov.",
+         "it": "Ci serviranno sei travi di quercia.",
+         "de": "Wir brauchen sechs Eichenbalken.",
+         "grammar": "plurals",
+         "why": {
+          "en": "Six of them: beams, with -s.",
+          "sl": "Šest: beams, z -s.",
+          "it": "Sei: beams, con la -s.",
+          "de": "Sechs: beams, mit -s."
+         },
+         "reply": {
+          "face": "curious",
+          "en": "Six beam? Just the one, six times?",
+          "sl": "Six beam? Samo eden, šestkrat?",
+          "it": "Six beam? Una sola, sei volte?",
+          "de": "Six beam? Nur einer, sechsmal?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "en": "Ropes round it. Now, lift!",
+       "sl": "Vrvi okrog. Zdaj pa dvignite!",
+       "it": "Le corde intorno. Adesso, su!",
+       "de": "Seile drum. Jetzt heben!"
+      },
+      {
+       "choices": [
+        {
+         "en": "It's so heavy! I've never lifted anything like it.",
+         "sl": "Tako težak je! Česa takega še nisem {m:dvignil|f:dvignila}.",
+         "it": "È così pesante! Non ho mai sollevato niente del genere.",
+         "de": "Der ist so schwer! So was hab ich noch nie gehoben.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Oak always is. Nearly there!",
+          "sl": "Hrast vedno je. Skoraj smo!",
+          "it": "La quercia lo è sempre. Ci siamo quasi!",
+          "de": "Eiche ist das immer. Fast geschafft!"
+         }
+        },
+        {
+         "en": "It's so happy! I've never lifted anything like it.",
+         "sl": "Tako vesel je! Česa takega še nisem {m:dvignil|f:dvignila}.",
+         "it": "È così felice! Non ho mai sollevato niente del genere.",
+         "de": "Der ist so fröhlich! So was hab ich noch nie gehoben.",
+         "why": {
+          "en": "Happy is a feeling. Hard to lift: heavy.",
+          "sl": "Happy pomeni vesel. Težko za dvigniti: heavy.",
+          "it": "Happy vuol dire felice. Difficile da sollevare: heavy.",
+          "de": "Happy heißt fröhlich. Schwer zu heben: heavy."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Happy? Well, my back isn't!",
+          "sl": "Vesel? Moj hrbet pa ni!",
+          "it": "Felice? La mia schiena no di certo!",
+          "de": "Fröhlich? Mein Rücken jedenfalls nicht!"
+         }
+        },
+        {
+         "en": "It's so heavy! I've never lift anything like it.",
+         "sl": "Tako težak je! Česa takega še nisem {m:dvignil|f:dvignila}.",
+         "it": "È così pesante! Non ho mai sollevato niente del genere.",
+         "de": "Der ist so schwer! So was hab ich noch nie gehoben.",
+         "grammar": "present-perfect",
+         "why": {
+          "en": "After have, the past participle: I've lifted.",
+          "sl": "Za have stoji deležnik: I've lifted.",
+          "it": "Dopo have ci vuole il participio: I've lifted.",
+          "de": "Nach have steht das Partizip: I've lifted."
+         },
+         "reply": {
+          "face": "curious",
+          "en": "Never lift? Hm, nearly.",
+          "sl": "Never lift? Hm, skoraj.",
+          "it": "Never lift? Mm, quasi.",
+          "de": "Never lift? Hm, fast."
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "face": "surprised",
+       "en": "There! All six beams are up on the walls.",
+       "sl": "Tako! Vseh šest tramov je na zidovih.",
+       "it": "Ecco! Tutte e sei le travi sono sui muri.",
+       "de": "Da! Alle sechs Balken liegen auf den Mauern.",
+       "done": true
+      },
+      {
+       "who": "tyson",
+       "face": "proud",
+       "en": "Six beams. Good oak. Right.",
+       "sl": "Šest tramov. Dober hrast. Tako.",
+       "it": "Sei travi. Buona quercia. Bene.",
+       "de": "Sechs Balken. Gute Eiche. Gut."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "in-the-field",
+   "words": [
+    "upstairs",
+    "downstairs"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "tyson",
+       "face": "curious",
+       "en": "On the beams goes a wooden floor. Where does the hay go, up or down?",
+       "sl": "Na trame pride lesen pod. Kam gre seno, gor ali dol?",
+       "it": "Sulle travi va un pavimento di legno. Dove va il fieno, su o giù?",
+       "de": "Auf die Balken kommt ein Holzboden. Wohin kommt das Heu, nach oben oder unten?"
+      },
+      {
+       "choices": [
+        {
+         "en": "The hay goes upstairs.",
+         "sl": "Seno gre gor.",
+         "it": "Il fieno va di sopra.",
+         "de": "Das Heu kommt nach oben.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Right. Upstairs, nice and dry.",
+          "sl": "Tako je. Gor, lepo na suho.",
+          "it": "Giusto. Di sopra, bello asciutto.",
+          "de": "Richtig. Nach oben, schön trocken."
+         }
+        },
+        {
+         "en": "The hay goes downstairs.",
+         "sl": "Seno gre dol.",
+         "it": "Il fieno va di sotto.",
+         "de": "Das Heu kommt nach unten.",
+         "why": {
+          "en": "Downstairs is for the animals. The hay goes up: upstairs.",
+          "sl": "Downstairs je spodaj, za živali. Seno gre gor: upstairs.",
+          "it": "Downstairs è di sotto, per gli animali. Il fieno va su: upstairs.",
+          "de": "Downstairs ist unten, für die Tiere. Das Heu kommt nach oben: upstairs."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Downstairs? The cows would sleep in it!",
+          "sl": "Dol? Krave bi spale v njem!",
+          "it": "Di sotto? Le mucche ci dormirebbero dentro!",
+          "de": "Nach unten? Die Kühe würden drin schlafen!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "face": "curious",
+       "en": "And the sheep and the cows?",
+       "sl": "Kaj pa ovce in krave?",
+       "it": "E le pecore e le mucche?",
+       "de": "Und die Schafe und die Kühe?"
+      },
+      {
+       "choices": [
+        {
+         "en": "They live downstairs, in the byre.",
+         "sl": "Živijo spodaj, v hlevu.",
+         "it": "Stanno di sotto, nella stalla.",
+         "de": "Sie wohnen unten, im Stall.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Warm and dry. Lucky things!",
+          "sl": "Na toplem in suhem. Srečnice!",
+          "it": "Al caldo e all'asciutto. Fortunate!",
+          "de": "Warm und trocken. Glückspilze!"
+         }
+        },
+        {
+         "en": "They live upstairs, in the byre.",
+         "sl": "Živijo zgoraj, v hlevu.",
+         "it": "Stanno di sopra, nella stalla.",
+         "de": "Sie wohnen oben, im Stall.",
+         "why": {
+          "en": "The animals live on the bottom floor: downstairs.",
+          "sl": "Živali živijo v spodnjem nadstropju: downstairs.",
+          "it": "Gli animali stanno al piano di sotto: downstairs.",
+          "de": "Die Tiere wohnen im unteren Stock: downstairs."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Upstairs? Sheep can't climb ladders!",
+          "sl": "Zgoraj? Ovce ne znajo plezati po lestvi!",
+          "it": "Di sopra? Le pecore non salgono le scale!",
+          "de": "Oben? Schafe können keine Leitern hochklettern!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "And on top, the slate roof. Done!",
+       "sl": "Na vrhu pa streha iz skrilavca. Narejeno!",
+       "it": "E in cima, il tetto di ardesia. Fatto!",
+       "de": "Und oben drauf das Schieferdach. Fertig!",
+       "done": true
+      },
+      {
+       "who": "tyson",
+       "en": "A floor upstairs, a byre downstairs, a roof on top. Right.",
+       "sl": "Pod zgoraj, hlev spodaj, streha na vrhu. Tako.",
+       "it": "Un pavimento di sopra, la stalla di sotto, il tetto in cima. Bene.",
+       "de": "Ein Boden oben, ein Stall unten, ein Dach obendrauf. Gut."
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "The beams are up. Next, the floor and the roof.",
+       "sl": "Trami so gori. Zdaj pa pod in streha.",
+       "it": "Le travi sono su. Adesso il pavimento e il tetto.",
+       "de": "Die Balken sind oben. Jetzt der Boden und das Dach."
+      },
+      {
+       "who": "sam",
+       "face": "curious",
+       "en": "So what goes where in the new barn?",
+       "sl": "Kaj pa gre kam v novem skednju?",
+       "it": "E cosa va dove nel fienile nuovo?",
+       "de": "Und was kommt wohin in der neuen Scheune?"
+      },
+      {
+       "choices": [
+        {
+         "en": "The hay and the stores will go upstairs.",
+         "sl": "Seno in zaloge bodo zgoraj.",
+         "it": "Il fieno e le scorte andranno di sopra.",
+         "de": "Das Heu und die Vorräte kommen nach oben.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Up where it's dry. Clever.",
+          "sl": "Gor, kjer je suho. Pametno.",
+          "it": "Su, dov'è asciutto. Furbo.",
+          "de": "Oben, wo es trocken ist. Schlau."
+         }
+        },
+        {
+         "en": "The hay and the stores will go downstairs.",
+         "sl": "Seno in zaloge bodo spodaj.",
+         "it": "Il fieno e le scorte andranno di sotto.",
+         "de": "Das Heu und die Vorräte kommen nach unten.",
+         "why": {
+          "en": "Downstairs is for the animals. The hay goes up: upstairs.",
+          "sl": "Downstairs je spodaj, za živali. Seno gre gor: upstairs.",
+          "it": "Downstairs è di sotto, per gli animali. Il fieno va su: upstairs.",
+          "de": "Downstairs ist unten, für die Tiere. Das Heu kommt nach oben: upstairs."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Downstairs? With the cows? They'd eat the lot!",
+          "sl": "Spodaj? S kravami? Vse bi pojedle!",
+          "it": "Di sotto? Con le mucche? Si mangerebbero tutto!",
+          "de": "Nach unten? Zu den Kühen? Die fressen alles auf!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "face": "curious",
+       "en": "And the animals?",
+       "sl": "Kaj pa živali?",
+       "it": "E gli animali?",
+       "de": "Und die Tiere?"
+      },
+      {
+       "choices": [
+        {
+         "en": "They'll be downstairs, in the byre.",
+         "sl": "Spodaj bodo, v hlevu.",
+         "it": "Staranno di sotto, nella stalla.",
+         "de": "Sie kommen nach unten, in den Stall.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Warm under the hay. Lovely.",
+          "sl": "Na toplem pod senom. Krasno.",
+          "it": "Al caldo sotto il fieno. Che bello.",
+          "de": "Warm unter dem Heu. Schön."
+         }
+        },
+        {
+         "en": "They'll be upstairs, in the byre.",
+         "sl": "Zgoraj bodo, v hlevu.",
+         "it": "Staranno di sopra, nella stalla.",
+         "de": "Sie kommen nach oben, in den Stall.",
+         "why": {
+          "en": "The animals live on the bottom floor: downstairs.",
+          "sl": "Živali živijo v spodnjem nadstropju: downstairs.",
+          "it": "Gli animali stanno al piano di sotto: downstairs.",
+          "de": "Die Tiere wohnen im unteren Stock: downstairs."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Upstairs? Cows on the hay? Ha!",
+          "sl": "Zgoraj? Krave na senu? Ha!",
+          "it": "Di sopra? Le mucche sul fieno? Ah!",
+          "de": "Oben? Kühe auf dem Heu? Ha!"
+         }
+        },
+        {
+         "en": "They'll are downstairs, in the byre.",
+         "sl": "Spodaj bodo, v hlevu.",
+         "it": "Staranno di sotto, nella stalla.",
+         "de": "Sie kommen nach unten, in den Stall.",
+         "grammar": "future",
+         "why": {
+          "en": "After will ('ll), be as it is: they'll be.",
+          "sl": "Za will ('ll) stoji be v osnovni obliki: they'll be.",
+          "it": "Dopo will ('ll) be resta com'è: they'll be.",
+          "de": "Nach will ('ll) steht be in der Grundform: they'll be."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "They'll are? Eh?",
+          "sl": "They'll are? Kaj?",
+          "it": "They'll are? Eh?",
+          "de": "They'll are? Hä?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "Floor laid, slates on. The roof is finished!",
+       "sl": "Pod položen, skrilavec na strehi. Streha je dokončana!",
+       "it": "Pavimento posato, ardesie sul tetto. Il tetto è finito!",
+       "de": "Boden gelegt, Schiefer drauf. Das Dach ist fertig!",
+       "done": true
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "in-the-field",
+   "words": [
+    "ramp",
+    "earth"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "tyson",
+       "face": "curious",
+       "en": "The carts must get in upstairs. How?",
+       "sl": "Vozovi morajo priti noter zgoraj. Kako?",
+       "it": "I carri devono entrare di sopra. Come?",
+       "de": "Die Wagen müssen oben hinein. Wie?"
+      },
+      {
+       "choices": [
+        {
+         "en": "We need a ramp!",
+         "sl": "Potrebujemo klanec!",
+         "it": "Ci serve una rampa!",
+         "de": "Wir brauchen eine Rampe!",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Right. A ramp, up to the cart door.",
+          "sl": "Tako je. Klanec, do vrat za vozove.",
+          "it": "Giusto. Una rampa, fino alla porta dei carri.",
+          "de": "Richtig. Eine Rampe, bis zum Wagentor."
+         }
+        },
+        {
+         "en": "We need a lamp!",
+         "sl": "Potrebujemo svetilko!",
+         "it": "Ci serve una lampada!",
+         "de": "Wir brauchen eine Lampe!",
+         "why": {
+          "en": "A lamp gives light. A slope for carts to drive up is a ramp.",
+          "sl": "Lamp je svetilka, daje svetlobo. Klanec, po katerem zapeljejo vozovi, je ramp.",
+          "it": "Lamp è una lampada, fa luce. Il pendio su cui salgono i carri è una ramp.",
+          "de": "Lamp ist eine Lampe, sie gibt Licht. Eine Schräge, die Wagen hochfahren, ist eine ramp."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A lamp? The carts can see, {m:lad|f:lass}. They can't fly!",
+          "sl": "Svetilko? Vozovi vidijo, {m:fant|f:dekle}. Leteti pa ne znajo!",
+          "it": "Una lampada? I carri ci vedono, {m:ragazzo|f:ragazza}. Volare no!",
+          "de": "Eine Lampe? Die Wagen sehen gut, {m:Junge|f:Mädchen}. Fliegen können sie nicht!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "curious",
+       "en": "What do we make it of?",
+       "sl": "Iz česa ga bomo naredili?",
+       "it": "Di cosa la facciamo?",
+       "de": "Woraus machen wir sie?"
+      },
+      {
+       "choices": [
+        {
+         "en": "Of earth and stones.",
+         "sl": "Iz zemlje in kamenja.",
+         "it": "Di terra e pietre.",
+         "de": "Aus Erde und Steinen.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Lots of earth. Spades out!",
+          "sl": "Veliko zemlje. Lopate v roke!",
+          "it": "Tanta terra. Fuori le vanghe!",
+          "de": "Viel Erde. Spaten raus!"
+         }
+        },
+        {
+         "en": "Of eggs and stones.",
+         "sl": "Iz jajc in kamenja.",
+         "it": "Di uova e pietre.",
+         "de": "Aus Eiern und Steinen.",
+         "why": {
+          "en": "Eggs are for breakfast. The ground you dig is earth.",
+          "sl": "Eggs so jajca, za zajtrk. Zemlja, ki jo koplješ, je earth.",
+          "it": "Eggs sono le uova, per colazione. La terra che si scava è earth.",
+          "de": "Eggs sind Eier, zum Frühstück. Der Boden, in dem man gräbt, ist earth."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Eggs? That's a very big omelette!",
+          "sl": "Jajca? To bo pa velika omleta!",
+          "it": "Uova? Sarebbe una frittata enorme!",
+          "de": "Eier? Das wird ein riesiges Omelett!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "face": "surprised",
+       "en": "Done! The ramp goes right up to the big door!",
+       "sl": "Narejeno! Klanec gre čisto do velikih vrat!",
+       "it": "Fatto! La rampa arriva fino al portone!",
+       "de": "Fertig! Die Rampe geht bis zum großen Tor!",
+       "done": true
+      },
+      {
+       "who": "tyson",
+       "face": "proud",
+       "en": "Up the ramp, in at the top. Right.",
+       "sl": "Po klancu gor, noter zgoraj. Tako.",
+       "it": "Su per la rampa, dentro dall'alto. Bene.",
+       "de": "Die Rampe hoch, oben hinein. Gut."
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "The upper floor needs a way in for the carts.",
+       "sl": "Zgornje nadstropje potrebuje vhod za vozove.",
+       "it": "Il piano di sopra ha bisogno di un ingresso per i carri.",
+       "de": "Der obere Stock braucht einen Eingang für die Wagen."
+      },
+      {
+       "choices": [
+        {
+         "en": "We could build a ramp up to the cart door.",
+         "sl": "Lahko bi naredili klanec do vrat za vozove.",
+         "it": "Potremmo fare una rampa fino alla porta dei carri.",
+         "de": "Wir könnten eine Rampe bis zum Wagentor bauen.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "That's the idea. A ramp.",
+          "sl": "To je ideja. Klanec.",
+          "it": "È l'idea giusta. Una rampa.",
+          "de": "Das ist die Idee. Eine Rampe."
+         }
+        },
+        {
+         "en": "We could build a lamp up to the cart door.",
+         "sl": "Lahko bi naredili svetilko do vrat za vozove.",
+         "it": "Potremmo fare una lampada fino alla porta dei carri.",
+         "de": "Wir könnten eine Lampe bis zum Wagentor bauen.",
+         "why": {
+          "en": "A lamp gives light. A slope for carts to drive up is a ramp.",
+          "sl": "Lamp je svetilka, daje svetlobo. Klanec, po katerem zapeljejo vozovi, je ramp.",
+          "it": "Lamp è una lampada, fa luce. Il pendio su cui salgono i carri è una ramp.",
+          "de": "Lamp ist eine Lampe, sie gibt Licht. Eine Schräge, die Wagen hochfahren, ist eine ramp."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A lamp? Lovely at night, but no use to a cart.",
+          "sl": "Svetilko? Lepa ponoči, vozu pa nič ne pomaga.",
+          "it": "Una lampada? Bella di notte, ma a un carro non serve.",
+          "de": "Eine Lampe? Schön in der Nacht, aber einem Wagen nützt sie nichts."
+         }
+        },
+        {
+         "en": "We could to build a ramp up to the cart door.",
+         "sl": "Lahko bi naredili klanec do vrat za vozove.",
+         "it": "Potremmo fare una rampa fino alla porta dei carri.",
+         "de": "Wir könnten eine Rampe bis zum Wagentor bauen.",
+         "grammar": "can",
+         "why": {
+          "en": "After could, no to: could build.",
+          "sl": "Za could ni to: could build.",
+          "it": "Dopo could niente to: could build.",
+          "de": "Nach could kein to: could build."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "Could to? Eh?",
+          "sl": "Could to? Kaj?",
+          "it": "Could to? Eh?",
+          "de": "Could to? Hä?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "en": "Stone at the sides, so it doesn't slide away.",
+       "sl": "Ob straneh kamen, da ne zdrsi.",
+       "it": "Pietre ai lati, così non frana.",
+       "de": "Steine an den Seiten, damit sie nicht wegrutscht."
+      },
+      {
+       "choices": [
+        {
+         "en": "And earth in the middle, a lot of it.",
+         "sl": "Na sredini pa zemlja, veliko zemlje.",
+         "it": "E terra in mezzo, tantissima.",
+         "de": "Und Erde in der Mitte, ganz viel.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Aye. Fifty carts of earth.",
+          "sl": "Ja. Petdeset vozov zemlje.",
+          "it": "Sì. Cinquanta carri di terra.",
+          "de": "Ja. Fünfzig Wagen Erde."
+         }
+        },
+        {
+         "en": "And eggs in the middle, a lot of them.",
+         "sl": "Na sredini pa jajca, veliko jajc.",
+         "it": "E uova in mezzo, tantissime.",
+         "de": "Und Eier in der Mitte, ganz viele.",
+         "why": {
+          "en": "Eggs are for breakfast. The ground you dig is earth.",
+          "sl": "Eggs so jajca, za zajtrk. Zemlja, ki jo koplješ, je earth.",
+          "it": "Eggs sono le uova, per colazione. La terra che si scava è earth.",
+          "de": "Eggs sind Eier, zum Frühstück. Der Boden, in dem man gräbt, ist earth."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Eggs? Mind you don't slip!",
+          "sl": "Jajca? Pazi, da ne zdrsneš!",
+          "it": "Uova? Attenzione a non scivolare!",
+          "de": "Eier? Pass auf, dass du nicht ausrutschst!"
+         }
+        },
+        {
+         "en": "And earths in the middle, a lot of it.",
+         "sl": "Na sredini pa zemlja, veliko zemlje.",
+         "it": "E terra in mezzo, tantissima.",
+         "de": "Und Erde in der Mitte, ganz viel.",
+         "grammar": "plurals",
+         "why": {
+          "en": "Earth (the ground) is uncountable: no -s.",
+          "sl": "Earth (zemlja, tla) se ne šteje: brez -s.",
+          "it": "Earth (la terra, il terreno) non si conta: niente -s.",
+          "de": "Earth (Erde, Boden) ist nicht zählbar: kein -s."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Earths? We've only got the one, {m:lad|f:lass}!",
+          "sl": "Earths? Saj imamo samo eno, {m:fant|f:dekle}!",
+          "it": "Earths? Ne abbiamo una sola, {m:ragazzo|f:ragazza}!",
+          "de": "Earths? Wir haben doch nur eine, {m:Junge|f:Mädchen}!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "sam",
+       "face": "surprised",
+       "en": "Look! The ramp's finished, right up to the big door!",
+       "sl": "Poglejte! Klanec je končan, čisto do velikih vrat!",
+       "it": "Guardate! La rampa è finita, fino al portone!",
+       "de": "Schaut! Die Rampe ist fertig, bis zum großen Tor!",
+       "done": true
+      },
+      {
+       "who": "tyson",
+       "face": "proud",
+       "en": "Now a cart can drive in upstairs. Right.",
+       "sl": "Zdaj lahko voz zapelje noter zgoraj. Tako.",
+       "it": "Adesso un carro può entrare di sopra. Bene.",
+       "de": "Jetzt kann ein Wagen oben hineinfahren. Gut."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "scene": "in-the-field",
+   "words": [
+    "dry",
+    "pitchfork"
+   ],
+   "levels": {
+    "A1": {
+     "lines": [
+      {
+       "who": "tyson",
+       "face": "happy",
+       "en": "The first cart of hay. Up the ramp we go!",
+       "sl": "Prvi voz sena. Gremo po klancu gor!",
+       "it": "Il primo carro di fieno. Su per la rampa!",
+       "de": "Der erste Wagen Heu. Die Rampe hoch!"
+      },
+      {
+       "choices": [
+        {
+         "en": "Is the hay dry?",
+         "sl": "Je seno suho?",
+         "it": "Il fieno è asciutto?",
+         "de": "Ist das Heu trocken?",
+         "ok": true,
+         "reply": {
+          "face": "proud",
+          "en": "Dry as a bone. Wet hay goes bad.",
+          "sl": "Suho kot poper. Mokro seno se pokvari.",
+          "it": "Asciutto come un osso. Il fieno bagnato marcisce.",
+          "de": "Knochentrocken. Nasses Heu verdirbt."
+         }
+        },
+        {
+         "en": "Is the hay shy?",
+         "sl": "Je seno sramežljivo?",
+         "it": "Il fieno è timido?",
+         "de": "Ist das Heu schüchtern?",
+         "why": {
+          "en": "Shy is for people. Hay with no water in it is dry.",
+          "sl": "Shy pomeni sramežljiv, za ljudi. Seno brez vode je dry.",
+          "it": "Shy vuol dire timido, per le persone. Il fieno senz'acqua è dry.",
+          "de": "Shy heißt schüchtern, für Menschen. Heu ohne Wasser ist dry."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Shy? It's hay, {m:lad|f:lass}, not a lamb!",
+          "sl": "Sramežljivo? To je seno, {m:fant|f:dekle}, ne jagnje!",
+          "it": "Timido? È fieno, {m:ragazzo|f:ragazza}, non un agnellino!",
+          "de": "Schüchtern? Das ist Heu, {m:Junge|f:Mädchen}, kein Lamm!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "en": "Now we fork it up into the barn.",
+       "sl": "Zdaj ga z vilami zmečemo gor v skedenj.",
+       "it": "Adesso lo buttiamo su nel fienile, con il forcone.",
+       "de": "Jetzt gabeln wir es hoch in die Scheune."
+      },
+      {
+       "choices": [
+        {
+         "en": "Pass me a pitchfork, please.",
+         "sl": "Podaj mi vile, prosim.",
+         "it": "Passami un forcone, per favore.",
+         "de": "Gib mir bitte eine Heugabel.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Here. Long prongs, sharp. Careful!",
+          "sl": "Izvoli. Dolgi roglji, ostri. Previdno!",
+          "it": "Ecco. Denti lunghi e appuntiti. Attenzione!",
+          "de": "Hier. Lange Zinken, spitz. Vorsicht!"
+         }
+        },
+        {
+         "en": "Pass me a fork, please.",
+         "sl": "Podaj mi vilice, prosim.",
+         "it": "Passami una forchetta, per favore.",
+         "de": "Gib mir bitte eine Gabel.",
+         "why": {
+          "en": "A fork is for eating. For hay: a pitchfork.",
+          "sl": "Fork so vilice za jesti. Za seno: pitchfork.",
+          "it": "Fork è la forchetta per mangiare. Per il fieno: pitchfork.",
+          "de": "Fork ist die Gabel zum Essen. Fürs Heu: pitchfork."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "A fork? You'll be here till Christmas!",
+          "sl": "Vilice? Tukaj boš do božiča!",
+          "it": "Una forchetta? Starai qui fino a Natale!",
+          "de": "Eine Gabel? Dann bist du bis Weihnachten hier!"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "surprised",
+       "en": "The hay's in at the big door! The barn is finished!",
+       "sl": "Seno je noter skozi velika vrata! Skedenj je dokončan!",
+       "it": "Il fieno è dentro dal portone! Il fienile è finito!",
+       "de": "Das Heu ist durchs große Tor drin! Die Scheune ist fertig!",
+       "done": true
+      },
+      {
+       "who": "tyson",
+       "face": "proud",
+       "en": "Hay upstairs, sheep warm and dry downstairs. A good bank barn. Right!",
+       "sl": "Seno zgoraj, ovce spodaj na toplem in suhem. Dober skedenj v bregu. Tako!",
+       "it": "Fieno di sopra, pecore di sotto al caldo e all'asciutto. Un buon fienile. Bene!",
+       "de": "Heu oben, Schafe unten warm und trocken. Eine gute Hangscheune. Gut!"
+      }
+     ]
+    },
+    "A2": {
+     "lines": [
+      {
+       "who": "tyson",
+       "en": "The bank barn's finished. Now the first hay goes in.",
+       "sl": "Skedenj v bregu je dokončan. Zdaj gre noter prvo seno.",
+       "it": "Il fienile nel pendio è finito. Adesso entra il primo fieno.",
+       "de": "Die Hangscheune ist fertig. Jetzt kommt das erste Heu hinein."
+      },
+      {
+       "who": "sam",
+       "face": "curious",
+       "en": "Is it ready? It rained on Tuesday.",
+       "sl": "Je pripravljeno? V torek je deževalo.",
+       "it": "È pronto? Martedì ha piovuto.",
+       "de": "Ist es so weit? Am Dienstag hat es geregnet."
+      },
+      {
+       "choices": [
+        {
+         "en": "It's been dry since then. It's perfect.",
+         "sl": "Od takrat je bilo suho. Popolno je.",
+         "it": "Da allora è stato asciutto. È perfetto.",
+         "de": "Seitdem war es trocken. Es ist perfekt.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Good. Wet hay goes bad.",
+          "sl": "Dobro. Mokro seno se pokvari.",
+          "it": "Bene. Il fieno bagnato marcisce.",
+          "de": "Gut. Nasses Heu verdirbt."
+         }
+        },
+        {
+         "en": "It's been shy since then. It's perfect.",
+         "sl": "Od takrat je bilo sramežljivo. Popolno je.",
+         "it": "Da allora è stato timido. È perfetto.",
+         "de": "Seitdem war es schüchtern. Es ist perfekt.",
+         "why": {
+          "en": "Shy is for people. Hay with no water in it is dry.",
+          "sl": "Shy pomeni sramežljiv, za ljudi. Seno brez vode je dry.",
+          "it": "Shy vuol dire timido, per le persone. Il fieno senz'acqua è dry.",
+          "de": "Shy heißt schüchtern, für Menschen. Heu ohne Wasser ist dry."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "Shy? Hay doesn't blush!",
+          "sl": "Sramežljivo? Seno ne zardeva!",
+          "it": "Timido? Il fieno non arrossisce!",
+          "de": "Schüchtern? Heu wird nicht rot!"
+         }
+        },
+        {
+         "en": "It's be dry since then. It's perfect.",
+         "sl": "Od takrat je bilo suho. Popolno je.",
+         "it": "Da allora è stato asciutto. È perfetto.",
+         "de": "Seitdem war es trocken. Es ist perfekt.",
+         "grammar": "present-perfect",
+         "why": {
+          "en": "Has + been: it's been (it has been) dry.",
+          "sl": "Has + been: it's been (it has been) dry.",
+          "it": "Has + been: it's been (it has been) dry.",
+          "de": "Has + been: it's been (it has been) dry."
+         },
+         "reply": {
+          "face": "confused",
+          "en": "It's be? Eh, nearly.",
+          "sl": "It's be? Ej, skoraj.",
+          "it": "It's be? Eh, quasi.",
+          "de": "It's be? Na, fast."
+         }
+        }
+       ]
+      },
+      {
+       "who": "jack",
+       "en": "Up the ramp, through the cart door. Now we fork it in.",
+       "sl": "Po klancu gor, skozi vrata za vozove. Zdaj ga zmečemo noter.",
+       "it": "Su per la rampa, dentro dalla porta dei carri. Adesso lo buttiamo dentro.",
+       "de": "Die Rampe hoch, durchs Wagentor. Jetzt gabeln wir es hinein."
+      },
+      {
+       "choices": [
+        {
+         "en": "Where's the pitchfork? Ah, here it is.",
+         "sl": "Kje so vile? Aha, tukaj so.",
+         "it": "Dov'è il forcone? Ah, eccolo.",
+         "de": "Wo ist die Heugabel? Ah, da ist sie.",
+         "ok": true,
+         "reply": {
+          "face": "happy",
+          "en": "Good. Lift and throw, lift and throw!",
+          "sl": "Dobro. Dvigni in vrzi, dvigni in vrzi!",
+          "it": "Bene. Solleva e lancia, solleva e lancia!",
+          "de": "Gut. Heben und werfen, heben und werfen!"
+         }
+        },
+        {
+         "en": "Where's the fork? Ah, here it is.",
+         "sl": "Kje so vilice? Aha, tukaj so.",
+         "it": "Dov'è la forchetta? Ah, eccola.",
+         "de": "Wo ist die Gabel? Ah, da ist sie.",
+         "why": {
+          "en": "A fork is for eating. For hay: a pitchfork.",
+          "sl": "Fork so vilice za jesti. Za seno: pitchfork.",
+          "it": "Fork è la forchetta per mangiare. Per il fieno: pitchfork.",
+          "de": "Fork ist die Gabel zum Essen. Fürs Heu: pitchfork."
+         },
+         "reply": {
+          "face": "laugh",
+          "en": "The fork? Hungry, are you?",
+          "sl": "Vilice? Si {m:lačen|f:lačna}?",
+          "it": "La forchetta? Hai fame?",
+          "de": "Die Gabel? Hast du Hunger?"
+         }
+        }
+       ]
+      },
+      {
+       "who": "dixon",
+       "face": "proud",
+       "en": "That's it! Hay in at the big door, and the barn full.",
+       "sl": "To je to! Seno noter skozi velika vrata, skedenj pa poln.",
+       "it": "Ecco fatto! Il fieno è dentro dal portone, e il fienile è pieno.",
+       "de": "Das wär's! Heu durchs große Tor, und die Scheune ist voll.",
+       "done": true
+      },
+      {
+       "who": "tyson",
+       "face": "proud",
+       "en": "Downstairs the sheep are warm and dry. A good barn. Right!",
+       "sl": "Spodaj so ovce na toplem in suhem. Dober skedenj. Tako!",
+       "it": "Di sotto le pecore stanno al caldo e all'asciutto. Un buon fienile. Bene!",
+       "de": "Unten haben es die Schafe warm und trocken. Eine gute Scheune. Gut!"
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

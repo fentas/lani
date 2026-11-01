@@ -12,6 +12,7 @@ import { initLearnerData } from '../../src/learners'
 import { validatePack } from '../../src/packs'
 import { allLines } from '../../src/villagers'
 import { bridgeEleven, bridgeWhisper, check, checkCultureVoices, culturesDir, guideOf, languageBook, port as smokePort, tempDir } from './harness'
+import { villageTalks } from './village-talks'
 
 const repo = resolve(import.meta.dir, '../../../..')
 // not 8797 (the QA's dev town) nor a learner's port: next to the smoke's own, as the towns' is
@@ -26,6 +27,8 @@ export default async function kaernten() {
   initLearnerData(repo, dataDir, { name: 'Ana', target: 'de', base: 'sl', culture: 'kaernten' })
   const ttsBefore = bridgeEleven.st.tts.length
   const client = new Client({ name: 'smoke-kaernten', version: '0' })
+  const notes: any[] = []
+  client.fallbackNotificationHandler = async n => void notes.push(n)
   await client.connect(
     new StdioClientTransport({
       command: 'bun',
@@ -95,6 +98,19 @@ export default async function kaernten() {
     const scenarios = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
     const scenes = await (await fetch(`${base}/scenes`, { headers: auth })).json()
     check('kaernten: no Slovene modules, role-plays or scenes, no Italian places, for the German village', Array.isArray(modules) && !modules.some((m: any) => m.id === 'dvojina-osnove') && Array.isArray(scenarios) && !scenarios.some((s: any) => s.id === 'v-pekarni') && !scenes.some((s: any) => ['ob-ognju', 'na-gricih', 'il-mare', 'al-fuoco'].includes(s.id)), { modules: modules.length, scenarios: scenarios.length, scenes: scenes.map((s: any) => s.id) })
+    // the German role-plays (companion/scenarios/de), for Ana, a grown-up learning German from Slovene
+    await villageTalks({
+      village: 'kaernten', language: 'de', base: 'sl', base_url: base, auth, client, notes: () => notes,
+      packs: ['beim-arzt', 'im-gasthaus', 'am-bahnhof', 'auf-der-gemeinde', 'wetter-und-garten'],
+      sample: {
+        id: 'beim-baecker', title: 'Beim Bäcker · Pri peku', goal: 'Grüße den Bäcker · Pozdravi peka', who: 'Der Bäcker · Pek', setting: 'Zgodaj zjutraj v vaški pekarni', hint: ['Was kostet das?', 'Koliko stane?'],
+        brief: { title: "Beim Bäcker · At the baker's", goal: 'Greet the baker', setting: 'Early morning at the village bakery' },
+      },
+      played: { 'im-gasthaus': 'Wirtin Kathi', 'auf-dem-bauernmarkt': 'Mostbauer Stefan', 'beim-kirchtag': 'Tante Mitzi' },
+      tutorTalk: { schema: 'lani.scenario/v0', id: 'in-der-bibliothek', title: { de: 'In der Bücherei', sl: 'V knjižnici', en: 'At the library' }, level: 'A1', setting: { sl: 'Knjižnica v Beljaku.', en: 'The library in Villach.' }, role: 'Frau Gasser, the librarian. Kind. Says Sie.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Grüß Gott! Welches Buch suchen Sie?', opener_en: { sl: 'Dober dan! Katero knjigo iščete?', en: 'Hello! Which book are you looking for?' }, packs: ['gruesse'] },
+      tutorTitle: 'In der Bücherei · V knjižnici',
+      hello: 'Grüß Gott!',
+    })
     // the pack's own place: the Faaker See under the Mittagskogel, in German with Slovene, English and Italian
     const see = scenes.find((s: any) => s.id === 'am-see')
     check("kaernten: the pack's own scene is served (Am See, from the horizon), in German", see?.culture === 'kaernten' && see.language === 'de' && see.art === 'alps' && see.title.de === 'Am See' && see.title.sl === 'Ob jezeru' && see.dialogs.every((d: any) => d.lines.every((l: any) => !l.who || (l.de && l.sl && l.en && l.it))), see && { title: see.title, culture: see.culture })
@@ -123,6 +139,34 @@ export default async function kaernten() {
     )
     check('kaernten: packs are written in German for this village', instructions.includes('"language": "de"'))
     await languageBook('kaernten', base, auth, 'de', 'German', 'Grammatik', 'sl', instructions)
+
+    // --- the school's course: German (companion/course/de), its texts in the learner's base (Slovene) -------------
+    const course = await (await fetch(`${base}/course`, { headers: auth })).json()
+    const first = ['hallo', 'sein', 'artikel', 'plural', 'haben', 'zahlen']
+    const outlined = (course.levels ?? []).flatMap((l: any) => l.units ?? [])
+    const written = outlined.filter((u: any) => !u.planned).map((u: any) => u.id)
+    check(
+      "kaernten: GET /course serves the German course: its written units in the outline's order (A1 from hallo on), each served, a planned one not",
+      course.language === 'de' && course.levels?.[0]?.units?.length === 18 && first.every((id, i) => written[i] === id) && course.units.map((u: any) => u.id).join() === written.join(),
+      { language: course.language, units: course.units?.map((u: any) => u.id), planned: outlined.filter((u: any) => u.planned).length },
+    )
+    const hallo = course.units?.find((u: any) => u.id === 'hallo')
+    const sort = hallo?.worksheets[0].exercises[0]
+    check(
+      "kaernten: a unit's exercises read in the learner's base (Slovene: the instruction, the sort's columns, a why), its intro per language as written, the learner's name in it",
+      sort?.instruction === 'Ordne zu · Prijatelju ali neznancu?' && sort.columns[0].label === 'du · prijatelju' && sort.explain.startsWith('**du s prijatelji') &&
+        !!hallo.intro.steps[0].say.en && !!hallo.intro.steps[0].say.sl && !!hallo.intro.steps[0].say.it && hallo.intro.steps[3].examples[1].de === 'Ich heiße Ana. Freut mich!',
+      sort,
+    )
+    const printed = await fetch(`${base}/course/sheet/sein`, { headers: auth })
+    const page = await printed.text()
+    check(
+      "kaernten: the unit's printed sheet: headed in German and in the learner's Slovene, its examples German",
+      printed.ok && printed.headers.get('x-lani-print-name') === '02-sein' && page.includes('Regel') && page.includes('Pravilo') && page.includes('Lektion') && page.includes('Ich <b>bin</b> Eva.'),
+      [printed.status, printed.headers.get('x-lani-print-name')],
+    )
+    const school = instructions.slice(instructions.indexOf('The school ('), instructions.indexOf('The school (') + 1400)
+    check("kaernten: the guide's school is the village's: Lehrerin Eva teaches, the course is German", school.includes('Lehrerin Eva comes over from the next village') && school.includes('companion/course/de') && !school.includes('Mojca'), school.slice(0, 400))
 
     // --- the voices: the pack's cast speaks German (without voices yet, the phone does) ------------------------
     await checkCultureVoices({ culture: 'kaernten', base, headers: auth, line: 'Servus! Hast du Hunger?', word: 'Holz', role: /Oma Resi/, since: ttsBefore })

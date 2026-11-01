@@ -136,7 +136,7 @@ class NotebookTest {
                 tellings++
             }
         }
-        assertEquals(112, tellings)
+        assertEquals(124, tellings)
     }
 
     @Test fun `every curated telling is written down in its notes, in the learner's pair, its sketches placed`() {
@@ -158,7 +158,7 @@ class NotebookTest {
             assertEquals(at, s.picturesOf(c).size, ev.blocks.count { it is NoteBlock.Sketch })
             notes++
         }
-        assertEquals(112, notes)
+        assertEquals(124, notes)
     }
 
     @Test fun `the notes' text where a story has them, its sketches after the paragraphs they say`() {

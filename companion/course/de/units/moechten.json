@@ -1,0 +1,812 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "moechten",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🙋",
+  "title": {
+    "de": "Ich möchte, ich kann",
+    "en": "I'd like, I can: möchten and können",
+    "sl": "Rad bi, znam: möchten in können",
+    "it": "Vorrei, so: möchten e können"
+  },
+  "goal": {
+    "en": "You can ask for things politely (Ich möchte einen Kaffee, Was möchten Sie?), say what you can and would like to do with the other verb at the end (Ich kann gut kochen), and ask Kann ich zahlen?",
+    "sl": "Vljudno prosiš za kaj (Ich möchte einen Kaffee, Was möchten Sie?), poveš, kaj znaš in kaj bi rad delal, z drugim glagolom na koncu (Ich kann gut kochen), in vprašaš Kann ich zahlen?",
+    "it": "Sai chiedere qualcosa con cortesia (Ich möchte einen Kaffee, Was möchten Sie?), dire che cosa sai e vorresti fare con l'altro verbo alla fine (Ich kann gut kochen) e chiedere Kann ich zahlen?"
+  },
+  "grammar": [
+    "modalverben",
+    "wortstellung"
+  ],
+  "words": [
+    "möchten",
+    "können",
+    "bitte",
+    "die Jause",
+    "der Kaffee",
+    "das Glas",
+    "der Most",
+    "die Kirchtagssuppe",
+    "zahlen",
+    "die Karte",
+    "bestellen",
+    "helfen",
+    "kochen",
+    "schwimmen",
+    "tanzen",
+    "singen",
+    "backen",
+    "machen",
+    "erzählen",
+    "hören",
+    "essen",
+    "trinken",
+    "fahren",
+    "das Auto",
+    "die Kasnudel",
+    "der Reindling",
+    "die Geschichte",
+    "der Lindwurm",
+    "die Leute",
+    "gut",
+    "heute",
+    "morgen",
+    "Slowenisch",
+    "Deutsch",
+    "Englisch",
+    "Was möchten Sie?",
+    "Ich hätte gern …"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Person",
+          "en": "person",
+          "sl": "oseba",
+          "it": "persona"
+        },
+        {
+          "de": "möchten",
+          "en": "möchten (would like)",
+          "sl": "möchten (rad bi)",
+          "it": "möchten (vorrei)"
+        },
+        {
+          "de": "können",
+          "en": "können (can)",
+          "sl": "können (moči, znati)",
+          "it": "können (potere, sapere)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Ich möchte** (I'd like) is the polite way to ask for something: **Ich möchte einen Kaffee, bitte.** (I'd like a coffee, please.) What you'd like is in the accusative, as after haben: **einen** Kaffee, **ein** Glas Most, **eine** Jause (a snack). At the inn Kathi asks **Was möchten Sie?** (What would you like?)",
+          "sl": "**Ich möchte** (rad bi, želim) je vljuden način, da nekaj prosiš: **Ich möchte einen Kaffee, bitte.** (Kavo bi, prosim.) Kar želiš, je v tožilniku, kot za haben: **einen** Kaffee, **ein** Glas Most, **eine** Jause (malica). V gostilni Kathi vpraša **Was möchten Sie?** (Kaj želite?)",
+          "it": "**Ich möchte** (vorrei) è il modo cortese di chiedere qualcosa: **Ich möchte einen Kaffee, bitte.** (Vorrei un caffè, per favore.) Quello che vuoi è all'accusativo, come dopo haben: **einen** Kaffee, **ein** Glas Most, **eine** Jause (una merenda). All'osteria Kathi chiede **Was möchten Sie?** (Che cosa desidera?)"
+        },
+        "examples": [
+          {
+            "de": "Ich möchte einen Kaffee, bitte.",
+            "en": "I'd like a coffee, please.",
+            "sl": "Kavo bi, prosim.",
+            "it": "Vorrei un caffè, per favore."
+          },
+          {
+            "de": "Was möchten Sie, Frau Huber?",
+            "en": "What would you like, Mrs Huber?",
+            "sl": "Kaj želite, gospa Huber?",
+            "it": "Che cosa desidera, signora Huber?"
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "modalverben",
+          "prompt": "Kathi: «Was ___ Sie?»",
+          "options": [
+            "möchten",
+            "möchte",
+            "möchtest"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Sie → möchten**\n- ich möchte · du möchtest · Sie möchten",
+            "sl": "**Sie → möchten**\n- ich möchte · du möchtest · Sie möchten",
+            "it": "**Sie → möchten**\n- ich möchte · du möchtest · Sie möchten"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**möchten** and **können** (can) have the same form for **ich** and **er, sie, es**, with no -t: **ich möchte, er möchte; ich kann, er kann**. **du** takes -st: **du möchtest, du kannst**. Never er kannt. **Können** with a language is knowing it: **Stanko kann Slowenisch.** (Stanko speaks Slovene.)",
+          "sl": "**möchten** in **können** (moči, znati) imata za **ich** in **er, sie, es** isto obliko, brez -t: **ich möchte, er möchte; ich kann, er kann**. **du** dobi -st: **du möchtest, du kannst**. Nikoli er kannt. **Können** z jezikom pomeni znati ga: **Stanko kann Slowenisch.** (Stanko zna slovensko.)",
+          "it": "**möchten** e **können** (potere, sapere) hanno la stessa forma per **ich** e **er, sie, es**, senza -t: **ich möchte, er möchte; ich kann, er kann**. **du** prende -st: **du möchtest, du kannst**. Mai er kannt. **Können** con una lingua vuol dire saperla: **Stanko kann Slowenisch.** (Stanko sa lo sloveno.)"
+        },
+        "examples": [
+          {
+            "de": "Stanko kann Slowenisch und Deutsch.",
+            "en": "Stanko speaks Slovene and German.",
+            "sl": "Stanko zna slovensko in nemško.",
+            "it": "Stanko sa lo sloveno e il tedesco."
+          },
+          {
+            "de": "Möchtest du ein Glas Most, Toni?",
+            "en": "Would you like a glass of cider, Toni?",
+            "sl": "Bi kozarec mošta, Toni?",
+            "it": "Vuoi un bicchiere di sidro, Toni?"
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "möchte",
+            "kann"
+          ],
+          [
+            "du",
+            "möchtest",
+            "kannst"
+          ],
+          [
+            "er · sie · es",
+            "möchte",
+            "kann"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "modalverben",
+          "text": "Stanko ___ Slowenisch und Deutsch. (können)",
+          "accept": [
+            "kann"
+          ],
+          "hint": "er → ?",
+          "explain": {
+            "en": "**er kann, no -t**\n- ich kann · du kannst · er kann",
+            "sl": "**er kann, brez -t**\n- ich kann · du kannst · er kann",
+            "it": "**er kann, senza -t**\n- ich kann · du kannst · er kann"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the plural they are regular: **wir möchten, ihr möchtet, sie möchten**; **wir können, ihr könnt, sie können**. The polite **Sie** as sie: **Möchten Sie …? Können Sie …?** Mind the vowel: **ich kann**, but **wir können** with ö.",
+          "sl": "V množini sta pravilna: **wir möchten, ihr möchtet, sie möchten**; **wir können, ihr könnt, sie können**. Vljudni **Sie** kot sie: **Möchten Sie …? Können Sie …?** Pazi na samoglasnik: **ich kann**, a **wir können** z ö.",
+          "it": "Al plurale sono regolari: **wir möchten, ihr möchtet, sie möchten**; **wir können, ihr könnt, sie können**. Il **Sie** di cortesia come sie: **Möchten Sie …? Können Sie …?** Attenzione alla vocale: **ich kann**, ma **wir können** con la ö."
+        },
+        "examples": [
+          {
+            "de": "Florian und Stefan, möchtet ihr eine Jause?",
+            "en": "Florian and Stefan, would you like a snack?",
+            "sl": "Florian in Stefan, bi malico?",
+            "it": "Florian e Stefan, volete una merenda?"
+          },
+          {
+            "de": "Können Sie Englisch, Frau Huber?",
+            "en": "Do you speak English, Mrs Huber?",
+            "sl": "Znate angleško, gospa Huber?",
+            "it": "Sa l'inglese, signora Huber?"
+          }
+        ],
+        "rows": [
+          [
+            "wir",
+            "möchten",
+            "können"
+          ],
+          [
+            "ihr",
+            "möchtet",
+            "könnt"
+          ],
+          [
+            "sie · Sie",
+            "möchten",
+            "können"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "modalverben",
+          "prompt": "Florian und Stefan, ___ ihr eine Jause?",
+          "options": [
+            "möchtet",
+            "möchten",
+            "möchtest"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ihr möchtet**\n- wir möchten · ihr möchtet · sie möchten",
+            "sl": "**ihr möchtet**\n- wir möchten · ihr möchtet · sie möchten",
+            "it": "**ihr möchtet**\n- wir möchten · ihr möchtet · sie möchten"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "With another verb, **möchten** or **können** stands second and the other verb goes to the very end, as the dictionary has it: **Ich möchte heute schwimmen.** (I'd like to go swimming today.) **Kathi kann gut kochen.** (Kathi is a good cook.) No zu, as with can in English.",
+          "sl": "Z drugim glagolom stoji **möchten** ali **können** na drugem mestu, drugi glagol pa čisto na koncu, kot v slovarju: **Ich möchte heute schwimmen.** (Danes bi plaval, plavala.) **Kathi kann gut kochen.** (Kathi zna dobro kuhati.) Brez zu.",
+          "it": "Con un altro verbo, **möchten** o **können** sta al secondo posto e l'altro verbo va proprio alla fine, come nel dizionario: **Ich möchte heute schwimmen.** (Oggi vorrei nuotare.) **Kathi kann gut kochen.** (Kathi sa cucinare bene.) Senza zu, come in italiano senza di."
+        },
+        "examples": [
+          {
+            "de": "Ich möchte heute schwimmen.",
+            "en": "I'd like to go swimming today.",
+            "sl": "Danes bi šel plavat.",
+            "it": "Oggi vorrei nuotare."
+          },
+          {
+            "de": "Kathi kann gut kochen.",
+            "en": "Kathi is a good cook.",
+            "sl": "Kathi zna dobro kuhati.",
+            "it": "Kathi sa cucinare bene."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "prompt": {
+            "en": "Which sentence is right?",
+            "sl": "Kateri stavek je pravilen?",
+            "it": "Quale frase è giusta?"
+          },
+          "options": [
+            "Ich möchte heute Kasnudeln essen.",
+            "Ich möchte essen heute Kasnudeln."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**möchten or können second, the other verb at the very end**\n- Ich möchte heute schwimmen.",
+            "sl": "**möchten ali können na drugem mestu, drugi glagol čisto na koncu**\n- Ich möchte heute schwimmen.",
+            "it": "**möchten o können al secondo posto, l'altro verbo proprio alla fine**\n- Ich möchte heute schwimmen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A question puts the verb first: **Kannst du helfen?** (Can you help?) **Möchten Sie bestellen?** (Would you like to order?) **nicht** goes before the verb at the end: **Ich kann heute nicht kommen.** (I can't come today.) **Kann ich …?** asks politely: **Kann ich zahlen?** (Can I pay?) At the counter you also hear **Ich hätte gern …** (I'd like …).",
+          "sl": "Vprašanje postavi glagol na prvo mesto: **Kannst du helfen?** (Lahko pomagaš?) **Möchten Sie bestellen?** (Bi naročili?) **nicht** gre pred glagol na koncu: **Ich kann heute nicht kommen.** (Danes ne morem priti.) **Kann ich …?** vljudno prosi: **Kann ich zahlen?** (Lahko plačam?) Za pultom slišiš tudi **Ich hätte gern …** (Rad bi …).",
+          "it": "La domanda mette il verbo al primo posto: **Kannst du helfen?** (Puoi aiutare?) **Möchten Sie bestellen?** (Desidera ordinare?) **nicht** va prima del verbo alla fine: **Ich kann heute nicht kommen.** (Oggi non posso venire.) **Kann ich …?** chiede con cortesia: **Kann ich zahlen?** (Posso pagare?) Al banco si sente anche **Ich hätte gern …** (Vorrei …)."
+        },
+        "examples": [
+          {
+            "de": "Kann ich zahlen, bitte?",
+            "en": "Can I pay, please?",
+            "sl": "Lahko plačam, prosim?",
+            "it": "Posso pagare, per favore?"
+          },
+          {
+            "de": "Ich kann heute nicht kommen.",
+            "en": "I can't come today.",
+            "sl": "Danes ne morem priti.",
+            "it": "Oggi non posso venire."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "modalverben",
+          "text": "Herr Doktor, ___ Sie morgen kommen? (können)",
+          "accept": [
+            "können"
+          ],
+          "hint": "Sie → ?",
+          "explain": {
+            "en": "**Sie können: the question puts it first**\n- Können Sie morgen kommen?",
+            "sl": "**Sie können: vprašanje ga postavi na prvo mesto**\n- Können Sie morgen kommen?",
+            "it": "**Sie können: la domanda lo mette al primo posto**\n- Können Sie morgen kommen?"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "moechten-1",
+      "title": {
+        "de": "Ich möchte, ich kann",
+        "en": "I'd like, I can",
+        "sl": "Rad bi, znam",
+        "it": "Vorrei, so"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Ergänze die Tabelle · Fill in the table",
+            "sl": "Ergänze die Tabelle · Dopolni tabelo",
+            "it": "Ergänze die Tabelle · Completa la tabella"
+          },
+          "prompt": {
+            "en": "möchten, können (Präsens) · would like, can",
+            "sl": "möchten, können (Präsens) · rad bi, moči",
+            "it": "möchten, können (Präsens) · vorrei, potere"
+          },
+          "columns": [
+            {
+              "en": "möchten · would like",
+              "sl": "möchten · rad bi",
+              "it": "möchten · vorrei"
+            },
+            {
+              "en": "können · can",
+              "sl": "können · moči, znati",
+              "it": "können · potere, sapere"
+            }
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "möchte",
+                "kann"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "möchtest"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kannst"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                {
+                  "accept": [
+                    "möchte"
+                  ],
+                  "hint": {
+                    "en": "as ich",
+                    "sl": "kot ich",
+                    "it": "come ich"
+                  }
+                },
+                {
+                  "accept": [
+                    "kann"
+                  ],
+                  "hint": {
+                    "en": "no -t",
+                    "sl": "brez -t",
+                    "it": "senza -t"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "möchten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "können"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "möchtet"
+                  ]
+                },
+                {
+                  "accept": [
+                    "könnt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                {
+                  "accept": [
+                    "möchten"
+                  ]
+                },
+                {
+                  "accept": [
+                    "können"
+                  ],
+                  "hint": {
+                    "en": "as wir",
+                    "sl": "kot wir",
+                    "it": "come wir"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ich and er the same, no -t; the plural regular**\n- ich kann · er kann · wir können · ihr könnt",
+            "sl": "**ich in er enako, brez -t; množina pravilna**\n- ich kann · er kann · wir können · ihr könnt",
+            "it": "**ich ed er uguali, senza -t; il plurale regolare**\n- ich kann · er kann · wir können · ihr könnt"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi ___ gut kochen.",
+          "options": [
+            "kann",
+            "kannt",
+            "können"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sie kann, no -t**",
+            "sl": "**sie kann, brez -t**",
+            "it": "**sie kann, senza -t**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ du einen Kaffee, Mitzi?",
+          "options": [
+            "Möchtest",
+            "Möchte",
+            "Möchtet"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**du möchtest**",
+            "sl": "**du möchtest**",
+            "it": "**du möchtest**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "moechten-2",
+      "title": {
+        "de": "Im Gasthaus",
+        "en": "At the inn",
+        "sl": "V gostilni",
+        "it": "All'osteria"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Im Gasthaus",
+          "text": "Kathi: «Grüß Gott! Was ___ (möchten) Sie?» Frau Huber: «Ich ___ (möchten) eine Kirchtagssuppe, bitte.» Stefan: «Wir ___ (möchten) zwei Glas Most.» Kathi: «Florian, ___ (können) du helfen?» Florian: «Ja, ich ___ (können) helfen.» Frau Huber: «___ (können) ich mit Karte zahlen?»",
+          "gaps": [
+            {
+              "accept": [
+                "möchten"
+              ],
+              "hint": "Sie → ?"
+            },
+            {
+              "accept": [
+                "möchte"
+              ],
+              "hint": "ich → ?"
+            },
+            {
+              "accept": [
+                "möchten"
+              ],
+              "hint": "wir → ?"
+            },
+            {
+              "accept": [
+                "kannst"
+              ],
+              "hint": "du → ?"
+            },
+            {
+              "accept": [
+                "kann"
+              ],
+              "hint": "ich → ?"
+            },
+            {
+              "accept": [
+                "Kann"
+              ],
+              "hint": "ich → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "kannt",
+            "möchtet"
+          ],
+          "translation": {
+            "en": "Kathi: «Hello! What would you like?» Mrs Huber: «I'd like a Kirchtag soup, please.» Stefan: «We'd like two glasses of cider.» Kathi: «Florian, can you help?» Florian: «Yes, I can help.» Mrs Huber: «Can I pay by card?»",
+            "sl": "Kathi: »Pozdravljeni! Kaj želite?« Gospa Huber: »Žegnanjsko juho, prosim.« Stefan: »Dva kozarca mošta bi.« Kathi: »Florian, lahko pomagaš?« Florian: »Ja, lahko pomagam.« Gospa Huber: »Lahko plačam s kartico?«",
+            "it": "Kathi: «Buongiorno! Che cosa desidera?» Signora Huber: «Vorrei una minestra della sagra, per favore.» Stefan: «Vorremmo due bicchieri di sidro.» Kathi: «Florian, puoi aiutare?» Florian: «Sì, posso aiutare.» Signora Huber: «Posso pagare con la carta?»"
+          },
+          "explain": {
+            "en": "**ich and er the same; du -st; wir, sie, Sie -en; ihr -t**\n- ich möchte · du kannst · wir möchten",
+            "sl": "**ich in er enako; du -st; wir, sie, Sie -en; ihr -t**\n- ich möchte · du kannst · wir möchten",
+            "it": "**ich ed er uguali; du -st; wir, sie, Sie -en; ihr -t**\n- ich möchte · du kannst · wir möchten"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wir möchten heute ___.",
+          "options": [
+            "schwimmen",
+            "schwimmt",
+            "schwimmst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**the other verb as the dictionary has it, at the end**",
+            "sl": "**drugi glagol v nedoločniku, na koncu**",
+            "it": "**l'altro verbo all'infinito, alla fine**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "moechten-3",
+      "title": {
+        "de": "Was kannst du?",
+        "en": "What can you do?",
+        "sl": "Kaj znaš?",
+        "it": "Che cosa sai fare?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Sag es mit möchten oder können · Say it with möchten or können",
+            "sl": "Sag es mit möchten oder können · Povej z möchten ali können",
+            "it": "Sag es mit möchten oder können · Dillo con möchten o können"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich koche. (können)",
+              "accept": [
+                "Ich kann kochen."
+              ],
+              "hint": "kann … kochen"
+            },
+            {
+              "from": "Florian hilft. (möchten)",
+              "accept": [
+                "Florian möchte helfen."
+              ]
+            },
+            {
+              "from": "Stefan macht Most. (können)",
+              "accept": [
+                "Stefan kann Most machen."
+              ],
+              "hint": "kann … machen"
+            },
+            {
+              "from": "Wir tanzen heute. (möchten)",
+              "accept": [
+                "Wir möchten heute tanzen."
+              ]
+            },
+            {
+              "from": "Du singst gut. (können)",
+              "accept": [
+                "Du kannst gut singen."
+              ]
+            },
+            {
+              "from": "Kathi und Mitzi backen einen Reindling. (möchten)",
+              "accept": [
+                "Kathi und Mitzi möchten einen Reindling backen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**möchten or können second, the other verb at the very end**\n- Ich möchte heute schwimmen.",
+            "sl": "**möchten ali können na drugem mestu, drugi glagol čisto na koncu**\n- Ich möchte heute schwimmen.",
+            "it": "**möchten o können al secondo posto, l'altro verbo proprio alla fine**\n- Ich möchte heute schwimmen."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "modalverben",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "title": "Opa Sepps Geschichte",
+        "text": "Opa Sepp ___ (können) gut erzählen. Heute ___ (möchten) er eine Geschichte erzählen. «___ (können) ihr mich hören?» Die Leute im Gasthaus ___ (möchten) die Geschichte vom Lindwurm hören. Und du, {learner}? ___ (möchten) du auch kommen?",
+        "gaps": [
+          {
+            "accept": [
+              "kann"
+            ]
+          },
+          {
+            "accept": [
+              "möchte"
+            ]
+          },
+          {
+            "accept": [
+              "Könnt"
+            ]
+          },
+          {
+            "accept": [
+              "möchten"
+            ]
+          },
+          {
+            "accept": [
+              "Möchtest"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Grandpa Sepp is good at telling stories. Today he'd like to tell a story. «Can you hear me?» The people at the inn would like to hear the story of the Lindwurm. And you, {learner}? Would you like to come too?",
+          "sl": "Dedek Sepp zna dobro pripovedovati. Danes bi rad povedal zgodbo. »Me slišite?« Ljudje v gostilni bi radi slišali zgodbo o zmaju. Pa ti, {learner}? Bi tudi ti prišel, prišla?",
+          "it": "Nonno Sepp sa raccontare bene. Oggi vorrebbe raccontare una storia. «Mi sentite?» La gente all'osteria vorrebbe sentire la storia del drago. E tu, {learner}? Vuoi venire anche tu?"
+        },
+        "explain": {
+          "en": "**ich, er: kann, möchte; ihr könnt; du möchtest**",
+          "sl": "**ich, er: kann, möchte; ihr könnt; du möchtest**",
+          "it": "**ich, er: kann, möchte; ihr könnt; du möchtest**"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "wortstellung",
+        "instruction": {
+          "en": "Sag es mit möchten oder können · Say it with möchten or können",
+          "sl": "Sag es mit möchten oder können · Povej z möchten ali können",
+          "it": "Sag es mit möchten oder können · Dillo con möchten o können"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich trinke ein Glas Most. (möchten)",
+            "accept": [
+              "Ich möchte ein Glas Most trinken."
+            ]
+          },
+          {
+            "from": "Mitzi fährt Auto. (können)",
+            "accept": [
+              "Mitzi kann Auto fahren."
+            ]
+          },
+          {
+            "from": "Ihr kommt morgen. (können)",
+            "accept": [
+              "Ihr könnt morgen kommen."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "modalverben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Frau Huber, ___ Sie Slowenisch?",
+        "options": [
+          "können",
+          "kann",
+          "könnt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Sie können**",
+          "sl": "**Sie können**",
+          "it": "**Sie können**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wortstellung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "Which sentence is right?",
+          "sl": "Kateri stavek je pravilen?",
+          "it": "Quale frase è giusta?"
+        },
+        "options": [
+          "Ich kann heute nicht kommen.",
+          "Ich kann heute kommen nicht."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**nicht before the verb at the end**",
+          "sl": "**nicht pred glagolom na koncu**",
+          "it": "**nicht prima del verbo alla fine**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "modalverben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Toni ___ einen Kaffee.",
+        "options": [
+          "möchte",
+          "möchtest",
+          "möchten"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**er möchte, as ich**",
+          "sl": "**er möchte, kot ich**",
+          "it": "**er möchte, come ich**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: zwei Glas Most, Kann ich mit Karte zahlen?, Ich hätte gern, Stanko kann Slowenisch; the Slovene bi/želim for möchte"
+}
