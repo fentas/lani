@@ -1,0 +1,379 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "artikel",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🏷️",
+  "title": { "de": "Der, die, das", "en": "The articles: der, die, das", "sl": "Členi: der, die, das", "it": "Gli articoli: der, die, das" },
+  "goal": {
+    "en": "You can say every noun with its article, der, die, das for the and ein, eine for a, and a few endings help you guess its gender.",
+    "sl": "Vsak samostalnik poveš s členom, der, die, das (določni) ter ein, eine (nedoločni), nekaj končnic pa ti pomaga uganiti njegov spol.",
+    "it": "Sai dire ogni nome con il suo articolo, der, die, das per il, la e ein, eine per un, una, e alcune desinenze ti aiutano a indovinarne il genere."
+  },
+  "grammar": ["artikel-genus"],
+  "words": [
+    "der", "die", "das", "ein", "eine",
+    "der Hund", "die Katze", "das Schaf", "der Tisch", "der Berg",
+    "der Mann", "die Frau", "der Wirt", "die Wirtin", "der Lehrer", "die Lehrerin", "der Opa", "der Müller",
+    "die Suppe", "die Küche", "die Kirche", "die Schule", "die Mühle", "die Birne", "die Flasche", "der Käse",
+    "das Mädchen", "das Männlein", "das Häferl", "das Sackerl", "das Glöckerl", "die Zeitung",
+    "der Paradeiser", "die Tomate", "der Erdapfel", "die Kartoffel", "das Cola",
+    "das Gasthaus", "der Apfel", "der Most"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "de": "Genus", "en": "gender", "sl": "spol", "it": "genere" },
+        { "de": "der, die, das", "en": "the", "sl": "določni člen", "it": "il, la (determinativo)" },
+        { "de": "ein, eine", "en": "a, an", "sl": "nedoločni člen", "it": "un, una (indeterminativo)" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A masculine noun takes **der** (the) and **ein** (a): **der Hund** (the dog), **ein Hund** (a dog). German has three genders, so three words for the: **der**, **die**, **das**. And look at **Hund**: it starts with a capital letter. Every German noun does, wherever it stands in the sentence: **der Tisch** (the table), **der Berg** (the mountain).",
+          "sl": "Samostalnik moškega spola dobi **der** (določni člen) in **ein** (nedoločni člen): **der Hund** (pes), **ein Hund** (en pes, neki pes). Spole poznaš iz slovenščine, nemščina pa jih pokaže s členom. Poglej še **Hund**: piše se z veliko začetnico. Tako se piše vsak nemški samostalnik, kjerkoli v stavku stoji: **der Tisch** (miza, tu moškega spola), **der Berg** (gora).",
+          "it": "Un nome maschile prende **der** (il) e **ein** (un): **der Hund** (il cane), **ein Hund** (un cane). Il tedesco ha tre generi e quindi tre articoli: **der**, **die**, **das**. E guarda **Hund**: comincia con la maiuscola. Ogni nome tedesco si scrive con la maiuscola, in qualunque punto della frase: **der Tisch** (il tavolo), **der Berg** (il monte)."
+        },
+        "examples": [
+          { "de": "Das ist ein Hund.", "en": "This is a dog.", "sl": "To je pes.", "it": "Questo è un cane." },
+          { "de": "Der Hund heißt Bello.", "en": "The dog is called Bello.", "sl": "Psu je ime Bello.", "it": "Il cane si chiama Bello." }
+        ],
+        "rows": [[{ "de": "maskulin", "en": "masculine", "sl": "moški", "it": "maschile" }, "der Hund", "ein Hund"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "artikel-genus",
+          "prompt": { "en": "Which one is written right?", "sl": "Kaj je zapisano prav?", "it": "Quale è scritto bene?" },
+          "options": ["der hund", "der Hund", "Der hund"],
+          "answer": 1,
+          "explain": {
+            "en": "**Every noun starts with a capital: der Hund**\n- der Tisch · the table\n- der Berg · the mountain",
+            "sl": "**Vsak samostalnik z veliko začetnico: der Hund**\n- der Tisch · miza\n- der Berg · gora",
+            "it": "**Ogni nome con la maiuscola: der Hund**\n- der Tisch · il tavolo\n- der Berg · il monte"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A feminine noun takes **die** (the) and **eine** (a): **die Katze** (the cat), **eine Katze** (a cat). With people the gender is mostly the person's: **der Mann** (the man), **die Frau** (the woman). A woman's job often ends in **-in**, and then it's always die: **der Wirt** (the innkeeper), **die Wirtin** (the innkeeper, a woman). So Kathi is **die Wirtin**, and Eva **die Lehrerin** (the teacher).",
+          "sl": "Samostalnik ženskega spola dobi **die** (določni člen) in **eine** (nedoločni člen): **die Katze** (mačka), **eine Katze** (ena mačka, neka mačka). Pri ljudeh je spol navadno kar spol osebe: **der Mann** (moški), **die Frau** (ženska). Ženska oblika poklica se pogosto konča na **-in** (kot slovenska na -ka) in je vedno die: **der Wirt** (gostilničar), **die Wirtin** (gostilničarka). Kathi je torej **die Wirtin**, Eva pa **die Lehrerin** (učiteljica).",
+          "it": "Un nome femminile prende **die** (la) ed **eine** (una): **die Katze** (il gatto), **eine Katze** (un gatto). Per le persone il genere di solito è quello della persona: **der Mann** (l'uomo), **die Frau** (la donna). Il mestiere di una donna finisce spesso in **-in**, e allora è sempre die: **der Wirt** (l'oste), **die Wirtin** (l'ostessa). Kathi è quindi **die Wirtin**, ed Eva **die Lehrerin** (la maestra)."
+        },
+        "examples": [
+          { "de": "Die Katze ist in der Küche.", "en": "The cat is in the kitchen.", "sl": "Mačka je v kuhinji.", "it": "Il gatto è in cucina." },
+          { "de": "Die Wirtin heißt Kathi.", "en": "The innkeeper's name is Kathi.", "sl": "Gostilničarki je ime Kathi.", "it": "L'ostessa si chiama Kathi." }
+        ],
+        "rows": [
+          [{ "de": "feminin", "en": "feminine", "sl": "ženski", "it": "femminile" }, "die Katze", "eine Katze"],
+          [{ "de": "-in: eine Frau", "en": "-in: a woman", "sl": "-in: ženska", "it": "-in: una donna" }, "die Wirtin", "eine Wirtin"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "artikel-genus",
+          "prompt": "___ Lehrerin heißt Eva.",
+          "options": ["Der", "Die", "Das"],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**-in is a woman: die**\n- die Lehrerin · the teacher\n- die Wirtin · the innkeeper",
+            "sl": "**-in je ženska: die**\n- die Lehrerin · učiteljica\n- die Wirtin · gostilničarka",
+            "it": "**-in è una donna: die**\n- die Lehrerin · la maestra\n- die Wirtin · l'ostessa"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A neuter noun takes **das** (the) and **ein** (a): **das Schaf** (the sheep), **ein Schaf** (a sheep). So **ein** goes with **der** and **das** words, **eine** only with **die** words. And **Das ist** (this is) points at anything, whatever its gender: **Das ist eine Katze.** (This is a cat.) The article of the noun comes after it.",
+          "sl": "Samostalnik srednjega spola dobi **das** (določni člen) in **ein** (nedoločni člen): **das Schaf** (ovca, tu srednjega spola), **ein Schaf** (ena ovca). **Ein** gre torej k besedam z **der** in **das**, **eine** samo k besedam z **die**. **Das ist** (to je) pa pokaže na karkoli, ne glede na spol: **Das ist eine Katze.** (To je mačka.) Člen samostalnika pride za njim.",
+          "it": "Un nome neutro prende **das** (il, la: neutro) e **ein** (un, una): **das Schaf** (la pecora), **ein Schaf** (una pecora). L'italiano non ha il neutro. Quindi **ein** va con le parole con **der** e **das**, **eine** solo con quelle con **die**. E **Das ist** (questo è) indica qualsiasi cosa, di qualunque genere: **Das ist eine Katze.** (Questo è un gatto.) L'articolo del nome viene dopo."
+        },
+        "examples": [
+          { "de": "Das ist ein Schaf. Das Schaf ist weiß.", "en": "This is a sheep. The sheep is white.", "sl": "To je ovca. Ovca je bela.", "it": "Questa è una pecora. La pecora è bianca." },
+          { "de": "Das Schaf heißt Flocke.", "en": "The sheep is called Flocke.", "sl": "Ovci je ime Flocke.", "it": "La pecora si chiama Flocke." }
+        ],
+        "rows": [[{ "de": "neutral", "en": "neuter", "sl": "srednji", "it": "neutro" }, "das Schaf", "ein Schaf"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "artikel-genus",
+          "prompt": "Das ist ___ Schaf.",
+          "options": ["ein", "eine"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**das words take ein, as der words do**\n- ein Schaf · a sheep\n- eine Katze · a cat",
+            "sl": "**Besede z das dobijo ein, kot besede z der**\n- ein Schaf · ena ovca\n- eine Katze · ena mačka",
+            "it": "**Le parole con das prendono ein, come quelle con der**\n- ein Schaf · una pecora\n- eine Katze · un gatto"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A few endings help: most nouns in **-e** are die, **die Suppe** (the soup), **die Küche** (the kitchen), but **der Käse** (the cheese)! Nouns in **-chen** and **-lein** are always das, even **das Mädchen** (the girl). So is Austria's little **-erl**: **das Häferl** (the mug), **das Sackerl** (the bag). And **-ung** is always die: **die Zeitung** (the newspaper).",
+          "sl": "Nekaj končnic pomaga: večina samostalnikov na **-e** je die, **die Suppe** (juha), **die Küche** (kuhinja), a **der Käse** (sir)! Samostalniki na **-chen** in **-lein** so vedno das, tudi **das Mädchen** (dekle). Prav tako avstrijska pomanjševalnica na **-erl**: **das Häferl** (skodelica, lonček), **das Sackerl** (vrečka). Končnica **-ung** pa je vedno die: **die Zeitung** (časopis).",
+          "it": "Alcune desinenze aiutano: quasi tutti i nomi in **-e** sono die, **die Suppe** (la minestra), **die Küche** (la cucina), ma **der Käse** (il formaggio)! I nomi in **-chen** e **-lein** sono sempre das, anche **das Mädchen** (la ragazza). Così anche il diminutivo austriaco in **-erl**: **das Häferl** (la tazza), **das Sackerl** (il sacchetto). E **-ung** è sempre die: **die Zeitung** (il giornale)."
+        },
+        "examples": [
+          { "de": "Die Suppe ist heiß.", "en": "The soup is hot.", "sl": "Juha je vroča.", "it": "La minestra è calda." },
+          { "de": "Das Häferl ist in der Küche.", "en": "The mug is in the kitchen.", "sl": "Skodelica je v kuhinji.", "it": "La tazza è in cucina." },
+          { "de": "Tante Mitzi ist im Gasthaus. Die Zeitung ist von heute.", "en": "Aunt Mitzi is at the inn. The newspaper is today's.", "sl": "Teta Mitzi je v gostilni. Časopis je današnji.", "it": "La zia Mitzi è all'osteria. Il giornale è di oggi." }
+        ],
+        "rows": [
+          ["-e", "die Suppe", "eine Suppe"],
+          ["-chen, -lein, -erl", "das Häferl", "ein Häferl"],
+          ["-ung", "die Zeitung", "eine Zeitung"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "artikel-genus",
+          "prompt": "___ Häferl ist voll.",
+          "options": ["Der", "Die", "Das"],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "en": "**-erl, -chen, -lein: always das**\n- das Häferl · the mug\n- das Mädchen · the girl",
+            "sl": "**-erl, -chen, -lein: vedno das**\n- das Häferl · skodelica\n- das Mädchen · dekle",
+            "it": "**-erl, -chen, -lein: sempre das**\n- das Häferl · la tazza\n- das Mädchen · la ragazza"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In Austria the tomato is **der Paradeiser** (the tomato), in Germany it's **die Tomate**: the same thing, another word, another gender. The potato is **der Erdapfel** (the potato), in Germany **die Kartoffel**. And Kathi serves **das Cola** (the cola), where Germany says **die Cola**. The article belongs to the word, not to the thing. So learn every noun with its article: not **Paradeiser**, but **der Paradeiser**.",
+          "sl": "V Avstriji je paradižnik **der Paradeiser** (paradižnik; od tod tudi slovenska beseda), v Nemčiji pa **die Tomate**: ista stvar, druga beseda, drug spol. Krompir je **der Erdapfel** (krompir), v Nemčiji **die Kartoffel**. Kathi pa toči **das Cola** (kokakola), kjer v Nemčiji rečejo **die Cola**. Člen pripada besedi, ne stvari. Zato se vsak samostalnik uči s členom: ne **Paradeiser**, ampak **der Paradeiser**.",
+          "it": "In Austria il pomodoro è **der Paradeiser** (il pomodoro), in Germania **die Tomate**: la stessa cosa, un'altra parola, un altro genere. La patata è **der Erdapfel** (la patata), in Germania **die Kartoffel**. E Kathi serve **das Cola** (la coca-cola), dove in Germania si dice **die Cola**. L'articolo appartiene alla parola, non alla cosa. Perciò ogni nome si impara con il suo articolo: non **Paradeiser**, ma **der Paradeiser**."
+        },
+        "examples": [
+          { "de": "Der Paradeiser ist rot.", "en": "The tomato is red.", "sl": "Paradižnik je rdeč.", "it": "Il pomodoro è rosso." },
+          { "de": "Das Cola ist kalt.", "en": "The cola is cold.", "sl": "Kokakola je mrzla.", "it": "La coca-cola è fredda." }
+        ],
+        "rows": [[{ "de": "mit dem Wort lernen", "en": "learn it with the word", "sl": "nauči se z besedo", "it": "da imparare con la parola" }, "der Paradeiser", "ein Paradeiser"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "artikel-genus",
+          "prompt": "___ Erdapfel ist aus dem Gailtal.",
+          "options": ["Der", "Die", "Das"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**der Erdapfel: learn it with its article**\n- der Erdapfel · the potato (Germany: die Kartoffel)\n- der Paradeiser · the tomato (Germany: die Tomate)",
+            "sl": "**der Erdapfel: nauči se ga s členom**\n- der Erdapfel · krompir (v Nemčiji: die Kartoffel)\n- der Paradeiser · paradižnik (v Nemčiji: die Tomate)",
+            "it": "**der Erdapfel: si impara con l'articolo**\n- der Erdapfel · la patata (in Germania: die Kartoffel)\n- der Paradeiser · il pomodoro (in Germania: die Tomate)"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "artikel-1",
+      "title": { "de": "Der, die oder das?", "en": "Der, die or das?", "sl": "Der, die ali das?", "it": "Der, die o das?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "artikel-genus",
+          "instruction": { "en": "Ordne zu · Sort by the article", "sl": "Ordne zu · Razvrsti po členu", "it": "Ordne zu · Ordina per articolo" },
+          "columns": [
+            { "label": { "en": "der · masculine", "sl": "der · moški spol", "it": "der · maschile" }, "words": ["Hund", "Mann", "Käse"] },
+            { "label": { "en": "die · feminine", "sl": "die · ženski spol", "it": "die · femminile" }, "words": ["Katze", "Wirtin", "Zeitung"] },
+            { "label": { "en": "das · neuter", "sl": "das · srednji spol", "it": "das · neutro" }, "words": ["Schaf", "Mädchen", "Häferl"] }
+          ],
+          "explain": {
+            "en": "**People by sex, -in and -ung die, -chen and -erl das**\n- der Mann · die Wirtin · das Mädchen\n- but der Käse, though in -e",
+            "sl": "**Ljudje po spolu, -in in -ung die, -chen in -erl das**\n- der Mann · die Wirtin · das Mädchen\n- a der Käse, čeprav na -e",
+            "it": "**Le persone secondo il sesso, -in e -ung die, -chen e -erl das**\n- der Mann · die Wirtin · das Mädchen\n- ma der Käse, anche se in -e"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "artikel-genus",
+          "instruction": { "en": "Ergänze · Fill in the articles", "sl": "Ergänze · Dopolni člene", "it": "Ergänze · Completa con gli articoli" },
+          "columns": [
+            { "en": "der, die, das · the", "sl": "der, die, das · določni člen", "it": "der, die, das · il, la" },
+            { "en": "ein, eine · a", "sl": "ein, eine · nedoločni člen", "it": "ein, eine · un, una" }
+          ],
+          "rows": [
+            { "label": "Mann", "cells": [{ "accept": ["der Mann", "der"], "hint": { "en": "a man", "sl": "moški", "it": "un uomo" } }, "ein Mann"] },
+            { "label": "Suppe", "cells": ["die Suppe", { "accept": ["eine Suppe", "eine"], "hint": "die → ?" }] },
+            { "label": "Mädchen", "cells": [{ "accept": ["das Mädchen", "das"], "hint": "-chen" }, { "accept": ["ein Mädchen", "ein"], "hint": "das → ?" }] },
+            { "label": "Zeitung", "cells": [{ "accept": ["die Zeitung", "die"], "hint": "-ung" }, "eine Zeitung"] }
+          ],
+          "explain": {
+            "en": "**der, die, das · ein, eine, ein**\n- der Mann · ein Mann\n- die Suppe · eine Suppe\n- das Mädchen · ein Mädchen",
+            "sl": "**der, die, das · ein, eine, ein**\n- der Mann · ein Mann\n- die Suppe · eine Suppe\n- das Mädchen · ein Mädchen",
+            "it": "**der, die, das · ein, eine, ein**\n- der Mann · ein Mann\n- die Suppe · eine Suppe\n- das Mädchen · ein Mädchen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "artikel-2",
+      "title": { "de": "Im Gasthaus zur Linde", "en": "At the Gasthaus zur Linde", "sl": "V gostilni Zur Linde", "it": "All'osteria Zur Linde" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "artikel-genus",
+          "instruction": {
+            "en": "Ergänze · Fill in der, die or das; where it says (ein): ein or eine",
+            "sl": "Ergänze · Dopolni z der, die ali das; kjer piše (ein): ein ali eine",
+            "it": "Ergänze · Completa con der, die o das; dove c'è (ein): ein o eine"
+          },
+          "title": "Im Gasthaus zur Linde",
+          "text": "Das ist ___ (ein) Gasthaus. ___ Gasthaus heißt „Zur Linde“. ___ Wirtin heißt Kathi. ___ Suppe ist heiß. ___ Käse ist aus dem Gailtal. Das ist ___ (ein) Hund. ___ Hund heißt Bello.",
+          "gaps": [
+            { "accept": ["ein"], "hint": { "en": "Gasthaus is neuter", "sl": "Gasthaus je srednjega spola", "it": "Gasthaus è neutro" } },
+            { "accept": ["Das"], "hint": { "en": "neuter, and known now", "sl": "srednji spol, in zdaj že znano", "it": "neutro, e ormai noto" } },
+            { "accept": ["Die"], "hint": "-in" },
+            { "accept": ["Die"], "hint": "-e" },
+            {
+              "accept": ["Der"],
+              "hint": { "en": "an exception to -e", "sl": "izjema pri -e", "it": "un'eccezione a -e" },
+              "explain": {
+                "en": "**der Käse: masculine, though it ends in -e**",
+                "sl": "**der Käse: moškega spola, čeprav se konča na -e**",
+                "it": "**der Käse: maschile, anche se finisce in -e**"
+              }
+            },
+            { "accept": ["ein"], "hint": { "en": "Hund is masculine", "sl": "Hund je moškega spola", "it": "Hund è maschile" } },
+            { "accept": ["Der"], "hint": { "en": "masculine", "sl": "moški spol", "it": "maschile" } }
+          ],
+          "bank": true,
+          "distractors": ["eine"],
+          "translation": {
+            "en": "This is an inn. The inn is called Zur Linde. The innkeeper's name is Kathi. The soup is hot. The cheese is from the Gailtal. This is a dog. The dog is called Bello.",
+            "sl": "To je gostilna. Gostilni je ime Zur Linde. Gostilničarki je ime Kathi. Juha je vroča. Sir je iz Ziljske doline. To je pes. Psu je ime Bello.",
+            "it": "Questa è un'osteria. L'osteria si chiama Zur Linde. L'ostessa si chiama Kathi. La minestra è calda. Il formaggio è della valle del Gail. Questo è un cane. Il cane si chiama Bello."
+          },
+          "explain": {
+            "en": "**ein for something new, der, die, das once it is known**\n- Das ist ein Hund. Der Hund heißt Bello.",
+            "sl": "**ein za nekaj novega, der, die, das, ko je že znano**\n- Das ist ein Hund. Der Hund heißt Bello.",
+            "it": "**ein per una cosa nuova, der, die, das quando è già nota**\n- Das ist ein Hund. Der Hund heißt Bello."
+          }
+        }
+      ]
+    },
+    {
+      "id": "artikel-3",
+      "title": { "de": "Ein Hund, der Hund", "en": "A dog, the dog", "sl": "En pes, ta pes", "it": "Un cane, il cane" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "artikel-genus",
+          "whole": true,
+          "instruction": {
+            "en": "Mit der, die, das · With der, die or das (the)",
+            "sl": "Mit der, die, das · Z der, die ali das (določni člen)",
+            "it": "Mit der, die, das · Con der, die o das (il, la)"
+          },
+          "cue": "→",
+          "items": [
+            { "from": "ein Mann", "accept": ["der Mann"] },
+            { "from": "eine Semmel", "accept": ["die Semmel"], "hint": "eine → ?" },
+            { "from": "ein Schaf", "accept": ["das Schaf"], "hint": { "en": "ein: der or das?", "sl": "ein: der ali das?", "it": "ein: der o das?" } },
+            { "from": "ein Sackerl", "accept": ["das Sackerl"], "hint": "-erl" },
+            { "from": "ein Erdapfel", "accept": ["der Erdapfel"], "hint": { "en": "the Austrian word for potato", "sl": "avstrijska beseda za krompir", "it": "la parola austriaca per patata" } }
+          ],
+          "explain": {
+            "en": "**eine → die; ein → der or das: the noun decides**\n- ein Mann → der Mann\n- ein Schaf → das Schaf",
+            "sl": "**eine → die; ein → der ali das: odloči samostalnik**\n- ein Mann → der Mann\n- ein Schaf → das Schaf",
+            "it": "**eine → die; ein → der o das: decide il nome**\n- ein Mann → der Mann\n- ein Schaf → das Schaf"
+          }
+        },
+        {
+          "type": "gaptext",
+          "grammar": "artikel-genus",
+          "instruction": { "en": "Ergänze ein oder eine · Fill in ein or eine", "sl": "Ergänze ein oder eine · Dopolni z ein ali eine", "it": "Ergänze ein oder eine · Completa con ein o eine" },
+          "title": "Auf dem Markt in Villach",
+          "text": "Stefan ist auf dem Markt in Villach. Das ist ___ Apfel. Das ist ___ Birne. Das ist ___ Flasche Most. Und das ist ___ Sackerl für Tante Mitzi.",
+          "gaps": [
+            { "accept": ["ein"], "hint": "der Apfel" },
+            { "accept": ["eine"], "hint": "-e" },
+            { "accept": ["eine"], "hint": "-e" },
+            { "accept": ["ein"], "hint": "-erl" }
+          ],
+          "translation": {
+            "en": "Stefan is at the market in Villach. This is an apple. This is a pear. This is a bottle of cider. And this is a bag for Aunt Mitzi.",
+            "sl": "Stefan je na tržnici v Beljaku. To je jabolko. To je hruška. To je steklenica mošta. In to je vrečka za teto Mitzi.",
+            "it": "Stefan è al mercato di Villaco. Questa è una mela. Questa è una pera. Questa è una bottiglia di sidro. E questo è un sacchetto per la zia Mitzi."
+          },
+          "explain": {
+            "en": "**ein for der and das words, eine for die words**\n- ein Apfel (der) · ein Sackerl (das)\n- eine Birne (die)",
+            "sl": "**ein za besede z der in das, eine za besede z die**\n- ein Apfel (der) · ein Sackerl (das)\n- eine Birne (die)",
+            "it": "**ein per le parole con der e das, eine per quelle con die**\n- ein Apfel (der) · ein Sackerl (das)\n- eine Birne (die)"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort",
+        "grammar": "artikel-genus",
+        "instruction": { "en": "Ordne zu · Der, die or das?", "sl": "Ordne zu · Der, die ali das?", "it": "Ordne zu · Der, die o das?" },
+        "columns": [
+          { "label": "der", "words": ["Wirt", "Opa"] },
+          { "label": "die", "words": ["Lehrerin", "Schule"] },
+          { "label": "das", "words": ["Glöckerl", "Männlein"] }
+        ]
+      },
+      {
+        "type": "table",
+        "grammar": "artikel-genus",
+        "instruction": { "en": "Ergänze · Fill in the articles", "sl": "Ergänze · Dopolni člene", "it": "Ergänze · Completa con gli articoli" },
+        "columns": [
+          { "en": "der, die, das · the", "sl": "der, die, das · določni člen", "it": "der, die, das · il, la" },
+          { "en": "ein, eine · a", "sl": "ein, eine · nedoločni člen", "it": "ein, eine · un, una" }
+        ],
+        "rows": [{ "label": "Kirche", "cells": [{ "accept": ["die Kirche", "die"] }, { "accept": ["eine Kirche", "eine"] }] }]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "artikel-genus",
+        "instruction": {
+          "en": "Ergänze · Fill in der, die or das; where it says (ein): ein or eine",
+          "sl": "Ergänze · Dopolni z der, die ali das; kjer piše (ein): ein ali eine",
+          "it": "Ergänze · Completa con der, die o das; dove c'è (ein): ein o eine"
+        },
+        "text": "Das ist ___ (ein) Mühle. ___ Mühle ist alt. ___ Müller heißt Franz.",
+        "gaps": [{ "accept": ["eine"] }, { "accept": ["Die"] }, { "accept": ["Der"] }],
+        "translation": {
+          "en": "This is a mill. The mill is old. The miller's name is Franz.",
+          "sl": "To je mlin. Mlin je star. Mlinarju je ime Franz.",
+          "it": "Questo è un mulino. Il mulino è vecchio. Il mugnaio si chiama Franz."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "artikel-genus",
+        "whole": true,
+        "instruction": {
+          "en": "Mit der, die, das · With der, die or das (the)",
+          "sl": "Mit der, die, das · Z der, die ali das (določni člen)",
+          "it": "Mit der, die, das · Con der, die o das (il, la)"
+        },
+        "cue": "→",
+        "items": [
+          { "from": "ein Lehrer", "accept": ["der Lehrer"] },
+          { "from": "ein Bankerl", "accept": ["das Bankerl"] }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "artikel-genus",
+        "instruction": { "en": "Wähle · Pick", "sl": "Wähle · Izberi", "it": "Wähle · Scegli" },
+        "prompt": "___ Käse ist gut.",
+        "options": ["Der", "Die", "Das"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**der Käse: masculine, though it ends in -e**",
+          "sl": "**der Käse: moškega spola, čeprav se konča na -e**",
+          "it": "**der Käse: maschile, anche se finisce in -e**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: das Cola and das Häferl as Austrian, «Der Erdapfel ist aus dem Gailtal», the (ein) cue, ein Bankerl, sl paradižnik"
+}

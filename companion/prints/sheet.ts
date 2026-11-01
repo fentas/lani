@@ -308,6 +308,16 @@ const FORM_GLOSS = /\b(singular|plural|dual|person|imperative|genitive|dative|lo
 const NOTE = /\b(feminine|masculine|neuter|singular|plural|dual|genitive|accusative|locative|a man|a woman|men|women|several|polite|speech|standard|going|being)\b/i
 
 /** A word's meaning in the base: the unit's own gloss, the supplement's entry of the word, a pack's word (written for the learner), Wiktionary. */
+/**
+ * The articles in front of a pack's or a unit's noun, per language learned: Italian's (the elided l', un' too), German's
+ * nominative (der, die, das; ein, eine), English's (the, a, an); the noun after it.
+ */
+const ARTICLES: Record<string, RegExp> = {
+  it: /^(?:(?:il|lo|la|i|gli|le|un|uno|una)\s+|(?:l|un)['’])(.+)$/i,
+  de: /^(?:der|die|das|ein|eine)\s+(.+)$/i,
+  en: /^(?:the|an?)\s+(.+)$/i,
+}
+
 export class Dictionary {
   private packs = new Map<string, Json>()
   /** The packs' nouns by their plural ("i cavalli", cavalli → il cavallo): a unit may list a noun in the plural. */
@@ -321,10 +331,12 @@ export class Dictionary {
     private readonly language: string,
   ) {}
 
-  /** A pack's word without its article ("la casa" → casa, "l'ape" → ape): an Italian unit lists its words bare. */
+  /**
+   * A pack's word without its article ("la casa" → casa, "l'ape" → ape, "der Hund" → Hund, "the dog" → dog): a unit lists
+   * its words bare. Slovene has no articles.
+   */
   private bare(w: string): string | null {
-    if (this.language !== 'it') return null
-    const m = w.match(/^(?:(?:il|lo|la|i|gli|le|un|uno|una)\s+|(?:l|un)['’])(.+)$/i)
+    const m = ARTICLES[this.language] ? w.match(ARTICLES[this.language]) : null
     return m ? m[1] : null
   }
 
@@ -339,8 +351,13 @@ export class Dictionary {
     return lower.normalize('NFC')
   }
 
-  /** An Italian noun with its article, by its gender ("biscotto", m → il biscotto; "zaino" → lo zaino; "ape", f → l'ape). */
+  /**
+   * A noun with its article, by its gender: Italian's ("biscotto", m → il biscotto; "zaino" → lo zaino; "ape", f → l'ape),
+   * German's ("Hund", m → der Hund; "Katze", f → die Katze; "Brot", n → das Brot). English's and a word without a gender
+   * stay as they are.
+   */
   private withArticle(lemma: string, gender: string | undefined): string {
+    if (this.language === 'de') return gender === 'm' ? `der ${lemma}` : gender === 'f' ? `die ${lemma}` : gender === 'n' ? `das ${lemma}` : lemma
     if (this.language !== 'it' || (gender !== 'm' && gender !== 'f')) return lemma
     if (/^[aeiouàèéìòù]/i.test(lemma)) return `l'${lemma}`
     if (gender === 'f') return `la ${lemma}`
@@ -350,26 +367,38 @@ export class Dictionary {
   private load() {
     if (this.loaded) return
     this.loaded = true
+    // the language's own packs first (the packs dir, and the culture packs of the language: their `language`); another
+    // language's after them (a Slovene pack has none: sl), as its meanings of this language's words: not its gender (an
+    // English sheet's teacher isn't Friuli's maestra, f) and not its plural (pastirji is no English plural)
+    const own: Json[] = []
+    const other: Json[] = []
     for (const packsDir of [this.dirs.packs, ...(this.dirs.morePacks ?? [])]) {
       for (const f of existsSync(packsDir) ? readdirSync(packsDir).sort() : []) {
         if (!f.endsWith('.json')) continue
         try {
           const p = JSON.parse(readFileSync(join(packsDir, f), 'utf8'))
-          for (const w of p.words ?? []) {
-            const word = w[this.language]
-            if (typeof word !== 'string') continue
-            for (const k of [word, this.bare(word)]) {
-              const key = k ? this.key(k) : null
-              if (key && !this.packs.has(key)) this.packs.set(key, w)
-            }
-            if (typeof w.plural !== 'string') continue
-            for (const k of [w.plural, this.bare(w.plural)]) {
-              const key = k ? this.key(k) : null
-              if (key && !this.plurals.has(key)) this.plurals.set(key, w)
-            }
-          }
+          const mine = packsDir === this.dirs.packs || (typeof p.language === 'string' ? p.language : 'sl') === this.language
+          ;(mine ? own : other).push(p)
         } catch {
           // a pack that doesn't parse is the bridge's to report
+        }
+      }
+    }
+    for (const p of [...own, ...other]) {
+      const mine = own.includes(p)
+      for (const raw of p.words ?? []) {
+        const word = raw[this.language]
+        if (typeof word !== 'string') continue
+        // a noun of the other pack is one here too (its gender or plural said so), as the sheet lists a table's nouns
+        const w = mine ? raw : { ...raw, gender: undefined, plural: undefined, noun: !!raw.gender || typeof raw.plural === 'string' }
+        for (const k of [word, this.bare(word)]) {
+          const key = k ? this.key(k) : null
+          if (key && !this.packs.has(key)) this.packs.set(key, w)
+        }
+        if (typeof w.plural !== 'string') continue
+        for (const k of [w.plural, this.bare(w.plural)]) {
+          const key = k ? this.key(k) : null
+          if (key && !this.plurals.has(key)) this.plurals.set(key, w)
         }
       }
     }
@@ -409,7 +438,7 @@ export class Dictionary {
 
   /** The supplement's readings of [word] ([k] its form), each with its gloss in [base] and whether that is its own. */
   private supplement(word: string, k: string, base: string, wik: Json[]): (Meaning & { inBase: boolean; self: boolean; byBare: boolean })[] {
-    // the supplement's entries of the form, and an Italian noun's by the word without its article ("il treno": treno,
+    // the supplement's entries of the form, and a noun's by the word without its article ("il treno": treno, "der Hund": Hund,
     // "i biscotti": biscotto, shown with its article)
     const bare = this.bare(word)
     const direct = this.extra.get(k) ?? []
@@ -445,10 +474,13 @@ export class Dictionary {
       const rank = (p: string) => (POS_RANK.indexOf(p) < 0 ? 50 : POS_RANK.indexOf(p))
       const fits = (x: Meaning) => (wordsOf(x.gloss).some(w => w.length > 2 && ctx.en.has(stem(w))) ? 1 : 0)
       const best = [...mine].sort((a, b) => fits(b) - fits(a) || rank(a.pos) - rank(b.pos))[0]
-      return { lemma: best.lemma, pos: best.pos, gloss: best.gloss, ...(best.gender ? { gender: best.gender } : {}) }
+      // a German noun is learned with its article (Katze: die Katze), as the packs write it
+      const lemma = this.language === 'de' && best.pos === 'noun' && !this.bare(best.lemma) ? this.withArticle(best.lemma, best.gender) : best.lemma
+      return { lemma, pos: best.pos, gloss: best.gloss, ...(best.gender ? { gender: best.gender } : {}) }
     }
     const pack = this.packs.get(k)
-    if (pack && (pack[base] || pack.en)) return { lemma: pack[this.language], pos: pack.gender ? 'noun' : 'word', gloss: pack[base] ?? pack.en, gender: pack.gender }
+    // a noun by its gender, or its plural (English nouns have no gender)
+    if (pack && (pack[base] || pack.en)) return { lemma: pack[this.language], pos: pack.gender || pack.noun || typeof pack.plural === 'string' ? 'noun' : 'word', gloss: pack[base] ?? pack.en, gender: pack.gender }
     // a pack's noun in the plural with its article ("i cavalli"): the pack's word, its singular shown beside it; only
     // with the article, which says it is that noun (Slovene's peči is to bake, not the stoves)
     const plural = this.bare(word) ? this.plurals.get(k) : undefined
@@ -497,6 +529,8 @@ export class Dictionary {
       return null
     }
     if (best.score < -0.5) return null
+    // a German noun is learned with its article (Katze: die Katze), as the packs write it
+    if (this.language === 'de' && best.pos === 'noun' && !this.bare(best.lemma)) return { ...best, lemma: this.withArticle(best.lemma, best.gender) }
     return best
   }
 }
