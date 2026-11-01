@@ -1107,7 +1107,9 @@ toward them downstream, so the pinion and the runner on its spindle turn three t
 in the picture. The flume ends just past the wheel's top and its water pours into the bucket on the downstream side; the
 buckets ride down full, slopping (their water seen between the shrouds over the near one's edge), and tip out low on the
 downstream side into the race, which runs on downstream: no water falls across the wheel's face (`MillMechanicsTest`;
-docs/plans/05-built/mill-mechanics.md); the bench under the window with the scale and the miller's measure (merica), the sieve, the mouse
+docs/plans/05-built/mill-mechanics.md). All of its water (the flume's, the buckets', what pours and falls, the race's)
+takes the hour's light as the wheel's wood beside it does, once: dark blue at night, warm at dusk, as by day under a clear
+sky (`MillLightTest`); the bench under the window with the scale and the miller's measure (merica), the sieve, the mouse
 at its hole, the sacks under the loft's gallery and on it, the ladder, the lantern, the door, the cat. Its people are the
 miller at the stones, his grandson by the flour sack and whoever comes with grain at the door: France, Tine, Micka with wheat
 for her potica and Luka paying the miller's toll in corn (`merica`); in Friuli Franco, Lorenzo, Nonna Rosa with maize for her

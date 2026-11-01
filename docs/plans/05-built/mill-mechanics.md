@@ -87,6 +87,9 @@ look has no digests (FriuliIndoorLooksTest compares it with the Slovene one).
   bucket's travel from the flume down to the race (0.35 s apart at the easy turn) at detail 1 to 3, by day, at night and
   in winter, Primorska's and Friuli's look; grinding hard and stopped; the three frames CultureLooksTest pins; the
   stream's mill and the map's.
+- `MillLightTest` "render the wheel's water by day, at dusk and at night for review": build/scene-snapshots/mill-light,
+  the wheel and the flume grinding hard by day, at dusk, at night (autumn, summer, winter), Primorska's and Friuli's look,
+  detail 1 to 3, and the whole picture.
 - Emulator QA: `LANI_DEV_DATA=<a synthetic learner> LANI_QA_MILL_SHOTS=<dir> companion/bin/qa-slot --no-town --steps
   mill-turning`: in from the stream's mill (2 taps, as before), closer up, the waterwheel dragged to the middle (its area
   from the debug build's log, tag SceneAt; the drag starts well inside the screen's edge, as a swipe in from the edge is
@@ -104,5 +107,11 @@ pinion is part of the `gear` thing now, but the platform hides it, so the cog wh
 
 - The pinion can't be seen from this view (the platform's top covers it). A cut-away or a peek under the platform would
   show the gearing work; not asked.
-- The water at night is the race's (lit by the ambient light, dim); the flume's water keeps its old unlit blue.
+- ~~The water at night is the race's (lit by the ambient light, dim); the flume's water keeps its old unlit blue.~~
+  Done 2026-11-01 (polish-app, docs/plans/05-built/polish-app.md): the race's, the buckets', the pour's and the falling
+  water were drawn through `Env.lit` (meant for what skips the light pass) and then lit again by the pass, so at night
+  they kept about a ninth of their red (0.11) where the wheel's wood and the flume's water, lit once, kept 0.41. Now all of
+  the mill's water is drawn in its daylight colours and lit once, as the wood beside it (`MillLightTest`); by day under a
+  clear sky nothing changed (its digests, and CultureLooksTest's "day"); CultureLooksTest "mill" dusk-winter and night-k2
+  taken again (only the water's pixels differ).
 - No new strings.

@@ -107,6 +107,12 @@ internal class MillPainter : RoomPainter() {
     private var maize = false
     private val jute = Col.hex(0xC8A872); private val juteL = Col.hex(0xDCC08A); private val juteD = Col.hex(0x9A7E4E)
     private val ironC = Col.hex(0x3E3A40); private val ironHi = Col.hex(0x8A8690)
+    /**
+     * The water's daylight colours (the race's, the flume's, the buckets', what pours and falls): drawn in the lit picture, so
+     * the light pass gives them the hour's light as it gives the wheel's wood beside them (the room's [ambient], the lantern's
+     * and the window's light where they reach), never [si.lanisce.lani.game.render.Env.lit] too (that is for what skips the
+     * pass): at night all of the mill's water is as dark as the night makes it, and no darker.
+     */
     private val water = Col.hex(0x5A8EB8); private val waterL = Col.hex(0x9CC4E2); private val waterD = Col.hex(0x3A6488)
 
     private var raceId = 0
@@ -264,11 +270,11 @@ internal class MillPainter : RoomPainter() {
     private fun raceWater(x: Float, y: Float, flow: Float, edge: Float, px: Int, py: Int): Int {
         val ripple = sin((y - flow) * 5.5f + x * 2.2f + Noise.v1(y * 0.8f, 9) * 3f)
         return when {
-            ripple > 0.92f && Dither.at(px, py) < 0.7f -> env.lit(waterL)
-            fine && ripple > 0.985f -> env.lit(Col.mix(waterL, Col.hex(0xFFFFFF), 0.4f))
-            edge < 0.12f -> env.lit(waterD)
-            ripple < -0.7f && Dither.at(px, py) < 0.4f -> env.lit(Col.mix(water, waterD, 0.5f))
-            else -> env.lit(water)
+            ripple > 0.92f && Dither.at(px, py) < 0.7f -> waterL
+            fine && ripple > 0.985f -> Col.mix(waterL, Col.hex(0xFFFFFF), 0.4f)
+            edge < 0.12f -> waterD
+            ripple < -0.7f && Dither.at(px, py) < 0.4f -> Col.mix(water, waterD, 0.5f)
+            else -> water
         }
     }
 
@@ -294,9 +300,9 @@ internal class MillPainter : RoomPainter() {
                 val streak = Noise.v2((x - RACE_A) * 9f, (z + fall * 3f) * 0.35f, 41)
                 when {
                     winter && Noise.v1(x * 7f, 13) < 0.45f -> if (z > -2.5f) Pal.ICE_L else 0
-                    streak > 0.62f -> env.lit(Col.hex(0xF0F6FA))
-                    streak > 0.4f -> env.lit(waterL)
-                    else -> env.lit(water)
+                    streak > 0.62f -> Col.hex(0xF0F6FA)
+                    streak > 0.4f -> waterL
+                    else -> water
                 }
             }
         }
@@ -1293,9 +1299,9 @@ internal class MillPainter : RoomPainter() {
         if (q >= level) return 0
         val glint = Noise.rnd(n, (t * 5).toInt(), 103) < 0.35f && Noise.rnd(px / detail, py / detail, 104) < 0.5f
         return when {
-            level - q < 0.07f -> env.lit(if (glint) Col.hex(0xF2F6FA) else waterL)
-            q < 0.25f -> env.lit(waterD)
-            else -> env.lit(water)
+            level - q < 0.07f -> if (glint) Col.hex(0xF2F6FA) else waterL
+            q < 0.25f -> waterD
+            else -> water
         }
     }
 
@@ -1332,7 +1338,7 @@ internal class MillPainter : RoomPainter() {
             val y = SY + dy / CELL_Z
             val sx = iso.ix(WX, y); val sy = iso.iy(WX, y, wz + dz)
             if (onWheelFace(sx, sy)) continue
-            c.fillRect(sx, sy, p, p, env.lit(if (j % 3 == 0) Col.hex(0xF2F6FA) else waterL))
+            c.fillRect(sx, sy, p, p, if (j % 3 == 0) Col.hex(0xF2F6FA) else waterL)
         }
         // the buckets tipping out low on the downstream side: the water falls from their mouths past the rim into the race
         val top = sin(TIP_FROM * PI.toFloat() / 180f - 0.09f) * r
@@ -1347,9 +1353,9 @@ internal class MillPainter : RoomPainter() {
             if (dy < rim - 0.1f || dy > out) return@onX 0
             val streak = Noise.v2((dy - rim) * 3.5f, (dz + fall * 3f) * 0.45f, 107)
             when {
-                streak > 0.64f -> env.lit(Col.hex(0xF2F6FA))
-                streak > 0.4f -> env.lit(waterL)
-                else -> env.lit(water)
+                streak > 0.64f -> Col.hex(0xF2F6FA)
+                streak > 0.4f -> waterL
+                else -> water
             }
         }
         // the spray where it lands, and the foam it leaves on the race running on downstream
@@ -1391,9 +1397,9 @@ internal class MillPainter : RoomPainter() {
                 if (onWheelFace(px, py)) return@onY 0
                 val streak = Noise.v2((x - WX) * 14f, (z + fall * 3f) * 0.5f, 109)
                 when {
-                    top - z < 0.45f || streak > 0.66f -> env.lit(Col.hex(0xF2F6FA))
-                    streak > 0.38f -> env.lit(waterL)
-                    else -> env.lit(Col.mix(water, waterL, 0.3f))
+                    top - z < 0.45f || streak > 0.66f -> Col.hex(0xF2F6FA)
+                    streak > 0.38f -> waterL
+                    else -> Col.mix(water, waterL, 0.3f)
                 }
             }
         }
