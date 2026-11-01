@@ -11,7 +11,7 @@
     "en": "You can say what is done or has been done to a thing (la gubana è fatta da Nonna Rosa, la torta è stata mangiata!) and by whom: da, dal, dalla."
   },
   "grammar": ["passivo", "passato-prossimo", "participi-irregolari", "preposizioni-articolate"],
-  "words": ["la torta", "la gubana", "il frico", "la polenta", "il miele", "l'ape", "il formaggio", "il biscotto", "il burro", "la farina", "la noce", "la ciliegia", "il vaso", "il piatto", "la finestra", "la porta", "la lettera", "le briciole", "la formica", "il ladro", "l'armadio", "la sedia", "il tavolo", "la bandiera", "il campanile", "il palloncino", "il vento", "il mugnaio", "fare", "rompere", "scrivere", "contare", "lavare", "portare", "comprare", "felice"],
+  "words": ["raccogliere", "la torta", "la gubana", "il frico", "la polenta", "il miele", "l'ape", "il formaggio", "il biscotto", "il burro", "la farina", "la noce", "la ciliegia", "il vaso", "il piatto", "la finestra", "la porta", "la lettera", "le briciole", "la formica", "il ladro", "l'armadio", "la sedia", "il tavolo", "la bandiera", "il campanile", "il palloncino", "il vento", "il mugnaio", "fare", "rompere", "scrivere", "contare", "lavare", "portare", "comprare", "felice"],
   "intro": {
     "table": {
       "head": [
@@ -22,7 +22,7 @@
     "steps": [
       {
         "say": {
-          "de": "Mit **essere** + Partizip sagst du, was mit einer Sache gemacht wird, die Sache vorn: **Il frico è fatto con il formaggio.** (Der Frico wird mit Käse gemacht.) Das Partizip passt sich an wie ein Adjektiv: **La gubana è fatta con le noci** (Die Gubana wird mit Nüssen gemacht), mit -a, weil **la gubana** weiblich ist.",
+          "de": "Mit **essere** + Partizip sagst du, was mit einer Sache gemacht wird, die Sache steht vorn: **Il frico è fatto con il formaggio.** (Der Frico wird mit Käse gemacht.) Das Partizip passt sich an wie ein Adjektiv: **La gubana è fatta con le noci** (Die Gubana wird mit Nüssen gemacht), mit -a, weil **la gubana** weiblich ist.",
           "sl": "Z **essere** + deležnikom poveš, kaj se s stvarjo dela, stvar spredaj: **Il frico è fatto con il formaggio.** (Frico je narejen s sirom.) Deležnik se ujema kot pridevnik: **La gubana è fatta con le noci** (Gubana je narejena z orehi), z -a, ker je **la gubana** ženskega spola.",
           "en": "With **essere** + the participle you say what is done to a thing, the thing first: **Il frico è fatto con il formaggio.** (Frico is made with cheese.) The participle agrees like an adjective: **La gubana è fatta con le noci** (The gubana is made with walnuts), with -a, as **la gubana** is feminine."
         },
@@ -68,9 +68,9 @@
       },
       {
         "say": {
-          "de": "Wer es tut, kommt nach **da** (von): **La gubana è fatta da Nonna Rosa.** (Die Gubana wird von Nonna Rosa gemacht.) Mit dem Artikel verschmilzt **da** wie immer: **dal** nonno, **dalla** nonna, **dalle** api: **Il miele è fatto dalle api.** (Der Honig wird von den Bienen gemacht.)",
-          "sl": "Kdo to dela, pride za **da** (od): **La gubana è fatta da Nonna Rosa.** (Gubano speče babica Rosa.) S členom se **da** zlije kot vedno: **dal** nonno, **dalla** nonna, **dalle** api: **Il miele è fatto dalle api.** (Med delajo čebele.)",
-          "en": "Who does it comes after **da** (by): **La gubana è fatta da Nonna Rosa.** (The gubana is made by Nonna Rosa.) With the article **da** melts as always: **dal** nonno, **dalla** nonna, **dalle** api: **Il miele è fatto dalle api.** (Honey is made by the bees.)"
+          "de": "Wer es tut, kommt nach **da** (von): **La gubana è fatta da Nonna Rosa.** (Die Gubana wird von Nonna Rosa gemacht.) Mit dem Artikel verschmilzt **da** wie immer: **dal nonno**, **dalla nonna**, **dalle api**: **Il miele è fatto dalle api.** (Der Honig wird von den Bienen gemacht.)",
+          "sl": "Kdo to dela, pride za **da** (od): **La gubana è fatta da Nonna Rosa.** (Gubano speče babica Rosa.) S členom se **da** zlije kot vedno: **dal nonno**, **dalla nonna**, **dalle api**: **Il miele è fatto dalle api.** (Med delajo čebele.)",
+          "en": "Who does it comes after **da** (by): **La gubana è fatta da Nonna Rosa.** (The gubana is made by Nonna Rosa.) With the article **da** melts as always: **dal nonno**, **dalla nonna**, **dalle api**: **Il miele è fatto dalle api.** (Honey is made by the bees.)"
         },
         "examples": [
           { "it": "La gubana è fatta da Nonna Rosa.", "de": "Die Gubana wird von Nonna Rosa gemacht.", "sl": "Gubano speče babica Rosa.", "en": "The gubana is made by Nonna Rosa." },
@@ -187,7 +187,7 @@
           }
         },
         {
-          "type": "choice", "grammar": "passivo", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«La lettera è scritta ___ maestra.»", "options": ["dalla", "della", "alla"], "answer": 0, "say_options": true,
+          "type": "choice", "grammar": "passivo", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "«Chi scrive la lettera?» «La lettera è scritta ___ maestra.»", "options": ["dalla", "della", "alla"], "answer": 0, "say_options": true,
           "explain": {
             "de": "**wer schreibt** → **da** + la → **dalla** maestra\n- della · von der, wie in il libro della maestra\n- alla · an die",
             "sl": "**kdo piše** → **da** + la → **dalla** maestra\n- della · od koga je, kot il libro della maestra\n- alla · k njej",
@@ -207,11 +207,11 @@
             { "accept": ["stata"], "hint": "la gubana → ?" },
             { "accept": ["rotto"], "hint": { "de": "rompere hat sein eigenes Partizip", "sl": "rompere ima svoj deležnik", "en": "rompere has a participle of its own" } },
             { "accept": ["state"], "hint": "le briciole → ?" },
-            { "accept": ["dalle"], "hint": "da + le" },
+            { "accept": ["dalle", "da"], "hint": "da + le" },
             { "accept": ["da"], "hint": { "de": "von wem?", "sl": "kdo?", "en": "by whom?" } },
             { "accept": ["messa"], "hint": { "de": "mettere → messo, für la gubana", "sl": "mettere → messo, za la gubana", "en": "mettere → messo, for la gubana" } }
           ],
-          "bank": true, "distractors": ["stato", "rompito", "delle"],
+          "bank": true, "distractors": ["stato", "rompito", "dai"],
           "translation": {
             "de": "Am Sonntag stellt Nonna Rosa die Gubana aufs Fensterbrett. Am Mittag ruft sie: „Die Gubana ist gegessen worden!“ {learner} und Giulia suchen den Dieb. Der Teller ist kaputt gemacht worden, und die Krümel sind bis zur Linde getragen worden. „Sind sie von den Ameisen gegessen worden?“, fragt Giulia. Nein! Unter der Linde liegt Moro, glücklich. „Die Gubana ist von Moro gegessen worden!“, sagt Nonno Bepi und lacht. Ab heute wird die Gubana in den Schrank gestellt, nicht aufs Fensterbrett!",
             "sl": "V nedeljo babica Rosa postavi gubano na okno. Opoldne zavpije: »Gubana je bila pojedena!« {learner} in Giulia iščeta tatu. Krožnik je bil razbit, drobtine pa so bile odnesene do lipe. »So jih pojedle mravlje?« vpraša Giulia. Ne! Pod lipo leži Moro, srečen. »Gubano je pojedel Moro!« reče dedek Bepi in se smeje. Od danes gubano dajejo v omaro, ne na okno!",
@@ -307,10 +307,10 @@
         }
       },
       {
-        "type": "sort", "grammar": "passivo", "instruction": { "de": "Chi lo fa? · Wer tut es, und mit wem passiert es?", "sl": "Chi lo fa? · Kdo to dela in s čim se zgodi?", "en": "Chi lo fa? · Who does it, and what is it done to?" },
+        "type": "sort", "grammar": "passivo", "instruction": { "de": "È stato o è stata? · Männlich oder weiblich?", "sl": "È stato o è stata? · Moški ali ženski spol?", "en": "È stato o è stata? · Masculine or feminine?" },
         "columns": [
-          { "label": { "de": "ha … · jemand hat es getan", "sl": "ha … · nekdo je to naredil", "en": "ha … · someone did it" }, "words": ["Moro ha mangiato.", "Giulia ha scritto."] },
-          { "label": { "de": "è stato … · es ist getan worden", "sl": "è stato … · to je bilo narejeno", "en": "è stato … · it has been done" }, "words": ["È stato mangiato.", "È stata scritta."] }
+          { "label": { "de": "è stato rotto · männlich", "sl": "è stato rotto · moški spol", "en": "è stato rotto · masculine" }, "words": ["il vaso", "il piatto"] },
+          { "label": { "de": "è stata rotta · weiblich", "sl": "è stata rotta · ženski spol", "en": "è stata rotta · feminine" }, "words": ["la finestra", "la sedia"] }
         ]
       }
     ]
