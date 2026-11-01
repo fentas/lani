@@ -164,8 +164,20 @@ export default async function prints() {
     check("a German unit's word finds the pack's noun without its article (Hund: der Hund), its plural with it (die Hunde), the supplement's noun with its article by its gender (die Katze, also for Katze); an English one (cat: the cat)",
       hund?.lemma === 'der Hund' && hund.gloss === 'pes' && hund.gender === 'm' && hunde?.lemma === 'der Hund' && hunde.gloss === 'dog' && katze?.lemma === 'die Katze' && katze.gloss === 'mačka' && bare?.lemma === 'die Katze' && bare.gloss === 'cat' && cat?.lemma === 'the cat' && cat.gloss === 'die Katze',
       [hund, hunde, katze, bare, cat])
+    // another language's pack means this one's words too (an Italian pack's "de"), but its gender and plural are its own:
+    // the course's language's packs come first, another's only as a meaning, without either
+    mkdirSync(join(root, 'cultures/friuli'), { recursive: true })
+    mkdirSync(join(root, 'cultures/kaernten'), { recursive: true })
+    writeFileSync(join(root, 'cultures/friuli/cielo.json'), JSON.stringify({ language: 'it', words: [{ id: 'sole', it: 'il sole', de: 'die Sonne', en: 'sun', gender: 'm', plural: 'i soli' }, { id: 'luna', it: 'la luna', de: 'der Mond', en: 'moon', gender: 'f', plural: 'die Lune' }] }))
+    writeFileSync(join(root, 'cultures/kaernten/himmel.json'), JSON.stringify({ language: 'de', words: [{ id: 'sonne', de: 'die Sonne', en: 'sun', sl: 'sonce', gender: 'f', plural: 'die Sonnen' }] }))
+    const sky = new Dictionary({ packs: join(root, 'de'), morePacks: [join(root, 'cultures/friuli'), join(root, 'cultures/kaernten')], lexicon: join(root, 'lexicon') }, 'de')
+    const sonne = sky.meaning('Sonne', 'en', ctx)
+    const mond = sky.meaning('Mond', 'en', ctx)
+    const lune = sky.meaning('die Lune', 'en', ctx)
+    check("a German noun's article and gender are a German pack's (die Sonne, f: Kärnten's, not Friuli's il sole, m); a word only another language's pack means keeps its meaning without its gender or plural (der Mond)",
+      sonne?.lemma === 'die Sonne' && sonne.gender === 'f' && sonne.gloss === 'sun' && mond?.lemma === 'der Mond' && mond.gloss === 'moon' && mond.gender === undefined && lune === null,
+      [sonne, mond, lune])
   }
-
   // --- what there is none of, what is refused ------------------------------------------------------------------------------
   const none: [string, number][] = [
     ['/course/sheet/osebni-zaimki', 404], // planned: not written yet
