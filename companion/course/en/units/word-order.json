@@ -1,0 +1,742 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "word-order",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🧩",
+  "title": {
+    "en": "I often go to Keswick",
+    "de": "Die Wortstellung: I often go",
+    "sl": "Besedni red: I often go",
+    "it": "L'ordine delle parole: I often go"
+  },
+  "goal": {
+    "sl": "Držiš angleški besedni red: osebek, glagol, predmet, nato kraj in čas; čas lahko gre na začetek, glagol pa ostane za osebkom; always, often, never pred glagol (za be); pridevnik pred samostalnikom.",
+    "de": "Du hältst die englische Wortstellung: Subjekt, Verb, Objekt, dann Ort und Zeit; die Zeit darf nach vorn, das Verb bleibt nach dem Subjekt; always, often, never vor das Verb (nach be); das Adjektiv vor das Nomen.",
+    "it": "Rispetti l'ordine inglese: soggetto, verbo, oggetto, poi luogo e tempo; il tempo può andare all'inizio, il verbo resta dopo il soggetto; always, often, never prima del verbo (dopo be); l'aggettivo prima del nome.",
+    "en": "You can keep English word order: subject, verb, object, then place and time; a time may go first, but the verb stays after the subject; always, often, never before the verb (after be); the adjective before its noun."
+  },
+  "grammar": ["word-order", "present-simple"],
+  "words": [
+    "always",
+    "usually",
+    "often",
+    "sometimes",
+    "never",
+    "feed",
+    "sheep",
+    "shoe",
+    "pony",
+    "sell",
+    "ale",
+    "listen to",
+    "radio",
+    "sing",
+    "kitchen",
+    "work",
+    "field",
+    "happy",
+    "busy",
+    "late",
+    "big",
+    "little",
+    "old",
+    "red",
+    "black",
+    "grey",
+    "lovely",
+    "hive",
+    "tractor",
+    "pie",
+    "football",
+    "every week",
+    "every morning",
+    "after school"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "osebek", "de": "Subjekt", "it": "soggetto", "en": "subject" },
+        { "sl": "glagol", "de": "Verb", "it": "verbo", "en": "verb" },
+        { "sl": "predmet", "de": "Objekt", "it": "oggetto", "en": "object" },
+        { "sl": "kraj, čas", "de": "Ort, Zeit", "it": "luogo, tempo", "en": "place, time" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Angleški stavek ima en red, **subject – verb – object** (osebek – glagol – predmet): **Jack feeds the sheep.** (Jack hrani ovce.) Red pove, kdo kaj dela, zato predmet ne more na začetek kot v slovenščini (Ovce hrani Jack.): **Meg likes Jack.** (Meg ima rada Jacka.) in **Jack likes Meg.** (Jack ima rad Meg.) nista isto.",
+          "de": "Ein englischer Satz hat eine feste Reihenfolge, **subject – verb – object** (Subjekt – Verb – Objekt): **Jack feeds the sheep.** (Jack füttert die Schafe.) Die Reihenfolge sagt, wer was tut, darum kann das Objekt nicht nach vorn wie im Deutschen (Die Schafe füttert Jack.): **Meg likes Jack.** (Meg mag Jack.) und **Jack likes Meg.** (Jack mag Meg.) sind nicht dasselbe.",
+          "it": "Una frase inglese ha un ordine fisso, **subject – verb – object** (soggetto – verbo – oggetto): **Jack feeds the sheep.** (Jack dà da mangiare alle pecore.) L'ordine dice chi fa che cosa, quindi l'oggetto non può andare all'inizio come in italiano (Le pecore le nutre Jack.): **Meg likes Jack.** (A Meg piace Jack.) e **Jack likes Meg.** (A Jack piace Meg.) non sono la stessa cosa.",
+          "en": "An English sentence keeps one order, **subject – verb – object**: **Jack feeds the sheep.** The order says who does what, so the object can't go to the front: **Meg likes Jack.** and **Jack likes Meg.** are not the same."
+        },
+        "examples": [
+          {
+            "en": "Jack feeds the sheep.",
+            "sl": "Jack hrani ovce.",
+            "de": "Jack füttert die Schafe.",
+            "it": "Jack dà da mangiare alle pecore."
+          },
+          {
+            "en": "Mr Dixon shoes the ponies.",
+            "sl": "Gospod Dixon podkuje ponije.",
+            "de": "Mr Dixon beschlägt die Ponys.",
+            "it": "Il signor Dixon ferra i pony."
+          },
+          {
+            "en": "Meg likes Jack.",
+            "sl": "Meg ima rada Jacka.",
+            "de": "Meg mag Jack.",
+            "it": "A Meg piace Jack."
+          }
+        ],
+        "rows": [["Jack", "feeds", "the sheep", "—"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-order",
+          "prompt": {
+            "sl": "Kateri stavek je prav?",
+            "de": "Welcher Satz ist richtig?",
+            "it": "Quale frase è giusta?",
+            "en": "Which sentence is right?"
+          },
+          "options": ["Granny Maggie makes scones.", "Scones makes Granny Maggie.", "Granny Maggie scones makes."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**osebek – glagol – predmet**\n- Granny Maggie · makes · scones",
+            "de": "**Subjekt – Verb – Objekt**\n- Granny Maggie · makes · scones",
+            "it": "**soggetto – verbo – oggetto**\n- Granny Maggie · makes · scones",
+            "en": "**subject – verb – object**\n- Granny Maggie · makes · scones"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Kraj in čas gresta na konec, najprej **where** (kje, kam), nato **when** (kdaj): **We go to Keswick on Saturdays.** (Ob sobotah gremo v Keswick.) **Edna listens to the radio in the kitchen every morning.** (Edna vsako jutro v kuhinji posluša radio.)",
+          "de": "Ort und Zeit kommen ans Ende, zuerst **where** (wo, wohin), dann **when** (wann): **We go to Keswick on Saturdays.** (Samstags fahren wir nach Keswick.) **Edna listens to the radio in the kitchen every morning.** (Edna hört jeden Morgen in der Küche Radio.) Anders als im Deutschen kommt der Ort vor der Zeit.",
+          "it": "Luogo e tempo vanno alla fine, prima **where** (dove), poi **when** (quando): **We go to Keswick on Saturdays.** (Il sabato andiamo a Keswick.) **Edna listens to the radio in the kitchen every morning.** (Ogni mattina Edna ascolta la radio in cucina.)",
+          "en": "Place and time go at the end, first **where**, then **when**: **We go to Keswick on Saturdays.** **Edna listens to the radio in the kitchen every morning.**"
+        },
+        "examples": [
+          {
+            "en": "We go to Keswick on Saturdays.",
+            "sl": "Ob sobotah gremo v Keswick.",
+            "de": "Samstags fahren wir nach Keswick.",
+            "it": "Il sabato andiamo a Keswick."
+          },
+          {
+            "en": "Edna listens to the radio in the kitchen every morning.",
+            "sl": "Edna vsako jutro v kuhinji posluša radio.",
+            "de": "Edna hört jeden Morgen in der Küche Radio.",
+            "it": "Ogni mattina Edna ascolta la radio in cucina."
+          },
+          {
+            "en": "Arthur works by the tarn every day.",
+            "sl": "Arthur vsak dan dela ob jezercu.",
+            "de": "Arthur arbeitet jeden Tag am Bergsee.",
+            "it": "Arthur lavora ogni giorno vicino al laghetto."
+          }
+        ],
+        "rows": [["We", "go", "—", "to Keswick on Saturdays"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-order",
+          "prompt": "Sam sells his ale ___.",
+          "options": ["in Keswick every week", "every week in Keswick", "Keswick in every week"],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": {
+            "sl": "**Navadno najprej kraj, nato čas**\n- in Keswick (kje) · every week (kdaj)\n- every week in Keswick: mogoče, manj navadno",
+            "de": "**Meist zuerst der Ort, dann die Zeit**\n- in Keswick (wo) · every week (wann)\n- every week in Keswick: möglich, weniger üblich",
+            "it": "**Di solito prima il luogo, poi il tempo**\n- in Keswick (dove) · every week (quando)\n- every week in Keswick: possibile, meno comune",
+            "en": "**Usually the place first, then the time**\n- in Keswick (where) · every week (when)\n- every week in Keswick: possible, less usual"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Čas lahko gre tudi na začetek, osebek in glagol pa ostaneta skupaj, v tem redu: **In the morning Jack feeds the sheep.** (Zjutraj Jack hrani ovce.) Nikoli *In the morning feeds Jack the sheep*. **On Sundays we have lunch at the inn.** (Ob nedeljah kosimo v gostilni.)",
+          "de": "Die Zeit darf auch nach vorn, aber Subjekt und Verb bleiben zusammen, in dieser Reihenfolge: **In the morning Jack feeds the sheep.** (Am Morgen füttert Jack die Schafe.) Nie *In the morning feeds Jack the sheep*: Anders als im Deutschen rückt das Verb nicht vor. **On Sundays we have lunch at the inn.** (Sonntags essen wir im Gasthaus zu Mittag.)",
+          "it": "Il tempo può anche andare all'inizio, ma soggetto e verbo restano insieme, in quest'ordine: **In the morning Jack feeds the sheep.** (La mattina Jack dà da mangiare alle pecore.) Mai *In the morning feeds Jack the sheep*. **On Sundays we have lunch at the inn.** (La domenica pranziamo alla locanda.)",
+          "en": "A time can also go first, but the subject and the verb stay together, in that order: **In the morning Jack feeds the sheep.** Never *In the morning feeds Jack the sheep*. **On Sundays we have lunch at the inn.**"
+        },
+        "examples": [
+          {
+            "en": "In the morning Jack feeds the sheep.",
+            "sl": "Zjutraj Jack hrani ovce.",
+            "de": "Am Morgen füttert Jack die Schafe.",
+            "it": "La mattina Jack dà da mangiare alle pecore."
+          },
+          {
+            "en": "On Sundays we have lunch at the inn.",
+            "sl": "Ob nedeljah kosimo v gostilni.",
+            "de": "Sonntags essen wir im Gasthaus zu Mittag.",
+            "it": "La domenica pranziamo alla locanda."
+          },
+          {
+            "en": "Every evening Mrs Birkett lights the fire.",
+            "sl": "Vsak večer gospa Birkett zakuri ogenj.",
+            "de": "Jeden Abend zündet Mrs Birkett das Feuer an.",
+            "it": "Ogni sera Mrs Birkett accende il fuoco."
+          }
+        ],
+        "rows": [["(In the morning) Jack", "feeds", "the sheep", "—"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-order",
+          "prompt": "In the evening ___ to the radio.",
+          "options": ["Edna listens", "listens Edna", "Edna listen"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Čas spredaj: osebek in glagol ostaneta skupaj**\n- In the evening Edna listens …\n- Edna: she → listens",
+            "de": "**Die Zeit vorn: Subjekt und Verb bleiben zusammen**\n- In the evening Edna listens …\n- Edna: she → listens",
+            "it": "**Il tempo all'inizio: soggetto e verbo restano insieme**\n- In the evening Edna listens …\n- Edna: she → listens",
+            "en": "**A time first: the subject and the verb stay together**\n- In the evening Edna listens …\n- Edna: she → listens"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**always** (vedno), **usually** (navadno), **often** (pogosto), **sometimes** (včasih) in **never** (nikoli) stojijo pred glagolom: **I often go to Keswick.** (Pogosto grem v Keswick.) **Meg never barks at night.** (Meg ponoči nikoli ne laja.) Za **am**, **is**, **are** pa za njimi: **Jack is always happy.** (Jack je vedno vesel.) **Sometimes** in **usually** lahko gresta tudi na začetek.",
+          "de": "**always** (immer), **usually** (meistens), **often** (oft), **sometimes** (manchmal) und **never** (nie) stehen vor dem Verb: **I often go to Keswick.** (Ich fahre oft nach Keswick.) **Meg never barks at night.** (Meg bellt nachts nie.) Bei **am**, **is**, **are** stehen sie danach: **Jack is always happy.** (Jack ist immer fröhlich.) **Sometimes** und **usually** dürfen auch am Anfang stehen.",
+          "it": "**always** (sempre), **usually** (di solito), **often** (spesso), **sometimes** (a volte) e **never** (mai) vanno prima del verbo: **I often go to Keswick.** (Vado spesso a Keswick.) **Meg never barks at night.** (Meg di notte non abbaia mai.) Con **am**, **is**, **are** vanno dopo: **Jack is always happy.** (Jack è sempre allegro.) **Sometimes** e **usually** possono anche stare all'inizio.",
+          "en": "**always**, **usually**, **often**, **sometimes** and **never** go before the verb: **I often go to Keswick.** **Meg never barks at night.** After **am**, **is**, **are** they come after it: **Jack is always happy.** **Sometimes** and **usually** can also start the sentence."
+        },
+        "examples": [
+          {
+            "en": "I often go to Keswick.",
+            "sl": "Pogosto grem v Keswick.",
+            "de": "Ich fahre oft nach Keswick.",
+            "it": "Vado spesso a Keswick."
+          },
+          {
+            "en": "Meg never barks at night.",
+            "sl": "Meg ponoči nikoli ne laja.",
+            "de": "Meg bellt nachts nie.",
+            "it": "Meg di notte non abbaia mai."
+          },
+          {
+            "en": "Jack is always happy.",
+            "sl": "Jack je vedno vesel.",
+            "de": "Jack ist immer fröhlich.",
+            "it": "Jack è sempre allegro."
+          },
+          {
+            "en": "Sometimes Edna sings in the kitchen.",
+            "sl": "Edna včasih poje v kuhinji.",
+            "de": "Manchmal singt Edna in der Küche.",
+            "it": "A volte Edna canta in cucina."
+          }
+        ],
+        "rows": [["I", "often go", "—", "to Keswick"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-order",
+          "prompt": {
+            "sl": "Kateri stavek je prav?",
+            "de": "Welcher Satz ist richtig?",
+            "it": "Quale frase è giusta?",
+            "en": "Which sentence is right?"
+          },
+          "options": ["Jack is always happy.", "Jack always is happy.", "Always Jack is happy."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**is + always**\n- Jack is always happy.\n- Jack always smiles.",
+            "de": "**is + always**\n- Jack is always happy.\n- Jack always smiles.",
+            "it": "**is + always**\n- Jack is always happy.\n- Jack always smiles.",
+            "en": "**is + always**\n- Jack is always happy.\n- Jack always smiles."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pridevnik stoji pred samostalnikom in se nikoli ne spreminja: **a big dog** (velik pes), **two big dogs** (dva velika psa; nikoli *two bigs dogs*). **the old bridge** (stari most), **a little white cottage** (majhna bela hišica). Za **be** pride na konec: **The bridge is old.** (Most je star.)",
+          "de": "Das Adjektiv steht vor dem Nomen und ändert sich nie: **a big dog** (ein großer Hund), **two big dogs** (zwei große Hunde; nie *two bigs dogs*). **the old bridge** (die alte Brücke), **a little white cottage** (ein kleines weißes Häuschen). Nach **be** steht es am Ende: **The bridge is old.** (Die Brücke ist alt.)",
+          "it": "L'aggettivo va prima del nome e non cambia mai: **a big dog** (un cane grande), **two big dogs** (due cani grandi; mai *two bigs dogs*). **the old bridge** (il vecchio ponte), **a little white cottage** (una casetta bianca). Dopo **be** va alla fine: **The bridge is old.** (Il ponte è vecchio.)",
+          "en": "An adjective goes before its noun and never changes: **a big dog**, **two big dogs** (never *two bigs dogs*). **the old bridge**, **a little white cottage**. After **be** it comes at the end: **The bridge is old.**"
+        },
+        "examples": [
+          {
+            "en": "Mr Tyson has got an old red tractor.",
+            "sl": "Gospod Tyson ima star rdeč traktor.",
+            "de": "Mr Tyson hat einen alten roten Traktor.",
+            "it": "Il signor Tyson ha un vecchio trattore rosso."
+          },
+          {
+            "en": "Look at the big fir trees!",
+            "sl": "Poglej velike jelke!",
+            "de": "Schau dir die großen Tannen an!",
+            "it": "Guarda i grandi abeti!"
+          },
+          {
+            "en": "The bridge over the beck is very old.",
+            "sl": "Most čez potok je zelo star.",
+            "de": "Die Brücke über den Bach ist sehr alt.",
+            "it": "Il ponte sul ruscello è molto vecchio."
+          }
+        ],
+        "rows": [["Mr Tyson", "has got", "an old red tractor", "—"]],
+        "ask": {
+          "type": "choice",
+          "grammar": "word-order",
+          "prompt": "Arthur has got ten ___.",
+          "options": ["old hives", "hives old", "olds hives"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Pridevnik pred samostalnikom, brez -s**\n- a red bike · two red bikes\n- The bike is red.",
+            "de": "**Das Adjektiv vor dem Nomen, ohne -s**\n- a red bike · two red bikes\n- The bike is red.",
+            "it": "**L'aggettivo prima del nome, senza -s**\n- a red bike · two red bikes\n- The bike is red.",
+            "en": "**The adjective before its noun, never with -s**\n- a red bike · two red bikes\n- The bike is red."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**Jack feeds the sheep.** (osebek – glagol – predmet)\n\n**We go to Keswick on Saturdays.** (kraj, nato čas) · **On Saturdays we go to Keswick.** (čas spredaj, glagol za osebkom)\n\n**I often go to Keswick.** · **Meg never barks.** (pred glagolom) · **Jack is always happy.** (za be)\n\n**a big dog** · **two big dogs** · **The dog is big.**",
+      "de": "**Jack feeds the sheep.** (Subjekt – Verb – Objekt)\n\n**We go to Keswick on Saturdays.** (der Ort, dann die Zeit) · **On Saturdays we go to Keswick.** (die Zeit vorn, das Verb nach dem Subjekt)\n\n**I often go to Keswick.** · **Meg never barks.** (vor dem Verb) · **Jack is always happy.** (nach be)\n\n**a big dog** · **two big dogs** · **The dog is big.**",
+      "it": "**Jack feeds the sheep.** (soggetto – verbo – oggetto)\n\n**We go to Keswick on Saturdays.** (prima il luogo, poi il tempo) · **On Saturdays we go to Keswick.** (il tempo all'inizio, il verbo dopo il soggetto)\n\n**I often go to Keswick.** · **Meg never barks.** (prima del verbo) · **Jack is always happy.** (dopo be)\n\n**a big dog** · **two big dogs** · **The dog is big.**",
+      "en": "**Jack feeds the sheep.** (subject – verb – object)\n\n**We go to Keswick on Saturdays.** (the place, then the time) · **On Saturdays we go to Keswick.** (a time first, the verb after the subject)\n\n**I often go to Keswick.** · **Meg never barks.** (before the verb) · **Jack is always happy.** (after be)\n\n**a big dog** · **two big dogs** · **The dog is big.**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "word-order-1",
+      "title": {
+        "sl": "Who does what? · Kdo kaj dela?",
+        "de": "Who does what? · Wer tut was?",
+        "it": "Who does what? · Chi fa che cosa?",
+        "en": "Who does what?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Sort · Osebek, glagol ali predmet?",
+            "de": "Sort · Subjekt, Verb oder Objekt?",
+            "it": "Sort · Soggetto, verbo o oggetto?",
+            "en": "Sort"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "subject · osebek",
+                "de": "subject · Subjekt",
+                "it": "subject · soggetto",
+                "en": "subject"
+              },
+              "words": ["Jack", "Mrs Birkett", "the children"]
+            },
+            {
+              "label": { "sl": "verb · glagol", "de": "verb · Verb", "it": "verb · verbo", "en": "verb" },
+              "words": ["feeds", "makes", "like"]
+            },
+            {
+              "label": {
+                "sl": "object · predmet",
+                "de": "object · Objekt",
+                "it": "object · oggetto",
+                "en": "object"
+              },
+              "words": ["the sheep", "pies", "football"]
+            }
+          ],
+          "explain": {
+            "sl": "**Kdo · kaj dela · koga, kaj**\n- Jack feeds the sheep.\n- Mrs Birkett makes pies.\n- The children like football.",
+            "de": "**Wer · tut was · wen, was**\n- Jack feeds the sheep.\n- Mrs Birkett makes pies.\n- The children like football.",
+            "it": "**Chi · che cosa fa · chi, che cosa**\n- Jack feeds the sheep.\n- Mrs Birkett makes pies.\n- The children like football.",
+            "en": "**Who · does what · to whom, what**\n- Jack feeds the sheep.\n- Mrs Birkett makes pies.\n- The children like football."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Put in order · Postavi v pravi vrstni red",
+            "de": "Put in order · Bring in die richtige Reihenfolge",
+            "it": "Put in order · Metti in ordine",
+            "en": "Put in order"
+          },
+          "prompt": {
+            "sl": "Jack zjutraj hrani ovce.",
+            "de": "Jack füttert am Morgen die Schafe.",
+            "it": "La mattina Jack dà da mangiare alle pecore.",
+            "en": "Jack feeds the sheep in the morning."
+          },
+          "tokens": ["the sheep", "Jack", "in the morning", "feeds"],
+          "solutions": [["Jack", "feeds", "the sheep", "in the morning"], ["In the morning", "Jack", "feeds", "the sheep"]],
+          "explain": {
+            "sl": "**osebek – glagol – predmet – čas**\n- Jack feeds the sheep in the morning.\n- In the morning Jack feeds the sheep.",
+            "de": "**Subjekt – Verb – Objekt – Zeit**\n- Jack feeds the sheep in the morning.\n- In the morning Jack feeds the sheep.",
+            "it": "**soggetto – verbo – oggetto – tempo**\n- Jack feeds the sheep in the morning.\n- In the morning Jack feeds the sheep.",
+            "en": "**subject – verb – object – time**\n- Jack feeds the sheep in the morning.\n- In the morning Jack feeds the sheep."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Put in order · Postavi v pravi vrstni red",
+            "de": "Put in order · Bring in die richtige Reihenfolge",
+            "it": "Put in order · Metti in ordine",
+            "en": "Put in order"
+          },
+          "prompt": {
+            "sl": "Teta Edna vsako jutro posluša radio.",
+            "de": "Tante Edna hört jeden Morgen Radio.",
+            "it": "Zia Edna ascolta la radio ogni mattina.",
+            "en": "Auntie Edna listens to the radio every morning."
+          },
+          "tokens": ["to the radio", "every morning", "listens", "Auntie Edna"],
+          "solutions": [
+            ["Auntie Edna", "listens", "to the radio", "every morning"],
+            ["Every morning", "Auntie Edna", "listens", "to the radio"]
+          ],
+          "explain": {
+            "sl": "**Čas na konec ali na začetek, glagol za osebkom**\n- Auntie Edna listens to the radio every morning.\n- Every morning Auntie Edna listens to the radio.",
+            "de": "**Die Zeit ans Ende oder nach vorn, das Verb nach dem Subjekt**\n- Auntie Edna listens to the radio every morning.\n- Every morning Auntie Edna listens to the radio.",
+            "it": "**Il tempo alla fine o all'inizio, il verbo dopo il soggetto**\n- Auntie Edna listens to the radio every morning.\n- Every morning Auntie Edna listens to the radio.",
+            "en": "**The time at the end or first, the verb after the subject**\n- Auntie Edna listens to the radio every morning.\n- Every morning Auntie Edna listens to the radio."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Put in order · Postavi v pravi vrstni red",
+            "de": "Put in order · Bring in die richtige Reihenfolge",
+            "it": "Put in order · Metti in ordine",
+            "en": "Put in order"
+          },
+          "prompt": {
+            "sl": "Jack je vedno vesel.",
+            "de": "Jack ist immer fröhlich.",
+            "it": "Jack è sempre allegro.",
+            "en": "Jack is always happy."
+          },
+          "tokens": ["always", "is", "happy", "Jack"],
+          "solutions": [["Jack", "is", "always", "happy"]],
+          "explain": {
+            "sl": "**is + always**\n- Jack is always happy.",
+            "de": "**is + always**\n- Jack is always happy.",
+            "it": "**is + always**\n- Jack is always happy.",
+            "en": "**is + always**\n- Jack is always happy."
+          }
+        }
+      ]
+    },
+    {
+      "id": "word-order-2",
+      "title": {
+        "sl": "How often? · Kako pogosto?",
+        "de": "How often? · Wie oft?",
+        "it": "How often? · Quanto spesso?",
+        "en": "How often?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Put the word in · Vstavi besedo",
+            "de": "Put the word in · Setz das Wort ein",
+            "it": "Put the word in · Inserisci la parola",
+            "en": "Put the word in"
+          },
+          "cue": "+",
+          "items": [
+            {
+              "from": "I go to Keswick. (often)",
+              "accept": ["I often go to Keswick."],
+              "hint": {
+                "sl": "pred glagol",
+                "de": "vor das Verb",
+                "it": "prima del verbo",
+                "en": "before the verb"
+              }
+            },
+            { "from": "Meg barks at night. (never)", "accept": ["Meg never barks at night."] },
+            {
+              "from": "Jack is happy. (always)",
+              "accept": ["Jack is always happy."],
+              "hint": { "sl": "za is", "de": "nach is", "it": "dopo is", "en": "after is" }
+            },
+            {
+              "from": "Mr Tyson works in the field. (usually)",
+              "accept": ["Mr Tyson usually works in the field.", "Usually Mr Tyson works in the field."]
+            },
+            {
+              "from": "Edna sings in the kitchen. (sometimes)",
+              "accept": [
+                "Edna sometimes sings in the kitchen.",
+                "Sometimes Edna sings in the kitchen.",
+                "Edna sings in the kitchen sometimes."
+              ]
+            },
+            { "from": "The bus is late. (often)", "accept": ["The bus is often late."] }
+          ],
+          "explain": {
+            "sl": "**always, usually, often, sometimes, never: pred glagol, za am, is, are**\n- I often go to Keswick.\n- Jack is always happy.\n- Sometimes Edna sings.",
+            "de": "**always, usually, often, sometimes, never: vor das Verb, nach am, is, are**\n- I often go to Keswick.\n- Jack is always happy.\n- Sometimes Edna sings.",
+            "it": "**always, usually, often, sometimes, never: prima del verbo, dopo am, is, are**\n- I often go to Keswick.\n- Jack is always happy.\n- Sometimes Edna sings.",
+            "en": "**always, usually, often, sometimes, never: before the verb, after am, is, are**\n- I often go to Keswick.\n- Jack is always happy.\n- Sometimes Edna sings."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "We have breakfast ___.",
+          "options": ["at the inn every Sunday", "every Sunday at the inn", "the inn at every Sunday"],
+          "answer": 0,
+          "almost": [1],
+          "say_options": true,
+          "explain": {
+            "sl": "**Navadno najprej kraj, nato čas**\n- at the inn (kje) · every Sunday (kdaj)\n- every Sunday at the inn: mogoče, manj navadno",
+            "de": "**Meist zuerst der Ort, dann die Zeit**\n- at the inn (wo) · every Sunday (wann)\n- every Sunday at the inn: möglich, weniger üblich",
+            "it": "**Di solito prima il luogo, poi il tempo**\n- at the inn (dove) · every Sunday (quando)\n- every Sunday at the inn: possibile, meno comune",
+            "en": "**Usually the place first, then the time**\n- at the inn (where) · every Sunday (when)\n- every Sunday at the inn: possible, less usual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "word-order-3",
+      "title": {
+        "sl": "In the village · V vasi",
+        "de": "In the village · Im Dorf",
+        "it": "In the village · In paese",
+        "en": "In the village"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Put the word in · Vstavi besedo",
+            "de": "Put the word in · Setz das Wort ein",
+            "it": "Put the word in · Inserisci la parola",
+            "en": "Put the word in"
+          },
+          "cue": "+",
+          "items": [
+            {
+              "from": "Jack has got a dog. (black)",
+              "accept": ["Jack has got a black dog."],
+              "hint": {
+                "sl": "pred samostalnik",
+                "de": "vor das Nomen",
+                "it": "prima del nome",
+                "en": "before the noun"
+              }
+            },
+            { "from": "Arthur has got hives. (old)", "accept": ["Arthur has got old hives."] },
+            { "from": "Look at the trees! (big)", "accept": ["Look at the big trees!"] },
+            { "from": "Mrs Birkett makes pies. (lovely)", "accept": ["Mrs Birkett makes lovely pies."] }
+          ],
+          "explain": {
+            "sl": "**Pridevnik pred samostalnikom, brez -s**\n- a red bike · two red bikes\n- The bike is red.",
+            "de": "**Das Adjektiv vor dem Nomen, ohne -s**\n- a red bike · two red bikes\n- The bike is red.",
+            "it": "**L'aggettivo prima del nome, senza -s**\n- a red bike · two red bikes\n- The bike is red.",
+            "en": "**The adjective before its noun, never with -s**\n- a red bike · two red bikes\n- The bike is red."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "word-order",
+          "instruction": {
+            "sl": "Put the time first · Postavi čas na začetek",
+            "de": "Put the time first · Stell die Zeit nach vorn",
+            "it": "Put the time first · Metti il tempo all'inizio",
+            "en": "Put the time first"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Jack feeds the sheep in the morning.",
+              "accept": ["In the morning Jack feeds the sheep."],
+              "hint": {
+                "sl": "osebek + glagol",
+                "de": "Subjekt + Verb",
+                "it": "soggetto + verbo",
+                "en": "subject + verb"
+              }
+            },
+            { "from": "We go to Keswick on Saturdays.", "accept": ["On Saturdays we go to Keswick."] },
+            {
+              "from": "Edna listens to the radio every evening.",
+              "accept": ["Every evening Edna listens to the radio."]
+            },
+            {
+              "from": "The children play football after school.",
+              "accept": ["After school the children play football."]
+            }
+          ],
+          "explain": {
+            "sl": "**Čas spredaj: osebek in glagol ostaneta skupaj**\n- On Saturdays we go …, never On Saturdays go we …",
+            "de": "**Die Zeit vorn: Subjekt und Verb bleiben zusammen**\n- On Saturdays we go …, never On Saturdays go we …",
+            "it": "**Il tempo all'inizio: soggetto e verbo restano insieme**\n- On Saturdays we go …, never On Saturdays go we …",
+            "en": "**A time first: the subject and the verb stay together**\n- On Saturdays we go …, never On Saturdays go we …"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "reorder",
+        "grammar": "word-order",
+        "instruction": {
+          "sl": "Put in order · Postavi v pravi vrstni red",
+          "de": "Put in order · Bring in die richtige Reihenfolge",
+          "it": "Put in order · Metti in ordine",
+          "en": "Put in order"
+        },
+        "prompt": {
+          "sl": "Poppy vedno vpraša, zakaj.",
+          "de": "Poppy fragt immer, warum.",
+          "it": "Poppy chiede sempre perché.",
+          "en": "Poppy always asks why."
+        },
+        "tokens": ["asks", "always", "Poppy", "why"],
+        "solutions": [["Poppy", "always", "asks", "why"]],
+        "explain": {
+          "sl": "**always pred glagol**\n- Poppy always asks why.",
+          "de": "**always vor das Verb**\n- Poppy always asks why.",
+          "it": "**always prima del verbo**\n- Poppy always asks why.",
+          "en": "**always before the verb**\n- Poppy always asks why."
+        }
+      },
+      {
+        "type": "reorder",
+        "grammar": "word-order",
+        "instruction": {
+          "sl": "Put in order · Postavi v pravi vrstni red",
+          "de": "Put in order · Bring in die richtige Reihenfolge",
+          "it": "Put in order · Metti in ordine",
+          "en": "Put in order"
+        },
+        "prompt": {
+          "sl": "Gospod Dixon vsak dan dela v kovačnici.",
+          "de": "Mr Dixon arbeitet jeden Tag in der Schmiede.",
+          "it": "Il signor Dixon lavora ogni giorno nella fucina.",
+          "en": "Mr Dixon works in the smithy every day."
+        },
+        "tokens": ["every day", "works", "Mr Dixon", "in the smithy"],
+        "solutions": [["Mr Dixon", "works", "in the smithy", "every day"], ["Every day", "Mr Dixon", "works", "in the smithy"]],
+        "explain": {
+          "sl": "**kraj, nato čas; ali čas spredaj**\n- Mr Dixon works in the smithy every day.\n- Every day Mr Dixon works in the smithy.",
+          "de": "**der Ort, dann die Zeit; oder die Zeit vorn**\n- Mr Dixon works in the smithy every day.\n- Every day Mr Dixon works in the smithy.",
+          "it": "**prima il luogo, poi il tempo; o il tempo all'inizio**\n- Mr Dixon works in the smithy every day.\n- Every day Mr Dixon works in the smithy.",
+          "en": "**the place, then the time; or the time first**\n- Mr Dixon works in the smithy every day.\n- Every day Mr Dixon works in the smithy."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "word-order",
+        "instruction": {
+          "sl": "Put the word in · Vstavi besedo",
+          "de": "Put the word in · Setz das Wort ein",
+          "it": "Put the word in · Inserisci la parola",
+          "en": "Put the word in"
+        },
+        "cue": "+",
+        "items": [
+          { "from": "Sam is busy. (never)", "accept": ["Sam is never busy."] },
+          { "from": "Arthur walks to the tarn. (often)", "accept": ["Arthur often walks to the tarn."] },
+          {
+            "from": "Harry plays football. (usually)",
+            "accept": ["Harry usually plays football.", "Usually Harry plays football."]
+          },
+          { "from": "Alfie has got a bike. (red)", "accept": ["Alfie has got a red bike."] },
+          { "from": "Jack has got sheep. (grey)", "accept": ["Jack has got grey sheep."] }
+        ],
+        "explain": {
+          "sl": "**always, often, never pred glagol, za be; pridevnik pred samostalnik**\n- Arthur often walks …\n- Sam is never busy.\n- a red bike",
+          "de": "**always, often, never vor das Verb, nach be; das Adjektiv vor das Nomen**\n- Arthur often walks …\n- Sam is never busy.\n- a red bike",
+          "it": "**always, often, never prima del verbo, dopo be; l'aggettivo prima del nome**\n- Arthur often walks …\n- Sam is never busy.\n- a red bike",
+          "en": "**always, often, never before the verb, after be; the adjective before its noun**\n- Arthur often walks …\n- Sam is never busy.\n- a red bike"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "word-order",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "On Saturdays ___ to Keswick.",
+        "options": ["we go", "go we", "we goes"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Čas spredaj: osebek in glagol ostaneta skupaj**\n- On Saturdays we go to Keswick.",
+          "de": "**Die Zeit vorn: Subjekt und Verb bleiben zusammen**\n- On Saturdays we go to Keswick.",
+          "it": "**Il tempo all'inizio: soggetto e verbo restano insieme**\n- On Saturdays we go to Keswick.",
+          "en": "**A time first: the subject and the verb stay together**\n- On Saturdays we go to Keswick."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "word-order",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Granny Maggie has got ___.",
+        "options": ["two little cats", "two littles cats", "two cats little"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Pridevnik pred samostalnikom, brez -s**\n- a red bike · two red bikes\n- The bike is red.",
+          "de": "**Das Adjektiv vor dem Nomen, ohne -s**\n- a red bike · two red bikes\n- The bike is red.",
+          "it": "**L'aggettivo prima del nome, senza -s**\n- a red bike · two red bikes\n- The bike is red.",
+          "en": "**The adjective before its noun, never with -s**\n- a red bike · two red bikes\n- The bike is red."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "word-order",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": {
+          "sl": "Kateri stavek je prav?",
+          "de": "Welcher Satz ist richtig?",
+          "it": "Quale frase è giusta?",
+          "en": "Which sentence is right?"
+        },
+        "options": ["Meg likes Jack very much.", "Meg likes very much Jack.", "Meg very much likes Jack."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Predmet takoj za glagolom, very much za njim**\n- Meg likes Jack very much.\n- I like it very much.",
+          "de": "**Das Objekt gleich nach dem Verb, very much danach**\n- Meg likes Jack very much.\n- I like it very much.",
+          "it": "**L'oggetto subito dopo il verbo, very much dopo**\n- Meg likes Jack very much.\n- I like it very much.",
+          "en": "**The object right after the verb, very much after it**\n- Meg likes Jack very much.\n- I like it very much."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: place before time as usual, not a rule; Usually and Sometimes first; Mr Dixon shoes the ponies; Meg likes Jack very much"
+}
