@@ -98,9 +98,6 @@ internal class BoccePainter : RoomPainter() {
     private val boardL = Col.hex(0xB88A56); private val boardM = Col.hex(0x9A6E40); private val boardD = Col.hex(0x74502C)
     private val steelHi = Col.hex(0xF2F4F8); private val steelL = Col.hex(0xB8BEC8); private val steelM = Col.hex(0x868E9C); private val steelD = Col.hex(0x4E5664)
     private val wine = Col.hex(0x8A1E2E); private val wineL = Col.hex(0xC03A4A)
-    /** What the jug pours: the wine, or the Lake District's lemonade. */
-    private val drink: Int get() = if (lemonade) Col.hex(0xE8D458) else wine
-    private val drinkL: Int get() = if (lemonade) Col.hex(0xF8EC98) else wineL
     private val slate = Col.hex(0x2E3A3A); private val chalk = Col.hex(0xEEF0EA)
     private val shutter = Col.hex(0x3F6B3A); private val shutterL = Col.hex(0x5E8E54)
 
@@ -126,8 +123,9 @@ internal class BoccePainter : RoomPainter() {
     private var most = false
     /** The lane is ice: Carinthia's Stockbahn from December to February. */
     private val ice: Boolean get() = curling && (env.month == 12 || env.month <= 2)
-    private val drink: Int get() = if (most) Col.hex(0xC88A1E) else wine
-    private val drinkL: Int get() = if (most) Col.hex(0xF0C450) else wineL
+    /** What the jug pours: the wine, Carinthia's Most, or the Lake District's lemonade. */
+    private val drink: Int get() = if (lemonade) Col.hex(0xE8D458) else if (most) Col.hex(0xC88A1E) else wine
+    private val drinkL: Int get() = if (lemonade) Col.hex(0xF8EC98) else if (most) Col.hex(0xF0C450) else wineL
 
     /**
      * The Lake District's bowling green ([readInn]; docs/plans/05-built/lakeland-projects-a.md): a flat green of short grass
