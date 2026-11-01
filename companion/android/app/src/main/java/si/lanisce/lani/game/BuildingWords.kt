@@ -179,15 +179,13 @@ object BuildingWords {
 
     /**
      * The pack of each building type in each culture (by culture pack id): the words a building asks for where its scene
-     * has too few or it has none (after its scene's things and its scene's own pack: [packsOf]). In Primorska the scenes'
-     * own packs (the palisade the forest's, of whose stakes it is; a house the home's); in the other cultures the pack of
-     * what the building is for: the tent the campfire's, the fields, the hayrack, the bee house and the market the food's,
-     * the hut the house and kitchen's, the well and the palisade the village's, the linden the greetings (people meet under
-     * it), the house the family's, the watchtower the view from it (the culture's landscape), the smithy the charcoal
-     * pile's (its fire's), the church the sky over the steeple's and the school the numbers and the time. A building whose
-     * culture has a room for it to step into (every Friuli building, the palisade its gate's: Al portone) asks for its
-     * scene's words first, and these only after them; one without (Kärnten's and the Lake District's buildings, which have
-     * no rooms yet) for these alone.
+     * has too few or it has none (after its scene's things and its scene's own pack: [packsOf]). Each culture's own, its
+     * building's scene's pack: the tent's, the field's (for the hayrack too, which stands at its edge), the square's for the
+     * well and the linden, the kitchen's for the hut, the bee house's, the watchtower's, the smithy's, the church's, the
+     * school's and the market's; a house whose room nobody lives in yet the living room's (Primorska's the home's); the
+     * palisade the gate's, and in Primorska and Friuli the forest's, of whose trees its stakes are. Until polish-content
+     * Friuli, Kärnten and the Lake District gave their buildings the language's starter packs of what each is for (food for
+     * the field, the family for the house: cibo, essen, food …), from before they had rooms.
      */
     val PACKS: Map<String, Map<BuildingType, String>> = mapOf(
         "primorska" to mapOf(
@@ -196,19 +194,19 @@ object BuildingWords {
             LIPA to "na-vasi", HOUSE to "dom-in-hisa", CHURCH to "v-cerkvi", SCHOOL to "v-soli", MARKET to "na-trznici",
         ),
         "friuli" to mapOf(
-            TENT to "al-fuoco", FIELD to "cibo", WELL to "in-paese", HUT to "casa-e-cucina", KOZOLEC to "cibo",
-            BEEHIVE to "cibo", PALISADE to "in-paese", WATCHTOWER to "il-mare", SMITHY to "alla-carbonaia",
-            LIPA to "saluti", HOUSE to "famiglia", CHURCH to "il-cielo", SCHOOL to "numeri-e-ore", MARKET to "cibo",
+            TENT to "nella-tenda", FIELD to "nel-campo", WELL to "in-piazza", HUT to "in-cucina", KOZOLEC to "nel-campo",
+            BEEHIVE to "dalle-api", PALISADE to "nel-bosco", WATCHTOWER to "sulla-torre", SMITHY to "nella-fucina",
+            LIPA to "in-piazza", HOUSE to "in-salotto", CHURCH to "in-chiesa", SCHOOL to "a-scuola", MARKET to "al-mercato",
         ),
         "kaernten" to mapOf(
-            TENT to "am-feuer", FIELD to "essen", WELL to "im-dorf", HUT to "haus-und-kueche", KOZOLEC to "essen",
-            BEEHIVE to "essen", PALISADE to "im-dorf", WATCHTOWER to "am-see", SMITHY to "am-meiler",
-            LIPA to "gruesse", HOUSE to "familie", CHURCH to "der-himmel", SCHOOL to "zahlen-und-uhrzeit", MARKET to "essen",
+            TENT to "im-zelt", FIELD to "auf-dem-feld", WELL to "auf-dem-dorfplatz", HUT to "in-der-kueche", KOZOLEC to "auf-dem-feld",
+            BEEHIVE to "beim-bienenhaus", PALISADE to "am-tor", WATCHTOWER to "auf-dem-wachturm", SMITHY to "in-der-schmiede",
+            LIPA to "auf-dem-dorfplatz", HOUSE to "in-der-stube", CHURCH to "in-der-kirche", SCHOOL to "in-der-schule", MARKET to "auf-dem-markt",
         ),
         "lakeland" to mapOf(
-            TENT to "by-the-fire", FIELD to "food", WELL to "in-the-village", HUT to "home-and-kitchen", KOZOLEC to "food",
-            BEEHIVE to "food", PALISADE to "in-the-village", WATCHTOWER to "on-the-fell", SMITHY to "at-the-pit",
-            LIPA to "greetings", HOUSE to "family", CHURCH to "the-night-sky", SCHOOL to "numbers-and-time", MARKET to "food",
+            TENT to "in-the-tent", FIELD to "in-the-field", WELL to "on-the-green", HUT to "in-the-kitchen", KOZOLEC to "in-the-field",
+            BEEHIVE to "at-the-bees", PALISADE to "at-the-gate", WATCHTOWER to "on-the-watchtower", SMITHY to "in-the-smithy",
+            LIPA to "on-the-green", HOUSE to "in-the-living-room", CHURCH to "in-church", SCHOOL to "at-school", MARKET to "at-the-market",
         ),
     )
 

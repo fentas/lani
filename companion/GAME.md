@@ -572,31 +572,33 @@ the run again for what is still missing; "Naprej · Continue" goes back to the v
 Practise the words for the hut ›": the run, then its card.
 
 **Each building type's pack** (`BuildingWords.PACKS`: one table for every culture pack; a test checks that every culture
-has one for every type, in its language, of its own packs and not a festival's, with at least 8 words). Primorska's
-buildings mostly have scenes, and its packs are theirs (the palisade, which has none, the forest's, whose trees are its
-stakes; a house whose room nobody lives in yet the home's). The other cultures' buildings (Friuli's and, since
-places-kaernten, Carinthia's have their scenes too, a pack each) still ask for the pack of what they are for: the campfire's for
-the tent, food for the fields, the hayrack, the bee house and the market, the house and kitchen for the hut, the village
-for the well and the palisade, the greetings for the linden (people meet under it), the family for the house, the
-culture's landscape for the watchtower (the view from it), the charcoal pile for the smithy (its fire), the night sky for
-the church (over its steeple), the numbers and the time for the school.
+has one for every type, in its language, of its own packs and not a festival's, with at least 8 words). Each culture's
+buildings ask for their scenes' packs, its own: the tent's, the field's (the hayrack's too, at its edge), the square's for the
+well and the linden, the kitchen's for the hut, the bee house's, the watchtower's, the smithy's, the church's, the school's
+and the market's; a house whose room nobody lives in yet the living room's (Primorska's the home's, dom-in-hisa); the
+palisade the gate's, and in Primorska and Friuli the forest's, whose trees are its stakes. A building with its scene asks
+for the things in it first and its scene's pack after them anyway, so the table's pack is what it asks for without a room
+on the phone (content of before it). Until polish-content Friuli, Kärnten and the Lake District asked for the language's
+starter packs of what each building is for (food for the field, the hayrack, the bee house and the market, the family for
+the house: `cibo`, `essen`, `food` …), from before they had rooms: past its scene's words, a Carinthian bee house's higher levels
+asked for das Brot and die Milch.
 
 | Building | Primorska | Friuli | Kärnten | Lakeland |
 |---|---|---|---|---|
-| Tent | v-sotoru | al-fuoco | am-feuer | by-the-fire |
-| Field | na-njivi | cibo | essen | food |
-| Well | na-vasi | in-paese | im-dorf | in-the-village |
-| Hut | v-kuhinji | casa-e-cucina | haus-und-kueche | home-and-kitchen |
-| Hayrack | na-njivi | cibo | essen | food |
-| Bee house | pri-cebelnjaku | cibo | essen | food |
-| Palisade | v-gozdu | in-paese | im-dorf | in-the-village |
-| Watchtower | na-stolpu | il-mare | am-see | on-the-fell |
-| Smithy | v-kovacnici | alla-carbonaia | am-meiler | at-the-pit |
-| Linden | na-vasi | saluti | gruesse | greetings |
-| House | dom-in-hisa | famiglia | familie | family |
-| Church | v-cerkvi | il-cielo | der-himmel | the-night-sky |
-| School | v-soli | numeri-e-ore | zahlen-und-uhrzeit | numbers-and-time |
-| Market | na-trznici | cibo | essen | food |
+| Tent | v-sotoru | nella-tenda | im-zelt | in-the-tent |
+| Field | na-njivi | nel-campo | auf-dem-feld | in-the-field |
+| Well | na-vasi | in-piazza | auf-dem-dorfplatz | on-the-green |
+| Hut | v-kuhinji | in-cucina | in-der-kueche | in-the-kitchen |
+| Hayrack | na-njivi | nel-campo | auf-dem-feld | in-the-field |
+| Bee house | pri-cebelnjaku | dalle-api | beim-bienenhaus | at-the-bees |
+| Palisade | v-gozdu | nel-bosco | am-tor | at-the-gate |
+| Watchtower | na-stolpu | sulla-torre | auf-dem-wachturm | on-the-watchtower |
+| Smithy | v-kovacnici | nella-fucina | in-der-schmiede | in-the-smithy |
+| Linden | na-vasi | in-piazza | auf-dem-dorfplatz | on-the-green |
+| House | dom-in-hisa | in-salotto | in-der-stube | in-the-living-room |
+| Church | v-cerkvi | in-chiesa | in-der-kirche | in-church |
+| School | v-soli | a-scuola | in-der-schule | at-school |
+| Market | na-trznici | al-mercato | auf-dem-markt | at-the-market |
 
 **What stays**: a level reached stays (no building loses one; only the next upgrade asks). Where the phone doesn't know
 the learner's words yet (the dashboard not loaded: offline at the start) or has no word of a building to teach (no scene,
