@@ -1,0 +1,43 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "die-nachbarin-am-zaun",
+  "language": "de",
+  "audience": "adult",
+  "title": { "de": "Die Nachbarin am Zaun", "sl": "Soseda čez plot", "en": "The neighbour at the fence", "it": "La vicina allo steccato" },
+  "emoji": "🌻",
+  "level": "A2",
+  "setting": {
+    "sl": "Vroče poletno popoldne. Na vrtu si, soseda pa se nasloni na plot in malo poklepeta o vremenu, vrtu in ribezu (Ribisel). Najprej te vika, potem pa ti ponudi tikanje.",
+    "en": "A hot summer afternoon. You are in the garden, and the neighbour leans on the fence for a chat about the weather, the garden and her redcurrants (Ribisel). She says Sie at first, then offers to say du.",
+    "it": "Un caldo pomeriggio d'estate. Sei in giardino e la vicina si appoggia allo steccato per fare due chiacchiere sul tempo, sull'orto e sui suoi ribes (Ribisel). All'inizio ti dà del Lei, poi ti propone di darvi del tu."
+  },
+  "role": "Frau Moser, Herta, the retired neighbour. Kind and curious, loves her garden, offers {learner} a bowl of redcurrants. Austrian German: Ribisel, Paradeiser, gell? Says Sie to {learner} at first; after a few lines she offers du (\"Ich bin die Herta. Sagen wir du?\") and says du from then on.",
+  "who": { "de": "Die Nachbarin", "sl": "Soseda", "en": "The neighbour", "it": "La vicina" },
+  "voice": "female",
+  "speaker": "grandma",
+  "place": "field",
+  "goals": [
+    { "de": "Grüße Frau Moser", "sl": "Pozdravi gospo Moser", "en": "Greet Frau Moser", "it": "Saluta la signora Moser" },
+    { "de": "Sag, wie es dir geht", "sl": "Povej, kako si", "en": "Say how you are", "it": "Di' come stai" },
+    { "de": "Sag etwas über das Wetter", "sl": "Povej kaj o vremenu", "en": "Say something about the weather", "it": "Di' qualcosa sul tempo" },
+    { "de": "Sag, was in deinem Garten wächst", "sl": "Povej, kaj raste na tvojem vrtu", "en": "Say what grows in your garden", "it": "Di' che cosa cresce nel tuo orto" },
+    { "de": "Verabschiede dich", "sl": "Poslovi se", "en": "Say goodbye", "it": "Saluta" }
+  ],
+  "opener_sl": "Grüß Gott! Heute ist es aber heiß, gell?",
+  "opener_en": {
+    "sl": "Dober dan! Danes je pa res vroče, ne?",
+    "en": "Hello! It's really hot today, isn't it?",
+    "it": "Buongiorno! Che caldo oggi, vero?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Grüß Gott, Frau Moser!", "en": { "sl": "Dober dan, gospa Moser!", "en": "Hello, Mrs Moser!", "it": "Buongiorno, signora Moser!" } },
+    { "sl": "Danke, gut. Und Ihnen?", "en": { "sl": "Hvala, dobro. Pa vam?", "en": "Fine, thanks. And you?", "it": "Bene, grazie. E lei?" } },
+    { "sl": "Ja, sehr heiß!", "en": { "sl": "Ja, zelo vroče!", "en": "Yes, very hot!", "it": "Sì, molto caldo!" } },
+    { "sl": "Es hat lange nicht geregnet.", "en": { "sl": "Že dolgo ni deževalo.", "en": "It hasn't rained for a long time.", "it": "Non piove da tanto tempo." } },
+    { "sl": "Meine Paradeiser sind schon rot.", "en": { "sl": "Moji paradižniki so že rdeči.", "en": "My tomatoes are already red.", "it": "I miei pomodori sono già rossi." } },
+    { "sl": "Gern! Ich bin {learner}.", "en": { "sl": "Z veseljem! Jaz sem {learner}.", "en": "Gladly! I'm {learner}.", "it": "Volentieri! Io sono {learner}." } },
+    { "sl": "Einen schönen Tag noch!", "en": { "sl": "Lep dan še naprej!", "en": "Have a nice day!", "it": "Buona giornata!" } }
+  ],
+  "packs": ["wetter-und-garten", "haus-und-kueche", "essen", "gruesse"],
+  "review": "de, sl, en, it: machine-written, not reviewed by a native speaker"
+}

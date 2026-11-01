@@ -142,6 +142,33 @@ export default async function prints() {
     )
   }
 
+  // --- the Italian course's words: each with a meaning in each base --------------------------------------------------------
+  // A word nothing means is left off "Wörter / Besede / Words" (sheet.ts Dictionary): the Italian supplement
+  // (companion/lexicon/it.extra.json) means the course's everyday verbs, adverbs, nouns and expressions in German,
+  // Slovene and English, and a pack's noun the unit lists in the plural is found by it (i cavalli: il cavallo). Every unit
+  // of A1, A2 and B1, in each base, lists every word the unit names that its table doesn't show.
+  {
+    const it = loadContent(repo, 'it')
+    const left: string[] = []
+    let listed = 0
+    const de = new Map<string, string>()
+    for (const b of ['de', 'sl', 'en']) {
+      for (const level of ['A1', 'A2', 'B1']) {
+        for (const s of sheetsOf(it, level, { base: b, learner: 'Teo', gender: 'both' })) {
+          listed += s.words.length
+          for (const n of s.notes) left.push(`${level} ${s.id} (${b}): ${n}`)
+          if (b === 'de') for (const w of s.words) de.set(`${s.id}/${w.word}`, `${w.lemma ? `(${w.lemma}) ` : ''}${w.gloss}`)
+        }
+      }
+    }
+    check(`the Italian sheets (A1, A2, B1) mean every word they list, in German, Slovene and English (${listed} words)`, listed > 4000 && left.length === 0, left.slice(0, 20))
+    check(
+      "… in the base the sheet is in: the unit's own gloss first (quando in futuro: wenn, the meaning its sentences use, not the supplement's wann; wenn, als), then the supplement's own German (pizzicare: zwicken), its noun by the word without its article (il treno: Zug; il freddo: Kälte, while aggettivi's freddo stays the pack's kalt), a plural noun with its singular (i cavalli: il cavallo, Pferd)",
+      de.get('futuro/quando') === 'wenn' && de.get('piacere/pizzicare') === 'zwicken' && de.get('futuro/il treno') === 'Zug' && de.get('piacere/il freddo') === 'Kälte' && de.get('aggettivi/freddo') === 'kalt' && de.get('piacere/i cavalli') === '(il cavallo) Pferd',
+      ['futuro/quando', 'piacere/pizzicare', 'futuro/il treno', 'piacere/il freddo', 'aggettivi/freddo', 'piacere/i cavalli'].map(k => [k, de.get(k)]),
+    )
+  }
+
   // --- what there is none of, what is refused ------------------------------------------------------------------------------
   const none: [string, number][] = [
     ['/course/sheet/osebni-zaimki', 404], // planned: not written yet

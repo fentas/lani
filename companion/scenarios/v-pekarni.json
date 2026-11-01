@@ -2,21 +2,37 @@
   "schema": "lani.scenario/v0",
   "id": "v-pekarni",
   "language": "sl",
-  "title": "V pekarni · At the bakery",
+  "title": { "sl": "V pekarni", "en": "At the bakery", "de": "In der Bäckerei", "it": "In panetteria" },
   "emoji": "🥖",
   "level": "A1",
-  "setting": "Early morning in a small bakery in Nova Gorica. Warm bread, rolls and burek behind the counter.",
+  "setting": {
+    "en": "Early morning in a small bakery in Nova Gorica. Warm bread, rolls and burek behind the counter.",
+    "de": "Früh am Morgen in einer kleinen Bäckerei in Nova Gorica. Hinter der Theke: warmes Brot, Brötchen und Burek.",
+    "it": "Mattina presto in un piccolo panificio a Nova Gorica. Dietro il banco: pane caldo, panini e burek."
+  },
   "role": "Prodajalka Nina, the baker at the counter. Friendly and quick. Says vi to customers.",
+  "who": { "sl": "Prodajalka v pekarni", "en": "The shop assistant", "de": "Die Verkäuferin", "it": "La commessa" },
   "place": "square",
   "voice": "female",
-  "goals": ["Greet the baker", "Ask for bread", "Ask for two rolls", "Ask how much it costs", "Say goodbye"],
+  "goals": [
+    { "en": "Greet the baker", "de": "Grüße die Verkäuferin", "it": "Saluta la commessa" },
+    { "en": "Ask for bread", "de": "Frag nach Brot", "it": "Chiedi del pane" },
+    { "en": "Ask for two rolls", "de": "Frag nach zwei Brötchen", "it": "Chiedi due panini" },
+    { "en": "Ask how much it costs", "de": "Frag, was es kostet", "it": "Chiedi quanto costa" },
+    { "en": "Say goodbye", "de": "Verabschiede dich", "it": "Saluta" }
+  ],
   "opener_sl": "Dobro jutro! Izvolite, kaj bo?",
-  "opener_en": "Good morning! What can I get you?",
+  "opener_en": {
+    "en": "Good morning! What can I get you?",
+    "de": "Guten Morgen! Was darf es sein?",
+    "it": "Buongiorno! Che cosa le do?"
+  },
   "vocabulary_hints": [
-    { "sl": "En kruh, prosim.", "en": "A loaf of bread, please." },
-    { "sl": "dve žemlji", "en": "two rolls" },
-    { "sl": "Koliko stane?", "en": "How much is it?" },
-    { "sl": "To je vse.", "en": "That's all." },
-    { "sl": "Na svidenje!", "en": "Goodbye!" }
-  ]
+    { "sl": "En kruh, prosim.", "en": { "en": "A loaf of bread, please.", "de": "Ein Brot, bitte.", "it": "Un pane, per favore." } },
+    { "sl": "dve žemlji", "en": { "en": "two rolls", "de": "zwei Brötchen", "it": "due panini" } },
+    { "sl": "Koliko stane?", "en": { "en": "How much is it?", "de": "Was kostet das?", "it": "Quanto costa?" } },
+    { "sl": "To je vse.", "en": { "en": "That's all.", "de": "Das ist alles.", "it": "È tutto." } },
+    { "sl": "Na svidenje!", "en": { "en": "Goodbye!", "de": "Auf Wiedersehen!", "it": "Arrivederci!" } }
+  ],
+  "review": "de, it: machine-written, not reviewed by a native speaker (sl, en: as before)"
 }
