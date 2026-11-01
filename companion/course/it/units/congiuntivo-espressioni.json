@@ -1,0 +1,313 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "congiuntivo-espressioni",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🔑",
+  "title": { "it": "È importante che, prima che", "de": "Konjunktiv nach: è importante che", "sl": "Konjunktiv po: è importante che", "en": "Subjunctive after: è importante che" },
+  "goal": {
+    "de": "Du kennst die Wörter, nach denen der congiuntivo kommt (È importante che tu dorma. Torna prima che faccia buio. Parlo piano perché Lorenzo capisca.), und die, nach denen er nicht kommt: dopo che, quando, so che.",
+    "sl": "Poznaš besede, za katerimi pride congiuntivo (È importante che tu dorma. Torna prima che faccia buio. Parlo piano perché Lorenzo capisca.), in tiste, za katerimi ne: dopo che, quando, so che.",
+    "en": "You know the words that bring the congiuntivo (È importante che tu dorma. Torna prima che faccia buio. Parlo piano perché Lorenzo capisca.) and the ones that don't: dopo che, quando, so che."
+  },
+  "grammar": ["congiuntivo-espressioni", "congiuntivo"],
+  "words": ["importante", "meglio", "bisogna", "contento", "mi dispiace", "la paura", "peccato", "prima", "dopo", "senza", "basta", "perché", "affinché", "quando", "il buio", "la cena", "la legna", "il falò", "l'Epifania", "il fumo", "la sciarpa", "la bora", "il recinto", "la riva", "il temporale", "il mare", "la gita", "lo stagno", "attento", "piano", "forte", "sapere", "capire", "tornare", "restare", "portare", "piovere", "bere"],
+  "intro": {
+    "table": {
+      "head": [
+        { "it": "dopo …", "de": "nach …", "sl": "za …", "en": "after …" },
+        { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" },
+        { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Nach **è importante che** (es ist wichtig, dass) kommt immer der congiuntivo, wie nach **voglio che**. Genauso nach **è meglio che** (es ist besser, dass) und **bisogna che** (es ist nötig, dass): **È importante che tu dorma.** (Es ist wichtig, dass du schläfst.) **Bisogna che Davide trovi Pallina.** (Davide muss Pallina finden.)",
+          "sl": "Za **è importante che** (pomembno je, da) vedno pride congiuntivo, kot za **voglio che**. Enako za **è meglio che** (bolje je, da) in **bisogna che** (treba je, da): **È importante che tu dorma.** (Pomembno je, da spiš.) **Bisogna che Davide trovi Pallina.** (Davide mora najti Pallino.)",
+          "en": "After **è importante che** (it's important that) the congiuntivo always comes, as after **voglio che**. The same after **è meglio che** (it's better that) and **bisogna che** (it's needed that): **È importante che tu dorma.** (It's important that you sleep.) **Bisogna che Davide trovi Pallina.** (Davide needs to find Pallina.)"
+        },
+        "examples": [
+          { "it": "È importante che tu dorma bene prima della gita.", "de": "Es ist wichtig, dass du vor dem Ausflug gut schläfst.", "sl": "Pomembno je, da pred izletom dobro spiš.", "en": "It's important that you sleep well before the trip." },
+          { "it": "Bisogna che Davide trovi Pallina prima di sera.", "de": "Davide muss Pallina vor dem Abend finden.", "sl": "Davide mora najti Pallino pred večerom.", "en": "Davide needs to find Pallina before evening." }
+        ],
+        "rows": [
+          ["è importante che", { "de": "es ist wichtig, dass", "sl": "pomembno je, da", "en": "it's important that" }, "È importante che tu dorma."],
+          ["è meglio che", { "de": "es ist besser, dass", "sl": "bolje je, da", "en": "it's better that" }, "È meglio che tu stia qui."]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "congiuntivo-espressioni", "prompt": "Fa freddo: è meglio che Moro ___ a casa stasera.", "options": ["resti", "resta", "restare"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**è meglio che** → **congiuntivo**: -are → **resti**\n- resta · er bleibt (so erzählst du es)\n- restare · ohne che",
+            "sl": "**è meglio che** → **congiuntivo**: -are → **resti**\n- resta · ostane (tako pripoveduješ)\n- restare · brez che",
+            "en": "**è meglio che** → **congiuntivo**: -are → **resti**\n- resta · he stays (telling what happens)\n- restare · without che"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch nach einem Gefühl mit **che** kommt der congiuntivo: **sono contento che** (ich freue mich, dass), **mi dispiace che** (es tut mir leid, dass), **ho paura che** (ich habe Angst, dass), **peccato che** (schade, dass). **Ho paura che piova.** (Ich habe Angst, dass es regnet.) Ein Mädchen sagt **sono contenta**: **Sono contenta che tu sia qui!**",
+          "sl": "Tudi za čustvom s **che** pride congiuntivo: **sono contento che** (vesel sem, da), **mi dispiace che** (žal mi je, da), **ho paura che** (bojim se, da), **peccato che** (škoda, da). **Ho paura che piova.** (Bojim se, da bo deževalo.) Deklica reče **sono contenta**: **Sono contenta che tu sia qui!**",
+          "en": "After a feeling with **che** the congiuntivo comes too: **sono contento che** (I'm glad that), **mi dispiace che** (I'm sorry that), **ho paura che** (I'm afraid that), **peccato che** (a pity that). **Ho paura che piova.** (I'm afraid it'll rain.) A girl says **sono contenta**: **Sono contenta che tu sia qui!**"
+        },
+        "examples": [
+          { "it": "Giulia: «Sono contenta che tu sia qui!»", "de": "Giulia: „Ich freue mich, dass du da bist!“", "sl": "Giulia: »Vesela sem, da si tu!«", "en": "Giulia: \"I'm glad you're here!\"" },
+          { "it": "Peccato che Tommaso non possa venire al mare.", "de": "Schade, dass Tommaso nicht ans Meer kommen kann.", "sl": "Škoda, da Tommaso ne more priti na morje.", "en": "What a pity Tommaso can't come to the sea." }
+        ],
+        "rows": [
+          ["sono contento che", { "de": "ich freue mich, dass", "sl": "vesel sem, da", "en": "I'm glad that" }, "Sono contento che tu sia qui."],
+          ["ho paura che", { "de": "ich habe Angst, dass", "sl": "bojim se, da", "en": "I'm afraid that" }, "Ho paura che piova."]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "congiuntivo-espressioni", "text": "Nonna Rosa: «Mi dispiace che tu non ___ venire domani.» (potere)", "accept": ["possa"], "hint": "io posso → …",
+          "explain": {
+            "de": "**mi dispiace che** → congiuntivo: **posso → possa**",
+            "sl": "**mi dispiace che** → congiuntivo: **posso → possa**",
+            "en": "**mi dispiace che** → congiuntivo: **posso → possa**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "**Prima che** (bevor) will immer den congiuntivo: **Torna a casa prima che faccia buio.** (Komm heim, bevor es dunkel wird.) Machst du es *selbst*, sagst du **prima di** und die Grundform: **Mi lavo le mani prima di mangiare.** (Ich wasche mir die Hände, bevor ich esse.)",
+          "sl": "**Prima che** (preden) vedno hoče congiuntivo: **Torna a casa prima che faccia buio.** (Vrni se domov, preden se stemni.) Ko nekaj narediš *sam*, rečeš **prima di** in nedoločnik: **Mi lavo le mani prima di mangiare.** (Umijem si roke, preden jem.)",
+          "en": "**Prima che** (before) always wants the congiuntivo: **Torna a casa prima che faccia buio.** (Come home before it gets dark.) When you do it *yourself*, say **prima di** and the infinitive: **Mi lavo le mani prima di mangiare.** (I wash my hands before I eat.)"
+        },
+        "examples": [
+          { "it": "Torna a casa prima che faccia buio!", "de": "Komm heim, bevor es dunkel wird!", "sl": "Vrni se domov, preden se stemni!", "en": "Come home before it gets dark!" },
+          { "it": "Lorenzo si lava le mani prima di mangiare.", "de": "Lorenzo wäscht sich die Hände, bevor er isst.", "sl": "Lorenzo si umije roke, preden je.", "en": "Lorenzo washes his hands before he eats." }
+        ],
+        "rows": [
+          ["prima che", { "de": "bevor (ein anderer)", "sl": "preden (nekdo drug)", "en": "before (someone else)" }, "prima che faccia buio"],
+          ["prima di", { "de": "bevor (ich selbst)", "sl": "preden (jaz sam)", "en": "before (I myself)" }, "prima di mangiare"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "congiuntivo-espressioni", "prompt": "Davide porta a casa le pecore prima che ___.", "options": ["piova", "piove", "piovere"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**prima che** → **congiuntivo**: **piova**\n- piove · es regnet (so erzählst du es)\n- piovere · nur mit prima di",
+            "sl": "**prima che** → **congiuntivo**: **piova**\n- piove · dežuje (tako pripoveduješ)\n- piovere · le s prima di",
+            "en": "**prima che** → **congiuntivo**: **piova**\n- piove · it rains (telling what happens)\n- piovere · only with prima di"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Heißt **perché** *damit*, kommt der congiuntivo: **Nonno Bepi parla piano perché Lorenzo capisca.** (Nonno Bepi spricht langsam, damit Lorenzo versteht.) Heißt es *weil*, bleibt alles wie immer: **Resto a casa perché piove.** (Ich bleibe zu Hause, weil es regnet.) In Büchern steht für *damit* oft **affinché**.",
+          "sl": "Ko **perché** pomeni *da bi*, pride congiuntivo: **Nonno Bepi parla piano perché Lorenzo capisca.** (Dedek Bepi govori počasi, da bi Lorenzo razumel.) Ko pomeni *ker*, ostane vse kot vedno: **Resto a casa perché piove.** (Ostanem doma, ker dežuje.) V knjigah za *da bi* pogosto piše **affinché**.",
+          "en": "When **perché** means *so that*, the congiuntivo comes: **Nonno Bepi parla piano perché Lorenzo capisca.** (Nonno Bepi speaks slowly so that Lorenzo understands.) When it means *because*, everything stays as usual: **Resto a casa perché piove.** (I'm staying home because it's raining.) Books often say **affinché** for *so that*."
+        },
+        "examples": [
+          { "it": "Nonno Bepi parla piano perché Lorenzo capisca.", "de": "Nonno Bepi spricht langsam, damit Lorenzo es versteht.", "sl": "Dedek Bepi govori počasi, da bi Lorenzo razumel.", "en": "Nonno Bepi speaks slowly so that Lorenzo understands." },
+          { "it": "Oggi resto a casa perché piove.", "de": "Heute bleibe ich zu Hause, weil es regnet.", "sl": "Danes ostanem doma, ker dežuje.", "en": "Today I'm staying home because it's raining." }
+        ],
+        "rows": [
+          [{ "it": "perché, affinché", "de": "perché, affinché (= damit)", "sl": "perché, affinché (= da bi)", "en": "perché, affinché (= so that)" }, { "de": "damit", "sl": "da bi", "en": "so that" }, "perché Lorenzo capisca"],
+          [{ "it": "perché", "de": "perché (= weil)", "sl": "perché (= ker)", "en": "perché (= because)" }, { "de": "weil", "sl": "ker", "en": "because" }, "perché piove"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "congiuntivo-espressioni", "prompt": "Zia Nives sente poco. Parlo forte perché lei mi ___.", "options": ["senta", "sente", "sentire"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**perché** = damit sie hört → **senta**\n- sente · weil sie hört: aber sie hört ja schlecht\n- sentire · ohne Person",
+            "sl": "**perché** = da bi slišala → **senta**\n- sente · ker sliši: a slabo sliši\n- sentire · brez osebe",
+            "en": "**perché** = so that she hears → **senta**\n- sente · because she hears: but she hardly hears\n- sentire · no person"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch nach **senza che** (ohne dass) und **basta che** (Hauptsache) kommt der congiuntivo: **Puoi giocare, basta che tu torni per cena.** (Du darfst spielen, Hauptsache, du bist zum Abendessen zurück.) **Moro esce senza che il nonno lo veda.** (Moro geht hinaus, ohne dass der Opa ihn sieht.)",
+          "sl": "Tudi za **senza che** (ne da bi) in **basta che** (samo da) pride congiuntivo: **Puoi giocare, basta che tu torni per cena.** (Lahko se igraš, samo da se vrneš za večerjo.) **Moro esce senza che il nonno lo veda.** (Moro gre ven, ne da bi ga dedek videl.)",
+          "en": "After **senza che** (without) and **basta che** (as long as) the congiuntivo comes too: **Puoi giocare, basta che tu torni per cena.** (You can play, as long as you're back for dinner.) **Moro esce senza che il nonno lo veda.** (Moro goes out without Grandpa seeing him.)"
+        },
+        "examples": [
+          { "it": "Puoi giocare, basta che tu torni per cena.", "de": "Du darfst spielen, Hauptsache, du bist zum Abendessen zurück.", "sl": "Lahko se igraš, samo da se vrneš za večerjo.", "en": "You can play, as long as you're back for dinner." },
+          { "it": "Moro esce senza che il nonno lo veda.", "de": "Moro geht hinaus, ohne dass der Opa ihn sieht.", "sl": "Moro gre ven, ne da bi ga dedek videl.", "en": "Moro goes out without Grandpa seeing him." }
+        ],
+        "rows": [
+          ["senza che", { "de": "ohne dass", "sl": "ne da bi", "en": "without" }, "senza che il nonno lo veda"],
+          ["basta che", { "de": "Hauptsache, solange", "sl": "samo da", "en": "as long as" }, "basta che tu torni"]
+        ],
+        "ask": {
+          "type": "cloze", "grammar": "congiuntivo-espressioni", "text": "Lorenzo: «Nonno, posso andare allo stagno?» «Sì, basta che tu ___ attento.» (stare)", "accept": ["stia"], "hint": "stare → ?",
+          "explain": {
+            "de": "**basta che** → congiuntivo: **stare → stia**",
+            "sl": "**basta che** → congiuntivo: **stare → stia**",
+            "en": "**basta che** → congiuntivo: **stare → stia**"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Aber Vorsicht: nach **dopo che** (nachdem) und **quando** (wenn, als) kommt kein congiuntivo: **Dopo che Davide è tornato, abbiamo mangiato.** (Nachdem Davide zurück war, haben wir gegessen.) Auch was du sicher weißt, bleibt wie immer: **So che Moro è in giardino.** (Ich weiß, dass Moro im Garten ist.)",
+          "sl": "A pazi: za **dopo che** (potem ko) in **quando** (ko) ni congiuntiva: **Dopo che Davide è tornato, abbiamo mangiato.** (Potem ko se je Davide vrnil, smo jedli.) Tudi kar zagotovo veš, ostane kot vedno: **So che Moro è in giardino.** (Vem, da je Moro na vrtu.)",
+          "en": "But watch out: after **dopo che** (after) and **quando** (when) there's no congiuntivo: **Dopo che Davide è tornato, abbiamo mangiato.** (After Davide came back, we ate.) What you know for sure stays as usual too: **So che Moro è in giardino.** (I know Moro is in the garden.)"
+        },
+        "examples": [
+          { "it": "Dopo che Davide è tornato, abbiamo mangiato.", "de": "Nachdem Davide zurückgekommen war, haben wir gegessen.", "sl": "Potem ko se je Davide vrnil, smo jedli.", "en": "After Davide came back, we ate." },
+          { "it": "So che Moro è in giardino.", "de": "Ich weiß, dass Moro im Garten ist.", "sl": "Vem, da je Moro na vrtu.", "en": "I know Moro is in the garden." }
+        ],
+        "rows": [
+          [{ "it": "dopo che, quando", "de": "dopo che, quando (+ wie immer)", "sl": "dopo che, quando (+ kot vedno)", "en": "dopo che, quando (+ as usual)" }, { "de": "nachdem, wenn", "sl": "potem ko, ko", "en": "after, when" }, "dopo che è tornato"],
+          [{ "it": "so che", "de": "so che (+ wie immer)", "sl": "so che (+ kot vedno)", "en": "so che (+ as usual)" }, { "de": "ich weiß, dass", "sl": "vem, da", "en": "I know that" }, "so che è in giardino"]
+        ],
+        "ask": {
+          "type": "choice", "grammar": "congiuntivo-espressioni", "prompt": "Dopo che Giulia ___ i compiti, è andata a giocare.", "options": ["ha fatto", "abbia fatto", "fare"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**dopo che** → wie immer: **ha fatto**\n- abbia fatto · congiuntivo: nicht nach dopo che\n- fare · ohne Person",
+            "sl": "**dopo che** → kot vedno: **ha fatto**\n- abbia fatto · congiuntivo: ne za dopo che\n- fare · brez osebe",
+            "en": "**dopo che** → as usual: **ha fatto**\n- abbia fatto · congiuntivo: not after dopo che\n- fare · no person"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "congiuntivo-espressioni-1",
+      "title": { "it": "Congiuntivo o no?", "de": "Konjunktiv oder nicht?", "sl": "Konjunktiv ali ne?", "en": "Subjunctive or not?" },
+      "exercises": [
+        {
+          "type": "sort", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Congiuntivo o no? · Konjunktiv oder nicht?", "sl": "Congiuntivo o no? · Konjunktiv ali ne?", "en": "Congiuntivo o no? · Subjunctive or not?" },
+          "columns": [
+            { "label": { "de": "+ congiuntivo · mit Konjunktiv", "sl": "+ congiuntivo · s konjunktivom", "en": "+ congiuntivo · with the subjunctive" }, "words": ["è importante che", "è meglio che", "prima che", "sono contento che", "ho paura che", "basta che", "senza che"] },
+            { "label": { "de": "+ indicativo · wie immer", "sl": "+ indicativo · kot vedno", "en": "+ indicativo · as usual" }, "words": ["dopo che", "quando", "so che", "è vero che"] }
+          ],
+          "explain": {
+            "de": "**wichtig, besser, Gefühle, bevor, ohne dass, Hauptsache** → congiuntivo · **nachdem, wenn, ich weiß, es ist wahr** → wie immer\n- prima che faccia buio · dopo che è tornato",
+            "sl": "**pomembno, bolje, čustva, preden, ne da bi, samo da** → congiuntivo · **potem ko, ko, vem, res je** → kot vedno\n- prima che faccia buio · dopo che è tornato",
+            "en": "**important, better, feelings, before, without, as long as** → congiuntivo · **after, when, I know, it's true** → as usual\n- prima che faccia buio · dopo che è tornato"
+          }
+        },
+        {
+          "type": "choice", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Lorenzo, è meglio che tu ___ il cappello: fa freddo!", "options": ["metta", "metti", "mettere"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**è meglio che** → congiuntivo: -ere → **metta**\n- metti · du setzt auf (so erzählst du es)\n- mettere · ohne che",
+            "sl": "**è meglio che** → congiuntivo: -ere → **metta**\n- metti · daš (tako pripoveduješ)\n- mettere · brez che",
+            "en": "**è meglio che** → congiuntivo: -ere → **metta**\n- metti · you put on (telling what happens)\n- mettere · without che"
+          }
+        },
+        {
+          "type": "choice", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Giulia: «Mi lavo i denti prima ___ a letto.»", "options": ["di andare", "che io vada", "che vado"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**dieselbe Person** (Giulia wäscht sich, Giulia geht) → **prima di andare**\n- che io vada · prima che nur für einen anderen\n- che vado · so nie",
+            "sl": "**ista oseba** (Giulia se umije, Giulia gre) → **prima di andare**\n- che io vada · prima che le za drugega\n- che vado · tako nikoli",
+            "en": "**the same person** (Giulia washes, Giulia goes) → **prima di andare**\n- che io vada · prima che only for someone else\n- che vado · never like this"
+          }
+        },
+        {
+          "type": "choice", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Peccato che Davide non ___ venire alla festa: le pecore lo aspettano.", "options": ["possa", "possano", "potere"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**peccato che** + Davide → **possa**\n- possano · loro, mehrere\n- potere · ohne Person",
+            "sl": "**peccato che** + Davide → **possa**\n- possano · loro, več\n- potere · brez osebe",
+            "en": "**peccato che** + Davide → **possa**\n- possano · loro, several\n- potere · no person"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-espressioni-2",
+      "title": { "it": "Il falò dell'Epifania", "de": "Das Feuer an Dreikönig", "sl": "Kres za svete tri kralje", "en": "The Epiphany bonfire" },
+      "exercises": [
+        {
+          "type": "gaptext", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" }, "title": "Il falò dell'Epifania",
+          "text": "Stasera c'è il falò dell'Epifania. «È importante che tutti ___ (portare) un po' di legna,» dice Bruno, il fabbro. Nonna Rosa è contenta che Giulia ___ (venire) con lei. «Mettiti la sciarpa prima che ___ (arrivare) la bora!» dice Zia Nives. Lorenzo può restare fino a tardi, basta che ___ (stare) vicino a nonno Franco. Nonno Bepi racconta piano perché Lorenzo ___ (capire) la storia del fumo. Dopo che il fuoco ___ (finire), tutti tornano a casa.",
+          "gaps": [
+            { "accept": ["portino"], "hint": "tutti = loro" },
+            { "accept": ["venga"], "hint": "io vengo → …" },
+            { "accept": ["arrivi"] },
+            { "accept": ["stia"] },
+            { "accept": ["capisca"], "hint": "-isc-" },
+            { "accept": ["finisce", "è finito"], "explain": { "de": "**dopo che** → wie immer: **finisce** (oder è finito), kein congiuntivo.", "sl": "**dopo che** → kot vedno: **finisce** (ali è finito), brez konjunktiva.", "en": "**dopo che** → as usual: **finisce** (or è finito), no congiuntivo." } }
+          ],
+          "bank": true,
+          "distractors": ["portano", "venire", "arriva", "finisca"],
+          "translation": {
+            "de": "Heute Abend ist das Feuer an Dreikönig. „Es ist wichtig, dass alle ein bisschen Holz mitbringen“, sagt Bruno, der Schmied. Nonna Rosa freut sich, dass Giulia mit ihr kommt. „Bind dir den Schal um, bevor die Bora kommt!“, sagt Tante Nives. Lorenzo darf lange bleiben, Hauptsache, er bleibt bei Opa Franco. Nonno Bepi erzählt langsam, damit Lorenzo die Geschichte vom Rauch versteht. Nachdem das Feuer aus ist, gehen alle nach Hause.",
+            "sl": "Nocoj je kres za svete tri kralje. »Pomembno je, da vsi prinesejo malo drv,« reče kovač Bruno. Babica Rosa je vesela, da gre Giulia z njo. »Daj si šal, preden pride burja!« reče teta Nives. Lorenzo lahko ostane dolgo, samo da je blizu dedka Franca. Dedek Bepi pripoveduje počasi, da bi Lorenzo razumel zgodbo o dimu. Ko ogenj ugasne, gredo vsi domov.",
+            "en": "Tonight is the Epiphany bonfire. \"It's important that everyone brings a bit of wood,\" says Bruno, the smith. Nonna Rosa is glad that Giulia is coming with her. \"Put your scarf on before the bora comes!\" says Zia Nives. Lorenzo can stay up late, as long as he stays near Grandpa Franco. Nonno Bepi tells it slowly so that Lorenzo understands the story of the smoke. After the fire is out, everyone goes home."
+          }
+        },
+        {
+          "type": "choice", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" }, "prompt": "Tommaso gioca a calcio in piazza ___ la mamma lo sappia.", "options": ["senza che", "dopo che", "quando"], "answer": 0, "say_options": true,
+          "explain": {
+            "de": "**sappia** ist congiuntivo → **senza che** (ohne dass)\n- dopo che, quando · danach kommt kein congiuntivo",
+            "sl": "**sappia** je congiuntivo → **senza che** (ne da bi)\n- dopo che, quando · za njima ni konjunktiva",
+            "en": "**sappia** is congiuntivo → **senza che** (without)\n- dopo che, quando · no congiuntivo after them"
+          }
+        }
+      ]
+    },
+    {
+      "id": "congiuntivo-espressioni-3",
+      "title": { "it": "Un solo pensiero", "de": "Aus zwei mach eins", "sl": "Iz dveh eno", "en": "Two into one" },
+      "exercises": [
+        {
+          "type": "transform", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Unisci · Verbinde zu einem Satz", "sl": "Unisci · Združi v en stavek", "en": "Unisci · Join into one sentence" },
+          "whole": true,
+          "items": [
+            { "from": "Tu dormi bene. (È importante che …)", "accept": ["È importante che tu dorma bene.", "È importante che dorma bene."] },
+            { "from": "Giulia è qui. (Nonna Rosa è contenta che …)", "accept": ["Nonna Rosa è contenta che Giulia sia qui."] },
+            { "from": "Piove. (Ho paura che …)", "accept": ["Ho paura che piova."] },
+            { "from": "Fa buio. (Torna prima che …)", "accept": ["Torna prima che faccia buio."], "hint": "io faccio → …" },
+            { "from": "Lorenzo capisce. (Parlo piano perché …)", "accept": ["Parlo piano perché Lorenzo capisca."] },
+            { "from": "Tu torni per cena. (Puoi giocare, basta che …)", "accept": ["Puoi giocare, basta che tu torni per cena.", "Puoi giocare, basta che torni per cena."] },
+            { "from": "Tu vai via. (Mi dispiace che …)", "accept": ["Mi dispiace che tu vada via.", "Mi dispiace che vada via."] },
+            { "from": "Moro dorme. (So che …)", "accept": ["So che Moro dorme."], "explain": { "de": "**so che** → wie immer: **dorme**", "sl": "**so che** → kot vedno: **dorme**", "en": "**so che** → as usual: **dorme**" } }
+          ],
+          "explain": {
+            "de": "**è importante che, sono contento che, ho paura che, prima che, perché (damit), basta che, mi dispiace che** → congiuntivo\n- dormi → dorma · è → sia · piove → piova · fa → faccia · capisce → capisca · torni → torni · vai → vada\n- **so che** → wie immer: dorme",
+            "sl": "**è importante che, sono contento che, ho paura che, prima che, perché (da bi), basta che, mi dispiace che** → congiuntivo\n- dormi → dorma · è → sia · piove → piova · fa → faccia · capisce → capisca · torni → torni · vai → vada\n- **so che** → kot vedno: dorme",
+            "en": "**è importante che, sono contento che, ho paura che, prima che, perché (so that), basta che, mi dispiace che** → congiuntivo\n- dormi → dorma · è → sia · piove → piova · fa → faccia · capisce → capisca · torni → torni · vai → vada\n- **so che** → as usual: dorme"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
+        "text": "Domenica Zia Nives va al mare con Giulia. «È importante che tu ___ (bere) tanta acqua,» dice la zia. Giulia è contenta che il mare ___ (essere) calmo. Può nuotare, basta che ___ (restare) vicino alla riva. «Torniamo prima che ___ (arrivare) il temporale!» Quando ___ (tornare) a casa, Giulia si addormenta subito.",
+        "gaps": [
+          { "accept": ["beva"] },
+          { "accept": ["sia"] },
+          { "accept": ["resti"] },
+          { "accept": ["arrivi"] },
+          { "accept": ["torna", "tornano"], "explain": { "de": "**quando** → wie immer: **torna** (oder tornano), kein congiuntivo.", "sl": "**quando** → kot vedno: **torna** (ali tornano), brez konjunktiva.", "en": "**quando** → as usual: **torna** (or tornano), no congiuntivo." } }
+        ],
+        "translation": {
+          "de": "Am Sonntag fährt Tante Nives mit Giulia ans Meer. „Es ist wichtig, dass du viel Wasser trinkst“, sagt die Tante. Giulia freut sich, dass das Meer ruhig ist. Sie darf schwimmen, Hauptsache, sie bleibt nah am Ufer. „Fahren wir heim, bevor das Gewitter kommt!“ Als sie nach Hause kommt, schläft Giulia sofort ein.",
+          "sl": "V nedeljo gre teta Nives z Giulio na morje. »Pomembno je, da piješ veliko vode,« reče teta. Giulia je vesela, da je morje mirno. Lahko plava, samo da ostane blizu obale. »Vrniva se, preden pride nevihta!« Ko pride domov, Giulia takoj zaspi.",
+          "en": "On Sunday Zia Nives goes to the sea with Giulia. \"It's important that you drink lots of water,\" says her aunt. Giulia is glad that the sea is calm. She can swim, as long as she stays near the shore. \"Let's go back before the storm comes!\" When she gets home, Giulia falls asleep at once."
+        }
+      },
+      {
+        "type": "transform", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Unisci · Verbinde zu einem Satz", "sl": "Unisci · Združi v en stavek", "en": "Unisci · Join into one sentence" },
+        "whole": true,
+        "items": [
+          { "from": "Tommaso vince. (Marisa è contenta che …)", "accept": ["Marisa è contenta che Tommaso vinca."] },
+          { "from": "Fa freddo. (Ho paura che …)", "accept": ["Ho paura che faccia freddo."] },
+          { "from": "Il gatto lo vede. (Moro esce senza che …)", "accept": ["Moro esce senza che il gatto lo veda."] }
+        ]
+      },
+      {
+        "type": "sort", "grammar": "congiuntivo-espressioni", "instruction": { "de": "Congiuntivo o no? · Konjunktiv oder nicht?", "sl": "Congiuntivo o no? · Konjunktiv ali ne?", "en": "Congiuntivo o no? · Subjunctive or not?" },
+        "columns": [
+          { "label": { "de": "+ congiuntivo · mit Konjunktiv", "sl": "+ congiuntivo · s konjunktivom", "en": "+ congiuntivo · with the subjunctive" }, "words": ["bisogna che", "peccato che"] },
+          { "label": { "de": "+ indicativo · wie immer", "sl": "+ indicativo · kot vedno", "en": "+ indicativo · as usual" }, "words": ["dopo che", "è vero che"] }
+        ]
+      },
+      {
+        "type": "choice", "grammar": "congiuntivo-espressioni", "prompt": "Davide: «Chiudo il recinto prima ___.»", "options": ["di partire", "che io parta", "che parto"], "answer": 0, "say_options": true,
+        "explain": {
+          "de": "**dieselbe Person** (Davide schließt, Davide geht) → **prima di partire**\n- che io parta · prima che nur für einen anderen\n- che parto · so nie",
+          "sl": "**ista oseba** (Davide zapre, Davide odide) → **prima di partire**\n- che io parta · prima che le za drugega\n- che parto · tako nikoli",
+          "en": "**the same person** (Davide shuts it, Davide leaves) → **prima di partire**\n- che io parta · prima che only for someone else\n- che parto · never like this"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: the indicative after feelings, Il falò dell'Epifania (pignarûl), perché + congiuntivo for a child, the German"
+}

@@ -1,0 +1,114 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "congiuntivo-espressioni",
+  "language": "it",
+  "level": "B1",
+  "emoji": "🔑",
+  "title": {
+    "it": "Il congiuntivo dopo: è importante che, prima che",
+    "sl": "Konjunktiv po: è importante che, prima che",
+    "en": "The subjunctive after: è importante che, prima che",
+    "de": "Konjunktiv nach: è importante che, prima che"
+  },
+  "rule": {
+    "en": "Some words always bring the **congiuntivo** after them. **È importante che**, **è meglio che**, **bisogna che** (it's important, better, needed that): **È importante che tu dorma.** Feelings too: **sono contento che** (I'm glad that), **mi dispiace che** (I'm sorry that), **ho paura che** (I'm afraid that), **peccato che** (a pity that): **Sono contenta che tu sia qui.**\n\nAnd these linking words: **prima che** (before), **perché** when it means *so that* (in books also **affinché**), **senza che** (without), **basta che** (as long as): **Torna prima che faccia buio.** **Parlo piano perché Lorenzo capisca.** **Puoi giocare, basta che tu torni per cena.**\n\nThe same person takes **di** + the infinitive: **prima di mangiare**, **sono contento di venire**.\n\nNot after everything: **dopo che** (after) and **quando** (when) take the indicative (**Dopo che Davide è tornato, abbiamo mangiato.**), and so do **perché** meaning *because* (**Resto a casa perché piove.**), **so che** (I know that) and **è vero che**.",
+    "sl": "Za nekaterimi besedami vedno pride **congiuntivo**. **È importante che**, **è meglio che**, **bisogna che** (pomembno je, bolje je, treba je, da): **È importante che tu dorma.** (Pomembno je, da spiš.) Tudi za čustvi: **sono contento che** (vesel sem, da), **mi dispiace che** (žal mi je, da), **ho paura che** (bojim se, da), **peccato che** (škoda, da): **Sono contenta che tu sia qui.**\n\nIn za temi vezniki: **prima che** (preden), **perché**, ko pomeni *da bi* (v knjigah tudi **affinché**), **senza che** (ne da bi), **basta che** (samo da): **Torna prima che faccia buio.** **Parlo piano perché Lorenzo capisca.** **Puoi giocare, basta che tu torni per cena.**\n\nIsta oseba dobi **di** + nedoločnik: **prima di mangiare** (preden jem), **sono contento di venire**.\n\nNe za vsem: **dopo che** (potem ko) in **quando** (ko) imata indikativ (**Dopo che Davide è tornato, abbiamo mangiato.**), prav tako **perché** v pomenu *ker* (**Resto a casa perché piove.**), **so che** (vem, da) in **è vero che**.",
+    "de": "Nach manchen Wörtern kommt immer der **congiuntivo**. **È importante che**, **è meglio che**, **bisogna che** (es ist wichtig, besser, nötig, dass): **È importante che tu dorma.** (Es ist wichtig, dass du schläfst.) Auch nach Gefühlen: **sono contento che** (ich freue mich, dass), **mi dispiace che** (es tut mir leid, dass), **ho paura che** (ich habe Angst, dass), **peccato che** (schade, dass): **Sono contenta che tu sia qui.**\n\nUnd nach diesen Bindewörtern: **prima che** (bevor), **perché**, wenn es *damit* heißt (in Büchern auch **affinché**), **senza che** (ohne dass), **basta che** (Hauptsache): **Torna prima che faccia buio.** **Parlo piano perché Lorenzo capisca.** **Puoi giocare, basta che tu torni per cena.**\n\nDieselbe Person nimmt **di** + Grundform: **prima di mangiare** (bevor ich esse), **sono contento di venire**.\n\nNicht nach allem: **dopo che** (nachdem) und **quando** (wenn, als) nehmen den Indikativ (**Dopo che Davide è tornato, abbiamo mangiato.**), ebenso **perché** im Sinn von *weil* (**Resto a casa perché piove.**), **so che** (ich weiß, dass) und **è vero che**."
+  },
+  "table": {
+    "head": [
+      { "it": "dopo …", "de": "nach …", "sl": "za …", "en": "after …" },
+      { "it": "significa", "de": "heißt", "sl": "pomeni", "en": "means" },
+      { "it": "esempio", "de": "Beispiel", "sl": "primer", "en": "example" }
+    ],
+    "rows": [
+      ["è importante che", { "de": "es ist wichtig, dass", "sl": "pomembno je, da", "en": "it's important that" }, "È importante che tu dorma."],
+      ["è meglio che", { "de": "es ist besser, dass", "sl": "bolje je, da", "en": "it's better that" }, "È meglio che tu stia qui."],
+      ["bisogna che", { "de": "es ist nötig, dass", "sl": "treba je, da", "en": "it's needed that" }, "Bisogna che Davide trovi Pallina."],
+      ["sono contento che", { "de": "ich freue mich, dass", "sl": "vesel sem, da", "en": "I'm glad that" }, "Sono contento che tu sia qui."],
+      ["mi dispiace che", { "de": "es tut mir leid, dass", "sl": "žal mi je, da", "en": "I'm sorry that" }, "Mi dispiace che tu non possa venire."],
+      ["ho paura che", { "de": "ich habe Angst, dass", "sl": "bojim se, da", "en": "I'm afraid that" }, "Ho paura che piova."],
+      ["prima che", { "de": "bevor", "sl": "preden", "en": "before" }, "Torna prima che faccia buio."],
+      [{ "it": "perché, affinché", "de": "perché, affinché (= damit)", "sl": "perché, affinché (= da bi)", "en": "perché, affinché (= so that)" }, { "de": "damit", "sl": "da bi", "en": "so that" }, "Parlo piano perché Lorenzo capisca."],
+      ["senza che", { "de": "ohne dass", "sl": "ne da bi", "en": "without" }, "Esce senza che il nonno lo veda."],
+      ["basta che", { "de": "Hauptsache, solange", "sl": "samo da", "en": "as long as" }, "Puoi giocare, basta che tu torni."],
+      [{ "it": "dopo che + indicativo", "de": "dopo che + Indikativ", "sl": "dopo che + indikativ", "en": "dopo che + indicative" }, { "de": "nachdem", "sl": "potem ko", "en": "after" }, "Dopo che è tornato, abbiamo mangiato."],
+      [{ "it": "so che + indicativo", "de": "so che + Indikativ", "sl": "so che + indikativ", "en": "so che + indicative" }, { "de": "ich weiß, dass", "sl": "vem, da", "en": "I know that" }, "So che Moro è in giardino."]
+    ]
+  },
+  "examples": [
+    {
+      "it": "È importante che tu dorma bene prima della gita.",
+      "sl": "Pomembno je, da pred izletom dobro spiš.",
+      "en": "It's important that you sleep well before the trip.",
+      "de": "Es ist wichtig, dass du vor dem Ausflug gut schläfst."
+    },
+    {
+      "it": "Bisogna che Davide trovi Pallina prima di sera.",
+      "sl": "Davide mora najti Pallino pred večerom.",
+      "en": "Davide needs to find Pallina before evening.",
+      "de": "Davide muss Pallina vor dem Abend finden."
+    },
+    {
+      "it": "Giulia: «Sono contenta che tu sia qui!»",
+      "sl": "Giulia: »Vesela sem, da si tu!«",
+      "en": "Giulia: \"I'm glad you're here!\"",
+      "de": "Giulia: „Ich freue mich, dass du da bist!“",
+      "note": {
+        "sl": "Čustvo + che → congiuntivo: sia.",
+        "en": "A feeling + che → the congiuntivo: sia.",
+        "de": "Ein Gefühl + che → congiuntivo: sia."
+      }
+    },
+    {
+      "it": "Peccato che Tommaso non possa venire al mare.",
+      "sl": "Škoda, da Tommaso ne more priti na morje.",
+      "en": "What a pity Tommaso can't come to the sea.",
+      "de": "Schade, dass Tommaso nicht ans Meer kommen kann."
+    },
+    {
+      "it": "Torna a casa prima che faccia buio!",
+      "sl": "Vrni se domov, preden se stemni!",
+      "en": "Come home before it gets dark!",
+      "de": "Komm heim, bevor es dunkel wird!",
+      "note": {
+        "sl": "Za isto osebo: prima di + nedoločnik: Mi lavo le mani prima di mangiare.",
+        "en": "For the same person: prima di + the infinitive: Mi lavo le mani prima di mangiare.",
+        "de": "Für dieselbe Person: prima di + Grundform: Mi lavo le mani prima di mangiare."
+      }
+    },
+    {
+      "it": "Nonno Bepi parla piano perché Lorenzo capisca.",
+      "sl": "Dedek Bepi govori počasi, da bi Lorenzo razumel.",
+      "en": "Nonno Bepi speaks slowly so that Lorenzo understands.",
+      "de": "Nonno Bepi spricht langsam, damit Lorenzo es versteht.",
+      "note": {
+        "sl": "perché = da bi → congiuntivo; perché = ker → indikativ: Resto a casa perché piove.",
+        "en": "perché = so that → congiuntivo; perché = because → indicative: Resto a casa perché piove.",
+        "de": "perché = damit → congiuntivo; perché = weil → Indikativ: Resto a casa perché piove."
+      }
+    },
+    {
+      "it": "Puoi giocare, basta che tu torni per cena.",
+      "sl": "Lahko se igraš, samo da se vrneš za večerjo.",
+      "en": "You can play, as long as you're back for dinner.",
+      "de": "Du darfst spielen, Hauptsache, du bist zum Abendessen zurück."
+    },
+    {
+      "it": "Dopo che Davide è tornato, abbiamo mangiato.",
+      "sl": "Potem ko se je Davide vrnil, smo jedli.",
+      "en": "After Davide came back, we ate.",
+      "de": "Nachdem Davide zurückgekommen war, haben wir gegessen.",
+      "note": {
+        "sl": "dopo che in quando: indikativ, nikoli congiuntivo.",
+        "en": "dopo che and quando: the indicative, never the congiuntivo.",
+        "de": "dopo che und quando: Indikativ, nie congiuntivo."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["subjunctive", "congiuntivo", "prima-che", "perche-affinche", "e-importante-che", "dopo-che"],
+  "see": ["congiuntivo", "imperfetto-passato"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in it, sl, en and de; not reviewed by a native speaker"
+}
