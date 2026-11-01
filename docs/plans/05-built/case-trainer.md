@@ -214,9 +214,9 @@ the review's form questions are right too, not only the trainer:
 native check of 2026-10-30 none is: each below has a forms book table written from Slovenski pravopis 2001 and Sloleks
 2.0, tesar too (a person's accusative, tesarja, which the regular check had confirmed as tesar), and oven and trot are on
 the `animate` list (docs/plans/05-built/native-check-sl.md): all 455 nouns with forms have every slot checked. Since
-lens-unknown-forms (2026-11-01, docs/plans/05-built/lens-unknown-forms.md) four of the packs' nouns have forms from the
-supplement with a slot not checked: jaslice, mlinci and Gostosevci are plural only, florjanovo declines as an adjective;
-"Sklanjaj!" asks their checked slots (the smoke's list, test/smoke/forms.ts). Before
+lens-unknown-forms (2026-11-01, docs/plans/05-built/lens-unknown-forms.md) four more of the packs' nouns have forms,
+each with a forms book table so every slot is checked: jaslice, mlinci and gostosevci plural only, florjanovo (a feast
+day, declined as an adjective) singular. Before
 it, of the 686
 nouns of the packs (the shared ones and the Slovene culture's) and the bank, 455 have forms in the dictionary; 406 have
 every slot checked, 49 not (the counts of 2026-10-30, with the village's places' packs):

@@ -246,11 +246,10 @@ export default async function formsSection() {
     const open = e.slots.filter(s => !s.checked).map(s => s.key)
     if (open.length) unchecked.set(w, open)
   }
-  // the nouns with a slot not checked: none since the native check's tables (docs/plans/05-built/native-check-sl.md)
-  // but the plural-only and adjectival nouns lens-unknown-forms gave forms (no singular to check: jaslice, mlinci,
-  // Gostosevci; florjanovo declines as an adjective); a new one is a word to look at (a forms book table from SP2001
-  // and Sloleks, or this list)
-  const LEFT_OUT: string[] = ['jaslice', 'mlinci', 'Gostosevci', 'florjanovo']
+  // the nouns with a slot not checked: none since the native check's tables (docs/plans/05-built/native-check-sl.md;
+  // lens-unknown-forms's jaslice, mlinci, gostosevci, florjanovo too); a new one is a word to look at (a forms book
+  // table from SP2001 and Sloleks, or this list)
+  const LEFT_OUT: string[] = []
   console.log(`  nouns with a slot not checked: ${[...unchecked].map(([w, k]) => `${w} (${k.length === 18 ? 'all' : k.join(' ')})`).join(', ')}`)
   check(
     `every noun "Sklanjaj!" could pick (${packNouns.size} of the packs and the bank, ${served} with forms): the pack's gender the one served; ${served - unchecked.size} with every slot checked, the ${unchecked.size} with one not the note's list`,

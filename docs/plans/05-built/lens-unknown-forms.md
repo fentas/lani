@@ -95,9 +95,12 @@ what a card says, before (this branch's base) and after, for the QA step's words
 4. **The trigger table** (`companion/grammar/sl/data/case-triggers.py`, its JSON made again): *izmed* and *glede* with
    the genitive (*najboljša izmed vseh*; *glede popravila*), beside *zaradi, namesto, razen*; *midve* and *vidve*
    beside *medve* and *vedve* (the dual's feminine), and among the dual's words.
-5. **The forms book's animate list** (`companion/lexicon/sl.forms.json`): the 23 new person nouns (janičar, potepuh,
-   tihotapec, iskalec, lenuh, sinko, zaspanec, Benečan, Ljubljančan, Primorec, argonavt …): a person's accusative is
-   its genitive also where a form is read by its endings.
+5. **The forms book** (`companion/lexicon/sl.forms.json`): the 23 new person nouns on its animate list (janičar,
+   potepuh, tihotapec, iskalec, lenuh, sinko, zaspanec, Benečan, Ljubljančan, Primorec, argonavt …: a person's
+   accusative is its genitive also where a form is read by its endings); tables for the four pack nouns the entries
+   gave forms whose singular or plural doesn't exist (jaslice, mlinci, gostosevci plural only; florjanovo, a feast day
+   declined as an adjective, singular), so "Sklanjaj!" has every slot of them checked, as the native check's tables
+   gave vrata and grablje (SP2001 and Sloleks with their URLs in each note).
 6. **The smoke** (`test/smoke/case-lens.ts`): 14 lines of this round's rules (a possessive, a comparative, a
    participle, a verbal noun, izmed, vidve, a number in one word; no case for *Super!*, *Jaaa!*, *Hodeč*), and the
    content's unknown forms under 150.
@@ -239,11 +242,15 @@ calls anything a learner says a mistake.
 
 ## Tests
 
+On the branch as handed over: main (1a45c5ce) is already under it (wave A's queue, `outlines-de-en`, was built on it),
+so the rebase had nothing to replay; the checks below ran on this tree. No line anyone hears was added or changed: a
+voice build needs 0 characters.
+
 - Bridge: `bunx tsc --noEmit -p .` clean; the smoke 3,314 checks, all passed (LANI_SMOKE_PORT 9690,
   LANI_SMOKE_DRAMA3_PORT 9708): its case lens part with 14 lines of this round's rules, the fourth held-out set, the
   content's unknown forms under 150, GET /lookup of *Juhu* (an interjection, no case) and *Krpana* (a name, the object);
-  the "Sklanjaj!" nouns' list with the four plural-only or adjectival nouns that have forms now (jaslice, mlinci,
-  Gostosevci, florjanovo: the drill asks their checked slots; case-trainer.md). `tutor-export --check`: 89 files match.
+  every noun "Sklanjaj!" could pick with every slot checked (the four that have forms now, jaslice, mlinci, gostosevci,
+  florjanovo, have forms book tables: below). `tutor-export --check`: 89 files match.
   `bun test/hint-lens.ts`: 24 turns as recorded (recorded again once: *Iz Gorice sem.* reads Gorice as the town's name
   alone, the same case and trigger).
 - Python: `case-triggers.py --check` matches; `python3 -m unittest discover -s tests` 251 tests OK, `-s companion/tests` 142
