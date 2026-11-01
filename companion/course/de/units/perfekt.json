@@ -1,0 +1,835 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "perfekt",
+  "language": "de",
+  "level": "A1",
+  "emoji": "⏪",
+  "title": {
+    "de": "Ich habe gespielt, ich bin gegangen",
+    "en": "The past: ich habe gespielt, ich bin gegangen",
+    "sl": "Preteklik: ich habe gespielt, ich bin gegangen",
+    "it": "Il passato: ich habe gespielt, ich bin gegangen"
+  },
+  "goal": {
+    "en": "You can say what you and others did: haben or sein and the participle at the end (ich habe gekocht, Toni ist gefahren), the participles in ge-…-t and ge-…-en, and those of separable and be-, ver- verbs.",
+    "sl": "Poveš, kaj si naredil ti in kaj drugi: haben ali sein in deležnik na koncu (ich habe gekocht, Toni ist gefahren), deležnike na ge-…-t in ge-…-en ter deležnike ločljivih glagolov in glagolov z be-, ver-.",
+    "it": "Sai dire che cosa hai fatto tu e che cosa hanno fatto gli altri: haben o sein e il participio alla fine (ich habe gekocht, Toni ist gefahren), i participi in ge-…-t e ge-…-en e quelli dei verbi separabili e con be-, ver-."
+  },
+  "grammar": [
+    "perfekt",
+    "sein-haben"
+  ],
+  "words": [
+    "machen",
+    "kochen",
+    "spielen",
+    "arbeiten",
+    "tanzen",
+    "essen",
+    "trinken",
+    "sehen",
+    "lesen",
+    "schreiben",
+    "backen",
+    "gehen",
+    "kommen",
+    "fahren",
+    "bleiben",
+    "sitzen",
+    "verkaufen",
+    "telefonieren",
+    "gestern",
+    "bis",
+    "dazu",
+    "dort",
+    "lange",
+    "die Mitternacht",
+    "der Markttag",
+    "die Kirchtagssuppe",
+    "der Speck",
+    "die Milch",
+    "der Reindling",
+    "die Zeitung",
+    "das Hufeisen",
+    "die Bank",
+    "der Keller",
+    "das Feuer"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        {
+          "de": "Perfekt (er · sie)",
+          "en": "past (er · sie)",
+          "sl": "preteklik (er · sie)",
+          "it": "passato (er · sie)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Kathi hat gekocht** (Kathi cooked, Kathi has cooked): spoken German tells the past with **haben** second and a past participle at the very end. Most verbs make it with **ge-** and **-t**: **machen → gemacht**, **kochen → gekocht**, **spielen → gespielt**. A stem in -t or -d takes -et: **arbeiten → gearbeitet** (worked). haben takes the person: **ich habe, du hast, er hat** … gemacht.",
+          "sl": "**Kathi hat gekocht** (Kathi je kuhala): govorjena nemščina pove preteklost s **haben** na drugem mestu in deležnikom čisto na koncu. Večina glagolov ga naredi z **ge-** in **-t**: **machen → gemacht**, **kochen → gekocht**, **spielen → gespielt**. Deblo na -t ali -d dobi -et: **arbeiten → gearbeitet** (delal). haben se ujema z osebo: **ich habe, du hast, er hat** … gemacht. Kjer slovenščina reče sem, nemščina največkrat haben.",
+          "it": "**Kathi hat gekocht** (Kathi ha cucinato): il tedesco parlato racconta il passato con **haben** al secondo posto e il participio proprio alla fine, come il passato prossimo. Quasi tutti i verbi lo fanno con **ge-** e **-t**: **machen → gemacht**, **kochen → gekocht**, **spielen → gespielt**. Con la radice in -t o -d: -et: **arbeiten → gearbeitet** (lavorato). haben va con la persona: **ich habe, du hast, er hat** … gemacht."
+        },
+        "examples": [
+          {
+            "de": "Kathi hat eine Kirchtagssuppe gekocht.",
+            "en": "Kathi cooked a Kirchtag soup.",
+            "sl": "Kathi je skuhala žegnanjsko juho.",
+            "it": "Kathi ha cucinato una zuppa della sagra."
+          },
+          {
+            "de": "Stefan hat den ganzen Tag gearbeitet.",
+            "en": "Stefan worked all day.",
+            "sl": "Stefan je delal ves dan.",
+            "it": "Stefan ha lavorato tutto il giorno."
+          }
+        ],
+        "rows": [
+          [
+            "machen",
+            "hat gemacht"
+          ],
+          [
+            "kochen",
+            "hat gekocht"
+          ],
+          [
+            "arbeiten",
+            "hat gearbeitet"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "perfekt",
+          "text": "Stefan hat viel Most ___. (machen)",
+          "accept": [
+            "gemacht"
+          ],
+          "hint": "ge-…-t",
+          "explain": {
+            "en": "**machen → gemacht: ge- and -t**\n- Stefan hat viel Most gemacht",
+            "sl": "**machen → gemacht: ge- in -t**\n- Stefan hat viel Most gemacht",
+            "it": "**machen → gemacht: ge- e -t**\n- Stefan hat viel Most gemacht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Many everyday verbs make it with **ge-** and **-en**, often with another vowel, so learn it with the verb: **essen → gegessen** (eaten), **trinken → getrunken** (drunk), **sehen → gesehen** (seen), **lesen → gelesen** (read), **schreiben → geschrieben** (written), **backen → gebacken** (baked).",
+          "sl": "Mnogi vsakdanji glagoli ga naredijo z **ge-** in **-en**, pogosto z drugim samoglasnikom, zato se ga uči skupaj z glagolom: **essen → gegessen** (jedel), **trinken → getrunken** (pil), **sehen → gesehen** (videl), **lesen → gelesen** (bral), **schreiben → geschrieben** (pisal), **backen → gebacken** (pekel).",
+          "it": "Molti verbi di tutti i giorni lo fanno con **ge-** e **-en**, spesso con un'altra vocale: imparalo con il verbo: **essen → gegessen** (mangiato), **trinken → getrunken** (bevuto), **sehen → gesehen** (visto), **lesen → gelesen** (letto), **schreiben → geschrieben** (scritto), **backen → gebacken** (cotto al forno)."
+        },
+        "examples": [
+          {
+            "de": "Auf der Alm haben wir Brot und Speck gegessen.",
+            "en": "On the mountain pasture we ate bread and bacon.",
+            "sl": "Na planini smo jedli kruh in špeh.",
+            "it": "All'alpeggio abbiamo mangiato pane e speck."
+          },
+          {
+            "de": "Oma Resi hat einen Reindling gebacken.",
+            "en": "Grandma Resi baked a Reindling.",
+            "sl": "Babica Resi je spekla reindling.",
+            "it": "Nonna Resi ha fatto un Reindling."
+          }
+        ],
+        "rows": [
+          [
+            "essen",
+            "hat gegessen"
+          ],
+          [
+            "trinken",
+            "hat getrunken"
+          ],
+          [
+            "schreiben",
+            "hat geschrieben"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "perfekt",
+          "prompt": "Florian hat ein Glas Milch ___.",
+          "options": [
+            "getrunken",
+            "getrinkt",
+            "getrinken"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**trinken → getrunken: ge-…-en, with u**\n- learn it with the verb",
+            "sl": "**trinken → getrunken: ge-…-en, z u**\n- uči se ga z glagolom",
+            "it": "**trinken → getrunken: ge-…-en, con la u**\n- si impara con il verbo"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Verbs of going from place to place take **sein**: **Toni ist gegangen** (Toni went), **Stefan ist nach Villach gefahren** (Stefan drove to Villach), **Tante Mitzi ist gekommen** (Aunt Mitzi came). So do **bleiben → ist geblieben** (stayed) and **sein → ist gewesen** (been). In Austria **sitzen, stehen, liegen** take sein too: **Opa Sepp ist gesessen** (Grandpa Sepp sat); Germany says **hat gesessen**. Both are right.",
+          "sl": "Glagoli premikanja s kraja na kraj imajo **sein**: **Toni ist gegangen** (Toni je šel), **Stefan ist nach Villach gefahren** (Stefan se je peljal v Beljak), **Tante Mitzi ist gekommen** (teta Mitzi je prišla). Prav tako **bleiben → ist geblieben** (ostal) in **sein → ist gewesen** (bil). V Avstriji imajo sein tudi **sitzen, stehen, liegen**: **Opa Sepp ist gesessen** (dedek Sepp je sedel); v Nemčiji **hat gesessen**. Oboje je prav.",
+          "it": "I verbi di movimento da un luogo all'altro vogliono **sein**: **Toni ist gegangen** (Toni è andato), **Stefan ist nach Villach gefahren** (Stefan è andato a Villach), **Tante Mitzi ist gekommen** (zia Mitzi è venuta). Così **bleiben → ist geblieben** (rimasto) e **sein → ist gewesen** (stato). In Austria anche **sitzen, stehen, liegen** vogliono sein: **Opa Sepp ist gesessen** (era seduto); in Germania **hat gesessen**. Vanno bene tutti e due."
+        },
+        "examples": [
+          {
+            "de": "Stefan ist am Montag nach Villach gefahren.",
+            "en": "Stefan drove to Villach on Monday.",
+            "sl": "Stefan se je v ponedeljek peljal v Beljak.",
+            "it": "Lunedì Stefan è andato a Villach."
+          },
+          {
+            "de": "Opa Sepp ist am Abend lange am Feuer gesessen.",
+            "en": "Grandpa Sepp sat by the fire for a long time in the evening.",
+            "sl": "Dedek Sepp je zvečer dolgo sedel ob ognju.",
+            "it": "La sera nonno Sepp è rimasto a lungo seduto accanto al fuoco."
+          }
+        ],
+        "rows": [
+          [
+            "gehen",
+            "ist gegangen"
+          ],
+          [
+            "fahren",
+            "ist gefahren"
+          ],
+          [
+            "bleiben",
+            "ist geblieben"
+          ],
+          [
+            "sitzen",
+            "ist gesessen · hat gesessen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "perfekt",
+          "prompt": "Gestern ___ Toni nach Klagenfurt gefahren.",
+          "options": [
+            "ist",
+            "hat",
+            "sind"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**going somewhere: sein, ist gefahren**\n- Toni ist nach Klagenfurt gefahren",
+            "sl": "**premikanje: sein, ist gefahren**\n- Toni ist nach Klagenfurt gefahren",
+            "it": "**movimento: sein, ist gefahren**\n- Toni ist nach Klagenfurt gefahren"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**haben** or **sein** stands second, the participle goes to the very end: **Gestern hat Kathi bis Mitternacht gearbeitet.** (Yesterday Kathi worked until midnight.) In a yes-or-no question haben or sein comes first: **Hat Kathi Toni gesehen?** (Has Kathi seen Toni?) **nicht** comes before the participle: **Kathi hat heute nicht gekocht.** (Kathi didn't cook today.)",
+          "sl": "**haben** ali **sein** stoji na drugem mestu, deležnik gre čisto na konec: **Gestern hat Kathi bis Mitternacht gearbeitet.** (Včeraj je Kathi delala do polnoči.) V vprašanju z da ali ne je haben ali sein spredaj: **Hat Kathi Toni gesehen?** (Je Kathi videla Tonija?) **nicht** stoji pred deležnikom: **Kathi hat heute nicht gekocht.** (Kathi danes ni kuhala.)",
+          "it": "**haben** o **sein** sta al secondo posto, il participio va proprio alla fine: **Gestern hat Kathi bis Mitternacht gearbeitet.** (Ieri Kathi ha lavorato fino a mezzanotte.) Nella domanda con sì o no haben o sein va all'inizio: **Hat Kathi Toni gesehen?** (Kathi ha visto Toni?) **nicht** sta prima del participio: **Kathi hat heute nicht gekocht.** (Oggi Kathi non ha cucinato.)"
+        },
+        "examples": [
+          {
+            "de": "Hat Kathi Toni gesehen?",
+            "en": "Has Kathi seen Toni?",
+            "sl": "Je Kathi videla Tonija?",
+            "it": "Kathi ha visto Toni?"
+          },
+          {
+            "de": "Kathi hat heute nicht gekocht.",
+            "en": "Kathi didn't cook today.",
+            "sl": "Kathi danes ni kuhala.",
+            "it": "Oggi Kathi non ha cucinato."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "perfekt",
+          "prompt": {
+            "en": "Which sentence is right?",
+            "sl": "Kateri stavek je pravilen?",
+            "it": "Quale frase è giusta?"
+          },
+          "options": [
+            "Wir haben am Sonntag Reindling gegessen.",
+            "Wir haben gegessen am Sonntag Reindling.",
+            "Wir gegessen haben am Sonntag Reindling."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**haben or sein second, the participle at the end**\n- Kathi hat gekocht · Toni ist gefahren",
+            "sl": "**haben ali sein na drugem mestu, deležnik na koncu**\n- Kathi hat gekocht · Toni ist gefahren",
+            "it": "**haben o sein al secondo posto, il participio alla fine**\n- Kathi hat gekocht · Toni ist gefahren"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In a separable verb **ge** goes in the middle: **einkaufen → eingekauft** (shopped), **anrufen → angerufen** (phoned), **aufstehen → ist aufgestanden** (got up), **mitkommen → ist mitgekommen** (came along). Verbs with **be-** and **ver-** and verbs in **-ieren** take no ge- at all: **besuchen → besucht** (visited), **verstehen → verstanden** (understood), **telefonieren → telefoniert** (phoned).",
+          "sl": "Pri ločljivem glagolu gre **ge** v sredino: **einkaufen → eingekauft** (nakupoval), **anrufen → angerufen** (poklical), **aufstehen → ist aufgestanden** (vstal), **mitkommen → ist mitgekommen** (šel zraven). Glagoli z **be-** in **ver-** ter glagoli na **-ieren** sploh nimajo ge-: **besuchen → besucht** (obiskal), **verstehen → verstanden** (razumel), **telefonieren → telefoniert** (telefoniral).",
+          "it": "Nel verbo separabile **ge** va in mezzo: **einkaufen → eingekauft** (fatto la spesa), **anrufen → angerufen** (telefonato), **aufstehen → ist aufgestanden** (alzato), **mitkommen → ist mitgekommen** (venuto con). I verbi con **be-** e **ver-** e i verbi in **-ieren** non hanno ge-: **besuchen → besucht** (visitato), **verstehen → verstanden** (capito), **telefonieren → telefoniert** (telefonato)."
+        },
+        "examples": [
+          {
+            "de": "Kathi hat am Montag in Villach eingekauft.",
+            "en": "Kathi did her shopping in Villach on Monday.",
+            "sl": "Kathi je v ponedeljek nakupovala v Beljaku.",
+            "it": "Lunedì Kathi ha fatto la spesa a Villach."
+          },
+          {
+            "de": "Wir haben Opa Sepp besucht.",
+            "en": "We visited Grandpa Sepp.",
+            "sl": "Obiskali smo dedka Seppa.",
+            "it": "Siamo andati a trovare nonno Sepp."
+          }
+        ],
+        "rows": [
+          [
+            "einkaufen",
+            "hat eingekauft"
+          ],
+          [
+            "aufstehen",
+            "ist aufgestanden"
+          ],
+          [
+            "besuchen",
+            "hat besucht"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "perfekt",
+          "text": "Tante Mitzi hat am Sonntag ___. (anrufen)",
+          "accept": [
+            "angerufen"
+          ],
+          "hint": {
+            "en": "ge in the middle",
+            "sl": "ge v sredini",
+            "it": "ge in mezzo"
+          },
+          "explain": {
+            "en": "**anrufen → angerufen: ge in the middle**\n- Tante Mitzi hat angerufen",
+            "sl": "**anrufen → angerufen: ge v sredini**\n- Tante Mitzi hat angerufen",
+            "it": "**anrufen → angerufen: ge in mezzo**\n- Tante Mitzi hat angerufen"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "perfekt-1",
+      "title": {
+        "de": "Gemacht, gegessen, gegangen",
+        "en": "Participles: gemacht, gegessen, gegangen",
+        "sl": "Deležniki: gemacht, gegessen, gegangen",
+        "it": "I participi: gemacht, gegessen, gegangen"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "perfekt",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Perfekt · the past",
+            "sl": "Perfekt · preteklik",
+            "it": "Perfekt · il passato"
+          },
+          "columns": [
+            {
+              "en": "er · sie: Perfekt",
+              "sl": "er · sie: Perfekt",
+              "it": "er · sie: Perfekt"
+            }
+          ],
+          "rows": [
+            {
+              "label": "machen",
+              "cells": [
+                "hat gemacht"
+              ]
+            },
+            {
+              "label": "spielen",
+              "cells": [
+                {
+                  "accept": [
+                    "hat gespielt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "arbeiten",
+              "cells": [
+                {
+                  "accept": [
+                    "hat gearbeitet"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "trinken",
+              "cells": [
+                {
+                  "accept": [
+                    "hat getrunken"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sehen",
+              "cells": [
+                {
+                  "accept": [
+                    "hat gesehen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "kommen",
+              "cells": [
+                "ist gekommen"
+              ]
+            },
+            {
+              "label": "gehen",
+              "cells": [
+                {
+                  "accept": [
+                    "ist gegangen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "fahren",
+              "cells": [
+                {
+                  "accept": [
+                    "ist gefahren"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "einkaufen",
+              "cells": [
+                {
+                  "accept": [
+                    "hat eingekauft"
+                  ],
+                  "hint": {
+                    "en": "ge in the middle",
+                    "sl": "ge v sredini",
+                    "it": "ge in mezzo"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**haben or sein second, the participle at the end**\n- Kathi hat gekocht · Toni ist gefahren",
+            "sl": "**haben ali sein na drugem mestu, deležnik na koncu**\n- Kathi hat gekocht · Toni ist gefahren",
+            "it": "**haben o sein al secondo posto, il participio alla fine**\n- Kathi hat gekocht · Toni ist gefahren"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "perfekt",
+          "instruction": {
+            "en": "Ordne zu · haben or sein?",
+            "sl": "Ordne zu · haben ali sein?",
+            "it": "Ordne zu · haben o sein?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "haben",
+                "sl": "haben",
+                "it": "haben"
+              },
+              "words": [
+                "kochen",
+                "essen",
+                "lesen",
+                "kaufen"
+              ]
+            },
+            {
+              "label": {
+                "en": "sein · going, coming",
+                "sl": "sein · premikanje",
+                "it": "sein · movimento"
+              },
+              "words": [
+                "gehen",
+                "kommen",
+                "fahren",
+                "bleiben"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**going, coming, staying: sein; most others: haben**",
+            "sl": "**premikanje in ostati: sein; večina drugih: haben**",
+            "it": "**andare, venire, restare: sein; quasi tutti gli altri: haben**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "perfekt-2",
+      "title": {
+        "de": "Der Kirchtag",
+        "en": "The Kirchtag",
+        "sl": "Žegnanje",
+        "it": "La sagra"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "perfekt",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Der Kirchtag",
+          "text": "Am Sonntag ist im Dorf Kirchtag gewesen. Kathi hat eine Kirchtagssuppe ___ (kochen). Wir haben viel Suppe ___ (essen). Dazu haben wir Most ___ (trinken). Tante Mitzi ___ aus Villach gekommen. Am Abend haben alle ___ (tanzen). Opa Sepp ist bis Mitternacht im Gasthaus ___ (bleiben).",
+          "gaps": [
+            {
+              "accept": [
+                "gekocht"
+              ],
+              "hint": "ge-…-t"
+            },
+            {
+              "accept": [
+                "gegessen"
+              ],
+              "hint": "ge-…-en"
+            },
+            {
+              "accept": [
+                "getrunken"
+              ],
+              "hint": "ge-…-en"
+            },
+            {
+              "accept": [
+                "ist"
+              ],
+              "hint": {
+                "en": "kommen: sein or haben?",
+                "sl": "kommen: sein ali haben?",
+                "it": "kommen: sein o haben?"
+              }
+            },
+            {
+              "accept": [
+                "getanzt"
+              ],
+              "hint": "ge-…-t"
+            },
+            {
+              "accept": [
+                "geblieben"
+              ],
+              "hint": "ge-…-en"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "gegesst",
+            "hat",
+            "getrinkt"
+          ],
+          "translation": {
+            "en": "On Sunday it was Kirchtag in the village. Kathi cooked a Kirchtag soup. We ate a lot of soup. With it we drank cider. Aunt Mitzi came from Villach. In the evening everyone danced. Grandpa Sepp stayed at the inn until midnight.",
+            "sl": "V nedeljo je bilo v vasi žegnanje. Kathi je skuhala žegnanjsko juho. Pojedli smo veliko juhe. Zraven smo pili mošt. Teta Mitzi je prišla iz Beljaka. Zvečer so vsi plesali. Dedek Sepp je ostal v gostilni do polnoči.",
+            "it": "Domenica in paese c'è stata la sagra. Kathi ha cucinato una zuppa della sagra. Abbiamo mangiato tanta zuppa. Con la zuppa abbiamo bevuto sidro. Zia Mitzi è venuta da Villach. La sera tutti hanno ballato. Nonno Sepp è rimasto all'osteria fino a mezzanotte."
+          },
+          "explain": {
+            "en": "**haben or sein second, the participle at the end**\n- Kathi hat gekocht · Toni ist gefahren",
+            "sl": "**haben ali sein na drugem mestu, deležnik na koncu**\n- Kathi hat gekocht · Toni ist gefahren",
+            "it": "**haben o sein al secondo posto, il participio alla fine**\n- Kathi hat gekocht · Toni ist gefahren"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "perfekt",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stanko ___ heute um fünf aufgestanden.",
+          "options": [
+            "ist",
+            "hat",
+            "bin"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**aufstehen: sein, ist aufgestanden**",
+            "sl": "**aufstehen: sein, ist aufgestanden**",
+            "it": "**aufstehen: sein, ist aufgestanden**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "perfekt-3",
+      "title": {
+        "de": "Was habt ihr gemacht?",
+        "en": "What did you all do?",
+        "sl": "Kaj ste delali?",
+        "it": "Che cosa avete fatto?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "perfekt",
+          "instruction": {
+            "en": "Sag es im Perfekt · Say it in the past (Perfekt)",
+            "sl": "Sag es im Perfekt · Povej v pretekliku (Perfekt)",
+            "it": "Sag es im Perfekt · Dillo al passato (Perfekt)"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich koche eine Suppe.",
+              "accept": [
+                "Ich habe eine Suppe gekocht."
+              ],
+              "hint": "ich habe … gekocht"
+            },
+            {
+              "from": "Stefan arbeitet im Keller.",
+              "accept": [
+                "Stefan hat im Keller gearbeitet."
+              ]
+            },
+            {
+              "from": "Wir trinken Most.",
+              "accept": [
+                "Wir haben Most getrunken."
+              ]
+            },
+            {
+              "from": "Florian geht auf die Alm.",
+              "accept": [
+                "Florian ist auf die Alm gegangen."
+              ],
+              "hint": {
+                "en": "going: sein",
+                "sl": "premikanje: sein",
+                "it": "movimento: sein"
+              }
+            },
+            {
+              "from": "Du fährst nach Villach.",
+              "accept": [
+                "Du bist nach Villach gefahren."
+              ]
+            },
+            {
+              "from": "Kathi kauft ein.",
+              "accept": [
+                "Kathi hat eingekauft."
+              ]
+            },
+            {
+              "from": "Ihr besucht Opa Sepp.",
+              "accept": [
+                "Ihr habt Opa Sepp besucht."
+              ]
+            },
+            {
+              "from": "Ich stehe um sechs auf.",
+              "accept": [
+                "Ich bin um sechs aufgestanden."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**haben or sein second, the participle at the end**\n- Kathi hat gekocht · Toni ist gefahren",
+            "sl": "**haben ali sein na drugem mestu, deležnik na koncu**\n- Kathi hat gekocht · Toni ist gefahren",
+            "it": "**haben o sein al secondo posto, il participio alla fine**\n- Kathi hat gekocht · Toni ist gefahren"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "perfekt",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Gestern ist Markttag in Villach gewesen. Stefan ___ um fünf aufgestanden. Er ist mit Florian nach Villach ___ (fahren). Dort haben sie Most und Äpfel ___ (verkaufen). Am Abend hat Stefan Kathi ___ (anrufen).",
+        "gaps": [
+          {
+            "accept": [
+              "ist"
+            ]
+          },
+          {
+            "accept": [
+              "gefahren"
+            ]
+          },
+          {
+            "accept": [
+              "verkauft"
+            ]
+          },
+          {
+            "accept": [
+              "angerufen"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Yesterday was market day in Villach. Stefan got up at five. He drove to Villach with Florian. There they sold cider and apples. In the evening Stefan phoned Kathi.",
+          "sl": "Včeraj je bil v Beljaku tržni dan. Stefan je vstal ob petih. S Florianom se je peljal v Beljak. Tam sta prodajala mošt in jabolka. Zvečer je Stefan poklical Kathi.",
+          "it": "Ieri a Villach c'era il mercato. Stefan si è alzato alle cinque. È andato a Villach con Florian. Lì hanno venduto sidro e mele. La sera Stefan ha telefonato a Kathi."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "perfekt",
+        "instruction": {
+          "en": "Sag es im Perfekt · Say it in the past (Perfekt)",
+          "sl": "Sag es im Perfekt · Povej v pretekliku (Perfekt)",
+          "it": "Sag es im Perfekt · Dillo al passato (Perfekt)"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Toni macht ein Hufeisen.",
+            "accept": [
+              "Toni hat ein Hufeisen gemacht."
+            ]
+          },
+          {
+            "from": "Mitzi kommt am Sonntag.",
+            "accept": [
+              "Mitzi ist am Sonntag gekommen."
+            ]
+          },
+          {
+            "from": "Wir lesen die Zeitung.",
+            "accept": [
+              "Wir haben die Zeitung gelesen."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "perfekt",
+        "instruction": {
+          "en": "Ordne zu · haben or sein?",
+          "sl": "Ordne zu · haben ali sein?",
+          "it": "Ordne zu · haben o sein?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "haben",
+              "sl": "haben",
+              "it": "haben"
+            },
+            "words": [
+              "schreiben",
+              "telefonieren"
+            ]
+          },
+          {
+            "label": {
+              "en": "sein · going, coming",
+              "sl": "sein · premikanje",
+              "it": "sein · movimento"
+            },
+            "words": [
+              "laufen",
+              "mitkommen"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "perfekt",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ du Opa Sepp gesehen?",
+        "options": [
+          "Hast",
+          "Bist",
+          "Hat"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**sehen: haben; du hast**\n- Hast du Opa Sepp gesehen?",
+          "sl": "**sehen: haben; du hast**\n- Hast du Opa Sepp gesehen?",
+          "it": "**sehen: haben; du hast**\n- Hast du Opa Sepp gesehen?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "perfekt",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Opa Sepp ist lange auf der Bank ___.",
+        "options": [
+          "gesessen",
+          "gesitzt",
+          "gesetzt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**sitzen → gesessen** (in Austria with sein: ist gesessen; Germany: hat gesessen)",
+          "sl": "**sitzen → gesessen** (v Avstriji s sein: ist gesessen; v Nemčiji: hat gesessen)",
+          "it": "**sitzen → gesessen** (in Austria con sein: ist gesessen; in Germania: hat gesessen)"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: ist gesessen (Austrian; hat gesessen), Kirchtag gewesen, Markttag, im Gasthaus geblieben, the Slovene aspect"
+}

@@ -20,9 +20,9 @@
         { "id": "possessiv", "title": { "de": "Mein Hund, deine Katze", "en": "My, your: mein, dein, sein", "sl": "Svojilni zaimki: mein, dein, sein", "it": "I possessivi: mein, dein, sein" }, "grammar": ["possessiv", "akkusativ"] },
         { "id": "uhrzeit", "title": { "de": "Um sieben, am Montag", "en": "Times and days: um sieben, am Montag", "sl": "Ura in dnevi: um sieben, am Montag", "it": "L'ora e i giorni: um sieben, am Montag" }, "grammar": ["uhrzeit", "zahlen"] },
         { "id": "moechten", "title": { "de": "Ich möchte, ich kann", "en": "I'd like, I can: möchten and können", "sl": "Rad bi, znam: möchten in können", "it": "Vorrei, so: möchten e können" }, "grammar": ["modalverben", "wortstellung"] },
-        { "id": "trennbare", "title": { "de": "Ich stehe um sieben auf", "en": "Separable verbs: aufstehen, einkaufen", "sl": "Ločljivi glagoli: aufstehen, einkaufen", "it": "I verbi separabili: aufstehen, einkaufen" }, "grammar": [], "planned": true },
-        { "id": "imperativ", "title": { "de": "Komm! Kommen Sie!", "en": "The imperative: komm, kommt, kommen Sie", "sl": "Velelnik: komm, kommt, kommen Sie", "it": "L'imperativo: komm, kommt, kommen Sie" }, "grammar": [], "planned": true },
-        { "id": "perfekt", "title": { "de": "Ich habe gespielt, ich bin gegangen", "en": "The past: ich habe gespielt, ich bin gegangen", "sl": "Preteklik: ich habe gespielt, ich bin gegangen", "it": "Il passato: ich habe gespielt, ich bin gegangen" }, "grammar": [], "planned": true }
+        { "id": "trennbare", "title": { "de": "Ich stehe um sieben auf", "en": "Separable verbs: aufstehen, einkaufen", "sl": "Ločljivi glagoli: aufstehen, einkaufen", "it": "I verbi separabili: aufstehen, einkaufen" }, "grammar": ["trennbare-verben", "wortstellung"] },
+        { "id": "imperativ", "title": { "de": "Komm! Kommen Sie!", "en": "The imperative: komm, kommt, kommen Sie", "sl": "Velelnik: komm, kommt, kommen Sie", "it": "L'imperativo: komm, kommt, kommen Sie" }, "grammar": ["imperativ", "du-sie"] },
+        { "id": "perfekt", "title": { "de": "Ich habe gespielt, ich bin gegangen", "en": "The past: ich habe gespielt, ich bin gegangen", "sl": "Preteklik: ich habe gespielt, ich bin gegangen", "it": "Il passato: ich habe gespielt, ich bin gegangen" }, "grammar": ["perfekt", "sein-haben"] }
       ]
     },
     { "level": "A2", "units": [] }

@@ -1,0 +1,952 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "imperativ",
+  "language": "de",
+  "level": "A1",
+  "emoji": "📣",
+  "title": {
+    "de": "Komm! Kommen Sie!",
+    "en": "The imperative: komm, kommt, kommen Sie",
+    "sl": "Velelnik: komm, kommt, kommen Sie",
+    "it": "L'imperativo: komm, kommt, kommen Sie"
+  },
+  "goal": {
+    "en": "You can tell or ask someone to do something: to one person you say du to (komm!, nimm!, fahr!), to several (kommt!) and politely (kommen Sie!), with sei!, bitte and doch, and with separable verbs (steh auf!).",
+    "sl": "Znaš komu reči ali ga prositi, naj kaj naredi: eni osebi, ki jo tikaš (komm!, nimm!, fahr!), več osebam (kommt!) in vljudno (kommen Sie!), s sei!, bitte in doch ter z ločljivimi glagoli (steh auf!).",
+    "it": "Sai dire o chiedere a qualcuno di fare qualcosa: a una persona a cui dai del du (komm!, nimm!, fahr!), a più persone (kommt!) e con cortesia (kommen Sie!), con sei!, bitte e doch, e con i verbi separabili (steh auf!)."
+  },
+  "grammar": [
+    "imperativ",
+    "du-sie"
+  ],
+  "words": [
+    "kommen",
+    "machen",
+    "warten",
+    "gehen",
+    "trinken",
+    "nehmen",
+    "geben",
+    "lesen",
+    "essen",
+    "sprechen",
+    "helfen",
+    "fahren",
+    "schlafen",
+    "laufen",
+    "schauen",
+    "holen",
+    "bringen",
+    "bitte",
+    "mal",
+    "doch",
+    "leise",
+    "langsam",
+    "schnell",
+    "herein",
+    "zu spät",
+    "das Mehl",
+    "das Ei",
+    "das Stück",
+    "der Reindling",
+    "der Kaffee",
+    "das Glas",
+    "die Suppe",
+    "das Buch",
+    "die Tür",
+    "das Fenster",
+    "der Apfel"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        {
+          "de": "du",
+          "en": "du · to one",
+          "sl": "du · eni osebi",
+          "it": "du · a uno"
+        },
+        {
+          "de": "ihr",
+          "en": "ihr · to several",
+          "sl": "ihr · več osebam",
+          "it": "ihr · a più"
+        },
+        {
+          "de": "Sie",
+          "en": "Sie · polite",
+          "sl": "Sie · vljudno",
+          "it": "Sie · di cortesia"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Komm!** (Come!) is the imperative: it tells someone what to do. To one person you say du to, take **du kommst** (you come) and drop du and -st: **Komm!**, **Mach!** (Do it!). To several, take **ihr kommt** without ihr: **Kommt!**, **Macht!** The du form may keep an -e (**Komme!**); a stem in -t or -d needs it: **Warte!** (Wait!)",
+          "sl": "**Komm!** (Pridi!) je velelnik: z njim komu poveš, kaj naj naredi. Eni osebi, ki jo tikaš: vzemi **du kommst** (prideš) in izpusti du in -st: **Komm!**, **Mach!** (Naredi!). Več osebam: **ihr kommt** brez ihr: **Kommt!**, **Macht!** Oblika za du lahko obdrži -e (**Komme!**); deblo na -t ali -d ga potrebuje: **Warte!** (Počakaj!)",
+          "it": "**Komm!** (Vieni!) è l'imperativo: dice a qualcuno che cosa fare. A una persona a cui dai del du: prendi **du kommst** (vieni) e togli du e -st: **Komm!**, **Mach!** (Fa'!). A più persone: **ihr kommt** senza ihr: **Kommt!**, **Macht!** La forma du può tenere una -e (**Komme!**); con la radice in -t o -d serve: **Warte!** (Aspetta!)"
+        },
+        "examples": [
+          {
+            "de": "Jakob, komm!",
+            "en": "Jakob, come here!",
+            "sl": "Jakob, pridi!",
+            "it": "Jakob, vieni!"
+          },
+          {
+            "de": "Florian und Stefan, wartet!",
+            "en": "Florian and Stefan, wait!",
+            "sl": "Florian in Stefan, počakajta!",
+            "it": "Florian e Stefan, aspettate!"
+          }
+        ],
+        "rows": [
+          [
+            "kommen",
+            "komm!",
+            "kommt!",
+            "kommen Sie!"
+          ],
+          [
+            "machen",
+            "mach!",
+            "macht!",
+            "machen Sie!"
+          ],
+          [
+            "warten",
+            "warte!",
+            "wartet!",
+            "warten Sie!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperativ",
+          "prompt": "Lena, ___ bitte!",
+          "options": [
+            "komm",
+            "kommst",
+            "kommt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**to one person (du): komm!**\n- du kommst → komm!",
+            "sl": "**eni osebi (du): komm!**\n- du kommst → komm!",
+            "it": "**a una persona (du): komm!**\n- du kommst → komm!"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "To someone you say Sie to, the verb comes first, then **Sie**: **Kommen Sie!** (Come!), **Warten Sie bitte!** (Please wait!). It is **Sie kommen** turned round, the same for one stranger or several. **Bitte** (please) makes it friendly: **Kommen Sie bitte herein!** (Please come in!)",
+          "sl": "Komur vikaš, je glagol spredaj, za njim **Sie**: **Kommen Sie!** (Pridite!), **Warten Sie bitte!** (Počakajte, prosim!). To je obrnjeni **Sie kommen**, isti za enega neznanca ali več. **Bitte** (prosim) ga naredi prijaznega: **Kommen Sie bitte herein!** (Vstopite, prosim!)",
+          "it": "A chi dai del Sie, il verbo va per primo, poi **Sie**: **Kommen Sie!** (Venga!), **Warten Sie bitte!** (Aspetti, per favore!). È **Sie kommen** girato, uguale per uno sconosciuto o per più. **Bitte** (per favore) lo rende gentile: **Kommen Sie bitte herein!** (Entri, prego!)"
+        },
+        "examples": [
+          {
+            "de": "Grüß Gott, Frau Huber! Kommen Sie bitte herein!",
+            "en": "Hello, Mrs Huber! Please come in!",
+            "sl": "Pozdravljeni, gospa Huber! Vstopite, prosim!",
+            "it": "Buongiorno, signora Huber! Entri, prego!"
+          },
+          {
+            "de": "Herr Doktor, warten Sie bitte!",
+            "en": "Doctor, please wait!",
+            "sl": "Gospod doktor, počakajte, prosim!",
+            "it": "Dottore, aspetti, per favore!"
+          }
+        ],
+        "rows": [
+          [
+            "gehen",
+            "geh!",
+            "geht!",
+            "gehen Sie!"
+          ],
+          [
+            "trinken",
+            "trink!",
+            "trinkt!",
+            "trinken Sie!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperativ",
+          "prompt": "Frau Huber, ___ Sie bitte!",
+          "options": [
+            "warten",
+            "warte",
+            "wartet"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Sie: the verb first, then Sie**\n- Warten Sie bitte!",
+            "sl": "**Sie: glagol spredaj, za njim Sie**\n- Warten Sie bitte!",
+            "it": "**Sie: prima il verbo, poi Sie**\n- Warten Sie bitte!"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**du gibst** (you give) keeps its i: **Gib!** (Give!). So do the verbs that change e to i or ie: **Nimm!** (Take!), **Lies!** (Read!), **Iss!** (Eat!), **Sprich!** (Speak!), **Hilf!** (Help!). But the ä of **du fährst** goes back to a: **Fahr!** (Drive!), and so **Schlaf!** (Sleep!), **Lauf!** (Run!), never fähr. ihr and Sie are as always: **Nehmt!**, **Fahren Sie!**",
+          "sl": "**du gibst** (daš) obdrži svoj i: **Gib!** (Daj!). Tako tudi glagoli, ki e spremenijo v i ali ie: **Nimm!** (Vzemi!), **Lies!** (Beri!), **Iss!** (Jej!), **Sprich!** (Govori!), **Hilf!** (Pomagaj!). A ä iz **du fährst** se vrne v a: **Fahr!** (Pelji!), prav tako **Schlaf!** (Spi!), **Lauf!** (Teci!), nikoli fähr. ihr in Sie sta kot vedno: **Nehmt!**, **Fahren Sie!**",
+          "it": "**du gibst** (dai) tiene la sua i: **Gib!** (Da'!). Così i verbi che cambiano e in i o ie: **Nimm!** (Prendi!), **Lies!** (Leggi!), **Iss!** (Mangia!), **Sprich!** (Parla!), **Hilf!** (Aiuta!). Ma la ä di **du fährst** torna a: **Fahr!** (Guida!), e così **Schlaf!** (Dormi!), **Lauf!** (Corri!), mai fähr. ihr e Sie come sempre: **Nehmt!**, **Fahren Sie!**"
+        },
+        "examples": [
+          {
+            "de": "Nimm noch ein Stück Reindling!",
+            "en": "Have another piece of Reindling!",
+            "sl": "Vzemi še en kos reindlinga!",
+            "it": "Prendi ancora un pezzo di Reindling!"
+          },
+          {
+            "de": "Fahr langsam, Stefan!",
+            "en": "Drive slowly, Stefan!",
+            "sl": "Vozi počasi, Stefan!",
+            "it": "Guida piano, Stefan!"
+          }
+        ],
+        "rows": [
+          [
+            "nehmen",
+            "nimm!",
+            "nehmt!",
+            "nehmen Sie!"
+          ],
+          [
+            "lesen",
+            "lies!",
+            "lest!",
+            "lesen Sie!"
+          ],
+          [
+            "fahren",
+            "fahr!",
+            "fahrt!",
+            "fahren Sie!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperativ",
+          "prompt": "Stefan, ___ nicht so schnell!",
+          "options": [
+            "fahr",
+            "fähr",
+            "fährst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**the ä goes back to a: fahr!**\n- du fährst → fahr!",
+            "sl": "**ä se vrne v a: fahr!**\n- du fährst → fahr!",
+            "it": "**la ä torna a: fahr!**\n- du fährst → fahr!"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**sein** (to be) has forms of its own: **Sei!** (Be!), **Seid!** (to several), **Seien Sie!** (polite). **Sei so gut!** (Be so kind!) **Seid leise!** (Be quiet!) A little word makes an order softer: **bitte** (please), **mal** (just), **doch** (why not): **Komm doch mit!** (Why don't you come along?) **Schau mal!** (Just look!: Austria says schau, Germany guck too.)",
+          "sl": "**sein** (biti) ima svoje oblike: **Sei!** (Bodi!), **Seid!** (več osebam), **Seien Sie!** (vljudno). **Sei so gut!** (Bodi tako prijazen!) **Seid leise!** (Bodite tiho!) Majhna beseda ukaz omehča: **bitte** (prosim), **mal** (no, malo), **doch** (kar): **Komm doch mit!** (Kar pridi zraven!) **Schau mal!** (Poglej no!: v Avstriji schau, v Nemčiji tudi guck.)",
+          "it": "**sein** (essere) ha forme sue: **Sei!** (Sii!), **Seid!** (a più persone), **Seien Sie!** (di cortesia). **Sei so gut!** (Sii così gentile!) **Seid leise!** (State zitti!) Una parolina rende l'ordine più morbido: **bitte** (per favore), **mal** (un po'), **doch** (dai): **Komm doch mit!** (Dai, vieni anche tu!) **Schau mal!** (Guarda un po'!: in Austria schau, in Germania anche guck.)"
+        },
+        "examples": [
+          {
+            "de": "Kinder, seid bitte leise: Opa Sepp erzählt!",
+            "en": "Children, please be quiet: Grandpa Sepp is telling a story!",
+            "sl": "Otroci, bodite tiho, prosim: dedek Sepp pripoveduje!",
+            "it": "Bambini, state zitti, per favore: nonno Sepp racconta!"
+          },
+          {
+            "de": "Komm doch mit, {learner}!",
+            "en": "Why don't you come along, {learner}!",
+            "sl": "Kar pridi zraven, {learner}!",
+            "it": "Dai, vieni anche tu, {learner}!"
+          }
+        ],
+        "rows": [
+          [
+            "sein",
+            "sei!",
+            "seid!",
+            "seien Sie!"
+          ],
+          [
+            "schauen",
+            "schau!",
+            "schaut!",
+            "schauen Sie!"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "imperativ",
+          "text": "Kinder, ___ bitte leise!",
+          "accept": [
+            "seid"
+          ],
+          "hint": "ihr → ?",
+          "explain": {
+            "en": "**to several (ihr): seid!**\n- sei! · seid! · seien Sie!",
+            "sl": "**več osebam (ihr): seid!**\n- sei! · seid! · seien Sie!",
+            "it": "**a più persone (ihr): seid!**\n- sei! · seid! · seien Sie!"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A separable verb splits in the imperative too, its prefix at the end: **Steh auf!** (Get up!), **Komm mit!** (Come along!), **Ruf an!** (Phone!), **Mach die Tür zu!** (Close the door!), **Sperr bitte auf!** (Please unlock!). **nicht** comes as in a sentence: **Komm nicht zu spät!** (Don't be late!)",
+          "sl": "Ločljivi glagol se razcepi tudi v velelniku, predpona na konec: **Steh auf!** (Vstani!), **Komm mit!** (Pridi zraven!), **Ruf an!** (Pokliči!), **Mach die Tür zu!** (Zapri vrata!), **Sperr bitte auf!** (Odkleni, prosim!). **nicht** stoji kot v stavku: **Komm nicht zu spät!** (Ne zamudi!)",
+          "it": "Anche all'imperativo il verbo separabile si divide, il prefisso alla fine: **Steh auf!** (Alzati!), **Komm mit!** (Vieni anche tu!), **Ruf an!** (Telefona!), **Mach die Tür zu!** (Chiudi la porta!), **Sperr bitte auf!** (Apri, per favore!). **nicht** sta come nella frase: **Komm nicht zu spät!** (Non arrivare tardi!)"
+        },
+        "examples": [
+          {
+            "de": "Maxi, steh auf! Es ist schon sieben.",
+            "en": "Maxi, get up! It's seven already.",
+            "sl": "Maxi, vstani! Ura je že sedem.",
+            "it": "Maxi, alzati! Sono già le sette."
+          },
+          {
+            "de": "Mach bitte die Tür zu, es ist kalt!",
+            "en": "Please close the door, it's cold!",
+            "sl": "Zapri vrata, prosim, mraz je!",
+            "it": "Chiudi la porta, per favore, fa freddo!"
+          }
+        ],
+        "rows": [
+          [
+            "aufstehen",
+            "steh auf!",
+            "steht auf!",
+            "stehen Sie auf!"
+          ],
+          [
+            "mitkommen",
+            "komm mit!",
+            "kommt mit!",
+            "kommen Sie mit!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "imperativ",
+          "prompt": "Jakob, ___ auf! Es ist sieben.",
+          "options": [
+            "steh",
+            "stehst",
+            "steht"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**to one person: steh … auf!**\n- du stehst auf → steh auf!",
+            "sl": "**eni osebi: steh … auf!**\n- du stehst auf → steh auf!",
+            "it": "**a una persona: steh … auf!**\n- du stehst auf → steh auf!"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "imperativ-1",
+      "title": {
+        "de": "Komm! Kommt! Kommen Sie!",
+        "en": "Come! To one, to several, polite",
+        "sl": "Pridi! Pridite!",
+        "it": "Vieni! Venite! Venga!"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "imperativ",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Imperativ · the imperative",
+            "sl": "Imperativ · velelnik",
+            "it": "Imperativ · l'imperativo"
+          },
+          "columns": [
+            {
+              "en": "du · to one",
+              "sl": "du · eni osebi",
+              "it": "du · a una persona"
+            },
+            {
+              "en": "ihr · to several",
+              "sl": "ihr · več osebam",
+              "it": "ihr · a più persone"
+            },
+            {
+              "en": "Sie · polite",
+              "sl": "Sie · vljudno",
+              "it": "Sie · di cortesia"
+            }
+          ],
+          "rows": [
+            {
+              "label": "kommen",
+              "cells": [
+                "komm!",
+                {
+                  "accept": [
+                    "kommt"
+                  ]
+                },
+                {
+                  "accept": [
+                    "kommen Sie"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "machen",
+              "cells": [
+                {
+                  "accept": [
+                    "mach",
+                    "mache"
+                  ]
+                },
+                "macht!",
+                {
+                  "accept": [
+                    "machen Sie"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "nehmen",
+              "cells": [
+                {
+                  "accept": [
+                    "nimm"
+                  ],
+                  "hint": "du nimmst → ?"
+                },
+                "nehmt!",
+                "nehmen Sie!"
+              ]
+            },
+            {
+              "label": "fahren",
+              "cells": [
+                {
+                  "accept": [
+                    "fahr",
+                    "fahre"
+                  ],
+                  "hint": {
+                    "en": "du fährst: the ä goes back",
+                    "sl": "du fährst: ä se vrne",
+                    "it": "du fährst: la ä torna a"
+                  }
+                },
+                "fahrt!",
+                {
+                  "accept": [
+                    "fahren Sie"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sein",
+              "cells": [
+                {
+                  "accept": [
+                    "sei"
+                  ]
+                },
+                {
+                  "accept": [
+                    "seid"
+                  ]
+                },
+                "seien Sie!"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**",
+            "sl": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**",
+            "it": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "imperativ",
+          "instruction": {
+            "en": "Ordne zu · To whom?",
+            "sl": "Ordne zu · Komu?",
+            "it": "Ordne zu · A chi?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "du · to one",
+                "sl": "du · eni osebi",
+                "it": "du · a una persona"
+              },
+              "words": [
+                "Geh!",
+                "Lies!"
+              ]
+            },
+            {
+              "label": {
+                "en": "ihr · to several",
+                "sl": "ihr · več osebam",
+                "it": "ihr · a più persone"
+              },
+              "words": [
+                "Kommt!",
+                "Wartet!"
+              ]
+            },
+            {
+              "label": {
+                "en": "Sie · polite",
+                "sl": "Sie · vljudno",
+                "it": "Sie · di cortesia"
+              },
+              "words": [
+                "Nehmen Sie!"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**",
+            "sl": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**",
+            "it": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperativ-2",
+      "title": {
+        "de": "In Oma Resis Küche",
+        "en": "In Grandma Resi's kitchen",
+        "sl": "V babičini kuhinji",
+        "it": "Nella cucina di nonna Resi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "imperativ",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "In Oma Resis Küche",
+          "text": "Oma Resi backt einen Reindling. „Lena, ___ (holen) bitte das Mehl! Jakob, ___ (nehmen) drei Eier! Kinder, ___ (sein) nicht so laut!“ Dann klopft es. „Grüß Gott, Herr Doktor! ___ (kommen) Sie bitte herein! ___ (trinken) Sie einen Kaffee! Und Jakob, ___ (machen) die Tür zu!“",
+          "gaps": [
+            {
+              "accept": [
+                "hol",
+                "hole"
+              ],
+              "hint": "du holst → ?"
+            },
+            {
+              "accept": [
+                "nimm"
+              ],
+              "hint": "du nimmst → ?"
+            },
+            {
+              "accept": [
+                "seid"
+              ],
+              "hint": "ihr → ?"
+            },
+            {
+              "accept": [
+                "Kommen"
+              ],
+              "hint": "Sie → ?"
+            },
+            {
+              "accept": [
+                "Trinken"
+              ],
+              "hint": "Sie → ?"
+            },
+            {
+              "accept": [
+                "mach",
+                "mache"
+              ],
+              "hint": "du machst → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "nehm",
+            "seit",
+            "holst"
+          ],
+          "translation": {
+            "en": "Grandma Resi is baking a Reindling. “Lena, please fetch the flour! Jakob, take three eggs! Children, don't be so loud!” Then someone knocks. “Hello, Doctor! Please come in! Have a coffee! And Jakob, close the door!”",
+            "sl": "Babica Resi peče reindling. »Lena, prinesi moko, prosim! Jakob, vzemi tri jajca! Otroci, ne bodite tako glasni!« Potem nekdo potrka. »Pozdravljeni, gospod doktor! Vstopite, prosim! Popijte kavo! Jakob, pa zapri vrata!«",
+            "it": "Nonna Resi fa un Reindling. «Lena, prendi la farina, per favore! Jakob, prendi tre uova! Bambini, non fate così chiasso!» Poi bussano. «Buongiorno, dottore! Entri, prego! Prenda un caffè! E Jakob, chiudi la porta!»"
+          },
+          "explain": {
+            "en": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**",
+            "sl": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**",
+            "it": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "imperativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Herr Doktor, ___ Sie langsam!",
+          "options": [
+            "fahren",
+            "fahr",
+            "fährst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Sie: fahren Sie!**",
+            "sl": "**Sie: fahren Sie!**",
+            "it": "**Sie: fahren Sie!**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "imperativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Florian, ___ das Buch!",
+          "options": [
+            "lies",
+            "les",
+            "liest"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**the ie stays: lies!**\n- du liest → lies!",
+            "sl": "**ie ostane: lies!**\n- du liest → lies!",
+            "it": "**la ie resta: lies!**\n- du liest → lies!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperativ-3",
+      "title": {
+        "de": "Bitte!",
+        "en": "Please!",
+        "sl": "Prosim!",
+        "it": "Per favore!"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "imperativ",
+          "instruction": {
+            "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+            "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+            "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Komm mit! (ihr)",
+              "accept": [
+                "Kommt mit!"
+              ],
+              "hint": "ihr kommt … mit"
+            },
+            {
+              "from": "Nimm einen Apfel! (Sie)",
+              "accept": [
+                "Nehmen Sie einen Apfel!"
+              ]
+            },
+            {
+              "from": "Lies das! (ihr)",
+              "accept": [
+                "Lest das!"
+              ]
+            },
+            {
+              "from": "Steh auf! (Sie)",
+              "accept": [
+                "Stehen Sie auf!"
+              ]
+            },
+            {
+              "from": "Sei leise! (ihr)",
+              "accept": [
+                "Seid leise!"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**",
+            "sl": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**",
+            "it": "**du: komm! · ihr: kommt! · Sie: kommen Sie!**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "imperativ",
+          "instruction": {
+            "en": "Sag es als Bitte · Make it a request",
+            "sl": "Sag es als Bitte · Povej kot prošnjo",
+            "it": "Sag es als Bitte · Fanne una richiesta"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Du kommst mit.",
+              "accept": [
+                "Komm mit!",
+                "Komme mit!"
+              ],
+              "hint": "du kommst → ?"
+            },
+            {
+              "from": "Ihr macht die Tür zu.",
+              "accept": [
+                "Macht die Tür zu!"
+              ]
+            },
+            {
+              "from": "Sie warten hier.",
+              "accept": [
+                "Warten Sie hier!"
+              ]
+            },
+            {
+              "from": "Du isst die Suppe.",
+              "accept": [
+                "Iss die Suppe!"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**du without du and -st, ihr without ihr, Sie after the verb**\n- Du kommst mit. → Komm mit!",
+            "sl": "**du brez du in -st, ihr brez ihr, Sie za glagolom**\n- Du kommst mit. → Komm mit!",
+            "it": "**du senza du e -st, ihr senza ihr, Sie dopo il verbo**\n- Du kommst mit. → Komm mit!"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "imperativ",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "prompt": {
+          "en": "Imperativ · the imperative",
+          "sl": "Imperativ · velelnik",
+          "it": "Imperativ · l'imperativo"
+        },
+        "columns": [
+          {
+            "en": "du · to one",
+            "sl": "du · eni osebi",
+            "it": "du · a una persona"
+          },
+          {
+            "en": "ihr · to several",
+            "sl": "ihr · več osebam",
+            "it": "ihr · a più persone"
+          },
+          {
+            "en": "Sie · polite",
+            "sl": "Sie · vljudno",
+            "it": "Sie · di cortesia"
+          }
+        ],
+        "rows": [
+          {
+            "label": "helfen",
+            "cells": [
+              {
+                "accept": [
+                  "hilf"
+                ]
+              },
+              {
+                "accept": [
+                  "helft"
+                ]
+              },
+              "helfen Sie!"
+            ]
+          },
+          {
+            "label": "schlafen",
+            "cells": [
+              {
+                "accept": [
+                  "schlaf",
+                  "schlafe"
+                ]
+              },
+              "schlaft!",
+              {
+                "accept": [
+                  "schlafen Sie"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "imperativ",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Kathi im Gasthaus: „Toni, ___ (bringen) bitte zwei Gläser! Stefan und Florian, ___ (essen) die Suppe, sie ist warm! Frau Huber, ___ (nehmen) Sie noch ein Stück Reindling!“",
+        "gaps": [
+          {
+            "accept": [
+              "bring",
+              "bringe"
+            ]
+          },
+          {
+            "accept": [
+              "esst"
+            ]
+          },
+          {
+            "accept": [
+              "nehmen"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Kathi at the inn: “Toni, please bring two glasses! Stefan and Florian, eat your soup, it's warm! Mrs Huber, have another piece of Reindling!”",
+          "sl": "Kathi v gostilni: »Toni, prinesi dva kozarca, prosim! Stefan in Florian, jejta juho, topla je! Gospa Huber, vzemite še en kos reindlinga!«",
+          "it": "Kathi all'osteria: «Toni, porta due bicchieri, per favore! Stefan e Florian, mangiate la zuppa, è calda! Signora Huber, prenda ancora un pezzo di Reindling!»"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "imperativ",
+        "instruction": {
+          "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+          "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+          "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ruf an! (Sie)",
+            "accept": [
+              "Rufen Sie an!"
+            ]
+          },
+          {
+            "from": "Sprich langsam! (ihr)",
+            "accept": [
+              "Sprecht langsam!"
+            ]
+          },
+          {
+            "from": "Warten Sie! (du)",
+            "accept": [
+              "Warte!"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "imperativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Maxi, ___ bitte das Fenster zu!",
+        "options": [
+          "mach",
+          "machst",
+          "macht"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**to one person: mach … zu!**",
+          "sl": "**eni osebi: mach … zu!**",
+          "it": "**a una persona: mach … zu!**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "imperativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "Which sentence is right?",
+          "sl": "Kateri stavek je pravilen?",
+          "it": "Quale frase è giusta?"
+        },
+        "options": [
+          "Ruf Tante Mitzi an!",
+          "Anruf Tante Mitzi!",
+          "Rufst Tante Mitzi an!"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**the verb first, the prefix at the end**\n- Ruf Tante Mitzi an!",
+          "sl": "**glagol spredaj, predpona na koncu**\n- Ruf Tante Mitzi an!",
+          "it": "**il verbo all'inizio, il prefisso alla fine**\n- Ruf Tante Mitzi an!"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Komme!, Mache! accepted, Schau mal! (Austrian; guck), Sperr bitte auf!, Dann klopft es, the Slovene duals"
+}
