@@ -304,7 +304,7 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        LANI_QA_UNIT_PRINT=1: its sheet in the print dialog at the end;
                        QA's hook "school:<unit>": its level open, the unit as never begun): its intro's questions, its
                        first worksheet and its test answered as the file says, passed, kept done by the dev bridge;
-                       "school-print" the unit biti's sheet printed ("🖨️ Natisni list"): fit.js in the app's
+                       "school-print" the unit biti's sheet printed ($LANI_QA_PRINT_UNIT another): fit.js in the app's
                        WebView choosing as headless Chromium does, the print dialog's preview, the PDF saved through it
                        (A4, its pages as chosen), the level's booklet ("🖨️ Vsi listi") to its dialog;
                        "school-reveal" a level shown a bit at a time (QA's hook "school:reveal": the school standing,
@@ -9382,36 +9382,52 @@ def save_pdf(job: str, name="school-print-biti.pdf"):
     return None
 
 
+PRINT_UNIT = os.environ.get("LANI_QA_PRINT_UNIT", "biti")  # the unit "school-print" prints (A1's first by default)
+
+
+def print_unit() -> tuple[str, str, str, int]:
+    """[PRINT_UNIT]'s level, its Slovene title, its print job's name ("Lani – A1 – 01 biti": its number among its level's
+    written units, as the bridge names it) and that number (companion/course/sl/course.json)."""
+    course = json.loads((ROOT / "companion/course/sl/course.json").read_text())
+    for lv in course["levels"]:
+        written = [u for u in lv["units"] if not u.get("planned")]
+        for i, u in enumerate(written, 1):
+            if u["id"] == PRINT_UNIT:
+                return lv["level"], u["title"]["sl"], f"Lani – {lv['level']} – {i:02d} {PRINT_UNIT}", i
+    raise AssertionError(f"{PRINT_UNIT}: no written unit of the outline")
+
+
 def school_print():
-    """"🖨️ Natisni list · Print sheet" (companion/COURSE.md, "Printed sheets", "In the app"; QA's hook "school"): on the
-    unit biti, the dev bridge's page (GET /course/sheet/biti) fitted by fit.js in the app's WebView off screen, its choice
-    (the log, tag LaniPrint) the same as headless Chromium's for the same page; Android's print dialog with the sheet's
-    preview (Save as PDF, A4), the PDF saved through it (school-print-biti.pdf): A4, its page count fit.js's, its first
-    page a shot; then "🖨️ Vsi listi · All sheets" on the level A1: the booklet fitted alike, its dialog. What fit.js chose
-    in each, side by side: school-print-fit.txt."""
-    if not (ROOT / "companion/course/sl/units/biti.json").exists():
-        return "no course here (companion/course/sl/units/biti.json)"
+    """"🖨️ Natisni list · Print sheet" (companion/COURSE.md, "Printed sheets", "In the app"): on the unit biti (QA's hook
+    "school"; $LANI_QA_PRINT_UNIT another, its level opened by the hook "school:<unit>"), the dev bridge's page (GET
+    /course/sheet/<unit>) fitted by fit.js in the app's WebView off screen, its choice (the log, tag LaniPrint) the same as
+    headless Chromium's for the same page; Android's print dialog with the sheet's preview (Save as PDF, A4), the PDF
+    saved through it (school-print-<unit>.pdf): A4, its page count fit.js's, its first page a shot; then "🖨️ Vsi listi ·
+    All sheets" on the unit's level: the booklet fitted alike, its dialog. What fit.js chose in each, side by side:
+    school-print-fit.txt."""
+    if not (ROOT / f"companion/course/sl/units/{PRINT_UNIT}.json").exists():
+        return f"no course here (companion/course/sl/units/{PRINT_UNIT}.json)"
+    level, title, job, _ = print_unit()
     wait_home(30)  # an app connected before still loading its village
     go_home()
     for _ in range(3):  # the hook again while the village isn't there yet (the school says it has no course then)
-        qa_hook("school")
-        if wait_for("Raven A1", 10):
+        qa_hook("school" if PRINT_UNIT == "biti" else f"school:{PRINT_UNIT}")
+        if wait_for(f"Raven {level}", 10):
             break
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
         time.sleep(3)
-    assert find("Raven A1"), "the school's levels"
-    assert tap("Biti: sem, si, je", 5), "the unit biti"
+    assert find(f"Raven {level}"), "the school's levels"
+    assert (scroll_to(title, 12) and tap(title, 5)), f"the unit {PRINT_UNIT}"
     assert wait_for("Delovni listi", 8), "the unit"
     adb("logcat", "-c")
     c = scroll_to("Natisni list", 8) or find("Natisni list")  # the last thing on the unit: below the band scroll_to keeps to
     assert c is not None, "🖨️ Natisni list · Print sheet on the unit"
     shot("school-print-button")
-    job = "Lani – A1 – 01 biti"
     tap_at(c)
     assert print_dialog(), "the print dialog"
     time.sleep(4 * slow())  # its preview drawn
     shot("school-print-preview")
-    app, chrome = webview_fit(job), chromium_fit("/course/sheet/biti?base=en", "school-print-biti")
+    app, chrome = webview_fit(job), chromium_fit(f"/course/sheet/{PRINT_UNIT}?base=en", f"school-print-{PRINT_UNIT}")
     lines = [f"{job}\n  WebView:  {json.dumps(app)}\n  Chromium: {json.dumps(chrome)}"]
     assert app is not None, "fit.js's choice in the log (LaniPrint)"
     assert chrome is None or same_fit(app, chrome), f"fit.js chose otherwise in the WebView ({app}) than in Chromium ({chrome})"
@@ -9430,17 +9446,17 @@ def school_print():
     assert wait_for("Delovni listi", 10) or in_front(), "back on the unit"
     # the level's booklet: every unit fitted alike, its dialog
     adb("shell", "input", "keyevent", "KEYCODE_BACK")
-    assert wait_for("Raven A1", 8), "the school's levels"
+    assert wait_for(f"Raven {level}", 8), "the school's levels"
     adb("logcat", "-c")
     c = scroll_to("Vsi listi", 12) or find("Vsi listi")
-    assert c is not None, "🖨️ Vsi listi · All sheets on A1"
+    assert c is not None, f"🖨️ Vsi listi · All sheets on {level}"
     shot("school-print-all")
     tap_at(c)
     assert print_dialog(60), "the booklet's print dialog"
     time.sleep(5 * slow())
     shot("school-print-booklet")
-    job = "Lani – A1 – vsi listi"
-    app, chrome = webview_fit(job), chromium_fit("/course/booklet/A1?base=en", "school-print-A1")
+    job = f"Lani – {level} – vsi listi"
+    app, chrome = webview_fit(job), chromium_fit(f"/course/booklet/{level}?base=en", f"school-print-{level}")
     lines.append(f"{job}\n  WebView:  {json.dumps(app)}\n  Chromium: {json.dumps(chrome)}")
     (OUT / "school-print-fit.txt").write_text("\n".join(lines) + "\n")
     adb("shell", "input", "keyevent", "KEYCODE_BACK")  # the dialog closed, nothing printed
