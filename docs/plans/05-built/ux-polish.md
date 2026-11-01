@@ -235,10 +235,12 @@ Friuli, a child, with and without a village), the debug build of the base (24371
   from a visit in another pair is cut the same way).
 - **A grown-up's export into a child's phone or profile** leaves it a child's on purpose; a parent changes it
   (`lani profile` has no "set child" yet: `profiles.json` by hand on a node, the onboarding's "for me" on a phone).
-- **The stories' content problems** below, for the writers and the native check; nothing was changed in the texts.
+- **The stories' content problems** below, for the writers and the native check; nothing was changed in the texts. Fixed
+  on `polish-content` ([polish-content.md](polish-content.md)).
 - **A request's line read aloud**: the four cultures' `quests.json` write the base half as a gloss without its subject
   ("Zia Nives ti chiede aiuto · bittet dich um Hilfe", Jan's "Babica Micka te prosi za pomoč · asks for your help"), so
-  the 🔊 says "bittet dich um Hilfe" alone. `{giver}` in each base half would make it a sentence (on screen too).
+  the 🔊 says "bittet dich um Hilfe" alone. `{giver}` in each base half would make it a sentence (on screen too). Done on
+  `polish-content` ([polish-content.md](polish-content.md)).
 - **The faces script** (faces-content's, taught that a story's line without `who` is the teller's) lived in the session's
   scratchpad and was lost with the machine's reboot. A tutor's new story gets its faces from the tutor (the publish
   tools' `FACES_SAID`); bring a script into the repo if the curated stories are directed again.

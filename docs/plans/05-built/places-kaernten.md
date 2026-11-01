@@ -200,7 +200,8 @@ the left, Carinthia on the right, a row a level), `<art>-L<level>-k<detail>.png`
   Allo stagno), so a tap on them in a Carinthian village is a tap on nothing; nor has the charcoal pile's burner a scene.
 - **The building's words**: `BuildingWords.PACKS` still has Kärnten's buildings ask for their generic packs (essen, im-dorf,
   haus-und-kueche …) when they are upgraded; Primorska's ask for their scenes' packs. Switching Kärnten's to its scenes'
-  packs is a small change of its own (and Friuli's the same).
+  packs is a small change of its own (and Friuli's the same). Done on `polish-content`
+  ([polish-content.md](polish-content.md)), the Lake District's too.
 - **The Fastentuch** (Gurk's, Millstatt's), the Lenten veil before the altar, would cover the altarpiece (a word of the
   scene) for six weeks: left out of the church's look until a thing of the church may come and go by the season
   (`SceneSights`).

@@ -98,5 +98,6 @@ and its header stays on the happening's person).
 
 - **Who is in the picture.** A speaker the happening doesn't bring into the scene (Nejc at the gate: the happening `zapah`
   has no `with`) speaks from off the picture: their portrait in the panel, nobody turning. A happening's `with` could bring
-  them.
+  them. Done on `polish-content` ([polish-content.md](polish-content.md)): Nejc's evening is a happening of its own, with
+  him on the bench.
 - **The clips** above (voice-build), and scene-replier's native check.

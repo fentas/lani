@@ -207,9 +207,12 @@ culture. Nothing else changed.
   `scene-speakers` ([scene-speakers.md](scene-speakers.md)): every line shows and sounds like its own speaker.
 - **Turns chosen, never typed.** About 47 of the form turns' wrong choices add, drop or move a word ("I can to hear",
   "Why they are …") or split a contraction ("It are" for "It's"): real mistakes, kept, but `Forms.turn` asks for typing
-  only a turn whose wrong choice swaps one word in its place, so these are always chosen.
+  only a turn whose wrong choice swaps one word in its place, so these are always chosen. Done on `polish-content`
+  ([polish-content.md](polish-content.md)): 34 more can be typed; 18 stay chosen, each for a reason given there.
 - **The wild animals.** The field's boar and the wolves at the watchtower and the gate are the game's wild animals in every
-  culture; the Lakes have neither today. A Lakeland look could draw a fox or a badger there, with its word.
+  culture; the Lakes have neither today. A Lakeland look could draw a fox or a badger there, with its word. Done on
+  `polish-content` ([polish-content.md](polish-content.md)): the field's badger, the foxes by the wood, the map without
+  boar or bear; the game's wolves event stays the same in every culture.
 - **The projects, the third wave.** The Lake District's thirteen projects have no place of their own yet, and the arts that
   draw them on this branch draw the default build: the maypole with its long ribbons (`mlaj`, the green; red, white and blue
   there), the packhorse bridge of slate with one arch (`most`, the beck: the stream's cart bridge is the default timber one),

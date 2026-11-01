@@ -37,7 +37,7 @@
       "id": "watch", "title": { "en": "Jack on watch", "sl": "Jack na straži", "it": "Jack di guardia", "de": "Jack hält Wache" }, "who": "jack",
       "when": ["evening", "night"], "chance": 0.55,
       "dialog": "watch", "dialogs": ["watch-wind", "watch-fog", "watch"], "reward": { "wood": 20 }, "marker": "🔥",
-      "memory": { "en": "the night we blew the horn at the wolves", "sl": "noč, ko sva z rogom pregnala volkove", "it": "la notte in cui abbiamo suonato il corno contro i lupi", "de": "die Nacht, in der wir die Wölfe mit dem Horn verjagt haben" }
+      "memory": { "en": "the night we blew the horn at the foxes", "sl": "noč, ko sva z rogom pregnala lisice", "it": "la notte in cui abbiamo suonato il corno contro le volpi", "de": "die Nacht, in der wir die Füchse mit dem Horn verjagt haben" }
     },
     {
       "id": "packman", "title": { "en": "The packman is coming", "sl": "Krošnjar prihaja", "it": "Arriva il venditore ambulante", "de": "Der Hausierer kommt" }, "who": "harry",
@@ -83,10 +83,10 @@
         { "who": "jack", "face": "worried", "en": "Shh. Look down there, at the edge of the wood. Can you see the eyes?", "sl": "Pst. Poglej dol, na rob gozda. Vidiš oči?", "it": "Sst. Guarda laggiù, al margine del bosco. Vedi gli occhi?", "de": "Pst. Schau da runter, an den Waldrand. Siehst du die Augen?", "fx": { "wolves": 0.6 } },
         { "choices": [
           { "en": "Yes! There are eyes in the dark!", "sl": "Ja! V temi so oči!", "it": "Sì! Ci sono degli occhi nel buio!", "de": "Ja! Da sind Augen im Dunkeln!", "ok": true,
-            "reply": { "face": "worried", "en": "Wolves. Three of them, waiting for a lamb, I reckon.", "sl": "Volkovi. Trije so, čakajo na jagnje, se mi zdi.", "it": "Lupi. Sono tre, aspettano un agnello, secondo me.", "de": "Wölfe. Drei Stück, die warten auf ein Lamm, schätze ich." } },
+            "reply": { "face": "worried", "en": "Foxes. Three of them, waiting for a lamb, I reckon.", "sl": "Lisice. Tri so, čakajo na jagnje, se mi zdi.", "it": "Volpi. Sono tre, aspettano un agnello, secondo me.", "de": "Füchse. Drei Stück, die warten auf ein Lamm, schätze ich." } },
           { "en": "Yes! There is eyes in the dark!", "sl": "Ja! V temi so oči!", "it": "Sì! Ci sono degli occhi nel buio!", "de": "Ja! Da sind Augen im Dunkeln!", "grammar": "there-is-are",
             "why": { "en": "Eyes are more than one: there are eyes.", "sl": "Oči je več kot eno: there are eyes.", "it": "Gli occhi sono più di uno: there are eyes.", "de": "Augen sind mehr als eins: there are eyes." },
-            "reply": { "face": "surprised", "en": "There is one eye? A one-eyed wolf? That's even worse!", "sl": "Eno oko? Enooki volk? To je še huje!", "it": "Un occhio solo? Un lupo con un occhio? È anche peggio!", "de": "Ein Auge? Ein einäugiger Wolf? Das ist ja noch schlimmer!" } }
+            "reply": { "face": "surprised", "en": "There is one eye? A one-eyed fox? That's even worse!", "sl": "Eno oko? Enooka lisica? To je še huje!", "it": "Un occhio solo? Una volpe con un occhio? È anche peggio!", "de": "Ein Auge? Ein einäugiger Fuchs? Das ist ja noch schlimmer!" } }
         ], "puzzled": { "face": "confused", "en": "Eh? Say that again, mate?", "sl": "Kaj? Še enkrat, {m:stari|f:stara}?", "it": "Eh? Ripeti, {m:amico|f:amica}?", "de": "Hm? Sag das noch mal, Kumpel?" } },
         { "who": "jack", "en": "Right. Blow the horn, mate. Long and loud! Then they know we're here.", "sl": "Tako. Zatrobi na rog, {m:stari|f:stara}. Dolgo in glasno! Da bodo vedeli, da sva tukaj.", "it": "Bene. Suona il corno, {m:amico|f:amica}. Lungo e forte! Così sanno che siamo qui.", "de": "So. Blas ins Horn, Kumpel. Lang und laut! Dann wissen sie, dass wir hier sind." },
         { "choices": [
@@ -249,8 +249,8 @@
           { "en": "Light it again, quick!", "sl": "Hitro jo spet prižgi!", "it": "Riaccendila, presto!", "de": "Zünd sie wieder an, schnell!", "ok": true,
             "reply": { "face": "happy", "en": "Right you are. Out of the wind… there we go!", "sl": "Prav imaš. Stran od vetra … pa je!", "it": "Hai ragione. Al riparo dal vento… ecco fatto!", "de": "Recht hast du. Weg vom Wind … da haben wir's!", "fx": { "torch": 1 } } },
           { "en": "Let's light it again tomorrow.", "sl": "Prižgiva jo spet jutri.", "it": "Riaccendiamola domani.", "de": "Zünden wir sie morgen wieder an.",
-            "why": { "en": "We need the light now, while the wolves are out, not tomorrow.", "sl": "Luč potrebujeva zdaj, ko so volkovi zunaj, ne jutri.", "it": "La luce ci serve adesso, mentre i lupi sono fuori, non domani.", "de": "Wir brauchen das Licht jetzt, solange die Wölfe draußen sind, nicht morgen." },
-            "reply": { "face": "laugh", "en": "Tomorrow? The wolves won't wait that long, mate!", "sl": "Jutri? Volkovi ne bodo čakali tako dolgo!", "it": "Domani? I lupi non aspettano così tanto!", "de": "Morgen? So lange warten die Wölfe nicht, Kumpel!" } }
+            "why": { "en": "We need the light now, while the foxes are out, not tomorrow.", "sl": "Luč potrebujeva zdaj, ko so lisice zunaj, ne jutri.", "it": "La luce ci serve adesso, mentre le volpi sono fuori, non domani.", "de": "Wir brauchen das Licht jetzt, solange die Füchse draußen sind, nicht morgen." },
+            "reply": { "face": "laugh", "en": "Tomorrow? The foxes won't wait that long, mate!", "sl": "Jutri? Lisice ne bodo čakale tako dolgo!", "it": "Domani? Le volpi non aspettano così tanto!", "de": "Morgen? So lange warten die Füchse nicht, Kumpel!" } }
         ] },
         { "who": "jack", "face": "laugh", "en": "That's better. Last winter the wind blew my hat into the river!", "sl": "Tako je bolje. Lansko zimo mi je veter odnesel klobuk v reko!", "it": "Così va meglio. L'inverno scorso il vento mi ha portato il cappello nel fiume!", "de": "So ist's besser. Letzten Winter hat der Wind meinen Hut in den Fluss geweht!" },
         { "choices": [

@@ -143,7 +143,8 @@ for the child's German):
 
 - A2's units 7–18 are course-it-a2b's and course-it-a2c's; the outline's entries of each part flip on their own branch.
 - The print's rule line takes a step's first sentence; a unit writer who puts the point later loses it on the sheet. A
-  check in the smoke (the point's forms present in the printed line) would catch it; not added.
+  check in the smoke (the point's forms present in the printed line) would catch it; not added. Added on `polish-content`
+  ([polish-content.md](polish-content.md)), with the 11 steps it found rewritten.
 - superlativi prints on two pages (its table of 13 rows); the others on one.
 - The read-aloud's fallback (when the explanation's one clip can't be had) reads the endings -ando, -endo, -issimo and
   the letter h with the phone's German voice; every bold Italian form is Elena's.

@@ -7,10 +7,10 @@
   "level": "A1",
   "review": "en, sl, it, de: machine-written (Claude), not reviewed by a native speaker",
   "description": {
-    "en": "Mr Tyson's field below the fells: the stone barn and the hay in it, the maize, the potatoes and the cabbages, the scythe and the rake, the cart and Bonny the fell pony, the scarecrow and the crows, and the wild ones at dawn and dusk: the deer, the hare, the fox and the bats.",
-    "sl": "Polje gospoda Tysona pod hribi: kamniti skedenj in seno v njem, koruza, krompir in zelje, kosa in grablje, voz in poni Bonny, strašilo in vrane, ob zori in mraku pa divje živali: srna, zajec, lisica in netopirji.",
-    "it": "Il campo del signor Tyson sotto i monti: il fienile di pietra e il fieno dentro, il mais, le patate e i cavoli, la falce e il rastrello, il carro e Bonny, il pony fell, lo spaventapasseri e le cornacchie, e all'alba e al tramonto gli animali selvatici: il capriolo, la lepre, la volpe e i pipistrelli.",
-    "de": "Mr Tysons Feld unter den Bergen: die Steinscheune und das Heu darin, der Mais, die Kartoffeln und der Kohl, die Sense und der Rechen, der Wagen und Bonny, das Fell-Pony, die Vogelscheuche und die Krähen, und morgens und abends die wilden Tiere: das Reh, der Hase, der Fuchs und die Fledermäuse."
+    "en": "Mr Tyson's field below the fells: the stone barn and the hay in it, the maize, the potatoes and the cabbages, the scythe and the rake, the cart and Bonny the fell pony, the scarecrow and the crows, and the wild ones at dawn and dusk: the deer, the hare, the fox, the badger and the bats.",
+    "sl": "Polje gospoda Tysona pod hribi: kamniti skedenj in seno v njem, koruza, krompir in zelje, kosa in grablje, voz in poni Bonny, strašilo in vrane, ob zori in mraku pa divje živali: srna, zajec, lisica, jazbec in netopirji.",
+    "it": "Il campo del signor Tyson sotto i monti: il fienile di pietra e il fieno dentro, il mais, le patate e i cavoli, la falce e il rastrello, il carro e Bonny, il pony fell, lo spaventapasseri e le cornacchie, e all'alba e al tramonto gli animali selvatici: il capriolo, la lepre, la volpe, il tasso e i pipistrelli.",
+    "de": "Mr Tysons Feld unter den Bergen: die Steinscheune und das Heu darin, der Mais, die Kartoffeln und der Kohl, die Sense und der Rechen, der Wagen und Bonny, das Fell-Pony, die Vogelscheuche und die Krähen, und morgens und abends die wilden Tiere: das Reh, der Hase, der Fuchs, der Dachs und die Fledermäuse."
   },
   "giver": { "name": "Mr Tyson", "emoji": "🧑‍🌾" },
   "words": [
@@ -92,6 +92,12 @@
       "note_sl": "Za x ima množina -es: fox, foxes; box, boxes.",
       "note_it": "Dopo la x il plurale prende -es: fox, foxes; box, boxes.",
       "note_de": "Nach x bekommt der Plural -es: fox, foxes; box, boxes." },
+    { "id": "badger", "en": "badger", "sl": "jazbec", "it": "tasso", "de": "Dachs", "emoji": "🦡", "plural": "badgers",
+      "example_en": "At night the badger digs for worms.", "example_sl": "Ponoči jazbec koplje in išče deževnike.", "example_it": "Di notte il tasso scava in cerca di lombrichi.", "example_de": "Nachts gräbt der Dachs nach Regenwürmern.",
+      "note": "The Lakes have no wild boar: the badger digs in the field at night, its face striped black and white.",
+      "note_sl": "V Jezerskem okrožju ni divjih prašičev: ponoči na polju koplje jazbec s črno-belo progastim obrazom.",
+      "note_it": "Nel Lake District non ci sono cinghiali: di notte nel campo scava il tasso, con il muso a strisce bianche e nere.",
+      "note_de": "Im Lake District gibt es keine Wildschweine: Nachts gräbt der Dachs auf dem Feld, sein Gesicht schwarz-weiß gestreift." },
     { "id": "bat", "en": "bat", "sl": "netopir", "it": "pipistrello", "de": "Fledermaus", "emoji": "🦇", "plural": "bats",
       "example_en": "Bats fly over the barn at night.", "example_sl": "Ponoči nad skednjem letajo netopirji.", "example_it": "Di notte i pipistrelli volano sopra il fienile.", "example_de": "Nachts fliegen Fledermäuse über der Scheune.",
       "note": "A bat is also the wooden bat you hit the ball with in cricket.",

@@ -169,7 +169,8 @@ Primorska's journeys are as they were (no new thing there).
 ## What is left
 
 - **The pedlar sprite** (`People.kt`'s `pedlar`, the krošnjar of the day's surprise at the road) still carries the
-  krošnja in every culture; a Friuli cramâr would need the people sprites to know the culture.
+  krošnja in every culture; a Friuli cramâr would need the people sprites to know the culture. Done on `polish-content`
+  ([polish-content.md](polish-content.md)): the cramâr, the Kraxenträger and the packman, wherever the pedlar is drawn.
 - **The mill's roof step** in Friuli's projects says scandole too («I ragazzi hanno coperto il tetto con le scandole»);
   the stream's mill is drawn with shingles in every culture, so it agrees with its picture today.
 - **A tutor's scene** that names the osteria, the fontanella or the altar candle in a culture other than Friuli gets a
