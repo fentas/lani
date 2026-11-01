@@ -44,7 +44,21 @@ enum class StagePlace(val art: String?, val top: Long, val bottom: Long, private
             }
             // under the linden on the square until the school stands
             is Run.Lesson -> if (run.indoors) home(who.art) else SQUARE
+            // a role-play where it says (the market on the square, lunch in the kitchen), else where its character lives
+            is Run.Talk -> run.scenario.place?.let(::named) ?: home(who.art)
             else -> home(who.art)
+        }
+
+        /** A role-play's `place` ("square", "kitchen", "school" …: lani.scenario/v0), or null for a name the app doesn't know. */
+        fun named(place: String): StagePlace? = when (place) {
+            "fire" -> FIRE
+            "kitchen" -> KITCHEN
+            "forest" -> FOREST
+            "square" -> SQUARE
+            "field" -> FIELD
+            "smithy" -> SMITHY
+            "school" -> SCHOOL
+            else -> null
         }
 
         /** Where someone with sprite [art] is usually found. */

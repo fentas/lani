@@ -59,6 +59,8 @@ data class Scenario(
     val audience: String? = null,
     /** The word packs whose words it uses (the village's). */
     val packs: List<String> = emptyList(),
+    /** Where the stage stands behind the character ("square", "kitchen", "school": [si.lanisce.lani.ui.stage.StagePlace.named]); null: their home. */
+    val place: String? = null,
 ) {
     /** The character's name: the role up to its first comma. */
     val character: String get() = role.substringBefore(',').trim().take(40)

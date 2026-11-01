@@ -180,6 +180,15 @@ class CastTest {
         assertEquals(Clips.MALE, Cast.standIn("Andrea", null).voice) // an Italian man's name in -a
     }
 
+    @Test fun `a role-play stands where it says, else at its character's home`() {
+        val gianna = Cast.talker(scenario("al-mercato", "Signora Gianna, the fruit seller"), cast, null)
+        assertEquals(StagePlace.SQUARE, StagePlace.of(Run.Talk(scenario("al-mercato", "Signora Gianna, the fruit seller").copy(place = "square")), gianna))
+        assertEquals(StagePlace.SCHOOL, StagePlace.of(Run.Talk(scenario("la-ricreazione", "Giulia, a classmate").copy(place = "school")), gianna))
+        assertEquals(StagePlace.FIRE, StagePlace.of(Run.Talk(scenario("dal-pediatra", "Dottor Bassi, a doctor")), gianna)) // a stand-in's home
+        assertEquals(StagePlace.FIRE, StagePlace.of(Run.Talk(scenario("x", "Signora X, someone").copy(place = "moon")), gianna)) // a newer tutor's place
+        assertNull(StagePlace.named("moon"))
+    }
+
     @Test fun `training points left today follow the daily cap`() {
         assertEquals(0, Cast.trainingLeft(null, null, day))
         assertEquals(Bonds.TRAINING, Cast.trainingLeft(GameState(), "luka", day))

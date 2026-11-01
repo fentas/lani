@@ -16,6 +16,9 @@ const text = z.string().trim().min(1)
 export const SCENARIO_LANGUAGES = ['sl', 'it', 'de', 'en'] as const
 export type ScenarioLanguage = (typeof SCENARIO_LANGUAGES)[number]
 
+/** The stage's places a role-play may stand in (the app's StagePlace): else its character's home. */
+export const SCENARIO_PLACES = ['fire', 'kitchen', 'forest', 'square', 'field', 'smithy', 'school'] as const
+
 /**
  * A text the learner reads in their own language (the setting, the opener's and the hints' meanings): one string
  * (English, as the Slovene scenarios have it), or a text per base, {"de": …, "sl": …, "en": …} (English always: the
@@ -47,6 +50,8 @@ export const scenarioSpec = z
     role: text.max(300), // who the tutor plays, in English for the tutor: the character's name, then a comma
     /** Who the character is, as the learner reads it: {"it": "La fruttivendola", "de": "Die Obstverkäuferin", "en": …}. */
     who: langText(60).refine(t => typeof t.en === 'string', 'who needs its English ("en")').optional(),
+    /** Where the app's stage stands behind the character (its backdrop): the market and a shop on the square, lunch in the kitchen. */
+    place: z.enum(SCENARIO_PLACES).optional(),
     voice: z.enum(['female', 'male']).optional(), // the character's gender: how their lines sound in the app (default female)
     speaker: z.string().regex(SPEAKER_ID).optional(), // a character voice from the cast (companion/voice-cast.json); voice stays the gender and the fallback
     goals: z.array(shown(80)).min(3).max(5),
