@@ -8451,7 +8451,9 @@ def friuli_school(part: str = "scene"):
                 time.sleep(1)
                 snap(f"fs-school-{u['level'].lower()}")
             qa_hook(f"school:{unit}")  # the unit as never begun, its level open, the units before it in its level done
-            assert wait_for(half("school.level", level="A1"), 15), "the school's levels"
+            # the school keeps where it was scrolled to: a B1 level lies below the fold, A1's header above it
+            time.sleep(2)
+            assert wait_for(half("school.level", level=u["level"]), 15) or wait_for(half("school.level", level="A1"), 3), "the school's levels"
             if u["level"] != "A1":
                 assert scroll_to(half("school.level", level=u["level"]), 12) is not None, f"the level {u['level']}"
             title = unit_text(u["title"]["it"])
@@ -8525,7 +8527,7 @@ def friuli_school(part: str = "scene"):
             end, done = time.time() + 20 * slow(), None
             while time.time() < end:  # the app pushes the village to the node
                 try:
-                    done = (((api("/game").get("state") or {}).get("course") or {}).get("units") or {}).get("it/ciao")
+                    done = (((api("/game").get("state") or {}).get("course") or {}).get("units") or {}).get(f"it/{unit}")
                 except (OSError, RuntimeError, ValueError):
                     done = None
                 if done and done.get("done"):
