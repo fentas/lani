@@ -142,6 +142,50 @@ class GradingLanguagesTest {
         assertGraded(Verdict.CORRECT, Hint.NONE, it("Venite qui", "Venite qui!"))
     }
 
+    // --- Italian B1: the combined pronouns and the gerund -------------------------------------------------------------
+
+    @Test fun `the combined pronouns - me lo and glielo, their e and their gender kept`() {
+        // mi, ti, ci, vi turn into me, te, ce, ve before lo, la, li, le, ne: the i kept is the mistake, never a slip
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("mi lo dai", "Me lo dai?"))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("ti la porto", "Te la porto."))
+        assertGraded(Verdict.WRONG, Hint.ENDING, it("gliela do", "Glielo do."))
+        // gli + lo is one word with an e between: glilo and gli lo are wrong
+        assertEquals(Verdict.WRONG, it("glilo do", "Glielo do.").verdict)
+        assertEquals(Verdict.WRONG, it("gli lo do", "Glielo do.").verdict)
+        assertEquals(Verdict.WRONG, it("portaglilo", "Portaglielo!").verdict)
+        // on the end of a verb the same: dammilo, portamilo, darmilo are the mistake
+        for ((answer, right) in listOf("dammilo" to "Dammelo!", "dimmila" to "Dimmela!", "portamilo" to "Portamelo!", "Puoi darmilo?" to "Puoi darmelo?", "prestatilo" to "Prestatelo!")) {
+            assertEquals("«$answer» for «$right»", Verdict.WRONG, it(answer, right).verdict)
+        }
+        assertGraded(Verdict.CORRECT, Hint.NONE, it("glielo porto", "Glielo porto."))
+        // a slip in another letter stays forgiven, and duemila, facile are no pronouns
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("portagielo", "Portaglielo!"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("duemla", "duemila"))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("fucile", "facile"))
+    }
+
+    @Test fun `glielo or gliela not elided before avere is almost only where the participle agrees`() {
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("glielo ho dato", "Gliel'ho dato."))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("gliela ho data", "Gliel'ho data."))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("glielo ho già detto", "Gliel'ho già detto."))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("gliel ho dato", "Gliel'ho dato."))
+        assertEquals(Verdict.WRONG, it("glielo ho data", "Gliel'ho data.").verdict)
+        assertEquals(Verdict.WRONG, it("gliela ho dato", "Gliel'ho dato.").verdict)
+        // me lo, te la: lo and la as before
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("me lo ha detto", "Me l'ha detto."))
+        assertGraded(Verdict.ALMOST, Hint.APOSTROPHE, it("te la ho portata", "Te l'ho portata."))
+    }
+
+    @Test fun `a gerund with the other verbs' ending is wrong, never a slip`() {
+        for ((answer, right) in listOf(
+            "leggando" to "leggendo", "dormando" to "dormendo", "bevando" to "bevendo", "parlendo" to "parlando",
+            "camminendo" to "camminando", "guardendolo" to "guardandolo", "farendo" to "facendo", "direndo" to "dicendo",
+            "berendo" to "bevendo",
+        )) assertEquals("«$answer» for «$right»", Verdict.WRONG, it(answer, right).verdict)
+        assertGraded(Verdict.ALMOST, Hint.TYPO, it("legendo", "leggendo"))
+        assertGraded(Verdict.CORRECT, Hint.NONE, it("camminando", "Camminando"))
+    }
+
     // --- Slovene ----------------------------------------------------------------------------------------------------
 
     private fun sl(answer: String, vararg accept: String) = Grading.check(answer, accept.toList(), Lang.SL)
