@@ -9324,10 +9324,26 @@ def kaernten_projects_a():
         t = title(sid)
         return next((c for x, c in nodes() if half("placeCard.go") in x and t in x), None) or find(t)
 
+    def home():
+        """Back to the village by the app's link (QA's plain_village reads Jan's sl · en labels, not de · sl), its scroll there."""
+        adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+        end = time.time() + 30 * slow()
+        while time.time() < end and find(lab("villageScreen.scroll")) is None:
+            c = find(lab("common.skip")) or find(lab("common.continue")) or find(lab("common.close"))
+            if c is not None:
+                tap_at(c)
+            else:
+                adb("shell", "input", "keyevent", "KEYCODE_BACK")
+                time.sleep(1)
+                adb("shell", "am", "start", "-n", f"{PKG}/.MainActivity", "--es", OPEN, "village")
+            time.sleep(1.5)
+        assert find(lab("villageScreen.scroll")) is not None, "back in the village"
+        time.sleep(1.5)
+
     def landmark(pid: str, sid: str, tag: str, hour: str, later: str | None = None):
         """Project [pid] finished, its landmark on the map, its card's way in to [sid]; inside at [hour] (and [later])."""
         qa_hook(f"step:{pid}/{len(projects[pid]['steps']) + 1}")
-        plain_village()
+        home()
         qa_hook(f"show:project:{pid}")
         time.sleep(3)
         snap(f"kp-{tag}-map")
@@ -9372,7 +9388,7 @@ def kaernten_projects_a():
         landmark("vinograd", "im-obstgarten", "obstgarten", "15")
         qa_hook("season:")
         # the wood, a spot of the landscape: its card's way in to Im Wald
-        plain_village()
+        home()
         wood = lab("townLogic.forest")
         c = next((c for t, c in nodes() if t.startswith(wood)), None)
         if c is None:
