@@ -1,0 +1,882 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "sein",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🟰",
+  "title": {
+    "de": "Sein: ich bin, du bist",
+    "en": "To be: ich bin, du bist",
+    "sl": "Biti: ich bin, du bist",
+    "it": "Essere: ich bin, du bist"
+  },
+  "goal": {
+    "en": "You can say who and where people are and what they do (ich bin, du bist, er ist, wir sind, ihr seid, sie sind), Sie sind to a stranger, and who isn't there: nicht.",
+    "sl": "Poveš, kdo je kdo, kje je in kaj dela (ich bin, du bist, er ist, wir sind, ihr seid, sie sind), Sie sind neznancu in koga ni: nicht.",
+    "it": "Sai dire chi è chi, dov'è e che cosa fa (ich bin, du bist, er ist, wir sind, ihr seid, sie sind), Sie sind a uno sconosciuto e chi non c'è: nicht."
+  },
+  "grammar": [
+    "sein-haben",
+    "du-sie"
+  ],
+  "words": [
+    "sein",
+    "ich",
+    "du",
+    "er",
+    "sie",
+    "es",
+    "wir",
+    "ihr",
+    "Sie",
+    "und",
+    "nicht",
+    "nein",
+    "hier",
+    "da",
+    "zu Hause",
+    "müde",
+    "froh",
+    "die Wirtin",
+    "der Schmied",
+    "der Imker",
+    "die Lehrerin",
+    "der Kirchtag",
+    "das Gasthaus",
+    "die Alm",
+    "die Schmiede",
+    "Villach",
+    "Kärnten"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "wer",
+          "en": "who",
+          "sl": "kdo",
+          "it": "chi"
+        },
+        {
+          "de": "sein",
+          "en": "sein (to be)",
+          "sl": "sein (biti)",
+          "it": "sein (essere)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Sein** (to be) changes with the person, as in English: **ich bin** (I am), **du bist** (you are), **er ist** (he is), **sie ist** (she is), **es ist** (it is). Start with one person.",
+          "sl": "**Sein** (biti) se spreminja po osebi, kot slovensko sem, si, je: **ich bin** (jaz sem), **du bist** (ti si), **er ist** (on je), **sie ist** (ona je), **es ist** (ono je). Začniva z eno osebo.",
+          "it": "**Sein** (essere) cambia con la persona, come sono, sei, è: **ich bin** (io sono), **du bist** (tu sei), **er ist** (lui è), **sie ist** (lei è), **es ist** (esso è). Cominciamo da una persona."
+        },
+        "examples": [
+          {
+            "de": "Ich bin Eva.",
+            "en": "I'm Eva.",
+            "sl": "Jaz sem Eva.",
+            "it": "Io sono Eva."
+          },
+          {
+            "de": "Du bist {learner}.",
+            "en": "You're {learner}.",
+            "sl": "Ti si {learner}.",
+            "it": "Tu sei {learner}."
+          },
+          {
+            "de": "Kathi ist im Gasthaus.",
+            "en": "Kathi is at the Gasthaus.",
+            "sl": "Kathi je v gostilni.",
+            "it": "Kathi è all'osteria."
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "bin"
+          ],
+          [
+            "du",
+            "bist"
+          ],
+          [
+            "er · sie · es",
+            "ist"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "prompt": "Toni ___ in der Schmiede.",
+          "options": [
+            "bin",
+            "bist",
+            "ist"
+          ],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "en": "**Toni is er (he): ist**\n- ich bin · du bist · er ist",
+            "sl": "**Toni je er (on): ist**\n- ich bin · du bist · er ist",
+            "it": "**Toni è er (lui): ist**\n- ich bin · du bist · er ist"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Two or more: **wir sind** (we are), **ihr seid** (you are, several people you say du to), **sie sind** (they are). Two people joined by **und** (and) are sie: **Stefan und Florian sind auf der Alm.** (Stefan and Florian are up on the mountain pasture.) Watch the spelling: **ihr seid** with a d; **seit** with a t means since.",
+          "sl": "Dva ali več: **wir sind** (mi smo), **ihr seid** (vi ste, več oseb, ki jih tikaš), **sie sind** (oni so). Dve osebi, povezani z **und** (in), sta sie: **Stefan und Florian sind auf der Alm.** (Stefan in Florian sta na planini.) Pazi na pisavo: **ihr seid** z d; **seit** s t pomeni od, odkar. Nemščina nima dvojine.",
+          "it": "Due o più: **wir sind** (noi siamo), **ihr seid** (voi siete), **sie sind** (loro sono). Due persone unite da **und** (e) sono sie: **Stefan und Florian sind auf der Alm.** (Stefan e Florian sono all'alpeggio.) Attenzione: **ihr seid** con la d; **seit** con la t vuol dire da (tempo)."
+        },
+        "examples": [
+          {
+            "de": "Wir sind in Kärnten.",
+            "en": "We're in Carinthia.",
+            "sl": "Smo na Koroškem.",
+            "it": "Siamo in Carinzia."
+          },
+          {
+            "de": "Florian und Stefan, ihr seid da!",
+            "en": "Florian and Stefan, you're here!",
+            "sl": "Florian in Stefan, tu sta!",
+            "it": "Florian e Stefan, siete qui!"
+          },
+          {
+            "de": "Die Schafe sind auf der Alm.",
+            "en": "The sheep are on the mountain pasture.",
+            "sl": "Ovce so na planini.",
+            "it": "Le pecore sono all'alpeggio."
+          }
+        ],
+        "rows": [
+          [
+            "wir",
+            "sind"
+          ],
+          [
+            "ihr",
+            "seid"
+          ],
+          [
+            "sie",
+            "sind"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "sein-haben",
+          "text": "Stanko und Kathi ___ im Gasthaus.",
+          "accept": [
+            "sind"
+          ],
+          "hint": "sie → ?",
+          "explain": {
+            "en": "**Stanko und Kathi are sie (they): sind**\n- wir sind · ihr seid · sie sind",
+            "sl": "**Stanko und Kathi sta sie (oni): sind**\n- wir sind · ihr seid · sie sind",
+            "it": "**Stanko und Kathi sono sie (loro): sind**\n- wir sind · ihr seid · sie sind"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The polite **Sie** (you) takes the form of they: **Sie sind** (you are). Only the capital S tells them apart: **Sie sind** is you, polite; **sie sind** is they. And the same **Sie sind** goes to one stranger or to several.",
+          "sl": "Vljudni **Sie** (vi) ima obliko od oni: **Sie sind** (vi ste). Loči ju samo velika S: **Sie sind** je vi, vljudno; **sie sind** je oni. In isti **Sie sind** rečeš enemu neznancu ali več njim.",
+          "it": "Il **Sie** di cortesia (Lei) prende la forma di loro: **Sie sind** (Lei è). Solo la S maiuscola li distingue: **Sie sind** è Lei, di cortesia; **sie sind** è loro. E lo stesso **Sie sind** vale per uno sconosciuto o per più."
+        },
+        "examples": [
+          {
+            "de": "Frau Huber, Sie sind aus Graz.",
+            "en": "Mrs Huber, you're from Graz.",
+            "sl": "Gospa Huber, vi ste iz Gradca.",
+            "it": "Signora Huber, Lei è di Graz."
+          },
+          {
+            "de": "Toni und Franz? Sie sind in Villach.",
+            "en": "Toni and Franz? They're in Villach.",
+            "sl": "Toni in Franz? V Beljaku sta.",
+            "it": "Toni e Franz? Sono a Villach."
+          }
+        ],
+        "rows": [
+          [
+            "Sie",
+            "sind"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "prompt": "Herr Doktor, Sie ___ aus Klagenfurt.",
+          "options": [
+            "sind",
+            "ist",
+            "seid"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Sie (polite you): sind, as they**\n- Sie sind · You are",
+            "sl": "**Sie (vljudno): sind, kot oni**\n- Sie sind · Vi ste",
+            "it": "**Sie (Lei): sind, come loro**\n- Sie sind · Lei è"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "What someone is: **Kathi ist Wirtin.** (Kathi is an innkeeper.) For a job German needs no a. A word like **müde** (tired) stays the same for a man and a woman: **Toni ist müde.** **Kathi ist müde.**",
+          "sl": "Kaj kdo je: **Kathi ist Wirtin.** (Kathi je gostilničarka.) Pri poklicu nemščina ne rabi člena. Beseda kot **müde** (utrujen) je enaka za moškega in žensko: **Toni ist müde.** **Kathi ist müde.** (utrujen, utrujena)",
+          "it": "Che cosa fa qualcuno: **Kathi ist Wirtin.** (Kathi è ostessa.) Per un mestiere il tedesco non vuole l'articolo. Una parola come **müde** (stanco) resta uguale per un uomo e per una donna: **Toni ist müde.** **Kathi ist müde.** (stanco, stanca)"
+        },
+        "examples": [
+          {
+            "de": "Stanko ist Imker.",
+            "en": "Stanko is a beekeeper.",
+            "sl": "Stanko je čebelar.",
+            "it": "Stanko è apicoltore."
+          },
+          {
+            "de": "Ich bin müde.",
+            "en": "I'm tired.",
+            "sl": "{m:Utrujen|f:Utrujena} sem.",
+            "it": "Sono {m:stanco|f:stanca}."
+          },
+          {
+            "de": "Oma Resi ist froh.",
+            "en": "Grandma Resi is happy.",
+            "sl": "Babica Resi je vesela.",
+            "it": "Nonna Resi è contenta."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "sein-haben",
+          "text": "Ich ___ müde.",
+          "accept": [
+            "bin"
+          ],
+          "hint": "ich → ?",
+          "explain": {
+            "en": "**ich bin**\n- Ich bin müde. · I'm tired.",
+            "sl": "**ich bin**\n- Ich bin müde. · Utrujen sem.",
+            "it": "**ich bin**\n- Ich bin müde. · Sono stanco."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "To say not: **nicht** (not) after the verb. **Ich bin nicht müde.** (I'm not tired.) **Sepp ist nicht hier.** (Sepp isn't here.) **Nein** (no) is the answer on its own: **Bist du müde? – Nein.**",
+          "sl": "Za ne: **nicht** (ne) za glagolom. **Ich bin nicht müde.** ({m:Nisem utrujen|f:Nisem utrujena}.) **Sepp ist nicht hier.** (Seppa ni tu.) **Nein** (ne) je odgovor sam zase: **Bist du müde? – Nein.**",
+          "it": "Per dire non: **nicht** (non) dopo il verbo. **Ich bin nicht müde.** (Non sono {m:stanco|f:stanca}.) **Sepp ist nicht hier.** (Sepp non è qui.) **Nein** (no) è la risposta da sola: **Bist du müde? – Nein.**"
+        },
+        "examples": [
+          {
+            "de": "Toni ist nicht in der Schmiede.",
+            "en": "Toni isn't at the forge.",
+            "sl": "Tonija ni v kovačnici.",
+            "it": "Toni non è in fucina."
+          },
+          {
+            "de": "Wir sind nicht zu Hause.",
+            "en": "We aren't at home.",
+            "sl": "Nismo doma.",
+            "it": "Non siamo a casa."
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "bin nicht"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "prompt": "Stanko ist ___ zu Hause.",
+          "options": [
+            "nicht",
+            "nein"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nicht after the verb; nein is an answer alone**\n- Stanko ist nicht zu Hause. · Stanko isn't at home.",
+            "sl": "**nicht za glagolom; nein je odgovor sam**\n- Stanko ist nicht zu Hause. · Stanka ni doma.",
+            "it": "**nicht dopo il verbo; nein è una risposta da sola**\n- Stanko ist nicht zu Hause. · Stanko non è a casa."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**ich bin** · **du bist** · **er, sie, es ist** · **wir sind** · **ihr seid** · **sie sind** · **Sie sind** (polite)\n\nA job without a: **Kathi ist Wirtin.** · **müde** for him and her · **nicht** after the verb: **Ich bin nicht müde.**\n\n**ihr seid** with d; **seit** (since) with t.",
+      "sl": "**ich bin** · **du bist** · **er, sie, es ist** · **wir sind** · **ihr seid** · **sie sind** · **Sie sind** (vljudno)\n\nPoklic brez člena: **Kathi ist Wirtin.** · **müde** zanj in zanjo · **nicht** za glagolom: **Ich bin nicht müde.**\n\n**ihr seid** z d; **seit** (od, odkar) s t.",
+      "it": "**ich bin** · **du bist** · **er, sie, es ist** · **wir sind** · **ihr seid** · **sie sind** · **Sie sind** (di cortesia)\n\nIl mestiere senza articolo: **Kathi ist Wirtin.** · **müde** per lui e per lei · **nicht** dopo il verbo: **Ich bin nicht müde.**\n\n**ihr seid** con la d; **seit** (da) con la t."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "sein-1",
+      "title": {
+        "de": "Ich bin, du bist",
+        "en": "I am, you are",
+        "sl": "Jaz sem, ti si",
+        "it": "Io sono, tu sei"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Ergänze mit sein · Fill in with sein",
+            "sl": "Ergänze mit sein · Dopolni z glagolom sein",
+            "it": "Ergänze mit sein · Completa con sein"
+          },
+          "prompt": {
+            "en": "sein (Präsens) · to be",
+            "sl": "sein (Präsens) · biti",
+            "it": "sein (Präsens) · essere"
+          },
+          "columns": [
+            {
+              "en": "sein · to be",
+              "sl": "sein · biti",
+              "it": "sein · essere"
+            }
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "bin"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "bist"
+                  ],
+                  "hint": "du …"
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                {
+                  "accept": [
+                    "ist"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "sind"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "seid"
+                  ],
+                  "hint": {
+                    "en": "with a d",
+                    "sl": "z d",
+                    "it": "con la d"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                {
+                  "accept": [
+                    "sind"
+                  ],
+                  "hint": {
+                    "en": "as wir",
+                    "sl": "kot wir",
+                    "it": "come wir"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**sein: bin, bist, ist, sind, seid, sind**",
+            "sl": "**sein: bin, bist, ist, sind, seid, sind**",
+            "it": "**sein: bin, bist, ist, sind, seid, sind**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wir ___ in Villach.",
+          "options": [
+            "sind",
+            "seid",
+            "bin"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**wir sind**",
+            "sl": "**wir sind**",
+            "it": "**wir sind**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Florian und Stefan, ihr ___ hier!",
+          "options": [
+            "seid",
+            "sind",
+            "seit"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ihr seid, with a d**\n- seit with a t is since",
+            "sl": "**ihr seid, z d**\n- seit s t je od, odkar",
+            "it": "**ihr seid, con la d**\n- seit con la t è da (tempo)"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ bist müde, Toni.",
+          "options": [
+            "Du",
+            "Er",
+            "Ich"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**bist goes with du**",
+            "sl": "**bist gre z du**",
+            "it": "**bist va con du**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sein-2",
+      "title": {
+        "de": "Kirchtag im Dorf",
+        "en": "Kirchtag in the village",
+        "sl": "Žegnanje v vasi",
+        "it": "La sagra in paese"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Ergänze mit sein · Fill in with sein",
+            "sl": "Ergänze mit sein · Dopolni z glagolom sein",
+            "it": "Ergänze mit sein · Completa con sein"
+          },
+          "title": "Der Kirchtag",
+          "text": "Es ___ Kirchtag im Dorf. Kathi ___ im Gasthaus. Stefan und Florian ___ auf dem Platz. Opa Sepp: «Ich ___ müde.» Und du, {learner}? Du ___ auch da. Wir ___ alle da!",
+          "gaps": [
+            {
+              "accept": [
+                "ist"
+              ],
+              "hint": "es → ?"
+            },
+            {
+              "accept": [
+                "ist"
+              ],
+              "hint": "sie → ?"
+            },
+            {
+              "accept": [
+                "sind"
+              ],
+              "hint": "sie → ?"
+            },
+            {
+              "accept": [
+                "bin"
+              ],
+              "hint": "ich → ?"
+            },
+            {
+              "accept": [
+                "bist"
+              ],
+              "hint": "du → ?"
+            },
+            {
+              "accept": [
+                "sind"
+              ],
+              "hint": "wir → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "seid",
+            "bis"
+          ],
+          "translation": {
+            "en": "It's Kirchtag in the village. Kathi is at the Gasthaus. Stefan and Florian are on the square. Grandpa Sepp: «I'm tired.» And you, {learner}? You're here too. We're all here!",
+            "sl": "V vasi je žegnanje. Kathi je v gostilni. Stefan in Florian sta na trgu. Dedek Sepp: »Utrujen sem.« Pa ti, {learner}? Tudi ti si tu. Vsi smo tu!",
+            "it": "In paese c'è la sagra. Kathi è all'osteria. Stefan e Florian sono in piazza. Nonno Sepp: «Sono stanco.» E tu, {learner}? Ci sei anche tu. Siamo tutti qui!"
+          },
+          "explain": {
+            "en": "**one person: bin, bist, ist; more: sind**",
+            "sl": "**ena oseba: bin, bist, ist; več: sind**",
+            "it": "**una persona: bin, bist, ist; più: sind**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+            "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+            "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich bin müde. (Kathi)",
+              "accept": [
+                "Kathi ist müde."
+              ],
+              "hint": "Kathi = sie"
+            },
+            {
+              "from": "Du bist in Villach. (wir)",
+              "accept": [
+                "Wir sind in Villach."
+              ]
+            },
+            {
+              "from": "Er ist hier. (ihr)",
+              "accept": [
+                "Ihr seid hier."
+              ],
+              "hint": "ihr → ?"
+            },
+            {
+              "from": "Wir sind zu Hause. (ich)",
+              "accept": [
+                "Ich bin zu Hause."
+              ]
+            },
+            {
+              "from": "Sie ist Lehrerin. (du)",
+              "accept": [
+                "Du bist Lehrerin."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**the verb goes with its person**\n- ich bin · du bist · sie ist · wir sind · ihr seid",
+            "sl": "**glagol gre z osebo**\n- ich bin · du bist · sie ist · wir sind · ihr seid",
+            "it": "**il verbo va con la persona**\n- ich bin · du bist · sie ist · wir sind · ihr seid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sein-3",
+      "title": {
+        "de": "Nicht da",
+        "en": "Not here",
+        "sl": "Ni ga",
+        "it": "Non c'è"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Sag es mit nicht · Say it with nicht",
+            "sl": "Sag es mit nicht · Povej z nicht",
+            "it": "Sag es mit nicht · Dillo con nicht"
+          },
+          "cue": "nicht",
+          "items": [
+            {
+              "from": "Ich bin müde.",
+              "accept": [
+                "Ich bin nicht müde."
+              ],
+              "hint": "bin + nicht"
+            },
+            {
+              "from": "Toni ist in der Schmiede.",
+              "accept": [
+                "Toni ist nicht in der Schmiede."
+              ]
+            },
+            {
+              "from": "Wir sind zu Hause.",
+              "accept": [
+                "Wir sind nicht zu Hause."
+              ]
+            },
+            {
+              "from": "Stefan ist hier.",
+              "accept": [
+                "Stefan ist nicht hier."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**nicht after the verb**\n- ist → ist nicht",
+            "sl": "**nicht za glagolom**\n- ist → ist nicht",
+            "it": "**nicht dopo il verbo**\n- ist → ist nicht"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Frau Huber, Sie ___ aus Graz.",
+          "options": [
+            "sind",
+            "ist",
+            "bist"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Sie sind** (polite you)",
+            "sl": "**Sie sind** (vljudno)",
+            "it": "**Sie sind** (di cortesia)"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Herr Doktor, ___ sind sehr nett.",
+          "options": [
+            "Sie",
+            "sie",
+            "du"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Sie with a capital is you, polite; sie small is they**",
+            "sl": "**Sie z veliko je vi (vljudno); sie z malo so oni**",
+            "it": "**Sie maiuscolo è Lei; sie minuscolo è loro**"
+          }
+        },
+        {
+          "type": "cloze",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Ergänze mit sein · Fill in with sein",
+            "sl": "Ergänze mit sein · Dopolni z glagolom sein",
+            "it": "Ergänze mit sein · Completa con sein"
+          },
+          "text": "Ihr ___ heute da.",
+          "accept": [
+            "seid"
+          ],
+          "hint": "ihr → ?",
+          "explain": {
+            "en": "**ihr seid**",
+            "sl": "**ihr seid**",
+            "it": "**ihr seid**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Ergänze mit sein · Fill in with sein",
+          "sl": "Ergänze mit sein · Dopolni z glagolom sein",
+          "it": "Ergänze mit sein · Completa con sein"
+        },
+        "text": "Ich ___ Eva. Ich bin Lehrerin. Du ___ {learner}. Toni ___ Schmied. Stanko und Kathi ___ im Gasthaus. Florian und Mitzi, ihr ___ auf der Alm.",
+        "gaps": [
+          {
+            "accept": [
+              "bin"
+            ],
+            "hint": "ich → ?"
+          },
+          {
+            "accept": [
+              "bist"
+            ],
+            "hint": "du → ?"
+          },
+          {
+            "accept": [
+              "ist"
+            ],
+            "hint": "er → ?"
+          },
+          {
+            "accept": [
+              "sind"
+            ],
+            "hint": "sie → ?"
+          },
+          {
+            "accept": [
+              "seid"
+            ],
+            "hint": "ihr → ?"
+          }
+        ],
+        "translation": {
+          "en": "I'm Eva. I'm a teacher. You're {learner}. Toni is a smith. Stanko and Kathi are at the Gasthaus. Florian and Mitzi, you're on the mountain pasture.",
+          "sl": "Jaz sem Eva. Učiteljica sem. Ti si {learner}. Toni je kovač. Stanko in Kathi sta v gostilni. Florian in Mitzi, vidva sta na planini.",
+          "it": "Io sono Eva. Sono maestra. Tu sei {learner}. Toni è fabbro. Stanko e Kathi sono all'osteria. Florian e Mitzi, voi siete all'alpeggio."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+          "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+          "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich bin in Villach. (Florian)",
+            "accept": [
+              "Florian ist in Villach."
+            ]
+          },
+          {
+            "from": "Er ist müde. (wir)",
+            "accept": [
+              "Wir sind müde."
+            ]
+          },
+          {
+            "from": "Du bist da. (ihr)",
+            "accept": [
+              "Ihr seid da."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Sag es mit nicht · Say it with nicht",
+          "sl": "Sag es mit nicht · Povej z nicht",
+          "it": "Sag es mit nicht · Dillo con nicht"
+        },
+        "cue": "nicht",
+        "items": [
+          {
+            "from": "Kathi ist zu Hause.",
+            "accept": [
+              "Kathi ist nicht zu Hause."
+            ]
+          },
+          {
+            "from": "Wir sind müde.",
+            "accept": [
+              "Wir sind nicht müde."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Frau Doktor, Sie ___ aus Klagenfurt.",
+        "options": [
+          "sind",
+          "ist",
+          "seid"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Sie sind**",
+          "sl": "**Sie sind**",
+          "it": "**Sie sind**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich bin ___ müde.",
+        "options": [
+          "nicht",
+          "nein"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**nicht after the verb**",
+          "sl": "**nicht za glagolom**",
+          "it": "**nicht dopo il verbo**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: «Es ist Kirchtag im Dorf», «auf dem Platz», «Herr Doktor, Sie sind sehr nett», jobs without an article"
+}

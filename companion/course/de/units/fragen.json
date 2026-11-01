@@ -1,0 +1,920 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "fragen",
+  "language": "de",
+  "level": "A1",
+  "emoji": "❓",
+  "title": {
+    "de": "Wer? Was? Wo?",
+    "en": "Questions: wer, was, wo",
+    "sl": "Vprašanja: wer, was, wo",
+    "it": "Le domande: wer, was, wo"
+  },
+  "goal": {
+    "en": "You can ask who, what, where, where to, where from, when, how and why (wer, was, wo, wohin, woher, wann, wie, warum), the verb right after the question word, a yes or no question with the verb first, and answer a no with doch.",
+    "sl": "Znaš vprašati kdo, kaj, kje, kam, od kod, kdaj, kako in zakaj (wer, was, wo, wohin, woher, wann, wie, warum), z glagolom takoj za vprašalnico, postaviti vprašanje za da ali ne z glagolom spredaj in na ne odgovoriti z doch.",
+    "it": "Sai chiedere chi, che cosa, dove, verso dove, da dove, quando, come e perché (wer, was, wo, wohin, woher, wann, wie, warum), con il verbo subito dopo la parola interrogativa, fare una domanda sì o no con il verbo prima e rispondere a un no con doch."
+  },
+  "grammar": [
+    "fragen"
+  ],
+  "words": [
+    "wer",
+    "was",
+    "wo",
+    "wohin",
+    "woher",
+    "wann",
+    "wie",
+    "warum",
+    "doch",
+    "ja",
+    "nein",
+    "lachen",
+    "fragen",
+    "kommen",
+    "fahren",
+    "wohnen",
+    "trinken",
+    "dann",
+    "jetzt",
+    "gleich",
+    "morgen",
+    "der Gast",
+    "die Kuh",
+    "die Harmonika",
+    "das Glas",
+    "bitte",
+    "Udine",
+    "Italien",
+    "Slowenien"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Fragewort",
+          "en": "question word",
+          "sl": "vprašalnica",
+          "it": "parola interrogativa"
+        },
+        {
+          "de": "Bedeutung",
+          "en": "meaning",
+          "sl": "pomen",
+          "it": "significato"
+        },
+        {
+          "de": "Beispiel",
+          "en": "example",
+          "sl": "primer",
+          "it": "esempio"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "A question with a question word starts with it, then comes the verb, then the person: **Wo wohnst du?** (Where do you live?) **Was machst du?** (What are you doing?) **Wer ist das?** (Who's that?) German needs no do. And careful: **wer** (who) sounds like where; where is **wo**.",
+          "sl": "Vprašanje z vprašalnico se začne z njo, sledi glagol, nato oseba: **Wo wohnst du?** (Kje stanuješ?) **Was machst du?** (Kaj delaš?) **Wer ist das?** (Kdo je to?) Zaimek tudi tu ostane: Wo wohnst du, nikoli samo Wo wohnst.",
+          "it": "Una domanda con una parola interrogativa comincia con essa, poi viene il verbo, poi la persona: **Wo wohnst du?** (Dove abiti?) **Was machst du?** (Che cosa fai?) **Wer ist das?** (Chi è?) Il pronome resta anche qui: Wo wohnst du, mai solo Wo wohnst."
+        },
+        "examples": [
+          {
+            "de": "Wer ist das? – Das ist Hirte Florian.",
+            "en": "Who's that? – That's Florian the shepherd.",
+            "sl": "Kdo je to? – To je pastir Florian.",
+            "it": "Chi è? – È il pastore Florian."
+          },
+          {
+            "de": "Was macht Kathi? – Sie kocht.",
+            "en": "What's Kathi doing? – She's cooking.",
+            "sl": "Kaj dela Kathi? – Kuha.",
+            "it": "Che cosa fa Kathi? – Cucina."
+          },
+          {
+            "de": "Wo wohnt Stanko? – Im Rosental.",
+            "en": "Where does Stanko live? – In the Rosental.",
+            "sl": "Kje živi Stanko? – V Rožu.",
+            "it": "Dove abita Stanko? – Nel Rosental."
+          }
+        ],
+        "rows": [
+          [
+            "wer?",
+            {
+              "en": "who?",
+              "sl": "kdo?",
+              "it": "chi?"
+            },
+            "Wer ist das?"
+          ],
+          [
+            "was?",
+            {
+              "en": "what?",
+              "sl": "kaj?",
+              "it": "che cosa?"
+            },
+            "Was machst du?"
+          ],
+          [
+            "wo?",
+            {
+              "en": "where?",
+              "sl": "kje?",
+              "it": "dove?"
+            },
+            "Wo wohnst du?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "fragen",
+          "prompt": "___ wohnst du? – In Villach.",
+          "options": [
+            "Wo",
+            "Wer",
+            "Was"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A place: wo (where)**\n- Wo wohnst du? – In Villach.",
+            "sl": "**Kraj: wo (kje)**\n- Wo wohnst du? – In Villach.",
+            "it": "**Un luogo: wo (dove)**\n- Wo wohnst du? – In Villach."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "More question words: **wann** (when), **wie** (how), **warum** (why). The order stays the same, the word, the verb, the person: **Wann kommt Opa Sepp?** (When is Grandpa Sepp coming?) **Wie heißt die Kuh?** (What's the cow called?) **Warum lachst du?** (Why are you laughing?) Not wenn: **wann** asks when.",
+          "sl": "Še vprašalnice: **wann** (kdaj), **wie** (kako), **warum** (zakaj). Vrstni red ostane, vprašalnica, glagol, oseba: **Wann kommt Opa Sepp?** (Kdaj pride dedek Sepp?) **Wie heißt die Kuh?** (Kako je ime kravi?) **Warum lachst du?** (Zakaj se smeješ?) Ne wenn: **wann** vpraša kdaj.",
+          "it": "Altre parole interrogative: **wann** (quando), **wie** (come), **warum** (perché). L'ordine resta lo stesso, la parola, il verbo, la persona: **Wann kommt Opa Sepp?** (Quando viene nonno Sepp?) **Wie heißt die Kuh?** (Come si chiama la mucca?) **Warum lachst du?** (Perché ridi?) Non wenn: **wann** chiede quando."
+        },
+        "examples": [
+          {
+            "de": "Wann fährst du nach Villach? – Morgen.",
+            "en": "When are you going to Villach? – Tomorrow.",
+            "sl": "Kdaj se pelješ v Beljak? – Jutri.",
+            "it": "Quando vai a Villach? – Domani."
+          },
+          {
+            "de": "Wie heißt die Kuh? – Sie heißt Lisi.",
+            "en": "What's the cow called? – She's called Lisi.",
+            "sl": "Kako je ime kravi? – Lisi ji je ime.",
+            "it": "Come si chiama la mucca? – Si chiama Lisi."
+          },
+          {
+            "de": "Warum lachst du, Florian?",
+            "en": "Why are you laughing, Florian?",
+            "sl": "Zakaj se smeješ, Florian?",
+            "it": "Perché ridi, Florian?"
+          }
+        ],
+        "rows": [
+          [
+            "wann?",
+            {
+              "en": "when?",
+              "sl": "kdaj?",
+              "it": "quando?"
+            },
+            "Wann kommt Opa?"
+          ],
+          [
+            "wie?",
+            {
+              "en": "how?",
+              "sl": "kako?",
+              "it": "come?"
+            },
+            "Wie heißt du?"
+          ],
+          [
+            "warum?",
+            {
+              "en": "why?",
+              "sl": "zakaj?",
+              "it": "perché?"
+            },
+            "Warum lachst du?"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "fragen",
+          "text": "___ fährst du nach Villach? – Morgen.",
+          "accept": [
+            "Wann"
+          ],
+          "hint": {
+            "en": "Morgen is a time",
+            "sl": "Morgen je čas",
+            "it": "Morgen è un tempo"
+          },
+          "explain": {
+            "en": "**A time: wann (when), not wenn**\n- Wann fährst du? – Morgen.",
+            "sl": "**Čas: wann (kdaj), ne wenn**\n- Wann fährst du? – Morgen.",
+            "it": "**Un tempo: wann (quando), non wenn**\n- Wann fährst du? – Morgen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Where comes in three: **wo** (where) for the place, **wohin** (where to) for the way there, **woher** (where from) for where someone comes from: **Wo ist Stefan?** – Im Gasthaus. **Wohin fährst du?** – Nach Villach. **Woher kommst du?** – Aus Slowenien.",
+          "sl": "Kje ima tri oblike, kot v slovenščini: **wo** (kje) za kraj, **wohin** (kam) za smer, **woher** (od kod) za izvor: **Wo ist Stefan?** – Im Gasthaus. **Wohin fährst du?** – Nach Villach. **Woher kommst du?** – Aus Slowenien.",
+          "it": "Il dove ha tre forme: **wo** (dove, dove si è) per il luogo, **wohin** (dove, verso dove) per la direzione, **woher** (da dove) per la provenienza: **Wo ist Stefan?** – Im Gasthaus. **Wohin fährst du?** – Nach Villach. **Woher kommst du?** – Aus Slowenien."
+        },
+        "examples": [
+          {
+            "de": "Wo ist Stefan? – Im Gasthaus.",
+            "en": "Where's Stefan? – At the Gasthaus.",
+            "sl": "Kje je Stefan? – V gostilni.",
+            "it": "Dov'è Stefan? – All'osteria."
+          },
+          {
+            "de": "Wohin fährst du? – Nach Villach.",
+            "en": "Where are you going? – To Villach.",
+            "sl": "Kam se pelješ? – V Beljak.",
+            "it": "Dove vai? – A Villach."
+          },
+          {
+            "de": "Woher kommen Sie? – Aus Italien.",
+            "en": "Where are you from? – From Italy.",
+            "sl": "Od kod ste? – Iz Italije.",
+            "it": "Da dove viene? – Dall'Italia."
+          }
+        ],
+        "rows": [
+          [
+            "wohin?",
+            {
+              "en": "where to?",
+              "sl": "kam?",
+              "it": "dove? (verso dove)"
+            },
+            "Wohin fährst du?"
+          ],
+          [
+            "woher?",
+            {
+              "en": "where from?",
+              "sl": "od kod?",
+              "it": "da dove?"
+            },
+            "Woher kommst du?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "fragen",
+          "prompt": "___ kommst du? – Aus Graz.",
+          "options": [
+            "Wo",
+            "Wohin",
+            "Woher"
+          ],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "en": "**Where you come from: woher**\n- Woher kommst du? – Aus Graz.",
+            "sl": "**Od kod: woher**\n- Woher kommst du? – Aus Graz.",
+            "it": "**Da dove: woher**\n- Woher kommst du? – Aus Graz."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A question you answer with yes or no starts with the verb, as you know: **Wohnst du hier?** (Do you live here?) – **Ja.** or **Nein.** To say yes to a question with nicht, German has **doch** (yes, I do): **Kommst du nicht? – Doch!** (Aren't you coming? – Yes, I am!)",
+          "sl": "Vprašanje, na katero odgovoriš z da ali ne, se začne z glagolom, kot že veš: **Wohnst du hier?** (Ali stanuješ tu?) – **Ja.** ali **Nein.** Besede ali nemščina ne rabi. Za da na vprašanje z nicht ima **doch** (pa ja, seveda): **Kommst du nicht? – Doch!** (Ne prideš? – Seveda pridem!)",
+          "it": "Una domanda a cui si risponde sì o no comincia con il verbo, come sai: **Wohnst du hier?** (Abiti qui?) – **Ja.** o **Nein.** Per dire sì a una domanda con nicht il tedesco ha **doch** (sì invece): **Kommst du nicht? – Doch!** (Non vieni? – Sì che vengo!)"
+        },
+        "examples": [
+          {
+            "de": "Hast du Hunger, Florian? – Ja!",
+            "en": "Are you hungry, Florian? – Yes!",
+            "sl": "Si lačen, Florian? – Da!",
+            "it": "Hai fame, Florian? – Sì!"
+          },
+          {
+            "de": "Wohnst du in Villach? – Nein, in Klagenfurt.",
+            "en": "Do you live in Villach? – No, in Klagenfurt.",
+            "sl": "Ali stanuješ v Beljaku? – Ne, v Celovcu.",
+            "it": "Abiti a Villach? – No, a Klagenfurt."
+          },
+          {
+            "de": "Kommst du nicht? – Doch, ich komme!",
+            "en": "Aren't you coming? – Yes, I am!",
+            "sl": "Ne prideš? – Seveda pridem!",
+            "it": "Non vieni? – Sì che vengo!"
+          }
+        ],
+        "rows": [
+          [
+            "doch!",
+            {
+              "en": "yes! (to a no)",
+              "sl": "seveda! (na ne)",
+              "it": "sì! (a un no)"
+            },
+            "Kommst du nicht? – Doch!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "fragen",
+          "prompt": "Kommst du nicht? – ___, ich komme!",
+          "options": [
+            "Doch",
+            "Ja",
+            "Nein"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Yes to a question with nicht: doch**\n- Kommst du nicht? – Doch!",
+            "sl": "**Da na vprašanje z nicht: doch**\n- Kommst du nicht? – Doch!",
+            "it": "**Sì a una domanda con nicht: doch**\n- Kommst du nicht? – Doch!"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "To a stranger the question takes **Sie** and its -en form: **Wo wohnen Sie?** (Where do you live?) **Woher kommen Sie?** (Where are you from?) **Wie heißen Sie?** (What's your name?) To a friend: **Wo wohnst du?** The order is the same.",
+          "sl": "Neznancu postaviš vprašanje s **Sie** in obliko na -en: **Wo wohnen Sie?** (Kje stanujete?) **Woher kommen Sie?** (Od kod ste?) **Wie heißen Sie?** (Kako vam je ime?) Prijatelju: **Wo wohnst du?** Vrstni red je isti.",
+          "it": "A uno sconosciuto la domanda vuole **Sie** e la forma in -en: **Wo wohnen Sie?** (Dove abita?) **Woher kommen Sie?** (Da dove viene?) **Wie heißen Sie?** (Come si chiama?) A un amico: **Wo wohnst du?** L'ordine è lo stesso."
+        },
+        "examples": [
+          {
+            "de": "Woher kommen Sie, Herr Rossi? – Aus Udine.",
+            "en": "Where are you from, Mr Rossi? – From Udine.",
+            "sl": "Od kod ste, gospod Rossi? – Iz Vidma.",
+            "it": "Da dove viene, signor Rossi? – Da Udine."
+          },
+          {
+            "de": "Wie heißen Sie? – Ich heiße Huber.",
+            "en": "What's your name? – My name is Huber.",
+            "sl": "Kako vam je ime? – Ime mi je Huber.",
+            "it": "Come si chiama? – Mi chiamo Huber."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "fragen",
+          "prompt": {
+            "en": "To a stranger at the inn, you ask where they are from:",
+            "sl": "Neznanca v gostilni vprašaš, od kod je:",
+            "it": "All'osteria chiedi a uno sconosciuto da dove viene:"
+          },
+          "options": [
+            "Woher kommen Sie?",
+            "Woher kommst du?",
+            "Woher kommen du?"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "en": "**To a stranger: Sie and -en**\n- Woher kommen Sie?",
+            "sl": "**Neznancu: Sie in -en**\n- Woher kommen Sie?",
+            "it": "**A uno sconosciuto: Sie e -en**\n- Woher kommen Sie?"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**wer?** who · **was?** what · **wo?** where · **wohin?** where to · **woher?** where from · **wann?** when · **wie?** how · **warum?** why\n\nThe question word, the verb, the person: **Wo wohnst du?** A yes or no question starts with the verb: **Wohnst du hier?**\n\nYes to a no: **Kommst du nicht? – Doch!** **wer** is who, **wo** is where.",
+      "sl": "**wer?** kdo · **was?** kaj · **wo?** kje · **wohin?** kam · **woher?** od kod · **wann?** kdaj · **wie?** kako · **warum?** zakaj\n\nVprašalnica, glagol, oseba: **Wo wohnst du?** Vprašanje za da ali ne se začne z glagolom: **Wohnst du hier?**\n\nDa na ne: **Kommst du nicht? – Doch!**",
+      "it": "**wer?** chi · **was?** che cosa · **wo?** dove · **wohin?** dove (verso) · **woher?** da dove · **wann?** quando · **wie?** come · **warum?** perché\n\nLa parola, il verbo, la persona: **Wo wohnst du?** Una domanda sì o no comincia con il verbo: **Wohnst du hier?**\n\nSì a un no: **Kommst du nicht? – Doch!**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "fragen-1",
+      "title": {
+        "de": "Wer, was, wo?",
+        "en": "Who, what, where?",
+        "sl": "Kdo, kaj, kje?",
+        "it": "Chi, che cosa, dove?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Ordne zu · Which question does it answer?",
+            "sl": "Ordne zu · Na katero vprašanje odgovori?",
+            "it": "Ordne zu · A quale domanda risponde?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "wer? · who?",
+                "sl": "wer? · kdo?",
+                "it": "wer? · chi?"
+              },
+              "words": [
+                "Toni",
+                "Tante Mitzi",
+                "Stanko"
+              ]
+            },
+            {
+              "label": {
+                "en": "was? · what?",
+                "sl": "was? · kaj?",
+                "it": "was? · che cosa?"
+              },
+              "words": [
+                "Honig",
+                "Kasnudeln",
+                "die Zeitung"
+              ]
+            },
+            {
+              "label": {
+                "en": "wo? · where?",
+                "sl": "wo? · kje?",
+                "it": "wo? · dove?"
+              },
+              "words": [
+                "im Gasthaus",
+                "auf der Alm",
+                "in Villach"
+              ]
+            },
+            {
+              "label": {
+                "en": "wann? · when?",
+                "sl": "wann? · kdaj?",
+                "it": "wann? · quando?"
+              },
+              "words": [
+                "heute",
+                "morgen",
+                "jetzt"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**wer: a person · was: a thing · wo: a place · wann: a time**",
+            "sl": "**wer: oseba · was: stvar · wo: kraj · wann: čas**",
+            "it": "**wer: una persona · was: una cosa · wo: un luogo · wann: un tempo**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ ist das? – Das ist Lehrerin Eva.",
+          "options": [
+            "Wer",
+            "Was",
+            "Wo"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A person: wer (who)**",
+            "sl": "**Oseba: wer (kdo)**",
+            "it": "**Una persona: wer (chi)**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ machst du? – Ich koche.",
+          "options": [
+            "Was",
+            "Wer",
+            "Wie"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A thing, what you do: was (what)**",
+            "sl": "**Stvar, kar delaš: was (kaj)**",
+            "it": "**Una cosa, che cosa fai: was (che cosa)**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ heißt die Kuh? – Lisi.",
+          "options": [
+            "Wie",
+            "Was",
+            "Wo"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A name: Wie heißt …?**\n- Wie heißt du? · What's your name?",
+            "sl": "**Ime: Wie heißt …?**\n- Wie heißt du? · Kako ti je ime?",
+            "it": "**Un nome: Wie heißt …?**\n- Wie heißt du? · Come ti chiami?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ wohnst du? – In Villach.",
+          "options": [
+            "Wo",
+            "Wohin",
+            "Woher"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The place: wo**",
+            "sl": "**Kraj: wo**",
+            "it": "**Il luogo: wo**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fragen-2",
+      "title": {
+        "de": "Ein Gast im Gasthaus",
+        "en": "A guest at the Gasthaus",
+        "sl": "Gost v gostilni",
+        "it": "Un ospite all'osteria"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Ergänze das Fragewort · Fill in the question word",
+            "sl": "Ergänze das Fragewort · Dopolni vprašalnico",
+            "it": "Ergänze das Fragewort · Completa con la parola interrogativa"
+          },
+          "title": "Ein Gast im Gasthaus",
+          "text": "Kathi: «Grüß Gott! ___ heißen Sie?» Der Gast: «Ich heiße Rossi.» Kathi: «___ kommen Sie, Herr Rossi?» «Aus Udine.» «Und ___ fahren Sie dann?» «Nach Klagenfurt.» «___ fahren Sie?» «Morgen.» «___ trinken Sie?» «Ein Glas Most, bitte.» «___ lachen Sie?» «Die Kasnudeln sind so gut!»",
+          "gaps": [
+            {
+              "accept": [
+                "Wie"
+              ],
+              "hint": "Ich heiße … → ?"
+            },
+            {
+              "accept": [
+                "Woher"
+              ],
+              "hint": "Aus … → ?"
+            },
+            {
+              "accept": [
+                "wohin"
+              ],
+              "hint": "Nach … → ?"
+            },
+            {
+              "accept": [
+                "Wann"
+              ],
+              "hint": "Morgen → ?"
+            },
+            {
+              "accept": [
+                "Was"
+              ],
+              "hint": "Ein Glas → ?"
+            },
+            {
+              "accept": [
+                "Warum"
+              ],
+              "hint": {
+                "en": "a reason",
+                "sl": "razlog",
+                "it": "un motivo"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "Wer",
+            "Wo",
+            "Wenn"
+          ],
+          "translation": {
+            "en": "Kathi: «Good day! What's your name?» The guest: «My name is Rossi.» Kathi: «Where are you from, Mr Rossi?» «From Udine.» «And where are you going then?» «To Klagenfurt.» «When are you going?» «Tomorrow.» «What are you drinking?» «A glass of cider, please.» «Why are you laughing?» «The Kasnudeln are so good!»",
+            "sl": "Kathi: »Dober dan! Kako vam je ime?« Gost: »Ime mi je Rossi.« Kathi: »Od kod ste, gospod Rossi?« »Iz Vidma.« »Kam pa se peljete potem?« »V Celovec.« »Kdaj greste?« »Jutri.« »Kaj boste pili?« »Kozarec mošta, prosim.« »Zakaj se smejete?« »Kasnudeln so tako dobri!«",
+            "it": "Kathi: «Buongiorno! Come si chiama?» L'ospite: «Mi chiamo Rossi.» Kathi: «Da dove viene, signor Rossi?» «Da Udine.» «E poi dove va?» «A Klagenfurt.» «Quando parte?» «Domani.» «Che cosa beve?» «Un bicchiere di sidro, per favore.» «Perché ride?» «I Kasnudeln sono così buoni!»"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Bist du nicht müde? – ___, sehr müde!",
+          "options": [
+            "Doch",
+            "Ja",
+            "Nein"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Yes to a question with nicht: doch**",
+            "sl": "**Da na vprašanje z nicht: doch**",
+            "it": "**Sì a una domanda con nicht: doch**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fragen-3",
+      "title": {
+        "de": "Frag nach!",
+        "en": "Ask!",
+        "sl": "Vprašaj!",
+        "it": "Chiedi!"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Frag nach dem Wort in Klammern · Ask with the word in brackets",
+            "sl": "Frag nach dem Wort in Klammern · Vprašaj z besedo v oklepaju",
+            "it": "Frag nach dem Wort in Klammern · Fai la domanda con la parola tra parentesi"
+          },
+          "items": [
+            {
+              "from": "Florian wohnt auf der Alm. (wo?)",
+              "accept": [
+                "Wo wohnt Florian?"
+              ],
+              "hint": "wo + Verb + Florian"
+            },
+            {
+              "from": "Kathi kocht Kasnudeln. (was?)",
+              "accept": [
+                "Was kocht Kathi?"
+              ],
+              "hint": "was + Verb + Kathi"
+            },
+            {
+              "from": "Stefan fährt nach Villach. (wohin?)",
+              "accept": [
+                "Wohin fährt Stefan?"
+              ],
+              "spoken": [
+                "Wo fährt Stefan hin?"
+              ],
+              "hint": "wohin + Verb + Stefan"
+            },
+            {
+              "from": "Herr Rossi kommt aus Udine. (woher?)",
+              "accept": [
+                "Woher kommt Herr Rossi?"
+              ],
+              "spoken": [
+                "Wo kommt Herr Rossi her?"
+              ],
+              "hint": "woher + Verb + …"
+            },
+            {
+              "from": "Opa Sepp kommt morgen. (wann?)",
+              "accept": [
+                "Wann kommt Opa Sepp?"
+              ],
+              "hint": "wann + Verb + …"
+            },
+            {
+              "from": "Toni arbeitet in der Schmiede. (wer?)",
+              "accept": [
+                "Wer arbeitet in der Schmiede?"
+              ],
+              "hint": {
+                "en": "wer is the person: wer + verb",
+                "sl": "wer je oseba: wer + glagol",
+                "it": "wer è la persona: wer + verbo"
+              }
+            },
+            {
+              "from": "Du wohnst in Klagenfurt. (ja/nein)",
+              "accept": [
+                "Wohnst du in Klagenfurt?"
+              ],
+              "hint": {
+                "en": "the verb first",
+                "sl": "glagol spredaj",
+                "it": "prima il verbo"
+              }
+            }
+          ]
+        },
+        {
+          "type": "cloze",
+          "grammar": "fragen",
+          "instruction": {
+            "en": "Ergänze das Fragewort · Fill in the question word",
+            "sl": "Ergänze das Fragewort · Dopolni vprašalnico",
+            "it": "Ergänze das Fragewort · Completa con la parola interrogativa"
+          },
+          "text": "___ lachst du, Florian?",
+          "accept": [
+            "Warum"
+          ],
+          "hint": {
+            "en": "a reason",
+            "sl": "razlog",
+            "it": "un motivo"
+          },
+          "explain": {
+            "en": "**A reason: warum (why)**",
+            "sl": "**Razlog: warum (zakaj)**",
+            "it": "**Un motivo: warum (perché)**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "fragen",
+        "instruction": {
+          "en": "Ergänze das Fragewort · Fill in the question word",
+          "sl": "Ergänze das Fragewort · Dopolni vprašalnico",
+          "it": "Ergänze das Fragewort · Completa con la parola interrogativa"
+        },
+        "title": "Tante Mitzi fragt",
+        "text": "Tante Mitzi fragt Stefan: «___ fährst du heute?» «Nach Villach.» «___ fährst du?» «Jetzt gleich.» «___ fährt auch?» «Florian.» «Und ___ kauft ihr in Villach?» «Eine Harmonika!»",
+        "gaps": [
+          {
+            "accept": [
+              "Wohin"
+            ]
+          },
+          {
+            "accept": [
+              "Wann"
+            ]
+          },
+          {
+            "accept": [
+              "Wer"
+            ]
+          },
+          {
+            "accept": [
+              "was"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Aunt Mitzi asks Stefan: «Where are you going today?» «To Villach.» «When are you going?» «Right now.» «Who else is going?» «Florian.» «And what are you buying in Villach?» «An accordion!»",
+          "sl": "Teta Mitzi vpraša Stefana: »Kam se danes pelješ?« »V Beljak.« »Kdaj greš?« »Takoj.« »Kdo še gre?« »Florian.« »In kaj bosta kupila v Beljaku?« »Harmoniko!«",
+          "it": "La zia Mitzi chiede a Stefan: «Dove vai oggi?» «A Villach.» «Quando parti?» «Subito.» «Chi viene anche?» «Florian.» «E che cosa comprate a Villach?» «Una fisarmonica!»"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "fragen",
+        "instruction": {
+          "en": "Frag nach dem Wort in Klammern · Ask with the word in brackets",
+          "sl": "Frag nach dem Wort in Klammern · Vprašaj z besedo v oklepaju",
+          "it": "Frag nach dem Wort in Klammern · Fai la domanda con la parola tra parentesi"
+        },
+        "items": [
+          {
+            "from": "Kathi wohnt in Villach. (wo?)",
+            "accept": [
+              "Wo wohnt Kathi?"
+            ]
+          },
+          {
+            "from": "Stanko spricht Slowenisch. (was?)",
+            "accept": [
+              "Was spricht Stanko?"
+            ]
+          },
+          {
+            "from": "Frau Huber kommt aus Graz. (woher?)",
+            "accept": [
+              "Woher kommt Frau Huber?"
+            ],
+            "spoken": [
+              "Wo kommt Frau Huber her?"
+            ]
+          },
+          {
+            "from": "Du lernst Deutsch. (ja/nein)",
+            "accept": [
+              "Lernst du Deutsch?"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "fragen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ kommt Opa Sepp? – Morgen.",
+        "options": [
+          "Wann",
+          "Wenn",
+          "Wo"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A time: wann**",
+          "sl": "**Čas: wann**",
+          "it": "**Un tempo: wann**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "fragen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "At the market you ask a stranger where they live:",
+          "sl": "Na trgu vprašaš neznanca, kje stanuje:",
+          "it": "Al mercato chiedi a uno sconosciuto dove abita:"
+        },
+        "options": [
+          "Wo wohnen Sie?",
+          "Wo wohnst du?",
+          "Wo Sie wohnen?"
+        ],
+        "answer": 0,
+        "almost": [
+          1
+        ],
+        "say_options": true,
+        "explain": {
+          "en": "**To a stranger: Sie; the verb right after wo**",
+          "sl": "**Neznancu: Sie; glagol takoj za wo**",
+          "it": "**A uno sconosciuto: Sie; il verbo subito dopo wo**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "fragen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kommst du nicht? – ___, ich komme gleich!",
+        "options": [
+          "Doch",
+          "Ja",
+          "Nein"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Yes to a question with nicht: doch**",
+          "sl": "**Da na vprašanje z nicht: doch**",
+          "it": "**Sì a una domanda con nicht: doch**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: doch, «Wo fährst du hin?» as spoken, «Jetzt gleich», «Ein Gast im Gasthaus», Udine as Videm, wann vs wenn"
+}

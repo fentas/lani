@@ -99,6 +99,30 @@ class SchoolBoardTest {
         assertEquals(listOf("io sono", "tu sei"), essere.forms.take(2).map { f -> f.joinToString(" ") })
     }
 
+    @Test fun `the German course's board - every letter written, every lesson laid out, a German welcome and day`() {
+        val de = assertNotNullAnd(Courses.bundled("de"))
+        val missing = HashSet<Char>()
+        assertTrue("the German course has units", de.units.isNotEmpty())
+        for (u in de.units.values) {
+            val b = Blackboard.of(u, "de")
+            for (ch in (b.title.orEmpty() + b.forms.flatten().joinToString(""))) if (!BoardFont.knows(ch)) missing.add(ch)
+            val lines = BoardFont.lines(b, width)
+            assertTrue("${u.id}: the title first", lines.first().title)
+            assertTrue("${u.id}: $lines in ${BoardFont.LINES} lines", lines.size in 2..BoardFont.LINES)
+            assertTrue("${u.id}: every line fits: $lines", lines.all { BoardFont.width(it.text) <= width })
+        }
+        assertTrue("letters the board can't write: $missing", missing.isEmpty())
+        for (ch in "äöüßÄÖÜ") assertTrue("$ch", BoardFont.knows(ch))
+        // before the first unit of the German course: "Willkommen!" and the day as Austria writes it
+        val welcome = Blackboard.of(GameState(), de)!!
+        assertEquals("de", welcome.language)
+        assertEquals(listOf(BoardFont.Line("Willkommen!", true), BoardFont.Line("14.10.2026", false)), BoardFont.lines(welcome, width, date = welcome.day(today)))
+        // a unit begun: its title and forms in German (sein: ich bin · du bist)
+        val sein = Blackboard.of(GameState(course = CourseProgress(classroom = "2026-10-13", units = mapOf("de/sein" to UnitProgress(started = "2026-10-13")))), de)!!
+        assertEquals("Sein: ich bin, du bist", sein.title)
+        assertEquals(listOf("ich bin", "du bist"), sein.forms.take(2).map { f -> f.joinToString(" ") })
+    }
+
     @Test fun `every letter of the course is written, and what fits is laid out`() {
         val missing = HashSet<Char>()
         for (u in course.units.values) {

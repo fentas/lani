@@ -1,0 +1,266 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "uhrzeit",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🕖",
+  "title": {
+    "de": "Um sieben, am Montag: die Uhrzeit und die Tage",
+    "sl": "Um sieben, am Montag: ura in dnevi",
+    "en": "Um sieben, am Montag: the time and the days",
+    "it": "Um sieben, am Montag: l'ora e i giorni"
+  },
+  "rule": {
+    "en": "**Wie spät ist es?** or **Wie viel Uhr ist es?** (What time is it?) **Es ist sieben Uhr.** (It's seven o'clock.) One o'clock is **ein Uhr** or **eins**.\n\n**halb** counts towards the next hour: **halb acht** is 7:30, half way to eight (British English says half seven). **Viertel nach sieben** is 7:15, **Viertel vor acht** 7:45; Austria also says **viertel acht** (7:15) and **dreiviertel acht** (7:45). Minutes: **zehn nach sieben** (7:10), **zehn vor acht** (7:50). Timetables and the radio count on: **sieben Uhr fünfzehn**.\n\nWhen? **um** with a time (**um sieben**, **um halb acht**), **am** with a day or a part of it (**am Montag**, **am Abend**; in the morning is **in der Früh** in Austria, **am Morgen** in Germany), **im** with a month or a season (**im Jänner**, **im Sommer**). The days are all der: **Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag**. Austria says **Jänner** (Januar), and **heuer** for this year.\n\nA time first, and the verb still comes second: **Am Sonntag backt** Oma Resi.",
+    "sl": "**Wie spät ist es?** ali **Wie viel Uhr ist es?** (Koliko je ura?) **Es ist sieben Uhr.** (Ura je sedem.) Ena je **ein Uhr** ali **eins**.\n\n**halb** šteje k naslednji uri, kot slovenski pol: **halb acht** je pol osmih (7.30). **Viertel nach sieben** je 7.15, **Viertel vor acht** 7.45; v Avstriji tudi **viertel acht** (7.15, kot četrt na osem) in **dreiviertel acht** (7.45, tri četrt na osem). Minute: **zehn nach sieben** (7.10), **zehn vor acht** (7.50). Vozni redi in radio štejejo naprej: **sieben Uhr fünfzehn**.\n\nKdaj? **um** z uro (**um sieben**, ob sedmih; **um halb acht**), **am** z dnevom ali delom dneva (**am Montag**, v ponedeljek; **am Abend**, zvečer; zjutraj je v Avstriji **in der Früh**, v Nemčiji **am Morgen**), **im** z mesecem ali letnim časom (**im Jänner**, januarja; **im Sommer**, poleti). Vsi dnevi so der: **Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag**. Avstrija reče **Jänner** (Januar) in **heuer** za letos.\n\nČas na začetku, glagol pa vseeno na drugem mestu: **Am Sonntag backt** Oma Resi.",
+    "it": "**Wie spät ist es?** o **Wie viel Uhr ist es?** (Che ore sono?) **Es ist sieben Uhr.** (Sono le sette.) L'una è **ein Uhr** o **eins**.\n\n**halb** conta verso l'ora dopo: **halb acht** sono le sette e mezza, a metà strada verso le otto (non le otto e mezza!). **Viertel nach sieben** sono le sette e un quarto, **Viertel vor acht** le otto meno un quarto; in Austria anche **viertel acht** (7.15) e **dreiviertel acht** (7.45). I minuti: **zehn nach sieben** (7.10), **zehn vor acht** (7.50). Gli orari e la radio contano avanti: **sieben Uhr fünfzehn**.\n\nQuando? **um** con l'ora (**um sieben**, alle sette), **am** con un giorno o una parte del giorno (**am Montag**, lunedì; **am Abend**, la sera; la mattina in Austria è **in der Früh**, in Germania **am Morgen**), **im** con un mese o una stagione (**im Jänner**, a gennaio; **im Sommer**, d'estate). I giorni sono tutti der: **Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag**. L'Austria dice **Jänner** (Januar) e **heuer** per quest'anno.\n\nIl tempo all'inizio, e il verbo resta al secondo posto: **Am Sonntag backt** Oma Resi."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Uhr",
+        "sl": "ura",
+        "en": "time",
+        "it": "ora"
+      },
+      {
+        "de": "man sagt",
+        "sl": "rečeš",
+        "en": "you say",
+        "it": "si dice"
+      },
+      {
+        "de": "auch",
+        "sl": "tudi",
+        "en": "also",
+        "it": "anche"
+      }
+    ],
+    "rows": [
+      [
+        "7:00",
+        "sieben Uhr",
+        "sieben"
+      ],
+      [
+        "1:00",
+        "ein Uhr",
+        "eins"
+      ],
+      [
+        "7:30",
+        "halb acht",
+        "sieben Uhr dreißig"
+      ],
+      [
+        "7:15",
+        "Viertel nach sieben",
+        {
+          "de": "viertel acht (in Österreich)",
+          "sl": "viertel acht (v Avstriji)",
+          "en": "viertel acht (in Austria)",
+          "it": "viertel acht (in Austria)"
+        }
+      ],
+      [
+        "7:45",
+        "Viertel vor acht",
+        {
+          "de": "dreiviertel acht (in Österreich)",
+          "sl": "dreiviertel acht (v Avstriji)",
+          "en": "dreiviertel acht (in Austria)",
+          "it": "dreiviertel acht (in Austria)"
+        }
+      ],
+      [
+        "7:10",
+        "zehn nach sieben",
+        "sieben Uhr zehn"
+      ],
+      [
+        "7:50",
+        "zehn vor acht",
+        "sieben Uhr fünfzig"
+      ],
+      [
+        "12:00",
+        "zwölf Uhr",
+        "Mittag"
+      ],
+      [
+        "0:00",
+        "Mitternacht",
+        "zwölf Uhr"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Wie spät ist es? – Es ist halb acht.",
+      "sl": "Koliko je ura? – Pol osmih je.",
+      "en": "What time is it? – It's half past seven.",
+      "it": "Che ore sono? – Sono le sette e mezza.",
+      "note": {
+        "en": "halb acht: half way to eight, 7:30.",
+        "sl": "halb acht: kot pol osmih, 7.30.",
+        "it": "halb acht: a metà strada verso le otto, 7.30."
+      }
+    },
+    {
+      "de": "Der Bus nach Villach fährt um Viertel nach sieben.",
+      "sl": "Avtobus za Beljak odpelje ob četrt na osem.",
+      "en": "The bus to Villach leaves at a quarter past seven.",
+      "it": "L'autobus per Villach parte alle sette e un quarto.",
+      "note": {
+        "en": "In Austria also: um viertel acht.",
+        "sl": "V Avstriji tudi: um viertel acht (kot četrt na osem).",
+        "it": "In Austria anche: um viertel acht."
+      }
+    },
+    {
+      "de": "Am Sonntag ist Kirchtag.",
+      "sl": "V nedeljo je žegnanje.",
+      "en": "On Sunday it's the Kirchtag, the parish fair.",
+      "it": "Domenica c'è il Kirchtag, la sagra.",
+      "note": {
+        "en": "am + a day.",
+        "sl": "am + dan.",
+        "it": "am + un giorno."
+      }
+    },
+    {
+      "de": "Kathi kocht um zwölf Uhr.",
+      "sl": "Kathi kuha ob dvanajstih.",
+      "en": "Kathi cooks at twelve.",
+      "it": "Kathi cucina alle dodici.",
+      "note": {
+        "en": "um + a time.",
+        "sl": "um + ura.",
+        "it": "um + un'ora."
+      }
+    },
+    {
+      "de": "In der Früh ist es auf der Alm kalt.",
+      "sl": "Zjutraj je na planini mraz.",
+      "en": "In the morning it's cold up on the alpine pasture.",
+      "it": "La mattina all'alpeggio fa freddo.",
+      "note": {
+        "en": "in der Früh: Austrian; in Germany am Morgen.",
+        "sl": "in der Früh: avstrijsko; v Nemčiji am Morgen.",
+        "it": "in der Früh: austriaco; in Germania am Morgen."
+      }
+    },
+    {
+      "de": "Im Jänner liegt viel Schnee.",
+      "sl": "Januarja je veliko snega.",
+      "en": "In January there's a lot of snow.",
+      "it": "A gennaio c'è molta neve.",
+      "note": {
+        "en": "Jänner: Austrian; in Germany Januar.",
+        "sl": "Jänner: avstrijsko; v Nemčiji Januar.",
+        "it": "Jänner: austriaco; in Germania Januar."
+      }
+    },
+    {
+      "de": "Heuer ist der Kirchtag im August.",
+      "sl": "Letos je žegnanje avgusta.",
+      "en": "This year the Kirchtag is in August.",
+      "it": "Quest'anno la sagra è ad agosto.",
+      "note": {
+        "en": "heuer: this year, Austrian and southern German; also dieses Jahr.",
+        "sl": "heuer: letos, avstrijsko; tudi dieses Jahr.",
+        "it": "heuer: quest'anno, austriaco; anche dieses Jahr."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "time",
+    "uhrzeit",
+    "clock",
+    "telling_time",
+    "days",
+    "wochentage",
+    "months",
+    "um_am_im",
+    "halb",
+    "viertel"
+  ],
+  "see": [
+    "zahlen",
+    "wortstellung",
+    "fragen"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: viertel acht, dreiviertel acht and in der Früh in Carinthia, heuer",
+  "card": {
+    "title": {
+      "de": "Die Uhrzeit · um sieben, am Montag",
+      "sl": "Ura · um sieben, am Montag",
+      "en": "The time · um sieben, am Montag",
+      "it": "L'ora · um sieben, am Montag"
+    },
+    "rule": {
+      "en": "**halb acht** = 7:30 (towards eight); **Viertel nach sieben** 7:15, **Viertel vor acht** 7:45 (Austria also **viertel acht**, **dreiviertel acht**). **um** + a time, **am** + a day, **im** + a month: **um sieben, am Montag, im Jänner**.",
+      "sl": "**halb acht** = 7.30 (pol osmih); **Viertel nach sieben** 7.15, **Viertel vor acht** 7.45 (v Avstriji tudi **viertel acht**, **dreiviertel acht**). **um** + ura, **am** + dan, **im** + mesec: **um sieben, am Montag, im Jänner**.",
+      "it": "**halb acht** = 7.30 (verso le otto); **Viertel nach sieben** 7.15, **Viertel vor acht** 7.45 (in Austria anche **viertel acht**, **dreiviertel acht**). **um** + l'ora, **am** + il giorno, **im** + il mese: **um sieben, am Montag, im Jänner**."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Uhr",
+          "sl": "ura",
+          "en": "time",
+          "it": "ora"
+        },
+        {
+          "de": "man sagt",
+          "sl": "rečeš",
+          "en": "you say",
+          "it": "si dice"
+        }
+      ],
+      "rows": [
+        [
+          "7:00",
+          "sieben Uhr"
+        ],
+        [
+          "7:30",
+          "halb acht"
+        ],
+        [
+          "7:15",
+          "Viertel nach sieben"
+        ],
+        [
+          "7:45",
+          "Viertel vor acht"
+        ],
+        [
+          "7:10, 7:50",
+          "zehn nach sieben, zehn vor acht"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Es ist halb acht.",
+        "sl": "Pol osmih je.",
+        "en": "It's half past seven.",
+        "it": "Sono le sette e mezza."
+      },
+      {
+        "de": "Am Sonntag ist Kirchtag.",
+        "sl": "V nedeljo je žegnanje.",
+        "en": "On Sunday it's the Kirchtag.",
+        "it": "Domenica c'è la sagra."
+      }
+    ],
+    "tip": {
+      "en": "💡 The days are all der: **der Montag** … **der Sonntag**. Austrian: **Jänner**, **in der Früh** (in the morning), **heuer** (this year).",
+      "sl": "💡 Vsi dnevi so der: **der Montag** … **der Sonntag**. Avstrijsko: **Jänner**, **in der Früh** (zjutraj), **heuer** (letos).",
+      "it": "💡 I giorni sono tutti der: **der Montag** … **der Sonntag**. In Austria: **Jänner**, **in der Früh** (la mattina), **heuer** (quest'anno)."
+    }
+  }
+}

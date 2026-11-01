@@ -1,0 +1,1830 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "bei-der-doppelharpfe",
+  "language": "de",
+  "title": { "de": "Bei der Doppelharpfe", "sl": "Pri toplarju", "en": "By the double hayrack", "it": "Alla doppia Harpfe" },
+  "emoji": "🌾",
+  "level": "A1",
+  "review": "lines, reactions, whys: machine-written (Claude), not reviewed by a native speaker; to check: die Doppelharpfe, der Heiden, Heidensterz, die Garbe, Feierabend, Pfiat di, gell, mitschieben",
+  "art": "field",
+  "from": ["project:toplar"],
+  "pack": "bei-der-doppelharpfe",
+  "objects": [
+    { "slot": "wheat", "word": "weizen", "pack": "auf-dem-feld" },
+    { "slot": "corn", "word": "mais", "pack": "auf-dem-feld" },
+    { "slot": "potatoes", "word": "erdapfel", "pack": "essen" },
+    { "slot": "cabbage", "word": "kraut", "pack": "auf-dem-feld" },
+    { "slot": "kozolec", "word": "harpfe", "pack": "auf-dem-feld", "needs": { "building": "KOZOLEC" } },
+    { "slot": "hay", "word": "heu", "pack": "auf-dem-feld", "needs": { "building": "KOZOLEC" } },
+    { "slot": "scythe", "word": "sense", "pack": "auf-dem-feld" },
+    { "slot": "rake", "word": "rechen", "pack": "auf-dem-feld" },
+    { "slot": "basket", "word": "korb", "pack": "fest-ostern" },
+    { "slot": "cart", "word": "wagen", "pack": "der-himmel" },
+    { "slot": "scarecrow", "word": "vogelscheuche", "pack": "auf-dem-feld" },
+    { "slot": "fence", "word": "zaun", "pack": "auf-dem-feld" },
+    { "slot": "path", "word": "weg", "pack": "am-see" },
+    { "slot": "horse", "word": "pferd", "pack": "fest-kufenstechen" },
+    { "slot": "deer", "word": "reh", "pack": "auf-dem-feld" },
+    { "slot": "hare", "word": "hase", "pack": "auf-dem-feld" },
+    { "slot": "butterfly", "word": "schmetterling", "pack": "auf-dem-feld" },
+    { "slot": "fox", "word": "fuchs", "pack": "auf-dem-feld" },
+    { "slot": "boar", "word": "wildschwein", "pack": "auf-dem-feld" },
+    { "slot": "bat", "word": "fledermaus", "pack": "auf-dem-feld" },
+    { "slot": "toplar", "word": "doppelharpfe", "pack": "auf-dem-feld", "needs": { "project": "toplar" } }
+  ],
+  "people": [
+    { "id": "franz", "name": "Müller Franz", "emoji": "🧑‍🌾", "art": "farmer", "slot": "field", "villager": "franz" },
+    { "id": "florian", "name": "Hirte Florian", "emoji": "🐑", "art": "shepherd", "slot": "kozolec", "villager": "florian" },
+    { "id": "jakob", "name": "Jakob", "emoji": "👦", "art": "child3", "slot": "path", "villager": "jakob" }
+  ],
+  "happenings": [
+    {
+      "id": "heu",
+      "title": { "de": "Herr Franz und das Heu", "sl": "Gospod Franz in seno", "en": "Herr Franz and the hay", "it": "Il signor Franz e il fieno" },
+      "who": "franz",
+      "when": ["afternoon"],
+      "months": [6, 7, 8, 9],
+      "chance": 0.45,
+      "dialog": "heu",
+      "dialogs": ["heu-gewitter", "heu"],
+      "reward": { "food": 20 },
+      "marker": "🌾",
+      "memory": {
+        "de": "das Heu, das wir in die Doppelharpfe gehängt haben",
+        "sl": "seno, ki sva ga obesila v toplar",
+        "en": "the hay we hung in the double hayrack",
+        "it": "il fieno che abbiamo appeso alla doppia Harpfe"
+      }
+    },
+    {
+      "id": "ernte",
+      "title": {
+        "de": "Erntezeit bei der Doppelharpfe",
+        "sl": "Čas žetve pri toplarju",
+        "en": "Harvest time at the double hayrack",
+        "it": "Tempo di raccolto alla doppia Harpfe"
+      },
+      "who": "franz",
+      "when": ["morning"],
+      "months": [9, 10],
+      "weekdays": [1, 2, 3, 4, 5, 6],
+      "chance": 0.5,
+      "dialog": "ernte",
+      "dialogs": ["ernte-mais", "ernte"],
+      "reward": { "food": 20 },
+      "marker": "🌽",
+      "memory": {
+        "de": "den Heiden und den Mais, die wir zum Trocknen aufgehängt haben",
+        "sl": "ajdo in koruzo, ki sva ju obesila sušit",
+        "en": "the buckwheat and maize we hung up to dry",
+        "it": "il grano saraceno e il mais che abbiamo appeso a seccare"
+      }
+    },
+    {
+      "id": "vorraete",
+      "title": { "de": "Die Vorräte im Winter", "sl": "Zaloge pozimi", "en": "The stores in winter", "it": "Le scorte d'inverno" },
+      "who": "franz",
+      "when": ["morning"],
+      "months": [11, 12, 1, 2, 3],
+      "chance": 0.45,
+      "dialog": "vorraete",
+      "dialogs": ["vorraete-zaehlen", "vorraete"],
+      "reward": { "wisdom": 15 },
+      "marker": "📦",
+      "memory": {
+        "de": "die Vorräte, die das Dorf durch den Winter bringen",
+        "sl": "zaloge, ki vas popeljejo čez zimo",
+        "en": "the stores that see the village through the winter",
+        "it": "le scorte che portano il paese oltre l'inverno"
+      }
+    },
+    {
+      "id": "schafe",
+      "title": {
+        "de": "Hirte Florian holt Heu",
+        "sl": "Pastir Florian pride po seno",
+        "en": "Florian the shepherd fetches hay",
+        "it": "Il pastore Florian prende il fieno"
+      },
+      "who": "florian",
+      "when": ["afternoon"],
+      "months": [11, 12, 1, 2, 3],
+      "chance": 0.5,
+      "dialog": "schafe",
+      "dialogs": ["schafe-bella", "schafe"],
+      "reward": { "food": 15 },
+      "marker": "🐑",
+      "memory": { "de": "das Heu für meine Schafe", "sl": "seno za moje ovce", "en": "the hay for my sheep", "it": "il fieno per le mie pecore" }
+    },
+    {
+      "id": "abend",
+      "title": {
+        "de": "Hirte Florian am Abend",
+        "sl": "Pastir Florian zvečer",
+        "en": "Florian the shepherd in the evening",
+        "it": "Il pastore Florian di sera"
+      },
+      "who": "florian",
+      "when": ["evening"],
+      "months": [4, 5, 6, 7, 8, 9, 10],
+      "chance": 0.45,
+      "dialog": "abend",
+      "dialogs": ["abend-fledermaeuse", "abend-hase", "abend"],
+      "reward": { "wisdom": 15 },
+      "marker": "🦇",
+      "memory": {
+        "de": "den Abend bei der Doppelharpfe",
+        "sl": "večer pri toplarju",
+        "en": "the evening at the double hayrack",
+        "it": "la sera alla doppia Harpfe"
+      }
+    },
+    {
+      "id": "jakob",
+      "title": {
+        "de": "Jakob bei der Doppelharpfe",
+        "sl": "Jakob pri toplarju",
+        "en": "Jakob at the double hayrack",
+        "it": "Jakob alla doppia Harpfe"
+      },
+      "who": "jakob",
+      "when": ["morning"],
+      "months": [4, 5, 6, 7, 8, 9, 10],
+      "chance": 0.45,
+      "dialog": "jakob",
+      "dialogs": ["jakob-sense", "jakob-vogelscheuche", "jakob"],
+      "reward": { "food": 15 },
+      "marker": "🎩",
+      "memory": {
+        "de": "die acht Pfosten, die wir gezählt haben",
+        "sl": "osem stebrov, ki sva jih preštela",
+        "en": "the eight posts we counted",
+        "it": "gli otto pali che abbiamo contato"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "heu",
+      "lines": [
+        {
+          "who": "franz",
+          "face": "happy",
+          "de": "Grüß Gott, {learner}! Das Heu ist trocken. Jetzt kommt es in die Doppelharpfe.",
+          "sl": "{m:Pozdravljen|f:Pozdravljena}, {learner}! Seno je suho. Zdaj gre v toplar.",
+          "en": "Grüß Gott, {learner}! The hay is dry. Now it goes into the double hayrack.",
+          "it": "Buongiorno, {learner}! Il fieno è secco. Adesso va nella doppia Harpfe."
+        },
+        {
+          "choices": [
+            {
+              "de": "Ich helfe Ihnen, Herr Franz!",
+              "sl": "Pomagam vam, gospod Franz!",
+              "en": "I'll help you, Herr Franz!",
+              "it": "La aiuto io, signor Franz!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Danke! Zu zweit geht es doppelt so schnell. Wie bei der Doppelharpfe.",
+                "sl": "Hvala! V dvoje gre dvakrat hitreje. Kot pri toplarju.",
+                "en": "Thanks! With two of us it's twice as fast. Like the double hayrack.",
+                "it": "Grazie! In due si fa il doppio più in fretta. Come la doppia Harpfe."
+              }
+            },
+            {
+              "de": "Ich helfe Sie, Herr Franz!",
+              "sl": "Pomagam vam, gospod Franz!",
+              "en": "I'll help you, Herr Franz!",
+              "it": "La aiuto io, signor Franz!",
+              "grammar": "dativ",
+              "why": {
+                "de": "Helfen will den Dativ: Ich helfe Ihnen.",
+                "sl": "Helfen zahteva dajalnik: Ich helfe Ihnen.",
+                "en": "Helfen takes the dative: ich helfe Ihnen.",
+                "it": "Helfen vuole il dativo: ich helfe Ihnen."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Helfe Sie? Hm. Das stimmt so nicht ganz.",
+                "sl": "Helfe Sie? Hm. To ni čisto prav.",
+                "en": "Helfe Sie? Hm. That's not quite right.",
+                "it": "Helfe Sie? Mh. Così non va del tutto."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "de": "Das Heu hängt auf den Latten. Der Wind trocknet es.",
+          "sl": "Seno visi na latah. Veter ga suši.",
+          "en": "The hay hangs on the rails. The wind dries it.",
+          "it": "Il fieno è appeso alle traverse. Il vento lo asciuga."
+        },
+        {
+          "choices": [
+            {
+              "de": "Und unter dem Dach bleibt es trocken!",
+              "sl": "Pod streho pa ostane suho!",
+              "en": "And under the roof it stays dry!",
+              "it": "E sotto il tetto resta asciutto!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Richtig. Das Dach ist aus Lärchenschindeln. Die halten lange.",
+                "sl": "Prav. Streha je iz macesnovih skodel. Te dolgo zdržijo.",
+                "en": "Right. The roof is made of larch shingles. They last a long time.",
+                "it": "Giusto. Il tetto è di scandole di larice. Durano a lungo."
+              }
+            },
+            {
+              "de": "Und unter das Dach bleibt es trocken!",
+              "sl": "Pod streho pa ostane suho!",
+              "en": "And under the roof it stays dry!",
+              "it": "E sotto il tetto resta asciutto!",
+              "grammar": "wechselpraepositionen",
+              "why": {
+                "de": "Bleiben sagt, wo: unter mit dem Dativ, unter dem Dach.",
+                "sl": "Bleiben pove, kje: unter z dajalnikom, unter dem Dach.",
+                "en": "Bleiben says where: unter with the dative, unter dem Dach.",
+                "it": "Bleiben dice dove: unter con il dativo, unter dem Dach."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Unter das …? Hm. Noch einmal, ganz genau.",
+                "sl": "Unter das …? Hm. Še enkrat, čisto natančno.",
+                "en": "Unter das …? Hm. Once more, very carefully.",
+                "it": "Unter das …? Mh. Ancora una volta, con precisione."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "face": "happy",
+          "de": "Zehn Latten voll. Stimmt. Morgen machen wir weiter.",
+          "sl": "Deset lat polnih. Drži. Jutri nadaljujeva.",
+          "en": "Ten rails full. Right. We'll carry on tomorrow.",
+          "it": "Dieci traverse piene. Giusto. Domani continuiamo."
+        }
+      ]
+    },
+    {
+      "id": "ernte",
+      "lines": [
+        {
+          "who": "franz",
+          "face": "happy",
+          "de": "Grüß Gott, {learner}! Der Heiden ist reif. Daraus macht man Heidensterz.",
+          "sl": "{m:Pozdravljen|f:Pozdravljena}, {learner}! Ajda je zrela. Iz nje se kuhajo ajdovi žganci.",
+          "en": "Grüß Gott, {learner}! The buckwheat is ripe. That's what Heidensterz is made from.",
+          "it": "Buongiorno, {learner}! Il grano saraceno è maturo. Ci si fa lo Heidensterz."
+        },
+        {
+          "choices": [
+            {
+              "de": "Was ist Heidensterz, Herr Franz?",
+              "sl": "Kaj je Heidensterz, gospod Franz?",
+              "en": "What's Heidensterz, Herr Franz?",
+              "it": "Che cos'è lo Heidensterz, signor Franz?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Heidenmehl, Wasser, Salz und Fett. Dazu Milch oder Suppe. Gut, sag ich dir!",
+                "sl": "Ajdova moka, voda, sol in mast. Zraven mleko ali juha. Dobro, ti povem!",
+                "en": "Buckwheat flour, water, salt and fat. With milk or soup. Good, I tell you!",
+                "it": "Farina di grano saraceno, acqua, sale e grasso. Con latte o minestra. Buono, te lo dico io!"
+              }
+            },
+            {
+              "de": "Wer ist Heidensterz, Herr Franz?",
+              "sl": "Kdo je Heidensterz, gospod Franz?",
+              "en": "Who is Heidensterz, Herr Franz?",
+              "it": "Chi è lo Heidensterz, signor Franz?",
+              "grammar": "fragen",
+              "why": {
+                "de": "Heidensterz ist ein Essen, keine Person: Was ist …?",
+                "sl": "Heidensterz je jed, ne oseba: Was ist …?",
+                "en": "Heidensterz is a dish, not a person: Was ist …?",
+                "it": "Lo Heidensterz è un piatto, non una persona: Was ist …?"
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Wer? Der Heidensterz ist doch kein Mensch!",
+                "sl": "Kdo? Heidensterz vendar ni človek!",
+                "en": "Who? Heidensterz isn't a person!",
+                "it": "Chi? Lo Heidensterz mica è una persona!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "de": "Die Garben hängen wir in die Doppelharpfe. Dort trocknen sie.",
+          "sl": "Snope obesimo v toplar. Tam se sušijo.",
+          "en": "We hang the sheaves in the double hayrack. They dry there.",
+          "it": "I covoni li appendiamo nella doppia Harpfe. Lì si asciugano."
+        },
+        {
+          "choices": [
+            {
+              "de": "Ich hänge die Garben auf.",
+              "sl": "Jaz obesim snope.",
+              "en": "I'll hang up the sheaves.",
+              "it": "Appendo io i covoni.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Gut. Immer zehn auf eine Latte. Stimmt.",
+                "sl": "Dobro. Vedno deset na eno lato. Drži.",
+                "en": "Good. Always ten to a rail. Right.",
+                "it": "Bene. Sempre dieci per traversa. Giusto."
+              }
+            },
+            {
+              "de": "Ich aufhänge die Garben.",
+              "sl": "Jaz obesim snope.",
+              "en": "I'll hang up the sheaves.",
+              "it": "Appendo io i covoni.",
+              "grammar": "trennbare-verben",
+              "why": {
+                "de": "Aufhängen ist trennbar: ich hänge … auf.",
+                "sl": "Aufhängen je ločljiv glagol: ich hänge … auf.",
+                "en": "Aufhängen is separable: ich hänge … auf.",
+                "it": "Aufhängen è separabile: ich hänge … auf."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Das klingt verdreht. Noch einmal.",
+                "sl": "Hm? To se sliši narobe. Še enkrat.",
+                "en": "Hm? That sounds back to front. Once more.",
+                "it": "Mh? Suona al contrario. Ancora una volta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "face": "proud",
+          "de": "Im Winter gibt es dann Heidensterz. Für das ganze Dorf.",
+          "sl": "Pozimi bodo potem ajdovi žganci. Za vso vas.",
+          "en": "Then in winter there'll be Heidensterz. For the whole village.",
+          "it": "Poi d'inverno c'è lo Heidensterz. Per tutto il paese."
+        }
+      ]
+    },
+    {
+      "id": "vorraete",
+      "lines": [
+        {
+          "who": "franz",
+          "de": "Grüß Gott, {learner}. Im Winter liegen hier unsere Vorräte: Heu, Stroh und Holz.",
+          "sl": "{m:Pozdravljen|f:Pozdravljena}, {learner}. Pozimi so tu naše zaloge: seno, slama in drva.",
+          "en": "Grüß Gott, {learner}. In winter our stores are kept here: hay, straw and wood.",
+          "it": "Buongiorno, {learner}. D'inverno qui ci sono le nostre scorte: fieno, paglia e legna."
+        },
+        {
+          "choices": [
+            {
+              "de": "Das Dorf hat viele Vorräte!",
+              "sl": "Vas ima veliko zalog!",
+              "en": "The village has lots of stores!",
+              "it": "Il paese ha tante scorte!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Ja. So kommen Mensch und Tier gut durch den Winter.",
+                "sl": "Ja. Tako ljudje in živali dobro preživijo zimo.",
+                "en": "Yes. That way people and animals get through the winter.",
+                "it": "Sì. Così uomini e animali passano bene l'inverno."
+              }
+            },
+            {
+              "de": "Das Dorf hat viele Vorrate!",
+              "sl": "Vas ima veliko zalog!",
+              "en": "The village has lots of stores!",
+              "it": "Il paese ha tante scorte!",
+              "grammar": "plural",
+              "why": {
+                "de": "Vorrat hat im Plural einen Umlaut: die Vorräte.",
+                "sl": "Vorrat ima v množini preglas: die Vorräte.",
+                "en": "Vorrat takes an umlaut in the plural: die Vorräte.",
+                "it": "Vorrat al plurale prende l'Umlaut: die Vorräte."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Vorrate? Hm. Hör genau hin, noch einmal.",
+                "sl": "Vorrate? Hm. Dobro poslušaj, še enkrat.",
+                "en": "Vorrate? Hm. Listen carefully, once more.",
+                "it": "Vorrate? Mh. Ascolta bene, ancora una volta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "face": "thinking",
+          "de": "Im Sommer arbeiten, im Winter essen. Wie die Ameise.",
+          "sl": "Poleti delati, pozimi jesti. Kot mravlja.",
+          "en": "Work in summer, eat in winter. Like the ant.",
+          "it": "D'estate lavorare, d'inverno mangiare. Come la formica."
+        },
+        {
+          "choices": [
+            {
+              "de": "Und im Frühling fängt alles wieder an.",
+              "sl": "Spomladi pa se vse spet začne.",
+              "en": "And in spring everything starts again.",
+              "it": "E in primavera ricomincia tutto.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Genau. Zwölf Monate, vier Jahreszeiten. Stimmt.",
+                "sl": "Tako je. Dvanajst mesecev, štirje letni časi. Drži.",
+                "en": "Exactly. Twelve months, four seasons. Right.",
+                "it": "Esatto. Dodici mesi, quattro stagioni. Giusto."
+              }
+            },
+            {
+              "de": "Und im Frühling fängt alles wieder auf.",
+              "sl": "Spomladi pa se vse spet začne.",
+              "en": "And in spring everything starts again.",
+              "it": "E in primavera ricomincia tutto.",
+              "grammar": "trennbare-verben",
+              "why": {
+                "de": "Anfangen heißt beginnen: Es fängt … an. Auffangen heißt, etwas mit der Hand fangen.",
+                "sl": "Anfangen pomeni začeti: es fängt … an. Auffangen pomeni nekaj ujeti z roko.",
+                "en": "Anfangen means to begin: es fängt … an. Auffangen means to catch something in your hand.",
+                "it": "Anfangen vuol dire cominciare: es fängt … an. Auffangen vuol dire prendere qualcosa al volo."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Auf? Was fangen wir denn auf? Einen Ball?",
+                "sl": "Auf? Kaj pa bomo ujeli? Žogo?",
+                "en": "Auf? What are we catching, then? A ball?",
+                "it": "Auf? E cosa prendiamo al volo? Una palla?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "de": "Und jetzt ein Kaffee. Draußen ist es kalt.",
+          "sl": "Zdaj pa kavo. Zunaj je mrzlo.",
+          "en": "And now a coffee. It's cold outside.",
+          "it": "E adesso un caffè. Fuori fa freddo."
+        }
+      ]
+    },
+    {
+      "id": "schafe",
+      "lines": [
+        {
+          "who": "florian",
+          "face": "happy",
+          "de": "Juhuu, {learner}! Im Winter gibt es kein Gras. Darum hole ich Heu für meine Schafe.",
+          "sl": "Juhu, {learner}! Pozimi ni trave. Zato pridem po seno za svoje ovce.",
+          "en": "Yoo-hoo, {learner}! There's no grass in winter. So I'm fetching hay for my sheep.",
+          "it": "Iuhuu, {learner}! D'inverno non c'è erba. Per questo prendo il fieno per le mie pecore."
+        },
+        {
+          "choices": [
+            {
+              "de": "Wie viele Schafe hast du, Florian?",
+              "sl": "Koliko ovac imaš, Florian?",
+              "en": "How many sheep have you got, Florian?",
+              "it": "Quante pecore hai, Florian?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Zwölf! Flocke, Wolke, Bella und neun andere. Bella kommt immer zuletzt.",
+                "sl": "Dvanajst! Flocke, Wolke, Bella in devet drugih. Bella pride vedno zadnja.",
+                "en": "Twelve! Flocke, Wolke, Bella and nine others. Bella always comes last.",
+                "it": "Dodici! Flocke, Wolke, Bella e altre nove. Bella arriva sempre per ultima."
+              }
+            },
+            {
+              "de": "Wie viele Schaf hast du, Florian?",
+              "sl": "Koliko ovac imaš, Florian?",
+              "en": "How many sheep have you got, Florian?",
+              "it": "Quante pecore hai, Florian?",
+              "grammar": "plural",
+              "why": {
+                "de": "Nach wie viele kommt der Plural: das Schaf, die Schafe.",
+                "sl": "Za wie viele pride množina: das Schaf, die Schafe.",
+                "en": "After wie viele comes the plural: das Schaf, die Schafe.",
+                "it": "Dopo wie viele viene il plurale: das Schaf, die Schafe."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Schaf? Eins? Nein, nein, viel mehr!",
+                "sl": "Schaf? Eno? Ne, ne, veliko več!",
+                "en": "Schaf? One? No, no, lots more!",
+                "it": "Schaf? Una? No, no, molte di più!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "de": "Im Winter fressen sie Heu. Das ist ihr Futter.",
+          "sl": "Pozimi jedo seno. To je njihova krma.",
+          "en": "In winter they eat hay. That's their fodder.",
+          "it": "D'inverno mangiano fieno. È il loro foraggio."
+        },
+        {
+          "choices": [
+            {
+              "de": "Und im Sommer fressen sie Gras auf der Alm!",
+              "sl": "Poleti pa jedo travo na planini!",
+              "en": "And in summer they eat grass up on the Alm!",
+              "it": "E d'estate mangiano l'erba sull'alpeggio!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Genau! Und ich jodle dazu. Juhuu!",
+                "sl": "Tako je! Jaz pa zraven jodlam. Juhu!",
+                "en": "Exactly! And I yodel along. Yoo-hoo!",
+                "it": "Esatto! E io intanto faccio lo jodel. Iuhuu!"
+              }
+            },
+            {
+              "de": "Und im Sommer frisst sie Gras auf der Alm!",
+              "sl": "Poleti pa jedo travo na planini!",
+              "en": "And in summer they eat grass up on the Alm!",
+              "it": "E d'estate mangiano l'erba sull'alpeggio!",
+              "grammar": "praesens",
+              "why": {
+                "de": "Die Schafe sind viele: sie fressen. Sie frisst sagt man von einer.",
+                "sl": "Ovac je veliko: sie fressen. Sie frisst rečeš za eno.",
+                "en": "The sheep are many: sie fressen. Sie frisst is for one.",
+                "it": "Le pecore sono tante: sie fressen. Sie frisst si dice di una sola."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Frisst? Nur eine? Nein, die ganze Herde!",
+                "sl": "Frisst? Samo ena? Ne, vsa čreda!",
+                "en": "Frisst? Only one? No, the whole flock!",
+                "it": "Frisst? Solo una? No, tutto il gregge!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "face": "laugh",
+          "de": "Und ich esse am Abend Heidensterz. Wir haben alle Hunger. Juhuu!",
+          "sl": "Jaz pa zvečer jem ajdove žgance. Vsi smo lačni. Juhu!",
+          "en": "And in the evening I eat Heidensterz. We're all hungry. Yoo-hoo!",
+          "it": "E io la sera mangio lo Heidensterz. Abbiamo tutti fame. Iuhuu!"
+        }
+      ]
+    },
+    {
+      "id": "abend",
+      "lines": [
+        {
+          "who": "florian",
+          "de": "Hörst du? Die Glocke von der Kirche auf dem Hügel. Jetzt ist Feierabend.",
+          "sl": "Slišiš? Zvon cerkve na hribu. Zdaj je konec dela.",
+          "en": "Hear that? The bell of the church on the hill. Work's done for the day.",
+          "it": "Senti? La campana della chiesa sulla collina. Adesso si smette di lavorare.",
+          "fx": { "bell": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Schön! Die Glocke klingt bis zur Doppelharpfe.",
+              "sl": "Lepo! Zvon se sliši vse do toplarja.",
+              "en": "Lovely! The bell carries all the way to the double hayrack.",
+              "it": "Che bello! La campana si sente fino alla doppia Harpfe.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Ja. Und meine Schafe hören sie auch. Dann wissen sie: heim!",
+                "sl": "Ja. Tudi moje ovce ga slišijo. Potem vedo: domov!",
+                "en": "Yes. And my sheep hear it too. Then they know: home!",
+                "it": "Sì. E la sentono anche le mie pecore. Allora sanno: a casa!"
+              }
+            },
+            {
+              "de": "Schön! Der Glocke klingt bis zur Doppelharpfe.",
+              "sl": "Lepo! Zvon se sliši vse do toplarja.",
+              "en": "Lovely! The bell carries all the way to the double hayrack.",
+              "it": "Che bello! La campana si sente fino alla doppia Harpfe.",
+              "grammar": "artikel-genus",
+              "why": {
+                "de": "Glocke ist feminin: die Glocke.",
+                "sl": "Glocke je ženskega spola: die Glocke.",
+                "en": "Glocke is feminine: die Glocke.",
+                "it": "Glocke è femminile: die Glocke."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Der Glocke? Hm, gell? Noch einmal.",
+                "sl": "Der Glocke? Hm, a? Še enkrat.",
+                "en": "Der Glocke? Hm, eh? Once more.",
+                "it": "Der Glocke? Mh, eh? Ancora una volta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "face": "curious",
+          "de": "Weißt du, warum die Doppelharpfe aus Lärchenholz ist?",
+          "sl": "Veš, zakaj je toplar iz macesnovega lesa?",
+          "en": "Do you know why the double hayrack is made of larch?",
+          "it": "Sai perché la doppia Harpfe è di larice?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Weil Lärchenholz lange hält!",
+              "sl": "Ker macesnov les dolgo zdrži!",
+              "en": "Because larch wood lasts a long time!",
+              "it": "Perché il legno di larice dura a lungo!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Genau! Hundert Jahre und mehr. Länger als ich!",
+                "sl": "Tako je! Sto let in več. Dlje kot jaz!",
+                "en": "Exactly! A hundred years and more. Longer than me!",
+                "it": "Esatto! Cento anni e più. Più di me!"
+              }
+            },
+            {
+              "de": "Weil Lärchenholz hält lange!",
+              "sl": "Ker macesnov les dolgo zdrži!",
+              "en": "Because larch wood lasts a long time!",
+              "it": "Perché il legno di larice dura a lungo!",
+              "grammar": "nebensatz",
+              "why": {
+                "de": "Nach weil steht das Verb am Ende: weil Lärchenholz lange hält.",
+                "sl": "Za weil stoji glagol na koncu: weil Lärchenholz lange hält.",
+                "en": "After weil the verb goes to the end: weil Lärchenholz lange hält.",
+                "it": "Dopo weil il verbo va in fondo: weil Lärchenholz lange hält."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Der Satz ist verdreht. Noch einmal.",
+                "sl": "Hm? Stavek je narobe. Še enkrat.",
+                "en": "Hm? The sentence is back to front. Once more.",
+                "it": "Mh? La frase è al contrario. Ancora una volta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "face": "happy",
+          "de": "Gute Nacht, {learner}! Pfiat di!",
+          "sl": "Lahko noč, {learner}! Adijo!",
+          "en": "Good night, {learner}! Pfiat di!",
+          "it": "Buonanotte, {learner}! Pfiat di!"
+        }
+      ]
+    },
+    {
+      "id": "jakob",
+      "lines": [
+        {
+          "who": "jakob",
+          "face": "happy",
+          "de": "Hallo, {learner}! Ich zähle die Pfosten von der Doppelharpfe. Eins, zwei, drei …",
+          "sl": "Živjo, {learner}! Štejem stebre toplarja. Ena, dve, tri …",
+          "en": "Hi, {learner}! I'm counting the double hayrack's posts. One, two, three …",
+          "it": "Ciao, {learner}! Conto i pali della doppia Harpfe. Uno, due, tre …"
+        },
+        {
+          "choices": [
+            {
+              "de": "Es sind acht Pfosten, Jakob!",
+              "sl": "Osem stebrov je, Jakob!",
+              "en": "There are eight posts, Jakob!",
+              "it": "Sono otto pali, Jakob!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Acht! Wie Opa sagt: acht Pfosten, zwei Reihen. Stimmt.",
+                "sl": "Osem! Kot pravi dedek: osem stebrov, dve vrsti. Drži.",
+                "en": "Eight! As Grandpa says: eight posts, two rows. Right.",
+                "it": "Otto! Come dice il nonno: otto pali, due file. Giusto."
+              }
+            },
+            {
+              "de": "Es sind sechs Pfosten, Jakob!",
+              "sl": "Šest stebrov je, Jakob!",
+              "en": "There are six posts, Jakob!",
+              "it": "Sono sei pali, Jakob!",
+              "why": {
+                "de": "Zwei Reihen mit je vier Pfosten: zwei mal vier ist acht.",
+                "sl": "Dve vrsti po štiri stebre: dvakrat štiri je osem.",
+                "en": "Two rows of four posts each: two times four is eight.",
+                "it": "Due file di quattro pali ciascuna: due per quattro fa otto."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Sechs? Nein, zähl noch einmal, mit mir!",
+                "sl": "Šest? Ne, preštej še enkrat, z mano!",
+                "en": "Six? No, count again, with me!",
+                "it": "Sei? No, conta di nuovo, con me!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "jakob",
+          "face": "curious",
+          "de": "Und unter jedem Pfosten ist ein Stein. Warum?",
+          "sl": "Pod vsakim stebrom pa je kamen. Zakaj?",
+          "en": "And there's a stone under every post. Why?",
+          "it": "E sotto ogni palo c'è una pietra. Perché?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Damit das Holz nicht nass wird.",
+              "sl": "Da se les ne zmoči.",
+              "en": "So that the wood doesn't get wet.",
+              "it": "Perché il legno non si bagni.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Ah! Nasses Holz wird faul. Das weiß ich jetzt.",
+                "sl": "Aha! Moker les zgnije. Zdaj vem.",
+                "en": "Oh! Wet wood rots. Now I know.",
+                "it": "Ah! Il legno bagnato marcisce. Adesso lo so."
+              }
+            },
+            {
+              "de": "Damit das Holz wird nicht nass.",
+              "sl": "Da se les ne zmoči.",
+              "en": "So that the wood doesn't get wet.",
+              "it": "Perché il legno non si bagni.",
+              "grammar": "nebensatz",
+              "why": {
+                "de": "Nach damit steht das Verb am Ende: damit das Holz nicht nass wird.",
+                "sl": "Za damit stoji glagol na koncu: damit das Holz nicht nass wird.",
+                "en": "After damit the verb goes to the end: damit das Holz nicht nass wird.",
+                "it": "Dopo damit il verbo va in fondo: damit das Holz nicht nass wird."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Damit … hä? Das klingt verkehrt.",
+                "sl": "Damit … a? To se sliši narobe.",
+                "en": "Damit … huh? That sounds wrong.",
+                "it": "Damit … eh? Suona sbagliato."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hä? Das versteh ich nicht. Sag's noch einmal!",
+            "sl": "A? Tega ne razumem. Povej še enkrat!",
+            "en": "Huh? I don't get it. Say it again!",
+            "it": "Eh? Non capisco. Ridillo!"
+          }
+        },
+        {
+          "who": "jakob",
+          "face": "proud",
+          "de": "Wenn ich groß bin, baue ich auch eine Doppelharpfe. Eine dreifache!",
+          "sl": "Ko bom velik, bom tudi jaz zgradil toplar. Trojnega!",
+          "en": "When I'm big, I'll build a double hayrack too. A triple one!",
+          "it": "Da grande costruisco anch'io una doppia Harpfe. Anzi, tripla!"
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "heu-gewitter",
+      "lines": [
+        {
+          "who": "franz",
+          "face": "worried",
+          "de": "Schnell, {learner}! Schau, die Wolken über den Karawanken. Ein Gewitter kommt!",
+          "sl": "Hitro, {learner}! Poglej oblake nad Karavankami. Nevihta prihaja!",
+          "en": "Quick, {learner}! Look at the clouds over the Karawanken. A storm's coming!",
+          "it": "Presto, {learner}! Guarda le nuvole sulle Caravanche. Arriva un temporale!",
+          "sky": { "gloom": 0.5, "wind": 0.4 }
+        },
+        {
+          "who": "franz",
+          "face": "curious",
+          "de": "Der Wagen mit dem Heu muss ins Trockene. Wohin damit?",
+          "sl": "Voz s senom mora na suho. Kam z njim?",
+          "en": "The cart with the hay has to go somewhere dry. Where to?",
+          "it": "Il carro con il fieno deve andare all'asciutto. Dove lo mettiamo?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Unter das Dach der Doppelharpfe!",
+              "sl": "Pod streho toplarja!",
+              "en": "Under the double hayrack's roof!",
+              "it": "Sotto il tetto della doppia Harpfe!",
+              "ok": true,
+              "tap": "toplar",
+              "grammar": "wechselpraepositionen",
+              "reply": {
+                "face": "happy",
+                "de": "Genau! Dafür haben wir sie gebaut.",
+                "sl": "Tako je! Zato smo ga zgradili.",
+                "en": "Exactly! That's what we built it for.",
+                "it": "Esatto! L'abbiamo costruita per questo."
+              }
+            },
+            {
+              "de": "Zum Zaun!",
+              "sl": "K ograji!",
+              "en": "To the fence!",
+              "it": "Allo steccato!",
+              "tap": "fence",
+              "why": {
+                "de": "Am Zaun gibt es kein Dach. Der Wagen braucht ein Dach.",
+                "sl": "Pri ograji ni strehe. Voz potrebuje streho.",
+                "en": "There's no roof at the fence. The cart needs a roof.",
+                "it": "Allo steccato non c'è un tetto. Il carro ha bisogno di un tetto."
+              },
+              "reply": {
+                "face": "worried",
+                "de": "Zum Zaun? Da wird das Heu ja nass!",
+                "sl": "K ograji? Tam se bo seno zmočilo!",
+                "en": "To the fence? The hay will get wet there!",
+                "it": "Allo steccato? Lì il fieno si bagna!"
+              }
+            },
+            {
+              "de": "Zur Vogelscheuche!",
+              "sl": "K strašilu!",
+              "en": "To the scarecrow!",
+              "it": "Dallo spaventapasseri!",
+              "tap": "scarecrow",
+              "why": {
+                "de": "Die Vogelscheuche hat nur einen Hut, kein Dach.",
+                "sl": "Strašilo ima samo klobuk, nima strehe.",
+                "en": "The scarecrow only has a hat, no roof.",
+                "it": "Lo spaventapasseri ha solo un cappello, non un tetto."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Zur Vogelscheuche? Ihr Hut ist zu klein für einen Wagen!",
+                "sl": "K strašilu? Njegov klobuk je premajhen za voz!",
+                "en": "To the scarecrow? Her hat's too small for a cart!",
+                "it": "Dallo spaventapasseri? Il suo cappello è troppo piccolo per un carro!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "franz",
+          "face": "worried",
+          "de": "Da, ein Blitz! Gleich kommt der Donner. Moritz zieht, und du?",
+          "sl": "Glej, blisk! Takoj bo zagrmelo. Moritz vleče, pa ti?",
+          "en": "There, lightning! The thunder's coming. Moritz is pulling, and you?",
+          "it": "Ecco, un lampo! Tra poco tuona. Moritz tira, e tu?",
+          "sky": { "gloom": 0.75, "wind": 0.55, "lightning": true }
+        },
+        {
+          "choices": [
+            {
+              "de": "Ich schiebe mit, Herr Franz!",
+              "sl": "Jaz pa potiskam, gospod Franz!",
+              "en": "I'll push too, Herr Franz!",
+              "it": "Io spingo, signor Franz!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Gut! Moritz zieht, du schiebst. Hü!",
+                "sl": "Dobro! Moritz vleče, ti potiskaš. Hi!",
+                "en": "Good! Moritz pulls, you push. Gee up!",
+                "it": "Bene! Moritz tira, tu spingi. Arri!"
+              }
+            },
+            {
+              "de": "Ich mitschiebe, Herr Franz!",
+              "sl": "Jaz pa potiskam, gospod Franz!",
+              "en": "I'll push too, Herr Franz!",
+              "it": "Io spingo, signor Franz!",
+              "grammar": "trennbare-verben",
+              "why": {
+                "de": "Mitschieben ist trennbar: ich schiebe mit.",
+                "sl": "Mitschieben je ločljiv glagol: ich schiebe mit.",
+                "en": "Mitschieben is separable: ich schiebe mit.",
+                "it": "Mitschieben è separabile: ich schiebe mit."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Egal, schnell jetzt!",
+                "sl": "Hm? Vseeno, zdaj hitro!",
+                "en": "Hm? Never mind, quick now!",
+                "it": "Mh? Fa niente, presto adesso!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "face": "proud",
+          "de": "Geschafft! Der Wagen steht unter dem Dach. Jetzt darf es regnen.",
+          "sl": "Uspelo nama je! Voz stoji pod streho. Zdaj lahko dežuje.",
+          "en": "Done it! The cart's under the roof. Now it can rain.",
+          "it": "Fatto! Il carro è sotto il tetto. Adesso può piovere.",
+          "sky": { "rain": 0.75, "gloom": 0.85 }
+        }
+      ]
+    },
+    {
+      "id": "ernte-mais",
+      "lines": [
+        {
+          "who": "franz",
+          "face": "worried",
+          "de": "Wo ist denn Moritz? Der Wagen mit dem Mais steht da, und das Pferd ist weg!",
+          "sl": "Kje je pa Moritz? Voz s koruzo stoji tu, konja pa ni!",
+          "en": "Where's Moritz got to? The cart with the maize is here, and the horse is gone!",
+          "it": "Dov'è finito Moritz? Il carro con il mais è qui, e il cavallo è sparito!",
+          "fx": { "horse": 0 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Ich suche ihn, Herr Franz!",
+              "sl": "Poiščem ga, gospod Franz!",
+              "en": "I'll look for him, Herr Franz!",
+              "it": "Lo cerco io, signor Franz!",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "de": "Danke. Er frisst sicher wieder das Gras am Weg.",
+                "sl": "Hvala. Gotovo spet žre travo ob poti.",
+                "en": "Thanks. He's sure to be eating the grass by the path again.",
+                "it": "Grazie. Starà di nuovo mangiando l'erba lungo il sentiero."
+              }
+            },
+            {
+              "de": "Ich suche ihm, Herr Franz!",
+              "sl": "Poiščem ga, gospod Franz!",
+              "en": "I'll look for him, Herr Franz!",
+              "it": "Lo cerco io, signor Franz!",
+              "grammar": "akkusativ",
+              "why": {
+                "de": "Suchen will den Akkusativ: ihn, nicht ihm.",
+                "sl": "Suchen zahteva tožilnik: ihn, ne ihm.",
+                "en": "Suchen takes the accusative: ihn, not ihm.",
+                "it": "Suchen vuole l'accusativo: ihn, non ihm."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Ihm? Hm. Das stimmt so nicht ganz.",
+                "sl": "Ihm? Hm. To ni čisto prav.",
+                "en": "Ihm? Hm. That's not quite right.",
+                "it": "Ihm? Mh. Così non va del tutto."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "face": "surprised",
+          "de": "Da kommt er ja, ganz langsam über die Wiese. Typisch Moritz.",
+          "sl": "Glej, prihaja, čisto počasi čez travnik. Tipično za Moritza.",
+          "en": "Here he comes, nice and slowly over the meadow. Typical Moritz.",
+          "it": "Eccolo, pianissimo sul prato. Tipico di Moritz.",
+          "fx": { "horse": 0.6 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Er ist so groß und stark!",
+              "sl": "Tako velik in močan je!",
+              "en": "He's so big and strong!",
+              "it": "È così grande e forte!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Ja. Ein Noriker zieht den Wagen ganz allein.",
+                "sl": "Ja. Noriški konj sam vleče voz.",
+                "en": "Yes. A Noriker pulls the cart all by himself.",
+                "it": "Sì. Un cavallo norico tira il carro da solo.",
+                "fx": { "horse": 1 }
+              }
+            },
+            {
+              "de": "Er hat so groß und stark!",
+              "sl": "Tako velik in močan je!",
+              "en": "He's so big and strong!",
+              "it": "È così grande e forte!",
+              "grammar": "sein-haben",
+              "why": {
+                "de": "Wie jemand ist, sagt man mit sein: Er ist groß.",
+                "sl": "Kakšen je kdo, poveš s sein: er ist groß.",
+                "en": "What someone is like goes with sein: er ist groß.",
+                "it": "Com'è qualcuno si dice con sein: er ist groß."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Er hat …? Was hat er? Hunger, das schon!",
+                "sl": "Er hat …? Kaj ima? Lakoto, to že!",
+                "en": "Er hat …? What has he got? An appetite, sure!",
+                "it": "Er hat …? Cos'ha? Fame, quello sì!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "face": "happy",
+          "de": "So, Moritz. Jetzt bringen wir den Mais zur Doppelharpfe. Dort trocknen die Maiskolben bis Weihnachten.",
+          "sl": "Tako, Moritz. Zdaj pa koruzo peljeva k toplarju. Tam se storži sušijo do božiča.",
+          "en": "Right, Moritz. Now let's take the maize to the double hayrack. The cobs dry there until Christmas.",
+          "it": "Ecco, Moritz. Adesso portiamo il mais alla doppia Harpfe. Lì le pannocchie si asciugano fino a Natale.",
+          "fx": { "horse": 1 }
+        }
+      ],
+      "fx_stays": true
+    },
+    {
+      "id": "vorraete-zaehlen",
+      "count": { "from": "food", "per": 10, "min": 2, "max": 30, "gender": "m" },
+      "memory": {
+        "de": "die Säcke Mehl, die wir zusammen gezählt haben",
+        "sl": "vreče moke, ki sva jih skupaj preštela",
+        "en": "the sacks of flour we counted together",
+        "it": "i sacchi di farina che abbiamo contato insieme"
+      },
+      "lines": [
+        {
+          "who": "franz",
+          "face": "curious",
+          "de": "Grüß Gott, {learner}. Ich zähle die Vorräte vom Dorf. In der Doppelharpfe {liegt|liegen} {n} {Sack|Säcke} Mehl.",
+          "sl": "{m:Pozdravljen|f:Pozdravljena}, {learner}. Štejem zaloge vasi. V toplarju {je|sta|so|je} {n} {vreča|vreči|vreče|vreč} moke.",
+          "en": "Grüß Gott, {learner}. I'm counting the village's stores. There {is|are} {n} {sack|sacks} of flour in the double hayrack.",
+          "it": "Buongiorno, {learner}. Conto le scorte del paese. Nella doppia Harpfe {c'è|ci sono} {n} {sacco|sacchi} di farina."
+        },
+        {
+          "choices": [
+            {
+              "de": "Ich schreibe es auf: {n} {Sack|Säcke} Mehl.",
+              "sl": "Zapišem: {n} {vreča|vreči|vreče|vreč} moke.",
+              "en": "I'll write it down: {n} {sack|sacks} of flour.",
+              "it": "Lo scrivo: {n} {sacco|sacchi} di farina.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Gut. Zahlen müssen stimmen.",
+                "sl": "Dobro. Številke morajo držati.",
+                "en": "Good. Numbers have to be right.",
+                "it": "Bene. I numeri devono tornare."
+              }
+            },
+            {
+              "de": "Ich schreibe es auf: {n} {!Sack|Säcke} Mehl.",
+              "sl": "Zapišem: {n} {!vreča|vreči|vreče|vreč} moke.",
+              "en": "I'll write it down: {n} {!sack|sacks} of flour.",
+              "it": "Lo scrivo: {n} {!sacco|sacchi} di farina.",
+              "wrong_form": 1,
+              "grammar": "plural",
+              "why": {
+                "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Sack|Säcke}.",
+                "sl": "{Ena je v ednini|Od dveh naprej je množina}: {n} {Sack|Säcke}.",
+                "en": "{One takes the singular|From two on, the plural}: {n} {Sack|Säcke}.",
+                "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Sack|Säcke}."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Noch einmal zählen. Zahlen müssen stimmen.",
+                "sl": "Hm? Še enkrat preštej. Številke morajo držati.",
+                "en": "Hm? Count again. Numbers have to be right.",
+                "it": "Mh? Conta di nuovo. I numeri devono tornare."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "de": "Mehl für das Brot, Heiden für den Sterz, Heu für die Kühe.",
+          "sl": "Moka za kruh, ajda za žgance, seno za krave.",
+          "en": "Flour for the bread, buckwheat for the Sterz, hay for the cows.",
+          "it": "Farina per il pane, grano saraceno per lo Sterz, fieno per le mucche."
+        },
+        {
+          "choices": [
+            {
+              "de": "Das ist viel! Der Winter kann kommen.",
+              "sl": "To je veliko! Zima lahko pride.",
+              "en": "That's a lot! Winter can come.",
+              "it": "È tanto! L'inverno può arrivare.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Stimmt. Alles gezählt, alles da.",
+                "sl": "Drži. Vse prešteto, vse tu.",
+                "en": "Right. Everything counted, everything here.",
+                "it": "Giusto. Tutto contato, tutto qui."
+              }
+            },
+            {
+              "de": "Das ist viel! Der Winter kommen kann.",
+              "sl": "To je veliko! Zima lahko pride.",
+              "en": "That's a lot! Winter can come.",
+              "it": "È tanto! L'inverno può arrivare.",
+              "grammar": "modalverben",
+              "why": {
+                "de": "Das Modalverb steht an zweiter Stelle, das andere Verb am Ende: Der Winter kann kommen.",
+                "sl": "Modalni glagol stoji na drugem mestu, drugi glagol na koncu: Der Winter kann kommen.",
+                "en": "The modal verb comes second, the other verb at the end: Der Winter kann kommen.",
+                "it": "Il verbo modale sta al secondo posto, l'altro verbo in fondo: Der Winter kann kommen."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+                "sl": "Hm? To ni čisto prav. Še enkrat.",
+                "en": "Hm? That's not quite right. Once more.",
+                "it": "Mh? Così non va del tutto. Ancora una volta."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Das stimmt so nicht ganz. Noch einmal.",
+            "sl": "Hm? To ni čisto prav. Še enkrat.",
+            "en": "Hm? That's not quite right. Once more.",
+            "it": "Mh? Così non va del tutto. Ancora una volta."
+          }
+        },
+        {
+          "who": "franz",
+          "face": "laugh",
+          "de": "Und im Frühling zähle ich wieder. Was weniger ist, haben wir gegessen.",
+          "sl": "Spomladi pa spet štejem. Kar je manj, smo pojedli.",
+          "en": "And in spring I'll count again. What's less, we've eaten.",
+          "it": "E in primavera conto di nuovo. Quello che manca, l'abbiamo mangiato."
+        }
+      ]
+    },
+    {
+      "id": "schafe-bella",
+      "lines": [
+        {
+          "who": "florian",
+          "face": "worried",
+          "de": "{learner}, hast du Bella gesehen? Sie ist immer die Letzte!",
+          "sl": "{learner}, si {m:videl|f:videla} Bello? Vedno je zadnja!",
+          "en": "{learner}, have you seen Bella? She's always the last!",
+          "it": "{learner}, hai visto Bella? È sempre l'ultima!"
+        },
+        {
+          "choices": [
+            {
+              "de": "Nein, ich habe sie nicht gesehen.",
+              "sl": "Ne, nisem je {m:videl|f:videla}.",
+              "en": "No, I haven't seen her.",
+              "it": "No, non l'ho vista.",
+              "ok": true,
+              "reply": {
+                "de": "Macht nichts. Sie kommt schon, wenn sie Hunger hat.",
+                "sl": "Nič hudega. Že pride, ko bo lačna.",
+                "en": "Never mind. She'll come when she's hungry.",
+                "it": "Non fa niente. Arriva, quando ha fame."
+              }
+            },
+            {
+              "de": "Nein, ich bin sie nicht gesehen.",
+              "sl": "Ne, nisem je {m:videl|f:videla}.",
+              "en": "No, I haven't seen her.",
+              "it": "No, non l'ho vista.",
+              "grammar": "perfekt",
+              "why": {
+                "de": "Sehen bildet das Perfekt mit haben: ich habe gesehen.",
+                "sl": "Sehen tvori perfekt s haben: ich habe gesehen.",
+                "en": "Sehen forms the Perfekt with haben: ich habe gesehen.",
+                "it": "Sehen forma il Perfekt con haben: ich habe gesehen."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Bist? Hm? Das versteh ich nicht ganz.",
+                "sl": "Bist? Hm? Tega ne razumem čisto.",
+                "en": "Bist? Hm? I don't quite get that.",
+                "it": "Bist? Mh? Non capisco bene."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "de": "Bella liebt das Heu aus der Doppelharpfe. Es riecht nach Sommer.",
+          "sl": "Bella obožuje seno iz toplarja. Diši po poletju.",
+          "en": "Bella loves the hay from the double hayrack. It smells of summer.",
+          "it": "Bella adora il fieno della doppia Harpfe. Profuma d'estate."
+        },
+        {
+          "choices": [
+            {
+              "de": "Dann nimm viel Heu mit, Florian!",
+              "sl": "Potem pa vzemi s seboj veliko sena, Florian!",
+              "en": "Then take lots of hay with you, Florian!",
+              "it": "Allora porta via tanto fieno, Florian!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Mach ich! Juhuu, Bella, Essen!",
+                "sl": "Bo narejeno! Juhu, Bella, hrana!",
+                "en": "Will do! Yoo-hoo, Bella, dinner!",
+                "it": "Fatto! Iuhuu, Bella, la pappa!"
+              }
+            },
+            {
+              "de": "Dann mitnimm viel Heu, Florian!",
+              "sl": "Potem pa vzemi s seboj veliko sena, Florian!",
+              "en": "Then take lots of hay with you, Florian!",
+              "it": "Allora porta via tanto fieno, Florian!",
+              "grammar": "trennbare-verben",
+              "why": {
+                "de": "Mitnehmen ist trennbar, auch im Imperativ: Nimm … mit!",
+                "sl": "Mitnehmen je ločljiv glagol, tudi v velelniku: Nimm … mit!",
+                "en": "Mitnehmen is separable in the imperative too: Nimm … mit!",
+                "it": "Mitnehmen è separabile anche all'imperativo: Nimm … mit!"
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Mitnimm? Haha, so redet meine Bella!",
+                "sl": "Mitnimm? Haha, tako govori moja Bella!",
+                "en": "Mitnimm? Haha, that's how my Bella talks!",
+                "it": "Mitnimm? Ahah, così parla la mia Bella!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "face": "happy",
+          "de": "Da ist sie ja! Wie immer die Letzte. Brave Bella.",
+          "sl": "Glej, tu je! Kot vedno zadnja. Pridna Bella.",
+          "en": "There she is! Last, as always. Good Bella.",
+          "it": "Eccola! Come sempre l'ultima. Brava Bella."
+        }
+      ]
+    },
+    {
+      "id": "abend-fledermaeuse",
+      "lines": [
+        {
+          "who": "florian",
+          "face": "surprised",
+          "de": "Schau, da oben! Die Fledermäuse fliegen über die Doppelharpfe.",
+          "sl": "Poglej, tam zgoraj! Netopirji letajo nad toplarjem.",
+          "en": "Look, up there! The bats are flying over the double hayrack.",
+          "it": "Guarda, lassù! I pipistrelli volano sopra la doppia Harpfe.",
+          "fx": { "bats": 0.6 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Wie viele Fledermäuse! Sie fliegen so schnell.",
+              "sl": "Koliko netopirjev! Tako hitro letajo.",
+              "en": "So many bats! They fly so fast.",
+              "it": "Quanti pipistrelli! Volano così veloci.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Ja! Sie fangen die Mücken. Gut für uns!",
+                "sl": "Ja! Lovijo komarje. Dobro za nas!",
+                "en": "Yes! They catch the midges. Good for us!",
+                "it": "Sì! Acchiappano le zanzare. Meglio per noi!",
+                "fx": { "bats": 1 }
+              }
+            },
+            {
+              "de": "Wie viele Fledermause! Sie fliegen so schnell.",
+              "sl": "Koliko netopirjev! Tako hitro letajo.",
+              "en": "So many bats! They fly so fast.",
+              "it": "Quanti pipistrelli! Volano così veloci.",
+              "grammar": "plural",
+              "why": {
+                "de": "Maus hat im Plural einen Umlaut: die Mäuse, die Fledermäuse.",
+                "sl": "Maus ima v množini preglas: die Mäuse, die Fledermäuse.",
+                "en": "Maus takes an umlaut in the plural: die Mäuse, die Fledermäuse.",
+                "it": "Maus al plurale prende l'Umlaut: die Mäuse, die Fledermäuse."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Fledermause? Hm, sag's noch einmal, gell?",
+                "sl": "Fledermause? Hm, povej še enkrat, a?",
+                "en": "Fledermause? Hm, say it again, will you?",
+                "it": "Fledermause? Mh, ridillo, eh?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "de": "Am Tag schlafen sie unter dem Dach. In der Nacht jagen sie.",
+          "sl": "Podnevi spijo pod streho. Ponoči lovijo.",
+          "en": "By day they sleep under the roof. At night they hunt.",
+          "it": "Di giorno dormono sotto il tetto. Di notte vanno a caccia."
+        },
+        {
+          "choices": [
+            {
+              "de": "Dann sind die Fledermäuse unsere Freunde!",
+              "sl": "Potem so netopirji naši prijatelji!",
+              "en": "Then the bats are our friends!",
+              "it": "Allora i pipistrelli sono nostri amici!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Genau. Weniger Mücken, mehr Schlaf. Juhuu!",
+                "sl": "Tako je. Manj komarjev, več spanca. Juhu!",
+                "en": "Exactly. Fewer midges, more sleep. Yoo-hoo!",
+                "it": "Esatto. Meno zanzare, più sonno. Iuhuu!"
+              }
+            },
+            {
+              "de": "Dann haben die Fledermäuse unsere Freunde!",
+              "sl": "Potem so netopirji naši prijatelji!",
+              "en": "Then the bats are our friends!",
+              "it": "Allora i pipistrelli sono nostri amici!",
+              "grammar": "sein-haben",
+              "why": {
+                "de": "Was jemand ist, sagt man mit sein: Sie sind unsere Freunde.",
+                "sl": "Kaj kdo je, poveš s sein: sie sind unsere Freunde.",
+                "en": "What someone is goes with sein: sie sind unsere Freunde.",
+                "it": "Quello che qualcuno è si dice con sein: sie sind unsere Freunde."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Haben? Wen haben sie? Hm?",
+                "sl": "Haben? Koga imajo? Hm?",
+                "en": "Haben? Who have they got? Hm?",
+                "it": "Haben? Chi hanno? Mh?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "face": "happy",
+          "de": "Gute Nacht, Fledermäuse! Gute Nacht, {learner}!",
+          "sl": "Lahko noč, netopirji! Lahko noč, {learner}!",
+          "en": "Good night, bats! Good night, {learner}!",
+          "it": "Buonanotte, pipistrelli! Buonanotte, {learner}!"
+        }
+      ]
+    },
+    {
+      "id": "abend-hase",
+      "lines": [
+        {
+          "who": "florian",
+          "face": "surprised",
+          "de": "Psst, {learner}! Da, im Gras beim Zaun … da bewegt sich was!",
+          "sl": "Pst, {learner}! Tam, v travi pri ograji … nekaj se premika!",
+          "en": "Shh, {learner}! There, in the grass by the fence … something's moving!",
+          "it": "Ssst, {learner}! Lì, nell'erba vicino allo steccato … qualcosa si muove!",
+          "fx": { "hare": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Ein Hase! Er ist so schnell!",
+              "sl": "Zajec! Tako hiter je!",
+              "en": "A hare! He's so fast!",
+              "it": "Una lepre! È così veloce!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Und weg ist er, über die Wiese. Haha!",
+                "sl": "In že ga ni, čez travnik. Haha!",
+                "en": "And off he goes, over the meadow. Haha!",
+                "it": "E via, è già sul prato. Ahah!"
+              }
+            },
+            {
+              "de": "Ein Hase! Er ist so langsam!",
+              "sl": "Zajec! Tako počasen je!",
+              "en": "A hare! He's so slow!",
+              "it": "Una lepre! È così lenta!",
+              "why": {
+                "de": "Der Hase springt in einem Moment über die Wiese: Er ist schnell, nicht langsam.",
+                "sl": "Zajec v trenutku skoči čez travnik: hiter je, ne počasen.",
+                "en": "The hare is over the meadow in a moment: he's fast, not slow.",
+                "it": "La lepre attraversa il prato in un attimo: è veloce, non lenta."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Langsam? Der ist ja schon weg!",
+                "sl": "Počasen? Saj ga že ni več!",
+                "en": "Slow? He's already gone!",
+                "it": "Lenta? È già sparita!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "florian",
+          "de": "Der Hase wohnt hier im Feld. Im Winter frisst er auch ein bisschen Heu.",
+          "sl": "Zajec živi tu na polju. Pozimi poje tudi malo sena.",
+          "en": "The hare lives here in the field. In winter he eats a bit of hay too.",
+          "it": "La lepre vive qui nel campo. D'inverno mangia anche un po' di fieno."
+        },
+        {
+          "choices": [
+            {
+              "de": "Bekommt er das Heu von dir?",
+              "sl": "Ga dobi od tebe?",
+              "en": "Does he get the hay from you?",
+              "it": "Il fieno glielo dai tu?",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "de": "Ein bisschen. Aber psst, das ist ein Geheimnis!",
+                "sl": "Malo. Ampak pst, to je skrivnost!",
+                "en": "A bit. But shh, that's a secret!",
+                "it": "Un po'. Ma ssst, è un segreto!"
+              }
+            },
+            {
+              "de": "Bekommt er das Heu von dich?",
+              "sl": "Ga dobi od tebe?",
+              "en": "Does he get the hay from you?",
+              "it": "Il fieno glielo dai tu?",
+              "grammar": "dativ",
+              "why": {
+                "de": "Von will den Dativ: von dir.",
+                "sl": "Von zahteva dajalnik: von dir.",
+                "en": "Von takes the dative: von dir.",
+                "it": "Von vuole il dativo: von dir."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Von dich? Hm? Noch einmal, langsam.",
+                "sl": "Von dich? Hm? Še enkrat, počasi.",
+                "en": "Von dich? Hm? Once more, slowly.",
+                "it": "Von dich? Mh? Ancora una volta, piano."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, ganz langsam, gell?",
+            "sl": "Prosim? Še enkrat, čisto počasi, ja?",
+            "en": "Sorry? Once more, nice and slowly, all right?",
+            "it": "Come? Ancora una volta, piano piano, va bene?"
+          }
+        },
+        {
+          "who": "florian",
+          "face": "laugh",
+          "de": "Hasen, Schafe, Fledermäuse. Bei der Doppelharpfe ist am Abend viel los!",
+          "sl": "Zajci, ovce, netopirji. Pri toplarju je zvečer veliko dogajanja!",
+          "en": "Hares, sheep, bats. There's a lot going on at the double hayrack in the evening!",
+          "it": "Lepri, pecore, pipistrelli. Alla doppia Harpfe la sera c'è un gran movimento!"
+        }
+      ],
+      "fx_stays": true
+    },
+    {
+      "id": "jakob-sense",
+      "lines": [
+        {
+          "who": "jakob",
+          "face": "worried",
+          "de": "Opa will das Gras mähen. Aber wo ist seine Sense?",
+          "sl": "Dedek bi rad pokosil travo. Ampak kje je njegova kosa?",
+          "en": "Grandpa wants to mow the grass. But where's his scythe?",
+          "it": "Il nonno vuole falciare l'erba. Ma dov'è la sua falce?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Da, am Zaun!",
+              "sl": "Tam, ob ograji!",
+              "en": "There, by the fence!",
+              "it": "Lì, appoggiata allo steccato!",
+              "ok": true,
+              "tap": "scythe",
+              "grammar": "wechselpraepositionen",
+              "reply": {
+                "face": "happy",
+                "de": "Ja! Die lange, mit dem krummen Blatt. Danke!",
+                "sl": "Ja! Dolga, z ukrivljenim rezilom. Hvala!",
+                "en": "Yes! The long one with the curved blade. Thanks!",
+                "it": "Sì! Quella lunga, con la lama curva. Grazie!"
+              }
+            },
+            {
+              "de": "Da, der Rechen!",
+              "sl": "Tam, grablje!",
+              "en": "There, the rake!",
+              "it": "Lì, il rastrello!",
+              "tap": "rake",
+              "why": {
+                "de": "Der Rechen hat Zähne. Die Sense hat ein langes, krummes Blatt.",
+                "sl": "Grablje imajo zobe. Kosa ima dolgo, ukrivljeno rezilo.",
+                "en": "The rake has teeth. The scythe has a long, curved blade.",
+                "it": "Il rastrello ha i denti. La falce ha una lama lunga e curva."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Der Rechen? Damit mäht man nicht, damit recht man!",
+                "sl": "Grablje? Z njimi se ne kosi, z njimi se grabi!",
+                "en": "The rake? You don't mow with that, you rake!",
+                "it": "Il rastrello? Con quello non si falcia, si rastrella!"
+              }
+            },
+            {
+              "de": "Da, im Korb!",
+              "sl": "Tam, v košari!",
+              "en": "There, in the basket!",
+              "it": "Lì, nel cesto!",
+              "tap": "basket",
+              "why": {
+                "de": "Im Korb sind Erdäpfel. Die Sense ist lang, sie lehnt irgendwo.",
+                "sl": "V košari je krompir. Kosa je dolga, nekje je naslonjena.",
+                "en": "There are potatoes in the basket. The scythe is long, it's leaning somewhere.",
+                "it": "Nel cesto ci sono le patate. La falce è lunga, è appoggiata da qualche parte."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Im Korb? Die Sense ist viel zu lang für den Korb!",
+                "sl": "V košari? Kosa je veliko predolga za košaro!",
+                "en": "In the basket? The scythe's far too long for the basket!",
+                "it": "Nel cesto? La falce è troppo lunga per il cesto!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "jakob",
+          "face": "proud",
+          "de": "Ich bringe sie Opa. Und dann mäht er, und ich helfe beim Trocknen!",
+          "sl": "Odnesem jo dedku. Potem bo kosil, jaz pa bom pomagal sušiti!",
+          "en": "I'll take it to Grandpa. Then he'll mow, and I'll help with the drying!",
+          "it": "La porto al nonno. Poi lui falcia, e io aiuto a far seccare il fieno!"
+        }
+      ]
+    },
+    {
+      "id": "jakob-vogelscheuche",
+      "lines": [
+        {
+          "who": "jakob",
+          "face": "worried",
+          "de": "Oje, {learner}! Der Wind hat den Hut von der Vogelscheuche weggeblasen!",
+          "sl": "Joj, {learner}! Veter je odpihnil strašilu klobuk!",
+          "en": "Oh no, {learner}! The wind has blown the scarecrow's hat away!",
+          "it": "Oh no, {learner}! Il vento ha portato via il cappello dello spaventapasseri!",
+          "fx": { "hat": 0 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Sie kann meinen Hut haben!",
+              "sl": "Lahko dobi moj klobuk!",
+              "en": "She can have my hat!",
+              "it": "Può avere il mio cappello!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Hihi! Der Hut ist zu groß. Er rutscht ihr auf die Nase!",
+                "sl": "Hihi! Klobuk je prevelik. Zdrsne mu na nos!",
+                "en": "Hee hee! The hat's too big. It's slipping down onto her nose!",
+                "it": "Ihih! Il cappello è troppo grande. Le scivola sul naso!",
+                "fx": { "hat": 0.9 }
+              }
+            },
+            {
+              "de": "Sie kann mein Hut haben!",
+              "sl": "Lahko dobi moj klobuk!",
+              "en": "She can have my hat!",
+              "it": "Può avere il mio cappello!",
+              "grammar": "akkusativ",
+              "why": {
+                "de": "Haben will den Akkusativ: der Hut wird zu meinen Hut.",
+                "sl": "Haben zahteva tožilnik: der Hut postane meinen Hut.",
+                "en": "Haben takes the accusative: der Hut becomes meinen Hut.",
+                "it": "Haben vuole l'accusativo: der Hut diventa meinen Hut."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Mein Hut? Hä? Gibst du ihn ihr jetzt oder nicht?",
+                "sl": "Mein Hut? A? Ji ga boš dal ali ne?",
+                "en": "Mein Hut? Huh? Are you giving it to her or not?",
+                "it": "Mein Hut? Eh? Glielo dai o no?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hä? Das versteh ich nicht. Sag's noch einmal!",
+            "sl": "A? Tega ne razumem. Povej še enkrat!",
+            "en": "Huh? I don't get it. Say it again!",
+            "it": "Eh? Non capisco. Ridillo!"
+          }
+        },
+        {
+          "who": "jakob",
+          "face": "proud",
+          "de": "Und Opas roter Schal, für die kalten Tage. So!",
+          "sl": "Pa še dedkov rdeči šal, za mrzle dni. Tako!",
+          "en": "And Grandpa's red scarf, for the cold days. There!",
+          "it": "E la sciarpa rossa del nonno, per i giorni freddi. Ecco!",
+          "fx": { "scarf": 1 }
+        },
+        {
+          "who": "jakob",
+          "face": "thinking",
+          "de": "Aber sie hat ja kein Gesicht! Malen wir eins, mit Kohle?",
+          "sl": "Ampak saj nima obraza! Mu ga nariševa, z ogljem?",
+          "en": "But she hasn't got a face! Shall we draw one, with charcoal?",
+          "it": "Ma non ha la faccia! Gliela disegniamo, con il carbone?",
+          "fx": { "face": 0 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja! Zwei Augen und einen Mund.",
+              "sl": "Ja! Dve očesi in usta.",
+              "en": "Yes! Two eyes and a mouth.",
+              "it": "Sì! Due occhi e una bocca.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Hihi, jetzt lacht sie!",
+                "sl": "Hihi, zdaj se smeji!",
+                "en": "Hee hee, now she's smiling!",
+                "it": "Ihih, adesso ride!",
+                "fx": { "face": 1 }
+              }
+            },
+            {
+              "de": "Ja! Zwei Auge und einen Mund.",
+              "sl": "Ja! Dve očesi in usta.",
+              "en": "Yes! Two eyes and a mouth.",
+              "it": "Sì! Due occhi e una bocca.",
+              "grammar": "plural",
+              "why": {
+                "de": "Auge hat im Plural -n: ein Auge, zwei Augen.",
+                "sl": "Auge ima v množini -n: ein Auge, zwei Augen.",
+                "en": "Auge takes -n in the plural: ein Auge, zwei Augen.",
+                "it": "Auge al plurale prende -n: ein Auge, zwei Augen."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Zwei Auge? Hihi, das sagt man so nicht!",
+                "sl": "Zwei Auge? Hihi, tako se ne reče!",
+                "en": "Zwei Auge? Hee hee, that's not how you say it!",
+                "it": "Zwei Auge? Ihih, non si dice così!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hä? Das versteh ich nicht. Sag's noch einmal!",
+            "sl": "A? Tega ne razumem. Povej še enkrat!",
+            "en": "Huh? I don't get it. Say it again!",
+            "it": "Eh? Non capisco. Ridillo!"
+          }
+        },
+        {
+          "who": "jakob",
+          "face": "surprised",
+          "de": "Oje! Jetzt kommen die Krähen zurück. Sie ist zu lieb!",
+          "sl": "Joj! Zdaj se vrane vračajo. Strašilo je preveč prijazno!",
+          "en": "Oh no! Now the crows are coming back. She's too nice!",
+          "it": "Oh no! Adesso tornano le cornacchie. È troppo gentile!",
+          "fx": { "crows": 1 }
+        }
+      ],
+      "fx_stays": true
+    }
+  ]
+}

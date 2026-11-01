@@ -1,0 +1,839 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "haben",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🎒",
+  "title": {
+    "de": "Haben: ich habe, du hast",
+    "en": "To have: ich habe, du hast",
+    "sl": "Imeti: ich habe, du hast",
+    "it": "Avere: ich habe, du hast"
+  },
+  "goal": {
+    "en": "You can say what you and the others have (ich habe, du hast, er hat …), that someone is hungry, thirsty or has time, and how old someone is: with sein.",
+    "sl": "Poveš, kaj imaš ti in kaj imajo drugi (ich habe, du hast, er hat …), da je kdo lačen, žejen ali ima čas, in koliko je kdo star: s sein.",
+    "it": "Sai dire che cosa hai tu e che cosa hanno gli altri (ich habe, du hast, er hat …), che qualcuno ha fame, sete o tempo, e quanti anni ha qualcuno: con sein."
+  },
+  "grammar": [
+    "sein-haben"
+  ],
+  "words": [
+    "haben",
+    "sein",
+    "Ich habe Hunger.",
+    "Hast du Zeit?",
+    "Wie alt bist du?",
+    "die Katze",
+    "das Pferd",
+    "die Biene",
+    "die Mühle",
+    "das Gasthaus",
+    "der Hunger",
+    "der Durst",
+    "die Zeit",
+    "das Glück",
+    "das Jahr",
+    "alt",
+    "viel",
+    "der Apfel",
+    "das Schaf",
+    "die Schwester",
+    "der Most",
+    "die Suppe",
+    "das Glas",
+    "das Brot",
+    "der Käse",
+    "der Herr",
+    "schon",
+    "kalt"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Person",
+          "en": "who",
+          "sl": "kdo",
+          "it": "chi"
+        },
+        {
+          "de": "haben",
+          "en": "haben (to have)",
+          "sl": "haben (imeti)",
+          "it": "haben (avere)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**Haben** (to have) changes with the person. One person first: **ich habe** (I have), **du hast** (you have), **er hat, sie hat, es hat** (he has, she has, it has). In hast and hat the b is gone. In speech you often hear **ich hab** (I have): that's right too.",
+          "sl": "**Haben** (imeti) se spreminja po osebah. Najprej ena oseba: **ich habe** (imam), **du hast** (imaš), **er hat, sie hat, es hat** (on ima, ona ima, ono ima). V hast in hat črke b ni več. Zaimek vedno poveš: ich habe, nikoli samo habe. V govoru pogosto slišiš **ich hab** (imam): tudi to je prav.",
+          "it": "**Haben** (avere) cambia con la persona. Prima una persona: **ich habe** (io ho), **du hast** (tu hai), **er hat, sie hat, es hat** (lui ha, lei ha). In hast e hat la b sparisce. Il pronome si dice sempre: ich habe, mai solo habe. Parlando si sente spesso **ich hab** (ho): va bene anche così."
+        },
+        "examples": [
+          {
+            "de": "Tante Mitzi hat eine Katze.",
+            "en": "Aunt Mitzi has a cat.",
+            "sl": "Teta Mitzi ima mačko.",
+            "it": "Zia Mitzi ha un gatto."
+          },
+          {
+            "de": "Kathi hat ein Gasthaus.",
+            "en": "Kathi has an inn.",
+            "sl": "Kathi ima gostilno.",
+            "it": "Kathi ha un'osteria."
+          },
+          {
+            "de": "Stanko, du hast viele Bienen!",
+            "en": "Stanko, you've got lots of bees!",
+            "sl": "Stanko, veliko čebel imaš!",
+            "it": "Stanko, hai tante api!"
+          }
+        ],
+        "rows": [
+          [
+            "ich",
+            "habe"
+          ],
+          [
+            "du",
+            "hast"
+          ],
+          [
+            "er, sie, es",
+            "hat"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "prompt": "Müller Franz ___ eine Mühle.",
+          "options": [
+            "habe",
+            "hast",
+            "hat"
+          ],
+          "answer": 2,
+          "say_options": true,
+          "explain": {
+            "en": "**Franz is er (he): hat**\n- ich habe · du hast · er hat",
+            "sl": "**Franz je er (on): hat**\n- ich habe · du hast · er hat",
+            "it": "**Franz è er (lui): hat**\n- ich habe · du hast · er hat"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Two or more: **wir haben** (we have), **ihr habt** (you have: two or more people you say du to), **sie haben** (they have). The polite **Sie haben** (you have) is the same form, with a capital S: **Sie haben eine Mühle, Herr Franz.** (You have a mill, Mr Franz.)",
+          "sl": "Dva ali več: **wir haben** (imamo, imava), **ihr habt** (imate, imata: več ljudi, ki jih tikaš), **sie haben** (imajo, imata). Dvojine nemščina nima. Vljudni **Sie haben** (imate) je ista oblika, z veliko S: **Sie haben eine Mühle, Herr Franz.** (Mlin imate, gospod Franz.)",
+          "it": "Due o più: **wir haben** (abbiamo), **ihr habt** (avete), **sie haben** (hanno). Il **Sie haben** di cortesia (Lei ha) ha la stessa forma, con la S maiuscola: **Sie haben eine Mühle, Herr Franz.** (Lei ha un mulino, signor Franz.) Dove l'italiano dice Lei ha, il tedesco usa la forma di loro."
+        },
+        "examples": [
+          {
+            "de": "Franz und Stefan haben viele Äpfel.",
+            "en": "Franz and Stefan have lots of apples.",
+            "sl": "Franz in Stefan imata veliko jabolk.",
+            "it": "Franz e Stefan hanno tante mele."
+          },
+          {
+            "de": "Sie haben eine Mühle, Herr Franz.",
+            "en": "You have a mill, Mr Franz.",
+            "sl": "Mlin imate, gospod Franz.",
+            "it": "Lei ha un mulino, signor Franz."
+          }
+        ],
+        "rows": [
+          [
+            "wir",
+            "haben"
+          ],
+          [
+            "ihr",
+            "habt"
+          ],
+          [
+            "sie, Sie",
+            "haben"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "prompt": "Franz und Stefan, ihr ___ viele Äpfel!",
+          "options": [
+            "hast",
+            "habt",
+            "haben"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**ihr (you, two or more): habt**\n- wir haben · ihr habt · sie haben",
+            "sl": "**ihr (vi, dva ali več): habt**\n- wir haben · ihr habt · sie haben",
+            "it": "**ihr (voi): habt**\n- wir haben · ihr habt · sie haben"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "German says **Hunger haben** (to be hungry, word for word to have hunger) and **Durst haben** (to be thirsty), where English says I am: **Ich habe Hunger.** (I'm hungry.) Time too: **Hast du Zeit?** (Have you got time?) In a question you answer with yes or no, the verb comes first.",
+          "sl": "Nemščina reče **Hunger haben** (biti lačen, dobesedno imeti lakoto) in **Durst haben** (biti žejen), kjer slovenščina reče sem: **Ich habe Hunger.** ({m:Lačen|f:Lačna} sem.) Tudi čas imaš: **Hast du Zeit?** (Imaš čas?) V vprašanju, na katero odgovoriš z da ali ne, je glagol spredaj.",
+          "it": "**Hunger haben** (avere fame) e **Durst haben** (avere sete): come in italiano, fame e sete si hanno. **Ich habe Hunger.** (Ho fame.) Anche il tempo: **Hast du Zeit?** (Hai tempo?) Nella domanda a cui si risponde sì o no il verbo va al primo posto."
+        },
+        "examples": [
+          {
+            "de": "Ich habe Hunger, Oma Resi!",
+            "en": "I'm hungry, Grandma Resi!",
+            "sl": "{m:Lačen|f:Lačna} sem, babica Resi!",
+            "it": "Ho fame, nonna Resi!"
+          },
+          {
+            "de": "Schmied Toni hat Durst.",
+            "en": "Toni the smith is thirsty.",
+            "sl": "Kovač Toni je žejen.",
+            "it": "Il fabbro Toni ha sete."
+          },
+          {
+            "de": "Hast du Zeit, {learner}?",
+            "en": "Have you got time, {learner}?",
+            "sl": "Imaš čas, {learner}?",
+            "it": "Hai tempo, {learner}?"
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "prompt": "Oma Resi, ich ___ Durst!",
+          "options": [
+            "bin",
+            "habe",
+            "hast"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**Durst haben**: German has thirst\n- Ich habe Durst. · I'm thirsty.\n- Ich habe Hunger. · I'm hungry.",
+            "sl": "**Durst haben**: nemščina ima žejo\n- Toni hat Durst. · Toni je žejen.\n- Toni hat Hunger. · Toni je lačen.",
+            "it": "**Durst haben**: come avere sete\n- Ich habe Durst. · Ho sete.\n- Ich habe Hunger. · Ho fame."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Age is said with **sein** (to be), as in English, never with haben: **Stefan ist dreißig Jahre alt.** (Stefan is thirty years old.) The question goes the same way: **Wie alt bist du?** (How old are you?)",
+          "sl": "Starost povemo s **sein** (biti), kot v slovenščini, nikoli s haben: **Stefan ist dreißig Jahre alt.** (Stefan je star trideset let.) Prav tako vprašanje: **Wie alt bist du?** (Koliko si {m:star|f:stara}?)",
+          "it": "Attenzione: l'età si dice con **sein** (essere), non con haben: **Stefan ist dreißig Jahre alt.** (Stefan ha trent'anni.) Mai Stefan hat dreißig Jahre: parola per parola il tedesco dice Stefan è vecchio trent'anni. La domanda: **Wie alt bist du?** (Quanti anni hai?)"
+        },
+        "examples": [
+          {
+            "de": "Stefan ist dreißig Jahre alt.",
+            "en": "Stefan is thirty years old.",
+            "sl": "Stefan je star trideset let.",
+            "it": "Stefan ha trent'anni."
+          },
+          {
+            "de": "Die Mühle ist hundert Jahre alt.",
+            "en": "The mill is a hundred years old.",
+            "sl": "Mlin je star sto let.",
+            "it": "Il mulino ha cento anni."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "prompt": "Bello ___ zwölf Jahre alt.",
+          "options": [
+            "hat",
+            "ist",
+            "bin"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**Age with sein**: Bello ist zwölf Jahre alt\n- Stefan ist dreißig · Stefan is thirty",
+            "sl": "**Starost s sein**: Bello ist zwölf Jahre alt\n- Stefan ist dreißig · Stefan je star trideset let",
+            "it": "**L'età con sein, non con haben**: Bello ist zwölf Jahre alt\n- Bello ha dodici anni · ma in tedesco ist"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Watch the last letters: **du hast** (you have), **er hat** (he has), **ihr habt** (you have, two or more). Each goes with its own person: Stanko, du hat is wrong. A tip: after du the verb nearly always ends in **-st**: **du hast**, **du bist** (you are).",
+          "sl": "Pazi na zadnje črke: **du hast** (imaš), **er hat** (ima), **ihr habt** (imate). Vsaka sodi k svoji osebi: Stanko, du hat je narobe. Namig: za du se glagol skoraj vedno konča na **-st**: **du hast**, **du bist** (si).",
+          "it": "Attenzione alle ultime lettere: **du hast** (tu hai), **er hat** (lui ha), **ihr habt** (voi avete). Ognuna va con la sua persona: Stanko, du hat è sbagliato. Un trucco: dopo du il verbo finisce quasi sempre in **-st**: **du hast**, **du bist** (tu sei)."
+        },
+        "examples": [
+          {
+            "de": "Stanko hat viele Bienen.",
+            "en": "Stanko has lots of bees.",
+            "sl": "Stanko ima veliko čebel.",
+            "it": "Stanko ha tante api."
+          },
+          {
+            "de": "Florian und Toni, ihr habt Glück!",
+            "en": "Florian and Toni, you're lucky!",
+            "sl": "Florian in Toni, srečo imata!",
+            "it": "Florian e Toni, avete fortuna!"
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "sein-haben",
+          "text": "Mitzi, du ___ eine Katze!",
+          "accept": [
+            "hast"
+          ],
+          "hint": "du → ?",
+          "explain": {
+            "en": "**du hast**: after du, -st\n- er hat · ihr habt",
+            "sl": "**du hast**: za du -st\n- er hat · ihr habt",
+            "it": "**du hast**: dopo du, -st\n- er hat · ihr habt"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "haben-1",
+      "title": {
+        "de": "Ich habe, du hast",
+        "en": "I have, you have",
+        "sl": "Imam, imaš",
+        "it": "Io ho, tu hai"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Ergänze · Fill in haben",
+            "sl": "Ergänze · Dopolni haben",
+            "it": "Ergänze · Completa haben"
+          },
+          "prompt": {
+            "en": "haben · to have (present)",
+            "sl": "haben · imeti (sedanjik)",
+            "it": "haben · avere (presente)"
+          },
+          "columns": [
+            {
+              "en": "haben · to have",
+              "sl": "haben · imeti",
+              "it": "haben · avere"
+            }
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "habe"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "hast"
+                  ],
+                  "hint": {
+                    "en": "no b",
+                    "sl": "brez b",
+                    "it": "senza b"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "er, sie, es",
+              "cells": [
+                {
+                  "accept": [
+                    "hat"
+                  ],
+                  "hint": {
+                    "en": "no b",
+                    "sl": "brez b",
+                    "it": "senza b"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                {
+                  "accept": [
+                    "haben"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "habt"
+                  ],
+                  "hint": {
+                    "en": "with b",
+                    "sl": "z b",
+                    "it": "con la b"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "sie, Sie",
+              "cells": [
+                {
+                  "accept": [
+                    "haben"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": "ich habe · du hast · er, sie, es hat · wir haben · ihr habt · sie, Sie haben"
+        },
+        {
+          "type": "sort",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Ordne zu · sein or haben?",
+            "sl": "Ordne zu · sein ali haben?",
+            "it": "Ordne zu · sein o haben?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "sein · to be",
+                "sl": "sein · biti",
+                "it": "sein · essere"
+              },
+              "words": [
+                "bin",
+                "bist",
+                "ist",
+                "seid"
+              ]
+            },
+            {
+              "label": {
+                "en": "haben · to have",
+                "sl": "haben · imeti",
+                "it": "haben · avere"
+              },
+              "words": [
+                "habe",
+                "hast",
+                "hat",
+                "habt"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**sein**: bin, bist, ist, sind, seid, sind\n**haben**: habe, hast, hat, haben, habt, haben",
+            "sl": "**sein**: bin, bist, ist, sind, seid, sind\n**haben**: habe, hast, hat, haben, habt, haben",
+            "it": "**sein**: bin, bist, ist, sind, seid, sind\n**haben**: habe, hast, hat, haben, habt, haben"
+          }
+        }
+      ]
+    },
+    {
+      "id": "haben-2",
+      "title": {
+        "de": "Im Gasthaus zur Linde",
+        "en": "At the Gasthaus zur Linde",
+        "sl": "V gostilni zur Linde",
+        "it": "All'osteria zur Linde"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Ergänze mit haben · Fill in with haben",
+            "sl": "Ergänze mit haben · Dopolni z glagolom haben",
+            "it": "Ergänze mit haben · Completa con haben"
+          },
+          "title": "Im Gasthaus zur Linde",
+          "text": "Kathi ___ ein Gasthaus, das Gasthaus zur Linde. Ich ___ Hunger! Toni ___ schon ein Glas Most. Stanko und Florian ___ Zeit. Kathi: „{learner}, du ___ Glück: die Suppe ist da!“ Und zu Stanko und Florian: „Ihr ___ Durst? Der Most ist kalt.“",
+          "gaps": [
+            {
+              "accept": [
+                "hat"
+              ],
+              "hint": "Kathi = sie"
+            },
+            {
+              "accept": [
+                "habe"
+              ],
+              "hint": "ich → ?",
+              "explain": {
+                "en": "**Hunger haben**: ich habe Hunger (spoken: ich hab Hunger)",
+                "sl": "**Hunger haben**: ich habe Hunger (v govoru: ich hab Hunger)",
+                "it": "**Hunger haben**: ich habe Hunger (parlato: ich hab Hunger)"
+              }
+            },
+            {
+              "accept": [
+                "hat"
+              ],
+              "hint": "Toni = er"
+            },
+            {
+              "accept": [
+                "haben"
+              ],
+              "hint": "Stanko und Florian = sie"
+            },
+            {
+              "accept": [
+                "hast"
+              ],
+              "hint": "du → ?"
+            },
+            {
+              "accept": [
+                "habt"
+              ],
+              "hint": "ihr → ?",
+              "explain": {
+                "en": "Kathi speaks to both of them, so ihr: **habt**.",
+                "sl": "Kathi govori obema, torej ihr: **habt**.",
+                "it": "Kathi parla a tutti e due, quindi ihr: **habt**."
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "bin",
+            "ist",
+            "sind"
+          ],
+          "translation": {
+            "en": "Kathi has an inn, the Gasthaus zur Linde. I'm hungry! Toni already has a glass of cider. Stanko and Florian have time. Kathi: “{learner}, you're lucky: the soup is here!” And to Stanko and Florian: “Are you thirsty? The cider is cold.”",
+            "sl": "Kathi ima gostilno, gostilno zur Linde. {m:Lačen|f:Lačna} sem! Toni že ima kozarec mošta. Stanko in Florian imata čas. Kathi: »{learner}, srečo imaš: juha je tu!« Stanku in Florianu pa: »Sta žejna? Mošt je hladen.«",
+            "it": "Kathi ha un'osteria, il Gasthaus zur Linde. Ho fame! Toni ha già un bicchiere di sidro. Stanko e Florian hanno tempo. Kathi: «{learner}, hai fortuna: la zuppa è qui!» E a Stanko e Florian: «Avete sete? Il sidro è fresco.»"
+          },
+          "explain": {
+            "en": "**haben goes with the person**\n- Kathi hat · ich habe · du hast · ihr habt",
+            "sl": "**haben se ujema z osebo**\n- Kathi hat · ich habe · du hast · ihr habt",
+            "it": "**haben va con la persona**\n- Kathi hat · ich habe · du hast · ihr habt"
+          }
+        }
+      ]
+    },
+    {
+      "id": "haben-3",
+      "title": {
+        "de": "Wer hat was?",
+        "en": "Who has what?",
+        "sl": "Kdo ima kaj?",
+        "it": "Chi ha che cosa?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+            "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+            "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich habe eine Katze. (Mitzi)",
+              "accept": [
+                "Mitzi hat eine Katze."
+              ],
+              "hint": "Mitzi = sie"
+            },
+            {
+              "from": "Ich habe Hunger. (wir)",
+              "accept": [
+                "Wir haben Hunger."
+              ]
+            },
+            {
+              "from": "Du hast Glück. (ihr)",
+              "accept": [
+                "Ihr habt Glück."
+              ]
+            },
+            {
+              "from": "Ich habe ein Pferd. (Toni)",
+              "accept": [
+                "Toni hat ein Pferd."
+              ],
+              "hint": "Toni = er"
+            },
+            {
+              "from": "Wir haben Durst. (du)",
+              "accept": [
+                "Du hast Durst."
+              ]
+            },
+            {
+              "from": "Ich habe viele Bienen. (Stanko)",
+              "accept": [
+                "Stanko hat viele Bienen."
+              ]
+            },
+            {
+              "from": "Du hast eine Mühle. (Sie)",
+              "accept": [
+                "Sie haben eine Mühle."
+              ],
+              "hint": {
+                "en": "polite Sie: as sie (they)",
+                "sl": "vljudni Sie: kot sie (oni)",
+                "it": "Sie di cortesia: come sie (loro)"
+              }
+            },
+            {
+              "from": "Hast du Zeit? (ihr)",
+              "accept": [
+                "Habt ihr Zeit?",
+                "Ihr habt Zeit?"
+              ],
+              "hint": {
+                "en": "the verb stays first",
+                "sl": "glagol ostane spredaj",
+                "it": "il verbo resta al primo posto"
+              }
+            }
+          ],
+          "explain": {
+            "en": "**haben goes with the person**\n- ich habe · du hast · er, sie, es hat\n- wir haben · ihr habt · sie, Sie haben",
+            "sl": "**haben se ujema z osebo**\n- ich habe · du hast · er, sie, es hat\n- wir haben · ihr habt · sie, Sie haben",
+            "it": "**haben va con la persona**\n- ich habe · du hast · er, sie, es hat\n- wir haben · ihr habt · sie, Sie haben"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "sein-haben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Toni hat ein Pferd. Es ___ zehn Jahre alt.",
+          "options": [
+            "hat",
+            "ist",
+            "habt"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**Age with sein**: das Pferd: es ist zehn Jahre alt\n- Stefan ist dreißig Jahre alt · Stefan is thirty",
+            "sl": "**Starost s sein**: das Pferd: es ist zehn Jahre alt\n- Stefan ist dreißig Jahre alt · Stefan je star trideset let",
+            "it": "**L'età con sein**: das Pferd: es ist zehn Jahre alt\n- Stefan ist dreißig Jahre alt · Stefan ha trent'anni"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Ergänze · Fill in haben",
+          "sl": "Ergänze · Dopolni haben",
+          "it": "Ergänze · Completa haben"
+        },
+        "prompt": {
+          "en": "haben · to have (present)",
+          "sl": "haben · imeti (sedanjik)",
+          "it": "haben · avere (presente)"
+        },
+        "columns": [
+          {
+            "en": "haben · to have",
+            "sl": "haben · imeti",
+            "it": "haben · avere"
+          }
+        ],
+        "rows": [
+          {
+            "label": "ich",
+            "cells": [
+              "habe"
+            ]
+          },
+          {
+            "label": "du",
+            "cells": [
+              {
+                "accept": [
+                  "hast"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "er, sie, es",
+            "cells": [
+              "hat"
+            ]
+          },
+          {
+            "label": "wir",
+            "cells": [
+              "haben"
+            ]
+          },
+          {
+            "label": "ihr",
+            "cells": [
+              {
+                "accept": [
+                  "habt"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "sie, Sie",
+            "cells": [
+              {
+                "accept": [
+                  "haben"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Ordne zu · sein or haben?",
+          "sl": "Ordne zu · sein ali haben?",
+          "it": "Ordne zu · sein o haben?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "sein · to be",
+              "sl": "sein · biti",
+              "it": "sein · essere"
+            },
+            "words": [
+              "sind",
+              "bist"
+            ]
+          },
+          {
+            "label": {
+              "en": "haben · to have",
+              "sl": "haben · imeti",
+              "it": "haben · avere"
+            },
+            "words": [
+              "haben",
+              "hast"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Ergänze mit haben · Fill in with haben",
+          "sl": "Ergänze mit haben · Dopolni z glagolom haben",
+          "it": "Ergänze mit haben · Completa con haben"
+        },
+        "text": "Auf der Alm mit Florian. Florian ___ viele Schafe. Die Schafe ___ Durst. Florian: „{learner}, du ___ Hunger? Ich ___ Brot und Käse.“",
+        "gaps": [
+          {
+            "accept": [
+              "hat"
+            ]
+          },
+          {
+            "accept": [
+              "haben"
+            ]
+          },
+          {
+            "accept": [
+              "hast"
+            ]
+          },
+          {
+            "accept": [
+              "habe"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "On the alpine pasture with Florian. Florian has lots of sheep. The sheep are thirsty. Florian: “{learner}, are you hungry? I've got bread and cheese.”",
+          "sl": "Na planini s Florianom. Florian ima veliko ovc. Ovce so žejne. Florian: »{learner}, si {m:lačen|f:lačna}? Kruh in sir imam.«",
+          "it": "All'alpeggio con Florian. Florian ha tante pecore. Le pecore hanno sete. Florian: «{learner}, hai fame? Ho pane e formaggio.»"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+          "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+          "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich habe Durst. (Kathi und Toni)",
+            "accept": [
+              "Kathi und Toni haben Durst."
+            ]
+          },
+          {
+            "from": "Du hast eine Schwester. (Oma Resi)",
+            "accept": [
+              "Oma Resi hat eine Schwester."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "sein-haben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Die Mühle ___ hundert Jahre alt.",
+        "options": [
+          "hat",
+          "ist",
+          "haben"
+        ],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "en": "**Age with sein**: die Mühle ist hundert Jahre alt\n- Stefan ist dreißig Jahre alt · Stefan is thirty",
+          "sl": "**Starost s sein**: die Mühle ist hundert Jahre alt\n- Stefan ist dreißig Jahre alt · Stefan je star trideset let",
+          "it": "**L'età con sein**: die Mühle ist hundert Jahre alt\n- Stefan ist dreißig Jahre alt · Stefan ha trent'anni"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Toni hat schon ein Glas Most, Glück haben, Sie haben eine Mühle, Herr Franz, ich hab"
+}

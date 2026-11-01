@@ -13,6 +13,7 @@ import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * Na razglednem stolpu: the view from the top of the village's lookout tower on its hill (the project `razgledni_stolp`,
@@ -53,6 +54,12 @@ import kotlin.math.sin
  * [pikeTop]); far below the lake winding along the dale with its wooded island (the `sea`, [lake]); the village of grey stone
  * and whitewash under slate round its battlemented church tower; the dale's fields walled with grey dry-stone walls, green
  * pasture most of them; the oak woods.
+ *
+ * Carinthia's look (`view` "kaernten"; kaernten-projects-b): the view east down the lower Gailtal, the Dobratsch on the left
+ * with its long back, its steep south face and the transmitter mast on top, the Karawanken's jagged ridge along the sky on
+ * the right and the Mittagskogel's pyramid with its summit cross among them (the `peak`); the Faaker See turquoise in the
+ * valley under it (the art's `sea`, its glints); the village below white with timbered upper storeys under dark shingles
+ * round its onion-domed church, Villach far off where the valley opens; Austria's red, white and red on the roof.
  */
 internal class LookoutPainter : VistaPainter() {
     override val art = "lookout"
@@ -86,11 +93,18 @@ internal class LookoutPainter : VistaPainter() {
     /** Friuli's view ([readLook2]). */
     private var friuli = false
 
+    /** Carinthia's view ([readLook2]): the Dobratsch and the Karawanken with the Mittagskogel, the Faaker See, a Carinthian village. */
+    private var kaernten = false
+
     private val z: Int get() = detail
     private var haze = 0.5f
     private val winter: Boolean get() = env.season == Season.WINTER
 
-    private fun readLook2() { friuli = variant("view") == "friuli"; lakes = variant("view") == "lakeland" }
+    private fun readLook2() {
+        friuli = variant("view") == "friuli"
+        kaernten = variant("view") == "kaernten"
+        lakes = variant("view") == "lakeland"
+    }
 
     /** The Lake District's viewing station and its view ([readLook2]). */
     private var lakes = false
@@ -111,15 +125,21 @@ internal class LookoutPainter : VistaPainter() {
         haze = 1f - clarity()
         val z = z
         vistaSky(3, 81, moonX = ox + 196 * z, moonY = oy + 14 * z)
-        thing("mountains", outline = 0) { alps() }
-        thing("peak", outline = 0) { triglav() }
+        thing("mountains", outline = 0) { if (kaernten) karawanken() else alps() }
+        thing("peak", outline = 0) { if (kaernten) mittagskogel() else triglav() }
+        if (kaernten) prop(0) { summits() }
         farHills(near = false)
-        if (!lakes) thing("sea", outline = 0) { sea() }
+        if (!kaernten && !lakes) thing("sea", outline = 0) { sea() }
         farHills(near = true)
         thing("valley", outline = 0) { valley() }
         // the lake winding along the dale below, its island: over the valley's fields
         if (lakes) thing("sea", outline = 0) { lake() }
         prop(0) { river() }
+        // Carinthia's lake lies in the valley under the Mittagskogel, and Villach where the valley opens
+        if (kaernten) {
+            thing("sea", outline = 0) { faakerSee() }
+            prop(0) { villach() }
+        }
         thing("forest", outline = Pal.OUTLINE_TREE) { woods() }
         thing("village") { village() }
         hawk()
@@ -238,6 +258,88 @@ internal class LookoutPainter : VistaPainter() {
         val body = (1f - dx * dx) * 30f
         val heads = 3.2f * (max(0f, 1f - abs(dx) * 7f) + 0.6f * max(0f, 1f - abs(dx + 0.38f) * 8f) + 0.5f * max(0f, 1f - abs(dx - 0.42f) * 8f))
         max(alpsTop(u), body + heads)
+    }
+
+    // ------------------------------------------------------------------ Carinthia's view (kaernten-projects-b)
+
+    /**
+     * How high Carinthia's mountains stand at scene column [u] (scene px over the horizon), the view east down the lower
+     * Gailtal: on the left the Dobratsch (the Villacher Alpe), rising to its long gentle back and falling at its east end in
+     * the steep south face; on the right the Karawanken's jagged ridge along the sky.
+     */
+    private fun kaerntenTop(u: Float): Float {
+        val dobratsch = when {
+            u < 28f -> 13f + 12f * (u / 28f)
+            u < 78f -> 25f - 2.5f * ((u - 28f) / 50f) + 1.4f * (Noise.v1(u * 0.25f, 861) - 0.5f)
+            u < 96f -> (22.5f - 15f * ((u - 78f) / 18f)) * (1f - 0.08f * Noise.v1(u * 0.9f, 862))
+            else -> 0f
+        }
+        val a = 1f - abs(Noise.v1(u * 0.09f, 863) * 2f - 1f)
+        val b = 1f - abs(Noise.v1(u * 0.23f, 864) * 2f - 1f)
+        val karawanken = if (u > 90f) (11f + 11f * (a * a * 0.7f + b * 0.3f)) * ((u - 90f) / 10f).coerceIn(0f, 1f) else 0f
+        return max(max(dobratsch, karawanken), 6f)
+    }
+
+    /** The Dobratsch and the Karawanken (`mountains`): limestone grey lit on the sun's side, snow on the tops. */
+    private fun karawanken() = range(0f, 240f) { u -> kaerntenTop(u) }
+
+    /** The Mittagskogel among the Karawanken (`peak`): its pyramid, higher and sharper than the ridge round it. */
+    private fun mittagskogel() = range(MITTAGSKOGEL_U - 17f, MITTAGSKOGEL_U + 17f) { u ->
+        val dx = abs(u - MITTAGSKOGEL_U) / 17f
+        max(kaerntenTop(u), 35f * (1f - dx) + 2f * max(0f, 1f - dx * 6f))
+    }
+
+    /** The Dobratsch's transmitter mast on its back, red and white, and the Mittagskogel's summit cross, dark against the sky. */
+    private fun summits() {
+        val z = z
+        val mx = (ox + DOBRATSCH_MAST_U * z).toInt()
+        val foot = (hz + z - kaerntenTop(DOBRATSCH_MAST_U) * z).toInt()
+        for (j in 0 until 6 * z) c.set(mx, foot - 1 - j, env.lit(distant(if ((j / max(1, z)) % 2 == 0) Pal.FLAG_RED else Pal.FLAG_WHITE, 0.6f)))
+        val cx = (ox + MITTAGSKOGEL_U * z).toInt()
+        val top = (hz + z - 37f * z).toInt()
+        val dark = env.lit(distant(Col.hex(0x3A3440), 0.5f))
+        for (j in 0 until 3 * z) c.set(cx, top - j, dark)
+        c.hline(cx - max(1, z / 2 + 1) + 1, cx + max(1, z / 2 + 1) - 1, top - 2 * z + max(1, z / 2), dark)
+    }
+
+    /**
+     * The Faaker See (the art's `sea` in Carinthia's look): a turquoise lake in the valley under the Mittagskogel, its far
+     * shore wooded, the sun's glints on it by day (the moon's at night), grey in a haze.
+     */
+    private fun faakerSee() {
+        val z = z
+        val cx = ox + (MITTAGSKOGEL_U - 6f) * z; val cy = hz + 16.5f * z
+        val rx = 21f * z; val ry = 2.6f * z
+        val body = env.lit(distant(if (winter) Col.hex(0x7EA8B4) else Col.hex(0x3EB0B8), 0.35f))
+        val deep = env.lit(distant(if (winter) Col.hex(0x6A92A0) else Col.hex(0x2A8C9A), 0.35f))
+        val shine = env.lit(distant(Col.hex(0xE8FAF6), 0.3f))
+        c.penEmissive = true
+        for (y in max((cy - ry).toInt(), c.top)..min((cy + ry).toInt(), c.bottom - 1)) {
+            val v = (y + 0.5f - cy) / ry
+            val half = rx * sqrt(max(0f, 1f - v * v)) * (1f + 0.12f * (Noise.v1(y * 0.7f, 871) - 0.5f))
+            for (x in max((cx - half).toInt(), c.left)..min((cx + half).toInt(), c.right - 1)) {
+                val g = Noise.rnd(floor((x - ox) / (3f * z) + t * 0.25).toInt(), y / max(1, z), 872)
+                c.set(x, y, when {
+                    v < -0.55f -> deep
+                    g > 0.92f && haze < 0.7f -> if (env.dark > 0.5f) Col.mix(body, Col.hex(0xD8D2B0), 0.5f) else shine
+                    else -> body
+                })
+            }
+        }
+        c.penEmissive = false
+    }
+
+    /** Villach far off where the valley opens: a grey huddle of roofs and the tall tower of its church, in the haze. */
+    private fun villach() {
+        val z = z
+        val bx = (ox + 118f * z).toInt(); val base = hz + 13 * z
+        val roof = env.lit(distant(Col.hex(0x8A7A70), 0.7f)); val wall = env.lit(distant(Col.hex(0xE6E2DA), 0.7f))
+        for (i in 0 until 6) {
+            val hx = bx + i * 2 * z; val hh = (1 + (i % 2)) * z
+            c.fillRect(hx, base - hh, 2 * z - 1, hh, if (i % 2 == 0) wall else roof)
+        }
+        c.fillRect(bx + 5 * z, base - 5 * z, max(1, z), 5 * z, wall)
+        if (env.windows > 0.35f) for (i in 0 until 4) c.set(bx + i * 3 * z, base - z, Pal.WINDOW_LIT)
     }
 
     /** A range of peaks between scene columns [u0] and [u1], its crest at [top] (scene px over the horizon). */
@@ -398,6 +500,13 @@ internal class LookoutPainter : VistaPainter() {
             val st = FireStyle.of(frame.world.culture, frame.world.landscape)
             for (i in 0 until 7) farCoppiHouse((cx - 18f * z + i * 5f * z).toInt(), (base + (i % 3) * z).toInt(), 4 * z, 3 * z, st, i, lit, 0.2f)
             farCampanile((cx + 2f * z).toInt(), base.toInt() - z, st, lit, 0.2f, tall = 11)
+            return
+        }
+        // Carinthia's: white houses with their timbered upper storeys under dark shingles, the onion-domed church among them
+        if (kaernten) {
+            val st = FireStyle.of(frame.world.culture, frame.world.landscape)
+            for (i in 0 until 7) farAlpineHouse((cx - 18f * z + i * 5f * z).toInt(), (base + (i % 3) * z).toInt(), 4 * z, 3 * z, st, i, lit, 0.2f)
+            farOnionChurch((cx + 2f * z).toInt(), base.toInt() - z, st, lit, 0.2f, tall = 11)
             return
         }
         val wall = env.lit(Col.hex(0xF2EEE4)); val wallD = env.lit(Col.hex(0xC8C0B0))
@@ -662,6 +771,7 @@ internal class LookoutPainter : VistaPainter() {
                 val v = j / fh
                 val col = if (lakes) (if (abs(f - 0.5f) < 0.09f || abs(v - 0.5f) < 0.14f) Pal.FLAG_RED else Pal.FLAG_WHITE)
                 else if (friuli) (if (abs(f - 0.45f) < 0.15f && abs(v - 0.5f) < 0.22f) Pal.GOLD else Col.hex(0x2A5AA8))
+                else if (kaernten) (if (v < 0.33f || v >= 0.66f) Pal.FLAG_RED else Pal.FLAG_WHITE)
                 else when { v < 0.33f -> Pal.FLAG_WHITE; v < 0.66f -> Pal.FLAG_BLUE; else -> Pal.FLAG_RED }.let { if (f < 0.32f && v in 0.15f..0.55f && (abs(v - 0.35f) < 0.12f)) Col.hex(0x1E4A9A) else it }
                 c.set((tx - z - i).toInt(), (top0 + j + wave).toInt(), env.lit(col))
             }
@@ -699,5 +809,9 @@ internal class LookoutPainter : VistaPainter() {
 
         /** The scene column of Triglav's middle head. */
         private const val TRIGLAV_U = 74f
+
+        /** Carinthia's view: the scene columns of the Mittagskogel's top and of the Dobratsch's mast. */
+        private const val MITTAGSKOGEL_U = 182f
+        private const val DOBRATSCH_MAST_U = 52f
     }
 }

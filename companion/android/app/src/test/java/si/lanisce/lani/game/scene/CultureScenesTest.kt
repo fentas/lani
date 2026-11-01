@@ -66,8 +66,9 @@ class CultureScenesTest {
         "kitchen" to emptySet(), "tent" to emptySet(), "smithy" to emptySet(), "field" to emptySet(),
         // the stream's places by the beck or the Bach leave the village projects' things to their steps and scenes: the
         // Lake District's beck (lakeland-projects-b) the mill wheel and its sacks, the cart over the new bridge and the fire
-        // brigade's hand pump; Kärnten's bridge (kaernten-projects-a) the pump and the washing's sheet; every effect of the
-        // tarn is cued. Kärnten's wood leaves the projects' felling (the maypole's spruce, the hayrack's oak) to their steps
+        // brigade's hand pump; Kärnten's bridge (kaernten-projects-a) the pump and the washing's sheet, its stream bank
+        // (kaernten-projects-b) the mill's, the bridge's and the fire brigade's; every effect of the tarn and of Kärnten's pond
+        // is cued. Kärnten's wood leaves the projects' felling (the maypole's spruce, the hayrack's oak) to their steps
         "stream" to setOf("wheel", "sacks", "cart", "hose", "sheet"), "pond" to emptySet(),
         "forest" to setOf("fell", "fell-oak"),
     )
@@ -135,6 +136,18 @@ class CultureScenesTest {
             listOf("kaernten", "in-der-kirche", "church", "church"),
             listOf("kaernten", "am-tor", "palisade", "palisade"),
             listOf("kaernten", "auf-dem-wachturm", "watchtower", "watchtower"),
+            // Kärnten (kaernten-projects-b): the stream bank (Resi's washing, Florian's sheep, Franz's mill to be, Jakob's
+            // trout, Sepp's ice) and the pond
+            listOf("kaernten", "am-bach", "stream", "spot:riverbank"),
+            listOf("kaernten", "am-teich", "pond", "spot:pond"),
+            // Kärnten's village projects (kaernten-projects-b): Florian's Feuerwehrhaus, Eva's Spielplatz, Kathi's Aussichtsturm,
+            // Toni's Dorfbrunnen and the church clock on the square, Franz's Doppelharpfe in the field
+            listOf("kaernten", "beim-feuerwehrhaus", "firestation", "project:gasilski_dom"),
+            listOf("kaernten", "am-spielplatz", "playground", "project:igrisce"),
+            listOf("kaernten", "auf-dem-aussichtsturm", "lookout", "project:razgledni_stolp"),
+            listOf("kaernten", "am-dorfbrunnen", "square", "project:vodnjak_na_trgu"),
+            listOf("kaernten", "unter-der-kirchturmuhr", "square", "project:mestna_ura"),
+            listOf("kaernten", "bei-der-doppelharpfe", "field", "project:toplar"),
             // Kärnten's third wave (kaernten-projects-a): the wood from the first day (Florian's lost Bella, Oma Resi's
             // Schwammerl, Opa Sepp on the Hochstand, Lena's Schwarzbeeren, a bear's old tracks, Stanko and the roe deer at dusk)
             listOf("kaernten", "im-wald", "forest", "forest"),

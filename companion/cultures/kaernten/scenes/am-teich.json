@@ -1,0 +1,1230 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "am-teich",
+  "language": "de",
+  "title": { "de": "Am Teich", "sl": "Pri ribniku", "en": "At the pond", "it": "Allo stagno" },
+  "emoji": "🐸",
+  "level": "A1",
+  "review": "lines, reactions, variants, whys: machine-written (Claude), not reviewed by a native speaker; to check: eislaufen, der Schwimmer, gell, Servus, Stanko's Slovene, quaken and regljati",
+  "art": "pond",
+  "from": ["spot:pond"],
+  "pack": "am-teich",
+  "objects": [
+    { "slot": "pond", "word": "teich" },
+    { "slot": "lilies", "word": "seerose" },
+    { "slot": "reeds", "word": "schilf" },
+    { "slot": "frog", "word": "frosch" },
+    { "slot": "ducks", "word": "ente" },
+    { "slot": "jetty", "word": "bootssteg" },
+    { "slot": "boat", "word": "boot", "pack": "sagen" },
+    { "slot": "fish", "word": "fisch", "pack": "essen" },
+    { "slot": "heron", "word": "reiher" },
+    { "slot": "deer", "word": "reh", "pack": "auf-dem-feld" },
+    { "slot": "fox", "word": "fuchs", "pack": "auf-dem-feld" },
+    { "slot": "butterfly", "word": "schmetterling", "pack": "auf-dem-feld" },
+    { "slot": "bat", "word": "fledermaus", "pack": "auf-dem-feld" },
+    { "slot": "dragonfly", "word": "libelle", "pack": "am-bach" }
+  ],
+  "people": [
+    { "id": "stanko", "name": "Imker Stanko", "emoji": "🐝", "art": "beekeeper", "slot": "shore", "villager": "stanko" },
+    { "id": "sepp", "name": "Opa Sepp", "emoji": "👴", "art": "grandpa", "slot": "jetty", "villager": "sepp" },
+    { "id": "lena", "name": "Lena", "emoji": "👧", "art": "child2", "slot": "reeds", "villager": "lena" },
+    { "id": "maxi", "name": "Maxi", "emoji": "🧒", "art": "child1", "slot": "shore", "villager": "maxi" }
+  ],
+  "happenings": [
+    {
+      "id": "reiher",
+      "title": {
+        "de": "Imker Stanko und der Reiher",
+        "sl": "Čebelar Stanko in čaplja",
+        "en": "Imker Stanko and the heron",
+        "it": "Imker Stanko e l'airone"
+      },
+      "who": "stanko",
+      "when": ["morning"],
+      "months": [3, 4, 5, 6, 7, 8, 9, 10, 11],
+      "chance": 0.5,
+      "dialog": "reiher",
+      "dialogs": ["reiher-enten", "reiher"],
+      "reward": { "wisdom": 20 },
+      "marker": "🐦",
+      "memory": {
+        "de": "den Morgen, an dem wir den Reiher gesehen haben",
+        "sl": "jutro, ko sva videla čapljo",
+        "en": "the morning we saw the heron",
+        "it": "la mattina che abbiamo visto l'airone"
+      }
+    },
+    {
+      "id": "abend",
+      "title": { "de": "Der Abend am Teich", "sl": "Večer pri ribniku", "en": "Evening at the pond", "it": "La sera allo stagno" },
+      "who": "stanko",
+      "when": ["evening"],
+      "months": [5, 6, 7, 8, 9],
+      "chance": 0.45,
+      "dialog": "abend",
+      "dialogs": ["abend-fisch", "abend"],
+      "reward": { "wisdom": 15 },
+      "marker": "🌇",
+      "memory": {
+        "de": "das Konzert der Frösche am Abend",
+        "sl": "večerni koncert žab",
+        "en": "the frogs' evening concert",
+        "it": "il concerto serale delle rane"
+      }
+    },
+    {
+      "id": "angeln",
+      "title": { "de": "Opa Sepp angelt", "sl": "Opa Sepp lovi ribe", "en": "Opa Sepp goes fishing", "it": "Opa Sepp pesca" },
+      "who": "sepp",
+      "when": ["afternoon"],
+      "months": [4, 5, 6, 7, 8, 9, 10],
+      "chance": 0.5,
+      "dialog": "angeln",
+      "dialogs": ["angeln-zaehlen", "angeln"],
+      "reward": { "food": 20 },
+      "marker": "🎣",
+      "memory": {
+        "de": "den Karpfen, den wir mit Opa Sepp gefangen haben",
+        "sl": "krapa, ki sva ga ujela z Opa Seppom",
+        "en": "the carp we caught with Opa Sepp",
+        "it": "la carpa che abbiamo preso con Opa Sepp"
+      }
+    },
+    {
+      "id": "frosch",
+      "title": { "de": "Lena und der Frosch", "sl": "Lena in žaba", "en": "Lena and the frog", "it": "Lena e la rana" },
+      "who": "lena",
+      "when": ["afternoon"],
+      "months": [4, 5, 6, 7, 8, 9],
+      "chance": 0.5,
+      "dialog": "frosch",
+      "dialogs": ["frosch-kaulquappen", "frosch"],
+      "reward": { "food": 15 },
+      "marker": "🐸",
+      "memory": {
+        "de": "den grünen Frosch auf der Seerose",
+        "sl": "zeleno žabo na lokvanju",
+        "en": "the green frog on the water lily",
+        "it": "la rana verde sulla ninfea"
+      }
+    },
+    {
+      "id": "eis",
+      "title": { "de": "Maxi und das Eis", "sl": "Maxi in led", "en": "Maxi and the ice", "it": "Maxi e il ghiaccio" },
+      "who": "maxi",
+      "when": ["afternoon"],
+      "months": [12, 1, 2],
+      "chance": 0.5,
+      "dialog": "eis",
+      "dialogs": ["eis-enten", "eis"],
+      "reward": { "wisdom": 15 },
+      "marker": "⛸️",
+      "memory": {
+        "de": "den Tag, an dem das Eis zu dünn war",
+        "sl": "dan, ko je bil led pretanek",
+        "en": "the day the ice was too thin",
+        "it": "il giorno che il ghiaccio era troppo sottile"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "reiher",
+      "lines": [
+        {
+          "who": "stanko",
+          "face": "curious",
+          "de": "Dobro jutro, {learner}! Guten Morgen! Pst, leise. Siehst du den Reiher?",
+          "sl": "Dobro jutro, {learner}! Pst, tiho. Vidiš čapljo?",
+          "en": "Dobro jutro, {learner}! Good morning! Shh, quiet. Can you see the heron?",
+          "it": "Dobro jutro, {learner}! Buongiorno! Sst, piano. Vedi l'airone?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja, dort hinten im Wasser!",
+              "sl": "Ja, tam zadaj v vodi!",
+              "en": "Yes, back there in the water!",
+              "it": "Sì, laggiù nell'acqua!",
+              "ok": true,
+              "tap": "heron",
+              "reply": {
+                "face": "happy",
+                "de": "Ja! Er steht ganz still. Er wartet auf einen Fisch.",
+                "sl": "Ja! Čisto pri miru stoji. Čaka na ribo.",
+                "en": "Yes! It's standing quite still. It's waiting for a fish.",
+                "it": "Sì! Sta fermo fermo. Aspetta un pesce."
+              }
+            },
+            {
+              "de": "Ja, dort bei den Enten!",
+              "sl": "Ja, tam pri racah!",
+              "en": "Yes, there by the ducks!",
+              "it": "Sì, là vicino alle anatre!",
+              "tap": "ducks",
+              "why": {
+                "de": "Das sind Enten. Der Reiher ist groß und grau, mit langen Beinen.",
+                "sl": "To so race. Čaplja je velika in siva, z dolgimi nogami.",
+                "en": "Those are ducks. The heron is big and grey, with long legs.",
+                "it": "Quelle sono anatre. L'airone è grande e grigio, con le zampe lunghe."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Das sind die Enten! Der Reiher ist viel größer.",
+                "sl": "To so race! Čaplja je veliko večja.",
+                "en": "Those are the ducks! The heron is much bigger.",
+                "it": "Quelle sono le anatre! L'airone è molto più grande."
+              }
+            },
+            {
+              "de": "Ja, dort im Boot!",
+              "sl": "Ja, tam v čolnu!",
+              "en": "Yes, there in the boat!",
+              "it": "Sì, là nella barca!",
+              "tap": "boat",
+              "why": {
+                "de": "Das Boot ist leer. Der Reiher steht im seichten Wasser am Ufer.",
+                "sl": "Čoln je prazen. Čaplja stoji v plitvi vodi ob bregu.",
+                "en": "The boat is empty. The heron stands in the shallow water by the shore.",
+                "it": "La barca è vuota. L'airone sta nell'acqua bassa vicino alla riva."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Im Boot? Nein, das Boot ist leer.",
+                "sl": "V čolnu? Ne, čoln je prazen.",
+                "en": "In the boat? No, the boat's empty.",
+                "it": "Nella barca? No, la barca è vuota."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam, gell?",
+            "sl": "Prosim? Še enkrat, počasi, ja?",
+            "en": "Sorry? Once more, slowly, all right?",
+            "it": "Come? Ancora una volta, piano, eh?"
+          }
+        },
+        {
+          "who": "stanko",
+          "face": "surprised",
+          "de": "Jetzt! Schau, er hat einen Fisch!",
+          "sl": "Zdaj! Poglej, ujela je ribo!",
+          "en": "Now! Look, it's got a fish!",
+          "it": "Ora! Guarda, ha preso un pesce!",
+          "fx": { "heron": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Der Reiher ist schnell!",
+              "sl": "Čaplja je hitra!",
+              "en": "The heron is fast!",
+              "it": "L'airone è veloce!",
+              "ok": true,
+              "grammar": "artikel-genus",
+              "reply": {
+                "face": "happy",
+                "de": "Und er hat Geduld. Wie ich mit meinen Bienen.",
+                "sl": "In potrpežljiva je. Kot jaz s svojimi čebelami.",
+                "en": "And it's patient. Like me with my bees.",
+                "it": "Ed è paziente. Come me con le mie api."
+              }
+            },
+            {
+              "de": "Die Reiher ist schnell!",
+              "sl": "Čaplja je hitra!",
+              "en": "The heron is fast!",
+              "it": "L'airone è veloce!",
+              "grammar": "artikel-genus",
+              "why": {
+                "de": "Reiher ist maskulin: der Reiher. Auf Slowenisch ist die čaplja feminin, auf Deutsch nicht.",
+                "sl": "Reiher je moškega spola: der Reiher. Slovenska čaplja je ženskega, nemška ne.",
+                "en": "Reiher is masculine: der Reiher. The Slovene čaplja is feminine, the German one isn't.",
+                "it": "Reiher è maschile: der Reiher, come l'airone."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Die? Hm, wie sagst du?",
+                "sl": "Die? Hm, kako praviš?",
+                "en": "Die? Hm, how's that?",
+                "it": "Die? Mh, come dici?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam, gell?",
+            "sl": "Prosim? Še enkrat, počasi, ja?",
+            "en": "Sorry? Once more, slowly, all right?",
+            "it": "Come? Ancora una volta, piano, eh?"
+          }
+        },
+        {
+          "who": "stanko",
+          "face": "happy",
+          "de": "Auf Slowenisch sagen wir čaplja. Ein schönes Wort, gell?",
+          "sl": "Po slovensko rečemo čaplja. Lepa beseda, kajne?",
+          "en": "In Slovene we say čaplja. A lovely word, isn't it?",
+          "it": "In sloveno diciamo čaplja. Una bella parola, vero?"
+        }
+      ]
+    },
+    {
+      "id": "abend",
+      "lines": [
+        {
+          "who": "stanko",
+          "face": "happy",
+          "de": "Guten Abend, {learner}. Hörst du die Frösche? Sie quaken so laut!",
+          "sl": "Dober večer, {learner}. Slišiš žabe? Tako glasno regljajo!",
+          "en": "Good evening, {learner}. Can you hear the frogs? They're croaking so loudly!",
+          "it": "Buonasera, {learner}. Senti le rane? Gracidano così forte!"
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja, die Frösche quaken.",
+              "sl": "Ja, žabe regljajo.",
+              "en": "Yes, the frogs are croaking.",
+              "it": "Sì, le rane gracidano.",
+              "ok": true,
+              "grammar": "praesens",
+              "reply": {
+                "face": "happy",
+                "de": "Das ist ihr Abendlied. Ein Konzert nur für uns!",
+                "sl": "To je njihova večerna pesem. Koncert samo za naju!",
+                "en": "That's their evening song. A concert just for us!",
+                "it": "È la loro canzone della sera. Un concerto solo per noi!"
+              }
+            },
+            {
+              "de": "Ja, die Frösche quakt.",
+              "sl": "Ja, žabe regljajo.",
+              "en": "Yes, the frogs are croaking.",
+              "it": "Sì, le rane gracidano.",
+              "grammar": "praesens",
+              "why": {
+                "de": "Die Frösche ist Plural: sie quaken.",
+                "sl": "Die Frösche je množina: sie quaken.",
+                "en": "Die Frösche is plural: sie quaken.",
+                "it": "Die Frösche è plurale: sie quaken."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Quakt? Nur einer? Hör gut hin!",
+                "sl": "Quakt? Samo ena? Dobro poslušaj!",
+                "en": "Quakt? Only one? Listen carefully!",
+                "it": "Quakt? Una sola? Ascolta bene!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam, gell?",
+            "sl": "Prosim? Še enkrat, počasi, ja?",
+            "en": "Sorry? Once more, slowly, all right?",
+            "it": "Come? Ancora una volta, piano, eh?"
+          }
+        },
+        {
+          "who": "stanko",
+          "de": "Und jetzt kommen die Fledermäuse. Sie fangen Mücken über dem Wasser.",
+          "sl": "Zdaj pa pridejo netopirji. Nad vodo lovijo komarje.",
+          "en": "And now the bats are coming. They catch midges over the water.",
+          "it": "E adesso arrivano i pipistrelli. Acchiappano le zanzare sopra l'acqua.",
+          "fx": { "bats": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Gut! Ich mag keine Mücken.",
+              "sl": "Super! Ne maram komarjev.",
+              "en": "Good! I don't like midges.",
+              "it": "Bene! Le zanzare non mi piacciono.",
+              "ok": true,
+              "grammar": "kein-nicht",
+              "reply": {
+                "face": "laugh",
+                "de": "Ich auch nicht! Die Fledermäuse sind meine Freunde.",
+                "sl": "Jaz tudi ne! Netopirji so moji prijatelji.",
+                "en": "Nor do I! The bats are my friends.",
+                "it": "Neanche a me! I pipistrelli sono miei amici."
+              }
+            },
+            {
+              "de": "Gut! Ich mag nicht Mücken.",
+              "sl": "Super! Ne maram komarjev.",
+              "en": "Good! I don't like midges.",
+              "it": "Bene! Le zanzare non mi piacciono.",
+              "grammar": "kein-nicht",
+              "why": {
+                "de": "Vor einem Nomen ohne Artikel verneint man mit kein: keine Mücken.",
+                "sl": "Samostalnik brez člena zanikaš s kein: keine Mücken.",
+                "en": "A noun without an article is negated with kein: keine Mücken.",
+                "it": "Un nome senza articolo si nega con kein: keine Mücken."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Nicht Mücken? Hm, die Mücken mögen dich aber!",
+                "sl": "Nicht Mücken? Hm, komarji pa imajo radi tebe!",
+                "en": "Nicht Mücken? Hm, the midges like you, though!",
+                "it": "Nicht Mücken? Mh, però alle zanzare piaci tu!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam, gell?",
+            "sl": "Prosim? Še enkrat, počasi, ja?",
+            "en": "Sorry? Once more, slowly, all right?",
+            "it": "Come? Ancora una volta, piano, eh?"
+          }
+        },
+        {
+          "who": "stanko",
+          "face": "happy",
+          "de": "Lahko noč, {learner}! Gute Nacht!",
+          "sl": "Lahko noč, {learner}!",
+          "en": "Lahko noč, {learner}! Good night!",
+          "it": "Lahko noč, {learner}! Buonanotte!"
+        }
+      ]
+    },
+    {
+      "id": "angeln",
+      "lines": [
+        {
+          "who": "sepp",
+          "de": "Servus, {learner}! Ich angle heute, und Bello schaut zu.",
+          "sl": "Živjo, {learner}! Danes lovim ribe, Bello pa gleda.",
+          "en": "Hi, {learner}! I'm fishing today, and Bello's watching.",
+          "it": "Ciao, {learner}! Oggi pesco, e Bello guarda.",
+          "fx": { "dog": 0.3 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Fängst du heute einen Fisch, Opa Sepp?",
+              "sl": "Boš danes ujel ribo, Opa Sepp?",
+              "en": "Will you catch a fish today, Opa Sepp?",
+              "it": "Prendi un pesce oggi, Opa Sepp?",
+              "ok": true,
+              "grammar": "praesens",
+              "reply": {
+                "face": "thinking",
+                "de": "Vielleicht. Die Fische sind heute faul.",
+                "sl": "Mogoče. Ribe so danes lene.",
+                "en": "Maybe. The fish are lazy today.",
+                "it": "Forse. Oggi i pesci sono pigri."
+              }
+            },
+            {
+              "de": "Fangst du heute einen Fisch, Opa Sepp?",
+              "sl": "Boš danes ujel ribo, Opa Sepp?",
+              "en": "Will you catch a fish today, Opa Sepp?",
+              "it": "Prendi un pesce oggi, Opa Sepp?",
+              "grammar": "praesens",
+              "why": {
+                "de": "Fangen hat in der du-Form einen Umlaut: du fängst, er fängt.",
+                "sl": "Fangen ima v obliki za du preglas: du fängst, er fängt.",
+                "en": "Fangen takes an umlaut in the du form: du fängst, er fängt.",
+                "it": "Fangen prende l'Umlaut alla forma du: du fängst, er fängt."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Fangst? Hehe, so redet bei uns nur der Bello.",
+                "sl": "Fangst? Hehe, tako pri nas govori samo Bello.",
+                "en": "Fangst? Hehe, only Bello talks like that here.",
+                "it": "Fangst? Eh eh, qui parla così solo Bello."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Meine Ohren sind nicht mehr die jüngsten. Noch einmal.",
+            "sl": "Hm? Moja ušesa niso več najmlajša. Še enkrat.",
+            "en": "Hm? My ears aren't the youngest any more. Once more.",
+            "it": "Mh? Le mie orecchie non sono più giovani. Ancora."
+          }
+        },
+        {
+          "who": "sepp",
+          "face": "surprised",
+          "de": "Schau, der Schwimmer bewegt sich! Ein Fisch!",
+          "sl": "Poglej, plovec se premika! Riba!",
+          "en": "Look, the float's moving! A fish!",
+          "it": "Guarda, il galleggiante si muove! Un pesce!",
+          "fx": { "bite": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Schnell, zieh die Angel hoch!",
+              "sl": "Hitro, potegni palico gor!",
+              "en": "Quick, pull the rod up!",
+              "it": "Presto, tira su la canna!",
+              "ok": true,
+              "grammar": "trennbare-verben",
+              "reply": {
+                "face": "happy",
+                "de": "Hab ihn! Ein Karpfen! Und Bello bellt vor Freude.",
+                "sl": "Imam jo! Krap! In Bello laja od veselja.",
+                "en": "Got it! A carp! And Bello's barking for joy.",
+                "it": "Preso! Una carpa! E Bello abbaia di gioia.",
+                "fx": { "bite": 1, "dog": 1 }
+              }
+            },
+            {
+              "de": "Schnell, hochzieh die Angel!",
+              "sl": "Hitro, potegni palico gor!",
+              "en": "Quick, pull the rod up!",
+              "it": "Presto, tira su la canna!",
+              "grammar": "trennbare-verben",
+              "why": {
+                "de": "Hochziehen ist trennbar: zieh die Angel hoch! Das hoch steht am Ende.",
+                "sl": "Hochziehen je ločljiv glagol: zieh die Angel hoch! Hoch je na koncu.",
+                "en": "Hochziehen is separable: zieh die Angel hoch! The hoch goes at the end.",
+                "it": "Hochziehen è separabile: zieh die Angel hoch! Hoch va in fondo."
+              },
+              "reply": {
+                "face": "worried",
+                "de": "Hochzieh? Wie bitte? Schnell, schnell!",
+                "sl": "Hochzieh? Prosim? Hitro, hitro!",
+                "en": "Hochzieh? Sorry? Quick, quick!",
+                "it": "Hochzieh? Come? Presto, presto!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Meine Ohren sind nicht mehr die jüngsten. Noch einmal.",
+            "sl": "Hm? Moja ušesa niso več najmlajša. Še enkrat.",
+            "en": "Hm? My ears aren't the youngest any more. Once more.",
+            "it": "Mh? Le mie orecchie non sono più giovani. Ancora."
+          }
+        },
+        {
+          "who": "sepp",
+          "face": "proud",
+          "de": "Den nehmen wir mit heim. Heute Abend gibt's Fisch!",
+          "sl": "Tega vzameva domov. Nocoj bo riba!",
+          "en": "We'll take that one home. It's fish tonight!",
+          "it": "Questo ce lo portiamo a casa. Stasera si mangia pesce!"
+        }
+      ]
+    },
+    {
+      "id": "frosch",
+      "lines": [
+        {
+          "who": "lena",
+          "face": "curious",
+          "de": "{learner}! Siehst du den Frosch? Er ist so grün!",
+          "sl": "{learner}! Vidiš žabo? Tako zelena je!",
+          "en": "{learner}! Can you see the frog? It's so green!",
+          "it": "{learner}! Vedi la rana? È così verde!"
+        },
+        {
+          "choices": [
+            {
+              "de": "Da, auf dem großen Blatt!",
+              "sl": "Tam, na velikem listu!",
+              "en": "There, on the big leaf!",
+              "it": "Lì, sulla foglia grande!",
+              "ok": true,
+              "tap": "frog",
+              "reply": {
+                "face": "happy",
+                "de": "Ja! Und auf Slowenisch heißt er žaba. Das lernen wir in der Schule.",
+                "sl": "Ja! Po slovensko se reče žaba. To se učimo v šoli.",
+                "en": "Yes! And in Slovene it's called žaba. We learn that at school.",
+                "it": "Sì! E in sloveno si dice žaba. Lo impariamo a scuola."
+              }
+            },
+            {
+              "de": "Da, im Schilf!",
+              "sl": "Tam, v trstičju!",
+              "en": "There, in the reeds!",
+              "it": "Lì, nel canneto!",
+              "tap": "reeds",
+              "why": {
+                "de": "Im Schilf ist kein Frosch. Er sitzt auf einem Blatt der Seerose.",
+                "sl": "V trstičju ni žabe. Sedi na listu lokvanja.",
+                "en": "There's no frog in the reeds. It's sitting on a water lily's leaf.",
+                "it": "Nel canneto non c'è la rana. È seduta su una foglia di ninfea."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Im Schilf? Da sind nur Halme.",
+                "sl": "V trstičju? Tam so samo bilke.",
+                "en": "In the reeds? There are only stalks there.",
+                "it": "Nel canneto? Ci sono solo canne."
+              }
+            },
+            {
+              "de": "Da, auf dem Bootssteg!",
+              "sl": "Tam, na pomolu!",
+              "en": "There, on the jetty!",
+              "it": "Lì, sul pontile!",
+              "tap": "jetty",
+              "why": {
+                "de": "Auf dem Bootssteg sitzt kein Frosch. Er sitzt auf einem Blatt der Seerose.",
+                "sl": "Na pomolu ni žabe. Sedi na listu lokvanja.",
+                "en": "There's no frog on the jetty. It's sitting on a water lily's leaf.",
+                "it": "Sul pontile non c'è la rana. È seduta su una foglia di ninfea."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Auf dem Bootssteg? Nein, da ist nur Holz.",
+                "sl": "Na pomolu? Ne, tam je samo les.",
+                "en": "On the jetty? No, there's only wood there.",
+                "it": "Sul pontile? No, lì c'è solo legno."
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Noch einmal!", "sl": "Kaj? Še enkrat!", "en": "Huh? Again!", "it": "Eh? Ancora!" }
+        },
+        {
+          "who": "lena",
+          "face": "surprised",
+          "de": "Platsch! Jetzt ist er im Wasser. Man sieht nur seine Augen!",
+          "sl": "Čof! Zdaj je v vodi. Vidijo se samo oči!",
+          "en": "Splash! Now it's in the water. You can only see its eyes!",
+          "it": "Splash! Adesso è nell'acqua. Si vedono solo gli occhi!",
+          "fx": { "frog": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Der Frosch springt gut!",
+              "sl": "Žaba dobro skače!",
+              "en": "The frog jumps well!",
+              "it": "La rana salta bene!",
+              "ok": true,
+              "grammar": "artikel-genus",
+              "reply": {
+                "face": "laugh",
+                "de": "Weiter als ich! Quak, quak!",
+                "sl": "Dlje kot jaz! Rega, rega!",
+                "en": "Further than me! Croak, croak!",
+                "it": "Più lontano di me! Cra, cra!"
+              }
+            },
+            {
+              "de": "Das Frosch springt gut!",
+              "sl": "Žaba dobro skače!",
+              "en": "The frog jumps well!",
+              "it": "La rana salta bene!",
+              "grammar": "artikel-genus",
+              "why": {
+                "de": "Frosch ist maskulin: der Frosch. Auf Slowenisch und Italienisch ist er feminin, auf Deutsch nicht.",
+                "sl": "Frosch je moškega spola: der Frosch, čeprav je žaba ženskega.",
+                "en": "Frosch is masculine: der Frosch.",
+                "it": "Frosch è maschile: der Frosch, anche se la rana è femminile."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Das? Hihi! Noch einmal!",
+                "sl": "Das? Hihi! Še enkrat!",
+                "en": "Das? Hee hee! Again!",
+                "it": "Das? Ih ih! Ancora!"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Noch einmal!", "sl": "Kaj? Še enkrat!", "en": "Huh? Again!", "it": "Eh? Ancora!" }
+        },
+        {
+          "who": "lena",
+          "de": "Wir fangen ihn nicht, gell? Er wohnt hier.",
+          "sl": "Ne bova je {m:ujela|f:ujeli}, ja? Tukaj živi.",
+          "en": "We won't catch it, will we? It lives here.",
+          "it": "Non la prendiamo, vero? Abita qui."
+        }
+      ]
+    },
+    {
+      "id": "eis",
+      "lines": [
+        {
+          "who": "maxi",
+          "face": "happy",
+          "de": "{learner}, der Teich ist gefroren! Ich will eislaufen. Kommst du mit?",
+          "sl": "{learner}, ribnik je zamrznil! Hočem drsati. Greš z mano?",
+          "en": "{learner}, the pond's frozen! I want to go skating. Are you coming?",
+          "it": "{learner}, lo stagno è gelato! Voglio pattinare. Vieni anche tu?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Halt, Maxi! Das Eis ist noch zu dünn.",
+              "sl": "Stoj, Maxi! Led je še pretanek.",
+              "en": "Stop, Maxi! The ice is still too thin.",
+              "it": "Fermo, Maxi! Il ghiaccio è ancora troppo sottile.",
+              "ok": true,
+              "reply": {
+                "face": "sad",
+                "de": "Zu dünn? Schade. Und wann ist es dick genug?",
+                "sl": "Pretanek? Škoda. Kdaj pa bo dovolj debel?",
+                "en": "Too thin? Shame. So when will it be thick enough?",
+                "it": "Troppo sottile? Peccato. E quando sarà abbastanza spesso?"
+              }
+            },
+            {
+              "de": "Halt, Maxi! Das Eis ist noch zu dick.",
+              "sl": "Stoj, Maxi! Led je še predebel.",
+              "en": "Stop, Maxi! The ice is still too thick.",
+              "it": "Fermo, Maxi! Il ghiaccio è ancora troppo spesso.",
+              "why": {
+                "de": "Dickes Eis trägt, dünnes Eis bricht: darum wartet man, bis es dick ist.",
+                "sl": "Debel led drži, tanek se prelomi: zato počakaš, da je debel.",
+                "en": "Thick ice holds, thin ice breaks: so you wait until it's thick.",
+                "it": "Il ghiaccio spesso regge, quello sottile si rompe: per questo si aspetta che sia spesso."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Zu dick? Dann ist es doch gut! Oder?",
+                "sl": "Predebel? Potem je vendar dobro! Ali ne?",
+                "en": "Too thick? Then it's fine! Isn't it?",
+                "it": "Troppo spesso? Allora va bene! O no?"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Noch einmal!", "sl": "Kaj? Še enkrat!", "en": "Huh? Again!", "it": "Eh? Ancora!" }
+        },
+        {
+          "choices": [
+            {
+              "de": "Wir müssen ein paar Tage warten.",
+              "sl": "Počakati morava nekaj dni.",
+              "en": "We have to wait a few days.",
+              "it": "Dobbiamo aspettare qualche giorno.",
+              "ok": true,
+              "grammar": "modalverben",
+              "reply": {
+                "face": "happy",
+                "de": "Na gut. Dann bauen wir heute einen Schneemann!",
+                "sl": "No dobro. Potem pa danes narediva sneženega moža!",
+                "en": "All right. Then we'll build a snowman today!",
+                "it": "Va bene. Allora oggi facciamo un pupazzo di neve!"
+              }
+            },
+            {
+              "de": "Wir müssen ein paar Tage warte.",
+              "sl": "Počakati morava nekaj dni.",
+              "en": "We have to wait a few days.",
+              "it": "Dobbiamo aspettare qualche giorno.",
+              "grammar": "modalverben",
+              "why": {
+                "de": "Nach müssen steht das Verb im Infinitiv am Ende: … ein paar Tage warten.",
+                "sl": "Za müssen stoji glagol v nedoločniku na koncu: … ein paar Tage warten.",
+                "en": "After müssen the verb goes at the end in the infinitive: … ein paar Tage warten.",
+                "it": "Dopo müssen il verbo va in fondo, all'infinito: … ein paar Tage warten."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Warte? Wer wartet? Hä?",
+                "sl": "Warte? Kdo čaka? Kaj?",
+                "en": "Warte? Who's waiting? Huh?",
+                "it": "Warte? Chi aspetta? Eh?"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Noch einmal!", "sl": "Kaj? Še enkrat!", "en": "Huh? Again!", "it": "Eh? Ancora!" }
+        },
+        {
+          "who": "maxi",
+          "face": "laugh",
+          "de": "Und die Enten? Die schwimmen dort im Loch im Eis. Die haben es gut!",
+          "sl": "Pa race? Tam plavajo v luknji v ledu. Lepo jim je!",
+          "en": "And the ducks? They're swimming in the hole in the ice over there. Lucky them!",
+          "it": "E le anatre? Nuotano là nel buco nel ghiaccio. Beate loro!"
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "reiher-enten",
+      "memory": {
+        "de": "die Enten, die über den Wald geflogen sind",
+        "sl": "race, ki so odletele čez gozd",
+        "en": "the ducks that flew off over the wood",
+        "it": "le anatre volate via sopra il bosco"
+      },
+      "lines": [
+        {
+          "who": "stanko",
+          "de": "Schau, {learner}, die Ente mit ihren Jungen. Eins, zwei, drei …",
+          "sl": "Poglej, {learner}, raca z mladiči. Ena, dve, tri …",
+          "en": "Look, {learner}, the duck with her young. One, two, three …",
+          "it": "Guarda, {learner}, l'anatra con i suoi piccoli. Uno, due, tre …"
+        },
+        {
+          "choices": [
+            {
+              "de": "Die Enten schwimmen im Teich.",
+              "sl": "Race plavajo v ribniku.",
+              "en": "The ducks are swimming in the pond.",
+              "it": "Le anatre nuotano nello stagno.",
+              "ok": true,
+              "grammar": "praesens",
+              "reply": {
+                "face": "happy",
+                "de": "Ja. Und dort springt ein Fisch!",
+                "sl": "Ja. In tam skoči riba!",
+                "en": "Yes. And there's a fish jumping!",
+                "it": "Sì. E là salta un pesce!",
+                "fx": { "fish": 1 }
+              }
+            },
+            {
+              "de": "Die Enten schwimmt im Teich.",
+              "sl": "Race plavajo v ribniku.",
+              "en": "The ducks are swimming in the pond.",
+              "it": "Le anatre nuotano nello stagno.",
+              "grammar": "praesens",
+              "why": {
+                "de": "Die Enten ist Plural: sie schwimmen. Schwimmt gehört zu er, sie, es oder ihr.",
+                "sl": "Die Enten je množina: sie schwimmen. Schwimmt sodi k er, sie, es ali ihr.",
+                "en": "Die Enten is plural: sie schwimmen. Schwimmt goes with er, sie, es or ihr.",
+                "it": "Die Enten è plurale: sie schwimmen. Schwimmt va con er, sie, es o ihr."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Schwimmt? Hm. Noch einmal, langsam.",
+                "sl": "Schwimmt? Hm. Še enkrat, počasi.",
+                "en": "Schwimmt? Hm. Once more, slowly.",
+                "it": "Schwimmt? Mh. Ancora, piano."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam, gell?",
+            "sl": "Prosim? Še enkrat, počasi, ja?",
+            "en": "Sorry? Once more, slowly, all right?",
+            "it": "Come? Ancora una volta, piano, eh?"
+          }
+        },
+        {
+          "who": "stanko",
+          "face": "surprised",
+          "de": "Oh! Jetzt fliegen die wilden Enten auf. Über den Wald!",
+          "sl": "Oh! Zdaj vzletijo divje race. Čez gozd!",
+          "en": "Oh! Now the wild ducks are taking off. Over the wood!",
+          "it": "Oh! Adesso le anatre selvatiche si alzano in volo. Sopra il bosco!",
+          "fx": { "ducks": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Wohin fliegen sie?",
+              "sl": "Kam letijo?",
+              "en": "Where are they flying to?",
+              "it": "Dove volano?",
+              "ok": true,
+              "grammar": "fragen",
+              "reply": {
+                "face": "thinking",
+                "de": "Zum Faaker See, glaub ich. Am Abend kommen sie zurück.",
+                "sl": "K Baškemu jezeru, mislim. Zvečer se vrnejo.",
+                "en": "To Lake Faak, I think. They come back in the evening.",
+                "it": "Al lago di Faak, credo. La sera tornano."
+              }
+            },
+            {
+              "de": "Wohin sie fliegen?",
+              "sl": "Kam letijo?",
+              "en": "Where are they flying to?",
+              "it": "Dove volano?",
+              "grammar": "fragen",
+              "why": {
+                "de": "In einer W-Frage steht das Verb an zweiter Stelle: Wohin fliegen sie?",
+                "sl": "V vprašanju z vprašalnico je glagol na drugem mestu: Wohin fliegen sie?",
+                "en": "In a W-question the verb comes second: Wohin fliegen sie?",
+                "it": "In una domanda con W il verbo va al secondo posto: Wohin fliegen sie?"
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Das klingt komisch. Noch einmal.",
+                "sl": "Hm? To zveni čudno. Še enkrat.",
+                "en": "Hm? That sounds funny. Once more.",
+                "it": "Mh? Suona strano. Ancora."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam, gell?",
+            "sl": "Prosim? Še enkrat, počasi, ja?",
+            "en": "Sorry? Once more, slowly, all right?",
+            "it": "Come? Ancora una volta, piano, eh?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "abend-fisch",
+      "fx_stays": true,
+      "memory": {
+        "de": "den Abend, an dem die Fische gesprungen sind",
+        "sl": "večer, ko so skakale ribe",
+        "en": "the evening the fish were jumping",
+        "it": "la sera che saltavano i pesci"
+      },
+      "lines": [
+        {
+          "who": "stanko",
+          "face": "surprised",
+          "de": "Plitsch! Hast du das gesehen? Ein Fisch ist gesprungen.",
+          "sl": "Čof! Si {m:videl|f:videla}? Riba je skočila.",
+          "en": "Splash! Did you see that? A fish jumped.",
+          "it": "Splash! Hai visto? È saltato un pesce.",
+          "fx": { "fish": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja! Er hat eine Mücke gefangen.",
+              "sl": "Ja! Ujela je komarja.",
+              "en": "Yes! It caught a midge.",
+              "it": "Sì! Ha preso una zanzara.",
+              "ok": true,
+              "grammar": "perfekt",
+              "reply": {
+                "face": "happy",
+                "de": "Genau. Am Abend haben die Fische Hunger.",
+                "sl": "Tako je. Zvečer so ribe lačne.",
+                "en": "Exactly. In the evening the fish are hungry.",
+                "it": "Esatto. La sera i pesci hanno fame."
+              }
+            },
+            {
+              "de": "Ja! Er hat eine Mücke gefangt.",
+              "sl": "Ja! Ujela je komarja.",
+              "en": "Yes! It caught a midge.",
+              "it": "Sì! Ha preso una zanzara.",
+              "grammar": "perfekt",
+              "why": {
+                "de": "Fangen ist unregelmäßig: das Partizip ist gefangen.",
+                "sl": "Fangen je nepravilni glagol: deležnik je gefangen.",
+                "en": "Fangen is irregular: its participle is gefangen.",
+                "it": "Fangen è irregolare: il participio è gefangen."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Gefangt? Hm, so sagt man das nicht.",
+                "sl": "Gefangt? Hm, tako se ne reče.",
+                "en": "Gefangt? Hm, that's not how you say it.",
+                "it": "Gefangt? Mh, non si dice così."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam, gell?",
+            "sl": "Prosim? Še enkrat, počasi, ja?",
+            "en": "Sorry? Once more, slowly, all right?",
+            "it": "Come? Ancora una volta, piano, eh?"
+          }
+        },
+        {
+          "who": "stanko",
+          "de": "Und die Fledermäuse haben auch Hunger. Schau, über dem Schilf!",
+          "sl": "Tudi netopirji so lačni. Poglej, nad trstičjem!",
+          "en": "And the bats are hungry too. Look, over the reeds!",
+          "it": "E anche i pipistrelli hanno fame. Guarda, sopra il canneto!",
+          "fx": { "bats": 0.6 }
+        }
+      ]
+    },
+    {
+      "id": "angeln-zaehlen",
+      "count": { "from": "dice", "min": 2, "max": 7, "gender": "m" },
+      "fx_stays": true,
+      "memory": {
+        "de": "die Fische, die wir im Kübel gezählt haben",
+        "sl": "ribe, ki sva jih preštela v vedru",
+        "en": "the fish we counted in the bucket",
+        "it": "i pesci che abbiamo contato nel secchio"
+      },
+      "lines": [
+        {
+          "who": "sepp",
+          "face": "curious",
+          "de": "{learner}, schau in den Kübel und zähl die Fische!",
+          "sl": "{learner}, poglej v vedro in preštej ribe!",
+          "en": "{learner}, look in the bucket and count the fish!",
+          "it": "{learner}, guarda nel secchio e conta i pesci!",
+          "fx": { "bucket": 1, "dog": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Im Kübel {ist|sind} {n} {Fisch|Fische}.",
+              "sl": "V vedru {je|sta|so|je} {n} {riba|ribi|ribe|rib}.",
+              "en": "There {is|are} {n} {fish|fish} in the bucket.",
+              "it": "Nel secchio {c'è|ci sono} {n} {pesce|pesci}.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Stimmt! Heute haben die Fische Hunger gehabt.",
+                "sl": "Drži! Danes so bile ribe lačne.",
+                "en": "Right! The fish were hungry today.",
+                "it": "Giusto! Oggi i pesci avevano fame."
+              }
+            },
+            {
+              "de": "Im Kübel {ist|sind} {n} {!Fisch|Fische}.",
+              "sl": "V vedru {je|sta|so|je} {n} {!riba|ribi|ribe|rib}.",
+              "en": "There {is|are} {n} {!fish|fish} in the bucket.",
+              "it": "Nel secchio {c'è|ci sono} {n} {!pesce|pesci}.",
+              "wrong_form": 1,
+              "grammar": "plural",
+              "why": {
+                "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Fisch|Fische}.",
+                "sl": "{Ena je v ednini|Od dveh naprej je množina}: {n} {Fisch|Fische}.",
+                "en": "{One takes the singular|From two on, the plural}: {n} {Fisch|Fische}.",
+                "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Fisch|Fische}."
+              },
+              "reply": {
+                "face": "surprised",
+                "de": "Nur ein Fisch? Schau noch einmal genau!",
+                "sl": "Samo ena riba? Poglej še enkrat natančno!",
+                "en": "Only one fish? Look again carefully!",
+                "it": "Un pesce solo? Guarda ancora bene!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Hm? Meine Ohren sind nicht mehr die jüngsten. Noch einmal.",
+            "sl": "Hm? Moja ušesa niso več najmlajša. Še enkrat.",
+            "en": "Hm? My ears aren't the youngest any more. Once more.",
+            "it": "Mh? Le mie orecchie non sono più giovani. Ancora."
+          }
+        },
+        {
+          "who": "sepp",
+          "face": "laugh",
+          "de": "Bello will auch einen. Nein, Bello, die sind für uns!",
+          "sl": "Bello bi tudi eno. Ne, Bello, te so za naju!",
+          "en": "Bello wants one too. No, Bello, those are for us!",
+          "it": "Anche Bello ne vuole uno. No, Bello, questi sono per noi!",
+          "fx": { "dog": 1 }
+        }
+      ]
+    },
+    {
+      "id": "frosch-kaulquappen",
+      "memory": { "de": "die Kaulquappen im Teich", "sl": "paglavce v ribniku", "en": "the tadpoles in the pond", "it": "i girini nello stagno" },
+      "lines": [
+        {
+          "who": "lena",
+          "face": "surprised",
+          "de": "{learner}, schau ins Wasser! So viele kleine schwarze Fische!",
+          "sl": "{learner}, poglej v vodo! Toliko majhnih črnih ribic!",
+          "en": "{learner}, look in the water! So many little black fish!",
+          "it": "{learner}, guarda nell'acqua! Quanti pesciolini neri!",
+          "fx": { "tadpoles": 0.8 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Das sind keine Fische. Das sind Kaulquappen.",
+              "sl": "To niso ribe. To so paglavci.",
+              "en": "Those aren't fish. Those are tadpoles.",
+              "it": "Quelli non sono pesci. Sono girini.",
+              "ok": true,
+              "grammar": "kein-nicht",
+              "reply": {
+                "face": "curious",
+                "de": "Kaulquappen? Was ist das?",
+                "sl": "Paglavci? Kaj je to?",
+                "en": "Tadpoles? What are they?",
+                "it": "Girini? Che cosa sono?"
+              }
+            },
+            {
+              "de": "Das sind nicht Fische. Das sind Kaulquappen.",
+              "sl": "To niso ribe. To so paglavci.",
+              "en": "Those aren't fish. Those are tadpoles.",
+              "it": "Quelli non sono pesci. Sono girini.",
+              "grammar": "kein-nicht",
+              "why": {
+                "de": "Vor einem Nomen ohne Artikel verneint man mit kein: keine Fische.",
+                "sl": "Samostalnik brez člena zanikaš s kein: keine Fische.",
+                "en": "A noun without an article is negated with kein: keine Fische.",
+                "it": "Un nome senza articolo si nega con kein: keine Fische."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Nicht Fische? Hm, was meinst du?",
+                "sl": "Nicht Fische? Hm, kaj misliš?",
+                "en": "Nicht Fische? Hm, what do you mean?",
+                "it": "Nicht Fische? Mh, che vuoi dire?"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Noch einmal!", "sl": "Kaj? Še enkrat!", "en": "Huh? Again!", "it": "Eh? Ancora!" }
+        },
+        {
+          "choices": [
+            {
+              "de": "Aus Kaulquappen werden Frösche.",
+              "sl": "Iz paglavcev nastanejo žabe.",
+              "en": "Tadpoles turn into frogs.",
+              "it": "I girini diventano rane.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Wirklich? Dann wohnen hier bald hundert Frösche!",
+                "sl": "Res? Potem bo tu kmalu živelo sto žab!",
+                "en": "Really? Then soon a hundred frogs will live here!",
+                "it": "Davvero? Allora presto qui abiteranno cento rane!"
+              }
+            },
+            {
+              "de": "Aus Kaulquappen werden Fische.",
+              "sl": "Iz paglavcev nastanejo ribe.",
+              "en": "Tadpoles turn into fish.",
+              "it": "I girini diventano pesci.",
+              "why": {
+                "de": "Kaulquappen sind kleine Frösche: aus ihnen werden Frösche, keine Fische.",
+                "sl": "Paglavci so majhne žabe: iz njih nastanejo žabe, ne ribe.",
+                "en": "Tadpoles are little frogs: they turn into frogs, not fish.",
+                "it": "I girini sono piccole rane: diventano rane, non pesci."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Fische? Aber die da bekommen schon kleine Beine!",
+                "sl": "Ribe? Ampak tile že dobivajo nožice!",
+                "en": "Fish? But those ones are getting little legs already!",
+                "it": "Pesci? Ma questi hanno già le zampette!"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Noch einmal!", "sl": "Kaj? Še enkrat!", "en": "Huh? Again!", "it": "Eh? Ancora!" }
+        },
+        {
+          "who": "lena",
+          "face": "laugh",
+          "de": "Dann wird es am Abend sehr laut. Quak, quak, quak!",
+          "sl": "Potem bo zvečer zelo glasno. Rega, rega, rega!",
+          "en": "Then it'll be very loud in the evening. Croak, croak, croak!",
+          "it": "Allora la sera ci sarà un gran baccano. Cra, cra, cra!"
+        }
+      ]
+    },
+    {
+      "id": "eis-enten",
+      "memory": {
+        "de": "den Winter, als der Teich gefroren war",
+        "sl": "zimo, ko je bil ribnik zamrznjen",
+        "en": "the winter the pond was frozen",
+        "it": "l'inverno che lo stagno era gelato"
+      },
+      "lines": [
+        {
+          "who": "maxi",
+          "face": "worried",
+          "de": "Schau, die Enten im Eis! Ist ihnen nicht kalt?",
+          "sl": "Poglej race v ledu! Ali jih ne zebe?",
+          "en": "Look, the ducks in the ice! Aren't they cold?",
+          "it": "Guarda le anatre nel ghiaccio! Non hanno freddo?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Nein, Enten haben warme Federn.",
+              "sl": "Ne, race imajo toplo perje.",
+              "en": "No, ducks have warm feathers.",
+              "it": "No, le anatre hanno piume calde.",
+              "ok": true,
+              "grammar": "sein-haben",
+              "reply": {
+                "face": "happy",
+                "de": "Warme Federn? Wie meine Jacke!",
+                "sl": "Toplo perje? Kot moja jakna!",
+                "en": "Warm feathers? Like my jacket!",
+                "it": "Piume calde? Come la mia giacca!"
+              }
+            },
+            {
+              "de": "Nein, Enten sind warme Federn.",
+              "sl": "Ne, race imajo toplo perje.",
+              "en": "No, ducks have warm feathers.",
+              "it": "No, le anatre hanno piume calde.",
+              "grammar": "sein-haben",
+              "why": {
+                "de": "Was jemand hat, sagt man mit haben: Enten haben Federn.",
+                "sl": "Kar kdo ima, poveš s haben: Enten haben Federn.",
+                "en": "What someone has takes haben: Enten haben Federn.",
+                "it": "Quello che uno ha si dice con haben: Enten haben Federn."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Sind Federn? Hihi, dann sind sie Polster!",
+                "sl": "Sind Federn? Hihi, potem so blazine!",
+                "en": "Sind Federn? Hee hee, then they're pillows!",
+                "it": "Sind Federn? Ih ih, allora sono cuscini!"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Noch einmal!", "sl": "Kaj? Še enkrat!", "en": "Huh? Again!", "it": "Eh? Ancora!" }
+        },
+        {
+          "who": "maxi",
+          "face": "surprised",
+          "de": "Huch, jetzt fliegen sie weg! Waren wir zu laut?",
+          "sl": "Ojej, zdaj odletijo! Sva bila preglasna?",
+          "en": "Whoops, now they're flying away! Were we too loud?",
+          "it": "Ops, adesso volano via! Eravamo troppo rumorosi?",
+          "fx": { "ducks": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja, wir müssen leise sein.",
+              "sl": "Ja, tiho morava biti.",
+              "en": "Yes, we have to be quiet.",
+              "it": "Sì, dobbiamo fare silenzio.",
+              "ok": true,
+              "grammar": "modalverben",
+              "reply": {
+                "face": "happy",
+                "de": "Pssst. Dann kommen sie bestimmt zurück.",
+                "sl": "Pssst. Potem se gotovo vrnejo.",
+                "en": "Shhh. Then they're sure to come back.",
+                "it": "Ssst. Allora torneranno di sicuro."
+              }
+            },
+            {
+              "de": "Ja, wir müssen leise sind.",
+              "sl": "Ja, tiho morava biti.",
+              "en": "Yes, we have to be quiet.",
+              "it": "Sì, dobbiamo fare silenzio.",
+              "grammar": "modalverben",
+              "why": {
+                "de": "Nach müssen steht das Verb im Infinitiv am Ende: leise sein.",
+                "sl": "Za müssen stoji glagol v nedoločniku na koncu: leise sein.",
+                "en": "After müssen the verb goes at the end in the infinitive: leise sein.",
+                "it": "Dopo müssen il verbo va in fondo, all'infinito: leise sein."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Leise sind? Hm, wie bitte?",
+                "sl": "Leise sind? Hm, prosim?",
+                "en": "Leise sind? Hm, sorry?",
+                "it": "Leise sind? Mh, come?"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hä? Noch einmal!", "sl": "Kaj? Še enkrat!", "en": "Huh? Again!", "it": "Eh? Ancora!" }
+        }
+      ]
+    }
+  ]
+}

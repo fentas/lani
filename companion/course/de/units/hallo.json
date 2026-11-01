@@ -1,0 +1,962 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "hallo",
+  "language": "de",
+  "level": "A1",
+  "emoji": "👋",
+  "title": {
+    "de": "Hallo! Ich heiße …",
+    "en": "Hello! My name is …",
+    "sl": "Živjo! Ime mi je …",
+    "it": "Ciao! Mi chiamo …"
+  },
+  "goal": {
+    "en": "You can greet people in the village and say goodbye at any time of day, say your name and ask theirs, with du to a friend and Sie to a stranger, and ask how they are.",
+    "sl": "Pozdraviš ljudi v vasi in se posloviš ob vsakem delu dneva, poveš svoje ime in vprašaš za njihovo, z du prijatelju in s Sie neznancu, in vprašaš, kako so.",
+    "it": "Sai salutare la gente del paese e congedarti a ogni ora, dire come ti chiami e chiedere il nome, con du a un amico e Sie a uno sconosciuto, e chiedere come sta."
+  },
+  "grammar": [
+    "du-sie"
+  ],
+  "words": [
+    "Grüß Gott",
+    "Servus",
+    "Hallo",
+    "Guten Morgen",
+    "Guten Tag",
+    "Guten Abend",
+    "Gute Nacht",
+    "Auf Wiedersehen",
+    "Tschüss",
+    "Baba",
+    "Bis morgen",
+    "heißen",
+    "Wie heißt du?",
+    "Wie heißen Sie?",
+    "Ich heiße",
+    "der Name",
+    "Freut mich!",
+    "Wie geht's dir?",
+    "Wie geht es Ihnen?",
+    "gut",
+    "danke",
+    "und",
+    "du",
+    "Sie",
+    "dir",
+    "Ihnen",
+    "die Frau",
+    "der Herr"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "wann",
+          "en": "when",
+          "sl": "kdaj",
+          "it": "quando"
+        },
+        {
+          "de": "du",
+          "en": "du (a friend)",
+          "sl": "du (prijatelj)",
+          "it": "du (un amico)"
+        },
+        {
+          "de": "Sie",
+          "en": "Sie (polite)",
+          "sl": "Sie (vljudno)",
+          "it": "Sie (di cortesia)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "In Austria you greet everyone with **Grüß Gott!** (hello), all day long: the innkeeper, the baker, a stranger on the path. To friends you say **Servus!** (hi) or **Hallo!** (hello). I'm Eva, the village teacher: **Grüß Gott!** In Germany you'd hear **Guten Tag!** (good day) more often; it's right here too.",
+          "sl": "V Avstriji vse pozdravljaš z **Grüß Gott!** (dober dan), ves dan: gostilničarko, peka, neznanca na poti. Prijateljem rečeš **Servus!** (živjo) ali **Hallo!** (zdravo). Jaz sem Eva, vaška učiteljica: **Grüß Gott!** V Nemčiji bi pogosteje slišal **Guten Tag!** (dober dan); prav je tudi tu.",
+          "it": "In Austria saluti tutti con **Grüß Gott!** (buongiorno), a ogni ora: l'ostessa, il fornaio, uno sconosciuto sul sentiero. Agli amici dici **Servus!** (ciao) o **Hallo!** (salve). Io sono Eva, la maestra del paese: **Grüß Gott!** In Germania sentiresti più spesso **Guten Tag!** (buongiorno); va bene anche qui."
+        },
+        "examples": [
+          {
+            "de": "Grüß Gott, Frau Kathi!",
+            "en": "Hello, Kathi!",
+            "sl": "Dober dan, gospa Kathi!",
+            "it": "Buongiorno, signora Kathi!"
+          },
+          {
+            "de": "Servus, Stefan!",
+            "en": "Hi, Stefan!",
+            "sl": "Živjo, Stefan!",
+            "it": "Ciao, Stefan!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Hallo!",
+              "en": "hello",
+              "sl": "pozdrav",
+              "it": "salutare"
+            },
+            "Servus! / Hallo!",
+            "Grüß Gott! / Guten Tag!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "du-sie",
+          "prompt": {
+            "en": "Stefan meets his friend Florian on the path. Stefan:",
+            "sl": "Stefan na poti sreča prijatelja Floriana. Stefan:",
+            "it": "Stefan incontra l'amico Florian sul sentiero. Stefan:"
+          },
+          "options": [
+            "Servus, Florian!",
+            "Auf Wiedersehen, Florian!",
+            "Gute Nacht, Florian!"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**To a friend: Servus or Hallo**\n- Servus, Florian! · Hi, Florian!",
+            "sl": "**Prijatelju: Servus ali Hallo**\n- Servus, Florian! · Živjo, Florian!",
+            "it": "**A un amico: Servus o Hallo**\n- Servus, Florian! · Ciao, Florian!"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "By the time of day: **Guten Morgen!** (good morning) until about ten, **Guten Abend!** (good evening) after dark, and **Gute Nacht!** (good night) before bed. Notice **Gute Nacht** has no n at the end. Between morning and evening the village says **Grüß Gott!**",
+          "sl": "Po delu dneva: **Guten Morgen!** (dobro jutro) do približno desetih, **Guten Abend!** (dober večer), ko se zmrači, in **Gute Nacht!** (lahko noč) pred spanjem. Pazi: **Gute Nacht** nima n na koncu. Med jutrom in večerom vas reče **Grüß Gott!**",
+          "it": "Secondo l'ora: **Guten Morgen!** (buongiorno) fino alle dieci circa, **Guten Abend!** (buonasera) quando fa buio, e **Gute Nacht!** (buonanotte) prima di dormire. Attenzione: **Gute Nacht** non ha la n alla fine. Tra mattina e sera il paese dice **Grüß Gott!**"
+        },
+        "examples": [
+          {
+            "de": "Guten Morgen, Franz!",
+            "en": "Good morning, Franz!",
+            "sl": "Dobro jutro, Franz!",
+            "it": "Buongiorno, Franz!"
+          },
+          {
+            "de": "Guten Abend! Ich heiße Kathi.",
+            "en": "Good evening! My name is Kathi.",
+            "sl": "Dober večer! Ime mi je Kathi.",
+            "it": "Buonasera! Mi chiamo Kathi."
+          },
+          {
+            "de": "Gute Nacht, Opa Sepp!",
+            "en": "Good night, Grandpa Sepp!",
+            "sl": "Lahko noč, dedek Sepp!",
+            "it": "Buonanotte, nonno Sepp!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "am Morgen",
+              "en": "in the morning",
+              "sl": "zjutraj",
+              "it": "di mattina"
+            },
+            "Guten Morgen!",
+            "Guten Morgen!"
+          ],
+          [
+            {
+              "de": "am Abend",
+              "en": "in the evening",
+              "sl": "zvečer",
+              "it": "di sera"
+            },
+            "Guten Abend!",
+            "Guten Abend!"
+          ],
+          [
+            {
+              "de": "in der Nacht",
+              "en": "at bedtime",
+              "sl": "pred spanjem",
+              "it": "prima di dormire"
+            },
+            "Gute Nacht!",
+            "Gute Nacht!"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "du-sie",
+          "text": "Gute ___, Opa Sepp! Bis morgen!",
+          "accept": [
+            "Nacht"
+          ],
+          "hint": {
+            "en": "before bed",
+            "sl": "pred spanjem",
+            "it": "prima di dormire"
+          },
+          "explain": {
+            "en": "**Before bed: Gute Nacht**\n- Gute Nacht, Opa Sepp! · Good night, Grandpa Sepp!",
+            "sl": "**Pred spanjem: Gute Nacht**\n- Gute Nacht, Opa Sepp! · Lahko noč, dedek Sepp!",
+            "it": "**Prima di dormire: Gute Nacht**\n- Gute Nacht, Opa Sepp! · Buonanotte, nonno Sepp!"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "To say goodbye politely: **Auf Wiedersehen!** (goodbye). To friends: **Tschüss!** (bye), and in Carinthia also **Baba!** (bye) or **Servus!**, which says hello and goodbye. **Bis morgen!** (see you tomorrow) goes with both.",
+          "sl": "Vljudno se posloviš z **Auf Wiedersehen!** (na svidenje). Prijateljem rečeš **Tschüss!** (adijo), na Koroškem tudi **Baba!** (adijo) ali **Servus!**, ki pomeni živjo in adijo. **Bis morgen!** (se vidimo jutri) gre k obojemu.",
+          "it": "Per salutare con cortesia: **Auf Wiedersehen!** (arrivederci). Agli amici: **Tschüss!** (ciao), e in Carinzia anche **Baba!** (ciao) o **Servus!**, che vuol dire ciao sia arrivando che andando via. **Bis morgen!** (a domani) va con tutti."
+        },
+        "examples": [
+          {
+            "de": "Auf Wiedersehen, Frau Huber!",
+            "en": "Goodbye, Mrs Huber!",
+            "sl": "Na svidenje, gospa Huber!",
+            "it": "Arrivederci, signora Huber!"
+          },
+          {
+            "de": "Baba, Toni! Bis morgen!",
+            "en": "Bye, Toni! See you tomorrow!",
+            "sl": "Adijo, Toni! Se vidiva jutri!",
+            "it": "Ciao, Toni! A domani!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Tschüss!",
+              "en": "goodbye",
+              "sl": "slovo",
+              "it": "congedarsi"
+            },
+            "Tschüss! / Baba! / Servus!",
+            "Auf Wiedersehen!"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "du-sie",
+          "prompt": {
+            "en": "A hiker Kathi doesn't know leaves the Gasthaus. Kathi:",
+            "sl": "Pohodnik, ki ga Kathi ne pozna, odhaja iz gostilne. Kathi:",
+            "it": "Un escursionista che Kathi non conosce lascia l'osteria. Kathi:"
+          },
+          "options": [
+            "Auf Wiedersehen!",
+            "Guten Morgen!",
+            "Grüß Gott!"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Goodbye to a stranger: Auf Wiedersehen**\n- Grüß Gott says hello, never goodbye",
+            "sl": "**Neznancu ob slovesu: Auf Wiedersehen**\n- Grüß Gott je pozdrav ob prihodu, nikoli ob slovesu",
+            "it": "**Congedo da uno sconosciuto: Auf Wiedersehen**\n- Grüß Gott si dice arrivando, mai andando via"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Your name: **Ich heiße …** (my name is …, word for word: I am called …). Or **Mein Name ist …** (my name is …). To ask a friend: **Wie heißt du?** (what's your name?). When you've met: **Freut mich!** (nice to meet you).",
+          "sl": "Svoje ime poveš z **Ich heiße …** (ime mi je …, dobesedno: imenujem se …) ali **Mein Name ist …** (moje ime je …). Prijatelja vprašaš **Wie heißt du?** (kako ti je ime?). Ko se spoznata: **Freut mich!** (me veseli).",
+          "it": "Il tuo nome: **Ich heiße …** (mi chiamo …) oppure **Mein Name ist …** (il mio nome è …). A un amico chiedi **Wie heißt du?** (come ti chiami?). Dopo le presentazioni: **Freut mich!** (piacere)."
+        },
+        "examples": [
+          {
+            "de": "Ich heiße Eva. Wie heißt du?",
+            "en": "My name is Eva. What's your name?",
+            "sl": "Ime mi je Eva. Kako je tebi ime?",
+            "it": "Mi chiamo Eva. Come ti chiami?"
+          },
+          {
+            "de": "Ich heiße {learner}. Freut mich!",
+            "en": "My name is {learner}. Nice to meet you!",
+            "sl": "Ime mi je {learner}. Me veseli!",
+            "it": "Mi chiamo {learner}. Piacere!"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Name",
+              "en": "names",
+              "sl": "ime",
+              "it": "nome"
+            },
+            "Wie heißt du?",
+            "Wie heißen Sie?"
+          ],
+          [
+            {
+              "de": "Antwort",
+              "en": "the answer",
+              "sl": "odgovor",
+              "it": "la risposta"
+            },
+            "Ich heiße …",
+            "Ich heiße …"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "du-sie",
+          "text": "Grüß Gott! Ich ___ Stanko.",
+          "accept": [
+            "heiße"
+          ],
+          "hint": "Ich heiße …",
+          "explain": {
+            "en": "**ich heiße: my name is**\n- Ich heiße Stanko. · My name is Stanko.",
+            "sl": "**ich heiße: ime mi je**\n- Ich heiße Stanko. · Ime mi je Stanko.",
+            "it": "**ich heiße: mi chiamo**\n- Ich heiße Stanko. · Mi chiamo Stanko."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "German has two words for you: **du** (you, to a friend, family, the people of the village) and **Sie** (you, polite, always with a capital S) for a stranger, the doctor, a shop. So: **Wie geht's dir?** (how are you?) and **Wie geht es Ihnen?** (how are you?, polite). The answer: **Gut, danke!** (fine, thanks) and then **Und dir?** or **Und Ihnen?** (and you?). When in doubt, say Sie.",
+          "sl": "Nemščina ima za ti dve besedi: **du** (ti: prijatelju, družini, ljudem v vasi) in **Sie** (vi, vljudno, vedno z veliko S) za neznanca, zdravnika, v trgovini. Torej: **Wie geht's dir?** (kako si?) in **Wie geht es Ihnen?** (kako ste?). Odgovor: **Gut, danke!** (dobro, hvala), nato **Und dir?** ali **Und Ihnen?** (pa ti? pa vi?). Če nisi {m:prepričan|f:prepričana}, reci Sie.",
+          "it": "Il tedesco ha due parole per tu: **du** (tu: a un amico, alla famiglia, alla gente del paese) e **Sie** (Lei, di cortesia, sempre con la S maiuscola) per uno sconosciuto, il medico, in negozio. Quindi: **Wie geht's dir?** (come stai?) e **Wie geht es Ihnen?** (come sta?). La risposta: **Gut, danke!** (bene, grazie) e poi **Und dir?** o **Und Ihnen?** (e tu? e Lei?). Nel dubbio, usa Sie."
+        },
+        "examples": [
+          {
+            "de": "Servus, Mitzi! Wie geht's dir?",
+            "en": "Hi, Mitzi! How are you?",
+            "sl": "Živjo, Mitzi! Kako si?",
+            "it": "Ciao, Mitzi! Come stai?"
+          },
+          {
+            "de": "Grüß Gott! Wie geht es Ihnen?",
+            "en": "Hello! How are you?",
+            "sl": "Dober dan! Kako ste?",
+            "it": "Buongiorno! Come sta?"
+          },
+          {
+            "de": "Gut, danke! Und Ihnen?",
+            "en": "Fine, thanks! And you?",
+            "sl": "Dobro, hvala! Pa vi?",
+            "it": "Bene, grazie! E Lei?"
+          }
+        ],
+        "rows": [
+          [
+            {
+              "de": "Wie geht's?",
+              "en": "how are you?",
+              "sl": "kako si?",
+              "it": "come stai?"
+            },
+            "Wie geht's dir?",
+            "Wie geht es Ihnen?"
+          ],
+          [
+            {
+              "de": "und du?",
+              "en": "and you?",
+              "sl": "pa ti?",
+              "it": "e tu?"
+            },
+            "Und dir?",
+            "Und Ihnen?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "du-sie",
+          "prompt": "Grüß Gott, Frau Doktor! Wie geht es ___?",
+          "options": [
+            "dir",
+            "Ihnen"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**A stranger: Sie, so Ihnen**\n- Wie geht es Ihnen? · How are you? (polite)",
+            "sl": "**Neznanka: Sie, torej Ihnen**\n- Wie geht es Ihnen? · Kako ste?",
+            "it": "**Una sconosciuta: Sie, quindi Ihnen**\n- Wie geht es Ihnen? · Come sta?"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**Grüß Gott!** to everyone, **Servus!** or **Hallo!** to friends; **Guten Morgen!**, **Guten Abend!**, **Gute Nacht!**\n\nGoodbye: **Auf Wiedersehen!** (Sie) · **Tschüss!**, **Baba!**, **Servus!** (du) · **Bis morgen!**\n\n**Ich heiße …** · **Wie heißt du?** (du) · **Wie heißen Sie?** (Sie) · **Freut mich!**\n\n**Wie geht's dir?** · **Wie geht es Ihnen?** · **Gut, danke! Und dir? / Und Ihnen?**",
+      "sl": "**Grüß Gott!** vsem, **Servus!** ali **Hallo!** prijateljem; **Guten Morgen!**, **Guten Abend!**, **Gute Nacht!**\n\nSlovo: **Auf Wiedersehen!** (Sie) · **Tschüss!**, **Baba!**, **Servus!** (du) · **Bis morgen!**\n\n**Ich heiße …** · **Wie heißt du?** (du) · **Wie heißen Sie?** (Sie) · **Freut mich!**\n\n**Wie geht's dir?** · **Wie geht es Ihnen?** · **Gut, danke! Und dir? / Und Ihnen?**",
+      "it": "**Grüß Gott!** a tutti, **Servus!** o **Hallo!** agli amici; **Guten Morgen!**, **Guten Abend!**, **Gute Nacht!**\n\nCongedo: **Auf Wiedersehen!** (Sie) · **Tschüss!**, **Baba!**, **Servus!** (du) · **Bis morgen!**\n\n**Ich heiße …** · **Wie heißt du?** (du) · **Wie heißen Sie?** (Sie) · **Freut mich!**\n\n**Wie geht's dir?** · **Wie geht es Ihnen?** · **Gut, danke! Und dir? / Und Ihnen?**"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "hallo-1",
+      "title": {
+        "de": "Du oder Sie?",
+        "en": "Du or Sie?",
+        "sl": "Du ali Sie?",
+        "it": "Du o Sie?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Ordne zu · To a friend or to a stranger?",
+            "sl": "Ordne zu · Prijatelju ali neznancu?",
+            "it": "Ordne zu · A un amico o a uno sconosciuto?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "du · to a friend",
+                "sl": "du · prijatelju",
+                "it": "du · a un amico"
+              },
+              "words": [
+                "Servus!",
+                "Tschüss!",
+                "Baba!",
+                "Wie heißt du?",
+                "Wie geht's dir?",
+                "Und dir?"
+              ]
+            },
+            {
+              "label": {
+                "en": "Sie · to a stranger",
+                "sl": "Sie · neznancu",
+                "it": "Sie · a uno sconosciuto"
+              },
+              "words": [
+                "Auf Wiedersehen!",
+                "Wie heißen Sie?",
+                "Wie geht es Ihnen?",
+                "Und Ihnen?"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**du with friends and the village, Sie with strangers**\n- Wie heißt du? · Wie heißen Sie?",
+            "sl": "**du s prijatelji in vasjo, Sie z neznanci**\n- Wie heißt du? · Wie heißen Sie?",
+            "it": "**du con gli amici e il paese, Sie con gli sconosciuti**\n- Wie heißt du? · Wie heißen Sie?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": {
+            "en": "Seven in the morning at the mill. You to Franz, the miller:",
+            "sl": "Sedem zjutraj pri mlinu. Ti mlinarju Franzu:",
+            "it": "Le sette di mattina al mulino. Tu al mugnaio Franz:"
+          },
+          "options": [
+            "Guten Morgen, Franz!",
+            "Gute Nacht, Franz!",
+            "Guten Abend, Franz!"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**In the morning: Guten Morgen**",
+            "sl": "**Zjutraj: Guten Morgen**",
+            "it": "**Di mattina: Guten Morgen**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": {
+            "en": "Evening in the Gasthaus. Kathi to a guest she doesn't know:",
+            "sl": "Večer v gostilni. Kathi gostu, ki ga ne pozna:",
+            "it": "Sera all'osteria. Kathi a un ospite che non conosce:"
+          },
+          "options": [
+            "Guten Abend!",
+            "Guten Morgen!",
+            "Baba!"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**In the evening, to a stranger: Guten Abend**\n- Baba says goodbye, to a friend",
+            "sl": "**Zvečer, neznancu: Guten Abend**\n- Baba je slovo, prijatelju",
+            "it": "**Di sera, a uno sconosciuto: Guten Abend**\n- Baba è un congedo, tra amici"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Wie heißen ___?",
+          "options": [
+            "du",
+            "Sie"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**heißen goes with Sie, heißt with du**\n- Wie heißen Sie? · Wie heißt du?",
+            "sl": "**heißen gre s Sie, heißt z du**\n- Wie heißen Sie? · Wie heißt du?",
+            "it": "**heißen va con Sie, heißt con du**\n- Wie heißen Sie? · Wie heißt du?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hallo-2",
+      "title": {
+        "de": "Ein Abend im Gasthaus",
+        "en": "An evening at the Gasthaus",
+        "sl": "Večer v gostilni",
+        "it": "Una sera all'osteria"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Bei Wirtin Kathi",
+          "text": "Kathi: Guten ___! — Frau Huber: Guten Abend! — Kathi: Ich ___ Kathi. Wie ___ Sie? — Frau Huber: Mein ___ ist Anna Huber. — Kathi: Freut ___! — Frau Huber: Danke! Auf ___!",
+          "gaps": [
+            {
+              "accept": [
+                "Abend"
+              ],
+              "hint": {
+                "en": "in the evening",
+                "sl": "zvečer",
+                "it": "di sera"
+              }
+            },
+            {
+              "accept": [
+                "heiße"
+              ],
+              "hint": "ich …"
+            },
+            {
+              "accept": [
+                "heißen"
+              ],
+              "hint": "Sie …"
+            },
+            {
+              "accept": [
+                "Name"
+              ],
+              "hint": {
+                "en": "my name is …",
+                "sl": "moje ime je …",
+                "it": "il mio nome è …"
+              }
+            },
+            {
+              "accept": [
+                "mich"
+              ],
+              "hint": {
+                "en": "nice to meet you",
+                "sl": "me veseli",
+                "it": "piacere"
+              }
+            },
+            {
+              "accept": [
+                "Wiedersehen"
+              ],
+              "hint": {
+                "en": "goodbye, polite",
+                "sl": "na svidenje, vljudno",
+                "it": "arrivederci, di cortesia"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "heißt",
+            "Morgen"
+          ],
+          "translation": {
+            "en": "Kathi: Good evening! — Mrs Huber: Good evening! — Kathi: I'm Kathi. What's your name? — Mrs Huber: My name is Anna Huber. — Kathi: Nice to meet you! — Mrs Huber: Thank you! Goodbye!",
+            "sl": "Kathi: Dober večer! — Gospa Huber: Dober večer! — Kathi: Jaz sem Kathi. Kako vam je ime? — Gospa Huber: Moje ime je Anna Huber. — Kathi: Me veseli! — Gospa Huber: Hvala! Na svidenje!",
+            "it": "Kathi: Buonasera! — Signora Huber: Buonasera! — Kathi: Mi chiamo Kathi. Come si chiama? — Signora Huber: Il mio nome è Anna Huber. — Kathi: Piacere! — Signora Huber: Grazie! Arrivederci!"
+          },
+          "explain": {
+            "en": "**A stranger: Sie, Guten Abend, Auf Wiedersehen**\n- Wie heißen Sie? · What's your name?",
+            "sl": "**Neznanka: Sie, Guten Abend, Auf Wiedersehen**\n- Wie heißen Sie? · Kako vam je ime?",
+            "it": "**Una sconosciuta: Sie, Guten Abend, Auf Wiedersehen**\n- Wie heißen Sie? · Come si chiama?"
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Ordne · Put in order",
+            "sl": "Ordne · Razvrsti",
+            "it": "Ordne · Metti in ordine"
+          },
+          "prompt": {
+            "en": "How are you? (polite)",
+            "sl": "Kako ste?",
+            "it": "Come sta?"
+          },
+          "tokens": [
+            "geht",
+            "es",
+            "Wie",
+            "Ihnen"
+          ],
+          "solutions": [
+            [
+              "Wie",
+              "geht",
+              "es",
+              "Ihnen"
+            ]
+          ],
+          "explain": {
+            "en": "**Wie geht es Ihnen?**",
+            "sl": "**Wie geht es Ihnen?**",
+            "it": "**Wie geht es Ihnen?**"
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Ordne · Put in order",
+            "sl": "Ordne · Razvrsti",
+            "it": "Ordne · Metti in ordine"
+          },
+          "prompt": {
+            "en": "Hi! My name is Florian.",
+            "sl": "Živjo! Ime mi je Florian.",
+            "it": "Ciao! Mi chiamo Florian."
+          },
+          "tokens": [
+            "Servus",
+            "Florian",
+            "heiße",
+            "ich"
+          ],
+          "solutions": [
+            [
+              "Servus",
+              "ich",
+              "heiße",
+              "Florian"
+            ]
+          ],
+          "explain": {
+            "en": "**Ich heiße Florian.**",
+            "sl": "**Ich heiße Florian.**",
+            "it": "**Ich heiße Florian.**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hallo-3",
+      "title": {
+        "de": "Zu Freunden und zu Fremden",
+        "en": "To friends and to strangers",
+        "sl": "Prijateljem in neznancem",
+        "it": "Agli amici e agli sconosciuti"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Sag es mit Sie · Say it to a stranger, with Sie",
+            "sl": "Sag es mit Sie · Povej neznancu, s Sie",
+            "it": "Sag es mit Sie · Dillo a uno sconosciuto, con Sie"
+          },
+          "cue": "Sie",
+          "items": [
+            {
+              "from": "Wie heißt du?",
+              "accept": [
+                "Wie heißen Sie?"
+              ],
+              "hint": "du heißt → Sie heißen"
+            },
+            {
+              "from": "Wie geht's dir?",
+              "accept": [
+                "Wie geht es Ihnen?",
+                "Wie geht's Ihnen?"
+              ],
+              "hint": "dir → Ihnen"
+            },
+            {
+              "from": "Und dir?",
+              "accept": [
+                "Und Ihnen?"
+              ]
+            },
+            {
+              "from": "Tschüss!",
+              "accept": [
+                "Auf Wiedersehen!"
+              ]
+            },
+            {
+              "from": "Servus!",
+              "accept": [
+                "Grüß Gott!",
+                "Guten Tag!",
+                "Guten Morgen!",
+                "Guten Abend!"
+              ],
+              "hint": {
+                "en": "hello, polite",
+                "sl": "pozdrav, vljudno",
+                "it": "saluto di cortesia"
+              }
+            }
+          ],
+          "explain": {
+            "en": "**Sie: heißen, Ihnen, Grüß Gott, Auf Wiedersehen**",
+            "sl": "**Sie: heißen, Ihnen, Grüß Gott, Auf Wiedersehen**",
+            "it": "**Sie: heißen, Ihnen, Grüß Gott, Auf Wiedersehen**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "du-sie",
+          "instruction": {
+            "en": "Sag es mit du · Say it to a friend, with du",
+            "sl": "Sag es mit du · Povej prijatelju, z du",
+            "it": "Sag es mit du · Dillo a un amico, con du"
+          },
+          "cue": "du",
+          "items": [
+            {
+              "from": "Wie heißen Sie?",
+              "accept": [
+                "Wie heißt du?"
+              ],
+              "hint": "Sie heißen → du heißt"
+            },
+            {
+              "from": "Wie geht es Ihnen?",
+              "accept": [
+                "Wie geht's dir?",
+                "Wie geht es dir?"
+              ],
+              "hint": "Ihnen → dir"
+            },
+            {
+              "from": "Und Ihnen?",
+              "accept": [
+                "Und dir?"
+              ]
+            },
+            {
+              "from": "Auf Wiedersehen!",
+              "accept": [
+                "Tschüss!",
+                "Baba!",
+                "Servus!",
+                "Tschau!",
+                "Ciao!"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**du: heißt, dir, Servus, Tschüss**",
+            "sl": "**du: heißt, dir, Servus, Tschüss**",
+            "it": "**du: heißt, dir, Servus, Tschüss**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "du-sie",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Stefan: ___ Morgen, Franz! Wie geht's? — Franz: Gut, danke! Und ___? — Stefan: Auch gut. Das ist Frau Huber aus Graz. — Franz: Grüß Gott! Ich ___ Franz Moser. Wie ___ Sie? — Frau Huber: Anna Huber. Freut mich!",
+        "gaps": [
+          {
+            "accept": [
+              "Guten"
+            ],
+            "hint": {
+              "en": "good morning",
+              "sl": "dobro jutro",
+              "it": "buongiorno"
+            }
+          },
+          {
+            "accept": [
+              "dir"
+            ],
+            "hint": "du → ?"
+          },
+          {
+            "accept": [
+              "heiße"
+            ],
+            "hint": "ich …"
+          },
+          {
+            "accept": [
+              "heißen"
+            ],
+            "hint": "Sie …"
+          }
+        ],
+        "translation": {
+          "en": "Stefan: Good morning, Franz! How are you? — Franz: Fine, thanks! And you? — Stefan: Fine too. This is Mrs Huber from Graz. — Franz: Hello! My name is Franz Moser. What's your name? — Mrs Huber: Anna Huber. Nice to meet you!",
+          "sl": "Stefan: Dobro jutro, Franz! Kako si? — Franz: Dobro, hvala! Pa ti? — Stefan: Tudi dobro. To je gospa Huber iz Gradca. — Franz: Dober dan! Ime mi je Franz Moser. Kako vam je ime? — Gospa Huber: Anna Huber. Me veseli!",
+          "it": "Stefan: Buongiorno, Franz! Come stai? — Franz: Bene, grazie! E tu? — Stefan: Bene anch'io. Questa è la signora Huber di Graz. — Franz: Buongiorno! Mi chiamo Franz Moser. Come si chiama? — Signora Huber: Anna Huber. Piacere!"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "du-sie",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "Late in the evening Grandpa Sepp goes to bed. You:",
+          "sl": "Pozno zvečer gre dedek Sepp spat. Ti:",
+          "it": "A tarda sera nonno Sepp va a dormire. Tu:"
+        },
+        "options": [
+          "Gute Nacht, Opa Sepp!",
+          "Guten Morgen, Opa Sepp!",
+          "Grüß Gott, Opa Sepp!"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Before bed: Gute Nacht**",
+          "sl": "**Pred spanjem: Gute Nacht**",
+          "it": "**Prima di dormire: Gute Nacht**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "du-sie",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Frau Doktor, wie geht es ___?",
+        "options": [
+          "dir",
+          "Ihnen",
+          "du"
+        ],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "en": "**To the doctor: Sie, so Ihnen**",
+          "sl": "**Zdravnici: Sie, torej Ihnen**",
+          "it": "**Alla dottoressa: Sie, quindi Ihnen**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "du-sie",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "At the Kirchtag Aunt Mitzi asks your name. You answer:",
+          "sl": "Na žegnanju te teta Mitzi vpraša, kako ti je ime. Odgovoriš:",
+          "it": "Alla sagra la zia Mitzi ti chiede come ti chiami. Rispondi:"
+        },
+        "options": [
+          "Ich heiße {learner}.",
+          "Ich heißt {learner}.",
+          "Ich heißen {learner}."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**ich heiße**\n- du heißt · Sie heißen",
+          "sl": "**ich heiße**\n- du heißt · Sie heißen",
+          "it": "**ich heiße**\n- du heißt · Sie heißen"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "du-sie",
+        "instruction": {
+          "en": "Sag es mit Sie · Say it to a stranger, with Sie",
+          "sl": "Sag es mit Sie · Povej neznancu, s Sie",
+          "it": "Sag es mit Sie · Dillo a uno sconosciuto, con Sie"
+        },
+        "cue": "Sie",
+        "items": [
+          {
+            "from": "Gut, danke! Und dir?",
+            "accept": [
+              "Gut, danke! Und Ihnen?"
+            ]
+          },
+          {
+            "from": "Tschüss! Bis morgen!",
+            "accept": [
+              "Auf Wiedersehen! Bis morgen!"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "cloze",
+        "grammar": "du-sie",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Servus, Toni! Wie ___ du?",
+        "accept": [
+          "heißt"
+        ],
+        "hint": "du …",
+        "explain": {
+          "en": "**du heißt**",
+          "sl": "**du heißt**",
+          "it": "**du heißt**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Grüß Gott all day, Baba and Servus as bye, Tschau accepted, «Frau Doktor», the vi and Lei glosses of Sie"
+}

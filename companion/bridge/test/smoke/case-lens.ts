@@ -100,7 +100,7 @@ export default async function cases() {
     ['Imam dve hčerki.', 'hčerki', 0, 'acc.du decided object Imam'],
     ['Kmečki voz stoji na dvorišču.', 'Kmečki', 0, 'nom.sg decided subject stoji'],
     // an l-form the dictionary lacks beside biti's form: no copula of si (Cesar si je zapomnil Krpana)
-    ['Cesar si je zapomnil Krpana.', 'Krpana', 0, 'acc.sg decided object zapomnil derived'],
+    ['Cesar si je zapomnil Krpana.', 'Krpana', 0, 'acc.sg decided object zapomnil'],
     // sam said of the subject; a comparison after kot
     ['Zdaj kuham sam.', 'sam', 0, 'nom.sg decided predicative kuham'],
     ['Njegovi rogovi so se svetili kot sonce.', 'sonce', 0, 'nom.sg decided form'],
@@ -117,7 +117,7 @@ export default async function cases() {
     // the third held-out set's misses, fixed after its one run: a possessive before its noun, a village name over a
     // common noun, an ordinal before its noun (not to sing), a plural-only noun, a line's first word a verb
     ['Potem potrebuje orožje. Cesarjev meč je zanj premajhen.', 'Cesarjev', 0, 'nom.sg decided subject je derived'],
-    ['S ključem Tone navije uro.', 'Tone', 0, 'nom.sg decided form'],
+    ['S ključem Tone navije uro.', 'Tone', 0, 'nom.sg decided subject navije'],
     ['Danes je peti maj.', 'maj', 0, 'nom.sg decided subject je'],
     ['Kje so moja očala?', 'očala', 0, 'nom.pl decided subject so'],
     ['Narišiva mu nov obraz!', 'obraz', 0, 'acc.sg decided object Narišiva'],
@@ -125,6 +125,32 @@ export default async function cases() {
   ] as const
   const missed2 = lens2.flatMap(([line, word, nth, want]) => (pick(line, word, nth) === want ? [] : [`${line} ${word}: ${pick(line, word, nth)}, not ${want}`]))
   check(`case lens: the genitive of time, sam, kot, the forms book's nouns, the packs' nouns and the supplement's words (${lens2.length} lines)`, missed2.length === 0, missed2)
+
+  // lens-unknown-forms: what the dictionary has only as something else, read; the names, interjections and words the
+  // supplement has now
+  const lens3 = [
+    // a possessive of a village's name or of a noun, by its ending
+    ['Konj stoji pred Tonetovo kovačnico.', 'Tonetovo', 0, 'ins.sg decided preposition pred derived'],
+    ['Tako je! Pismo s cesarjevim pečatom.', 'cesarjevim', 0, 'ins.sg decided preposition s derived'],
+    // a comparative or a superlative by its ending (mlajša: mlajši, Wiktionary's comparative; najnovejša: naj- before
+    // novejši); one the supplement has from Sloleks; a past participle; a verbal noun
+    ['Moja sestra je mlajša.', 'mlajša', 0, 'nom.sg decided predicative je derived'],
+    ['Ta hiša je najnovejša.', 'najnovejša', 0, 'nom.sg decided predicative je derived'],
+    ['Megla je danes gostejša kot včeraj.', 'gostejša', 0, 'nom.sg decided predicative je'],
+    ['Veš, nekoč je vsa družina spala na peči. Pozimi je bila to najtoplejša postelja.', 'najtoplejša', 0, 'nom.sg decided subject bila'],
+    ['Klet je zaklenjena, ključ ima Marko.', 'zaklenjena', 0, 'nom.sg decided predicative je derived'],
+    ['Za pečenje kruha potrebuješ moko, vodo in kvas.', 'pečenje', 0, 'acc.sg decided preposition Za derived'],
+    // izmed, the dual's midve and vidve; a number of tens and ones
+    ['Mickina potica je najboljša izmed vseh.', 'vseh', 0, 'gen.pl decided preposition izmed'],
+    ['Vidve sta pridni.', 'Vidve', 0, 'nom.du decided subject sta'],
+    ['Petindvajset ovc je na paši.', 'ovc', 0, 'gen.pl decided number Petindvajset'],
+    // no case: an adjective that never changes, a sound drawn out, a converb (before, Super! read as a name's nominative)
+    ['Super! Kaj kuhate?', 'Super', 0, 'none'],
+    ['Jaaa! Hvala, Jan!', 'Jaaa', 0, 'none'],
+    ['Hodeč po vasi, je Nejc žvižgal.', 'Hodeč', 0, 'none'],
+  ] as const
+  const missed3 = lens3.flatMap(([line, word, nth, want]) => (pick(line, word, nth) === want ? [] : [`${line} ${word}: ${pick(line, word, nth)}, not ${want}`]))
+  check(`case lens: possessives, comparatives, participles, verbal nouns, izmed, the supplement's names and words; no case for super, a sound, a converb (${lens3.length} lines)`, missed3.length === 0, missed3)
 
   // --- the analysis on the hand-labelled sentences ------------------------------------------------------------------
   const gold = goldItems('gold')
@@ -154,6 +180,10 @@ export default async function cases() {
   // wrong and decided, then fixed)
   const held3 = evaluate(lens, goldItems('heldout3'))
   check(`case lens: the third held-out lines (${held3.items}, drawn at random by case-lens-2): ${summary(held3)}`, held3.items >= 80 && held3.right / held3.labelled >= 0.9 && held3.wrongDecided === 0, held3.misses)
+  // the fourth (lens-unknown-forms: lines with a form the lens knew nothing of, labelled before it ran on them; the
+  // base's lens 16/64 right, 2 wrong and decided; with the entries, first run 60/64, then 62/64, none wrong)
+  const held4 = evaluate(lens, goldItems('heldout4'))
+  check(`case lens: the fourth held-out lines (${held4.items}, a form the lens knew nothing of in each): ${summary(held4)}`, held4.items >= 60 && held4.right / held4.labelled >= 0.9 && held4.wrongDecided === 0, held4.misses)
 
   // the hint chip's shared turns: the app's chip reads the same table alone and names what the lens names on them
   // (TurnHintLensTest reads test/fixtures/hint-lens.json; bun test/hint-lens.ts --write makes it again)
@@ -175,17 +205,25 @@ export default async function cases() {
   const thrown: string[] = []
   let words = 0
   let decided = 0
+  // the forms the lens knows nothing of (lens-unknown-forms: 1,021 before it; a capitalized one inside a line as written)
+  const unknown = new Map<string, number>()
   for (const l of lines) {
     try {
       const r = lens.analyze(l.text, VILLAGE_NAMES)
       words += r.words.length
       decided += r.words.filter(w => w.sure !== 'ambiguous').length
+      for (const w of lens.unknownWords(l.text, VILLAGE_NAMES)) {
+        const key = /^\p{Lu}/u.test(w.word) && w.start > 0 ? w.word : w.word.toLowerCase()
+        unknown.set(key, (unknown.get(key) ?? 0) + 1)
+      }
     } catch (e) {
       thrown.push(`${l.text}: ${(e as Error).message}`)
     }
   }
   const ms = performance.now() - t0
   check(`case lens: every line of the content analysed (${lines.length} lines, ${words} words with a case, ${Math.round((decided / words) * 100)}% decided or likely; ${(ms / lines.length).toFixed(2)} ms a line)`, lines.length > 3000 && thrown.length === 0 && ms / lines.length < 5 && decided / words > 0.8, thrown.slice(0, 5))
+  const rare = [...unknown].sort((a, b) => b[1] - a[1])
+  check(`case lens: the content's forms it knows nothing of, under 150 (${unknown.size} forms, ${rare.reduce((a, b) => a + b[1], 0)} words; bun test/case-lens-gaps.ts lists them)`, unknown.size < 150, rare.slice(0, 20).map(([w, n]) => `${w} ${n}`).join(', '))
 
   // --- through the bridge --------------------------------------------------------------------------------------------
   const brez = await lookup({ w: 'mleka', line: 'Kavo pijem brez mleka.', en: 'I drink coffee without milk.' })
@@ -206,6 +244,15 @@ export default async function cases() {
   const prep = await lookup({ w: 'brez', line: 'Kavo pijem brez mleka.' })
   const noLine = await lookup({ w: 'mleka' })
   check('GET /lookup: a verb has no case; a preposition says what it decides (brez: mleka, the genitive); without its line a word has none', !verb.case && prep.case?.governs?.words?.[0]?.i === 3 && prep.case.governs.words[0].case === 'gen' && !prep.case.pick && !noLine.case, { verb: verb.case, prep: prep.case })
+  // lens-unknown-forms: an interjection the supplement has says what it is and has no case; a story's name declines
+  const juhu = await lookup({ w: 'Juhu', line: 'Juhu! Najboljši zmaj na svetu!', en: 'Hooray! The best kite in the world!' })
+  const krpana = await lookup({ w: 'Krpana', line: 'Cesar si je zapomnil Krpana.', en: 'The emperor remembered Krpan.' })
+  check(
+    'GET /lookup: Juhu (before, read by its ending as a name\'s dative) is an interjection and has no case; Krpana is Krpan, a name of the stories, the object of zapomnil, decided, not by its endings',
+    juhu.entries?.[0]?.pos === 'intj' && juhu.entries[0].source === 'extra' && !juhu.case &&
+      krpana.entries?.some((e: any) => e.lemma === 'Krpan' && e.pos === 'name' && /Levstik/.test(e.gloss.join(' '))) && krpana.case?.pick?.case === 'acc' && krpana.case.sure === 'decided' && krpana.case.kind === 'object' && !krpana.case.derived,
+    { juhu: [juhu.entries?.[0], juhu.case], krpana: [krpana.entries?.[0], krpana.case] },
+  )
   const visit = await lookup({ w: 'acqua', line: "L'acqua è fredda.", language: 'it', base: 'en' })
   check('GET /lookup: an Italian word on a visit has no case (the lens is Slovene\'s)', !visit.case, visit.case)
 

@@ -1,0 +1,955 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "wortstellung",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🧱",
+  "title": {
+    "de": "Heute backt Oma",
+    "en": "The verb second: heute backt Oma",
+    "sl": "Glagol na drugem mestu: heute backt Oma",
+    "it": "Il verbo al secondo posto: heute backt Oma"
+  },
+  "goal": {
+    "en": "You can put the verb second whatever comes first (Heute backt Oma Resi Kuchen. Am Abend erzählt Opa Sepp.), join sentences with und, aber and dann, start a yes or no question with the verb, and say when before where.",
+    "sl": "Glagol postaviš na drugo mesto, ne glede na to, kaj je prvo (Heute backt Oma Resi Kuchen. Am Abend erzählt Opa Sepp.), povežeš stavke z und, aber in dann, vprašanje za da ali ne začneš z glagolom in poveš kdaj pred kam.",
+    "it": "Metti il verbo al secondo posto qualunque cosa venga prima (Heute backt Oma Resi Kuchen. Am Abend erzählt Opa Sepp.), unisci le frasi con und, aber e dann, cominci una domanda sì o no con il verbo e dici quando prima di dove."
+  },
+  "grammar": [
+    "wortstellung",
+    "fragen"
+  ],
+  "words": [
+    "heute",
+    "morgen",
+    "jetzt",
+    "dann",
+    "danach",
+    "und",
+    "aber",
+    "oder",
+    "backen",
+    "regnen",
+    "scheinen",
+    "erzählen",
+    "am Abend",
+    "am Nachmittag",
+    "am Sonntag",
+    "am Samstag",
+    "im Winter",
+    "im Sommer",
+    "der Kuchen",
+    "die Sonne",
+    "der See",
+    "die Kirche",
+    "der Lindwurm",
+    "die Kirchtagssuppe",
+    "die Karte",
+    "die Harmonika"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Position 1",
+          "en": "position 1",
+          "sl": "1. mesto",
+          "it": "1° posto"
+        },
+        {
+          "de": "Verb (Position 2)",
+          "en": "verb (position 2)",
+          "sl": "glagol (2. mesto)",
+          "it": "verbo (2° posto)"
+        },
+        {
+          "de": "der Rest",
+          "en": "the rest",
+          "sl": "ostalo",
+          "it": "il resto"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "In a German statement the verb is the second part. First comes one part, here the person, then the verb, then the rest: **Oma Resi backt heute Kuchen.** (Grandma Resi is baking cake today.) **Kathi kocht im Gasthaus.** (Kathi cooks at the Gasthaus.)",
+          "sl": "V nemški trditvi je glagol drugi del. Najprej pride en del, tu oseba, nato glagol, nato ostalo: **Oma Resi backt heute Kuchen.** (Babica Resi danes peče pecivo.) **Kathi kocht im Gasthaus.** (Kathi kuha v gostilni.)",
+          "it": "In una frase affermativa tedesca il verbo è la seconda parte. Prima viene una parte, qui la persona, poi il verbo, poi il resto: **Oma Resi backt heute Kuchen.** (Oggi nonna Resi fa i dolci.) **Kathi kocht im Gasthaus.** (Kathi cucina all'osteria.)"
+        },
+        "examples": [
+          {
+            "de": "Oma Resi backt heute Kuchen.",
+            "en": "Grandma Resi is baking cake today.",
+            "sl": "Babica Resi danes peče pecivo.",
+            "it": "Oggi nonna Resi fa i dolci."
+          },
+          {
+            "de": "Kathi kocht im Gasthaus.",
+            "en": "Kathi cooks at the Gasthaus.",
+            "sl": "Kathi kuha v gostilni.",
+            "it": "Kathi cucina all'osteria."
+          }
+        ],
+        "rows": [
+          [
+            "Oma Resi",
+            "backt",
+            "heute Kuchen."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "prompt": {
+            "en": "Grandma Resi is baking cake today:",
+            "sl": "Babica Resi danes peče pecivo:",
+            "it": "Oggi nonna Resi fa i dolci:"
+          },
+          "options": [
+            "Oma Resi backt heute Kuchen.",
+            "Oma Resi heute backt Kuchen.",
+            "Oma Resi heute Kuchen backt."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The verb is the second part**\n- Oma Resi backt heute Kuchen.",
+            "sl": "**Glagol je drugi del**\n- Oma Resi backt heute Kuchen.",
+            "it": "**Il verbo è la seconda parte**\n- Oma Resi backt heute Kuchen."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "When something else comes first, a time like **heute** (today) or a place like **im Gasthaus** (at the inn), the verb stays second and the person moves behind it: **Heute backt Oma Resi Kuchen.** (Today Grandma Resi is baking cake.) Never heute Oma backt, as English says it.",
+          "sl": "Ko je na prvem mestu kaj drugega, čas, kot **heute** (danes), ali kraj, kot **im Gasthaus** (v gostilni), ostane glagol drugi, oseba pa gre za njim: **Heute backt Oma Resi Kuchen.** (Danes babica Resi peče pecivo.) Nikoli heute Oma backt.",
+          "it": "Quando al primo posto c'è altro, un tempo come **heute** (oggi) o un luogo come **im Gasthaus** (all'osteria), il verbo resta secondo e la persona va dopo di lui: **Heute backt Oma Resi Kuchen.** (Oggi nonna Resi fa i dolci.) Mai heute Oma backt, come in italiano."
+        },
+        "examples": [
+          {
+            "de": "Heute backt Oma Resi Kuchen.",
+            "en": "Today Grandma Resi is baking cake.",
+            "sl": "Danes babica Resi peče pecivo.",
+            "it": "Oggi nonna Resi fa i dolci."
+          },
+          {
+            "de": "Im Gasthaus kocht Kathi.",
+            "en": "At the Gasthaus, Kathi cooks.",
+            "sl": "V gostilni kuha Kathi.",
+            "it": "All'osteria cucina Kathi."
+          },
+          {
+            "de": "Morgen fährt Stefan nach Villach.",
+            "en": "Tomorrow Stefan is driving to Villach.",
+            "sl": "Jutri se Stefan pelje v Beljak.",
+            "it": "Domani Stefan va a Villach."
+          }
+        ],
+        "rows": [
+          [
+            "Heute",
+            "backt",
+            "Oma Resi Kuchen."
+          ],
+          [
+            "Im Gasthaus",
+            "kocht",
+            "Kathi."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "prompt": "Heute ___ Kasnudeln.",
+          "options": [
+            "kocht Kathi",
+            "Kathi kocht"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**heute first: the verb second, then the person**\n- Heute kocht Kathi Kasnudeln.",
+            "sl": "**heute spredaj: glagol drugi, nato oseba**\n- Heute kocht Kathi Kasnudeln.",
+            "it": "**heute all'inizio: il verbo secondo, poi la persona**\n- Heute kocht Kathi Kasnudeln."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The first part can be several words: **am Abend** (in the evening), **im Winter** (in winter), **in Klagenfurt** (in Klagenfurt). It still counts as one part, so the verb comes right after it: **Am Abend erzählt Opa Sepp.** (In the evening Grandpa Sepp tells stories.)",
+          "sl": "Prvi del ima lahko več besed: **am Abend** (zvečer), **im Winter** (pozimi), **in Klagenfurt** (v Celovcu). Še vedno je en del, zato glagol pride takoj za njim: **Am Abend erzählt Opa Sepp.** (Zvečer dedek Sepp pripoveduje.)",
+          "it": "La prima parte può avere più parole: **am Abend** (la sera), **im Winter** (d'inverno), **in Klagenfurt** (a Klagenfurt). Conta sempre come una parte, quindi il verbo viene subito dopo: **Am Abend erzählt Opa Sepp.** (La sera nonno Sepp racconta.)"
+        },
+        "examples": [
+          {
+            "de": "Am Abend erzählt Opa Sepp vom Lindwurm.",
+            "en": "In the evening Grandpa Sepp tells the story of the Lindwurm, the Klagenfurt dragon.",
+            "sl": "Zvečer dedek Sepp pripoveduje o zmaju Lindwurmu.",
+            "it": "La sera nonno Sepp racconta del Lindwurm, il drago di Klagenfurt."
+          },
+          {
+            "de": "Im Winter ist der See kalt.",
+            "en": "In winter the lake is cold.",
+            "sl": "Pozimi je jezero mrzlo.",
+            "it": "D'inverno il lago è freddo."
+          },
+          {
+            "de": "In Klagenfurt wohnt Frau Huber.",
+            "en": "Mrs Huber lives in Klagenfurt.",
+            "sl": "Gospa Huber živi v Celovcu.",
+            "it": "A Klagenfurt abita la signora Huber."
+          }
+        ],
+        "rows": [
+          [
+            "Am Abend",
+            "erzählt",
+            "Opa Sepp."
+          ],
+          [
+            "Im Winter",
+            "ist",
+            "der See kalt."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "prompt": "Am Abend ___ eine Geschichte.",
+          "options": [
+            "erzählt Opa Sepp",
+            "Opa Sepp erzählt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Am Abend is one part: then the verb**\n- Am Abend erzählt Opa Sepp eine Geschichte.",
+            "sl": "**Am Abend je en del: nato glagol**\n- Am Abend erzählt Opa Sepp eine Geschichte.",
+            "it": "**Am Abend è una parte sola: poi il verbo**\n- Am Abend erzählt Opa Sepp eine Geschichte."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**und** (and), **aber** (but) and **oder** (or) join two sentences and take no place, so the order starts again after them: **Stefan arbeitet, aber Florian schläft.** (Stefan is working, but Florian is asleep.) **dann** (then) does take the first place: **Wir essen, dann tanzen wir.** (We eat, then we dance.)",
+          "sl": "**und** (in), **aber** (ampak, pa) in **oder** (ali) povežejo dva stavka in ne zasedejo mesta, zato se vrstni red za njimi začne znova: **Stefan arbeitet, aber Florian schläft.** (Stefan dela, Florian pa spi.) **dann** (potem) pa zasede prvo mesto: **Wir essen, dann tanzen wir.** (Jemo, potem plešemo.)",
+          "it": "**und** (e), **aber** (ma) e **oder** (o) uniscono due frasi e non occupano un posto, quindi dopo di loro l'ordine ricomincia: **Stefan arbeitet, aber Florian schläft.** (Stefan lavora, ma Florian dorme.) **dann** (poi) invece occupa il primo posto: **Wir essen, dann tanzen wir.** (Mangiamo, poi balliamo.)"
+        },
+        "examples": [
+          {
+            "de": "Stefan arbeitet, aber Florian schläft.",
+            "en": "Stefan is working, but Florian is asleep.",
+            "sl": "Stefan dela, Florian pa spi.",
+            "it": "Stefan lavora, ma Florian dorme."
+          },
+          {
+            "de": "Es regnet, aber morgen scheint die Sonne.",
+            "en": "It's raining, but tomorrow the sun will shine.",
+            "sl": "Dežuje, jutri pa bo sijalo sonce.",
+            "it": "Piove, ma domani c'è il sole."
+          },
+          {
+            "de": "Wir essen, dann tanzen wir.",
+            "en": "We eat, then we dance.",
+            "sl": "Jemo, potem plešemo.",
+            "it": "Mangiamo, poi balliamo."
+          }
+        ],
+        "rows": [
+          [
+            "aber · Florian",
+            "schläft.",
+            "–"
+          ],
+          [
+            "dann",
+            "tanzen",
+            "wir."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "prompt": "Wir essen, und dann ___.",
+          "options": [
+            "tanzen wir",
+            "wir tanzen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**dann takes the first place: then the verb**\n- Wir essen, und dann tanzen wir.",
+            "sl": "**dann zasede prvo mesto: nato glagol**\n- Wir essen, und dann tanzen wir.",
+            "it": "**dann occupa il primo posto: poi il verbo**\n- Wir essen, und dann tanzen wir."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In a question the verb moves. A question you answer with yes or no starts with it: **Kommt Opa heute?** (Is Grandpa coming today?) With a question word it's second, right after the word: **Wann kommt Opa?** (When is Grandpa coming?)",
+          "sl": "V vprašanju se glagol premakne. Vprašanje za da ali ne se začne z njim: **Kommt Opa heute?** (Ali dedek pride danes?) Z vprašalnico je drugi, takoj za njo: **Wann kommt Opa?** (Kdaj pride dedek?)",
+          "it": "Nella domanda il verbo si sposta. Una domanda sì o no comincia con lui: **Kommt Opa heute?** (Il nonno viene oggi?) Con una parola interrogativa è secondo, subito dopo: **Wann kommt Opa?** (Quando viene il nonno?)"
+        },
+        "examples": [
+          {
+            "de": "Kocht Kathi heute? – Ja, heute kocht sie.",
+            "en": "Is Kathi cooking today? – Yes, today she's cooking.",
+            "sl": "Ali Kathi danes kuha? – Da, danes kuha.",
+            "it": "Kathi cucina oggi? – Sì, oggi cucina lei."
+          },
+          {
+            "de": "Wann kommt Opa? – Am Abend.",
+            "en": "When is Grandpa coming? – In the evening.",
+            "sl": "Kdaj pride dedek? – Zvečer.",
+            "it": "Quando viene il nonno? – La sera."
+          }
+        ],
+        "rows": [
+          [
+            "–",
+            "Kommt",
+            "Opa heute?"
+          ],
+          [
+            "Wann",
+            "kommt",
+            "Opa?"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "prompt": {
+            "en": "You ask Stefan if he is driving to Villach today:",
+            "sl": "Stefana vprašaš, ali se danes pelje v Beljak:",
+            "it": "Chiedi a Stefan se oggi va a Villach:"
+          },
+          "options": [
+            "Fährst du heute nach Villach?",
+            "Du heute fährst nach Villach?",
+            "Heute du fährst nach Villach?"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A yes or no question: the verb first**\n- Fährst du heute nach Villach?",
+            "sl": "**Vprašanje za da ali ne: glagol spredaj**\n- Fährst du heute nach Villach?",
+            "it": "**Una domanda sì o no: il verbo prima**\n- Fährst du heute nach Villach?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In the rest of the sentence a time comes before a place: **Ich fahre morgen nach Villach.** (I'm going to Villach tomorrow.) English puts the place first; German says when, then where: **Florian ist im Sommer auf der Alm.** (Florian is up on the alpine pasture in summer.)",
+          "sl": "V ostanku stavka je čas pred krajem: **Ich fahre morgen nach Villach.** (Jutri se peljem v Beljak.) Najprej kdaj, nato kam ali kje: **Florian ist im Sommer auf der Alm.** (Florian je poleti na planini.)",
+          "it": "Nel resto della frase il tempo viene prima del luogo: **Ich fahre morgen nach Villach.** (Domani vado a Villach.) Prima quando, poi dove: **Florian ist im Sommer auf der Alm.** (D'estate Florian è all'alpeggio.)"
+        },
+        "examples": [
+          {
+            "de": "Ich fahre morgen nach Villach.",
+            "en": "I'm going to Villach tomorrow.",
+            "sl": "Jutri se peljem v Beljak.",
+            "it": "Domani vado a Villach."
+          },
+          {
+            "de": "Florian ist im Sommer auf der Alm.",
+            "en": "Florian is up on the alpine pasture in summer.",
+            "sl": "Florian je poleti na planini.",
+            "it": "D'estate Florian è all'alpeggio."
+          }
+        ],
+        "rows": [
+          [
+            "Ich",
+            "fahre",
+            "morgen nach Villach."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "prompt": "Stefan fährt ___.",
+          "options": [
+            "morgen nach Villach",
+            "nach Villach morgen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**When, then where**\n- Stefan fährt morgen nach Villach.",
+            "sl": "**Najprej kdaj, nato kam**\n- Stefan fährt morgen nach Villach.",
+            "it": "**Prima quando, poi dove**\n- Stefan fährt morgen nach Villach."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "The verb is the second part: **Oma Resi backt heute Kuchen.** · **Heute backt Oma Resi Kuchen.** · **Am Abend erzählt Opa Sepp.**\n\n**und, aber, oder** take no place; **dann** takes one: **dann tanzen wir**.\n\nA yes or no question starts with the verb: **Kommt Opa heute?** · when before where: **morgen nach Villach**.",
+      "sl": "Glagol je drugi del: **Oma Resi backt heute Kuchen.** · **Heute backt Oma Resi Kuchen.** · **Am Abend erzählt Opa Sepp.**\n\n**und, aber, oder** ne zasedejo mesta; **dann** ga: **dann tanzen wir**.\n\nVprašanje za da ali ne se začne z glagolom: **Kommt Opa heute?** · kdaj pred kam: **morgen nach Villach**.",
+      "it": "Il verbo è la seconda parte: **Oma Resi backt heute Kuchen.** · **Heute backt Oma Resi Kuchen.** · **Am Abend erzählt Opa Sepp.**\n\n**und, aber, oder** non occupano un posto; **dann** sì: **dann tanzen wir**.\n\nUna domanda sì o no comincia con il verbo: **Kommt Opa heute?** · quando prima di dove: **morgen nach Villach**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "wortstellung-1",
+      "title": {
+        "de": "Das Verb an Platz zwei",
+        "en": "The verb in second place",
+        "sl": "Glagol na drugem mestu",
+        "it": "Il verbo al secondo posto"
+      },
+      "exercises": [
+        {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Heute ___ Kasnudeln.",
+          "options": [
+            "kocht Kathi",
+            "Kathi kocht"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The verb second, the person after it**",
+            "sl": "**Glagol drugi, oseba za njim**",
+            "it": "**Il verbo secondo, la persona dopo**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Im Winter ___ kalt.",
+          "options": [
+            "ist der See",
+            "der See ist"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The verb second, the person after it**",
+            "sl": "**Glagol drugi, oseba za njim**",
+            "it": "**Il verbo secondo, la persona dopo**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Am Samstag ___ im Gasthaus.",
+          "options": [
+            "tanzen wir",
+            "wir tanzen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The verb second, the person after it**",
+            "sl": "**Glagol drugi, oseba za njim**",
+            "it": "**Il verbo secondo, la persona dopo**"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Stell das Wort in Klammern an den Anfang · Put the words in brackets first",
+            "sl": "Stell das Wort in Klammern an den Anfang · Postavi besedo v oklepaju na začetek",
+            "it": "Stell das Wort in Klammern an den Anfang · Metti all'inizio la parola tra parentesi"
+          },
+          "items": [
+            {
+              "from": "Oma Resi backt Kuchen. (heute)",
+              "accept": [
+                "Heute backt Oma Resi Kuchen.",
+                "Heute bäckt Oma Resi Kuchen."
+              ],
+              "hint": {
+                "en": "heute + verb + Oma Resi",
+                "sl": "heute + glagol + Oma Resi",
+                "it": "heute + verbo + Oma Resi"
+              }
+            },
+            {
+              "from": "Stefan fährt nach Villach. (morgen)",
+              "accept": [
+                "Morgen fährt Stefan nach Villach."
+              ],
+              "hint": {
+                "en": "morgen + verb + Stefan",
+                "sl": "morgen + glagol + Stefan",
+                "it": "morgen + verbo + Stefan"
+              }
+            },
+            {
+              "from": "Kathi kocht Kasnudeln. (im Gasthaus)",
+              "accept": [
+                "Im Gasthaus kocht Kathi Kasnudeln."
+              ],
+              "hint": {
+                "en": "im Gasthaus is one part",
+                "sl": "im Gasthaus je en del",
+                "it": "im Gasthaus è una parte"
+              }
+            },
+            {
+              "from": "Opa Sepp erzählt eine Geschichte. (am Abend)",
+              "accept": [
+                "Am Abend erzählt Opa Sepp eine Geschichte."
+              ]
+            },
+            {
+              "from": "Wir tanzen. (am Samstag)",
+              "accept": [
+                "Am Samstag tanzen wir."
+              ]
+            },
+            {
+              "from": "Es ist kalt. (im Winter)",
+              "accept": [
+                "Im Winter ist es kalt."
+              ]
+            },
+            {
+              "from": "Ich lerne Deutsch. (jetzt)",
+              "accept": [
+                "Jetzt lerne ich Deutsch."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The verb second, the person after it**",
+            "sl": "**Glagol drugi, oseba za njim**",
+            "it": "**Il verbo secondo, la persona dopo**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wortstellung-2",
+      "title": {
+        "de": "Ein Sonntag in Kärnten",
+        "en": "A Sunday in Carinthia",
+        "sl": "Nedelja na Koroškem",
+        "it": "Una domenica in Carinzia"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Ergänze Verb und Person · Fill in the verb and the person",
+            "sl": "Ergänze Verb und Person · Dopolni glagol in osebo",
+            "it": "Ergänze Verb und Person · Completa con il verbo e la persona"
+          },
+          "title": "Ein Sonntag in Kärnten",
+          "text": "Am Sonntag ___ (wir · gehen) in die Kirche. Danach ___ (Oma Resi · kochen) Kirchtagssuppe. Am Nachmittag ___ (Florian · spielen) Harmonika. Am Abend ___ (Opa Sepp · erzählen) vom Lindwurm. Dann ___ (wir · schlafen) gut.",
+          "gaps": [
+            {
+              "accept": [
+                "gehen wir"
+              ],
+              "hint": {
+                "en": "the verb, then wir",
+                "sl": "glagol, nato wir",
+                "it": "il verbo, poi wir"
+              }
+            },
+            {
+              "accept": [
+                "kocht Oma Resi"
+              ]
+            },
+            {
+              "accept": [
+                "spielt Florian"
+              ]
+            },
+            {
+              "accept": [
+                "erzählt Opa Sepp"
+              ]
+            },
+            {
+              "accept": [
+                "schlafen wir"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "wir gehen",
+            "Oma Resi kocht",
+            "Florian spielt"
+          ],
+          "translation": {
+            "en": "On Sunday we go to church. Afterwards Grandma Resi cooks Kirchtag soup. In the afternoon Florian plays the accordion. In the evening Grandpa Sepp tells the story of the Lindwurm. Then we sleep well.",
+            "sl": "V nedeljo gremo v cerkev. Potem babica Resi skuha žegnansko juho. Popoldne Florian igra harmoniko. Zvečer dedek Sepp pripoveduje o Lindwurmu. Potem dobro spimo.",
+            "it": "La domenica andiamo in chiesa. Dopo nonna Resi cucina la zuppa della sagra. Il pomeriggio Florian suona la fisarmonica. La sera nonno Sepp racconta del Lindwurm. Poi dormiamo bene."
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "At the Gasthaus, Kathi cooks Kasnudeln.",
+            "sl": "V gostilni Kathi kuha Kasnudeln.",
+            "it": "All'osteria Kathi cucina i Kasnudeln."
+          },
+          "tokens": [
+            "kocht",
+            "Kasnudeln.",
+            "Kathi",
+            "Im Gasthaus"
+          ],
+          "solutions": [
+            [
+              "Im Gasthaus",
+              "kocht",
+              "Kathi",
+              "Kasnudeln."
+            ],
+            [
+              "Kathi",
+              "kocht",
+              "im Gasthaus",
+              "Kasnudeln."
+            ]
+          ],
+          "explain": {
+            "en": "**The verb second, the person after it**",
+            "sl": "**Glagol drugi, oseba za njim**",
+            "it": "**Il verbo secondo, la persona dopo**"
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "Tomorrow Stefan is driving to Villach.",
+            "sl": "Jutri se Stefan pelje v Beljak.",
+            "it": "Domani Stefan va a Villach."
+          },
+          "tokens": [
+            "Stefan",
+            "fährt",
+            "nach Villach.",
+            "Morgen"
+          ],
+          "solutions": [
+            [
+              "Morgen",
+              "fährt",
+              "Stefan",
+              "nach Villach."
+            ],
+            [
+              "Stefan",
+              "fährt",
+              "morgen",
+              "nach Villach."
+            ]
+          ],
+          "explain": {
+            "en": "**The verb second, the person after it**",
+            "sl": "**Glagol drugi, oseba za njim**",
+            "it": "**Il verbo secondo, la persona dopo**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wortstellung-3",
+      "title": {
+        "de": "Und, aber, dann",
+        "en": "And, but, then",
+        "sl": "In, ampak, potem",
+        "it": "E, ma, poi"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Verbinde die Sätze · Join the sentences with the word in brackets",
+            "sl": "Verbinde die Sätze · Poveži stavka z besedo v oklepaju",
+            "it": "Verbinde die Sätze · Unisci le frasi con la parola tra parentesi"
+          },
+          "items": [
+            {
+              "from": "Wir essen. Wir tanzen. (dann)",
+              "accept": [
+                "Wir essen, dann tanzen wir.",
+                "Wir essen, und dann tanzen wir."
+              ],
+              "hint": {
+                "en": "dann + verb + wir",
+                "sl": "dann + glagol + wir",
+                "it": "dann + verbo + wir"
+              }
+            },
+            {
+              "from": "Kathi kocht. Toni trinkt Most. (dann)",
+              "accept": [
+                "Kathi kocht, dann trinkt Toni Most.",
+                "Kathi kocht, und dann trinkt Toni Most."
+              ],
+              "hint": {
+                "en": "dann + verb + Toni",
+                "sl": "dann + glagol + Toni",
+                "it": "dann + verbo + Toni"
+              }
+            },
+            {
+              "from": "Florian schläft. Stefan arbeitet. (aber)",
+              "accept": [
+                "Florian schläft, aber Stefan arbeitet."
+              ],
+              "hint": {
+                "en": "aber takes no place",
+                "sl": "aber ne zasede mesta",
+                "it": "aber non occupa un posto"
+              }
+            },
+            {
+              "from": "Es regnet. Morgen scheint die Sonne. (aber)",
+              "accept": [
+                "Es regnet, aber morgen scheint die Sonne."
+              ]
+            },
+            {
+              "from": "Opa Sepp erzählt. Wir lachen. (und)",
+              "accept": [
+                "Opa Sepp erzählt, und wir lachen."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "reorder",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "Stefan is working, but Florian is asleep.",
+            "sl": "Stefan dela, Florian pa spi.",
+            "it": "Stefan lavora, ma Florian dorme."
+          },
+          "tokens": [
+            "aber",
+            "schläft.",
+            "Stefan arbeitet,",
+            "Florian"
+          ],
+          "solutions": [
+            [
+              "Stefan arbeitet,",
+              "aber",
+              "Florian",
+              "schläft."
+            ]
+          ],
+          "explain": {
+            "en": "**aber takes no place: Florian, then the verb**",
+            "sl": "**aber ne zasede mesta: Florian, nato glagol**",
+            "it": "**aber non occupa un posto: Florian, poi il verbo**"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi ist ___.",
+          "options": [
+            "heute im Gasthaus",
+            "im Gasthaus heute"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**When, then where**",
+            "sl": "**Najprej kdaj, nato kje**",
+            "it": "**Prima quando, poi dove**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "transform",
+        "grammar": "wortstellung",
+        "instruction": {
+          "en": "Stell das Wort in Klammern an den Anfang · Put the words in brackets first",
+          "sl": "Stell das Wort in Klammern an den Anfang · Postavi besedo v oklepaju na začetek",
+          "it": "Stell das Wort in Klammern an den Anfang · Metti all'inizio la parola tra parentesi"
+        },
+        "items": [
+          {
+            "from": "Kathi arbeitet im Gasthaus. (heute)",
+            "accept": [
+              "Heute arbeitet Kathi im Gasthaus."
+            ]
+          },
+          {
+            "from": "Wir spielen Karten. (am Abend)",
+            "accept": [
+              "Am Abend spielen wir Karten."
+            ]
+          },
+          {
+            "from": "Florian schläft auf der Alm. (im Sommer)",
+            "accept": [
+              "Im Sommer schläft Florian auf der Alm."
+            ]
+          },
+          {
+            "from": "Du fährst nach Klagenfurt. (morgen)",
+            "accept": [
+              "Morgen fährst du nach Klagenfurt."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "wortstellung",
+        "instruction": {
+          "en": "Ergänze Verb und Person · Fill in the verb and the person",
+          "sl": "Ergänze Verb und Person · Dopolni glagol in osebo",
+          "it": "Ergänze Verb und Person · Completa con il verbo e la persona"
+        },
+        "title": "Stankos Samstag",
+        "text": "Am Samstag ___ (Stanko · verkaufen) Honig. Dann ___ (er · lesen) die Zeitung. Am Abend ___ (wir · spielen) Karten.",
+        "gaps": [
+          {
+            "accept": [
+              "verkauft Stanko"
+            ]
+          },
+          {
+            "accept": [
+              "liest er"
+            ]
+          },
+          {
+            "accept": [
+              "spielen wir"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "On Saturday Stanko sells honey. Then he reads the paper. In the evening we play cards.",
+          "sl": "V soboto Stanko prodaja med. Potem bere časopis. Zvečer igramo karte.",
+          "it": "Il sabato Stanko vende il miele. Poi legge il giornale. La sera giochiamo a carte."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wortstellung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Morgen ___ nach Graz.",
+        "options": [
+          "fährt Frau Huber",
+          "Frau Huber fährt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**The verb second, the person after it**",
+          "sl": "**Glagol drugi, oseba za njim**",
+          "it": "**Il verbo secondo, la persona dopo**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wortstellung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Es regnet, aber ___.",
+        "options": [
+          "morgen scheint die Sonne",
+          "morgen die Sonne scheint"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**aber takes no place; morgen does**",
+          "sl": "**aber ne zasede mesta, morgen pa ga**",
+          "it": "**aber non occupa un posto, morgen sì**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "wortstellung",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "You ask Kathi if she is cooking today:",
+          "sl": "Kathi vprašaš, ali danes kuha:",
+          "it": "Chiedi a Kathi se oggi cucina:"
+        },
+        "options": [
+          "Kochst du heute?",
+          "Du kochst heute?",
+          "Heute du kochst?"
+        ],
+        "answer": 0,
+        "almost": [
+          1
+        ],
+        "say_options": true,
+        "explain": {
+          "en": "**A yes or no question: the verb first**",
+          "sl": "**Vprašanje za da ali ne: glagol spredaj**",
+          "it": "**Una domanda sì o no: il verbo prima**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: backt/bäckt, «Oma Resi backt heute Kuchen», «vom Lindwurm», «Danach», «Am Nachmittag», when before where"
+}

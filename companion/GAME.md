@@ -2325,7 +2325,12 @@ Each has its word pack in `cultures/kaernten/packs/fest-<…>.json` (8 words). I
 the `alps` art: the Faaker See under the Mittagskogel, the Alm with its cows, chamois and ibex), its words in
 `packs/am-see.json`; its campfire is Am Feuer (`scenes/am-feuer.json`, words in `packs/am-feuer.json`), where Opa Sepp
 tells his five legends in the evening (`stories/`: the Lindwurm of Klagenfurt, the Dobratsch in 1348, how the Wörthersee
-came to be, King Matthias asleep under the Petzen, the giants of the Karawanken; words in `packs/geschichten.json`). The
+came to be, King Matthias asleep under the Petzen, the giants of the Karawanken; words in `packs/geschichten.json`). Every
+building has its place since places-kaernten, and since the third wave the projects' places and the spots too: the stream
+bank (Am Bach), the pond (Am Teich), the fire station, the playground, the lookout tower, the fountain, the church clock
+and the Doppelharpfe (docs/plans/05-built/kaernten-projects-b.md; the other projects and the wood are part a's), each in
+Carinthia's look; those projects play their steps as short scenes (`project-steps/`, their words in
+`packs/projekt-<German name>.json`). The
 starter packs of German are in `companion/packs/de/`: `gruesse`, `familie`, `haus-und-kueche`, `essen`,
 `zahlen-und-uhrzeit`, `im-dorf` (A1, 22–24 words each, with articles, plurals, examples in all four languages, notes in
 English, Slovene and Italian; the Austrian word first, the German-German one in the note: der Paradeiser, die Tomate).

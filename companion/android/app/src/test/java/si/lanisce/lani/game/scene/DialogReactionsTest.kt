@@ -161,10 +161,9 @@ class DialogReactionsTest {
 
     @Test fun `every scene of Jan's and of the culture packs is here`() {
         // the Slovene village's, the culture packs' before, Kärnten's places (places-kaernten), the Lake District's (places-lakeland, and
-        // lakeland-projects-b's beck, tarn and six projects), Kärnten's wood and seven projects' places (kaernten-projects-a); the
-        // last 1 is kaernten-projects-b's am-bach, cherry-picked there for the steps at the stream: kaernten-projects-b's own term
-        // counts it once both are in
-        assertEquals(31 + 39 + 15 + 23 + 8 /* kaernten-projects-a */ + 1 /* am-bach */, files.size)
+        // lakeland-projects-b's beck, tarn and six projects), Kärnten's wood and seven projects' places (kaernten-projects-a), its six
+        // projects' places, the stream bank and the pond (kaernten-projects-b)
+        assertEquals(31 + 39 + 15 + 23 + 8 /* kaernten-projects-a */ + 8 /* kaernten-projects-b */, files.size)
         // and the talks of the charcoal burner at every culture's pile, and the test pack's
         assertEquals(setOf("primorska/kopa", "friuli/kopa", "kaernten/kopa", "lakeland/kopa", "tinyland/kopa"), talks.map { it.str("id") }.toSet())
         // and the evening stories of every culture, each with its tellings (new ones are held to the same)
