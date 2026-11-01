@@ -37,11 +37,12 @@ import kotlin.math.sin
  * - `gate`: the wings: 0 shut and barred, 1 wide open (swung in against the inside). Not set: open by day, shut at night.
  * - `torch`: the torches on the posts: 0 out, 1 lit (from the second level). Not set: lit from dusk.
  * - `wolves`: eyes shining at the forest's edge at night, grey wolves slinking out of the trees onto the meadow before
- *   them by day (how many: up to five).
+ *   them by day (how many: up to five); in the Lake District, which has no wolves, foxes (`wolves` "foxes").
  * - `flock`: Luka's flock (as many as the dialog counts, else twelve): to 0.5 they go out through the gate and down the road
  *   to the meadow, from 0.5 they come home through it, 1 all in.
  * - `pedlar`: the pedlar under his krošnja coming up the road out of the forest to the gate (how far: 1 in at the gate); in
- *   Friuli the cramâr from Carnia under his crassigne, a walnut case of little drawers.
+ *   Friuli the cramâr from Carnia under his crassigne, a walnut case of little drawers; in Carinthia the Kraxenträger
+ *   under his Kraxe (`pedlar` "kraxe"), in the Lake District the packman in his cap under his canvas pack ("packman").
  * - `bell`: the bell under the gate's roof swinging and ringing (how hard, at the fifth level).
  *
  * Tapped ([pokes]): the bell rings once, then twice (at the fifth level; a knock on the gate's post before it).
@@ -94,6 +95,15 @@ internal class PalisadePainter : VistaPainter() {
     private var friuli = false
     /** Friuli's pedlar ([readLook2]): the cramâr from Carnia under his crassigne, the wooden case of little drawers. */
     private var cramar = false
+    /** Carinthia's ([readLook2], "kraxe"): the Kraxenträger under his Kraxe, larch posts round a green box of drawers. */
+    private var kraxe = false
+    /** The Lake District's ([readLook2], "packman"): the packman from Kendal under his big canvas pack, in a cap. */
+    private var packman = false
+    /**
+     * The Lake District's ([readLook2], `wolves` "foxes"): the Lakes have no wolves, so what a dialog sees by the wood
+     * (`wolves`) is foxes, their eyes at night and red foxes by day. The village's wolves (the game's night threat) stay wolves.
+     */
+    private var foxes = false
 
     private val z: Int get() = detail
     private val items = ArrayList<Pair<Float, () -> Unit>>()
@@ -103,6 +113,9 @@ internal class PalisadePainter : VistaPainter() {
         kaernten = variant("land") == "kaernten"
         fells = variant("land") == "fells"
         cramar = variant("pedlar") == "cramar"
+        kraxe = variant("pedlar") == "kraxe"
+        packman = variant("pedlar") == "packman"
+        foxes = variant("wolves") == "foxes"
     }
 
     /**
@@ -342,8 +355,10 @@ internal class PalisadePainter : VistaPainter() {
 
     /** The wolves: eyes shining at the forest's edge at night, grey shapes slinking along it on the meadow by day (`wolves`, or the village's wolves). */
     private fun wolves() {
-        val n = fx("wolves")?.let { (it * 5f + 0.01f).toInt() } ?: if (frame.world.wolves && env.dark > 0.5f) 3 else 0
+        val cue = fx("wolves")
+        val n = cue?.let { (it * 5f + 0.01f).toInt() } ?: if (frame.world.wolves && env.dark > 0.5f) 3 else 0
         if (n <= 0) return
+        if (foxes && cue != null) return foxesByTheWood(n)
         for (k in 0 until n) {
             // at night their eyes among the trees at the forest's edge; by day out of the trees onto the meadow before them,
             // off the road (a little bigger than life, to be made out so far off)
@@ -377,6 +392,46 @@ internal class PalisadePainter : VistaPainter() {
                 c.set((wx + 0.66f * p).toInt(), (by - 0.68f * p).toInt(), dark)
                 c.set((wx + 0.76f * p).toInt(), (by - 0.7f * p).toInt(), dark)
                 c.line((wx - 0.6f * p).toInt(), (by - 0.55f * p).toInt(), (wx - 0.95f * p).toInt(), (by - 0.22f * p).toInt(), dark)
+            }
+        }
+    }
+
+    /**
+     * The Lake District's foxes by the wood ([foxes]): at night their eyes shining amber among the trees at the forest's edge,
+     * by day red foxes trotting along it on the meadow, off the road, a white tip to each brush ([n] of them, at most five).
+     */
+    private fun foxesByTheWood(n: Int) {
+        val night = env.dark > 0.5f
+        for (k in 0 until n) {
+            val x = (floatArrayOf(-30f, 34f, -47f, 52f, -62f)[k % 5] + Noise.rnd(k, 781) * 3f) * (if (night) 1.4f else 1f)
+            val d = if (night) forestD - 2f else 82f + k * 4f
+            val bx = gx(x, d); val by = gy(d)
+            val p = pm(d) * (if (night) 0.8f else 1.1f)
+            if (night) {
+                prop(outline = 0) { glow {
+                    val ey = by - 0.4f * p; val blink = sin(t * 0.8 + k * 1.7) > -0.95
+                    if (blink) { c.set(bx.toInt(), ey.toInt(), Col.hex(0xF0B048)); c.set((bx + max(1f, 0.2f * p)).toInt(), ey.toInt(), Col.hex(0xF0B048)) }
+                } }
+            } else prop {
+                // a red fox trotting along the edge: its legs stepping, the body, the pale throat, the head with its ears
+                // pricked, the brush out behind with its white tip
+                val walk = ((t * 0.45 + k * 0.3) % 1.0).toFloat()
+                val fx0 = bx + (walk - 0.5f) * 8f * p
+                val red = env.lit(Col.hex(0xD2702C)); val dark = env.lit(Col.hex(0x9A4A1E)); val pale = env.lit(Col.hex(0xF4ECE0)); val black = env.lit(Col.hex(0x2A1C18))
+                val step = sin(t * 6.0 + k).toFloat()
+                for ((j, lx) in floatArrayOf(-0.35f, -0.2f, 0.25f, 0.4f).withIndex()) {
+                    val sw = (if (j % 2 == 0) step else -step) * 0.07f * p
+                    c.line((fx0 + lx * p).toInt(), (by - 0.3f * p).toInt(), (fx0 + lx * p + sw).toInt(), by.toInt(), black)
+                }
+                c.fillEllipse(fx0, by - 0.42f * p, max(1.5f, 0.5f * p), max(1f, 0.17f * p), red)
+                c.hline((fx0 - 0.3f * p).toInt(), (fx0 + 0.35f * p).toInt(), (by - 0.3f * p).toInt(), pale)
+                c.fillEllipse(fx0 + 0.6f * p, by - 0.5f * p, max(1f, 0.16f * p), max(1f, 0.13f * p), red)
+                c.fillRect((fx0 + 0.7f * p).toInt(), (by - 0.46f * p).toInt(), max(1, (0.14f * p).toInt()), max(1, (0.07f * p).toInt()), pale)
+                c.set((fx0 + 0.56f * p).toInt(), (by - 0.64f * p).toInt(), dark)
+                c.set((fx0 + 0.66f * p).toInt(), (by - 0.66f * p).toInt(), dark)
+                // the brush, low and bushy, its tip white
+                c.fillEllipse(fx0 - 0.72f * p, by - 0.36f * p, max(1f, 0.3f * p), max(1f, 0.1f * p), red)
+                c.set((fx0 - 1f * p).toInt(), (by - 0.34f * p).toInt(), pale)
             }
         }
     }
@@ -764,16 +819,74 @@ internal class PalisadePainter : VistaPainter() {
         c.line(bx.toInt(), (by - hgt * 0.42f).toInt(), (bx + step * 0.12f * p).toInt(), by.toInt(), env.lit(Col.hex(0x2A2A2E)))
         c.line(bx.toInt(), (by - hgt * 0.42f).toInt(), (bx - step * 0.12f * p).toInt(), by.toInt(), env.lit(Col.hex(0x1E1E22)))
         if (cramar) crassigne(bx, by, p, hgt)
+        else if (kraxe) kraxeOnBack(bx, by, p, hgt)
+        else if (packman) packOnBack(bx, by, p, hgt)
         else {
             // the krošnja on his back: a wooden frame stacked with sieves and spoons, higher than his head
             c.fillRect((bx - 0.35f * p).toInt(), (by - hgt * 1.25f).toInt(), max(2, (0.5f * p).toInt()), max(2, (hgt * 0.8f).toInt()), env.lit(Col.hex(0xB08A5A)))
             c.fillEllipse(bx - 0.1f * p, by - hgt * 1.28f, max(1f, 0.3f * p), max(1f, 0.1f * p), env.lit(Col.hex(0xE0C898)))
         }
-        // his shirt (the cramâr's brown jacket)
-        c.fillRect((bx - 0.12f * p).toInt(), (by - hgt * 0.85f).toInt(), max(2, (0.28f * p).toInt()), max(1, (hgt * 0.45f).toInt()), env.lit(if (cramar) Col.hex(0x5A4232) else Col.hex(0xF0EEE6)))
+        // his shirt (the cramâr's brown jacket, the Kraxenträger's loden green, the packman's tweed coat)
+        val coat = when {
+            cramar -> Col.hex(0x5A4232)
+            kraxe -> Col.hex(0x55684A)
+            packman -> Col.hex(0x7A6448)
+            else -> Col.hex(0xF0EEE6)
+        }
+        c.fillRect((bx - 0.12f * p).toInt(), (by - hgt * 0.85f).toInt(), max(2, (0.28f * p).toInt()), max(1, (hgt * 0.45f).toInt()), env.lit(coat))
         c.fillCircle(bx, by - hgt * 0.9f, max(0.6f, 0.13f * p), env.lit(Pal.SKIN))
-        c.hline((bx - 0.2f * p).toInt(), (bx + 0.2f * p).toInt(), (by - hgt * 0.97f).toInt(), env.lit(Col.hex(0x1A1A1E)))
-        c.fillRect((bx - 0.1f * p).toInt(), (by - hgt * 1.05f).toInt(), max(1, (0.2f * p).toInt()), max(1, (0.08f * p).toInt()), env.lit(Col.hex(0x1A1A1E)))
+        if (packman) {
+            // a flat cap: its crown close to the head, the peak forward
+            c.fillRect((bx - 0.14f * p).toInt(), (by - hgt * 1.02f).toInt(), max(1, (0.28f * p).toInt()), max(1, (0.07f * p).toInt()), env.lit(Col.hex(0x5A5048)))
+            c.hline((bx - 0.22f * p).toInt(), (bx + 0.05f * p).toInt(), (by - hgt * 0.96f).toInt(), env.lit(Col.hex(0x3E3630)))
+        } else {
+            val hat = env.lit(if (kraxe) Col.hex(0x3E4A38) else Col.hex(0x1A1A1E))
+            c.hline((bx - 0.2f * p).toInt(), (bx + 0.2f * p).toInt(), (by - hgt * 0.97f).toInt(), hat)
+            c.fillRect((bx - 0.1f * p).toInt(), (by - hgt * 1.05f).toInt(), max(1, (0.2f * p).toInt()), max(1, (0.08f * p).toInt()), hat)
+        }
+    }
+
+    /**
+     * The Kraxenträger's Kraxe on his back (Carinthia): two larch posts from his hips up past his hat, [p] px a metre, [hgt]
+     * his height, a box of little drawers painted green between them, lighter along each drawer's top, a red flower on the
+     * top one where there are pixels for it, and a bundle in blue linen tied on its lid between the posts' tips.
+     */
+    private fun kraxeOnBack(bx: Float, by: Float, p: Float, hgt: Float) {
+        val left = (bx - 0.42f * p).toInt(); val top = (by - hgt * 1.12f).toInt()
+        val wd = max(2, (0.5f * p).toInt()); val ht = max(3, (hgt * 0.68f).toInt())
+        val green = env.lit(Col.hex(0x4E6E52)); val greenL = env.lit(Col.hex(0x6E8E6A)); val greenD = env.lit(Col.hex(0x34503A))
+        c.fillRect(left, top, wd, ht, green)
+        val row = max(2, (0.16f * p).toInt())
+        var y = top + row
+        while (y < top + ht - 1) {
+            c.hline(left, left + wd - 1, y, greenD)
+            if (y + 1 < top + ht - 1) c.hline(left, left + wd - 1, y + 1, greenL)
+            y += row
+        }
+        if (wd >= 5) c.set(left + wd / 2, top + max(1, row / 2), env.lit(Pal.FLAG_RED))
+        // the bundle on the lid, blue linen
+        val bh = max(1, (0.14f * p).toInt())
+        c.fillRect(left, top - bh, wd, bh, env.lit(Col.hex(0x5A6E9A)))
+        if (p > 8f) c.hline(left + 1, left + wd - 2, top - bh, env.lit(Col.hex(0x7E92BA)))
+        // the posts up past it, lit on the near side
+        val tip = (by - hgt * 1.32f).toInt()
+        c.vline(left - 1, tip, (by - hgt * 0.42f).toInt(), env.lit(Col.hex(0x8A6236)))
+        c.vline(left + wd, tip, (by - hgt * 0.42f).toInt(), env.lit(Col.hex(0xD8AE72)))
+    }
+
+    /**
+     * The packman's pack on his back (the Lake District): a big bundle in brown canvas from his shoulders up over his cap,
+     * [p] px a metre, [hgt] his height, a leather strap round it and a bolt of Kendal green cloth along its top.
+     */
+    private fun packOnBack(bx: Float, by: Float, p: Float, hgt: Float) {
+        val left = (bx - 0.48f * p).toInt(); val top = (by - hgt * 1.08f).toInt()
+        val wd = max(3, (0.6f * p).toInt()); val ht = max(3, (hgt * 0.42f).toInt())
+        c.fillRect(left, top, wd, ht, env.lit(Col.hex(0x8A7458)))
+        c.vline(left, top, top + ht - 1, env.lit(Col.hex(0x6A5640)))
+        c.hline(left, left + wd - 1, top + ht * 2 / 3, env.lit(Col.hex(0x5A3A22)))
+        val bolt = max(1, (0.12f * p).toInt())
+        c.fillRect(left - 1, top - bolt, wd + 1, bolt, env.lit(Col.hex(0x4E7A3E)))
+        if (p > 8f) c.hline(left, left + wd - 1, top - bolt, env.lit(Col.hex(0x6E9A5A)))
     }
 
     /**

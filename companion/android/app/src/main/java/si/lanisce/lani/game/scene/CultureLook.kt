@@ -414,6 +414,12 @@ object CultureLooks {
     private val FRIULI_PALISADE = Table.of("palisade", variants = mapOf("land" to "friuli", "pedlar" to "cramar"))
 
     /**
+     * The people sprites (`people`, People.kt): the day's pedlar the cramâr from Carnia in his brown jacket under his
+     * crassigne (`pedlar`), on the map, in the scenes and in his portrait, as the gate's and the watchtower's road has him.
+     */
+    private val FRIULI_PEOPLE = Table.of("people", variants = mapOf("pedlar" to "cramar"))
+
+    /**
      * Friuli's lookout tower (LookoutPainter): the view of Friuli, the Collio's hills striped with vines, the plain with its rows
      * of poplars, the village on the hill as Friuli builds it with its campanile, the lagoon and the sea at Grado; the flag on the
      * roof the golden eagle of Friuli.
@@ -470,14 +476,15 @@ object CultureLooks {
      * view builds it (`watchtower.tower` "pele"), the feasts' bunting red, white and blue; the fells at the
      * horizon (`alps.range`); the maypole with its long ribbons for the children's dance; damsons on the terraces; a stone
      * bank barn for the toplar; the bowling green for the bocce court; the church clock on its battlemented tower; the
-     * packhorse bridge of slate with one round arch over the beck, as its project builds it.
+     * packhorse bridge of slate with one round arch over the beck, as its project builds it; no wild boar nor bear in its woods
+     * (`wild` "britain", [si.lanisce.lani.game.render.MapLook.absentWild]).
      */
     val LAKELAND_MAP = Table.of(
         "map",
         variants = mapOf(
             "hayrack" to "barn", "well" to "pump", "hives" to "wbc", "school" to "stone", "flag" to "england", "pennant" to "england", "watchtower" to "pele",
             "festive" to "union", "range" to "fells", "maypole" to "ribbons", "vineyard" to "damsons", "toplar" to "bank", "court" to "green",
-            "clock" to "battlements", "bridge" to "packhorse",
+            "clock" to "battlements", "bridge" to "packhorse", "wild" to "britain",
         ),
     )
 
@@ -485,7 +492,7 @@ object CultureLooks {
     private val tables: Map<String, Table> = mapOf(
         "kaernten" to KAERNTEN_ALPS + KAERNTEN_CAMPFIRE + KaerntenLooks.PLACES + KAERNTEN_MAP,
         "lakeland" to LAKELAND_ALPS + LAKELAND_CAMPFIRE + LakelandLooks.PLACES + LAKELAND_MAP,
-        "friuli" to FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA + FRIULI_SCHOOL +
+        "friuli" to FRIULI_PEOPLE + FRIULI_KITCHEN + FRIULI_SMITHY + FRIULI_TENT + FRIULI_MILL + FRIULI_FIELD + FRIULI_FOREST + FRIULI_STREAM + FRIULI_POND + FRIULI_SEA + FRIULI_SCHOOL +
             FRIULI_WATCHTOWER +
             FRIULI_MARKET +
             FRIULI_SQUARE +

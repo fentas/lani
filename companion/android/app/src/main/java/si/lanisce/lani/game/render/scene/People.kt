@@ -27,7 +27,12 @@ internal data class Look(
     val apron: Int = 0, val hat: Int = Looks.HAT_NONE, val hatCol: Int = 0, val prop: Int = Looks.PROP_NONE,
     val beard: Int = 0, val moustache: Int = 0, val glasses: Boolean = false, val cheeks: Boolean = false,
     val stripes: Int = 0, val suspenders: Boolean = false, val vest: Int = 0, val dots: Int = 0, val collar: Int = 0,
-    /** On the back: [Looks.PACK_KROSNJA], the pedlar's wooden frame loaded with suha roba. */
+    /**
+     * On the back, the day's pedlar's load as his culture has it ([Looks.pedlarPack]): [Looks.PACK_KROSNJA], the Ribnica
+     * krošnjar's wooden frame loaded with suha roba; [Looks.PACK_CRASSIGNE], Friuli's cramâr's walnut case of little
+     * drawers; [Looks.PACK_KRAXE], the Carinthian Kraxenträger's larch frame round a painted box of little drawers; or
+     * [Looks.PACK_BUNDLE], the Lakeland packman's big bundle strapped on.
+     */
     val pack: Int = Looks.PACK_NONE,
     /** A short cape over the shoulders (the pilgrim's), a shoulder bag on a strap across the body: their colours, 0 = none. */
     val cape: Int = 0, val satchel: Int = 0,
@@ -55,6 +60,29 @@ internal object Looks {
     /** A pilgrim's tall staff with a gourd for water, standing at the near side. */
     const val PROP_STAFF = 11
     const val PACK_NONE = 0; const val PACK_KROSNJA = 1
+    /** Friuli's cramâr from Carnia: the crassigne, a walnut case of little drawers from his hips up past his hat. */
+    const val PACK_CRASSIGNE = 2
+    /**
+     * Carinthia's Kraxenträger from the Kanaltal: the Kraxe, two larch posts standing up past his hat round a box of little
+     * drawers painted green ("So viele kleine Laden!"), a bundle in blue linen tied on top between the posts.
+     */
+    const val PACK_KRAXE = 3
+    /**
+     * The Lake District's packman from Kendal ("a big pack on his back"): a bundle wrapped in brown canvas from his
+     * shoulders to over his cap, strapped crosswise, a bolt of Kendal green cloth along its top, a ribbon's end hanging.
+     */
+    const val PACK_BUNDLE = 4
+
+    /**
+     * What the day's pedlar carries in [culture]'s village: its look's `people.pedlar` ([CultureLooks]: "cramar", "kraxe",
+     * "packman"), else the krošnja (Primorska's, and a culture's without a pedlar of its own).
+     */
+    fun pedlarPack(culture: String): Int = when (si.lanisce.lani.game.scene.CultureLooks.of(culture).variant("people", "pedlar")) {
+        "cramar" -> PACK_CRASSIGNE
+        "kraxe" -> PACK_KRAXE
+        "packman" -> PACK_BUNDLE
+        else -> PACK_KROSNJA
+    }
 
     // the children's proportions: a big head, a small body
     private const val KID_HEAD_W = 13; private const val KID_HEAD_H = 12; private const val KID_TORSO_W = 9; private const val KID_TORSO_H = 6; private const val KID_LEG_H = 4
@@ -150,12 +178,38 @@ internal object Looks {
     private val fallback = Look()
 
     /**
-     * The look of [art]; the village's own people ("woman", "man") vary with [seed] (hair, clothes, a hat, a
-     * moustache), so newcomers don't all look alike. The seed is the person's id hashed (see ArtPainter.person).
+     * The day's pedlar by what he carries ([pedlarPack]): the krošnjar ([all]'s "pedlar"); the cramâr from Carnia in his
+     * brown jacket and black hat under the crassigne; the Kraxenträger from the Kanaltal in a loden-green jacket, breeches
+     * and boots, a green felt hat, under the Kraxe; the packman from Kendal in a brown tweed coat and a flat cap, boots,
+     * under his bundle. Each with his stick.
      */
-    fun of(art: String, seed: Int = 0): Look = when (art) {
+    private val pedlars: Map<Int, Look> = mapOf(
+        PACK_CRASSIGNE to Look(
+            hair = Pal.HAIR[0], hairStyle = HAIR_SHORT,
+            top = Col.hex(0x5A4232), bottom = Col.hex(0x3A3432), hat = HAT_FELT, hatCol = Col.hex(0x2A2426), collar = Col.hex(0xE9E2D0),
+            prop = PROP_STICK, moustache = Pal.HAIR[0], suspenders = true, pack = PACK_CRASSIGNE,
+        ),
+        PACK_KRAXE to Look(
+            hair = Pal.HAIR[1], hairStyle = HAIR_SHORT,
+            top = Col.hex(0x55684A), bottom = Col.hex(0x5E4632), shoes = Col.hex(0x2E2018), boots = true, collar = Col.hex(0xE9E2D0),
+            hat = HAT_FELT, hatCol = Col.hex(0x3E4A38), prop = PROP_STICK, moustache = Pal.HAIR[1], cheeks = true, suspenders = true, pack = PACK_KRAXE,
+        ),
+        PACK_BUNDLE to Look(
+            hair = Pal.HAIR[3], hairStyle = HAIR_SHORT,
+            top = Col.hex(0x7A6448), bottom = Col.hex(0x3E3A40), shoes = Col.hex(0x2E2018), boots = true, collar = Col.hex(0xE9E2D0),
+            hat = HAT_CAP, hatCol = Col.hex(0x5A5048), prop = PROP_STICK, beard = 0, moustache = Pal.HAIR[3], cheeks = true, suspenders = true, pack = PACK_BUNDLE,
+        ),
+    )
+
+    /**
+     * The look of [art]; the village's own people ("woman", "man") vary with [seed] (hair, clothes, a hat, a
+     * moustache), so newcomers don't all look alike. The seed is the person's id hashed (see ArtPainter.person). The
+     * day's pedlar is [culture]'s ([pedlarPack]).
+     */
+    fun of(art: String, seed: Int = 0, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): Look = when (art) {
         "woman" -> woman(seed)
         "man" -> man(seed)
+        "pedlar" -> pedlars[pedlarPack(culture)] ?: all.getValue(art)
         else -> all[art] ?: fallback
     }
 
@@ -218,10 +272,16 @@ internal class Body(val tw: Int, val hw: Int, val armTop: Int, val hand: Int, va
 internal class PeoplePainter {
     private lateinit var c: PixelCanvas
 
+    /**
+     * The culture whose village the people are drawn in ([si.lanisce.lani.game.culture.Cultures] ids): the day's pedlar
+     * carries its load ([Looks.pedlarPack]). The scene's painter sets it from its frame's look, the map from its own.
+     */
+    var culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT
+
     /** Drawing someone squatting ([draw]'s crouch): sat low, the shins short. */
     private var crouching = false
 
-    fun height(art: String): Int = if (art == "baby") BABY_H else Looks.of(art).height
+    fun height(art: String): Int = if (art == "baby") BABY_H else Looks.of(art, culture = culture).height
 
     /** How tall [art] (with [seed]'s look) is squatting ([draw]'s crouch): from the soles to the top of the hair. */
     fun crouchHeight(art: String, seed: Int = 0): Int = if (art == "baby") BABY_H else 1 - body(art, seed, crouch = true).hTop
@@ -255,7 +315,7 @@ internal class PeoplePainter {
      * or where a hand reaches ([draw]'s reach).
      */
     fun body(art: String, seed: Int = 0, crouch: Boolean = false): Body {
-        val L = Looks.of(art, seed)
+        val L = Looks.of(art, seed, culture)
         val legTop = -(if (crouch) 2 else L.legH)
         val torsoTop = legTop - (if (crouch) max(4, L.torsoH - 2) else L.torsoH)
         val hTop = torsoTop - L.headH + 1
@@ -304,7 +364,7 @@ internal class PeoplePainter {
             lying(canvas, art, hx, hy, dx, 0, time, seed, pillow = true)
             return
         }
-        val L = Looks.of(art, seed)
+        val L = Looks.of(art, seed, culture)
         val d = if (flip) -1 else 1
         val P = if (pose == Pose.IDLE && talking) Pose.TALK else pose
         val speaking = talking || P == Pose.TALK
@@ -339,7 +399,12 @@ internal class PeoplePainter {
             c.set(px, hTop - 5, Pal.WOOD_L); c.set(px - d, hTop - 6, Pal.WOOD_L); c.set(px - d * 2, hTop - 6, Pal.WOOD_L); c.set(px - d * 3, hTop - 5, Pal.WOOD_L); c.set(px - d * 3, hTop - 4, Pal.WOOD_L)
         }
         if (L.prop == Looks.PROP_STAFF && !holding) staff(bx + d * (tw + 4), hTop, by, d)
-        if (L.pack == Looks.PACK_KROSNJA) krosnja(bx, hw, hTop, torsoTop, legTop, d)
+        when (L.pack) {
+            Looks.PACK_KROSNJA -> krosnja(bx, hw, hTop, torsoTop, legTop, d)
+            Looks.PACK_CRASSIGNE -> crassigne(bx, hw, hTop, legTop, d)
+            Looks.PACK_KRAXE -> kraxe(bx, hw, hTop, legTop, d)
+            Looks.PACK_BUNDLE -> bundle(bx, hw, hTop, torsoTop, d)
+        }
         hairBehind(L, bx, hw, hTop, hBot, d)
         if (L.prop == Looks.PROP_BASKET) basket(bx - d * (tw + 3) - 3, legTop - 2)
 
@@ -522,7 +587,7 @@ internal class PeoplePainter {
     fun restingArms(canvas: PixelCanvas, art: String, bx: Int, by: Int, time: Double, seed: Int, talking: Boolean, flip: Boolean, pose: Pose, rest: IntArray) {
         if (art == "baby" || pose == Pose.SLEEP) return
         c = canvas
-        val L = Looks.of(art, seed)
+        val L = Looks.of(art, seed, culture)
         val d = if (flip) -1 else 1
         val (far, near) = resting(pose, talking, time)
         val tw = L.torsoW / 2
@@ -965,7 +1030,7 @@ internal class PeoplePainter {
         val d = if (dx < 0) -1 else 1
         // a baby sleeps in its basket
         if (art == "baby") { baby(bx + d * 4, by0 + 9, time, seed, false, d < 0, Pose.SLEEP); return }
-        val base = Looks.of(art, seed)
+        val base = Looks.of(art, seed, culture)
         // in bed: the hat off (the grandmother keeps her kerchief on), nothing in hand or on the back
         val L = base.copy(
             hat = if (base.hat == Looks.HAT_SCARF) Looks.HAT_SCARF else Looks.HAT_NONE,
@@ -1121,7 +1186,7 @@ internal class PeoplePainter {
         val a0 = 1f - quiet.coerceIn(0f, 1f)
         if (a0 <= 0.02f) return
         val b = big.coerceIn(0f, 1f)
-        val top = by0 - (if (art == "baby") 12 else Looks.of(art, seed).headH)
+        val top = by0 - (if (art == "baby") 12 else Looks.of(art, seed, culture).headH)
         val period = 3.3 - 1.3 * b
         val was = canvas.penEmissive
         canvas.penEmissive = true
@@ -1312,6 +1377,98 @@ internal class PeoplePainter {
         val far = if (d > 0) xl - 1 else xr + 1
         c.set(far, tTop + 2, woodD)
         c.vline(far, tTop + 3, tTop + 6, woodL); c.fillRect(far - 1, tTop + 7, 3, 2, wood); c.set(far, tTop + 7, woodD)
+    }
+
+    /**
+     * The cramâr's crassigne (Friuli), behind him: a walnut case from his hips up past his hat, a little wider than his head,
+     * its far side in shadow; its little drawers in rows, each lit along its top edge, a brass knob on each where it shows,
+     * the lid's ledge on top. The body and the head hide its middle: it shows above the hat and beside him.
+     */
+    private fun crassigne(bx: Int, hw: Int, hTop: Int, legTop: Int, d: Int) {
+        val walnut = Col.hex(0x7A4A2C); val walnutL = Col.hex(0xA8703E); val walnutD = Col.hex(0x4E2E1C)
+        val x0 = bx - hw - 1; val x1 = bx + hw + 1
+        val top = hTop - 7 // the case's top, four rows over the hat's crown
+        val bot = legTop - 2
+        c.fillRect(x0, top, x1 - x0 + 1, bot - top + 1, walnut)
+        c.vline(if (d > 0) x0 else x1, top, bot, walnutD)
+        // the drawers: a seam every 3 rows, the row under it lit; a knob in the middle of each drawer, two a row
+        var y = top + 3
+        while (y < bot) {
+            row(x0, x1, y, walnutD)
+            row(x0 + 1, x1 - 1, y + 1, walnutL)
+            for (kx in intArrayOf(bx - 4, bx + 4)) c.set(kx, y - 2, Pal.GOLD)
+            y += 3
+        }
+        // the lid's ledge, a pixel wider on each side, lit on top
+        row(x0 - 1, x1 + 1, top - 1, walnutL); row(x0 - 1, x1 + 1, top, walnutD)
+    }
+
+    /**
+     * The Kraxenträger's Kraxe (Carinthia), behind him: two posts of larch from his hips up past his hat, their tips free; between
+     * them a box of little drawers painted green, each drawer lit along its top with a cream knob, a red flower painted on the
+     * top one; a bundle in blue linen tied on the box's lid between the posts' tips with a cord.
+     */
+    private fun kraxe(bx: Int, hw: Int, hTop: Int, legTop: Int, d: Int) {
+        val larchL = Col.hex(0xD8AE72); val larch = Col.hex(0xB8894E); val larchD = Col.hex(0x8A6236)
+        val green = Col.hex(0x4E6E52); val greenL = Col.hex(0x6E8E6A); val greenD = Col.hex(0x34503A)
+        val xl = bx - hw - 2; val xr = bx + hw + 2
+        val top = hTop - 6 // the box's lid
+        val bot = legTop - 3
+        // the box between the posts, its far side in shadow
+        c.fillRect(xl + 1, top, xr - xl - 1, bot - top + 1, green)
+        c.vline(if (d > 0) xl + 1 else xr - 1, top, bot, greenD)
+        var y = top + 3
+        while (y < bot) {
+            row(xl + 1, xr - 1, y, greenD)
+            row(xl + 2, xr - 2, y + 1, greenL)
+            for (kx in intArrayOf(bx - 5, bx + 5)) c.set(kx, y - 2, Col.hex(0xEDE4CC))
+            y += 3
+        }
+        // the flower painted on the top drawer: a red bloom, its leaves either side
+        c.set(bx, top + 1, Pal.FLAG_RED); c.set(bx - 1, top + 2, Pal.FLAG_RED); c.set(bx + 1, top + 2, Pal.FLAG_RED); c.set(bx, top + 2, Pal.GOLD)
+        c.set(bx - 2, top + 2, greenL); c.set(bx + 2, top + 2, greenL)
+        // the lid, lit on top
+        row(xl + 1, xr - 1, top - 1, greenL)
+        // the posts from the hips up past the bundle, the near one lit; their tips a little lighter; the bottom rail
+        c.vline(xl, hTop - 10, legTop - 1, if (d > 0) larchD else larch); c.vline(xr, hTop - 10, legTop - 1, if (d > 0) larch else larchD)
+        c.set(xl, hTop - 11, larchL); c.set(xr, hTop - 11, larchL)
+        row(xl, xr, legTop - 2, larchD)
+        // the bundle on the lid: blue linen, lit on top, darker below, a cord round it
+        val blue = Col.hex(0x5A6E9A); val blueL = Col.hex(0x7E92BA); val blueD = Col.hex(0x3E4E74)
+        row(bx - 5, bx + 5, top - 4, blueL); row(bx - 6, bx + 6, top - 3, blue); row(bx - 6, bx + 6, top - 2, blueD)
+        c.set(bx - 4, top - 5, blueL); c.set(bx + 3, top - 5, blueL)
+        for (yy in top - 4..top - 2) c.set(bx + d * 2, yy, Col.hex(0xC8B48A))
+    }
+
+    /**
+     * The packman's bundle (the Lake District), behind him: a big pack wrapped in brown canvas from his shoulders up over his
+     * cap, its corners round, the far side in shadow; a leather strap round it; a bolt of Kendal green cloth lying along its
+     * top; a red ribbon's end hanging from it on the near side.
+     */
+    private fun bundle(bx: Int, hw: Int, hTop: Int, torsoTop: Int, d: Int) {
+        val canvas = Col.hex(0x8A7458); val canvasL = Col.hex(0xAA9474); val canvasD = Col.hex(0x6A5640)
+        val strap = Col.hex(0x5A3A22)
+        val x0 = bx - hw - 2; val x1 = bx + hw + 2
+        val top = hTop - 4; val bot = torsoTop + 5
+        for (yy in top..bot) {
+            val inset = if (yy == top || yy == bot) 2 else if (yy == top + 1 || yy == bot - 1) 1 else 0
+            row(x0 + inset, x1 - inset, yy, canvas)
+        }
+        // lit along the top and the near side, shadowed on the far one
+        row(x0 + 2, x1 - 2, top, canvasL)
+        c.vline(if (d > 0) x1 else x0, top + 2, bot - 2, canvasL)
+        c.vline(if (d > 0) x0 else x1, top + 2, bot - 2, canvasD)
+        row(x0 + 2, x1 - 2, bot, canvasD)
+        // the strap round it, and down over its top
+        row(x0, x1, torsoTop + 1, strap)
+        c.vline(bx - d * 3, top, top + 3, strap)
+        // the bolt of green cloth along its top, sticking out on the near side, its rolled end lighter
+        val green = Col.hex(0x4E7A3E); val greenL = Col.hex(0x6E9A5A); val greenD = Col.hex(0x345A2A)
+        val r0 = bx - d * (hw - 1); val r1 = bx + d * (hw + 3)
+        row(minOf(r0, r1), maxOf(r0, r1), top - 3, greenL); row(minOf(r0, r1), maxOf(r0, r1), top - 2, green); row(minOf(r0, r1), maxOf(r0, r1), top - 1, greenD)
+        c.set(r1, top - 2, greenL); c.set(r1, top - 3, green); c.set(r1, top - 1, green)
+        // the ribbon's end, red, down the near side
+        for (yy in torsoTop + 2..torsoTop + 5) c.set(x1.takeIf { d > 0 } ?: x0, yy, if (yy % 2 == 0) Pal.FLAG_RED else Col.hex(0xA82E2A))
     }
 
     /** The pilgrim's staff standing at [px], a knob on top and a gourd on a string for water; drawn behind him. */

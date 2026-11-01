@@ -554,7 +554,7 @@ pack's `surprises.json`, not from its cast). Both say vi to Jan.
 
 | Stranger | Sprite | Looks | While | Lines |
 |---|---|---|---|---|
-| 🎒 Krošnjar · The pedlar from Ribnica | `pedlar` | white shirt, red neckerchief, black felt hat, a stick; on his back the krošnja, a wooden frame loaded higher than his hat with suha roba (a sieve, wooden spoons, a ladle) | all his day | "Dober dan! Suha roba iz Ribnice!" ("Dober večer! …" from the evening), "Žlice, sita, kuhalnice! Kupite, kupite!" |
+| 🎒 Krošnjar · The pedlar from Ribnica | `pedlar` | white shirt, red neckerchief, black felt hat, a stick; on his back the krošnja, a wooden frame loaded higher than his hat with suha roba (a sieve, wooden spoons, a ladle); in Friuli, Carinthia and the Lake District the culture's pedlar under its load (the cramâr's crassigne, the Kraxenträger's Kraxe, the packman's pack: GAME.md) | all his day | "Dober dan! Suha roba iz Ribnice!" ("Dober večer! …" from the evening), "Žlice, sita, kuhalnice! Kupite, kupite!" |
 | 🥾 Romar · A pilgrim | `pilgrim` | a beard, a brown cape, a felt hat with a scallop shell, a tall staff with a gourd, a shoulder bag, dusty boots | until Jan has shown him the way | "Iščem pot na Sveto Goro. Mi lahko pomagate?", "Tako, zdaj razumem!", "Bog povrni! Srečno!" |
 
 On the map the stranger stands and walks at the road (`spot:road`), day and night, also during a festival, and the

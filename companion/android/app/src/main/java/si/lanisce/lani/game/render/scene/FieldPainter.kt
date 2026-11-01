@@ -44,8 +44,8 @@ import kotlin.math.sqrt
  *
  * Its wild animals ([WildPainter]): a hare in the potatoes, butterflies over the cabbages by day; a roe deer grazing at
  * the wheat's edge and a fox by the kozolec at dawn and dusk; the wild boar and her piglets digging up the potatoes at
- * night, bats over the field. Tapped,
- * the hare hops off and back, the piglets scatter. Dew glints on the grass at dawn; the evening bell (the ave) rings from
+ * night (in the Lake District, which has none, a badger digging for worms there: `boar` "badger"), bats over the field.
+ * Tapped, the hare hops off and back, the piglets scatter, the badger shuffles off and back. Dew glints on the grass at dawn; the evening bell (the ave) rings from
  * the church on the hill round sunset, its rings coming over the fields.
  *
  * In Friuli's look (companion/SCENES.md "Culture looks") the fienile of the Friulian plain stands where the kozolec does
@@ -197,6 +197,8 @@ internal class FieldPainter : WildPainter() {
     private var barn = false
     private var drywall = false
     private var fells = false
+    /** The Lake District's field ([variant] `boar` "badger"): a badger where the wild boar digs elsewhere. */
+    private var badger = false
 
     /** Fruit trees about the fields: side, depth, height (m). */
     private val orchard = listOf(
@@ -215,6 +217,7 @@ internal class FieldPainter : WildPainter() {
         piantata = variant("trees") != null
         pannocchie = variant("toplar") != null
         barn = variant("kozolec") == "barn"; drywall = variant("fence") == "drystone"; fells = variant("hills") == "fells"
+        badger = variant("boar") == "badger"
         if (fells) collio = false
         villageStyle = if (variant("village") != null) FireStyle.of(frame.world.culture, frame.world.landscape) else null
         vistaSky(5, 13, moonX = ox + 196 * k, moonY = oy + 12 * k)
@@ -681,7 +684,17 @@ internal class FieldPainter : WildPainter() {
                 }
             })
         }
-        if (out("boar")) {
+        if (out("boar") && badger) {
+            // the Lake District's: a badger digging for worms at the potatoes' edge (there are no wild boar in the Lakes);
+            // tapped, it shuffles off along the rows and back
+            val u = spot("boar")
+            val bd = 9.6f + u
+            val pk = poked("boar")
+            val a = pk?.age(t) ?: 0f
+            val off = if (pk != null && a < 2.8f) PokeArt.ease(a, 0f, 0.8f) * (1f - PokeArt.ease(a, 1.6f, 2.8f)) * 2.4f else 0f
+            val bx = -4.2f + u * 1.4f - off
+            items.add(bd to { groundShadow(bx, bd, 0.8f); creature("boar") { badger(gx(bx, bd), gy(bd), 30f / bd, left = (u > 0.5f) != (off > 0.05f)) } })
+        } else if (out("boar")) {
             val u = spot("boar")
             // digging in the potatoes
             val bx = -4.2f + u * 1.4f; val bd = 9.4f + u

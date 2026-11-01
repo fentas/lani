@@ -62,14 +62,21 @@ internal object KaerntenLooks {
      * tower with its onion dome among the roofs; Austria's flag, red, white and red, its pennant the same below the fourth
      * level (`flag`, as the map's watchtower flies it).
      */
-    val WATCHTOWER = Table.of("watchtower", variants = mapOf("village" to "kaernten", "flag" to "austria"))
+    val WATCHTOWER = Table.of("watchtower", variants = mapOf("village" to "kaernten", "flag" to "austria", "pedlar" to "kraxe"))
 
     /**
      * Carinthia's palisade gate (Am Tor, PalisadePainter): the land beyond it (`land`): larches and a spruce along the road, a
      * Harpfe on the meadow, a white village round its onion-domed church on the far hill, the Karawanken higher and sharper
      * behind.
      */
-    val PALISADE = Table.of("palisade", variants = mapOf("land" to "kaernten"))
+    val PALISADE = Table.of("palisade", variants = mapOf("land" to "kaernten", "pedlar" to "kraxe"))
+
+    /**
+     * The people sprites (`people`, People.kt): the day's pedlar the Kraxenträger from the Kanaltal under his Kraxe, larch
+     * posts round a green box of little drawers ("So viele kleine Laden!"), a blue bundle tied on its lid (`pedlar`), on the
+     * map, in the scenes and in his portrait; the road's pedlar at the gate and below the watchtower the same (their `pedlar`).
+     */
+    val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "kraxe"))
 
     /**
      * The tent at Carinthia's camp (Im Zelt, TentPainter): Austria's pennant, red, white and red, on its front post (`pennant`,
@@ -128,7 +135,7 @@ internal object KaerntenLooks {
     val MARKET = Table.of("market", variants = mapOf("village" to "kaernten", "goods" to "kaernten"))
 
     /** Carinthia's looks of its buildings and rooms, added up (each art's table above). */
-    val PLACES: Table get() = KITCHEN + LIVINGROOM + FIELD + SQUARE + WATCHTOWER +
+    val PLACES: Table get() = PEOPLE + KITCHEN + LIVINGROOM + FIELD + SQUARE + WATCHTOWER +
         PALISADE + TENT + ATTIC + WORKSHOP + CELLAR + SCHOOL + CHURCH +
         APIARY + SMITHY + MARKET
 }

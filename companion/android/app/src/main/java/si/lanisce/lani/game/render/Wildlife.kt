@@ -127,14 +127,17 @@ object Wildlife {
     /** Who is about round the village of [seed] on ISO day [today] at [hour] in [month] (see [Wildlife]). */
     fun plan(seed: Long, today: String, hour: Float, month: Int): List<Sighting> = plan(seed, day(today, hour, month), time(hour, month), month)
 
-    /** Who is about round the village of [seed] in [window] of [day] (see [day]) in [month]. */
-    fun plan(seed: Long, day: Long, window: WildTime, month: Int): List<Sighting> {
+    /**
+     * Who is about round the village of [seed] in [window] of [day] (see [day]) in [month]; none of [absent], the animals the
+     * culture's woods don't have ([MapLook.absentWild]: the Lake District's boar and bear), the others rolled as anywhere.
+     */
+    fun plan(seed: Long, day: Long, window: WildTime, month: Int, absent: Set<Wild> = emptySet()): List<Sighting> {
         val a = (seed xor (seed ushr 32)).toInt()
         val b = Noise.hash(day.toInt(), (day ushr 32).toInt(), window.ordinal + 1)
         fun r(j: Int) = Noise.rnd(a, b, j)
         val out = ArrayList<Sighting>(4)
         if (r(0) >= QUIET) {
-            val rolled = CANDIDATES.getValue(window).withIndex().filter { (i, c) -> r(10 + i) < chance(c, month) }
+            val rolled = CANDIDATES.getValue(window).withIndex().filter { (i, c) -> c.kind !in absent && r(10 + i) < chance(c, month) }
                 .sortedBy { (i, _) -> r(30 + i) }.take(MAX_KINDS).sortedBy { it.index }
             for ((i, c) in rolled) out += Sighting(c.kind, count(c.kind, r(50 + i)), r(70 + i), Noise.hash(a, b, 90 + i))
         }

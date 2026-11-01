@@ -96,6 +96,12 @@ internal class WatchtowerPainter : VistaPainter() {
     private var stone = false
     /** Friuli's pedlar ([pedlar]): the cramâr from Carnia with his crassigne, the wooden case of little drawers on his back. */
     private var cramar = false
+    /** Carinthia's pedlar (`pedlar` "kraxe"): the Kraxenträger under his Kraxe. */
+    private var kraxe = false
+    /** The Lake District's (`pedlar` "packman"): the packman under his canvas pack, in a cap. */
+    private var packman = false
+    /** The Lake District's (`wolves` "foxes"): a dialog's cue by the wood shows foxes, the Lakes having no wolves. */
+    private var foxes = false
 
     /**
      * Carinthia's look ([village]'s tower an onion; companion/SCENES.md "Culture looks"): the village below white with its
@@ -146,6 +152,9 @@ internal class WatchtowerPainter : VistaPainter() {
         pele = variant("tower") == "pele"
         stone = variant("tower") == "stone" || pele
         cramar = variant("pedlar") == "cramar"
+        kraxe = variant("pedlar") == "kraxe"
+        packman = variant("pedlar") == "packman"
+        foxes = variant("wolves") == "foxes"
         sunLeft = (sunAt()?.first ?: vx) < vx
         lit = env.windows > 0.35f
         towerFrom = Int.MAX_VALUE
@@ -476,7 +485,9 @@ internal class WatchtowerPainter : VistaPainter() {
      * A little man in a black hat and a white shirt under his krošnja, its frame higher than his hat with a sieve on top:
      * a sprite, so the eye finds him from up here (a man's size would be a pixel or two), in the haze of the road. In
      * Friuli ([cramar]) the cramâr in his brown jacket under his crassigne, a walnut case of little drawers, its rows
-     * lighter at their edges, higher than his hat ("Ha una cassetta di legno sulla schiena!").
+     * lighter at their edges, higher than his hat ("Ha una cassetta di legno sulla schiena!"); in Carinthia ([kraxe]) the
+     * Kraxenträger in loden green under his Kraxe, larch posts past his hat round a green box, a blue bundle on top; in the
+     * Lake District ([packman]) the packman in a flat cap under his canvas pack with the bolt of green cloth on it.
      */
     private fun pedlar(level: Float) {
         if (level >= 0.995f) return
@@ -501,6 +512,18 @@ internal class WatchtowerPainter : VistaPainter() {
                     // a brass knob on each drawer
                     for (r in intArrayOf(by - 7, by - 5)) c.set(bx + 2, r, col(Pal.GOLD))
                     c.hline(bx + 1, bx + 3, by - 10, walnutD)
+                } else if (kraxe) {
+                    // the Kraxe behind him: larch posts from his hips up past his hat, the green box of drawers between, the
+                    // blue bundle on its lid
+                    c.vline(bx + 1, by - 10, by - 3, col(Col.hex(0x8A6236))); c.vline(bx + 4, by - 10, by - 3, col(Col.hex(0xD8AE72)))
+                    c.fillRect(bx + 2, by - 8, 2, 5, col(Col.hex(0x4E6E52)))
+                    c.hline(bx + 2, bx + 3, by - 6, col(Col.hex(0x34503A)))
+                    c.hline(bx + 2, bx + 3, by - 9, col(Col.hex(0x5A6E9A)))
+                } else if (packman) {
+                    // the pack behind him: brown canvas from his shoulders up over his cap, the green bolt of cloth on top
+                    c.fillRect(bx + 1, by - 8, 3, 4, col(Col.hex(0x8A7458)))
+                    c.vline(bx + 3, by - 8, by - 5, col(Col.hex(0x6A5640)))
+                    c.hline(bx + 1, bx + 4, by - 9, col(Col.hex(0x4E7A3E)))
                 } else {
                     // the krošnja behind him: two posts from his hips up past his hat, rails across, a sieve on the top rail
                     c.vline(bx + 1, by - 8, by - 3, woodD); c.vline(bx + 3, by - 8, by - 3, wood)
@@ -511,9 +534,22 @@ internal class WatchtowerPainter : VistaPainter() {
                 // the legs, the body, the head under the hat
                 c.hline(bx - 1, bx, by - 2, legs)
                 if (step) { c.set(bx - 2, by - 1, legs); c.set(bx + 1, by - 1, legs) } else c.hline(bx - 1, bx, by - 1, legs)
-                c.fillRect(bx - 1, by - 4, 2, 2, if (cramar) col(Col.hex(0x5A4232)) else shirt)
+                val coat = when {
+                    cramar -> col(Col.hex(0x5A4232))
+                    kraxe -> col(Col.hex(0x55684A))
+                    packman -> col(Col.hex(0x7A6448))
+                    else -> shirt
+                }
+                c.fillRect(bx - 1, by - 4, 2, 2, coat)
                 c.set(bx - 1, by - 5, skin); c.set(bx, by - 5, skin)
-                c.hline(bx - 2, bx + 1, by - 6, hat); c.set(bx - 1, by - 7, hat); c.set(bx, by - 7, hat)
+                if (packman) {
+                    // a flat cap, its peak forward (toward the gate)
+                    val cap = col(Col.hex(0x5A5048))
+                    c.hline(bx - 1, bx, by - 6, cap); c.set(bx - 2, by - 6, col(Col.hex(0x3E3630)))
+                } else {
+                    val brim = if (kraxe) col(Col.hex(0x3E4A38)) else hat
+                    c.hline(bx - 2, bx + 1, by - 6, brim); c.set(bx - 1, by - 7, brim); c.set(bx, by - 7, brim)
+                }
             }
         }
     }
@@ -605,11 +641,14 @@ internal class WatchtowerPainter : VistaPainter() {
      * blinking, drifting; by day grey shapes slinking along its edge.
      */
     private fun wolves() {
-        val lvl = max(fxOn("wolves"), if (frame.world.wolves && env.dark > 0.4f) 1f else 0f)
+        val cue = fxOn("wolves")
+        val lvl = max(cue, if (frame.world.wolves && env.dark > 0.4f) 1f else 0f)
         if (lvl <= 0.02f) return
         val z = z
         val n = (lvl * 5f + 0.99f).toInt()
         val night = env.dark > 0.4f
+        // the Lake District's: the dialog's cue shows foxes ([foxes]); the village's wolves (the game's) stay wolves
+        val fox = foxes && cue > 0.02f
         if (night) s.fx {
             c.penEmissive = true
             for (j in 0 until n) {
@@ -619,11 +658,26 @@ internal class WatchtowerPainter : VistaPainter() {
                 val u = 12f + j * 16f + Noise.rnd(j, 1023) * 8f + sin(t * 0.2 + j).toFloat() * 3f
                 val x = (ox + u * z).toInt()
                 val y = (ly(FOREST_D + 2f) - (4f + Noise.rnd(j, 1024) * 5f) * z).toInt()
-                val col = if (j % 2 == 0) Col.hex(0xE8F070) else Col.hex(0xC8F088)
-                c.fillRect(x, y, z, z, col); c.fillRect(x + 2 * z, y, z, z, col)
+                val col = if (fox) Col.hex(0xF0B048) else if (j % 2 == 0) Col.hex(0xE8F070) else Col.hex(0xC8F088)
+                c.fillRect(x, y, z, z, col); c.fillRect(x + (if (fox) 1 else 2) * z, y, z, z, col)
                 c.blend(x - z, y, col, 0.25f); c.blend(x + 3 * z, y, col, 0.25f)
             }
             c.penEmissive = false
+        } else if (fox) prop(0) {
+            // by day: red foxes trotting out of the wood over the fields, one behind the other, each brush's tip white
+            val red = Col.hex(0xD2702C); val redD = Col.hex(0x9A4A1E); val pale = Col.hex(0xF4ECE0)
+            for (j in 0 until n) {
+                val d = FOREST_D - 30f - j * 9f
+                val x = -40f + j * 7f + ((t * 0.8 + j * 2.3) % 20.0).toFloat()
+                val bx = lx(x, d).toInt(); val by = ly(d).toInt()
+                val step = ((t * 6).toInt() + j) and 1
+                sprite(bx, by) {
+                    c.fillRect(bx - 6, by - 3, 3, 1, red); c.set(bx - 7, by - 3, pale)
+                    c.fillRect(bx - 3, by - 4, 6, 2, red); c.hline(bx - 2, bx + 1, by - 2, pale)
+                    c.fillRect(bx + 3, by - 4, 2, 2, red); c.set(bx + 5, by - 3, redD); c.set(bx + 3, by - 5, redD); c.set(bx + 4, by - 5, redD)
+                    c.set(bx - 2 + step, by - 1, redD); c.set(bx + 1 - step, by - 1, redD)
+                }
+            }
         } else prop(0) {
             // by day: grey wolves slinking out of the forest over the fields, one behind the other, nose down
             val grey = Col.hex(0x8A847C); val greyD = Col.hex(0x5E5852); val pale = Col.hex(0xC8C0B4)

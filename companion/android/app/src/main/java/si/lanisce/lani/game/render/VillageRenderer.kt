@@ -245,8 +245,12 @@ internal class SceneCtx(val canvas: PixelCanvas, val stamps: Stamps = Stamps()) 
     var hearthsOut: Set<String> = emptySet()
     /** The class meets under the linden (GAME.md, "The school"): its blackboard and the pupils' bench by the tree. */
     var classroom = false
-    /** The village's culture's look on the map ([MapLook]): what its buildings, flags, feasts and mountains are like. */
+    /**
+     * The village's culture's look on the map ([MapLook]): what its buildings, flags, feasts and mountains are like; its
+     * people's too ([PeoplePainter.culture]: the day's pedlar under his culture's load).
+     */
     var look: MapLook = MapLook.DEFAULT
+        set(v) { field = v; people.culture = v.id }
     val trees = TreePainter(this)
     val effects = Effects(this)
     val woods = WoodsPainter(this)
@@ -1785,8 +1789,8 @@ class VillageRenderer {
     ) {
         val window = Wildlife.time(s.env, frame.hour)
         val day = Wildlife.day(frame.today, frame.hour, window)
-        val pk = "${state.seed}/$day/$window/${frame.month}"
-        if (pk != planKey) { planKey = pk; plan = Wildlife.plan(state.seed, day, window, frame.month) }
+        val pk = "${state.seed}/$day/$window/${frame.month}/${s.look.id}"
+        if (pk != planKey) { planKey = pk; plan = Wildlife.plan(state.seed, day, window, frame.month, s.look.absentWild) }
         if (plan.isEmpty()) return
         val bw = s.lens.baseW; val bh = s.lens.baseH
         val key = "$bw/$bh/${frame.today}"
@@ -2068,7 +2072,7 @@ class VillageRenderer {
     private fun addPeople(s: SceneCtx, placed: List<Placed>, comp: Composition, objs: ArrayList<Obj>, painter: BuildingPainter? = null, walk: PalisadeWalk? = null) {
         val k = s.k
         for (p in placed) {
-            val look = Effects.lookOf(p.villager.art, Noise.hash(p.id.hashCode(), 13))
+            val look = Effects.lookOf(p.villager.art, Noise.hash(p.id.hashCode(), 13), s.look.id)
             val height = when (k) { 1 -> 7f; 2 -> 7f; else -> s.people.height(p.villager.art) / 3f }
             anchors[p.id] = TownPeople.headAnchor(p, comp, if (p.seated) height * 0.7f else height)
             // up on the watchtower: behind its parapet, in front of the rest of it

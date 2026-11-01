@@ -85,6 +85,12 @@ internal class MapLook private constructor(val id: String, val style: FireStyle?
     /** The town clock's tower: the map's own (ochre, the onion dome), the campanile, the battlemented tower. */
     val clock: Tower? = when (v("clock")) { "campanile" -> Tower.CAMPANILE; "battlements" -> Tower.BATTLEMENTS; else -> null }
 
+    /**
+     * The wild animals the culture's woods don't have ([Wildlife.plan] leaves them out): in the Lake District (`wild`
+     * "britain") the wild boar and the bear, gone from Britain for centuries; the badger and the fox are about at night there.
+     */
+    val absentWild: Set<Wild> = if (v("wild") == "britain") setOf(Wild.BOARS, Wild.BEAR) else emptySet()
+
     /** Whether this is the map as it always was (the default culture's, or one without a look). */
     val own: Boolean get() = style == null
 

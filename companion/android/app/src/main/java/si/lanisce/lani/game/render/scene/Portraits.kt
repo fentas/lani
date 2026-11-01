@@ -27,6 +27,12 @@ import kotlin.math.sqrt
  */
 internal class PortraitsPainter : PortraitPainter {
     private val people = PeoplePainter()
+
+    /**
+     * The culture whose people the portraits show ([PeoplePainter.culture]: the day's pedlar under its load); null, the
+     * culture on screen ([si.lanisce.lani.game.culture.Cultures.current], a visited town's on a visit).
+     */
+    var culture: String? = null
     private val sprite = PixelCanvas(SPRITE_W, SPRITE_H)
     private val edge = BooleanArray(SPRITE_W * SPRITE_H)
 
@@ -51,7 +57,8 @@ internal class PortraitsPainter : PortraitPainter {
 
         // framing: the waist at the bottom edge (a baby: its basket), but never the hat cut off; the head alone: the chin and
         // the shoulders' top at the bottom edge, the hat cut first when the canvas is too small for all of it
-        val L = Looks.of(art, seed)
+        people.culture = culture ?: si.lanisce.lani.game.culture.Cultures.current.id
+        val L = Looks.of(art, seed, people.culture)
         val bx = SPRITE_W / 2; val by = SPRITE_H - 2
         // a whole number of times bigger; a canvas nearly big enough for the next step takes it (the waist may go)
         val s = if (framing == Framing.HEAD) max(1, (min(w, h) + 4) / 22) else max(1, (min(w, h) + 8) / 30)
@@ -64,6 +71,8 @@ internal class PortraitsPainter : PortraitPainter {
         val headTop = by - (if (art == "baby") 24 else L.height) - when {
             framing == Framing.HEAD -> if (L.hat == Looks.HAT_NONE && L.hairStyle != Looks.HAIR_BUN) 2 else 3 // the crown, a hat's brim
             L.pack == Looks.PACK_KROSNJA -> 11 // the pedlar's load stands higher than his hat
+            L.pack == Looks.PACK_KRAXE -> 12 // the Kraxe's posts higher still
+            L.pack == Looks.PACK_CRASSIGNE -> 9; L.pack == Looks.PACK_BUNDLE -> 8 // the case, the bundle's bolt of cloth
             L.hat == Looks.HAT_FELT -> 5; L.hat == Looks.HAT_STRAW || L.hat == Looks.HAT_VEIL -> 4
             else -> if (L.hairStyle == Looks.HAIR_BUN) 5 else 2
         }

@@ -19,8 +19,11 @@ class Look(
     val shirt: Int, val pants: Int, val hair: Int, val kerchief: Boolean = false, val hat: Int = 0, val straw: Boolean = false,
     val apron: Int = 0, val prop: Int = Effects.PROP_NONE, val skirt: Boolean = false, val beard: Int = 0, val small: Boolean = false,
     val skin: Int = Pal.SKIN,
-    /** The pedlar's krošnja on the back, loaded above the hat; a shoulder bag's colour (0: none); a shell on the hat. */
-    val pack: Boolean = false, val bag: Int = 0, val shell: Boolean = false,
+    /**
+     * The day's pedlar's load on the back ([Looks.PACK_KROSNJA] … [Looks.PACK_BUNDLE], his culture's: [Looks.pedlarPack]; 0:
+     * none); a shoulder bag's colour (0: none); a shell on the hat.
+     */
+    val pack: Int = Looks.PACK_NONE, val bag: Int = 0, val shell: Boolean = false,
 )
 
 /** Animated bits: the fire, smoke, sparks, people, animals, weather and fireworks. */
@@ -1425,12 +1428,30 @@ internal class Effects(private val s: SceneCtx) {
         val d = if (flip) -1 else 1
         val shoes = Col.hex(0x2E2018)
         val top = by - (if (L.small) 6 else 7)
-        if (L.pack) {
-            // the krošnja behind: two posts beside the body, a rail over the hat, the load on it (a sieve, a spoon)
-            c.vline(bx - 2, top - 1, by - 3, Pal.WOOD_M); c.vline(bx + 2, top - 1, by - 3, Pal.WOOD_D)
-            c.hline(bx - 2, bx + 2, top - 2, Pal.WOOD_L)
-            c.set(bx - 1, top - 3, Pal.CANVAS_M); c.set(bx - 2, top - 3, Pal.WOOD_M); c.set(bx, top - 3, Pal.WOOD_M)
-            c.set(bx - 1, top - 4, Pal.WOOD_L); c.set(bx + 1, top - 3, Pal.WOOD_L); c.set(bx + 2, top - 4, Pal.WOOD_L)
+        when (L.pack) {
+            Looks.PACK_KROSNJA -> {
+                // the krošnja behind: two posts beside the body, a rail over the hat, the load on it (a sieve, a spoon)
+                c.vline(bx - 2, top - 1, by - 3, Pal.WOOD_M); c.vline(bx + 2, top - 1, by - 3, Pal.WOOD_D)
+                c.hline(bx - 2, bx + 2, top - 2, Pal.WOOD_L)
+                c.set(bx - 1, top - 3, Pal.CANVAS_M); c.set(bx - 2, top - 3, Pal.WOOD_M); c.set(bx, top - 3, Pal.WOOD_M)
+                c.set(bx - 1, top - 4, Pal.WOOD_L); c.set(bx + 1, top - 3, Pal.WOOD_L); c.set(bx + 2, top - 4, Pal.WOOD_L)
+            }
+            Looks.PACK_CRASSIGNE -> {
+                // the crassigne behind: a walnut case from the hips up past the hat, a brass knob showing over it
+                c.fillRect(bx - 2, top - 3, 5, by - top, WALNUT); c.vline(bx + 2, top - 3, by - 4, WALNUT_D)
+                c.hline(bx - 2, bx + 2, top - 3, WALNUT_D); c.set(bx, top - 2, Pal.GOLD)
+            }
+            Looks.PACK_KRAXE -> {
+                // the Kraxe behind: larch posts up past the hat, the green box of drawers between, the blue bundle on its lid
+                c.vline(bx - 2, top - 4, by - 3, LARCH); c.vline(bx + 2, top - 4, by - 3, LARCH_D)
+                c.fillRect(bx - 1, top - 2, 3, by - top - 1, KRAXE_GREEN); c.set(bx, top - 1, Pal.FLAG_RED)
+                c.hline(bx - 1, bx + 1, top - 3, KRAXE_BLUE)
+            }
+            Looks.PACK_BUNDLE -> {
+                // the packman's bundle behind: brown canvas from the shoulders up over the cap, the green bolt of cloth on top
+                c.fillRect(bx - 2, top - 2, 5, 5, BUNDLE); c.vline(bx + 2, top - 1, top + 2, BUNDLE_D)
+                c.hline(bx - 2, bx + 2, top - 3, KENDAL_GREEN)
+            }
         }
         tinyHead(bx, top, L, flip)
         var y = top + 3
@@ -1444,7 +1465,7 @@ internal class Effects(private val s: SceneCtx) {
         if (frame == 0) { c.set(bx - 1, by - 1, shoes); c.set(bx + 1, by - 1, shoes) } else { c.set(bx, by - 1, shoes); c.set(bx + d, by - 1, shoes) }
         when (L.prop) {
             // (the krošnja's post stands where a stick would)
-            PROP_STICK, PROP_CROOK -> if (!L.pack && held) { c.vline(bx + 2 * d, y - 2, by - 1, Pal.WOOD_M); if (L.prop == PROP_CROOK) c.set(bx + d, y - 3, Pal.WOOD_L) }
+            PROP_STICK, PROP_CROOK -> if (L.pack == Looks.PACK_NONE && held) { c.vline(bx + 2 * d, y - 2, by - 1, Pal.WOOD_M); if (L.prop == PROP_CROOK) c.set(bx + d, y - 3, Pal.WOOD_L) }
             PROP_HAMMER -> if (held) { c.set(bx + 2 * d, y, Pal.WOOD_M); c.set(bx + 3 * d, y - 1, Pal.SLATE_M) }
             PROP_BASKET -> { c.set(bx - 2 * d, by - 2, Pal.WOOD_M); c.set(bx - 2 * d, by - 3, Pal.GERANIUM) }
             // a staff taller than him, a gourd at its top
@@ -1522,7 +1543,7 @@ internal class Effects(private val s: SceneCtx) {
         }
         // the body, its arms, the apron (the krošnja first, behind him)
         val tTop = base - torsoH
-        if (L.pack) figurePack(bx, tTop - 5, base, d)
+        if (L.pack != Looks.PACK_NONE) figurePack(L.pack, bx, tTop - 5, base, d)
         c.fillRect(bx - 2, tTop, 5, torsoH, L.shirt)
         c.vline(bx + 2, tTop + 1, base - 1, Col.scale(L.shirt, 0.8f))
         if (L.apron != 0) { c.fillRect(bx - 1, tTop + 1, 3, torsoH - 1 + (if (sitting || L.skirt) 0 else 1), L.apron); c.vline(bx + 1, tTop + 1, base - 1, Col.scale(L.apron, 0.85f)) }
@@ -1573,7 +1594,7 @@ internal class Effects(private val s: SceneCtx) {
         // what they carry, in the near hand (the basket on the far arm stays)
         val hx = reach?.get(0) ?: (bx + 3 * d); val hy = reach?.get(1) ?: (base - 1)
         if (held || L.prop == PROP_BASKET) when (L.prop) {
-            PROP_STICK -> c.vline(hx + d + (if (L.pack) d else 0), hy - 2, by - 1, Pal.WOOD_D) // out past the krošnja's post
+            PROP_STICK -> c.vline(hx + d + (if (L.pack != Looks.PACK_NONE) d else 0), hy - 2, by - 1, Pal.WOOD_D) // out past the load's post
             PROP_STAFF -> {
                 c.vline(hx + d, hTop - 3, by - 1, Pal.WOOD_M); c.set(hx + d, hTop - 4, Pal.WOOD_D)
                 c.set(hx + 2 * d, hTop - 3, Col.hex(0x3A2A20)); c.fillRect(if (d > 0) hx + 2 else hx - 3, hTop - 2, 2, 2, GOURD)
@@ -1592,10 +1613,44 @@ internal class Effects(private val s: SceneCtx) {
     }
 
     /**
-     * The 14 px figure's krošnja, behind him: posts beside the body up past his hat, a rail over it, and the load on the
-     * rail: an upright sieve on the far side, two wooden spoons sticking out on the near side.
+     * The 14 px figure's load ([pack], his culture's), behind him. The krošnja: posts beside the body up past his hat, a rail
+     * over it, and the load on the rail: an upright sieve on the far side, two wooden spoons sticking out on the near side.
+     * The crassigne: a walnut case from his hips up past his hat, its drawers in rows, a brass knob on each over the hat.
+     * The Kraxe: larch posts up past his hat, a green box of drawers between them with a red flower on the top one, a blue
+     * bundle on its lid. The packman's bundle: brown canvas from his shoulders up over his cap, a strap round it, the bolt
+     * of green cloth along its top.
      */
-    private fun figurePack(bx: Int, hTop: Int, base: Int, d: Int) {
+    private fun figurePack(pack: Int, bx: Int, hTop: Int, base: Int, d: Int) {
+        when (pack) {
+            Looks.PACK_CRASSIGNE -> {
+                c.fillRect(bx - 4, hTop - 5, 9, base - hTop + 5, WALNUT)
+                c.vline(if (d > 0) bx - 4 else bx + 4, hTop - 5, base - 1, WALNUT_D)
+                for (y in hTop - 3 until base step 3) c.hline(bx - 4, bx + 4, y, WALNUT_D)
+                c.set(bx - 2, hTop - 4, Pal.GOLD); c.set(bx + 2, hTop - 4, Pal.GOLD)
+                c.hline(bx - 5, bx + 5, hTop - 6, WALNUT_L)
+                return
+            }
+            Looks.PACK_KRAXE -> {
+                c.fillRect(bx - 3, hTop - 4, 7, base - hTop + 3, KRAXE_GREEN)
+                for (y in hTop - 2 until base - 1 step 3) c.hline(bx - 3, bx + 3, y, KRAXE_GREEN_D)
+                c.set(bx, hTop - 3, Pal.FLAG_RED)
+                c.hline(bx - 2, bx + 2, hTop - 6, KRAXE_BLUE); c.hline(bx - 3, bx + 3, hTop - 5, KRAXE_BLUE_D)
+                c.vline(bx - 4, hTop - 8, base - 1, if (d > 0) LARCH_D else LARCH); c.vline(bx + 4, hTop - 8, base - 1, if (d > 0) LARCH else LARCH_D)
+                c.set(bx - 4, hTop - 9, LARCH_L); c.set(bx + 4, hTop - 9, LARCH_L)
+                return
+            }
+            Looks.PACK_BUNDLE -> {
+                for (y in hTop - 3..hTop + 7) {
+                    val inset = if (y == hTop - 3 || y == hTop + 7) 1 else 0
+                    c.hline(bx - 5 + inset, bx + 5 - inset, y, if (y == hTop - 3) BUNDLE_L else BUNDLE)
+                }
+                c.vline(if (d > 0) bx - 5 else bx + 5, hTop - 2, hTop + 6, BUNDLE_D)
+                c.hline(bx - 5, bx + 5, hTop + 4, BUNDLE_STRAP)
+                c.hline(bx - 3 * d, bx + 6 * d, hTop - 4, KENDAL_GREEN); c.hline(bx - 3 * d, bx + 6 * d, hTop - 5, KENDAL_GREEN_L)
+                c.set(bx + 5 * d, hTop + 5, Pal.FLAG_RED); c.set(bx + 5 * d, hTop + 6, Pal.FLAG_RED)
+                return
+            }
+        }
         c.vline(bx - 4, hTop - 3, base - 1, Pal.WOOD_M); c.vline(bx + 4, hTop - 3, base - 1, Pal.WOOD_D)
         c.hline(bx - 4, bx + 4, hTop - 3, Pal.WOOD_L)
         val sx = bx - d
@@ -1921,6 +1976,15 @@ internal class Effects(private val s: SceneCtx) {
         const val PROP_STAFF = 11
         private val GOURD = Col.hex(0xD9A040)
         private val SHELL = Col.hex(0xF4EEDD)
+        // the pedlars' loads (figurePack, tiny): Friuli's walnut crassigne; Carinthia's larch Kraxe, its green box and blue
+        // bundle; the Lakeland packman's canvas bundle, its strap and its bolt of Kendal green cloth
+        private val WALNUT = Col.hex(0x7A4A2C); private val WALNUT_L = Col.hex(0xA8703E); private val WALNUT_D = Col.hex(0x4E2E1C)
+        private val LARCH = Col.hex(0xB8894E); private val LARCH_L = Col.hex(0xD8AE72); private val LARCH_D = Col.hex(0x8A6236)
+        private val KRAXE_GREEN = Col.hex(0x4E6E52); private val KRAXE_GREEN_D = Col.hex(0x34503A)
+        private val KRAXE_BLUE = Col.hex(0x7E92BA); private val KRAXE_BLUE_D = Col.hex(0x5A6E9A)
+        private val BUNDLE = Col.hex(0x8A7458); private val BUNDLE_L = Col.hex(0xAA9474); private val BUNDLE_D = Col.hex(0x6A5640)
+        private val BUNDLE_STRAP = Col.hex(0x5A3A22)
+        private val KENDAL_GREEN = Col.hex(0x4E7A3E); private val KENDAL_GREEN_L = Col.hex(0x6E9A5A)
         /** A lantern's iron (its cap, foot and posts, a lighter brim), its light's reach (nominal px) and strength. */
         private val LAMP = Col.hex(0x2E2A30)
         private val LAMP_L = Col.hex(0x4A4550)
@@ -1967,7 +2031,7 @@ internal class Effects(private val s: SceneCtx) {
          * How someone with sprite [art] looks in the small figures; an unknown or missing art gets colours by
          * [seed] (the unnamed population: the same seed always gives the same person).
          */
-        fun lookOf(art: String?, seed: Int): Look {
+        fun lookOf(art: String?, seed: Int, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): Look {
             val shirt = Pal.SHIRTS[(seed ushr 3).mod(Pal.SHIRTS.size)]
             val hair = Pal.HAIR[(seed ushr 7).mod(Pal.HAIR.size)]
             val dark = Col.hex(0x3A3246)
@@ -1986,7 +2050,14 @@ internal class Effects(private val s: SceneCtx) {
                 "winemaker" -> Look(Col.hex(0x7A2E3A), dark, Pal.HAIR[1], hat = Col.hex(0x2E2A34), prop = PROP_BOTTLE)
                 "aunt" -> Look(Col.hex(0xE07A8A), Col.hex(0xE07A8A), Pal.HAIR[0], skirt = true, apron = Col.hex(0x3E8A3A), prop = PROP_BASKET)
                 // the strangers at the road: the pedlar under his krošnja, a pilgrim with his staff and bag
-                "pedlar" -> Look(Col.hex(0xE9E2D0), Col.hex(0x4A3A2F), Pal.HAIR[1], hat = Col.hex(0x2A2426), prop = PROP_STICK, pack = true)
+                "pedlar" -> when (val pack = Looks.pedlarPack(culture)) {
+                    // the cramâr in his brown jacket and black hat; the Kraxenträger in loden green, his hat green; the packman in
+                    // a brown tweed coat and a grey cap
+                    Looks.PACK_CRASSIGNE -> Look(Col.hex(0x5A4232), Col.hex(0x3A3432), Pal.HAIR[0], hat = Col.hex(0x2A2426), prop = PROP_STICK, pack = pack)
+                    Looks.PACK_KRAXE -> Look(Col.hex(0x55684A), Col.hex(0x5E4632), Pal.HAIR[1], hat = Col.hex(0x3E4A38), prop = PROP_STICK, pack = pack)
+                    Looks.PACK_BUNDLE -> Look(Col.hex(0x7A6448), Col.hex(0x3E3A40), Pal.HAIR[3], hat = Col.hex(0x5A5048), prop = PROP_STICK, pack = pack)
+                    else -> Look(Col.hex(0xE9E2D0), Col.hex(0x4A3A2F), Pal.HAIR[1], hat = Col.hex(0x2A2426), prop = PROP_STICK, pack = pack)
+                }
                 "pilgrim" -> Look(Col.hex(0x8A6E4E), Col.hex(0x4A4652), Pal.HAIR[3], hat = Col.hex(0x7A5E3E), prop = PROP_STAFF, beard = Pal.HAIR[3], bag = Col.hex(0xB08A56), shell = true)
                 // the hunter, in loden green, his hat green too
                 "hunter" -> Look(Col.hex(0x4E6A3E), Col.hex(0x6A5238), Pal.HAIR[4], hat = Col.hex(0x3E5436), prop = PROP_STICK)

@@ -107,6 +107,7 @@ internal abstract class ArtPainter : ScenePainter {
         val s = ctx?.takeIf { it.canvas === canvas } ?: SceneCtx(canvas).also { ctx = it }
         this.s = s
         this.frame = frame
+        people.culture = frame.world.look.id // the day's pedlar under his culture's load
         val n = canvas.width * canvas.height
         if (lightBuf.size != n) { lightBuf = FloatArray(n); outlineTmp = IntArray(n) }
         s.reset()

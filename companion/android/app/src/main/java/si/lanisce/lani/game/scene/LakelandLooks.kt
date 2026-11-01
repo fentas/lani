@@ -90,9 +90,10 @@ internal object LakelandLooks {
 
     /**
      * Mr Tyson's field (FieldPainter): the stone field barn under slate for the kozolec (the map's hay barn), dry-stone walls
-     * for the fences, the fells behind with their walled intake fields, the village on the hill round its battlemented tower.
+     * for the fences, the fells behind with their walled intake fields, the village on the hill round its battlemented tower;
+     * a badger digging at the potatoes' edge at night where the wild boar digs elsewhere (`boar`: the Lakes have none).
      */
-    val FIELD = Table.of("field", variants = mapOf("kozolec" to "barn", "fence" to "drystone", "hills" to "fells", "village" to "lakeland"))
+    val FIELD = Table.of("field", variants = mapOf("kozolec" to "barn", "fence" to "drystone", "hills" to "fells", "village" to "lakeland", "boar" to "badger"))
 
     /**
      * The village green (SquarePainter): grey stone and whitewashed cottages under slate with white window frames, the church
@@ -126,12 +127,24 @@ internal object LakelandLooks {
      * battlemented tower, the fields walled with dry-stone walls, the big mountain a fell; St George's cross on the flag; the
      * tower under slate, on stone pillars from its third level, its parapet battlemented from its fourth.
      */
-    val WATCHTOWER = Table.of("watchtower", variants = mapOf("village" to "lakeland", "flag" to "england", "tower" to "pele", "mountains" to "fells"))
+    val WATCHTOWER = Table.of("watchtower", variants = mapOf("village" to "lakeland", "flag" to "england", "tower" to "pele", "mountains" to "fells", "pedlar" to "packman", "wolves" to "foxes"))
 
-    /** The land beyond the gate (PalisadePainter): the fells, their walls and bracken, a cairn, a hamlet round a battlemented tower. */
-    val PALISADE = Table.of("palisade", variants = mapOf("land" to "fells"))
+    /**
+     * The land beyond the gate (PalisadePainter): the fells, their walls and bracken, a cairn, a hamlet round a battlemented
+     * tower; the packman on the road (`pedlar`); foxes by the wood where a dialog sees something there (`wolves`: the Lakes
+     * have no wolves).
+     */
+    val PALISADE = Table.of("palisade", variants = mapOf("land" to "fells", "pedlar" to "packman", "wolves" to "foxes"))
+
+    /**
+     * The people sprites (`people`, People.kt): the day's pedlar the packman from Kendal in a tweed coat and a flat cap
+     * under his big pack ("a big pack on his back"), brown canvas strapped round, a bolt of Kendal green cloth along its top
+     * (`pedlar`), on the map, in the scenes and in his portrait; the road's pedlar at the gate and below the watchtower the
+     * same (their `pedlar`).
+     */
+    val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "packman"))
 
     /** The Lake District's places, added up. */
-    val PLACES: Table get() = KITCHEN + LIVINGROOM + CELLAR + ATTIC + WORKSHOP + TENT + SMITHY + CHURCH + SCHOOL + FIELD + SQUARE + MARKET +
+    val PLACES: Table get() = PEOPLE + KITCHEN + LIVINGROOM + CELLAR + ATTIC + WORKSHOP + TENT + SMITHY + CHURCH + SCHOOL + FIELD + SQUARE + MARKET +
         APIARY + WATCHTOWER + PALISADE
 }
