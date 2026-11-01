@@ -93,7 +93,7 @@ internal class PondPainter : WildPainter() {
 
     override fun paint() {
         setup()
-        pioppi = variant("trees") != null
+        pioppi = variant("trees") == "pioppi"
         val z = z
         for (i in 0..SKY_STEPS) skyLut[i] = skyAt(i / SKY_STEPS.toFloat())
         vistaSky(3, 41, moonX = ox + MOON_X * z, moonY = oy + 10 * z)

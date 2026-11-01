@@ -215,7 +215,7 @@ internal class FieldPainter : WildPainter() {
         harpfe = variant("kozolec") == "harpfe"
         collio = variant("hills") != null
         piantata = variant("trees") != null
-        pannocchie = variant("toplar") != null
+        pannocchie = variant("toplar") == "pannocchie"
         barn = variant("kozolec") == "barn"; drywall = variant("fence") == "drystone"; fells = variant("hills") == "fells"
         badger = variant("boar") == "badger"
         if (fells) collio = false
