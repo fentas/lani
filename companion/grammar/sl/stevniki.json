@@ -1,0 +1,126 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "stevniki",
+  "language": "sl",
+  "level": "B2",
+  "emoji": "🎲",
+  "title": {
+    "sl": "Dvakrat, dvojen, dvoje: števniki",
+    "en": "Dvakrat, dvojen, dvoje: more numbers",
+    "de": "Dvakrat, dvojen, dvoje: mehr Zahlwörter",
+    "it": "Dvakrat, dvojen, dvoje: altri numerali"
+  },
+  "rule": {
+    "en": "Beside **dva** and **drugi**, Slovene has more numbers (*števniki*):\n\n- **How many times:** **enkrat, dvakrat, trikrat, petkrat, večkrat**; the first, second time: **prvič, drugič, zadnjič** (the last time).\n- **What kind:** **enojen, dvojen, trojen** (single, double, triple) agree as adjectives: **dvojno okno**, **trojno plačilo**.\n- **Pieces, pairs, kinds:** **dvoje, troje** + the genitive plural, above all with plural-only nouns: **dvoje vrat** (two doors), **troje hlač** (three pairs of trousers), **dvoje čevljev** (two pairs of shoes). **Tri vrata** is heard, the standard is **troje vrat**.\n- **Numbers as nouns:** **enka, dvojka, trojka, štirica, petica**, the school's grades (petica the best) and the buses; **dvojčka** (twins), **dvojica** (a pair); **polovica, tretjina, četrtina** + the genitive: **polovica kruha**. **Pol** stays as it is: **pol ure**, **en in pol**.\n- **In the cases** the numbers decline: **trije → treh, trem, tremi**; **štirje → štirih, štirim, štirimi**; **pet → petih, petim, petimi**: **s tremi prijatelji**, **pri štirih sosedih**, **s petimi otroki**.\n- **Po** before a number is each: **Vsak je dobil po dve jabolki.**",
+    "de": "Neben **dva** und **drugi** hat das Slowenische weitere Zahlwörter (*števniki*):\n\n- **Wie oft:** **enkrat, dvakrat, trikrat, petkrat, večkrat**; das erste, zweite Mal: **prvič, drugič, zadnjič** (das letzte Mal).\n- **Welcher Art:** **enojen, dvojen, trojen** (einfach, doppelt, dreifach) richten sich wie Adjektive: **dvojno okno**, **trojno plačilo**.\n- **Stücke, Paare, Arten:** **dvoje, troje** + Genitiv Plural, vor allem bei Pluralwörtern: **dvoje vrat** (zwei Türen), **troje hlač** (drei Hosen), **dvoje čevljev** (zwei Paar Schuhe). **Tri vrata** hört man, standardsprachlich ist **troje vrat**.\n- **Zahlen als Nomen:** **enka, dvojka, trojka, štirica, petica**, die Schulnoten (petica die beste) und Buslinien; **dvojčka** (Zwillinge), **dvojica** (ein Paar); **polovica, tretjina, četrtina** + Genitiv: **polovica kruha**. **Pol** bleibt, wie es ist: **pol ure**, **en in pol**.\n- **In den Fällen** werden die Zahlen dekliniert: **trije → treh, trem, tremi**; **štirje → štirih, štirim, štirimi**; **pet → petih, petim, petimi**: **s tremi prijatelji**, **pri štirih sosedih**, **s petimi otroki**.\n- **Po** vor einer Zahl heißt je: **Vsak je dobil po dve jabolki.**",
+    "it": "Oltre a **dva** e **drugi**, lo sloveno ha altri numerali (*števniki*):\n\n- **Quante volte:** **enkrat, dvakrat, trikrat, petkrat, večkrat**; la prima, la seconda volta: **prvič, drugič, zadnjič** (l'ultima volta).\n- **Di che tipo:** **enojen, dvojen, trojen** (singolo, doppio, triplo) si accordano come aggettivi: **dvojno okno**, **trojno plačilo**.\n- **Pezzi, paia, tipi:** **dvoje, troje** + genitivo plurale, soprattutto con i nomi solo plurali: **dvoje vrat** (due porte), **troje hlač** (tre paia di pantaloni), **dvoje čevljev** (due paia di scarpe). **Tri vrata** si sente, nella lingua standard è **troje vrat**.\n- **Numeri come nomi:** **enka, dvojka, trojka, štirica, petica**, i voti (petica il migliore) e gli autobus; **dvojčka** (gemelli), **dvojica** (una coppia); **polovica, tretjina, četrtina** + genitivo: **polovica kruha**. **Pol** resta com'è: **pol ure**, **en in pol**.\n- **Nei casi** i numeri si declinano: **trije → treh, trem, tremi**; **štirje → štirih, štirim, štirimi**; **pet → petih, petim, petimi**: **s tremi prijatelji**, **pri štirih sosedih**, **s petimi otroki**.\n- **Po** davanti a un numero vuol dire ciascuno: **Vsak je dobil po dve jabolki.**"
+  },
+  "table": {
+    "head": [
+      { "sl": "število", "en": "number", "de": "Zahl", "it": "numero" },
+      { "sl": "kolikokrat", "en": "how many times", "de": "wie oft", "it": "quante volte" },
+      { "sl": "kakšen", "en": "what kind", "de": "welcher Art", "it": "di che tipo" },
+      { "sl": "s predlogom", "en": "with a preposition", "de": "mit Präposition", "it": "con preposizione" }
+    ],
+    "rows": [
+      ["1", "enkrat, prvič", "enojen", "z enim, pri enem"],
+      ["2", "dvakrat, drugič", "dvojen; dvoje vrat", "z dvema, pri dveh"],
+      ["3", "trikrat, tretjič", "trojen; troje vrat", "s tremi, pri treh"],
+      ["4", "štirikrat", "četveren; četvero vrat", "s štirimi, pri štirih"],
+      ["5", "petkrat", "peteren", "s petimi, pri petih"],
+      [{"sl": "ocena", "en": "grade", "de": "Note", "it": "voto"}, "enka, dvojka, trojka", "štirica, petica", "dobiti petico"],
+      [{"sl": "del", "en": "a part", "de": "ein Teil", "it": "una parte"}, "polovica, tretjina", "četrtina", "pol ure, en in pol"]
+    ]
+  },
+  "examples": [
+    {
+      "sl": "Mojca jim trikrat na teden bere pravljice.",
+      "en": "Mojca reads them fairy tales three times a week.",
+      "de": "Mojca liest ihnen dreimal pro Woche Märchen vor.",
+      "it": "Mojca legge loro le fiabe tre volte alla settimana."
+    },
+    {
+      "sl": "Tine je letos prvič sam hodil v šolo.",
+      "en": "This year Tine walked to school on his own for the first time.",
+      "de": "Dieses Jahr ist Tine zum ersten Mal allein zur Schule gegangen.",
+      "it": "Quest'anno Tine è andato a scuola da solo per la prima volta."
+    },
+    {
+      "sl": "Za delo na praznik je Tone dobil dvojno plačilo.",
+      "en": "For working on the holiday Tone got double pay.",
+      "de": "Für die Arbeit am Feiertag hat Tone den doppelten Lohn bekommen.",
+      "it": "Per il lavoro nel giorno di festa Tone ha preso la paga doppia."
+    },
+    {
+      "sl": "Skedenj ima dvoje vrat.",
+      "en": "The barn has two doors.",
+      "de": "Die Scheune hat zwei Tore.",
+      "it": "Il fienile ha due porte.",
+      "note": {
+        "en": "vrata is plural only: dvoje + the genitive plural.",
+        "de": "vrata gibt es nur im Plural: dvoje + Genitiv Plural.",
+        "it": "vrata esiste solo al plurale: dvoje + genitivo plurale."
+      }
+    },
+    {
+      "sl": "Zala je pri testu dobila petico.",
+      "en": "Zala got top marks in the test.",
+      "de": "Zala hat im Test eine Fünf bekommen, die beste Note.",
+      "it": "Zala ha preso il voto massimo nella verifica."
+    },
+    {
+      "sl": "Polovica vasi je prišla na trgatev.",
+      "en": "Half the village came to the grape harvest.",
+      "de": "Das halbe Dorf ist zur Weinlese gekommen.",
+      "it": "Metà del paese è venuta alla vendemmia.",
+      "note": {
+        "en": "polovica + the genitive, the verb with polovica: je prišla.",
+        "de": "polovica + Genitiv, das Verb mit polovica: je prišla.",
+        "it": "polovica + genitivo, il verbo con polovica: je prišla."
+      }
+    },
+    {
+      "sl": "France je prišel na sejem s tremi sinovi.",
+      "en": "France came to the fair with his three sons.",
+      "de": "France ist mit seinen drei Söhnen zum Jahrmarkt gekommen.",
+      "it": "France è venuto alla fiera con i suoi tre figli."
+    },
+    {
+      "sl": "Vsak otrok je dobil po dve jabolki.",
+      "en": "Each child got two apples.",
+      "de": "Jedes Kind hat je zwei Äpfel bekommen.",
+      "it": "Ogni bambino ha ricevuto due mele."
+    }
+  ],
+  "modules": [],
+  "tags": ["numerals", "stevniki", "multiplicative", "how_many_times", "collective_numeral", "numbers_cases", "fractions"],
+  "see": ["stevila-samostalniki", "stevila-glagol", "datumi", "dvojina-skloni", "rodilnik-kolicina"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in sl, en, de and it; forms checked against SP2001 (fran.si) 2026-11-01; not reviewed by a native speaker",
+  "card": {
+    "title": { "sl": "Števniki", "en": "More numbers", "de": "Zahlwörter", "it": "Numerali" },
+    "rule": {
+      "en": "**dvakrat, prvič** how many times; **dvojen** what kind; **dvoje vrat** with plural-only nouns; **petica, polovica** numbers as nouns; in the cases **s tremi, pri štirih, s petimi**.",
+      "de": "**dvakrat, prvič** wie oft; **dvojen** welcher Art; **dvoje vrat** bei Pluralwörtern; **petica, polovica** Zahlen als Nomen; in den Fällen **s tremi, pri štirih, s petimi**.",
+      "it": "**dvakrat, prvič** quante volte; **dvojen** di che tipo; **dvoje vrat** con i nomi solo plurali; **petica, polovica** numeri come nomi; nei casi **s tremi, pri štirih, s petimi**."
+    },
+    "table": {
+      "head": [{"sl": "število", "en": "number", "de": "Zahl", "it": "numero"}, {"sl": "primer", "en": "example", "de": "Beispiel", "it": "esempio"}],
+      "rows": [["2", "dvakrat, drugič, dvojen, dvoje"], ["3", "trikrat, tretjič, s tremi"], ["5", "petkrat, petica, s petimi"], ["½", "polovica, pol ure"]]
+    },
+    "examples": [
+      { "sl": "Skedenj ima dvoje vrat.", "en": "The barn has two doors.", "de": "Die Scheune hat zwei Tore.", "it": "Il fienile ha due porte." },
+      {
+        "sl": "France je prišel na sejem s tremi sinovi.",
+        "en": "France came to the fair with his three sons.",
+        "de": "France ist mit seinen drei Söhnen zum Jahrmarkt gekommen.",
+        "it": "France è venuto alla fiera con i suoi tre figli."
+      }
+    ],
+    "tip": {
+      "en": "💡 After a preposition the number declines too: **s tremi**, **pri štirih**, **s petimi**, as **z dvema** at B1.",
+      "de": "💡 Nach einer Präposition wird auch die Zahl dekliniert: **s tremi**, **pri štirih**, **s petimi**, wie **z dvema** in B1.",
+      "it": "💡 Dopo una preposizione si declina anche il numero: **s tremi**, **pri štirih**, **s petimi**, come **z dvema** al B1."
+    }
+  }
+}
