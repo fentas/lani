@@ -365,26 +365,38 @@ export class Dictionary {
   private load() {
     if (this.loaded) return
     this.loaded = true
+    // the language's own packs first (the packs dir, and the culture packs of the language: their `language`); another
+    // language's after them (a Slovene pack has none: sl), as its meanings of this language's words: not its gender (an
+    // English sheet's teacher isn't Friuli's maestra, f) and not its plural (pastirji is no English plural)
+    const own: Json[] = []
+    const other: Json[] = []
     for (const packsDir of [this.dirs.packs, ...(this.dirs.morePacks ?? [])]) {
       for (const f of existsSync(packsDir) ? readdirSync(packsDir).sort() : []) {
         if (!f.endsWith('.json')) continue
         try {
           const p = JSON.parse(readFileSync(join(packsDir, f), 'utf8'))
-          for (const w of p.words ?? []) {
-            const word = w[this.language]
-            if (typeof word !== 'string') continue
-            for (const k of [word, this.bare(word)]) {
-              const key = k ? this.key(k) : null
-              if (key && !this.packs.has(key)) this.packs.set(key, w)
-            }
-            if (typeof w.plural !== 'string') continue
-            for (const k of [w.plural, this.bare(w.plural)]) {
-              const key = k ? this.key(k) : null
-              if (key && !this.plurals.has(key)) this.plurals.set(key, w)
-            }
-          }
+          const mine = packsDir === this.dirs.packs || (typeof p.language === 'string' ? p.language : 'sl') === this.language
+          ;(mine ? own : other).push(p)
         } catch {
           // a pack that doesn't parse is the bridge's to report
+        }
+      }
+    }
+    for (const p of [...own, ...other]) {
+      const mine = own.includes(p)
+      for (const raw of p.words ?? []) {
+        const word = raw[this.language]
+        if (typeof word !== 'string') continue
+        // a noun of the other pack is one here too (its gender or plural said so), as the sheet lists a table's nouns
+        const w = mine ? raw : { ...raw, gender: undefined, plural: undefined, noun: !!raw.gender || typeof raw.plural === 'string' }
+        for (const k of [word, this.bare(word)]) {
+          const key = k ? this.key(k) : null
+          if (key && !this.packs.has(key)) this.packs.set(key, w)
+        }
+        if (typeof w.plural !== 'string') continue
+        for (const k of [w.plural, this.bare(w.plural)]) {
+          const key = k ? this.key(k) : null
+          if (key && !this.plurals.has(key)) this.plurals.set(key, w)
         }
       }
     }
@@ -413,7 +425,8 @@ export class Dictionary {
     // the form as the packs and the dictionaries have it (Italian keeps its last accent: è, più)
     const k = this.key(word)
     const pack = this.packs.get(k)
-    if (pack && (pack[base] || pack.en)) return { lemma: pack[this.language], pos: pack.gender ? 'noun' : 'word', gloss: pack[base] ?? pack.en, gender: pack.gender }
+    // a noun by its gender, or its plural (English nouns have no gender)
+    if (pack && (pack[base] || pack.en)) return { lemma: pack[this.language], pos: pack.gender || pack.noun || typeof pack.plural === 'string' ? 'noun' : 'word', gloss: pack[base] ?? pack.en, gender: pack.gender }
     // a pack's noun in the plural with its article ("i cavalli"): the pack's word, its singular shown beside it; only
     // with the article, which says it is that noun (Slovene's peči is to bake, not the stoves)
     const plural = this.bare(word) ? this.plurals.get(k) : undefined
