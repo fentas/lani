@@ -378,6 +378,18 @@ class GradingLanguagesTest {
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("Wir haben Most getrunen.", "Wir haben Most getrunken."))
     }
 
+    @Test fun `a german participle's ge where it takes none, or missing where a separable verb puts it inside, is wrong`() {
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Kathi hat getelefoniert.", "Kathi hat telefoniert."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Wir haben Oma gebesucht.", "Wir haben Oma besucht."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Hast du das geverstanden?", "Hast du das verstanden?"))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Stefan hat anrufen.", "Stefan hat angerufen."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich habe einkauft.", "Ich habe eingekauft."))
+        assertGraded(Verdict.WRONG, Hint.NONE, de("Ich bin um sechs aufstanden.", "Ich bin um sechs aufgestanden."))
+        // a slip that keeps the ge where it belongs stays one
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Kathi hat telefonirt.", "Kathi hat telefoniert."))
+        assertGraded(Verdict.ALMOST, Hint.TYPO, de("Wir haben Oma besuht.", "Wir haben Oma besucht."))
+    }
+
     @Test fun `a long word forgives two slips in its stem, a shorter one only one`() {
         assertEquals(2, Grading.typosAllowed("bürgermeister"))
         assertGraded(Verdict.ALMOST, Hint.TYPO, de("der Burgermaister", "der Bürgermeister"))
