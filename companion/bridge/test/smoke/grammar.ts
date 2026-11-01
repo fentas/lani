@@ -61,8 +61,9 @@ export default async function grammar() {
     check(`${lang}: each page is machine-written, says so, and sees only pages of its book`, ps.every(p => p.machine_written && p.review?.includes('not reviewed by a native speaker') && p.see.every(s => books[lang].has(s))), ps.filter(p => !p.see.every(s => books[lang].has(s))).map(p => p.id))
   }
   check("the Slovene book's pages are the ones above", [...books.sl].join() === [...ids].join())
-  // Italian: the 16 of the villages and the pages its school's units brought (imperativo, ore-giorni: COURSE.md, "Italian A1")
-  check('German and English have 16 curated pages each, Italian 18 or more', ['de', 'en'].every(l => books[l].size === 16) && books.it.size >= 18, Object.fromEntries(Object.entries(books).map(([l, s]) => [l, s.size])))
+  // Italian, German and English: the 16 of the villages and the pages their schools' units brought (Italian's
+  // imperativo, ore-giorni …: COURSE.md, "Italian A1"; German's zahlen …, English's numbers …: "The German course", "The English course")
+  check('German and English have their 16 curated pages or more each, Italian 18 or more', ['de', 'en'].every(l => books[l].size >= 16) && books.it.size >= 18, Object.fromEntries(Object.entries(books).map(([l, s]) => [l, s.size])))
   const tents = Object.fromEntries(['friuli', 'kaernten', 'lakeland'].map(c => [c, (JSON.parse(readFileSync(join(repo, 'cultures', c, 'quests.json'), 'utf8')).tent_move.questions as { grammar?: string }[]).map(q => q.grammar)]))
   check(
     "every village's tent questions name the pages of their rules",
