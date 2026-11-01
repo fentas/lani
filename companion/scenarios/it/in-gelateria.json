@@ -1,0 +1,41 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "in-gelateria",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "In gelateria", "de": "In der Eisdiele", "sl": "V sladoledarni", "en": "At the ice-cream shop" },
+  "emoji": "🍦",
+  "level": "A1",
+  "setting": {
+    "de": "Ein heißer Sommernachmittag in Grado am Meer. In der Eisdiele gibt es zwanzig Sorten hinter dem Glas. Papa steht gleich hinter dir.",
+    "sl": "Vroče poletno popoldne v Gradežu ob morju. V sladoledarni je za steklom dvajset okusov. Oči stoji tik za tabo.",
+    "en": "A hot summer afternoon in Grado, by the sea. The ice-cream shop has twenty flavours behind the glass. Papà stands right behind you."
+  },
+  "role": "Signor Enzo, the ice-cream maker by the sea in Grado. Merry and quick, loves telling children the flavours: a cone or a cup, one scoop or two. Says tu to {learner}, who may say tu or Lei (both fine). Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "Il gelataio", "de": "Der Eisverkäufer", "sl": "Sladoledar", "en": "The ice-cream man" },
+  "voice": "male",
+  "speaker": "young-man",
+  "goals": [
+    { "it": "Saluta il gelataio", "de": "Begrüße den Eisverkäufer", "sl": "Pozdravi sladoledarja", "en": "Greet the ice-cream man" },
+    { "it": "Scegli cono o coppetta", "de": "Wähle Waffel oder Becher", "sl": "Izberi kornet ali lonček", "en": "Choose a cone or a cup" },
+    { "it": "Di' due gusti", "de": "Sag zwei Sorten", "sl": "Povej dva okusa", "en": "Name two flavours" },
+    { "it": "Chiedi quanto costa", "de": "Frag, was es kostet", "sl": "Vprašaj, koliko stane", "en": "Ask how much it costs" },
+    { "it": "Ringrazia e saluta", "de": "Bedanke dich und verabschiede dich", "sl": "Zahvali se in se poslovi", "en": "Say thank you and goodbye" }
+  ],
+  "opener_sl": "Ciao! Che caldo, eh? Vuoi un gelato? Cono o coppetta?",
+  "opener_en": {
+    "de": "Hallo! So heiß heute, oder? Möchtest du ein Eis? In der Waffel oder im Becher?",
+    "sl": "Živjo! Kakšna vročina, a ne? Bi sladoled? V kornetu ali v lončku?",
+    "en": "Hi! So hot today, isn't it? Do you want an ice cream? A cone or a cup?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ciao! Sì, grazie!", "en": { "de": "Hallo! Ja, bitte!", "sl": "Živjo! Ja, prosim!", "en": "Hi! Yes, please!" } },
+    { "sl": "Un cono, per favore.", "en": { "de": "Eine Waffel, bitte.", "sl": "Kornet, prosim.", "en": "A cone, please." } },
+    { "sl": "Una coppetta piccola.", "en": { "de": "Einen kleinen Becher.", "sl": "Majhen lonček.", "en": "A small cup." } },
+    { "sl": "Due palline: fragola e cioccolato.", "en": { "de": "Zwei Kugeln: Erdbeere und Schokolade.", "sl": "Dve kepici: jagoda in čokolada.", "en": "Two scoops: strawberry and chocolate." } },
+    { "sl": "Quanto costa?", "en": { "de": "Was kostet das?", "sl": "Koliko stane?", "en": "How much is it?" } },
+    { "sl": "Grazie, è buonissimo!", "en": { "de": "Danke, das ist super lecker!", "sl": "Hvala, odličen je!", "en": "Thank you, it's delicious!" } }
+  ],
+  "packs": ["in-gelateria", "cibo", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

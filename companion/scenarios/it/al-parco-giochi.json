@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "al-parco-giochi",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Al parco giochi", "de": "Auf dem Spielplatz", "sl": "Na igrišču", "en": "At the playground" },
+  "emoji": "🛝",
+  "level": "A1",
+  "setting": {
+    "de": "Ein sonniger Nachmittag auf dem Spielplatz im Dorf: die Schaukel, die Rutsche und der Sandkasten. Lorenzo hat einen Eimer und eine Schaufel, und sein Opa Franco schaut von der Bank aus zu.",
+    "sl": "Sončno popoldne na vaškem igrišču: gugalnica, tobogan in peskovnik. Lorenzo ima vedro in lopatko, njegov dedek Franco pa gleda s klopi.",
+    "en": "A sunny afternoon at the village playground: the swing, the slide and the sandpit. Lorenzo has a bucket and a spade, and his grandfather Franco watches from the bench."
+  },
+  "role": "Lorenzo, six, the smallest of the village children, Mugnaio Franco's grandson. Shy for a moment, then chatty; counts everything ('uno, due, tre!'), loves the swing and sandcastles. Says tu. Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "Il bambino del paese", "de": "Der Junge aus dem Dorf", "sl": "Fantek iz vasi", "en": "The village boy" },
+  "voice": "male",
+  "speaker": "boy",
+  "goals": [
+    { "it": "Saluta Lorenzo", "de": "Begrüße Lorenzo", "sl": "Pozdravi Lorenza", "en": "Greet Lorenzo" },
+    { "it": "Chiedi di giocare insieme", "de": "Frag, ob ihr zusammen spielt", "sl": "Vprašaj, ali se igrata skupaj", "en": "Ask to play together" },
+    { "it": "Di' dove vuoi giocare", "de": "Sag, wo du spielen willst", "sl": "Povej, kje se želiš igrati", "en": "Say where you want to play" },
+    { "it": "Di' a chi tocca", "de": "Sag, wer dran ist", "sl": "Povej, kdo je na vrsti", "en": "Say whose turn it is" },
+    { "it": "Saluta: a domani!", "de": "Verabschiede dich: bis morgen!", "sl": "Poslovi se: do jutri!", "en": "Say goodbye: see you tomorrow!" }
+  ],
+  "opener_sl": "Ciao! Io faccio un castello di sabbia. Uno, due, tre torri!",
+  "opener_en": {
+    "de": "Hallo! Ich baue eine Sandburg. Eins, zwei, drei Türme!",
+    "sl": "Živjo! Delam grad iz peska. Eden, dva, trije stolpi!",
+    "en": "Hi! I'm making a sandcastle. One, two, three towers!"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ciao, Lorenzo!", "en": { "de": "Hallo, Lorenzo!", "sl": "Živjo, Lorenzo!", "en": "Hi, Lorenzo!" } },
+    { "sl": "Che bello! Giochiamo insieme?", "en": { "de": "Wie schön! Spielen wir zusammen?", "sl": "Kako lepo! Se igrava skupaj?", "en": "How lovely! Shall we play together?" } },
+    { "sl": "Andiamo sull'altalena?", "en": { "de": "Gehen wir auf die Schaukel?", "sl": "Greva na gugalnico?", "en": "Shall we go on the swing?" } },
+    { "sl": "Andiamo sullo scivolo!", "en": { "de": "Gehen wir auf die Rutsche!", "sl": "Greva na tobogan!", "en": "Let's go on the slide!" } },
+    { "sl": "Tocca a te!", "en": { "de": "Du bist dran!", "sl": "Ti si na vrsti!", "en": "Your turn!" } },
+    { "sl": "Tocca a me!", "en": { "de": "Ich bin dran!", "sl": "Jaz sem na vrsti!", "en": "My turn!" } },
+    { "sl": "Ciao, a domani!", "en": { "de": "Tschüss, bis morgen!", "sl": "Adijo, se vidiva jutri!", "en": "Bye, see you tomorrow!" } }
+  ],
+  "packs": ["al-parco-giochi", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

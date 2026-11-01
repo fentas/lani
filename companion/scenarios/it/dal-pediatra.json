@@ -1,0 +1,41 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "dal-pediatra",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Dal pediatra", "de": "Beim Kinderarzt", "sl": "Pri pediatru", "en": "At the paediatrician's" },
+  "emoji": "🩺",
+  "level": "A1",
+  "setting": {
+    "de": "Ein Besuch beim Kinderarzt in Görz. Seit gestern tut dir der Bauch weh, und dir ist ein bisschen heiß. Mama ist bei dir.",
+    "sl": "Obisk pri pediatru v Gorici. Od včeraj te boli trebuh in malo ti je vroče. Mama je s tabo.",
+    "en": "A visit to the paediatrician in Gorizia. Your tummy has hurt since yesterday, and you feel a bit hot. Mamma is with you."
+  },
+  "role": "Dottor Bassi, a calm, gentle paediatrician in Gorizia. Speaks slowly and smiles; one simple question at a time; says it is nothing serious and {learner} will soon be well. Says tu. Nothing frightening (no needles); asks nothing personal.",
+  "who": { "it": "Il pediatra", "de": "Der Kinderarzt", "sl": "Pediater", "en": "The paediatrician" },
+  "voice": "male",
+  "goals": [
+    { "it": "Saluta il dottore", "de": "Begrüße den Arzt", "sl": "Pozdravi zdravnika", "en": "Greet the doctor" },
+    { "it": "Di' che cosa ti fa male", "de": "Sag, was dir wehtut", "sl": "Povej, kaj te boli", "en": "Say what hurts" },
+    { "it": "Di' da quando", "de": "Sag, seit wann", "sl": "Povej, od kdaj", "en": "Say since when" },
+    { "it": "Di' se hai la febbre", "de": "Sag, ob du Fieber hast", "sl": "Povej, ali imaš vročino", "en": "Say whether you have a fever" },
+    { "it": "Ringrazia il dottore", "de": "Bedanke dich beim Arzt", "sl": "Zahvali se zdravniku", "en": "Thank the doctor" }
+  ],
+  "opener_sl": "Ciao, {learner}! Siediti qui. Dimmi, che cosa ti fa male?",
+  "opener_en": {
+    "de": "Hallo, {learner}! Setz dich hierher. Sag mal, was tut dir weh?",
+    "sl": "Živjo, {learner}! Sedi sem. Povej mi, kaj te boli?",
+    "en": "Hello, {learner}! Sit here. Tell me, what hurts?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Buongiorno, dottore!", "en": { "de": "Guten Morgen, Herr Doktor!", "sl": "Dober dan, gospod doktor!", "en": "Good morning, doctor!" } },
+    { "sl": "Mi fa male la pancia.", "en": { "de": "Mir tut der Bauch weh.", "sl": "Boli me trebuh.", "en": "My tummy hurts." } },
+    { "sl": "Mi fa male la testa.", "en": { "de": "Mir tut der Kopf weh.", "sl": "Boli me glava.", "en": "My head hurts." } },
+    { "sl": "Da ieri.", "en": { "de": "Seit gestern.", "sl": "Od včeraj.", "en": "Since yesterday." } },
+    { "sl": "Sì, ho un po' di febbre.", "en": { "de": "Ja, ich habe ein bisschen Fieber.", "sl": "Ja, imam malo vročine.", "en": "Yes, I have a bit of a fever." } },
+    { "sl": "No, non ho la febbre.", "en": { "de": "Nein, ich habe kein Fieber.", "sl": "Ne, nimam vročine.", "en": "No, I don't have a fever." } },
+    { "sl": "Grazie, dottore!", "en": { "de": "Danke, Herr Doktor!", "sl": "Hvala, gospod doktor!", "en": "Thank you, doctor!" } }
+  ],
+  "packs": ["il-corpo", "saluti", "numeri-e-ore"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

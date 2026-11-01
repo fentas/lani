@@ -1,0 +1,41 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "al-mercato",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Al mercato", "de": "Auf dem Markt", "sl": "Na tržnici", "en": "At the market" },
+  "emoji": "🍒",
+  "level": "A1",
+  "setting": {
+    "de": "Samstagmorgen auf dem Markt in Cormòns. Ein Stand mit Kirschen, Äpfeln, Tomaten und Honig. Mama steht gleich neben dir.",
+    "sl": "Sobotno jutro na tržnici v Krminu. Stojnica s češnjami, jabolki, paradižniki in medom. Mama stoji tik ob tebi.",
+    "en": "Saturday morning at the market in Cormòns. A stall with cherries, apples, tomatoes and honey. Mamma is right next to you."
+  },
+  "role": "Signora Gianna, the fruit seller at the Saturday market in Cormòns. Warm and cheerful, proud of her cherries; lets children taste one. Says tu to {learner}, who may say tu or Lei (both fine). Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "La fruttivendola", "de": "Die Obstverkäuferin", "sl": "Prodajalka sadja", "en": "The fruit seller" },
+  "voice": "female",
+  "speaker": "woman",
+  "goals": [
+    { "it": "Saluta la signora", "de": "Begrüße die Verkäuferin", "sl": "Pozdravi prodajalko", "en": "Greet the seller" },
+    { "it": "Chiedi le ciliegie", "de": "Frag nach Kirschen", "sl": "Prosi za češnje", "en": "Ask for cherries" },
+    { "it": "Chiedi anche un'altra cosa", "de": "Frag noch nach etwas anderem", "sl": "Prosi še za nekaj drugega", "en": "Ask for something else too" },
+    { "it": "Chiedi quanto costa", "de": "Frag, was es kostet", "sl": "Vprašaj, koliko stane", "en": "Ask how much it costs" },
+    { "it": "Ringrazia e saluta", "de": "Bedanke dich und verabschiede dich", "sl": "Zahvali se in se poslovi", "en": "Say thank you and goodbye" }
+  ],
+  "opener_sl": "Buongiorno! Guarda che belle ciliegie! Vuoi assaggiarne una?",
+  "opener_en": {
+    "de": "Guten Morgen! Schau mal, was für schöne Kirschen! Möchtest du eine probieren?",
+    "sl": "Dobro jutro! Poglej, kako lepe češnje! Bi {m:poskusil|f:poskusila} eno?",
+    "en": "Good morning! Look at these lovely cherries! Do you want to taste one?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Buongiorno, signora!", "en": { "de": "Guten Morgen!", "sl": "Dobro jutro, gospa!", "en": "Good morning!" } },
+    { "sl": "Sì, grazie! È buonissima!", "en": { "de": "Ja, danke! Die ist super lecker!", "sl": "Ja, hvala! Odlična je!", "en": "Yes, thank you! It's delicious!" } },
+    { "sl": "Vorrei un chilo di ciliegie, per favore.", "en": { "de": "Ich hätte gern ein Kilo Kirschen, bitte.", "sl": "{m:Rad|f:Rada} bi kilogram češenj, prosim.", "en": "I'd like a kilo of cherries, please." } },
+    { "sl": "E anche due mele.", "en": { "de": "Und noch zwei Äpfel.", "sl": "Pa še dve jabolki.", "en": "And two apples too." } },
+    { "sl": "Quanto costa?", "en": { "de": "Was kostet das?", "sl": "Koliko stane?", "en": "How much is it?" } },
+    { "sl": "Grazie, arrivederci!", "en": { "de": "Danke, auf Wiedersehen!", "sl": "Hvala, na svidenje!", "en": "Thank you, goodbye!" } }
+  ],
+  "packs": ["al-mercato", "cibo", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

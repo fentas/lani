@@ -1,0 +1,41 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "la-festa-di-tommaso",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "La festa di Tommaso", "de": "Tommasos Geburtstag", "sl": "Tommasova rojstnodnevna zabava", "en": "Tommaso's birthday party" },
+  "emoji": "🎂",
+  "level": "A2",
+  "setting": {
+    "de": "Tommasos Geburtstagsfeier im Garten der Osteria. Es gibt Luftballons, einen großen Schokoladenkuchen und ein Versteckspiel. Du hast ihm ein Geschenk mitgebracht.",
+    "sl": "Tommasova rojstnodnevna zabava na vrtu gostilne. Tu so baloni, velika čokoladna torta in skrivalnice. {m:Prinesel|f:Prinesla} si mu darilo.",
+    "en": "Tommaso's birthday party in the osteria's garden. There are balloons, a big chocolate cake and a game of hide-and-seek. You have brought him a present."
+  },
+  "role": "Tommaso, nine, Ostessa Marisa's son, turning ten today. Loud, quick and cheeky, happy with every present; wants cake, games and a race. Says tu. Kind, one or two short sentences a turn; asks nothing personal (not the learner's own birthday).",
+  "who": { "it": "Il festeggiato", "de": "Das Geburtstagskind", "sl": "Slavljenec", "en": "The birthday boy" },
+  "voice": "male",
+  "speaker": "boy",
+  "goals": [
+    { "it": "Fai gli auguri a Tommaso", "de": "Gratuliere Tommaso", "sl": "Vošči Tommasu", "en": "Wish Tommaso a happy birthday" },
+    { "it": "Dagli il regalo", "de": "Gib ihm das Geschenk", "sl": "Daj mu darilo", "en": "Give him the present" },
+    { "it": "Di' se ti piace la torta", "de": "Sag, ob dir der Kuchen schmeckt", "sl": "Povej, ali ti je torta všeč", "en": "Say whether you like the cake" },
+    { "it": "Proponi un gioco", "de": "Schlag ein Spiel vor", "sl": "Predlagaj igro", "en": "Suggest a game" },
+    { "it": "Ringrazia per la festa", "de": "Bedanke dich für die Feier", "sl": "Zahvali se za zabavo", "en": "Thank him for the party" }
+  ],
+  "opener_sl": "Ciao! Sei {m:venuto|f:venuta}! Oggi compio dieci anni!",
+  "opener_en": {
+    "de": "Hallo! Du bist gekommen! Heute werde ich zehn!",
+    "sl": "Živjo! {m:Prišel|f:Prišla} si! Danes sem star deset let!",
+    "en": "Hi! You came! I'm ten today!"
+  },
+  "vocabulary_hints": [
+    { "sl": "Buon compleanno, Tommaso!", "en": { "de": "Alles Gute zum Geburtstag, Tommaso!", "sl": "Vse najboljše, Tommaso!", "en": "Happy birthday, Tommaso!" } },
+    { "sl": "Questo è per te.", "en": { "de": "Das ist für dich.", "sl": "To je zate.", "en": "This is for you." } },
+    { "sl": "Ti piace?", "en": { "de": "Gefällt es dir?", "sl": "Ti je všeč?", "en": "Do you like it?" } },
+    { "sl": "La torta è buonissima!", "en": { "de": "Der Kuchen ist super lecker!", "sl": "Torta je odlična!", "en": "The cake is delicious!" } },
+    { "sl": "Giochiamo a nascondino?", "en": { "de": "Spielen wir Verstecken?", "sl": "Se igramo skrivalnice?", "en": "Shall we play hide-and-seek?" } },
+    { "sl": "Grazie per la festa!", "en": { "de": "Danke für die Feier!", "sl": "Hvala za zabavo!", "en": "Thanks for the party!" } }
+  ],
+  "packs": ["cibo", "in-salotto", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

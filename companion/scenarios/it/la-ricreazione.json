@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "la-ricreazione",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "La ricreazione", "de": "Die große Pause", "sl": "Odmor v šoli", "en": "Break time at school" },
+  "emoji": "🏫",
+  "level": "A1",
+  "setting": {
+    "de": "Pause in der Dorfschule. Maestra Elena hat das Fenster aufgemacht, die Kinder essen ihr Pausenbrot, und im Hof wartet der Ball. Giulia setzt sich neben dich.",
+    "sl": "Odmor v vaški šoli. Učiteljica Elena je odprla okno, otroci jedo malico, na dvorišču pa čaka žoga. Giulia sede k tebi.",
+    "en": "Break time at the village school. Maestra Elena has opened the window, the children eat their snacks, and the ball waits in the yard. Giulia sits down next to you."
+  },
+  "role": "Giulia, eight, Nonna Rosa's granddaughter and {learner}'s classmate. Cheeky, curious and friendly; shares her snack, wants to play ball or tag. Says tu, quick and simple. Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "La compagna di classe", "de": "Die Mitschülerin", "sl": "Sošolka", "en": "Your classmate" },
+  "voice": "female",
+  "speaker": "girl",
+  "goals": [
+    { "it": "Saluta Giulia", "de": "Begrüße Giulia", "sl": "Pozdravi Giulio", "en": "Greet Giulia" },
+    { "it": "Di' che cosa hai per merenda", "de": "Sag, was du als Pausenbrot hast", "sl": "Povej, kaj imaš za malico", "en": "Say what you have for your snack" },
+    { "it": "Proponi un gioco", "de": "Schlag ein Spiel vor", "sl": "Predlagaj igro", "en": "Suggest a game" },
+    { "it": "Chiedi chi comincia", "de": "Frag, wer anfängt", "sl": "Vprašaj, kdo začne", "en": "Ask who goes first" },
+    { "it": "Saluta quando suona la campanella", "de": "Verabschiede dich, wenn es klingelt", "sl": "Poslovi se, ko zazvoni zvonec", "en": "Say goodbye when the bell rings" }
+  ],
+  "opener_sl": "Ciao! Che cosa hai per merenda oggi? Io ho una mela.",
+  "opener_en": {
+    "de": "Hallo! Was hast du heute als Pausenbrot? Ich habe einen Apfel.",
+    "sl": "Živjo! Kaj imaš danes za malico? Jaz imam jabolko.",
+    "en": "Hi! What have you got for your snack today? I've got an apple."
+  },
+  "vocabulary_hints": [
+    { "sl": "Ciao, Giulia!", "en": { "de": "Hallo, Giulia!", "sl": "Živjo, Giulia!", "en": "Hi, Giulia!" } },
+    { "sl": "Io ho un panino.", "en": { "de": "Ich habe ein Brötchen.", "sl": "Jaz imam sendvič.", "en": "I've got a sandwich." } },
+    { "sl": "Vuoi un pezzo?", "en": { "de": "Willst du ein Stück?", "sl": "Bi kos?", "en": "Do you want a piece?" } },
+    { "sl": "Giochiamo a pallone?", "en": { "de": "Spielen wir Fußball?", "sl": "Se igrava z žogo?", "en": "Shall we play ball?" } },
+    { "sl": "Chi comincia?", "en": { "de": "Wer fängt an?", "sl": "Kdo začne?", "en": "Who goes first?" } },
+    { "sl": "Comincio io!", "en": { "de": "Ich fange an!", "sl": "Jaz začnem!", "en": "I'll go first!" } },
+    { "sl": "Ciao, a dopo!", "en": { "de": "Tschüss, bis später!", "sl": "Adijo, se vidiva!", "en": "Bye, see you later!" } }
+  ],
+  "packs": ["a-scuola", "cibo", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

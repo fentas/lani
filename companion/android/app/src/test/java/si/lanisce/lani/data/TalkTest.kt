@@ -57,6 +57,47 @@ class TalkTest {
         }
     }
 
+    @Test fun `every Italian scenario parses, its texts in the child's pair`() {
+        val dir = listOf(File("../../scenarios/it"), File("../scenarios/it"), File("companion/scenarios/it")).first { it.isDirectory }
+        val files = dir.listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
+        assertTrue(files.size >= 8)
+        val before = si.lanisce.lani.l10n.L10n.pair
+        si.lanisce.lani.l10n.L10n.pair = si.lanisce.lani.l10n.LangPair(si.lanisce.lani.l10n.Lang.IT, si.lanisce.lani.l10n.Lang.DE)
+        try {
+            for (f in files) {
+                val s = parseScenario(f.readText())
+                assertEquals(f.nameWithoutExtension, s.id)
+                assertEquals("it", s.language)
+                assertEquals("child", s.audience)
+                assertTrue(s.goals.size in 3..5)
+                assertTrue(s.packs.isNotEmpty())
+                assertFalse(s.character.isBlank())
+                // "Al mercato · Auf dem Markt": the Italian, then the German, for the title, the goals and who
+                assertTrue(s.title, " · " in s.title)
+                assertTrue(s.goals.toString(), s.goals.all { " · " in it })
+                assertTrue(s.who.orEmpty(), " · " in s.who.orEmpty())
+            }
+            val mercato = parseScenario(File(dir, "al-mercato.json").readText())
+            assertEquals("Al mercato · Auf dem Markt", mercato.title)
+            assertEquals("La fruttivendola · Die Obstverkäuferin", mercato.who)
+            assertTrue(mercato.setting, mercato.setting.startsWith("Samstagmorgen"))
+            assertTrue(mercato.openerEn.startsWith("Guten Morgen!"))
+            assertEquals("Was kostet das?", mercato.vocabularyHints.first { it.sl == "Quanto costa?" }.en)
+            assertEquals("Signora Gianna", mercato.character)
+        } finally {
+            si.lanisce.lani.l10n.L10n.pair = before
+        }
+    }
+
+    @Test fun `a served scenario's texts stay as they came, with who it is and its language`() {
+        val s = parseScenario("""{"id":"al-mercato","title":"Al mercato · Auf dem Markt","setting":"Auf dem Markt.","role":"Signora Gianna, the seller","who":"La fruttivendola · Die Obstverkäuferin","goals":["Saluta · Begrüße","b","c"],"opener_sl":"Buongiorno!","opener_en":"Guten Morgen!","language":"it","audience":"child","packs":["al-mercato"]}""")
+        assertEquals("Al mercato · Auf dem Markt", s.title)
+        assertEquals("La fruttivendola · Die Obstverkäuferin", s.who)
+        assertEquals(listOf("al-mercato"), s.packs)
+        assertNull(scenario.who)
+        assertNull(scenario.language)
+    }
+
     @Test fun `parses an in-character reply`() {
         val r = reply("""{"sl":"Izvolite.","en":"Here you are.","correction":"**En kruh**","goals_done":[0,"1"],"end":true}""")
         assertEquals("Izvolite.", r.sl)

@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "dal-fornaio",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Dal fornaio", "de": "Beim Bäcker", "sl": "Pri peku", "en": "At the baker's" },
+  "emoji": "🥖",
+  "level": "A1",
+  "setting": {
+    "de": "Früh am Morgen in der Bäckerei im Dorf. Auf der Theke liegen warmes Brot, Brötchen und eine Gubana, der süße Kuchen aus dem Friaul. Papa wartet an der Tür.",
+    "sl": "Zgodaj zjutraj v vaški pekarni. Na pultu so topel kruh, žemlje in gubana, sladko furlansko pecivo. Oči čaka pri vratih.",
+    "en": "Early morning at the village bakery. Warm bread, rolls and a gubana, the sweet Friulian cake, lie on the counter. Papà waits at the door."
+  },
+  "role": "Signor Gino, the village baker, flour on his apron. Jolly and patient, laughs a lot, proud of his gubana. Says tu to {learner}, who may say tu or Lei (both fine). Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "Il fornaio", "de": "Der Bäcker", "sl": "Pek", "en": "The baker" },
+  "voice": "male",
+  "speaker": "gruff",
+  "goals": [
+    { "it": "Saluta il fornaio", "de": "Begrüße den Bäcker", "sl": "Pozdravi peka", "en": "Greet the baker" },
+    { "it": "Chiedi il pane", "de": "Frag nach Brot", "sl": "Prosi za kruh", "en": "Ask for bread" },
+    { "it": "Chiedi due panini", "de": "Frag nach zwei Brötchen", "sl": "Prosi za dve žemlji", "en": "Ask for two rolls" },
+    { "it": "Di' che cosa ti piace", "de": "Sag, was du magst", "sl": "Povej, kaj ti je všeč", "en": "Say what you like" },
+    { "it": "Paga e saluta", "de": "Bezahle und verabschiede dich", "sl": "Plačaj in se poslovi", "en": "Pay and say goodbye" }
+  ],
+  "opener_sl": "Buongiorno! Il pane è ancora caldo. Che cosa ti do?",
+  "opener_en": {
+    "de": "Guten Morgen! Das Brot ist noch warm. Was darf es sein?",
+    "sl": "Dobro jutro! Kruh je še topel. Kaj ti dam?",
+    "en": "Good morning! The bread is still warm. What can I get you?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Buongiorno!", "en": { "de": "Guten Morgen!", "sl": "Dobro jutro!", "en": "Good morning!" } },
+    { "sl": "Vorrei un pane, per favore.", "en": { "de": "Ich hätte gern ein Brot, bitte.", "sl": "{m:Rad|f:Rada} bi en kruh, prosim.", "en": "I'd like a loaf of bread, please." } },
+    { "sl": "E due panini.", "en": { "de": "Und zwei Brötchen.", "sl": "In dve žemlji.", "en": "And two rolls." } },
+    { "sl": "Mi piace la gubana!", "en": { "de": "Ich mag Gubana!", "sl": "Gubana mi je všeč!", "en": "I like gubana!" } },
+    { "sl": "Quanto costa?", "en": { "de": "Was kostet das?", "sl": "Koliko stane?", "en": "How much is it?" } },
+    { "sl": "Ecco i soldi.", "en": { "de": "Hier ist das Geld.", "sl": "Tukaj je denar.", "en": "Here's the money." } },
+    { "sl": "Grazie, mandi!", "en": { "de": "Danke, tschüss! (friaulisch)", "sl": "Hvala, adijo! (furlansko)", "en": "Thanks, bye! (Friulian)" } }
+  ],
+  "packs": ["cibo", "in-paese", "al-mercato", "numeri-e-ore", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

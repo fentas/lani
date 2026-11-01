@@ -1,0 +1,42 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "telefonata-alla-nonna",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Una telefonata alla nonna", "de": "Ein Anruf bei Oma", "sl": "Klic babici", "en": "A phone call to Grandma" },
+  "emoji": "☎️",
+  "level": "A2",
+  "setting": {
+    "de": "Abends zu Hause. Mama hat Nonna Lucia in Triest angerufen und gibt dir das Telefon. Die Oma möchte hören, wie dein Tag war.",
+    "sl": "Zvečer doma. Mama je poklicala babico Lucio v Trst in ti da telefon. Babica bi rada slišala, kakšen je bil tvoj dan.",
+    "en": "Evening at home. Mamma has called Nonna Lucia in Trieste and hands you the phone. Nonna wants to hear about your day."
+  },
+  "role": "Nonna Lucia, {learner}'s grandmother in Trieste, on the phone. Loving, a little hard of hearing on the line ('Come? Non ti sento!'); asks what {learner} played and ate today, never where they are. Says tu. Kind, one or two short sentences a turn; nothing personal.",
+  "who": { "it": "La nonna al telefono", "de": "Die Oma am Telefon", "sl": "Babica na telefonu", "en": "Grandma on the phone" },
+  "voice": "female",
+  "speaker": "grandma",
+  "goals": [
+    { "it": "Rispondi al telefono", "de": "Melde dich am Telefon", "sl": "Oglasi se na telefon", "en": "Answer the phone" },
+    { "it": "Di' come stai", "de": "Sag, wie es dir geht", "sl": "Povej, kako si", "en": "Say how you are" },
+    { "it": "Racconta che cosa hai fatto oggi", "de": "Erzähl, was du heute gemacht hast", "sl": "Povej, kaj si danes {m:počel|f:počela}", "en": "Tell her what you did today" },
+    { "it": "Di' «ti voglio bene»", "de": "Sag „Ich hab dich lieb“", "sl": "Reci »{m:rad|f:rada} te imam«", "en": "Say that you love her" },
+    { "it": "Saluta con un bacio", "de": "Verabschiede dich mit einem Kuss", "sl": "Poslovi se s poljubčkom", "en": "Say goodbye with a kiss" }
+  ],
+  "opener_sl": "Pronto? Ciao, tesoro! Sono la nonna! Come stai?",
+  "opener_en": {
+    "de": "Hallo? Hallo, mein Schatz! Hier ist die Oma! Wie geht es dir?",
+    "sl": "Halo? Živjo, srček! Tukaj babica! Kako si?",
+    "en": "Hello? Hi, sweetheart! It's Grandma! How are you?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Pronto? Ciao, nonna!", "en": { "de": "Hallo? Hallo, Oma!", "sl": "Halo? Živjo, babica!", "en": "Hello? Hi, Grandma!" } },
+    { "sl": "Sto bene, grazie. E tu?", "en": { "de": "Mir geht es gut, danke. Und dir?", "sl": "Dobro sem, hvala. Pa ti?", "en": "I'm fine, thanks. And you?" } },
+    { "sl": "Oggi ho giocato a pallone.", "en": { "de": "Heute habe ich Fußball gespielt.", "sl": "Danes sem {m:igral|f:igrala} nogomet.", "en": "Today I played football." } },
+    { "sl": "Ho mangiato un gelato.", "en": { "de": "Ich habe ein Eis gegessen.", "sl": "{m:Pojedel|f:Pojedla} sem sladoled.", "en": "I ate an ice cream." } },
+    { "sl": "Come? Non ti sento!", "en": { "de": "Wie bitte? Ich höre dich nicht!", "sl": "Kako? Ne slišim te!", "en": "What? I can't hear you!" } },
+    { "sl": "Ti voglio bene, nonna!", "en": { "de": "Ich hab dich lieb, Oma!", "sl": "{m:Rad|f:Rada} te imam, babica!", "en": "I love you, Grandma!" } },
+    { "sl": "Un bacione! Ciao!", "en": { "de": "Ein dicker Kuss! Tschüss!", "sl": "Velik poljub! Adijo!", "en": "A big kiss! Bye!" } }
+  ],
+  "packs": ["al-telefono", "famiglia", "saluti"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

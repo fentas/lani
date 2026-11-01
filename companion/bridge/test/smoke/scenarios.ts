@@ -12,12 +12,26 @@ export default async function scenarios() {
   check('6 curated scenarios', scenarioFiles.length === 6, scenarioFiles)
   for (const f of scenarioFiles) {
     const v = validateScenario(JSON.parse(readFileSync(join(curatedScenarios, f), 'utf8')))
-    check(`curated scenario validates: ${f}`, v.ok && `${v.scenario.id}.json` === f, v)
+    check(`curated scenario validates: ${f}`, v.ok && `${v.scenario.id}.json` === f && v.scenario.language === 'sl', v)
+  }
+  // Teo's Italian ones (companion/scenarios/it): for a child, every text per language with its English, machine-written
+  const italian = join(curatedScenarios, 'it')
+  for (const f of readdirSync(italian).filter(f => f.endsWith('.json'))) {
+    const raw = JSON.parse(readFileSync(join(italian, f), 'utf8'))
+    const v = validateScenario(raw)
+    const texts = [raw.title, raw.who, raw.setting, raw.opener_en, ...raw.goals, ...raw.vocabulary_hints.map((h: any) => h.en)]
+    check(
+      `Italian scenario validates, for a child, in it · de · sl · en: it/${f}`,
+      v.ok && `${v.scenario.id}.json` === f && raw.language === 'it' && raw.audience === 'child' && /machine-written/.test(raw.review) && texts.every(t => t && t.de && t.sl && t.en) && [raw.title, raw.who, ...raw.goals].every(t => t.it) && raw.packs?.length > 0 && /asks nothing personal|nothing personal/.test(raw.role),
+      v.ok ? texts.filter(t => !(t?.de && t.sl && t.en)) : v.errors,
+    )
   }
   const scenarioExample = [...reference.matchAll(/```json\n([\s\S]*?)\n```/g)].map(m => m[1]).find(s => s.includes('lani.scenario/v0'))
   check('module-spec.md scenario example validates', scenarioExample && validateScenario(JSON.parse(scenarioExample)).ok, scenarioExample)
   const scList = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
   check('GET /scenarios lists the curated scenarios', scenarioFiles.every(f => scList.some((s: any) => `${s.id}.json` === f && s.source === 'curated')), scList.map((s: any) => s.id))
+  check("GET /scenarios lists none of the Italian village's (Jan's village speaks Slovene)", !scList.some((s: any) => ['al-mercato', 'dal-fornaio', 'in-gelateria'].includes(s.id)) && scList.every((s: any) => s.language === 'sl'), scList.map((s: any) => [s.id, s.language]))
+  check("an adult is offered the grown-up's role-play (the inn), its texts as they were", scList.some((s: any) => s.id === 'v-gostilni' && s.audience === 'adult' && s.title === 'V gostilni · At the inn' && s.goals[0] === 'Order a drink'), scList.find((s: any) => s.id === 'v-gostilni'))
   const lunch = await (await fetch(`${base}/scenarios/nedeljsko-kosilo`, { headers: auth })).json()
   check('GET /scenarios/:id serves the scenario', lunch.goals?.length >= 3 && lunch.opener_sl && lunch.vocabulary_hints?.length > 0, lunch)
   check('GET /scenarios/:id 404s', (await fetch(`${base}/scenarios/nope`, { headers: auth })).status === 404)
@@ -31,10 +45,14 @@ export default async function scenarios() {
     const r = await client.callTool({ name: 'publish_scenario', arguments: { scenario: bad } })
     check(label, r.isError, r)
   }
+  const scItalian = await client.callTool({ name: 'publish_scenario', arguments: { scenario: { ...postOffice, id: 'alla-posta', language: 'it' } } })
+  check('publish_scenario refuses a role-play in another language than the village\'s', scItalian.isError && /this village speaks/.test(JSON.stringify(scItalian)) && !existsSync(join(dataDir, 'app/scenarios/alla-posta.json')), scItalian)
+  const scNoPack = await client.callTool({ name: 'publish_scenario', arguments: { scenario: { ...postOffice, id: 'na-posti-2', packs: ['nope-pack'] } } })
+  check('publish_scenario refuses a pack the village lacks', scNoPack.isError && /nope-pack/.test(JSON.stringify(scNoPack)), scNoPack)
   const scClash = await client.callTool({ name: 'publish_scenario', arguments: { scenario: { ...postOffice, id: 'v-pekarni' } } })
   check('publish_scenario refuses a curated id', scClash.isError, scClash)
   const scPub = await client.callTool({ name: 'publish_scenario', arguments: { scenario: postOffice, note: 'New: the post office' } })
-  check('publish_scenario publishes', !scPub.isError && existsSync(join(dataDir, 'app/scenarios/na-posti.json')), scPub)
+  check('publish_scenario publishes, in the village\'s language', !scPub.isError && existsSync(join(dataDir, 'app/scenarios/na-posti.json')) && JSON.parse(readFileSync(join(dataDir, 'app/scenarios/na-posti.json'), 'utf8')).language === 'sl', scPub)
   const scServed = await (await fetch(`${base}/scenarios/na-posti`, { headers: auth })).json()
   check('published scenario served with defaults', scServed.source === 'tutor' && scServed.vocabulary_hints?.length === 0, scServed)
   await Bun.sleep(100)
@@ -50,7 +68,7 @@ export default async function scenarios() {
   check('roleplay message accepted', rp.ok, await rp.clone().text())
   await Bun.sleep(100)
   const rpEv = channelEvents.findLast(n => n.params?.meta?.kind === 'roleplay')
-  check('roleplay reaches Claude with the scenario brief', rpEv?.params?.meta?.conversation_id?.startsWith('rp-') && rpEv.params.content.includes('Tašča Marija') && rpEv.params.content.includes('"goals"'), rpEv)
+  check('roleplay reaches Claude with the scenario brief', rpEv?.params?.meta?.conversation_id?.startsWith('rp-') && rpEv.params.content.includes('Tašča Marija') && rpEv.params.content.includes('"goals"') && rpEv.params.content.includes('"language": "sl"') && !rpEv.params.content.includes('"child"'), rpEv)
   // the character's line comes with the face it is said with (companion/SCENES.md, "Faces"): passed on to the app as written
   const rpId = 'rp-0f8b8e2c-5a1d-4d6b-9b8e-2f3c4d5e6f70'
   const said = { sl: 'Ha ha, prav imaš!', en: "Ha ha, you're right!", face: 'laugh', goals_done: [0] }

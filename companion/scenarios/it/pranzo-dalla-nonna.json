@@ -1,0 +1,41 @@
+{
+  "schema": "lani.scenario/v0",
+  "id": "pranzo-dalla-nonna",
+  "language": "it",
+  "audience": "child",
+  "title": { "it": "Domenica a pranzo dalla nonna", "de": "Sonntagsessen bei Oma", "sl": "Nedeljsko kosilo pri babici", "en": "Sunday lunch at Grandma's" },
+  "emoji": "🍝",
+  "level": "A1",
+  "setting": {
+    "de": "Sonntagsessen bei Nonna Rosa. Die Küche duftet nach Frico und Polenta, und für die Kinder gibt es Nudeln mit Tomatensoße. Die ganze Familie sitzt am großen Tisch.",
+    "sl": "Nedeljsko kosilo pri babici Rosi. Kuhinja diši po fricu in polenti, za otroke pa so testenine s paradižnikovo omako. Vsa družina sedi za veliko mizo.",
+    "en": "Sunday lunch at Nonna Rosa's. The kitchen smells of frico and polenta, and there is pasta with tomato sauce for the children. The whole family sits at the big table."
+  },
+  "role": "Nonna Rosa, the village grandmother, in her seventies. Warm, always cooking, offers more food and calls {learner} tesoro: 'Mangia, mangia!'. Says tu, and {learner} says tu to her. Kind, one or two short sentences a turn; asks nothing personal.",
+  "who": { "it": "La nonna", "de": "Die Oma", "sl": "Babica", "en": "Grandma" },
+  "voice": "female",
+  "speaker": "grandma",
+  "goals": [
+    { "it": "Saluta la nonna", "de": "Begrüße die Oma", "sl": "Pozdravi babico", "en": "Greet Grandma" },
+    { "it": "Di' che hai fame", "de": "Sag, dass du Hunger hast", "sl": "Povej, da si {m:lačen|f:lačna}", "en": "Say you are hungry" },
+    { "it": "Di' che è buono", "de": "Sag, dass es dir schmeckt", "sl": "Povej, da je dobro", "en": "Say that it tastes good" },
+    { "it": "Chiedi ancora un po' o di' basta", "de": "Bitte um mehr oder sag, dass du satt bist", "sl": "Prosi še malo ali povej, da si {m:sit|f:sita}", "en": "Ask for more, or say you are full" },
+    { "it": "Ringrazia la nonna", "de": "Bedanke dich bei der Oma", "sl": "Zahvali se babici", "en": "Thank Grandma" }
+  ],
+  "opener_sl": "Ciao, tesoro! Siediti, è pronto! Hai fame?",
+  "opener_en": {
+    "de": "Hallo, mein Schatz! Setz dich, das Essen ist fertig! Hast du Hunger?",
+    "sl": "Živjo, srček! Sedi, kosilo je na mizi! Si {m:lačen|f:lačna}?",
+    "en": "Hello, sweetheart! Sit down, lunch is ready! Are you hungry?"
+  },
+  "vocabulary_hints": [
+    { "sl": "Ciao, nonna!", "en": { "de": "Hallo, Oma!", "sl": "Živjo, babica!", "en": "Hi, Grandma!" } },
+    { "sl": "Sì, ho tanta fame!", "en": { "de": "Ja, ich habe großen Hunger!", "sl": "Ja, zelo sem {m:lačen|f:lačna}!", "en": "Yes, I'm very hungry!" } },
+    { "sl": "È buonissimo!", "en": { "de": "Das ist super lecker!", "sl": "Odlično je!", "en": "It's delicious!" } },
+    { "sl": "Ancora un po', per favore.", "en": { "de": "Noch ein bisschen, bitte.", "sl": "Še malo, prosim.", "en": "A bit more, please." } },
+    { "sl": "Basta, grazie. Sono {m:pieno|f:piena}.", "en": { "de": "Das reicht, danke. Ich bin satt.", "sl": "Dovolj, hvala. {m:Sit|f:Sita} sem.", "en": "That's enough, thanks. I'm full." } },
+    { "sl": "Grazie, nonna!", "en": { "de": "Danke, Oma!", "sl": "Hvala, babica!", "en": "Thank you, Grandma!" } }
+  ],
+  "packs": ["cibo", "famiglia", "in-cucina", "casa-e-cucina"],
+  "review": "it, de, sl: machine-written, not reviewed by a native speaker"
+}

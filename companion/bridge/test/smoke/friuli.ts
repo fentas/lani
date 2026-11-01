@@ -215,6 +215,46 @@ export default async function friuli() {
     const scenarios = await (await fetch(`${base}/scenarios`, { headers: auth })).json()
     const scenes = await (await fetch(`${base}/scenes`, { headers: auth })).json()
     check('friuli: no Slovene modules, role-plays or scenes for the Italian village', Array.isArray(modules) && !modules.some((m: any) => m.id === 'dvojina-osnove') && Array.isArray(scenarios) && !scenarios.some((s: any) => s.id === 'v-pekarni') && JSON.stringify(scenes).indexOf('ob-ognju') < 0 && !scenes.some((s: any) => s.id === 'na-gricih'), { modules: modules.length, scenarios: scenarios.length, scenes: scenes.map((s: any) => s.id) })
+    // Teo's role-plays: the Italian ones (companion/scenarios/it), for a child, their texts in the child's pair (it · sl)
+    const itFiles = readdirSync(join(repo, 'companion/scenarios/it')).filter(f => f.endsWith('.json'))
+    check('friuli: GET /scenarios serves the 9 Italian role-plays, and nothing else', itFiles.length === 9 && scenarios.length === 9 && itFiles.every(f => scenarios.some((s: any) => `${s.id}.json` === f && s.language === 'it' && s.audience === 'child' && s.source === 'curated')), scenarios.map((s: any) => s.id))
+    const mercato = scenarios.find((s: any) => s.id === 'al-mercato')
+    check(
+      "friuli: a role-play's title and goals in the child's pair, its setting and meanings in Slovene, its lines Italian",
+      mercato?.title === 'Al mercato · Na tržnici' && mercato.goals[0] === 'Saluta la signora · Pozdravi prodajalko' && mercato.who === 'La fruttivendola · Prodajalka sadja' && mercato.setting.startsWith('Sobotno jutro na tržnici v Krminu') &&
+        mercato.opener_sl.startsWith('Buongiorno!') && mercato.opener_en.startsWith('Dobro jutro!') && mercato.vocabulary_hints.some((h: any) => h.sl === 'Quanto costa?' && h.en === 'Koliko stane?') && /machine-written/.test(mercato.review),
+      mercato,
+    )
+    const one = await (await fetch(`${base}/scenarios/dal-pediatra`, { headers: auth })).json()
+    check('friuli: GET /scenarios/:id serves one in the pair too', one.title === 'Dal pediatra · Pri pediatru' && one.packs?.includes('il-corpo'), one)
+    const itPacks = new Set(packs.map((p: any) => p.id))
+    check("friuli: every pack a role-play names is one of the village's (the new il-corpo, in-gelateria, al-telefono too)", scenarios.every((s: any) => s.packs?.length && s.packs.every((p: string) => itPacks.has(p))) && ['il-corpo', 'in-gelateria', 'al-telefono'].every(i => itPacks.has(i)), scenarios.map((s: any) => [s.id, s.packs]))
+    // a turn of one reaches the tutor with the brief in English, the language it is played in, and how to talk to a child
+    const rpConv = 'rp-1b2c3d4e-0000-4000-8000-00000000f001'
+    await fetch(`${base}/message`, { method: 'POST', headers: auth, body: JSON.stringify({ kind: 'roleplay', conversation_id: rpConv, text: 'Buongiorno!', data: { scenario_id: 'al-mercato', turn: 1, heard: 'Buongiorno!' } }) })
+    await Bun.sleep(150)
+    const rpNote = notes.findLast(n => n.params?.meta?.kind === 'roleplay' && n.params.meta.conversation_id === rpConv)
+    const brief = JSON.parse(/```json\n([\s\S]*)\n```/.exec(String(rpNote?.params?.content))?.[1] ?? '{}').scenario
+    check(
+      "friuli: a role-play's turn carries its brief in English, in Italian, for a child",
+      brief?.title === 'Al mercato · At the market' && brief.goals?.[0] === 'Greet the seller' && brief.setting?.startsWith('Saturday morning') && brief.language === 'it' && brief.packs?.includes('al-mercato') && /personal data/.test(brief.child ?? ''),
+      brief,
+    )
+    // the tutor's: in the village's language (left out: Italian, written so), never Slovene; a grown-up's never to the child
+    const tutorTalk = { schema: 'lani.scenario/v0', id: 'in-biblioteca', title: { it: 'In biblioteca', sl: 'V knjižnici', en: 'At the library' }, level: 'A1', setting: { sl: 'Knjižnica v Gorici.', en: 'The library in Gorizia.' }, role: 'Signora Anna, the librarian. Kind.', goals: ['Greet her', 'Ask for a book', 'Say thank you'], opener_sl: 'Ciao! Che libro cerchi?', opener_en: { sl: 'Živjo! Katero knjigo iščeš?', en: 'Hi! Which book are you looking for?' }, packs: ['saluti'] }
+    const pubIt = await client.callTool({ name: 'publish_scenario', arguments: { scenario: tutorTalk } })
+    const tutorFile = JSON.parse(readFileSync(join(dataDir, 'app/scenarios/in-biblioteca.json'), 'utf8'))
+    const servedTalk = (await (await fetch(`${base}/scenarios`, { headers: auth })).json()).find((s: any) => s.id === 'in-biblioteca')
+    check("friuli: the tutor's role-play is written in the village's language and served in the pair", !pubIt.isError && tutorFile.language === 'it' && servedTalk?.title === 'In biblioteca · V knjižnici' && servedTalk.setting === 'Knjižnica v Gorici.' && servedTalk.source === 'tutor', { pubIt, servedTalk })
+    const pubSl = await client.callTool({ name: 'publish_scenario', arguments: { scenario: { ...tutorTalk, id: 'v-knjiznici', language: 'sl' } } })
+    const pubPack = await client.callTool({ name: 'publish_scenario', arguments: { scenario: { ...tutorTalk, id: 'in-libreria', packs: ['druzina'] } } })
+    const pubAdult = await client.callTool({ name: 'publish_scenario', arguments: { scenario: { ...tutorTalk, id: 'al-bar', audience: 'adult' } } })
+    const offered = (await (await fetch(`${base}/scenarios`, { headers: auth })).json()).map((s: any) => s.id)
+    check(
+      "friuli: a Slovene role-play and a Slovene pack are refused in the Italian village, a grown-up's isn't offered to the child",
+      pubSl.isError && /this village speaks/.test(JSON.stringify(pubSl)) && pubPack.isError && /druzina/.test(JSON.stringify(pubPack)) && !pubAdult.isError && !offered.includes('al-bar') && (await fetch(`${base}/scenarios/al-bar`, { headers: auth })).status === 404 && offered.includes('in-biblioteca'),
+      { pubSl, pubPack, offered },
+    )
     // the friuli pack's own place: the sea at Grado, in Italian with Slovene and English, its words from the pack's il-mare
     const mare = scenes.find((s: any) => s.id === 'il-mare')
     check("friuli: the pack's own scene is served (Il mare, from the horizon), in Italian", mare?.culture === 'friuli' && mare.language === 'it' && mare.art === 'sea' && mare.title.it === 'Il mare' && mare.title.sl === 'Morje' && mare.dialogs.every((d: any) => d.lines.every((l: any) => !l.who || (l.it && l.sl && l.en))), mare && { title: mare.title, culture: mare.culture })
