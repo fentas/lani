@@ -178,6 +178,18 @@ export default async function prints() {
       sonne?.lemma === 'die Sonne' && sonne.gender === 'f' && sonne.gloss === 'sun' && mond?.lemma === 'der Mond' && mond.gloss === 'moon' && mond.gender === undefined && lune === null,
       [sonne, mond, lune])
   }
+  // the repository's English hello for a learner from Slovene: its words meant, none with a gender (English nouns have
+  // none: teacher isn't Friuli's maestra, f), so no legend of genders
+  {
+    const en = loadContent(repo, 'en')
+    const hello = sheetsOf(en, 'A1', { base: 'sl', learner: 'Jan', gender: 'both' }, ['hello'])[0]
+    const doc = unitDoc(en, hello, 'sl')
+    const teacher = hello.words.find(w => w.word === 'teacher')
+    check("an English sheet's nouns carry no gender, and the sheet no legend of genders (hello in Slovene: teacher učiteljica, innkeeper gostilničar)",
+      hello.words.length >= 10 && hello.words.every(w => !w.gender) && !doc.html.includes('class="legend"') && /^učiteljica/.test(teacher?.gloss ?? '') && hello.words.some(w => w.word === 'innkeeper' && w.gloss.startsWith('gostilničar')),
+      hello.words.map(w => `${w.word} ${w.gender ?? ''} ${w.gloss}`))
+  }
+
   // --- what there is none of, what is refused ------------------------------------------------------------------------------
   const none: [string, number][] = [
     ['/course/sheet/osebni-zaimki', 404], // planned: not written yet
