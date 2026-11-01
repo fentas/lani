@@ -30,7 +30,7 @@ SCENES.md "Scenes of a culture pack" has a row for each (what happens there, by 
 
 | Scene | Happenings | Dialogs | Turns | Wrong choices (naming a page) | Tap turns | Counting | Pack words | I spy things, clues |
 |---|---|---|---|---|---|---|---|---|
-| Round the maypole | 6 | 12 | 24 | 33 (20) | 2 | 1 | 12 | 15, 68 |
+| Round the maypole | 6 | 16 | 30 | 42 (23) | 2 | 1 | 12 | 15, 68 |
 | On the packhorse bridge | 6 | 13 | 26 | 36 (24) | 2 | 2 | 11 | 15, 61 |
 | In the mill | 6 | 12 | 24 | 34 (23) | 1 | 1 | 14 | 19, 77 |
 | On the bowling green | 5 | 13 | 26 | 39 (24) | 2 | 1 | 12 | 15, 68 |
@@ -38,7 +38,7 @@ SCENES.md "Scenes of a culture pack" has a row for each (what happens there, by 
 | In the damson orchard | 6 | 13 | 26 | 33 (24) | 2 | 1 | 12 | 14, 57 |
 | In the wildflower meadow | 5 | 13 | 26 | 34 (24) | 1 | 1 | 12 | 13, 59 |
 | In the wood | 6 | 14 | 28 | 43 (26) | 2 | 2 | 13 | 23, 93 |
-| **8 scenes** | **46** | **104** | **208** | **292 (192)** | **14** | **10** | **97** | **129, 547** |
+| **8 scenes** | **46** | **108** | **214** | **301 (195)** | **14** | **10** | **97** | **129, 547** |
 
 Each follows places-it-arts' rules: every slot of its art a thing once (the wood has no `boar`: the Lakes have none, and
 its painter draws none there), every effect of the bocce and chapel arts cued, something on in every month, a variant (a
@@ -114,13 +114,16 @@ the chapel's `village`, the apiary's `meadow`); they now name Friuli's value, an
   pixel.
 - **The tests that count**: DialogReactionsTest's scene files (+8, and the copy of b's beck), SceneCoherenceTest's done
   lines (46 + 30), AlpsLooksTest's places (the wood, a spot, beside every building).
-- **The bridge**: `bunx tsc --noEmit -p .` clean; the smoke with this round's ports (`LANI_SMOKE_PORT=9770
-  LANI_SMOKE_FRIULI_PORT=9773 LANI_SMOKE_TOWN_PORT=9776 LANI_SMOKE_DRAMA3_PORT=9788`): 3327 checks, all passed;
-  `tutor-export --check`: 89 files match (54 tools, 32 guide topics).
-- **Python** (`bin/qa` changed): 251 tests, and 142 with 11 skipped, all passing.
-- **The Android unit suite** (lani-slot.sh): 475 classes, 3691 tests, 1 failure, 2 skipped; the one failure was a look line in
-  the copy of part b's beck (b had fixed it on its branch: the copy refreshed, ba0a0478), and SceneCoherenceTest,
-  DialogReactionsTest, ISpyContentTest, ISpyRoundsTest and WhoAnswersTest were run again on it (below). On the way the
+- **The bridge**, on the branch as it is now (merged with the queue's tip, map-people): `bunx tsc --noEmit -p .` clean;
+  `check-culture` ok for the Lake District, Kärnten, Friuli and Primorska; `check-steps lakeland` 13 files (both halves of
+  the wave), 78 steps, 156 dialogs, 878 lines; the smoke with this round's ports (`LANI_SMOKE_PORT=9770
+  LANI_SMOKE_FRIULI_PORT=9773 LANI_SMOKE_TOWN_PORT=9776 LANI_SMOKE_DRAMA3_PORT=9788`): 3456 checks, all passed (3327 before
+  the merges); `tutor-export --check`: 89 files match (54 tools, 32 guide topics); the learner audit 0, 0, 0.
+- **Python** (`bin/qa` changed): 251 tests, and 142 with 11 skipped, all passing (after the merges too).
+- **The Android unit suite** (lani-slot.sh) on the branch as it is now, merged with the queue's tip (map-people): 480
+  classes, 3737 tests, 0 failures, 2 skipped. Before the merges: 475 classes, 3691 tests, the one failure a look line in the
+  copy of part b's beck (fixed on b's branch, the copy refreshed: ba0a0478). After the merges two turns of the maypole's new
+  variants gave both right answers one reply (each its own now: f16ba683, a96e445d). On the way the
   content tests found 33 reactions that said the right choice's words and 12 looks at what the picture doesn't draw, all
   rewritten (ff835833, d176e577), and the orchard's yew's berries a clue named but the picture doesn't draw (0c164f70).
 - **On the emulator** (QA's step `lakeland-projects`, a synthetic learner of English from Slovene, `LANI_CULTURE=lakeland`, slot 2
@@ -198,11 +201,17 @@ en.wikipedia.org/wiki/Guide_to_the_Lakes, rspb.org.uk (tawny owl).
 ## Credits
 
 No voice was built and no ElevenLabs credit spent. A voice build of the new lines in the cast's voices (the villagers' lines, their replies and their puzzled reactions, in
-English) would take about 77,600 characters: 43,500 for the eight scenes, 34,200 for the 41 steps.
+English) would take about 79,100 characters: 45,000 for the eight scenes, 34,200 for the 41 steps.
 
 ## What is left
 
 - **The native check** above.
+- **Merged with the queue.** As the lead asked, this branch has lakeland-projects-b (e0b91f66, 5868b1bc) and then the queue's
+  tip kaernten-projects-b (6960268f) merged in, both sides kept: the painters' Carinthian and Lakeland looks side by side
+  (one `drink` for the bowling green's jug: f822f04e), the counts of both waves in the tests, the reviewed digests of the
+  green and the beck taken after the merge (65362023), CultureScenesTest holding this round's eight scenes to their arts
+  (the Lakeland wood's boar never there: `LakelandLooks.FOREST` fixtures; the forest exempt from sheepbells and tracks;
+  the maypole scene now cues the green's own life too, 0cf38858, the beck's lamb and the wood's birds and fox, 9119511c).
 - **Who lands first.** The beck's steps (`most`, `mlin`) play in part b's `by-the-beck`, and b's beck names this branch's
   `mill` and `packhorse-bridge`; each branch carries a copy of the other's files only to validate. At the rebase the lead
   keeps each branch's own (b's `by-the-beck` pack and scene; this branch's `in-the-mill`, `in-the-wood` and
