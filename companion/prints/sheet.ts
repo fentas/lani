@@ -305,6 +305,16 @@ const POS_RANK = ['pron', 'noun', 'verb', 'adj', 'adv', 'num', 'prep', 'conj', '
 /** A Wiktionary gloss that describes a form ("second-person plural imperative of oprostiti"), not a meaning. */
 const FORM_GLOSS = /\b(singular|plural|dual|person|imperative|genitive|dative|locative|accusative|instrumental|nominative|participle|inflection|form)\b.*\bof\b/i
 
+/**
+ * The articles in front of a pack's or a unit's noun, per language learned: Italian's (the elided l', un' too), German's
+ * nominative (der, die, das; ein, eine), English's (the, a, an); the noun after it.
+ */
+const ARTICLES: Record<string, RegExp> = {
+  it: /^(?:(?:il|lo|la|i|gli|le|un|uno|una)\s+|(?:l|un)['’])(.+)$/i,
+  de: /^(?:der|die|das|ein|eine)\s+(.+)$/i,
+  en: /^(?:the|an?)\s+(.+)$/i,
+}
+
 /** A word's meaning in the base: a pack's word (written for the learner), the unit's own gloss, the supplement, Wiktionary. */
 export class Dictionary {
   private packs = new Map<string, Json>()
@@ -319,10 +329,12 @@ export class Dictionary {
     private readonly language: string,
   ) {}
 
-  /** A pack's word without its article ("la casa" → casa, "l'ape" → ape): an Italian unit lists its words bare. */
+  /**
+   * A pack's word without its article ("la casa" → casa, "l'ape" → ape, "der Hund" → Hund, "the dog" → dog): a unit lists
+   * its words bare. Slovene has no articles.
+   */
   private bare(w: string): string | null {
-    if (this.language !== 'it') return null
-    const m = w.match(/^(?:(?:il|lo|la|i|gli|le|un|uno|una)\s+|(?:l|un)['’])(.+)$/i)
+    const m = ARTICLES[this.language] ? w.match(ARTICLES[this.language]) : null
     return m ? m[1] : null
   }
 
@@ -337,8 +349,13 @@ export class Dictionary {
     return lower.normalize('NFC')
   }
 
-  /** An Italian noun with its article, by its gender ("biscotto", m → il biscotto; "zaino" → lo zaino; "ape", f → l'ape). */
+  /**
+   * A noun with its article, by its gender: Italian's ("biscotto", m → il biscotto; "zaino" → lo zaino; "ape", f → l'ape),
+   * German's ("Hund", m → der Hund; "Katze", f → die Katze; "Brot", n → das Brot). English's and a word without a gender
+   * stay as they are.
+   */
   private withArticle(lemma: string, gender: string | undefined): string {
+    if (this.language === 'de') return gender === 'm' ? `der ${lemma}` : gender === 'f' ? `die ${lemma}` : gender === 'n' ? `das ${lemma}` : lemma
     if (this.language !== 'it' || (gender !== 'm' && gender !== 'f')) return lemma
     if (/^[aeiouàèéìòù]/i.test(lemma)) return `l'${lemma}`
     if (gender === 'f') return `la ${lemma}`
@@ -418,7 +435,7 @@ export class Dictionary {
     const f = this.file
     const wik: Json[] = []
     if (f && Object.hasOwn(f.forms, k)) for (const [i] of f.forms[k]) if (f.lemmas[i]) wik.push(f.lemmas[i])
-    // the supplement's entries of the form, and an Italian noun's by the word without its article ("il treno": treno,
+    // the supplement's entries of the form, and a noun's by the word without its article ("il treno": treno, "der Hund": Hund,
     // "i biscotti": biscotto, shown with its article)
     const bare = this.bare(word)
     const nouns = bare ? (this.extra.get(this.key(bare)) ?? []).filter(e => e.pos === 'noun') : []
@@ -463,6 +480,8 @@ export class Dictionary {
       return fallback
     }
     if (best.score < -0.5) return fallback
+    // a German noun is learned with its article (Katze: die Katze), as the packs write it
+    if (this.language === 'de' && best.pos === 'noun' && !this.bare(best.lemma)) return { ...best, lemma: this.withArticle(best.lemma, best.gender) }
     return best
   }
 }
