@@ -1,0 +1,1819 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "in-the-mill",
+  "language": "en",
+  "title": { "en": "In the mill", "sl": "V mlinu", "it": "Nel mulino", "de": "In der Mühle" },
+  "emoji": "🌾",
+  "level": "A1",
+  "review": "en, sl, it, de (the lines, the reactions, the second right answers, the variants): machine-written (Claude), not reviewed by a native speaker",
+  "art": "mill",
+  "from": ["project:mlin"],
+  "pack": "in-the-mill",
+  "objects": [
+    { "slot": "millstone", "word": "millstone" },
+    { "slot": "hopper", "word": "hopper" },
+    { "slot": "grain", "word": "oats" },
+    { "slot": "flour", "word": "oatmeal" },
+    { "slot": "sack", "word": "sack" },
+    { "slot": "shaft", "word": "shaft" },
+    { "slot": "gear", "word": "cog" },
+    { "slot": "wheel", "word": "waterwheel" },
+    { "slot": "flume", "word": "flume" },
+    { "slot": "scale", "word": "scales", "pack": "at-the-market" },
+    { "slot": "measure", "word": "mill-measure" },
+    { "slot": "bench", "word": "bench", "pack": "on-the-green" },
+    { "slot": "window", "word": "window", "pack": "home-and-kitchen" },
+    { "slot": "door", "word": "door", "pack": "home-and-kitchen" },
+    { "slot": "ladder", "word": "ladder", "pack": "tales" },
+    { "slot": "cat", "word": "cat", "pack": "family" },
+    { "slot": "mouse", "word": "mouse" },
+    { "slot": "lantern", "word": "lantern", "pack": "in-the-tent" },
+    { "slot": "sieve", "word": "sieve" }
+  ],
+  "people": [
+    { "id": "tyson", "name": "Mr Tyson", "emoji": "🧑‍🌾", "art": "farmer", "slot": "stones", "villager": "tyson" },
+    { "id": "alfie", "name": "Alfie", "emoji": "👦", "art": "child3", "slot": "sacks", "villager": "alfie" },
+    { "id": "maggie", "name": "Granny Maggie", "emoji": "👵", "art": "grandma", "slot": "door", "villager": "maggie" },
+    { "id": "dixon", "name": "Mr Dixon", "emoji": "⚒️", "art": "smith", "slot": "door", "villager": "dixon" }
+  ],
+  "happenings": [
+    {
+      "id": "start",
+      "title": {
+        "en": "Mr Tyson starts the mill",
+        "sl": "Gospod Tyson zažene mlin",
+        "it": "Il signor Tyson avvia il mulino",
+        "de": "Mr Tyson wirft die Mühle an"
+      },
+      "who": "tyson",
+      "when": ["dawn"],
+      "weekdays": [1, 2, 3, 4, 5, 6],
+      "chance": 0.5,
+      "dialog": "start",
+      "dialogs": ["start-ice", "start"],
+      "reward": { "food": 20 },
+      "marker": "💧",
+      "memory": {
+        "en": "the stones starting at dawn",
+        "sl": "kamna, ki sta se ob zori zavrtela",
+        "it": "le macine che partivano all'alba",
+        "de": "die Steine, die im Morgengrauen anliefen"
+      }
+    },
+    {
+      "id": "grind",
+      "title": { "en": "The oats are ground", "sl": "Mletje ovsa", "it": "Si macina l'avena", "de": "Der Hafer wird gemahlen" },
+      "who": "tyson",
+      "when": ["morning", "afternoon"],
+      "weekdays": [1, 2, 3, 4, 5, 6],
+      "chance": 0.5,
+      "dialog": "grind",
+      "dialogs": ["grind-count", "grind"],
+      "reward": { "food": 20 },
+      "marker": "🌾",
+      "memory": {
+        "en": "how the oats become oatmeal",
+        "sl": "kako oves postane moka",
+        "it": "come l'avena diventa farina",
+        "de": "wie aus Hafer Mehl wird"
+      }
+    },
+    {
+      "id": "cat",
+      "title": {
+        "en": "Alfie, the cat and the mouse",
+        "sl": "Alfie, mačka in miš",
+        "it": "Alfie, il gatto e il topo",
+        "de": "Alfie, die Katze und die Maus"
+      },
+      "who": "alfie",
+      "when": ["morning"],
+      "weekdays": [6, 7],
+      "chance": 0.6,
+      "dialog": "cat",
+      "dialogs": ["cat-name", "cat"],
+      "reward": { "wisdom": 15 },
+      "marker": "🐭",
+      "memory": {
+        "en": "Smudge and the mouse that got away",
+        "sl": "Smudge in miš, ki je ušla",
+        "it": "Smudge e il topo che è scappato",
+        "de": "Smudge und die Maus, die entwischt ist"
+      }
+    },
+    {
+      "id": "heavy",
+      "title": {
+        "en": "Alfie's heavy sack",
+        "sl": "Alfiejeva težka vreča",
+        "it": "Il sacco pesante di Alfie",
+        "de": "Alfies schwerer Sack"
+      },
+      "who": "alfie",
+      "when": ["afternoon"],
+      "chance": 0.45,
+      "dialog": "heavy",
+      "dialogs": ["heavy-sieve", "heavy"],
+      "reward": { "food": 15 },
+      "marker": "💨",
+      "memory": {
+        "en": "the two of us white as ghosts",
+        "sl": "naju, bela kot duhova",
+        "it": "noi due bianchi come fantasmi",
+        "de": "uns zwei, weiß wie Gespenster"
+      }
+    },
+    {
+      "id": "porridge",
+      "title": {
+        "en": "Granny Maggie brings her oats",
+        "sl": "Babica Maggie prinese oves",
+        "it": "Nonna Maggie porta la sua avena",
+        "de": "Oma Maggie bringt ihren Hafer"
+      },
+      "who": "maggie",
+      "when": ["afternoon"],
+      "chance": 0.45,
+      "dialog": "porridge",
+      "dialogs": ["porridge-oatcakes", "porridge"],
+      "reward": { "food": 20 },
+      "marker": "🥣",
+      "memory": {
+        "en": "Granny Maggie's porridge oats on the scales",
+        "sl": "oves babice Maggie na tehtnici",
+        "it": "l'avena di nonna Maggie sulla bilancia",
+        "de": "Oma Maggies Porridge-Hafer auf der Waage"
+      }
+    },
+    {
+      "id": "multure",
+      "title": {
+        "en": "Mr Dixon pays the multure",
+        "sl": "Gospod Dixon plača merico",
+        "it": "Il signor Dixon paga la molenda",
+        "de": "Mr Dixon zahlt die Mahlmetze"
+      },
+      "who": "dixon",
+      "when": ["morning"],
+      "chance": 0.4,
+      "dialog": "multure",
+      "dialogs": ["multure-weigh", "multure"],
+      "reward": { "food": 15 },
+      "marker": "🥣",
+      "memory": {
+        "en": "the measure of oats for the miller",
+        "sl": "mernik ovsa za mlinarja",
+        "it": "la misura d'avena per il mugnaio",
+        "de": "das Maß Hafer für den Müller"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "start",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "tyson",
+          "en": "Morning, {m:lad|f:lass}. Up early! Help me start the mill.",
+          "sl": "Jutro. Zgodaj si pokonci! Pomagaj mi zagnati mlin.",
+          "it": "Buongiorno, {m:ragazzo|f:ragazza}. Già in piedi! Aiutami ad avviare il mulino.",
+          "de": "Morgen, {m:Junge|f:Mädchen}. Schon auf! Hilf mir, die Mühle anzuwerfen.",
+          "fx": { "grind": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Good morning, Mr Tyson! What can I do?",
+              "sl": "Dobro jutro, gospod Tyson! Kaj lahko naredim?",
+              "it": "Buongiorno, signor Tyson! Cosa posso fare?",
+              "de": "Guten Morgen, Mr Tyson! Was kann ich tun?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Watch. I open the sluice, and here comes the water.",
+                "sl": "Glej. Odprem zapornico in voda priteče.",
+                "it": "Guarda. Apro la chiusa, ed ecco l'acqua.",
+                "de": "Schau zu. Ich mach die Schleuse auf, und da kommt das Wasser.",
+                "fx": { "grind": 0.6 }
+              }
+            },
+            {
+              "en": "Morning, Mr Tyson! I'm ready.",
+              "sl": "Jutro, gospod Tyson! {m:Pripravljen|f:Pripravljena} sem.",
+              "it": "Buongiorno, signor Tyson! Sono {m:pronto|f:pronta}.",
+              "de": "Morgen, Mr Tyson! Ich bin bereit.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Good. I open the sluice, and here comes the water.",
+                "sl": "Dobro. Odprem zapornico in voda priteče.",
+                "it": "Bene. Apro la chiusa, ed ecco l'acqua.",
+                "de": "Gut. Ich mach die Schleuse auf, und da kommt das Wasser.",
+                "fx": { "grind": 0.6 }
+              }
+            },
+            {
+              "en": "Good night, Mr Tyson! What can I do?",
+              "sl": "Lahko noč, gospod Tyson! Kaj lahko naredim?",
+              "it": "Buonanotte, signor Tyson! Cosa posso fare?",
+              "de": "Gute Nacht, Mr Tyson! Was kann ich tun?",
+              "why": {
+                "en": "It's the start of the day: good morning. Good night is for going to bed.",
+                "sl": "Dan se začenja: good morning. Good night rečeš, ko greš spat.",
+                "it": "Il giorno comincia: good morning. Good night si dice quando si va a dormire.",
+                "de": "Der Tag fängt an: good morning. Good night sagt man, wenn man ins Bett geht."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Good night? We're starting, not stopping!",
+                "sl": "Lahko noč? Začenjava, ne končujeva!",
+                "it": "Buonanotte? Stiamo cominciando, non finendo!",
+                "de": "Gute Nacht? Wir fangen an, wir hören nicht auf!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        },
+        {
+          "who": "tyson",
+          "face": "curious",
+          "en": "Hear the wheel? The stones are turning. Now, what turns the wheel?",
+          "sl": "Slišiš kolo? Kamna se vrtita. No, kaj vrti kolo?",
+          "it": "Senti la ruota? Le macine girano. Allora, cosa fa girare la ruota?",
+          "de": "Hörst du das Rad? Die Steine drehen sich. Also, was dreht das Rad?"
+        },
+        {
+          "choices": [
+            {
+              "en": "The water turns the wheel.",
+              "sl": "Voda vrti kolo.",
+              "it": "L'acqua fa girare la ruota.",
+              "de": "Das Wasser dreht das Rad.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Right. Water, wheel, shaft, stones. Simple.",
+                "sl": "Tako je. Voda, kolo, gred, kamna. Preprosto.",
+                "it": "Giusto. Acqua, ruota, albero, macine. Semplice.",
+                "de": "Richtig. Wasser, Rad, Welle, Steine. Ganz einfach."
+              }
+            },
+            {
+              "en": "The water turn the wheel.",
+              "sl": "Voda vrti kolo.",
+              "it": "L'acqua fa girare la ruota.",
+              "de": "Das Wasser dreht das Rad.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "The water is it: the verb takes -s. The water turns.",
+                "sl": "The water je it: glagol dobi -s. The water turns.",
+                "it": "The water è it: il verbo prende la -s. The water turns.",
+                "de": "The water ist it: Das Verb bekommt ein -s. The water turns."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Turn? Aye, it does that. Say it properly, {m:lad|f:lass}.",
+                "sl": "Turn? Ja, to dela. Povej pravilno.",
+                "it": "Turn? Sì, fa così. Dillo per bene, {m:ragazzo|f:ragazza}.",
+                "de": "Turn? Ja, das tut es. Sag's richtig, {m:Junge|f:Mädchen}."
+              }
+            },
+            {
+              "en": "The cat turns the wheel.",
+              "sl": "Mačka vrti kolo.",
+              "it": "Il gatto fa girare la ruota.",
+              "de": "Die Katze dreht das Rad.",
+              "why": {
+                "en": "The cat chases the mice. The water from the beck turns the wheel.",
+                "sl": "Mačka lovi miši. Kolo vrti voda iz potoka.",
+                "it": "Il gatto dà la caccia ai topi. La ruota la fa girare l'acqua del ruscello.",
+                "de": "Die Katze jagt die Mäuse. Das Rad dreht das Wasser vom Bach."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The cat? She can't turn round without falling over the sacks!",
+                "sl": "Mačka? Še obrniti se ne zna, ne da bi padla čez vreče!",
+                "it": "Il gatto? Non riesce nemmeno a girarsi senza inciampare nei sacchi!",
+                "de": "Die Katze? Die kann sich nicht mal umdrehen, ohne über die Säcke zu fallen!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grind",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "tyson",
+          "en": "Now watch, {m:lad|f:lass}. The oats go in the hopper at the top.",
+          "sl": "Zdaj pa glej. Oves gre v grot na vrhu.",
+          "it": "Adesso guarda, {m:ragazzo|f:ragazza}. L'avena va nella tramoggia in alto.",
+          "de": "Jetzt schau zu, {m:Junge|f:Mädchen}. Der Hafer kommt oben in den Trichter.",
+          "fx": { "pour": 0.9 }
+        },
+        {
+          "choices": [
+            {
+              "en": "And then where do they go?",
+              "sl": "Kam pa gre potem?",
+              "it": "E poi dove va?",
+              "de": "Und wohin geht er dann?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Down between the stones. Round and round, and out comes oatmeal.",
+                "sl": "Dol med kamna. Okrog in okrog, ven pa pride ovsena moka.",
+                "it": "Giù tra le macine. Gira e gira, ed esce la farina d'avena.",
+                "de": "Runter zwischen die Steine. Rundherum, und raus kommt Hafermehl.",
+                "fx": { "grind": 1 }
+              }
+            },
+            {
+              "en": "And then where they go?",
+              "sl": "Kam pa gre potem?",
+              "it": "E poi dove va?",
+              "de": "Und wohin geht er dann?",
+              "grammar": "questions-do",
+              "why": {
+                "en": "A question needs do: where do they go?",
+                "sl": "Vprašanje potrebuje do: where do they go?",
+                "it": "La domanda vuole do: where do they go?",
+                "de": "Eine Frage braucht do: where do they go?"
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Where they go … ? Ask me properly, {m:lad|f:lass}.",
+                "sl": "Where they go … ? Vprašaj pravilno.",
+                "it": "Where they go … ? Chiedimelo per bene, {m:ragazzo|f:ragazza}.",
+                "de": "Where they go … ? Frag mich richtig, {m:Junge|f:Mädchen}."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        },
+        {
+          "who": "tyson",
+          "face": "curious",
+          "en": "Look at the sack under the spout. Is it full yet?",
+          "sl": "Poglej vrečo pod žlebom. Je že polna?",
+          "it": "Guarda il sacco sotto il beccuccio. È già pieno?",
+          "de": "Schau dir den Sack unter dem Auslauf an. Ist er schon voll?",
+          "fx": { "sack": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "en": "No, it isn't. It's half full.",
+              "sl": "Ne, ni. Napol je polna.",
+              "it": "No. È pieno a metà.",
+              "de": "Nein. Er ist halb voll.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Right. Another hour, then the next sack.",
+                "sl": "Tako. Še eno uro, potem pa naslednja vreča.",
+                "it": "Giusto. Ancora un'ora, poi il sacco dopo.",
+                "de": "Richtig. Noch eine Stunde, dann der nächste Sack."
+              }
+            },
+            {
+              "en": "No, it not. It's half full.",
+              "sl": "Ne, ni. Napol je polna.",
+              "it": "No. È pieno a metà.",
+              "de": "Nein. Er ist halb voll.",
+              "grammar": "to-be",
+              "why": {
+                "en": "Is it …? Answer with is: no, it isn't (it is not).",
+                "sl": "Is it …? Odgovoriš z is: no, it isn't (it is not).",
+                "it": "Is it …? Si risponde con is: no, it isn't (it is not).",
+                "de": "Is it …? Antworte mit is: no, it isn't (it is not)."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "It not? You've dropped a word in the hopper, {m:lad|f:lass}.",
+                "sl": "It not? Ena beseda ti je padla v grot.",
+                "it": "It not? Ti è caduta una parola nella tramoggia, {m:ragazzo|f:ragazza}.",
+                "de": "It not? Dir ist ein Wort in den Trichter gefallen, {m:Junge|f:Mädchen}."
+              }
+            },
+            {
+              "en": "Yes, it's empty.",
+              "sl": "Ja, prazna je.",
+              "it": "Sì, è vuoto.",
+              "de": "Ja, er ist leer.",
+              "why": {
+                "en": "Full and empty are opposites: the sack is half full, so say no.",
+                "sl": "Polna in prazna sta nasprotji: vreča je napol polna, torej reci ne.",
+                "it": "Pieno e vuoto sono opposti: il sacco è pieno a metà, quindi di' di no.",
+                "de": "Voll und leer sind Gegensätze: Der Sack ist halb voll, also sag nein."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "Yes, and empty? Make up your mind!",
+                "sl": "Ja, in prazna? Odloči se že!",
+                "it": "Sì, e vuoto? Deciditi!",
+                "de": "Ja, und leer? Entscheide dich mal!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "cat",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "surprised",
+          "en": "Shh! Smudge is hunting! Where's the mouse? Show me!",
+          "sl": "Pst! Smudge lovi! Kje je miš? Pokaži mi!",
+          "it": "Sst! Smudge è a caccia! Dov'è il topo? Fammi vedere!",
+          "de": "Pst! Smudge jagt! Wo ist die Maus? Zeig's mir!",
+          "fx": { "cat": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "There! Next to the hole!",
+              "sl": "Tam! Zraven luknje!",
+              "it": "Là! Vicino al buco!",
+              "de": "Da! Neben dem Loch!",
+              "ok": true,
+              "tap": "mouse",
+              "grammar": "prepositions-place",
+              "reply": {
+                "face": "happy",
+                "en": "Yes! Go, Smudge, go!",
+                "sl": "Ja! Daj, Smudge, daj!",
+                "it": "Sì! Vai, Smudge, vai!",
+                "de": "Ja! Los, Smudge, los!",
+                "fx": { "cat": 1 }
+              }
+            },
+            {
+              "en": "There! On the ladder!",
+              "sl": "Tam! Na lestvi!",
+              "it": "Là! Sulla scala!",
+              "de": "Da! Auf der Leiter!",
+              "tap": "ladder",
+              "why": {
+                "en": "Look down low, by the wall: a little grey thing with a long tail.",
+                "sl": "Poglej nizko ob zidu: nekaj majhnega in sivega z dolgim repom.",
+                "it": "Guarda in basso, vicino al muro: una cosina grigia con la coda lunga.",
+                "de": "Schau unten an der Wand: etwas Kleines, Graues mit langem Schwanz."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "On the ladder? That's a spider, silly!",
+                "sl": "Na lestvi? To je pajek, {m:butec|f:butica}!",
+                "it": "Sulla scala? È un ragno, {m:sciocchino|f:sciocchina}!",
+                "de": "Auf der Leiter? Das ist eine Spinne, du Dummerchen!"
+              }
+            },
+            {
+              "en": "There! By the lantern!",
+              "sl": "Tam! Pri svetilki!",
+              "it": "Là! Vicino alla lanterna!",
+              "de": "Da! Bei der Laterne!",
+              "tap": "lantern",
+              "why": {
+                "en": "Mice like dark holes, not lights. Look down low, by the wall.",
+                "sl": "Miši imajo rade temne luknje, ne luči. Poglej nizko ob zidu.",
+                "it": "I topi amano i buchi bui, non le luci. Guarda in basso, vicino al muro.",
+                "de": "Mäuse mögen dunkle Löcher, kein Licht. Schau unten an der Wand."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "By the lantern? Mice don't like the light!",
+                "sl": "Pri svetilki? Miši ne marajo luči!",
+                "it": "Vicino alla lanterna? Ai topi non piace la luce!",
+                "de": "Bei der Laterne? Mäuse mögen kein Licht!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "alfie",
+          "face": "laugh",
+          "en": "Missed! The mouse is too quick! Poor Smudge. Does she like mice?",
+          "sl": "Zgrešila! Miš je prehitra! Uboga Smudge. Ima rada miši?",
+          "it": "Mancato! Il topo è troppo veloce! Povera Smudge. Le piacciono i topi?",
+          "de": "Daneben! Die Maus ist zu schnell! Arme Smudge. Mag sie Mäuse?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, she does. But she can't catch them!",
+              "sl": "Ja. Ampak ujeti jih ne zna!",
+              "it": "Sì. Ma non riesce a prenderli!",
+              "de": "Ja. Aber sie kann sie nicht fangen!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Never! The mouse is the boss of the mill!",
+                "sl": "Nikoli! Miš je šef mlina!",
+                "it": "Mai! Il topo è il capo del mulino!",
+                "de": "Nie! Die Maus ist die Chefin der Mühle!"
+              }
+            },
+            {
+              "en": "Yes, she do. But she can't catch them!",
+              "sl": "Ja. Ampak ujeti jih ne zna!",
+              "it": "Sì. Ma non riesce a prenderli!",
+              "de": "Ja. Aber sie kann sie nicht fangen!",
+              "grammar": "questions-do",
+              "why": {
+                "en": "With she, a short answer takes does: yes, she does.",
+                "sl": "Pri she ima kratek odgovor does: yes, she does.",
+                "it": "Con she la risposta breve vuole does: yes, she does.",
+                "de": "Bei she hat die Kurzantwort does: yes, she does."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "She do? Ha ha! Grandad, did you hear that?",
+                "sl": "She do? Ha ha! Dedi, si slišal?",
+                "it": "She do? Ah ah! Nonno, hai sentito?",
+                "de": "She do? Haha! Opa, hast du das gehört?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        }
+      ]
+    },
+    {
+      "id": "heavy",
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "proud",
+          "en": "{learner}! Look! I can carry a sack! I'm strong!",
+          "sl": "{learner}! Poglej! Vrečo lahko nesem! Močen sem!",
+          "it": "{learner}! Guarda! Riesco a portare un sacco! Sono forte!",
+          "de": "{learner}! Schau! Ich kann einen Sack tragen! Ich bin stark!"
+        },
+        {
+          "choices": [
+            {
+              "en": "Careful, Alfie! It's very heavy.",
+              "sl": "Previdno, Alfie! Zelo težka je.",
+              "it": "Attento, Alfie! È pesantissimo.",
+              "de": "Vorsicht, Alfie! Der ist sehr schwer.",
+              "ok": true,
+              "reply": {
+                "face": "surprised",
+                "en": "Whoa … oops! It fell! Oatmeal everywhere!",
+                "sl": "Ojoj … ups! Padla je! Moka povsod!",
+                "it": "Uh … oops! È caduto! Farina dappertutto!",
+                "de": "Hui … hoppla! Er ist runtergefallen! Überall Hafermehl!",
+                "fx": { "dust": 1 }
+              }
+            },
+            {
+              "en": "Careful, Alfie! It very heavy.",
+              "sl": "Previdno, Alfie! Zelo težka je.",
+              "it": "Attento, Alfie! È pesantissimo.",
+              "de": "Vorsicht, Alfie! Der ist sehr schwer.",
+              "grammar": "to-be",
+              "why": {
+                "en": "English needs the verb be: it's very heavy (it is).",
+                "sl": "Angleščina potrebuje glagol be: it's very heavy (it is).",
+                "it": "L'inglese vuole il verbo be: it's very heavy (it is).",
+                "de": "Englisch braucht das Verb be: it's very heavy (it is)."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "It very? Very what? I'm strong, look!",
+                "sl": "It very? Zelo kaj? Močen sem, poglej!",
+                "it": "It very? Molto cosa? Sono forte, guarda!",
+                "de": "It very? Sehr was? Ich bin stark, schau!",
+                "fx": { "dust": 0.4 }
+              }
+            },
+            {
+              "en": "Great, Alfie! It's very light.",
+              "sl": "Super, Alfie! Zelo lahka je.",
+              "it": "Bravo, Alfie! È leggerissimo.",
+              "de": "Super, Alfie! Der ist ganz leicht.",
+              "why": {
+                "en": "A sack of oatmeal is heavy for a little boy: tell him to be careful.",
+                "sl": "Vreča moke je za majhnega fantka težka: reci mu, naj bo previden.",
+                "it": "Un sacco di farina è pesante per un bambino: digli di stare attento.",
+                "de": "Ein Sack Mehl ist schwer für einen kleinen Jungen: Sag ihm, er soll vorsichtig sein."
+              },
+              "reply": {
+                "face": "proud",
+                "en": "Light? Then I can carry two! Whoa …",
+                "sl": "Lahka? Potem jih lahko nesem dve! Ojoj …",
+                "it": "Leggero? Allora ne porto due! Uh …",
+                "de": "Leicht? Dann trag ich zwei! Hui …"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "laugh",
+          "en": "You're all white! Like a ghost!",
+          "sl": "{m:Ves si bel|f:Vsa si bela}! Kot duh!",
+          "it": "Sei {m:tutto bianco|f:tutta bianca}! Come un fantasma!",
+          "de": "Du bist ganz weiß! Wie ein Gespenst!"
+        },
+        {
+          "choices": [
+            {
+              "en": "You're white too, Alfie!",
+              "sl": "Tudi ti si bel, Alfie!",
+              "it": "Anche tu sei bianco, Alfie!",
+              "de": "Du bist auch weiß, Alfie!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Ha ha! Two ghosts! Don't tell Grandad!",
+                "sl": "Ha ha! Dva duhova! Ne povej dedku!",
+                "it": "Ah ah! Due fantasmi! Non dirlo al nonno!",
+                "de": "Haha! Zwei Gespenster! Sag's nicht Opa!"
+              }
+            },
+            {
+              "en": "You're green too, Alfie!",
+              "sl": "Tudi ti si zelen, Alfie!",
+              "it": "Anche tu sei verde, Alfie!",
+              "de": "Du bist auch grün, Alfie!",
+              "why": {
+                "en": "The oatmeal is white: you're both white.",
+                "sl": "Ovsena moka je bela: oba sta bela.",
+                "it": "La farina d'avena è bianca: siete bianchi tutti e due.",
+                "de": "Das Hafermehl ist weiß: Ihr seid beide weiß."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Green? I'm not a frog!",
+                "sl": "Zelen? Nisem žaba!",
+                "it": "Verde? Non sono una rana!",
+                "de": "Grün? Ich bin doch kein Frosch!"
+              }
+            },
+            {
+              "en": "You white too, Alfie!",
+              "sl": "Tudi ti si bel, Alfie!",
+              "it": "Anche tu sei bianco, Alfie!",
+              "de": "Du bist auch weiß, Alfie!",
+              "grammar": "to-be",
+              "why": {
+                "en": "English needs the verb be: you're white (you are).",
+                "sl": "Angleščina potrebuje glagol be: you're white (you are).",
+                "it": "L'inglese vuole il verbo be: you're white (you are).",
+                "de": "Englisch braucht das Verb be: you're white (you are)."
+              },
+              "reply": {
+                "face": "curious",
+                "en": "Me white? Say it right, {learner}!",
+                "sl": "Me white? Povej prav, {learner}!",
+                "it": "Me white? Dillo bene, {learner}!",
+                "de": "Me white? Sag's richtig, {learner}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        }
+      ]
+    },
+    {
+      "id": "porridge",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "maggie",
+          "face": "happy",
+          "en": "Hello, love! My oats for porridge. Put the bag on the scales, will you?",
+          "sl": "Živjo! Moj oves za kašo. Daš vrečko na tehtnico?",
+          "it": "Ciao, tesoro! La mia avena per il porridge. Mi metti il sacchetto sulla bilancia?",
+          "de": "Hallo, Schatz! Mein Hafer für den Porridge. Legst du die Tüte auf die Waage?",
+          "fx": { "weigh": 0.4 }
+        },
+        {
+          "choices": [
+            {
+              "en": "OK! It's on the scales.",
+              "sl": "Prav! Na tehtnici je.",
+              "it": "Va bene! È sulla bilancia.",
+              "de": "Okay! Sie liegt auf der Waage.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Thank you, love. Ten pounds. Porridge for two weeks!",
+                "sl": "Hvala. Pet kil. Kaše za dva tedna!",
+                "it": "Grazie, tesoro. Cinque chili. Porridge per due settimane!",
+                "de": "Danke, Schatz. Fünf Kilo. Porridge für zwei Wochen!",
+                "fx": { "weigh": 1 }
+              }
+            },
+            {
+              "en": "OK! It's in the scales.",
+              "sl": "Prav! Na tehtnici je.",
+              "it": "Va bene! È sulla bilancia.",
+              "de": "Okay! Sie liegt auf der Waage.",
+              "grammar": "prepositions-place",
+              "why": {
+                "en": "On top of something: on the scales. In is inside it.",
+                "sl": "Na vrhu nečesa: on the scales. In je znotraj.",
+                "it": "Sopra qualcosa: on the scales. In è dentro.",
+                "de": "Oben auf etwas: on the scales. In ist drin."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "In the scales? Is it hiding in there, love?",
+                "sl": "V tehtnici? Se je tam notri skrila?",
+                "it": "Nella bilancia? Si è nascosto lì dentro, tesoro?",
+                "de": "In der Waage? Hat sie sich da drin versteckt, Schatz?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Sorry, love? The stones are loud. Say it again.",
+            "sl": "Prosim? Kamni so glasni. Še enkrat povej.",
+            "it": "Come, tesoro? Le macine fanno rumore. Ripeti.",
+            "de": "Wie bitte, Schatz? Die Steine sind laut. Sag's noch mal."
+          }
+        },
+        {
+          "who": "maggie",
+          "face": "curious",
+          "en": "My mother made porridge with salt, the old way. Do you like porridge, love?",
+          "sl": "Moja mama je kuhala kašo s soljo, po starem. Imaš {m:rad|f:rada} ovseno kašo?",
+          "it": "Mia madre faceva il porridge col sale, all'antica. Ti piace il porridge, tesoro?",
+          "de": "Meine Mutter hat den Porridge mit Salz gemacht, wie früher. Magst du Porridge, Schatz?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I do. With honey!",
+              "sl": "Ja. Z medom!",
+              "it": "Sì. Con il miele!",
+              "de": "Ja. Mit Honig!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "With honey? Lovely. I'll put the kettle on.",
+                "sl": "Z medom? Krasno. Bom pristavila čaj.",
+                "it": "Con il miele? Che bello. Metto su il bollitore.",
+                "de": "Mit Honig? Herrlich. Ich setz den Kessel auf."
+              }
+            },
+            {
+              "en": "Yes, with salt, like your mother!",
+              "sl": "Ja, s soljo, kot tvoja mama!",
+              "it": "Sì, col sale, come tua madre!",
+              "de": "Ja, mit Salz, wie deine Mutter!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Ha! A proper Cumbrian! Come for breakfast.",
+                "sl": "Ha! Čisto po naše! Pridi na zajtrk.",
+                "it": "Ah! Proprio come si fa qui! Vieni a colazione.",
+                "de": "Ha! Ganz wie bei uns! Komm zum Frühstück."
+              }
+            },
+            {
+              "en": "Yes, I likes it.",
+              "sl": "Ja, {m:rad|f:rada} jo imam.",
+              "it": "Sì, mi piace.",
+              "de": "Ja, ich mag ihn.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "With I, the verb has no -s: I like it.",
+                "sl": "Pri I glagol nima -s: I like it.",
+                "it": "Con I il verbo non prende la -s: I like it.",
+                "de": "Bei I hat das Verb kein -s: I like it."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "You likes it? Ha! You've been talking to Alfie, love.",
+                "sl": "You likes it? Ha! Z Alfiejem si se {m:pogovarjal|f:pogovarjala}.",
+                "it": "You likes it? Ah! Hai parlato con Alfie, tesoro.",
+                "de": "You likes it? Ha! Du hast mit Alfie geredet, Schatz."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Sorry, love? The stones are loud. Say it again.",
+            "sl": "Prosim? Kamni so glasni. Še enkrat povej.",
+            "it": "Come, tesoro? Le macine fanno rumore. Ripeti.",
+            "de": "Wie bitte, Schatz? Die Steine sind laut. Sag's noch mal."
+          }
+        }
+      ]
+    },
+    {
+      "id": "multure",
+      "fx_stays": true,
+      "lines": [
+        {
+          "who": "dixon",
+          "en": "Morning. Three sacks of oats, for grinding. The miller takes his multure: one measure from every sack.",
+          "sl": "Jutro. Tri vreče ovsa, za mletje. Mlinar vzame svojo merico: en mernik iz vsake vreče.",
+          "it": "Buongiorno. Tre sacchi d'avena, da macinare. Il mugnaio prende la sua molenda: una misura da ogni sacco.",
+          "de": "Morgen. Drei Säcke Hafer, zum Mahlen. Der Müller nimmt seine Mahlmetze: ein Maß aus jedem Sack.",
+          "fx": { "toll": 0.3 }
+        },
+        {
+          "who": "dixon",
+          "face": "curious",
+          "en": "Who takes the multure, {m:lad|f:lass}?",
+          "sl": "Kdo vzame merico?",
+          "it": "Chi prende la molenda, {m:ragazzo|f:ragazza}?",
+          "de": "Wer nimmt die Mahlmetze, {m:Junge|f:Mädchen}?"
+        },
+        {
+          "choices": [
+            {
+              "en": "The miller takes it.",
+              "sl": "Vzame ga mlinar.",
+              "it": "La prende il mugnaio.",
+              "de": "Der Müller nimmt sie.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Aye. His pay. Fair work, fair pay.",
+                "sl": "Ja. Njegovo plačilo. Pošteno delo, pošteno plačilo.",
+                "it": "Sì. La sua paga. Lavoro onesto, paga onesta.",
+                "de": "Ja. Sein Lohn. Ehrliche Arbeit, ehrlicher Lohn."
+              }
+            },
+            {
+              "en": "The miller take it.",
+              "sl": "Vzame ga mlinar.",
+              "it": "La prende il mugnaio.",
+              "de": "Der Müller nimmt sie.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "The miller is he: the verb takes -s. The miller takes it.",
+                "sl": "The miller je he: glagol dobi -s. The miller takes it.",
+                "it": "The miller è he: il verbo prende la -s. The miller takes it.",
+                "de": "The miller ist he: Das Verb bekommt ein -s. The miller takes it."
+              },
+              "reply": {
+                "face": "cross",
+                "en": "Take? It's right, or it isn't, {m:lad|f:lass}.",
+                "sl": "Take? Ali je prav ali pa ni.",
+                "it": "Take? O è giusto o non lo è, {m:ragazzo|f:ragazza}.",
+                "de": "Take? Entweder es stimmt, oder nicht, {m:Junge|f:Mädchen}."
+              }
+            },
+            {
+              "en": "The cat takes it.",
+              "sl": "Vzame jo mačka.",
+              "it": "La prende il gatto.",
+              "de": "Die Katze nimmt sie.",
+              "why": {
+                "en": "The multure is the miller's pay: the miller takes it.",
+                "sl": "Merica je mlinarjevo plačilo: vzame jo mlinar.",
+                "it": "La molenda è la paga del mugnaio: la prende lui.",
+                "de": "Die Mahlmetze ist der Lohn des Müllers: Er nimmt sie."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "The cat? The cat gets mice. Not oats.",
+                "sl": "Mačka? Mačka dobi miši. Ne ovsa.",
+                "it": "Il gatto? Il gatto prende i topi. Non l'avena.",
+                "de": "Die Katze? Die Katze kriegt Mäuse. Keinen Hafer."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Again. Slowly.",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "it": "Hm? Di nuovo. Piano.",
+            "de": "Hm? Noch mal. Langsam."
+          }
+        },
+        {
+          "who": "dixon",
+          "face": "curious",
+          "en": "Hold the measure. Is it full?",
+          "sl": "Drži mernik. Je poln?",
+          "it": "Tieni la misura. È piena?",
+          "de": "Halt das Maß. Ist es voll?",
+          "fx": { "toll": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, it's full of oats.",
+              "sl": "Ja, poln je ovsa.",
+              "it": "Sì, è piena d'avena.",
+              "de": "Ja, sie ist voll Hafer.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Good. Not one oat more.",
+                "sl": "Dobro. Niti zrna več.",
+                "it": "Bene. Neanche un chicco di più.",
+                "de": "Gut. Kein Korn mehr."
+              }
+            },
+            {
+              "en": "Yes, it's full of water.",
+              "sl": "Ja, poln je vode.",
+              "it": "Sì, è piena d'acqua.",
+              "de": "Ja, es ist voll Wasser.",
+              "why": {
+                "en": "The measure is for the miller's share: oats.",
+                "sl": "Mernik je za mlinarjev delež: oves.",
+                "it": "La misura è per la parte del mugnaio: avena.",
+                "de": "Das Maß ist für den Anteil des Müllers: Hafer."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Water? The miller wants oats, not a bath.",
+                "sl": "Vode? Mlinar hoče oves, ne kopeli.",
+                "it": "Acqua? Il mugnaio vuole l'avena, non un bagno.",
+                "de": "Wasser? Der Müller will Hafer, kein Bad."
+              }
+            },
+            {
+              "en": "Yes, it full of oats.",
+              "sl": "Ja, poln je ovsa.",
+              "it": "Sì, è piena d'avena.",
+              "de": "Ja, sie ist voll Hafer.",
+              "grammar": "to-be",
+              "why": {
+                "en": "English needs the verb be: it's full (it is).",
+                "sl": "Angleščina potrebuje glagol be: it's full (it is).",
+                "it": "L'inglese vuole il verbo be: it's full (it is).",
+                "de": "Englisch braucht das Verb be: it's full (it is)."
+              },
+              "reply": {
+                "face": "cross",
+                "en": "It full? Wrong. Again.",
+                "sl": "It full? Narobe. Še enkrat.",
+                "it": "It full? Sbagliato. Di nuovo.",
+                "de": "It full? Falsch. Noch mal."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Again. Slowly.",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "it": "Hm? Di nuovo. Piano.",
+            "de": "Hm? Noch mal. Langsam."
+          }
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "start-ice",
+      "months": [12, 1, 2],
+      "fx_stays": true,
+      "memory": {
+        "en": "the icy morning the wheel wouldn't turn",
+        "sl": "ledeno jutro, ko se kolo ni hotelo vrteti",
+        "it": "la mattina di ghiaccio in cui la ruota non voleva girare",
+        "de": "den eisigen Morgen, an dem sich das Rad nicht drehen wollte"
+      },
+      "lines": [
+        {
+          "who": "tyson",
+          "face": "worried",
+          "en": "Cold morning, {m:lad|f:lass}. Ice on the wheel. It won't turn.",
+          "sl": "Mrzlo jutro. Na kolesu je led. Ne bo se vrtelo.",
+          "it": "Mattina fredda, {m:ragazzo|f:ragazza}. C'è ghiaccio sulla ruota. Non gira.",
+          "de": "Kalter Morgen, {m:Junge|f:Mädchen}. Eis auf dem Rad. Es dreht sich nicht.",
+          "fx": { "lantern": 1, "grind": 0 }
+        },
+        {
+          "choices": [
+            {
+              "en": "What can we do?",
+              "sl": "Kaj lahko narediva?",
+              "it": "Cosa possiamo fare?",
+              "de": "Was können wir tun?",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "en": "Hot water from the kettle. On the wheel, a bit at a time.",
+                "sl": "Vroča voda iz čajnika. Na kolo, malo po malo.",
+                "it": "Acqua calda dal bollitore. Sulla ruota, poco alla volta.",
+                "de": "Heißes Wasser aus dem Kessel. Aufs Rad, nach und nach."
+              }
+            },
+            {
+              "en": "What we can do?",
+              "sl": "Kaj lahko narediva?",
+              "it": "Cosa possiamo fare?",
+              "de": "Was können wir tun?",
+              "grammar": "can",
+              "why": {
+                "en": "In a question, can comes before we: what can we do?",
+                "sl": "V vprašanju pride can pred we: what can we do?",
+                "it": "Nella domanda can va prima di we: what can we do?",
+                "de": "In der Frage steht can vor we: what can we do?"
+              },
+              "reply": {
+                "face": "confused",
+                "en": "We can do … aye, something. But what's your question?",
+                "sl": "We can do … ja, nekaj. Kaj pa je vprašanje?",
+                "it": "We can do … sì, qualcosa. Ma qual è la domanda?",
+                "de": "We can do … ja, irgendwas. Aber was ist deine Frage?"
+              }
+            },
+            {
+              "en": "What can we eat?",
+              "sl": "Kaj lahko jeva?",
+              "it": "Cosa possiamo mangiare?",
+              "de": "Was können wir essen?",
+              "why": {
+                "en": "The wheel is the problem now: ask what you can do. Food comes later.",
+                "sl": "Zdaj je težava kolo: vprašaj, kaj lahko narediš. Hrana pride pozneje.",
+                "it": "Il problema adesso è la ruota: chiedi cosa potete fare. Il cibo viene dopo.",
+                "de": "Das Problem ist jetzt das Rad: Frag, was ihr tun könnt. Das Essen kommt später."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Eat? Porridge later. The wheel first!",
+                "sl": "Jesti? Kaša pozneje. Najprej kolo!",
+                "it": "Mangiare? Il porridge dopo. Prima la ruota!",
+                "de": "Essen? Porridge später. Erst das Rad!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        },
+        {
+          "who": "tyson",
+          "face": "curious",
+          "en": "It's moving … slowly … there! It's cold in here. Are you cold?",
+          "sl": "Premika se … počasi … tako! Mrzlo je tukaj. Te zebe?",
+          "it": "Si muove … piano … ecco! Fa freddo qui dentro. Hai freddo?",
+          "de": "Es bewegt sich … langsam … da! Kalt hier drin. Ist dir kalt?",
+          "fx": { "grind": 0.3 }
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I am. My hands are cold!",
+              "sl": "Ja. Roke me zebejo!",
+              "it": "Sì. Ho le mani fredde!",
+              "de": "Ja. Meine Hände sind kalt!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Stand by the stones. They get warm when they turn.",
+                "sl": "Stopi h kamnoma. Ko se vrtita, se ogrejeta.",
+                "it": "Mettiti vicino alle macine. Quando girano si scaldano.",
+                "de": "Stell dich zu den Steinen. Wenn sie sich drehen, werden sie warm."
+              }
+            },
+            {
+              "en": "No, I'm fine, thanks.",
+              "sl": "Ne, v redu sem, hvala.",
+              "it": "No, sto bene, grazie.",
+              "de": "Nein, mir geht's gut, danke.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Young blood. I was the same at your age.",
+                "sl": "Mlada kri. Pri tvojih letih sem bil enak.",
+                "it": "Sangue giovane. Alla tua età ero uguale.",
+                "de": "Junges Blut. In deinem Alter war ich genauso."
+              }
+            },
+            {
+              "en": "Yes, I have cold.",
+              "sl": "Ja, mrzlo mi je.",
+              "it": "Sì, ho freddo.",
+              "de": "Ja, mir ist kalt.",
+              "grammar": "to-be",
+              "why": {
+                "en": "In English you are cold: I'm cold. I have a cold means you're ill.",
+                "sl": "V angleščini si cold (be): I'm cold. I have a cold pomeni, da si {m:prehlajen|f:prehlajena}.",
+                "it": "In inglese il freddo si è (be): I'm cold. I have a cold vuol dire che sei {m:raffreddato|f:raffreddata}.",
+                "de": "Im Englischen ist man kalt (be): I'm cold. I have a cold heißt, du bist erkältet."
+              },
+              "reply": {
+                "face": "worried",
+                "en": "You've got a cold? Then home to bed, {m:lad|f:lass}!",
+                "sl": "Prehlad? Potem pa domov v posteljo!",
+                "it": "Hai il raffreddore? Allora a casa, a letto, {m:ragazzo|f:ragazza}!",
+                "de": "Du bist erkältet? Dann ab nach Hause ins Bett, {m:Junge|f:Mädchen}!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "grind-count",
+      "count": { "from": "dice", "min": 6, "max": 30 },
+      "memory": {
+        "en": "reading out Mr Tyson's notebook",
+        "sl": "ko sem {m:bral|f:brala} beležnico gospoda Tysona",
+        "it": "quando ho letto il taccuino del signor Tyson",
+        "de": "wie ich Mr Tysons Notizbuch vorgelesen habe"
+      },
+      "lines": [
+        {
+          "who": "tyson",
+          "face": "thinking",
+          "en": "My notebook says {n} sacks of oats this year. My glasses are at home. Read it out for me, {m:lad|f:lass}.",
+          "sl": "V beležnici piše {n} {vreča|vreči|vreče|vreč} ovsa letos. Očala imam doma. Preberi mi.",
+          "it": "Sul mio taccuino c'è scritto {n} sacchi d'avena quest'anno. Gli occhiali li ho a casa. Leggilo tu, {m:ragazzo|f:ragazza}.",
+          "de": "In meinem Notizbuch steht {n} Säcke Hafer dieses Jahr. Meine Brille ist daheim. Lies es mir vor, {m:Junge|f:Mädchen}."
+        },
+        {
+          "choices": [
+            {
+              "en": "There {is|are} {n} sacks of oats.",
+              "sl": "Ovsa {je|sta|so|je} {n} {vreča|vreči|vreče|vreč}.",
+              "it": "Ci sono {n} sacchi d'avena.",
+              "de": "Es sind {n} Säcke Hafer.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Good. Porridge till the spring, then.",
+                "sl": "Dobro. Potem bo kaše do pomladi.",
+                "it": "Bene. Allora porridge fino alla primavera.",
+                "de": "Gut. Dann reicht der Porridge bis zum Frühling."
+              }
+            },
+            {
+              "en": "There {is|are} {n} sack of oats.",
+              "sl": "Ovsa {je|sta|so|je} {n} {vreča|vreči|vreče|vreč}.",
+              "it": "Ci sono {n} sacchi d'avena.",
+              "de": "Es sind {n} Säcke Hafer.",
+              "grammar": "plurals",
+              "why": {
+                "en": "More than one: sacks, with -s. There are {n} sacks.",
+                "sl": "Več kot ena: sacks, z -s. There are {n} sacks.",
+                "it": "Più di uno: sacks, con la -s. There are {n} sacks.",
+                "de": "Mehr als einer: sacks, mit -s. There are {n} sacks."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "One sack? For the whole village? We'll starve!",
+                "sl": "Ena vreča? Za vso vas? Lačni bomo!",
+                "it": "Un sacco? Per tutto il paese? Moriremo di fame!",
+                "de": "Ein Sack? Fürs ganze Dorf? Da verhungern wir!"
+              }
+            },
+            {
+              "en": "There {!is|are} {n} sacks of oats.",
+              "sl": "Ovsa {!je|sta|so|je} {n} {vreča|vreči|vreče|vreč}.",
+              "it": "Ci sono {n} sacchi d'avena.",
+              "de": "Es sind {n} Säcke Hafer.",
+              "wrong_form": 1,
+              "grammar": "there-is-are",
+              "why": {
+                "en": "More than one takes are: there are {n} sacks.",
+                "sl": "Za več je are: there are {n} sacks.",
+                "it": "Per più di uno si dice are: there are {n} sacks.",
+                "de": "Bei mehreren heißt es are: there are {n} sacks."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Hm? Read it again. Slowly.",
+                "sl": "Hm? Še enkrat preberi. Počasi.",
+                "it": "Hm? Rileggi. Piano.",
+                "de": "Hm? Lies noch mal. Langsam."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        },
+        {
+          "who": "tyson",
+          "face": "curious",
+          "en": "Is there any oatmeal left in the hopper?",
+          "sl": "Je v grotu še kaj ovsene moke?",
+          "it": "È rimasta un po' di farina d'avena nella tramoggia?",
+          "de": "Ist noch Hafermehl im Trichter?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, there's some oatmeal left.",
+              "sl": "Ja, nekaj ovsene moke je še ostalo.",
+              "it": "Sì, è rimasta un po' di farina d'avena.",
+              "de": "Ja, es ist noch etwas Hafermehl übrig.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Some is good. Some is breakfast.",
+                "sl": "Nekaj je dobro. Nekaj je zajtrk.",
+                "it": "Un po' va bene. Un po' è la colazione.",
+                "de": "Etwas ist gut. Etwas ist Frühstück."
+              }
+            },
+            {
+              "en": "Yes, there's any oatmeal left.",
+              "sl": "Ja, nekaj ovsene moke je še ostalo.",
+              "it": "Sì, è rimasta un po' di farina d'avena.",
+              "de": "Ja, es ist noch etwas Hafermehl übrig.",
+              "grammar": "some-any",
+              "why": {
+                "en": "In a yes sentence: some. Any is for questions and for not.",
+                "sl": "V trdilnem stavku: some. Any je za vprašanja in za not.",
+                "it": "Nella frase affermativa: some. Any è per le domande e con not.",
+                "de": "Im bejahten Satz: some. Any ist für Fragen und mit not."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "Any? So is there or isn't there, {m:lad|f:lass}?",
+                "sl": "Any? Torej je ali ni?",
+                "it": "Any? Allora c'è o non c'è, {m:ragazzo|f:ragazza}?",
+                "de": "Any? Also ist was da oder nicht, {m:Junge|f:Mädchen}?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Eh? Slowly, {m:lad|f:lass}. One word at a time.",
+            "sl": "Kaj? Počasi. Besedo za besedo.",
+            "it": "Eh? Piano, {m:ragazzo|f:ragazza}. Una parola alla volta.",
+            "de": "Hm? Langsam, {m:Junge|f:Mädchen}. Ein Wort nach dem anderen."
+          }
+        }
+      ]
+    },
+    {
+      "id": "cat-name",
+      "memory": {
+        "en": "why a mill needs a cat",
+        "sl": "zakaj mlin potrebuje mačko",
+        "it": "perché un mulino ha bisogno di un gatto",
+        "de": "warum eine Mühle eine Katze braucht"
+      },
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "curious",
+          "en": "Grandad says a mill needs a cat. Why?",
+          "sl": "Dedek pravi, da mlin potrebuje mačko. Zakaj?",
+          "it": "Il nonno dice che un mulino ha bisogno di un gatto. Perché?",
+          "de": "Opa sagt, eine Mühle braucht eine Katze. Warum?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Because mice eat the oats.",
+              "sl": "Ker miši jedo oves.",
+              "it": "Perché i topi mangiano l'avena.",
+              "de": "Weil Mäuse den Hafer fressen.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Yes! And they make holes in the sacks!",
+                "sl": "Ja! Pa luknje delajo v vreče!",
+                "it": "Sì! E fanno i buchi nei sacchi!",
+                "de": "Ja! Und sie machen Löcher in die Säcke!"
+              }
+            },
+            {
+              "en": "Because mice eats the oats.",
+              "sl": "Ker miši jedo oves.",
+              "it": "Perché i topi mangiano l'avena.",
+              "de": "Weil Mäuse den Hafer fressen.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "Mice is more than one mouse: mice eat, without -s.",
+                "sl": "Mice je več kot ena miš: mice eat, brez -s.",
+                "it": "Mice sono più topi: mice eat, senza la -s.",
+                "de": "Mice sind mehrere Mäuse: mice eat, ohne -s."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Mice eats? Ha ha! You sound like me!",
+                "sl": "Mice eats? Ha ha! Kot jaz se slišiš!",
+                "it": "Mice eats? Ah ah! Sembri me!",
+                "de": "Mice eats? Haha! Du klingst wie ich!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "curious",
+          "en": "How many mice are in the mill, {learner}?",
+          "sl": "Koliko miši je v mlinu, {learner}?",
+          "it": "Quanti topi ci sono nel mulino, {learner}?",
+          "de": "Wie viele Mäuse sind in der Mühle, {learner}?"
+        },
+        {
+          "choices": [
+            {
+              "en": "I don't know. Lots of mice!",
+              "sl": "Ne vem. Veliko miši!",
+              "it": "Non lo so. Tantissimi topi!",
+              "de": "Weiß ich nicht. Ganz viele Mäuse!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Lots! A hundred! A million!",
+                "sl": "Veliko! Sto! Milijon!",
+                "it": "Tantissimi! Cento! Un milione!",
+                "de": "Ganz viele! Hundert! Eine Million!"
+              }
+            },
+            {
+              "en": "I don't know. Lots of mouses!",
+              "sl": "Ne vem. Veliko miši!",
+              "it": "Non lo so. Tantissimi topi!",
+              "de": "Weiß ich nicht. Ganz viele Mäuse!",
+              "grammar": "plurals",
+              "why": {
+                "en": "One mouse, two mice: mouses isn't a word.",
+                "sl": "One mouse, two mice: mouses ni beseda.",
+                "it": "One mouse, two mice: mouses non esiste.",
+                "de": "One mouse, two mice: mouses gibt es nicht."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Mouses? Ha ha ha! Mouses!",
+                "sl": "Mouses? Ha ha ha! Mouses!",
+                "it": "Mouses? Ah ah ah! Mouses!",
+                "de": "Mouses? Hahaha! Mouses!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        }
+      ]
+    },
+    {
+      "id": "heavy-sieve",
+      "memory": {
+        "en": "the oatmeal through the sieve with Alfie",
+        "sl": "ko sva z Alfiejem sejala ovseno moko",
+        "it": "la farina d'avena setacciata con Alfie",
+        "de": "das Hafermehl, das ich mit Alfie gesiebt habe"
+      },
+      "lines": [
+        {
+          "who": "alfie",
+          "face": "proud",
+          "en": "Grandad says: shake the oatmeal through the sieve. Look! The fine bits go through. The big bits stay on top!",
+          "sl": "Dedek pravi: preseji ovseno moko skozi sito. Poglej! Drobno gre skozi. Veliki koščki ostanejo zgoraj!",
+          "it": "Il nonno dice: setaccia la farina d'avena. Guarda! La parte fine passa. I pezzi grossi restano sopra!",
+          "de": "Opa sagt: Siebe das Hafermehl. Schau! Das Feine geht durch. Die großen Stücke bleiben oben!",
+          "fx": { "dust": 0.3 }
+        },
+        {
+          "choices": [
+            {
+              "en": "What do we do with the big bits?",
+              "sl": "Kaj pa narediva z velikimi koščki?",
+              "it": "Cosa facciamo con i pezzi grossi?",
+              "de": "Was machen wir mit den großen Stücken?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "We give them to Granny Maggie's hens!",
+                "sl": "Damo jih kokošim babice Maggie!",
+                "it": "Li diamo alle galline di nonna Maggie!",
+                "de": "Die kriegen Oma Maggies Hühner!"
+              }
+            },
+            {
+              "en": "What we do with the big bits?",
+              "sl": "Kaj pa narediva z velikimi koščki?",
+              "it": "Cosa facciamo con i pezzi grossi?",
+              "de": "Was machen wir mit den großen Stücken?",
+              "grammar": "questions-do",
+              "why": {
+                "en": "A question needs do: what do we do with them?",
+                "sl": "Vprašanje potrebuje do: what do we do with them?",
+                "it": "La domanda vuole do: what do we do with them?",
+                "de": "Eine Frage braucht do: what do we do with them?"
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "What we do? We shake! Shake, shake!",
+                "sl": "What we do? Stresava! Stresi, stresi!",
+                "it": "What we do? Scuotiamo! Scuoti, scuoti!",
+                "de": "What we do? Wir schütteln! Schüttel, schüttel!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        },
+        {
+          "who": "alfie",
+          "face": "curious",
+          "en": "Can you shake it too?",
+          "sl": "Ga lahko tudi ti stresaš?",
+          "it": "Riesci a scuoterlo anche tu?",
+          "de": "Kannst du auch schütteln?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I can shake it. Look!",
+              "sl": "Ja, lahko ga stresam. Poglej!",
+              "it": "Sì, posso scuoterlo. Guarda!",
+              "de": "Ja, ich kann es schütteln. Schau!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "en": "Too hard! Now we're white again!",
+                "sl": "Premočno! Zdaj sva spet bela!",
+                "it": "Troppo forte! Adesso siamo di nuovo bianchi!",
+                "de": "Zu fest! Jetzt sind wir wieder weiß!",
+                "fx": { "dust": 0.8 }
+              }
+            },
+            {
+              "en": "Yes, I can shakes it. Look!",
+              "sl": "Ja, lahko ga stresam. Poglej!",
+              "it": "Sì, posso scuoterlo. Guarda!",
+              "de": "Ja, ich kann es schütteln. Schau!",
+              "grammar": "can",
+              "why": {
+                "en": "After can, the verb has no -s: I can shake it.",
+                "sl": "Za can glagol nima -s: I can shake it.",
+                "it": "Dopo can il verbo non prende la -s: I can shake it.",
+                "de": "Nach can hat das Verb kein -s: I can shake it."
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "Shakes? Ha! Grandad says that's wrong!",
+                "sl": "Shakes? Ha! Dedek pravi, da je to narobe!",
+                "it": "Shakes? Ah! Il nonno dice che è sbagliato!",
+                "de": "Shakes? Ha! Opa sagt, das ist falsch!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Huh? I don't get it.",
+            "sl": "A? Ne razumem.",
+            "it": "Eh? Non capisco.",
+            "de": "Hä? Versteh ich nicht."
+          }
+        }
+      ]
+    },
+    {
+      "id": "porridge-oatcakes",
+      "memory": {
+        "en": "Granny Maggie's mother's oatcakes",
+        "sl": "ovsene piškote mame babice Maggie",
+        "it": "le gallette d'avena della mamma di nonna Maggie",
+        "de": "die Haferkekse von Oma Maggies Mutter"
+      },
+      "lines": [
+        {
+          "who": "maggie",
+          "face": "happy",
+          "en": "This fine oatmeal is for oatcakes, love. My mother made them on the griddle.",
+          "sl": "Ta drobna ovsena moka je za ovsene piškote. Moja mama jih je pekla na plošči.",
+          "it": "Questa farina d'avena fine è per le gallette, tesoro. Mia madre le cuoceva sulla piastra.",
+          "de": "Dieses feine Hafermehl ist für Haferkekse, Schatz. Meine Mutter hat sie auf der Backplatte gebacken.",
+          "fx": { "weigh": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "What do you need for oatcakes?",
+              "sl": "Kaj potrebuješ za ovsene piškote?",
+              "it": "Cosa ti serve per le gallette d'avena?",
+              "de": "Was brauchst du für Haferkekse?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Oatmeal, water, a bit of salt. That's all!",
+                "sl": "Ovseno moko, vodo, ščepec soli. To je vse!",
+                "it": "Farina d'avena, acqua, un pizzico di sale. Tutto qui!",
+                "de": "Hafermehl, Wasser, ein bisschen Salz. Das ist alles!"
+              }
+            },
+            {
+              "en": "What you need for oatcakes?",
+              "sl": "Kaj potrebuješ za ovsene piškote?",
+              "it": "Cosa ti serve per le gallette d'avena?",
+              "de": "Was brauchst du für Haferkekse?",
+              "grammar": "questions-do",
+              "why": {
+                "en": "A question needs do: what do you need?",
+                "sl": "Vprašanje potrebuje do: what do you need?",
+                "it": "La domanda vuole do: what do you need?",
+                "de": "Eine Frage braucht do: what do you need?"
+              },
+              "reply": {
+                "face": "laugh",
+                "en": "What I need? A bit of help, love, that's what!",
+                "sl": "Kaj potrebujem? Malo pomoči, to!",
+                "it": "Cosa mi serve? Un po' d'aiuto, tesoro, ecco cosa!",
+                "de": "Was ich brauche? Ein bisschen Hilfe, Schatz, das!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Sorry, love? The stones are loud. Say it again.",
+            "sl": "Prosim? Kamni so glasni. Še enkrat povej.",
+            "it": "Come, tesoro? Le macine fanno rumore. Ripeti.",
+            "de": "Wie bitte, Schatz? Die Steine sind laut. Sag's noch mal."
+          }
+        },
+        {
+          "who": "maggie",
+          "face": "curious",
+          "en": "Will you come on Saturday? We can make them together.",
+          "sl": "Prideš v soboto? Lahko jih skupaj speceva.",
+          "it": "Vieni sabato? Possiamo farle insieme.",
+          "de": "Kommst du am Samstag? Wir können sie zusammen machen."
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I will!",
+              "sl": "Ja, bom!",
+              "it": "Sì, verrò!",
+              "de": "Ja, komme ich!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Lovely. Bring your appetite, love.",
+                "sl": "Krasno. Prinesi s sabo tek.",
+                "it": "Che bello. Porta l'appetito, tesoro.",
+                "de": "Schön. Bring Hunger mit, Schatz."
+              }
+            },
+            {
+              "en": "Sorry, I can't on Saturday.",
+              "sl": "Oprosti, v soboto ne morem.",
+              "it": "Scusa, sabato non posso.",
+              "de": "Tut mir leid, am Samstag kann ich nicht.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Never mind, love. Sunday, then.",
+                "sl": "Nič hudega. Pa v nedeljo.",
+                "it": "Non importa, tesoro. Allora domenica.",
+                "de": "Macht nichts, Schatz. Dann Sonntag."
+              }
+            },
+            {
+              "en": "Yes, I come!",
+              "sl": "Ja, pridem!",
+              "it": "Sì, vengo!",
+              "de": "Ja, ich komme!",
+              "grammar": "future",
+              "why": {
+                "en": "Will you …? Answer with will: yes, I will.",
+                "sl": "Will you …? Odgovoriš z will: yes, I will.",
+                "it": "Will you …? Si risponde con will: yes, I will.",
+                "de": "Will you …? Antworte mit will: yes, I will."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "You come? Now? But it's only Tuesday, love!",
+                "sl": "Prideš? Zdaj? Saj je šele torek!",
+                "it": "Vieni? Adesso? Ma è solo martedì, tesoro!",
+                "de": "Du kommst? Jetzt? Es ist doch erst Dienstag, Schatz!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Sorry, love? The stones are loud. Say it again.",
+            "sl": "Prosim? Kamni so glasni. Še enkrat povej.",
+            "it": "Come, tesoro? Le macine fanno rumore. Ripeti.",
+            "de": "Wie bitte, Schatz? Die Steine sind laut. Sag's noch mal."
+          }
+        }
+      ]
+    },
+    {
+      "id": "multure-weigh",
+      "fx_stays": true,
+      "memory": {
+        "en": "weighing Mr Dixon's oats",
+        "sl": "ko sva tehtala oves gospoda Dixona",
+        "it": "quando abbiamo pesato l'avena del signor Dixon",
+        "de": "wie wir Mr Dixons Hafer gewogen haben"
+      },
+      "lines": [
+        {
+          "who": "dixon",
+          "en": "The miller weighs everything. Put my bag on the scales, {m:lad|f:lass}. What does it say?",
+          "sl": "Mlinar vse stehta. Daj mojo vrečo na tehtnico. Koliko kaže?",
+          "it": "Il mugnaio pesa tutto. Metti il mio sacco sulla bilancia, {m:ragazzo|f:ragazza}. Quanto segna?",
+          "de": "Der Müller wiegt alles. Leg meinen Sack auf die Waage, {m:Junge|f:Mädchen}. Was zeigt sie?",
+          "fx": { "weigh": 1 }
+        },
+        {
+          "choices": [
+            {
+              "en": "It weighs ten pounds.",
+              "sl": "Tehta pet kil.",
+              "it": "Pesa cinque chili.",
+              "de": "Er wiegt fünf Kilo.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "en": "Ten pounds. Right. I'll remember.",
+                "sl": "Pet kil. Prav. Si bom zapomnil.",
+                "it": "Cinque chili. Bene. Me lo ricordo.",
+                "de": "Fünf Kilo. Gut. Merk ich mir."
+              }
+            },
+            {
+              "en": "It weigh ten pounds.",
+              "sl": "Tehta pet kil.",
+              "it": "Pesa cinque chili.",
+              "de": "Er wiegt fünf Kilo.",
+              "grammar": "present-simple",
+              "why": {
+                "en": "It: the verb takes -s. It weighs.",
+                "sl": "It: glagol dobi -s. It weighs.",
+                "it": "It: il verbo prende la -s. It weighs.",
+                "de": "It: Das Verb bekommt ein -s. It weighs."
+              },
+              "reply": {
+                "face": "cross",
+                "en": "Weigh? Again. Properly.",
+                "sl": "Weigh? Še enkrat. Pravilno.",
+                "it": "Weigh? Di nuovo. Per bene.",
+                "de": "Weigh? Noch mal. Richtig."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Again. Slowly.",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "it": "Hm? Di nuovo. Piano.",
+            "de": "Hm? Noch mal. Langsam."
+          }
+        },
+        {
+          "who": "dixon",
+          "face": "curious",
+          "en": "Did you weigh the last bag too?",
+          "sl": "Si {m:stehtal|f:stehtala} tudi zadnjo vrečo?",
+          "it": "Hai pesato anche l'ultimo sacco?",
+          "de": "Hast du den letzten Sack auch gewogen?"
+        },
+        {
+          "choices": [
+            {
+              "en": "Yes, I did. It was the same.",
+              "sl": "Ja. Bila je enaka.",
+              "it": "Sì. Era uguale.",
+              "de": "Ja. Er war gleich.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "en": "Good. Same oats, same weight. Honest mill.",
+                "sl": "Dobro. Isti oves, ista teža. Pošten mlin.",
+                "it": "Bene. Stessa avena, stesso peso. Un mulino onesto.",
+                "de": "Gut. Gleicher Hafer, gleiches Gewicht. Ehrliche Mühle."
+              }
+            },
+            {
+              "en": "Yes, I do. It was the same.",
+              "sl": "Ja. Bila je enaka.",
+              "it": "Sì. Era uguale.",
+              "de": "Ja. Er war gleich.",
+              "grammar": "past-simple",
+              "why": {
+                "en": "Did you …? Answer with did: yes, I did.",
+                "sl": "Did you …? Odgovoriš z did: yes, I did.",
+                "it": "Did you …? Si risponde con did: yes, I did.",
+                "de": "Did you …? Antworte mit did: yes, I did."
+              },
+              "reply": {
+                "face": "confused",
+                "en": "You do? Today? I asked about the last bag.",
+                "sl": "Danes? Vprašal sem za zadnjo vrečo.",
+                "it": "Oggi? Ho chiesto dell'ultimo sacco.",
+                "de": "Heute? Ich hab nach dem letzten Sack gefragt."
+              }
+            },
+            {
+              "en": "Yes, I did. It was a cat.",
+              "sl": "Ja. Bila je mačka.",
+              "it": "Sì. Era un gatto.",
+              "de": "Ja. Es war eine Katze.",
+              "why": {
+                "en": "A bag of oats weighs the same: it was the same.",
+                "sl": "Vreča ovsa tehta enako: bila je enaka.",
+                "it": "Un sacco d'avena pesa uguale: era uguale.",
+                "de": "Ein Sack Hafer wiegt gleich viel: Er war gleich."
+              },
+              "reply": {
+                "face": "surprised",
+                "en": "A cat? In my bag of oats? No wonder it moved.",
+                "sl": "Mačka? V moji vreči ovsa? Nič čudnega, da se je premikala.",
+                "it": "Un gatto? Nel mio sacco d'avena? Per forza si muoveva.",
+                "de": "Eine Katze? In meinem Hafersack? Kein Wunder, dass er sich bewegt hat."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "en": "Hm? Again. Slowly.",
+            "sl": "Hm? Še enkrat. Počasi.",
+            "it": "Hm? Di nuovo. Piano.",
+            "de": "Hm? Noch mal. Langsam."
+          }
+        }
+      ]
+    }
+  ]
+}
