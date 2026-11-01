@@ -229,10 +229,10 @@
         ], "puzzled": { "face": "confused", "en": "Hmm? Say that again?", "sl": "Hm? Še enkrat?", "it": "Mh? Ripeti?", "de": "Hm? Noch mal?" } },
         { "who": "poppy", "face": "thinking", "en": "I know! You ring it when there's danger. Like wolves!", "sl": "Vem! Pozvoniš, ko je nevarnost. Na primer volkovi!", "it": "Lo so! Si suona quando c'è pericolo. Tipo i lupi!", "de": "Ich weiß! Man läutet, wenn Gefahr droht. Zum Beispiel Wölfe!" },
         { "choices": [
-          { "en": "That's right. Only when there's danger.", "sl": "Tako je. Samo ob nevarnosti.", "it": "Esatto. Solo quando c'è pericolo.", "de": "Genau. Nur bei Gefahr.", "ok": true,
+          { "en": "That's right. Only when there is danger.", "sl": "Tako je. Samo ob nevarnosti.", "it": "Esatto. Solo quando c'è pericolo.", "de": "Genau. Nur bei Gefahr.", "ok": true,
             "reply": { "face": "proud", "en": "Then I'll watch the wood for you. All day!", "sl": "Potem bom zate pazila na gozd. Ves dan!", "it": "Allora sorveglio il bosco per te. Tutto il giorno!", "de": "Dann pass ich für dich auf den Wald auf. Den ganzen Tag!" } },
           { "en": "That's right. Only when there are danger.", "sl": "Tako je. Samo ob nevarnosti.", "it": "Esatto. Solo quando c'è pericolo.", "de": "Genau. Nur bei Gefahr.", "grammar": "there-is-are",
-            "why": { "en": "Danger is one thing here: there's danger.", "sl": "Danger je tukaj ena stvar: there's danger.", "it": "Danger qui è una cosa sola: there's danger.", "de": "Danger ist hier eine Sache: there's danger." },
+            "why": { "en": "Danger is one thing here: there is (there's) danger.", "sl": "Danger je tukaj ena stvar: there is (there's) danger.", "it": "Danger qui è una cosa sola: there is (there's) danger.", "de": "Danger ist hier eine Sache: there is (there's) danger." },
             "reply": { "face": "surprised", "en": "Are danger? Lots of dangers? Eek!", "sl": "Are danger? Veliko nevarnosti? Ojoj!", "it": "Are danger? Tanti pericoli? Aiuto!", "de": "Are danger? Ganz viele Gefahren? Hilfe!" } }
         ], "puzzled": { "face": "confused", "en": "Hmm? Say that again?", "sl": "Hm? Še enkrat?", "it": "Mh? Ripeti?", "de": "Hm? Noch mal?" } },
         { "who": "poppy", "face": "shy", "en": "Oops! I only touched it. Ding!", "sl": "Ups! Samo dotaknila sem se ga. Cink!", "it": "Ops! L'ho solo toccata. Din!", "de": "Hoppla! Ich hab sie nur angefasst. Bim!", "fx": { "bell": 0.2 } },
@@ -402,10 +402,10 @@
         ], "puzzled": { "face": "confused", "en": "Hmm? Say that again?", "sl": "Hm? Še enkrat?", "it": "Mh? Ripeti?", "de": "Hm? Noch mal?" } },
         { "who": "poppy", "face": "surprised", "en": "Look! The wolf is running back into the wood. It's scared of the bell!", "sl": "Glej! Volk beži nazaj v gozd. Zvona se boji!", "it": "Guarda! Il lupo scappa di nuovo nel bosco. Ha paura della campana!", "de": "Schau! Der Wolf rennt zurück in den Wald. Er hat Angst vor der Glocke!", "fx": { "bell": 0, "wolves": 0 } },
         { "choices": [
-          { "en": "Now we're safe.", "sl": "Zdaj sva {m:varna|f:varni}.", "it": "Adesso siamo al sicuro.", "de": "Jetzt sind wir sicher.", "ok": true,
+          { "en": "Now we are safe.", "sl": "Zdaj sva {m:varna|f:varni}.", "it": "Adesso siamo al sicuro.", "de": "Jetzt sind wir sicher.", "ok": true,
             "reply": { "face": "happy", "en": "Because we rang it for danger. Not for fun!", "sl": "Ker sva {m:pozvonila|f:pozvonili} zaradi nevarnosti. Ne za šalo!", "it": "Perché l'abbiamo suonata per il pericolo. Non per gioco!", "de": "Weil wir sie bei Gefahr geläutet haben. Nicht zum Spaß!" } },
           { "en": "Now we is safe.", "sl": "Zdaj sva {m:varna|f:varni}.", "it": "Adesso siamo al sicuro.", "de": "Jetzt sind wir sicher.", "grammar": "to-be",
-            "why": { "en": "We goes with are: we're safe.", "sl": "We gre z are: we're safe.", "it": "We va con are: we're safe.", "de": "We geht mit are: we're safe." },
+            "why": { "en": "We goes with are: we are (we're) safe.", "sl": "We gre z are: we are (we're) safe.", "it": "We va con are: we are (we're) safe.", "de": "We geht mit are: we are (we're) safe." },
             "reply": { "face": "laugh", "en": "We is? Ha! The wolf scared your English away!", "sl": "We is? Ha! Volk ti je pregnal angleščino!", "it": "We is? Ah! Il lupo ti ha fatto scappare l'inglese!", "de": "We is? Ha! Der Wolf hat dein Englisch verscheucht!" } }
         ], "puzzled": { "face": "confused", "en": "Hmm? Say that again?", "sl": "Hm? Še enkrat?", "it": "Mh? Ripeti?", "de": "Hm? Noch mal?" } },
         { "who": "poppy", "face": "proud", "en": "I'm going to tell everyone. We saved the sheep!", "sl": "Vsem bom povedala. {m:Rešila|f:Rešili} sva ovce!", "it": "Lo racconto a tutti. Abbiamo salvato le pecore!", "de": "Das erzähl ich allen. Wir haben die Schafe gerettet!" }
