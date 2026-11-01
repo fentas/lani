@@ -8085,7 +8085,9 @@ def school_unit():
             assert c is not None, f"step {i}'s option «{option}»"
             tap_at(c)
         else:
-            c = scroll_to(a["hint"], 3) if a.get("hint") else None  # the field, its hint as the placeholder
+            # the field, its hint as the placeholder, under a table that grows step by step (B2's: eight rows of
+            # three-line cells by the last step, more than three swipes down)
+            c = scroll_to(a["hint"], 8) if a.get("hint") else None
             assert c is not None, f"step {i}'s gap"
             tap_at(c)
             type_text(unit_text(a["accept"][0]).translate(ASCII))
@@ -9435,7 +9437,7 @@ def school_print():
     lines = [f"{job}\n  WebView:  {json.dumps(app)}\n  Chromium: {json.dumps(chrome)}"]
     assert app is not None, "fit.js's choice in the log (LaniPrint)"
     assert chrome is None or same_fit(app, chrome), f"fit.js chose otherwise in the WebView ({app}) than in Chromium ({chrome})"
-    pdf = save_pdf(job)
+    pdf = save_pdf(job, f"school-print-{PRINT_UNIT}.pdf")
     assert pdf is not None, "the PDF saved through the print dialog"
     info = sh("pdfinfo", str(pdf), check=False) if shutil.which("pdfinfo") else ""
     pages = int(m.group(1)) if (m := re.search(r"^Pages:\s+(\d+)", info, re.M)) else None
