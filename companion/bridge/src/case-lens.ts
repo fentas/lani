@@ -555,7 +555,8 @@ export class CaseLens {
     const feminine = suffix === 'in'
     const owners = feminine ? [`${base}a`, `${base.replace(/č$/, 'c')}a`, ...(base === 'mater' ? ['mati'] : [])] : [base, base.replace(/rj$/, 'r'), base.replace(/et$/, 'e'), base.replace(/č$/, 'c'), `${base}a`, `${base}o`]
     for (const o of new Set(owners)) {
-      const named = names.some(n => this.norm(n.name) === o) || this.s.dict.grammarReadings(o).some(x => x.pos === 'name' && this.norm(x.lemma) === o)
+      // (a name of the dictionary by its gender: a woman's in -a has -in, Nadin, never -ev; a village's either)
+      const named = names.some(n => this.norm(n.name) === o) || this.s.dict.grammarReadings(o).some(x => x.pos === 'name' && this.norm(x.lemma) === o && (x.gender ? x.gender === (feminine ? 'f' : 'm') : feminine === o.endsWith('a')))
       const gender = this.s.dict.genderOf(o, 'noun')
       if (named || (feminine ? gender === 'f' || o === 'mati' : gender === 'm')) return o
     }
