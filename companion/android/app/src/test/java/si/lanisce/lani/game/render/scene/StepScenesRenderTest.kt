@@ -82,6 +82,38 @@ class StepScenesRenderTest {
         assertEquals(23, checked.size)
     }
 
+    /**
+     * The Lake District's steps the same way (lakeland-projects-b, and its sibling branch's when it lands): each step with a done
+     * line, rendered in the culture's look in its scene (the drinking fountain and the church clock on the green, the bank barn
+     * in the field, as they are built), shows its work there.
+     */
+    @Test fun `each Lake District step with a done line shows its work in its scene, in the culture's look`() {
+        val files = File(companion, "cultures/lakeland/scenes").listFiles { f -> f.extension == "json" }.orEmpty().toList()
+        val arts: Map<String, String> = files.map { f -> Json.parseToJsonElement(f.readText()).jsonObject }
+            .associate { o -> (o["id"] as JsonPrimitive).content to (o["art"] as JsonPrimitive).content }
+        val checked = ArrayList<String>()
+        val failed = ArrayList<String>()
+        for (f in File(companion, "cultures/lakeland/project-steps").listFiles { x -> x.extension == "json" }.orEmpty().sortedBy { it.name }) {
+            val p = Json.parseToJsonElement(f.readText()).jsonObject
+            val project = (p["project"] as JsonPrimitive).content
+            (p["steps"] as JsonArray).forEachIndexed { k, st ->
+                val step = st as? JsonObject ?: return@forEachIndexed
+                val levels: List<JsonArray> = (step["levels"] as JsonObject).values.map { lv -> lv.jsonObject["lines"] as JsonArray }
+                if (levels.none { l -> l.any { line -> line.jsonObject["done"] != null } }) return@forEachIndexed
+                val art = arts[(step["scene"] as? JsonPrimitive)?.content] ?: return@forEachIndexed
+                fun world(n: Int) = SceneWorld(projects = mapOf(project to n), culture = "lakeland")
+                for (detail in 1..2) {
+                    val diff = changed(render(art, frame(art, world(k)), detail), render(art, frame(art, world(k + 1)), detail))
+                    if (diff < 15 * detail * detail) failed += "$project/$k in $art at detail $detail: $diff px change"
+                }
+                checked += "$project/$k"
+                write(render(art, frame(art, world(k + 1)), 2), "lakeland-step-$project-${k + 1}")
+            }
+        }
+        assertTrue(failed.joinToString("\n", prefix = "\n"), failed.isEmpty())
+        assertTrue("the Lake District's steps with a done line: ${checked.size}", checked.size >= 10)
+    }
+
     @Test fun `the mill's wheel turns as the water is let in, before the mill grinds`() {
         val built = at("mlin", 5) // the wheel and the flume in place: the last step (the first flour) is on
         for (k in 1..Lens.MAX_DETAIL) {

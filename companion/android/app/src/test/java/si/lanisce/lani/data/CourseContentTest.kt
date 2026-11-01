@@ -224,3 +224,10 @@ class EnglishCourseContentTest : CourseContentChecks("en", Lang.EN, listOf("sl",
  * other aspect: worth a look by whoever writes those units); none other.
  */
 class CourseContentTest : CourseContentChecks("sl", Lang.SL)
+
+/**
+ * The German course (companion/course/de, the Carinthian village's school, for adults from Slovene, English and Italian)
+ * as the app plays it, by [CourseContentChecks] with the German grading (grading/de.json: the plural's and the present's
+ * umlaut, kein, the numbers): no distractor even almost right, every text per base in en, sl and it.
+ */
+class GermanCourseContentTest : CourseContentChecks("de", Lang.DE, listOf("sl", "en", "it"))

@@ -1,0 +1,1723 @@
+{
+  "schema": "lani.scene/v0",
+  "id": "auf-dem-aussichtsturm",
+  "language": "de",
+  "title": { "de": "Auf dem Aussichtsturm", "sl": "Na razglednem stolpu", "en": "On the lookout tower", "it": "Sulla torre panoramica" },
+  "emoji": "🔭",
+  "level": "A1",
+  "review": "lines, reactions, variants: machine-written (Claude), not reviewed by a native speaker; check: the Schütt, Mittagskogel · Kepa, die Stiege, Eile mit Weile, Pfiat di, gell, Alpenglühen",
+  "art": "lookout",
+  "from": ["project:razgledni_stolp"],
+  "pack": "auf-dem-aussichtsturm",
+  "objects": [
+    { "slot": "tower", "word": "aussichtsturm", "pack": "projekt-aussichtsturm" },
+    { "slot": "railing", "word": "gelaender", "pack": "auf-dem-wachturm" },
+    { "slot": "roof", "word": "dach", "pack": "am-dachboden" },
+    { "slot": "board", "word": "panoramatafel" },
+    { "slot": "telescope", "word": "fernrohr", "pack": "auf-dem-wachturm" },
+    { "slot": "book", "word": "gaestebuch" },
+    { "slot": "stamp", "word": "stempel" },
+    { "slot": "bench", "word": "bank", "pack": "in-der-kueche" },
+    { "slot": "stairs", "word": "stiege", "pack": "haus-und-kueche" },
+    { "slot": "flag", "word": "fahne", "pack": "fest-nationalfeiertag" },
+    { "slot": "mountains", "word": "berg", "pack": "am-see" },
+    { "slot": "peak", "word": "gipfel", "pack": "am-see" },
+    { "slot": "sea", "word": "see", "pack": "am-see" },
+    { "slot": "village", "word": "dorf", "pack": "im-dorf" },
+    { "slot": "forest", "word": "wald", "pack": "im-dorf" },
+    { "slot": "valley", "word": "tal", "pack": "fest-almabtrieb" }
+  ],
+  "people": [
+    { "id": "kathi", "name": "Wirtin Kathi", "emoji": "🍲", "art": "innkeeper", "slot": "board", "villager": "kathi" },
+    { "id": "maxi", "name": "Maxi", "emoji": "🧒", "art": "child1", "slot": "rail", "villager": "maxi" },
+    { "id": "sepp", "name": "Opa Sepp", "emoji": "👴", "art": "grandpa", "slot": "stairs", "villager": "sepp" },
+    { "id": "florian", "name": "Hirte Florian", "emoji": "🐑", "art": "shepherd", "slot": "rail", "villager": "florian" }
+  ],
+  "happenings": [
+    {
+      "id": "aussicht",
+      "title": {
+        "de": "Frau Kathi zeigt die Aussicht",
+        "sl": "Gospa Kathi pokaže razgled",
+        "en": "Frau Kathi shows the view",
+        "it": "La signora Kathi mostra la vista"
+      },
+      "who": "kathi",
+      "when": ["morning"],
+      "chance": 0.5,
+      "dialog": "aussicht",
+      "dialogs": ["aussicht-triglav", "aussicht-nebel", "aussicht"],
+      "reward": { "wisdom": 20 },
+      "marker": "🏔️",
+      "memory": {
+        "de": "die Aussicht auf den Faaker See und die Karawanken",
+        "sl": "razgled na Baško jezero in Karavanke",
+        "en": "the view of the Faaker See and the Karawanken",
+        "it": "la vista sul lago di Faak e sulle Caravanche"
+      }
+    },
+    {
+      "id": "stempel",
+      "title": {
+        "de": "Maxi und das Gästebuch",
+        "sl": "Maxi in knjiga gostov",
+        "en": "Maxi and the visitors' book",
+        "it": "Maxi e il libro degli ospiti"
+      },
+      "who": "maxi",
+      "when": ["afternoon"],
+      "chance": 0.5,
+      "dialog": "stempel",
+      "dialogs": ["stempel-gaeste", "stempel-kirche", "stempel"],
+      "reward": { "food": 15 },
+      "marker": "📖",
+      "memory": {
+        "de": "den Stempel im Gästebuch",
+        "sl": "žig v knjigi gostov",
+        "en": "the stamp in the visitors' book",
+        "it": "il timbro nel libro degli ospiti"
+      }
+    },
+    {
+      "id": "stufen",
+      "title": {
+        "de": "Opa Sepp und die hundert Stufen",
+        "sl": "Opa Sepp in sto stopnic",
+        "en": "Opa Sepp and the hundred steps",
+        "it": "Opa Sepp e i cento scalini"
+      },
+      "who": "sepp",
+      "when": ["morning"],
+      "chance": 0.45,
+      "dialog": "stufen",
+      "dialogs": ["stufen-pausen", "stufen-dobratsch", "stufen"],
+      "reward": { "wisdom": 15 },
+      "marker": "🪜",
+      "memory": {
+        "de": "die hundert Stufen, Schritt für Schritt",
+        "sl": "sto stopnic, korak za korakom",
+        "en": "the hundred steps, one by one",
+        "it": "i cento scalini, uno dopo l'altro"
+      }
+    },
+    {
+      "id": "bussard",
+      "title": { "de": "Ein Bussard über dem Tal", "sl": "Kanja nad dolino", "en": "A buzzard over the valley", "it": "Una poiana sopra la valle" },
+      "who": "florian",
+      "when": ["morning"],
+      "months": [3, 4, 5, 6, 7, 8, 9, 10],
+      "chance": 0.45,
+      "dialog": "bussard",
+      "dialogs": ["bussard-fernrohr", "bussard"],
+      "reward": { "food": 15 },
+      "marker": "🦅",
+      "memory": {
+        "de": "den Bussard, der über dem Tal gekreist ist",
+        "sl": "kanjo, ki je krožila nad dolino",
+        "en": "the buzzard circling over the valley",
+        "it": "la poiana che girava sopra la valle"
+      }
+    },
+    {
+      "id": "abendrot",
+      "title": { "de": "Das Alpenglühen", "sl": "Alpska zarja", "en": "The alpenglow", "it": "L'enrosadira" },
+      "who": "kathi",
+      "when": ["evening"],
+      "chance": 0.45,
+      "dialog": "abendrot",
+      "dialogs": ["abendrot-glocke", "abendrot"],
+      "reward": { "wisdom": 15 },
+      "marker": "🌄",
+      "memory": {
+        "de": "die rosa Berge am Abend",
+        "sl": "rožnate gore zvečer",
+        "en": "the pink mountains in the evening",
+        "it": "le montagne rosa la sera"
+      }
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "aussicht",
+      "lines": [
+        {
+          "who": "kathi",
+          "face": "happy",
+          "de": "Guten Morgen, {learner}! Heute ist es ganz klar. Schau, die Berge!",
+          "sl": "Dobro jutro, {learner}! Danes je čisto jasno. Poglej, gore!",
+          "en": "Good morning, {learner}! It's perfectly clear today. Look, the mountains!",
+          "it": "Buongiorno, {learner}! Oggi è limpidissimo. Guarda, le montagne!",
+          "fx": { "clear": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Guten Morgen, Frau Kathi! Wie schön!",
+              "sl": "Dobro jutro, gospa Kathi! Kako lepo!",
+              "en": "Good morning, Frau Kathi! How beautiful!",
+              "it": "Buongiorno, signora Kathi! Che bello!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Gell? Das ist meine Lieblingsaussicht.",
+                "sl": "Kajne? To je moj najljubši razgled.",
+                "en": "Isn't it? It's my favourite view.",
+                "it": "Vero? È la mia vista preferita."
+              }
+            },
+            {
+              "de": "Servus, Kathi! Wie schön!",
+              "sl": "Živjo, Kathi! Kako lepo!",
+              "en": "Hiya, Kathi! How beautiful!",
+              "it": "Ciao, Kathi! Che bello!",
+              "grammar": "du-sie",
+              "why": {
+                "de": "Frau Kathi ist die Wirtin: Man sagt Sie und Frau Kathi und grüßt mit Guten Morgen oder Grüß Gott.",
+                "sl": "Gospa Kathi je gostilničarka: vikaš jo (Sie), rečeš Frau Kathi in pozdraviš z Guten Morgen ali Grüß Gott.",
+                "en": "Frau Kathi is the innkeeper: you say Sie and Frau Kathi, and greet her with Guten Morgen or Grüß Gott.",
+                "it": "La signora Kathi è l'ostessa: le dai del Lei (Sie), dici Frau Kathi e la saluti con Guten Morgen o Grüß Gott."
+              },
+              "reply": {
+                "face": "surprised",
+                "de": "Servus? Na so was! Wir sind doch nicht am Fußballplatz.",
+                "sl": "Živjo? No, kaj takega! Saj nisva na nogometnem igrišču.",
+                "en": "Hiya? Well I never! We're not on the football pitch.",
+                "it": "Ciao? Ma guarda un po'! Mica siamo al campo di calcio."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "face": "curious",
+          "de": "Links der Dobratsch, rechts der Mittagskogel mit seinem Kreuz. Und unten, ganz türkis … Was ist das?",
+          "sl": "Levo Dobrač, desno Kepa s svojim križem. Spodaj pa, čisto turkizno … Kaj je to?",
+          "en": "On the left the Dobratsch, on the right the Mittagskogel with its cross. And down below, all turquoise … What's that?",
+          "it": "A sinistra il Dobratsch, a destra il Mittagskogel con la sua croce. E giù in basso, tutto turchese … Che cos'è?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Das ist der Faaker See!",
+              "sl": "To je Baško jezero!",
+              "en": "That's the Faaker See!",
+              "it": "È il lago di Faak!",
+              "ok": true,
+              "tap": "sea",
+              "reply": {
+                "face": "happy",
+                "de": "Genau! Auf Slowenisch heißt er Baško jezero. Im Sommer schwimmen meine Gäste darin.",
+                "sl": "Tako je! Po slovensko se imenuje Baško jezero. Poleti moji gostje plavajo v njem.",
+                "en": "Exactly! In Slovene it's called Baško jezero. In summer my guests swim in it.",
+                "it": "Esatto! In sloveno si chiama Baško jezero. D'estate i miei ospiti ci nuotano."
+              }
+            },
+            {
+              "de": "Das ist der Wald!",
+              "sl": "To je gozd!",
+              "en": "That's the wood!",
+              "it": "È il bosco!",
+              "tap": "forest",
+              "why": {
+                "de": "Der Wald ist grün. Türkis ist das Wasser.",
+                "sl": "Gozd je zelen. Turkizna je voda.",
+                "en": "The wood is green. The turquoise is water.",
+                "it": "Il bosco è verde. Turchese è l'acqua."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Ein türkiser Wald? Haha, nein!",
+                "sl": "Turkizen gozd? Haha, ne!",
+                "en": "A turquoise wood? Ha ha, no!",
+                "it": "Un bosco turchese? Ah ah, no!"
+              }
+            },
+            {
+              "de": "Das ist das Dorf!",
+              "sl": "To je vas!",
+              "en": "That's the village!",
+              "it": "È il paese!",
+              "tap": "village",
+              "why": {
+                "de": "Das Dorf ist weiß, mit seiner Kirche. Türkis ist das Wasser.",
+                "sl": "Vas je bela, s svojo cerkvijo. Turkizna je voda.",
+                "en": "The village is white, with its church. The turquoise is water.",
+                "it": "Il paese è bianco, con la sua chiesa. Turchese è l'acqua."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Das Dorf? Das ist doch nicht türkis!",
+                "sl": "Vas? Saj ni turkizna!",
+                "en": "The village? It isn't turquoise!",
+                "it": "Il paese? Ma non è mica turchese!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "kathi",
+          "face": "proud",
+          "de": "Von hier sieht man drei Länder: Österreich, Slowenien und Italien. Meine Gäste sagen immer: Wunderschön!",
+          "sl": "Od tod se vidijo tri dežele: Avstrija, Slovenija in Italija. Moji gostje vedno rečejo: čudovito!",
+          "en": "From here you can see three countries: Austria, Slovenia and Italy. My guests always say: wonderful!",
+          "it": "Da qui si vedono tre paesi: l'Austria, la Slovenia e l'Italia. I miei ospiti dicono sempre: meraviglioso!"
+        }
+      ]
+    },
+    {
+      "id": "stempel",
+      "lines": [
+        {
+          "who": "maxi",
+          "face": "happy",
+          "de": "He, {learner}! Hier ist das Gästebuch. Schreibst du deinen Namen hinein?",
+          "sl": "Hej, {learner}! Tu je knjiga gostov. Se vpišeš vanjo?",
+          "en": "Hey, {learner}! Here's the visitors' book. Will you write your name in it?",
+          "it": "Ehi, {learner}! Ecco il libro degli ospiti. Ci scrivi il tuo nome?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja, ich schreibe meinen Namen hinein.",
+              "sl": "Ja, vpišem svoje ime.",
+              "en": "Yes, I'll write my name in it.",
+              "it": "Sì, ci scrivo il mio nome.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Super! Und jetzt kommt der Stempel. Bumm!",
+                "sl": "Super! Zdaj pa pride žig. Bum!",
+                "en": "Great! And now comes the stamp. Bang!",
+                "it": "Grande! E adesso il timbro. Bum!"
+              }
+            },
+            {
+              "de": "Ja, ich schreibst meinen Namen hinein.",
+              "sl": "Ja, vpišem svoje ime.",
+              "en": "Yes, I'll write my name in it.",
+              "it": "Sì, ci scrivo il mio nome.",
+              "grammar": "praesens",
+              "why": {
+                "de": "Bei ich endet das Verb auf -e: ich schreibe. Schreibst ist für du.",
+                "sl": "Z ich se glagol konča na -e: ich schreibe. Schreibst je za du.",
+                "en": "With ich the verb ends in -e: ich schreibe. Schreibst is for du.",
+                "it": "Con ich il verbo finisce in -e: ich schreibe. Schreibst è per du."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Schreibst? Ich? Ich kann nicht so schön schreiben!",
+                "sl": "Schreibst? Jaz? Jaz ne znam tako lepo pisati!",
+                "en": "Schreibst? Me? I can't write that neatly!",
+                "it": "Schreibst? Io? Io non so scrivere così bene!"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "maxi",
+          "face": "proud",
+          "de": "Schau, der Stempel: der Turm und die Berge! Den hat meine Mama machen lassen.",
+          "sl": "Poglej žig: stolp in gore! Dala ga je narediti moja mama.",
+          "en": "Look, the stamp: the tower and the mountains! My mum had it made.",
+          "it": "Guarda il timbro: la torre e le montagne! L'ha fatto fare la mia mamma."
+        },
+        {
+          "choices": [
+            {
+              "de": "Ich finde den Stempel toll!",
+              "sl": "Žig se mi zdi super!",
+              "en": "I think the stamp is great!",
+              "it": "Il timbro è fantastico!",
+              "ok": true,
+              "reply": {
+                "face": "shy",
+                "de": "Danke! Ich sag es der Mama.",
+                "sl": "Hvala! Povem mami.",
+                "en": "Thanks! I'll tell Mum.",
+                "it": "Grazie! Lo dico alla mamma."
+              }
+            },
+            {
+              "de": "Ich finde der Stempel toll!",
+              "sl": "Žig se mi zdi super!",
+              "en": "I think the stamp is great!",
+              "it": "Il timbro è fantastico!",
+              "grammar": "akkusativ",
+              "why": {
+                "de": "Finden braucht den Akkusativ: der Stempel wird zu den Stempel.",
+                "sl": "Finden zahteva tožilnik: der Stempel postane den Stempel.",
+                "en": "Finden takes the accusative: der Stempel becomes den Stempel.",
+                "it": "Finden vuole l'accusativo: der Stempel diventa den Stempel."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Der Stempel findet was? Hä?",
+                "sl": "Žig nekaj najde? Kaj?",
+                "en": "The stamp finds something? Eh?",
+                "it": "Il timbro trova qualcosa? Eh?"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "maxi",
+          "face": "laugh",
+          "de": "Jetzt bist du ein echter Gast vom Aussichtsturm!",
+          "sl": "Zdaj si {m:pravi gost|f:prava gostja} razglednega stolpa!",
+          "en": "Now you're a real guest of the lookout tower!",
+          "it": "Adesso sei {m:un vero ospite|f:una vera ospite} della torre panoramica!"
+        }
+      ]
+    },
+    {
+      "id": "stufen",
+      "lines": [
+        {
+          "who": "sepp",
+          "face": "thinking",
+          "de": "Puh … Hundert Stufen, {learner}. Langsam, langsam.",
+          "sl": "Uf … Sto stopnic, {learner}. Počasi, počasi.",
+          "en": "Phew … A hundred steps, {learner}. Slowly, slowly.",
+          "it": "Uff … Cento scalini, {learner}. Piano, piano."
+        },
+        {
+          "choices": [
+            {
+              "de": "Setz dich, Opa Sepp! Da ist die Bank.",
+              "sl": "Sedi, Opa Sepp! Tam je klop.",
+              "en": "Sit down, Opa Sepp! There's the bench.",
+              "it": "Siediti, Opa Sepp! Ecco la panca.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Danke, {learner}. Das ist lieb von dir.",
+                "sl": "Hvala, {learner}. Lepo od tebe.",
+                "en": "Thank you, {learner}. That's kind of you.",
+                "it": "Grazie, {learner}. Sei gentile."
+              }
+            },
+            {
+              "de": "Setzen Sie sich, Opa Sepp! Da ist die Bank.",
+              "sl": "Sedite, Opa Sepp! Tam je klop.",
+              "en": "Do sit down, Opa Sepp! There's the bench.",
+              "it": "Si sieda, Opa Sepp! Ecco la panca.",
+              "grammar": "du-sie",
+              "why": {
+                "de": "Zu Opa Sepp sagt man du, das will er so. Also: Setz dich!",
+                "sl": "Opa Seppu rečeš du (tikaš ga), tako želi: Setz dich!",
+                "en": "You say du to Opa Sepp, as he wants: Setz dich!",
+                "it": "A Opa Sepp dai del tu (du), come vuole lui: Setz dich!"
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Sie? Haha! Ich bin doch kein Bürgermeister. Bei uns sagt man du.",
+                "sl": "Vi? Haha! Saj nisem župan. Pri nas se tika.",
+                "en": "Sie? Ha ha! I'm not the mayor. Here we say du.",
+                "it": "Lei? Ah ah! Mica sono il sindaco. Da noi ci si dà del tu."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "sepp",
+          "face": "proud",
+          "de": "Schau, der Mittagskogel. Als junger Bursch bin ich da hinaufgestiegen. Bis zum Gipfelkreuz!",
+          "sl": "Poglej, Kepa. Kot mlad fant sem šel gor. Do križa na vrhu!",
+          "en": "Look, the Mittagskogel. As a young lad I climbed up there. Right to the cross on the peak!",
+          "it": "Guarda, il Mittagskogel. Da giovanotto ci sono salito. Fino alla croce in vetta!"
+        },
+        {
+          "choices": [
+            {
+              "de": "Wie lange hast du gebraucht?",
+              "sl": "Koliko časa si potreboval?",
+              "en": "How long did it take you?",
+              "it": "Quanto ci hai messo?",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Fünf Stunden hinauf, drei hinunter. Damals war ich schnell!",
+                "sl": "Pet ur gor, tri dol. Takrat sem bil hiter!",
+                "en": "Five hours up, three down. I was quick in those days!",
+                "it": "Cinque ore su, tre giù. Allora ero veloce!"
+              }
+            },
+            {
+              "de": "Wie lange bist du gebraucht?",
+              "sl": "Koliko časa si potreboval?",
+              "en": "How long did it take you?",
+              "it": "Quanto ci hai messo?",
+              "grammar": "perfekt",
+              "why": {
+                "de": "Brauchen bildet das Perfekt mit haben: Wie lange hast du gebraucht?",
+                "sl": "Brauchen tvori perfekt s haben: Wie lange hast du gebraucht?",
+                "en": "Brauchen forms the Perfekt with haben: Wie lange hast du gebraucht?",
+                "it": "Brauchen forma il Perfekt con haben: Wie lange hast du gebraucht?"
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Bist …? Hm. Die Frage verstehe ich nicht.",
+                "sl": "Bist …? Hm. Vprašanja ne razumem.",
+                "en": "Bist …? Hm. I don't understand the question.",
+                "it": "Bist …? Mm. Non capisco la domanda."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "sepp",
+          "face": "happy",
+          "de": "Heute ist der Turm mein Mittagskogel. Und die Aussicht ist es wert.",
+          "sl": "Danes je stolp moja Kepa. In razgled je vreden truda.",
+          "en": "Today the tower is my Mittagskogel. And the view is worth it.",
+          "it": "Oggi la torre è il mio Mittagskogel. E la vista ne vale la pena."
+        }
+      ]
+    },
+    {
+      "id": "bussard",
+      "lines": [
+        {
+          "who": "florian",
+          "face": "surprised",
+          "de": "He, {learner}! Schau, da unten über dem Tal! Ein Bussard!",
+          "sl": "Hej, {learner}! Poglej, tam spodaj nad dolino! Kanja!",
+          "en": "Hey, {learner}! Look, down there over the valley! A buzzard!",
+          "it": "Ehi, {learner}! Guarda, laggiù sopra la valle! Una poiana!",
+          "fx": { "hawk": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Wo wohnt er?",
+              "sl": "Kje živi?",
+              "en": "Where does it live?",
+              "it": "Dove vive?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Im Wald, oben in einem hohen Baum. Aber er jagt über den Wiesen.",
+                "sl": "V gozdu, visoko na drevesu. Lovi pa nad travniki.",
+                "en": "In the wood, high up in a tall tree. But it hunts over the meadows.",
+                "it": "Nel bosco, in cima a un albero alto. Ma caccia sopra i prati."
+              }
+            },
+            {
+              "de": "Wohin wohnt er?",
+              "sl": "Kje živi?",
+              "en": "Where does it live?",
+              "it": "Dove vive?",
+              "grammar": "fragen",
+              "why": {
+                "de": "Wohnen sagt, wo jemand ist: Man fragt wo. Wohin fragt nach der Richtung.",
+                "sl": "Wohnen pove, kje kdo je: vprašaš wo. Wohin sprašuje po smeri (kam).",
+                "en": "Wohnen says where someone is: you ask wo. Wohin asks which way.",
+                "it": "Wohnen dice dove si sta: si chiede wo. Wohin chiede la direzione."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Wohin? Er zieht doch nicht um!",
+                "sl": "Kam? Saj se ne seli!",
+                "en": "Where to? It's not moving house!",
+                "it": "Verso dove? Mica trasloca!"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "florian",
+          "face": "laugh",
+          "de": "Er fliegt im Kreis. Er sucht Mäuse. Meine Schafe mag er nicht, die sind zu groß!",
+          "sl": "Leti v krogu. Išče miši. Mojih ovac ne mara, prevelike so!",
+          "en": "It's flying in circles. It's looking for mice. It doesn't like my sheep, they're too big!",
+          "it": "Vola in cerchio. Cerca topi. Le mie pecore non gli piacciono, sono troppo grandi!",
+          "fx": { "hawk": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Er kreist ganz ruhig.",
+              "sl": "Čisto mirno kroži.",
+              "en": "It's circling very calmly.",
+              "it": "Gira in tondo tranquillissima.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Ja. Wie ein Drachen ohne Schnur!",
+                "sl": "Ja. Kot papirnati zmaj brez vrvice!",
+                "en": "Yes. Like a kite without a string!",
+                "it": "Sì. Come un aquilone senza filo!"
+              }
+            },
+            {
+              "de": "Er kreisen ganz ruhig.",
+              "sl": "Čisto mirno kroži.",
+              "en": "It's circling very calmly.",
+              "it": "Gira in tondo tranquillissima.",
+              "grammar": "praesens",
+              "why": {
+                "de": "Der Bussard ist einer: er kreist. Kreisen sagt man bei mehreren.",
+                "sl": "Kanja je ena: er kreist. Kreisen je za več.",
+                "en": "The buzzard is one: er kreist. Kreisen is for several.",
+                "it": "La poiana è una: er kreist. Kreisen si dice per più."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Kreisen? Wer noch? Ich sehe nur einen!",
+                "sl": "Kreisen? Kdo še? Vidim samo eno!",
+                "en": "Kreisen? Who else? I only see one!",
+                "it": "Kreisen? Chi altro? Ne vedo solo una!"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "florian",
+          "face": "happy",
+          "de": "Juhuu! Jetzt fliegt er über den Wald. Pfiat di, Bussard!",
+          "sl": "Juhu! Zdaj leti čez gozd. Adijo, kanja!",
+          "en": "Yoo-hoo! Now it's flying over the wood. Bye, buzzard!",
+          "it": "Iuhuu! Adesso vola sopra il bosco. Ciao, poiana!",
+          "fx": { "hawk": 0 }
+        }
+      ]
+    },
+    {
+      "id": "abendrot",
+      "lines": [
+        {
+          "who": "kathi",
+          "face": "happy",
+          "de": "Guten Abend, {learner}! Schnell, schau auf die Berge! Sie werden rosa.",
+          "sl": "Dober večer, {learner}! Hitro, poglej gore! Rožnate postajajo.",
+          "en": "Good evening, {learner}! Quick, look at the mountains! They're turning pink.",
+          "it": "Buonasera, {learner}! Presto, guarda le montagne! Diventano rosa.",
+          "fx": { "glow": 0.6 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Wie schön! Das ist das Alpenglühen!",
+              "sl": "Kako lepo! To je alpska zarja!",
+              "en": "How beautiful! That's the alpenglow!",
+              "it": "Che bello! È l'enrosadira!",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Genau! Nur ein paar Minuten, dann ist es vorbei.",
+                "sl": "Tako je! Samo nekaj minut, potem mine.",
+                "en": "Exactly! Only a few minutes, then it's over.",
+                "it": "Esatto! Solo pochi minuti, poi finisce.",
+                "fx": { "glow": 1 }
+              }
+            },
+            {
+              "de": "Wie schön! Das ist der Alpenglühen!",
+              "sl": "Kako lepo! To je alpska zarja!",
+              "en": "How beautiful! That's the alpenglow!",
+              "it": "Che bello! È l'enrosadira!",
+              "grammar": "artikel-genus",
+              "why": {
+                "de": "Alpenglühen ist sächlich: das Alpenglühen, wie jedes Verb als Nomen.",
+                "sl": "Alpenglühen je srednjega spola: das Alpenglühen, kot vsak glagol, ki postane samostalnik.",
+                "en": "Alpenglühen is neuter: das Alpenglühen, like every verb made a noun.",
+                "it": "Alpenglühen è neutro: das Alpenglühen, come ogni verbo diventato nome."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Der …? Hm, klingt komisch.",
+                "sl": "Der …? Hm, zveni čudno.",
+                "en": "Der …? Hm, sounds funny.",
+                "it": "Der …? Mm, suona strano."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "face": "curious",
+          "de": "Der Mittagskogel ist ganz rosa. Und der Dobratsch? Wie ist er?",
+          "sl": "Kepa je čisto rožnata. Pa Dobrač? Kakšen je?",
+          "en": "The Mittagskogel is all pink. And the Dobratsch? What is it like?",
+          "it": "Il Mittagskogel è tutto rosa. E il Dobratsch? Com'è?",
+          "fx": { "glow": 1 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Er ist auch rosa!",
+              "sl": "Tudi on je rožnat!",
+              "en": "It's pink too!",
+              "it": "È rosa anche lui!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Gell? Meine Gäste machen jetzt immer Fotos.",
+                "sl": "Kajne? Moji gostje zdaj vedno fotografirajo.",
+                "en": "Isn't it? My guests always take photos now.",
+                "it": "Vero? I miei ospiti adesso fanno sempre le foto."
+              }
+            },
+            {
+              "de": "Er bist auch rosa!",
+              "sl": "Tudi on je rožnat!",
+              "en": "It's pink too!",
+              "it": "È rosa anche lui!",
+              "grammar": "sein-haben",
+              "why": {
+                "de": "Bei er heißt es: er ist. Bist ist für du.",
+                "sl": "Z er je: er ist. Bist je za du.",
+                "en": "With er it's er ist. Bist goes with du.",
+                "it": "Con er si dice er ist. Bist va con du."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Bist? Ich? Ich bin nicht rosa, nur ein bisschen müde!",
+                "sl": "Bist? Jaz? Nisem rožnata, samo malo utrujena!",
+                "en": "Bist? Me? I'm not pink, just a bit tired!",
+                "it": "Bist? Io? Non sono rosa, solo un po' stanca!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "de": "Jetzt wird es dunkel. Ich muss ins Gasthaus, die Gäste warten. Sofort, sofort!",
+          "sl": "Zdaj se mrači. Moram v gostilno, gostje čakajo. Takoj, takoj!",
+          "en": "Now it's getting dark. I have to get to the inn, the guests are waiting. Coming, coming!",
+          "it": "Adesso viene buio. Devo andare alla locanda, gli ospiti aspettano. Subito, subito!",
+          "fx": { "glow": 0 }
+        }
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "id": "aussicht-triglav",
+      "lines": [
+        {
+          "who": "kathi",
+          "face": "curious",
+          "de": "{learner}, schau auf die Panoramatafel. Da steht ein Name: Triglav. Weißt du, wo er ist?",
+          "sl": "{learner}, poglej na razgledno tablo. Tam piše ime: Triglav. Veš, kje je?",
+          "en": "{learner}, look at the panorama board. There's a name on it: Triglav. Do you know where it is?",
+          "it": "{learner}, guarda il pannello panoramico. C'è scritto un nome: Triglav. Sai dov'è?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Hinter den Karawanken, in Slowenien!",
+              "sl": "Za Karavankami, v Sloveniji!",
+              "en": "Behind the Karawanken, in Slovenia!",
+              "it": "Dietro le Caravanche, in Slovenia!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Richtig! Man sieht ihn von hier nicht, aber er ist da.",
+                "sl": "Tako je! Od tod se ga ne vidi, ampak je tam.",
+                "en": "Right! You can't see it from here, but it's there.",
+                "it": "Giusto! Da qui non si vede, ma c'è."
+              }
+            },
+            {
+              "de": "Hinter die Karawanken, in Slowenien!",
+              "sl": "Za Karavanke, v Slovenijo!",
+              "en": "Behind the Karawanken, into Slovenia!",
+              "it": "Dietro le Caravanche, in Slovenia!",
+              "grammar": "wechselpraepositionen",
+              "why": {
+                "de": "Wo? Dann steht nach hinter der Dativ: hinter den Karawanken.",
+                "sl": "Kje? Za hinter potem pride dajalnik: hinter den Karawanken.",
+                "en": "Wo, where? Then hinter takes the dative: hinter den Karawanken.",
+                "it": "Wo, dove? Allora hinter vuole il dativo: hinter den Karawanken."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hinter die …? Willst du hinübergehen?",
+                "sl": "Za …? Bi {m:rad šel|f:rada šla} tja čez?",
+                "en": "Behind the …? Do you want to go over there?",
+                "it": "Dietro le …? Vuoi andare di là?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "face": "proud",
+          "de": "Triglav heißt drei Köpfe. Er ist der höchste Berg von Slowenien.",
+          "sl": "Triglav pomeni tri glave. Je najvišja gora v Sloveniji.",
+          "en": "Triglav means three heads. It's the highest mountain in Slovenia.",
+          "it": "Triglav vuol dire tre teste. È la montagna più alta della Slovenia."
+        },
+        {
+          "choices": [
+            {
+              "de": "Drei Köpfe? Lustig!",
+              "sl": "Tri glave? Smešno!",
+              "en": "Three heads? Funny!",
+              "it": "Tre teste? Buffo!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Ja! Ein Berg mit drei Köpfen. Wie ein Drache!",
+                "sl": "Ja! Gora s tremi glavami. Kot zmaj!",
+                "en": "Yes! A mountain with three heads. Like a dragon!",
+                "it": "Sì! Una montagna con tre teste. Come un drago!"
+              }
+            },
+            {
+              "de": "Drei Kopf? Lustig!",
+              "sl": "Tri glave? Smešno!",
+              "en": "Three heads? Funny!",
+              "it": "Tre teste? Buffo!",
+              "grammar": "plural",
+              "why": {
+                "de": "Ab zwei steht der Plural: ein Kopf, drei Köpfe.",
+                "sl": "Od dveh naprej je množina: ein Kopf, drei Köpfe.",
+                "en": "From two on, the plural: ein Kopf, drei Köpfe.",
+                "it": "Da due in su, il plurale: ein Kopf, drei Köpfe."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Kopf? Nur einer? Dann passt der Name nicht!",
+                "sl": "Kopf? Samo ena? Potem ime ne paše!",
+                "en": "Kopf? Just one? Then the name doesn't fit!",
+                "it": "Kopf? Una sola? Allora il nome non va!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "face": "happy",
+          "de": "Viele Gäste aus Slowenien kommen zu mir. Sie zeigen mir immer den Triglav.",
+          "sl": "Veliko gostov iz Slovenije prihaja k meni. Vedno mi pokažejo Triglav.",
+          "en": "Lots of guests from Slovenia come to me. They always point out Triglav to me.",
+          "it": "Vengono da me tanti ospiti dalla Slovenia. Mi indicano sempre il Triglav."
+        }
+      ]
+    },
+    {
+      "id": "aussicht-nebel",
+      "months": [10, 11, 12, 1, 2, 3],
+      "memory": {
+        "de": "die Berge wie Inseln im Nebel",
+        "sl": "gore kot otoke v megli",
+        "en": "the mountains like islands in the fog",
+        "it": "le montagne come isole nella nebbia"
+      },
+      "lines": [
+        {
+          "who": "kathi",
+          "face": "surprised",
+          "de": "Schau, {learner}! Unten im Tal ist alles weiß. Nebel!",
+          "sl": "Poglej, {learner}! Spodaj v dolini je vse belo. Megla!",
+          "en": "Look, {learner}! Down in the valley everything's white. Fog!",
+          "it": "Guarda, {learner}! Giù nella valle è tutto bianco. Nebbia!",
+          "sky": { "fog": 0.8 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Der Nebel ist ganz dick!",
+              "sl": "Megla je čisto gosta!",
+              "en": "The fog is really thick!",
+              "it": "La nebbia è fittissima!",
+              "ok": true,
+              "reply": {
+                "face": "thinking",
+                "de": "Ja. Aber warte, die Sonne kommt gleich.",
+                "sl": "Ja. Ampak počakaj, sonce bo kmalu tu.",
+                "en": "Yes. But wait, the sun's coming soon.",
+                "it": "Sì. Ma aspetta, il sole arriva tra poco."
+              }
+            },
+            {
+              "de": "Der Nebel sind ganz dick!",
+              "sl": "Megla je čisto gosta!",
+              "en": "The fog is really thick!",
+              "it": "La nebbia è fittissima!",
+              "grammar": "sein-haben",
+              "why": {
+                "de": "Der Nebel ist einer: er ist. Sind ist für mehrere.",
+                "sl": "Megla je ena: er ist. Sind je za več.",
+                "en": "The fog is one thing: er ist. Sind is for several.",
+                "it": "La nebbia è una: er ist. Sind è per più cose."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Sind? Wie viele Nebel siehst du denn?",
+                "sl": "Sind? Koliko megel pa vidiš?",
+                "en": "Sind? How many fogs can you see, then?",
+                "it": "Sind? Ma quante nebbie vedi?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "face": "happy",
+          "de": "Da! Die Berge schauen aus dem Nebel heraus, wie Inseln. Siehst du das Dorf?",
+          "sl": "Glej! Gore gledajo iz megle kot otoki. Vidiš vas?",
+          "en": "There! The mountains are poking out of the fog like islands. Can you see the village?",
+          "it": "Ecco! Le montagne spuntano dalla nebbia come isole. Vedi il paese?",
+          "fx": { "clear": 1 },
+          "sky": { "fog": 0.3 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Nein, das Dorf sehe ich nicht.",
+              "sl": "Ne, vasi ne vidim.",
+              "en": "No, I can't see the village.",
+              "it": "No, il paese non lo vedo.",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Ich auch nicht! Es schläft noch unter dem Nebel.",
+                "sl": "Jaz tudi ne! Še spi pod meglo.",
+                "en": "Nor can I! It's still asleep under the fog.",
+                "it": "Neanch'io! Dorme ancora sotto la nebbia."
+              }
+            },
+            {
+              "de": "Nein, das Dorf sehe ich kein.",
+              "sl": "Ne, vasi ne vidim.",
+              "en": "No, I can't see the village.",
+              "it": "No, il paese non lo vedo.",
+              "grammar": "kein-nicht",
+              "why": {
+                "de": "Das Dorf hat seinen Artikel: Dann verneint man mit nicht.",
+                "sl": "Das Dorf ima člen: zato zanikaš z nicht.",
+                "en": "Das Dorf has its article: so you say no with nicht.",
+                "it": "Das Dorf ha l'articolo: quindi si nega con nicht."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Kein …? Hm? Was siehst du?",
+                "sl": "Kein …? Hm? Kaj vidiš?",
+                "en": "Kein …? Hm? What can you see?",
+                "it": "Kein …? Mm? Che cosa vedi?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "face": "proud",
+          "de": "Im Herbst ist das oft so. Unten Nebel, oben Sonne. Darum mögen meine Gäste den Turm!",
+          "sl": "Jeseni je pogosto tako. Spodaj megla, zgoraj sonce. Zato imajo moji gostje stolp radi!",
+          "en": "In autumn it's often like that. Fog below, sun above. That's why my guests love the tower!",
+          "it": "In autunno è spesso così. Sotto la nebbia, sopra il sole. Per questo ai miei ospiti piace la torre!"
+        }
+      ]
+    },
+    {
+      "id": "stempel-gaeste",
+      "count": { "from": "dice", "min": 4, "max": 30, "gender": "m" },
+      "memory": {
+        "de": "die vielen Namen im Gästebuch",
+        "sl": "veliko imen v knjigi gostov",
+        "en": "all the names in the visitors' book",
+        "it": "i tanti nomi nel libro degli ospiti"
+      },
+      "lines": [
+        {
+          "who": "maxi",
+          "face": "curious",
+          "de": "{learner}, heute waren viele Gäste da. Zählst du die Namen im Gästebuch?",
+          "sl": "{learner}, danes je bilo tu veliko gostov. Prešteješ imena v knjigi gostov?",
+          "en": "{learner}, lots of guests came today. Will you count the names in the visitors' book?",
+          "it": "{learner}, oggi sono venuti tanti ospiti. Conti i nomi nel libro degli ospiti?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Heute {war|waren} {n} {Gast|Gäste} da.",
+              "sl": "Danes {je bil|sta bila|so bili|je bilo} tu {n} {gost|gosta|gostje|gostov}.",
+              "en": "Today {n} {guest|guests} came.",
+              "it": "Oggi {è venuto|sono venuti} {n} {ospite|ospiti}.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Richtig! Die Mama freut sich. Viele Gäste, viel Arbeit!",
+                "sl": "Tako je! Mama bo vesela. Veliko gostov, veliko dela!",
+                "en": "Right! Mum will be pleased. Lots of guests, lots of work!",
+                "it": "Giusto! La mamma sarà contenta. Tanti ospiti, tanto lavoro!"
+              }
+            },
+            {
+              "de": "Heute {war|waren} {n} {!Gast|Gäste} da.",
+              "sl": "Danes {je bil|sta bila|so bili|je bilo} tu {n} {!gost|gosta|gostje|gostov}.",
+              "en": "Today {n} {!guest|guests} came.",
+              "it": "Oggi {è venuto|sono venuti} {n} {!ospite|ospiti}.",
+              "wrong_form": 1,
+              "grammar": "plural",
+              "why": {
+                "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Gast|Gäste}.",
+                "sl": "{Ena je v ednini|Od dveh naprej je množina}: {n} {Gast|Gäste}.",
+                "en": "{One takes the singular|From two on, the plural}: {n} {Gast|Gäste}.",
+                "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Gast|Gäste}."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Zähl noch einmal, langsam.",
+                "sl": "Hm? Štej še enkrat, počasi.",
+                "en": "Hm? Count again, slowly.",
+                "it": "Mm? Conta di nuovo, piano."
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "maxi",
+          "face": "happy",
+          "de": "Jetzt will ich stempeln! Und du?",
+          "sl": "Zdaj bi rad žigosal! Pa ti?",
+          "en": "Now I want to do the stamping! And you?",
+          "it": "Adesso voglio timbrare io! E tu?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Darf ich auch einmal stempeln?",
+              "sl": "Smem tudi jaz enkrat žigosati?",
+              "en": "May I do the stamping once too?",
+              "it": "Posso timbrare anch'io una volta?",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Klar! Fest drücken!",
+                "sl": "Seveda! Močno pritisni!",
+                "en": "Sure! Press hard!",
+                "it": "Certo! Premi forte!"
+              }
+            },
+            {
+              "de": "Darf ich auch einmal stempelt?",
+              "sl": "Smem tudi jaz enkrat žigosati?",
+              "en": "May I do the stamping once too?",
+              "it": "Posso timbrare anch'io una volta?",
+              "grammar": "modalverben",
+              "why": {
+                "de": "Nach darf steht das Verb im Infinitiv am Ende: stempeln.",
+                "sl": "Za darf stoji glagol v nedoločniku na koncu: stempeln.",
+                "en": "After darf the verb stays in the infinitive, at the end: stempeln.",
+                "it": "Dopo darf il verbo va all'infinito, alla fine: stempeln."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Stempelt? Wer stempelt?",
+                "sl": "Stempelt? Kdo žigosa?",
+                "en": "Stempelt? Who stamps?",
+                "it": "Stempelt? Chi timbra?"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "maxi",
+          "face": "laugh",
+          "de": "Bumm! Jetzt hast du einen Turm auf der Hand. Haha!",
+          "sl": "Bum! Zdaj imaš stolp na roki. Haha!",
+          "en": "Bang! Now you've got a tower on your hand. Ha ha!",
+          "it": "Bum! Adesso hai una torre sulla mano. Ah ah!"
+        }
+      ]
+    },
+    {
+      "id": "stempel-kirche",
+      "memory": {
+        "de": "das Dorf durch das Fernrohr, so klein wie Spielzeug",
+        "sl": "vas skozi daljnogled, majhno kot igrača",
+        "en": "the village through the telescope, as small as a toy",
+        "it": "il paese nel cannocchiale, piccolo come un giocattolo"
+      },
+      "lines": [
+        {
+          "who": "maxi",
+          "face": "curious",
+          "de": "{learner}, schau durch das Fernrohr! Siehst du unsere Kirche mit dem Zwiebelturm? Wo ist sie?",
+          "sl": "{learner}, poglej skozi daljnogled! Vidiš našo cerkev s čebulastim zvonikom? Kje je?",
+          "en": "{learner}, look through the telescope! Can you see our church with its onion dome? Where is it?",
+          "it": "{learner}, guarda nel cannocchiale! Vedi la nostra chiesa con il campanile a cipolla? Dov'è?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Da unten, im Dorf!",
+              "sl": "Tam spodaj, v vasi!",
+              "en": "Down there, in the village!",
+              "it": "Laggiù, in paese!",
+              "ok": true,
+              "tap": "village",
+              "grammar": "wechselpraepositionen",
+              "reply": {
+                "face": "happy",
+                "de": "Ja! Die Häuser sind so klein wie Spielzeug!",
+                "sl": "Ja! Hiše so majhne kot igrače!",
+                "en": "Yes! The houses are as small as toys!",
+                "it": "Sì! Le case sono piccole come giocattoli!"
+              }
+            },
+            {
+              "de": "Da oben, auf dem Gipfel!",
+              "sl": "Tam zgoraj, na vrhu!",
+              "en": "Up there, on the peak!",
+              "it": "Lassù, sulla vetta!",
+              "tap": "peak",
+              "why": {
+                "de": "Auf dem Gipfel steht ein Kreuz, keine Kirche. Die Kirche ist unten.",
+                "sl": "Na vrhu stoji križ, ne cerkev. Cerkev je spodaj.",
+                "en": "On the peak stands a cross, not a church. The church is down below.",
+                "it": "Sulla vetta c'è una croce, non una chiesa. La chiesa è giù in basso."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Auf dem Gipfel? Da steht nur ein Kreuz!",
+                "sl": "Na vrhu? Tam stoji samo križ!",
+                "en": "On the peak? There's only a cross up there!",
+                "it": "Sulla vetta? Lì c'è solo una croce!"
+              }
+            },
+            {
+              "de": "Da, im Wald!",
+              "sl": "Tam, v gozdu!",
+              "en": "There, in the wood!",
+              "it": "Lì, nel bosco!",
+              "tap": "forest",
+              "why": {
+                "de": "Im Wald sind nur Bäume. Die Kirche steht zwischen den Häusern.",
+                "sl": "V gozdu so samo drevesa. Cerkev stoji med hišami.",
+                "en": "In the wood there are only trees. The church stands among the houses.",
+                "it": "Nel bosco ci sono solo alberi. La chiesa sta tra le case."
+              },
+              "reply": {
+                "face": "surprised",
+                "de": "Im Wald? Da wohnen nur die Rehe!",
+                "sl": "V gozdu? Tam živijo samo srne!",
+                "en": "In the wood? Only the deer live there!",
+                "it": "Nel bosco? Lì ci abitano solo i caprioli!"
+              }
+            }
+          ]
+        },
+        {
+          "who": "maxi",
+          "face": "proud",
+          "de": "Und da, der Fluss. Das ist die Gail. Sie fließt bis nach Villach.",
+          "sl": "In tam, reka. To je Zilja. Teče vse do Beljaka.",
+          "en": "And there, the river. That's the Gail. It flows all the way to Villach.",
+          "it": "E lì, il fiume. È il Gail. Scorre fino a Villaco."
+        },
+        {
+          "choices": [
+            {
+              "de": "Bis Villach ist es weit!",
+              "sl": "Do Beljaka je daleč!",
+              "en": "It's a long way to Villach!",
+              "it": "Fino a Villaco è lontano!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Ja! Mit dem Fahrrad eine Stunde.",
+                "sl": "Ja! S kolesom eno uro.",
+                "en": "Yes! An hour by bike.",
+                "it": "Sì! Un'ora in bicicletta."
+              }
+            },
+            {
+              "de": "Bis Villach es ist weit!",
+              "sl": "Do Beljaka je daleč!",
+              "en": "It's a long way to Villach!",
+              "it": "Fino a Villaco è lontano!",
+              "grammar": "wortstellung",
+              "why": {
+                "de": "Das Verb steht an zweiter Stelle: Bis Villach ist es weit.",
+                "sl": "Glagol je na drugem mestu: Bis Villach ist es weit.",
+                "en": "The verb comes second: Bis Villach ist es weit.",
+                "it": "Il verbo va al secondo posto: Bis Villach ist es weit."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Wie bitte? Sag das noch einmal.",
+                "sl": "Hm? Kako, prosim? Povej še enkrat.",
+                "en": "Hm? Sorry? Say that again.",
+                "it": "Mm? Come? Ripetilo."
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "maxi",
+          "face": "laugh",
+          "de": "Ich sehe sogar unser Gasthaus! Und die Linde davor!",
+          "sl": "Vidim celo našo gostilno! In lipo pred njo!",
+          "en": "I can even see our inn! And the linden in front of it!",
+          "it": "Vedo perfino la nostra locanda! E il tiglio davanti!"
+        }
+      ]
+    },
+    {
+      "id": "stufen-pausen",
+      "count": { "from": "dice", "min": 2, "max": 6, "gender": "f" },
+      "memory": { "de": "die Pausen auf der Stiege", "sl": "postanke na stopnicah", "en": "the rests on the stairs", "it": "le pause sulle scale" },
+      "lines": [
+        {
+          "who": "sepp",
+          "face": "laugh",
+          "de": "Geschafft, {learner}! Hast du gezählt? Wie oft habe ich auf der Stiege Pause gemacht?",
+          "sl": "Uspelo mi je, {learner}! Si {m:štel|f:štela}? Kolikokrat sem se na stopnicah ustavil?",
+          "en": "Made it, {learner}! Did you count? How many times did I stop for a rest on the stairs?",
+          "it": "Ce l'ho fatta, {learner}! Hai contato? Quante volte mi sono fermato sulle scale?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Du hast {n} {Pause|Pausen} gemacht.",
+              "sl": "Ustavil si se {n}-krat.",
+              "en": "You took {n} {rest|rests}.",
+              "it": "Hai fatto {n} {pausa|pause}.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Gut gezählt. Früher keine einzige!",
+                "sl": "Dobro si {m:preštel|f:preštela}. Nekoč nobenega!",
+                "en": "Well counted. In the old days not a single one!",
+                "it": "Ben contato. Una volta neanche una!"
+              }
+            },
+            {
+              "de": "Du hast {n} {!Pause|Pausen} gemacht.",
+              "sl": "Ustavil si se {n}-krat.",
+              "en": "You took {n} {!rest|rests}.",
+              "it": "Hai fatto {n} {!pausa|pause}.",
+              "wrong_form": 1,
+              "grammar": "plural",
+              "why": {
+                "de": "{Eins steht im Singular|Ab zwei steht der Plural}: {n} {Pause|Pausen}.",
+                "sl": "{Ena je v ednini|Od dveh naprej je množina}: {n} {Pause|Pausen}.",
+                "en": "{One takes the singular|From two on, the plural}: {n} {Pause|Pausen}.",
+                "it": "{Uno vuole il singolare|Da due in su, il plurale}: {n} {Pause|Pausen}."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Zähl noch einmal, langsam.",
+                "sl": "Hm? Štej še enkrat, počasi.",
+                "en": "Hm? Count again, slowly.",
+                "it": "Mm? Conta di nuovo, piano."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "sepp",
+          "face": "curious",
+          "de": "Oben ist die Luft so frisch. Weißt du, wie viele Stufen es sind?",
+          "sl": "Zgoraj je zrak tako svež. Veš, koliko stopnic je?",
+          "en": "Up here the air is so fresh. Do you know how many steps there are?",
+          "it": "Quassù l'aria è così fresca. Sai quanti scalini sono?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Es sind hundert Stufen.",
+              "sl": "Sto stopnic je.",
+              "en": "There are a hundred steps.",
+              "it": "Sono cento scalini.",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Richtig. Und morgen gehe ich sie wieder hinauf!",
+                "sl": "Tako je. In jutri grem spet gor!",
+                "en": "Right. And tomorrow I'll climb them again!",
+                "it": "Giusto. E domani li risalgo!"
+              }
+            },
+            {
+              "de": "Es ist hundert Stufen.",
+              "sl": "Sto stopnic je.",
+              "en": "There are a hundred steps.",
+              "it": "Sono cento scalini.",
+              "grammar": "sein-haben",
+              "why": {
+                "de": "Hundert Stufen sind viele: Es sind hundert Stufen. Ist sagt man bei einer.",
+                "sl": "Sto stopnic je veliko: es sind hundert Stufen. Ist je za eno.",
+                "en": "A hundred steps are many: es sind hundert Stufen. Ist is for one.",
+                "it": "Cento scalini sono tanti: es sind hundert Stufen. Ist si dice per uno."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Ist? Nur eine Stufe? Schön wär's!",
+                "sl": "Ist? Samo ena stopnica? Ko bi le bilo res!",
+                "en": "Ist? Just one step? If only!",
+                "it": "Ist? Un solo scalino? Magari!"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "sepp",
+          "face": "happy",
+          "de": "Eile mit Weile, wie man so sagt.",
+          "sl": "Hiti počasi, kot pravijo.",
+          "en": "More haste, less speed, as they say.",
+          "it": "Chi va piano va sano e va lontano, come si dice."
+        }
+      ]
+    },
+    {
+      "id": "stufen-dobratsch",
+      "memory": {
+        "de": "die alte Geschichte vom Dobratsch",
+        "sl": "staro zgodbo o Dobraču",
+        "en": "the old story of the Dobratsch",
+        "it": "la vecchia storia del Dobratsch"
+      },
+      "lines": [
+        {
+          "who": "sepp",
+          "face": "thinking",
+          "de": "Schau den Berg links an, den Dobratsch, {learner}. Siehst du die steile Wand?",
+          "sl": "Poglej goro na levi, Dobrač, {learner}. Vidiš strmo steno?",
+          "en": "Look at the mountain on the left, the Dobratsch, {learner}. Can you see the steep face?",
+          "it": "Guarda la montagna a sinistra, il Dobratsch, {learner}. Vedi la parete ripida?"
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja, ich sehe sie! Sie ist sehr steil.",
+              "sl": "Ja, vidim jo! Zelo je strma.",
+              "en": "Yes, I can see it! It is very steep.",
+              "it": "Sì, la vedo! È ripidissima.",
+              "ok": true,
+              "reply": {
+                "face": "proud",
+                "de": "Vor fast siebenhundert Jahren ist dort ein Stück vom Berg ins Tal gefallen.",
+                "sl": "Pred skoraj sedemsto leti je tam kos gore padel v dolino.",
+                "en": "Almost seven hundred years ago a piece of the mountain fell into the valley there.",
+                "it": "Quasi settecento anni fa un pezzo della montagna è caduto nella valle."
+              }
+            },
+            {
+              "de": "Ja, ich sehe ihn! Sie ist sehr steil.",
+              "sl": "Ja, vidim jo! Zelo je strma.",
+              "en": "Yes, I can see it! It is very steep.",
+              "it": "Sì, la vedo! È ripidissima.",
+              "grammar": "akkusativ",
+              "why": {
+                "de": "Die Wand ist feminin: Im Akkusativ sagt man sie, nicht ihn.",
+                "sl": "Die Wand je ženskega spola: v tožilniku rečeš sie, ne ihn.",
+                "en": "Die Wand is feminine: in the accusative you say sie, not ihn.",
+                "it": "Die Wand è femminile: all'accusativo si dice sie, non ihn."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Ihn? Wen siehst du? Den Bussard?",
+                "sl": "Ihn? Koga vidiš? Kanjo?",
+                "en": "Ihn? Who can you see? The buzzard?",
+                "it": "Ihn? Chi vedi? La poiana?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "sepp",
+          "de": "Heute wachsen dort Bäume, und die Gail fließt vorbei. Die Leute nennen es die Schütt.",
+          "sl": "Danes tam rastejo drevesa in mimo teče Zilja. Ljudje temu pravijo Schütt.",
+          "en": "Today trees grow there and the Gail flows past. People call it the Schütt.",
+          "it": "Oggi ci crescono gli alberi e il Gail scorre accanto. La gente la chiama la Schütt."
+        },
+        {
+          "choices": [
+            {
+              "de": "Das ist eine alte Geschichte!",
+              "sl": "To je stara zgodba!",
+              "en": "That's an old story!",
+              "it": "È una storia antica!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Ja. Und am Abend am Feuer erzähle ich dir noch mehr.",
+                "sl": "Ja. Zvečer ob ognju ti povem še več.",
+                "en": "Yes. And this evening by the fire I'll tell you more.",
+                "it": "Sì. E stasera accanto al fuoco te ne racconto ancora."
+              }
+            },
+            {
+              "de": "Das ist ein alte Geschichte!",
+              "sl": "To je stara zgodba!",
+              "en": "That's an old story!",
+              "it": "È una storia antica!",
+              "grammar": "artikel-genus",
+              "why": {
+                "de": "Geschichte ist feminin: die Geschichte, eine Geschichte.",
+                "sl": "Geschichte je ženskega spola: die Geschichte, eine Geschichte.",
+                "en": "Geschichte is feminine: die Geschichte, eine Geschichte.",
+                "it": "Geschichte è femminile: die Geschichte, eine Geschichte."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Ein …? Hm? Was ist das?",
+                "sl": "Ein …? Hm? Kaj je to?",
+                "en": "Ein …? Hm? What's that?",
+                "it": "Ein …? Mm? Che cos'è?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "sepp",
+          "face": "laugh",
+          "de": "Aber keine Angst: Der Dobratsch steht jetzt ganz ruhig.",
+          "sl": "Ampak brez skrbi: Dobrač zdaj stoji čisto mirno.",
+          "en": "But don't worry: the Dobratsch stands quite still now.",
+          "it": "Ma niente paura: il Dobratsch adesso sta tranquillo."
+        }
+      ]
+    },
+    {
+      "id": "bussard-fernrohr",
+      "memory": {
+        "de": "die breiten Flügel des Bussards im Fernrohr",
+        "sl": "široke peruti kanje v daljnogledu",
+        "en": "the buzzard's wide wings through the telescope",
+        "it": "le ali larghe della poiana nel cannocchiale"
+      },
+      "lines": [
+        {
+          "who": "florian",
+          "face": "curious",
+          "de": "{learner}, nimm das Fernrohr! Siehst du den Bussard?",
+          "sl": "{learner}, vzemi daljnogled! Vidiš kanjo?",
+          "en": "{learner}, take the telescope! Can you see the buzzard?",
+          "it": "{learner}, prendi il cannocchiale! Vedi la poiana?",
+          "fx": { "hawk": 0.6 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja, ich sehe den Bussard!",
+              "sl": "Ja, vidim kanjo!",
+              "en": "Yes, I can see the buzzard!",
+              "it": "Sì, vedo la poiana!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Schau seine Flügel an. So breit!",
+                "sl": "Poglej njegove peruti. Kako široke!",
+                "en": "Look at its wings. So wide!",
+                "it": "Guarda le sue ali. Così larghe!",
+                "fx": { "hawk": 0.8 }
+              }
+            },
+            {
+              "de": "Ja, ich sehe der Bussard!",
+              "sl": "Ja, vidim kanjo!",
+              "en": "Yes, I can see the buzzard!",
+              "it": "Sì, vedo la poiana!",
+              "grammar": "akkusativ",
+              "why": {
+                "de": "Sehen braucht den Akkusativ: der Bussard wird zu den Bussard.",
+                "sl": "Sehen zahteva tožilnik: der Bussard postane den Bussard.",
+                "en": "Sehen takes the accusative: der Bussard becomes den Bussard.",
+                "it": "Sehen vuole l'accusativo: der Bussard diventa den Bussard."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Der Bussard sieht dich? Haha, vielleicht!",
+                "sl": "Kanja vidi tebe? Haha, mogoče!",
+                "en": "The buzzard sees you? Ha ha, maybe!",
+                "it": "La poiana vede te? Ah ah, forse!"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "florian",
+          "face": "proud",
+          "de": "Seine Flügel sind über einen Meter breit. So lang wie mein Hirtenstab!",
+          "sl": "Peruti ima široke več kot meter. Tako dolge kot moja pastirska palica!",
+          "en": "Its wings are over a metre wide. As long as my shepherd's crook!",
+          "it": "Le sue ali sono larghe più di un metro. Lunghe come il mio bastone da pastore!"
+        },
+        {
+          "choices": [
+            {
+              "de": "Die Flügel sind riesig!",
+              "sl": "Peruti so ogromne!",
+              "en": "The wings are huge!",
+              "it": "Le ali sono enormi!",
+              "ok": true,
+              "reply": {
+                "face": "laugh",
+                "de": "Ja! Mit solchen Flügeln flieg ich auf die Alm!",
+                "sl": "Ja! S takimi perutmi bi poletel na planino!",
+                "en": "Yes! With wings like that I'd fly up to the Alm!",
+                "it": "Sì! Con ali così volerei all'alpeggio!"
+              }
+            },
+            {
+              "de": "Der Flügel sind riesig!",
+              "sl": "Peruti so ogromne!",
+              "en": "The wings are huge!",
+              "it": "Le ali sono enormi!",
+              "grammar": "plural",
+              "why": {
+                "de": "Im Plural ist der Artikel immer die: die Flügel.",
+                "sl": "V množini je člen vedno die: die Flügel.",
+                "en": "In the plural the article is always die: die Flügel.",
+                "it": "Al plurale l'articolo è sempre die: die Flügel."
+              },
+              "reply": {
+                "face": "laugh",
+                "de": "Der …? Nur ein Flügel? Dann fliegt er ja im Kreis!",
+                "sl": "Der …? Samo ena perut? Potem pa leti v krogu!",
+                "en": "Der …? Just one wing? Then it would fly in circles!",
+                "it": "Der …? Una sola ala? Allora vola in tondo!"
+              }
+            }
+          ],
+          "puzzled": { "face": "confused", "de": "Hm? Wie bitte?", "sl": "Hm? Kako, prosim?", "en": "Hm? Sorry?", "it": "Mm? Come, scusa?" }
+        },
+        {
+          "who": "florian",
+          "face": "happy",
+          "de": "So, jetzt fliegt er weiter zum Dobratsch. Komm, wir gehen auch!",
+          "sl": "Tako, zdaj leti naprej proti Dobraču. Pridi, greva tudi midva!",
+          "en": "There, now it's flying on to the Dobratsch. Come on, let's go too!",
+          "it": "Ecco, adesso vola verso il Dobratsch. Dai, andiamo anche noi!",
+          "fx": { "hawk": 0 }
+        }
+      ]
+    },
+    {
+      "id": "abendrot-glocke",
+      "memory": {
+        "de": "die Abendglocke, die vom Dorf heraufkam",
+        "sl": "večerni zvon, ki je prišel iz vasi gor",
+        "en": "the evening bell coming up from the village",
+        "it": "la campana della sera che saliva dal paese"
+      },
+      "lines": [
+        {
+          "who": "kathi",
+          "face": "curious",
+          "de": "Pst, {learner}! Hörst du? Unten im Dorf läutet die Glocke.",
+          "sl": "Pst, {learner}! Slišiš? Spodaj v vasi zvoni zvon.",
+          "en": "Shh, {learner}! Can you hear? Down in the village the bell is ringing.",
+          "it": "Sst, {learner}! Senti? Giù in paese suona la campana.",
+          "fx": { "bell": 0.6 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Ja, ich höre sie!",
+              "sl": "Ja, slišim ga!",
+              "en": "Yes, I can hear it!",
+              "it": "Sì, la sento!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Das ist die Abendglocke. Jetzt ist der Tag vorbei.",
+                "sl": "To je večerni zvon. Zdaj je dneva konec.",
+                "en": "That's the evening bell. Now the day is over.",
+                "it": "È la campana della sera. Adesso la giornata è finita.",
+                "fx": { "bell": 0.8 }
+              }
+            },
+            {
+              "de": "Ja, ich höre ihn!",
+              "sl": "Ja, slišim ga!",
+              "en": "Yes, I can hear it!",
+              "it": "Sì, la sento!",
+              "grammar": "artikel-genus",
+              "why": {
+                "de": "Glocke ist feminin: die Glocke, also im Akkusativ sie.",
+                "sl": "Glocke je ženskega spola: die Glocke, zato v tožilniku sie.",
+                "en": "Glocke is feminine: die Glocke, so in the accusative sie.",
+                "it": "Glocke è femminile: die Glocke, quindi all'accusativo sie."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Ihn? Wen hörst du denn? Den Bussard?",
+                "sl": "Ihn? Koga pa slišiš? Kanjo?",
+                "en": "Ihn? Who can you hear? The buzzard?",
+                "it": "Ihn? Chi senti? La poiana?"
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "face": "happy",
+          "de": "Und schau, die Berge glühen noch ein bisschen.",
+          "sl": "Pa poglej, gore še malo žarijo.",
+          "en": "And look, the mountains are still glowing a little.",
+          "it": "E guarda, le montagne brillano ancora un po'.",
+          "fx": { "glow": 0.5 }
+        },
+        {
+          "choices": [
+            {
+              "de": "Morgen komme ich wieder!",
+              "sl": "Jutri spet pridem!",
+              "en": "I'll come back tomorrow!",
+              "it": "Domani torno!",
+              "ok": true,
+              "reply": {
+                "face": "happy",
+                "de": "Gern! Du bist immer willkommen, {learner}.",
+                "sl": "Z veseljem! Vedno si {m:dobrodošel|f:dobrodošla}, {learner}.",
+                "en": "Gladly! You're always welcome, {learner}.",
+                "it": "Volentieri! Sei sempre {m:benvenuto|f:benvenuta}, {learner}."
+              }
+            },
+            {
+              "de": "Morgen ich komme wieder!",
+              "sl": "Jutri spet pridem!",
+              "en": "I'll come back tomorrow!",
+              "it": "Domani torno!",
+              "grammar": "wortstellung",
+              "why": {
+                "de": "Das Verb steht an zweiter Stelle: Morgen komme ich wieder.",
+                "sl": "Glagol je na drugem mestu: Morgen komme ich wieder.",
+                "en": "The verb comes second: Morgen komme ich wieder.",
+                "it": "Il verbo va al secondo posto: Morgen komme ich wieder."
+              },
+              "reply": {
+                "face": "confused",
+                "de": "Hm? Wie bitte? Noch einmal, bitte.",
+                "sl": "Hm? Kako, prosim? Še enkrat, prosim.",
+                "en": "Hm? Sorry? Once more, please.",
+                "it": "Mm? Come? Ancora una volta, per favore."
+              }
+            }
+          ],
+          "puzzled": {
+            "face": "confused",
+            "de": "Wie bitte? Noch einmal, langsam.",
+            "sl": "Kako, prosim? Še enkrat, počasi.",
+            "en": "Sorry? Once more, slowly.",
+            "it": "Come? Ancora una volta, piano."
+          }
+        },
+        {
+          "who": "kathi",
+          "face": "happy",
+          "de": "Gute Nacht, {learner}! Geh langsam die Stiege hinunter, gell?",
+          "sl": "Lahko noč, {learner}! Počasi pojdi po stopnicah dol, a?",
+          "en": "Good night, {learner}! Go down the stairs slowly, won't you?",
+          "it": "Buonanotte, {learner}! Scendi piano le scale, eh?",
+          "fx": { "bell": 0, "glow": 0 }
+        }
+      ]
+    }
+  ]
+}

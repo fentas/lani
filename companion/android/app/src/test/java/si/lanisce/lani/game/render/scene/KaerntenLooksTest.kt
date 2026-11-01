@@ -128,12 +128,13 @@ class KaerntenLooksTest {
             val hits = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, w, hour, sprites), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.objects.getValue(art)) {
                 val n = hits.count { it.target == SceneTarget.Thing(slot) }
-                val home = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, world(type, level, "primorska"), hour, sprites), Lens(k, 0, 0, 240, 160))
+                // Primorska's picture with the culture's people in it: each culture dresses its people its own way (Wardrobes)
+                val home = (ScenePainters.create(art) as ArtPainter).also { it.dressedAs = "kaernten" }.render(PixelCanvas(240 * k, 160 * k), frame(art, world(type, level, "primorska"), hour, sprites), Lens(k, 0, 0, 240, 160))
                 val want = home.count { it.target == SceneTarget.Thing(slot) }
                 assertEquals("$art/$slot at $type level $level, detail $k, $hour h: as many as the default culture's", want, n)
                 if (SceneFixtures.there(art, slot, w) && want > 0) assertEquals("$art/$slot once", 1, n)
             }
-            val home = ScenePainters.create(art).render(PixelCanvas(240 * k, 160 * k), frame(art, world(type, level, "primorska"), hour, sprites), Lens(k, 0, 0, 240, 160))
+            val home = (ScenePainters.create(art) as ArtPainter).also { it.dressedAs = "kaernten" }.render(PixelCanvas(240 * k, 160 * k), frame(art, world(type, level, "primorska"), hour, sprites), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.personSlots.getValue(art)) {
                 val a = home.singleOrNull { it.target == SceneTarget.Person("p-$slot") } ?: continue
                 val b = hits.single { it.target == SceneTarget.Person("p-$slot") }

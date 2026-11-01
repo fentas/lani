@@ -1,0 +1,949 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "vokalwechsel",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🔄",
+  "title": {
+    "de": "Ich fahre, du fährst",
+    "en": "Verbs that change: du fährst, er liest",
+    "sl": "Glagoli, ki spremenijo samoglasnik: du fährst, er liest",
+    "it": "Verbi che cambiano vocale: du fährst, er liest"
+  },
+  "goal": {
+    "en": "You can use the verbs that change their vowel with du and er, sie, es (du fährst, er läuft, du sprichst, er isst, du nimmst, sie liest) and keep it for ich, wir and ihr (ihr fahrt).",
+    "sl": "Znaš uporabiti glagole, ki pri du in er, sie, es spremenijo samoglasnik (du fährst, er läuft, du sprichst, er isst, du nimmst, sie liest), in ga obdržiš pri ich, wir in ihr (ihr fahrt).",
+    "it": "Sai usare i verbi che cambiano vocale con du ed er, sie, es (du fährst, er läuft, du sprichst, er isst, du nimmst, sie liest) e la tieni con ich, wir e ihr (ihr fahrt)."
+  },
+  "grammar": [
+    "vokalwechsel",
+    "praesens"
+  ],
+  "words": [
+    "fahren",
+    "schlafen",
+    "tragen",
+    "waschen",
+    "laufen",
+    "sprechen",
+    "helfen",
+    "geben",
+    "es gibt",
+    "sehen",
+    "lesen",
+    "essen",
+    "nehmen",
+    "schnell",
+    "lange",
+    "gern",
+    "Slowenisch",
+    "der Teller",
+    "der Hund",
+    "die Kirche",
+    "das Tal",
+    "die Zeitung",
+    "die Flasche",
+    "das Brot",
+    "der Speck",
+    "die Alm",
+    "der Most",
+    "die Kasnudeln",
+    "die Kirchtagssuppe"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        {
+          "de": "du",
+          "en": "du (you)",
+          "sl": "du (ti)",
+          "it": "du (tu)"
+        },
+        {
+          "de": "er · sie · es",
+          "en": "er · sie · es (he, she, it)",
+          "sl": "er · sie · es (on, ona, ono)",
+          "it": "er · sie · es (lui, lei, esso)"
+        },
+        {
+          "de": "ich · wir · ihr",
+          "en": "ich · wir · ihr (no change)",
+          "sl": "ich · wir · ihr (brez spremembe)",
+          "it": "ich · wir · ihr (senza cambio)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Some verbs change their vowel with **du** and **er, sie, es**, and only there. In the first group a becomes ä: **fahren** (to drive, to go) → **du fährst** (you drive), **er fährt** (he drives); **schlafen** (to sleep) → **du schläfst**, **er schläft**. The endings are the usual ones.",
+          "sl": "Nekateri glagoli spremenijo samoglasnik pri **du** in **er, sie, es**, in samo tam. V prvi skupini a postane ä: **fahren** (peljati se) → **du fährst** (pelješ se), **er fährt** (pelje se); **schlafen** (spati) → **du schläfst**, **er schläft**. Končnice so običajne.",
+          "it": "Alcuni verbi cambiano la vocale con **du** ed **er, sie, es**, e solo lì. Nel primo gruppo la a diventa ä: **fahren** (andare con un mezzo) → **du fährst** (vai), **er fährt** (va); **schlafen** (dormire) → **du schläfst**, **er schläft**. Le desinenze sono quelle solite."
+        },
+        "examples": [
+          {
+            "de": "Stefan fährt nach Villach.",
+            "en": "Stefan is driving to Villach.",
+            "sl": "Stefan se pelje v Beljak.",
+            "it": "Stefan va a Villach."
+          },
+          {
+            "de": "Fährst du auch nach Villach?",
+            "en": "Are you going to Villach too?",
+            "sl": "Se tudi ti pelješ v Beljak?",
+            "it": "Vai anche tu a Villach?"
+          },
+          {
+            "de": "Hirte Florian schläft auf der Alm.",
+            "en": "Florian the shepherd sleeps up on the alpine pasture.",
+            "sl": "Pastir Florian spi na planini.",
+            "it": "Il pastore Florian dorme all'alpeggio."
+          }
+        ],
+        "rows": [
+          [
+            "fahren",
+            "fährst",
+            "fährt",
+            "fahre · fahren · fahrt"
+          ],
+          [
+            "schlafen",
+            "schläfst",
+            "schläft",
+            "schlafe · schlafen · schlaft"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "vokalwechsel",
+          "prompt": "Florian ___ auf der Alm. (schlafen)",
+          "options": [
+            "schlaft",
+            "schläft",
+            "schläfst"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**er: a → ä, er schläft**\n- ich schlafe · du schläfst · er schläft",
+            "sl": "**er: a → ä, er schläft**\n- ich schlafe · du schläfst · er schläft",
+            "it": "**er: a → ä, er schläft**\n- ich schlafe · du schläfst · er schläft"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The same in **tragen** (to carry) → **er trägt** and **waschen** (to wash) → **er wäscht**. In **laufen** (to run, to walk) au becomes äu: **du läufst** (you run), **er läuft** (he runs).",
+          "sl": "Enako pri **tragen** (nositi) → **er trägt** in **waschen** (prati, umivati) → **er wäscht**. Pri **laufen** (teči, hoditi) au postane äu: **du läufst** (tečeš), **er läuft** (teče).",
+          "it": "Lo stesso con **tragen** (portare) → **er trägt** e **waschen** (lavare) → **er wäscht**. In **laufen** (correre, camminare) au diventa äu: **du läufst** (corri), **er läuft** (corre)."
+        },
+        "examples": [
+          {
+            "de": "Wirtin Kathi trägt drei Teller.",
+            "en": "Kathi the innkeeper is carrying three plates.",
+            "sl": "Gostilničarka Kathi nese tri krožnike.",
+            "it": "L'ostessa Kathi porta tre piatti."
+          },
+          {
+            "de": "Der Hund läuft schnell.",
+            "en": "The dog runs fast.",
+            "sl": "Pes hitro teče.",
+            "it": "Il cane corre veloce."
+          },
+          {
+            "de": "Oma Resi wäscht die Teller.",
+            "en": "Grandma Resi is washing the plates.",
+            "sl": "Babica Resi pomiva krožnike.",
+            "it": "Nonna Resi lava i piatti."
+          }
+        ],
+        "rows": [
+          [
+            "tragen",
+            "trägst",
+            "trägt",
+            "trage · tragen · tragt"
+          ],
+          [
+            "laufen",
+            "läufst",
+            "läuft",
+            "laufe · laufen · lauft"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "vokalwechsel",
+          "text": "Der Hund ___ schnell. (laufen)",
+          "accept": [
+            "läuft"
+          ],
+          "hint": "au → äu",
+          "explain": {
+            "en": "**er: au → äu, er läuft**\n- ich laufe · du läufst · er läuft",
+            "sl": "**er: au → äu, er läuft**\n- ich laufe · du läufst · er läuft",
+            "it": "**er: au → äu, er läuft**\n- ich laufe · du läufst · er läuft"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In other verbs e becomes i: **sprechen** (to speak) → **du sprichst**, **er spricht**; **helfen** (to help) → **er hilft**; **geben** (to give) → **er gibt**. **Es gibt** (there is, there are) is geben too: **Es gibt Kasnudeln.** (There are Kasnudeln.)",
+          "sl": "Pri drugih glagolih e postane i: **sprechen** (govoriti) → **du sprichst**, **er spricht**; **helfen** (pomagati) → **er hilft**; **geben** (dati) → **er gibt**. Tudi **es gibt** (je, so, imamo) je geben: **Es gibt Kasnudeln.** (Imamo Kasnudeln.)",
+          "it": "In altri verbi la e diventa i: **sprechen** (parlare) → **du sprichst**, **er spricht**; **helfen** (aiutare) → **er hilft**; **geben** (dare) → **er gibt**. Anche **es gibt** (c'è, ci sono) è geben: **Es gibt Kasnudeln.** (Ci sono i Kasnudeln.)"
+        },
+        "examples": [
+          {
+            "de": "Imker Stanko spricht Slowenisch und Deutsch.",
+            "en": "Stanko the beekeeper speaks Slovene and German.",
+            "sl": "Čebelar Stanko govori slovensko in nemško.",
+            "it": "L'apicoltore Stanko parla sloveno e tedesco."
+          },
+          {
+            "de": "Sprichst du Deutsch?",
+            "en": "Do you speak German?",
+            "sl": "Ali govoriš nemško?",
+            "it": "Parli tedesco?"
+          },
+          {
+            "de": "Es gibt Kirchtagssuppe!",
+            "en": "There's Kirchtag soup!",
+            "sl": "Imamo žegnansko juho!",
+            "it": "C'è la zuppa della sagra!"
+          }
+        ],
+        "rows": [
+          [
+            "sprechen",
+            "sprichst",
+            "spricht",
+            "spreche · sprechen · sprecht"
+          ],
+          [
+            "geben",
+            "gibst",
+            "gibt",
+            "gebe · geben · gebt"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "vokalwechsel",
+          "prompt": "Stanko ___ Slowenisch. (sprechen)",
+          "options": [
+            "sprecht",
+            "spricht",
+            "sprechst"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**er: e → i, er spricht**\n- ich spreche · du sprichst · er spricht",
+            "sl": "**er: e → i, er spricht**\n- ich spreche · du sprichst · er spricht",
+            "it": "**er: e → i, er spricht**\n- ich spreche · du sprichst · er spricht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "And e becomes ie in **sehen** (to see) → **du siehst**, **er sieht**, and **lesen** (to read) → **du liest**, **er liest**. Lesen's stem ends in s, so du takes only -t, as in **du heißt**: **du liest**, never liesst.",
+          "sl": "In e postane ie pri **sehen** (videti) → **du siehst**, **er sieht**, in **lesen** (brati) → **du liest**, **er liest**. Osnova lesen se konča na s, zato du dobi samo -t, kot pri **du heißt**: **du liest**, nikoli liesst.",
+          "it": "E la e diventa ie in **sehen** (vedere) → **du siehst**, **er sieht**, e **lesen** (leggere) → **du liest**, **er liest**. La radice di lesen finisce in s, quindi du prende solo -t, come in **du heißt**: **du liest**, mai liesst."
+        },
+        "examples": [
+          {
+            "de": "Tante Mitzi liest die Kleine Zeitung.",
+            "en": "Aunt Mitzi is reading the Kleine Zeitung.",
+            "sl": "Teta Mitzi bere Kleine Zeitung.",
+            "it": "La zia Mitzi legge la Kleine Zeitung."
+          },
+          {
+            "de": "Siehst du die Kirche?",
+            "en": "Can you see the church?",
+            "sl": "Ali vidiš cerkev?",
+            "it": "Vedi la chiesa?"
+          }
+        ],
+        "rows": [
+          [
+            "sehen",
+            "siehst",
+            "sieht",
+            "sehe · sehen · seht"
+          ],
+          [
+            "lesen",
+            "liest",
+            "liest",
+            "lese · lesen · lest"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "vokalwechsel",
+          "text": "Tante Mitzi ___ die Zeitung. (lesen)",
+          "accept": [
+            "liest"
+          ],
+          "hint": "e → ie",
+          "explain": {
+            "en": "**sie: e → ie, sie liest**\n- ich lese · du liest · sie liest",
+            "sl": "**sie: e → ie, sie liest**\n- ich lese · du liest · sie liest",
+            "it": "**sie: e → ie, sie liest**\n- ich lese · du liest · sie liest"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The others keep the vowel of the infinitive: **ich fahre** (I drive), **wir fahren** (we drive), **ihr fahrt** (you drive), **sie fahren** and **Sie fahren**. Careful with **ihr fahrt**: no umlaut, while **er fährt** has one. A dictionary shows the change: fahren (fährt).",
+          "sl": "Ostali obdržijo samoglasnik nedoločnika: **ich fahre** (peljem se), **wir fahren** (peljemo se), **ihr fahrt** (peljete se), **sie fahren** in **Sie fahren**. Pazi na **ihr fahrt**: brez preglasa, **er fährt** pa s preglasom. Slovar spremembo navede: fahren (fährt).",
+          "it": "Gli altri tengono la vocale dell'infinito: **ich fahre** (vado), **wir fahren** (andiamo), **ihr fahrt** (andate), **sie fahren** e **Sie fahren**. Attenzione a **ihr fahrt**: senza Umlaut, mentre **er fährt** ce l'ha. Il dizionario indica il cambio: fahren (fährt)."
+        },
+        "examples": [
+          {
+            "de": "Florian und Toni, ihr fahrt nach Villach?",
+            "en": "Florian and Toni, you're going to Villach?",
+            "sl": "Florian in Toni, vidva se peljeta v Beljak?",
+            "it": "Florian e Toni, voi andate a Villach?"
+          },
+          {
+            "de": "Wir sprechen Deutsch.",
+            "en": "We speak German.",
+            "sl": "Govorimo nemško.",
+            "it": "Parliamo tedesco."
+          },
+          {
+            "de": "Sehen Sie die Kirche, Frau Huber?",
+            "en": "Can you see the church, Mrs Huber?",
+            "sl": "Ali vidite cerkev, gospa Huber?",
+            "it": "Vede la chiesa, signora Huber?"
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "vokalwechsel",
+          "prompt": "Florian und Toni, ihr ___ nach Villach. (fahren)",
+          "options": [
+            "fahrt",
+            "fährt",
+            "fährst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ihr keeps the vowel: ihr fahrt**\n- er fährt · ihr fahrt",
+            "sl": "**ihr obdrži samoglasnik: ihr fahrt**\n- er fährt · ihr fahrt",
+            "it": "**ihr tiene la vocale: ihr fahrt**\n- er fährt · ihr fahrt"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Two are spelt their own way. **essen** (to eat) → **du isst**, **er isst**: two s and only -t, not **er ist** (he is). **nehmen** (to take) → **du nimmst**, **er nimmt**: the h goes and the m doubles.",
+          "sl": "Dva se pišeta po svoje. **essen** (jesti) → **du isst**, **er isst**: dva s in samo -t, ne **er ist** (on je). Slovensko je oboje »je«: on jé in on je. **nehmen** (vzeti) → **du nimmst**, **er nimmt**: h odpade, m se podvoji.",
+          "it": "Due si scrivono a modo loro. **essen** (mangiare) → **du isst**, **er isst**: due s e solo -t, non **er ist** (lui è). **nehmen** (prendere) → **du nimmst**, **er nimmt**: la h cade e la m si raddoppia."
+        },
+        "examples": [
+          {
+            "de": "Isst du gern Kasnudeln?",
+            "en": "Do you like eating Kasnudeln?",
+            "sl": "Ali rad ješ Kasnudeln?",
+            "it": "Ti piace mangiare i Kasnudeln?"
+          },
+          {
+            "de": "Opa Sepp isst Speck und Brot.",
+            "en": "Grandpa Sepp is eating bacon and bread.",
+            "sl": "Dedek Sepp jé slanino in kruh.",
+            "it": "Nonno Sepp mangia speck e pane."
+          },
+          {
+            "de": "Stefan nimmt ein Glas Most.",
+            "en": "Stefan takes a glass of cider.",
+            "sl": "Stefan vzame kozarec mošta.",
+            "it": "Stefan prende un bicchiere di sidro."
+          }
+        ],
+        "rows": [
+          [
+            "essen",
+            "isst",
+            "isst",
+            "esse · essen · esst"
+          ],
+          [
+            "nehmen",
+            "nimmst",
+            "nimmt",
+            "nehme · nehmen · nehmt"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "vokalwechsel",
+          "prompt": "Opa Sepp ___ Speck und Brot. (essen)",
+          "options": [
+            "ist",
+            "isst",
+            "esst"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**essen: er isst, with ss; er ist is sein**\n- er isst (eats) · er ist (is)",
+            "sl": "**essen: er isst, z ss; er ist je sein**\n- er isst (eats) · er ist (is)",
+            "it": "**essen: er isst, con ss; er ist è sein**\n- er isst (eats) · er ist (is)"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "a → ä: **du fährst, er fährt** · au → äu: **er läuft** · e → i: **du sprichst, er gibt, er isst, er nimmt** · e → ie: **du siehst, er liest**\n\nOnly du and er, sie, es change: **ich fahre, wir fahren, ihr fahrt**.\n\n**er isst** (he eats) with ss, **er ist** (he is) with one s.",
+      "sl": "a → ä: **du fährst, er fährt** · au → äu: **er läuft** · e → i: **du sprichst, er gibt, er isst, er nimmt** · e → ie: **du siehst, er liest**\n\nSpremenita se samo du in er, sie, es: **ich fahre, wir fahren, ihr fahrt**.\n\n**er isst** (on jé) z ss, **er ist** (on je) z enim s.",
+      "it": "a → ä: **du fährst, er fährt** · au → äu: **er läuft** · e → i: **du sprichst, er gibt, er isst, er nimmt** · e → ie: **du siehst, er liest**\n\nCambiano solo du ed er, sie, es: **ich fahre, wir fahren, ihr fahrt**.\n\n**er isst** (lui mangia) con ss, **er ist** (lui è) con una s."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "vokalwechsel-1",
+      "title": {
+        "de": "Du fährst, er fährt",
+        "en": "You drive, he drives",
+        "sl": "Ti se pelješ, on se pelje",
+        "it": "Tu vai, lui va"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "vokalwechsel",
+          "instruction": {
+            "en": "Ergänze · Fill in du and er",
+            "sl": "Ergänze · Dopolni du in er",
+            "it": "Ergänze · Completa du ed er"
+          },
+          "prompt": {
+            "en": "Vokalwechsel · the vowel changes",
+            "sl": "Vokalwechsel · samoglasnik se spremeni",
+            "it": "Vokalwechsel · la vocale cambia"
+          },
+          "columns": [
+            {
+              "en": "du · you",
+              "sl": "du · ti",
+              "it": "du · tu"
+            },
+            {
+              "en": "er · sie · es · he, she, it",
+              "sl": "er · sie · es · on, ona, ono",
+              "it": "er · sie · es · lui, lei, esso"
+            }
+          ],
+          "rows": [
+            {
+              "label": "fahren",
+              "cells": [
+                {
+                  "accept": [
+                    "fährst"
+                  ],
+                  "hint": "a → ä"
+                },
+                "fährt"
+              ]
+            },
+            {
+              "label": "schlafen",
+              "cells": [
+                "schläfst",
+                {
+                  "accept": [
+                    "schläft"
+                  ],
+                  "hint": "a → ä"
+                }
+              ]
+            },
+            {
+              "label": "laufen",
+              "cells": [
+                {
+                  "accept": [
+                    "läufst"
+                  ],
+                  "hint": "au → äu"
+                },
+                {
+                  "accept": [
+                    "läuft"
+                  ],
+                  "hint": "au → äu"
+                }
+              ]
+            },
+            {
+              "label": "sprechen",
+              "cells": [
+                {
+                  "accept": [
+                    "sprichst"
+                  ],
+                  "hint": "e → i"
+                },
+                "spricht"
+              ]
+            },
+            {
+              "label": "essen",
+              "cells": [
+                "isst",
+                {
+                  "accept": [
+                    "isst"
+                  ],
+                  "hint": "ss + t"
+                }
+              ]
+            },
+            {
+              "label": "sehen",
+              "cells": [
+                {
+                  "accept": [
+                    "siehst"
+                  ],
+                  "hint": "e → ie"
+                },
+                "sieht"
+              ]
+            },
+            {
+              "label": "lesen",
+              "cells": [
+                "liest",
+                {
+                  "accept": [
+                    "liest"
+                  ],
+                  "hint": "s + t"
+                }
+              ]
+            },
+            {
+              "label": "nehmen",
+              "cells": [
+                {
+                  "accept": [
+                    "nimmst"
+                  ],
+                  "hint": "e → i, mm"
+                },
+                {
+                  "accept": [
+                    "nimmt"
+                  ],
+                  "hint": "e → i, mm"
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**du and er change: a → ä, au → äu, e → i, e → ie**",
+            "sl": "**du in er se spremenita: a → ä, au → äu, e → i, e → ie**",
+            "it": "**du ed er cambiano: a → ä, au → äu, e → i, e → ie**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "vokalwechsel",
+          "instruction": {
+            "en": "Ordne zu · Does the vowel change?",
+            "sl": "Ordne zu · Se samoglasnik spremeni?",
+            "it": "Ordne zu · La vocale cambia?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "ä, äu, i, ie · it changes",
+                "sl": "ä, äu, i, ie · se spremeni",
+                "it": "ä, äu, i, ie · cambia"
+              },
+              "words": [
+                "du fährst",
+                "er liest",
+                "sie spricht",
+                "du isst"
+              ]
+            },
+            {
+              "label": {
+                "en": "a, au, e · it stays",
+                "sl": "a, au, e · ostane",
+                "it": "a, au, e · resta"
+              },
+              "words": [
+                "ihr fahrt",
+                "wir lesen",
+                "ich spreche",
+                "ihr esst"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Only du and er, sie, es change**\n- du fährst · ihr fahrt",
+            "sl": "**Spremenita se samo du in er, sie, es**\n- du fährst · ihr fahrt",
+            "it": "**Cambiano solo du ed er, sie, es**\n- du fährst · ihr fahrt"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vokalwechsel-2",
+      "title": {
+        "de": "Ein Tag auf der Alm",
+        "en": "A day on the alpine pasture",
+        "sl": "Dan na planini",
+        "it": "Una giornata all'alpeggio"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "vokalwechsel",
+          "instruction": {
+            "en": "Ergänze das Verb · Fill in the verb",
+            "sl": "Ergänze das Verb · Dopolni glagol",
+            "it": "Ergänze das Verb · Completa il verbo"
+          },
+          "title": "Ein Tag auf der Alm",
+          "text": "Hirte Florian ___ (schlafen) lange. Der Hund Bello ___ (laufen) zu den Schafen. Florian ___ (essen) Brot und Speck. Er ___ (sehen) die Kirche im Tal. Stefan ___ (fahren) auf die Alm. Er ___ (tragen) zwei Flaschen Most. Und du, {learner}? ___ (sprechen) du mit Florian?",
+          "gaps": [
+            {
+              "accept": [
+                "schläft"
+              ],
+              "hint": "a → ä"
+            },
+            {
+              "accept": [
+                "läuft"
+              ],
+              "hint": "au → äu"
+            },
+            {
+              "accept": [
+                "isst"
+              ],
+              "hint": "e → i"
+            },
+            {
+              "accept": [
+                "sieht"
+              ],
+              "hint": "e → ie"
+            },
+            {
+              "accept": [
+                "fährt"
+              ],
+              "hint": "a → ä"
+            },
+            {
+              "accept": [
+                "trägt"
+              ],
+              "hint": "a → ä"
+            },
+            {
+              "accept": [
+                "Sprichst"
+              ],
+              "hint": "e → i"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "schlaft",
+            "lauft",
+            "sprecht"
+          ],
+          "translation": {
+            "en": "Florian the shepherd sleeps late. Bello the dog runs to the sheep. Florian eats bread and bacon. He can see the church in the valley. Stefan drives up to the alpine pasture. He's carrying two bottles of cider. And you, {learner}? Are you talking to Florian?",
+            "sl": "Pastir Florian dolgo spi. Pes Bello teče k ovcam. Florian jé kruh in slanino. Vidi cerkev v dolini. Stefan se pripelje na planino. Nese dve steklenici mošta. Pa ti, {learner}? Ali govoriš s Florianom?",
+            "it": "Il pastore Florian dorme a lungo. Il cane Bello corre dalle pecore. Florian mangia pane e speck. Vede la chiesa nella valle. Stefan sale all'alpeggio in macchina. Porta due bottiglie di sidro. E tu, {learner}? Parli con Florian?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "vokalwechsel",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Kathi ___ ein Glas Most. (nehmen)",
+          "options": [
+            "nehmt",
+            "nimmt",
+            "nimmst"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**sie: e → i, the h goes: sie nimmt**\n- ich nehme · du nimmst · sie nimmt",
+            "sl": "**sie: e → i, h odpade: sie nimmt**\n- ich nehme · du nimmst · sie nimmt",
+            "it": "**sie: e → i, la h cade: sie nimmt**\n- ich nehme · du nimmst · sie nimmt"
+          }
+        }
+      ]
+    },
+    {
+      "id": "vokalwechsel-3",
+      "title": {
+        "de": "Ich, du, er",
+        "en": "I, you, he",
+        "sl": "Jaz, ti, on",
+        "it": "Io, tu, lui"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "vokalwechsel",
+          "instruction": {
+            "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+            "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+            "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich fahre nach Villach. (du)",
+              "accept": [
+                "Du fährst nach Villach."
+              ],
+              "hint": "a → ä"
+            },
+            {
+              "from": "Wir sprechen Deutsch. (Stanko)",
+              "accept": [
+                "Stanko spricht Deutsch."
+              ],
+              "hint": "e → i"
+            },
+            {
+              "from": "Ich lese die Zeitung. (Tante Mitzi)",
+              "accept": [
+                "Tante Mitzi liest die Zeitung."
+              ],
+              "hint": "e → ie"
+            },
+            {
+              "from": "Ihr esst Kasnudeln. (du)",
+              "accept": [
+                "Du isst Kasnudeln."
+              ],
+              "hint": "e → i, ss + t"
+            },
+            {
+              "from": "Du schläfst lange. (ihr)",
+              "accept": [
+                "Ihr schlaft lange."
+              ],
+              "hint": "ihr: a"
+            },
+            {
+              "from": "Wir laufen schnell. (der Hund)",
+              "accept": [
+                "Der Hund läuft schnell."
+              ],
+              "hint": "au → äu"
+            }
+          ]
+        },
+        {
+          "type": "cloze",
+          "grammar": "vokalwechsel",
+          "instruction": {
+            "en": "Ergänze das Verb · Fill in the verb",
+            "sl": "Ergänze das Verb · Dopolni glagol",
+            "it": "Ergänze das Verb · Completa il verbo"
+          },
+          "text": "Es ___ Kirchtagssuppe. (geben)",
+          "accept": [
+            "gibt"
+          ],
+          "hint": "e → i",
+          "explain": {
+            "en": "**es gibt: there is, there are**\n- Es gibt Kirchtagssuppe. · There's Kirchtag soup.",
+            "sl": "**es gibt: je, so, imamo**\n- Es gibt Kirchtagssuppe. · Imamo žegnansko juho.",
+            "it": "**es gibt: c'è, ci sono**\n- Es gibt Kirchtagssuppe. · C'è la zuppa della sagra."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "vokalwechsel",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "prompt": {
+          "en": "Vokalwechsel · the vowel changes",
+          "sl": "Vokalwechsel · samoglasnik se spremeni",
+          "it": "Vokalwechsel · la vocale cambia"
+        },
+        "columns": [
+          {
+            "en": "du · you",
+            "sl": "du · ti",
+            "it": "du · tu"
+          },
+          {
+            "en": "er · sie · es · he, she, it",
+            "sl": "er · sie · es · on, ona, ono",
+            "it": "er · sie · es · lui, lei, esso"
+          }
+        ],
+        "rows": [
+          {
+            "label": "tragen",
+            "cells": [
+              {
+                "accept": [
+                  "trägst"
+                ]
+              },
+              {
+                "accept": [
+                  "trägt"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "helfen",
+            "cells": [
+              {
+                "accept": [
+                  "hilfst"
+                ]
+              },
+              {
+                "accept": [
+                  "hilft"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "sehen",
+            "cells": [
+              {
+                "accept": [
+                  "siehst"
+                ]
+              },
+              "sieht"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "vokalwechsel",
+        "instruction": {
+          "en": "Ergänze das Verb · Fill in the verb",
+          "sl": "Ergänze das Verb · Dopolni glagol",
+          "it": "Ergänze das Verb · Completa il verbo"
+        },
+        "title": "In Klagenfurt",
+        "text": "Stefan ___ (fahren) nach Klagenfurt. Kathi ___ (lesen) die Kleine Zeitung. Florian und Toni, ihr ___ (sprechen) gut Deutsch! Opa Sepp ___ (essen) gern Speck.",
+        "gaps": [
+          {
+            "accept": [
+              "fährt"
+            ]
+          },
+          {
+            "accept": [
+              "liest"
+            ]
+          },
+          {
+            "accept": [
+              "sprecht"
+            ]
+          },
+          {
+            "accept": [
+              "isst"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Stefan drives to Klagenfurt. Kathi reads the Kleine Zeitung. Florian and Toni, you speak good German! Grandpa Sepp likes eating bacon.",
+          "sl": "Stefan se pelje v Celovec. Kathi bere Kleine Zeitung. Florian in Toni, dobro govorita nemško! Dedek Sepp rad jé slanino.",
+          "it": "Stefan va a Klagenfurt. Kathi legge la Kleine Zeitung. Florian e Toni, parlate bene il tedesco! A nonno Sepp piace mangiare lo speck."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "vokalwechsel",
+        "instruction": {
+          "en": "Sag es für die Person in Klammern · Say it for the person in brackets",
+          "sl": "Sag es für die Person in Klammern · Povej za osebo v oklepaju",
+          "it": "Sag es für die Person in Klammern · Dillo per la persona tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Ich trage die Teller. (Kathi)",
+            "accept": [
+              "Kathi trägt die Teller."
+            ]
+          },
+          {
+            "from": "Ich helfe gern. (du)",
+            "accept": [
+              "Du hilfst gern."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "vokalwechsel",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Florian und Toni, ihr ___ lange! (schlafen)",
+        "options": [
+          "schlaft",
+          "schläft",
+          "schläfst"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**ihr keeps the vowel: ihr schlaft**",
+          "sl": "**ihr obdrži samoglasnik: ihr schlaft**",
+          "it": "**ihr tiene la vocale: ihr schlaft**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: «Ein Tag auf der Alm», es gibt + Kirchtagssuppe, the jé/je note for sl, fahren as peljati se / andare"
+}

@@ -1703,7 +1703,9 @@ from Marko", A1: an invitation to the grape harvest on Saturday) and Stari Janez
 the stones on the roofs, the clear sky after it, the pršut it dries); each with five questions, one of every type, and
 five or six new words. The chest's readings have their questions' types, a true/false statement (the potica: a word in
 context) and their new words too. What was added is machine-written, not reviewed by a native speaker yet (the new
-readings say so in their `review`).
+readings say so in their `review`). Friuli's corner has as many, nine: besides Nonna Rosa's recipes and Nonno Bepi's
+books, Tommaso's letter and Giulia's trip to Aquileia (A1), the Tagliamento and the cjarsons (A2), the pilgrims of
+Monte Lussari (B1), each with five questions of every type (see "The friuli pack").
 
 A reading opens in the chest's reading view: its lines to read first, then, once started, its questions one at a time with the text hidden ("Read first, then answer"), each with its type ("Glavna misel · The main idea", "Podrobnost · A detail", "Beseda v besedilu · A word in context", "Drži ali ne drži? · True or false?", "Med vrsticami · Between the lines"): a true/false statement offers "Drži" and "Ne drži". Once they're all answered, the score and its new words, each with what it means and "➕ Dodaj" (a review item, `POST /words`, the line it stands in as the example); every other word opens its word card, with its own ➕.
 
@@ -2266,15 +2268,23 @@ cuccagna, Il ponte, Il prato delle api, La fontana, Il grande fienile and L'orol
 `nel-mulino`, `nella-vigna`, `la-cuccagna`, `il-ponte`, `il-prato-delle-api`, `la-fontana`, `il-grande-fienile`,
 `l-orologio`). Its landscape is Il mare (`scenes/il-mare.json`,
 in Italian with Slovene and English, machine-written like the rest), its words in `packs/il-mare.json`; its campfire is Al fuoco
-(`scenes/al-fuoco.json`, words in `packs/al-fuoco.json`), where Nonno Bepi tells his five legends in the evening (`stories/`:
-the agane, the Devil's Bridge of Cividale, the castle hill of Udine, the sbilfs, the Orcolat; words in `packs/storie.json`). The starter packs of Italian are in
+(`scenes/al-fuoco.json`, words in `packs/al-fuoco.json`), where Nonno Bepi tells his legends in the evening (`stories/`, 16 as Primorska has: the agane, the Devil's Bridge of
+Cividale, the castle hill of Udine, the sbilfs, the Orcolat and ten more, companion/SCENES.md "Stories"; words in
+`packs/storie.json`, `packs/leggende.json` and `packs/racconti.json`). The starter packs of Italian are in
 `companion/packs/it/`: `saluti`, `famiglia`, `casa-e-cucina`, `cibo`, `numeri-e-ore`, `in-paese` (A1, 21–24 words
 each, with articles, plurals, examples in all three languages, and notes in English and Slovene). The thanks goods are
 the region's (gubana, cornmeal for polenta, acacia honey, Montasio, ribolla gialla, Gorizia lace, frico …), the
 cramaro sells prosciutto di San Daniele, spices, olive oil and coffee from Trieste. Nonna Rosa's recipes are frico with
 potatoes (A1) and the gubana of the Natisone valleys (A2), Nonno Bepi's old book a page about the fogolâr (A1) and his
 book of proverbs 11 proverbs said in Friuli, each with its meaning (and the Slovene one, where there is one: "Rana ura,
-zlata ura"), all in Italian with Slovene and English (`readings/`).
+zlata ura"), all in Italian with Slovene and English (`readings/`). The reading corner has five more, as many as
+Primorska's nine in all: Tommaso's letter ("Una lettera di Tommaso", A1: chestnuts roasted in the square on St Martin's
+Day), Giulia's school trip ("I pesci di Aquileia", A1: the basilica's floor mosaic, its fish, Jonah, the rooster and the
+tortoise), Mugnaio Franco on the river ("Il Tagliamento, re dei fiumi", A2: from the Mauria pass to the sea, its gravel
+bed two kilometres wide, the 1966 flood, never to the river alone), Nonna Rosa's cjarsons ("I cjarsons della Carnia", A2:
+the sweet ravioli with the cramârs' spices, the boiling a grown-up's) and Zia Nives on the pilgrims ("I pellegrini del
+Monte Lussari", B1: three peoples praying in three languages since 1360); each with five questions, one of every type,
+and six or seven new words meant in Slovene, English and German (machine-written, `review`).
 
 ### The kaernten pack
 
@@ -2314,8 +2324,14 @@ the bocce court "die Stockschießbahn", the fire station "das Feuerwehrhaus", th
 Each has its word pack in `cultures/kaernten/packs/fest-<…>.json` (8 words). Its own place is Am See (`scenes/am-see.json`,
 the `alps` art: the Faaker See under the Mittagskogel, the Alm with its cows, chamois and ibex), its words in
 `packs/am-see.json`; its campfire is Am Feuer (`scenes/am-feuer.json`, words in `packs/am-feuer.json`), where Opa Sepp
-tells his five legends in the evening (`stories/`: the Lindwurm of Klagenfurt, the Dobratsch in 1348, how the Wörthersee
-came to be, King Matthias asleep under the Petzen, the giants of the Karawanken; words in `packs/geschichten.json`). The
+tells his legends in the evening (`stories/`, 16 as Primorska has: the Lindwurm of Klagenfurt, the Dobratsch in 1348, how the
+Wörthersee came to be, King Matthias asleep under the Petzen, the giants of the Karawanken and eleven more, companion/SCENES.md
+"Stories"; words in `packs/geschichten.json`, `packs/sagen.json` and `packs/erzaehlungen.json`). Every
+building has its place since places-kaernten, and since the third wave the projects' places and the spots too: the stream
+bank (Am Bach), the pond (Am Teich), the fire station, the playground, the lookout tower, the fountain, the church clock
+and the Doppelharpfe (docs/plans/05-built/kaernten-projects-b.md; the other projects and the wood are part a's), each in
+Carinthia's look; those projects play their steps as short scenes (`project-steps/`, their words in
+`packs/projekt-<German name>.json`). The
 starter packs of German are in `companion/packs/de/`: `gruesse`, `familie`, `haus-und-kueche`, `essen`,
 `zahlen-und-uhrzeit`, `im-dorf` (A1, 22–24 words each, with articles, plurals, examples in all four languages, notes in
 English, Slovene and Italian; the Austrian word first, the German-German one in the note: der Paradeiser, die Tomate).
@@ -2323,7 +2339,13 @@ The thanks goods are the region's (Reindling, Kasnudeln, buckwheat flour for Hei
 Most, a linen cloth from the Gailtal …), the Kraxenträger sells saffron for the Kirchtagssuppe, spices, olive oil and
 coffee from Tarvis. Oma Resi's recipes are Kärntner Kasnudeln (A1) and Reindling (A2), Opa Sepp's old book a page about
 the Harpfe (A1) and his book of proverbs 11 proverbs, each with its meaning (and the Slovene one, where there is one),
-all in German with Slovene, English and Italian (`readings/`). The voice cast (`voice-cast.json`) has the same
+all in German with Slovene, English and Italian (`readings/`). The reading corner has five more, nine in all as Primorska
+has: Stefan's letter ("Ein Brief von Stefan", A1: the Villacher Kirchtag, a week at the end of July), Kathi on the lake
+("Der Wörthersee", A1: 16.5 km long, Maria Wörth on its peninsula, the steamer Thalia, the Wörthersee-Mandl), Müller Franz
+on the tower ("Der Turm auf dem Pyramidenkogel", A2: the world's highest wooden lookout tower, 440 steps, the 120 m slide),
+Oma Resi's Kirchtag soup ("Die Kärntner Kirchtagssuppe", A2: the yellow, sour soup with three meats) and Hirte Florian on
+his mountain ("Der Bergsturz am Dobratsch", B1: 25 January 1348, the Rote Wand and the Schütt); each with five questions,
+one of every type, and six or seven new words meant in Slovene, English and Italian (machine-written, `review`; docs/plans/05-built/stories-kaernten.md). The voice cast (`voice-cast.json`) has the same
 archetypes, in German: an Austrian narrator (Fiona) and old man (Helmut), the others voices of the account (README,
 "Voice").
 
@@ -2335,6 +2357,14 @@ Tor), the watchtower (Auf dem Wachturm), the smithy (In der Schmiede), the churc
 and the market (Auf dem Markt), each its pack and its I spy clues (SCENES.md "Scenes of a culture pack"), in Carinthia's look
 (SCENES.md "Culture looks": the Kachelofen, the Herrgottswinkel, the Harpfe, the onion dome, timbered houses with geranium
 balconies under shingles, the Karawanken through the windows). Its projects' places are the next wave.
+
+Since kaernten-projects-a (docs/plans/05-built/kaernten-projects-a.md) seven of its projects open a place of their own once
+they are finished, and its wood opens from the first day: Unter dem Maibaum (the Maibaum on the square, the Maibaumwache and
+the Maibaumkraxeln), An der Brücke (Franz's larch bridge over the stream), In der Mühle (the log mill grinding Heiden for the
+Heidensterz), Auf der Stockbahn (Opa Sepp's Stockschießen, on ice in winter), Bei der Wegkapelle (Tante Mitzi's wayside
+chapel among the Heiden), Im Obstgarten (Mostbauer Stefan's old apple and pear trees and his Most press), Auf der Bienenwiese
+(Imker Stanko's meadow) and Im Wald (Florian's lost sheep, the Schwammerl, the Hochstand and the Marterl), each in Carinthia's
+look, and their steps are short scenes with the project's people (`project-steps/`), not practices.
 
 ### The lakeland pack
 
@@ -2436,6 +2466,18 @@ Every building keeps its plot, its tap and its height (`spriteHeight`), its lit 
 everyone sleeps, its hearth's smoke and the forge's glow, at every detail; only the picture changes, so no journey does.
 The Friends card flies the town's flag as its watchtower does (`Towns.flag(culture, language)`: 🇦🇹 for a Carinthian
 village where it showed 🇩🇪, England's for the Lake District's; a culture this app has no pack of shows its language's).
+
+**The people on the map** wear their culture's clothes, as its scenes dress them (`people.wardrobe`;
+[SCENES.md](SCENES.md#arts), "Each culture's clothes" under the people sprites; docs/plans/05-built/map-people.md): the map's
+14 px and 7 px figures are taken from the sprite's look (`Effects.lookOf` → `fromScene`), so Nonna Rosa's white kerchief,
+her blue apron and her scarpets, Opa Sepp's brown Anzug and green hat with its Gamsbart, Mr Tyson's flat cap and green
+wellies show at every detail. The small figures know a waistcoat or a dirndl's bodice at the body's sides, a collar, a
+check, a skirt of its own colour, a flat cap's peak, the Gamsbart, a kerchief's colour, dots and knot, wellies up the shins
+and the scarpets' flowers. The village's own people are dressed by the same seed at every detail and in their scenes and
+portraits, in every culture (`Looks.seedOf`), and in a culture with a wardrobe the unnamed too; the visitors at the road
+(the pedlar, the pilgrim) are the culture's. Primorska's cast on the map are its own small figures, drawn for those sizes, in
+its sprites' colours (`MapPeopleTest` checks every mark they have against the sprites: since 2026-11-01 Vida in her dress
+and bodice, the teacher's dark skirt, the beekeeper's and the charcoal burner's trousers).
 
 To give a culture's map its look: its `map` table in `CultureLooks` (the variants above by name), its `FireStyle` for the
 village's build; a new kind of thing a variant of `MapLook` and its sprite in `CultureBuildings` (or the landmark's

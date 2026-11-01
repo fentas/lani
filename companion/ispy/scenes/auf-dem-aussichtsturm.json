@@ -1,0 +1,616 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "auf-dem-aussichtsturm",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: machine-written (Claude) in de, with sl, en and it, from the lookout as LookoutPainter draws it in Carinthia's look (the Dobratsch on the left with its mast, the Mittagskogel's pyramid and summit cross, the turquoise Faaker See, the white village round its onion dome, the Gail in its valley, Austria's flag); not reviewed by a native speaker",
+  "things": {
+    "tower": {
+      "clues": [
+        { "kind": "size", "de": "Er ist hoch.", "sl": "Je visok.", "en": "It's tall.", "it": "È alta.", "grammar": ["sein-haben", "artikel-genus"] },
+        {
+          "kind": "material",
+          "de": "Er ist aus Lärchenholz.",
+          "sl": "Je iz macesnovega lesa.",
+          "en": "It's made of larch wood.",
+          "it": "È di legno di larice.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "trait",
+          "de": "Wir stehen oben darauf.",
+          "sl": "Stojimo na njem, čisto zgoraj.",
+          "en": "We're standing on top of it.",
+          "it": "Ci stiamo sopra, in cima.",
+          "grammar": ["wortstellung"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat hundert Stufen.",
+          "sl": "Ima sto stopnic.",
+          "en": "It has a hundred steps.",
+          "it": "Ha cento scalini.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "use",
+          "de": "Von oben sieht man weit.",
+          "sl": "Od zgoraj se vidi daleč.",
+          "en": "From the top you can see far.",
+          "it": "Da lassù si vede lontano.",
+          "grammar": ["wortstellung", "praesens"]
+        }
+      ]
+    },
+    "railing": {
+      "clues": [
+        { "kind": "size", "de": "Es ist lang.", "sl": "Je dolga.", "en": "It's long.", "it": "È lunga.", "grammar": ["sein-haben", "artikel-genus"] },
+        {
+          "kind": "material",
+          "de": "Es ist aus Holzstämmen.",
+          "sl": "Je iz lesenih debel.",
+          "en": "It's made of logs.",
+          "it": "È fatta di tronchi.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "trait",
+          "de": "Darauf steht die Tafel mit den Bergen.",
+          "sl": "Na njej stoji tabla z gorami.",
+          "en": "The board with the mountains stands on it.",
+          "it": "Sopra c'è il pannello con le montagne.",
+          "grammar": ["wortstellung"],
+          "ref": "board"
+        },
+        {
+          "kind": "use",
+          "de": "Es hält uns, damit wir nicht fallen.",
+          "sl": "Drži nas, da ne pademo.",
+          "en": "It keeps us from falling.",
+          "it": "Ci tiene per non cadere.",
+          "grammar": ["nebensatz"]
+        }
+      ]
+    },
+    "roof": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Es ist dunkel.",
+          "sl": "Je temna.",
+          "en": "It's dark.",
+          "it": "È scuro.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "material",
+          "de": "Es ist aus Schindeln.",
+          "sl": "Je iz skodel.",
+          "en": "It's made of shingles.",
+          "it": "È di scandole.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Es ist oben über uns.",
+          "sl": "Je zgoraj nad nami.",
+          "en": "It's up above us.",
+          "it": "È sopra di noi.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "trait",
+          "de": "Auf dem Dach ist eine Fahne.",
+          "sl": "Na strehi je zastava.",
+          "en": "There's a flag on top.",
+          "it": "Sopra c'è una bandiera.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "flag"
+        },
+        {
+          "kind": "use",
+          "de": "Darunter bleibt man trocken.",
+          "sl": "Pod njo ostaneš suh.",
+          "en": "Under it you stay dry.",
+          "it": "Sotto si resta all'asciutto.",
+          "grammar": ["wortstellung"]
+        }
+      ]
+    },
+    "board": {
+      "clues": [
+        {
+          "kind": "trait",
+          "de": "Darauf sind Berge gemalt.",
+          "sl": "Na njej so narisane gore.",
+          "en": "Mountains are painted on it.",
+          "it": "Ci sono dipinte delle montagne.",
+          "grammar": ["wortstellung", "plural"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hat kleine Namen: Dobratsch, Mittagskogel, Triglav.",
+          "sl": "Ima majhna imena: Dobrač, Kepa, Triglav.",
+          "en": "It has little names: Dobratsch, Mittagskogel, Triglav.",
+          "it": "Ha dei nomi piccoli: Dobratsch, Mittagskogel, Triglav.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Sie steht in der Mitte auf dem Geländer.",
+          "sl": "Stoji na sredi na ograji.",
+          "en": "It stands in the middle on the railing.",
+          "it": "Sta in mezzo sulla ringhiera.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "railing"
+        },
+        {
+          "kind": "use",
+          "de": "Sie zeigt die Namen der Berge.",
+          "sl": "Kaže imena gora.",
+          "en": "It shows the mountains' names.",
+          "it": "Mostra i nomi delle montagne.",
+          "grammar": ["praesens", "akkusativ"]
+        }
+      ]
+    },
+    "telescope": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Es ist golden.",
+          "sl": "Je zlat.",
+          "en": "It's golden.",
+          "it": "È dorato.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "material",
+          "de": "Es ist aus Messing.",
+          "sl": "Je iz medenine.",
+          "en": "It's made of brass.",
+          "it": "È d'ottone.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "where",
+          "de": "Es steht rechts auf einem Pfosten.",
+          "sl": "Stoji desno na stebru.",
+          "en": "It stands on a post on the right.",
+          "it": "Sta a destra su un palo.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        },
+        {
+          "kind": "does",
+          "de": "Es dreht sich nach links und rechts.",
+          "sl": "Obrača se levo in desno.",
+          "en": "It turns left and right.",
+          "it": "Gira a sinistra e a destra.",
+          "grammar": ["praesens"]
+        },
+        {
+          "kind": "use",
+          "de": "Damit sieht man ganz weit.",
+          "sl": "Z njim vidiš zelo daleč.",
+          "en": "With it you can see very far.",
+          "it": "Con questo si vede lontanissimo.",
+          "grammar": ["praesens", "wortstellung"]
+        }
+      ]
+    },
+    "book": {
+      "clues": [
+        {
+          "kind": "trait",
+          "de": "Es hat viele Seiten.",
+          "sl": "Ima veliko strani.",
+          "en": "It has lots of pages.",
+          "it": "Ha tante pagine.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "trait",
+          "de": "Darin stehen viele Namen.",
+          "sl": "V njej je veliko imen.",
+          "en": "There are lots of names in it.",
+          "it": "Ci sono tanti nomi dentro.",
+          "grammar": ["wortstellung", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Es liegt in der Kiste am linken Pfosten.",
+          "sl": "Leži v skrinjici na levem stebru.",
+          "en": "It lies in the box on the left post.",
+          "it": "Sta nella cassetta sul palo di sinistra.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        },
+        {
+          "kind": "use",
+          "de": "Jeder Gast schreibt seinen Namen hinein.",
+          "sl": "Vsak gost se vpiše vanjo.",
+          "en": "Every guest writes their name in it.",
+          "it": "Ogni ospite ci scrive il suo nome.",
+          "grammar": ["praesens", "akkusativ"]
+        }
+      ]
+    },
+    "stamp": {
+      "clues": [
+        {
+          "kind": "size",
+          "de": "Er ist klein.",
+          "sl": "Je majhen.",
+          "en": "It's small.",
+          "it": "È piccolo.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er macht ein Bild vom Turm.",
+          "sl": "Naredi sliko stolpa.",
+          "en": "It makes a picture of the tower.",
+          "it": "Fa un disegno della torre.",
+          "grammar": ["praesens", "akkusativ"]
+        },
+        {
+          "kind": "where",
+          "de": "Er ist in der Kiste beim Gästebuch.",
+          "sl": "Je v skrinjici pri knjigi gostov.",
+          "en": "It's in the box by the visitors' book.",
+          "it": "È nella cassetta vicino al libro degli ospiti.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "book"
+        },
+        {
+          "kind": "use",
+          "de": "Man drückt ihn ins Gästebuch.",
+          "sl": "Pritisneš ga v knjigo gostov.",
+          "en": "You press it into the visitors' book.",
+          "it": "Lo si preme sul libro degli ospiti.",
+          "grammar": ["akkusativ", "praesens"]
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        {
+          "kind": "material",
+          "de": "Sie ist aus Holz.",
+          "sl": "Je lesena.",
+          "en": "It's made of wood.",
+          "it": "È di legno.",
+          "grammar": ["sein-haben"]
+        },
+        { "kind": "size", "de": "Sie ist lang.", "sl": "Je dolga.", "en": "It's long.", "it": "È lunga.", "grammar": ["sein-haben", "artikel-genus"] },
+        {
+          "kind": "where",
+          "de": "Sie steht links an der Seite.",
+          "sl": "Stoji levo ob strani.",
+          "en": "It stands along the left side.",
+          "it": "Sta sul lato sinistro.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        },
+        {
+          "kind": "use",
+          "de": "Darauf sitzen müde Gäste.",
+          "sl": "Na njej sedijo utrujeni gostje.",
+          "en": "Tired guests sit on it.",
+          "it": "Ci si siedono gli ospiti stanchi.",
+          "grammar": ["wortstellung", "plural"]
+        }
+      ]
+    },
+    "stairs": {
+      "clues": [
+        {
+          "kind": "trait",
+          "de": "Sie hat hundert Stufen.",
+          "sl": "Imajo sto stopnic.",
+          "en": "It has a hundred steps.",
+          "it": "Ha cento scalini.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        { "kind": "trait", "de": "Sie ist steil.", "sl": "So strme.", "en": "It's steep.", "it": "È ripida.", "grammar": ["sein-haben"] },
+        {
+          "kind": "where",
+          "de": "Sie kommt rechts durch ein Loch im Boden.",
+          "sl": "Pridejo desno skozi odprtino v tleh.",
+          "en": "It comes up through a hole in the floor on the right.",
+          "it": "Sale a destra da un buco nel pavimento.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        },
+        {
+          "kind": "use",
+          "de": "Darauf kommt man herauf.",
+          "sl": "Po njih prideš gor.",
+          "en": "You come up it.",
+          "it": "Da lì si sale.",
+          "grammar": ["wortstellung", "praesens"]
+        }
+      ]
+    },
+    "flag": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist rot, weiß und rot.",
+          "sl": "Je rdeča, bela in rdeča.",
+          "en": "It's red, white and red.",
+          "it": "È rossa, bianca e rossa.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie ist die Fahne von Österreich.",
+          "sl": "To je avstrijska zastava.",
+          "en": "It's Austria's flag.",
+          "it": "È la bandiera dell'Austria.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "where",
+          "de": "Sie ist oben auf dem Dach.",
+          "sl": "Je zgoraj na strehi.",
+          "en": "It's up on the roof.",
+          "it": "È in cima al tetto.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "roof"
+        },
+        {
+          "kind": "does",
+          "de": "Sie flattert im Wind.",
+          "sl": "Plapola v vetru.",
+          "en": "It flutters in the wind.",
+          "it": "Sventola nel vento.",
+          "grammar": ["praesens"]
+        }
+      ]
+    },
+    "mountains": {
+      "clues": [
+        {
+          "kind": "size",
+          "de": "Er ist sehr hoch.",
+          "sl": "Je zelo visoka.",
+          "en": "It's very high.",
+          "it": "È altissima.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Links ist er breit: Das ist der Dobratsch.",
+          "sl": "Levo je široka: to je Dobrač.",
+          "en": "On the left it's broad: that's the Dobratsch.",
+          "it": "A sinistra è larga: è il Dobratsch.",
+          "grammar": ["wortstellung", "sein-haben"]
+        },
+        {
+          "kind": "trait",
+          "de": "Im Winter liegt Schnee darauf.",
+          "sl": "Pozimi je na njej sneg.",
+          "en": "In winter there's snow on it.",
+          "it": "D'inverno c'è la neve sopra.",
+          "grammar": ["wortstellung"]
+        },
+        {
+          "kind": "where",
+          "de": "Er steht hinter dem Tal.",
+          "sl": "Stoji za dolino.",
+          "en": "It stands beyond the valley.",
+          "it": "Sta oltre la valle.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "valley"
+        },
+        {
+          "kind": "trait",
+          "de": "Auf dem Dobratsch steht ein hoher Mast.",
+          "sl": "Na Dobraču stoji visok stolp oddajnika.",
+          "en": "A tall mast stands on the Dobratsch.",
+          "it": "Sul Dobratsch c'è un'antenna alta.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        }
+      ]
+    },
+    "peak": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Am Abend ist er rosa.",
+          "sl": "Zvečer je rožnat.",
+          "en": "In the evening it's pink.",
+          "it": "La sera è rosa.",
+          "grammar": ["sein-haben", "wortstellung"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er ist spitz wie eine Pyramide.",
+          "sl": "Koničast je kot piramida.",
+          "en": "It's pointed like a pyramid.",
+          "it": "È a punta come una piramide.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "trait",
+          "de": "Oben steht ein Kreuz.",
+          "sl": "Na vrhu stoji križ.",
+          "en": "A cross stands at the top.",
+          "it": "In cima c'è una croce.",
+          "grammar": ["wortstellung"]
+        },
+        {
+          "kind": "where",
+          "de": "Er ist rechts, über dem See.",
+          "sl": "Je desno, nad jezerom.",
+          "en": "It's on the right, above the lake.",
+          "it": "È a destra, sopra il lago.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "sea"
+        },
+        {
+          "kind": "trait",
+          "de": "Er heißt Mittagskogel.",
+          "sl": "Imenuje se Kepa.",
+          "en": "It's called the Mittagskogel.",
+          "it": "Si chiama Mittagskogel.",
+          "grammar": ["praesens"]
+        }
+      ]
+    },
+    "sea": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist türkis.",
+          "sl": "Je turkizno.",
+          "en": "It's turquoise.",
+          "it": "È turchese.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er glänzt in der Sonne.",
+          "sl": "Blešči se v soncu.",
+          "en": "It gleams in the sun.",
+          "it": "Luccica al sole.",
+          "grammar": ["praesens"]
+        },
+        {
+          "kind": "where",
+          "de": "Er liegt unten, unter dem Gipfel.",
+          "sl": "Leži spodaj, pod vrhom.",
+          "en": "It lies down below, under the peak.",
+          "it": "Sta giù, sotto la vetta.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "peak"
+        },
+        {
+          "kind": "trait",
+          "de": "Er heißt Faaker See.",
+          "sl": "Imenuje se Baško jezero.",
+          "en": "It's called the Faaker See.",
+          "it": "Si chiama lago di Faak.",
+          "grammar": ["praesens"]
+        },
+        {
+          "kind": "use",
+          "de": "Im Sommer schwimmt man darin.",
+          "sl": "Poleti se v njem plava.",
+          "en": "In summer people swim in it.",
+          "it": "D'estate ci si nuota.",
+          "grammar": ["wortstellung", "praesens"]
+        }
+      ]
+    },
+    "village": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Es ist weiß, mit dunklen Dächern.",
+          "sl": "Je bela, s temnimi strehami.",
+          "en": "It's white, with dark roofs.",
+          "it": "È bianco, con i tetti scuri.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "trait",
+          "de": "Es hat eine Kirche mit einem Zwiebelturm.",
+          "sl": "Ima cerkev s čebulastim zvonikom.",
+          "en": "It has a church with an onion dome.",
+          "it": "Ha una chiesa con un campanile a cipolla.",
+          "grammar": ["sein-haben", "akkusativ"]
+        },
+        {
+          "kind": "where",
+          "de": "Es liegt unten im Tal.",
+          "sl": "Leži spodaj v dolini.",
+          "en": "It lies down in the valley.",
+          "it": "Sta giù nella valle.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "valley"
+        },
+        {
+          "kind": "size",
+          "de": "Von hier ist es ganz klein.",
+          "sl": "Od tod je čisto majhna.",
+          "en": "From here it looks tiny.",
+          "it": "Da qui è piccolissimo.",
+          "grammar": ["wortstellung", "sein-haben"]
+        }
+      ]
+    },
+    "forest": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist dunkelgrün.",
+          "sl": "Je temno zelen.",
+          "en": "It's dark green.",
+          "it": "È verde scuro.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat viele Bäume.",
+          "sl": "Ima veliko dreves.",
+          "en": "It has lots of trees.",
+          "it": "Ha tanti alberi.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Er ist rund um das Dorf.",
+          "sl": "Je okrog vasi.",
+          "en": "It's all round the village.",
+          "it": "È tutto intorno al paese.",
+          "grammar": ["akkusativ"],
+          "ref": "village"
+        },
+        {
+          "kind": "trait",
+          "de": "Darin wohnt der Bussard.",
+          "sl": "V njem živi kanja.",
+          "en": "The buzzard lives in it.",
+          "it": "Ci vive la poiana.",
+          "grammar": ["wortstellung"]
+        }
+      ]
+    },
+    "valley": {
+      "clues": [
+        {
+          "kind": "size",
+          "de": "Es ist breit.",
+          "sl": "Je široka.",
+          "en": "It's wide.",
+          "it": "È larga.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Ein Fluss fließt hindurch: die Gail.",
+          "sl": "Skozi teče reka: Zilja.",
+          "en": "A river flows through it: the Gail.",
+          "it": "Ci scorre un fiume: il Gail.",
+          "grammar": ["praesens"]
+        },
+        {
+          "kind": "where",
+          "de": "Es liegt zwischen den Bergen.",
+          "sl": "Leži med gorami.",
+          "en": "It lies between the mountains.",
+          "it": "Sta tra le montagne.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "mountains"
+        },
+        {
+          "kind": "trait",
+          "de": "Ganz hinten liegt Villach.",
+          "sl": "Čisto zadaj leži Beljak.",
+          "en": "Villach lies right at the far end.",
+          "it": "In fondo in fondo c'è Villaco.",
+          "grammar": ["wortstellung"]
+        }
+      ]
+    }
+  }
+}

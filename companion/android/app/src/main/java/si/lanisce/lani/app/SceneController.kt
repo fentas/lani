@@ -394,7 +394,9 @@ class SceneController(
             modes = tap + modes, notYet = notYet, words = words(d, lang, scene),
         )
         val key = si.lanisce.lani.game.Projects.dialogId(spec, index)
-        talk = SceneTalk(scene?.id ?: key, key, leader, h, d, run, step = StepTalk(spec.id, index, stage, over = scene == null))
+        // the church clock's last step strikes noon: its hands stand at twelve until it runs, so the strokes heard are twelve
+        val counted = if (spec.id == "mestna_ura" && index == spec.steps.lastIndex) 12 else null
+        talk = SceneTalk(scene?.id ?: key, key, leader, h, d, run, step = StepTalk(spec.id, index, stage, over = scene == null), counted = counted)
         settle()
         return true
     }

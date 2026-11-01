@@ -1,0 +1,872 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "trennbare",
+  "language": "de",
+  "level": "A1",
+  "emoji": "✂️",
+  "title": {
+    "de": "Ich stehe um sieben auf",
+    "en": "Separable verbs: aufstehen, einkaufen",
+    "sl": "Ločljivi glagoli: aufstehen, einkaufen",
+    "it": "I verbi separabili: aufstehen, einkaufen"
+  },
+  "goal": {
+    "en": "You can use verbs whose prefix comes off (Ich stehe um sieben auf, Kommst du mit?), keep them whole after möchte and kann, and tell them from be-, ver- and er- verbs, which never split.",
+    "sl": "Znaš rabiti glagole, katerih predpona se odcepi (Ich stehe um sieben auf, Kommst du mit?), jih pustiš cele za möchte in kann ter jih ločiš od glagolov z be-, ver- in er-, ki se nikoli ne razcepijo.",
+    "it": "Sai usare i verbi il cui prefisso si stacca (Ich stehe um sieben auf, Kommst du mit?), lasciarli interi dopo möchte e kann e distinguerli dai verbi con be-, ver- ed er-, che non si dividono mai."
+  },
+  "grammar": [
+    "trennbare-verben",
+    "wortstellung"
+  ],
+  "words": [
+    "aufstehen",
+    "einkaufen",
+    "anrufen",
+    "mitkommen",
+    "aufmachen",
+    "zumachen",
+    "aufsperren",
+    "zusperren",
+    "abholen",
+    "besuchen",
+    "verstehen",
+    "bekommen",
+    "erzählen",
+    "verkaufen",
+    "brauchen",
+    "früh",
+    "heute",
+    "morgen",
+    "noch",
+    "kalt",
+    "das Gasthaus",
+    "das Fenster",
+    "der Keller",
+    "die Kiste",
+    "der Most",
+    "das Brot",
+    "die Geschichte",
+    "die Schule",
+    "in der Früh",
+    "am Abend"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        {
+          "de": "Präsens",
+          "en": "present",
+          "sl": "sedanjik",
+          "it": "presente"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "In **aufstehen** (to get up) the prefix **auf** comes off: **Ich stehe um sieben auf.** (I get up at seven.) The verb stands second as always, and **auf** goes to the very end of the sentence. The dictionary has the verb in one word: aufstehen, a bit like get up.",
+          "sl": "Pri **aufstehen** (vstati) se predpona **auf** odcepi: **Ich stehe um sieben auf.** (Ob sedmih vstanem.) Glagol je kot vedno na drugem mestu, **auf** pa gre čisto na konec stavka. V slovarju je glagol ena beseda: aufstehen.",
+          "it": "In **aufstehen** (alzarsi) il prefisso **auf** si stacca: **Ich stehe um sieben auf.** (Mi alzo alle sette.) Il verbo sta al secondo posto come sempre, e **auf** va proprio alla fine della frase. Nel dizionario il verbo è una parola sola: aufstehen."
+        },
+        "examples": [
+          {
+            "de": "Ich stehe um sieben auf.",
+            "en": "I get up at seven.",
+            "sl": "Ob sedmih vstanem.",
+            "it": "Mi alzo alle sette."
+          },
+          {
+            "de": "Stefan steht in der Früh um fünf auf.",
+            "en": "Stefan gets up at five in the morning.",
+            "sl": "Stefan vstane zjutraj ob petih.",
+            "it": "Stefan si alza alle cinque del mattino."
+          }
+        ],
+        "rows": [
+          [
+            "aufstehen",
+            "ich stehe … auf"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "trennbare-verben",
+          "text": "Stefan steht um fünf ___.",
+          "accept": [
+            "auf"
+          ],
+          "hint": "aufstehen",
+          "explain": {
+            "en": "**aufstehen: auf goes to the end**\n- Stefan steht um fünf auf",
+            "sl": "**aufstehen: auf gre na konec**\n- Stefan steht um fünf auf",
+            "it": "**aufstehen: auf va alla fine**\n- Stefan steht um fünf auf"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "More verbs work like that: **einkaufen** (to shop), **anrufen** (to phone), **mitkommen** (to come along). **Kathi kauft am Montag ein.** (Kathi does her shopping on Monday.) **Tante Mitzi ruft heute an.** (Aunt Mitzi is phoning today.) You hear where the prefix is: it carries the stress, **EINkaufen, ANrufen, MITkommen**.",
+          "sl": "Tako delajo še drugi glagoli: **einkaufen** (nakupovati), **anrufen** (poklicati po telefonu), **mitkommen** (iti zraven). **Kathi kauft am Montag ein.** (Kathi v ponedeljek nakupuje.) **Tante Mitzi ruft heute an.** (Teta Mitzi danes pokliče.) Predpono slišiš: na njej je naglas, **EINkaufen, ANrufen, MITkommen**.",
+          "it": "Altri verbi funzionano così: **einkaufen** (fare la spesa), **anrufen** (telefonare), **mitkommen** (venire anche, venire con). **Kathi kauft am Montag ein.** (Kathi fa la spesa il lunedì.) **Tante Mitzi ruft heute an.** (Zia Mitzi telefona oggi.) Il prefisso si sente: porta l'accento, **EINkaufen, ANrufen, MITkommen**."
+        },
+        "examples": [
+          {
+            "de": "Kathi kauft am Montag in Villach ein.",
+            "en": "Kathi does her shopping in Villach on Monday.",
+            "sl": "Kathi v ponedeljek nakupuje v Beljaku.",
+            "it": "Il lunedì Kathi fa la spesa a Villach."
+          },
+          {
+            "de": "Tante Mitzi ruft heute an.",
+            "en": "Aunt Mitzi is phoning today.",
+            "sl": "Teta Mitzi danes pokliče.",
+            "it": "Zia Mitzi telefona oggi."
+          }
+        ],
+        "rows": [
+          [
+            "einkaufen",
+            "ich kaufe … ein"
+          ],
+          [
+            "anrufen",
+            "ich rufe … an"
+          ],
+          [
+            "mitkommen",
+            "ich komme … mit"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "trennbare-verben",
+          "text": "Tante Mitzi ruft am Sonntag ___.",
+          "accept": [
+            "an"
+          ],
+          "hint": "anrufen",
+          "explain": {
+            "en": "**anrufen: an at the end**\n- Tante Mitzi ruft am Sonntag an",
+            "sl": "**anrufen: an na koncu**\n- Tante Mitzi ruft am Sonntag an",
+            "it": "**anrufen: an alla fine**\n- Tante Mitzi ruft am Sonntag an"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "In a question the prefix still goes to the end: **Kommst du mit?** (Are you coming along?) **Wann stehst du auf?** (When do you get up?) **nicht** comes before it: **Ich komme heute nicht mit.** (I'm not coming along today.) Austria says **aufsperren** and **zusperren** (to open, to lock), Germany **aufschließen** and **abschließen**: **Kathi sperrt das Gasthaus um zehn auf.**",
+          "sl": "Tudi v vprašanju gre predpona na konec: **Kommst du mit?** (Greš zraven?) **Wann stehst du auf?** (Kdaj vstaneš?) **nicht** stoji pred njo: **Ich komme heute nicht mit.** (Danes ne grem zraven.) V Avstriji rečejo **aufsperren** in **zusperren** (odpreti, zakleniti), v Nemčiji **aufschließen** in **abschließen**: **Kathi sperrt das Gasthaus um zehn auf.**",
+          "it": "Anche nella domanda il prefisso va alla fine: **Kommst du mit?** (Vieni anche tu?) **Wann stehst du auf?** (Quando ti alzi?) **nicht** sta prima del prefisso: **Ich komme heute nicht mit.** (Oggi non vengo.) In Austria si dice **aufsperren** e **zusperren** (aprire, chiudere a chiave), in Germania **aufschließen** e **abschließen**: **Kathi sperrt das Gasthaus um zehn auf.**"
+        },
+        "examples": [
+          {
+            "de": "Kommst du mit nach Villach?",
+            "en": "Are you coming along to Villach?",
+            "sl": "Greš zraven v Beljak?",
+            "it": "Vieni anche tu a Villach?"
+          },
+          {
+            "de": "Kathi sperrt das Gasthaus um zehn auf.",
+            "en": "Kathi opens the inn at ten.",
+            "sl": "Kathi odpre gostilno ob desetih.",
+            "it": "Kathi apre l'osteria alle dieci."
+          }
+        ],
+        "rows": [
+          [
+            "aufsperren · zusperren",
+            "ich sperre … auf · zu"
+          ],
+          [
+            "aufmachen · zumachen",
+            "ich mache … auf · zu"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "trennbare-verben",
+          "prompt": "Wann ___ du auf?",
+          "options": [
+            "stehst",
+            "steht",
+            "aufstehst"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**du stehst, and auf at the end**\n- Wann stehst du auf?",
+            "sl": "**du stehst, auf pa na koncu**\n- Wann stehst du auf?",
+            "it": "**du stehst, e auf alla fine**\n- Wann stehst du auf?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "After **möchten** (would like) or **können** (can) the verb waits at the end in one piece: **Ich möchte heute einkaufen.** (I'd like to do the shopping today.) **Kannst du morgen mitkommen?** (Can you come along tomorrow?) möchte and kann take the person; the separable verb stays as the dictionary has it.",
+          "sl": "Za **möchten** (rad bi) ali **können** (moči, znati) glagol počaka na koncu v enem kosu: **Ich möchte heute einkaufen.** (Danes bi rad nakupoval.) **Kannst du morgen mitkommen?** (Lahko jutri greš zraven?) möchte in kann se ujemata z osebo, ločljivi glagol pa ostane, kot ga ima slovar.",
+          "it": "Dopo **möchten** (vorrei) o **können** (potere) il verbo aspetta alla fine tutto intero: **Ich möchte heute einkaufen.** (Oggi vorrei fare la spesa.) **Kannst du morgen mitkommen?** (Puoi venire anche tu domani?) möchte e kann vanno con la persona; il verbo separabile resta come nel dizionario."
+        },
+        "examples": [
+          {
+            "de": "Ich möchte heute einkaufen.",
+            "en": "I'd like to do the shopping today.",
+            "sl": "Danes bi rad nakupoval.",
+            "it": "Oggi vorrei fare la spesa."
+          },
+          {
+            "de": "Kannst du morgen mitkommen?",
+            "en": "Can you come along tomorrow?",
+            "sl": "Lahko jutri greš zraven?",
+            "it": "Puoi venire anche tu domani?"
+          }
+        ],
+        "rows": [
+          [
+            "abholen",
+            "ich hole … ab"
+          ],
+          [
+            "möchten + abholen",
+            "ich möchte … abholen"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "trennbare-verben",
+          "text": "Ich kann morgen nicht ___. (mitkommen)",
+          "accept": [
+            "mitkommen"
+          ],
+          "hint": {
+            "en": "after kann: the whole verb",
+            "sl": "za kann: cel glagol",
+            "it": "dopo kann: il verbo intero"
+          },
+          "explain": {
+            "en": "**after kann or möchte the verb is whole, at the end**\n- Ich kann morgen nicht mitkommen",
+            "sl": "**za kann ali möchte je glagol cel, na koncu**\n- Ich kann morgen nicht mitkommen",
+            "it": "**dopo kann o möchte il verbo è intero, alla fine**\n- Ich kann morgen nicht mitkommen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Some prefixes never come off: **be-**, **ver-** and **er-**. **Ich besuche Opa Sepp.** (I'm visiting Grandpa Sepp.) **Verstehst du das?** (Do you understand that?) So too **bekommen** (to get) and **erzählen** (to tell). You hear the difference: a prefix that comes off is stressed (**AUFstehen**), these never are (**beSUCHen**, **verSTEHen**).",
+          "sl": "Nekatere predpone se nikoli ne odcepijo: **be-**, **ver-** in **er-**. **Ich besuche Opa Sepp.** (Obiščem dedka Seppa.) **Verstehst du das?** (Razumeš to?) Tako tudi **bekommen** (dobiti) in **erzählen** (pripovedovati). Razliko slišiš: predpona, ki se odcepi, je naglašena (**AUFstehen**), te nikoli niso (**beSUCHen**, **verSTEHen**).",
+          "it": "Alcuni prefissi non si staccano mai: **be-**, **ver-** ed **er-**. **Ich besuche Opa Sepp.** (Vado a trovare nonno Sepp.) **Verstehst du das?** (Lo capisci?) Così anche **bekommen** (ricevere) ed **erzählen** (raccontare). La differenza si sente: il prefisso che si stacca è accentato (**AUFstehen**), questi mai (**beSUCHen**, **verSTEHen**)."
+        },
+        "examples": [
+          {
+            "de": "Ich besuche heute Opa Sepp.",
+            "en": "I'm visiting Grandpa Sepp today.",
+            "sl": "Danes obiščem dedka Seppa.",
+            "it": "Oggi vado a trovare nonno Sepp."
+          },
+          {
+            "de": "Opa Sepp erzählt eine Geschichte.",
+            "en": "Grandpa Sepp tells a story.",
+            "sl": "Dedek Sepp pripoveduje zgodbo.",
+            "it": "Nonno Sepp racconta una storia."
+          }
+        ],
+        "rows": [
+          [
+            "besuchen",
+            "ich besuche"
+          ],
+          [
+            "verstehen",
+            "ich verstehe"
+          ],
+          [
+            "erzählen",
+            "ich erzähle"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "trennbare-verben",
+          "prompt": {
+            "en": "Which sentence is right?",
+            "sl": "Kateri stavek je pravilen?",
+            "it": "Quale frase è giusta?"
+          },
+          "options": [
+            "Florian besucht heute Stanko.",
+            "Florian sucht heute Stanko be.",
+            "Florian besuchen heute Stanko."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**be- never comes off: besucht**\n- Florian besucht heute Stanko",
+            "sl": "**be- se nikoli ne odcepi: besucht**\n- Florian besucht heute Stanko",
+            "it": "**be- non si stacca mai: besucht**\n- Florian besucht heute Stanko"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "trennbare-1",
+      "title": {
+        "de": "Ich stehe auf",
+        "en": "I get up",
+        "sl": "Vstanem",
+        "it": "Mi alzo"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "trennbare-verben",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "trennbare Verben · separable verbs (present)",
+            "sl": "trennbare Verben · ločljivi glagoli (sedanjik)",
+            "it": "trennbare Verben · verbi separabili (presente)"
+          },
+          "columns": [
+            "ich",
+            "er · sie"
+          ],
+          "rows": [
+            {
+              "label": "aufstehen",
+              "cells": [
+                "stehe auf",
+                {
+                  "accept": [
+                    "steht auf"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "einkaufen",
+              "cells": [
+                {
+                  "accept": [
+                    "kaufe ein"
+                  ]
+                },
+                "kauft ein"
+              ]
+            },
+            {
+              "label": "anrufen",
+              "cells": [
+                {
+                  "accept": [
+                    "rufe an"
+                  ]
+                },
+                {
+                  "accept": [
+                    "ruft an"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "mitkommen",
+              "cells": [
+                "komme mit",
+                {
+                  "accept": [
+                    "kommt mit"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "zusperren",
+              "cells": [
+                {
+                  "accept": [
+                    "sperre zu"
+                  ]
+                },
+                "sperrt zu"
+              ]
+            },
+            {
+              "label": "abholen",
+              "cells": [
+                {
+                  "accept": [
+                    "hole ab"
+                  ]
+                },
+                "holt ab"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**the verb takes the person, the prefix comes after it**\n- ich stehe auf · er steht auf",
+            "sl": "**glagol se ujema z osebo, predpona pride za njim**\n- ich stehe auf · er steht auf",
+            "it": "**il verbo va con la persona, il prefisso dopo**\n- ich stehe auf · er steht auf"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "trennbare-verben",
+          "instruction": {
+            "en": "Ordne zu · Does the prefix come off?",
+            "sl": "Ordne zu · Se predpona odcepi?",
+            "it": "Ordne zu · Il prefisso si stacca?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "trennbar · comes off",
+                "sl": "trennbar · se odcepi",
+                "it": "trennbar · si stacca"
+              },
+              "words": [
+                "aufstehen",
+                "einkaufen",
+                "anrufen",
+                "mitkommen"
+              ]
+            },
+            {
+              "label": {
+                "en": "untrennbar · stays on",
+                "sl": "untrennbar · ostane",
+                "it": "untrennbar · resta"
+              },
+              "words": [
+                "besuchen",
+                "verstehen",
+                "bekommen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**auf-, ein-, an-, mit- come off; be-, ver-, er- never**\n- ich stehe auf · ich besuche",
+            "sl": "**auf-, ein-, an-, mit- se odcepijo; be-, ver-, er- nikoli**\n- ich stehe auf · ich besuche",
+            "it": "**auf-, ein-, an-, mit- si staccano; be-, ver-, er- mai**\n- ich stehe auf · ich besuche"
+          }
+        }
+      ]
+    },
+    {
+      "id": "trennbare-2",
+      "title": {
+        "de": "Stefans Tag",
+        "en": "Stefan's day",
+        "sl": "Stefanov dan",
+        "it": "La giornata di Stefan"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "trennbare-verben",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Stefans Tag",
+          "text": "Stefan steht um fünf ___. Um sieben ___ Kathi an: „Stefan, ich brauche zwei Kisten Most!“ Florian ___ mit nach Villach. In Villach kauft Stefan noch Brot ___. Am Abend ___ er den Keller zu. Er ist müde, aber froh.",
+          "gaps": [
+            {
+              "accept": [
+                "auf"
+              ],
+              "hint": "aufstehen"
+            },
+            {
+              "accept": [
+                "ruft"
+              ],
+              "hint": "anrufen: sie → ?"
+            },
+            {
+              "accept": [
+                "kommt",
+                "fährt"
+              ],
+              "hint": "mitkommen: er → ?"
+            },
+            {
+              "accept": [
+                "ein"
+              ],
+              "hint": "einkaufen"
+            },
+            {
+              "accept": [
+                "sperrt",
+                "macht"
+              ],
+              "hint": "zusperren: er → ?",
+              "explain": {
+                "en": "**zusperren: er sperrt … zu** (Germany: schließt … ab)\n- macht … zu is right too",
+                "sl": "**zusperren: er sperrt … zu** (v Nemčiji: schließt … ab)\n- tudi macht … zu je prav",
+                "it": "**zusperren: er sperrt … zu** (in Germania: schließt … ab)\n- va bene anche macht … zu"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "mit",
+            "stehst"
+          ],
+          "translation": {
+            "en": "Stefan gets up at five. At seven Kathi phones: “Stefan, I need two crates of cider!” Florian comes along to Villach. In Villach Stefan also buys bread. In the evening he locks the cellar. He's tired but happy.",
+            "sl": "Stefan vstane ob petih. Ob sedmih pokliče Kathi: »Stefan, potrebujem dva zaboja mošta!« Florian gre zraven v Beljak. V Beljaku Stefan kupi še kruh. Zvečer zaklene klet. Utrujen je, a vesel.",
+            "it": "Stefan si alza alle cinque. Alle sette telefona Kathi: «Stefan, mi servono due casse di sidro!» Florian va con lui a Villach. A Villach Stefan compra anche il pane. La sera chiude a chiave la cantina. È stanco ma contento."
+          },
+          "explain": {
+            "en": "**the verb second, the prefix at the very end**\n- ich stehe um sieben auf",
+            "sl": "**glagol na drugem mestu, predpona čisto na koncu**\n- ich stehe um sieben auf",
+            "it": "**il verbo al secondo posto, il prefisso proprio alla fine**\n- ich stehe um sieben auf"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "trennbare-verben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": {
+            "en": "Which sentence is right?",
+            "sl": "Kateri stavek je pravilen?",
+            "it": "Quale frase è giusta?"
+          },
+          "options": [
+            "Ich rufe heute Tante Mitzi an.",
+            "Ich anrufe heute Tante Mitzi.",
+            "Ich rufe an heute Tante Mitzi."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**the verb second, the prefix at the very end**\n- ich stehe um sieben auf",
+            "sl": "**glagol na drugem mestu, predpona čisto na koncu**\n- ich stehe um sieben auf",
+            "it": "**il verbo al secondo posto, il prefisso proprio alla fine**\n- ich stehe um sieben auf"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "trennbare-verben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Toni, ___ du heute mit?",
+          "options": [
+            "kommst",
+            "mitkommst",
+            "kommt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**du kommst … mit: the prefix at the end**\n- Kommst du heute mit?",
+            "sl": "**du kommst … mit: predpona na koncu**\n- Kommst du heute mit?",
+            "it": "**du kommst … mit: il prefisso alla fine**\n- Kommst du heute mit?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "trennbare-3",
+      "title": {
+        "de": "Wer macht was?",
+        "en": "Who does what?",
+        "sl": "Kdo kaj dela?",
+        "it": "Chi fa che cosa?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "trennbare-verben",
+          "instruction": {
+            "en": "Mach einen Satz · Make a sentence",
+            "sl": "Mach einen Satz · Naredi stavek",
+            "it": "Mach einen Satz · Fai una frase"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "um sechs aufstehen (ich)",
+              "accept": [
+                "Ich stehe um sechs auf.",
+                "Um sechs stehe ich auf."
+              ],
+              "hint": "ich stehe …"
+            },
+            {
+              "from": "am Montag einkaufen (Kathi)",
+              "accept": [
+                "Kathi kauft am Montag ein.",
+                "Am Montag kauft Kathi ein."
+              ]
+            },
+            {
+              "from": "heute anrufen (Tante Mitzi)",
+              "accept": [
+                "Tante Mitzi ruft heute an.",
+                "Heute ruft Tante Mitzi an."
+              ]
+            },
+            {
+              "from": "nach Villach mitkommen (du)",
+              "accept": [
+                "Du kommst nach Villach mit.",
+                "Du kommst mit nach Villach."
+              ]
+            },
+            {
+              "from": "das Gasthaus um zehn aufsperren (Kathi)",
+              "accept": [
+                "Kathi sperrt das Gasthaus um zehn auf.",
+                "Kathi sperrt um zehn das Gasthaus auf.",
+                "Um zehn sperrt Kathi das Gasthaus auf."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**the verb second, the prefix at the very end**\n- ich stehe um sieben auf",
+            "sl": "**glagol na drugem mestu, predpona čisto na koncu**\n- ich stehe um sieben auf",
+            "it": "**il verbo al secondo posto, il prefisso proprio alla fine**\n- ich stehe um sieben auf"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "trennbare-verben",
+          "instruction": {
+            "en": "Sag es mit dem Verb in Klammern · Say it with the verb in brackets",
+            "sl": "Sag es mit dem Verb in Klammern · Povej z glagolom v oklepaju",
+            "it": "Sag es mit dem Verb in Klammern · Dillo con il verbo tra parentesi"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich stehe früh auf. (möchten)",
+              "accept": [
+                "Ich möchte früh aufstehen."
+              ],
+              "hint": "ich möchte …"
+            },
+            {
+              "from": "Kommst du mit? (können)",
+              "accept": [
+                "Kannst du mitkommen?"
+              ]
+            },
+            {
+              "from": "Stefan kauft heute ein. (möchten)",
+              "accept": [
+                "Stefan möchte heute einkaufen."
+              ]
+            },
+            {
+              "from": "Wir rufen Opa Sepp an. (können)",
+              "accept": [
+                "Wir können Opa Sepp anrufen."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**after möchte or kann the verb is whole, at the end**\n- Ich möchte früh aufstehen",
+            "sl": "**za möchte ali kann je glagol cel, na koncu**\n- Ich möchte früh aufstehen",
+            "it": "**dopo möchte o kann il verbo è intero, alla fine**\n- Ich möchte früh aufstehen"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "trennbare-verben",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Lehrerin Eva steht um sechs ___. Um halb acht sperrt sie die Schule ___ (aufsperren). Es ist kalt: Eva macht das Fenster ___ (zumachen). Am Abend ___ sie Oma Resi an.",
+        "gaps": [
+          {
+            "accept": [
+              "auf"
+            ]
+          },
+          {
+            "accept": [
+              "auf"
+            ]
+          },
+          {
+            "accept": [
+              "zu"
+            ]
+          },
+          {
+            "accept": [
+              "ruft"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Eva the teacher gets up at six. At half past seven she opens the school. It's cold: Eva closes the window. In the evening she phones Grandma Resi.",
+          "sl": "Učiteljica Eva vstane ob šestih. Ob pol osmih odklene šolo. Mraz je: Eva zapre okno. Zvečer pokliče babico Resi.",
+          "it": "La maestra Eva si alza alle sei. Alle sette e mezza apre la scuola. Fa freddo: Eva chiude la finestra. La sera telefona a nonna Resi."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "trennbare-verben",
+        "instruction": {
+          "en": "Mach einen Satz · Make a sentence",
+          "sl": "Mach einen Satz · Naredi stavek",
+          "it": "Mach einen Satz · Fai una frase"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "am Samstag einkaufen (wir)",
+            "accept": [
+              "Wir kaufen am Samstag ein.",
+              "Am Samstag kaufen wir ein."
+            ]
+          },
+          {
+            "from": "heute nicht mitkommen (Toni)",
+            "accept": [
+              "Toni kommt heute nicht mit.",
+              "Heute kommt Toni nicht mit."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "trennbare-verben",
+        "instruction": {
+          "en": "Sag es mit dem Verb in Klammern · Say it with the verb in brackets",
+          "sl": "Sag es mit dem Verb in Klammern · Povej z glagolom v oklepaju",
+          "it": "Sag es mit dem Verb in Klammern · Dillo con il verbo tra parentesi"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Kathi sperrt um zehn auf. (können)",
+            "accept": [
+              "Kathi kann um zehn aufsperren."
+            ]
+          },
+          {
+            "from": "Ich rufe Stanko an. (möchten)",
+            "accept": [
+              "Ich möchte Stanko anrufen."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "trennbare-verben",
+        "instruction": {
+          "en": "Ordne zu · Does the prefix come off?",
+          "sl": "Ordne zu · Se predpona odcepi?",
+          "it": "Ordne zu · Il prefisso si stacca?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "trennbar · comes off",
+              "sl": "trennbar · se odcepi",
+              "it": "trennbar · si stacca"
+            },
+            "words": [
+              "aufmachen",
+              "abholen"
+            ]
+          },
+          {
+            "label": {
+              "en": "untrennbar · stays on",
+              "sl": "untrennbar · ostane",
+              "it": "untrennbar · resta"
+            },
+            "words": [
+              "erzählen",
+              "verkaufen"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "trennbare-verben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "Which sentence is right?",
+          "sl": "Kateri stavek je pravilen?",
+          "it": "Quale frase è giusta?"
+        },
+        "options": [
+          "Mitzi versteht das nicht.",
+          "Mitzi steht das nicht ver.",
+          "Mitzi verstehen das nicht."
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**ver- never comes off: versteht**",
+          "sl": "**ver- se nikoli ne odcepi: versteht**",
+          "it": "**ver- non si stacca mai: versteht**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "trennbare-verben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stefan und Florian, ___ ihr am Sonntag mit?",
+        "options": [
+          "kommt",
+          "kommen",
+          "mitkommt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**ihr kommt … mit**",
+          "sl": "**ihr kommt … mit**",
+          "it": "**ihr kommt … mit**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: aufsperren, zusperren (Austrian), kommt mit nach Villach, macht den Keller zu, in der Früh, mitkommen in sl and it"
+}

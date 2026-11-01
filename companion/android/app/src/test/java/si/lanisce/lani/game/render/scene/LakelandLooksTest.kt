@@ -144,7 +144,8 @@ class LakelandLooksTest {
                 val want = if (SceneFixtures.there(a.art, slot, w)) 1 else 0
                 if (n != want) failed += "${a.art}/$slot ($type) at level $level, detail $k: tappable $n times, not $want"
             }
-            val home = ScenePainters.create(a.art).render(PixelCanvas(240 * k, 160 * k), frame(a, level, "primorska", 10.5f, type = type), Lens(k, 0, 0, 240, 160))
+            // Primorska's picture with the culture's people in it: each culture dresses its people its own way (Wardrobes)
+            val home = (ScenePainters.create(a.art) as ArtPainter).also { it.dressedAs = "lakeland" }.render(PixelCanvas(240 * k, 160 * k), frame(a, level, "primorska", 10.5f, type = type), Lens(k, 0, 0, 240, 160))
             for (slot in SceneArt.personSlots.getValue(a.art)) {
                 val x = home.single { it.target == SceneTarget.Person("p-$slot") }
                 val y = hits.single { it.target == SceneTarget.Person("p-$slot") }
@@ -245,18 +246,18 @@ class LakelandLooksTest {
             "school/school/1" to "033af16d8afa",
             "school/school/3" to "13996585dc8e",
             "school/school/5" to "434010abe7b3",
-            "field/field/1" to "c3f23ef0f85f",
-            "field/field/3" to "2bd726acce9f",
-            "field/field/5" to "ebef878178f6",
-            "field/kozolec/1" to "5f12562a5bfc",
-            "field/kozolec/3" to "b65f23eecf68",
-            "field/kozolec/5" to "ebef878178f6",
-            "square/lipa/1" to "585758360e39",
-            "square/lipa/3" to "61ffb0990e76",
-            "square/lipa/5" to "9f5d034b1bff",
-            "square/well/1" to "42fc0f0f4a26",
-            "square/well/3" to "dc2731ed6422",
-            "square/well/5" to "9f5d034b1bff",
+            "field/field/1" to "9ca289b06f03",
+            "field/field/3" to "2395a5092eb0",
+            "field/field/5" to "6fe7900e36ac",
+            "field/kozolec/1" to "6d7863d7ddd6",
+            "field/kozolec/3" to "4334073f52cf",
+            "field/kozolec/5" to "6fe7900e36ac",
+            "square/lipa/1" to "2a83868310b3",
+            "square/lipa/3" to "ac03cefbeb6f",
+            "square/lipa/5" to "d97bf1fb8a7c",
+            "square/well/1" to "b6b9c27492c3",
+            "square/well/3" to "c894876b31de",
+            "square/well/5" to "d97bf1fb8a7c",
             "market/market/1" to "69e7ee30a8c6",
             "market/market/3" to "a4fe0726feaf",
             "market/market/5" to "4688209a3182",

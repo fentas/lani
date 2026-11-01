@@ -171,10 +171,15 @@ export default async function lakeland() {
   }
 
   // --- the repository's English packs validate ----------------------------------------------------------
+  // (and a word id is one word wherever it is: the same id in two packs is the same English word, one card)
+  const english = new Map<string, Set<string>>()
   for (const dir of [join(repo, 'companion/packs/en'), join(culturesDir, 'lakeland/packs')]) {
     for (const f of new Bun.Glob('*.json').scanSync(dir)) {
       const v = validatePack(JSON.parse(readFileSync(join(dir, f), 'utf8')))
       check(`lakeland: pack validates: ${f}`, v.ok && v.pack.language === 'en' && v.pack.words.every(x => LANGS.every(k => !!(x as any)[k])), !v.ok && v.errors)
+      if (v.ok) for (const w of v.pack.words) english.set(w.id, (english.get(w.id) ?? new Set()).add((w as any).en.toLowerCase()))
     }
   }
+  const twoWords = [...english].filter(([, ens]) => ens.size > 1).map(([id, ens]) => `${id}: ${[...ens].join(' / ')}`)
+  check("lakeland: no word id names two different English words across the English packs", twoWords.length === 0, twoWords)
 }

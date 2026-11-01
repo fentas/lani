@@ -16,7 +16,7 @@ import { ScenarioStore } from '../../src/scenarios'
 import { SCENE_ART, validateScene } from '../../src/scenes'
 import { profileFromEnv } from '../../src/learners'
 import { cultureSky, MOON_PHASES, SKY_FIGURES, SKY_SHOWERS, SKY_STARS } from '../../src/sky'
-import { cultureProjectSteps, cultureStepFiles, speakerGendered, stepTellings } from '../../src/project-steps'
+import { cultureProjectSteps, cultureStepFiles, lexiconLemmas, speakerGendered, stepTellings, testsWord, withoutArticle } from '../../src/project-steps'
 import { cultureCelebrationFiles, cultureCelebrations, partyTellings } from '../../src/celebrations'
 import { VillagerStore } from '../../src/villagers'
 import { auth, base, check, culturesDir, dataDir, fam, italianPacksDir, tempDir } from './harness'
@@ -349,6 +349,21 @@ export default async function cultures() {
     }),
     prSteps.map(f => `${f.project}: ${f.steps.length}`),
   )
+  // a step's word tested by a turn: a German, Italian or English noun as its word, its article left out; with only the
+  // course's supplement for a dictionary (German) a form it doesn't know guessed by the stem and its plural; with a whole
+  // one (Slovene's Wiktionary) only the forms it knows
+  const deLemmas = lexiconLemmas(join(culturesDir, '..', 'lexicon'), 'de')
+  const slLemmas = lexiconLemmas(join(culturesDir, '..', 'lexicon'), 'sl')
+  const trog = { id: 'trog', de: 'der Trog', plural: 'die Tröge' }
+  check(
+    "a step's German noun counts as tested by a turn without its article (der Trog in \"den Trog\" / \"den Krug\"), in its plural too, and a phrase never",
+    withoutArticle('der Trog', 'de') === 'Trog' && withoutArticle('the bell', 'en') === 'bell' && withoutArticle("l'acqua", 'it') === 'acqua' && withoutArticle('kamen', 'sl') === 'kamen' &&
+      deLemmas.partial === true && slLemmas.dictionary === true && slLemmas.partial === false &&
+      testsWord(trog, 'de', ['trog'], deLemmas) && testsWord(trog, 'de', ['tröge'], deLemmas) && !testsWord(trog, 'de', ['krug'], deLemmas) &&
+      testsWord({ id: 'schmieden', de: 'schmieden' }, 'de', ['schmiedet'], deLemmas) && !testsWord({ id: 'gute-nacht', de: 'Gute Nacht' }, 'de', ['nacht'], deLemmas) &&
+      testsWord({ id: 'bell', en: 'the bell' }, 'en', ['bell']) && !testsWord({ id: 'smreka', sl: 'smreka' }, 'sl', ['smrekovina'], slLemmas),
+    { de: [deLemmas.dictionary, deLemmas.partial], sl: [slLemmas.dictionary, slLemmas.partial] },
+  )
   const prCast = new VillagerStore(join(culturesDir, 'primorska', 'villagers'), join(dataDir, 'unused-villagers-primorska-steps')).all()
   const luka = prCast.find(v => v.id === 'luka')!
   const stepVoiced = corpus({ learner: JAN, packs: [], modules: [], scenarios: [], villagers: prCast, steps: prSteps.map(f => ({ project: f.project, tellings: stepTellings(f) })) })
@@ -563,7 +578,7 @@ export default async function cultures() {
   check("friuli's readings are in Italian with Slovene and English on every line", fr.errors.length === 0 && [...fr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.it && t.sl && t.en)), fr.errors)
 
   const kr = cultureReadings(culturesDir, 'kaernten', 'de')
-  check("kaernten's readings are in German with Slovene, English and Italian on every line", kr.errors.length === 0 && kr.readings.size === 4 && [...kr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.de && t.sl && t.en && t.it)), kr.errors)
+  check("kaernten's nine readings (the chest's four, the corner's five newer) are in German with Slovene, English and Italian on every line", kr.errors.length === 0 && kr.readings.size === 9 && [...kr.readings.values()].every(r => [...r.steps, ...r.lines.map(l => l.text)].every(t => t.de && t.sl && t.en && t.it)), kr.errors)
 
   const badReads = tempDir('lani-smoke-readings-')
   cpSync(join(culturesDir, 'primorska'), join(badReads, 'primorska'), { recursive: true })

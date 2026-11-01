@@ -137,6 +137,7 @@ No journey changes: the map's pictures do, not its places or its taps (a buildin
 
 - The bridge over the stream is the map's timber bridge in every culture; the Lake District's project says a packhorse
   bridge of slate with one round arch (its steps, the walks over it and `BridgesTest` would change with it).
-- The people's clothes (the kerchiefs, the hats) are the map's own in every culture.
+- ~~The people's clothes (the kerchiefs, the hats) are the map's own in every culture.~~ Done 2026-11-01: each culture's
+  people wear its own clothes on the map, as in its scenes (docs/plans/05-built/map-people.md).
 - The machine's choices of what each culture builds want a look by someone who knows the Collio, the Gailtal and the
   Lakes (the forms are from the scenes' looks, which were checked against their content).

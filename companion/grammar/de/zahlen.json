@@ -1,0 +1,169 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "zahlen",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🔢",
+  "title": {
+    "de": "Eins, zwei, drei: die Zahlen",
+    "sl": "Eins, zwei, drei: števila",
+    "en": "Eins, zwei, drei: numbers",
+    "it": "Eins, zwei, drei: i numeri"
+  },
+  "rule": {
+    "en": "**0 to 12** have words of their own: **null, eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn, elf, zwölf**.\n\n**13 to 19** add **-zehn**: **dreizehn, vierzehn, fünfzehn, achtzehn, neunzehn**. Two lose letters: sechs → **sechzehn**, sieben → **siebzehn**.\n\nThe tens end in **-zig**: **zwanzig, vierzig, fünfzig, achtzig, neunzig**, again **sechzig** and **siebzig**, and 30 is **dreißig**, with ß.\n\n**21 to 99**: the one first, then **und**, then the ten, all one word: **einundzwanzig** (one-and-twenty), **zweiundzwanzig**, **neunundneunzig**. In it 1 is **ein**, not eins. 100 is **hundert** (or einhundert), 1000 **tausend** (eintausend): **hundertzwanzig** (120).\n\nCounting, 1 is **eins**; before a noun it is the article **ein, eine**: **ein Pferd**, **eine Katze**. From two on the noun is plural: **drei Semmeln**.\n\n**Wie viel?** asks for an amount or a price: **Wie viel kostet der Honig?** **Wie viele?** + plural asks for things you count: **Wie viele Schafe hat Florian?**\n\nIn Austria prices are in euros, and **Euro** doesn't change after a number: **zwölf Euro**. On the phone you may hear **zwo** for zwei, so it isn't mixed up with drei.",
+    "sl": "**0 do 12** imajo svoje besede: **null, eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn, elf, zwölf**.\n\n**13 do 19** dobijo **-zehn**, kot slovenski -najst: **dreizehn, vierzehn, fünfzehn, achtzehn, neunzehn**. Dve izgubita črke: sechs → **sechzehn**, sieben → **siebzehn**.\n\nDesetice se končajo na **-zig**: **zwanzig, vierzig, fünfzig, achtzig, neunzig**, spet **sechzig** in **siebzig**, 30 pa je **dreißig**, z ß.\n\n**21 do 99**: enica, **und**, desetica, vse skupaj, kot v slovenščini: **einundzwanzig** (enaindvajset), **zweiundzwanzig**, **neunundneunzig**. Tu je 1 **ein**, ne eins. 100 je **hundert** (ali einhundert), 1000 **tausend** (eintausend): **hundertzwanzig** (120).\n\nPri štetju je 1 **eins**; pred samostalnikom je člen **ein, eine**: **ein Pferd**, **eine Katze**. Od dva naprej je samostalnik v množini, brez rodilnika: **drei Semmeln**, **zwanzig Schafe** (dvajset ovc).\n\n**Wie viel?** sprašuje po količini ali ceni: **Wie viel kostet der Honig?** **Wie viele?** + množina po stvareh, ki jih šteješ: **Wie viele Schafe hat Florian?**\n\nCene so v evrih, **Euro** po številu ostane: **zwölf Euro**. Po telefonu se za zwei sliši tudi **zwo**, da se ne zameša z drei.",
+    "it": "**Da 0 a 12** i numeri hanno parole proprie: **null, eins, zwei, drei, vier, fünf, sechs, sieben, acht, neun, zehn, elf, zwölf**.\n\n**Da 13 a 19** si aggiunge **-zehn**: **dreizehn, vierzehn, fünfzehn, achtzehn, neunzehn**. Due perdono lettere: sechs → **sechzehn**, sieben → **siebzehn**.\n\nLe decine finiscono in **-zig**: **zwanzig, vierzig, fünfzig, achtzig, neunzig**, di nuovo **sechzig** e **siebzig**, e 30 è **dreißig**, con la ß.\n\n**Da 21 a 99** prima l'unità, poi **und**, poi la decina, tutto attaccato: **einundzwanzig** (ventuno), **zweiundzwanzig**, **neunundneunzig**. Qui 1 è **ein**, non eins. 100 è **hundert** (o einhundert), 1000 **tausend** (eintausend): **hundertzwanzig** (120).\n\nContando, 1 è **eins**; davanti a un nome è l'articolo **ein, eine**: **ein Pferd**, **eine Katze**. Da due in su il nome va al plurale: **drei Semmeln** (tre panini).\n\n**Wie viel?** chiede una quantità o un prezzo: **Wie viel kostet der Honig?** **Wie viele?** + plurale chiede cose che si contano: **Wie viele Schafe hat Florian?**\n\nI prezzi sono in euro, ed **Euro** non cambia dopo un numero: **zwölf Euro**. Al telefono si sente anche **zwo** per zwei, per non confonderlo con drei."
+  },
+  "table": {
+    "head": [
+      { "de": "Zahl", "sl": "število", "en": "number", "it": "numero" },
+      { "de": "Wort", "sl": "beseda", "en": "word", "it": "parola" },
+      { "de": "Zahl", "sl": "število", "en": "number", "it": "numero" },
+      { "de": "Wort", "sl": "beseda", "en": "word", "it": "parola" }
+    ],
+    "rows": [
+      ["0", "null", "10", "zehn"],
+      ["1", "eins", "11", "elf"],
+      ["2", "zwei", "12", "zwölf"],
+      ["3", "drei", "13", "dreizehn"],
+      ["4", "vier", "14", "vierzehn"],
+      ["5", "fünf", "15", "fünfzehn"],
+      ["6", "sechs", "16", "sechzehn"],
+      ["7", "sieben", "17", "siebzehn"],
+      ["8", "acht", "18", "achtzehn"],
+      ["9", "neun", "19", "neunzehn"],
+      ["20, 30, 40, 50", "zwanzig, dreißig, vierzig, fünfzig", "60, 70, 80, 90", "sechzig, siebzig, achtzig, neunzig"],
+      ["21, 22, 99", "einundzwanzig, zweiundzwanzig, neunundneunzig", "100, 120, 1000", "hundert, hundertzwanzig, tausend"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Hirte Florian hat zweiundzwanzig Schafe.",
+      "sl": "Pastir Florian ima dvaindvajset ovc.",
+      "en": "Florian the shepherd has twenty-two sheep.",
+      "it": "Il pastore Florian ha ventidue pecore.",
+      "note": {
+        "en": "zwei + und + zwanzig: the one first, all one word.",
+        "sl": "zwei + und + zwanzig: enica spredaj, kot dvaindvajset, vse skupaj.",
+        "it": "zwei + und + zwanzig: prima l'unità, al contrario di ventidue, tutto attaccato."
+      }
+    },
+    {
+      "de": "Stankos Honig kostet zwölf Euro.",
+      "sl": "Stankov med stane dvanajst evrov.",
+      "en": "Stanko's honey costs twelve euros.",
+      "it": "Il miele di Stanko costa dodici euro.",
+      "note": {
+        "en": "Euro stays Euro after a number: zwölf Euro.",
+        "sl": "Euro po številu ostane Euro (slovensko dvanajst evrov).",
+        "it": "Euro non cambia, come in italiano: zwölf Euro."
+      }
+    },
+    {
+      "de": "Opa Sepp ist einundachtzig Jahre alt.",
+      "sl": "Dedek Sepp je star enainosemdeset let.",
+      "en": "Grandpa Sepp is eighty-one.",
+      "it": "Nonno Sepp ha ottantun anni.",
+      "note": {
+        "en": "Age with sein. In einundachtzig 1 is ein, not eins.",
+        "sl": "Starost s sein. V einundachtzig je 1 ein, ne eins.",
+        "it": "L'età con sein, non con haben. In einundachtzig 1 è ein, non eins."
+      }
+    },
+    {
+      "de": "Eine Semmel? Nein, drei Semmeln, bitte!",
+      "sl": "Eno žemljo? Ne, tri žemlje, prosim!",
+      "en": "One roll? No, three rolls, please!",
+      "it": "Un panino? No, tre panini, per favore!",
+      "note": {
+        "en": "Before a noun: eine Semmel; from two on, the plural. In Germany: das Brötchen.",
+        "sl": "Pred samostalnikom eine Semmel; od dva naprej množina. V Nemčiji: das Brötchen.",
+        "it": "Davanti a un nome: eine Semmel; da due in su il plurale. In Germania: das Brötchen."
+      }
+    },
+    {
+      "de": "Wie viele Kühe hat Müller Franz? – Sechzehn.",
+      "sl": "Koliko krav ima mlinar Franz? – Šestnajst.",
+      "en": "How many cows has Franz the miller got? – Sixteen.",
+      "it": "Quante mucche ha il mugnaio Franz? – Sedici.",
+      "note": {
+        "en": "Wie viele + plural. sechs + zehn = sechzehn: the s drops.",
+        "sl": "Wie viele + množina. sechs + zehn = sechzehn: s odpade.",
+        "it": "Wie viele + plurale. sechs + zehn = sechzehn: la s cade."
+      }
+    },
+    {
+      "de": "Das Gasthaus zur Linde ist hundertzwanzig Jahre alt.",
+      "sl": "Gostilna zur Linde je stara sto dvajset let.",
+      "en": "The Gasthaus zur Linde is a hundred and twenty years old.",
+      "it": "L'osteria zur Linde ha centoventi anni.",
+      "note": {
+        "en": "hundert + zwanzig, one word; einhundertzwanzig is right too.",
+        "sl": "hundert + zwanzig, skupaj; prav je tudi einhundertzwanzig.",
+        "it": "hundert + zwanzig, attaccato; va bene anche einhundertzwanzig."
+      }
+    },
+    {
+      "de": "Stefan am Telefon: „Zwo Kisten Most, nicht drei!“",
+      "sl": "Stefan po telefonu: »Dva zaboja mošta, ne tri!«",
+      "en": "Stefan on the phone: “Two crates of cider, not three!”",
+      "it": "Stefan al telefono: «Due casse di sidro, non tre!»",
+      "note": {
+        "en": "Spoken: zwo for zwei, so it isn't mixed up with drei. Written, it's zwei.",
+        "sl": "Govorjeno zwo za zwei, da se ne zameša z drei. Pisno zwei.",
+        "it": "Parlato: zwo per zwei, per non confonderlo con drei. Per iscritto zwei."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["numbers", "zahlen", "counting", "numeral", "age", "prices", "euro", "wie_viel", "wie_viele", "zwo"],
+  "see": ["plural", "sein-haben", "fragen"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: zwo in Carinthia, Stankos Honig, Kisten Most",
+  "card": {
+    "title": {
+      "de": "Die Zahlen · eins, zwei, drei",
+      "sl": "Števila · eins, zwei, drei",
+      "en": "Numbers · eins, zwei, drei",
+      "it": "I numeri · eins, zwei, drei"
+    },
+    "rule": {
+      "en": "13–19 add **-zehn** (**sechzehn, siebzehn** lose letters), the tens **-zig** (**dreißig** with ß); from 21 the one first, one word: **einundzwanzig**. Counting **eins**, before a noun **ein, eine**. **Wie viel?** an amount, **Wie viele?** + plural.",
+      "sl": "13–19 dobijo **-zehn** (**sechzehn, siebzehn** izgubita črke), desetice **-zig** (**dreißig** z ß); od 21 enica spredaj, skupaj: **einundzwanzig**. Pri štetju **eins**, pred samostalnikom **ein, eine**. **Wie viel?** količina, **Wie viele?** + množina.",
+      "it": "13–19 aggiungono **-zehn** (**sechzehn, siebzehn** perdono lettere), le decine **-zig** (**dreißig** con ß); da 21 prima l'unità, attaccato: **einundzwanzig**. Contando **eins**, davanti a un nome **ein, eine**. **Wie viel?** quantità, **Wie viele?** + plurale."
+    },
+    "table": {
+      "head": [
+        { "de": "Zahl", "sl": "število", "en": "number", "it": "numero" },
+        { "de": "Wort", "sl": "beseda", "en": "word", "it": "parola" }
+      ],
+      "rows": [
+        ["1, 2, 3 … 11, 12", "eins, zwei, drei … elf, zwölf"],
+        ["13, 16, 17", "dreizehn, sechzehn, siebzehn"],
+        ["20, 30, 60, 70", "zwanzig, dreißig, sechzig, siebzig"],
+        ["21, 45", "einundzwanzig, fünfundvierzig"],
+        ["100, 1000", "hundert, tausend"]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Hirte Florian hat zweiundzwanzig Schafe.",
+        "sl": "Pastir Florian ima dvaindvajset ovc.",
+        "en": "Florian the shepherd has twenty-two sheep.",
+        "it": "Il pastore Florian ha ventidue pecore."
+      },
+      {
+        "de": "Stankos Honig kostet zwölf Euro.",
+        "sl": "Stankov med stane dvanajst evrov.",
+        "en": "Stanko's honey costs twelve euros.",
+        "it": "Il miele di Stanko costa dodici euro."
+      }
+    ],
+    "tip": {
+      "en": "💡 On the phone you may hear **zwo** for zwei, so it isn't mixed up with drei. Prices: **zwölf Euro**, Euro stays as it is.",
+      "sl": "💡 Po telefonu se za zwei sliši tudi **zwo**, da se ne zameša z drei. Cene: **zwölf Euro**, Euro ostane, kot je.",
+      "it": "💡 Al telefono si sente anche **zwo** per zwei, per non confonderlo con drei. Prezzi: **zwölf Euro**, Euro non cambia."
+    }
+  }
+}

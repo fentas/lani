@@ -1,0 +1,987 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "kein-nicht",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🚫",
+  "title": {
+    "de": "Kein Brot, nicht heute",
+    "en": "Saying no: kein and nicht",
+    "sl": "Zanikanje: kein in nicht",
+    "it": "La negazione: kein e nicht"
+  },
+  "goal": {
+    "en": "You can say no with kein before a noun (kein Hund, keine Zeit, keinen Hunger) and with nicht for the rest (Ich komme nicht. Es ist nicht weit.), put nicht in its place, and say that something is all gone: keine Milch mehr.",
+    "sl": "Zanikaš s kein pred samostalnikom (kein Hund, keine Zeit, keinen Hunger) in z nicht za vse drugo (Ich komme nicht. Es ist nicht weit.), postaviš nicht na pravo mesto in poveš, da česa ni več: keine Milch mehr.",
+    "it": "Sai negare con kein davanti a un nome (kein Hund, keine Zeit, keinen Hunger) e con nicht per il resto (Ich komme nicht. Es ist nicht weit.), metti nicht al suo posto e dici che qualcosa è finito: keine Milch mehr."
+  },
+  "grammar": [
+    "kein-nicht",
+    "akkusativ"
+  ],
+  "words": [
+    "kein",
+    "keine",
+    "keinen",
+    "nicht",
+    "mehr",
+    "leider",
+    "weit",
+    "kalt",
+    "müde",
+    "froh",
+    "verstehen",
+    "finden",
+    "der Ruhetag",
+    "der Montag",
+    "das Problem",
+    "die Zeit",
+    "die Milch",
+    "der Hunger",
+    "der Durst",
+    "das Glück",
+    "der Bäcker",
+    "der Traktor",
+    "die Ziege",
+    "der Weg",
+    "das Schaf",
+    "das Brot",
+    "der Most",
+    "die Suppe"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "bejaht",
+          "en": "positive",
+          "sl": "trdilno",
+          "it": "affermativo"
+        },
+        {
+          "de": "verneint",
+          "en": "negative",
+          "sl": "nikalno",
+          "it": "negativo"
+        },
+        {
+          "de": "warum",
+          "en": "why",
+          "sl": "zakaj",
+          "it": "perché"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "To say no to a noun with **ein** (a), German puts a k in front: **kein** (no, not a). **Das ist ein Hund.** (That's a dog.) **Das ist kein Hund.** (That's not a dog.) **eine** becomes **keine**: **Das ist keine Katze.** (That's not a cat.)",
+          "sl": "Ko zanikaš samostalnik z **ein**, dodaš spredaj k: **kein** (noben, ni). **Das ist ein Hund.** (To je pes.) **Das ist kein Hund.** (To ni pes.) **eine** postane **keine**: **Das ist keine Katze.** (To ni mačka.)",
+          "it": "Per negare un nome con **ein** (un), il tedesco mette davanti una k: **kein** (nessun, non un). **Das ist ein Hund.** (È un cane.) **Das ist kein Hund.** (Non è un cane.) **eine** diventa **keine**: **Das ist keine Katze.** (Non è un gatto.)"
+        },
+        "examples": [
+          {
+            "de": "Das ist kein Hund, das ist ein Fuchs!",
+            "en": "That's not a dog, that's a fox!",
+            "sl": "To ni pes, to je lisica!",
+            "it": "Non è un cane, è una volpe!"
+          },
+          {
+            "de": "Toni ist kein Bäcker, er ist Schmied.",
+            "en": "Toni isn't a baker, he's a smith.",
+            "sl": "Toni ni pek, je kovač.",
+            "it": "Toni non è fornaio, è fabbro."
+          }
+        ],
+        "rows": [
+          [
+            "Das ist ein Hund.",
+            "Das ist kein Hund.",
+            "ein → kein"
+          ],
+          [
+            "Das ist eine Katze.",
+            "Das ist keine Katze.",
+            "eine → keine"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "kein-nicht",
+          "prompt": "Das ist ___ Fuchs, das ist ein Hund!",
+          "options": [
+            "kein",
+            "nicht",
+            "keine"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ein → kein**\n- Das ist kein Fuchs.",
+            "sl": "**ein → kein**\n- Das ist kein Fuchs.",
+            "it": "**ein → kein**\n- Das ist kein Fuchs."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "As an object, with a der noun, it's **keinen**, as **einen** is: **Ich habe keinen Hund.** (I haven't got a dog.) In the plural it's **keine**: **Wir haben keine Schafe.** (We haven't got any sheep.)",
+          "sl": "Kot predmet, pri samostalniku z der, je **keinen**, kot **einen**: **Ich habe keinen Hund.** (Nimam psa.) V množini je **keine**: **Wir haben keine Schafe.** (Nimamo ovc.)",
+          "it": "Come oggetto, con un nome con der, è **keinen**, come **einen**: **Ich habe keinen Hund.** (Non ho un cane.) Al plurale è **keine**: **Wir haben keine Schafe.** (Non abbiamo pecore.)"
+        },
+        "examples": [
+          {
+            "de": "Florian hat keinen Traktor.",
+            "en": "Florian hasn't got a tractor.",
+            "sl": "Florian nima traktorja.",
+            "it": "Florian non ha un trattore."
+          },
+          {
+            "de": "Stanko hat heute keine Gläser.",
+            "en": "Stanko has no jars today.",
+            "sl": "Stanko danes nima kozarcev.",
+            "it": "Oggi Stanko non ha vasetti."
+          },
+          {
+            "de": "Ich brauche keinen Hammer.",
+            "en": "I don't need a hammer.",
+            "sl": "Ne potrebujem kladiva.",
+            "it": "Non mi serve un martello."
+          }
+        ],
+        "rows": [
+          [
+            "Ich habe einen Hund.",
+            "Ich habe keinen Hund.",
+            "einen → keinen"
+          ],
+          [
+            "Wir haben Schafe.",
+            "Wir haben keine Schafe.",
+            {
+              "en": "plural → keine",
+              "sl": "množina → keine",
+              "it": "plurale → keine"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "kein-nicht",
+          "text": "Toni hat heute ___ Hammer.",
+          "accept": [
+            "keinen"
+          ],
+          "hint": "einen → ?",
+          "explain": {
+            "en": "**einen → keinen**\n- Toni hat keinen Hammer.",
+            "sl": "**einen → keinen**\n- Toni hat keinen Hammer.",
+            "it": "**einen → keinen**\n- Toni hat keinen Hammer."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A noun without an article takes **kein** too: **Ich habe Zeit.** (I have time.) → **Ich habe keine Zeit.** (I have no time.) **Hunger** (hunger) is a der noun, so **Ich habe keinen Hunger.** (I'm not hungry.) And **Wir haben keine Milch.** (We have no milk.)",
+          "sl": "Tudi samostalnik brez člena dobi **kein**: **Ich habe Zeit.** (Imam čas.) → **Ich habe keine Zeit.** (Nimam časa.) **Hunger** (lakota) ima der, zato **Ich habe keinen Hunger.** ({m:Nisem lačen|f:Nisem lačna}.) In **Wir haben keine Milch.** (Nimamo mleka.)",
+          "it": "Anche un nome senza articolo prende **kein**: **Ich habe Zeit.** (Ho tempo.) → **Ich habe keine Zeit.** (Non ho tempo.) **Hunger** (fame) è un nome con der, quindi **Ich habe keinen Hunger.** (Non ho fame.) E **Wir haben keine Milch.** (Non abbiamo latte.)"
+        },
+        "examples": [
+          {
+            "de": "Ich habe keine Zeit, ich arbeite!",
+            "en": "I have no time, I'm working!",
+            "sl": "Nimam časa, delam!",
+            "it": "Non ho tempo, sto lavorando!"
+          },
+          {
+            "de": "Opa Sepp hat keinen Hunger.",
+            "en": "Grandpa Sepp isn't hungry.",
+            "sl": "Dedek Sepp ni lačen.",
+            "it": "Nonno Sepp non ha fame."
+          },
+          {
+            "de": "Wir haben keine Milch.",
+            "en": "We have no milk.",
+            "sl": "Nimamo mleka.",
+            "it": "Non abbiamo latte."
+          }
+        ],
+        "rows": [
+          [
+            "Ich habe Zeit.",
+            "Ich habe keine Zeit.",
+            {
+              "en": "no article → kein",
+              "sl": "brez člena → kein",
+              "it": "senza articolo → kein"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "kein-nicht",
+          "prompt": "Ich habe ___ Hunger.",
+          "options": [
+            "keinen",
+            "nicht",
+            "kein"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Hunger has no article, a der noun: keinen**\n- Ich habe keinen Hunger.",
+            "sl": "**Hunger brez člena, z der: keinen**\n- Ich habe keinen Hunger.",
+            "it": "**Hunger senza articolo, con der: keinen**\n- Ich habe keinen Hunger."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Everything else takes **nicht** (not): a verb, **Ich komme nicht.** (I'm not coming.) A word like **kalt** (cold) or **weit** (far), **Es ist nicht weit.** (It isn't far.) A place, a name, and a noun with der, die or das: **Das ist nicht der Hund von Florian.** (That isn't Florian's dog.)",
+          "sl": "Vse drugo dobi **nicht** (ne): glagol, **Ich komme nicht.** (Ne pridem.) Beseda, kot **kalt** (mrzel) ali **weit** (daleč), **Es ist nicht weit.** (Ni daleč.) Kraj, ime in samostalnik z der, die ali das: **Das ist nicht der Hund von Florian.** (To ni Florianov pes.)",
+          "it": "Tutto il resto prende **nicht** (non): un verbo, **Ich komme nicht.** (Non vengo.) Una parola come **kalt** (freddo) o **weit** (lontano), **Es ist nicht weit.** (Non è lontano.) Un luogo, un nome e un nome con der, die o das: **Das ist nicht der Hund von Florian.** (Non è il cane di Florian.)"
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp kommt heute nicht.",
+            "en": "Grandpa Sepp isn't coming today.",
+            "sl": "Dedek Sepp danes ne pride.",
+            "it": "Oggi nonno Sepp non viene."
+          },
+          {
+            "de": "Der Most ist nicht kalt.",
+            "en": "The cider isn't cold.",
+            "sl": "Mošt ni hladen.",
+            "it": "Il sidro non è freddo."
+          },
+          {
+            "de": "Das ist nicht Lena, das ist Kathi.",
+            "en": "That isn't Lena, that's Kathi.",
+            "sl": "To ni Lena, to je Kathi.",
+            "it": "Non è Lena, è Kathi."
+          }
+        ],
+        "rows": [
+          [
+            "Ich komme.",
+            "Ich komme nicht.",
+            {
+              "en": "a verb → nicht",
+              "sl": "glagol → nicht",
+              "it": "verbo → nicht"
+            }
+          ],
+          [
+            "Es ist weit.",
+            "Es ist nicht weit.",
+            {
+              "en": "weit, kalt → nicht",
+              "sl": "weit, kalt → nicht",
+              "it": "weit, kalt → nicht"
+            }
+          ],
+          [
+            "Das ist der Weg.",
+            "Das ist nicht der Weg.",
+            "der, die, das → nicht"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "kein-nicht",
+          "prompt": "Der Most ist ___ kalt.",
+          "options": [
+            "nicht",
+            "kein",
+            "keine"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**kalt is no noun: nicht**\n- Der Most ist nicht kalt.",
+            "sl": "**kalt ni samostalnik: nicht**\n- Der Most ist nicht kalt.",
+            "it": "**kalt non è un nome: nicht**\n- Der Most ist nicht kalt."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**nicht** goes at the end of a short sentence, after the object too: **Ich sehe den Hund nicht.** (I can't see the dog.) But it comes before a word like **weit** and before a place: **Ich bin nicht zu Hause.** (I'm not at home.) **Es ist nicht weit.**",
+          "sl": "**nicht** stoji na koncu kratkega stavka, tudi za predmetom: **Ich sehe den Hund nicht.** (Ne vidim psa.) Pred besedo, kot je **weit**, in pred krajem pa stoji spredaj: **Ich bin nicht zu Hause.** (Nisem doma.) **Es ist nicht weit.**",
+          "it": "**nicht** va alla fine di una frase breve, anche dopo l'oggetto: **Ich sehe den Hund nicht.** (Non vedo il cane.) Ma va prima di una parola come **weit** e prima di un luogo: **Ich bin nicht zu Hause.** (Non sono a casa.) **Es ist nicht weit.**"
+        },
+        "examples": [
+          {
+            "de": "Ich verstehe dich nicht.",
+            "en": "I don't understand you.",
+            "sl": "Ne razumem te.",
+            "it": "Non ti capisco."
+          },
+          {
+            "de": "Florian findet das Schaf nicht.",
+            "en": "Florian can't find the sheep.",
+            "sl": "Florian ne najde ovce.",
+            "it": "Florian non trova la pecora."
+          },
+          {
+            "de": "Stefan ist nicht in Villach.",
+            "en": "Stefan isn't in Villach.",
+            "sl": "Stefana ni v Beljaku.",
+            "it": "Stefan non è a Villach."
+          }
+        ],
+        "rows": [
+          [
+            "Ich sehe den Hund.",
+            "Ich sehe den Hund nicht.",
+            {
+              "en": "at the end",
+              "sl": "na koncu",
+              "it": "alla fine"
+            }
+          ],
+          [
+            "Ich bin zu Hause.",
+            "Ich bin nicht zu Hause.",
+            {
+              "en": "before a place",
+              "sl": "pred krajem",
+              "it": "prima di un luogo"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "kein-nicht",
+          "prompt": {
+            "en": "Florian can't find the sheep:",
+            "sl": "Florian ne najde ovce:",
+            "it": "Florian non trova la pecora:"
+          },
+          "options": [
+            "Florian findet das Schaf nicht.",
+            "Florian nicht findet das Schaf.",
+            "Florian findet das nicht Schaf."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nicht at the end, after the object**\n- Florian findet das Schaf nicht.",
+            "sl": "**nicht na koncu, za predmetom**\n- Florian findet das Schaf nicht.",
+            "it": "**nicht alla fine, dopo l'oggetto**\n- Florian findet das Schaf nicht."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**mehr** (more) after kein or nicht says something is all gone or has stopped: **Wir haben keine Milch mehr.** (We've got no milk left.) **Opa Sepp arbeitet nicht mehr.** (Grandpa Sepp doesn't work any more.)",
+          "sl": "**mehr** (več) za kein ali nicht pove, da nečesa ni več ali da se je nehalo: **Wir haben keine Milch mehr.** (Nimamo več mleka.) **Opa Sepp arbeitet nicht mehr.** (Dedek Sepp ne dela več.)",
+          "it": "**mehr** (più) dopo kein o nicht dice che qualcosa è finito o non si fa più: **Wir haben keine Milch mehr.** (Non abbiamo più latte.) **Opa Sepp arbeitet nicht mehr.** (Nonno Sepp non lavora più.)"
+        },
+        "examples": [
+          {
+            "de": "Es gibt keine Kasnudeln mehr!",
+            "en": "There are no Kasnudeln left!",
+            "sl": "Kasnudeln ni več!",
+            "it": "Non ci sono più Kasnudeln!"
+          },
+          {
+            "de": "Opa Sepp arbeitet nicht mehr.",
+            "en": "Grandpa Sepp doesn't work any more.",
+            "sl": "Dedek Sepp ne dela več.",
+            "it": "Nonno Sepp non lavora più."
+          }
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "kein-nicht",
+          "text": "Wir haben keine Milch ___.",
+          "accept": [
+            "mehr"
+          ],
+          "hint": {
+            "en": "none left",
+            "sl": "nič več",
+            "it": "non più"
+          },
+          "explain": {
+            "en": "**kein … mehr: none left**\n- Wir haben keine Milch mehr.",
+            "sl": "**kein … mehr: nič več**\n- Wir haben keine Milch mehr.",
+            "it": "**kein … mehr: non più**\n- Wir haben keine Milch mehr."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "**kein** for **ein** and for no article: **kein Hund**, **keine Katze**, **keinen Hund** (object), **keine Schafe**, **keine Zeit**.\n\n**nicht** for the rest, a verb, **kalt**, a place, der, die, das: **Ich komme nicht.** **Es ist nicht weit.**\n\nAt the end: **Ich sehe den Hund nicht.** Before a place: **nicht zu Hause** · **keine Milch mehr**, **nicht mehr**.",
+      "sl": "**kein** namesto **ein** in brez člena: **kein Hund**, **keine Katze**, **keinen Hund** (predmet), **keine Schafe**, **keine Zeit**.\n\n**nicht** za vse drugo, glagol, **kalt**, kraj, der, die, das: **Ich komme nicht.** **Es ist nicht weit.**\n\nNa koncu: **Ich sehe den Hund nicht.** Pred krajem: **nicht zu Hause** · **keine Milch mehr**, **nicht mehr**.",
+      "it": "**kein** al posto di **ein** e senza articolo: **kein Hund**, **keine Katze**, **keinen Hund** (oggetto), **keine Schafe**, **keine Zeit**.\n\n**nicht** per il resto, un verbo, **kalt**, un luogo, der, die, das: **Ich komme nicht.** **Es ist nicht weit.**\n\nAlla fine: **Ich sehe den Hund nicht.** Prima di un luogo: **nicht zu Hause** · **keine Milch mehr**, **nicht mehr**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "kein-nicht-1",
+      "title": {
+        "de": "Kein oder nicht?",
+        "en": "Kein or nicht?",
+        "sl": "Kein ali nicht?",
+        "it": "Kein o nicht?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "kein-nicht",
+          "instruction": {
+            "en": "Ordne zu · kein or nicht?",
+            "sl": "Ordne zu · kein ali nicht?",
+            "it": "Ordne zu · kein o nicht?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "kein · a noun",
+                "sl": "kein · samostalnik",
+                "it": "kein · un nome"
+              },
+              "words": [
+                "Hund",
+                "Zeit",
+                "Milch",
+                "Hunger"
+              ]
+            },
+            {
+              "label": {
+                "en": "nicht · the rest",
+                "sl": "nicht · vse drugo",
+                "it": "nicht · il resto"
+              },
+              "words": [
+                "kommen",
+                "weit",
+                "zu Hause",
+                "müde"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**kein with a noun (ein or no article), nicht with the rest**",
+            "sl": "**kein s samostalnikom (z ein ali brez člena), nicht z vsem drugim**",
+            "it": "**kein con un nome (con ein o senza articolo), nicht con il resto**"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "kein-nicht",
+          "instruction": {
+            "en": "Sag es mit kein · Say it with kein",
+            "sl": "Sag es mit kein · Povej s kein",
+            "it": "Sag es mit kein · Dillo con kein"
+          },
+          "prompt": {
+            "en": "ein → kein · no, not a",
+            "sl": "ein → kein · noben",
+            "it": "ein → kein · nessuno"
+          },
+          "columns": [
+            {
+              "en": "kein · no, not a",
+              "sl": "kein · noben",
+              "it": "kein · nessuno"
+            }
+          ],
+          "rows": [
+            {
+              "label": "ein Hund",
+              "cells": [
+                {
+                  "accept": [
+                    "kein Hund"
+                  ],
+                  "hint": "ein → kein"
+                }
+              ]
+            },
+            {
+              "label": "eine Katze",
+              "cells": [
+                {
+                  "accept": [
+                    "keine Katze"
+                  ],
+                  "hint": "eine → keine"
+                }
+              ]
+            },
+            {
+              "label": "Ich habe einen Hammer.",
+              "cells": [
+                {
+                  "accept": [
+                    "Ich habe keinen Hammer."
+                  ],
+                  "hint": "einen → keinen"
+                }
+              ]
+            },
+            {
+              "label": "Ich habe Zeit.",
+              "cells": [
+                {
+                  "accept": [
+                    "Ich habe keine Zeit."
+                  ],
+                  "hint": {
+                    "en": "no article → kein",
+                    "sl": "brez člena → kein",
+                    "it": "senza articolo → kein"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "Es gibt Brot.",
+              "cells": [
+                {
+                  "accept": [
+                    "Es gibt kein Brot."
+                  ],
+                  "hint": "das Brot → kein"
+                }
+              ]
+            },
+            {
+              "label": "Wir haben Äpfel.",
+              "cells": [
+                {
+                  "accept": [
+                    "Wir haben keine Äpfel."
+                  ],
+                  "hint": {
+                    "en": "plural → keine",
+                    "sl": "množina → keine",
+                    "it": "plurale → keine"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ein → kein, eine → keine, einen → keinen; no article → kein**",
+            "sl": "**ein → kein, eine → keine, einen → keinen; brez člena → kein**",
+            "it": "**ein → kein, eine → keine, einen → keinen; senza articolo → kein**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kein-nicht-2",
+      "title": {
+        "de": "Ruhetag im Gasthaus",
+        "en": "The Gasthaus's day off",
+        "sl": "Gostilna ima zaprto",
+        "it": "Giorno di riposo all'osteria"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "kein-nicht",
+          "instruction": {
+            "en": "Ergänze kein oder nicht · Fill in kein or nicht",
+            "sl": "Ergänze kein oder nicht · Dopolni s kein ali nicht",
+            "it": "Ergänze kein oder nicht · Completa con kein o nicht"
+          },
+          "title": "Ruhetag im Gasthaus",
+          "text": "Am Montag ist Ruhetag im Gasthaus zur Linde. Kathi kocht ___. Es gibt ___ Kasnudeln und ___ Suppe. Toni hat ___ Hunger, aber Durst. Leider gibt es ___ Most. Opa Sepp erzählt heute ___: Er ist müde. Und Stefan ist ___ zu Hause.",
+          "gaps": [
+            {
+              "accept": [
+                "nicht"
+              ],
+              "hint": {
+                "en": "a verb",
+                "sl": "glagol",
+                "it": "un verbo"
+              }
+            },
+            {
+              "accept": [
+                "keine"
+              ],
+              "hint": {
+                "en": "a plural",
+                "sl": "množina",
+                "it": "un plurale"
+              }
+            },
+            {
+              "accept": [
+                "keine"
+              ],
+              "hint": {
+                "en": "die Suppe",
+                "sl": "die Suppe",
+                "it": "die Suppe"
+              }
+            },
+            {
+              "accept": [
+                "keinen"
+              ],
+              "hint": {
+                "en": "der Hunger, an object",
+                "sl": "der Hunger, predmet",
+                "it": "der Hunger, oggetto"
+              }
+            },
+            {
+              "accept": [
+                "keinen"
+              ],
+              "hint": {
+                "en": "der Most, an object",
+                "sl": "der Most, predmet",
+                "it": "der Most, oggetto"
+              }
+            },
+            {
+              "accept": [
+                "nicht"
+              ],
+              "hint": {
+                "en": "a verb",
+                "sl": "glagol",
+                "it": "un verbo"
+              }
+            },
+            {
+              "accept": [
+                "nicht"
+              ],
+              "hint": {
+                "en": "a place",
+                "sl": "kraj",
+                "it": "un luogo"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "kein",
+            "nein"
+          ],
+          "translation": {
+            "en": "On Monday the Gasthaus zur Linde has its day off. Kathi isn't cooking. There are no Kasnudeln and no soup. Toni isn't hungry, but he's thirsty. Sadly there's no cider. Grandpa Sepp isn't telling stories today: he's tired. And Stefan isn't at home.",
+            "sl": "Ob ponedeljkih je gostilna zur Linde zaprta. Kathi ne kuha. Ni Kasnudeln in ni juhe. Toni ni lačen, je pa žejen. Žal ni mošta. Dedek Sepp danes ne pripoveduje: utrujen je. Stefana pa ni doma.",
+            "it": "Il lunedì l'osteria zur Linde è chiusa per riposo. Kathi non cucina. Non ci sono Kasnudeln e non c'è la zuppa. Toni non ha fame, ma ha sete. Purtroppo non c'è sidro. Oggi nonno Sepp non racconta: è stanco. E Stefan non è a casa."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "kein-nicht",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Das ist ___ Lena, das ist Kathi.",
+          "options": [
+            "nicht",
+            "kein",
+            "keine"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A name: nicht**",
+            "sl": "**Ime: nicht**",
+            "it": "**Un nome: nicht**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "kein-nicht-3",
+      "title": {
+        "de": "Nein, heute nicht",
+        "en": "No, not today",
+        "sl": "Ne, danes ne",
+        "it": "No, oggi no"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "kein-nicht",
+          "instruction": {
+            "en": "Sag es mit kein oder nicht · Say no with kein or nicht",
+            "sl": "Sag es mit kein oder nicht · Zanikaj s kein ali nicht",
+            "it": "Sag es mit kein oder nicht · Nega con kein o nicht"
+          },
+          "items": [
+            {
+              "from": "Ich habe einen Hund.",
+              "accept": [
+                "Ich habe keinen Hund."
+              ],
+              "hint": "einen → keinen"
+            },
+            {
+              "from": "Das ist ein Problem.",
+              "accept": [
+                "Das ist kein Problem."
+              ],
+              "hint": "ein → kein"
+            },
+            {
+              "from": "Wir haben Zeit.",
+              "accept": [
+                "Wir haben keine Zeit."
+              ],
+              "hint": {
+                "en": "no article → kein",
+                "sl": "brez člena → kein",
+                "it": "senza articolo → kein"
+              }
+            },
+            {
+              "from": "Kathi kommt heute.",
+              "accept": [
+                "Kathi kommt heute nicht."
+              ],
+              "hint": {
+                "en": "a verb: nicht at the end",
+                "sl": "glagol: nicht na koncu",
+                "it": "un verbo: nicht alla fine"
+              }
+            },
+            {
+              "from": "Der See ist kalt.",
+              "accept": [
+                "Der See ist nicht kalt."
+              ],
+              "hint": {
+                "en": "before kalt",
+                "sl": "pred kalt",
+                "it": "prima di kalt"
+              }
+            },
+            {
+              "from": "Ich sehe den Dobratsch.",
+              "accept": [
+                "Ich sehe den Dobratsch nicht."
+              ],
+              "hint": {
+                "en": "after the object",
+                "sl": "za predmetom",
+                "it": "dopo l'oggetto"
+              }
+            },
+            {
+              "from": "Florian ist auf der Alm.",
+              "accept": [
+                "Florian ist nicht auf der Alm."
+              ],
+              "hint": {
+                "en": "before a place",
+                "sl": "pred krajem",
+                "it": "prima di un luogo"
+              }
+            },
+            {
+              "from": "Stanko hat Gläser.",
+              "accept": [
+                "Stanko hat keine Gläser."
+              ],
+              "hint": {
+                "en": "plural → keine",
+                "sl": "množina → keine",
+                "it": "plurale → keine"
+              }
+            }
+          ]
+        },
+        {
+          "type": "cloze",
+          "grammar": "kein-nicht",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "text": "Opa Sepp arbeitet nicht ___.",
+          "accept": [
+            "mehr"
+          ],
+          "hint": {
+            "en": "not any more",
+            "sl": "ne več",
+            "it": "non più"
+          },
+          "explain": {
+            "en": "**nicht mehr: not any more**",
+            "sl": "**nicht mehr: ne več**",
+            "it": "**nicht mehr: non più**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "kein-nicht",
+        "instruction": {
+          "en": "Ergänze kein oder nicht · Fill in kein or nicht",
+          "sl": "Ergänze kein oder nicht · Dopolni s kein ali nicht",
+          "it": "Ergänze kein oder nicht · Completa con kein o nicht"
+        },
+        "title": "Florian sucht ein Schaf",
+        "text": "Florian sucht ein Schaf. Aber das ist ___ Schaf, das ist eine Ziege! Er findet das Schaf ___. Er hat heute ___ Zeit und ___ Glück. Er ist ___ froh.",
+        "gaps": [
+          {
+            "accept": [
+              "kein"
+            ]
+          },
+          {
+            "accept": [
+              "nicht"
+            ]
+          },
+          {
+            "accept": [
+              "keine"
+            ]
+          },
+          {
+            "accept": [
+              "kein"
+            ]
+          },
+          {
+            "accept": [
+              "nicht"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Florian is looking for a sheep. But that's not a sheep, that's a goat! He can't find the sheep. Today he has no time and no luck. He isn't happy.",
+          "sl": "Florian išče ovco. Ampak to ni ovca, to je koza! Ovce ne najde. Danes nima časa in nima sreče. Ni vesel.",
+          "it": "Florian cerca una pecora. Ma quella non è una pecora, è una capra! Non trova la pecora. Oggi non ha tempo e non ha fortuna. Non è contento."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "kein-nicht",
+        "instruction": {
+          "en": "Sag es mit kein oder nicht · Say no with kein or nicht",
+          "sl": "Sag es mit kein oder nicht · Zanikaj s kein ali nicht",
+          "it": "Sag es mit kein oder nicht · Nega con kein o nicht"
+        },
+        "items": [
+          {
+            "from": "Ich habe einen Topf.",
+            "accept": [
+              "Ich habe keinen Topf."
+            ]
+          },
+          {
+            "from": "Toni kommt.",
+            "accept": [
+              "Toni kommt nicht."
+            ]
+          },
+          {
+            "from": "Wir haben Milch.",
+            "accept": [
+              "Wir haben keine Milch."
+            ]
+          },
+          {
+            "from": "Es ist weit.",
+            "accept": [
+              "Es ist nicht weit."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "kein-nicht",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Ich habe ___ Hunger mehr.",
+        "options": [
+          "keinen",
+          "nicht",
+          "kein"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**Hunger, a der noun: keinen**",
+          "sl": "**Hunger z der: keinen**",
+          "it": "**Hunger con der: keinen**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "kein-nicht",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kathi ist ___ im Gasthaus.",
+        "options": [
+          "nicht",
+          "kein",
+          "keine"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A place: nicht**",
+          "sl": "**Kraj: nicht**",
+          "it": "**Un luogo: nicht**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "kein-nicht",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": {
+          "en": "Toni is not a baker, he is a smith:",
+          "sl": "Toni ni pek, je kovač:",
+          "it": "Toni non è fornaio, è fabbro:"
+        },
+        "options": [
+          "Toni ist kein Bäcker, er ist Schmied.",
+          "Toni ist nicht Bäcker, er ist Schmied.",
+          "Toni ist keinen Bäcker, er ist Schmied."
+        ],
+        "answer": 0,
+        "almost": [
+          1
+        ],
+        "say_options": true,
+        "explain": {
+          "en": "**A job without an article: kein**",
+          "sl": "**Poklic brez člena: kein**",
+          "it": "**Un mestiere senza articolo: kein**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: Ruhetag, «nicht Bäcker» as almost, «Kathi kommt heute nicht», «von Florian», leider, «Es gibt keine Kasnudeln mehr»"
+}

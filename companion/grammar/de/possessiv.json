@@ -1,0 +1,287 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "possessiv",
+  "language": "de",
+  "level": "A1",
+  "emoji": "👪",
+  "title": {
+    "de": "Mein Hund, deine Katze: die Possessivartikel",
+    "sl": "Mein Hund, deine Katze: svojilni zaimki",
+    "en": "Mein Hund, deine Katze: my, your, his, her",
+    "it": "Mein Hund, deine Katze: i possessivi"
+  },
+  "rule": {
+    "en": "Whose it is goes before the noun, in a word that ends like **ein** (*Possessivartikel*): **mein** (my), **dein** (your), **sein** (his, its), **ihr** (her), **unser** (our), **euer** (your, to several people you say du to), **ihr** (their), **Ihr** (your, polite, with a capital).\n\nThe owner picks the word: Toni → **sein** Hammer, Kathi → **ihr** Gasthaus. The noun picks the ending, as with ein: a der or das noun takes none (**mein** Hund, **mein** Haus), a die noun and every plural take -e (**meine** Katze, **meine** Schafe). No der, die or das in front: my dog is **mein Hund**.\n\nIn the accusative a der noun takes -en, as **einen**: Ich suche **meinen** Hund. die, das and the plural stay as they are: Ich suche **meine** Brille.\n\n**euer** drops its second e before an ending: **eure** Kühe. With a name, add -s and no apostrophe: **Kathis** Gasthaus, **Stankos** Honig; a name ending in s, ß, x or z takes only an apostrophe: **Franz'** Mühle.",
+    "sl": "Čigavo je, pove beseda pred samostalnikom, ki se končuje kot **ein** (*Possessivartikel*): **mein** (moj), **dein** (tvoj), **sein** (njegov), **ihr** (njen), **unser** (naš), **euer** (vaš, več osebam, ki jih tikaš), **ihr** (njihov), **Ihr** (vaš, vljudno, z veliko).\n\nBesedo izbere lastnik: Toni → **sein** Hammer, Kathi → **ihr** Gasthaus. Končnico izbere samostalnik, kot pri ein: samostalnik z der ali das je nima (**mein** Hund, **mein** Haus), samostalnik z die in vsaka množina dobita -e (**meine** Katze, **meine** Schafe).\n\nV tožilniku dobi samostalnik z der -en, kot **einen**: Ich suche **meinen** Hund. die, das in množina ostanejo: Ich suche **meine** Brille.\n\nNemščina nima svoj: Toni išče svoje kladivo je Toni sucht **seinen** Hammer, Kathi kliče svojo mačko je Kathi ruft **ihre** Katze. **euer** pred končnico izgubi drugi e: **eure** Kühe. Ime dobi -s brez opuščaja: **Kathis** Gasthaus, **Stankos** Honig; ime na s, ß, x ali z le opuščaj: **Franz'** Mühle.",
+    "it": "Di chi è lo dice una parola davanti al nome che finisce come **ein** (*Possessivartikel*): **mein** (mio), **dein** (tuo), **sein** (suo, di lui), **ihr** (suo, di lei), **unser** (nostro), **euer** (vostro, a più persone a cui dai del du), **ihr** (loro), **Ihr** (Suo, di cortesia, con la maiuscola).\n\nLa parola la sceglie chi possiede, non la cosa come in italiano: il suo martello di Toni è **sein** Hammer, il suo gatto di Kathi è **ihre** Katze. La desinenza la sceglie il nome, come con ein: un nome con der o das non ne ha (**mein** Hund, **mein** Haus), un nome con die e ogni plurale prendono -e (**meine** Katze, **meine** Schafe). Senza articolo davanti: il mio cane è **mein Hund**.\n\nAll'accusativo un nome con der prende -en, come **einen**: Ich suche **meinen** Hund. die, das e il plurale restano: Ich suche **meine** Brille.\n\n**euer** perde la seconda e davanti a una desinenza: **eure** Kühe. Con un nome si aggiunge -s, senza apostrofo: **Kathis** Gasthaus, **Stankos** Honig; un nome in s, ß, x o z prende solo l'apostrofo: **Franz'** Mühle."
+  },
+  "table": {
+    "head": [
+      {
+        "de": "Person",
+        "sl": "oseba",
+        "en": "person",
+        "it": "persona"
+      },
+      {
+        "de": "der · das",
+        "sl": "der · das",
+        "en": "der · das",
+        "it": "der · das"
+      },
+      {
+        "de": "die · Plural",
+        "sl": "die · množina",
+        "en": "die · plural",
+        "it": "die · plurale"
+      },
+      {
+        "de": "den (Akkusativ)",
+        "sl": "den (tožilnik)",
+        "en": "den (accusative)",
+        "it": "den (accusativo)"
+      }
+    ],
+    "rows": [
+      [
+        "ich",
+        "mein",
+        "meine",
+        "meinen"
+      ],
+      [
+        "du",
+        "dein",
+        "deine",
+        "deinen"
+      ],
+      [
+        "er · es",
+        "sein",
+        "seine",
+        "seinen"
+      ],
+      [
+        "sie",
+        "ihr",
+        "ihre",
+        "ihren"
+      ],
+      [
+        "wir",
+        "unser",
+        "unsere",
+        "unseren"
+      ],
+      [
+        "ihr",
+        "euer",
+        "eure",
+        "euren"
+      ],
+      [
+        "sie · Sie",
+        "ihr · Ihr",
+        "ihre · Ihre",
+        "ihren · Ihren"
+      ]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Das ist mein Hund.",
+      "sl": "To je moj pes.",
+      "en": "This is my dog.",
+      "it": "Questo è il mio cane.",
+      "note": {
+        "en": "der Hund: mein, no ending, no article.",
+        "sl": "der Hund: mein, brez končnice.",
+        "it": "der Hund: mein, senza desinenza e senza articolo."
+      }
+    },
+    {
+      "de": "Kathi und ihre Katze sind im Gasthaus.",
+      "sl": "Kathi in njena mačka sta v gostilni.",
+      "en": "Kathi and her cat are at the inn.",
+      "it": "Kathi e il suo gatto sono all'osteria.",
+      "note": {
+        "en": "Kathi → ihr; die Katze → -e: ihre.",
+        "sl": "Kathi → ihr; die Katze → -e: ihre.",
+        "it": "Kathi → ihr (di lei); die Katze → -e: ihre."
+      }
+    },
+    {
+      "de": "Toni sucht seinen Hammer.",
+      "sl": "Toni išče svoje kladivo.",
+      "en": "Toni is looking for his hammer.",
+      "it": "Toni cerca il suo martello.",
+      "note": {
+        "en": "The accusative of der Hammer: seinen.",
+        "sl": "Tožilnik od der Hammer: seinen. Slovensko svoje, nemško seinen.",
+        "it": "L'accusativo di der Hammer: seinen."
+      }
+    },
+    {
+      "de": "Unsere Schafe sind auf der Alm.",
+      "sl": "Naše ovce so na planini.",
+      "en": "Our sheep are up on the alpine pasture.",
+      "it": "Le nostre pecore sono all'alpeggio."
+    },
+    {
+      "de": "Florian und Stefan, ist das euer Hund?",
+      "sl": "Florian in Stefan, je to vajin pes?",
+      "en": "Florian and Stefan, is this your dog?",
+      "it": "Florian e Stefan, è il vostro cane?",
+      "note": {
+        "en": "ihr (you, several) → euer.",
+        "sl": "ihr (vi) → euer. Nemščina nima dvojine.",
+        "it": "ihr (voi) → euer."
+      }
+    },
+    {
+      "de": "Frau Huber, ist das Ihr Auto?",
+      "sl": "Gospa Huber, je to vaš avto?",
+      "en": "Mrs Huber, is this your car?",
+      "it": "Signora Huber, è la Sua macchina?",
+      "note": {
+        "en": "Polite: Ihr, with a capital.",
+        "sl": "Vljudno: Ihr, z veliko.",
+        "it": "Di cortesia: Ihr, con la maiuscola."
+      }
+    },
+    {
+      "de": "Stankos Honig ist sehr gut.",
+      "sl": "Stankov med je zelo dober.",
+      "en": "Stanko's honey is very good.",
+      "it": "Il miele di Stanko è molto buono.",
+      "note": {
+        "en": "A name + s, no apostrophe.",
+        "sl": "Ime + s, brez opuščaja.",
+        "it": "Un nome + s, senza apostrofo."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": [
+    "possessive",
+    "possessiv",
+    "possessivartikel",
+    "mein",
+    "dein",
+    "sein_ihr",
+    "possessive_accusative",
+    "whose"
+  ],
+  "see": [
+    "artikel-genus",
+    "akkusativ",
+    "sein-haben",
+    "du-sie"
+  ],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker; check: Franz' Mühle, euer/eure, the Slovene svoj note",
+  "card": {
+    "title": {
+      "de": "Mein, dein, sein, ihr",
+      "sl": "Svojilni zaimki · mein, dein",
+      "en": "My, your · mein, dein",
+      "it": "I possessivi · mein, dein"
+    },
+    "rule": {
+      "en": "The owner picks the word: **mein, dein, sein, ihr, unser, euer, ihr, Ihr**. The noun picks the ending, as ein: **mein** Hund, **meine** Katze, **meine** Schafe; a der noun in the accusative **meinen**. Kathi → **ihr**, Toni → **sein**.",
+      "sl": "Besedo izbere lastnik: **mein, dein, sein, ihr, unser, euer, ihr, Ihr**. Končnico samostalnik, kot pri ein: **mein** Hund, **meine** Katze, **meine** Schafe; samostalnik z der v tožilniku **meinen**. Kathi → **ihr**, Toni → **sein**.",
+      "it": "La parola la sceglie chi possiede: **mein, dein, sein, ihr, unser, euer, ihr, Ihr**. La desinenza il nome, come ein: **mein** Hund, **meine** Katze, **meine** Schafe; un nome con der all'accusativo **meinen**. Kathi → **ihr**, Toni → **sein**."
+    },
+    "table": {
+      "head": [
+        {
+          "de": "Person",
+          "sl": "oseba",
+          "en": "person",
+          "it": "persona"
+        },
+        {
+          "de": "der · das",
+          "sl": "der · das",
+          "en": "der · das",
+          "it": "der · das"
+        },
+        {
+          "de": "die · Plural",
+          "sl": "die · množina",
+          "en": "die · plural",
+          "it": "die · plurale"
+        },
+        {
+          "de": "den",
+          "sl": "den",
+          "en": "den",
+          "it": "den"
+        }
+      ],
+      "rows": [
+        [
+          "ich",
+          "mein",
+          "meine",
+          "meinen"
+        ],
+        [
+          "du",
+          "dein",
+          "deine",
+          "deinen"
+        ],
+        [
+          "er · es",
+          "sein",
+          "seine",
+          "seinen"
+        ],
+        [
+          "sie",
+          "ihr",
+          "ihre",
+          "ihren"
+        ],
+        [
+          "wir",
+          "unser",
+          "unsere",
+          "unseren"
+        ],
+        [
+          "ihr",
+          "euer",
+          "eure",
+          "euren"
+        ],
+        [
+          "sie · Sie",
+          "ihr · Ihr",
+          "ihre · Ihre",
+          "ihren · Ihren"
+        ]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Toni sucht seinen Hammer.",
+        "sl": "Toni išče svoje kladivo.",
+        "en": "Toni is looking for his hammer.",
+        "it": "Toni cerca il suo martello."
+      },
+      {
+        "de": "Kathi und ihre Katze sind im Gasthaus.",
+        "sl": "Kathi in njena mačka sta v gostilni.",
+        "en": "Kathi and her cat are at the inn.",
+        "it": "Kathi e il suo gatto sono all'osteria."
+      }
+    ],
+    "tip": {
+      "en": "💡 **ihr** is three words: her, their, and with a capital **Ihr** your (polite). A name takes -s: **Kathis** Gasthaus.",
+      "sl": "💡 **ihr** so tri besede: njen, njihov in z veliko **Ihr** vaš (vljudno). Ime dobi -s: **Kathis** Gasthaus.",
+      "it": "💡 **ihr** sono tre parole: di lei, loro e con la maiuscola **Ihr** Suo (di cortesia). Un nome prende -s: **Kathis** Gasthaus."
+    }
+  }
+}

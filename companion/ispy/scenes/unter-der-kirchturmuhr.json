@@ -1,0 +1,564 @@
+{
+  "schema": "lani.ispy/v0",
+  "scene": "unter-der-kirchturmuhr",
+  "language": "de",
+  "machine_written": true,
+  "review": "clues: copied from auf-dem-dorfplatz (machine-written, Claude, in de with sl, en and it, from the square's picture in Carinthia's look); the clock's rewritten as its painter draws it (a cream face in a gold ring, two dark hands, high on the onion-domed tower, lit at night) and for what it does in this scene; not reviewed by a native speaker",
+  "things": {
+    "linden": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Im Sommer ist sie grün.",
+          "sl": "Poleti je zelena.",
+          "en": "In summer it's green.",
+          "it": "D'estate è verde.",
+          "grammar": ["sein-haben", "wortstellung"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hat Blätter wie Herzen.",
+          "sl": "Ima liste kot srca.",
+          "en": "It has leaves like hearts.",
+          "it": "Ha le foglie a forma di cuore.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "does",
+          "de": "Im Juni blüht sie und duftet.",
+          "sl": "Junija cveti in diši.",
+          "en": "In June it flowers and smells sweet.",
+          "it": "A giugno fiorisce e profuma.",
+          "grammar": ["wortstellung", "praesens"]
+        },
+        {
+          "kind": "where",
+          "de": "Unter ihr steht ein Bankerl.",
+          "sl": "Pod njo stoji klop.",
+          "en": "A bench stands under it.",
+          "it": "Sotto c'è una panchina.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "bench"
+        },
+        {
+          "kind": "use",
+          "de": "Aus ihren Blüten macht man Tee.",
+          "sl": "Iz njenih cvetov se kuha čaj.",
+          "en": "Tea is made from its flowers.",
+          "it": "Con i suoi fiori si fa la tisana.",
+          "grammar": ["praesens", "dativ"]
+        }
+      ]
+    },
+    "bench": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Es ist braun.",
+          "sl": "Je rjava.",
+          "en": "It's brown.",
+          "it": "È marrone.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "material",
+          "de": "Es ist aus Holz.",
+          "sl": "Je lesena.",
+          "en": "It's made of wood.",
+          "it": "È di legno.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "where",
+          "de": "Es steht unter der Linde.",
+          "sl": "Stoji pod lipo.",
+          "en": "It stands under the linden.",
+          "it": "Sta sotto il tiglio.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "linden"
+        },
+        {
+          "kind": "use",
+          "de": "Darauf sitzen wir.",
+          "sl": "Na njej sedimo.",
+          "en": "We sit on it.",
+          "it": "Ci sediamo sopra.",
+          "grammar": ["wortstellung"]
+        }
+      ]
+    },
+    "ball": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist rot und weiß.",
+          "sl": "Je rdeča in bela.",
+          "en": "It's red and white.",
+          "it": "È rosso e bianco.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        { "kind": "trait", "de": "Er ist rund.", "sl": "Je okrogla.", "en": "It's round.", "it": "È rotondo.", "grammar": ["sein-haben"] },
+        { "kind": "does", "de": "Er rollt.", "sl": "Kotali se.", "en": "It rolls.", "it": "Rotola.", "grammar": ["praesens"] },
+        {
+          "kind": "use",
+          "de": "Wir schießen ihn ins Tor.",
+          "sl": "Brcamo jo v gol.",
+          "en": "We kick it into the goal.",
+          "it": "Lo tiriamo in porta.",
+          "grammar": ["praesens", "akkusativ"]
+        }
+      ]
+    },
+    "well": {
+      "clues": [
+        {
+          "kind": "material",
+          "de": "Er ist aus Holz.",
+          "sl": "Je lesen.",
+          "en": "It's made of wood.",
+          "it": "È di legno.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat einen langen Trog.",
+          "sl": "Ima dolgo korito.",
+          "en": "It has a long trough.",
+          "it": "Ha un lungo trogolo.",
+          "grammar": ["sein-haben", "akkusativ"]
+        },
+        {
+          "kind": "does",
+          "de": "Aus einem Rohr läuft Wasser.",
+          "sl": "Iz cevi teče voda.",
+          "en": "Water runs out of a pipe.",
+          "it": "Da un tubo scorre l'acqua.",
+          "grammar": ["wortstellung", "praesens"]
+        },
+        {
+          "kind": "where",
+          "de": "Er steht vor dem Haus.",
+          "sl": "Stoji pred hišo.",
+          "en": "It stands in front of the house.",
+          "it": "Sta davanti alla casa.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "house"
+        },
+        {
+          "kind": "use",
+          "de": "Dort holen wir frisches Wasser.",
+          "sl": "Tam zajemamo svežo vodo.",
+          "en": "We fetch fresh water there.",
+          "it": "Lì prendiamo l'acqua fresca.",
+          "grammar": ["wortstellung"]
+        }
+      ]
+    },
+    "dog": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist braun.",
+          "sl": "Je rjav.",
+          "en": "It's brown.",
+          "it": "È marrone.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat ein rotes Halsband.",
+          "sl": "Ima rdečo ovratnico.",
+          "en": "It has a red collar.",
+          "it": "Ha un collare rosso.",
+          "grammar": ["sein-haben", "akkusativ"]
+        },
+        { "kind": "does", "de": "Er bellt.", "sl": "Laja.", "en": "It barks.", "it": "Abbaia.", "grammar": ["praesens"] },
+        {
+          "kind": "does",
+          "de": "Er wedelt mit dem Schwanz.",
+          "sl": "Miga z repom.",
+          "en": "It wags its tail.",
+          "it": "Scodinzola.",
+          "grammar": ["praesens", "dativ"]
+        }
+      ]
+    },
+    "cat": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist orange.",
+          "sl": "Je oranžna.",
+          "en": "It's orange.",
+          "it": "È arancione.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "does",
+          "de": "Sie schläft gern auf dem Bankerl.",
+          "sl": "Rada spi na klopi.",
+          "en": "It likes to sleep on the bench.",
+          "it": "Le piace dormire sulla panchina.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "bench"
+        },
+        { "kind": "does", "de": "Sie miaut.", "sl": "Mijavka.", "en": "It miaows.", "it": "Miagola.", "grammar": ["praesens"] },
+        {
+          "kind": "trait",
+          "de": "Sie trinkt gern Milch.",
+          "sl": "Rada pije mleko.",
+          "en": "It likes drinking milk.",
+          "it": "Le piace bere il latte.",
+          "grammar": ["praesens"]
+        }
+      ]
+    },
+    "house": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Unten ist es weiß.",
+          "sl": "Spodaj je bela.",
+          "en": "It's white at the bottom.",
+          "it": "Sotto è bianca.",
+          "grammar": ["sein-haben", "wortstellung"]
+        },
+        {
+          "kind": "trait",
+          "de": "Es hat einen Balkon aus Holz.",
+          "sl": "Ima lesen balkon.",
+          "en": "It has a wooden balcony.",
+          "it": "Ha un balcone di legno.",
+          "grammar": ["sein-haben", "akkusativ"]
+        },
+        {
+          "kind": "trait",
+          "de": "Im Sommer blühen rote Geranien am Balkon.",
+          "sl": "Poleti na balkonu cvetijo rdeče pelargonije.",
+          "en": "In summer red geraniums flower on its balcony.",
+          "it": "D'estate sul balcone fioriscono gerani rossi.",
+          "grammar": ["wortstellung", "plural"]
+        },
+        {
+          "kind": "trait",
+          "de": "Es hat grüne Fensterläden.",
+          "sl": "Ima zelena polkna.",
+          "en": "It has green shutters.",
+          "it": "Ha le persiane verdi.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "use",
+          "de": "Darin wohnen wir.",
+          "sl": "V njej živimo.",
+          "en": "We live in it.",
+          "it": "Ci abitiamo.",
+          "grammar": ["wortstellung"]
+        }
+      ]
+    },
+    "tower": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist weiß.",
+          "sl": "Je bel.",
+          "en": "It's white.",
+          "it": "È bianco.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        { "kind": "size", "de": "Er ist hoch.", "sl": "Je visok.", "en": "It's tall.", "it": "È alto.", "grammar": ["sein-haben"] },
+        {
+          "kind": "trait",
+          "de": "Oben hat er eine grüne Zwiebel.",
+          "sl": "Na vrhu ima zeleno čebulo.",
+          "en": "At the top it has a green onion dome.",
+          "it": "In cima ha una cupola verde a cipolla.",
+          "grammar": ["sein-haben", "wortstellung"]
+        },
+        {
+          "kind": "trait",
+          "de": "Darin hängt eine Glocke.",
+          "sl": "V njem visi zvon.",
+          "en": "A bell hangs in it.",
+          "it": "Dentro è appesa una campana.",
+          "grammar": ["wortstellung"]
+        }
+      ]
+    },
+    "bicycle": {
+      "clues": [
+        { "kind": "colour", "de": "Es ist blau.", "sl": "Je modro.", "en": "It's blue.", "it": "È blu.", "grammar": ["sein-haben", "artikel-genus"] },
+        {
+          "kind": "trait",
+          "de": "Es hat zwei Räder und Pedale.",
+          "sl": "Ima dve kolesi in pedala.",
+          "en": "It has two wheels and pedals.",
+          "it": "Ha due ruote e i pedali.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Es lehnt am Haus.",
+          "sl": "Naslonjeno je na hišo.",
+          "en": "It leans against the house.",
+          "it": "È appoggiata alla casa.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "house"
+        },
+        {
+          "kind": "use",
+          "de": "Damit fahren wir zur Schule.",
+          "sl": "Z njim se peljemo v šolo.",
+          "en": "We ride it to school.",
+          "it": "Ci andiamo a scuola.",
+          "grammar": ["praesens"]
+        }
+      ]
+    },
+    "flowers": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Im Sommer ist sie bunt.",
+          "sl": "Poleti so pisane.",
+          "en": "In summer it's colourful.",
+          "it": "D'estate è colorato.",
+          "grammar": ["sein-haben", "wortstellung"]
+        },
+        {
+          "kind": "where",
+          "de": "Sie wächst in einem Beet.",
+          "sl": "Rastejo na gredici.",
+          "en": "It grows in a flower bed.",
+          "it": "Cresce in un'aiuola.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        },
+        { "kind": "trait", "de": "Sie duftet.", "sl": "Dišijo.", "en": "It smells sweet.", "it": "Profuma.", "grammar": ["praesens"] },
+        {
+          "kind": "trait",
+          "de": "Die Bienen mögen sie.",
+          "sl": "Čebele jih imajo rade.",
+          "en": "The bees like it.",
+          "it": "Alle api piace.",
+          "grammar": ["praesens", "akkusativ"]
+        }
+      ]
+    },
+    "sun": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist gelb.",
+          "sl": "Je rumeno.",
+          "en": "It's yellow.",
+          "it": "È giallo.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie ist sehr heiß.",
+          "sl": "Je zelo vroče.",
+          "en": "It's very hot.",
+          "it": "È caldissimo.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "does",
+          "de": "Am Tag scheint sie.",
+          "sl": "Podnevi sije.",
+          "en": "It shines by day.",
+          "it": "Di giorno splende.",
+          "grammar": ["wortstellung", "praesens"]
+        },
+        {
+          "kind": "does",
+          "de": "Am Abend geht sie unter.",
+          "sl": "Zvečer zaide.",
+          "en": "In the evening it sets.",
+          "it": "La sera tramonta.",
+          "grammar": ["wortstellung", "trennbare-verben"]
+        }
+      ]
+    },
+    "fence": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist braun.",
+          "sl": "Je rjava.",
+          "en": "It's brown.",
+          "it": "È marrone.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "material",
+          "de": "Er ist aus Holz.",
+          "sl": "Je lesena.",
+          "en": "It's made of wood.",
+          "it": "È di legno.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "where",
+          "de": "Er steht hinter dem Bankerl.",
+          "sl": "Stoji za klopjo.",
+          "en": "It stands behind the bench.",
+          "it": "Sta dietro la panchina.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "bench"
+        },
+        {
+          "kind": "trait",
+          "de": "Hinter ihm ist ein Garten.",
+          "sl": "Za njo je vrt.",
+          "en": "Behind it there's a garden.",
+          "it": "Dietro c'è un giardino.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        }
+      ]
+    },
+    "maypole": {
+      "clues": [
+        {
+          "kind": "size",
+          "de": "Er ist sehr hoch.",
+          "sl": "Je zelo visok.",
+          "en": "It's very tall.",
+          "it": "È altissimo.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "colour",
+          "de": "Oben ist er grün.",
+          "sl": "Na vrhu je zelen.",
+          "en": "At the top it's green.",
+          "it": "In cima è verde.",
+          "grammar": ["sein-haben", "wortstellung"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat rote und weiße Bänder.",
+          "sl": "Ima rdeče in bele trakove.",
+          "en": "It has red and white ribbons.",
+          "it": "Ha nastri rossi e bianchi.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Er steht vor dem Kirchturm.",
+          "sl": "Stoji pred zvonikom.",
+          "en": "It stands in front of the church tower.",
+          "it": "Sta davanti al campanile.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "tower"
+        },
+        {
+          "kind": "use",
+          "de": "Im Mai tanzen wir darunter.",
+          "sl": "Maja plešemo pod njim.",
+          "en": "In May we dance under it.",
+          "it": "A maggio ci balliamo sotto.",
+          "grammar": ["wortstellung"]
+        }
+      ]
+    },
+    "fountain": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Er ist weiß.",
+          "sl": "Je bel.",
+          "en": "It's white.",
+          "it": "È bianca.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "material",
+          "de": "Er ist aus Stein.",
+          "sl": "Je iz kamna.",
+          "en": "It's made of stone.",
+          "it": "È di pietra.",
+          "grammar": ["sein-haben"]
+        },
+        {
+          "kind": "trait",
+          "de": "Er hat vier Rohre aus Eisen.",
+          "sl": "Ima štiri železne cevi.",
+          "en": "It has four iron pipes.",
+          "it": "Ha quattro tubi di ferro.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "where",
+          "de": "Er steht mitten auf dem Platz.",
+          "sl": "Stoji sredi trga.",
+          "en": "It stands in the middle of the square.",
+          "it": "Sta in mezzo alla piazza.",
+          "grammar": ["wechselpraepositionen", "dativ"]
+        },
+        {
+          "kind": "does",
+          "de": "Aus ihm läuft Wasser.",
+          "sl": "Iz njega teče voda.",
+          "en": "Water runs out of it.",
+          "it": "Ne esce l'acqua.",
+          "grammar": ["praesens", "dativ"]
+        }
+      ]
+    },
+    "clock": {
+      "clues": [
+        {
+          "kind": "colour",
+          "de": "Sie ist weiß.",
+          "sl": "Je bela.",
+          "en": "It's white.",
+          "it": "È bianco.",
+          "grammar": ["sein-haben", "artikel-genus"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hat zwei schwarze Zeiger.",
+          "sl": "Ima dva črna kazalca.",
+          "en": "It has two black hands.",
+          "it": "Ha due lancette nere.",
+          "grammar": ["sein-haben", "plural"]
+        },
+        {
+          "kind": "trait",
+          "de": "Sie hat einen goldenen Rand.",
+          "sl": "Ima zlat rob.",
+          "en": "It has a golden rim.",
+          "it": "Ha un bordo dorato.",
+          "grammar": ["sein-haben", "akkusativ"]
+        },
+        {
+          "kind": "where",
+          "de": "Sie ist oben am Kirchturm.",
+          "sl": "Je zgoraj na zvoniku.",
+          "en": "It's high up on the church tower.",
+          "it": "È in alto sul campanile.",
+          "grammar": ["wechselpraepositionen", "dativ"],
+          "ref": "tower"
+        },
+        {
+          "kind": "does",
+          "de": "Am Abend leuchtet sie.",
+          "sl": "Zvečer sveti.",
+          "en": "In the evening it's lit.",
+          "it": "La sera è illuminato.",
+          "grammar": ["wortstellung", "praesens"]
+        },
+        {
+          "kind": "use",
+          "de": "Sie sagt uns, wie spät es ist.",
+          "sl": "Pove nam, koliko je ura.",
+          "en": "It tells us what time it is.",
+          "it": "Ci dice che ore sono.",
+          "grammar": ["nebensatz", "dativ"]
+        }
+      ]
+    }
+  }
+}

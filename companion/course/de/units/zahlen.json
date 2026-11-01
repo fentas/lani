@@ -1,0 +1,928 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "zahlen",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🔢",
+  "title": {
+    "de": "Eins, zwei, drei: die Zahlen",
+    "en": "Numbers: eins, zwei, drei",
+    "sl": "Števila: eins, zwei, drei",
+    "it": "I numeri: eins, zwei, drei"
+  },
+  "goal": {
+    "en": "You can count from zero to a thousand, say prices and ages (zwölf Euro, einundachtzig Jahre alt), tell eins from ein and ask Wie viel? and Wie viele?",
+    "sl": "Šteješ od nič do tisoč, poveš cene in starost (zwölf Euro, einundachtzig Jahre alt), ločiš eins od ein in vprašaš Wie viel? in Wie viele?",
+    "it": "Sai contare da zero a mille, dire prezzi ed età (zwölf Euro, einundachtzig Jahre alt), distinguere eins da ein e chiedere Wie viel? e Wie viele?"
+  },
+  "grammar": [
+    "zahlen"
+  ],
+  "words": [
+    "die Zahl",
+    "null",
+    "eins",
+    "zwei",
+    "zwo",
+    "zehn",
+    "elf",
+    "zwölf",
+    "dreizehn",
+    "sechzehn",
+    "siebzehn",
+    "zwanzig",
+    "dreißig",
+    "sechzig",
+    "siebzig",
+    "einundzwanzig",
+    "hundert",
+    "tausend",
+    "Wie viel?",
+    "Wie viele?",
+    "kosten",
+    "der Euro",
+    "das Jahr",
+    "alt",
+    "die Semmel",
+    "das Schaf",
+    "die Henne",
+    "der Tisch",
+    "das Glas",
+    "der Honig",
+    "die Kirchtagssuppe",
+    "der Kirchtag",
+    "das Telefon",
+    "der Sack",
+    "das Mehl",
+    "die Kuh",
+    "das Ei",
+    "die Flasche",
+    "das Hufeisen",
+    "das Fass"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Zahl",
+          "en": "number",
+          "sl": "število",
+          "it": "numero"
+        },
+        {
+          "de": "Wort",
+          "en": "word",
+          "sl": "beseda",
+          "it": "parola"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "Let's count: **eins, zwei, drei** (one, two, three), **vier, fünf, sechs** (four, five, six), **sieben, acht, neun, zehn** (seven, eight, nine, ten). Zero is **null** (zero), then two words of their own, as in English: **elf** (eleven) and **zwölf** (twelve). On the phone you may hear **zwo** (two) for zwei, so it isn't mixed up with drei.",
+          "sl": "Štejmo: **eins, zwei, drei** (ena, dva, tri), **vier, fünf, sechs** (štiri, pet, šest), **sieben, acht, neun, zehn** (sedem, osem, devet, deset). Nič je **null** (nič), nato dve besedi zase: **elf** (enajst) in **zwölf** (dvanajst). Po telefonu se za zwei sliši tudi **zwo** (dva), da se ne zameša z drei.",
+          "it": "Contiamo: **eins, zwei, drei** (uno, due, tre), **vier, fünf, sechs** (quattro, cinque, sei), **sieben, acht, neun, zehn** (sette, otto, nove, dieci). Lo zero è **null** (zero), poi due parole a sé: **elf** (undici) e **zwölf** (dodici). Al telefono si sente anche **zwo** (due) per zwei, perché non si confonda con drei."
+        },
+        "examples": [
+          {
+            "de": "Eins, zwei, drei, vier: vier Schafe!",
+            "en": "One, two, three, four: four sheep!",
+            "sl": "Ena, dva, tri, štiri: štiri ovce!",
+            "it": "Uno, due, tre, quattro: quattro pecore!"
+          },
+          {
+            "de": "Bello ist zwölf Jahre alt.",
+            "en": "Bello is twelve years old.",
+            "sl": "Bello je star dvanajst let.",
+            "it": "Bello ha dodici anni."
+          }
+        ],
+        "rows": [
+          [
+            "0, 1, 2, 3",
+            "null, eins, zwei, drei"
+          ],
+          [
+            "4, 5, 6",
+            "vier, fünf, sechs"
+          ],
+          [
+            "7, 8, 9, 10",
+            "sieben, acht, neun, zehn"
+          ],
+          [
+            "11, 12",
+            "elf, zwölf"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "zahlen",
+          "prompt": "zehn, ___, zwölf",
+          "options": [
+            "eins",
+            "elf",
+            "neun"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**zehn, elf, zwölf**: 10, 11, 12\n- eins · 1\n- neun · 9",
+            "sl": "**zehn, elf, zwölf**: 10, 11, 12\n- eins · 1\n- neun · 9",
+            "it": "**zehn, elf, zwölf**: 10, 11, 12\n- eins · 1\n- neun · 9"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "From 13 to 19 you put **-zehn** (ten) after the number, as English puts -teen: **dreizehn** (thirteen), **vierzehn** (fourteen), **fünfzehn** (fifteen), **achtzehn** (eighteen), **neunzehn** (nineteen). Two lose letters: sechs → **sechzehn** (sixteen, no s), sieben → **siebzehn** (seventeen, no en).",
+          "sl": "Od 13 do 19 dodaš številu **-zehn** (deset), kot slovenščina -najst: **dreizehn** (trinajst), **vierzehn** (štirinajst), **fünfzehn** (petnajst), **achtzehn** (osemnajst), **neunzehn** (devetnajst). Dve izgubita črke: sechs → **sechzehn** (šestnajst, brez s), sieben → **siebzehn** (sedemnajst, brez en).",
+          "it": "Da 13 a 19 si mette **-zehn** (dieci) dopo il numero, sempre, anche dove l'italiano lo mette davanti: **dreizehn** (tredici), **vierzehn** (quattordici), **fünfzehn** (quindici), **achtzehn** (diciotto), **neunzehn** (diciannove). Due perdono lettere: sechs → **sechzehn** (sedici, senza s), sieben → **siebzehn** (diciassette, senza en)."
+        },
+        "examples": [
+          {
+            "de": "Tante Mitzi hat sechzehn Hennen.",
+            "en": "Aunt Mitzi has sixteen hens.",
+            "sl": "Teta Mitzi ima šestnajst kokoši.",
+            "it": "Zia Mitzi ha sedici galline."
+          },
+          {
+            "de": "Kathi hat fünfzehn Tische.",
+            "en": "Kathi has fifteen tables.",
+            "sl": "Kathi ima petnajst miz.",
+            "it": "Kathi ha quindici tavoli."
+          }
+        ],
+        "rows": [
+          [
+            "13, 14, 15",
+            "dreizehn, vierzehn, fünfzehn"
+          ],
+          [
+            "16, 17",
+            "sechzehn, siebzehn"
+          ],
+          [
+            "18, 19",
+            "achtzehn, neunzehn"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "zahlen",
+          "text": "Müller Franz hat ___ Säcke Mehl. (17)",
+          "accept": [
+            "siebzehn"
+          ],
+          "hint": "7 + 10",
+          "explain": {
+            "en": "**17 = siebzehn**: sieben loses en\n- sechzehn · 16: sechs loses s",
+            "sl": "**17 = siebzehn**: sieben izgubi en\n- sechzehn · 16: sechs izgubi s",
+            "it": "**17 = siebzehn**: sieben perde en\n- sechzehn · 16: sechs perde la s"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The tens end in **-zig**: **zwanzig** (twenty), **vierzig** (forty), **fünfzig** (fifty), **achtzig** (eighty), **neunzig** (ninety). Again **sechzig** (sixty) and **siebzig** (seventy) lose letters, and 30 is **dreißig** (thirty), with ß. Then **hundert** (a hundred) and **tausend** (a thousand); einhundert and eintausend are right too.",
+          "sl": "Desetice se končajo na **-zig**: **zwanzig** (dvajset), **vierzig** (štirideset), **fünfzig** (petdeset), **achtzig** (osemdeset), **neunzig** (devetdeset). Spet **sechzig** (šestdeset) in **siebzig** (sedemdeset) izgubita črke, 30 pa je **dreißig** (trideset), z ß. Nato **hundert** (sto) in **tausend** (tisoč); prav sta tudi einhundert in eintausend.",
+          "it": "Le decine finiscono in **-zig**: **zwanzig** (venti), **vierzig** (quaranta), **fünfzig** (cinquanta), **achtzig** (ottanta), **neunzig** (novanta). Di nuovo **sechzig** (sessanta) e **siebzig** (settanta) perdono lettere, e 30 è **dreißig** (trenta), con la ß. Poi **hundert** (cento) e **tausend** (mille); vanno bene anche einhundert ed eintausend."
+        },
+        "examples": [
+          {
+            "de": "Schmied Toni ist fünfzig Jahre alt.",
+            "en": "Toni the smith is fifty years old.",
+            "sl": "Kovač Toni je star petdeset let.",
+            "it": "Il fabbro Toni ha cinquant'anni."
+          },
+          {
+            "de": "Die Mühle ist hundert Jahre alt.",
+            "en": "The mill is a hundred years old.",
+            "sl": "Mlin je star sto let.",
+            "it": "Il mulino ha cento anni."
+          }
+        ],
+        "rows": [
+          [
+            "20, 30, 40, 50",
+            "zwanzig, dreißig, vierzig, fünfzig"
+          ],
+          [
+            "60, 70",
+            "sechzig, siebzig"
+          ],
+          [
+            "80, 90",
+            "achtzig, neunzig"
+          ],
+          [
+            "100, 1000",
+            "hundert, tausend"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "zahlen",
+          "prompt": "Stefan ist ___ Jahre alt. (30)",
+          "options": [
+            "dreizig",
+            "dreißig",
+            "dreizehn"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**30 = dreißig**, with ß\n- dreizehn · 13\n- zwanzig, vierzig · -zig",
+            "sl": "**30 = dreißig**, z ß\n- dreizehn · 13\n- zwanzig, vierzig · -zig",
+            "it": "**30 = dreißig**, con la ß\n- dreizehn · 13\n- zwanzig, vierzig · -zig"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "From 21 to 99 the one comes first, then **und** (and), then the ten, all one word: **einundzwanzig** (twenty-one, word for word one-and-twenty). So **zweiundzwanzig** (22), **fünfundvierzig** (45), **neunundneunzig** (99). In einundzwanzig 1 is **ein**, never eins.",
+          "sl": "Od 21 do 99 je enica spredaj, nato **und** (in), nato desetica, vse skupaj, kot v slovenščini: **einundzwanzig** (enaindvajset). Tako tudi **zweiundzwanzig** (dvaindvajset), **fünfundvierzig** (petinštirideset), **neunundneunzig** (devetindevetdeset). V einundzwanzig je 1 **ein**, nikoli eins.",
+          "it": "Da 21 a 99 l'unità viene prima, poi **und** (e), poi la decina, tutto attaccato: **einundzwanzig** (ventuno, parola per parola uno e venti). Così **zweiundzwanzig** (ventidue), **fünfundvierzig** (quarantacinque), **neunundneunzig** (novantanove): il contrario dell'italiano. In einundzwanzig 1 è **ein**, mai eins."
+        },
+        "examples": [
+          {
+            "de": "Hirte Florian hat zweiundzwanzig Schafe.",
+            "en": "Florian the shepherd has twenty-two sheep.",
+            "sl": "Pastir Florian ima dvaindvajset ovc.",
+            "it": "Il pastore Florian ha ventidue pecore."
+          },
+          {
+            "de": "Opa Sepp ist einundachtzig Jahre alt.",
+            "en": "Grandpa Sepp is eighty-one.",
+            "sl": "Dedek Sepp je star enainosemdeset let.",
+            "it": "Nonno Sepp ha ottantun anni."
+          }
+        ],
+        "rows": [
+          [
+            "21",
+            "einundzwanzig"
+          ],
+          [
+            "22, 45",
+            "zweiundzwanzig, fünfundvierzig"
+          ],
+          [
+            "81, 99",
+            "einundachtzig, neunundneunzig"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "zahlen",
+          "text": "Tante Mitzi ist ___ Jahre alt. (74)",
+          "accept": [
+            "vierundsiebzig"
+          ],
+          "hint": "4 + 70",
+          "explain": {
+            "en": "**74 = vier + und + siebzig**: the one first, one word\n- einundachtzig · 81",
+            "sl": "**74 = vier + und + siebzig**: enica spredaj, skupaj\n- einundachtzig · 81",
+            "it": "**74 = vier + und + siebzig**: prima l'unità, attaccato\n- einundachtzig · 81"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Counting, 1 is **eins** (one): eins, zwei, drei. Before a noun it's the article: **ein Pferd** (one horse, a horse), **eine Katze** (one cat, a cat). From two on the noun is plural: **drei Semmeln** (three rolls), **zwanzig Schafe** (twenty sheep).",
+          "sl": "Pri štetju je 1 **eins** (ena): eins, zwei, drei. Pred samostalnikom je to člen: **ein Pferd** (en konj), **eine Katze** (ena mačka). Od dva naprej je samostalnik v množini, vedno enako, brez rodilnika: **drei Semmeln** (tri žemlje), **zwanzig Schafe** (dvajset ovc).",
+          "it": "Contando, 1 è **eins** (uno): eins, zwei, drei. Davanti a un nome è l'articolo: **ein Pferd** (un cavallo), **eine Katze** (un gatto). Da due in su il nome va al plurale: **drei Semmeln** (tre panini), **zwanzig Schafe** (venti pecore)."
+        },
+        "examples": [
+          {
+            "de": "Eine Semmel? Nein, drei Semmeln, bitte!",
+            "en": "One roll? No, three rolls, please!",
+            "sl": "Eno žemljo? Ne, tri žemlje, prosim!",
+            "it": "Un panino? No, tre panini, per favore!"
+          },
+          {
+            "de": "Schmied Toni hat ein Pferd.",
+            "en": "Toni the smith has a horse.",
+            "sl": "Kovač Toni ima konja.",
+            "it": "Il fabbro Toni ha un cavallo."
+          }
+        ],
+        "rows": [
+          [
+            "1",
+            "eins · ein Pferd · eine Katze"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "zahlen",
+          "prompt": "Kathi hat ___ Gasthaus.",
+          "options": [
+            "eins",
+            "ein",
+            "eine"
+          ],
+          "answer": 1,
+          "say_options": true,
+          "explain": {
+            "en": "**Before a noun: ein, eine**\n- eins, zwei, drei · counting\n- ein Gasthaus · eine Katze",
+            "sl": "**Pred samostalnikom: ein, eine**\n- eins, zwei, drei · štetje\n- ein Gasthaus · eine Katze",
+            "it": "**Davanti a un nome: ein, eine**\n- eins, zwei, drei · contando\n- ein Gasthaus · eine Katze"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**Wie viele?** (how many?) asks about things you count, with the plural: **Wie viele Schafe hat Florian?** (How many sheep has Florian got?) **Wie viel?** (how much?) asks about an amount or a price: **Wie viel kostet der Honig?** (How much is the honey?) **Zwölf Euro.** (Twelve euros.) After a number Euro stays Euro.",
+          "sl": "**Wie viele?** (koliko?) sprašuje po stvareh, ki jih šteješ, z množino: **Wie viele Schafe hat Florian?** (Koliko ovc ima Florian?) **Wie viel?** (koliko?) sprašuje po količini ali ceni: **Wie viel kostet der Honig?** (Koliko stane med?) **Zwölf Euro.** (Dvanajst evrov.) Po številu Euro ostane Euro.",
+          "it": "**Wie viele?** (quanti?, quante?) chiede di cose che si contano, col plurale: **Wie viele Schafe hat Florian?** (Quante pecore ha Florian?) **Wie viel?** (quanto?) chiede una quantità o un prezzo: **Wie viel kostet der Honig?** (Quanto costa il miele?) **Zwölf Euro.** (Dodici euro.) Come in italiano, Euro non cambia."
+        },
+        "examples": [
+          {
+            "de": "Wie viel kostet der Honig? – Zwölf Euro.",
+            "en": "How much is the honey? – Twelve euros.",
+            "sl": "Koliko stane med? – Dvanajst evrov.",
+            "it": "Quanto costa il miele? – Dodici euro."
+          },
+          {
+            "de": "Wie viele Schafe hat Florian? – Zweiundzwanzig.",
+            "en": "How many sheep has Florian got? – Twenty-two.",
+            "sl": "Koliko ovc ima Florian? – Dvaindvajset.",
+            "it": "Quante pecore ha Florian? – Ventidue."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "zahlen",
+          "prompt": "___ kostet die Suppe?",
+          "options": [
+            "Wie viel",
+            "Wie viele"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**A price: wie viel**\n- Wie viel kostet die Suppe? · How much is the soup?\n- Wie viele Semmeln? · How many rolls?",
+            "sl": "**Cena: wie viel**\n- Wie viel kostet die Suppe? · Koliko stane juha?\n- Wie viele Semmeln? · Koliko žemelj?",
+            "it": "**Un prezzo: wie viel**\n- Wie viel kostet die Suppe? · Quanto costa la zuppa?\n- Wie viele Semmeln? · Quanti panini?"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "zahlen-1",
+      "title": {
+        "de": "Wir zählen",
+        "en": "Let's count",
+        "sl": "Štejemo",
+        "it": "Contiamo"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "zahlen",
+          "instruction": {
+            "en": "Schreib die Zahl als Wort · Write the number as a word",
+            "sl": "Schreib die Zahl als Wort · Napiši število z besedo",
+            "it": "Schreib die Zahl als Wort · Scrivi il numero in lettere"
+          },
+          "prompt": {
+            "en": "number → word",
+            "sl": "število → beseda",
+            "it": "numero → parola"
+          },
+          "columns": [
+            {
+              "en": "Wort · word",
+              "sl": "Wort · beseda",
+              "it": "Wort · parola"
+            }
+          ],
+          "rows": [
+            {
+              "label": "2",
+              "cells": [
+                {
+                  "accept": [
+                    "zwei"
+                  ],
+                  "spoken": [
+                    "zwo"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "11",
+              "cells": [
+                {
+                  "accept": [
+                    "elf"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "12",
+              "cells": [
+                {
+                  "accept": [
+                    "zwölf"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "16",
+              "cells": [
+                {
+                  "accept": [
+                    "sechzehn"
+                  ],
+                  "hint": "6 + 10"
+                }
+              ]
+            },
+            {
+              "label": "17",
+              "cells": [
+                {
+                  "accept": [
+                    "siebzehn"
+                  ],
+                  "hint": "7 + 10"
+                }
+              ]
+            },
+            {
+              "label": "30",
+              "cells": [
+                {
+                  "accept": [
+                    "dreißig"
+                  ],
+                  "hint": {
+                    "en": "with ß",
+                    "sl": "z ß",
+                    "it": "con la ß"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "60",
+              "cells": [
+                {
+                  "accept": [
+                    "sechzig"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": "2 zwei · 11 elf · 12 zwölf · 16 sechzehn · 17 siebzehn · 30 dreißig · 60 sechzig"
+        },
+        {
+          "type": "sort",
+          "grammar": "zahlen",
+          "instruction": {
+            "en": "Ordne zu · -zehn or -zig?",
+            "sl": "Ordne zu · -zehn ali -zig?",
+            "it": "Ordne zu · -zehn o -zig?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "-zehn · 13 to 19",
+                "sl": "-zehn · 13 do 19",
+                "it": "-zehn · da 13 a 19"
+              },
+              "words": [
+                "vierzehn",
+                "sechzehn",
+                "achtzehn"
+              ]
+            },
+            {
+              "label": {
+                "en": "-zig · the tens",
+                "sl": "-zig · desetice",
+                "it": "-zig · le decine"
+              },
+              "words": [
+                "vierzig",
+                "sechzig",
+                "achtzig"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**-zehn is 13 to 19, -zig the tens**\n- vierzehn · 14 · vierzig · 40\n- sechzehn · 16 · sechzig · 60",
+            "sl": "**-zehn je 13 do 19, -zig desetice**\n- vierzehn · 14 · vierzig · 40\n- sechzehn · 16 · sechzig · 60",
+            "it": "**-zehn è da 13 a 19, -zig le decine**\n- vierzehn · 14 · vierzig · 40\n- sechzehn · 16 · sechzig · 60"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zahlen-2",
+      "title": {
+        "de": "Am Kirchtag",
+        "en": "At the Kirchtag",
+        "sl": "Na žegnanju",
+        "it": "Alla sagra"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "zahlen",
+          "instruction": {
+            "en": "Ergänze die Zahl als Wort · Fill in the number as a word",
+            "sl": "Ergänze die Zahl als Wort · Dopolni število z besedo",
+            "it": "Ergänze die Zahl als Wort · Completa con il numero in lettere"
+          },
+          "title": "Am Kirchtag",
+          "text": "Der Kirchtag ist im Gasthaus zur Linde. Kathi hat ___ (40) Semmeln. Die Kirchtagssuppe kostet ___ (6) Euro. Stanko hat ___ (15) Gläser Honig. Ein Glas kostet ___ (12) Euro. Opa Sepp ist ___ (81) Jahre alt. Und Tante Mitzi? Sie ist ___ (74). Florian ist nicht da: er hat ___ (22) Schafe auf der Alm.",
+          "gaps": [
+            {
+              "accept": [
+                "vierzig"
+              ]
+            },
+            {
+              "accept": [
+                "sechs"
+              ]
+            },
+            {
+              "accept": [
+                "fünfzehn"
+              ]
+            },
+            {
+              "accept": [
+                "zwölf"
+              ]
+            },
+            {
+              "accept": [
+                "einundachtzig"
+              ],
+              "hint": "1 + 80",
+              "explain": {
+                "en": "In einundachtzig 1 is **ein**, never eins.",
+                "sl": "V einundachtzig je 1 **ein**, nikoli eins.",
+                "it": "In einundachtzig 1 è **ein**, mai eins."
+              }
+            },
+            {
+              "accept": [
+                "vierundsiebzig"
+              ],
+              "hint": "4 + 70"
+            },
+            {
+              "accept": [
+                "zweiundzwanzig"
+              ],
+              "hint": "2 + 20"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "vierzehn",
+            "sechzig",
+            "zwanzig"
+          ],
+          "translation": {
+            "en": "The Kirchtag is at the Gasthaus zur Linde. Kathi has forty rolls. The Kirchtag soup costs six euros. Stanko has fifteen jars of honey. A jar costs twelve euros. Grandpa Sepp is eighty-one years old. And Aunt Mitzi? She's seventy-four. Florian isn't here: he has twenty-two sheep up on the alpine pasture.",
+            "sl": "Žegnanje je v gostilni zur Linde. Kathi ima štirideset žemelj. Žegnanjska juha stane šest evrov. Stanko ima petnajst kozarcev medu. Kozarec stane dvanajst evrov. Dedek Sepp je star enainosemdeset let. Pa teta Mitzi? Stara je štiriinsedemdeset. Floriana ni: na planini ima dvaindvajset ovc.",
+            "it": "Il Kirchtag è all'osteria zur Linde. Kathi ha quaranta panini. La zuppa del Kirchtag costa sei euro. Stanko ha quindici vasetti di miele. Un vasetto costa dodici euro. Nonno Sepp ha ottantun anni. E zia Mitzi? Ne ha settantaquattro. Florian non c'è: ha ventidue pecore all'alpeggio."
+          },
+          "explain": {
+            "en": "**13 to 19 -zehn, the tens -zig, 21 to 99 the one first**\n- vierzig · 40 · vierzehn · 14\n- zweiundzwanzig · 22",
+            "sl": "**13 do 19 -zehn, desetice -zig, 21 do 99 enica spredaj**\n- vierzig · 40 · vierzehn · 14\n- zweiundzwanzig · 22",
+            "it": "**13-19 -zehn, le decine -zig, 21-99 prima l'unità**\n- vierzig · 40 · vierzehn · 14\n- zweiundzwanzig · 22"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zahlen-3",
+      "title": {
+        "de": "Wie viele?",
+        "en": "How many?",
+        "sl": "Koliko?",
+        "it": "Quanti?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "zahlen",
+          "instruction": {
+            "en": "Sag es mit der Zahl, als Wort · Say it with the number, as a word",
+            "sl": "Sag es mit der Zahl, als Wort · Povej s številom, z besedo",
+            "it": "Sag es mit der Zahl, als Wort · Dillo con il numero, in lettere"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kathi hat eine Semmel. (2)",
+              "accept": [
+                "Kathi hat zwei Semmeln."
+              ],
+              "spoken": [
+                "Kathi hat zwo Semmeln."
+              ],
+              "hint": {
+                "en": "from two on: the plural",
+                "sl": "od dva naprej: množina",
+                "it": "da due in su: il plurale"
+              }
+            },
+            {
+              "from": "Stefan hat eine Flasche Most. (10)",
+              "accept": [
+                "Stefan hat zehn Flaschen Most."
+              ]
+            },
+            {
+              "from": "Toni hat ein Hufeisen. (4)",
+              "accept": [
+                "Toni hat vier Hufeisen."
+              ]
+            },
+            {
+              "from": "Franz hat eine Kuh. (16)",
+              "accept": [
+                "Franz hat sechzehn Kühe."
+              ]
+            },
+            {
+              "from": "Oma Resi hat ein Ei. (6)",
+              "accept": [
+                "Oma Resi hat sechs Eier."
+              ]
+            },
+            {
+              "from": "Kathi hat ein Zimmer. (5)",
+              "accept": [
+                "Kathi hat fünf Zimmer."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**From two on: the number and the plural**\n- eine Semmel → zwei Semmeln\n- ein Ei → sechs Eier\n- eine Kuh → sechzehn Kühe",
+            "sl": "**Od dva naprej: število in množina**\n- eine Semmel → zwei Semmeln\n- ein Ei → sechs Eier\n- eine Kuh → sechzehn Kühe",
+            "it": "**Da due in su: il numero e il plurale**\n- eine Semmel → zwei Semmeln\n- ein Ei → sechs Eier\n- eine Kuh → sechzehn Kühe"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "zahlen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ Honig hat Stanko?",
+          "options": [
+            "Wie viel",
+            "Wie viele"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Honey you don't count: wie viel**\n- Wie viele Gläser? · How many jars?",
+            "sl": "**Medu ne šteješ: wie viel**\n- Wie viele Gläser? · Koliko kozarcev?",
+            "it": "**Il miele non si conta: wie viel**\n- Wie viele Gläser? · Quanti vasetti?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "zahlen",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "___ Schafe hat Florian?",
+          "options": [
+            "Wie viele",
+            "Wie viel",
+            "Wie alt"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "en": "**Sheep you count: wie viele** + plural\n- wie viel Schafe is heard too, but wie viele is the standard: almost\n- wie alt · how old",
+            "sl": "**Ovce šteješ: wie viele** + množina\n- sliši se tudi wie viel Schafe, knjižno pa je wie viele: skoraj\n- wie alt · koliko star",
+            "it": "**Le pecore si contano: wie viele** + plurale\n- si sente anche wie viel Schafe, ma la forma standard è wie viele: quasi\n- wie alt · quanti anni"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "table",
+        "grammar": "zahlen",
+        "instruction": {
+          "en": "Schreib die Zahl als Wort · Write the number as a word",
+          "sl": "Schreib die Zahl als Wort · Napiši število z besedo",
+          "it": "Schreib die Zahl als Wort · Scrivi il numero in lettere"
+        },
+        "prompt": {
+          "en": "number → word",
+          "sl": "število → beseda",
+          "it": "numero → parola"
+        },
+        "columns": [
+          {
+            "en": "Wort · word",
+            "sl": "Wort · beseda",
+            "it": "Wort · parola"
+          }
+        ],
+        "rows": [
+          {
+            "label": "17",
+            "cells": [
+              {
+                "accept": [
+                  "siebzehn"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "50",
+            "cells": [
+              {
+                "accept": [
+                  "fünfzig"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "99",
+            "cells": [
+              {
+                "accept": [
+                  "neunundneunzig"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "zahlen",
+        "instruction": {
+          "en": "Ordne zu · -zehn or -zig?",
+          "sl": "Ordne zu · -zehn ali -zig?",
+          "it": "Ordne zu · -zehn o -zig?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "-zehn · 13 to 19",
+              "sl": "-zehn · 13 do 19",
+              "it": "-zehn · da 13 a 19"
+            },
+            "words": [
+              "dreizehn",
+              "neunzehn"
+            ]
+          },
+          {
+            "label": {
+              "en": "-zig · the tens",
+              "sl": "-zig · desetice",
+              "it": "-zig · le decine"
+            },
+            "words": [
+              "dreißig",
+              "neunzig"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "gaptext",
+        "grammar": "zahlen",
+        "instruction": {
+          "en": "Ergänze die Zahl als Wort · Fill in the number as a word",
+          "sl": "Ergänze die Zahl als Wort · Dopolni število z besedo",
+          "it": "Ergänze die Zahl als Wort · Completa con il numero in lettere"
+        },
+        "text": "Im Gasthaus zur Linde. Das Gasthaus ist ___ (120) Jahre alt. Müller Franz ist ___ (68). Kathi am Telefon: „Franz, ___ (2) Säcke Mehl, bitte!“",
+        "gaps": [
+          {
+            "accept": [
+              "hundertzwanzig",
+              "einhundertzwanzig"
+            ]
+          },
+          {
+            "accept": [
+              "achtundsechzig"
+            ]
+          },
+          {
+            "accept": [
+              "zwei"
+            ],
+            "spoken": [
+              "zwo"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "At the Gasthaus zur Linde. The Gasthaus is a hundred and twenty years old. Franz the miller is sixty-eight. Kathi on the phone: “Franz, two sacks of flour, please!”",
+          "sl": "V gostilni zur Linde. Gostilna je stara sto dvajset let. Mlinar Franz je star oseminšestdeset let. Kathi po telefonu: »Franz, dve vreči moke, prosim!«",
+          "it": "All'osteria zur Linde. L'osteria ha centoventi anni. Il mugnaio Franz ne ha sessantotto. Kathi al telefono: «Franz, due sacchi di farina, per favore!»"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "zahlen",
+        "instruction": {
+          "en": "Sag es mit der Zahl, als Wort · Say it with the number, as a word",
+          "sl": "Sag es mit der Zahl, als Wort · Povej s številom, z besedo",
+          "it": "Sag es mit der Zahl, als Wort · Dillo con il numero, in lettere"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Oma Resi hat eine Henne. (9)",
+            "accept": [
+              "Oma Resi hat neun Hennen."
+            ]
+          },
+          {
+            "from": "Stefan hat ein Fass. (3)",
+            "accept": [
+              "Stefan hat drei Fässer."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "zahlen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ kostet ein Glas Most?",
+        "options": [
+          "Wie viel",
+          "Wie viele"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**A price: wie viel**\n- Wie viel kostet ein Glas Most? · How much is a glass of cider?",
+          "sl": "**Cena: wie viel**\n- Wie viel kostet ein Glas Most? · Koliko stane kozarec mošta?",
+          "it": "**Un prezzo: wie viel**\n- Wie viel kostet ein Glas Most? · Quanto costa un bicchiere di sidro?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "zahlen",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Stanko hat ___ Bienenhaus.",
+        "options": [
+          "eins",
+          "ein",
+          "eine"
+        ],
+        "answer": 1,
+        "say_options": true,
+        "explain": {
+          "en": "**Before a noun: ein** (das Bienenhaus)\n- eins · counting",
+          "sl": "**Pred samostalnikom: ein** (das Bienenhaus)\n- eins · pri štetju",
+          "it": "**Davanti a un nome: ein** (das Bienenhaus)\n- eins · contando"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: zwo in Carinthia, wie viel Schafe as almost, Kirchtagssuppe for sechs Euro, the made-up dreizig"
+}

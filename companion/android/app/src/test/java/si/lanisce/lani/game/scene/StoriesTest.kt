@@ -290,8 +290,11 @@ class StoriesTest {
         val fuoco = campfire("friuli", second)
         val bepi = fuoco.people.first { it.villager == "bepi" }
         val his = Stories.of(fuoco, bepi)
-        assertEquals(10, his.size)
+        assertEquals(16, his.size)
         assertTrue(his.all { it.language == "it" && "A1" in it.levelsTold && "A2" in it.levelsTold })
+        // the ten older ones heard, the six newer ones come in their order: the benandanti first
+        val ten = his.take(10).associate { it.id to StoryHeard(told = 1, level = "A1") }
+        assertEquals("i-benandanti", Stories.tonight(his, ten, "A1")!!.story.id)
         val t = Stories.tonight(his, emptyMap(), "A1")!!
         val first = t.telling.lines.first()
         assertTrue(first.sl!!.isNotBlank() && first.en!!.isNotBlank() && first.sl != first.en)
@@ -323,5 +326,29 @@ class StoriesTest {
         assertEquals(line["en"]!!.jsonPrimitive.content to line["de"]!!.jsonPrimitive.content, first.sl to first.en)
         assertTrue(t.story.words.all { it.sl.isNotBlank() && it.en.isNotBlank() && it.sl != it.en })
         assertTrue(Stories.teaser(listOf(fire), village, day) { "A1" }!!.text.contains(file["teaser"]!!.jsonObject["en"]!!.jsonPrimitive.content))
+    }
+
+    @Test fun `a learner of German hears Opa Sepp's sixteen, the six newer once the ten are heard, meant in their base`() {
+        val fromEn = LangPair(Lang.DE, Lang.EN)
+        val fire = campfire("kaernten", fromEn)
+        val sepp = fire.people.first { it.villager == "sepp" }
+        val his = Stories.of(fire, sepp)
+        assertEquals(
+            listOf(
+                "der-lindwurm", "der-dobratsch", "der-woerthersee", "koenig-matthias", "die-riesen",
+                "die-maultasch-vor-hochosterwitz", "das-kasermandl", "die-perchtl", "die-tausend-statuen", "die-heilige-hemma",
+                "der-fuerstenstein", "das-bergmandl", "das-kufenstechen", "brot-und-milch", "nikolo-und-krampus", "das-dorf-im-see",
+            ),
+            his.map { it.id },
+        )
+        assertTrue(his.all { it.language == "de" && "A1" in it.levelsTold && "A2" in it.levelsTold })
+        // the ten older ones heard, the six newer come in their order: the Prince's Stone first
+        val ten = his.take(10).associate { it.id to StoryHeard(told = 1, level = "A1") }
+        val t = Stories.tonight(his, ten, "A1")!!
+        assertEquals("der-fuerstenstein", t.story.id)
+        // said in German, meant in English: the new pack's words resolved, each with its meaning
+        assertTrue(t.story.words.size >= 5 && t.story.words.all { it.sl.isNotBlank() && it.en.isNotBlank() && it.sl != it.en })
+        val first = t.telling.lines.first()
+        assertTrue(first.sl!!.isNotBlank() && first.en!!.isNotBlank() && first.sl != first.en)
     }
 }

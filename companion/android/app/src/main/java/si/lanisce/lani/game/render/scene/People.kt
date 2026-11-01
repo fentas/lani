@@ -40,6 +40,14 @@ internal data class Look(
     val shell: Boolean = false, val boots: Boolean = false,
     /** Binoculars on a strap round the neck, on the chest (the hunter's). */
     val binoculars: Boolean = false,
+    /** A check over the top (a checked shirt; a gingham dress, over its skirt too): its lines' colour, 0 = none. */
+    val checks: Int = 0,
+    /** A tuft in a felt hat's band at the back, the Alps' Gamsbart: its colour (the tips paler), 0 = none. */
+    val plume: Int = 0,
+    /** The kerchief ([Looks.HAT_SCARF]) tied at the back of the neck, its ends hanging behind (Friuli's fazzùl), not under the chin. */
+    val nape: Boolean = false,
+    /** A flower embroidered on each toe, as on Friuli's scarpets: its colour, 0 = none. */
+    val toes: Int = 0,
 ) {
     /** From the soles to the top of the hair (a hat adds a little). */
     val height get() = legH + torsoH + headH
@@ -59,6 +67,8 @@ internal object Looks {
     const val PROP_SMOKER = 5; const val PROP_MUG = 6; const val PROP_BOTTLE = 7; const val PROP_BASKET = 8; const val PROP_SPOON = 9; const val PROP_FLOWER = 10
     /** A pilgrim's tall staff with a gourd for water, standing at the near side. */
     const val PROP_STAFF = 11
+    /** A small glass of red wine, the tajut of a Friulian osteria. */
+    const val PROP_GLASS = 12
     const val PACK_NONE = 0; const val PACK_KROSNJA = 1
     /** Friuli's cramâr from Carnia: the crassigne, a walnut case of little drawers from his hips up past his hat. */
     const val PACK_CRASSIGNE = 2
@@ -86,6 +96,18 @@ internal object Looks {
 
     // the children's proportions: a big head, a small body
     private const val KID_HEAD_W = 13; private const val KID_HEAD_H = 12; private const val KID_TORSO_W = 9; private const val KID_TORSO_H = 6; private const val KID_LEG_H = 4
+
+    /** [L] as a child: the children's proportions (a big head over a small body) and rosy cheeks. */
+    fun kid(L: Look): Look = L.copy(headW = KID_HEAD_W, headH = KID_HEAD_H, torsoW = KID_TORSO_W, torsoH = KID_TORSO_H, legH = KID_LEG_H, cheeks = true)
+
+    /**
+     * The seed of the look of someone with [id] (a villager's, a resident's): the village's own people ("woman", "man") are
+     * dressed by it, the same in a scene, in a portrait and on the map.
+     */
+    fun seedOf(id: String): Int = seedOfHash(id.hashCode())
+
+    /** [seedOf] of an id whose hash is [hash] (the screens' portraits are given a person's id hashed). */
+    fun seedOfHash(hash: Int): Int = si.lanisce.lani.game.render.Noise.hash(hash, 7) ushr 1
 
     val all: Map<String, Look> = mapOf(
         "grandma" to Look(
@@ -132,10 +154,13 @@ internal object Looks {
             hair = Pal.HAIR[0], hairStyle = HAIR_SHORT,
             top = Col.hex(0xF1E3BA), bottom = Col.hex(0xF1E3BA), hat = HAT_VEIL, hatCol = Pal.HAY_L, prop = PROP_SMOKER,
         ),
+        // Vida, the innkeeper (Gostilničarka): a white blouse under a teal bodice, a dark skirt, the white apron, a mug in her
+        // hand, her hair up (the innkeeper of every culture's cast is a woman; until 2026-11-01 the sprite was a bald man with a
+        // moustache)
         "innkeeper" to Look(
-            torsoW = 13, torsoH = 8, hair = Pal.HAIR[0], hairStyle = HAIR_BALD,
-            top = Col.hex(0xE9E2D0), vest = Col.hex(0x2C7F86), bottom = Col.hex(0x2E2A34), apron = Col.hex(0xF4EEDD), prop = PROP_MUG,
-            moustache = Pal.HAIR[0], cheeks = true,
+            torsoW = 13, torsoH = 8, legH = 5, hair = Pal.HAIR[0], hairStyle = HAIR_BUN,
+            top = Col.hex(0xE9E2D0), vest = Col.hex(0x2C7F86), bottom = Col.hex(0x2E2A34), skirt = true, stockings = Col.hex(0x3A3246),
+            apron = Col.hex(0xF4EEDD), prop = PROP_MUG, cheeks = true,
         ),
         "winemaker" to Look(
             hair = Pal.HAIR[1], hairStyle = HAIR_SHORT,
@@ -202,15 +227,19 @@ internal object Looks {
     )
 
     /**
-     * The look of [art]; the village's own people ("woman", "man") vary with [seed] (hair, clothes, a hat, a
-     * moustache), so newcomers don't all look alike. The seed is the person's id hashed (see ArtPainter.person). The
-     * day's pedlar is [culture]'s ([pedlarPack]).
+     * The look of [art] in [culture]'s village: in its clothes ([Wardrobes]: Friuli's, Carinthia's, the Lake District's; the
+     * rest as Primorska's, [all]); the village's own people ("woman", "man") vary with [seed] (hair, clothes, a hat, a
+     * moustache), so newcomers don't all look alike. The seed is the person's id hashed ([seedOf]). The day's pedlar is
+     * [culture]'s ([pedlarPack]).
      */
-    fun of(art: String, seed: Int = 0, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): Look = when (art) {
-        "woman" -> woman(seed)
-        "man" -> man(seed)
-        "pedlar" -> pedlars[pedlarPack(culture)] ?: all.getValue(art)
-        else -> all[art] ?: fallback
+    fun of(art: String, seed: Int = 0, culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT): Look {
+        val w = Wardrobes.of(culture)
+        return when (art) {
+            "woman" -> w?.woman?.invoke(seed) ?: woman(seed)
+            "man" -> w?.man?.invoke(seed) ?: man(seed)
+            "pedlar" -> pedlars[pedlarPack(culture)] ?: all.getValue(art)
+            else -> w?.cast?.get(art) ?: all[art] ?: fallback
+        }
     }
 
     private val skirts = intArrayOf(Col.hex(0x3A3246), Col.hex(0x2F4A8A), Col.hex(0x7A2E3A), Col.hex(0x3E5A3A), Col.hex(0x6F4527), Col.hex(0xE07A8A))
@@ -278,10 +307,18 @@ internal class PeoplePainter {
      */
     var culture: String = si.lanisce.lani.game.culture.Cultures.DEFAULT
 
+    /**
+     * The seed someone's look is chosen by, when it isn't the drawing's (the map draws the village's people with a seed of
+     * its own for their moves, and dresses them by [Looks.seedOf] as their scenes do); null: the drawing's seed.
+     */
+    var lookSeed: Int? = null
+
+    private fun look(art: String, seed: Int): Look = Looks.of(art, lookSeed ?: seed, culture)
+
     /** Drawing someone squatting ([draw]'s crouch): sat low, the shins short. */
     private var crouching = false
 
-    fun height(art: String): Int = if (art == "baby") BABY_H else Looks.of(art, culture = culture).height
+    fun height(art: String): Int = if (art == "baby") BABY_H else look(art, 0).height
 
     /** How tall [art] (with [seed]'s look) is squatting ([draw]'s crouch): from the soles to the top of the hair. */
     fun crouchHeight(art: String, seed: Int = 0): Int = if (art == "baby") BABY_H else 1 - body(art, seed, crouch = true).hTop
@@ -315,7 +352,7 @@ internal class PeoplePainter {
      * or where a hand reaches ([draw]'s reach).
      */
     fun body(art: String, seed: Int = 0, crouch: Boolean = false): Body {
-        val L = Looks.of(art, seed, culture)
+        val L = look(art, seed)
         val legTop = -(if (crouch) 2 else L.legH)
         val torsoTop = legTop - (if (crouch) max(4, L.torsoH - 2) else L.torsoH)
         val hTop = torsoTop - L.headH + 1
@@ -364,7 +401,7 @@ internal class PeoplePainter {
             lying(canvas, art, hx, hy, dx, 0, time, seed, pillow = true)
             return
         }
-        val L = Looks.of(art, seed, culture)
+        val L = look(art, seed)
         val d = if (flip) -1 else 1
         val P = if (pose == Pose.IDLE && talking) Pose.TALK else pose
         val speaking = talking || P == Pose.TALK
@@ -419,7 +456,7 @@ internal class PeoplePainter {
             for (side in intArrayOf(-1, 1)) {
                 val x0 = if (side < 0) bx - tw + 1 else bx + tw - 3
                 c.fillRect(x0, lapTop + 2, 3, by - 2 - lapTop - 2, shin)
-                c.fillRect(x0, by - 2, 3, 2, L.shoes); c.set(x0 + 1, by - 2, Col.mix(L.shoes, Col.hex(0xFFFFFF), 0.25f))
+                c.fillRect(x0, by - 2, 3, 2, L.shoes); c.set(x0 + 1, by - 2, if (L.toes != 0) L.toes else Col.mix(L.shoes, Col.hex(0xFFFFFF), 0.25f))
                 if (L.boots) { c.fillRect(x0, by - 3, 3, 1, L.shoes); c.set(x0 + 2, by - 1, dust) }
             }
         } else for (leg in 0..1) {
@@ -434,7 +471,7 @@ internal class PeoplePainter {
             // shoes: a little wider than the leg, toes out, a shine on the toe
             val sx = if (side < 0) x0 - 1 else x0
             c.fillRect(sx, by - 2 - lift, shoeW, 2, L.shoes)
-            c.set(if (side < 0) sx + 1 else sx + shoeW - 2, by - 2 - lift, Col.mix(L.shoes, Col.hex(0xFFFFFF), 0.25f))
+            c.set(if (side < 0) sx + 1 else sx + shoeW - 2, by - 2 - lift, if (L.toes != 0) L.toes else Col.mix(L.shoes, Col.hex(0xFFFFFF), 0.25f))
             // boots up the shin, the road's dust on the toes and the heels
             if (L.boots) {
                 c.fillRect(x0, by - 4 - lift, shoeW - 1, 2, L.shoes); c.set(x0, by - 4 - lift, Col.scale(L.shoes, 0.8f))
@@ -451,6 +488,7 @@ internal class PeoplePainter {
                 row(bx - ww, bx + ww, sTop + k, if (k == n) Col.scale(L.bottom, 0.72f) else L.bottom)
                 c.set(bx + ww, sTop + k, Col.scale(L.bottom, 0.8f))
                 if (L.dots != 0 && k % 2 == 1) { var xx = bx - ww + 1 + (k % 4) / 2; while (xx < bx + ww) { c.set(xx, sTop + k, L.dots); xx += 3 } }
+                if (L.checks != 0 && k < n) for (xx in bx - ww..bx + ww - 1) checkAt(xx, sTop + k, bx, legTop, L.checks)
             }
         }
 
@@ -463,6 +501,7 @@ internal class PeoplePainter {
         c.vline(bx + tw, tTop + 1, tBot, topD); c.vline(bx - tw, tTop + 1, tBot, topL)
         if (L.stripes != 0) for (yy in tTop + 2..tBot step 2) row(bx - tw + 1, bx + tw - 1, yy, L.stripes)
         if (L.dots != 0 && !L.skirt) for (yy in tTop + 2..tBot step 2) { var xx = bx - tw + 1 + (yy % 4) / 2; while (xx < bx + tw) { c.set(xx, yy, L.dots); xx += 3 } }
+        if (L.checks != 0) for (yy in tTop + 1..tBot) for (xx in bx - tw + 1..bx + tw - 1) checkAt(xx, yy, bx, tTop, L.checks)
         if (L.vest != 0) {
             val vw = max(2, tw - 2)
             c.fillRect(bx - tw, tTop + 1, vw, tBot - tTop, L.vest)
@@ -587,7 +626,7 @@ internal class PeoplePainter {
     fun restingArms(canvas: PixelCanvas, art: String, bx: Int, by: Int, time: Double, seed: Int, talking: Boolean, flip: Boolean, pose: Pose, rest: IntArray) {
         if (art == "baby" || pose == Pose.SLEEP) return
         c = canvas
-        val L = Looks.of(art, seed, culture)
+        val L = look(art, seed)
         val d = if (flip) -1 else 1
         val (far, near) = resting(pose, talking, time)
         val tw = L.torsoW / 2
@@ -939,8 +978,15 @@ internal class PeoplePainter {
                 row(bx - hw + 2, bx + hw - 2, hTop - 1, col)
                 for (yy in hTop..eyeRow - 4) row(bx - hw - (if (yy == hTop) 0 else 1), bx + hw + (if (yy == hTop) 0 else 1), yy, col)
                 row(bx - hw, bx + hw, eyeRow - 4, colD)
-                for (side in intArrayOf(-1, 1)) c.fillRect(if (side < 0) bx - hw - 1 else bx + hw, eyeRow - 2, 2, hBot - eyeRow + 2, if (side < 0) col else colD)
-                c.fillRect(bx + d * 2 - 1, hBot + 1, 3, 2, col); c.set(bx + d * 4, hBot + 3, colD); c.set(bx + d * 3, hBot + 3, col)
+                if (L.nape) {
+                    // tied at the back of the neck: down the sides over the ears, the knot and its ends behind the head
+                    for (side in intArrayOf(-1, 1)) c.fillRect(if (side < 0) bx - hw - 1 else bx + hw, eyeRow - 2, 2, 4, if (side < 0) col else colD)
+                    val kx = bx - d * hw
+                    c.fillRect(if (d > 0) kx - 1 else kx, eyeRow + 2, 2, 2, colD); c.set(kx, eyeRow + 4, col); c.set(kx - d, eyeRow + 5, colD)
+                } else {
+                    for (side in intArrayOf(-1, 1)) c.fillRect(if (side < 0) bx - hw - 1 else bx + hw, eyeRow - 2, 2, hBot - eyeRow + 2, if (side < 0) col else colD)
+                    c.fillRect(bx + d * 2 - 1, hBot + 1, 3, 2, col); c.set(bx + d * 4, hBot + 3, colD); c.set(bx + d * 3, hBot + 3, col)
+                }
                 row(bx - 4, bx - 1, hTop - 1, colL)
                 if (L.dots != 0) for (yy in hTop + 1..eyeRow - 5 step 2) for (xx in bx - hw + 1 + ((yy / 2) % 2) * 2..bx + hw - 1 step 4) c.set(xx, yy, L.dots)
             }
@@ -958,6 +1004,12 @@ internal class PeoplePainter {
                     c.set(bx - d * 5, brimY - 2, blue); c.set(bx - d * 6, brimY - 3, bar); c.set(bx - d * 6, brimY - 4, blue)
                     c.set(bx - d * 7, brimY - 5, blue); c.set(bx - d * 7, brimY - 6, Pal.FLAG_WHITE)
                     c.set(bx - d * 4, brimY - 6, Col.hex(0x5A4A3A)); c.set(bx - d * 4, brimY - 7, Col.hex(0x8A7A62))
+                }
+                if (L.plume != 0) {
+                    // a Gamsbart in the band at the back: a brush of chamois hair fanning up, its tips pale
+                    val tip = Col.mix(L.plume, Col.hex(0xFFFFFF), 0.55f)
+                    c.set(bx - d * 5, brimY - 2, L.plume); c.set(bx - d * 5, brimY - 3, L.plume); c.set(bx - d * 6, brimY - 3, L.plume)
+                    c.set(bx - d * 6, brimY - 4, L.plume); c.set(bx - d * 5, brimY - 4, tip); c.set(bx - d * 7, brimY - 4, tip); c.set(bx - d * 6, brimY - 5, tip)
                 }
                 if (L.shell) {
                     // a scallop shell on the crown, the pilgrim's badge: a fan of ribs over a little hinge
@@ -1030,7 +1082,7 @@ internal class PeoplePainter {
         val d = if (dx < 0) -1 else 1
         // a baby sleeps in its basket
         if (art == "baby") { baby(bx + d * 4, by0 + 9, time, seed, false, d < 0, Pose.SLEEP); return }
-        val base = Looks.of(art, seed, culture)
+        val base = look(art, seed)
         // in bed: the hat off (the grandmother keeps her kerchief on), nothing in hand or on the back
         val L = base.copy(
             hat = if (base.hat == Looks.HAT_SCARF) Looks.HAT_SCARF else Looks.HAT_NONE,
@@ -1186,7 +1238,7 @@ internal class PeoplePainter {
         val a0 = 1f - quiet.coerceIn(0f, 1f)
         if (a0 <= 0.02f) return
         val b = big.coerceIn(0f, 1f)
-        val top = by0 - (if (art == "baby") 12 else Looks.of(art, seed, culture).headH)
+        val top = by0 - (if (art == "baby") 12 else look(art, seed).headH)
         val period = 3.3 - 1.3 * b
         val was = canvas.penEmissive
         canvas.penEmissive = true
@@ -1245,6 +1297,12 @@ internal class PeoplePainter {
             Looks.PROP_SPOON -> {
                 c.line(handX, handY, handX + d * 3, handY - 5, Pal.WOOD_M); c.fillRect(handX + d * 3 - 1, handY - 8, 3, 3, Pal.WOOD_L); c.set(handX + d * 3, handY - 7, Pal.WOOD_M)
             }
+            Looks.PROP_GLASS -> {
+                // the tajut: a small tumbler of red wine, the glass's rim catching the light
+                val gx = handX + d * 2; val gy = handY - 3
+                val glass = Col.hex(0xD8E4EA); val wine = Col.hex(0x8A1E2E)
+                c.fillRect(gx - 1, gy, 3, 4, wine); row(gx - 1, gx + 1, gy, glass); c.vline(gx + d, gy + 1, gy + 3, Col.hex(0xA83A4A)); row(gx - 1, gx + 1, gy + 4, glass)
+            }
             Looks.PROP_FLOWER -> {
                 val fx = handX + d
                 c.vline(fx, handY - 5, handY - 1, Pal.LEAF); c.set(fx, handY - 6, Pal.GOLD); c.set(fx - 1, handY - 6, Pal.GERANIUM); c.set(fx + 1, handY - 6, Pal.GERANIUM)
@@ -1252,6 +1310,15 @@ internal class PeoplePainter {
             }
             else -> Unit
         }
+    }
+
+    /**
+     * The check's pixel at ([x], [y]) of a cloth whose pattern starts at ([x0], [y0]): its lines every third column and row in
+     * [col], half over the cloth, where they cross in full.
+     */
+    private fun checkAt(x: Int, y: Int, x0: Int, y0: Int, col: Int) {
+        val v = (x - x0 + 30) % 3 == 0; val h = (y - y0) % 3 == 0
+        if (v && h) c.set(x, y, col) else if (v || h) c.blend(x, y, col, 0.5f)
     }
 
     /** A 2-px-wide limb from ([x0], [y0]) to ([x1], [y1]); the columns sit at x, x+1 on the right [side], x-1, x on the left. */

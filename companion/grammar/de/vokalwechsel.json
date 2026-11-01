@@ -1,0 +1,181 @@
+{
+  "schema": "lani.grammar/v0",
+  "id": "vokalwechsel",
+  "language": "de",
+  "level": "A1",
+  "emoji": "🔄",
+  "title": {
+    "de": "Ich fahre, du fährst: Verben mit Vokalwechsel",
+    "sl": "Ich fahre, du fährst: glagoli, ki spremenijo samoglasnik",
+    "en": "Ich fahre, du fährst: verbs that change their vowel",
+    "it": "Ich fahre, du fährst: i verbi che cambiano vocale"
+  },
+  "rule": {
+    "en": "Some common verbs change the vowel of their stem in the present (*Vokalwechsel*), but only with **du** and **er/sie/es**. The endings are the usual ones.\n\n**a → ä**: fahren → du **fährst**, er **fährt**; schlafen → **schläft**; tragen → **trägt**; waschen → **wäscht**. **au → äu**: laufen → du **läufst**, er **läuft**.\n\n**e → i**: sprechen → du **sprichst**, er **spricht**; helfen → **hilft**; geben → **gibt**; essen → du **isst**, er **isst**; nehmen → du **nimmst**, er **nimmt** (the h goes, the m doubles).\n\n**e → ie**: sehen → du **siehst**, er **sieht**; lesen → du **liest**, er **liest**.\n\nich, wir, ihr and sie/Sie keep the vowel of the infinitive: ich **fahre**, wir **fahren**, ihr **fahrt**, Sie **sprechen**. So **ihr fahrt** has no umlaut, **er fährt** has one.\n\nA stem in -s or -ß takes only -t with du: du **isst**, du **liest**, as du heißt. A dictionary gives the change: fahren (fährt).\n\nWatch out: **er isst** (he eats) has two s, **er ist** (he is) one.",
+    "sl": "Nekateri pogosti glagoli v sedanjiku spremenijo samoglasnik osnove (*Vokalwechsel*), a samo pri **du** in **er/sie/es**. Končnice so običajne.\n\n**a → ä**: fahren → du **fährst**, er **fährt**; schlafen → **schläft**; tragen → **trägt**; waschen → **wäscht**. **au → äu**: laufen → du **läufst**, er **läuft**.\n\n**e → i**: sprechen → du **sprichst**, er **spricht**; helfen → **hilft**; geben → **gibt**; essen → du **isst**, er **isst**; nehmen → du **nimmst**, er **nimmt** (h odpade, m se podvoji).\n\n**e → ie**: sehen → du **siehst**, er **sieht**; lesen → du **liest**, er **liest**.\n\nich, wir, ihr in sie/Sie obdržijo samoglasnik nedoločnika: ich **fahre**, wir **fahren**, ihr **fahrt**, Sie **sprechen**. Torej **ihr fahrt** brez preglasa, **er fährt** s preglasom.\n\nOsnova na -s ali -ß dobi pri du samo -t: du **isst**, du **liest**, kot du heißt. Slovar spremembo navede: fahren (fährt).\n\nPazi: slovensko je oboje »je«, nemško pa **er isst** (on jé) z dvema s in **er ist** (on je) z enim.",
+    "it": "Alcuni verbi molto usati al presente cambiano la vocale della radice (*Vokalwechsel*), ma solo con **du** ed **er/sie/es**. Le desinenze sono quelle solite.\n\n**a → ä**: fahren → du **fährst**, er **fährt**; schlafen → **schläft**; tragen → **trägt**; waschen → **wäscht**. **au → äu**: laufen → du **läufst**, er **läuft**.\n\n**e → i**: sprechen → du **sprichst**, er **spricht**; helfen → **hilft**; geben → **gibt**; essen → du **isst**, er **isst**; nehmen → du **nimmst**, er **nimmt** (la h cade, la m si raddoppia).\n\n**e → ie**: sehen → du **siehst**, er **sieht**; lesen → du **liest**, er **liest**.\n\nich, wir, ihr e sie/Sie tengono la vocale dell'infinito: ich **fahre**, wir **fahren**, ihr **fahrt**, Sie **sprechen**. Quindi **ihr fahrt** è senza Umlaut, **er fährt** con l'Umlaut.\n\nSe la radice finisce in -s o -ß, con du si aggiunge solo -t: du **isst**, du **liest**, come du heißt. Il dizionario indica il cambio: fahren (fährt).\n\nAttenzione: **er isst** (lui mangia) ha due s, **er ist** (lui è) una sola."
+  },
+  "table": {
+    "head": [
+      { "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive", "it": "infinito" },
+      { "de": "du", "sl": "du (ti)", "en": "du (you)", "it": "du (tu)" },
+      { "de": "er / sie / es", "sl": "er / sie / es (on, ona, ono)", "en": "er / sie / es (he, she, it)", "it": "er / sie / es (lui, lei, esso)" },
+      { "de": "ich · wir · ihr", "sl": "ich · wir · ihr (brez spremembe)", "en": "ich · wir · ihr (no change)", "it": "ich · wir · ihr (senza cambio)" }
+    ],
+    "rows": [
+      ["fahren", "fährst", "fährt", "fahre · fahren · fahrt"],
+      ["schlafen", "schläfst", "schläft", "schlafe · schlafen · schlaft"],
+      ["tragen", "trägst", "trägt", "trage · tragen · tragt"],
+      ["laufen", "läufst", "läuft", "laufe · laufen · lauft"],
+      ["sprechen", "sprichst", "spricht", "spreche · sprechen · sprecht"],
+      ["helfen", "hilfst", "hilft", "helfe · helfen · helft"],
+      ["geben", "gibst", "gibt", "gebe · geben · gebt"],
+      ["essen", "isst", "isst", "esse · essen · esst"],
+      ["nehmen", "nimmst", "nimmt", "nehme · nehmen · nehmt"],
+      ["sehen", "siehst", "sieht", "sehe · sehen · seht"],
+      ["lesen", "liest", "liest", "lese · lesen · lest"]
+    ]
+  },
+  "examples": [
+    {
+      "de": "Stefan fährt heute nach Villach.",
+      "sl": "Stefan se danes pelje v Beljak.",
+      "en": "Stefan is driving to Villach today.",
+      "it": "Oggi Stefan va a Villach in macchina.",
+      "note": {
+        "en": "fahren → er fährt: a becomes ä.",
+        "sl": "fahren → er fährt: a postane ä.",
+        "it": "fahren → er fährt: la a diventa ä."
+      }
+    },
+    {
+      "de": "Florian und Toni, ihr fahrt auch nach Villach?",
+      "sl": "Florian in Toni, se tudi vidva peljeta v Beljak?",
+      "en": "Florian and Toni, are you driving to Villach too?",
+      "it": "Florian e Toni, anche voi andate a Villach?",
+      "note": {
+        "en": "ihr keeps the vowel: ihr fahrt, no umlaut.",
+        "sl": "ihr obdrži samoglasnik: ihr fahrt, brez preglasa.",
+        "it": "ihr tiene la vocale: ihr fahrt, senza Umlaut."
+      }
+    },
+    {
+      "de": "Hirte Florian schläft auf der Alm.",
+      "sl": "Pastir Florian spi na planini.",
+      "en": "Florian the shepherd sleeps up on the alpine pasture.",
+      "it": "Il pastore Florian dorme all'alpeggio.",
+      "note": {
+        "en": "schlafen → er schläft.",
+        "sl": "schlafen → er schläft.",
+        "it": "schlafen → er schläft."
+      }
+    },
+    {
+      "de": "Der Hund läuft schnell.",
+      "sl": "Pes hitro teče.",
+      "en": "The dog runs fast.",
+      "it": "Il cane corre veloce.",
+      "note": {
+        "en": "laufen → er läuft: au becomes äu.",
+        "sl": "laufen → er läuft: au postane äu.",
+        "it": "laufen → er läuft: au diventa äu."
+      }
+    },
+    {
+      "de": "Imker Stanko spricht Slowenisch und Deutsch.",
+      "sl": "Čebelar Stanko govori slovensko in nemško.",
+      "en": "Stanko the beekeeper speaks Slovene and German.",
+      "it": "L'apicoltore Stanko parla sloveno e tedesco.",
+      "note": {
+        "en": "sprechen → er spricht: e becomes i.",
+        "sl": "sprechen → er spricht: e postane i.",
+        "it": "sprechen → er spricht: la e diventa i."
+      }
+    },
+    {
+      "de": "Isst du gern Kasnudeln?",
+      "sl": "Ali rad ješ Kasnudeln, koroške nudlje?",
+      "en": "Do you like eating Kasnudeln, the Carinthian cheese pasta?",
+      "it": "Ti piace mangiare i Kasnudeln, i ravioli carinziani?",
+      "note": {
+        "en": "essen → du isst: only -t after ss. Er isst (eats), er ist (is).",
+        "sl": "essen → du isst: za ss samo -t. Er isst (jé), er ist (je).",
+        "it": "essen → du isst: dopo ss solo -t. Er isst (mangia), er ist (è)."
+      }
+    },
+    {
+      "de": "Tante Mitzi liest die Kleine Zeitung.",
+      "sl": "Teta Mitzi bere Kleine Zeitung.",
+      "en": "Aunt Mitzi is reading the Kleine Zeitung.",
+      "it": "La zia Mitzi legge la Kleine Zeitung.",
+      "note": {
+        "en": "lesen → sie liest: e becomes ie.",
+        "sl": "lesen → sie liest: e postane ie.",
+        "it": "lesen → sie liest: la e diventa ie."
+      }
+    },
+    {
+      "de": "Wirtin Kathi nimmt drei Teller.",
+      "sl": "Gostilničarka Kathi vzame tri krožnike.",
+      "en": "Kathi the innkeeper takes three plates.",
+      "it": "L'ostessa Kathi prende tre piatti.",
+      "note": {
+        "en": "nehmen → er nimmt: the h goes, the m doubles.",
+        "sl": "nehmen → er nimmt: h odpade, m se podvoji.",
+        "it": "nehmen → er nimmt: la h cade, la m si raddoppia."
+      }
+    }
+  ],
+  "modules": [],
+  "tags": ["vowel_change", "vokalwechsel", "stem_change", "strong_verbs", "irregular_present"],
+  "see": ["praesens", "sein-haben", "du-sie"],
+  "machine_written": true,
+  "review": "machine-written (Claude) in de, sl, en and it; not reviewed by a native speaker",
+  "card": {
+    "title": {
+      "de": "Vokalwechsel · du fährst, er liest",
+      "sl": "Sprememba samoglasnika · du fährst, er liest",
+      "en": "Vowel change · du fährst, er liest",
+      "it": "Cambio di vocale · du fährst, er liest"
+    },
+    "rule": {
+      "en": "Only **du** and **er/sie/es** change: a → ä (**fährst**), au → äu (**läuft**), e → i (**sprichst**, **isst**, **nimmt**), e → ie (**siehst**, **liest**). ich, wir, ihr and sie keep the vowel: **ihr fahrt**.",
+      "sl": "Spremenita se samo **du** in **er/sie/es**: a → ä (**fährst**), au → äu (**läuft**), e → i (**sprichst**, **isst**, **nimmt**), e → ie (**siehst**, **liest**). ich, wir, ihr in sie ga obdržijo: **ihr fahrt**.",
+      "it": "Cambiano solo **du** ed **er/sie/es**: a → ä (**fährst**), au → äu (**läuft**), e → i (**sprichst**, **isst**, **nimmt**), e → ie (**siehst**, **liest**). ich, wir, ihr e sie tengono la vocale: **ihr fahrt**."
+    },
+    "table": {
+      "head": [
+        { "de": "Infinitiv", "sl": "nedoločnik", "en": "infinitive", "it": "infinito" },
+        { "de": "du", "sl": "du (ti)", "en": "du (you)", "it": "du (tu)" },
+        { "de": "er / sie / es", "sl": "er / sie / es", "en": "er / sie / es", "it": "er / sie / es" }
+      ],
+      "rows": [
+        ["fahren", "fährst", "fährt"],
+        ["laufen", "läufst", "läuft"],
+        ["sprechen", "sprichst", "spricht"],
+        ["essen", "isst", "isst"],
+        ["nehmen", "nimmst", "nimmt"],
+        ["lesen", "liest", "liest"]
+      ]
+    },
+    "examples": [
+      {
+        "de": "Stefan fährt heute nach Villach.",
+        "sl": "Stefan se danes pelje v Beljak.",
+        "en": "Stefan is driving to Villach today.",
+        "it": "Oggi Stefan va a Villach in macchina."
+      },
+      {
+        "de": "Tante Mitzi liest die Kleine Zeitung.",
+        "sl": "Teta Mitzi bere Kleine Zeitung.",
+        "en": "Aunt Mitzi is reading the Kleine Zeitung.",
+        "it": "La zia Mitzi legge la Kleine Zeitung."
+      }
+    ],
+    "tip": {
+      "en": "💡 **er isst** (he eats) with two s, **er ist** (he is) with one. And **ihr fahrt** has no umlaut.",
+      "sl": "💡 **er isst** (on jé) z dvema s, **er ist** (on je) z enim. In **ihr fahrt** je brez preglasa.",
+      "it": "💡 **er isst** (lui mangia) con due s, **er ist** (lui è) con una. E **ihr fahrt** è senza Umlaut."
+    }
+  }
+}

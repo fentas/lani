@@ -74,9 +74,11 @@ internal object KaerntenLooks {
     /**
      * The people sprites (`people`, People.kt): the day's pedlar the Kraxenträger from the Kanaltal under his Kraxe, larch
      * posts round a green box of little drawers ("So viele kleine Laden!"), a blue bundle tied on its lid (`pedlar`), on the
-     * map, in the scenes and in his portrait; the road's pedlar at the gate and below the watchtower the same (their `pedlar`).
+     * map, in the scenes and in his portrait; the road's pedlar at the gate and below the watchtower the same (their `pedlar`);
+     * everyone in Carinthia's clothes (`wardrobe`, render/scene/Wardrobes.kt: the women's dirndls, Opa Sepp's Kärntner Anzug
+     * and his hat with the Gamsbart, the boys' Lederhosen), on the map too.
      */
-    val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "kraxe"))
+    val PEOPLE = Table.of("people", variants = mapOf("pedlar" to "kraxe", "wardrobe" to "kaernten"))
 
     /**
      * The tent at Carinthia's camp (Im Zelt, TentPainter): Austria's pennant, red, white and red, on its front post (`pennant`,
@@ -134,8 +136,117 @@ internal object KaerntenLooks {
      */
     val MARKET = Table.of("market", variants = mapOf("village" to "kaernten", "goods" to "kaernten"))
 
+    // ------------------------------------------------------------------ the village's projects and spots (kaernten-projects-b)
+
+    /**
+     * Florian's Feuerwehrhaus (Beim Feuerwehrhaus, FirestationPainter): the sign FF (Freiwillige Feuerwehr) over the doors
+     * (`sign`), the banner Austria's red, white and red in bands down the cloth (`flag`); St Florian pouring his bucket, the
+     * Austrian brigades' patron too, is the art's own picture.
+     */
+    val FIRESTATION = Table.of("firestation", variants = mapOf("sign" to "ff", "flag" to "at"))
+
+    /**
+     * Lehrerin Eva's Spielplatz (Am Spielplatz, PlaygroundPainter): the school's side under dark larch shingles, its classroom
+     * window between green shutters folded back, a window box under it, red geraniums in it from May to September (`school`).
+     */
+    val PLAYGROUND = Table.of("playground", variants = mapOf("school" to "kaernten"))
+
+    /**
+     * Kathi's Aussichtsturm (Auf dem Aussichtsturm, LookoutPainter): the view east down the lower Gailtal (`view`): the
+     * Dobratsch with its transmitter mast on the left, the Karawanken along the sky with the Mittagskogel's pyramid and its
+     * summit cross (the `peak`), the Faaker See in the valley under it (the art's `sea`), the village below as Carinthia
+     * builds it round its onion-domed church, Villach far off; Austria's flag on the roof.
+     */
+    val LOOKOUT = Table.of("lookout", variants = mapOf("view" to "kaernten"))
+
+    /**
+     * The Doppelharpfe beyond the wheat (Bei der Doppelharpfe, FieldPainter's toplar): its two racks of grey larch, taller,
+     * nine thin rails like a harp's strings, a steeper roof of dark larch shingles in courses (`toplar`), as the Harpfe is.
+     */
+    val FIELD_TOPLAR = Table.of("field", variants = mapOf("toplar" to "harpfe"))
+
+    /**
+     * The Dorfbrunnen in the middle of the square (Am Dorfbrunnen, SquarePainter's fountain): the art's eight-sided trough of
+     * white stone with its pillar and four iron spouts, and on the pillar's cap St Florian with his bucket (`fountain`), as on
+     * the Florianibrunnen of Austrian villages. The church tower's clock (Unter der Kirchturmuhr) is the art's, in the onion-
+     * domed tower SQUARE draws.
+     */
+    val SQUARE_BRUNNEN = Table.of("square", variants = mapOf("fountain" to "florian"))
+
+    /**
+     * The stream below the village (Am Bach, StreamPainter): larches among the alders and spruces along the banks (`trees`),
+     * the Karawanken higher and sharper over the valley and a hamlet of white timbered houses round an onion-domed church on
+     * the hill (`hills`). The cart bridge's larch is branch a's (its own table).
+     */
+    val STREAM_LAND = Table.of("stream", variants = mapOf("trees" to "larch", "hills" to "kaernten"))
+
+    /** The pond in the wood (Am Teich, PondPainter): larches among the spruces on its near shores (`trees`). */
+    val POND = Table.of("pond", variants = mapOf("trees" to "larch"))
+
+    /** The looks of the projects' and spots' arts above (kaernten-projects-b), added up. */
+    val PROJECTS_B: Table get() = FIRESTATION + PLAYGROUND + LOOKOUT + FIELD_TOPLAR + SQUARE_BRUNNEN + STREAM_LAND + POND
+
+    // ------------------------------------------------------------------ the projects' places and the wood (kaernten-projects-a)
+
+    /**
+     * Unter dem Maibaum (SquarePainter): the Kraxler's prize hung under the Maibaum's wreath for the Maibaumkraxeln, two strings
+     * of Hauswürstel and a slab of Speck (`kraxel`). Its green top, its wreath and its red and white ribbons are the square's.
+     */
+    val SQUARE_MAIBAUM = Table.of("square", variants = mapOf("kraxel" to "wuerste"))
+
+    /**
+     * An der Brücke (StreamPainter): the cart bridge's logs, its deck's planks and its railings of reddish-brown larch on the
+     * art's stone piers, as the map's bridge (`cartbridge`, the map's `bridge` "larch").
+     */
+    val STREAM_BRIDGE = Table.of("stream", variants = mapOf("cartbridge" to "larch"))
+
+    /**
+     * In der Mühle (MillPainter): Müller Franz's mill of larch logs with pale chinking over its stone footing (`walls`); it
+     * grinds Heiden, buckwheat, its kernels brown-grey in the hopper and the Metzen (`grain`), its meal the grey Heidenmehl;
+     * the Karawanken through the window.
+     */
+    val MILL = Table.of(
+        "mill",
+        colours = mapOf(
+            "grain.l" to 0xFF8E7A62.toInt(), "grain.m" to 0xFF6A5644.toInt(), "grain.d" to 0xFF44362A.toInt(),
+            "meal" to 0xFFD8D0C2.toInt(), "meal.d" to 0xFFB8AE9E.toInt(),
+        ),
+        variants = mapOf("grain" to "heiden", "walls" to "logs", "view" to "karawanken"),
+    )
+
+    /**
+     * Auf der Stockbahn (BoccePainter), as the map's court (`court` "curling"): the lane of grey asphalt, ice from December to
+     * February; Eisstöcke for the balls (red and green), the Daube for the jack, a broom for the rake, slid along the lane;
+     * WIR | IHR on the slate (`scoreboard`); the Gasthaus under dark shingles with a golden linden leaf on its sign (`inn`, still
+     * scenery); hops on the Laube (`pergola`); Most or apple juice in the jug and the glass (`jug`).
+     */
+    val BOCCE = Table.of("bocce", variants = mapOf("court" to "curling", "scoreboard" to "wir", "inn" to "gasthaus", "pergola" to "hops", "jug" to "most"))
+
+    /**
+     * Bei der Wegkapelle (ChapelPainter): the white Wegkapelle under its shingles, its little turret under an onion cap
+     * (`turret`); Heiden in the field, white and pink in flower in July and August, rust-red in September (`field`); larches
+     * along the road (`trees`); the far village white under dark shingles round its onion-domed church (`village`).
+     */
+    val CHAPEL = Table.of("chapel", variants = mapOf("turret" to "onion", "field" to "heiden", "village" to "kaernten", "trees" to "larch"))
+
+    /**
+     * Im Obstgarten (HillsPainter), as the map's (`vineyard` "orchard"): Mostbauer Stefan's old apple and pear trees standing
+     * apart in the grass, the near one a young apple tree at its stake, a pear tree for the kaki, larches for the cypresses, a
+     * Schragenzaun for the stone wall, Steigen of apples, the farmstead timbered under dark shingles (`farm`) with the Most
+     * press by the track, the church's onion dome (`church`), a lake for the sea (`sea`).
+     */
+    val HILLS = Table.of("hills", variants = mapOf("vineyard" to "orchard", "farm" to "kaernten", "church" to "onion", "sea" to "lake"))
+
+    /**
+     * Im Wald (ForestPainter): larches among the spruces at the clearing's edges (`trees`), and by the path a Marterl, a post
+     * of larch with a painted plaque under its little shingle roof and flowers tied to it (`shrine`).
+     */
+    val FOREST = Table.of("forest", variants = mapOf("shrine" to "marterl", "trees" to "larch"))
+
     /** Carinthia's looks of its buildings and rooms, added up (each art's table above). */
     val PLACES: Table get() = PEOPLE + KITCHEN + LIVINGROOM + FIELD + SQUARE + WATCHTOWER +
         PALISADE + TENT + ATTIC + WORKSHOP + CELLAR + SCHOOL + CHURCH +
-        APIARY + SMITHY + MARKET
+        APIARY + SMITHY + MARKET +
+        PROJECTS_B +
+        SQUARE_MAIBAUM + STREAM_BRIDGE + MILL + BOCCE + CHAPEL + HILLS + FOREST
 }

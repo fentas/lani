@@ -138,8 +138,45 @@ export function looksLikeFormOf(word: string, lemma: string): boolean {
   return a.length >= 3 && b.length >= 3 && (w.startsWith(b) || l.startsWith(a)) && Math.abs(w.length - l.length) <= 3
 }
 
-/** The lemmas a word (lower case) may be a form of, by the dictionary; none known: the word alone. */
-export type Lemmas = (word: string) => string[]
+/**
+ * Whether the pack word [w] (its entry: the word in [lang], its `plural`) is one of a turn's [tested] words: a noun as its
+ * word, its article left out ("der Trog" as Trog, "the bell" as bell); its forms by the dictionary's [lemmas], or, where
+ * the language has none (German), guessed by their stem, its plural among them (Tröge). A word of more than one word
+ * (a phrase) is tested by a tap, never by a turn. A dictionary that is only the supplement ([Lemmas.partial]: no
+ * Wiktionary of the language, as German's and English's) knows the course's words, not every form: a form it doesn't
+ * know is guessed by its stem, as without one.
+ */
+export function testsWord(w: Record<string, unknown>, lang: string, tested: string[], lemmas?: Lemmas): boolean {
+  const parts = wordsIn(withoutArticle(String(w[lang] ?? ''), lang))
+  if (parts.length !== 1) return false
+  const plural = typeof w.plural === 'string' ? wordsIn(withoutArticle(w.plural, lang)) : []
+  const guesses = [parts[0], ...(plural.length === 1 ? plural : [])]
+  const dictionary = !!lemmas && lemmas.dictionary !== false
+  const formOf = (x: string) =>
+    (dictionary && lemmas!(x).includes(parts[0].toLowerCase())) || ((!dictionary || lemmas!.partial === true) && guesses.some(g => looksLikeFormOf(x, g)))
+  return tested.some(formOf)
+}
+
+/**
+ * The lemmas a word (lower case) may be a form of, by the dictionary; none known: the word alone. [dictionary]: whether the
+ * language has a dictionary at all (companion/lexicon/<lang>.json or its supplement); without one a word's forms are
+ * guessed by their stem ([looksLikeFormOf]), as German's are. [partial]: the dictionary is only the supplement (no
+ * companion/lexicon/<lang>.json), so a form it doesn't know is guessed too.
+ */
+export type Lemmas = ((word: string) => string[]) & { dictionary?: boolean; partial?: boolean }
+
+/** A pack word's article, by language (as lexicon.ts's ARTICLES): "der Trog", "il ponte", "to wash" are tested as their word. */
+const ARTICLES: Record<string, RegExp> = {
+  it: /^(?:(?:il|lo|la|i|gli|le|un|uno|una) +|(?:l|un)['’])/i,
+  de: /^(?:der|die|das|ein|eine) +/i,
+  en: /^(?:the|an?|to) +/i,
+}
+
+/** [word] (a pack's, in [lang]) without its article: "der Trog" → "Trog"; a word of a language without articles as it is. */
+export function withoutArticle(word: string, lang: string): string {
+  const re = ARTICLES[lang]
+  return re ? word.replace(re, '') : word
+}
 
 const lexicons = new Map<string, Lemmas>()
 
@@ -179,7 +216,7 @@ export function lexiconLemmas(lexiconDir: string, lang: string): Lemmas {
   } catch {
     // no supplement
   }
-  const lemmas: Lemmas = w => [w.toLowerCase(), ...(byForm.get(w.toLowerCase()) ?? [])]
+  const lemmas: Lemmas = Object.assign((w: string) => [w.toLowerCase(), ...(byForm.get(w.toLowerCase()) ?? [])], { dictionary: byForm.size > 0, partial: wiktionary.size === 0 })
   lexicons.set(key, lemmas)
   return lemmas
 }
@@ -319,9 +356,8 @@ export function projectStepsErrors(f: ProjectSteps, r: StepRefs): string[] {
       for (const w of words) {
         const lemma = w.word ? String(w.word[r.lang] ?? '') : ''
         if (!lemma) continue
-        const parts = wordsIn(lemma)
-        const formOf = (x: string) => (r.lemmas ? r.lemmas(x).includes(parts[0].toLowerCase()) : looksLikeFormOf(x, parts[0]))
-        const byTurn = parts.length === 1 && tested.words.some(formOf)
+        const parts = wordsIn(withoutArticle(lemma, r.lang))
+        const byTurn = !!w.word && testsWord(w.word, r.lang, tested.words, r.lemmas)
         const byTap = !!scene && tested.taps.some(slot => {
           const o = scene.objects.find(x => x.slot === slot)
           const said = o ? String((o as Record<string, unknown>)[r.lang] ?? o.word) : ''
