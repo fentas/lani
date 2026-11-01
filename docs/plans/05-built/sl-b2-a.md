@@ -70,7 +70,8 @@ pridevniki-ujemanje), `predpreteklik` the past's l-forms (pretekli-cas); the oth
 **Spoken forms and the clitics.** None is graded wrong. A sentence may begin with its short word (memory: Slovene
 initial clitics): bi bil prišel, Bi bil prišel., Sem že odšel. are accepted beside the written orders; no choice offers a
 clitic-first order as the wrong one. Čigar for a woman, heard in speech and the papers and marked ° by SP2001, is an
-`almost` choice; for a thing it is accepted (SSKJ² allows it, SP2001 marks it °). Kot da and kakor da, takoj ko, brž ko
+`almost` choice and the card says it is heard (typed in a gap it is wrong: a gap has no almost); for a thing it is
+accepted (SSKJ² allows it, SP2001 marks it °). Kot da and kakor da, takoj ko, brž ko
 and čim, kljub temu da and čeprav are each accepted where they fit. The past conditional and the pluperfect are taught as
 written forms, and the units say every time that speech says the same with the plain conditional or the past and že,
 and that both are right.
@@ -98,9 +99,55 @@ Against Fran (SP2001, SSKJ²) and Sloleks 2.0, one request at a time:
 The forms of the past conditional (bil bi delal, bi bil delal) and of the pluperfect (sem bil delal) are Toporišič's
 (Slovenska slovnica), not in the dictionaries' entries: the native check below.
 
+## Grading
+
+grading/sl.json and the forms book needed nothing new: every answer of these units is a whole word or phrase the
+app's Grading compares as it is (case, the final stop and a comma don't count: *kljub temu, da* is *kljub temu da*;
+a missing č, š, ž is almost), and no cell or line names a form of the forms book. Where Slovene has two right ways, both
+are in `accept`: the orders of bil and bi (bil bi prišel, prišel bi bil, bi bil prišel; je bil avtobus že, je avtobus
+že bil), ki ga beside katerega, čigar beside katerega for a man's or a thing's, kamor beside na katero, od koder beside
+iz katerega, kot da beside kakor da (with bi or the indicative), takoj ko beside brž ko, čim and ko, kljub temu da
+beside čeprav and četudi, sede beside sedeč, zarjavel beside the definite zarjaveli. The word banks' distractors are
+wrong for every gap (CourseContentTest).
+
 ## Tests
 
-(filled in at the end of the branch)
+- **Bridge**: `tsc` clean; the smoke on this branch's ports (`LANI_SMOKE_PORT=9470`, `LANI_SMOKE_DRAMA3_PORT=9488`, the
+  others by their defaults in 9470–9489): **3,252 checks, all pass**, among them the course section (every unit, page
+  and the outline validate; 471 answers checked against the dictionary's forms; COURSE.md's "What a unit turns on", 42
+  rows) and course-speech (what Mojca reads, never an English word in her voice). `tutor-export --check`: 89 files
+  match.
+- **Android**: the course's tests with the six units (CourseContentTest: every right answer graded right by the app's
+  Grading, every distractor wrong; SchoolBoardTest: every letter of the titles and tables in chalk, laid out;
+  GrammarTest: 65 pages; CourseTest, PrintsTest, IntroSpeechParityTest, CheatSheetTest, GrammarBookTest, SchoolTest,
+  SentenceGrammarTest, ItalianCourseContentTest): 92 tests, all pass. The full unit suite after the last content change: **3,628 tests in 462 classes, none failed** (2 skipped).
+- **Python**: `tests` 251 and `companion/tests` 138 (11 skipped), all pass (nothing of Python changed).
+- **Prints** (`school-prints --level B2 --units …`, English, Chromium): every unit on two pages (one page would be 13–71
+  mm too long), the B2 booklet of the six 14 pages. The sheets' "Besede" now miss only the term *pretekli pogojnik*
+  (23 words added to the dictionary's supplement, below). Previews: the scratchpad's `ux-sl-b2-a/prints/previews/`.
+- **Emulator QA** (`LANI_QA_UNIT=pogojnik-pretekli companion/bin/qa-slot --steps school-unit --no-town`, a synthetic
+  learner made by `make-learner.ts`): passed. The unit from "Raven B2" in the school: its page, its six intro steps (the
+  choices tapped, the clozes typed), the summary card, the first worksheet (the table, almost where adb can't type the
+  š of *šli*, and the three choices), the test straight away, passed 10/12, Mojca's cheer, the unit kept done. 23
+  screenshots and the cheer's video: the scratchpad's `ux-sl-b2-a/qa/` (11 the unit's page, 12–13 the intro, 14 the
+  summary, 15–17 the sheet, 18 the test, 19–22 the cheer, 23 the unit done).
+- **Tap counts**: no screen changed. A B2 unit is reached as any unit is: the school, its level, the unit (the level
+  folded until it is open, GAME.md "The school"); before and after the same.
+
+## The dictionary
+
+The six units' words the dictionary had no meaning for (the sheets left them out of "Besede", their word cards had no
+meaning) are in the supplement (`lexicon/sl.extra.json`) now, machine-written as it is: the gerunds as adverbs (molče,
+stoje, kleče, jokaje, igraje, nehote, nevede, mimogrede, vedoč; not sede, mostly sesti's sede when tapped), raje, the
+verbs žvižgati, pohiteti, pospraviti, zmrzniti, podreti, odnesti, obrati, odpeljati, zmleti, odleteti, prihraniti,
+razjeziti, posloviti, vstati with their forms from Sloleks 2.0, the nouns studenec, kompost, vstop, neurje, and the
+adjectives zarjavel and premrzel; each with its meanings in de and it and where it was checked.
+
+## Voice
+
+Mojca's Slovene of the six units, as the course-speech port reads it for an English base: 290 texts, 8,848 characters;
+the English explanations, apart and on demand, 35 steps, about 7,600 characters. Nothing was voiced (Jan's credits:
+ask first).
 
 ## For the native check
 
@@ -120,10 +167,19 @@ Every unit and page is marked machine-written (`review`). What most needs Jan's 
 - **oziralni-kateri**: kateri for ki + a pronoun in speech (accepted); čigar for a woman (almost) and a thing
   (accepted); the meeting (Na sestanku, ki ga je vodila teta Ančka, …); To je orodje, katerega Tone nima; Mesto, kamor
   bo vodila cesta.
-- **odvisniki-napredno**: Nejc je bledel, kot da bi videl duha; Voda je bila premrzla / preveč mrzla, da bi se kopali
-  (both accepted); Ko bo most gotov accepted beside takoj ko; the bridge's text.
+- **odvisniki-napredno**: Nejc je prebledel, kot da bi videl duha; Voda je bila premrzla / preveč mrzla, da bi se kopali
+  (both accepted); Ko and Potem ko bo most gotov accepted beside takoj ko; kot da je videl (the indicative) accepted beside kot da bi videl; the bridge's text.
 - The six pages' rules and tables, in all three bases.
 
 ## What's left
 
-(filled in at the end of the branch)
+- **The native check** above. Two choices that are Jan's or his wife's to make: čigar for a woman (now `almost` in a
+  choice and wrong when typed; SP2001 keeps čigar for a man) and how much of the past conditional and the pluperfect
+  speech still uses (the units teach both as written forms and accept the spoken way).
+- **The titles**: oziralni-kateri and odvisniki-napredno have new titles, as the outline's repeated B1's units; the
+  lead or Jan may want others.
+- **The hint chip** (`game/TurnHint.kt`) has no rule of its own for the six new pages: a scene's turn that names one
+  gets the plain hint. No scene names them yet (`polish-app` moves the chip to case-triggers.json).
+- **QA** played pogojnik-pretekli's intro, first worksheet and test; the other units and sheets are played by
+  CourseContentTest's grading only.
+- **The term** *pretekli pogojnik* has no dictionary meaning (a sheet leaves it out of "Besede").
