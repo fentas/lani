@@ -1,0 +1,1030 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "pronomi-combinati",
+  "language": "it",
+  "level": "B1",
+  "emoji": "📦",
+  "title": {
+    "it": "Me lo dai? Glielo porto",
+    "de": "Doppelte Pronomen: me lo, glielo",
+    "sl": "Dvojni zaimki: me lo, glielo",
+    "en": "Double pronouns: me lo, glielo"
+  },
+  "goal": {
+    "de": "Du sagst mit zwei kleinen Wörtern, wem du was gibst, bringst oder sagst: Me lo dai? Glielo porto. Dammelo!",
+    "sl": "Z dvema kratkima besedama poveš, komu kaj daš, prineseš ali poveš: Me lo dai? Glielo porto. Dammelo!",
+    "en": "You can say with two short words who you give, bring or tell what: Me lo dai? Glielo porto. Dammelo!"
+  },
+  "grammar": [
+    "pronomi-combinati",
+    "pronomi-diretti",
+    "pronomi-indiretti",
+    "imperativo-pronomi"
+  ],
+  "words": [
+    "il libro",
+    "la matita",
+    "la palla",
+    "il quaderno",
+    "la bici",
+    "le caramelle",
+    "le ciliegie",
+    "i biscotti",
+    "il pane",
+    "la gubana",
+    "la torta",
+    "il regalo",
+    "la radio",
+    "il biglietto",
+    "la carta",
+    "la colla",
+    "i colori",
+    "la storia",
+    "il segreto",
+    "le chiavi",
+    "il sacco",
+    "le mele",
+    "il compleanno",
+    "la festa",
+    "glieli",
+    "gliele",
+    "gliene",
+    "dare",
+    "portare",
+    "prestare",
+    "dire",
+    "raccontare",
+    "regalare",
+    "mandare",
+    "ripetere",
+    "comprare",
+    "mostrare"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "it": "pronomi",
+          "de": "Pronomen",
+          "sl": "zaimka",
+          "en": "pronouns"
+        },
+        {
+          "it": "insieme",
+          "de": "zusammen",
+          "sl": "skupaj",
+          "en": "together"
+        },
+        {
+          "it": "significa",
+          "de": "heißt",
+          "sl": "pomeni",
+          "en": "means"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "de": "Sagst du *wem?* und *was?* zusammen, stehen zwei kleine Wörter vor dem Verb: zuerst die Person, dann **lo** oder **la** (ihn, sie, es). Dabei wird **mi** zu **me** und **ti** zu **te**: **Me lo dai?** (Gibst du es mir?) **Sì, te lo do.** (Ja, ich gebe es dir.)",
+          "sl": "Ko poveš *komu?* in *kaj?* hkrati, stojita pred glagolom dve kratki besedi: najprej oseba, nato **lo** ali **la** (ga, jo). Pri tem **mi** postane **me**, **ti** pa **te**: **Me lo dai?** (Mi ga daš?) **Sì, te lo do.** (Ja, dam ti ga.)",
+          "en": "When you say *to whom?* and *what?* together, two short words go before the verb: the person first, then **lo** or **la** (him, her, it). **Mi** becomes **me** and **ti** becomes **te**: **Me lo dai?** (Will you give it to me?) **Sì, te lo do.** (Yes, I'll give it to you.)"
+        },
+        "examples": [
+          {
+            "it": "La matita? Me la presti, Giulia?",
+            "de": "Den Bleistift? Leihst du ihn mir, Giulia?",
+            "sl": "Svinčnik? Mi ga posodiš, Giulia?",
+            "en": "The pencil? Will you lend it to me, Giulia?"
+          },
+          {
+            "it": "Sì, te la presto.",
+            "de": "Ja, ich leihe ihn dir.",
+            "sl": "Ja, posodim ti ga.",
+            "en": "Yes, I'll lend it to you."
+          }
+        ],
+        "rows": [
+          [
+            "mi + lo",
+            "me lo",
+            {
+              "de": "es mir",
+              "sl": "mi ga",
+              "en": "it to me"
+            }
+          ],
+          [
+            "ti + la",
+            "te la",
+            {
+              "de": "sie dir",
+              "sl": "ti jo",
+              "en": "it to you"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomi-combinati",
+          "prompt": "«Mi dai il pane?» «Sì, ___ do.»",
+          "options": [
+            "te lo",
+            "ti lo",
+            "lo ti"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ti + lo** → **te lo**: zuerst die Person, ihr i wird e\n- ti lo · vor lo wird ti zu te\n- lo ti · die Person kommt zuerst",
+            "sl": "**ti + lo** → **te lo**: najprej oseba, njen i postane e\n- ti lo · pred lo ti postane te\n- lo ti · oseba je prva",
+            "en": "**ti + lo** → **te lo**: the person first, its i becomes e\n- ti lo · before lo, ti becomes te\n- lo ti · the person comes first"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Genauso wird **ci** zu **ce** und **vi** zu **ve**: **Nonno, ce la racconti?** (Opa, erzählst du sie uns?) Für mehrere Dinge kommt **li** oder **le**: **Le ciliegie? Me le dai?** (Die Kirschen? Gibst du sie mir?)",
+          "sl": "Prav tako **ci** postane **ce**, **vi** pa **ve**: **Nonno, ce la racconti?** (Dedek, nam jo poveš?) Za več stvari prideta **li** ali **le**: **Le ciliegie? Me le dai?** (Češnje? Mi jih daš?)",
+          "en": "In the same way **ci** becomes **ce** and **vi** becomes **ve**: **Nonno, ce la racconti?** (Grandpa, will you tell it to us?) For several things it's **li** or **le**: **Le ciliegie? Me le dai?** (The cherries? Will you give them to me?)"
+        },
+        "examples": [
+          {
+            "it": "Nonno, la storia del lupo? Ce la racconti?",
+            "de": "Opa, die Geschichte vom Wolf? Erzählst du sie uns?",
+            "sl": "Dedek, zgodbo o volku? Nam jo poveš?",
+            "en": "Grandpa, the story of the wolf? Will you tell it to us?"
+          },
+          {
+            "it": "Le ciliegie? Me le dai, Giulia?",
+            "de": "Die Kirschen? Gibst du sie mir, Giulia?",
+            "sl": "Češnje? Mi jih daš, Giulia?",
+            "en": "The cherries? Will you give them to me, Giulia?"
+          }
+        ],
+        "rows": [
+          [
+            "ci, vi + lo",
+            "ce lo, ve lo",
+            {
+              "de": "es uns, es euch",
+              "sl": "nam ga, vam ga",
+              "en": "it to us, it to you all"
+            }
+          ],
+          [
+            "mi + li, le",
+            "me li, me le",
+            {
+              "de": "sie mir (mehrere)",
+              "sl": "mi jih",
+              "en": "them to me"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomi-combinati",
+          "prompt": "«Bambini, i biscotti? ___ porto io!» dice Nonna Rosa.",
+          "options": [
+            "Ve li",
+            "Vi li",
+            "Ve le"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**vi + li** → **ve li**: euch, i biscotti\n- vi li · vor li wird vi zu ve\n- ve le · i biscotti: li",
+            "sl": "**vi + li** → **ve li**: vam, i biscotti\n- vi li · pred li vi postane ve\n- ve le · i biscotti: li",
+            "en": "**vi + li** → **ve li**: to you all, i biscotti\n- vi li · before li, vi becomes ve\n- ve le · i biscotti: li"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Für *ihm* und *ihr* (**gli**, **le**) gibt es nur eine Form, in einem Wort: **glielo**, **gliela**, **glieli**, **gliele**. **Lorenzo vuole la palla. Gliela do.** (Ich gebe ihn ihm.) Zu Maestra Elena sagst du es genauso, mit großem G: **Glielo porto, Maestra.** (Ich bringe es Ihnen.)",
+          "sl": "Za *mu* in *ji* (**gli**, **le**) je samo ena oblika, v eni besedi: **glielo**, **gliela**, **glieli**, **gliele**. **Lorenzo vuole la palla. Gliela do.** (Dam mu jo.) Učiteljici Eleni rečeš enako, z veliko začetnico: **Glielo porto, Maestra.** (Prinesem vam ga.)",
+          "en": "For *to him* and *to her* (**gli**, **le**) there is only one form, written as one word: **glielo**, **gliela**, **glieli**, **gliele**. **Lorenzo vuole la palla. Gliela do.** (I'll give it to him.) To Maestra Elena you say it the same way, with a capital G: **Glielo porto, Maestra.** (I'll bring it to you.)"
+        },
+        "examples": [
+          {
+            "it": "Lorenzo vuole la palla. Gliela do.",
+            "de": "Lorenzo will den Ball. Ich gebe ihn ihm.",
+            "sl": "Lorenzo hoče žogo. Dam mu jo.",
+            "en": "Lorenzo wants the ball. I'll give it to him."
+          },
+          {
+            "it": "Il quaderno? Glielo porto domani, Maestra.",
+            "de": "Das Heft? Ich bringe es Ihnen morgen, Frau Lehrerin.",
+            "sl": "Zvezek? Prinesem vam ga jutri, učiteljica.",
+            "en": "The exercise book? I'll bring it to you tomorrow, Miss."
+          }
+        ],
+        "rows": [
+          [
+            "gli, le + lo",
+            "glielo",
+            {
+              "de": "es ihm, es ihr",
+              "sl": "mu ga, ji ga",
+              "en": "it to him, it to her"
+            }
+          ],
+          [
+            "Le + la",
+            "Gliela",
+            {
+              "de": "sie Ihnen",
+              "sl": "vam jo (vikanje)",
+              "en": "it to you (polite)"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "pronomi-combinati",
+          "text": "Giulia vuole il libro dei cavalli. Nonna Rosa ___ compra.",
+          "accept": [
+            "glielo"
+          ],
+          "hint": "le + lo",
+          "explain": {
+            "de": "**le (a Giulia) + lo (il libro)** → **glielo**: ein Wort, auch für ein Mädchen\n- nie le lo, nie gli lo",
+            "sl": "**le (a Giulia) + lo (il libro)** → **glielo**: ena beseda, tudi za deklico\n- nikoli le lo, nikoli gli lo",
+            "en": "**le (a Giulia) + lo (il libro)** → **glielo**: one word, for a girl too\n- never le lo, never gli lo"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "In der Vergangenheit werden **lo** und **la** vor **ho**, **ha** … zu **l'**: **Chi te l'ha detto? Me l'ha detto Giulia.** (Wer hat es dir gesagt? Giulia hat es mir gesagt.) Das Partizip richtet sich nach lo, la, li, le: **La palla? Gliel'ho data.** (Den Ball? Den habe ich ihm gegeben.)",
+          "sl": "V pretekliku lo in la pred **ho**, **ha** … postaneta **l'**: **Chi te l'ha detto? Me l'ha detto Giulia.** (Kdo ti je to povedal? Giulia mi je povedala.) Deležnik se ravna po lo, la, li, le: **La palla? Gliel'ho data.** (Žogo? {m:Dal|f:Dala} sem mu jo.)",
+          "en": "In the past **lo** and **la** become **l'** before **ho**, **ha** …: **Chi te l'ha detto? Me l'ha detto Giulia.** (Who told you? Giulia told me.) The participle agrees with lo, la, li, le: **La palla? Gliel'ho data.** (The ball? I gave it to him.)"
+        },
+        "examples": [
+          {
+            "it": "Chi te l'ha detto? Me l'ha detto Giulia.",
+            "de": "Wer hat dir das gesagt? Giulia hat es mir gesagt.",
+            "sl": "Kdo ti je to povedal? Giulia mi je povedala.",
+            "en": "Who told you that? Giulia told me."
+          },
+          {
+            "it": "La palla? Gliel'ho data ieri.",
+            "de": "Den Ball? Den habe ich ihm gestern gegeben.",
+            "sl": "Žogo? {m:Dal|f:Dala} sem mu jo včeraj.",
+            "en": "The ball? I gave it to him yesterday."
+          }
+        ],
+        "rows": [
+          [
+            "me lo + ha",
+            "me l'ha detto",
+            {
+              "de": "er, sie hat es mir gesagt",
+              "sl": "povedal mi je",
+              "en": "he, she told me"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomi-combinati",
+          "prompt": "«Hai dato la gubana a Zia Nives?» «Sì, ___ data.»",
+          "options": [
+            "gliel'ho",
+            "gli l'ho",
+            "le l'ho"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**le + la** → **gliela**, vor ho: **gliel'ho data**\n- gli l'ho · glie- in einem Wort\n- le l'ho · auch le wird glie-",
+            "sl": "**le + la** → **gliela**, pred ho: **gliel'ho data**\n- gli l'ho · glie- v eni besedi\n- le l'ho · tudi le postane glie-",
+            "en": "**le + la** → **gliela**, before ho: **gliel'ho data**\n- gli l'ho · glie- as one word\n- le l'ho · le becomes glie- too"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Nach einem Infinitiv und in einem Befehl hängen beide Wörter hinten dran, als ein Wort: **Puoi darmelo?** (Kannst du es mir geben?), oder sie stehen vorne: **Me lo puoi dare?** Im Befehl: **Portagliela!** (Bring sie ihm!) Nach **da'** verdoppelt sich das m: **Dammelo!** (Gib es mir!)",
+          "sl": "Za nedoločnikom in v velelniku se obe besedi pripneta na konec, v eno besedo: **Puoi darmelo?** (Mi ga lahko daš?), ali stojita spredaj: **Me lo puoi dare?** V velelniku: **Portagliela!** (Nesi mu jo!) Za **da'** se m podvoji: **Dammelo!** (Daj mi ga!)",
+          "en": "After an infinitive and in an order, both words go on the end, as one word: **Puoi darmelo?** (Can you give it to me?), or they stay in front: **Me lo puoi dare?** In an order: **Portagliela!** (Take it to him!) After **da'** the m doubles: **Dammelo!** (Give it to me!)"
+        },
+        "examples": [
+          {
+            "it": "Il libro? Puoi prestarmelo?",
+            "de": "Das Buch? Kannst du es mir leihen?",
+            "sl": "Knjigo? Mi jo lahko posodiš?",
+            "en": "The book? Can you lend it to me?"
+          },
+          {
+            "it": "La torta è per Zia Nives. Portagliela!",
+            "de": "Der Kuchen ist für Tante Nives. Bring ihn ihr!",
+            "sl": "Torta je za teto Nives. Nesi ji jo!",
+            "en": "The cake is for Aunt Nives. Take it to her!"
+          }
+        ],
+        "rows": [
+          [
+            "dare + mi + lo",
+            "darmelo",
+            {
+              "de": "es mir geben",
+              "sl": "dati mi ga",
+              "en": "to give it to me"
+            }
+          ],
+          [
+            "da' + mi + lo",
+            "dammelo!",
+            {
+              "de": "gib es mir!",
+              "sl": "daj mi ga!",
+              "en": "give it to me!"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "pronomi-combinati",
+          "text": "«Lorenzo, è la mia matita! ___!» (dare · a me)",
+          "accept": [
+            "Dammela"
+          ],
+          "hint": "da' + mi + la",
+          "explain": {
+            "de": "**da' + mi + la** → **dammela**: das m doppelt, mi wird me\n- nie dammila",
+            "sl": "**da' + mi + la** → **dammela**: m podvojen, mi postane me\n- nikoli dammila",
+            "en": "**da' + mi + la** → **dammela**: the m doubled, mi becomes me\n- never dammila"
+          }
+        }
+      },
+      {
+        "say": {
+          "de": "Auch **ne** (davon) geht so: **me ne**, **te ne**, **gliene**. **Caramelle? Me ne dai una?** (Bonbons? Gibst du mir eins?) Und **non** steht vor beiden: **Il segreto? Non te lo dico!** (Das Geheimnis? Das sage ich dir nicht!)",
+          "sl": "Tudi **ne** (od tega) gre tako: **me ne**, **te ne**, **gliene**. **Caramelle? Me ne dai una?** (Bonboni? Mi daš enega?) In **non** stoji pred obema: **Il segreto? Non te lo dico!** (Skrivnost? Ne povem ti je!)",
+          "en": "**Ne** (of it, of them) works the same way: **me ne**, **te ne**, **gliene**. **Caramelle? Me ne dai una?** (Sweets? Will you give me one?) And **non** goes in front of both: **Il segreto? Non te lo dico!** (The secret? I won't tell you!)"
+        },
+        "examples": [
+          {
+            "it": "Ci sono tante ciliegie. Me ne dai una?",
+            "de": "Es gibt viele Kirschen. Gibst du mir eine?",
+            "sl": "Veliko češenj je. Mi daš eno?",
+            "en": "There are lots of cherries. Will you give me one?"
+          },
+          {
+            "it": "Il segreto? Non te lo dico!",
+            "de": "Das Geheimnis? Das sage ich dir nicht!",
+            "sl": "Skrivnost? Ne povem ti je!",
+            "en": "The secret? I won't tell you!"
+          }
+        ],
+        "rows": [
+          [
+            "mi + ne",
+            "me ne",
+            {
+              "de": "mir davon",
+              "sl": "mi (od tega)",
+              "en": "me some of it"
+            }
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "pronomi-combinati",
+          "prompt": "«Hai tante caramelle, Tommaso. ___ dai due?»",
+          "options": [
+            "Me ne",
+            "Mi ne",
+            "Me le"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**mi + ne** → **me ne**: due (davon)\n- mi ne · vor ne wird mi zu me\n- me le · mit einer Zahl: ne",
+            "sl": "**mi + ne** → **me ne**: due (od teh)\n- mi ne · pred ne mi postane me\n- me le · s številom: ne",
+            "en": "**mi + ne** → **me ne**: due (of them)\n- mi ne · before ne, mi becomes me\n- me le · with a number: ne"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "pronomi-combinati-1",
+      "title": {
+        "it": "Me lo, te la, glielo",
+        "de": "Me lo, te la, glielo",
+        "sl": "Me lo, te la, glielo",
+        "en": "Me lo, te la, glielo"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "pronomi-combinati",
+          "instruction": {
+            "de": "Completa la tabella · Füll die Tabelle aus",
+            "sl": "Completa la tabella · Dopolni tabelo",
+            "en": "Completa la tabella · Fill in the table"
+          },
+          "prompt": {
+            "de": "mi, ti, gli … + lo, la, le · zwei Pronomen zusammen",
+            "sl": "mi, ti, gli … + lo, la, le · dva zaimka skupaj",
+            "en": "mi, ti, gli … + lo, la, le · two pronouns together"
+          },
+          "columns": [
+            "+ lo",
+            "+ la",
+            "+ le"
+          ],
+          "rows": [
+            {
+              "label": {
+                "de": "mi · mir",
+                "sl": "mi · meni",
+                "en": "mi · to me"
+              },
+              "cells": [
+                "me lo",
+                {
+                  "accept": [
+                    "me la"
+                  ],
+                  "hint": "mi → me"
+                },
+                {
+                  "accept": [
+                    "me le"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "de": "ti · dir",
+                "sl": "ti · tebi",
+                "en": "ti · to you"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "te lo"
+                  ],
+                  "hint": "ti → te"
+                },
+                "te la",
+                {
+                  "accept": [
+                    "te le"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "de": "gli, le · ihm, ihr",
+                "sl": "gli, le · njemu, njej",
+                "en": "gli, le · to him, to her"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "glielo"
+                  ],
+                  "hint": {
+                    "de": "ein Wort: glie-",
+                    "sl": "ena beseda: glie-",
+                    "en": "one word: glie-"
+                  }
+                },
+                {
+                  "accept": [
+                    "gliela"
+                  ]
+                },
+                "gliele"
+              ]
+            },
+            {
+              "label": {
+                "de": "ci · uns",
+                "sl": "ci · nam",
+                "en": "ci · to us"
+              },
+              "cells": [
+                "ce lo",
+                {
+                  "accept": [
+                    "ce la"
+                  ],
+                  "hint": "ci → ce"
+                },
+                {
+                  "accept": [
+                    "ce le"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "de": "vi · euch",
+                "sl": "vi · vam",
+                "en": "vi · to you all"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "ve lo"
+                  ],
+                  "hint": "vi → ve"
+                },
+                "ve la",
+                {
+                  "accept": [
+                    "ve le"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomi-combinati",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "«Mi presti la bici, Tommaso?» «Sì, ___ presto.»",
+          "options": [
+            "te la",
+            "ti la",
+            "te lo"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**ti + la** → **te la**: la bici\n- ti la · vor la wird ti zu te\n- te lo · la bici ist weiblich: la",
+            "sl": "**ti + la** → **te la**: la bici\n- ti la · pred la ti postane te\n- te lo · la bici je ženskega spola: la",
+            "en": "**ti + la** → **te la**: la bici\n- ti la · before la, ti becomes te\n- te lo · la bici is feminine: la"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomi-combinati",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "«Hai portato il libro a Giulia?» «Sì, ___ portato.»",
+          "options": [
+            "gliel'ho",
+            "le l'ho",
+            "gli lo ho"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**le + lo** → **glielo**, vor ho: **gliel'ho portato**\n- le l'ho · auch le wird glie-\n- gli lo ho · glie- und lo in einem Wort, vor ho l'",
+            "sl": "**le + lo** → **glielo**, pred ho: **gliel'ho portato**\n- le l'ho · tudi le postane glie-\n- gli lo ho · glie- in lo v eni besedi, pred ho l'",
+            "en": "**le + lo** → **glielo**, before ho: **gliel'ho portato**\n- le l'ho · le becomes glie- too\n- gli lo ho · glie- and lo as one word, l' before ho"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomi-combinati",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "«Il quaderno? ___ porto domani, Maestra!»",
+          "options": [
+            "Glielo",
+            "Te lo",
+            "Ve lo"
+          ],
+          "answer": 0,
+          "almost": [
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "de": "**zu Maestra Elena: Le + lo** → **Glielo**\n- te lo · richtig, aber für ein Kind: fast\n- ve lo · für mehrere",
+            "sl": "**učiteljici: Le + lo** → **Glielo**\n- te lo · prav, a za otroka: skoraj\n- ve lo · za več ljudi",
+            "en": "**to Maestra Elena: Le + lo** → **Glielo**\n- te lo · right, but for a child: almost\n- ve lo · for several people"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pronomi-combinati-2",
+      "title": {
+        "it": "Il regalo per Zia Nives",
+        "de": "Das Geschenk für Tante Nives",
+        "sl": "Darilo za teto Nives",
+        "en": "A present for Aunt Nives"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "pronomi-combinati",
+          "instruction": {
+            "de": "Completa · Ergänze",
+            "sl": "Completa · Dopolni",
+            "en": "Completa · Fill in"
+          },
+          "title": "Il regalo per Zia Nives",
+          "text": "Domani è il compleanno di Zia Nives. I bambini hanno un regalo per lei, una radio nuova, ma è un segreto: non ___ dicono! Lorenzo vuole la carta colorata. «Tommaso, ___ dai?» «Sì, ___ do subito.» Nonna Rosa fa la gubana. «Nonna, ___ porti alla festa?» chiedono i bambini. «Certo, bambini, ___ porto alle quattro!» Il giorno dopo Giulia dice: «Zia, il regalo è per te. ___ diamo adesso!» Zia Nives sente poco: «Come? ___ ripeti?»",
+          "gaps": [
+            {
+              "accept": [
+                "glielo"
+              ],
+              "hint": {
+                "de": "a Zia Nives + il regalo",
+                "sl": "a Zia Nives + il regalo",
+                "en": "a Zia Nives + il regalo"
+              }
+            },
+            {
+              "accept": [
+                "me la"
+              ],
+              "hint": {
+                "de": "a me + la carta",
+                "sl": "a me + la carta",
+                "en": "a me + la carta"
+              }
+            },
+            {
+              "accept": [
+                "te la"
+              ],
+              "hint": {
+                "de": "a te + la carta",
+                "sl": "a te + la carta",
+                "en": "a te + la carta"
+              }
+            },
+            {
+              "accept": [
+                "ce la"
+              ],
+              "hint": {
+                "de": "a noi + la gubana",
+                "sl": "a noi + la gubana",
+                "en": "a noi + la gubana"
+              }
+            },
+            {
+              "accept": [
+                "ve la"
+              ],
+              "hint": {
+                "de": "a voi + la gubana",
+                "sl": "a voi + la gubana",
+                "en": "a voi + la gubana"
+              }
+            },
+            {
+              "accept": [
+                "Te lo"
+              ],
+              "hint": {
+                "de": "a te + il regalo",
+                "sl": "a te + il regalo",
+                "en": "a te + il regalo"
+              }
+            },
+            {
+              "accept": [
+                "Me lo"
+              ],
+              "hint": {
+                "de": "a me + quello che hai detto",
+                "sl": "a me + to, kar si rekla",
+                "en": "a me + what you said"
+              },
+              "explain": {
+                "de": "**mi + lo** → **me lo**: Me lo ripeti? (Sagst du es mir noch einmal?)",
+                "sl": "**mi + lo** → **me lo**: Me lo ripeti? (Mi to ponoviš?)",
+                "en": "**mi + lo** → **me lo**: Me lo ripeti? (Will you say it to me again?)"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "mi la",
+            "gli lo"
+          ],
+          "translation": {
+            "de": "Morgen hat Tante Nives Geburtstag. Die Kinder haben ein Geschenk für sie, ein neues Radio, aber es ist ein Geheimnis: Sie verraten es ihr nicht! Lorenzo will das bunte Papier. „Tommaso, gibst du es mir?“ „Ja, ich gebe es dir sofort.“ Nonna Rosa backt die Gubana. „Oma, bringst du sie uns zum Fest?“, fragen die Kinder. „Natürlich, Kinder, ich bringe sie euch um vier!“ Am nächsten Tag sagt Giulia: „Tante, das Geschenk ist für dich. Wir geben es dir jetzt!“ Tante Nives hört schlecht: „Wie bitte? Sagst du es mir noch einmal?“",
+            "sl": "Jutri ima teta Nives rojstni dan. Otroci imajo zanjo darilo, nov radio, a to je skrivnost: ne povedo ji! Lorenzo hoče barvni papir. »Tommaso, mi ga daš?« »Ja, takoj ti ga dam.« Babica Rosa peče gubano. »Babica, nam jo prineseš na zabavo?« vprašajo otroci. »Seveda, otroci, prinesem vam jo ob štirih!« Naslednji dan Giulia reče: »Teta, darilo je zate. Zdaj ti ga damo!« Teta Nives slabo sliši: »Kako? Mi ponoviš?«",
+            "en": "Tomorrow is Aunt Nives's birthday. The children have a present for her, a new radio, but it's a secret: they don't tell her! Lorenzo wants the coloured paper. \"Tommaso, will you give it to me?\" \"Yes, I'll give it to you right away.\" Nonna Rosa makes the gubana. \"Grandma, will you bring it to us at the party?\" the children ask. \"Of course, children, I'll bring it to you at four!\" The next day Giulia says: \"Auntie, the present is for you. We're giving it to you now!\" Aunt Nives can't hear well: \"What? Will you say it to me again?\""
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "pronomi-combinati",
+          "instruction": {
+            "de": "Scegli · Wähle",
+            "sl": "Scegli · Izberi",
+            "en": "Scegli · Choose"
+          },
+          "prompt": "«Zia, ci sono tante caramelle. ___ dai una?» chiede Lorenzo.",
+          "options": [
+            "Me ne",
+            "Mi ne",
+            "Me la"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "de": "**mi + ne** → **me ne**: una (davon)\n- mi ne · vor ne wird mi zu me\n- me la · la für ein genanntes Ding; eins davon: ne",
+            "sl": "**mi + ne** → **me ne**: una (od teh)\n- mi ne · pred ne mi postane me\n- me la · la za imenovano stvar; eno od teh: ne",
+            "en": "**mi + ne** → **me ne**: una (one of them)\n- mi ne · before ne, mi becomes me\n- me la · la for a thing named; one of them: ne"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pronomi-combinati-3",
+      "title": {
+        "it": "Due pronomi al posto di due cose",
+        "de": "Zwei Pronomen für zwei Dinge",
+        "sl": "Dva zaimka namesto dveh stvari",
+        "en": "Two pronouns for two things"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "pronomi-combinati",
+          "instruction": {
+            "de": "Usa due pronomi · Sag es mit zwei Pronomen",
+            "sl": "Usa due pronomi · Povej z dvema zaimkoma",
+            "en": "Usa due pronomi · Say it with two pronouns"
+          },
+          "items": [
+            {
+              "from": "Do la palla a Lorenzo.",
+              "accept": [
+                "Gliela do."
+              ],
+              "hint": {
+                "de": "a Lorenzo → gli, la palla → la",
+                "sl": "a Lorenzo → gli, la palla → la",
+                "en": "a Lorenzo → gli, la palla → la"
+              }
+            },
+            {
+              "from": "Porto il libro a Giulia.",
+              "accept": [
+                "Glielo porto."
+              ]
+            },
+            {
+              "from": "Racconto la storia a voi.",
+              "accept": [
+                "Ve la racconto."
+              ]
+            },
+            {
+              "from": "Ti do il quaderno.",
+              "accept": [
+                "Te lo do."
+              ]
+            },
+            {
+              "from": "Mando le foto a Zia Nives.",
+              "accept": [
+                "Gliele mando."
+              ]
+            },
+            {
+              "from": "Tommaso presta la bici a noi.",
+              "accept": [
+                "Tommaso ce la presta.",
+                "Ce la presta Tommaso.",
+                "Ce la presta."
+              ]
+            }
+          ],
+          "explain": {
+            "de": "**zuerst die Person, dann das Ding**: mi → me, gli und le → glie-\n- Do la palla a Lorenzo. → Gliela do.\n- Ti do il quaderno. → Te lo do.",
+            "sl": "**najprej oseba, nato stvar**: mi → me, gli in le → glie-\n- Do la palla a Lorenzo. → Gliela do.\n- Ti do il quaderno. → Te lo do.",
+            "en": "**the person first, then the thing**: mi → me, gli and le → glie-\n- Do la palla a Lorenzo. → Gliela do.\n- Ti do il quaderno. → Te lo do."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "pronomi-combinati",
+          "instruction": {
+            "de": "In una parola · Hänge sie an",
+            "sl": "In una parola · Pripni ju",
+            "en": "In una parola · Put them on the end"
+          },
+          "items": [
+            {
+              "from": "Dammi il libro!",
+              "accept": [
+                "Dammelo!"
+              ],
+              "hint": "dammi + lo"
+            },
+            {
+              "from": "Porta la torta a Zia Nives!",
+              "accept": [
+                "Portagliela!"
+              ]
+            },
+            {
+              "from": "Dimmi il segreto!",
+              "accept": [
+                "Dimmelo!"
+              ]
+            },
+            {
+              "from": "Puoi prestarmi la matita?",
+              "accept": [
+                "Puoi prestarmela?",
+                "Me la puoi prestare?"
+              ],
+              "hint": {
+                "de": "prestare + mi + la",
+                "sl": "prestare + mi + la",
+                "en": "prestare + mi + la"
+              }
+            }
+          ],
+          "explain": {
+            "de": "**hinten dran, ein Wort**: dammi + lo → dammelo\n- Porta la torta a Zia Nives! → Portagliela!\n- Puoi prestarmi la matita? → Puoi prestarmela? (oder Me la puoi prestare?)",
+            "sl": "**na konec, ena beseda**: dammi + lo → dammelo\n- Porta la torta a Zia Nives! → Portagliela!\n- Puoi prestarmi la matita? → Puoi prestarmela? (ali Me la puoi prestare?)",
+            "en": "**on the end, one word**: dammi + lo → dammelo\n- Porta la torta a Zia Nives! → Portagliela!\n- Puoi prestarmi la matita? → Puoi prestarmela? (or Me la puoi prestare?)"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "pronomi-combinati",
+        "instruction": {
+          "de": "Completa · Ergänze",
+          "sl": "Completa · Dopolni",
+          "en": "Completa · Fill in"
+        },
+        "title": "La festa della scuola",
+        "text": "Domani c'è la festa della scuola. «Bambini, i colori? ___ portate domani?» chiede Maestra Elena. «Sì, Maestra, ___ portiamo!» Tommaso non ha la colla. «Giulia, ___ presti?» «Sì, ___ presto.» Lorenzo sa una storia bellissima. «Lorenzo, ___ racconti?» chiedono i bambini.",
+        "gaps": [
+          {
+            "accept": [
+              "Me li",
+              "Ce li"
+            ]
+          },
+          {
+            "accept": [
+              "Glieli"
+            ]
+          },
+          {
+            "accept": [
+              "me la"
+            ]
+          },
+          {
+            "accept": [
+              "te la"
+            ]
+          },
+          {
+            "accept": [
+              "ce la"
+            ]
+          }
+        ],
+        "translation": {
+          "de": "Morgen ist das Schulfest. „Kinder, die Farben? Bringt ihr sie mir morgen?“, fragt Maestra Elena. „Ja, Frau Lehrerin, wir bringen sie Ihnen!“ Tommaso hat keinen Kleber. „Giulia, leihst du ihn mir?“ „Ja, ich leihe ihn dir.“ Lorenzo kennt eine wunderschöne Geschichte. „Lorenzo, erzählst du sie uns?“, fragen die Kinder.",
+          "sl": "Jutri je šolska zabava. »Otroci, barve? Mi jih jutri prinesete?« vpraša učiteljica Elena. »Ja, učiteljica, prinesemo vam jih!« Tommaso nima lepila. »Giulia, mi ga posodiš?« »Ja, posodim ti ga.« Lorenzo zna čudovito zgodbo. »Lorenzo, nam jo poveš?« vprašajo otroci.",
+          "en": "Tomorrow is the school party. \"Children, the paints? Will you bring them to me tomorrow?\" asks Maestra Elena. \"Yes, Miss, we'll bring them to you!\" Tommaso has no glue. \"Giulia, will you lend it to me?\" \"Yes, I'll lend it to you.\" Lorenzo knows a lovely story. \"Lorenzo, will you tell it to us?\" ask the children."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "pronomi-combinati",
+        "instruction": {
+          "de": "Usa due pronomi · Sag es mit zwei Pronomen",
+          "sl": "Usa due pronomi · Povej z dvema zaimkoma",
+          "en": "Usa due pronomi · Say it with two pronouns"
+        },
+        "items": [
+          {
+            "from": "Do la mela a Giulia.",
+            "accept": [
+              "Gliela do."
+            ]
+          },
+          {
+            "from": "Mi racconti la storia?",
+            "accept": [
+              "Me la racconti?"
+            ]
+          },
+          {
+            "from": "Ho dato il quaderno alla maestra.",
+            "accept": [
+              "Gliel'ho dato."
+            ]
+          },
+          {
+            "from": "Portami i biscotti!",
+            "accept": [
+              "Portameli!"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "pronomi-combinati",
+        "prompt": "«Il pane? ___, per favore!» dice Lorenzo al nonno.",
+        "options": [
+          "Dammelo",
+          "Dammilo",
+          "Dallomi"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**da' + mi + lo** → **dammelo**\n- dammilo · vor lo wird mi zu me\n- dallomi · zuerst die Person",
+          "sl": "**da' + mi + lo** → **dammelo**\n- dammilo · pred lo mi postane me\n- dallomi · najprej oseba",
+          "en": "**da' + mi + lo** → **dammelo**\n- dammilo · before lo, mi becomes me\n- dallomi · the person first"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "pronomi-combinati",
+        "prompt": "«La bici? ___ prestare, Giulia?»",
+        "options": [
+          "Me la puoi",
+          "Mi la puoi",
+          "Puoi me la"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**vor dem Modalverb**: Me la puoi prestare? (oder Puoi prestarmela?)\n- mi la · vor la wird mi zu me\n- puoi me la · vorne oder hinten am Infinitiv, nicht dazwischen",
+          "sl": "**pred naklonskim glagolom**: Me la puoi prestare? (ali Puoi prestarmela?)\n- mi la · pred la mi postane me\n- puoi me la · spredaj ali na koncu nedoločnika, ne vmes",
+          "en": "**before the modal**: Me la puoi prestare? (or Puoi prestarmela?)\n- mi la · before la, mi becomes me\n- puoi me la · in front, or on the end of the infinitive, not in between"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "pronomi-combinati",
+        "prompt": "«Il sacco di farina? ___ porto io, signor Franco!»",
+        "options": [
+          "Glielo",
+          "Te lo",
+          "Gli lo"
+        ],
+        "answer": 0,
+        "almost": [
+          1
+        ],
+        "say_options": true,
+        "explain": {
+          "de": "**zu signor Franco: Le + lo** → **Glielo**\n- te lo · richtig, aber zu ihm sagst du Lei: fast\n- gli lo · glie- und lo in einem Wort",
+          "sl": "**gospodu Francu: Le + lo** → **Glielo**\n- te lo · prav, a njega vikaš: skoraj\n- gli lo · glie- in lo v eni besedi",
+          "en": "**to signor Franco: Le + lo** → **Glielo**\n- te lo · right, but you say Lei to him: almost\n- gli lo · glie- and lo as one word"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "pronomi-combinati",
+        "prompt": "«Chi ___ ha detto?» «Me l'ha detto Zia Nives.»",
+        "options": [
+          "te l'",
+          "ti l'",
+          "te la"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "de": "**ti + lo** → **te lo**, vor ha: **te l'ha detto**\n- ti l' · vor lo wird ti zu te\n- te la · vor ha wird la zu l', und detto passt zu lo",
+          "sl": "**ti + lo** → **te lo**, pred ha: **te l'ha detto**\n- ti l' · pred lo ti postane te\n- te la · pred ha la postane l', in detto gre z lo",
+          "en": "**ti + lo** → **te lo**, before ha: **te l'ha detto**\n- ti l' · before lo, ti becomes te\n- te la · before ha, la becomes l', and detto goes with lo"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker. Native check: Glielo to Maestra and signor Franco, me li or ce li from the teacher, Me lo ripeti?, Me ne dai una?, the German Sie"
+}
