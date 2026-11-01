@@ -34,9 +34,14 @@ class GrammarTest {
         assertEquals(emptyList<GrammarPage>(), Grammar.bundled("xx"))
     }
 
-    @Test fun `German and English have 16 pages each, Italian every file of its book, and the Italian tent's page is there`() {
-        for (lang in listOf("de", "en")) assertEquals(lang, 16, Grammar.bundled(lang).size)
-        // the 16 of the villages and the pages the school's units brought (imperativo, ore-giorni: COURSE.md, "Italian A1")
+    @Test fun `German, English and Italian bundle every file of their book, 16 or more, and the Italian tent's page is there`() {
+        // the 16 of the villages and the pages their schools' units brought where none fitted (German's zahlen, possessiv …;
+        // English's numbers, this-that …; Italian's imperativo, ore-giorni: COURSE.md)
+        for (lang in listOf("de", "en")) {
+            val files = File("../../grammar/$lang").listFiles { f -> f.name.endsWith(".json") }!!.size
+            assertTrue("$files $lang pages", files >= 16)
+            assertEquals(lang, files, Grammar.bundled(lang).size)
+        }
         val italian = File("../../grammar/it").listFiles { f -> f.name.endsWith(".json") }!!.size
         assertTrue("$italian Italian pages", italian >= 18)
         assertEquals("it", italian, Grammar.bundled("it").size)
