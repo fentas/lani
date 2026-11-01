@@ -5534,27 +5534,38 @@ def kaernten_projects_b():
         qa_hook("bubbles:0")
         from_map("gasilski_dom", "beim-feuerwehrhaus", "feuerwehr", ("11",))
         from_map("razgledni_stolp", "auf-dem-aussichtsturm", "turm", ("10", "19"))
-        # the stream bank, a spot: the camera flies to it, the bank tapped in the middle of the picture, its card's way in
+        # the spots on the map: the stream bank (by the stream through the village) and the pond in the wood below it, tapped
+        # where the village's picture has them on the phone's screen (fractions of it), each card's way in; the first found
+        # opens its scene, else Am Bach by its link
         bach = scene_of("am-bach")
+        teich = scene_of("am-teich")
         plain_village()
         qa_hook("show:riverbank")
         time.sleep(3)
         snap("kp-bach-map")
         w, h = screen_size()
-        adb("shell", "input", "tap", str(w // 2), str(h // 2))
-        if wait_for(bach["title"][pair[0]], 8) is None:
-            # the camera came to rest elsewhere than over the bank: its link instead (the card's way in is the same scene)
-            snap("kp-bach-no-card")
+        found = None
+        for fx, fy in ((0.49, 0.53), (0.20, 0.595), (0.06, 0.645), (0.47, 0.83)):
+            adb("shell", "input", "tap", str(int(w * fx)), str(int(h * fy)))
+            time.sleep(2)
+            for title in (bach["title"][pair[0]], teich["title"][pair[0]]):
+                if find(title) is not None:
+                    found = title
+                    break
+            if found:
+                break
             adb("shell", "input", "keyevent", "KEYCODE_BACK")
-            plain_village()
-            qa_hook("scene:am-bach")
-        else:
             time.sleep(1)
-            snap("kp-bach-card")
-            assert tap(bach["title"][pair[0]], 4), "into Am Bach from its card"
-        assert wait_for(back, 10), "Am Bach opens"
+        if found:
+            snap("kp-spot-card")
+            assert tap(found, 4), f"into {found} from its card"
+        else:
+            snap("kp-spot-no-card")
+            plain_village()
+            qa_hook("hour:11", "scene:am-bach")
+        assert wait_for(back, 10), "the spot's scene opens"
         time.sleep(3)
-        snap("kp-bach-inside")
+        snap("kp-spot-inside")
         tap(back, 3)
         # Oma Resi's washing day, played on
         plain_village()
