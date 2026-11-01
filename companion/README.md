@@ -24,7 +24,7 @@ Android app ──HTTP/SSE──► bridge service ◄──unix socket (MCP)─
 |---|---|
 | `bridge/` | Claude Code channel server (Bun/TS). Forwards app messages into the session, exposes `reply`, `publish_module`, `publish_pack`, `publish_grammar`, `publish_worksheet`, `publish_scenario`, `publish_scene`, `publish_reading` and `publish_gloss` tools, relays permission prompts, serves the app API. |
 | `lexicon/` | Word lookup's dictionaries (see [Word lookup](#word-lookup)): `sl.json`, built from Wiktionary, with its meanings in Italian and German, `sl.extra.json`, a hand-written supplement, and `sl.forms.json`, the forms book: hand-checked tables of the irregular verbs and of the nouns Wiktionary gets wrong, the verb pairs and the animate nouns (see [Word forms](#word-forms)). The larger ones (Italian, German, English) are downloads (`LANI_LEXICON_URL`). |
-| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 71 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`; `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
+| `grammar/` | The grammar book's curated pages (`lani.grammar/v0`, one rule each, see [Grammar book](#grammar-book)): `grammar/<language>/`, 77 in `grammar/sl/`, 16 each in `grammar/it/`, `grammar/de/` and `grammar/en/`; `grammar/sl/data/case-triggers.json`, what decides a case (the case lens's trigger table, see [The case lens](#the-case-lens)), no page. |
 | `cards/` | The cheat sheet's curated cards no grammar page fits (`lani.card/v0`, see [Cheat sheet](#cheat-sheet)): `cards/<language>/<id>.json`. |
 | `course/` | The school's course (see [The school's course](#the-schools-course) and [COURSE.md](COURSE.md)): `course/<language>/course.json`, the outline of its levels and units (`lani.course/v0`), and `course/<language>/units/<id>.json`, a unit each (`lani.unit/v0`). |
 | `drills/` | The car's audio drills (`lani.drill/v0`, see [The drills](#the-drills)): `drills/<language>/`, four in `drills/sl/` (transformations, rapid fire, sentence building, riddles). |
@@ -1839,7 +1839,7 @@ categories and ids, a tag's words in a row: `accusative` matches `accusative_fem
 `vocab_iz_genitive_fem`), related pages (`see`), `machine_written` and `review`. English is always there: it is every
 base's fallback. The tutor's `more` is a clearer or longer explanation, shown as the tutor's.
 
-**Curated pages** are `companion/grammar/<language>/<id>.json`. Slovene has 71, each explained in English, German and
+**Curated pages** are `companion/grammar/<language>/<id>.json`. Slovene has 77, each explained in English, German and
 Italian (machine-written, not reviewed by a native speaker): `kje-mestnik-orodnik` (Kje? v, na, ob, pri + locative, v or
 na; pod, za … and blizu point on to their A2 pages), `kam-tozilnik` (Kam? the accusative, k + dative, domov),
 `rodilnik-predlogi` (iz, z/s, od, do, blizu, brez), `rodilnik-nikalnica` (nimam časa; ne berem knjigo, ampak revijo),
