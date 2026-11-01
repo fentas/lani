@@ -25,6 +25,7 @@ how to write units.
 - [The learner's progress](#the-learners-progress)
 - [Writing a unit](#writing-a-unit)
 - [The Italian course](#the-italian-course)
+- [The German course](#the-german-course)
 - [Printed sheets](#printed-sheets)
 
 ## The files
@@ -1036,6 +1037,51 @@ order, B1's earlier ones only lightly:
 - **No trick**: congiunzioni's gap text has no distractors (almost every conjunction fits some gap), as vorrei's has
   none; a wrong option is wrong Italian or wrong by its own sentence (la mia where Davide is told about, sono where
   Giulia said it).
+
+## The German course
+
+The German course is `companion/course/de/`: the outline (A1, 18 units, the grammar book's German pages to teach) and
+its units, written for adults in the Carinthian village's life below the Dobratsch near Villach (Wirtin Kathi and her
+Gasthaus, Mostbauer Stefan's cider, Tante Mitzi, Müller Franz and his mill, Schmied Toni, Imker Stanko, Hirte Florian
+and his sheep, Opa Sepp's stories, Oma Resi's kitchen, the Kirchtag). It serves a learner of German from Slovene, English
+or Italian (a visitor, a neighbour across the border), and is the same school as the others: the bridge serves the course
+of the village's language (`GET /course` of a Carinthian village is German), the app bundles it, and every part of the
+school is the course's language's:
+
+| What | For German |
+|---|---|
+| Who teaches | the school's person of the culture's cast (`Residents.brings(SCHOOL)`: Lehrerin Eva in Kärnten), in her cast's voice (`teacher`, Lily; `@eva` once she has her own); the guide names her (features/course.ts) |
+| Read aloud | the intro's German in her voice: `Spoken.looks` for German (ä, ö, ü, ß, its frequent words) and the words the intro itself shows; the explanation in the learner's base as one clip (`en\|…`, `sl\|…`, `it\|…`); voice-build's `course` source makes her lines ahead (`course-speech.ts`, the smoke's Carinthian checks) |
+| The teacher's lines | "Willkommen in der Schule! Setzt euch, fangen wir an." and "Das kannst du schon": Eva says du, as the village does |
+| Texts in the base | the exercises' instructions, hints, whys, labels and columns per base `{en, sl, it}` ([above](#texts-in-the-learners-language)); the intro's `say`, the titles, the goals and the examples in every base too |
+| Grading | the German table (`grading/de.json`): ae, oe, ue, ss for ä, ö, ü, ß almost (hint umlaut), an umlaut left out a slip in the stem; capitals don't count (a noun typed small is right, as is sie for Sie: du or Sie is asked by a tap, never typed); geht's, gehts and geht es one answer, tschüs and tschüss, the spoken hab for habe; known mistakes, each only for a word of its group: the plural's umlaut (Apfel for Äpfel, Vater for Väter), the present's vowel change (fahrst for fährst, lest for liest), er's form for du's on a short stem (sagt for sagst, hat for hast, ist for bist), ein for kein, ich, mich, dich for each other, a number word for another (einundzwanzig for neunundzwanzig); the subject is never left out (`drop_subject` false) |
+| Austrian standard | the village's German: Grüß Gott, Servus, Baba, Jänner, heuer, Paradeiser, Erdapfel, Topfen, Sackerl; where Germany says otherwise (Januar, Tomate, Kartoffel, Tschüss), that form is accepted too and named in the explanation |
+| The blackboard | "Willkommen!" and the day as Austria writes it (1.11.2026) before the first unit; the unit's title and forms in chalk (ä, ö, ü, ß written) |
+| Prints | headed in German and the base ("Regel · The rule", "Lektion"), the words from the German and the culture's packs with their article (der Hund), the supplement's words (`lexicon/de.extra.json`) with their meanings in Slovene and Italian; Slovene, English and Italian as bases |
+| Not for German | forms cards, counting cards and the numbers module, case rows, the cases overview (Slovene's); the German units name no `lemma`/`form`, and the smoke's checks against the dictionary's forms stay Slovene's (`FORMS_LANGUAGES`) |
+| Checked | `GermanCourseContentTest` (every unit parsed and played at its level, every right answer graded right by the German grading, no decoy right, every text per base in en, sl and it), `GradingLanguagesTest`'s German section, `SchoolBoardTest` (every letter of the German course), the smoke's course, course-speech and prints sections |
+
+Writing a German unit: as [Writing a unit](#writing-a-unit), for adults: the village's grown-ups and their work, never
+the learner's own data (an age is Stefan's, not the learner's). The explanations in English, Slovene and Italian, every
+German form in **bold** with its meaning in brackets right after it; the exercises' texts per base; du to the learner and
+among the villagers, Sie where the unit teaches it (to a stranger, Grüß Gott, Wie heißen Sie?); nouns always with their
+capital and, where a word list gives them, their article; Austrian words where the village says them, the German-German
+one accepted; every file flagged machine-written in its `review`, with what a native speaker should look at (Austrian
+German first, then each base).
+
+### The German course: units 1–6
+
+A1's first six units, the greetings to the numbers (docs/plans/05-built/course-de-a1-a.md; the next twelve are the
+course's other writers'):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `hallo` 👋 | Grüß Gott, Servus, Guten Morgen, Guten Abend; Auf Wiedersehen, Tschüss, Baba; ich heiße, wie heißt du, wie heißen Sie; du with the village, Sie with a stranger; Wie geht's? | du-sie |
+| `sein` 🟰 | ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind; Sie with the capital; who and where, what someone is (Kathi ist Wirtin) | sein-haben |
+| `artikel` 🏷️ | der, die, das and ein, eine; the noun's capital; the gender learned with the word; -e mostly die, -chen das, people by sex; Austrian der Paradeiser, der Erdapfel | artikel-genus |
+| `plural` 🐑 | -e, -(e)n, -er, -s and none; the umlaut (Äpfel, Väter, Bücher); die for every plural | plural, artikel-genus |
+| `haben` 🎒 | ich habe (spoken hab), du hast, er hat, wir haben, ihr habt; Hunger and Durst haben, age with sein | sein-haben |
+| `zahlen` 🔢 | null to zwanzig, sechzehn and siebzehn, the tens (dreißig with ß), einundzwanzig (the one first), hundert; eins counting, ein before a noun; Wie viel? Wie viele? | zahlen |
 
 ## Printed sheets
 
