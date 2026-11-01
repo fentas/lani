@@ -127,6 +127,22 @@ export default async function courseSpeech() {
       S.schoolTeacher(kaerntenCast)?.id === 'eva' && S.teacherVoice(kaerntenCast, v => v.speaker ?? v.voice) === 'teacher' && S.teacherVoice(kaerntenCast, v => v.speaker ?? v.voice, id => id === 'eva') === '@eva')
     const cast = JSON.parse(readFileSync(join(culturesDir, 'kaernten/voice-cast.json'), 'utf8'))
     check("…the Carinthian cast gives the teacher's speaker a woman's voice", cast.speakers?.teacher?.gender === 'female' && typeof cast.speakers.teacher.elevenlabs === 'string', cast.speakers?.teacher)
+    const ana = addressee({ name: 'Ana', gender: 'female' })
+    for (const b of ['en', 'sl', 'it']) {
+      const deUnits = renderDeep(new CourseStore(courseDir(join(repo, 'companion/course'), 'de'), 'de', tempDir(`lani-cs-course-de-${b}-`), () => {}, () => b).served()!.units, ana)
+      const ct = S.courseTexts({ units: deUnits, bases: [b] }, 'de')
+      const has = (x: string) => ct.lines.some(l => l.text === x)
+      // the base never in her voice: a word only the base has (the English, Slovene or Italian of the explanations and prompts)
+      const BASE: Record<string, RegExp> = { en: /\b(the|you|your|are|hello|goodbye|evening|morning|polite)\b/i, sl: /(?<!\p{L})(je|ki|kako|pri|sem|si|so|pa|tudi|zvečer|zjutraj)(?!\p{L})/iu, it: /(?<!\p{L})(il|la|che|di|una|per|non|sono|è|della|alla)(?!\p{L})/iu }
+      const base = ct.lines.filter(l => BASE[b].test(l.text))
+      check(`the German course as the app reads it in Eva's voice for a learner from ${b}: the examples, the quick questions (a gap a pause), the answers, the German of the explanations; never the base`,
+        deUnits.length >= 2 && has('Grüß Gott, Frau Kathi!') && has('Gute …, Opa Sepp! Bis morgen!') && has('Gute Nacht, Opa Sepp! Bis morgen!') && has('Toni … in der Schmiede.') && has('Toni ist in der Schmiede.') &&
+          has('ich bin') && has('Ich heiße Ana. Freut mich!') && base.length === 0 && ct.explanations.length > 0 && ct.explanations.every(e => e.lang === b),
+        base.slice(0, 6).map(l => l.text))
+    }
+    const deUnits = renderDeep(new CourseStore(courseDir(join(repo, 'companion/course'), 'de'), 'de', tempDir('lani-cs-course-de-'), () => {}, () => 'en').served()!.units, ana)
+    const read = corpus({ packs: [], modules: [], scenarios: [], villagers: kaerntenCast, course: { units: deUnits, bases: ['en'] }, learner: ana, language: 'de' }).filter(i => i.source.startsWith('course:'))
+    check("corpus: the German course in Lehrerin Eva's voice, its English explanations last", read.length > 80 && read.every(i => i.voice === 'teacher') && read.filter(i => i.lang).every(i => i.lang === 'en'), read.length)
   }
 
   // --- companion/bin/voice-build --only, --explanations, --base on a store of its own ---------------------------------
