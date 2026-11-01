@@ -394,11 +394,11 @@
         {
           "who": "wilf",
           "face": "surprised",
-          "en": "Look! There. A stag and two hinds.",
-          "sl": "Poglej! Tam. Jelen in dve košuti.",
-          "it": "Guarda! Là. Un cervo e due cerve.",
-          "de": "Schau! Da. Ein Hirsch und zwei Hirschkühe.",
-          "fx": { "herd": 1 }
+          "en": "Look! There. A stag and two hinds. And up go the birds!",
+          "sl": "Poglej! Tam. Jelen in dve košuti. In ptice vzletijo!",
+          "it": "Guarda! Là. Un cervo e due cerve. E gli uccelli si alzano in volo!",
+          "de": "Schau! Da. Ein Hirsch und zwei Hirschkühe. Und die Vögel fliegen auf!",
+          "fx": { "herd": 1, "birds": 1 }
         },
         {
           "choices": [
@@ -960,6 +960,15 @@
             "it": "Eh? Ripeti, {m:amico|f:amica}.",
             "de": "Hä? Sag das noch mal, Kumpel."
           }
+        },
+        {
+          "who": "jack",
+          "face": "happy",
+          "en": "Shh. And there's the fox, trotting along the edge of the wood to her den.",
+          "sl": "Pst. In tam je lisica, ki ob robu gozda teče proti svojemu brlogu.",
+          "it": "Sst. Ed ecco la volpe, che trotterella lungo il margine del bosco verso la tana.",
+          "de": "Pst. Und da ist der Fuchs, er trabt am Waldrand entlang zu seinem Bau.",
+          "fx": { "fox": 1 }
         },
         {
           "who": "jack",
