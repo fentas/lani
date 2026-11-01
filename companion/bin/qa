@@ -121,7 +121,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        stones grinding (Friuli's Nel mulino with LANI_CULTURE=friuli, an Italian learner, the phone in sl · en: LANI_QA_PAIR=sl-en);
                        "mill-turning" the mill's wheels turning: in from the stream's mill, closer up, the waterwheel
                        dragged to the middle (its area: tag SceneAt), a burst of screenshots on the device a fraction of a
-                       second apart and the wheel's frames side by side ($LANI_QA_MILL_SHOTS; Friuli's the same);
+                       second apart and the wheel's frames side by side ($LANI_QA_MILL_SHOTS; Friuli's the same;
+                       $LANI_QA_MILL_HOUR another hour than 11: 22.5 at night);
                        "places" the village's places: the bocce court finished, its landmark's card, "🚪 Vstopi", a dialog
                        and «Vidim, vidim» there, then the playground, the chapel, the fire station, the lookout and the
                        palisade's gate by day and at night ($LANI_QA_PLACES_SHOTS; with LANI_CULTURE=friuli and an
@@ -5145,7 +5146,7 @@ def mill():
         assert tap(T["back"], 3), "back from the mill"
         # from the stream: the mill's word, and under it the way in
         plain_village()
-        qa_hook("hour:11", f"scene:{T['stream']}@mill")
+        qa_hook(f"hour:{hour}", f"scene:{T['stream']}@mill")
         assert wait_for(T["back"], 10), "the stream opens"
         assert wait_for(T["inside"], 8), "the stream's mill's bubble: its way in"
         time.sleep(1.5)
@@ -5221,8 +5222,10 @@ def mill_turning():
     flume's water pouring into its buckets just past the top, the buckets riding down full and tipping out into the race,
     nothing over the wheel's face; and the cog wheel inside turning the same way. Friuli's Nel mulino the same with
     LANI_CULTURE=friuli (an Italian learner, the phone in sl · en: LANI_QA_PAIR=sl-en). Also as mill-turning-*.png, and a
-    strip of the wheel's frames (mill-turning-wheel.png), in $LANI_QA_MILL_SHOTS."""
+    strip of the wheel's frames (mill-turning-wheel.png), in $LANI_QA_MILL_SHOTS. $LANI_QA_MILL_HOUR: another hour than 11
+    (22.5: at night, the lantern lit, the wheel's water in the night's light as the wood beside it)."""
     T = mill_texts()
+    hour = os.environ.get("LANI_QA_MILL_HOUR", "11")
     sid = T["scene"]["id"]
     out = Path(os.environ["LANI_QA_MILL_SHOTS"]) if os.environ.get("LANI_QA_MILL_SHOTS") else None
 
@@ -5237,7 +5240,7 @@ def mill_turning():
         qa_hook("bubbles:0")
         qa_hook("step:mlin/7")
         adb("logcat", "-c")
-        qa_hook("hour:11", f"scene:{T['stream']}@mill")
+        qa_hook(f"hour:{hour}", f"scene:{T['stream']}@mill")
         assert wait_for(T["back"], 10), "the stream opens"
         assert wait_for(T["inside"], 8), "the stream's mill's bubble: its way in"
         assert tap(T["inside"], 4), "into the mill from the stream"

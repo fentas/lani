@@ -96,7 +96,8 @@ look has no digests (FriuliIndoorLooksTest compares it with the Slovene one).
   the system's Back), a burst of eight screenshots on the device a fraction of a second apart and the wheel's frames side
   by side. On 2026-10-31 (slot 1, a synthetic learner): the burst 0.25 to 0.34 s apart, the wheel turning its top
   downstream, the flume's water pouring into the bucket past the top, the buckets full down the near side and emptying
-  into the race, nothing across the face.
+  into the race, nothing across the face. `LANI_QA_MILL_HOUR=22.5` shoots it at night (2026-11-01, polish-app: the
+  flume's, the buckets' and the race's water the same night blue, before the flume's alone stood out).
 
 ## Taps
 
