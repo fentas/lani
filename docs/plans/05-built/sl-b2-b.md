@@ -84,7 +84,42 @@ their nouns; *zaleteti*, *spotakniti* and *sprehoditi* (the verbs of zaleteti se
 
 ## Tests
 
-(filled in below as run)
+- **Bridge**: `tsc` clean; the smoke (`LANI_SMOKE_PORT=9490 LANI_SMOKE_DRAMA3_PORT=9508 bun test/smoke.ts`) 3,252 checks,
+  all passed: its course section validates the six units, their pages and the outline, and judges 481 answers against
+  the dictionary (465 before the supplement), all forms of the word in brackets; course-speech reads them in Mojca's
+  voice, never an English word. A first run found vinar (a pack's noun, now with forms) with an accusative not settled:
+  fixed. `tutor-export --check`: 89 files match.
+- **Android**: CourseContentTest (every answer graded right by the app's grading, no bank distractor right or almost),
+  SchoolBoardTest (it found brezosebno's table too wide for the board: fixed), GrammarTest, GradingLanguagesTest (the new
+  Slovene prefix test), IntroSpeechParityTest, CourseTest, PrintsTest, CheatSheetTest: green. The full unit suite (through lani-slot.sh): 3,629 tests in 462 classes, none failed (2
+  skipped).
+- **Python**: `tests` 251 and `companion/tests` 138 (11 skipped), green (the qa script's step changed).
+- **Prints** (`school-prints --level B2 --units …`): every unit fits on two pages in English (the booklet of the six 14
+  pages), in German pomanjsevalnice on one; no word of the units left without a meaning. Each step's point is now on
+  its rule line (`condense` keeps the first sentence and two more within 200 characters: ten steps had their point in a
+  later long sentence and printed without it).
+- **Emulator QA** (`companion/bin/qa-slot --steps school-unit,school-print --no-town`, a synthetic learner, Ana; QA's hook
+  `school:<unit>` opens the unit's level, B2, as for a learner past B1), three runs on the second emulator slot:
+  - **predlogi-dva-sklona end to end** (`LANI_QA_UNIT=predlogi-dva-sklona`): its page, the five intro steps (choices
+    tapped, clozes typed), the summary card, the first worksheet's sort and table checked, the test passed 11½/12 (11
+    right, 1 almost: adb types no č, š, ž), Mojca's cheer, the dev bridge keeping the unit done. Screenshots:
+    the scratchpad's `ux-sl-b2-b/qa3-predlogi-unit/`.
+  - **its print** (`LANI_QA_PRINT_UNIT=predlogi-dva-sklona`): "🖨️ Natisni list" on the unit, fit.js in the app's WebView
+    choosing as headless Chromium does (two pages, density 2), the print dialog, the PDF saved (A4, two pages), then
+    "🖨️ Vsi listi" on B2: the booklet fitted alike in both. `ux-sl-b2-b/qa2-predlogi-print/` (with school-print-fit.txt).
+  - **pomanjsevalnice** (the first run): intro, summary, sheet and test played; its test came out 8/12 because adb can't
+    type č, š, ž and eight of its answers have one (knjižica, stolček, žlička, košarici, lončku …, each almost): QA's
+    keyboard, not the unit (CourseContentTest grades every answer right). `ux-sl-b2-b/qa1-pomanjsevalnice/`.
+  Two QA fixes came out of them: `school-unit` swipes up to eight times to a quick question's gap (predlogi-dva-sklona's
+  last one lay under a table of eight rows), and `school-print` scrolls to a later level and names its PDF after the
+  unit. The APK was built at 8d54a00b's parent content (the intro texts before the last rewording), the dev bridge served
+  the branch's files.
+
+QA's step `school-print` takes `$LANI_QA_PRINT_UNIT` now (biti by default): its level, title and job name from the
+outline, the level scrolled to as `school-unit` does.
+
+No journey or screen changed: a B2 unit takes the taps a B1 unit takes (the school, the level, the unit; tap counts as
+before).
 
 ## For the native check
 
