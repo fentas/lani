@@ -24,11 +24,27 @@
     "rows": [
       ["si mangia", "Si mangia il frico.", { "it": "tutti mangiano il frico", "sl": "se je friko", "en": "people eat frico", "de": "man isst Frico" }],
       ["si dice", "Come si dice?", { "it": "come dicono tutti?", "sl": "kako se reče?", "en": "how do you say it?", "de": "wie sagt man?" }],
-      ["si mangiano", "Si mangiano le castagne.", { "it": "tutti mangiano le castagne", "sl": "jedo se kostanji", "en": "people eat chestnuts", "de": "man isst Kastanien" }],
-      ["si vendono", "Si vendono le ciliegie.", { "it": "vendono le ciliegie", "sl": "prodajajo se češnje", "en": "cherries are sold", "de": "Kirschen werden verkauft" }],
-      ["si fa", "Come si fa il frico?", { "it": "come fa il frico la gente?", "sl": "kako se naredi friko?", "en": "how do you make frico?", "de": "wie macht man Frico?" }],
+      [
+        "si mangiano",
+        "Si mangiano le castagne.",
+        { "it": "tutti mangiano le castagne", "sl": "jedo se kostanji", "en": "people eat chestnuts", "de": "man isst Kastanien" }
+      ],
+      [
+        "si vendono",
+        "Si vendono le ciliegie.",
+        { "it": "vendono le ciliegie", "sl": "prodajajo se češnje", "en": "cherries are sold", "de": "Kirschen werden verkauft" }
+      ],
+      [
+        "si fa",
+        "Come si fa il frico?",
+        { "it": "come fa il frico la gente?", "sl": "kako se naredi friko?", "en": "how do you make frico?", "de": "wie macht man Frico?" }
+      ],
       ["si può", "Si può entrare?", { "it": "possiamo entrare?", "sl": "se sme vstopiti?", "en": "may we come in?", "de": "darf man reinkommen?" }],
-      ["non si", "In classe non si corre.", { "it": "in classe nessuno corre", "sl": "v razredu se ne teka", "en": "no running in class", "de": "in der Klasse rennt man nicht" }],
+      [
+        "non si",
+        "In classe non si corre.",
+        { "it": "in classe nessuno corre", "sl": "v razredu se ne teka", "en": "no running in class", "de": "in der Klasse rennt man nicht" }
+      ],
       ["ci si", "Ci si alza presto.", { "it": "tutti si alzano presto", "sl": "zgodaj se vstaja", "en": "people get up early", "de": "man steht früh auf" }]
     ]
   },
@@ -55,11 +71,7 @@
       "sl": "Na tržnici se prodajajo češnje.",
       "en": "Cherries are sold at the market.",
       "de": "Auf dem Markt werden Kirschen verkauft.",
-      "note": {
-        "sl": "le ciliegie (več) → si vendono.",
-        "en": "le ciliegie (more than one) → si vendono.",
-        "de": "le ciliegie (mehrere) → si vendono."
-      }
+      "note": { "sl": "le ciliegie (več) → si vendono.", "en": "le ciliegie (more than one) → si vendono.", "de": "le ciliegie (mehrere) → si vendono." }
     },
     {
       "it": "Come si fa il frico? Prima si tagliano le patate, poi si mette il formaggio.",
@@ -67,22 +79,13 @@
       "en": "How do you make frico? First you cut the potatoes, then you put in the cheese.",
       "de": "Wie macht man Frico? Zuerst schneidet man die Kartoffeln, dann gibt man den Käse dazu."
     },
-    {
-      "it": "Si può entrare, Maestra?",
-      "sl": "Smemo vstopiti, učiteljica?",
-      "en": "May we come in, Miss?",
-      "de": "Darf man reinkommen, Frau Lehrerin?"
-    },
+    { "it": "Si può entrare, Maestra?", "sl": "Smemo vstopiti, učiteljica?", "en": "May we come in, Miss?", "de": "Darf man reinkommen, Frau Lehrerin?" },
     {
       "it": "In classe non si corre!",
       "sl": "V razredu se ne teka!",
       "en": "No running in the classroom!",
       "de": "In der Klasse rennt man nicht!",
-      "note": {
-        "sl": "non si …: pravilo za vse.",
-        "en": "non si …: a rule for everyone.",
-        "de": "non si …: eine Regel für alle."
-      }
+      "note": { "sl": "non si …: pravilo za vse.", "en": "non si …: a rule for everyone.", "de": "non si …: eine Regel für alle." }
     },
     {
       "it": "D'estate ci si alza presto per andare al mare.",
@@ -95,12 +98,7 @@
         "de": "alzarsi: nicht si si alza, sondern ci si alza."
       }
     },
-    {
-      "it": "Sotto il tiglio si sta bene.",
-      "sl": "Pod lipo je prijetno.",
-      "en": "It's nice under the linden.",
-      "de": "Unter der Linde ist es schön."
-    }
+    { "it": "Sotto il tiglio si sta bene.", "sl": "Pod lipo je prijetno.", "en": "It's nice under the linden.", "de": "Unter der Linde ist es schön." }
   ],
   "modules": [],
   "tags": ["impersonal", "si-impersonale", "si", "passive", "one"],

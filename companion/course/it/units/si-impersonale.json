@@ -4,22 +4,13 @@
   "language": "it",
   "level": "B1",
   "emoji": "👥",
-  "title": {
-    "it": "In Friuli si dice così",
-    "de": "Man sagt: si dice",
-    "sl": "Se reče: si dice",
-    "en": "One says: si dice"
-  },
+  "title": { "it": "In Friuli si dice così", "de": "Man sagt: si dice", "sl": "Se reče: si dice", "en": "One says: si dice" },
   "goal": {
     "de": "Du sagst, was man macht, wie man etwas macht und was man darf: In Friuli si mangia il frico. Come si fa? In classe non si corre!",
     "sl": "Poveš, kaj se dela, kako se kaj naredi in kaj se sme: In Friuli si mangia il frico. Come si fa? In classe non si corre!",
     "en": "You can say what people do, how something is done and what is allowed: In Friuli si mangia il frico. Come si fa? In classe non si corre!"
   },
-  "grammar": [
-    "si-impersonale",
-    "riflessivi",
-    "modali"
-  ],
+  "grammar": ["si-impersonale", "riflessivi", "modali"],
   "words": [
     "il frico",
     "la polenta",
@@ -76,12 +67,7 @@
           "en": "With **si** and the lui form you say what people do: **In Friuli si mangia il frico.** (In Friuli people eat frico.) This **si** is English *one*, *people* or *you*. **Come si dice «ciao» in friulano? Si dice «mandi».** (How do you say \"ciao\" in Friulian? You say \"mandi\".)"
         },
         "examples": [
-          {
-            "it": "In Friuli si mangia il frico.",
-            "de": "In Friaul isst man Frico.",
-            "sl": "V Furlaniji se je friko.",
-            "en": "In Friuli people eat frico."
-          },
+          { "it": "In Friuli si mangia il frico.", "de": "In Friaul isst man Frico.", "sl": "V Furlaniji se je friko.", "en": "In Friuli people eat frico." },
           {
             "it": "Come si dice «ciao» in friulano? Si dice «mandi».",
             "de": "Wie sagt man „ciao“ auf Friaulisch? Man sagt „mandi“.",
@@ -136,11 +122,7 @@
           "grammar": "si-impersonale",
           "text": "Al mercato di Cividale si ___ (vendere) le uova.",
           "accept": ["vendono"],
-          "hint": {
-            "de": "le uova: mehrere",
-            "sl": "le uova: več",
-            "en": "le uova: more than one"
-          },
+          "hint": { "de": "le uova: mehrere", "sl": "le uova: več", "en": "le uova: more than one" },
           "explain": {
             "de": "**le uova** (mehrere) → **si vendono**",
             "sl": "**le uova** (več) → **si vendono**",
@@ -155,18 +137,8 @@
           "en": "With **si** you also say what is allowed and what isn't: **Si può entrare?** (May we come in?) **Non si tocca!** (Don't touch!) After **si può** comes the infinitive, as after any modal verb."
         },
         "examples": [
-          {
-            "it": "Si può entrare, Maestra?",
-            "de": "Darf man reinkommen, Frau Lehrerin?",
-            "sl": "Smemo vstopiti, učiteljica?",
-            "en": "May we come in, Miss?"
-          },
-          {
-            "it": "In classe non si corre!",
-            "de": "In der Klasse rennt man nicht!",
-            "sl": "V razredu se ne teka!",
-            "en": "No running in the classroom!"
-          }
+          { "it": "Si può entrare, Maestra?", "de": "Darf man reinkommen, Frau Lehrerin?", "sl": "Smemo vstopiti, učiteljica?", "en": "May we come in, Miss?" },
+          { "it": "In classe non si corre!", "de": "In der Klasse rennt man nicht!", "sl": "V razredu se ne teka!", "en": "No running in the classroom!" }
         ],
         "rows": [
           ["si può", "Si può entrare?", { "de": "darf man reinkommen?", "sl": "se sme vstopiti?", "en": "may we come in?" }],
@@ -193,12 +165,7 @@
           "en": "That's also how you explain how something is done, step by step: **Come si fa il frico?** (How do you make frico?) **Prima si tagliano le patate, poi si mette il formaggio.** (First you cut the potatoes, then you put in the cheese.) One thing: **si mette**; more: **si tagliano**."
         },
         "examples": [
-          {
-            "it": "Come si fa il frico, nonna?",
-            "de": "Wie macht man Frico, Oma?",
-            "sl": "Kako se naredi friko, babica?",
-            "en": "How do you make frico, Grandma?"
-          },
+          { "it": "Come si fa il frico, nonna?", "de": "Wie macht man Frico, Oma?", "sl": "Kako se naredi friko, babica?", "en": "How do you make frico, Grandma?" },
           {
             "it": "Prima si tagliano le patate, poi si mette il formaggio.",
             "de": "Zuerst schneidet man die Kartoffeln, dann gibt man den Käse dazu.",
@@ -206,24 +173,14 @@
             "en": "First you cut the potatoes, then you put in the cheese."
           }
         ],
-        "rows": [
-          ["si fa", "Come si fa il frico?", { "de": "wie macht man Frico?", "sl": "kako se naredi friko?", "en": "how do you make frico?" }]
-        ],
+        "rows": [["si fa", "Come si fa il frico?", { "de": "wie macht man Frico?", "sl": "kako se naredi friko?", "en": "how do you make frico?" }]],
         "ask": {
           "type": "cloze",
           "grammar": "si-impersonale",
           "text": "Per la gubana, prima si ___ (preparare) la pasta.",
           "accept": ["prepara"],
-          "hint": {
-            "de": "la pasta: eine",
-            "sl": "la pasta: ena",
-            "en": "la pasta: one"
-          },
-          "explain": {
-            "de": "**la pasta** (eine) → **si prepara**",
-            "sl": "**la pasta** (ena) → **si prepara**",
-            "en": "**la pasta** (one) → **si prepara**"
-          }
+          "hint": { "de": "la pasta: eine", "sl": "la pasta: ena", "en": "la pasta: one" },
+          "explain": { "de": "**la pasta** (eine) → **si prepara**", "sl": "**la pasta** (ena) → **si prepara**", "en": "**la pasta** (one) → **si prepara**" }
         }
       },
       {
@@ -233,22 +190,10 @@
           "en": "A reflexive verb can't take si twice: **si alza** becomes **ci si alza**. **D'estate ci si alza presto.** (In summer people get up early.) **Alla festa ci si diverte.** (People have fun at the festa.)"
         },
         "examples": [
-          {
-            "it": "D'estate ci si alza presto.",
-            "de": "Im Sommer steht man früh auf.",
-            "sl": "Poleti se zgodaj vstaja.",
-            "en": "In summer people get up early."
-          },
-          {
-            "it": "Alla festa ci si diverte.",
-            "de": "Auf dem Fest hat man Spaß.",
-            "sl": "Na prazniku je zabavno.",
-            "en": "People have fun at the festa."
-          }
+          { "it": "D'estate ci si alza presto.", "de": "Im Sommer steht man früh auf.", "sl": "Poleti se zgodaj vstaja.", "en": "In summer people get up early." },
+          { "it": "Alla festa ci si diverte.", "de": "Auf dem Fest hat man Spaß.", "sl": "Na prazniku je zabavno.", "en": "People have fun at the festa." }
         ],
-        "rows": [
-          ["ci si", "Ci si alza presto.", { "de": "man steht früh auf", "sl": "zgodaj se vstaja", "en": "people get up early" }]
-        ],
+        "rows": [["ci si", "Ci si alza presto.", { "de": "man steht früh auf", "sl": "zgodaj se vstaja", "en": "people get up early" }]],
         "ask": {
           "type": "choice",
           "grammar": "si-impersonale",
@@ -268,12 +213,7 @@
   "worksheets": [
     {
       "id": "si-impersonale-1",
-      "title": {
-        "it": "Si vende o si vendono?",
-        "de": "Si vende oder si vendono?",
-        "sl": "Si vende ali si vendono?",
-        "en": "Si vende or si vendono?"
-      },
+      "title": { "it": "Si vende o si vendono?", "de": "Si vende oder si vendono?", "sl": "Si vende ali si vendono?", "en": "Si vende or si vendono?" },
       "exercises": [
         {
           "type": "sort",
@@ -285,19 +225,11 @@
           },
           "columns": [
             {
-              "label": {
-                "de": "si vende … · eine Sache",
-                "sl": "si vende … · ena stvar",
-                "en": "si vende … · one thing"
-              },
+              "label": { "de": "si vende … · eine Sache", "sl": "si vende … · ena stvar", "en": "si vende … · one thing" },
               "words": ["il miele", "la frutta", "il formaggio", "la farina"]
             },
             {
-              "label": {
-                "de": "si vendono … · mehrere",
-                "sl": "si vendono … · več stvari",
-                "en": "si vendono … · more than one"
-              },
+              "label": { "de": "si vendono … · mehrere", "sl": "si vendono … · več stvari", "en": "si vendono … · more than one" },
               "words": ["le uova", "le ciliegie", "i fichi", "le mele"]
             }
           ],
@@ -310,11 +242,7 @@
         {
           "type": "choice",
           "grammar": "si-impersonale",
-          "instruction": {
-            "de": "Scegli · Wähle",
-            "sl": "Scegli · Izberi",
-            "en": "Scegli · Choose"
-          },
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
           "prompt": "«Come ___ il frico?» chiede Lorenzo. «Con le patate e il formaggio!»",
           "options": ["si fa", "si fanno", "fa si"],
           "answer": 0,
@@ -328,11 +256,7 @@
         {
           "type": "choice",
           "grammar": "si-impersonale",
-          "instruction": {
-            "de": "Scegli · Wähle",
-            "sl": "Scegli · Izberi",
-            "en": "Scegli · Choose"
-          },
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
           "prompt": "Al mercato ___ le uova fresche.",
           "options": ["si vendono", "si vende", "vendono si"],
           "answer": 0,
@@ -346,11 +270,7 @@
         {
           "type": "choice",
           "grammar": "si-impersonale",
-          "instruction": {
-            "de": "Scegli · Wähle",
-            "sl": "Scegli · Izberi",
-            "en": "Scegli · Choose"
-          },
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
           "prompt": "A scuola ___ i compiti in silenzio.",
           "options": ["si fanno", "si fa", "fanno si"],
           "answer": 0,
@@ -364,11 +284,7 @@
         {
           "type": "choice",
           "grammar": "si-impersonale",
-          "instruction": {
-            "de": "Scegli · Wähle",
-            "sl": "Scegli · Izberi",
-            "en": "Scegli · Choose"
-          },
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
           "prompt": "Alla festa del paese ___ tanto!",
           "options": ["ci si diverte", "si si diverte", "si diverte si"],
           "answer": 0,
@@ -383,29 +299,26 @@
     },
     {
       "id": "si-impersonale-2",
-      "title": {
-        "it": "Come si fa il frico?",
-        "de": "Wie macht man Frico?",
-        "sl": "Kako se naredi friko?",
-        "en": "How do you make frico?"
-      },
+      "title": { "it": "Come si fa il frico?", "de": "Wie macht man Frico?", "sl": "Kako se naredi friko?", "en": "How do you make frico?" },
       "exercises": [
         {
           "type": "gaptext",
           "grammar": "si-impersonale",
-          "instruction": {
-            "de": "Completa · Ergänze",
-            "sl": "Completa · Dopolni",
-            "en": "Completa · Fill in"
-          },
+          "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
           "title": "Come si fa il frico?",
           "text": "Nonna Rosa spiega a Giulia come si ___ (fare) il frico. «Prima si ___ (tagliare) le patate e la cipolla. Poi si ___ (cuocere) tutto nella padella. Dopo si ___ (mettere) il formaggio, il montasio. Si ___ (aspettare) un po'. A metà il frico si ___ (girare), solo una volta! Alla fine si ___ (mangiare) caldo, con la polenta.»",
           "gaps": [
             { "accept": ["fa"], "hint": { "de": "il frico: einer", "sl": "il frico: en", "en": "il frico: one" } },
-            { "accept": ["tagliano"], "hint": { "de": "le patate e la cipolla: mehrere", "sl": "le patate e la cipolla: več", "en": "le patate e la cipolla: more than one" } },
+            {
+              "accept": ["tagliano"],
+              "hint": { "de": "le patate e la cipolla: mehrere", "sl": "le patate e la cipolla: več", "en": "le patate e la cipolla: more than one" }
+            },
             { "accept": ["cuoce"], "hint": { "de": "tutto: eins", "sl": "tutto: eno", "en": "tutto: one" } },
             { "accept": ["mette"], "hint": { "de": "il formaggio: einer", "sl": "il formaggio: en", "en": "il formaggio: one" } },
-            { "accept": ["aspetta"], "hint": { "de": "niemand Bestimmtes: die lui-Form", "sl": "nihče posebej: oblika za on", "en": "no one in particular: the lui form" } },
+            {
+              "accept": ["aspetta"],
+              "hint": { "de": "niemand Bestimmtes: die lui-Form", "sl": "nihče posebej: oblika za on", "en": "no one in particular: the lui form" }
+            },
             { "accept": ["gira"], "hint": { "de": "il frico: einer", "sl": "il frico: en", "en": "il frico: one" } },
             { "accept": ["mangia"], "hint": { "de": "il frico: einer", "sl": "il frico: en", "en": "il frico: one" } }
           ],
@@ -420,11 +333,7 @@
         {
           "type": "choice",
           "grammar": "si-impersonale",
-          "instruction": {
-            "de": "Scegli · Wähle",
-            "sl": "Scegli · Izberi",
-            "en": "Scegli · Choose"
-          },
+          "instruction": { "de": "Scegli · Wähle", "sl": "Scegli · Izberi", "en": "Scegli · Choose" },
           "prompt": "In Friuli ___ «mandi» per dire ciao.",
           "options": ["si dice", "si dicono", "dice si"],
           "answer": 0,
@@ -439,30 +348,41 @@
     },
     {
       "id": "si-impersonale-3",
-      "title": {
-        "it": "Dillo con si",
-        "de": "Sag es mit man",
-        "sl": "Povej s se",
-        "en": "Say it with si"
-      },
+      "title": { "it": "Dillo con si", "de": "Sag es mit man", "sl": "Povej s se", "en": "Say it with si" },
       "exercises": [
         {
           "type": "transform",
           "grammar": "si-impersonale",
-          "instruction": {
-            "de": "Dillo con si · Sag es mit si (man)",
-            "sl": "Dillo con si · Povej s si (se)",
-            "en": "Dillo con si · Say it with si"
-          },
+          "instruction": { "de": "Dillo con si · Sag es mit si (man)", "sl": "Dillo con si · Povej s si (se)", "en": "Dillo con si · Say it with si" },
           "items": [
-            { "from": "La gente mangia il frico.", "accept": ["Si mangia il frico.", "Il frico si mangia."], "hint": { "de": "la gente → si", "sl": "la gente → si", "en": "la gente → si" } },
+            {
+              "from": "La gente mangia il frico.",
+              "accept": ["Si mangia il frico.", "Il frico si mangia."],
+              "hint": { "de": "la gente → si", "sl": "la gente → si", "en": "la gente → si" }
+            },
             { "from": "In piazza la gente balla.", "accept": ["In piazza si balla.", "Si balla in piazza."] },
             { "from": "Qui tutti parlano friulano.", "accept": ["Qui si parla friulano.", "Si parla friulano qui."] },
             { "from": "Qui vendono il miele.", "accept": ["Qui si vende il miele.", "Si vende il miele qui.", "Il miele si vende qui."] },
-            { "from": "In autunno la gente raccoglie le castagne.", "accept": ["In autunno si raccolgono le castagne.", "Si raccolgono le castagne in autunno.", "Le castagne si raccolgono in autunno.", "In autunno le castagne si raccolgono."], "hint": { "de": "le castagne: mehrere", "sl": "le castagne: več", "en": "le castagne: more than one" } },
-            { "from": "Al mare tutti mangiano il gelato.", "accept": ["Al mare si mangia il gelato.", "Si mangia il gelato al mare.", "Al mare il gelato si mangia."] },
+            {
+              "from": "In autunno la gente raccoglie le castagne.",
+              "accept": [
+                "In autunno si raccolgono le castagne.",
+                "Si raccolgono le castagne in autunno.",
+                "Le castagne si raccolgono in autunno.",
+                "In autunno le castagne si raccolgono."
+              ],
+              "hint": { "de": "le castagne: mehrere", "sl": "le castagne: več", "en": "le castagne: more than one" }
+            },
+            {
+              "from": "Al mare tutti mangiano il gelato.",
+              "accept": ["Al mare si mangia il gelato.", "Si mangia il gelato al mare.", "Al mare il gelato si mangia."]
+            },
             { "from": "In classe non possiamo correre.", "accept": ["In classe non si può correre.", "Non si può correre in classe."] },
-            { "from": "D'estate tutti si alzano presto.", "accept": ["D'estate ci si alza presto.", "Ci si alza presto d'estate."], "hint": { "de": "alzarsi: kein si si", "sl": "alzarsi: ne si si", "en": "alzarsi: no si si" } }
+            {
+              "from": "D'estate tutti si alzano presto.",
+              "accept": ["D'estate ci si alza presto.", "Ci si alza presto d'estate."],
+              "hint": { "de": "alzarsi: kein si si", "sl": "alzarsi: ne si si", "en": "alzarsi: no si si" }
+            }
           ],
           "explain": {
             "de": "**si + das Verb, das zur Sache passt**: la gente mangia il frico → si mangia il frico\n- raccoglie le castagne → si raccolgono le castagne\n- si alzano → ci si alza",
@@ -479,20 +399,10 @@
       {
         "type": "gaptext",
         "grammar": "si-impersonale",
-        "instruction": {
-          "de": "Completa · Ergänze",
-          "sl": "Completa · Dopolni",
-          "en": "Completa · Fill in"
-        },
+        "instruction": { "de": "Completa · Ergänze", "sl": "Completa · Dopolni", "en": "Completa · Fill in" },
         "title": "Le regole della scuola",
         "text": "Maestra Elena scrive le regole sulla lavagna. A scuola non si ___ (correre) nel corridoio. In classe si ___ (parlare) piano. Prima di mangiare si ___ (lavare) le mani. I compiti si ___ (fare) a casa. E il telefono non si ___ (usare) mai!",
-        "gaps": [
-          { "accept": ["corre"] },
-          { "accept": ["parla"] },
-          { "accept": ["lavano"] },
-          { "accept": ["fanno"] },
-          { "accept": ["usa"] }
-        ],
+        "gaps": [{ "accept": ["corre"] }, { "accept": ["parla"] }, { "accept": ["lavano"] }, { "accept": ["fanno"] }, { "accept": ["usa"] }],
         "translation": {
           "de": "Maestra Elena schreibt die Regeln an die Tafel. In der Schule rennt man nicht im Gang. In der Klasse spricht man leise. Vor dem Essen wäscht man sich die Hände. Die Hausaufgaben macht man zu Hause. Und das Telefon benutzt man nie!",
           "sl": "Učiteljica Elena napiše pravila na tablo. V šoli se po hodniku ne teka. V razredu se govori tiho. Pred jedjo se umijejo roke. Domače naloge se delajo doma. In telefon se nikoli ne uporablja!",
@@ -502,13 +412,17 @@
       {
         "type": "transform",
         "grammar": "si-impersonale",
-        "instruction": {
-          "de": "Dillo con si · Sag es mit si (man)",
-          "sl": "Dillo con si · Povej s si (se)",
-          "en": "Dillo con si · Say it with si"
-        },
+        "instruction": { "de": "Dillo con si · Sag es mit si (man)", "sl": "Dillo con si · Povej s si (se)", "en": "Dillo con si · Say it with si" },
         "items": [
-          { "from": "D'estate tutti mangiano le ciliegie.", "accept": ["D'estate si mangiano le ciliegie.", "Si mangiano le ciliegie d'estate.", "Le ciliegie si mangiano d'estate.", "D'estate le ciliegie si mangiano."] },
+          {
+            "from": "D'estate tutti mangiano le ciliegie.",
+            "accept": [
+              "D'estate si mangiano le ciliegie.",
+              "Si mangiano le ciliegie d'estate.",
+              "Le ciliegie si mangiano d'estate.",
+              "D'estate le ciliegie si mangiano."
+            ]
+          },
           { "from": "Al lago tutti nuotano.", "accept": ["Al lago si nuota.", "Si nuota al lago."] },
           { "from": "Qui non possiamo entrare.", "accept": ["Qui non si può entrare.", "Non si può entrare qui."] },
           { "from": "Alla festa tutti si divertono.", "accept": ["Alla festa ci si diverte.", "Ci si diverte alla festa."] }
