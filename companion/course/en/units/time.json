@@ -1,0 +1,695 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "time",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🕖",
+  "title": {
+    "en": "At seven, on Monday",
+    "de": "Uhrzeit und Tage: at seven, on Monday",
+    "sl": "Ura in dnevi: at seven, on Monday",
+    "it": "L'ora e i giorni: at seven, on Monday"
+  },
+  "goal": {
+    "sl": "Poveš, koliko je ura (half past seven, a quarter to eight), z at, on in in poveš, kdaj je kaj, in poveš datum (the first of May).",
+    "de": "Du sagst die Uhrzeit (half past seven, a quarter to eight), sagst mit at, on und in, wann etwas ist, und nennst das Datum (the first of May).",
+    "it": "Dici l'ora (half past seven, a quarter to eight), dici quando con at, on e in, e dici la data (the first of May).",
+    "en": "You can tell the time (half past seven, a quarter to eight), say when with at, on and in, and say the date (the first of May)."
+  },
+  "grammar": ["time-dates", "numbers"],
+  "words": [
+    "What time is it?",
+    "o'clock",
+    "past",
+    "to",
+    "half past",
+    "a quarter",
+    "noon",
+    "midnight",
+    "night",
+    "morning",
+    "afternoon",
+    "evening",
+    "weekend",
+    "every",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+    "month",
+    "May",
+    "August",
+    "November",
+    "summer",
+    "date",
+    "first",
+    "third",
+    "fourth",
+    "fifth",
+    "ninth",
+    "twelfth",
+    "twentieth",
+    "get up"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdaj", "de": "wann", "it": "quando", "en": "when" },
+        { "sl": "angleško", "de": "auf Englisch", "it": "in inglese", "en": "in English" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**What time is it?** (Koliko je ura?) Ob polni uri: **It's seven o'clock.** (Ura je sedem.) Do pol ure štejemo minute **past** (čez) uro: **five past seven** (pet čez sedem), **a quarter past seven** (četrt na osem), **half past seven** (pol osmih). **It's** je vedno spredaj: **It's ten past eight.**",
+          "de": "**What time is it?** (Wie spät ist es?) Zur vollen Stunde: **It's seven o'clock.** (Es ist sieben Uhr.) Bis halb zählen die Minuten **past** (nach) der Stunde: **five past seven** (fünf nach sieben), **a quarter past seven** (Viertel nach sieben), **half past seven** (halb acht). Vorn steht immer **It's**: **It's ten past eight.**",
+          "it": "**What time is it?** (Che ore sono?) All'ora esatta: **It's seven o'clock.** (Sono le sette.) Fino alla mezza dici i minuti con **past** (e): **five past seven** (le sette e cinque), **a quarter past seven** (le sette e un quarto), **half past seven** (le sette e mezza). Davanti c'è sempre **It's**, mai *They are*: **It's ten past eight.**",
+          "en": "**What time is it?** On the hour: **It's seven o'clock.** Up to half past, the minutes are **past** the hour: **five past seven**, **a quarter past seven**, **half past seven**. **It's** always comes first: **It's ten past eight.**"
+        },
+        "examples": [
+          {
+            "en": "What time is it? — It's seven o'clock.",
+            "sl": "Koliko je ura? — Sedem.",
+            "de": "Wie spät ist es? — Sieben Uhr.",
+            "it": "Che ore sono? — Sono le sette."
+          },
+          {
+            "en": "It's a quarter past seven.",
+            "sl": "Ura je četrt na osem.",
+            "de": "Es ist Viertel nach sieben.",
+            "it": "Sono le sette e un quarto."
+          },
+          {
+            "en": "It's half past seven.",
+            "sl": "Ura je pol osmih.",
+            "de": "Es ist halb acht.",
+            "it": "Sono le sette e mezza."
+          }
+        ],
+        "rows": [
+          ["7:00", "seven o'clock"],
+          ["7:05, 7:15, 7:30", "five past seven, a quarter past seven, half past seven"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "time-dates",
+          "text": "It's ten ___ eight. (8:10)",
+          "accept": ["past", "after"],
+          "hint": { "sl": "do pol ure", "de": "bis halb", "it": "fino alla mezza", "en": "up to half past" },
+          "explain": {
+            "sl": "**Do pol ure: past**\n- 8:10 = ten past eight\n- 8:30 = half past eight",
+            "de": "**Bis halb: past**\n- 8:10 = ten past eight\n- 8:30 = half past eight",
+            "it": "**Fino alla mezza: past**\n- 8:10 = ten past eight\n- 8:30 = half past eight",
+            "en": "**Up to half past: past**\n- 8:10 = ten past eight\n- 8:30 = half past eight"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Po pol ure štejemo s **to** (do) do naslednje ure: **twenty to eight** (7.40), **a quarter to eight** (tri četrt na osem). Pazi: Britanci rečejo **half seven** za **half past seven**: 7.30, pol osmih, ne pol sedmih! Prav je tudi digitalno, na primer **seven thirty**.",
+          "de": "Nach halb sagst du **to** (vor) und die nächste Stunde: **twenty to eight** (7:40), **a quarter to eight** (7:45). Achtung: Briten sagen **half seven** für **half past seven**: 7:30, halb acht, nicht halb sieben! Digital geht auch, etwa **seven thirty**.",
+          "it": "Dopo la mezza c'è **to** (meno) con l'ora dopo: **twenty to eight** (7.40), **a quarter to eight** (le otto meno un quarto). Si dice anche **half seven** per **half past seven**: le sette e mezza, come in italiano. Va bene anche il digitale, per esempio **seven thirty**.",
+          "en": "After half past, **to** and the next hour: **twenty to eight** (7:40), **a quarter to eight** (7:45). British English also says **half seven** for **half past seven**: 7:30. The digital way is right too, as in **seven thirty**."
+        },
+        "examples": [
+          {
+            "en": "It's twenty to eight.",
+            "sl": "Ura je dvajset do osmih.",
+            "de": "Es ist zwanzig vor acht.",
+            "it": "Sono le otto meno venti."
+          },
+          {
+            "en": "It's a quarter to eight.",
+            "sl": "Ura je tri četrt na osem.",
+            "de": "Es ist Viertel vor acht.",
+            "it": "Sono le otto meno un quarto."
+          },
+          {
+            "en": "Dinner's at half seven.",
+            "sl": "Večerja je ob pol osmih.",
+            "de": "Das Abendessen ist um halb acht.",
+            "it": "La cena è alle sette e mezza."
+          }
+        ],
+        "rows": [
+          ["7:40, 7:45", "twenty to eight, a quarter to eight"],
+          ["7:30", "half seven, seven thirty"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "time-dates",
+          "prompt": "It's half seven. = It's ___.",
+          "options": ["7:30", "6:30", "8:30"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**half seven = half past seven = 7.30**\n- pol osmih, ne pol sedmih",
+            "de": "**half seven = half past seven = 7:30**\n- halb acht, nicht halb sieben",
+            "it": "**half seven = half past seven = 7.30**\n- le sette e mezza",
+            "en": "**half seven = half past seven = 7:30**\n- half an hour past seven"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pred uro je **at** (ob): **at seven** (ob sedmih), **at half past six** (ob pol sedmih), **at noon** (opoldne), **at midnight** (opolnoči) in **at night** (ponoči). Vprašaš **What time …?** (Ob kateri uri …?): **What time does the bus leave? — At ten past eight.**",
+          "de": "Vor der Uhrzeit steht **at** (um): **at seven** (um sieben), **at half past six** (um halb sieben), **at noon** (mittags), **at midnight** (um Mitternacht) und **at night** (nachts). Du fragst **What time …?** (Um wie viel Uhr …?): **What time does the bus leave? — At ten past eight.**",
+          "it": "Davanti all'ora c'è **at**: **at seven** (alle sette), **at half past six** (alle sei e mezza), **at noon** (a mezzogiorno), **at midnight** (a mezzanotte) e **at night** (di notte). Chiedi **What time …?** (A che ora …?): **What time does the bus leave? — At ten past eight.**",
+          "en": "Before a clock time, **at**: **at seven**, **at half past six**, **at noon**, **at midnight**, and **at night**. To ask, **What time …?**: **What time does the bus leave? — At ten past eight.**"
+        },
+        "examples": [
+          {
+            "en": "Jack gets up at five o'clock.",
+            "sl": "Jack vstane ob petih.",
+            "de": "Jack steht um fünf Uhr auf.",
+            "it": "Jack si alza alle cinque."
+          },
+          {
+            "en": "What time does the bus leave? — At ten past eight.",
+            "sl": "Ob kateri uri odpelje avtobus? — Ob osmih in deset.",
+            "de": "Um wie viel Uhr fährt der Bus? — Um zehn nach acht.",
+            "it": "A che ora parte l'autobus? — Alle otto e dieci."
+          },
+          {
+            "en": "Mrs Birkett locks up the inn at ten o'clock at night.",
+            "sl": "Gospa Birkett zaklene gostilno ob desetih zvečer.",
+            "de": "Mrs Birkett sperrt das Gasthaus um zehn Uhr abends zu.",
+            "it": "Mrs Birkett chiude la locanda alle dieci di sera."
+          }
+        ],
+        "rows": [["at", "at seven, at noon, at midnight, at night"]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "time-dates",
+          "text": "Arthur goes to bed ___ half past nine.",
+          "accept": ["at"],
+          "hint": { "sl": "ura", "de": "eine Uhrzeit", "it": "un'ora", "en": "a clock time" },
+          "explain": {
+            "sl": "**Pred uro: at**\n- at half past nine · at noon · at night",
+            "de": "**Vor der Uhrzeit: at**\n- at half past nine · at noon · at night",
+            "it": "**Davanti all'ora: at**\n- at half past nine · at noon · at night",
+            "en": "**A clock time: at**\n- at half past nine · at noon · at night"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pred dnevom je **on** (v): **on Monday** (v ponedeljek), **on Saturday morning** (v soboto zjutraj). Dnevi so z veliko začetnico, drugače kot v slovenščini: **Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday**. Brez predloga: **every Sunday** (vsako nedeljo). Konec tedna je **at the weekend**, ameriško **on the weekend**.",
+          "de": "Vor einem Tag steht **on** (am): **on Monday** (am Montag), **on Saturday morning** (am Samstagmorgen). Die Tage, immer groß: **Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday**. Ohne Präposition: **every Sunday** (jeden Sonntag). Das Wochenende: **at the weekend** (am Wochenende), amerikanisch **on the weekend**.",
+          "it": "Davanti al giorno c'è **on**: **on Monday** (lunedì), **on Saturday morning** (sabato mattina). I giorni hanno la maiuscola, al contrario dell'italiano: **Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday**. Senza preposizione: **every Sunday** (ogni domenica). Il fine settimana: **at the weekend**, americano **on the weekend**.",
+          "en": "Before a day, **on**: **on Monday**, **on Saturday morning**. The days have a capital letter: **Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday**. No preposition with **every**: **every Sunday**. British **at the weekend**, American **on the weekend**."
+        },
+        "examples": [
+          {
+            "en": "The market in Keswick is on Saturday.",
+            "sl": "Tržnica v Keswicku je v soboto.",
+            "de": "Der Markt in Keswick ist am Samstag.",
+            "it": "Il mercato di Keswick è sabato."
+          },
+          {
+            "en": "Mr Dixon goes to the inn every Friday.",
+            "sl": "Gospod Dixon gre vsak petek v gostilno.",
+            "de": "Mr Dixon geht jeden Freitag ins Gasthaus.",
+            "it": "Il signor Dixon va alla locanda ogni venerdì."
+          },
+          {
+            "en": "See you at the weekend!",
+            "sl": "Se vidimo ob koncu tedna!",
+            "de": "Bis zum Wochenende!",
+            "it": "Ci vediamo nel fine settimana!"
+          }
+        ],
+        "rows": [
+          ["on", "on Monday, on Saturday morning"],
+          [{ "sl": "brez on", "de": "ohne on", "it": "senza on", "en": "no on" }, "every Sunday, at the weekend"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "time-dates",
+          "prompt": "Brewer Sam sells his ale in Keswick ___ Saturday.",
+          "options": ["on", "in", "at"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Pred dnevom: on**\n- on Saturday · on Monday morning",
+            "de": "**Vor einem Tag: on**\n- on Saturday · on Monday morning",
+            "it": "**Davanti al giorno: on**\n- on Saturday · on Monday morning",
+            "en": "**A day: on**\n- on Saturday · on Monday morning"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pred mesecem, letnim časom, letom in delom dneva je **in**: **in May** (maja), **in summer** (poleti), **in 2026**, **in the morning** (zjutraj), **in the evening** (zvečer). A ponoči: **at night**! Tudi **in the afternoon** (popoldne). Meseci z veliko: **January, February, March, April, May, June, July, August, September, October, November, December**.",
+          "de": "Bei Monat, Jahreszeit, Jahr und Tageszeit steht **in**: **in May**, **in summer**, **in 2026**, und anders als im Deutschen **in the morning** (am Morgen), **in the evening** (am Abend). Aber nachts: **at night**! Ebenso **in the afternoon** (am Nachmittag). Die Monate: **January, February, March, April, May, June, July, August, September, October, November, December**.",
+          "it": "Con il mese, la stagione, l'anno e la parte del giorno c'è **in**: **in May** (a maggio), **in summer** (d'estate), **in 2026**, **in the morning** (la mattina), **in the evening** (la sera). Ma di notte: **at night**! Anche **in the afternoon** (il pomeriggio). I mesi con la maiuscola: **January, February, March, April, May, June, July, August, September, October, November, December**.",
+          "en": "Before a month, a season, a year and a part of the day, **in**: **in May**, **in summer**, **in 2026**, **in the morning**, **in the evening**. But: **at night**! Also **in the afternoon**. The months have a capital: **January, February, March, April, May, June, July, August, September, October, November, December**."
+        },
+        "examples": [
+          {
+            "en": "Arthur's heather honey is ready in August.",
+            "sl": "Arthurjev vresni med je pripravljen avgusta.",
+            "de": "Arthurs Heidehonig ist im August fertig.",
+            "it": "Il miele di erica di Arthur è pronto ad agosto."
+          },
+          {
+            "en": "Granny Maggie bakes in the morning.",
+            "sl": "Babica Maggie peče zjutraj.",
+            "de": "Oma Maggie backt am Morgen.",
+            "it": "Nonna Maggie fa i dolci la mattina."
+          },
+          {
+            "en": "The bees are quiet at night.",
+            "sl": "Čebele so ponoči mirne.",
+            "de": "Nachts sind die Bienen ruhig.",
+            "it": "Di notte le api sono tranquille."
+          }
+        ],
+        "rows": [
+          ["in", "in May, in summer, in 2026, in the morning, in the evening"],
+          [{ "sl": "a", "de": "aber", "it": "ma", "en": "but" }, "at night"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "time-dates",
+          "prompt": "Old Wilf tells his stories ___ the evening.",
+          "options": ["in", "on", "at"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Del dneva: in**\n- in the morning · in the evening\n- a: at night",
+            "de": "**Eine Tageszeit: in, nicht on**\n- in the morning · in the evening\n- aber: at night",
+            "it": "**Una parte del giorno: in**\n- in the morning · in the evening\n- ma: at night",
+            "en": "**A part of the day: in**\n- in the morning · in the evening\n- but: at night"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Datum ima vrstilni števnik: **first, second, third**, nato **-th**: **fifth, eighth, ninth, twelfth, twentieth**, a **twenty-first**. Pišeš **1 May**, rečeš **the first of May**, z **on**: **on the first of May**. **What's the date today?** (Katerega smo danes?) **It's the third of June.**",
+          "de": "Ein Datum hat eine Ordnungszahl: **first, second, third**, dann **-th**: **fifth, eighth, ninth, twelfth, twentieth**, und **twenty-first**. Man schreibt **1 May** und sagt **the first of May**, mit **on**: **on the first of May**. **What's the date today?** (Der Wievielte ist heute?) **It's the third of June.**",
+          "it": "La data vuole sempre l'ordinale: **the third of June** (il tre giugno), **on the first of May** (il primo maggio). **first, second, third**, poi **-th**: **fifth, eighth, ninth, twelfth, twentieth, twenty-first**. Si scrive **1 May** o **1st May**. **What's the date today?** (Quanti ne abbiamo oggi?) **It's the third of June.**",
+          "en": "A date takes an ordinal: **first, second, third**, then **-th**: **fifth, eighth, ninth, twelfth, twentieth**, and **twenty-first**. Write **1 May**, say **the first of May**, with **on**: **on the first of May**. **What's the date today?** — **It's the third of June.**"
+        },
+        "examples": [
+          {
+            "en": "Bonfire Night is on the fifth of November.",
+            "sl": "Noč kresov je petega novembra.",
+            "de": "Die Nacht der Freudenfeuer ist am fünften November.",
+            "it": "La Notte dei falò è il cinque novembre."
+          },
+          {
+            "en": "What's the date today? — It's the third of June.",
+            "sl": "Katerega smo danes? — Tretjega junija.",
+            "de": "Der Wievielte ist heute? — Der dritte Juni.",
+            "it": "Quanti ne abbiamo oggi? — Il tre giugno."
+          },
+          {
+            "en": "St George's Day is on the twenty-third of April.",
+            "sl": "Jurjevo je triindvajsetega aprila.",
+            "de": "Der Georgstag ist am dreiundzwanzigsten April.",
+            "it": "San Giorgio è il ventitré aprile."
+          }
+        ],
+        "rows": [
+          ["1st, 2nd, 3rd, 4th, 5th", "first, second, third, fourth, fifth"],
+          ["8th, 9th, 12th, 20th", "eighth, ninth, twelfth, twentieth"],
+          ["21st, 23rd, 31st", "twenty-first, twenty-third, thirty-first"],
+          ["1 May", "the first of May, on the first of May"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "time-dates",
+          "text": "Rushbearing is on the ___ of August. (5th)",
+          "accept": ["fifth"],
+          "hint": { "sl": "pazi na zapis", "de": "Achte auf die Schreibung", "it": "attenzione all'ortografia", "en": "mind the spelling" },
+          "explain": {
+            "sl": "**5th = fifth, s f**\n- five → fifth · twelve → twelfth · nine → ninth",
+            "de": "**5th = fifth, mit f**\n- five → fifth · twelve → twelfth · nine → ninth",
+            "it": "**5th = fifth, con la f**\n- five → fifth · twelve → twelfth · nine → ninth",
+            "en": "**5th = fifth, with f**\n- five → fifth · twelve → twelfth · nine → ninth"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "time-1",
+      "title": {
+        "sl": "What time is it? · Koliko je ura?",
+        "de": "What time is it? · Wie spät ist es?",
+        "it": "What time is it? · Che ore sono?",
+        "en": "What time is it?"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "time-dates",
+          "instruction": {
+            "sl": "Write the time in words · Napiši uro z besedami",
+            "de": "Write the time in words · Schreib die Uhrzeit in Worten",
+            "it": "Write the time in words · Scrivi l'ora in lettere",
+            "en": "Write the time in words"
+          },
+          "prompt": {
+            "sl": "time → words · ura → besede",
+            "de": "time → words · Uhrzeit → Worte",
+            "it": "time → words · ora → parole",
+            "en": "time → words"
+          },
+          "columns": [{ "sl": "in words · z besedami", "de": "in words · in Worten", "it": "in words · in lettere", "en": "in words" }],
+          "rows": [
+            { "label": "7:05", "cells": ["five past seven"] },
+            { "label": "7:00", "cells": [{ "accept": ["seven o'clock", "seven"] }] },
+            { "label": "7:15", "cells": [{ "accept": ["a quarter past seven", "quarter past seven", "seven fifteen", "a quarter after seven", "quarter after seven"], "hint": "15 = a quarter" }] },
+            { "label": "7:30", "cells": [{ "accept": ["half past seven", "half seven", "seven thirty"] }] },
+            {
+              "label": "7:45",
+              "cells": [
+                {
+                  "accept": ["a quarter to eight", "quarter to eight", "seven forty-five"],
+                  "hint": { "sl": "po pol: to + naslednja ura", "de": "nach halb: to + die nächste Stunde", "it": "dopo la mezza: to + l'ora dopo", "en": "after half past: to + the next hour" }
+                }
+              ]
+            },
+            { "label": "8:10", "cells": [{ "accept": ["ten past eight", "eight ten", "ten after eight"] }] },
+            { "label": "8:40", "cells": [{ "accept": ["twenty to nine", "eight forty"] }] }
+          ],
+          "explain": {
+            "sl": "**Do pol ure past, potem to + naslednja ura**\n- 7:15 = a quarter past seven\n- 7:45 = a quarter to eight",
+            "de": "**Bis halb past, danach to + die nächste Stunde**\n- 7:15 = a quarter past seven\n- 7:45 = a quarter to eight",
+            "it": "**Fino alla mezza past, poi to + l'ora dopo**\n- 7:15 = a quarter past seven\n- 7:45 = a quarter to eight",
+            "en": "**Up to half past: past; after it: to + the next hour**\n- 7:15 = a quarter past seven\n- 7:45 = a quarter to eight"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "time-dates",
+          "instruction": {
+            "sl": "Sort · at, on ali in?",
+            "de": "Sort · at, on oder in?",
+            "it": "Sort · at, on o in?",
+            "en": "Sort · at, on or in?"
+          },
+          "columns": [
+            { "label": "at", "words": ["half past six", "noon", "night"] },
+            { "label": "on", "words": ["Monday", "Saturday morning", "the first of May"] },
+            { "label": "in", "words": ["May", "summer", "the morning"] }
+          ],
+          "explain": {
+            "sl": "**at pred uro, on pred dnevom in datumom, in pred mesecem, letnim časom in delom dneva**\n- at noon · at night\n- on Monday · on the first of May\n- in May · in the morning",
+            "de": "**at bei der Uhrzeit, on bei Tag und Datum, in bei Monat, Jahreszeit und Tageszeit**\n- at noon · at night\n- on Monday · on the first of May\n- in May · in the morning",
+            "it": "**at con l'ora, on con il giorno e la data, in con il mese, la stagione e la parte del giorno**\n- at noon · at night\n- on Monday · on the first of May\n- in May · in the morning",
+            "en": "**at a clock time, on a day or a date, in a month, a season or a part of the day**\n- at noon · at night\n- on Monday · on the first of May\n- in May · in the morning"
+          }
+        }
+      ]
+    },
+    {
+      "id": "time-2",
+      "title": {
+        "sl": "Market day · Tržni dan",
+        "de": "Market day · Markttag",
+        "it": "Market day · Giorno di mercato",
+        "en": "Market day"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "time-dates",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Market day in Keswick is ___ Saturday. The bus leaves the village ___ a quarter past eight and comes back at twenty ___ six (5:40). ___ the morning Mr Tyson sells his oats, and Granny Maggie sells her cakes. This year the show is on the ___ (31st) of August, and Bonfire Night is on the ___ (5th) of November. Old Wilf goes to bed late ___ night.",
+          "gaps": [
+            { "accept": ["on"], "hint": { "sl": "dan", "de": "ein Tag", "it": "un giorno", "en": "a day" } },
+            { "accept": ["at"], "hint": { "sl": "ura", "de": "eine Uhrzeit", "it": "un'ora", "en": "a clock time" } },
+            { "accept": ["to"], "hint": { "sl": "po pol ure", "de": "nach halb", "it": "dopo la mezza", "en": "after half past" } },
+            { "accept": ["In"], "hint": { "sl": "del dneva", "de": "eine Tageszeit", "it": "una parte del giorno", "en": "a part of the day" } },
+            {
+              "accept": ["thirty-first", "thirty first"],
+              "hint": { "sl": "vrstilni števnik", "de": "eine Ordnungszahl", "it": "un ordinale", "en": "an ordinal" },
+              "explain": {
+                "sl": "**Datum: the + vrstilni števnik + of**\n- 31st = thirty-first · 21st = twenty-first",
+                "de": "**Ein Datum: the + Ordnungszahl + of**\n- 31st = thirty-first · 21st = twenty-first",
+                "it": "**La data: the + ordinale + of**\n- 31st = thirty-first (il trentuno)",
+                "en": "**A date: the + ordinal + of**\n- 31st = thirty-first · 21st = twenty-first"
+              }
+            },
+            {
+              "accept": ["fifth"],
+              "hint": { "sl": "pazi na zapis", "de": "Achte auf die Schreibung", "it": "attenzione all'ortografia", "en": "mind the spelling" },
+              "explain": {
+                "sl": "**5th = fifth, s f**\n- five → fifth · twelve → twelfth",
+                "de": "**5th = fifth, mit f**\n- five → fifth · twelve → twelfth",
+                "it": "**5th = fifth, con la f**\n- five → fifth · twelve → twelfth",
+                "en": "**5th = fifth, with f**\n- five → fifth · twelve → twelfth"
+              }
+            },
+            {
+              "accept": ["at"],
+              "hint": { "sl": "night brez the", "de": "night ohne the", "it": "night senza the", "en": "night, with no the" },
+              "explain": {
+                "sl": "**at night, a in the morning, in the evening**\n- late at night",
+                "de": "**at night, aber in the morning, in the evening**\n- late at night",
+                "it": "**at night, ma in the morning, in the evening**\n- late at night",
+                "en": "**at night, but in the morning, in the evening**\n- late at night"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": ["five", "fiveth", "thirty-one"],
+          "translation": {
+            "sl": "Tržni dan v Keswicku je v soboto. Avtobus odpelje iz vasi ob četrt na devet in se vrne ob dvajset do šestih. Zjutraj gospod Tyson prodaja oves, babica Maggie pa svoje kolače. Letos je sejem enaintridesetega avgusta, Noč kresov pa petega novembra. Stari Wilf gre pozno ponoči spat.",
+            "de": "Markttag in Keswick ist am Samstag. Der Bus fährt um Viertel nach acht aus dem Dorf ab und kommt um zwanzig vor sechs zurück. Am Morgen verkauft Mr Tyson seinen Hafer, und Oma Maggie verkauft ihre Kuchen. Dieses Jahr ist die Schau am einunddreißigsten August und die Nacht der Freudenfeuer am fünften November. Der alte Wilf geht spät in der Nacht ins Bett.",
+            "it": "Il giorno di mercato a Keswick è sabato. L'autobus parte dal paese alle otto e un quarto e torna alle sei meno venti. La mattina il signor Tyson vende la sua avena e nonna Maggie le sue torte. Quest'anno la fiera è il trentuno agosto e la Notte dei falò il cinque novembre. Il vecchio Wilf va a letto tardi la notte.",
+            "en": "Market day in Keswick is on Saturday. The bus leaves the village at a quarter past eight and comes back at twenty to six. In the morning Mr Tyson sells his oats, and Granny Maggie sells her cakes. This year the show is on the thirty-first of August, and Bonfire Night is on the fifth of November. Old Wilf goes to bed late at night."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "time-dates",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "It's 8:50. It's ten ___ nine.",
+          "options": ["to", "before", "past"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Po pol ure: to + naslednja ura**\n- 8:50 = ten to nine\n- 8:10 = ten past eight",
+            "de": "**Nach halb: to + die nächste Stunde**\n- 8:50 = ten to nine (zehn vor neun)\n- 8:10 = ten past eight",
+            "it": "**Dopo la mezza: to + l'ora dopo**\n- 8:50 = ten to nine (le nove meno dieci)\n- 8:10 = ten past eight",
+            "en": "**After half past: to + the next hour**\n- 8:50 = ten to nine\n- 8:10 = ten past eight"
+          }
+        }
+      ]
+    },
+    {
+      "id": "time-3",
+      "title": {
+        "sl": "Dates · Datumi",
+        "de": "Dates · Das Datum",
+        "it": "Dates · Le date",
+        "en": "Dates"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "time-dates",
+          "instruction": {
+            "sl": "Write the date in words · Napiši datum z besedami",
+            "de": "Write the date in words · Schreib das Datum in Worten",
+            "it": "Write the date in words · Scrivi la data in lettere",
+            "en": "Write the date in words"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "May Day is on 1 May.",
+              "accept": ["May Day is on the first of May.", "May Day is on May the first.", "May Day is on May first."],
+              "hint": "the … of"
+            },
+            {
+              "from": "Rushbearing is on 5 August.",
+              "accept": ["Rushbearing is on the fifth of August.", "Rushbearing is on August the fifth.", "Rushbearing is on August fifth."],
+              "hint": { "sl": "pazi na zapis", "de": "Achte auf die Schreibung", "it": "attenzione all'ortografia", "en": "mind the spelling" }
+            },
+            {
+              "from": "Auntie Edna's birthday is on 12 March.",
+              "accept": ["Auntie Edna's birthday is on the twelfth of March.", "Auntie Edna's birthday is on March the twelfth.", "Auntie Edna's birthday is on March twelfth."],
+              "hint": { "sl": "pazi na zapis", "de": "Achte auf die Schreibung", "it": "attenzione all'ortografia", "en": "mind the spelling" }
+            },
+            {
+              "from": "St George's Day is on 23 April.",
+              "accept": [
+                "St George's Day is on the twenty-third of April.",
+                "St George's Day is on the twenty third of April.",
+                "St George's Day is on April the twenty-third.",
+                "St George's Day is on April the twenty third.",
+                "St George's Day is on April twenty-third.",
+                "St George's Day is on April twenty third."
+              ]
+            },
+            {
+              "from": "Christmas Day is on 25 December.",
+              "accept": [
+                "Christmas Day is on the twenty-fifth of December.",
+                "Christmas Day is on the twenty fifth of December.",
+                "Christmas Day is on December the twenty-fifth.",
+                "Christmas Day is on December the twenty fifth.",
+                "Christmas Day is on December twenty-fifth.",
+                "Christmas Day is on December twenty fifth."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Datum: the + vrstilni števnik + of + mesec**\n- 1 May → the first of May\n- 25 December → the twenty-fifth of December\n- ameriško: May first",
+            "de": "**Ein Datum: the + Ordnungszahl + of + Monat**\n- 1 May → the first of May\n- 25 December → the twenty-fifth of December\n- amerikanisch: May first",
+            "it": "**La data: the + ordinale + of + mese**\n- 1 May → the first of May\n- 25 December → the twenty-fifth of December\n- americano: May first",
+            "en": "**A date: the + ordinal + of + the month**\n- 1 May → the first of May\n- 25 December → the twenty-fifth of December\n- American: May first"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "time-dates",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "What's the date today? — ___",
+          "options": ["It's the third of June.", "It's the three of June.", "Is the third of June."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**It's + the + vrstilni števnik**\n- It's the third of June. · It's the first of May.",
+            "de": "**It's + the + Ordnungszahl**\n- It's the third of June. · It's the first of May.",
+            "it": "**It's + the + ordinale, non il numero**\n- It's the third of June. (il tre giugno)",
+            "en": "**It's + the + an ordinal**\n- It's the third of June. · It's the first of May."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "time-dates",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Arthur gets up ___ half past five. ___ summer his bees are busy all day. ___ Sunday he goes to church, and ___ the afternoon he sits in his garden. There's a dance at the inn ___ the weekend, on the ___ (1st) of August.",
+        "gaps": [
+          { "accept": ["at"] },
+          { "accept": ["In"] },
+          { "accept": ["On"] },
+          { "accept": ["in"] },
+          { "accept": ["at", "on"] },
+          { "accept": ["first"] }
+        ],
+        "translation": {
+          "sl": "Arthur vstane ob pol šestih. Poleti so njegove čebele ves dan pridne. V nedeljo gre v cerkev, popoldne pa sedi na vrtu. Ob koncu tedna je v gostilni ples, prvega avgusta.",
+          "de": "Arthur steht um halb sechs auf. Im Sommer sind seine Bienen den ganzen Tag fleißig. Am Sonntag geht er in die Kirche, und am Nachmittag sitzt er in seinem Garten. Am Wochenende ist Tanz im Gasthaus, am ersten August.",
+          "it": "Arthur si alza alle cinque e mezza. D'estate le sue api lavorano tutto il giorno. La domenica va in chiesa e il pomeriggio si siede in giardino. Nel fine settimana c'è un ballo alla locanda, il primo agosto.",
+          "en": "Arthur gets up at half past five. In summer his bees are busy all day. On Sunday he goes to church, and in the afternoon he sits in his garden. There's a dance at the inn at the weekend, on the first of August."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "time-dates",
+        "instruction": {
+          "sl": "Write the time in words · Napiši uro z besedami",
+          "de": "Write the time in words · Schreib die Uhrzeit in Worten",
+          "it": "Write the time in words · Scrivi l'ora in lettere",
+          "en": "Write the time in words"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "The bus leaves at 7:15.",
+            "accept": [
+              "The bus leaves at a quarter past seven.",
+              "The bus leaves at quarter past seven.",
+              "The bus leaves at seven fifteen.",
+              "The bus leaves at a quarter after seven.",
+              "The bus leaves at quarter after seven."
+            ]
+          },
+          {
+            "from": "Mr Dixon starts work at 6:30.",
+            "accept": ["Mr Dixon starts work at half past six.", "Mr Dixon starts work at half six.", "Mr Dixon starts work at six thirty."]
+          },
+          {
+            "from": "Jack checks the sheep at 9:40.",
+            "accept": ["Jack checks the sheep at twenty to ten.", "Jack checks the sheep at nine forty."]
+          }
+        ],
+        "explain": {
+          "sl": "**Do pol ure past, potem to + naslednja ura**\n- 7:15 = a quarter past seven\n- 9:40 = twenty to ten",
+          "de": "**Bis halb past, danach to + die nächste Stunde**\n- 7:15 = a quarter past seven\n- 9:40 = twenty to ten",
+          "it": "**Fino alla mezza past, poi to + l'ora dopo**\n- 7:15 = a quarter past seven\n- 9:40 = twenty to ten",
+          "en": "**Up to half past: past; after it: to + the next hour**\n- 7:15 = a quarter past seven\n- 9:40 = twenty to ten"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "time-dates",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mrs Birkett: “Dinner's at half seven, love.” = Dinner is at ___.",
+        "options": ["7:30", "6:30", "8:30"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**half seven = half past seven = 7.30**\n- pol osmih, ne pol sedmih",
+          "de": "**half seven = half past seven = 7:30**\n- halb acht, nicht halb sieben",
+          "it": "**half seven = half past seven = 7.30**\n- le sette e mezza",
+          "en": "**half seven = half past seven = 7:30**\n- half an hour past seven"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "time-dates",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Meg sleeps by the fire ___ night.",
+        "options": ["at", "in", "on"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**at night, a in the morning, in the evening**\n- at night · at noon · at midnight",
+          "de": "**at night, aber in the morning, in the evening**\n- at night · at noon · at midnight",
+          "it": "**at night, ma in the morning, in the evening**\n- at night · at noon · at midnight",
+          "en": "**at night, but in the morning, in the evening**\n- at night · at noon · at midnight"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: half seven and the de/sl warning, quarter past without a, dates said aloud and their American forms, at the weekend"
+}
