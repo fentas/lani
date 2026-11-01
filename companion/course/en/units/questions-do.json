@@ -1,0 +1,659 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "questions-do",
+  "language": "en",
+  "level": "A1",
+  "emoji": "❓",
+  "title": {
+    "en": "Do you …? I don't.",
+    "de": "Fragen und Verneinung: do, don't",
+    "sl": "Vprašanja in zanikanje: do, don't",
+    "it": "Domande e negazione: do, don't"
+  },
+  "goal": {
+    "sl": "Vprašaš Do you …? in Does she …? z glagolom v osnovni obliki, zanikaš z don't in doesn't, odgovoriš Yes, I do. No, she doesn't., vprašaš Where do you …? in veš, da be in have got ne potrebujeta do.",
+    "de": "Du fragst Do you …? und Does she …? mit dem Verb in der Grundform, verneinst mit don't und doesn't, antwortest Yes, I do. No, she doesn't., fragst Where do you …? und weißt, dass be und have got kein do brauchen.",
+    "it": "Chiedi Do you …? e Does she …? con il verbo alla forma base, dici di no con don't e doesn't, rispondi Yes, I do. No, she doesn't., chiedi Where do you …? e sai che be e have got non vogliono do.",
+    "en": "You can ask Do you …? and Does she …? with the verb in its base form, say no with don't and doesn't, answer Yes, I do. No, she doesn't., ask Where do you …?, and you know that be and have got take no do."
+  },
+  "grammar": ["questions-do", "present-simple"],
+  "words": [
+    "do",
+    "where",
+    "what",
+    "when",
+    "live",
+    "work",
+    "know",
+    "like",
+    "bark",
+    "eat",
+    "sleep",
+    "sell",
+    "listen to",
+    "drink",
+    "way",
+    "tarn",
+    "honey",
+    "coffee",
+    "football",
+    "lamb",
+    "scone",
+    "pie",
+    "smithy",
+    "tent",
+    "summer",
+    "walker",
+    "quiet",
+    "every day"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo", "de": "wer", "it": "chi", "en": "who" },
+        { "sl": "vprašanje", "de": "Frage", "it": "domanda", "en": "question" },
+        { "sl": "odgovor", "de": "Antwort", "it": "risposta", "en": "answer" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Za vprašanje postavi **do** na začetek: **You live here.** (Živiš tu.) → **Do you live here?** (Ali živiš tu?) Pri **I**, **you**, **we** in **they** je to **do**, glagol pa ostane, kot je: **Do they walk to school?** (Ali hodijo v šolo peš?) Kratki odgovor ponovi **do**: **Yes, I do.** (Ja.)",
+          "de": "Für die Frage kommt **do** nach vorn: **You live here.** (Du wohnst hier.) → **Do you live here?** (Wohnst du hier?) Bei **I**, **you**, **we** und **they** ist es **do**, und das Verb bleibt, wie es ist: **Do they walk to school?** (Gehen sie zu Fuß zur Schule?) Die Kurzantwort wiederholt **do**: **Yes, I do.** (Ja.)",
+          "it": "Per chiedere, metti **do** davanti: **You live here.** (Abiti qui.) → **Do you live here?** (Abiti qui?) Con **I**, **you**, **we** e **they** è **do**, e il verbo resta com'è: **Do they walk to school?** (Vanno a scuola a piedi?) La risposta breve ripete **do**: **Yes, I do.** (Sì.)",
+          "en": "To ask, put **do** in front: **You live here.** → **Do you live here?** With **I**, **you**, **we** and **they** it is **do**, and the verb stays as it is: **Do they walk to school?** The short answer takes **do** again: **Yes, I do.**"
+        },
+        "examples": [
+          {
+            "en": "Do you live in the village?",
+            "sl": "Ali živiš v vasi?",
+            "de": "Wohnst du im Dorf?",
+            "it": "Abiti in paese?"
+          },
+          {
+            "en": "Do Jack and Meg go up the fell every day?",
+            "sl": "Ali gresta Jack in Meg vsak dan na hrib?",
+            "de": "Gehen Jack und Meg jeden Tag auf den Berg?",
+            "it": "Jack e Meg salgono sul monte ogni giorno?"
+          },
+          {
+            "en": "Do you like tea? — Yes, I do.",
+            "sl": "Ti je všeč čaj? — Ja.",
+            "de": "Magst du Tee? — Ja.",
+            "it": "Ti piace il tè? — Sì."
+          }
+        ],
+        "rows": [["I, you, we, they", "Do you like tea?", "Yes, I do."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "questions-do",
+          "prompt": "___ you walk to the inn every evening?",
+          "options": ["Do", "Does", "Are"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**you: do**\n- Do you walk …? · Do they walk …?\n- walk: the verb as it is",
+            "de": "**you: do**\n- Do you walk …? · Do they walk …?\n- walk: the verb as it is",
+            "it": "**you: do**\n- Do you walk …? · Do they walk …?\n- walk: the verb as it is",
+            "en": "**you: do**\n- Do you walk …? · Do they walk …?\n- walk: the verb as it is"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri **he**, **she**, **it** in enem imenu je v vprašanju **does**: **Does Meg bark?** (Ali Meg laja?) **-s** gre k **does**, zato je glagol spet v osnovni obliki: **Meg barks.** → **Does Meg bark?** (nikoli *Does Meg barks?*) **Does Jack live on the fell?** (Ali Jack živi na hribu?) **Yes, he does.** (Ja.)",
+          "de": "Bei **he**, **she**, **it** und einem Namen fragt man mit **does**: **Does Meg bark?** (Bellt Meg?) Das **-s** wandert zu **does**, das Verb steht wieder in der Grundform: **Meg barks.** → **Does Meg bark?** (nie *Does Meg barks?*) **Does Jack live on the fell?** (Wohnt Jack am Berg?) **Yes, he does.** (Ja.)",
+          "it": "Con **he**, **she**, **it** e un nome la domanda vuole **does**: **Does Meg bark?** (Meg abbaia?) La **-s** passa a **does**, e il verbo torna alla forma base: **Meg barks.** → **Does Meg bark?** (mai *Does Meg barks?*) **Does Jack live on the fell?** (Jack abita sul monte?) **Yes, he does.** (Sì.)",
+          "en": "With **he**, **she**, **it** or one name the question takes **does**: **Does Meg bark?** The **-s** goes to **does**, so the verb is back in its base form: **Meg barks.** → **Does Meg bark?** (never *Does Meg barks?*) **Does Jack live on the fell?** **Yes, he does.**"
+        },
+        "examples": [
+          {
+            "en": "Does Meg bark at the sheep?",
+            "sl": "Ali Meg laja na ovce?",
+            "de": "Bellt Meg die Schafe an?",
+            "it": "Meg abbaia alle pecore?"
+          },
+          {
+            "en": "Does Mrs Birkett make the pies? — Yes, she does.",
+            "sl": "Ali gospa Birkett peče pite? — Ja.",
+            "de": "Macht Mrs Birkett die Pasteten? — Ja.",
+            "it": "Mrs Birkett fa le torte salate? — Sì."
+          },
+          {
+            "en": "Meg barks at night. — Does she bark at night?",
+            "sl": "Meg ponoči laja. — Ali laja ponoči?",
+            "de": "Meg bellt in der Nacht. — Bellt sie in der Nacht?",
+            "it": "Meg abbaia di notte. — Abbaia di notte?"
+          }
+        ],
+        "rows": [["he, she, it", "Does Meg bark?", "Yes, she does."]],
+        "ask": {
+          "type": "cloze",
+          "grammar": "questions-do",
+          "text": "Does Jack ___ in a tent in summer? (sleep)",
+          "accept": ["sleep"],
+          "hint": {
+            "sl": "does + osnovna oblika",
+            "de": "does + Grundform",
+            "it": "does + forma base",
+            "en": "does + the base form"
+          },
+          "explain": {
+            "sl": "**does + osnovna oblika: sleep, ne sleeps**\n- Jack sleeps. → Does Jack sleep?",
+            "de": "**does + Grundform: sleep, nicht sleeps**\n- Jack sleeps. → Does Jack sleep?",
+            "it": "**does + forma base: sleep, non sleeps**\n- Jack sleeps. → Does Jack sleep?",
+            "en": "**does + the base form: sleep, not sleeps**\n- Jack sleeps. → Does Jack sleep?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za zanikanje pride pred glagol **don't** (do not) ali **doesn't** (does not), glagol pa ostane v osnovni obliki: **I don't know.** (Ne vem.) **We don't live in the village.** (Ne živimo v vasi.) **Meg doesn't bark at night.** (Meg ponoči ne laja.), nikoli *doesn't barks*. Kratka odgovora: **No, I don't.** **No, she doesn't.** (Ne.)",
+          "de": "Für nein kommt **don't** (do not) oder **doesn't** (does not) vor das Verb, und das Verb bleibt in der Grundform: **I don't know.** (Ich weiß es nicht.) **We don't live in the village.** (Wir wohnen nicht im Dorf.) **Meg doesn't bark at night.** (Meg bellt nachts nicht.), nie *doesn't barks*. Die Kurzantworten: **No, I don't.** **No, she doesn't.** (Nein.)",
+          "it": "Per dire di no, prima del verbo va **don't** (do not) o **doesn't** (does not), e il verbo resta alla forma base: **I don't know.** (Non lo so.) **We don't live in the village.** (Non abitiamo in paese.) **Meg doesn't bark at night.** (Meg di notte non abbaia.), mai *doesn't barks*. Le risposte brevi: **No, I don't.** **No, she doesn't.** (No.)",
+          "en": "For no, put **don't** (do not) or **doesn't** (does not) before the verb, which stays in its base form: **I don't know.** **We don't live in the village.** **Meg doesn't bark at night.** (never *Meg doesn't barks at night.*) The short answers: **No, I don't.** **No, she doesn't.**"
+        },
+        "examples": [
+          {
+            "en": "I don't know the way to the tarn.",
+            "sl": "Ne poznam poti do jezerca.",
+            "de": "Ich kenne den Weg zum Bergsee nicht.",
+            "it": "Non conosco la strada per il laghetto."
+          },
+          {
+            "en": "Mr Dixon doesn't talk much.",
+            "sl": "Gospod Dixon ne govori veliko.",
+            "de": "Mr Dixon redet nicht viel.",
+            "it": "Il signor Dixon non parla molto."
+          },
+          {
+            "en": "Do you work at the inn? — No, I don't.",
+            "sl": "Ali delaš v gostilni? — Ne.",
+            "de": "Arbeitest du im Gasthaus? — Nein.",
+            "it": "Lavori alla locanda? — No."
+          }
+        ],
+        "rows": [
+          [
+            { "sl": "not (ne)", "de": "not (nicht)", "it": "not (non)", "en": "not" },
+            "I don't know. Meg doesn't bark.",
+            "No, I don't. No, she doesn't."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "questions-do",
+          "prompt": "Meg ___ bark at night.",
+          "options": ["doesn't", "don't", "isn't"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Meg je she: doesn't**\n- she doesn't bark · they don't bark",
+            "de": "**Meg ist she: doesn't**\n- she doesn't bark · they don't bark",
+            "it": "**Meg è she: doesn't**\n- she doesn't bark · they don't bark",
+            "en": "**Meg is she: doesn't**\n- she doesn't bark · they don't bark"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Vprašalnica, **where** (kje), **what** (kaj) ali **when** (kdaj), gre na začetek, za njo **do** ali **does**: **Where do you live?** (Kje živiš?) **What does Jack eat for breakfast?** (Kaj Jack je za zajtrk?) **When does the bus go?** (Kdaj gre avtobus?) V odgovoru je glagol kot vedno: **I live in Keswick.** (Živim v Keswicku.) **It goes in the morning.** (Gre zjutraj.)",
+          "de": "Ein Fragewort, **where** (wo), **what** (was) oder **when** (wann), kommt zuerst, dann **do** oder **does**: **Where do you live?** (Wo wohnst du?) **What does Jack eat for breakfast?** (Was isst Jack zum Frühstück?) **When does the bus go?** (Wann fährt der Bus?) In der Antwort steht das Verb wie immer: **I live in Keswick.** (Ich wohne in Keswick.) **It goes in the morning.** (Er fährt am Morgen.)",
+          "it": "Una parola interrogativa, **where** (dove), **what** (che cosa) o **when** (quando), va per prima, poi **do** o **does**: **Where do you live?** (Dove abiti?) **What does Jack eat for breakfast?** (Che cosa mangia Jack a colazione?) **When does the bus go?** (Quando parte l'autobus?) Nella risposta il verbo è come sempre: **I live in Keswick.** (Abito a Keswick.) **It goes in the morning.** (Parte la mattina.)",
+          "en": "A question word, **where**, **what** or **when**, goes first, then **do** or **does**: **Where do you live?** **What does Jack eat for breakfast?** **When does the bus go?** The answer has the verb as usual: **I live in Keswick.** **It goes in the morning.**"
+        },
+        "examples": [
+          {
+            "en": "Where do you live? — In Keswick.",
+            "sl": "Kje živiš? — V Keswicku.",
+            "de": "Wo wohnst du? — In Keswick.",
+            "it": "Dove abiti? — A Keswick."
+          },
+          {
+            "en": "What does Granny Maggie make on Saturdays? — Scones.",
+            "sl": "Kaj babica Maggie peče ob sobotah? — Scone.",
+            "de": "Was backt Oma Maggie samstags? — Scones.",
+            "it": "Che cosa prepara nonna Maggie il sabato? — Gli scones."
+          },
+          {
+            "en": "When does the bus go to Keswick? — In the morning.",
+            "sl": "Kdaj gre avtobus v Keswick? — Zjutraj.",
+            "de": "Wann fährt der Bus nach Keswick? — Am Morgen.",
+            "it": "Quando parte l'autobus per Keswick? — La mattina."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "vprašalnica",
+              "de": "Fragewort",
+              "it": "parola interrogativa",
+              "en": "question word"
+            },
+            "Where do you live? What does Jack eat?",
+            "I live in Keswick."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "questions-do",
+          "text": "Where ___ Auntie Edna live?",
+          "accept": ["does"],
+          "hint": "she → ?",
+          "explain": {
+            "sl": "**Auntie Edna je she: does**\n- Where does she live? · Where do they live?",
+            "de": "**Auntie Edna ist she: does**\n- Where does she live? · Where do they live?",
+            "it": "**Auntie Edna è she: does**\n- Where does she live? · Where do they live?",
+            "en": "**Auntie Edna is she: does**\n- Where does she live? · Where do they live?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**be** in **have got** ne potrebujeta **do**: sama zamenjata mesto. **You're cold.** (Zebe te.) → **Are you cold?** (Te zebe?), nikoli *Do you are cold?* **Jack is at home.** (Jack je doma.) → **Is Jack at home?** **You've got a pen.** (Imaš pisalo.) → **Have you got a pen?** Sam **have** pa vzame **do**: tudi **Do you have a pen?** je prav.",
+          "de": "**be** und **have got** brauchen kein **do**: Sie tauschen selbst den Platz. **You're cold.** (Dir ist kalt.) → **Are you cold?** (Ist dir kalt?), nie *Do you are cold?* **Jack is at home.** (Jack ist zu Hause.) → **Is Jack at home?** **You've got a pen.** (Du hast einen Stift.) → **Have you got a pen?** Aber **have** allein nimmt **do**: Auch **Do you have a pen?** ist richtig.",
+          "it": "**be** e **have got** non vogliono **do**: cambiano posto da soli. **You're cold.** (Hai freddo.) → **Are you cold?** (Hai freddo?), mai *Do you are cold?* **Jack is at home.** (Jack è a casa.) → **Is Jack at home?** **You've got a pen.** (Hai una penna.) → **Have you got a pen?** Ma **have** da solo vuole **do**: anche **Do you have a pen?** è giusto.",
+          "en": "**be** and **have got** take no **do**: they change places themselves. **You're cold.** → **Are you cold?** (never *Do you are cold?*) **Jack is at home.** → **Is Jack at home?** **You've got a pen.** → **Have you got a pen?** But **have** alone takes **do**: **Do you have a pen?** is right too."
+        },
+        "examples": [
+          {
+            "en": "Are you tired, Sam?",
+            "sl": "Si utrujen, Sam?",
+            "de": "Bist du müde, Sam?",
+            "it": "Sei stanco, Sam?"
+          },
+          {
+            "en": "Is the inn open on Sundays?",
+            "sl": "Je gostilna ob nedeljah odprta?",
+            "de": "Hat das Gasthaus sonntags offen?",
+            "it": "La locanda è aperta la domenica?"
+          },
+          {
+            "en": "Has Arthur got a lot of bees? — Yes, he has.",
+            "sl": "Ima Arthur veliko čebel? — Ja.",
+            "de": "Hat Arthur viele Bienen? — Ja.",
+            "it": "Arthur ha tante api? — Sì."
+          }
+        ],
+        "rows": [["be, have got", "Are you cold? Have you got a pen?", "Yes, I am. No, I haven't."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "questions-do",
+          "prompt": "___ you tired after the walk?",
+          "options": ["Are", "Do", "Does"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**tired: be, brez do**\n- You're tired. → Are you tired?\n- You walk. → Do you walk?",
+            "de": "**tired: be, ohne do**\n- You're tired. → Are you tired?\n- You walk. → Do you walk?",
+            "it": "**tired: be, senza do**\n- You're tired. → Are you tired?\n- You walk. → Do you walk?",
+            "en": "**tired: be, no do**\n- You're tired. → Are you tired?\n- You walk. → Do you walk?"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**Do you live here?** · **Does she live here?** (glagol brez -s) — **Yes, I do.** · **No, she doesn't.**\n\n**I don't know.** · **Meg doesn't bark.** (don't, doesn't + osnovna oblika)\n\n**Where do you live?** · **What does Jack eat?** (vprašalnica na začetku)\n\n**Are you cold?** · **Have you got a pen?** (be in have got brez do) · **Do you have a pen?** (prav tudi to)",
+      "de": "**Do you live here?** · **Does she live here?** (das Verb ohne -s) — **Yes, I do.** · **No, she doesn't.**\n\n**I don't know.** · **Meg doesn't bark.** (don't, doesn't + Grundform)\n\n**Where do you live?** · **What does Jack eat?** (das Fragewort zuerst)\n\n**Are you cold?** · **Have you got a pen?** (be und have got ohne do) · **Do you have a pen?** (auch richtig)",
+      "it": "**Do you live here?** · **Does she live here?** (il verbo senza -s) — **Yes, I do.** · **No, she doesn't.**\n\n**I don't know.** · **Meg doesn't bark.** (don't, doesn't + forma base)\n\n**Where do you live?** · **What does Jack eat?** (la parola interrogativa per prima)\n\n**Are you cold?** · **Have you got a pen?** (be e have got senza do) · **Do you have a pen?** (giusto anche questo)",
+      "en": "**Do you live here?** · **Does she live here?** (the verb without -s) — **Yes, I do.** · **No, she doesn't.**\n\n**I don't know.** · **Meg doesn't bark.** (don't, doesn't + the base form)\n\n**Where do you live?** · **What does Jack eat?** (the question word first)\n\n**Are you cold?** · **Have you got a pen?** (be and have got: no do) · **Do you have a pen?** (right too)"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "questions-do-1",
+      "title": {
+        "sl": "Do ali does?",
+        "de": "Do oder does?",
+        "it": "Do o does?",
+        "en": "Do or does?"
+      },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "questions-do",
+          "instruction": {
+            "sl": "Sort · Do ali does?",
+            "de": "Sort · Do oder does?",
+            "it": "Sort · Do o does?",
+            "en": "Sort · Do or does?"
+          },
+          "columns": [
+            { "label": "Do …?", "words": ["I", "you", "we", "the children"] },
+            { "label": "Does …?", "words": ["he", "Auntie Edna", "Meg", "the bus"] }
+          ],
+          "explain": {
+            "sl": "**Ena druga oseba ali stvar: does**\n- Does Auntie Edna …? · Does the bus …?\n- Do the children …? · Do you …?",
+            "de": "**Eine andere Person oder Sache: does**\n- Does Auntie Edna …? · Does the bus …?\n- Do the children …? · Do you …?",
+            "it": "**Un'altra persona o cosa: does**\n- Does Auntie Edna …? · Does the bus …?\n- Do the children …? · Do you …?",
+            "en": "**One other person or thing: does**\n- Does Auntie Edna …? · Does the bus …?\n- Do the children …? · Do you …?"
+          }
+        },
+        {
+          "type": "table",
+          "grammar": "questions-do",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "work · delati: vprašanje in ne",
+            "de": "work · arbeiten: Frage und nein",
+            "it": "work · lavorare: domanda e no",
+            "en": "work: the question and no"
+          },
+          "columns": [
+            { "sl": "? · vprašanje", "de": "? · Frage", "it": "? · domanda", "en": "? · question" },
+            { "sl": "no · ne", "de": "no · nein", "it": "no · no", "en": "no" }
+          ],
+          "rows": [
+            { "label": "I", "cells": ["Do I work?", "I don't work."] },
+            { "label": "you", "cells": [{ "accept": ["Do you work?"] }, { "accept": ["You don't work."] }] },
+            {
+              "label": "he",
+              "cells": [
+                {
+                  "accept": ["Does he work?"],
+                  "hint": { "sl": "ne do", "de": "nicht do", "it": "non do", "en": "not do" }
+                },
+                { "accept": ["He doesn't work."], "hint": "does + not" }
+              ]
+            },
+            { "label": "they", "cells": [{ "accept": ["Do they work?"] }, { "accept": ["They don't work."] }] }
+          ],
+          "explain": {
+            "sl": "**does za he, she, it; do za ostale; glagol brez -s**\n- Does he work? · He doesn't work.\n- Do they work? · They don't work.",
+            "de": "**does für he, she, it; do für die übrigen; das Verb ohne -s**\n- Does he work? · He doesn't work.\n- Do they work? · They don't work.",
+            "it": "**does per he, she, it; do per gli altri; il verbo senza -s**\n- Does he work? · He doesn't work.\n- Do they work? · They don't work.",
+            "en": "**does for he, she, it; do for the rest; the verb without -s**\n- Does he work? · He doesn't work.\n- Do they work? · They don't work."
+          }
+        }
+      ]
+    },
+    {
+      "id": "questions-do-2",
+      "title": {
+        "sl": "V gostilni",
+        "de": "Im Gasthaus",
+        "it": "Alla locanda",
+        "en": "At the inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "questions-do",
+          "instruction": {
+            "sl": "Fill in with do or does · Dopolni z do ali does",
+            "de": "Fill in with do or does · Ergänze mit do oder does",
+            "it": "Fill in with do or does · Completa con do o does",
+            "en": "Fill in with do or does"
+          },
+          "text": "Mrs Birkett asks a walker: — ___ you walk on the fells every day? — No, I ___. Only on Saturdays. — ___ your friend walk too? — Yes, she ___. She walks to the tarn. — And where ___ you live? — In Penrith, but I come here for the scones!",
+          "gaps": [
+            { "accept": ["Do"], "hint": "you → ?" },
+            { "accept": ["don't"], "hint": "do + not" },
+            { "accept": ["Does"], "hint": "she → ?" },
+            {
+              "accept": ["does"],
+              "hint": {
+                "sl": "kratek odgovor",
+                "de": "die Kurzantwort",
+                "it": "la risposta breve",
+                "en": "the short answer"
+              }
+            },
+            { "accept": ["do"], "hint": "where + ? + you" }
+          ],
+          "bank": true,
+          "distractors": ["doesn't", "are"],
+          "translation": {
+            "sl": "Gospa Birkett vpraša pohodnika: — Ali hodite vsak dan po hribih? — Ne. Samo ob sobotah. — Ali hodi tudi vaša prijateljica? — Ja. Hodi do jezerca. — In kje živite? — V Penrithu, sem pa pridem na scone!",
+            "de": "Mrs Birkett fragt einen Wanderer: — Wandern Sie jeden Tag in den Bergen? — Nein. Nur samstags. — Wandert Ihre Freundin auch? — Ja. Sie wandert zum Bergsee. — Und wo wohnen Sie? — In Penrith, aber ich komme wegen der Scones hierher!",
+            "it": "Mrs Birkett chiede a un escursionista: — Cammina sui monti ogni giorno? — No. Solo il sabato. — Anche la sua amica cammina? — Sì. Va fino al laghetto. — E dove abita? — A Penrith, ma vengo qui per gli scones!",
+            "en": "Mrs Birkett asks a walker: — Do you walk on the fells every day? — No, I don't. Only on Saturdays. — Does your friend walk too? — Yes, she does. She walks to the tarn. — And where do you live? — In Penrith, but I come here for the scones!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "questions-do",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Does Jack live in Keswick? — No, he ___.",
+          "options": ["doesn't", "don't", "isn't"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**he: doesn't**\n- Does Jack live …? — No, he doesn't.",
+            "de": "**he: doesn't**\n- Does Jack live …? — No, he doesn't.",
+            "it": "**he: doesn't**\n- Does Jack live …? — No, he doesn't.",
+            "en": "**he: doesn't**\n- Does Jack live …? — No, he doesn't."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "questions-do",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "___ does Arthur keep his bees? — By the tarn.",
+          "options": ["Where", "What", "When"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**By the tarn je kraj: where**\n- where · kje\n- what · kaj\n- when · kdaj",
+            "de": "**By the tarn ist ein Ort: where**\n- where · wo\n- what · was\n- when · wann",
+            "it": "**By the tarn è un luogo: where**\n- where · dove\n- what · che cosa\n- when · quando",
+            "en": "**By the tarn is a place: where**\n- where · a place\n- what · a thing\n- when · a time"
+          }
+        }
+      ]
+    },
+    {
+      "id": "questions-do-3",
+      "title": {
+        "sl": "Ne in vprašanja",
+        "de": "Nein und Fragen",
+        "it": "No e domande",
+        "en": "No, and questions"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "questions-do",
+          "instruction": {
+            "sl": "Say it with not · Povej z not",
+            "de": "Say it with not · Sag es mit not",
+            "it": "Say it with not · Dillo con not",
+            "en": "Say it with not"
+          },
+          "cue": "not",
+          "items": [
+            { "from": "I know the way.", "accept": ["I don't know the way."] },
+            {
+              "from": "Meg barks at the ponies.",
+              "accept": ["Meg doesn't bark at the ponies."],
+              "hint": "barks → doesn't bark"
+            },
+            { "from": "We live by the beck.", "accept": ["We don't live by the beck."] },
+            { "from": "The bus goes to Penrith.", "accept": ["The bus doesn't go to Penrith."] }
+          ],
+          "explain": {
+            "sl": "**don't, doesn't + osnovna oblika**\n- I know. → I don't know.\n- Meg barks. → Meg doesn't bark.\n- goes → doesn't go",
+            "de": "**don't, doesn't + Grundform**\n- I know. → I don't know.\n- Meg barks. → Meg doesn't bark.\n- goes → doesn't go",
+            "it": "**don't, doesn't + forma base**\n- I know. → I don't know.\n- Meg barks. → Meg doesn't bark.\n- goes → doesn't go",
+            "en": "**don't, doesn't + the base form**\n- I know. → I don't know.\n- Meg barks. → Meg doesn't bark.\n- goes → doesn't go"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "questions-do",
+          "instruction": {
+            "sl": "Ask · Postavi vprašanje",
+            "de": "Ask · Mach eine Frage",
+            "it": "Ask · Fai la domanda",
+            "en": "Ask"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "You like tea.",
+              "accept": ["Do you like tea?"],
+              "hint": { "sl": "do na začetek", "de": "do nach vorn", "it": "do all'inizio", "en": "do first" }
+            },
+            { "from": "Auntie Edna listens to the radio.", "accept": ["Does Auntie Edna listen to the radio?"] },
+            { "from": "They walk to the tarn.", "accept": ["Do they walk to the tarn?"] },
+            { "from": "Mr Dixon works on Saturdays.", "accept": ["Does Mr Dixon work on Saturdays?"] },
+            {
+              "from": "Jack is on the fell.",
+              "accept": ["Is Jack on the fell?"],
+              "hint": { "sl": "be: brez do", "de": "be: ohne do", "it": "be: senza do", "en": "be: no do" }
+            }
+          ],
+          "explain": {
+            "sl": "**do, does na začetek, glagol brez -s; be brez do**\n- Edna listens. → Does Edna listen?\n- Jack is on the fell. → Is Jack on the fell?",
+            "de": "**do, does nach vorn, das Verb ohne -s; be ohne do**\n- Edna listens. → Does Edna listen?\n- Jack is on the fell. → Is Jack on the fell?",
+            "it": "**do, does all'inizio, il verbo senza -s; be senza do**\n- Edna listens. → Does Edna listen?\n- Jack is on the fell. → Is Jack on the fell?",
+            "en": "**do, does first, the verb without -s; be: no do**\n- Edna listens. → Does Edna listen?\n- Jack is on the fell. → Is Jack on the fell?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "questions-do",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "— ___ you know Beekeeper Arthur? He ___ talk much: the bees like it quiet. — ___ he sell his honey? — Yes, he ___. At the inn, on Saturdays.",
+        "gaps": [{ "accept": ["Do"] }, { "accept": ["doesn't"] }, { "accept": ["Does"] }, { "accept": ["does"] }],
+        "translation": {
+          "sl": "— Ali poznaš čebelarja Arthurja? Ne govori veliko: čebele imajo rade mir. — Ali prodaja svoj med? — Ja. V gostilni, ob sobotah.",
+          "de": "— Kennst du Imker Arthur? Er redet nicht viel: Die Bienen mögen es ruhig. — Verkauft er seinen Honig? — Ja. Im Gasthaus, samstags.",
+          "it": "— Conosci l'apicoltore Arthur? Non parla molto: alle api piace la quiete. — Vende il suo miele? — Sì. Alla locanda, il sabato.",
+          "en": "— Do you know Beekeeper Arthur? He doesn't talk much: the bees like it quiet. — Does he sell his honey? — Yes, he does. At the inn, on Saturdays."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "questions-do",
+        "instruction": {
+          "sl": "Say it with not · Povej z not",
+          "de": "Say it with not · Sag es mit not",
+          "it": "Say it with not · Dillo con not",
+          "en": "Say it with not"
+        },
+        "cue": "not",
+        "items": [
+          { "from": "Harry plays football on Sundays.", "accept": ["Harry doesn't play football on Sundays."] },
+          { "from": "I drink coffee.", "accept": ["I don't drink coffee."] }
+        ],
+        "explain": {
+          "sl": "**don't, doesn't + osnovna oblika**\n- Harry plays. → Harry doesn't play.\n- I drink. → I don't drink.",
+          "de": "**don't, doesn't + Grundform**\n- Harry plays. → Harry doesn't play.\n- I drink. → I don't drink.",
+          "it": "**don't, doesn't + forma base**\n- Harry plays. → Harry doesn't play.\n- I drink. → I don't drink.",
+          "en": "**don't, doesn't + the base form**\n- Harry plays. → Harry doesn't play.\n- I drink. → I don't drink."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "questions-do",
+        "instruction": {
+          "sl": "Ask · Postavi vprašanje",
+          "de": "Ask · Mach eine Frage",
+          "it": "Ask · Fai la domanda",
+          "en": "Ask"
+        },
+        "cue": "?",
+        "items": [
+          { "from": "Poppy likes lambs.", "accept": ["Does Poppy like lambs?"] },
+          { "from": "You work at the smithy.", "accept": ["Do you work at the smithy?"] },
+          { "from": "The inn is open.", "accept": ["Is the inn open?"] }
+        ],
+        "explain": {
+          "sl": "**do, does na začetek, glagol brez -s; be brez do**\n- Poppy likes … → Does Poppy like …?\n- The inn is open. → Is the inn open?",
+          "de": "**do, does nach vorn, das Verb ohne -s; be ohne do**\n- Poppy likes … → Does Poppy like …?\n- The inn is open. → Is the inn open?",
+          "it": "**do, does all'inizio, il verbo senza -s; be senza do**\n- Poppy likes … → Does Poppy like …?\n- The inn is open. → Is the inn open?",
+          "en": "**do, does first, the verb without -s; be: no do**\n- Poppy likes … → Does Poppy like …?\n- The inn is open. → Is the inn open?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "questions-do",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Do you like scones? — Yes, ___",
+        "options": ["I do.", "I like.", "I am."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kratki odgovor ponovi do: Yes, I do.**\n- Yes, I do. · No, I don't.",
+          "de": "**Die Kurzantwort wiederholt do: Yes, I do.**\n- Yes, I do. · No, I don't.",
+          "it": "**La risposta breve ripete do: Yes, I do.**\n- Yes, I do. · No, I don't.",
+          "en": "**The short answer takes do again: Yes, I do.**\n- Yes, I do. · No, I don't."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "questions-do",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "What ___ Auntie Edna listen to every morning?",
+        "options": ["does", "do", "is"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Auntie Edna je she: does**\n- What does she listen to? · What do they listen to?",
+          "de": "**Auntie Edna ist she: does**\n- What does she listen to? · What do they listen to?",
+          "it": "**Auntie Edna è she: does**\n- What does she listen to? · What do they listen to?",
+          "en": "**Auntie Edna is she: does**\n- What does she listen to? · What do they listen to?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "questions-do",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "___ you got a pen?",
+        "options": ["Have", "Do", "Does"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**have got brez do: Have you got …?**\n- Have you got a pen? · Do you have a pen?",
+          "de": "**have got ohne do: Have you got …?**\n- Have you got a pen? · Do you have a pen?",
+          "it": "**have got senza do: Have you got …?**\n- Have you got a pen? · Do you have a pen?",
+          "en": "**have got: no do: Have you got …?**\n- Have you got a pen? · Do you have a pen?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: Yes, I do; Do you have … beside Have you got …; the walker at the inn (vi, Sie, Lei)"
+}

@@ -4,6 +4,8 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.booleanOrNull
+import kotlinx.serialization.json.contentOrNull
+import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -19,7 +21,8 @@ import java.util.concurrent.ConcurrentHashMap
  * - [fold]: the letters a keyboard may lack ("č" → "c", "è" → "e", "ä" → "ae"): an answer that differs only there is
  *   almost right, with [foldHint];
  * - [loose]: after [fold], what is almost right too, with [looseHint] (Italian: "un amica" for "un'amica", "la acqua"
- *   for "l'acqua").
+ *   for "l'acqua"; English: "cant" for "can't"), and [looseExamples], a few of the language's own shown after the
+ *   hint ("l'acqua, un'amica"; "can't, I'm").
  * [dropSubject]: the language leaves its subject out where the verb's ending says the person (Slovene "Spita v šotoru.",
  * Italian "Dormono in tenda."): a worksheet's person in brackets may be left out of the answer ([Sheets.withoutPerson]).
  * [wrong]: words that are a known mistake, never a slip of the keyboard, matched whole against a word of the answer as
@@ -27,6 +30,8 @@ import java.util.concurrent.ConcurrentHashMap
  * "mangierò" for mangerò, "venito" for venuto): one letter off the right word, such a word is wrong, not forgiven as a
  * slip in the stem. A [Mistake] with `for` is one only where the right word matches that too (an articulated
  * preposition for another, "delle" for dalle, while "della" for bella stays a slip).
+ * [endingLetters]: how many letters at the end of a word over five letters are its ending, where a slip is no slip (two:
+ * Slovene's -ega, -em, Italian's -ano; one in English, "usualy" for usually a slip, "walk" for walks still the ending).
  * [endingSwaps]: an ending typed for another on the same stem, each pair (the right word's ending, the typed one's), where
  * the two differ a letter before the plain ending of one or two letters (Italian's subjunctive and indicative: "dormono"
  * for dormano, "parlate" for parliate; the conditional and the future: "sarete" for sareste): wrong with the ending
@@ -40,9 +45,11 @@ class Spelling(
     val foldHint: Grading.Hint = Grading.Hint.NONE,
     val loose: List<Rule> = emptyList(),
     val looseHint: Grading.Hint = Grading.Hint.NONE,
+    val looseExamples: String? = null,
     val dropSubject: Boolean = false,
     val wrong: List<Mistake> = emptyList(),
     val endingSwaps: List<Pair<String, String>> = emptyList(),
+    val endingLetters: Int = 2,
 ) {
     class Rule(val pattern: Regex, val replacement: String) {
         fun apply(s: String): String = pattern.replace(s, replacement)
@@ -73,6 +80,7 @@ class Spelling(
                 foldHint = hint(o, "fold_hint"),
                 loose = rules(o, "loose"),
                 looseHint = hint(o, "loose_hint"),
+                looseExamples = o["loose_examples"]?.jsonPrimitive?.contentOrNull?.takeIf { it.isNotBlank() },
                 dropSubject = o["drop_subject"]?.jsonPrimitive?.booleanOrNull ?: false,
                 wrong = (o["wrong"] as? JsonArray).orEmpty().map { m ->
                     (m as? JsonObject)?.let { Mistake(Regex(it.getValue("word").jsonPrimitive.content), it["for"]?.let { f -> Regex(f.jsonPrimitive.content) }) }
@@ -82,6 +90,7 @@ class Spelling(
                     val (right, typed) = p.jsonArray.map { it.jsonPrimitive.content }
                     right to typed
                 },
+                endingLetters = o["ending_letters"]?.jsonPrimitive?.intOrNull?.coerceIn(1, 3) ?: 2,
             )
         }
 

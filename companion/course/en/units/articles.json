@@ -1,0 +1,676 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "articles",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🏷️",
+  "title": { "en": "A, an, the", "de": "Die Artikel: a, an, the", "sl": "Členi: a, an, the", "it": "Gli articoli: a, an, the" },
+  "goal": {
+    "sl": "Poveš a horse, an apple, the inn: a ali an po izgovoru, the za tisto, kar oba poznata, a pri poklicu, brez člena pa stvari na splošno ter at home, at school.",
+    "de": "Du sagst a horse, an apple, the inn: a oder an nach dem Laut, the für das, was ihr beide kennt, a beim Beruf und keinen Artikel für Dinge im Allgemeinen und in at home, at school.",
+    "it": "Dici a horse, an apple, the inn: a o an secondo il suono, the per ciò che conoscete tutti e due, a con un mestiere e nessun articolo per le cose in generale e in at home, at school.",
+    "en": "You can say a horse, an apple, the inn: a or an by the sound, the for what you both know, a with a job, and no article for things in general and in at home, at school."
+  },
+  "grammar": ["articles"],
+  "words": [
+    "a",
+    "an",
+    "the",
+    "dog",
+    "horse",
+    "sheep",
+    "scone",
+    "apple",
+    "egg",
+    "inn",
+    "hour",
+    "uniform",
+    "umbrella",
+    "bridge",
+    "church",
+    "sun",
+    "milk",
+    "cup of tea",
+    "fire",
+    "village",
+    "nurse",
+    "farmer",
+    "friend",
+    "room",
+    "night",
+    "breakfast",
+    "upstairs",
+    "at home",
+    "bed",
+    "bus",
+    "old",
+    "new",
+    "black",
+    "red",
+    "wet",
+    "warm",
+    "white",
+    "friendly"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "člen", "de": "Artikel", "it": "articolo", "en": "article" },
+        { "sl": "kdaj", "de": "wann", "it": "quando", "en": "when" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**a** je za eno stvar, ki jo omeniš prvič: **a dog** (pes), **a horse** (konj), **a scone**. Angleščina nima spola, zato je **a** enak pred vsakim samostalnikom. Ena stvar, ki se šteje, ima vedno besedico pred sabo: **This is a dog.** (To je pes.), nikoli This is dog.",
+          "de": "**a** steht für eine Sache, die du zum ersten Mal nennst: **a dog** (ein Hund), **a horse** (ein Pferd), **a scone**. Englisch hat kein Geschlecht, darum ist **a** vor jedem Nomen gleich: ein, eine, ein. Eine Sache, die man zählt, braucht immer ein Wort davor: **This is a dog.** (Das ist ein Hund.), nie This is dog.",
+          "it": "**a** è per una cosa che nomini per la prima volta: **a dog** (un cane), **a horse** (un cavallo), **a scone**. L'inglese non ha il genere, quindi **a** è uguale davanti a ogni nome: un, una, uno. Una cosa che si conta ha sempre una parola davanti: **This is a dog.** (Questo è un cane.), mai This is dog.",
+          "en": "**a** is for one thing you name for the first time: **a dog**, **a horse**, **a scone**. English has no gender, so **a** is the same before every noun. One thing you can count always needs a word before it: **This is a dog.** (never *This is dog.*)"
+        },
+        "examples": [
+          { "en": "This is a dog.", "sl": "To je pes.", "de": "Das ist ein Hund.", "it": "Questo è un cane." },
+          {
+            "en": "It's a scone, with jam.",
+            "sl": "To je scone, z marmelado.",
+            "de": "Das ist ein Scone, mit Marmelade.",
+            "it": "È uno scone, con la marmellata."
+          }
+        ],
+        "rows": [
+          [
+            "a",
+            {
+              "sl": "ena stvar, prvič omenjena",
+              "de": "eine Sache, zum ersten Mal genannt",
+              "it": "una cosa, nominata per la prima volta",
+              "en": "one thing, said the first time"
+            },
+            "a dog, a horse"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "articles",
+          "prompt": { "sl": "Kaj je prav?", "de": "Was ist richtig?", "it": "Che cosa è giusto?", "en": "Which is right?" },
+          "options": ["This is a dog.", "This is dog.", "This is an dog."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**En pes: a dog**\n- This is a dog. · To je pes.",
+            "de": "**Ein Hund: a dog**\n- This is a dog. · Das ist ein Hund.",
+            "it": "**Un cane: a dog**\n- This is a dog. · Questo è un cane.",
+            "en": "**One dog: a dog**\n- This is a dog."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pred samoglasnikom (v izgovoru) **a** postane **an**: **an apple** (jabolko), **an egg** (jajce), **an inn** (gostilna), **an old bridge** (star most). Odloča glas, ne črka: **an hour** (ura: h se ne izgovori), a **a uniform** (uniforma: začne se z glasom ju) in **a horse** (h slišiš).",
+          "de": "Vor einem Vokal-Laut wird **a** zu **an**: **an apple** (ein Apfel), **an egg** (ein Ei), **an inn** (ein Gasthaus), **an old bridge** (eine alte Brücke). Es geht nach dem Laut, nicht nach dem Buchstaben: **an hour** (eine Stunde: das h ist stumm), aber **a uniform** (eine Uniform: sie beginnt mit einem ju-Laut) und **a horse** (das h hört man).",
+          "it": "Davanti a un suono vocalico **a** diventa **an**: **an apple** (una mela), **an egg** (un uovo), **an inn** (una locanda), **an old bridge** (un vecchio ponte). Conta il suono, non la lettera: **an hour** (un'ora: la h non si pronuncia), ma **a uniform** (un'uniforme: comincia con un suono iu) e **a horse** (la h si sente).",
+          "en": "Before a vowel sound, **a** becomes **an**: **an apple**, **an egg**, **an inn**, **an old bridge**. It goes by the sound, not the letter: **an hour** (the h is silent), but **a uniform** (it starts with a *you* sound) and **a horse** (you hear the h)."
+        },
+        "examples": [
+          { "en": "It's an egg.", "sl": "To je jajce.", "de": "Das ist ein Ei.", "it": "È un uovo." },
+          {
+            "en": "Keswick is an hour by bus.",
+            "sl": "Do Keswicka je z avtobusom ena ura.",
+            "de": "Nach Keswick ist es eine Stunde mit dem Bus.",
+            "it": "Keswick è a un'ora di autobus."
+          },
+          {
+            "en": "The Packhorse is an old inn.",
+            "sl": "Packhorse je stara gostilna.",
+            "de": "Das Packhorse ist ein altes Gasthaus.",
+            "it": "Il Packhorse è una vecchia locanda."
+          }
+        ],
+        "rows": [
+          [
+            "an",
+            {
+              "sl": "pred samoglasnikom (v izgovoru)",
+              "de": "vor einem Vokal-Laut",
+              "it": "davanti a un suono vocalico",
+              "en": "before a vowel sound"
+            },
+            "an apple, an hour"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "articles",
+          "text": "The Packhorse is ___ old inn.",
+          "accept": ["an"],
+          "hint": {
+            "sl": "poslušaj naslednjo besedo",
+            "de": "hör auf das nächste Wort",
+            "it": "ascolta la parola dopo",
+            "en": "listen to the next word"
+          },
+          "explain": {
+            "sl": "**old se začne s samoglasnikom: an**\n- an old inn · an apple · an hour",
+            "de": "**old beginnt mit einem Vokal-Laut: an**\n- an old inn · an apple · an hour",
+            "it": "**old comincia con un suono vocalico: an**\n- an old inn · an apple · an hour",
+            "en": "**old starts with a vowel sound: an**\n- an old inn · an apple · an hour"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**the** je za tisto, kar oba poznata: že omenjeno, edino, ki obstaja, ali tisto tukaj. **This is a dog. The dog is Meg.** (To je pes. Pes je Meg.) **The sun is out.** (Sonce sije.) V vasi je **the inn**, **the church**, **the mill** (gostilna, cerkev, mlin): vsakega je po eden. **the** je enak za eno in za več.",
+          "de": "**the** ist für etwas, das ihr beide kennt: schon genannt, das einzige, das es gibt, oder das hier. **This is a dog. The dog is Meg.** (Das ist ein Hund. Der Hund ist Meg.) **The sun is out.** (Die Sonne scheint.) Im Dorf heißt es **the inn**, **the church**, **the mill** (das Gasthaus, die Kirche, die Mühle): es gibt je eines. **the** ist für eins und für mehr gleich: der, die, das.",
+          "it": "**the** è per ciò che conoscete tutti e due: già nominato, l'unico che c'è o quello qui. **This is a dog. The dog is Meg.** (Questo è un cane. Il cane è Meg.) **The sun is out.** (C'è il sole.) In paese si dice **the inn**, **the church**, **the mill** (la locanda, la chiesa, il mulino): ce n'è uno solo. **the** è uguale per uno e per più: il, la, i, le.",
+          "en": "**the** is for something you both know: one said before, the only one there is, or the one here. **This is a dog. The dog is Meg.** **The sun is out.** In the village it is **the inn**, **the church**, **the mill**: there is one of each. **the** is the same for one and for more."
+        },
+        "examples": [
+          {
+            "en": "This is a dog. The dog is Meg.",
+            "sl": "To je pes. Pes je Meg.",
+            "de": "Das ist ein Hund. Der Hund ist Meg.",
+            "it": "Questo è un cane. Il cane è Meg."
+          },
+          {
+            "en": "The sun is out today.",
+            "sl": "Danes sije sonce.",
+            "de": "Heute scheint die Sonne.",
+            "it": "Oggi c'è il sole."
+          },
+          {
+            "en": "The church is very old.",
+            "sl": "Cerkev je zelo stara.",
+            "de": "Die Kirche ist sehr alt.",
+            "it": "La chiesa è molto vecchia."
+          }
+        ],
+        "rows": [
+          [
+            "the",
+            {
+              "sl": "znano, že omenjeno, edino",
+              "de": "bekannt, schon genannt, einzig",
+              "it": "noto, già detto, unico",
+              "en": "known, said before, the only one"
+            },
+            "the dog, the sun, the inn"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "articles",
+          "text": "This is a horse. ___ horse is black.",
+          "accept": ["The"],
+          "hint": { "sl": "že omenjeno", "de": "schon genannt", "it": "già detto", "en": "said before" },
+          "explain": {
+            "sl": "**Konj je že omenjen: the**\n- a horse → the horse",
+            "de": "**Das Pferd ist schon genannt: the**\n- a horse → the horse",
+            "it": "**Il cavallo è già nominato: the**\n- a horse → the horse",
+            "en": "**The horse was said before: the**\n- a horse → the horse"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Poklic dobi **a** za be: **Jack is a shepherd.** (Jack je pastir.) **Mrs Hartley is a teacher.** (Gospa Hartley je učiteljica.) Slovenščina tu nima ničesar, angleščina pa vedno **a**. Ko je v vasi samo eden, je prav tudi **the**: **Mr Dixon is the blacksmith.** (Gospod Dixon je vaški kovač.)",
+          "de": "Ein Beruf bekommt nach be ein **a**: **Jack is a shepherd.** (Jack ist Schäfer.) **Mrs Hartley is a teacher.** (Mrs Hartley ist Lehrerin.) Im Deutschen steht da nichts, im Englischen immer **a**. Gibt es im Dorf nur einen, ist auch **the** richtig: **Mr Dixon is the blacksmith.** (Mr Dixon ist der Schmied.)",
+          "it": "Un mestiere vuole **a** dopo be: **Jack is a shepherd.** (Jack fa il pastore.) **Mrs Hartley is a teacher.** (Mrs Hartley è insegnante.) L'italiano qui non ha niente, l'inglese sempre **a**. Se in paese ce n'è uno solo, va bene anche **the**: **Mr Dixon is the blacksmith.** (Il signor Dixon è il fabbro.)",
+          "en": "A job takes **a** after be: **Jack is a shepherd.** **Mrs Hartley is a teacher.** Many languages say it with no word at all; English never. When the village has only one, **the** is right too: **Mr Dixon is the blacksmith.**"
+        },
+        "examples": [
+          {
+            "en": "Jack is a shepherd.",
+            "sl": "Jack je pastir.",
+            "de": "Jack ist Schäfer.",
+            "it": "Jack fa il pastore."
+          },
+          {
+            "en": "Mrs Hartley is a teacher.",
+            "sl": "Gospa Hartley je učiteljica.",
+            "de": "Mrs Hartley ist Lehrerin.",
+            "it": "Mrs Hartley è insegnante."
+          },
+          { "en": "Sam is a brewer.", "sl": "Sam je pivovar.", "de": "Sam ist Brauer.", "it": "Sam fa il birraio." }
+        ],
+        "rows": [["a", {"sl": "poklic", "de": "Beruf", "it": "mestiere", "en": "a job"}, "She's a teacher."]],
+        "ask": {
+          "type": "choice",
+          "grammar": "articles",
+          "prompt": { "sl": "Kaj je prav?", "de": "Was ist richtig?", "it": "Che cosa è giusto?", "en": "Which is right?" },
+          "options": ["Sam is a brewer.", "Sam is brewer.", "Sam is an brewer."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Poklic: a**\n- Sam is a brewer. · Sam je pivovar.",
+            "de": "**Beruf: a**\n- Sam is a brewer. · Sam ist Brauer.",
+            "it": "**Mestiere: a**\n- Sam is a brewer. · Sam fa il birraio.",
+            "en": "**A job: a**\n- Sam is a brewer."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Brez člena so stvari na splošno, v množini ali besede, ki jih ne šteješ: **Dogs are friendly.** (Psi so prijazni.) **Milk is white.** (Mleko je belo.) In brez člena je **at home**, **at school**, **at work**, **in bed**, **by bus** (doma, v šoli, v službi, v postelji, z avtobusom): **We're at home.** (Doma smo.)",
+          "de": "Keinen Artikel haben Dinge im Allgemeinen, im Plural oder Wörter, die man nicht zählt: **Dogs are friendly.** (Hunde sind freundlich.) **Milk is white.** (Milch ist weiß.) Und keinen in **at home**, **at school**, **at work**, **in bed**, **by bus** (zu Hause, in der Schule, in der Arbeit, im Bett, mit dem Bus): **We're at home.** (Wir sind zu Hause.)",
+          "it": "Niente articolo per le cose in generale, al plurale o con le parole che non si contano: **Dogs are friendly.** (I cani sono simpatici.) **Milk is white.** (Il latte è bianco.) E niente in **at home**, **at school**, **at work**, **in bed**, **by bus** (a casa, a scuola, al lavoro, a letto, in autobus): **We're at home.** (Siamo a casa.) L'italiano qui spesso ha l'articolo, l'inglese no.",
+          "en": "No article for things in general, in the plural or with words you don't count: **Dogs are friendly.** **Milk is white.** And none in **at home**, **at school**, **at work**, **in bed**, **by bus**: **We're at home.**"
+        },
+        "examples": [
+          {
+            "en": "Dogs are friendly.",
+            "sl": "Psi so prijazni.",
+            "de": "Hunde sind freundlich.",
+            "it": "I cani sono simpatici."
+          },
+          {
+            "en": "We're at home, and Jack is in bed.",
+            "sl": "Doma smo, Jack pa je v postelji.",
+            "de": "Wir sind zu Hause, und Jack ist im Bett.",
+            "it": "Siamo a casa, e Jack è a letto."
+          }
+        ],
+        "rows": [
+          [
+            "—",
+            {
+              "sl": "stvari na splošno",
+              "de": "Dinge im Allgemeinen",
+              "it": "cose in generale",
+              "en": "things in general"
+            },
+            "Dogs are friendly. Milk is white."
+          ],
+          [
+            "—",
+            { "sl": "stalne zveze", "de": "feste Wendungen", "it": "espressioni fisse", "en": "fixed phrases" },
+            "at home, at school, at work, in bed, by bus"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "articles",
+          "prompt": {
+            "sl": "Zvečer, doma:",
+            "de": "Am Abend, zu Hause:",
+            "it": "La sera, a casa:",
+            "en": "At home, in the evening:"
+          },
+          "options": ["We're at home.", "We're at the home.", "We're at a home."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**at home: brez člena**\n- at home · at school · in bed · by bus",
+            "de": "**at home: ohne Artikel**\n- at home · at school · in bed · by bus",
+            "it": "**at home: senza articolo**\n- at home · at school · in bed · by bus",
+            "en": "**at home: no article**\n- at home · at school · in bed · by bus"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "articles-1",
+      "title": { "sl": "a ali an?", "de": "a oder an?", "it": "a o an?", "en": "A or an?" },
+      "exercises": [
+        {
+          "type": "sort",
+          "grammar": "articles",
+          "instruction": { "sl": "Sort · a ali an?", "de": "Sort · a oder an?", "it": "Sort · a o an?", "en": "Sort · a or an?" },
+          "columns": [
+            {
+              "label": {
+                "sl": "a · pred soglasnikom",
+                "de": "a · vor einem Konsonanten-Laut",
+                "it": "a · davanti a un suono consonantico",
+                "en": "a · before a consonant sound"
+              },
+              "words": ["horse", "sheep", "scone", "uniform", "bridge", "church"]
+            },
+            {
+              "label": {
+                "sl": "an · pred samoglasnikom",
+                "de": "an · vor einem Vokal-Laut",
+                "it": "an · davanti a un suono vocalico",
+                "en": "an · before a vowel sound"
+              },
+              "words": ["apple", "egg", "inn", "hour", "umbrella", "old dog"]
+            }
+          ],
+          "explain": {
+            "sl": "**an pred samoglasnikom (v izgovoru)**\n- an apple · an hour (h se ne sliši)\n- a uniform (glas ju) · a horse",
+            "de": "**an vor einem Vokal-Laut**\n- an apple · an hour (das h stumm)\n- a uniform (ein ju-Laut) · a horse",
+            "it": "**an davanti a un suono vocalico**\n- an apple · an hour (la h muta)\n- a uniform (suono iu) · a horse",
+            "en": "**an before a vowel sound**\n- an apple · an hour (the h silent)\n- a uniform (a you sound) · a horse"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "articles",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Keswick is ___ hour from here.",
+          "options": ["an", "a", "the"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**hour: h se ne izgovori, zato an**\n- an hour",
+            "de": "**hour: das h ist stumm, darum an**\n- an hour",
+            "it": "**hour: la h è muta, quindi an**\n- an hour",
+            "en": "**hour: the h is silent, so an**\n- an hour"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "articles",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": { "sl": "Kaj je prav?", "de": "Was ist richtig?", "it": "Che cosa è giusto?", "en": "Which is right?" },
+          "options": ["It's an umbrella.", "It's a umbrella.", "It's umbrella."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**an pred samoglasnikom**\n- It's an umbrella.",
+            "de": "**an vor einem Vokal-Laut**\n- It's an umbrella.",
+            "it": "**an davanti a vocale**\n- It's an umbrella.",
+            "en": "**an before a vowel sound**\n- It's an umbrella."
+          }
+        }
+      ]
+    },
+    {
+      "id": "articles-2",
+      "title": { "sl": "V vasi", "de": "Im Dorf", "it": "In paese", "en": "In the village" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "articles",
+          "instruction": {
+            "sl": "Fill in with a, an or the · Dopolni z a, an ali the",
+            "de": "Fill in with a, an or the · Ergänze mit a, an oder the",
+            "it": "Fill in with a, an or the · Completa con a, an o the",
+            "en": "Fill in with a, an or the"
+          },
+          "text": "This is ___ old village in the dale. ___ church is by the beck. Mrs Hartley is ___ teacher at the school. Old Wilf is by the fire with ___ cup of tea. It's ___ hour to Keswick by bus.",
+          "gaps": [
+            {
+              "accept": ["an"],
+              "hint": {
+                "sl": "old: samoglasnik",
+                "de": "old: ein Vokal-Laut",
+                "it": "old: suono vocalico",
+                "en": "old: a vowel sound"
+              }
+            },
+            {
+              "accept": ["The"],
+              "hint": {
+                "sl": "vas ima eno",
+                "de": "das Dorf hat eine",
+                "it": "il paese ne ha una",
+                "en": "the village has one"
+              }
+            },
+            {
+              "accept": ["a", "the"],
+              "hint": { "sl": "poklic", "de": "ein Beruf", "it": "un mestiere", "en": "a job" },
+              "explain": {
+                "sl": "**Poklic: a; edina učiteljica tam: the**\n- Mrs Hartley is a teacher.",
+                "de": "**Beruf: a; die einzige Lehrerin dort: the**\n- Mrs Hartley is a teacher.",
+                "it": "**Mestiere: a; l'unica insegnante lì: the**\n- Mrs Hartley is a teacher.",
+                "en": "**A job: a; the only teacher there: the**\n- Mrs Hartley is a teacher."
+              }
+            },
+            { "accept": ["a"] },
+            {
+              "accept": ["an"],
+              "hint": { "sl": "h se ne izgovori", "de": "das h ist stumm", "it": "la h è muta", "en": "the h is silent" }
+            }
+          ],
+          "bank": true,
+          "translation": {
+            "sl": "To je stara vas v dolini. Cerkev je ob potoku. Gospa Hartley je učiteljica na šoli. Stari Wilf je ob ognju s skodelico čaja. Do Keswicka je z avtobusom ena ura.",
+            "de": "Das ist ein altes Dorf im Tal. Die Kirche ist am Bach. Mrs Hartley ist Lehrerin an der Schule. Der alte Wilf sitzt mit einer Tasse Tee am Feuer. Nach Keswick ist es eine Stunde mit dem Bus.",
+            "it": "Questo è un vecchio paese nella valle. La chiesa è vicino al ruscello. Mrs Hartley è insegnante alla scuola. Il vecchio Wilf è vicino al fuoco con una tazza di tè. Keswick è a un'ora di autobus.",
+            "en": "This is an old village in the dale. The church is by the beck. Mrs Hartley is a teacher at the school. Old Wilf is by the fire with a cup of tea. It's an hour to Keswick by bus."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "articles",
+          "instruction": {
+            "sl": "Say it twice · Povej dvakrat: a ali an, nato the",
+            "de": "Say it twice · Sag es zweimal: a oder an, dann the",
+            "it": "Say it twice · Dillo due volte: a o an, poi the",
+            "en": "Say it twice: a or an, then the"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "horse · black",
+              "accept": ["This is a horse. The horse is black.", "It's a horse. The horse is black."],
+              "hint": "This is a … The …"
+            },
+            {
+              "from": "apple · red",
+              "accept": ["This is an apple. The apple is red.", "It's an apple. The apple is red."]
+            },
+            { "from": "inn · old", "accept": ["This is an inn. The inn is old.", "It's an inn. The inn is old."] },
+            {
+              "from": "uniform · new",
+              "accept": ["This is a uniform. The uniform is new.", "It's a uniform. The uniform is new."],
+              "hint": { "sl": "glas ju", "de": "ein ju-Laut", "it": "un suono iu", "en": "a you sound" }
+            },
+            {
+              "from": "umbrella · wet",
+              "accept": ["This is an umbrella. The umbrella is wet.", "It's an umbrella. The umbrella is wet."]
+            }
+          ],
+          "explain": {
+            "sl": "**a ali an prvič, nato the**\n- This is a horse. The horse is black.",
+            "de": "**a oder an beim ersten Mal, danach the**\n- This is a horse. The horse is black.",
+            "it": "**a o an la prima volta, poi the**\n- This is a horse. The horse is black.",
+            "en": "**a or an the first time, the after**\n- This is a horse. The horse is black."
+          }
+        }
+      ]
+    },
+    {
+      "id": "articles-3",
+      "title": {
+        "sl": "Poklic in brez člena",
+        "de": "Beruf und kein Artikel",
+        "it": "Mestiere e niente articolo",
+        "en": "A job, and no article"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "articles",
+          "instruction": {
+            "sl": "Fill in with a, an or the · Dopolni z a, an ali the",
+            "de": "Fill in with a, an or the · Ergänze mit a, an oder the",
+            "it": "Fill in with a, an or the · Completa con a, an o the",
+            "en": "Fill in with a, an or the"
+          },
+          "text": "My friend Anna is ___ nurse in Keswick. Today she's at ___ Packhorse Inn with Tom, ___ farmer from Grasmere. ___ inn is warm, and the scones are hot.",
+          "gaps": [
+            { "accept": ["a"], "hint": {"sl": "poklic", "de": "ein Beruf", "it": "un mestiere", "en": "a job"} },
+            {
+              "accept": ["the"],
+              "hint": {
+                "sl": "ime gostilne ga ima",
+                "de": "der Name des Gasthauses hat ihn",
+                "it": "il nome della locanda lo vuole",
+                "en": "the inn's name takes it"
+              }
+            },
+            { "accept": ["a"] },
+            {
+              "accept": ["The"],
+              "hint": { "sl": "že omenjeno", "de": "schon genannt", "it": "già detto", "en": "said before" }
+            }
+          ],
+          "translation": {
+            "sl": "Moja prijateljica Anna je medicinska sestra v Keswicku. Danes je v gostilni Packhorse s Tomom, kmetom iz Grasmera. V gostilni je toplo, sconei so vroči.",
+            "de": "Meine Freundin Anna ist Krankenschwester in Keswick. Heute ist sie mit Tom, einem Bauern aus Grasmere, im Packhorse Inn. Das Gasthaus ist warm, und die Scones sind heiß.",
+            "it": "La mia amica Anna è infermiera a Keswick. Oggi è al Packhorse Inn con Tom, un contadino di Grasmere. La locanda è calda, e gli scones sono caldi.",
+            "en": "My friend Anna is a nurse in Keswick. Today she's at the Packhorse Inn with Tom, a farmer from Grasmere. The inn is warm, and the scones are hot."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "articles",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": {
+            "sl": "Psi na splošno:",
+            "de": "Hunde im Allgemeinen:",
+            "it": "I cani in generale:",
+            "en": "Dogs in general:"
+          },
+          "options": ["Dogs are friendly.", "The dogs are friendly.", "A dogs are friendly."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Na splošno: brez člena**\n- Dogs are friendly. · Milk is white.",
+            "de": "**Im Allgemeinen: kein Artikel**\n- Dogs are friendly. · Milk is white.",
+            "it": "**In generale: niente articolo**\n- Dogs are friendly. · Milk is white.",
+            "en": "**In general: no article**\n- Dogs are friendly. · Milk is white."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "articles",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": {
+            "sl": "Mleko na splošno:",
+            "de": "Milch im Allgemeinen:",
+            "it": "Il latte in generale:",
+            "en": "Milk in general:"
+          },
+          "options": ["Milk is white.", "The milk is white.", "A milk is white."],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mleka ne šteješ, na splošno: brez člena**\n- Milk is white.",
+            "de": "**Milch zählt man nicht, allgemein: kein Artikel**\n- Milk is white.",
+            "it": "**Il latte non si conta, in generale: niente articolo**\n- Milk is white.",
+            "en": "**Milk you don't count, in general: no article**\n- Milk is white."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "sort",
+        "grammar": "articles",
+        "instruction": { "sl": "Sort · a ali an?", "de": "Sort · a oder an?", "it": "Sort · a o an?", "en": "Sort · a or an?" },
+        "columns": [
+          {
+            "label": {
+              "sl": "a · pred soglasnikom",
+              "de": "a · vor einem Konsonanten-Laut",
+              "it": "a · davanti a un suono consonantico",
+              "en": "a · before a consonant sound"
+            },
+            "words": ["horse", "uniform", "scone", "bus"]
+          },
+          {
+            "label": {
+              "sl": "an · pred samoglasnikom",
+              "de": "an · vor einem Vokal-Laut",
+              "it": "an · davanti a un suono vocalico",
+              "en": "an · before a vowel sound"
+            },
+            "words": ["hour", "egg", "old bridge", "apple"]
+          }
+        ],
+        "explain": {
+          "sl": "**an pred samoglasnikom (v izgovoru)**\n- an apple · an hour (h se ne sliši)\n- a uniform (glas ju) · a horse",
+          "de": "**an vor einem Vokal-Laut**\n- an apple · an hour (das h stumm)\n- a uniform (ein ju-Laut) · a horse",
+          "it": "**an davanti a un suono vocalico**\n- an apple · an hour (la h muta)\n- a uniform (suono iu) · a horse",
+          "en": "**an before a vowel sound**\n- an apple · an hour (the h silent)\n- a uniform (a you sound) · a horse"
+        }
+      },
+      {
+        "type": "gaptext",
+        "grammar": "articles",
+        "instruction": {
+          "sl": "Fill in with a, an or the · Dopolni z a, an ali the",
+          "de": "Fill in with a, an or the · Ergänze mit a, an oder the",
+          "it": "Fill in with a, an or the · Completa con a, an o the",
+          "en": "Fill in with a, an or the"
+        },
+        "text": "Good evening! Is this ___ inn? — Yes, it's ___ Packhorse Inn. I'm Mrs Birkett. — I'd like ___ room for one night, please. — Of course. ___ room is upstairs, and breakfast is at eight.",
+        "gaps": [
+          { "accept": ["an"] },
+          { "accept": ["the"] },
+          {
+            "accept": ["a"],
+            "hint": {
+              "sl": "ena soba, prvič omenjena",
+              "de": "ein Zimmer, zum ersten Mal genannt",
+              "it": "una camera, nominata la prima volta",
+              "en": "one room, said the first time"
+            }
+          },
+          { "accept": ["The"] }
+        ],
+        "translation": {
+          "sl": "Dober večer! Je to gostilna? — Ja, to je gostilna Packhorse. Jaz sem gospa Birkett. — Rad, rada bi sobo za eno noč, prosim. — Seveda. Soba je zgoraj, zajtrk pa ob osmih.",
+          "de": "Guten Abend! Ist das ein Gasthaus? — Ja, das ist das Packhorse Inn. Ich bin Mrs Birkett. — Ich hätte gern ein Zimmer für eine Nacht, bitte. — Natürlich. Das Zimmer ist oben, und das Frühstück ist um acht.",
+          "it": "Buonasera! Questa è una locanda? — Sì, è il Packhorse Inn. Sono Mrs Birkett. — Vorrei una camera per una notte, per favore. — Certo. La camera è di sopra, e la colazione è alle otto.",
+          "en": "Good evening! Is this an inn? — Yes, it's the Packhorse Inn. I'm Mrs Birkett. — I'd like a room for one night, please. — Of course. The room is upstairs, and breakfast is at eight."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "articles",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": { "sl": "Kaj je prav?", "de": "Was ist richtig?", "it": "Che cosa è giusto?", "en": "Which is right?" },
+        "options": ["Mr Dixon is a blacksmith.", "Mr Dixon is blacksmith.", "Mr Dixon is an blacksmith."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Poklic: a**\n- Mr Dixon is a blacksmith.",
+          "de": "**Beruf: a**\n- Mr Dixon is a blacksmith.",
+          "it": "**Mestiere: a**\n- Mr Dixon is a blacksmith.",
+          "en": "**A job: a**\n- Mr Dixon is a blacksmith."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "articles",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": { "sl": "Kaj je prav?", "de": "Was ist richtig?", "it": "Che cosa è giusto?", "en": "Which is right?" },
+        "options": ["It's an old church.", "It's a old church.", "It's old church."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**old: samoglasnik, an**\n- It's an old church.",
+          "de": "**old: Vokal-Laut, an**\n- It's an old church.",
+          "it": "**old: suono vocalico, an**\n- It's an old church.",
+          "en": "**old: a vowel sound, an**\n- It's an old church."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "articles",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": { "sl": "Jack ponoči:", "de": "Jack, in der Nacht:", "it": "Jack, di notte:", "en": "Jack, at night:" },
+        "options": ["Jack is in bed.", "Jack is in a bed.", "Jack is in bed the."],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**in bed: brez člena**\n- in bed · at home · at school",
+          "de": "**in bed: ohne Artikel**\n- in bed · at home · at school",
+          "it": "**in bed: senza articolo**\n- in bed · at home · at school",
+          "en": "**in bed: no article**\n- in bed · at home · at school"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: a teacher or the teacher at the school, Jack is in a bed as wrong for a night's sleep"
+}

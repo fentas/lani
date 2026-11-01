@@ -9436,12 +9436,23 @@ def course_unit():
             shutil.copy(shots[-1], out / f"{name}.png")
 
     def text_field(swipes: int):
-        """The centre of the first text field, scrolled into view (up to [swipes] swipes), or None."""
+        """The centre of the first text field above the "Check" button (its top while it is on screen, else 2150 px:
+        never a field behind the button bar), scrolled into view (up to [swipes] swipes), or None. A quick question's
+        field in a step long enough to scroll lies pinned above Check and Next at the content's end (about 1870 px)."""
         for _ in range(swipes + 1):
-            for n in re.findall(r"<node [^>]*?>", screen_xml()):
+            ns = re.findall(r"<node [^>]*?>", screen_xml())
+            bottom = 2150
+            for n in ns:
+                t = re.search(r' text="([^"]*)"', n)
+                if t and check in html.unescape(t.group(1)) and (m := re.search(r'bounds="([^"]*)"', n)):
+                    b = list(map(int, re.findall(r"\d+", m.group(1))))
+                    if len(b) == 4 and 300 < b[1] < 2400:
+                        bottom = b[1]
+                        break
+            for n in ns:
                 if 'class="android.widget.EditText"' in n and (m := re.search(r'bounds="([^"]*)"', n)):
                     b = list(map(int, re.findall(r"\d+", m.group(1))))
-                    if len(b) == 4 and 300 < (b[1] + b[3]) // 2 < 1850:
+                    if len(b) == 4 and 300 < (b[1] + b[3]) // 2 < bottom:
                         return (b[0] + b[2]) // 2, (b[1] + b[3]) // 2
             adb("shell", "input", "swipe", "540", "1600", "540", "1000", "400")
             time.sleep(1)
@@ -9491,6 +9502,26 @@ def course_unit():
                     if isinstance(cell, dict):  # TalkBack's name of a cell: "<row>, <column>" (its column in the base)
                         label = f'{r["label"]}, {e["columns"][c]}'
                         assert fill(label, typed(cell["accept"][0])), f"{where}: the cell {label}"
+        elif kind == "reorder":
+            # the first solution's words in its order, each the chip the app shows for it (game/ChipLabels: the
+            # punctuation round it off, a capital lowered unless a name keeps it): the pool's, below the answer's row
+            for tok in e["solutions"][0]:
+                bare = re.sub(r"^\W+|\W+$", "", unit_text(tok)) or tok
+                low = bare[0].lower() + bare[1:] if bare[:1].isupper() and not any(ch.isupper() for ch in bare[1:]) else bare
+                c = None
+                for label in dict.fromkeys([low, bare]):
+                    cs = [xy for t, xy in nodes() if t == label and 300 < xy[1] < 2150]
+                    if cs:
+                        c = max(cs, key=lambda xy: xy[1])
+                        break
+                assert c is not None, f"{where}: the word «{tok}»"
+                tap_at(c)
+        elif kind == "multi":
+            # each right option ticked (below the prompt: an option's word may stand in a line above), then Check (n)
+            for k in e["answers"]:
+                c = option_at(unit_text(e["options"][k]), swipes=3, after=prompt_piece(e.get("prompt")))
+                assert c is not None, f"{where}: the option «{e['options'][k]}»"
+                tap_at(c)
         else:
             raise AssertionError(f"{where}: QA doesn't play a {kind} here")
         assert tap_above(check, 2400), f"{where}: check"

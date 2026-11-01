@@ -1,0 +1,962 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "present-continuous",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🏃",
+  "title": {
+    "en": "I'm walking now",
+    "de": "Gerade jetzt: I'm walking",
+    "sl": "Prav zdaj: I'm walking",
+    "it": "Proprio adesso: I'm walking"
+  },
+  "goal": {
+    "sl": "Poveš, kaj se dogaja prav zdaj (I'm walking, she isn't sleeping), vprašaš What are you doing? in ločiš to od tega, kar delaš vsak dan (Jack walks the dogs every day).",
+    "de": "Du sagst, was gerade jetzt passiert (I'm walking, she isn't sleeping), fragst What are you doing? und unterscheidest es von dem, was du jeden Tag tust (Jack walks the dogs every day).",
+    "it": "Dici che cosa succede proprio adesso (I'm walking, she isn't sleeping), chiedi What are you doing? e lo distingui da quello che fai ogni giorno (Jack walks the dogs every day).",
+    "en": "You can say what is happening now (I'm walking, she isn't sleeping), ask What are you doing? and tell it from what you do every day (Jack walks the dogs every day)."
+  },
+  "grammar": [
+    "present-continuous",
+    "present-simple"
+  ],
+  "words": [
+    "walk",
+    "read",
+    "cook",
+    "make",
+    "come",
+    "write",
+    "sit",
+    "run",
+    "swim",
+    "lie",
+    "sleep",
+    "play",
+    "listen",
+    "rain",
+    "work",
+    "carry",
+    "tell",
+    "count",
+    "sing",
+    "help",
+    "look",
+    "now",
+    "at the moment",
+    "every day",
+    "usually",
+    "know",
+    "like",
+    "want",
+    "need",
+    "understand",
+    "radio",
+    "paper",
+    "scone",
+    "sack",
+    "walker",
+    "tarn",
+    "story",
+    "song"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "oblika",
+          "de": "Form",
+          "it": "forma",
+          "en": "form"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Za to, kar se dogaja prav zdaj, je **am**, **is** ali **are** + glagol na **-ing**: **I'm walking.** (Zdaj hodim.) **Jack is walking the dogs.** (Jack ravno sprehaja pse.) **They're playing.** (Igrajo se.) Be je tak kot vedno: **I'm**, **she's**, **we're**. Slovenščina tu reče kar sedanjik, angleščina ne.",
+          "de": "Für das, was gerade jetzt passiert, steht **am**, **is** oder **are** + das Verb mit **-ing**: **I'm walking.** (Ich gehe gerade.) **Jack is walking the dogs.** (Jack führt gerade die Hunde aus.) **They're playing.** (Sie spielen gerade.) Das be kennst du schon: **I'm**, **she's**, **we're**. Deutsch sagt hier das Präsens, oft mit gerade.",
+          "it": "Per quello che succede proprio adesso c'è **am**, **is** o **are** + il verbo con **-ing**: **I'm walking.** (Sto camminando.) **Jack is walking the dogs.** (Jack sta portando fuori i cani.) **They're playing.** (Stanno giocando.) Il be è quello che conosci: **I'm**, **she's**, **we're**. È come stare + il gerundio.",
+          "en": "For what is happening now, at this moment: **am**, **is** or **are** + the verb with **-ing**: **I'm walking.** **Jack is walking the dogs.** **They're playing.** The be is the one you know: **I'm**, **she's**, **we're**."
+        },
+        "examples": [
+          {
+            "en": "Look! Shepherd Jack is walking the dogs.",
+            "sl": "Poglej! Pastir Jack sprehaja pse.",
+            "de": "Schau! Schäfer Jack führt die Hunde aus.",
+            "it": "Guarda! Il pastore Jack porta fuori i cani."
+          },
+          {
+            "en": "Auntie Edna is listening to the radio.",
+            "sl": "Teta Edna posluša radio.",
+            "de": "Tante Edna hört gerade Radio.",
+            "it": "Zia Edna sta ascoltando la radio."
+          },
+          {
+            "en": "We're having breakfast at the inn.",
+            "sl": "Zajtrkujemo v gostilni.",
+            "de": "Wir frühstücken gerade im Gasthaus.",
+            "it": "Stiamo facendo colazione alla locanda."
+          }
+        ],
+        "rows": [
+          [
+            "I",
+            "I'm walking"
+          ],
+          [
+            "you, we, they",
+            "you're walking, they're walking"
+          ],
+          [
+            "he, she, it",
+            "he's walking, she's walking"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-continuous",
+          "prompt": "Look! Mr Dixon ___ a gate.",
+          "options": [
+            "is making",
+            "making",
+            "are making"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**he: is + -ing**\n- Mr Dixon is making a gate. (Gospod Dixon dela vrata.)",
+            "de": "**he: is + -ing**\n- Mr Dixon is making a gate. (Mr Dixon macht gerade ein Tor.)",
+            "it": "**he: is + -ing**\n- Mr Dixon is making a gate. (Mr Dixon sta facendo un cancello.)",
+            "en": "**he: is + -ing**\n- Mr Dixon is making a gate."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za ne gre **not** za be: **I'm not working today.** (Danes ne delam.) **She isn't sleeping.** (Ne spi.) **They aren't coming.** (Ne pridejo.) **It isn't raining** (ne dežuje), pojdimo na hrib!",
+          "de": "Für nein kommt **not** nach be: **I'm not working today.** (Ich arbeite heute nicht.) **She isn't sleeping.** (Sie schläft nicht.) **They aren't coming.** (Sie kommen nicht.) **It isn't raining** (es regnet nicht), gehen wir auf den Berg!",
+          "it": "Per dire di no, **not** va dopo be: **I'm not working today.** (Oggi non lavoro.) **She isn't sleeping.** (Non sta dormendo.) **They aren't coming.** (Non vengono.) **It isn't raining** (non piove), andiamo sul monte!",
+          "en": "For no, **not** goes after be: **I'm not working today.** **She isn't sleeping.** **They aren't coming.** **It isn't raining**, let's go up the fell!"
+        },
+        "examples": [
+          {
+            "en": "Sam isn't working today. He's in Keswick.",
+            "sl": "Sam danes ne dela. V Keswicku je.",
+            "de": "Sam arbeitet heute nicht. Er ist in Keswick.",
+            "it": "Sam oggi non lavora. È a Keswick."
+          },
+          {
+            "en": "It isn't raining, so we're going up the fell.",
+            "sl": "Ne dežuje, zato gremo na hrib.",
+            "de": "Es regnet nicht, also gehen wir auf den Berg.",
+            "it": "Non piove, quindi andiamo sul monte."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "not (ne)",
+              "de": "not (nicht)",
+              "it": "not (non)",
+              "en": "not"
+            },
+            "I'm not walking, she isn't sleeping, they aren't coming"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-continuous",
+          "text": "Take your coat. It ___ raining now, but it's cold. (not)",
+          "accept": [
+            "isn't"
+          ],
+          "hint": "is + not",
+          "explain": {
+            "sl": "**it: isn't + -ing**\n- It isn't raining. (Ne dežuje.)",
+            "de": "**it: isn't + -ing**\n- It isn't raining. (Es regnet nicht.)",
+            "it": "**it: isn't + -ing**\n- It isn't raining. (Non piove.)",
+            "en": "**it: isn't + -ing**\n- It isn't raining."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "V vprašanju gre be na začetek: **Are you listening?** (Me poslušaš?) **Is Jack working?** (Jack dela?) **What are you doing?** (Kaj delaš?) Kratki odgovor: **Yes, I am.** (Ja.) **No, he isn't.** (Ne.)",
+          "de": "In der Frage steht be vorn: **Are you listening?** (Hörst du zu?) **Is Jack working?** (Arbeitet Jack gerade?) **What are you doing?** (Was machst du gerade?) Die Kurzantwort: **Yes, I am.** (Ja.) **No, he isn't.** (Nein.)",
+          "it": "Nella domanda be va all'inizio: **Are you listening?** (Mi ascolti?) **Is Jack working?** (Jack sta lavorando?) **What are you doing?** (Che cosa stai facendo?) La risposta breve: **Yes, I am.** (Sì.) **No, he isn't.** (No.)",
+          "en": "A question puts be first: **Are you listening?** **Is Jack working?** **What are you doing?** The short answer: **Yes, I am.** **No, he isn't.**"
+        },
+        "examples": [
+          {
+            "en": "What are you doing, Mr Tyson? — I'm counting the sacks.",
+            "sl": "Kaj delate, gospod Tyson? — Štejem vreče.",
+            "de": "Was machen Sie gerade, Mr Tyson? — Ich zähle die Säcke.",
+            "it": "Che cosa sta facendo, Mr Tyson? — Sto contando i sacchi."
+          },
+          {
+            "en": "Is it raining? — Yes, it is.",
+            "sl": "Dežuje? — Ja.",
+            "de": "Regnet es? — Ja.",
+            "it": "Piove? — Sì."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "vprašanje",
+              "de": "Frage",
+              "it": "domanda",
+              "en": "question"
+            },
+            "Are you walking? Yes, I am. No, he isn't."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-continuous",
+          "prompt": "___ Auntie Edna listening to the radio? — Yes, she is.",
+          "options": [
+            "Is",
+            "Does",
+            "Are"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Vprašanje: be na začetek, brez does**\n- Is Edna listening? (Edna posluša?) — Yes, she is.",
+            "de": "**Die Frage: be nach vorn, ohne does**\n- Is Edna listening? (Hört Edna zu?) — Yes, she is.",
+            "it": "**La domanda: be all'inizio, senza does**\n- Is Edna listening? (Edna sta ascoltando?) — Yes, she is.",
+            "en": "**A question: be first, no does**\n- Is Edna listening? — Yes, she is."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Zapis: večina glagolov samo doda **-ing**: **walk**, **walking**; **read**, **reading**. Neizgovorjeni **e** odpade: **make**, **making**; **come**, **coming**. Kratek glagol z enim samoglasnikom in enim soglasnikom ga podvoji: **sit**, **sitting**; **run**, **running**; **swim**, **swimming**. In **lie** (ležati), **lying**.",
+          "de": "Die Schreibung: die meisten Verben hängen nur **-ing** an: **walk**, **walking**; **read**, **reading**. Ein stummes **e** fällt weg: **make**, **making**; **come**, **coming**. Ein kurzes Verb mit einem Vokal und einem Konsonanten verdoppelt ihn: **sit**, **sitting**; **run**, **running**; **swim**, **swimming**. Und **lie** (liegen), **lying**.",
+          "it": "L'ortografia: quasi tutti i verbi aggiungono solo **-ing**: **walk**, **walking**; **read**, **reading**. La **e** muta cade: **make**, **making**; **come**, **coming**. Un verbo corto con una vocale e una consonante la raddoppia: **sit**, **sitting**; **run**, **running**; **swim**, **swimming**. E **lie** (stare sdraiato), **lying**.",
+          "en": "Spelling: most verbs just add **-ing**: **walk**, **walking**; **read**, **reading**. A silent **e** drops: **make**, **making**; **come**, **coming**. A short verb of one vowel and one consonant doubles it: **sit**, **sitting**; **run**, **running**; **swim**, **swimming**. And **lie**, **lying**."
+        },
+        "examples": [
+          {
+            "en": "Granny Maggie is making scones.",
+            "sl": "Babica Maggie peče sconese.",
+            "de": "Oma Maggie backt gerade Scones.",
+            "it": "Nonna Maggie sta facendo gli scones."
+          },
+          {
+            "en": "Old Wilf is sitting under the oak.",
+            "sl": "Stari Wilf sedi pod hrastom.",
+            "de": "Der alte Wilf sitzt unter der Eiche.",
+            "it": "Il vecchio Wilf è seduto sotto la quercia."
+          },
+          {
+            "en": "Jack is running up Helvellyn.",
+            "sl": "Jack teče na Helvellyn.",
+            "de": "Jack läuft gerade auf den Helvellyn.",
+            "it": "Jack sta correndo su per l'Helvellyn."
+          }
+        ],
+        "rows": [
+          [
+            "walk, read",
+            "walking, reading"
+          ],
+          [
+            "make, come",
+            "making, coming"
+          ],
+          [
+            "sit, run, swim",
+            "sitting, running, swimming"
+          ],
+          [
+            "lie",
+            "lying"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "present-continuous",
+          "text": "Mrs Birkett is ___ a cake. (make)",
+          "accept": [
+            "making"
+          ],
+          "hint": {
+            "sl": "e odpade",
+            "de": "das e fällt weg",
+            "it": "la e cade",
+            "en": "the e drops"
+          },
+          "explain": {
+            "sl": "**Neizgovorjeni e odpade: make, making**\n- come, coming · write, writing",
+            "de": "**Das stumme e fällt weg: make, making**\n- come, coming · write, writing",
+            "it": "**La e muta cade: make, making**\n- come, coming · write, writing",
+            "en": "**A silent e drops: make, making**\n- come, coming · write, writing"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Primerjaj s present simple za to, kar delaš pogosto ali vedno: **Jack walks the dogs every day.** (Jack vsak dan sprehaja pse.) Danes, zdaj: **Today Sam is walking them.** (Danes jih sprehaja Sam.) **now** (zdaj), **at the moment** (ta trenutek), **Look!** in **Listen!** gredo z **-ing**; **every day** (vsak dan) in **usually** (navadno) s preprosto obliko.",
+          "de": "Vergleich es mit dem present simple für das, was du oft oder immer tust: **Jack walks the dogs every day.** (Jack führt die Hunde jeden Tag aus.) Heute, jetzt: **Today Sam is walking them.** (Heute führt sie Sam aus.) **now** (jetzt), **at the moment** (im Moment), **Look!** und **Listen!** gehen mit **-ing**; **every day** (jeden Tag) und **usually** (normalerweise) mit der einfachen Form.",
+          "it": "Confrontalo con il present simple per quello che fai spesso o sempre: **Jack walks the dogs every day.** (Jack porta fuori i cani ogni giorno.) Oggi, adesso: **Today Sam is walking them.** (Oggi li porta fuori Sam.) **now** (adesso), **at the moment** (in questo momento), **Look!** e **Listen!** vanno con **-ing**; **every day** (ogni giorno) e **usually** (di solito) con la forma semplice.",
+          "en": "Compare the present simple, for what you do often or always: **Jack walks the dogs every day.** And now, at this moment: **Today Sam is walking them.** **now**, **at the moment**, **Look!** and **Listen!** go with **-ing**; **every day** and **usually** with the simple form."
+        },
+        "examples": [
+          {
+            "en": "Mrs Birkett usually works in the kitchen, but today she's sitting in the garden.",
+            "sl": "Gospa Birkett navadno dela v kuhinji, danes pa sedi na vrtu.",
+            "de": "Mrs Birkett arbeitet normalerweise in der Küche, aber heute sitzt sie im Garten.",
+            "it": "Di solito Mrs Birkett lavora in cucina, ma oggi è seduta in giardino."
+          },
+          {
+            "en": "Listen! Arthur is singing to his bees.",
+            "sl": "Poslušaj! Arthur poje svojim čebelam.",
+            "de": "Hör mal! Arthur singt seinen Bienen etwas vor.",
+            "it": "Ascolta! Arthur sta cantando alle sue api."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "vsak dan",
+              "de": "jeden Tag",
+              "it": "ogni giorno",
+              "en": "every day"
+            },
+            "Jack walks the dogs every day."
+          ],
+          [
+            {
+              "sl": "zdaj",
+              "de": "jetzt",
+              "it": "adesso",
+              "en": "now"
+            },
+            "Today Sam is walking them."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-continuous",
+          "prompt": "Mr Tyson ___ the sacks every morning.",
+          "options": [
+            "counts",
+            "is counting",
+            "counting"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**every morning: vedno, preprosta oblika**\n- He counts the sacks every morning. · Look! He's counting them now.",
+            "de": "**every morning: immer, die einfache Form**\n- He counts the sacks every morning. · Look! He's counting them now.",
+            "it": "**every morning: sempre, la forma semplice**\n- He counts the sacks every morning. · Look! He's counting them now.",
+            "en": "**every morning: always, the simple form**\n- He counts the sacks every morning. · Look! He's counting them now."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Glagoli **know** (vedeti), **like** (imeti rad), **want** (hoteti), **need** (potrebovati) in **understand** (razumeti) povedo, kaj veš, imaš rad ali hočeš, ne kaj delaš. Ti nimajo -ing, tudi zdaj ne: **I know.** **I want a cup of tea.** **I understand.** Nikoli *I'm knowing*.",
+          "de": "Die Verben **know** (wissen), **like** (mögen), **want** (wollen), **need** (brauchen) und **understand** (verstehen) sagen, was du weißt, magst oder willst, nicht was du tust. Sie haben kein -ing, auch nicht jetzt: **I know.** **I want a cup of tea.** **I understand.** Nie *I'm knowing*.",
+          "it": "I verbi **know** (sapere), **like** (piacere), **want** (volere), **need** (avere bisogno) e **understand** (capire) dicono che cosa sai, ti piace o vuoi, non che cosa fai. Non prendono -ing, neanche adesso: **I know.** **I want a cup of tea.** **I understand.** Mai *I'm knowing*.",
+          "en": "The verbs **know**, **like**, **want**, **need** and **understand** say what you know, like or want, not what you do. They don't take -ing, even now: **I want a cup of tea.** **I understand.** **I know.** (never *I'm knowing.*)"
+        },
+        "examples": [
+          {
+            "en": "I understand now, thank you!",
+            "sl": "Zdaj razumem, hvala!",
+            "de": "Jetzt verstehe ich, danke!",
+            "it": "Adesso capisco, grazie!"
+          },
+          {
+            "en": "Jack wants a cup of tea.",
+            "sl": "Jack bi rad skodelico čaja.",
+            "de": "Jack möchte eine Tasse Tee.",
+            "it": "Jack vuole una tazza di tè."
+          }
+        ],
+        "rows": [
+          [
+            "know, like, want",
+            "I know. I want a cup of tea."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "present-continuous",
+          "prompt": "Sorry, I ___ the answer.",
+          "options": [
+            "don't know",
+            "am not knowing",
+            "not know"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**know nima -ing**\n- I know. · I don't know. (Ne vem.)",
+            "de": "**know ohne -ing**\n- I know. · I don't know. (Ich weiß es nicht.)",
+            "it": "**know senza -ing**\n- I know. · I don't know. (Non lo so.)",
+            "en": "**know takes no -ing**\n- I know. · I don't know."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "present-continuous-1",
+      "title": {
+        "sl": "Zdaj",
+        "de": "Jetzt",
+        "it": "Adesso",
+        "en": "Now"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "read · brati: zdaj, da in ne",
+            "de": "read · lesen: jetzt, ja und nein",
+            "it": "read · leggere: adesso, sì e no",
+            "en": "read: now, yes and no"
+          },
+          "columns": [
+            {
+              "sl": "yes · da",
+              "de": "yes · ja",
+              "it": "yes · sì",
+              "en": "yes"
+            },
+            {
+              "sl": "no · ne",
+              "de": "no · nein",
+              "it": "no · no",
+              "en": "no"
+            }
+          ],
+          "rows": [
+            {
+              "label": "I",
+              "cells": [
+                "I'm reading",
+                "I'm not reading"
+              ]
+            },
+            {
+              "label": "you",
+              "cells": [
+                {
+                  "accept": [
+                    "you're reading"
+                  ]
+                },
+                {
+                  "accept": [
+                    "you aren't reading"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "he",
+              "cells": [
+                {
+                  "accept": [
+                    "he's reading"
+                  ]
+                },
+                {
+                  "accept": [
+                    "he isn't reading"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "they",
+              "cells": [
+                {
+                  "accept": [
+                    "they're reading"
+                  ]
+                },
+                {
+                  "accept": [
+                    "they aren't reading"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**am, is, are + -ing**\n- I'm reading · he's reading · they aren't reading",
+            "de": "**am, is, are + -ing**\n- I'm reading · he's reading · they aren't reading",
+            "it": "**am, is, are + -ing**\n- I'm reading · he's reading · they aren't reading",
+            "en": "**am, is, are + -ing**\n- I'm reading · he's reading · they aren't reading"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "Sort · Kako dobi -ing?",
+            "de": "Sort · Wie bekommt es -ing?",
+            "it": "Sort · Come prende -ing?",
+            "en": "Sort · How does it take -ing?"
+          },
+          "columns": [
+            {
+              "label": "walk, walking",
+              "words": [
+                "read",
+                "cook",
+                "sing"
+              ]
+            },
+            {
+              "label": "make, making",
+              "words": [
+                "come",
+                "write",
+                "ride"
+              ]
+            },
+            {
+              "label": "sit, sitting",
+              "words": [
+                "run",
+                "swim"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**-ing: samo dodaš, e odpade ali podvojiš**\n- reading · coming · running",
+            "de": "**-ing: einfach dazu, das e fällt weg oder verdoppeln**\n- reading · coming · running",
+            "it": "**-ing: si aggiunge, la e cade o si raddoppia**\n- reading · coming · running",
+            "en": "**-ing: just add it, drop the e or double**\n- reading · coming · running"
+          }
+        }
+      ]
+    },
+    {
+      "id": "present-continuous-2",
+      "title": {
+        "sl": "Nocoj v gostilni",
+        "de": "Heute Abend im Gasthaus",
+        "it": "Stasera alla locanda",
+        "en": "At the inn tonight"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "Look, the Packhorse Inn is full tonight! Mrs Birkett is ___ (cook) in the kitchen. Brewer Sam ___ carrying the ale. Old Wilf is ___ (tell) a story by the fire, and the walkers ___ listening. Meg ___ (not) sleeping. She's ___ (sit) under the table.",
+          "gaps": [
+            {
+              "accept": [
+                "cooking"
+              ]
+            },
+            {
+              "accept": [
+                "is"
+              ],
+              "hint": "he → ?"
+            },
+            {
+              "accept": [
+                "telling"
+              ]
+            },
+            {
+              "accept": [
+                "are"
+              ],
+              "hint": "they → ?"
+            },
+            {
+              "accept": [
+                "isn't"
+              ],
+              "hint": "is + not"
+            },
+            {
+              "accept": [
+                "sitting"
+              ],
+              "hint": {
+                "sl": "kratek glagol: podvoji",
+                "de": "kurzes Verb: verdoppeln",
+                "it": "verbo corto: raddoppia",
+                "en": "short verb: double it"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "siting",
+            "am",
+            "tells"
+          ],
+          "translation": {
+            "sl": "Poglej, gostilna Packhorse je nocoj polna! Gospa Birkett kuha v kuhinji. Pivovar Sam nosi pivo. Stari Wilf ob ognju pripoveduje zgodbo, pohodniki pa poslušajo. Meg ne spi. Sedi pod mizo.",
+            "de": "Schau, das Packhorse Inn ist heute Abend voll! Mrs Birkett kocht in der Küche. Brauer Sam trägt das Bier. Der alte Wilf erzählt am Feuer eine Geschichte, und die Wanderer hören zu. Meg schläft nicht. Sie sitzt unter dem Tisch.",
+            "it": "Guarda, stasera il Packhorse Inn è pieno! Mrs Birkett sta cucinando in cucina. Il birraio Sam porta la birra. Il vecchio Wilf racconta una storia accanto al fuoco e gli escursionisti ascoltano. Meg non dorme. È seduta sotto il tavolo.",
+            "en": "Look, the Packhorse Inn is full tonight! Mrs Birkett is cooking in the kitchen. Brewer Sam is carrying the ale. Old Wilf is telling a story by the fire, and the walkers are listening. Meg isn't sleeping. She's sitting under the table."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "What ___ you doing? — I'm reading the paper.",
+          "options": [
+            "are",
+            "do",
+            "is"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**What are you doing? (Kaj delaš?)**\n- you: are + -ing · What are you doing?",
+            "de": "**What are you doing? (Was machst du gerade?)**\n- you: are + -ing · What are you doing?",
+            "it": "**What are you doing? (Che cosa stai facendo?)**\n- you: are + -ing · What are you doing?",
+            "en": "**What are you doing?**\n- you: are + -ing · What are you doing?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Old Wilf ___ stories every evening.",
+          "options": [
+            "tells",
+            "is telling",
+            "telling"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**every evening: vedno, preprosta oblika**\n- He tells stories every evening. (Vsak večer pripoveduje zgodbe.) · He's telling one now.",
+            "de": "**every evening: immer, die einfache Form**\n- He tells stories every evening. (Er erzählt jeden Abend Geschichten.) · He's telling one now.",
+            "it": "**every evening: sempre, la forma semplice**\n- He tells stories every evening. (Racconta storie ogni sera.) · He's telling one now.",
+            "en": "**every evening: always, the simple form**\n- He tells stories every evening. · He's telling one now."
+          }
+        }
+      ]
+    },
+    {
+      "id": "present-continuous-3",
+      "title": {
+        "sl": "Prav zdaj",
+        "de": "Genau jetzt",
+        "it": "Proprio adesso",
+        "en": "Right now"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "Say it's happening now · Povej, da se dogaja zdaj",
+            "de": "Say it's happening now · Sag, dass es gerade passiert",
+            "it": "Say it's happening now · Di' che succede adesso",
+            "en": "Say it's happening now"
+          },
+          "cue": "now",
+          "items": [
+            {
+              "from": "She makes scones.",
+              "accept": [
+                "She's making scones now.",
+                "She's making scones."
+              ]
+            },
+            {
+              "from": "They sit by the fire.",
+              "accept": [
+                "They're sitting by the fire now.",
+                "They're sitting by the fire."
+              ],
+              "hint": {
+                "sl": "sit: podvoji",
+                "de": "sit: verdoppeln",
+                "it": "sit: raddoppia",
+                "en": "sit: double it"
+              }
+            },
+            {
+              "from": "Meg runs up the fell.",
+              "accept": [
+                "Meg is running up the fell now.",
+                "Meg's running up the fell now.",
+                "Meg is running up the fell.",
+                "Meg's running up the fell."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Zdaj: am, is, are + -ing**\n- She makes scones. → She's making scones now.",
+            "de": "**Jetzt: am, is, are + -ing**\n- She makes scones. → She's making scones now.",
+            "it": "**Adesso: am, is, are + -ing**\n- She makes scones. → She's making scones now.",
+            "en": "**Now: am, is, are + -ing**\n- She makes scones. → She's making scones now."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "Say it with not · Povej z not",
+            "de": "Say it with not · Sag es mit not",
+            "it": "Say it with not · Dillo con not",
+            "en": "Say it with not"
+          },
+          "cue": "not",
+          "items": [
+            {
+              "from": "It's raining.",
+              "accept": [
+                "It isn't raining."
+              ]
+            },
+            {
+              "from": "We're going to Keswick.",
+              "accept": [
+                "We aren't going to Keswick."
+              ]
+            },
+            {
+              "from": "Sam is working today.",
+              "accept": [
+                "Sam isn't working today."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**not za be: isn't, aren't, I'm not**\n- It's raining. → It isn't raining.",
+            "de": "**not nach be: isn't, aren't, I'm not**\n- It's raining. → It isn't raining.",
+            "it": "**not dopo be: isn't, aren't, I'm not**\n- It's raining. → It isn't raining.",
+            "en": "**not after be: isn't, aren't, I'm not**\n- It's raining. → It isn't raining."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "present-continuous",
+          "instruction": {
+            "sl": "Ask · Postavi vprašanje",
+            "de": "Ask · Mach eine Frage",
+            "it": "Ask · Fai la domanda",
+            "en": "Ask"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "You're listening.",
+              "accept": [
+                "Are you listening?"
+              ]
+            },
+            {
+              "from": "Arthur is singing.",
+              "accept": [
+                "Is Arthur singing?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**be na začetek**\n- You're listening. → Are you listening?",
+            "de": "**be nach vorn**\n- You're listening. → Are you listening?",
+            "it": "**be all'inizio**\n- You're listening. → Are you listening?",
+            "en": "**be first**\n- You're listening. → Are you listening?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "present-continuous",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Hello, Edna! I'm ___ (make) a cake, and Jack ___ helping me. The children ___ (not) playing in the garden. They're ___ (swim) in the tarn! — ___ it raining there? — No, it isn't.",
+        "gaps": [
+          {
+            "accept": [
+              "making"
+            ]
+          },
+          {
+            "accept": [
+              "is"
+            ]
+          },
+          {
+            "accept": [
+              "aren't"
+            ]
+          },
+          {
+            "accept": [
+              "swimming"
+            ]
+          },
+          {
+            "accept": [
+              "Is"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Živjo, Edna! Pečem torto, Jack mi pa pomaga. Otroci se ne igrajo na vrtu. Plavajo v jezeru! — Tam dežuje? — Ne, ne dežuje.",
+          "de": "Hallo, Edna! Ich backe gerade einen Kuchen, und Jack hilft mir. Die Kinder spielen nicht im Garten. Sie schwimmen im See! — Regnet es dort? — Nein.",
+          "it": "Ciao, Edna! Sto facendo una torta e Jack mi aiuta. I bambini non stanno giocando in giardino. Stanno nuotando nel laghetto! — Lì piove? — No.",
+          "en": "Hello, Edna! I'm making a cake, and Jack is helping me. The children aren't playing in the garden. They're swimming in the tarn! — Is it raining there? — No, it isn't."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-continuous",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Listen! Brewer Sam ___ in the yard.",
+        "options": [
+          "is singing",
+          "sings",
+          "singing"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Listen!: zdaj, be + -ing**\n- Listen! Sam is singing. (Poslušaj! Sam poje.)",
+          "de": "**Listen!: jetzt, be + -ing**\n- Listen! Sam is singing. (Hör mal! Sam singt.)",
+          "it": "**Listen!: adesso, be + -ing**\n- Listen! Sam is singing. (Ascolta! Sam sta cantando.)",
+          "en": "**Listen!: now, be + -ing**\n- Listen! Sam is singing."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-continuous",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "I ___ a cup of tea, please.",
+        "options": [
+          "want",
+          "am wanting",
+          "wanting"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**want nima -ing**\n- I want a cup of tea. (Rad bi skodelico čaja.)",
+          "de": "**want ohne -ing**\n- I want a cup of tea. (Ich möchte eine Tasse Tee.)",
+          "it": "**want senza -ing**\n- I want a cup of tea. (Vorrei una tazza di tè.)",
+          "en": "**want takes no -ing**\n- I want a cup of tea."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "present-continuous",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Arthur ___ his bees every day.",
+        "options": [
+          "visits",
+          "is visiting",
+          "visiting"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**every day: preprosta oblika**\n- He visits his bees every day. (Vsak dan obišče čebele.)",
+          "de": "**every day: die einfache Form**\n- He visits his bees every day. (Er besucht jeden Tag seine Bienen.)",
+          "it": "**every day: la forma semplice**\n- He visits his bees every day. (Va a trovare le sue api ogni giorno.)",
+          "en": "**every day: the simple form**\n- He visits his bees every day."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "present-continuous",
+        "instruction": {
+          "sl": "Ask · Postavi vprašanje",
+          "de": "Ask · Mach eine Frage",
+          "it": "Ask · Fai la domanda",
+          "en": "Ask"
+        },
+        "cue": "?",
+        "items": [
+          {
+            "from": "They're coming.",
+            "accept": [
+              "Are they coming?"
+            ]
+          },
+          {
+            "from": "Mr Dixon is working.",
+            "accept": [
+              "Is Mr Dixon working?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**be na začetek**\n- They're coming. → Are they coming?",
+          "de": "**be nach vorn**\n- They're coming. → Are they coming?",
+          "it": "**be all'inizio**\n- They're coming. → Are they coming?",
+          "en": "**be first**\n- They're coming. → Are they coming?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: walk the dogs, the -ing spelling, the present for now in sl, de and it, Jack wants a cup of tea"
+}

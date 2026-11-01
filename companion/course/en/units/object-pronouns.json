@@ -1,0 +1,937 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "object-pronouns",
+  "language": "en",
+  "level": "A1",
+  "emoji": "👉",
+  "title": {
+    "en": "Me, him, her, them",
+    "de": "Mich, ihn, sie: me, him, her, them",
+    "sl": "Mene, njega, njo: me, him, her, them",
+    "it": "Me, lui, lei: me, him, her, them"
+  },
+  "goal": {
+    "sl": "Za glagolom in predlogom rabiš me, him, her, us in them (Jack knows her, with me), ločiš him od his in rečeš It's me.",
+    "de": "Du sagst me, him, her, us und them nach einem Verb und einer Präposition (Jack knows her, with me), hältst him und his auseinander und sagst It's me.",
+    "it": "Usi me, him, her, us e them dopo il verbo e la preposizione (Jack knows her, with me), distingui him da his e dici It's me.",
+    "en": "You can say me, him, her, us and them after a verb and a preposition (Jack knows her, with me), tell him from his, and say It's me."
+  },
+  "grammar": [
+    "object-pronouns",
+    "pronouns"
+  ],
+  "words": [
+    "me",
+    "him",
+    "her",
+    "it",
+    "us",
+    "them",
+    "know",
+    "help",
+    "like",
+    "see",
+    "with",
+    "for",
+    "next to",
+    "from",
+    "give",
+    "bring",
+    "key",
+    "tray",
+    "heavy",
+    "scone",
+    "wave to",
+    "smile at",
+    "wait for",
+    "talk to",
+    "It's me.",
+    "Me too.",
+    "of course",
+    "gate",
+    "dog"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "osebek",
+          "de": "Subjekt",
+          "it": "soggetto",
+          "en": "subject"
+        },
+        {
+          "sl": "predmet",
+          "de": "Objekt",
+          "it": "complemento",
+          "en": "object"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "Za glagolom angleščina reče **me** (mene, me, mi) namesto **I**: **Can you help me?** (Mi lahko pomagaš?) **Mrs Birkett knows me.** (Gospa Birkett me pozna.) **you** ostane **you**: **I can see you.** (Vidim te.)",
+          "de": "Nach einem Verb sagt Englisch **me** (mich, mir) statt **I**: **Can you help me?** (Kannst du mir helfen?) **Mrs Birkett knows me.** (Mrs Birkett kennt mich.) **you** bleibt **you**: **I can see you.** (Ich sehe dich.)",
+          "it": "Dopo il verbo l'inglese dice **me** (mi, me) invece di **I**: **Can you help me?** (Mi puoi aiutare?) **Mrs Birkett knows me.** (Mrs Birkett mi conosce.) Il pronome va dopo il verbo, non prima. **you** resta **you**: **I can see you.** (Ti vedo.)",
+          "en": "After a verb, English says **me** instead of **I**: **Can you help me?** **Mrs Birkett knows me.** **you** stays **you**: **I can see you.**"
+        },
+        "examples": [
+          {
+            "en": "Can you help me, please?",
+            "sl": "Mi lahko pomagaš, prosim?",
+            "de": "Kannst du mir bitte helfen?",
+            "it": "Mi puoi aiutare, per favore?"
+          },
+          {
+            "en": "Mrs Birkett knows me.",
+            "sl": "Gospa Birkett me pozna.",
+            "de": "Mrs Birkett kennt mich.",
+            "it": "Mrs Birkett mi conosce."
+          },
+          {
+            "en": "I can see you!",
+            "sl": "Vidim te!",
+            "de": "Ich sehe dich!",
+            "it": "Ti vedo!"
+          }
+        ],
+        "rows": [
+          [
+            "I",
+            "me",
+            "Can you help me?"
+          ],
+          [
+            "you",
+            "you",
+            "I can see you."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "object-pronouns",
+          "prompt": "Mr Dixon, can you help ___?",
+          "options": [
+            "me",
+            "I",
+            "my"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za glagolom: me, nikoli I**\n- Can you help me? · She knows me.",
+            "de": "**Nach einem Verb: me, nie I**\n- Can you help me? · She knows me.",
+            "it": "**Dopo il verbo: me, mai I**\n- Can you help me? · She knows me.",
+            "en": "**After a verb: me, never I**\n- Can you help me? · She knows me."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za **he** je predmet **him** (njega, ga, njemu, mu), za **she** pa **her** (njo, jo, njej, ji): **I know him.** (Poznam ga.) **Jack knows her.** (Jack jo pozna.) Zaimek stoji za glagolom, nikoli *I him know*. **her** je tudi svojilni (**her dog**: njen pes), **him** pa ni nikoli **his** (njegov).",
+          "de": "Zu **he** ist das Objekt **him** (ihn, ihm), zu **she** ist es **her** (sie, ihr): **I know him.** (Ich kenne ihn.) **Jack knows her.** (Jack kennt sie.) **her** ist auch das Possessiv (**her dog**: ihr Hund), **him** aber nie **his** (sein).",
+          "it": "Per **he** il complemento è **him** (lo, gli, lui), per **she** è **her** (la, le, lei): **I know him.** (Lo conosco.) **Jack knows her.** (Jack la conosce.) **her** è anche il possessivo (**her dog**: il suo cane), ma **him** non è mai **his** (suo).",
+          "en": "For **he** the object is **him**, for **she** it is **her**: **I know him.** **Jack knows her.** **her** is the possessive too (**her dog**), but **him** is never **his**."
+        },
+        "examples": [
+          {
+            "en": "Mr Dixon? I know him.",
+            "sl": "Gospod Dixon? Poznam ga.",
+            "de": "Mr Dixon? Ich kenne ihn.",
+            "it": "Il signor Dixon? Lo conosco."
+          },
+          {
+            "en": "Granny Maggie? Everybody loves her.",
+            "sl": "Babica Maggie? Vsi jo imajo radi.",
+            "de": "Oma Maggie? Alle lieben sie.",
+            "it": "Nonna Maggie? Tutti le vogliono bene."
+          },
+          {
+            "en": "I can see him on the bridge.",
+            "sl": "Vidim ga na mostu.",
+            "de": "Ich sehe ihn auf der Brücke.",
+            "it": "Lo vedo sul ponte."
+          }
+        ],
+        "rows": [
+          [
+            "he",
+            "him",
+            "I know him."
+          ],
+          [
+            "she",
+            "her",
+            "Jack knows her."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "object-pronouns",
+          "text": "Mr Dixon is in the smithy. Can you see ___? (he)",
+          "accept": [
+            "him"
+          ],
+          "hint": "he → ?",
+          "explain": {
+            "sl": "**he → him**\n- I can see him. · his je za his dog",
+            "de": "**he → him**\n- I can see him. · his ist für his dog",
+            "it": "**he → him**\n- I can see him. · his è per his dog",
+            "en": "**he → him**\n- I can see him. · his is for his dog"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**it** ostane **it** (ga, jo), **we** je **us** (nas, nam), **they** je **them** (njih, jih, njim, jim): **Can you help us?** (Nam lahko pomagaš?) **The sheep? I can see them.** (Vidim jih.) **it** in **them** sta tudi za stvari in živali: **The keys? I've got them.** (Ključi so pri meni.)",
+          "de": "**it** bleibt **it** (es), **we** wird **us** (uns), **they** wird **them** (sie, ihnen): **Can you help us?** (Kannst du uns helfen?) **The sheep? I can see them.** (Ich sehe sie.) **it** und **them** auch für Dinge und Tiere: **The keys? I've got them.** (Die Schlüssel habe ich.)",
+          "it": "**it** resta **it** (lo, la), **we** diventa **us** (ci, noi), **they** diventa **them** (li, le, loro): **Can you help us?** (Ci puoi aiutare?) **The sheep? I can see them.** (Le vedo.) **it** e **them** valgono anche per cose e animali: **The keys? I've got them.** (Le chiavi ce le ho io.)",
+          "en": "**it** stays **it**, **we** becomes **us**, **they** becomes **them**: **Can you help us?** **The sheep? I can see them.** **it** and **them** are for things and animals too: **The keys? I've got them.**"
+        },
+        "examples": [
+          {
+            "en": "Can you help us, Mr Tyson?",
+            "sl": "Nam lahko pomagate, gospod Tyson?",
+            "de": "Können Sie uns helfen, Mr Tyson?",
+            "it": "Ci può aiutare, signor Tyson?"
+          },
+          {
+            "en": "The sheep? I can see them on the fell.",
+            "sl": "Ovce? Vidim jih na hribu.",
+            "de": "Die Schafe? Ich sehe sie am Berg.",
+            "it": "Le pecore? Le vedo sul monte."
+          },
+          {
+            "en": "The keys? I've got them.",
+            "sl": "Ključi? Pri meni so.",
+            "de": "Die Schlüssel? Ich habe sie.",
+            "it": "Le chiavi? Ce le ho io."
+          },
+          {
+            "en": "This cake is lovely. I like it!",
+            "sl": "Ta kolač je odličen. Všeč mi je!",
+            "de": "Der Kuchen ist herrlich. Ich mag ihn!",
+            "it": "Questa torta è buonissima. Mi piace!"
+          }
+        ],
+        "rows": [
+          [
+            "it",
+            "it",
+            "I like it."
+          ],
+          [
+            "we",
+            "us",
+            "Can you help us?"
+          ],
+          [
+            "they",
+            "them",
+            "I can see them."
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "object-pronouns",
+          "text": "The sheep are on the fell. Jack can see ___. (they)",
+          "accept": [
+            "them"
+          ],
+          "hint": "they → ?",
+          "explain": {
+            "sl": "**they → them**\n- I can see them. · we → us",
+            "de": "**they → them**\n- I can see them. · we → us",
+            "it": "**they → them**\n- I can see them. · we → us",
+            "en": "**they → them**\n- I can see them. · we → us"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Tudi za predlogom je predmet: **with me** (z mano), **for him** (zanj), **next to her** (zraven nje), **to us** (k nam), **from them** (od njih). **Come with me!** (Pojdi z mano!) **This is for you.** (To je zate.) Z **give**: **Give me the key.** (Daj mi ključ.) **Give it to me.** (Daj mi ga.)",
+          "de": "Auch nach einer Präposition steht das Objekt: **with me** (mit mir), **for him** (für ihn), **next to her** (neben ihr), **to us** (zu uns), **from them** (von ihnen). **Come with me!** (Komm mit mir!) **This is for you.** (Das ist für dich.) Mit **give**: **Give me the key.** (Gib mir den Schlüssel.) **Give it to me.** (Gib ihn mir.)",
+          "it": "Anche dopo una preposizione c'è il complemento: **with me** (con me), **for him** (per lui), **next to her** (accanto a lei), **to us** (a noi), **from them** (da loro). **Come with me!** (Vieni con me!) **This is for you.** (Questo è per te.) Con **give**: **Give me the key.** (Dammi la chiave.) **Give it to me.** (Dammela.)",
+          "en": "After a preposition, the object form too: **with me**, **for him**, **next to her**, **to us**, **from them**. **Come with me!** **This is for you.** With **give**: **Give me the key.** **Give it to me.**"
+        },
+        "examples": [
+          {
+            "en": "Come with me!",
+            "sl": "Pojdi z mano!",
+            "de": "Komm mit mir!",
+            "it": "Vieni con me!"
+          },
+          {
+            "en": "This scone is for you.",
+            "sl": "Ta scone je zate.",
+            "de": "Dieser Scone ist für dich.",
+            "it": "Questo scone è per te."
+          },
+          {
+            "en": "Meg sits next to him.",
+            "sl": "Meg sedi zraven njega.",
+            "de": "Meg sitzt neben ihm.",
+            "it": "Meg si siede accanto a lui."
+          },
+          {
+            "en": "The key? Give it to me, please.",
+            "sl": "Ključ? Daj mi ga, prosim.",
+            "de": "Der Schlüssel? Gib ihn mir bitte.",
+            "it": "La chiave? Dammela, per favore."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "za predlogom",
+              "de": "nach Präposition",
+              "it": "dopo preposizione",
+              "en": "after a preposition"
+            },
+            "with me, for him, next to her, to us, from them",
+            "Give it to me."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "object-pronouns",
+          "prompt": "Jack is by the fire, and Meg sits next to ___.",
+          "options": [
+            "him",
+            "he",
+            "his"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za predlogom: him**\n- next to him · with her · for them",
+            "de": "**Nach einer Präposition: him**\n- next to him · with her · for them",
+            "it": "**Dopo una preposizione: him**\n- next to him · with her · for them",
+            "en": "**After a preposition: him**\n- next to him · with her · for them"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Osebek je pred glagolom, predmet za njim: **She likes him.** (Ona ima rada njega.) **He likes her.** (On ima rad njo.) Vrstni red pove, kdo je kdo. Žival z imenom je **him** ali **her**: **Meg? Jack loves her.** (Jack jo ima rad.) Za stvari pa **it**: **The bridge? I can see it.** (Vidim ga.)",
+          "de": "Das Subjekt steht vor dem Verb, das Objekt danach: **She likes him.** (Sie mag ihn.) **He likes her.** (Er mag sie.) Die Stellung sagt, wer wer ist. Ein Haustier mit Namen ist **him** oder **her**: **Meg? Jack loves her.** (Jack liebt sie.) Für Dinge **it**: **The bridge? I can see it.** (Ich sehe sie.)",
+          "it": "Il soggetto va prima del verbo, il complemento dopo: **She likes him.** (Lui le piace.) **He likes her.** (Lei gli piace.) L'ordine dice chi è chi. Un animale con un nome è **him** o **her**: **Meg? Jack loves her.** (Jack le vuole bene.) Per le cose **it**: **The bridge? I can see it.** (Lo vedo.)",
+          "en": "The subject comes before the verb, the object after it: **She likes him.** **He likes her.** The order says who is who. A pet with a name is **him** or **her**: **Meg? Jack loves her.** A thing is **it**: **The bridge? I can see it.**"
+        },
+        "examples": [
+          {
+            "en": "She likes him, and he likes her.",
+            "sl": "Ona ima rada njega, on pa njo.",
+            "de": "Sie mag ihn, und er mag sie.",
+            "it": "Lui piace a lei, e lei piace a lui."
+          },
+          {
+            "en": "Meg? Jack loves her.",
+            "sl": "Meg? Jack jo ima zelo rad.",
+            "de": "Meg? Jack liebt sie.",
+            "it": "Meg? Jack le vuole tanto bene."
+          },
+          {
+            "en": "The old bridge? I can see it from the inn.",
+            "sl": "Stari most? Vidim ga iz gostilne.",
+            "de": "Die alte Brücke? Ich sehe sie vom Gasthaus aus.",
+            "it": "Il vecchio ponte? Lo vedo dalla locanda."
+          }
+        ],
+        "rows": [
+          [
+            "she, he",
+            "him, her",
+            "She likes him. He likes her."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "object-pronouns",
+          "prompt": "Granny Maggie loves Poppy, and Poppy loves ___ too.",
+          "options": [
+            "her",
+            "she",
+            "hers"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za glagolom: her**\n- Poppy loves her. · She loves Poppy.",
+            "de": "**Nach dem Verb: her**\n- Poppy loves her. · She loves Poppy.",
+            "it": "**Dopo il verbo: her**\n- Poppy loves her. · She loves Poppy.",
+            "en": "**After the verb: her**\n- Poppy loves her. · She loves Poppy."
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za **be** in samostojno rečeš **me**: **Who is it? — It's me!** (Kdo je? — Jaz sem!) **I love the fells. — Me too!** (Obožujem hribe. — Jaz tudi!) En zaimek je dovolj: **Jack? I know him.** (Poznam ga.), nikoli *I know him Jack*.",
+          "de": "Nach **be** und allein sagst du **me**: **Who is it? — It's me!** (Wer ist da? — Ich bin's!) **I love the fells. — Me too!** (Ich liebe die Berge. — Ich auch!) Ein Pronomen reicht: **Jack? I know him.** (Den kenne ich.), nie *I know him Jack*.",
+          "it": "Dopo **be** e da solo dici **me**: **Who is it? — It's me!** (Chi è? — Sono io!) **I love the fells. — Me too!** (Adoro i monti. — Anch'io!) Basta un pronome: **Jack? I know him.** (Lo conosco.), mai *I know him Jack*, anche se in italiano si dice *lo conosco, Jack*.",
+          "en": "After **be**, and alone, say **me**: **Who is it? — It's me!** **I love the fells. — Me too!** One pronoun is enough: **Jack? I know him.** (never *I know him Jack.*)"
+        },
+        "examples": [
+          {
+            "en": "Who is it? — It's me, Jack!",
+            "sl": "Kdo je? — Jaz sem, Jack!",
+            "de": "Wer ist da? — Ich bin's, Jack!",
+            "it": "Chi è? — Sono io, Jack!"
+          },
+          {
+            "en": "I love the fells. — Me too!",
+            "sl": "Obožujem hribe. — Jaz tudi!",
+            "de": "Ich liebe die Berge. — Ich auch!",
+            "it": "Adoro i monti. — Anch'io!"
+          },
+          {
+            "en": "Jack? I know him.",
+            "sl": "Jack? Poznam ga.",
+            "de": "Jack? Den kenne ich.",
+            "it": "Jack? Lo conosco."
+          }
+        ],
+        "rows": [
+          [
+            {
+              "sl": "za be, samostojno",
+              "de": "nach be, allein",
+              "it": "dopo be, da solo",
+              "en": "after be, alone"
+            },
+            "me",
+            "It's me. Me too."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "object-pronouns",
+          "prompt": "Who's there? — It's ___!",
+          "options": [
+            "me",
+            "I",
+            "my"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Za be: me**\n- It's me. · Me too.",
+            "de": "**Nach be: me**\n- It's me. · Me too.",
+            "it": "**Dopo be: me**\n- It's me. · Me too.",
+            "en": "**After be: me**\n- It's me. · Me too."
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "object-pronouns-1",
+      "title": {
+        "sl": "Mene, njega, njo",
+        "de": "Mich, ihn, sie",
+        "it": "Me, lui, lei",
+        "en": "Me, him, her"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "object-pronouns",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "subject → object · osebek → predmet",
+            "de": "subject → object · Subjekt → Objekt",
+            "it": "subject → object · soggetto → complemento",
+            "en": "subject → object"
+          },
+          "columns": [
+            {
+              "sl": "object · predmet",
+              "de": "object · Objekt",
+              "it": "object · complemento",
+              "en": "object"
+            }
+          ],
+          "rows": [
+            {
+              "label": "I",
+              "cells": [
+                "me"
+              ]
+            },
+            {
+              "label": "you",
+              "cells": [
+                {
+                  "accept": [
+                    "you"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "he",
+              "cells": [
+                {
+                  "accept": [
+                    "him"
+                  ],
+                  "hint": {
+                    "sl": "ne his",
+                    "de": "nicht his",
+                    "it": "non his",
+                    "en": "not his"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "she",
+              "cells": [
+                {
+                  "accept": [
+                    "her"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "it",
+              "cells": [
+                {
+                  "accept": [
+                    "it"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "we",
+              "cells": [
+                {
+                  "accept": [
+                    "us"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "they",
+              "cells": [
+                {
+                  "accept": [
+                    "them"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Predmet: me, you, him, her, it, us, them**\n- I → me · he → him · she → her\n- we → us · they → them",
+            "de": "**Das Objekt: me, you, him, her, it, us, them**\n- I → me · he → him · she → her\n- we → us · they → them",
+            "it": "**Il complemento: me, you, him, her, it, us, them**\n- I → me · he → him · she → her\n- we → us · they → them",
+            "en": "**The object: me, you, him, her, it, us, them**\n- I → me · he → him · she → her\n- we → us · they → them"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "object-pronouns",
+          "instruction": {
+            "sl": "Sort · him ali his?",
+            "de": "Sort · him oder his?",
+            "it": "Sort · him o his?",
+            "en": "Sort · him or his?"
+          },
+          "prompt": {
+            "sl": "Katera beseda gre namesto …?",
+            "de": "Welches Wort gehört an die Stelle von …?",
+            "it": "Quale parola va al posto di …?",
+            "en": "Which word goes in the …?"
+          },
+          "columns": [
+            {
+              "label": {
+                "sl": "him (njega, ga)",
+                "de": "him (ihn, ihm)",
+                "it": "him (lo, lui)",
+                "en": "him"
+              },
+              "words": [
+                "I know …",
+                "with …",
+                "next to …",
+                "Give it to …"
+              ]
+            },
+            {
+              "label": {
+                "sl": "his (njegov)",
+                "de": "his (sein)",
+                "it": "his (suo)",
+                "en": "his"
+              },
+              "words": [
+                "… dog",
+                "… farm",
+                "… name",
+                "… keys"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**him za glagolom in predlogom, his pred samostalnikom**\n- I know him. · with him\n- his dog · his farm",
+            "de": "**him nach Verb und Präposition, his vor einem Nomen**\n- I know him. · with him\n- his dog · his farm",
+            "it": "**him dopo il verbo e la preposizione, his davanti al nome**\n- I know him. · with him\n- his dog · his farm",
+            "en": "**him after a verb or a preposition, his before a noun**\n- I know him. · with him\n- his dog · his farm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "object-pronouns-2",
+      "title": {
+        "sl": "V gostilni Packhorse",
+        "de": "Im Gasthaus Packhorse",
+        "it": "Alla locanda Packhorse",
+        "en": "At the Packhorse Inn"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "object-pronouns",
+          "instruction": {
+            "sl": "Fill in with me, him, her … · Dopolni z me, him, her …",
+            "de": "Fill in with me, him, her … · Ergänze mit me, him, her …",
+            "it": "Fill in with me, him, her … · Completa con me, him, her …",
+            "en": "Fill in with me, him, her …"
+          },
+          "text": "It's Friday night at the Packhorse Inn. Mr Dixon is at the bar, and Mrs Birkett brings ___ (he) a cup of tea. Granny Maggie and Auntie Edna are by the fire, and Old Wilf sits with ___ (they). Jack comes in with Meg, and the children run to ___ (she). — Can you help ___ (I), Jack? The tray is heavy. — Of course! Give ___ (it) to me. — Thank you, love. This scone is for ___ (you). Come and sit with ___ (we)!",
+          "gaps": [
+            {
+              "accept": [
+                "him"
+              ],
+              "hint": "he → ?"
+            },
+            {
+              "accept": [
+                "them"
+              ],
+              "hint": "they → ?"
+            },
+            {
+              "accept": [
+                "her"
+              ],
+              "hint": "she → ?",
+              "explain": {
+                "sl": "**Meg je she: her**\n- run to her · Jack loves her",
+                "de": "**Meg ist she: her**\n- run to her · Jack loves her",
+                "it": "**Meg è she: her**\n- run to her · Jack loves her",
+                "en": "**Meg is she: her**\n- run to her · Jack loves her"
+              }
+            },
+            {
+              "accept": [
+                "me"
+              ],
+              "hint": "I → ?"
+            },
+            {
+              "accept": [
+                "it"
+              ],
+              "hint": "it → ?"
+            },
+            {
+              "accept": [
+                "you"
+              ],
+              "hint": "you → ?"
+            },
+            {
+              "accept": [
+                "us"
+              ],
+              "hint": "we → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "his",
+            "they",
+            "she"
+          ],
+          "translation": {
+            "sl": "V gostilni Packhorse je petek zvečer. Gospod Dixon je pri točilnem pultu in gospa Birkett mu prinese skodelico čaja. Babica Maggie in teta Edna sta pri ognju, stari Wilf pa sedi z njima. Jack pride z Meg in otroci stečejo k njej. — Mi lahko pomagaš, Jack? Pladenj je težak. — Seveda! Daj mi ga. — Hvala, srček. Ta scone je zate. Pridi, sedi k nam!",
+            "de": "Es ist Freitagabend im Gasthaus Packhorse. Mr Dixon ist an der Theke, und Mrs Birkett bringt ihm eine Tasse Tee. Oma Maggie und Tante Edna sitzen am Feuer, und der alte Wilf sitzt bei ihnen. Jack kommt mit Meg herein, und die Kinder laufen zu ihr. — Kannst du mir helfen, Jack? Das Tablett ist schwer. — Klar! Gib es mir. — Danke, Schatz. Dieser Scone ist für dich. Komm, setz dich zu uns!",
+            "it": "È venerdì sera alla locanda Packhorse. Il signor Dixon è al bancone e Mrs Birkett gli porta una tazza di tè. Nonna Maggie e zia Edna sono vicino al fuoco, e il vecchio Wilf siede con loro. Jack entra con Meg e i bambini corrono da lei. — Mi aiuti, Jack? Il vassoio è pesante. — Certo! Dallo a me. — Grazie, tesoro. Questo scone è per te. Vieni a sederti con noi!",
+            "en": "It's Friday night at the Packhorse Inn. Mr Dixon is at the bar, and Mrs Birkett brings him a cup of tea. Granny Maggie and Auntie Edna are by the fire, and Old Wilf sits with them. Jack comes in with Meg, and the children run to her. — Can you help me, Jack? The tray is heavy. — Of course! Give it to me. — Thank you, love. This scone is for you. Come and sit with us!"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "object-pronouns",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Jack? ___",
+          "options": [
+            "I know him.",
+            "I know him Jack.",
+            "I know he."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**En zaimek je dovolj: him**\n- Jack? I know him. · I know Jack.",
+            "de": "**Ein Pronomen reicht: him**\n- Jack? I know him. · I know Jack.",
+            "it": "**Basta un pronome: him**\n- Jack? I know him. · I know Jack.",
+            "en": "**One pronoun is enough: him**\n- Jack? I know him. · I know Jack."
+          }
+        }
+      ]
+    },
+    {
+      "id": "object-pronouns-3",
+      "title": {
+        "sl": "Povej z zaimkom",
+        "de": "Sag es mit einem Pronomen",
+        "it": "Dillo con un pronome",
+        "en": "Say it with a pronoun"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "object-pronouns",
+          "instruction": {
+            "sl": "Use a pronoun for the object · Predmet zamenjaj z zaimkom",
+            "de": "Use a pronoun for the object · Ersetze das Objekt durch ein Pronomen",
+            "it": "Use a pronoun for the object · Sostituisci il complemento con un pronome",
+            "en": "Use a pronoun for the object"
+          },
+          "cue": "→ me, him, her, it, us, them",
+          "items": [
+            {
+              "from": "I know Jack.",
+              "accept": [
+                "I know him."
+              ]
+            },
+            {
+              "from": "Can you help Granny Maggie?",
+              "accept": [
+                "Can you help her?"
+              ]
+            },
+            {
+              "from": "Mr Tyson sells the oats at the market.",
+              "accept": [
+                "Mr Tyson sells them at the market.",
+                "He sells them at the market."
+              ],
+              "hint": {
+                "sl": "več stvari",
+                "de": "mehrere Dinge",
+                "it": "più cose",
+                "en": "more than one thing"
+              }
+            },
+            {
+              "from": "Arthur sits next to Sam and me.",
+              "accept": [
+                "Arthur sits next to us.",
+                "He sits next to us."
+              ],
+              "hint": "Sam and me = ?"
+            },
+            {
+              "from": "Give the key to me.",
+              "accept": [
+                "Give it to me.",
+                "Give me it."
+              ]
+            },
+            {
+              "from": "The children love Meg.",
+              "accept": [
+                "The children love her.",
+                "They love her."
+              ],
+              "hint": {
+                "sl": "žival z imenom",
+                "de": "ein Haustier mit Namen",
+                "it": "un animale con un nome",
+                "en": "a pet with a name"
+              }
+            }
+          ],
+          "explain": {
+            "sl": "**Predmet za glagolom ali predlogom: him, her, it, us, them**\n- I know Jack. → I know him.\n- Give the key to me. → Give it to me.",
+            "de": "**Das Objekt nach Verb oder Präposition: him, her, it, us, them**\n- I know Jack. → I know him.\n- Give the key to me. → Give it to me.",
+            "it": "**Il complemento dopo il verbo o la preposizione: him, her, it, us, them**\n- I know Jack. → I know him.\n- Give the key to me. → Give it to me.",
+            "en": "**The object after a verb or a preposition: him, her, it, us, them**\n- I know Jack. → I know him.\n- Give the key to me. → Give it to me."
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "object-pronouns",
+        "instruction": {
+          "sl": "Fill in with me, him, her … · Dopolni z me, him, her …",
+          "de": "Fill in with me, him, her … · Ergänze mit me, him, her …",
+          "it": "Fill in with me, him, her … · Completa con me, him, her …",
+          "en": "Fill in with me, him, her …"
+        },
+        "text": "Mrs Hartley is at the school gate. The children wave to ___ (she), and she smiles at ___ (they). Mr Tyson comes with Alfie. — Good morning, Mr Tyson! Can I talk to ___ (you)? — Of course. Alfie, wait for ___ (I) here. — Alfie is a good boy; I like ___ (he). — Thank you! Come and see ___ (we) at the mill.",
+        "gaps": [
+          {
+            "accept": [
+              "her"
+            ]
+          },
+          {
+            "accept": [
+              "them"
+            ]
+          },
+          {
+            "accept": [
+              "you"
+            ]
+          },
+          {
+            "accept": [
+              "me"
+            ]
+          },
+          {
+            "accept": [
+              "him"
+            ]
+          },
+          {
+            "accept": [
+              "us"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Gospa Hartley je pri šolskih vratih. Otroci ji mahajo, ona pa se jim nasmehne. Gospod Tyson pride z Alfiejem. — Dobro jutro, gospod Tyson! Lahko govorim z vami? — Seveda. Alfie, počakaj me tukaj. — Alfie je priden fant, rada ga imam. — Hvala! Pridite k nam v mlin.",
+          "de": "Mrs Hartley steht am Schultor. Die Kinder winken ihr zu, und sie lächelt sie an. Mr Tyson kommt mit Alfie. — Guten Morgen, Mr Tyson! Kann ich mit Ihnen sprechen? — Natürlich. Alfie, warte hier auf mich. — Alfie ist ein lieber Junge, ich mag ihn. — Danke! Besuchen Sie uns in der Mühle.",
+          "it": "Mrs Hartley è al cancello della scuola. I bambini la salutano con la mano e lei sorride loro. Il signor Tyson arriva con Alfie. — Buongiorno, signor Tyson! Posso parlarle? — Certo. Alfie, aspettami qui. — Alfie è un bravo bambino, gli voglio bene. — Grazie! Venga a trovarci al mulino.",
+          "en": "Mrs Hartley is at the school gate. The children wave to her, and she smiles at them. Mr Tyson comes with Alfie. — Good morning, Mr Tyson! Can I talk to you? — Of course. Alfie, wait for me here. — Alfie is a good boy; I like him. — Thank you! Come and see us at the mill."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "object-pronouns",
+        "instruction": {
+          "sl": "Use a pronoun for the object · Predmet zamenjaj z zaimkom",
+          "de": "Use a pronoun for the object · Ersetze das Objekt durch ein Pronomen",
+          "it": "Use a pronoun for the object · Sostituisci il complemento con un pronome",
+          "en": "Use a pronoun for the object"
+        },
+        "cue": "→ me, him, her, it, us, them",
+        "items": [
+          {
+            "from": "Jack can see the sheep.",
+            "accept": [
+              "Jack can see them.",
+              "He can see them."
+            ]
+          },
+          {
+            "from": "Mrs Birkett knows Mr Dixon.",
+            "accept": [
+              "Mrs Birkett knows him.",
+              "She knows him."
+            ]
+          },
+          {
+            "from": "Sit next to Auntie Edna.",
+            "accept": [
+              "Sit next to her."
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Predmet za glagolom ali predlogom: him, her, it, us, them**\n- Jack can see the sheep. → Jack can see them.\n- next to Auntie Edna → next to her",
+          "de": "**Das Objekt nach Verb oder Präposition: him, her, it, us, them**\n- Jack can see the sheep. → Jack can see them.\n- next to Auntie Edna → next to her",
+          "it": "**Il complemento dopo il verbo o la preposizione: him, her, it, us, them**\n- Jack can see the sheep. → Jack can see them.\n- next to Auntie Edna → next to her",
+          "en": "**The object after a verb or a preposition: him, her, it, us, them**\n- Jack can see the sheep. → Jack can see them.\n- next to Auntie Edna → next to her"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "object-pronouns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mr Dixon's hammer? Give it to ___.",
+        "options": [
+          "him",
+          "his",
+          "he"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Za predlogom: him, nikoli his**\n- Give it to him. · his hammer",
+          "de": "**Nach einer Präposition: him, nie his**\n- Give it to him. · his hammer",
+          "it": "**Dopo una preposizione: him, mai his**\n- Give it to him. · his hammer",
+          "en": "**After a preposition: him, never his**\n- Give it to him. · his hammer"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "object-pronouns",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Meg is under the table. Can you see ___?",
+        "options": [
+          "her",
+          "she",
+          "hers"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Meg je she, za glagolom her**\n- Can you see her? · Jack loves her.",
+          "de": "**Meg ist she, nach dem Verb her**\n- Can you see her? · Jack loves her.",
+          "it": "**Meg è she, dopo il verbo her**\n- Can you see her? · Jack loves her.",
+          "en": "**Meg is she; after the verb, her**\n- Can you see her? · Jack loves her."
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: Give me it accepted, Meg as her not it, It's me, brings him a cup of tea, the him/his sort"
+}

@@ -1,0 +1,425 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "possessive",
+  "language": "en",
+  "level": "A1",
+  "emoji": "🐾",
+  "title": {
+    "en": "My dog, Jack's cat",
+    "de": "Mein, dein, Jacks: my, your, Jack's",
+    "sl": "Svojilni zaimki: my, your, Jack's",
+    "it": "I possessivi: my, your, Jack's"
+  },
+  "goal": {
+    "sl": "Poveš, čigavo je kaj: my, your, his, her, its, our, their pred stvarjo, brez the, in Jack's dog, the boys' bikes; his in her izbereš po lastniku, ne po stvari.",
+    "de": "Du sagst, wem etwas gehört: my, your, his, her, its, our, their vor dem Ding, ohne the, und Jack's dog, the boys' bikes; his und her nach dem Besitzer, nicht nach dem Ding.",
+    "it": "Dici di chi è una cosa: my, your, his, her, its, our, their davanti alla cosa, senza the, e Jack's dog, the boys' bikes; his e her secondo il proprietario, non la cosa.",
+    "en": "You can say whose something is: my, your, his, her, its, our, their before the thing, with no the, and Jack's dog, the boys' bikes; his and her by the owner, not by the thing."
+  },
+  "grammar": ["possessive-s"],
+  "words": ["my", "your", "his", "her", "its", "our", "their", "sister", "brother", "son", "granddaughter", "granny", "mum", "teacher", "village", "farm", "field", "kitchen", "smithy", "inn", "mill", "wheel", "roof", "hammer", "radio", "umbrella", "tent", "cottage", "garden", "coat", "cat", "football", "window", "book", "boy"],
+  "intro": {
+    "table": {
+      "head": [
+        { "sl": "kdo", "de": "wer", "it": "chi", "en": "who" },
+        { "sl": "pred samostalnikom", "de": "vor dem Nomen", "it": "davanti al nome", "en": "before a noun" },
+        { "sl": "primer", "de": "Beispiel", "it": "esempio", "en": "example" }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**my** (moj) in **your** (tvoj, vaš) stojita pred stvarjo: **my bike** (moje kolo), **your cup** (tvoja skodelica). **your** je za vsakogar, za enega ali več: **your coat, Mrs Hartley** (vaš plašč, gospa Hartley), **your coats, children** (vaši plašči, otroci). Za stvar se nikoli ne spremenita: **my bike**, **my bikes** (moja kolesa), **my brother** (moj brat), **my sister** (moja sestra).",
+          "de": "**my** (mein) und **your** (dein, Ihr, euer) stehen vor dem Ding: **my bike** (mein Fahrrad), **your cup** (deine Tasse). **your** ist für alle, für eine Person oder mehrere: **your coat, Mrs Hartley** (Ihr Mantel, Mrs Hartley), **your coats, children** (eure Mäntel, Kinder). Für das Ding ändern sie sich nie: **my bike**, **my bikes** (meine Fahrräder), **my brother** (mein Bruder), **my sister** (meine Schwester).",
+          "it": "**my** (mio) e **your** (tuo, Suo, vostro) vanno prima della cosa: **my bike** (la mia bici), **your cup** (la tua tazza). **your** è per tutti, per una persona o più: **your coat, Mrs Hartley** (il Suo cappotto, Mrs Hartley), **your coats, children** (i vostri cappotti, bambini). Per la cosa non cambiano mai: **my bike**, **my bikes** (le mie bici), **my brother** (mio fratello), **my sister** (mia sorella).",
+          "en": "**my** and **your** go before the thing: **my bike**, **your cup**. **your** is for everyone, one person or more: **your coat, Mrs Hartley**, **your coats, children**. They never change for the thing: **my bike**, **my bikes**, **my brother**, **my sister**."
+        },
+        "examples": [
+          { "en": "This is my bike.", "sl": "To je moje kolo.", "de": "Das ist mein Fahrrad.", "it": "Questa è la mia bici." },
+          { "en": "Is this your cup, {learner}?", "sl": "Je to tvoja skodelica, {learner}?", "de": "Ist das deine Tasse, {learner}?", "it": "È la tua tazza, {learner}?" },
+          { "en": "Here's your coat, Mrs Hartley.", "sl": "Tukaj je vaš plašč, gospa Hartley.", "de": "Hier ist Ihr Mantel, Mrs Hartley.", "it": "Ecco il Suo cappotto, Mrs Hartley." }
+        ],
+        "rows": [
+          ["I", "my", "my bike"],
+          ["you", "your", "your cup"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "possessive-s",
+          "prompt": "Jack: «I've got a sheepdog. ___ dog is Meg.»",
+          "options": ["My", "I", "Your"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**I → my**\n- my dog · my bike · my sister",
+            "de": "**I → my**\n- my dog · my bike · my sister",
+            "it": "**I → my**\n- my dog · my bike · my sister",
+            "en": "**I → my**\n- my dog · my bike · my sister"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za eno drugo osebo ali stvar odloča lastnik: **his** (njegov) za moškega ali fanta, **her** (njen) za žensko ali dekle, **its** (njegov, njen) za stvar ali žival: **Jack and his dog** (Jack in njegov pes), **Mrs Birkett and her inn** (gospa Birkett in njena gostilna), **the mill and its wheel** (mlin in njegovo kolo). Stvar ni pomembna: **his sister** (njegova sestra), **her brother** (njen brat).",
+          "de": "Bei einer anderen Person oder Sache entscheidet der Besitzer: **his** (sein) für einen Mann oder Jungen, **her** (ihr) für eine Frau oder ein Mädchen, **its** (sein, ihr) für eine Sache oder ein Tier: **Jack and his dog** (Jack und sein Hund), **Mrs Birkett and her inn** (Mrs Birkett und ihr Gasthaus), **the mill and its wheel** (die Mühle und ihr Rad). Wie im Deutschen zählt das Ding nicht: **his sister** (seine Schwester), **her brother** (ihr Bruder).",
+          "it": "Per un'altra persona o cosa decide il proprietario, non la cosa: **his** (suo, di lui) per un uomo o un ragazzo, **her** (suo, di lei) per una donna o una ragazza, **its** per una cosa o un animale: **Jack and his dog** (Jack e il suo cane), **Mrs Birkett and her inn** (Mrs Birkett e la sua locanda), **the mill and its wheel** (il mulino e la sua ruota). Così **his sister** (sua sorella, di lui), **her brother** (suo fratello, di lei).",
+          "en": "For one other person or thing, the owner decides: **his** for a man or a boy, **her** for a woman or a girl, **its** for a thing or an animal: **Jack and his dog**, **Mrs Birkett and her inn**, **the mill and its wheel**. The thing doesn't matter: **his sister**, **her brother**."
+        },
+        "examples": [
+          { "en": "Jack is on the fell with his dog.", "sl": "Jack je s svojim psom na hribu.", "de": "Jack ist mit seinem Hund am Berg.", "it": "Jack è sul monte con il suo cane." },
+          { "en": "Mrs Birkett and her son Harry are at the inn.", "sl": "Gospa Birkett in njen sin Harry sta v gostilni.", "de": "Mrs Birkett und ihr Sohn Harry sind im Gasthaus.", "it": "Mrs Birkett e suo figlio Harry sono alla locanda." },
+          { "en": "Look at the old mill and its big wheel!", "sl": "Poglej stari mlin in njegovo veliko kolo!", "de": "Schau, die alte Mühle und ihr großes Rad!", "it": "Guarda il vecchio mulino e la sua grande ruota!" }
+        ],
+        "rows": [
+          ["he", "his", "his sister"],
+          ["she", "her", "her brother"],
+          ["it", "its", "its wheel"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "possessive-s",
+          "prompt": "Mrs Birkett and ___ son Harry are at the inn.",
+          "options": ["her", "his", "its"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mrs Birkett je she: her**\n- her son · her inn · sin ni pomemben",
+            "de": "**Mrs Birkett ist she: her**\n- her son · her inn · der Sohn zählt nicht",
+            "it": "**Mrs Birkett è she: her**\n- her son · her inn · il figlio non conta",
+            "en": "**Mrs Birkett is she: her**\n- her son · her inn · the son doesn't matter"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za več lastnikov: **our** (naš, za we) in **their** (njihov, za they): **our village** (naša vas), **their farm** (njihova kmetija). Z **my**, **your**, **his**, **her**, **its**, **our** in **their** nikoli **the** ali **a**: **my dog**, ne *the my dog*. **their** in **there** se slišita enako: **their farm** (njihova kmetija), a **over there** (tam).",
+          "de": "Für mehrere Besitzer: **our** (unser, für we) und **their** (ihr, für they): **our village** (unser Dorf), **their farm** (ihr Hof). Nie **the** oder **a** mit **my**, **your**, **his**, **her**, **its**, **our** und **their**: **my dog**, nicht *the my dog*. **their** und **there** klingen gleich: **their farm** (ihr Hof), aber **over there** (dort drüben).",
+          "it": "Per più proprietari: **our** (nostro, per we) e **their** (loro, per they): **our village** (il nostro paese), **their farm** (la loro fattoria). Mai **the** o **a** con **my**, **your**, **his**, **her**, **its**, **our** e **their**, anche se l'italiano ha l'articolo: **my dog** (il mio cane), non *the my dog*. **their** e **there** suonano uguali: **their farm** (la loro fattoria), ma **over there** (laggiù).",
+          "en": "For more owners: **our** (we) and **their** (they): **our village**, **their farm**. Never **the** or **a** with **my**, **your**, **his**, **her**, **its**, **our** or **their**: **my dog**, not *the my dog*. **their** and **there** sound the same: **their farm**, but **over there**."
+        },
+        "examples": [
+          { "en": "Our village is by the lake.", "sl": "Naša vas je ob jezeru.", "de": "Unser Dorf liegt am See.", "it": "Il nostro paese è vicino al lago." },
+          { "en": "Mr Tyson and Alfie are in their field.", "sl": "Gospod Tyson in Alfie sta na svoji njivi.", "de": "Mr Tyson und Alfie sind auf ihrem Feld.", "it": "Mr Tyson e Alfie sono nel loro campo." },
+          { "en": "This is my dog, Meg.", "sl": "To je moja psička, Meg.", "de": "Das ist meine Hündin Meg.", "it": "Questa è la mia cagna, Meg." },
+          { "en": "Their farm is over there.", "sl": "Njihova kmetija je tam.", "de": "Ihr Hof ist dort drüben.", "it": "La loro fattoria è laggiù." }
+        ],
+        "rows": [
+          ["we", "our", "our village"],
+          ["they", "their", "their farm"]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "possessive-s",
+          "text": "Mr Tyson and Alfie are in ___ field. (they)",
+          "accept": ["their"],
+          "explain": {
+            "sl": "**they → their**\n- their field · their farm\n- there: tam",
+            "de": "**they → their**\n- their field · their farm\n- there: dort",
+            "it": "**they → their**\n- their field · their farm\n- there: laggiù",
+            "en": "**they → their**\n- their field · their farm\n- there: a place"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Pri imenu ali osebi dodaš lastniku **'s**, nato pride stvar: **Jack's dog** (Jackov pes), **Mrs Birkett's inn** (gostilna gospe Birkett), **Granny Maggie's kitchen** (kuhinja babice Maggie). Lastnik je spredaj, brez **of** in brez **the**. Opuščaj se piše: **Jack's**, ne *Jacks*. Tu **'s** ni **is**: **Jack's dog** je Jackov pes.",
+          "de": "Bei einem Namen oder einer Person kommt **'s** an den Besitzer, dann das Ding: **Jack's dog** (Jacks Hund), **Mrs Birkett's inn** (Mrs Birketts Gasthaus), **Granny Maggie's kitchen** (Oma Maggies Küche). Anders als im Deutschen mit Apostroph: **Jack's**, nicht *Jacks*. Hier ist **'s** nicht **is**: **Jack's dog** ist Jacks Hund.",
+          "it": "Con un nome o una persona aggiungi **'s** al proprietario, poi viene la cosa: **Jack's dog** (il cane di Jack), **Mrs Birkett's inn** (la locanda di Mrs Birkett), **Granny Maggie's kitchen** (la cucina di nonna Maggie). Al contrario dell'italiano, prima il proprietario, senza **of** e senza **the**. Con l'apostrofo: **Jack's**, non *Jacks*. Qui **'s** non è **is**: **Jack's dog** è il cane di Jack.",
+          "en": "For a name or a person, add **'s** to the owner, then the thing: **Jack's dog**, **Mrs Birkett's inn**, **Granny Maggie's kitchen**. The owner comes first, with no **of** and no **the**. Write the apostrophe: **Jack's**, not *Jacks*. Here **'s** isn't **is**: **Jack's dog** is the dog of Jack."
+        },
+        "examples": [
+          { "en": "Meg is Jack's dog.", "sl": "Meg je Jackova psička.", "de": "Meg ist Jacks Hündin.", "it": "Meg è la cagna di Jack." },
+          { "en": "Mrs Birkett's inn is on the square.", "sl": "Gostilna gospe Birkett je na trgu.", "de": "Mrs Birketts Gasthaus ist am Platz.", "it": "La locanda di Mrs Birkett è in piazza." },
+          { "en": "Granny Maggie's kitchen is warm.", "sl": "Kuhinja babice Maggie je topla.", "de": "Oma Maggies Küche ist warm.", "it": "La cucina di nonna Maggie è calda." }
+        ],
+        "rows": [
+          ["Jack", "Jack's", "Jack's dog"],
+          ["Mrs Birkett", "Mrs Birkett's", "Mrs Birkett's inn"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "possessive-s",
+          "prompt": "Meg is ___ dog.",
+          "options": ["Jack's", "Jacks", "Jack"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Lastnik + 's: Jack's dog**\n- Jack's dog · Mrs Birkett's inn\n- z opuščajem",
+            "de": "**Der Besitzer + 's: Jack's dog**\n- Jack's dog · Mrs Birkett's inn\n- mit Apostroph",
+            "it": "**Il proprietario + 's: Jack's dog**\n- Jack's dog · Mrs Birkett's inn\n- con l'apostrofo",
+            "en": "**The owner + 's: Jack's dog**\n- Jack's dog · Mrs Birkett's inn\n- with the apostrophe"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Več lastnikov na **-s** dobi samo opuščaj: **the boys' bikes** (kolesa fantov, več fantov). Množina brez **-s** dobi **'s**: **the children's books** (knjige otrok). **its** pa je brez opuščaja: **its roof** (njegova streha); **it's** je **it is**: **It's cold.** (Mrzlo je.)",
+          "de": "Mehrere Besitzer auf **-s** bekommen nur den Apostroph: **the boys' bikes** (die Fahrräder der Jungen). Ein Plural ohne **-s** bekommt **'s**: **the children's books** (die Bücher der Kinder). Und **its** hat keinen Apostroph: **its roof** (sein Dach); **it's** ist **it is**: **It's cold.** (Es ist kalt.)",
+          "it": "Più proprietari in **-s** prendono solo l'apostrofo: **the boys' bikes** (le bici dei ragazzi). Un plurale senza **-s** prende **'s**: **the children's books** (i libri dei bambini). E **its** è senza apostrofo: **its roof** (il suo tetto); **it's** è **it is**: **It's cold.** (Fa freddo.)",
+          "en": "More owners in **-s** take only the apostrophe: **the boys' bikes** (more than one boy). A plural without **-s** takes **'s**: **the children's books**. And **its** has no apostrophe: **its roof**; **it's** is **it is**: **It's cold.**"
+        },
+        "examples": [
+          { "en": "The boys' bikes are by the barn.", "sl": "Kolesa fantov so ob skednju.", "de": "Die Fahrräder der Jungen stehen an der Scheune.", "it": "Le bici dei ragazzi sono vicino al fienile." },
+          { "en": "The children's books are on the table.", "sl": "Knjige otrok so na mizi.", "de": "Die Bücher der Kinder liegen auf dem Tisch.", "it": "I libri dei bambini sono sul tavolo." },
+          { "en": "Look at the old mill. Its roof is red.", "sl": "Poglej stari mlin. Njegova streha je rdeča.", "de": "Schau die alte Mühle an. Ihr Dach ist rot.", "it": "Guarda il vecchio mulino. Il suo tetto è rosso." }
+        ],
+        "rows": [
+          [{ "sl": "več lastnikov", "de": "mehrere Besitzer", "it": "più proprietari", "en": "more owners" }, "the boys'", "the boys' bikes"],
+          [{ "sl": "množina brez -s", "de": "Plural ohne -s", "it": "plurale senza -s", "en": "a plural without -s" }, "the children's", "the children's books"]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "possessive-s",
+          "prompt": "Look at the old mill. ___ roof is red.",
+          "options": ["Its", "It's", "His"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Mlin je it: its, brez opuščaja**\n- its roof · it's = it is",
+            "de": "**Die Mühle ist it: its, ohne Apostroph**\n- its roof · it's = it is",
+            "it": "**Il mulino è it: its, senza apostrofo**\n- its roof · it's = it is",
+            "en": "**The mill is it: its, no apostrophe**\n- its roof · it's = it is"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "**my, your, his, her, its, our, their** + stvar; nikoli se ne spremenijo in nikoli s **the**: **my bike**, **her brother**, **their farm**.\n\nOdloča lastnik, ne stvar: **Jack and his sister** · **Mrs Birkett and her son**.\n\n**Jack's dog** · **Mrs Birkett's inn** · **the boys' bikes** · **the children's books**\n\n**its roof** (brez opuščaja) · **it's** = it is",
+      "de": "**my, your, his, her, its, our, their** + das Ding; sie ändern sich nie und stehen nie mit **the**: **my bike**, **her brother**, **their farm**.\n\nEs zählt der Besitzer, nicht das Ding: **Jack and his sister** · **Mrs Birkett and her son**.\n\n**Jack's dog** · **Mrs Birkett's inn** · **the boys' bikes** · **the children's books**\n\n**its roof** (ohne Apostroph) · **it's** = it is",
+      "it": "**my, your, his, her, its, our, their** + la cosa; non cambiano mai e mai con **the**: **my bike**, **her brother**, **their farm**.\n\nDecide il proprietario, non la cosa: **Jack and his sister** · **Mrs Birkett and her son**.\n\n**Jack's dog** · **Mrs Birkett's inn** · **the boys' bikes** · **the children's books**\n\n**its roof** (senza apostrofo) · **it's** = it is",
+      "en": "**my, your, his, her, its, our, their** + the thing; they never change and never take **the**: **my bike**, **her brother**, **their farm**.\n\nThe owner decides, not the thing: **Jack and his sister** · **Mrs Birkett and her son**.\n\n**Jack's dog** · **Mrs Birkett's inn** · **the boys' bikes** · **the children's books**\n\n**its roof** (no apostrophe) · **it's** = it is"
+    }
+  },
+  "worksheets": [
+    {
+      "id": "possessive-1",
+      "title": { "sl": "Moj, tvoj, njegov, njen", "de": "Mein, dein, sein, ihr", "it": "Mio, tuo, di lui, di lei", "en": "My, your, his, her" },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "possessive-s",
+          "instruction": { "sl": "Fill in the table · Dopolni tabelo", "de": "Fill in the table · Ergänze die Tabelle", "it": "Fill in the table · Completa la tabella", "en": "Fill in the table" },
+          "prompt": { "sl": "kdo → čigav", "de": "wer → wessen", "it": "chi → di chi", "en": "who → whose" },
+          "columns": [
+            { "sl": "before a noun · pred samostalnikom", "de": "before a noun · vor dem Nomen", "it": "before a noun · davanti al nome", "en": "before a noun" }
+          ],
+          "rows": [
+            { "label": "I", "cells": ["my"] },
+            { "label": "you", "cells": [{ "accept": ["your"] }] },
+            { "label": "he", "cells": [{ "accept": ["his"] }] },
+            { "label": "she", "cells": [{ "accept": ["her"] }] },
+            { "label": "it", "cells": [{ "accept": ["its"], "hint": { "sl": "brez opuščaja", "de": "ohne Apostroph", "it": "senza apostrofo", "en": "no apostrophe" } }] },
+            { "label": "we", "cells": [{ "accept": ["our"] }] },
+            { "label": "they", "cells": [{ "accept": ["their"] }] }
+          ],
+          "explain": {
+            "sl": "**I my · you your · he his · she her · it its · we our · they their**\n- my bike · their farm",
+            "de": "**I my · you your · he his · she her · it its · we our · they their**\n- my bike · their farm",
+            "it": "**I my · you your · he his · she her · it its · we our · they their**\n- my bike · their farm",
+            "en": "**I my · you your · he his · she her · it its · we our · they their**\n- my bike · their farm"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "possessive-s",
+          "instruction": { "sl": "Sort · his ali her?", "de": "Sort · his oder her?", "it": "Sort · his o her?", "en": "Sort · his or her?" },
+          "columns": [
+            { "label": "his", "words": ["Jack", "Mr Dixon", "Harry"] },
+            { "label": "her", "words": ["Mrs Birkett", "Poppy", "Auntie Edna"] }
+          ],
+          "explain": {
+            "sl": "**Moški ali fant: his · ženska ali dekle: her**\n- Jack and his dog · Poppy and her granny",
+            "de": "**Ein Mann oder Junge: his · eine Frau oder ein Mädchen: her**\n- Jack and his dog · Poppy and her granny",
+            "it": "**Un uomo o un ragazzo: his · una donna o una ragazza: her**\n- Jack and his dog · Poppy and her granny",
+            "en": "**A man or a boy: his · a woman or a girl: her**\n- Jack and his dog · Poppy and her granny"
+          }
+        }
+      ]
+    },
+    {
+      "id": "possessive-2",
+      "title": { "sl": "V vasi", "de": "Im Dorf", "it": "In paese", "en": "In the village" },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "possessive-s",
+          "instruction": { "sl": "Fill in with my, your, his … · Dopolni", "de": "Fill in with my, your, his … · Ergänze", "it": "Fill in with my, your, his … · Completa", "en": "Fill in with my, your, his …" },
+          "text": "This is Shepherd Jack and ___ (he) dog, Meg. Granny Maggie is in ___ (she) kitchen. Poppy is there too: Maggie is ___ (she) granny. Mr Tyson and Alfie are at ___ (they) mill by the beck. — Is ___ (you) cottage by the beck too, {learner}?",
+          "gaps": [
+            { "accept": ["his"], "hint": "he → ?" },
+            { "accept": ["her"], "hint": "she → ?" },
+            { "accept": ["her"], "hint": { "sl": "lastnica: Poppy", "de": "die Besitzerin: Poppy", "it": "la proprietaria: Poppy", "en": "the owner: Poppy" } },
+            { "accept": ["their"], "hint": "they → ?" },
+            { "accept": ["your"], "hint": "you → ?" }
+          ],
+          "bank": true,
+          "distractors": ["he's", "they're"],
+          "translation": {
+            "sl": "To je pastir Jack in njegov pes Meg. Babica Maggie je v svoji kuhinji. Tudi Poppy je tam: Maggie je njena babica. Gospod Tyson in Alfie sta pri svojem mlinu ob potoku. — Je tudi tvoja hišica ob potoku, {learner}?",
+            "de": "Das ist Schäfer Jack und sein Hund Meg. Oma Maggie ist in ihrer Küche. Poppy ist auch da: Maggie ist ihre Oma. Mr Tyson und Alfie sind an ihrer Mühle am Bach. — Ist dein Häuschen auch am Bach, {learner}?",
+            "it": "Questo è il pastore Jack con il suo cane, Meg. Nonna Maggie è nella sua cucina. C'è anche Poppy: Maggie è sua nonna. Mr Tyson e Alfie sono al loro mulino vicino al ruscello. — Anche la tua casetta è vicino al ruscello, {learner}?",
+            "en": "This is Shepherd Jack and his dog, Meg. Granny Maggie is in her kitchen. Poppy is there too: Maggie is her granny. Mr Tyson and Alfie are at their mill by the beck. — Is your cottage by the beck too, {learner}?"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "possessive-s",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Poppy is Granny Maggie's granddaughter. Granny Maggie is ___ granny.",
+          "options": ["Poppy's", "Poppys", "Poppy"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Lastnik + 's: Poppy's granny**\n- Poppy's granny · Jack's dog",
+            "de": "**Der Besitzer + 's: Poppy's granny**\n- Poppy's granny · Jack's dog",
+            "it": "**Il proprietario + 's: Poppy's granny**\n- Poppy's granny · Jack's dog",
+            "en": "**The owner + 's: Poppy's granny**\n- Poppy's granny · Jack's dog"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "possessive-s",
+          "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+          "prompt": "Harry is Mrs Birkett's son. Mrs Birkett is ___ mum.",
+          "options": ["his", "her", "its"],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Lastnik je Harry, he: his**\n- his mum · her son\n- mama ni pomembna",
+            "de": "**Der Besitzer ist Harry, he: his**\n- his mum · her son\n- die Mutter zählt nicht",
+            "it": "**Il proprietario è Harry, he: his**\n- his mum · her son\n- la mamma non conta",
+            "en": "**The owner is Harry, he: his**\n- his mum · her son\n- the mum doesn't matter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "possessive-3",
+      "title": { "sl": "Čigavo je?", "de": "Wem gehört es?", "it": "Di chi è?", "en": "Whose is it?" },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "possessive-s",
+          "instruction": { "sl": "Say whose it is with 's · Povej s 's, čigavo je", "de": "Say whose it is with 's · Sag mit 's, wem es gehört", "it": "Say whose it is with 's · Di' con 's di chi è", "en": "Say whose it is with 's" },
+          "items": [
+            { "from": "a dog (Jack)", "accept": ["Jack's dog"], "hint": { "sl": "lastnik spredaj, brez a", "de": "der Besitzer zuerst, ohne a", "it": "prima il proprietario, senza a", "en": "the owner first, no a" } },
+            { "from": "an inn (Mrs Birkett)", "accept": ["Mrs Birkett's inn"] },
+            { "from": "a smithy (Mr Dixon)", "accept": ["Mr Dixon's smithy"] },
+            { "from": "a kitchen (Granny Maggie)", "accept": ["Granny Maggie's kitchen"] },
+            { "from": "a radio (Auntie Edna)", "accept": ["Auntie Edna's radio"] },
+            { "from": "bikes (the boys)", "accept": ["the boys' bikes"], "hint": "boys + '" }
+          ],
+          "explain": {
+            "sl": "**Lastnik + 's + stvar, brez a in the**\n- a dog (Jack) → Jack's dog\n- bikes (the boys) → the boys' bikes",
+            "de": "**Der Besitzer + 's + das Ding, ohne a und the**\n- a dog (Jack) → Jack's dog\n- bikes (the boys) → the boys' bikes",
+            "it": "**Il proprietario + 's + la cosa, senza a e the**\n- a dog (Jack) → Jack's dog\n- bikes (the boys) → the boys' bikes",
+            "en": "**The owner + 's + the thing, no a, no the**\n- a dog (Jack) → Jack's dog\n- bikes (the boys) → the boys' bikes"
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "possessive-s",
+          "instruction": { "sl": "Use his, her or their · Uporabi his, her ali their", "de": "Use his, her or their · Nimm his, her oder their", "it": "Use his, her or their · Usa his, her o their", "en": "Use his, her or their" },
+          "items": [
+            { "from": "This is Jack's dog.", "accept": ["This is his dog."] },
+            { "from": "This is Mrs Birkett's inn.", "accept": ["This is her inn."] },
+            { "from": "This is Sam and Jack's tent.", "accept": ["This is their tent."], "hint": { "sl": "dva lastnika", "de": "zwei Besitzer", "it": "due proprietari", "en": "two owners" } },
+            { "from": "Those are Mr Tyson's sheep.", "accept": ["Those are his sheep."] }
+          ],
+          "explain": {
+            "sl": "**Moški: his · ženska: her · več: their**\n- Jack's dog → his dog\n- Sam and Jack's tent → their tent",
+            "de": "**Ein Mann: his · eine Frau: her · mehrere: their**\n- Jack's dog → his dog\n- Sam and Jack's tent → their tent",
+            "it": "**Un uomo: his · una donna: her · più persone: their**\n- Jack's dog → his dog\n- Sam and Jack's tent → their tent",
+            "en": "**A man: his · a woman: her · more than one: their**\n- Jack's dog → his dog\n- Sam and Jack's tent → their tent"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "possessive-s",
+        "instruction": { "sl": "Fill in · Dopolni", "de": "Fill in · Ergänze", "it": "Fill in · Completa", "en": "Fill in" },
+        "text": "Mr Dixon is in ___ (he) smithy. ___ (Mr Dixon) hammer is very old. Auntie Edna is at the window with ___ (she) radio. Poppy and Alfie are in the garden with ___ (they) cat. — Is this ___ (you) umbrella, {learner}?",
+        "gaps": [
+          { "accept": ["his"] },
+          { "accept": ["Mr Dixon's"] },
+          { "accept": ["her"] },
+          { "accept": ["their"] },
+          { "accept": ["your"] }
+        ],
+        "translation": {
+          "sl": "Gospod Dixon je v svoji kovačnici. Njegovo kladivo je zelo staro. Teta Edna je pri oknu s svojim radiem. Poppy in Alfie sta na vrtu s svojo mačko. — Je to tvoj dežnik, {learner}?",
+          "de": "Mr Dixon ist in seiner Schmiede. Mr Dixons Hammer ist sehr alt. Tante Edna ist mit ihrem Radio am Fenster. Poppy und Alfie sind mit ihrer Katze im Garten. — Ist das dein Regenschirm, {learner}?",
+          "it": "Mr Dixon è nella sua fucina. Il martello di Mr Dixon è molto vecchio. Zia Edna è alla finestra con la sua radio. Poppy e Alfie sono in giardino con il loro gatto. — È tuo questo ombrello, {learner}?",
+          "en": "Mr Dixon is in his smithy. Mr Dixon's hammer is very old. Auntie Edna is at the window with her radio. Poppy and Alfie are in the garden with their cat. — Is this your umbrella, {learner}?"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "possessive-s",
+        "instruction": { "sl": "Say whose it is with 's · Povej s 's, čigavo je", "de": "Say whose it is with 's · Sag mit 's, wem es gehört", "it": "Say whose it is with 's · Di' con 's di chi è", "en": "Say whose it is with 's" },
+        "items": [
+          { "from": "a cottage (Granny Maggie)", "accept": ["Granny Maggie's cottage"] },
+          { "from": "books (the children)", "accept": ["the children's books"] }
+        ],
+        "explain": {
+          "sl": "**Lastnik + 's; množina brez -s: the children's**\n- Granny Maggie's cottage · the children's books",
+          "de": "**Der Besitzer + 's; ein Plural ohne -s: the children's**\n- Granny Maggie's cottage · the children's books",
+          "it": "**Il proprietario + 's; un plurale senza -s: the children's**\n- Granny Maggie's cottage · the children's books",
+          "en": "**The owner + 's; a plural without -s: the children's**\n- Granny Maggie's cottage · the children's books"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "possessive-s",
+        "instruction": { "sl": "Use his, her or their · Uporabi his, her ali their", "de": "Use his, her or their · Nimm his, her oder their", "it": "Use his, her or their · Usa his, her o their", "en": "Use his, her or their" },
+        "items": [
+          { "from": "This is Harry's football.", "accept": ["This is his football."] },
+          { "from": "Those are Mrs Hartley's books.", "accept": ["Those are her books."] }
+        ],
+        "explain": {
+          "sl": "**Moški ali fant: his · ženska: her**\n- Harry's football → his football\n- Mrs Hartley's books → her books",
+          "de": "**Ein Mann oder Junge: his · eine Frau: her**\n- Harry's football → his football\n- Mrs Hartley's books → her books",
+          "it": "**Un uomo o un ragazzo: his · una donna: her**\n- Harry's football → his football\n- Mrs Hartley's books → her books",
+          "en": "**A man or a boy: his · a woman: her**\n- Harry's football → his football\n- Mrs Hartley's books → her books"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "possessive-s",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Poppy and Alfie are at school. Mrs Hartley is ___ teacher.",
+        "options": ["their", "there", "they're"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**they → their**\n- their teacher · there: tam · they're = they are",
+          "de": "**they → their**\n- their teacher · there: dort · they're = they are",
+          "it": "**they → their**\n- their teacher · there: lì · they're = they are",
+          "en": "**they → their**\n- their teacher · there: a place · they're = they are"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "possessive-s",
+        "instruction": { "sl": "Choose · Izberi", "de": "Choose · Wähle", "it": "Choose · Scegli", "en": "Choose" },
+        "prompt": "Poppy: «This is ___ book, Mrs Hartley.»",
+        "options": ["my", "the my", "me"],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**my, brez the**\n- my book · my dog",
+          "de": "**my, ohne the**\n- my book · my dog",
+          "it": "**my, senza the (in italiano il mio libro)**\n- my book · my dog",
+          "en": "**my, with no the**\n- my book · my dog"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: Sam and Jack's tent (one tent of both), Mrs Hartley as your for a grown-up, sl svoj in the translations, it's Suo"
+}

@@ -1,0 +1,1120 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "prepositions",
+  "language": "en",
+  "level": "A1",
+  "emoji": "📍",
+  "title": {
+    "en": "In, on, under, next to",
+    "de": "Präpositionen: in, on, under, next to",
+    "sl": "Predlogi: in, on, under, next to",
+    "it": "Le preposizioni: in, on, under, next to"
+  },
+  "goal": {
+    "sl": "Poveš, kje kaj je (in, on, under, behind, in front of, next to, between, at), vprašaš Where's …? in poveš, kam greš (go to the inn, go home).",
+    "de": "Du sagst, wo etwas ist (in, on, under, behind, in front of, next to, between, at), fragst Where's …? und sagst, wohin du gehst (go to the inn, go home).",
+    "it": "Dici dove si trova qualcosa (in, on, under, behind, in front of, next to, between, at), chiedi Where's …? e dici dove vai (go to the inn, go home).",
+    "en": "You can say where things and people are (in, on, under, behind, in front of, next to, between, at), ask Where's …? and say where you go (go to the inn, go home)."
+  },
+  "grammar": [
+    "prepositions-place",
+    "there-is-are"
+  ],
+  "words": [
+    "in",
+    "on",
+    "at",
+    "under",
+    "behind",
+    "in front of",
+    "next to",
+    "by",
+    "between",
+    "near",
+    "to",
+    "into",
+    "where",
+    "come",
+    "home",
+    "work",
+    "kitchen",
+    "table",
+    "wall",
+    "box",
+    "door",
+    "bench",
+    "bus stop",
+    "bridge",
+    "church",
+    "inn",
+    "smithy",
+    "mill",
+    "school",
+    "garden",
+    "fell",
+    "beck",
+    "map",
+    "key",
+    "coat",
+    "fire",
+    "oak",
+    "market"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "sl": "predlog",
+          "de": "Präposition",
+          "it": "preposizione",
+          "en": "preposition"
+        },
+        {
+          "sl": "pomen",
+          "de": "Bedeutung",
+          "it": "significato",
+          "en": "meaning"
+        },
+        {
+          "sl": "primer",
+          "de": "Beispiel",
+          "it": "esempio",
+          "en": "example"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "sl": "**in** pomeni v, znotraj: **in the kitchen** (v kuhinji), **in the box** (v škatli), tudi za kraj in državo: **in Keswick**, **in England** (v Angliji). **on** pomeni na, na površini: **on the table** (na mizi), **on the wall** (na steni), **on the fell** (na hribu). Samostalnik se za predlogom nikoli ne spremeni, sklonov ni: **the table**, **on the table**.",
+          "de": "**in** heißt in, drinnen: **in the kitchen** (in der Küche), **in the box** (in der Schachtel), auch für Orte und Länder: **in Keswick**, **in England**. **on** heißt auf, an einer Fläche: **on the table** (auf dem Tisch), **on the wall** (an der Wand), **on the fell** (auf dem Berg). Das Nomen ändert sich danach nie, einen Dativ gibt es nicht: **the table**, **on the table**.",
+          "it": "**in** vuol dire dentro: **in the kitchen** (in cucina), **in the box** (nella scatola), e anche per città e paesi: **in Keswick** (a Keswick), **in England** (in Inghilterra). **on** vuol dire su, sopra una superficie: **on the table** (sul tavolo), **on the wall** (sul muro), **on the fell** (sul monte). Dopo la preposizione il nome non cambia mai: **the table**, **on the table**.",
+          "en": "**in** is inside something: **in the kitchen**, **in the box**, and in a town or a country: **in Keswick**, **in England**. **on** is on top of a surface: **on the table**, **on the wall**, **on the fell**. The noun after them never changes: **the table**, **on the table**."
+        },
+        "examples": [
+          {
+            "en": "The cat is in the kitchen.",
+            "sl": "Mačka je v kuhinji.",
+            "de": "Die Katze ist in der Küche.",
+            "it": "Il gatto è in cucina."
+          },
+          {
+            "en": "Your keys are on the table.",
+            "sl": "Tvoji ključi so na mizi.",
+            "de": "Deine Schlüssel liegen auf dem Tisch.",
+            "it": "Le tue chiavi sono sul tavolo."
+          },
+          {
+            "en": "There's a map of the fells on the wall.",
+            "sl": "Na steni je zemljevid hribov.",
+            "de": "An der Wand hängt eine Karte der Berge.",
+            "it": "Sul muro c'è una cartina dei monti."
+          },
+          {
+            "en": "Jack's sheep are on the fell.",
+            "sl": "Jackove ovce so na hribu.",
+            "de": "Jacks Schafe sind auf dem Berg.",
+            "it": "Le pecore di Jack sono sul monte."
+          }
+        ],
+        "rows": [
+          [
+            "in",
+            {
+              "sl": "v",
+              "de": "in",
+              "it": "in, dentro",
+              "en": "inside"
+            },
+            "in the kitchen, in Keswick"
+          ],
+          [
+            "on",
+            {
+              "sl": "na",
+              "de": "auf, an",
+              "it": "su, sopra",
+              "en": "on a surface"
+            },
+            "on the table, on the wall"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "prepositions-place",
+          "prompt": "The cups are ___ the table.",
+          "options": [
+            "on",
+            "in",
+            "at"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Na površini: on**\n- on the table (na mizi) · on the wall (na steni)",
+            "de": "**Auf einer Fläche: on**\n- on the table (auf dem Tisch) · on the wall (an der Wand)",
+            "it": "**Su una superficie: on**\n- on the table (sul tavolo) · on the wall (sul muro)",
+            "en": "**On top of a surface: on**\n- on the table · on the wall"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**under** pomeni pod: **under the table** (pod mizo), **under the bridge** (pod mostom). **behind** pomeni za, zadaj: **behind the inn** (za gostilno). **in front of** so tri besede in pomenijo pred: **in front of the school** (pred šolo). Brez **of** ne gre.",
+          "de": "**under** heißt unter: **under the table** (unter dem Tisch), **under the bridge** (unter der Brücke). **behind** heißt hinter: **behind the inn** (hinter dem Gasthaus). **in front of** sind drei Wörter und heißen vor: **in front of the school** (vor der Schule). Das **of** fehlt nie.",
+          "it": "**under** vuol dire sotto: **under the table** (sotto il tavolo), **under the bridge** (sotto il ponte). **behind** vuol dire dietro: **behind the inn** (dietro la locanda). **in front of** sono tre parole e vogliono dire davanti a: **in front of the school** (davanti alla scuola). Senza **of** non va.",
+          "en": "**under** is below: **under the table**, **under the bridge**. **behind** is at the back: **behind the inn**. **in front of** is three words, the opposite of behind: **in front of the school**. Never leave out **of**."
+        },
+        "examples": [
+          {
+            "en": "Meg is under the table.",
+            "sl": "Meg je pod mizo.",
+            "de": "Meg liegt unter dem Tisch.",
+            "it": "Meg è sotto il tavolo."
+          },
+          {
+            "en": "The garden is behind the inn.",
+            "sl": "Vrt je za gostilno.",
+            "de": "Der Garten ist hinter dem Gasthaus.",
+            "it": "Il giardino è dietro la locanda."
+          },
+          {
+            "en": "The bus stop is in front of the school.",
+            "sl": "Avtobusna postaja je pred šolo.",
+            "de": "Die Bushaltestelle ist vor der Schule.",
+            "it": "La fermata dell'autobus è davanti alla scuola."
+          }
+        ],
+        "rows": [
+          [
+            "under",
+            {
+              "sl": "pod",
+              "de": "unter",
+              "it": "sotto",
+              "en": "below"
+            },
+            "under the table"
+          ],
+          [
+            "behind",
+            {
+              "sl": "za",
+              "de": "hinter",
+              "it": "dietro",
+              "en": "at the back"
+            },
+            "behind the inn"
+          ],
+          [
+            "in front of",
+            {
+              "sl": "pred",
+              "de": "vor",
+              "it": "davanti a",
+              "en": "at the front"
+            },
+            "in front of the school"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "prepositions-place",
+          "prompt": "The bench is ___ the inn.",
+          "options": [
+            "in front of",
+            "in front",
+            "on front of"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Pred: in front of, tri besede**\n- in front of the school (pred šolo) · behind the school (za šolo)",
+            "de": "**Vor: in front of, drei Wörter**\n- in front of the school (vor der Schule) · behind the school (hinter der Schule)",
+            "it": "**Davanti a: in front of, tre parole**\n- in front of the school (davanti alla scuola) · behind the school (dietro la scuola)",
+            "en": "**in front of: three words**\n- in front of the school · behind the school"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**next to** pomeni zraven, tik ob: **next to the inn** (zraven gostilne). **between** pomeni med dvema: **between the inn and the church** (med gostilno in cerkvijo). **near** pomeni blizu: **near the beck** (blizu potoka). Tudi **by** je tik ob, pogosto ob vodi ali ognju: **by the beck** (ob potoku), **by the fire** (ob ognju).",
+          "de": "**next to** heißt neben: **next to the inn** (neben dem Gasthaus). **between** heißt zwischen: **between the inn and the church** (zwischen dem Gasthaus und der Kirche). **near** heißt in der Nähe von: **near the beck** (in der Nähe vom Bach). Auch **by** ist direkt daneben, oft am Wasser oder Feuer: **by the beck** (am Bach), **by the fire** (am Feuer).",
+          "it": "**next to** vuol dire accanto a: **next to the inn** (accanto alla locanda). **between** vuol dire tra: **between the inn and the church** (tra la locanda e la chiesa). **near** vuol dire vicino a: **near the beck** (vicino al ruscello). Anche **by** è proprio accanto, spesso all'acqua o al fuoco: **by the beck** (lungo il ruscello), **by the fire** (accanto al fuoco).",
+          "en": "**next to** is right beside: **next to the inn**. **between** has one thing on each side: **between the inn and the church**. **near** is not far: **near the beck**. **by** is right beside too, often by water or a fire: **by the beck**, **by the fire**."
+        },
+        "examples": [
+          {
+            "en": "The smithy is next to the inn.",
+            "sl": "Kovačnica je zraven gostilne.",
+            "de": "Die Schmiede ist neben dem Gasthaus.",
+            "it": "La fucina è accanto alla locanda."
+          },
+          {
+            "en": "The school is between the inn and the church.",
+            "sl": "Šola je med gostilno in cerkvijo.",
+            "de": "Die Schule ist zwischen dem Gasthaus und der Kirche.",
+            "it": "La scuola è tra la locanda e la chiesa."
+          },
+          {
+            "en": "Arthur's bees are near the beck.",
+            "sl": "Arthurjeve čebele so blizu potoka.",
+            "de": "Arthurs Bienen sind in der Nähe vom Bach.",
+            "it": "Le api di Arthur sono vicino al ruscello."
+          }
+        ],
+        "rows": [
+          [
+            "next to, by",
+            {
+              "sl": "zraven, ob",
+              "de": "neben, an",
+              "it": "accanto a",
+              "en": "beside"
+            },
+            "next to the inn, by the beck"
+          ],
+          [
+            "between",
+            {
+              "sl": "med",
+              "de": "zwischen",
+              "it": "tra, fra",
+              "en": "one on each side"
+            },
+            "between the inn and the church"
+          ],
+          [
+            "near",
+            {
+              "sl": "blizu",
+              "de": "in der Nähe von",
+              "it": "vicino a",
+              "en": "not far"
+            },
+            "near the beck"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "prepositions-place",
+          "text": "The bench is ___ the inn and the bridge.",
+          "accept": [
+            "between"
+          ],
+          "hint": {
+            "sl": "na vsaki strani eno",
+            "de": "auf jeder Seite eins",
+            "it": "uno per lato",
+            "en": "one on each side"
+          },
+          "explain": {
+            "sl": "**Med dvema: between … and …**\n- between the inn and the church (med gostilno in cerkvijo)",
+            "de": "**Zwischen zweien: between … and …**\n- between the inn and the church (zwischen dem Gasthaus und der Kirche)",
+            "it": "**Tra due: between … and …**\n- between the inn and the church (tra la locanda e la chiesa)",
+            "en": "**One on each side: between … and …**\n- between the inn and the church"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "**at** je kraj kot točka ali kraj, kjer nekaj počneš: **at the inn** (v gostilni), **at the bus stop** (na postaji), **at the door** (pri vratih). Brez **the**: **at home** (doma), **at work** (v službi), **at school** (v šoli). Mesto ima **in**, nikoli at: **in Keswick**.",
+          "de": "**at** ist ein Ort als Punkt oder wo man etwas tut: **at the inn** (im Gasthaus), **at the bus stop** (an der Haltestelle), **at the door** (an der Tür). Ohne **the**: **at home** (zu Hause), **at work** (in der Arbeit), **at school** (in der Schule). Eine Stadt hat **in**, nie at: **in Keswick**.",
+          "it": "**at** è un luogo visto come un punto o dove fai qualcosa: **at the inn** (alla locanda), **at the bus stop** (alla fermata), **at the door** (alla porta). Senza **the**: **at home** (a casa), **at work** (al lavoro), **at school** (a scuola). Una città vuole **in**, mai at: **in Keswick** (a Keswick).",
+          "en": "**at** is a place seen as a point, or where you do something: **at the inn**, **at the bus stop**, **at the door**. Without **the**: **at home**, **at work**, **at school**. A town takes **in**, never at: **in Keswick**."
+        },
+        "examples": [
+          {
+            "en": "Mrs Birkett is at the inn.",
+            "sl": "Gospa Birkett je v gostilni.",
+            "de": "Mrs Birkett ist im Gasthaus.",
+            "it": "Mrs Birkett è alla locanda."
+          },
+          {
+            "en": "Mr Tyson isn't at home. He's at the mill.",
+            "sl": "Gospoda Tysona ni doma. V mlinu je.",
+            "de": "Mr Tyson ist nicht zu Hause. Er ist in der Mühle.",
+            "it": "Mr Tyson non è a casa. È al mulino."
+          },
+          {
+            "en": "We're at the bus stop. The bus to Keswick is late.",
+            "sl": "Smo na avtobusni postaji. Avtobus za Keswick zamuja.",
+            "de": "Wir sind an der Haltestelle. Der Bus nach Keswick hat Verspätung.",
+            "it": "Siamo alla fermata. L'autobus per Keswick è in ritardo."
+          }
+        ],
+        "rows": [
+          [
+            "at",
+            {
+              "sl": "pri, v, na",
+              "de": "an, bei, in",
+              "it": "a, presso",
+              "en": "a point, where you do something"
+            },
+            "at the inn, at home, at work"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "prepositions-place",
+          "prompt": "Granny Maggie isn't here. She's ___ home.",
+          "options": [
+            "at",
+            "in",
+            "to"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Doma: at home, brez the**\n- at home (doma) · at work (v službi) · at school (v šoli)",
+            "de": "**Zu Hause: at home, ohne the**\n- at home (zu Hause) · at work (in der Arbeit) · at school (in der Schule)",
+            "it": "**A casa: at home, senza the**\n- at home (a casa) · at work (al lavoro) · at school (a scuola)",
+            "en": "**at home, with no the**\n- at home · at work · at school"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Vprašaš z **Where's …?** (kje je) za eno in **Where are …?** (kje so) za več: **Where's the key?** (Kje je ključ?) **It's on the table.** (Na mizi je.) **Where are the sheep?** (Kje so ovce?) **They're on the fell.** (Na hribu so.) S **there's** in **there are** poveš, kaj je kje: **There's a bench in front of the inn.** (Pred gostilno je klop.)",
+          "de": "Du fragst mit **Where's …?** (wo ist) für eins und **Where are …?** (wo sind) für mehrere: **Where's the key?** (Wo ist der Schlüssel?) **It's on the table.** (Auf dem Tisch.) **Where are the sheep?** (Wo sind die Schafe?) **They're on the fell.** (Auf dem Berg.) Mit **there's** und **there are** sagst du, was wo ist: **There's a bench in front of the inn.** (Vor dem Gasthaus steht eine Bank.)",
+          "it": "Chiedi con **Where's …?** (dov'è) per una cosa e **Where are …?** (dove sono) per più cose: **Where's the key?** (Dov'è la chiave?) **It's on the table.** (È sul tavolo.) **Where are the sheep?** (Dove sono le pecore?) **They're on the fell.** (Sono sul monte.) Con **there's** e **there are** dici che cosa c'è in un posto: **There's a bench in front of the inn.** (Davanti alla locanda c'è una panchina.)",
+          "en": "Ask with **Where's …?** (where is) for one, **Where are …?** for more: **Where's the key?** **It's on the table.** **Where are the sheep?** **They're on the fell.** With **there's** and **there are** you say what is in a place: **There's a bench in front of the inn.**"
+        },
+        "examples": [
+          {
+            "en": "Where's Meg? — She's under the table.",
+            "sl": "Kje je Meg? — Pod mizo je.",
+            "de": "Wo ist Meg? — Sie liegt unter dem Tisch.",
+            "it": "Dov'è Meg? — È sotto il tavolo."
+          },
+          {
+            "en": "Where are my keys? — They're in your coat.",
+            "sl": "Kje so moji ključi? — V tvojem plašču so.",
+            "de": "Wo sind meine Schlüssel? — In deiner Jacke.",
+            "it": "Dove sono le mie chiavi? — Sono nella tua giacca."
+          },
+          {
+            "en": "There's a big oak behind the church.",
+            "sl": "Za cerkvijo je velik hrast.",
+            "de": "Hinter der Kirche steht eine große Eiche.",
+            "it": "Dietro la chiesa c'è una grande quercia."
+          }
+        ],
+        "rows": [
+          [
+            "Where's …? Where are …?",
+            {
+              "sl": "kje je, kje so",
+              "de": "wo ist, wo sind",
+              "it": "dov'è, dove sono",
+              "en": "where is, where are"
+            },
+            "Where's the key? It's on the table."
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "prepositions-place",
+          "prompt": "Where ___ the cups? — They're in the kitchen.",
+          "options": [
+            "are",
+            "is",
+            "be"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Več: Where are …?**\n- Where's the key? (Kje je ključ?) · Where are the sheep? (Kje so ovce?)",
+            "de": "**Mehrere: Where are …?**\n- Where's the key? (Wo ist der Schlüssel?) · Where are the sheep? (Wo sind die Schafe?)",
+            "it": "**Più cose: Where are …?**\n- Where's the key? (Dov'è la chiave?) · Where are the sheep? (Dove sono le pecore?)",
+            "en": "**More than one: Where are …?**\n- Where's the key? · Where are the sheep?"
+          }
+        }
+      },
+      {
+        "say": {
+          "sl": "Za kam greš je **to**: **go to the inn** (iti v gostilno), **the bus to Keswick** (avtobus za Keswick). A **home** je brez to: **go home** (iti domov), **come home** (priti domov). Noter je **into**: **Meg jumps into the beck.** (Meg skoči v potok.) Za kje nikoli to: **at the inn** (v gostilni).",
+          "de": "Wohin du gehst, sagt **to**: **go to the inn** (ins Gasthaus gehen), **the bus to Keswick** (der Bus nach Keswick). Aber **home** ohne to: **go home** (nach Hause gehen), **come home** (nach Hause kommen). Hinein ist **into**: **Meg jumps into the beck.** (Meg springt in den Bach.) Für wo nie to: **at the inn** (im Gasthaus).",
+          "it": "Per dove vai si usa **to**: **go to the inn** (andare alla locanda), **the bus to Keswick** (l'autobus per Keswick). Ma **home** senza to: **go home** (andare a casa), **come home** (tornare a casa). Dentro, con movimento, è **into**: **Meg jumps into the beck.** (Meg salta nel ruscello.) Per dove si trova, mai to: **at the inn** (alla locanda).",
+          "en": "For where you go, use **to**: **go to the inn**, **the bus to Keswick**. But **home** takes no to: **go home**, **come home**. Going inside is **into**: **Meg jumps into the beck.** For where something is, never to: **at the inn**."
+        },
+        "examples": [
+          {
+            "en": "We go to Keswick on the bus.",
+            "sl": "Z avtobusom gremo v Keswick.",
+            "de": "Wir fahren mit dem Bus nach Keswick.",
+            "it": "Andiamo a Keswick in autobus."
+          },
+          {
+            "en": "Mr Dixon goes home after work.",
+            "sl": "Gospod Dixon gre po službi domov.",
+            "de": "Mr Dixon geht nach der Arbeit nach Hause.",
+            "it": "Mr Dixon va a casa dopo il lavoro."
+          },
+          {
+            "en": "Meg jumps into the beck.",
+            "sl": "Meg skoči v potok.",
+            "de": "Meg springt in den Bach.",
+            "it": "Meg salta nel ruscello."
+          }
+        ],
+        "rows": [
+          [
+            "to",
+            {
+              "sl": "kam",
+              "de": "wohin",
+              "it": "moto a luogo",
+              "en": "where to"
+            },
+            "go to the inn, go home"
+          ],
+          [
+            "into",
+            {
+              "sl": "v (noter)",
+              "de": "in … hinein",
+              "it": "dentro (moto)",
+              "en": "going inside"
+            },
+            "jump into the beck"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "prepositions-place",
+          "prompt": "It's late. Let's go ___.",
+          "options": [
+            "home",
+            "to home",
+            "at home"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Domov: go home, brez to**\n- go to the inn (v gostilno) · go home (domov)",
+            "de": "**Nach Hause: go home, ohne to**\n- go to the inn (ins Gasthaus) · go home (nach Hause)",
+            "it": "**A casa: go home, senza to**\n- go to the inn (alla locanda) · go home (a casa)",
+            "en": "**go home, with no to**\n- go to the inn · go home"
+          }
+        }
+      }
+    ],
+    "summary": {
+      "sl": "Kje: **in** v, znotraj, v kraju (**in the kitchen**, **in Keswick**); **on** na površini (**on the table**, **on the fell**); **at** točka ali kjer nekaj počneš (**at the inn**, **at home**, **at work**); **under** pod, **behind** za, **in front of** pred, **next to** in **by** zraven, **between** med, **near** blizu. Samostalnik se ne spremeni. Vprašaš **Where's …?** in **Where are …?** Kam: **to** (**go to the inn**), a **go home**; noter **into**.",
+      "de": "Wo: **in** drinnen, in einem Ort (**in the kitchen**, **in Keswick**); **on** auf einer Fläche (**on the table**, **on the fell**); **at** ein Punkt oder wo man etwas tut (**at the inn**, **at home**, **at work**); **under** unter, **behind** hinter, **in front of** vor, **next to** und **by** neben, **between** zwischen, **near** in der Nähe. Das Nomen bleibt gleich. Du fragst **Where's …?** und **Where are …?** Wohin: **to** (**go to the inn**), aber **go home**; hinein **into**.",
+      "it": "Dove: **in** dentro, in una città (**in the kitchen**, **in Keswick**); **on** su una superficie (**on the table**, **on the fell**); **at** un punto o dove fai qualcosa (**at the inn**, **at home**, **at work**); **under** sotto, **behind** dietro, **in front of** davanti a, **next to** e **by** accanto a, **between** tra, **near** vicino a. Il nome non cambia. Chiedi **Where's …?** e **Where are …?** Dove vai: **to** (**go to the inn**), ma **go home**; dentro **into**.",
+      "en": "Where: **in** inside, in a town (**in the kitchen**, **in Keswick**); **on** a surface (**on the table**, **on the fell**); **at** a point or where you do something (**at the inn**, **at home**, **at work**); **under**, **behind**, **in front of**, **next to**, **by**, **between**, **near**. The noun never changes. Ask **Where's …?** and **Where are …?** Where to: **to** (**go to the inn**), but **go home**; going inside: **into**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "prepositions-1",
+      "title": {
+        "sl": "V, na, pod",
+        "de": "In, auf, unter",
+        "it": "In, su, sotto",
+        "en": "In, on, under"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "prepositions-place",
+          "instruction": {
+            "sl": "Fill in the table · Dopolni tabelo",
+            "de": "Fill in the table · Ergänze die Tabelle",
+            "it": "Fill in the table · Completa la tabella",
+            "en": "Fill in the table"
+          },
+          "prompt": {
+            "sl": "prepositions · predlogi",
+            "de": "prepositions · Präpositionen",
+            "it": "prepositions · preposizioni",
+            "en": "prepositions"
+          },
+          "columns": [
+            {
+              "sl": "English · angleško",
+              "de": "English · Englisch",
+              "it": "English · inglese",
+              "en": "English"
+            }
+          ],
+          "rows": [
+            {
+              "label": {
+                "sl": "v (znotraj)",
+                "de": "in (drinnen)",
+                "it": "in, dentro",
+                "en": "inside"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "in"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "na (na površini)",
+                "de": "auf",
+                "it": "su, sopra",
+                "en": "on a surface"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "on"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "pod",
+                "de": "unter",
+                "it": "sotto",
+                "en": "below"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "under",
+                    "below"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "za (zadaj)",
+                "de": "hinter",
+                "it": "dietro",
+                "en": "at the back of"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "behind"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "pred",
+                "de": "vor",
+                "it": "davanti a",
+                "en": "at the front of"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "in front of"
+                  ],
+                  "hint": {
+                    "sl": "tri besede",
+                    "de": "drei Wörter",
+                    "it": "tre parole",
+                    "en": "three words"
+                  }
+                }
+              ]
+            },
+            {
+              "label": {
+                "sl": "zraven",
+                "de": "neben",
+                "it": "accanto a",
+                "en": "beside"
+              },
+              "cells": [
+                {
+                  "accept": [
+                    "next to",
+                    "beside",
+                    "by"
+                  ],
+                  "hint": {
+                    "sl": "dve besedi",
+                    "de": "zwei Wörter",
+                    "it": "due parole",
+                    "en": "two words"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Samostalnik za predlogom se ne spremeni**\n- under the table (pod mizo) · in front of the school (pred šolo)",
+            "de": "**Das Nomen nach der Präposition bleibt gleich**\n- under the table (unter dem Tisch) · in front of the school (vor der Schule)",
+            "it": "**Dopo la preposizione il nome non cambia**\n- under the table (sotto il tavolo) · in front of the school (davanti alla scuola)",
+            "en": "**The noun after a preposition never changes**\n- under the table · in front of the school"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "prepositions-place",
+          "instruction": {
+            "sl": "Sort · at, in ali on?",
+            "de": "Sort · at, in oder on?",
+            "it": "Sort · at, in o on?",
+            "en": "Sort · at, in or on?"
+          },
+          "columns": [
+            {
+              "label": "at",
+              "words": [
+                "home",
+                "work",
+                "the bus stop"
+              ]
+            },
+            {
+              "label": "in",
+              "words": [
+                "Keswick",
+                "the kitchen",
+                "England"
+              ]
+            },
+            {
+              "label": "on",
+              "words": [
+                "the table",
+                "the fell"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**at točka, in znotraj, on na površini**\n- at home (doma) · in Keswick (v Keswicku) · on the table (na mizi)",
+            "de": "**at ein Punkt, in drinnen, on auf einer Fläche**\n- at home (zu Hause) · in Keswick · on the table (auf dem Tisch)",
+            "it": "**at un punto, in dentro, on su una superficie**\n- at home (a casa) · in Keswick (a Keswick) · on the table (sul tavolo)",
+            "en": "**at a point, in inside, on a surface**\n- at home · in Keswick · on the table"
+          }
+        }
+      ]
+    },
+    {
+      "id": "prepositions-2",
+      "title": {
+        "sl": "V vasi",
+        "de": "Im Dorf",
+        "it": "In paese",
+        "en": "In the village"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "prepositions-place",
+          "instruction": {
+            "sl": "Fill in · Dopolni",
+            "de": "Fill in · Ergänze",
+            "it": "Fill in · Completa",
+            "en": "Fill in"
+          },
+          "text": "The Packhorse Inn is ___ the bridge and the church. There's a big map of the fells ___ the wall. Mrs Birkett is ___ the kitchen. The bus stop is in ___ of the inn, and the smithy is next ___ the inn. Mr Dixon isn't ___ home. He's ___ work in the smithy.",
+          "gaps": [
+            {
+              "accept": [
+                "between"
+              ],
+              "hint": {
+                "sl": "na vsaki strani eno",
+                "de": "auf jeder Seite eins",
+                "it": "uno per lato",
+                "en": "one on each side"
+              }
+            },
+            {
+              "accept": [
+                "on"
+              ],
+              "hint": {
+                "sl": "na površini",
+                "de": "auf einer Fläche",
+                "it": "su una superficie",
+                "en": "a surface"
+              }
+            },
+            {
+              "accept": [
+                "in"
+              ],
+              "hint": {
+                "sl": "znotraj",
+                "de": "drinnen",
+                "it": "dentro",
+                "en": "inside"
+              }
+            },
+            {
+              "accept": [
+                "front"
+              ],
+              "hint": "in … of"
+            },
+            {
+              "accept": [
+                "to"
+              ],
+              "hint": "next …"
+            },
+            {
+              "accept": [
+                "at"
+              ],
+              "hint": {
+                "sl": "doma",
+                "de": "zu Hause",
+                "it": "a casa",
+                "en": "home, no the"
+              }
+            },
+            {
+              "accept": [
+                "at"
+              ],
+              "hint": {
+                "sl": "v službi",
+                "de": "in der Arbeit",
+                "it": "al lavoro",
+                "en": "work, no the"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "under",
+            "into"
+          ],
+          "translation": {
+            "sl": "Gostilna Packhorse je med mostom in cerkvijo. Na steni je velik zemljevid hribov. Gospa Birkett je v kuhinji. Avtobusna postaja je pred gostilno, kovačnica pa zraven gostilne. Gospoda Dixona ni doma. V službi je, v kovačnici.",
+            "de": "Das Packhorse Inn ist zwischen der Brücke und der Kirche. An der Wand hängt eine große Karte der Berge. Mrs Birkett ist in der Küche. Die Bushaltestelle ist vor dem Gasthaus, und die Schmiede ist neben dem Gasthaus. Mr Dixon ist nicht zu Hause. Er ist in der Arbeit, in der Schmiede.",
+            "it": "Il Packhorse Inn è tra il ponte e la chiesa. Sul muro c'è una grande cartina dei monti. Mrs Birkett è in cucina. La fermata dell'autobus è davanti alla locanda e la fucina è accanto alla locanda. Mr Dixon non è a casa. È al lavoro, nella fucina.",
+            "en": "The Packhorse Inn is between the bridge and the church. There's a big map of the fells on the wall. Mrs Birkett is in the kitchen. The bus stop is in front of the inn, and the smithy is next to the inn. Mr Dixon isn't at home. He's at work in the smithy."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "prepositions-place",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Sam's friend Marko lives ___ Slovenia.",
+          "options": [
+            "in",
+            "at",
+            "on"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Država, mesto: in**\n- in Slovenia (v Sloveniji) · in Keswick (v Keswicku)",
+            "de": "**Ein Land, eine Stadt: in**\n- in Slovenia (in Slowenien) · in Keswick",
+            "it": "**Un paese, una città: in**\n- in Slovenia (in Slovenia) · in Keswick (a Keswick)",
+            "en": "**A country, a town: in**\n- in Slovenia · in Keswick"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "prepositions-place",
+          "instruction": {
+            "sl": "Choose · Izberi",
+            "de": "Choose · Wähle",
+            "it": "Choose · Scegli",
+            "en": "Choose"
+          },
+          "prompt": "Mr Tyson isn't here. He's ___ the mill.",
+          "options": [
+            "at",
+            "to",
+            "on"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "sl": "**Kjer nekaj počneš: at; to je za kam**\n- He's at the mill. (V mlinu je.) · He goes to the mill. (Gre v mlin.)",
+            "de": "**Wo man etwas tut: at; to ist wohin**\n- He's at the mill. (Er ist in der Mühle.) · He goes to the mill. (Er geht in die Mühle.)",
+            "it": "**Dove fai qualcosa: at; to è dove vai**\n- He's at the mill. (È al mulino.) · He goes to the mill. (Va al mulino.)",
+            "en": "**Where you do something: at; to is where you go**\n- He's at the mill. · He goes to the mill."
+          }
+        }
+      ]
+    },
+    {
+      "id": "prepositions-3",
+      "title": {
+        "sl": "Kje je?",
+        "de": "Wo ist es?",
+        "it": "Dov'è?",
+        "en": "Where is it?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "prepositions-place",
+          "instruction": {
+            "sl": "Answer · Odgovori",
+            "de": "Answer · Antworte",
+            "it": "Answer · Rispondi",
+            "en": "Answer"
+          },
+          "items": [
+            {
+              "from": "Where's the key? (on, the table)",
+              "accept": [
+                "It's on the table.",
+                "The key is on the table."
+              ]
+            },
+            {
+              "from": "Where are the sheep? (on, the fell)",
+              "accept": [
+                "They're on the fell.",
+                "The sheep are on the fell."
+              ],
+              "hint": {
+                "sl": "več: They're …",
+                "de": "mehrere: They're …",
+                "it": "più cose: They're …",
+                "en": "more than one: They're …"
+              }
+            },
+            {
+              "from": "Where's Meg? (under, the table)",
+              "accept": [
+                "She's under the table.",
+                "It's under the table.",
+                "Meg is under the table."
+              ]
+            },
+            {
+              "from": "Where's Mrs Birkett? (at, the inn)",
+              "accept": [
+                "She's at the inn.",
+                "Mrs Birkett is at the inn."
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**It's … za eno stvar, They're … za več**\n- Where's the key? — It's on the table.\n- Where are the sheep? — They're on the fell.",
+            "de": "**It's … für eine Sache, They're … für mehrere**\n- Where's the key? — It's on the table.\n- Where are the sheep? — They're on the fell.",
+            "it": "**It's … per una cosa, They're … per più cose**\n- Where's the key? — It's on the table.\n- Where are the sheep? — They're on the fell.",
+            "en": "**It's … for one thing, They're … for more**\n- Where's the key? — It's on the table.\n- Where are the sheep? — They're on the fell."
+          }
+        },
+        {
+          "type": "transform",
+          "grammar": "prepositions-place",
+          "instruction": {
+            "sl": "Ask where · Vprašaj, kje",
+            "de": "Ask where · Frag, wo",
+            "it": "Ask where · Chiedi dove",
+            "en": "Ask where"
+          },
+          "cue": "?",
+          "items": [
+            {
+              "from": "The map is on the wall.",
+              "accept": [
+                "Where's the map?"
+              ],
+              "hint": {
+                "sl": "Where's …? za eno",
+                "de": "Where's …? für eins",
+                "it": "Where's …? per una cosa",
+                "en": "Where's …? for one"
+              }
+            },
+            {
+              "from": "Jack's dogs are in the garden.",
+              "accept": [
+                "Where are Jack's dogs?"
+              ]
+            },
+            {
+              "from": "Old Wilf is under the big oak.",
+              "accept": [
+                "Where's Old Wilf?"
+              ]
+            }
+          ],
+          "explain": {
+            "sl": "**Where's …? za eno, Where are …? za več**\n- The map is on the wall. → Where's the map?\n- Jack's dogs are in the garden. → Where are Jack's dogs?",
+            "de": "**Where's …? für eins, Where are …? für mehrere**\n- The map is on the wall. → Where's the map?\n- Jack's dogs are in the garden. → Where are Jack's dogs?",
+            "it": "**Where's …? per una cosa, Where are …? per più cose**\n- The map is on the wall. → Where's the map?\n- Jack's dogs are in the garden. → Where are Jack's dogs?",
+            "en": "**Where's …? for one, Where are …? for more**\n- The map is on the wall. → Where's the map?\n- Jack's dogs are in the garden. → Where are Jack's dogs?"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "prepositions-place",
+        "instruction": {
+          "sl": "Fill in · Dopolni",
+          "de": "Fill in · Ergänze",
+          "it": "Fill in · Completa",
+          "en": "Fill in"
+        },
+        "text": "Where's Old Wilf? He isn't ___ home. He's ___ the inn, next ___ the fire. His old dog Bess is ___ (below) the table. Wilf's cottage is ___ the mill and the beck, and his bench is in ___ of the cottage.",
+        "gaps": [
+          {
+            "accept": [
+              "at"
+            ]
+          },
+          {
+            "accept": [
+              "at",
+              "in"
+            ]
+          },
+          {
+            "accept": [
+              "to"
+            ]
+          },
+          {
+            "accept": [
+              "under",
+              "below"
+            ]
+          },
+          {
+            "accept": [
+              "between"
+            ]
+          },
+          {
+            "accept": [
+              "front"
+            ]
+          }
+        ],
+        "translation": {
+          "sl": "Kje je stari Wilf? Ni doma. V gostilni je, zraven ognja. Njegova stara psička Bess je pod mizo. Wilfova hišica je med mlinom in potokom, njegova klop pa pred hišico.",
+          "de": "Wo ist der alte Wilf? Er ist nicht zu Hause. Er ist im Gasthaus, neben dem Feuer. Seine alte Hündin Bess liegt unter dem Tisch. Wilfs Häuschen steht zwischen der Mühle und dem Bach, und seine Bank steht vor dem Häuschen.",
+          "it": "Dov'è il vecchio Wilf? Non è a casa. È alla locanda, accanto al fuoco. La sua vecchia cagna Bess è sotto il tavolo. La casetta di Wilf è tra il mulino e il ruscello, e la sua panchina è davanti alla casetta.",
+          "en": "Where's Old Wilf? He isn't at home. He's at the inn, next to the fire. His old dog Bess is under the table. Wilf's cottage is between the mill and the beck, and his bench is in front of the cottage."
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "prepositions-place",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "Mr Tyson's sheep are ___ the fell.",
+        "options": [
+          "on",
+          "in",
+          "at"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Na hribu: on the fell**\n- on the fell (na hribu) · on the table (na mizi)",
+          "de": "**Auf dem Berg: on the fell**\n- on the fell (auf dem Berg) · on the table (auf dem Tisch)",
+          "it": "**Sul monte: on the fell**\n- on the fell (sul monte) · on the table (sul tavolo)",
+          "en": "**on the fell, as on a surface**\n- on the fell · on the table"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "prepositions-place",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "After the market, we go ___.",
+        "options": [
+          "home",
+          "to home",
+          "at home"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Domov: go home, brez to**\n- go to the inn (v gostilno) · go home (domov)",
+          "de": "**Nach Hause: go home, ohne to**\n- go to the inn (ins Gasthaus) · go home (nach Hause)",
+          "it": "**A casa: go home, senza to**\n- go to the inn (alla locanda) · go home (a casa)",
+          "en": "**go home, with no to**\n- go to the inn · go home"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "prepositions-place",
+        "instruction": {
+          "sl": "Choose · Izberi",
+          "de": "Choose · Wähle",
+          "it": "Choose · Scegli",
+          "en": "Choose"
+        },
+        "prompt": "The cat is ___ the box.",
+        "options": [
+          "in",
+          "into",
+          "to"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "sl": "**Kje je: in; into je, ko gre noter**\n- The cat is in the box. (Mačka je v škatli.) · The cat jumps into the box. (Mačka skoči v škatlo.)",
+          "de": "**Wo es ist: in; into ist hinein**\n- The cat is in the box. (Die Katze ist in der Schachtel.) · The cat jumps into the box. (Die Katze springt in die Schachtel.)",
+          "it": "**Dove si trova: in; into è entrare**\n- The cat is in the box. (Il gatto è nella scatola.) · The cat jumps into the box. (Il gatto salta nella scatola.)",
+          "en": "**Where it is: in; into is going inside**\n- The cat is in the box. · The cat jumps into the box."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "prepositions-place",
+        "instruction": {
+          "sl": "Ask where · Vprašaj, kje",
+          "de": "Ask where · Frag, wo",
+          "it": "Ask where · Chiedi dove",
+          "en": "Ask where"
+        },
+        "cue": "?",
+        "items": [
+          {
+            "from": "The bus stop is next to the church.",
+            "accept": [
+              "Where's the bus stop?"
+            ]
+          },
+          {
+            "from": "Granny Maggie's cats are in the garden.",
+            "accept": [
+              "Where are Granny Maggie's cats?"
+            ]
+          }
+        ],
+        "explain": {
+          "sl": "**Where's …? za eno, Where are …? za več**\n- Where's the bus stop? · Where are Granny Maggie's cats?",
+          "de": "**Where's …? für eins, Where are …? für mehrere**\n- Where's the bus stop? · Where are Granny Maggie's cats?",
+          "it": "**Where's …? per una cosa, Where are …? per più cose**\n- Where's the bus stop? · Where are Granny Maggie's cats?",
+          "en": "**Where's …? for one, Where are …? for more**\n- Where's the bus stop? · Where are Granny Maggie's cats?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (en, sl, de, it); check: on the fell, at the mill or in the mill, the bus to Keswick, by the beck in each base"
+}

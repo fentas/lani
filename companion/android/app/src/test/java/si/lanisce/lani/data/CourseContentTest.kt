@@ -202,6 +202,23 @@ class ItalianCourseContentTest : CourseContentChecks("it", Lang.IT, listOf("de",
 }
 
 /**
+ * The English course (companion/course/en, the Lakeland village's school, Mrs Hartley teaching) as the app plays it, by
+ * [CourseContentChecks] with the English grading (grading/en.json: contractions, the American spelling): every text per
+ * base in Slovene, German and Italian, and in the English the format wants; no distractor even almost right.
+ */
+class EnglishCourseContentTest : CourseContentChecks("en", Lang.EN, listOf("sl", "de", "it")) {
+    private val companion = listOf(File("../.."), File(".."), File("companion")).first { File(it, "course/en/course.json").isFile }
+
+    @Test fun `a text per base is read in the learner's base`() {
+        val hello = Json.parseToJsonElement(File(companion, "course/en/units/hello.json").readText()).jsonObject
+        val sort = ((hello["worksheets"] as JsonArray)[0].jsonObject["exercises"] as JsonArray)[0].jsonObject
+        assertEquals("Sort · Gruß oder Abschied?", (Courses.exercise(sort, "de") as Exercise.Sort).instruction)
+        assertEquals("hello · ob prihodu", (Courses.exercise(sort, "sl") as Exercise.Sort).columns[0].label)
+        assertEquals("goodbye · quando vai via", (Courses.exercise(sort, "it") as Exercise.Sort).columns[1].label)
+    }
+}
+
+/**
  * The Slovene course (companion/course/sl) as the app plays it, by [CourseContentChecks]: the distractors almost right for a
  * gap are mestnik's ogenju for ognju, sklanjatev-posebnosti's pesom for psom, vid-vsi-casi's sedli (sesti) for sedeli (the
  * other aspect: worth a look by whoever writes those units); none other.
