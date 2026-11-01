@@ -64,7 +64,7 @@ their own where the page goes further than the unit (mine and yours, don't and q
 
 ## The grading these units need
 
-`grading/en.json`'s `wrong` (commit 420fad94), paired as part a's plural mistakes are, so each is wrong only for a word
+`grading/en.json`'s `wrong` (commit 94cca49b), paired as part a's plural mistakes are, so each is wrong only for a word
 of its group and a slip of the keyboard on any other word stays one:
 - those only for these, these only for those (one letter apart: near or far, a real mistake);
 - gos for goes, dos for does (-es after o);
@@ -75,13 +75,13 @@ The rest was wrong already and is now pinned by GradingLanguagesTest: the third 
 -es after ch, sh, x (watchs, fixs), flys, haves, playes. Jacks for Jack's and Poppys for Poppy's are wrong (an ending);
 its for it's, he's for his, they're for their are one word for two, wrong.
 
-Shared commits taken onto this branch, as the lead asked: part a's English course tests (6de82eee: cherry-picked
-137c4af2), the course-speech base word lists (3528805a: 79099d49, its conflict with the English check resolved by
-keeping the letter check and using the shared `BASE_WORDS`), and part c's grading (7f716c74, fb311acf, 8d8d668b,
-1b72a8cf: the -ing form's, the ordinals' and were/where mistakes; a contraction typed without its apostrophe almost,
+Shared commits taken onto this branch, as the lead asked: part a's English course tests (7ee7b4be: cherry-picked
+137c4af2), the course-speech base word lists (4dde2598: 79099d49, its conflict with the English check resolved by
+keeping the letter check and using the shared `BASE_WORDS`), and part c's grading (6bede83a, 9dd285cc, 09bc294b,
+4cf561ea: the -ing form's, the ordinals' and were/where mistakes; a contraction typed without its apostrophe almost,
 with the apostrophe hint in the language learned's examples; ordinals 21–99 with or without the hyphen), their
-`wrong` lists, `_note`s and tests merged keeping both sides; and the lead's QA fix for course-unit (3c97b475:
-ddb65f29).
+`wrong` lists, `_note`s and tests merged keeping both sides; and the lead's QA fixes for course-unit (ddb65f29: a
+quick question's field above Check; 66c1ad9c: reorders and multis played).
 
 ## The words on the prints
 
@@ -123,22 +123,22 @@ The same counts as units 1–6: the units add content, no screen.
 
 ## Tests
 
-- **Android unit suite** (lani-slot.sh, `:app:testDebugUnitTest`, with part c's grading commits on this branch): 3,705
-  tests in 476 classes, 0 failures, 2 skipped. Among them `EnglishCourseContentTest` (6: every unit of
+- **Android unit suite** (lani-slot.sh, `:app:testDebugUnitTest`, with part c's grading commits on this branch): after
+  the rebase onto main, 3,708 tests in 476 classes, 0 failures, 2 skipped (3,705 before it). Among them `EnglishCourseContentTest` (6: every unit of
   companion/course/en parsed and played at its level, every right answer graded right by grading/en.json, no
   distractor right or almost for any gap, every text per base in sl, de, it and en), `GradingLanguagesTest` (38, the
   new one: those for these, gos, dos, flyes wrong; the third person's -s and -es wrong already; slips in the stem
   forgiven), `SchoolBoardTest` (6: the English board writes every letter of units 7–12 and lays out every lesson),
   `GrammarTest` (the app bundles the English book's 19 pages with this-that).
 - **Bridge**: `bunx tsc --noEmit -p .` clean; the smoke (LANI_SMOKE_PORT=9910, LANI_SMOKE_DRAMA3_PORT=9928): all
-  checks passed, 3,324 of them, among them course/en (every unit validates, its pages in the book, machine-written),
+  checks passed, 3,380 of them after the rebase (3,324 before), among them course/en (every unit validates, its pages in the book, machine-written),
   the rule-line check (2,103 steps in every base: each step's point on the sheet's rule line), the supplement
   (en.extra.json validates, 92 entries), and course-speech's English checks (for a learner from sl, de and it, Mrs
   Hartley reads the examples, the quick questions and their answers and the English of the explanations, never the
   base: no č, š, ž, umlaut, Italian accent or a word only the base has).
-- After the last content fixes (591ebf10, c151a9d6, 3db89d09): the course's Android tests again (EnglishCourseContentTest,
+- After the last content fixes (1321edef, c05dc667, a662d8c6): the course's Android tests again (EnglishCourseContentTest,
   GradingLanguagesTest, SchoolBoardTest, GrammarTest, CourseTest, IntroSpeechTest, IntroSpeechParityTest,
-  GameIntroSpeechTest, IntroBoldTapTest: 94 tests, 0 failures), tsc and the smoke again (all 3,324 passed).
+  GameIntroSpeechTest, IntroBoldTapTest: 94 tests, 0 failures), tsc and the smoke again (all passed).
 - `tutor-export --check`: 89 files match the bridge. Python: 251 tests (tests/) and 142 (companion/tests, 11 skipped),
   OK.
 - While writing: a port of the English grading (every distractor against every gap), the bridge's `validateUnit` and
@@ -157,18 +157,17 @@ pages). Three runs; the last, after the fixes below and with the lead's QA fix, 
 (cu-*.png, 18 of them) are in the scratchpad under ux-course-en-a1-b/.
 
 What it found, fixed:
-- **A worksheet's title twice in English** (3db89d09): the app shows a sheet's title in the pair (the course's
+- **A worksheet's title twice in English** (a662d8c6): the app shows a sheet's title in the pair (the course's
   language, then the base), and the titles per base held the English already ("📝 Here or there? · Here or there? ·
-  Tukaj ali tam?"). Each base's title is now its own words. Part a's units 1–6 write them the same way (hello-1
-  "Hello or goodbye? Pozdrav ali slovo", have-got-1 "Have got, has got · Imam, ima"): for the lead.
-- **The table's row labels** (591ebf10): this-that-1's rows were labelled here · tukaj and there · tam, three alike and
+  Tukaj ali tam?"). Each base's title is now its own words (part a met the same in units 1–6).
+- **The table's row labels** (1321edef): this-that-1's rows were labelled here · tukaj and there · tam, three alike and
   two alike, so a cell's TalkBack label (its row's and its column's) named three cells, and QA, filling by label,
   typed row 5's answer into row 1. Each row is now its noun (cup · skodelica, fell · hrib, scone, bike · kolo, child ·
   otrok). The other units' tables have distinct labels (checked).
-- **Step 3's gap** (ccb6b488): QA's search for an intro's text field stopped at y 1850, and on this phone a step whose
+- **Step 3's gap** (a146fc3a): QA's search for an intro's text field stopped at y 1850, and on this phone a step whose
   examples and table overflow ends its scroll with the quick question's field at y 1868 (in view, above Check and
   Next). Shortening the step's answer row made the table compact but couldn't move the field: the scroll's end pins
-  it. The lead's QA fix (ddb65f29, cherry-picked: 3c97b475) finds the field above the Check button, wherever the step
+  it. The lead's QA fix (ddb65f29, cherry-picked: bccae8c1) finds the field above the Check button, wherever the step
   scrolled to; the final run used it.
 
 ## Voice
@@ -179,7 +178,7 @@ and their answers, the English runs of the explanations and summaries); the expl
 and a summary (`--explanations`, made on demand as an intro opens): 36 a base, about 10,500 characters in Slovene,
 11,400 in German and 11,200 in Italian. All of it for every base: about 40,500 characters.
 
-Every English form the explanations and summaries show in bold is read in her voice (c151a9d6: course-speech's
+Every English form the explanations and summaries show in bold is read in her voice (c05dc667: course-speech's
 vocabulary and looksLearned, as the app's IntroSpeech, over every step and summary in sl, de and it), but the ending
 -s and the wrong form *two bigs dogs*, which the phone's voice of the base reads, as part a's -teen and -ty.
 
@@ -212,5 +211,7 @@ Then each base:
   wrong, not almost (usualy for usually).
 - **The rebase** with parts a and c: course.json (resolve-outline.py), COURSE.md (the units in order), en.extra.json
   (both sides' entries), grading/en.json's `wrong` and `_note` and GradingLanguagesTest (both kept; part c's commits
-  are on this branch already, resolved, so their copies on part c's side meet the same lines). Main has nothing this
-  branch lacks (checked at the end: main is an ancestor of it).
+  are on this branch already, resolved, so their copies on part c's side meet the same lines). Rebased onto main at
+  the end (7e2acd5c, the German and English talks): companion/bin/qa's named-only steps kept both sides
+  (course-unit beside main's), and main's new English pack (weather-and-garden) gives no prompt one of the
+  supplement's meanings.
