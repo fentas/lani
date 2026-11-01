@@ -64,6 +64,10 @@ class CultureScenesTest {
         "palisade" to emptySet(), "lookout" to emptySet(),
         // the Lake District's (places-lakeland): every effect of the kitchen, the tent, the smithy and the field cued too
         "kitchen" to emptySet(), "tent" to emptySet(), "smithy" to emptySet(), "field" to emptySet(),
+        // the Lake District's beck and tarn (lakeland-projects-b): the stream's mill wheel and its sacks, the cart over the
+        // new bridge and the fire brigade's hand pump are the village projects' (their steps and scenes play them), the
+        // beck leaves them out; every effect of the tarn is cued
+        "stream" to setOf("wheel", "sacks", "cart", "hose"), "pond" to emptySet(),
     )
 
     @Test fun `each culture's scene opens from its place and uses only what its painter draws`() {
