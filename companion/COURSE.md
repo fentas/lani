@@ -1097,6 +1097,44 @@ course's other writers'):
 - **A spoken form the grading already takes** (hab, which `same` makes habe) isn't listed in `spoken`: it would be right
   without its label, and `CourseContentChecks` wants each spoken form labelled. Name it in the intro instead.
 
+### The German course: units 7–12
+
+A1's middle six units, from the numbers to saying no (docs/plans/05-built/course-de-a1-b.md): the present, its vowel
+change, questions, the verb in second place, the accusative and the negation, in the village's adult life (Kathi's
+Kasnudeln and her Ruhetag, Stefan's cider and his drive to Villach, Florian on the Alm with Bello, Stanko's honey at the
+market, Opa Sepp's Lindwurm, Herr Rossi from Udine as a guest):
+
+| Unit | Teaches | Its pages |
+|---|---|---|
+| `praesens` 🏃 | -e, -st, -t, -en, -t, -en (wohnen, kommen, kochen); ihr -t as er; Sie -en; the pronoun always there, one present for I cook and I'm cooking; du arbeitest, er findet (the e after -t, -d); du tanzt (-s, -ß, -z: only -t); gern after the verb | praesens, du-sie |
+| `vokalwechsel` 🔄 | a → ä (fährst, schläft, trägt), au → äu (läuft), e → i (sprichst, gibt, es gibt), e → ie (siehst, liest) for du and er only; ihr fahrt; isst, nimmt; er isst against er ist | vokalwechsel (a new page), praesens |
+| `fragen` ❓ | the question word, the verb, the person (Wo wohnst du?); wer is who; wann (not wenn), wie, warum; wo, wohin, woher; the verb first for yes or no; doch; questions to Sie | fragen |
+| `wortstellung` 🧱 | the verb second whatever comes first (Heute backt Oma Resi Kuchen); a first part of several words (am Abend); und, aber, oder take no place, dann does; the question's verb; when before where (morgen nach Villach) | wortstellung, fragen |
+| `akkusativ` 🎯 | der → den, ein → einen, nothing else changes; es gibt + accusative; the subject keeps der (Den Fuchs sieht der Hund); ihn, sie, es, mich, dich; für + accusative | akkusativ, artikel-genus |
+| `kein-nicht` 🚫 | kein for ein and for no article (keine Zeit, keinen Hunger), nicht for the rest; nicht at the end, before a place or an adjective; kein … mehr, nicht mehr | kein-nicht, akkusativ |
+
+- **Only what came before around a gap**: units 7–9 keep the subject first (an intro's example may ask a yes or no
+  question, known from haben) and no masculine article after a verb; `wortstellung` brings the inversion, `akkusativ`
+  den and einen, and from there on both may stand around a gap. The verb's bracket (a modal, the Perfekt, a separable
+  verb) is units 13–18's: `wortstellung` teaches the second place only.
+- **Two words in one gap** where the order is the point: `wortstellung`'s gap text asks for the verb and the person
+  (`Am Sonntag ___ (wir · gehen) in die Kirche.` → `gehen wir`), its bank of such pairs and the pairs the other way
+  round as distractors (`wir gehen`: wrong, two words differ); its choices offer the two orders (`kocht Kathi`, `Kathi
+  kocht`).
+- **A reorder only in the second or third sheet**: QA's `course-unit` plays the first sheet and the test, and doesn't
+  play a reorder. Every order of the tokens that is right is a solution (`Im Gasthaus kocht Kathi Kasnudeln.` and
+  `Kathi kocht im Gasthaus Kasnudeln.`).
+- **The article in brackets** when a gap could take two (`Toni sucht ___ (der) Hammer.` → `den`, not einen), and the
+  verb in brackets for a form (`Kathi ___ (kochen) Kasnudeln.`).
+- **No example column beside a column of forms** in an intro's table: the print marks a cell against the one to its
+  left, and the words in front of the form (`Ich sehe` in `Ich sehe den Hund.`) came out marked as forms. A table of
+  forms has forms only (der Hund · den Hund); the sentences are the examples.
+- **The grading** (`grading/de.json`) knows three more of A1's mistakes, never slips: the e after -t or -d left out
+  (`arbeitst`, `findst` for arbeitest, findest), `ist` (is) for `isst` (eats), `wenn` for the question word `wann`;
+  and `gerne` is `gern` (one answer, as Germany says it too). `bäckt` is listed beside `backt`, both standard.
+- **Slovene says da**, not the spoken ja, in a translation (`Ali vidiš Dobrač? – Da, vidim ga!`); a German `Ja!` in an
+  example stays German.
+
 ## Printed sheets
 
 Jan, 2026-10-14: "Could you design A4 prints for each school topic? So one can use them as a reference in the future
