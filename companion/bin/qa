@@ -5364,7 +5364,7 @@ def mill():
         assert tap(T["back"], 3), "back from the mill"
         # from the stream: the mill's word, and under it the way in
         plain_village()
-        qa_hook(f"hour:{hour}", f"scene:{T['stream']}@mill")
+        qa_hook("hour:11", f"scene:{T['stream']}@mill")
         assert wait_for(T["back"], 10), "the stream opens"
         assert wait_for(T["inside"], 8), "the stream's mill's bubble: its way in"
         time.sleep(1.5)
@@ -8080,11 +8080,6 @@ def sheet_corrections():
         adb("shell", "wm", "size", "reset")
         adb("shell", "wm", "density", "reset")
         time.sleep(4 * slow())
-    if find(lab("tips.gotIt")) is None:  # folded with the size: its bubble again
-        c = next((c for t, c in nodes() if t.endswith(tip) and ", " in t), None)
-        if c is not None:
-            tap_at(c)
-            time.sleep(2)
     assert not problems, "; ".join(problems)
 
 
@@ -8412,8 +8407,8 @@ def school_unit():
     unit: QA's hook "school:<id>" (the dev village's copy ready for the class, the unit's level open, the unit as never
     begun), the unit from its level in the school: $LANI_QA_UNIT, pogojnik-polno (B1) by default. Its page; its intro step by step, each quick question answered as the file says (a
     choice's answer tapped, a cloze's typed and checked), the table growing, the summary card; its first worksheet,
-    every item answered right; then its test straight away ("⏩ Znam že"), passed, Mojca's cheer; the dev bridge's
-    village keeping the unit done. adb types no č, š, ž: an answer with one is almost right, half an item."""
+    every item answered right; then its test straight away ("⏩ Znam že"), passed, Mojca's cheer, "★ Naslednja enota"
+    naming the next unit once in each half (next_unit_once); the dev bridge's village keeping the unit done. adb types no č, š, ž: an answer with one is almost right, half an item."""
     path = ROOT / f"companion/course/sl/units/{QA_UNIT}.json"
     if not path.exists():
         return f"no unit {QA_UNIT} here ({path})"
@@ -8442,7 +8437,8 @@ def school_unit():
         if a["type"] == "choice":
             # the question under the lines and the table (longer step by step): scrolled to its option
             option = unit_text(a["options"][a["answer"]])
-            c = option_at(option)
+            # below its prompt: the intro's table above may hold the same word (sedanjik's "dela")
+            c = option_at(option, after=prompt_piece(a.get("prompt")))
             assert c is not None, f"step {i}'s option «{option}»"
             tap_at(c)
         else:
@@ -8489,6 +8485,8 @@ def school_unit():
     record_frames("school-unit-cheer", lambda: tap_at(nxt), seconds=5, keep=(0.6, 1.8, 3.6))
     assert wait_for("Enota opravljena", 10), "the test passed: the unit done"
     shot("school-unit-passed")
+    if star := next_unit_once("sl"):
+        print(f"    {star}")
     assert tap("Naprej · Continue", 4), "back to the unit"
     assert wait_for("Enota je opravljena", 8), "the unit done"
     end, done = time.time() + 20 * slow(), None
@@ -8884,6 +8882,8 @@ def friuli_school(part: str = "scene"):
             assert wait_for(half("school.unitDoneTitle"), 12), "the test passed: the unit done"
             time.sleep(2)
             snap("fs-test-passed")
+            if star := next_unit_once("it", pair):
+                print(f"    {star}")
             assert tap(lab("common.continue"), 4), "back to the unit"
             assert wait_for(half("school.unitIsDone"), 8), "the unit done"
             end, done = time.time() + 20 * slow(), None
@@ -9449,8 +9449,8 @@ def course_unit():
     village (LANI_DEV_DATA: make-learner.ts --target <language> --base <base>; LANI_CULTURE=<culture>,
     LANI_QA_SETUP_PAIR=<language>-<base>, LANI_QA_LEARNER=<name>): $LANI_QA_COURSE_UNIT (only when named, and only with
     it set), "school:<unit>" (the unit as never begun, its level open), its intro's quick questions (a gap typed into the
-    step's field), the summary, its first worksheet, its test straight away, passed; the dev bridge's village keeping it
-    done; its sheet printed from the unit (fit.js in the WebView as in Chromium, the dialog's preview, the PDF, A4). The
+    step's field), the summary, its first worksheet, its test straight away, passed, the next unit's "★" named once in
+    each half (next_unit_once); the dev bridge's village keeping it done; its sheet printed from the unit (fit.js in the WebView as in Chromium, the dialog's preview, the PDF, A4). The
     German course in the Carinthian village (docs/plans/05-built/course-de-a1-a.md), the English one in the Lake
     District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS."""
     if not COURSE_UNIT:
@@ -9646,6 +9646,8 @@ def course_unit():
         assert wait_for(half("school.unitDoneTitle"), 12), "the test passed: the unit done"
         time.sleep(2)
         snap("cu-test-passed")
+        if star := next_unit_once(lang, pair):
+            print(f"    {star}")
         assert tap(lab("common.continue"), 4), "back to the unit"
         assert wait_for(half("school.unitIsDone"), 8), "the unit done"
         end, done = time.time() + 20 * slow(), None
@@ -13807,6 +13809,24 @@ def label(key: str, pair=None, half=False) -> str:
     if half:
         return target.rstrip(" …").rstrip("…")
     return f"{target} · {app_texts(b).get(key, key)}"
+
+
+def next_unit_once(course: str, pair=None) -> str | None:
+    """After a unit's test passed: its "★" button names the next unit once in each half of the label, each half's title in
+    that half's language ("★ Naslednja enota: Hrana · Next unit: Food": ui/school SchoolScreen.kt nextUnitLabel), not the
+    title's pair in both halves ("… Hrana · Food · Next unit: Hrana · Food"). The button's text; None when none shows
+    (no unit suggested after this one). [course]: the course's language, whose units' titles it may name."""
+    t, b = pair or pair_now()
+    head = app_texts(t).get("school.nextUnit", "").split("{")[0]
+    star = next((x for x, _ in nodes() if x.startswith("★ ") and head and head in x), None)
+    if star is None:
+        return None
+
+    def half(lang: str, title: dict) -> str:
+        return app_texts(lang)["school.nextUnit"].replace("{unit}", title.get(lang) or title.get("en") or "")
+    titles = [json.loads(f.read_text())["title"] for f in sorted((ROOT / f"companion/course/{course}/units").glob("*.json"))]
+    assert star in {f"★ {half(t, x)} · {half(b, x)}" for x in titles}, f"the next unit named once in each half: «{star}»"
+    return star
 
 
 # The Italian course's words the supplement means (docs/plans/05-built/it-print-meanings.md): the word, the line it is
