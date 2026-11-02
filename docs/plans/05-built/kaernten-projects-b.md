@@ -270,8 +270,8 @@ to look at. Spoken forms are never graded wrong. To look at first:
 - **Words in two packs**: a project's step words must be in its own project pack, so some words are in a scene pack and a
   project pack, or in two project packs (der Stein, das Eisen, schwer, as Primorska's are), each its own card; der Graben
   (the fountain's ditch) and graben (the fire station's digging) are one spelling for two cards.
-- **The map**: the map's toplar is still drawn as the Slovene toplar in Kärnten (its hayrack is the Harpfe since
-  map-culture); a Doppelharpfe on the map would match the field's.
+- ~~**The map**: the map's toplar is still drawn as the Slovene toplar in Kärnten (its hayrack is the Harpfe since
+  map-culture); a Doppelharpfe on the map would match the field's.~~ Done 2026-11-02 (map-culture-2.md).
 - **A scene's thing from a project pack**: the fire station's pump and hose, the playground's swing, slide and sandpit and
   the tower's tower are named from the projects' packs (one card, learned during the project before the scene opens): new
   in the repository, accepted by the bridge and the app's tests.

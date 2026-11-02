@@ -93,11 +93,13 @@ T = {
   "examples": [ex("Danes nimam časa.", "I have no time today.", "časa", "gen", "sg", "nimam"), ex("Luka ne pije kave.", "Luka doesn't drink coffee.", "kave", "gen", "sg", "ne"), ex("V trgovini ni kruha.", "There's no bread in the shop.", "kruha", "gen", "sg", "ni"), ex("Ne vidim ovce.", "I can't see the sheep.", "ovce", "gen", "sg", "Ne")],
  },
  "quantity": {
-  "words": "malo veliko dosti preveč premalo več manj nekaj koliko toliko polno ogromno malce dovolj precej nič".split(),
+  # (pol, half: SP2001 pôl2 mer. prisl., and pôl1 "ob ~ ene, ob ~ enih; (Ura) je ~ osmih": the hour after it in the
+  # genitive; hints-lens-3)
+  "words": "malo veliko dosti preveč premalo več manj nekaj koliko toliko polno ogromno malce dovolj precej nič pol".split(),
   "measures": "kos hlebec liter deciliter kilogram dekagram gram kozarec kozarček skodelica steklenica žlica žlička ščepec vreča vrečka škatla lonec krožnik košara vedro par kup ducat pest šopek čreda kanta rezina".split(),
   "numbers": "pet šest sedem osem devet deset enajst dvanajst trinajst štirinajst petnajst šestnajst sedemnajst osemnajst devetnajst dvajset trideset štirideset petdeset šestdeset sedemdeset osemdeset devetdeset sto dvesto tristo štiristo petsto tisoč".split(),
   "rule": "rodilnik-kolicina",
-  "examples": [ex("Še hlebec kruha, prosim.", "Another loaf of bread, please.", "kruha", "gen", "sg", "hlebec"), ex("V gozdu je veliko borovnic.", "There are lots of blueberries in the forest.", "borovnic", "gen", "pl", "veliko"), ex("Luka ima dvanajst ovc.", "Luka has twelve sheep.", "ovc", "gen", "pl", "dvanajst"), ex("Koliko jajc potrebuješ za potico?", "How many eggs do you need for the potica?", "jajc", "gen", "pl", "Koliko"), ex("V hlevu je pet ovc.", "There are five sheep in the barn.", "ovc", "gen", "pl", "pet")],
+  "examples": [ex("Še hlebec kruha, prosim.", "Another loaf of bread, please.", "kruha", "gen", "sg", "hlebec"), ex("V gozdu je veliko borovnic.", "There are lots of blueberries in the forest.", "borovnic", "gen", "pl", "veliko"), ex("Luka ima dvanajst ovc.", "Luka has twelve sheep.", "ovc", "gen", "pl", "dvanajst"), ex("Koliko jajc potrebuješ za potico?", "How many eggs do you need for the potica?", "jajc", "gen", "pl", "Koliko"), ex("V hlevu je pet ovc.", "There are five sheep in the barn.", "ovc", "gen", "pl", "pet"), ex("Čez pol ure pridem.", "I'll come in half an hour.", "ure", "gen", "sg", "pol")],
  },
  "agreeing_numbers": "en ena eno enega eni enemu enim eden dva dve dveh dvema trije tri treh trem tremi štirje štiri štirih štirim štirimi oba obe obeh obema".split(),
  "dual_words": "dva dve dveh dvema oba obe obeh obema midva medve midve vidva vedve vidve onadva onidve sva sta bova bosta nisva nista naju vaju nama vama njiju njima ju jima".split(),
@@ -273,6 +275,28 @@ T = {
    ex("Tukaj živim od leta 2024.", "I've lived here since 2024.", "leta", "gen", "sg", "od"),
    ex("Nekega dne pride na Dunaj Pegam.", "One day Pegam comes to Vienna.", "dne", "gen", "sg", "Nekega"),
    ex("Tistega večera je prišel tujec.", "That evening a stranger came.", "večera", "gen", "sg", "Tistega"),
+  ],
+ },
+ # the hour (at what time?): ob + the hour in the locative, ob pol + the next hour in the genitive (SP2001 ob: "zbuditi se
+ # ~ treh"; SSKJ2 ob: "ob dveh ponoči"; SP2001 pôl1: "Kosilo bo ob ~ ene, ob ~ enih"). In speech the hour often stays as it
+ # is counted (ob deset, ob pol osem: the content's own lines say "Tako pišemo, ob deset pa tudi rečemo"): never wrong;
+ # the lens gives it the case ob or pol asks for and its written form ([written]). Neither dictionary lists the spoken
+ # one; it waits for the native check (hints-lens-3)
+ "hours": {
+  "prepositions": ["ob"],
+  "half": ["pol"],
+  "written": {
+   "ena": "enih", "dve": "dveh", "tri": "treh", "štiri": "štirih", "pet": "petih", "šest": "šestih", "sedem": "sedmih",
+   "osem": "osmih", "devet": "devetih", "deset": "desetih", "enajst": "enajstih", "dvanajst": "dvanajstih",
+  },
+  "rule": "kdaj-cas",
+  "examples": [
+   ex("Maša je ob deset.", "Mass is at ten.", "deset", "loc", "pl", "ob"),
+   ex("Prav. Jutri spet, ob štiri?", "All right. Again tomorrow, at four?", "štiri", "loc", "pl", "ob"),
+   ex("Ob dve pridem.", "I'll come at two.", "dve", "loc", "du", "Ob"),
+   ex("Vstanem ob pol sedem.", "I get up at half past six.", "sedem", "gen", "pl", "pol"),
+   ex("Kosilo bo ob pol ene.", "Lunch will be at half past twelve.", "ene", "gen", "sg", "pol"),
+   ex("Domov gremo ob pol dveh.", "We go home at half past one.", "dveh", "gen", "du", "pol"),
   ],
  },
  "phrases": [

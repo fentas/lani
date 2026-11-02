@@ -39,7 +39,7 @@ import javax.imageio.ImageIO
 
 /**
  * The village map in each culture's look (companion/GAME.md "The map in a culture's look"; [MapLook]): the default
- * culture's map is pixel for pixel what it was; each other culture's draws its own village (its houses, church, hayrack,
+ * culture's map is the map's own, named or not; each other culture's draws its own village (its houses, church, hayrack,
  * well, flags, feasts and mountains) and agrees with its scenes; every building is still there to tap, at every age, by
  * day and at night. The contact sheets (build/map-looks/) are for the eyes: every culture's map at every age by day and
  * at night, each building closer up, the feasts and the landmarks.

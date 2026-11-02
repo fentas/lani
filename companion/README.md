@@ -2126,8 +2126,8 @@ weakest case), Home's "Danes · Today" idea (the tutor's assignment or items due
 weak case after the school's lesson: "▶ Vadi" starts its session at once), a case page of the grammar book ("🧩 Vadi
 sklone · Case trainer": a session on that case or rule; the overview skloni a mixed one), the school's case units ("🧩
 Skloni" on the unit's page: tožilnik, mestnik, nikalnica-rodilnik, rodilnik, kje-kam-od-kod, dajalnik, orodnik,
-pridevniki-skloni, mnozina-skloni, dvojina-skloni a session on what each teaches; skloni and sklanjatev-posebnosti a
-mixed one) and the tutor's assignment's notification. It opens once the cases have begun (an A1 learner: the intro of
+pridevniki-skloni, mnozina-skloni, dvojina-skloni, predlogi-dva-sklona a session on what each teaches; skloni and
+sklanjatev-posebnosti a mixed one) and the tutor's assignment's notification. It opens once the cases have begun (an A1 learner: the intro of
 the first case unit, Tožilnik, or a case's page met in the book; from A2 every learner); closed, its screen says so with
 "🏫 V šolo: Tožilnik" one tap away, and the unit's page shows "🔒 Odpre jih uvod enote Tožilnik".
 
@@ -2176,7 +2176,11 @@ wrong answers that fade as the trainer's own come in), the learner's own mistake
 (accusative_feminine_a_to_o weighs the feminine accusatives, possessive_neuter_moje the neuter possessives), its
 agreement's for an adjective; a quarter when asked lately; its level as the accuracy wants it (60–70 % right); a third
 more for a rule the case lens showed in the last three days. A focus (a case, a rule, kje-kam, agreement, the plural's
-or the dual's cases) asks only it, filled up with its case's when it has too few.
+or the dual's cases, the prepositions with two cases) asks only it, filled up with its case's when it has too few. The
+prepositions with two cases (B2's predlogi-dva-sklona, `CaseTrainer.TWO_CASES`): the page's own B2 rules (po + the
+accusative to fetch, ob + the accusative against, za + the accusative how long, pred and med + the instrumental of
+time), at least half of its "Kateri sklon?" where they can be asked (a learner of B1 who met the page, or of B2), and the
+bank's rules of v, na, pod, nad, pred, za, med, ob and po in either case (Kje ali kam? 45 %).
 
 **Kept** in the village state (`GameState.cases`, synced as the rest; the bridge keeps it from an older app): each
 case's, rule's and kind's last 12 answers ("case:rodilnik" …: an almost counts right, the case was right), each rule's
@@ -3976,7 +3980,9 @@ the instrumental or the accusative; z/s: with, or from, the genitive; a time nou
 of quantity, the nouns of measure and the numbers from five; the verbs and the words of feeling that govern a case
 (bati se, pomagati, dati, všeč); the verbs of motion and of rest, the copulas, the verbs with and without an object;
 the nouns of time; the genitive of time (`time_genitive`: leto before a year in figures, leta 1844; nekega, tistega …
-before a noun of time, nekega dne); fixed phrases (dober dan, na svidenje); words said of the subject (rad, sam); the
+before a noun of time, nekega dne); the hour (`hours`: ob + the locative, ob pol + the genitive of the next hour, and each
+hour as counted with its written form: in speech the hour often stays as counted, ob deset, never wrong; the lens gives
+it the case ob or pol asks for and its written form, `written`: desetih); fixed phrases (dober dan, na svidenje); words said of the subject (rad, sam); the
 personal pronouns (osebni-zaimki's, with the genitive and locative it leaves out) and the fused ones (zame, nanj). Each entry names its rule, a grammar page's id, and has
 examples the smoke analyses. A verb is given by its infinitive and its first person singular; the lens makes its forms.
 The JSON is made by `grammar/sl/data/case-triggers.py` beside it (the table in a compact form, its fixed layout): change
@@ -3996,8 +4002,9 @@ and particles (no case row: the card says *medmet*, *členek*), and its verbs' a
 (docs/plans/05-built/lens-unknown-forms.md). `CaseLens.unknownWords(line, names)` gives the words of a line the lens
 knows nothing of; `bun test/case-lens-gaps.ts` lists the content's (by kind, with a line each; `--units` the course's
 too) and the smoke keeps them under 150. The clause then decides,
-each step a rule: a phrase, the preposition before the phrase (the verb's motion or rest where the form doesn't tell),
-a number or quantity, a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
+each step a rule: a phrase, a number or a word of quantity right before the noun (also after a preposition: čez pol ure,
+za pet minut; pol before an hour is the time, ob pol dveh), the preposition before the phrase (the verb's motion or rest
+where the form doesn't tell), a word of feeling, a negation, a verb of the table, the subject's agreement with its verb (person,
 number, an l-form's gender), the object of a verb that takes one; the dual only with dva, dve, oba or a dual verb, the
 locative and the instrumental only after a preposition, a genitive only with something that asks for it (or when the
 form is nothing else: Daj mi kruha); a comparison after kot takes the case of what it is compared with; words joined by
@@ -4042,7 +4049,8 @@ shows each word's row from the same lookups, so the sheet and the card never dis
 [SCENES.md](SCENES.md#the-hint-the-rule-never-the-answer)) reads the same table without the bridge: the app bundles it
 with the grammar book (resources `grammar/sl/data/case-triggers.json`, app/build.gradle.kts `GrammarPages`) and
 `game/CaseTriggers.kt` reads its prepositions and senses, negations, quantities, measures and numbers, verbs and words of
-feeling (a verb's forms made as the lens makes them) and the pronouns only ever the subject, at once and offline; the
+feeling (a verb's forms made as the lens makes them), the pronouns only ever the subject, the genitive of time (leta
+1844, nekega dne) and the hours' half (ob pol dveh), at once and offline; the
 app's older rules of its own (`Triggers`) are gone. On the turns of `bridge/test/fixtures/hint-lens.json` the chip names
 the trigger, the case and the question the lens names (`TurnHintLensTest`; the smoke checks the lens still answers them
 so, `bun test/hint-lens.ts --write` records them again).
@@ -5013,7 +5021,7 @@ LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/qa
 companion/bin/qa --steps visit-voices,visit-voices-silent,visit-sky   # a visit's voices on a tablet without Slovene (a synthetic Italian learner from German, the Slovene fixture town with its own clips, a fake ElevenLabs; LANI_DEV_TOWN_PORT of your own): the town's clip, one voiced on the node, the offer, Ne zdaj, the 🔇 note, the download, Piper; the moon's card on the visit in sl · de
 LANI_DEV_DATA=<a synthetic learner> LANI_QA_MILL_SHOTS=<dir> companion/bin/qa-slot --steps mill-turning   # the mill's wheels turning: in from the stream's mill, closer up, the waterwheel in the middle, a burst of screenshots a fraction of a second apart, the wheel's frames side by side; LANI_QA_MILL_HOUR=22.5 at night (docs/plans/05-built/mill-mechanics.md)
 LANI_QA_SETUP_PAIR=it-de LANI_QA_TOUR_SHOTS=<dir> companion/bin/qa-slot --steps setup-tour   # the first launch on Teo's tablet (2560 × 1600, on its side and upright), alone (no node): a child learning Italian from German on this device, each step's shots, what it said (tour-speech.txt), Back, the aim, the voice, the founding; the taps counted (docs/plans/05-built/setup-refresh.md)
-companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
+companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes; on a synthetic learner with LANI_DEV_FAKE_ELEVENLABS=1 (its clips made first)
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
 companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, from an exercise, a tutor message pinned from its long press
@@ -5330,7 +5338,11 @@ food for wood now (the wood store full, food traded away today) skips the step a
 for a small library (`road:mini`): two items of each kind from the dev bridge (cards, words, dialogs, stories,
 phrases, drills) and eight quiz questions (the kinds in turn) with the quiz's fixed phrases, their clips downloaded,
 their prompts rendered and the quiz's texts the voice store lacks voiced (the dev bridge has no engine: the
-emulator's own voice) in the background. It waits until the sheet says
+emulator's own voice) in the background. The car plays only what the voice store has, so on a learner the dev bridge has
+no clips of (a synthetic one, `LANI_DEV_DATA`) QA first has the dev bridge voice what a small library takes (`road_clips`:
+four cards due, four words of the first pack the road teaches with their examples, a dialog and a story's evening, at
+most 45 texts, `POST /voice/say` in the female narrator's voice, the last of every voice chain): that needs a voice
+engine there (`LANI_DEV_FAKE_ELEVENLABS=1`, its tones); without one the step skips and says so. It waits until the sheet says
 "✅ Končano" and reports the notifications ("🚗 Pripravljam za pot … %" if it is quick enough to catch it, "Končano" at
 the end). Then it:
 

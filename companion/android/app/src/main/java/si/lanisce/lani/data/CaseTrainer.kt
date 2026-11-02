@@ -91,6 +91,8 @@ data class CaseTask(
     /** A decline task's adjective or possessive (agreement), if any. */
     val adjective: String? = null,
     val gender: String? = null,
+    /** Its bank rule's key ([CaseItem.why], a frame's): what a focus of more than one rule asks for (po-kaj, v-na-kje …). */
+    val why: String = "",
 )
 
 /** A task with its exercise, as the run plays it. */
@@ -389,7 +391,7 @@ object CaseTrainer {
         val rule = pool.bank.page(it.why) ?: return null
         val kind = if (it.kind == "place") CaseKind.PLACE else CaseKind.WHICH
         val gender = it.gender ?: pool.nouns.firstOrNull { n -> n.lemma == it.lemma }?.gender
-        return CaseTask(kind, it.id, kase, it.number, rule, it.level, again, adjective = if (it.pos == "adj") it.lemma else null, gender = gender)
+        return CaseTask(kind, it.id, kase, it.number, rule, it.level, again, adjective = if (it.pos == "adj") it.lemma else null, gender = gender, why = it.why)
     }
 
     /** A decline task's key: "d:<frame>:<noun>" or "d:<frame>:<noun>:<adjective>". */
@@ -398,7 +400,7 @@ object CaseTrainer {
     private fun declineTask(pool: CasePool, f: CaseFrame, n: CaseNoun, adj: CaseAdjective?, again: Boolean = false): CaseTask? {
         val kase = Case.ofId(f.case) ?: return null
         val rule = pool.bank.page(f.why) ?: return null
-        return CaseTask(CaseKind.DECLINE, declineKey(f, n, adj), kase, f.number, rule, maxOf(f.level, adj?.level ?: "A1"), again, adj?.lemma, n.gender)
+        return CaseTask(CaseKind.DECLINE, declineKey(f, n, adj), kase, f.number, rule, maxOf(f.level, adj?.level ?: "A1"), again, adj?.lemma, n.gender, why = f.why)
     }
 
     /** The task of a key kept to come back ([CaseAgain.item]); null when it can't be asked now (its word gone, its rule closed). */
@@ -422,11 +424,21 @@ object CaseTrainer {
     const val KJE_KAM = "kje-kam"
     /** The pages whose focus is a number: the plural's and the dual's through the cases. */
     const val PLURAL_CASES = "mnozina-skloni"
+    /**
+     * A focus on the prepositions that take two cases (B2's predlogi-dva-sklona: po kruh, po vasi; ob zid, ob potoku; za
+     * babico, za hišo): its own rules (po, ob, za + the accusative, pred, med + the instrumental of time) and the bank's
+     * rules of a preposition of two cases in either of them ([TWO_CASE_RULES]: kje or kam with v, na, pod, za …, ob, po).
+     * The A1 to B1 ones outnumber the page's own, so at least half of a session's "Kateri sklon?" asks the page's own
+     * where they can be asked ([plan]): a session opened from the page meets what the page teaches.
+     */
+    const val TWO_CASES = "predlogi-dva-sklona"
+    val TWO_CASE_RULES = setOf("v-na-kam", "pod-za-kam", "v-na-kje", "pod-za-kje", "ob", "po", "za-kaj")
 
     /**
      * Whether [focus] is about [t]: its case (a case id), its rule (a rule id: the grammar page), and the focuses of more
      * than one: kje or kam ([KJE_KAM]: the place rules and every "Kje ali kam?"), agreement ([AGREEMENT]: a task with an
-     * adjective or a possessive), the plural's and the dual's cases ([PLURAL_CASES], [DUAL_CASES]: by the number).
+     * adjective or a possessive), the plural's and the dual's cases ([PLURAL_CASES], [DUAL_CASES]: by the number), the
+     * prepositions of two cases ([TWO_CASES]: the page's rules and [TWO_CASE_RULES]).
      */
     fun focused(t: CaseTask, focus: String?): Boolean = when (focus) {
         null -> true
@@ -434,6 +446,7 @@ object CaseTrainer {
         AGREEMENT -> t.adjective != null
         PLURAL_CASES -> t.number == "pl"
         DUAL_CASES -> t.number == "du"
+        TWO_CASES -> t.rule == TWO_CASES || t.why in TWO_CASE_RULES
         else -> t.case.id == focus || t.rule == focus
     }
 
@@ -441,7 +454,7 @@ object CaseTrainer {
     fun focusOfPage(page: String, rules: Collection<String>): String? = when {
         Case.ofId(page) != null -> page
         page in rules -> page
-        page in setOf(KJE_KAM, AGREEMENT, PLURAL_CASES, DUAL_CASES) -> page
+        page in setOf(KJE_KAM, AGREEMENT, PLURAL_CASES, DUAL_CASES, TWO_CASES) -> page
         else -> null
     }
 
@@ -457,11 +470,12 @@ object CaseTrainer {
         "pridevniki-skloni" -> AGREEMENT
         "mnozina-skloni" -> PLURAL_CASES
         "dvojina-skloni" -> DUAL_CASES
+        "predlogi-dva-sklona" -> TWO_CASES
         else -> null
     }
 
     /** The school's units about the cases: their pages show the trainer. */
-    val CASE_UNITS = setOf("tozilnik", "mestnik", "nikalnica-rodilnik", "skloni", "rodilnik", "kje-kam-od-kod", "dajalnik", "orodnik", "pridevniki-skloni", "mnozina-skloni", "dvojina-skloni", "sklanjatev-posebnosti")
+    val CASE_UNITS = setOf("tozilnik", "mestnik", "nikalnica-rodilnik", "skloni", "rodilnik", "kje-kam-od-kod", "dajalnik", "orodnik", "pridevniki-skloni", "mnozina-skloni", "dvojina-skloni", "sklanjatev-posebnosti", "predlogi-dva-sklona")
 
     /**
      * A session's tasks, [size] at most: the items missed that are due first (at most [MAX_AGAIN], spread through it), then
@@ -520,7 +534,7 @@ object CaseTrainer {
 
         val acc = accuracy(p)
         val shares = SHARES.toMutableMap()
-        if (focus == "kam-tozilnik" || focus == "kje-mestnik-orodnik" || focus == KJE_KAM) shares[CaseKind.PLACE] = 0.45
+        if (focus == "kam-tozilnik" || focus == "kje-mestnik-orodnik" || focus == KJE_KAM || focus == TWO_CASES) shares[CaseKind.PLACE] = 0.45
         when {
             acc != null && acc < 0.55 -> { shares[CaseKind.WHICH] = shares[CaseKind.WHICH]!! + 0.1; shares[CaseKind.DECLINE] = (shares[CaseKind.DECLINE]!! - 0.1).coerceAtLeast(0.1) }
             acc != null && acc > 0.80 -> { shares[CaseKind.DECLINE] = shares[CaseKind.DECLINE]!! + 0.1; shares[CaseKind.WHICH] = (shares[CaseKind.WHICH]!! - 0.1).coerceAtLeast(0.2) }
@@ -537,15 +551,19 @@ object CaseTrainer {
         val picked = mutableListOf<CaseTask>()
         for (k in kinds) {
             val pool0 = byKind[k].orEmpty().toMutableList()
+            // on the two cases' page: at least half of "Kateri sklon?" its own rules, where they can be asked
+            var ownToAsk = if (focus == TWO_CASES && k == CaseKind.WHICH) ((quota[k] ?: 0) + 1) / 2 else 0
             repeat(quota[k] ?: 0) {
-                val left = pool0.filter { it.key !in used }
-                if (left.isEmpty()) return@repeat
+                val open = pool0.filter { it.key !in used }
+                if (open.isEmpty()) return@repeat
+                val left = if (ownToAsk > 0) open.filter { it.rule == TWO_CASES }.ifEmpty { open } else open
                 val w = left.map { t ->
                     val base = weight(t, p, priors, prior(t, facts(t), mistakes), acc, pool.level, t.key in recent, t.rule in seenLately)
                     // a word asked already in this session: much less; its sentence again (another word of it): hardly
                     base * (if (lemmaOf(pool, t) in lemmas) 0.15 else 1.0) * (if (sentenceOf(pool, t)?.let { it in sentences } == true) 0.05 else 1.0)
                 }
                 val t = drawWeighted(left, w, random)
+                if (t.rule == TWO_CASES) ownToAsk--
                 used.add(t.key)
                 lemmaOf(pool, t)?.let(lemmas::add)
                 sentenceOf(pool, t)?.let(sentences::add)

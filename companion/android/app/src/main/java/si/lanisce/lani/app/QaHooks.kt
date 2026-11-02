@@ -109,7 +109,8 @@ import si.lanisce.lani.game.scene.SceneSpec
  * - "cases": "🧩 Skloni · Cases" (data/CaseTrainer.kt) opened; "cases:ready" meets the case pages (as the A1 and A2 case
  *   units' intros would: tožilnik, mestnik, the genitive after a no, the genitive's, dative's and instrumental's) and
  *   opens it; "cases:start" starts a mixed session, "cases:focus:<id>" one focused on a case or a rule ("rodilnik",
- *   "kam-tozilnik"); "cases:again" a few items missed due today ([casesAgain]); "cases:only:<kind>" asks every task of the
+ *   "kam-tozilnik"); "cases:meet:<id>,<id>" meets those pages (predlogi-dva-sklona) and opens it; "cases:again" a few items
+ *   missed due today ([casesAgain]); "cases:only:<kind>" asks every task of the
  *   next sessions as one kind ([casesOnly]: "which", "place", "decline"), "cases:only:" mixes them again.
  * - "formscard": forms cards (data/FormsCard.kt): today's asked of the dev bridge now, then a review of up to three of
  *   them that ask something, due or not; "formscard:<word>" a review of that word's card (made on demand first);

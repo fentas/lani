@@ -491,8 +491,11 @@ hint chip": the bare case question doesn't help a learner, its trigger and a mod
 
 Its rule is the pages its wrong choices name (at a form turn, those of the form's wrong choices), else the turn's, else the
 right choice's (a tap turn names it there), else the page the app guessed from the whys (`DialogChoice.rule`). The cases'
-questions, the pages' rules in words and the models are a small table in the code, not a field of the pages; a page the
-table lacks (a tutor's) shows its link alone. A turn of no page has no hint. A dialog in another language than the book's
+questions, the pages' rules in words and the models are a small table in the code, not a field of the pages (every page
+of the Slovene book has one since 2026-11-02: A1 to B2); a page the table lacks (a tutor's) shows its link alone. On the
+two cases' page (predlogi-dva-sklona) a preposition gives both its cases with their questions and the rule beside them
+(po kruh: Koga? Kaj? the accusative; po vasi: the locative); a year or a told day gives the genitive of time ("with
+«1890»", "with «Nekega»": Kdaj? the genitive), pol before an hour the genitive after it (ob pol dveh: Kdaj?). A turn of no page has no hint. A dialog in another language than the book's
 gets its pages' links alone. A rule not introduced to the learner yet gets no hint of its own, only "🌱 Na vrsto pride
 kasneje · You'll learn this later: …" ([Rules not yet](#rules-not-yet-what-the-learner-is-asked-grows-with-the-grammar)).
 
@@ -500,7 +503,7 @@ kasneje · You'll learn this later: …" ([Rules not yet](#rules-not-yet-what-th
 stem: no "pet ovc" at "dvanajst ____"); a line, a row of the table or a page's title that shows the right form is left out,
 unless it sets every form of the turn side by side (a rule that is the choice itself: "dva, dve by the noun's gender"). A
 title left out leaves the link without it ("📖 V knjigo" at "Nimam ____.", whose page is "Nimam časa: …"). `TurnHintTest`
-checks it over every curated Slovene turn (1,064 with a hint on 2026-11-01; 459 of the 479 form turns of a case page find
+checks it over every curated Slovene turn (1,066 with a hint on 2026-11-02; 459 of the 479 form turns of a case page find
 what decides their form). On the curated case turns where the case lens decides by a trigger (323), the chip names the
 same word in 319 and the same case first in 315; the others are where to against where, which only the sentence's
 meaning tells (*V panju, seveda* on the Kam? page: the chip gives both, the page's first), and a turn whose page a wrong
@@ -539,8 +542,10 @@ translation, then each word:
   "🧩 Sklon · Case" row exactly, so the two never disagree (`game/SentenceGrammar.kt`, `data/CaseLens.kt`). The case and
   number in its colour ("rodilnik, ed. · genitive, sg.", an adjective's gender), "verjetno · likely" for a likely one,
   "Ne vem zagotovo" with the readings an ambiguous one leaves; the question it answers ("Kam? → 4. tožilnik", Kje? by
-  the preposition's sense, Kdaj? for a time and the genitive of time, Koliko?) and what decided it, Slovene then the
-  base ("Po predlogu «v»: tožilnik."); a preposition what it decides ("Zahteva rodilnik: «mleka»"). A word the lens
+  the preposition's sense, Kdaj? for a time, the genitive of time and the hour after pol, Koliko?) and what decided it,
+  Slovene then the base ("Po predlogu «v»: tožilnik."); for an hour said as counted, that it is said so too and how it
+  is written ("Maša je ob deset.": "Tako se tudi reče; piše se «desetih».", never a mistake); a preposition what it
+  decides ("Zahteva rodilnik: «mleka»"). A word the lens
   can't fit to any reading shows its form alone, as the card shows no row;
 - a verb's person ("who: jaz") or tense (the l-form with sem: the past; with bom: the future; with bi: would; the
   imperative; an infinitive after moram);

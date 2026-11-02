@@ -101,6 +101,21 @@ class SentenceGrammarTest {
         assertNull(SentenceGrammar.analyze("Pomagam babici.", listOf(null, r("babica", "noun", case = pomagamBabici))) { false }[1].page)
     }
 
+    @Test fun `the hour said as counted, its written form beside it, and pol before an hour is the time`() {
+        // ob deset (the lens: the locative ob asks for, written ob desetih): never wrong, the written form said beside it
+        val ten = rows("Maša je ob deset.", null, null, null, r("deset", "num", case = """{"i":3,"word":"deset","start":11,"end":16,"readings":[],"pick":{"case":"loc","number":"pl","as":"preposition"},"sure":"decided","kind":"preposition","trigger":{"i":2,"word":"ob","start":8,"end":10},"sense":"time","rule":"kdaj-cas","options":[{"case":"loc","number":"pl","as":"preposition"}],"out":[],"written":"desetih"}"""))[3]
+        assertEquals(CaseLine("Kdaj?", "hint.qWhen", Case.LOC), ten.why?.line)
+        assertEquals("locative plural", ten.reading)
+        assertEquals("kdaj-cas", ten.page)
+        val said = SentenceGrammar.why(ten.why!!)!!
+        assertTrue(said, said.startsWith("Kdaj? (when?) → 5. mestnik (locative) · After the preposition «ob»: the locative."))
+        assertTrue(said, said.endsWith("Said like this too; written «desetih»."))
+        // ob pol dveh: the genitive pol asks for, Kdaj?
+        val half = rows("Domov gremo ob pol dveh.", null, null, null, null, r("dva", "num", case = """{"i":4,"word":"dveh","start":19,"end":23,"readings":[{"lemma":"dva","pos":"num","case":"gen","number":"du","genders":["m","f","n"]}],"pick":{"case":"gen","number":"du","as":"quantity"},"sure":"decided","kind":"quantity","trigger":{"i":3,"word":"pol","start":15,"end":18},"sense":"time","rule":"kdaj-cas","options":[{"case":"gen","number":"du","as":"quantity"}],"out":[{"case":"loc","number":"du","why":"governed"}]}"""))[4]
+        assertEquals(CaseLine("Kdaj?", "hint.qWhen", Case.GEN), half.why?.line)
+        assertEquals("Kdaj? (when?) → 2. rodilnik (genitive) · When? «pol» and the next hour: the genitive (ob pol dveh: at 1:30).", SentenceGrammar.why(half.why!!))
+    }
+
     @Test fun `without the dictionary the words alone, and a verb's tense still by its reading`() {
         val offline = SentenceGrammar.analyze("Iz Nemčije. Dvanajst krav.", emptyList(), any)
         assertEquals(listOf("Iz", "Nemčije", "Dvanajst", "krav"), offline.map { it.word })

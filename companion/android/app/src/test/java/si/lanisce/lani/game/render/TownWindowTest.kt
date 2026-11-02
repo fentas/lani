@@ -174,6 +174,7 @@ class TownWindowTest {
                 val s = grown(teo.copy(land = land), Age.TRG)
                 val stamped = VillageRenderer(); val painted = VillageRenderer()
                 var i = 0
+                var kept = 0 // the most stamps kept at once (the cache empties itself when full, so its last size says little)
                 // every season (the crowns' colours, the snow, June's linden, November's bare beeches), at every detail, panning
                 for (month in listOf(4, 6, 9, 11, 1)) for (k in 1..3) for (step in 0 until 3) {
                     val f = Frame(time = 2.0 + i * 0.083, hour = 11f, month = month, people = cast, sea = true, calm = true, today = "2026-%02d-12".format(month))
@@ -187,12 +188,13 @@ class TownWindowTest {
                     }
                     Stamps.on = true
                     stamped.render(c1, s, frame)
+                    kept = maxOf(kept, stamped.stamps.size)
                     Stamps.on = false
                     painted.render(c2, s, frame)
                     assertTrue("${land.kind} month $month k=$k step $step", c1.pixels.contentEquals(c2.pixels))
                     i++; frames++
                 }
-                assertTrue("stamps kept: ${stamped.stamps.size}", stamped.stamps.size > 50)
+                assertTrue("stamps kept: $kept", kept > 50)
             }
         }
         println("$frames frames the same with the trees stamped")

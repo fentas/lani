@@ -65,7 +65,7 @@ export default async function cases() {
   // every example of the table, analysed: the case, the number and the trigger it says
   const lens = repoLens()
   const examples: CaseExample[] = [
-    ...raw.prepositions.flatMap((p: any) => p.examples), ...raw.negation.examples, ...raw.quantity.examples, ...raw.time.examples, ...(raw.time_genitive?.examples ?? []),
+    ...raw.prepositions.flatMap((p: any) => p.examples), ...raw.negation.examples, ...raw.quantity.examples, ...raw.time.examples, ...(raw.time_genitive?.examples ?? []), ...(raw.hours?.examples ?? []),
     ...raw.verbs.flatMap((x: any) => x.examples ?? []), ...raw.predicates.flatMap((x: any) => x.examples), ...Object.values(raw.roles).flatMap((r: any) => r.examples),
   ]
   const wrong = examples.flatMap(e => {
@@ -151,6 +151,35 @@ export default async function cases() {
   ] as const
   const missed3 = lens3.flatMap(([line, word, nth, want]) => (pick(line, word, nth) === want ? [] : [`${line} ${word}: ${pick(line, word, nth)}, not ${want}`]))
   check(`case lens: possessives, comparatives, participles, verbal nouns, izmed, the supplement's names and words; no case for super, a sound, a converb (${lens3.length} lines)`, missed3.length === 0, missed3)
+
+  // hints-lens-3: the hour said as counted (ob deset: the locative ob asks for, written ob desetih; never wrong), pol and
+  // the genitive after it (ob pol dveh, čez pol ure), a word of quantity before a preposition's noun deciding it; never an
+  // hour after another preposition (štej do deset)
+  const said = (line: string, word: string) => {
+    const w = lens.at(line, word, 0, VILLAGE_NAMES)
+    return w && 'written' in w ? (w.written ?? '-') : '-'
+  }
+  const lens4 = [
+    ['Maša je ob deset.', 'deset', 0, 'loc.pl decided preposition ob'],
+    ['Prav. Jutri spet, ob štiri?', 'štiri', 0, 'loc.pl decided preposition ob'],
+    ['Vstal sem ob šest.', 'šest', 0, 'loc.pl decided preposition ob'],
+    ['Ob dve pridem.', 'dve', 0, 'loc.du decided preposition Ob'],
+    ['Vstanem ob pol sedem.', 'sedem', 0, 'gen.pl decided quantity pol'],
+    ['Kosilo bo ob pol ene.', 'ene', 0, 'gen.sg decided quantity pol'],
+    ['Domov gremo ob pol dveh.', 'dveh', 0, 'gen.du decided quantity pol'],
+    ['Ob sedmih vstanem.', 'sedmih', 0, 'loc.pl decided preposition Ob'],
+    ['Čez pol ure pridem.', 'ure', 0, 'gen.sg decided quantity pol'],
+    ['To je pol ure čez eno.', 'ure', 0, 'gen.sg decided quantity pol'],
+    ['Samo pol kozarca.', 'kozarca', 0, 'gen.sg decided quantity pol'],
+    ['Za pet minut pridem.', 'minut', 0, 'gen.pl decided number pet'],
+    ['Kavo pijem z malo sladkorja.', 'sladkorja', 0, 'gen.sg decided quantity malo'],
+    ['Z veliko ljudmi.', 'ljudmi', 0, 'ins.pl decided preposition Z'],
+    ['Štej do deset.', 'deset', 0, 'none'],
+  ] as const
+  const missed4 = lens4.flatMap(([line, word, nth, want]) => (pick(line, word, nth) === want ? [] : [`${line} ${word}: ${pick(line, word, nth)}, not ${want}`]))
+  check(`case lens: the hour said as counted (ob deset) and after pol (ob pol dveh), pol and a word of quantity before a preposition's noun (${lens4.length} lines)`, missed4.length === 0, missed4)
+  const written = [said('Maša je ob deset.', 'deset'), said('Ob dve pridem.', 'dve'), said('Vstanem ob pol sedem.', 'sedem'), said('Ob sedmih vstanem.', 'sedmih')]
+  check('case lens: a spoken hour says its written form beside it (ob deset: desetih), a written one nothing', written.join(' ') === 'desetih dveh sedmih -', written)
 
   // --- the analysis on the hand-labelled sentences ------------------------------------------------------------------
   const gold = goldItems('gold')

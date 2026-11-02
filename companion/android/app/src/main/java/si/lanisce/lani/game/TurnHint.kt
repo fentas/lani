@@ -53,11 +53,15 @@ data class HintText(val lines: List<String>, val models: String?, val rows: List
  */
 object TurnHints {
     private const val NUMBERS = "stevila-samostalniki"
+    private const val WHEN = "kdaj-cas"
+    /** B2's page of the prepositions that take two cases: both, each with its question (po kruh, po vasi). */
+    private const val TWO_CASES = "predlogi-dva-sklona"
 
     /**
      * What a page's rule is, for the hint: the [cases] its missing word takes (the first the page's own), the Slovene
      * [question] and its [gloss] when it isn't the case's own, the rule in words ([text], a string table's key: the pages
-     * that aren't about a case, and those whose rule needs saying), and [models] with other words than any turn's.
+     * that aren't about a case, and those whose rule needs saying), and [models] with other words than any turn's;
+     * [always]: its rule in words beside a preposition's cases too (the two cases' page: what each case means).
      */
     private class Rule(
         val cases: List<Case> = emptyList(),
@@ -66,6 +70,7 @@ object TurnHints {
         val text: String? = null,
         val models: List<String> = emptyList(),
         val cue: Trigger.Cue.Kind? = null,
+        val always: Boolean = false,
     )
 
     private val ALL = Case.entries.toList()
@@ -85,7 +90,8 @@ object TurnHints {
         "kje-mestnik-orodnik" to Rule(listOf(Case.LOC, Case.INS), "Kje?", "hint.qWhere", "hint.ruleWhere", listOf("v šoli", "na travniku", "pri babici", "ob ribniku", "pod mizo")),
         // with (z/s), and where with pod, nad, pred, za, med (the page's rows, one per preposition)
         "orodnik" to Rule(listOf(Case.INS), models = listOf("kava z mlekom", "s kruhom", "z babico", "pod mizo", "za hišo", "nad vasjo", "pred šolo", "med drevesi")),
-        "kdaj-cas" to Rule(listOf(Case.LOC, Case.ACC, Case.INS), "Kdaj?", "hint.qWhen", "hint.ruleWhen", listOf("ob sedmih", "v soboto", "čez eno uro", "zjutraj")),
+        // (and the genitive after pol: ob pol dveh, the next hour)
+        WHEN to Rule(listOf(Case.LOC, Case.ACC, Case.INS, Case.GEN), "Kdaj?", "hint.qWhen", "hint.ruleWhen", listOf("ob sedmih", "v soboto", "čez eno uro", "zjutraj")),
         "skloni" to Rule(ALL, text = "hint.ruleCases"),
         "sklanjatev-moski" to Rule(ALL),
         "sklanjatev-zenski" to Rule(ALL),
@@ -124,6 +130,38 @@ object TurnHints {
         "vid-casi" to Rule(question = "Kaj delam? Kaj naredim?", text = "hint.ruleAspectTenses", models = listOf("Odpri okno! · Ne odpiraj okna!", "Jutri bom pisal. · Jutri bom napisal pismo.", "Vsak dan je hodil. · Včeraj je šel.")),
         "dolocna-oblika" to Rule(question = "Kateri? Kakšen?", text = "hint.ruleDefinite", models = listOf("Daj mi zeleni nož.", "Novi avto je moj.", "beli kruh · črna kava")),
         "odvisniki" to Rule(text = "hint.ruleClauses", models = listOf("Doma sem, ker dežuje.", "Prišel sem, da bi ti pomagal.", "Čeprav je utrujen, pomaga.")),
+        // A2 and B1 (course-b1b's pages): whose, the plural's cases, time without a preposition, feelings, numbers and the
+        // verb, if … would, the short words' order, verbal nouns, indefinite pronouns, the passive
+        "cigav" to Rule(question = "Čigav? Čigava? Čigavo?", text = "hint.ruleWhose", models = listOf("Lukov klobuk · Lukova košara", "očetov konj · mamina kuhinja", "moj nož · tvoja žlica · njegovo okno")),
+        "mnozina-skloni" to Rule(ALL, text = "hint.rulePluralCases", models = listOf("veliko ljudi · z ljudmi", "pri sosedih · s sosedi", "pet krav · o kravah", "v gozdovih · iz gozdov")),
+        "cas-izrazi" to Rule(listOf(Case.GEN, Case.ACC), "Kdaj?", "hint.qWhen", "hint.ruleTimeNoPrep", listOf("petega maja · nekega večera", "to nedeljo · vsak teden", "tri ure · ves teden", "leta 1918")),
+        "custva" to Rule(listOf(Case.DAT, Case.ACC), text = "hint.ruleFeelings", models = listOf("Mrzlo mi je.", "Mudi se mi.", "Zebe me.", "Glava me boli.")),
+        "stevila-glagol" to Rule(text = "hint.ruleNumberVerb", models = listOf("Pet dreves je padlo.", "Dve kravi sta pili.", "Tri ovce so pile.", "Veliko ljudi je prišlo.")),
+        "pogojnik-ce-bi" to Rule(text = "hint.ruleIfWould", models = listOf("Če bi imel čas, bi prišel.", "Če bo lepo, bomo šli ven.")),
+        "naslonke-red" to Rule(text = "hint.ruleCliticOrder", models = listOf("Dal ti ga bom.", "Smejal se mi je.", "Nisem ti ga dal.")),
+        "glagolniki" to Rule(text = "hint.ruleVerbalNoun", models = listOf("brati · branje", "učiti · učenje", "piti · pitje", "pečenje kruha")),
+        "nedolocni-zaimki" to Rule(text = "hint.ruleIndefinite", models = listOf("nekdo · nihče · vsakdo", "nekaj · nič · vse", "nekje · nikjer · povsod")),
+        "trpnik" to Rule(text = "hint.rulePassive", models = listOf("Trgovina je zaprta.", "Hiša je bila sezidana.", "Seno se suši.")),
+        // B2 (sl-b2-a, -b, -c's pages): each its rule in words with models in other words; the two cases' page with the
+        // preposition's cases and what each means
+        "stopnjevanje" to Rule(text = "hint.ruleCompareFull", models = listOf("tako star kot", "veliko lepši", "čim prej", "čedalje krajši")),
+        "predpreteklik" to Rule(text = "hint.rulePluperfect", models = listOf("Ko sem prišel, je bil vlak že odpeljal.", "Bila je že odšla.")),
+        "odvisniki-napredno" to Rule(text = "hint.ruleClausesMore", models = listOf("kljub temu da dežuje", "medtem ko kuha", "ne da bi vprašal", "dokler ne pride")),
+        "frazemi" to Rule(text = "hint.ruleIdioms", models = listOf("držati pesti", "iti na živce", "pasti v vodo", "vleči za nos")),
+        "stevniki" to Rule(text = "hint.ruleNumberWords", models = listOf("enkrat · dvakrat · trikrat", "prvič · drugič", "dvojen · trojen", "dvoje vrat")),
+        "delezja" to Rule(question = "Kako?", text = "hint.ruleGerund", models = listOf("molče · stoje · sede", "jokaje", "hodeč · pojoč")),
+        "pomanjsevalnice" to Rule(text = "hint.ruleDiminutive", models = listOf("hiša · hišica", "stol · stolček", "okno · okence", "žlica · žlička")),
+        "ukazi" to Rule(text = "hint.ruleCommands", models = listOf("Pojdimo! · Pojdiva!", "Naj pride.", "Ne zapiraj vrat!", "Nikar ne skrbi.")),
+        "delezniki" to Rule(question = "Kakšen? Kakšna? Kakšno?", text = "hint.ruleParticiple", models = listOf("odprto okno · zaprta vrata", "zrelo jabolko · odpadlo listje", "tekoča voda")),
+        "izpeljanke" to Rule(text = "hint.ruleWordFamily", models = listOf("pek · pekarna · pecivo", "učitelj · učiteljica · učilnica", "mlad · mladost")),
+        "predpone" to Rule(question = "Kaj delam? Kaj naredim?", text = "hint.rulePrefix", models = listOf("pisati · napisati · prepisati", "nesti · prinesti · prinašati", "pisati · podpisati · podpisovati")),
+        TWO_CASES to Rule(listOf(Case.ACC, Case.LOC, Case.INS), text = "hint.ruleTwoCases", models = listOf("po kruh · po vasi", "ob zid · ob potoku", "za babico · za hišo", "pod stol · pod stolom"), always = true),
+        "govorjeni-jezik" to Rule(text = "hint.ruleSpoken", models = listOf("a si · ali si", "bojo · bodo", "mam · imam", "moram delat · moram delati")),
+        "uradno-pismo" to Rule(text = "hint.ruleFormalLetter", models = listOf("Spoštovani gospod župan,", "Pišem Vam v zvezi z …", "S spoštovanjem,")),
+        "pogojnik-pretekli" to Rule(text = "hint.rulePastConditional", models = listOf("Bil bi prišel.", "Vida bi bila pomagala.", "Če bi bil vedel, bi bil pomagal.")),
+        "brezosebno" to Rule(text = "hint.ruleImpersonal", models = listOf("Treba je delati.", "Tu se govori slovensko.", "Mrači se.", "Dežuje.")),
+        "oziralni-kateri" to Rule(text = "hint.ruleWhichWhose", models = listOf("fant, katerega sem videl", "soseda, kateri smo pomagali", "Kdor išče, najde.")),
+        "besedni-red" to Rule(text = "hint.ruleWordOrder", models = listOf("Kruh je prinesel Luka.", "Včeraj sem ga videl.", "Sir pa rad jem.")),
     )
 
     /** A number and its noun, by the number's category (1, 2, 3–4, 5 and up): feminine, masculine, neuter. */
@@ -214,7 +252,10 @@ object TurnHints {
         val t = triggers.firstOrNull { t -> CaseTriggers.cases(t).any { it in rule.cases } }
         val lines = when (t) {
             is Trigger.Preposition -> prepositions(t, id, rule)
-            is Trigger.Amount -> listOf(CaseLine("Koliko?", "hint.qHowMany", Case.GEN))
+            // (pol before an hour is the time: ob pol dveh, Kdaj?)
+            is Trigger.Amount -> listOf(if (id == WHEN && CaseTriggers.isHalf(t.word)) CaseLine("Kdaj?", "hint.qWhen", Case.GEN) else CaseLine("Koliko?", "hint.qHowMany", Case.GEN))
+            // the genitive of time: leta 1844, nekega dne
+            is Trigger.When -> listOf(CaseLine("Kdaj?", "hint.qWhen", Case.GEN))
             null -> rule.cases.firstOrNull()?.takeIf { rule.cases.size == 1 || id == "kam-tozilnik" }?.let {
                 listOf(CaseLine(rule.question ?: it.question, rule.gloss, it))
             }.orEmpty()
@@ -226,15 +267,16 @@ object TurnHints {
         // case is the preposition's, the form the page's (z dvema prijateljema)
         return base.copy(
             cases = lines, trigger = t, question = rule.question.takeIf { lines.isEmpty() },
-            rule = rule.text.takeIf { t !is Trigger.Preposition || rule.cases == ALL },
+            rule = rule.text.takeIf { t !is Trigger.Preposition || rule.cases == ALL || rule.always },
         )
     }
 
     /** The questions a preposition asks, the page's case first: v + Kam? the accusative, v + Kje? the locative. */
     private fun prepositions(t: Trigger.Preposition, id: String, rule: Rule): List<CaseLine> {
-        val time = id == "kdaj-cas"
-        // where to against where is the sentence's meaning: both, the page's first; z/s (with, or off), the page's alone
-        val cases = if (!time && CaseTriggers.place(t.word)) t.cases.sortedBy { c -> rule.cases.indexOf(c).takeIf { it >= 0 } ?: 9 }
+        val time = id == WHEN
+        // where to against where is the sentence's meaning: both, the page's first; z/s (with, or off), the page's alone;
+        // on the two cases' page every preposition's both (po kruh, po vasi), the page's first
+        val cases = if (!time && (CaseTriggers.place(t.word) || id == TWO_CASES)) t.cases.sortedBy { c -> rule.cases.indexOf(c).takeIf { it >= 0 } ?: 9 }
         else t.cases.filter { it in rule.cases }.take(1)
         return cases.map { preposition(t.word, it, time) }
     }
@@ -343,6 +385,7 @@ object TurnHints {
         is Trigger.Negation -> inBase("hint.afterNo", "word" to t.word)
         is Trigger.Partner -> inBase("hint.with", "word" to t.word) + if (t.lemma == "pomagati") " " + inBase("hint.likeHelfen") else ""
         is Trigger.Noun -> inBase("hint.withNoun", "word" to t.word)
+        is Trigger.When -> inBase("hint.with", "word" to t.word)
         is Trigger.Cue -> when (t.kind) {
             Trigger.Cue.Kind.WHO -> inBase("hint.who", "word" to t.word)
             Trigger.Cue.Kind.PAST -> inBase("hint.whenPast", "word" to t.word)

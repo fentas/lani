@@ -591,7 +591,7 @@
   "quantity": {
     "words": [
       "malo", "veliko", "dosti", "preveč", "premalo", "več", "manj", "nekaj", "koliko", "toliko", "polno", "ogromno",
-      "malce", "dovolj", "precej", "nič"
+      "malce", "dovolj", "precej", "nič", "pol"
     ],
     "measures": [
       "kos", "hlebec", "liter", "deciliter", "kilogram", "dekagram", "gram", "kozarec", "kozarček", "skodelica",
@@ -644,6 +644,14 @@
         "case": "gen",
         "number": "pl",
         "trigger": "pet"
+      },
+      {
+        "sl": "Čez pol ure pridem.",
+        "en": "I'll come in half an hour.",
+        "word": "ure",
+        "case": "gen",
+        "number": "sg",
+        "trigger": "pol"
       }
     ]
   },
@@ -1417,6 +1425,75 @@
         "case": "gen",
         "number": "sg",
         "trigger": "Tistega"
+      }
+    ]
+  },
+  "hours": {
+    "prepositions": ["ob"],
+    "half": ["pol"],
+    "written": {
+      "ena": "enih",
+      "dve": "dveh",
+      "tri": "treh",
+      "štiri": "štirih",
+      "pet": "petih",
+      "šest": "šestih",
+      "sedem": "sedmih",
+      "osem": "osmih",
+      "devet": "devetih",
+      "deset": "desetih",
+      "enajst": "enajstih",
+      "dvanajst": "dvanajstih"
+    },
+    "rule": "kdaj-cas",
+    "examples": [
+      {
+        "sl": "Maša je ob deset.",
+        "en": "Mass is at ten.",
+        "word": "deset",
+        "case": "loc",
+        "number": "pl",
+        "trigger": "ob"
+      },
+      {
+        "sl": "Prav. Jutri spet, ob štiri?",
+        "en": "All right. Again tomorrow, at four?",
+        "word": "štiri",
+        "case": "loc",
+        "number": "pl",
+        "trigger": "ob"
+      },
+      {
+        "sl": "Ob dve pridem.",
+        "en": "I'll come at two.",
+        "word": "dve",
+        "case": "loc",
+        "number": "du",
+        "trigger": "Ob"
+      },
+      {
+        "sl": "Vstanem ob pol sedem.",
+        "en": "I get up at half past six.",
+        "word": "sedem",
+        "case": "gen",
+        "number": "pl",
+        "trigger": "pol"
+      },
+      {
+        "sl": "Kosilo bo ob pol ene.",
+        "en": "Lunch will be at half past twelve.",
+        "word": "ene",
+        "case": "gen",
+        "number": "sg",
+        "trigger": "pol"
+      },
+      {
+        "sl": "Domov gremo ob pol dveh.",
+        "en": "We go home at half past one.",
+        "word": "dveh",
+        "case": "gen",
+        "number": "du",
+        "trigger": "pol"
       }
     ]
   },

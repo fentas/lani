@@ -1,5 +1,5 @@
 {
-  "about": "The hint chip's shared turns: each a learner's turn (the right sentence, a wrong one, the grammar page it names, the word at the gap) and what the case lens says of that word in the right sentence (GET /lookup's case). Made by test/hint-lens.ts --write; checked there and in the smoke (the lens), and by the app's TurnHintLensTest (the chip names the same trigger, case and question). Machine-written sentences (Claude, 2026-11-01).",
+  "about": "The hint chip's shared turns: each a learner's turn (the right sentence, a wrong one, the grammar page it names, the word at the gap) and what the case lens says of that word in the right sentence (GET /lookup's case). Made by test/hint-lens.ts --write; checked there and in the smoke (the lens), and by the app's TurnHintLensTest (the chip names the same trigger, case and question). Machine-written sentences (Claude, 2026-11-01; the hour, pol, the genitive of time, the two cases' page and feelings 2026-11-02, hints-lens-3).",
   "turns": [
     {
       "sl": "Deset jajc, prosim.",
@@ -1692,6 +1692,532 @@
           }
         ],
         "out": []
+      }
+    },
+    {
+      "sl": "Domov gremo ob pol dveh.",
+      "wrong": "Domov gremo ob pol dva.",
+      "page": "kdaj-cas",
+      "word": "dveh",
+      "lens": {
+        "i": 4,
+        "word": "dveh",
+        "start": 19,
+        "end": 23,
+        "readings": [
+          {
+            "lemma": "dva",
+            "pos": "num",
+            "case": "gen",
+            "number": "du",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "dve",
+            "pos": "num",
+            "case": "gen",
+            "number": "du",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "dva",
+            "pos": "num",
+            "case": "loc",
+            "number": "du",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "dve",
+            "pos": "num",
+            "case": "loc",
+            "number": "du",
+            "genders": [
+              "m",
+              "f",
+              "n"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "du",
+          "as": "quantity"
+        },
+        "sure": "decided",
+        "kind": "quantity",
+        "trigger": {
+          "i": 3,
+          "word": "pol",
+          "start": 15,
+          "end": 18
+        },
+        "sense": "time",
+        "rule": "kdaj-cas",
+        "options": [
+          {
+            "case": "gen",
+            "number": "du",
+            "as": "quantity"
+          }
+        ],
+        "out": [
+          {
+            "case": "loc",
+            "number": "du",
+            "why": "governed"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Prav. Jutri spet, ob štiri?",
+      "wrong": "Prav. Jutri spet, ob štirimi?",
+      "page": "kdaj-cas",
+      "word": "štiri",
+      "lens": {
+        "i": 4,
+        "word": "štiri",
+        "start": 21,
+        "end": 26,
+        "readings": [
+          {
+            "lemma": "štiri",
+            "pos": "num",
+            "case": "nom",
+            "number": "pl",
+            "genders": [
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "štirje",
+            "pos": "num",
+            "case": "nom",
+            "number": "pl",
+            "genders": [
+              "f",
+              "n"
+            ]
+          },
+          {
+            "lemma": "štiri",
+            "pos": "num",
+            "case": "acc",
+            "number": "pl",
+            "genders": [
+              "f",
+              "n",
+              "m"
+            ]
+          },
+          {
+            "lemma": "štirje",
+            "pos": "num",
+            "case": "acc",
+            "number": "pl",
+            "genders": [
+              "f",
+              "n",
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "loc",
+          "number": "pl",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 3,
+          "word": "ob",
+          "start": 18,
+          "end": 20
+        },
+        "sense": "time",
+        "rule": "kdaj-cas",
+        "options": [
+          {
+            "case": "loc",
+            "number": "pl",
+            "as": "preposition"
+          }
+        ],
+        "out": [],
+        "written": "štirih"
+      }
+    },
+    {
+      "sl": "Čez pol ure pridem.",
+      "wrong": "Čez pol uro pridem.",
+      "page": "rodilnik-kolicina",
+      "word": "ure",
+      "lens": {
+        "i": 2,
+        "word": "ure",
+        "start": 8,
+        "end": 11,
+        "readings": [
+          {
+            "lemma": "ura",
+            "pos": "noun",
+            "case": "nom",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "ura",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "ura",
+            "pos": "noun",
+            "case": "acc",
+            "number": "pl",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "f",
+          "as": "quantity"
+        },
+        "sure": "decided",
+        "kind": "quantity",
+        "trigger": {
+          "i": 1,
+          "word": "pol",
+          "start": 4,
+          "end": 7
+        },
+        "rule": "rodilnik-kolicina",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "f",
+            "as": "quantity"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "pl",
+            "why": "governed"
+          },
+          {
+            "case": "acc",
+            "number": "pl",
+            "why": "governed"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Mlin so zgradili leta 1890.",
+      "wrong": "Mlin so zgradili leto 1890.",
+      "page": "cas-izrazi",
+      "word": "leta",
+      "lens": {
+        "i": 3,
+        "word": "leta",
+        "start": 17,
+        "end": 21,
+        "readings": [
+          {
+            "lemma": "leto",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "n"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "n",
+          "as": "when"
+        },
+        "sure": "decided",
+        "kind": "when",
+        "trigger": {
+          "i": 4,
+          "word": "1890",
+          "start": 22,
+          "end": 26
+        },
+        "rule": "cas-izrazi",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "n",
+            "as": "when"
+          }
+        ],
+        "out": []
+      }
+    },
+    {
+      "sl": "Nekega dne je v vas prišel tujec.",
+      "wrong": "Nekega dan je v vas prišel tujec.",
+      "page": "cas-izrazi",
+      "word": "dne",
+      "lens": {
+        "i": 1,
+        "word": "dne",
+        "start": 7,
+        "end": 10,
+        "readings": [
+          {
+            "lemma": "dan",
+            "pos": "noun",
+            "case": "gen",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "gen",
+          "number": "sg",
+          "gender": "m",
+          "as": "when"
+        },
+        "sure": "decided",
+        "kind": "when",
+        "trigger": {
+          "i": 0,
+          "word": "Nekega",
+          "start": 0,
+          "end": 6
+        },
+        "rule": "cas-izrazi",
+        "options": [
+          {
+            "case": "gen",
+            "number": "sg",
+            "gender": "m",
+            "as": "when"
+          }
+        ],
+        "out": []
+      }
+    },
+    {
+      "sl": "Babica je poslala Nejca po kruh.",
+      "wrong": "Babica je poslala Nejca po kruhu.",
+      "page": "predlogi-dva-sklona",
+      "word": "kruh",
+      "lens": {
+        "i": 5,
+        "word": "kruh",
+        "start": 27,
+        "end": 31,
+        "readings": [
+          {
+            "lemma": "kruh",
+            "pos": "noun",
+            "case": "nom",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "kruh",
+            "pos": "noun",
+            "case": "acc",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "acc",
+          "number": "sg",
+          "gender": "m",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 4,
+          "word": "po",
+          "start": 24,
+          "end": 26
+        },
+        "sense": "fetch",
+        "rule": "tozilnik",
+        "options": [
+          {
+            "case": "acc",
+            "number": "sg",
+            "gender": "m",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "sg",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Muri je skočil pod stol.",
+      "wrong": "Muri je skočil pod stolom.",
+      "page": "predlogi-dva-sklona",
+      "word": "stol",
+      "lens": {
+        "i": 4,
+        "word": "stol",
+        "start": 19,
+        "end": 23,
+        "readings": [
+          {
+            "lemma": "stol",
+            "pos": "noun",
+            "case": "nom",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          },
+          {
+            "lemma": "stol",
+            "pos": "noun",
+            "case": "acc",
+            "number": "sg",
+            "genders": [
+              "m"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "acc",
+          "number": "sg",
+          "gender": "m",
+          "as": "preposition"
+        },
+        "sure": "decided",
+        "kind": "preposition",
+        "trigger": {
+          "i": 3,
+          "word": "pod",
+          "start": 15,
+          "end": 18
+        },
+        "sense": "motion",
+        "rule": "kam-tozilnik",
+        "options": [
+          {
+            "case": "acc",
+            "number": "sg",
+            "gender": "m",
+            "as": "preposition"
+          }
+        ],
+        "out": [
+          {
+            "case": "nom",
+            "number": "sg",
+            "why": "preposition"
+          }
+        ]
+      }
+    },
+    {
+      "sl": "Mamo boli glava.",
+      "wrong": "Mami boli glava.",
+      "page": "custva",
+      "word": "Mamo",
+      "lens": {
+        "i": 0,
+        "word": "Mamo",
+        "start": 0,
+        "end": 4,
+        "readings": [
+          {
+            "lemma": "mama",
+            "pos": "noun",
+            "case": "acc",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          },
+          {
+            "lemma": "mama",
+            "pos": "noun",
+            "case": "ins",
+            "number": "sg",
+            "genders": [
+              "f"
+            ]
+          }
+        ],
+        "pick": {
+          "case": "acc",
+          "number": "sg",
+          "gender": "f",
+          "as": "verb"
+        },
+        "sure": "decided",
+        "kind": "verb",
+        "trigger": {
+          "i": 1,
+          "word": "boli",
+          "start": 5,
+          "end": 9,
+          "lemma": "boleti"
+        },
+        "rule": "custva",
+        "options": [
+          {
+            "case": "acc",
+            "number": "sg",
+            "gender": "f",
+            "as": "verb"
+          }
+        ],
+        "out": [
+          {
+            "case": "ins",
+            "number": "sg",
+            "why": "needs-preposition"
+          }
+        ]
       }
     }
   ]
