@@ -1,6 +1,6 @@
 {
-  "about": "Two words of one language of the curated packs that ask one prompt in a base (card.py overlap(): the same prompt, different words), left as they are: the synonyms the packs teach (Grüß Gott, Guten Tag), and a few homonyms (well: bene, il pozzo) a word of its own would part. test/prompt-clashes.ts fails the smoke on any other; language → base → \"<word> | <word>\" (their fronts, normalized) → the prompts they share.",
-  "count": 346,
+  "about": "Two words of one language of the curated packs that ask one prompt in a base (card.py overlap(): the same prompt, different words), left as they are: mostly the synonyms the packs teach (Grüß Gott, Guten Tag); a prompt with two meanings parts its words with a prompt of its own (il tronco \"tree trunk\", il baule \"trunk\"). test/prompt-clashes.ts fails the smoke on any other; language → base → \"<word> | <word>\" (their fronts, normalized) → the prompts they share.",
+  "count": 339,
   "clashes": {
     "sl": {
       "en": {
@@ -35,7 +35,6 @@
         "mrzel | prehlad": "cold",
         "nabiram | pobiram": "i gather",
         "nadstropje | tla": "floor",
-        "naraščati | vosek": "wax",
         "natočim | točim": "i pour",
         "ogenj | požar": "fire",
         "partner | partnerka": "partner",
@@ -273,14 +272,11 @@
       },
       "en": {
         "a presto | ci sentiamo": "talk soon",
-        "bene | il pozzo": "well",
         "bravo | buono": "good",
         "ciao | mandi": "bye, hi",
-        "crescere | la cera": "wax",
         "dolce | il dolce": "sweet",
         "freddo | il raffreddore": "cold",
         "giocare | suonare": "play",
-        "il baule | il tronco": "trunk",
         "il bosco | il legno": "wood",
         "il calcio | il pallone": "football",
         "il campanello | il sonaglio": "little bell",
@@ -294,7 +290,6 @@
         "la coppetta | la tazza": "cup",
         "la mensola | lo scaffale": "shelf",
         "la panca | la panchina": "bench",
-        "la primavera | la sorgente": "spring",
         "svegliare | svegliarsi": "wake up"
       },
       "de": {
@@ -338,12 +333,10 @@
       "en": {
         "anrufen | das telefon": "phone",
         "auf wiederhören | auf wiedersehen": "goodbye",
-        "bellen | die rinde": "bark",
         "bitte | zahlen bitte": "please",
         "das bankerl | die bank": "bench",
         "das beet | das bett": "bed",
         "das schild | unterschreiben": "sign",
-        "das wachs | zunehmen": "wax",
         "das wasser | gießen": "water",
         "der cousin | die cousine": "cousin",
         "der freund | die freundin": "friend",

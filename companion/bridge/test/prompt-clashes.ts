@@ -6,7 +6,8 @@
 // for the others, and every culture's packs/ in that language: a learner meets the packs of their village's language and
 // of the towns they visit), as the card the bridge makes of it for a learner of each other base (packs.ts learnPayload:
 // the word on its front, meaningOf(base) on its back), with the gender pairs as a man and as a woman has them. Two words
-// that take one answer (the same word in two packs) are one card (packs.ts learnedWords): never a clash.
+// that take one answer (the same word in two packs) are one card (packs.ts learnedWords), or two meanings of one spelling
+// (marked homonym), each its own card with its own prompt: never a clash.
 //
 // The clashes there were when the check came (2026-11-02) are its baseline, test/prompt-clashes.json: synonyms the packs
 // teach (Grüß Gott and Guten tag, Servus and Tschüss, das Bankerl and die Bank …), left as they are. A clash not in it
@@ -125,8 +126,9 @@ if (import.meta.main) {
         {
           about:
             'Two words of one language of the curated packs that ask one prompt in a base (card.py overlap(): the same prompt, ' +
-            'different words), left as they are: the synonyms the packs teach (Grüß Gott, Guten Tag), and a few homonyms ' +
-            '(well: bene, il pozzo) a word of its own would part. test/prompt-clashes.ts fails the smoke on any other; ' +
+            'different words), left as they are: mostly the synonyms the packs teach (Grüß Gott, Guten Tag); a prompt with two ' +
+            'meanings parts its words with a prompt of its own (il tronco "tree trunk", il baule "trunk"). ' +
+            'test/prompt-clashes.ts fails the smoke on any other; ' +
             'language → base → "<word> | <word>" (their fronts, normalized) → the prompts they share.',
           count: n,
           clashes: now,
