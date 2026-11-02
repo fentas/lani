@@ -428,6 +428,8 @@ object CaseTrainer {
      * A focus on the prepositions that take two cases (B2's predlogi-dva-sklona: po kruh, po vasi; ob zid, ob potoku; za
      * babico, za hišo): its own rules (po, ob, za + the accusative, pred, med + the instrumental of time) and the bank's
      * rules of a preposition of two cases in either of them ([TWO_CASE_RULES]: kje or kam with v, na, pod, za …, ob, po).
+     * The A1 to B1 ones outnumber the page's own, so at least half of a session's "Kateri sklon?" asks the page's own
+     * where they can be asked ([plan]): a session opened from the page meets what the page teaches.
      */
     const val TWO_CASES = "predlogi-dva-sklona"
     val TWO_CASE_RULES = setOf("v-na-kam", "pod-za-kam", "v-na-kje", "pod-za-kje", "ob", "po", "za-kaj")
@@ -549,15 +551,19 @@ object CaseTrainer {
         val picked = mutableListOf<CaseTask>()
         for (k in kinds) {
             val pool0 = byKind[k].orEmpty().toMutableList()
+            // on the two cases' page: at least half of "Kateri sklon?" its own rules, where they can be asked
+            var ownToAsk = if (focus == TWO_CASES && k == CaseKind.WHICH) ((quota[k] ?: 0) + 1) / 2 else 0
             repeat(quota[k] ?: 0) {
-                val left = pool0.filter { it.key !in used }
-                if (left.isEmpty()) return@repeat
+                val open = pool0.filter { it.key !in used }
+                if (open.isEmpty()) return@repeat
+                val left = if (ownToAsk > 0) open.filter { it.rule == TWO_CASES }.ifEmpty { open } else open
                 val w = left.map { t ->
                     val base = weight(t, p, priors, prior(t, facts(t), mistakes), acc, pool.level, t.key in recent, t.rule in seenLately)
                     // a word asked already in this session: much less; its sentence again (another word of it): hardly
                     base * (if (lemmaOf(pool, t) in lemmas) 0.15 else 1.0) * (if (sentenceOf(pool, t)?.let { it in sentences } == true) 0.05 else 1.0)
                 }
                 val t = drawWeighted(left, w, random)
+                if (t.rule == TWO_CASES) ownToAsk--
                 used.add(t.key)
                 lemmaOf(pool, t)?.let(lemmas::add)
                 sentenceOf(pool, t)?.let(sentences::add)

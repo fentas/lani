@@ -713,11 +713,18 @@ class CaseTrainerTest {
         // a B2 learner's session on it: only the page's rules and the bank's of v, na, pod, za, ob, po, both cases among them
         val levels = mapOf("predlogi-dva-sklona" to "B2", "kam-tozilnik" to "A1", "kje-mestnik-orodnik" to "A1", "mestnik" to "A1", "tozilnik" to "A1", "orodnik" to "A2")
         val p = CasePool(b, emptyList(), emptySet(), "B2", false, "en", { levels[it] ?: "A1" }, setOf("na-trznici"))
-        val plan = CaseTrainer.plan(p, null, emptyList(), { 0.0 }, today, Random(7), focus = CaseTrainer.TWO_CASES)
-        assertEquals(CaseTrainer.RUN, plan.size)
-        assertTrue(plan.map { it.task.why }.toString(), plan.all { CaseTrainer.focused(it.task, CaseTrainer.TWO_CASES) })
-        assertTrue("the page's own rules", plan.any { it.task.rule == CaseTrainer.TWO_CASES })
-        assertTrue("both cases", plan.map { it.task.case }.toSet().size >= 2)
+        // (a B1 learner who met the page too: an item one above their level, its rule introduced)
+        val b1 = CasePool(b, emptyList(), setOf("predlogi-dva-sklona"), "B1", false, "en", { levels[it] ?: "A1" }, setOf("na-trznici"))
+        for (pool in listOf(p, b1)) for (seed in 0 until 40) {
+            val plan = CaseTrainer.plan(pool, null, emptyList(), { 0.0 }, today, Random(seed.toLong()), focus = CaseTrainer.TWO_CASES)
+            assertEquals(CaseTrainer.RUN, plan.size)
+            assertTrue(plan.map { it.task.why }.toString(), plan.all { CaseTrainer.focused(it.task, CaseTrainer.TWO_CASES) })
+            // every session meets what the page teaches: at least half of its "Kateri sklon?", though the A1 to B1 ones outnumber them
+            val which = plan.filter { it.task.kind == CaseKind.WHICH }
+            val mine = which.count { it.task.rule == CaseTrainer.TWO_CASES }
+            assertTrue("${pool.level}, seed $seed: $mine of ${which.size} the page's own", which.isNotEmpty() && mine * 2 >= which.size)
+            assertTrue("both cases", plan.map { it.task.case }.toSet().size >= 2)
+        }
         // not a preposition of one case (k, iz, brez), nor where from
         val k = CaseTask(CaseKind.WHICH, "x", Case.DAT, "sg", "dajalnik", "A1", why = "k")
         assertFalse(CaseTrainer.focused(k, CaseTrainer.TWO_CASES))

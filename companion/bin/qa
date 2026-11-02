@@ -3667,8 +3667,8 @@ def hints_lens():
     the sentence's grammar (Maša je ob deset.: the locative ob asks for, "Tako se tudi reče; piše se «desetih»", never a
     mistake), pol before an hour (ob pol dveh: the genitive, Kdaj?), pol's genitive on a word's card (čez pol ure); then
     the case trainer on B2's predlogi-dva-sklona (its page met, "cases:meet:"): the page's "🧩 Vadi sklone", a session
-    whose tasks are all of a preposition with two cases. The learner's level B1 or more for the page's own B2 items
-    (LANI_DEV_DATA, its profile's level)."""
+    whose tasks are all of a preposition with two cases, until one of the page's own B2 items is met (at least half of
+    "Kateri sklon?" are). The learner's level B1 or more (LANI_DEV_DATA, its profile's level)."""
     sheet_line("Maša je ob deset.", "Mass is at ten.", ["mestnik", "Kdaj?", "Tako se tudi reče", "desetih"], "hints-lens-deset", swipes=1)
     sheet_line("Domov gremo ob pol dveh.", "We go home at half past one.", ["rodilnik", "Kdaj?", "naslednja ura"], "hints-lens-pol", swipes=2)
     lens_card("ure", "Čez pol ure pridem.", "I'll come in half an hour.", ["rodilnik", "«pol»"], "hints-lens-card-ure")
@@ -3686,11 +3686,12 @@ def hints_lens():
     if wait_for(CASES_START, 6) and not find(CASES_ASK_WHICH):
         assert tap(CASES_START, 4), "start the focused session"
     b2 = 0
-    for k in range(4):
+    for k in range(10):
         assert wait_for(CASES_ASK_WHICH, 12), f"task {k + 1}: which case?"
         it = case_item_on_screen(items)
         assert it, f"task {k + 1}: an item of a preposition with two cases"
-        b2 += it["level"] == "B2"
+        own = it["level"] == "B2"
+        b2 += own
         print(f"    task {k + 1}: {it['id']} ({it['why']}, {it['level']})")
         shot(f"hints-lens-task-{k + 1}")
         tap_at(case_chip(it["case"]))
@@ -3700,10 +3701,11 @@ def hints_lens():
         assert c, f"the deciding word's chip ({word})"
         tap_at(c)
         assert wait_for("✅", 6), f"right: {it['id']}"
-        if k == 0:
-            shot("hints-lens-task-1-right")
+        if own:
+            shot("hints-lens-own-right")
+            break
         assert tap(NEXT, 6), "on"
-    print(f"    {b2} of 4 tasks the page's own B2 items")
+    assert b2, "one of the page's own B2 items in the session"
     qa_hook("cases:only:")
     back_key()
     go_home()

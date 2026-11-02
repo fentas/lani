@@ -2179,7 +2179,8 @@ more for a rule the case lens showed in the last three days. A focus (a case, a 
 or the dual's cases, the prepositions with two cases) asks only it, filled up with its case's when it has too few. The
 prepositions with two cases (B2's predlogi-dva-sklona, `CaseTrainer.TWO_CASES`): the page's own B2 rules (po + the
 accusative to fetch, ob + the accusative against, za + the accusative how long, pred and med + the instrumental of
-time) and the bank's rules of v, na, pod, nad, pred, za, med, ob and po in either case (Kje ali kam? 45 %).
+time), at least half of its "Kateri sklon?" where they can be asked (a learner of B1 who met the page, or of B2), and the
+bank's rules of v, na, pod, nad, pred, za, med, ob and po in either case (Kje ali kam? 45 %).
 
 **Kept** in the village state (`GameState.cases`, synced as the rest; the bridge keeps it from an older app): each
 case's, rule's and kind's last 12 answers ("case:rodilnik" …: an almost counts right, the case was right), each rule's
