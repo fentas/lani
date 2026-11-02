@@ -4,7 +4,7 @@
     "reviewed": false,
     "machine_written": true,
     "note": "machine-written (Claude), not reviewed by a native speaker",
-    "about": "Words the Friuli content uses that Wiktionary lacks (companion/bin/lexicon-build --coverage --lang it lists them): the folklore of Nonno Bepi's stories (sbilfs, krivapete, the Orcolat), Friulian words (fogolâr, pignarûl, cramaro), the region's places as the content names them (the Collio, Cormòns, Carnia, Monte Lussari, Duino, Nova Gorica), the night sky's meteor showers, an imperative with its pronoun joined (arrotolala), the elided c'è, dov'è, cos'è (Wiktionary has them in English only, or as a junk infinitive), and, marked override, a better meaning for suo, whose German through English was sein; n. Each has its meaning in German and Slovene (meanings), so a learner from either reads it in their own language, flagged machine-written. Left out: the people's names (the villagers' come from the cast), the interjections and sounds but eh, the most frequent (hm, shh, bzz), and the wrong choices the dialogs offer on purpose (venirò, vedito). Since 2026-11-01 also the words the course's printed sheets left off for want of a meaning (the everyday verbs, adverbs, nouns and expressions of A1, A2 and B1: guardare, mai, il treno, c'era una volta), written for a child (German first, Slovene, English), each with the forms the Italian content uses (the course, the grammar book, the Friuli culture, the packs) and their grammar; a reflexive verb's forms with their pronoun (si lava, mi sono lavata), so the plain verb's (gira il frico) aren't taken for it; the forms written by hand and checked against Wiktionary's (kaikki.org, English and German Wiktionary), the meanings written, not copied (docs/plans/05-built/it-print-meanings.md). Since stories-friuli (2026-11): the folklore, places and Friulian words of Nonno Bepi's new tales and readings (the malandanti, the cjarsons and the crassigne, the Rölar and the Kheirar of Sauris, Tarcento's Pignarûl Grant and its saying fum, soreli, cjape il sac, the Tagliamento, Aquileia, Svete Višarje), the countries and towns they name, three numbers, and the grammar words a child meets on every line, so a tap explains them in German and Slovene too: avere's present (ha), the prepositions with an article (della, nel, sulla, alle, dal), dimmi and dammi, tanto, troppo, un po', and a few verbs with their pronoun joined or as a participle."
+    "about": "Words the Friuli content uses that Wiktionary lacks (companion/bin/lexicon-build --coverage --lang it lists them): the folklore of Nonno Bepi's stories (sbilfs, krivapete, the Orcolat), Friulian words (fogolâr, pignarûl, cramaro), the region's places as the content names them (the Collio, Cormòns, Carnia, Monte Lussari, Duino, Nova Gorica), the night sky's meteor showers, an imperative with its pronoun joined (arrotolala), the elided c'è, dov'è, cos'è (Wiktionary has them in English only, or as a junk infinitive), and, marked override, a better meaning for suo, whose German through English was sein; n. Each has its meaning in German and Slovene (meanings), so a learner from either reads it in their own language, flagged machine-written. Left out: the people's names (the villagers' come from the cast), the interjections and sounds but eh, the most frequent (hm, shh, bzz), and the wrong choices the dialogs offer on purpose (venirò, vedito). Since 2026-11-01 also the words the course's printed sheets left off for want of a meaning (the everyday verbs, adverbs, nouns and expressions of A1, A2 and B1: guardare, mai, il treno, c'era una volta), written for a child (German first, Slovene, English), each with the forms the Italian content uses (the course, the grammar book, the Friuli culture, the packs) and their grammar; a reflexive verb's forms with their pronoun (si lava, mi sono lavata), so the plain verb's (gira il frico) aren't taken for it; the forms written by hand and checked against Wiktionary's (kaikki.org, English and German Wiktionary), the meanings written, not copied (docs/plans/05-built/it-print-meanings.md). Since stories-friuli (2026-11): the folklore, places and Friulian words of Nonno Bepi's new tales and readings (the malandanti, the cjarsons and the crassigne, the Rölar and the Kheirar of Sauris, Tarcento's Pignarûl Grant and its saying fum, soreli, cjape il sac, the Tagliamento, Aquileia, Svete Višarje), the countries and towns they name, three numbers, and the grammar words a child meets on every line, so a tap explains them in German and Slovene too: avere's present (ha), the prepositions with an article (della, nel, sulla, alle, dal), dimmi and dammi, tanto, troppo, un po', and a few verbs with their pronoun joined or as a participle. Since friuli-projects-a (2026-11): the everyday words of Friuli's project steps that no Italian content had before (abbastanza, buttare, il coniglio, durare, oppure, reggere, la paratoia, Pinocchio …), written for a child, German first, each with the forms the steps use."
   },
   "entries": [
     { "lemma": "sbilf", "pos": "noun", "gender": "m", "gloss": ["sbilf (a little forest sprite of Carnia's tales, in a red cap)"], "forms": { "sbilf": "singular", "sbilfs": "plural" },
@@ -1403,6 +1403,425 @@
     { "lemma": "diventare", "pos": "verb", "gloss": ["to become"], "forms": {"diventato": "past participle", "diventati": "past participle, plural"},
       "meanings": { "de": ["werden"], "sl": ["postati"] } },
     { "lemma": "grattugiare", "pos": "verb", "gloss": ["to grate"], "forms": {"grattugiato": "past participle", "grattugiata": "past participle, feminine"},
-      "meanings": { "de": ["reiben (Käse)"], "sl": ["nastrgati"] } }
+      "meanings": { "de": ["reiben (Käse)"], "sl": ["nastrgati"] } },
+    { "lemma": "abbastanza", "pos": "adv", "gloss": ["enough"],
+      "forms": {
+        "abbastanza": "invariable"
+      },
+      "meanings": { "de": ["genug"], "sl": ["dovolj"] } },
+    { "lemma": "aceto", "pos": "noun", "gender": "m", "gloss": ["vinegar"],
+      "forms": {
+        "aceto": "singular"
+      },
+      "meanings": { "de": ["Essig"], "sl": ["kis"] } },
+    { "lemma": "attaccare", "pos": "verb", "gloss": ["to fasten, to attach"],
+      "forms": {
+        "attaccare": "infinitive",
+        "attaccato": "past participle"
+      },
+      "meanings": { "de": ["befestigen, anmachen"], "sl": ["pritrditi"] } },
+    { "lemma": "banana", "pos": "noun", "gender": "f", "gloss": ["banana"],
+      "forms": {
+        "banana": "singular",
+        "banane": "plural"
+      },
+      "meanings": { "de": ["Banane"], "sl": ["banana"] } },
+    { "lemma": "buttare", "pos": "verb", "gloss": ["to throw"],
+      "forms": {
+        "buttare": "infinitive",
+        "buttano": "third-person plural present"
+      },
+      "meanings": { "de": ["werfen"], "sl": ["vreči"] } },
+    { "lemma": "cartone", "pos": "noun", "gender": "m", "gloss": ["cardboard"],
+      "forms": {
+        "cartone": "singular"
+      },
+      "meanings": { "de": ["Karton, Pappe"], "sl": ["karton"] } },
+    { "lemma": "chiacchiera", "pos": "noun", "gender": "f", "gloss": ["chat, gossip"],
+      "forms": {
+        "chiacchiera": "singular",
+        "chiacchiere": "plural"
+      },
+      "meanings": { "de": ["Geplauder, Geschwätz"], "sl": ["klepet, čenče"] } },
+    { "lemma": "chinarsi", "pos": "verb", "gloss": ["to bend down"],
+      "forms": {
+        "chinarsi": "infinitive",
+        "chinarmi": "infinitive, with mi (myself)"
+      },
+      "meanings": { "de": ["sich bücken"], "sl": ["skloniti se"] } },
+    { "lemma": "colpa", "pos": "noun", "gender": "f", "gloss": ["fault, blame"],
+      "forms": {
+        "colpa": "singular"
+      },
+      "meanings": { "de": ["Schuld"], "sl": ["krivda"] } },
+    { "lemma": "comandare", "pos": "verb", "gloss": ["to be in charge, to give orders"],
+      "forms": {
+        "comandare": "infinitive",
+        "comanda": "third-person singular present"
+      },
+      "meanings": { "de": ["bestimmen, das Sagen haben"], "sl": ["ukazovati"] } },
+    { "lemma": "compagno", "pos": "noun", "gender": "m", "gloss": ["mate, schoolmate"],
+      "forms": {
+        "compagno": "singular",
+        "compagni": "plural"
+      },
+      "meanings": { "de": ["Kamerad, Schulfreund"], "sl": ["sošolec, tovariš"] } },
+    { "lemma": "coniglio", "pos": "noun", "gender": "m", "gloss": ["rabbit"],
+      "forms": {
+        "coniglio": "singular",
+        "conigli": "plural"
+      },
+      "meanings": { "de": ["Kaninchen"], "sl": ["zajec"] } },
+    { "lemma": "corto", "pos": "adj", "gloss": ["short"],
+      "forms": {
+        "corto": "masculine singular",
+        "corta": "feminine singular",
+        "corti": "masculine plural",
+        "corte": "feminine plural"
+      },
+      "meanings": { "de": ["kurz"], "sl": ["kratek"] } },
+    { "lemma": "differenza", "pos": "noun", "gender": "f", "gloss": ["difference"],
+      "forms": {
+        "differenza": "singular"
+      },
+      "meanings": { "de": ["Unterschied"], "sl": ["razlika"] } },
+    { "lemma": "durare", "pos": "verb", "gloss": ["to last"],
+      "forms": {
+        "durare": "infinitive",
+        "durano": "third-person plural present",
+        "dureranno": "third-person plural future"
+      },
+      "meanings": { "de": ["dauern, halten"], "sl": ["trajati"] } },
+    { "lemma": "eppure", "pos": "conj", "gloss": ["and yet"],
+      "forms": {
+        "eppure": "invariable"
+      },
+      "meanings": { "de": ["und doch"], "sl": ["pa vendar"] } },
+    { "lemma": "foglio", "pos": "noun", "gender": "m", "gloss": ["sheet of paper"],
+      "forms": {
+        "foglio": "singular",
+        "fogli": "plural"
+      },
+      "meanings": { "de": ["Blatt Papier"], "sl": ["list papirja"] } },
+    { "lemma": "friggere", "pos": "verb", "gloss": ["to fry"],
+      "forms": {
+        "friggere": "infinitive"
+      },
+      "meanings": { "de": ["braten"], "sl": ["cvreti"] } },
+    { "lemma": "inciampare", "pos": "verb", "gloss": ["to trip, to stumble"],
+      "forms": {
+        "inciampare": "infinitive",
+        "inciampa": "third-person singular present"
+      },
+      "meanings": { "de": ["stolpern"], "sl": ["spotakniti se"] } },
+    { "lemma": "lasagne", "pos": "noun", "gender": "f", "gloss": ["lasagne"],
+      "forms": {
+        "lasagne": "plural"
+      },
+      "meanings": { "de": ["Lasagne"], "sl": ["lazanje"] } },
+    { "lemma": "leccare", "pos": "verb", "gloss": ["to lick"],
+      "forms": {
+        "leccare": "infinitive",
+        "lecchi": "second-person singular present"
+      },
+      "meanings": { "de": ["lecken, abschlecken"], "sl": ["lizati"] } },
+    { "lemma": "legare", "pos": "verb", "gloss": ["to tie"],
+      "forms": {
+        "legare": "infinitive",
+        "leghiamo": "first-person plural present"
+      },
+      "meanings": { "de": ["binden, festbinden"], "sl": ["privezati"] } },
+    { "lemma": "legnetto", "pos": "noun", "gender": "m", "gloss": ["little piece of wood"],
+      "forms": {
+        "legnetto": "singular",
+        "legnetti": "plural"
+      },
+      "meanings": { "de": ["Holzstückchen"], "sl": ["lesen košček"] } },
+    { "lemma": "linea", "pos": "noun", "gender": "f", "gloss": ["line"],
+      "forms": {
+        "linea": "singular",
+        "linee": "plural"
+      },
+      "meanings": { "de": ["Linie"], "sl": ["črta"] } },
+    { "lemma": "lisciare", "pos": "verb", "gloss": ["to smooth"],
+      "forms": {
+        "lisciare": "infinitive",
+        "lisciati": "masculine plural past participle"
+      },
+      "meanings": { "de": ["glätten"], "sl": ["gladiti"] } },
+    { "lemma": "litro", "pos": "noun", "gender": "m", "gloss": ["litre"],
+      "forms": {
+        "litro": "singular",
+        "litri": "plural"
+      },
+      "meanings": { "de": ["Liter"], "sl": ["liter"] } },
+    { "lemma": "maiale", "pos": "noun", "gender": "m", "gloss": ["pig"],
+      "forms": {
+        "maiale": "singular",
+        "maiali": "plural"
+      },
+      "meanings": { "de": ["Schwein"], "sl": ["prašič"] } },
+    { "lemma": "maionese", "pos": "noun", "gender": "f", "gloss": ["mayonnaise"],
+      "forms": {
+        "maionese": "singular"
+      },
+      "meanings": { "de": ["Mayonnaise"], "sl": ["majoneza"] } },
+    { "lemma": "marmellata", "pos": "noun", "gender": "f", "gloss": ["jam"],
+      "forms": {
+        "marmellata": "singular"
+      },
+      "meanings": { "de": ["Marmelade"], "sl": ["marmelada"] } },
+    { "lemma": "menù", "pos": "noun", "gender": "m", "gloss": ["menu"],
+      "forms": {
+        "menù": "singular and plural"
+      },
+      "meanings": { "de": ["Speisekarte"], "sl": ["jedilni list"] } },
+    { "lemma": "muscolo", "pos": "noun", "gender": "m", "gloss": ["muscle"],
+      "forms": {
+        "muscolo": "singular",
+        "muscoli": "plural"
+      },
+      "meanings": { "de": ["Muskel"], "sl": ["mišica"] } },
+    { "lemma": "muovere", "pos": "verb", "gloss": ["to move"],
+      "forms": {
+        "muovere": "infinitive",
+        "mosso": "past participle"
+      },
+      "meanings": { "de": ["bewegen"], "sl": ["premikati"] } },
+    { "lemma": "nevicata", "pos": "noun", "gender": "f", "gloss": ["snowfall"],
+      "forms": {
+        "nevicata": "singular"
+      },
+      "meanings": { "de": ["Schneefall"], "sl": ["sneženje"] } },
+    { "lemma": "novità", "pos": "noun", "gender": "f", "gloss": ["news, something new"],
+      "forms": {
+        "novità": "singular and plural"
+      },
+      "meanings": { "de": ["Neuigkeit"], "sl": ["novica"] } },
+    { "lemma": "oppure", "pos": "conj", "gloss": ["or else"],
+      "forms": {
+        "oppure": "invariable"
+      },
+      "meanings": { "de": ["oder"], "sl": ["ali pa"] } },
+    { "lemma": "papera", "pos": "noun", "gender": "f", "gloss": ["young duck"],
+      "forms": {
+        "papera": "singular",
+        "papere": "plural"
+      },
+      "meanings": { "de": ["junge Ente"], "sl": ["račka"] } },
+    { "lemma": "paratoia", "pos": "noun", "gender": "f", "gloss": ["sluice gate (of a mill's channel)"],
+      "forms": {
+        "paratoia": "singular"
+      },
+      "meanings": { "de": ["Schleusentor (einer Mühlenrinne)"], "sl": ["zapornica"] } },
+    { "lemma": "pettinare", "pos": "verb", "gloss": ["to comb"],
+      "forms": {
+        "pettinare": "infinitive",
+        "pettina": "third-person singular present"
+      },
+      "meanings": { "de": ["kämmen"], "sl": ["česati"] } },
+    { "lemma": "Pinocchio", "pos": "name", "gloss": ["Pinocchio (the wooden puppet of the story)"],
+      "forms": {
+        "Pinocchio": "the name"
+      },
+      "meanings": { "de": ["Pinocchio (die Holzpuppe aus der Geschichte)"], "sl": ["Ostržek (lesena lutka iz pravljice)"] } },
+    { "lemma": "pisolino", "pos": "noun", "gender": "m", "gloss": ["nap"],
+      "forms": {
+        "pisolino": "singular"
+      },
+      "meanings": { "de": ["Nickerchen"], "sl": ["dremež"] } },
+    { "lemma": "pizza", "pos": "noun", "gender": "f", "gloss": ["pizza"],
+      "forms": {
+        "pizza": "singular"
+      },
+      "meanings": { "de": ["Pizza"], "sl": ["pica"] } },
+    { "lemma": "poggiare", "pos": "verb", "gloss": ["to rest on something"],
+      "forms": {
+        "poggiare": "infinitive",
+        "poggiano": "third-person plural present"
+      },
+      "meanings": { "de": ["aufliegen"], "sl": ["sloneti"] } },
+    { "lemma": "pollaio", "pos": "noun", "gender": "m", "gloss": ["henhouse"],
+      "forms": {
+        "pollaio": "singular"
+      },
+      "meanings": { "de": ["Hühnerstall"], "sl": ["kurnik"] } },
+    { "lemma": "pollo", "pos": "noun", "gender": "m", "gloss": ["chicken"],
+      "forms": {
+        "pollo": "singular"
+      },
+      "meanings": { "de": ["Huhn, Hähnchen"], "sl": ["piščanec"] } },
+    { "lemma": "questione", "pos": "noun", "gender": "f", "gloss": ["matter, question"],
+      "forms": {
+        "questione": "singular"
+      },
+      "meanings": { "de": ["Frage, Sache"], "sl": ["vprašanje, stvar"] } },
+    { "lemma": "reggere", "pos": "verb", "gloss": ["to hold up"],
+      "forms": {
+        "reggere": "infinitive",
+        "regge": "third-person singular present",
+        "reggono": "third-person plural present"
+      },
+      "meanings": { "de": ["tragen, halten"], "sl": ["držati, nositi"] } },
+    { "lemma": "ripensare", "pos": "verb", "gloss": ["to think again"],
+      "forms": {
+        "ripensare": "infinitive",
+        "ripensaci": "second-person singular imperative, with ci"
+      },
+      "meanings": { "de": ["noch einmal nachdenken"], "sl": ["premisliti"] } },
+    { "lemma": "riparo", "pos": "noun", "gender": "m", "gloss": ["shelter"],
+      "forms": {
+        "riparo": "singular"
+      },
+      "meanings": { "de": ["Schutz, Unterstand"], "sl": ["zavetje"] } },
+    { "lemma": "riserva", "pos": "noun", "gender": "f", "gloss": ["spare, reserve"],
+      "forms": {
+        "riserva": "singular"
+      },
+      "meanings": { "de": ["Reserve"], "sl": ["rezerva"] } },
+    { "lemma": "risata", "pos": "noun", "gender": "f", "gloss": ["a laugh"],
+      "forms": {
+        "risata": "singular",
+        "risate": "plural"
+      },
+      "meanings": { "de": ["Lachen"], "sl": ["smeh"] } },
+    { "lemma": "riconoscere", "pos": "verb", "gloss": ["to recognise"],
+      "forms": {
+        "riconoscere": "infinitive",
+        "riconosce": "third-person singular present"
+      },
+      "meanings": { "de": ["erkennen"], "sl": ["prepoznati"] } },
+    { "lemma": "roba", "pos": "noun", "gender": "f", "gloss": ["stuff"],
+      "forms": {
+        "roba": "singular"
+      },
+      "meanings": { "de": ["Zeug, Sachen"], "sl": ["stvari"] } },
+    { "lemma": "robusto", "pos": "adj", "gloss": ["sturdy"],
+      "forms": {
+        "robusto": "masculine singular"
+      },
+      "meanings": { "de": ["robust, stabil"], "sl": ["trden"] } },
+    { "lemma": "sbattere", "pos": "verb", "gloss": ["to bump, to bang"],
+      "forms": {
+        "sbattere": "infinitive",
+        "sbattono": "third-person plural present"
+      },
+      "meanings": { "de": ["anstoßen"], "sl": ["zadeti"] } },
+    { "lemma": "scena", "pos": "noun", "gender": "f", "gloss": ["scene"],
+      "forms": {
+        "scena": "singular"
+      },
+      "meanings": { "de": ["Szene"], "sl": ["prizor"] } },
+    { "lemma": "sci", "pos": "noun", "gender": "m", "gloss": ["ski"],
+      "forms": {
+        "sci": "singular and plural"
+      },
+      "meanings": { "de": ["Ski"], "sl": ["smučka"] } },
+    { "lemma": "secolo", "pos": "noun", "gender": "m", "gloss": ["century"],
+      "forms": {
+        "secolo": "singular",
+        "secoli": "plural"
+      },
+      "meanings": { "de": ["Jahrhundert"], "sl": ["stoletje"] } },
+    { "lemma": "sollevare", "pos": "verb", "gloss": ["to lift"],
+      "forms": {
+        "sollevare": "infinitive"
+      },
+      "meanings": { "de": ["heben"], "sl": ["dvigniti"] } },
+    { "lemma": "spalmare", "pos": "verb", "gloss": ["to spread (on bread)"],
+      "forms": {
+        "spalmare": "infinitive",
+        "spalmano": "third-person plural present"
+      },
+      "meanings": { "de": ["streichen (aufs Brot)"], "sl": ["mazati"] } },
+    { "lemma": "spogliarsi", "pos": "verb", "gloss": ["to undress"],
+      "forms": {
+        "spogliarsi": "infinitive",
+        "si è spogliato": "third-person singular present perfect"
+      },
+      "meanings": { "de": ["sich ausziehen"], "sl": ["sleči se"] } },
+    { "lemma": "stendere", "pos": "verb", "gloss": ["to spread out"],
+      "forms": {
+        "stendere": "infinitive"
+      },
+      "meanings": { "de": ["ausbreiten"], "sl": ["razgrniti"] } },
+    { "lemma": "strato", "pos": "noun", "gender": "m", "gloss": ["layer"],
+      "forms": {
+        "strato": "singular",
+        "strati": "plural"
+      },
+      "meanings": { "de": ["Schicht"], "sl": ["plast"] } },
+    { "lemma": "sudare", "pos": "verb", "gloss": ["to sweat"],
+      "forms": {
+        "sudare": "infinitive",
+        "suda": "third-person singular present"
+      },
+      "meanings": { "de": ["schwitzen"], "sl": ["potiti se"] } },
+    { "lemma": "tagliatelle", "pos": "noun", "gender": "f", "gloss": ["ribbon noodles"],
+      "forms": {
+        "tagliatelle": "plural"
+      },
+      "meanings": { "de": ["Bandnudeln"], "sl": ["rezanci"] } },
+    { "lemma": "tartufo", "pos": "noun", "gender": "m", "gloss": ["truffle"],
+      "forms": {
+        "tartufo": "singular",
+        "tartufi": "plural"
+      },
+      "meanings": { "de": ["Trüffel"], "sl": ["gomoljika"] } },
+    { "lemma": "telo", "pos": "noun", "gender": "m", "gloss": ["sheet, tarpaulin"],
+      "forms": {
+        "telo": "singular"
+      },
+      "meanings": { "de": ["Plane"], "sl": ["ponjava"] } },
+    { "lemma": "trattenere", "pos": "verb", "gloss": ["to hold back"],
+      "forms": {
+        "trattenere": "infinitive",
+        "trattenete": "second-person plural imperative"
+      },
+      "meanings": { "de": ["anhalten, zurückhalten"], "sl": ["zadržati"] } },
+    { "lemma": "uguale", "pos": "adj", "gloss": ["the same"],
+      "forms": {
+        "uguale": "singular"
+      },
+      "meanings": { "de": ["gleich"], "sl": ["enak"] } },
+    { "lemma": "vacca", "pos": "noun", "gender": "f", "gloss": ["cow"],
+      "forms": {
+        "vacca": "singular",
+        "vacche": "plural"
+      },
+      "meanings": { "de": ["Kuh"], "sl": ["krava"] } },
+    { "lemma": "vita", "pos": "noun", "gender": "f", "gloss": ["life"],
+      "forms": {
+        "vita": "singular"
+      },
+      "meanings": { "de": ["Leben"], "sl": ["življenje"] } },
+    { "lemma": "zigzag", "pos": "noun", "gender": "m", "gloss": ["zigzag"],
+      "forms": {
+        "zigzag": "singular and plural"
+      },
+      "meanings": { "de": ["Zickzack"], "sl": ["cikcak"] } },
+    { "lemma": "ammucchiare", "pos": "verb", "gloss": ["to heap up"],
+      "forms": {
+        "ammucchiare": "infinitive",
+        "ammucchiata": "feminine singular past participle"
+      },
+      "meanings": { "de": ["aufhäufen"], "sl": ["nakopičiti"] } },
+    { "lemma": "accorgersi", "pos": "verb", "gloss": ["to notice"],
+      "forms": {
+        "accorgersi": "infinitive",
+        "accorta": "feminine singular past participle"
+      },
+      "meanings": { "de": ["bemerken"], "sl": ["opaziti"] } },
+    { "lemma": "posare", "pos": "verb", "gloss": ["to lay down"],
+      "forms": {
+        "posare": "infinitive"
+      },
+      "meanings": { "de": ["legen, hinlegen"], "sl": ["položiti"] } },
+    { "lemma": "desiderare", "pos": "verb", "gloss": ["to wish for"],
+      "forms": {
+        "desiderare": "infinitive",
+        "desideri": "second-person singular present"
+      },
+      "meanings": { "de": ["sich wünschen"], "sl": ["želeti"] } }
   ]
 }
