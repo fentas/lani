@@ -476,14 +476,15 @@ export class Dictionary {
     // adjective, is the pack's kalt; il freddo the supplement's Kälte), an English word listed without its "to" not the
     // verb (warm, the pack's topel, not to warm; book, hammer, fish the packs' nouns) unless the course names it so (rain)
     const shadowed = (x: { pos: string; named: boolean }) => ((this.language === 'it' && x.pos === 'noun') || (this.language === 'en' && x.pos === 'verb' && !x.named)) && !this.bare(word) && this.packs.has(k)
-    // an entry that only repeats a pack's meaning (it is there for the forms the pack lacks) is the pack's: it doesn't
-    // come before another entry of the word (rain, the pack's dež, doesn't push the course's to rain aside)
-    const said = this.packs.get(k)?.[base]
-    const mine = sup.filter(x => x.inBase && x.self && !shadowed(x) && x.gloss !== said)
+    const mine = sup.filter(x => x.inBase && x.self && !shadowed(x))
     if (mine.length) {
       const rank = (p: string) => (POS_RANK.indexOf(p) < 0 ? 50 : POS_RANK.indexOf(p))
       const fits = (x: Meaning) => (wordsOf(x.gloss).some(w => w.length > 2 && ctx.en.has(stem(w))) ? 1 : 0)
-      const best = [...mine].sort((a, b) => Number(b.listed) - Number(a.listed) || fits(b) - fits(a) || rank(a.pos) - rank(b.pos))[0]
+      // an entry that only repeats a pack's meaning (it is there for the forms the pack lacks) doesn't come before another
+      // entry of the word (rain, the pack's dež, doesn't push the course's to rain aside)
+      const said = this.packs.get(k)?.[base]
+      const repeats = (x: Meaning) => (x.gloss === said ? 1 : 0)
+      const best = [...mine].sort((a, b) => Number(b.listed) - Number(a.listed) || repeats(a) - repeats(b) || fits(b) - fits(a) || rank(a.pos) - rank(b.pos))[0]
       // a German noun is learned with its article (Katze: die Katze), as the packs write it
       const lemma = this.language === 'de' && best.pos === 'noun' && !this.bare(best.lemma) ? this.withArticle(best.lemma, best.gender) : best.lemma
       return { lemma, pos: best.pos, gloss: best.gloss, ...(best.gender ? { gender: best.gender } : {}) }
