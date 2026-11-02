@@ -171,5 +171,6 @@ summary { cursor: pointer; color: var(--sea); font-weight: 600; }
 .req-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; flex-wrap: wrap; }
 .req-actions button { flex: 1; min-height: 44px; }
 .req-actions button.primary { width: auto; padding: 10px 14px; }
-.check { display: flex; gap: 8px; align-items: flex-start; margin-top: 8px; font-size: .9rem; }
+.check { display: flex; gap: 8px; align-items: flex-start; margin-top: 8px; font-size: .9rem; font-weight: 400; }
+.check input { width: auto; flex: none; margin-top: 3px; }
 .linked li { padding: 4px 0; }
