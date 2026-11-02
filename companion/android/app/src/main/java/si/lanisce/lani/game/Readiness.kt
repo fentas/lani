@@ -14,7 +14,8 @@ import kotlin.math.ceil
  * the level [from] and are ready for [to] (null: [from] is the top, C2).
  *
  * - **The grammar**: of the level's grammar pages that the curated content tests ([pages]: an exercise, a dialog's turn,
- *   a challenge's question or a drill names them), the ones secure or mastered now ([secure]); [needSecure] of them.
+ *   a challenge's question or a drill names them), the ones secure or mastered now ([secure]); [needSecure] of them. A
+ *   level the book has no pages of yet ([noPages]) can't tell: the sign holds nothing back and the screens say it doesn't count.
  * - **The reviews**: the learner's reviews of the last [LevelReadiness.WINDOW_DAYS] days of the cards of their level
  *   (a card of a higher level is a stretch, not the level): [reviews] answered, [kept] of them right.
  * - **The time**: [practised] days of practice at the level (sessions in the log since it began), over [atLevel] days.
@@ -30,7 +31,10 @@ data class Readiness(
     val practised: Int,
     val atLevel: Int,
 ) {
-    /** Enough of the level's rules are secure or mastered. */
+    /** The book has no pages of this level yet: nothing to secure, and nothing to say about the rules either. */
+    val noPages: Boolean get() = pages.isEmpty()
+
+    /** Enough of the level's rules are secure or mastered; with [noPages] nothing holds the map back (never a wall). */
     val grammar: Boolean get() = secure.size >= needSecure
 
     /** The share of the reviews answered right, 0 to 1 (0 without reviews). */

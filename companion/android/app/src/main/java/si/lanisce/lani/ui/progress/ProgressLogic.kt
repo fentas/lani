@@ -26,7 +26,8 @@ enum class PathSign(val emoji: String) { WORDS("📚"), GRAMMAR("📖"), REVIEWS
 
 /**
  * One line of "Do A2 · To A2" ([ProgressLogic.path]): [met] (✅) or not yet (⏳), its [title] and its numbers ([value]),
- * what they are measured against ([caption]), and all of it for TalkBack in the learner's base ([description]).
+ * what they are measured against ([caption]), and all of it for TalkBack in the learner's base ([description]). Not
+ * [counts] (➖): a sign that can't tell yet, neither met nor waited for (the grammar of a level the book has no pages of).
  */
 data class PathLine(
     val sign: PathSign,
@@ -35,6 +36,7 @@ data class PathLine(
     val value: String,
     val caption: String?,
     val description: String,
+    val counts: Boolean = true,
 )
 
 /** Where the treasure map stands, for the path's head. */
@@ -121,7 +123,14 @@ object ProgressLogic {
         val retention = (LevelReadiness.RETENTION * 100).roundToInt()
         val lines = listOf(
             line(PathSign.WORDS, known >= goal, "progressScreen.pathWords", emptyArray(), "$known / $goal", null),
-            line(
+            if (r.noPages) {
+                val args = arrayOf<Pair<String, Any?>>("from" to r.from)
+                PathLine(
+                    PathSign.GRAMMAR, met = false, bi("progressScreen.pathGrammar", *args), "—", bi("progressScreen.pathGrammarNone", *args),
+                    listOf(inBase("progressScreen.pathGrammar", *args), inBase("progressScreen.pathGrammarNone", *args)).joinToString(". "),
+                    counts = false,
+                )
+            } else line(
                 PathSign.GRAMMAR, r.grammar, "progressScreen.pathGrammar", arrayOf("from" to r.from), "${r.secure.size} / ${r.needSecure}",
                 "progressScreen.pathGrammarOf" to arrayOf("need" to r.needSecure, "n" to r.pages.size, "pct" to share),
             ),

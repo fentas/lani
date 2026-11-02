@@ -203,14 +203,15 @@ private fun Signs(vm: AppViewModel, teller: Villager?, r: Readiness?) {
     BigButton("🗺️  ${bi("treasure.imReady")}", onClick = vm::takeMap, color = XpGold)
 }
 
-/** The three signs, each with ✓ or ○, and the level's pages still to secure (a tap: the page). */
+/** The three signs, each with ✓ or ○ (– for one that doesn't count yet), and the level's pages still to secure (a tap: the page). */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun SignsCard(vm: AppViewModel, r: Readiness) {
     Surface(color = Color.White.copy(alpha = 0.55f), shape = RoundedCornerShape(14.dp), modifier = Modifier.fillMaxWidth()) {
         Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text(bi("treasure.signs"), style = MaterialTheme.typography.titleSmall, color = MapInk, fontFamily = Serif, fontWeight = FontWeight.Bold)
-            Sign(r.grammar, "📖 " + bi("treasure.signGrammar", "from" to r.from, "have" to r.secure.size, "need" to r.needSecure))
+            if (r.noPages) Sign(null, "📖 " + bi("treasure.signGrammarNone", "from" to r.from))
+            else Sign(r.grammar, "📖 " + bi("treasure.signGrammar", "from" to r.from, "have" to r.secure.size, "need" to r.needSecure))
             Sign(
                 r.remembered,
                 "🔁 " + bi(
@@ -237,9 +238,10 @@ private fun SignsCard(vm: AppViewModel, r: Readiness) {
 }
 
 @Composable
-private fun Sign(ok: Boolean, text: String) {
+private fun Sign(ok: Boolean?, text: String) {
     Row(verticalAlignment = Alignment.Top) {
-        Text(if (ok) "✓" else "○", color = if (ok) AlpineGreen else MapMuted, fontWeight = FontWeight.Bold, modifier = Modifier.width(22.dp))
+        // null: a sign that doesn't count (the book has no pages of the level yet)
+        Text(when (ok) { true -> "✓"; false -> "○"; null -> "–" }, color = if (ok == true) AlpineGreen else MapMuted, fontWeight = FontWeight.Bold, modifier = Modifier.width(22.dp))
         Text(text, style = MaterialTheme.typography.bodyMedium, color = MapInk)
     }
 }

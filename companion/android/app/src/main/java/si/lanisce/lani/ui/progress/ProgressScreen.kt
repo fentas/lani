@@ -365,7 +365,7 @@ internal fun PathCard(path: LevelPath, page: (String) -> GrammarPage?, onPage: (
 private val SIGN_WIDTH = 30.dp
 
 /**
- * One line of the way: ✅ or ⏳, the sign and its numbers, what they're measured against; read as one by TalkBack. With
+ * One line of the way: ✅ or ⏳ (➖ for one that doesn't count yet), the sign and its numbers, what they're measured against; read as one by TalkBack. With
  * [onClick] (the words: "📚 Moje besede · My words") a tap opens what it counts, a "›" after its numbers.
  */
 @Composable
@@ -383,7 +383,7 @@ private fun PathRow(line: PathLine, onClick: (() -> Unit)? = null) {
         verticalArrangement = Arrangement.Center,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(if (line.met) "✅" else "⏳", modifier = Modifier.width(SIGN_WIDTH), style = MaterialTheme.typography.bodyMedium)
+            Text(if (!line.counts) "➖" else if (line.met) "✅" else "⏳", modifier = Modifier.width(SIGN_WIDTH), style = MaterialTheme.typography.bodyMedium)
             Text("${line.sign.emoji} ${line.title}", style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
             Spacer(Modifier.width(8.dp))
             Text(
