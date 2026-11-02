@@ -10129,10 +10129,12 @@ def content_fixes_2():
             assert wait_for(where, 6), f"the step's scene: {where}"
         time.sleep(3 * slow())
         snap(f"cf2-{tag}-opens")
-        assert play(oks(pid, n), rf" {n}/{len(projects[pid]['steps'])}$", marks), f"{name}: played to its end card {n}/{len(projects[pid]['steps'])}"
+        ended = play(oks(pid, n), rf" {n}/{len(projects[pid]['steps'])}$", marks)
         time.sleep(1)
-        snap(f"cf2-{tag}-done")
-        b = end_button(half("common.backScene"))
+        snap(f"cf2-{tag}-done")  # where it ended, also when it isn't the end card: the hooks below leave the dialog
+        assert ended, f"{name}: played to its end card {n}/{len(projects[pid]['steps'])}"
+        # its button back: to the scene, or over the village to the village; then the scene's way back to the village
+        b = find(half("common.backScene")) or find(half("arrivals.backVillage")) or end_button(half("common.backScene"), swipes=2) or find(half("arrivals.backVillage"))
         if b is not None:
             tap_at(b)
             time.sleep(1.5)
