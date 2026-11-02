@@ -179,6 +179,23 @@ export default async function prints() {
       [sonne, mond, lune])
   }
 
+  // the older content's new supplement entries (supplement-coverage) leave the courses' sheets their meanings: an English
+  // word listed without its "to" is no verb when a pack has it, the course's own verbs stay (to rain), a noun keeps its
+  // article, and an entry found only by its lemma comes after one that lists the form (gleich)
+  {
+    const meant = (language: string, base: string) => {
+      const out = new Map<string, string>()
+      for (const s of sheetsOf(loadContent(repo, language), 'A1', { base, learner: 'Ana', gender: 'both' })) for (const w of s.words) out.set(`${s.id}/${w.word}`, w.gloss)
+      return out
+    }
+    const enSl = meant('en', 'sl')
+    const enDe = meant('en', 'de')
+    const deSl = meant('de', 'sl')
+    check('the supplements on the sheets: warm is the pack\'s topel, book knjiga, hammer kladivo (not their verbs); rain deževati, the course\'s verb; church die Kirche; gleich takoj',
+      enSl.get('articles/warm') === 'topel' && enSl.get('possessive/book') === 'knjiga' && enSl.get('possessive/hammer') === 'kladivo' && enSl.get('was-were/rain')?.startsWith('deževati') === true &&
+        enDe.get('prepositions/church') === 'die Kirche' && deSl.get('fragen/gleich') === 'takoj',
+      [enSl.get('articles/warm'), enSl.get('possessive/book'), enSl.get('possessive/hammer'), enSl.get('was-were/rain'), enDe.get('prepositions/church'), deSl.get('fragen/gleich')])
+  }
   // --- the Italian course's words: each with a meaning in each base --------------------------------------------------------
   // A word nothing means is left off "Wörter / Besede / Words" (sheet.ts Dictionary): the Italian supplement
   // (companion/lexicon/it.extra.json) means the course's everyday verbs, adverbs, nouns and expressions in German,

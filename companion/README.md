@@ -3640,8 +3640,11 @@ this, the greetings (Grüß Gott, Servus, Baba, Tschüss and Tschüs), the jobs 
 their Slovene and Italian names (Villach: Beljak, Villaco; Klagenfurt: Celovec), the numbers. A noun's lemma is
 written without its article and with its capital, its gender given: the printed sheets show it as der, die or das
 with it (`prints/sheet.ts`). Each part of the German course appends its units' words (docs/plans/05-built/course-de-a1-a.md),
-and Opa Sepp's six newer stories and the reading corner's five newer readings every word their German lines use (880
-entries since; docs/plans/05-built/stories-kaernten.md): a tap on any of them means it in the learner's base.
+and Opa Sepp's six newer stories and the reading corner's five newer readings every word their German lines use
+(docs/plans/05-built/stories-kaernten.md). Since supplement-coverage it means the rest of Kärnten's content too, and
+`lexicon/en.extra.json` the Lake District's with its function words and contractions (2,670 and 2,227 entries; a tap
+means 99.9 % and 99.8 % of the words met, in `lexicon-build --coverage`, which counts a word as the app taps it: "don't"
+is one; docs/plans/05-built/supplement-coverage.md). A tapped villager's possessive (Stankos, Wilf's) is the villager.
 
 An entry's form with `null` grammar takes Wiktionary's grammar of that form when Wiktionary has it. Names and pure
 interjections are left out. It is machine-written and not reviewed by a native speaker (`"reviewed": false`). Of the

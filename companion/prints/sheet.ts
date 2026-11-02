@@ -437,13 +437,13 @@ export class Dictionary {
   }
 
   /** The supplement's readings of [word] ([k] its form), each with its gloss in [base] and whether that is its own. */
-  private supplement(word: string, k: string, base: string, wik: Json[]): (Meaning & { inBase: boolean; self: boolean; byBare: boolean })[] {
+  private supplement(word: string, k: string, base: string, wik: Json[]): (Meaning & { inBase: boolean; self: boolean; byBare: boolean; listed: boolean; named: boolean })[] {
     // the supplement's entries of the form, and a noun's by the word without its article ("il treno": treno, "der Hund": Hund,
     // "i biscotti": biscotto, shown with its article)
     const bare = this.bare(word)
     const direct = this.extra.get(k) ?? []
     const nouns = bare ? (this.extra.get(this.key(bare)) ?? []).filter(e => e.pos === 'noun') : []
-    const out: (Meaning & { inBase: boolean; self: boolean; byBare: boolean })[] = []
+    const out: (Meaning & { inBase: boolean; self: boolean; byBare: boolean; listed: boolean; named: boolean })[] = []
     for (const e of [...direct, ...nouns]) {
       const same = wik.find(l => norm(l.lemma) === norm(e.lemma) && l.pos === e.pos)
       // its own meaning in the base (written with it), else the dictionary's of its lemma, else the English; [inBase]:
@@ -453,7 +453,12 @@ export class Dictionary {
       if (!gloss) continue
       const byBare = !direct.includes(e)
       const lemma = !byBare ? e.lemma : this.key(e.lemma) === this.key(bare!) ? word : this.withArticle(e.lemma, e.gender)
-      out.push({ lemma, pos: e.pos, gloss, gender: e.gender, inBase: !!mine, self: this.key(e.lemma) === k || lemma === word, byBare })
+      // [listed]: the form is among the entry's forms (an entry may leave its bare lemma to another: gleich, the
+      // adjective's gleiche and gleichen, is the adverb right away)
+      const listed = Object.keys(e.forms ?? {}).some(f => this.key(f) === k)
+      // [named]: the entry lists its "to …" (to walk, to rain): the course's own verb, which its units also name bare
+      const named = Object.keys(e.forms ?? {}).some(f => this.key(f) === `to ${k}`)
+      out.push({ lemma, pos: e.pos, gloss, gender: e.gender, inBase: !!mine, self: this.key(e.lemma) === k || lemma === word, byBare, listed, named })
     }
     return out
   }
@@ -468,12 +473,18 @@ export class Dictionary {
     const sup = this.supplement(word, k, base, wik)
     // the supplement's entry of the word itself, meant in the sheet's base (not a form of another word: presto is the
     // pack's early, not prestare's I lend); an Italian word listed without its article is not the noun (freddo, the
-    // adjective, is the pack's kalt; il freddo the supplement's Kälte)
-    const mine = sup.filter(x => x.inBase && x.self && !(this.language === 'it' && x.pos === 'noun' && !this.bare(word) && this.packs.has(k)))
+    // adjective, is the pack's kalt; il freddo the supplement's Kälte), an English word listed without its "to" not the
+    // verb (warm, the pack's topel, not to warm; book, hammer, fish the packs' nouns) unless the course names it so (rain)
+    const shadowed = (x: { pos: string; named: boolean }) => ((this.language === 'it' && x.pos === 'noun') || (this.language === 'en' && x.pos === 'verb' && !x.named)) && !this.bare(word) && this.packs.has(k)
+    const mine = sup.filter(x => x.inBase && x.self && !shadowed(x))
     if (mine.length) {
       const rank = (p: string) => (POS_RANK.indexOf(p) < 0 ? 50 : POS_RANK.indexOf(p))
       const fits = (x: Meaning) => (wordsOf(x.gloss).some(w => w.length > 2 && ctx.en.has(stem(w))) ? 1 : 0)
-      const best = [...mine].sort((a, b) => fits(b) - fits(a) || rank(a.pos) - rank(b.pos))[0]
+      // an entry that only repeats a pack's meaning (it is there for the forms the pack lacks) doesn't come before another
+      // entry of the word (rain, the pack's dež, doesn't push the course's to rain aside)
+      const said = this.packs.get(k)?.[base]
+      const repeats = (x: Meaning) => (x.gloss === said ? 1 : 0)
+      const best = [...mine].sort((a, b) => Number(b.listed) - Number(a.listed) || repeats(a) - repeats(b) || fits(b) - fits(a) || rank(a.pos) - rank(b.pos))[0]
       // a German noun is learned with its article (Katze: die Katze), as the packs write it
       const lemma = this.language === 'de' && best.pos === 'noun' && !this.bare(best.lemma) ? this.withArticle(best.lemma, best.gender) : best.lemma
       return { lemma, pos: best.pos, gloss: best.gloss, ...(best.gender ? { gender: best.gender } : {}) }
