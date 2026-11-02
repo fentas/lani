@@ -438,18 +438,17 @@
               ]
             },
             {
-              "label": "sie",
+              "label": {
+                "en": "sie · she",
+                "sl": "sie · ona",
+                "it": "sie · lei"
+              },
               "cells": [
                 "sie",
                 {
                   "accept": [
                     "ihr"
-                  ],
-                  "hint": {
-                    "en": "she, one person",
-                    "sl": "ona, ena oseba",
-                    "it": "lei, una persona"
-                  }
+                  ]
                 }
               ]
             },
@@ -487,18 +486,17 @@
               ]
             },
             {
-              "label": "sie · Sie",
+              "label": {
+                "en": "sie · they",
+                "sl": "sie · oni",
+                "it": "sie · loro"
+              },
               "cells": [
-                "sie · Sie",
+                "sie",
                 {
                   "accept": [
-                    "ihnen · Ihnen"
-                  ],
-                  "hint": {
-                    "en": "they, and the polite you",
-                    "sl": "oni, in vljudno vi",
-                    "it": "loro, e il Lei"
-                  }
+                    "ihnen"
+                  ]
                 }
               ]
             }
