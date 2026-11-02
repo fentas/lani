@@ -129,14 +129,17 @@ No journey changes: the map's pictures do, not its places or its taps (a buildin
 
 ## What's left
 
-- Primorska's map is the one every sprite was drawn for and stays pixel for pixel as it was, so where its own scenes
+- ~~Primorska's map is the one every sprite was drawn for and stays pixel for pixel as it was, so where its own scenes
   differ from it now (the fire station's hose tower under shingles in V gasilskem domu, under tiles on the map) the map
-  wasn't changed; a change there takes new golden digests (`ClassicLandTest`).
-- Carinthia's and the Lake District's buildings and projects have no scenes of their own yet; their map looks are the
-  map's alone (from their fire's village and the places their packs name), to be matched when their scenes come.
+  wasn't changed; a change there takes new golden digests (`ClassicLandTest`).~~ Done 2026-11-02:
+  docs/plans/05-built/map-culture-2.md.
+- ~~Carinthia's and the Lake District's buildings and projects have no scenes of their own yet; their map looks are the
+  map's alone (from their fire's village and the places their packs name), to be matched when their scenes come.~~ Done
+  2026-11-02: docs/plans/05-built/map-culture-2.md.
 
-- The bridge over the stream is the map's timber bridge in every culture; the Lake District's project says a packhorse
-  bridge of slate with one round arch (its steps, the walks over it and `BridgesTest` would change with it).
+- ~~The bridge over the stream is the map's timber bridge in every culture; the Lake District's project says a packhorse
+  bridge of slate with one round arch (its steps, the walks over it and `BridgesTest` would change with it).~~ Done
+  2026-10-30 (a6f0be83).
 - ~~The people's clothes (the kerchiefs, the hats) are the map's own in every culture.~~ Done 2026-11-01: each culture's
   people wear its own clothes on the map, as in its scenes (docs/plans/05-built/map-people.md).
 - The machine's choices of what each culture builds want a look by someone who knows the Collio, the Gailtal and the

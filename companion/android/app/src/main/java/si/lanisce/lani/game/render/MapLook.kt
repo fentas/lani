@@ -18,7 +18,8 @@ import java.util.concurrent.ConcurrentHashMap
  *   mountains at the horizon and the projects' landmarks.
  *
  * The default culture (Primorska, whose look every sprite was drawn in) and a culture without a look have no [style] and
- * every thing as the map always drew it, pixel for pixel. Read once per culture and land ([of]), so a frame asks fields.
+ * every thing as the map's own sprites draw it (they follow Primorska's scenes too, docs/plans/05-built/map-culture-2.md).
+ * Read once per culture and land ([of]), so a frame asks fields.
  */
 internal class MapLook private constructor(val id: String, val style: FireStyle?, internal val look: CultureLook) {
     private fun v(name: String): String? = look.variant(ART, name)
