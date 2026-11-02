@@ -269,6 +269,24 @@ private fun LevelSection(vm: AppViewModel, s: GameState, course: Course, view: S
     if (listing) FoldedSheet(vm, course, view) { listing = false }
 }
 
+/**
+ * "Naslednja enota: Hrana · Next unit: Food", the button after a unit's test: the next unit's title in each half's own
+ * language, not the pair in both halves ("… Hrana · Food · Next unit: Hrana · Food").
+ */
+internal fun nextUnitLabel(title: Map<String, String>, pair: si.lanisce.lani.l10n.LangPair = L10n.pair): String =
+    L10n.label(pair, "school.nextUnit", mapOf("unit" to titleArg(title)))
+
+/** "Naprej: Tabela: biti · Next: Table: to be", a unit's next worksheet, its title in each half's language. */
+internal fun continueLabel(title: Map<String, String>, pair: si.lanisce.lani.l10n.LangPair = L10n.pair): String =
+    L10n.label(pair, "school.continueStep", mapOf("step" to titleArg(title)))
+
+/** "Naprej: Uvod · Next: Introduction", "Naprej: Test · Next: Test": a unit's next step named by a label of the app ([key]). */
+internal fun continueKeyLabel(key: String, pair: si.lanisce.lani.l10n.LangPair = L10n.pair): String =
+    L10n.label(pair, "school.continueStep", mapOf("step" to si.lanisce.lani.l10n.Localized { L10n.text(it, key, target = pair.target) }))
+
+/** A content title ([si.lanisce.lani.data.Grammar.text]: the language's, else English) as a message's argument, read in the message's language. */
+private fun titleArg(title: Map<String, String>) = si.lanisce.lani.l10n.Localized { si.lanisce.lani.data.Grammar.text(title, it.code) }
+
 /** "📝 Še 9 enot v A2 · 9 more units in A2" (rows above it), "📝 14 enot v A2 · 14 units in A2" (none): a level's folded units. */
 internal fun foldedLine(view: School.LevelView): String =
     "📝 ${bi(if (view.rows.isEmpty()) "school.foldedAll" else "school.foldedMore", "n" to view.folded.size, "level" to view.state.level)}"
