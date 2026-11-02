@@ -173,7 +173,7 @@ Main had not moved past this branch's base (21aa4e9b), so the merge had nothing 
   supplement validates covers both files: `validateExtra` leaves none of the 2,670 and 2,227 entries out.
 - `tutor-export --check`: 89 files match the bridge (54 tools, 32 guide topics).
 - **Python**: `python3 -m unittest discover -s tests` 251 tests OK; `-s companion/tests` 142 OK (11 skipped).
-- **Android**: ANDROID
+- **Android**: no app code changed. The full unit suite (`testDebugUnitTest` through lani-slot.sh) had not finished when this was written; its result is in the round's report.
 - **Prints**: `school-prints --level all --html-only` for every course in every base, before and after: see "The printed
   sheets keep their meanings".
 
