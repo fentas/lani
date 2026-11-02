@@ -31,7 +31,7 @@ import { closeSync, createReadStream, existsSync, mkdirSync, openSync, readdirSy
 import { homedir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
 import { createGunzip, gzipSync } from 'node:zlib'
-import { ATTRIBUTION, normalizeForm, packKey, wordsOf, type LexiconFile } from '../bridge/src/lexicon'
+import { ATTRIBUTION, normalizeForm, packKey, possessives, wordsOf, type LexiconFile } from '../bridge/src/lexicon'
 import {
   chooseMeaning, LANI_LANGUAGES, indexRow, meaningsOf, pairsOf, pivot, samePos, shortGloss, stripArticle, unshare,
   type Candidates, type IndexRow, type Kind, type Listed, type Meaning, type PivotKind, type Table, type Together, type Via,
@@ -705,6 +705,9 @@ function contentCoverage(dict: LexiconFile, content: Map<string, number>, base: 
 
 // --- coverage ------------------------------------------------------------------------------------------------------
 
+/** A word as the app taps it (WordTokens): letters, with an apostrophe or a hyphen between two of them kept inside. */
+const TAPPED = /[\p{L}\p{M}]+(?:['’‐-][\p{L}\p{M}]+)*/gu
+
 /** The languages that write an elided word before an apostrophe (l'acqua). */
 const ELIDING = new Set(['it', 'fr', 'ca'])
 
@@ -774,10 +777,11 @@ function contentCounts(): { count: Map<string, number>; lower: Set<string>; insi
   for (const f of files) {
     for (const t of texts(JSON.parse(readFileSync(f, 'utf8')), keys)) {
       // an elided word ("l'acqua", "dov'è") is looked up as the word after its apostrophe, as the app's tap does
-      // (bridge/src/lexicon.ts)
+      // (bridge/src/lexicon.ts); another apostrophe or a hyphen between two letters is inside the word the app taps
+      // (WordTokens: "don't", "it's", "geht's", "foot-and-mouth", "e-pošta")
       const plain = countedText(t)
       const text = ELIDING.has(lang) ? plain.replace(/\p{L}+['’](?=\p{L})/gu, '') : plain
-      for (const m of text.matchAll(/[\p{L}\p{M}]+/gu)) {
+      for (const m of text.matchAll(TAPPED)) {
         const w = m[0]
         if (!/\p{L}/u.test(w)) continue // an emoji's variation selector
         const n = normalizeForm(w, lang)
@@ -828,7 +832,8 @@ function coverage() {
     // forms ("{m:rad|f:rada} bi" → rad bi)
     const oneForm = (t: string) => t.replace(/\{[mf]:([^{}|]*)\|[mf]:([^{}|]*)\}/g, '$1')
     if (isSchema(j.schema, 'lani.pack/v0')) for (const w of j.words) for (const s of [w[lang], w.plural]) if (s) packWords.add(packKey(oneForm(s), lang))
-    if (isSchema(j.schema, 'lani.villager/v0')) for (const w of wordsOf(j.name)) names.add(normalizeForm(w, lang))
+    // the villagers' names, and a given name's possessive as the lookup reads it (Stankos, Wilf's)
+    if (isSchema(j.schema, 'lani.villager/v0')) for (const w of wordsOf(j.name)) for (const n of [normalizeForm(w, lang), ...possessives(normalizeForm(w, lang), lang)]) names.add(n)
   }
   const total = [...count.values()].reduce((a, b) => a + b, 0)
   const report = (label: string, known: (w: string) => boolean) => {
@@ -861,7 +866,7 @@ function coverage() {
   // sound or an interjection (no vowel, or a letter three times: shh, bzz, oooh), or one of the language's own
   const dialect = dialectWords(files)
   const kindOf = (w: string) =>
-    dialect.has(w) || marked.has(w) ? 'dialect' : !lower.has(w) && inside.has(w) ? 'name' : !/[aeiouyàèéìíòóùú]/u.test(w) || /(\p{L})\1\1/u.test(w) ? 'sound' : 'word'
+    dialect.has(w) || marked.has(w) ? 'dialect' : !lower.has(w) && inside.has(w) ? 'name' : !/[aeiouyàèéìíòóùúäöüâêîôû]/u.test(w) || /(\p{L})\1\1/u.test(w) ? 'sound' : 'word'
   const tokensOf = (ws: [string, number][]) => ws.reduce((a, [, n]) => a + n, 0)
   console.log(`\nof them, by kind (words, tokens):`)
   for (const [kind, label] of [['name', 'names (never written small, capitalized inside a sentence)'], ['dialect', 'dialect (Friulian: â ê î ô û ç, or named so in a translation)'], ['sound', 'sounds and interjections (no vowel, or a letter three times)'], ['word', 'words of the language']] as const) {

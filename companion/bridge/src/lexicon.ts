@@ -711,13 +711,28 @@ export function glossCoverage(gloss: string[], en: Set<string>): number {
   return best
 }
 
-/** Whether a tapped word names [p]: their name or given name, or (capitalized) a declined given name (Micke, Tonetu). */
+/**
+ * Whether a tapped word names [p]: their name or given name, or (capitalized) a declined given name (Micke, Tonetu), a
+ * German given name's genitive (Stankos Honig) or an English one's possessive (Wilf's dog).
+ */
 function names(raw: string, form: string, p: Person, language: string): boolean {
   const given = normalizeForm(p.given, language)
   if (form === given || form === normalizeForm(p.name, language)) return true
+  if (/^\p{Lu}/u.test(raw) && possessives(given, language).includes(form)) return true
   const stem = /[aeiou]$/.test(given) ? given.slice(0, -1) : given
   // Slovene declension endings: Micke, Janezu, Tonetom
   return language === 'sl' && /^\p{Lu}/u.test(raw) && stem.length >= 3 && form.startsWith(stem) && /^(?:et|j)?(?:a|e|i|o|u|om|em)$/.test(form.slice(stem.length))
+}
+
+/**
+ * A name's possessive forms as the app taps them (one word with its apostrophe): German's genitive -s (Stankos, Resis;
+ * a name ending in s, x or z has only the apostrophe, which a tap leaves off), English's 's (Wilf's, Bess's). Normalized
+ * [name]; lexicon-build --coverage counts them as names too.
+ */
+export function possessives(name: string, language: string): string[] {
+  if (language === 'de') return /[sßxz]$/.test(name) ? [] : [`${name}s`]
+  if (language === 'en') return [`${name}'s`]
+  return []
 }
 
 /** A word or an expression as it is compared: normalized, without punctuation ("Lahko noč!" → "lahko noč"). */
