@@ -4056,7 +4056,7 @@ export const voiceInstructionsFor = (language: string): string => {
   if (language === 'sl') return voiceInstructions
   const from = voiceInstructions.indexOf('In the Slovene village the narrators')
   const to = voiceInstructions.indexOf('The learner has a voice too:')
-  const left = voiceInstructions.slice(0, from) + voiceInstructions.slice(to)
+  const left = from >= 0 && to > from ? voiceInstructions.slice(0, from) + voiceInstructions.slice(to) : voiceInstructions
   return forVillage(without(left, MY_VOICE_SLOVENE, '(voice_status: my_voice, players)'), language)
 }
 

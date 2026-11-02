@@ -10,11 +10,12 @@ import { LANGUAGES } from './learners'
 export const forVillage = (paragraph: string, target: string): string =>
   target === 'sl' ? paragraph : paragraph.replace(/\bSlovene\b/g, LANGUAGES[target] ?? target)
 
-/** Takes [from] out of [text] (or puts [to] in its place): a paragraph's part that holds only in a Slovene village. [from] must be there. */
-export function without(text: string, from: string, to = ''): string {
-  if (!text.includes(from)) throw new Error(`tutor-languages: the paragraph has no "${from.slice(0, 60)}"`)
-  return text.replace(from, to)
-}
+/**
+ * Takes [from] out of [text] (or puts [to] in its place): a paragraph's part that holds only in a Slovene village. A
+ * paragraph that no longer has it stays as it is: a learner's bridge never fails over a sentence (the smoke's
+ * tutor-languages section checks that no Slovene part is left).
+ */
+export const without = (text: string, from: string, to = ''): string => text.replace(from, () => to)
 
 /** A file's text without its comments, by its "## " sections. */
 const sections = (text: string): string[] =>
@@ -38,11 +39,13 @@ export function languageParts(projectDir: string, language: string, child: boole
       return ''
     }
   }
+  const general = sections(read('general.md'))
+  if (!general.length) return []
   const own = sections(read(`${language}.md`))
   const kid = own.filter(s => s.startsWith('## A child'))
   const check =
     language === 'sl'
       ? []
       : [`Checking a form in this session: WebFetch reaches fran.si only (Slovene; .claude/settings.json). For ${LANGUAGES[language] ?? language} you have the word packs (list_packs, companion/packs/${language}/, the culture pack's packs/), the grammar book (list_grammar, get_grammar), companion/lexicon/${language}.extra.json and the learner's glosses (<data>/app/lexicon.json). Nothing else is a source: what they don't settle you don't know.`]
-  return [...sections(read('general.md')), ...check, ...own.filter(s => !s.startsWith('## A child')), ...(child ? kid : [])]
+  return [...general, ...check, ...own.filter(s => !s.startsWith('## A child')), ...(child ? kid : [])]
 }

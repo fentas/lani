@@ -544,7 +544,7 @@ export const lexicon: FeatureFactory = ({ cfg, learner, channel, events, outbox,
 
   return {
     // the case lens is Slovene's: a village of another language has no such paragraph
-    instructions: language === 'sl' ? instructions : instructions.slice(0, instructions.indexOf('\nThe case lens (Slovene):')),
+    instructions: language === 'sl' ? instructions : instructions.split('\nThe case lens (Slovene):')[0]!,
     start: () => {
       // the words asked for before a restart that the tutor never heard of, or hasn't answered in a while
       if (requests.all().length) tellLater(5_000)

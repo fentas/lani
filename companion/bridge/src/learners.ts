@@ -497,7 +497,7 @@ export function learnerInstructions(
     out.push(
       [
         `Learner profile "${p.id}": this session is ${name}'s tutor.${pair}`,
-        `The paragraphs below hold for ${name} and ${facts.target || 'their target language'}: explain in ${base}. ${LABELS_NOTE} ${where}${mismatch}`,
+        `The paragraphs below hold for ${name} and ${facts.target || 'their target language'}: explain in ${base}. ${own ? `${LABELS_NOTE} ` : ''}${where}${mismatch}`,
         `${name}'s learner data is in ${dataDir}. LANI_DATA_DIR points there, so read-db.py and update-db.py use it:`,
         `always go through them. The repository's data/ and results/ directories belong to another learner: never`,
         `read or change them. Write session result files to ${join(root, 'results')}/.`,
