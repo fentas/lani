@@ -95,10 +95,11 @@ class ClassicLandTest {
         // fire basket on the square (burning for the wolves' gathering in the dark), its lanterns, smoke from the chimneys;
         // the mill's undershot wheel turning with its race, its paddles in the water going the way it runs, standing in the
         // frozen race in winter (2026-10-31, mill-mechanics: only the wheel's few pixels differ); Čebelar Anton's trousers in
-        // his sprite's canvas colour at 7 px and 14 px (2026-11-01, map-people)
+        // his sprite's canvas colour at 7 px and 14 px (2026-11-01, map-people); the buildings as Primorska's scenes build them
+        // by level and the mlaj's four ribbons (2026-11-02, map-culture-2)
         "town" to mapOf(
-            "side-day" to "6792c561aa2a3b4d", "tall-day" to "6c93d396e6c7368e", "tall-dusk-k2" to "bdb03e3d0e66645d",
-            "tall-night-k3" to "608999d437910e1", "compact" to "80bef03194f9dfe5", "widget" to "6dbed316403a0f42",
+            "side-day" to "eb42cadc678569bc", "tall-day" to "2338a1a141cd3dbd", "tall-dusk-k2" to "6792d55ce43d2890",
+            "tall-night-k3" to "3074a2a37f96b272", "compact" to "e323079338d1af32", "widget" to "2e6bed5b6b1a755",
         ),
     )
 
