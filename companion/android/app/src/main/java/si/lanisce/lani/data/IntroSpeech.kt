@@ -170,19 +170,33 @@ object IntroSpeech {
 
     /**
      * Whether a span of [intro]'s texts is in the language learned: what [isSlovene] (the app's check, [Speaker.isSlovene])
-     * says is, or a span of only the words the intro itself shows ([vocabulary], [within]: "**si lava**" of the unit
-     * riflessivi, which the app's check doesn't know). What she reads in her voice ([introStep], [summary]) and what the
-     * explanation underlines for a tap (ui/school/IntroScreen, [si.lanisce.lani.ui.Markdown]'s `learned`): the same.
+     * says is, a span of only the words the intro itself shows ([vocabulary], [within]: "**si lava**" of the unit
+     * riflessivi, which the app's check doesn't know), or of their endings ([endings]: "**-teen**" of thirteen). What she
+     * reads in her voice ([introStep], [summary]) and what the explanation underlines for a tap (ui/school/IntroScreen,
+     * [si.lanisce.lani.ui.Markdown]'s `learned`): the same.
      */
     fun learned(intro: Intro, language: String, title: String?, isSlovene: (String) -> Boolean, words: List<String> = emptyList()): (String) -> Boolean {
         val known = vocabulary(intro, language, title, isSlovene, words)
-        return { t -> isSlovene(t) || within(t, known) }
+        return { t -> isSlovene(t) || within(t, known) || endings(t, known) }
     }
 
     /** [text] has words, and all of them are [known] ones ([vocabulary]). */
     fun within(text: String, known: Set<String>): Boolean {
         val words = WORD.findAll(text.lowercase()).map { it.value }.toList()
         return words.isNotEmpty() && words.all { it in known }
+    }
+
+    /**
+     * [text] is endings only, each the end of a longer word [known] has ([vocabulary]): "**-teen**" (thirteen), "**-ty**"
+     * (twenty), "**-o, -i, -a**" (canto, canti, canta), "**-ere, -ire → -endo**". An explanation names the endings of the
+     * words the intro shows, so the teacher reads them, not the phone's voice of the base.
+     */
+    fun endings(text: String, known: Set<String>): Boolean {
+        val t = text.lowercase()
+        val found = WORD.findAll(t).toList()
+        return found.isNotEmpty() && found.all { m ->
+            m.range.first > 0 && t[m.range.first - 1] == '-' && known.any { it.length > m.value.length && it.endsWith(m.value) }
+        }
     }
 
     private val WORD = Regex("""\p{L}+""")

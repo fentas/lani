@@ -5025,7 +5025,7 @@ LANI_DEV_DATA=$(cd companion/bridge && bun test/fixtures/make-learner.ts /tmp/qa
 companion/bin/qa --steps visit-voices,visit-voices-silent,visit-sky   # a visit's voices on a tablet without Slovene (a synthetic Italian learner from German, the Slovene fixture town with its own clips, a fake ElevenLabs; LANI_DEV_TOWN_PORT of your own): the town's clip, one voiced on the node, the offer, Ne zdaj, the 🔇 note, the download, Piper; the moon's card on the visit in sl · de
 LANI_DEV_DATA=<a synthetic learner> LANI_QA_MILL_SHOTS=<dir> companion/bin/qa-slot --steps mill-turning   # the mill's wheels turning: in from the stream's mill, closer up, the waterwheel in the middle, a burst of screenshots a fraction of a second apart, the wheel's frames side by side; LANI_QA_MILL_HOUR=22.5 at night (docs/plans/05-built/mill-mechanics.md)
 LANI_QA_SETUP_PAIR=it-de LANI_QA_TOUR_SHOTS=<dir> companion/bin/qa-slot --steps setup-tour   # the first launch on Teo's tablet (2560 × 1600, on its side and upright), alone (no node): a child learning Italian from German on this device, each step's shots, what it said (tour-speech.txt), Back, the aim, the voice, the founding; the taps counted (docs/plans/05-built/setup-refresh.md)
-companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes
+companion/bin/qa --steps road                    # only the car's "🚗 Za pot" (and setup), a few minutes; on a synthetic learner with LANI_DEV_FAKE_ELEVENLABS=1 (its clips made first)
 companion/bin/qa --steps trade                   # only a trade of food for wood (and setup), about 3 minutes
 companion/bin/qa --steps sheets-settle           # flings into the ends of Home and two sheets: each comes to rest
 companion/bin/qa --steps cheat-sheet             # the cheat sheet from Home, from an exercise, a tutor message pinned from its long press
@@ -5342,7 +5342,11 @@ food for wood now (the wood store full, food traded away today) skips the step a
 for a small library (`road:mini`): two items of each kind from the dev bridge (cards, words, dialogs, stories,
 phrases, drills) and eight quiz questions (the kinds in turn) with the quiz's fixed phrases, their clips downloaded,
 their prompts rendered and the quiz's texts the voice store lacks voiced (the dev bridge has no engine: the
-emulator's own voice) in the background. It waits until the sheet says
+emulator's own voice) in the background. The car plays only what the voice store has, so on a learner the dev bridge has
+no clips of (a synthetic one, `LANI_DEV_DATA`) QA first has the dev bridge voice what a small library takes (`road_clips`:
+four cards due, four words of the first pack the road teaches with their examples, a dialog and a story's evening, at
+most 45 texts, `POST /voice/say` in the female narrator's voice, the last of every voice chain): that needs a voice
+engine there (`LANI_DEV_FAKE_ELEVENLABS=1`, its tones); without one the step skips and says so. It waits until the sheet says
 "✅ Končano" and reports the notifications ("🚗 Pripravljam za pot … %" if it is quick enough to catch it, "Končano" at
 the end). Then it:
 

@@ -596,7 +596,9 @@ if (tempo) {
 }
 const packs =new PackStore(packsDirs(process.env.LANI_PACKS_DIR ?? join(root, 'companion/packs'), cultures, culture, language), join(appDir, 'packs'))
 const modules = new ModuleStore(join(appDir, 'modules'), ofLanguage(process.env.LANI_MODULES_DIR ?? join(root, 'companion/modules')), log)
-const scenarios = new ScenarioStore(ofLanguage(process.env.LANI_SCENARIOS_DIR ?? join(root, 'companion/scenarios')), join(appDir, 'scenarios'))
+// the role-plays of the village's language, as the bridge has them (build.ts: an Italian village's are companion/scenarios/it,
+// and its scenes' dialogs name them as their talks)
+const scenarios = new ScenarioStore(ofLanguage(process.env.LANI_SCENARIOS_DIR ?? join(root, 'companion/scenarios')), join(appDir, 'scenarios'), log, language)
 const villagers = new VillagerStore(process.env.LANI_VILLAGERS_DIR ?? join(cultureDir(cultures, culture), 'villagers'), join(appDir, 'villagers'), log)
 const scenes = new SceneStore(scenesDirs(process.env.LANI_SCENES_DIR ?? join(root, 'companion/scenes'), cultures, culture, language), join(appDir, 'scenes'), () => ({ packs: packs.all(), scenarios: scenarios.all(), villagers: villagers.all() }), log)
 // the storyteller's stories: the village's culture pack's (its stories/), and the tutor's, as the bridge has them

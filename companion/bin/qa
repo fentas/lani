@@ -31,7 +31,8 @@ Usage: companion/bin/qa [--no-build | --build-only] [--minified | --apk <file>] 
                        the app with that child's town: its Friends with "👪 Tvoj starš vidi tvoj napredek", the parent's
                        progress seen as just the village; "road" the car's
                        "🚗 Za pot" (a small library got ready, played, next, paused; "❓ Kviz": a pick by next, a
-                       question again by previous; browsed as Android Auto does: two tabs, each session played);
+                       question again by previous; browsed as Android Auto does: two tabs, each session played; a
+                       synthetic learner's clips made first, LANI_DEV_FAKE_ELEVENLABS=1, else skipped);
                        "scene-building" a building's scene (the hut's kitchen, a house's room …) with the building in
                        its top bar, its card opened from there, its words' run and back to the card in the scene;
                        "fire-peek" hide-and-seek by the fire: the children hidden behind the stump, peeking out at a
@@ -1109,6 +1110,7 @@ def setup(url=None, token=None):
             # a learner without a village yet (LANI_DEV_DATA: a new learner's data): it's founded where it's offered;
             # at the screen's end it stays low, below scroll_to's band: found as it is then
             setup_shot("founding")
+            founding_seed()
             founding_read()
             here_at = scroll_to(here, 4) or find(here)
             if here_at:
@@ -9407,7 +9409,9 @@ def course_unit():
     step's field), the summary, its first worksheet, its test straight away, passed, the next unit's "★" named once in
     each half (next_unit_once); the dev bridge's village keeping it done; its sheet printed from the unit (fit.js in the WebView as in Chromium, the dialog's preview, the PDF, A4). The
     German course in the Carinthian village (docs/plans/05-built/course-de-a1-a.md), the English one in the Lake
-    District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS."""
+    District's, any other the same way. Also as cu-*.png in $LANI_QA_COURSE_SHOTS. $LANI_QA_COURSE_SAID ("teen,ty"): endings its
+    steps name in bold, each read in the language learned's voice, not the base's (tag IntroVoice; on a dev bridge with no voice
+    engine the explanation goes in its runs), docs/plans/05-built/qa-repair.md."""
     if not COURSE_UNIT:
         return "skipped: no unit named (LANI_QA_COURSE_UNIT)"
     try:
@@ -9554,6 +9558,20 @@ def course_unit():
         steps = u["intro"]["steps"]
         for i, st in enumerate(steps, 1):
             assert wait_for(half("school.stepOf", n=i, of=len(steps)), 12), f"step {i}"
+            # the endings of $LANI_QA_COURSE_SAID this step names in bold, as they are read (tag IntroVoice: the explanation's clip
+            # can't be had on a dev bridge without a voice engine, so it goes in its runs): each in the language learned's
+            # voice, never the phone's voice of the base (IntroSpeech.endings)
+            say = st.get("say")
+            say = (say.get(pair[1]) or say.get("en") or "") if isinstance(say, dict) else (say or "")
+            for w in [w for w in os.environ.get("LANI_QA_COURSE_SAID", "").split(",") if w and f"**-{w}**" in say]:
+                end, line = time.time() + 60 * slow(), None
+                while line is None and time.time() < end:
+                    line = next((l.split(": ", 1)[-1] for l in adb("logcat", "-d", "-s", "IntroVoice:I", check=False).splitlines() if f'"-{w}"' in l), None)
+                    time.sleep(1)
+                assert line, f"step {i}: «-{w}» wasn't read: {' / '.join(adb('logcat', '-d', '-s', 'IntroVoice:I', check=False).splitlines()[-4:])}"
+                print(f"    step {i}: {line}")
+                assert f"tts:{pair[1]}" not in line, f"step {i}: «-{w}» read by the phone's voice of the base: {line}"
+                snap(f"cu-intro-{i}-said-{w}")
             a = st.get("ask")
             if a is None:
                 assert tap(nxt, 4), f"step {i}'s next"
@@ -13674,14 +13692,10 @@ def founding_read():
         shutil.copy(shots[-1], Path(d) / "read-founding.png")
 
 
-def found_village():
-    """A dev bridge's copy without a village (a synthetic learner, LANI_DEV_DATA): founded here, as the learner would
-    ("✓ Tu bo moja vas · My village will be here"); nothing when there is one. With LANI_QA_FOUND_SEED the place is that
-    seed's (QA's hook "seed:<n>"; 551323397: Teo's coast), its preview shot first (founding-preview; also as
-    coast-preview.png in $LANI_QA_COAST_SHOTS)."""
-    c = wait_for("Kje bo tvoja vas", 4)
-    if c is None:
-        return
+def founding_seed():
+    """On the founding screen, with LANI_QA_FOUND_SEED: the place is that seed's (QA's hook "seed:<n>"; 551323397: Teo's coast),
+    its preview shot (founding-preview; also as coast-preview.png in $LANI_QA_COAST_SHOTS), the screen at its top again.
+    Where setup founds the village (a learner without one) too, or the seed would come after the founding and do nothing."""
     if seed := os.environ.get("LANI_QA_FOUND_SEED"):
         qa_hook(f"seed:{seed}")
         time.sleep(2 * slow())
@@ -13694,7 +13708,19 @@ def found_village():
         if d := os.environ.get("LANI_QA_COAST_SHOTS"):
             Path(d).mkdir(parents=True, exist_ok=True)
             shutil.copy(shots[-1], Path(d) / "coast-preview.png")
-    adb("shell", "input", "swipe", "540", "900", "540", "1700", "300")  # its top again
+        adb("shell", "input", "swipe", "540", "900", "540", "1700", "300")  # its top again
+        time.sleep(0.8)
+
+
+def found_village():
+    """A dev bridge's copy without a village (a synthetic learner, LANI_DEV_DATA): founded here, as the learner would
+    ("✓ Tu bo moja vas · My village will be here"), at LANI_QA_FOUND_SEED's place when set (founding_seed); nothing when there
+    is one."""
+    c = wait_for("Kje bo tvoja vas", 4)
+    if c is None:
+        return
+    founding_seed()
+    adb("shell", "input", "swipe", "540", "900", "540", "1700", "300")  # its top
     time.sleep(0.8)
     founding_read()
     for _ in range(3):  # its foot: the button under the picture (the screen scrolls only so far)
@@ -14846,9 +14872,79 @@ def voice_node_clip():
         restart()
 
 
+ROAD_DUE_AHEAD_DAYS = 3  # road/RoadGather.DUE_AHEAD_DAYS: the cards due within these days go to the car
+
+
+def road_clips() -> str | None:
+    """The clips a small library ("road:mini") takes, made by the dev bridge first where its voice store lacks them. The car
+    plays only what the store has (road/RoadGather: getting the road ready never has anything voiced), so a learner the dev
+    bridge has no clips of (a synthetic one, LANI_DEV_DATA) had nothing on the phone but the quiz ("nothing in 🚗 Za pot on
+    the phone"). With a voice engine on the dev bridge (LANI_DEV_FAKE_ELEVENLABS=1: its tones), POST /voice/say voices in
+    the female narrator's voice (the last of every voice chain, Clips.chain) the fronts of four cards due within
+    ROAD_DUE_AHEAD_DAYS, four next words of the first pack the road teaches (RoadGather.packOrder) with their examples, and
+    what a dialog of the village's scenes and a story's evening at A1 play (RoadPlay.play: the lines, the right choices and
+    their replies), at most 45 texts: the bridge voices 60 live lines in 10 minutes (VoiceStore.liveSlot), so the app keeps
+    some. A text with a clip already comes back as it is (a copy of a learner's data). None when the car has something, else
+    why not (the step skips)."""
+    import datetime
+    from concurrent.futures import ThreadPoolExecutor
+
+    def played(lines) -> list[str]:
+        """What RoadPlay.play says of [lines]: each line, each right choice and its reply (the key is "sl" in every language)."""
+        out = []
+        for l in lines if isinstance(lines, list) else []:
+            if isinstance(l.get("sl"), str) and l["sl"].strip():
+                out.append(l["sl"])
+            for c in l.get("choices") or []:
+                if c.get("ok") and isinstance(c.get("sl"), str):
+                    out += [c["sl"]] + ([c["reply"]["sl"]] if isinstance((c.get("reply") or {}).get("sl"), str) else [])
+        return out
+
+    texts: list[str] = []
+    target = api("/culture").get("language") or "sl"
+    items = ((dev_bridge("/state").get("databases") or {}).get("spaced_repetition") or {}).get("items") or {}
+    until = (datetime.date.today() + datetime.timedelta(days=ROAD_DUE_AHEAD_DAYS)).isoformat()
+    texts += [v["content"] for v in items.values() if isinstance(v, dict) and isinstance(v.get("content"), str)
+              and v.get("type") not in ("error_pattern", "counting", "forms") and (v.get("due_date") or "")[:10] <= until][:4]
+    levels = ["A1", "A2", "B1", "B2", "C1", "C2"]
+    packs = [p for p in dev_bridge("/packs") if not p.get("done") and not p.get("festival") and p.get("total")]
+    packs.sort(key=lambda p: (0 if p.get("learned") else 1, levels.index(p["level"]) if p.get("level") in levels else 99))
+    if packs:
+        pack = dev_bridge(f"/packs/{urllib.parse.quote(packs[0]['id'])}")
+        lang = pack.get("language") or "sl"
+        for w in [w for w in pack.get("words", []) if w.get("id") not in (pack.get("learned") or [])][:4]:
+            texts += [t for t in (w.get(lang), w.get(f"example_{lang}")) if isinstance(t, str)]
+    # a dialog and a story's evening that fit (the fewest texts first)
+    dialogs = [played(d.get("lines")) for s in dev_bridge("/scenes") if s.get("language") == target for d in s.get("dialogs") or []]
+    texts += min((d for d in dialogs if d), key=len, default=[])
+    evenings = []
+    for s in dev_bridge("/stories"):
+        if s.get("language") == target:
+            for part in s.get("parts") or [s]:
+                evenings.append(played(((part.get("levels") or {}).get("A1") or {}).get("lines")))
+    texts += min((e for e in evenings if e), key=len, default=[])
+    texts = list(dict.fromkeys(t for t in texts if "{" not in t and len(t) <= 400))[:45]
+    if not texts:
+        return "nothing of the learner's for the car on the dev bridge (no cards due, no packs, dialogs or stories)"
+
+    def say(t: str) -> bool:
+        try:
+            return bool(dev_bridge("/voice/say", {"text": t, "voice": "female"}))
+        except (OSError, RuntimeError, ValueError):
+            return False
+
+    with ThreadPoolExecutor(4) as pool:
+        made = sum(pool.map(say, texts))
+    print(f"    the car's texts on the dev bridge: {made} of {len(texts)} with a clip (cards due, a pack's words, a dialog, a story's evening)")
+    if not made:
+        return "the dev bridge has no clips of the learner's texts and no voice engine to make them (LANI_DEV_FAKE_ELEVENLABS=1 gives one)"
+    return None
+
+
 def road():
     """"🚗 Za pot" in the car: QA's small library ("road:mini": two items of each kind and eight quiz questions from the dev
-    bridge, the files got in the background, "🚗 Pripravljam za pot … %" in a notification) until the sheet says
+    bridge, the files got in the background, "🚗 Pripravljam za pot … %" in a notification; on a learner the dev bridge has
+    no clips of, they are made first: road_clips) until the sheet says
     "Končano"; "▶ Nadaljuj" started from the sheet plays (dumpsys media_session: PLAYING, an item); next in the pause to say
     the Slovene plays the answer (the same item, on past the pause), next after it the next item, the app still running
     and playing; paused. "❓ Kviz" from the sheet: next while the second option is read picks it (its feedback plays,
@@ -14856,6 +14952,8 @@ def road():
     ("road:car": the platform's media browser browses the root's two tabs, "🚗 Za pot" a grid of four and "Več" a list,
     and plays each session from its id): every session with items on the phone plays, none fails ("Failed to load
     selection" in a car), the app still runs."""
+    if why := road_clips():
+        return why
     go_home()
     tile = scroll_to("Za pot", 6, exact=True)
     assert tile, "the 🚗 Za pot tile"

@@ -173,7 +173,8 @@ goes (`data/IntroVoice.kt`, what is read: `data/IntroSpeech.kt`):
    - the Slovene parts in Mojca's voice, at their place: a span in **bold**, *italics* or „quotes" that the app's
      check says is Slovene (as the chat's Markdown taps it), or whose words the intro itself shows (its examples, its
      table and its head, its questions, the unit's title: "**Biti**", and the unit's `words`: an infinitive only its
-     explanation names, "**cantare**");
+     explanation names, "**cantare**"), or endings only, each the end of one of those words ("**-teen**" of thirteen,
+     "**-o, -i, -a**" of canto, canti, canta, "**-ega**": `IntroSpeech.endings`);
    - each run marked in the explanation as it is read, a short pause between them.
    The spans read in her voice are the ones underlined in the explanation for a tap to hear (🔈), in her bubble, on the
    board, in a quick question's why and in the summary: the same check (`IntroSpeech.learned`), so "**si lava**" of the
@@ -1006,7 +1007,7 @@ page of its own, its summary card (docs/plans/05-built/it-b1-b.md):
   Maestra Elena or signor Franco, to whom the child says Lei).
 - **Read aloud**: every bold form of an explanation is one the intro shows (its examples, its table, its questions or
   the unit's `words`: glieli, gliele, gliene are among pronomi-combinati's), so Elena reads it and never the phone's
-  German voice; only gerundio's endings -ando, -endo are, as in A2.
+  German voice; gerundio's endings -ando, -endo too, as the words the intro shows end with them (`IntroSpeech.endings`).
 
 ### The Italian course: B1, units 13–18
 
@@ -1180,7 +1181,7 @@ the tarn, Keswick eight miles off. The school is the same school, and every part
 | What | For English |
 |---|---|
 | Who teaches | the school's person of the cast (`Residents.brings(SCHOOL)`: Mrs Hartley, her home the school), in the cast's `teacher` voice (Matilda; `@hartley` once she has her own); she teaches the children by day and the grown-ups in the evening class, first names both ways but "Mrs Hartley" |
-| Read aloud | the intro's English in her voice: `Spoken.looks` for English (its frequent words; English has no letters of its own, so a bold form is read in her voice when its words are English's or the intro shows them: its examples, its table, its questions, the unit's `words`); the explanation in the learner's base as one clip (`sl\|…`, `de\|…`, `it\|…`) |
+| Read aloud | the intro's English in her voice: `Spoken.looks` for English (its frequent words; English has no letters of its own, so a bold form is read in her voice when its words are English's or the intro shows them: its examples, its table, its questions, the unit's `words`; an ending, **-teen**, when one of those words ends with it); the explanation in the learner's base as one clip (`sl\|…`, `de\|…`, `it\|…`) |
 | The teacher's lines | "Welcome to the school! Sit down, let's start." and "Excellent! You know this already: …" (the app's English strings) |
 | Texts per base | every explanation (`say`, `summary`), title, goal, instruction, hint, why, label, column and translation in Slovene, German and Italian, and in English: the format wants it always, so it is plain English, the fallback |
 | Grading | the English table (`grading/en.json`): a contraction is its long form (I'm = I am, isn't = is not, he's got = he has got, Jack's at home = Jack is at home); 21 to 99 with or without the hyphen; the American "a hundred five" and the American spelling (color, center, gray, mom, traveling) beside the British; -ize and -ise both; a known mistake wrong only for a word of its group: -s for -es after x, z, ch, sh, ss, -fes for -ves, woman for women, fourty, ninty, for for four, the -ing form's spelling (siting, makeing, writting), the ordinals' (nineth, twelth, fith), were and where for each other; an ordinal with or without its hyphen (twenty-first); a slip just before a long word's last letter forgiven (usualy: English's `ending_letters` is 1); a contraction without its apostrophe almost, never right (cant, isnt, Im: the apostrophe's hint with English's examples, can't, I'm), its, were, lets staying words of their own; those and these for each other, gos and dos for goes and does, flyes and babyes for flies and babies (units 7–12) |
@@ -1225,7 +1226,8 @@ A1's first six units, the greetings to the numbers (units 7–18 are written by 
   wrong by grading/en.json (its `wrong`, an ending or the distance), never almost (`EnglishCourseContentTest`).
 - **The spelled forms in the intro's table** (buses, dishes, families, calves, roofs): a bold form of the explanation is
   read in Mrs Hartley's voice when English's frequent words or the intro's own words make it English; a plural the
-  table doesn't show would be read by the phone's voice of the base. Only the endings -teen and -ty are left to it.
+  table doesn't show would be read by the phone's voice of the base. An ending in bold is hers when a word the intro
+  shows ends with it (**-teen** of thirteen, **-ty** of twenty: `IntroSpeech.endings`).
 - **A worksheet's title per base is the base's own words** (`{"en": "Count", "de": "Zähl"}`): the app shows the
   course's language's and the base's side by side ("Count · Zähl"); "Count · Zähl" as the German showed "Count · Count ·
   Zähl".
