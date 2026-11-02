@@ -1,0 +1,1917 @@
+{
+  "schema": "lani.project-steps/v0",
+  "project": "balinisce",
+  "language": "it",
+  "review": "it, de, sl, en: machine-written (Claude), not reviewed by a native speaker.",
+  "pack": "progetto-bocce",
+  "steps": [
+    {
+      "scene": "in-piazza",
+      "words": ["tiglio", "piano"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "face": "happy",
+              "it": "Ciao, {learner}. Piano, piano… Voglio un campo da bocce. Dove lo facciamo?",
+              "sl": "Živjo, {learner}. Počasi, počasi … Hočem balinišče. Kje ga naredimo?",
+              "en": "Hello, {learner}. Slowly, slowly… I want a bocce court. Where shall we make it?",
+              "de": "Hallo, {learner}. Langsam, langsam … Ich will eine Bocciabahn. Wo bauen wir sie?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sotto il tiglio, nonno!",
+                  "sl": "Pod lipo, dedek!",
+                  "en": "Under the linden, grandpa!",
+                  "de": "Unter der Linde, Opa!",
+                  "ok": true,
+                  "tap": "linden",
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì. C'è ombra, e c'è fresco.",
+                    "sl": "Ja. Tam je senca in hladno je.",
+                    "en": "Yes. There's shade, and it's cool.",
+                    "de": "Ja. Da ist Schatten, und es ist kühl."
+                  }
+                },
+                {
+                  "it": "Sopra la bicicletta, nonno!",
+                  "sl": "Na kolesu, dedek!",
+                  "en": "On the bicycle, grandpa!",
+                  "de": "Auf dem Fahrrad, Opa!",
+                  "tap": "bicycle",
+                  "why": {
+                    "sl": "Na kolesu ni prostora za igrišče! Senco daje veliko drevo, lipa: il tiglio.",
+                    "en": "There's no room for a court on a bicycle! The big tree gives shade, the linden: il tiglio.",
+                    "de": "Auf einem Fahrrad ist kein Platz für eine Bahn! Schatten gibt der große Baum, die Linde: il tiglio."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Sulla bicicletta? Alla mia età? Eh, no.",
+                    "sl": "Na kolesu? V mojih letih? O, ne.",
+                    "en": "On the bicycle? At my age? Oh, no.",
+                    "de": "Auf dem Fahrrad? In meinem Alter? Oh nein."
+                  }
+                },
+                {
+                  "it": "Sopra la casa, nonno!",
+                  "sl": "Na hiši, dedek!",
+                  "en": "On the house, grandpa!",
+                  "de": "Auf dem Haus, Opa!",
+                  "tap": "house",
+                  "why": {
+                    "sl": "S strehe se krogle odkotalijo! Spodaj, v senci, je veliko drevo: il tiglio.",
+                    "en": "The balls would roll off the roof! Down below, in the shade, stands the big tree: il tiglio.",
+                    "de": "Auf dem Dach rollen die Kugeln herunter! Unten, im Schatten, steht der große Baum: il tiglio."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Sulla casa? E chi mi porta lassù, tu?",
+                    "sl": "Na hišo? Kdo pa me nese gor, ti?",
+                    "en": "On the house? And who carries me up there, you?",
+                    "de": "Auf das Haus? Und wer trägt mich hinauf, du?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "aldo",
+              "it": "Piano, piano. Per le bocce, come deve essere il posto?",
+              "sl": "Počasi, počasi. Kakšen mora biti prostor za krogle?",
+              "en": "Slowly, slowly. For bocce, what must the place be like?",
+              "de": "Langsam, langsam. Wie muss der Platz für die Kugeln sein?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Un posto piano, nonno.",
+                  "sl": "Raven prostor, dedek.",
+                  "en": "A flat place, grandpa.",
+                  "de": "Ein ebener Platz, Opa.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Una boccia va dritta, solo se il posto è così.",
+                    "sl": "Ja. Krogla gre naravnost samo tako.",
+                    "en": "Yes. A ball only runs straight on a place like that.",
+                    "de": "Ja. Eine Kugel läuft nur so geradeaus."
+                  }
+                },
+                {
+                  "it": "Un posto storto, nonno.",
+                  "sl": "Kriv prostor, dedek.",
+                  "en": "A crooked place, grandpa.",
+                  "de": "Ein krummer Platz, Opa.",
+                  "why": {
+                    "sl": "Na krivih tleh se krogle kotalijo, kamor hočejo! Tla morajo biti ravna: piano.",
+                    "en": "On crooked ground the balls go where they like! The ground has to be flat: piano.",
+                    "de": "Auf krummem Boden rollen die Kugeln, wohin sie wollen! Der Boden muss eben sein: piano."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Storto? Allora le bocce vanno tutte a casa loro!",
+                    "sl": "Kriv? Potem gredo krogle vse domov!",
+                    "en": "Crooked? Then the balls will all go home!",
+                    "de": "Krumm? Dann laufen die Kugeln alle nach Hause!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Ecco. Sotto il tiglio. Chi va piano va sano e va lontano. Anche le bocce.",
+              "sl": "Tako. Pod lipo. Kdor gre počasi, gre zdrav in daleč. Tudi krogle.",
+              "en": "There. Under the linden. Slow and steady goes safe and far. The balls too.",
+              "de": "So. Unter der Linde. Wer langsam geht, kommt gesund und weit. Auch die Kugeln."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bepi",
+              "it": "{learner}, ieri ho fatto il giro della piazza, piano piano. Indovina dove mi sono seduto.",
+              "sl": "{learner}, včeraj sem šel okoli trga, čisto počasi. Ugani, kje sem se usedel.",
+              "en": "{learner}, yesterday I walked round the square, nice and slowly. Guess where I sat down.",
+              "de": "{learner}, gestern bin ich um den Platz gegangen, ganz langsam. Rate, wo ich mich hingesetzt habe."
+            },
+            {
+              "choices": [
+                {
+                  "it": "Sotto il tiglio.",
+                  "sl": "Pod lipo.",
+                  "en": "Under the linden.",
+                  "de": "Unter der Linde.",
+                  "ok": true,
+                  "tap": "linden",
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì. C'era ombra, e ho avuto un'idea: un campo da bocce.",
+                    "sl": "Ja. Bila je senca in dobil sem zamisel: balinišče.",
+                    "en": "Yes. There was shade, and I had an idea: a bocce court.",
+                    "de": "Ja. Da war Schatten, und ich hatte eine Idee: eine Bocciabahn."
+                  }
+                },
+                {
+                  "it": "Sopra il pallone.",
+                  "sl": "Na žogi.",
+                  "en": "On the ball.",
+                  "de": "Auf dem Ball.",
+                  "tap": "ball",
+                  "why": {
+                    "sl": "Na žogi dedek ne more sedeti! Usedel se je v senco, pod veliko drevo: il tiglio.",
+                    "en": "Grandpa can't sit on a ball! He sat in the shade, under the big tree: il tiglio.",
+                    "de": "Auf einem Ball kann Opa nicht sitzen! Er hat sich in den Schatten gesetzt, unter den großen Baum: il tiglio."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Sul pallone? Sarei ancora per terra, a ridere.",
+                    "sl": "Na žogi? Še zdaj bi ležal na tleh in se smejal.",
+                    "en": "On the ball? I'd still be on the ground, laughing.",
+                    "de": "Auf dem Ball? Dann läge ich noch am Boden und würde lachen."
+                  }
+                },
+                {
+                  "it": "Sopra la bicicletta.",
+                  "sl": "Na kolesu.",
+                  "en": "On the bicycle.",
+                  "de": "Auf dem Fahrrad.",
+                  "tap": "bicycle",
+                  "why": {
+                    "sl": "Na kolesu se sedi samo med vožnjo! Dedek je hotel senco, to pa daje veliko drevo: il tiglio.",
+                    "en": "You only sit on a bicycle when riding! Grandpa wanted shade, and the big tree gives that: il tiglio.",
+                    "de": "Auf dem Fahrrad sitzt man nur beim Fahren! Opa wollte Schatten, und den gibt der große Baum: il tiglio."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "In bicicletta? L'ultima volta avevo trent'anni.",
+                    "sl": "Na kolesu? Zadnjič sem imel trideset let.",
+                    "en": "On the bicycle? Last time I was thirty.",
+                    "de": "Auf dem Fahrrad? Das letzte Mal war ich dreißig."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "Con calma, eh. E il posto come ti sembra? Si può giocare, lì?",
+              "sl": "Brez naglice, ja. Kakšen pa se ti zdi prostor? Se lahko tam igra?",
+              "en": "No hurry, eh. And how does the place seem to you? Can you play there?",
+              "de": "Immer mit der Ruhe. Und wie gefällt dir der Platz? Kann man dort spielen?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Hai scelto un posto piano, nonno.",
+                  "sl": "Izbral si raven prostor, dedek.",
+                  "en": "You've chosen a flat place, grandpa.",
+                  "de": "Du hast einen ebenen Platz ausgesucht, Opa.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Ottantadue anni, e so ancora scegliere.",
+                    "sl": "Ja. Dvainosemdeset let, pa še znam izbirati.",
+                    "en": "Yes. Eighty-two years old, and I can still choose.",
+                    "de": "Ja. Zweiundachtzig Jahre, und ich kann noch aussuchen."
+                  }
+                },
+                {
+                  "it": "Sei scelto un posto piano, nonno.",
+                  "sl": "Izbral si raven prostor, dedek.",
+                  "en": "You've chosen a flat place, grandpa.",
+                  "de": "Du hast einen ebenen Platz ausgesucht, Opa.",
+                  "grammar": "passato-prossimo",
+                  "why": {
+                    "sl": "Pri scegliere v pretekliku rečeš hai, ne sei: hai scelto.",
+                    "en": "With scegliere the past takes hai, not sei: hai scelto.",
+                    "de": "Bei scegliere sagst du in der Vergangenheit hai, nicht sei: hai scelto."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sono che cosa? Parla piano, ho le orecchie vecchie.",
+                    "sl": "Sem kaj? Govori počasi, ušesa so mi stara.",
+                    "en": "I'm what? Speak slowly, my ears are old.",
+                    "de": "Ich bin was? Sprich langsam, meine Ohren sind alt."
+                  }
+                },
+                {
+                  "it": "Hai scelto un posto ripido, nonno.",
+                  "sl": "Izbral si strm prostor, dedek.",
+                  "en": "You've chosen a steep place, grandpa.",
+                  "de": "Du hast einen steilen Platz ausgesucht, Opa.",
+                  "why": {
+                    "sl": "Na strmem prostoru se krogle odkotalijo navzdol! Pod lipo so tla ravna: piano.",
+                    "en": "On a steep place the balls roll away downhill! Under the linden the ground is flat: piano.",
+                    "de": "Auf einem steilen Platz rollen die Kugeln weg, bergab! Unter der Linde ist der Boden eben: piano."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Ripido? E le bocce le riporti su tu?",
+                    "sl": "Strm? Pa boš krogle ti {m:nosil|f:nosila} nazaj gor?",
+                    "en": "Steep? And will you carry the balls back up?",
+                    "de": "Steil? Und du trägst die Kugeln wieder hoch?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Sì. Sotto il tiglio, all'ombra. Le bocce non hanno fretta, e io nemmeno.",
+              "sl": "Ja. Pod lipo, v senci. Krogle se jim ne mudi, meni tudi ne.",
+              "en": "Yes. Under the linden, in the shade. The balls aren't in a hurry, and nor am I.",
+              "de": "Ja. Unter der Linde, im Schatten. Die Kugeln haben keine Eile, und ich auch nicht."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "face": "thinking",
+              "it": "{learner}, ho ottantadue anni e un campo da bocce in testa. Tu, dove lo faresti?",
+              "sl": "{learner}, dvainosemdeset let imam in balinišče v glavi. Kje bi ga {m:naredil|f:naredila} ti?",
+              "en": "{learner}, I'm eighty-two and I've a bocce court in my head. Where would you make it?",
+              "de": "{learner}, ich bin zweiundachtzig und habe eine Bocciabahn im Kopf. Wo würdest du sie bauen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Lo farei sotto il tiglio.",
+                  "sl": "{m:Naredil|f:Naredila} bi ga pod lipo.",
+                  "en": "I'd make it under the linden.",
+                  "de": "Ich würde sie unter der Linde bauen.",
+                  "ok": true,
+                  "tap": "linden",
+                  "reply": {
+                    "face": "happy",
+                    "it": "Anch'io. E non perché sono vecchio: lì si sta bene.",
+                    "sl": "Jaz tudi. In ne zato, ker sem star: tam je prijetno.",
+                    "en": "So would I. And not because I'm old: it's nice there.",
+                    "de": "Ich auch. Und nicht, weil ich alt bin: Dort ist es einfach schön."
+                  }
+                },
+                {
+                  "it": "Lo farei sulla bicicletta.",
+                  "sl": "{m:Naredil|f:Naredila} bi ga na kolesu.",
+                  "en": "I'd make it on the bicycle.",
+                  "de": "Ich würde sie auf dem Fahrrad bauen.",
+                  "tap": "bicycle",
+                  "why": {
+                    "sl": "Igrišče na kolesu bi bilo smešno, a premajhno! Pod velikim drevesom je prostor: il tiglio.",
+                    "en": "A court on a bicycle would be funny, but too small! Under the big tree there's room: il tiglio.",
+                    "de": "Eine Bahn auf dem Fahrrad wäre lustig, aber zu klein! Unter dem großen Baum ist Platz: il tiglio."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Sulla bicicletta? Dovrei correrle dietro, alla mia età.",
+                    "sl": "Na kolesu? V mojih letih bi moral teči za njim.",
+                    "en": "On the bicycle? At my age I'd have to run after it.",
+                    "de": "Auf dem Fahrrad? In meinem Alter müsste ich ihm nachlaufen."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "it": "Venti metri, lì ci stanno. Ma per giocare bene, che tipo di posto serve?",
+              "sl": "Dvajset metrov tam gre. Ampak kakšen prostor je potreben za dobro igro?",
+              "en": "Twenty metres will fit there. But what kind of place do you need to play well?",
+              "de": "Zwanzig Meter passen dort hin. Aber was für einen Platz braucht man, um gut zu spielen?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Sceglierei un posto piano.",
+                  "sl": "{m:Izbral|f:Izbrala} bi raven prostor.",
+                  "en": "I'd choose a flat place.",
+                  "de": "Ich würde einen ebenen Platz aussuchen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Hai ragione. Su un terreno storto, non vince il migliore.",
+                    "sl": "Prav imaš. Na krivih tleh ne zmaga najboljši.",
+                    "en": "You're right. On crooked ground, the best doesn't win.",
+                    "de": "Du hast recht. Auf krummem Boden gewinnt nicht der Beste."
+                  }
+                },
+                {
+                  "it": "Scegliarei un posto piano.",
+                  "sl": "{m:Izbral|f:Izbrala} bi raven prostor.",
+                  "en": "I'd choose a flat place.",
+                  "de": "Ich würde einen ebenen Platz aussuchen.",
+                  "grammar": "condizionale",
+                  "why": {
+                    "sl": "Za bi izbral rečeš sceglierei, z e: a tu ne pride v poštev.",
+                    "en": "For I would choose you say sceglierei, with an e: there's no a in it.",
+                    "de": "Für ich würde aussuchen sagst du sceglierei, mit e: Das a kommt hier nicht vor."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sce… che? Dimmelo piano, come a un nonno.",
+                    "sl": "Sce … kaj? Povej počasi, kot dedku.",
+                    "en": "Sce… what? Say it slowly, as you would to a grandpa.",
+                    "de": "Sce … was? Sag es langsam, wie einem Opa."
+                  }
+                },
+                {
+                  "it": "Sceglierei un posto bagnato.",
+                  "sl": "{m:Izbral|f:Izbrala} bi moker prostor.",
+                  "en": "I'd choose a wet place.",
+                  "de": "Ich würde einen nassen Platz aussuchen.",
+                  "why": {
+                    "sl": "Na mokrih tleh krogla obtiči! Tla morajo biti ravna in suha: piano.",
+                    "en": "On wet ground the ball gets stuck! The ground must be flat and dry: piano.",
+                    "de": "Auf nassem Boden bleibt die Kugel stecken! Der Boden muss eben und trocken sein: piano."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Bagnato? Allora giochiamo a bocce con le rane.",
+                    "sl": "Moker? Potem balinamo z žabami.",
+                    "en": "Wet? Then we'll play bocce with the frogs.",
+                    "de": "Nass? Dann spielen wir mit den Fröschen Boccia."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Allora ho scelto proprio bene: un posto piano, sotto il tiglio. Grazie, {learner}.",
+              "sl": "Potem sem res dobro izbral: raven prostor pod lipo. Hvala, {learner}.",
+              "en": "Then I've chosen just right: a flat place, under the linden. Thank you, {learner}.",
+              "de": "Dann habe ich genau richtig ausgesucht: ein ebener Platz unter der Linde. Danke, {learner}."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": ["spianare", "sasso"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "it": "{learner}, sotto il tiglio il terreno ha le gobbe. Che cosa fanno i vicini?",
+              "sl": "{learner}, pod lipo so na tleh grbine. Kaj naredijo sosedje?",
+              "en": "{learner}, under the linden the ground has humps. What do the neighbours do?",
+              "de": "{learner}, unter der Linde hat der Boden Buckel. Was machen die Nachbarn?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "I vicini spianano il terreno.",
+                  "sl": "Sosedje izravnajo tla.",
+                  "en": "The neighbours level the ground.",
+                  "de": "Die Nachbarn ebnen den Boden ein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì. Una gobba alla volta.",
+                    "sl": "Ja. Grbino za grbino.",
+                    "en": "Yes. One hump at a time.",
+                    "de": "Ja. Ein Buckel nach dem anderen."
+                  }
+                },
+                {
+                  "it": "I vicini mangiano il terreno.",
+                  "sl": "Sosedje pojedo tla.",
+                  "en": "The neighbours eat the ground.",
+                  "de": "Die Nachbarn essen den Boden.",
+                  "why": {
+                    "sl": "Zemlje nihče ne je! Tla naredijo ravna: spianano, izravnajo.",
+                    "en": "Nobody eats earth! They make the ground flat: spianano, they level it.",
+                    "de": "Erde isst keiner! Sie machen den Boden flach: spianano, sie ebnen ihn ein."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Mangiano? Eh, con i miei denti non ci provo.",
+                    "sl": "Jedo? E, s svojimi zobmi tega ne poskušam.",
+                    "en": "Eat it? With my teeth, I won't try.",
+                    "de": "Essen? Mit meinen Zähnen versuche ich das nicht."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "matteo",
+              "it": "Ecco il rastrello. Che cosa viene fuori, dalla terra?",
+              "sl": "Tukaj so grablje. Kaj pride iz zemlje?",
+              "en": "Here's the rake. What's coming out of the earth?",
+              "de": "Hier ist der Rechen. Was kommt aus der Erde heraus?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Vengono fuori tanti sassi.",
+                  "sl": "Pride veliko kamnov.",
+                  "en": "Lots of stones come out.",
+                  "de": "Viele Steine kommen heraus.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Via, uno alla volta. Una boccia non li ama.",
+                    "sl": "Ja. Proč, enega za drugim. Krogla jih ne mara.",
+                    "en": "Yes. Away with them, one by one. A ball doesn't like them.",
+                    "de": "Ja. Weg damit, einer nach dem anderen. Eine Kugel mag die nicht."
+                  }
+                },
+                {
+                  "it": "Vengono fuori tanti gelati.",
+                  "sl": "Pride veliko sladoledov.",
+                  "en": "Lots of ice creams come out.",
+                  "de": "Viele Eisbecher kommen heraus.",
+                  "why": {
+                    "sl": "Lepo bi bilo! V zemlji so kamni: i sassi.",
+                    "en": "If only! What lies in the earth is stones: i sassi.",
+                    "de": "Schön wär's! In der Erde liegen Steine: i sassi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Gelati? Magari! Io lo voglio al pistacchio.",
+                    "sl": "Sladoled? Ko bi le bil! Jaz hočem pistacijo.",
+                    "en": "Ice cream? If only! I want pistachio.",
+                    "de": "Eis? Schön wär's! Ich will Pistazie."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Ecco. Chi va piano va sano, e il terreno è pulito.",
+              "sl": "Tako. Kdor gre počasi, gre zdrav, in tla so čista.",
+              "en": "There. Slow and steady, and the ground is clean.",
+              "de": "So. Wer langsam geht, kommt gesund, und der Boden ist sauber."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bepi",
+              "it": "{learner}, ieri i vicini hanno lavorato tutto il giorno. Io ho guardato. Che cosa hanno fatto?",
+              "sl": "{learner}, včeraj so sosedje delali ves dan. Jaz sem gledal. Kaj so naredili?",
+              "en": "{learner}, yesterday the neighbours worked all day. I watched. What did they do?",
+              "de": "{learner}, gestern haben die Nachbarn den ganzen Tag gearbeitet. Ich habe zugeschaut. Was haben sie gemacht?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Hanno spianato il terreno.",
+                  "sl": "Izravnali so tla.",
+                  "en": "They've levelled the ground.",
+                  "de": "Sie haben den Boden eingeebnet.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì. Adesso è come un tavolo.",
+                    "sl": "Ja. Zdaj so kot miza.",
+                    "en": "Yes. Now it's like a table.",
+                    "de": "Ja. Jetzt ist er wie ein Tisch."
+                  }
+                },
+                {
+                  "it": "Sono spianato il terreno.",
+                  "sl": "Izravnali so tla.",
+                  "en": "They've levelled the ground.",
+                  "de": "Sie haben den Boden eingeebnet.",
+                  "grammar": "passato-prossimo",
+                  "why": {
+                    "sl": "Pri spianare v pretekliku rečeš hanno, ne sono: hanno spianato.",
+                    "en": "With spianare the past takes hanno, not sono: hanno spianato.",
+                    "de": "Bei spianare sagst du in der Vergangenheit hanno, nicht sono: hanno spianato."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Sono che cosa? I vicini sono vicini, e basta.",
+                    "sl": "So kaj? Sosedje so sosedje, in konec.",
+                    "en": "They're what? The neighbours are neighbours, and that's that.",
+                    "de": "Sie sind was? Die Nachbarn sind Nachbarn, und fertig."
+                  }
+                },
+                {
+                  "it": "Hanno colorato il terreno.",
+                  "sl": "Pobarvali so tla.",
+                  "en": "They've coloured the ground.",
+                  "de": "Sie haben den Boden angemalt.",
+                  "why": {
+                    "sl": "Zemlja ne potrebuje barve! Tla so naredili ravna: hanno spianato.",
+                    "en": "Earth doesn't need paint! They've made the ground flat: hanno spianato.",
+                    "de": "Die Erde braucht keine Farbe! Sie haben den Boden flach gemacht: hanno spianato."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Colorato? Di che colore? Io lo vedo marrone.",
+                    "sl": "Pobarvali? S katero barvo? Jaz jih vidim rjava.",
+                    "en": "Coloured it? What colour? I see it brown.",
+                    "de": "Angemalt? In welcher Farbe? Ich sehe ihn braun."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "aldo",
+              "it": "Piano, piano. Il terreno era pieno di pietre. E adesso?",
+              "sl": "Počasi, počasi. Tla so bila polna kamenja. Pa zdaj?",
+              "en": "Slowly, slowly. The ground was full of rocks. And now?",
+              "de": "Langsam, langsam. Der Boden war voller Steine. Und jetzt?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "I vicini hanno tolto i sassi.",
+                  "sl": "Sosedje so odstranili kamne.",
+                  "en": "The neighbours have taken away the stones.",
+                  "de": "Die Nachbarn haben die Steine weggeräumt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Cento e più. Una boccia può correre, adesso.",
+                    "sl": "Ja. Sto in več. Krogla lahko zdaj teče.",
+                    "en": "Yes. A hundred and more. A ball can run now.",
+                    "de": "Ja. Hundert und mehr. Eine Kugel kann jetzt laufen."
+                  }
+                },
+                {
+                  "it": "I vicini hanno togliuto i sassi.",
+                  "sl": "Sosedje so odstranili kamne.",
+                  "en": "The neighbours have taken away the stones.",
+                  "de": "Die Nachbarn haben die Steine weggeräumt.",
+                  "grammar": "participi-irregolari",
+                  "why": {
+                    "sl": "Togliere ima v pretekliku posebno obliko, zapomni si jo: hanno tolto.",
+                    "en": "Togliere has a special past form you just have to remember: hanno tolto.",
+                    "de": "Togliere hat in der Vergangenheit eine besondere Form, die musst du dir merken: hanno tolto."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Togliuto? Questa non l'ho sentita in ottantadue anni.",
+                    "sl": "Togliuto? Tega nisem slišal v dvainosemdesetih letih.",
+                    "en": "Togliuto? I've not heard that in eighty-two years.",
+                    "de": "Togliuto? Das habe ich in zweiundachtzig Jahren nicht gehört."
+                  }
+                },
+                {
+                  "it": "I vicini hanno tolto i gatti.",
+                  "sl": "Sosedje so odstranili mačke.",
+                  "en": "The neighbours have taken away the cats.",
+                  "de": "Die Nachbarn haben die Katzen weggeräumt.",
+                  "why": {
+                    "sl": "Mačke se vedno vrnejo! Iz tal so vzeli kamne: i sassi.",
+                    "en": "Cats always come back! What they took out of the ground was stones: i sassi.",
+                    "de": "Die Katzen kommen immer zurück! Aus dem Boden haben sie die Steine geholt: i sassi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "I gatti? Quelli tornano da soli, sotto il tiglio.",
+                    "sl": "Mačke? Te se same vrnejo, pod lipo.",
+                    "en": "The cats? They come back by themselves, under the linden.",
+                    "de": "Die Katzen? Die kommen von allein zurück, unter die Linde."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Bene. Hanno lavorato tutti. Adesso una boccia corre senza inciampare. Io meno.",
+              "sl": "Dobro. Vsi so delali. Zdaj krogla teče brez spotikanja. Jaz manj.",
+              "en": "Good. Everyone has worked. Now a ball runs without tripping. Less so me.",
+              "de": "Gut. Alle haben gearbeitet. Jetzt läuft eine Kugel, ohne zu stolpern. Ich weniger."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "face": "thinking",
+              "it": "{learner}, mio nonno diceva: prima si prepara il terreno, poi si gioca. Prima di tutto, che cosa si fa?",
+              "sl": "{learner}, moj ded je govoril: najprej se pripravijo tla, potem se igra. Kaj se naredi najprej?",
+              "en": "{learner}, my grandfather used to say: first you get the ground ready, then you play. What do you do first of all?",
+              "de": "{learner}, mein Großvater sagte: Zuerst bereitet man den Boden vor, dann spielt man. Was macht man als Allererstes?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Prima si tolgono i sassi.",
+                  "sl": "Najprej se odstranijo kamni.",
+                  "en": "First you take away the stones.",
+                  "de": "Zuerst räumt man die Steine weg.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Lo sai come se avessi ottant'anni anche tu.",
+                    "sl": "Prav. Veš, kot da bi tudi ti {m:imel|f:imela} osemdeset let.",
+                    "en": "Right. You know that as if you were eighty too.",
+                    "de": "Richtig. Du weißt das, als wärst du auch achtzig."
+                  }
+                },
+                {
+                  "it": "Prima si togliamo i sassi.",
+                  "sl": "Najprej se odstranijo kamni.",
+                  "en": "First you take away the stones.",
+                  "de": "Zuerst räumt man die Steine weg.",
+                  "grammar": "si-impersonale",
+                  "why": {
+                    "sl": "Ko hočeš povedati na splošno, se glagol za si ujema s tistim, kar se odstrani. Pri kamnih: si tolgono.",
+                    "en": "To say what people in general do, the verb after si goes with what's taken away. With many stones: si tolgono.",
+                    "de": "Wenn du man sagen willst, passt das Verb nach si zu dem, was weggeräumt wird. Bei vielen Steinen: si tolgono."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Si… che? Mi sa che la frase ha preso un sasso.",
+                    "sl": "Si … kaj? Mislim, da se je stavek spotaknil ob kamen.",
+                    "en": "Si… what? I think that sentence has tripped on a stone.",
+                    "de": "Si … was? Ich glaube, der Satz ist über einen Stein gestolpert."
+                  }
+                },
+                {
+                  "it": "Prima si tolgono i gatti.",
+                  "sl": "Najprej se odstranijo mačke.",
+                  "en": "First you take away the cats.",
+                  "de": "Zuerst räumt man die Katzen weg.",
+                  "why": {
+                    "sl": "Mačke ne motijo in se vrnejo! Krogla se spotika ob kamne: i sassi.",
+                    "en": "The cats aren't a problem, and they come back! The ball trips on stones: i sassi.",
+                    "de": "Die Katzen stören nicht und kommen wieder! Die Kugel stolpert über Steine: i sassi."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "I gatti? Provaci tu. Io li ho sempre lasciati dormire.",
+                    "sl": "Mačke? Poskusi ti. Jaz sem jih vedno pustil spati.",
+                    "en": "The cats? You try. I've always let them sleep.",
+                    "de": "Die Katzen? Versuch du das. Ich habe sie immer schlafen lassen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "it": "Poi ci vuole una tavola lunga, da tirare sulla terra. Che cosa si fa, con la tavola?",
+              "sl": "Potem je potrebna dolga deska, ki se vleče po zemlji. Kaj se naredi z desko?",
+              "en": "Then you need a long board, to drag across the earth. What do you do with the board?",
+              "de": "Dann braucht man ein langes Brett, das man über die Erde zieht. Was macht man mit dem Brett?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Si spiana il terreno.",
+                  "sl": "Tla se izravnajo.",
+                  "en": "You level the ground.",
+                  "de": "Man ebnet den Boden ein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto. Avanti e indietro, senza fretta.",
+                    "sl": "Prav. Naprej in nazaj, brez naglice.",
+                    "en": "Right. Back and forth, with no hurry.",
+                    "de": "Richtig. Hin und her, ohne Eile."
+                  }
+                },
+                {
+                  "it": "Si colora il terreno.",
+                  "sl": "Tla se pobarvajo.",
+                  "en": "You colour the ground.",
+                  "de": "Man malt den Boden an.",
+                  "why": {
+                    "sl": "Z desko nihče ne barva! Vleče se po tleh, da postanejo ravna: si spiana.",
+                    "en": "Nobody paints with a board! You drag it over the ground to make it flat: si spiana.",
+                    "de": "Mit einem Brett malt keiner! Man zieht es über den Boden, damit er eben wird: si spiana."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Si colora? Io lo volevo marrone, ed è già marrone.",
+                    "sl": "Pobarva? Jaz sem jih hotel rjava, in že so.",
+                    "en": "Colour it? I wanted it brown, and it's brown already.",
+                    "de": "Anmalen? Ich wollte ihn braun, und er ist schon braun."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Bene. I vicini hanno spianato il terreno e hanno tolto i sassi. Chi va piano… be', lo sai già.",
+              "sl": "Dobro. Sosedje so izravnali tla in odstranili kamne. Kdor gre počasi … no, saj že veš.",
+              "en": "Good. The neighbours have levelled the ground and taken away the stones. Slow and steady… well, you know that one.",
+              "de": "Gut. Die Nachbarn haben den Boden eingeebnet und die Steine weggeräumt. Wer langsam geht … na, das weißt du schon."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": ["sponda", "legno"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "it": "{learner}, una boccia corre, e poi esce dal campo. Che cosa serve, tutto intorno?",
+              "sl": "{learner}, krogla teče in potem pade z igrišča. Kaj je potrebno naokrog?",
+              "en": "{learner}, a ball runs, and then it leaves the court. What do we need all round?",
+              "de": "{learner}, eine Kugel läuft und rollt dann aus der Bahn. Was braucht man rundherum?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Servono le sponde.",
+                  "sl": "Potrebne so ograje.",
+                  "en": "We need the sides.",
+                  "de": "Man braucht die Banden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì. Così la boccia resta a casa.",
+                    "sl": "Ja. Tako krogla ostane doma.",
+                    "en": "Yes. That way the ball stays at home.",
+                    "de": "Ja. So bleibt die Kugel zu Hause."
+                  }
+                },
+                {
+                  "it": "Servono le sedie.",
+                  "sl": "Potrebni so stoli.",
+                  "en": "We need the chairs.",
+                  "de": "Man braucht die Stühle.",
+                  "why": {
+                    "sl": "Stoli so za sedenje! Da se krogla ne odkotali, so naokrog ograje: le sponde.",
+                    "en": "Chairs are for sitting! To keep the ball in, there are sides all round the court: le sponde.",
+                    "de": "Stühle sind zum Sitzen! Damit die Kugel nicht wegrollt, stehen rund um die Bahn Banden: le sponde."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le sedie? Belle, per me. Ma una boccia non si siede.",
+                    "sl": "Stoli? Lepo zame. Ampak krogla ne sede.",
+                    "en": "Chairs? Nice for me. But a ball doesn't sit down.",
+                    "de": "Stühle? Schön für mich. Aber eine Kugel setzt sich nicht."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "aldo",
+              "it": "Piano, piano. E di che cosa le facciamo?",
+              "sl": "Počasi, počasi. Iz česa jih naredimo?",
+              "en": "Slowly, slowly. And what do we make them of?",
+              "de": "Langsam, langsam. Und woraus machen wir sie?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Di legno, nonno.",
+                  "sl": "Iz lesa, dedek.",
+                  "en": "Of wood, grandpa.",
+                  "de": "Aus Holz, Opa.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Una boccia ci batte e torna indietro.",
+                    "sl": "Ja. Krogla se zaleti vanje in se vrne.",
+                    "en": "Yes. A ball knocks against it and comes back.",
+                    "de": "Ja. Eine Kugel stößt dagegen und kommt zurück."
+                  }
+                },
+                {
+                  "it": "Di gelato, nonno.",
+                  "sl": "Iz sladoleda, dedek.",
+                  "en": "Of ice cream, grandpa.",
+                  "de": "Aus Eis, Opa.",
+                  "why": {
+                    "sl": "Sladoled se na soncu stopi! Ograje se naredijo iz desk: di legno.",
+                    "en": "Ice cream melts in the sun! You make the sides from boards: di legno.",
+                    "de": "Eis schmilzt in der Sonne! Die Banden macht man aus Brettern: di legno."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Di gelato? Con questo sole, durano poco.",
+                    "sl": "Iz sladoleda? Na tem soncu ne bodo dolgo.",
+                    "en": "Of ice cream? In this sun, they won't last.",
+                    "de": "Aus Eis? Bei dieser Sonne halten sie nicht lange."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Ecco: tutto intorno, sponde di legno. Una boccia non scappa più.",
+              "sl": "Tako: naokrog lesene ograje. Krogla ne uide več.",
+              "en": "There: wooden sides all round. A ball can't run away any more.",
+              "de": "So: Rundherum Banden aus Holz. Eine Kugel läuft nicht mehr weg."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bepi",
+              "it": "{learner}, ieri una boccia è scappata fino alla panchina, e ha svegliato un signore. Che cosa ci serve?",
+              "sl": "{learner}, včeraj je krogla ušla do klopi in zbudila nekega gospoda. Kaj potrebujemo?",
+              "en": "{learner}, yesterday a ball got away as far as the bench and woke a gentleman. What do we need?",
+              "de": "{learner}, gestern ist eine Kugel bis zur Bank gerollt und hat einen Herrn geweckt. Was brauchen wir?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Ci servono le sponde.",
+                  "sl": "Potrebujemo ograje.",
+                  "en": "We need the sides.",
+                  "de": "Wir brauchen die Banden.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì. E una parola gentile, per quel signore.",
+                    "sl": "Ja. In prijazno besedo za tistega gospoda.",
+                    "en": "Yes. And a kind word for that gentleman.",
+                    "de": "Ja. Und ein nettes Wort für diesen Herrn."
+                  }
+                },
+                {
+                  "it": "Ci serve le sponde.",
+                  "sl": "Potrebujemo ograje.",
+                  "en": "We need the sides.",
+                  "de": "Wir brauchen die Banden.",
+                  "grammar": "pronomi-indiretti",
+                  "why": {
+                    "sl": "Ograj je več, zato rečeš servono, ne serve: ci servono le sponde.",
+                    "en": "There are several sides, so you say servono, not serve: ci servono le sponde.",
+                    "de": "Es sind mehrere Banden, darum sagst du servono, nicht serve: ci servono le sponde."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Una sola? E gli altri tre lati? Conta bene.",
+                    "sl": "Samo ena? Pa druge tri strani? Dobro preštej.",
+                    "en": "Just one? And the other three edges? Count again.",
+                    "de": "Nur eine? Und die anderen drei Seiten? Zähl richtig."
+                  }
+                },
+                {
+                  "it": "Ci servono le scarpe.",
+                  "sl": "Potrebujemo čevlje.",
+                  "en": "We need the shoes.",
+                  "de": "Wir brauchen die Schuhe.",
+                  "why": {
+                    "sl": "Krogla uide tudi brez čevljev! Da ostane, so naokrog ograje: le sponde.",
+                    "en": "The ball runs off without shoes as well! To keep it in, there are sides all round: le sponde.",
+                    "de": "Die Kugel läuft doch auch ohne Schuhe weg! Damit sie bleibt, stehen rundherum Banden: le sponde."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Le scarpe? Quelle ce le ha già quel signore.",
+                    "sl": "Čevlje? Te ima tisti gospod že.",
+                    "en": "Shoes? That gentleman's got some already.",
+                    "de": "Schuhe? Die hat der Herr schon."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "Con calma. Ecco queste tavole, sono forti. Meglio queste o un foglio di carta?",
+              "sl": "Brez naglice. Tukaj so deske, močne so. Raje te ali list papirja?",
+              "en": "No hurry. Here are these boards, they're strong. Better these or a sheet of paper?",
+              "de": "Immer mit der Ruhe. Hier sind die Bretter, die sind stark. Lieber die oder ein Blatt Papier?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Il legno è più forte della carta.",
+                  "sl": "Les je močnejši od papirja.",
+                  "en": "Wood is stronger than paper.",
+                  "de": "Holz ist stärker als Papier.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. E non lo porta via il vento.",
+                    "sl": "Ja. In veter ga ne odnese.",
+                    "en": "Yes. And the wind won't carry it off.",
+                    "de": "Ja. Und der Wind trägt es nicht fort."
+                  }
+                },
+                {
+                  "it": "Il legno è più forte che la carta.",
+                  "sl": "Les je močnejši od papirja.",
+                  "en": "Wood is stronger than paper.",
+                  "de": "Holz ist stärker als Papier.",
+                  "grammar": "comparativi",
+                  "why": {
+                    "sl": "Ko primerjaš dve stvari, za più forte stoji di, tu della: più forte della carta.",
+                    "en": "When you compare two things, più forte takes di, here della: più forte della carta.",
+                    "de": "Wenn du zwei Dinge vergleichst, kommt nach più forte das Wort di, hier della: più forte della carta."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Più forte… come? Le mie orecchie hanno perso un pezzo.",
+                    "sl": "Močnejši … kako? Moja ušesa so izgubila kos.",
+                    "en": "Stronger… how? My ears have lost a piece of that.",
+                    "de": "Stärker … wie? Meine Ohren haben ein Stück verloren."
+                  }
+                },
+                {
+                  "it": "Il gelato è più forte della carta.",
+                  "sl": "Sladoled je močnejši od papirja.",
+                  "en": "Ice cream is stronger than paper.",
+                  "de": "Eis ist stärker als Papier.",
+                  "why": {
+                    "sl": "Sladoled se stopi! Močan je les desk: il legno.",
+                    "en": "Ice cream melts! What's strong is the wood of the boards: il legno.",
+                    "de": "Eis schmilzt doch! Stark ist das Holz der Bretter: il legno."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il gelato? Quello, con me, non dura neanche un minuto.",
+                    "sl": "Sladoled? Ta pri meni ne zdrži niti minute.",
+                    "en": "Ice cream? With me, that doesn't last a minute.",
+                    "de": "Eis? Das hält bei mir keine Minute."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Bene. Intorno al campo hanno messo le sponde di legno. Quel signore può stare tranquillo.",
+              "sl": "Dobro. Okoli igrišča so postavili lesene ograje. Tisti gospod je lahko miren.",
+              "en": "Good. All round the court they've put up the wooden sides. That gentleman can rest easy.",
+              "de": "Gut. Rund um die Bahn haben sie die Holzbanden aufgestellt. Der Herr kann beruhigt sein."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "it": "{learner}, manca l'ultima tavola, ma è laggiù per terra e io chinarmi non posso. Chi me la passa?",
+              "sl": "{learner}, zadnja deska manjka, ampak leži tam na tleh, jaz pa se ne morem skloniti. Kdo mi jo poda?",
+              "en": "{learner}, the last board's missing, but it's on the ground over there and I can't bend down. Who'll pass it to me?",
+              "de": "{learner}, das letzte Brett fehlt, aber es liegt dort am Boden, und ich kann mich nicht bücken. Wer gibt es mir?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Te la passo io, nonno!",
+                  "sl": "Jaz ti jo podam, dedek!",
+                  "en": "I'll pass it to you, grandpa!",
+                  "de": "Ich gebe es dir, Opa!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Grazie. Hai buone braccia, e buon cuore.",
+                    "sl": "Hvala. Imaš dobre roke in dobro srce.",
+                    "en": "Thank you. You've good arms, and a good heart.",
+                    "de": "Danke. Du hast gute Arme und ein gutes Herz."
+                  }
+                },
+                {
+                  "it": "Ti la passo io, nonno!",
+                  "sl": "Jaz ti jo podam, dedek!",
+                  "en": "I'll pass it to you, grandpa!",
+                  "de": "Ich gebe es dir, Opa!",
+                  "grammar": "pronomi-combinati",
+                  "why": {
+                    "sl": "Pred la se ti spremeni v te: te la passo. Tudi lepše zveni.",
+                    "en": "Before la, ti turns into te: te la passo. It sounds softer too.",
+                    "de": "Vor la wird aus ti ein te: te la passo. Das klingt auch weicher, wie ein Lied."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Come dici? Ho le orecchie vecchie, ma questa non torna.",
+                    "sl": "Kako praviš? Ušesa so mi stara, ampak to se ne izide.",
+                    "en": "What's that? My ears are old, but that doesn't sound right.",
+                    "de": "Wie sagst du? Meine Ohren sind alt, aber das stimmt nicht."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "it": "Il campo ha quattro lati. Una tavola non basta. Quindi, quante ne servono?",
+              "sl": "Igrišče ima štiri strani. Ena deska ni dovolj. Koliko jih je torej potrebnih?",
+              "en": "The court has four edges. One board isn't enough. So how many do we need?",
+              "de": "Die Bahn hat vier Seiten. Ein Brett reicht nicht. Also, wie viele braucht man?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Una sponda per ogni lato, quindi quattro.",
+                  "sl": "Ena ograja za vsako stran, torej štiri.",
+                  "en": "One side for each edge, so four.",
+                  "de": "Eine Bande für jede Seite, also vier.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Sai contare come il mugnaio.",
+                    "sl": "Prav. Znaš šteti kot mlinar.",
+                    "en": "Right. You can count like the miller.",
+                    "de": "Richtig. Du kannst zählen wie der Müller."
+                  }
+                },
+                {
+                  "it": "Una sedia per ogni lato, quindi quattro.",
+                  "sl": "En stol za vsako stran, torej štiri.",
+                  "en": "One chair for each edge, so four.",
+                  "de": "Ein Stuhl für jede Seite, also vier.",
+                  "why": {
+                    "sl": "Štirje stoli ne ustavijo krogle! Na robu igrišča je na vsaki strani ograja: una sponda.",
+                    "en": "Four chairs won't stop a ball! At the edge of the court, each side has a board: una sponda.",
+                    "de": "Vier Stühle halten keine Kugel auf! Am Rand der Bahn steht auf jeder Seite eine Bande: una sponda."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Quattro sedie? Allora qui viene a sedersi il paese.",
+                    "sl": "Štirje stoli? Potem pride vas sem sedet.",
+                    "en": "Four chairs? Then the village will come to sit.",
+                    "de": "Vier Stühle? Dann kommt das Dorf zum Sitzen her."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "curious",
+              "it": "E perché non le abbiamo fatte di pietra, secondo te?",
+              "sl": "Zakaj jih po tvojem nismo naredili iz kamna?",
+              "en": "And why didn't we make them of stone, do you reckon?",
+              "de": "Und warum haben wir sie deiner Meinung nach nicht aus Stein gemacht?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Perché sul legno la boccia non si rompe.",
+                  "sl": "Ker se krogla ob les ne zlomi.",
+                  "en": "Because the ball won't break on wood.",
+                  "de": "Weil die Kugel am Holz nicht kaputtgeht.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Una boccia rotta non vince, lo dico sempre.",
+                    "sl": "Ja. Zlomljena krogla ne zmaga, vedno pravim.",
+                    "en": "Yes. A broken ball never wins, I always say.",
+                    "de": "Ja. Eine kaputte Kugel gewinnt nicht, sage ich immer."
+                  }
+                },
+                {
+                  "it": "Perché sul gelato la boccia non si rompe.",
+                  "sl": "Ker se krogla ob sladoled ne zlomi.",
+                  "en": "Because the ball won't break on ice cream.",
+                  "de": "Weil die Kugel am Eis nicht kaputtgeht.",
+                  "why": {
+                    "sl": "Res ne, a sladoled se stopi! Ograje so iz lesa, ki je dovolj mehak: il legno.",
+                    "en": "True, but ice cream melts! The sides are of wood, and that's soft enough: il legno.",
+                    "de": "Sicher nicht, aber Eis schmilzt! Die Banden sind aus Holz, und das ist weich genug: il legno."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Sul gelato? Sì, ma poi me la lecchi tu, la boccia.",
+                    "sl": "Ob sladoled? Ja, ampak potem kroglo obližeš ti.",
+                    "en": "On ice cream? Yes, but then you can lick the ball.",
+                    "de": "Am Eis? Ja, aber dann schleckst du die Kugel ab."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Giusto. Intorno al campo hanno messo le sponde di legno. Adesso manca solo la sabbia.",
+              "sl": "Prav. Okoli igrišča so postavili lesene ograje. Zdaj manjka samo še pesek.",
+              "en": "Right. All round the court they've put up the wooden sides. Now only the sand is missing.",
+              "de": "Richtig. Rund um die Bahn haben sie die Holzbanden aufgestellt. Jetzt fehlt nur noch der Sand."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": ["sabbia", "spargere"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "it": "{learner}, il campo è quasi pronto. Manca una cosa fine e chiara. Che cosa?",
+              "sl": "{learner}, igrišče je skoraj pripravljeno. Manjka nekaj drobnega in svetlega. Kaj?",
+              "en": "{learner}, the court's nearly ready. Something fine and pale is missing. What?",
+              "de": "{learner}, die Bahn ist fast fertig. Es fehlt etwas Feines und Helles. Was?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Manca la sabbia.",
+                  "sl": "Manjka pesek.",
+                  "en": "The sand is missing.",
+                  "de": "Der Sand fehlt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Sì. Fine fine, come la farina.",
+                    "sl": "Ja. Droben, droben, kot moka.",
+                    "en": "Yes. Ever so fine, like flour.",
+                    "de": "Ja. Ganz fein, wie Mehl."
+                  }
+                },
+                {
+                  "it": "Manca la neve.",
+                  "sl": "Manjka sneg.",
+                  "en": "The snow is missing.",
+                  "de": "Der Schnee fehlt.",
+                  "why": {
+                    "sl": "Sneg se stopi in krogle drsijo! Na igrišče pride droben pesek: la sabbia.",
+                    "en": "Snow melts, and the balls slide! On the court goes fine sand: la sabbia.",
+                    "de": "Schnee schmilzt, und die Kugeln rutschen! Auf die Bahn kommt feiner Sand: la sabbia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La neve? Poi le bocce vanno con gli sci.",
+                    "sl": "Sneg? Potem krogle smučajo.",
+                    "en": "Snow? Then the balls will go skiing.",
+                    "de": "Schnee? Dann fahren die Kugeln Ski."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "aldo",
+              "it": "Piano, piano. Ecco la carriola, tutta piena. E adesso?",
+              "sl": "Počasi, počasi. Tu je samokolnica, čisto polna. Pa zdaj?",
+              "en": "Slowly, slowly. Here's the wheelbarrow, quite full. And now?",
+              "de": "Langsam, langsam. Hier ist die Schubkarre, ganz voll. Und jetzt?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Spargete la sabbia!",
+                  "sl": "Posujte pesek!",
+                  "en": "Spread the sand!",
+                  "de": "Verteilt den Sand!",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Piano, senza fare mucchi.",
+                    "sl": "Ja. Počasi, brez kupov.",
+                    "en": "Yes. Slowly, with no heaps.",
+                    "de": "Ja. Langsam, ohne Haufen."
+                  }
+                },
+                {
+                  "it": "Mangiate la sabbia!",
+                  "sl": "Pojejte pesek!",
+                  "en": "Eat the sand!",
+                  "de": "Esst den Sand!",
+                  "why": {
+                    "sl": "Pesek ni dober! Ležati mora po vsem igrišču: spargete, posujte ga.",
+                    "en": "Sand doesn't taste nice! It has to lie all over the court: spargete, spread it.",
+                    "de": "Sand schmeckt nicht! Er soll auf der ganzen Bahn liegen: spargete, verteilt ihn."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Mangiare? Eh, poi scricchiola tra i denti.",
+                    "sl": "Jesti? Potem škriplje med zobmi.",
+                    "en": "Eat it? Then it crunches in your teeth.",
+                    "de": "Essen? Dann knirscht es zwischen den Zähnen."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "happy",
+              "it": "Ecco. Una sabbia fine. Una boccia ci corre sopra, contenta.",
+              "sl": "Tako. Droben pesek. Krogla teče po njem vsa vesela.",
+              "en": "There. Fine sand. A ball runs over that quite happily.",
+              "de": "So. Feiner Sand. Da läuft eine Kugel gern drüber."
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bepi",
+              "it": "{learner}, ieri ho contato sei carriole, poi mi sono addormentato. Che cosa è successo?",
+              "sl": "{learner}, včeraj sem preštel šest samokolnic, potem sem zaspal. Kaj se je zgodilo?",
+              "en": "{learner}, yesterday I counted six wheelbarrows, then I fell asleep. What happened?",
+              "de": "{learner}, gestern habe ich sechs Schubkarren gezählt, dann bin ich eingeschlafen. Was ist passiert?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Hanno sparso la sabbia.",
+                  "sl": "Posuli so pesek.",
+                  "en": "They spread the sand.",
+                  "de": "Sie haben den Sand verteilt.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ah, ecco! E io che credevo di sognare.",
+                    "sl": "Aha! Jaz pa sem mislil, da sanjam.",
+                    "en": "Ah, so that's it! And I thought I was dreaming.",
+                    "de": "Ach so! Und ich dachte, ich träume."
+                  }
+                },
+                {
+                  "it": "Hanno sparguto la sabbia.",
+                  "sl": "Posuli so pesek.",
+                  "en": "They spread the sand.",
+                  "de": "Sie haben den Sand verteilt.",
+                  "grammar": "participi-irregolari",
+                  "why": {
+                    "sl": "Spargere ima v pretekliku posebno obliko, zapomni si jo: hanno sparso.",
+                    "en": "Spargere has a special past form you just have to remember: hanno sparso.",
+                    "de": "Spargere hat in der Vergangenheit eine besondere Form, die musst du dir merken: hanno sparso."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Sparguto? Non l'ho sentita nemmeno in sogno.",
+                    "sl": "Sparguto? Tega nisem slišal niti v sanjah.",
+                    "en": "Sparguto? I've not heard that even in a dream.",
+                    "de": "Sparguto? Das habe ich nicht mal im Traum gehört."
+                  }
+                },
+                {
+                  "it": "Hanno mangiato la sabbia.",
+                  "sl": "Pojedli so pesek.",
+                  "en": "They ate the sand.",
+                  "de": "Sie haben den Sand gegessen.",
+                  "why": {
+                    "sl": "Peska nihče ne je! Posuli so ga po vsem igrišču: hanno sparso.",
+                    "en": "Nobody eats sand! They spread it all over the court: hanno sparso.",
+                    "de": "Den Sand isst keiner! Sie haben ihn auf der ganzen Bahn verteilt: hanno sparso."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Mangiato? Allora stasera non hanno fame.",
+                    "sl": "Pojedli? Potem zvečer niso lačni.",
+                    "en": "Eaten it? Then they won't be hungry tonight.",
+                    "de": "Gegessen? Dann haben sie heute Abend keinen Hunger."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "franco",
+              "it": "Dieci carriole, in tutto. E con i sassi di prima, che differenza c'è?",
+              "sl": "Skupaj deset samokolnic. Kakšna pa je razlika od prejšnjih kamnov?",
+              "en": "Ten wheelbarrows in all. And what's the difference from the stones we had before?",
+              "de": "Zehn Schubkarren im Ganzen. Und was ist der Unterschied zu den Steinen von vorher?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "La sabbia è più fine dei sassi.",
+                  "sl": "Pesek je bolj droben od kamnov.",
+                  "en": "Sand is finer than stones.",
+                  "de": "Sand ist feiner als Steine.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Sotto una boccia, è come un tappeto.",
+                    "sl": "Prav. Pod kroglo je kot preproga.",
+                    "en": "Right. Under a ball, it's like a carpet.",
+                    "de": "Richtig. Unter einer Kugel ist er wie ein Teppich."
+                  }
+                },
+                {
+                  "it": "La zuppa è più fine dei sassi.",
+                  "sl": "Juha je bolj drobna od kamnov.",
+                  "en": "Soup is finer than stones.",
+                  "de": "Suppe ist feiner als Steine.",
+                  "why": {
+                    "sl": "Juha je zvečer! Na igrišču je svetel, droben pesek: la sabbia.",
+                    "en": "Soup's for this evening! On the court lies the pale, fine sand: la sabbia.",
+                    "de": "Suppe gibt es am Abend! Auf der Bahn liegt der helle, feine Sand: la sabbia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La zuppa? Quella la mangio io, stasera.",
+                    "sl": "Juha? To pojem nocoj jaz.",
+                    "en": "Soup? I'll have that this evening.",
+                    "de": "Suppe? Die esse ich heute Abend."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Bene. Sul campo hanno sparso una sabbia fine. Domani, se non dormo, si gioca.",
+              "sl": "Dobro. Po igrišču so posuli droben pesek. Jutri, če ne bom spal, se igra.",
+              "en": "Good. They've spread a fine sand on the court. Tomorrow, if I'm not asleep, we'll play.",
+              "de": "Gut. Auf der Bahn haben sie feinen Sand verteilt. Morgen, wenn ich nicht schlafe, wird gespielt."
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "face": "thinking",
+              "it": "{learner}, la sabbia va messa poca per volta, altrimenti fa i mucchi. Tu come faresti?",
+              "sl": "{learner}, pesek je treba dajati po malem, sicer naredi kupe. Kako bi ti {m:naredil|f:naredila}?",
+              "en": "{learner}, the sand goes on a little at a time, or it makes heaps. How would you do it?",
+              "de": "{learner}, der Sand kommt immer nur wenig auf einmal drauf, sonst gibt es Haufen. Wie würdest du es machen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Spargerei ogni secchio di sabbia con calma.",
+                  "sl": "Vsako vedro peska bi {m:posul|f:posula} v miru.",
+                  "en": "I'd spread each bucket of sand calmly.",
+                  "de": "Ich würde jeden Eimer Sand in Ruhe verteilen.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Lo vedi? Chi va piano va sano.",
+                    "sl": "Prav. Vidiš? Kdor gre počasi, gre zdrav.",
+                    "en": "Right. You see? Slow and steady.",
+                    "de": "Richtig. Siehst du? Wer langsam geht, kommt gesund."
+                  }
+                },
+                {
+                  "it": "Spargerei ogni secchi di sabbia con calma.",
+                  "sl": "Vsako vedro peska bi {m:posul|f:posula} v miru.",
+                  "en": "I'd spread each bucket of sand calmly.",
+                  "de": "Ich würde jeden Eimer Sand in Ruhe verteilen.",
+                  "grammar": "indefiniti",
+                  "why": {
+                    "sl": "Za ogni (vsak) stoji vedno ednina: ogni secchio.",
+                    "en": "After ogni (every) there's always just one thing, the singular: ogni secchio.",
+                    "de": "Nach ogni (jeder) kommt immer nur ein einziges Ding, also die Einzahl: ogni secchio."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Ogni… quanti? Mi sono perso tra i secchi.",
+                    "sl": "Vsak … koliko? Izgubil sem se med vedri.",
+                    "en": "Every… how many? I've got lost among the buckets.",
+                    "de": "Jeder … wie viele? Ich habe mich in den Eimern verlaufen."
+                  }
+                },
+                {
+                  "it": "Mangerei ogni secchio di sabbia con calma.",
+                  "sl": "Vsako vedro peska bi {m:pojedel|f:pojedla} v miru.",
+                  "en": "I'd eat each bucket of sand calmly.",
+                  "de": "Ich würde jeden Eimer Sand in Ruhe essen.",
+                  "why": {
+                    "sl": "Peska nihče ne je, tudi v miru ne! Ležati mora na igrišču: spargerei, posul bi.",
+                    "en": "Nobody eats sand, even calmly! It has to lie on the court: spargerei, I'd spread.",
+                    "de": "Sand isst keiner, auch nicht in Ruhe! Er soll auf der Bahn liegen: spargerei, ich würde verteilen."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Con calma, sì. Ma con la bocca piena di che cosa?",
+                    "sl": "V miru, ja. Ampak s polnimi usti česa?",
+                    "en": "Calmly, yes. But with your mouth full of what?",
+                    "de": "In Ruhe, ja. Aber mit dem Mund voll wovon?"
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "aldo",
+              "it": "Piano, piano. Qualcuno ha portato anche il rastrello. A che cosa serve, secondo te?",
+              "sl": "Počasi, počasi. Nekdo je prinesel tudi grablje. Čemu služijo, kaj misliš?",
+              "en": "Slowly, slowly. Someone's brought the rake as well. What's it for, do you reckon?",
+              "de": "Langsam, langsam. Jemand hat auch den Rechen mitgebracht. Wozu ist der wohl gut?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Serve a stendere bene la sabbia.",
+                  "sl": "Z njimi se dobro razgrne pesek.",
+                  "en": "It's for spreading the sand out well.",
+                  "de": "Damit verteilt man den Sand gut.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Giusto. Passi una volta, due volte. E non si vede più niente.",
+                    "sl": "Prav. Enkrat, dvakrat. In nič več se ne vidi.",
+                    "en": "Right. Once over, twice. And you can't see a thing any more.",
+                    "de": "Richtig. Einmal drüber, zweimal. Und schon sieht man nichts mehr."
+                  }
+                },
+                {
+                  "it": "Serve a stendere bene la neve.",
+                  "sl": "Z njimi se dobro razgrne sneg.",
+                  "en": "It's for spreading the snow out well.",
+                  "de": "Damit verteilt man den Schnee gut.",
+                  "why": {
+                    "sl": "Snega danes tu ni! Na igrišču je droben pesek: la sabbia.",
+                    "en": "There's no snow here today! On the court lies the fine sand: la sabbia.",
+                    "de": "Schnee gibt es hier heute keinen! Auf der Bahn liegt der feine Sand: la sabbia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La neve? Con questo sole, sotto il tiglio?",
+                    "sl": "Sneg? V tem soncu, pod lipo?",
+                    "en": "Snow? In this sun, under the linden?",
+                    "de": "Schnee? Bei dieser Sonne, unter der Linde?"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Giusto. Sul campo hanno sparso una sabbia fine. Domani si gioca. Le mie bocce non aspettavano altro.",
+              "sl": "Prav. Po igrišču so posuli droben pesek. Jutri se igra. Moje krogle so samo čakale na to.",
+              "en": "Right. They've spread a fine sand on the court. Tomorrow we play. My bocce set has been waiting for just this.",
+              "de": "Richtig. Auf der Bahn haben sie feinen Sand verteilt. Morgen wird gespielt. Meine Kugeln haben nur darauf gewartet."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "scene": "in-piazza",
+      "words": ["boccia", "pallino"],
+      "levels": {
+        "A1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "face": "happy",
+              "it": "Ecco, {learner}: il campo è pronto. Prima si tira la pallina piccola. Come si chiama?",
+              "sl": "Tako, {learner}: igrišče je pripravljeno. Najprej se vrže majhna krogla. Kako se ji reče?",
+              "en": "There, {learner}: the court's ready. First you throw the little ball. What's it called?",
+              "de": "Da, {learner}: Die Bahn ist fertig. Zuerst wirft man die kleine Kugel. Wie heißt die?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Si chiama il pallino.",
+                  "sl": "To je bulin.",
+                  "en": "It's called the jack.",
+                  "de": "Das ist die Zielkugel.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Piccolo, ma tutti gli vanno dietro.",
+                    "sl": "Ja. Majhen, ampak vsi gredo za njim.",
+                    "en": "Yes. Small, but everyone goes after it.",
+                    "de": "Ja. Klein, aber alle laufen ihr nach."
+                  }
+                },
+                {
+                  "it": "Si chiama il pulcino.",
+                  "sl": "To je piščanec.",
+                  "en": "It's called the chick.",
+                  "de": "Das ist das Küken.",
+                  "why": {
+                    "sl": "Pulcino in pallino zvenita podobno! Pulcino je piščanec. Majhna krogla je il pallino.",
+                    "en": "Pulcino and pallino sound alike! A pulcino is a chick. The little ball is il pallino.",
+                    "de": "Pulcino und pallino klingen ähnlich! Der pulcino ist ein Küken. Die kleine Kugel heißt il pallino."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il pulcino? Eh, quello scappa!",
+                    "sl": "Piščanec? E, ta uide!",
+                    "en": "The chick? Ah, that runs away!",
+                    "de": "Das Küken? Oh, das läuft weg!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "matteo",
+              "face": "happy",
+              "it": "Con calma, eh. Adesso tocca a Bepi. Che cosa tira?",
+              "sl": "Brez naglice, ja. Zdaj je na vrsti Bepi. Kaj vrže?",
+              "en": "No hurry, eh. Now it's Bepi's turn. What does he throw?",
+              "de": "Immer mit der Ruhe. Jetzt ist Bepi dran. Was wirft er?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Tira la boccia, nonno!",
+                  "sl": "Vrzi kroglo, dedek!",
+                  "en": "Throw the ball, grandpa!",
+                  "de": "Wirf die Kugel, Opa!",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Ecco. Piano… piano… si ferma!",
+                    "sl": "Tako. Počasi … počasi … ustavi se!",
+                    "en": "There. Slowly… slowly… it's stopping!",
+                    "de": "So. Langsam … langsam … sie bleibt stehen!"
+                  }
+                },
+                {
+                  "it": "Tira la torta, nonno!",
+                  "sl": "Vrzi torto, dedek!",
+                  "en": "Throw the cake, grandpa!",
+                  "de": "Wirf die Torte, Opa!",
+                  "why": {
+                    "sl": "Torta je za po igri! Vrže se težka krogla: la boccia.",
+                    "en": "Cake is for after the game! What you throw is the heavy ball: la boccia.",
+                    "de": "Eine Torte isst man nach dem Spiel! Geworfen wird die schwere Kugel: la boccia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La torta? Quella la mangio dopo, quando ho vinto.",
+                    "sl": "Torto? To pojem potem, ko bom zmagal.",
+                    "en": "The cake? I'll eat that after, when I've won.",
+                    "de": "Die Torte? Die esse ich nachher, wenn ich gewonnen habe."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "laugh",
+              "it": "Ho vinto! Chi va piano va sano e va lontano… e vince!",
+              "sl": "Zmagal sem! Kdor gre počasi, gre zdrav in daleč … in zmaga!",
+              "en": "I've won! Slow and steady goes safe and far… and wins!",
+              "de": "Ich habe gewonnen! Wer langsam geht, kommt gesund und weit … und gewinnt!"
+            }
+          ]
+        },
+        "A2": {
+          "lines": [
+            {
+              "who": "bepi",
+              "face": "happy",
+              "it": "{learner}, stanotte ho già giocato, nel sogno. Ma adesso è vero! Che cosa tiriamo per primo?",
+              "sl": "{learner}, ponoči sem že igral, v sanjah. Zdaj pa zares! Kaj vržemo najprej?",
+              "en": "{learner}, last night I played already, in a dream. But now it's real! What do we throw first?",
+              "de": "{learner}, heute Nacht habe ich schon gespielt, im Traum. Aber jetzt ist es echt! Was werfen wir zuerst?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Tiriamo il pallino.",
+                  "sl": "Vržemo bulin.",
+                  "en": "We throw the jack.",
+                  "de": "Wir werfen die Zielkugel.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Sì. Il più piccolo, e comanda lui.",
+                    "sl": "Ja. Najmanjši, in on ukazuje.",
+                    "en": "Yes. The smallest, and it's in charge.",
+                    "de": "Ja. Die kleinste, und sie hat das Sagen."
+                  }
+                },
+                {
+                  "it": "Tiriamo il pulcino.",
+                  "sl": "Vržemo piščanca.",
+                  "en": "We throw the chick.",
+                  "de": "Wir werfen das Küken.",
+                  "why": {
+                    "sl": "Piščanca se ne meče! Pulcino in pallino samo podobno zvenita. Majhna krogla je il pallino.",
+                    "en": "You don't throw a chick! Pulcino and pallino only sound alike. The little ball is il pallino.",
+                    "de": "Ein Küken wirft man nicht! Pulcino und pallino klingen nur ähnlich. Die kleine Kugel heißt il pallino."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Il pulcino? Povero! Lui non ha fatto niente.",
+                    "sl": "Piščanca? Ubožec! Saj ni nič naredil.",
+                    "en": "The chick? Poor thing! It hasn't done anything.",
+                    "de": "Das Küken? Das arme! Es hat doch nichts getan."
+                  }
+                }
+              ]
+            },
+            {
+              "who": "franco",
+              "it": "È lì, a sei metri. Bepi ha tirato. Che cosa è successo?",
+              "sl": "Tam je, šest metrov stran. Bepi je vrgel. Kaj se je zgodilo?",
+              "en": "It's there, six metres off. Bepi has thrown. What's happened?",
+              "de": "Sie liegt dort, sechs Meter weit. Bepi hat geworfen. Was ist passiert?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "La boccia si è fermata vicino.",
+                  "sl": "Krogla se je ustavila blizu.",
+                  "en": "The ball has stopped close by.",
+                  "de": "Die Kugel ist nah dran stehen geblieben.",
+                  "ok": true,
+                  "reply": {
+                    "face": "happy",
+                    "it": "Vicina vicina! Gliel'ho detto io, di fermarsi lì.",
+                    "sl": "Čisto blizu! Jaz sem ji rekel, naj se tam ustavi.",
+                    "en": "Ever so close! I told it to stop there.",
+                    "de": "Ganz nah! Ich habe ihr gesagt, dass sie dort stehen bleiben soll."
+                  }
+                },
+                {
+                  "it": "La boccia si ha fermato vicino.",
+                  "sl": "Krogla se je ustavila blizu.",
+                  "en": "The ball has stopped close by.",
+                  "de": "Die Kugel ist nah dran stehen geblieben.",
+                  "grammar": "riflessivi",
+                  "why": {
+                    "sl": "Fermarsi gre s si, zato v pretekliku rečeš è: si è fermata.",
+                    "en": "Fermarsi goes with si, so the past takes è: si è fermata.",
+                    "de": "Fermarsi geht mit si, und dann sagst du in der Vergangenheit è: si è fermata."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Si… che cosa? Quella frase è andata fuori campo.",
+                    "sl": "Se … kaj? Ta stavek je šel z igrišča.",
+                    "en": "It… what? That sentence has rolled off the court.",
+                    "de": "Sie … was? Dieser Satz ist aus der Bahn gerollt."
+                  }
+                },
+                {
+                  "it": "La torta si è fermata vicino.",
+                  "sl": "Torta se je ustavila blizu.",
+                  "en": "The cake has stopped close by.",
+                  "de": "Die Torte ist nah dran stehen geblieben.",
+                  "why": {
+                    "sl": "Tu nihče ne meče torte! Ustavila se je težka krogla: la boccia.",
+                    "en": "Nobody's throwing a cake here! What stopped is the heavy ball: la boccia.",
+                    "de": "Kein Mensch wirft hier eine Torte! Stehen geblieben ist die schwere Kugel: la boccia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La torta? Magari. Avrei già vinto due volte.",
+                    "sl": "Torta? Ko bi le bila. Že dvakrat bi zmagal.",
+                    "en": "The cake? If only. I'd have won twice by now.",
+                    "de": "Die Torte? Schön wär's. Dann hätte ich schon zweimal gewonnen."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "bepi",
+              "face": "proud",
+              "it": "Ho tirato la prima boccia, e ho vinto. A ottantadue anni, sai?",
+              "sl": "Vrgel sem prvo kroglo in zmagal. Pri dvainosemdesetih, veš?",
+              "en": "I threw the first ball, and I won. At eighty-two, you know.",
+              "de": "Ich habe die erste Kugel geworfen und gewonnen. Mit zweiundachtzig, weißt du?"
+            }
+          ]
+        },
+        "B1": {
+          "lines": [
+            {
+              "who": "bepi",
+              "face": "thinking",
+              "it": "{learner}, io non tiro forte: io accosto. Piano, vicino al piccolo. E tu, come tireresti?",
+              "sl": "{learner}, jaz ne mečem močno: jaz se približam. Počasi, blizu malega. Kako pa bi {m:vrgel|f:vrgla} ti?",
+              "en": "{learner}, I don't throw hard: I get close. Slowly, near the little one. And you, how would you throw?",
+              "de": "{learner}, ich werfe nicht fest: Ich spiele nah heran. Langsam, nah an die Kleine. Und du, wie würdest du werfen?"
+            },
+            {
+              "choices": [
+                {
+                  "it": "Se tirassi io, la boccia andrebbe lontano.",
+                  "sl": "Če bi {m:metal|f:metala} jaz, bi šla krogla daleč.",
+                  "en": "If I threw, the ball would go a long way.",
+                  "de": "Wenn ich werfen würde, ginge die Kugel weit weg.",
+                  "ok": true,
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Forse sì. Ma qui non vince chi va lontano.",
+                    "sl": "Morda. Ampak tu ne zmaga, kdor gre daleč.",
+                    "en": "Maybe so. But it isn't the far one who wins here.",
+                    "de": "Vielleicht. Aber hier gewinnt nicht, wer weit kommt."
+                  }
+                },
+                {
+                  "it": "Se tirerei io, la boccia andrebbe lontano.",
+                  "sl": "Če bi {m:metal|f:metala} jaz, bi šla krogla daleč.",
+                  "en": "If I threw, the ball would go a long way.",
+                  "de": "Wenn ich werfen würde, ginge die Kugel weit weg.",
+                  "grammar": "periodo-ipotetico",
+                  "why": {
+                    "sl": "Oblika z bi je samo v drugem delu. Za se rečeš tirassi: se tirassi io.",
+                    "en": "The would-form goes only in the second part. After se you say tirassi: se tirassi io.",
+                    "de": "Das Würde-Wort kommt nur einmal vor, im zweiten Teil. Nach se sagst du tirassi: se tirassi io."
+                  },
+                  "reply": {
+                    "face": "confused",
+                    "it": "Se… come? Hai bocciato la tua stessa frase.",
+                    "sl": "Če … kako? {m:Zbil|f:Zbila} si svoj stavek.",
+                    "en": "If… how? You've knocked away your own sentence.",
+                    "de": "Wenn … wie? Du hast deinen eigenen Satz weggeschossen."
+                  }
+                },
+                {
+                  "it": "Se tirassi io, la torta andrebbe lontano.",
+                  "sl": "Če bi {m:metal|f:metala} jaz, bi šla torta daleč.",
+                  "en": "If I threw, the cake would go a long way.",
+                  "de": "Wenn ich werfen würde, ginge die Torte weit weg.",
+                  "why": {
+                    "sl": "Torte nihče ne meče, ta je za jesti! Vrže se težka krogla: la boccia.",
+                    "en": "Nobody throws a cake, it's for eating! What you throw is the heavy ball: la boccia.",
+                    "de": "Eine Torte wirft keiner, die ist zum Essen! Geworfen wird die schwere Kugel: la boccia."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "La torta? Fermati! È per chi vince.",
+                    "sl": "Torta? Stoj! Ta je za zmagovalca.",
+                    "en": "The cake? Stop! That's for the winner.",
+                    "de": "Die Torte? Halt! Die ist für den, der gewinnt."
+                  }
+                }
+              ],
+              "puzzled": {
+                "face": "confused",
+                "it": "Come? Non ho capito.",
+                "sl": "Kako? Ne razumem.",
+                "en": "Sorry? I didn't understand.",
+                "de": "Wie bitte? Das habe ich nicht verstanden."
+              }
+            },
+            {
+              "who": "matteo",
+              "face": "curious",
+              "it": "Con calma… La prima è ferma. Ma a che cosa deve stare vicina, per fare un punto?",
+              "sl": "Brez naglice … Prva miruje. Čemu pa mora biti blizu, da dobi točko?",
+              "en": "No hurry… The first one's stopped. But what must it be close to, to score a point?",
+              "de": "Immer mit der Ruhe … Die erste steht still. Aber woran muss sie nah sein, um einen Punkt zu machen?"
+            },
+            {
+              "to": "bepi",
+              "choices": [
+                {
+                  "it": "Deve stare vicina al pallino.",
+                  "sl": "Biti mora blizu bulina.",
+                  "en": "It has to be close to the jack.",
+                  "de": "Sie muss nah an der Zielkugel sein.",
+                  "ok": true,
+                  "reply": {
+                    "face": "proud",
+                    "it": "Giusto. Chi è più vicino, prende il punto.",
+                    "sl": "Prav. Kdor je najbližje, dobi točko.",
+                    "en": "Right. Whoever's nearest gets the point.",
+                    "de": "Richtig. Wer am nächsten dran ist, bekommt den Punkt."
+                  }
+                },
+                {
+                  "it": "Deve stare vicina al pulcino.",
+                  "sl": "Biti mora blizu piščanca.",
+                  "en": "It has to be close to the chick.",
+                  "de": "Sie muss nah am Küken sein.",
+                  "why": {
+                    "sl": "Pulcino in pallino zvenita podobno! Točka je blizu bulina: al pallino.",
+                    "en": "Pulcino and pallino sound alike! You score a point near the jack: al pallino.",
+                    "de": "Pulcino und pallino klingen ähnlich! Einen Punkt gibt es nah an der Zielkugel: al pallino."
+                  },
+                  "reply": {
+                    "face": "laugh",
+                    "it": "Al pulcino? Quello non sta fermo un momento!",
+                    "sl": "Pri piščancu? Ta niti za trenutek ne miruje!",
+                    "en": "By the chick? That doesn't keep still a moment!",
+                    "de": "Am Küken? Das bleibt keinen Moment still!"
+                  }
+                }
+              ]
+            },
+            {
+              "who": "bepi",
+              "face": "laugh",
+              "it": "Ecco: ho tirato la prima boccia, l'ho accostata, e ho vinto! Chi va piano va sano e va lontano.",
+              "sl": "Tako: vrgel sem prvo kroglo, jo približal in zmagal! Kdor gre počasi, gre zdrav in daleč.",
+              "en": "There: I threw the first ball, got it close, and won! Slow and steady goes safe and far.",
+              "de": "So: Ich habe die erste Kugel geworfen, nah herangespielt und gewonnen! Wer langsam geht, kommt gesund und weit."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
