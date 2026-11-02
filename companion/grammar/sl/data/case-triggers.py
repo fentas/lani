@@ -293,7 +293,7 @@ T = {
   "examples": [
    ex("Maša je ob deset.", "Mass is at ten.", "deset", "loc", "pl", "ob"),
    ex("Prav. Jutri spet, ob štiri?", "All right. Again tomorrow, at four?", "štiri", "loc", "pl", "ob"),
-   ex("Ob dve pridem.", "I'll come at two.", "dve", "loc", "du", "ob"),
+   ex("Ob dve pridem.", "I'll come at two.", "dve", "loc", "du", "Ob"),
    ex("Vstanem ob pol sedem.", "I get up at half past six.", "sedem", "gen", "pl", "pol"),
    ex("Kosilo bo ob pol ene.", "Lunch will be at half past twelve.", "ene", "gen", "sg", "pol"),
    ex("Domov gremo ob pol dveh.", "We go home at half past one.", "dveh", "gen", "du", "pol"),
