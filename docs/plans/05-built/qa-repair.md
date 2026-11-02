@@ -156,11 +156,12 @@ spent. Screenshots in the session's scratchpad, `ux-qa-repair/`.
 
 ## Tests and checks
 
-On the branch with main (aff9fbf5) merged:
+On the branch with main merged (a1fe569f: main at bde83009, wave C's ux-leftovers and supplement-coverage in):
 
-- **The Android suite** through `lani-slot.sh`: 3,761 tests in 483 classes, 0 failures, 2 skipped. `IntroSpeechParityTest`
-  reads the new fixture case; `IntroSpeechTest` +1 (the rule's edges).
-- **The smoke** on ports 9750–9768 (`LANI_SMOKE_DRAMA3_PORT=9768`): 3,472 checks, all passed. New: the three prompt-clash
+- **The Android suite** through `lani-slot.sh`: 3,761 tests in 483 classes, 0 failures, 2 skipped, with main at aff9fbf5
+  (supplement-coverage's merge after it changes no Android file). `IntroSpeechParityTest` reads the new fixture case;
+  `IntroSpeechTest` +1 (the rule's edges).
+- **The smoke** on ports 9750–9768 (`LANI_SMOKE_DRAMA3_PORT=9768`): 3,476 checks, all passed. New: the three prompt-clash
   checks, the Italian role-plays in voice-build's plan, the fixture's English endings.
 - **`tsc`** clean; `bun build --no-bundle` on the changed test files; **`tutor-export --check`**: 89 files match.
 - **Python**: `companion/tests` 145 (11 skipped; `test_qa_road` 3 of them), `tests` 251.
@@ -176,5 +177,8 @@ with their units).
 
 - The prompt-clash baseline's homonyms (well, bark, wax, spring, trunk …) could each get a prompt of its own; content
   agents decide, then `bun test/prompt-clashes.ts --write`.
+- The prompt-clash check is the packs' words only. The supplement's (`lexicon/*.extra.json`) become cards only when a
+  learner adds one from a tap; its lemmas carry no article, so "Bus" against "der Bus" would read as a clash.
+- The road step's small library has no drills on a synthetic learner: their clips aren't among the 45 texts.
 - Voice clips: Teo's role-plays and scenes newly in the plan (about 43,000 characters), the 88 endings (410): Jan's call.
 - The car and the day's audio for another language's due cards (item 8).
