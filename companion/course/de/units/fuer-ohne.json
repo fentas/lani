@@ -1,0 +1,970 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "fuer-ohne",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🧭",
+  "title": {
+    "de": "Für dich, ohne mich",
+    "en": "Prepositions with the accusative: für, ohne, gegen",
+    "sl": "Predlogi s tožilnikom: für, ohne, gegen",
+    "it": "Preposizioni con l'accusativo: für, ohne, gegen"
+  },
+  "goal": {
+    "en": "You can say for whom, without whom, through or around what (für den Opa, ohne dich, durch den Wald, um den See, bis Montag): bis, durch, für, gegen, ohne, um with the accusative, set against the dative's list.",
+    "sl": "Poveš, za koga, brez koga, skozi kaj ali okoli česa (für den Opa, ohne dich, durch den Wald, um den See, bis Montag): bis, durch, für, gegen, ohne, um s tožilnikom, nasproti seznamu z dajalnikom.",
+    "it": "Sai dire per chi, senza chi, attraverso che cosa o intorno a che cosa (für den Opa, ohne dich, durch den Wald, um den See, bis Montag): bis, durch, für, gegen, ohne, um con l'accusativo, di fronte alla lista col dativo."
+  },
+  "grammar": [
+    "praepositionen-akkusativ",
+    "akkusativ"
+  ],
+  "words": [
+    "bis",
+    "durch",
+    "für",
+    "gegen",
+    "ohne",
+    "um",
+    "durchs",
+    "fürs",
+    "ums",
+    "der Wald",
+    "das Dorf",
+    "der See",
+    "die Tür",
+    "die Wand",
+    "der Wind",
+    "der Hut",
+    "der Zucker",
+    "der Korb",
+    "die Eile",
+    "der Garten",
+    "die Kirche",
+    "der Apfelstrudel",
+    "der Bahnhof",
+    "das Rad",
+    "windig",
+    "langsam",
+    "herum",
+    "vielleicht",
+    "früher",
+    "dreimal"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Präposition",
+          "en": "preposition",
+          "sl": "predlog",
+          "it": "preposizione"
+        },
+        {
+          "de": "der",
+          "en": "der noun",
+          "sl": "z der",
+          "it": "con der"
+        },
+        {
+          "de": "die",
+          "en": "die noun",
+          "sl": "z die",
+          "it": "con die"
+        },
+        {
+          "de": "das",
+          "en": "das noun",
+          "sl": "z das",
+          "it": "con das"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "**für** (for) and **ohne** (without) always take the accusative: **für den Opa** (for Grandpa), **ohne den Hund** (without the dog). Only a der noun shows it: **für die Oma, für das Kind, ohne die Kinder**. After **ohne** there's often no article: **ohne Zucker** (without sugar).",
+          "sl": "**für** (za) in **ohne** (brez) imata vedno tožilnik: **für den Opa** (za dedka), **ohne den Hund** (brez psa). Pokaže ga samo samostalnik z der: **für die Oma, für das Kind, ohne die Kinder**. Za **ohne** pogosto ni člena: **ohne Zucker** (brez sladkorja). Slovenski brez ima rodilnik, nemški ohne ne.",
+          "it": "**für** (per) e **ohne** (senza) vogliono sempre l'accusativo: **für den Opa** (per il nonno), **ohne den Hund** (senza il cane). Lo mostra solo un nome con der: **für die Oma, für das Kind, ohne die Kinder**. Dopo **ohne** spesso non c'è articolo: **ohne Zucker** (senza zucchero)."
+        },
+        "examples": [
+          {
+            "de": "Der Honig ist für den Opa.",
+            "en": "The honey is for Grandpa.",
+            "sl": "Med je za dedka.",
+            "it": "Il miele è per il nonno."
+          },
+          {
+            "de": "Florian geht ohne den Hund auf die Alm.",
+            "en": "Florian goes up to the pasture without the dog.",
+            "sl": "Florian gre na planino brez psa.",
+            "it": "Florian va all'alpeggio senza il cane."
+          },
+          {
+            "de": "Kathi trinkt den Kaffee ohne Zucker.",
+            "en": "Kathi drinks her coffee without sugar.",
+            "sl": "Kathi pije kavo brez sladkorja.",
+            "it": "Kathi beve il caffè senza zucchero."
+          }
+        ],
+        "rows": [
+          [
+            "für",
+            "für den Opa",
+            "für die Oma",
+            "für das Kind"
+          ],
+          [
+            "ohne",
+            "ohne den Hund",
+            "ohne die Katze",
+            "ohne das Kind"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praepositionen-akkusativ",
+          "prompt": "Der Honig ist für ___ Opa.",
+          "options": [
+            "den",
+            "dem",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**für + accusative, a der noun: den**\n- Der Honig ist für den Opa.",
+            "sl": "**für + tožilnik, samostalnik z der: den**\n- Der Honig ist für den Opa.",
+            "it": "**für + accusativo, un nome con der: den**\n- Der Honig ist für den Opa."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**durch** (through) and **um** (around) take it too: **durch den Wald** (through the forest), **durch das Dorf** (through the village), **um den See** (around the lake). You know **um** from the time, **um sieben Uhr** (at seven). Short forms: **durchs Dorf**, **ums Haus**.",
+          "sl": "Tudi **durch** (skozi) in **um** (okoli) imata tožilnik: **durch den Wald** (skozi gozd), **durch das Dorf** (skozi vas), **um den See** (okoli jezera). **um** poznaš pri uri: **um sieben Uhr** (ob sedmih). Kratke oblike: **durchs Dorf**, **ums Haus**.",
+          "it": "Anche **durch** (attraverso) e **um** (intorno a) vogliono l'accusativo: **durch den Wald** (attraverso il bosco), **durch das Dorf** (attraverso il villaggio), **um den See** (intorno al lago). **um** lo conosci dall'ora: **um sieben Uhr** (alle sette). Forme brevi: **durchs Dorf**, **ums Haus**."
+        },
+        "examples": [
+          {
+            "de": "Florian geht durch den Wald.",
+            "en": "Florian walks through the forest.",
+            "sl": "Florian gre skozi gozd.",
+            "it": "Florian cammina attraverso il bosco."
+          },
+          {
+            "de": "Maxi läuft um den See.",
+            "en": "Maxi runs around the lake.",
+            "sl": "Maxi teče okoli jezera.",
+            "it": "Maxi corre intorno al lago."
+          }
+        ],
+        "rows": [
+          [
+            "durch",
+            "durch den Wald",
+            "durch die Tür",
+            "durch das Dorf"
+          ],
+          [
+            "um",
+            "um den See",
+            "um die Kirche",
+            "um das Haus"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "praepositionen-akkusativ",
+          "text": "Maxi läuft um ___ See.",
+          "accept": [
+            "den"
+          ],
+          "hint": "der See → ?",
+          "explain": {
+            "en": "**um + accusative: den**\n- Maxi läuft um den See.",
+            "sl": "**um + tožilnik: den**\n- Maxi läuft um den See.",
+            "it": "**um + accusativo: den**\n- Maxi läuft um den See."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**gegen** is against, **gegen den Wind** (against the wind), and with a time at about, **gegen acht Uhr** (at about eight). **bis** is until or as far as, mostly with no article: **bis Montag**, **bis morgen**, **bis Villach**. With an article it takes zu: **bis zum Bahnhof**.",
+          "sl": "**gegen** je proti, **gegen den Wind** (proti vetru), pri uri pa okoli: **gegen acht Uhr** (okoli osmih). **bis** je do, večinoma brez člena: **bis Montag**, **bis morgen**, **bis Villach**. S členom ima še zu: **bis zum Bahnhof**.",
+          "it": "**gegen** è contro, **gegen den Wind** (contro il vento), e con l'ora verso: **gegen acht Uhr** (verso le otto). **bis** è fino a, per lo più senza articolo: **bis Montag**, **bis morgen**, **bis Villach**. Con l'articolo prende anche zu: **bis zum Bahnhof**."
+        },
+        "examples": [
+          {
+            "de": "Stefan kommt gegen acht Uhr.",
+            "en": "Stefan's coming at about eight.",
+            "sl": "Stefan pride okoli osmih.",
+            "it": "Stefan viene verso le otto."
+          },
+          {
+            "de": "Maxi fährt mit dem Rad gegen den Wind.",
+            "en": "Maxi is cycling against the wind.",
+            "sl": "Maxi kolesari proti vetru.",
+            "it": "Maxi va in bicicletta contro il vento."
+          },
+          {
+            "de": "Ich bin bis Montag in Villach.",
+            "en": "I'm in Villach until Monday.",
+            "sl": "Do ponedeljka sem v Beljaku.",
+            "it": "Sono a Villach fino a lunedì."
+          }
+        ],
+        "rows": [
+          [
+            "gegen",
+            "gegen den Wind",
+            "gegen die Wand",
+            "gegen das Haus"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praepositionen-akkusativ",
+          "prompt": "Stefan kommt ___ acht Uhr. Vielleicht früher.",
+          "options": [
+            "gegen",
+            "ohne",
+            "durch"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**With a time: at about**\n- Stefan kommt gegen acht Uhr.",
+            "sl": "**Pri uri: okoli**\n- Stefan kommt gegen acht Uhr.",
+            "it": "**Con l'ora: verso**\n- Stefan kommt gegen acht Uhr."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Pronouns after these six are accusative: **für mich** (for me), **ohne dich** (without you), **für ihn** (for him), **gegen uns** (against us), **für Sie**. Never für mir. **Der Honig ist für dich.** (The honey is for you.)",
+          "sl": "Zaimki za temi šestimi so v tožilniku: **für mich** (zame), **ohne dich** (brez tebe), **für ihn** (zanj), **gegen uns** (proti nam), **für Sie** (za vas). Nikoli für mir. **Der Honig ist für dich.** (Med je zate.)",
+          "it": "I pronomi dopo queste sei sono all'accusativo: **für mich** (per me), **ohne dich** (senza di te), **für ihn** (per lui), **gegen uns** (contro di noi), **für Sie** (per Lei). Mai für mir. **Der Honig ist für dich.** (Il miele è per te.)"
+        },
+        "examples": [
+          {
+            "de": "Der Honig ist für dich, {learner}.",
+            "en": "The honey is for you, {learner}.",
+            "sl": "Med je zate, {learner}.",
+            "it": "Il miele è per te, {learner}."
+          },
+          {
+            "de": "Wir gehen nicht ohne euch.",
+            "en": "We're not going without you all.",
+            "sl": "Brez vas ne gremo.",
+            "it": "Senza di voi non andiamo."
+          }
+        ],
+        "rows": [
+          [
+            "ich · du",
+            "für mich · für dich",
+            "ohne mich · ohne dich",
+            "gegen mich · gegen dich"
+          ],
+          [
+            "er · sie · es",
+            "für ihn · für sie · für es",
+            "ohne ihn · ohne sie · ohne es",
+            "gegen ihn · gegen sie · gegen es"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praepositionen-akkusativ",
+          "prompt": "Wir gehen nicht ohne ___. (du)",
+          "options": [
+            "dich",
+            "dir",
+            "du"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ohne + accusative: dich**\n- Wir gehen nicht ohne dich.",
+            "sl": "**ohne + tožilnik: dich**\n- Wir gehen nicht ohne dich.",
+            "it": "**ohne + accusativo: dich**\n- Wir gehen nicht ohne dich."
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**mit dem Hund** but **ohne den Hund**; **mit mir** but **für mich**: the two lists stand side by side. The dative: aus, bei, mit, nach, seit, von, zu. The accusative: bis, durch, für, gegen, ohne, um. The verb has no say. **Der Honig ist von Stanko, für dich.** (The honey is from Stanko, for you.)",
+          "sl": "**mit dem Hund** a **ohne den Hund**; **mit mir** a **für mich**: seznama stojita drug ob drugem. Dajalnik: aus, bei, mit, nach, seit, von, zu. Tožilnik: bis, durch, für, gegen, ohne, um. Glagol tu ne odloča. **Der Honig ist von Stanko, für dich.** (Med je od Stanka, zate.)",
+          "it": "**mit dem Hund** ma **ohne den Hund**; **mit mir** ma **für mich**: le due liste stanno una accanto all'altra. Il dativo: aus, bei, mit, nach, seit, von, zu. L'accusativo: bis, durch, für, gegen, ohne, um. Il verbo qui non decide. **Der Honig ist von Stanko, für dich.** (Il miele è di Stanko, per te.)"
+        },
+        "examples": [
+          {
+            "de": "Der Honig ist von Stanko, für dich.",
+            "en": "The honey is from Stanko, for you.",
+            "sl": "Med je od Stanka, zate.",
+            "it": "Il miele è di Stanko, per te."
+          },
+          {
+            "de": "Ich fahre mit dem Bus, ohne den Hund.",
+            "en": "I'm going by bus, without the dog.",
+            "sl": "Grem z avtobusom, brez psa.",
+            "it": "Vado in autobus, senza il cane."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "praepositionen-akkusativ",
+          "prompt": "Ich gehe mit ___ Hund, nicht ohne ihn.",
+          "options": [
+            "dem",
+            "den",
+            "der"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**mit takes the dative: dem**\n- Ich gehe mit dem Hund.",
+            "sl": "**mit ima dajalnik: dem**\n- Ich gehe mit dem Hund.",
+            "it": "**mit vuole il dativo: dem**\n- Ich gehe mit dem Hund."
+          }
+        }
+      }
+    ],
+    "summary": {
+      "en": "Always the accusative: **bis, durch, für, gegen, ohne, um**.\n\nOnly a der noun shows it: **für den Opa, ohne einen Hut**; but **für die Oma, durch das Dorf**.\n\nPronouns: **für mich, ohne dich, gegen ihn**.\n\nOften no article: **ohne Zucker, bis Montag**. Against the dative: **mit dem Hund, ohne den Hund**.",
+      "sl": "Vedno tožilnik: **bis, durch, für, gegen, ohne, um**.\n\nPokaže ga samo samostalnik z der: **für den Opa, ohne einen Hut**; a **für die Oma, durch das Dorf**.\n\nZaimki: **für mich, ohne dich, gegen ihn**.\n\nPogosto brez člena: **ohne Zucker, bis Montag**. Nasproti dajalniku: **mit dem Hund, ohne den Hund**.",
+      "it": "Sempre l'accusativo: **bis, durch, für, gegen, ohne, um**.\n\nLo mostra solo un nome con der: **für den Opa, ohne einen Hut**; ma **für die Oma, durch das Dorf**.\n\nI pronomi: **für mich, ohne dich, gegen ihn**.\n\nSpesso senza articolo: **ohne Zucker, bis Montag**. Di fronte al dativo: **mit dem Hund, ohne den Hund**."
+    }
+  },
+  "worksheets": [
+    {
+      "id": "fuer-ohne-1",
+      "title": {
+        "de": "Für den Hund, ohne dich",
+        "en": "For the dog, without you",
+        "sl": "Za psa, brez tebe",
+        "it": "Per il cane, senza di te"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "praepositionen-akkusativ",
+          "instruction": {
+            "en": "Ergänze den Akkusativ · Fill in the accusative",
+            "sl": "Ergänze den Akkusativ · Dopolni tožilnik",
+            "it": "Ergänze den Akkusativ · Completa con l'accusativo"
+          },
+          "prompt": {
+            "en": "preposition + noun",
+            "sl": "predlog + samostalnik",
+            "it": "preposizione + nome"
+          },
+          "columns": [
+            {
+              "en": "mit dem Akkusativ · with the accusative",
+              "sl": "mit dem Akkusativ · s tožilnikom",
+              "it": "mit dem Akkusativ · con l'accusativo"
+            }
+          ],
+          "rows": [
+            {
+              "label": "für + der Hund",
+              "cells": [
+                {
+                  "accept": [
+                    "für den Hund"
+                  ],
+                  "hint": "der → ?"
+                }
+              ]
+            },
+            {
+              "label": "für + die Oma",
+              "cells": [
+                {
+                  "accept": [
+                    "für die Oma"
+                  ],
+                  "hint": {
+                    "en": "die stays",
+                    "sl": "die ostane",
+                    "it": "die resta"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "ohne + das Kind",
+              "cells": [
+                {
+                  "accept": [
+                    "ohne das Kind"
+                  ],
+                  "hint": {
+                    "en": "das stays",
+                    "sl": "das ostane",
+                    "it": "das resta"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "ohne + ein Hut",
+              "cells": [
+                {
+                  "accept": [
+                    "ohne einen Hut"
+                  ],
+                  "hint": "ein → ?"
+                }
+              ]
+            },
+            {
+              "label": "durch + der Wald",
+              "cells": [
+                {
+                  "accept": [
+                    "durch den Wald"
+                  ],
+                  "hint": "der → ?"
+                }
+              ]
+            },
+            {
+              "label": "um + der See",
+              "cells": [
+                {
+                  "accept": [
+                    "um den See"
+                  ],
+                  "hint": "der → ?"
+                }
+              ]
+            },
+            {
+              "label": "gegen + der Wind",
+              "cells": [
+                {
+                  "accept": [
+                    "gegen den Wind"
+                  ],
+                  "hint": "der → ?"
+                }
+              ]
+            },
+            {
+              "label": "für + ich",
+              "cells": [
+                {
+                  "accept": [
+                    "für mich"
+                  ],
+                  "hint": "ich → ?"
+                }
+              ]
+            },
+            {
+              "label": "ohne + du",
+              "cells": [
+                {
+                  "accept": [
+                    "ohne dich"
+                  ],
+                  "hint": "du → ?"
+                }
+              ]
+            },
+            {
+              "label": "für + er",
+              "cells": [
+                {
+                  "accept": [
+                    "für ihn"
+                  ],
+                  "hint": "er → ?"
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**Always the accusative: only der and ein change**",
+            "sl": "**Vedno tožilnik: spremenita se samo der in ein**",
+            "it": "**Sempre l'accusativo: cambiano solo der ed ein**"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "praepositionen-akkusativ",
+          "instruction": {
+            "en": "Ordne zu: Dativ oder Akkusativ? · Sort: the dative or the accusative?",
+            "sl": "Ordne zu: Dativ oder Akkusativ? · Razvrsti: dajalnik ali tožilnik?",
+            "it": "Ordne zu: Dativ oder Akkusativ? · Metti in ordine: dativo o accusativo?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "Dativ · with the dative",
+                "sl": "Dativ · z dajalnikom",
+                "it": "Dativ · con il dativo"
+              },
+              "words": [
+                "aus",
+                "mit",
+                "nach",
+                "seit",
+                "zu"
+              ]
+            },
+            {
+              "label": {
+                "en": "Akkusativ · with the accusative",
+                "sl": "Akkusativ · s tožilnikom",
+                "it": "Akkusativ · con l'accusativo"
+              },
+              "words": [
+                "durch",
+                "für",
+                "gegen",
+                "ohne",
+                "um"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**aus, bei, mit, nach, seit, von, zu · bis, durch, für, gegen, ohne, um**",
+            "sl": "**aus, bei, mit, nach, seit, von, zu · bis, durch, für, gegen, ohne, um**",
+            "it": "**aus, bei, mit, nach, seit, von, zu · bis, durch, für, gegen, ohne, um**"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fuer-ohne-2",
+      "title": {
+        "de": "Der Weg zum See",
+        "en": "The way to the lake",
+        "sl": "Pot do jezera",
+        "it": "La strada per il lago"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "praepositionen-akkusativ",
+          "instruction": {
+            "en": "Ergänze die Präposition · Fill in the preposition",
+            "sl": "Ergänze die Präposition · Dopolni predlog",
+            "it": "Ergänze die Präposition · Completa con la preposizione"
+          },
+          "title": "Der Weg zum See",
+          "text": "Am Sonntag gehen Stefan und seine Freunde zum See. Sie gehen ___ den Wald und dann ___ die Kirche herum. Stefan trägt einen Korb ___ die Kinder. Er geht langsam, ___ Eile. Es ist windig, und der Weg geht ___ den Wind. Sie bleiben ___ sechs Uhr am See. Stefan fragt mich: „Kommst du mit, oder gehen wir ___ dich?“",
+          "gaps": [
+            {
+              "accept": [
+                "durch"
+              ],
+              "hint": {
+                "en": "through",
+                "sl": "skozi",
+                "it": "attraverso"
+              }
+            },
+            {
+              "accept": [
+                "um"
+              ],
+              "hint": {
+                "en": "around",
+                "sl": "okoli",
+                "it": "intorno a"
+              }
+            },
+            {
+              "accept": [
+                "für"
+              ],
+              "hint": {
+                "en": "for",
+                "sl": "za",
+                "it": "per"
+              }
+            },
+            {
+              "accept": [
+                "ohne"
+              ],
+              "hint": {
+                "en": "without",
+                "sl": "brez",
+                "it": "senza"
+              }
+            },
+            {
+              "accept": [
+                "gegen"
+              ],
+              "hint": {
+                "en": "against",
+                "sl": "proti",
+                "it": "contro"
+              }
+            },
+            {
+              "accept": [
+                "bis"
+              ],
+              "hint": {
+                "en": "until",
+                "sl": "do",
+                "it": "fino a"
+              }
+            },
+            {
+              "accept": [
+                "ohne"
+              ],
+              "hint": {
+                "en": "without",
+                "sl": "brez",
+                "it": "senza"
+              }
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "mit",
+            "aus"
+          ],
+          "translation": {
+            "en": "On Sunday Stefan and his friends go to the lake. They walk through the forest and then around the church. Stefan is carrying a basket for the children. He walks slowly, without hurrying. It's windy, and the path goes against the wind. They stay at the lake until six. Stefan asks me: 'Are you coming along, or shall we go without you?'",
+            "sl": "V nedeljo gredo Stefan in prijatelji k jezeru. Gredo skozi gozd in nato okoli cerkve. Stefan nese košaro za otroke. Hodi počasi, brez naglice. Vetrovno je in pot gre proti vetru. Pri jezeru ostanejo do šestih. Stefan me vpraša: »Greš z nami ali gremo brez tebe?«",
+            "it": "La domenica Stefan e i suoi amici vanno al lago. Attraversano il bosco e poi girano intorno alla chiesa. Stefan porta un cesto per i bambini. Cammina piano, senza fretta. C'è vento, e il sentiero va contro il vento. Restano al lago fino alle sei. Stefan mi chiede: «Vieni anche tu o andiamo senza di te?»"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praepositionen-akkusativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Dieser Kaffee ist für ___. (ich)",
+          "options": [
+            "mich",
+            "mir",
+            "ich"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**für + accusative: mich**\n- Der Kaffee ist für mich.",
+            "sl": "**für + tožilnik: mich**\n- Der Kaffee ist für mich.",
+            "it": "**für + accusativo: mich**\n- Der Kaffee ist für mich."
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "praepositionen-akkusativ",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Toni arbeitet ___ acht Uhr in der Schmiede.",
+          "options": [
+            "bis",
+            "durch",
+            "ohne"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**Until a time: bis**\n- Toni arbeitet bis acht Uhr.",
+            "sl": "**Do neke ure: bis**\n- Toni arbeitet bis acht Uhr.",
+            "it": "**Fino a un'ora: bis**\n- Toni arbeitet bis acht Uhr."
+          }
+        }
+      ]
+    },
+    {
+      "id": "fuer-ohne-3",
+      "title": {
+        "de": "Mit oder ohne?",
+        "en": "With or without?",
+        "sl": "Z ali brez?",
+        "it": "Con o senza?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "praepositionen-akkusativ",
+          "instruction": {
+            "en": "Sag das Gegenteil: mit → ohne · Say the opposite: mit → ohne",
+            "sl": "Sag das Gegenteil: mit → ohne · Povej nasprotno: mit → ohne",
+            "it": "Sag das Gegenteil: mit → ohne · Di' il contrario: mit → ohne"
+          },
+          "items": [
+            {
+              "from": "Ich gehe mit dem Hund.",
+              "accept": [
+                "Ich gehe ohne den Hund."
+              ],
+              "hint": "dem → ?"
+            },
+            {
+              "from": "Kathi kommt mit einem Gast.",
+              "accept": [
+                "Kathi kommt ohne einen Gast."
+              ],
+              "hint": "einem → ?"
+            },
+            {
+              "from": "Stefan trinkt den Kaffee mit der Milch.",
+              "accept": [
+                "Stefan trinkt den Kaffee ohne die Milch."
+              ],
+              "hint": "der → ?"
+            },
+            {
+              "from": "Lena spielt mit mir.",
+              "accept": [
+                "Lena spielt ohne mich."
+              ],
+              "hint": "mir → ?"
+            },
+            {
+              "from": "Maxi fährt mit dir.",
+              "accept": [
+                "Maxi fährt ohne dich."
+              ],
+              "hint": "dir → ?"
+            },
+            {
+              "from": "Florian kommt mit ihm.",
+              "accept": [
+                "Florian kommt ohne ihn."
+              ],
+              "hint": "ihm → ?"
+            }
+          ]
+        },
+        {
+          "type": "transform",
+          "grammar": "praepositionen-akkusativ",
+          "instruction": {
+            "en": "Sag es mit den Wörtern in Klammern · Say it with the words in brackets",
+            "sl": "Sag es mit den Wörtern in Klammern · Povej z besedami v oklepaju",
+            "it": "Sag es mit den Wörtern in Klammern · Dillo con le parole tra parentesi"
+          },
+          "items": [
+            {
+              "from": "Das Buch ist gut. (für, die Kinder)",
+              "accept": [
+                "Das Buch ist gut für die Kinder.",
+                "Für die Kinder ist das Buch gut."
+              ]
+            },
+            {
+              "from": "Der Bus fährt. (durch, das Dorf)",
+              "accept": [
+                "Der Bus fährt durch das Dorf.",
+                "Der Bus fährt durchs Dorf.",
+                "Durch das Dorf fährt der Bus.",
+                "Durchs Dorf fährt der Bus."
+              ]
+            },
+            {
+              "from": "Toni kauft einen Hammer. (für, sein Sohn)",
+              "accept": [
+                "Toni kauft einen Hammer für seinen Sohn.",
+                "Für seinen Sohn kauft Toni einen Hammer.",
+                "Toni kauft für seinen Sohn einen Hammer."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "praepositionen-akkusativ",
+        "instruction": {
+          "en": "Ergänze die Präposition · Fill in the preposition",
+          "sl": "Ergänze die Präposition · Dopolni predlog",
+          "it": "Ergänze die Präposition · Completa con la preposizione"
+        },
+        "title": "Oma Resis Apfelstrudel",
+        "text": "Oma Resi backt einen Apfelstrudel ___ die Kinder. Sie backt ihn ___ Zucker, denn Lena mag ihn so. Jakob läuft ___ den Garten und dann dreimal ___ das Haus. Sie bleiben ___ Montag bei Oma Resi.",
+        "gaps": [
+          {
+            "accept": [
+              "für"
+            ]
+          },
+          {
+            "accept": [
+              "ohne"
+            ]
+          },
+          {
+            "accept": [
+              "durch"
+            ]
+          },
+          {
+            "accept": [
+              "um"
+            ]
+          },
+          {
+            "accept": [
+              "bis"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Grandma Resi bakes an apple strudel for the children. She bakes it without sugar, because that's how Lena likes it. Jakob runs through the garden and then three times around the house. They stay at Grandma Resi's until Monday.",
+          "sl": "Babica Resi speče jabolčni zavitek za otroke. Speče ga brez sladkorja, ker ga ima Lena tako rada. Jakob teče skozi vrt in nato trikrat okoli hiše. Pri babici Resi ostanejo do ponedeljka.",
+          "it": "Nonna Resi fa uno strudel di mele per i bambini. Lo fa senza zucchero, perché a Lena piace così. Jakob corre attraverso il giardino e poi tre volte intorno alla casa. Restano da nonna Resi fino a lunedì."
+        }
+      },
+      {
+        "type": "table",
+        "grammar": "praepositionen-akkusativ",
+        "instruction": {
+          "en": "Ergänze den Akkusativ · Fill in the accusative",
+          "sl": "Ergänze den Akkusativ · Dopolni tožilnik",
+          "it": "Ergänze den Akkusativ · Completa con l'accusativo"
+        },
+        "prompt": {
+          "en": "preposition + noun",
+          "sl": "predlog + samostalnik",
+          "it": "preposizione + nome"
+        },
+        "columns": [
+          {
+            "en": "mit dem Akkusativ · with the accusative",
+            "sl": "mit dem Akkusativ · s tožilnikom",
+            "it": "mit dem Akkusativ · con l'accusativo"
+          }
+        ],
+        "rows": [
+          {
+            "label": "für + der Sohn",
+            "cells": [
+              {
+                "accept": [
+                  "für den Sohn"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "ohne + ein Freund",
+            "cells": [
+              {
+                "accept": [
+                  "ohne einen Freund"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "durch + die Tür",
+            "cells": [
+              {
+                "accept": [
+                  "durch die Tür"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "gegen + wir",
+            "cells": [
+              {
+                "accept": [
+                  "gegen uns"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "transform",
+        "grammar": "praepositionen-akkusativ",
+        "instruction": {
+          "en": "Sag das Gegenteil: mit → ohne · Say the opposite: mit → ohne",
+          "sl": "Sag das Gegenteil: mit → ohne · Povej nasprotno: mit → ohne",
+          "it": "Sag das Gegenteil: mit → ohne · Di' il contrario: mit → ohne"
+        },
+        "items": [
+          {
+            "from": "Franz kommt mit seinem Hund.",
+            "accept": [
+              "Franz kommt ohne seinen Hund."
+            ]
+          },
+          {
+            "from": "Wir gehen mit euch.",
+            "accept": [
+              "Wir gehen ohne euch."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "praepositionen-akkusativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Der Most ist für ___. (Sie)",
+        "options": [
+          "Sie",
+          "Ihnen",
+          "Ihr"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**für + accusative: Sie**",
+          "sl": "**für + tožilnik: Sie**",
+          "it": "**für + accusativo: Sie**"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "praepositionen-akkusativ",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Maxi spielt mit ___ Freund.",
+        "options": [
+          "einem",
+          "einen",
+          "ein"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**mit takes the dative: einem**",
+          "sl": "**mit ima dajalnik: einem**",
+          "it": "**mit vuole il dativo: einem**"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: durchs, ums in writing; bis acht Uhr, Sie gehen um die Kirche herum; Slovene k jezeru for zum See"
+}
