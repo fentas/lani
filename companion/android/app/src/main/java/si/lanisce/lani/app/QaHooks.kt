@@ -671,10 +671,15 @@ object QaHooks {
         s.copy(course = s.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key(si.lanisce.lani.data.Counting.LANGUAGE, si.lanisce.lani.data.Counting.UNIT)) })
 
     /**
-     * [s] with the numbers module as never played ("numbers:locked", "numbers:ready"): no ranges opened by a run, no
-     * number missed. A debug build's, on the dev bridge's copy.
+     * [s] with the numbers module as never played ("numbers:locked", "numbers:ready"): its unit as never begun (another
+     * language's: Slovene's is [readyCounting]'s), no ranges opened by a run, no number missed. A debug build's, on the dev
+     * bridge's copy.
      */
-    fun readyNumbers(s: si.lanisce.lani.game.GameState): si.lanisce.lani.game.GameState = s.copy(numbers = null)
+    fun readyNumbers(s: si.lanisce.lani.game.GameState, tongue: si.lanisce.lani.data.NumberTongue? = null): si.lanisce.lani.game.GameState =
+        s.copy(
+            numbers = null,
+            course = tongue?.let { t -> s.course?.let { c -> c.copy(units = c.units - si.lanisce.lani.game.School.key(t.lang.code, t.unit)) } } ?: s.course,
+        )
 
     /** [s] with the numbers' ranges open up to [id] ("numbers:ranges:<id>"), each opened [today]. */
     fun numbersRanges(s: si.lanisce.lani.game.GameState, id: String, today: java.time.LocalDate): si.lanisce.lani.game.GameState {

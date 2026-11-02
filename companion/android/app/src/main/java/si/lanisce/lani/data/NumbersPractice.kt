@@ -86,20 +86,22 @@ enum class NumberRange(val id: String, val label: String) {
 
 /**
  * What a wrong answer was wrong about, as a mistake of its own kind for the tutor (mistakes-db.json's pattern ids, by the
- * session_end's `data.numbers.errors`): a number heard and typed wrong, its word read wrong, written wrong, said wrong;
- * the ones and the tens swapped ([ORDER]: "dvajset sedem" or "dvajsetsedem" for sedemindvajset, 72 heard as 27); a date's
- * ordinal ([DATE]: on the grammar book's datumi by its tag "ordinal"); a clock time ([TIME], [TIME_HALF]: half past
- * counted from the hour before, 6:30 for "pol šestih"; on kdaj-cas by "clock_time"). The plain numbers' ids name no page.
+ * session_end's `data.numbers.errors`, each language's description by [NumberTongue.describe]): a number heard and typed
+ * wrong, its word read wrong, written wrong, said wrong; the ones and the tens swapped ([ORDER]: "dvajset sedem" or
+ * "dvajsetsedem" for sedemindvajset, 72 heard as 27, "sette venti" for ventisette); a date's day ([DATE]: in Slovene the
+ * ordinal, on the grammar book's datumi by its tag "ordinal"); a clock time ([TIME], [TIME_HALF]: half past counted the
+ * other way, 6:30 for "pol šestih", 4:30 for "alle cinque e mezza"; on kdaj-cas by "clock_time"). The plain numbers' ids
+ * name no page.
  */
-enum class NumberKind(val id: String, val category: String, val description: String) {
-    LISTENING("numbers_listening", "vocabulary", "A Slovene number heard and typed in figures wrong"),
-    READING("numbers_reading", "vocabulary", "A Slovene number word read and typed in figures wrong"),
-    SPELLING("numbers_spelling", "spelling", "A number's Slovene word written wrong"),
-    ORDER("numbers_order", "syntax", "The ones and the tens swapped: Slovene says the ones first, joined by in (sedemindvajset = 7 + 20)"),
-    SPEAKING("numbers_speaking", "pronunciation", "A number said wrong in Slovene"),
-    DATE("numbers_ordinal_date", "grammar", "A date's day as an ordinal (Danes je petnajsti maj; 7. sedmi, 8. osmi)"),
-    TIME("numbers_clock_time", "grammar", "A clock time with ob and the -ih form (ob petih, ob dveh)"),
-    TIME_HALF("numbers_clock_time_half", "grammar", "Half past counts towards the next hour (ob pol šestih = 5:30)"),
+enum class NumberKind(val id: String, val category: String) {
+    LISTENING("numbers_listening", "vocabulary"),
+    READING("numbers_reading", "vocabulary"),
+    SPELLING("numbers_spelling", "spelling"),
+    ORDER("numbers_order", "syntax"),
+    SPEAKING("numbers_speaking", "pronunciation"),
+    DATE("numbers_ordinal_date", "grammar"),
+    TIME("numbers_clock_time", "grammar"),
+    TIME_HALF("numbers_clock_time_half", "grammar"),
 }
 
 /**
@@ -152,20 +154,10 @@ data class NumbersRecorded(val progress: NumbersProgress, val opened: NumberRang
  * "🔢 Števila · Numbers" (companion/README.md, "Numbers"): a practice module of the numbers, opened by the intro of the A1
  * unit stevila (as the counting cards are), its modes interleaved in a run of [RUN] ([plan]), its ranges growing as the
  * learner gets them right ([NumberRange]), the numbers missed coming back in its own schedule ([record]), every wrong
- * answer a mistake of its kind for the tutor ([NumberKind], [errors]). The words are rule-built ([SpokenNumbers.slovene],
- * [SpokenNumbers.ordinal], the hours' [HOURS_AT]): machine-written, flagged so. Pure.
+ * answer a mistake of its kind for the tutor ([NumberKind], [errors]). What is a language's own is its [NumberTongue] (Slovene
+ * unless said): the unit that opens it, the rule-built words, the dates and the clock: machine-written, flagged so. Pure.
  */
 object NumbersPractice {
-    const val LANGUAGE = "sl"
-    /** The course unit whose intro opens the module (and its first two ranges). */
-    const val UNIT = Counting.UNIT
-    /** The grammar pages a date and a clock time need introduced: the unit stevila's datumi, the unit kdaj-cas's. */
-    const val DATE_PAGE = "datumi"
-    const val TIME_PAGE = "kdaj-cas"
-    /** The unit that teaches the clock (its intro introduces [TIME_PAGE]). */
-    const val TIME_UNIT = "kdaj-cas"
-    /** The cheat sheet's pages a numbers run opens it at (the curated card "🔢 Števila" is on them). */
-    val PAGES = listOf(Counting.PAGE, DATE_PAGE)
 
     /** Tasks in a run. */
     const val RUN = 10
@@ -183,25 +175,17 @@ object NumbersPractice {
     /** The ranges the unit's intro opens. */
     val FIRST = listOf(NumberRange.TO_TEN, NumberRange.TEENS)
 
-    /** The months, all masculine: a date's ordinal is always -i ("peti maj"). */
-    val MONTHS = listOf("januar", "februar", "marec", "april", "maj", "junij", "julij", "avgust", "september", "oktober", "november", "december")
-
-    /**
-     * The hours after "ob" (the locative the unit kdaj-cas teaches), 1 to 12: ob enih, ob dveh, ob treh, ob štirih, ob
-     * petih … ob sedmih, ob osmih (the e drops) … ob dvanajstih. Hand-checked against the unit's intro; machine-written.
-     */
-    val HOURS_AT = listOf("enih", "dveh", "treh", "štirih", "petih", "šestih", "sedmih", "osmih", "devetih", "desetih", "enajstih", "dvanajstih")
-
     // --- when -----------------------------------------------------------------------------------------------------------
 
-    /** The module is open: the intro of the unit stevila was done (finished, or skipped as known), as for counting. */
-    fun open(s: GameState?): Boolean = Counting.active(s)
+    /** The module is open: the intro of [tongue]'s unit was done (finished, or skipped as known), in Slovene as for counting. */
+    fun open(s: GameState?, tongue: NumberTongue = NumberTongue.SL): Boolean =
+        s != null && School.progress(s, tongue.lang.code, tongue.unit)?.introDone == true
 
     /** Why it's closed: the class hasn't begun (the hamlet begins it), or the unit's intro waits. Null when open. */
     enum class Lock { CLASS, INTRO }
 
-    fun lock(s: GameState?): Lock? = when {
-        open(s) -> null
+    fun lock(s: GameState?, tongue: NumberTongue = NumberTongue.SL): Lock? = when {
+        open(s, tongue) -> null
         s == null || !School.open(s) -> Lock.CLASS
         else -> Lock.INTRO
     }
@@ -232,16 +216,16 @@ object NumbersPractice {
 
     /**
      * The ways of asking on now: reading and writing always; hearing with a voice ([canSay]); saying with something to
-     * listen ([canListen]; only the ranges the learner has: [passed]); a date's ordinal once the page datumi is introduced
-     * (the unit stevila's intro does it), a clock time once kdaj-cas is (the unit Kdaj?'s intro), heard with a voice.
+     * listen ([canListen]; only the ranges the learner has: [passed]); a date once its page is introduced (Slovene's datumi:
+     * the unit stevila's intro does it), a clock time once its page is (kdaj-cas: the unit Kdaj?'s intro), heard with a voice.
      */
-    fun modes(canSay: Boolean, canListen: Boolean, introduced: Set<String>): Set<NumberMode> = buildSet {
+    fun modes(canSay: Boolean, canListen: Boolean, introduced: Set<String>, tongue: NumberTongue = NumberTongue.SL): Set<NumberMode> = buildSet {
         add(NumberMode.READ)
         add(NumberMode.WRITE)
         if (canSay) add(NumberMode.HEAR)
         if (canListen) add(NumberMode.SAY)
-        if (DATE_PAGE in introduced) add(NumberMode.DATE)
-        if (TIME_PAGE in introduced) {
+        if (tongue.datePage in introduced) add(NumberMode.DATE)
+        if (tongue.timePage in introduced) {
             add(NumberMode.TIME_WRITE)
             if (canSay) add(NumberMode.TIME_HEAR)
         }
@@ -345,61 +329,29 @@ object NumbersPractice {
 
     // --- the words ------------------------------------------------------------------------------------------------------
 
-    /** [n] in Slovene words, as a bare number is counted ([SpokenNumbers.slovene]). */
-    fun words(n: Int): String = SpokenNumbers.slovene(n)
+    /** [n] in words, as a bare number is counted. */
+    fun words(n: Int, tongue: NumberTongue = NumberTongue.SL): String = tongue.words(n)
 
     /** "5:30" of a clock time h·100 + m. */
     fun clock(t: Int): String = "${t / 100}:${(t % 100).toString().padStart(2, '0')}"
 
-    /** A clock time h·100 + m (1 … 12, :00 or :30) after "ob": ob petih, ob pol šestih (half towards the next hour). */
-    fun clockWords(t: Int): String {
-        val h = t / 100
-        return if (t % 100 == 30) "ob pol ${HOURS_AT[h % 12]}" else "ob ${HOURS_AT[h - 1]}"
-    }
+    /** A clock time h·100 + m (1 … 12, :00 or :30) in words: ob petih, ob pol šestih (half towards the next hour); alle cinque e mezza. */
+    fun clockWords(t: Int, tongue: NumberTongue = NumberTongue.SL): String = tongue.clockWords(t)
 
     /** A date's sentence with its gap: "Danes je ___ maj. (15.)". */
-    fun dateFrame(day: Int, month: Int): String = "Danes je ___ ${MONTHS[month - 1]}. ($day.)"
+    fun dateFrame(day: Int, month: Int, tongue: NumberTongue = NumberTongue.SL): String = tongue.dateFrame(day, month)
 
     /** A date said whole: "Danes je petnajsti maj." */
-    fun dateSaid(day: Int, month: Int): String = "Danes je ${SpokenNumbers.ordinal(day)} ${MONTHS[month - 1]}."
+    fun dateSaid(day: Int, month: Int, tongue: NumberTongue = NumberTongue.SL): String = tongue.dateSaid(day, month)
 
     /** What a bare word is matched as: folded (č, š, ž or not), no spaces or hyphens ("sedem-in-dvajset", "dva tisoč"). */
-    fun key(s: String): String = Grading.fold(s, Lang.SL).replace(Regex("[\\s\\-–]+"), "")
-
-    /** Every number 0 … 9999 by its [key]ed word (and the gender forms of 1 to 4: en, eno, dve, trije …). */
-    private val byWord: Map<String, Int> by lazy {
-        val m = HashMap<String, Int>()
-        for (n in 0..9999) {
-            m[key(words(n))] = n
-            for (w in SpokenNumbers.sloveneAlso(n)) m.putIfAbsent(key(w), n)
-        }
-        m
-    }
-
-    /**
-     * The numbers 21 … 9999 whose last two figures are an "-in-" number, as a learner says them with the tens first, by
-     * their [key]: "dvajset sedem", "dvajsetsedem", "dvajset in sedem" (27), "sto dvajset sedem" (127). None is a number's
-     * own word.
-     */
-    private val tensFirst: Map<String, Int> by lazy {
-        val m = HashMap<String, Int>()
-        for (n in 21..9999) {
-            val low = n % 100
-            if (low < 21 || low % 10 == 0) continue
-            val head = (n - low).takeIf { it > 0 }?.let { words(it) + " " }.orEmpty()
-            val tens = words(low - low % 10)
-            val ones = words(low % 10)
-            for (w in listOf("$head$tens $ones", "$head$tens in $ones")) m.putIfAbsent(key(w), n)
-        }
-        m.keys.removeAll(byWord.keys)
-        m
-    }
+    fun key(s: String, tongue: NumberTongue = NumberTongue.SL): String = tongue.key(s)
 
     /** The number [text] is the word of, 0 … 9999 (č, š, ž or not, spaces as they come); null when it is none. */
-    fun parse(text: String): Int? = byWord[key(text)]
+    fun parse(text: String, tongue: NumberTongue = NumberTongue.SL): Int? = tongue.parse(text)
 
-    /** The number [text] says with its tens first ("dvajset sedem": 27), or null. */
-    fun parseTensFirst(text: String): Int? = tensFirst[key(text)]
+    /** The number [text] says in the other order ("dvajset sedem": 27), or null. */
+    fun parseTensFirst(text: String, tongue: NumberTongue = NumberTongue.SL): Int? = tongue.parseSwapped(text)
 
     /** The figures typed on the pad as a number: "027" is 27; null when it isn't one. */
     fun digits(answer: String): Int? = answer.filter { !it.isWhitespace() }.takeIf { it.isNotEmpty() && it.all(Char::isDigit) && it.length <= 7 }?.toInt()
@@ -431,38 +383,39 @@ object NumbersPractice {
 
     /**
      * [t] as the run's exercise: on the pad ([Exercise.Numeral], figures to type), written (its word or form typed, the
-     * app's č, š, ž chips), or said ([Exercise.Speak]: the figures shown, the word hidden until the answer; a number from
+     * app's letter chips), or said ([Exercise.Speak]: the figures shown, the word hidden until the answer; a number from
      * 1000 on also right as its figures, which the recognizer writes there). Its why ([whyOf]) is in the learner's base.
      */
-    fun exercise(t: NumberTask): Exercise {
-        val instruction = si.lanisce.lani.l10n.bi(t.mode.ask)
+    fun exercise(t: NumberTask, tongue: NumberTongue = NumberTongue.SL): Exercise {
+        val instruction = si.lanisce.lani.l10n.bi(tongue.ask(t.mode))
+        val language = tongue.lang.code
+        val word = tongue.words(t.n)
         return when (t.mode) {
-            NumberMode.HEAR -> Exercise.Numeral(t.mode.wire, t.n, audio = words(t.n), accept = listOf("${t.n}"), shown = "${t.n}", word = words(t.n), instruction = instruction)
-            NumberMode.READ -> Exercise.Numeral(t.mode.wire, t.n, prompt = words(t.n), accept = listOf("${t.n}"), shown = "${t.n}", word = words(t.n), instruction = instruction)
+            NumberMode.HEAR -> Exercise.Numeral(t.mode.wire, t.n, audio = word, accept = listOf("${t.n}"), shown = "${t.n}", word = word, instruction = instruction, language = language)
+            NumberMode.READ -> Exercise.Numeral(t.mode.wire, t.n, prompt = word, accept = listOf("${t.n}"), shown = "${t.n}", word = word, instruction = instruction, language = language)
             NumberMode.WRITE -> Exercise.Numeral(
-                t.mode.wire, t.n, prompt = "${t.n}", accept = listOf(words(t.n)) + SpokenNumbers.sloveneAlso(t.n), shown = words(t.n), word = words(t.n), instruction = instruction,
+                t.mode.wire, t.n, prompt = "${t.n}", accept = listOf(word) + tongue.also(t.n), shown = word, word = word, instruction = instruction, language = language,
             )
             NumberMode.SAY -> Exercise.Speak(
-                say = words(t.n), prompt = "${t.n}", show = false, instruction = instruction,
-                accept = SpokenNumbers.sloveneAlso(t.n) + if (t.n >= 1000) listOf("${t.n}") else emptyList(),
-                explain = whyOf(t),
+                say = word, prompt = "${t.n}", show = false, instruction = instruction,
+                accept = tongue.also(t.n) + if (t.n >= 1000) listOf("${t.n}") else emptyList(),
+                explain = whyOf(t, tongue),
             )
             NumberMode.DATE -> {
                 val month = t.month ?: 5
-                val ord = SpokenNumbers.ordinal(t.n)
                 Exercise.Numeral(
-                    t.mode.wire, t.n, prompt = dateFrame(t.n, month), month = month,
-                    accept = listOf(ord, "$ord ${MONTHS[month - 1]}", dateSaid(t.n, month)), shown = ord, word = dateSaid(t.n, month),
-                    instruction = instruction, grammar = DATE_PAGE,
+                    t.mode.wire, t.n, prompt = tongue.dateFrame(t.n, month), month = month,
+                    accept = tongue.dateAccept(t.n, month), shown = tongue.dateDay(t.n), word = tongue.dateSaid(t.n, month),
+                    instruction = instruction, grammar = tongue.datePage, language = language,
                 )
             }
             NumberMode.TIME_HEAR -> Exercise.Numeral(
-                t.mode.wire, t.n, audio = clockWords(t.n), accept = timeFigures(t.n), shown = clock(t.n), word = clockWords(t.n),
-                colon = true, instruction = instruction, grammar = TIME_PAGE,
+                t.mode.wire, t.n, audio = tongue.clockWords(t.n), accept = timeFigures(t.n), shown = clock(t.n), word = tongue.clockWords(t.n),
+                colon = true, instruction = instruction, grammar = tongue.timePage, language = language,
             )
             NumberMode.TIME_WRITE -> Exercise.Numeral(
-                t.mode.wire, t.n, prompt = "⏰ ${clock(t.n)}", accept = listOf(clockWords(t.n), clockWords(t.n).removePrefix("ob ")),
-                shown = clockWords(t.n), word = clockWords(t.n), instruction = instruction, grammar = TIME_PAGE,
+                t.mode.wire, t.n, prompt = "⏰ ${clock(t.n)}", accept = tongue.clockAccept(t.n),
+                shown = tongue.clockWords(t.n), word = tongue.clockWords(t.n), instruction = instruction, grammar = tongue.timePage, language = language,
             )
         }
     }
@@ -476,6 +429,9 @@ object NumbersPractice {
 
     // --- grading --------------------------------------------------------------------------------------------------------
 
+    /** The clock times a task asks: every hour and half past, as h·100 + m. */
+    private val CLOCK = (1..12).flatMap { listOf(it * 100, it * 100 + 30) }
+
     /**
      * [answer] to [ex]: figures on the pad are right or wrong (a clock time by its hour on either half of the day); a word
      * as the app grades a typed answer ([Grading.check]: č, š, ž forgotten is almost, a slip in the stem too) with what a
@@ -486,19 +442,20 @@ object NumbersPractice {
     fun grade(ex: Exercise.Numeral, answer: String): NumberGraded {
         val mode = NumberMode.of(ex.mode) ?: NumberMode.READ
         val t = NumberTask(mode, ex.n, ex.month)
-        return if (mode.pad) gradePad(t, ex, answer) else gradeWord(t, ex, answer)
+        val tongue = NumberTongue.of(ex.language) ?: NumberTongue.SL
+        return if (mode.pad) gradePad(t, ex, answer, tongue) else gradeWord(t, ex, answer, tongue)
     }
 
-    private fun gradePad(t: NumberTask, ex: Exercise.Numeral, answer: String): NumberGraded {
-        val why = whyOf(t)
+    private fun gradePad(t: NumberTask, ex: Exercise.Numeral, answer: String, tongue: NumberTongue): NumberGraded {
+        val why = whyOf(t, tongue)
         if (ex.colon) {
             val h = t.n / 100
             val m = t.n % 100
             val got = time(answer)
             val right = got != null && got.second == m && got.first % 12 == h % 12
             if (right) return NumberGraded(Verdict.CORRECT, ex.shown, why = why)
-            // "pol šestih" typed as 6:30: half past counted from the hour before
-            val half = m == 30 && got != null && got.second == 30 && got.first % 12 == (h + 1) % 12
+            // "pol šestih" typed as 6:30, "alle cinque e mezza" as 4:30: the half counted the other way
+            val half = m == 30 && got != null && got.second == 30 && got.first % 12 == tongue.halfHeard(h) % 12
             return NumberGraded(Verdict.WRONG, ex.shown, why = why, kind = if (half) NumberKind.TIME_HALF else NumberKind.TIME)
         }
         val got = digits(answer)
@@ -508,92 +465,70 @@ object NumbersPractice {
             t.mode == NumberMode.HEAR -> NumberKind.LISTENING
             else -> NumberKind.READING
         }
-        return NumberGraded(Verdict.WRONG, ex.shown, why = if (kind == NumberKind.ORDER) orderWhy(t.n, "$got") else why, kind = kind)
+        return NumberGraded(Verdict.WRONG, ex.shown, why = if (kind == NumberKind.ORDER) tongue.orderWhy(t.n, "$got") else why, kind = kind)
     }
 
-    private fun gradeWord(t: NumberTask, ex: Exercise.Numeral, answer: String): NumberGraded {
-        val why = whyOf(t)
+    private fun gradeWord(t: NumberTask, ex: Exercise.Numeral, answer: String, tongue: NumberTongue): NumberGraded {
+        val lang = tongue.lang
+        val why = whyOf(t, tongue)
         val wrongKind = when (t.mode) {
             NumberMode.DATE -> NumberKind.DATE
             NumberMode.TIME_WRITE -> NumberKind.TIME
             else -> NumberKind.SPELLING
         }
-        val canon = Grading.canonical(answer, Lang.SL)
+        val canon = Grading.canonical(answer, lang)
         if (canon.isEmpty()) return NumberGraded(Verdict.WRONG, ex.shown, why = why, kind = wrongKind)
-        if (ex.accept.any { Grading.canonical(it, Lang.SL) == canon }) return NumberGraded(Verdict.CORRECT, ex.shown, why = why)
-        // the same word apart or together, hyphens or not: almost (one word up to 99, the hundreds and thousands apart)
-        val squash = { s: String -> Grading.canonical(s, Lang.SL).replace(Regex("[\\s\\-–]+"), "") }
-        ex.accept.firstOrNull { squash(it) == squash(answer) }?.let { return NumberGraded(Verdict.ALMOST, it, why = spacingWhy(it) + "\n" + why.orEmpty()) }
-        val r = Grading.check(answer, ex.accept, Lang.SL)
-        val other = parse(answer)?.takeIf { it != t.n && t.mode == NumberMode.WRITE }
+        if (ex.accept.any { Grading.canonical(it, lang) == canon }) return NumberGraded(Verdict.CORRECT, ex.shown, why = why)
+        // the same word apart or together, hyphens or not: almost (Slovene: one word up to 99, the hundreds and thousands apart; Italian: all one word)
+        val squash = { s: String -> Grading.canonical(s, lang).replace(Regex("[\\s\\-–]+"), "") }
+        ex.accept.firstOrNull { squash(it) == squash(answer) }?.let { return NumberGraded(Verdict.ALMOST, it, why = spacingWhy(it, tongue) + "\n" + why.orEmpty()) }
+        val r = Grading.check(answer, ex.accept, lang)
+        val other = tongue.parse(answer)?.takeIf { it != t.n && t.mode == NumberMode.WRITE }
+        // another day's number or another clock time is never a slip ("undici" for dodici, "alle sei" for alle sette)
+        val elsewhere = (t.mode == NumberMode.DATE && tongue.parse(answer)?.let { it != t.n } == true) || (t.mode == NumberMode.TIME_WRITE && CLOCK.any { c -> c != t.n && tongue.clockAccept(c).any { Grading.canonical(it, lang) == canon } })
         if (r.verdict == Verdict.ALMOST && r.hint == Grading.Hint.DIACRITICS) return NumberGraded(Verdict.ALMOST, r.expected, r.hint, r.marks, why)
-        // č, š, ž forgotten and the words apart: almost too
-        ex.accept.firstOrNull { key(it) == key(answer) }?.let { return NumberGraded(Verdict.ALMOST, it, Grading.Hint.DIACRITICS, why = spacingWhy(it) + "\n" + why.orEmpty()) }
+        // č, š, ž (or an accent) forgotten and the words apart: almost too
+        ex.accept.firstOrNull { tongue.key(it) == tongue.key(answer) }?.let { return NumberGraded(Verdict.ALMOST, it, Grading.Hint.DIACRITICS, why = spacingWhy(it, tongue) + "\n" + why.orEmpty()) }
         if (t.mode == NumberMode.WRITE) {
-            if (parseTensFirst(answer) == t.n) return NumberGraded(Verdict.WRONG, ex.shown, why = orderWhy(t.n, answer.trim()), kind = NumberKind.ORDER)
+            if (tongue.parseSwapped(answer) == t.n) return NumberGraded(Verdict.WRONG, ex.shown, why = tongue.orderWhy(t.n, answer.trim()), kind = NumberKind.ORDER)
             // a number's word has no ending to get wrong: a slip anywhere in it is one, unless it is another number's word
-            val d = Grading.distance(key(answer), key(ex.shown))
-            // 200 is dvesto: "dvasto" (dva + sto) is the learner's word, not a slip
-            val learnerWord = "dvasto" in key(answer) && "dvesto" in key(ex.shown)
-            if (other == null && !learnerWord && parseTensFirst(answer) == null && d in 1..Grading.typosAllowed(key(ex.shown))) {
+            val d = Grading.distance(tongue.key(answer), tongue.key(ex.shown))
+            if (other == null && !tongue.ownWord(answer, ex.shown) && tongue.parseSwapped(answer) == null && d in 1..Grading.typosAllowed(tongue.key(ex.shown))) {
                 return NumberGraded(Verdict.ALMOST, ex.shown, Grading.Hint.TYPO, r.marks.takeIf { r.expected == ex.shown }.orEmpty(), why)
             }
             return NumberGraded(Verdict.WRONG, ex.shown, why = why, kind = wrongKind)
         }
-        if (r.verdict == Verdict.ALMOST && !ordinalSlip(t, answer)) return NumberGraded(Verdict.ALMOST, r.expected, r.hint, r.marks, why)
+        if (r.verdict == Verdict.ALMOST && !elsewhere && !(t.mode == NumberMode.DATE && tongue.dateSlip(t.n, answer))) return NumberGraded(Verdict.ALMOST, r.expected, r.hint, r.marks, why)
         return when {
-            t.mode == NumberMode.TIME_WRITE && halfSlip(t.n, answer) -> NumberGraded(Verdict.WRONG, ex.shown, why = why, kind = NumberKind.TIME_HALF)
+            t.mode == NumberMode.TIME_WRITE && halfSlip(t.n, answer, tongue) -> NumberGraded(Verdict.WRONG, ex.shown, why = why, kind = NumberKind.TIME_HALF)
             else -> NumberGraded(Verdict.WRONG, r.expected.ifBlank { ex.shown }, r.hint.takeIf { it == Grading.Hint.ENDING } ?: Grading.Hint.NONE, r.marks, why, wrongKind)
         }
     }
 
-    /** A date's day written as its number with -i where the e drops ("sedemi" for sedmi, "osemi" for osmi): wrong, not a slip. */
-    private fun ordinalSlip(t: NumberTask, answer: String): Boolean =
-        t.mode == NumberMode.DATE && t.n in listOf(7, 8) && key(answer).startsWith(key(words(t.n) + "i"))
+    /** Half past written counted the other way: 5:30 as "ob pol petih", as "alle sei e mezza". */
+    private fun halfSlip(t: Int, answer: String, tongue: NumberTongue): Boolean =
+        t % 100 == 30 && tongue.halfWritten(t).any { tongue.key(it) == tongue.key(answer) }
 
-    /** 5:30 written "ob pol petih": the half counted from the hour before. */
-    private fun halfSlip(t: Int, answer: String): Boolean =
-        t % 100 == 30 && key(answer).removePrefix("ob") == key("pol " + HOURS_AT[t / 100 - 1])
-
-    /** A said answer's kind, from what was heard: the tens first, else a slip of saying. */
-    fun saidKind(n: Int, heard: String): NumberKind = if (parseTensFirst(heard) == n || digits(heard)?.let { swapped(n) == it } == true) NumberKind.ORDER else NumberKind.SPEAKING
+    /** A said answer's kind, from what was heard: the other order, else a slip of saying. */
+    fun saidKind(n: Int, heard: String, tongue: NumberTongue = NumberTongue.SL): NumberKind =
+        if (tongue.parseSwapped(heard) == n || digits(heard)?.let { swapped(n) == it } == true) NumberKind.ORDER else NumberKind.SPEAKING
 
     // --- why --------------------------------------------------------------------------------------------------------------
 
     /**
-     * How [t]'s answer is built, in the learner's base (Markdown, the Slovene bold): 27 → sedem + in + dvajset (the ones
-     * first, one word); 14 → -najst; 30 → -deset; the hundreds and thousands apart; a date's ordinal; a clock time's ob
-     * and -ih, half towards the next hour.
+     * How [t]'s answer is built, in the learner's base (Markdown, the target language's words bold): 27 → sedem + in + dvajset
+     * (the ones first, one word), venti + sette (the tens first, one word); a date's day; a clock time and its half.
      */
-    fun whyOf(t: NumberTask): String? = when (t.mode) {
-        NumberMode.DATE -> inBase("numbers.why.date", "day" to t.n, "ordinal" to SpokenNumbers.ordinal(t.n), "month" to MONTHS[(t.month ?: 5) - 1])
-        NumberMode.TIME_HEAR, NumberMode.TIME_WRITE -> {
-            val h = t.n / 100
-            if (t.n % 100 == 30) inBase("numbers.why.half", "time" to clock(t.n), "said" to clockWords(t.n), "next" to (h % 12 + 1))
-            else inBase("numbers.why.hour", "time" to clock(t.n), "said" to clockWords(t.n))
-        }
-        else -> numberWhy(t.n)
+    fun whyOf(t: NumberTask, tongue: NumberTongue = NumberTongue.SL): String? = when (t.mode) {
+        NumberMode.DATE -> tongue.dateWhy(t.n, t.month ?: 5)
+        NumberMode.TIME_HEAR, NumberMode.TIME_WRITE -> tongue.clockWhy(t.n)
+        else -> numberWhy(t.n, tongue)
     }
 
     /** How [n]'s word is built ([whyOf] of a number). */
-    fun numberWhy(n: Int): String {
-        val w = words(n)
-        val low = n % 100
-        return when {
-            n < 11 || n == 20 -> inBase("numbers.why.plain", "n" to n, "word" to w)
-            n < 20 -> inBase("numbers.why.teen", "n" to n, "word" to w)
-            n < 100 && low % 10 == 0 -> inBase("numbers.why.tens", "n" to n, "word" to w)
-            n < 100 -> inBase("numbers.why.compound", "n" to n, "word" to w, "ones" to words(low % 10), "tens" to words(low - low % 10), "o" to low % 10, "t" to low - low % 10)
-            else -> inBase("numbers.why.big", "n" to n, "word" to w)
-        }
-    }
+    fun numberWhy(n: Int, tongue: NumberTongue = NumberTongue.SL): String = tongue.numberWhy(n)
 
-    private fun orderWhy(n: Int, wrong: String): String {
-        val low = n % 100
-        return inBase("numbers.why.order", "n" to n, "word" to words(n), "ones" to words(low % 10), "tens" to words(low - low % 10), "o" to low % 10, "t" to low - low % 10, "wrong" to wrong)
-    }
-
-    private fun spacingWhy(right: String): String = inBase("numbers.why.spacing", "word" to right)
+    private fun spacingWhy(right: String, tongue: NumberTongue): String = inBase(tongue.spacingKey, "word" to right)
 
     // --- after a run ------------------------------------------------------------------------------------------------------
 
@@ -645,7 +580,7 @@ object NumbersPractice {
      * Each wrong answer as an error of update-db.py's report ([NumberKind] its pattern id), ready to persist from the
      * session_end (`data.numbers.errors`): what was answered against what was right, and where.
      */
-    fun errors(tasks: List<NumberTask>, exercises: List<Exercise>, answers: List<Pair<String, NumberKind?>>, verdicts: List<Verdict>) = buildJsonArray {
+    fun errors(tasks: List<NumberTask>, exercises: List<Exercise>, answers: List<Pair<String, NumberKind?>>, verdicts: List<Verdict>, tongue: NumberTongue = NumberTongue.SL) = buildJsonArray {
         for (i in verdicts.indices) {
             if (verdicts[i] != Verdict.WRONG) continue
             val kind = answers.getOrNull(i)?.second ?: continue
@@ -654,11 +589,11 @@ object NumbersPractice {
                 put("pattern_id", kind.id)
                 put("category", kind.category)
                 put("subcategory", "numbers")
-                put("description", kind.description)
+                put("description", tongue.describe(kind))
                 put("severity", if (kind == NumberKind.ORDER || kind == NumberKind.TIME_HALF) "moderate" else "minor")
                 put("your_answer", answers[i].first.take(80))
                 put("correct_answer", expected(exercises.getOrNull(i)).take(80))
-                put("context", "${t.mode.emoji} ${t.mode.wire} ${shownOf(t)} (🔢 Števila · Numbers${t.range?.let { ", ${it.label}" }.orEmpty()})")
+                put("context", "${t.mode.emoji} ${t.mode.wire} ${shownOf(t, tongue)} (🔢 Numbers${t.range?.let { ", ${it.label}" }.orEmpty()})")
             })
         }
     }
@@ -671,8 +606,8 @@ object NumbersPractice {
     }
 
     /** What a task shows or says, for the tutor: "27", "sedemindvajset", "15. maj", "5:30". */
-    fun shownOf(t: NumberTask): String = when (t.mode) {
-        NumberMode.DATE -> "${t.n}. ${MONTHS[(t.month ?: 5) - 1]}"
+    fun shownOf(t: NumberTask, tongue: NumberTongue = NumberTongue.SL): String = when (t.mode) {
+        NumberMode.DATE -> tongue.dateShown(t.n, t.month ?: 5)
         NumberMode.TIME_HEAR, NumberMode.TIME_WRITE -> clock(t.n)
         else -> "${t.n}"
     }
@@ -680,13 +615,13 @@ object NumbersPractice {
     /**
      * The run for the tutor's session_end (`data.numbers`): the ranges open and the one opened now, the ways of asking,
      * each task with its answer, what was right, its verdict and kind, the numbers due again, the errors to persist, and
-     * that its Slovene is machine-written.
+     * that its words are machine-written.
      */
     fun wire(
         after: NumbersRecorded, introDone: Boolean, tasks: List<NumberTask>, exercises: List<Exercise>,
-        answers: List<Pair<String, NumberKind?>>, verdicts: List<Verdict>, modes: Set<NumberMode>, today: LocalDate,
+        answers: List<Pair<String, NumberKind?>>, verdicts: List<Verdict>, modes: Set<NumberMode>, today: LocalDate, tongue: NumberTongue = NumberTongue.SL,
     ): JsonObject = buildJsonObject {
-        put("language", LANGUAGE)
+        put("language", tongue.lang.code)
         put("ranges_open", buildJsonArray { ranges(after.progress, introDone).forEach { add(JsonPrimitive(it.label)) } })
         after.opened?.let { put("opened_now", it.label) }
         newest(after.progress, introDone)?.let { r ->
@@ -703,7 +638,7 @@ object NumbersPractice {
                 val t = tasks[i]
                 add(buildJsonObject {
                     put("mode", t.mode.wire)
-                    put("shown", shownOf(t))
+                    put("shown", shownOf(t, tongue))
                     t.range?.let { put("range", it.label) }
                     if (t.again) put("again", true)
                     put("answer", answers.getOrNull(i)?.first.orEmpty().take(80))
@@ -714,7 +649,7 @@ object NumbersPractice {
             }
         })
         put("due_again", due(after.progress, today.plusDays(7)).size)
-        put("errors", errors(tasks, exercises, answers, verdicts))
+        put("errors", errors(tasks, exercises, answers, verdicts, tongue))
         put("runs", after.progress.runs)
         put("machine_written", true)
     }
