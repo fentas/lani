@@ -40,10 +40,9 @@ pass 80, a print for each. No screen changed, so tap counts are the same as befo
 | 5 | `wo-wohin` 📍 In der Küche, in die Küche | wechselpraepositionen, dativ, akkusativ | 6 + summary | 15 | table + sort (16) · gap text with a bank + 2 choices (11) · 2 transforms + reorder (8): 35 | 14 |
 | 6 | `stehen-stellen` 🥛 Das Glas steht, ich stelle es hin | **stehen-stellen**, wechselpraepositionen | 6 + summary | 14 | table + sort (14) · gap text with a bank + 2 choices (10) · 2 transforms (8): 32 | 13 |
 
-**The size** is a little above Italian A2's 27 to 30 items a unit, because a sort of two or three columns counts each word as an item. Slovene's A2
-units are of the same shape.
+**The size** runs above the guide: 32 to 35 items a unit, against COURSE.md's 15 to 30 and Italian A2's 27 to 30. The tests, at 13 and 14 items, are within COURSE.md's 8 to 15. If a unit feels long, the second sheet's two choices are the first to go.
 
-**The word order of the gaps' surroundings.** Each unit uses only what comes before it. Around a gap: no modal but möchten and können, no
+**What the sentences assume.** Each unit uses only what comes before it. Around a gap: no modal but möchten and können, no
 adjective with an ending, no weil or denn, no reflexive beyond the chunk Setz dich! and Ich setze mich (taught as chunks in unit 6, the rule in
 unit 10). Prepositions before their unit are fixed chunks (im Gasthaus, in die Küche, auf der Alm). No weak noun takes the dative here: Herr,
 Bub, Bauer, Hirte and Nachbar are left out, since `herr-kollege` comes in B2. Herr Rossi only ever stands as the subject.
@@ -104,7 +103,7 @@ file now has two entries each for liegen and aufräumen, which the lookup reads 
 
 `lexicon-build --coverage --lang de`, before and after: known 99.0 % of words both times, meant in each base 98.6 % both times, words none knows 52 → 51. The course's units aren't in that count; `school-prints --explain` lists every word of the six units with a meaning in each base (none left off), and a script of this round found every German word of the units in the supplement, the packs or the cast.
 
-**One thing to know:** `gefällt` has two readings, fällen's participle (to fell a tree, earlier in the file) and gefallen. The lookup ranks by the line's translation, and the gloss of gefallen has "like" in it for that reason.
+**One thing to know:** `gefällt` has two readings, fällen's participle (to fell a tree, earlier in the file) and gefallen. The lookup ranks by the line's translation (`lexicon.ts`), and the gloss of gefallen has "like" in it for that reason. That ranking wasn't tried on a real tap of `Das gefällt mir`.
 
 ## Checks
 
@@ -113,7 +112,7 @@ On the branch's tip before this doc's last edit (`9b5b716c`):
 - `bunx tsc --noEmit -p .`: clean. `bun test/prompt-clashes.ts`: no new clash. The smoke with this branch's ports (9850 on, `LANI_SMOKE_DRAMA3_PORT=9868`): all 3,508 checks passed, its course, course-speech and prints sections on the six units among them. `bun src/cli/tutor-export.ts --check`: 89 files match.
 - The Android tests through `lani-slot.sh`, not the whole suite (part c and the gate run it): `GermanA2aContentTest` 7, `GermanCourseContentTest` 5, `GradingLanguagesTest` 48, `GrammarTest` 16, `SchoolBoardTest` 7, `SentenceGrammarTest` 6: 89, no failure.
 - **Prints:** `school-prints --language de --level A2` in sl, it and en, as PDFs: each of the six sheets fits on one or two pages, and no word is left without a meaning. One sheet (`stehen-stellen`, sl) read by eye.
-- **Emulator QA of one unit** through qa-slot (`--no-town --steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=stehen-stellen`, a synthetic learner): setup, course-unit and the crash check ok, 19 screenshots in the scratchpad's `ux-course-de-a2-a/`. Eva's six steps, the summary, the first sheet, the test passed and the print. The test reads 11 right and 2 almost, none wrong (12/13). The test has two answers with ä, which fits QA's typing them as ae, but the log doesn't say which items were almost.
+- **Emulator QA of one unit** through qa-slot (`--no-town --steps course-unit`, `LANI_CULTURE=kaernten`, `LANI_QA_SETUP_PAIR=de-sl`, `LANI_QA_COURSE_UNIT=stehen-stellen`, a synthetic learner): setup, course-unit and the crash check ok, 19 screenshots in the scratchpad's `ux-course-de-a2-a/`. Eva's six steps, the summary, the first sheet, the test passed and the print. The test reads 11 right and 2 almost, none wrong (12/13). `bin/qa` folds what adb can't type (ä as ae, almost right by design) and the test has two answers with ä, which fits, though the log doesn't name the items.
 
 **Not done:** the other five units on an emulator; the other two bases on an emulator; the whole Android suite; a merge of main (this file's brief has part c integrate, and no part takes another's commits). The worksheets' second and third sheets have only the Android tests behind them, not a playthrough.
 
