@@ -1,0 +1,1015 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "partizip-perfekt",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🧩",
+  "title": {
+    "de": "Aufgestanden, verstanden, gesessen",
+    "en": "More of the past: aufgestanden, verstanden",
+    "sl": "Več o pretekliku: aufgestanden, verstanden",
+    "it": "Ancora il passato: aufgestanden, verstanden"
+  },
+  "goal": {
+    "en": "You can make the participle of every kind of verb (gekauft, getrunken, gebracht, aufgestanden, verstanden, telefoniert), choose haben or sein, and say ich bin gesessen as Austria does.",
+    "sl": "Narediš deležnik vsake vrste glagola (gekauft, getrunken, gebracht, aufgestanden, verstanden, telefoniert), izbereš haben ali sein in rečeš ich bin gesessen, kot rečejo v Avstriji.",
+    "it": "Sai fare il participio di ogni tipo di verbo (gekauft, getrunken, gebracht, aufgestanden, verstanden, telefoniert), scegliere haben o sein e dire ich bin gesessen come in Austria."
+  },
+  "grammar": [
+    "partizip-zwei",
+    "perfekt",
+    "trennbare-verben"
+  ],
+  "words": [
+    "haben",
+    "sein",
+    "kaufen",
+    "warten",
+    "bringen",
+    "wissen",
+    "gehen",
+    "kommen",
+    "laufen",
+    "schlafen",
+    "helfen",
+    "finden",
+    "schreiben",
+    "anrufen",
+    "mitbringen",
+    "zusperren",
+    "besuchen",
+    "erzählen",
+    "reparieren",
+    "telefonieren",
+    "vergessen",
+    "aufwachen",
+    "passieren",
+    "bestellen",
+    "die Post",
+    "der Bauer",
+    "der Wagen",
+    "das Telefon",
+    "die Tasche",
+    "der Hammer",
+    "der Kuchen",
+    "das Glas",
+    "aufgewacht",
+    "gewesen",
+    "gestern"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv",
+          "en": "infinitive",
+          "sl": "nedoločnik",
+          "it": "infinito"
+        },
+        {
+          "de": "Perfekt (er · sie)",
+          "en": "past (er · sie)",
+          "sl": "preteklik (er · sie)",
+          "it": "passato (er · sie)"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know the Perfekt: **haben** or **sein** second, the participle at the end. Now the participle of every kind of verb. Regular verbs: **ge-…-t**: **kaufen → gekauft** (bought), and **warten → gewartet** (waited) with -et. A few mix it, ge-…-t with another vowel: **bringen → gebracht** (never *gebringt*), **wissen → gewusst** (known).",
+          "sl": "Perfekt že poznaš: **haben** ali **sein** na drugem mestu, deležnik na koncu. Zdaj deležnik vsake vrste glagola. Pravilni glagoli: **ge-…-t**: **kaufen → gekauft** (kupil) in **warten → gewartet** (čakal) z -et. Nekaj jih meša: ge-…-t z drugim samoglasnikom: **bringen → gebracht** (prinesel), **wissen → gewusst** (vedel).",
+          "it": "Il Perfekt lo conosci: **haben** o **sein** al secondo posto, il participio alla fine. Ora il participio di ogni tipo di verbo. I verbi regolari: **ge-…-t**: **kaufen → gekauft** (comprato) e **warten → gewartet** (aspettato) con -et. Alcuni mescolano: ge-…-t con un'altra vocale: **bringen → gebracht** (portato), **wissen → gewusst** (saputo)."
+        },
+        "examples": [
+          {
+            "de": "Stefan hat den Most in den Keller gebracht.",
+            "en": "Stefan took the cider down to the cellar.",
+            "sl": "Stefan je odnesel mošt v klet.",
+            "it": "Stefan ha portato il sidro in cantina."
+          },
+          {
+            "de": "Das hat Florian nicht gewusst.",
+            "en": "Florian didn't know that.",
+            "sl": "Tega Florian ni vedel.",
+            "it": "Florian non lo sapeva."
+          },
+          {
+            "de": "Kathi hat Brot gekauft.",
+            "en": "Kathi bought some bread.",
+            "sl": "Kathi je kupila kruh.",
+            "it": "Kathi ha comprato il pane."
+          }
+        ],
+        "rows": [
+          [
+            "warten",
+            "hat gewartet"
+          ],
+          [
+            "bringen",
+            "hat gebracht"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "partizip-zwei",
+          "text": "Kathi hat zwei Stunden ___. (warten)",
+          "accept": [
+            "gewartet"
+          ],
+          "hint": "ge-…-et",
+          "explain": {
+            "en": "**warten → gewartet: -et after the t**\n- Kathi hat gewartet",
+            "sl": "**warten → gewartet: -et za t**\n- Kathi hat gewartet",
+            "it": "**warten → gewartet: -et dopo la t**\n- Kathi hat gewartet"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Strong verbs take **ge-…-en**, and many change the vowel, so learn the participle with the verb. The same vowel: **fahren → gefahren** (driven), **schlafen → geschlafen** (slept). Another vowel: **gehen → gegangen** (gone), **nehmen → genommen** (taken), **helfen → geholfen** (helped), **schreiben → geschrieben** (written).",
+          "sl": "Krepki glagoli imajo **ge-…-en**, mnogi z drugim samoglasnikom, zato se deležnik uči skupaj z glagolom. Isti samoglasnik: **fahren → gefahren** (peljal se), **schlafen → geschlafen** (spal). Drug samoglasnik: **gehen → gegangen** (šel), **nehmen → genommen** (vzel), **helfen → geholfen** (pomagal), **schreiben → geschrieben** (pisal).",
+          "it": "I verbi forti hanno **ge-…-en**, molti con un'altra vocale: il participio si impara con il verbo. La stessa vocale: **fahren → gefahren** (andato), **schlafen → geschlafen** (dormito). Un'altra vocale: **gehen → gegangen** (andato), **nehmen → genommen** (preso), **helfen → geholfen** (aiutato), **schreiben → geschrieben** (scritto)."
+        },
+        "examples": [
+          {
+            "de": "Stanko hat Oma Resi geholfen.",
+            "en": "Stanko helped Grandma Resi.",
+            "sl": "Stanko je pomagal babici Resi.",
+            "it": "Stanko ha aiutato nonna Resi."
+          },
+          {
+            "de": "Florian hat lange geschlafen.",
+            "en": "Florian slept for a long time.",
+            "sl": "Florian je dolgo spal.",
+            "it": "Florian ha dormito a lungo."
+          },
+          {
+            "de": "Lena hat einen Brief geschrieben.",
+            "en": "Lena wrote a letter.",
+            "sl": "Lena je napisala pismo.",
+            "it": "Lena ha scritto una lettera."
+          }
+        ],
+        "rows": [
+          [
+            "fahren",
+            "ist gefahren"
+          ],
+          [
+            "gehen",
+            "ist gegangen"
+          ],
+          [
+            "nehmen",
+            "hat genommen"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-zwei",
+          "prompt": "Toni hat den Hammer ___.",
+          "options": [
+            "genommen",
+            "genehmt",
+            "genehmen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nehmen → genommen: ge-…-en, with o**\n- learn it with the verb",
+            "sl": "**nehmen → genommen: ge-…-en, z o**\n- uči se ga z glagolom",
+            "it": "**nehmen → genommen: ge-…-en, con la o**\n- si impara con il verbo"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "A separable verb keeps its front part and puts **ge** in the middle: **aufstehen → aufgestanden** (never *geaufstanden*), **einkaufen → eingekauft** (shopped), **anrufen → angerufen** (phoned), **mitbringen → mitgebracht** (brought along), and the Austrian **zusperren → zugesperrt** (locked). The stress stays on the front part: AUFgestanden.",
+          "sl": "Ločljivi glagol obdrži svoj prvi del, **ge** pa je v sredini: **aufstehen → aufgestanden** (vstal), **einkaufen → eingekauft** (nakupoval), **anrufen → angerufen** (poklical), **mitbringen → mitgebracht** (prinesel s seboj) in avstrijsko **zusperren → zugesperrt** (zaklenil). Naglas ostane na prvem delu: AUFgestanden.",
+          "it": "Il verbo separabile tiene la prima parte e mette **ge** in mezzo: **aufstehen → aufgestanden** (alzato), **einkaufen → eingekauft** (fatto la spesa), **anrufen → angerufen** (telefonato), **mitbringen → mitgebracht** (portato con sé) e l'austriaco **zusperren → zugesperrt** (chiuso a chiave). L'accento resta sulla prima parte: AUFgestanden."
+        },
+        "examples": [
+          {
+            "de": "Kathi hat um zehn zugesperrt.",
+            "en": "Kathi locked up at ten.",
+            "sl": "Kathi je zaklenila ob desetih.",
+            "it": "Kathi ha chiuso alle dieci."
+          },
+          {
+            "de": "Hast du Brot mitgebracht?",
+            "en": "Did you bring some bread?",
+            "sl": "Si prinesel kruh?",
+            "it": "Hai portato il pane?"
+          }
+        ],
+        "rows": [
+          [
+            "aufstehen",
+            "ist aufgestanden"
+          ],
+          [
+            "einkaufen",
+            "hat eingekauft"
+          ],
+          [
+            "anrufen",
+            "hat angerufen"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "partizip-zwei",
+          "text": "Oma Resi hat einen Kuchen ___. (mitbringen)",
+          "accept": [
+            "mitgebracht"
+          ],
+          "hint": {
+            "en": "ge in the middle",
+            "sl": "ge v sredini",
+            "it": "ge in mezzo"
+          },
+          "explain": {
+            "en": "**mitbringen → mitgebracht: ge in the middle**\n- Oma Resi hat einen Kuchen mitgebracht",
+            "sl": "**mitbringen → mitgebracht: ge v sredini**\n- Oma Resi hat einen Kuchen mitgebracht",
+            "it": "**mitbringen → mitgebracht: ge in mezzo**\n- Oma Resi hat einen Kuchen mitgebracht"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**be-, ver-, er-, ent-** and verbs in **-ieren** take no ge-: **verkaufen → verkauft** (sold), **erzählen → erzählt** (told), **reparieren → repariert** (repaired), **telefonieren → telefoniert** (never *getelefoniert*). So some look like the infinitive: **bekommen → bekommen** (got), **vergessen → vergessen** (forgotten). Some change a vowel: **verstehen → verstanden** (understood).",
+          "sl": "**be-, ver-, er-, ent-** in glagoli na **-ieren** nimajo ge-: **verkaufen → verkauft** (prodal), **erzählen → erzählt** (pripovedoval), **reparieren → repariert** (popravil), **telefonieren → telefoniert** (telefoniral). Nekateri so zato enaki nedoločniku: **bekommen → bekommen** (dobil), **vergessen → vergessen** (pozabil). Nekateri spremenijo samoglasnik: **verstehen → verstanden** (razumel).",
+          "it": "**be-, ver-, er-, ent-** e i verbi in **-ieren** non hanno ge-: **verkaufen → verkauft** (venduto), **erzählen → erzählt** (raccontato), **reparieren → repariert** (riparato), **telefonieren → telefoniert** (telefonato). Così alcuni sono uguali all'infinito: **bekommen → bekommen** (ricevuto), **vergessen → vergessen** (dimenticato). Alcuni cambiano vocale: **verstehen → verstanden** (capito)."
+        },
+        "examples": [
+          {
+            "de": "Stanko hat den ganzen Honig verkauft.",
+            "en": "Stanko sold all the honey.",
+            "sl": "Stanko je prodal ves med.",
+            "it": "Stanko ha venduto tutto il miele."
+          },
+          {
+            "de": "Toni hat den Wagen repariert.",
+            "en": "Toni repaired the cart.",
+            "sl": "Toni je popravil voz.",
+            "it": "Toni ha riparato il carro."
+          },
+          {
+            "de": "Opa Sepp hat vom Lindwurm erzählt.",
+            "en": "Grandpa Sepp told the story of the Lindwurm.",
+            "sl": "Dedek Sepp je pripovedoval o Lindwurmu.",
+            "it": "Nonno Sepp ha raccontato del Lindwurm."
+          }
+        ],
+        "rows": [
+          [
+            "verkaufen",
+            "hat verkauft"
+          ],
+          [
+            "bekommen",
+            "hat bekommen"
+          ],
+          [
+            "verstehen",
+            "hat verstanden"
+          ],
+          [
+            "telefonieren",
+            "hat telefoniert"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-zwei",
+          "prompt": "Stefan hat Post ___.",
+          "options": [
+            "bekommen",
+            "gebekommen",
+            "bekommt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**be-: no ge-; bekommen → bekommen**\n- Stefan hat Post bekommen",
+            "sl": "**be-: brez ge-; bekommen → bekommen**\n- Stefan hat Post bekommen",
+            "it": "**be-: senza ge-; bekommen → bekommen**\n- Stefan hat Post bekommen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "Most verbs take **haben**. **sein** is for moving from one place to another (**gehen, fahren, kommen, laufen**) and for a change of state: **aufstehen → ist aufgestanden** (got up), **einschlafen → ist eingeschlafen** (fell asleep), **aufwachen → ist aufgewacht** (woke up). Three more take it: **ist gewesen** (been), **ist geblieben** (never *hat geblieben*), **ist passiert** (happened).",
+          "sl": "Večina glagolov ima **haben**. **sein** je za premikanje s kraja na kraj (**gehen, fahren, kommen, laufen**) in za spremembo stanja: **aufstehen → ist aufgestanden** (vstal), **einschlafen → ist eingeschlafen** (zaspal), **aufwachen → ist aufgewacht** (zbudil se). Še trije ga imajo: **ist gewesen** (bil), **ist geblieben** (ostal), **ist passiert** (zgodilo se je).",
+          "it": "Quasi tutti i verbi hanno **haben**. **sein** è per il movimento da un luogo all'altro (**gehen, fahren, kommen, laufen**) e per un cambiamento di stato: **aufstehen → ist aufgestanden** (alzato), **einschlafen → ist eingeschlafen** (addormentato), **aufwachen → ist aufgewacht** (svegliato). Altri tre lo vogliono: **ist gewesen** (stato), **ist geblieben** (rimasto), **ist passiert** (successo)."
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp ist am Feuer eingeschlafen.",
+            "en": "Grandpa Sepp fell asleep by the fire.",
+            "sl": "Dedek Sepp je zaspal ob ognju.",
+            "it": "Nonno Sepp si è addormentato accanto al fuoco."
+          },
+          {
+            "de": "Was ist passiert?",
+            "en": "What happened?",
+            "sl": "Kaj se je zgodilo?",
+            "it": "Che cosa è successo?"
+          }
+        ],
+        "rows": [
+          [
+            "einschlafen",
+            "ist eingeschlafen"
+          ],
+          [
+            "bleiben",
+            "ist geblieben"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-zwei",
+          "prompt": "Was ___ gestern passiert?",
+          "options": [
+            "ist",
+            "hat",
+            "bin"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**passieren: sein, ist passiert**\n- Was ist passiert?",
+            "sl": "**passieren: sein, ist passiert**\n- Was ist passiert?",
+            "it": "**passieren: sein, ist passiert**\n- Was ist passiert?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**sitzen, stehen, liegen** say where something is. Austria's standard takes **sein**: **Opa Sepp ist auf der Bank gesessen.** (Grandpa Sepp sat on the bench.) **Das Glas ist auf dem Tisch gestanden.** (The glass stood on the table.) **Bello ist vor der Tür gelegen.** (Bello lay at the door.) Northern Germany says **hat gesessen, hat gestanden, hat gelegen**: both are right. Putting something somewhere is regular, with haben: **hat gestellt** (put).",
+          "sl": "**sitzen, stehen, liegen** povedo, kje nekaj je. Avstrijski standard ima **sein**: **Opa Sepp ist auf der Bank gesessen.** (Dedek Sepp je sedel na klopi.) **Das Glas ist auf dem Tisch gestanden.** (Kozarec je stal na mizi.) **Bello ist vor der Tür gelegen.** (Bello je ležal pred vrati.) Severna Nemčija reče **hat gesessen, hat gestanden, hat gelegen**: oboje je prav. Kar nekam postaviš, je pravilno, s haben: **hat gestellt** (postavil).",
+          "it": "**sitzen, stehen, liegen** dicono dove si trova qualcosa. Lo standard austriaco ha **sein**: **Opa Sepp ist auf der Bank gesessen.** (Nonno Sepp era seduto sulla panchina.) **Das Glas ist auf dem Tisch gestanden.** (Il bicchiere era sul tavolo.) **Bello ist vor der Tür gelegen.** (Bello era sdraiato davanti alla porta.) La Germania del nord dice **hat gesessen, hat gestanden, hat gelegen**: vanno bene tutti e due. Ciò che metti da qualche parte è regolare, con haben: **hat gestellt** (messo)."
+        },
+        "examples": [
+          {
+            "de": "Opa Sepp ist auf der Bank gesessen.",
+            "en": "Grandpa Sepp sat on the bench.",
+            "sl": "Dedek Sepp je sedel na klopi.",
+            "it": "Nonno Sepp era seduto sulla panchina."
+          },
+          {
+            "de": "Das Glas ist auf dem Tisch gestanden.",
+            "en": "The glass stood on the table.",
+            "sl": "Kozarec je stal na mizi.",
+            "it": "Il bicchiere era sul tavolo."
+          },
+          {
+            "de": "Bello ist vor der Tür gelegen.",
+            "en": "Bello lay at the door.",
+            "sl": "Bello je ležal pred vrati.",
+            "it": "Bello era sdraiato davanti alla porta."
+          },
+          {
+            "de": "Kathi hat das Glas auf den Tisch gestellt.",
+            "en": "Kathi put the glass on the table.",
+            "sl": "Kathi je postavila kozarec na mizo.",
+            "it": "Kathi ha messo il bicchiere sul tavolo."
+          }
+        ],
+        "rows": [
+          [
+            "sitzen",
+            "ist gesessen · hat gesessen"
+          ],
+          [
+            "stehen",
+            "ist gestanden · hat gestanden"
+          ],
+          [
+            "liegen",
+            "ist gelegen · hat gelegen"
+          ],
+          [
+            "stellen",
+            "hat gestellt"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "partizip-zwei",
+          "prompt": "Kathi hat das Glas auf den Tisch ___.",
+          "options": [
+            "gestellt",
+            "gestanden",
+            "gestellen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**stellen: you put it there, haben, gestellt**\n- Kathi hat das Glas auf den Tisch gestellt",
+            "sl": "**stellen: nekam postaviš, haben, gestellt**\n- Kathi hat das Glas auf den Tisch gestellt",
+            "it": "**stellen: lo metti lì, haben, gestellt**\n- Kathi hat das Glas auf den Tisch gestellt"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "partizip-perfekt-1",
+      "title": {
+        "de": "Mit ge, ohne ge",
+        "en": "With ge, without ge",
+        "sl": "Z ge, brez ge",
+        "it": "Con ge, senza ge"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "partizip-zwei",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Perfekt · the past",
+            "sl": "Perfekt · preteklik",
+            "it": "Perfekt · il passato"
+          },
+          "columns": [
+            {
+              "en": "er · sie: Perfekt",
+              "sl": "er · sie: Perfekt",
+              "it": "er · sie: Perfekt"
+            }
+          ],
+          "rows": [
+            {
+              "label": "kaufen",
+              "cells": [
+                "hat gekauft"
+              ]
+            },
+            {
+              "label": "warten",
+              "cells": [
+                {
+                  "accept": [
+                    "hat gewartet"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "bringen",
+              "cells": [
+                {
+                  "accept": [
+                    "hat gebracht"
+                  ],
+                  "hint": {
+                    "en": "ge-…-t, another vowel",
+                    "sl": "ge-…-t, drug samoglasnik",
+                    "it": "ge-…-t, un'altra vocale"
+                  }
+                }
+              ]
+            },
+            {
+              "label": "fahren",
+              "cells": [
+                {
+                  "accept": [
+                    "ist gefahren"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "nehmen",
+              "cells": [
+                {
+                  "accept": [
+                    "hat genommen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "schreiben",
+              "cells": [
+                {
+                  "accept": [
+                    "hat geschrieben"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "aufstehen",
+              "cells": [
+                {
+                  "accept": [
+                    "ist aufgestanden"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "einkaufen",
+              "cells": [
+                {
+                  "accept": [
+                    "hat eingekauft"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "verkaufen",
+              "cells": [
+                {
+                  "accept": [
+                    "hat verkauft"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "reparieren",
+              "cells": [
+                {
+                  "accept": [
+                    "hat repariert"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "vergessen",
+              "cells": [
+                {
+                  "accept": [
+                    "hat vergessen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sitzen",
+              "cells": [
+                {
+                  "accept": [
+                    "ist gesessen",
+                    "hat gesessen"
+                  ],
+                  "hint": {
+                    "en": "in Austria with sein",
+                    "sl": "v Avstriji s sein",
+                    "it": "in Austria con sein"
+                  }
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**haben or sein second, the participle at the end**\n- Stefan ist aufgestanden · Kathi hat eingekauft",
+            "sl": "**haben ali sein na drugem mestu, deležnik na koncu**\n- Stefan ist aufgestanden · Kathi hat eingekauft",
+            "it": "**haben o sein al secondo posto, il participio alla fine**\n- Stefan ist aufgestanden · Kathi hat eingekauft"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "partizip-zwei",
+          "instruction": {
+            "en": "Ordne zu · Does the participle have ge?",
+            "sl": "Ordne zu · Ima deležnik ge?",
+            "it": "Ordne zu · Il participio ha ge?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "mit ge · with ge",
+                "sl": "mit ge · z ge",
+                "it": "mit ge · con ge"
+              },
+              "words": [
+                "aufstehen",
+                "anrufen",
+                "warten",
+                "fahren",
+                "mitbringen"
+              ]
+            },
+            {
+              "label": {
+                "en": "ohne ge · without ge",
+                "sl": "ohne ge · brez ge",
+                "it": "ohne ge · senza ge"
+              },
+              "words": [
+                "besuchen",
+                "vergessen",
+                "erzählen",
+                "telefonieren",
+                "verstehen"
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**be-, ver-, er-, ent-, -ieren: no ge-; a separable verb: ge in the middle**\n- besucht, telefoniert · angerufen",
+            "sl": "**be-, ver-, er-, ent-, -ieren: brez ge-; ločljivi glagol: ge v sredini**\n- besucht, telefoniert · angerufen",
+            "it": "**be-, ver-, er-, ent-, -ieren: senza ge-; verbo separabile: ge in mezzo**\n- besucht, telefoniert · angerufen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "partizip-perfekt-2",
+      "title": {
+        "de": "Stefans Montag",
+        "en": "Stefan's Monday",
+        "sl": "Stefanov ponedeljek",
+        "it": "Il lunedì di Stefan"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "partizip-zwei",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Stefans Montag",
+          "text": "Am Montag ist Stefan um fünf ___ (aufstehen). Er hat den Most in den Keller ___ (bringen). Dann hat er Kathi ___ (anrufen). Sie hat ihr Telefon im Gasthaus ___ (vergessen). Um neun ist er nach Villach ___ (fahren). Dort hat er zwei Stunden ___ (warten). Der Bauer aus Arnoldstein ist nicht ___ (kommen). Am Ende hat Stefan ein Bier ___ (bestellen).",
+          "gaps": [
+            {
+              "accept": [
+                "aufgestanden"
+              ]
+            },
+            {
+              "accept": [
+                "gebracht"
+              ]
+            },
+            {
+              "accept": [
+                "angerufen"
+              ]
+            },
+            {
+              "accept": [
+                "vergessen"
+              ]
+            },
+            {
+              "accept": [
+                "gefahren"
+              ]
+            },
+            {
+              "accept": [
+                "gewartet"
+              ]
+            },
+            {
+              "accept": [
+                "gekommen"
+              ]
+            },
+            {
+              "accept": [
+                "bestellt"
+              ]
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "gebringt",
+            "aufgestehen",
+            "gekommt"
+          ],
+          "translation": {
+            "en": "On Monday Stefan got up at five. He took the cider down to the cellar. Then he phoned Kathi. She forgot her phone at the inn. At nine he drove to Villach. There he waited for two hours. The farmer from Arnoldstein didn't come. In the end Stefan ordered a beer.",
+            "sl": "V ponedeljek je Stefan vstal ob petih. Mošt je odnesel v klet. Potem je poklical Kathi. Telefon je pozabila v gostilni. Ob devetih se je odpeljal v Beljak. Tam je čakal dve uri. Kmet iz Podkloštra ni prišel. Na koncu je Stefan naročil pivo.",
+            "it": "Lunedì Stefan si è alzato alle cinque. Ha portato il sidro in cantina. Poi ha telefonato a Kathi. Lei ha dimenticato il telefono all'osteria. Alle nove è andato a Villach. Lì ha aspettato due ore. Il contadino di Arnoldstein non è venuto. Alla fine Stefan ha ordinato una birra."
+          },
+          "explain": {
+            "en": "**haben or sein second, the participle at the end**\n- Stefan ist aufgestanden · Kathi hat eingekauft",
+            "sl": "**haben ali sein na drugem mestu, deležnik na koncu**\n- Stefan ist aufgestanden · Kathi hat eingekauft",
+            "it": "**haben o sein al secondo posto, il participio alla fine**\n- Stefan ist aufgestanden · Kathi hat eingekauft"
+          }
+        },
+        {
+          "type": "multi",
+          "grammar": "partizip-zwei",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": {
+            "en": "Which sentences are right German? Pick all.",
+            "sl": "Kateri stavki so pravilni? Izberi vse.",
+            "it": "Quali frasi sono giuste? Scegli tutte."
+          },
+          "options": [
+            "Ich bin auf der Bank gesessen.",
+            "Ich habe auf der Bank gesessen.",
+            "Ich habe auf der Bank gesitzt."
+          ],
+          "answers": [
+            0,
+            1
+          ],
+          "say_options": true,
+          "explain": {
+            "en": "**sitzen → gesessen: sein in Austria, haben in northern Germany, both right**\n- never gesitzt",
+            "sl": "**sitzen → gesessen: v Avstriji sein, v severni Nemčiji haben, oboje prav**\n- nikoli gesitzt",
+            "it": "**sitzen → gesessen: in Austria sein, nella Germania del nord haben, tutti e due giusti**\n- mai gesitzt"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "partizip-zwei",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Bello ist vor der Tür ___.",
+          "options": [
+            "gelegen",
+            "gelegt",
+            "geliegt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**liegen → gelegen; legen → gelegt, what you put down**\n- Bello ist gelegen · Ich habe das Buch hingelegt",
+            "sl": "**liegen → gelegen; legen → gelegt, kar položiš**\n- Bello ist gelegen · Ich habe das Buch hingelegt",
+            "it": "**liegen → gelegen; legen → gelegt, ciò che posi**\n- Bello ist gelegen · Ich habe das Buch hingelegt"
+          }
+        }
+      ]
+    },
+    {
+      "id": "partizip-perfekt-3",
+      "title": {
+        "de": "Was ist passiert?",
+        "en": "What happened?",
+        "sl": "Kaj se je zgodilo?",
+        "it": "Che cosa è successo?"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "partizip-zwei",
+          "instruction": {
+            "en": "Sag es im Perfekt · Say it in the past (Perfekt)",
+            "sl": "Sag es im Perfekt · Povej v pretekliku (Perfekt)",
+            "it": "Sag es im Perfekt · Dillo al passato (Perfekt)"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Ich stehe um sechs auf.",
+              "accept": [
+                "Ich bin um sechs aufgestanden."
+              ],
+              "hint": {
+                "en": "a change of state: sein",
+                "sl": "sprememba stanja: sein",
+                "it": "un cambiamento di stato: sein"
+              }
+            },
+            {
+              "from": "Kathi kauft in Villach ein.",
+              "accept": [
+                "Kathi hat in Villach eingekauft."
+              ]
+            },
+            {
+              "from": "Wir verstehen das nicht.",
+              "accept": [
+                "Wir haben das nicht verstanden."
+              ]
+            },
+            {
+              "from": "Toni repariert den Wagen.",
+              "accept": [
+                "Toni hat den Wagen repariert."
+              ]
+            },
+            {
+              "from": "Opa Sepp schläft um zehn ein.",
+              "accept": [
+                "Opa Sepp ist um zehn eingeschlafen."
+              ]
+            },
+            {
+              "from": "Oma Resi bringt Kuchen mit.",
+              "accept": [
+                "Oma Resi hat Kuchen mitgebracht."
+              ]
+            },
+            {
+              "from": "Stefan sitzt auf der Bank.",
+              "accept": [
+                "Stefan ist auf der Bank gesessen.",
+                "Stefan hat auf der Bank gesessen."
+              ]
+            },
+            {
+              "from": "Der Hund liegt vor dem Ofen.",
+              "accept": [
+                "Der Hund ist vor dem Ofen gelegen.",
+                "Der Hund hat vor dem Ofen gelegen."
+              ]
+            },
+            {
+              "from": "Das Glas steht auf dem Tisch.",
+              "accept": [
+                "Das Glas ist auf dem Tisch gestanden.",
+                "Das Glas hat auf dem Tisch gestanden."
+              ]
+            },
+            {
+              "from": "Ich stelle das Glas auf den Tisch.",
+              "accept": [
+                "Ich habe das Glas auf den Tisch gestellt."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**haben or sein second, the participle at the end**\n- Stefan ist aufgestanden · Kathi hat eingekauft",
+            "sl": "**haben ali sein na drugem mestu, deležnik na koncu**\n- Stefan ist aufgestanden · Kathi hat eingekauft",
+            "it": "**haben o sein al secondo posto, il participio alla fine**\n- Stefan ist aufgestanden · Kathi hat eingekauft"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "partizip-zwei",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Gestern ist Tante Mitzi um sieben ___ (aufstehen). Dann ist sie mit dem Bus nach Villach ___ (fahren). Im Bus hat sie ihre Tasche ___ (vergessen)! Ein Mann hat die Tasche ___ (finden) und ihr ___ (bringen).",
+        "gaps": [
+          {
+            "accept": [
+              "aufgestanden"
+            ]
+          },
+          {
+            "accept": [
+              "gefahren"
+            ]
+          },
+          {
+            "accept": [
+              "vergessen"
+            ]
+          },
+          {
+            "accept": [
+              "gefunden"
+            ]
+          },
+          {
+            "accept": [
+              "gebracht"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Yesterday Aunt Mitzi got up at seven. Then she took the bus to Villach. On the bus she forgot her bag! A man found the bag and brought it to her.",
+          "sl": "Včeraj je teta Mitzi vstala ob sedmih. Potem se je z avtobusom odpeljala v Beljak. Na avtobusu je pozabila torbo! Neki moški je torbo našel in ji jo prinesel.",
+          "it": "Ieri zia Mitzi si è alzata alle sette. Poi è andata a Villach in autobus. Sull'autobus ha dimenticato la borsa! Un uomo ha trovato la borsa e gliel'ha portata."
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "partizip-zwei",
+        "instruction": {
+          "en": "Sag es im Perfekt · Say it in the past (Perfekt)",
+          "sl": "Sag es im Perfekt · Povej v pretekliku (Perfekt)",
+          "it": "Sag es im Perfekt · Dillo al passato (Perfekt)"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Wir telefonieren am Abend.",
+            "accept": [
+              "Wir haben am Abend telefoniert."
+            ]
+          },
+          {
+            "from": "Florian bleibt auf der Alm.",
+            "accept": [
+              "Florian ist auf der Alm geblieben."
+            ]
+          },
+          {
+            "from": "Stanko verkauft Honig.",
+            "accept": [
+              "Stanko hat Honig verkauft."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "partizip-zwei",
+        "instruction": {
+          "en": "Ordne zu · haben or sein?",
+          "sl": "Ordne zu · haben ali sein?",
+          "it": "Ordne zu · haben o sein?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "haben",
+              "sl": "haben",
+              "it": "haben"
+            },
+            "words": [
+              "verkaufen",
+              "bestellen"
+            ]
+          },
+          {
+            "label": {
+              "en": "sein · moving, change",
+              "sl": "sein · premikanje, sprememba",
+              "it": "sein · movimento, cambiamento"
+            },
+            "words": [
+              "passieren",
+              "einschlafen"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "partizip-zwei",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Was ist ___?",
+        "options": [
+          "passiert",
+          "gepassiert",
+          "gepassieren"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**-ieren: no ge-**\n- Was ist passiert?",
+          "sl": "**-ieren: brez ge-**\n- Was ist passiert?",
+          "it": "**-ieren: senza ge-**\n- Was ist passiert?"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "partizip-zwei",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Kathi hat die Zeitung auf den Stuhl ___.",
+        "options": [
+          "gelegt",
+          "gelegen",
+          "geliegen"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**legen: you put it there, gelegt**\n- Kathi hat die Zeitung auf den Stuhl gelegt",
+          "sl": "**legen: nekam položiš, gelegt**\n- Kathi hat die Zeitung auf den Stuhl gelegt",
+          "it": "**legen: la posi lì, gelegt**\n- Kathi hat die Zeitung auf den Stuhl gelegt"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: ist gesessen, gestanden, gelegen (Austrian), zugesperrt, Der Bauer aus Arnoldstein, the Slovene aspect"
+}

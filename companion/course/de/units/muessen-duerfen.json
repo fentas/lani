@@ -1,0 +1,989 @@
+{
+  "schema": "lani.unit/v0",
+  "id": "muessen-duerfen",
+  "language": "de",
+  "level": "A2",
+  "emoji": "🚦",
+  "title": {
+    "de": "Ich muss, ich darf, ich will",
+    "en": "Must, may, want: müssen, dürfen, wollen",
+    "sl": "Moram, smem, hočem: müssen, dürfen, wollen",
+    "it": "Devo, posso, voglio: müssen, dürfen, wollen"
+  },
+  "goal": {
+    "en": "You can say what you must, may, are supposed to and want to do (ich muss, ich darf, ich soll, ich will), that you like something (ich mag), with the other verb at the end, and you can tell nicht müssen from nicht dürfen.",
+    "sl": "Poveš, kaj moraš, smeš, naj bi in hočeš narediti (ich muss, ich darf, ich soll, ich will) in kaj imaš rad (ich mag), z drugim glagolom na koncu, ter ločiš nicht müssen od nicht dürfen.",
+    "it": "Sai dire che cosa devi, puoi e vuoi fare (ich muss, ich darf, ich soll, ich will) e che cosa ti piace (ich mag), con l'altro verbo alla fine, e sai distinguere nicht müssen da nicht dürfen."
+  },
+  "grammar": [
+    "modalverben",
+    "wortstellung"
+  ],
+  "words": [
+    "müssen",
+    "dürfen",
+    "sollen",
+    "wollen",
+    "mögen",
+    "können",
+    "möchten",
+    "rauchen",
+    "parken",
+    "fragen",
+    "helfen",
+    "zahlen",
+    "warten",
+    "tragen",
+    "fotografieren",
+    "aufstehen",
+    "mitbringen",
+    "einkaufen",
+    "mitkommen",
+    "verkaufen",
+    "der Arzt",
+    "der Stall",
+    "das Heu",
+    "der Husten",
+    "die Rückenschmerzen",
+    "die Weide",
+    "der Keller",
+    "der Most",
+    "die Suppe",
+    "das Dorf",
+    "das Wasser",
+    "der Ruhetag",
+    "schwer",
+    "fertig",
+    "allein",
+    "schon",
+    "lange",
+    "so viel"
+  ],
+  "intro": {
+    "table": {
+      "head": [
+        {
+          "de": "Infinitiv = wir, sie",
+          "en": "infinitive = wir, sie",
+          "sl": "nedoločnik = wir, sie",
+          "it": "infinito = wir, sie"
+        },
+        "ich · er · sie · es",
+        "du",
+        "ihr"
+      ]
+    },
+    "steps": [
+      {
+        "say": {
+          "en": "You know **können** (can) and **möchten** (would like). **müssen** (must, have to) works the same way: **ich muss** (I must), **du musst** (you must), **er muss** (he must), **wir müssen, ihr müsst, sie müssen** (we, you all, they must). ich and er are the same: **er muss** (never *er musst*). The other verb goes to the very end, in the infinitive, with no zu: **Kathi muss heute lange arbeiten.** (Kathi has to work late today.)",
+          "sl": "Poznaš že **können** (moči, znati) in **möchten** (rad bi). **müssen** (morati) gre enako: **ich muss** (moram), **du musst** (moraš), **er muss** (mora), **wir müssen, ihr müsst, sie müssen** (moramo, morate, morajo). ich in er sta enaka, brez -t. Drugi glagol gre čisto na konec, v nedoločniku, brez zu: **Kathi muss heute lange arbeiten.** (Kathi mora danes dolgo delati.)",
+          "it": "Conosci già **können** (potere, sapere) e **möchten** (vorrei). **müssen** (dovere) funziona allo stesso modo: **ich muss** (devo), **du musst** (devi), **er muss** (deve), **wir müssen, ihr müsst, sie müssen** (dobbiamo, dovete, devono). ich ed er sono uguali, senza -t. L'altro verbo va proprio alla fine, all'infinito, senza zu: **Kathi muss heute lange arbeiten.** (Oggi Kathi deve lavorare fino a tardi.)"
+        },
+        "examples": [
+          {
+            "de": "Kathi muss heute lange arbeiten.",
+            "en": "Kathi has to work late today.",
+            "sl": "Kathi mora danes dolgo delati.",
+            "it": "Oggi Kathi deve lavorare fino a tardi."
+          },
+          {
+            "de": "Stefan muss den Most in den Keller bringen.",
+            "en": "Stefan has to take the cider down to the cellar.",
+            "sl": "Stefan mora odnesti mošt v klet.",
+            "it": "Stefan deve portare il sidro in cantina."
+          }
+        ],
+        "rows": [
+          [
+            "können",
+            "kann",
+            "kannst",
+            "könnt"
+          ],
+          [
+            "müssen",
+            "muss",
+            "musst",
+            "müsst"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "modalverben",
+          "text": "Wir ___ heute nach Villach fahren. (müssen)",
+          "accept": [
+            "müssen"
+          ],
+          "hint": "wir → ?",
+          "explain": {
+            "en": "**wir müssen, and fahren at the end**\n- Wir müssen nach Villach fahren",
+            "sl": "**wir müssen, fahren pa na koncu**\n- Wir müssen nach Villach fahren",
+            "it": "**wir müssen, e fahren alla fine**\n- Wir müssen nach Villach fahren"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**dürfen** (may, be allowed to) says what is allowed: **ich darf** (I may), **du darfst** (you may), **er darf** (he may), **wir dürfen, ihr dürft, sie dürfen** (we, you all, they may). The vowel changes in the singular, as in **kann** and **können**. To ask politely: **Darf ich hier parken?** (May I park here?) In a yes-or-no question the modal comes first.",
+          "sl": "**dürfen** (smeti) pove, kaj je dovoljeno: **ich darf** (smem), **du darfst** (smeš), **er darf** (sme), **wir dürfen, ihr dürft, sie dürfen** (smemo, smete, smejo). V ednini se samoglasnik spremeni, kot pri **kann** in **können**. Vljudno vprašanje: **Darf ich hier parken?** (Smem tukaj parkirati?) V vprašanju z da ali ne je modalni glagol spredaj.",
+          "it": "**dürfen** (potere, avere il permesso) dice che cosa è permesso: **ich darf** (posso), **du darfst** (puoi), **er darf** (può), **wir dürfen, ihr dürft, sie dürfen** (possiamo, potete, possono). Al singolare cambia la vocale, come **kann** e **können**. Per chiedere con gentilezza: **Darf ich hier parken?** (Posso parcheggiare qui?) Nella domanda con sì o no il modale va all'inizio."
+        },
+        "examples": [
+          {
+            "de": "Darf ich hier parken?",
+            "en": "May I park here?",
+            "sl": "Smem tukaj parkirati?",
+            "it": "Posso parcheggiare qui?"
+          },
+          {
+            "de": "Bello darf nicht in die Küche gehen.",
+            "en": "Bello isn't allowed to go into the kitchen.",
+            "sl": "Bello ne sme v kuhinjo.",
+            "it": "Bello non può entrare in cucina."
+          }
+        ],
+        "rows": [
+          [
+            "dürfen",
+            "darf",
+            "darfst",
+            "dürft"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "modalverben",
+          "prompt": "___ ich Sie etwas fragen?",
+          "options": [
+            "Darf",
+            "Darfst",
+            "Dürfen"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**ich darf: no -st, no -en**\n- Darf ich Sie etwas fragen?",
+            "sl": "**ich darf: brez -st, brez -en**\n- Darf ich Sie etwas fragen?",
+            "it": "**ich darf: senza -st, senza -en**\n- Darf ich Sie etwas fragen?"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**wollen** (to want): **ich will** (I want), **du willst** (you want), **er will** (he wants), **wir wollen, ihr wollt, sie wollen** (we, you all, they want). Careful: **ich will** is I want, not I will. **sollen** (to be supposed to) is what someone else wants: **ich soll, du sollst, er soll, wir sollen, ihr sollt, sie sollen**. The doctor says: **Opa Sepp soll viel trinken.** (Grandpa Sepp should drink a lot.) To offer: **Soll ich dir helfen?** (Shall I help you?)",
+          "sl": "**wollen** (hoteti): **ich will** (hočem), **du willst** (hočeš), **er will** (hoče), **wir wollen, ihr wollt, sie wollen** (hočemo, hočete, hočejo). **sollen** (naj bi) je to, kar želi nekdo drug: **ich soll, du sollst, er soll, wir sollen, ihr sollt, sie sollen**. Zdravnik reče: **Opa Sepp soll viel trinken.** (Dedek Sepp naj veliko pije.) Ko ponudiš: **Soll ich dir helfen?** (Naj ti pomagam?)",
+          "it": "**wollen** (volere): **ich will** (voglio), **du willst** (vuoi), **er will** (vuole), **wir wollen, ihr wollt, sie wollen** (vogliamo, volete, vogliono). **sollen** (dovere, perché lo chiede qualcuno) è ciò che vuole un altro: **ich soll, du sollst, er soll, wir sollen, ihr sollt, sie sollen**. Il medico dice: **Opa Sepp soll viel trinken.** (Nonno Sepp deve bere molto.) Per offrire aiuto: **Soll ich dir helfen?** (Ti aiuto?)"
+        },
+        "examples": [
+          {
+            "de": "Toni will am Samstag nach Klagenfurt fahren.",
+            "en": "Toni wants to go to Klagenfurt on Saturday.",
+            "sl": "Toni hoče v soboto v Celovec.",
+            "it": "Sabato Toni vuole andare a Klagenfurt."
+          },
+          {
+            "de": "Opa Sepp soll viel trinken.",
+            "en": "Grandpa Sepp should drink a lot.",
+            "sl": "Dedek Sepp naj veliko pije.",
+            "it": "Nonno Sepp deve bere molto."
+          },
+          {
+            "de": "Soll ich dir helfen?",
+            "en": "Shall I help you?",
+            "sl": "Naj ti pomagam?",
+            "it": "Ti aiuto?"
+          }
+        ],
+        "rows": [
+          [
+            "wollen",
+            "will",
+            "willst",
+            "wollt"
+          ],
+          [
+            "sollen",
+            "soll",
+            "sollst",
+            "sollt"
+          ]
+        ],
+        "ask": {
+          "type": "cloze",
+          "grammar": "modalverben",
+          "text": "Der Arzt sagt: Du ___ nicht so viel arbeiten. (sollen)",
+          "accept": [
+            "sollst"
+          ],
+          "hint": "du → ?",
+          "explain": {
+            "en": "**du sollst: someone else wants it**\n- Der Arzt sagt: Du sollst nicht so viel arbeiten",
+            "sl": "**du sollst: to želi nekdo drug**\n- Der Arzt sagt: Du sollst nicht so viel arbeiten",
+            "it": "**du sollst: lo vuole qualcun altro**\n- Der Arzt sagt: Du sollst nicht so viel arbeiten"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "**mögen** (to like) mostly takes a noun: **ich mag** (I like), **du magst** (you like), **er mag** (he likes), **wir mögen, ihr mögt, sie mögen** (we, you all, they like). **Oma Resi mag keinen Kaffee.** (Grandma Resi doesn't like coffee.) For doing something, say **gern**: **Ich koche gern.** (I like cooking.) **möchte** (would like) stays the polite wish. In Austria **Magst du …?** often offers something: **Magst du einen Most?** (Would you like a cider?)",
+          "sl": "**mögen** (imeti rad) ima največkrat samostalnik: **ich mag** (imam rad), **du magst** (imaš rad), **er mag** (ima rad), **wir mögen, ihr mögt, sie mögen** (imamo, imate, imajo radi). **Oma Resi mag keinen Kaffee.** (Babica Resi nima rada kave.) Za dejanje reci **gern**: **Ich koche gern.** (Rad kuham.) **möchte** (rad bi) ostane vljudna želja. V Avstriji **Magst du …?** pogosto nekaj ponudi: **Magst du einen Most?** (Bi mošt?)",
+          "it": "**mögen** (piacere) va di solito con un nome: **ich mag** (mi piace), **du magst** (ti piace), **er mag** (gli piace), **wir mögen, ihr mögt, sie mögen** (ci piace, vi piace, a loro piace). **Oma Resi mag keinen Kaffee.** (A nonna Resi non piace il caffè.) Per un'azione si dice **gern**: **Ich koche gern.** (Mi piace cucinare.) **möchte** (vorrei) resta il desiderio gentile. In Austria **Magst du …?** spesso offre qualcosa: **Magst du einen Most?** (Vuoi un sidro?)"
+        },
+        "examples": [
+          {
+            "de": "Oma Resi mag keinen Kaffee.",
+            "en": "Grandma Resi doesn't like coffee.",
+            "sl": "Babica Resi nima rada kave.",
+            "it": "A nonna Resi non piace il caffè."
+          },
+          {
+            "de": "Magst du einen Most?",
+            "en": "Would you like a cider?",
+            "sl": "Bi mošt?",
+            "it": "Vuoi un sidro?"
+          },
+          {
+            "de": "Ich koche gern.",
+            "en": "I like cooking.",
+            "sl": "Rad kuham.",
+            "it": "Mi piace cucinare."
+          }
+        ],
+        "rows": [
+          [
+            "mögen",
+            "mag",
+            "magst",
+            "mögt"
+          ],
+          [
+            "möchten",
+            "möchte",
+            "möchtest",
+            "möchtet"
+          ]
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "modalverben",
+          "prompt": "Stefan ___ Kathis Kasnudeln.",
+          "options": [
+            "mag",
+            "magt",
+            "mögt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**er mag: like ich mag, no -t**\n- Stefan mag Kasnudeln",
+            "sl": "**er mag: kot ich mag, brez -t**\n- Stefan mag Kasnudeln",
+            "it": "**er mag: come ich mag, senza -t**\n- Stefan mag Kasnudeln"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The modal stands second and the other verb goes to the very end, however long the sentence: **Am Sonntag muss Kathi nicht kochen.** (On Sunday Kathi doesn't have to cook.) **Ich muss heute gehen.** (never *Ich muss gehen heute*) A separable verb is whole again at the end: **Ich muss um fünf aufstehen.** (I have to get up at five.)",
+          "sl": "Modalni glagol stoji na drugem mestu, drugi glagol pa čisto na koncu, naj bo stavek še tako dolg: **Am Sonntag muss Kathi nicht kochen.** (V nedeljo Kathi ni treba kuhati.) **Ich muss heute gehen.** (Danes moram iti.) Ločljivi glagol je na koncu spet cel: **Ich muss um fünf aufstehen.** (Vstati moram ob petih.)",
+          "it": "Il modale sta al secondo posto e l'altro verbo va proprio alla fine, anche in una frase lunga: **Am Sonntag muss Kathi nicht kochen.** (La domenica Kathi non deve cucinare.) **Ich muss heute gehen.** (Oggi devo andare.) Il verbo separabile torna intero alla fine: **Ich muss um fünf aufstehen.** (Devo alzarmi alle cinque.)"
+        },
+        "examples": [
+          {
+            "de": "Am Sonntag muss Kathi nicht kochen.",
+            "en": "On Sunday Kathi doesn't have to cook.",
+            "sl": "V nedeljo Kathi ni treba kuhati.",
+            "it": "La domenica Kathi non deve cucinare."
+          },
+          {
+            "de": "Ich muss um fünf aufstehen.",
+            "en": "I have to get up at five.",
+            "sl": "Vstati moram ob petih.",
+            "it": "Devo alzarmi alle cinque."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "wortstellung",
+          "prompt": {
+            "en": "Which sentence is right?",
+            "sl": "Kateri stavek je pravilen?",
+            "it": "Quale frase è giusta?"
+          },
+          "options": [
+            "Stefan muss heute den Most verkaufen.",
+            "Stefan muss verkaufen heute den Most.",
+            "Stefan heute muss den Most verkaufen."
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**The modal second, the other verb at the end**\n- Kathi muss heute kochen",
+            "sl": "**Modalni glagol na drugem mestu, drugi glagol na koncu**\n- Kathi muss heute kochen",
+            "it": "**Il modale al secondo posto, l'altro verbo alla fine**\n- Kathi muss heute kochen"
+          }
+        }
+      },
+      {
+        "say": {
+          "en": "The trap: **nicht müssen** is don't have to, **nicht dürfen** is mustn't. **Du musst nicht kommen.** (You don't have to come: you may, but nothing makes you.) **Du darfst nicht kommen.** (You mustn't come: it isn't allowed.) English mustn't sounds like **musst nicht** and means the opposite.",
+          "sl": "Past: **nicht müssen** je ni treba, **nicht dürfen** je ne smeti. **Du musst nicht kommen.** (Ni ti treba priti: lahko prideš, ni pa nujno.) **Du darfst nicht kommen.** (Ne smeš priti: ni dovoljeno.) Slovenski ne moraš je torej **musst nicht**, ne smeš pa **darfst nicht**.",
+          "it": "La trappola: **nicht müssen** è non essere obbligati, **nicht dürfen** è non avere il permesso. **Du musst nicht kommen.** (Non sei obbligato a venire: puoi, ma non è necessario.) **Du darfst nicht kommen.** (Non puoi venire: non è permesso.) L'italiano non devi è di solito **darfst nicht**, non **musst nicht**."
+        },
+        "examples": [
+          {
+            "de": "Du musst heute nicht kommen.",
+            "en": "You don't have to come today.",
+            "sl": "Danes ti ni treba priti.",
+            "it": "Oggi non sei obbligato a venire."
+          },
+          {
+            "de": "Im Stall darfst du nicht rauchen.",
+            "en": "You mustn't smoke in the stable.",
+            "sl": "V hlevu ne smeš kaditi.",
+            "it": "Nella stalla non puoi fumare."
+          }
+        ],
+        "ask": {
+          "type": "choice",
+          "grammar": "modalverben",
+          "prompt": "Im Stall ist Heu. Hier ___ du nicht rauchen!",
+          "options": [
+            "darfst",
+            "musst",
+            "darf"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nicht müssen: not needed; nicht dürfen: not allowed**\n- Du musst nicht kommen · Du darfst nicht kommen",
+            "sl": "**nicht müssen: ni treba; nicht dürfen: ne smeš**\n- Du musst nicht kommen · Du darfst nicht kommen",
+            "it": "**nicht müssen: non è necessario; nicht dürfen: non è permesso**\n- Du musst nicht kommen · Du darfst nicht kommen"
+          }
+        }
+      }
+    ]
+  },
+  "worksheets": [
+    {
+      "id": "muessen-duerfen-1",
+      "title": {
+        "de": "Muss, darf, will",
+        "en": "The forms: muss, darf, will",
+        "sl": "Oblike: muss, darf, will",
+        "it": "Le forme: muss, darf, will"
+      },
+      "exercises": [
+        {
+          "type": "table",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "prompt": {
+            "en": "Modalverben (Präsens) · must, may, want",
+            "sl": "Modalverben (Präsens) · morati, smeti, hoteti",
+            "it": "Modalverben (Präsens) · dovere, potere, volere"
+          },
+          "columns": [
+            "müssen",
+            "dürfen",
+            "wollen"
+          ],
+          "rows": [
+            {
+              "label": "ich",
+              "cells": [
+                "muss",
+                "darf",
+                "will"
+              ]
+            },
+            {
+              "label": "du",
+              "cells": [
+                {
+                  "accept": [
+                    "musst"
+                  ]
+                },
+                {
+                  "accept": [
+                    "darfst"
+                  ]
+                },
+                {
+                  "accept": [
+                    "willst"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "er · sie · es",
+              "cells": [
+                {
+                  "accept": [
+                    "muss"
+                  ]
+                },
+                {
+                  "accept": [
+                    "darf"
+                  ]
+                },
+                "will"
+              ]
+            },
+            {
+              "label": "wir",
+              "cells": [
+                "müssen",
+                {
+                  "accept": [
+                    "dürfen"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wollen"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "ihr",
+              "cells": [
+                {
+                  "accept": [
+                    "müsst"
+                  ]
+                },
+                {
+                  "accept": [
+                    "dürft"
+                  ]
+                },
+                {
+                  "accept": [
+                    "wollt"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "sie · Sie",
+              "cells": [
+                "müssen",
+                "dürfen",
+                {
+                  "accept": [
+                    "wollen"
+                  ]
+                }
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**ich and er are the same, with no -t; the plural keeps the infinitive's vowel**\n- ich muss, er muss · wir müssen",
+            "sl": "**ich in er sta enaka, brez -t; množina obdrži samoglasnik nedoločnika**\n- ich muss, er muss · wir müssen",
+            "it": "**ich ed er sono uguali, senza -t; il plurale tiene la vocale dell'infinito**\n- ich muss, er muss · wir müssen"
+          }
+        },
+        {
+          "type": "sort",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Ordne zu · Not needed, or not allowed?",
+            "sl": "Ordne zu · Ni treba ali ni dovoljeno?",
+            "it": "Ordne zu · Non è necessario o non è permesso?"
+          },
+          "columns": [
+            {
+              "label": {
+                "en": "nicht nötig · not needed",
+                "sl": "nicht nötig · ni treba",
+                "it": "nicht nötig · non è necessario"
+              },
+              "words": [
+                "Du musst nicht helfen.",
+                "Ihr müsst nicht warten.",
+                "Sie müssen nicht zahlen."
+              ]
+            },
+            {
+              "label": {
+                "en": "verboten · not allowed",
+                "sl": "verboten · ni dovoljeno",
+                "it": "verboten · non è permesso"
+              },
+              "words": [
+                "Du darfst hier nicht parken.",
+                "Ihr dürft nicht rauchen.",
+                "Sie dürfen hier nicht fotografieren."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**nicht müssen: not needed; nicht dürfen: not allowed**\n- Du musst nicht kommen · Du darfst nicht kommen",
+            "sl": "**nicht müssen: ni treba; nicht dürfen: ne smeš**\n- Du musst nicht kommen · Du darfst nicht kommen",
+            "it": "**nicht müssen: non è necessario; nicht dürfen: non è permesso**\n- Du musst nicht kommen · Du darfst nicht kommen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "muessen-duerfen-2",
+      "title": {
+        "de": "Kathis Ruhetag",
+        "en": "Kathi's day off",
+        "sl": "Kathijin prosti dan",
+        "it": "Il giorno di riposo di Kathi"
+      },
+      "exercises": [
+        {
+          "type": "gaptext",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Ergänze · Fill in",
+            "sl": "Ergänze · Dopolni",
+            "it": "Ergänze · Completa"
+          },
+          "title": "Kathis Ruhetag",
+          "text": "Am Montag ist Ruhetag. Kathi ___ (müssen) nicht kochen. Sie ___ (wollen) lange schlafen. Um zehn ruft Stefan an. Er ___ (müssen) Most nach Villach bringen. „___ (können) du mitkommen?“ Kathi ___ (mögen) Stefan und sagt ja. Aber sie ___ (dürfen) nicht schwer tragen, sie hat Rückenschmerzen. Stefan sagt: „Du ___ (sollen) nur fahren!“",
+          "gaps": [
+            {
+              "accept": [
+                "muss"
+              ],
+              "hint": "sie → ?"
+            },
+            {
+              "accept": [
+                "will"
+              ],
+              "hint": "sie → ?"
+            },
+            {
+              "accept": [
+                "muss"
+              ],
+              "hint": "er → ?"
+            },
+            {
+              "accept": [
+                "Kannst"
+              ],
+              "hint": "du → ?"
+            },
+            {
+              "accept": [
+                "mag"
+              ],
+              "hint": "sie → ?"
+            },
+            {
+              "accept": [
+                "darf"
+              ],
+              "hint": "sie → ?"
+            },
+            {
+              "accept": [
+                "sollst"
+              ],
+              "hint": "du → ?"
+            }
+          ],
+          "bank": true,
+          "distractors": [
+            "müsst",
+            "willt",
+            "mögt"
+          ],
+          "translation": {
+            "en": "Monday is the day off. Kathi doesn't have to cook. She wants to sleep late. At ten Stefan phones. He has to take cider to Villach. \"Can you come along?\" Kathi likes Stefan and says yes. But she mustn't carry anything heavy, she has a bad back. Stefan says: \"You only have to drive!\"",
+            "sl": "V ponedeljek je prosti dan. Kathi ni treba kuhati. Hoče dolgo spati. Ob desetih pokliče Stefan. Mošt mora odpeljati v Beljak. »Lahko greš zraven?« Kathi ima Stefana rada in reče da. Ampak ne sme nositi težkih stvari, boli jo hrbet. Stefan reče: »Ti samo voziš!«",
+            "it": "Il lunedì è il giorno di riposo. Kathi non deve cucinare. Vuole dormire a lungo. Alle dieci telefona Stefan. Deve portare il sidro a Villach. «Puoi venire con me?» A Kathi Stefan piace e dice di sì. Ma non può portare cose pesanti, ha mal di schiena. Stefan dice: «Tu devi solo guidare!»"
+          },
+          "explain": {
+            "en": "**The modal second, the other verb at the end**\n- Kathi muss heute kochen",
+            "sl": "**Modalni glagol na drugem mestu, drugi glagol na koncu**\n- Kathi muss heute kochen",
+            "it": "**Il modale al secondo posto, l'altro verbo alla fine**\n- Kathi muss heute kochen"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Die Suppe ist schon fertig. Du ___ nicht mehr kochen.",
+          "options": [
+            "musst",
+            "darfst",
+            "muss"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**nicht müssen: not needed; nicht dürfen: not allowed**\n- Du musst nicht kommen · Du darfst nicht kommen",
+            "sl": "**nicht müssen: ni treba; nicht dürfen: ne smeš**\n- Du musst nicht kommen · Du darfst nicht kommen",
+            "it": "**nicht müssen: non è necessario; nicht dürfen: non è permesso**\n- Du musst nicht kommen · Du darfst nicht kommen"
+          }
+        },
+        {
+          "type": "choice",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Wähle · Pick",
+            "sl": "Wähle · Izberi",
+            "it": "Wähle · Scegli"
+          },
+          "prompt": "Stefan hat Husten. Der Arzt sagt: Er ___ nicht rauchen.",
+          "options": [
+            "soll",
+            "will",
+            "sollt"
+          ],
+          "answer": 0,
+          "say_options": true,
+          "explain": {
+            "en": "**sollen: someone else wants it; er soll, no -t**\n- Der Arzt sagt: Er soll nicht rauchen",
+            "sl": "**sollen: to želi nekdo drug; er soll, brez -t**\n- Der Arzt sagt: Er soll nicht rauchen",
+            "it": "**sollen: lo vuole qualcun altro; er soll, senza -t**\n- Der Arzt sagt: Er soll nicht rauchen"
+          }
+        }
+      ]
+    },
+    {
+      "id": "muessen-duerfen-3",
+      "title": {
+        "de": "Sag es anders",
+        "en": "Say it with a modal",
+        "sl": "Povej z modalnim glagolom",
+        "it": "Dillo con un modale"
+      },
+      "exercises": [
+        {
+          "type": "transform",
+          "grammar": "modalverben",
+          "instruction": {
+            "en": "Sag es mit dem Modalverb · Say it with the modal",
+            "sl": "Sag es mit dem Modalverb · Povej z modalnim glagolom",
+            "it": "Sag es mit dem Modalverb · Dillo con il verbo modale"
+          },
+          "cue": "→",
+          "items": [
+            {
+              "from": "Kathi kocht heute. (müssen)",
+              "accept": [
+                "Kathi muss heute kochen.",
+                "Heute muss Kathi kochen."
+              ],
+              "hint": {
+                "en": "kochen at the end",
+                "sl": "kochen na koncu",
+                "it": "kochen alla fine"
+              }
+            },
+            {
+              "from": "Ich helfe dir. (wollen)",
+              "accept": [
+                "Ich will dir helfen."
+              ]
+            },
+            {
+              "from": "Wir parken hier nicht. (dürfen)",
+              "accept": [
+                "Wir dürfen hier nicht parken.",
+                "Hier dürfen wir nicht parken."
+              ]
+            },
+            {
+              "from": "Stefan steht um fünf auf. (müssen)",
+              "accept": [
+                "Stefan muss um fünf aufstehen.",
+                "Um fünf muss Stefan aufstehen."
+              ],
+              "hint": {
+                "en": "aufstehen whole, at the end",
+                "sl": "aufstehen cel, na koncu",
+                "it": "aufstehen intero, alla fine"
+              }
+            },
+            {
+              "from": "Trinkst du viel Wasser? (sollen)",
+              "accept": [
+                "Sollst du viel Wasser trinken?"
+              ]
+            },
+            {
+              "from": "Ihr kommt am Sonntag. (dürfen)",
+              "accept": [
+                "Ihr dürft am Sonntag kommen.",
+                "Am Sonntag dürft ihr kommen."
+              ]
+            },
+            {
+              "from": "Toni fährt nach Klagenfurt. (wollen)",
+              "accept": [
+                "Toni will nach Klagenfurt fahren.",
+                "Nach Klagenfurt will Toni fahren."
+              ]
+            },
+            {
+              "from": "Am Abend bleibt Florian auf der Alm. (müssen)",
+              "accept": [
+                "Am Abend muss Florian auf der Alm bleiben.",
+                "Florian muss am Abend auf der Alm bleiben.",
+                "Auf der Alm muss Florian am Abend bleiben."
+              ]
+            }
+          ],
+          "explain": {
+            "en": "**The modal second, the other verb at the end**\n- Kathi muss heute kochen",
+            "sl": "**Modalni glagol na drugem mestu, drugi glagol na koncu**\n- Kathi muss heute kochen",
+            "it": "**Il modale al secondo posto, l'altro verbo alla fine**\n- Kathi muss heute kochen"
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "Kathi doesn't have to cook on Monday.",
+            "sl": "V ponedeljek Kathi ni treba kuhati.",
+            "it": "Il lunedì Kathi non deve cucinare."
+          },
+          "tokens": [
+            "muss",
+            "kochen.",
+            "Kathi",
+            "Am Montag",
+            "nicht"
+          ],
+          "solutions": [
+            [
+              "Am Montag",
+              "muss",
+              "Kathi",
+              "nicht",
+              "kochen."
+            ],
+            [
+              "Kathi",
+              "muss",
+              "am Montag",
+              "nicht",
+              "kochen."
+            ]
+          ],
+          "explain": {
+            "en": "**The modal second, the other verb at the end**\n- Kathi muss heute kochen",
+            "sl": "**Modalni glagol na drugem mestu, drugi glagol na koncu**\n- Kathi muss heute kochen",
+            "it": "**Il modale al secondo posto, l'altro verbo alla fine**\n- Kathi muss heute kochen"
+          }
+        },
+        {
+          "type": "reorder",
+          "grammar": "wortstellung",
+          "instruction": {
+            "en": "Bilde den Satz · Put the sentence in order",
+            "sl": "Bilde den Satz · Sestavi stavek",
+            "it": "Bilde den Satz · Metti in ordine la frase"
+          },
+          "prompt": {
+            "en": "May I bring my dog?",
+            "sl": "Smem pripeljati psa?",
+            "it": "Posso portare il mio cane?"
+          },
+          "tokens": [
+            "meinen Hund",
+            "ich",
+            "mitbringen?",
+            "Darf"
+          ],
+          "solutions": [
+            [
+              "Darf",
+              "ich",
+              "meinen Hund",
+              "mitbringen?"
+            ]
+          ],
+          "explain": {
+            "en": "**A yes-or-no question: the modal first, the other verb last**",
+            "sl": "**Vprašanje z da ali ne: modalni glagol prvi, drugi glagol zadnji**",
+            "it": "**Domanda con sì o no: il modale per primo, l'altro verbo per ultimo**"
+          }
+        }
+      ]
+    }
+  ],
+  "test": {
+    "pass": 80,
+    "exercises": [
+      {
+        "type": "gaptext",
+        "grammar": "modalverben",
+        "instruction": {
+          "en": "Ergänze · Fill in",
+          "sl": "Ergänze · Dopolni",
+          "it": "Ergänze · Completa"
+        },
+        "text": "Florian ___ (müssen) um fünf aufstehen. Die Schafe ___ (wollen) auf die Weide. Bello ___ (dürfen) nicht allein im Stall bleiben. Am Abend ___ (sollen) Florian Milch ins Dorf bringen. Oma Resi ruft an: „Du ___ (müssen) am Sonntag nicht kochen, ich komme!“",
+        "gaps": [
+          {
+            "accept": [
+              "muss"
+            ]
+          },
+          {
+            "accept": [
+              "wollen"
+            ]
+          },
+          {
+            "accept": [
+              "darf"
+            ]
+          },
+          {
+            "accept": [
+              "soll"
+            ]
+          },
+          {
+            "accept": [
+              "musst"
+            ]
+          }
+        ],
+        "translation": {
+          "en": "Florian has to get up at five. The sheep want to go out to pasture. Bello isn't allowed to stay alone in the stable. In the evening Florian is supposed to take milk to the village. Grandma Resi phones: \"You don't have to cook on Sunday, I'm coming!\"",
+          "sl": "Florian mora vstati ob petih. Ovce hočejo na pašo. Bello ne sme sam ostati v hlevu. Zvečer naj bi Florian odnesel mleko v vas. Babica Resi pokliče: »V nedeljo ti ni treba kuhati, jaz pridem!«",
+          "it": "Florian deve alzarsi alle cinque. Le pecore vogliono andare al pascolo. Bello non può restare da solo nella stalla. La sera Florian deve portare il latte in paese. Nonna Resi telefona: «Domenica non devi cucinare, vengo io!»"
+        }
+      },
+      {
+        "type": "transform",
+        "grammar": "modalverben",
+        "instruction": {
+          "en": "Sag es mit dem Modalverb · Say it with the modal",
+          "sl": "Sag es mit dem Modalverb · Povej z modalnim glagolom",
+          "it": "Sag es mit dem Modalverb · Dillo con il verbo modale"
+        },
+        "cue": "→",
+        "items": [
+          {
+            "from": "Wir trinken Most. (wollen)",
+            "accept": [
+              "Wir wollen Most trinken."
+            ]
+          },
+          {
+            "from": "Du rauchst nicht. (dürfen)",
+            "accept": [
+              "Du darfst nicht rauchen."
+            ]
+          },
+          {
+            "from": "Kathi kauft in Villach ein. (müssen)",
+            "accept": [
+              "Kathi muss in Villach einkaufen.",
+              "In Villach muss Kathi einkaufen."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "sort",
+        "grammar": "modalverben",
+        "instruction": {
+          "en": "Ordne zu · Not needed, or not allowed?",
+          "sl": "Ordne zu · Ni treba ali ni dovoljeno?",
+          "it": "Ordne zu · Non è necessario o non è permesso?"
+        },
+        "columns": [
+          {
+            "label": {
+              "en": "nicht nötig · not needed",
+              "sl": "nicht nötig · ni treba",
+              "it": "nicht nötig · non è necessario"
+            },
+            "words": [
+              "Ihr müsst nicht kommen.",
+              "Du musst nicht warten."
+            ]
+          },
+          {
+            "label": {
+              "en": "verboten · not allowed",
+              "sl": "verboten · ni dovoljeno",
+              "it": "verboten · non è permesso"
+            },
+            "words": [
+              "Ihr dürft nicht kommen.",
+              "Du darfst nicht fahren."
+            ]
+          }
+        ]
+      },
+      {
+        "type": "choice",
+        "grammar": "modalverben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "Oma Resi ___ keinen Kaffee, aber sie trinkt gern Tee.",
+        "options": [
+          "mag",
+          "magt",
+          "mögt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**sie mag: no -t**\n- Oma Resi mag keinen Kaffee",
+          "sl": "**sie mag: brez -t**\n- Oma Resi mag keinen Kaffee",
+          "it": "**sie mag: senza -t**\n- Oma Resi mag keinen Kaffee"
+        }
+      },
+      {
+        "type": "choice",
+        "grammar": "modalverben",
+        "instruction": {
+          "en": "Wähle · Pick",
+          "sl": "Wähle · Izberi",
+          "it": "Wähle · Scegli"
+        },
+        "prompt": "___ ich Ihnen helfen?",
+        "options": [
+          "Soll",
+          "Sollst",
+          "Sollt"
+        ],
+        "answer": 0,
+        "say_options": true,
+        "explain": {
+          "en": "**ich soll: no -st, no -t**\n- Soll ich Ihnen helfen?",
+          "sl": "**ich soll: brez -st, brez -t**\n- Soll ich Ihnen helfen?",
+          "it": "**ich soll: senza -st, senza -t**\n- Soll ich Ihnen helfen?"
+        }
+      }
+    ]
+  },
+  "machine_written": true,
+  "review": "machine-written, not reviewed by a native speaker (de, en, sl, it); check: ich mag, Magst du einen Most? (Austrian offer), Rückenschmerzen, the Slovene and Italian of sollen and nicht müssen"
+}
