@@ -15226,9 +15226,12 @@ def practice_it():
     assert wait_for(lab("numbers.openIntro"), 12), "the closed module's way to the intro"
     snap("numbers-locked")
     assert tap(lab("numbers.openIntro"), 3), "open the intro"
-    time.sleep(3 * slow())
+    assert wait_for(lab("school.knowThis"), 12), "the unit numeri's intro, one tap away"
     snap("numbers-intro")
-    qa_hook("numbers:ready")
+    assert tap(lab("school.knowThis"), 4), "⏭ known"
+    assert wait_for(l10n("it").get("numbers.on")[:24], 45), "the note: the numbers are open"
+    snap("numbers-note")
+    qa_hook("numbers")
     assert wait_for(lab("numbers.start"), 15), "the module open"
     assert wait_for("11–20", 4), "its first two ranges"
     snap("numbers-open")

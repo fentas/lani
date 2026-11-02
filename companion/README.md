@@ -4672,6 +4672,11 @@ curated in `companion/drills/<language>/<id>.json`, one file a drill (Slovene: `
 validates and serves them (`GET /drills`); the app bundles its own copy (for a bridge from before, which answers 404);
 `voice-build` voices them (`drills A1`, `drills A2+`).
 
+Italian has its four too (`companion/drills/it/`: 251 transformations from A1 to the congiuntivo at B1, 80 sentences built, 58 riddles
+told by Nonno Bepi; 1,205 texts, 24,601 characters to voice, none voiced yet: docs/plans/05-built/practice-it.md). What follows
+describes Slovene's; a language's drills are data, its generated numbers `numberWord` (all four languages), and a session
+without clips stays away from the menu.
+
 | Drill | File | What is in it |
 |---|---|---|
 | 🔄 Preobrat · Transformations | `preobrat.json` | 11 sets, 215 items, one set a rule of the grammar book. At A1: into the past (`pretekli-cas`: "Micka kuha kosilo." → "Micka je kuhala kosilo."), into the future (`prihodnjik`), jaz → midva and make it two (`dvojina`: "Imam brata." → "Imam dva brata."), counting on (`stevila-samostalniki`: "Ena krava." → "Dve kravi." → "Tri krave." → "Pet krav."), say no (`rodilnik-nikalnica`: "Imam čas." → "Nimam časa."; "To je krava." → "To ni krava."), never, nothing, nobody (`zanikanje`), "Vidim …" (`tozilnik`: "To je Micka." → "Vidim Micko."), ti → vi (`ti-vi`). At A2, for when they are introduced: the comparative (`primernik`) and "with" (`orodnik`). |
